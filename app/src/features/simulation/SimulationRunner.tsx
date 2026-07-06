@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
+import { useSimSession } from '@/store/simSession';
 import { useTimer, fmt } from './useTimer';
 import { GuidePanel } from './GuidePanel';
 import { PartEvaluation } from './PartEvaluation';
@@ -29,26 +30,42 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
 export function SimulationRunner() {
   const { caseId } = useParams();
   const c = useCase(caseId);
+  const navigate = useNavigate();
   const role = useUi((s) => s.role);
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
   const muster = useUi((s) => s.muster);
+  const session = useSimSession();
 
-  const [active, setActive] = useState<Part>('anamnese');
-  const [phase, setPhase] = useState<'play' | 'eval'>('play');
+  // Restaure une session en pause pour ce cas (sinon départ à zéro).
+  const restore = session.snapshot && session.snapshot.caseId === caseId ? session.snapshot : null;
+  const [active, setActive] = useState<Part>(restore?.active ?? 'anamnese');
+  const [phase, setPhase] = useState<'play' | 'eval'>(restore?.phase ?? 'play');
   const [notes] = useState<SketchNotes>({}); // legacy croquis (remplacé par le Bogen structuré)
-  const [bogen, setBogen] = useState<BogenNotes>({});
-  const [arztbriefText, setArztbriefText] = useState('');
-  const [results, setResults] = useState<Partial<Record<Part, PartResult>>>({});
-  const [aufklaerungOpen, setAufklaerungOpen] = useState(false);
+  const [bogen, setBogen] = useState<BogenNotes>(restore?.bogen ?? {});
+  const [arztbriefText, setArztbriefText] = useState(restore?.arztbriefText ?? '');
+  const [results, setResults] = useState<Partial<Record<Part, PartResult>>>(restore?.results ?? {});
+  const [aufklaerungOpen, setAufklaerungOpen] = useState(restore?.aufklaerungOpen ?? false);
   const [finished, setFinished] = useState<Simulation | null>(null);
   const [showQr, setShowQr] = useState(false);
 
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
   usePatientBroadcast(c?.id);
 
+  // On rentre dans le Runner → session active (plus minimisée).
+  useEffect(() => { useSimSession.getState().resume(); }, []);
+
+  // Miroir de l'état local vers le store persistant (survit à la navigation).
+  useEffect(() => {
+    if (!c || finished) return;
+    useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen });
+  }, [c, finished, active, phase, bogen, arztbriefText, results, aufklaerungOpen]);
+
   if (!c) return <div className="text-slate-400">Chargement…</div>;
   if (finished) return <ResultScreen sim={finished} c={c} />;
+
+  // Quitter en gardant la session (mise en pause + barre flottante « reprendre »).
+  const pauseAndLeave = () => { session.minimize(); navigate(`/cas/${c.id}`); };
 
   const target = (aufklaerungOpen ? 5 * 60 : FLOW.find((f) => f.key === active)?.target) ?? 20 * 60;
 
@@ -84,6 +101,7 @@ export function SimulationRunner() {
       const status = conf >= 80 ? 'Maîtrisé' : conf >= 40 ? 'En cours' : 'À faire';
       await db.cases.update(c.id, { confidence: conf, status, lastSimulationId: sim.id, layerProgress: layer });
     }
+    useSimSession.getState().end(); // session terminée → efface le brouillon persistant
     setFinished(sim);
   };
 
@@ -95,7 +113,7 @@ export function SimulationRunner() {
       <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-slate-200 bg-slate-50/90 px-4 py-3 backdrop-blur md:-mx-8 md:px-8 dark:border-slate-800 dark:bg-slate-950/90">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Link to={`/cas/${c.id}`} className="btn-ghost text-xs" title="Quitter la simulation">✕</Link>
+            <button onClick={pauseAndLeave} className="btn-ghost text-xs" title="Mettre en pause et quitter (la session est conservée)">⏸ Pause</button>
             <div>
               <div className="text-sm font-bold">{c.name}</div>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400">

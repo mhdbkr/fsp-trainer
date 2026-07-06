@@ -3,6 +3,7 @@ import { useUi } from '@/store/ui';
 import { GlossaryDrawer } from './GlossaryDrawer';
 import { ReflexMemo } from './ReflexMemo';
 import { Doctopus } from './Doctopus';
+import { ResumeSessionBar } from './ResumeSessionBar';
 
 // Barre latérale PLATE (horizontalité : pas d'arbre profond). Toujours visible,
 // contexte conservé. Panneaux et modales par-dessus plutôt que pages empilées.
@@ -85,6 +86,8 @@ export function Shell() {
       <ReflexMemo />
       {/* Doctopus — assistant IA (flottant, partout) */}
       <Doctopus />
+      {/* Barre « reprendre » d'une simulation en pause */}
+      <ResumeSessionBar />
     </div>
   );
 }
