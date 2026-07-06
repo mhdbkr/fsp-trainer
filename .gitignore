@@ -1,0 +1,15 @@
+# Dépendances / build
+node_modules
+dist
+.DS_Store
+*.local
+
+# ⚠️ Sources privées / sous copyright — NE PAS publier sur un dépôt public.
+# L'app dans app/ est autonome et n'en a pas besoin à l'exécution.
+*.pdf
+anki_FSP.txt
+Fachbegriffe_FSP.csv
+00 FSP *.md
+01 Anki INSTRUCTIONS.md
+
+# Le dossier app/ (l'application) est versionné ; ses propres ignores sont dans app/.gitignore

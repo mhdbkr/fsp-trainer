@@ -1,0 +1,63 @@
+import Dexie, { type Table } from 'dexie';
+import type {
+  Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, PlanEntry, Meta,
+} from './types';
+
+// ============================================================================
+// IndexedDB via Dexie. Tout est local, aucune requête réseau à l'exécution.
+// Les index multiEntry (*centers, *linkedCaseIds…) permettent les requêtes
+// d'interconnexion (ex. "tous les cas où ce terme apparaît").
+// ============================================================================
+export class FspDatabase extends Dexie {
+  cases!: Table<Case, string>;
+  fachbegriffe!: Table<Fachbegriff, string>;
+  fachwissen!: Table<Fachwissen, string>;
+  aufklaerungen!: Table<AufklaerungItem, string>;
+  guides!: Table<Guide, string>;
+  simulations!: Table<Simulation, string>;
+  plan!: Table<PlanEntry, string>;
+  meta!: Table<Meta, string>;
+
+  constructor() {
+    super('fsp-cockpit');
+    this.version(1).stores({
+      cases: 'id, pathology, specialty, status, frequency, difficulty, *centers, *linkedFachbegriffeIds',
+      fachbegriffe: 'id, term, specialty, srs.state, srs.dueDate, *pathologyTags, *centers, *linkedCaseIds',
+      fachwissen: 'id, pathology, specialty, *linkedCaseIds',
+      aufklaerungen: 'id, name, category, *linkedCaseIds',
+      guides: 'id, type, specialty',
+      simulations: 'id, caseId, date, role',
+      plan: 'id, date, caseId, done',
+      meta: 'key',
+    });
+  }
+}
+
+export const db = new FspDatabase();
+
+// --- Meta helpers -----------------------------------------------------------
+export async function getMeta<T>(key: string, fallback: T): Promise<T> {
+  const row = await db.meta.get(key);
+  return row ? (row.value as T) : fallback;
+}
+export async function setMeta(key: string, value: unknown): Promise<void> {
+  await db.meta.put({ key, value });
+}
+
+// --- Import en masse (branché dès le prototype) -----------------------------
+// Les données réelles (581 cas, 2249 Fachbegriffe, Fachwissen livre/ODAK)
+// seront injectées via ces fonctions. bulkPut = idempotent sur l'id.
+export async function importCases(items: Case[]) { await db.cases.bulkPut(items); }
+export async function importFachbegriffe(items: Fachbegriff[]) { await db.fachbegriffe.bulkPut(items); }
+export async function importFachwissen(items: Fachwissen[]) { await db.fachwissen.bulkPut(items); }
+export async function importAufklaerungen(items: AufklaerungItem[]) { await db.aufklaerungen.bulkPut(items); }
+export async function importGuides(items: Guide[]) { await db.guides.bulkPut(items); }
+
+/** Réinitialise entièrement la base (utile pendant le dev / re-seed). */
+export async function wipeDatabase() {
+  await Promise.all([
+    db.cases.clear(), db.fachbegriffe.clear(), db.fachwissen.clear(),
+    db.aufklaerungen.clear(), db.guides.clear(), db.simulations.clear(),
+    db.plan.clear(), db.meta.clear(),
+  ]);
+}
