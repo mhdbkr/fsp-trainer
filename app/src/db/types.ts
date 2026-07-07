@@ -55,7 +55,7 @@ export type Layer = 1 | 2 | 3;
 
 /** Muster-Bogen : le modèle de feuille de notes reproduit par ville
  *  (+ ODAK = modèle pédagogique complet). */
-export type MusterCity = 'ODAK' | 'Freiburg' | 'Karlsruhe' | 'Reutlingen' | 'Stuttgart';
+export type MusterCity = 'Standard' | 'Freiburg' | 'Karlsruhe' | 'Reutlingen' | 'Stuttgart';
 
 // ----------------------------------------------------------------------------
 // Fiche patient (jouable par le partenaire) — reproduit la structure réelle
@@ -81,6 +81,10 @@ export interface PatientSheet {
     verstaerker?: string; linderer?: string;
   };
   vegetativeAnamnese: string[]; // items positifs (Fieber, Gewichtsverlust…)
+  /** Signes explicitement NIÉS par le patient (« kein Fieber », « kein
+   *  Erbrechen »). Permet au partenaire de répondre « non » de façon cohérente
+   *  aux questions de dépistage, et au candidat d'apprendre quoi demander. */
+  negativeFindings?: string[];
   vorerkrankungen: string[];
   voroperationen: string[];
   medikamente: string[];

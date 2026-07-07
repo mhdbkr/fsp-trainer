@@ -54,7 +54,7 @@ export const ARZTBRIEF_CHAPTERS: ArztbriefChapter[] = [
   },
   {
     id: 'vorerkrankungen', order: 4, title: 'Vorerkrankungen & Voroperationen', subtitle: 'Antécédents',
-    icon: 'history', register: 'Konjunktiv I', keywords: ['bekannt', 'leide an', 'Z. n.'],
+    icon: 'history', register: 'Konjunktiv I', keywords: ['bekannt', 'leide an', 'Zustand nach'],
     redewendungen: [
       'An Vorerkrankungen leide der Patient/die Patientin an … (seit … Jahren).',
       'Folgende Erkrankungen seien bekannt: …',

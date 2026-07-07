@@ -43,17 +43,17 @@ export const REFLEX_PHASES: ReflexPhase[] = [
     steps: [
       'Anrede formelle + Einleitung.',
       'Anamnèse au Konjunktiv I ; mesures au Passiv.',
-      'VD + DD → Diagnostik (Labor → apparativ) → Therapie.',
+      'Verdachtsdiagnose + Differenzialdiagnosen → Diagnostik (Labor → apparativ) → Therapie.',
       'N\'oublie JAMAIS la Schlussformel (sinon points en moins).',
     ],
     transition: 'Avant la Fallvorstellung : tu n\'auras QUE tes notes (pas le brief). Relis ton Bogen, structure mentalement les 13 chapitres.',
-    cave: '"Alkoholkonsum" (pas -abusus) · py pour le tabac · Z. n. pour les OP.',
+    cave: '« Alkoholkonsum » (et non -abusus) · les paquets-années pour le tabac · « Zustand nach » pour les opérations.',
   },
   {
     id: 'fallvorstellung', title: 'Fallvorstellung', subtitle: '~20 min · Arzt-Arzt', icon: 'stethoscope', minutes: 20,
     steps: [
       'Demande la permission de présenter, puis Fachsprache.',
-      'AZ/EZ → Anamnese (Konjunktiv I) → VD/DD → Diagnostik → Therapie/Prognose.',
+      'État général → anamnèse (Konjunktiv I) → diagnostic et diagnostics différentiels → examens → traitement et pronostic.',
       'Les Prüfer t\'interrompent : normal. Tu peux poser des questions.',
       '« Das weiß ich leider nicht. Was meinen Sie, Frau/Herr X? » plutôt qu\'un blackout.',
     ],

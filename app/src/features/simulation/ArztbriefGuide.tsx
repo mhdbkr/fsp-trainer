@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { AssistanceMode, BogenNotes, Case, MusterCity } from '@/db/types';
 import { ARZTBRIEF_CHAPTERS, type ArztbriefChapter } from '@/data/guides/arztbriefChapters';
 import { compareArztbrief, type ArztbriefFeedback } from '@/lib/arztbriefCompare';
+import { arztbriefExample } from '@/lib/caseExamples';
 import { GuidedText } from '@/components/GuidedText';
 import { Icon } from '@/components/icons';
 import { BogenPreview } from '@/components/BogenPreview';
@@ -21,29 +22,23 @@ export function ArztbriefGuide({ c, assistance, text, onText, bogen, muster }: {
   bogen: BogenNotes; muster: MusterCity;
 }) {
   const [fb, setFb] = useState<ArztbriefFeedback | null>(null);
-  const [tab, setTab] = useState<'bogen' | 'guide'>('guide');
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
-      {/* Panneau latéral réductible : référence (notes / guide de rédaction) */}
-      <SidePanel title="Guide & notes" icon="history" width="w-96">
-        <div className="flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800">
-          <button onClick={() => setTab('bogen')} className={`flex-1 rounded-md py-1.5 font-medium ${tab === 'bogen' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>📋 Mes notes</button>
-          <button onClick={() => setTab('guide')} className={`flex-1 rounded-md py-1.5 font-medium ${tab === 'guide' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>📖 Guide</button>
-        </div>
-        <div className="mt-2">
-          {tab === 'bogen' ? (
-            <BogenPreview bogen={bogen} muster={muster} />
-          ) : (
-            <div className="space-y-2">
-              <div className="rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-700 dark:bg-brand-900/20 dark:text-brand-200">
-                ✍️ Rédige toi-même, en langage technique. <b>Konjunktiv I</b> pour rapporter le patient, <b>Passiv</b> pour les mesures, et n'oublie jamais la <b>Schlussformel</b>.
-              </div>
-              {ARZTBRIEF_CHAPTERS.map((ch) => (
-                <GuideChapter key={ch.id} ch={ch} assistance={assistance} />
-              ))}
-            </div>
-          )}
+      {/* Panneau 1 : mes notes (séparé) */}
+      <SidePanel title="Mes notes" icon="id" width="w-80">
+        <BogenPreview bogen={bogen} muster={muster} title="Notes de l'anamnèse" />
+      </SidePanel>
+
+      {/* Panneau 2 : guide de rédaction (séparé) */}
+      <SidePanel title="Guide de rédaction" icon="history" width="w-96">
+        <div className="space-y-2">
+          <div className="rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-700 dark:bg-brand-900/20 dark:text-brand-200">
+            ✍️ Rédige toi-même. <b>Konjunktiv I</b> pour rapporter le patient, <b>Passiv</b> pour les mesures, et n'oublie jamais la formule de politesse finale.
+          </div>
+          {ARZTBRIEF_CHAPTERS.map((ch) => (
+            <GuideChapter key={ch.id} ch={ch} assistance={assistance} c={c} />
+          ))}
         </div>
       </SidePanel>
 
@@ -82,9 +77,10 @@ const REGISTER_BADGE: Record<ArztbriefChapter['register'], string> = {
   'Form': 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
 };
 
-function GuideChapter({ ch, assistance }: { ch: ArztbriefChapter; assistance: AssistanceMode }) {
+function GuideChapter({ ch, assistance, c }: { ch: ArztbriefChapter; assistance: AssistanceMode; c: Case }) {
   const isAssiste = assistance === 'assiste';
   const [open, setOpen] = useState(isAssiste && ch.order <= 3);
+  const example = arztbriefExample(ch.id, c);
   return (
     <div className="card overflow-hidden text-sm">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50">
@@ -101,6 +97,12 @@ function GuideChapter({ ch, assistance }: { ch: ArztbriefChapter; assistance: As
               <li key={i} className="flex gap-1.5 text-[13px]"><span className="text-brand-400">·</span><span><GuidedText text={r} keywords={isAssiste ? ch.keywords : []} /></span></li>
             ))}
           </ul>
+          {example && (
+            <div className="mt-2 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1.5 dark:border-emerald-900/40 dark:bg-emerald-900/10">
+              <div className="text-[10px] font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">Pour ce cas</div>
+              <p className="text-[13px] text-emerald-900 dark:text-emerald-200"><GuidedText text={example} keywords={[]} /></p>
+            </div>
+          )}
           {isAssiste && ch.tip && <p className="mt-2 rounded bg-amber-50 px-2 py-1 text-[11px] text-amber-700 dark:bg-amber-900/20 dark:text-amber-200">💡 {ch.tip}</p>}
         </div>
       )}

@@ -141,7 +141,7 @@ export function seedFachwissen(): Fachwissen[] {
       definition:
         'Akute Entzündung der Bauchspeicheldrüse mit Selbstverdauung des Organs durch aktivierte Enzyme. Verlauf von mild (ödematös) bis schwer (nekrotisierend).',
       aetiologie: 'Häufigste Ursachen: Gallensteine (biliär) und Alkohol (~80 %). Weitere: Hypertriglyzeridämie, Hyperkalzämie, Medikamente, post-ERCP, idiopathisch.',
-      risikofaktoren: ['Cholelithiasis', 'Alkoholabusus', 'Hypertriglyzeridämie', 'Z. n. ERCP'],
+      risikofaktoren: ['Cholelithiasis', 'Alkoholkonsum', 'Hypertriglyzeridämie', 'Zustand nach ERCP'],
       klinik: [
         { text: 'Akuter, heftiger Oberbauchschmauch, gürtelförmig in den Rücken ausstrahlend' },
         { text: 'Übelkeit, Erbrechen' },

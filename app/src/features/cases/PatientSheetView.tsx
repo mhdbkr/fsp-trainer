@@ -38,6 +38,15 @@ export function PatientSheetView({ sheet, caseSpecificQuestions, examinerQuestio
 
         <Card title="Begleitsymptome"><List items={sheet.begleitsymptome} /></Card>
         <Card title="Vegetative Anamnese"><List items={sheet.vegetativeAnamnese.length ? sheet.vegetativeAnamnese : ['unauffällig']} /></Card>
+        {sheet.negativeFindings && sheet.negativeFindings.length > 0 && (
+          <Card title="Verneint (« Non » — si le médecin demande)">
+            <ul className="space-y-1 text-sm text-slate-500 dark:text-slate-400">
+              {sheet.negativeFindings.map((it, i) => (
+                <li key={i} className="flex gap-2"><span className="mt-0.5 shrink-0 text-rose-400">✗</span>{it}</li>
+              ))}
+            </ul>
+          </Card>
+        )}
         <Card title="Vorerkrankungen"><List items={sheet.vorerkrankungen} /></Card>
         <Card title="Voroperationen"><List items={sheet.voroperationen} /></Card>
         <Card title="Medikamente"><List items={sheet.medikamente} /></Card>

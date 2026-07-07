@@ -69,7 +69,7 @@ export const useUi = create<UiState>((set, get) => ({
 
   assistance: (localStorage.getItem('fsp-assistance') as AssistanceMode) || 'assiste',
   setAssistance: (a) => { localStorage.setItem('fsp-assistance', a); set({ assistance: a }); },
-  muster: (localStorage.getItem('fsp-muster') as MusterCity) || 'ODAK',
+  muster: (localStorage.getItem('fsp-muster') as MusterCity) || 'Standard',
   setMuster: (m) => { localStorage.setItem('fsp-muster', m); set({ muster: m }); },
   layer: (Number(localStorage.getItem('fsp-layer')) as Layer) || 1,
   setLayer: (l) => { localStorage.setItem('fsp-layer', String(l)); set({ layer: l }); },

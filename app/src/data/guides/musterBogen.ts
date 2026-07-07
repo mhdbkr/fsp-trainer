@@ -34,9 +34,9 @@ const SOZIAL: BogenField = { key: 'sozial', label: 'Sozialanamnese', icon: 'fami
 const FAMILIE: BogenField = { key: 'familie', label: 'Familienanamnese', icon: 'family', kind: 'box', hint: 'chron. Erkrankungen der Familie' };
 
 export const MUSTER_BOGEN: Record<MusterCity, MusterBogenSpec> = {
-  ODAK: {
-    city: 'ODAK', title: 'Muster ODAK (komplett)',
-    instruction: 'Modèle pédagogique complet — couvre aussi l\'anamnèse du motif.',
+  Standard: {
+    city: 'Standard', title: 'Modèle complet (standard)',
+    instruction: 'Modèle complet — couvre aussi le motif de consultation.',
     style: 'stichpunkte',
     berichtLabel: 'Diagnostik & Procedere',
     fields: [
@@ -85,4 +85,4 @@ export const MUSTER_BOGEN: Record<MusterCity, MusterBogenSpec> = {
   },
 };
 
-export const MUSTER_CITIES: MusterCity[] = ['ODAK', 'Freiburg', 'Karlsruhe', 'Reutlingen', 'Stuttgart'];
+export const MUSTER_CITIES: MusterCity[] = ['Standard', 'Freiburg', 'Karlsruhe', 'Reutlingen', 'Stuttgart'];

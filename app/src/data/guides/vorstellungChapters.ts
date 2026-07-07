@@ -20,7 +20,7 @@ export const VORSTELLUNG_CHAPTERS: VorstellungChapter[] = [
     id: 'persoenliche-daten', order: 1, title: 'Persönliche Daten', subtitle: 'Ouverture + identité',
     icon: 'id', keywords: ['jährige', 'Patient', 'Notaufnahme', 'vorstellte'],
     redewendungen: [
-      'Guten Tag, Frau/Herr Dr. X. Wir haben einen neuen Patienten. Ich würde gern über ihn berichten. Darf ich?',
+      'Guten Tag, Frau/Herr Doktor. Wir haben einen neuen Patienten. Ich würde gern über ihn berichten. Darf ich?',
       'Herr/Frau X ist ein/eine …-jährige/r Patient/in, der/die sich vor … in der Notaufnahme vorstellte.',
     ],
   },
@@ -46,7 +46,7 @@ export const VORSTELLUNG_CHAPTERS: VorstellungChapter[] = [
     ],
   },
   {
-    id: 'rauchen', order: 4, title: 'Rauchen', subtitle: 'Tabac (py)',
+    id: 'rauchen', order: 4, title: 'Rauchen', subtitle: 'Tabac (paquets-années)',
     icon: 'cigarette', keywords: ['rauche', 'py', 'Nichtraucher', 'Ex-Raucher'],
     redewendungen: [
       'Der Patient/Die Patientin rauche … Zigaretten pro Tag seit … Jahren (… py).',
@@ -90,10 +90,10 @@ export const VORSTELLUNG_CHAPTERS: VorstellungChapter[] = [
   },
   {
     id: 'vorerkrankungen', order: 9, title: 'Vorerkrankungen / Voroperationen', subtitle: 'Antécédents',
-    icon: 'history', keywords: ['bekannt', 'Z. n.', 'operiert'],
+    icon: 'history', keywords: ['bekannt', 'Zustand nach', 'operiert'],
     redewendungen: [
       'Folgende Erkrankungen seien bekannt: … (seit … Jahren).',
-      'Z. n. … im Jahr … / Er sei … wegen … operiert worden.',
+      'Zustand nach … im Jahr … / Er sei … wegen … operiert worden.',
     ],
   },
   {
@@ -121,7 +121,7 @@ export const VORSTELLUNG_CHAPTERS: VorstellungChapter[] = [
     ],
   },
   {
-    id: 'diagnostik-procedere', order: 13, title: 'Diagnostik & Procedere', subtitle: 'VD → DD → Diagnostik → Therapie',
+    id: 'diagnostik-procedere', order: 13, title: 'Diagnostik & Procedere', subtitle: 'Diagnostic → diagnostics différentiels → examens → traitement',
     icon: 'stethoscope', keywords: ['deuten auf', 'Differentialdiagnosen', 'Abklärung', 'Therapie'],
     redewendungen: [
       'Die anamnestischen Angaben deuten am ehesten auf … hin.',

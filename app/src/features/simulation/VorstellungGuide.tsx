@@ -6,6 +6,7 @@ import { GuidedText } from '@/components/GuidedText';
 import { BogenPreview } from '@/components/BogenPreview';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
+import { vorstellungExample } from '@/lib/caseExamples';
 
 // ============================================================================
 // Fallvorstellung (oral, Arzt-Arzt) — apprendre les chapitres PAR CŒUR et dire
@@ -75,7 +76,7 @@ export function VorstellungGuide({ c, assistance, bogen, muster }: {
       {/* Chapitre actif */}
       {chapters[activeIdx] && (
         <ActiveChapter
-          ch={chapters[activeIdx]} isAssiste={isAssiste} checked={!!checked[chapters[activeIdx].id]}
+          ch={chapters[activeIdx]} isAssiste={isAssiste} checked={!!checked[chapters[activeIdx].id]} c={c}
           onToggle={() => toggle(chapters[activeIdx].id)} onHint={() => setHints((h) => h + 1)}
           onPrev={activeIdx > 0 ? () => setActiveId(chapters[activeIdx - 1].id) : undefined}
           onNext={activeIdx < chapters.length - 1 ? () => setActiveId(chapters[activeIdx + 1].id) : undefined}
@@ -86,10 +87,11 @@ export function VorstellungGuide({ c, assistance, bogen, muster }: {
   );
 }
 
-function ActiveChapter({ ch, isAssiste, checked, onToggle, onHint, onPrev, onNext }: {
-  ch: (typeof VORSTELLUNG_CHAPTERS)[number]; isAssiste: boolean; checked: boolean;
+function ActiveChapter({ ch, isAssiste, checked, c, onToggle, onHint, onPrev, onNext }: {
+  ch: (typeof VORSTELLUNG_CHAPTERS)[number]; isAssiste: boolean; checked: boolean; c: Case;
   onToggle: () => void; onHint: () => void; onPrev?: () => void; onNext?: () => void;
 }) {
+  const example = vorstellungExample(ch.id, c);
   const [revealed, setRevealed] = useState(isAssiste);
   // Re-masque quand on change de chapitre en mode Autonome.
   const [lastId, setLastId] = useState(ch.id);
@@ -120,6 +122,12 @@ function ActiveChapter({ ch, isAssiste, checked, onToggle, onHint, onPrev, onNex
                 </li>
               ))}
             </ul>
+            {example && (
+              <div className="mt-2 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1.5 dark:border-emerald-900/40 dark:bg-emerald-900/10">
+                <div className="text-[10px] font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">Pour ce cas — dis ceci</div>
+                <p className="text-[13px] text-emerald-900 dark:text-emerald-200"><GuidedText text={example} keywords={[]} /></p>
+              </div>
+            )}
           </>
         ) : (
           <button onClick={() => { setRevealed(true); onHint(); }} className="btn-outline w-full justify-center text-xs">

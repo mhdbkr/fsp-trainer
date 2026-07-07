@@ -10,7 +10,7 @@ export function seedGuides(): Guide[] {
     // ---------------------------------------------------------------- ANAMNESE
     {
       id: 'guide-anamnese-v4',
-      title: 'Anamnese — Struktur (V4 / ODAK)',
+      title: 'Anamnese — Structure de l\'entretien',
       type: 'anamnese',
       specialty: null,
       intro: 'Trame d\'entretien d\'admission. 20 min. Registre patient, pas de Fachchinesisch. Le candidat pilote le dialogue.',
@@ -69,7 +69,7 @@ export function seedGuides(): Guide[] {
     // ---------------------------------------------------------------- ARZTBRIEF
     {
       id: 'guide-arztbrief',
-      title: 'Arztbrief — Dokumentation',
+      title: 'Arztbrief — La documentation écrite',
       type: 'arztbrief',
       specialty: null,
       intro: 'Anamnèse au Konjunktiv I, mesures au Passiv. Formules d\'ouverture/clôture obligatoires (perte de points si oubli).',
@@ -79,14 +79,14 @@ export function seedGuides(): Guide[] {
           'wir berichten Ihnen nachfolgend über Frau/Herrn Z, geb. TT.MM.JJJJ, die/der sich am … in unserer Notaufnahme vorstellte.',
         ], note: 'Nach der Anrede: Komma, dann klein weiter ("wir").' },
         { id: 'b2', title: 'Haupt-/Nebenbeschwerden (Konjunktiv I, "Dativ-Paragraf")', items: [
-          'Der Patient befand sich in … AZ und … EZ, war zu Ort/Zeit/Person/Situation orientiert.',
+          'Der Patient befand sich in … Allgemeinzustand und … Ernährungszustand, war zu Ort/Zeit/Person/Situation orientiert.',
           'Herr Z stellte sich mit seit … bestehenden starken epigastrischen Schmerzen vor.',
           'Des Weiteren klagte er über … Der Patient gab an, dass …',
         ] },
         { id: 'b3', title: 'Vegetative Anamnese · Vorerkrankungen · Medikamente', items: [
-          'Bis auf o. g. sei die vegetative Anamnese unauffällig.',
+          'Bis auf das oben Genannte sei die vegetative Anamnese unauffällig.',
           'Der Patient leide an … (Leiden an + Krankheit; leiden unter + Symptom).',
-          'Z. n. Appendektomie vor x Jahren.',
+          'Zustand nach Appendektomie vor x Jahren.',
           'Bis auf … mg 1-0-0 nehme der Patient keine weiteren Medikamente ein.',
         ] },
         { id: 'b4', title: 'Allergien · Noxen', items: [
@@ -97,14 +97,14 @@ export function seedGuides(): Guide[] {
         ] },
         { id: 'b5', title: 'Diagnose · Diagnostik · Therapie (Passiv)', items: [
           'Die Anamnese deutet auf … hin. Differenzialdiagnostisch kommen in Betracht: …',
-          'Bei V. a. … wurde Blut abgenommen (BB, CRP, …). EKG wurde geschrieben. CT wurde geplant.',
+          'Bei Verdacht auf … wurde Blut abgenommen (Blutbild, CRP …). Ein EKG wurde geschrieben, ein CT geplant.',
           'X-Therapie wurde eingeleitet. N wurde verabreicht/verschrieben.',
           'Prognose: positiv / fraglich (abhängig von der Compliance).',
         ] },
         { id: 'b6', title: 'Schlussformeln (obligatorisch!)', items: [
           'Für weitere Fragen stehen wir Ihnen gern zur Verfügung.',
-          'Mit freundlichen kollegialen Grüßen, AA/FA …',
-        ], note: 'Bei Infektion: "Gesundheitsamt wurde informiert." Bei HA-Rücksprache: "Rücksprache mit dem HA folgt."' },
+          'Mit freundlichen kollegialen Grüßen, [Arzt/Ärztin]',
+        ], note: 'Bei Infektion: „Gesundheitsamt wurde informiert." Bei Rücksprache mit dem Hausarzt: „Rücksprache mit dem Hausarzt folgt."' },
       ],
     },
 
@@ -117,15 +117,15 @@ export function seedGuides(): Guide[] {
       intro: 'Oral, en Fachsprache. À partir des seules notes d\'anamnèse. On a le droit de poser des questions.',
       sections: [
         { id: 'f1', title: 'Einstieg', items: [
-          'Guten Tag, Frau/Herr Dr. X. Wir haben einen neuen Patienten … Ich würde gern über ihn berichten. Darf ich?',
-          'Herr X ist ein y-jähriger Patient, der sich vor z Minuten in der Notaufnahme vorstellte.',
+          'Guten Tag, Frau/Herr Doktor. Wir haben einen neuen Patienten … Ich würde gern über ihn berichten. Darf ich?',
+          'Der/die Patient/in ist … Jahre alt und stellte sich vor … Minuten in der Notaufnahme vor.',
         ] },
-        { id: 'f2', title: 'Struktur AZ/EZ → Anamnese (Konjunktiv I)', items: [
-          'Der Patient befand sich in … AZ und … EZ, war zu Ort/Zeit/Person orientiert.',
+        { id: 'f2', title: 'Structure : état général → anamnèse (Konjunktiv I)', items: [
+          'Der Patient befand sich in … Allgemeinzustand und … Ernährungszustand, war zu Ort/Zeit/Person orientiert.',
           'Er stellte sich mit seit … bestehendem starkem … vor. Des Weiteren klagte er über …',
-          'Der Patient leide an … Z. n. … Tabakabusus … py. Alkoholkonsum … Der Vater habe an … gelitten.',
+          'Der Patient leide an … Zustand nach … Nikotinkonsum … Packungsjahre. Alkoholkonsum … Der Vater habe an … gelitten.',
         ] },
-        { id: 'f3', title: 'VD/DD → Diagnostik → Therapie → Prognose', items: [
+        { id: 'f3', title: 'Diagnostic → examens → traitement → pronostic', items: [
           'Die Anamnese deutet auf … hin. Differenzialdiagnostisch kommen in Betracht: …',
           'Bei V. a. … wurde Blut abgenommen … EKG geschrieben … CT geplant.',
           'Therapie wurde eingeleitet. Prognose: positiv.',
