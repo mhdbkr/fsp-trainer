@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
-import { SpecialtyIcon } from '@/components/icons';
+import { Icon, SpecialtyIcon } from '@/components/icons';
 
 // ============================================================================
 // Onboarding du Programme de révision — dialogue illustré collectant les
@@ -14,21 +14,24 @@ const SPECIALTIES: Specialty[] = ['Kardiologie', 'Pneumologie', 'Gastroenterolog
 const WEEKDAYS = [{ i: 1, l: 'Lu' }, { i: 2, l: 'Ma' }, { i: 3, l: 'Me' }, { i: 4, l: 'Je' }, { i: 5, l: 'Ve' }, { i: 6, l: 'Sa' }, { i: 0, l: 'Di' }];
 
 const INTENSITIES: { v: Intensity; l: string; d: string; icon: string }[] = [
-  { v: 'leicht', l: 'Léger', d: 'rythme doux', icon: '🌱' },
-  { v: 'mittel', l: 'Moyen', d: 'équilibré', icon: '⚡' },
-  { v: 'intensiv', l: 'Intensif', d: 'sprint examen', icon: '🔥' },
+  { v: 'leicht', l: 'Léger', d: 'rythme doux', icon: 'leaf' },
+  { v: 'mittel', l: 'Moyen', d: 'équilibré', icon: 'bolt' },
+  { v: 'intensiv', l: 'Intensif', d: 'sprint examen', icon: 'flame' },
 ];
 
-export function ProgramSetup({ onDone, onCancel }: { onDone: () => void; onCancel?: () => void }) {
-  const [mode, setMode] = useState<'exam' | 'weeks'>('weeks');
-  const [examDate, setExamDate] = useState('');
-  const [weeks, setWeeks] = useState(8);
-  const [intensity, setIntensity] = useState<Intensity>('mittel');
-  const [hours, setHours] = useState(2);
-  const [offDays, setOffDays] = useState<number[]>([0]);
-  const [priority, setPriority] = useState<Specialty[]>([]);
+export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void; onCancel?: () => void; initial?: ProgramConfig | null }) {
+  // Hydratation depuis la config existante (mode « Ajuster ») — sinon valeurs de
+  // départ. Sans cela, ouvrir « Ajuster » réafficherait toujours les défauts et
+  // « Générer » écraserait la config choisie.
+  const [mode, setMode] = useState<'exam' | 'weeks'>(initial?.examDate ? 'exam' : 'weeks');
+  const [examDate, setExamDate] = useState(initial?.examDate ?? '');
+  const [weeks, setWeeks] = useState(initial?.weeks ?? 8);
+  const [intensity, setIntensity] = useState<Intensity>(initial?.intensity ?? 'mittel');
+  const [hours, setHours] = useState(initial?.hoursPerSession ?? 2);
+  const [offDays, setOffDays] = useState<number[]>(initial?.offDays ?? [0]);
+  const [priority, setPriority] = useState<Specialty[]>(initial?.prioritySpecialties ?? []);
   const [selfLevel, setSelfLevel] = useState<Partial<Record<Axis, number>>>(
-    Object.fromEntries(AXES.map((a) => [a, 40])),
+    initial?.selfLevel ?? Object.fromEntries(AXES.map((a) => [a, 40])),
   );
 
   const toggleOff = (i: number) => setOffDays((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]));
@@ -36,26 +39,34 @@ export function ProgramSetup({ onDone, onCancel }: { onDone: () => void; onCance
 
   const save = async () => {
     const config: ProgramConfig = {
-      startDate: format(new Date(), 'yyyy-MM-dd'),
+      // On CONSERVE l'ancrage temporel et les ajustements manuels lors d'un ajustement :
+      // changer l'intensité ou les jours off ne doit pas effacer les tâches faites/reports.
+      startDate: initial?.startDate ?? format(new Date(), 'yyyy-MM-dd'),
       examDate: mode === 'exam' && examDate ? examDate : undefined,
       weeks: mode === 'weeks' ? weeks : undefined,
       intensity, hoursPerSession: hours, offDays, prioritySpecialties: priority,
-      selfLevel, createdAt: Date.now(),
+      selfLevel, createdAt: initial?.createdAt ?? Date.now(),
+      adjust: initial?.adjust,
     };
     await setMeta('program', config);
     onDone();
   };
 
   return (
-    <div className="fixed inset-0 z-[55] flex items-center justify-center bg-slate-900/50 p-4">
-      <div className="card max-h-[90vh] w-full max-w-2xl overflow-y-auto p-6">
-        <div className="text-center">
-          <div className="text-3xl">🗓️</div>
-          <h2 className="mt-1 text-xl font-bold">Crée ton programme de révision</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">Il s'adapte ensuite à tes performances et à ton assiduité.</p>
+    <div className="fixed inset-0 z-[55] flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={initial ? 'Ajuster le programme' : 'Créer le programme'}>
+      {/* Dialog structuré : en-tête compact / corps scrollable en grille / pied fixe.
+          → proportions maîtrisées quelle que soit la hauteur d'écran. */}
+      <div className="reveal flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-ink-600 dark:bg-ink-800">
+        <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-4 dark:border-ink-600">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white"><Icon name={initial ? 'gear' : 'nav-calendar'} className="h-5 w-5" /></span>
+          <div className="min-w-0 flex-1">
+            <h2 className="font-display text-lg font-bold tracking-tightish">{initial ? 'Ajuste ton programme' : 'Crée ton programme de révision'}</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{initial ? 'Tes tâches faites, reports et révisions ajoutées sont conservés.' : "Il s'adapte ensuite à tes performances et à ton assiduité."}</p>
+          </div>
+          {onCancel && <button onClick={onCancel} className="btn-ghost -mr-1 px-2 text-lg" title="Fermer">✕</button>}
         </div>
 
-        <div className="mt-5 space-y-5">
+        <div className="grid flex-1 content-start gap-x-6 gap-y-5 overflow-y-auto p-5 sm:grid-cols-2">
           {/* Durée */}
           <Field label="Durée de préparation">
             <div className="flex gap-2">
@@ -65,74 +76,77 @@ export function ProgramSetup({ onDone, onCancel }: { onDone: () => void; onCance
             {mode === 'weeks' ? (
               <div className="mt-2">
                 <input type="range" min={2} max={24} value={weeks} onChange={(e) => setWeeks(+e.target.value)} className="w-full accent-brand-600" />
-                <div className="text-center text-sm font-semibold">{weeks} semaines</div>
+                <div className="text-center font-mono text-sm font-semibold tnum">{weeks} semaines</div>
               </div>
             ) : (
               <input type="date" value={examDate} onChange={(e) => setExamDate(e.target.value)} className="input mt-2" />
             )}
           </Field>
 
-          {/* Intensité */}
+          {/* Intensité — compacte (le détail passe en tooltip) */}
           <Field label="Intensité">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-1.5">
               {INTENSITIES.map((it) => (
-                <button key={it.v} onClick={() => setIntensity(it.v)}
-                  className={`rounded-xl border p-3 text-center transition-colors ${intensity === it.v ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30' : 'border-slate-200 dark:border-slate-700'}`}>
-                  <div className="text-xl">{it.icon}</div>
-                  <div className="text-sm font-semibold">{it.l}</div>
-                  <div className="text-[11px] text-slate-400">{it.d}</div>
+                <button key={it.v} onClick={() => setIntensity(it.v)} title={it.d}
+                  className={`flex flex-col items-center gap-1 rounded-xl border px-2 py-2.5 transition-colors ${intensity === it.v ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-500 hover:border-slate-300 dark:border-ink-600'}`}>
+                  <Icon name={it.icon} className="h-5 w-5" />
+                  <span className="text-xs font-semibold">{it.l}</span>
                 </button>
               ))}
             </div>
           </Field>
 
-          {/* Volume + jours off */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={`Volume par session : ${hours} h`}>
-              <input type="range" min={0.5} max={6} step={0.5} value={hours} onChange={(e) => setHours(+e.target.value)} className="w-full accent-brand-600" />
-            </Field>
-            <Field label="Jours off">
-              <div className="flex flex-wrap gap-1">
-                {WEEKDAYS.map((d) => (
-                  <button key={d.i} onClick={() => toggleOff(d.i)}
-                    className={`h-8 w-9 rounded-lg text-xs font-medium ${offDays.includes(d.i) ? 'bg-slate-300 text-slate-600 dark:bg-slate-700' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                    {d.l}
+          {/* Volume */}
+          <Field label={`Volume par session : ${hours} h`}>
+            <input type="range" min={0.5} max={6} step={0.5} value={hours} onChange={(e) => setHours(+e.target.value)} className="w-full accent-brand-600" />
+          </Field>
+
+          {/* Jours off */}
+          <Field label="Jours off">
+            <div className="flex flex-wrap gap-1">
+              {WEEKDAYS.map((d) => (
+                <button key={d.i} onClick={() => toggleOff(d.i)}
+                  className={`h-8 w-9 rounded-lg text-xs font-medium transition-colors ${offDays.includes(d.i) ? 'bg-slate-300 text-slate-600 dark:bg-slate-700' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
+                  {d.l}
+                </button>
+              ))}
+            </div>
+          </Field>
+
+          {/* Systèmes prioritaires */}
+          <div className="sm:col-span-2">
+            <Field label="Systèmes prioritaires (tes faiblesses ressenties)">
+              <div className="flex flex-wrap gap-1.5">
+                {SPECIALTIES.map((sp) => (
+                  <button key={sp} onClick={() => togglePrio(sp)}
+                    className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-xs transition-colors ${priority.includes(sp) ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'}`}>
+                    <SpecialtyIcon specialty={sp} className="h-3.5 w-3.5" />{sp}
                   </button>
                 ))}
               </div>
             </Field>
           </div>
 
-          {/* Systèmes prioritaires */}
-          <Field label="Systèmes prioritaires (tes faiblesses ressenties)">
-            <div className="flex flex-wrap gap-1.5">
-              {SPECIALTIES.map((sp) => (
-                <button key={sp} onClick={() => togglePrio(sp)}
-                  className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-xs transition-colors ${priority.includes(sp) ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>
-                  <SpecialtyIcon specialty={sp} className="h-3.5 w-3.5" />{sp}
-                </button>
-              ))}
-            </div>
-          </Field>
-
-          {/* Niveau auto-évalué par axe */}
-          <Field label="Ton niveau de départ par axe">
-            <div className="space-y-2">
-              {AXES.map((a) => (
-                <div key={a} className="flex items-center gap-3">
-                  <span className="w-28 shrink-0 text-xs text-slate-500 dark:text-slate-400">{a}</span>
-                  <input type="range" min={0} max={100} value={selfLevel[a] ?? 40}
-                    onChange={(e) => setSelfLevel((s) => ({ ...s, [a]: +e.target.value }))} className="flex-1 accent-brand-600" />
-                  <span className="w-8 text-right text-xs font-semibold">{selfLevel[a] ?? 40}</span>
-                </div>
-              ))}
-            </div>
-          </Field>
+          {/* Niveau auto-évalué par axe — 2 colonnes pour rester compact */}
+          <div className="sm:col-span-2">
+            <Field label="Ton niveau de départ par axe">
+              <div className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                {AXES.map((a) => (
+                  <div key={a} className="flex items-center gap-3">
+                    <span className="w-28 shrink-0 text-xs text-slate-500 dark:text-slate-400">{a}</span>
+                    <input type="range" min={0} max={100} value={selfLevel[a] ?? 40}
+                      onChange={(e) => setSelfLevel((s) => ({ ...s, [a]: +e.target.value }))} className="flex-1 accent-brand-600" />
+                    <span className="w-8 text-right font-mono text-xs font-semibold tnum">{selfLevel[a] ?? 40}</span>
+                  </div>
+                ))}
+              </div>
+            </Field>
+          </div>
         </div>
 
-        <div className="mt-6 flex justify-end gap-2">
+        <div className="flex justify-end gap-2 border-t border-slate-100 px-5 py-3.5 dark:border-ink-600">
           {onCancel && <button onClick={onCancel} className="btn-ghost">Annuler</button>}
-          <button onClick={save} className="btn-primary px-6">Générer mon programme ✨</button>
+          <button onClick={save} className="btn-primary gap-1.5 px-6"><Icon name="spark" className="h-4 w-4" />{initial ? 'Enregistrer les changements' : 'Générer mon programme'}</button>
         </div>
       </div>
     </div>

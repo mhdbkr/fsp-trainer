@@ -23,8 +23,19 @@ const INTENSITY_FACTOR: Record<ProgramConfig['intensity'], number> = { leicht: 0
 const SIM_MIN = 40;
 const FACHWISSEN_MIN = 15;
 const DRILL_MIN = 15;
+const REVISION_MIN = 20;      // rappel actif espacé d'un cas déjà découvert
+const MOCK_MIN = 60;          // examen à blanc (simulation complète) en fin de parcours
 // Intervalle (jours ouvrés) avant la couche suivante d'un même cas.
 const LAYER_GAP: Record<Layer, number> = { 1: 0, 2: 2, 3: 4 };
+// Révision espacée post-découverte : au moins N jours ouvrés entre deux rappels
+// du même cas (courbe d'oubli), plafond de rappels par jour (plus dense en taper).
+const MIN_REVISIT_GAP = 3;
+const REVIEW_PER_DAY = 1;
+const TAPER_REVIEW_PER_DAY = 2;
+/** Longueur de la « dernière ligne droite » (taper) en jours ouvrés. */
+function taperLen(totalWorkingDays: number): number {
+  return Math.max(3, Math.min(8, Math.round(totalWorkingDays * 0.15)));
+}
 
 export interface ProgramStats {
   daysUntilExam: number | null;
@@ -44,12 +55,35 @@ function lastScoreByCase(sims: Simulation[]): Map<string, number | null> {
   return m;
 }
 
-function casePriority(c: Case, lastScore: number | null, priority: Specialty[]): number {
+// Faiblesse moyenne (100 − score) par spécialité, sur les cas déjà tentés.
+// Permet de prioriser les DISCIPLINES où l'utilisateur est le plus faible.
+function specialtyWeakness(cases: Case[], last: Map<string, number | null>): Map<Specialty, number> {
+  const acc = new Map<Specialty, { sum: number; n: number }>();
+  for (const c of cases) {
+    const s = last.get(c.id);
+    if (s == null) continue;
+    const cur = acc.get(c.specialty) ?? { sum: 0, n: 0 };
+    cur.sum += Math.max(0, 100 - s); cur.n += 1;
+    acc.set(c.specialty, cur);
+  }
+  const m = new Map<Specialty, number>();
+  for (const [sp, { sum, n }] of acc) m.set(sp, n ? sum / n : 0);
+  return m;
+}
+
+function casePriority(c: Case, lastScore: number | null, priority: Specialty[], spWeak = 0): number {
   const weakness = lastScore === null ? 75 : Math.max(5, 100 - lastScore);
   const freq = Math.min(30, c.frequency);
   const prioBoost = priority.includes(c.specialty) ? 1.5 : 1;
   const statusBoost = c.status === 'Maîtrisé' ? 0.3 : 1;
-  return (weakness + freq) * prioBoost * statusBoost;
+  const disciplineBoost = 1 + spWeak / 100; // discipline faible → priorité accrue
+  return (weakness + freq) * prioBoost * statusBoost * disciplineBoost;
+}
+
+/** Couches déjà validées d'un cas : max entre le réel (simulations) et les
+ *  validations manuelles de l'utilisateur (« marquer fait »). */
+export function effectiveDoneLayers(c: Case, config: ProgramConfig): number {
+  return Math.max(c.layerProgress ?? 0, config.adjust?.doneLayers?.[c.id] ?? 0);
 }
 
 export function programEnd(config: ProgramConfig): Date {
@@ -95,49 +129,133 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
     return d;
   };
 
+  const adj = config.adjust ?? {};
   const last = lastScoreByCase(sims);
+  const spWeak = specialtyWeakness(cases, last);
   const ranked = [...cases]
-    .filter((c) => (c.layerProgress ?? 0) < 3)
-    .sort((a, b) => casePriority(b, last.get(b.id) ?? null, config.prioritySpecialties) - casePriority(a, last.get(a.id) ?? null, config.prioritySpecialties));
+    .filter((c) => effectiveDoneLayers(c, config) < 3)
+    .sort((a, b) =>
+      casePriority(b, last.get(b.id) ?? null, config.prioritySpecialties, spWeak.get(b.specialty) ?? 0)
+      - casePriority(a, last.get(a.id) ?? null, config.prioritySpecialties, spWeak.get(a.specialty) ?? 0));
 
   // Introduction échelonnée des cas : ~2 nouveaux cas par jour ouvré au départ.
   let introDay = nextWorkingDay(start, config);
   let introCount = 0;
   const INTRO_PER_DAY = 2;
+  // Date de « découverte » (couche 1) de chaque cas — un cas ne peut être révisé
+  // qu'une fois découvert. Les cas déjà avancés sont réputés découverts au départ.
+  const introByCase = new Map<string, Date>();
+
+  const LAYER_REASON: Record<Layer, string> = {
+    1: 'Découverte · assisté — première rencontre du cas',
+    2: 'Consolidation · autonome — espacée après la couche 1',
+    3: 'Ancrage · autonome — dernier passage espacé',
+  };
 
   for (const c of ranked) {
-    const doneLayers = c.layerProgress ?? 0;
+    const doneLayers = effectiveDoneLayers(c, config);
+    if (doneLayers >= 1) introByCase.set(c.id, start);
     // Jour d'introduction de la 1re couche restante.
     if (introCount >= INTRO_PER_DAY) { introDay = nextWorkingDay(addDays(introDay, 1), config); introCount = 0; }
     let anchor = doneLayers === 0 ? introDay : nextWorkingDay(start, config);
     if (doneLayers === 0) introCount++;
+    // Report manuel : décale toute la suite des couches de ce cas.
+    const postpone = adj.postpone?.[c.id] ?? 0;
+    if (postpone) anchor = nextWorkingDay(addDays(anchor, postpone), config);
 
     for (let L = doneLayers + 1; L <= 3; L++) {
       const layer = L as Layer;
       const desired = addDays(anchor, LAYER_GAP[layer]);
       const day = placeFrom(desired, SIM_MIN);
       if (day > end) break;
+      if (layer === 1) introByCase.set(c.id, day);
       add(day, {
         kind: 'simulation',
         label: `${c.name} — Couche ${layer}`,
         estMin: SIM_MIN, caseId: c.id, layer,
         assistance: layer === 1 ? 'assiste' : 'autonome',
         specialty: c.specialty,
+        id: `${c.id}:L${layer}`,
+        reason: LAYER_REASON[layer],
+        phase: layer === 1 ? 'discovery' : 'consolidation',
       });
       if (layer === 1 && c.linkedFachwissenId) {
         const fwDay = placeFrom(day, FACHWISSEN_MIN);
-        if (fwDay <= end) add(fwDay, { kind: 'fachwissen', label: `Fachwissen : ${c.pathology}`, estMin: FACHWISSEN_MIN, caseId: c.id, specialty: c.specialty });
+        if (fwDay <= end) add(fwDay, { kind: 'fachwissen', label: `Fachwissen : ${c.pathology}`, estMin: FACHWISSEN_MIN, caseId: c.id, specialty: c.specialty, id: `fw:${c.id}`, reason: 'Théorie liée au cas — juste après la découverte' });
       }
       anchor = day; // la couche suivante s'espace à partir de la date réelle
     }
   }
 
-  // Drill quotidien sur chaque jour ouvré de l'horizon.
-  const dueTotal = 0; // dimensionné à l'affichage (voir generateProgram)
-  void dueTotal;
+  // Drill quotidien sur chaque jour ouvré de l'horizon (sauf jours annulés).
   for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
     if (!isWorkingDay(d, config)) continue;
-    add(d, { kind: 'drill', label: 'Drill Fachbegriffe', estMin: DRILL_MIN, axis: 'Fachbegriffe' });
+    const dk = key(d);
+    if (adj.skipDrillDates?.includes(dk)) continue;
+    add(d, { kind: 'drill', label: 'Drill Fachbegriffe', estMin: DRILL_MIN, axis: 'Fachbegriffe', id: `drill:${dk}`, reason: 'Rappel espacé (SM-2) des Fachbegriffe' });
+  }
+
+  // --------------------------------------------------------------------------
+  // Remplissage par RÉVISION ESPACÉE : une fois un cas découvert, il revient en
+  // rappel actif (courbe d'oubli) sur les jours ouvrés où il reste du budget.
+  // Cela empêche le plan de « s'arrêter » après la phase de découverte : la suite
+  // du parcours reste substantielle jusqu'à l'examen. La densité augmente dans la
+  // dernière ligne droite (taper), qui se conclut par des examens à blanc.
+  // --------------------------------------------------------------------------
+  const workingDays: Date[] = [];
+  for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) if (isWorkingDay(d, config)) workingDays.push(d);
+  const taperCount = taperLen(workingDays.length);
+  const taperKeys = new Set(workingDays.slice(-taperCount).map(key));
+
+  const reviewRanked = [...cases].sort((a, b) =>
+    casePriority(b, last.get(b.id) ?? null, config.prioritySpecialties, spWeak.get(b.specialty) ?? 0)
+    - casePriority(a, last.get(a.id) ?? null, config.prioritySpecialties, spWeak.get(a.specialty) ?? 0));
+  const lastReviewIdx = new Map<string, number>();
+
+  workingDays.forEach((d, idx) => {
+    const dk = key(d);
+    const isTaper = taperKeys.has(dk);
+    const cap = isTaper ? TAPER_REVIEW_PER_DAY : REVIEW_PER_DAY;
+    let placed = 0;
+    for (const c of reviewRanked) {
+      if (placed >= cap) break;
+      if ((used.get(dk) ?? 0) + REVISION_MIN > dailyBudget) break;
+      const intro = introByCase.get(c.id) ?? start;
+      if (intro > d) continue;                       // pas encore découvert ce jour-là
+      const li = lastReviewIdx.get(c.id);
+      if (li != null && idx - li < MIN_REVISIT_GAP) continue; // espacement mini respecté
+      add(d, {
+        kind: 'revision', label: `Révision — ${c.name}`, estMin: REVISION_MIN,
+        caseId: c.id, specialty: c.specialty, id: `rev:${c.id}:${dk}`,
+        reason: isTaper ? 'Dernière ligne droite — rappel espacé' : 'Rappel actif espacé (courbe d’oubli)',
+        phase: isTaper ? 'taper' : 'consolidation',
+      });
+      lastReviewIdx.set(c.id, idx);
+      placed++;
+    }
+  });
+
+  // Examens à blanc : sur les tout derniers jours ouvrés, une simulation complète
+  // pour arriver rodé et serein (consolidation finale, pas de découverte).
+  for (const d of workingDays.slice(-Math.min(2, taperCount))) {
+    const dk = key(d);
+    if ((used.get(dk) ?? 0) + MOCK_MIN <= dailyBudget * 1.25) {
+      add(d, {
+        kind: 'revision', label: '🎯 Examen à blanc — simulation complète', estMin: MOCK_MIN,
+        id: `mock:${dk}`, reason: 'Répétition générale en conditions réelles',
+        phase: 'taper',
+      });
+    }
+  }
+
+  // Tâches ajoutées manuellement (révisions supplémentaires…).
+  for (const ex of adj.extras ?? []) {
+    if (!map.has(ex.date)) map.set(ex.date, []);
+    map.get(ex.date)!.push({
+      kind: ex.kind, label: ex.label,
+      estMin: ex.estMin ?? (ex.kind === 'simulation' ? SIM_MIN : ex.kind === 'fachwissen' ? FACHWISSEN_MIN : DRILL_MIN),
+      caseId: ex.caseId, specialty: ex.specialty, id: ex.id, manual: true,
+    });
   }
   return map;
 }
@@ -183,6 +301,42 @@ export function generateProgram(
   return days;
 }
 
+// ----------------------------------------------------------------------------
+// Stats par DISCIPLINE — rend visible le raisonnement adaptatif : couches faites,
+// score moyen, priorité. Alimente le panneau « Où le plan met l'accent ».
+// ----------------------------------------------------------------------------
+export interface DisciplineStat {
+  specialty: Specialty;
+  cases: number;
+  layersDone: number;
+  layersTotal: number;
+  attempted: number;      // nb de cas déjà tentés (avec un score)
+  avgScore: number | null;
+  priority: 'haute' | 'moyenne' | 'basse';
+}
+
+export function disciplineStats(config: ProgramConfig, cases: Case[], sims: Simulation[]): DisciplineStat[] {
+  const last = lastScoreByCase(sims);
+  const bySpec = new Map<Specialty, Case[]>();
+  for (const c of cases) {
+    const arr = bySpec.get(c.specialty) ?? [];
+    arr.push(c); bySpec.set(c.specialty, arr);
+  }
+  const out: DisciplineStat[] = [];
+  for (const [specialty, list] of bySpec) {
+    const layersDone = list.reduce((s, c) => s + effectiveDoneLayers(c, config), 0);
+    const scores = list.map((c) => last.get(c.id)).filter((v): v is number => v != null);
+    const avgScore = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+    const isPrio = config.prioritySpecialties.includes(specialty);
+    const weak = avgScore != null && avgScore < 60;
+    const priority: DisciplineStat['priority'] = isPrio || weak ? 'haute' : avgScore != null && avgScore >= 80 ? 'basse' : 'moyenne';
+    out.push({ specialty, cases: list.length, layersDone, layersTotal: list.length * 3, attempted: scores.length, avgScore, priority });
+  }
+  // Tri : priorité haute d'abord, puis moins avancées.
+  const rank = { haute: 0, moyenne: 1, basse: 2 };
+  return out.sort((a, b) => rank[a.priority] - rank[b.priority] || a.layersDone / a.layersTotal - b.layersDone / b.layersTotal);
+}
+
 export function programStats(
   config: ProgramConfig,
   data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[] },
@@ -199,7 +353,7 @@ export function programStats(
   const totalSpentMin = Math.round(
     data.sims.reduce((s, sim) => s + Object.values(sim.parts).reduce((t, p) => t + (p?.durationSec ?? 0), 0), 0) / 60,
   );
-  const backlogUnits = data.cases.reduce((s, c) => s + (3 - (c.layerProgress ?? 0)), 0);
+  const backlogUnits = data.cases.reduce((s, c) => s + (3 - effectiveDoneLayers(c, config)), 0);
 
   return {
     daysUntilExam,
