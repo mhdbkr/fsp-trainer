@@ -1,5 +1,6 @@
 // ============================================================================
-// Kommunikative Strategien (livre 2.4) — 6 situations de patient difficile.
+// Kommunikative Strategien — situations de patient difficile (manuel, chap.
+// stratégies de communication + anamnèses spécialisées).
 // `cue` = réplique déclenchable par le partenaire ; `parades` = réponses modèles.
 // Utilisées : (1) en simulation (répliques déclenchables des cas concernés),
 // (2) dans un guide dédié « Schwieriger Patient » avec mini-drill.
@@ -60,8 +61,8 @@ export const KOMMUNIKATIVE_STRATEGIEN: KommunikativeSituation[] = [
     situation: 'Le patient panique : « Ai-je un cancer ? »',
     cue: '„Habe ich Krebs? Sagen Sie es mir sofort!"',
     parades: [
-      'Unwahrscheinlich: „Wieso denken Sie gleich an das Schlimmste? Wir machen ein paar Untersuchungen, um sicher zu sein."',
-      'Ernst: „Ich bitte Sie um Geduld. Erst wenn alle Ergebnisse da sind, können wir eine klare Diagnose stellen."',
+      'Unwahrscheinlich: „Frau/Herr X, ich glaube nicht, dass das der Fall ist — machen Sie sich bitte nicht solche Gedanken."',
+      'Beruhigend: „Ich bitte Sie um ein bisschen Geduld, bis alle Ergebnisse da sind. Erst dann können wir die richtige Diagnose stellen. Wir besprechen dann alles gemeinsam."',
       'Unklar: „Ich bespreche den Fall mit dem Oberarzt und wir stimmen das weitere Vorgehen ab."',
     ],
   },
@@ -72,6 +73,45 @@ export const KOMMUNIKATIVE_STRATEGIEN: KommunikativeSituation[] = [
     parades: [
       'Wenn ich Ihnen die falschen Medikamente gebe, bringt das nichts Gutes. Ich muss Ihnen zuerst ein paar Fragen stellen.',
       'Um Ihre Situation zu erleichtern, bekommen Sie erst einmal etwas Sauerstoff. Ein Schmerzmittel darf ich erst nach den Fragen geben.',
+    ],
+  },
+  {
+    id: 'starke-schmerzen', title: 'Sehr starke Schmerzen', icon: 'pain',
+    situation: 'Le patient souffre fortement pendant l\'entretien (intensité ≥ 7-8/10).',
+    cue: '„Herr Doktor, ich halte die Schmerzen kaum aus!"',
+    parades: [
+      'Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?',
+      'Vorher muss ich kurz fragen: Gibt es Allergien oder Unverträglichkeiten gegenüber bestimmten Medikamenten?',
+      'Ich gebe Ihnen gleich etwas gegen die Schmerzen, und wir machen dann behutsam weiter.',
+    ],
+  },
+  {
+    id: 'gegen-aerztlichen-rat', title: 'Will gegen ärztlichen Rat gehen', icon: 'shield',
+    situation: 'Le patient refuse l\'hospitalisation (ou un traitement) et veut rentrer chez lui.',
+    cue: '„Ich bleibe auf keinen Fall hier. Ich will sofort nach Hause!"',
+    parades: [
+      'Ich verstehe Ihren Wunsch. Aber ich muss Sie über die Risiken aufklären, die bestehen, wenn Sie jetzt gehen: …',
+      'Wenn Sie die stationäre Aufnahme ablehnen, müssen Sie eine Entlassung gegen ärztlichen Rat unterschreiben. Die Risiken werden darauf notiert.',
+      'Bitte ergänzen Sie schriftlich: „Mir wurden die Risiken der gegen ärztlichen Rat vorzeitigen Entlassung erklärt, und ich habe sie verstanden" — und unterschreiben Sie am Ende.',
+    ],
+  },
+  {
+    id: 'zimmerwunsch', title: 'Infektionsverdacht & Zimmerwunsch', icon: 'virus',
+    situation: 'Suspicion de maladie contagieuse ; le patient accepte de rester mais supplie de partager la chambre (« avec un gentil patient »).',
+    cue: '„Okay, ich bleibe … Aber bitte, geben Sie mir ein Zimmer mit einem netten Patienten! Ich habe Angst allein."',
+    parades: [
+      'Zuerst müssen wir einige Untersuchungen durchführen. Erst danach wird entschieden, ob Sie allein oder mit einem anderen Patienten untergebracht werden.',
+      'Bei einer ansteckenden Erkrankung müssen wir Sie zu Ihrem Schutz und zum Schutz der anderen Patienten zunächst isolieren. Sie werden aber gut betreut sein.',
+    ],
+  },
+  {
+    id: 'suizidgedanken', title: 'Suizidgedanken geäußert', icon: 'alert',
+    situation: 'Le patient confirme des idées suicidaires (± un plan concret) — urgence psychiatrique.',
+    cue: '„Manchmal denke ich, es wäre besser, nicht mehr da zu sein …"',
+    parades: [
+      'Ruhig und direkt nachfragen: „Danke für Ihr Vertrauen. Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan?"',
+      'NOTFALL: Der Patient bleibt stationär. Rücksprache mit dem Oberarzt — nach der Anamnese (anders als bei Herzinfarkt, Lungenembolie oder GI-Blutung).',
+      '„Sie sind hier in Sicherheit. Wir kümmern uns um Sie, und Sie bekommen psychologische Unterstützung."',
     ],
   },
 ];

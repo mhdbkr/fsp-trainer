@@ -16,7 +16,10 @@ export function GuidedText({ text, keywords }: { text: string; keywords?: string
     if (!keywords?.length) return [{ t: text, kw: false }];
     const valid = keywords.filter((k) => k && k.length >= 2).map(escapeRe);
     if (!valid.length) return [{ t: text, kw: false }];
-    const re = new RegExp(`(${valid.join('|')})`, 'gi');
+    // Correspondance sur MOTS ENTIERS uniquement (lettres allemandes incluses) :
+    // évite les surlignages parasites au milieu d'un mot (« Ort » dans « sofort »).
+    const L = 'A-Za-zÄÖÜäöüß';
+    const re = new RegExp(`(?<![${L}])(${valid.join('|')})(?![${L}])`, 'gi');
     const out: { t: string; kw: boolean }[] = [];
     let last = 0;
     let m: RegExpExecArray | null;

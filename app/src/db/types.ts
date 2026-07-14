@@ -25,6 +25,8 @@ export type Specialty =
   | 'Psychiatrie'
   | 'Infektiologie'
   | 'Dermatologie'
+  | 'Gynäkologie'
+  | 'Onkologie'
   | 'Anatomie'
   | 'Allgemein';
 
@@ -65,6 +67,7 @@ export interface PatientSheet {
   personalia: {
     name: string;
     age: number;
+    geschlecht?: 'm' | 'w'; // pilote l'inclusion de la Frauenanamnese
     geburtsdatum?: string;
     groesseCm?: number;
     gewichtKg?: number;
@@ -93,12 +96,29 @@ export interface PatientSheet {
   noxen: { tabak?: string; alkohol?: string; drogen?: string };
   familienanamnese: string[];
   sozialanamnese: string[];
-  /** Réponses type à des questions d'anamnèse précises — aide le partenaire à
-   *  improviser de façon cohérente ("Wie ist der Stuhl?" → "teerschwarz"). */
-  frageAntworten: { frage: string; antwort: string }[];
+  /** SCHÉMA DE COUVERTURE — réponses du patient aux sondes canoniques du guide
+   *  d'anamnèse (data/guides/anamneseProbes.ts), sous forme `probeId → réplique`.
+   *  Le Rollenskript retrouve la question et le chapitre via la sonde ; la
+   *  couverture est ainsi structurelle (le validateur refuse tout trou). En
+   *  PHASE 2, importer un cas = remplir cette carte pour toutes ses sondes. */
+  antworten?: Record<string, string>;
+  /** Répliques ad-hoc HORS checklist canonique (rare). `kapitel` force le
+   *  chapitre ; sinon classées par mots-clés (voir lib/rolePlay.ts). Conservé
+   *  pour rétrocompatibilité et cas particuliers. */
+  frageAntworten?: { frage: string; antwort: string; kapitel?: RolePlayKapitel }[];
   /** Répliques "patient difficile" que le partenaire peut déclencher. */
   schwierigeReaktionen?: string[];
+  /** Consigne de jeu (FR, 2-3 lignes) : qui tu es, ton humeur, ce que tu
+   *  minimises / ne dis que sur relance — l'âme du personnage. */
+  persona?: string;
 }
+
+/** Chapitres du Rollenskript (fiche de rôle jouable) — alignés sur le guide
+ *  d'anamnèse du candidat pour que le partenaire suive le même fil.
+ *  'fach' = réponses aux questions de la Fachanamnese de la spécialité. */
+export type RolePlayKapitel =
+  | 'personalia' | 'aktuell' | 'fach' | 'vegetativ' | 'vorerkrankungen'
+  | 'medikamente' | 'allergien' | 'noxen' | 'familie-sozial' | 'frauenanamnese';
 
 // ----------------------------------------------------------------------------
 // Vue médecin (ce que le candidat doit découvrir / viser)
@@ -225,7 +245,7 @@ export interface AufklaerungItem {
 // Guides & templates
 // ----------------------------------------------------------------------------
 export type GuideType =
-  | 'anamnese' | 'arztbrief' | 'fallvorstellung' | 'kommunikation' | 'spezialguide';
+  | 'anamnese' | 'arztbrief' | 'fallvorstellung' | 'kommunikation' | 'spezialguide' | 'grammatik';
 
 export interface GuideSection {
   id: string;
@@ -352,6 +372,28 @@ export interface ProgramConfig {
   prioritySpecialties: Specialty[];
   selfLevel: Partial<Record<Axis, number>>; // auto-éval 0..100 par axe
   createdAt: number;
+  /** Ajustements manuels de l'utilisateur — le planificateur re-raisonne avec. */
+  adjust?: ProgramAdjust;
+}
+
+/** Interventions manuelles sur le plan, prises en compte à chaque recalcul :
+ *  marquer une couche faite, reporter un cas, ajouter/retirer des tâches. */
+export interface ProgramAdjust {
+  doneLayers?: Record<string, number>;  // caseId → nb de couches validées à la main
+  postpone?: Record<string, number>;    // caseId → jours ouvrés de report (couche suivante)
+  skipDrillDates?: string[];            // dates ISO où le drill du jour est annulé
+  extras?: ExtraTask[];                 // révisions/tâches ajoutées manuellement
+}
+
+/** Tâche ajoutée à la main sur une date précise (révision supplémentaire…). */
+export interface ExtraTask {
+  id: string;
+  date: string;                         // ISO yyyy-MM-dd
+  kind: ProgramBlockKind;
+  label: string;
+  caseId?: string;
+  specialty?: Specialty;
+  estMin?: number;
 }
 
 export type ProgramBlockKind = 'simulation' | 'drill' | 'fachwissen' | 'aufklaerung' | 'revision';
@@ -365,6 +407,10 @@ export interface ProgramBlock {
   assistance?: AssistanceMode;    // mode conseillé (couche 1 = assisté)
   axis?: Axis;
   specialty?: Specialty;
+  id?: string;                    // identifiant stable (actions manuelles)
+  manual?: boolean;               // tâche ajoutée à la main (retirable)
+  reason?: string;                // micro-justification affichée (transparence du plan)
+  phase?: 'discovery' | 'consolidation' | 'taper'; // phase du plan (bandeau calendrier)
 }
 
 export interface ProgramDay {
