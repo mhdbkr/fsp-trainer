@@ -6,7 +6,7 @@ import { useCase } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
 import { useTimer, fmt } from './useTimer';
-import { GuidePanel } from './GuidePanel';
+import { Portal } from '@/components/Portal';
 import { PartEvaluation } from './PartEvaluation';
 import { partScore, weightedPartScore } from '@/lib/scoring';
 import { AnamneseGuide } from './AnamneseGuide';
@@ -111,9 +111,9 @@ export function SimulationRunner() {
   const doneCount = Object.values(results).filter((p) => p?.done).length;
 
   return (
-    <div className="pr-12">
-      {/* Barre supérieure : progression + chrono */}
-      <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-slate-200 bg-slate-50/90 px-4 py-3 backdrop-blur md:-mx-8 md:px-8 dark:border-slate-800 dark:bg-slate-950/90">
+    <div>
+      {/* Barre supérieure : capsule flottante à l'identité (arrondie, translucide) */}
+      <div className="sticky top-12 z-20 mb-4 rounded-2xl border border-slate-200/70 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-md dark:border-ink-600/70 dark:bg-ink-800/80">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <div>
@@ -190,26 +190,26 @@ export function SimulationRunner() {
         />
       )}
 
-      {/* Modale QR — fiche patient 2ᵉ écran */}
+      {/* Modale QR — fiche patient 2ᵉ écran (Portal : couvre TOUT le viewport) */}
       {showQr && (
-        <div className="fixed inset-0 z-[55] flex items-center justify-center bg-slate-900/50 p-4" onClick={() => setShowQr(false)}>
-          <div className="card max-w-sm p-6 text-center" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-1.5 text-brand-600 dark:text-brand-300"><Icon name="mask" className="h-6 w-6" /><Icon name="phone" className="h-6 w-6" /></div>
-            <h3 className="mt-2 font-bold">Fiche patient sur le smartphone</h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le partenaire scanne ce code pour ouvrir la fiche de rôle du patient sur son téléphone.</p>
-            <div className="my-4 flex justify-center"><QrCode value={patientUrl(c.id)} size={180} /></div>
-            <code className="block break-all rounded bg-slate-100 px-2 py-1 text-[10px] text-slate-500 dark:bg-slate-800">{patientUrl(c.id)}</code>
-            <p className="mt-2 text-[11px] text-slate-400">
-              {patientUrlIsOnline()
-                ? 'QR = app en ligne (téléphone). Sur CET appareil, utilise plutôt la 2ᵉ fenêtre : suivi live du cas et du chapitre.'
-                : 'Sur le même appareil, ouvre ce lien dans une 2ᵉ fenêtre pour le suivi en direct.'}
-            </p>
-            <div className="mt-3 flex gap-2">
-              <a href={localPatientUrl(c.id)} target="_blank" rel="noreferrer" className="btn-primary flex-1 justify-center text-xs">Ouvrir en 2ᵉ fenêtre</a>
-              <button onClick={() => setShowQr(false)} className="btn-outline flex-1 justify-center text-xs">Fermer</button>
+        <Portal>
+          <div className="fixed inset-0 z-[75] flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm" onClick={() => setShowQr(false)}>
+            <div className="reveal card max-w-sm p-6 text-center" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-center gap-1.5 text-brand-600 dark:text-brand-300"><Icon name="mask" className="h-6 w-6" /><Icon name="phone" className="h-6 w-6" /></div>
+              <h3 className="mt-2 font-display font-bold tracking-tightish">Fiche patient sur le smartphone</h3>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le partenaire scanne ce code pour ouvrir la fiche de rôle du patient sur son téléphone.</p>
+              <div className="my-4 flex justify-center"><QrCode value={patientUrl(c.id)} size={180} /></div>
+              <code className="block break-all rounded bg-slate-100 px-2 py-1 font-mono text-[10px] text-slate-500 dark:bg-slate-800">{patientUrl(c.id)}</code>
+              {patientUrlIsOnline() && (
+                <p className="callout callout-warn mt-2 text-left text-[11px]"><Icon name="alert" className="mt-0.5 h-3 w-3 shrink-0" />Le QR ouvre la version EN LIGNE de l'app : elle peut être en retard sur ta version locale tant qu'elle n'a pas été republiée. Sur cet appareil, préfère la 2ᵉ fenêtre (contenu à jour + suivi live).</p>
+              )}
+              <div className="mt-3 flex gap-2">
+                <a href={localPatientUrl(c.id)} target="_blank" rel="noreferrer" className="btn-primary flex-1 justify-center gap-1.5 text-xs"><Icon name="external" className="h-3.5 w-3.5" />Ouvrir en 2ᵉ fenêtre</a>
+                <button onClick={() => setShowQr(false)} className="btn-outline flex-1 justify-center text-xs">Fermer</button>
+              </div>
             </div>
           </div>
-        </div>
+        </Portal>
       )}
 
       {/* Fin de simulation */}
@@ -219,7 +219,6 @@ export function SimulationRunner() {
         </div>
       )}
 
-      <GuidePanel part={aufklaerungOpen ? 'aufklaerung' : active} c={c} />
     </div>
   );
 }
@@ -276,7 +275,7 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen }: {
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex items-center justify-between">
             <div className="label">Guide de questions {assistance === 'autonome' && <span className="text-[10px] text-violet-500">(Autonome : en tête)</span>}</div>
-            <button onClick={() => setImmersive(true)} className="btn-outline text-xs"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
+            <button onClick={() => setImmersive(true)} className="btn gap-1.5 bg-slate-900 text-xs font-semibold text-white shadow-md hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
           </div>
           <AnamneseGuide c={c} assistance={assistance} />
         </div>
@@ -295,7 +294,7 @@ function AufklaerungArea({ c }: { c: Case }) {
         <div className="label">Aufklärung à la demande</div>
       </div>
       <p className="text-sm text-slate-500 dark:text-slate-400">
-        Le jury t'interrompt : « Klären Sie den Patienten auf. » Déroule le panneau <Icon name="nav-book" className="inline-block h-3.5 w-3.5 align-[-2px]" /> à droite pour la trame (7 blocs). Explique à voix haute, gère les questions, puis évalue-toi.
+        Le jury t'interrompt : « Klären Sie den Patienten auf. » Suis la trame en 7 blocs — ouvre l'acte concerné ci-dessous, explique à voix haute, gère les questions, puis évalue-toi.
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
         {c.probableAufklaerungIds.map((id) => (

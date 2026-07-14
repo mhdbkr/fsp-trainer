@@ -23,15 +23,9 @@ const INTENSITY_FACTOR: Record<ProgramConfig['intensity'], number> = { leicht: 0
 const SIM_MIN = 40;
 const FACHWISSEN_MIN = 15;
 const DRILL_MIN = 15;
-const REVISION_MIN = 20;      // rappel actif espacé d'un cas déjà découvert
 const MOCK_MIN = 60;          // examen à blanc (simulation complète) en fin de parcours
 // Intervalle (jours ouvrés) avant la couche suivante d'un même cas.
 const LAYER_GAP: Record<Layer, number> = { 1: 0, 2: 2, 3: 4 };
-// Révision espacée post-découverte : au moins N jours ouvrés entre deux rappels
-// du même cas (courbe d'oubli), plafond de rappels par jour (plus dense en taper).
-const MIN_REVISIT_GAP = 3;
-const REVIEW_PER_DAY = 1;
-const TAPER_REVIEW_PER_DAY = 2;
 /** Longueur de la « dernière ligne droite » (taper) en jours ouvrés. */
 function taperLen(totalWorkingDays: number): number {
   return Math.max(3, Math.min(8, Math.round(totalWorkingDays * 0.15)));
@@ -142,9 +136,6 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
   let introDay = nextWorkingDay(start, config);
   let introCount = 0;
   const INTRO_PER_DAY = 2;
-  // Date de « découverte » (couche 1) de chaque cas — un cas ne peut être révisé
-  // qu'une fois découvert. Les cas déjà avancés sont réputés découverts au départ.
-  const introByCase = new Map<string, Date>();
 
   const LAYER_REASON: Record<Layer, string> = {
     1: 'Découverte · assisté — première rencontre du cas',
@@ -154,7 +145,6 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
 
   for (const c of ranked) {
     const doneLayers = effectiveDoneLayers(c, config);
-    if (doneLayers >= 1) introByCase.set(c.id, start);
     // Jour d'introduction de la 1re couche restante.
     if (introCount >= INTRO_PER_DAY) { introDay = nextWorkingDay(addDays(introDay, 1), config); introCount = 0; }
     let anchor = doneLayers === 0 ? introDay : nextWorkingDay(start, config);
@@ -168,7 +158,6 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
       const desired = addDays(anchor, LAYER_GAP[layer]);
       const day = placeFrom(desired, SIM_MIN);
       if (day > end) break;
-      if (layer === 1) introByCase.set(c.id, day);
       add(day, {
         kind: 'simulation',
         label: `${c.name} — Couche ${layer}`,
@@ -196,52 +185,19 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
   }
 
   // --------------------------------------------------------------------------
-  // Remplissage par RÉVISION ESPACÉE : une fois un cas découvert, il revient en
-  // rappel actif (courbe d'oubli) sur les jours ouvrés où il reste du budget.
-  // Cela empêche le plan de « s'arrêter » après la phase de découverte : la suite
-  // du parcours reste substantielle jusqu'à l'examen. La densité augmente dans la
-  // dernière ligne droite (taper), qui se conclut par des examens à blanc.
+  // Dernière ligne droite (taper) : PAS de révisions auto par cas — seules les
+  // révisions AJOUTÉES PAR L'UTILISATEUR comptent. Le plan conclut simplement
+  // par des examens à blanc pour arriver rodé et serein le jour J.
   // --------------------------------------------------------------------------
   const workingDays: Date[] = [];
   for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) if (isWorkingDay(d, config)) workingDays.push(d);
   const taperCount = taperLen(workingDays.length);
-  const taperKeys = new Set(workingDays.slice(-taperCount).map(key));
 
-  const reviewRanked = [...cases].sort((a, b) =>
-    casePriority(b, last.get(b.id) ?? null, config.prioritySpecialties, spWeak.get(b.specialty) ?? 0)
-    - casePriority(a, last.get(a.id) ?? null, config.prioritySpecialties, spWeak.get(a.specialty) ?? 0));
-  const lastReviewIdx = new Map<string, number>();
-
-  workingDays.forEach((d, idx) => {
-    const dk = key(d);
-    const isTaper = taperKeys.has(dk);
-    const cap = isTaper ? TAPER_REVIEW_PER_DAY : REVIEW_PER_DAY;
-    let placed = 0;
-    for (const c of reviewRanked) {
-      if (placed >= cap) break;
-      if ((used.get(dk) ?? 0) + REVISION_MIN > dailyBudget) break;
-      const intro = introByCase.get(c.id) ?? start;
-      if (intro > d) continue;                       // pas encore découvert ce jour-là
-      const li = lastReviewIdx.get(c.id);
-      if (li != null && idx - li < MIN_REVISIT_GAP) continue; // espacement mini respecté
-      add(d, {
-        kind: 'revision', label: `Révision — ${c.name}`, estMin: REVISION_MIN,
-        caseId: c.id, specialty: c.specialty, id: `rev:${c.id}:${dk}`,
-        reason: isTaper ? 'Dernière ligne droite — rappel espacé' : 'Rappel actif espacé (courbe d’oubli)',
-        phase: isTaper ? 'taper' : 'consolidation',
-      });
-      lastReviewIdx.set(c.id, idx);
-      placed++;
-    }
-  });
-
-  // Examens à blanc : sur les tout derniers jours ouvrés, une simulation complète
-  // pour arriver rodé et serein (consolidation finale, pas de découverte).
   for (const d of workingDays.slice(-Math.min(2, taperCount))) {
     const dk = key(d);
     if ((used.get(dk) ?? 0) + MOCK_MIN <= dailyBudget * 1.25) {
       add(d, {
-        kind: 'revision', label: '🎯 Examen à blanc — simulation complète', estMin: MOCK_MIN,
+        kind: 'revision', label: 'Examen à blanc — simulation complète', estMin: MOCK_MIN,
         id: `mock:${dk}`, reason: 'Répétition générale en conditions réelles',
         phase: 'taper',
       });

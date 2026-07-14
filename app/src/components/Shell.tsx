@@ -3,7 +3,6 @@ import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { GlossaryDrawer } from './GlossaryDrawer';
-import { ReflexMemo } from './ReflexMemo';
 import { Doctopus } from './Doctopus';
 import { ResumeSessionBar } from './ResumeSessionBar';
 import { SelectionExplainer } from './SelectionExplainer';
@@ -105,8 +104,6 @@ export function Shell() {
       <CommandPalette />
       {/* Panneau glossaire global */}
       <GlossaryDrawer />
-      {/* Mémo de réflexes d'examen (flottant, partout) */}
-      <ReflexMemo />
       {/* Doctopus — assistant IA (flottant, partout) */}
       <Doctopus />
       {/* Quick-search : bulle d'explication sur sélection de texte */}

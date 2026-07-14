@@ -13,7 +13,7 @@ import { ProgramSetup } from './ProgramSetup';
 import { Icon } from '@/components/icons';
 import { EmptyState } from '@/components/ui';
 
-const BLOCK_META: Record<ProgramBlock['kind'], { icon: string; badge: string; bar: string; label: string }> = {
+export const BLOCK_META: Record<ProgramBlock['kind'], { icon: string; badge: string; bar: string; label: string }> = {
   simulation: { icon: 'stethoscope', badge: 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300', bar: 'bg-brand-500', label: 'Simulation' },
   drill: { icon: 'id', badge: 'bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-300', bar: 'bg-sky-400', label: 'Drill' },
   fachwissen: { icon: 'brain', badge: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-300', bar: 'bg-violet-400', label: 'Fachwissen' },
@@ -320,7 +320,7 @@ function Legend() {
   );
 }
 
-function AddRevision({ cases, onAdd, onCancel }: { cases: Case[]; onAdd: (c: Case) => void; onCancel: () => void }) {
+export function AddRevision({ cases, onAdd, onCancel }: { cases: Case[]; onAdd: (c: Case) => void; onCancel: () => void }) {
   const [q, setQ] = useState('');
   const list = cases.filter((c) => c.name.toLowerCase().includes(q.toLowerCase())).slice(0, 6);
   return (
@@ -343,9 +343,9 @@ function AddRevision({ cases, onAdd, onCancel }: { cases: Case[]; onAdd: (c: Cas
   );
 }
 
-function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: string; config: ProgramConfig; onPick: (d: string) => void }) {
+export function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: string; config: ProgramConfig; onPick: (d: string) => void }) {
   const meta = BLOCK_META[b.kind];
-  const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? '/fachbegriffe/drill' : b.caseId ? `/cas/${b.caseId}` : '/cas';
+  const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? '/fachbegriffe/drill' : b.caseId ? `/cas/${b.caseId}` : '/simulation';
   const cta = b.kind === 'simulation' ? 'Lancer' : b.kind === 'drill' ? 'Réviser' : 'Ouvrir';
   const doneNextDay = (days: number) => { if (b.caseId) postponeCase(config, b.caseId, days); onPick(format(addDays(parseISO(date), days), 'yyyy-MM-dd')); };
 
@@ -378,7 +378,7 @@ function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: string; 
           <ActionBtn icon="✕" label="Retirer" tone="rose" onClick={() => removeExtra(config, b.id!)} title="Retirer cette tâche ajoutée" />
         )}
         {b.kind === 'revision' && !b.manual && (
-          <span className="text-[11px] text-slate-400">Rappel espacé — renforce la mémoire</span>
+          <span className="text-[11px] text-slate-400">Répétition générale — conditions réelles</span>
         )}
         {b.kind === 'fachwissen' && (
           <span className="text-[11px] text-slate-400">Théorie liée au cas</span>

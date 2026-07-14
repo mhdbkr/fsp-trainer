@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
+import { Portal } from '@/components/Portal';
 
 // ============================================================================
 // Onboarding du Programme de révision — dialogue illustré collectant les
@@ -53,7 +54,8 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
   };
 
   return (
-    <div className="fixed inset-0 z-[55] flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={initial ? 'Ajuster le programme' : 'Créer le programme'}>
+    <Portal>
+    <div className="fixed inset-0 z-[75] flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={initial ? 'Ajuster le programme' : 'Créer le programme'}>
       {/* Dialog structuré : en-tête compact / corps scrollable en grille / pied fixe.
           → proportions maîtrisées quelle que soit la hauteur d'écran. */}
       <div className="reveal flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-ink-600 dark:bg-ink-800">
@@ -150,6 +152,7 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
         </div>
       </div>
     </div>
+    </Portal>
   );
 }
 

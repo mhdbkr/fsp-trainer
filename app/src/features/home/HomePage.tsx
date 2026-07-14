@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useCases, useFachbegriffe, useSimulations, usePlan, useProgramConfig } from '@/hooks/useData';
+import { useCases, useFachbegriffe, useSimulations, useProgramConfig } from '@/hooks/useData';
+import { BLOCK_META } from '@/features/program/ProgramPage';
 import { useUi } from '@/store/ui';
 import { AXES, type Axis, type Case } from '@/db/types';
 import { axisScoresFull, dueCount, computeStreak, weakCases, weakestAxis } from '@/lib/stats';
@@ -21,12 +22,11 @@ export function HomePage() {
   const cases = useCases();
   const begriffe = useFachbegriffe();
   const sims = useSimulations();
-  const plan = usePlan();
   const programConfig = useProgramConfig();
   const targetCenter = useUi((s) => s.targetCenter);
   const navigate = useNavigate();
 
-  if (!cases || !begriffe || !sims || !plan || programConfig === undefined) return <Loading />;
+  if (!cases || !begriffe || !sims || programConfig === undefined) return <Loading />;
 
   // Programme du jour (si configuré) → pilote « À faire aujourd'hui ».
   const programToday = programConfig
@@ -39,9 +39,6 @@ export function HomePage() {
   const scores = axisScoresFull(sims, begriffe, cases);
   const weak = weakestAxis(scores);
   const weakList = weakCases(sims, cases);
-  const today = format(new Date(), 'yyyy-MM-dd');
-  const todayEntries = plan.filter((p) => p.date === today);
-  const weekEntries = plan.filter((p) => p.date >= today).slice(0, 6);
 
   const session = pickSessionCase(cases, sims, begriffe, targetCenter);
   const readiness = computeReadiness(sims, cases, begriffe);
@@ -106,18 +103,18 @@ export function HomePage() {
           <section className="card p-5">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="font-semibold">À faire aujourd'hui</h3>
-              {programConfig
-                ? <Link to="/programme" className="text-xs text-brand-600 hover:underline dark:text-brand-300">Programme →</Link>
-                : todayEntries.length > 0 && <span className="text-xs text-slate-400">{todayEntries.filter((e) => e.done).length}/{todayEntries.length}</span>}
+              {programConfig && <Link to="/programme" className="text-xs text-brand-600 hover:underline dark:text-brand-300">Programme →</Link>}
             </div>
             {programConfig ? (
               programToday && programToday.blocks.length > 0 ? (
                 <ul className="space-y-2">
                   {programToday.blocks.map((b, i) => {
-                    const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? '/fachbegriffe/drill' : b.caseId ? `/cas/${b.caseId}` : '/cas';
+                    const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? '/fachbegriffe/drill' : b.caseId ? `/cas/${b.caseId}` : '/simulation';
+                    const meta = BLOCK_META[b.kind];
                     return (
                       <li key={i} className="flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-800">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name={b.kind === 'drill' ? 'id' : b.kind === 'fachwissen' ? 'brain' : 'stethoscope'} className="h-4 w-4" /></span>
+                        {/* Icône COLORÉE PAR TYPE — même code couleur que le module Programme */}
+                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${meta.badge}`}><Icon name={meta.icon} className="h-4 w-4" /></span>
                         <span className="flex-1">
                           <span className="block text-sm font-medium">{b.label}</span>
                           <span className="text-[11px] text-slate-400">{b.estMin} min{b.layer ? ` · Couche ${b.layer}` : ''}</span>
@@ -140,7 +137,7 @@ export function HomePage() {
             )}
           </section>
 
-          <WeekCalendar plan={weekEntries} />
+          <WeekCalendar config={programConfig} cases={cases} sims={sims} begriffe={begriffe} />
 
           {/* Heatmap système × axe */}
           <section className="card p-5">

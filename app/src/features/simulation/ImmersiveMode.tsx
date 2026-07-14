@@ -4,6 +4,7 @@ import { ALLGEMEINE_ANAMNESE, getFachanamnese } from '@/data/guides/anamneseChap
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { phraseAlts, phraseFollowUp, phraseLabel, phraseText, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
+import { Portal } from '@/components/Portal';
 import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
@@ -99,8 +100,11 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ci, ii, chapters]);
 
+  // Portal → <body> : couvre TOUT le viewport (sidebar, topbar, boutons flottants
+  // inclus) quel que soit l'ancêtre transformé ; z-[80] au-dessus de tout le chrome.
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col bg-slate-950 text-slate-100">
+    <Portal>
+    <div className="fixed inset-0 z-[80] flex flex-col bg-slate-950 text-slate-100">
       {/* En-tête : progression des chapitres */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex flex-wrap gap-1.5">
@@ -189,5 +193,6 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
         </button>
       </div>
     </div>
+    </Portal>
   );
 }

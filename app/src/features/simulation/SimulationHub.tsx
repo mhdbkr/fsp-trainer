@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCases, useSimulations } from '@/hooks/useData';
 import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
+import { Icon } from '@/components/icons';
 import { partScore } from '@/lib/scoring';
 
 export function SimulationHub() {
@@ -30,7 +31,7 @@ export function SimulationHub() {
                 <FreqBadge n={c.frequency} />
                 {c.centers.slice(0, 2).map((ct) => <CenterBadge key={ct} center={ct} />)}
               </div>
-              <Link to={`/simulation/${c.id}/pre`} className="btn-primary mt-3 w-full justify-center text-xs">▶ Pré-simulation</Link>
+              <Link to={`/simulation/${c.id}/pre`} className="btn-primary mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</Link>
             </div>
           ))}
         </div>

@@ -77,7 +77,9 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
 
 function RolesCard({ caseId, role, setRole }: { caseId: string; role: 'Candidat' | 'Partenaire'; setRole: (r: 'Candidat' | 'Partenaire') => void }) {
   const [showQr, setShowQr] = useState(false);
+  const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId);
+  const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
   return (
     <div className="card p-4">
       <div className="label mb-2">Répartition des rôles</div>
@@ -116,10 +118,12 @@ function RolesCard({ caseId, role, setRole }: { caseId: string; role: 'Candidat'
               Le simulant lit ses fiches (patient + médecin senior) et suit ta simulation en direct.
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-2 sm:justify-start">
-              <a href={localPatientUrl(caseId)} target="_blank" rel="noreferrer" className="btn-primary text-xs">Ouvrir dans une 2ᵉ fenêtre</a>
-              <button onClick={() => navigator.clipboard?.writeText(url)} className="btn-outline text-xs">Copier le lien (téléphone)</button>
+              <a href={localPatientUrl(caseId)} target="_blank" rel="noreferrer" className="btn-primary gap-1.5 text-xs">Ouvrir<Icon name="external" className="h-3.5 w-3.5" /></a>
+              <button onClick={copyUrl} title="Copier le lien (téléphone)" aria-label="Copier le lien pour téléphone"
+                className={`btn-outline px-2.5 text-xs ${copied ? 'border-emerald-300 text-emerald-600 dark:text-emerald-400' : ''}`}>
+                <Icon name={copied ? 'check' : 'copy'} className="h-3.5 w-3.5" />
+              </button>
             </div>
-            <p className="mt-1.5 text-[10px] text-slate-400">2ᵉ fenêtre (même appareil) : suit le cas ET le chapitre en direct. QR/lien : pour un téléphone, via l'app en ligne.</p>
           </div>
         </div>
       )}

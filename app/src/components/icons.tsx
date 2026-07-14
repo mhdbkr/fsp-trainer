@@ -80,6 +80,8 @@ const P: Record<string, React.ReactNode> = {
   target2: <><circle cx="12" cy="12" r="8" /><path d="M12 8v8M8 12h8" /></>,
   search: <><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></>,
   user: <><circle cx="12" cy="8" r="4" /><path d="M4.5 20c0-4 3.4-6 7.5-6s7.5 2 7.5 6" /></>,
+  external: <><path d="M14 4h6v6M20 4l-9 9" /><path d="M19 13.5V19a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5.5" /></>,
+  copy: <><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></>,
 };
 
 export function Icon({ name, className = 'h-5 w-5', title }: { name: string; className?: string; title?: string }) {

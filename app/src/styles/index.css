@@ -146,6 +146,11 @@ h1, h2, h3 {
   .kbd { @apply inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1 font-mono text-[10px] leading-4 text-slate-500 dark:border-ink-600 dark:bg-ink-700 dark:text-slate-300; }
 }
 
+/* NOTE ARCHITECTURE : `.reveal` anime `transform`, ce qui fait du wrapper de
+   page un containing block pour ses descendants `position: fixed`. Tout
+   overlay plein écran rendu DANS une page (modale QR, Mode focus, modale
+   Programme…) doit donc passer par <Portal> (components/Portal.tsx) qui le
+   téléporte vers <body> — jamais un `fixed` nu à l'intérieur d'une page. */
 @keyframes reveal-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 @layer utilities {
@@ -154,8 +159,8 @@ h1, h2, h3 {
   .tnum { font-variant-numeric: tabular-nums; }
 
   /* Révélation douce à l'arrivée (respecte prefers-reduced-motion via la règle globale). */
-  .reveal { animation: reveal-up 0.4s var(--ease-out) both; }
-  .stagger > * { animation: reveal-up 0.45s var(--ease-out) both; }
+  .reveal { animation: reveal-up 0.25s var(--ease-out) both; }
+  .stagger > * { animation: reveal-up 0.3s var(--ease-out) both; }
   .stagger > *:nth-child(1) { animation-delay: 0.02s; }
   .stagger > *:nth-child(2) { animation-delay: 0.06s; }
   .stagger > *:nth-child(3) { animation-delay: 0.10s; }
