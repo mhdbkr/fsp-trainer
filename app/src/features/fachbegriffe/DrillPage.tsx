@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '@/db/db';
+import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import type { Fachbegriff } from '@/db/types';
 import { reviewSrs, isDue, type Grade } from '@/lib/srs';
@@ -47,7 +48,7 @@ export function DrillPage() {
       <div className="mx-auto max-w-xl space-y-5 text-center">
         <h1 className="text-2xl font-bold">Drill Fachbegriffe</h1>
         <div className="card p-6">
-          <div className="text-4xl">🔤</div>
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-abc" className="h-8 w-8" /></div>
           <p className="mt-2 text-slate-500 dark:text-slate-400">
             {queue.length} cartes prêtes{prioritySpecialty ? ` · priorité ${prioritySpecialty}` : ''}.
             Répétition espacée (SM-2), cartes bidirectionnelles.
@@ -60,9 +61,9 @@ export function DrillPage() {
             </div>
           </div>
           {queue.length === 0 ? (
-            <p className="mt-4 text-emerald-600 dark:text-emerald-400">✅ Rien à réviser pour l'instant. Reviens plus tard !</p>
+            <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser pour l'instant. Reviens plus tard !</p>
           ) : (
-            <button onClick={start} className="btn-primary mt-5 px-8 py-3 text-base">Commencer ▶</button>
+            <button onClick={start} className="btn-primary mt-5 gap-1.5 px-8 py-3 text-base"><Icon name="play" className="h-4 w-4" />Commencer</button>
           )}
         </div>
         <Link to="/fachbegriffe" className="btn-ghost">← Glossaire</Link>
@@ -74,7 +75,7 @@ export function DrillPage() {
     return (
       <div className="mx-auto max-w-xl space-y-5 text-center">
         <div className="card p-8">
-          <div className="text-5xl">🎉</div>
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300"><Icon name="spark" className="h-8 w-8" /></div>
           <h1 className="mt-2 text-2xl font-bold">Session terminée</h1>
           <p className="text-slate-500 dark:text-slate-400">{stats.done} cartes revues · {stats.again} à retravailler</p>
           <div className="mt-5 flex justify-center gap-2">
@@ -112,19 +113,24 @@ export function DrillPage() {
         <div className="h-full bg-brand-500 transition-all" style={{ width: `${(idx / queue.length) * 100}%` }} />
       </div>
 
-      <div className="card min-h-[280px] p-8 text-center">
-        <div className="text-xs uppercase tracking-wide text-slate-400">{direction === 'term2simple' ? 'Fachbegriff' : 'Bedeutung'} · {card.specialty}</div>
-        <div className="mt-6 text-2xl font-bold">{front}</div>
-        {direction === 'term2simple' && card.pronunciation && <div className="mt-1 text-sm text-slate-400">/{card.pronunciation}/</div>}
-
-        {revealed ? (
-          <div className="mt-6 border-t border-slate-100 pt-6 dark:border-slate-800">
-            <div className="text-lg font-medium text-brand-700 dark:text-brand-300">{back}</div>
-            {card.definitionDetailed && <p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.definitionDetailed}</p>}
+      {/* Flashcard 3D — retournement rotateY : recto = question, verso = réponse.
+          Pédagogiquement juste (une carte se retourne) + « un peu de 3D » sobre. */}
+      <div className="[perspective:1200px]">
+        <div className={`relative h-[320px] transition-transform duration-500 [transform-style:preserve-3d] ${revealed ? '[transform:rotateY(180deg)]' : ''}`}>
+          {/* Recto */}
+          <div className="card absolute inset-0 flex flex-col items-center justify-center p-8 text-center [backface-visibility:hidden]">
+            <div className="label">{direction === 'term2simple' ? 'Fachbegriff' : 'Bedeutung'} · {card.specialty}</div>
+            <div className="mt-4 font-display text-2xl font-bold tracking-tightish">{front}</div>
+            {direction === 'term2simple' && card.pronunciation && <div className="mt-1 font-mono text-sm text-slate-400">/{card.pronunciation}/</div>}
+            <button onClick={() => setRevealed(true)} className="btn-outline mt-8">Révéler (Leertaste)</button>
           </div>
-        ) : (
-          <button onClick={() => setRevealed(true)} className="btn-outline mt-8">Révéler (Leertaste)</button>
-        )}
+          {/* Verso */}
+          <div className="card absolute inset-0 flex flex-col items-center justify-center overflow-y-auto p-8 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
+            <div className="label">{front}</div>
+            <div className="mt-3 text-xl font-semibold text-brand-700 dark:text-brand-300">{back}</div>
+            {card.definitionDetailed && <p className="mx-auto mt-3 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.definitionDetailed}</p>}
+          </div>
+        </div>
       </div>
 
       {revealed && (

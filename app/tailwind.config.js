@@ -5,24 +5,48 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Calm clinical palette. `brand` = teal/petrol (medical, calm),
-        // driven by CSS variables so dark mode swaps automatically.
+        // ── Identité « instrument clinique » ─────────────────────────────────
+        // brand = pétrole profond (calme médical, confiance ; évolution du teal
+        // vers plus de profondeur). Dark mode cohérent via la palette.
         brand: {
-          50: '#eefaf8', 100: '#d3f1ec', 200: '#a8e3da', 300: '#74cec2',
-          400: '#45b2a5', 500: '#2b9689', 600: '#217a70', 700: '#1f625b',
-          800: '#1e4f4a', 900: '#1c423f', 950: '#0b2523',
+          50: '#ecf7f4', 100: '#cfeae4', 200: '#a2d7cd', 300: '#6bbdb0',
+          400: '#379e8f', 500: '#158375', 600: '#0c6157', 700: '#0b4e46',
+          800: '#0d3f3a', 900: '#0e3530', 950: '#041e1b',
+        },
+        // signal = coral clinique — l'accent UNIQUE, employé avec parcimonie
+        // (pulse actif, wordmark, un point de bascule). Jamais du texte courant.
+        signal: {
+          50: '#fdf1ec', 100: '#fbdfd3', 200: '#f6bda7', 300: '#f09374',
+          400: '#e8613c', 500: '#d84a24', 600: '#bf3a19', 700: '#9e2d17',
+          800: '#80271a', 900: '#6a2418', 950: '#3a0f0a',
+        },
+        // Neutres d'identité : papier clinique (clair) & vert-encre (sombre).
+        paper: '#f4f5f2',
+        ink: {
+          DEFAULT: '#0c1a17', 800: '#12211e', 700: '#1b2f2b', 600: '#26403a',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        // Corps/UI — clarté d'ingénieur (IBM Plex Sans).
+        sans: ['"IBM Plex Sans Variable"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        // Display/wordmark — grotesque humaniste à caractère (Bricolage).
+        display: ['"Bricolage Grotesque Variable"', '"IBM Plex Sans Variable"', 'system-ui', 'sans-serif'],
+        // Signature — terminologie médicale & données en mono (IBM Plex Mono).
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
+      letterSpacing: {
+        tightish: '-0.014em',
       },
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(4px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         'slide-in': { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(0)' } },
+        // Battement d'instrument — la « pulse » de marque.
+        'pulse-line': { '0%,100%': { opacity: '0.35' }, '50%': { opacity: '1' } },
       },
       animation: {
         'fade-in': 'fade-in 0.2s ease-out',
         'slide-in': 'slide-in 0.25s cubic-bezier(0.16,1,0.3,1)',
+        'pulse-line': 'pulse-line 2.4s ease-in-out infinite',
       },
     },
   },

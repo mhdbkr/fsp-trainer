@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Icon } from '@/components/icons';
 import {
   format, startOfWeek, addDays, isSameDay, startOfMonth, endOfMonth,
   eachDayOfInterval, isSameMonth,
@@ -41,7 +42,7 @@ function DayEntries({ entries }: { entries: PlanEntry[] }) {
           className="block truncate rounded bg-brand-100 px-1 py-0.5 text-[10px] text-brand-700 hover:bg-brand-200 dark:bg-brand-900/40 dark:text-brand-200"
           title={e.label}
         >
-          {e.kind === 'drill' ? '🔤' : '🎬'} {e.label}
+          <Icon name={e.kind === 'drill' ? 'nav-abc' : 'nav-sim'} className="inline-block h-3.5 w-3.5 align-[-2px]" /> {e.label}
         </Link>
       ))}
     </div>

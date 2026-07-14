@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
+// Polices de marque auto-hébergées (offline-first) — identité typographique :
+// Bricolage Grotesque (display), IBM Plex Sans (corps), IBM Plex Mono (signature).
+import '@fontsource-variable/bricolage-grotesque/wght.css';
+import '@fontsource-variable/ibm-plex-sans/wght.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
 import { Shell } from '@/components/Shell';
 import { ensureSeeded } from '@/data/seed';

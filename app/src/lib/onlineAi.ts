@@ -1,4 +1,4 @@
-import { buildLlmPrompt } from './dictionary';
+import { buildLlmPrompt, buildBriefPrompt } from './dictionary';
 
 // ============================================================================
 // Doctopus — cerveau IA EN LIGNE, ultra-rapide, léger, gratuit (clé requise).
@@ -37,12 +37,11 @@ export function getProvider(): AiProvider {
 export function setProvider(id: string) { localStorage.setItem(PROVIDER_LS, id); }
 export function hasKey(): boolean { return getKey().length > 8; }
 
-/** Appelle l'IA en ligne (OpenAI-compatible). Renvoie le texte de réponse. */
-export async function askOnline(query: string): Promise<string> {
+// Appel générique à l'IA en ligne (OpenAI-compatible).
+async function chat(system: string, user: string, maxTokens: number): Promise<string> {
   const key = getKey();
   const provider = getProvider();
   if (!key) throw new Error('Aucune clé configurée.');
-  const { system, user } = buildLlmPrompt(query);
 
   const res = await fetch(provider.endpoint, {
     method: 'POST',
@@ -51,7 +50,7 @@ export async function askOnline(query: string): Promise<string> {
       model: provider.model,
       messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
       temperature: 0.3,
-      max_tokens: 700,
+      max_tokens: maxTokens,
     }),
   });
   if (!res.ok) {
@@ -60,4 +59,16 @@ export async function askOnline(query: string): Promise<string> {
   }
   const data = await res.json();
   return data?.choices?.[0]?.message?.content ?? '(réponse vide)';
+}
+
+/** Réponse complète de Doctopus (allemand puis français). */
+export async function askOnline(query: string): Promise<string> {
+  const { system, user } = buildLlmPrompt(query);
+  return chat(system, user, 800);
+}
+
+/** Glose ultra-brève pour le quick-search (bulle sur sélection). */
+export async function askBrief(term: string): Promise<string> {
+  const { system, user } = buildBriefPrompt(term);
+  return (await chat(system, user, 60)).trim();
 }

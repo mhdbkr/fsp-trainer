@@ -4,7 +4,7 @@ import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { MUSTER_BOGEN, MUSTER_CITIES } from '@/data/guides/musterBogen';
 import { QrCode } from '@/components/QrCode';
-import { patientUrl } from './usePatientSync';
+import { patientUrl, localPatientUrl } from './usePatientSync';
 
 // Réglage de simulation illustré : Mode (Assisté/Autonome) · Couche (1-3) ·
 // Muster-Bogen (5 villes) · Rôles + fiche du simulant (QR). Alimente le store.
@@ -98,11 +98,11 @@ function RolesCard({ caseId, role, setRole }: { caseId: string; role: 'Candidat'
         {/* Rôle simulant (patient + médecin senior) */}
         <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 dark:border-amber-900/40 dark:bg-amber-900/10">
           <div className="flex items-center gap-2 font-semibold text-amber-700 dark:text-amber-300">
-            🎭 Le simulant
+            <Icon name="mask" className="h-4 w-4" />Le simulant
           </div>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Joue le <b>patient</b> (anamnèse) puis le <b>médecin examinateur</b> (présentation), à partir des fiches de rôle.</p>
-          <button onClick={() => setShowQr((s) => !s)} className="btn-outline mt-2 w-full justify-center text-xs">
-            📱 {showQr ? 'Masquer' : 'Ouvrir les fiches du simulant'}
+          <button onClick={() => setShowQr((s) => !s)} className="btn-outline mt-2 w-full justify-center gap-1.5 text-xs">
+            <Icon name="phone" className="h-4 w-4" />{showQr ? 'Masquer' : 'Ouvrir les fiches du simulant'}
           </button>
         </div>
       </div>
@@ -116,10 +116,10 @@ function RolesCard({ caseId, role, setRole }: { caseId: string; role: 'Candidat'
               Le simulant lit ses fiches (patient + médecin senior) et suit ta simulation en direct.
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-2 sm:justify-start">
-              <a href={url} target="_blank" rel="noreferrer" className="btn-primary text-xs">Ouvrir dans une 2ᵉ fenêtre</a>
-              <button onClick={() => navigator.clipboard?.writeText(url)} className="btn-outline text-xs">Copier le lien</button>
+              <a href={localPatientUrl(caseId)} target="_blank" rel="noreferrer" className="btn-primary text-xs">Ouvrir dans une 2ᵉ fenêtre</a>
+              <button onClick={() => navigator.clipboard?.writeText(url)} className="btn-outline text-xs">Copier le lien (téléphone)</button>
             </div>
-            <p className="mt-1.5 text-[10px] text-slate-400">Astuce : sur le même ordinateur, la 2ᵉ fenêtre suit automatiquement le cas en cours.</p>
+            <p className="mt-1.5 text-[10px] text-slate-400">2ᵉ fenêtre (même appareil) : suit le cas ET le chapitre en direct. QR/lien : pour un téléphone, via l'app en ligne.</p>
           </div>
         </div>
       )}

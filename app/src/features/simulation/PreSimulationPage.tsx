@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
+import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { SimulationSetup } from './SimulationSetup';
@@ -27,13 +28,19 @@ export function PreSimulationPage() {
         <p className="text-slate-500 dark:text-slate-400">Révise 2 minutes, respire, puis entre en simulation.</p>
       </header>
 
+      {/* Barre d'action EN HAUT (n'interfère plus avec la barre flottante en bas) */}
+      <div className="flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-brand-200 bg-brand-50/50 px-4 py-3 dark:border-brand-900/40 dark:bg-brand-900/10">
+        <Link to={`/cas/${c.id}`} className="btn-outline">← Fiche du cas</Link>
+        <Link to={`/simulation/${c.id}/run`} className="btn-primary gap-1.5 px-8 py-3 text-base font-bold"><Icon name="play" className="h-4 w-4" />Entrer en simulation</Link>
+      </div>
+
       {/* Réglage de simulation (mode · couche · Muster · rôles + fiche simulant) */}
       <SimulationSetup caseId={c.id} />
 
       <div className="grid gap-4 md:grid-cols-2">
         {fw && (
           <div className="card p-5">
-            <div className="label mb-2">🔑 Notions clés</div>
+            <div className="label mb-2 flex items-center gap-1.5"><Icon name="key" className="h-3.5 w-3.5" />Notions clés</div>
             <p className="text-sm"><AutoLink>{fw.definition}</AutoLink></p>
             {fw.pruefungsfallen.length > 0 && (
               <div className="mt-3">
@@ -45,31 +52,26 @@ export function PreSimulationPage() {
         )}
 
         <div className="card p-5">
-          <div className="label mb-2">❓ Questions d'anamnèse à ne pas oublier</div>
+          <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Questions d'anamnèse à ne pas oublier</div>
           <AutoLinkList items={c.caseSpecificQuestions} />
         </div>
 
         <div className="card p-5">
-          <div className="label mb-2">🗣️ Phrases de Fallvorstellung</div>
+          <div className="label mb-2 flex items-center gap-1.5"><Icon name="speech" className="h-3.5 w-3.5" />Phrases de Fallvorstellung</div>
           <p className="text-sm text-slate-600 dark:text-slate-300">
             « {c.patientSheet.personalia.name} ist ein/e {c.patientSheet.personalia.age}-jährige/r Patient/in, der/die sich mit <b><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></b>… vorstellte. »
           </p>
-          <p className="mt-2 text-sm text-slate-500">Struktur : AZ/EZ → Anamnese (Konjunktiv I) → VD/DD → Diagnostik → Therapie.</p>
+          <p className="mt-2 text-sm text-slate-500">Struktur : Allgemein- und Ernährungszustand → Anamnese (Konjunktiv I) → Verdachts- und Differenzialdiagnosen → Diagnostik → Therapie.</p>
         </div>
 
         <div className="card p-5">
-          <div className="label mb-2">🔤 Fachbegriffe du thème ({terms.length})</div>
+          <div className="label mb-2 flex items-center gap-1.5"><Icon name="nav-abc" className="h-3.5 w-3.5" />Fachbegriffe du thème ({terms.length})</div>
           <div className="flex flex-wrap gap-1.5">
             {terms.slice(0, 12).map((t) => (
               <button key={t.id} onClick={() => openGlossary(t)} className="chip bg-brand-50 text-brand-700 hover:bg-brand-100 dark:bg-brand-900/30 dark:text-brand-300">{t.term}</button>
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="flex justify-center gap-3">
-        <Link to={`/cas/${c.id}`} className="btn-outline">← Fiche du cas</Link>
-        <Link to={`/simulation/${c.id}/run`} className="btn-primary px-8 py-3 text-base font-bold">Entrer en simulation ▶</Link>
       </div>
     </div>
   );

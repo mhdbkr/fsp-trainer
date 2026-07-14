@@ -5,6 +5,7 @@ import { compareArztbrief, type ArztbriefFeedback } from '@/lib/arztbriefCompare
 import { arztbriefExample } from '@/lib/caseExamples';
 import { GuidedText } from '@/components/GuidedText';
 import { Icon } from '@/components/icons';
+import { PhraseLine } from '@/components/PhraseLine';
 import { BogenPreview } from '@/components/BogenPreview';
 import { SidePanel } from '@/components/SidePanel';
 import { ArztbriefDiff } from './ArztbriefDiff';
@@ -22,25 +23,30 @@ export function ArztbriefGuide({ c, assistance, text, onText, bogen, muster }: {
   bogen: BogenNotes; muster: MusterCity;
 }) {
   const [fb, setFb] = useState<ArztbriefFeedback | null>(null);
+  const [notesCol, setNotesCol] = useState(false);
+  const [guideCol, setGuideCol] = useState(false);
+  // Les deux panneaux réduits → la colonne se rétrécit et l'éditeur s'élargit.
+  const bothCollapsed = notesCol && guideCol;
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
-      {/* Panneau 1 : mes notes (séparé) */}
-      <SidePanel title="Mes notes" icon="id" width="w-80">
-        <BogenPreview bogen={bogen} muster={muster} title="Notes de l'anamnèse" />
-      </SidePanel>
+      {/* Colonne de gauche : Mes notes (haut) + Guide de rédaction (bas) empilés */}
+      <div className={`flex w-full shrink-0 flex-col gap-4 transition-all ${bothCollapsed ? 'lg:w-12' : 'lg:w-96'}`}>
+        <SidePanel title="Mes notes" icon="id" width="w-full" sticky={false} collapsed={notesCol} onToggle={() => setNotesCol((v) => !v)}>
+          <BogenPreview bogen={bogen} muster={muster} title="Notes de l'anamnèse" />
+        </SidePanel>
 
-      {/* Panneau 2 : guide de rédaction (séparé) */}
-      <SidePanel title="Guide de rédaction" icon="history" width="w-96">
-        <div className="space-y-2">
-          <div className="rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-700 dark:bg-brand-900/20 dark:text-brand-200">
-            ✍️ Rédige toi-même. <b>Konjunktiv I</b> pour rapporter le patient, <b>Passiv</b> pour les mesures, et n'oublie jamais la formule de politesse finale.
+        <SidePanel title="Guide de rédaction" icon="history" width="w-full" sticky={false} collapsed={guideCol} onToggle={() => setGuideCol((v) => !v)}>
+          <div className="space-y-2">
+            <div className="rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-700 dark:bg-brand-900/20 dark:text-brand-200">
+              <Icon name="pen" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" />Rédige toi-même. <b>Konjunktiv I</b> pour rapporter le patient, <b>Passiv</b> pour les mesures, et n'oublie jamais la formule de politesse finale.
+            </div>
+            {ARZTBRIEF_CHAPTERS.map((ch) => (
+              <GuideChapter key={ch.id} ch={ch} assistance={assistance} c={c} />
+            ))}
           </div>
-          {ARZTBRIEF_CHAPTERS.map((ch) => (
-            <GuideChapter key={ch.id} ch={ch} assistance={assistance} c={c} />
-          ))}
-        </div>
-      </SidePanel>
+        </SidePanel>
+      </div>
 
       {/* Éditeur (occupe l'espace, reste en vue) */}
       <div className="min-w-0 flex-1 space-y-2 lg:sticky lg:top-24 lg:self-start">
@@ -88,13 +94,13 @@ function GuideChapter({ ch, assistance, c }: { ch: ArztbriefChapter; assistance:
         <Icon name={ch.icon} className="h-4 w-4 text-brand-500" />
         <span className="flex-1 font-medium">{ch.title}{isAssiste && <span className="ml-1 text-xs font-normal text-slate-400">· {ch.subtitle}</span>}</span>
         <span className={`chip py-0 text-[10px] ${REGISTER_BADGE[ch.register]}`}>{ch.register}</span>
-        <span className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+        <Icon name="chevron" className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
       </button>
       {open && (
         <div className="border-t border-slate-100 px-3 py-2 dark:border-slate-800">
-          <ul className="space-y-1">
+          <ul className="space-y-1.5">
             {ch.redewendungen.map((r, i) => (
-              <li key={i} className="flex gap-1.5 text-[13px]"><span className="text-brand-400">·</span><span><GuidedText text={r} keywords={isAssiste ? ch.keywords : []} /></span></li>
+              <PhraseLine key={i} phrase={r} keywords={isAssiste ? ch.keywords : []} />
             ))}
           </ul>
           {example && (
@@ -103,7 +109,7 @@ function GuideChapter({ ch, assistance, c }: { ch: ArztbriefChapter; assistance:
               <p className="text-[13px] text-emerald-900 dark:text-emerald-200"><GuidedText text={example} keywords={[]} /></p>
             </div>
           )}
-          {isAssiste && ch.tip && <p className="mt-2 rounded bg-amber-50 px-2 py-1 text-[11px] text-amber-700 dark:bg-amber-900/20 dark:text-amber-200">💡 {ch.tip}</p>}
+          {isAssiste && ch.tip && <p className="callout callout-warn mt-2 text-[11px]"><Icon name="bulb" className="mt-0.5 h-3 w-3 shrink-0" />{ch.tip}</p>}
         </div>
       )}
     </div>

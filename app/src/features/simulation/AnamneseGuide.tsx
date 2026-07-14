@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { AssistanceMode, Case } from '@/db/types';
 import { ALLGEMEINE_ANAMNESE, getFachanamnese, type AnamneseChapter } from '@/data/guides/anamneseChapters';
 import { Icon } from '@/components/icons';
-import { GuidedText } from '@/components/GuidedText';
+import { PhraseLine } from '@/components/PhraseLine';
+import { useSimSession } from '@/store/simSession';
 
 // ============================================================================
 // Guide d'anamnèse interactif.
@@ -25,54 +26,74 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
   const total = chapters.length + (fach ? 1 : 0);
   const doneCount = Object.values(checked).filter(Boolean).length;
 
+  // Ordre d'affichage réel (Fachanamnese insérée juste après « Aktuelle Beschwerden »).
+  const orderedIds = useMemo(() => {
+    const ids: string[] = [];
+    for (const ch of chapters) { ids.push(ch.id); if (fach && ch.id === 'aktuell') ids.push(fach.chapter.id); }
+    return ids;
+  }, [chapters, fach]);
+
+  // Publie le chapitre coché le plus loin → le mode focus démarre là.
+  useEffect(() => {
+    let furthest: string | null = null;
+    for (const id of orderedIds) if (checked[id]) furthest = id;
+    if (furthest) useSimSession.getState().setGuideChapter({ caseId: c.id, part: 'anamnese', chapterId: furthest });
+  }, [checked, orderedIds, c.id]);
+
   return (
     <div className="space-y-3">
       {/* Barre de progression + (Autonome) compteur de coups de pouce */}
       <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900">
         <div className="flex flex-1 flex-wrap gap-1">
           {chapters.map((ch) => (
-            <span key={ch.id} title={ch.title}
-              className={`flex h-7 w-7 items-center justify-center rounded-lg ${checked[ch.id] ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400 dark:bg-slate-800'}`}>
-              <Icon name={ch.icon} className="h-4 w-4" />
-            </span>
+            <Fragment key={ch.id}>
+              <span title={ch.title}
+                className={`flex h-7 w-7 items-center justify-center rounded-lg ${checked[ch.id] ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400 dark:bg-slate-800'}`}>
+                <Icon name={ch.icon} className="h-4 w-4" />
+              </span>
+              {/* Fachanamnese placée juste après « Aktuelle Beschwerden » */}
+              {fach && ch.id === 'aktuell' && (
+                <span title={fach.chapter.title}
+                  className={`flex h-7 w-7 items-center justify-center rounded-lg ring-1 ring-violet-300 ${checked[fach.chapter.id] ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-400 dark:bg-violet-900/20'}`}>
+                  <Icon name={fach.icon} className="h-4 w-4" />
+                </span>
+              )}
+            </Fragment>
           ))}
-          {fach && (
-            <span title={fach.chapter.title}
-              className={`flex h-7 w-7 items-center justify-center rounded-lg ring-1 ring-violet-300 ${checked[fach.chapter.id] ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-400 dark:bg-violet-900/20'}`}>
-              <Icon name={fach.icon} className="h-4 w-4" />
-            </span>
-          )}
         </div>
         <span className="shrink-0 text-xs font-semibold text-slate-500">{doneCount}/{total}</span>
         {assistance === 'autonome' && (
           <span className={`shrink-0 chip ${hints === 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
             title="Chaque coup de pouce réduit un peu ton crédit — vise le minimum.">
-            💡 {hints}
+            <Icon name="bulb" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" />{hints}
           </span>
         )}
       </div>
 
       {assistance === 'autonome' && (
         <div className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs text-violet-700 dark:border-violet-900/50 dark:bg-violet-900/10 dark:text-violet-200">
-          🎯 <b>Prüfungsmodus</b> — conduis l'entretien de mémoire. Les questions sont masquées ; ne les révèle que si tu bloques.
+          <Icon name="target" className="mr-1 inline-block h-4 w-4 align-[-3px]" /><b>Prüfungsmodus</b> — conduis l'entretien de mémoire. Les questions sont masquées ; ne les révèle que si tu bloques.
         </div>
       )}
 
       {chapters.map((ch) => (
-        <ChapterToggle key={ch.id} ch={ch} checked={!!checked[ch.id]} onToggle={() => toggle(ch.id)} assistance={assistance}
-          onHint={() => setHints((h) => h + 1)} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
-      ))}
+        <Fragment key={ch.id}>
+          <ChapterToggle ch={ch} checked={!!checked[ch.id]} onToggle={() => toggle(ch.id)} assistance={assistance}
+            onHint={() => setHints((h) => h + 1)} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
 
-      {/* Fachanamnese — sous-chapitre extra, visuellement distinct */}
-      {fach && (
-        <div className="rounded-xl border-2 border-dashed border-violet-300 p-1 dark:border-violet-900/50">
-          <div className="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-wide text-violet-500">
-            Fachanamnese · {c.specialty}
-          </div>
-          <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}
-            assistance={assistance} onHint={() => setHints((h) => h + 1)} fachwissenId={c.linkedFachwissenId} tone="violet" />
-        </div>
-      )}
+          {/* Fachanamnese — juste après « Aktuelle Beschwerden » : ces questions
+              ciblées se posent tôt, dans le prolongement du motif de consultation. */}
+          {fach && ch.id === 'aktuell' && (
+            <div className="rounded-xl border-2 border-dashed border-violet-300 p-1 dark:border-violet-900/50">
+              <div className="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-wide text-violet-500">
+                Fachanamnese · {c.specialty}
+              </div>
+              <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}
+                assistance={assistance} onHint={() => setHints((h) => h + 1)} fachwissenId={c.linkedFachwissenId} tone="violet" />
+            </div>
+          )}
+        </Fragment>
+      ))}
     </div>
   );
 }
@@ -103,9 +124,9 @@ function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId
         </button>
         {fachwissenId && (
           <Link to={`/fachwissen/${fachwissenId}`} title="Fiche Fachwissen de la pathologie"
-            className="chip shrink-0 bg-slate-100 text-slate-500 hover:bg-brand-100 dark:bg-slate-800">📚</Link>
+            className="chip shrink-0 bg-slate-100 text-slate-500 hover:bg-brand-100 dark:bg-slate-800"><Icon name="nav-book" className="h-3.5 w-3.5" /></Link>
         )}
-        <button onClick={() => setOpen((o) => !o)} className={`shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}>▶</button>
+        <button onClick={() => setOpen((o) => !o)} className={`shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}><Icon name="chevron" className="h-4 w-4" /></button>
       </div>
 
       {open && (
@@ -114,21 +135,18 @@ function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId
             <>
               <ul className="space-y-1.5 text-sm">
                 {ch.questions.map((q, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-400" />
-                    <span><GuidedText text={q} keywords={isAssiste ? ch.keywords : []} /></span>
-                  </li>
+                  <PhraseLine key={i} phrase={q} keywords={isAssiste ? ch.keywords : []} />
                 ))}
               </ul>
               {isAssiste && ch.tip && (
-                <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:bg-amber-900/20 dark:text-amber-200">
-                  💡 {ch.tip}
+                <p className="callout callout-warn mt-3 text-xs">
+                  <Icon name="bulb" className="mt-0.5 h-3.5 w-3.5 shrink-0" /><span>{ch.tip}</span>
                 </p>
               )}
             </>
           ) : (
             <button onClick={reveal} className="btn-outline w-full justify-center text-xs">
-              💡 Je bloque — révéler les questions (compte comme un coup de pouce)
+              <Icon name="bulb" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" />Je bloque — révéler les questions (compte comme un coup de pouce)
             </button>
           )}
         </div>

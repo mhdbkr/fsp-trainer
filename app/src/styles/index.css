@@ -4,51 +4,164 @@
 
 :root {
   color-scheme: light dark;
+  --focus-ring: #0c6157;       /* brand-600 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 130ms;
+  --dur: 200ms;
+}
+.dark {
+  --focus-ring: #6bbdb0;       /* brand-300 — contraste sur fond encre */
 }
 
-html, body, #root {
-  height: 100%;
-}
+html { scroll-behavior: smooth; }
+html, body, #root { height: 100%; }
 
 body {
-  @apply bg-slate-50 text-slate-800 antialiased;
+  /* Corps = IBM Plex Sans ; fond = papier clinique (clair) / vert-encre (sombre).
+     ATMOSPHÈRE : grille millimétrée (écho du Anamnese-Bogen) + halo pétrole doux,
+     très discrets — les cartes restent opaques pour un texte parfaitement lisible. */
+  @apply bg-paper text-slate-800 antialiased;
+  font-family: theme('fontFamily.sans');
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(115% 75% at 50% -12%, rgb(12 97 87 / 0.06), transparent 60%),
+    linear-gradient(rgb(12 97 87 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(12 97 87 / 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 30px 30px, 30px 30px;
+  background-attachment: fixed;
 }
 .dark body {
-  @apply bg-slate-950 text-slate-100;
+  @apply bg-ink text-slate-100;
+  background-image:
+    radial-gradient(115% 75% at 50% -12%, rgb(55 158 143 / 0.10), transparent 60%),
+    linear-gradient(rgb(107 189 176 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(107 189 176 / 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 30px 30px, 30px 30px;
+  background-attachment: fixed;
+}
+
+/* Titres = Bricolage Grotesque, resserrés (voix éditoriale de la marque). */
+h1, h2, h3 {
+  font-family: theme('fontFamily.display');
+  letter-spacing: -0.014em;
+  font-weight: 600;
+}
+
+::selection { background: rgb(12 97 87 / 0.20); }
+
+/* Focus clavier GLOBAL (focus-visible), spécificité 0. */
+:where(a, button, [role="button"], input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 /* Scrollbars discrètes */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(148 163 184 / 0.4) transparent;
-}
+* { scrollbar-width: thin; scrollbar-color: rgb(148 163 184 / 0.4) transparent; }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
-*::-webkit-scrollbar-thumb { background: rgb(148 163 184 / 0.4); border-radius: 4px; }
+*::-webkit-scrollbar-thumb { background: rgb(148 163 184 / 0.35); border-radius: 4px; }
+*::-webkit-scrollbar-thumb:hover { background: rgb(148 163 184 / 0.6); }
 
 @layer components {
+  /* Surface : blanc net sur papier (clair) ; vert-encre en sombre (pas de slate-navy générique). */
   .card {
-    @apply rounded-xl border border-slate-200 bg-white shadow-sm transition-colors;
+    @apply rounded-xl border border-slate-200/80 bg-white transition-[box-shadow,border-color,transform] duration-200;
+    box-shadow: 0 1px 2px rgb(12 26 23 / 0.04), 0 1px 3px rgb(12 26 23 / 0.05);
   }
   .dark .card {
-    @apply border-slate-800 bg-slate-900;
+    @apply border-ink-600 bg-ink-800;
+    box-shadow: none;
   }
+  .card-interactive { @apply cursor-pointer; }
+  .card-interactive:hover {
+    @apply -translate-y-px border-brand-300 dark:border-brand-700;
+    box-shadow: 0 6px 16px rgb(12 26 23 / 0.08), 0 2px 6px rgb(12 26 23 / 0.06);
+  }
+
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-[color,background-color,border-color,box-shadow,transform] duration-150 ease-out active:scale-[0.97];
   }
   .btn-primary {
     @apply btn bg-brand-600 text-white hover:bg-brand-700;
+    box-shadow: 0 1px 2px rgb(12 26 23 / 0.12), 0 1px 3px rgb(12 97 87 / 0.28);
   }
-  .btn-ghost {
-    @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
-  }
-  .btn-outline {
-    @apply btn border border-slate-300 text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800;
-  }
-  .chip {
-    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
-  }
+  .btn-primary:hover { box-shadow: 0 2px 7px rgb(12 97 87 / 0.38); }
+  .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-ink-700; }
+  .btn-outline { @apply btn border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-100 dark:border-ink-600 dark:text-slate-200 dark:hover:bg-ink-700; }
+
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium transition-colors; }
   .input {
-    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-400/30 dark:border-slate-700 dark:bg-slate-900;
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none transition-colors hover:border-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/25 dark:border-ink-600 dark:bg-ink-700 dark:hover:border-ink-600;
   }
-  .label { @apply text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400; }
+
+  /* ── Signature « readout d'instrument » ─────────────────────────────────── */
+  /* Label structurel = mono, capitales espacées (lecture d'appareil). */
+  .label { @apply font-mono text-[11px] font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400; }
+  /* Eyebrow = annotation clinique : filet + mono capitales (le liant de la marque). */
+  .eyebrow { @apply inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-brand-600 dark:text-brand-300; }
+  .eyebrow::before { content: ''; @apply h-px w-6 shrink-0 bg-brand-400/60; }
+  /* Tag mono pour terminologie / données. */
+  .mono-tag { @apply inline-flex items-center rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] text-slate-600 dark:bg-ink-700 dark:text-slate-300; }
+
+  /* ── Enrichissement graphique (atmosphère × lisibilité) ─────────────────── */
+  /* Carte à encoche d'accent — casse la monotonie des pages denses. */
+  .card-accent { @apply relative overflow-hidden; }
+  .card-accent::before { content: ''; @apply pointer-events-none absolute inset-y-0 left-0 w-1 bg-brand-500; }
+
+  /* Encart clinique — filet d'accent + fond teinté + icône. Remplace les
+     boîtes « amber » génériques par un objet de marque cohérent. */
+  .callout { @apply relative flex items-start gap-2.5 overflow-hidden rounded-xl border py-2.5 pl-4 pr-3.5 text-[13px] leading-relaxed; }
+  .callout::before { content: ''; @apply pointer-events-none absolute inset-y-0 left-0 w-1; }
+  .callout-tip { @apply border-brand-200 bg-brand-50/70 text-brand-900 dark:border-brand-900/40 dark:bg-brand-900/15 dark:text-brand-100; }
+  .callout-tip::before { @apply bg-brand-500; }
+  .callout-warn { @apply border-amber-200 bg-amber-50/80 text-amber-900 dark:border-amber-900/40 dark:bg-amber-900/15 dark:text-amber-100; }
+  .callout-warn::before { @apply bg-amber-500; }
+  .callout-info { @apply border-slate-200 bg-slate-50 text-slate-700 dark:border-ink-600 dark:bg-ink-700 dark:text-slate-200; }
+  .callout-info::before { @apply bg-slate-400; }
+
+  /* Rythme « prose » pour blocs de texte longs (Fachwissen, Aufklärung). */
+  .prose-fsp { @apply text-[15px] leading-relaxed text-slate-700 dark:text-slate-300; }
+  .prose-fsp p { @apply my-2; }
+  .prose-fsp strong, .prose-fsp b { @apply font-semibold text-slate-900 dark:text-white; }
+
+  /* Filet de section décoré (dégradé fin, façon règle d'instrument). */
+  .section-rule { @apply flex items-center gap-3; }
+  .section-rule::after { content: ''; @apply h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent dark:from-ink-600; }
+
+  /* Index de chapitre mono — pour de vraies séquences (guides, protocoles). */
+  .idx { @apply inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-md bg-brand-600 px-1 font-mono text-[11px] font-semibold tabular-nums text-white; }
+
+  /* Touche clavier (palette ⌘K, raccourcis). */
+  .kbd { @apply inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1 font-mono text-[10px] leading-4 text-slate-500 dark:border-ink-600 dark:bg-ink-700 dark:text-slate-300; }
+}
+
+@keyframes reveal-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@layer utilities {
+  .font-display { font-family: theme('fontFamily.display'); }
+  .font-mono { font-family: theme('fontFamily.mono'); }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* Révélation douce à l'arrivée (respecte prefers-reduced-motion via la règle globale). */
+  .reveal { animation: reveal-up 0.4s var(--ease-out) both; }
+  .stagger > * { animation: reveal-up 0.45s var(--ease-out) both; }
+  .stagger > *:nth-child(1) { animation-delay: 0.02s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.06s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.10s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.14s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.18s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.22s; }
+  .stagger > *:nth-child(7) { animation-delay: 0.26s; }
+  .stagger > *:nth-child(8) { animation-delay: 0.30s; }
 }

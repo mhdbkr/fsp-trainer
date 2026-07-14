@@ -19,6 +19,18 @@ interface UiState {
   openCasePreview: (id: string) => void;
   closeCasePreview: () => void;
 
+  // Doctopus (assistant IA) — ouverture pilotable depuis n'importe où (y compris
+  // le mode focus). `doctopusPrefill` pré-remplit la question (quick-search).
+  doctopusOpen: boolean;
+  doctopusPrefill: string | null;
+  openDoctopus: (prefill?: string) => void;
+  closeDoctopus: () => void;
+
+  // Vrai quand la zone de contenu est défilée près du bas — masque les barres
+  // flottantes (ex. « reprendre la simulation ») pour ne pas couvrir le bas de page.
+  atPageBottom: boolean;
+  setAtPageBottom: (v: boolean) => void;
+
   // Contexte de préparation global.
   targetCenter: Center | 'Alle';
   setTargetCenter: (c: Center | 'Alle') => void;
@@ -61,6 +73,14 @@ export const useUi = create<UiState>((set, get) => ({
   previewCaseId: null,
   openCasePreview: (id) => set({ previewCaseId: id }),
   closeCasePreview: () => set({ previewCaseId: null }),
+
+  doctopusOpen: false,
+  doctopusPrefill: null,
+  openDoctopus: (prefill) => set({ doctopusOpen: true, doctopusPrefill: prefill ?? null }),
+  closeDoctopus: () => set({ doctopusOpen: false, doctopusPrefill: null }),
+
+  atPageBottom: false,
+  setAtPageBottom: (v) => set((s) => (s.atPageBottom === v ? s : { atPageBottom: v })),
 
   targetCenter: (localStorage.getItem('fsp-center') as Center | 'Alle') || 'Alle',
   setTargetCenter: (c) => { localStorage.setItem('fsp-center', c); set({ targetCenter: c }); },

@@ -4,7 +4,7 @@ import { useCases } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import type { Case, Center, Specialty, CaseStatus } from '@/db/types';
 import { CenterBadge, StatusBadge, FreqBadge, DifficultyDots, ConfidenceRing, EmptyState } from '@/components/ui';
-import { SpecialtyIcon } from '@/components/icons';
+import { Icon, SpecialtyIcon } from '@/components/icons';
 import { CasePreviewPanel } from './CasePreviewPanel';
 
 const CENTERS: Center[] = ['Freiburg', 'Karlsruhe', 'Reutlingen', 'Stuttgart', 'Complément'];
@@ -65,14 +65,15 @@ export function CasesPage() {
   return (
     <div className="space-y-5">
       <header>
-        <h1 className="text-2xl font-bold">Cas cliniques</h1>
+        <div className="eyebrow">Bibliothèque</div>
+        <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Cas cliniques</h1>
         <p className="text-slate-500 dark:text-slate-400">
           <b>{total}</b> cas · <b className="text-emerald-600 dark:text-emerald-400">{mastered}</b> maîtrisés · <b>{todo}</b> à faire
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {bySpecialty.map(({ sp, n }) => (
-            <button key={sp} onClick={() => setSpecialty(specialty === sp ? '' : sp)} className={`chip ${specialty === sp ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>
-              {sp} <span className="opacity-60">{n}</span>
+            <button key={sp} onClick={() => setSpecialty(specialty === sp ? '' : sp)} className={`chip py-1 ${specialty === sp ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'}`}>
+              <SpecialtyIcon specialty={sp} className="h-3.5 w-3.5" />{sp} <span className="opacity-60">{n}</span>
             </button>
           ))}
         </div>
@@ -159,7 +160,7 @@ function CaseCard({ c, onPreview, active }: { c: Case; onPreview: () => void; ac
         {c.centers.slice(0, 4).map((ct) => <CenterBadge key={ct} center={ct} />)}
       </div>
       <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
-        <Link to={`/simulation/${c.id}/pre`} className="btn-primary flex-1 justify-center text-xs">▶ Simuler</Link>
+        <Link to={`/simulation/${c.id}/pre`} className="btn-primary flex-1 justify-center gap-1 text-xs"><Icon name="play" className="h-3 w-3" />Simuler</Link>
         <button onClick={onPreview} className="btn-outline text-xs">Aperçu</button>
         <Link to={`/cas/${c.id}`} className="btn-ghost text-xs">Fiche</Link>
       </div>

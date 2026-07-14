@@ -19,7 +19,7 @@ export function ReflexMemo() {
         title="Mémo de réflexes d'examen"
         className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg transition-transform hover:scale-105 hover:bg-brand-700"
       >
-        <span className="text-lg">🧭</span>
+        <Icon name="nav-compass" className="h-5 w-5" />
       </button>
 
       {open && (
@@ -28,7 +28,7 @@ export function ReflexMemo() {
           <aside className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md animate-slide-in flex-col border-l border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
             <div className="flex items-center justify-between border-b border-slate-100 p-4 dark:border-slate-800">
               <div>
-                <div className="text-sm font-bold">🧭 Réflexes d'examen — Jour J</div>
+                <div className="flex items-center gap-1.5 text-sm font-bold"><Icon name="nav-compass" className="h-4 w-4" />Réflexes d'examen — Jour J</div>
                 <div className="text-[11px] text-slate-400">Le déroulé et les transitions module→module</div>
               </div>
               <button onClick={() => setOpen(false)} className="btn-ghost text-lg">✕</button>
@@ -52,7 +52,7 @@ export function ReflexMemo() {
                     <ul className="space-y-1 px-3 py-2 text-[13px]">
                       {ph.steps.map((s, i) => <li key={i} className="flex gap-1.5"><span className="text-brand-400">·</span>{s}</li>)}
                     </ul>
-                    {ph.cave && <p className="mx-3 mb-2 rounded bg-amber-50 px-2 py-1 text-[11px] text-amber-700 dark:bg-amber-900/20 dark:text-amber-200">⚠ {ph.cave}</p>}
+                    {ph.cave && <p className="mx-3 mb-2 flex items-start gap-1.5 rounded bg-amber-50 px-2 py-1 text-[11px] text-amber-700 dark:bg-amber-900/20 dark:text-amber-200"><Icon name="alert" className="mt-0.5 h-3 w-3 shrink-0" />{ph.cave}</p>}
                   </div>
                   {/* Transition vers la phase suivante */}
                   {ph.transition && idx < REFLEX_PHASES.length - 1 && (

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Case, Guide, AufklaerungItem } from '@/db/types';
 import { useGuides, useAufklaerungen } from '@/hooks/useData';
 import { AutoLink } from '@/components/AutoLink';
+import { Icon } from '@/components/icons';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
@@ -26,7 +27,7 @@ export function GuidePanel({ part, c }: { part: Part; c: Case }) {
         className="flex h-14 items-center gap-2 border-b border-slate-100 px-3 text-left hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800"
         title="Panneau guide"
       >
-        <span className="text-lg">{open ? '▶' : '📖'}</span>
+        <Icon name={open ? 'chevron' : 'nav-book'} className={`h-5 w-5 transition-transform ${open ? 'rotate-90' : ''}`} />
         {open && <span className="font-semibold">Guide — {labelForPart(part)}</span>}
       </button>
 
@@ -62,7 +63,7 @@ function GuideBlock({ guide, defaultOpen }: { guide: Guide; defaultOpen?: boolea
   return (
     <div className="card overflow-hidden text-sm">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between px-3 py-2 font-medium hover:bg-slate-50 dark:hover:bg-slate-800">
-        <span>{guide.title}</span><span className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+        <span>{guide.title}</span><Icon name="chevron" className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
       </button>
       {open && (
         <div className="space-y-3 border-t border-slate-100 px-3 py-2 dark:border-slate-800">
@@ -72,7 +73,7 @@ function GuideBlock({ guide, defaultOpen }: { guide: Guide; defaultOpen?: boolea
               <ul className="mt-1 space-y-0.5">
                 {s.items.map((it, i) => <li key={i} className="flex gap-1.5 text-[13px]"><span className="text-brand-400">·</span><AutoLink>{it}</AutoLink></li>)}
               </ul>
-              {s.note && <p className="mt-1 rounded bg-amber-50 px-2 py-1 text-[11px] text-amber-700 dark:bg-amber-900/20 dark:text-amber-200">⚠ {s.note}</p>}
+              {s.note && <p className="callout callout-warn mt-1 text-[11px]"><Icon name="alert" className="mt-0.5 h-3 w-3 shrink-0" />{s.note}</p>}
             </div>
           ))}
         </div>
@@ -87,7 +88,7 @@ function AufkBlock({ item }: { item: AufklaerungItem }) {
   return (
     <div className="card overflow-hidden text-sm">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between px-3 py-2 font-medium hover:bg-slate-50 dark:hover:bg-slate-800">
-        <span>📋 {item.shortName ?? item.name}</span><span className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+        <span className="flex items-center gap-1.5"><Icon name="nav-clipboard" className="h-4 w-4 shrink-0" />{item.shortName ?? item.name}</span><Icon name="chevron" className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
       </button>
       {open && (
         <div className="space-y-2 border-t border-slate-100 px-3 py-2 text-[13px] dark:border-slate-800">

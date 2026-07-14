@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { localLookup, deepLinks } from '@/lib/dictionary';
@@ -20,7 +21,10 @@ const EXAMPLES = [
 ];
 
 export function Doctopus() {
-  const [open, setOpen] = useState(false);
+  const open = useUi((s) => s.doctopusOpen);
+  const prefill = useUi((s) => s.doctopusPrefill);
+  const openDoctopus = useUi((s) => s.openDoctopus);
+  const closeDoctopus = useUi((s) => s.closeDoctopus);
   const [q, setQ] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,6 +32,9 @@ export function Doctopus() {
   const [showSettings, setShowSettings] = useState(!hasKey());
   const begriffe = useFachbegriffe() ?? [];
   const openGlossary = useUi((s) => s.openGlossary);
+
+  // Quick-search : la sélection d'un mot pré-remplit la question à l'ouverture.
+  useEffect(() => { if (open && prefill) setQ(prefill); }, [open, prefill]);
 
   const hits = useMemo(() => (q.trim() ? localLookup(q, begriffe).slice(0, 4) : []), [q, begriffe]);
   const links = useMemo(() => (q.trim() ? deepLinks(q) : []), [q]);
@@ -43,7 +50,7 @@ export function Doctopus() {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} title="Doctopus — assistant IA"
+      <button onClick={() => openDoctopus()} title="Doctopus — assistant IA"
         className="fixed bottom-5 right-20 z-40 flex h-12 items-center gap-1.5 rounded-full bg-white pl-1.5 pr-4 text-brand-700 shadow-lg ring-1 ring-slate-200 transition-transform hover:scale-105 dark:bg-slate-800 dark:text-brand-200 dark:ring-slate-700">
         <DoctopusMascot size={36} />
         <span className="hidden text-sm font-bold sm:inline">Doctopus</span>
@@ -51,8 +58,8 @@ export function Doctopus() {
 
       {open && (
         <>
-          <div className="fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-[1px]" onClick={() => setOpen(false)} />
-          <aside className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md animate-slide-in flex-col border-l border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+          <div className="fixed inset-0 z-[65] bg-slate-900/30 backdrop-blur-[1px]" onClick={() => closeDoctopus()} />
+          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-md animate-slide-in flex-col border-l border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
             <div className="flex items-center justify-between border-b border-slate-100 p-4 dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <DoctopusMascot size={40} />
@@ -62,8 +69,8 @@ export function Doctopus() {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <button onClick={() => setShowSettings((s) => !s)} title="Réglages IA" className="btn-ghost text-sm">⚙️</button>
-                <button onClick={() => setOpen(false)} className="btn-ghost text-lg">✕</button>
+                <button onClick={() => setShowSettings((s) => !s)} title="Réglages IA" className="btn-ghost text-sm"><Icon name="gear" className="h-4 w-4" /></button>
+                <button onClick={() => closeDoctopus()} className="btn-ghost text-lg">✕</button>
               </div>
             </div>
 
@@ -77,7 +84,7 @@ export function Doctopus() {
               <button onClick={ask} disabled={!q.trim() || loading || !hasKey()} className="btn-primary mt-2 w-full justify-center text-sm disabled:opacity-40">
                 {loading ? 'Doctopus réfléchit…' : `Demander à Doctopus`}
               </button>
-              {!hasKey() && <p className="mt-1 text-[11px] text-amber-600 dark:text-amber-400">Ajoute ta clé (gratuite) dans ⚙️ pour activer l'IA en ligne.</p>}
+              {!hasKey() && <p className="mt-1 text-[11px] text-amber-600 dark:text-amber-400">Ajoute ta clé (gratuite) dans <Icon name="gear" className="inline-block h-3 w-3 align-[-1px]" /> pour activer l'IA en ligne.</p>}
             </div>
 
             <div className="flex-1 space-y-4 overflow-y-auto p-4">
@@ -102,7 +109,7 @@ export function Doctopus() {
                 <div className="space-y-2">
                   <div className="label">Recherche instantanée (hors-ligne)</div>
                   {hits.map((h, i) => (
-                    <button key={i} onClick={() => h.fb && (openGlossary(h.fb), setOpen(false))}
+                    <button key={i} onClick={() => h.fb && (openGlossary(h.fb), closeDoctopus())}
                       className={`w-full rounded-lg border border-slate-200 p-3 text-left dark:border-slate-800 ${h.fb ? 'hover:border-brand-400' : ''}`}>
                       <div className="flex items-center justify-between">
                         <span className="font-semibold text-brand-700 dark:text-brand-300">{h.term}</span>

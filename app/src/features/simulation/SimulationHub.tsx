@@ -14,7 +14,8 @@ export function SimulationHub() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Simulation</h1>
+        <div className="eyebrow">Entraînement</div>
+        <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Simulation</h1>
         <p className="text-slate-500 dark:text-slate-400">Choisis un cas à simuler en conditions réelles (chrono, notes, guide, scoring).</p>
       </header>
 
@@ -38,7 +39,7 @@ export function SimulationHub() {
       <section>
         <h2 className="mb-3 font-semibold">Simulations récentes</h2>
         {recent.length === 0 ? (
-          <EmptyState icon="🎬" title="Aucune simulation encore" hint="Lance ta première session." />
+          <EmptyState icon="nav-sim" title="Aucune simulation encore" hint="Lance ta première session." />
         ) : (
           <div className="space-y-2">
             {recent.map((sim) => {

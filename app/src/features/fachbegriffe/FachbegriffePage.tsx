@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFachbegriffe } from '@/hooks/useData';
+import { Icon } from '@/components/icons';
 import { useUi } from '@/store/ui';
 import { dueCount } from '@/lib/stats';
 import type { Specialty, Srs } from '@/db/types';
@@ -34,10 +35,11 @@ export function FachbegriffePage() {
     <div className="space-y-5">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold">Fachbegriffe</h1>
+          <div className="eyebrow">Vocabulaire</div>
+          <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Fachbegriffe</h1>
           <p className="text-slate-500 dark:text-slate-400">{begriffe.length} termes · <b className="text-amber-600 dark:text-amber-400">{due}</b> dus aujourd'hui · répétition espacée native (SM-2)</p>
         </div>
-        <Link to="/fachbegriffe/drill" className="btn-primary">🔤 Lancer le drill{due > 0 ? ` (${due})` : ''}</Link>
+        <Link to="/fachbegriffe/drill" className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Lancer le drill{due > 0 ? ` (${due})` : ''}</Link>
       </header>
 
       <div className="card flex flex-wrap items-end gap-3 p-4">
@@ -62,7 +64,7 @@ export function FachbegriffePage() {
       </div>
 
       {filtered.length === 0 ? (
-        <EmptyState icon="🔤" title="Aucun terme" />
+        <EmptyState icon="nav-abc" title="Aucun terme" />
       ) : (
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((b) => (

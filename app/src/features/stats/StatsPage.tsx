@@ -4,6 +4,7 @@ import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar,
 } from 'recharts';
 import { useCases, useFachbegriffe, useSimulations } from '@/hooks/useData';
+import { Icon } from '@/components/icons';
 import { AXES } from '@/db/types';
 import { axisScoresFull, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
 import { computeReadiness } from '@/lib/readiness';
@@ -19,8 +20,9 @@ export function StatsPage() {
   if (sims.length === 0) {
     return (
       <div className="space-y-5">
-        <h1 className="text-2xl font-bold">Stats / Performances</h1>
-        <EmptyState icon="📈" title="Pas encore de données" hint="Lance une simulation pour alimenter les stats." />
+        <div className="eyebrow">Analyse</div>
+        <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Stats / Performances</h1>
+        <EmptyState icon="nav-chart" title="Pas encore de données" hint="Lance une simulation pour alimenter les stats." />
       </div>
     );
   }
@@ -36,7 +38,8 @@ export function StatsPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Stats / Performances</h1>
+        <div className="eyebrow">Analyse</div>
+        <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Stats / Performances</h1>
         <p className="text-slate-500 dark:text-slate-400">{sims.length} simulations · détection auto des points faibles.</p>
       </header>
 
@@ -59,7 +62,7 @@ export function StatsPage() {
       {weak && weak.score < 60 && (
         <div className="card border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-900/10">
           <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
-            <span className="text-lg">🎯</span>
+            <Icon name="target" className="h-5 w-5 shrink-0" />
             <span>Point faible détecté : <b>{weak.axis}</b> ({weak.score}%). Priorise cet axe dans tes prochaines sessions.</span>
           </div>
         </div>
@@ -130,7 +133,7 @@ export function StatsPage() {
                 <div className="text-sm font-medium">{c.name}</div>
                 <div className="text-xs text-slate-400">{score === null ? 'jamais travaillé' : `${score}%`}</div>
               </div>
-              <span className="btn-primary px-2 py-1 text-xs">▶</span>
+              <span className="btn-primary px-2 py-1 text-xs"><Icon name="play" className="h-3.5 w-3.5" /></span>
             </Link>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useFachwissen, useCases, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
+import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { Breadcrumb } from '@/components/Breadcrumb';
 
@@ -22,17 +23,17 @@ export function FachwissenDetailPage() {
       <Breadcrumb items={[{ label: 'Fachwissen', to: '/fachwissen' }, { label: fw.pathology }]} />
 
       <header>
-        <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{fw.specialty}</span>
-        <h1 className="mt-1 text-2xl font-bold">{fw.pathology}</h1>
+        <div className="eyebrow">{fw.specialty}</div>
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tightish">{fw.pathology}</h1>
       </header>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="space-y-4 lg:col-span-2">
-          <Section title="Definition"><p className="text-sm"><AutoLink>{fw.definition}</AutoLink></p></Section>
-          {fw.aetiologie && <Section title="Ätiologie"><p className="text-sm"><AutoLink>{fw.aetiologie}</AutoLink></p></Section>}
-          {fw.risikofaktoren && <Section title="Risikofaktoren"><AutoLinkList items={fw.risikofaktoren} /></Section>}
+        <div className="stagger space-y-4 lg:col-span-2">
+          <Section title="Definition" icon="nav-book"><p className="prose-fsp"><AutoLink>{fw.definition}</AutoLink></p></Section>
+          {fw.aetiologie && <Section title="Ätiologie" icon="brain"><p className="prose-fsp"><AutoLink>{fw.aetiologie}</AutoLink></p></Section>}
+          {fw.risikofaktoren && <Section title="Risikofaktoren" icon="alert"><AutoLinkList items={fw.risikofaktoren} /></Section>}
 
-          <Section title="Klinik">
+          <Section title="Klinik" icon="pulse">
             <ul className="space-y-1.5 text-sm">
               {fw.klinik.map((k, i) => (
                 <li key={i} className="flex gap-2">
@@ -43,7 +44,7 @@ export function FachwissenDetailPage() {
             </ul>
           </Section>
 
-          <Section title="Diagnostik (nicht-invasiv → invasiv)">
+          <Section title="Diagnostik (nicht-invasiv → invasiv)" icon="search">
             <ol className="space-y-1.5 text-sm">
               {fw.diagnostik.map((d, i) => (
                 <li key={i} className="flex gap-2">
@@ -54,7 +55,7 @@ export function FachwissenDetailPage() {
             </ol>
           </Section>
 
-          <Section title="Differenzialdiagnosen (mit Kriterien)">
+          <Section title="Differenzialdiagnosen (mit Kriterien)" icon="target">
             <ul className="space-y-2 text-sm">
               {fw.differenzialdiagnosen.map((d, i) => (
                 <li key={i}><b><AutoLink>{d.dd}</AutoLink></b> <span className="text-slate-500 dark:text-slate-400">— <AutoLink>{d.unterscheidung}</AutoLink></span></li>
@@ -62,7 +63,7 @@ export function FachwissenDetailPage() {
             </ul>
           </Section>
 
-          <Section title="Therapie">
+          <Section title="Therapie" icon="pill">
             <div className="grid gap-3 sm:grid-cols-3">
               {(['konservativ', 'interventionell', 'chirurgisch'] as const).map((k) => fw.therapie[k] && (
                 <div key={k}>
@@ -73,18 +74,19 @@ export function FachwissenDetailPage() {
             </div>
           </Section>
 
-          {fw.prognose && <Section title="Prognose"><p className="text-sm"><AutoLink>{fw.prognose}</AutoLink></p></Section>}
+          {fw.prognose && <Section title="Prognose" icon="gauge"><p className="prose-fsp"><AutoLink>{fw.prognose}</AutoLink></p></Section>}
         </div>
 
         {/* Colonne latérale : pièges, questions, liens */}
-        <div className="space-y-4">
-          <div className="card border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-900/10">
-            <div className="label mb-2 text-amber-700 dark:text-amber-300">⚠ Prüfungsfallen</div>
+        <div className="stagger space-y-4">
+          <div className="card relative overflow-hidden border-amber-200 bg-amber-50 p-4 pl-5 dark:border-amber-900/40 dark:bg-amber-900/10">
+            <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-amber-500" />
+            <div className="label mb-2 flex items-center gap-1.5 text-amber-700 dark:text-amber-300"><Icon name="alert" className="h-3.5 w-3.5" />Prüfungsfallen</div>
             <AutoLinkList items={fw.pruefungsfallen} />
           </div>
 
           <div className="card p-4">
-            <div className="label mb-2">❓ Déjà demandé en examen</div>
+            <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Déjà demandé en examen</div>
             <AutoLinkList items={fw.askedInExam} />
           </div>
 
@@ -104,7 +106,7 @@ export function FachwissenDetailPage() {
               <div className="label mb-2">Aufklärungen</div>
               <div className="space-y-1.5">
                 {linkedAufk.map((a) => (
-                  <Link key={a.id} to={`/aufklaerung?open=${a.id}`} className="block rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-brand-400 dark:border-slate-800">📋 {a.shortName ?? a.name}</Link>
+                  <Link key={a.id} to={`/aufklaerung?open=${a.id}`} className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-brand-400 dark:border-slate-800"><Icon name="nav-clipboard" className="h-4 w-4 shrink-0" />{a.shortName ?? a.name}</Link>
                 ))}
               </div>
             </div>
@@ -124,10 +126,13 @@ export function FachwissenDetailPage() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, icon, children }: { title: string; icon?: string; children: React.ReactNode }) {
   return (
-    <div className="card p-5">
-      <div className="label mb-2">{title}</div>
+    <div className="card card-accent p-5 pl-6">
+      <div className="mb-3 flex items-center gap-2.5">
+        {icon && <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900/25 dark:text-brand-300"><Icon name={icon} className="h-4 w-4" /></span>}
+        <h2 className="font-display text-[17px] font-semibold tracking-tightish">{title}</h2>
+      </div>
       {children}
     </div>
   );

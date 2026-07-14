@@ -20,7 +20,7 @@ export function BogenPreview({ bogen, muster, title = 'Notes de l\'anamnèse', s
     <div className={`card overflow-hidden text-sm ${sticky ? 'lg:sticky lg:top-24' : ''}`}>
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50">
         <span className="flex items-center gap-1.5 font-medium"><Icon name="id" className="h-4 w-4 text-brand-500" />{title} <span className="text-[11px] text-slate-400">· {spec.city}</span></span>
-        <span className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+        <Icon name="chevron" className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
       </button>
       {open && (
         <div className="border-t border-slate-100 px-3 py-2 dark:border-slate-800">

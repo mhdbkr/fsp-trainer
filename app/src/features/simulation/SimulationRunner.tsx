@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase } from '@/hooks/useData';
@@ -15,7 +15,7 @@ import { VorstellungGuide } from './VorstellungGuide';
 import { ArztbriefGuide } from './ArztbriefGuide';
 import { KommunikationPanel } from './KommunikationPanel';
 import { QrCode } from '@/components/QrCode';
-import { usePatientBroadcast, patientUrl } from './usePatientSync';
+import { usePatientBroadcast, patientUrl, patientUrlIsOnline, localPatientUrl } from './usePatientSync';
 import { Icon } from '@/components/icons';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
@@ -30,7 +30,6 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
 export function SimulationRunner() {
   const { caseId } = useParams();
   const c = useCase(caseId);
-  const navigate = useNavigate();
   const role = useUi((s) => s.role);
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
@@ -46,26 +45,30 @@ export function SimulationRunner() {
   const [arztbriefText, setArztbriefText] = useState(restore?.arztbriefText ?? '');
   const [results, setResults] = useState<Partial<Record<Part, PartResult>>>(restore?.results ?? {});
   const [aufklaerungOpen, setAufklaerungOpen] = useState(restore?.aufklaerungOpen ?? false);
+  const [elapsed, setElapsed] = useState<Partial<Record<Part, number>>>(restore?.elapsed ?? {});
   const [finished, setFinished] = useState<Simulation | null>(null);
   const [showQr, setShowQr] = useState(false);
 
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
   usePatientBroadcast(c?.id);
 
-  // On rentre dans le Runner → session active (plus minimisée).
-  useEffect(() => { useSimSession.getState().resume(); }, []);
+  // On rentre dans le Runner → session active (plus minimisée). En quittant le
+  // Runner par N'IMPORTE quel moyen (nav bar, lien, retour…), la session est
+  // mise en pause automatiquement : elle flotte dans la barre « reprendre » au
+  // lieu d'être perdue. (minimize() est sans effet si la session est terminée.)
+  useEffect(() => {
+    useSimSession.getState().resume();
+    return () => { useSimSession.getState().minimize(); };
+  }, []);
 
   // Miroir de l'état local vers le store persistant (survit à la navigation).
   useEffect(() => {
     if (!c || finished) return;
-    useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen });
-  }, [c, finished, active, phase, bogen, arztbriefText, results, aufklaerungOpen]);
+    useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed });
+  }, [c, finished, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed]);
 
   if (!c) return <div className="text-slate-400">Chargement…</div>;
   if (finished) return <ResultScreen sim={finished} c={c} />;
-
-  // Quitter en gardant la session (mise en pause + barre flottante « reprendre »).
-  const pauseAndLeave = () => { session.minimize(); navigate(`/cas/${c.id}`); };
 
   const target = (aufklaerungOpen ? 5 * 60 : FLOW.find((f) => f.key === active)?.target) ?? 20 * 60;
 
@@ -113,7 +116,6 @@ export function SimulationRunner() {
       <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-slate-200 bg-slate-50/90 px-4 py-3 backdrop-blur md:-mx-8 md:px-8 dark:border-slate-800 dark:bg-slate-950/90">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <button onClick={pauseAndLeave} className="btn-ghost text-xs" title="Mettre en pause et quitter (la session est conservée)">⏸ Pause</button>
             <div>
               <div className="text-sm font-bold">{c.name}</div>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
@@ -131,7 +133,7 @@ export function SimulationRunner() {
           <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
             className={`chip ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
             title="Le jury peut demander une Aufklärung à tout moment">
-            ⚡ Aufklärung
+            <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
           </button>
         </div>
 
@@ -172,6 +174,7 @@ export function SimulationRunner() {
         />
       ) : (
         <PlayArea
+          key={aufklaerungOpen ? 'aufklaerung' : active}
           part={aufklaerungOpen ? 'aufklaerung' : active}
           c={c}
           assistance={assistance}
@@ -181,6 +184,8 @@ export function SimulationRunner() {
           arztbriefText={arztbriefText}
           setArztbriefText={setArztbriefText}
           target={target}
+          initialElapsed={elapsed[aufklaerungOpen ? 'aufklaerung' : active] ?? 0}
+          onElapsed={(sec) => { const k = aufklaerungOpen ? 'aufklaerung' : active; setElapsed((e) => (e[k] === sec ? e : { ...e, [k]: sec })); }}
           onEndPart={() => setPhase('eval')}
         />
       )}
@@ -189,13 +194,20 @@ export function SimulationRunner() {
       {showQr && (
         <div className="fixed inset-0 z-[55] flex items-center justify-center bg-slate-900/50 p-4" onClick={() => setShowQr(false)}>
           <div className="card max-w-sm p-6 text-center" onClick={(e) => e.stopPropagation()}>
-            <div className="text-3xl">🎭📱</div>
+            <div className="flex items-center gap-1.5 text-brand-600 dark:text-brand-300"><Icon name="mask" className="h-6 w-6" /><Icon name="phone" className="h-6 w-6" /></div>
             <h3 className="mt-2 font-bold">Fiche patient sur le smartphone</h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le partenaire scanne ce code (même Wi-Fi) pour lire la fiche rôle et suivre la simulation.</p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le partenaire scanne ce code pour ouvrir la fiche de rôle du patient sur son téléphone.</p>
             <div className="my-4 flex justify-center"><QrCode value={patientUrl(c.id)} size={180} /></div>
             <code className="block break-all rounded bg-slate-100 px-2 py-1 text-[10px] text-slate-500 dark:bg-slate-800">{patientUrl(c.id)}</code>
-            <p className="mt-2 text-[11px] text-slate-400">Astuce : lance l'app avec <code>--host</code> pour l'accès réseau local. Sur le même appareil, ouvre ce lien dans une 2ᵉ fenêtre (suivi live).</p>
-            <button onClick={() => setShowQr(false)} className="btn-outline mt-3 w-full justify-center">Fermer</button>
+            <p className="mt-2 text-[11px] text-slate-400">
+              {patientUrlIsOnline()
+                ? 'QR = app en ligne (téléphone). Sur CET appareil, utilise plutôt la 2ᵉ fenêtre : suivi live du cas et du chapitre.'
+                : 'Sur le même appareil, ouvre ce lien dans une 2ᵉ fenêtre pour le suivi en direct.'}
+            </p>
+            <div className="mt-3 flex gap-2">
+              <a href={localPatientUrl(c.id)} target="_blank" rel="noreferrer" className="btn-primary flex-1 justify-center text-xs">Ouvrir en 2ᵉ fenêtre</a>
+              <button onClick={() => setShowQr(false)} className="btn-outline flex-1 justify-center text-xs">Fermer</button>
+            </div>
           </div>
         </div>
       )}
@@ -217,10 +229,10 @@ interface PlayAreaProps {
   part: Part; c: Case; assistance: AssistanceMode; muster: MusterCity;
   bogen: BogenNotes; setBogen: (b: BogenNotes) => void;
   arztbriefText: string; setArztbriefText: (t: string) => void;
-  target: number; onEndPart: () => void;
+  target: number; initialElapsed: number; onElapsed: (sec: number) => void; onEndPart: () => void;
 }
-function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, target, onEndPart }: PlayAreaProps) {
-  const timer = useTimer(target);
+function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, target, initialElapsed, onElapsed, onEndPart }: PlayAreaProps) {
+  const timer = useTimer(target, initialElapsed, onElapsed);
   const overtime = timer.remaining < 0;
 
   return (
@@ -233,7 +245,7 @@ function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText,
         </div>
         <div className="flex gap-2">
           {!timer.running ? (
-            <button onClick={timer.start} className="btn-primary text-xs">▶ {timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+            <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
           ) : (
             <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
           )}
@@ -264,7 +276,7 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen }: {
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex items-center justify-between">
             <div className="label">Guide de questions {assistance === 'autonome' && <span className="text-[10px] text-violet-500">(Autonome : en tête)</span>}</div>
-            <button onClick={() => setImmersive(true)} className="btn-outline text-xs">🎯 Mode focus</button>
+            <button onClick={() => setImmersive(true)} className="btn-outline text-xs"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
           </div>
           <AnamneseGuide c={c} assistance={assistance} />
         </div>
@@ -279,15 +291,15 @@ function AufklaerungArea({ c }: { c: Case }) {
   return (
     <div className="card p-5">
       <div className="mb-2 flex items-center gap-2">
-        <span className="text-lg">⚡</span>
+        <Icon name="bolt" className="h-5 w-5 text-amber-500" />
         <div className="label">Aufklärung à la demande</div>
       </div>
       <p className="text-sm text-slate-500 dark:text-slate-400">
-        Le jury t'interrompt : « Klären Sie den Patienten auf. » Déroule le panneau 📖 à droite pour la trame (7 blocs). Explique à voix haute, gère les questions, puis évalue-toi.
+        Le jury t'interrompt : « Klären Sie den Patienten auf. » Déroule le panneau <Icon name="nav-book" className="inline-block h-3.5 w-3.5 align-[-2px]" /> à droite pour la trame (7 blocs). Explique à voix haute, gère les questions, puis évalue-toi.
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
         {c.probableAufklaerungIds.map((id) => (
-          <Link key={id} to={`/aufklaerung?open=${id}`} className="chip bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300">📋 {id.replace('auf-', '')}</Link>
+          <Link key={id} to={`/aufklaerung?open=${id}`} className="chip bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-clipboard" className="h-3.5 w-3.5" />{id.replace('auf-', '')}</Link>
         ))}
       </div>
     </div>
@@ -303,7 +315,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
   return (
     <div className="mx-auto max-w-3xl space-y-5">
       <div className={`card p-6 text-center ${passed ? 'border-emerald-300 dark:border-emerald-800' : 'border-amber-300 dark:border-amber-800'}`}>
-        <div className="text-5xl">{passed ? '🎉' : '💪'}</div>
+        <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{passed ? 'Bestanden-Simulation !' : 'Encore un effort'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
         <p className="mt-1 text-sm">{passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
@@ -324,7 +336,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
 
       {sim.prioritizedCorrections.length > 0 && (
         <div className="card p-5">
-          <div className="label mb-2">🎯 Corrections prioritaires</div>
+          <div className="label mb-2 flex items-center gap-1.5"><Icon name="target" className="h-3.5 w-3.5" />Corrections prioritaires</div>
           <ul className="space-y-1.5 text-sm">
             {sim.prioritizedCorrections.map((corr, i) => <li key={i} className="flex gap-2"><span className="text-rose-400">→</span>{corr}</li>)}
           </ul>
@@ -332,7 +344,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       )}
 
       <div className="flex flex-wrap justify-center gap-2">
-        <Link to="/fachbegriffe/drill" className="btn-primary">🔤 Drill des termes du cas →</Link>
+        <Link to="/fachbegriffe/drill" className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
         <Link to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
         <Link to="/" className="btn-ghost">Accueil</Link>
       </div>

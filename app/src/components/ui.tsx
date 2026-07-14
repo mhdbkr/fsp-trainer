@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Center, CaseStatus, Axis } from '@/db/types';
 import { scoreBand } from '@/lib/scoring';
+import { Icon } from './icons';
 
 // ---------------------------------------------------------------- Badges & chips
 const CENTER_COLORS: Record<Center, string> = {
@@ -96,12 +97,12 @@ export function Toggle({ title, children, defaultOpen = false, note }: { title: 
     <div className="card overflow-hidden">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50">
         <span className="font-medium">{title}</span>
-        <span className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}>▶</span>
+        <Icon name="chevron" className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
       </button>
       {open && (
         <div className="border-t border-slate-100 px-4 py-3 dark:border-slate-800">
           {children}
-          {note && <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-200">⚠️ {note}</p>}
+          {note && <p className="callout callout-warn mt-3 text-sm"><Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0" />{note}</p>}
         </div>
       )}
     </div>
@@ -112,11 +113,11 @@ export function AxisBadge({ axis }: { axis: Axis }) {
   return <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{axis}</span>;
 }
 
-export function EmptyState({ icon = '📭', title, hint }: { icon?: string; title: string; hint?: string }) {
+export function EmptyState({ icon = 'inbox', title, hint }: { icon?: string; title: string; hint?: string }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 py-12 text-center dark:border-slate-700">
-      <div className="text-3xl">{icon}</div>
-      <p className="mt-2 font-medium text-slate-600 dark:text-slate-300">{title}</p>
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500"><Icon name={icon} className="h-7 w-7" /></div>
+      <p className="mt-3 font-medium text-slate-600 dark:text-slate-300">{title}</p>
       {hint && <p className="mt-1 text-sm text-slate-400">{hint}</p>}
     </div>
   );

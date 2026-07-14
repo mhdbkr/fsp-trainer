@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { useCases, useFachbegriffe } from '@/hooks/useData';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
+import { Icon } from '@/components/icons';
 import { CenterBadge, FreqBadge } from '@/components/ui';
 
 // Aperçu latéral d'un cas SANS quitter la liste (interconnexion + horizontalité).
@@ -62,13 +63,13 @@ export function CasePreviewPanel() {
 
           {c.linkedFachwissenId && (
             <Link to={`/fachwissen/${c.linkedFachwissenId}`} onClick={close} className="btn-outline w-full justify-between">
-              <span>📚 Fachwissen : {c.pathology}</span><span>→</span>
+              <span className="flex items-center gap-1.5"><Icon name="nav-book" className="h-4 w-4 shrink-0" />Fachwissen : {c.pathology}</span><span>→</span>
             </Link>
           )}
         </div>
 
         <div className="grid grid-cols-2 gap-2 border-t border-slate-100 p-4 dark:border-slate-800">
-          <Link to={`/simulation/${c.id}/pre`} onClick={close} className="btn-primary justify-center">▶ Simulation</Link>
+          <Link to={`/simulation/${c.id}/pre`} onClick={close} className="btn-primary justify-center gap-1.5"><Icon name="play" className="h-4 w-4" />Simulation</Link>
           <Link to={`/cas/${c.id}`} onClick={close} className="btn-outline justify-center">Fiche complète</Link>
         </div>
       </aside>

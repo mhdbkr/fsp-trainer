@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ChecklistItem, LanguageGrid, PartResult } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
+import { Icon } from '@/components/icons';
 import { LANGUAGE_CRITERIA, emptyLanguageGrid, checklistPct, languagePct, partScore, PASS_THRESHOLD } from '@/lib/scoring';
 import { ScoreBar } from '@/components/ui';
 
@@ -102,7 +103,7 @@ export function PartEvaluation({ part, durationSec, onSave, onCancel }: {
           <div>
             <div className="label">Score de la partie</div>
             <div className={`text-3xl font-bold ${passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{total}%</div>
-            <div className="text-sm">{passed ? '✅ Au-dessus du seuil (≥60%)' : '❌ Sous le seuil des 60%'}</div>
+            <div className="flex items-center gap-1.5 text-sm">{passed ? <><Icon name="check" className="h-4 w-4 text-emerald-500" />Au-dessus du seuil (≥60%)</> : <><Icon name="alert" className="h-4 w-4 text-rose-500" />Sous le seuil des 60%</>}</div>
           </div>
           <div className="w-48 space-y-2">
             <ScoreBar pct={contentPct} label="Contenu" />

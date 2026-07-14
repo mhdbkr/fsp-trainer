@@ -13,6 +13,7 @@ import { pickSessionCase } from '@/features/simulation/pickSession';
 import { WeekCalendar } from './WeekCalendar';
 import { FreqBadge, ConfidenceRing } from '@/components/ui';
 import { Icon } from '@/components/icons';
+import { Tilt } from '@/components/Tilt';
 
 const SPECIALTIES_FOR_HEATMAP = ['Gastroenterologie', 'Kardiologie', 'Pneumologie', 'Neurologie', 'Orthopädie'] as const;
 
@@ -54,44 +55,50 @@ export function HomePage() {
 
   return (
     <div className="space-y-6">
-      {/* En-tête immersif */}
+      {/* En-tête immersif — thèse de marque : eyebrow mono + display */}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm text-slate-400">{format(new Date(), 'EEEE d MMMM yyyy', { locale: fr })}</p>
-          <h1 className="text-2xl font-bold md:text-3xl">{greeting} 👋</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            Prêt·e pour la session du jour ? Ton point faible actuel : {weak ? <b>{weak.axis}</b> : '—'}.
+          <div className="eyebrow">{format(new Date(), 'EEEE d MMMM', { locale: fr })}</div>
+          <h1 className="mt-2 font-display text-3xl font-bold tracking-tightish md:text-4xl">{greeting}</h1>
+          <p className="mt-1.5 text-slate-500 dark:text-slate-400">
+            Prêt·e pour la session du jour ? Ton point faible actuel : {weak ? <b className="text-slate-700 dark:text-slate-200">{weak.axis}</b> : '—'}.
           </p>
         </div>
-        <div className="flex items-center gap-2 rounded-xl bg-orange-50 px-4 py-2 dark:bg-orange-900/20">
-          <span className="text-2xl">🔥</span>
+        <div className="flex items-center gap-2.5 rounded-xl border border-signal-200 bg-signal-50 px-4 py-2.5 dark:border-signal-900/40 dark:bg-signal-900/15">
+          <Icon name="flame" className="h-6 w-6 text-signal-500" />
           <div>
-            <div className="text-lg font-bold leading-none text-orange-600 dark:text-orange-300">{streak}</div>
-            <div className="text-[11px] text-orange-500/80">jours de suite</div>
+            <div className="text-xl font-bold leading-none tnum text-signal-600 dark:text-signal-300">{streak}</div>
+            <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-signal-500/80">jours de suite</div>
           </div>
         </div>
       </header>
 
-      {/* Session du jour — le gros bouton */}
-      <section className="card overflow-hidden">
-        <div className="flex flex-col gap-4 bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wide text-brand-100">Session du jour</div>
-            <h2 className="mt-1 text-xl font-bold">{session ? session.name : 'Aucun cas disponible'}</h2>
+      {/* Session du jour — hero « instrument », inclinaison 3D subtile au pointeur */}
+      <Tilt className="card relative overflow-hidden">
+        {/* Tracé ECG ambiant — écho de marque, discret */}
+        <svg className="pointer-events-none absolute inset-y-0 right-0 h-full w-2/3 text-white/10" viewBox="0 0 400 160" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" preserveAspectRatio="xMaxYMid slice">
+          <path d="M0 80h120l14-52 24 104 18-70 12 30h200" />
+        </svg>
+        <div className="relative flex flex-col gap-4 bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white md:flex-row md:items-center md:justify-between">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-brand-100">
+              <span className="h-px w-6 bg-signal-400" />Session du jour
+            </div>
+            <h2 className="mt-1.5 text-xl font-bold tracking-tightish md:text-2xl">{session ? session.name : 'Aucun cas disponible'}</h2>
             {session && (
-              <p className="mt-1 text-sm text-brand-100">
+              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">
                 {session.specialty} · pondéré par fréquence, faiblesse{targetCenter !== 'Alle' ? ` et centre (${targetCenter})` : ''}.
                 Enchaîne pré-simulation → simulation → drill.
               </p>
             )}
           </div>
           {session && (
-            <button onClick={() => navigate(`/simulation/${session.id}/pre`)} className="btn shrink-0 bg-white px-6 py-3 text-base font-bold text-brand-700 hover:bg-brand-50">
-              ▶ Lancer la session
+            <button onClick={() => navigate(`/simulation/${session.id}/pre`)} className="btn shrink-0 gap-2 bg-white px-6 py-3 text-base font-bold text-brand-700 hover:bg-brand-50">
+              <Icon name="play" className="h-4 w-4" />Lancer la session
             </button>
           )}
         </div>
-      </section>
+      </Tilt>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Colonne gauche : à faire + calendrier */}
@@ -121,12 +128,12 @@ export function HomePage() {
                   })}
                 </ul>
               ) : (
-                <p className="text-sm text-slate-400">{programToday?.isOff ? 'Jour off programmé 🌙 — récupère !' : 'Rien de prévu aujourd\'hui.'}</p>
+                <p className="text-sm text-slate-400">{programToday?.isOff ? 'Jour off programmé — récupère bien.' : 'Rien de prévu aujourd\'hui.'}</p>
               )
             ) : (
               <div className="rounded-lg border border-dashed border-brand-300 bg-brand-50/50 p-4 text-center dark:border-brand-800 dark:bg-brand-900/10">
-                <div className="text-2xl">🗓️</div>
-                <p className="mt-1 text-sm font-medium">Crée ton programme de révision</p>
+                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300"><Icon name="nav-calendar" className="h-6 w-6" /></div>
+                <p className="mt-2 text-sm font-medium">Crée ton programme de révision</p>
                 <p className="text-xs text-slate-400">Un plan quotidien qui s'adapte à tes performances.</p>
                 <Link to="/programme" className="btn-primary mt-3 text-xs">Configurer mon programme →</Link>
               </div>

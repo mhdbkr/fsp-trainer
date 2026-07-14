@@ -25,7 +25,7 @@ export function KommunikationGuide() {
           </div>
         </div>
         <button onClick={() => { setDrill((d) => !d); setRevealed(false); }} className={`btn text-xs ${drill ? 'bg-brand-600 text-white' : 'btn-outline'}`}>
-          {drill ? '✕ Quitter le drill' : '🎯 Mode drill'}
+          {drill ? '✕ Quitter le drill' : <><Icon name="target" className="h-3.5 w-3.5" />Mode drill</>}
         </button>
       </div>
 
