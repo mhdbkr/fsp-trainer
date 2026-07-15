@@ -25,6 +25,7 @@ export function CommandPalette() {
   const aufklaerungen = useAufklaerungen();
   const begriffe = useFachbegriffe();
   const toggleTheme = useUi((s) => s.toggleTheme);
+  const toggleSidebar = useUi((s) => s.toggleSidebar);
   const openGlossary = useUi((s) => s.openGlossary);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,6 +46,7 @@ export function CommandPalette() {
     const actions: Item[] = [
       { id: 'a:drill', label: 'Lancer le drill Fachbegriffe', group: 'Actions', icon: <Icon name="nav-abc" className="h-4 w-4" />, run: go('/fachbegriffe/drill') },
       { id: 'a:theme', label: 'Basculer clair / sombre', group: 'Actions', icon: <Icon name="nav-moon" className="h-4 w-4" />, run: () => { toggleTheme(); setOpen(false); } },
+      { id: 'a:sidebar', label: 'Basculer la barre latérale (immersion)', hint: '⌘B', group: 'Actions', icon: <Icon name="chevron" className="h-4 w-4" />, run: () => { toggleSidebar(); setOpen(false); } },
     ];
     const cs: Item[] = (cases ?? []).map((c) => ({ id: `cas:${c.id}`, label: c.name, hint: c.specialty, group: 'Cas cliniques', icon: <SpecialtyIcon specialty={c.specialty} className="h-4 w-4" />, run: go(`/cas/${c.id}`) }));
     const sims: Item[] = (cases ?? []).map((c) => ({ id: `sim:${c.id}`, label: `Simuler — ${c.name}`, hint: c.specialty, group: 'Simulations', icon: <Icon name="play" className="h-4 w-4" />, run: go(`/simulation/${c.id}/pre`) }));
@@ -57,7 +59,7 @@ export function CommandPalette() {
     // Fachbegriffe : ouvre directement le glossaire (définition + prononciation).
     const terms: Item[] = (begriffe ?? []).map((t) => ({ id: `fb:${t.id}`, label: t.term, hint: t.translationSimple?.slice(0, 30), group: 'Fachbegriffe', icon: <Icon name="nav-abc" className="h-4 w-4" />, run: () => { openGlossary(t); setOpen(false); } }));
     return [...mods, ...actions, ...cs, ...sims, ...fw, ...aufk, ...guides, ...terms];
-  }, [cases, fachwissen, aufklaerungen, begriffe, navigate, toggleTheme, openGlossary]);
+  }, [cases, fachwissen, aufklaerungen, begriffe, navigate, toggleTheme, toggleSidebar, openGlossary]);
 
   const filtered = useMemo(() => {
     if (!q.trim()) return items.filter((i) => i.group === 'Modules' || i.group === 'Actions');

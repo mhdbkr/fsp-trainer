@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { GlossaryDrawer } from './GlossaryDrawer';
@@ -7,14 +7,12 @@ import { Doctopus } from './Doctopus';
 import { ResumeSessionBar } from './ResumeSessionBar';
 import { SelectionExplainer } from './SelectionExplainer';
 
-// Barre latérale PLATE (horizontalité : pas d'arbre profond). Toujours visible,
-// contexte conservé. Panneaux et modales par-dessus plutôt que pages empilées.
+// Barre latérale déportée dans ./Sidebar (modes déployé / dock immersif).
 // La palette ⌘K double chaque destination au clavier (NAV partagé, ./nav).
-import { NAV } from './nav';
+import { Sidebar } from './Sidebar';
 import { CommandPalette } from './CommandPalette';
 
 export function Shell() {
-  const { theme, toggleTheme, targetCenter, setTargetCenter } = useUi();
   const setAtPageBottom = useUi((s) => s.setAtPageBottom);
   const { pathname } = useLocation();
   const mainRef = useRef<HTMLElement>(null);
@@ -27,69 +25,7 @@ export function Shell() {
 
   return (
     <div className="flex h-full">
-      {/* Sidebar */}
-      <aside className="flex w-16 shrink-0 flex-col border-r border-slate-200 bg-white/85 backdrop-blur md:w-60 dark:border-ink-600 dark:bg-ink-800/85">
-        {/* Wordmark — Doctopus (maison) ▸ FSP·Cockpit (produit). Mark pieuvre + pouls coral. */}
-        <div className="flex h-16 items-center gap-2.5 px-4">
-          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-sm ring-1 ring-white/15">
-            <span className="pointer-events-none absolute inset-0 rounded-[11px] bg-gradient-to-b from-white/25 to-transparent" />
-            <Icon name="doctopus" className="relative h-[22px] w-[22px]" />
-            <span className="absolute -right-0.5 -top-0.5 h-2 w-2 animate-pulse-line rounded-full bg-signal-400 ring-2 ring-white dark:ring-ink-800" />
-          </span>
-          <div className="hidden leading-none md:block">
-            <div className="font-mono text-[8.5px] uppercase tracking-[0.22em] text-signal-500 dark:text-signal-400">Doctopus</div>
-            <div className="mt-1 font-display text-[15px] font-bold tracking-tightish text-slate-900 dark:text-white">FSP<span className="text-brand-600 dark:text-brand-300">·Cockpit</span></div>
-          </div>
-        </div>
-
-        <nav className="flex-1 space-y-0.5 px-2 py-2">
-          {NAV.map((n) => (
-            <NavLink
-              key={n.to}
-              to={n.to}
-              end={n.to === '/'}
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200'
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800/70 dark:hover:text-slate-100'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  {/* Indicateur actif — barre d'accent latérale (pattern nav premium) */}
-                  <span className={`absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full bg-brand-500 transition-all duration-200 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
-                  <Icon name={n.icon} className="h-[22px] w-[22px] shrink-0" title={n.label} />
-                  <span className="hidden md:inline">{n.label}</span>
-                </>
-              )}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="space-y-2 border-t border-slate-100 p-2 dark:border-ink-600">
-          <div className="hidden md:block">
-            <label className="label px-1">Centre visé</label>
-            <select value={targetCenter} onChange={(e) => setTargetCenter(e.target.value as never)} className="input mt-1 py-1.5 text-xs">
-              <option value="Alle">Tous les centres</option>
-              <option>Freiburg</option>
-              <option>Karlsruhe</option>
-              <option>Reutlingen</option>
-              <option>Stuttgart</option>
-            </select>
-          </div>
-          <button onClick={toggleTheme} className="btn-ghost w-full justify-center md:justify-start">
-            <Icon name={theme === 'dark' ? 'nav-sun' : 'nav-moon'} className="h-[18px] w-[18px]" title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'} />
-            <span className="hidden md:inline">{theme === 'dark' ? 'Mode clair' : 'Mode sombre'}</span>
-          </button>
-          {/* Voyant d'état — readout d'instrument (renforce l'offline-first) */}
-          <div className="hidden items-center gap-2 px-2 pt-0.5 md:flex">
-            <span className="h-1.5 w-1.5 animate-pulse-line rounded-full bg-brand-500" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">Offline · Local</span>
-          </div>
-        </div>
-      </aside>
+      <Sidebar />
 
       {/* Contenu */}
       <main ref={mainRef} onScroll={onMainScroll} className="flex-1 overflow-y-auto">

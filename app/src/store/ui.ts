@@ -31,6 +31,12 @@ interface UiState {
   atPageBottom: boolean;
   setAtPageBottom: (v: boolean) => void;
 
+  // Barre latérale : 'full' = déployée (labels), 'dock' = immersive (masquée,
+  // dock d'icônes révélé au bord gauche, façon macOS). Persisté.
+  sidebarMode: 'full' | 'dock';
+  setSidebarMode: (m: 'full' | 'dock') => void;
+  toggleSidebar: () => void;
+
   // Contexte de préparation global.
   targetCenter: Center | 'Alle';
   setTargetCenter: (c: Center | 'Alle') => void;
@@ -81,6 +87,14 @@ export const useUi = create<UiState>((set, get) => ({
 
   atPageBottom: false,
   setAtPageBottom: (v) => set((s) => (s.atPageBottom === v ? s : { atPageBottom: v })),
+
+  sidebarMode: (localStorage.getItem('fsp-sidebar') as 'full' | 'dock') || 'full',
+  setSidebarMode: (m) => { localStorage.setItem('fsp-sidebar', m); set({ sidebarMode: m }); },
+  toggleSidebar: () => {
+    const next = get().sidebarMode === 'full' ? 'dock' : 'full';
+    localStorage.setItem('fsp-sidebar', next);
+    set({ sidebarMode: next });
+  },
 
   targetCenter: (localStorage.getItem('fsp-center') as Center | 'Alle') || 'Alle',
   setTargetCenter: (c) => { localStorage.setItem('fsp-center', c); set({ targetCenter: c }); },
