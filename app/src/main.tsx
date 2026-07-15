@@ -10,6 +10,7 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
 import { Shell } from '@/components/Shell';
+import { useProfiles } from '@/store/profile';
 import { ensureSeeded } from '@/data/seed';
 import { HomePage } from '@/features/home/HomePage';
 import { CasesPage } from '@/features/cases/CasesPage';
@@ -53,10 +54,12 @@ const router = createHashRouter([
   { path: '/patient/:caseId', element: <PatientScreen /> },
 ]);
 
-ensureSeeded().then(() => {
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>,
-  );
-});
+ensureSeeded()
+  .then(() => useProfiles.getState().load())
+  .then(() => {
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>,
+    );
+  });

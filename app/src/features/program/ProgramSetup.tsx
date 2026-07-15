@@ -4,6 +4,7 @@ import { setMeta } from '@/db/db';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
+import { useProfiles, programKey } from '@/store/profile';
 
 // ============================================================================
 // Onboarding du Programme de révision — dialogue illustré collectant les
@@ -49,7 +50,7 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
       selfLevel, createdAt: initial?.createdAt ?? Date.now(),
       adjust: initial?.adjust,
     };
-    await setMeta('program', config);
+    await setMeta(programKey(useProfiles.getState().activeId), config);
     onDone();
   };
 

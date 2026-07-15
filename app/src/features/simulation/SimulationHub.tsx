@@ -55,7 +55,7 @@ export function SimulationHub() {
                   <div className="flex-1">
                     <div className="text-sm font-medium">{c?.name ?? sim.caseId}</div>
                     <div className="text-xs text-slate-400">
-                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {sim.role} · {parts.map(([k]) => k).join(', ')}
+                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {parts.map(([k]) => k).join(', ')}
                     </div>
                   </div>
                   {c && <Link to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}

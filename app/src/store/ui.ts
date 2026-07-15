@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Fachbegriff, Center, SimRole, AssistanceMode, MusterCity, Layer } from '@/db/types';
+import type { Fachbegriff, Center, AssistanceMode, MusterCity, Layer } from '@/db/types';
 
 // ============================================================================
 // État global léger (Zustand). UI-only : le contenu vit dans IndexedDB.
@@ -40,8 +40,6 @@ interface UiState {
   // Contexte de préparation global.
   targetCenter: Center | 'Alle';
   setTargetCenter: (c: Center | 'Alle') => void;
-  role: SimRole;
-  setRole: (r: SimRole) => void;
 
   // Réglages de simulation (Itération 2).
   assistance: AssistanceMode;
@@ -98,8 +96,6 @@ export const useUi = create<UiState>((set, get) => ({
 
   targetCenter: (localStorage.getItem('fsp-center') as Center | 'Alle') || 'Alle',
   setTargetCenter: (c) => { localStorage.setItem('fsp-center', c); set({ targetCenter: c }); },
-  role: 'Candidat',
-  setRole: (r) => set({ role: r }),
 
   assistance: (localStorage.getItem('fsp-assistance') as AssistanceMode) || 'assiste',
   setAssistance: (a) => { localStorage.setItem('fsp-assistance', a); set({ assistance: a }); },

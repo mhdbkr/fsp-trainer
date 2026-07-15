@@ -1,5 +1,9 @@
 import { db } from '@/db/db';
 import type { ExtraTask, ProgramAdjust, ProgramConfig } from '@/db/types';
+import { useProfiles, programKey } from '@/store/profile';
+
+// Clé meta du programme du profil actif (le programme est par profil).
+const key = () => programKey(useProfiles.getState().activeId);
 
 // ============================================================================
 // Actions manuelles sur le programme de révision. Elles écrivent dans
@@ -19,7 +23,7 @@ async function patch(config: ProgramConfig, mutate: (a: ProgramAdjust) => void):
     extras: [...(config.adjust?.extras ?? [])],
   };
   mutate(adjust);
-  await db.meta.put({ key: 'program', value: { ...config, adjust } });
+  await db.meta.put({ key: key(), value: { ...config, adjust } });
 }
 
 /** Marque la couche `layer` d'un cas comme faite (sans lancer de simulation). */
@@ -62,10 +66,10 @@ export function toggleSkipDrill(config: ProgramConfig, date: string) {
 
 /** Change l'intensité du plan (recalcul immédiat du budget horaire quotidien). */
 export function setIntensity(config: ProgramConfig, intensity: ProgramConfig['intensity']) {
-  return db.meta.put({ key: 'program', value: { ...config, intensity } });
+  return db.meta.put({ key: key(), value: { ...config, intensity } });
 }
 
 /** Réinitialise tous les ajustements manuels (repart d'un plan « propre »). */
 export function resetAdjust(config: ProgramConfig) {
-  return db.meta.put({ key: 'program', value: { ...config, adjust: undefined } });
+  return db.meta.put({ key: key(), value: { ...config, adjust: undefined } });
 }

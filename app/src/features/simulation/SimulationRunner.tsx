@@ -4,6 +4,7 @@ import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
+import { useProfiles } from '@/store/profile';
 import { useSimSession } from '@/store/simSession';
 import { useTimer, fmt } from './useTimer';
 import { Portal } from '@/components/Portal';
@@ -30,7 +31,7 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
 export function SimulationRunner() {
   const { caseId } = useParams();
   const c = useCase(caseId);
-  const role = useUi((s) => s.role);
+  const activeProfile = useProfiles((s) => s.active());
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
   const muster = useUi((s) => s.muster);
@@ -87,7 +88,7 @@ export function SimulationRunner() {
       id: `sim-${Date.now()}`,
       caseId: c.id,
       date: Date.now(),
-      role,
+      profileId: useProfiles.getState().activeId,
       parts,
       notes,
       bogen,
@@ -119,7 +120,7 @@ export function SimulationRunner() {
             <div>
               <div className="text-sm font-bold">{c.name}</div>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                Médecin : {role}
+                Médecin : {activeProfile?.name ?? '—'}
                 <span className={`chip py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
                   {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
                 </span>

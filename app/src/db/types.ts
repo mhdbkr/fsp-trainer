@@ -309,11 +309,23 @@ export interface PartResult {
 
 export type SimRole = 'Candidat' | 'Partenaire';
 
+/** Profil d'apprenant — chaque profil a ses propres simulations, stats, streak
+ *  et programme personnalisé. App locale : création sans authentification.
+ *  En pré-simulation, on choisit le profil qui joue le médecin (= profil actif). */
+export interface Profile {
+  id: string;
+  name: string;
+  color: string;           // clé de teinte (voir lib/profiles.PROFILE_COLORS)
+  createdAt: number;
+}
+
 export interface Simulation {
   id: string;
   caseId: string;
   date: number;            // epoch ms
-  role: SimRole;
+  /** Profil crédité (celui qui a joué le médecin). Pilote stats/streak/programme. */
+  profileId?: string;
+  role?: SimRole;          // hérité (rétrocompat) — remplacé par profileId
   parts: {
     anamnese?: PartResult;
     dokumentation?: PartResult;
