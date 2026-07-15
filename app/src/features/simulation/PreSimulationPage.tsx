@@ -3,7 +3,6 @@ import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { SimulationSetup } from './SimulationSetup';
 
 // Échauffement avant le chrono : notions clés, questions d'anamnèse, phrases de
@@ -20,8 +19,6 @@ export function PreSimulationPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-5">
-      <Breadcrumb items={[{ label: 'Cas', to: '/cas' }, { label: c.name, to: `/cas/${c.id}` }, { label: 'Pré-simulation' }]} />
-
       <header className="text-center">
         <div className="text-sm font-semibold uppercase tracking-wide text-brand-500">Échauffement</div>
         <h1 className="text-2xl font-bold">{c.name}</h1>

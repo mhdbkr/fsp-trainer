@@ -29,17 +29,16 @@ export function Shell() {
     <div className="flex h-full">
       {/* Sidebar */}
       <aside className="flex w-16 shrink-0 flex-col border-r border-slate-200 bg-white/85 backdrop-blur md:w-60 dark:border-ink-600 dark:bg-ink-800/85">
-        {/* Wordmark — marque « instrument » : mark ECG (pouls coral) + display + mono */}
+        {/* Wordmark — Doctopus (maison) ▸ FSP·Cockpit (produit). Mark pieuvre + pouls coral. */}
         <div className="flex h-16 items-center gap-2.5 px-4">
-          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-brand-600 text-white shadow-sm">
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M2 12h3.5l1.8-6 3 12 2.2-8 1.5 4H21" />
-            </svg>
+          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-sm ring-1 ring-white/15">
+            <span className="pointer-events-none absolute inset-0 rounded-[11px] bg-gradient-to-b from-white/25 to-transparent" />
+            <Icon name="doctopus" className="relative h-[22px] w-[22px]" />
             <span className="absolute -right-0.5 -top-0.5 h-2 w-2 animate-pulse-line rounded-full bg-signal-400 ring-2 ring-white dark:ring-ink-800" />
           </span>
           <div className="hidden leading-none md:block">
-            <div className="font-display text-[15px] font-bold tracking-tightish text-slate-900 dark:text-white">FSP<span className="text-brand-600 dark:text-brand-300">·Cockpit</span></div>
-            <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-400">Fachsprachprüfung</div>
+            <div className="font-mono text-[8.5px] uppercase tracking-[0.22em] text-signal-500 dark:text-signal-400">Doctopus</div>
+            <div className="mt-1 font-display text-[15px] font-bold tracking-tightish text-slate-900 dark:text-white">FSP<span className="text-brand-600 dark:text-brand-300">·Cockpit</span></div>
           </div>
         </div>
 

@@ -82,6 +82,25 @@ const P: Record<string, React.ReactNode> = {
   user: <><circle cx="12" cy="8" r="4" /><path d="M4.5 20c0-4 3.4-6 7.5-6s7.5 2 7.5 6" /></>,
   external: <><path d="M14 4h6v6M20 4l-9 9" /><path d="M19 13.5V19a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5.5" /></>,
   copy: <><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></>,
+  // Diagnostics différentiels : ramification (arbre de décision).
+  branch: <><circle cx="6.5" cy="6.5" r="2.3" /><circle cx="6.5" cy="17.5" r="2.3" /><circle cx="17.5" cy="6.5" r="2.3" /><path d="M6.5 8.8v6.4" /><path d="M17.5 8.8c0 4.6-11 2.4-11 6.4" /></>,
+  // ── Doctopus — marque monoline : manteau en arche, yeux-feuilles, tentacules
+  // en éventail terminés par des ventouses-nœuds (pieuvre + « A » + circuit). ──
+  doctopus: <>
+    <path d="M5.7 13.2C5.5 7 8.9 4 12 4s6.5 3 6.3 9.2" />
+    <path d="M9.1 10c.2-1.2 1.1-2 2.3-2 0 1.2-.9 2.1-2.3 2z" />
+    <path d="M14.9 10c-.2-1.2-1.1-2-2.3-2 0 1.2.9 2.1 2.3 2z" />
+    <path d="M6 13C4.6 14.5 4.2 16 4.7 16.7" />
+    <path d="M8.4 13.4C7.9 15.2 7.9 16.9 7.9 17.9" />
+    <path d="M12 13.6C11.9 15.6 11.9 17.3 12 18.3" />
+    <path d="M15.6 13.4C16.1 15.2 16.1 16.9 16.1 17.9" />
+    <path d="M18 13C19.4 14.5 19.8 16 19.3 16.7" />
+    <circle cx="4.6" cy="17.7" r="1" />
+    <circle cx="7.9" cy="18.9" r="1" />
+    <circle cx="12" cy="19.3" r="1" />
+    <circle cx="16.1" cy="18.9" r="1" />
+    <circle cx="19.4" cy="17.7" r="1" />
+  </>,
 };
 
 export function Icon({ name, className = 'h-5 w-5', title }: { name: string; className?: string; title?: string }) {

@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 // Chrono par partie (compte à rebours à partir d'une durée cible).
 // `initialElapsed` : reprend là où la partie s'était arrêtée (session persistante).
 // `onChange` : remonte le temps écoulé au parent pour le sauvegarder.
-export function useTimer(targetSec: number, initialElapsed = 0, onChange?: (sec: number) => void) {
+export function useTimer(targetSec: number, initialElapsed = 0, onChange?: (sec: number) => void, autoStart = false) {
   const [elapsed, setElapsed] = useState(initialElapsed);
-  const [running, setRunning] = useState(false);
+  const [running, setRunning] = useState(autoStart);
   const ref = useRef<number | null>(null);
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;

@@ -42,11 +42,17 @@ export default {
         'slide-in': { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(0)' } },
         // Battement d'instrument — la « pulse » de marque.
         'pulse-line': { '0%,100%': { opacity: '0.35' }, '50%': { opacity: '1' } },
+        // Ouverture d'un popover (assistant) — jaillit depuis son ancre.
+        pop: { '0%': { opacity: '0', transform: 'translateY(10px) scale(0.95)' }, '100%': { opacity: '1', transform: 'none' } },
+        // Flottement doux du bouton assistant (présence vivante, discrète).
+        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-3px)' } },
       },
       animation: {
         'fade-in': 'fade-in 0.2s ease-out',
         'slide-in': 'slide-in 0.25s cubic-bezier(0.16,1,0.3,1)',
         'pulse-line': 'pulse-line 2.4s ease-in-out infinite',
+        pop: 'pop 0.24s cubic-bezier(0.16,1,0.3,1)',
+        float: 'float 3.6s ease-in-out infinite',
       },
     },
   },

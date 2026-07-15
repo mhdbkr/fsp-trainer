@@ -231,7 +231,8 @@ interface PlayAreaProps {
   target: number; initialElapsed: number; onElapsed: (sec: number) => void; onEndPart: () => void;
 }
 function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, target, initialElapsed, onElapsed, onEndPart }: PlayAreaProps) {
-  const timer = useTimer(target, initialElapsed, onElapsed);
+  // autoStart : le chrono démarre dès l'entrée dans la partie (pas de clic requis).
+  const timer = useTimer(target, initialElapsed, onElapsed, true);
   const overtime = timer.remaining < 0;
 
   return (

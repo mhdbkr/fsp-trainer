@@ -4,10 +4,10 @@ import { useCase, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { CenterBadge, FreqBadge, DifficultyDots, StatusBadge, Toggle } from '@/components/ui';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { PatientSheetView } from './PatientSheetView';
 import { ExaminerSheetView } from '@/features/simulation/ExaminerSheetView';
 import { Icon } from '@/components/icons';
+import { SEC, SectionCard } from './medSections';
 
 export function CaseDetailPage() {
   const { id } = useParams();
@@ -25,8 +25,6 @@ export function CaseDetailPage() {
 
   return (
     <div className="space-y-5">
-      <Breadcrumb items={[{ label: 'Cas cliniques', to: '/cas' }, { label: c.name }]} />
-
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="eyebrow">Cas clinique</div>
@@ -68,44 +66,61 @@ export function CaseDetailPage() {
       ) : (
         <div className="grid gap-4 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
-            <div className="card p-5">
-              <div className="label mb-1">Verdachtsdiagnose</div>
-              <p className="text-lg font-semibold text-brand-700 dark:text-brand-300"><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></p>
-              {c.medicalView.notfall && <span className="chip mt-2 bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">⚠ Notfall</span>}
+            {/* Verdachtsdiagnose — carte héro : la conclusion, mise en avant */}
+            <div className="card relative overflow-hidden bg-gradient-to-br from-brand-50 to-transparent p-5 pl-6 dark:from-brand-900/20">
+              <span className={`absolute inset-y-0 left-0 w-1.5 ${SEC.verdacht.edge}`} />
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="mb-1 font-mono text-[9px] uppercase tracking-[0.16em] text-brand-500 dark:text-brand-300">Verdachtsdiagnose · Diagnostic suspecté</div>
+                  <p className="font-display text-xl font-bold leading-tight text-brand-800 dark:text-brand-200"><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></p>
+                </div>
+                <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-white shadow-sm ${SEC.verdacht.badge}`}><Icon name="target" className="h-6 w-6" /></span>
+              </div>
+              {c.medicalView.notfall && (
+                <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-rose-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+                  <Icon name="alert" className="h-3.5 w-3.5" />Notfall
+                </span>
+              )}
             </div>
 
-            <div className="card p-5">
-              <div className="label mb-2">Differenzialdiagnosen (mit Kriterien)</div>
-              <ul className="space-y-2">
+            <SectionCard sec="dd" sub={`${c.medicalView.differenzialdiagnosen.length} à écarter — mit Kriterien`}>
+              <ol className="space-y-2.5">
                 {c.medicalView.differenzialdiagnosen.map((d, i) => (
-                  <li key={i} className="text-sm"><b><AutoLink>{d.dd}</AutoLink></b> <span className="text-slate-500 dark:text-slate-400">— <AutoLink>{d.unterscheidung}</AutoLink></span></li>
+                  <li key={i} className="flex gap-2.5">
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-indigo-100 font-mono text-[11px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">{i + 1}</span>
+                    <span className="text-sm"><b className="font-semibold"><AutoLink>{d.dd}</AutoLink></b> <span className="text-slate-500 dark:text-slate-400">— <AutoLink>{d.unterscheidung}</AutoLink></span></span>
+                  </li>
                 ))}
-              </ul>
-            </div>
+              </ol>
+            </SectionCard>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="card p-5">
-                <div className="label mb-2">Diagnostik (nicht-invasiv → invasiv)</div>
+              <SectionCard sec="diagnostik" sub="nicht-invasiv → invasiv">
                 <AutoLinkList items={c.medicalView.diagnostik} />
-              </div>
-              <div className="card p-5">
-                <div className="label mb-2">Therapie</div>
-                {c.medicalView.therapie.konservativ && <TherapieGroup title="Konservativ" items={c.medicalView.therapie.konservativ} />}
-                {c.medicalView.therapie.interventionell && <TherapieGroup title="Interventionell" items={c.medicalView.therapie.interventionell} />}
-                {c.medicalView.therapie.chirurgisch && <TherapieGroup title="Chirurgisch" items={c.medicalView.therapie.chirurgisch} />}
-              </div>
+              </SectionCard>
+              <SectionCard sec="therapie">
+                {c.medicalView.therapie.konservativ && <TherapieGroup title="Konservativ" tone="bg-emerald-400" items={c.medicalView.therapie.konservativ} />}
+                {c.medicalView.therapie.interventionell && <TherapieGroup title="Interventionell" tone="bg-amber-400" items={c.medicalView.therapie.interventionell} />}
+                {c.medicalView.therapie.chirurgisch && <TherapieGroup title="Chirurgisch" tone="bg-rose-400" items={c.medicalView.therapie.chirurgisch} />}
+              </SectionCard>
             </div>
 
             {c.medicalView.erstmassnahmen && (
-              <div className="card p-5">
-                <div className="label mb-2">Erste Maßnahmen</div>
+              <SectionCard sec="erst">
                 <AutoLinkList items={c.medicalView.erstmassnahmen} />
-              </div>
+              </SectionCard>
             )}
 
             {c.pruefungsfallen && c.pruefungsfallen.length > 0 && (
-              <div className="card border-amber-200 bg-amber-50 p-5 dark:border-amber-900/40 dark:bg-amber-900/10">
-                <div className="label mb-2 flex items-center gap-1.5 text-amber-700 dark:text-amber-300"><Icon name="alert" className="h-3.5 w-3.5" />Cave-Radar — pièges de ce cas</div>
+              <div className="card relative overflow-hidden border-rose-200 bg-rose-50/60 p-5 pl-6 dark:border-rose-900/40 dark:bg-rose-900/10">
+                <span className={`absolute inset-y-0 left-0 w-1.5 ${SEC.cave.edge}`} />
+                <div className="mb-3 flex items-center gap-2.5">
+                  <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg text-white shadow-sm ${SEC.cave.badge}`}><Icon name="alert" className="h-[18px] w-[18px]" /></span>
+                  <div className="leading-none">
+                    <div className="font-display text-[15px] font-bold tracking-tightish text-rose-700 dark:text-rose-300">Cave-Radar</div>
+                    <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-rose-400">Pièges de ce cas</div>
+                  </div>
+                </div>
                 <AutoLinkList items={c.pruefungsfallen} />
               </div>
             )}
@@ -156,11 +171,13 @@ export function CaseDetailPage() {
   );
 }
 
-function TherapieGroup({ title, items }: { title: string; items: string[] }) {
+function TherapieGroup({ title, tone, items }: { title: string; tone: string; items: string[] }) {
   return (
     <div className="mb-3 last:mb-0">
-      <div className="text-xs font-semibold text-brand-600 dark:text-brand-300">{title}</div>
-      <AutoLinkList items={items} className="mt-1 space-y-1 text-sm" />
+      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <span className={`h-2 w-2 rounded-full ${tone}`} />{title}
+      </div>
+      <AutoLinkList items={items} className="mt-1.5 space-y-1 text-sm" />
     </div>
   );
 }

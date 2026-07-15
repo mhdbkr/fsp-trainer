@@ -3,7 +3,6 @@ import { useFachwissen, useCases, useAufklaerungen, useFachbegriffe } from '@/ho
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
-import { Breadcrumb } from '@/components/Breadcrumb';
 
 export function FachwissenDetailPage() {
   const { id } = useParams();
@@ -20,8 +19,6 @@ export function FachwissenDetailPage() {
 
   return (
     <div className="space-y-5">
-      <Breadcrumb items={[{ label: 'Fachwissen', to: '/fachwissen' }, { label: fw.pathology }]} />
-
       <header>
         <div className="eyebrow">{fw.specialty}</div>
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tightish">{fw.pathology}</h1>
