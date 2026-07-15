@@ -5,11 +5,12 @@ import { seedFachbegriffe } from './seedFachbegriffe';
 import { seedAufklaerungen } from './seedAufklaerungen';
 import { seedFachwissen } from './seedFachwissen';
 import { seedCases } from './seedCases';
+import { CASE_MUSTER } from './caseMuster';
 import { seedGuides } from './seedGuides';
 import { checklistFor } from '@/lib/checklists';
 import { checklistPct, languagePct, emptyLanguageGrid } from '@/lib/scoring';
 
-const SEED_VERSION = 13;
+const SEED_VERSION = 14;
 
 // ----------------------------------------------------------------------------
 // Linkage automatique : relie cas ↔ Fachbegriffe ↔ Fachwissen ↔ Aufklärungen
@@ -136,7 +137,7 @@ export async function ensureSeeded(force = false): Promise<void> {
   const fachbegriffe = seedFachbegriffe();
   const aufklaerungen = seedAufklaerungen();
   const fachwissen = seedFachwissen();
-  const cases = seedCases();
+  const cases = seedCases().map((c) => (CASE_MUSTER[c.id] ? { ...c, musterSaetze: CASE_MUSTER[c.id] } : c));
   const guides = seedGuides();
 
   wireLinks(cases, fachbegriffe, fachwissen, aufklaerungen);

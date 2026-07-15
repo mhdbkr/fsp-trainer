@@ -2,8 +2,7 @@ import { useState } from 'react';
 import type { AssistanceMode, BogenNotes, Case, MusterCity } from '@/db/types';
 import { ARZTBRIEF_CHAPTERS, type ArztbriefChapter } from '@/data/guides/arztbriefChapters';
 import { compareArztbrief, type ArztbriefFeedback } from '@/lib/arztbriefCompare';
-import { arztbriefExample } from '@/lib/caseExamples';
-import { GuidedText } from '@/components/GuidedText';
+import { MusterCard } from './MusterCard';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
 import { BogenPreview } from '@/components/BogenPreview';
@@ -86,7 +85,7 @@ const REGISTER_BADGE: Record<ArztbriefChapter['register'], string> = {
 function GuideChapter({ ch, assistance, c }: { ch: ArztbriefChapter; assistance: AssistanceMode; c: Case }) {
   const isAssiste = assistance === 'assiste';
   const [open, setOpen] = useState(isAssiste && ch.order <= 3);
-  const example = arztbriefExample(ch.id, c);
+  const muster = c.musterSaetze?.arztbrief[ch.id];
   return (
     <div className="card overflow-hidden text-sm">
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50">
@@ -103,12 +102,7 @@ function GuideChapter({ ch, assistance, c }: { ch: ArztbriefChapter; assistance:
               <PhraseLine key={i} phrase={r} keywords={isAssiste ? ch.keywords : []} />
             ))}
           </ul>
-          {example && (
-            <div className="mt-2 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1.5 dark:border-emerald-900/40 dark:bg-emerald-900/10">
-              <div className="text-[10px] font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">Pour ce cas</div>
-              <p className="text-[13px] text-emerald-900 dark:text-emerald-200"><GuidedText text={example} keywords={[]} /></p>
-            </div>
-          )}
+          {muster && <MusterCard text={muster} keywords={isAssiste ? ch.keywords : []} />}
           {isAssiste && ch.tip && <p className="callout callout-warn mt-2 text-[11px]"><Icon name="bulb" className="mt-0.5 h-3 w-3 shrink-0" />{ch.tip}</p>}
         </div>
       )}

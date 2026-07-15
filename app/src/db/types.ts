@@ -168,6 +168,19 @@ export interface Case {
   kommunikativeSituationIds?: string[]; // situations "patient difficile" du cas
   examinerSheet?: ExaminerSheetSection[]; // fiche de rôle du médecin senior (Teil 3)
   layerProgress?: Layer;             // couche la plus haute validée sur ce cas
+  /** SCHÉMA DE COUVERTURE (Muster) — phrases-modèles AUTHORÉES par chapitre,
+   *  personnalisées à 100 % aux données du cas et au registre du guide. La
+   *  grammaire vit dans du texte rédigé (jamais générée à l'exécution). Alimente
+   *  les vignettes « Pour ce cas » de la Dokumentation (écrit) et de la
+   *  Fallvorstellung (oral). Clés = ids des chapitres des guides correspondants.
+   *  Le validateur (scripts/checkMusterCoverage.mjs) refuse tout trou. */
+  musterSaetze?: CaseMuster;
+}
+
+/** Phrases-modèles par chapitre, pour les deux modules rédigés/parlés. */
+export interface CaseMuster {
+  arztbrief: Record<string, string>;   // chapitre Arztbrief → phrase écrite (Konj. I / Passiv)
+  vorstellung: Record<string, string>; // chapitre Fallvorstellung → phrase orale
 }
 
 // ----------------------------------------------------------------------------
