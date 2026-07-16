@@ -13,3 +13,6 @@ Fachbegriffe_FSP.csv
 01 Anki INSTRUCTIONS.md
 
 # Le dossier app/ (l'application) est versionné ; ses propres ignores sont dans app/.gitignore
+
+# Fichiers de travail temporaires (batches Phase 2)
+app/scratchpad/
