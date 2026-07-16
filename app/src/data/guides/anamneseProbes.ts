@@ -126,6 +126,38 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-chir-blutverduenner', kapitel: 'fach', frage: 'Nehmen Sie Blutverdünner ein?' },
     { id: 'fach-chir-gallensteine', kapitel: 'fach', frage: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?' },
   ],
+  Psychiatrie: [
+    { id: 'fach-psych-stimmung', kapitel: 'fach', frage: 'Wie ist Ihre Stimmung in letzter Zeit? Fühlen Sie sich niedergeschlagen, traurig oder innerlich leer?' },
+    { id: 'fach-psych-interesse', kapitel: 'fach', frage: 'Haben Sie noch Freude oder Interesse an Dingen, die Ihnen früher wichtig waren?' },
+    { id: 'fach-psych-antrieb', kapitel: 'fach', frage: 'Wie ist Ihr Antrieb und Ihre Energie? Fällt es Ihnen schwer, den Alltag zu bewältigen?' },
+    { id: 'fach-psych-schlaf', kapitel: 'fach', frage: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?' },
+    { id: 'fach-psych-tagesverlauf', kapitel: 'fach', frage: 'Gibt es Tageszeiten, zu denen es Ihnen besser oder schlechter geht (zum Beispiel ein Morgentief)?' },
+    { id: 'fach-psych-konzentration', kapitel: 'fach', frage: 'Können Sie sich noch gut konzentrieren und Entscheidungen treffen?' },
+    { id: 'fach-psych-suizid', kapitel: 'fach', frage: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?' },
+    { id: 'fach-psych-ausloeser', kapitel: 'fach', frage: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?' },
+    { id: 'fach-psych-frueher', kapitel: 'fach', frage: 'Hatten Sie so etwas schon einmal? Waren Sie deswegen in Behandlung oder haben Sie Medikamente eingenommen?' },
+  ],
+  Pneumologie: [
+    { id: 'fach-pneumo-husten', kapitel: 'fach', frage: 'Haben Sie Husten? Seit wann, und ist er trocken oder mit Auswurf?' },
+    { id: 'fach-pneumo-auswurf', kapitel: 'fach', frage: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?' },
+    { id: 'fach-pneumo-atemnot', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft? In Ruhe oder bei Belastung? Wie viele Stockwerke schaffen Sie ohne Pause?' },
+    { id: 'fach-pneumo-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Atmen oder Husten? Sind sie atemabhängig?' },
+    { id: 'fach-pneumo-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?' },
+    { id: 'fach-pneumo-giemen', kapitel: 'fach', frage: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?' },
+    { id: 'fach-pneumo-infekt', kapitel: 'fach', frage: 'Hatten Sie kürzlich einen Atemwegsinfekt, Kontakt zu Kranken oder eine Reise?' },
+    { id: 'fach-pneumo-noxen', kapitel: 'fach', frage: 'Rauchen Sie? Waren Sie beruflich Stäuben, Asbest oder Vögeln ausgesetzt?' },
+    { id: 'fach-pneumo-allergie', kapitel: 'fach', frage: 'Haben Sie Allergien oder ein bekanntes Asthma?' },
+  ],
+  Urologie: [
+    { id: 'fach-uro-miktion', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?' },
+    { id: 'fach-uro-frequenz', kapitel: 'fach', frage: 'Müssen Sie häufiger als sonst Wasser lassen, auch nachts? Kommt dabei nur wenig?' },
+    { id: 'fach-uro-drang', kapitel: 'fach', frage: 'Haben Sie plötzlichen, starken Harndrang? Können Sie den Urin noch halten?' },
+    { id: 'fach-uro-farbe', kapitel: 'fach', frage: 'Welche Farbe hat der Urin? Ist Blut dabei, oder riecht er auffällig?' },
+    { id: 'fach-uro-flanke', kapitel: 'fach', frage: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Strahlen sie in die Leiste aus?' },
+    { id: 'fach-uro-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?' },
+    { id: 'fach-uro-strahl', kapitel: 'fach', frage: 'Wie ist der Harnstrahl — abgeschwächt? Müssen Sie pressen, oder tropft es nach?' },
+    { id: 'fach-uro-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder Probleme mit der Prostata?' },
+  ],
 };
 
 // --- Index & helpers --------------------------------------------------------
