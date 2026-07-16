@@ -102,6 +102,9 @@ export interface PatientSheet {
    *  couverture est ainsi structurelle (le validateur refuse tout trou). En
    *  PHASE 2, importer un cas = remplir cette carte pour toutes ses sondes. */
   antworten?: Record<string, string>;
+  /** PHASE 2b (optionnel) — variantes émotionnelles par sonde (calme/détresse +
+   *  méta audio). Absent = on sert `antworten` tel quel. */
+  antwortenEmotional?: Record<string, EmotionalReply>;
   /** Répliques ad-hoc HORS checklist canonique (rare). `kapitel` force le
    *  chapitre ; sinon classées par mots-clés (voir lib/rolePlay.ts). Conservé
    *  pour rétrocompatibilité et cas particuliers. */
@@ -119,6 +122,57 @@ export interface PatientSheet {
 export type RolePlayKapitel =
   | 'personalia' | 'aktuell' | 'fach' | 'vegetativ' | 'vorerkrankungen'
   | 'medikamente' | 'allergien' | 'noxen' | 'familie-sozial' | 'frauenanamnese';
+
+// ----------------------------------------------------------------------------
+// PHASE 2b — Scaffolding « Patient IA vocal » (hooks & structures uniquement).
+// AUCUNE logique IA/vocale ici : ce sont des fondations pour que la Phase 2b
+// soit une intégration, pas une refonte. Tous les champs sont OPTIONNELS et le
+// MVP texte fonctionne avec patientAIProfile absent/null.
+// ----------------------------------------------------------------------------
+/** État émotionnel du patient (pilote la voix + le choix de variante). */
+export type PatientEmotion =
+  | 'neutral' | 'ruhig' | 'besorgt' | 'schmerzgeplagt' | 'ängstlich' | 'gereizt' | 'erleichtert';
+
+/** Mode de rendu de la simulation. 'texte' = MVP actuel ; 'tts'/'vocal' = 2b. */
+export type SimulationMode = 'texte' | 'tts' | 'vocal';
+
+/** État dynamique du patient (0..100), avancé à chaque tour. MVP : règles
+ *  simples hardcodées (lib/simulationStep), remplaçables par un LLM orchestrateur. */
+export interface PatientState {
+  pain: number;      // douleur ressentie
+  anxiety: number;   // anxiété
+  clarity: number;   // clarté/coopération du discours
+  emotion: PatientEmotion;
+}
+
+/** Profil patient pour l'orchestration IA (Phase 2b). Absent/null = sim texte. */
+export interface PatientAIProfile {
+  demografie: string;           // « 64-jähriger Apotheker, gestresst… »
+  systemPrompt: string;         // consigne système du LLM patient
+  initialState: PatientState;
+  voice?: { provider?: string; voiceId?: string; language?: string };
+}
+
+/** Métadonnées audio d'une réplique (optionnel, pour TTS futur). */
+export interface AudioMeta { tone?: string; speed?: number }
+
+/** Variantes émotionnelles d'une réplique pré-écrite (optionnel, Phase 2b). */
+export interface EmotionalReply { calm?: string; distress?: string; audio?: AudioMeta }
+
+/** Nature de la réponse du patient (continuité IA + analytics). */
+export type TurnResponseType = 'symptom' | 'history' | 'clarification' | 'smalltalk' | 'unknown';
+
+/** Un tour de conversation loggé (question candidat → réponse patient + état). */
+export interface ConversationTurn {
+  ts: number;
+  candidateInput: string;
+  probeId?: string;             // sonde reconnue (le cas échéant)
+  patientResponse: string;
+  responseType: TurnResponseType;
+  stateBefore: PatientState;
+  stateAfter: PatientState;
+  audio?: AudioMeta;
+}
 
 // ----------------------------------------------------------------------------
 // Vue médecin (ce que le candidat doit découvrir / viser)
@@ -175,6 +229,8 @@ export interface Case {
    *  Fallvorstellung (oral). Clés = ids des chapitres des guides correspondants.
    *  Le validateur (scripts/checkMusterCoverage.mjs) refuse tout trou. */
   musterSaetze?: CaseMuster;
+  /** PHASE 2b (optionnel) — profil patient IA vocal. null/absent = sim texte. */
+  patientAIProfile?: PatientAIProfile | null;
 }
 
 /** Phrases-modèles par chapitre, pour les deux modules rédigés/parlés. */
@@ -350,6 +406,9 @@ export interface Simulation {
   layer?: Layer;
   muster?: MusterCity;
   arztbriefText?: string;  // ce que le candidat a rédigé (jamais auto-généré)
+  /** PHASE 2b (optionnel) — journal de conversation (continuité IA + analytics). */
+  conversation?: ConversationTurn[];
+  mode?: SimulationMode;   // rendu utilisé (défaut 'texte')
 }
 
 /** Notes structurées par rubrique (mêmes cases que le Arztbrief) →
