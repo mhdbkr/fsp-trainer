@@ -219,12 +219,21 @@ export interface Fachwissen {
   aetiologie?: string;
   risikofaktoren?: string[];
   klinik: { text: string; atypisch?: boolean }[];
+  /** Scores/stadifications réellement demandés à l'oral (Child-Pugh, TNM,
+   *  CURB-65, GOLD…). Nommé + contenu, pour le rappel « classification ». */
+  klassifikation?: { name: string; inhalt: string }[];
+  /** Signes d'alarme CLINIQUES imposant l'urgence — distinct des Prüfungsfallen
+   *  (qui listent les pièges DU CANDIDAT). */
+  redFlags?: string[];
   diagnostik: { text: string; invasiv?: boolean }[]; // non-invasif → invasif
   differenzialdiagnosen: { dd: string; unterscheidung: string }[];
   therapie: { konservativ?: string[]; interventionell?: string[]; chirurgisch?: string[] };
   prognose?: string;
   pruefungsfallen: string[];    // encarts "piège d'examen"
-  askedInExam: string[];        // questions réellement posées (protocoles)
+  /** Questions Arzt-Arzt réellement posées AVEC leur réponse-type. */
+  askedInExam: { frage: string; antwort: string }[];
+  /** Aide-mémoire d'une ligne (voix « Merke : ») — rappel flash avant drill. */
+  merksatz?: string;
   linkedCaseIds: string[];
   keyFachbegriffeIds: string[];
   linkedAufklaerungIds: string[];

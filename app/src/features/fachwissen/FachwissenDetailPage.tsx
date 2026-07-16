@@ -24,6 +24,14 @@ export function FachwissenDetailPage() {
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tightish">{fw.pathology}</h1>
       </header>
 
+      {/* Merksatz — aide-mémoire d'une ligne (rappel flash) */}
+      {fw.merksatz && (
+        <div className="flex items-start gap-2.5 rounded-xl border border-brand-200 bg-gradient-to-br from-brand-50 to-transparent px-4 py-3 dark:border-brand-900/40 dark:from-brand-900/20">
+          <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-brand-500 text-white"><Icon name="bulb" className="h-3.5 w-3.5" /></span>
+          <p className="text-sm font-medium leading-relaxed text-brand-900 dark:text-brand-100"><span className="font-mono text-[10px] uppercase tracking-[0.16em] text-brand-500">Merke&nbsp;·&nbsp;</span><AutoLink>{fw.merksatz}</AutoLink></p>
+        </div>
+      )}
+
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="stagger space-y-4 lg:col-span-2">
           <Section title="Definition" icon="nav-book"><p className="prose-fsp"><AutoLink>{fw.definition}</AutoLink></p></Section>
@@ -52,6 +60,19 @@ export function FachwissenDetailPage() {
             </ol>
           </Section>
 
+          {fw.klassifikation && fw.klassifikation.length > 0 && (
+            <Section title="Klassifikation & Scores" icon="gauge">
+              <div className="space-y-2.5">
+                {fw.klassifikation.map((k, i) => (
+                  <div key={i} className="rounded-lg border border-slate-200 p-2.5 dark:border-slate-800">
+                    <div className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-600 dark:text-brand-300">{k.name}</div>
+                    <p className="mt-1 text-[13px] text-slate-600 dark:text-slate-300"><AutoLink>{k.inhalt}</AutoLink></p>
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
           <Section title="Differenzialdiagnosen (mit Kriterien)" icon="target">
             <ul className="space-y-2 text-sm">
               {fw.differenzialdiagnosen.map((d, i) => (
@@ -74,8 +95,16 @@ export function FachwissenDetailPage() {
           {fw.prognose && <Section title="Prognose" icon="gauge"><p className="prose-fsp"><AutoLink>{fw.prognose}</AutoLink></p></Section>}
         </div>
 
-        {/* Colonne latérale : pièges, questions, liens */}
+        {/* Colonne latérale : red flags, pièges, questions, liens */}
         <div className="stagger space-y-4">
+          {fw.redFlags && fw.redFlags.length > 0 && (
+            <div className="card relative overflow-hidden border-rose-200 bg-rose-50 p-4 pl-5 dark:border-rose-900/40 dark:bg-rose-900/10">
+              <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-rose-500" />
+              <div className="label mb-2 flex items-center gap-1.5 text-rose-700 dark:text-rose-300"><Icon name="alert" className="h-3.5 w-3.5" />Red Flags — Alarmzeichen</div>
+              <AutoLinkList items={fw.redFlags} />
+            </div>
+          )}
+
           <div className="card relative overflow-hidden border-amber-200 bg-amber-50 p-4 pl-5 dark:border-amber-900/40 dark:bg-amber-900/10">
             <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-amber-500" />
             <div className="label mb-2 flex items-center gap-1.5 text-amber-700 dark:text-amber-300"><Icon name="alert" className="h-3.5 w-3.5" />Prüfungsfallen</div>
@@ -84,7 +113,16 @@ export function FachwissenDetailPage() {
 
           <div className="card p-4">
             <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Déjà demandé en examen</div>
-            <AutoLinkList items={fw.askedInExam} />
+            <div className="space-y-2.5">
+              {fw.askedInExam.map((q, i) => (
+                <details key={i} className="group rounded-lg border border-slate-200 dark:border-slate-800">
+                  <summary className="cursor-pointer list-none px-3 py-2 text-[13px] font-medium marker:content-none hover:text-brand-600">
+                    <span className="mr-1 text-slate-400 group-open:text-brand-500">Q</span><AutoLink>{q.frage}</AutoLink>
+                  </summary>
+                  <p className="border-t border-slate-100 px-3 py-2 text-[13px] text-slate-600 dark:border-slate-800 dark:text-slate-300"><AutoLink>{q.antwort}</AutoLink></p>
+                </details>
+              ))}
+            </div>
           </div>
 
           {linkedCases.length > 0 && (
