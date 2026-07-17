@@ -1235,10 +1235,10 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: {
         konservativ: [
-          'Allgemeinmaßnahmen: körperliche Schonung, ausreichende Flüssigkeitszufuhr, Antipyrese/Analgesie (Paracetamol oder NSAR), Sauerstoffgabe bei SpO2 < 92 %, Sekretolyse und Atemtherapie/Mobilisation, Thromboseprophylaxe bei stationärer Aufnahme',
+          'Allgemeinmaßnahmen: körperliche Schonung, ausreichende Flüssigkeitszufuhr, Antipyrese/Analgesie (bevorzugt Paracetamol; NSAR mit Vorsicht bei RAAS-Hemmer/Diuretikum oder Exsikkose), Sauerstoffgabe bei SpO2 < 92 %, Sekretolyse und Atemtherapie/Mobilisation, Thromboseprophylaxe bei stationärer Aufnahme',
           'Kalkulierte (empirische) Antibiose je nach Schweregrad — leichte ambulante CAP: Amoxicillin; bei Penicillinallergie Makrolid (Clarithromycin/Azithromycin) oder Doxycyclin',
           'Mittelschwere/schwere, stationäre CAP: Aminopenicillin + β-Laktamase-Inhibitor (Ampicillin/Sulbactam) oder Cephalosporin (Ceftriaxon/Cefotaxim), kombiniert mit einem Makrolid',
-          'Bei Penicillinallergie (wie hier): respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) oder Makrolid; bei schwerem Verlauf/Immunsuppression ggf. Piperacillin/Tazobactam',
+          'Bei Penicillinallergie (wie hier): stationär ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) als Monotherapie der Wahl — ein Makrolid allein genügt nur ambulant bei leichter CAP',
           'Deeskalation der Antibiose nach Sputum-/Blutkultur und Antibiogramm; Therapiedauer meist 5–7 Tage',
           'Prophylaxe: Pneumokokken- und jährliche Influenzaimpfung; gute Diabeteseinstellung',
         ],
@@ -1256,7 +1256,7 @@ export function seedFachwissen(): Fachwissen[] {
       pruefungsfallen: [
         'Immer den Typ der Pneumonie benennen UND begründen: "ambulant erworben, da in den letzten 48 Stunden bzw. Tagen keine Hospitalisierung" — sehr häufige Prüferfrage.',
         'Immunsuppression (Diabetes mellitus, Strahlentherapie/Zytostatika) erkennen: rechtfertigt eine stationäre, oft intensivmedizinische Aufnahme — nicht als banale ambulante CAP abtun.',
-        'Penicillinallergie beachten: keine Aminopenicilline oder Cephalosporine (Kreuzreaktion) → Makrolid oder respiratorisches Fluorchinolon nennen können.',
+        'Penicillinallergie beachten: keine Aminopenicilline, Cephalosporine nur bei gesicherter Verträglichkeit (Kreuzreaktion) → ambulant Makrolid/Doxycyclin, stationär respiratorisches Fluorchinolon nennen können.',
         'Blut- und Sputumkulturen unbedingt VOR der ersten Antibiotikagabe abnehmen.',
         'Die KU-Trias der Infiltration parat haben: verstärkter Stimmfremitus, Klopfschalldämpfung und klingende feuchte Rasselgeräusche.',
         'Sonographiezeichen der Pneumonie kennen (in Stuttgart gefragt): Pleuraerguss, Hepatisation der Lunge und B-Linien.',
@@ -1302,7 +1302,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welches Antibiotikum wählen Sie bei der Penicillinallergie?',
-          antwort: 'Ein Makrolid wie Clarithromycin oder Azithromycin, alternativ ein respiratorisches Fluorchinolon wie Levofloxacin. Aminopenicilline und Cephalosporine meide ich wegen der Allergie und der möglichen Kreuzreaktion.',
+          antwort: 'Bei diesem stationären Patienten ein respiratorisches Fluorchinolon wie Levofloxacin oder Moxifloxacin — ein Makrolid allein würde nur ambulant bei leichter CAP genügen. Aminopenicilline meide ich wegen der Allergie; Cephalosporine nur bei gesicherter Verträglichkeit (Kreuzreaktion).',
         },
         {
           frage: 'Welche Erreger sind bei der ambulant erworbenen Pneumonie am häufigsten?',
@@ -1317,7 +1317,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein schlecht eingestellter Diabetes schwächt die Immunabwehr; ein erhöhter HbA1c erklärt die Infektanfälligkeit und die erhöhte Komplikationsneigung der Pneumonie.',
         },
       ],
-      merksatz: 'Merke: Bei der CAP immer den Typ begründen ("ambulant erworben, keine Hospitalisierung") und den Schweregrad mit CURB-65 abschätzen; Blut- und Sputumkultur vor der kalkulierten Antibiose abnehmen — bei Penicillinallergie ein Makrolid oder ein respiratorisches Fluorchinolon wählen.',
+      merksatz: 'Merke: Bei der CAP immer den Typ begründen ("ambulant erworben, keine Hospitalisierung") und den Schweregrad mit CURB-65 abschätzen; Blut- und Sputumkultur vor der kalkulierten Antibiose abnehmen — bei Penicillinallergie ambulant ein Makrolid, stationär ein respiratorisches Fluorchinolon wählen.',
       linkedCaseIds: [
         'case-pneumonie',
       ],

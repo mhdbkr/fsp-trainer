@@ -2406,7 +2406,7 @@ export function seedCases(): Case[] {
             'Sicherheitsplanung, klare Absprachen und kurzfristige Wiedervorstellung bei Zunahme der Suizidgedanken',
           ],
           interventionell: [
-            'Antidepressive Pharmakotherapie, bevorzugt ein SSRI (z. B. Sertralin oder Citalopram); Wirkeintritt erst nach zwei bis drei Wochen, anfangs auf zunehmende Suizidalität achten',
+            'Antidepressive Pharmakotherapie, bevorzugt ein SSRI (z. B. Sertralin oder Citalopram); Wirkeintritt erst nach zwei bis drei Wochen, anfangs auf zunehmende Suizidalität achten; unter Hydrochlorothiazid Natriumkontrollen (Hyponatriämie-/SIADH-Risiko der SSRI)',
             'Umgehendes psychiatrisches Konsil',
             'Stationäre (ggf. beschützte) Aufnahme bei akuter Suizidalität oder fehlender Absprachefähigkeit',
             'Bei schwerer, therapieresistenter oder psychotischer Depression Elektrokonvulsionstherapie (EKT) erwägen',
@@ -2453,6 +2453,7 @@ export function seedCases(): Case[] {
         'Vor Einleitung eines Antidepressivums nach früheren manischen/hypomanen Phasen fragen (bipolare Störung), sonst droht ein Umschlagen in eine Manie (Switch).',
         'Depression vs. Trauerreaktion: Dauer ≥ 2 Wochen, durchgängige Anhedonie, Wertlosigkeits-/Schuldgefühle und Suizidalität sprechen für eine Episode, nicht für normale Trauer.',
         'Benzodiazepine (Adumbran/Oxazepam) sind keine Dauertherapie — Abhängigkeits-, Sturz- und Sedierungsgefahr; Mittel der Wahl ist ein SSRI.',
+        'Cave Kombination Hydrochlorothiazid + SSRI: erhöhtes Hyponatriämie-/SIADH-Risiko — Natrium vor und nach Therapiebeginn kontrollieren.',
         'Die ICD-10-Kriterien parat haben: drei Hauptsymptome plus Zusatzsymptome, Dauer ≥ 2 Wochen; Schweregradeinteilung leicht/mittelgradig/schwer.',
         'Positive Familienanamnese (Vater mit Depression und Suizid) ist ein wichtiger Risikofaktor und muss aktiv erfragt werden.',
       ],
@@ -2700,7 +2701,7 @@ export function seedCases(): Case[] {
         persona: 'Homme de 56 ans, employé de bureau, fébrile et essoufflé, qui tousse et parle par phrases courtes. Coopérant mais inquiet à cause de son cancer de la prostate. N\'oublie jamais ton allergie à la pénicilline si on te propose un antibiotique, et mentionne facilement ta fièvre à 40°C et les crachats jaunes.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Ambulant erworbene Pneumonie (CAP), am ehesten rechtsbasal, bei relevanter Immunsuppression (Diabetes mellitus, Z. n. Zytostatikatherapie)',
+        verdachtsdiagnose: 'Ambulant erworbene Pneumonie (CAP), am ehesten rechtsbasal, bei erhöhtem Risikoprofil (Diabetes mellitus, Z. n. Prostatakarzinom mit Zytostatikatherapie)',
         differenzialdiagnosen: [
           {
             dd: 'Akute Bronchitis',
@@ -2739,10 +2740,10 @@ export function seedCases(): Case[] {
         ],
         therapie: {
           konservativ: [
-            'Stationäre, aufgrund der Immunsuppression ggf. intensivmedizinische Aufnahme (Behandlungsort nach CURB-65)',
-            'Kalkulierte Antibiotikatherapie; wegen der Penicillinallergie ein Makrolid (z. B. Clarithromycin) oder ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) — Cephalosporine nur bei gesicherter Verträglichkeit (mögliche Kreuzallergie)',
+            'Stationäre Aufnahme — Behandlungsort anhand des CURB-65-Scores, zusätzlich gesenkte Schwelle durch das Risikoprofil (Alter, Diabetes, Z. n. Zytostatikatherapie); bei Instabilität intensivmedizinisch',
+            'Kalkulierte Antibiotikatherapie; wegen der Penicillinallergie beim stationären Patienten ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) — ein Makrolid allein genügt stationär nicht (unsichere Pneumokokkenwirksamkeit) und ist nur ambulant bei leichter CAP eine Option; Cephalosporine nur bei gesicherter Verträglichkeit (mögliche Kreuzallergie)',
             'Sauerstoffgabe bei Hypoxie, ausreichende Flüssigkeitszufuhr, körperliche Schonung',
-            'Antipyretische/analgetische Therapie (Paracetamol/NSAR), nachts ggf. Antitussivum, Sekretolyse',
+            'Antipyretische/analgetische Therapie mit Paracetamol — NSAR unter ACE-Hemmer + Diuretikum vermeiden (Nephrotoxizität bei fieberhafter Exsikkose); nachts ggf. Antitussivum, Sekretolyse',
             'Thromboseprophylaxe, konsequente Blutzuckereinstellung',
           ],
           interventionell: [
@@ -2786,8 +2787,8 @@ export function seedCases(): Case[] {
         'Welche Erreger verursachen eine Pneumonie?',
       ],
       pruefungsfallen: [
-        'Cave Penicillinallergie: kein Penicillin/Aminopenicillin — kalkulierte Antibiose mit Makrolid oder Fluorchinolon; Cephalosporine nur bei gesicherter Verträglichkeit (Kreuzallergie beachten).',
-        'Immunsuppression (Diabetes mellitus + Z. n. Zytostatika-/Strahlentherapie) → niedrige Schwelle zur stationären, ggf. intensivmedizinischen Aufnahme; nicht ambulant führen.',
+        'Cave Penicillinallergie: kein Penicillin/Aminopenicillin — stationär kalkuliert ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin); ein Makrolid allein genügt nur ambulant bei leichter CAP. Cephalosporine nur bei gesicherter Verträglichkeit (Kreuzallergie beachten).',
+        'Behandlungsort mit dem CURB-65-Score begründen; das Risikoprofil (Alter, Diabetes mellitus, Z. n. Zytostatika-/Strahlentherapie) senkt die Schwelle zur stationären Aufnahme zusätzlich — nicht ambulant führen.',
         'CURB-65/CRB-65 aktiv nennen und den Behandlungsort damit begründen.',
         'Lungenembolie nicht übersehen (atemabhängiger Schmerz + Dyspnoe) — bei Verdacht D-Dimere und CT-Angiographie.',
         'Blutkulturen und Sputum immer VOR der ersten Antibiotikagabe abnehmen.',
@@ -2807,7 +2808,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Was ist bei diesem Patienten besonders?',
-              reaktion: 'die Immunsuppression durch den Diabetes mellitus und den Zustand nach Zytostatika-/Strahlentherapie — daher eine niedrigere Schwelle zur stationären Aufnahme.',
+              reaktion: 'das erhöhte Risikoprofil durch den Diabetes mellitus und den Zustand nach Zytostatika-/Strahlentherapie — daher eine niedrigere Schwelle zur stationären Aufnahme.',
             },
           ],
         },
@@ -2816,7 +2817,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Welche Risikofaktoren hat der Patient?',
-              reaktion: 'höheres Lebensalter, Diabetes mellitus, Immunsuppression nach Zytostatikatherapie sowie die arterielle Hypertonie als kardiale Komorbidität.',
+              reaktion: 'höheres Lebensalter, Diabetes mellitus, Zustand nach Zytostatikatherapie sowie die arterielle Hypertonie als kardiale Komorbidität.',
             },
             {
               frage: 'Ist der HbA1c wichtig? Warum?',
@@ -2858,11 +2859,11 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Nehmen Sie den Patienten stationär auf?',
-              reaktion: 'ja, wegen der Immunsuppression, ggf. sogar intensivmedizinisch; die Entscheidung stütze ich auf den CURB-65-Score.',
+              reaktion: 'ja — die Entscheidung stütze ich auf den CURB-65-Score, und das Risikoprofil (Diabetes, Z. n. Zytostatikatherapie) senkt die Schwelle zusätzlich; bei Instabilität ggf. intensivmedizinisch.',
             },
             {
               frage: 'Welche Therapie und welches Antibiotikum bei Penicillinallergie?',
-              reaktion: 'allgemeine Maßnahmen und eine kalkulierte Antibiose; wegen der Penicillinallergie ein Makrolid wie Clarithromycin, alternativ ein respiratorisches Fluorchinolon; Cephalosporine nur bei gesicherter Verträglichkeit.',
+              reaktion: 'allgemeine Maßnahmen und eine kalkulierte Antibiose; wegen der Penicillinallergie stationär ein respiratorisches Fluorchinolon wie Levofloxacin — ein Makrolid allein wäre nur ambulant bei leichter CAP ausreichend; Cephalosporine nur bei gesicherter Verträglichkeit.',
             },
             {
               frage: 'Was tun Sie vor der ersten Antibiotikagabe?',
@@ -3084,7 +3085,8 @@ export function seedCases(): Case[] {
             'Erhöhte Flüssigkeitszufuhr, ggf. intravenöse Volumengabe',
             'Kalkulierte intravenöse Antibiose (Ceftriaxon oder Ciprofloxacin), Umstellung nach Antibiogramm; bei Urosepsis Breitspektrum-Antibiotikum (z. B. Piperacillin/Tazobactam)',
             'Antipyrese und Analgesie mit Paracetamol — Metamizol wegen Novalginallergie kontraindiziert',
-            'Spasmolytikum (Butylscopolamin) bei Bedarf',
+            'Spasmolytikum (Butylscopolamin) nur bei kolikartiger Schmerzkomponente',
+            'Metformin pausieren (Laktatazidose-Risiko bei fieberhafter Exsikkose und möglicher Nierenfunktionsverschlechterung), übergangsweise Insulin nach Blutzucker',
             'Engmaschige Blutzuckerkontrolle und -einstellung',
             'Therapiedauer 7-14 Tage (komplizierter Verlauf)',
           ],
@@ -3099,7 +3101,7 @@ export function seedCases(): Case[] {
           'Vitalparameter und Temperatur erheben, auf Urosepsis-Zeichen achten (qSOFA)',
           'Venösen Zugang legen, Blut- und Urinkulturen abnehmen',
           'Volumengabe und frühzeitige kalkulierte i.v.-Antibiose',
-          'Blutzucker kontrollieren',
+          'Blutzucker kontrollieren, Metformin pausieren (Laktatazidose-Risiko)',
         ],
         notfall: true,
       },
