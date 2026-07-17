@@ -148,6 +148,16 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-pneumo-noxen', kapitel: 'fach', frage: 'Rauchen Sie? Waren Sie beruflich Stäuben, Asbest oder Vögeln ausgesetzt?' },
     { id: 'fach-pneumo-allergie', kapitel: 'fach', frage: 'Haben Sie Allergien oder ein bekanntes Asthma?' },
   ],
+  Infektiologie: [
+    { id: 'fach-infekt-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?' },
+    { id: 'fach-infekt-zecke', kapitel: 'fach', frage: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?' },
+    { id: 'fach-infekt-haut', kapitel: 'fach', frage: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?' },
+    { id: 'fach-infekt-gelenke', kapitel: 'fach', frage: 'Haben Sie Gelenk- oder Muskelschmerzen? Wandern sie von Gelenk zu Gelenk?' },
+    { id: 'fach-infekt-neuro', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen, Nackensteifigkeit, Missempfindungen oder eine Gesichtslähmung bemerkt?' },
+    { id: 'fach-infekt-reise', kapitel: 'fach', frage: 'Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?' },
+    { id: 'fach-infekt-kontakt', kapitel: 'fach', frage: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?' },
+    { id: 'fach-infekt-impfung', kapitel: 'fach', frage: 'Wie ist Ihr Impfstatus, insbesondere gegen FSME und Tetanus?' },
+  ],
   Urologie: [
     { id: 'fach-uro-miktion', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?' },
     { id: 'fach-uro-frequenz', kapitel: 'fach', frage: 'Müssen Sie häufiger als sonst Wasser lassen, auch nachts? Kommt dabei nur wenig?' },
