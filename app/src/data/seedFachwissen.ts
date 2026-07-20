@@ -1529,5 +1529,414 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
     },
+    {
+      id: 'fw-pavk',
+      pathology: 'Periphere arterielle Verschlusskrankheit (pAVK)',
+      specialty: 'Kardiologie',
+      definition: 'Chronische, meist atherosklerotisch bedingte Stenosierung oder Verschluss der extremitätenversorgenden Arterien (überwiegend der unteren Extremität), die zu einer belastungsabhängigen Minderdurchblutung (Ischämie) führt. Leitsymptom ist die Claudicatio intermittens („Schaufensterkrankheit“): ein belastungsabhängiger, krampfartiger Muskelschmerz (typisch in der Wade), der den Patienten zum Stehenbleiben zwingt und sich in Ruhe innerhalb weniger Minuten bessert. Der volkstümliche Name rührt daher, dass die Betroffenen wie beim Schaufensterbummeln immer wieder stehen bleiben müssen, um den Schmerz abklingen zu lassen. Die pAVK ist Ausdruck einer generalisierten Atherosklerose und damit ein Marker für ein hohes kardiovaskuläres Gesamtrisiko (KHK, Karotisstenose).',
+      aetiologie: 'In über 90 % der Fälle Folge einer Atherosklerose (arteriosklerotische Plaques mit Lumeneinengung). Die Lokalisation bestimmt die Symptomhöhe: Beckentyp (aortoiliakal, ca. 35 %) verursacht Gluteal-/Oberschenkelschmerz, der Oberschenkeltyp (femoropopliteal, ca. 50 %, häufigster Typ) Wadenschmerz, der Unterschenkeltyp (kruropedal, ca. 15 %, gehäuft bei Diabetikern) Fußschmerz. Seltene, nicht-atherosklerotische Ursachen: Thrombangiitis obliterans (Morbus Winiwarter-Buerger, junge Raucher), Vaskulitiden, Entrapment-Syndrom der A. poplitea, fibromuskuläre Dysplasie sowie kardiale/arterielle Embolien (dann eher akuter Verschluss). Ein kompletter Verschluss der distalen Aorta bzw. beider Beckenarterien wird als Leriche-Syndrom bezeichnet (Trias: Claudicatio beidseits/gluteal, fehlende Leistenpulse, erektile Dysfunktion).',
+      risikofaktoren: [
+        'Nikotinabusus — der wichtigste und stärkste Risikofaktor (im Fall 45 Packyears)',
+        'Diabetes mellitus (fördert v. a. den distalen Unterschenkeltyp und Mediasklerose)',
+        'Arterielle Hypertonie',
+        'Hyperlipidämie / Hypercholesterinämie (LDL↑)',
+        'Höheres Lebensalter und männliches Geschlecht',
+        'Positive Familienanamnese für Atherosklerose (KHK, Apoplex, pAVK)',
+        'Hyperhomocysteinämie',
+        'Chronische Niereninsuffizienz',
+        'Adipositas und Bewegungsmangel',
+      ],
+      klinik: [
+        {
+          text: 'Claudicatio intermittens: belastungsabhängiger, krampfartiger Wadenschmerz, der nach einer reproduzierbaren Gehstrecke auftritt, zum Stehenbleiben zwingt und sich in Ruhe binnen Minuten bessert',
+        },
+        {
+          text: 'Verkürzte, reproduzierbare schmerzfreie Gehstrecke (z. B. 50–100 m); Verschlechterung bergauf oder bei schnellem Gehen',
+        },
+        {
+          text: 'Betroffenes Bein kühl, blass, mit abgeschwächten oder fehlenden Fußpulsen (A. dorsalis pedis, A. tibialis posterior)',
+        },
+        {
+          text: 'Trophische Störungen bei fortgeschrittenem Befund: Haarverlust, brüchige Nägel, glänzend-atrophe Haut, verzögerte Wundheilung',
+        },
+        {
+          text: 'Ruheschmerz — typischerweise nachts im Liegen, Besserung durch Tieflagerung des Beins (Herabhängen aus dem Bett) — signalisiert kritische Ischämie (ab Stadium III)',
+          atypisch: true,
+        },
+        {
+          text: 'Schlecht heilende Ulzera, Nekrosen oder Gangrän an Zehen/Ferse/Druckstellen (Stadium IV)',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Diabetiker durch begleitende Polyneuropathie oft schmerzarm/stumm — die Ischämie wird erst über ein Ulkus oder eine Gangrän auffällig (Cave: verschleppte Diagnose)',
+          atypisch: true,
+        },
+        {
+          text: 'Erektile Dysfunktion in Kombination mit gluteal-beidseitiger Claudicatio und fehlenden Leistenpulsen → Leriche-Syndrom (aortoiliakaler Verschluss)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Fontaine-Klassifikation (in Deutschland gebräuchlich)',
+          inhalt: 'Stadium I: asymptomatische Stenose (nur apparativ nachweisbar). Stadium II: Claudicatio intermittens — IIa schmerzfreie Gehstrecke > 200 m, IIb < 200 m. Stadium III: ischämischer Ruheschmerz. Stadium IV: trophische Läsion — Ulkus, Nekrose, Gangrän. Ab Stadium III spricht man von kritischer Extremitätenischämie (CLI).',
+        },
+        {
+          name: 'Rutherford-Klassifikation (angloamerikanisch)',
+          inhalt: 'Kategorie 0: asymptomatisch. Kategorie 1–3: milde / mäßige / schwere Claudicatio. Kategorie 4: Ruheschmerz. Kategorie 5: geringer Gewebeverlust (kleine Nekrose). Kategorie 6: großer Gewebeverlust / ausgedehnte Gangrän. Feinere Abstufung als Fontaine.',
+        },
+        {
+          name: 'ABI-Schweregrade (Knöchel-Arm-Index)',
+          inhalt: '> 1,3: falsch-hoch, Verdacht auf Mediasklerose (v. a. Diabetiker, Niereninsuffizienz). 0,9–1,3: Normalbefund. 0,75–0,9: leichte pAVK. 0,5–0,75: mittelgradige pAVK. < 0,5: schwere pAVK / kritische Ischämie.',
+        },
+      ],
+      redFlags: [
+        'Ischämischer Ruheschmerz (v. a. nachts, Besserung bei herabhängendem Bein) → kritische Extremitätenischämie, Gefäßkonsil',
+        'Ulkus, Nekrose oder Gangrän an Zehen/Fuß → Stadium IV, drohender Extremitätenverlust',
+        'Plötzlicher Beginn mit den 6 P nach Pratt (Pain, Paleness/Blässe, Pulslosigkeit, Parästhesie, Paralyse, „Prostration“/Schock) → akuter Arterienverschluss = Notfall, Ischämiezeit begrenzt (ca. 6 h)',
+        'Kaltes, marmoriertes, gefühlloses Bein mit Bewegungsunfähigkeit → drohender irreversibler Gewebeschaden',
+        'Fieber, Rötung und Sekretion aus einem Fußulkus beim Diabetiker → infizierter diabetischer Fuß / Sepsisgefahr',
+      ],
+      diagnostik: [
+        {
+          text: 'Anamnese: schmerzfreie Gehstrecke, Lokalisation und Belastungsabhängigkeit des Schmerzes, Ruheschmerz, kardiovaskuläre Risikofaktoren (v. a. Nikotin, Diabetes), Begleit-KHK/-Karotisstenose',
+        },
+        {
+          text: 'Körperliche Untersuchung: Inspektion (Blässe, trophische Störungen, Ulzera), Seitenvergleich der Hauttemperatur, systematisches Pulsstatus-Tasten (A. femoralis, A. poplitea, A. dorsalis pedis, A. tibialis posterior) und Auskultation auf Stenosegeräusche',
+        },
+        {
+          text: 'Knöchel-Arm-Index (ABI, Doppler): zentrale, einfache Basisuntersuchung — Quotient aus systolischem Knöchel- und Armdruck; < 0,9 beweist eine pAVK, < 0,5 zeigt eine kritische Ischämie an',
+        },
+        {
+          text: 'Ratschow-Lagerungsprobe und standardisierte Gehstreckenmessung auf dem Laufband (Bestätigung und Objektivierung des Stadiums)',
+        },
+        {
+          text: 'Labor: Lipidstatus (LDL/HDL/Cholesterin), HbA1c/Nüchternglukose, Nierenwerte (Kreatinin/eGFR vor KM), Blutbild, CRP',
+        },
+        {
+          text: 'Farbkodierte Duplexsonographie: erste bildgebende, nicht-invasive Methode zur Lokalisation und Graduierung der Stenosen/Verschlüsse',
+        },
+        {
+          text: 'MR-Angiographie (MRA) — nicht-invasive Gefäßdarstellung zur OP-/Interventionsplanung, ohne Röntgenstrahlung',
+          invasiv: true,
+        },
+        {
+          text: 'CT-Angiographie (CTA) mit jodhaltigem Kontrastmittel zur Gefäßdarstellung (Cave: Niereninsuffizienz, KM-Allergie)',
+          invasiv: true,
+        },
+        {
+          text: 'Digitale Subtraktionsangiographie (DSA) — Goldstandard, ermöglicht die Intervention im selben Eingriff; bei KM-Allergie alternativ CO2-Angiographie',
+          invasiv: true,
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Spinalkanalstenose (Claudicatio spinalis / neurogen)',
+          unterscheidung: 'Belastungsschmerz ebenfalls beim Gehen, aber Besserung erst durch Vornüberbeugen/Hinsetzen (nicht durch bloßes Stehenbleiben); wechselnde Lokalisation, Parästhesien, erhaltene Fußpulse, normaler ABI. Bergauf-/Fahrradfahren wird besser toleriert.',
+        },
+        {
+          dd: 'Tiefe Venenthrombose (TVT)',
+          unterscheidung: 'Akute einseitige Schwellung, Überwärmung, livide Verfärbung und Spannungsschmerz (nicht belastungsabhängig); Fußpulse tastbar. Homans-/Payr-Zeichen, D-Dimer↑, Nachweis in der Kompressionssonographie.',
+        },
+        {
+          dd: 'Periphere Polyneuropathie (v. a. diabetisch)',
+          unterscheidung: 'Brennende, socken-/handschuhförmige Missempfindungen und Taubheit, belastungsUNabhängig, oft in Ruhe/nachts betont; Pulse und ABI normal, gestörtes Vibrations-/Berührungsempfinden.',
+        },
+        {
+          dd: 'Gonarthrose / muskuloskelettaler Schmerz',
+          unterscheidung: 'Gelenkbezogener Anlauf- und Belastungsschmerz mit Krepitation und Bewegungseinschränkung im Knie, keine reproduzierbare fixe Gehstrecke, erhaltene Pulse, normaler ABI.',
+        },
+        {
+          dd: 'Akuter arterieller Verschluss (Embolie/Thrombose)',
+          unterscheidung: 'Plötzlicher Beginn mit den 6 P (Schmerz, Blässe, Pulslosigkeit, Parästhesie, Paralyse, Schock); Notfall — im Gegensatz zur langsam progredienten chronischen pAVK.',
+        },
+        {
+          dd: 'Thrombangiitis obliterans (M. Winiwarter-Buerger)',
+          unterscheidung: 'Junge, stark rauchende Patienten, oft mit Beteiligung der oberen Extremität und Thrombophlebitis migrans; nicht-atherosklerotische Genese.',
+        },
+      ],
+      therapie: {
+        konservativ: [
+          'Konsequente Ausschaltung der Risikofaktoren als Basis jeder Therapie — absoluter Nikotinverzicht (wirksamste Einzelmaßnahme), optimale Diabetes- und Blutdruckeinstellung',
+          'Strukturiertes Gehtraining / Gefäßsport (Ausbildung von Kollateralkreisläufen) — Therapie der ersten Wahl im Stadium II',
+          'Thrombozytenaggregationshemmung mit ASS 100 mg (oder Clopidogrel) zur Reduktion des kardiovaskulären Gesamtrisikos',
+          'Statin zur LDL-Senken (Zielwert < 1,4 mmol/l bzw. < 55 mg/dl) und Plaquestabilisierung',
+          'Optimierung von Blutdruck (ACE-Hemmer/ARB) und Blutzucker',
+          'Cilostazol als medikamentöse Option zur Verlängerung der Gehstrecke bei Claudicatio',
+          'Konsequente Fußpflege und Wundmanagement, besonders beim Diabetiker (Vermeidung von Druckstellen/Ulzera)',
+        ],
+        interventionell: [
+          'Perkutane transluminale Angioplastie (PTA, Ballondilatation), meist mit Stentimplantation — Methode der Wahl bei umschriebenen Stenosen/kurzstreckigen Verschlüssen',
+          'Kathetergestützte Rekanalisation; ab Stadium IIb bei hohem Leidensdruck relative, ab Stadium III/IV absolute Revaskularisationsindikation',
+          'Lokale Thrombolyse / Thrombektomie beim akuten Verschluss',
+        ],
+        chirurgisch: [
+          'Bypass-Operation (z. B. femoropoplitealer Venen- oder Prothesenbypass) bei langstreckigen Verschlüssen',
+          'Thrombendarteriektomie (TEA) mit Patchplastik, v. a. an der Femoralisgabel',
+          'Grenzzonen-/Minoramputation nur als Ultima Ratio bei nicht rettbarer Nekrose/Gangrän oder lebensbedrohlicher Infektion',
+        ],
+      },
+      prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Im Stadium IV (kritische Ischämie) drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
+      pruefungsfallen: [
+        'Umgangssprache parat haben: pAVK = „Schaufensterkrankheit“; auf die häufige Prüferfrage „Warum heißt sie so?“ die Erklärung mit dem erzwungenen Stehenbleiben (wie beim Schaufensterbummel) liefern.',
+        'Der ABI (Knöchel-Arm-Index) ist DIE zentrale, nicht-invasive Basisuntersuchung — nie vergessen; bei Diabetikern/Niereninsuffizienz kann er durch Mediasklerose falsch-hoch (> 1,3) und damit falsch-negativ sein.',
+        'Nikotin als führenden Risikofaktor nennen und beim Patienten aktiv das Rauchen erfragen und ansprechen (wichtigste therapeutische Maßnahme).',
+        'Fußpulse systematisch und benannt tasten (A. dorsalis pedis und A. tibialis posterior) — die Prüfer fragen konkret, WO man tastet.',
+        'Claudicatio spinalis von Claudicatio intermittens abgrenzen: Besserung durch Vornüberbeugen/Hinsetzen (spinal) vs. durch bloßes Stehenbleiben (arteriell).',
+        'Bei KM-Allergie eine Alternative zur konventionellen Angiographie parat haben: CO2-Angiographie oder strahlenfreie MR-Angiographie.',
+        'Die Therapie stadiengerecht (Fontaine I–IV) darstellen können und die Revaskularisationsindikation kennen: relativ ab IIb, absolut ab Stadium III/IV.',
+        'Beim Diabetiker an den schmerzarmen/stummen Verlauf durch Polyneuropathie denken — die pAVK wird sonst erst über ein Ulkus entdeckt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie heißt die pAVK umgangssprachlich und warum?',
+          antwort: 'Schaufensterkrankheit. Weil die Patienten wegen des belastungsabhängigen Wadenschmerzes immer wieder stehen bleiben müssen — wie beim Bummeln vor Schaufenstern —, bis der Schmerz in Ruhe nachlässt.',
+        },
+        {
+          frage: 'Was ist die wichtigste Untersuchung bei der pAVK?',
+          antwort: 'Der Knöchel-Arm-Index (ABI): das Verhältnis aus systolischem Knöchel- und Armdruck. Ein Wert unter 0,9 sichert die pAVK, unter 0,5 zeigt eine kritische Ischämie an. Ergänzend die farbkodierte Duplexsonographie.',
+        },
+        {
+          frage: 'Wo genau tasten Sie die Fußpulse?',
+          antwort: 'An der A. dorsalis pedis am Fußrücken und an der A. tibialis posterior hinter dem Innenknöchel; proximal zusätzlich A. poplitea und A. femoralis im Seitenvergleich.',
+        },
+        {
+          frage: 'Nennen Sie die Fontaine-Stadien und die stadiengerechte Therapie.',
+          antwort: 'Stadium I asymptomatisch, II Claudicatio (IIa > 200 m, IIb < 200 m), III Ruheschmerz, IV Nekrose/Gangrän. Stadium I–II: Risikofaktoren ausschalten, Gehtraining, ASS und Statin; ab IIb bei Leidensdruck relative Revaskularisationsindikation; Stadium III–IV: dringliche Revaskularisation (PTA/Stent oder Bypass), im Endstadium ggf. Amputation.',
+        },
+        {
+          frage: 'Sollten wir die Kollegen der Gefäßchirurgie hinzuziehen? Wie würden Sie den Patienten einordnen?',
+          antwort: 'Ja. Bei einer pAVK im Stadium IIb besteht eine relative Indikation zur Rekanalisation; deshalb sollte ein Gefäßkonsil erfolgen, um Duplexbefund und Angiographie zu bewerten und über PTA/Stent oder Bypass zu entscheiden.',
+        },
+        {
+          frage: 'Was passiert, wenn wir nicht diagnostizieren bzw. behandeln?',
+          antwort: 'Die Durchblutungsstörung schreitet fort: von der Claudicatio über den Ruheschmerz (Stadium III) bis zu Nekrose und Gangrän (Stadium IV) mit drohender Amputation. Zudem bleibt das hohe Herzinfarkt- und Schlaganfallrisiko unbehandelt.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen infrage und wie grenzen Sie sie ab?',
+          antwort: 'Vor allem die Spinalkanalstenose (Besserung durch Vornüberbeugen, nicht durch Stehenbleiben), die tiefe Venenthrombose (akute Schwellung, tastbare Pulse), die Polyneuropathie (belastungsunabhängig, normaler ABI) und die Gonarthrose (gelenkbezogen). Abgrenzung über ABI, Pulsstatus und Duplexsonographie.',
+        },
+        {
+          frage: 'Was ist der wichtigste Risikofaktor und was empfehlen Sie dem Patienten?',
+          antwort: 'Das Rauchen ist der wichtigste Risikofaktor. Wichtigste Empfehlung ist der absolute Nikotinverzicht, dazu strukturiertes Gehtraining, Statin und ASS sowie die optimale Einstellung von Blutdruck und Blutzucker.',
+        },
+        {
+          frage: 'Der Patient ist gegen Kontrastmittel allergisch — welche Untersuchung bieten Sie an?',
+          antwort: 'Statt der konventionellen jodhaltigen Angiographie eine CO2-Angiographie oder eine strahlen- und jodfreie MR-Angiographie; die Duplexsonographie ist ohnehin kontrastmittelfrei.',
+        },
+        {
+          frage: 'Was ist das Leriche-Syndrom?',
+          antwort: 'Ein chronischer Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias aus beidseitiger (gluteal-/oberschenkelbetonter) Claudicatio, fehlenden Leistenpulsen und erektiler Dysfunktion.',
+        },
+      ],
+      merksatz: 'Merke: Claudicatio intermittens + kühles, pulsloses Bein = pAVK — der ABI (< 0,9) sichert die Diagnose. Rauchstopp und Gehtraining sind die Basis; die pAVK ist ein Warnzeichen für Herzinfarkt und Schlaganfall, daher immer ASS und Statin.',
+      linkedCaseIds: [
+        'case-pavk',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koronarangiographie',
+      ],
+    },
+    {
+      id: 'fw-lyme',
+      pathology: 'Lyme-Borreliose',
+      specialty: 'Infektiologie',
+      definition: 'Lyme-Borreliose (Lyme-Krankheit): durch Zecken übertragene bakterielle Multisystemerkrankung, verursacht durch Spirochäten des Komplexes Borrelia burgdorferi sensu lato. Sie ist die häufigste durch Zecken übertragene Infektionskrankheit in Europa und verläuft klassisch in drei Stadien (früh-lokalisiert, früh-disseminiert, spät-chronisch) mit charakteristischer Haut-, Nerven-, Herz- und Gelenkbeteiligung. Leitbefund des Frühstadiums ist das Erythema migrans (Wanderröte). Abzugrenzen ist die Frühsommer-Meningoenzephalitis (FSME), die durch dieselbe Zecke, aber durch ein Virus übertragen wird.',
+      aetiologie: 'Erreger sind gramnegative, schraubenförmige Spirochäten des Komplexes Borrelia burgdorferi sensu lato (in Europa v. a. Borrelia afzelii — eher Hautmanifestationen, Borrelia garinii — eher Neuroborreliose, sowie Borrelia burgdorferi sensu stricto). Überträger (Vektor) ist der Gemeine Holzbock (Ixodes ricinus), eine Schildzecke; Reservoir sind Nagetiere, Vögel und Wild. Die Übertragung erfolgt über den Speichel der Zecke beim Blutsaugen — das Übertragungsrisiko steigt mit der Saugdauer und ist bei einer Anhaftung über 24 Stunden deutlich erhöht. Wichtig für die Prüfung: Der Zeckenstich selbst ist harmlos; gefährlich ist erst die Übertragung des Erregers. Eine Mensch-zu-Mensch-Übertragung findet nicht statt.',
+      risikofaktoren: [
+        'Aufenthalt in Endemiegebieten (Wälder, Wiesen, hohes Gras, Unterholz) — z. B. Wandern, Waldarbeit, Gartenarbeit, Camping',
+        'Warme Jahreszeit (Frühjahr bis Herbst), in der die Zecken aktiv sind',
+        'Lange Saugdauer der Zecke (Übertragungsrisiko steigt deutlich ab > 24 h Anhaftung)',
+        'Verzögerte oder unsachgemäße Zeckenentfernung (Quetschen der Zecke)',
+        'Berufliche Exposition (Förster, Landwirte, Gärtner, Waldarbeiter)',
+        'Fehlende Schutzmaßnahmen (keine bedeckende Kleidung, keine Repellents, kein Absuchen der Haut)',
+      ],
+      klinik: [
+        {
+          text: 'Stadium I (früh-lokalisiert, Tage bis Wochen nach Stich): Erythema migrans (Wanderröte) — eine sich zentrifugal ausbreitende, randbetonte Rötung mit zentraler Abblassung (\'Schießscheiben\'-/Kokardenform), meist > 5 cm, rundlich-anulär, kaum schmerzhaft, gelegentlich juckend, im Verlauf größer werdend; typischerweise an der Stichstelle (Bein, Oberschenkel, Rumpf)',
+        },
+        {
+          text: 'Stadium I: begleitendes grippeähnliches Allgemeinbild — Fieber, Kopf- und Gliederschmerzen, Abgeschlagenheit (Fatigue), Myalgien, Arthralgien, regionale Lymphadenopathie',
+        },
+        {
+          text: 'Borrelien-Lymphozytom (Lymphadenosis cutis benigna): livider Knoten bevorzugt an Ohrläppchen, Mamille oder Skrotum — seltene Frühmanifestation, v. a. bei B. afzelii',
+          atypisch: true,
+        },
+        {
+          text: 'Stadium II (früh-disseminiert, Wochen bis Monate): Neuroborreliose als häufigste Organmanifestation — Bannwarth-Syndrom (schmerzhafte Meningoradikulitis mit nächtlich betonten radikulären Schmerzen), Hirnnervenausfälle, v. a. ein- oder beidseitige periphere Fazialisparese, sowie lymphozytäre Meningitis',
+          atypisch: true,
+        },
+        {
+          text: 'Stadium II: Lyme-Karditis — AV-Block wechselnden Grades, Myokarditis, mit Palpitationen, Schwindel oder Synkope; multiple sekundäre Erythemata migrantia',
+          atypisch: true,
+        },
+        {
+          text: 'Stadium III (spät-chronisch, Monate bis Jahre): Lyme-Arthritis — meist mono- oder oligoartikuläre, schubweise rezidivierende Arthritis großer Gelenke, bevorzugt des Kniegelenks (Gonarthritis) mit Erguss',
+          atypisch: true,
+        },
+        {
+          text: 'Stadium III: Acrodermatitis chronica atrophicans (Morbus Herxheimer) — livide, teigige Schwellung und später zigarettenpapierartige Hautatrophie an den Streckseiten der Extremitäten, v. a. bei B. afzelii',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Stadieneinteilung der Lyme-Borreliose',
+          inhalt: 'Stadium I (früh-lokalisiert): Erythema migrans ± Allgemeinsymptome, Tage bis Wochen nach Stich. Stadium II (früh-disseminiert): hämatogene Streuung mit Neuroborreliose (Bannwarth-Syndrom, Fazialisparese, Meningitis), Karditis (AV-Block), multiplen Erythemen; Wochen bis Monate. Stadium III (spät/chronisch): Lyme-Arthritis (v. a. Knie) und Acrodermatitis chronica atrophicans; Monate bis Jahre. Häufige Prüferfrage: Stadium benennen und die passende Manifestation zuordnen.',
+        },
+        {
+          name: 'Zweistufen-Serodiagnostik (Stufendiagnostik)',
+          inhalt: 'Stufe 1 = ELISA/IFT als sensibler Suchtest (IgM und IgG); Stufe 2 = bei positivem oder grenzwertigem Ergebnis Bestätigung durch Immunoblot/Western-Blot als spezifischerer Test. Nur ein reaktiver Blot bestätigt die Serologie.',
+        },
+      ],
+      redFlags: [
+        'Periphere Fazialisparese (ein- oder beidseitig), Meningismus/Nackensteifigkeit oder nächtlich betonte radikuläre Schmerzen → Verdacht auf Neuroborreliose, Indikation zur Lumbalpunktion',
+        'Palpitationen, Schwindel, Synkopen oder Bradykardie → Lyme-Karditis mit AV-Block (EKG-Monitoring, ggf. stationäre Aufnahme)',
+        'Neu aufgetretener rezidivierender Gelenkerguss, v. a. am Knie → Lyme-Arthritis (Spätstadium)',
+        'Multiple, an mehreren Körperstellen auftretende Erytheme → hämatogene Dissemination (Stadium II)',
+        'Hohes Fieber mit Meningismus zur Abgrenzung einer FSME oder bakteriellen Meningitis',
+      ],
+      diagnostik: [
+        {
+          text: 'Anamnese: Zeckenstich oder Zeckenexposition (Waldaufenthalt, Wanderung, Endemiegebiet), Zeitverlauf, Aussehen und Wandern der Hautrötung, neurologische Begleitsymptome (Paresen, Parästhesien, radikuläre Schmerzen) — Cave: an einen Zeckenstich erinnern sich viele Patienten nicht',
+        },
+        {
+          text: 'Klinische Inspektion der Haut: Erythema migrans ist eine Blickdiagnose. Im Stadium I ist bei typischem Erythema migrans KEINE Serologie erforderlich — die Therapie erfolgt allein klinisch (Antikörper sind früh oft noch negativ, die Serokonversion dauert Wochen)',
+        },
+        {
+          text: 'Körperliche Untersuchung inklusive orientierender neurologischer Untersuchung (Hirnnerven, v. a. N. facialis; Meningismuszeichen) und Gelenkstatus',
+        },
+        {
+          text: 'Labor: Entzündungsparameter (BSG, CRP, Blutbild) — bei isoliertem Erythema migrans meist normal oder nur gering erhöht; dienen v. a. der Abgrenzung eines Erysipels',
+        },
+        {
+          text: 'Zweistufen-Serologie ab Stadium II/III oder bei unklarem Bild: ELISA als Suchtest (IgM/IgG), bei Reaktivität Bestätigung mit Immunoblot (Western-Blot). Cave: eine \'Seronarbe\' (persistierende IgG-Antikörper nach durchgemachter Infektion) und die fehlende Eignung des Titers zur Therapie- oder Verlaufskontrolle',
+        },
+        {
+          text: 'EKG bei Verdacht auf Lyme-Karditis (AV-Block, Reizleitungsstörung)',
+        },
+        {
+          text: 'Lumbalpunktion (Liquordiagnostik) bei Verdacht auf Neuroborreliose: lymphozytäre Pleozytose, Eiweißerhöhung (Schrankenstörung) und Nachweis einer intrathekalen Borrelien-Antikörpersynthese (Liquor-Serum-Index); ergänzend CXCL13',
+          invasiv: true,
+        },
+        {
+          text: 'Gelenkpunktion mit Synovia-Analyse und Borrelien-PCR aus dem Punktat bei Verdacht auf Lyme-Arthritis',
+          invasiv: true,
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'FSME (Frühsommer-Meningoenzephalitis)',
+          unterscheidung: 'Wird durch DIESELBE Zecke, aber durch ein VIRUS (Flavivirus) übertragen; kein Erythema migrans; meningoenzephalitisches Bild; NICHT antibiotisch behandelbar (nur symptomatisch), aber durch Impfung vermeidbar. Merksatz: FSME = viral + Impfung, Lyme = bakteriell + Antibiotikum.',
+        },
+        {
+          dd: 'Erysipel (Wundrose)',
+          unterscheidung: 'Flächige, scharf begrenzte, schmerzhafte, überwärmte, druckdolente Rötung mit hohem Fieber und deutlich erhöhten Entzündungsparametern; meist Streptokokken über eine Eintrittspforte. Das Erythema migrans ist dagegen zentral abblassend, kaum schmerzhaft und wenig entzündlich; Ausschluss über Klinik und Labor.',
+        },
+        {
+          dd: 'Idiopathische periphere Fazialisparese (Bell-Parese)',
+          unterscheidung: 'Isolierte Fazialisparese ohne Zeckenexposition, ohne Meningismus und mit unauffälligem Liquor; bei Neuroborreliose finden sich anamnestische Exposition, oft bilaterale Parese und ein entzündlicher Liquor mit intrathekaler Antikörpersynthese.',
+        },
+        {
+          dd: 'Rheumatoide oder reaktive Arthritis / Gonarthrose',
+          unterscheidung: 'Bei der Lyme-Arthritis mono-/oligoartikulärer, schubweiser Befall v. a. des Knies mit Zeckenanamnese und Borrelien-Serologie/PCR; die rheumatoide Arthritis ist symmetrisch-polyartikulär mit Rheumafaktor/ACPA, die Gonarthrose degenerativ ohne Entzündungszeichen.',
+        },
+        {
+          dd: 'Tinea corporis / Erythema anulare centrifugum',
+          unterscheidung: 'Ringförmige Hauteffloreszenzen mit randständiger Schuppung (Tinea, Pilznachweis im Nativpräparat) ohne Zeckenanamnese und ohne die typische zentrifugale Wanderung des Erythema migrans.',
+        },
+        {
+          dd: 'Tiefe Venenthrombose (TVT) / pAVK / diabetischer Fuß (bei Beinbefund)',
+          unterscheidung: 'Bei Rötung/Verfärbung am Bein differenzialdiagnostisch zu bedenken: TVT mit Schwellung und Umfangsdifferenz (D-Dimer, Kompressionssonographie), pAVK mit Claudicatio und fehlenden Pulsen, diabetischer Fuß bei bekanntem Diabetes — keine wandernde randbetonte Rötung.',
+        },
+      ],
+      therapie: {
+        konservativ: [
+          'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 x 100 mg/d p.o. für 10–21 Tage (üblich 14 Tage). Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
+          'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p.o. (alternativ Cefuroximaxetil) für 14 Tage.',
+          'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist auch die orale Doxycyclin-Alternative, nach der Prüfer häufig fragen.',
+          'Lyme-Arthritis (Spätstadium): Doxycyclin p.o. über 28 Tage oder Ceftriaxon i.v.',
+          'Symptomatisch: Analgetika und Antipyretika (z. B. Ibuprofen/Paracetamol) gegen Schmerzen und Fieber.',
+          'Keine Isolation erforderlich, da keine Übertragung von Mensch zu Mensch. Nach reinem Zeckenstich ohne Symptome KEINE routinemäßige Antibiotikaprophylaxe — nur Beobachtung der Stichstelle (Rötung? → Wiedervorstellung).',
+          'Prävention: Schutzkleidung, Repellents, Absuchen der Haut, frühzeitige mechanische Zeckenentfernung mit Pinzette hautnah ohne Quetschen. WICHTIG: Es gibt KEINE Impfung gegen die Lyme-Borreliose; die FSME-Impfung schützt NICHT gegen Borreliose.',
+        ],
+        interventionell: [
+          'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis die Reizleitungsstörung unter Antibiose reversibel ist.',
+          'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
+        ],
+        chirurgisch: [
+          'Eine operative Therapie ist in aller Regel nicht erforderlich; in seltenen therapierefraktären Fällen einer chronischen Lyme-Arthritis kann eine (arthroskopische) Synovektomie erwogen werden.',
+        ],
+      },
+      prognose: 'Bei rechtzeitiger antibiotischer Therapie ist die Prognose sehr gut. Das Erythema migrans heilt unter Therapie folgenlos ab. Auch die Neuroborreliose hat eine gute Prognose; die Fazialisparese bildet sich in den meisten Fällen über Wochen bis Monate weitgehend zurück. Unbehandelt drohen die Progression in Stadium II und III mit Neuroborreliose, Karditis und chronischer Lyme-Arthritis. Ein sogenanntes Post-Lyme-Syndrom (persistierende unspezifische Beschwerden) ist selten; eine dauerhafte oder wiederholte Antibiotikatherapie ist dabei nicht indiziert. Eine \'chronische Borreliose\' als Rechtfertigung für Langzeitantibiose ist nicht belegt.',
+      pruefungsfallen: [
+        'Das Erythema migrans ist eine Blickdiagnose: Im Stadium I wird KLINISCH therapiert, eine Serologie ist NICHT nötig (Antikörper früh oft noch negativ — Serokonversion dauert Wochen).',
+        'FSME vs. Lyme sicher unterscheiden können: gleiche Zecke, aber FSME = Virus (nur symptomatisch, Impfung schützt), Lyme = Bakterium (Antibiotikum, keine Impfung).',
+        'Serologie immer als Zweistufentest erklären: erst ELISA (Suchtest), dann Immunoblot/Western-Blot (Bestätigung) — nie den Blot allein oder den Titer als Verlaufskontrolle nutzen (Seronarbe!).',
+        'Doxycyclin ist kontraindiziert in Schwangerschaft/Stillzeit und bei Kindern < 9 Jahren → dann Amoxicillin; bei Neuroborreliose/Karditis Ceftriaxon i.v.',
+        'Bei Fazialisparese, Meningismus oder radikulären Schmerzen an die Neuroborreliose denken und die Lumbalpunktion nennen (lymphozytäre Pleozytose, intrathekale Antikörpersynthese).',
+        'Der Zeckenstich selbst ist harmlos — gefährlich ist die Übertragung des Erregers; nach reinem Stich ohne Symptome keine Routine-Antibiotikaprophylaxe.',
+        'Keine Isolation nötig (keine Mensch-zu-Mensch-Übertragung) — häufige Fangfrage zur stationären Aufnahme.',
+        'Die FSME-Impfung schützt NICHT vor der Borreliose; gegen die Borreliose gibt es keine Impfung.',
+        'Bei einer Rötung am Bein die Differenzialdiagnosen Erysipel, TVT, pAVK und diabetischer Fuß aktiv nennen, nicht nur die Borreliose.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose und warum?',
+          antwort: 'Ich vermute eine Lyme-Borreliose, weil die Patientin nach einem Waldaufenthalt eine wandernde, randbetonte Rötung mit zentraler Abblassung — ein Erythema migrans — zusammen mit grippeähnlichen Allgemeinsymptomen zeigt. Der zeitliche Verlauf und die typische Hautveränderung passen gut zur Borreliose.',
+        },
+        {
+          frage: 'Was ist der Auslöser der Erkrankung und wie wird sie übertragen?',
+          antwort: 'Erreger ist das Bakterium Borrelia burgdorferi, eine Spirochäte. Übertragen wird es durch den Stich einer Zecke, des Gemeinen Holzbocks. Nicht der Stich selbst ist gefährlich, sondern die Übertragung des Erregers über den Speichel der Zecke, deren Risiko mit der Saugdauer steigt.',
+        },
+        {
+          frage: 'Wie heißt die Hautveränderung wissenschaftlich und wie sieht sie aus?',
+          antwort: 'Es handelt sich um ein Erythema migrans, die Wanderröte. Es ist eine sich zentrifugal ausbreitende, ringförmige (anuläre) Rötung, die am Rand dunkelrot ist und in der Mitte abblasst, meist über 5 cm groß, kaum schmerzhaft und im Verlauf größer werdend.',
+        },
+        {
+          frage: 'Was ist der wichtigste Unterschied zwischen Lyme-Borreliose und FSME?',
+          antwort: 'Beide werden durch dieselbe Zecke übertragen. Die FSME wird jedoch durch ein Virus verursacht, verläuft als Meningoenzephalitis, ist nur symptomatisch behandelbar und durch eine Impfung vermeidbar. Die Lyme-Borreliose ist bakteriell, wird mit Antibiotika behandelt, und gegen sie gibt es keine Impfung.',
+        },
+        {
+          frage: 'Welche weiteren Differenzialdiagnosen kommen bei dieser Rötung in Betracht?',
+          antwort: 'Vor allem ein Erysipel, das aber flächig, schmerzhaft, überwärmt und mit hohen Entzündungswerten einhergeht. Bei einer Rötung am Bein außerdem eine tiefe Venenthrombose, eine pAVK oder ein diabetischer Fuß, sowie eine Tinea corporis.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose — brauchen Sie eine Serologie?',
+          antwort: 'Bei einem typischen Erythema migrans im Stadium I ist die Diagnose klinisch eine Blickdiagnose, eine Serologie ist nicht nötig, da die Antikörper früh oft noch negativ sind. In späteren Stadien führe ich eine Zweistufen-Serologie durch: zuerst einen ELISA als Suchtest, bei Reaktivität einen Immunoblot zur Bestätigung.',
+        },
+        {
+          frage: 'Wann und wozu führen Sie eine Lumbalpunktion durch?',
+          antwort: 'Bei Verdacht auf eine Neuroborreliose, etwa bei einer Fazialisparese, Meningismus oder radikulären Schmerzen. Im Liquor erwarte ich eine lymphozytäre Pleozytose, eine Eiweißerhöhung und den Nachweis einer intrathekalen Borrelien-Antikörpersynthese.',
+        },
+        {
+          frage: 'Welche Therapie schlagen Sie vor, und wie wirkt das Antibiotikum?',
+          antwort: 'Im Stadium I Doxycyclin 2 x 100 mg täglich über etwa 14 Tage. Doxycyclin hemmt die bakterielle Proteinsynthese an der 30S-Untereinheit des Ribosoms und wirkt bakteriostatisch; als Nebenwirkung ist die Photosensibilisierung zu beachten.',
+        },
+        {
+          frage: 'Gibt es eine Alternative zu Doxycyclin?',
+          antwort: 'Ja. In der Schwangerschaft, Stillzeit und bei Kindern unter 9 Jahren gebe ich Amoxicillin. Bei einer Neuroborreliose oder Karditis behandle ich mit Ceftriaxon intravenös über 14 bis 21 Tage.',
+        },
+        {
+          frage: 'Muss die Patientin isoliert oder stationär aufgenommen werden?',
+          antwort: 'Eine Isolation ist nicht nötig, weil die Borreliose nicht von Mensch zu Mensch übertragen wird. Ein unkompliziertes Erythema migrans kann ambulant oral behandelt werden; stationär nehme ich bei Neuroborreliose für die intravenöse Therapie oder bei Karditis mit Reizleitungsstörung auf.',
+        },
+        {
+          frage: 'Was passiert, wenn die Borreliose nicht behandelt wird?',
+          antwort: 'Dann kann die Erkrankung in spätere Stadien übergehen: in Stadium II mit Neuroborreliose und Herzbeteiligung wie einem AV-Block, und in Stadium III mit einer chronischen Lyme-Arthritis, vor allem des Knies, sowie einer Acrodermatitis chronica atrophicans.',
+        },
+        {
+          frage: 'Was machen Sie, wenn die Zecke noch vorhanden ist, und geben Sie nach einem Stich vorsorglich Antibiotika?',
+          antwort: 'Ich entferne die Zecke mechanisch mit einer Pinzette hautnah, ohne sie zu quetschen. Nach einem reinen Zeckenstich ohne Symptome gebe ich keine routinemäßige Antibiotikaprophylaxe, sondern beobachte die Stichstelle — bei Auftreten einer Rötung soll sich die Patientin wieder vorstellen.',
+        },
+      ],
+      merksatz: 'Merke: Erythema migrans nach Zeckenstich ist eine Blickdiagnose — im Stadium I klinisch mit Doxycyclin behandeln (keine Serologie nötig); bei Neuroborreliose Lumbalpunktion und Ceftriaxon i.v. FSME = Virus + Impfung, Lyme = Bakterium + Antibiotikum. Serologie immer zweistufig: ELISA, dann Immunoblot.',
+      linkedCaseIds: [
+        'case-lyme',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
   ];
 }
