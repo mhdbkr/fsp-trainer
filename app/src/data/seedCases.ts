@@ -3423,9 +3423,7 @@ export function seedCases(): Case[] {
       },
       linkedFachwissenId: 'fw-pavk',
       linkedFachbegriffeIds: [],
-      probableAufklaerungIds: [
-        'auf-koronarangiographie',
-      ],
+      probableAufklaerungIds: [],
       caseSpecificQuestions: [
         'Nach welcher Gehstrecke treten die Schmerzen auf, und bessern sie sich schon beim Stehenbleiben?',
         'Ist das betroffene Bein kühler oder blasser als das andere?',

@@ -1734,9 +1734,7 @@ export function seedFachwissen(): Fachwissen[] {
         'case-pavk',
       ],
       keyFachbegriffeIds: [],
-      linkedAufklaerungIds: [
-        'auf-koronarangiographie',
-      ],
+      linkedAufklaerungIds: [],
     },
     {
       id: 'fw-lyme',
