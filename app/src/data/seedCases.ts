@@ -3423,7 +3423,9 @@ export function seedCases(): Case[] {
       },
       linkedFachwissenId: 'fw-pavk',
       linkedFachbegriffeIds: [],
-      probableAufklaerungIds: [],
+      probableAufklaerungIds: [
+        'auf-angiographie',
+      ],
       caseSpecificQuestions: [
         'Nach welcher Gehstrecke treten die Schmerzen auf, und bessern sie sich schon beim Stehenbleiben?',
         'Ist das betroffene Bein kühler oder blasser als das andere?',
@@ -3732,7 +3734,9 @@ export function seedCases(): Case[] {
       },
       linkedFachwissenId: 'fw-lyme',
       linkedFachbegriffeIds: [],
-      probableAufklaerungIds: [],
+      probableAufklaerungIds: [
+        'auf-lumbalpunktion',
+      ],
       caseSpecificQuestions: [
         'Hatten Sie einen Zeckenstich oder Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
         'Wie sieht die Hautrötung aus — breitet sie sich ringförmig aus, mit hellerer Mitte und rotem Rand?',
