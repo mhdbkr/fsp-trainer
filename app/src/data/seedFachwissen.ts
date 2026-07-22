@@ -2126,5 +2126,208 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-ct',
       ],
     },
+    {
+      id: 'fw-bandscheibenvorfall',
+      pathology: 'Lumbaler Bandscheibenvorfall',
+      specialty: 'Orthopädie',
+      definition: 'Verlagerung von Bandscheibengewebe über die Grenzen des Zwischenwirbelraums hinaus. Man unterscheidet die Protrusion (Vorwölbung bei noch intaktem Anulus fibrosus) vom eigentlichen Prolaps bzw. der Extrusion (Durchtritt von Nucleus-pulposus-Gewebe durch den zerrissenen Anulus fibrosus), bei der ein abgetrenntes Fragment als Sequester frei im Spinalkanal liegen kann. Der Vorfall erfolgt meist nach dorsolateral und komprimiert eine abgehende Nervenwurzel, wodurch das radikuläre Schmerz- und Ausfallsyndrom entsteht. In der Lendenwirbelsäule sind die untersten Segmente L4/L5 und L5/S1 am häufigsten betroffen; das klinische Leitbild ist die Lumboischialgie — der Kreuzschmerz mit dermatombezogener Ausstrahlung in das Bein.',
+      aetiologie: 'Ursache ist eine degenerative Bandscheibendegeneration: Mit zunehmendem Alter verliert der Nucleus pulposus Wasser und Elastizität (Chondrose bzw. Osteochondrose), im Anulus fibrosus entstehen Risse, durch die Bandscheibengewebe austritt. Häufig wird der Vorfall akut durch eine Belastung ausgelöst — typischerweise durch das Heben eines schweren Gegenstands aus gebückter, gedrehter Haltung (in den Protokollen wiederkehrend: „beim Aufheben einer schweren Kiste"). Der Altersgipfel liegt zwischen dem 30. und 50. Lebensjahr, also deutlich früher als bei den rein degenerativen Alterserkrankungen der Wirbelsäule.',
+      risikofaktoren: [
+        'Schwere körperliche Arbeit mit Heben und Tragen von Lasten',
+        'Überwiegend sitzende Tätigkeit und Bewegungsmangel (schwache Rumpf- und Rückenmuskulatur)',
+        'Übergewicht / Adipositas',
+        'Nikotinabusus (verschlechtert die Ernährung der bradytrophen Bandscheibe)',
+        'Chronische Fehlhaltung sowie Ganzkörpervibration (z. B. Berufskraftfahrer)',
+        'Genetische Disposition und familiäre Häufung',
+        'Frühere Rückenbeschwerden oder ein vorangegangener Bandscheibenvorfall',
+        'Höheres Lebensalter mit fortgeschrittener Bandscheibendegeneration',
+      ],
+      klinik: [
+        {
+          text: 'Akuter, in die Lendenwirbelsäule einschießender Schmerz mit schmerzreflektorischer Bewegungssperre und Schonhaltung („Hexenschuss"/Lumbago)',
+        },
+        {
+          text: 'Radikuläre, ins Bein ausstrahlende Schmerzen entlang eines Dermatoms (Lumboischialgie) — das eigentliche Leitsymptom des Wurzelkompressionssyndroms',
+        },
+        {
+          text: 'Verstärkung der Ausstrahlung durch Husten, Niesen und Pressen (Valsalva-Manöver) sowie durch Bücken und Belastung — wichtiger Hinweis auf eine radikuläre Genese',
+        },
+        {
+          text: 'Sensibilitätsstörungen im betroffenen Dermatom: Hypästhesie, Kribbelparästhesien und Taubheitsgefühl',
+        },
+        {
+          text: 'Positives Lasègue-Zeichen (Dehnungsschmerz des N. ischiadicus beim passiven Anheben des gestreckten Beins) beim tiefen lumbalen Vorfall L5/S1',
+        },
+        {
+          text: 'Wurzel L5: Schwäche der Großzehen- und Fußhebung (M. extensor hallucis longus, Fußheberschwäche), Dermatom über lateralem Unterschenkel, Fußrücken und Großzehe; typischerweise kein Reflexausfall',
+        },
+        {
+          text: 'Wurzel S1: Schwäche der Fußsenkung (Zehenstand/Einbeinhüpfen erschwert), abgeschwächter oder erloschener Achillessehnenreflex, Dermatom über Fußaußenrand und Ferse',
+        },
+        {
+          text: 'Reithosenanästhesie mit Blasen- und Mastdarmstörung (Harnverhalt oder Inkontinenz) — Cauda-equina-Syndrom, absoluter Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Hochgradige oder rasch progrediente motorische Parese (z. B. Fußheberschwäche mit Steppergang) als Warnzeichen für eine dringliche OP-Indikation',
+          atypisch: true,
+        },
+        {
+          text: 'Bis zu einem Drittel der bildmorphologischen Bandscheibenvorfälle bleibt klinisch stumm (Zufallsbefund im MRT ohne passende Klinik) — daher immer Klinik und Bild zusammenführen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Morphologische Einteilung',
+          inhalt: 'Protrusion (Vorwölbung bei intaktem Anulus fibrosus) < Extrusion/Prolaps (Durchtritt von Nucleus-pulposus-Gewebe durch den zerrissenen Anulus) < Sequester (vollständig abgetrenntes, frei im Spinalkanal liegendes Fragment). Bestimmt Verlauf und Resorptionsneigung.',
+        },
+        {
+          name: 'Segment- und Dermatomzuordnung (Kennmuskeln/Reflexe)',
+          inhalt: 'L4 (L3/L4): Dermatom über Knie und medialem Unterschenkel, Kennmuskel M. quadriceps femoris, abgeschwächter Patellarsehnenreflex (PSR). — L5 (L4/L5): Dermatom lateraler Unterschenkel/Fußrücken/Großzehe, Kennmuskel Fuß- und Großzehenheber, kein Reflexausfall. — S1 (L5/S1): Dermatom Fußaußenrand/Ferse, Kennmuskel Fußsenker (Zehenstand), abgeschwächter Achillessehnenreflex (ASR).',
+        },
+        {
+          name: 'Kraftgrade nach Janda (0–5)',
+          inhalt: 'Standardisierte Graduierung der Parese: 5 = normale Kraft, 3 = Bewegung gegen die Schwerkraft, 0 = keine Muskelaktivität. Ein Kraftgrad ≤ 3 (relevante/progrediente Parese) ist ein Warnzeichen und mitentscheidend für die OP-Indikation.',
+        },
+      ],
+      redFlags: [
+        'Reithosenanästhesie mit Blasen-/Mastdarmstörung (Harnverhalt, Inkontinenz) → Cauda-equina-Syndrom: Notfall-MRT und neurochirurgische Notfall-OP (möglichst innerhalb von 48 Stunden)',
+        'Rasch progrediente oder hochgradige motorische Parese (z. B. Fußheberschwäche, Kraftgrad ≤ 3) → dringliche operative Dekompression',
+        'Nachtschmerz, ungewollter Gewichtsverlust, bekannte Tumorerkrankung → Verdacht auf Wirbelmetastasen / Malignom',
+        'Fieber, i. v.-Drogenabusus, Immunsuppression → Verdacht auf Spondylodiszitis / spinalen Abszess',
+        'Adäquates Trauma oder Osteoporose / Kortikoidtherapie → Verdacht auf Wirbelkörperfraktur',
+        'Beidseitige Ischialgie oder rasch aufsteigende sensomotorische Ausfälle → Konus-/Cauda-Syndrom',
+      ],
+      diagnostik: [
+        {
+          text: 'Gezielte Anamnese: Schmerzcharakter und Ausstrahlung entlang eines Dermatoms, Husten-/Press-/Niesabhängigkeit, auslösendes Hebe-/Drehtrauma sowie aktives Erfragen von Blasen- und Mastdarmstörung und Reithosengefühl (Cauda-Screening)',
+        },
+        {
+          text: 'Klinisch-neurologische Untersuchung: Lasègue-Zeichen und gekreuztes Lasègue-Zeichen, Kraftprüfung im Seitenvergleich (Zehen- und Hackengang), Muskeleigenreflexe (PSR, ASR), Sensibilitätsprüfung nach Dermatomen, Prüfung der Beweglichkeit und des Klopf-/Druckschmerzes über der LWS',
+        },
+        {
+          text: 'Digital-rektale Untersuchung bei Verdacht auf Cauda-equina-Syndrom (Prüfung von Sphinktertonus und perianaler Sensibilität)',
+          invasiv: true,
+        },
+        {
+          text: 'MRT der Lendenwirbelsäule — bildgebender Goldstandard: beste Darstellung von Bandscheibe, Nervenwurzel und Spinalkanal, ohne Strahlenbelastung; bei Cauda-Verdacht als Notfalluntersuchung',
+        },
+        {
+          text: 'CT der LWS nur als Alternative bei MRT-Kontraindikation (z. B. Herzschrittmacher) oder zur Beurteilung knöcherner Strukturen',
+        },
+        {
+          text: 'Konventionelles Röntgen der LWS NICHT zur Darstellung der Bandscheibe geeignet — nur bei Verdacht auf Fraktur, Instabilität oder knöcherne Ursache',
+        },
+        {
+          text: 'Labor (Blutbild, CRP/BSG) nur bei Verdacht auf Infektion (Spondylodiszitis) oder Tumor',
+        },
+        {
+          text: 'Elektrophysiologie (EMG/NLG) bei unklarer, atypischer oder persistierender Parese zur Höhenlokalisation und Abgrenzung einer Polyneuropathie',
+          invasiv: true,
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Spinalkanalstenose (Claudicatio spinalis)',
+          unterscheidung: 'Meist ältere Patienten; belastungs- und gehstreckenabhängige Beinschmerzen, die sich beim Vornüberbeugen und Sitzen bessern (Einkaufswagen-Zeichen). Beschwerdebesserung im Gegensatz zur pAVK nicht durch Stehenbleiben allein.',
+        },
+        {
+          dd: 'ISG-Syndrom (Iliosakralgelenk-Blockade)',
+          unterscheidung: 'Schmerzmaximum über dem ISG, pseudoradikuläre Ausstrahlung ohne klaren Dermatombezug; positive Provokationstests (z. B. Mennell, Patrick/FABER), unauffälliger neurologischer Status.',
+        },
+        {
+          dd: 'Facettensyndrom (Spondylarthrose)',
+          unterscheidung: 'Belastungs- und reklinationsabhängiger, tief lumbaler Schmerz mit pseudoradikulärer Ausstrahlung, die selten über das Knie hinausreicht; kein sensomotorisches Defizit, kein echtes Dermatom.',
+        },
+        {
+          dd: 'Coxarthrose',
+          unterscheidung: 'Leisten- und Hüftschmerz mit Ausstrahlung ins Knie, schmerzhaft eingeschränkte Innenrotation der Hüfte; kein radikuläres Muster, Lasègue negativ, Nachweis im Beckenröntgen.',
+        },
+        {
+          dd: 'periphere arterielle Verschlusskrankheit (pAVK)',
+          unterscheidung: 'Belastungsabhängige Wadenschmerzen mit reproduzierbarer Gehstrecke (Claudicatio intermittens), Besserung bereits im Stehen; abgeschwächte Fußpulse, kein Dermatombezug, keine Press-/Hustenabhängigkeit.',
+        },
+        {
+          dd: 'Piriformis-Syndrom',
+          unterscheidung: 'Ischialgieforme Beschwerden ohne Wurzelkompression; Druckschmerz über dem M. piriformis, Provokation bei Innenrotation, bildgebend kein relevanter Vorfall.',
+        },
+        {
+          dd: 'Wirbelmetastasen / Wirbelfraktur / Spondylodiszitis',
+          unterscheidung: 'Red-Flag-Konstellationen: Nachtschmerz, Gewichtsverlust und Tumoranamnese (Metastasen), adäquates Trauma bzw. Osteoporose (Fraktur), Fieber und erhöhte Entzündungswerte (Spondylodiszitis) — in den Protokollen als DD Wirbelfraktur und Knochenmetastasen genannt.',
+        },
+      ],
+      therapie: {
+        konservativ: [
+          'Basistherapie bei rund 90 % der Fälle: die überwiegende Mehrheit heilt ohne Operation aus',
+          'Analgesie nach Stufenschema: NSAR (z. B. Ibuprofen oder Diclofenac) stets mit PPI-Magenschutz, ergänzend Metamizol/Paracetamol, kurzfristig ggf. schwache Opioide (Tilidin, Tramadol)',
+          'Kurzfristig Muskelrelaxans bei ausgeprägter reflektorischer Muskelverspannung',
+          'KEINE strenge Bettruhe — frühe Mobilisation und Erhalt der Aktivität; in der Akutphase kann eine Stufenbettlagerung entlasten',
+          'Physiotherapie, Rückenschule, Wärmeanwendung und im Verlauf Aufbau der Rumpfmuskulatur',
+          'Aufklärung über die günstige Spontanprognose sowie Anleitung zu rückengerechtem Heben und Gewichtsreduktion',
+        ],
+        interventionell: [
+          'CT- oder bildgesteuerte periradikuläre Therapie (PRT) bzw. epidurale/periradikuläre Infiltration mit Lokalanästhetikum und Glukokortikoid an die betroffene Nervenwurzel bei therapieresistenten radikulären Schmerzen',
+        ],
+        chirurgisch: [
+          'Notfalloperation (Dekompression) beim Cauda-equina-Syndrom — möglichst innerhalb von 48 Stunden',
+          'Dringliche Operation bei progredienter oder hochgradiger motorischer Parese',
+          'Elektive Operation bei therapieresistenten radikulären Schmerzen über etwa 6 Wochen trotz adäquater konservativer Therapie',
+          'Verfahren: mikrochirurgische Diskektomie/Nukleotomie mit Sequestrektomie (Entfernung des vorgefallenen Gewebes und Entlastung der Nervenwurzel)',
+        ],
+      },
+      prognose: 'Die Prognose ist insgesamt sehr gut: Mehr als 85–90 % der Patienten bessern sich unter konsequenter konservativer Therapie innerhalb von etwa sechs Wochen, und Sequester können sich spontan zurückbilden (resorbieren). Entscheidend für die Vorbeugung von Rezidiven sind Rückenschule, Kräftigung der Rumpfmuskulatur, Gewichtsreduktion und rückengerechtes Verhalten. Beim operativ versorgten Cauda-equina-Syndrom hängt die Erholung der Blasen-, Mastdarm- und Sensibilitätsfunktion entscheidend vom präoperativen Ausmaß der Ausfälle und vom Zeitpunkt der Operation ab — je früher entlastet wird, desto besser.',
+      pruefungsfallen: [
+        'Die Bandscheibe wird per MRT dargestellt, NICHT per Röntgen — ein häufig geprüfter Punkt. Röntgen zeigt nur Knochen (Frakturausschluss), das MRT ist strahlenfrei und bildet Nervenwurzel und Bandscheibe ab; im AAG wird oft gefragt, warum das MRT dem CT vorzuziehen ist.',
+        'Blasen-/Mastdarmstörung und Reithosenanästhesie IMMER aktiv erfragen: Sie definieren das Cauda-equina-Syndrom als neurochirurgischen Notfall — bei Nachweis nicht weiter „normal" anamnesieren, sondern OA informieren, Notfall-MRT und OP veranlassen.',
+        'Die Husten-, Press- und Niesabhängigkeit der Ausstrahlung gezielt erfragen: Sie spricht für eine radikuläre Genese. Im Freiburger AAG wurde genau nachgehakt, warum die Reichweite der Ausstrahlung (bis zum Knie vs. bis in die Fußsohle) wichtig ist — Antwort: zum Nachweis/Ausschluss einer Radikulopathie.',
+        'Etwa 90 % heilen konservativ — die Operation ist die Ausnahme (nur bei Cauda-Syndrom, progredienter/hochgradiger Parese oder Therapieresistenz > 6 Wochen). Nicht vorschnell die OP als Erstmaßnahme nennen.',
+        'Die Wurzeln L5 und S1 sicher unterscheiden können: L5 = Fußheber-/Großzehenheberschwäche ohne Reflexausfall; S1 = Fußsenkerschwäche (Zehenstand) mit abgeschwächtem Achillessehnenreflex.',
+        'NSAR immer mit PPI-Magenschutz kombinieren und an Kontraindikationen (Niereninsuffizienz, Ulkusanamnese) denken — in den Protokollen wird ausdrücklich „NSAID (+PPI)" dokumentiert.',
+        'Red Flags für eine ernste Ursache (Tumor: Nachtschmerz, Gewichtsverlust, Malignomanamnese; Infekt: Fieber; Fraktur: Trauma/Osteoporose) nicht übersehen — im AAG werden Wirbelfraktur und Knochenmetastasen als DD erwartet.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum führen Sie ein MRT und nicht ein Röntgen oder CT durch?',
+          antwort: 'Das MRT stellt als einzige Methode strahlenfrei die Bandscheibe, die Nervenwurzel und den Spinalkanal im Weichteilkontrast dar. Das Röntgen zeigt nur den Knochen und dient dem Frakturausschluss; das CT ist die Alternative nur bei MRT-Kontraindikation oder für knöcherne Fragestellungen.',
+        },
+        {
+          frage: 'Was ist das Lasègue-Zeichen?',
+          antwort: 'Ein Nervendehnungszeichen: Beim passiven Anheben des gestreckten Beins löst der gedehnte N. ischiadicus einen ins Bein einschießenden radikulären Schmerz aus. Ein positives Zeichen spricht für eine Wurzelreizung bei tiefem lumbalem Bandscheibenvorfall (L5/S1).',
+        },
+        {
+          frage: 'Wann ist ein Bandscheibenvorfall ein Notfall und muss operiert werden?',
+          antwort: 'Beim Cauda-equina-Syndrom — Reithosenanästhesie mit Blasen- und Mastdarmstörung — sowie bei rasch progredienter oder hochgradiger motorischer Parese. Dann sind ein Notfall-MRT und eine neurochirurgische Dekompression möglichst innerhalb von 48 Stunden erforderlich.',
+        },
+        {
+          frage: 'Wie behandeln Sie den unkomplizierten Bandscheibenvorfall konservativ?',
+          antwort: 'Mit einer Analgesie nach Stufenschema (NSAR plus PPI, ggf. Metamizol oder kurzfristig schwache Opioide), früher Mobilisation statt Bettruhe, Physiotherapie und Rückenschule. Etwa 90 Prozent heilen so aus.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Spinalkanalstenose, ISG-Syndrom, Facettensyndrom, Coxarthrose und pAVK; als ernste Ursachen Wirbelfraktur, Wirbelmetastasen und Spondylodiszitis.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine L5- von einer S1-Wurzel?',
+          antwort: 'Bei L5 findet sich eine Fußheber- und Großzehenheberschwäche mit Dermatom am lateralen Unterschenkel und Fußrücken, ohne Reflexausfall. Bei S1 bestehen eine Fußsenkerschwäche mit erschwertem Zehenstand, ein abgeschwächter Achillessehnenreflex und ein Dermatom am Fußaußenrand.',
+        },
+        {
+          frage: 'Warum ist es wichtig, wie weit die Schmerzen ausstrahlen?',
+          antwort: 'Eine dermatombezogene Ausstrahlung bis in den Fuß spricht für eine echte radikuläre Kompression (Radikulopathie), während ein nur bis zum Knie reichender, diffuser Schmerz eher pseudoradikulär ist. Die Reichweite hilft also, eine Wurzelbeteiligung nachzuweisen oder auszuschließen.',
+        },
+        {
+          frage: 'Worauf achten Sie bei der körperlichen Untersuchung?',
+          antwort: 'Auf das Lasègue-Zeichen, die Kraftgrade im Seitenvergleich mit Zehen- und Hackengang, die Muskeleigenreflexe PSR und ASR, die Sensibilität nach Dermatomen sowie bei Cauda-Verdacht auf Sphinktertonus und perianale Sensibilität.',
+        },
+      ],
+      merksatz: 'Merke: Die Diagnose sichert das MRT (nicht das Röntgen), und rund 90 % heilen konservativ — aber Reithosenanästhesie mit Blasen-/Mastdarmstörung bedeutet Cauda-equina-Syndrom und damit einen neurochirurgischen Notfall.',
+      linkedCaseIds: [
+        'case-bandscheibenvorfall',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+      ],
+    },
   ];
 }
