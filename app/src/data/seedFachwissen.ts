@@ -1936,5 +1936,195 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
     },
+    {
+      id: 'fw-osg-fraktur',
+      pathology: 'Sprunggelenkfraktur (OSG-Fraktur)',
+      specialty: 'Orthopädie',
+      definition: 'Knöcherne Verletzung des oberen Sprunggelenks (OSG), meist als Malleolarfraktur (Innen-/Außenknöchel) infolge eines Umknicktraumas (Supinations-/Pronations-Distorsionstrauma). Betroffen sind Malleolus lateralis (distale Fibula), Malleolus medialis (Tibia) und/oder die hintere Tibiakante (Volkmann-Dreieck); zusätzlich können die Syndesmose und der Bandapparat verletzt sein. Man unterscheidet uni-, bi- und trimalleoläre Frakturen sowie die Luxationsfraktur (Fraktur mit Gelenkverrenkung). Die Einteilung nach Weber richtet sich nach der Höhe der Fibulafraktur im Verhältnis zur Syndesmose und bestimmt Stabilität und Therapie.',
+      aetiologie: 'Häufigster Mechanismus ist das indirekte Umknicktrauma (Supination/Inversion oder Pronation/Eversion), typischerweise beim Sport (Fußball), auf unebenem Boden, beim Treppensteigen oder Sturz. Es entstehen Scher-, Abriss- und Kompressionskräfte an den Malleolen und der Syndesmose. Bei älteren Patienten und Osteoporose genügt ein Bagatelltrauma. Eine Sonderform ist die Maisonneuve-Fraktur (hohe proximale Fibulafraktur mit kompletter Syndesmosen- und Membrana-interossea-Ruptur).',
+      risikofaktoren: [
+        'Sportarten mit Richtungswechsel und Sprüngen (Fußball, Basketball, Volleyball)',
+        'Frühere Sprunggelenksverletzungen / chronische Bandinstabilität',
+        'Unebener Untergrund, Stolpern, Sturz aus geringer Höhe',
+        'Osteoporose und höheres Lebensalter (Bagatelltrauma)',
+        'Adipositas (erhöhte Belastung)',
+        'Ungeeignetes Schuhwerk (hohe Absätze)',
+        'Gerinnungsstörung/Antikoagulation als Risiko für Immobilisationskomplikationen (Thrombose)',
+      ],
+      klinik: [
+        {
+          text: 'Akuter, stechender, belastungsabhängiger Schmerz im oberen Sprunggelenk nach Umknicktrauma',
+        },
+        {
+          text: 'Schwellung (Ödem) und Bluterguss (Hämatom) über dem betroffenen Knöchel',
+        },
+        {
+          text: 'Druck- und Bewegungsschmerz über Malleolus lateralis und/oder medialis',
+        },
+        {
+          text: 'Schmerzbedingte oder mechanische Bewegungseinschränkung; Belastungs- und Gehunfähigkeit',
+        },
+        {
+          text: 'Fehlstellung / sichtbare Deformität bei Luxationsfraktur (achsengerechte Reposition dringlich!)',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Weber-C-/Maisonneuve-Verletzung Druckschmerz auch proximal an der Wade / am Fibulaköpfchen — leicht zu übersehen',
+          atypisch: true,
+        },
+        {
+          text: 'Bei ausgeprägter Osteoporose nur geringe Beschwerden trotz relevanter Fraktur',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Weber-Klassifikation (AO-Danis-Weber)',
+          inhalt: 'Einteilung nach Höhe der Fibulafraktur zur Syndesmose: Weber A = unterhalb der Syndesmose (Syndesmose intakt, meist stabil → oft konservativ); Weber B = auf Höhe der Syndesmose (Syndesmose kann teilverletzt sein → häufig operativ); Weber C = oberhalb der Syndesmose (Syndesmose immer zerrissen, instabil → operativ, ggf. Stellschraube/Syndesmosennaht).',
+        },
+        {
+          name: 'Ottawa Ankle Rules',
+          inhalt: 'Klinische Entscheidungsregel, wann eine Röntgenaufnahme nötig ist. Röntgen des OSG bei Schmerz in der Malleolarregion UND einem der folgenden Kriterien: Knochendruckschmerz an der Hinterkante/Spitze des Malleolus lateralis oder medialis (jeweils distale 6 cm) ODER Unfähigkeit, unmittelbar und in der Notaufnahme vier Schritte zu belasten. Foot Rules zusätzlich bei Mittelfußschmerz mit Druckschmerz über Basis Os metatarsale V oder Os naviculare.',
+        },
+        {
+          name: 'Lauge-Hansen-Klassifikation',
+          inhalt: 'Unfallmechanistische Einteilung nach Fußstellung und Krafteinwirkung (Supination-Adduktion, Supination-Eversion, Pronation-Abduktion, Pronation-Eversion). Erklärt das Verletzungsmuster von Knochen und Bändern; im FSP nachrangig, Weber genügt.',
+        },
+      ],
+      redFlags: [
+        'Offene Fraktur (Wunde über der Frakturstelle) → chirurgischer Notfall, Antibiose, Tetanusschutz, Not-OP',
+        'Durchblutungs-, Motorik- oder Sensibilitätsstörung (DMS!) — fehlender Fußpuls, blasser/kalter Fuß, Taubheit → Gefäß-/Nervenschaden',
+        'Luxationsfraktur mit deutlicher Fehlstellung und Hautspannung → drohende Hautnekrose, sofortige (geschlossene) Reposition',
+        'Zunehmender, unter Analgesie kaum beherrschbarer Schmerz, pralle Schwellung, Schmerz bei passiver Dehnung → Kompartmentsyndrom',
+        'Proximaler Wadenschmerz / Druckschmerz am Fibulaköpfchen → Maisonneuve-Fraktur nicht übersehen',
+      ],
+      diagnostik: [
+        {
+          text: 'Anamnese: Unfallmechanismus (Umknicken, Richtung), Belastbarkeit, Vorverletzungen; gezielt nach Antikoagulation, Gerinnungsstörung und früherer Thrombose fragen',
+        },
+        {
+          text: 'Klinische Untersuchung: Inspektion (Schwellung, Hämatom, Fehlstellung, offene Wunde), gezielte Palpation beider Malleolen UND der proximalen Fibula (Maisonneuve)',
+        },
+        {
+          text: 'DMS-Prüfung obligat: Durchblutung (A. dorsalis pedis, A. tibialis posterior), Motorik und Sensibilität distal — vor und nach jeder Reposition/Ruhigstellung dokumentieren',
+        },
+        {
+          text: 'Anwendung der Ottawa Ankle Rules zur Indikationsstellung der Bildgebung',
+        },
+        {
+          text: 'Röntgen des OSG in zwei Ebenen (a.-p. mit 20° Innenrotation/Mortise-Aufnahme und seitlich); bei Verdacht auf Maisonneuve zusätzlich Unterschenkel/Knie',
+        },
+        {
+          text: 'Labor bei geplanter Operation: Blutbild, Gerinnung (Quick/INR, PTT), Entzündungsparameter, Elektrolyte, Kreatinin',
+        },
+        {
+          text: 'CT des OSG bei unklarem Röntgenbefund, Gelenkbeteiligung (Volkmann-Dreieck) und zur OP-Planung',
+          invasiv: true,
+        },
+        {
+          text: 'MRT nur bei Verdacht auf begleitende Band-, Knorpel- oder Syndesmosenverletzung ohne eindeutigen Frakturnachweis',
+          invasiv: true,
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Bandruptur / Distorsion (Supinationstrauma, Außenbandruptur)',
+          unterscheidung: 'Schwellung und Hämatom vor allem am Außenband, kein Knochendruckschmerz an den Malleolen; Belastung oft noch möglich; Ottawa-Kriterien negativ, Röntgen ohne Fraktur.',
+        },
+        {
+          dd: 'Achillessehnenruptur',
+          unterscheidung: 'Peitschenhiebartiger Schmerz an der Ferse, tastbare Delle, positiver Thompson-Test (kein Plantarflexionsreflex bei Wadenkompression); Schmerz nicht am Knöchel.',
+        },
+        {
+          dd: 'Talusfraktur / osteochondrale Läsion',
+          unterscheidung: 'Druckschmerz eher zentral/tief im Sprunggelenk; oft nur im CT/MRT sicher; hohes Nekrose- und Arthroserisiko.',
+        },
+        {
+          dd: 'Fraktur der Basis Os metatarsale V (Jones-/Abrissfraktur)',
+          unterscheidung: 'Druckschmerz am seitlichen Fußaußenrand (Basis MT V), nicht an den Malleolen; Ottawa Foot Rules statt Ankle Rules; typisch nach Supinationstrauma.',
+        },
+        {
+          dd: 'Kontusion / Prellung',
+          unterscheidung: 'Diffuser Weichteilschmerz und Hämatom ohne umschriebenen Knochendruckschmerz; Röntgen unauffällig; rasche Besserung.',
+        },
+        {
+          dd: 'Maisonneuve-Fraktur',
+          unterscheidung: 'Hohe Fibulafraktur proximal mit Syndesmosenruptur; Schmerz und Druckschmerz an der proximalen Wade — leicht übersehen, wenn nur das OSG untersucht wird.',
+        },
+      ],
+      therapie: {
+        konservativ: [
+          'Sofortmaßnahmen nach PECH-Schema: Pause, Eis (Kühlung), Kompression, Hochlagern',
+          'Ausreichende Analgesie (z. B. Metamizol oder Ibuprofen, ggf. Paracetamol)',
+          'Weber-A-Fraktur (stabil): Ruhigstellung in Unterschenkelgips, Orthese (z. B. Aircast/Vacoped) für ca. 6 Wochen mit Teilbelastung nach Maßgabe',
+          'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin während der Immobilisation — bei bekannter Gerinnungsstörung (z. B. Faktor-V-Leiden) besonders beachten',
+          'Frühfunktionelle Nachbehandlung und Physiotherapie nach Konsolidierung',
+        ],
+        interventionell: [
+          'Notfallmäßige geschlossene Reposition und Retention (Gipsschiene) bei Luxationsfraktur/Fehlstellung zur Entlastung der Haut und Wiederherstellung der Durchblutung',
+          'Ggf. Fixateur externe zur temporären Stabilisierung bei ausgeprägter Weichteilschwellung oder offener Fraktur bis zur definitiven Versorgung',
+        ],
+        chirurgisch: [
+          'Weber-B- und Weber-C-Frakturen sowie instabile/dislozierte und bimalleoläre Frakturen: offene Reposition und interne Fixation (ORIF) mittels Platten- und Schraubenosteosynthese',
+          'Versorgung des Innenknöchels (Zugschrauben) und des Volkmann-Dreiecks bei relevanter Gelenkbeteiligung',
+          'Syndesmosenstabilisierung durch Stellschraube oder Syndesmosennaht (Weber C, instabile Syndesmose)',
+          'Offene Fraktur: notfallmäßiges Débridement, Antibiose, Tetanusschutz und Stabilisierung',
+          'Orthopädisch-unfallchirurgisches Konsil, ggf. Verlegung in eine (unfall-)chirurgische Abteilung',
+        ],
+      },
+      prognose: 'Bei anatomischer Reposition und stabiler Osteosynthese ist die Prognose gut; entscheidend ist die exakte Wiederherstellung von Gelenkkongruenz und Syndesmose. Verbleibende Gelenkstufen, Fehlstellungen oder eine nicht ausgeheilte Syndesmoseninstabilität begünstigen die posttraumatische OSG-Arthrose. Weitere Komplikationen sind Wundheilungsstörung/Infekt (v. a. bei schlechtem Weichteilmantel, Diabetes, Rauchen), Thrombose während der Immobilisation, Materiallockerung und Bewegungseinschränkung. Weber-A-Frakturen heilen konservativ meist folgenlos aus.',
+      pruefungsfallen: [
+        'DMS immer prüfen und dokumentieren (Durchblutung, Motorik, Sensibilität) — vor UND nach Reposition/Gips; im Protokoll ausdrücklich als „pdms/PDMS überprüfen“ genannt.',
+        'Röntgen des OSG in ZWEI Ebenen ist die Standardaussage; auf die Prüferfrage „Und wenn wir nichts finden?“ folgt CT bei unklarem Befund oder zur OP-Planung.',
+        'Weber-Klassifikation (A/B/C nach Höhe der Fibulafraktur zur Syndesmose) parat haben — ein Prüfer sagte zwar „nicht nötig, es geht um die Sprache“, gefragt wird sie trotzdem gern.',
+        'Gerinnungsstörung aktiv erfragen: Ein Patient mit Faktor-V-Leiden muss bei Immobilisation heparinisiert werden; nach früherer Thrombose fragen (im Protokoll als „sehr wichtig“ moniert).',
+        '„Sind Sie Orthopäde/Chirurg?“ — richtige Antwort: orthopädisch-unfallchirurgisches Konsil veranlassen oder verlegen, nicht selbst operieren.',
+        'Beim Schmerzmittel konkret bleiben (Metamizol oder Ibuprofen) und die Frage nach dem Wirkstoff erwarten.',
+        'Ottawa Ankle Rules kennen, um die Röntgenindikation zu begründen; proximale Fibula mituntersuchen (Maisonneuve nicht übersehen).',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welche Verdachtsdiagnose stellen Sie und welche Differenzialdiagnosen kommen infrage?',
+          antwort: 'Verdacht auf eine Sprunggelenkfraktur rechts nach Umknicktrauma. Differenzialdiagnosen sind eine Distorsion bzw. Bandruptur, eine Kontusion, eine Achillessehnenruptur sowie eine Fraktur der Basis des fünften Mittelfußknochens.',
+        },
+        {
+          frage: 'Was würden Sie als erste Maßnahmen veranlassen?',
+          antwort: 'Zuerst die klinische Untersuchung mit Prüfung von Durchblutung, Motorik und Sensibilität (DMS), dann ein Röntgen des Sprunggelenks in zwei Ebenen. Begleitend Kühlung, Hochlagerung und Analgesie.',
+        },
+        {
+          frage: 'Und wenn wir im Röntgen nichts finden?',
+          antwort: 'Bei unklaren Befunden oder zur Operationsplanung veranlasse ich ein CT des Sprunggelenks, außerdem ein Labor mit Blutbild, Gerinnungs- und Entzündungsparametern.',
+        },
+        {
+          frage: 'Sind Sie Orthopädin bzw. Chirurgin — was machen Sie?',
+          antwort: 'Nein. Ich veranlasse ein orthopädisch-unfallchirurgisches Konsil und gegebenenfalls eine Verlegung, da die operative Versorgung in die Unfallchirurgie gehört.',
+        },
+        {
+          frage: 'Welches Schmerzmittel geben Sie?',
+          antwort: 'Zum Beispiel Metamizol oder Ibuprofen; bei Kontraindikationen Paracetamol. Wichtig ist eine ausreichende Analgesie, da der Patient starke Schmerzen hat.',
+        },
+        {
+          frage: 'Erklären Sie die Weber-Klassifikation.',
+          antwort: 'Sie teilt die Fraktur nach der Höhe der Fibulafraktur zur Syndesmose ein: Weber A unterhalb (Syndesmose intakt, meist konservativ), Weber B auf Höhe der Syndesmose (oft operativ), Weber C oberhalb (Syndesmose zerrissen, immer operativ).',
+        },
+        {
+          frage: 'Welche Narkosemöglichkeiten gibt es und welche Komplikationen sind mit der Narkose verbunden?',
+          antwort: 'Möglich sind eine Vollnarkose, eine rückenmarksnahe Regionalanästhesie (Spinal-/Periduralanästhesie) oder eine periphere Nervenblockade. Komplikationen sind unter anderem Übelkeit und Erbrechen, Blutdruckabfall, allergische Reaktionen, bei Regionalanästhesie Kopfschmerz oder Nervenreizung sowie das allgemeine Thrombose- und Kreislaufrisiko.',
+        },
+        {
+          frage: 'Warum ist die Gerinnungsanamnese hier so wichtig?',
+          antwort: 'Weil der Patient bei einer Ruhigstellung immobilisiert ist und ein hohes Thromboserisiko hat. Bei einer Gerinnungsstörung wie dem Faktor-V-Leiden muss konsequent eine Thromboseprophylaxe mit Heparin erfolgen, und ich frage gezielt nach einer früheren Thrombose.',
+        },
+      ],
+      merksatz: 'Merke: Nach jedem Umknicktrauma DMS prüfen und dokumentieren, Ottawa Ankle Rules anwenden und Röntgen OSG in zwei Ebenen — Weber A meist konservativ (Gips/Orthese), Weber B/C operativ (Osteosynthese ± Syndesmose); bei Immobilisation immer an die Thromboseprophylaxe denken.',
+      linkedCaseIds: [
+        'case-osg-fraktur',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-operation',
+        'auf-ct',
+      ],
+    },
   ];
 }
