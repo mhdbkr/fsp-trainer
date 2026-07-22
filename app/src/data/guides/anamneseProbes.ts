@@ -168,6 +168,16 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-uro-strahl', kapitel: 'fach', frage: 'Wie ist der Harnstrahl — abgeschwächt? Müssen Sie pressen, oder tropft es nach?' },
     { id: 'fach-uro-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder Probleme mit der Prostata?' },
   ],
+  Orthopädie: [
+    { id: 'fach-ortho-mechanismus', kapitel: 'fach', frage: 'Gab es einen Unfall oder Sturz? Wie genau ist es passiert, und konnten Sie danach noch auftreten oder das Gelenk bewegen?' },
+    { id: 'fach-ortho-bewegung', kapitel: 'fach', frage: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?' },
+    { id: 'fach-ortho-ausstrahlung', kapitel: 'fach', frage: 'Strahlen die Schmerzen aus — zum Beispiel ins Bein oder in den Arm? Bis wohin genau?' },
+    { id: 'fach-ortho-sensomotorik', kapitel: 'fach', frage: 'Haben Sie Kribbeln, Taubheitsgefühl oder Kraftverlust in Arm oder Bein bemerkt?' },
+    { id: 'fach-ortho-cauda', kapitel: 'fach', frage: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang oder ein Taubheitsgefühl im Reithosen-/Genitalbereich?' },
+    { id: 'fach-ortho-schwellung', kapitel: 'fach', frage: 'Ist das Gelenk geschwollen, gerötet, überwärmt oder haben Sie einen Bluterguss bemerkt?' },
+    { id: 'fach-ortho-belastung', kapitel: 'fach', frage: 'Können Sie das Bein/den Arm noch belasten? Wie weit können Sie gehen, und was hilft oder verschlimmert?' },
+    { id: 'fach-ortho-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie an dieser Stelle schon einmal Beschwerden, eine Verletzung oder eine Operation?' },
+  ],
 };
 
 // --- Index & helpers --------------------------------------------------------

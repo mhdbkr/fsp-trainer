@@ -20,7 +20,7 @@ const isFrau = (id) => id.startsWith('frau-');
 const isFach = (id) => id.startsWith('fach-');
 const BASE = allProbeIds.filter((id) => !isFrau(id) && !isFach(id));
 const FRAUEN = allProbeIds.filter(isFrau);
-const FACH_PREFIX = { Gastroenterologie: 'fach-gastro-', Kardiologie: 'fach-kardio-', Chirurgie: 'fach-chir-', Psychiatrie: 'fach-psych-', Pneumologie: 'fach-pneumo-', Urologie: 'fach-uro-', Infektiologie: 'fach-infekt-' };
+const FACH_PREFIX = { Gastroenterologie: 'fach-gastro-', Kardiologie: 'fach-kardio-', Chirurgie: 'fach-chir-', Psychiatrie: 'fach-psych-', Pneumologie: 'fach-pneumo-', Urologie: 'fach-uro-', Infektiologie: 'fach-infekt-', Orthopädie: 'fach-ortho-' };
 const fachFor = (spec) => allProbeIds.filter((id) => FACH_PREFIX[spec] && id.startsWith(FACH_PREFIX[spec]));
 
 // --- 2) Découpe les cas et extrait id / specialty / sexe / clés antworten ----
