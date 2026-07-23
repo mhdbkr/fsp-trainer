@@ -4066,19 +4066,19 @@ export function seedCases(): Case[] {
           'Palpation nach den Ottawa Ankle Rules: Malleolus lateralis und medialis (distale 6 cm), Basis Os metatarsale V, Os naviculare sowie die proximale Fibula (Maisonneuve)',
           'Röntgen des rechten Sprunggelenks in zwei Ebenen (a.p. mit Innenrotation/"Mortise" und seitlich); bei Verdacht auf Maisonneuve zusätzlich Unterschenkel/Fibula ganz',
           'Computertomographie bei unklarem oder komplexem Befund (z. B. Beteiligung der hinteren Tibiakante / Volkmann-Dreieck) und zur OP-Planung',
-          'Labor einschließlich Gerinnungsparametern (Blutbild, Quick/INR, PTT) — insbesondere wegen Faktor-V-Leiden und laufender Antikoagulation vor einer möglichen Operation',
+          'Labor mit Blutbild und Gerinnung (Quick/INR, PTT als präoperatives Basispanel; Cave: bilden die Rivaroxaban-Wirkung als Faktor-Xa-Inhibitor nicht zuverlässig ab — ggf. Anti-Xa-Spiegel), insbesondere wegen Faktor-V-Leiden und laufender Antikoagulation',
         ],
         therapie: {
           konservativ: [
             'Sofortmaßnahmen nach PECH: Pause/Ruhigstellung, Eis/Kühlung, Kompression, Hochlagern',
             'stabile Frakturen (v. a. Weber A): Ruhigstellung in Orthese/Unterschenkelgips oder Aircast, Teilbelastung an Unterarmgehstützen, engmaschige Kontrolle',
-            'adäquate Analgesie (z. B. Ibuprofen oder Metamizol; Paracetamol)',
-            'medikamentöse Thromboseprophylaxe während der Immobilisation (niedermolekulares Heparin), hier wegen Faktor-V-Leiden besonders zu beachten',
+            'adäquate Analgesie mit Metamizol oder Paracetamol — NSAR (Ibuprofen) unter therapeutischer Antikoagulation möglichst meiden (additives Blutungs- und GI-Risiko)',
+            'unter konservativer Immobilisation deckt das bereits therapeutisch dosierte Rivaroxaban das Thromboserisiko ab (keine zusätzliche NMH-Prophylaxe nötig); NMH nur im perioperativen Pausierungsfenster',
           ],
           chirurgisch: [
             'instabile Frakturen (Weber B/C, bi-/trimalleolär, Luxationsfraktur): offene Reposition und interne Osteosynthese (ORIF) mit Platte und Schrauben am Außenknöchel, Zugschraube am Innenknöchel',
             'bei Syndesmoseninstabilität (v. a. Weber C / Maisonneuve): Stellschraube oder Syndesmosennaht',
-            'perioperativ: Rivaroxaban rechtzeitig pausieren, Gerinnung normalisieren, ggf. Bridging bzw. periinterventionelles Gerinnungsmanagement',
+            'perioperativ: Rivaroxaban als DOAK rechtzeitig pausieren (KEIN Bridging wie bei Vitamin-K-Antagonisten), im Pausierungsfenster NMH-Prophylaxe, periinterventionelles Gerinnungsmanagement',
           ],
         },
         erstmassnahmen: [
@@ -4119,7 +4119,7 @@ export function seedCases(): Case[] {
         'DMS (Durchblutung, Motorik, Sensibilität) nicht als Erstes geprüft — der Ausschluss eines Gefäß-/Nervenschadens geht der Bildgebung voraus.',
         'Nicht nach einer stattgehabten Thrombose bzw. der Gerinnungsstörung gefragt — laut Prüferkommentar der zentrale Punkt dieses Falls (Faktor-V-Leiden, frühere TVT).',
         'Blutverdünner (Rivaroxaban) übersehen: vor einer möglichen Osteosynthese pausieren und periinterventionelles Gerinnungsmanagement bedenken.',
-        'Thromboseprophylaxe unter Immobilisation vergessen — bei Faktor-V-Leiden besonders wichtig (NMH).',
+        'Der Patient ist durch Rivaroxaban bereits therapeutisch antikoaguliert — die konservative Immobilisation ist damit abgedeckt; zusätzliche NMH nur im perioperativen Pausierungsfenster.',
         'Ottawa Ankle Rules nicht angewandt und dadurch unnötig oder nicht geröntgt.',
         'Proximale Fibula / Fibulaköpfchen nicht palpiert — eine Maisonneuve-Fraktur wird sonst übersehen.',
         'Offene Fraktur bzw. Kompartmentsyndrom als Notfall nicht aktiv ausgeschlossen.',
@@ -4177,7 +4177,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Worauf achten Sie bei diesem Patienten wegen des Faktor-V-Leiden und des Rivaroxaban?',
-              reaktion: 'Erhöhtes Thromboserisiko: konsequente medikamentöse Thromboseprophylaxe während der Immobilisation; vor einer OP Rivaroxaban rechtzeitig pausieren, Gerinnung kontrollieren und periinterventionell managen.',
+              reaktion: 'Erhöhtes Thromboserisiko bei Faktor-V-Leiden: die konservative Immobilisation ist durch das therapeutische Rivaroxaban bereits abgedeckt; vor einer OP das DOAK rechtzeitig pausieren (kein Bridging), im Pausierungsfenster NMH geben und periinterventionell managen.',
             },
             {
               frage: 'Was tun Sie bei einer offenen Fraktur oder Verdacht auf ein Kompartmentsyndrom?',

@@ -10,7 +10,7 @@ import { seedGuides } from './seedGuides';
 import { checklistFor } from '@/lib/checklists';
 import { checklistPct, languagePct, emptyLanguageGrid } from '@/lib/scoring';
 
-const SEED_VERSION = 24;
+const SEED_VERSION = 25;
 
 // ----------------------------------------------------------------------------
 // Linkage automatique : relie cas ↔ Fachbegriffe ↔ Fachwissen ↔ Aufklärungen
