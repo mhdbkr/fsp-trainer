@@ -4245,7 +4245,7 @@ export function seedCases(): Case[] {
         ],
         vorerkrankungen: [
           'arterielle Hypertonie seit sechs Jahren',
-          'Adipositas (BMI ca. 28)',
+          'Übergewicht/Präadipositas (BMI ca. 28)',
           'vor zwei Jahren eine selbstlimitierende Lumbago-Episode (Hexenschuss), damals konservativ behandelt',
         ],
         voroperationen: [
