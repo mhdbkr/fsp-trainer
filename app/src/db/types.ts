@@ -180,12 +180,12 @@ export interface ConversationTurn {
 export interface MedicalView {
   verdachtsdiagnose: string;
   differenzialdiagnosen: { dd: string; unterscheidung: string }[]; // + critères distinctifs
-  diagnostik: string[];   // ordonné non-invasif → invasif
-  therapie: {
-    konservativ?: string[];
-    interventionell?: string[];
-    chirurgisch?: string[];
-  };
+  /** Même axe pédagogique que Fachwissen.diagnostik (étape du raisonnement,
+   *  PAS invasivité) — cohérence cas ↔ fiche pathologie. */
+  diagnostik: { stufe: DiagnostikStufe; text: string }[];
+  /** Même principe que Fachwissen.therapie : sections LIBRES propres à CE cas
+   *  précis (pas de moule konservativ/interventionell/chirurgisch imposé). */
+  therapie: TherapieSektion[];
   erstmassnahmen?: string[]; // ce qu'on fait tout de suite (Zugang, O2…)
   notfall?: boolean;
 }

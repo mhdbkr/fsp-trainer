@@ -8,6 +8,8 @@ import { PatientSheetView } from './PatientSheetView';
 import { ExaminerSheetView } from '@/features/simulation/ExaminerSheetView';
 import { Icon } from '@/components/icons';
 import { SEC, SectionCard } from './medSections';
+import { DIAGNOSTIK_STUFEN } from '@/db/types';
+import { STUFE_META } from '@/features/fachwissen/stufeMeta';
 
 export function CaseDetailPage() {
   const { id } = useParams();
@@ -95,13 +97,28 @@ export function CaseDetailPage() {
             </SectionCard>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <SectionCard sec="diagnostik" sub="nicht-invasiv → invasiv">
-                <AutoLinkList items={c.medicalView.diagnostik} />
+              <SectionCard sec="diagnostik" sub="Anamnese → Labor → Bildgebung → Invasiv">
+                <ol className="space-y-2.5">
+                  {DIAGNOSTIK_STUFEN.map((stufe, si) => {
+                    const items = c.medicalView.diagnostik.filter((d) => d.stufe === stufe);
+                    if (!items.length) return null;
+                    const meta = STUFE_META[stufe];
+                    return (
+                      <li key={stufe} className="flex gap-2.5">
+                        <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-[10px] font-bold text-white ${meta.dot}`}>{si + 1}</span>
+                        <div className="min-w-0 flex-1">
+                          <div className={`text-[11px] font-semibold ${meta.text}`}>{stufe}</div>
+                          <AutoLinkList items={items.map((d) => d.text)} className="mt-0.5 space-y-1 text-sm" />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
               </SectionCard>
               <SectionCard sec="therapie">
-                {c.medicalView.therapie.konservativ && <TherapieGroup title="Konservativ" tone="bg-emerald-400" items={c.medicalView.therapie.konservativ} />}
-                {c.medicalView.therapie.interventionell && <TherapieGroup title="Interventionell" tone="bg-amber-400" items={c.medicalView.therapie.interventionell} />}
-                {c.medicalView.therapie.chirurgisch && <TherapieGroup title="Chirurgisch" tone="bg-rose-400" items={c.medicalView.therapie.chirurgisch} />}
+                {c.medicalView.therapie.map((sek, i) => (
+                  <TherapieGroup key={i} title={sek.label} tone={sek.akut ? 'bg-rose-400' : ['bg-emerald-400', 'bg-amber-400', 'bg-sky-400', 'bg-violet-400'][i % 4]} items={sek.items} />
+                ))}
               </SectionCard>
             </div>
 
