@@ -61,12 +61,59 @@ un run complet à trouver.
 
 ## Contrats de contenu à respecter (rappel pour les prompts)
 
-- `therapie` : sections **libres** adaptées à la pathologie — ne JAMAIS forcer
-  konservativ/interventionell/chirurgisch hors chirurgie/orthopédie.
-  Ex. psychiatrie → Psychotherapie / Pharmakotherapie / Krise ;
-  infectiologie → Erstlinie / Alternative / schwerer Verlauf ;
-  oncologie → kurativ / (neo)adjuvant / palliativ.
-- `diagnostik` : classer par **étape** (`Anamnese/Klinik`, `Labor`,
-  `Apparativ & Bildgebung`, `Invasiv & Speziell`), jamais par invasivité.
-- `name` du cas : **court et sans spoiler** du diagnostic précis (pas de stade,
-  pas de Weber, pas de niveau radiculaire) — le détail se découvre en jouant.
+### `therapie` : RAISONNEMENT adaptatif, jamais un dictionnaire figé
+
+⚠️ Ne PAS coder un mapping spécialité → labels et l'appliquer mécaniquement.
+Les futurs lots vont croiser des pathologies (Néphrologie, Endocrinologie,
+Rhumatologie, Dermatologie, Gynécologie…) qui n'entrent dans AUCUNE case d'un
+tel dictionnaire — le risque est de retomber sur konservativ/interventionell/
+chirurgisch par défaut, exactement le défaut qu'on corrige.
+
+**La consigne, dans le prompt d'authoring, doit être une question à se poser
+pour CHAQUE pathologie, pas une table à consulter :**
+> « Comment un médecin structure-t-il réellement la prise en charge de CETTE
+> pathologie précise, quand il l'explique à un collègue ? Choisis 2-4 sections,
+> nomme-les comme un clinicien le ferait, dans l'ordre logique de sa démarche. »
+
+Repères de LOGIQUE clinique (pas de spécialité — une pathologie peut suivre
+plusieurs de ces logiques à la fois selon sa présentation) :
+
+| Logique de la pathologie | Sections typiques (à adapter, jamais copier tel quel) |
+|---|---|
+| Geste chirurgical/traumato/procédural | Konservativ / Interventionell / Chirurgisch |
+| Infection aiguë | Erstlinie / Alternative (Allergie, Résistance, Grossesse) / Schwerer Verlauf |
+| Maladie chronique gérée à vie (HTA, IRC, Diabetes) | Ersteinstellung / Langzeitmanagement / Eskalation bei Komplikation |
+| Trouble psychiatrique | Psychotherapie / Pharmakotherapie / Krisenintervention |
+| Cancer | (Neo)adjuvant / Kurativ (chirurgisch) / Palliativ |
+| Maladie auto-immune/inflammatoire chronique | Akuttherapie (Schub) / Basistherapie / Eskalation (Biologika) |
+| Maladie endocrinienne (substitution) | Substitution / Medikamentöse Einstellung / Interventionell-chirurgisch (bei Tumor) |
+| Insuffisance d'organe progressive (rein, foie, cœur) | Konservativ (Diät, RAAS-Blockade…) / Ersatztherapie (Dialyse…) / Transplantation |
+| Dermatose | Topisch / Systemisch / Interventionell (Lichttherapie, Chirurgie) |
+
+Si aucune ligne du tableau ne convient : c'est normal, **invente les 2-4
+sections qui reflètent VRAIMENT cette pathologie** — c'est le principe, pas
+l'exception. Le champ `akut?: boolean` reste disponible pour surligner une
+section contenant une urgence (ex. Suizidalität, Cauda-equina, Sepsis).
+
+### `diagnostik` : l'axe par étape reste fixe (c'est un vrai standard universel)
+
+Contrairement à `therapie`, l'axe `Anamnese/Klinik → Labor → Apparativ &
+Bildgebung → Invasiv & Speziell` n'est PAS un moule arbitraire : c'est l'ordre
+dans lequel un médecin raisonne réellement, quelle que soit la spécialité — on
+le garde donc **fixe**. Ce qui varie légitimement d'un cas à l'autre, c'est
+quelles étapes sont remplies : un cas psychiatrique pur peut n'avoir presque
+rien en Bildgebung, un cas traumatologique presque tout en Bildgebung/Invasiv
+— c'est normal, les étapes vides ne s'affichent pas.
+
+### `name` du cas : court et sans spoiler
+
+Pas de stade, pas de Weber, pas de niveau radiculaire dans le titre — le
+détail se découvre en jouant le cas.
+
+### Audit fait sur les autres champs (rien d'autre à corriger)
+
+`klassifikation`, `risikofaktoren`, `klinik`, `redFlags`, `pruefungsfallen`,
+`askedInExam`, `prognose`, `erstmassnahmen`, `patientSheet.schmerz` sont déjà
+des listes libres ou des champs optionnels — aucun moule imposé. Seul
+`therapie` forçait une structure ; c'est corrigé aux deux niveaux (Fachwissen
+ET Case.medicalView, qui doivent rester cohérents entre eux pour un même cas).

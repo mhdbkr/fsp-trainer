@@ -2,6 +2,13 @@
 # Migration MedicalView — PASSE 2, parseur robuste par comptage de
 # crochets/accolades conscient des chaînes (gère indifféremment le format
 # compact sur une ligne des 10 cas Phase 1 et le format étalé des cas Phase 2).
+#
+# ⚠️ ARCHIVE : migration ponctuelle déjà exécutée et intégrée (voir git log).
+#    Le dictionnaire LABELS ci-dessous est un HISTORIQUE, PAS un modèle à
+#    suivre pour de nouvelles pathologies — voir PIPELINE.md « therapie :
+#    RAISONNEMENT adaptatif » pour la vraie consigne (raisonner au cas par
+#    cas, jamais un mapping spécialité→labels).
+
 import re, sys, os
 
 SRC = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'data', 'seedCases.ts'))

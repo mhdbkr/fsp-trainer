@@ -3,6 +3,13 @@
 #  - diagnostik: {text, invasiv?} -> {stufe, text}  (Anamnese/Klinik|Labor|Bildgebung|Invasiv/Speziell)
 #  - therapie:   {konservativ,interventionell,chirurgisch} -> [{label, items, akut?}]
 # Classement par mots-clés cliniques ; les cas ambigus sont RAPPORTÉS pour revue.
+#
+# ⚠️ ARCHIVE : migration ponctuelle déjà exécutée et intégrée (voir git log).
+#    Le dictionnaire LABELS ci-dessous est un HISTORIQUE, PAS un modèle à
+#    suivre pour de nouvelles pathologies — voir PIPELINE.md « therapie :
+#    RAISONNEMENT adaptatif » pour la vraie consigne (raisonner au cas par
+#    cas, jamais un mapping spécialité→labels).
+
 import re, sys, os
 
 SRC = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'data', 'seedFachwissen.ts'))
