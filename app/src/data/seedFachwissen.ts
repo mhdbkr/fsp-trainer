@@ -29,13 +29,13 @@ export function seedFachwissen(): Fachwissen[] {
         { text: 'Ösophagusvarizenblutung als lebensbedrohliche Erstmanifestation', atypisch: true },
       ],
       diagnostik: [
-        { text: 'Labor: γGT, AP, GOT/GPT, Bilirubin, Albumin↓, Quick↓/INR↑, Thrombozyten↓' },
-        { text: 'Abdomen-Sonographie: höckerige Leberoberfläche, Splenomegalie, Aszites' },
-        { text: 'Duplex-Sonographie der Pfortader (portale Hypertension)' },
-        { text: 'CT/MRT-Abdomen zur Beurteilung + HCC-Ausschluss', invasiv: true },
-        { text: 'ÖGD zum Nachweis von Ösophagus-/Fundusvarizen', invasiv: true },
-        { text: 'Aszitespunktion (SAAG, Zellzahl — SBP-Ausschluss)', invasiv: true },
-        { text: 'Ggf. Leberbiopsie zur Ätiologieklärung', invasiv: true },
+        { stufe: 'Labor', text: 'Labor: γGT, AP, GOT/GPT, Bilirubin, Albumin↓, Quick↓/INR↑, Thrombozyten↓' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: höckerige Leberoberfläche, Splenomegalie, Aszites' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Duplex-Sonographie der Pfortader (portale Hypertension)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT/MRT-Abdomen zur Beurteilung + HCC-Ausschluss' },
+        { stufe: 'Invasiv & Speziell', text: 'ÖGD zum Nachweis von Ösophagus-/Fundusvarizen' },
+        { stufe: 'Invasiv & Speziell', text: 'Aszitespunktion (SAAG, Zellzahl — SBP-Ausschluss)' },
+        { stufe: 'Invasiv & Speziell', text: 'Ggf. Leberbiopsie zur Ätiologieklärung' },
       ],
       differenzialdiagnosen: [
         { dd: 'Hepatozelluläres Karzinom (HCC)', unterscheidung: 'Fokale Läsion im Bild, AFP↑; entwickelt sich oft auf Zirrhoseboden.' },
@@ -43,21 +43,32 @@ export function seedFachwissen(): Fachwissen[] {
         { dd: 'Peritonealkarzinose', unterscheidung: 'Bekannter Primärtumor, Aszites mit malignen Zellen.' },
         { dd: 'Nephrotisches Syndrom', unterscheidung: 'Massive Proteinurie, Hypalbuminämie renaler Genese.' },
       ],
-      therapie: {
-        konservativ: [
-          'Absolute Alkoholabstinenz (kausal bei alkoholischer Genese)',
-          'Behandlung der Grundkrankheit (antivirale Therapie bei Hepatitis)',
-          'Aszites: Kochsalzrestriktion, Spironolacton + Schleifendiuretika',
-          'Ösophagusvarizen: nicht-selektive Betablocker zur Prophylaxe',
-          'Hepatische Enzephalopathie: Lactulose, Rifaximin, Eiweißmodulation',
-        ],
-        interventionell: [
-          'Endoskopische Varizenligatur / Sklerosierung',
-          'TIPS (transjugulärer intrahepatischer portosystemischer Shunt) bei refraktärem Aszites/Varizen',
-          'Therapeutische Aszitespunktion (mit Albumingabe)',
-        ],
-        chirurgisch: ['Lebertransplantation (einzige kurative Option im Endstadium)'],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Absolute Alkoholabstinenz (kausal bei alkoholischer Genese)',
+            'Behandlung der Grundkrankheit (antivirale Therapie bei Hepatitis)',
+            'Aszites: Kochsalzrestriktion, Spironolacton + Schleifendiuretika',
+            'Ösophagusvarizen: nicht-selektive Betablocker zur Prophylaxe',
+            'Hepatische Enzephalopathie: Lactulose, Rifaximin, Eiweißmodulation',
+          ],
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'Endoskopische Varizenligatur / Sklerosierung',
+            'TIPS (transjugulärer intrahepatischer portosystemischer Shunt) bei refraktärem Aszites/Varizen',
+            'Therapeutische Aszitespunktion (mit Albumingabe)',
+          ],
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Lebertransplantation (einzige kurative Option im Endstadium)',
+          ],
+        },
+      ],
       prognose:
         'Abhängig von Child-Pugh-/MELD-Score und Compliance (v. a. Alkoholabstinenz). Kompensiert deutlich besser als dekompensiert. Es gibt keine kausale Therapie außer Transplantation.',
       pruefungsfallen: [
@@ -106,12 +117,12 @@ export function seedFachwissen(): Fachwissen[] {
         { text: 'Atypisch bei Frauen/Diabetikern: nur Dyspnoe, Oberbauchschmerz, Müdigkeit', atypisch: true },
       ],
       diagnostik: [
-        { text: 'Anamnese + Risikofaktoren, körperliche Untersuchung' },
-        { text: 'Ruhe-EKG (oft unauffällig bei stabiler AP)' },
-        { text: 'Labor: Troponin (Ausschluss Infarkt), Lipide, HbA1c' },
-        { text: 'Belastungs-EKG (Ergometrie), Stressechokardiographie' },
-        { text: 'Myokardperfusionsszintigraphie, Kardio-CT/-MRT' },
-        { text: 'Koronarangiographie (Goldstandard, ggf. mit Intervention)', invasiv: true },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese + Risikofaktoren, körperliche Untersuchung' },
+        { stufe: 'Labor', text: 'Ruhe-EKG (oft unauffällig bei stabiler AP)' },
+        { stufe: 'Labor', text: 'Labor: Troponin (Ausschluss Infarkt), Lipide, HbA1c' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Belastungs-EKG (Ergometrie), Stressechokardiographie' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Myokardperfusionsszintigraphie, Kardio-CT/-MRT' },
+        { stufe: 'Invasiv & Speziell', text: 'Koronarangiographie (Goldstandard, ggf. mit Intervention)' },
       ],
       differenzialdiagnosen: [
         { dd: 'Akuter Myokardinfarkt / ACS', unterscheidung: 'Ruheschmerz >20 min, Troponin↑, EKG-Veränderungen.' },
@@ -120,15 +131,29 @@ export function seedFachwissen(): Fachwissen[] {
         { dd: 'Refluxkrankheit / Ösophagusspasmus', unterscheidung: 'Nahrungsabhängig, brennend, Besserung auf PPI.' },
         { dd: 'Costochondritis / muskuloskelettal', unterscheidung: 'Druckschmerz, bewegungs-/atemabhängig.' },
       ],
-      therapie: {
-        konservativ: [
-          'Akut: Ruhe, Nitroglycerin, O2 bei Hypoxie',
-          'Risikofaktoren-Management (Blutdruck, Diabetes, Nikotinkarenz)',
-          'Medikamentös: ASS, Statin, Betablocker, ggf. Ca-Antagonist / Langzeitnitrat',
-        ],
-        interventionell: ['PTCA (Ballondilatation) mit Stentimplantation'],
-        chirurgisch: ['Aortokoronare Bypass-Operation (ACVB) bei Mehrgefäß-/Hauptstammbefall'],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Akut: Ruhe, Nitroglycerin, O2 bei Hypoxie',
+            'Risikofaktoren-Management (Blutdruck, Diabetes, Nikotinkarenz)',
+            'Medikamentös: ASS, Statin, Betablocker, ggf. Ca-Antagonist / Langzeitnitrat',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'PTCA (Ballondilatation) mit Stentimplantation',
+          ],
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Aortokoronare Bypass-Operation (ACVB) bei Mehrgefäß-/Hauptstammbefall',
+          ],
+        },
+      ],
       prognose: 'Gut bei konsequenter Risikofaktorenkontrolle; abhängig von Ausmaß der KHK und LV-Funktion.',
       pruefungsfallen: [
         'Instabile Angina pectoris ist ein ACS → NOTFALL, sofort EKG (innerhalb 10 min) und OA informieren.',
@@ -162,10 +187,10 @@ export function seedFachwissen(): Fachwissen[] {
         { text: 'Grey-Turner-/Cullen-Zeichen bei hämorrhagischer Nekrose', atypisch: true },
       ],
       diagnostik: [
-        { text: 'Labor: Lipase (>3-fach), Amylase, CRP, Kalzium, Triglyzeride, Leberwerte' },
-        { text: 'Abdomen-Sonographie: Gallensteine, Pankreasödem, freie Flüssigkeit' },
-        { text: 'CT-Abdomen mit KM (Nekrosenachweis, ab 72 h aussagekräftig)', invasiv: true },
-        { text: 'ERCP bei biliärer Genese mit Cholestase/Cholangitis (therapeutisch)', invasiv: true },
+        { stufe: 'Labor', text: 'Labor: Lipase (>3-fach), Amylase, CRP, Kalzium, Triglyzeride, Leberwerte' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Gallensteine, Pankreasödem, freie Flüssigkeit' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen mit KM (Nekrosenachweis, ab 72 h aussagekräftig)' },
+        { stufe: 'Invasiv & Speziell', text: 'ERCP bei biliärer Genese mit Cholestase/Cholangitis (therapeutisch)' },
       ],
       differenzialdiagnosen: [
         { dd: 'Perforiertes Ulkus', unterscheidung: 'Brettharter Bauch, freie Luft im Röntgen/CT.' },
@@ -173,16 +198,30 @@ export function seedFachwissen(): Fachwissen[] {
         { dd: 'Myokardinfarkt (Hinterwand)', unterscheidung: 'EKG-Veränderungen, Troponin↑.' },
         { dd: 'Mesenterialischämie', unterscheidung: 'Schmerz > Befund, Laktat↑, Vorhofflimmern.' },
       ],
-      therapie: {
-        konservativ: [
-          'Intensive Flüssigkeitssubstitution (Volumentherapie)',
-          'Ausreichende Analgesie (z. B. Metamizol, Opioide)',
-          'Frühe enterale Ernährung nach Toleranz',
-          'Bei Alkoholgenese: Abstinenz; bei Hypertriglyzeridämie: Senkung',
-        ],
-        interventionell: ['ERCP mit Papillotomie bei biliärer Pankreatitis mit Obstruktion'],
-        chirurgisch: ['Nekrosektomie nur bei infizierten Nekrosen (spät, wenn nötig)', 'Cholezystektomie im Verlauf bei biliärer Genese'],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Intensive Flüssigkeitssubstitution (Volumentherapie)',
+            'Ausreichende Analgesie (z. B. Metamizol, Opioide)',
+            'Frühe enterale Ernährung nach Toleranz',
+            'Bei Alkoholgenese: Abstinenz; bei Hypertriglyzeridämie: Senkung',
+          ],
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'ERCP mit Papillotomie bei biliärer Pankreatitis mit Obstruktion',
+          ],
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Nekrosektomie nur bei infizierten Nekrosen (spät, wenn nötig)',
+            'Cholezystektomie im Verlauf bei biliärer Genese',
+          ],
+        },
+      ],
       prognose: 'Milde Form meist folgenlos ausheilend; schwere nekrotisierende Form mit hoher Letalität. Schweregrad-Scores: Ranson, APACHE II.',
       pruefungsfallen: [
         'Lipase ist spezifischer als Amylase — Höhe korreliert NICHT mit Schweregrad.',
@@ -215,25 +254,41 @@ export function seedFachwissen(): Fachwissen[] {
         { text: 'Epigastrische Schmerzen (bei Ulkus)' },
       ],
       diagnostik: [
-        { text: 'Kreislaufmonitoring, Labor: BB (Hb), Gerinnung, Blutgruppe + Kreuzblut' },
-        { text: 'Anamnese: NSAR, Alkohol, Vorerkrankungen (Zirrhose)' },
-        { text: 'Notfall-ÖGD (Diagnostik UND Therapie: Ligatur, Clip, Sklerosierung)', invasiv: true },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: NSAR, Alkohol, Vorerkrankungen (Zirrhose)' },
+        { stufe: 'Labor', text: 'Kreislaufmonitoring, Labor: BB (Hb), Gerinnung, Blutgruppe + Kreuzblut' },
+        { stufe: 'Invasiv & Speziell', text: 'Notfall-ÖGD (Diagnostik UND Therapie: Ligatur, Clip, Sklerosierung)' },
       ],
       differenzialdiagnosen: [
         { dd: 'Untere GI-Blutung', unterscheidung: 'Hämatochezie ohne Hämatemesis; Quelle distal des Treitz-Bandes.' },
         { dd: 'Bluthusten (Hämoptyse)', unterscheidung: 'Hellrotes, schaumiges Blut aus den Atemwegen, nicht erbrochen.' },
         { dd: 'Pseudomeläna', unterscheidung: 'Schwarzer Stuhl durch Eisen/Kohle/Heidelbeeren, kein Blut.' },
       ],
-      therapie: {
-        konservativ: [
-          'Stabilisierung: großlumige venöse Zugänge, Volumen, ggf. Transfusion',
-          'PPI hochdosiert i. v.',
-          'Bei Varizen: Terlipressin + Antibiotikaprophylaxe',
-          'Antikoagulation pausieren/antagonisieren',
-        ],
-        interventionell: ['Endoskopische Blutstillung (Ligatur, Clip, Adrenalininjektion, Sklerosierung)', 'Angiographische Embolisation bei Versagen'],
-        chirurgisch: ['Notfall-OP bei endoskopisch nicht beherrschbarer Blutung'],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Stabilisierung: großlumige venöse Zugänge, Volumen, ggf. Transfusion',
+            'PPI hochdosiert i. v.',
+            'Bei Varizen: Terlipressin + Antibiotikaprophylaxe',
+            'Antikoagulation pausieren/antagonisieren',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'Endoskopische Blutstillung (Ligatur, Clip, Adrenalininjektion, Sklerosierung)',
+            'Angiographische Embolisation bei Versagen',
+          ],
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Notfall-OP bei endoskopisch nicht beherrschbarer Blutung',
+          ],
+          akut: true,
+        },
+      ],
       prognose: 'Abhängig von Ursache, Ausmaß und Komorbidität; Varizenblutung prognostisch ungünstiger. Risikoscores: Rockall, Glasgow-Blatchford.',
       pruefungsfallen: [
         'NOTFALL — erst Kreislauf stabilisieren, OA informieren, dann Anamnese fortsetzen.',
@@ -313,30 +368,13 @@ export function seedFachwissen(): Fachwissen[] {
         'Dysphagie, ungewollter Gewichtsverlust, Anämie, Alter > 50 mit neuen Beschwerden → Malignomverdacht (Alarmsymptome)',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese: Schmerzcharakter und Zeitbezug zum Essen, NSAR-/ASS- und Kortisoneinnahme, Selbstmedikation, Stress, Noxen, frühere Ulzera',
-        },
-        {
-          text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Prüfung auf Abwehrspannung; digital-rektale Untersuchung auf Meläna',
-        },
-        {
-          text: 'Labor: Blutbild (Anämie bei chronischem Blutverlust), ggf. Gerinnung; bei rezidivierenden/atypischen Ulzera Gastrin (Zollinger-Ellison)',
-        },
-        {
-          text: 'Nicht-invasiver H.-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test (Cave: PPI ≥ 2 Wochen vorher pausieren, sonst falsch negativ)',
-        },
-        {
-          text: 'ÖGD (Ösophago-Gastro-Duodenoskopie) — Goldstandard: direkte Darstellung, Lokalisation und Biopsie des Ulkus',
-          invasiv: true,
-        },
-        {
-          text: 'Biopsie: bei jedem Ulcus ventriculi obligat zum Malignitätsausschluss; zugleich Urease-Schnelltest (CLO-Test) und Histologie auf H. pylori',
-          invasiv: true,
-        },
-        {
-          text: 'Kontroll-ÖGD des Magenulkus nach 6–8 Wochen zur Bestätigung der Abheilung und erneuter Biopsie (Karzinomausschluss)',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Schmerzcharakter und Zeitbezug zum Essen, NSAR-/ASS- und Kortisoneinnahme, Selbstmedikation, Stress, Noxen, frühere Ulzera' },
+        { stufe: 'Labor', text: 'Labor: Blutbild (Anämie bei chronischem Blutverlust), ggf. Gerinnung; bei rezidivierenden/atypischen Ulzera Gastrin (Zollinger-Ellison)' },
+        { stufe: 'Labor', text: 'Nicht-invasiver H.-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test (Cave: PPI ≥ 2 Wochen vorher pausieren, sonst falsch negativ)' },
+        { stufe: 'Invasiv & Speziell', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Prüfung auf Abwehrspannung; digital-rektale Untersuchung auf Meläna' },
+        { stufe: 'Invasiv & Speziell', text: 'ÖGD (Ösophago-Gastro-Duodenoskopie) — Goldstandard: direkte Darstellung, Lokalisation und Biopsie des Ulkus' },
+        { stufe: 'Invasiv & Speziell', text: 'Biopsie: bei jedem Ulcus ventriculi obligat zum Malignitätsausschluss; zugleich Urease-Schnelltest (CLO-Test) und Histologie auf H. pylori' },
+        { stufe: 'Invasiv & Speziell', text: 'Kontroll-ÖGD des Magenulkus nach 6–8 Wochen zur Bestätigung der Abheilung und erneuter Biopsie (Karzinomausschluss)' },
       ],
       differenzialdiagnosen: [
         {
@@ -368,25 +406,35 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Belastungsabhängig, Ausstrahlung, Dyspnoe; per EKG und Troponin abzugrenzen — bei epigastrischem Schmerz stets mitbedenken.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Protonenpumpeninhibitor (z. B. Pantoprazol 40 mg 1-0-0) über 4–8 Wochen als Basistherapie',
-          'Auslösende NSAR/ASS absetzen oder pausieren; Bedarfsanalgesie auf Paracetamol umstellen',
-          'Noxenkarenz: Nikotin- und Alkoholverzicht, Stressreduktion',
-          'Bei H.-pylori-Nachweis Eradikation: italienische Triple-Therapie (PPI + Clarithromycin + Metronidazol) oder französische Variante (PPI + Clarithromycin + Amoxicillin) über 7–14 Tage; bei Resistenz Bismut-Quadrupeltherapie',
-          'Eradikationskontrolle nach frühestens 4 Wochen (13C-Atemtest oder Stuhl-Antigen)',
-          'Bei fortgesetzter NSAR-Notwendigkeit begleitende PPI-Prophylaxe',
-        ],
-        interventionell: [
-          'Endoskopische Blutstillung bei blutendem Ulkus (Adrenalininjektion, Clip, Thermokoagulation) nach Forrest-Stadium',
-          'Endoskopische Ballondilatation bei narbiger Magenausgangsstenose',
-        ],
-        chirurgisch: [
-          'Notfalloperation bei Perforation: Übernähung/Exzision und Lavage',
-          'Operation bei endoskopisch nicht beherrschbarer Blutung oder therapierefraktärer Stenose',
-          'Resektion (z. B. Billroth) bei malignem Befund oder Komplikationen',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Protonenpumpeninhibitor (z. B. Pantoprazol 40 mg 1-0-0) über 4–8 Wochen als Basistherapie',
+            'Auslösende NSAR/ASS absetzen oder pausieren; Bedarfsanalgesie auf Paracetamol umstellen',
+            'Noxenkarenz: Nikotin- und Alkoholverzicht, Stressreduktion',
+            'Bei H.-pylori-Nachweis Eradikation: italienische Triple-Therapie (PPI + Clarithromycin + Metronidazol) oder französische Variante (PPI + Clarithromycin + Amoxicillin) über 7–14 Tage; bei Resistenz Bismut-Quadrupeltherapie',
+            'Eradikationskontrolle nach frühestens 4 Wochen (13C-Atemtest oder Stuhl-Antigen)',
+            'Bei fortgesetzter NSAR-Notwendigkeit begleitende PPI-Prophylaxe',
+          ],
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'Endoskopische Blutstillung bei blutendem Ulkus (Adrenalininjektion, Clip, Thermokoagulation) nach Forrest-Stadium',
+            'Endoskopische Ballondilatation bei narbiger Magenausgangsstenose',
+          ],
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Notfalloperation bei Perforation: Übernähung/Exzision und Lavage',
+            'Operation bei endoskopisch nicht beherrschbarer Blutung oder therapierefraktärer Stenose',
+            'Resektion (z. B. Billroth) bei malignem Befund oder Komplikationen',
+          ],
+          akut: true,
+        },
+      ],
       prognose: 'Unter PPI-Therapie und erfolgreicher H.-pylori-Eradikation heilen die meisten Ulzera ab, und die Rezidivrate sinkt drastisch (von über 50 % auf unter 10 % pro Jahr). Entscheidend sind das Weglassen von NSAR und die Noxenkarenz. Prognosebestimmend sind Komplikationen (Blutung, Perforation, Stenose) und beim Ulcus ventriculi der Ausschluss eines Karzinoms.',
       pruefungsfallen: [
         'Jedes Ulcus ventriculi wird biopsiert UND nach 6–8 Wochen endoskopisch kontrolliert (Malignitätsausschluss) — das Ulcus duodeni dagegen nicht.',
@@ -515,34 +563,14 @@ export function seedFachwissen(): Fachwissen[] {
         'Symptomatische Anämie bei okkultem Blutverlust (Belastungsdyspnoe, Blässe)',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese und körperliche Untersuchung: Abdomenpalpation (Resistenz), Lymphknotenstatus (Virchow-Lymphknoten links supraklavikulär), digital-rektale Untersuchung',
-        },
-        {
-          text: 'Labor: Blutbild (Anämie), Eisen und Ferritin, Entzündungsparameter, Leberwerte; Tumormarker CA 72-4, CEA und CA 19-9 nur zur Verlaufs- und Therapiekontrolle, nicht zur Diagnosestellung',
-        },
-        {
-          text: 'Test auf okkultes Blut im Stuhl',
-        },
-        {
-          text: 'Abdomen-Sonographie: Lebermetastasen, Aszites, Lymphadenopathie',
-        },
-        {
-          text: 'Ösophago-Gastro-Duodenoskopie (ÖGD) mit Biopsie — Goldstandard zur Diagnosesicherung durch Histologie',
-          invasiv: true,
-        },
-        {
-          text: 'Endosonographie zur Beurteilung der Wandinfiltrationstiefe (T) und der regionären Lymphknoten (N)',
-          invasiv: true,
-        },
-        {
-          text: 'CT von Thorax und Abdomen mit Kontrastmittel zum Staging (Fernmetastasen, insbesondere pulmonal und hepatisch)',
-          invasiv: true,
-        },
-        {
-          text: 'Diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose bei lokal fortgeschrittenem Befund',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Test auf okkultes Blut im Stuhl' },
+        { stufe: 'Labor', text: 'Labor: Blutbild (Anämie), Eisen und Ferritin, Entzündungsparameter, Leberwerte; Tumormarker CA 72-4, CEA und CA 19-9 nur zur Verlaufs- und Therapiekontrolle, nicht zur Diagnosestellung' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Lebermetastasen, Aszites, Lymphadenopathie' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Endosonographie zur Beurteilung der Wandinfiltrationstiefe (T) und der regionären Lymphknoten (N)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT von Thorax und Abdomen mit Kontrastmittel zum Staging (Fernmetastasen, insbesondere pulmonal und hepatisch)' },
+        { stufe: 'Invasiv & Speziell', text: 'Anamnese und körperliche Untersuchung: Abdomenpalpation (Resistenz), Lymphknotenstatus (Virchow-Lymphknoten links supraklavikulär), digital-rektale Untersuchung' },
+        { stufe: 'Invasiv & Speziell', text: 'Ösophago-Gastro-Duodenoskopie (ÖGD) mit Biopsie — Goldstandard zur Diagnosesicherung durch Histologie' },
+        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose bei lokal fortgeschrittenem Befund' },
       ],
       differenzialdiagnosen: [
         {
@@ -578,25 +606,34 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Epigastrische Schmerzen können kardial bedingt sein; Ausschluss durch EKG und Troponin.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom',
-          'Palliative Chemotherapie bei metastasiertem Stadium; bei HER2-Überexpression zusätzlich Trastuzumab',
-          'Helicobacter-pylori-Eradikation (Triple-Therapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut',
-          'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
-          'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
-        ],
-        interventionell: [
-          'Endoskopische Mukosaresektion (EMR) bzw. Submukosadissektion (ESD) beim mukosalen Frühkarzinom (gut differenziert, ohne Lymphgefäßinvasion)',
-          'Endoskopische Stentimplantation bei stenosierendem Tumor zur Sicherung der Passage',
-          'Endoskopische Blutstillung bei tumorbedingter Blutung',
-        ],
-        chirurgisch: [
-          'Subtotale Gastrektomie bei distalem Sitz bzw. totale Gastrektomie bei proximalem/diffusem Befall, jeweils mit D2-Lymphadenektomie — kurativer Ansatz',
-          'Bei ösophagogastralem Übergang (AEG) erweiterte transhiatale bzw. abdominothorakale Resektion',
-          'Palliative Verfahren (Gastroenterostomie/Bypass) bei nicht resektabler Stenose',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Systemtherapie / (neo)adjuvant',
+          items: [
+            'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom',
+            'Palliative Chemotherapie bei metastasiertem Stadium; bei HER2-Überexpression zusätzlich Trastuzumab',
+            'Helicobacter-pylori-Eradikation (Triple-Therapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut',
+            'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
+            'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
+          ],
+        },
+        {
+          label: 'Endoskopisch / palliativ',
+          items: [
+            'Endoskopische Mukosaresektion (EMR) bzw. Submukosadissektion (ESD) beim mukosalen Frühkarzinom (gut differenziert, ohne Lymphgefäßinvasion)',
+            'Endoskopische Stentimplantation bei stenosierendem Tumor zur Sicherung der Passage',
+            'Endoskopische Blutstillung bei tumorbedingter Blutung',
+          ],
+        },
+        {
+          label: 'Chirurgisch (kurativ)',
+          items: [
+            'Subtotale Gastrektomie bei distalem Sitz bzw. totale Gastrektomie bei proximalem/diffusem Befall, jeweils mit D2-Lymphadenektomie — kurativer Ansatz',
+            'Bei ösophagogastralem Übergang (AEG) erweiterte transhiatale bzw. abdominothorakale Resektion',
+            'Palliative Verfahren (Gastroenterostomie/Bypass) bei nicht resektabler Stenose',
+          ],
+        },
+      ],
       prognose: 'Stark stadienabhängig. Das auf die Mukosa begrenzte Frühkarzinom hat nach endoskopischer/chirurgischer Resektion eine sehr gute Prognose. Da in Deutschland viele Karzinome erst spät (mit Lymphknoten- oder Fernmetastasen) diagnostiziert werden, liegt die 5-Jahres-Überlebensrate insgesamt bei etwa 30 %. Der diffuse Typ nach Laurén ist prognostisch ungünstiger als der intestinale Typ.',
       pruefungsfallen: [
         'Direkte Patientenfrage "Habe ich Krebs?" oder "Muss ich sterben?" empathisch UND neutral beantworten: den Verdacht nicht bagatellisieren, aber keine Diagnose ohne Magenspiegelung und Gewebeprobe stellen — "Der Verdacht steht im Raum, wir klären ihn mit einer Magenspiegelung ab."',
@@ -727,31 +764,14 @@ export function seedFachwissen(): Fachwissen[] {
         'Zunehmende Zustandsverschlechterung bei Kindern oder alten Patienten (rasche Perforation, wenig Symptome)',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese und körperliche Untersuchung mit Appendizitiszeichen (McBurney, Blumberg, Rovsing, Psoas); rektale digitale Untersuchung (Douglas-Schmerz)',
-        },
-        {
-          text: 'Vitalparameter und rektoaxilläre Temperaturmessung (Differenz > 1 °C spricht für einen entzündlichen Prozess)',
-        },
-        {
-          text: 'Labor: Blutbild (Leukozytose mit Linksverschiebung), CRP-Erhöhung, ggf. BSG',
-        },
-        {
-          text: 'Urinstatus zum Ausschluss eines Harnwegsinfekts / einer Urolithiasis (Differenzialdiagnose)',
-        },
-        {
-          text: 'Schwangerschaftstest (β-hCG) bei jeder Frau im gebärfähigen Alter (Ausschluss Extrauteringravidität)',
-        },
-        {
-          text: 'Abdomen-Sonographie: aufgetriebene, nicht komprimierbare Appendix > 6 mm, Kokardenphänomen (Zielscheibe), freie Flüssigkeit, ggf. Kotstein',
-        },
-        {
-          text: 'CT-Abdomen bei unklarem Sonographiebefund, adipösen oder älteren Patienten (höhere Sensitivität)',
-        },
-        {
-          text: 'Diagnostische Laparoskopie bei weiterhin unklarem Befund – zugleich therapeutisch (Appendektomie in gleicher Sitzung)',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese und körperliche Untersuchung mit Appendizitiszeichen (McBurney, Blumberg, Rovsing, Psoas); rektale digitale Untersuchung (Douglas-Schmerz)' },
+        { stufe: 'Anamnese/Klinik', text: 'Vitalparameter und rektoaxilläre Temperaturmessung (Differenz > 1 °C spricht für einen entzündlichen Prozess)' },
+        { stufe: 'Anamnese/Klinik', text: 'Schwangerschaftstest (β-hCG) bei jeder Frau im gebärfähigen Alter (Ausschluss Extrauteringravidität)' },
+        { stufe: 'Labor', text: 'Labor: Blutbild (Leukozytose mit Linksverschiebung), CRP-Erhöhung, ggf. BSG' },
+        { stufe: 'Labor', text: 'Urinstatus zum Ausschluss eines Harnwegsinfekts / einer Urolithiasis (Differenzialdiagnose)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: aufgetriebene, nicht komprimierbare Appendix > 6 mm, Kokardenphänomen (Zielscheibe), freie Flüssigkeit, ggf. Kotstein' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen bei unklarem Sonographiebefund, adipösen oder älteren Patienten (höhere Sensitivität)' },
+        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie bei weiterhin unklarem Befund – zugleich therapeutisch (Appendektomie in gleicher Sitzung)' },
       ],
       differenzialdiagnosen: [
         {
@@ -783,21 +803,30 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Klinisch identisches Bild; wird häufig erst intraoperativ diagnostiziert.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Nahrungskarenz, intravenöse Flüssigkeitssubstitution und Analgesie zur OP-Vorbereitung',
-          'Perioperative kalkulierte Antibiotikaprophylaxe (z. B. Cephalosporin + Metronidazol)',
-          'Rein antibiotisch-konservatives Vorgehen nur in ausgewählten Fällen unkomplizierter Appendizitis oder bei OP-Kontraindikation (erhöhtes Rezidivrisiko)',
-        ],
-        interventionell: [
-          'Ultraschall-/CT-gesteuerte Drainage eines perityphlitischen Abszesses mit anschließender Intervall-Appendektomie',
-        ],
-        chirurgisch: [
-          'Laparoskopische Appendektomie (\'Schlüsselloch-Operation\') als Goldstandard – Standardverfahren bei unkomplizierter Appendizitis',
-          'Offene (konventionelle) Appendektomie über Wechselschnitt bei Perforation, ausgedehnter Peritonitis oder Verwachsungen',
-          'Bei Perforation zusätzlich intraabdominelle Lavage und postoperative therapeutische Antibiose',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Nahrungskarenz, intravenöse Flüssigkeitssubstitution und Analgesie zur OP-Vorbereitung',
+            'Perioperative kalkulierte Antibiotikaprophylaxe (z. B. Cephalosporin + Metronidazol)',
+            'Rein antibiotisch-konservatives Vorgehen nur in ausgewählten Fällen unkomplizierter Appendizitis oder bei OP-Kontraindikation (erhöhtes Rezidivrisiko)',
+          ],
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'Ultraschall-/CT-gesteuerte Drainage eines perityphlitischen Abszesses mit anschließender Intervall-Appendektomie',
+          ],
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Laparoskopische Appendektomie (\'Schlüsselloch-Operation\') als Goldstandard – Standardverfahren bei unkomplizierter Appendizitis',
+            'Offene (konventionelle) Appendektomie über Wechselschnitt bei Perforation, ausgedehnter Peritonitis oder Verwachsungen',
+            'Bei Perforation zusätzlich intraabdominelle Lavage und postoperative therapeutische Antibiose',
+          ],
+        },
+      ],
       prognose: 'Bei rechtzeitiger Operation sehr gut mit niedriger Letalität und rascher Genesung. Prognose verschlechtert sich deutlich bei Perforation und Peritonitis (höhere Morbidität, Abszess-, Ileus- und Sepsisrisiko). Verzögerte Diagnose bei Kindern, Schwangeren und alten Patienten ist der Hauptrisikofaktor für Komplikationen.',
       pruefungsfallen: [
         'Den typischen Schmerzwechsel aktiv erfragen: erst periumbilikal/diffus, dann Wanderung in den rechten Unterbauch – das ist der klassische Hinweis, den die Prüfer hören wollen.',
@@ -953,37 +982,16 @@ export function seedFachwissen(): Fachwissen[] {
         'Antriebssteigerung unter beginnender Antidepressiva-Therapie bei noch gedrückter Stimmung (erhöhtes Suizidrisiko)',
       ],
       diagnostik: [
-        {
-          text: 'Psychopathologischer Befund und Exploration (u. a. nach AMDP): Stimmung, Antrieb, Schlaf, Tagesverlauf, Denkinhalte, Konzentration',
-        },
-        {
-          text: 'Aktive und explizite Abschätzung der Suizidalität (Gedanken, Pläne, Vorbereitungen, Absprachefähigkeit) — immer erfragen',
-        },
-        {
-          text: 'Standardisierte Skalen zur Schweregradbeurteilung und Verlaufskontrolle (PHQ-9, BDI, HAMD)',
-        },
-        {
-          text: 'Erhebung des Auslösers und der psychosozialen Situation sowie Fremdanamnese (Angehörige)',
-        },
-        {
-          text: 'Frühere manische oder hypomane Phasen erfragen, um eine bipolare Störung auszuschließen',
-        },
-        {
-          text: 'Körperliche und orientierend neurologische Untersuchung zum Ausschluss organischer Ursachen',
-        },
-        {
-          text: 'Labor zum Ausschluss sekundärer Ursachen: TSH, fT3/fT4 (Hypothyreose), Blutbild (Anämie), Vitamin B12 und Folsäure, Blutzucker/HbA1c, Elektrolyte, Leber- und Nierenwerte, ggf. CRP',
-        },
-        {
-          text: '12-Kanal-EKG vor Beginn einer antidepressiven Medikation (QT-Zeit) sowie Drogen-/Alkoholscreening bei Verdacht',
-        },
-        {
-          text: 'Kraniale Bildgebung (cCT/cMRT) bei atypischer Präsentation, Erstmanifestation im höheren Alter oder neurologischen Auffälligkeiten',
-          invasiv: true,
-        },
-        {
-          text: 'Psychiatrisches Konsil zur weiteren Behandlungsplanung veranlassen',
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Psychopathologischer Befund und Exploration (u. a. nach AMDP): Stimmung, Antrieb, Schlaf, Tagesverlauf, Denkinhalte, Konzentration' },
+        { stufe: 'Anamnese/Klinik', text: 'Aktive und explizite Abschätzung der Suizidalität (Gedanken, Pläne, Vorbereitungen, Absprachefähigkeit) — immer erfragen' },
+        { stufe: 'Anamnese/Klinik', text: 'Erhebung des Auslösers und der psychosozialen Situation sowie Fremdanamnese (Angehörige)' },
+        { stufe: 'Anamnese/Klinik', text: 'Frühere manische oder hypomane Phasen erfragen, um eine bipolare Störung auszuschließen' },
+        { stufe: 'Anamnese/Klinik', text: 'Körperliche und orientierend neurologische Untersuchung zum Ausschluss organischer Ursachen' },
+        { stufe: 'Apparativ & Bildgebung', text: '12-Kanal-EKG vor Beginn einer antidepressiven Medikation (QT-Zeit-Kontrolle)' },
+        { stufe: 'Invasiv & Speziell', text: 'Psychiatrisches Konsil zur weiteren Behandlungsplanung veranlassen' },
+        { stufe: 'Labor', text: 'Standardisierte Skalen zur Schweregradbeurteilung und Verlaufskontrolle (PHQ-9, BDI, HAMD)' },
+        { stufe: 'Labor', text: 'Labor zum Ausschluss sekundärer Ursachen: TSH, fT3/fT4 (Hypothyreose), Blutbild (Anämie), Vitamin B12 und Folsäure, Blutzucker/HbA1c, Elektrolyte, Leber- und Nierenwerte, ggf. CRP' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Kraniale Bildgebung (cCT/cMRT) bei atypischer Präsentation, Erstmanifestation im höheren Alter oder neurologischen Auffälligkeiten' },
       ],
       differenzialdiagnosen: [
         {
@@ -1023,25 +1031,34 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Zeitlicher Zusammenhang mit Alkohol, Benzodiazepinen, Betablockern oder Kortikosteroiden.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Tragfähige therapeutische Beziehung, Psychoedukation und Aufklärung über Krankheitsbild und Verlauf',
-          'Psychotherapie (kognitive Verhaltenstherapie, interpersonelle Therapie) — bei leichter Episode als alleinige Maßnahme möglich',
-          'Pharmakotherapie: SSRI als Mittel der 1. Wahl (z. B. Citalopram, Sertralin); Alternativen SNRI (Venlafaxin, Duloxetin), Mirtazapin (günstig bei Schlafstörung und Appetitverlust), trizyklische Antidepressiva als Reserve',
-          'Wirklatenz von 2–3 Wochen aufklären; Cave erhöhtes Suizidrisiko in der frühen Antriebssteigerungsphase',
-          'Kombination aus Psychotherapie und Pharmakotherapie bei mittelschwerer bis schwerer Episode',
-          'Begleitend Tagesstrukturierung, Schlafhygiene, körperliche Aktivierung und Einbindung des sozialen Umfelds',
-          'Psychiatrisches Konsil veranlassen; nach Remission Erhaltungstherapie über mindestens 6 Monate (Rezidivprophylaxe länger)',
-        ],
-        interventionell: [
-          'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach PsychKG/BW',
-          'Elektrokonvulsionstherapie (EKT) bei therapieresistenter oder schwerer wahnhafter Depression und beim depressiven Stupor',
-          'Ergänzend Lichttherapie (saisonale Depression), Wachtherapie (Schlafentzug) und repetitive transkranielle Magnetstimulation (rTMS)',
-        ],
-        chirurgisch: [
-          'Keine chirurgische Standardtherapie; die tiefe Hirnstimulation bleibt experimentellen Fällen therapierefraktärer Depression im Studienrahmen vorbehalten.',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Psychotherapie & Basismaßnahmen',
+          items: [
+            'Tragfähige therapeutische Beziehung, Psychoedukation und Aufklärung über Krankheitsbild und Verlauf',
+            'Psychotherapie (kognitive Verhaltenstherapie, interpersonelle Therapie) — bei leichter Episode als alleinige Maßnahme möglich',
+            'Pharmakotherapie: SSRI als Mittel der 1. Wahl (z. B. Citalopram, Sertralin); Alternativen SNRI (Venlafaxin, Duloxetin), Mirtazapin (günstig bei Schlafstörung und Appetitverlust), trizyklische Antidepressiva als Reserve',
+            'Wirklatenz von 2–3 Wochen aufklären; Cave erhöhtes Suizidrisiko in der frühen Antriebssteigerungsphase',
+            'Kombination aus Psychotherapie und Pharmakotherapie bei mittelschwerer bis schwerer Episode',
+            'Begleitend Tagesstrukturierung, Schlafhygiene, körperliche Aktivierung und Einbindung des sozialen Umfelds',
+            'Psychiatrisches Konsil veranlassen; nach Remission Erhaltungstherapie über mindestens 6 Monate (Rezidivprophylaxe länger)',
+          ],
+        },
+        {
+          label: 'Pharmakotherapie',
+          items: [
+            'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach PsychKG/BW',
+            'Elektrokonvulsionstherapie (EKT) bei therapieresistenter oder schwerer wahnhafter Depression und beim depressiven Stupor',
+            'Ergänzend Lichttherapie (saisonale Depression), Wachtherapie (Schlafentzug) und repetitive transkranielle Magnetstimulation (rTMS)',
+          ],
+        },
+        {
+          label: 'Bei Therapieresistenz / Krise',
+          items: [
+            'Keine chirurgische Standardtherapie; die tiefe Hirnstimulation bleibt experimentellen Fällen therapierefraktärer Depression im Studienrahmen vorbehalten.',
+          ],
+        },
+      ],
       prognose: 'Depressive Episoden sind grundsätzlich gut behandelbar; die Mehrzahl der Patienten remittiert unter adäquater Therapie. Die Erkrankung neigt jedoch zu Rezidiven (Wiedererkrankungsrisiko rund 50 % nach der ersten, bis 90 % nach der dritten Episode), weshalb eine Erhaltungs- und ggf. Rezidivprophylaxe wichtig ist. Prognosebestimmend sind das Suizidrisiko (etwa 10–15 % der schwer und wiederholt Erkrankten versterben durch Suizid), Komorbiditäten und die Therapieadhärenz.',
       pruefungsfallen: [
         'Suizidalität immer aktiv und explizit ansprechen — das Nachfragen erhöht das Risiko NICHT (verbreiteter Irrtum). Der Prüfer fragt fast immer danach.',
@@ -1174,38 +1191,16 @@ export function seedFachwissen(): Fachwissen[] {
         'Persistierend hohes Fieber trotz Antibiose, Hämoptysen → Komplikation (Pleuraempyem, Lungenabszess)',
       ],
       diagnostik: [
-        {
-          text: 'Vitalparametermessung inklusive Pulsoxymetrie (SpO2) zur Einschätzung der Oxygenierung',
-        },
-        {
-          text: 'Körperliche Untersuchung — Inspektion: Tachypnoe, Zyanose, Nasenflügeln; Palpation: verstärkter Stimmfremitus über dem Infiltrat; Perkussion: Klopfschalldämpfung; Auskultation: klingende feinblasige Rasselgeräusche, Bronchialatmen, verstärkte Bronchophonie',
-        },
-        {
-          text: 'Labor: Blutbild (Leukozytose mit Neutrophilie und Linksverschiebung), CRP und BSG erhöht, Prokalzitonin (bakterielle Genese), Elektrolyte (Hyponatriämie bei Legionellen), Harnstoff/Kreatinin (für CURB-65), Leberwerte, Blutzucker und HbA1c',
-        },
-        {
-          text: 'Arterielle Blutgasanalyse (BGA) zur Beurteilung von Oxygenierung und respiratorischer Insuffizienz',
-        },
-        {
-          text: 'Mikrobiologie: Sputumkultur mit Antibiogramm und 2 Blutkulturen — jeweils VOR der ersten Antibiotikagabe abnehmen; Legionellen- und Pneumokokken-Antigen im Urin; Nasen-Rachen-Abstrich (Influenza-/SARS-CoV-2-PCR)',
-        },
-        {
-          text: 'Thorax-Sonographie: Nachweis von Infiltrat, Pleuraerguss, Hepatisation des minderbelüfteten Lungengewebes und B-Linien',
-        },
-        {
-          text: 'Röntgen-Thorax in zwei Ebenen: Infiltratnachweis (lobär/segmental bei typischer, diffus interstitiell bei atypischer Pneumonie), positives Bronchopneumogramm, Erguss- und Verlaufsbeurteilung',
-        },
-        {
-          text: 'CT-Thorax bei unklarem Röntgenbefund, Komplikationsverdacht oder Immunsuppression',
-        },
-        {
-          text: 'Diagnostische Pleurapunktion bei relevantem Pleuraerguss (Ausschluss eines Empyems)',
-          invasiv: true,
-        },
-        {
-          text: 'Bronchoskopie mit bronchoalveolärer Lavage (BAL) bei therapierefraktärem Verlauf oder Immunsuppression zur gezielten Erregersicherung',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Vitalparametermessung inklusive Pulsoxymetrie (SpO2) zur Einschätzung der Oxygenierung' },
+        { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung — Inspektion: Tachypnoe, Zyanose, Nasenflügeln; Palpation: verstärkter Stimmfremitus über dem Infiltrat; Perkussion: Klopfschalldämpfung; Auskultation: klingende feinblasige Rasselgeräusche, Bronchialatmen, verstärkte Bronchophonie' },
+        { stufe: 'Labor', text: 'Labor: Blutbild (Leukozytose mit Neutrophilie und Linksverschiebung), CRP und BSG erhöht, Prokalzitonin (bakterielle Genese), Elektrolyte (Hyponatriämie bei Legionellen), Harnstoff/Kreatinin (für CURB-65), Leberwerte, Blutzucker und HbA1c' },
+        { stufe: 'Labor', text: 'Arterielle Blutgasanalyse (BGA) zur Beurteilung von Oxygenierung und respiratorischer Insuffizienz' },
+        { stufe: 'Labor', text: 'Mikrobiologie: Sputumkultur mit Antibiogramm und 2 Blutkulturen — jeweils VOR der ersten Antibiotikagabe abnehmen; Legionellen- und Pneumokokken-Antigen im Urin; Nasen-Rachen-Abstrich (Influenza-/SARS-CoV-2-PCR)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Thorax-Sonographie: Nachweis von Infiltrat, Pleuraerguss, Hepatisation des minderbelüfteten Lungengewebes und B-Linien' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Röntgen-Thorax in zwei Ebenen: Infiltratnachweis (lobär/segmental bei typischer, diffus interstitiell bei atypischer Pneumonie), positives Bronchopneumogramm, Erguss- und Verlaufsbeurteilung' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT-Thorax bei unklarem Röntgenbefund, Komplikationsverdacht oder Immunsuppression' },
+        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Pleurapunktion bei relevantem Pleuraerguss (Ausschluss eines Empyems)' },
+        { stufe: 'Invasiv & Speziell', text: 'Bronchoskopie mit bronchoalveolärer Lavage (BAL) bei therapierefraktärem Verlauf oder Immunsuppression zur gezielten Erregersicherung' },
       ],
       differenzialdiagnosen: [
         {
@@ -1233,25 +1228,34 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Bei Z. n. Prostatakarzinom an poststenotische Pneumonie oder Metastasen denken: persistierendes Infiltrat oder Rundherd ohne durchgreifende Entzündungszeichen, keine Rückbildung nach Antibiose — Verlaufskontrolle und CT.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Allgemeinmaßnahmen: körperliche Schonung, ausreichende Flüssigkeitszufuhr, Antipyrese/Analgesie (bevorzugt Paracetamol; NSAR mit Vorsicht bei RAAS-Hemmer/Diuretikum oder Exsikkose), Sauerstoffgabe bei SpO2 < 92 %, Sekretolyse und Atemtherapie/Mobilisation, Thromboseprophylaxe bei stationärer Aufnahme',
-          'Kalkulierte (empirische) Antibiose je nach Schweregrad — leichte ambulante CAP: Amoxicillin; bei Penicillinallergie Makrolid (Clarithromycin/Azithromycin) oder Doxycyclin',
-          'Mittelschwere/schwere, stationäre CAP: Aminopenicillin + β-Laktamase-Inhibitor (Ampicillin/Sulbactam) oder Cephalosporin (Ceftriaxon/Cefotaxim), kombiniert mit einem Makrolid',
-          'Bei Penicillinallergie (wie hier): stationär ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) als Monotherapie der Wahl — ein Makrolid allein genügt nur ambulant bei leichter CAP',
-          'Deeskalation der Antibiose nach Sputum-/Blutkultur und Antibiogramm; Therapiedauer meist 5–7 Tage',
-          'Prophylaxe: Pneumokokken- und jährliche Influenzaimpfung; gute Diabeteseinstellung',
-        ],
-        interventionell: [
-          'Diagnostische und ggf. therapeutische Pleurapunktion, bei Empyem Anlage einer Thoraxdrainage',
-          'Bronchoskopische Sekretabsaugung und BAL zur Erregersicherung bei Sekretretention oder Immunsuppression',
-          'Intensivmedizinische Betreuung mit nicht-invasiver (NIV) oder invasiver Beatmung bei respiratorischer Insuffizienz oder Sepsis',
-        ],
-        chirurgisch: [
-          'Operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
-          'Operative Ausräumung eines konservativ/interventionell nicht beherrschbaren Lungenabszesses',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Allgemeinmaßnahmen',
+          items: [
+            'Allgemeinmaßnahmen: körperliche Schonung, ausreichende Flüssigkeitszufuhr, Antipyrese/Analgesie (bevorzugt Paracetamol; NSAR mit Vorsicht bei RAAS-Hemmer/Diuretikum oder Exsikkose), Sauerstoffgabe bei SpO2 < 92 %, Sekretolyse und Atemtherapie/Mobilisation, Thromboseprophylaxe bei stationärer Aufnahme',
+            'Kalkulierte (empirische) Antibiose je nach Schweregrad — leichte ambulante CAP: Amoxicillin; bei Penicillinallergie Makrolid (Clarithromycin/Azithromycin) oder Doxycyclin',
+            'Mittelschwere/schwere, stationäre CAP: Aminopenicillin + β-Laktamase-Inhibitor (Ampicillin/Sulbactam) oder Cephalosporin (Ceftriaxon/Cefotaxim), kombiniert mit einem Makrolid',
+            'Bei Penicillinallergie (wie hier): stationär ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) als Monotherapie der Wahl — ein Makrolid allein genügt nur ambulant bei leichter CAP',
+            'Deeskalation der Antibiose nach Sputum-/Blutkultur und Antibiogramm; Therapiedauer meist 5–7 Tage',
+            'Prophylaxe: Pneumokokken- und jährliche Influenzaimpfung; gute Diabeteseinstellung',
+          ],
+        },
+        {
+          label: 'Antibiotische Therapie',
+          items: [
+            'Diagnostische und ggf. therapeutische Pleurapunktion, bei Empyem Anlage einer Thoraxdrainage',
+            'Bronchoskopische Sekretabsaugung und BAL zur Erregersicherung bei Sekretretention oder Immunsuppression',
+            'Intensivmedizinische Betreuung mit nicht-invasiver (NIV) oder invasiver Beatmung bei respiratorischer Insuffizienz oder Sepsis',
+          ],
+        },
+        {
+          label: 'Bei Komplikationen',
+          items: [
+            'Operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
+            'Operative Ausräumung eines konservativ/interventionell nicht beherrschbaren Lungenabszesses',
+          ],
+        },
+      ],
       prognose: 'Bei jüngeren, gesunden Patienten mit leichter CAP meist folgenlose Ausheilung. Die Prognose verschlechtert sich mit steigendem Alter, Komorbidität (Diabetes mellitus, Immunsuppression) und Schweregrad (CURB-65). Eine schwere CAP mit Sepsis oder respiratorischer Insuffizienz hat eine erhebliche Letalität. Mögliche Komplikationen: parapneumonischer Pleuraerguss und Pleuraempyem, Lungenabszess, respiratorische Insuffizienz, ARDS und Sepsis.',
       pruefungsfallen: [
         'Immer den Typ der Pneumonie benennen UND begründen: "ambulant erworben, da in den letzten 48 Stunden bzw. Tagen keine Hospitalisierung" — sehr häufige Prüferfrage.',
@@ -1392,36 +1396,15 @@ export function seedFachwissen(): Fachwissen[] {
         'Diabetiker mit Luft im Nierenparenchym (CT) → emphysematöse Pyelonephritis, hohe Letalität',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese und körperliche Untersuchung inkl. Prüfung des Nierenlagerklopfschmerzes und der Vitalparameter (Fieber, Kreislauf)',
-        },
-        {
-          text: 'Urinstix: Nachweis von Leukozyten, Nitrit und Erythrozyten',
-        },
-        {
-          text: 'Urinsediment: Leukozyturie, Bakteriurie, ggf. Leukozytenzylinder als Zeichen der Nierenbeteiligung',
-        },
-        {
-          text: 'Urinkultur mit Antibiogramm/Resistogramm aus Mittelstrahlurin — zwingend VOR der ersten Antibiotikagabe',
-        },
-        {
-          text: 'Labor: Blutbild (Leukozytose), CRP und Procalcitonin, Kreatinin/Harnstoff (Nierenfunktion), Blutzucker/HbA1c, Elektrolyte',
-        },
-        {
-          text: 'Blutkultur bei Fieber und Sepsisverdacht',
-          invasiv: true,
-        },
-        {
-          text: 'Sonographie der Nieren und ableitenden Harnwege: Frage nach Harnstau, Abszess, Konkrementen, Restharn (erste Bildgebung)',
-        },
-        {
-          text: 'CT-Abdomen mit Kontrastmittel bei Komplikation oder ausbleibendem Ansprechen: Abszess, emphysematöse Form, Obstruktion',
-          invasiv: true,
-        },
-        {
-          text: 'Ggf. Zystoskopie / retrograde Darstellung bzw. Harnableitung bei nachgewiesener Obstruktion',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese und körperliche Untersuchung inkl. Prüfung des Nierenlagerklopfschmerzes und der Vitalparameter (Fieber, Kreislauf)' },
+        { stufe: 'Labor', text: 'Urinstix: Nachweis von Leukozyten, Nitrit und Erythrozyten' },
+        { stufe: 'Labor', text: 'Urinsediment: Leukozyturie, Bakteriurie, ggf. Leukozytenzylinder als Zeichen der Nierenbeteiligung' },
+        { stufe: 'Labor', text: 'Urinkultur mit Antibiogramm/Resistogramm aus Mittelstrahlurin — zwingend VOR der ersten Antibiotikagabe' },
+        { stufe: 'Labor', text: 'Labor: Blutbild (Leukozytose), CRP und Procalcitonin, Kreatinin/Harnstoff (Nierenfunktion), Blutzucker/HbA1c, Elektrolyte' },
+        { stufe: 'Labor', text: 'Blutkultur bei Fieber und Sepsisverdacht' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Sonographie der Nieren und ableitenden Harnwege: Frage nach Harnstau, Abszess, Konkrementen, Restharn (erste Bildgebung)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen mit Kontrastmittel bei Komplikation oder ausbleibendem Ansprechen: Abszess, emphysematöse Form, Obstruktion' },
+        { stufe: 'Invasiv & Speziell', text: 'Ggf. Zystoskopie / retrograde Darstellung bzw. Harnableitung bei nachgewiesener Obstruktion' },
       ],
       differenzialdiagnosen: [
         {
@@ -1453,23 +1436,34 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Rechter Oberbauch, Murphy-Zeichen, bei Cholangitis Ikterus (Charcot-Trias).',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Stationäre Aufnahme bei Erbrechen, Sepsiszeichen, Schwangerschaft, komplizierter Form, Diabetes/Immunsuppression; ambulant nur bei unkomplizierter Form und gutem AZ',
-          'Allgemein: ausreichende Flüssigkeitszufuhr (i.v. bei Erbrechen), körperliche Schonung',
-          'Symptomatisch: Antipyretika/Analgetika mit Paracetamol oder Metamizol (CAVE Metamizol-/Novalginallergie im Fall Häberle → Paracetamol wählen), Spasmolytikum Butylscopolamin (Buscopan), Antiemetika',
-          'Kalkulierte Antibiotikatherapie SOFORT nach Kulturabnahme; ambulant unkompliziert: Fluorchinolon (Ciprofloxacin/Levofloxacin) oder orales Cephalosporin',
-          'Stationär: Cephalosporin der 3. Generation i.v. (Ceftriaxon/Cefotaxim) oder Fluorchinolon i.v.; bei schwerer/komplizierter Infektion Piperacillin/Tazobactam oder Carbapenem',
-          'Deeskalation nach Antibiogramm, Gesamtdauer 7–14 Tage; in der Schwangerschaft Cephalosporine (Fluorchinolone kontraindiziert)',
-        ],
-        interventionell: [
-          'Harnableitung bei infizierter Harnstauung als Notfall: innere DJ-Harnleiterschiene oder perkutane Nephrostomie',
-          'Sonographisch/CT-gesteuerte Drainage eines Nieren- oder paranephritischen Abszesses',
-        ],
-        chirurgisch: [
-          'Operative Abszessentlastung; bei Pyonephrose oder emphysematöser Pyelonephritis im äußersten Fall Nephrektomie',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Antibiotische Therapie & Allgemeinmaßnahmen',
+          items: [
+            'Stationäre Aufnahme bei Erbrechen, Sepsiszeichen, Schwangerschaft, komplizierter Form, Diabetes/Immunsuppression; ambulant nur bei unkomplizierter Form und gutem AZ',
+            'Allgemein: ausreichende Flüssigkeitszufuhr (i.v. bei Erbrechen), körperliche Schonung',
+            'Symptomatisch: Antipyretika/Analgetika mit Paracetamol oder Metamizol (CAVE Metamizol-/Novalginallergie im Fall Häberle → Paracetamol wählen), Spasmolytikum Butylscopolamin (Buscopan), Antiemetika',
+            'Kalkulierte Antibiotikatherapie SOFORT nach Kulturabnahme; ambulant unkompliziert: Fluorchinolon (Ciprofloxacin/Levofloxacin) oder orales Cephalosporin',
+            'Stationär: Cephalosporin der 3. Generation i.v. (Ceftriaxon/Cefotaxim) oder Fluorchinolon i.v.; bei schwerer/komplizierter Infektion Piperacillin/Tazobactam oder Carbapenem',
+            'Deeskalation nach Antibiogramm, Gesamtdauer 7–14 Tage; in der Schwangerschaft Cephalosporine (Fluorchinolone kontraindiziert)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Harnableitung bei Obstruktion',
+          items: [
+            'Harnableitung bei infizierter Harnstauung als Notfall: innere DJ-Harnleiterschiene oder perkutane Nephrostomie',
+            'Sonographisch/CT-gesteuerte Drainage eines Nieren- oder paranephritischen Abszesses',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Bei Abszess / Komplikation',
+          items: [
+            'Operative Abszessentlastung; bei Pyonephrose oder emphysematöser Pyelonephritis im äußersten Fall Nephrektomie',
+          ],
+        },
+      ],
       prognose: 'Bei rechtzeitiger, adäquater antibiotischer Therapie sehr gut mit meist folgenloser Ausheilung. Komplikationen: Urosepsis, Nieren-/paranephritischer Abszess, akutes Nierenversagen, chronische Pyelonephritis mit narbiger Nierenschädigung und die seltene emphysematöse Pyelonephritis (v. a. Diabetiker, hohe Letalität). Rezidivneigung bei fortbestehenden Risikofaktoren (Harnstau, Diabetes, rezidivierende Zystitiden).',
       pruefungsfallen: [
         'Urinkultur (Mittelstrahlurin) IMMER VOR der ersten Antibiotikagabe abnehmen — wird laut Protokollen fast immer gefragt und oft vergessen.',
@@ -1598,36 +1592,15 @@ export function seedFachwissen(): Fachwissen[] {
         'Fieber, Rötung und Sekretion aus einem Fußulkus beim Diabetiker → infizierter diabetischer Fuß / Sepsisgefahr',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese: schmerzfreie Gehstrecke, Lokalisation und Belastungsabhängigkeit des Schmerzes, Ruheschmerz, kardiovaskuläre Risikofaktoren (v. a. Nikotin, Diabetes), Begleit-KHK/-Karotisstenose',
-        },
-        {
-          text: 'Körperliche Untersuchung: Inspektion (Blässe, trophische Störungen, Ulzera), Seitenvergleich der Hauttemperatur, systematisches Pulsstatus-Tasten (A. femoralis, A. poplitea, A. dorsalis pedis, A. tibialis posterior) und Auskultation auf Stenosegeräusche',
-        },
-        {
-          text: 'Knöchel-Arm-Index (ABI, Doppler): zentrale, einfache Basisuntersuchung — Quotient aus systolischem Knöchel- und Armdruck; < 0,9 beweist eine pAVK, < 0,5 zeigt eine kritische Ischämie an',
-        },
-        {
-          text: 'Ratschow-Lagerungsprobe und standardisierte Gehstreckenmessung auf dem Laufband (Bestätigung und Objektivierung des Stadiums)',
-        },
-        {
-          text: 'Labor: Lipidstatus (LDL/HDL/Cholesterin), HbA1c/Nüchternglukose, Nierenwerte (Kreatinin/eGFR vor KM), Blutbild, CRP',
-        },
-        {
-          text: 'Farbkodierte Duplexsonographie: erste bildgebende, nicht-invasive Methode zur Lokalisation und Graduierung der Stenosen/Verschlüsse',
-        },
-        {
-          text: 'MR-Angiographie (MRA) — nicht-invasive Gefäßdarstellung zur OP-/Interventionsplanung, ohne Röntgenstrahlung',
-          invasiv: true,
-        },
-        {
-          text: 'CT-Angiographie (CTA) mit jodhaltigem Kontrastmittel zur Gefäßdarstellung (Cave: Niereninsuffizienz, KM-Allergie)',
-          invasiv: true,
-        },
-        {
-          text: 'Digitale Subtraktionsangiographie (DSA) — Goldstandard, ermöglicht die Intervention im selben Eingriff; bei KM-Allergie alternativ CO2-Angiographie',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: schmerzfreie Gehstrecke, Lokalisation und Belastungsabhängigkeit des Schmerzes, Ruheschmerz, kardiovaskuläre Risikofaktoren (v. a. Nikotin, Diabetes), Begleit-KHK/-Karotisstenose' },
+        { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Inspektion (Blässe, trophische Störungen, Ulzera), Seitenvergleich der Hauttemperatur, systematisches Pulsstatus-Tasten (A. femoralis, A. poplitea, A. dorsalis pedis, A. tibialis posterior) und Auskultation auf Stenosegeräusche' },
+        { stufe: 'Anamnese/Klinik', text: 'Ratschow-Lagerungsprobe und standardisierte Gehstreckenmessung auf dem Laufband (Bestätigung und Objektivierung des Stadiums)' },
+        { stufe: 'Labor', text: 'Labor: Lipidstatus (LDL/HDL/Cholesterin), HbA1c/Nüchternglukose, Nierenwerte (Kreatinin/eGFR vor KM), Blutbild, CRP' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Knöchel-Arm-Index (ABI, Doppler): zentrale, einfache Basisuntersuchung — Quotient aus systolischem Knöchel- und Armdruck; < 0,9 beweist eine pAVK, < 0,5 zeigt eine kritische Ischämie an' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Farbkodierte Duplexsonographie: erste bildgebende, nicht-invasive Methode zur Lokalisation und Graduierung der Stenosen/Verschlüsse' },
+        { stufe: 'Apparativ & Bildgebung', text: 'MR-Angiographie (MRA) — nicht-invasive Gefäßdarstellung zur OP-/Interventionsplanung, ohne Röntgenstrahlung' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT-Angiographie (CTA) mit jodhaltigem Kontrastmittel zur Gefäßdarstellung (Cave: Niereninsuffizienz, KM-Allergie)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Digitale Subtraktionsangiographie (DSA) — Goldstandard, ermöglicht die Intervention im selben Eingriff; bei KM-Allergie alternativ CO2-Angiographie' },
       ],
       differenzialdiagnosen: [
         {
@@ -1655,27 +1628,38 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Junge, stark rauchende Patienten, oft mit Beteiligung der oberen Extremität und Thrombophlebitis migrans; nicht-atherosklerotische Genese.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Konsequente Ausschaltung der Risikofaktoren als Basis jeder Therapie — absoluter Nikotinverzicht (wirksamste Einzelmaßnahme), optimale Diabetes- und Blutdruckeinstellung',
-          'Strukturiertes Gehtraining / Gefäßsport (Ausbildung von Kollateralkreisläufen) — Therapie der ersten Wahl im Stadium II',
-          'Thrombozytenaggregationshemmung mit ASS 100 mg (oder Clopidogrel) zur Reduktion des kardiovaskulären Gesamtrisikos',
-          'Statin zur LDL-Senken (Zielwert < 1,4 mmol/l bzw. < 55 mg/dl) und Plaquestabilisierung',
-          'Optimierung von Blutdruck (ACE-Hemmer/ARB) und Blutzucker',
-          'Cilostazol als medikamentöse Option zur Verlängerung der Gehstrecke bei Claudicatio',
-          'Konsequente Fußpflege und Wundmanagement, besonders beim Diabetiker (Vermeidung von Druckstellen/Ulzera)',
-        ],
-        interventionell: [
-          'Perkutane transluminale Angioplastie (PTA, Ballondilatation), meist mit Stentimplantation — Methode der Wahl bei umschriebenen Stenosen/kurzstreckigen Verschlüssen',
-          'Kathetergestützte Rekanalisation; ab Stadium IIb bei hohem Leidensdruck relative, ab Stadium III/IV absolute Revaskularisationsindikation',
-          'Lokale Thrombolyse / Thrombektomie beim akuten Verschluss',
-        ],
-        chirurgisch: [
-          'Bypass-Operation (z. B. femoropoplitealer Venen- oder Prothesenbypass) bei langstreckigen Verschlüssen',
-          'Thrombendarteriektomie (TEA) mit Patchplastik, v. a. an der Femoralisgabel',
-          'Grenzzonen-/Minoramputation nur als Ultima Ratio bei nicht rettbarer Nekrose/Gangrän oder lebensbedrohlicher Infektion',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Konsequente Ausschaltung der Risikofaktoren als Basis jeder Therapie — absoluter Nikotinverzicht (wirksamste Einzelmaßnahme), optimale Diabetes- und Blutdruckeinstellung',
+            'Strukturiertes Gehtraining / Gefäßsport (Ausbildung von Kollateralkreisläufen) — Therapie der ersten Wahl im Stadium II',
+            'Thrombozytenaggregationshemmung mit ASS 100 mg (oder Clopidogrel) zur Reduktion des kardiovaskulären Gesamtrisikos',
+            'Statin zur LDL-Senken (Zielwert < 1,4 mmol/l bzw. < 55 mg/dl) und Plaquestabilisierung',
+            'Optimierung von Blutdruck (ACE-Hemmer/ARB) und Blutzucker',
+            'Cilostazol als medikamentöse Option zur Verlängerung der Gehstrecke bei Claudicatio',
+            'Konsequente Fußpflege und Wundmanagement, besonders beim Diabetiker (Vermeidung von Druckstellen/Ulzera)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'Perkutane transluminale Angioplastie (PTA, Ballondilatation), meist mit Stentimplantation — Methode der Wahl bei umschriebenen Stenosen/kurzstreckigen Verschlüssen',
+            'Kathetergestützte Rekanalisation; ab Stadium IIb bei hohem Leidensdruck relative, ab Stadium III/IV absolute Revaskularisationsindikation',
+            'Lokale Thrombolyse / Thrombektomie beim akuten Verschluss',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Bypass-Operation (z. B. femoropoplitealer Venen- oder Prothesenbypass) bei langstreckigen Verschlüssen',
+            'Thrombendarteriektomie (TEA) mit Patchplastik, v. a. an der Femoralisgabel',
+            'Grenzzonen-/Minoramputation nur als Ultima Ratio bei nicht rettbarer Nekrose/Gangrän oder lebensbedrohlicher Infektion',
+          ],
+        },
+      ],
       prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Im Stadium IV (kritische Ischämie) drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
       pruefungsfallen: [
         'Umgangssprache parat haben: pAVK = „Schaufensterkrankheit“; auf die häufige Prüferfrage „Warum heißt sie so?“ die Erklärung mit dem erzwungenen Stehenbleiben (wie beim Schaufensterbummel) liefern.',
@@ -1796,32 +1780,14 @@ export function seedFachwissen(): Fachwissen[] {
         'Hohes Fieber mit Meningismus zur Abgrenzung einer FSME oder bakteriellen Meningitis',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese: Zeckenstich oder Zeckenexposition (Waldaufenthalt, Wanderung, Endemiegebiet), Zeitverlauf, Aussehen und Wandern der Hautrötung, neurologische Begleitsymptome (Paresen, Parästhesien, radikuläre Schmerzen) — Cave: an einen Zeckenstich erinnern sich viele Patienten nicht',
-        },
-        {
-          text: 'Klinische Inspektion der Haut: Erythema migrans ist eine Blickdiagnose. Im Stadium I ist bei typischem Erythema migrans KEINE Serologie erforderlich — die Therapie erfolgt allein klinisch (Antikörper sind früh oft noch negativ, die Serokonversion dauert Wochen)',
-        },
-        {
-          text: 'Körperliche Untersuchung inklusive orientierender neurologischer Untersuchung (Hirnnerven, v. a. N. facialis; Meningismuszeichen) und Gelenkstatus',
-        },
-        {
-          text: 'Labor: Entzündungsparameter (BSG, CRP, Blutbild) — bei isoliertem Erythema migrans meist normal oder nur gering erhöht; dienen v. a. der Abgrenzung eines Erysipels',
-        },
-        {
-          text: 'Zweistufen-Serologie ab Stadium II/III oder bei unklarem Bild: ELISA als Suchtest (IgM/IgG), bei Reaktivität Bestätigung mit Immunoblot (Western-Blot). Cave: eine \'Seronarbe\' (persistierende IgG-Antikörper nach durchgemachter Infektion) und die fehlende Eignung des Titers zur Therapie- oder Verlaufskontrolle',
-        },
-        {
-          text: 'EKG bei Verdacht auf Lyme-Karditis (AV-Block, Reizleitungsstörung)',
-        },
-        {
-          text: 'Lumbalpunktion (Liquordiagnostik) bei Verdacht auf Neuroborreliose: lymphozytäre Pleozytose, Eiweißerhöhung (Schrankenstörung) und Nachweis einer intrathekalen Borrelien-Antikörpersynthese (Liquor-Serum-Index); ergänzend CXCL13',
-          invasiv: true,
-        },
-        {
-          text: 'Gelenkpunktion mit Synovia-Analyse und Borrelien-PCR aus dem Punktat bei Verdacht auf Lyme-Arthritis',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Zeckenstich oder Zeckenexposition (Waldaufenthalt, Wanderung, Endemiegebiet), Zeitverlauf, Aussehen und Wandern der Hautrötung, neurologische Begleitsymptome (Paresen, Parästhesien, radikuläre Schmerzen) — Cave: an einen Zeckenstich erinnern sich viele Patienten nicht' },
+        { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung inklusive orientierender neurologischer Untersuchung (Hirnnerven, v. a. N. facialis; Meningismuszeichen) und Gelenkstatus' },
+        { stufe: 'Apparativ & Bildgebung', text: 'EKG bei Verdacht auf Lyme-Karditis (AV-Block, Reizleitungsstörung)' },
+        { stufe: 'Labor', text: 'Klinische Inspektion der Haut: Erythema migrans ist eine Blickdiagnose. Im Stadium I ist bei typischem Erythema migrans KEINE Serologie erforderlich — die Therapie erfolgt allein klinisch (Antikörper sind früh oft noch negativ, die Serokonversion dauert Wochen)' },
+        { stufe: 'Labor', text: 'Labor: Entzündungsparameter (BSG, CRP, Blutbild) — bei isoliertem Erythema migrans meist normal oder nur gering erhöht; dienen v. a. der Abgrenzung eines Erysipels' },
+        { stufe: 'Labor', text: 'Zweistufen-Serologie ab Stadium II/III oder bei unklarem Bild: ELISA als Suchtest (IgM/IgG), bei Reaktivität Bestätigung mit Immunoblot (Western-Blot). Cave: eine \'Seronarbe\' (persistierende IgG-Antikörper nach durchgemachter Infektion) und die fehlende Eignung des Titers zur Therapie- oder Verlaufskontrolle' },
+        { stufe: 'Invasiv & Speziell', text: 'Lumbalpunktion (Liquordiagnostik) bei Verdacht auf Neuroborreliose: lymphozytäre Pleozytose, Eiweißerhöhung (Schrankenstörung) und Nachweis einer intrathekalen Borrelien-Antikörpersynthese (Liquor-Serum-Index); ergänzend CXCL13' },
+        { stufe: 'Invasiv & Speziell', text: 'Gelenkpunktion mit Synovia-Analyse und Borrelien-PCR aus dem Punktat bei Verdacht auf Lyme-Arthritis' },
       ],
       differenzialdiagnosen: [
         {
@@ -1849,24 +1815,33 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Bei Rötung/Verfärbung am Bein differenzialdiagnostisch zu bedenken: TVT mit Schwellung und Umfangsdifferenz (D-Dimer, Kompressionssonographie), pAVK mit Claudicatio und fehlenden Pulsen, diabetischer Fuß bei bekanntem Diabetes — keine wandernde randbetonte Rötung.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 x 100 mg/d p.o. für 10–21 Tage (üblich 14 Tage). Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
-          'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p.o. (alternativ Cefuroximaxetil) für 14 Tage.',
-          'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist auch die orale Doxycyclin-Alternative, nach der Prüfer häufig fragen.',
-          'Lyme-Arthritis (Spätstadium): Doxycyclin p.o. über 28 Tage oder Ceftriaxon i.v.',
-          'Symptomatisch: Analgetika und Antipyretika (z. B. Ibuprofen/Paracetamol) gegen Schmerzen und Fieber.',
-          'Keine Isolation erforderlich, da keine Übertragung von Mensch zu Mensch. Nach reinem Zeckenstich ohne Symptome KEINE routinemäßige Antibiotikaprophylaxe — nur Beobachtung der Stichstelle (Rötung? → Wiedervorstellung).',
-          'Prävention: Schutzkleidung, Repellents, Absuchen der Haut, frühzeitige mechanische Zeckenentfernung mit Pinzette hautnah ohne Quetschen. WICHTIG: Es gibt KEINE Impfung gegen die Lyme-Borreliose; die FSME-Impfung schützt NICHT gegen Borreliose.',
-        ],
-        interventionell: [
-          'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis die Reizleitungsstörung unter Antibiose reversibel ist.',
-          'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
-        ],
-        chirurgisch: [
-          'Eine operative Therapie ist in aller Regel nicht erforderlich; in seltenen therapierefraktären Fällen einer chronischen Lyme-Arthritis kann eine (arthroskopische) Synovektomie erwogen werden.',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Antibiotische Therapie (Erstlinie)',
+          items: [
+            'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 x 100 mg/d p.o. für 10–21 Tage (üblich 14 Tage). Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
+            'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p.o. (alternativ Cefuroximaxetil) für 14 Tage.',
+            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist auch die orale Doxycyclin-Alternative, nach der Prüfer häufig fragen.',
+            'Lyme-Arthritis (Spätstadium): Doxycyclin p.o. über 28 Tage oder Ceftriaxon i.v.',
+            'Symptomatisch: Analgetika und Antipyretika (z. B. Ibuprofen/Paracetamol) gegen Schmerzen und Fieber.',
+            'Keine Isolation erforderlich, da keine Übertragung von Mensch zu Mensch. Nach reinem Zeckenstich ohne Symptome KEINE routinemäßige Antibiotikaprophylaxe — nur Beobachtung der Stichstelle (Rötung? → Wiedervorstellung).',
+            'Prävention: Schutzkleidung, Repellents, Absuchen der Haut, frühzeitige mechanische Zeckenentfernung mit Pinzette hautnah ohne Quetschen. WICHTIG: Es gibt KEINE Impfung gegen die Lyme-Borreliose; die FSME-Impfung schützt NICHT gegen Borreliose.',
+          ],
+        },
+        {
+          label: 'Alternativen (KI / Schwangerschaft)',
+          items: [
+            'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis die Reizleitungsstörung unter Antibiose reversibel ist.',
+            'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
+          ],
+        },
+        {
+          label: 'Neuroborreliose / schwerer Verlauf',
+          items: [
+            'Eine operative Therapie ist in aller Regel nicht erforderlich; in seltenen therapierefraktären Fällen einer chronischen Lyme-Arthritis kann eine (arthroskopische) Synovektomie erwogen werden.',
+          ],
+        },
+      ],
       prognose: 'Bei rechtzeitiger antibiotischer Therapie ist die Prognose sehr gut. Das Erythema migrans heilt unter Therapie folgenlos ab. Auch die Neuroborreliose hat eine gute Prognose; die Fazialisparese bildet sich in den meisten Fällen über Wochen bis Monate weitgehend zurück. Unbehandelt drohen die Progression in Stadium II und III mit Neuroborreliose, Karditis und chronischer Lyme-Arthritis. Ein sogenanntes Post-Lyme-Syndrom (persistierende unspezifische Beschwerden) ist selten; eine dauerhafte oder wiederholte Antibiotikatherapie ist dabei nicht indiziert. Eine \'chronische Borreliose\' als Rechtfertigung für Langzeitantibiose ist nicht belegt.',
       pruefungsfallen: [
         'Das Erythema migrans ist eine Blickdiagnose: Im Stadium I wird KLINISCH therapiert, eine Serologie ist NICHT nötig (Antikörper früh oft noch negativ — Serokonversion dauert Wochen).',
@@ -1999,32 +1974,14 @@ export function seedFachwissen(): Fachwissen[] {
         'Proximaler Wadenschmerz / Druckschmerz am Fibulaköpfchen → Maisonneuve-Fraktur nicht übersehen',
       ],
       diagnostik: [
-        {
-          text: 'Anamnese: Unfallmechanismus (Umknicken, Richtung), Belastbarkeit, Vorverletzungen; gezielt nach Antikoagulation, Gerinnungsstörung und früherer Thrombose fragen',
-        },
-        {
-          text: 'Klinische Untersuchung: Inspektion (Schwellung, Hämatom, Fehlstellung, offene Wunde), gezielte Palpation beider Malleolen UND der proximalen Fibula (Maisonneuve)',
-        },
-        {
-          text: 'DMS-Prüfung obligat: Durchblutung (A. dorsalis pedis, A. tibialis posterior), Motorik und Sensibilität distal — vor und nach jeder Reposition/Ruhigstellung dokumentieren',
-        },
-        {
-          text: 'Anwendung der Ottawa Ankle Rules zur Indikationsstellung der Bildgebung',
-        },
-        {
-          text: 'Röntgen des OSG in zwei Ebenen (a.-p. mit 20° Innenrotation/Mortise-Aufnahme und seitlich); bei Verdacht auf Maisonneuve zusätzlich Unterschenkel/Knie',
-        },
-        {
-          text: 'Labor bei geplanter Operation: Blutbild, Gerinnung (Quick/INR, PTT), Entzündungsparameter, Elektrolyte, Kreatinin',
-        },
-        {
-          text: 'CT des OSG bei unklarem Röntgenbefund, Gelenkbeteiligung (Volkmann-Dreieck) und zur OP-Planung',
-          invasiv: true,
-        },
-        {
-          text: 'MRT nur bei Verdacht auf begleitende Band-, Knorpel- oder Syndesmosenverletzung ohne eindeutigen Frakturnachweis',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Klinische Untersuchung: Inspektion (Schwellung, Hämatom, Fehlstellung, offene Wunde), gezielte Palpation beider Malleolen UND der proximalen Fibula (Maisonneuve)' },
+        { stufe: 'Anamnese/Klinik', text: 'DMS-Prüfung obligat: Durchblutung (A. dorsalis pedis, A. tibialis posterior), Motorik und Sensibilität distal — vor und nach jeder Reposition/Ruhigstellung dokumentieren' },
+        { stufe: 'Labor', text: 'Anamnese: Unfallmechanismus (Umknicken, Richtung), Belastbarkeit, Vorverletzungen; gezielt nach Antikoagulation, Gerinnungsstörung und früherer Thrombose fragen' },
+        { stufe: 'Labor', text: 'Labor bei geplanter Operation: Blutbild, Gerinnung (Quick/INR, PTT), Entzündungsparameter, Elektrolyte, Kreatinin' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Anwendung der Ottawa Ankle Rules zur Indikationsstellung der Bildgebung' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Röntgen des OSG in zwei Ebenen (a.-p. mit 20° Innenrotation/Mortise-Aufnahme und seitlich); bei Verdacht auf Maisonneuve zusätzlich Unterschenkel/Knie' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT des OSG bei unklarem Röntgenbefund, Gelenkbeteiligung (Volkmann-Dreieck) und zur OP-Planung' },
+        { stufe: 'Apparativ & Bildgebung', text: 'MRT nur bei Verdacht auf begleitende Band-, Knorpel- oder Syndesmosenverletzung ohne eindeutigen Frakturnachweis' },
       ],
       differenzialdiagnosen: [
         {
@@ -2052,26 +2009,38 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Hohe Fibulafraktur proximal mit Syndesmosenruptur; Schmerz und Druckschmerz an der proximalen Wade — leicht übersehen, wenn nur das OSG untersucht wird.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Sofortmaßnahmen nach PECH-Schema: Pause, Eis (Kühlung), Kompression, Hochlagern',
-          'Ausreichende Analgesie (z. B. Metamizol oder Ibuprofen, ggf. Paracetamol)',
-          'Weber-A-Fraktur (stabil): Ruhigstellung in Unterschenkelgips, Orthese (z. B. Aircast/Vacoped) für ca. 6 Wochen mit Teilbelastung nach Maßgabe',
-          'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin während der Immobilisation — bei bekannter Gerinnungsstörung (z. B. Faktor-V-Leiden) besonders beachten',
-          'Frühfunktionelle Nachbehandlung und Physiotherapie nach Konsolidierung',
-        ],
-        interventionell: [
-          'Notfallmäßige geschlossene Reposition und Retention (Gipsschiene) bei Luxationsfraktur/Fehlstellung zur Entlastung der Haut und Wiederherstellung der Durchblutung',
-          'Ggf. Fixateur externe zur temporären Stabilisierung bei ausgeprägter Weichteilschwellung oder offener Fraktur bis zur definitiven Versorgung',
-        ],
-        chirurgisch: [
-          'Weber-B- und Weber-C-Frakturen sowie instabile/dislozierte und bimalleoläre Frakturen: offene Reposition und interne Fixation (ORIF) mittels Platten- und Schraubenosteosynthese',
-          'Versorgung des Innenknöchels (Zugschrauben) und des Volkmann-Dreiecks bei relevanter Gelenkbeteiligung',
-          'Syndesmosenstabilisierung durch Stellschraube oder Syndesmosennaht (Weber C, instabile Syndesmose)',
-          'Offene Fraktur: notfallmäßiges Débridement, Antibiose, Tetanusschutz und Stabilisierung',
-          'Orthopädisch-unfallchirurgisches Konsil, ggf. Verlegung in eine (unfall-)chirurgische Abteilung',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Konservativ',
+          items: [
+            'Sofortmaßnahmen nach PECH-Schema: Pause, Eis (Kühlung), Kompression, Hochlagern',
+            'Ausreichende Analgesie (z. B. Metamizol oder Ibuprofen, ggf. Paracetamol)',
+            'Weber-A-Fraktur (stabil): Ruhigstellung in Unterschenkelgips, Orthese (z. B. Aircast/Vacoped) für ca. 6 Wochen mit Teilbelastung nach Maßgabe',
+            'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin während der Immobilisation — bei bekannter Gerinnungsstörung (z. B. Faktor-V-Leiden) besonders beachten',
+            'Frühfunktionelle Nachbehandlung und Physiotherapie nach Konsolidierung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Interventionell',
+          items: [
+            'Notfallmäßige geschlossene Reposition und Retention (Gipsschiene) bei Luxationsfraktur/Fehlstellung zur Entlastung der Haut und Wiederherstellung der Durchblutung',
+            'Ggf. Fixateur externe zur temporären Stabilisierung bei ausgeprägter Weichteilschwellung oder offener Fraktur bis zur definitiven Versorgung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Chirurgisch',
+          items: [
+            'Weber-B- und Weber-C-Frakturen sowie instabile/dislozierte und bimalleoläre Frakturen: offene Reposition und interne Fixation (ORIF) mittels Platten- und Schraubenosteosynthese',
+            'Versorgung des Innenknöchels (Zugschrauben) und des Volkmann-Dreiecks bei relevanter Gelenkbeteiligung',
+            'Syndesmosenstabilisierung durch Stellschraube oder Syndesmosennaht (Weber C, instabile Syndesmose)',
+            'Offene Fraktur: notfallmäßiges Débridement, Antibiose, Tetanusschutz und Stabilisierung',
+            'Orthopädisch-unfallchirurgisches Konsil, ggf. Verlegung in eine (unfall-)chirurgische Abteilung',
+          ],
+          akut: true,
+        },
+      ],
       prognose: 'Bei anatomischer Reposition und stabiler Osteosynthese ist die Prognose gut; entscheidend ist die exakte Wiederherstellung von Gelenkkongruenz und Syndesmose. Verbleibende Gelenkstufen, Fehlstellungen oder eine nicht ausgeheilte Syndesmoseninstabilität begünstigen die posttraumatische OSG-Arthrose. Weitere Komplikationen sind Wundheilungsstörung/Infekt (v. a. bei schlechtem Weichteilmantel, Diabetes, Rauchen), Thrombose während der Immobilisation, Materiallockerung und Bewegungseinschränkung. Weber-A-Frakturen heilen konservativ meist folgenlos aus.',
       pruefungsfallen: [
         'DMS immer prüfen und dokumentieren (Durchblutung, Motorik, Sensibilität) — vor UND nach Reposition/Gips; im Protokoll ausdrücklich als „pdms/PDMS überprüfen“ genannt.',
@@ -2200,32 +2169,14 @@ export function seedFachwissen(): Fachwissen[] {
         'Beidseitige Ischialgie oder rasch aufsteigende sensomotorische Ausfälle → Konus-/Cauda-Syndrom',
       ],
       diagnostik: [
-        {
-          text: 'Gezielte Anamnese: Schmerzcharakter und Ausstrahlung entlang eines Dermatoms, Husten-/Press-/Niesabhängigkeit, auslösendes Hebe-/Drehtrauma sowie aktives Erfragen von Blasen- und Mastdarmstörung und Reithosengefühl (Cauda-Screening)',
-        },
-        {
-          text: 'Klinisch-neurologische Untersuchung: Lasègue-Zeichen und gekreuztes Lasègue-Zeichen, Kraftprüfung im Seitenvergleich (Zehen- und Hackengang), Muskeleigenreflexe (PSR, ASR), Sensibilitätsprüfung nach Dermatomen, Prüfung der Beweglichkeit und des Klopf-/Druckschmerzes über der LWS',
-        },
-        {
-          text: 'Digital-rektale Untersuchung bei Verdacht auf Cauda-equina-Syndrom (Prüfung von Sphinktertonus und perianaler Sensibilität)',
-          invasiv: true,
-        },
-        {
-          text: 'MRT der Lendenwirbelsäule — bildgebender Goldstandard: beste Darstellung von Bandscheibe, Nervenwurzel und Spinalkanal, ohne Strahlenbelastung; bei Cauda-Verdacht als Notfalluntersuchung',
-        },
-        {
-          text: 'CT der LWS nur als Alternative bei MRT-Kontraindikation (z. B. Herzschrittmacher) oder zur Beurteilung knöcherner Strukturen',
-        },
-        {
-          text: 'Konventionelles Röntgen der LWS NICHT zur Darstellung der Bandscheibe geeignet — nur bei Verdacht auf Fraktur, Instabilität oder knöcherne Ursache',
-        },
-        {
-          text: 'Labor (Blutbild, CRP/BSG) nur bei Verdacht auf Infektion (Spondylodiszitis) oder Tumor',
-        },
-        {
-          text: 'Elektrophysiologie (EMG/NLG) bei unklarer, atypischer oder persistierender Parese zur Höhenlokalisation und Abgrenzung einer Polyneuropathie',
-          invasiv: true,
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Gezielte Anamnese: Schmerzcharakter und Ausstrahlung entlang eines Dermatoms, Husten-/Press-/Niesabhängigkeit, auslösendes Hebe-/Drehtrauma sowie aktives Erfragen von Blasen- und Mastdarmstörung und Reithosengefühl (Cauda-Screening)' },
+        { stufe: 'Anamnese/Klinik', text: 'Klinisch-neurologische Untersuchung: Lasègue-Zeichen und gekreuztes Lasègue-Zeichen, Kraftprüfung im Seitenvergleich (Zehen- und Hackengang), Muskeleigenreflexe (PSR, ASR), Sensibilitätsprüfung nach Dermatomen, Prüfung der Beweglichkeit und des Klopf-/Druckschmerzes über der LWS' },
+        { stufe: 'Labor', text: 'Labor (Blutbild, CRP/BSG) nur bei Verdacht auf Infektion (Spondylodiszitis) oder Tumor' },
+        { stufe: 'Apparativ & Bildgebung', text: 'MRT der Lendenwirbelsäule — bildgebender Goldstandard: beste Darstellung von Bandscheibe, Nervenwurzel und Spinalkanal, ohne Strahlenbelastung; bei Cauda-Verdacht als Notfalluntersuchung' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT der LWS nur als Alternative bei MRT-Kontraindikation (z. B. Herzschrittmacher) oder zur Beurteilung knöcherner Strukturen' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Konventionelles Röntgen der LWS NICHT zur Darstellung der Bandscheibe geeignet — nur bei Verdacht auf Fraktur, Instabilität oder knöcherne Ursache' },
+        { stufe: 'Invasiv & Speziell', text: 'Digital-rektale Untersuchung bei Verdacht auf Cauda-equina-Syndrom (Prüfung von Sphinktertonus und perianaler Sensibilität)' },
+        { stufe: 'Invasiv & Speziell', text: 'Elektrophysiologie (EMG/NLG) bei unklarer, atypischer oder persistierender Parese zur Höhenlokalisation und Abgrenzung einer Polyneuropathie' },
       ],
       differenzialdiagnosen: [
         {
@@ -2257,25 +2208,36 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Red-Flag-Konstellationen: Nachtschmerz, Gewichtsverlust und Tumoranamnese (Metastasen), adäquates Trauma bzw. Osteoporose (Fraktur), Fieber und erhöhte Entzündungswerte (Spondylodiszitis) — in den Protokollen als DD Wirbelfraktur und Knochenmetastasen genannt.',
         },
       ],
-      therapie: {
-        konservativ: [
-          'Basistherapie bei rund 90 % der Fälle: die überwiegende Mehrheit heilt ohne Operation aus',
-          'Analgesie nach Stufenschema: NSAR (z. B. Ibuprofen oder Diclofenac) stets mit PPI-Magenschutz, ergänzend Metamizol/Paracetamol, kurzfristig ggf. schwache Opioide (Tilidin, Tramadol)',
-          'Kurzfristig Muskelrelaxans bei ausgeprägter reflektorischer Muskelverspannung',
-          'KEINE strenge Bettruhe — frühe Mobilisation und Erhalt der Aktivität; in der Akutphase kann eine Stufenbettlagerung entlasten',
-          'Physiotherapie, Rückenschule, Wärmeanwendung und im Verlauf Aufbau der Rumpfmuskulatur',
-          'Aufklärung über die günstige Spontanprognose sowie Anleitung zu rückengerechtem Heben und Gewichtsreduktion',
-        ],
-        interventionell: [
-          'CT- oder bildgesteuerte periradikuläre Therapie (PRT) bzw. epidurale/periradikuläre Infiltration mit Lokalanästhetikum und Glukokortikoid an die betroffene Nervenwurzel bei therapieresistenten radikulären Schmerzen',
-        ],
-        chirurgisch: [
-          'Notfalloperation (Dekompression) beim Cauda-equina-Syndrom — möglichst innerhalb von 48 Stunden',
-          'Dringliche Operation bei progredienter oder hochgradiger motorischer Parese',
-          'Elektive Operation bei therapieresistenten radikulären Schmerzen über etwa 6 Wochen trotz adäquater konservativer Therapie',
-          'Verfahren: mikrochirurgische Diskektomie/Nukleotomie mit Sequestrektomie (Entfernung des vorgefallenen Gewebes und Entlastung der Nervenwurzel)',
-        ],
-      },
+      therapie: [
+        {
+          label: 'Konservativ (Basistherapie, ~90 %)',
+          items: [
+            'Basistherapie bei rund 90 % der Fälle: die überwiegende Mehrheit heilt ohne Operation aus',
+            'Analgesie nach Stufenschema: NSAR (z. B. Ibuprofen oder Diclofenac) stets mit PPI-Magenschutz, ergänzend Metamizol/Paracetamol, kurzfristig ggf. schwache Opioide (Tilidin, Tramadol)',
+            'Kurzfristig Muskelrelaxans bei ausgeprägter reflektorischer Muskelverspannung',
+            'KEINE strenge Bettruhe — frühe Mobilisation und Erhalt der Aktivität; in der Akutphase kann eine Stufenbettlagerung entlasten',
+            'Physiotherapie, Rückenschule, Wärmeanwendung und im Verlauf Aufbau der Rumpfmuskulatur',
+            'Aufklärung über die günstige Spontanprognose sowie Anleitung zu rückengerechtem Heben und Gewichtsreduktion',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Interventionell (PRT)',
+          items: [
+            'CT- oder bildgesteuerte periradikuläre Therapie (PRT) bzw. epidurale/periradikuläre Infiltration mit Lokalanästhetikum und Glukokortikoid an die betroffene Nervenwurzel bei therapieresistenten radikulären Schmerzen',
+          ],
+        },
+        {
+          label: 'Operativ (nur bei Indikation)',
+          items: [
+            'Notfalloperation (Dekompression) beim Cauda-equina-Syndrom — möglichst innerhalb von 48 Stunden',
+            'Dringliche Operation bei progredienter oder hochgradiger motorischer Parese',
+            'Elektive Operation bei therapieresistenten radikulären Schmerzen über etwa 6 Wochen trotz adäquater konservativer Therapie',
+            'Verfahren: mikrochirurgische Diskektomie/Nukleotomie mit Sequestrektomie (Entfernung des vorgefallenen Gewebes und Entlastung der Nervenwurzel)',
+          ],
+          akut: true,
+        },
+      ],
       prognose: 'Die Prognose ist insgesamt sehr gut: Mehr als 85–90 % der Patienten bessern sich unter konsequenter konservativer Therapie innerhalb von etwa sechs Wochen, und Sequester können sich spontan zurückbilden (resorbieren). Entscheidend für die Vorbeugung von Rezidiven sind Rückenschule, Kräftigung der Rumpfmuskulatur, Gewichtsreduktion und rückengerechtes Verhalten. Beim operativ versorgten Cauda-equina-Syndrom hängt die Erholung der Blasen-, Mastdarm- und Sensibilitätsfunktion entscheidend vom präoperativen Ausmaß der Ausfälle und vom Zeitpunkt der Operation ab — je früher entlastet wird, desto besser.',
       pruefungsfallen: [
         'Die Bandscheibe wird per MRT dargestellt, NICHT per Röntgen — ein häufig geprüfter Punkt. Röntgen zeigt nur Knochen (Frakturausschluss), das MRT ist strahlenfrei und bildet Nervenwurzel und Bandscheibe ab; im AAG wird oft gefragt, warum das MRT dem CT vorzuziehen ist.',

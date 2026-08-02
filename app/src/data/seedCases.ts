@@ -1297,7 +1297,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-ulcus',
-      name: 'Ulcus ventriculi (Helicobacter-pylori-assoziiert)',
+      name: 'Ulcus ventriculi',
       pathology: 'Ulcus ventriculi / Gastritis',
       specialty: 'Gastroenterologie',
       centers: [
@@ -2218,7 +2218,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-depression',
-      name: 'Depressive Episode (mittelgradig bis schwer, mit Suizidgedanken)',
+      name: 'Depressive Episode',
       pathology: 'Depression (depressive Episode)',
       specialty: 'Psychiatrie',
       centers: [
@@ -2888,7 +2888,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-pyelonephritis',
-      name: 'Akute Pyelonephritis (rechts, bei Diabetes mellitus)',
+      name: 'Akute Pyelonephritis',
       pathology: 'Akute Pyelonephritis',
       specialty: 'Urologie',
       centers: [
@@ -3227,7 +3227,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-pavk',
-      name: 'Periphere arterielle Verschlusskrankheit (pAVK) — Claudicatio intermittens',
+      name: 'pAVK — Claudicatio intermittens',
       pathology: 'Periphere arterielle Verschlusskrankheit (pAVK)',
       specialty: 'Kardiologie',
       centers: [
@@ -3515,7 +3515,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-lyme',
-      name: 'Lyme-Borreliose Stadium I (Erythema migrans am rechten Oberschenkel)',
+      name: 'Lyme-Borreliose',
       pathology: 'Lyme-Borreliose',
       specialty: 'Infektiologie',
       centers: [
@@ -3889,7 +3889,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-osg-fraktur',
-      name: 'Sprunggelenkfraktur (Außenknöchelfraktur Weber B) nach Umknicktrauma',
+      name: 'Sprunggelenkfraktur nach Umknicktrauma',
       pathology: 'Sprunggelenkfraktur (OSG-Fraktur)',
       specialty: 'Orthopädie',
       centers: [
@@ -4189,7 +4189,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-bandscheibenvorfall',
-      name: 'Lumbaler Bandscheibenvorfall L4/L5 mit Wurzelreizsyndrom L5 rechts',
+      name: 'Lumbaler Bandscheibenvorfall',
       pathology: 'Lumbaler Bandscheibenvorfall',
       specialty: 'Orthopädie',
       centers: [

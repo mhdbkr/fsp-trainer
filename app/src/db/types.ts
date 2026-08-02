@@ -267,6 +267,17 @@ export interface Fachbegriff {
 // ----------------------------------------------------------------------------
 // Fachwissen (fiche pathologie riche)
 // ----------------------------------------------------------------------------
+/** Étapes du raisonnement diagnostique, dans l'ordre où on les récite à l'oral. */
+export const DIAGNOSTIK_STUFEN = ['Anamnese/Klinik', 'Labor', 'Apparativ & Bildgebung', 'Invasiv & Speziell'] as const;
+export type DiagnostikStufe = (typeof DIAGNOSTIK_STUFEN)[number];
+
+/** Section de thérapie : libellé libre (propre à la pathologie) + contenu. */
+export interface TherapieSektion {
+  label: string;      // ex. « Konservativ », « Erstlinie », « Psychotherapie », « Kurativ »
+  items: string[];
+  akut?: boolean;     // met en avant les mesures d'urgence
+}
+
 export interface Fachwissen {
   id: string;
   pathology: string;
@@ -281,9 +292,19 @@ export interface Fachwissen {
   /** Signes d'alarme CLINIQUES imposant l'urgence — distinct des Prüfungsfallen
    *  (qui listent les pièges DU CANDIDAT). */
   redFlags?: string[];
-  diagnostik: { text: string; invasiv?: boolean }[]; // non-invasif → invasif
+  /** Démarche diagnostique groupée par ÉTAPE du raisonnement (ordre pédagogique
+   *  allemand, celui-là même qu'on récite en Fallvorstellung) plutôt que par
+   *  invasivité — un axe contre-intuitif pour l'apprenant.
+   *  `stufe` : 'Anamnese/Klinik' → 'Labor' → 'Bildgebung' → 'Invasiv/Speziell'. */
+  diagnostik: { stufe: DiagnostikStufe; text: string }[];
   differenzialdiagnosen: { dd: string; unterscheidung: string }[];
-  therapie: { konservativ?: string[]; interventionell?: string[]; chirurgisch?: string[] };
+  /** Thérapie en sections ORDONNÉES et LIBREMENT nommées : chaque pathologie a
+   *  sa propre logique de prise en charge (konservativ/interventionell/
+   *  chirurgisch pour la chirurgie ; Erstlinie/Alternative/schwerer Verlauf en
+   *  infectiologie ; Psychotherapie/Pharmakotherapie/Krisenintervention en
+   *  psychiatrie ; kurativ/palliativ en oncologie…). Ne jamais forcer un moule
+   *  qui ne correspond pas à la réalité clinique de la pathologie. */
+  therapie: TherapieSektion[];
   prognose?: string;
   pruefungsfallen: string[];    // encarts "piège d'examen"
   /** Questions Arzt-Arzt réellement posées AVEC leur réponse-type. */

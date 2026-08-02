@@ -3,6 +3,16 @@ import { useFachwissen, useCases, useAufklaerungen, useFachbegriffe } from '@/ho
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
+import { DIAGNOSTIK_STUFEN, type DiagnostikStufe } from '@/db/types';
+
+// Palette par étape diagnostique — progression froide→chaude = du simple/
+// non-invasif vers le spécialisé, lisible d'un coup d'œil.
+const STUFE_META: Record<DiagnostikStufe, { dot: string; text: string; icon: string }> = {
+  'Anamnese/Klinik': { dot: 'bg-brand-500', text: 'text-brand-700 dark:text-brand-300', icon: 'stethoscope' },
+  Labor: { dot: 'bg-sky-500', text: 'text-sky-700 dark:text-sky-300', icon: 'blood' },
+  'Apparativ & Bildgebung': { dot: 'bg-violet-500', text: 'text-violet-700 dark:text-violet-300', icon: 'search' },
+  'Invasiv & Speziell': { dot: 'bg-rose-500', text: 'text-rose-700 dark:text-rose-300', icon: 'syringe' },
+};
 
 export function FachwissenDetailPage() {
   const { id } = useParams();
@@ -49,14 +59,36 @@ export function FachwissenDetailPage() {
             </ul>
           </Section>
 
-          <Section title="Diagnostik (nicht-invasiv → invasiv)" icon="search">
-            <ol className="space-y-1.5 text-sm">
-              {fw.diagnostik.map((d, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className={`chip ${d.invasiv ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'}`}>{d.invasiv ? 'invasiv' : 'nicht-inv.'}</span>
-                  <span><AutoLink>{d.text}</AutoLink></span>
-                </li>
-              ))}
+          {/* Démarche diagnostique par ÉTAPE du raisonnement — l'ordre qu'on
+              récite en Fallvorstellung (bien plus parlant qu'invasif/non-invasif). */}
+          <Section title="Diagnostisches Vorgehen" icon="search">
+            <ol className="space-y-3">
+              {DIAGNOSTIK_STUFEN.map((stufe, si) => {
+                const items = fw.diagnostik.filter((d) => d.stufe === stufe);
+                if (!items.length) return null;
+                const meta = STUFE_META[stufe];
+                return (
+                  <li key={stufe} className="flex gap-3">
+                    <div className="flex shrink-0 flex-col items-center">
+                      <span className={`grid h-7 w-7 place-items-center rounded-full text-[11px] font-bold text-white ${meta.dot}`}>{si + 1}</span>
+                      <span className="mt-1 w-px flex-1 bg-slate-200 dark:bg-slate-700" />
+                    </div>
+                    <div className="min-w-0 flex-1 pb-1">
+                      <div className={`flex items-center gap-1.5 text-xs font-semibold ${meta.text}`}>
+                        <Icon name={meta.icon} className="h-3.5 w-3.5" />{stufe}
+                      </div>
+                      <ul className="mt-1 space-y-1 text-sm">
+                        {items.map((d, i) => (
+                          <li key={i} className="flex gap-2">
+                            <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${meta.dot}`} />
+                            <span><AutoLink>{d.text}</AutoLink></span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              })}
             </ol>
           </Section>
 
@@ -81,12 +113,15 @@ export function FachwissenDetailPage() {
             </ul>
           </Section>
 
+          {/* Thérapie : sections propres à la pathologie (pas de moule imposé). */}
           <Section title="Therapie" icon="pill">
-            <div className="grid gap-3 sm:grid-cols-3">
-              {(['konservativ', 'interventionell', 'chirurgisch'] as const).map((k) => fw.therapie[k] && (
-                <div key={k}>
-                  <div className="text-xs font-semibold text-brand-600 dark:text-brand-300 capitalize">{k}</div>
-                  <AutoLinkList items={fw.therapie[k]!} className="mt-1 space-y-1 text-[13px]" />
+            <div className={`grid gap-3 ${fw.therapie.length > 2 ? 'sm:grid-cols-3' : fw.therapie.length === 2 ? 'sm:grid-cols-2' : ''}`}>
+              {fw.therapie.map((sek, i) => (
+                <div key={i} className={`rounded-lg border p-2.5 ${sek.akut ? 'border-rose-200 bg-rose-50/50 dark:border-rose-900/40 dark:bg-rose-900/10' : 'border-slate-200 dark:border-slate-800'}`}>
+                  <div className={`flex items-center gap-1.5 text-xs font-semibold ${sek.akut ? 'text-rose-700 dark:text-rose-300' : 'text-brand-600 dark:text-brand-300'}`}>
+                    {sek.akut && <Icon name="alert" className="h-3.5 w-3.5" />}{sek.label}
+                  </div>
+                  <AutoLinkList items={sek.items} className="mt-1.5 space-y-1 text-[13px]" />
                 </div>
               ))}
             </div>
