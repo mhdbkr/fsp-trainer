@@ -178,6 +178,27 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-ortho-belastung', kapitel: 'fach', frage: 'Können Sie das Bein/den Arm noch belasten? Wie weit können Sie gehen, und was hilft oder verschlimmert?' },
     { id: 'fach-ortho-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie an dieser Stelle schon einmal Beschwerden, eine Verletzung oder eine Operation?' },
   ],
+  Rheumatologie: [
+    { id: 'fach-rheuma-gelenke', kapitel: 'fach', frage: 'Welche Gelenke sind betroffen — nur eines oder mehrere? Wechseln die Beschwerden von Gelenk zu Gelenk?' },
+    { id: 'fach-rheuma-morgensteifigkeit', kapitel: 'fach', frage: 'Sind die Gelenke morgens steif? Wie lange dauert die Steifigkeit, bis Sie sich wieder normal bewegen können?' },
+    { id: 'fach-rheuma-entzuendung', kapitel: 'fach', frage: 'Ist das Gelenk geschwollen, gerötet oder überwärmt? Können Sie es überhaupt noch berühren?' },
+    { id: 'fach-rheuma-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden plötzlich und anfallsartig, oder haben sie sich langsam über Wochen entwickelt?' },
+    { id: 'fach-rheuma-ausloeser', kapitel: 'fach', frage: 'Gab es einen Auslöser — ein üppiges Essen mit Fleisch, Alkohol (besonders Bier), Fasten oder eine neue Tablette (z. B. eine Wassertablette)?' },
+    { id: 'fach-rheuma-haut', kapitel: 'fach', frage: 'Haben Sie Hautveränderungen bemerkt — Schuppenflechte, Knötchen unter der Haut oder an den Ohren?' },
+    { id: 'fach-rheuma-systemisch', kapitel: 'fach', frage: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?' },
+    { id: 'fach-rheuma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie so einen Anfall schon einmal? Sind Nierensteine oder rheumatische Erkrankungen in der Familie bekannt?' },
+  ],
+  Neurologie: [
+    { id: 'fach-neuro-sehen', kapitel: 'fach', frage: 'Haben Sie Sehstörungen bemerkt — Doppelbilder, verschwommenes Sehen, einen Schleier oder Schmerzen bei Augenbewegungen?' },
+    { id: 'fach-neuro-sensibilitaet', kapitel: 'fach', frage: 'Haben Sie Kribbeln, Taubheitsgefühl oder ein pelziges Gefühl? Wo genau, und seit wann?' },
+    { id: 'fach-neuro-kraft', kapitel: 'fach', frage: 'Ist ein Arm oder Bein schwächer geworden? Lassen Sie Dinge fallen oder bleiben Sie mit dem Fuß hängen?' },
+    { id: 'fach-neuro-koordination', kapitel: 'fach', frage: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?' },
+    { id: 'fach-neuro-sprache', kapitel: 'fach', frage: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?' },
+    { id: 'fach-neuro-blase', kapitel: 'fach', frage: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?' },
+    { id: 'fach-neuro-anfall', kapitel: 'fach', frage: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?' },
+    { id: 'fach-neuro-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?' },
+    { id: 'fach-neuro-kopfschmerz', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen? Wie fühlen sie sich an, und ist Ihnen dabei übel oder lichtempfindlich?' },
+  ],
 };
 
 // --- Index & helpers --------------------------------------------------------
