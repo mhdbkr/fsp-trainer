@@ -2291,5 +2291,926 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-mrt',
       ],
     },
+    {
+      id: 'fw-gicht',
+      pathology: 'Gichtarthritis (akuter Gichtanfall)',
+      specialty: 'Rheumatologie',
+      definition: 'Die Gicht ist eine Störung des Purinstoffwechsels mit einer Hyperurikämie (Harnsäure im Serum über 6,8 mg/dl, dem Löslichkeitsprodukt). Übersteigt die Harnsäurekonzentration die Löslichkeitsgrenze, fallen Natriumuratkristalle in Gelenken und Weichteilen aus und lösen über das NLRP3-Inflammasom eine hochakute Entzündungsreaktion aus. Der akute Gichtanfall (Arthritis urica) ist die typischerweise monoartikuläre, perakut einsetzende Kristallarthritis; der Befall des Großzehengrundgelenks (MTP I) heißt Podagra.',
+      aetiologie: 'In etwa 90–95 % der Fälle primäre (idiopathische) Hyperurikämie durch eine genetisch bedingte verminderte renale Harnsäureausscheidung („Unter-Ausscheider“), seltener durch Überproduktion (z. B. Lesch-Nyhan-Syndrom). Sekundäre Hyperurikämie (5–10 %) durch vermehrten Anfall (Tumorlyse-Syndrom, myeloproliferative Erkrankungen, Hämolyse, Psoriasis) oder verminderte Ausscheidung (Niereninsuffizienz, Thiazid- und Schleifendiuretika, niedrig dosierte Acetylsalicylsäure, Ciclosporin, Laktat- und Ketoazidose bei Alkohol oder Fasten). Auslöser eines Anfalls sind purinreiche Mahlzeiten, Alkohol — besonders Bier —, Fasten und rasche Gewichtsabnahme, Exsikkose, Operationen, Infekte sowie jede rasche Änderung des Harnsäurespiegels nach oben ODER nach unten.',
+      risikofaktoren: [
+        'Männliches Geschlecht (Verhältnis etwa 4:1); Frauen erkranken meist erst nach der Menopause, da Östrogene urikosurisch wirken',
+        'Adipositas und metabolisches Syndrom (Insulinresistenz hemmt die renale Harnsäureausscheidung)',
+        'Purinreiche Ernährung: rotes Fleisch, Wurst, Innereien, Meeresfrüchte, Fleischbrühen',
+        'Alkoholkonsum, insbesondere Bier (purinreich durch Hefe und zusätzlich ausscheidungshemmend)',
+        'Fruktosehaltige Softdrinks',
+        'Thiazid- und Schleifendiuretika, niedrig dosierte Acetylsalicylsäure, Ciclosporin, Tacrolimus',
+        'Chronische Niereninsuffizienz',
+        'Fasten, Nulldiät, sehr rasche Gewichtsabnahme, Exsikkose',
+        'Positive Familienanamnese',
+        'Arterielle Hypertonie, Diabetes mellitus, Hyperlipidämie',
+        'Bleiexposition (Saturnismus, historisch „Bleigicht“)',
+      ],
+      klinik: [
+        {
+          text: 'Perakuter Beginn, typischerweise nachts oder in den frühen Morgenstunden aus dem Schlaf heraus',
+        },
+        {
+          text: 'Monarthritis mit stärkstem, pochend-pulsierendem Schmerz (VAS häufig 8–10/10)',
+        },
+        {
+          text: 'Podagra: Befall des Großzehengrundgelenks (MTP I) in etwa 60 % der Erstmanifestationen',
+        },
+        {
+          text: 'Alle klassischen Entzündungszeichen: Rubor, Calor, Tumor, Dolor und Functio laesa',
+        },
+        {
+          text: 'Extreme Berührungsempfindlichkeit (Hyperalgesie) — schon der Druck der Bettdecke ist unerträglich',
+        },
+        {
+          text: 'Deutliche Bewegungs- und Belastungseinschränkung: Gehen, Auftreten, Schuhtragen und Autofahren sind unmöglich',
+        },
+        {
+          text: 'Häufig glänzend gerötete, später schuppende Haut über dem betroffenen Gelenk',
+        },
+        {
+          text: 'Anamnestisch fassbarer Auslöser (üppiges Fleischessen, Bier/Schnaps, Feier, Fasten, neue Diuretika)',
+        },
+        {
+          text: 'Selbstlimitierender Verlauf: auch unbehandelt Abklingen innerhalb von 1–2 Wochen, danach beschwerdefreie interkritische Phase',
+        },
+        {
+          text: 'Gonagra (Knie), Chiragra (Daumengrundgelenk) oder Befall von Sprung-, Hand- und Fingergelenken als weniger typische Lokalisation',
+          atypisch: true,
+        },
+        {
+          text: 'Polyartikulärer Anfall mit Fieber, Leukozytose und reduziertem Allgemeinzustand — imitiert eine Sepsis bzw. septische Arthritis',
+          atypisch: true,
+        },
+        {
+          text: 'Chronische Gicht mit Tophi an Ohrmuschel, Olecranon, Achillessehne und Fingerstreckseiten, gelegentlich mit Ulzeration und Entleerung kreidiger Massen',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Nierenkolik bei Harnsäurestein oder als asymptomatische Niereninsuffizienz (Uratnephropathie)',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Frauen nach der Menopause und bei Diureti­ka-Einnahme häufig polyartikulärer Befall der Fingergelenke, leicht mit einer aktivierten Arthrose (Heberden-/Bouchard-Knoten) zu verwechseln',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Stadien der Hyperurikämie und Gicht (klassische Vierteilung)',
+          inhalt: 'Stadium I: asymptomatische Hyperurikämie (nur Laborbefund, keine Beschwerden — allein keine Therapieindikation). Stadium II: akuter Gichtanfall (perakute Monarthritis, meist Podagra). Stadium III: interkritische Phase (beschwerdefreies Intervall zwischen den Anfällen, Kristalldepots bestehen fort). Stadium IV: chronische Gicht mit Tophi, chronischer Gichtarthropathie mit Gelenkdestruktion und Uratnephropathie.',
+        },
+        {
+          name: 'ACR/EULAR-Klassifikationskriterien 2015',
+          inhalt: 'Eintrittskriterium: mindestens eine Episode einer Schwellung oder eines Schmerzes in einem peripheren Gelenk. Ist im Punktat der Nachweis von Natriumuratkristallen gelungen, ist die Diagnose sofort gesichert (Goldstandard). Andernfalls Punktesystem (Diagnose ab 8 Punkten) aus klinischen Kriterien (Befallsmuster MTP I, Rötung, Berührungsempfindlichkeit, Anfallsdynamik, Tophus), Serumharnsäure und Bildgebung (Doppelkontur im Ultraschall, Uratdepot im Dual-Energy-CT, gelenknahe Erosionen im Röntgen).',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Primäre Hyperurikämie (90–95 %): angeborene Störung, meist verminderte tubuläre Harnsäuresekretion („Unter-Ausscheider“), selten Enzymdefekte mit Überproduktion (Lesch-Nyhan-Syndrom, PRPP-Synthetase-Überaktivität). Sekundäre Hyperurikämie (5–10 %): vermehrter Zellumsatz (Tumorlyse, Leukämie, Hämolyse, Psoriasis) oder verminderte Ausscheidung (Niereninsuffizienz, Diuretika, ASS, Ciclosporin, Ketoazidose).',
+        },
+        {
+          name: 'Einteilung nach der Harnsäureausscheidung im 24-Stunden-Urin',
+          inhalt: 'Unter-Ausscheider (< 600–800 mg/24 h bei purinarmer Kost, ca. 90 %) — Urikostatika und Urikosurika möglich. Über-Produzierer (> 800 mg/24 h) — Urikostatika (Allopurinol), keine Urikosurika wegen der Steingefahr.',
+        },
+      ],
+      redFlags: [
+        'Fieber, Schüttelfrost oder reduzierter Allgemeinzustand bei akuter Monarthritis → dringender Verdacht auf septische Arthritis, sofortige Gelenkpunktion mit Gramfärbung und Kultur',
+        'Eintrittspforte, Wunde, Ulcus oder Interdigitalmykose am betroffenen Fuß → bakterielle Genese bzw. Erysipel',
+        'Immunsuppression, Diabetes mellitus, Gelenkprothese oder vorangegangene Gelenkinjektion → deutlich erhöhtes Infektionsrisiko, Infektion bis zum Beweis des Gegenteils annehmen',
+        'Polyartikulärer Befall mit hohem Fieber und Leukozytose → Sepsis abgrenzen',
+        'Anurie/Oligurie, rascher Kreatininanstieg → akute Uratnephropathie, insbesondere bei Tumorlyse-Syndrom',
+        'Kolikartiger Flankenschmerz mit Hämaturie → Harnsäurestein mit Harnstau',
+        'Ulzerierender Tophus mit Sekretion → Superinfektion',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: perakuter nächtlicher Beginn, Monarthritis, Auslöser (purinreiche Mahlzeit, Bier/Schnaps, Fasten, rasche Gewichtsabnahme, neu angesetzte Diuretika), frühere selbstlimitierende Episoden, Familienanamnese, Nierensteine',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter einschließlich Temperatur, lokaler Gelenkstatus mit Rubor, Calor, Tumor, Dolor und Functio laesa, Prüfung der Beweglichkeit, Suche nach einer Eintrittspforte, Durchblutung/Motorik/Sensibilität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ganzkörperlicher Gelenkstatus und gezielte Suche nach Tophi (Helix der Ohrmuschel, Olecranon, Achillessehne, Fingerstreckseiten); Erhebung von BMI und Blutdruck',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Harnsäure im Serum — Cave: in bis zu einem Drittel der akuten Anfälle normal oder erniedrigt; eine normale Harnsäure schließt die Gicht NICHT aus. Kontrolle 2–4 Wochen nach dem Anfall',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: CRP und BSG erhöht, Blutbild mit Differenzialblutbild (Leukozytose mit Neutrophilie); Procalcitonin bleibt bei der Gicht typischerweise normal und dient dem Ausschluss einer bakteriellen Genese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenfunktion: Kreatinin, Harnstoff, eGFR, Urinstatus (Harnsäurekristalle, Hämaturie) — entscheidend für die Auswahl von NSAR bzw. die Dosierung von Colchicin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Harnsäureausscheidung im 24-Stunden-Urin zur Unterscheidung von Unter-Ausscheider und Über-Produzierer (steuert die Wahl zwischen Urikostatikum und Urikosurikum)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Metabolisches Begleitscreening und Ausgangswerte vor der Dauertherapie: Nüchternblutzucker/HbA1c, Lipidstatus, Transaminasen; bei asiatischer Herkunft ggf. HLA-B*58:01-Testung vor Allopurinol',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Arthrosonographie: Gelenkerguss, Synovitis, Doppelkontur-Zeichen (echoreiche Uratauflagerung auf dem hyalinen Knorpel) und tophusartige Aggregate — früh nachweisbar und nicht invasiv',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelles Röntgen des betroffenen Gelenks in zwei Ebenen: im akuten Anfall nur Weichteilschwellung; erst bei chronischer Gicht gelenknahe Stanzdefekte („Lochdefekte“) mit überhängendem Randwall bei lange erhaltenem Gelenkspalt. Zugleich Ausschluss von Fraktur und Arthrose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren und ableitenden Harnwege: Harnsäuresteine (im Röntgen nicht schattengebend!), Harnstau, Zeichen der Uratnephropathie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Dual-Energy-CT (DECT) zum direkten, farbkodierten Nachweis von Uratdepots, wenn eine Punktion nicht möglich oder das Ergebnis unklar ist',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gelenkpunktion mit Synovia-Analyse — GOLDSTANDARD: Polarisationsmikroskopie mit nadelförmigen, negativ doppelbrechenden Natriumuratkristallen, teils intrazellulär in Granulozyten phagozytiert; Punktat trüb, Zellzahl meist 2 000–50 000/µl mit Granulozytose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Aus demselben Punktat obligat Gramfärbung und mikrobiologische Kultur zum Ausschluss einer septischen Arthritis (dort Zellzahl typischerweise > 50 000/µl mit über 90 % Granulozyten)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ggf. Biopsie eines Tophus mit histologischem Nachweis von Uratablagerungen und Fremdkörperriesenzellen (Alkoholfixierung erforderlich, da Urate wasserlöslich sind)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Septische (bakterielle) Arthritis',
+          unterscheidung: 'Die wichtigste und gefährlichste DD — klinisch nicht sicher abgrenzbar! Fieber, Schüttelfrost, reduzierter Allgemeinzustand, Eintrittspforte, CRP und Procalcitonin deutlich erhöht. Beweisend ist die Punktion: Zellzahl > 50 000/µl, positive Gramfärbung und Kultur, keine Kristalle. Cave: beides kann gleichzeitig vorliegen.',
+        },
+        {
+          dd: 'Pseudogicht (CPPD-Arthritis, Chondrokalzinose)',
+          unterscheidung: 'Ältere Patienten, bevorzugt Knie und Handgelenk; im Röntgen Verkalkung des Faserknorpels (Meniskus, Discus triangularis); im Punktat rhomboide, positiv doppelbrechende Kalziumpyrophosphatkristalle.',
+        },
+        {
+          dd: 'Aktivierte Arthrose, Hallux rigidus/valgus',
+          unterscheidung: 'Chronisch progredienter Anlauf- und Belastungsschmerz über Monate bis Jahre, Bewegungseinschränkung, im Röntgen Gelenkspaltverschmälerung, subchondrale Sklerose und Osteophyten; keine perakute Dramatik und keine Auslöseanamnese.',
+        },
+        {
+          dd: 'Erysipel / Phlegmone',
+          unterscheidung: 'Flächige, scharf begrenzte, flammend rote Überwärmung, die über das Gelenk hinausreicht, meist mit Fieber, Schüttelfrost, Lymphangitis und Lymphknotenschwellung sowie einer Eintrittspforte; das Gelenk selbst ist passiv frei beweglich.',
+        },
+        {
+          dd: 'Reaktive Arthritis (Morbus Reiter)',
+          unterscheidung: '1–4 Wochen nach gastrointestinalem (Yersinien, Campylobacter, Salmonellen) oder urogenitalem Infekt (Chlamydien); asymmetrische Oligoarthritis der unteren Extremität, häufig mit Konjunktivitis und Urethritis, HLA-B27-Assoziation.',
+        },
+        {
+          dd: 'Rheumatoide Arthritis',
+          unterscheidung: 'Schleichender Beginn, symmetrische Polyarthritis der MCP- und PIP-Gelenke unter Aussparung der Endgelenke, Morgensteifigkeit über 60 Minuten, Rheumafaktor und Anti-CCP positiv, im Röntgen gelenknahe Osteoporose und Erosionen.',
+        },
+        {
+          dd: 'Psoriasisarthritis',
+          unterscheidung: 'Psoriatische Hautveränderungen und Nagelbefall (Tüpfelnägel), Strahlbefall eines Fingers oder Zehs (Daktylitis, „Wurstzehe“), Befall der Endgelenke, häufig Enthesitis.',
+        },
+        {
+          dd: 'Trauma: Fraktur, Distorsion, Weichteilläsion',
+          unterscheidung: 'Adäquates Trauma in der Anamnese, Hämatom, punktueller Knochendruckschmerz; Klärung durch Röntgen in zwei Ebenen.',
+        },
+        {
+          dd: 'Sarkoidose (Löfgren-Syndrom), rheumatisches Fieber',
+          unterscheidung: 'Löfgren-Syndrom: Sprunggelenkarthritis mit Erythema nodosum und bihilärer Lymphadenopathie. Rheumatisches Fieber: wandernde Polyarthritis großer Gelenke 2–3 Wochen nach Streptokokken-Angina, Karditis, erhöhter Antistreptolysin-Titer.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akuttherapie des Gichtanfalls',
+          akut: true,
+          items: [
+            'Ruhigstellung, Hochlagerung und lokale Kühlung des betroffenen Gelenks, Entlastung, Bettbügel gegen den Druck der Bettdecke — je früher die Therapie beginnt, desto schneller das Ansprechen (möglichst innerhalb von 12–24 Stunden)',
+            'NSAR in ausreichend hoher Dosis als Erstlinie: z. B. Naproxen 2 × 500 mg, Indometacin 3 × 50 mg oder Ibuprofen 3 × 800 mg, immer unter Magenschutz mit einem Protonenpumpenhemmer; Kontraindikationen: Niereninsuffizienz, Ulkusanamnese, Herzinsuffizienz, Antikoagulation',
+            'Colchicin als gleichwertige Alternative, besonders bei NSAR-Kontraindikation: 1 mg initial, nach einer Stunde 0,5 mg, Tageshöchstdosis 1,5 mg (die früheren hohen Dosierungen sind wegen der Toxizität verlassen). Dosisreduktion bei Niereninsuffizienz und Leberfunktionsstörung; typische Nebenwirkung Diarrhoe; keine Kombination mit starken CYP3A4- oder P-Glykoprotein-Hemmern (Clarithromycin, Ciclosporin)',
+            'Glukokortikoide — im Examen ausdrücklich zu nennen: Prednisolon 30–35 mg täglich oral über 3–5 Tage, oder nach sicherem Ausschluss einer Infektion intraartikuläre Injektion; Mittel der Wahl bei Niereninsuffizienz, Antikoagulation oder Multimorbidität',
+            'Reservetherapie bei therapierefraktärem oder polyartikulärem Verlauf: Interleukin-1-Antagonisten (Canakinumab, Anakinra)',
+            'reichliche Flüssigkeitszufuhr (mindestens 2 Liter täglich), strikte Alkoholkarenz, purinarme Schonkost während des Anfalls',
+            'eine bereits laufende harnsäuresenkende Therapie wird im Anfall NICHT unterbrochen; eine neue Therapie wird klassischerweise erst nach Abklingen begonnen (moderne Leitlinien erlauben den Beginn im Anfall unter wirksamer Anfallsprophylaxe)',
+            'bei Fieber, Schüttelfrost oder Verdacht auf eine bakterielle Genese: Gelenkpunktion mit Kultur und kalkulierte intravenöse Antibiose, bis die septische Arthritis ausgeschlossen ist',
+          ],
+        },
+        {
+          label: 'Nicht-medikamentöse Basismaßnahmen (Lebensstil und Ernährung)',
+          items: [
+            'Purinarme Ernährung: deutliche Reduktion von rotem Fleisch, Wurstwaren, Innereien (Leber, Niere, Bries), Fleischbrühen, Sardellen, Sardinen, Heringen und Meeresfrüchten; Hefeextrakt meiden',
+            'Alkoholreduktion, insbesondere Bier — purinreich durch Hefe und zusätzlich ausscheidungshemmend; auch alkoholfreies Bier ist purinreich. Spirituosen ebenfalls ungünstig, Wein in geringen Mengen am ehesten tolerabel',
+            'Verzicht auf fruktosehaltige Softdrinks und gezuckerte Säfte; günstig sind fettarme Milchprodukte, Gemüse, Kirschen und Kaffee',
+            'Trinkmenge von 2–3 Litern täglich zur Steigerung der Harnsäureausscheidung und zur Steinprophylaxe (bei Herz- oder Niereninsuffizienz anpassen)',
+            'langsame, kontrollierte Gewichtsreduktion (etwa 0,5–1 kg pro Woche) und regelmäßige moderate Bewegung — CAVE: Fasten, Nulldiät und zu rasche Gewichtsabnahme lösen über Ketose und Laktatanstieg neue Anfälle aus',
+            'Überprüfung und Umstellung auslösender Medikamente: Thiazid- und Schleifendiuretika möglichst ersetzen — Losartan und Amlodipin sind bei Hypertonie günstig, Losartan wirkt zusätzlich urikosurisch; Fenofibrat senkt Harnsäure und Triglyzeride',
+            'Mitbehandlung des metabolischen Syndroms (Blutdruck, Blutzucker, Lipide) und der psychosozialen Belastung; bei reaktivem Alkoholkonsum Psychotherapie und Suchtberatung anbieten',
+          ],
+        },
+        {
+          label: 'Harnsäuresenkende Dauertherapie mit Anfallsprophylaxe',
+          items: [
+            'Indikation: rezidivierende Anfälle (ab dem zweiten Anfall pro Jahr), Tophi, Gichtarthropathie, Uratnephropathie oder Harnsäuresteine, Harnsäure dauerhaft über 9 mg/dl sowie sekundäre Hyperurikämie bei Tumortherapie. Die asymptomatische Hyperurikämie allein wird nicht medikamentös behandelt',
+            'Beginn 2–4 Wochen NACH Abklingen des akuten Anfalls; Zielwert der Serumharnsäure unter 6 mg/dl, bei Tophi unter 5 mg/dl („treat to target“)',
+            'Urikostatikum der ersten Wahl: Allopurinol (Xanthinoxidase-Hemmer), einschleichend mit 100 mg täglich, Steigerung alle 2–4 Wochen bis meist 300 mg 1-0-0 (maximal 800 mg); Dosisanpassung bei Niereninsuffizienz. Nebenwirkungen: Exanthem, selten DRESS/Stevens-Johnson-Syndrom',
+            'Alternative Urikostatika: Febuxostat (potenter, auch bei mäßiger Niereninsuffizienz einsetzbar; Cave kardiovaskuläre Vorerkrankungen); Rasburicase (Urikase) beim Tumorlyse-Syndrom',
+            'Urikosurika: Benzbromaron oder Probenecid — nur bei Unter-Ausscheidern mit guter Nierenfunktion, ausreichender Trinkmenge und Harnalkalisierung; kontraindiziert bei Nephrolithiasis und Über-Produzierern',
+            'Anfallsprophylaxe während der ersten 3–6 Monate der Harnsäuresenkung mit Colchicin 0,5 mg täglich oder einem niedrig dosierten NSAR, da jede rasche Spiegeländerung einen Anfall provozieren kann',
+            'Wichtige Interaktion: Allopurinol nicht mit Azathioprin oder 6-Mercaptopurin kombinieren (Hemmung des Abbaus, Knochenmarkdepression) — bei zwingender Kombination Dosis auf ein Viertel reduzieren; niedrig dosierte Acetylsalicylsäure erhöht die Harnsäure',
+            'Verlaufskontrollen von Harnsäure, Kreatinin und Leberwerten; die Therapie ist in der Regel lebenslang und wird auch während eines Anfalls fortgeführt',
+            'Bei chronischer tophöser Gicht ergänzend operative Tophusentfernung bei Ulzeration, Nervenkompression oder Funktionsverlust',
+          ],
+        },
+      ],
+      prognose: 'Der einzelne Anfall ist selbstlimitierend und klingt auch unbehandelt innerhalb von ein bis zwei Wochen ab; unter adäquater Therapie tritt die Besserung meist binnen 24 bis 48 Stunden ein. Ohne Behandlung der Hyperurikämie kommt es bei etwa 60 % der Patienten innerhalb eines Jahres und bei bis zu 80 % innerhalb von zwei Jahren zu einem Rezidiv, mit dem Risiko der chronischen tophösen Gicht, der Gelenkdestruktion und der Uratnephropathie. Unter konsequenter harnsäuresenkender Therapie mit einem Zielwert unter 6 mg/dl und angepasstem Lebensstil ist die Prognose sehr gut: Anfälle bleiben aus und bestehende Tophi bilden sich über Monate bis Jahre zurück. Entscheidend ist die Therapieadhärenz — die Gicht ist zudem ein Marker des metabolischen Syndroms und mit einem erhöhten kardiovaskulären und renalen Risiko verbunden.',
+      pruefungsfallen: [
+        'Der Harnsäurespiegel kann im akuten Anfall NORMAL oder sogar erniedrigt sein (bis zu ein Drittel der Fälle) — eine normale Harnsäure schließt einen Gichtanfall niemals aus. Sowohl ein plötzlicher Anstieg als auch ein plötzlicher Abfall des Spiegels kann den Anfall auslösen; Kontrolle erst 2–4 Wochen nach dem Anfall.',
+        'Die septische Arthritis muss immer ausgeschlossen werden — sie ist klinisch nicht sicher von der Gicht zu unterscheiden und beide können gleichzeitig vorliegen. Die Gelenkpunktion mit Zellzahl, Gramfärbung und Kultur gehört zwingend in die Antwort.',
+        'Bei der Akuttherapie ausdrücklich die KORTIKOSTEROIDE nennen — Prüfer bestehen darauf; NSAR und Colchicin allein reichen als Antwort oft nicht.',
+        '„Sollte der Patient abnehmen?“ ist eine Fangfrage: ja, aber langsam. Fasten, Nulldiät und rasche Gewichtsabnahme verschlechtern die Symptome und lösen über Ketose und Laktat neue Anfälle aus.',
+        'Vor dem Patienten „Harnsäure“ statt nur „Urat“ sagen und „Arthritis urica“ übersetzen: Gicht bzw. Gichtanfall; Podagra = Befall des Großzehengrundgelenks, Gonagra = Knie, Chiragra = Daumengrundgelenk.',
+        'Eine laufende Allopurinol-Therapie wird im akuten Anfall NICHT abgesetzt; eine neue wird klassischerweise erst nach Abklingen begonnen — und dann immer einschleichend und unter Anfallsprophylaxe.',
+        'Die asymptomatische Hyperurikämie ist allein keine Indikation für Allopurinol — nur Lebensstilmaßnahmen und Kontrollen.',
+        'Allopurinol darf nicht mit Azathioprin oder 6-Mercaptopurin kombiniert werden (Knochenmarkdepression durch Hemmung des Abbaus).',
+        'Die Nierenfunktion nicht vergessen: Sie steuert die Auswahl zwischen NSAR und Colchicin, und die Hyperurikämie führt selbst zu Harnsäuresteinen und Uratnephropathie. Harnsäuresteine sind im Röntgen NICHT schattengebend — Sonographie!',
+        'Im akuten Anfall ist das Röntgen meist unauffällig (nur Weichteilschwellung); die typischen Stanzdefekte sind ein Spätzeichen der chronischen Gicht.',
+        'Bei der Punktion die Kristalle korrekt beschreiben: nadelförmig und NEGATIV doppelbrechend bei der Gicht, rhomboid und POSITIV doppelbrechend bei der Pseudogicht.',
+        'Auslösende Medikamente aktiv erfragen — Thiaziddiuretika werden von Patienten oft nur als „Wassertablette“ erwähnt, ebenso niedrig dosierte Acetylsalicylsäure und Ciclosporin.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein akuter Gichtanfall, eine Arthritis urica des Großzehengrundgelenks, also eine Podagra. Dafür sprechen der perakute nächtliche Beginn, der monoartikuläre Befall des MTP I mit Rubor, Calor, Tumor, Dolor und Functio laesa, die extreme Berührungsempfindlichkeit, der Auslöser in Form einer purin- und alkoholreichen Mahlzeit sowie die Risikofaktoren männliches Geschlecht, Adipositas und regelmäßiger Bierkonsum.',
+        },
+        {
+          frage: 'Wie nennen Sie „Arthritis urica“ dem Patienten gegenüber auf Deutsch?',
+          antwort: 'Gicht beziehungsweise Gichtanfall — eine Gelenkentzündung durch Harnsäurekristalle. Podagra heißt sie, weil das Großzehengrundgelenk befallen ist; beim Knie spricht man von Gonagra, beim Daumengrundgelenk von Chiragra.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und warum sind sie unwahrscheinlich?',
+          antwort: 'Septische Arthritis, Pseudogicht, aktivierte Arthrose, Erysipel, reaktive Arthritis, rheumatoide Arthritis, rheumatisches Fieber und ein Trauma. Gegen die meisten sprechen der monoartikuläre Befall ohne Beteiligung mehrerer Gelenke, das Fehlen von Fieber, die fehlende Morgensteifigkeit, das fehlende Trauma und der fehlende vorangegangene Infekt.',
+        },
+        {
+          frage: 'Kann der Harnsäurespiegel bei einem akuten Gichtanfall normal sein? Dürfen wir dann einen Gichtanfall ausschließen?',
+          antwort: 'Ja, er kann normal sein — in bis zu einem Drittel der Fälle, weil die Harnsäure gerade im Gelenk auskristallisiert. Ausschließen darf man die Gicht deshalb nicht. Sowohl ein plötzlicher Anstieg als auch ein plötzlicher Abfall der Harnsäure kann einen Anfall auslösen; der Wert wird 2–4 Wochen nach dem Anfall kontrolliert.',
+        },
+        {
+          frage: 'Welche Entzündungsparameter bestimmen Sie, und wozu das Procalcitonin?',
+          antwort: 'CRP, BSG und ein Blutbild mit Differenzialblutbild — bei der Gicht finden sich eine Leukozytose mit Neutrophilie und ein erhöhtes CRP. Das Procalcitonin bleibt bei der Kristallarthritis typischerweise normal und dient dem Ausschluss einer bakteriellen Genese.',
+        },
+        {
+          frage: 'Was ist im Labor bei diesem Patienten besonders wichtig, und was würden Sie zusätzlich untersuchen?',
+          antwort: 'Neben der Harnsäure vor allem das Kreatinin und die Nierenwerte, da die Hyperurikämie zu Harnsäuresteinen und einer Uratnephropathie führt und die Nierenfunktion die Therapieauswahl bestimmt. Zusätzlich eine Sonographie der Nieren zum Ausschluss von Harnsäuresteinen und einem Harnstau.',
+        },
+        {
+          frage: 'Was findet man in der Gelenkpunktion beziehungsweise in der Pathologie?',
+          antwort: 'Ein trübes, entzündliches Punktat mit erhöhter Zellzahl und Granulozytose sowie im Polarisationsmikroskop nadelförmige, negativ doppelbrechende Natriumuratkristalle, teils intrazellulär phagozytiert. Gramfärbung und Kultur bleiben steril. Histologisch zeigen Tophi Uratablagerungen mit Fremdkörperriesenzellen — die Probe muss in Alkohol fixiert werden, da Urate wasserlöslich sind.',
+        },
+        {
+          frage: 'Welche Risikofaktoren für einen Gichtanfall bestehen bei diesem Patienten?',
+          antwort: 'Alkoholkonsum, insbesondere Bier, Übergewicht beziehungsweise morbide Adipositas, purinreiche fleischbetonte Ernährung, männliches Geschlecht, Lebensalter, eine Thiaziddiuretika-Einnahme, körperliche Belastung im Beruf sowie psychische Belastung mit reaktivem Ess- und Trinkverhalten.',
+        },
+        {
+          frage: 'Was sind purinreiche Lebensmittel, und welche Lebensstiländerungen empfehlen Sie?',
+          antwort: 'Innereien wie Leber und Niere, rotes Fleisch und Wurst, Fleischbrühen, Sardellen, Sardinen, Hering, Meeresfrüchte und Hefeextrakt. Empfohlen werden purinarme Kost, Verzicht auf Bier und fruktosehaltige Softdrinks, eine Trinkmenge von 2–3 Litern täglich, langsame Gewichtsreduktion und regelmäßige moderate Bewegung.',
+        },
+        {
+          frage: 'Wie behandeln Sie den akuten Anfall?',
+          antwort: 'Ruhigstellung, Hochlagerung und Kühlung, dazu NSAR in ausreichender Dosis unter Magenschutz, alternativ Colchicin 1 mg initial und 0,5 mg nach einer Stunde, sowie Kortikosteroide — Prednisolon 30–35 mg über drei bis fünf Tage oder intraartikulär nach Ausschluss einer Infektion. Zusätzlich reichlich Flüssigkeit und Alkoholkarenz.',
+        },
+        {
+          frage: 'Und wie sieht die Dauertherapie aus?',
+          antwort: 'Nach Abklingen des Anfalls eine harnsäuresenkende Therapie mit einem Urikostatikum: Allopurinol einschleichend ab 100 mg bis meist 300 mg täglich, Zielwert unter 6 mg/dl; alternativ Febuxostat oder ein Urikosurikum wie Benzbromaron. Begleitend für drei bis sechs Monate eine Anfallsprophylaxe mit niedrig dosiertem Colchicin, dazu purinarme Ernährung, Alkoholkarenz, Gewichtsreduktion und Umstellung auslösender Medikamente.',
+        },
+        {
+          frage: 'Welche Komplikationen kann eine Hyperurikämie außer der Gicht haben?',
+          antwort: 'Harnsäuresteine mit Nierenkoliken, die akute und chronische Uratnephropathie mit Niereninsuffizienz, Tophi in Weichteilen, Ohrmuschel und Sehnen, die chronische Gichtarthropathie mit Gelenkdestruktion sowie ein erhöhtes kardiovaskuläres Risiko im Rahmen des metabolischen Syndroms.',
+        },
+        {
+          frage: 'Der Patient ist übergewichtig — sollte er abnehmen? Was kann eine Gewichtsabnahme bewirken?',
+          antwort: 'Ja, aber langsam und kontrolliert, etwa ein halbes bis ein Kilogramm pro Woche. Eine zu rasche Gewichtsabnahme oder Fasten führt über Ketonkörper und Laktat zu einer verminderten renalen Harnsäureausscheidung und kann die Symptome verschlechtern beziehungsweise einen neuen Anfall auslösen.',
+        },
+        {
+          frage: 'Warum würden Sie eine Psychotherapie empfehlen?',
+          antwort: 'Wegen des Alkoholabusus, der als Bewältigungsstrategie eines Verlusttraumas nach dem Motorradunfall dient, wegen der depressiven Symptomatik und Schuldgefühle, des übermäßigen Essverhaltens und des Verlusts sozialer Kontakte. Ohne Bearbeitung dieser Belastung sind Alkoholkarenz und Gewichtsreduktion — die kausalen Maßnahmen — kaum umsetzbar.',
+        },
+        {
+          frage: 'Warum treten die Beschwerden gerade nachts auf?',
+          antwort: 'Nachts sinken die Temperatur im peripheren Gewebe und der Flüssigkeitsgehalt des Gelenks. Dadurch nimmt die Löslichkeit der Harnsäure ab und Natriumuratkristalle fallen aus — deshalb ist das kühle, periphere Großzehengrundgelenk der klassische Erstmanifestationsort.',
+        },
+      ],
+      merksatz: 'Podagra nachts nach Bier und Braten = Gicht — aber eine normale Harnsäure schließt sie NIE aus, und ohne Gelenkpunktion ist die septische Arthritis nicht ausgeschlossen. Im Anfall NSAR, Colchicin oder Kortikosteroide; Allopurinol erst zwei Wochen später, einschleichend und unter Colchicin-Schutz.',
+      linkedCaseIds: [
+        'case-gicht',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-feinnadelpunktion',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-multiple-sklerose',
+      pathology: 'Multiple Sklerose',
+      specialty: 'Neurologie',
+      definition: 'Chronisch-entzündliche, immunvermittelte Erkrankung des zentralen Nervensystems mit herdförmiger Demyelinisierung (Entmarkungsherde/Plaques) und axonaler Schädigung in Gehirn, Sehnerv und Rückenmark. Charakteristisch ist die Dissemination der Läsionen in ORT und ZEIT. Häufigste neurologische Ursache einer bleibenden Behinderung bei jungen Erwachsenen; Erkrankungsgipfel zwischen dem 20. und 40. Lebensjahr, Frauen sind etwa doppelt bis dreifach häufiger betroffen.',
+      aetiologie: 'Multifaktoriell: autoimmune, überwiegend T-Zell-vermittelte Reaktion gegen Myelinbestandteile des ZNS bei genetischer Prädisposition (HLA-DRB1*15:01) und Umweltfaktoren. Als wichtigste Umweltfaktoren gelten eine durchgemachte Epstein-Barr-Virus-Infektion, Vitamin-D-Mangel bzw. geringe Sonnenexposition (Nord-Süd-Gefälle der Prävalenz), Nikotinkonsum, Adipositas im Jugendalter und Störungen des Darmmikrobioms. Eine einzelne Ursache existiert nicht; die Erkrankung ist nicht im klassischen Sinne erblich, das Risiko für Verwandte ersten Grades ist jedoch leicht erhöht.',
+      risikofaktoren: [
+        'Weibliches Geschlecht',
+        'Alter zwischen 20 und 40 Jahren',
+        'Positive Familienanamnese (Verwandte ersten Grades)',
+        'HLA-DRB1*15:01',
+        'Durchgemachte Epstein-Barr-Virus-Infektion (infektiöse Mononukleose)',
+        'Vitamin-D-Mangel, geringe Sonnenexposition, Wohnort in höheren geographischen Breiten',
+        'Nikotinkonsum',
+        'Adipositas in Kindheit und Jugend',
+      ],
+      klinik: [
+        {
+          text: 'Sensibilitätsstörungen als häufigste Erstmanifestation: Kribbelparästhesien, Taubheits- und pelziges Gefühl, meist einseitig und schmerzlos',
+        },
+        {
+          text: 'Optikusneuritis/Retrobulbärneuritis: einseitiger, über Stunden bis Tage zunehmender Visusverlust, Schmerz bei Augenbewegung, Farbentsättigung, Zentralskotom, relative afferente Pupillenstörung (Marcus-Gunn-Pupille) — „der Patient sieht nichts und der Arzt sieht nichts“',
+        },
+        {
+          text: 'Zentrale Paresen: Kraftminderung mit Spastik, gesteigerten Muskeleigenreflexen und positivem Babinski-Zeichen; Gehstrecke verkürzt, Treppensteigen erschwert',
+        },
+        {
+          text: 'Zerebelläre Symptome: Gang- und Standataxie, Intentionstremor, Dysmetrie, skandierende Sprache (Charcot-Trias: Nystagmus, Intentionstremor, skandierende Sprache)',
+        },
+        {
+          text: 'Hirnstammsymptome: Doppelbilder, internukleäre Ophthalmoplegie, Nystagmus, Schwindel, Fazialisparese',
+        },
+        {
+          text: 'Uhthoff-Phänomen: reversible Verschlechterung bestehender Symptome bei Wärme, Fieber oder körperlicher Anstrengung (Pseudoschub, kein neuer Schub)',
+        },
+        {
+          text: 'Lhermitte-Zeichen: beim Vorbeugen des Kopfes elektrisierende Missempfindung entlang der Wirbelsäule in Arme oder Beine (Hinweis auf zervikale Läsion)',
+        },
+        {
+          text: 'Fatigue — abnorme, durch Schlaf nicht behebbare Erschöpfung; für Betroffene oft das belastendste Symptom, wird ohne gezielte Frage nicht berichtet',
+          atypisch: true,
+        },
+        {
+          text: 'Blasenstörungen (imperativer Harndrang, Restharnbildung, Inkontinenz) und Sexualfunktionsstörungen — werden aus Scham häufig verschwiegen',
+          atypisch: true,
+        },
+        {
+          text: 'Kognitive Störungen (Aufmerksamkeit, Gedächtnis, Verarbeitungsgeschwindigkeit) und depressive Symptome',
+          atypisch: true,
+        },
+        {
+          text: 'Trigeminusneuralgie bei jungen Menschen — bis zum Beweis des Gegenteils an eine Multiple Sklerose denken',
+          atypisch: true,
+        },
+        {
+          text: 'Primär progredienter Verlauf ohne Schübe mit langsam zunehmender spastischer Paraparese, vor allem bei Erkrankungsbeginn jenseits des 40. Lebensjahres',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'McDonald-Kriterien (Revision 2017)',
+          inhalt: 'Diagnosestellung über den Nachweis der Dissemination in ORT (Läsionen in mindestens zwei von vier typischen Regionen: periventrikulär, kortikal/juxtakortikal, infratentoriell, spinal) und in ZEIT (gleichzeitiges Vorliegen kontrastmittelaufnehmender und nicht aufnehmender Läsionen, neue Läsion im Verlaufs-MRT oder ein zweiter Schub). Der Nachweis liquorspezifischer oligoklonaler Banden kann die zeitliche Dissemination ersetzen — dadurch ist die Diagnose bereits beim ersten Schub möglich. Voraussetzung ist stets der Ausschluss besser erklärender Differenzialdiagnosen.',
+        },
+        {
+          name: 'Verlaufsformen',
+          inhalt: 'Klinisch isoliertes Syndrom (CIS) und radiologisch isoliertes Syndrom (RIS) als Vorstufen; schubförmig-remittierend (RRMS, ca. 85 % zu Beginn); sekundär progredient (SPMS) nach initial schubförmigem Verlauf; primär progredient (PPMS, ca. 10–15 %, ohne Schübe von Anfang an). Zusätzlich wird nach Krankheitsaktivität (aktiv/nicht aktiv) und Progression unterschieden.',
+        },
+        {
+          name: 'EDSS (Expanded Disability Status Scale nach Kurtzke)',
+          inhalt: 'Skala von 0 (normaler neurologischer Befund) bis 10 (Tod infolge der MS); 4,0 = Gehstrecke 500 m ohne Hilfe, 6,0 = einseitige Gehhilfe erforderlich, 7,0 = überwiegend Rollstuhl. Standard zur Verlaufsbeurteilung und in Studien.',
+        },
+        {
+          name: 'Schub-Definition',
+          inhalt: 'Neue oder erneut aufgetretene neurologische Symptomatik, die länger als 24 Stunden anhält, mindestens 30 Tage nach Beginn des letzten Schubes auftritt und nicht durch Fieber, Infekt oder Wärme erklärbar ist (Abgrenzung zum Pseudoschub).',
+        },
+      ],
+      redFlags: [
+        'Schwerer Schub mit Hirnstammbeteiligung: Schluckstörung, Dysarthrie, Atemstörung, Vigilanzminderung',
+        'Akute Querschnittsymptomatik mit Blasen-Mastdarm-Störung → sofortiges MRT, Ausschluss einer Rückenmarkskompression',
+        'Beidseitige oder schwere Optikusneuritis mit ausgeprägtem Visusverlust → Verdacht auf NMOSD (Aquaporin-4-Antikörper), da Interferone hier den Verlauf verschlechtern',
+        'Fieber, Meningismus oder Bewusstseinsstörung → Infektion bzw. ADEM ausschließen, keine Kortison-Stoßtherapie vor Infektausschluss',
+        'Rasch progrediente Parese oder Verschlechterung unter laufender Immuntherapie (bei Natalizumab an eine progressive multifokale Leukenzephalopathie denken)',
+        'Neu aufgetretene Krampfanfälle oder ausgeprägte kognitive Verschlechterung → alternative Diagnose prüfen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese mit gezielter Suche nach der zeitlichen Dissemination: frühere, spontan rückläufige Episoden (Sehstörung, Doppelbilder, Taubheitsgefühle, Gangstörung), Uhthoff-Phänomen, Lhermitte-Zeichen, Fatigue, Blasen- und Sexualfunktionsstörungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger neurologischer Status: Hirnnerven inklusive Visus, Farbsehen und Pupillenreaktion (RAPD), Augenmotilität (internukleäre Ophthalmoplegie, Nystagmus), Kraftgrade 0–5 im Seitenvergleich, Muskeltonus, Muskeleigenreflexe, Pyramidenbahnzeichen (Babinski), Sensibilität für Berührung, Schmerz, Temperatur und Vibration nach Dermatomen, Koordination (Finger-Nase-, Knie-Hacken-Versuch, Romberg, Unterberger), Gangbild',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor zum Ausschluss von Differenzialdiagnosen: Blutbild, CRP, BSG, Elektrolyte, Leber- und Nierenwerte, TSH, Vitamin B12 und Folsäure, HbA1c, Vitamin D',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Immunologie und Infektiologie: ANA/ENA, ANCA, Borrelien-Serologie, HIV, Lues; Aquaporin-4- und MOG-Antikörper zur Abgrenzung von NMOSD und MOG-Antikörper-Erkrankung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT des Schädels und der gesamten Wirbelsäule mit Kontrastmittel — Methode der Wahl: Entmarkungsherde periventrikulär (Dawson-Finger), juxtakortikal, infratentoriell und spinal; kontrastmittelaufnehmende Läsionen entsprechen aktiven Herden mit Blut-Hirn-Schranken-Störung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Optische Kohärenztomographie (OCT): Verdünnung der retinalen Nervenfaserschicht nach abgelaufener Optikusneuritis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Lumbalpunktion mit Liquordiagnostik: liquorspezifische oligoklonale Banden (in über 90 % nachweisbar), erhöhter IgG-Index, leichte mononukleäre Pleozytose (< 50 Zellen/µl), positive MRZ-Reaktion (Masern, Röteln, Varizella zoster); zugleich Ausschluss von Infektionen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Evozierte Potenziale zum Nachweis klinisch stummer Läsionen: VEP (verlängerte P100-Latenz), SEP und MEP',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Urodynamik und Restharnbestimmung bei Blasenstörungen; neuropsychologische Testung bei kognitiven Beschwerden',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Neuromyelitis-optica-Spektrum-Erkrankung (NMOSD)',
+          unterscheidung: 'schwere, oft beidseitige Optikusneuritis und langstreckige Myelitis über mindestens drei Wirbelkörpersegmente; Aquaporin-4-Antikörper positiv, oligoklonale Banden meist negativ; therapeutisch entscheidend, da Interferon-beta den Verlauf verschlechtert.',
+        },
+        {
+          dd: 'Akute disseminierte Enzephalomyelitis (ADEM)',
+          unterscheidung: 'monophasisch, meist bei Kindern, wenige Tage bis Wochen nach Infekt oder Impfung; Enzephalopathie mit Bewusstseinsstörung und Fieber, große konfluierende Herde, keine zeitliche Dissemination.',
+        },
+        {
+          dd: 'Neuroborreliose',
+          unterscheidung: 'Zeckenstich, Erythema migrans; schmerzhafte Radikulitis (Bannwarth-Syndrom), Fazialisparese; Liquor mit lymphozytärer Pleozytose und intrathekaler Borrelien-Antikörperbildung (positiver Antikörper-Index).',
+        },
+        {
+          dd: 'Funikuläre Myelose bei Vitamin-B12-Mangel',
+          unterscheidung: 'symmetrische Hinterstrang- und Pyramidenbahnsymptomatik, Pallhypästhesie, makrozytäre Anämie; Risikogruppen: vegane Ernährung, atrophische Gastritis, Zustand nach Magenresektion, Metformin.',
+        },
+        {
+          dd: 'Zerebrale Vaskulitis / Kollagenose (SLE, Neuro-Sjögren)',
+          unterscheidung: 'Allgemeinsymptome, Gelenk- und Hautbeteiligung, Sicca-Symptomatik, erhöhte Entzündungsparameter, positive Autoantikörper; MRT-Läsionen eher vaskulär verteilt.',
+        },
+        {
+          dd: 'Spinaler Tumor oder Rückenmarkskompression (Bandscheibenvorfall, Spinalkanalstenose)',
+          unterscheidung: 'Schmerzen, sensibles Niveau, langsam progredient ohne Remissionen; klare Darstellung der Kompression im MRT der Wirbelsäule.',
+        },
+        {
+          dd: 'Polyneuropathie',
+          unterscheidung: 'distal-symmetrische, sockenförmige Missempfindungen mit abgeschwächten Reflexen (peripheres Muster) — bei MS zentrales Muster mit gesteigerten Reflexen und Babinski-Zeichen; Elektroneurographie.',
+        },
+        {
+          dd: 'Migräne mit Aura',
+          unterscheidung: 'kurze, vollständig reversible Aura über 5–60 Minuten mit anschließendem Kopfschmerz, Übelkeit und Photophobie; MRT-Marklagerläsionen ohne typische MS-Verteilung, oligoklonale Banden negativ.',
+        },
+        {
+          dd: 'Funktionelle neurologische Störung',
+          unterscheidung: 'inkonsistente Befunde, positive klinische Zeichen (Hoover-Zeichen), fehlendes strukturelles Korrelat; nur als Ausschlussdiagnose nach unauffälligem MRT und Liquor zulässig.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Schubtherapie (akuter Schub)',
+          items: [
+            'Methylprednisolon 1000 mg i.v. über 3 bis 5 Tage als Stoßtherapie, morgendliche Gabe',
+            'Begleitend Protonenpumpenhemmer als Magenschutz und Thromboseprophylaxe, Kontrolle von Blutzucker, Blutdruck und Elektrolyten',
+            'Vor Therapiebeginn Infekt ausschließen (Harnwegsinfekt, Atemwegsinfekt) — ein Pseudoschub bei Fieber oder Wärme (Uhthoff-Phänomen) wird nicht mit Kortison behandelt',
+            'Bei unzureichendem Ansprechen: eskalierte Stoßtherapie mit 2000 mg/Tag oder Plasmapherese bzw. Immunadsorption',
+            'Leichte, rein sensible Schübe können auch ohne Kortison beobachtet werden',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Verlaufsmodifizierende Immuntherapie (Basistherapie)',
+          items: [
+            'Möglichst früher Beginn nach Diagnosesicherung — Ziel: Senkung der Schubrate, der MRT-Aktivität und der Behinderungsprogression',
+            'Milde bis moderate Verlaufsform: Interferon-beta, Glatirameracetat, Dimethylfumarat, Teriflunomid',
+            'Hochaktive Verlaufsform: Natalizumab, Ocrelizumab, Ofatumumab, Fingolimod, Cladribin, Alemtuzumab',
+            'Primär progrediente MS: Ocrelizumab als einzige zugelassene verlaufsmodifizierende Option',
+            'Vor Beginn: Impfstatus vervollständigen, Tuberkulose- und Hepatitis-Screening, JC-Virus-Antikörper vor Natalizumab (Risiko der progressiven multifokalen Leukenzephalopathie), Familienplanung und Verhütung besprechen (Teriflunomid teratogen)',
+            'Verlaufskontrollen mit klinischer Untersuchung, EDSS, Labor und regelmäßigem MRT',
+          ],
+        },
+        {
+          label: 'Symptomatische Therapie und Rehabilitation',
+          items: [
+            'Physiotherapie, Ergotherapie und Logopädie; regelmäßiges, dosiertes Ausdauer- und Krafttraining',
+            'Spastik: Baclofen, Tizanidin, bei fokaler Spastik Botulinumtoxin; Cannabinoid-Spray als Reserveoption',
+            'Fatigue: Energiemanagement, Aktivitätsdosierung, Vermeidung von Hitze, Behandlung von Schlafstörung und Depression',
+            'Blasenstörung: urologische Abklärung, Anticholinergika, intermittierender Selbstkatheterismus bei Restharn',
+            'Neuropathische Schmerzen: Gabapentin oder Pregabalin; Trigeminusneuralgie: Carbamazepin',
+            'Depression und Angst: psychologische Mitbetreuung, ggf. Antidepressivum',
+            'Hilfsmittelversorgung, Wohnraumanpassung (barrierefreies Wohnen, Erdgeschoss oder Aufzug), Sozialdienst, berufliche Rehabilitation',
+          ],
+        },
+        {
+          label: 'Patientenführung und Langzeitbetreuung',
+          items: [
+            'Aufklärung: chronische, derzeit nicht heilbare, aber gut behandelbare Erkrankung — realistische Perspektive vermitteln, keine Heilung versprechen',
+            'Schubauslöser meiden und behandeln: Infekte frühzeitig therapieren, Hitze meiden, Stress reduzieren, konsequente Nikotinkarenz',
+            'Vitamin-D-Substitution und ausgewogene Ernährung; Impfungen rechtzeitig vor Immuntherapie',
+            'Kinderwunsch und Schwangerschaft planen — Schwangerschaft ist möglich, die Schubrate sinkt im letzten Trimenon und steigt postpartal; Therapieauswahl entsprechend anpassen',
+            'Anbindung an eine MS-Ambulanz, MS-Nurse, Selbsthilfegruppe und Sozialberatung (Schwerbehindertenausweis, Arbeitsplatzanpassung)',
+          ],
+        },
+      ],
+      prognose: 'Sehr variabel und individuell nicht sicher vorhersagbar. Etwa 85 % beginnen schubförmig-remittierend; ein erheblicher Teil geht ohne Therapie im Verlauf in eine sekundär progrediente Form über. Die Lebenserwartung ist nur wenig verkürzt. Günstige Prognosefaktoren sind weibliches Geschlecht, junges Erkrankungsalter, rein sensible oder Optikusneuritis-Erstmanifestation, vollständige Rückbildung des ersten Schubes, niedrige Schubfrequenz in den ersten Jahren und geringe MRT-Läsionslast. Ungünstig sind männliches Geschlecht, motorische oder zerebelläre Erstsymptomatik, hohe frühe Schubrate, unvollständige Remission, hohe Läsionslast und ein primär progredienter Verlauf. Moderne, früh begonnene Immuntherapien haben den Verlauf deutlich verbessert.',
+      pruefungsfallen: [
+        'Die MS ist eine Diagnose der Dissemination in ORT UND ZEIT — immer aktiv nach früheren, spontan abgeklungenen Episoden fragen (Sehstörung, Doppelbilder, Taubheitsgefühl); ohne diese Frage fehlt der entscheidende Baustein.',
+        'Uhthoff-Phänomen (Verschlechterung bei Wärme/Fieber) ist ein PSEUDOSCHUB und keine Indikation für eine Kortison-Stoßtherapie — vor jeder Stoßtherapie einen Infekt ausschließen.',
+        'MRT immer von Schädel UND Wirbelsäule und immer mit Kontrastmittel — nur so lassen sich aktive von älteren Läsionen unterscheiden.',
+        'Parese = unvollständige Lähmung, Plegie/Paralyse = vollständige Lähmung; Hypästhesie = herabgesetzte Berührungsempfindung, Parästhesie = Missempfindung ohne Reiz.',
+        'Vor Interferon-beta die Aquaporin-4-Antikörper bedenken: Bei NMOSD verschlechtern Interferone den Verlauf.',
+        'Oligoklonale Banden müssen LIQUORSPEZIFISCH sein — nur im Liquor, nicht parallel im Serum nachweisbar.',
+        'Die Diagnose darf nur nach Ausschluss besser erklärender Differenzialdiagnosen gestellt werden (Vitamin-B12-Mangel, Borreliose, Kollagenose, spinale Kompression).',
+        'Aufklärung: chronisch und nicht heilbar, aber behandelbar — niemals eine vollständige Heilung versprechen, aber auch nicht die Hoffnung nehmen.',
+        'Fatigue, Blasen- und Sexualfunktionsstörungen sowie depressive Symptome werden spontan nicht berichtet — aktiv und taktvoll erfragen.',
+        'Bei einer Trigeminusneuralgie oder einer internukleären Ophthalmoplegie beim jungen Erwachsenen immer an eine MS denken.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose und wie begründen Sie sie?',
+          antwort: 'Eine Multiple Sklerose als Erstmanifestation: junge Patientin mit schmerzloser sensomotorischer Symptomatik eines Beins seit drei Monaten und anamnestisch einer spontan rückläufigen einseitigen Sehstörung vor drei Jahren — damit besteht eine Dissemination in Ort und in Zeit; zusätzlich sprechen Uhthoff-Phänomen und Lhermitte-Zeichen dafür.',
+        },
+        {
+          frage: 'Warum sprechen Sie von einer Parese?',
+          antwort: 'Weil es sich um eine Kraftminderung, also eine unvollständige Lähmung handelt. Eine vollständige Lähmung wäre eine Plegie oder Paralyse.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Hypästhesie von einer Parästhesie?',
+          antwort: 'Die Hypästhesie ist eine herabgesetzte Empfindung für Berührungsreize — der Patient spürt weniger. Die Parästhesie ist eine Missempfindung ohne äußeren Reiz, also Kribbeln, Ameisenlaufen oder ein pelziges Gefühl.',
+        },
+        {
+          frage: 'In welchen Formen kann eine Multiple Sklerose verlaufen?',
+          antwort: 'Schubförmig-remittierend in etwa 85 % zu Beginn, sekundär progredient nach initial schubförmigem Verlauf und primär progredient von Anfang an; vorgeschaltet sind das klinisch isolierte Syndrom und das radiologisch isolierte Syndrom.',
+        },
+        {
+          frage: 'Was verstehen Sie unter einem Schub?',
+          antwort: 'Eine neue oder erneut aufgetretene neurologische Symptomatik, die länger als 24 Stunden anhält, mindestens 30 Tage nach dem letzten Schub auftritt und nicht durch Fieber, Infekt oder Wärme erklärbar ist.',
+        },
+        {
+          frage: 'Was sehen Sie im MRT?',
+          antwort: 'Entmarkungsherde beziehungsweise Plaques periventrikulär, juxtakortikal, infratentoriell und spinal; periventrikulär die senkrecht zu den Ventrikeln verlaufenden Dawson-Finger. Kontrastmittelaufnehmende Läsionen entsprechen aktiven Herden mit gestörter Blut-Hirn-Schranke.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose einer Multiplen Sklerose?',
+          antwort: 'Nach den McDonald-Kriterien aus Klinik, MRT und Liquor: liquorspezifische oligoklonale Banden, erhöhter IgG-Index, leichte mononukleäre Pleozytose und positive MRZ-Reaktion; ergänzend evozierte Potenziale, insbesondere ein VEP mit verlängerter P100-Latenz, sowie die Bestimmung der Aquaporin-4- und MOG-Antikörper.',
+        },
+        {
+          frage: 'Welche Untersuchung machen Sie bei Verdacht auf eine Optikusneuritis?',
+          antwort: 'Visusprüfung, Farbsehen, Gesichtsfeld, Prüfung der relativen afferenten Pupillenstörung (Swinging-Flashlight-Test), Funduskopie — meist unauffällig, da retrobulbär — sowie VEP und OCT.',
+        },
+        {
+          frage: 'Benötigt die Patientin eine dringende Hospitalisierung?',
+          antwort: 'Nein, es handelt sich nicht um einen Notfall. Die Abklärung kann elektiv oder kurzstationär erfolgen. Dringlich wird es bei schwerem Schub mit Hirnstammbeteiligung, akuter Querschnittsymptomatik oder Blasen-Mastdarm-Störung.',
+        },
+        {
+          frage: 'Welche Therapie empfehlen Sie?',
+          antwort: 'Im Schub eine Kortikosteroid-Stoßtherapie mit Methylprednisolon 1000 mg i.v. über drei bis fünf Tage unter Magenschutz und Thromboseprophylaxe, bei Steroidrefraktärität eine Plasmapherese. Anschließend eine verlaufsmodifizierende Immuntherapie je nach Krankheitsaktivität sowie eine symptomatische Therapie mit Physio- und Ergotherapie.',
+        },
+        {
+          frage: 'Was ist das Uhthoff-Phänomen und was das Lhermitte-Zeichen?',
+          antwort: 'Das Uhthoff-Phänomen ist eine vorübergehende Verschlechterung bestehender Symptome bei Wärme oder Anstrengung. Das Lhermitte-Zeichen ist eine elektrisierende Missempfindung entlang der Wirbelsäule beim Vorbeugen des Kopfes und weist auf eine zervikale Läsion hin.',
+        },
+        {
+          frage: 'Ist die Multiple Sklerose heilbar? Wie klären Sie den Patienten auf?',
+          antwort: 'Nein, sie ist chronisch und nach heutigem Stand nicht heilbar, aber gut behandelbar. Ich erkläre in einfachen Worten, dass Schübe wirksam behandelt werden können, dass moderne Medikamente die Schubrate senken und das Fortschreiten verzögern und dass viele Betroffene über Jahrzehnte ein weitgehend normales Leben führen — ohne eine Heilung zu versprechen.',
+        },
+        {
+          frage: 'Kann die Pille die Ursache der Beschwerden sein?',
+          antwort: 'Nein, orale Kontrazeptiva verursachen keine Multiple Sklerose. Sie müssen nicht abgesetzt werden, sind aber bei der Auswahl der Immuntherapie und bei der Familienplanung mitzubedenken.',
+        },
+        {
+          frage: 'Welche Prognose hat die Erkrankung?',
+          antwort: 'Sehr variabel. Günstig sind weibliches Geschlecht, junges Alter, sensible oder Optikusneuritis-Erstmanifestation und vollständige Remission des ersten Schubes; ungünstig sind motorische oder zerebelläre Erstsymptome, hohe frühe Schubrate und ein primär progredienter Verlauf. Die Lebenserwartung ist nur wenig verkürzt.',
+        },
+      ],
+      merksatz: 'Multiple Sklerose = Dissemination in ORT und ZEIT: Bei jedem jungen Erwachsenen mit neurologischem Defizit aktiv nach früheren, spontan abgeklungenen Episoden fragen (Sehstörung!). Merke: Uhthoff bei Wärme = Pseudoschub (kein Kortison), Lhermitte beim Kopfbeugen = zervikale Läsion.',
+      linkedCaseIds: [
+        'case-multiple-sklerose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-lumbalpunktion',
+      ],
+    },
+    {
+      id: 'fw-reizdarm',
+      pathology: 'Reizdarmsyndrom',
+      specialty: 'Gastroenterologie',
+      definition: 'Das Reizdarmsyndrom (Colon irritabile, Reizkolon) ist eine funktionelle Darmerkrankung mit chronischen Bauchschmerzen und Stuhlgangsveränderungen ohne nachweisbare strukturelle, infektiöse oder biochemische Ursache. Es ist eine AUSSCHLUSSDIAGNOSE: Sie wird anhand der Rom-IV-Kriterien positiv gestellt, nachdem organische Erkrankungen ausgeschlossen wurden. Mit einer Prävalenz von etwa 10-15 % ist es die häufigste Diagnose in der gastroenterologischen Sprechstunde, Frauen sind etwa doppelt so häufig betroffen.',
+      aetiologie: 'Multifaktoriell: Störung der Darm-Hirn-Achse mit viszeraler Hypersensitivität, veränderter Darmmotilität, gestörter epithelialer Barrierefunktion ("leaky gut"), niedriggradiger Schleimhautentzündung und Dysbiose der Darmflora. Psychosozialer Stress, ein postinfektiöser Verlauf nach Gastroenteritis (postinfektiöses Reizdarmsyndrom), Antibiotikatherapien und Ernährungsfaktoren (FODMAP) wirken als Trigger. CAVE: Es handelt sich NICHT um eine psychosomatische Erkrankung im engeren Sinne — Stress ist Triggerfaktor und Verstärker, nicht Ursache, und die Beschwerden sind organisch real.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (etwa 2:1)',
+        'Alter zwischen 20 und 50 Jahren bei Erstmanifestation',
+        'Chronischer psychosozialer Stress, belastende Lebensereignisse',
+        'Zustand nach infektiöser Gastroenteritis (postinfektiöses RDS)',
+        'Komorbide Angststörung, Depression oder Somatisierungsstörung',
+        'Positive Familienanamnese für funktionelle Störungen',
+        'Vorangegangene Antibiotikatherapien',
+        'Fibromyalgie, chronisches Erschöpfungssyndrom, chronische Beckenschmerzen',
+      ],
+      klinik: [
+        {
+          text: 'Rezidivierende, krampfartige oder drückende Bauchschmerzen, oft im Unterbauch oder diffus, häufig postprandial',
+        },
+        {
+          text: 'Besserung der Schmerzen nach der Defäkation oder nach Windabgang — das wichtigste anamnestische Leitmerkmal',
+        },
+        {
+          text: 'Änderung der Stuhlfrequenz (Obstipation, Diarrhoe oder Wechsel beider)',
+        },
+        {
+          text: 'Änderung der Stuhlform und -konsistenz (Bristol-Stuhlformenskala)',
+        },
+        {
+          text: 'Meteorismus, Flatulenz, Völlegefühl, sichtbar aufgeblähter Bauch',
+        },
+        {
+          text: 'Gefühl der unvollständigen Entleerung, imperativer Stuhldrang, Schleimauflagerungen',
+        },
+        {
+          text: 'Beschwerden treten typischerweise TAGSÜBER auf und wecken den Patienten nie nachts',
+        },
+        {
+          text: 'Ausgeprägte Krankheitsangst und Karzinophobie mit häufigen Arztwechseln',
+        },
+        {
+          text: 'Extraintestinale Begleitsymptome: Kopfschmerzen, Rückenschmerzen, Müdigkeit, Schlafstörungen, Dysurie',
+          atypisch: true,
+        },
+        {
+          text: 'Überlappung mit funktioneller Dyspepsie: Sodbrennen, Übelkeit, frühes Sättigungsgefühl',
+          atypisch: true,
+        },
+        {
+          text: 'Postinfektiöse Erstmanifestation direkt nach einer Gastroenteritis',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Rom-IV-Kriterien',
+          inhalt: 'Rezidivierende Bauchschmerzen an mindestens einem Tag pro Woche in den letzten drei Monaten (Beginn der Symptome mindestens sechs Monate zuvor), verknüpft mit mindestens zwei von drei Punkten: (1) Zusammenhang mit der Defäkation, (2) Änderung der Stuhlfrequenz, (3) Änderung der Stuhlform bzw. -konsistenz.',
+        },
+        {
+          name: 'Subtypen nach der Bristol-Stuhlformenskala',
+          inhalt: 'RDS-D (Diarrhoe-Typ, >25 % Typ 6-7), RDS-O bzw. RDS-C (Obstipations-Typ, >25 % Typ 1-2), RDS-M (Mischtyp, beides >25 %), RDS-U (unklassifiziert). Die Subtypisierung steuert die symptomorientierte Medikation.',
+        },
+        {
+          name: 'Deutsche S3-Leitlinien-Definition',
+          inhalt: 'Drei Bedingungen müssen erfüllt sein: (1) chronische, länger als drei Monate bestehende Darmbeschwerden, die von Patient und Arzt auf den Darm bezogen werden, (2) relevante Beeinträchtigung der Lebensqualität, (3) keine für andere Krankheitsbilder charakteristischen Veränderungen nachweisbar.',
+        },
+      ],
+      redFlags: [
+        'Ungewollter Gewichtsverlust und B-Symptomatik',
+        'Blut im Stuhl oder Meläna',
+        'Fieber',
+        'Nächtliche Schmerzen oder nächtliche Diarrhoe, die den Patienten wecken',
+        'Erstmanifestation jenseits des 50. Lebensjahres',
+        'Anämie oder Eisenmangel',
+        'Positive Familienanamnese für kolorektales Karzinom, CED oder Zöliakie',
+        'Tastbare abdominelle oder rektale Resistenz, Lymphadenopathie',
+        'Progrediente, kontinuierliche Verschlechterung der Beschwerden',
+        'Erhöhte Entzündungsparameter oder erhöhtes fäkales Calprotectin',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Prüfung der Rom-IV-Kriterien: Dauer, Häufigkeit, Kopplung an die Defäkation, Änderung von Stuhlfrequenz und Stuhlform',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige und explizite Abfrage der Alarmsymptome — der zentrale Schritt jeder Reizdarm-Anamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Reise-, Medikamenten- und Antibiotikaanamnese, Ernährungsanamnese, psychosoziale Anamnese (Stress, Angst, Depression)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Komplette körperliche Untersuchung: Inspektion, Auskultation, Perkussion, Palpation des Abdomens und digital-rektale Untersuchung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ernährungs-, Stuhl- und Symptomtagebuch über zwei bis vier Wochen mit Bristol-Stuhlformenskala',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild, CRP, BSG, Elektrolyte, Leber- und Nierenwerte, Ferritin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH zum Ausschluss einer Hyper- oder Hypothyreose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zöliakie-Serologie: Transglutaminase-IgA IMMER zusammen mit dem Gesamt-IgA (falsch negativ bei IgA-Mangel)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Fäkales Calprotectin zur Abgrenzung einer chronisch-entzündlichen Darmerkrankung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Test auf okkultes Blut im Stuhl (immunologischer Test, iFOBT)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Stuhlkultur auf pathogene Keime sowie Parasiten- und Giardia-Antigen-Nachweis bei Diarrhoetyp oder Reiseanamnese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie zum Ausschluss struktureller Ursachen (Raumforderung, Wandverdickung, Aszites, Gallenwege)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'H2-Atemtest auf Laktose und ggf. Fruktose (Kohlenhydratmalabsorption)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Frauen gynäkologische Mitbeurteilung mit transvaginaler Sonographie (Ovarialprozess, Endometriose)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Stufenbiopsien — obligat bei Alarmsymptomen und bei Erstmanifestation über 50 Jahre; schließt Karzinom, CED und mikroskopische Kolitis aus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ÖGD mit Duodenalbiopsien bei positiver Zöliakie-Serologie oder führenden Oberbauchbeschwerden',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei therapierefraktärer Diarrhoe: Ausschluss eines Gallensäureverlustsyndroms (SeHCAT-Test bzw. Therapieversuch mit Colestyramin)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Chronisch-entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)',
+          unterscheidung: 'Blutig-schleimige Diarrhoe, nächtliche Beschwerden, Fieber, Gewichtsverlust, extraintestinale Manifestationen (Arthritis, Uveitis, Erythema nodosum); CRP↑ und fäkales Calprotectin↑, endoskopisch-histologische Sicherung.',
+        },
+        {
+          dd: 'Zöliakie (einheimische Sprue)',
+          unterscheidung: 'Blähungen, Steatorrhoe, Eisen- und Folsäuremangel, Gewichtsverlust, Dermatitis herpetiformis; Transglutaminase-IgA plus Gesamt-IgA positiv, Zottenatrophie in der Duodenalbiopsie.',
+        },
+        {
+          dd: 'Laktose- bzw. Fruktoseintoleranz',
+          unterscheidung: 'Reproduzierbarer zeitlicher Zusammenhang mit Milchprodukten oder Fruchtzucker, Beschwerdefreiheit unter Karenz; positiver H2-Atemtest.',
+        },
+        {
+          dd: 'Kolorektales Karzinom',
+          unterscheidung: 'Erstmanifestation meist über 50 Jahre, neu aufgetretene Stuhlunregelmäßigkeit, Blut im Stuhl, Eisenmangelanämie, Gewichtsverlust; Sicherung per Koloskopie mit Biopsie.',
+        },
+        {
+          dd: 'Mikroskopische Kolitis (kollagene oder lymphozytäre Kolitis)',
+          unterscheidung: 'Wässrige Diarrhoe ohne Blut bei endoskopisch UNAUFFÄLLIGER Schleimhaut — nur die Stufenbiopsie sichert die Diagnose; typisch bei älteren Frauen.',
+        },
+        {
+          dd: 'Infektiöse Ursachen (Giardiasis, Yersiniose, Clostridioides difficile)',
+          unterscheidung: 'Reise-, Antibiotika- oder Trinkwasseranamnese, akuter Beginn, Fieber; Stuhlkultur, Parasitologie, Giardia-Antigen, Toxinnachweis.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Diarrhoe mit Gewichtsverlust trotz gutem Appetit, Tachykardie, Tremor, Wärmeintoleranz, Schwitzen; TSH supprimiert.',
+        },
+        {
+          dd: 'Divertikelkrankheit / Divertikulitis',
+          unterscheidung: 'Umschriebener Druckschmerz im linken Unterbauch, Fieber und Entzündungszeichen im Schub; CT-Abdomen, Koloskopie im entzündungsfreien Intervall.',
+        },
+        {
+          dd: 'Funktionelle Dyspepsie',
+          unterscheidung: 'Beschwerden auf den Oberbauch begrenzt (Völlegefühl, frühe Sättigung, Epigastralgie) OHNE Kopplung an den Stuhlgang; häufige Überlappung mit dem RDS.',
+        },
+        {
+          dd: 'Chronische Pankreasinsuffizienz',
+          unterscheidung: 'Fettstühle, Gewichtsverlust, Alkoholanamnese; Elastase-1 im Stuhl erniedrigt.',
+        },
+        {
+          dd: 'Gynäkologische Ursachen (Endometriose, Ovarialtumor)',
+          unterscheidung: 'Zyklusabhängigkeit der Schmerzen, Dyspareunie; gynäkologische Untersuchung und transvaginale Sonographie.',
+        },
+        {
+          dd: 'Medikamentös bedingte Stuhlveränderung',
+          unterscheidung: 'Opioide, Eisenpräparate und Anticholinergika obstipieren; Metformin, Magnesium, PPI und Antibiotika führen zu Diarrhoe — Medikamentenanamnese klärt.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Basistherapie: Aufklärung, Ernährung, Lebensstil',
+          items: [
+            'Ausführliche Aufklärung über die Gutartigkeit, den chronisch-rezidivierenden Verlauf und das NICHT erhöhte Karzinomrisiko — eine tragfähige Arzt-Patienten-Beziehung ist selbst therapeutisch wirksam',
+            'Die Diagnose positiv mitteilen und nicht als "wir haben nichts gefunden" formulieren',
+            'Ernährungsumstellung: befristete FODMAP-arme Kost unter diätologischer Begleitung mit strukturierter Wiedereinführung; Meiden individueller Triggerspeisen',
+            'Lösliche Ballaststoffe einschleichend (Flohsamenschalen); unlösliche Kleie meiden, da sie Blähungen verstärkt',
+            'Regelmäßige kleine Mahlzeiten, ausreichende Trinkmenge, Reduktion von Koffein, Alkohol, Süßstoffen und blähenden Speisen',
+            'Ernährungs- und Symptomtagebuch zur Identifikation der Trigger',
+            'Regelmäßige körperliche Aktivität und aktive Stressreduktion',
+          ],
+        },
+        {
+          label: 'Symptomorientierte Pharmakotherapie (nach Subtyp)',
+          items: [
+            'Schmerzen und Krämpfe: Spasmolytika (Butylscopolamin, Mebeverin) sowie Pfefferminzöl in magensaftresistenten Kapseln',
+            'Obstipationstyp (RDS-O): Macrogol und Quellstoffe; bei Versagen Prucaloprid oder Linaclotid; stimulierende Laxantien nur kurzfristig',
+            'Diarrhoetyp (RDS-D): Loperamid bedarfsweise, Colestyramin bei Gallensäureverlustsyndrom',
+            'Meteorismus: Probiotika über mindestens vier Wochen, Simeticon, ggf. Rifaximin (off label)',
+            'Therapierefraktäre Schmerzen: niedrig dosierte trizyklische Antidepressiva (Amitriptylin) als Neuromodulatoren gegen die viszerale Hypersensitivität — beim Obstipationstyp eher SSRI',
+            'Grundsatz: befristeter Therapieversuch über etwa vier Wochen, dann Wirksamkeitsprüfung und ggf. Absetzen',
+          ],
+        },
+        {
+          label: 'Psychotherapie und Entspannungsverfahren',
+          items: [
+            'Kognitive Verhaltenstherapie mit guter Evidenz für Symptomlast und Lebensqualität',
+            'Bauchgerichtete Hypnotherapie (darmbezogene Hypnose) — eines der am besten belegten Verfahren',
+            'Entspannungsverfahren: progressive Muskelrelaxation, autogenes Training, Yoga, Achtsamkeitstraining',
+            'Diagnostik und Behandlung komorbider Angststörungen und Depressionen',
+            'Feste Wiedervorstellungstermine vereinbaren, um wiederholte Notfallvorstellungen und unnötige Doppeldiagnostik zu vermeiden',
+          ],
+        },
+      ],
+      prognose: 'Gutartig, aber chronisch-rezidivierend mit wechselnder Symptomintensität. Es besteht KEINE erhöhte Mortalität und KEIN erhöhtes Karzinomrisiko. Etwa ein Drittel der Patienten wird langfristig beschwerdefrei, ein Drittel bleibt stabil, ein Drittel zeigt einen fluktuierenden Verlauf. Die Lebensqualität kann jedoch erheblich eingeschränkt sein, mit hoher Arbeitsunfähigkeitsrate. Nach abgeschlossener Ausschlussdiagnostik ist eine wiederholte apparative Abklärung ohne neu aufgetretene Alarmsymptome nicht indiziert und schadet der Arzt-Patienten-Beziehung.',
+      pruefungsfallen: [
+        'Das Reizdarmsyndrom ist eine AUSSCHLUSSDIAGNOSE — sie darf nie genannt werden, ohne im selben Atemzug zu sagen, WAS man ausschließt: Zöliakie, CED, kolorektales Karzinom, Laktoseintoleranz, Infektion, Hyperthyreose.',
+        'NIEMALS sagen, das Colon irritabile sei eine "psychosomatische Krankheit" — eine Oberärztin hat dieser Formulierung in der Prüfung ausdrücklich widersprochen. Korrekt: funktionelle Störung der Darm-Hirn-Achse, bei der Stress ein Triggerfaktor ist.',
+        'Die Alarmsymptome müssen aktiv und vollständig abgefragt werden; ihr Fehlen ist der Kern der Diagnose und muss in der Fallvorstellung explizit genannt werden.',
+        'Normale Befunde sind hier DER Befund — die Normalität von Blutbild, CRP, Calprotectin und Zöliakie-Serologie stützt die Diagnose.',
+        'Zöliakie-Serologie immer mit Gesamt-IgA bestimmen: Bei selektivem IgA-Mangel (bei Zöliakie gehäuft) ist die Transglutaminase-IgA falsch negativ.',
+        'Bei Erstmanifestation über 50 Jahre ist die Koloskopie obligat — ohne sie darf die Diagnose nicht gestellt werden.',
+        'Nicht überdiagnostizieren: Nicht jeder chronische Bauchschmerz ist ein Reizdarm (in der Prüfung wurde "Reizdarmsyndrom" geschrieben, obwohl eine Gastroenteritis vorlag).',
+        'Mikroskopische Kolitis nicht vergessen: endoskopisch unauffällige Schleimhaut, nur die Stufenbiopsie sichert sie.',
+        'Unlösliche Ballaststoffe (Weizenkleie) verschlechtern die Blähungen — nur lösliche Ballaststoffe wie Flohsamen empfehlen.',
+        'Amitriptylin beim Reizdarm nicht als "Antidepressivum" verkaufen, sondern als Neuromodulator in niedriger Dosis erklären, sonst fühlt sich der Patient nicht ernst genommen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose und warum sprechen wir von einer Ausschlussdiagnose?',
+          antwort: 'Ein Reizdarmsyndrom. Es ist eine Ausschlussdiagnose, weil es keinen beweisenden Test gibt: Die Rom-IV-Kriterien stellen die Diagnose positiv, aber erst nachdem Zöliakie, chronisch-entzündliche Darmerkrankung, kolorektales Karzinom, Kohlenhydratmalabsorption, Infektion und Hyperthyreose ausgeschlossen wurden.',
+        },
+        {
+          frage: 'Welche Rom-IV-Kriterien kennen Sie?',
+          antwort: 'Rezidivierende Bauchschmerzen an mindestens einem Tag pro Woche in den letzten drei Monaten, verbunden mit mindestens zwei von drei Kriterien: Zusammenhang mit der Defäkation, Änderung der Stuhlfrequenz oder Änderung der Stuhlform.',
+        },
+        {
+          frage: 'Was spricht gegen eine chronisch-entzündliche Darmerkrankung?',
+          antwort: 'Das Fehlen von Blut im Stuhl, von Fieber und von B-Symptomatik, ein stabiles Gewicht, keine nächtlichen Beschwerden, keine extraintestinalen Manifestationen sowie normales CRP und ein negatives fäkales Calprotectin.',
+        },
+        {
+          frage: 'Welche Laborbefunde erwarten Sie?',
+          antwort: 'Unauffällige Befunde: normales Blutbild ohne Anämie, normale Entzündungsparameter, normales TSH, negative Zöliakie-Serologie und negatives Calprotectin. Gerade diese Normalität stützt die Diagnose.',
+        },
+        {
+          frage: 'Warum sollten wir einen Test auf okkultes Blut im Stuhl veranlassen? Erklären Sie bitte das Verfahren.',
+          antwort: 'Um eine mit bloßem Auge nicht sichtbare Blutung, insbesondere aus einem Polypen oder Karzinom, aufzudecken. Heute wird der immunologische Test verwendet, der spezifisch menschliches Hämoglobin nachweist; der Patient bringt eine Stuhlprobe im Röhrchen mit, eine Diät ist nicht erforderlich. Ein positiver Test beweist nichts, er ist die Indikation zur Koloskopie.',
+        },
+        {
+          frage: 'Wie schließen Sie eine Zöliakie und eine Laktoseintoleranz aus?',
+          antwort: 'Die Zöliakie serologisch über Transglutaminase-IgA zusammen mit dem Gesamt-IgA, bei positivem Befund mit Duodenalbiopsien unter glutenhaltiger Kost. Die Laktoseintoleranz über den H2-Atemtest mit Laktose oder eine befristete Karenz mit anschließender Provokation.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Reizdarmsyndrom?',
+          antwort: 'Auf drei Ebenen: erstens Basistherapie mit ausführlicher Aufklärung, Ernährungsumstellung (FODMAP-arm, lösliche Ballaststoffe, Ernährungstagebuch), Bewegung und Stressreduktion; zweitens symptomorientierte Medikation nach Subtyp mit Spasmolytika und Pfefferminzöl, Macrogol bei Obstipation, Loperamid bei Diarrhoe, Probiotika bei Blähungen und niedrig dosiertem Amitriptylin bei therapierefraktären Schmerzen; drittens Psychotherapie und Entspannungsverfahren.',
+        },
+        {
+          frage: 'Ist das Colon irritabile eine psychosomatische Krankheit?',
+          antwort: 'So würde ich es nicht formulieren. Es ist eine funktionelle Störung der Darm-Hirn-Achse mit viszeraler Hypersensitivität und veränderter Motilität. Psychosozialer Stress ist ein wichtiger Trigger und Verstärker, aber nicht die Ursache; die Beschwerden der Patienten sind real.',
+        },
+        {
+          frage: 'Wie klären Sie über eine Koloskopie auf?',
+          antwort: 'Indikation, Vorbereitung mit Abführlösung und klarer Flüssigkeit, Ablauf in Linksseitenlage mit einem biegsamen Endoskop über den After, Dauer 20 bis 30 Minuten, Sedierung mit Propofol oder Midazolam mit anschließendem Fahrverbot für 24 Stunden, sowie die Risiken Blähungen, Blutung nach Polypenabtragung, sehr selten Perforation und Kreislaufreaktion auf die Sedierung.',
+        },
+        {
+          frage: 'Der Patient fragt, ob Marihuana helfen könnte — was antworten Sie?',
+          antwort: 'Ich reagiere wertfrei und nehme die Frage ernst, erkläre aber, dass Cannabis für das Reizdarmsyndrom nicht zugelassen ist, keinen gesicherten Nutzen zeigt und die Beschwerden sogar verstärken kann, und verweise auf die gut belegten Alternativen.',
+        },
+        {
+          frage: 'Was tun Sie, wenn der Patient zusätzlich 6 kg in vier Monaten abgenommen hat?',
+          antwort: 'Dann liegt ein Alarmsymptom vor und die Diagnose Reizdarmsyndrom ist nicht zulässig. Ich müsste zügig ein Malignom, eine chronisch-entzündliche Darmerkrankung, eine Zöliakie und eine Hyperthyreose abklären, mit dringlicher Koloskopie und ÖGD.',
+        },
+        {
+          frage: 'Ein Patient fragt: Was ist ein Reizdarmsyndrom?',
+          antwort: 'Patientengerecht: Ihr Darm ist nicht krank im Sinne einer Entzündung oder eines Tumors, aber er ist überempfindlich. Die Zusammenarbeit zwischen Darm und Nervensystem ist gestört, deshalb reagiert der Darm auf normale Reize wie Essen oder Stress mit Krämpfen, Blähungen und Stuhlveränderungen. Es ist gutartig und gut behandelbar.',
+        },
+      ],
+      merksatz: 'Reizdarm = Rom IV plus NULL Alarmsymptome. Der normale Befund IST der Befund — aber erst nach Ausschluss von Zöliakie, CED und Karzinom. Und niemals "psychosomatisch" sagen: funktionelle Störung der Darm-Hirn-Achse.',
+      linkedCaseIds: [
+        'case-reizdarm',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-gastroskopie',
+        'auf-sonographie',
+      ],
+    },
   ];
 }
