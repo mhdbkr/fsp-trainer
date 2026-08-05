@@ -3212,5 +3212,615 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-schlaganfall',
+      pathology: 'Ischämischer Schlaganfall (Hirninfarkt)',
+      specialty: 'Neurologie',
+      definition: 'Akut auftretendes fokal-neurologisches Defizit infolge einer umschriebenen Durchblutungsstörung des Gehirns. Beim ischämischen Schlaganfall (Hirninfarkt) führt ein Gefäßverschluss zur Minderperfusion mit Untergang von Hirngewebe. Persistiert das Defizit, spricht man vom Apoplex/Hirninfarkt; bilden sich die Symptome innerhalb von 24 Stunden vollständig zurück (meist < 1 h) ohne Nachweis eines Infarkts, handelt es sich um eine transitorische ischämische Attacke (TIA).',
+      aetiologie: 'Etwa 85 % der Schlaganfälle sind ischämisch, 15 % hämorrhagisch. Die ischämische Genese wird nach TOAST eingeteilt: makroangiopathisch (arteriosklerotische Stenosen, z. B. der A. carotis), kardioembolisch (v. a. Vorhofflimmern, seltener paradoxe Embolie bei persistierendem Foramen ovale), mikroangiopathisch (lakunäre Infarkte) sowie seltene und ungeklärte Ursachen.',
+      risikofaktoren: [
+        'Arterielle Hypertonie',
+        'Vorhofflimmern',
+        'Diabetes mellitus',
+        'Hyperlipidämie',
+        'Nikotinabusus',
+        'Höheres Lebensalter',
+        'Karotisstenose',
+        'Frühere TIA oder Schlaganfall',
+        'Adipositas / Bewegungsmangel',
+      ],
+      klinik: [
+        {
+          text: 'Akut aufgetretenes fokal-neurologisches Defizit, häufig als brachiofazial betonte Hemiparese',
+        },
+        {
+          text: 'Zentrale faziale Parese: hängender Mundwinkel bei ausgesparter Stirn',
+        },
+        {
+          text: 'Sprachstörung — Aphasie bei Betroffensein der dominanten Hemisphäre oder Dysarthrie',
+        },
+        {
+          text: 'Halbseitige Sensibilitätsstörung (Hypästhesie, Parästhesie)',
+        },
+        {
+          text: 'Gesichtsfeldausfall (homonyme Hemianopsie), Blickdeviation zum Herd',
+        },
+        {
+          text: 'Amaurosis fugax (kurzzeitige einseitige Erblindung) bei Karotisstenose',
+          atypisch: true,
+        },
+        {
+          text: 'Hinterkreislaufsymptome: Schwindel, Doppelbilder, Ataxie, Dysarthrie, gekreuzte Symptomatik',
+          atypisch: true,
+        },
+        {
+          text: 'Neglect und Anosognosie bei Infarkt der nicht-dominanten (meist rechten) Hemisphäre',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'TOAST',
+          inhalt: 'Ätiologische Einteilung des ischämischen Schlaganfalls: makroangiopathisch, kardioembolisch, mikroangiopathisch (lakunär), andere und ungeklärte Ursache.',
+        },
+        {
+          name: 'NIHSS',
+          inhalt: 'National Institutes of Health Stroke Scale (0–42): quantifiziert den Schweregrad des neurologischen Defizits und steuert Therapieentscheidung und Verlaufskontrolle.',
+        },
+        {
+          name: 'Oxford/Bamford (OCSP)',
+          inhalt: 'Klinische Syndrome nach betroffenem Territorium: TACI, PACI, LACI und POCI.',
+        },
+        {
+          name: 'modified Rankin Scale (mRS)',
+          inhalt: 'Erfasst den funktionellen Behinderungsgrad im Verlauf: 0 = symptomfrei bis 6 = Tod.',
+        },
+      ],
+      redFlags: [
+        'Akut aufgetretenes fokal-neurologisches Defizit — Zeitfenster beachten (time is brain), sofortige Bildgebung',
+        'Zunehmende Vigilanzminderung, Pupillendifferenz → drohende Einklemmung, maligner Mediainfarkt oder Basilaristhrombose',
+        'Plötzlicher Vernichtungskopfschmerz → eher Subarachnoidalblutung',
+        'Hypoglykämie als rasch behebbare Ursache eines fokalen Defizits (immer Blutzucker messen)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fremd-/Eigenanamnese mit Bestimmung des Zeitfensters (letzter beschwerdefreier Zeitpunkt, „last seen well"), FAST-Schema (Face-Arm-Speech-Time), orientierende neurologische Untersuchung und NIHSS',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Sofort Blutzucker (Hypoglykämie ausschließen!), Blutbild, Gerinnung (INR/aPTT vor Lyse), Elektrolyte, Nieren- und Leberwerte, Lipide, Troponin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Umgehend natives cCT zum Blutungsausschluss VOR jeder Lyse, ergänzt durch CT-Angiographie (Gefäßverschluss) und ggf. CT-Perfusion; alternativ MRT mit DWI zum Nachweis des Frühinfarkts',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG und Langzeit-EKG zur Detektion von Vorhofflimmern; Duplexsonographie der hirnversorgenden Arterien (Karotis); transthorakale/transösophageale Echokardiographie zur Emboliequellensuche',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Digitale Subtraktionsangiographie (DSA) im Rahmen der mechanischen Thrombektomie; TEE mit Bubble-Test bei Verdacht auf offenes Foramen ovale (paradoxe Embolie)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Intrazerebrale Blutung',
+          unterscheidung: 'Klinisch nicht vom Infarkt zu unterscheiden — nur per cCT/MRT abgrenzbar; zwingender Blutungsausschluss vor jeder Lyse.',
+        },
+        {
+          dd: 'Transitorische ischämische Attacke (TIA)',
+          unterscheidung: 'Vollständige Rückbildung der Symptome innerhalb von 24 h (meist < 1 h) ohne Infarktnachweis im DWI.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Niedriger Blutzucker, rasche Besserung nach Glukosegabe; imitiert fokale Defizite.',
+        },
+        {
+          dd: 'Epileptischer Anfall mit Todd-Parese',
+          unterscheidung: 'Vorangehendes Anfallsereignis, postiktale passagere Parese, Rückbildung über Stunden.',
+        },
+        {
+          dd: 'Migräne mit Aura (migraine accompagnée)',
+          unterscheidung: 'Langsam wandernde, ausbreitende Symptomatik, häufig mit Kopfschmerz, eher jüngere Patienten.',
+        },
+        {
+          dd: 'Hirntumor / Raumforderung',
+          unterscheidung: 'Meist langsam progrediente Symptomatik; Nachweis in der Bildgebung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutphase (Notfall)',
+          items: [
+            'Aufnahme auf die Stroke Unit mit kontinuierlichem Monitoring von Blutdruck, Herzrhythmus, Sauerstoffsättigung, Blutzucker und Temperatur',
+            'Intravenöse Thrombolyse mit rtPA (Alteplase) innerhalb des 4,5-Stunden-Zeitfensters — erst nach zwingendem Blutungsausschluss im cCT',
+            'Mechanische Thrombektomie bei großem Gefäßverschluss der vorderen Zirkulation (bis 6 h, in ausgewählten Fällen bis 24 h nach Perfusionsbildgebung)',
+            'Vorsichtige Blutdruckführung (permissive Hypertonie), Blutzucker- und Temperaturkontrolle, frühe Schluckdiagnostik zur Aspirationsprophylaxe',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Sekundärprophylaxe',
+          items: [
+            'Bei Vorhofflimmern: orale Antikoagulation (DOAK oder Vitamin-K-Antagonist/Marcumar) — kein alleiniger Thrombozytenaggregationshemmer',
+            'Bei nicht-kardioembolischer Genese: Thrombozytenaggregationshemmer (ASS, alternativ Clopidogrel)',
+            'Statin, konsequente Einstellung von Blutdruck und Diabetes, Nikotin- und Alkoholkarenz',
+            'Bei symptomatischer Karotisstenose: Karotis-Thrombendarteriektomie (TEA) oder Stenting',
+          ],
+        },
+        {
+          label: 'Rehabilitation',
+          items: [
+            'Frührehabilitation mit Physiotherapie, Ergotherapie und Logopädie',
+            'Prävention und Behandlung von Komplikationen (Aspiration, Dekubitus, Thrombose, Post-Stroke-Depression)',
+            'Anschlussheilbehandlung und Schulung zur Sekundärprävention',
+          ],
+        },
+      ],
+      prognose: 'Entscheidend ist die Zeit bis zur Rekanalisation („time is brain"): je früher Lyse bzw. Thrombektomie, desto besser das funktionelle Ergebnis. Die Prognose hängt von Infarktgröße, Lokalisation, initialem NIHSS und Komplikationen ab; ohne konsequente Sekundärprophylaxe besteht ein hohes Rezidivrisiko.',
+      pruefungsfallen: [
+        'Vor jeder Lyse zwingend eine intrazerebrale Blutung per cCT ausschließen — Blutung und Infarkt sind klinisch nicht zu unterscheiden.',
+        'Immer sofort den Blutzucker messen: eine Hypoglykämie kann einen Schlaganfall vortäuschen.',
+        'FAST-Schema (Face-Arm-Speech-Time) nicht mit dem peripheren Fazialistest (Stirnrunzeln, Lidschluss) verwechseln — bei zentraler Fazialisparese bleibt die Stirn verschont.',
+        'Bei beim Aufwachen bemerkten Symptomen nach dem letzten beschwerdefreien Zeitpunkt („last seen well") fragen, nicht nach dem Bemerken.',
+        'Bei Vorhofflimmern gehört eine orale Antikoagulation zur Sekundärprophylaxe — ASS allein ist unzureichend.',
+        'Stationäre Aufnahme auf die Stroke Unit und neurologisches Konsil anmelden; Emboliequellensuche mit EKG/Langzeit-EKG, Karotis-Doppler und Echokardiographie nicht vergessen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist der Unterschied zwischen einer TIA und einem Apoplex?',
+          antwort: 'Bei der TIA bilden sich die fokal-neurologischen Symptome vollständig innerhalb von 24 Stunden (meist unter einer Stunde) zurück und es zeigt sich kein Infarkt im DWI; beim Apoplex/Hirninfarkt persistiert das Defizit und es liegt ein umschriebener Gewebeuntergang vor.',
+        },
+        {
+          frage: 'Was ist die wahrscheinlichste Ursache eines embolischen Schlaganfalls?',
+          antwort: 'Ein Vorhofflimmern als kardioembolische Quelle.',
+        },
+        {
+          frage: 'Welche Sofortmaßnahmen ergreifen Sie?',
+          antwort: 'Vitalparameter und ABCDE, i.v.-Zugang, sofort Blutzucker, umgehend natives cCT mit CT-Angiographie zum Blutungsausschluss, Labor mit Gerinnung, EKG, Aufnahme auf die Stroke Unit und neurologisches Konsil.',
+        },
+        {
+          frage: 'Wie lautet das Zeitfenster für die intravenöse Thrombolyse?',
+          antwort: 'Bis 4,5 Stunden nach Symptombeginn; die mechanische Thrombektomie bei großem Gefäßverschluss ist bis 6, in ausgewählten Fällen bis 24 Stunden möglich.',
+        },
+        {
+          frage: 'Was besagt das FAST-Schema?',
+          antwort: 'Face (hängender Mundwinkel), Arm (Armschwäche), Speech (Sprachstörung), Time (Zeit / sofort Notruf) — ein einfaches Screening auf einen Schlaganfall.',
+        },
+        {
+          frage: 'Was versteht man unter einer paradoxen Embolie?',
+          antwort: 'Bei persistierendem Foramen ovale kann ein venöser Thrombus durch den Rechts-Links-Shunt in den arteriellen Kreislauf und ins Hirngefäß gelangen.',
+        },
+        {
+          frage: 'Welche Therapie ist bei Vorhofflimmern zur Sekundärprophylaxe angezeigt?',
+          antwort: 'Eine orale Antikoagulation mit einem DOAK oder einem Vitamin-K-Antagonisten (Marcumar), nicht ein alleiniger Thrombozytenaggregationshemmer.',
+        },
+      ],
+      merksatz: '„Time is brain" — jedes akute fokale Defizit ist ein Schlaganfall bis zum Beweis des Gegenteils: sofort cCT zum Blutungsausschluss, dann Lyse im Zeitfenster.',
+      linkedCaseIds: [
+        'case-schlaganfall',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-gallenkolik',
+      pathology: 'Cholelithiasis mit Gallenkolik',
+      specialty: 'Chirurgie',
+      definition: 'Vorhandensein von Konkrementen (Steinen) im Gallensystem. Cholezystolithiasis = Steine in der Gallenblase, Choledocholithiasis = Steine im Ductus choledochus. Die Gallenkolik ist der durch einen im Gallenblasenhals oder Ductus cysticus eingeklemmten Stein ausgelöste, wellenförmige (kolikartige), krampfartige rechtsseitige Oberbauchschmerz. Zu unterscheiden ist die reine (unkomplizierte) Kolik von den Komplikationen: akute Cholezystitis, Choledocholithiasis mit Cholestase/Ikterus, biliäre Pankreatitis und Cholangitis.',
+      aetiologie: 'Ursache ist eine Störung des Gleichgewichts der Gallenbestandteile: Übersättigung der Galle mit Cholesterin führt zu Cholesterinsteinen (ca. 80 %, häufig gemischt), eine vermehrte Bilirubinbelastung (Hämolyse, Infektion) zu Pigmentsteinen. Die Kolik entsteht durch temporäre Einklemmung eines Steins mit reflektorischer Kontraktion der glatten Muskulatur gegen den Widerstand; löst sich der Stein, endet die Kolik. Persistierende Obstruktion führt zu Komplikationen.',
+      risikofaktoren: [
+        '6 F: female (weiblich), fat (adipös), forty (~40 Jahre), fertile (fruchtbar/Multiparität), fair (hellhäutig/blond), family (positive Familienanamnese)',
+        'Rasche Gewichtsabnahme und Fastenkuren',
+        'Schwangerschaft, Östrogene und orale Kontrazeptiva',
+        'Hypercholesterinämie / Hypertriglyzeridämie',
+        'Diabetes mellitus',
+        'Leberzirrhose und Hämolyse (Pigmentsteine)',
+        'Fettreiche, ballaststoffarme Ernährung',
+      ],
+      klinik: [
+        {
+          text: 'Wellenförmig-kolikartiger, krampfartiger Schmerz im rechten Oberbauch/Epigastrium, Minuten bis mehrere Stunden anhaltend',
+        },
+        {
+          text: 'Auslösung typischerweise nach fettreichem Essen, häufig abends oder nachts',
+        },
+        {
+          text: 'Ausstrahlung in die rechte Schulter, das rechte Schulterblatt und den Rücken (Head-Zone)',
+        },
+        {
+          text: 'Begleitend Übelkeit, Erbrechen, Meteorismus und Völlegefühl',
+        },
+        {
+          text: 'Bewegungsdrang und Unruhe (im Gegensatz zur Schonhaltung bei Peritonitis)',
+        },
+        {
+          text: 'Zwischen den Attacken Beschwerdefreiheit bei unkomplizierter Kolik',
+        },
+        {
+          text: 'Asymptomatische (stumme) Gallensteine als Zufallsbefund sind sehr häufig',
+          atypisch: true,
+        },
+        {
+          text: 'Bei älteren Menschen und Diabetikern können Komplikationen schmerzarm verlaufen',
+          atypisch: true,
+        },
+        {
+          text: 'Maskierung als inferiorer (Hinterwand-)Myokardinfarkt möglich',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Steintypen',
+          inhalt: 'Cholesterinsteine (ca. 80 %, oft gemischt, röntgennegativ, im Sono echoreich mit Schallschatten) vs. Pigmentsteine (Bilirubinsteine bei Hämolyse/Infektion).',
+        },
+        {
+          name: 'Lokalisation / Terminologie',
+          inhalt: 'Cholezystolithiasis = Steine in der Gallenblase; Choledocholithiasis = Steine im Ductus choledochus (Cholestase, Ikterus). Wichtig für Therapieweg (Cholezystektomie vs. ERCP).',
+        },
+        {
+          name: 'Charcot-Trias / Reynolds-Pentade',
+          inhalt: 'Charcot-Trias der Cholangitis: rechtsseitiger Oberbauchschmerz + Fieber/Schüttelfrost + Ikterus. Erweiterung zur Reynolds-Pentade um Hypotonie und Bewusstseinstrübung (septischer Verlauf).',
+        },
+      ],
+      redFlags: [
+        'Anhaltender Dauerschmerz mit Fieber, Schüttelfrost und Abwehrspannung → akute Cholezystitis',
+        'Ikterus, dunkler Urin und entfärbter (acholischer) Stuhl → Choledocholithiasis mit Cholestase',
+        'Charcot-Trias (Schmerz + Fieber + Ikterus) → akute Cholangitis (Notfall)',
+        'Gürtelförmiger Oberbauchschmerz mit Lipase-Erhöhung → biliäre Pankreatitis',
+        'Bretthartes Abdomen / Peritonismus → Gallenblasenperforation oder -empyem',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: kolikartiger Schmerz nach fettreichem Essen, Ausstrahlung rechte Schulter/Rücken, frühere Episoden; gezielt nach Ikterus, dunklem Urin, hellem Stuhl und Fieber fragen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Druckschmerz im rechten Oberbauch, Murphy-Zeichen; Courvoisier-Zeichen und Ikterus-Prüfung bei Cholestaseverdacht; Vitalparameter',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Labor: Blutbild und CRP (Entzündung), Cholestasewerte GGT, AP und Bilirubin (gesamt/direkt), Transaminasen; Lipase zum Ausschluss einer biliären Pankreatitis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Ikterus und zum Ausschluss eines Malignoms Tumormarker CA 19-9 und AFP',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomen-Sonographie (Goldstandard): Steinnachweis mit Schallschatten, Wandverdickung/Dreischichtung, Gangstau bzw. erweiterter Ductus choledochus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRCP oder Endosonographie bei Verdacht auf Choledocholithiasis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ERCP mit Papillotomie und Steinextraktion — therapeutisch bei nachgewiesener Choledocholithiasis',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akute Cholezystitis',
+          unterscheidung: 'Dauerschmerz statt Kolik, Fieber, Schüttelfrost, Leukozytose/CRP-Anstieg, Murphy-Zeichen positiv.',
+        },
+        {
+          dd: 'Choledocholithiasis',
+          unterscheidung: 'Ikterus, dunkler Urin, entfärbter Stuhl, Cholestasewerte (GGT/AP/Bilirubin) erhöht.',
+        },
+        {
+          dd: 'Biliäre Pankreatitis',
+          unterscheidung: 'Gürtelförmige Ausstrahlung in den Rücken, Lipase mehr als dreifach erhöht.',
+        },
+        {
+          dd: 'Akute Cholangitis',
+          unterscheidung: 'Charcot-Trias: Schmerz + Fieber + Ikterus; septischer Verlauf möglich.',
+        },
+        {
+          dd: 'Ulcus ventriculi/duodeni',
+          unterscheidung: 'Epigastrischer, nüchtern- oder essensabhängiger Schmerz, kein Ausstrahlungsmuster in die Schulter; Nachweis per ÖGD.',
+        },
+        {
+          dd: 'Rechtsseitige Nierenkolik (Urolithiasis)',
+          unterscheidung: 'Flankenschmerz mit Ausstrahlung in Leiste/Genitale, Mikrohämaturie, Klopfschmerz Nierenlager.',
+        },
+        {
+          dd: 'Inferiorer (Hinterwand-)Myokardinfarkt',
+          unterscheidung: 'Kardiale Risikofaktoren, EKG-Veränderungen, Troponin-Anstieg — bei rechtsseitigem Oberbauchschmerz mitbedenken.',
+        },
+        {
+          dd: 'Retrozökale Appendizitis',
+          unterscheidung: 'Schmerzwanderung, McBurney/Lanz, Fieber, tiefer rechtsseitiger Druckschmerz.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomatisch (Akut)',
+          items: [
+            'Nahrungskarenz und intravenöse Flüssigkeitsgabe',
+            'Analgesie mit Metamizol (Novalgin) i.v.',
+            'Spasmolyse mit Butylscopolamin (Buscopan) i.v.',
+            'Bei stärksten Schmerzen Pethidin; klassisches Morphin klassischerweise meiden wegen Kontraktion des Sphinkter Oddi',
+            'Antiemetikum (z. B. Metoclopramid) bei Übelkeit/Erbrechen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Kausal',
+          items: [
+            'Elektive bzw. frühelektive laparoskopische Cholezystektomie bei symptomatischer Cholezystolithiasis',
+            'Fettarme Kost und Ernährungsberatung bis zur Operation',
+            'Asymptomatische Gallensteine: keine OP-Indikation — Ausnahmen: Porzellangallenblase, Steine > 3 cm, erhöhtes Karzinomrisiko',
+          ],
+        },
+        {
+          label: 'Bei Komplikation',
+          items: [
+            'Akute Cholezystitis: Antibiotikatherapie und frühe laparoskopische Cholezystektomie',
+            'Choledocholithiasis: ERCP mit Papillotomie und Steinextraktion, anschließend Cholezystektomie',
+            'Biliäre Pankreatitis / Cholangitis: stationäre bzw. intensivmedizinische Therapie und dringliche ERCP',
+          ],
+        },
+      ],
+      prognose: 'Bei unkomplizierter, rechtzeitig operierter symptomatischer Cholelithiasis sehr gut. Ohne Therapie Rezidivkolik und Komplikationen (Cholezystitis, Choledocholithiasis, biliäre Pankreatitis, Cholangitis, selten Gallenblasenkarzinom). Nach Cholezystektomie können bei zuvor bestehender Choledocholithiasis erneut Steine im Ductus choledochus auftreten.',
+      pruefungsfallen: [
+        'Reine Gallenkolik (wellenförmig, kein Fieber, beschwerdefreie Intervalle) klar von der akuten Cholezystitis (Dauerschmerz + Fieber + Entzündungszeichen) trennen.',
+        'Bei jeder Kolik aktiv nach Ikterus, dunklem Urin und hellem Stuhl fragen (Choledocholithiasis) und Lipase bestimmen (biliäre Pankreatitis).',
+        'Kein klassisches Morphin bei der Kolik (Sphinkter-Oddi-Tonus); zudem auf eine Metamizol-(Novalgin-)Allergie achten.',
+        'Asymptomatische Gallensteine werden nicht operiert — Cholezystektomie erst bei Symptomen/Komplikationen.',
+        'Rechtsseitiger Oberbauchschmerz kann ein inferiorer Myokardinfarkt sein — EKG nicht vergessen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was bedeutet es, wenn ein Wort auf -itis endet?',
+          antwort: 'Es bezeichnet eine Entzündung; Cholezystitis ist also die Entzündung der Gallenblase, im Unterschied zur Cholezystolithiasis (Steine ohne Entzündung).',
+        },
+        {
+          frage: 'Welches Medikament haben Sie verabreicht und warum?',
+          antwort: 'Metamizol als Nicht-Opioid-Analgetikum kombiniert mit dem Spasmolytikum Butylscopolamin, weil der kolikartige Schmerz durch Krämpfe der glatten Muskulatur entsteht; klassisches Morphin wird gemieden, da es den Sphinkter Oddi kontrahiert.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Cholezystitis von einer Cholezystolithiasis?',
+          antwort: 'Bei der Cholezystitis bestehen Fieber, Schüttelfrost, ein Dauerschmerz, ein positives Murphy-Zeichen und erhöhte Entzündungswerte (Leukozytose, CRP); die reine Cholezystolithiasis verläuft kolikartig ohne Entzündungszeichen.',
+        },
+        {
+          frage: 'Kann man die Steine im Sono sehen?',
+          antwort: 'Ja, die Abdomen-Sonographie ist der Goldstandard; Cholesterinsteine stellen sich echoreich mit dorsalem Schallschatten dar.',
+        },
+        {
+          frage: 'Welche Tumormarker bestimmen Sie zum Ausschluss eines Malignoms?',
+          antwort: 'CA 19-9 (Gallenwegs-/Pankreaskarzinom) und AFP (hepatozelluläres Karzinom).',
+        },
+        {
+          frage: 'Ist das hepatozelluläre Karzinom eine Erbkrankheit?',
+          antwort: 'Nein, es ist keine klassische Erbkrankheit; Hauptrisikofaktoren sind Leberzirrhose sowie chronische Hepatitis B und C.',
+        },
+        {
+          frage: 'Wie entsteht eine Pankreatitis durch Cholelithiasis?',
+          antwort: 'Ein Stein verlegt die Papilla Vateri am gemeinsamen Endabschnitt von Ductus choledochus und Ductus pancreaticus; der Sekretrückstau aktiviert die Pankreasenzyme und löst die Selbstverdauung aus.',
+        },
+        {
+          frage: 'Was machen Sie, wenn im Sono kein Stein sichtbar ist, die Klinik aber typisch ist?',
+          antwort: 'Bei typischer symptomatischer Klinik erfolgt dennoch die weitere Abklärung (Endosonographie/MRCP) und ggf. die Cholezystektomie; kleine Steine und Sludge können sonographisch entgehen.',
+        },
+      ],
+      merksatz: '6 F (weiblich, fett, vierzig, fruchtbar, hell, familiär): bei symptomatischer Cholelithiasis Cholezystektomie — die Kolik selbst mit Metamizol und Butylscopolamin behandeln, nicht mit klassischem Morphin.',
+      linkedCaseIds: [
+        'case-gallenkolik',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-tvt',
+      pathology: 'Tiefe Beinvenenthrombose (TVT)',
+      specialty: 'Kardiologie',
+      definition: 'Teilweiser oder vollständiger thrombotischer Verschluss einer tiefen Vene, meist der Bein- und Beckenvenen (v. a. Unterschenkel-, Poplitea-, Femoral- und Beckenvenen). Hauptgefahr ist die Lungenembolie durch Verschleppung des Thrombus; Spätfolge ist das postthrombotische Syndrom.',
+      aetiologie: 'Pathogenetisch erklärt durch die Virchow-Trias: Endothelschädigung, venöse Stase (Immobilisation) und Hyperkoagulabilität. Auslöser sind häufig Immobilisation (lange Reise, Operation, Gipsverband), hormonelle Faktoren (Östrogenpille, Schwangerschaft), Malignome und angeborene Thrombophilien (z. B. Faktor-V-Leiden-Mutation).',
+      risikofaktoren: [
+        'Immobilisation (langer Flug/lange Reise, Bettlägerigkeit, Operation, Gipsverband)',
+        'Orale Kontrazeptiva (Östrogene), Schwangerschaft und Wochenbett',
+        'Malignom (paraneoplastische Hyperkoagulabilität)',
+        'Angeborene Thrombophilie (Faktor-V-Leiden, Prothrombin-Mutation, Protein-C/-S-Mangel)',
+        'Frühere TVT oder Lungenembolie',
+        'Varikosis / chronisch-venöse Insuffizienz',
+        'Nikotinabusus',
+        'Adipositas',
+        'Höheres Lebensalter',
+        'Exsikkose',
+      ],
+      klinik: [
+        {
+          text: 'Einseitig geschwollenes Bein mit tastbarer Umfangsdifferenz im Seitenvergleich',
+        },
+        {
+          text: 'Überwärmung, rötlich-livide Verfärbung und Spannungsgefühl der betroffenen Extremität',
+        },
+        {
+          text: 'Ziehender Wadenschmerz und Schweregefühl, verstärkt beim Gehen und Stehen',
+        },
+        {
+          text: 'Klinische (unspezifische) Zeichen: Homans-Zeichen (Wadenschmerz bei Dorsalflexion des Fußes), Meyer-Zeichen (Wadenkompressionsschmerz), Payr-Zeichen (Fußsohlendruckschmerz)',
+        },
+        {
+          text: 'Glänzende Haut und vermehrte Venenzeichnung (Prattsche Warnvenen)',
+        },
+        {
+          text: 'Häufig oligo- oder asymptomatischer Verlauf — bis zu 50 % klinisch stumm; Erstmanifestation kann eine Lungenembolie sein',
+          atypisch: true,
+        },
+        {
+          text: 'Phlegmasia coerulea dolens: massive Schwellung mit Zyanose und drohender Gangrän — absoluter Notfall',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Wells-Score (TVT)',
+          inhalt: 'Klinischer Score zur Vortestwahrscheinlichkeit (u. a. aktives Malignom, Immobilisation/OP, einseitige Schwellung > 3 cm, Ödem, Kollateralvenen, frühere TVT). Niedrige Wahrscheinlichkeit + negativer D-Dimer schließt eine TVT weitgehend aus; hohe Wahrscheinlichkeit → direkt Kompressionssonographie.',
+        },
+        {
+          name: 'Lokalisationstypen',
+          inhalt: 'Nach Ausdehnung: distale (Unterschenkel-)TVT vs. proximale (popliteale, femorale, iliakale) TVT; Mehretagenthrombose bei ausgedehntem Befall. Proximale und deszendierende Becken-/Beinvenenthrombosen haben ein höheres Embolierisiko.',
+        },
+      ],
+      redFlags: [
+        'Plötzliche Dyspnoe, atemabhängiger Thoraxschmerz, Tachykardie, Husten oder Hämoptyse → Verdacht auf Lungenembolie',
+        'Synkope oder Kreislaufinstabilität → fulminante Lungenembolie',
+        'Massive Schwellung mit Zyanose und starkem Schmerz → Phlegmasia coerulea dolens (drohende venöse Gangrän)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese mit gezielter Frage nach Auslösern (langer Flug/Immobilisation, Östrogenpille, früherer Thrombose, familiärer Thrombophilie) und aktiver Abfrage von Lungenembolie-Zeichen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Inspektion (einseitige Schwellung, Rötung, livide Verfärbung), seitenvergleichende Umfangmessung, Homans-/Meyer-/Payr-Zeichen (unspezifisch), Palpation der Fußpulse zur Abgrenzung einer pAVK, Vitalparameter',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Wells-Score zur Bestimmung der klinischen Vortestwahrscheinlichkeit',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimer: hoher negativer prädiktiver Wert — bei niedriger Wahrscheinlichkeit und negativem Wert ist eine TVT nahezu ausgeschlossen; unspezifisch bei Erhöhung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP, Gerinnung (Quick/INR, aPTT) und Nierenwerte (vor Antikoagulation zur Substanz- und Dosiswahl)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kompressions-/Duplexsonographie der Beinvenen (Goldstandard): fehlende Komprimierbarkeit der Vene als Nachweis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Verdacht auf Lungenembolie CT-Angiographie des Thorax; ggf. Phlebographie bei unklarem Befund',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei unprovozierter TVT alters- und geschlechtsgerechte Tumorsuche; erweiterte Thrombophilie-Diagnostik (Faktor-V-Leiden u. a.) bei jungen Patienten, Rezidiv oder positiver Familienanamnese',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Rupturierte Baker-Zyste',
+          unterscheidung: 'Plötzlicher Schmerz in der Kniekehle mit Unterschenkelschwellung; sonographisch Zystennachweis, Vene komprimierbar.',
+        },
+        {
+          dd: 'Erysipel / Zellulitis',
+          unterscheidung: 'Scharf begrenzte, hochrote, überwärmte Hautrötung mit Fieber und Schüttelfrost, oft Eintrittspforte; entzündungsbetont statt schwellungsbetont.',
+        },
+        {
+          dd: 'Muskelfaserriss / Hämatom',
+          unterscheidung: 'Akutes Trauma bzw. abrupter Belastungsschmerz in der Anamnese, umschriebene Druckdolenz, ggf. sichtbares Hämatom.',
+        },
+        {
+          dd: 'Chronisch-venöse Insuffizienz',
+          unterscheidung: 'Beidseitige, langsam progrediente Ödeme mit Stauungsdermatitis und Varizen; keine akute einseitige Schwellung.',
+        },
+        {
+          dd: 'Lymphödem',
+          unterscheidung: 'Chronische, teigige, nicht eindrückbare Schwellung mit Zehenbeteiligung (Stemmer-Zeichen positiv), keine Überwärmung oder Rötung.',
+        },
+        {
+          dd: 'Periphere arterielle Verschlusskrankheit (pAVK)',
+          unterscheidung: 'Genau gegenteilig — blasses, kühles Bein mit abgeschwächten/fehlenden Pulsen und belastungsabhängigem Schmerz; einfach durch Pulstasten abzugrenzen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Antikoagulation',
+          akut: true,
+          items: [
+            'Sofortige therapeutische Antikoagulation bereits bei hoher klinischer Wahrscheinlichkeit (noch vor Bildgebung)',
+            'Akut: DOAK (z. B. Rivaroxaban, Apixaban) oder gewichtsadaptiertes niedermolekulares Heparin (NMH) s. c.; alternativ Fondaparinux s. c. oder unfraktioniertes Heparin i. v. mit aPTT-Steuerung (bei Niereninsuffizienz)',
+            'Erhaltungstherapie mit DOAK oder Vitamin-K-Antagonist (Phenprocoumon/Marcumar, Ziel-INR 2–3) mit überlappendem Bridging',
+            'Therapiedauer nach Ursache: provozierte TVT mind. 3 Monate, unprovozierte/rezidivierende TVT 6 Monate bis dauerhaft, bei aktivem Malignom langfristig',
+            'Vor Beginn Blutungsrisiko und Nierenfunktion prüfen',
+          ],
+        },
+        {
+          label: 'Kompressionstherapie',
+          items: [
+            'Initial Kompressionsverband, nach Abschwellung medizinische Kompressionsstrümpfe (Klasse II)',
+            'Ziel: Beschwerdelinderung und Prophylaxe des postthrombotischen Syndroms',
+          ],
+        },
+        {
+          label: 'Mobilisation & Allgemeinmaßnahmen',
+          items: [
+            'Frühe Mobilisation — keine strikte Bettruhe mehr',
+            'Hochlagern des betroffenen Beins und ausreichende Analgesie',
+            'Ausschalten von Auslösern: Absetzen der Östrogenpille, Umstellung der Kontrazeption',
+            'Patientenschulung, ausreichende Hydratation, Bewegungsübungen bei langen Reisen als Rezidivprophylaxe',
+          ],
+        },
+        {
+          label: 'Interventionell (bei ausgedehnter TVT)',
+          items: [
+            'Bei ausgedehnter deszendierender Becken-/Oberschenkelvenenthrombose oder Phlegmasia coerulea dolens: kathetergestützte Thrombolyse oder Thrombektomie',
+            'Vena-cava-Filter nur bei absoluter Kontraindikation gegen eine Antikoagulation oder Rezidiv trotz suffizienter Antikoagulation',
+          ],
+        },
+      ],
+      prognose: 'Unter suffizienter Antikoagulation günstig. Hauptrisiko der akuten Phase ist die Lungenembolie; häufigste Spätfolge ist das postthrombotische Syndrom mit chronischer Schwellung, Schmerz und Ulcus cruris. Rezidivrisiko besonders bei unprovozierter TVT und persistierenden Risikofaktoren (Thrombophilie, Malignom).',
+      pruefungsfallen: [
+        'Frage nach einer FRÜHEREN Thrombose/Lungenembolie vergessen — ein Prüfer hat dies ausdrücklich als \'sehr wichtig in diesem Fall\' bemängelt.',
+        'Auslöser nicht herausgearbeitet: langer Flug/Immobilisation UND Östrogenpille müssen aktiv erfragt werden.',
+        'Familiäre Thrombophilie (Faktor-V-Leiden) nicht abgefragt — bei jungen Patienten und positiver Familienanamnese zentral.',
+        'Lungenembolie als Komplikation nicht aktiv abgefragt (Dyspnoe, Thoraxschmerz, Herzrasen, Hämoptyse) — die entscheidende Gefahr.',
+        'pAVK als DD nicht abgegrenzt — einfache Unterscheidung durch seitenvergleichendes Tasten der Fußpulse.',
+        'D-Dimer als Ausschluss überschätzt: nur bei niedriger Vortestwahrscheinlichkeit aussagekräftig; die Kompressionssonographie ist der Goldstandard.',
+        'Antikoagulationsdauer falsch: 3 Monate bei provozierter, länger/dauerhaft bei unprovozierter TVT oder Malignom.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was spricht bei dieser Patientin für eine TVT?',
+          antwort: 'Die einseitig geschwollene, überwärmte, gerötete und schmerzhafte rechte Wade mit Spannungsgefühl, der zeitliche Zusammenhang mit einem langen Flug und die Einnahme der Östrogenpille.',
+        },
+        {
+          frage: 'Welche Risikofaktoren hat die Patientin?',
+          antwort: 'Immobilisation durch den zwölfstündigen Flug aus Bangkok, orale Kontrazeptiva, Varikosis, Nikotinkonsum, arterielle Hypertonie sowie eine familiäre Gerinnungsstörung des Vaters.',
+        },
+        {
+          frage: 'Welche klinischen Zeichen prüfen Sie bei der Untersuchung?',
+          antwort: 'Homans-Zeichen (Wadenschmerz bei Dorsalflexion), Meyer-Zeichen (Wadenkompressionsschmerz) und Payr-Zeichen (Fußsohlendruckschmerz); sie sind allerdings unspezifisch. Zusätzlich seitenvergleichende Umfangmessung.',
+        },
+        {
+          frage: 'Was bestimmen Sie im Labor und warum?',
+          antwort: 'Den D-Dimer wegen des hohen negativen prädiktiven Werts sowie die Gerinnung; bei jungem Alter und positiver Familienanamnese eine Thrombophilie-Diagnostik auf eine Faktor-V-Leiden-Mutation.',
+        },
+        {
+          frage: 'Welche bildgebende Untersuchung ist der Goldstandard?',
+          antwort: 'Die Kompressions- bzw. Duplexsonographie der Beinvenen; die fehlende Komprimierbarkeit der Vene beweist die Thrombose.',
+        },
+        {
+          frage: 'Welche gefährliche Komplikation müssen Sie ausschließen?',
+          antwort: 'Die Lungenembolie — ich frage aktiv nach Dyspnoe, atemabhängigem Thoraxschmerz, Herzrasen, Husten und Hämoptyse; bei Verdacht folgt eine CT-Angiographie.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine TVT von einer pAVK bei der Untersuchung?',
+          antwort: 'Durch seitenvergleichendes Tasten der Fußpulse: bei der TVT sind sie erhalten, das Bein ist warm und geschwollen; bei der pAVK ist das Bein blass und kühl mit abgeschwächten oder fehlenden Pulsen.',
+        },
+        {
+          frage: 'Wie lange muss antikoaguliert werden?',
+          antwort: 'Bei provozierter TVT mindestens drei Monate; bei unprovozierter oder rezidivierender TVT sechs Monate bis dauerhaft; bei aktivem Malignom langfristig.',
+        },
+      ],
+      merksatz: 'Einseitig geschwollenes, warmes, schmerzhaftes Bein nach langem Flug + Pille = an TVT denken — Wells-Score, D-Dimer, Kompressionssono, sofort antikoagulieren und immer aktiv nach Lungenembolie fragen.',
+      linkedCaseIds: [
+        'case-tvt',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
   ];
 }
