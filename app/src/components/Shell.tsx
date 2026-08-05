@@ -61,7 +61,7 @@ function TopBar() {
   if (pathname === '/') return null;
   const section = pathname.split('/')[1] ?? '';
   return (
-    <div className="sticky top-0 z-20 border-b border-slate-200 bg-paper/80 px-4 py-2 backdrop-blur-md md:px-8 dark:border-ink-600 dark:bg-ink/80">
+    <div className="glass glass-edge sticky top-0 z-20 border-x-0 border-t-0 px-4 py-2 md:px-8">
       <div className="mx-auto flex max-w-6xl items-center gap-2">
         <button onClick={() => navigate(-1)} title="Page précédente" className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-brand-400 hover:text-brand-600 active:scale-95 dark:border-ink-600 dark:text-slate-300">← Retour</button>
         <button onClick={() => navigate(1)} title="Page suivante" className="rounded-lg border border-slate-200 px-2 py-1.5 text-xs text-slate-500 transition-colors hover:border-brand-400 active:scale-95 dark:border-ink-600">→</button>

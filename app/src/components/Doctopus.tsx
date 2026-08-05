@@ -76,7 +76,7 @@ export function Doctopus() {
         <>
           {/* Capteur de clic extérieur — sans voile (popover, pas modale) */}
           <button aria-hidden tabIndex={-1} onClick={() => closeDoctopus()} className="fixed inset-0 z-[60] cursor-default" />
-          <aside className="fixed bottom-[5.75rem] right-6 z-[70] flex max-h-[74vh] w-[min(384px,calc(100vw-2rem))] origin-bottom-right animate-pop flex-col overflow-hidden rounded-3xl border border-white/60 bg-white/85 shadow-2xl shadow-slate-900/15 backdrop-blur-2xl dark:border-white/10 dark:bg-ink-800/90">
+          <aside className="glass glass-edge fixed bottom-[5.75rem] right-6 z-[70] flex max-h-[74vh] w-[min(384px,calc(100vw-2rem))] origin-bottom-right animate-pop flex-col overflow-hidden rounded-3xl">
             {/* En-tête */}
             <div className="flex items-center justify-between gap-2 border-b border-slate-200/70 px-4 py-3 dark:border-white/10">
               <div className="flex items-center gap-2.5">

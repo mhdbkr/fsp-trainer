@@ -144,6 +144,69 @@ h1, h2, h3 {
 
   /* Touche clavier (palette ⌘K, raccourcis). */
   .kbd { @apply inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1 font-mono text-[10px] leading-4 text-slate-500 dark:border-ink-600 dark:bg-ink-700 dark:text-slate-300; }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     LIQUID GLASS — traduction web du matériau Apple (WWDC25), portée à la
+     charte « instrument clinique ». RÈGLE : le verre n'habille QUE la couche
+     navigation (sidebar, topbar, dock, FAB) — JAMAIS le contenu (fiches,
+     listes, texte). Le verre ne s'échantillonne pas lui-même : un seul plan
+     de verre par zone, pas d'empilement.
+     Signatures reproduites : translucidité + flou + saturation (réfraction),
+     liseré spéculaire sur le bord supérieur, profondeur flottante, teinte
+     pétrole optionnelle. Accessibilité : dégrade en opaque si l'utilisateur
+     réduit la transparence ou si le navigateur n'a pas backdrop-filter.
+     ═══════════════════════════════════════════════════════════════════════ */
+  .glass {
+    position: relative;
+    background: rgb(255 255 255 / 0.60);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgb(255 255 255 / 0.55);
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.65),
+      0 10px 34px -14px rgb(4 30 27 / 0.28);
+  }
+  :is(.dark) .glass {
+    background: rgb(18 33 30 / 0.58); /* ink-800 translucide */
+    border-color: rgb(255 255 255 / 0.10);
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.08),
+      0 10px 34px -14px rgb(0 0 0 / 0.55);
+  }
+
+  /* Liseré spéculaire — mince halo lumineux sur le pourtour, plus vif en haut.
+     Technique du bord dessiné : dégradé masqué en anneau (padding + mask xor). */
+  .glass-edge::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0.05) 32%, transparent 62%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  :is(.dark) .glass-edge::after {
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0.03) 32%, transparent 62%);
+  }
+
+  /* Verre teinté pétrole (équivalent .regular.tint) — pour un accent de marque
+     discret sur un élément de nav sélectionné/proéminent. */
+  .glass-tint { background: rgb(21 131 117 / 0.16); }        /* brand-500 */
+  :is(.dark) .glass-tint { background: rgb(21 131 117 / 0.20); }
+
+  /* — Accessibilité & repli — */
+  @media (prefers-reduced-transparency: reduce) {
+    .glass { background: rgb(244 245 242 / 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    :is(.dark) .glass { background: rgb(18 33 30 / 0.98); }
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass { background: rgb(244 245 242 / 0.97); }
+    :is(.dark) .glass { background: rgb(18 33 30 / 0.97); }
+  }
 }
 
 /* NOTE ARCHITECTURE : `.reveal` anime `transform`, ce qui fait du wrapper de

@@ -49,7 +49,7 @@ function BrandMark({ size = 'h-9 w-9', icon = 'h-[22px] w-[22px]', ring = 'ring-
 function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
   const { theme, toggleTheme, targetCenter, setTargetCenter } = useUi();
   return (
-    <aside className="flex w-16 shrink-0 flex-col border-r border-slate-200 bg-white/85 backdrop-blur md:w-60 dark:border-ink-600 dark:bg-ink-800/85">
+    <aside className="glass glass-edge flex w-16 shrink-0 flex-col border-y-0 border-l-0 md:w-60">
       <div className="flex h-16 items-center gap-2.5 px-4">
         <BrandMark />
         <div className="hidden leading-none md:block">
@@ -148,7 +148,7 @@ function DockRail({ onExpand }: { onExpand: () => void }) {
       {!revealed && <div className="pointer-events-none absolute left-0 top-1/2 h-16 w-1 -translate-y-1/2 rounded-r-full bg-brand-500/40 transition-opacity" />}
 
       <div ref={railRef}
-        className={`absolute bottom-3 left-2 top-3 flex flex-col items-center gap-1.5 rounded-3xl border border-white/50 bg-white/80 p-2 shadow-2xl shadow-slate-900/15 backdrop-blur-2xl transition-[transform,opacity] duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] dark:border-white/10 dark:bg-ink-800/85 ${revealed ? 'translate-x-0 opacity-100' : '-translate-x-[130%] opacity-0'}`}>
+        className={`glass glass-edge absolute bottom-3 left-2 top-3 flex flex-col items-center gap-1.5 rounded-3xl p-2 transition-[transform,opacity] duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${revealed ? 'translate-x-0 opacity-100' : '-translate-x-[130%] opacity-0'}`}>
         {/* Logo en chapeau — déploie au clic */}
         <button data-dock-slot onClick={onExpand} title="Déployer la barre (⌘B)" style={tile(0)} className="transition-transform duration-100">
           <BrandMark size="h-11 w-11" icon="h-6 w-6" ring="ring-white/70 dark:ring-ink-800" />
