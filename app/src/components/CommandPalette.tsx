@@ -83,7 +83,7 @@ export function CommandPalette() {
   let lastGroup = '';
   return (
     <div className="fixed inset-0 z-[70] bg-ink/50 p-4 pt-[14vh] backdrop-blur-sm" onClick={() => setOpen(false)} role="dialog" aria-modal="true" aria-label="Palette de commandes">
-      <div onClick={(e) => e.stopPropagation()} className="reveal mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-ink-600 dark:bg-ink-800">
+      <div onClick={(e) => e.stopPropagation()} className="glass glass-edge reveal mx-auto w-full max-w-lg overflow-hidden rounded-2xl">
         <div className="flex items-center gap-2.5 border-b border-slate-100 px-4 py-3 dark:border-ink-600">
           <Icon name="search" className="h-4 w-4 shrink-0 text-slate-400" />
           <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={onKeyDown}

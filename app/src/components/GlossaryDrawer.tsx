@@ -16,7 +16,7 @@ export function GlossaryDrawer() {
   return (
     <>
       <div className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
-      <aside className="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm animate-slide-in flex-col border-l border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+      <aside className="glass glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm animate-slide-in flex-col border-y-0 border-r-0">
         <div className="flex items-start justify-between border-b border-slate-100 p-4 dark:border-slate-800">
           <div>
             <div className="label">Fachbegriff</div>
