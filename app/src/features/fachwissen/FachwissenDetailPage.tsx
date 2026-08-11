@@ -5,6 +5,7 @@ import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import { STUFE_META } from './stufeMeta';
+import { DDTable } from '@/components/DDTable';
 
 export function FachwissenDetailPage() {
   const { id } = useParams();
@@ -38,17 +39,22 @@ export function FachwissenDetailPage() {
         <div className="stagger space-y-4 lg:col-span-2">
           <Section title="Definition" icon="nav-book"><p className="prose-fsp"><AutoLink>{fw.definition}</AutoLink></p></Section>
           {fw.aetiologie && <Section title="Ätiologie" icon="brain"><p className="prose-fsp"><AutoLink>{fw.aetiologie}</AutoLink></p></Section>}
-          {fw.risikofaktoren && <Section title="Risikofaktoren" icon="alert"><AutoLinkList items={fw.risikofaktoren} /></Section>}
+          {fw.risikofaktoren && <Section title="Risikofaktoren" icon="alert"><FactorGrid items={fw.risikofaktoren} /></Section>}
 
+          {/* Klinik en DEUX blocs : le drapeau `atypisch` existe déjà dans les
+              données, autant lui donner sa propre boîte — ce sont justement les
+              formes atypiques qui font échouer à l'examen, les noyer dans la
+              liste typique les rend invisibles. */}
           <Section title="Klinik" icon="pulse">
-            <ul className="space-y-1.5 text-sm">
-              {fw.klinik.map((k, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${k.atypisch ? 'bg-amber-400' : 'bg-brand-400'}`} />
-                  <span><AutoLink>{k.text}</AutoLink>{k.atypisch && <span className="ml-1 chip bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">atypisch</span>}</span>
-                </li>
-              ))}
-            </ul>
+            <SymptomList items={fw.klinik.filter((k) => !k.atypisch)} />
+            {fw.klinik.some((k) => k.atypisch) && (
+              <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50/60 p-3 dark:border-amber-900/40 dark:bg-amber-900/10">
+                <div className="label mb-1.5 flex items-center gap-1.5 text-amber-700 dark:text-amber-300">
+                  <Icon name="alert" className="h-3.5 w-3.5" />Atypisch · leicht zu übersehen
+                </div>
+                <SymptomList items={fw.klinik.filter((k) => k.atypisch)} tone="bg-amber-400" />
+              </div>
+            )}
           </Section>
 
           {/* Démarche diagnostique par ÉTAPE du raisonnement — l'ordre qu'on
@@ -98,11 +104,7 @@ export function FachwissenDetailPage() {
           )}
 
           <Section title="Differenzialdiagnosen (mit Kriterien)" icon="target">
-            <ul className="space-y-2 text-sm">
-              {fw.differenzialdiagnosen.map((d, i) => (
-                <li key={i}><b><AutoLink>{d.dd}</AutoLink></b> <span className="text-slate-500 dark:text-slate-400">— <AutoLink>{d.unterscheidung}</AutoLink></span></li>
-              ))}
-            </ul>
+            <DDTable items={fw.differenzialdiagnosen} />
           </Section>
 
           {/* Thérapie : sections propres à la pathologie (pas de moule imposé). */}
@@ -185,6 +187,50 @@ export function FachwissenDetailPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function SymptomList({ items, tone = 'bg-brand-400' }: { items: { text: string }[]; tone?: string }) {
+  return (
+    <ul className="space-y-1.5 text-sm">
+      {items.map((k, i) => (
+        <li key={i} className="flex gap-2">
+          <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${tone}`} />
+          <span><AutoLink>{k.text}</AutoLink></span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Facteurs de risque en grille : une colonne unique de onze puces se lit mal.
+ *  Beaucoup d'entrées sont rédigées « Terme — précision » : on détache alors le
+ *  terme (ce qu'on doit citer) de sa glose (ce qui l'explique). */
+function FactorGrid({ items }: { items: string[] }) {
+  return (
+    // Flux en colonnes (et non grille) : les entrées ont des hauteurs très
+    // inégales et une grille alignerait les lignes sur la plus haute, créant
+    // des trous blancs qu'on lit comme des oublis.
+    <ul className="text-sm sm:columns-2 sm:gap-x-5">
+      {items.map((raw, i) => {
+        const [, lead, rest] = /^(.{3,48}?)\s+[—–-]\s+(.+)$/s.exec(raw) ?? [];
+        return (
+          <li key={i} className="mb-1.5 flex break-inside-avoid gap-2">
+            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-400" />
+            <span>
+              {lead ? (
+                <>
+                  <span className="font-medium"><AutoLink>{lead}</AutoLink></span>
+                  <span className="text-slate-500 dark:text-slate-400"> — <AutoLink>{rest}</AutoLink></span>
+                </>
+              ) : (
+                <AutoLink>{raw}</AutoLink>
+              )}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

@@ -10,6 +10,7 @@ import { Icon } from '@/components/icons';
 import { SEC, SectionCard } from './medSections';
 import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import { STUFE_META } from '@/features/fachwissen/stufeMeta';
+import { DDTable } from '@/components/DDTable';
 
 export function CaseDetailPage() {
   const { id } = useParams();
@@ -86,14 +87,7 @@ export function CaseDetailPage() {
             </div>
 
             <SectionCard sec="dd" sub={`${c.medicalView.differenzialdiagnosen.length} à écarter — mit Kriterien`}>
-              <ol className="space-y-2.5">
-                {c.medicalView.differenzialdiagnosen.map((d, i) => (
-                  <li key={i} className="flex gap-2.5">
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-indigo-100 font-mono text-[11px] font-bold text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">{i + 1}</span>
-                    <span className="text-sm"><b className="font-semibold"><AutoLink>{d.dd}</AutoLink></b> <span className="text-slate-500 dark:text-slate-400">— <AutoLink>{d.unterscheidung}</AutoLink></span></span>
-                  </li>
-                ))}
-              </ol>
+              <DDTable items={c.medicalView.differenzialdiagnosen} />
             </SectionCard>
 
             <div className="grid gap-4 sm:grid-cols-2">
