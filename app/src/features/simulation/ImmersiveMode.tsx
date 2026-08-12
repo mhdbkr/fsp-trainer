@@ -8,6 +8,7 @@ import { Portal } from '@/components/Portal';
 import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
+import { useTimeAmbiance, TimeCapsule } from './TimeCapsule';
 
 // ============================================================================
 // Mode focus / immersif — concentre l'attention sur UN chapitre et UNE
@@ -22,6 +23,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   part: 'anamnese' | 'fallvorstellung'; c: Case; onClose: () => void; initialChapterId?: string;
 }) {
   const openDoctopus = useUi((s) => s.openDoctopus);
+  const amb = useTimeAmbiance();
   const chapters = useMemo<FocusChapter[]>(() => {
     if (part === 'anamnese') {
       const base = ALLGEMEINE_ANAMNESE.map((ch) => ({ id: ch.id, title: ch.title, icon: ch.icon, items: ch.questions, tip: ch.tip }));
@@ -105,6 +107,14 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   return (
     <Portal>
     <div className="fixed inset-0 z-[80] flex flex-col bg-slate-950 text-slate-100">
+      {/* Même logique qu'en vue normale, mais l'objet FLOTTE au-dessus de la
+          scène plein écran plutôt que d'être encastré : en focus, le chrono est
+          la seule chrome tolérable, il doit léviter sans rien encadrer. */}
+      {amb && (
+        <div className="pointer-events-none absolute left-1/2 top-3 z-[92] -translate-x-1/2">
+          <TimeCapsule amb={amb.amb} remaining={amb.remaining} compact />
+        </div>
+      )}
       {/* En-tête : progression des chapitres */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex flex-wrap gap-1.5">

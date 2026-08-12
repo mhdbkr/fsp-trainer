@@ -281,3 +281,9 @@ h1, h2, h3 {
   .stagger > *:nth-child(7) { animation-delay: 0.26s; }
   .stagger > *:nth-child(8) { animation-delay: 0.30s; }
 }
+
+/* Teinte temporelle de la capsule chrono : correction de clarté selon le
+   thème — le pétrole (L=30 %) est lisible sur papier mais s'éteint sur fond
+   encre, on le remonte en sombre. */
+:root { --aura-l-boost: 0%; }
+.dark { --aura-l-boost: 16%; }

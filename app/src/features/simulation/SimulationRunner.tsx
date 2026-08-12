@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
@@ -6,7 +6,9 @@ import { useCase } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { useProfiles } from '@/store/profile';
 import { useSimSession } from '@/store/simSession';
-import { useTimer, fmt } from './useTimer';
+import { useTimer } from './useTimer';
+import { computeAmbiance } from './timeAmbiance';
+import { TimeAmbianceProvider, TimeCapsule } from './TimeCapsule';
 import { Portal } from '@/components/Portal';
 import { PartEvaluation } from './PartEvaluation';
 import { partScore, weightedPartScore } from '@/lib/scoring';
@@ -49,6 +51,50 @@ export function SimulationRunner() {
   const [elapsed, setElapsed] = useState<Partial<Record<Part, number>>>(restore?.elapsed ?? {});
   const [finished, setFinished] = useState<Simulation | null>(null);
   const [showQr, setShowQr] = useState(false);
+
+  // En-tête condensé au défilement. Ce n'est PAS la fenêtre qui défile mais le
+  // <main class="overflow-y-auto"> du layout : écouter `window` ne déclencherait
+  // jamais rien. On remonte donc jusqu'au premier ancêtre réellement scrollable.
+  // Deux seuils (90 px pour condenser, 40 px pour rouvrir) : sans cette
+  // hystérésis, s'arrêter pile sur le seuil ferait osciller la barre.
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [condensed, setCondensed] = useState(false);
+  const [headerH, setHeaderH] = useState(0);
+  // Dépend de `c` : au tout premier rendu le cas n'est pas chargé, l'en-tête
+  // n'existe pas encore et l'effet capterait `window` par défaut — sans jamais
+  // se réexécuter. On (ré)attache donc dès que l'en-tête est monté.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    // Écoute en CAPTURE sur `document` : les événements de défilement ne
+    // remontent pas (`scroll` ne bulle pas), mais ils descendent en capture. On
+    // attrape donc le scroll quel que soit le conteneur — ici le <main>, qu'il
+    // serait fragile d'identifier au montage puisqu'il n'est pas encore
+    // débordant à cet instant. On ignore les scrollers internes (Muster-Bogen)
+    // en ne retenant que ceux qui contiennent réellement l'en-tête.
+    // Deux seuils = hystérésis : sans elle, s'arrêter pile sur le seuil ferait
+    // osciller la barre à chaque micro-défilement.
+    const onScroll = (ev: Event) => {
+      const t = ev.target as HTMLElement | Document;
+      const y = t === document ? window.scrollY : (t as HTMLElement).scrollTop;
+      if (typeof y !== 'number') return;
+      if (t !== document && !(t as HTMLElement).contains(el)) return;
+      setCondensed((prev) => (prev ? y > 40 : y > 90));
+    };
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+
+    // La hauteur de l'en-tête change quand il se condense : on la mesure au lieu
+    // de la coder en dur, sinon la capsule chrono se replacerait mal (c'est ce
+    // qui la faisait passer sous l'en-tête).
+    const applyH = () => setHeaderH((prev) => (prev === el.offsetHeight ? prev : el.offsetHeight));
+    const ro = new ResizeObserver(applyH);
+    ro.observe(el);
+    applyH();
+
+    return () => { document.removeEventListener('scroll', onScroll, true); ro.disconnect(); };
+    // `c?.id` et NON `c` : useCase renvoie un nouvel objet à chaque rendu.
+  }, [c?.id]);
 
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
   usePatientBroadcast(c?.id);
@@ -113,20 +159,29 @@ export function SimulationRunner() {
 
   return (
     <div>
-      {/* Barre supérieure : capsule flottante à l'identité (arrondie, translucide) */}
-      <div className="sticky top-12 z-20 mb-4 rounded-2xl border border-slate-200/70 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-md dark:border-ink-600/70 dark:bg-ink-800/80">
+      {/* Barre supérieure : capsule flottante à l'identité (arrondie, translucide).
+          Elle se CONDENSE au défilement pour rendre l'espace à l'examen — seuls
+          le titre et l'épreuve en cours subsistent, cette dernière glissant vers
+          le centre. Tout est monté en permanence : ce sont la largeur et
+          l'opacité qui s'animent, jamais un démontage (donc aucun saut). */}
+      <div ref={headerRef} className={`sticky top-12 z-20 rounded-2xl border border-slate-200/70 bg-white/80 px-4 shadow-sm backdrop-blur-md transition-[padding] duration-500 ease-fluid dark:border-ink-600/70 dark:bg-ink-800/80 ${condensed ? 'py-2' : 'py-3'}`}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <div>
               <div className="text-sm font-bold">{c.name}</div>
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                Médecin : {activeProfile?.name ?? '—'}
-                <span className={`chip py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                  {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
-                </span>
+              <div className={`grid transition-all duration-500 ease-fluid ${condensed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'}`}>
+                <div className="overflow-hidden">
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+                    Médecin : {activeProfile?.name ?? '—'}
+                    <span className={`chip py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
+                      {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
+            <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran"
+              className={`btn-ghost overflow-hidden text-xs transition-all duration-500 ease-fluid ${condensed ? 'pointer-events-none w-0 scale-90 px-0 opacity-0' : 'w-auto opacity-100'}`}>
               <Icon name="id" className="h-4 w-4" /> QR
             </button>
           </div>
@@ -139,26 +194,29 @@ export function SimulationRunner() {
         </div>
 
         {/* Navigateur de modules graphique */}
-        <div className="mt-3 flex items-center">
+        <div className={`flex items-center transition-all duration-500 ease-fluid ${condensed ? 'mt-1.5 justify-center' : 'mt-3'}`}>
           {FLOW.map((f, i) => {
             const isActive = active === f.key && !aufklaerungOpen;
             const isDone = !!results[f.key]?.done;
+            // Condensé : seule l'épreuve en cours reste ; les autres se rétractent
+            // à largeur nulle, ce qui fait GLISSER l'active vers le centre.
+            const hidden = condensed && !isActive;
             return (
-              <div key={f.key} className="flex flex-1 items-center">
+              <div key={f.key} className={`flex items-center transition-all duration-500 ease-fluid ${hidden ? 'w-0 flex-none opacity-0' : condensed ? 'flex-none opacity-100' : 'flex-1 opacity-100'}`}>
                 <button
                   onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                  className="group flex flex-1 flex-col items-center gap-1"
+                  className={`group flex flex-1 items-center justify-center gap-2 transition-all duration-500 ease-fluid ${hidden ? 'pointer-events-none scale-75' : ''} ${condensed ? 'flex-row' : 'flex-col gap-1'}`}
                 >
-                  <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all ${
+                  <span className={`flex items-center justify-center rounded-full border-2 transition-all duration-500 ease-fluid ${condensed ? 'h-7 w-7' : 'h-10 w-10'} ${
                     isDone ? 'border-emerald-500 bg-emerald-500 text-white'
                     : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md scale-105'
                     : 'border-slate-300 bg-white text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900'}`}>
-                    {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
+                    {isDone ? '✓' : <Icon name={f.icon} className={condensed ? 'h-4 w-4' : 'h-5 w-5'} />}
                   </span>
-                  <span className={`text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
+                  <span className={`whitespace-nowrap text-[11px] font-medium transition-colors ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
                 </button>
                 {i < FLOW.length - 1 && (
-                  <div className={`mx-1 h-0.5 flex-1 -translate-y-2 rounded ${results[f.key]?.done ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`} />
+                  <div className={`h-0.5 rounded transition-all duration-500 ease-fluid ${condensed ? 'mx-0 w-0 opacity-0' : 'mx-1 flex-1 -translate-y-2 opacity-100'} ${results[f.key]?.done ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`} />
                 )}
               </div>
             );
@@ -185,6 +243,7 @@ export function SimulationRunner() {
           arztbriefText={arztbriefText}
           setArztbriefText={setArztbriefText}
           target={target}
+          stickyTop={headerH ? headerH + 56 : 120}
           initialElapsed={elapsed[aufklaerungOpen ? 'aufklaerung' : active] ?? 0}
           onElapsed={(sec) => { const k = aufklaerungOpen ? 'aufklaerung' : active; setElapsed((e) => (e[k] === sec ? e : { ...e, [k]: sec })); }}
           onEndPart={() => setPhase('eval')}
@@ -229,36 +288,42 @@ interface PlayAreaProps {
   part: Part; c: Case; assistance: AssistanceMode; muster: MusterCity;
   bogen: BogenNotes; setBogen: (b: BogenNotes) => void;
   arztbriefText: string; setArztbriefText: (t: string) => void;
-  target: number; initialElapsed: number; onElapsed: (sec: number) => void; onEndPart: () => void;
+  target: number; stickyTop: number; initialElapsed: number; onElapsed: (sec: number) => void; onEndPart: () => void;
 }
-function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, target, initialElapsed, onElapsed, onEndPart }: PlayAreaProps) {
+function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, target, stickyTop, initialElapsed, onElapsed, onEndPart }: PlayAreaProps) {
   // autoStart : le chrono démarre dès l'entrée dans la partie (pas de clic requis).
   const timer = useTimer(target, initialElapsed, onElapsed, true);
-  const overtime = timer.remaining < 0;
+
+  const amb = computeAmbiance(timer.elapsed, target);
 
   return (
-    <div>
-      {/* Chrono */}
-      <div className="mb-4 flex items-center justify-between rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex items-center gap-3">
-          <div className={`font-mono text-2xl font-bold tabular-nums ${overtime ? 'text-rose-500' : 'text-slate-700 dark:text-slate-200'}`}>{fmt(timer.remaining)}</div>
-          <div className="text-xs text-slate-400">{overtime ? 'temps dépassé' : `écoulé ${fmt(timer.elapsed)}`}</div>
-        </div>
-        <div className="flex gap-2">
-          {!timer.running ? (
-            <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
-          ) : (
-            <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
-          )}
-          <button onClick={onEndPart} className="btn-outline text-xs">Terminer la partie ✓</button>
-        </div>
+    <TimeAmbianceProvider elapsed={timer.elapsed} target={target}>
+      {/* Capsule chrono ÉPINGLÉE — z-30 la place au-dessus de l'en-tête (z-20) :
+          c'est la donnée qu'on ne doit jamais perdre de vue, elle ne peut donc
+          pas passer sous la barre des épreuves en défilant. Le décalage `top`
+          la pose juste sous l'en-tête une fois celui-ci condensé. */}
+      <div className="sticky z-30 mb-4" style={{ top: stickyTop }}>
+        <TimeCapsule
+          amb={amb}
+          remaining={timer.remaining}
+          controls={
+            <div className="flex gap-2">
+              {!timer.running ? (
+                <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+              ) : (
+                <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+              )}
+              <button onClick={onEndPart} className="btn-outline text-xs">Terminer la partie ✓</button>
+            </div>
+          }
+        />
       </div>
 
       {part === 'anamnese' && <AnamneseArea c={c} assistance={assistance} muster={muster} bogen={bogen} setBogen={setBogen} />}
       {part === 'dokumentation' && <ArztbriefGuide c={c} assistance={assistance} text={arztbriefText} onText={setArztbriefText} bogen={bogen} muster={muster} />}
       {part === 'fallvorstellung' && <VorstellungGuide c={c} assistance={assistance} bogen={bogen} muster={muster} />}
       {part === 'aufklaerung' && <AufklaerungArea c={c} />}
-    </div>
+    </TimeAmbianceProvider>
   );
 }
 

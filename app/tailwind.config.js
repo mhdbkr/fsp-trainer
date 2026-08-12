@@ -34,6 +34,12 @@ export default {
         // Signature — terminologie médicale & données en mono (IBM Plex Mono).
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
+      // Décélération « fluide » : départ franc, arrivée très douce, sans rebond.
+      // C'est la courbe qui donne aux transitions de mise en page leur qualité
+      // premium — utilisée pour la condensation de l'en-tête de simulation.
+      transitionTimingFunction: {
+        fluid: 'cubic-bezier(0.32, 0.72, 0, 1)',
+      },
       letterSpacing: {
         tightish: '-0.014em',
       },
