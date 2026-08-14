@@ -64,11 +64,11 @@ export function SimulationRunner() {
   // serait faux dès qu'un libellé change de taille.
   const slotMergedRef = useRef<HTMLDivElement>(null);
   const slotRestRef = useRef<HTMLDivElement>(null);
-  const ctrlRef = useRef<HTMLDivElement>(null);
-  const [ctrlTop, setCtrlTop] = useState(10);
-  const [ctrlShift, setCtrlShift] = useState(0);
   const [merged, setMerged] = useState(false);
   const [headerH, setHeaderH] = useState(0);
+  // Deux nœuds « flottants » : les commandes et le chrono. Ils gardent leur
+  // identité DOM et se déplacent par translation d'un emplacement à l'autre.
+  const ctrlPos = useTwoSlots(headerRef, slotMergedRef, slotRestRef, merged);
   // Dépend de `c` : au tout premier rendu le cas n'est pas chargé, l'en-tête
   // n'existe pas encore et l'effet capterait `window` par défaut — sans jamais
   // se réexécuter. On (ré)attache donc dès que l'en-tête est monté.
@@ -104,19 +104,6 @@ export function SimulationRunner() {
     return () => { document.removeEventListener('scroll', onScroll, true); ro.disconnect(); };
     // `c?.id` et NON `c` : useCase renvoie un nouvel objet à chaque rendu.
   }, [c?.id]);
-
-  // Position des commandes : mesurée après chaque rendu, appliquée en `top`
-  // (statique) + `translateY` (animé, donc compositeur).
-  useLayoutEffect(() => {
-    const host = headerRef.current, dest = slotMergedRef.current, rest = slotRestRef.current;
-    if (!host || !dest || !rest) return;
-    const h = host.getBoundingClientRect();
-    const rd = dest.getBoundingClientRect(), rr = rest.getBoundingClientRect();
-    const top = rd.top - h.top;
-    const shift = (rr.top + rr.height / 2) - (rd.top + rd.height / 2);
-    setCtrlTop((p) => (Math.abs(p - top) < 0.5 ? p : top));
-    setCtrlShift((p) => (Math.abs(p - shift) < 0.5 ? p : shift));
-  });
 
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
   usePatientBroadcast(c?.id);
@@ -212,7 +199,7 @@ export function SimulationRunner() {
                   de jointure : il n'y a plus deux plaques bord à bord mais une
                   seule goutte. */}
               <div ref={headerRef}
-                className={`sticky top-14 z-10 flex flex-col relative transition-[gap] duration-[420ms] ease-fluid ${merged ? 'gap-0' : 'gap-2.5'}`}
+                className={`sticky top-14 z-30 flex flex-col relative transition-[gap] duration-[420ms] ease-fluid ${merged ? 'gap-0' : 'gap-2.5'}`}
                 // PAS de `contain: paint` ici : il crée une RACINE
                 // D'ARRIÈRE-PLAN, et le backdrop-filter des surfaces de verre
                 // ne « voit » alors plus la page derrière — le flou disparaît
@@ -232,7 +219,7 @@ export function SimulationRunner() {
 
                   <div className="relative flex items-start justify-between gap-3">
                     <div className="relative min-w-0 flex-1">
-                      <div className="truncate text-sm font-bold">{c.name}</div>
+                      <div className={`origin-left truncate text-sm font-bold transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[1.12]' : 'scale-100'}`}>{c.name}</div>
                       {/* Ligne profil en absolu : effacement par simple opacité.
                           La marge haute du parcours (mt-7) lui réserve la
                           place : la réserve doit être ENTRE le titre et les
@@ -282,7 +269,7 @@ export function SimulationRunner() {
                             )}
                             <button
                               onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                              className={`group relative z-10 flex origin-top flex-col items-center gap-1 transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[0.78]' : 'scale-100'}`}
+                              className={`group relative z-10 flex origin-top flex-col items-center gap-1 transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[0.94]' : 'scale-100'}`}
                             >
                               <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                                 isDone ? 'border-emerald-500 bg-emerald-500 text-white'
@@ -300,20 +287,22 @@ export function SimulationRunner() {
                 </div>
 
                 {/* ── Étiquette 2 — chrono ──────────────────────────────── */}
-                <div className="relative flex items-center rounded-2xl px-4 py-2">
+                <div className={`relative flex items-center rounded-2xl px-4 transition-[height,padding] duration-[420ms] ease-fluid py-2`}>
                   <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[420ms] ease-fluid"
                     style={{ ...timeGlass(amb, 1), opacity: merged ? 0 : 1 }} />
+                  {/* Emplacements AU REPOS (le chrono et les commandes y
+                      reviennent) — vides, ce sont de simples repères. */}
                   <div className="relative"><TimeFace amb={amb} remaining={timer.remaining} /></div>
-                  <div ref={slotRestRef} className="relative ml-auto h-8 w-px" />
+                  <div ref={slotRestRef} aria-hidden className="relative ml-auto h-8 w-px" />
                 </div>
 
                 {/* Commandes de chrono — nœud UNIQUE, positionné en absolu et
                     déplacé par translate : elles REMONTENT réellement vers le
                     coin libéré par Aufklärung au lieu d'apparaître ailleurs
                     (un fondu entre deux copies se lirait comme un saut). */}
-                <div ref={ctrlRef}
+                <div
                   className="absolute right-4 z-10 flex gap-2 transition-transform duration-[420ms] ease-fluid"
-                  style={{ top: ctrlTop, transform: `translateY(${merged ? 0 : ctrlShift}px)` }}>
+                  style={{ top: ctrlPos.top, transform: `translateY(${merged ? 0 : ctrlPos.shift}px)` }}>
                   {!timer.running ? (
                     <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
                   ) : (
@@ -383,6 +372,31 @@ export function SimulationRunner() {
 }
 
 // --------------------------------------------------------------- Zone de jeu
+/** Nœud UNIQUE qui doit occuper deux emplacements selon l'état. On mesure
+ *  UNIQUEMENT à l'état déployé : pendant la fusion les repères sont eux-mêmes
+ *  en mouvement, et les lire à cet instant donnait une cible fausse — c'était
+ *  la cause des à-coups au retour vers le haut. `top` reste donc constant et
+ *  seule la translation s'anime (compositeur). */
+function useTwoSlots(
+  hostRef: React.RefObject<HTMLElement>,
+  destRef: React.RefObject<HTMLElement>,
+  restRef: React.RefObject<HTMLElement>,
+  merged: boolean,
+) {
+  const [pos, setPos] = useState({ top: 0, shift: 0 });
+  useLayoutEffect(() => {
+    if (merged) return;
+    const host = hostRef.current, dest = destRef.current, rest = restRef.current;
+    if (!host || !dest || !rest) return;
+    const h = host.getBoundingClientRect();
+    const rd = dest.getBoundingClientRect(), rr = rest.getBoundingClientRect();
+    const top = rd.top - h.top;
+    const shift = (rr.top + rr.height / 2) - (rd.top + rd.height / 2);
+    setPos((p) => (Math.abs(p.top - top) < 0.5 && Math.abs(p.shift - shift) < 0.5 ? p : { top, shift }));
+  });
+  return pos;
+}
+
 /** Porte le chrono de la partie en cours. Monté par `key={partKey}` : changer
  *  d'épreuve le remonte, donc le remet à zéro — c'est le comportement qu'assurait
  *  auparavant le remontage de PlayArea, désormais que le chrono est remonté dans
