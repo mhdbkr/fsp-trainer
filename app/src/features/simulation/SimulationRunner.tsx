@@ -62,13 +62,10 @@ export function SimulationRunner() {
   // par Aufklärung (fusionné) et leur place au repos, à droite du chrono. On
   // MESURE les deux plutôt que de coder un décalage en dur, sinon le trajet
   // serait faux dès qu'un libellé change de taille.
-  const slotMergedRef = useRef<HTMLDivElement>(null);
-  const slotRestRef = useRef<HTMLDivElement>(null);
+  const chronoRef = useRef<HTMLDivElement>(null);
+  const chronoPrev = useRef<DOMRect | null>(null);
   const [merged, setMerged] = useState(false);
   const [headerH, setHeaderH] = useState(0);
-  // Deux nœuds « flottants » : les commandes et le chrono. Ils gardent leur
-  // identité DOM et se déplacent par translation d'un emplacement à l'autre.
-  const ctrlPos = useTwoSlots(headerRef, slotMergedRef, slotRestRef, merged);
   // Dépend de `c` : au tout premier rendu le cas n'est pas chargé, l'en-tête
   // n'existe pas encore et l'effet capterait `window` par défaut — sans jamais
   // se réexécuter. On (ré)attache donc dès que l'en-tête est monté.
@@ -89,7 +86,14 @@ export function SimulationRunner() {
       const y = t === document ? window.scrollY : (t as HTMLElement).scrollTop;
       if (typeof y !== 'number') return;
       if (t !== document && !(t as HTMLElement).contains(el)) return;
-      setMerged((prev) => (prev ? y > 40 : y > 90));
+      setMerged((prev) => {
+        const next = prev ? y > 40 : y > 90;
+        // FLIP — on relève la position AVANT que React ne re-dispose. Sans ce
+        // relevé antérieur, toute mesure faite après coup lit une position déjà
+        // en mouvement : c'était l'origine des à-coups.
+        if (next !== prev && chronoRef.current) chronoPrev.current = chronoRef.current.getBoundingClientRect();
+        return next;
+      });
     };
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
 
@@ -104,6 +108,22 @@ export function SimulationRunner() {
     return () => { document.removeEventListener('scroll', onScroll, true); ro.disconnect(); };
     // `c?.id` et NON `c` : useCase renvoie un nouvel objet à chaque rendu.
   }, [c?.id]);
+
+  // FLIP : on inverse l'écart puis on laisse filer vers zéro. `el.animate`
+  // s'exécute sur le compositeur, hors du cycle de rendu React — aucune classe
+  // CSS concurrente, aucune propriété de disposition animée.
+  useLayoutEffect(() => {
+    const el = chronoRef.current, prev = chronoPrev.current;
+    chronoPrev.current = null;
+    if (!el || !prev) return;
+    const now = el.getBoundingClientRect();
+    const dx = prev.left - now.left, dy = prev.top - now.top;
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+    el.animate(
+      [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0, 0)' }],
+      { duration: 460, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+    );
+  }, [merged]);
 
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
   usePatientBroadcast(c?.id);
@@ -189,42 +209,24 @@ export function SimulationRunner() {
                   C'est ce qui rend la fusion possible sans saccade : rien ne se
                   téléporte d'une carte à l'autre, on ferme seulement l'espace
                   et on soude les bordures. Chaque élément reste monté. */}
-              {/* PERFORMANCE — pendant la fusion on n'anime QUE des
-                  transformations et des opacités (compositeur). Trois
-                  propriétés de disposition subsistent, confinées.
-                  FUSION — les deux étiquettes ne sont pas « superposées » : au
-                  repos chacune porte sa propre surface de verre, et en
-                  fusionnant ces deux surfaces s'effacent au profit d'UNE SEULE,
-                  continue, posée sur l'ensemble. C'est ce qui supprime le trait
-                  de jointure : il n'y a plus deux plaques bord à bord mais une
-                  seule goutte. */}
-              <div ref={headerRef}
-                className={`sticky top-14 z-30 flex flex-col relative transition-[gap] duration-[420ms] ease-fluid ${merged ? 'gap-0' : 'gap-2.5'}`}
-                // PAS de `contain: paint` ici : il crée une RACINE
-                // D'ARRIÈRE-PLAN, et le backdrop-filter des surfaces de verre
-                // ne « voit » alors plus la page derrière — le flou disparaît
-                // et le verre redevient un simple aplat translucide. C'était la
-                // cause du rendu non-verre. `contain: layout` seul est sûr.
-                style={{ contain: 'layout' }}>
-
-                {/* Surface UNIQUE de l'état fusionné */}
-                <div aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[420ms] ease-fluid"
-                  style={{ ...timeGlass(amb, 0.85), opacity: merged ? 1 : 0 }} />
-
-                {/* ── Étiquette 1 — identité + parcours ─────────────────── */}
-                <div className={`relative rounded-2xl px-4 pt-2.5 transition-[padding-bottom] duration-[420ms] ease-fluid ${merged ? 'pb-1' : 'pb-3'}`}>
-                  <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[420ms] ease-fluid"
-                    style={{ ...timeGlass(amb, 0.5), opacity: merged ? 0 : 1 }} />
-
-                  <div className="relative flex items-start justify-between gap-3">
+              {/* UNE SEULE étiquette, toujours. Les deux plaques empilées
+                  d'avant ne pouvaient pas donner une vraie symbiose : elles
+                  gardaient chacune leur surface, et celle du bas mordait sur le
+                  libellé de l'épreuve. Ici il n'y a qu'un panneau de verre dont
+                  la disposition INTERNE se réorganise.
+                  Les commandes Pause/Terminer ne changent jamais d'emplacement
+                  (toujours en haut à droite) : il n'y a donc plus rien à
+                  déplacer, donc plus rien à saccader. C'est Aufklärung et QR
+                  qui s'effacent pour leur laisser le coin. */}
+              <div ref={headerRef} className="sticky top-14 z-30">
+                <div
+                  className={`relative rounded-2xl px-4 transition-[padding] duration-[420ms] ease-fluid ${merged ? 'py-2' : 'pb-3 pt-2.5'}`}
+                  style={timeGlass(amb, 1)}
+                >
+                  {/* ── Rangée haute : titre · commandes ─────────────────── */}
+                  <div className={`flex items-start justify-between gap-3 transition-[min-height] duration-[420ms] ease-fluid ${merged ? 'min-h-[30px]' : 'min-h-[44px]'}`}>
                     <div className="relative min-w-0 flex-1">
-                      <div className={`origin-left truncate text-sm font-bold transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[1.12]' : 'scale-100'}`}>{c.name}</div>
-                      {/* Ligne profil en absolu : effacement par simple opacité.
-                          La marge haute du parcours (mt-7) lui réserve la
-                          place : la réserve doit être ENTRE le titre et les
-                          pastilles, pas en bas de carte — sinon la ligne mord
-                          sur la pastille « Anamnese ». */}
+                      <div className={`origin-left truncate text-sm font-bold transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[1.14]' : 'scale-100'}`}>{c.name}</div>
                       <div className={`pointer-events-none absolute left-0 top-full flex items-center gap-1.5 pt-1 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
                         <span className="whitespace-nowrap">Médecin : {activeProfile?.name ?? '—'}</span>
                         <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
@@ -232,10 +234,10 @@ export function SimulationRunner() {
                         </span>
                       </div>
                     </div>
-                    {/* Coin haut-droit : QR + Aufklärung au repos, libéré en
-                        fusionnant pour accueillir les commandes de chrono. */}
-                    <div ref={slotMergedRef} className="relative flex h-7 shrink-0 items-center">
-                      <div className={`flex items-center gap-2 whitespace-nowrap transition-opacity duration-300 ${merged ? 'pointer-events-none absolute right-0 opacity-0' : 'opacity-100'}`}>
+
+                    <div className="flex shrink-0 items-center gap-2">
+                      {/* QR + Aufklärung : cèdent la place en fusionnant. */}
+                      <div className={`flex items-center gap-2 overflow-hidden whitespace-nowrap transition-all duration-[420ms] ease-fluid ${merged ? 'pointer-events-none w-0 scale-90 opacity-0' : 'w-auto opacity-100'}`}>
                         <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
                           <Icon name="id" className="h-4 w-4" /> QR
                         </button>
@@ -245,70 +247,59 @@ export function SimulationRunner() {
                           <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
                         </button>
                       </div>
+                      {/* Commandes — emplacement FIXE. */}
+                      <div className="flex shrink-0 gap-2">
+                        {!timer.running ? (
+                          <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+                        ) : (
+                          <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+                        )}
+                        <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Parcours. Colonnes ÉGALES et FIXES ; centrer l'épreuve
-                      active se fait en translatant la rangée d'exactement une
-                      colonne (compositeur). */}
-                  <div className={`relative overflow-hidden transition-[height,margin-top] duration-[420ms] ease-fluid ${merged ? 'mt-0 h-[50px]' : 'mt-7 h-[62px]'}`}>
-                    <div className="grid transition-transform duration-[420ms] ease-fluid"
-                      style={{ gridTemplateColumns: `repeat(${FLOW.length}, minmax(0, 1fr))`,
-                               transform: `translateX(${merged ? (1 - navIdx) * (100 / FLOW.length) : 0}%)` }}>
-                      {FLOW.map((f, i) => {
-                        const isActive = active === f.key && !aufklaerungOpen;
-                        const isDone = !!results[f.key]?.done;
-                        return (
-                          <div key={f.key} className={`relative flex min-w-0 flex-col items-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
-                            {/* Trait : s'arrête NETTEMENT avant les pastilles
-                                (rayon 20 px + 14 px de dégagement). */}
-                            {i < FLOW.length - 1 && (
-                              <span aria-hidden
-                                className={`absolute top-5 h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
-                                style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
-                            )}
-                            <button
-                              onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                              className={`group relative z-10 flex origin-top flex-col items-center gap-1 transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[0.94]' : 'scale-100'}`}
-                            >
-                              <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
-                                isDone ? 'border-emerald-500 bg-emerald-500 text-white'
-                                : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
-                                : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
-                                {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
-                              </span>
-                              <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
-                            </button>
-                          </div>
-                        );
-                      })}
+                  {/* ── Rangée basse : chrono · parcours ──────────────────
+                      Déployé : le parcours occupe la largeur, le chrono passe
+                      dessous. Fusionné : ils se placent côte à côte, le chrono
+                      venant se loger sous le titre. Le déplacement du chrono est
+                      joué en FLIP (translation pure, compositeur). */}
+                  <div className={`mt-2 flex gap-5 ${merged ? 'flex-row items-center' : 'flex-col-reverse'}`}>
+                    <div ref={chronoRef} className="shrink-0">
+                      <TimeFace amb={amb} remaining={timer.remaining} />
+                    </div>
+                    <div className={`min-w-0 flex-1 overflow-hidden transition-[height] duration-[420ms] ease-fluid ${merged ? 'h-[56px]' : 'h-[62px]'}`}>
+                      <div className="grid h-full transition-transform duration-[420ms] ease-fluid"
+                        style={{ gridTemplateColumns: `repeat(${FLOW.length}, minmax(0, 1fr))`,
+                                 transform: `translateX(${merged ? (1 - navIdx) * (100 / FLOW.length) : 0}%)` }}>
+                        {FLOW.map((f, i) => {
+                          const isActive = active === f.key && !aufklaerungOpen;
+                          const isDone = !!results[f.key]?.done;
+                          return (
+                            <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
+                              {i < FLOW.length - 1 && (
+                                <span aria-hidden
+                                  className={`absolute top-[22px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
+                                  style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
+                              )}
+                              <button
+                                onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
+                                className="group relative z-10 flex flex-col items-center gap-1"
+                              >
+                                <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
+                                  isDone ? 'border-emerald-500 bg-emerald-500 text-white'
+                                  : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
+                                  : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
+                                  {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
+                                </span>
+                                <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                {/* ── Étiquette 2 — chrono ──────────────────────────────── */}
-                <div className={`relative flex items-center rounded-2xl px-4 transition-[height,padding] duration-[420ms] ease-fluid py-2`}>
-                  <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[420ms] ease-fluid"
-                    style={{ ...timeGlass(amb, 1), opacity: merged ? 0 : 1 }} />
-                  {/* Emplacements AU REPOS (le chrono et les commandes y
-                      reviennent) — vides, ce sont de simples repères. */}
-                  <div className="relative"><TimeFace amb={amb} remaining={timer.remaining} /></div>
-                  <div ref={slotRestRef} aria-hidden className="relative ml-auto h-8 w-px" />
-                </div>
-
-                {/* Commandes de chrono — nœud UNIQUE, positionné en absolu et
-                    déplacé par translate : elles REMONTENT réellement vers le
-                    coin libéré par Aufklärung au lieu d'apparaître ailleurs
-                    (un fondu entre deux copies se lirait comme un saut). */}
-                <div
-                  className="absolute right-4 z-10 flex gap-2 transition-transform duration-[420ms] ease-fluid"
-                  style={{ top: ctrlPos.top, transform: `translateY(${merged ? 0 : ctrlPos.shift}px)` }}>
-                  {!timer.running ? (
-                    <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
-                  ) : (
-                    <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
-                  )}
-                  <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
                 </div>
               </div>
 
@@ -372,31 +363,6 @@ export function SimulationRunner() {
 }
 
 // --------------------------------------------------------------- Zone de jeu
-/** Nœud UNIQUE qui doit occuper deux emplacements selon l'état. On mesure
- *  UNIQUEMENT à l'état déployé : pendant la fusion les repères sont eux-mêmes
- *  en mouvement, et les lire à cet instant donnait une cible fausse — c'était
- *  la cause des à-coups au retour vers le haut. `top` reste donc constant et
- *  seule la translation s'anime (compositeur). */
-function useTwoSlots(
-  hostRef: React.RefObject<HTMLElement>,
-  destRef: React.RefObject<HTMLElement>,
-  restRef: React.RefObject<HTMLElement>,
-  merged: boolean,
-) {
-  const [pos, setPos] = useState({ top: 0, shift: 0 });
-  useLayoutEffect(() => {
-    if (merged) return;
-    const host = hostRef.current, dest = destRef.current, rest = restRef.current;
-    if (!host || !dest || !rest) return;
-    const h = host.getBoundingClientRect();
-    const rd = dest.getBoundingClientRect(), rr = rest.getBoundingClientRect();
-    const top = rd.top - h.top;
-    const shift = (rr.top + rr.height / 2) - (rd.top + rd.height / 2);
-    setPos((p) => (Math.abs(p.top - top) < 0.5 && Math.abs(p.shift - shift) < 0.5 ? p : { top, shift }));
-  });
-  return pos;
-}
-
 /** Porte le chrono de la partie en cours. Monté par `key={partKey}` : changer
  *  d'épreuve le remonte, donc le remet à zéro — c'est le comportement qu'assurait
  *  auparavant le remontage de PlayArea, désormais que le chrono est remonté dans
