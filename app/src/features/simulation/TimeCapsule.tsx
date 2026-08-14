@@ -23,41 +23,27 @@ const DRIFT = 'background 2000ms linear, border-color 2000ms linear, box-shadow 
  *  `strength` dose la présence de la teinte : l'étiquette titre en reçoit une
  *  version atténuée pour rester un fond, pas un signal — seul le chrono porte
  *  la couleur à pleine force. */
-export function timeGlass(amb: TimeAmbiance, strength = 1, weld?: 'top' | 'bottom'): CSSProperties {
+export function timeGlass(amb: TimeAmbiance, strength = 1): CSSProperties {
   const veil = (0.05 + amb.intensity * 0.20) * strength;
   const edge = (0.16 + amb.intensity * 0.46) * strength;
   const glow = (0.10 + amb.intensity * 0.32) * strength;
   const side = auraColor(amb, Math.max(edge, 0.08));
   return {
-    // saturate + brightness font « bloomer » les couleurs des éléments situés
-    // dessous : c'est ce qui donne la sensation de matière réfringente plutôt
-    // que de simple voile. contrast(0.9) aplatit le contraste de ce qui passe
-    // au travers — le texte de la page se dissout au lieu de rester lisible et
-    // de concurrencer le titre, SANS avoir à opacifier davantage la surface.
-    backdropFilter: 'blur(20px) saturate(200%) brightness(1.06) contrast(0.9)',
-    WebkitBackdropFilter: 'blur(20px) saturate(200%) brightness(1.06) contrast(0.9)',
+    // Vrai verre = BEAUCOUP de flou et PEU d'opacité. L'inverse (peu de flou,
+    // surface opaque) donne du plastique dépoli. On dissout donc le texte de la
+    // page par un flou large plutôt qu'en masquant, et `saturate` fait ressortir
+    // les couleurs qui transparaissent — c'est ce qui donne la matière.
+    backdropFilter: 'blur(30px) saturate(185%)',
+    WebkitBackdropFilter: 'blur(30px) saturate(185%)',
     backgroundColor: 'rgb(var(--glass-base))',
-    // Chaque côté EXPLICITEMENT, sans aucun raccourci (`border` ni
-    // `borderColor`) : la soudure des deux étiquettes efface une bordure
-    // précise, et React ne réconcilie pas de façon fiable un raccourci mélangé
-    // à ses propriétés longues.
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderTopColor: weld === 'top' ? 'transparent' : side,
-    borderBottomColor: weld === 'bottom' ? 'transparent' : side,
-    borderLeftColor: side,
-    borderRightColor: side,
+    borderColor: side,
     backgroundImage: `linear-gradient(142deg, ${auraColor(amb, veil)} 0%, ${auraColor(amb, veil * 0.25)} 55%, ${auraColor(amb, veil * 0.7)} 100%)`,
     boxShadow: [
-      // Reflet spéculaire sur l'arête haute — la lumière qui accroche le bord.
-      'inset 0 1px 0 0 rgb(255 255 255 / 0.65)',
-      // Anneau intérieur : épaisseur du verre, c'est lui qui donne la
-      // réfraction de bord sans second calque de backdrop-filter (qui
-      // doublerait le coût).
-      'inset 0 0 0 1px rgb(255 255 255 / 0.10)',
-      'inset 0 -14px 22px -18px rgb(4 30 27 / 0.35)',
-      `0 18px 40px -26px ${auraColor(amb, glow)}`,
-      '0 2px 10px -6px rgb(4 30 27 / 0.16)',
+      'inset 0 1px 0 0 rgb(255 255 255 / 0.55)',
+      `0 20px 44px -24px ${auraColor(amb, glow)}`,
+      '0 3px 12px -6px rgb(4 30 27 / 0.18)',
     ].join(', '),
     transition: DRIFT,
   };

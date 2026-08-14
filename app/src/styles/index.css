@@ -292,5 +292,5 @@ h1, h2, h3 {
    VOILE : sans surface opaque dessous, le texte de la page traverse le flou et
    devient illisible. Variable (et non classe) parce que timeGlass s'applique en
    style inline, où les variantes `dark:` de Tailwind n'existent pas. */
-:root { --glass-base: 255 255 255 / 0.84; }
-.dark { --glass-base: 18 33 30 / 0.76; }
+:root { --glass-base: 255 255 255 / 0.52; }
+.dark { --glass-base: 18 33 30 / 0.46; }
