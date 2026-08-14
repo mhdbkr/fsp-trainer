@@ -310,15 +310,24 @@ export function SimulationRunner() {
                   <TimeFace amb={amb} remaining={timer.remaining} />
                 </div>
 
-                {/* Commandes — regagnent le coin haut-droit libéré */}
-                <div ref={ctrlRef} className="absolute right-4 z-10 flex gap-2"
-                  style={{ top: merged ? 10 : 152 }}>
-                  {!timer.running ? (
-                    <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
-                  ) : (
-                    <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
-                  )}
-                  <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
+                {/* Commandes — regagnent le coin haut-droit libéré.
+                    `top` vise la LIGNE MÉDIANE de la barre courante (fusionnée :
+                    100/2 ; au repos : barre 2 à 138 px sur 56 de haut, donc
+                    138+28), et l'enveloppe intérieure remonte d'une demi-hauteur.
+                    Le centrage est ainsi exact quelle que soit la hauteur réelle
+                    des boutons, sans valeur devinée.
+                    Ce translate vit sur l'enveloppe INTÉRIEURE : celui du FLIP
+                    s'applique à l'extérieure, les deux ne se marchent pas dessus. */}
+                <div ref={ctrlRef} className="absolute right-4 z-10"
+                  style={{ top: merged ? 50 : 166 }}>
+                  <div className="flex -translate-y-1/2 gap-2">
+                    {!timer.running ? (
+                      <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+                    ) : (
+                      <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+                    )}
+                    <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
+                  </div>
                 </div>
               </div>
 
