@@ -64,6 +64,8 @@ export function SimulationRunner() {
   // serait faux dès qu'un libellé change de taille.
   const chronoRef = useRef<HTMLDivElement>(null);
   const chronoPrev = useRef<DOMRect | null>(null);
+  const ctrlRef = useRef<HTMLDivElement>(null);
+  const ctrlPrev = useRef<DOMRect | null>(null);
   const [merged, setMerged] = useState(false);
   const [headerH, setHeaderH] = useState(0);
   // Dépend de `c` : au tout premier rendu le cas n'est pas chargé, l'en-tête
@@ -91,7 +93,10 @@ export function SimulationRunner() {
         // FLIP — on relève la position AVANT que React ne re-dispose. Sans ce
         // relevé antérieur, toute mesure faite après coup lit une position déjà
         // en mouvement : c'était l'origine des à-coups.
-        if (next !== prev && chronoRef.current) chronoPrev.current = chronoRef.current.getBoundingClientRect();
+        if (next !== prev) {
+          if (chronoRef.current) chronoPrev.current = chronoRef.current.getBoundingClientRect();
+          if (ctrlRef.current) ctrlPrev.current = ctrlRef.current.getBoundingClientRect();
+        }
         return next;
       });
     };
@@ -113,16 +118,20 @@ export function SimulationRunner() {
   // s'exécute sur le compositeur, hors du cycle de rendu React — aucune classe
   // CSS concurrente, aucune propriété de disposition animée.
   useLayoutEffect(() => {
-    const el = chronoRef.current, prev = chronoPrev.current;
+    const play = (el: HTMLElement | null, prev: DOMRect | null) => {
+      if (!el || !prev) return;
+      const now = el.getBoundingClientRect();
+      const dx = prev.left - now.left, dy = prev.top - now.top;
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+      el.animate(
+        [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0, 0)' }],
+        { duration: 460, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+      );
+    };
+    play(chronoRef.current, chronoPrev.current);
+    play(ctrlRef.current, ctrlPrev.current);
     chronoPrev.current = null;
-    if (!el || !prev) return;
-    const now = el.getBoundingClientRect();
-    const dx = prev.left - now.left, dy = prev.top - now.top;
-    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
-    el.animate(
-      [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0, 0)' }],
-      { duration: 460, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
-    );
+    ctrlPrev.current = null;
   }, [merged]);
 
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
@@ -209,97 +218,107 @@ export function SimulationRunner() {
                   C'est ce qui rend la fusion possible sans saccade : rien ne se
                   téléporte d'une carte à l'autre, on ferme seulement l'espace
                   et on soude les bordures. Chaque élément reste monté. */}
-              {/* UNE SEULE étiquette, toujours. Les deux plaques empilées
-                  d'avant ne pouvaient pas donner une vraie symbiose : elles
-                  gardaient chacune leur surface, et celle du bas mordait sur le
-                  libellé de l'épreuve. Ici il n'y a qu'un panneau de verre dont
-                  la disposition INTERNE se réorganise.
-                  Les commandes Pause/Terminer ne changent jamais d'emplacement
-                  (toujours en haut à droite) : il n'y a donc plus rien à
-                  déplacer, donc plus rien à saccader. C'est Aufklärung et QR
-                  qui s'effacent pour leur laisser le coin. */}
-              <div ref={headerRef} className="sticky top-14 z-30">
-                <div
-                  className={`relative rounded-2xl px-4 transition-[padding] duration-[420ms] ease-fluid ${merged ? 'py-2' : 'pb-3 pt-2.5'}`}
-                  style={timeGlass(amb, 1)}
-                >
-                  {/* ── Rangée haute : titre · commandes ─────────────────── */}
-                  <div className={`flex items-start justify-between gap-3 transition-[min-height] duration-[420ms] ease-fluid ${merged ? 'min-h-[30px]' : 'min-h-[44px]'}`}>
-                    <div className="relative min-w-0 flex-1">
-                      <div className={`origin-left truncate text-sm font-bold transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[1.14]' : 'scale-100'}`}>{c.name}</div>
-                      <div className={`pointer-events-none absolute left-0 top-full flex items-center gap-1.5 pt-1 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
-                        <span className="whitespace-nowrap">Médecin : {activeProfile?.name ?? '—'}</span>
-                        <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                          {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
-                        </span>
-                      </div>
-                    </div>
+              {/* DEUX barres au repos (identité + parcours / chrono +
+                  commandes) qui n'en forment plus qu'UNE en défilant.
+                  Géométrie en CONSTANTES et non mesurée : les repères mesurés
+                  bougeaient eux-mêmes pendant la transition, ce qui donnait des
+                  cibles fausses et les à-coups. Ici les hauteurs sont fixées,
+                  donc les positions sont exactes à tout instant.
+                  Le chrono et les commandes sont des nœuds UNIQUES en position
+                  absolue : leur `top` change d'un coup, et c'est le FLIP qui
+                  joue le trajet en translation pure (compositeur). */}
+              <div ref={headerRef}
+                className={`sticky top-14 z-30 relative flex flex-col transition-[gap] duration-[440ms] ease-fluid ${merged ? 'gap-0' : 'gap-2.5'}`}>
 
-                    <div className="flex shrink-0 items-center gap-2">
-                      {/* QR + Aufklärung : cèdent la place en fusionnant. */}
-                      <div className={`flex items-center gap-2 overflow-hidden whitespace-nowrap transition-all duration-[420ms] ease-fluid ${merged ? 'pointer-events-none w-0 scale-90 opacity-0' : 'w-auto opacity-100'}`}>
-                        <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
-                          <Icon name="id" className="h-4 w-4" /> QR
-                        </button>
-                        <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
-                          className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
-                          title="Le jury peut demander une Aufklärung à tout moment">
-                          <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
-                        </button>
-                      </div>
-                      {/* Commandes — emplacement FIXE. */}
-                      <div className="flex shrink-0 gap-2">
-                        {!timer.running ? (
-                          <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
-                        ) : (
-                          <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
-                        )}
-                        <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
-                      </div>
-                    </div>
+                {/* Surface UNIQUE de l'état fusionné — supprime toute jointure */}
+                <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[440ms] ease-fluid"
+                  style={{ ...timeGlass(amb, 1), opacity: merged ? 1 : 0 }} />
+
+                {/* ── Barre 1 — identité + parcours ─────────────────────── */}
+                <div className={`relative rounded-2xl px-4 transition-[height] duration-[440ms] ease-fluid ${merged ? 'h-[100px]' : 'h-[128px]'}`}>
+                  <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[440ms] ease-fluid"
+                    style={{ ...timeGlass(amb, 0.75), opacity: merged ? 0 : 1 }} />
+
+                  {/* Titre — descend un peu en fusionnant et grossit légèrement */}
+                  <div className={`absolute left-4 origin-left truncate pr-4 text-sm font-bold transition-[top,transform] duration-[440ms] ease-fluid ${merged ? 'top-[16px] scale-[1.14]' : 'top-[10px] scale-100'}`}
+                    style={{ maxWidth: 'calc(60% - 1rem)' }}>{c.name}</div>
+
+                  {/* Ligne profil */}
+                  <div className={`pointer-events-none absolute left-4 top-[30px] flex items-center gap-1.5 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
+                    <span className="whitespace-nowrap">Médecin : {activeProfile?.name ?? '—'}</span>
+                    <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
+                      {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
+                    </span>
                   </div>
 
-                  {/* ── Rangée basse : chrono · parcours ──────────────────
-                      Déployé : le parcours occupe la largeur, le chrono passe
-                      dessous. Fusionné : ils se placent côte à côte, le chrono
-                      venant se loger sous le titre. Le déplacement du chrono est
-                      joué en FLIP (translation pure, compositeur). */}
-                  <div className={`mt-2 flex gap-5 ${merged ? 'flex-row items-center' : 'flex-col-reverse'}`}>
-                    <div ref={chronoRef} className="shrink-0">
-                      <TimeFace amb={amb} remaining={timer.remaining} />
-                    </div>
-                    <div className={`min-w-0 flex-1 overflow-hidden transition-[height] duration-[420ms] ease-fluid ${merged ? 'h-[56px]' : 'h-[62px]'}`}>
-                      <div className="grid h-full transition-transform duration-[420ms] ease-fluid"
-                        style={{ gridTemplateColumns: `repeat(${FLOW.length}, minmax(0, 1fr))`,
-                                 transform: `translateX(${merged ? (1 - navIdx) * (100 / FLOW.length) : 0}%)` }}>
-                        {FLOW.map((f, i) => {
-                          const isActive = active === f.key && !aufklaerungOpen;
-                          const isDone = !!results[f.key]?.done;
-                          return (
-                            <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
-                              {i < FLOW.length - 1 && (
-                                <span aria-hidden
-                                  className={`absolute top-[22px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
-                                  style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
-                              )}
-                              <button
-                                onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                                className="group relative z-10 flex flex-col items-center gap-1"
-                              >
-                                <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
-                                  isDone ? 'border-emerald-500 bg-emerald-500 text-white'
-                                  : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
-                                  : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
-                                  {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
-                                </span>
-                                <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
-                              </button>
-                            </div>
-                          );
-                        })}
-                      </div>
+                  {/* QR + Aufklärung — cèdent le coin aux commandes */}
+                  <div className={`absolute right-4 top-[8px] flex items-center gap-2 whitespace-nowrap transition-opacity duration-300 ${merged ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
+                    <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
+                      <Icon name="id" className="h-4 w-4" /> QR
+                    </button>
+                    <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
+                      className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
+                      title="Le jury peut demander une Aufklärung à tout moment">
+                      <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
+                    </button>
+                  </div>
+
+                  {/* Parcours — en bas au repos ; parfaitement centré (des deux
+                      axes) une fois fusionné. */}
+                  <div className={`absolute inset-x-4 overflow-hidden transition-[top,height] duration-[440ms] ease-fluid ${merged ? 'top-[22px] h-[62px]' : 'top-[58px] h-[62px]'}`}>
+                    <div className="grid h-full transition-transform duration-[440ms] ease-fluid"
+                      style={{ gridTemplateColumns: `repeat(${FLOW.length}, minmax(0, 1fr))`,
+                               transform: `translateX(${merged ? (1 - navIdx) * (100 / FLOW.length) : 0}%)` }}>
+                      {FLOW.map((f, i) => {
+                        const isActive = active === f.key && !aufklaerungOpen;
+                        const isDone = !!results[f.key]?.done;
+                        return (
+                          <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
+                            {i < FLOW.length - 1 && (
+                              <span aria-hidden
+                                className={`absolute top-[19px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
+                                style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
+                            )}
+                            <button
+                              onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
+                              className="group relative z-10 flex flex-col items-center gap-1"
+                            >
+                              <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
+                                isDone ? 'border-emerald-500 bg-emerald-500 text-white'
+                                : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
+                                : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
+                                {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
+                              </span>
+                              <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
+                            </button>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
+                </div>
+
+                {/* ── Barre 2 — chrono + commandes (se replie en fusionnant) ── */}
+                <div className={`relative rounded-2xl transition-[height] duration-[440ms] ease-fluid ${merged ? 'h-0' : 'h-[56px]'}`}>
+                  <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-[440ms] ease-fluid"
+                    style={{ ...timeGlass(amb, 1), opacity: merged ? 0 : 1 }} />
+                </div>
+
+                {/* Chrono — remonte au plus près du titre en fusionnant */}
+                <div ref={chronoRef} className="absolute left-4 z-10"
+                  style={{ top: merged ? 42 : 148 }}>
+                  <TimeFace amb={amb} remaining={timer.remaining} />
+                </div>
+
+                {/* Commandes — regagnent le coin haut-droit libéré */}
+                <div ref={ctrlRef} className="absolute right-4 z-10 flex gap-2"
+                  style={{ top: merged ? 10 : 152 }}>
+                  {!timer.running ? (
+                    <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+                  ) : (
+                    <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+                  )}
+                  <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
                 </div>
               </div>
 
