@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { fmt } from './useTimer';
 import { auraColor, computeAmbiance, type TimeAmbiance } from './timeAmbiance';
 
-/** Le chrono est produit par PlayArea mais consommé jusque dans le mode focus
- *  (deux niveaux plus bas) : un contexte évite de faire transiter les props à
- *  travers des composants qui n'ont rien à voir avec le temps. */
+/** Le chrono est produit par SimulationRunner mais consommé jusque dans le mode
+ *  focus : un contexte évite de faire transiter les props à travers des
+ *  composants qui n'ont rien à voir avec le temps. */
 export const TimeAmbianceContext = createContext<{ amb: TimeAmbiance; remaining: number } | null>(null);
 export const useTimeAmbiance = () => useContext(TimeAmbianceContext);
 
@@ -19,65 +19,86 @@ export function TimeAmbianceProvider({ elapsed, target, children }: { elapsed: n
  *  rien ne clignote : la teinte dérive, c'est tout. */
 const DRIFT = 'background 2000ms linear, border-color 2000ms linear, box-shadow 2000ms linear, color 2000ms linear';
 
-/** Capsule de verre flottante : chrono + commandes. C'est LE seul objet qui
- *  porte le temps — le verre lui-même se teinte, aucun indicateur ajouté. */
-export function TimeCapsule({ amb, remaining, controls, compact = false, className = '' }: {
-  amb: TimeAmbiance; remaining: number; controls?: ReactNode; compact?: boolean; className?: string;
-}) {
-  const veil = 0.05 + amb.intensity * 0.22;  // teinte du verre
-  const edge = 0.16 + amb.intensity * 0.46;  // liseré spéculaire coloré
-  const glow = 0.10 + amb.intensity * 0.32;  // ombre portée teintée = flottement
+/** Verre teinté par le temps, partagé par les DEUX étiquettes de l'en-tête.
+ *  `strength` dose la présence de la teinte : l'étiquette titre en reçoit une
+ *  version atténuée pour rester un fond, pas un signal — seul le chrono porte
+ *  la couleur à pleine force. */
+export function timeGlass(amb: TimeAmbiance, strength = 1, weld?: 'top' | 'bottom'): CSSProperties {
+  const veil = (0.05 + amb.intensity * 0.22) * strength;
+  const edge = (0.16 + amb.intensity * 0.46) * strength;
+  const glow = (0.10 + amb.intensity * 0.32) * strength;
+  const side = auraColor(amb, Math.max(edge, 0.08));
+  return {
+    backdropFilter: 'blur(22px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(22px) saturate(180%)',
+    backgroundColor: 'rgb(var(--glass-base))',
+    // Chaque côté EXPLICITEMENT, sans aucun raccourci (`border` ni
+    // `borderColor`) : la soudure des deux étiquettes efface une bordure
+    // précise, et React ne sait pas réconcilier de façon fiable un raccourci
+    // mélangé à ses propriétés longues.
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderTopColor: weld === 'top' ? 'transparent' : side,
+    borderBottomColor: weld === 'bottom' ? 'transparent' : side,
+    borderLeftColor: side,
+    borderRightColor: side,
+    backgroundImage: `linear-gradient(142deg, ${auraColor(amb, veil)} 0%, ${auraColor(amb, veil * 0.3)} 58%, ${auraColor(amb, veil * 0.75)} 100%)`,
+    boxShadow: `inset 0 1px 0 0 rgb(255 255 255 / 0.5), 0 18px 40px -26px ${auraColor(amb, glow)}, 0 2px 10px -6px rgb(4 30 27 / 0.16)`,
+    transition: DRIFT,
+  };
+}
 
+/** Le cadran. Chiffres en Bricolage (display de la marque) et non en mono : le
+ *  mono lit « appareil de mesure », la display lit « objet soigné ». */
+export function TimeFace({ amb, remaining, size = 'md' }: { amb: TimeAmbiance; remaining: number; size?: 'md' | 'sm' | 'xl' }) {
+  const digits = size === 'xl' ? 'text-[2.6rem]' : size === 'sm' ? 'text-[1.3rem]' : 'text-[1.6rem]';
+  const label = size === 'sm' ? 'text-[10.5px]' : 'text-[11.5px]';
   return (
-    <div
-      className={`relative overflow-hidden rounded-2xl ${className}`}
-      style={{
-        backdropFilter: 'blur(22px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(22px) saturate(180%)',
-        border: `1px solid ${auraColor(amb, edge)}`,
-        // Deux ombres : une teintée et lointaine (l'objet lévite au-dessus de la
-        // page), une neutre et proche (le contact). Plus le temps passe, plus la
-        // première se colore — le flottement devient tendu sans rien clignoter.
-        boxShadow: `inset 0 1px 0 0 rgb(255 255 255 / 0.55),
-                    0 20px 44px -24px ${auraColor(amb, glow)},
-                    0 3px 12px -6px rgb(4 30 27 / 0.18)`,
-        transition: DRIFT,
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(142deg, ${auraColor(amb, veil)} 0%, ${auraColor(amb, veil * 0.3)} 58%, ${auraColor(amb, veil * 0.75)} 100%)`,
-          transition: DRIFT,
-        }}
-      />
-      <div className={`relative flex items-center justify-between gap-4 ${compact ? 'px-3.5 py-2' : 'px-5 py-3.5'}`}>
-        <TimeFace amb={amb} remaining={remaining} compact={compact} />
-        {controls}
-      </div>
+    <div className="flex flex-col leading-none">
+      <span className={`font-display font-semibold tabular-nums ${digits}`}
+        style={{ color: auraColor(amb), letterSpacing: '-0.03em', transition: DRIFT }}>
+        {amb.overtime ? `+${fmt(Math.abs(remaining))}` : fmt(remaining)}
+      </span>
+      <span className={`mt-0.5 font-medium ${label}`} style={{ color: auraColor(amb, 0.72), transition: DRIFT }}>
+        {amb.label}
+      </span>
     </div>
   );
 }
 
-/** Le cadran lui-même. Chiffres en Bricolage (la display de la marque) et non
- *  en mono : le mono lit « appareil de mesure », la display lit « objet soigné ».
- *  Le libellé passe en sans, casse normale — plus une étiquette d'instrument. */
-export function TimeFace({ amb, remaining, compact = false }: { amb: TimeAmbiance; remaining: number; compact?: boolean }) {
+/** Mode focus : AUCUN cadre. Les chiffres flottent, posés sur une nappe de
+ *  couleur très large et très diluée — l'information de temps devient une
+ *  ambiance de pièce plutôt qu'un objet d'interface. Le dégradé est étalé sur
+ *  une grande surface justement pour qu'aucun bord ne soit perceptible. */
+export function FocusTimeAura({ amb, remaining }: { amb: TimeAmbiance; remaining: number }) {
   return (
-    <div className="flex flex-col leading-none">
-      <span
-        className={`font-display font-semibold tabular-nums ${compact ? 'text-[1.6rem]' : 'text-[2.15rem]'}`}
-        style={{ color: auraColor(amb), letterSpacing: '-0.03em', transition: DRIFT }}
-      >
-        {amb.overtime ? `+${fmt(Math.abs(remaining))}` : fmt(remaining)}
-      </span>
-      <span
-        className={`mt-1 font-medium ${compact ? 'text-[11px]' : 'text-[12.5px]'}`}
-        style={{ color: auraColor(amb, 0.72), transition: DRIFT }}
-      >
-        {amb.label}
-      </span>
+    <div className="pointer-events-none absolute inset-x-0 top-0 z-[92] flex justify-center">
+      {/* Nappe : 3 arrêts très rapprochés en opacité pour une extinction sans
+          aucune bande visible (un dégradé à 2 arrêts « casse » toujours). */}
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-0 -translate-x-1/2"
+        style={{
+          width: 'min(1400px, 130vw)',
+          height: '460px',
+          background: `radial-gradient(60% 78% at 50% 0%,
+            ${auraColor(amb, 0.20 * amb.intensity + 0.05)} 0%,
+            ${auraColor(amb, 0.11 * amb.intensity + 0.02)} 34%,
+            ${auraColor(amb, 0.04 * amb.intensity)} 62%,
+            transparent 100%)`,
+          filter: 'blur(26px)',
+          transition: 'background 2000ms linear',
+        }}
+      />
+      <div className="relative mt-3 flex flex-col items-center leading-none">
+        <span className="font-display text-[2.4rem] font-semibold tabular-nums"
+          style={{ color: auraColor(amb), letterSpacing: '-0.03em', transition: DRIFT }}>
+          {amb.overtime ? `+${fmt(Math.abs(remaining))}` : fmt(remaining)}
+        </span>
+        <span className="mt-1 text-[11.5px] font-medium" style={{ color: auraColor(amb, 0.7), transition: DRIFT }}>
+          {amb.label}
+        </span>
+      </div>
     </div>
   );
 }

@@ -7,8 +7,8 @@ import { useUi } from '@/store/ui';
 import { useProfiles } from '@/store/profile';
 import { useSimSession } from '@/store/simSession';
 import { useTimer } from './useTimer';
-import { computeAmbiance } from './timeAmbiance';
-import { TimeAmbianceProvider, TimeCapsule } from './TimeCapsule';
+import { auraColor, computeAmbiance } from './timeAmbiance';
+import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
 import { Portal } from '@/components/Portal';
 import { PartEvaluation } from './PartEvaluation';
 import { partScore, weightedPartScore } from '@/lib/scoring';
@@ -52,13 +52,13 @@ export function SimulationRunner() {
   const [finished, setFinished] = useState<Simulation | null>(null);
   const [showQr, setShowQr] = useState(false);
 
-  // En-tête condensé au défilement. Ce n'est PAS la fenêtre qui défile mais le
+  // Fusion des deux étiquettes au défilement. Ce n'est PAS la fenêtre qui défile mais le
   // <main class="overflow-y-auto"> du layout : écouter `window` ne déclencherait
   // jamais rien. On remonte donc jusqu'au premier ancêtre réellement scrollable.
   // Deux seuils (90 px pour condenser, 40 px pour rouvrir) : sans cette
   // hystérésis, s'arrêter pile sur le seuil ferait osciller la barre.
   const headerRef = useRef<HTMLDivElement>(null);
-  const [condensed, setCondensed] = useState(false);
+  const [merged, setMerged] = useState(false);
   const [headerH, setHeaderH] = useState(0);
   // Dépend de `c` : au tout premier rendu le cas n'est pas chargé, l'en-tête
   // n'existe pas encore et l'effet capterait `window` par défaut — sans jamais
@@ -80,7 +80,7 @@ export function SimulationRunner() {
       const y = t === document ? window.scrollY : (t as HTMLElement).scrollTop;
       if (typeof y !== 'number') return;
       if (t !== document && !(t as HTMLElement).contains(el)) return;
-      setCondensed((prev) => (prev ? y > 40 : y > 90));
+      setMerged((prev) => (prev ? y > 40 : y > 90));
     };
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
 
@@ -157,98 +157,146 @@ export function SimulationRunner() {
 
   const doneCount = Object.values(results).filter((p) => p?.done).length;
 
+  const partKey: Part = aufklaerungOpen ? 'aufklaerung' : active;
+
   return (
-    <div>
-      {/* Barre supérieure : capsule flottante à l'identité (arrondie, translucide).
-          Elle se CONDENSE au défilement pour rendre l'espace à l'examen — seuls
-          le titre et l'épreuve en cours subsistent, cette dernière glissant vers
-          le centre. Tout est monté en permanence : ce sont la largeur et
-          l'opacité qui s'animent, jamais un démontage (donc aucun saut). */}
-      <div ref={headerRef} className={`sticky top-12 z-20 rounded-2xl border border-slate-200/70 bg-white/80 px-4 shadow-sm backdrop-blur-md transition-[padding] duration-500 ease-fluid dark:border-ink-600/70 dark:bg-ink-800/80 ${condensed ? 'py-2' : 'py-3'}`}>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <div>
-              <div className="text-sm font-bold">{c.name}</div>
-              <div className={`grid transition-all duration-500 ease-fluid ${condensed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'}`}>
-                <div className="overflow-hidden">
-                  <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                    Médecin : {activeProfile?.name ?? '—'}
-                    <span className={`chip py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                      {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
-                    </span>
+    // --panel-offset : hauteur réelle de l'en-tête collant, publiée en variable
+    // CSS pour que les panneaux latéraux (Muster-Bogen, notes, guide) s'y
+    // alignent au lieu de passer dessous. Une seule source de vérité.
+    <div style={{ '--panel-offset': `calc(3rem + ${headerH || 148}px + 0.75rem)` } as React.CSSProperties}>
+      <SimTimer
+        key={partKey}
+        target={target}
+        initialElapsed={elapsed[partKey] ?? 0}
+        running={phase === 'play'}
+        onElapsed={(sec) => setElapsed((e) => (e[partKey] === sec ? e : { ...e, [partKey]: sec }))}
+      >
+        {(timer) => {
+          const amb = computeAmbiance(timer.elapsed, target);
+          return (
+            <TimeAmbianceProvider elapsed={timer.elapsed} target={target}>
+              {/* Les DEUX étiquettes vivent dans le MÊME conteneur collant.
+                  C'est ce qui rend la fusion possible sans saccade : rien ne se
+                  téléporte d'une carte à l'autre, on ferme seulement l'espace
+                  et on soude les bordures. Chaque élément reste monté. */}
+              <div ref={headerRef}
+                className={`sticky top-12 z-30 flex flex-col transition-[gap] duration-500 ease-fluid ${merged ? 'gap-0' : 'gap-3'}`}>
+
+                {/* ── Étiquette 1 — identité + parcours ─────────────────── */}
+                <div
+                  className={`relative px-4 transition-[padding,border-radius] duration-500 ease-fluid ${merged ? 'rounded-2xl rounded-b-none py-1.5' : 'rounded-2xl py-3'}`}
+                  style={timeGlass(amb, 0.5, merged ? 'bottom' : undefined)}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-bold">{c.name}</div>
+                      <div className={`grid transition-all duration-500 ease-fluid ${merged ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'}`}>
+                        <div className="overflow-hidden">
+                          <div className="flex items-center gap-1.5 pt-0.5 text-[11px] text-slate-400">
+                            Médecin : {activeProfile?.name ?? '—'}
+                            <span className={`chip py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
+                              {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran"
+                        className={`btn-ghost overflow-hidden text-xs transition-all duration-500 ease-fluid ${merged ? 'pointer-events-none w-0 scale-90 px-0 opacity-0' : 'w-auto opacity-100'}`}>
+                        <Icon name="id" className="h-4 w-4" /> QR
+                      </button>
+                      <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
+                        className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
+                        title="Le jury peut demander une Aufklärung à tout moment">
+                        <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Parcours des épreuves. Grille à colonnes ÉGALES : chaque
+                      pastille est centrée dans sa colonne, et le trait de
+                      liaison part du centre d'une colonne pour couvrir
+                      exactement la suivante (w-full). L'ancien montage
+                      (bouton + trait en flex frères) décalait les pastilles
+                      vers la gauche, la dernière n'ayant pas de trait. */}
+                  <div
+                    className={`grid transition-[grid-template-columns,margin] duration-500 ease-fluid ${merged ? 'mt-0.5' : 'mt-2'}`}
+                    style={{ gridTemplateColumns: merged ? FLOW.map((f) => (active === f.key && !aufklaerungOpen ? '1fr' : '0fr')).join(' ') : `repeat(${FLOW.length}, minmax(0, 1fr))` }}
+                  >
+                    {FLOW.map((f, i) => {
+                      const isActive = active === f.key && !aufklaerungOpen;
+                      const isDone = !!results[f.key]?.done;
+                      return (
+                        <div key={f.key} className={`relative flex min-w-0 flex-col items-center overflow-hidden transition-opacity duration-500 ease-fluid ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
+                          {i < FLOW.length - 1 && (
+                            <span className={`absolute left-1/2 h-0.5 w-full rounded transition-all duration-500 ease-fluid ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
+                              style={{ top: merged ? 14 : 20 }} />
+                          )}
+                          <button
+                            onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
+                            className="group relative z-10 flex flex-col items-center gap-1"
+                          >
+                            <span className={`flex items-center justify-center rounded-full border-2 transition-all duration-500 ease-fluid ${merged ? 'h-7 w-7' : 'h-10 w-10'} ${
+                              isDone ? 'border-emerald-500 bg-emerald-500 text-white'
+                              : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
+                              : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
+                              {isDone ? '✓' : <Icon name={f.icon} className={merged ? 'h-4 w-4' : 'h-5 w-5'} />}
+                            </span>
+                            <span className={`whitespace-nowrap font-medium transition-all duration-500 ease-fluid ${merged ? 'text-[10.5px]' : 'text-[11px]'} ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* ── Étiquette 2 — chrono + commandes ──────────────────── */}
+                <div
+                  className={`relative flex items-center justify-between gap-4 px-4 transition-[padding,border-radius] duration-500 ease-fluid ${merged ? 'rounded-2xl rounded-t-none py-1' : 'rounded-2xl py-2.5'}`}
+                  style={timeGlass(amb, 1, merged ? 'top' : undefined)}
+                >
+                  {/* Filet de couture : suggère la soudure des deux étiquettes
+                      sans laisser une arête franche au milieu du verre. */}
+                  <span aria-hidden className={`pointer-events-none absolute inset-x-4 top-0 h-px transition-opacity duration-500 ${merged ? 'opacity-100' : 'opacity-0'}`}
+                    style={{ background: auraColor(amb, 0.18) }} />
+                  <TimeFace amb={amb} remaining={timer.remaining} />
+                  <div className="flex shrink-0 gap-2">
+                    {!timer.running ? (
+                      <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+                    ) : (
+                      <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+                    )}
+                    <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
                   </div>
                 </div>
               </div>
-            </div>
-            <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran"
-              className={`btn-ghost overflow-hidden text-xs transition-all duration-500 ease-fluid ${condensed ? 'pointer-events-none w-0 scale-90 px-0 opacity-0' : 'w-auto opacity-100'}`}>
-              <Icon name="id" className="h-4 w-4" /> QR
-            </button>
-          </div>
-          {/* Aufklärung à la demande */}
-          <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
-            className={`chip ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
-            title="Le jury peut demander une Aufklärung à tout moment">
-            <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
-          </button>
-        </div>
 
-        {/* Navigateur de modules graphique */}
-        <div className={`flex items-center transition-all duration-500 ease-fluid ${condensed ? 'mt-1.5 justify-center' : 'mt-3'}`}>
-          {FLOW.map((f, i) => {
-            const isActive = active === f.key && !aufklaerungOpen;
-            const isDone = !!results[f.key]?.done;
-            // Condensé : seule l'épreuve en cours reste ; les autres se rétractent
-            // à largeur nulle, ce qui fait GLISSER l'active vers le centre.
-            const hidden = condensed && !isActive;
-            return (
-              <div key={f.key} className={`flex items-center transition-all duration-500 ease-fluid ${hidden ? 'w-0 flex-none opacity-0' : condensed ? 'flex-none opacity-100' : 'flex-1 opacity-100'}`}>
-                <button
-                  onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                  className={`group flex flex-1 items-center justify-center gap-2 transition-all duration-500 ease-fluid ${hidden ? 'pointer-events-none scale-75' : ''} ${condensed ? 'flex-row' : 'flex-col gap-1'}`}
-                >
-                  <span className={`flex items-center justify-center rounded-full border-2 transition-all duration-500 ease-fluid ${condensed ? 'h-7 w-7' : 'h-10 w-10'} ${
-                    isDone ? 'border-emerald-500 bg-emerald-500 text-white'
-                    : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md scale-105'
-                    : 'border-slate-300 bg-white text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900'}`}>
-                    {isDone ? '✓' : <Icon name={f.icon} className={condensed ? 'h-4 w-4' : 'h-5 w-5'} />}
-                  </span>
-                  <span className={`whitespace-nowrap text-[11px] font-medium transition-colors ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
-                </button>
-                {i < FLOW.length - 1 && (
-                  <div className={`h-0.5 rounded transition-all duration-500 ease-fluid ${condensed ? 'mx-0 w-0 opacity-0' : 'mx-1 flex-1 -translate-y-2 opacity-100'} ${results[f.key]?.done ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`} />
+              <div className="mt-4">
+                {phase === 'eval' ? (
+                  <PartEvaluation
+                    part={partKey}
+                    durationSec={timer.elapsed}
+                    onSave={(r) => savePart(partKey, r)}
+                    onCancel={() => setPhase('play')}
+                  />
+                ) : (
+                  <PlayArea
+                    part={partKey}
+                    c={c}
+                    assistance={assistance}
+                    muster={muster}
+                    bogen={bogen}
+                    setBogen={setBogen}
+                    arztbriefText={arztbriefText}
+                    setArztbriefText={setArztbriefText}
+                  />
                 )}
               </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {phase === 'eval' ? (
-        <PartEvaluation
-          part={aufklaerungOpen ? 'aufklaerung' : active}
-          durationSec={0}
-          onSave={(r) => savePart(aufklaerungOpen ? 'aufklaerung' : active, r)}
-          onCancel={() => setPhase('play')}
-        />
-      ) : (
-        <PlayArea
-          key={aufklaerungOpen ? 'aufklaerung' : active}
-          part={aufklaerungOpen ? 'aufklaerung' : active}
-          c={c}
-          assistance={assistance}
-          muster={muster}
-          bogen={bogen}
-          setBogen={setBogen}
-          arztbriefText={arztbriefText}
-          setArztbriefText={setArztbriefText}
-          target={target}
-          stickyTop={headerH ? headerH + 56 : 120}
-          initialElapsed={elapsed[aufklaerungOpen ? 'aufklaerung' : active] ?? 0}
-          onElapsed={(sec) => { const k = aufklaerungOpen ? 'aufklaerung' : active; setElapsed((e) => (e[k] === sec ? e : { ...e, [k]: sec })); }}
-          onEndPart={() => setPhase('eval')}
-        />
-      )}
+            </TimeAmbianceProvider>
+          );
+        }}
+      </SimTimer>
 
       {/* Modale QR — fiche patient 2ᵉ écran (Portal : couvre TOUT le viewport) */}
       {showQr && (
@@ -284,46 +332,39 @@ export function SimulationRunner() {
 }
 
 // --------------------------------------------------------------- Zone de jeu
+/** Porte le chrono de la partie en cours. Monté par `key={partKey}` : changer
+ *  d'épreuve le remonte, donc le remet à zéro — c'est le comportement qu'assurait
+ *  auparavant le remontage de PlayArea, désormais que le chrono est remonté dans
+ *  l'en-tête (il doit vivre au-dessus de la zone d'examen pour pouvoir fusionner
+ *  avec l'étiquette titre). */
+function SimTimer({ target, initialElapsed, running, onElapsed, children }: {
+  target: number; initialElapsed: number; running: boolean;
+  onElapsed: (sec: number) => void;
+  children: (timer: ReturnType<typeof useTimer>) => React.ReactNode;
+}) {
+  const timer = useTimer(target, initialElapsed, onElapsed, true);
+  const setRunning = timer.setRunning;
+  // Le chrono ne doit pas continuer à courir pendant l'écran d'évaluation.
+  useEffect(() => { setRunning(running); }, [running, setRunning]);
+  return <>{children(timer)}</>;
+}
+
 interface PlayAreaProps {
   part: Part; c: Case; assistance: AssistanceMode; muster: MusterCity;
   bogen: BogenNotes; setBogen: (b: BogenNotes) => void;
   arztbriefText: string; setArztbriefText: (t: string) => void;
-  target: number; stickyTop: number; initialElapsed: number; onElapsed: (sec: number) => void; onEndPart: () => void;
 }
-function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, target, stickyTop, initialElapsed, onElapsed, onEndPart }: PlayAreaProps) {
-  // autoStart : le chrono démarre dès l'entrée dans la partie (pas de clic requis).
-  const timer = useTimer(target, initialElapsed, onElapsed, true);
-
-  const amb = computeAmbiance(timer.elapsed, target);
-
+// Le chrono ne vit plus ici : il est remonté dans l'en-tête pour pouvoir
+// fusionner avec l'étiquette titre au défilement. PlayArea ne s'occupe donc
+// plus que du contenu de l'épreuve.
+function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText }: PlayAreaProps) {
   return (
-    <TimeAmbianceProvider elapsed={timer.elapsed} target={target}>
-      {/* Capsule chrono ÉPINGLÉE — z-30 la place au-dessus de l'en-tête (z-20) :
-          c'est la donnée qu'on ne doit jamais perdre de vue, elle ne peut donc
-          pas passer sous la barre des épreuves en défilant. Le décalage `top`
-          la pose juste sous l'en-tête une fois celui-ci condensé. */}
-      <div className="sticky z-30 mb-4" style={{ top: stickyTop }}>
-        <TimeCapsule
-          amb={amb}
-          remaining={timer.remaining}
-          controls={
-            <div className="flex gap-2">
-              {!timer.running ? (
-                <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
-              ) : (
-                <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
-              )}
-              <button onClick={onEndPart} className="btn-outline text-xs">Terminer la partie ✓</button>
-            </div>
-          }
-        />
-      </div>
-
+    <>
       {part === 'anamnese' && <AnamneseArea c={c} assistance={assistance} muster={muster} bogen={bogen} setBogen={setBogen} />}
       {part === 'dokumentation' && <ArztbriefGuide c={c} assistance={assistance} text={arztbriefText} onText={setArztbriefText} bogen={bogen} muster={muster} />}
       {part === 'fallvorstellung' && <VorstellungGuide c={c} assistance={assistance} bogen={bogen} muster={muster} />}
       {part === 'aufklaerung' && <AufklaerungArea c={c} />}
-    </TimeAmbianceProvider>
+    </>
   );
 }
 

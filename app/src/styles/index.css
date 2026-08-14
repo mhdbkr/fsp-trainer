@@ -287,3 +287,10 @@ h1, h2, h3 {
    encre, on le remonte en sombre. */
 :root { --aura-l-boost: 0%; }
 .dark { --aura-l-boost: 16%; }
+
+/* Fond de base du verre teinté par le temps. La teinte de `timeGlass()` est un
+   VOILE : sans surface opaque dessous, le texte de la page traverse le flou et
+   devient illisible. Variable (et non classe) parce que timeGlass s'applique en
+   style inline, où les variantes `dark:` de Tailwind n'existent pas. */
+:root { --glass-base: 255 255 255 / 0.76; }
+.dark { --glass-base: 18 33 30 / 0.66; }
