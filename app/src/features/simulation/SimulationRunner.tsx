@@ -7,7 +7,7 @@ import { useUi } from '@/store/ui';
 import { useProfiles } from '@/store/profile';
 import { useSimSession } from '@/store/simSession';
 import { useTimer } from './useTimer';
-import { auraColor, computeAmbiance } from './timeAmbiance';
+import { computeAmbiance } from './timeAmbiance';
 import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
 import { Portal } from '@/components/Portal';
 import { PartEvaluation } from './PartEvaluation';
@@ -163,7 +163,7 @@ export function SimulationRunner() {
     // --panel-offset : hauteur réelle de l'en-tête collant, publiée en variable
     // CSS pour que les panneaux latéraux (Muster-Bogen, notes, guide) s'y
     // alignent au lieu de passer dessous. Une seule source de vérité.
-    <div style={{ '--panel-offset': `calc(3rem + ${headerH || 148}px + 0.75rem)` } as React.CSSProperties}>
+    <div style={{ '--panel-offset': `calc(3.5rem + ${headerH || 148}px + 0.75rem)` } as React.CSSProperties}>
       <SimTimer
         key={partKey}
         target={target}
@@ -173,93 +173,118 @@ export function SimulationRunner() {
       >
         {(timer) => {
           const amb = computeAmbiance(timer.elapsed, target);
+          const navIdx = Math.max(0, FLOW.findIndex((f) => f.key === active));
           return (
             <TimeAmbianceProvider elapsed={timer.elapsed} target={target}>
               {/* Les DEUX étiquettes vivent dans le MÊME conteneur collant.
                   C'est ce qui rend la fusion possible sans saccade : rien ne se
                   téléporte d'une carte à l'autre, on ferme seulement l'espace
                   et on soude les bordures. Chaque élément reste monté. */}
+              {/* PERFORMANCE — règle absolue ici : pendant la fusion on
+                  n'anime QUE des transformations et des opacités, prises en
+                  charge par le compositeur. La version précédente animait huit
+                  propriétés de DISPOSITION à la fois (gap, paddings,
+                  grid-template-rows/columns, largeurs, tailles d'icônes) sur
+                  des éléments portant un backdrop-filter : chaque image
+                  imposait un recalcul de disposition PUIS un refloutage de
+                  toute la barre, deux fois. D'où les saccades.
+                  Il ne reste que trois propriétés de disposition, chacune sur
+                  un petit sous-arbre : l'espacement, la réserve sous le titre
+                  et la hauteur du parcours. */}
               <div ref={headerRef}
-                className={`sticky top-12 z-30 flex flex-col transition-[gap] duration-500 ease-fluid ${merged ? 'gap-0' : 'gap-3'}`}>
+                className={`sticky top-14 z-10 flex flex-col transition-[gap] duration-[420ms] ease-fluid ${merged ? 'gap-0' : 'gap-2.5'}`}
+                style={{ contain: 'layout paint', willChange: merged ? 'auto' : 'gap' }}>
 
                 {/* ── Étiquette 1 — identité + parcours ─────────────────── */}
                 <div
-                  className={`relative px-4 transition-[padding,border-radius] duration-500 ease-fluid ${merged ? 'rounded-2xl rounded-b-none py-1.5' : 'rounded-2xl py-3'}`}
+                  className={`relative px-4 pt-2.5 transition-[padding-bottom,border-radius] duration-[420ms] ease-fluid ${merged ? 'rounded-2xl rounded-b-none pb-1.5' : 'rounded-2xl pb-3'}`}
                   style={timeGlass(amb, 0.5, merged ? 'bottom' : undefined)}
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
+                    <div className="relative min-w-0 flex-1">
                       <div className="truncate text-sm font-bold">{c.name}</div>
-                      <div className={`grid transition-all duration-500 ease-fluid ${merged ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'}`}>
-                        <div className="overflow-hidden">
-                          <div className="flex items-center gap-1.5 pt-0.5 text-[11px] text-slate-400">
-                            Médecin : {activeProfile?.name ?? '—'}
-                            <span className={`chip py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                              {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
-                            </span>
-                          </div>
-                        </div>
+                      {/* Ligne profil en position ABSOLUE : elle ne pèse plus
+                          sur la hauteur, donc son effacement est une simple
+                          opacité (compositeur) et non un repli de grille. */}
+                      <div className={`pointer-events-none absolute left-0 top-full flex items-center gap-1.5 pt-0.5 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
+                        <span className="whitespace-nowrap">Médecin : {activeProfile?.name ?? '—'}</span>
+                        <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
+                          {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
+                        </span>
                       </div>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
-                      <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran"
-                        className={`btn-ghost overflow-hidden text-xs transition-all duration-500 ease-fluid ${merged ? 'pointer-events-none w-0 scale-90 px-0 opacity-0' : 'w-auto opacity-100'}`}>
-                        <Icon name="id" className="h-4 w-4" /> QR
-                      </button>
-                      <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
-                        className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
-                        title="Le jury peut demander une Aufklärung à tout moment">
-                        <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
-                      </button>
+                    {/* QR et Aufklärung s'effacent ENSEMBLE en fusionnant : la
+                        place revient aux commandes de chrono. Superposés en
+                        absolu → aucune animation de largeur. */}
+                    <div className="relative h-6 shrink-0" style={{ width: merged ? 0 : 'auto', transition: 'width 420ms cubic-bezier(0.32,0.72,0,1)' }}>
+                      <div className={`flex items-center gap-2 whitespace-nowrap transition-opacity duration-300 ${merged ? 'pointer-events-none absolute right-0 opacity-0' : 'opacity-100'}`}>
+                        <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
+                          <Icon name="id" className="h-4 w-4" /> QR
+                        </button>
+                        <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
+                          className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
+                          title="Le jury peut demander une Aufklärung à tout moment">
+                          <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
+                        </button>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Parcours des épreuves. Grille à colonnes ÉGALES : chaque
-                      pastille est centrée dans sa colonne, et le trait de
-                      liaison part du centre d'une colonne pour couvrir
-                      exactement la suivante (w-full). L'ancien montage
-                      (bouton + trait en flex frères) décalait les pastilles
-                      vers la gauche, la dernière n'ayant pas de trait. */}
-                  <div
-                    className={`grid transition-[grid-template-columns,margin] duration-500 ease-fluid ${merged ? 'mt-0.5' : 'mt-2'}`}
-                    style={{ gridTemplateColumns: merged ? FLOW.map((f) => (active === f.key && !aufklaerungOpen ? '1fr' : '0fr')).join(' ') : `repeat(${FLOW.length}, minmax(0, 1fr))` }}
-                  >
-                    {FLOW.map((f, i) => {
-                      const isActive = active === f.key && !aufklaerungOpen;
-                      const isDone = !!results[f.key]?.done;
-                      return (
-                        <div key={f.key} className={`relative flex min-w-0 flex-col items-center overflow-hidden transition-opacity duration-500 ease-fluid ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
-                          {i < FLOW.length - 1 && (
-                            <span className={`absolute left-1/2 h-0.5 w-full rounded transition-all duration-500 ease-fluid ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
-                              style={{ top: merged ? 14 : 20 }} />
-                          )}
-                          <button
-                            onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                            className="group relative z-10 flex flex-col items-center gap-1"
-                          >
-                            <span className={`flex items-center justify-center rounded-full border-2 transition-all duration-500 ease-fluid ${merged ? 'h-7 w-7' : 'h-10 w-10'} ${
-                              isDone ? 'border-emerald-500 bg-emerald-500 text-white'
-                              : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
-                              : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
-                              {isDone ? '✓' : <Icon name={f.icon} className={merged ? 'h-4 w-4' : 'h-5 w-5'} />}
-                            </span>
-                            <span className={`whitespace-nowrap font-medium transition-all duration-500 ease-fluid ${merged ? 'text-[10.5px]' : 'text-[11px]'} ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
-                          </button>
-                        </div>
-                      );
-                    })}
+                  {/* Parcours des épreuves. La grille garde des colonnes ÉGALES
+                      et FIXES : centrer l'épreuve active se fait en translatant
+                      la rangée entière d'exactement une colonne (compositeur),
+                      au lieu d'animer grid-template-columns (disposition). */}
+                  <div className={`overflow-hidden transition-[height,margin-top] duration-[420ms] ease-fluid ${merged ? 'mt-1 h-[50px]' : 'mt-3 h-[62px]'}`}>
+                    <div
+                      className="grid transition-transform duration-[420ms] ease-fluid"
+                      style={{
+                        gridTemplateColumns: `repeat(${FLOW.length}, minmax(0, 1fr))`,
+                        transform: `translateX(${merged ? (1 - navIdx) * (100 / FLOW.length) : 0}%)`,
+                      }}
+                    >
+                      {FLOW.map((f, i) => {
+                        const isActive = active === f.key && !aufklaerungOpen;
+                        const isDone = !!results[f.key]?.done;
+                        return (
+                          <div key={f.key} className={`relative flex min-w-0 flex-col items-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
+                            {/* Trait de liaison : part du BORD de la pastille et
+                                s'arrête au bord de la suivante (rayon 20 px +
+                                6 px de respiration), centré sur son axe. Avant,
+                                il courait d'un centre à l'autre en passant sous
+                                les pastilles. */}
+                            {i < FLOW.length - 1 && (
+                              <span aria-hidden
+                                className={`absolute top-5 h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
+                                style={{ left: 'calc(50% + 26px)', width: 'calc(100% - 52px)' }} />
+                            )}
+                            <button
+                              onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
+                              className={`group relative z-10 flex origin-top flex-col items-center gap-1 transition-transform duration-[420ms] ease-fluid ${merged ? 'scale-[0.78]' : 'scale-100'}`}
+                            >
+                              {/* Le GROUPE entier est mis à l'échelle (origin-top),
+                                  pas seulement la pastille : réduire la seule
+                                  pastille laissait le libellé à sa taille et le
+                                  faisait rogner par la boîte réduite. */}
+                              <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
+                                isDone ? 'border-emerald-500 bg-emerald-500 text-white'
+                                : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
+                                : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
+                                {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
+                              </span>
+                              <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
                 {/* ── Étiquette 2 — chrono + commandes ──────────────────── */}
                 <div
-                  className={`relative flex items-center justify-between gap-4 px-4 transition-[padding,border-radius] duration-500 ease-fluid ${merged ? 'rounded-2xl rounded-t-none py-1' : 'rounded-2xl py-2.5'}`}
+                  className={`relative flex items-center justify-between gap-4 px-4 py-2 transition-[border-radius] duration-[420ms] ease-fluid ${merged ? 'rounded-2xl rounded-t-none' : 'rounded-2xl'}`}
                   style={timeGlass(amb, 1, merged ? 'top' : undefined)}
                 >
-                  {/* Filet de couture : suggère la soudure des deux étiquettes
-                      sans laisser une arête franche au milieu du verre. */}
-                  <span aria-hidden className={`pointer-events-none absolute inset-x-4 top-0 h-px transition-opacity duration-500 ${merged ? 'opacity-100' : 'opacity-0'}`}
-                    style={{ background: auraColor(amb, 0.18) }} />
                   <TimeFace amb={amb} remaining={timer.remaining} />
                   <div className="flex shrink-0 gap-2">
                     {!timer.running ? (
