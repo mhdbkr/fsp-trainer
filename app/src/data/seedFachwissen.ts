@@ -3822,5 +3822,1168 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-diabetes',
+      pathology: 'Diabetes mellitus Typ 2 (Erstdiagnose)',
+      specialty: 'Endokrinologie',
+      definition: 'Der Diabetes mellitus Typ 2 ist eine chronische Stoffwechselerkrankung, die durch eine periphere Insulinresistenz in Muskel-, Fett- und Lebergewebe in Kombination mit einer zunehmenden Sekretionsstörung der Betazellen der Langerhans-Inseln gekennzeichnet ist. Daraus resultiert ein relativer Insulinmangel mit chronischer Hyperglykämie. Er macht etwa 90 bis 95 % aller Diabetesfälle aus, entwickelt sich über Jahre schleichend und wird deshalb häufig erst als Zufallsbefund oder über Folgeerkrankungen entdeckt. Er ist die zentrale Komponente des metabolischen Syndroms und mit erheblicher mikro- und makrovaskulärer Morbidität verbunden.',
+      aetiologie: 'Multifaktoriell: starke genetische Prädisposition (Konkordanz eineiiger Zwillinge über 90 %, deutlich höher als beim Typ 1) trifft auf einen adipogenen Lebensstil mit hyperkalorischer, kohlenhydrat- und fettreicher Ernährung, Bewegungsmangel und viszeraler Adipositas. Das viszerale Fettgewebe wirkt als endokrines Organ: freie Fettsäuren, TNF-alpha, Interleukin-6 und Resistin fördern die Insulinresistenz, während Adiponectin abnimmt. Die Betazellen kompensieren zunächst durch Hyperinsulinämie (Stadium des Prädiabetes), erschöpfen sich jedoch über Jahre; bei Erstdiagnose ist die Betazellfunktion oft bereits um etwa 50 % reduziert. Abzugrenzen sind sekundäre Diabetesformen: pankreopriver Diabetes (Typ 3c) nach chronischer Pankreatitis, Pankreasresektion, Hämochromatose oder Mukoviszidose; endokrine Ursachen wie Cushing-Syndrom, Akromegalie, Phäochromozytom und Hyperthyreose; medikamentös induziert durch Glukokortikoide, Thiazide, Neuroleptika, Tacrolimus oder eine antiretrovirale Therapie; sowie monogene Formen (MODY).',
+      risikofaktoren: [
+        'Adipositas, insbesondere viszerale/abdominelle Fettverteilung (Taillenumfang bei Männern über 94 bzw. 102 cm, bei Frauen über 80 bzw. 88 cm)',
+        'Bewegungsmangel',
+        'Positive Familienanamnese: ein Elternteil mit Typ-2-Diabetes verdoppelt bis verdreifacht das Risiko, bei beiden Eltern steigt es auf über 50 %',
+        'Lebensalter über 45 Jahre',
+        'Arterielle Hypertonie',
+        'Dyslipidämie mit niedrigem HDL und erhöhten Triglyzeriden',
+        'Prädiabetes: abnorme Nüchternglukose oder gestörte Glukosetoleranz',
+        'Zustand nach Gestationsdiabetes oder Geburt eines Kindes über 4000 g',
+        'Polyzystisches Ovarialsyndrom',
+        'Nikotinkonsum (erhöht die Insulinresistenz und potenziert das makrovaskuläre Risiko)',
+        'Zuckerhaltige Getränke und stark verarbeitete Nahrungsmittel',
+        'Schichtarbeit und chronischer Schlafmangel',
+        'Bestimmte Medikamente: Glukokortikoide, Thiazide, atypische Neuroleptika, Tacrolimus, Ciclosporin',
+        'Ethnische Prädisposition (süd- und ostasiatische, afrikanische, hispanische Herkunft — dort bereits bei niedrigerem BMI)',
+      ],
+      klinik: [
+        {
+          text: 'Sehr häufig ZUFALLSBEFUND oder völlig asymptomatischer Verlauf über Jahre — bei Erstdiagnose bestehen bei etwa einem Fünftel der Patienten bereits Folgeschäden',
+        },
+        {
+          text: 'Polyurie: osmotische Diurese, sobald die Nierenschwelle von etwa 180 mg/dl überschritten wird und Glukose im Urin osmotisch Wasser bindet',
+        },
+        {
+          text: 'Polydipsie mit quälendem Durst und Mundtrockenheit als Folge des renalen Wasserverlusts',
+        },
+        {
+          text: 'Nykturie mit konsekutiver Ein- und Durchschlafstörung',
+        },
+        {
+          text: 'Müdigkeit, Abgeschlagenheit, Leistungsknick und Konzentrationsstörungen — häufig das führende Symptom',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust trotz erhaltenem oder gesteigertem Appetit (Katabolie und kalorischer Verlust über die Glukosurie) — beim Typ 2 weniger ausgeprägt als beim Typ 1',
+        },
+        {
+          text: 'Generalisierter Pruritus und trockene Haut',
+        },
+        {
+          text: 'Rezidivierende Infekte: Harnwegsinfekte, Hautinfektionen, Furunkel, Abszesse, Fußpilz, Soor der Mundhöhle, Balanitis oder Vulvovaginitis candidomycetica',
+        },
+        {
+          text: 'Wundheilungsstörungen — kleine Verletzungen heilen über Wochen nicht ab',
+        },
+        {
+          text: 'Passagere Sehstörungen mit verschwommenem Sehen durch osmotische Quellung der Linse (reversibel nach Normalisierung des Blutzuckers — nicht mit einer Retinopathie verwechseln)',
+        },
+        {
+          text: 'Wadenkrämpfe und Muskelschwäche',
+        },
+        {
+          text: 'Erstmanifestation über eine Folgeerkrankung: Myokardinfarkt, Schlaganfall, pAVK, nicht heilendes Fußulkus, Sehverschlechterung oder Niereninsuffizienz',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als hyperosmolares hyperglykämisches Syndrom mit extremer Hyperglykämie über 600 mg/dl, ausgeprägter Exsikkose und Bewusstseinstrübung bis zum Koma — typischerweise bei älteren Patienten, ausgelöst durch einen Infekt',
+          atypisch: true,
+        },
+        {
+          text: 'Diabetische Ketoazidose beim Typ 2 (selten, aber möglich, etwa unter SGLT2-Inhibitoren als euglykäme Ketoazidose oder bei schwerem Stress)',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende Hypoglykämie-ähnliche Symptome durch überschießende, verzögerte Insulinsekretion im Frühstadium der Insulinresistenz',
+          atypisch: true,
+        },
+        {
+          text: 'Acanthosis nigricans (samtartig-hyperpigmentierte Hautverdickung in Nacken und Axillen) als kutaner Marker der Insulinresistenz',
+          atypisch: true,
+        },
+        {
+          text: 'Erektile Dysfunktion oder Gastroparese mit Völlegefühl und Erbrechen als Erstmanifestation einer autonomen Neuropathie',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Diagnosekriterien des Diabetes mellitus (DDG/ADA)',
+          inhalt: 'Ein Diabetes liegt vor bei: Nüchternplasmaglukose ≥ 126 mg/dl (7,0 mmol/l) nach mindestens 8 Stunden Nahrungskarenz; ODER HbA1c ≥ 6,5 % (≥ 48 mmol/mol); ODER 2-Stunden-Wert im oGTT mit 75 g Glukose ≥ 200 mg/dl (11,1 mmol/l); ODER Gelegenheitsplasmaglukose ≥ 200 mg/dl (11,1 mmol/l) zusammen mit klassischen Symptomen (Polyurie, Polydipsie, ungewollter Gewichtsverlust). Ein pathologischer Wert muss an einem zweiten Tag bestätigt werden — außer bei eindeutiger klinischer Symptomatik oder bei zwei gleichzeitig pathologischen unterschiedlichen Parametern. Prädiabetes: abnorme Nüchternglukose 100–125 mg/dl, gestörte Glukosetoleranz (oGTT-2-h-Wert) 140–199 mg/dl, HbA1c 5,7–6,4 %.',
+        },
+        {
+          name: 'Ätiologische Klassifikation (DDG/WHO)',
+          inhalt: 'Typ 1: autoimmune Betazellzerstörung mit absolutem Insulinmangel (Typ 1a autoimmun, Typ 1b idiopathisch; LADA = langsam progrediente Autoimmunform des Erwachsenen). Typ 2: Insulinresistenz mit relativem Insulinmangel und sekretorischem Defekt. Typ 3: andere spezifische Typen — 3a genetische Betazelldefekte (MODY), 3b genetische Insulinwirkungsdefekte, 3c pankreopriv (chronische Pankreatitis, Pankreatektomie, Hämochromatose, Mukoviszidose), 3d endokrinopathiebedingt (Cushing, Akromegalie, Phäochromozytom, Hyperthyreose), 3e medikamentös/toxisch (Glukokortikoide, Thiazide, Neuroleptika), 3f infektionsbedingt, 3g/3h immunologisch bzw. syndromal. Typ 4: Gestationsdiabetes.',
+        },
+        {
+          name: 'Definition des metabolischen Syndroms (IDF)',
+          inhalt: 'Obligat ist die abdominelle Adipositas (Taillenumfang bei europäischen Männern ≥ 94 cm, bei Frauen ≥ 80 cm) plus mindestens zwei der folgenden Kriterien: Triglyzeride ≥ 150 mg/dl oder Therapie; HDL-Cholesterin < 40 mg/dl bei Männern bzw. < 50 mg/dl bei Frauen oder Therapie; Blutdruck ≥ 130/85 mmHg oder antihypertensive Therapie; Nüchternglukose ≥ 100 mg/dl oder bereits diagnostizierter Typ-2-Diabetes. Das metabolische Syndrom wird auch als „tödliches Quartett" bezeichnet.',
+        },
+        {
+          name: 'Stadien der diabetischen Nephropathie (Albuminurie nach KDIGO)',
+          inhalt: 'A1 Normoalbuminurie: Albumin-Kreatinin-Quotient < 30 mg/g. A2 moderat erhöhte Albuminurie (früher Mikroalbuminurie): 30–300 mg/g — Frühstadium, unter konsequenter Blutdruck- und Blutzuckereinstellung noch reversibel. A3 stark erhöhte Albuminurie (früher Makroalbuminurie/Proteinurie): > 300 mg/g. Parallel Stadieneinteilung nach eGFR (G1 bis G5). Der Nachweis erfordert zwei von drei pathologischen Proben innerhalb von drei bis sechs Monaten; falsch positive Werte durch Harnwegsinfekt, Fieber, körperliche Belastung und Menstruation.',
+        },
+        {
+          name: 'Stadien der diabetischen Retinopathie',
+          inhalt: 'Nichtproliferative Retinopathie (mild, mäßig, schwer): Mikroaneurysmen, intraretinale Blutungen, harte Exsudate, Cotton-wool-Herde, perlschnurartige Venen. Proliferative Retinopathie: Neovaskularisationen mit Gefahr von Glaskörperblutung, traktiver Netzhautablösung und Rubeosis iridis mit Sekundärglaukom. Unabhängig davon in jedem Stadium möglich: diabetisches Makulaödem — die häufigste Ursache des Visusverlusts. Therapie: panretinale Laserkoagulation bzw. intravitreale VEGF-Hemmer.',
+        },
+        {
+          name: 'Wagner-Armstrong-Klassifikation des diabetischen Fußsyndroms',
+          inhalt: 'Wagner-Grad 0 bis 5 nach Tiefe: 0 Risikofuß ohne Läsion, 1 oberflächliches Ulkus, 2 Ulkus bis Sehne/Kapsel, 3 Ulkus mit Knochenbeteiligung/Abszess, 4 begrenzte Nekrose/Vorfußgangrän, 5 Nekrose des gesamten Fußes. Armstrong-Stadien A bis D beschreiben ergänzend Infektion und Ischämie: A ohne beides, B mit Infektion, C mit Ischämie, D mit Infektion und Ischämie.',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinstrübung, Somnolenz oder Koma bei Hyperglykämie → hyperosmolares hyperglykämisches Syndrom oder Ketoazidose, sofortige stationäre Aufnahme',
+        'Azetongeruch der Atemluft, vertiefte Kussmaul-Atmung, Übelkeit, Erbrechen und Pseudoperitonitis diabetica → diabetische Ketoazidose',
+        'Ketonurie oder Ketonämie bei Hyperglykämie, auch bei nur mäßig erhöhtem Blutzucker unter SGLT2-Inhibitoren (euglykäme Ketoazidose)',
+        'Blutzucker unter 50 mg/dl mit Kaltschweißigkeit, Tremor, Verwirrtheit oder Krampfanfall → schwere Hypoglykämie, sofortige Glukosegabe',
+        'Ausgeprägte Exsikkose mit Hypotonie, Tachykardie und Oligurie',
+        'Fieber mit Flankenschmerz und Klopfschmerz im Nierenlager bei Diabetes → Pyelonephritis mit Gefahr der Urosepsis und Stoffwechselentgleisung',
+        'Nicht heilendes, gerötetes oder sezernierendes Fußulkus, Knochenkontakt bei der Sondierung, Krepitation oder Gangrän → infiziertes diabetisches Fußsyndrom, Osteomyelitis, Amputationsgefahr',
+        'Plötzliche schmerzlose Sehverschlechterung oder „Rußregen" → Glaskörperblutung bei proliferativer Retinopathie',
+        'Atypischer oder stummer Myokardinfarkt: Diabetiker präsentieren sich wegen der autonomen Neuropathie häufig ohne Angina pectoris, nur mit Dyspnoe, Übelkeit oder Schwäche',
+        'Rasch progrediente Niereninsuffizienz mit Kreatininanstieg und Hyperkaliämie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese der osmotischen Leitsymptome: Trinkmenge, Urinmenge, Nykturie, Gewichtsverlauf mit Zeitraum, Leistungsknick, Pruritus, rezidivierende Infekte, Wundheilungsstörungen, Sehstörungen; bei bekanntem Diabetes IMMER fragen, seit wann er besteht, wie er behandelt und wie er kontrolliert wird',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikoprofil erheben: Familienanamnese, Gestationsdiabetes, Ernährung, Bewegung, Nikotin in Packungsjahren, Alkohol, Medikamente (insbesondere Glukokortikoide, Thiazide, Neuroleptika), frühere Pankreatitis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blutdruck, Herzfrequenz, Größe, Gewicht, BMI, Taillenumfang; Inspektion von Haut (Acanthosis nigricans, Mykosen, Necrobiosis lipoidica), Mundhöhle (Soor) und Genitale',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kompletter Fußstatus: Inspektion einschließlich Zehenzwischenräumen, Nägeln und Druckstellen, Prüfung des Berührungsempfindens mit dem 10-g-Monofilament nach Semmes-Weinstein, des Vibrationsempfindens mit der Stimmgabel nach Rydel-Seiffer (8/8), Temperatur- und Schmerzempfinden, Achillessehnenreflex, Palpation der Fußpulse und Bestimmung des Knöchel-Arm-Index',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nüchternplasmaglukose (≥ 126 mg/dl diagnostisch) und Gelegenheitsglukose (≥ 200 mg/dl mit klassischer Symptomatik diagnostisch); die Bestimmung erfolgt im venösen Plasma, kapilläre Messungen dienen nur der Orientierung und der Selbstkontrolle',
+        },
+        {
+          stufe: 'Labor',
+          text: 'HbA1c (≥ 6,5 % bzw. 48 mmol/mol diagnostisch): Maß der mittleren Glykämie der letzten 8 bis 12 Wochen; nicht verwertbar bei Anämie, Hämolyse, Hämoglobinopathien, nach Transfusion, in der Schwangerschaft und bei fortgeschrittener Niereninsuffizienz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit Teststreifen und Sediment: Glukosurie ab Überschreiten der Nierenschwelle von etwa 180 mg/dl, Ketonkörper zur Erkennung einer Entgleisung, Leukozyten, Nitrit und Erythrozyten bei Harnwegsinfekt; bei Infektverdacht Mittelstrahlurinkultur mit Antibiogramm',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Albumin-Kreatinin-Quotient im Morgenurin als Screening auf die diabetische Nephropathie (pathologisch ab 30 mg/g; Bestätigung durch zwei von drei Proben)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenretentionswerte und eGFR, Elektrolyte einschließlich Kalium, Leberwerte (nichtalkoholische Fettleber), Blutbild mit Differenzialblutbild und CRP; Blutgasanalyse mit Anionenlücke bei jedem Entgleisungsverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nüchtern-Lipidstatus mit Gesamtcholesterin, LDL, HDL und Triglyzeriden sowie TSH zur Abgrenzung einer Schilddrüsenfunktionsstörung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Augenärztliche Untersuchung des Augenhintergrunds in Mydriasis: beim Typ 2 SOFORT bei Erstdiagnose (die Erkrankung bestand oft jahrelang unerkannt), beim Typ 1 erst fünf Jahre nach Manifestation; anschließend jährliche Kontrolle, bei Retinopathie engmaschiger',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie von Nieren und ableitenden Harnwegen (Nierengröße, Parenchymbreite, Harnstau, Restharn bei autonomer Blasenstörung) sowie des Abdomens (Steatosis hepatis, Pankreas)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ruhe-EKG als kardiovaskuläre Ausgangsuntersuchung wegen der Gefahr stummer Ischämien, Blutdruck-Langzeitmessung; bei Beschwerden oder hohem Risiko Belastungs-EKG, Echokardiographie und Duplexsonographie der Carotiden und Beinarterien',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Verdacht auf ein diabetisches Fußsyndrom: Röntgen des Fußes in zwei Ebenen (Osteolysen, Osteomyelitis, Charcot-Fuß), im Zweifel MRT',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Oraler Glukosetoleranztest mit 75 g Glukose nach dreitägiger kohlenhydratreicher Kost und mindestens achtstündiger Nüchternheit — nur bei Grauzonenwerten indiziert; bei bereits eindeutiger Diagnose überflüssig und kontraindiziert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'C-Peptid zur Beurteilung der endogenen Restsekretion (beim Typ 2 normal bis erhöht, beim Typ 1 erniedrigt) — es wird bestimmt, weil es im Gegensatz zum Insulin keinem hepatischen First-Pass-Effekt unterliegt und auch unter exogener Insulintherapie verwertbar bleibt',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Autoantikörper (Anti-GAD65, Anti-IA2, Insulinautoantikörper, ZnT8) zur Abgrenzung von Typ 1 und LADA bei untypischer Konstellation (schlanker Patient, rascher Verlauf, Ketoseneigung, positive Autoimmunanamnese)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Kontinuierliches Glukosemonitoring (CGM) mit Auswertung von „time in range" bei instabiler Einstellung oder Hypoglykämieproblematik; Elektroneurographie und quantitative sensorische Testung bei unklarer Polyneuropathie; genetische Diagnostik bei Verdacht auf MODY',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Diabetes mellitus Typ 1',
+          unterscheidung: 'Jüngere, meist schlanke Patienten, rascher Beginn über Wochen, starker Gewichtsverlust, Ketoseneigung bis zur Ketoazidose als Erstmanifestation, C-Peptid erniedrigt, Autoantikörper positiv, HLA-Assoziation (DR3/DR4), von Beginn an insulinpflichtig.',
+        },
+        {
+          dd: 'LADA (late-onset autoimmune diabetes in adults)',
+          unterscheidung: 'Autoimmuner Diabetes des Erwachsenen mit langsamer Progression — wird häufig als Typ 2 fehlgedeutet. Verdacht bei normalgewichtigen Patienten über 30 Jahren, raschem Versagen oraler Antidiabetika und anderen Autoimmunerkrankungen; entscheidend sind Anti-GAD-Antikörper und ein niedriges C-Peptid.',
+        },
+        {
+          dd: 'Diabetes insipidus (zentral oder renal)',
+          unterscheidung: 'Polyurie und Polydipsie OHNE Hyperglykämie und OHNE Glukosurie; der Urin ist hypoton mit niedriger Osmolalität und niedrigem spezifischem Gewicht, das Serumnatrium eher erhöht. Ursache ist ein ADH-Mangel oder eine renale ADH-Resistenz; Klärung über Serum-/Urinosmolalität und Durstversuch.',
+        },
+        {
+          dd: 'Pankreopriver Diabetes (Typ 3c)',
+          unterscheidung: 'Nach chronischer Pankreatitis (meist alkoholtoxisch), Pankreasresektion, Hämochromatose oder Mukoviszidose. Hinweise: Oberbauchschmerzen, Steatorrhoe, Gewichtsverlust, exokrine Insuffizienz mit erniedrigter Elastase im Stuhl, Verkalkungen im CT; typischerweise „brittle" mit gleichzeitigem Glukagonmangel und hoher Hypoglykämiegefahr.',
+        },
+        {
+          dd: 'Steroiddiabetes und andere medikamenteninduzierte Formen',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Glukokortikoiden, Thiaziden, atypischen Neuroleptika, Tacrolimus oder Ciclosporin; typisch sind vor allem postprandiale Hyperglykämien bei häufig normalem Nüchternwert. Nach Absetzen oft reversibel.',
+        },
+        {
+          dd: 'Cushing-Syndrom',
+          unterscheidung: 'Stammbetonte Adipositas mit Vollmondgesicht und Büffelnacken, Striae rubrae, Muskelatrophie der Extremitäten, Hautatrophie, Hypertonie, Hypokaliämie, Osteoporose. Klärung über Dexamethason-Hemmtest, freies Cortisol im 24-Stunden-Urin und Mitternachtscortisol im Speichel.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Gewichtsverlust bei gesteigertem Appetit, aber mit Tachykardie, Tremor, Hitzeintoleranz, vermehrtem Schwitzen, Diarrhoe, Nervosität und ggf. Struma oder endokriner Orbitopathie; TSH supprimiert, fT3 und fT4 erhöht. Kann einen Diabetes zusätzlich demaskieren.',
+        },
+        {
+          dd: 'Harnwegsinfekt / chronische Zystitis',
+          unterscheidung: 'Dysurie, Pollakisurie und imperativer Harndrang mit kleinen Urinportionen — im Gegensatz zur Polyurie mit großen Volumina; kein Durst, kein Gewichtsverlust. Beim Diabetiker ist der rezidivierende Harnwegsinfekt jedoch typische FOLGE der Glukosurie und sollte zur Blutzuckerbestimmung führen.',
+        },
+        {
+          dd: 'Depression und chronisches Erschöpfungssyndrom',
+          unterscheidung: 'Erklären Müdigkeit, Antriebslosigkeit und Schlafstörung, nicht aber Polyurie, Polydipsie, Pruritus und Wundheilungsstörung. Typisch sind gedrückte Stimmung, Interessenverlust, Früherwachen und Appetitminderung. Häufige Prüfungsfalle: die Depression zu diagnostizieren, bevor der Blutzucker bestimmt wurde — Diabetes und Depression sind zudem häufig komorbid.',
+        },
+        {
+          dd: 'Anämie',
+          unterscheidung: 'Häufige Ursache von Müdigkeit und Leistungsknick, jedoch mit Blässe, Belastungsdyspnoe und Tachykardie und ohne osmotische Symptomatik; Klärung über Blutbild, Ferritin und Retikulozyten.',
+        },
+        {
+          dd: 'Chronische Niereninsuffizienz',
+          unterscheidung: 'Nykturie, Müdigkeit, Pruritus und Übelkeit; Kreatinin und Harnstoff erhöht, eGFR vermindert, häufig renale Anämie und Elektrolytstörungen. Beim Diabetiker ist sie meist Folge der Nephropathie und nicht Differenzialdiagnose.',
+        },
+        {
+          dd: 'Psychogene Polydipsie',
+          unterscheidung: 'Primär gesteigerte Trinkmenge mit sekundärer Polyurie, häufig bei psychiatrischer Grunderkrankung; Serumnatrium und Serumosmolalität eher niedrig, Blutzucker normal, keine Glukosurie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Basistherapie: Lebensstil, Ernährung und strukturierte Schulung',
+          items: [
+            'Strukturierte Diabetesschulung als Fundament jeder Behandlung: Krankheitsverständnis, Bedeutung der Blutzucker- und HbA1c-Werte, Blutzuckerselbstmessung, Erkennen und Behandeln von Hypo- und Hyperglykämien, Fußpflege, Verhalten bei interkurrenten Erkrankungen (Sick-Day-Rules) und im Straßenverkehr',
+            'Ernährungstherapie mit individueller Beratung: Reduktion schnell resorbierbarer Kohlenhydrate und zuckerhaltiger Getränke, ballaststoffreiche Vollkornprodukte, Gemüse, mediterrane Kostform, Reduktion gesättigter Fette; keine speziellen „Diabetikerprodukte"',
+            'Gewichtsreduktion um zunächst 5 bis 10 % des Ausgangsgewichts — verbessert die Insulinresistenz erheblich; bei kurzer Erkrankungsdauer und deutlicher Gewichtsabnahme ist sogar eine Remission möglich',
+            'Körperliche Aktivität: mindestens 150 Minuten moderate Ausdaueraktivität pro Woche auf mindestens drei Tage verteilt, ergänzt durch Krafttraining an zwei Tagen; Bewegung senkt die Insulinresistenz unmittelbar und verbessert das Lipidprofil',
+            'Konsequente Nikotinkarenz mit Angebot einer Raucherentwöhnung — die wirksamste Einzelmaßnahme gegen die Makroangiopathie',
+            'Alkoholreduktion: Alkohol ist kalorienreich, fördert die Hypertriglyzeridämie und begünstigt unter Insulin oder Sulfonylharnstoffen verzögerte Hypoglykämien durch Hemmung der hepatischen Glukoneogenese',
+            'Bariatrische bzw. metabolische Chirurgie (Schlauchmagen, Roux-Y-Magenbypass) als Option bei Adipositas Grad III oder Grad II mit schlecht einstellbarem Diabetes nach Ausschöpfung konservativer Maßnahmen — hohe Remissionsraten, aber lebenslange Substitution und Nachsorge erforderlich',
+            'Anbindung an ein Disease-Management-Programm, Einbeziehung von Angehörigen, Selbsthilfegruppen und Diabetesberatung',
+          ],
+        },
+        {
+          label: 'Medikamentöse Stufentherapie der Blutzuckersenkung',
+          items: [
+            'Individualisiertes HbA1c-Ziel gemeinsam mit dem Patienten festlegen: etwa 6,5 bis 7,5 % bei jungen Patienten mit kurzer Krankheitsdauer und langer Lebenserwartung; ein höheres Ziel bis etwa 8 % bei älteren, multimorbiden Patienten mit Hypoglykämierisiko oder begrenzter Lebenserwartung',
+            'Erste Stufe: Metformin als Mittel der ersten Wahl, gleichzeitig mit den Basismaßnahmen begonnen — einschleichend 500 mg, Steigerung über zwei bis vier Wochen auf 2 × 1000 mg zu den Mahlzeiten. Wirkung: Hemmung der hepatischen Glukoneogenese, Verbesserung der Insulinsensitivität, gewichtsneutral bis gewichtssenkend, keine Hypoglykämie in Monotherapie. Nebenwirkungen: gastrointestinale Beschwerden, Vitamin-B12-Mangel. Kontraindikationen: eGFR < 30 ml/min, schwere Leberinsuffizienz, respiratorische Insuffizienz, dekompensierte Herzinsuffizienz, Alkoholabusus — CAVE Laktatazidose; Pausieren 48 Stunden um eine Kontrastmittelgabe und bei jeder Erkrankung mit Exsikkose, Hypoxie oder Sepsis',
+            'Zweite Stufe nach drei bis sechs Monaten bei Nichterreichen des Ziels — Auswahl nach kardiorenalem Profil statt nach HbA1c allein: SGLT2-Inhibitoren (Empagliflozin, Dapagliflozin) bei Herzinsuffizienz, chronischer Nierenerkrankung oder atherosklerotischer Herz-Kreislauf-Erkrankung; sie senken den Blutzucker insulinunabhängig über eine Glukosurie, reduzieren Gewicht und Blutdruck und verbessern die Prognose. Nebenwirkungen: genitale Mykosen und Harnwegsinfekte, Volumenmangel, selten euglykäme Ketoazidose',
+            'GLP-1-Rezeptoragonisten (Semaglutid, Dulaglutid, Liraglutid) bei ausgeprägter Adipositas und hohem kardiovaskulärem Risiko: glukoseabhängige Insulinsekretion, Glukagonhemmung, verzögerte Magenentleerung und Sättigung mit deutlicher Gewichtsreduktion; Nebenwirkungen Übelkeit und Erbrechen, Kontraindikation bei medullärem Schilddrüsenkarzinom und MEN 2, Vorsicht bei Pankreatitisanamnese',
+            'Weitere Optionen: DPP-4-Inhibitoren (Sitagliptin — gewichtsneutral, gut verträglich, hypoglykämiearm, nicht mit GLP-1-Analoga kombinieren), Sulfonylharnstoffe (Glimepirid — wirksam und preiswert, aber Gewichtszunahme und relevantes Hypoglykämierisiko, daher nachrangig), Glinide, Pioglitazon (Cave Ödeme, Herzinsuffizienz, Frakturrisiko) und Alpha-Glukosidasehemmer',
+            'Insulintherapie bei Versagen der oralen Kombination, bei symptomatischer schwerer Hyperglykämie mit Katabolie, bei Kontraindikationen gegen orale Antidiabetika sowie passager perioperativ, bei schwerer Infektion, unter hochdosierten Glukokortikoiden und in der Schwangerschaft: Beginn meist als basalunterstützte orale Therapie (BOT) mit einem Basalinsulin zur Nacht, danach supplementäre Insulintherapie (SIT) mit Mahlzeiteninsulin oder intensivierte konventionelle Therapie (ICT) im Basis-Bolus-Schema',
+            'Bei jeder Einleitung von Insulin oder Sulfonylharnstoffen obligat Hypoglykämieschulung: Symptome erkennen, 15–20 g schnelle Kohlenhydrate (Traubenzucker, Saft), bei Bewusstlosigkeit Glukagon oder Glukose i.v.; Aufklärung über Fahrtauglichkeit und Berufsrisiken',
+            'Regelmäßige Reevaluation: HbA1c alle drei Monate bis zur Stabilisierung, danach halbjährlich; Deeskalation der Therapie bei erfolgreicher Gewichtsreduktion und bei älteren Patienten mit Übertherapie',
+          ],
+        },
+        {
+          label: 'Behandlung der Begleitrisiken und strukturierte Vorsorgeuntersuchungen',
+          items: [
+            'Blutdruckeinstellung mit Zielwert um 130/80 mmHg: bevorzugt ACE-Hemmer oder Angiotensin-Rezeptorblocker wegen der nephroprotektiven Wirkung, kombinierbar mit Kalziumantagonisten und Thiaziden; bei Albuminurie zusätzlich ein SGLT2-Inhibitor und ggf. Finerenon',
+            'Lipidsenkung mit einem Statin nach Risikokategorie: LDL-Ziel unter 100 mg/dl bei moderatem, unter 70 mg/dl bei hohem und unter 55 mg/dl bei sehr hohem kardiovaskulärem Risiko; bei Nichterreichen Kombination mit Ezetimib, gegebenenfalls PCSK9-Hemmer',
+            'Thrombozytenaggregationshemmung mit ASS 100 mg nur in der Sekundärprävention nach kardiovaskulärem Ereignis, nicht routinemäßig primärpräventiv',
+            'Jährliches Screening auf Folgeschäden: Augenhintergrund beim Augenarzt, Albumin-Kreatinin-Quotient und eGFR, Fußstatus mit Monofilament, Stimmgabel und Fußpulsen (bei Risikofuß bis vierteljährlich), Lipidstatus, Blutdruck, Gewicht und Taillenumfang',
+            'Behandlung manifester Folgeschäden: Retinopathie mit panretinaler Laserkoagulation oder intravitrealen VEGF-Hemmern; Nephropathie mit RAS-Blockade, SGLT2-Inhibitor und Vermeidung nephrotoxischer Substanzen; schmerzhafte Polyneuropathie mit Duloxetin, Pregabalin oder Gabapentin (NICHT mit NSAR); diabetisches Fußsyndrom interdisziplinär mit Druckentlastung, Débridement, Revaskularisation, Antibiotikatherapie und podologischer Versorgung',
+            'Impfungen nach STIKO für chronisch Kranke: jährlich Influenza, Pneumokokken, Herpes zoster ab 50 Jahren, COVID-19-Auffrischung',
+            'Psychosoziale Betreuung: Diabetes ist mit einer etwa doppelt so hohen Depressionsprävalenz assoziiert; Screening auf Depression und Diabetes-Distress, Angebot psychologischer Unterstützung, Klärung von Beruf, Führerschein und Reisen',
+            'Strukturierte Einbindung in ein Disease-Management-Programm mit festen Kontrollintervallen und Gesundheitspass Diabetes',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt fast vollständig davon ab, wie früh die Diagnose gestellt und wie konsequent das gesamte Risikoprofil behandelt wird. Der Typ-2-Diabetes verkürzt die Lebenserwartung im Mittel um etwa fünf bis zehn Jahre, wobei die kardiovaskuläre Mortalität die entscheidende Rolle spielt: Etwa 70 bis 80 % der Patienten versterben an makroangiopathischen Folgen wie Myokardinfarkt oder Schlaganfall. Der Diabetes ist außerdem in Deutschland die häufigste Ursache für Erblindung im Erwerbsalter, für terminale Niereninsuffizienz mit Dialysepflicht und für nichttraumatische Amputationen. Entscheidend ist das multifaktorielle Vorgehen: Die Steno-2-Studie zeigte, dass die gleichzeitige Behandlung von Blutzucker, Blutdruck, Lipiden und Thrombozytenaggregation die kardiovaskulären Ereignisse etwa halbiert — die alleinige Blutzuckersenkung verhindert vor allem die Mikroangiopathie. Bei früher Diagnose, deutlicher Gewichtsreduktion oder metabolischer Chirurgie ist eine Remission mit normwertigem HbA1c ohne Medikation möglich; die Erkrankung bleibt jedoch grundsätzlich chronisch und rezidiviert bei Rückkehr zum alten Lebensstil. Eine zu strenge Einstellung bei älteren, multimorbiden Patienten verschlechtert die Prognose durch Hypoglykämien.',
+      pruefungsfallen: [
+        'Die Diagnosekriterien werden mit ZAHLEN abgefragt: Nüchternglukose ≥ 126 mg/dl (7,0 mmol/l), HbA1c ≥ 6,5 % (48 mmol/mol), oGTT-2-h-Wert ≥ 200 mg/dl (11,1 mmol/l), Gelegenheitsglukose ≥ 200 mg/dl plus klassische Symptome. Ohne eindeutige Symptomatik ist eine Bestätigung an einem zweiten Tag erforderlich.',
+        'Bei bereits eindeutig erhöhten Werten mit typischer Symptomatik ist der oGTT überflüssig und kontraindiziert — ihn dennoch zu nennen gilt als Fehler.',
+        'Typ 1 und Typ 2 sauber gegenüberstellen (Alter, Gewicht, Verlaufsgeschwindigkeit, Ketoseneigung, C-Peptid, Autoantikörper, Therapie) — diese Frage kommt fast immer, auch wenn der Diabetes nur Nebendiagnose ist.',
+        'Bei bekanntem Diabetes IMMER fragen, seit wann er besteht, wie er behandelt wird (Tabletten, Pen, Pumpe) und wie er kontrolliert wird (Selbstmessung, Sensor, HbA1c, Fußkontrollen) — mehrere Kandidaten haben genau dieses Versäumnis notiert bekommen.',
+        'Mikro- und Makroangiopathie strikt trennen: Mikro = Retinopathie, Nephropathie, Polyneuropathie, diabetischer Fuß; Makro = KHK, pAVK, zerebrovaskuläre Erkrankung.',
+        'Ketoazidose und hyperosmolares hyperglykämisches Syndrom nicht verwechseln: Ketoazidose typischerweise beim Typ 1 mit Azetongeruch, Kussmaul-Atmung und Pseudoperitonitis; hyperosmolares Syndrom typischerweise beim Typ 2 mit extremer Hyperglykämie, Exsikkose und Bewusstseinsstörung, aber ohne relevante Ketose, da die Restinsulinsekretion die Lipolyse noch bremst.',
+        'Metformin: Kontraindikationen und das Pausieren vor Kontrastmittelgabe aktiv nennen (Laktatazidose) — ein Dauerbrenner der Nachfrage.',
+        'Beim Typ 2 wird die augenärztliche Untersuchung SOFORT bei Erstdiagnose veranlasst, beim Typ 1 erst fünf Jahre nach Manifestation — dieser Unterschied wird gerne geprüft.',
+        'Eine verschwommene Sicht bei Erstdiagnose ist meist eine reversible osmotische Linsenquellung und nicht automatisch eine Retinopathie; trotzdem muss der Augenhintergrund untersucht werden.',
+        'Der Diabetes wirkt wie eine Immunschwäche: rezidivierende Harnwegsinfekte, Hautinfektionen, Soor und auch eine Pneumonie sind Komplikationen der Hyperglykämie — bei jedem Infekt eines Diabetikers an eine Stoffwechseldekompensation denken (Insulinbedarf steigt).',
+        'Vor dem Patienten Alltagssprache benutzen: „Zuckerkrankheit" statt Diabetes mellitus, „Blutzuckerlangzeitwert" statt HbA1c, „Netzhaut" statt Retina, „Nervenschädigung der Füße" statt Polyneuropathie, „Verkalkung der Gefäße" statt Makroangiopathie.',
+        'Die diabetische Polyneuropathie NICHT mit NSAR behandeln — Mittel der Wahl sind Duloxetin, Pregabalin oder Gabapentin, kausal die Blutzuckereinstellung.',
+        'SGLT2-Inhibitoren sind bei rezidivierenden Harnwegsinfekten und Genitalmykosen ungünstig; außerdem an die euglykäme Ketoazidose denken.',
+        'Das HbA1c-Ziel ist nicht bei allen gleich: Bei alten, multimorbiden Patienten sind Hypoglykämien gefährlicher als ein moderat erhöhter Wert.',
+        'Die Betazellfunktion ist bei Erstdiagnose bereits um etwa die Hälfte reduziert — deshalb ist der Typ-2-Diabetes keine „leichte" Erkrankung, die man nur beobachtet.',
+        'Sekundäre Diabetesformen aktiv abfragen: frühere Pankreatitis (Typ 3c), Kortisontherapie (Steroiddiabetes), Cushing-Habitus, Hämochromatose („Bronzediabetes").',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Die Erstdiagnose eines Diabetes mellitus Typ 2 im Rahmen eines metabolischen Syndroms. Dafür sprechen die klassische osmotische Symptomatik mit Polyurie, Nykturie und Polydipsie, der Leistungsknick, der ungewollte Gewichtsverlust bei gutem Appetit, der generalisierte Pruritus, die rezidivierenden Harnwegsinfekte, die verzögerte Wundheilung und die passagere Sehstörung — bei Adipositas, arterieller Hypertonie, Hyperlipidämie und positiver Familienanamnese.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen Diabetes mellitus Typ 1 und Typ 2?',
+          antwort: 'Der Typ 1 beruht auf einer autoimmunen Zerstörung der Betazellen mit absolutem Insulinmangel: junge, meist schlanke Patienten, rascher Beginn über Wochen, deutlicher Gewichtsverlust, Ketoseneigung, positive Autoantikörper, niedriges C-Peptid, von Anfang an Insulintherapie. Der Typ 2 beruht auf einer Insulinresistenz mit relativem Insulinmangel: meist ältere, übergewichtige Patienten, schleichender Verlauf über Jahre, oft Zufallsbefund, C-Peptid normal bis erhöht, Therapie zunächst mit Lebensstiländerung und oralen Antidiabetika.',
+        },
+        {
+          frage: 'Wie lauten die diagnostischen Kriterien des Diabetes mellitus?',
+          antwort: 'Nüchternplasmaglukose ≥ 126 mg/dl beziehungsweise 7,0 mmol/l; HbA1c ≥ 6,5 % beziehungsweise 48 mmol/mol; 2-Stunden-Wert im oGTT ≥ 200 mg/dl beziehungsweise 11,1 mmol/l; oder eine Gelegenheitsglukose ≥ 200 mg/dl zusammen mit klassischen Symptomen. Ein pathologischer Wert muss an einem zweiten Tag bestätigt werden, außer bei eindeutiger Symptomatik oder zwei gleichzeitig pathologischen Parametern.',
+        },
+        {
+          frage: 'Was ist ein Prädiabetes, und wie behandeln Sie ihn?',
+          antwort: 'Prädiabetes bedeutet eine abnorme Nüchternglukose von 100 bis 125 mg/dl, eine gestörte Glukosetoleranz mit einem oGTT-2-Stunden-Wert von 140 bis 199 mg/dl oder ein HbA1c von 5,7 bis 6,4 %. Behandelt wird primär nicht medikamentös: Gewichtsreduktion um 5 bis 10 %, Ernährungsumstellung, mindestens 150 Minuten Bewegung pro Woche, Nikotinkarenz und jährliche Kontrolle. Damit lässt sich die Progression zum manifesten Diabetes etwa halbieren. Metformin nur ausnahmsweise bei jungen Hochrisikopatienten oder nach Gestationsdiabetes.',
+        },
+        {
+          frage: 'Warum sind das C-Peptid und der Urinstatus wichtig?',
+          antwort: 'Das C-Peptid wird äquimolar mit dem Insulin aus dem Proinsulin abgespalten, unterliegt aber keinem hepatischen First-Pass-Effekt und ist deshalb ein zuverlässiges Maß der körpereigenen Insulinproduktion — auch unter exogener Insulintherapie. Beim Typ 2 ist es normal bis erhöht, beim Typ 1 erniedrigt. Der Urinstatus zeigt die Glukosurie oberhalb der Nierenschwelle von etwa 180 mg/dl, vor allem aber Ketonkörper als Warnzeichen einer Entgleisung sowie Leukozyten und Nitrit bei Harnwegsinfekt; ergänzend bestimmt man den Albumin-Kreatinin-Quotienten zur Erfassung einer beginnenden Nephropathie.',
+        },
+        {
+          frage: 'Ist das HbA1c wichtig? Warum?',
+          antwort: 'Ja, es ist der wichtigste Verlaufs- und Prognoseparameter: Glukose bindet nichtenzymatisch an das Hämoglobin, sodass das HbA1c die mittlere Blutzuckerlage der letzten acht bis zwölf Wochen abbildet. Ein hoher Wert bedeutet ein hohes Risiko für mikro- und makrovaskuläre Folgeschäden und für Infektionen — beispielsweise ist eine Pneumonie beim Diabetiker durch die eingeschränkte Immunabwehr eine typische Komplikation. Nicht verwertbar ist das HbA1c bei Anämie, Hämolyse, Hämoglobinopathien, nach Transfusion und bei fortgeschrittener Niereninsuffizienz.',
+        },
+        {
+          frage: 'Welche akuten und welche chronischen Komplikationen kennen Sie?',
+          antwort: 'Akut: die diabetische Ketoazidose, das hyperosmolare hyperglykämische Syndrom und die Hypoglykämie unter Therapie. Chronisch die Mikroangiopathie mit Retinopathie, Nephropathie, Polyneuropathie und diabetischem Fußsyndrom sowie die Makroangiopathie mit koronarer Herzkrankheit, peripherer arterieller Verschlusskrankheit und Schlaganfall. Hinzu kommen die erhöhte Infektanfälligkeit, die nichtalkoholische Fettleber, die erektile Dysfunktion und ein erhöhtes Demenzrisiko.',
+        },
+        {
+          frage: 'Wie unterscheiden sich Ketoazidose und hyperosmolares Syndrom?',
+          antwort: 'Die Ketoazidose tritt typischerweise beim Typ 1 auf: absoluter Insulinmangel führt zu ungebremster Lipolyse mit Ketonkörperbildung, der Blutzucker liegt meist zwischen 300 und 600 mg/dl, es bestehen metabolische Azidose, Kussmaul-Atmung, Azetongeruch, Übelkeit und Pseudoperitonitis diabetica. Das hyperosmolare hyperglykämische Syndrom tritt typischerweise beim Typ 2 auf: Die Restinsulinsekretion bremst die Lipolyse, daher fehlt die Ketose weitgehend; im Vordergrund stehen extreme Hyperglykämie über 600 mg/dl, hohe Serumosmolalität, massive Exsikkose und Bewusstseinsstörung. Beide werden mit vorsichtiger Volumensubstitution, niedrig dosiertem Insulin und Kaliumsubstitution unter engmaschiger Kontrolle behandelt.',
+        },
+        {
+          frage: 'Warum hat ein Diabetiker gehäuft Infektionen?',
+          antwort: 'Die Hyperglykämie beeinträchtigt Chemotaxis, Phagozytose und intrazelluläre Abtötung der Granulozyten und schwächt die zelluläre Immunantwort; zugleich bietet die Glukosurie in den Harnwegen und die zuckerreiche Gewebeflüssigkeit einen idealen Nährboden für Bakterien und Pilze. Hinzu kommen Mikroangiopathie mit schlechterer Gewebeperfusion und die Polyneuropathie mit unbemerkten Verletzungen. Umgekehrt lässt jeder Infekt den Insulinbedarf steigen und kann den Diabetes dekompensieren lassen.',
+        },
+        {
+          frage: 'Wie diagnostizieren und behandeln Sie eine diabetische Polyneuropathie?',
+          antwort: 'Diagnostisch anamnestisch symmetrische, strumpfförmige, nachts betonte Missempfindungen, Brennen und Taubheit; klinisch Prüfung mit dem 10-g-Monofilament, der Stimmgabel nach Rydel-Seiffer, Temperatur- und Schmerzempfinden sowie Achillessehnenreflex, ergänzend Elektroneurographie und Ausschluss anderer Ursachen wie Alkohol, Vitamin-B12-Mangel, Hypothyreose oder Urämie. Therapeutisch kausal die optimale Blutzuckereinstellung, Alkohol- und Nikotinkarenz sowie Fußpflege; symptomatisch Duloxetin, Pregabalin oder Gabapentin, alternativ trizyklische Antidepressiva oder topisch Capsaicin — nicht mit NSAR.',
+        },
+        {
+          frage: 'Welche Screeninguntersuchungen gehören bei Erstdiagnose dazu?',
+          antwort: 'Augenhintergrund in Mydriasis beim Augenarzt — beim Typ 2 sofort bei Erstdiagnose —, Albumin-Kreatinin-Quotient und eGFR, kompletter Fußstatus mit Monofilament, Stimmgabel, Reflexen und Fußpulsen einschließlich Knöchel-Arm-Index, Lipidstatus, Blutdruckmessung und Ruhe-EKG sowie Gewicht, BMI und Taillenumfang. Danach jährliche Wiederholung, bei pathologischem Befund häufiger.',
+        },
+        {
+          frage: 'Wie sieht die Therapie aus? Erklären Sie die Stufen.',
+          antwort: 'Erstens die Basistherapie: strukturierte Schulung, Ernährungsumstellung, Gewichtsreduktion um 5 bis 10 %, mindestens 150 Minuten Bewegung pro Woche, Nikotin- und Alkoholkarenz. Zweitens die medikamentöse Stufentherapie: Metformin als erste Wahl, nach drei bis sechs Monaten Erweiterung um einen SGLT2-Inhibitor oder ein GLP-1-Analogon je nach kardiorenalem Risiko, später Insulin. Drittens die Behandlung der Begleitrisiken und die Vorsorge: Blutdruckziel um 130/80 mmHg mit einem ACE-Hemmer, Statin mit LDL-Zielwert nach Risikokategorie, Impfungen und das jährliche Screeningprogramm.',
+        },
+        {
+          frage: 'Warum ist die Schulung wichtig und notwendig?',
+          antwort: 'Weil der Diabetes eine lebenslange Erkrankung ist, die der Patient im Alltag selbst steuert — der Arzt sieht ihn nur wenige Stunden im Jahr. Der Patient muss Werte einordnen, Kohlenhydrate abschätzen, Unterzuckerungen erkennen und behandeln, seine Füße täglich kontrollieren und wissen, wie er sich bei Krankheit, auf Reisen und im Straßenverkehr verhält. Schulung verbessert nachweislich die Stoffwechseleinstellung und die Adhärenz und senkt Komplikationen und Krankenhausaufenthalte.',
+        },
+        {
+          frage: 'Welche Nebenwirkungen und Kontraindikationen hat Metformin?',
+          antwort: 'Nebenwirkungen sind vor allem gastrointestinal — Übelkeit, Diarrhoe, metallischer Geschmack —, langfristig ein Vitamin-B12-Mangel; gefürchtet, aber selten ist die Laktatazidose. Kontraindiziert ist Metformin bei einer eGFR unter 30 ml/min, schwerer Leberinsuffizienz, dekompensierter Herzinsuffizienz, respiratorischer Insuffizienz und Alkoholabusus. Es wird um eine Kontrastmittelgabe herum sowie bei akuten Erkrankungen mit Exsikkose, Hypoxie oder Sepsis pausiert.',
+        },
+        {
+          frage: 'Der Patient sagt, seine Mutter nehme Tabletten — kann er die auch nehmen? Und wenn er nicht spritzen will?',
+          antwort: 'Beim Typ-2-Diabetes beginnt man tatsächlich mit Tabletten, weil noch eigenes Insulin gebildet wird; Insulin wird erst nötig, wenn Lebensstil und Tabletten nicht mehr ausreichen. Beim Typ-1-Diabetes ist Insulin dagegen von Anfang an unverzichtbar, weil die Bauchspeicheldrüse kein Insulin mehr herstellt — hier gibt es keine Tablettenalternative. Als einzige experimentelle Alternativen zur Injektion existieren die Pankreas- oder Inselzelltransplantation, die aber eine lebenslange Immunsuppression erfordern und speziellen Indikationen vorbehalten sind.',
+        },
+        {
+          frage: 'Welche Rolle spielt der Diabetes, wenn er nur Nebendiagnose ist — etwa bei einer Pneumonie oder einem Abszess?',
+          antwort: 'Eine doppelte: Der Diabetes ist erstens ein Risikofaktor für die Infektion selbst, weil die Hyperglykämie die Immunabwehr schwächt und die Wundheilung stört, und zweitens wird er durch den Infekt dekompensiert, da Stresshormone den Insulinbedarf erhöhen. Deshalb gehören bei jedem infizierten Diabetiker engmaschige Blutzuckerkontrollen, häufig eine passagere Insulintherapie, die Bestimmung des HbA1c und die Suche nach Folgeschäden zum Vorgehen.',
+        },
+        {
+          frage: 'Warum ist die Blutzuckersenkung allein nicht ausreichend?',
+          antwort: 'Weil die alleinige Blutzuckersenkung vor allem die Mikroangiopathie verhindert, die Patienten aber überwiegend an der Makroangiopathie versterben. Erst die gleichzeitige Behandlung von Blutdruck, Lipiden, Gewicht und Nikotin senkt die kardiovaskuläre Ereignisrate deutlich — die Steno-2-Studie zeigte für dieses multifaktorielle Vorgehen etwa eine Halbierung der Ereignisse.',
+        },
+      ],
+      merksatz: 'Polyurie, Polydipsie und Müdigkeit beim übergewichtigen Patienten mittleren Alters — aber viel häufiger ist der Zufallsbefund: einmal Zucker messen kostet nichts. Diagnose mit Zahlen (Nüchtern ≥ 126, HbA1c ≥ 6,5 %, oGTT ≥ 200, Gelegenheit ≥ 200 plus Symptome), bei Erstdiagnose SOFORT Augen, Nieren und Füße screenen, und behandelt wird nicht der Zucker allein, sondern Lebensstil, Zucker, Blutdruck, Lipide und Nikotin gemeinsam.',
+      linkedCaseIds: [
+        'case-diabetes',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-hyperthyreose',
+      pathology: 'Hyperthyreose (Morbus Basedow)',
+      specialty: 'Endokrinologie',
+      definition: 'Die Hyperthyreose ist eine Überfunktion der Schilddrüse mit einem Überangebot der Schilddrüsenhormone Trijodthyronin (T3) und Thyroxin (T4) im Organismus und daraus folgender Steigerung des Grundumsatzes sowie einer erhöhten Ansprechbarkeit auf Katecholamine. Laborchemisch unterscheidet man die latente (subklinische) Hyperthyreose mit supprimiertem basalem TSH bei noch normalen freien Hormonen von der manifesten Hyperthyreose mit supprimiertem TSH und erhöhtem fT3 und/oder fT4. Der Morbus Basedow (Graves\' disease) ist die häufigste Ursache im Jodmangelgebiet bei jüngeren Patienten: eine Autoimmunerkrankung, bei der stimulierende Autoantikörper gegen den TSH-Rezeptor (TRAK) die Schilddrüse dauerhaft aktivieren. Klassisch ist die Merseburger Trias aus Struma, Tachykardie und Exophthalmus; die endokrine Orbitopathie ist eine eigenständige, extrathyreoidale Manifestation derselben Autoimmunreaktion gegen gemeinsame Antigene des retrobulbären Bindegewebes. Als Thyreotoxikose bezeichnet man das klinische Vollbild der Hormonüberflutung, als thyreotoxische Krise deren lebensbedrohliche Entgleisung.',
+      aetiologie: 'Häufigste Ursachen sind der Morbus Basedow (etwa 60–70 % der Hyperthyreosen bei jüngeren Patienten; Gipfel zwischen dem 20. und 50. Lebensjahr, Frauen etwa fünfmal häufiger betroffen) und die funktionelle Schilddrüsenautonomie (unifokal als \'heißer Knoten\', multifokal oder disseminiert; typisch für ältere Patienten in Jodmangelgebieten). Beim Morbus Basedow binden agonistisch wirkende IgG-Autoantikörper (TRAK) an den TSH-Rezeptor der Thyreozyten und stimulieren TSH-unabhängig Hormonsynthese und Wachstum; genetische Disposition (HLA-DR3, CTLA-4, PTPN22) und Trigger wie Rauchen, psychischer Stress, Infekte, Jodexposition und die postpartale Phase spielen zusammen. Bei der Autonomie führen aktivierende Mutationen des TSH-Rezeptor-Gens zu einer regulationsunabhängigen Hormonproduktion, die durch Jodzufuhr dekompensieren kann. Seltenere Ursachen sind die Destruktionshyperthyreose bei Thyreoiditis (de Quervain, Hashimoto-Initialphase = Hashitoxikose, Postpartum-Thyreoiditis), die jodinduzierte Hyperthyreose (Kontrastmittel, Amiodaron), die iatrogene und die artifizielle Hyperthyreose (Thyreotoxicosis factitia bei Einnahme von Schilddrüsenhormonen, etwa zum Abnehmen), sehr selten ein TSH-produzierendes Hypophysenadenom (sekundäre Hyperthyreose mit erhöhtem TSH), ein metastasiertes follikuläres Schilddrüsenkarzinom, eine Struma ovarii oder eine Schwangerschaftsthyreotoxikose durch die TSH-ähnliche Wirkung des hCG.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (Frauen etwa fünfmal häufiger betroffen)',
+        'Alter zwischen 20 und 50 Jahren beim Morbus Basedow; höheres Lebensalter bei der funktionellen Autonomie',
+        'Positive Familienanamnese für Schilddrüsen- oder andere Autoimmunerkrankungen (genetische Disposition, HLA-DR3, CTLA-4, PTPN22)',
+        'Andere Autoimmunerkrankungen des Patienten: Diabetes mellitus Typ 1, Zöliakie, Vitiligo, perniziöse Anämie, Morbus Addison, rheumatoide Arthritis (polyglanduläres Autoimmunsyndrom)',
+        'RAUCHEN — erhöht die Erkrankungswahrscheinlichkeit und ist der stärkste Risikofaktor für Auftreten und Schweregrad der endokrinen Orbitopathie',
+        'Jodexposition: jodhaltige Röntgenkontrastmittel, Amiodaron, jodhaltige Desinfektionsmittel und hochdosierte Jodpräparate (insbesondere bei vorbestehender Autonomie)',
+        'Leben in einem Jodmangelgebiet mit Strumaprävalenz (Süddeutschland) — begünstigt die Knotenstruma und die Autonomie',
+        'Postpartale Phase (erste 6–12 Monate nach Entbindung) und starke psychische Belastung oder Stress als Auslöser',
+        'Vorangegangene virale Infekte (Thyreoiditis de Quervain)',
+        'Interferon- und Lithiumtherapie, Checkpoint-Inhibitoren (immunvermittelte Thyreoiditis)',
+      ],
+      klinik: [
+        {
+          text: 'Herzrasen, Palpitationen, Tachykardie in Ruhe und erhöhte Blutdruckamplitude durch die gesteigerte Katecholaminsensibilität',
+        },
+        {
+          text: 'Nervosität, innere Unruhe, Reizbarkeit, Konzentrationsstörung und Stimmungslabilität',
+        },
+        {
+          text: 'Feinschlägiger Tremor der vorgehaltenen Hände',
+        },
+        {
+          text: 'Wärmeintoleranz, Hyperhidrose, warme und feuchte Haut, subfebrile Temperaturen',
+        },
+        {
+          text: 'Gewichtsverlust TROTZ gutem oder gesteigertem Appetit (Polyphagie) — das pathognomonische Missverhältnis',
+        },
+        {
+          text: 'Häufigerer, breiiger Stuhlgang bis zur Diarrhoe durch die beschleunigte Darmpassage',
+        },
+        {
+          text: 'Ein- und Durchschlafstörung, Erschöpfung trotz innerer Getriebenheit',
+        },
+        {
+          text: 'Proximal betonte Muskelschwäche (Schwierigkeiten beim Treppensteigen und beim Aufstehen aus der Hocke), gesteigerte Muskeleigenreflexe, thyreogene Myopathie',
+        },
+        {
+          text: 'Struma diffusa mit Engegefühl am Hals; bei ausgeprägter Hypervaskularisation ein auskultierbares Schwirren über der Drüse',
+        },
+        {
+          text: 'Endokrine Orbitopathie — NUR beim Morbus Basedow: Exophthalmus, Lidretraktion (Dalrymple-Zeichen), Zurückbleiben des Oberlids beim Blick nach unten (Graefe-Zeichen), seltener Lidschlag (Stellwag-Zeichen), Konvergenzschwäche (Möbius-Zeichen), Fremdkörper- und Druckgefühl, Tränenfluss, Photophobie, Doppelbilder',
+        },
+        {
+          text: 'Zyklusstörungen bis zur Amenorrhoe bei Frauen, Libidoverlust und erektile Dysfunktion bei Männern, verminderte Fertilität',
+        },
+        {
+          text: 'Haarausfall, feine brüchige Nägel (Onycholyse), warme rosige Haut',
+        },
+        {
+          text: 'Sinkender Insulinbedarf mit Hypoglykämieneigung oder umgekehrt Entgleisung eines vorbestehenden Diabetes mellitus; erniedrigte Cholesterinwerte',
+          atypisch: true,
+        },
+        {
+          text: 'Prätibiales Myxödem (derbe, nicht eindrückbare Schwellung über der Tibia) und Akropachie — seltene, aber für den Morbus Basedow spezifische Manifestationen',
+          atypisch: true,
+        },
+        {
+          text: 'Tachykardes Vorhofflimmern als Erstmanifestation, besonders bei älteren Patienten — bei jedem neu aufgetretenen Vorhofflimmern muss das TSH bestimmt werden',
+          atypisch: true,
+        },
+        {
+          text: 'Apathische (oligosymptomatische) Hyperthyreose des alten Menschen: Adynamie, Depression, Gewichtsverlust und Herzinsuffizienz ohne die typische Hyperaktivität — leicht als Malignom oder Depression fehlgedeutet',
+          atypisch: true,
+        },
+        {
+          text: 'Thyreotoxische periodische hypokaliämische Paralyse mit anfallsartigen Lähmungen, vor allem bei asiatischen Männern',
+          atypisch: true,
+        },
+        {
+          text: 'Osteoporose mit pathologischen Frakturen bei langjähriger latenter Hyperthyreose',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach dem Schweregrad der Funktionsstörung',
+          inhalt: 'Latente (subklinische) Hyperthyreose: TSH supprimiert, fT3 und fT4 normal — häufig asymptomatisch, aber bereits mit erhöhtem Risiko für Vorhofflimmern und Osteoporose. Manifeste Hyperthyreose: TSH supprimiert, fT3 und/oder fT4 erhöht. Sonderformen: T3-Hyperthyreose (nur fT3 erhöht, typisch für die Autonomie) und sekundäre Hyperthyreose bei TSH-produzierendem Hypophysenadenom (TSH nicht supprimiert, sondern normal oder erhöht bei erhöhten freien Hormonen).',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Immunhyperthyreose Typ Morbus Basedow (TRAK positiv, diffuse Struma, endokrine Orbitopathie, diffus erhöhter Uptake). Funktionelle Autonomie: unifokal (heißer Knoten, Plummer-Adenom), multifokal oder disseminiert (TRAK negativ, keine Orbitopathie, fokale Mehrspeicherung). Destruktionshyperthyreose bei Thyreoiditis (de Quervain, Hashitoxikose, Postpartum-Thyreoiditis; verminderter Uptake). Exogen/iatrogen: jodinduziert (Kontrastmittel, Amiodaron Typ I und II), Thyreotoxicosis factitia, Überdosierung von L-Thyroxin. Seltene Ursachen: TSHom, Struma ovarii, hCG-vermittelt, metastasiertes follikuläres Karzinom.',
+        },
+        {
+          name: 'Merseburger Trias (Morbus Basedow)',
+          inhalt: 'Struma + Tachykardie + Exophthalmus. Benannt nach Carl Adolph von Basedow, der 1840 in Merseburg wirkte. Die vollständige Trias findet sich nur bei etwa der Hälfte der Patienten; ihr Fehlen schließt einen Morbus Basedow keineswegs aus.',
+        },
+        {
+          name: 'Endokrine Orbitopathie — Werner-Klassifikation (NOSPECS) und EUGOGO',
+          inhalt: 'NOSPECS-Stadien nach Werner: 0 = No signs; 1 = Only signs (Lidretraktion); 2 = Soft tissue involvement (Bindegewebsbeteiligung, Chemosis); 3 = Proptosis (Exophthalmus); 4 = Extraocular muscle involvement (Motilitätsstörung, Doppelbilder); 5 = Corneal involvement (Hornhautbeteiligung, Keratitis e lagophthalmo); 6 = Sight loss (Optikuskompression mit Visusverlust). EUGOGO teilt nach Aktivität (Clinical Activity Score, CAS ab 3/7 aktiv) und Schweregrad (mild, moderat bis schwer, visusbedrohend) ein — daraus leitet sich die Therapieentscheidung ab.',
+        },
+        {
+          name: 'WHO-Klassifikation der Struma',
+          inhalt: 'Grad 0: keine Struma tastbar oder sichtbar. Grad I: tastbar, bei normaler Kopfhaltung nicht sichtbar (Ia nur tastbar, Ib bei Reklination sichtbar). Grad II: bei normaler Kopfhaltung sichtbar. Grad III: sehr große Struma mit lokalen Komplikationen wie Stridor, oberer Einflussstauung oder Schluckstörung. Normvolumen sonographisch: Frauen bis 18 ml, Männer bis 25 ml.',
+        },
+        {
+          name: 'Thyreotoxische Krise — Stadien nach Herrmann und Burch-Wartofsky-Score',
+          inhalt: 'Stadium I: Tachykardie über 150/min, Fieber, Erbrechen, Diarrhoe, Exsikkose, Adynamie, Tremor, Unruhe. Stadium II: zusätzlich Bewusstseinsstörung, Desorientiertheit, Somnolenz, Psychose. Stadium III: Koma, Kreislaufversagen, Nebenniereninsuffizienz. Der Burch-Wartofsky-Score quantifiziert Temperatur, ZNS-, gastrointestinale und kardiovaskuläre Symptome (ab 45 Punkten Krise wahrscheinlich).',
+        },
+      ],
+      redFlags: [
+        'Fieber über 38,5 °C mit Tachykardie über 150/min, Erbrechen, Exsikkose und Agitation oder Bewusstseinstrübung → thyreotoxische Krise, sofortige intensivmedizinische Behandlung (Letalität 20–30 %)',
+        'Neu aufgetretenes tachykardes Vorhofflimmern, insbesondere beim älteren Patienten → TSH bestimmen, Thromboembolie- und Dekompensationsrisiko',
+        'Zeichen der kardialen Dekompensation: Ruhedyspnoe, Orthopnoe, Beinödeme, Angina pectoris → thyreotoxische Kardiomyopathie',
+        'Rasche Visusverschlechterung, Farbsinnstörung, Papillenödem oder inkompletter Lidschluss mit Hornhautulkus → visusbedrohende endokrine Orbitopathie, sofortige augenärztliche Vorstellung und Steroidstoßtherapie',
+        'Fieber, Halsschmerzen oder Aphthen unter laufender Thiamazol-Therapie → Verdacht auf Agranulozytose, sofortiges Absetzen und Notfall-Blutbild',
+        'Inspiratorischer Stridor, Schluckstörung, obere Einflussstauung oder Heiserkeit → mechanische Komplikation einer großen bzw. retrosternalen Struma, Malignitätsverdacht bei neu aufgetretener Rekurrensparese',
+        'Rasch wachsender, derber, nicht schluckverschieblicher Knoten mit zervikaler Lymphadenopathie → Verdacht auf Schilddrüsenkarzinom',
+        'Geplante jodhaltige Kontrastmitteluntersuchung bei bekannter oder vermuteter Hyperthyreose → Gefahr der Auslösung einer thyreotoxischen Krise, vorher TSH bestimmen und Prophylaxe erwägen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Leitsymptome gezielt erfragen: Gewichtsverlust bei gutem oder gesteigertem Appetit, Palpitationen, Tremor, Nervosität, Wärmeintoleranz und Schwitzen, Diarrhoe, Schlafstörung, Muskelschwäche, Zyklusstörungen, Haarausfall; ergänzend Halsengegefühl, Schluckbeschwerden, Heiserkeit und Augenbeschwerden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ätiologisch entscheidende Anamnese: Jodexposition (Kontrastmittel, Amiodaron, Jodpräparate), Einnahme von Schilddrüsenhormonen oder Abnehmpräparaten, vorangegangener viraler Infekt mit schmerzhafter Schilddrüse, Entbindung in den letzten Monaten, Familienanamnese für Schilddrüsen- und Autoimmunerkrankungen, Nikotinkonsum',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Puls und Rhythmus, Blutdruck (erhöhte Amplitude), Temperatur; Bestimmung von Größe, Gewicht, BMI und Gewichtsverlauf',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion, Palpation und Auskultation der Schilddrüse: Palpation von hinten mit beiden Händen, wobei der Patient während der Untersuchung SCHLUCKEN muss; beurteilt werden Größe (WHO-Grad), Konsistenz, Oberfläche, Knoten, Schluckverschieblichkeit, Druckschmerz und ein Schwirren als Zeichen der Hypervaskularisation; zusätzlich Palpation der zervikalen Lymphknoten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Augenstatus: Exophthalmus (Hertel-Exophthalmometrie), Dalrymple-, Graefe-, Stellwag- und Möbius-Zeichen, Lidschluss, Bulbusmotilität, Doppelbilder, Chemosis; Erhebung des Clinical Activity Score',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Weitere körperliche Untersuchung: Herzauskultation, Prüfung des feinschlägigen Fingertremors, gesteigerte Muskeleigenreflexe, warme feuchte Haut, proximale Muskelkraft, Prätibialregion (prätibiales Myxödem) und Finger (Akropachie)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basales TSH als SCREENING-PARAMETER NUMMER 1 — bei jeder primären Hyperthyreose supprimiert; ein normales basales TSH schließt eine primäre Hyperthyreose praktisch aus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'fT3 und fT4 zur Bestätigung und zur Abgrenzung der latenten (freie Hormone normal) von der manifesten Hyperthyreose; die isolierte fT3-Erhöhung (T3-Hyperthyreose) spricht für eine Autonomie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TRAK (TSH-Rezeptor-Autoantikörper): bei über 90 % der Basedow-Patienten positiv und damit praktisch beweisend; hohe Titer sprechen für ein Rezidivrisiko und sind in der Schwangerschaft für die Beurteilung des fetalen Risikos entscheidend',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TPO-Antikörper (bei Basedow in etwa 70 % positiv, hochtitrig bei Hashimoto) und Thyreoglobulin-Antikörper; Thyreoglobulin selbst ist bei der Thyreotoxicosis factitia erniedrigt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ausgangs- und Sicherheitslabor vor Thyreostatika: Blutbild mit Differenzialblutbild (Leukozyten wegen der Agranulozytose), Transaminasen, γ-GT und alkalische Phosphatase, Kreatinin und Elektrolyte einschließlich Kalzium',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Begleitparameter: BSG und CRP (stark erhöht bei Thyreoiditis de Quervain), Blutzucker und HbA1c, Lipidstatus (Cholesterin bei Hyperthyreose typischerweise erniedrigt), bei Frauen im gebärfähigen Alter ein Schwangerschaftstest vor Szintigraphie und Radiojodtherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Differenzialdiagnostisches Zusatzlabor bei unklarem Befund: 5-Hydroxyindolessigsäure im 24-Stunden-Urin und Chromogranin A (Karzinoid/NET), Metanephrine in Plasma oder 24-Stunden-Urin (Phäochromozytom), Transglutaminase-Antikörper (Zöliakie), Kalium (thyreotoxische Paralyse)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Schilddrüse mit Volumetrie: beim Morbus Basedow diffus vergrößerte, echoarme, inhomogene Drüse; in der Farbduplexsonographie exzessiv gesteigerte Perfusion — das \'vaskuläre Inferno\'. Knoten werden nach Größe, Echogenität, Randkontur, Mikroverkalkungen, Höhenbetonung und Perfusion beurteilt (Malignitätskriterien)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Schilddrüsenszintigraphie mit Technetium-99m-Pertechnetat und Bestimmung des TcTU: beim Morbus Basedow diffus homogen erhöhter Uptake; fokale Mehrspeicherung mit Suppression des umgebenden Gewebes bei der Autonomie (heißer Knoten); verminderter Uptake bei Destruktionsthyreoiditis, jodinduzierter und artifizieller Hyperthyreose. Die Szintigraphie erfolgt bei Knoten IMMER VOR einer Feinnadelpunktion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG (Sinustachykardie, Vorhofflimmern, Ischämiezeichen), bei Bedarf Langzeit-EKG und Echokardiographie zur Beurteilung der Pumpfunktion und des pulmonalen Drucks',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei mittelschwerer bis schwerer endokriner Orbitopathie MRT (bevorzugt) oder CT der Orbitae: Verdickung der geraden Augenmuskeln unter Aussparung der Sehnenansätze, Vermehrung des Orbitafetts, Beurteilung einer Optikuskompression an der Orbitaspitze',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei großer oder retrosternaler Struma Röntgen-Thorax bzw. CT des Halses (jodfreies Protokoll!) und Lungenfunktionsprüfung mit Fluss-Volumen-Kurve zur Beurteilung einer Trachealkompression; Osteodensitometrie bei langjähriger Hyperthyreose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Sonographisch gesteuerte Feinnadelpunktion mit Zytologie nur bei szintigraphisch KALTEM und sonographisch suspektem Knoten; ein heißer Knoten ist praktisch nie maligne und wird nicht punktiert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HNO-ärztliche Laryngoskopie zur präoperativen Dokumentation der Stimmbandfunktion vor jeder Thyreoidektomie und bei Heiserkeit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Fachärztliche Mitbeurteilung durch Endokrinologie, Nuklearmedizin und Ophthalmologie; bei Verdacht auf ein TSH-produzierendes Hypophysenadenom MRT der Sella und TRH-Test',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Funktionelle Schilddrüsenautonomie (unifokal, multifokal, disseminiert)',
+          unterscheidung: 'Ältere Patienten aus Jodmangelgebieten, oft nach Jodexposition; KEINE endokrine Orbitopathie, TRAK negativ, knotige Struma in der Sonographie, szintigraphisch fokal vermehrte Speicherung mit Suppression des übrigen Gewebes. Häufig als T3-Hyperthyreose.',
+        },
+        {
+          dd: 'Thyreoiditis de Quervain (subakute granulomatöse Thyreoiditis)',
+          unterscheidung: 'Schmerzhafte, druckdolente Schilddrüse nach viralem Infekt, ausgeprägtes Krankheitsgefühl, BSG stark beschleunigt bei nur mäßiger Leukozytose, szintigraphisch ERNIEDRIGTER Uptake; selbstlimitierend, Therapie mit NSAR oder Glukokortikoiden, keine Thyreostatika.',
+        },
+        {
+          dd: 'Hashimoto-Thyreoiditis in der Initialphase (Hashitoxikose)',
+          unterscheidung: 'Passagere Hyperthyreose durch Freisetzung präformierter Hormone aus zerstörten Follikeln; TPO-AK hochtitrig, TRAK meist negativ, echoarme Drüse ohne \'vaskuläres Inferno\', verminderter Uptake; Übergang in eine dauerhafte Hypothyreose.',
+        },
+        {
+          dd: 'Jodinduzierte und amiodaroninduzierte Hyperthyreose',
+          unterscheidung: 'Anamnese der Jodexposition (Kontrastmittel, Amiodaron, Desinfektionsmittel). Amiodaron Typ I entsteht auf dem Boden einer Autonomie (Perfusion erhalten, Therapie mit Thyreostatika und Perchlorat), Typ II ist eine Destruktionsthyreoiditis (Perfusion aufgehoben, Therapie mit Glukokortikoiden).',
+        },
+        {
+          dd: 'Thyreotaxicosis factitia (artifizielle Hyperthyreose)',
+          unterscheidung: 'Heimliche Einnahme von Schilddrüsenhormonen, häufig zur Gewichtsreduktion: keine Struma, kein Exophthalmus, Thyreoglobulin erniedrigt und szintigraphisch supprimierte Speicherung. Die Anamnese muss gezielt und wertfrei danach fragen.',
+        },
+        {
+          dd: 'Karzinoid bzw. neuroendokriner Tumor (NET) mit Karzinoid-Syndrom',
+          unterscheidung: 'Diarrhoe, Gewichtsverlust und Tachykardie wie bei der Hyperthyreose, jedoch mit anfallsartigem FLUSH, asthmoiden Beschwerden und rechtsseitiger Endokardfibrose (Hedinger-Syndrom); Nachweis über 5-Hydroxyindolessigsäure im 24-Stunden-Urin und Chromogranin A. Häufigste Lokalisation: Appendix, Ileum, Rektum, Bronchien.',
+        },
+        {
+          dd: 'Phäochromozytom',
+          unterscheidung: 'Paroxysmale Trias aus Kopfschmerz, Palpitationen und Schweißausbruch mit krisenhafter Hypertonie und Blässe statt Wärmeröte; Nachweis über Metanephrine in Plasma oder 24-Stunden-Urin, Lokalisation im CT/MRT und MIBG-Szintigraphie.',
+        },
+        {
+          dd: 'Panikstörung, generalisierte Angststörung, Somatisierung',
+          unterscheidung: 'Attacken mit Herzrasen, Zittern, Schwitzen und Todesangst, jedoch ohne Gewichtsverlust bei gesteigertem Appetit, ohne Wärmeintoleranz, ohne Diarrhoe und ohne Struma; TSH normal. Erst nach organischem Ausschluss zu diagnostizieren.',
+        },
+        {
+          dd: 'Maligne Grunderkrankung mit B-Symptomatik (Lymphom, Kolon- oder Bronchialkarzinom)',
+          unterscheidung: 'Ungewollter Gewichtsverlust und Nachtschweiß, jedoch typischerweise mit vermindertem Appetit, Anämie und Leistungsknick ohne adrenerge Hyperaktivität; bei negativem Schilddrüsenbefund und Risikoprofil ist eine Tumorsuche zwingend.',
+        },
+        {
+          dd: 'Klimakterium und Wechseljahresbeschwerden',
+          unterscheidung: 'Hitzewallungen, Schwitzen, Schlafstörung und Stimmungsschwankungen bei Frauen um das 50. Lebensjahr, jedoch ohne Gewichtsverlust (eher Gewichtszunahme), ohne Tachykardie in Ruhe, ohne Diarrhoe und mit normalem TSH; FSH erhöht.',
+        },
+        {
+          dd: 'Diabetes mellitus mit Entgleisung bzw. Erstmanifestation',
+          unterscheidung: 'Gewichtsverlust bei Polyurie, Polydipsie und Hyperglykämie; bei der Hyperthyreose sinkt der Insulinbedarf hingegen häufig. Die beiden Erkrankungen treten als Autoimmunerkrankungen jedoch gehäuft gemeinsam auf.',
+        },
+        {
+          dd: 'Sekundäre Hyperthyreose bei TSH-produzierendem Hypophysenadenom (TSHom)',
+          unterscheidung: 'Sehr selten: erhöhte freie Hormone bei normalem oder sogar erhöhtem TSH (fehlende Suppression); Nachweis im MRT der Sella, häufig mit weiteren hypophysären Störungen und Gesichtsfeldausfällen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Thyreostatische Erstlinientherapie mit symptomatischer Betablockade',
+          items: [
+            'Thiamazol als Mittel der ersten Wahl: Initialdosis 20–30 mg täglich (bei schwerer Hyperthyreose bis 40 mg), nach Erreichen der Euthyreose in etwa 4–6 Wochen Reduktion auf eine Erhaltungsdosis von 5–10 mg täglich; alternativ Carbimazol (Prodrug von Thiamazol)',
+            'Propylthiouracil als Reservemittel wegen der Hepatotoxizität — indiziert im ersten Schwangerschaftstrimenon (geringeres Embryopathierisiko als Thiamazol) und in der thyreotoxischen Krise, da es zusätzlich die periphere Konversion von T4 zu T3 hemmt',
+            'Wirkprinzip erklären können: Thionamide hemmen die Thyreoperoxidase und damit Jodination und Kopplung — der Wirkungseintritt ist deshalb verzögert, weil die gespeicherten Hormone zunächst noch freigesetzt werden',
+            'Therapiedauer beim Morbus Basedow 12–18 Monate, anschließend Auslassversuch; etwa 50 % bleiben in Remission. Bei der funktionellen Autonomie ist die alleinige Thyreostatikatherapie NICHT kurativ und dient nur der Vorbereitung der definitiven Therapie',
+            'symptomatische Betablockade zur raschen Linderung von Tachykardie, Tremor, Unruhe und Schwitzen: Propranolol 3 × 20–40 mg als nicht selektiver Betablocker mit zusätzlicher Hemmung der peripheren T4-T3-Konversion, alternativ Metoprolol oder Bisoprolol; CAVE bei Diabetes (Verschleierung der Hypoglykämiesymptome), Asthma bronchiale und AV-Block',
+            'allgemeine Maßnahmen: körperliche Schonung, ausreichende Kalorien- und Flüssigkeitszufuhr in der katabolen Phase, passager ein Sedativum bei ausgeprägter Unruhe, konsequente Vermeidung hochdosierter Jodexposition (Kontrastmittel, Amiodaron); normales jodiertes Speisesalz ist erlaubt',
+          ],
+        },
+        {
+          label: 'Definitive Therapie bei Rezidiv, Therapieversagen oder großer Struma',
+          items: [
+            'Indikationen: Rezidiv nach Auslassversuch, fehlende Remission, Unverträglichkeit oder Nebenwirkung der Thyreostatika, funktionelle Autonomie, große Struma mit mechanischer Beeinträchtigung, Malignitätsverdacht, Kinderwunsch mit dem Ziel einer stabilen Stoffwechsellage',
+            'Radiojodtherapie mit Jod-131 unter stationären Bedingungen (in Deutschland strahlenschutzrechtlich vorgeschrieben): Mittel der Wahl bei kleiner Struma, bei der Autonomie und bei erhöhtem Operationsrisiko; Voraussetzung ist eine weitgehende Euthyreose, die Thyreostatika werden vor der Applikation pausiert. Kontraindiziert in Schwangerschaft und Stillzeit, danach Kontrazeption für 6 Monate; bei aktiver endokriner Orbitopathie zurückhaltend bzw. unter Steroidprophylaxe, da sich diese verschlechtern kann. Erwünschte Folge ist meist eine bleibende Hypothyreose',
+            'Thyreoidektomie (nahezu totale Resektion beim Morbus Basedow, Hemithyreoidektomie bei unifokaler Autonomie): indiziert bei großer oder retrosternaler Struma mit Kompression, bei Malignitätsverdacht, bei schwerer Orbitopathie und bei Kinderwunsch. Präoperativ muss zwingend eine Euthyreose erreicht sein, um eine thyreotoxische Krise zu vermeiden; präoperativ Laryngoskopie, intraoperativ Neuromonitoring des Nervus laryngeus recurrens',
+            'typische Operationsrisiken, die aufgeklärt werden müssen: Rekurrensparese mit Heiserkeit (bei beidseitiger Parese Atemnot), postoperativer Hypoparathyreoidismus mit Hypokalzämie, Parästhesien und Tetanie (Chvostek- und Trousseau-Zeichen), Nachblutung mit Kompression der Atemwege, Wundinfektion und die dauerhafte Hypothyreose',
+            'nach jeder definitiven Therapie lebenslange Substitution mit L-Thyroxin, etwa 1,5–2 µg/kg Körpergewicht, nüchtern 30 Minuten vor dem Frühstück eingenommen, Steuerung und Kontrolle über das TSH; nach Thyreoidektomie zusätzlich Kalzium- und Parathormonkontrolle',
+          ],
+        },
+        {
+          label: 'Begleitmaßnahmen, Sicherheitskontrollen und Verlauf',
+          items: [
+            'AGRANULOZYTOSE unter Thionamiden (etwa 0,3–0,6 %): Blutbild vor Therapiebeginn und in den ersten Wochen; der Patient muss ausdrücklich instruiert werden, bei Fieber, Halsschmerzen oder Aphthen das Medikament sofort abzusetzen und umgehend ein Blutbild kontrollieren zu lassen',
+            'weitere Nebenwirkungen überwachen: Transaminasenanstieg und cholestatische Hepatopathie (unter Propylthiouracil auch fulminantes Leberversagen), allergisches Exanthem und Juckreiz, Arthralgien, Geschmacksstörung, ANCA-assoziierte Vaskulitis unter Propylthiouracil',
+            'Verlaufskontrolle: In der Frühphase wird nach fT3 und fT4 gesteuert (alle 4 Wochen), da das TSH noch monatelang supprimiert bleibt und NICHT zur Steuerung taugt; später TSH-Kontrollen alle 3 Monate. Eine iatrogene Hypothyreose ist zu vermeiden, da sie eine Orbitopathie verschlechtern kann',
+            'Management der endokrinen Orbitopathie: ophthalmologische Mitbetreuung mit Verlaufsdokumentation, künstliche Tränenflüssigkeit und Nachtsalbe, Schlafen mit erhöhtem Kopfteil, getönte Brille, Prismengläser bei Doppelbildern; Selen bei milder aktiver Form; bei moderat bis schwerer aktiver Form intravenöse Glukokortikoid-Stoßtherapie (Methylprednisolon), alternativ Tocilizumab, Rituximab oder Teprotumumab; Orbitabestrahlung und operative Dekompression bei visusbedrohendem Verlauf, rehabilitative Lid- und Schieloperationen erst im inaktiven Stadium',
+            'STRIKTER RAUCHSTOPP als eigenständige Therapiemaßnahme: Rauchen vervielfacht Risiko und Schweregrad der endokrinen Orbitopathie, verschlechtert das Ansprechen auf Steroide und Radiojod und erhöht die Rezidivrate — strukturierte Raucherentwöhnung anbieten',
+            'Besonderheiten bei Begleiterkrankungen: bei Diabetes mellitus engmaschige Blutzuckerkontrolle und ärztlich gesteuerte Insulinanpassung (der Bedarf steigt mit Erreichen der Euthyreose wieder an); Osteoporoseprophylaxe mit Kalzium und Vitamin D bei langbestehender Hyperthyreose; bei Vorhofflimmern Frequenzkontrolle und Prüfung der Antikoagulationsindikation',
+            'Schwangerschaft und Kinderwunsch: Thiamazol im ersten Trimenon meiden (Aplasia cutis, Choanal- und Ösophagusatresie), niedrigstmögliche Dosis, TRAK-Bestimmung im dritten Trimenon wegen der diaplazentaren Übertragung und der Gefahr einer fetalen bzw. neonatalen Hyperthyreose',
+            'Screening auf assoziierte Autoimmunerkrankungen (Zöliakie, Typ-1-Diabetes, Nebenniereninsuffizienz, perniziöse Anämie) und Aufklärung über den chronisch-rezidivierenden Charakter der Erkrankung',
+          ],
+        },
+        {
+          label: 'Notfall: thyreotoxische Krise',
+          akut: true,
+          items: [
+            'Auslöser erkennen und beseitigen: Jodexposition (Kontrastmittel!), Infektion, Operation, Trauma, Absetzen der Thyreostatika, Entbindung; klinisch Fieber über 38,5 °C, Tachykardie über 150/min, Erbrechen und Exsikkose, Agitation bis Koma (Stadien I–III nach Herrmann, Burch-Wartofsky-Score)',
+            'sofortige intensivmedizinische Überwachung: großlumige venöse Zugänge, Monitoring, Volumen- und Elektrolytsubstitution bis 3–4 Liter täglich, hochkalorische Ernährung, Thromboembolieprophylaxe, physikalische Fiebersenkung und Paracetamol — KEINE Salicylate, da sie Schilddrüsenhormone aus der Eiweißbindung verdrängen',
+            'Thiamazol hochdosiert intravenös (z. B. 80 mg alle 8 Stunden) oder Propylthiouracil (zusätzliche Konversionshemmung); Glukokortikoide (Hydrocortison 100 mg alle 8 Stunden) zur Konversionshemmung und wegen der relativen Nebenniereninsuffizienz; Betablockade mit Propranolol unter Kreislaufmonitoring, alternativ Esmolol',
+            'Natriumperchlorat zur Hemmung der Jodaufnahme, insbesondere bei jodinduzierter Krise; als Ultima Ratio Plasmapherese zur Hormonelimination und notfallmäßige Thyreoidektomie innerhalb von 48 Stunden',
+            'begleitend Antibiotikatherapie bei infektiöser Auslösung, Behandlung der kardialen Dekompensation und des Vorhofflimmerns; die Letalität beträgt trotz maximaler Therapie 20–30 %',
+          ],
+        },
+      ],
+      prognose: 'Unter thyreostatischer Therapie werden die meisten Patienten innerhalb von 4–6 Wochen euthyreot und beschwerdefrei. Nach einem 12- bis 18-monatigen Therapiezyklus bleibt etwa die Hälfte der Basedow-Patienten dauerhaft in Remission; Rezidive treten überwiegend in den ersten zwei Jahren nach Absetzen auf. Ungünstige prognostische Faktoren für eine Remission sind hohe TRAK-Titer, eine große Struma, männliches Geschlecht, junges Alter, ausgeprägte Hyperthyreose bei Diagnosestellung und fortgesetztes Rauchen. Nach Radiojodtherapie oder Thyreoidektomie ist die Hyperthyreose definitiv beseitigt, um den Preis einer meist lebenslangen, gut substituierbaren Hypothyreose. Die funktionelle Autonomie heilt unter Thyreostatika nicht aus und benötigt regelhaft eine definitive Therapie. Die endokrine Orbitopathie verläuft unabhängig von der Schilddrüsenfunktion: Sie brennt nach 1–3 Jahren aus, bildet sich häufig nur teilweise zurück und ist beim Nichtraucher deutlich milder. Unbehandelt drohen Vorhofflimmern mit Thromboembolien, thyreotoxische Kardiomyopathie, Osteoporose und die thyreotoxische Krise mit einer Letalität von 20–30 %.',
+      pruefungsfallen: [
+        'Der Screening-Parameter ist das BASALE TSH — es muss zuerst genannt werden, danach erst fT3 und fT4. Ein normales TSH schließt eine primäre Hyperthyreose praktisch aus.',
+        'In der Frühphase der Therapie darf NICHT nach dem TSH gesteuert werden: es bleibt Wochen bis Monate supprimiert. Gesteuert wird nach fT3 und fT4.',
+        'Die endokrine Orbitopathie kommt nur beim Morbus Basedow vor, nicht bei der funktionellen Autonomie — sie ist damit ein klinisches Unterscheidungsmerkmal; beweisend sind aber die TRAK.',
+        'Die Merseburger Trias (Struma, Tachykardie, Exophthalmus) ist nur bei etwa der Hälfte der Patienten vollständig; ihr Fehlen — insbesondere das Fehlen einer Struma — schließt einen Morbus Basedow NICHT aus.',
+        'Reihenfolge bei einem Knoten: Labor, dann Sonographie, dann SZINTIGRAPHIE und erst danach die Punktion. Heißer Knoten = mehrspeichernd, praktisch nie maligne, wird nicht punktiert; kalter Knoten = nicht speichernd, malignitätsverdächtig, wird punktiert.',
+        'Bei der Thyreoiditis de Quervain ist der Uptake im Szintigramm ERNIEDRIGT, obwohl eine Hyperthyreose besteht — Destruktions- statt Produktionshyperthyreose; behandelt wird mit NSAR oder Steroiden, nicht mit Thyreostatika.',
+        'Die Agranulozytose unter Thiamazol muss aktiv genannt werden, samt Blutbildkontrolle und der Patientenanweisung, bei Fieber, Halsschmerzen oder Aphthen sofort abzusetzen.',
+        'Jodiertes SPEISESALZ verursacht keinen Morbus Basedow und muss nicht gemieden werden; gefährlich sind hochdosierte Jodmengen (Kontrastmittel, Amiodaron, Jodpräparate), die eine Autonomie dekompensieren und eine thyreotoxische Krise auslösen können.',
+        'Vor jeder jodhaltigen Kontrastmitteluntersuchung ist bei Verdacht auf Hyperthyreose das TSH zu bestimmen — ein klassischer, gefährlicher und gern geprüfter Fehler.',
+        'Bei jedem neu aufgetretenen Vorhofflimmern gehört das TSH zur Basisdiagnostik.',
+        'Betablocker verschleiern die Warnsymptome der Hypoglykämie — bei Diabetikern ansprechen; Propranolol ist bevorzugt, weil es zusätzlich die periphere T4-T3-Konversion hemmt.',
+        'In der thyreotoxischen Krise dürfen keine Salicylate zur Fiebersenkung gegeben werden, weil sie Schilddrüsenhormone aus der Eiweißbindung verdrängen.',
+        'Vor einer Thyreoidektomie muss der Patient euthyreot sein, sonst droht intra- oder postoperativ eine thyreotoxische Krise.',
+        'Nicht \'Hyperthyreose\' und \'Hyperthyreoidismus\' mit \'Hyperparathyreoidismus\' verwechseln — und vor dem Patienten von \'Schilddrüsenüberfunktion\' sprechen, nicht von \'Hyperthyreose\'.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist Ihre Verdachtsdiagnose, und warum denken Sie an eine Hyperthyreose, wenn die Patientin gar keinen Kropf hat?',
+          antwort: 'Verdacht auf eine manifeste Hyperthyreose, am ehesten Morbus Basedow. Eine Struma ist dafür nicht obligat: Tragend sind die Symptomkonstellation aus Tachykardie, Gewichtsverlust trotz gutem Appetit, Hyperhidrose mit Wärmeintoleranz, Tremor, innerer Unruhe und Diarrhoe sowie die Augenbeschwerden und die Familienanamnese. Gesichert wird die Diagnose laborchemisch über das supprimierte TSH mit erhöhten freien Hormonen und die TRAK, nicht über den Tastbefund am Hals.',
+        },
+        {
+          frage: 'Wie würden Sie die Hyperthyreose bestätigen?',
+          antwort: 'Zuerst das basale TSH als Screening-Parameter — es ist supprimiert. Dann fT3 und fT4 zur Bestätigung und zur Unterscheidung von latenter und manifester Form. Anschließend die Antikörper: TRAK als praktisch beweisender Marker des Morbus Basedow und TPO-Antikörper. Ergänzend Sonographie und, zur Klärung der Ursache, die Szintigraphie.',
+        },
+        {
+          frage: 'Hat das Jodsalz etwas damit zu tun?',
+          antwort: 'Nein. Normales jodiertes Speisesalz löst weder einen Morbus Basedow aus noch muss es gemieden werden. Problematisch sind nur große Jodmengen — jodhaltige Röntgenkontrastmittel, Amiodaron, jodhaltige Desinfektionsmittel oder hochdosierte Jodpräparate. Sie können vor allem eine bestehende Autonomie dekompensieren lassen und im schlimmsten Fall eine thyreotoxische Krise auslösen.',
+        },
+        {
+          frage: 'Welche körperliche Untersuchung ist wichtig? Beschreiben Sie bitte die Palpation der Schilddrüse.',
+          antwort: 'Die Palpation der Schilddrüse. Ich stelle mich hinter den sitzenden Patienten, taste mit den Fingerkuppen beider Hände beidseits der Trachea und lasse den Patienten dabei schlucken, da sich die Schilddrüse beim Schluckakt mitbewegt. Beurteilt werden Größe, Konsistenz, Oberfläche, Knoten, Schluckverschieblichkeit und Druckschmerz; anschließend auskultiere ich die Drüse auf ein Schwirren und taste die Halslymphknoten.',
+        },
+        {
+          frage: 'Sie haben einen Knoten in der Schilddrüse getastet — wie gehen Sie weiter vor? Und was machen Sie vor einer Biopsie?',
+          antwort: 'Zuerst Blutabnahme mit TSH, fT3, fT4 und Antikörpern, dann die Sonographie der Schilddrüse und danach die Szintigraphie. Erst wenn sich ein kalter, sonographisch suspekter Knoten zeigt, folgt die sonographisch gesteuerte Feinnadelpunktion. Vor jeder Biopsie steht also die Szintigraphie.',
+        },
+        {
+          frage: 'Wie unterscheidet man in der Szintigraphie einen bösartigen von einem anderen Knoten?',
+          antwort: 'Über das Speicherverhalten: Ein heißer Knoten speichert vermehrt Radionuklid und ist praktisch nie maligne — er ist autonom und wird nicht punktiert. Ein kalter Knoten speichert nicht oder vermindert; er ist malignitätsverdächtig, wenn auch die meisten kalten Knoten gutartig sind, und muss deshalb punktiert werden.',
+        },
+        {
+          frage: 'Was sehen Sie in der Sonographie der Schilddrüse?',
+          antwort: 'Beim Morbus Basedow eine diffus vergrößerte, echoarme und inhomogene Schilddrüse mit in der Farbduplexsonographie exzessiv gesteigerter Durchblutung — das sogenannte vaskuläre Inferno. Bei der funktionellen Autonomie sieht man dagegen umschriebene Knoten in einer sonst normalen Drüse.',
+        },
+        {
+          frage: 'Wenn die Hyperthyreose bestätigt wäre — wie würden Sie sie behandeln?',
+          antwort: 'Mit einem Thyreostatikum, in erster Linie Thiamazol, initial 20 bis 30 mg täglich mit Reduktion auf 5 bis 10 mg nach Erreichen der Euthyreose, beim Morbus Basedow über 12 bis 18 Monate. Symptomatisch gebe ich einen Betablocker wie Propranolol gegen Herzrasen, Tremor und Unruhe. Bei Rezidiv oder Unverträglichkeit folgt die definitive Therapie mit Radiojod oder Thyreoidektomie.',
+        },
+        {
+          frage: 'Die Biopsie war negativ — wie gehen Sie mit dem Knoten weiter um?',
+          antwort: 'Sonographische Verlaufskontrolle etwa alle sechs Monate mit Volumetrie und Beurteilung der Malignitätskriterien; bei Größenzunahme, neuen suspekten Kriterien oder mechanischer Beeinträchtigung erfolgt die operative Entfernung.',
+        },
+        {
+          frage: 'Warum denken Sie an ein Karzinoid, und wo befindet es sich am häufigsten?',
+          antwort: 'Wegen der Kombination aus Diarrhoe, Gewichtsverlust und Tachykardie; heute spricht man von neuroendokrinen Tumoren. Am häufigsten sitzen sie im Gastrointestinaltrakt, klassischerweise im Wurmfortsatz, also in der Appendix, außerdem im Ileum, im Rektum und in den Bronchien. Gegen ein Karzinoid spricht ein fehlender Flush.',
+        },
+        {
+          frage: 'Welche Spezialisten ziehen Sie hinzu, und wohin überweisen Sie den Patienten?',
+          antwort: 'Zum Endokrinologen zur Therapieplanung, zum Nuklearmediziner für Szintigraphie und gegebenenfalls Radiojodtherapie, zum Ophthalmologen wegen der endokrinen Orbitopathie und bei Operationsindikation zum Chirurgen mit vorheriger HNO-ärztlicher Laryngoskopie.',
+        },
+        {
+          frage: 'Können nur Frauen an einer Schilddrüsenüberfunktion erkranken?',
+          antwort: 'Nein. Frauen sind etwa fünfmal häufiger betroffen, Männer erkranken aber ebenfalls, und bei ihnen verläuft die Erkrankung oft schwerer und die Remissionsrate ist niedriger.',
+        },
+        {
+          frage: 'Muss das Insulin eines Diabetikers reduziert werden, weil er abgenommen hat?',
+          antwort: 'Nicht eigenmächtig. Die Hyperthyreose steigert den Stoffwechsel und verändert den Insulinbedarf; angepasst wird ärztlich anhand des Blutzuckertagesprofils. Mit Erreichen der Euthyreose steigt der Bedarf in der Regel wieder an. Zusätzlich ist zu bedenken, dass ein Betablocker die Warnzeichen einer Unterzuckerung verschleiert.',
+        },
+        {
+          frage: 'Was ist eine thyreotoxische Krise und wie behandeln Sie sie?',
+          antwort: 'Die lebensbedrohliche Entgleisung der Hyperthyreose, meist ausgelöst durch Jodexposition, Infektion, Operation oder Absetzen der Thyreostatika: Fieber über 38,5 Grad, Tachykardie über 150 pro Minute, Erbrechen, Exsikkose, Agitation bis zum Koma. Therapie auf der Intensivstation mit hochdosiertem Thiamazol intravenös, Glukokortikoiden, Propranolol, Volumen- und Elektrolytsubstitution, Fiebersenkung ohne Salicylate, Perchlorat bei Jodexposition; als Ultima Ratio Plasmapherese oder Notfalloperation. Letalität 20 bis 30 Prozent.',
+        },
+        {
+          frage: 'Welche Nebenwirkung der Thyreostatika ist die gefährlichste?',
+          antwort: 'Die Agranulozytose. Deshalb Blutbild vor Therapiebeginn und in den ersten Wochen sowie die klare Anweisung an den Patienten, bei Fieber, Halsschmerzen oder Mundgeschwüren das Medikament sofort abzusetzen und sich umgehend vorzustellen. Daneben sind Leberwerterhöhungen, Exanthem und Geschmacksstörungen zu beachten.',
+        },
+      ],
+      merksatz: 'Merke: TSH zuerst — supprimiertes TSH plus erhöhtes fT3/fT4 ist die Hyperthyreose, TRAK positiv plus Merseburger Trias (Struma, Tachykardie, Exophthalmus) ist der Basedow. Der Patient nimmt AB, obwohl er MEHR isst; die Szintigraphie kommt VOR der Punktion (heiß = harmlos, kalt = klärungsbedürftig); und unter Thiamazol gilt: Fieber und Halsschmerzen bedeuten Blutbild — Agranulozytose.',
+      linkedCaseIds: [
+        'case-hyperthyreose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-copd',
+      pathology: 'Chronisch obstruktive Lungenerkrankung (COPD)',
+      specialty: 'Pneumologie',
+      definition: 'Die chronisch obstruktive Lungenerkrankung (COPD) ist eine vermeidbare und behandelbare, chronisch progrediente Erkrankung der Atemwege und des Lungenparenchyms, die durch eine persistierende, nicht vollständig reversible Atemwegsobstruktion gekennzeichnet ist. Sie entsteht durch eine überschießende chronische Entzündungsreaktion auf inhalative Noxen und vereint zwei Komponenten: die chronisch obstruktive Bronchitis und das Lungenemphysem. Eine chronische Bronchitis liegt nach der WHO-Definition vor, wenn Husten und Auswurf an den meisten Tagen während mindestens drei Monaten in zwei aufeinanderfolgenden Jahren bestehen; das Lungenemphysem ist die irreversible Erweiterung der Lufträume distal der Bronchioli terminales mit Destruktion der Alveolarsepten. Gesichert wird die Diagnose spirometrisch durch einen FEV1/FVC-Quotienten (Tiffeneau-Index) unter 0,7 NACH Bronchodilatation — genau dieses Kriterium trennt die COPD vom voll reversiblen Asthma bronchiale.',
+      aetiologie: 'In den Industrieländern sind 80–90 % der Fälle durch inhalatives Zigarettenrauchen bedingt; weltweit spielt zusätzlich die Verbrennung von Biomasse in Innenräumen eine große Rolle. Die inhalierten Noxen unterhalten eine neutrophilen- und makrophagendominierte Entzündung der kleinen Atemwege („small airway disease“) mit Becherzellhyperplasie, Hypersekretion zähen Schleims, Störung der mukoziliären Clearance, Wandverdickung und Fibrosierung. Parallel führt ein Ungleichgewicht zwischen Proteasen und Antiproteasen (Elastase gegen Alpha-1-Antitrypsin) zusammen mit oxidativem Stress zur Zerstörung der Alveolarsepten und damit zum Emphysem. Der Verlust der elastischen Rückstellkräfte lässt die kleinen Atemwege bei der Exspiration kollabieren: Es kommt zu Air trapping und dynamischer Überblähung mit vergrößertem Residualvolumen, erhöhter Atemarbeit und schließlich zur respiratorischen Insuffizienz. Die hypoxische pulmonale Vasokonstriktion (Euler-Liljestrand-Mechanismus) und der Kapillarverlust im Emphysem erhöhen den pulmonalarteriellen Druck und führen über die Rechtsherzbelastung zum Cor pulmonale. Genetisch bedeutsam ist der Alpha-1-Antitrypsin-Mangel (autosomal-kodominant, PiZZ), der ein früh auftretendes, basal betontes panlobuläres Emphysem verursacht.',
+      risikofaktoren: [
+        'Zigarettenrauchen — der mit Abstand wichtigste Risikofaktor; das Risiko steigt mit der Zahl der Packungsjahre (Packungsjahre = täglich gerauchte Schachteln × Raucherjahre)',
+        'Passivrauchexposition, auch in Kindheit und Schwangerschaft',
+        'Berufliche Exposition gegenüber Stäuben, Dämpfen, Gasen und Rauch: Bergbau, Bau- und Landwirtschaft, Schweißen, Getreide- und Mehlstaub (Bäcker), Dieselabgase im Fahrdienst',
+        'Verbrennung von Biomasse und offene Feuerstellen in Innenräumen, hohe Feinstaubbelastung der Außenluft',
+        'Alpha-1-Antitrypsin-Mangel — an ihn denken bei Erstdiagnose vor dem 45. Lebensjahr, Nichtrauchern, basal betontem Emphysem, positiver Familienanamnese oder begleitender Leberzirrhose',
+        'Höheres Lebensalter und männliches Geschlecht (die Prävalenz bei Frauen steigt jedoch stark an, Frauen sind bei gleicher Exposition empfindlicher)',
+        'Rezidivierende bronchopulmonale Infekte, besonders in der Kindheit; durchgemachte Tuberkulose',
+        'Gestörtes Lungenwachstum: Frühgeburtlichkeit, niedriges Geburtsgewicht, bronchopulmonale Dysplasie',
+        'Niedriger sozioökonomischer Status, Mangelernährung',
+        'Bronchiale Hyperreagibilität und vorbestehendes Asthma bronchiale',
+      ],
+      klinik: [
+        {
+          text: 'AHA-Symptomatik als Leittrias: Auswurf, Husten, Atemnot — in dieser Reihenfolge des zeitlichen Auftretens',
+        },
+        {
+          text: 'Chronischer Husten, typischerweise morgens nach dem Aufstehen, produktiv („Raucherhusten“) — von den Patienten oft jahrelang bagatellisiert',
+        },
+        {
+          text: 'Zäher, glasig-weißer Auswurf in kleiner Menge; gelb-grüne Verfärbung und Zunahme sprechen für eine Exazerbation mit bakterieller Beteiligung',
+        },
+        {
+          text: 'Belastungsdyspnoe, zunächst nur bei stärkerer Anstrengung, im Verlauf bei alltäglichen Tätigkeiten und schließlich in Ruhe; typisch ist der schleichende Verlust der Belastbarkeit über Jahre, den die Patienten dem Alter zuschreiben',
+        },
+        {
+          text: 'Exspiratorisches Giemen, Brummen und ein verlängertes Exspirium; Einsatz der Lippenbremse und atemerleichternde Körperstellungen (Kutschersitz)',
+        },
+        {
+          text: 'Fassthorax, hypersonorer Klopfschall, tiefstehende und wenig verschiebliche Zwerchfellgrenzen, abgeschwächtes Atemgeräusch („silent lung“ bei schwerer Überblähung)',
+        },
+        {
+          text: 'Einsatz der Atemhilfsmuskulatur, Tachypnoe, Zyanose der Lippen und Akren bei fortgeschrittener Hypoxie',
+        },
+        {
+          text: 'Rezidivierende Atemwegsinfekte und Exazerbationen, häufig saisonal in den Wintermonaten',
+        },
+        {
+          text: 'Zeichen des Cor pulmonale in fortgeschrittenen Stadien: gestaute Halsvenen, Hepatomegalie, Aszites, symmetrische Beinödeme mit Stauungsdermatose, Nykturie',
+        },
+        {
+          text: 'Systemische Manifestationen: ungewollter Gewichtsverlust bis zur pulmonalen Kachexie, Verlust der Skelettmuskelmasse, Osteoporose, Anämie oder sekundäre Polyglobulie, Depression und Angststörung',
+        },
+        {
+          text: 'Erstmanifestation direkt als schwere Exazerbation oder als akute respiratorische Insuffizienz bei einem Patienten, der sich zuvor für „nur etwas kurzatmig“ hielt',
+          atypisch: true,
+        },
+        {
+          text: 'Morgendliche Kopfschmerzen, Konzentrationsstörungen, Tagesmüdigkeit und Flapping tremor als Zeichen der chronischen Hyperkapnie',
+          atypisch: true,
+        },
+        {
+          text: 'Trockener Husten ohne Auswurf beim emphysemdominanten Typ („Pink Puffer“) — der fehlende Auswurf schließt eine COPD nicht aus',
+          atypisch: true,
+        },
+        {
+          text: 'COPD beim jungen Nichtraucher oder mit basal betontem Emphysem — Verdacht auf Alpha-1-Antitrypsin-Mangel, ggf. mit Leberbeteiligung',
+          atypisch: true,
+        },
+        {
+          text: 'Stumme Obstruktion („silent chest“) ohne Giemen bei schwerster Exazerbation — ein Alarmzeichen, kein Zeichen der Besserung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'GOLD-Schweregrade der Obstruktion (nach FEV1 in % des Solls, immer NACH Bronchodilatation und nur bei FEV1/FVC < 0,7)',
+          inhalt: 'GOLD 1 (leicht): FEV1 ≥ 80 % des Solls. GOLD 2 (mittelschwer): FEV1 50–79 %. GOLD 3 (schwer): FEV1 30–49 %. GOLD 4 (sehr schwer): FEV1 < 30 %. Der Tiffeneau-Index sichert die Diagnose, das FEV1 bestimmt den Schweregrad der Obstruktion.',
+        },
+        {
+          name: 'ABE-Gruppen (GOLD ab 2023; zuvor ABCD) — Grundlage der Dauertherapie',
+          inhalt: 'Eingeteilt wird nach Symptomlast und Exazerbationsrate des letzten Jahres. Gruppe A: 0 oder 1 mittelschwere Exazerbation ohne Hospitalisierung UND mMRC 0–1 bzw. CAT < 10 → ein langwirksamer Bronchodilatator (LAMA oder LABA). Gruppe B: gleiche Exazerbationsrate, aber mMRC ≥ 2 bzw. CAT ≥ 10 → LAMA + LABA. Gruppe E (Exazerbierer): ≥ 2 mittelschwere Exazerbationen oder ≥ 1 mit Hospitalisierung → LAMA + LABA, bei Bluteosinophilen ≥ 300/µl zusätzlich ein ICS.',
+        },
+        {
+          name: 'mMRC-Dyspnoeskala',
+          inhalt: 'Grad 0: Atemnot nur bei starker Anstrengung. Grad 1: Atemnot beim schnellen Gehen in der Ebene oder bei leichter Steigung. Grad 2: geht wegen Atemnot langsamer als Gleichaltrige oder muss in der Ebene Pausen machen. Grad 3: muss nach etwa 100 Metern oder wenigen Minuten in der Ebene stehenbleiben. Grad 4: zu atemlos, um das Haus zu verlassen, oder Atemnot beim An- und Ausziehen. Der CAT-Fragebogen (8 Items, 0–40 Punkte) erfasst ergänzend die Symptomlast; ab 10 Punkten gilt sie als hoch.',
+        },
+        {
+          name: 'Anthonisen-Kriterien der Exazerbation',
+          inhalt: 'Die drei Kardinalsymptome sind: Zunahme der Dyspnoe, Zunahme der Sputummenge und Zunahme der Sputumpurulenz. Typ I: alle drei Kriterien; Typ II: zwei Kriterien; Typ III: ein Kriterium plus ein Nebenkriterium (Infekt der oberen Atemwege, Fieber, Giemen, Husten, Anstieg von Atem- oder Herzfrequenz um mehr als 20 %). Der Nutzen einer Antibiotikatherapie ist bei Typ I und II mit purulentem Sputum belegt.',
+        },
+        {
+          name: 'Schweregrad der respiratorischen Insuffizienz',
+          inhalt: 'Respiratorische Partialinsuffizienz (Typ I): pO2 < 60 mmHg bei normalem oder erniedrigtem pCO2 — reines Oxygenierungsversagen. Respiratorische Globalinsuffizienz (Typ II): zusätzlich pCO2 > 45–50 mmHg — Versagen der Atempumpe, bei akutem Anstieg mit respiratorischer Azidose (pH < 7,35) und Indikation zur nicht-invasiven Beatmung.',
+        },
+        {
+          name: 'Klinische Phänotypen',
+          inhalt: '„Pink Puffer“: emphysemdominant, asthenisch bis kachektisch, ausgeprägte Dyspnoe, wenig Husten und Auswurf, kaum zyanotisch, normale bis niedrige pCO2-Werte. „Blue Bloater“: bronchitisdominant, übergewichtig, ausgeprägter produktiver Husten, Zyanose, Hyperkapnie, frühe Rechtsherzinsuffizienz und Polyglobulie. In der Realität überwiegen Mischbilder.',
+        },
+        {
+          name: 'BODE-Index (Prognoseabschätzung)',
+          inhalt: 'Vier Parameter mit je 0–3 Punkten: Body-Mass-Index, Obstruktion (FEV1 % Soll), Dyspnoe (mMRC) und Exercise capacity (Gehstrecke im 6-Minuten-Gehtest). Je höher der Punktwert (0–10), desto höher die Mortalität — er prognostiziert besser als das FEV1 allein.',
+        },
+      ],
+      redFlags: [
+        'Hämoptysen, ungewollter Gewichtsverlust, Heiserkeit, obere Einflussstauung oder ein neuer Rundherd beim Raucher → dringender Verdacht auf ein Bronchialkarzinom',
+        'Atemfrequenz > 30/min, Einsatz der Atemhilfsmuskulatur, paradoxe abdominelle Atmung, Sprechdyspnoe → drohende Erschöpfung der Atempumpe',
+        'SpO2 < 90 % trotz Sauerstoffgabe, Zyanose, pO2 < 60 mmHg',
+        '„Silent chest“ — Verschwinden des Giemens bei fortbestehender Atemnot: Zeichen der schwersten Obstruktion, nicht der Besserung',
+        'Somnolenz, Verwirrtheit, Flapping tremor, Kopfschmerzen → Hyperkapnie bis zur CO2-Narkose, besonders nach unkontrollierter Sauerstoffgabe',
+        'Respiratorische Azidose mit pH < 7,35 und pCO2 > 45 mmHg → Indikation zur nicht-invasiven Beatmung',
+        'Hämodynamische Instabilität, neu aufgetretene Arrhythmien, Zeichen der akuten Rechtsherzdekompensation',
+        'Plötzliche einseitige Verschlechterung mit hypersonorem Klopfschall und fehlendem Atemgeräusch → Spannungspneumothorax bei rupturierter Bulla',
+        'Fieber mit Infiltrat, Thoraxschmerz und Sepsiszeichen → Pneumonie als Auslöser der Exazerbation',
+        'Neu aufgetretene, nicht erklärbare Dyspnoe mit Tachykardie und Hypokapnie → Lungenembolie als häufig übersehene Ursache einer scheinbaren Exazerbation',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese der AHA-Symptomatik mit exakter Chronologie: Husten und Auswurf über Jahre (Definitionskriterium der chronischen Bronchitis: die meisten Tage, mindestens drei Monate, in zwei aufeinanderfolgenden Jahren), Tageszeit des Hustens, Farbe, Menge und Konsistenz des Sputums, Blutbeimengung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Quantifizierung der Noxen: Packungsjahre berechnen (täglich gerauchte Schachteln × Raucherjahre), auch bei Ex-Rauchern nach Menge und Zeitpunkt des Aufhörens fragen; Passivrauch, Berufsanamnese (Stäube, Mehlstaub, Abgase, Asbest), Wohn- und Heizsituation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Graduierung der Belastbarkeit mit der mMRC-Skala und dem CAT-Fragebogen; Erfassung der Exazerbationen und Hospitalisierungen im letzten Jahr, des Impfstatus (Influenza, Pneumokokken, COVID-19, Pertussis) und der aktuellen Inhalativa einschließlich Prüfung der Inhalationstechnik',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter mit Atemfrequenz und Pulsoxymetrie; Inspektion (Fassthorax, Lippenbremse, Atemhilfsmuskulatur, Zyanose, Uhrglasnägel und Trommelschlegelfinger als Hinweis auf Karzinom oder Bronchiektasen), Perkussion (hypersonorer Klopfschall, Zwerchfelltiefstand mit verminderter Verschieblichkeit), Auskultation (abgeschwächtes Atemgeräusch, verlängertes Exspirium, Giemen und Brummen), Suche nach Zeichen der Rechtsherzinsuffizienz und Bestimmung von BMI und Muskelmasse',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgasanalyse zur Erfassung von Partial- oder Globalinsuffizienz und einer respiratorischen Azidose — sie steuert Sauerstoffgabe, NIV-Indikation und die Indikation zur Langzeit-Sauerstofftherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: sekundäre Polyglobulie bei chronischer Hypoxie, Leukozytose bei Infekt und vor allem die Bluteosinophilen, die über die Indikation für ein inhalatives Kortikosteroid entscheiden (≥ 300/µl spricht dafür, < 100/µl dagegen)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CRP und ggf. Procalcitonin zur Abgrenzung eines bakteriellen Infekts; NT-proBNP zur Abgrenzung der kardialen Dyspnoe; D-Dimere nur bei begründetem Verdacht auf eine Lungenembolie; Elektrolyte, Kreatinin, Blutzucker und HbA1c (Steroidtherapie!)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Sputumdiagnostik mit Gramfärbung, Kultur und Antibiogramm bei purulentem Auswurf, häufigen Exazerbationen oder Verdacht auf Pseudomonas; bei B-Symptomatik zusätzlich Sputumzytologie und Untersuchung auf säurefeste Stäbchen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Alpha-1-Antitrypsin im Serum — bei jedem COPD-Patienten mindestens einmal bestimmen, obligat bei Erstdiagnose vor dem 45. Lebensjahr, bei Nichtrauchern, basal betontem Emphysem oder positiver Familienanamnese; bei erniedrigtem Wert Genotypisierung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SPIROMETRIE MIT BRONCHOSPASMOLYSETEST — die Schlüsseluntersuchung: FEV1/FVC < 0,7 NACH Inhalation eines kurzwirksamen Bronchodilatators beweist die nicht vollständig reversible Obstruktion; ein FEV1-Anstieg um ≥ 12 % und ≥ 200 ml mit Normalisierung des Quotienten spricht für ein Asthma bronchiale. Das FEV1 in % des Solls legt das GOLD-Stadium fest; ergänzend Peak-Flow-Messung und Fluss-Volumen-Kurve mit charakteristischem exspiratorischem „Emphysemknick“',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ganzkörperplethysmographie: Residualvolumen und totale Lungenkapazität erhöht (Überblähung, Air trapping), Atemwegswiderstand erhöht; CO-Diffusionskapazität (DLCO) beim Emphysem vermindert, beim Asthma normal',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen: Überblähung mit Zwerchfelltiefstand und abgeflachten Zwerchfellkuppeln, verbreiterte Interkostalräume, Fassthorax, vermehrte Strahlentransparenz, schmales „Tropfenherz“, ggf. Bullae; zugleich Ausschluss von Pneumonie, Pleuraerguss, Pneumothorax, Stauung und Bronchialkarzinom',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT beziehungsweise HRCT des Thorax: Typ und Verteilung des Emphysems, Bronchiektasen, und vor allem der Ausschluss eines Bronchialkarzinoms beim Raucher mit B-Symptomatik — ein kleines oder zentrales Karzinom kann im Röntgenbild verborgen bleiben',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG (P pulmonale, Rechtstyp, Rechtsschenkelblock, Zeichen der Rechtsherzhypertrophie, Arrhythmien) und Echokardiographie zur Beurteilung des rechten Ventrikels, zur Abschätzung des systolischen pulmonalarteriellen Drucks und zum Ausschluss einer linksventrikulären Ursache der Dyspnoe',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '6-Minuten-Gehtest zur Objektivierung der Belastbarkeit und als Bestandteil des BODE-Index; nächtliche Oxymetrie bei Verdacht auf nächtliche Entsättigungen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie mit Biopsie, Bürstenzytologie und bronchoalveolärer Lavage bei Karzinomverdacht, Rundherd, Hämoptysen oder therapierefraktärem Infekt; EBUS zum Lymphknotenstaging',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Polygraphie oder Polysomnographie bei Verdacht auf ein Overlap-Syndrom mit obstruktiver Schlafapnoe; Rechtsherzkatheter zur Sicherung und Quantifizierung einer pulmonalen Hypertonie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Perfusions- und Ventilationsszintigraphie sowie Emphysemquantifizierung im CT vor endoskopischer oder chirurgischer Lungenvolumenreduktion; Evaluation im Transplantationszentrum bei Endstadium',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Asthma bronchiale',
+          unterscheidung: 'Beginn meist in Kindheit/Jugend, anfallsartige Beschwerden mit beschwerdefreien Intervallen, nächtliche und frühmorgendliche Symptomatik, Allergien und Atopie, Eosinophilie; in der Spirometrie VOLLE Reversibilität nach Bronchodilatation (FEV1-Anstieg ≥ 12 % und ≥ 200 ml, Tiffeneau-Index normalisiert), DLCO normal. Die COPD ist nur teilreversibel und schreitet trotz Therapie fort.',
+        },
+        {
+          dd: 'Herzinsuffizienz (Links- und Rechtsherzinsuffizienz)',
+          unterscheidung: 'Orthopnoe, paroxysmale nächtliche Dyspnoe, feuchte basale Rasselgeräusche, gestaute Halsvenen, Beinödeme, dritter Herzton; NT-proBNP erhöht, im Röntgen Kardiomegalie und Stauungszeichen, in der Echokardiographie eingeschränkte Pumpfunktion; in der Lungenfunktion Restriktion statt Obstruktion. CAVE: COPD und Herzinsuffizienz koexistieren häufig.',
+        },
+        {
+          dd: 'Bronchialkarzinom',
+          unterscheidung: 'Die wichtigste DD beim Raucher: Hämoptysen, ungewollter Gewichtsverlust, Nachtschweiß, Heiserkeit, persistierender Husten mit Charakterwechsel, poststenotische Pneumonie, obere Einflussstauung, Paraneoplasien. Nachweis durch Röntgen, CT-Thorax und Bronchoskopie mit Biopsie — die COPD schließt ein Karzinom nicht aus, sondern ist ein eigenständiger Risikofaktor dafür.',
+        },
+        {
+          dd: 'Bronchiektasen',
+          unterscheidung: 'Große Mengen dreischichtigen, oft übelriechenden Auswurfs („maulvolle Expektoration“), rezidivierende Infekte mit Pseudomonas, Hämoptysen, Trommelschlegelfinger und Uhrglasnägel; im HRCT erweiterte Bronchien mit Ringschatten und Signet-Ring-Zeichen.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Plötzliche Dyspnoe, Tachykardie, atemabhängiger Thoraxschmerz, Hypoxie mit Hypokapnie, Zeichen einer tiefen Beinvenenthrombose, Immobilisation oder Malignom in der Vorgeschichte; Wells-Score, D-Dimere, CT-Angiographie. Sie ist eine häufige und häufig übersehene Ursache einer scheinbaren Exazerbation.',
+        },
+        {
+          dd: 'Pneumonie',
+          unterscheidung: 'Akutes Fieber mit Schüttelfrost, atemabhängiger Thoraxschmerz, Klopfschalldämpfung, feinblasige Rasselgeräusche und Bronchialatmen, deutlich erhöhte Entzündungsparameter, Infiltrat im Röntgen-Thorax.',
+        },
+        {
+          dd: 'Interstitielle Lungenerkrankungen / Lungenfibrose',
+          unterscheidung: 'Trockener Reizhusten, Sklerosiphonie („Knisterrasseln“ wie ein Klettverschluss), Trommelschlegelfinger; restriktives Muster mit vermindertem TLC bei normalem oder erhöhtem Tiffeneau-Index, verminderte DLCO, im HRCT Retikulationen und Honigwaben.',
+        },
+        {
+          dd: 'Lungentuberkulose',
+          unterscheidung: 'Subakuter Verlauf über Wochen, B-Symptomatik mit Nachtschweiß, Fieber und Gewichtsverlust, Hämoptysen, Oberlappeninfiltrate mit Kavernen; Sputum auf säurefeste Stäbchen, PCR, Kultur, IGRA. Meldepflichtig.',
+        },
+        {
+          dd: 'Alpha-1-Antitrypsin-Mangel-Emphysem',
+          unterscheidung: 'Keine echte Alternative, sondern eine spezielle Ätiologie: junge Patienten, häufig Nichtraucher, basal betontes panlobuläres Emphysem, positive Familienanamnese, oft begleitende Leberbeteiligung bis zur Zirrhose; Serumspiegel und Genotypisierung sichern die Diagnose, eine Substitutionstherapie ist möglich.',
+        },
+        {
+          dd: 'ACE-Hemmer-induzierter Husten',
+          unterscheidung: 'Trockener Reizhusten ohne Auswurf und ohne Obstruktion, Beginn Wochen bis Monate nach Ansetzen eines ACE-Hemmers, Rückbildung innerhalb von Wochen nach Umstellung auf einen AT1-Blocker — bei jedem chronischen Husten die Medikamentenanamnese prüfen.',
+        },
+        {
+          dd: 'Obstruktives Schlafapnoe-Syndrom (Overlap-Syndrom)',
+          unterscheidung: 'Lautes Schnarchen mit beobachteten Atempausen, nicht erholsamer Schlaf, Tagesmüdigkeit, morgendliche Kopfschmerzen, Adipositas; Epworth-Skala und Polygraphie. Die Kombination mit einer COPD verschlechtert Hypoxie und Prognose erheblich.',
+        },
+        {
+          dd: 'Zentrale Atemwegsobstruktion (Trachealstenose, Fremdkörper, Struma)',
+          unterscheidung: 'Inspiratorischer Stridor statt exspiratorischem Giemen, abgeflachte inspiratorische Fluss-Volumen-Kurve, plötzlicher Beginn nach Aspiration oder Zustand nach Langzeitintubation; Klärung durch Bronchoskopie und CT.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Kausale und krankheitsmodifizierende Basismaßnahmen',
+          items: [
+            'Tabakentwöhnung — die EINZIGE Maßnahme, die den beschleunigten Abfall des FEV1 verlangsamt; strukturiert vorgehen nach den 5 A (Ask, Advise, Assess, Assist, Arrange) mit motivierender Gesprächsführung, festem Rauchstopp-Tag, Nikotinersatztherapie (Pflaster in Kombination mit Kaugummi, Lutschtablette oder Spray), medikamentöser Unterstützung durch Vareniclin oder Bupropion sowie verhaltenstherapeutischen Programmen der Krankenkassen; Rückfälle als Teil des Prozesses werten und erneut anbieten',
+            'Vermeidung weiterer inhalativer Noxen: Passivrauch, berufliche Stäube und Abgase, hohe Feinstaubbelastung; ggf. Berufskrankheitenverfahren und Arbeitsplatzwechsel prüfen',
+            'Schutzimpfungen: jährliche Influenzaimpfung, Pneumokokkenimpfung, COVID-19-Impfung, Auffrischung gegen Pertussis, ab dem 60. Lebensjahr Herpes-zoster-Impfung — sie senken Exazerbationen und Mortalität',
+            'Pneumologische Rehabilitation und Lungensport: Ausdauer- und Krafttraining, Atemphysiotherapie mit Lippenbremse und atemerleichternden Körperstellungen, Hustentechnik und Sekretmanagement (autogene Drainage, PEP-Systeme, Flutter)',
+            'Strukturierte Patientenschulung: Krankheitsverständnis, korrekte Inhalationstechnik (vorführen und nachmachen lassen), schriftlicher Aktionsplan für Exazerbationen, Selbstkontrolle',
+            'Ernährungstherapie bei pulmonaler Kachexie ebenso wie bei Adipositas; Osteoporoseprophylaxe mit Vitamin D und Kalzium bei wiederholten Steroidstößen',
+            'Konsequente Behandlung der Komorbiditäten (kardiovaskuläre Erkrankungen, Diabetes mellitus, Osteoporose, Anämie, Depression und Angststörung), da sie Prognose und Lebensqualität wesentlich mitbestimmen',
+          ],
+        },
+        {
+          label: 'Medikamentöse Stufentherapie (Dauertherapie)',
+          items: [
+            'Die Stufentherapie richtet sich nach Symptomlast (mMRC, CAT) und Exazerbationsrate — also nach den Gruppen A, B und E —, nicht allein nach dem FEV1',
+            'Bedarfsmedikation für alle: kurzwirksame Bronchodilatatoren, SABA (Salbutamol, Fenoterol) und/oder SAMA (Ipratropiumbromid)',
+            'Gruppe A: ein langwirksamer Bronchodilatator — LAMA (Tiotropium, Glycopyrronium, Aclidinium) oder LABA (Formoterol, Salmeterol, Indacaterol, Olodaterol)',
+            'Gruppe B: duale Bronchodilatation mit LAMA + LABA als Fixkombination — wirksamer als jede Monotherapie',
+            'Gruppe E: LAMA + LABA; bei Bluteosinophilen ≥ 300/µl (oder bei Asthma-COPD-Overlap) Dreifachtherapie LAMA + LABA + ICS in einem Inhalator',
+            'Inhalative Kortikosteroide niemals als Monotherapie und nur bei Exazerbationen mit Eosinophilie; Nebenwirkungen sind Mundsoor (Mund nach Inhalation ausspülen), Heiserkeit und ein erhöhtes Pneumonierisiko — bei Eosinophilen < 100/µl Deeskalation erwägen',
+            'Reserveoptionen bei fortbestehenden Exazerbationen: Roflumilast (PDE-4-Hemmer) bei chronischer Bronchitis mit FEV1 < 50 %, Azithromycin als Langzeit-Makrolidtherapie (zuvor QT-Zeit und atypische Mykobakterien prüfen), Mukolytika wie N-Acetylcystein oder Carbocystein',
+            'Theophyllin nur noch als Reservemittel wegen der engen therapeutischen Breite und der Interaktionen; systemische Steroide sind KEINE Dauertherapie der COPD',
+            'Antitussiva nur kurzfristig und nur beim quälenden trockenen Reizhusten — sie behindern die Sekretclearance; Sedativa und Betablocker vom nichtselektiven Typ meiden (kardioselektive Betablocker sind bei kardialer Indikation erlaubt)',
+            'Bei jedem Kontakt Inhalationstechnik, Adhärenz und Nebenwirkungen überprüfen — die häufigste Ursache eines vermeintlichen Therapieversagens ist die falsche Anwendung des Inhalators',
+          ],
+        },
+        {
+          label: 'Management der akuten Exazerbation',
+          akut: true,
+          items: [
+            'Sofortmaßnahmen: sitzende Lagerung mit aufgestütztem Oberkörper, Lippenbremse, Beruhigung, Monitoring von Atemfrequenz, SpO2, Puls und Blutdruck, venöser Zugang, Blutgasanalyse',
+            'KONTROLLIERTE Sauerstoffgabe mit Zielsättigung 88–92 % über Nasensonde oder Venturi-Maske; zu hohe Flussraten können beim chronisch hyperkapnischen Patienten über Wegfall des hypoxischen Atemantriebs, Aufhebung der hypoxischen pulmonalen Vasokonstriktion und den Haldane-Effekt eine CO2-Narkose auslösen — BGA-Kontrolle nach 30–60 Minuten',
+            'Intensivierte inhalative Bronchodilatation: SABA plus SAMA als Vernebler oder Dosieraerosol mit Spacer, initial alle 15–30 Minuten, danach nach Bedarf',
+            'Systemische Glukokortikoide: Prednisolon 40 mg täglich über 5 Tage oral oder intravenös — verkürzt die Erholungszeit und senkt die Rezidivrate; kein Ausschleichen erforderlich, beim Diabetiker engmaschige Blutzuckerkontrollen',
+            'Antibiotische Therapie bei purulentem Sputum plus mindestens einem weiteren Anthonisen-Kriterium, bei erhöhten Entzündungsparametern oder Beatmungspflicht: Amoxicillin mit Clavulansäure, Makrolid oder Doxycyclin über 5–7 Tage; bei Risikofaktoren für Pseudomonas gezielt nach Antibiogramm',
+            'Nicht-invasive Beatmung bei respiratorischer Azidose (pH < 7,35 mit pCO2 > 45 mmHg) oder erschöpfter Atempumpe — sie senkt Intubationsrate, Krankenhausverweildauer und Mortalität; invasive Beatmung bei NIV-Versagen, Vigilanzminderung, Aspirationsgefahr oder Kreislaufinstabilität',
+            'Begleitend: Thromboseprophylaxe, ausgeglichene Flüssigkeitsbilanz, Physiotherapie und Sekretmobilisation, Behandlung von Auslösern (Infekt, Pneumonie, Lungenembolie, kardiale Dekompensation, Pneumothorax, Medikamentenfehler)',
+            'Nach jeder Exazerbation: Dauertherapie überprüfen und eskalieren, Inhalationstechnik schulen, Impfungen nachholen, Rauchstopp erneut ansprechen, Wiedervorstellung innerhalb von vier Wochen und Rehabilitation anbieten',
+          ],
+        },
+        {
+          label: 'Fortgeschrittene Stadien und Komplikationen',
+          items: [
+            'Langzeit-Sauerstofftherapie (LTOT) bei chronischer Hypoxämie: pO2 ≤ 55 mmHg im stabilen Zustand oder ≤ 60 mmHg bei Cor pulmonale bzw. Polyglobulie, mindestens 16 Stunden täglich — neben dem Rauchstopp die einzige lebensverlängernde Maßnahme; Voraussetzung ist die Nikotinkarenz (Brandgefahr)',
+            'Außerklinische nicht-invasive Beatmung bei chronisch stabiler Hyperkapnie mit pCO2 dauerhaft > 50 mmHg — sie senkt die Mortalität und verbessert die Lebensqualität',
+            'Cor pulmonale: konsequente Therapie der Hypoxie, vorsichtige Diuretikagabe bei Ödemen und Stauung, Bilanzierung und Gewichtskontrolle; spezifische pulmonale Vasodilatatoren sind bei COPD-assoziierter pulmonaler Hypertonie in der Regel nicht indiziert, ein Aderlass nur bei extremer Polyglobulie',
+            'Interventionelle und chirurgische Lungenvolumenreduktion bei fortgeschrittenem Emphysem mit Überblähung: endobronchiale Ventile oder Coils, chirurgische Volumenreduktion, Bullektomie bei großen Bullae',
+            'Lungentransplantation als Ultima Ratio bei jüngeren Patienten mit sehr schwerer COPD, insbesondere beim Alpha-1-Antitrypsin-Mangel; bei nachgewiesenem Mangel wöchentliche Substitution von Alpha-1-Antitrypsin',
+            'Erkennen und Behandeln der Komplikationen: Pneumothorax bei rupturierter Bulla, rezidivierende Pneumonien, sekundäre Polyglobulie mit Thromboserisiko, Osteoporose, Kachexie und Muskelschwund, Depression und Angststörung',
+            'Palliativmedizinische Mitbetreuung im Endstadium: niedrig dosierte Opioide gegen die refraktäre Atemnot, Ventilator oder Luftzug ins Gesicht, Anxiolyse, frühzeitige Gespräche über Therapieziel, Patientenverfügung und Vorsorgevollmacht',
+          ],
+        },
+      ],
+      prognose: 'Die COPD ist nicht heilbar und verläuft chronisch progredient; sie zählt weltweit zu den häufigsten Todesursachen. Während das FEV1 beim Gesunden ab dem 30. Lebensjahr um etwa 25–30 ml pro Jahr abnimmt, verliert der rauchende COPD-Patient 60–100 ml jährlich. Der Rauchstopp normalisiert die Verlustrate zwar nicht vollständig, bremst sie aber deutlich und ist in jedem Stadium und in jedem Lebensalter wirksam — die verlorene Lungenfunktion kehrt jedoch nicht zurück. Prognostisch entscheidend sind weniger das FEV1 allein als der BODE-Index, die Exazerbationsfrequenz, die Belastbarkeit, der Ernährungszustand und die Komorbiditäten. Jede schwere Exazerbation beschleunigt den Funktionsverlust und geht mit einer erhöhten Ein-Jahres-Mortalität einher; die Entwicklung eines Cor pulmonale mit Rechtsherzinsuffizienz verschlechtert die Prognose erheblich. Lebensverlängernd wirken nachweislich nur die Tabakentwöhnung, die Langzeit-Sauerstofftherapie bei chronischer Hypoxämie, die außerklinische NIV bei Hyperkapnie sowie — in ausgewählten Fällen — die Lungenvolumenreduktion und die Transplantation. Lebensqualität und Exazerbationsrate lassen sich durch Impfungen, Inhalationstherapie und Rehabilitation deutlich verbessern.',
+      pruefungsfallen: [
+        'Die Diagnose wird durch den Tiffeneau-Index FEV1/FVC < 0,7 NACH Bronchodilatation gestellt — die Angabe „nach Bronchospasmolyse“ muss fallen, sonst fehlt die Abgrenzung zum Asthma. Das FEV1 in % des Solls liefert nur das GOLD-Stadium.',
+        'Sauerstoff nur kontrolliert mit Zielsättigung 88–92 %: Die unkontrollierte Sauerstoffgabe ist die klassische Fangfrage und kann beim chronisch hyperkapnischen Patienten zur CO2-Narkose führen.',
+        'Inhalative Kortikosteroide sind KEINE Basistherapie der COPD (anders als beim Asthma): Sie werden nur bei Exazerbationen und Bluteosinophilen ≥ 300/µl ergänzt und nie als Monotherapie gegeben.',
+        'Die Packungsjahre müssen berechnet und laut genannt werden (täglich gerauchte Schachteln × Raucherjahre). Sagt der Patient „ich rauche nicht“, immer nachfragen, seit wann er aufgehört hat und wie viel es vorher war.',
+        'Die chronische Bronchitis hat eine exakte Definition: Husten mit Auswurf an den meisten Tagen über mindestens drei Monate in zwei aufeinanderfolgenden Jahren. Ohne nachgewiesene Obstruktion ist sie noch keine COPD.',
+        'Beim Raucher mit Gewichtsverlust, Hämoptysen oder Charakterwechsel des Hustens muss das Bronchialkarzinom genannt und mit CT-Thorax ausgeschlossen werden — ein kleines oder zentrales Karzinom kann im Röntgen verborgen bleiben.',
+        'Beinödeme, Nykturie und gestaute Halsvenen beim COPD-Patienten sind Cor pulmonale, also Rechtsherzinsuffizienz als Komplikation der Grunderkrankung — dieser Zusammenhang wird ausdrücklich erwartet.',
+        '„Silent chest“ ist keine Besserung, sondern ein Alarmzeichen der schwersten Obstruktion.',
+        'Bei einer scheinbaren Exazerbation immer die Auslöser durchgehen: Infekt, Pneumonie, Lungenembolie, kardiale Dekompensation, Pneumothorax, Therapiefehler — die Lungenembolie wird am häufigsten übersehen.',
+        'Nur Rauchstopp, Langzeit-Sauerstofftherapie bei Hypoxämie und außerklinische NIV bei Hyperkapnie verlängern nachweislich das Leben; Bronchodilatatoren verbessern Symptome und Exazerbationsrate, nicht die Mortalität.',
+        'Systemische Steroide bei der Exazerbation für nur 5 Tage und in fester Dosis (Prednisolon 40 mg) — kein wochenlanges Ausschleichen; beim Diabetiker Blutzucker engmaschig kontrollieren.',
+        'Impfungen (Influenza, Pneumokokken, COVID-19, Pertussis) gehören in jede Therapieantwort — sie werden regelmäßig abgefragt und ebenso regelmäßig vergessen.',
+        'Fachbegriffe patientengerecht übersetzen: Dyspnoe = Atemnot, Sputum = Auswurf, Exazerbation = akute Verschlechterung, Emphysem = Lungenüberblähung, Cor pulmonale = Rechtsherzbelastung durch die Lungenerkrankung, Spirometrie = Lungenfunktionsprüfung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und wie sichern Sie sie?',
+          antwort: 'Eine chronisch obstruktive Lungenerkrankung, gegebenenfalls in akuter Exazerbation. Gesichert wird sie durch die Spirometrie mit Bronchospasmolysetest: Ein FEV1/FVC-Quotient unter 0,7 nach Gabe eines Bronchodilatators beweist die nicht vollständig reversible Obstruktion. Das FEV1 in Prozent des Solls legt anschließend das GOLD-Stadium 1 bis 4 fest.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine COPD von einem Asthma bronchiale?',
+          antwort: 'Das Asthma beginnt meist in Kindheit oder Jugend, verläuft anfallsartig mit beschwerdefreien Intervallen und nächtlicher Symptomatik, ist mit Allergien und einer Eosinophilie assoziiert und im Bronchospasmolysetest voll reversibel — der Tiffeneau-Index normalisiert sich. Die COPD beginnt im höheren Lebensalter beim Raucher, verläuft schleichend progredient, die Obstruktion bleibt nach Bronchodilatation bestehen und die Diffusionskapazität ist beim Emphysem vermindert.',
+        },
+        {
+          frage: 'Was bedeutet die Abkürzung COPD, und wie erklären Sie sie dem Patienten?',
+          antwort: 'COPD steht für chronic obstructive pulmonary disease, also chronisch obstruktive Lungenerkrankung. Dem Patienten erkläre ich: Die Atemwege sind dauerhaft entzündet und verengt und die Lungenbläschen überdehnt, deshalb bekommt er schlecht Luft und hustet morgens Schleim. Heilen können wir das nicht, aber wir können die Beschwerden lindern und das Fortschreiten aufhalten.',
+        },
+        {
+          frage: 'Wie definiert man die chronische Bronchitis?',
+          antwort: 'Nach der WHO-Definition liegt eine chronische Bronchitis vor, wenn Husten und Auswurf an den meisten Tagen während mindestens drei Monaten in zwei aufeinanderfolgenden Jahren bestehen. Kommt eine nicht vollständig reversible Obstruktion hinzu, spricht man von einer COPD.',
+        },
+        {
+          frage: 'Was sind die Leitsymptome?',
+          antwort: 'Die AHA-Symptomatik: Auswurf, Husten und Atemnot. Der Husten ist typischerweise morgendlich und produktiv, der Auswurf zäh und glasig-weiß, und die Atemnot tritt zunächst nur bei Belastung, später auch in Ruhe auf.',
+        },
+        {
+          frage: 'Was sind Packungsjahre, und wie berechnen Sie sie?',
+          antwort: 'Ein Packungsjahr entspricht dem Konsum einer Schachtel Zigaretten mit zwanzig Stück täglich über ein Jahr. Man multipliziert die Zahl der täglich gerauchten Schachteln mit der Zahl der Raucherjahre — bei einer Schachtel täglich seit dem 16. Lebensjahr und einem Alter von 66 Jahren sind das 50 Packungsjahre.',
+        },
+        {
+          frage: 'Welchen Zusammenhang gibt es zwischen dem Rauchen und der Diagnose?',
+          antwort: 'Das Zigarettenrauchen ist die Ursache von 80 bis 90 Prozent aller COPD-Fälle: Es unterhält eine chronische Entzündung der kleinen Atemwege und stört das Gleichgewicht zwischen Proteasen und Antiproteasen, wodurch die Alveolarsepten zerstört werden. Zusätzlich ist es der wichtigste Risikofaktor für das Bronchialkarzinom sowie für kardiovaskuläre Erkrankungen und periphere arterielle Verschlusskrankheit.',
+        },
+        {
+          frage: 'Was ist Mehlstaub, und hat er mit der Entstehung einer COPD zu tun?',
+          antwort: 'Mehlstaub ist der feine, beim Sieben, Schütten und Kneten freigesetzte Getreidestaub, dem Bäcker und Müller ausgesetzt sind. Er kann eine allergische Bäckerasthma-Erkrankung auslösen und gehört als chronische inhalative Belastung zu den beruflichen Risikofaktoren für eine chronische Bronchitis und eine COPD; beides ist als Berufskrankheit anerkennungsfähig.',
+        },
+        {
+          frage: 'Welche Röntgenzeichen erwarten Sie?',
+          antwort: 'Zeichen der Überblähung: einen Zwerchfelltiefstand mit abgeflachten Zwerchfellkuppeln, verbreiterte Interkostalräume, einen Fassthorax, eine vermehrte Strahlentransparenz und ein schmales Tropfenherz, gegebenenfalls Bullae. Zugleich dient die Aufnahme dem Ausschluss von Pneumonie, Pneumothorax, Erguss und Bronchialkarzinom.',
+        },
+        {
+          frage: 'Muss unbedingt ein CT durchgeführt werden?',
+          antwort: 'Für die Diagnose der COPD nicht — sie wird durch die Lungenfunktion gestellt. Bei einem langjährigen Raucher mit Gewichtsverlust oder Hämoptysen ist die Computertomographie des Thorax jedoch indiziert, weil ein kleines oder zentral gelegenes Bronchialkarzinom im Röntgenbild verborgen bleiben kann; sie zeigt außerdem Ausmaß und Typ des Emphysems und mögliche Bronchiektasen.',
+        },
+        {
+          frage: 'Wie behandeln Sie die akute Exazerbation?',
+          antwort: 'Sitzende Lagerung und Monitoring, kontrollierte Sauerstoffgabe mit Zielsättigung 88 bis 92 Prozent, vernebelte kurzwirksame Bronchodilatatoren — Salbutamol kombiniert mit Ipratropiumbromid —, Prednisolon 40 mg über fünf Tage sowie bei purulentem Auswurf eine Antibiotikatherapie über fünf bis sieben Tage. Bei respiratorischer Azidose mit einem pH unter 7,35 eine nicht-invasive Beatmung.',
+        },
+        {
+          frage: 'Warum darf man nicht einfach viel Sauerstoff geben?',
+          antwort: 'Weil der chronisch hyperkapnische Patient seinen Atemantrieb überwiegend über den Sauerstoffmangel steuert. Eine unkontrollierte Sauerstoffgabe dämpft diesen Antrieb, hebt zusätzlich die hypoxische pulmonale Vasokonstriktion auf und verstärkt über den Haldane-Effekt den CO2-Anstieg — bis zur CO2-Narkose mit Somnolenz und Koma. Deshalb Zielsättigung 88 bis 92 Prozent und Blutgaskontrolle nach 30 bis 60 Minuten.',
+        },
+        {
+          frage: 'Wonach richtet sich die medikamentöse Dauertherapie?',
+          antwort: 'Nach der Symptomlast, gemessen mit der mMRC-Skala und dem CAT-Fragebogen, und nach der Exazerbationsrate des letzten Jahres — also nach den Gruppen A, B und E. Gruppe A erhält einen langwirksamen Bronchodilatator, Gruppe B die duale Bronchodilatation mit LAMA und LABA, Gruppe E ebenfalls LAMA und LABA, bei Eosinophilen über 300 pro Mikroliter ergänzt um ein inhalatives Kortikosteroid.',
+        },
+        {
+          frage: 'Welche Maßnahme beeinflusst den Krankheitsverlauf am stärksten?',
+          antwort: 'Der Rauchstopp — er ist die einzige Maßnahme, die den beschleunigten Abfall des FEV1 bremst. Lebensverlängernd wirken darüber hinaus nur die Langzeit-Sauerstofftherapie bei chronischer Hypoxämie und die außerklinische nicht-invasive Beatmung bei chronischer Hyperkapnie.',
+        },
+        {
+          frage: 'Wann verordnen Sie eine Langzeit-Sauerstofftherapie?',
+          antwort: 'Bei einem im stabilen Zustand wiederholt gemessenen pO2 von höchstens 55 mmHg oder von höchstens 60 mmHg, wenn ein Cor pulmonale oder eine sekundäre Polyglobulie besteht. Sie muss mindestens 16 Stunden täglich angewendet werden, und der Patient muss das Rauchen eingestellt haben.',
+        },
+        {
+          frage: 'Welche Komplikationen erwarten Sie im Verlauf?',
+          antwort: 'Rezidivierende Exazerbationen und Pneumonien, die respiratorische Insuffizienz mit Hyperkapnie, die pulmonale Hypertonie mit Cor pulmonale und Rechtsherzinsuffizienz, einen Pneumothorax bei rupturierter Bulla, eine sekundäre Polyglobulie, Osteoporose, Kachexie und Muskelschwund sowie Depression und Angststörung. Außerdem ist das Risiko für ein Bronchialkarzinom deutlich erhöht.',
+        },
+        {
+          frage: 'Welche Impfungen empfehlen Sie einem COPD-Patienten?',
+          antwort: 'Die jährliche Influenzaimpfung, die Pneumokokkenimpfung, die COVID-19-Impfung und eine Auffrischung gegen Pertussis; ab dem 60. Lebensjahr zusätzlich die Impfung gegen Herpes zoster.',
+        },
+        {
+          frage: 'Der Patient hat eine COPD als Nebendiagnose — hat er zurzeit Beschwerden deswegen?',
+          antwort: 'Das muss man aktiv erfragen. Husten und Auswurf können seit Jahren unverändert bestehen; erst wenn Dyspnoe, Sputummenge oder Sputumpurulenz akut zunehmen, also die Anthonisen-Kriterien erfüllt sind, liegt eine Exazerbation vor. Unveränderte chronische Symptome bedeuten keine akute Verschlechterung.',
+        },
+      ],
+      merksatz: 'COPD = AHA (Auswurf, Husten, Atemnot) beim Raucher, bewiesen durch FEV1/FVC < 0,7 NACH Bronchospasmolyse — nur teilreversibel, das trennt sie vom Asthma. Sauerstoff nur bis 88–92 % Sättigung, ICS nur bei Exazerbationen mit Eosinophilie, und lebensverlängernd sind allein Rauchstopp, Langzeit-Sauerstoff und NIV.',
+      linkedCaseIds: [
+        'case-copd',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-ct',
+        'auf-bronchoskopie',
+      ],
+    },
   ];
 }
