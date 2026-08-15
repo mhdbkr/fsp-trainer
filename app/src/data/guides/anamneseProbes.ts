@@ -199,6 +199,22 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-neuro-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?' },
     { id: 'fach-neuro-kopfschmerz', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen? Wie fühlen sie sich an, und ist Ihnen dabei übel oder lichtempfindlich?' },
   ],
+  // Un seul jeu couvre les deux grands axes endocriniens de l'examen : le
+  // métabolisme glucidique (polyurie/polydipsie, hypoglycémies, complications
+  // d'organe) et la thyroïde (hyper ET hypo, symétriques dans la même sonde,
+  // pour que le candidat apprenne à trancher entre les deux en interrogeant).
+  Endokrinologie: [
+    { id: 'fach-endo-durst', kapitel: 'fach', frage: 'Haben Sie vermehrt Durst und müssen Sie häufiger Wasser lassen, auch nachts?' },
+    { id: 'fach-endo-gewicht', kapitel: 'fach', frage: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?' },
+    { id: 'fach-endo-temperatur', kapitel: 'fach', frage: 'Schwitzen Sie vermehrt oder frieren Sie leicht? Vertragen Sie Wärme oder Kälte schlechter als früher?' },
+    { id: 'fach-endo-herz-nerven', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Zittern der Hände, innere Unruhe oder umgekehrt Antriebslosigkeit und Müdigkeit bemerkt?' },
+    { id: 'fach-endo-hals', kapitel: 'fach', frage: 'Haben Sie eine Schwellung am Hals, ein Engegefühl, Schluckbeschwerden oder eine Veränderung der Stimme bemerkt?' },
+    { id: 'fach-endo-augen', kapitel: 'fach', frage: 'Haben sich Ihre Augen verändert — hervortretende Augen, Druckgefühl, Doppelbilder oder Sehstörungen?' },
+    { id: 'fach-endo-haut-haare', kapitel: 'fach', frage: 'Haben sich Haut, Haare oder Nägel verändert? Und heilen kleine Wunden schlechter als früher?' },
+    { id: 'fach-endo-unterzucker', kapitel: 'fach', frage: 'Hatten Sie Episoden mit Zittern, Schwitzen, Heißhunger oder Verwirrtheit, die nach dem Essen besser wurden?' },
+    { id: 'fach-endo-folgeschaeden', kapitel: 'fach', frage: 'Haben Sie Kribbeln oder Taubheit in den Füßen, Sehverschlechterung oder Probleme mit den Nieren?' },
+    { id: 'fach-endo-familie-therapie', kapitel: 'fach', frage: 'Sind Zucker- oder Schilddrüsenerkrankungen in der Familie bekannt? Werden Sie deswegen schon behandelt oder kontrolliert?' },
+  ],
 };
 
 // --- Index & helpers --------------------------------------------------------
