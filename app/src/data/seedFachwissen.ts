@@ -4985,5 +4985,345 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-bronchoskopie',
       ],
     },
+    {
+      id: 'fw-zystitis',
+      pathology: 'Akute Zystitis (untere Harnwegsinfektion)',
+      specialty: 'Urologie',
+      definition: 'Die akute Zystitis ist eine bakterielle Entzündung der Harnblasenschleimhaut und damit eine Harnwegsinfektion des UNTEREN Harntrakts. Definierend ist die Kombination aus Symptomen der unteren Harnwege — Dysurie (Brennen beim Wasserlassen), Pollakisurie (häufige Miktion kleiner Portionen), imperativer Harndrang und suprapubisches Druck- oder Schmerzgefühl — bei gleichzeitigem FEHLEN von Zeichen einer Beteiligung des oberen Harntrakts oder des Gesamtorganismus: kein Fieber, kein Flankenschmerz, kein klopfschmerzhaftes Nierenlager, kein reduzierter Allgemeinzustand. Genau diese negative Abgrenzung trennt die Zystitis von der akuten Pyelonephritis. Abzugrenzen ist ferner die asymptomatische Bakteriurie (Keimnachweis ohne Beschwerden), die außerhalb von Schwangerschaft und geplanten urologischen Eingriffen keinen Krankheitswert hat und nicht behandelt wird.',
+      aetiologie: 'Fast immer aszendierende Infektion: Keime der eigenen Darmflora besiedeln den perianalen und periurethralen Raum und steigen über die Harnröhre in die Blase auf. Häufigster Erreger ist Escherichia coli mit etwa 80 % (uropathogene Stämme mit P- und Typ-1-Fimbrien), gefolgt von Staphylococcus saprophyticus (5–10 %, typisch bei jungen, sexuell aktiven Frauen), Klebsiella pneumoniae, Proteus mirabilis (harnstoffspaltend, alkalischer Urin, Struvitsteine) und Enterokokken. Begünstigend wirken die kurze weibliche Harnröhre (3–5 cm) mit anatomischer Nähe zum Anus, der mechanische Keimtransport beim Geschlechtsverkehr („Honeymoon-Zystitis“), Spermizide und Diaphragma (Störung der protektiven Laktobazillenflora), der postmenopausale Östrogenmangel mit Anstieg des vaginalen pH-Wertes sowie jede Störung der Blasenentleerung mit Restharn. Beim Mann ist die Blasenentzündung außerhalb hoher Lebensalter selten und praktisch immer Folge einer Abflussstörung (Prostatahyperplasie) oder einer Prostatitis — sie gilt deshalb definitionsgemäß als komplizierte Harnwegsinfektion.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (kurze Harnröhre, Nähe zum Anorektalbereich) — etwa jede zweite Frau erkrankt mindestens einmal im Leben',
+        'Geschlechtsverkehr, insbesondere häufiger Verkehr und neuer Sexualpartner',
+        'Verhütung mit Spermiziden oder Diaphragma (Störung der Vaginalflora)',
+        'Zu geringe Trinkmenge und seltene oder unvollständige Blasenentleerung (Harnverhaltung im Beruf: Lehrerinnen, Erzieherinnen, Pflegekräfte, Verkäuferinnen)',
+        'Unterkühlung, längeres Sitzen in nasser Badekleidung',
+        'Frühere Harnwegsinfektionen und positive Familienanamnese (mütterliche Disposition)',
+        'Postmenopausaler Östrogenmangel, Deszensus, Zystozele, Restharnbildung',
+        'Diabetes mellitus (Glukosurie, Immunschwäche, Blasenentleerungsstörung bei autonomer Neuropathie)',
+        'Blasendauerkatheter und urologische Instrumentierung',
+        'Anatomische oder funktionelle Anomalien: vesikoureteraler Reflux, Harnsteine, Prostatahyperplasie, neurogene Blase, Nierentransplantat',
+        'Immunsuppression, Niereninsuffizienz, Schwangerschaft',
+        'Übertriebene Intimhygiene, Scheidenspülungen, falsche Wischrichtung',
+      ],
+      klinik: [
+        {
+          text: 'Dysurie/Algurie — brennende oder stechende Schmerzen beim Wasserlassen; das Leitsymptom',
+        },
+        {
+          text: 'Pollakisurie — sehr häufiger Harndrang mit jeweils nur kleinen Urinportionen, auch nachts (Nykturie)',
+        },
+        {
+          text: 'Imperativer, nicht aufschiebbarer Harndrang, gelegentlich mit Dranginkontinenz',
+        },
+        {
+          text: 'Suprapubisches Druck-, Krampf- oder Schmerzgefühl über der Blase, oft nach der Miktion',
+        },
+        {
+          text: 'Trüber, streng bzw. übelriechend veränderter Urin',
+        },
+        {
+          text: 'Terminale Makrohämaturie — sichtbares Blut am ENDE der Miktion (hämorrhagische Zystitis); harmlos im Rahmen des Infektes, muss aber nach Ausheilung kontrolliert werden',
+        },
+        {
+          text: 'NEGATIVES Leitkriterium: kein Fieber, kein Schüttelfrost, kein Flankenschmerz, kein klopfschmerzhaftes Nierenlager, ungestörtes Allgemeinbefinden — die Patientin ist „krank an der Blase, aber nicht krank am ganzen Körper“',
+        },
+        {
+          text: 'Beim älteren Menschen oft nur neu aufgetretene Verwirrtheit, Sturzneigung, Inkontinenz oder allgemeine Verschlechterung ohne typische Miktionsbeschwerden',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kindern unspezifisch: Bauchschmerzen, sekundäres Einnässen, Fieber unklarer Ursache, Trinkschwäche',
+          atypisch: true,
+        },
+        {
+          text: 'Bei rezidivierenden Infekten kann die Blasenentzündung Erstmanifestation eines bislang unerkannten Diabetes mellitus sein',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Untere vs. obere Harnwegsinfektion',
+          inhalt: 'Untere HWI = Zystitis/Urethritis: Dysurie, Pollakisurie, Harndrang, suprapubischer Schmerz, KEIN Fieber. Obere HWI = Pyelonephritis: zusätzlich Fieber über 38 °C mit Schüttelfrost, einseitiger Flankenschmerz, klopfschmerzhaftes Nierenlager, reduzierter Allgemeinzustand, Übelkeit/Erbrechen. Diese Einteilung steuert Diagnostik (Urinkultur, Labor, Sonographie), Therapiedauer und Aufnahmeindikation.',
+        },
+        {
+          name: 'Unkompliziert vs. kompliziert',
+          inhalt: 'UNKOMPLIZIERT nur bei der nicht schwangeren, prämenopausalen (bzw. gesunden postmenopausalen) Frau ohne relevante Begleiterkrankung und ohne anatomisch-funktionelle Besonderheit des Harntrakts. KOMPLIZIERT sind: jeder Mann (immer!), Schwangere, Kinder, Katheterträger, anatomische oder funktionelle Anomalien (Reflux, Steine, Prostatahyperplasie, neurogene Blase, Transplantatniere), Immunsuppression, Diabetes mellitus, Niereninsuffizienz sowie rezidivierende oder nosokomiale Infekte. Konsequenz: immer Urinkultur, längere Therapie, Suche und Behebung des komplizierenden Faktors.',
+        },
+        {
+          name: 'Rezidivierende Harnwegsinfektion',
+          inhalt: 'Mindestens zwei symptomatische Episoden in sechs Monaten oder mindestens drei in zwölf Monaten. Zu unterscheiden sind Rezidiv (gleicher Erreger innerhalb von zwei Wochen, meist Therapieversagen) und Reinfektion (neuer Erreger, häufigster Fall). Indikation für Urinkultur, Sonographie mit Restharnbestimmung, Diabetesausschluss und ein Prophylaxekonzept.',
+        },
+        {
+          name: 'Asymptomatische Bakteriurie',
+          inhalt: 'Nachweis von ≥10⁵ koloniebildenden Einheiten pro ml in zwei aufeinanderfolgenden Mittelstrahlurinproben ohne Symptome. Behandlungsbedürftig ausschließlich in der Schwangerschaft (Screening! Risiko Pyelonephritis und Frühgeburt) und vor schleimhauteröffnenden urologischen Eingriffen.',
+        },
+      ],
+      redFlags: [
+        'Fieber über 38 °C, Schüttelfrost, einseitiger Flankenschmerz oder klopfschmerzhaftes Nierenlager → Pyelonephritis, nicht mehr „nur“ Zystitis',
+        'Reduzierter Allgemeinzustand, Hypotonie, Tachykardie, Verwirrtheit → drohende Urosepsis, sofortige stationäre Behandlung',
+        'Zystitissymptome beim Mann → immer komplizierte Infektion; an Prostatitis, Restharn und Prostatahyperplasie denken',
+        'Schwangerschaft → jede Bakteriurie, auch die asymptomatische, ist behandlungsbedürftig',
+        'Schmerzlose Makrohämaturie, insbesondere beim älteren Raucher → Blasenkarzinom bis zum Beweis des Gegenteils, Zystoskopie',
+        'Persistierende Mikro- oder Makrohämaturie nach ausgeheiltem Infekt → weiterführende urologische Abklärung',
+        'Keine Besserung nach 48–72 Stunden adäquater Therapie → Resistenz, Komplikation oder falsche Diagnose',
+        'Harnverhalt, Anurie oder Kreatininanstieg → Obstruktion, akutes Nierenversagen',
+        'Katheterträger, Immunsuppression, Diabetes mellitus, Niereninsuffizienz oder Nierentransplantat → nie als Bagatelle behandeln',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Miktionsanamnese: Brennen beim Wasserlassen, Häufigkeit und Portionsgröße, imperativer Drang, suprapubischer Schmerz, Urinfarbe und -geruch, Blutbeimengung und deren zeitliche Zuordnung (initial, terminal, während der gesamten Miktion)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktiver AUSSCHLUSS der oberen Harnwegsinfektion: Temperatur messen, nach Schüttelfrost fragen, Nierenlager beidseits beklopfen, Allgemeinzustand beurteilen — bei der typischen unkomplizierten Zystitis sind alle diese Befunde negativ',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suche nach Komplikationsfaktoren: Geschlecht, Schwangerschaft, Diabetes, Katheter, Steine, Niereninsuffizienz, Immunsuppression, frühere Infekte und deren Zahl pro Jahr',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sexual- und gynäkologische Anamnese: neuer Partner, Verhütungsmethode (Spermizide, Diaphragma), vaginaler Ausfluss und Juckreiz, letzte Regelblutung — sie trennt Zystitis von Urethritis und Kolpitis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: suprapubischer Druckschmerz, Abdomen weich ohne Abwehrspannung; bei jungem Mann Hoden und Nebenhoden, bei älterem Mann digital-rektale Untersuchung der Prostata',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstix aus korrekt gewonnenem MITTELSTRAHLURIN: Leukozytenesterase, Nitrit, Erythrozyten (ggf. Protein, pH). Nitrit ist hochspezifisch, aber wenig sensitiv — es wird nur von nitratreduzierenden Erregern wie E. coli gebildet und braucht eine ausreichende Blasenverweildauer; ein negatives Nitrit schließt die Zystitis nicht aus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei typischer Klinik der jungen, nicht schwangeren Frau ist die Diagnose mit Anamnese und Urinstix gesichert — eine weitergehende Diagnostik ist NICHT erforderlich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinsediment/Mikroskopie: Leukozyturie, Bakteriurie, Erythrozyturie; Leukozytenzylinder würden für eine Nierenbeteiligung sprechen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinkultur mit Antibiogramm — KEINE Routine bei der unkomplizierten Zystitis. Indiziert bei: Mann, Schwangerschaft, Kind, kompliziertem Infekt, Rezidiv, Therapieversagen, nosokomialer Infektion und Verdacht auf Pyelonephritis. Signifikant sind ≥10⁵ KBE/ml, bei typischer Symptomatik und Reinkultur genügen ≥10³ KBE/ml',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Schwangerschaftstest (β-HCG) bei jeder Frau im gebärfähigen Alter — er entscheidet über Klassifikation und Antibiotikawahl',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutlabor (Blutbild, CRP, Kreatinin, Blutzucker/HbA1c) nur bei kompliziertem oder fieberhaftem Verlauf sowie bei rezidivierenden Infekten (Diabetesausschluss) — bei der unkomplizierten Zystitis nicht nötig',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erststrahlurin bzw. Abstrich mit Nukleinsäureamplifikation (PCR) auf Chlamydia trachomatis und Neisseria gonorrhoeae bei Verdacht auf Urethritis, insbesondere bei jungen sexuell aktiven Patientinnen mit steriler Leukozyturie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren, der Blase und Restharnbestimmung — nur bei kompliziertem Infekt, Rezidiv, Fieber, beim Mann oder bei ausbleibender Besserung; gesucht werden Harnstau, Konkremente, Restharn, Blasenwandverdickung und Raumforderungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Uroflowmetrie beim Mann mit abgeschwächtem Harnstrahl; weiterführende Bildgebung (CT-Urographie) nur bei Steinverdacht, Tumorverdacht oder Komplikationen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Zystoskopie bei persistierender Hämaturie nach saniertem Infekt, bei Verdacht auf Blasentumor oder Blasenstein und bei unklaren rezidivierenden Infekten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Beim Mann PSA-Bestimmung VOR der digital-rektalen Untersuchung (Manipulation kann den Wert verfälschen); urodynamische Untersuchung bei Verdacht auf neurogene Blasenentleerungsstörung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akute Pyelonephritis (obere Harnwegsinfektion)',
+          unterscheidung: 'Fieber über 38 °C mit Schüttelfrost, einseitiger Flankenschmerz, klopfschmerzhaftes Nierenlager, Übelkeit/Erbrechen und reduzierter Allgemeinzustand. Fehlen diese, handelt es sich um eine Zystitis — das ist die klassische Prüferfrage in beide Richtungen.',
+        },
+        {
+          dd: 'Urethritis / sexuell übertragbare Infektion (Chlamydien, Gonokokken)',
+          unterscheidung: 'Schleichender Beginn über Tage, urethraler Ausfluss, neuer Sexualpartner, Dysurie ohne ausgeprägte Pollakisurie und ohne suprapubischen Schmerz; im Urin sterile Leukozyturie mit negativem Nitrit. Nachweis per PCR aus Erststrahlurin oder Abstrich.',
+        },
+        {
+          dd: 'Kolpitis / Vulvovaginitis (Candida, bakterielle Vaginose, Trichomonaden)',
+          unterscheidung: 'Vaginaler Fluor, Juckreiz und Brennen ÄUSSERLICH beim Kontakt des Urins mit der gereizten Vulva, kein imperativer Harndrang, keine Pollakisurie; gynäkologische Untersuchung mit Nativpräparat und pH-Messung.',
+        },
+        {
+          dd: 'Blasenschmerzsyndrom / interstitielle Zystitis („Reizblase“)',
+          unterscheidung: 'Chronische Beschwerden über mehr als sechs Monate, Schmerz nimmt mit Blasenfüllung ZU und bessert sich nach der Miktion, wiederholt steriler Urin, kein Ansprechen auf Antibiotika.',
+        },
+        {
+          dd: 'Blasenstein / Urolithiasis',
+          unterscheidung: 'Kolikartiger, in Leiste oder Genitale ausstrahlender Schmerz, Bewegungsdrang, Harnstrahlunterbrechung bei Ventilstein, Hämaturie; Nachweis in Sonographie oder Nativ-CT.',
+        },
+        {
+          dd: 'Blasenkarzinom',
+          unterscheidung: 'SCHMERZLOSE Makrohämaturie beim älteren Raucher (auch berufliche Exposition gegenüber aromatischen Aminen), keine Entzündungszeichen, persistierende Hämaturie nach antibiotischer Behandlung — Red Flag, obligate Zystoskopie.',
+        },
+        {
+          dd: 'Benigne Prostatahyperplasie / Prostatitis beim Mann',
+          unterscheidung: 'Abgeschwächter Harnstrahl, Startverzögerung, Nachträufeln, Restharn und Nykturie (BPH) beziehungsweise Damm- und Beckenbodenschmerz mit druckdolenter Prostata und Fieber (Prostatitis). Beim Mann steht die Prostata vor der Blase in der Differenzialdiagnose.',
+        },
+        {
+          dd: 'Adnexitis oder Extrauteringravidität',
+          unterscheidung: 'Einseitiger tiefer Unterbauchschmerz, Portioschiebeschmerz, Fluor, Amenorrhoe und positives β-HCG; bei jeder Frau im gebärfähigen Alter mitzudenken.',
+        },
+        {
+          dd: 'Endometriose',
+          unterscheidung: 'Zyklusabhängige, prämenstruell betonte Unterbauch- und Miktionsbeschwerden, Dysmenorrhoe, Dyspareunie, steriler Urin; bei Blasenendometriose zyklische Hämaturie.',
+        },
+        {
+          dd: 'Appendizitis (retrozökale oder blasennahe Lage)',
+          unterscheidung: 'Wandernder Schmerz in den rechten Unterbauch, Druck- und Loslassschmerz, Übelkeit; eine begleitende Leukozyturie kann eine Zystitis vortäuschen.',
+        },
+        {
+          dd: 'Asymptomatische Bakteriurie',
+          unterscheidung: 'Keimnachweis ohne jede Beschwerde — keine Erkrankung und außerhalb von Schwangerschaft und geplanter urologischer Intervention kein Grund für eine Antibiose.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Kalkulierte Kurzzeit-Antibiose (Erstlinie)',
+          items: [
+            'Bei der unkomplizierten Zystitis der nicht schwangeren Frau wird KALKULIERT behandelt, das heißt sofort und ohne vorherige Urinkultur, orientiert an der lokalen Resistenzlage',
+            'Fosfomycin-Trometamol 3 g oral als EINMALGABE, nüchtern und am besten zur Nacht nach der letzten Blasenentleerung — Vorteil: einmalige Dosis, sehr gute Compliance',
+            'Nitrofurantoin retard 100 mg 1-0-1 über 5 Tage — kontraindiziert bei Niereninsuffizienz (GFR unter 45 ml/min), in den letzten Schwangerschaftswochen und bei Glukose-6-Phosphat-Dehydrogenase-Mangel; CAVE pulmonale und hepatische Reaktionen bei Langzeitanwendung',
+            'Pivmecillinam 400 mg 1-1-1 über 3 Tage — CAVE: es handelt sich um ein Betalaktam (Penicillinderivat), daher bei Penicillinallergie kontraindiziert',
+            'Nitroxolin 250 mg 1-1-1 über 5 Tage als weitere Erstlinienoption',
+            'Trimethoprim 200 mg 1-0-1 über 3 Tage nur, wenn die lokale E.-coli-Resistenz unter 20 % liegt; Cotrimoxazol ist wegen der Sulfonamidkomponente nachrangig',
+            'Fluorchinolone (Ciprofloxacin, Levofloxacin) und Cephalosporine sind bei der unkomplizierten Zystitis ausdrücklich KEINE Erstlinie — wegen Kollateralschadens an der Standortflora, Resistenzentwicklung und der schwerwiegenden Nebenwirkungen der Chinolone (Tendinopathie, Aortenaneurysma, ZNS-Störungen, Rote-Hand-Brief); sie bleiben der Pyelonephritis und komplizierten Verläufen vorbehalten',
+            'Bei Beschwerdefreiheit ist KEINE Kontrolluntersuchung und keine Kontrollkultur erforderlich',
+          ],
+        },
+        {
+          label: 'Symptomatische und Allgemeinmaßnahmen',
+          items: [
+            'Ausreichende Trinkmenge von etwa 1,5 bis 2 Litern täglich zur Durchspülung der Harnwege',
+            'Regelmäßige und vollständige Blasenentleerung, den Harn nicht zurückhalten',
+            'Lokale Wärme: Wärmflasche auf den Unterbauch, warme Sitzbäder, Schonung',
+            'Analgesie und Antiphlogese mit Ibuprofen 400 mg bis dreimal täglich, alternativ Paracetamol; bei starkem Blasenkrampf ergänzend Butylscopolamin',
+            'Bei leichten Beschwerden und ausdrücklichem Patientenwunsch ist ein rein SYMPTOMATISCHES Vorgehen mit Ibuprofen ohne Antibiotikum vertretbar — mit der Aufklärung, dass die Beschwerden im Mittel länger anhalten und in etwa 5 % eine Pyelonephritis auftreten kann',
+            'Sicherheitsnetz und Wiedervorstellungskriterien klar benennen: Fieber, Schüttelfrost, Flankenschmerz, Erbrechen oder keine Besserung innerhalb von 48 bis 72 Stunden',
+            'Krankschreibung nach Bedarf; Aufklärung, dass die Beschwerden unter Therapie meist innerhalb von ein bis drei Tagen abklingen',
+          ],
+        },
+        {
+          label: 'Sonderfälle: Schwangerschaft, Mann, komplizierter Infekt',
+          items: [
+            'SCHWANGERSCHAFT: immer Urinkultur vor Therapiebeginn, immer antibiotisch behandeln — auch die asymptomatische Bakteriurie; Mittel der Wahl Fosfomycin-Einmalgabe, orale Cephalosporine (Cefuroxim), Pivmecillinam oder Amoxicillin nach Antibiogramm. Kontraindiziert sind Fluorchinolone, Trimethoprim im ersten Trimenon und Nitrofurantoin am Termin. Kontrollkultur nach Therapieende',
+            'MANN: jede Zystitis gilt als komplizierte Harnwegsinfektion — Urinkultur obligat, Therapiedauer mindestens 7 Tage mit einem prostatagängigen Antibiotikum (Cotrimoxazol oder Fluorchinolon), urologische Abklärung mit Restharnbestimmung, Sonographie, digital-rektaler Untersuchung und PSA-Bestimmung vor der Palpation',
+            'KOMPLIZIERTER INFEKT (Diabetes, Niereninsuffizienz, Immunsuppression, anatomische Anomalie, Katheter): Urinkultur, Therapie nach Antibiogramm über 5 bis 7 Tage oder länger und vor allem Behebung des komplizierenden Faktors — Katheterwechsel oder -entfernung, Beseitigung einer Harnabflussstörung, Blutzuckereinstellung',
+            'Eine katheterassoziierte Bakteriurie ohne Symptome wird NICHT antibiotisch behandelt; behandelt wird nur der symptomatische Infekt, und zwar nach Katheterwechsel',
+            'Kinder: immer Urinkultur, immer weiterführende Abklärung (Sonographie, Frage nach vesikoureteralem Reflux)',
+          ],
+        },
+        {
+          label: 'Rezidivprophylaxe und Beratung',
+          items: [
+            'Verhaltensmaßnahmen zuerst: Trinkmenge 1,5–2 l/Tag, Miktion zeitnah nach dem Geschlechtsverkehr, Wischrichtung von vorne nach hinten, keine Scheidenspülungen und keine übertriebene Intimhygiene, nasse Badekleidung wechseln, Unterkühlung meiden',
+            'Verzicht auf Spermizide und Diaphragma, Wechsel der Verhütungsmethode',
+            'Nichtantibiotische Optionen: D-Mannose, Cranberry-Präparate (begrenzte Evidenz), orale Immunprophylaxe mit OM-89 (Uro-Vaxom), parenterale Impfung (Strovac), Phytotherapeutika wie Bärentraubenblätter oder Kapuzinerkresse und Meerrettichwurzel',
+            'Bei postmenopausalen Frauen lokale vaginale Östrogentherapie',
+            'Antibiotische Langzeitprophylaxe (z. B. Trimethoprim 100 mg oder Nitrofurantoin 50 mg abends über 3–6 Monate) oder postkoitale Einmalprophylaxe erst als Ultima Ratio, wenn alle übrigen Maßnahmen ausgeschöpft sind',
+            'Bei mindestens drei Episoden im Jahr: urologische Abklärung mit Sonographie und Restharnbestimmung, ggf. Zystoskopie, sowie Ausschluss eines Diabetes mellitus',
+          ],
+        },
+      ],
+      prognose: 'Sehr gut. Unter kalkulierter Kurzzeit-Antibiose sind die Patientinnen meist innerhalb von ein bis drei Tagen beschwerdefrei; auch ohne Antibiotikum heilt ein erheblicher Teil der unkomplizierten Zystitiden innerhalb einer Woche spontan aus. Die wichtigste Komplikation ist das Aufsteigen in den oberen Harntrakt mit akuter Pyelonephritis (etwa 2–5 %, deutlich häufiger bei unbehandelten oder komplizierten Verläufen) und im Extremfall die Urosepsis. Beim Mann drohen Prostatitis und Epididymitis, in der Schwangerschaft Pyelonephritis und Frühgeburtlichkeit. Die Rezidivneigung ist hoch: etwa jede vierte bis dritte Frau erleidet innerhalb von sechs Monaten eine erneute Episode; eine chronische Nierenschädigung entsteht aus einer unkomplizierten Zystitis dagegen praktisch nie.',
+      pruefungsfallen: [
+        'Der entscheidende Satz für die Prüfung: Zystitis = Dysurie, Pollakisurie und Harndrang OHNE Fieber, OHNE Flankenschmerz und OHNE klopfschmerzhaftes Nierenlager. Diese Negativbefunde muss man aktiv erfragen und laut benennen.',
+        'Die Urinkultur ist bei der unkomplizierten Zystitis der jungen Frau NICHT Routine — sie anzuordnen gilt als Überdiagnostik. Umgekehrt ist sie bei Mann, Schwangerer, Rezidiv, Therapieversagen und Pyelonephritisverdacht zwingend, und dann immer VOR der ersten Antibiotikagabe.',
+        'Beim MANN gibt es keine unkomplizierte Zystitis — jede Harnwegsinfektion des Mannes ist per definitionem kompliziert.',
+        'Fluorchinolone wie Ciprofloxacin sind bei der unkomplizierten Zystitis ausdrücklich keine Erstlinie; wer sie als erstes nennt, fällt auf.',
+        'Pivmecillinam ist ein Betalaktam — bei Penicillinallergie kontraindiziert; dann Fosfomycin oder Nitrofurantoin wählen.',
+        'Nitrofurantoin ist bei eingeschränkter Nierenfunktion kontraindiziert (fehlende Wirkspiegel im Urin, Kumulationstoxizität).',
+        'Bei jeder Frau im gebärfähigen Alter Schwangerschaftstest und Frauenanamnese — die Schwangerschaft macht aus dem banalen Infekt eine komplizierte, immer behandlungsbedürftige Situation.',
+        'Die korrekte Gewinnung des Mittelstrahlurins muss man in einfachen Worten erklären können — das wird laut Protokollen regelmäßig gefragt.',
+        'Blut im Urin während des Infektes ist erklärbar; eine SCHMERZLOSE Makrohämaturie beim älteren Raucher ist dagegen ein Blasenkarzinom bis zum Beweis des Gegenteils, und eine Hämaturie, die nach Ausheilung persistiert, muss zystoskopiert werden.',
+        'Rezidivierende Harnwegsinfekte sind ein Suchsignal für einen bislang unerkannten Diabetes mellitus — in den Protokollen taucht die Zystitis mehrfach genau in dieser Rolle auf.',
+        'Asymptomatische Bakteriurie nicht behandeln — Ausnahme Schwangerschaft und geplanter urologischer Eingriff.',
+        'Bei der jungen, sexuell aktiven Patientin die Urethritis beziehungsweise sexuell übertragbare Infektion aktiv erfragen und nicht reflexartig Antibiotika gegen eine Zystitis geben.',
+        'Beim älteren Mann mit Brennen beim Wasserlassen zuerst an Prostatahyperplasie und Prostatitis denken; vor der digital-rektalen Untersuchung das PSA abnehmen.',
+        'Eine unbehandelte, nur mit „viel Wasser und Tee“ therapierte Zystitis ist der Anfang der Pyelonephritis-Geschichte aus den Protokollen — deshalb immer Wiedervorstellungskriterien nennen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was bedeutet der Fachbegriff „Zystitis“? Erklären Sie ihn der Patientin.',
+          antwort: 'Zystitis heißt Blasenentzündung: eine meist bakterielle Entzündung der Schleimhaut der Harnblase.',
+        },
+        {
+          frage: 'Warum eine Zystitis und nicht eine Pyelonephritis?',
+          antwort: 'Weil die Patientin zwar Brennen beim Wasserlassen, häufigen Harndrang und ein Druckgefühl über der Blase hat, aber kein Fieber, keinen Schüttelfrost, keinen Flankenschmerz und kein klopfschmerzhaftes Nierenlager — der Allgemeinzustand ist ungestört. Damit ist nur der untere Harntrakt betroffen.',
+        },
+        {
+          frage: 'Wie diagnostizieren Sie einen Harnwegsinfekt und wie erfolgt die Probenentnahme?',
+          antwort: 'Mit Anamnese, körperlicher Untersuchung und einem Urinstix aus Mittelstrahlurin. Für den Mittelstrahlurin lässt die Patientin nach Reinigung des äußeren Genitales und Spreizen der Labien den ersten Urinstrahl in die Toilette laufen und fängt erst die mittlere Portion im sterilen Becher auf; die Probe soll zügig verarbeitet oder gekühlt werden.',
+        },
+        {
+          frage: 'Was zeigt der Urinstatus, welche Befunde erwarten Sie?',
+          antwort: 'Leukozyten (Leukozytenesterase) positiv, Nitrit positiv als Zeichen nitratreduzierender Erreger wie E. coli, häufig Erythrozyten positiv. Nitrit ist sehr spezifisch, aber wenig sensitiv — ein negatives Nitrit schließt den Infekt nicht aus.',
+        },
+        {
+          frage: 'Brauchen Sie eine Urinkultur?',
+          antwort: 'Bei dieser unkomplizierten Zystitis einer jungen, nicht schwangeren Frau nicht. Eine Kultur mit Antibiogramm brauche ich bei Männern, Schwangeren, Kindern, komplizierten Infekten, Rezidiven, Therapieversagen und bei Verdacht auf Pyelonephritis — und dann vor der ersten Antibiotikagabe.',
+        },
+        {
+          frage: 'Welcher Erreger ist am häufigsten?',
+          antwort: 'Escherichia coli in etwa 80 % der Fälle, gefolgt von Staphylococcus saprophyticus bei jungen Frauen sowie Klebsiellen und Proteus mirabilis.',
+        },
+        {
+          frage: 'Wann ist eine Harnwegsinfektion kompliziert?',
+          antwort: 'Bei jedem Mann, in der Schwangerschaft, bei Kindern, bei Kathetern, anatomischen oder funktionellen Anomalien des Harntrakts, Immunsuppression, Diabetes mellitus, Niereninsuffizienz und bei rezidivierenden oder nosokomialen Infekten.',
+        },
+        {
+          frage: 'Welches Antibiotikum geben Sie, in welcher Dosis und wie lange?',
+          antwort: 'Kalkuliert eine Kurzzeittherapie: Fosfomycin-Trometamol 3 g oral als Einmalgabe oder Nitrofurantoin retard 100 mg zweimal täglich über fünf Tage; alternativ Pivmecillinam oder Nitroxolin. Eine Urinkultur ist dafür nicht nötig.',
+        },
+        {
+          frage: 'Warum kein Ciprofloxacin?',
+          antwort: 'Weil Fluorchinolone bei der unkomplizierten Zystitis keine Erstlinie sind: sie schädigen die Standortflora, fördern Resistenzen und haben schwerwiegende Nebenwirkungen wie Sehnenrupturen, Aortenaneurysmen und ZNS-Störungen. Sie bleiben der Pyelonephritis und komplizierten Verläufen vorbehalten.',
+        },
+        {
+          frage: 'Die Patientin ist gegen Penicillin allergisch — was bedeutet das für Ihre Auswahl?',
+          antwort: 'Pivmecillinam ist ein Betalaktam und damit kontraindiziert. Ich wähle Fosfomycin als Einmalgabe oder Nitrofurantoin.',
+        },
+        {
+          frage: 'Kann man eine Zystitis auch ohne Antibiotikum behandeln?',
+          antwort: 'Ja. Bei leichten Beschwerden und entsprechendem Patientenwunsch ist ein rein symptomatisches Vorgehen mit Ibuprofen, viel Trinken und Wärme möglich. Ich kläre dann darüber auf, dass die Beschwerden länger dauern können und in etwa fünf Prozent eine Nierenbeckenentzündung entsteht, und nenne klare Wiedervorstellungskriterien.',
+        },
+        {
+          frage: 'Was tun Sie, wenn es der Patientin nach drei Tagen nicht besser geht?',
+          antwort: 'Dann nehme ich eine Urinkultur mit Antibiogramm ab, überdenke die Diagnose — Urethritis, Kolpitis, Pyelonephritis, Stein — und untersuche erneut auf Fieber und Nierenlagerklopfschmerz; je nach Befund Umstellung des Antibiotikums und Sonographie.',
+        },
+        {
+          frage: 'Was wäre anders, wenn die Patientin schwanger wäre?',
+          antwort: 'Dann wäre der Infekt kompliziert: immer Urinkultur, immer antibiotische Therapie — auch bei asymptomatischer Bakteriurie —, Mittel der Wahl Fosfomycin oder ein orales Cephalosporin, keine Fluorchinolone, und eine Kontrollkultur nach Therapieende.',
+        },
+        {
+          frage: 'Warum bekommen Frauen viel häufiger eine Blasenentzündung als Männer?',
+          antwort: 'Wegen der kurzen Harnröhre von nur drei bis fünf Zentimetern und ihrer anatomischen Nähe zum After, sodass Darmkeime leicht aufsteigen; hinzu kommen Geschlechtsverkehr, Spermizide und nach der Menopause der Östrogenmangel.',
+        },
+        {
+          frage: 'Was ist wichtig, bevor Sie beim Mann die rektale Untersuchung durchführen?',
+          antwort: 'Zuerst das PSA, also das prostataspezifische Antigen, abnehmen — die Palpation kann den Wert verfälschen.',
+        },
+        {
+          frage: 'Wann denken Sie an ein Blasenkarzinom?',
+          antwort: 'Bei schmerzloser Makrohämaturie, besonders beim älteren Raucher oder nach beruflicher Exposition gegenüber aromatischen Aminen, und bei einer Hämaturie, die nach ausgeheiltem Infekt persistiert. Dann ist eine Zystoskopie obligat.',
+        },
+        {
+          frage: 'Wie beraten Sie eine Patientin mit rezidivierenden Blasenentzündungen?',
+          antwort: 'Zuerst Verhaltensmaßnahmen: viel trinken, nach dem Geschlechtsverkehr Wasser lassen, keine Spermizide, keine Scheidenspülungen. Dann nichtantibiotische Prophylaxe mit D-Mannose oder Immunstimulation, postmenopausal lokale Östrogene; eine antibiotische Langzeitprophylaxe erst als letzte Option. Außerdem urologische Abklärung und Ausschluss eines Diabetes mellitus.',
+        },
+      ],
+      merksatz: 'Brennen, häufig, wenig — aber kein Fieber und keine Flanke: das ist die Zystitis. Bei der jungen, nicht schwangeren Frau reichen Anamnese und Urinstix, die Urinkultur bleibt dem komplizierten Infekt vorbehalten, und behandelt wird kurz: Fosfomycin einmalig oder Nitrofurantoin fünf Tage — niemals primär ein Fluorchinolon.',
+      linkedCaseIds: [
+        'case-zystitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
   ];
 }
