@@ -7,7 +7,7 @@ import json, os, re, sys
 SRC = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.abspath(os.path.join(SRC, '..', 'src', 'data'))
 
-CASE_IDS = ['case-zystitis']
+CASE_IDS = ['case-migraene', 'case-asthma']
 
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
@@ -24,6 +24,10 @@ def iso_dates(s):
     out = []
     for m in re.finditer(r'(\d{2})\.(\d{2})\.(\d{4})', s or ''):
         dd, mm, yy = m.groups()
+        # Les protocoles contiennent parfois des dates partielles (« 00.02.2023 »
+        # quand le jour est inconnu) : elles produiraient un ISO invalide.
+        if dd == '00' or mm == '00':
+            continue
         out.append(f'{yy}-{mm}-{dd}')
     # unique, keep order
     seen = set(); res = []

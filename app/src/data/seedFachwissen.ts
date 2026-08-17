@@ -5325,5 +5325,844 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-migraene',
+      pathology: 'Migräne',
+      specialty: 'Neurologie',
+      definition: 'Die Migräne ist eine primäre Kopfschmerzerkrankung, das heißt eine eigenständige Erkrankung ohne zugrunde liegende strukturelle Läsion. Charakteristisch sind wiederkehrende Attacken meist einseitiger, pulsierender Kopfschmerzen mittlerer bis starker Intensität, die unbehandelt 4 bis 72 Stunden anhalten, sich durch körperliche Routineaktivität verstärken und von Übelkeit, Erbrechen sowie Licht- und Lärmempfindlichkeit begleitet werden. Bei etwa einem Drittel der Betroffenen geht dem Kopfschmerz eine vollständig reversible neurologische Aura von weniger als 60 Minuten Dauer voraus, am häufigsten ein visuelles Flimmerskotom. Zwischen den Attacken sind die Patienten vollständig beschwerdefrei und der neurologische Untersuchungsbefund ist unauffällig. Die Migräne ist mit einer Lebenszeitprävalenz von etwa 15 bis 18 Prozent bei Frauen und 6 bis 8 Prozent bei Männern eine der häufigsten neurologischen Erkrankungen überhaupt.',
+      aetiologie: 'Genetisch determinierte neuronale Übererregbarkeit des Gehirns mit erniedrigter Reizschwelle. Pathophysiologisch steht die Aktivierung des trigeminovaskulären Systems im Zentrum: Nach Auslösung im Hirnstamm (dem sogenannten Migränegenerator im periaquäduktalen Grau und in den Raphekernen) werden aus perivaskulären Trigeminusendigungen vasoaktive Neuropeptide, allen voran das Calcitonin Gene-Related Peptide (CGRP), sowie Substanz P und Neurokinin A freigesetzt. Es kommt zu einer Vasodilatation der Duragefäße mit steriler neurogener Entzündung, Plasmaextravasation und Sensibilisierung der nozizeptiven Afferenzen — daraus resultieren der pulsierende Schmerzcharakter, die Verstärkung durch Bewegung und die Allodynie. Der Aura liegt eine Cortical Spreading Depression nach Leão zugrunde: eine sich mit etwa 3 mm pro Minute über den Kortex ausbreitende Depolarisationswelle mit nachfolgender Suppression der neuronalen Aktivität, die vom visuellen Kortex ausgeht und das langsame Wandern der Aurasymptome erklärt. Auslöser (Trigger) senken lediglich die Attackenschwelle, sie sind nicht die Ursache. Die Vererbung ist polygen; die seltene familiäre hemiplegische Migräne ist monogen (CACNA1A, ATP1A2, SCN1A) und autosomal-dominant.',
+      risikofaktoren: [
+        'Weibliches Geschlecht — Frauen sind etwa dreimal häufiger betroffen als Männer',
+        'Lebensalter zwischen 25 und 45 Jahren (Gipfel der Erkrankungsaktivität)',
+        'Positive Familienanamnese bei 60 bis 70 Prozent der Betroffenen',
+        'Stress und ganz besonders der Stressabfall nach einer Belastungsphase (Wochenendmigräne)',
+        'Schlafmangel, aber auch Schlafüberschuss und unregelmäßiger Schlaf-Wach-Rhythmus',
+        'Hormonelle Faktoren: Menstruation und perimenstrueller Östrogenabfall, Ovulation, kombinierte orale Kontrazeptiva, Hormonersatztherapie',
+        'Ausgelassene Mahlzeiten, Hypoglykämie, unzureichende Flüssigkeitszufuhr',
+        'Alkohol, besonders Rotwein; Histamin- und tyraminreiche Nahrungsmittel (gereifter Käse, Schokolade, Zitrusfrüchte, Glutamat)',
+        'Koffeinentzug bei unregelmäßigem Konsum',
+        'Wetterwechsel, Föhn, Aufenthalt in großer Höhe',
+        'Sensorische Reize: Flackerlicht, grelles Licht, Lärm, intensive Gerüche',
+        'Übergebrauch von Akutmedikation (Chronifizierungsfaktor)',
+        'Adipositas, Depression, Angststörung und Schlafapnoe als Risikofaktoren für die Chronifizierung',
+        'Rauchen und kombinierte Kontrazeptiva bei Migräne mit Aura (Schlaganfallrisiko)',
+      ],
+      klinik: [
+        {
+          text: 'Attackenartiger Verlauf mit vollständiger Beschwerdefreiheit im Intervall — das entscheidende Merkmal gegenüber sekundären Kopfschmerzen',
+        },
+        {
+          text: 'Attackendauer unbehandelt 4 bis 72 Stunden',
+        },
+        {
+          text: 'Einseitiger (hemikraner) Kopfschmerz, oft mit Seitenwechsel von Attacke zu Attacke; bei etwa 40 Prozent auch beidseitig',
+        },
+        {
+          text: 'Pulsierend-pochender Schmerzcharakter, im Takt des Herzschlags',
+        },
+        {
+          text: 'Mittlere bis starke Intensität, die die Alltagstätigkeit beeinträchtigt oder unmöglich macht',
+        },
+        {
+          text: 'Verstärkung durch körperliche Routineaktivität wie Treppensteigen, Bücken oder Husten — beziehungsweise deren Vermeidung',
+        },
+        {
+          text: 'Übelkeit und Erbrechen, dazu attackenbedingte Magenatonie mit verzögerter Resorption oraler Medikamente',
+        },
+        {
+          text: 'Photophobie und Phonophobie, häufig zusätzlich Osmophobie (Geruchsüberempfindlichkeit)',
+        },
+        {
+          text: 'Rückzug in einen abgedunkelten, ruhigen Raum und Bedürfnis nach Schlaf — im scharfen Gegensatz zur motorischen Unruhe beim Cluster-Kopfschmerz',
+        },
+        {
+          text: 'Kutane Allodynie: Schon Haarebürsten, Brillenbügel oder Kopfkissen werden schmerzhaft empfunden',
+        },
+        {
+          text: 'Visuelle Aura bei etwa einem Drittel: Flimmerskotom, Fortifikationsspektren (Zickzacklinien), Skotome; langsame Ausbreitung über mindestens 5 Minuten, Dauer 5 bis 60 Minuten, vollständig reversibel, dem Kopfschmerz vorausgehend',
+        },
+        {
+          text: 'Prodromalphase Stunden bis zwei Tage vor der Attacke: Gähnen, Heißhunger, Stimmungsschwankungen, Nackensteifigkeit, vermehrter Harndrang, Konzentrationsstörung',
+        },
+        {
+          text: 'Postdromalphase („Migränekater“) bis 48 Stunden nach dem Kopfschmerz: Abgeschlagenheit, Konzentrationsstörung, Stimmungslabilität',
+        },
+        {
+          text: 'Sensible Aura mit von der Hand zum Gesicht wandernden Parästhesien oder aphasische Aura mit Wortfindungsstörung',
+          atypisch: true,
+        },
+        {
+          text: 'Migräne mit Hirnstammaura (früher Basilarismigräne): Dysarthrie, Drehschwindel, Tinnitus, Hypakusis, Doppelbilder, Ataxie, Bewusstseinsminderung — Triptane sind hier kontraindiziert',
+          atypisch: true,
+        },
+        {
+          text: 'Hemiplegische Migräne mit motorischer Schwäche als Aurasymptom, familiär oder sporadisch — Triptane kontraindiziert',
+          atypisch: true,
+        },
+        {
+          text: 'Retinale Migräne: monokuläre, vollständig reversible Sehstörung oder Erblindung',
+          atypisch: true,
+        },
+        {
+          text: 'Aura ohne Kopfschmerz („Migraine sans migraine“), typischerweise im höheren Lebensalter — schwer von einer TIA abzugrenzen',
+          atypisch: true,
+        },
+        {
+          text: 'Status migraenosus: Attacke, die trotz Behandlung länger als 72 Stunden anhält',
+          atypisch: true,
+        },
+        {
+          text: 'Vestibuläre Migräne mit im Vordergrund stehendem Schwindel, teils ohne Kopfschmerz',
+          atypisch: true,
+        },
+        {
+          text: 'Abdominelle Migräne und zyklisches Erbrechen im Kindesalter als Migräne-Äquivalente',
+          atypisch: true,
+        },
+        {
+          text: 'Migränöser Infarkt: Aurasymptome, die länger als 60 Minuten persistieren, mit bildgebend nachgewiesener Ischämie im entsprechenden Versorgungsgebiet',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ICHD-3: Migräne ohne Aura (1.1)',
+          inhalt: 'A) Mindestens 5 Attacken, die B bis D erfüllen. B) Attackendauer 4 bis 72 Stunden (unbehandelt oder erfolglos behandelt). C) Mindestens ZWEI der vier Schmerzmerkmale: einseitige Lokalisation, pulsierender Charakter, mittlere bis starke Intensität, Verstärkung durch körperliche Routineaktivität oder deren Vermeidung. D) Mindestens EINES der folgenden: Übelkeit und/oder Erbrechen ODER Photophobie UND Phonophobie. E) Nicht besser durch eine andere ICHD-3-Diagnose erklärt.',
+        },
+        {
+          name: 'ICHD-3: Migräne mit Aura (1.2)',
+          inhalt: 'A) Mindestens 2 Attacken, die B und C erfüllen. B) Mindestens ein vollständig reversibles Aurasymptom: visuell, sensibel, Sprache/Sprechen, motorisch, Hirnstamm oder retinal. C) Mindestens DREI von sechs Merkmalen: mindestens ein Aurasymptom breitet sich über mindestens 5 Minuten aus; mindestens zwei Symptome treten nacheinander auf; jedes einzelne Symptom dauert 5 bis 60 Minuten; mindestens ein Symptom ist einseitig; mindestens ein Symptom ist positiv (Flimmern, Kribbeln); die Aura wird innerhalb von 60 Minuten von Kopfschmerz begleitet oder gefolgt. D) Nicht besser durch eine andere Diagnose erklärt, insbesondere Ausschluss einer TIA.',
+        },
+        {
+          name: 'ICHD-3: Chronische Migräne (1.3)',
+          inhalt: 'Kopfschmerz an mindestens 15 Tagen pro Monat über mehr als 3 Monate, davon an mindestens 8 Tagen mit Migränecharakteristik oder Ansprechen auf ein Triptan. Häufig assoziiert mit Medikamentenübergebrauch; jährliche Chronifizierungsrate der episodischen Migräne etwa 2,5 Prozent.',
+        },
+        {
+          name: 'Die vier Phasen der Migräneattacke',
+          inhalt: '1) Prodromal-/Vorbotenphase: Stunden bis 2 Tage vorher, Gähnen, Heißhunger, Stimmungsschwankung, Nackensteifigkeit. 2) Auraphase: 5 bis 60 Minuten, meist visuell, vollständig reversibel. 3) Kopfschmerzphase: 4 bis 72 Stunden mit den vegetativen Begleitsymptomen. 4) Postdromal-/Erholungsphase: bis 48 Stunden Abgeschlagenheit und Konzentrationsstörung („Migränekater“).',
+        },
+        {
+          name: 'SNOOP-Regel — Red Flags für sekundäre Kopfschmerzen',
+          inhalt: 'S = Systemic symptoms/signs (Fieber, Gewichtsverlust, Nachtschweiß) und Secondary risk factors (Immunsuppression, HIV, Tumorleiden, Antikoagulation). N = Neurologic deficit (fokales Defizit, Bewusstseinsstörung, Krampfanfall, Wesensänderung, Stauungspapille, Meningismus). O = Onset schlagartig (Donnerschlagkopfschmerz, Maximum in Sekunden → Subarachnoidalblutung). O = Older, Erstmanifestation nach dem 50. Lebensjahr (→ Riesenzellarteriitis, Tumor). P = Pattern change (Änderung des gewohnten Musters, Progredienz), Positional (lageabhängig), Precipitated by Valsalva, Papilloedema, Pregnancy/Puerperium (Sinusvenenthrombose, Präeklampsie).',
+        },
+        {
+          name: 'Beeinträchtigungs- und Verlaufsscores',
+          inhalt: 'MIDAS (Migraine Disability Assessment): erfasst die in drei Monaten durch Migräne verlorenen Tage in Beruf, Haushalt und Freizeit; Grad I bis IV. HIT-6 (Headache Impact Test) als Kurzinstrument. Entscheidend für die Prophylaxeindikation und die Verlaufskontrolle bleibt jedoch der Kopfschmerzkalender mit Attackentagen und Tagen mit Akutmedikation.',
+        },
+        {
+          name: 'Formen nach hormonellem Bezug',
+          inhalt: 'Rein menstruelle Migräne: Attacken ausschließlich am Tag −2 bis +3 der Menstruation in mindestens zwei von drei Zyklen. Menstruationsassoziierte Migräne: zusätzlich Attacken außerhalb dieses Fensters. Beide meist ohne Aura, oft länger und therapieresistenter; Kurzzeitprophylaxe mit Naratriptan oder Frovatriptan perimenstruell möglich.',
+        },
+      ],
+      redFlags: [
+        'Schlagartiger Vernichtungskopfschmerz mit Maximum innerhalb von Sekunden („Donnerschlagkopfschmerz“) → Subarachnoidalblutung bis zum Beweis des Gegenteils: sofort natives cCT, bei negativem Befund Lumbalpunktion mit Xanthochromie',
+        'Fieber, Meningismus, Vigilanzminderung, petechiales Exanthem → Meningitis oder Enzephalitis: Blutkulturen, sofortige kalkulierte Antibiose, Lumbalpunktion',
+        'Jedes fokal-neurologische Defizit außerhalb einer typischen Aura, Krampfanfall, Wesensänderung oder Bewusstseinsstörung → Blutung, Ischämie, Raumforderung, Enzephalitis',
+        'Erstmanifestation eines Kopfschmerzes nach dem 50. Lebensjahr → Riesenzellarteriitis (BSG-Sturzsenkung, Kauclaudicatio, Druckschmerz und verhärtete A. temporalis, Sehstörung — sofortige Kortikosteroidtherapie vor der Biopsie, um die Erblindung zu verhindern) sowie Tumor',
+        'Änderung des gewohnten Kopfschmerzmusters, Zunahme von Frequenz oder Intensität, Verlust der Beschwerdefreiheit im Intervall',
+        'Progredienter, morgens betonter Kopfschmerz mit Nüchternerbrechen, nächtlichem Erwachen und Verstärkung bei Husten, Pressen oder Lagewechsel → erhöhter Hirndruck, Raumforderung; Funduskopie auf Stauungspapille',
+        'Kopfschmerz bei Immunsuppression, HIV, bekanntem Tumorleiden oder unter Antikoagulation → opportunistische Infektion, Metastase, subdurales Hämatom',
+        'Kopfschmerz in Schwangerschaft oder Wochenbett → Sinusvenenthrombose, Präeklampsie, Hypophysenapoplexie',
+        'Kopfschmerz nach Schädel-Hirn-Trauma, auch nach Tagen bis Wochen → chronisch subdurales Hämatom',
+        'Einseitiger Kopf-, Nacken- oder Gesichtsschmerz mit Horner-Syndrom nach Bagatelltrauma oder Halsdrehung → Dissektion der A. carotis oder A. vertebralis',
+        'Aurasymptome, die länger als 60 Minuten anhalten, erstmals motorisch sind oder streng seitenkonstant auftreten → TIA, Ischämie, migränöser Infarkt, symptomatische Aura',
+        'Rotes, hartes, schmerzhaftes Auge mit Sehverschlechterung und Farbringen um Lichtquellen → akuter Glaukomanfall, augenärztlicher Notfall',
+        'Massiv erhöhter Blutdruck mit Kopfschmerz, Sehstörung und Bewusstseinsstörung → hypertensiver Notfall, posteriores reversibles Enzephalopathiesyndrom',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Die Diagnose der Migräne wird AUSSCHLIESSLICH KLINISCH gestellt — es gibt keinen bestätigenden Labor- oder Bildgebungsbefund. Systematische Prüfung der ICHD-3-Kriterien: Attackenzahl, Dauer 4 bis 72 Stunden, mindestens zwei der vier Schmerzmerkmale, mindestens ein Begleitkriterium',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Detaillierte Schmerzanamnese: Lokalisation und Seitenwechsel, Charakter, Intensität auf der Skala von 0 bis 10, Beginn und Anstiegsgeschwindigkeit, Dauer, Frequenz pro Monat, Tageszeit, verstärkende und lindernde Faktoren, Verhalten während der Attacke (Rückzug versus Unruhe)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Auraanamnese: Art (visuell, sensibel, sprachlich, motorisch, Hirnstamm), positives oder negatives Phänomen, Ausbreitungsgeschwindigkeit, Dauer, vollständige Reversibilität, zeitliche Beziehung zum Kopfschmerz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Trigger- und Lebensstilanamnese: Stress und Stressabfall, Schlafrhythmus, Mahlzeiten, Alkohol, Koffein, Menstruation und Kontrazeption, Wetter, Flackerlicht',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese mit der entscheidenden Frage nach der Zahl der EINNAHMETAGE pro Monat (10-/15-Tage-Regel) sowie nach Kombinationsanalgetika, Triptanen, Opioiden, Nitraten, Kontrazeptiva und Hormonpräparaten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematisches Abfragen der Red Flags nach der SNOOP-Regel — der eigentliche diagnostische Kern, da die Migräne selbst eine Ausschlussentscheidung gegenüber sekundären Kopfschmerzen verlangt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige neurologische Untersuchung, die bei der Migräne im Intervall wie in der Attacke UNAUFFÄLLIG sein MUSS: Bewusstsein, Orientierung, Hirnnerven mit Pupillenreaktion und Gesichtsfeldprüfung, Augenmotilität, Kraftgrade, Muskeleigenreflexe, Pyramidenbahnzeichen, Sensibilität, Koordination, Stand- und Gangprüfung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Meningismusprüfung (Nackensteifigkeit, Brudzinski- und Kernig-Zeichen), Temperatur- und Blutdruckmessung, Palpation der Aa. temporales und der perikraniellen sowie Nackenmuskulatur, Klopfschmerz über den Nasennebenhöhlen, Inspektion des Auges',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Funduskopie zum Ausschluss einer Stauungspapille als Hirndruckzeichen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kopfschmerzkalender über mindestens vier bis acht Wochen als zentrales diagnostisches UND therapeutisches Instrument: Attackentage, Dauer, Intensität, Begleitsymptome, Trigger, Medikamenteneinnahmetage',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Das Labor ist bei der Migräne definitionsgemäß UNAUFFÄLLIG und trägt nichts zur Diagnosestellung bei; es dient allein dem Ausschluss sekundärer Ursachen und der Therapiesicherheit',
+        },
+        {
+          stufe: 'Labor',
+          text: 'BSG und CRP obligat bei Erstmanifestation nach dem 50. Lebensjahr — eine BSG-Sturzsenkung ist der Leitbefund der Riesenzellarteriitis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, Elektrolyte, Nieren- und Leberwerte als Ausgangs- und Sicherheitsparameter vor NSAR-, Triptan- und Prophylaxetherapie; Blutzucker und TSH zum Ausschluss metabolischer Ursachen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei entsprechendem Verdacht gezielt: D-Dimere und Thrombophiliediagnostik (Sinusvenenthrombose), CO-Hämoglobin (Kohlenmonoxidintoxikation), Drogenscreening, Liquordiagnostik',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei typischer Migräne, erfüllten ICHD-3-Kriterien und unauffälligem neurologischem Befund ist KEINE zerebrale Bildgebung indiziert. Unkritische Bildgebung erzeugt Zufallsbefunde, verstärkt die Krankheitsangst und verzögert die eigentliche Therapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Indikation zur Bildgebung ausschließlich bei Red Flags: natives kraniales CT als Notfalluntersuchung (Blutung, Subarachnoidalblutung, Raumforderung, Hirndruck); MRT des Schädels mit Kontrastmittel elektiv (Tumor, Entzündung, Hypophysenprozess, Dissektion); bei Verdacht auf eine Sinusvenenthrombose zusätzlich MR- oder CT-Venographie; CT- oder MR-Angiographie bei Aneurysma- oder Dissektionsverdacht',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ein EEG ist bei der Migräne NICHT indiziert — es ist weder sensitiv noch spezifisch und zeigt allenfalls unspezifische Allgemeinveränderungen oder eine passagere Herdstörung nach der Aura. Indiziert nur bei Verdacht auf einen epileptischen Anfall oder zur Abgrenzung einer atypischen beziehungsweise prolongierten Aura von einem fokalen Anfall',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Farbduplexsonographie der Aa. temporales (Halo-Zeichen) bei Verdacht auf Riesenzellarteriitis; Duplexsonographie der hirnversorgenden Arterien bei Dissektions- oder Ischämieverdacht; Tonometrie und augenärztliche Untersuchung bei Verdacht auf einen Glaukomanfall',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Lumbalpunktion mit Liquoranalyse nur bei begründetem Verdacht auf eine Subarachnoidalblutung nach unauffälligem CT (Xanthochromie, Drei-Gläser-Probe) oder auf eine Meningitis beziehungsweise Enzephalitis (Zellzahl, Eiweiß, Glukose, Laktat, Gramfärbung, Kultur, PCR) — sowie zur Messung des Liquoreröffnungsdrucks bei Verdacht auf idiopathische intrakranielle Hypertension',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Biopsie der A. temporalis bei klinischem und laborchemischem Verdacht auf eine Riesenzellarteriitis; die Kortikosteroidtherapie wird dabei nicht bis zum Biopsieergebnis aufgeschoben',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Genetische Diagnostik (CACNA1A, ATP1A2, SCN1A) nur bei familiärer hemiplegischer Migräne; CADASIL-Diagnostik (NOTCH3) bei Migräne mit Aura, subkortikalen Marklagerläsionen, frühen Schlaganfällen und Demenz in der Familie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Spannungskopfschmerz (Kopfschmerz vom Spannungstyp)',
+          unterscheidung: 'BEIDSEITIG, drückend-beengend „wie ein Reifen oder Schraubstock“, leichte bis mittlere Intensität, KEINE Verstärkung durch körperliche Routineaktivität, KEINE Übelkeit und kein Erbrechen; allenfalls Photophobie ODER Phonophobie, nie beides. Dauer 30 Minuten bis 7 Tage, oft mit perikranieller Muskeldruckempfindlichkeit. Die häufigste DD und die häufigste Verwechslung.',
+        },
+        {
+          dd: 'Cluster-Kopfschmerz (trigeminoautonomer Kopfschmerz)',
+          unterscheidung: 'Streng einseitig periorbital oder retroorbital, bohrend-vernichtend, aber nur 15 bis 180 Minuten, ein- bis achtmal täglich in Clusterperioden von Wochen bis Monaten, oft nachts zur gleichen Uhrzeit. Obligat ipsilaterale autonome Symptome: Lakrimation, konjunktivale Injektion, Rhinorrhoe oder nasale Kongestion, Ptosis, Miosis, Lidödem, Schwitzen. Ausgeprägte motorische Unruhe statt Rückzug. Männer überwiegen, Alkohol triggert in der Clusterperiode. Therapie: Sauerstoff 100 Prozent 12 bis 15 l/min über Maske und Sumatriptan 6 mg subkutan, Prophylaxe mit Verapamil.',
+        },
+        {
+          dd: 'Kopfschmerz bei Medikamentenübergebrauch',
+          unterscheidung: 'Einnahme von Monoanalgetika an mindestens 15 Tagen oder von Triptanen, Mischanalgetika, Ergotaminen und Opioiden an mindestens 10 Tagen pro Monat über mehr als drei Monate. Dumpfer, diffuser Dauerkopfschmerz, morgens betont, mit Verlust des attackenartigen Charakters. Therapie ist der Entzug — ambulant oder stationär — unter Prophylaxe.',
+        },
+        {
+          dd: 'Subarachnoidalblutung',
+          unterscheidung: 'Schlagartiger Vernichtungskopfschmerz mit Maximum innerhalb von Sekunden, häufig bei körperlicher Anstrengung, mit Meningismus, Übelkeit, Bewusstseinsstörung und gegebenenfalls fokalem Defizit. Sofortiges natives cCT, bei negativem Befund und fortbestehendem Verdacht Lumbalpunktion mit Xanthochromie.',
+        },
+        {
+          dd: 'Meningitis und Enzephalitis',
+          unterscheidung: 'Fieber, Meningismus, Photophobie, Vigilanzminderung, Krampfanfall, bei Meningokokken petechiales Exanthem. Entzündungsparameter erhöht, Diagnosesicherung durch Lumbalpunktion; bei Bewusstseinsstörung oder fokalem Defizit vorher CT.',
+        },
+        {
+          dd: 'Hirntumor und andere Raumforderung',
+          unterscheidung: 'Über Wochen progredienter Dauerkopfschmerz, morgens betont, nächtliches Erwachen, Nüchternerbrechen, Verstärkung bei Husten und Pressen, Wesensänderung, Krampfanfall, fokales Defizit, Stauungspapille. Der attackenartige Verlauf mit vollständiger Beschwerdefreiheit im Intervall spricht dagegen. Klärung durch MRT mit Kontrastmittel.',
+        },
+        {
+          dd: 'Sinus- und Hirnvenenthrombose',
+          unterscheidung: 'Subakut über Tage zunehmender Kopfschmerz, Stauungspapille, Krampfanfall, wechselnde oder atypische fokale Defizite; Risikofaktoren sind Kontrazeptiva, Schwangerschaft und Wochenbett, Thrombophilie, Exsikkose, Infekte im Kopf-Hals-Bereich. Diagnostik: D-Dimere, MR- oder CT-Venographie.',
+        },
+        {
+          dd: 'Transitorische ischämische Attacke und Hirninfarkt',
+          unterscheidung: 'Schlagartig einsetzendes, persistierendes NEGATIVES Defizit (Lähmung, Gefühlsverlust, Aphasie) ohne langsame Ausbreitung. Die Migräneaura breitet sich über mindestens fünf Minuten aus, erzeugt POSITIVE Phänomene und bildet sich innerhalb von 60 Minuten vollständig zurück. Bei Erstmanifestation einer Aura im höheren Lebensalter ist die Abgrenzung schwierig und erfordert Bildgebung.',
+        },
+        {
+          dd: 'Riesenzellarteriitis (Arteriitis temporalis, Morbus Horton)',
+          unterscheidung: 'Fast ausschließlich nach dem 50. Lebensjahr; neu aufgetretener temporaler Kopfschmerz, Kauclaudicatio, Druckschmerz und verhärtete, pulslose A. temporalis, Sehstörung bis Erblindung, Polymyalgia rheumatica, B-Symptomatik. BSG-Sturzsenkung und CRP-Erhöhung, Halo im Duplex, Biopsie. Sofortige Kortikosteroidtherapie, ohne das Biopsieergebnis abzuwarten.',
+        },
+        {
+          dd: 'Sinusitis frontalis oder maxillaris',
+          unterscheidung: 'Druck- und Klopfschmerz über den Nasennebenhöhlen, eitrige Rhinorrhoe, behinderte Nasenatmung, Riechminderung, Fieber nach vorausgegangenem Infekt, Verstärkung beim Bücken. Cave: Eine chronische Sinusitis wird häufig fälschlich für Migräne gehalten und umgekehrt.',
+        },
+        {
+          dd: 'Trigeminusneuralgie',
+          unterscheidung: 'Blitzartig einschießende, elektrisierende Sekundenschmerzen im Versorgungsgebiet des zweiten oder dritten Trigeminusastes, getriggert durch Kauen, Sprechen, Zähneputzen, Rasieren oder Kaltluft, mit Refraktärphase. Therapie der Wahl Carbamazepin. Bei jungen Patienten an eine symptomatische Ursache wie Multiple Sklerose denken.',
+        },
+        {
+          dd: 'Akuter Glaukomanfall',
+          unterscheidung: 'Einseitiger, heftiger Kopf- und Augenschmerz mit rotem, steinhartem Bulbus, entrundeter lichtstarrer Pupille, Visusminderung, Farbringen um Lichtquellen, Übelkeit und Erbrechen — die vegetative Begleitsymptomatik führt regelmäßig zur Fehldiagnose Migräne. Augenärztlicher Notfall.',
+        },
+        {
+          dd: 'Zervikogener Kopfschmerz',
+          unterscheidung: 'Von der Halswirbelsäule ausgehender, streng einseitiger Kopfschmerz ohne Seitenwechsel, ausgelöst durch Kopfhaltung oder Nackenbewegung, mit eingeschränkter HWS-Beweglichkeit und Druckschmerz über den oberen Facettengelenken; Besserung durch diagnostische Blockade.',
+        },
+        {
+          dd: 'Dissektion der A. carotis interna oder A. vertebralis',
+          unterscheidung: 'Akuter einseitiger Hals-, Nacken- oder Gesichtsschmerz nach Bagatelltrauma, Chiropraxis oder heftiger Kopfdrehung, häufig mit Horner-Syndrom (Ptosis, Miosis) und pulssynchronem Tinnitus, gegebenenfalls mit nachfolgender Ischämie. Diagnostik: Duplex und MR- oder CT-Angiographie.',
+        },
+        {
+          dd: 'Hypertensiver Notfall und posteriores reversibles Enzephalopathiesyndrom',
+          unterscheidung: 'Massiv erhöhter Blutdruck mit Kopfschmerz, Sehstörung, Verwirrtheit und Krampfanfall; bildgebend okzipital betontes Ödem. Eine leichte Blutdruckerhöhung ist dagegen häufig Folge und nicht Ursache der Schmerzen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akuttherapie der Attacke',
+          akut: true,
+          items: [
+            'Grundregel: so FRÜH wie möglich und ausreichend HOCH dosieren — eine zu späte oder zu niedrige Gabe ist der häufigste Grund für Therapieversagen; dazu Reizabschirmung im abgedunkelten, ruhigen Raum, Schlaf und kalte Kompressen',
+            'Antiemetikum und Prokinetikum 15 bis 20 Minuten VOR dem Analgetikum: Metoclopramid 10 bis 20 mg oder Domperidon 10 mg. Es bessert nicht nur Übelkeit und Erbrechen, sondern hebt die attackenbedingte Magenatonie auf und ermöglicht dadurch überhaupt erst die Resorption des Schmerzmittels',
+            'Leichte bis mittelschwere Attacke — nichtopioide Analgetika in ausreichender Einzeldosis: Acetylsalicylsäure 1000 mg, Ibuprofen 400 bis 600 mg, Naproxen 500 bis 1000 mg, Diclofenac 50 bis 100 mg, Paracetamol 1000 mg oder Metamizol 1000 mg; parenteral in der Notaufnahme Acetylsalicylsäure-Lysinat 1000 mg i.v.',
+            'Mittelschwere bis schwere Attacke oder Versagen der Analgetika — Triptane als 5-HT1B/1D-Agonisten: Sumatriptan 50 bis 100 mg p.o., 10 bis 20 mg nasal oder 6 mg subkutan (schnellster Wirkeintritt, wirksam auch bei Erbrechen); Rizatriptan 10 mg und Zolmitriptan 2,5 bis 5 mg mit raschem Wirkeintritt; Naratriptan 2,5 mg und Frovatriptan 2,5 mg mit langer Halbwertszeit für lange und menstruelle Attacken',
+            'Triptane werden ERST mit Beginn der Kopfschmerzphase gegeben, NICHT während der Aura; bei Wiederkehrkopfschmerz ist eine zweite Dosis nach frühestens zwei Stunden möglich, maximal zwei Dosen in 24 Stunden',
+            'Kontraindikationen der Triptane: koronare Herzkrankheit, Zustand nach Myokardinfarkt, Prinzmetal-Angina, unbehandelte arterielle Hypertonie, pAVK, Zustand nach Schlaganfall oder TIA, schwere Leber- und Niereninsuffizienz, Schwangerschaft (im Bedarfsfall Sumatriptan als am besten untersuchte Substanz), Alter unter 12 und über 65 Jahren sowie hemiplegische Migräne und Migräne mit Hirnstammaura',
+            'Neuere Reserveoptionen bei Triptanunwirksamkeit oder kardiovaskulären Kontraindikationen: Gepante (Rimegepant, Ubrogepant) als CGRP-Rezeptorantagonisten und Lasmiditan als 5-HT1F-Agonist — beide ohne vasokonstriktive Wirkung',
+            'Ergotamine sind wegen schlechter Steuerbarkeit, hoher Nebenwirkungsrate und Ergotismusgefahr weitgehend verlassen',
+            'KEINE Opioide: geringe Wirksamkeit, Verstärkung von Übelkeit und Magenatonie, hohes Chronifizierungs- und Abhängigkeitspotenzial',
+            'Status migraenosus (Attacke über 72 Stunden): stationäre Aufnahme, intravenöse Rehydratation, Metoclopramid und ASS-Lysinat i.v., Prednisolon 50 bis 100 mg, gegebenenfalls Valproat i.v.',
+            'CAVE Einnahmefrequenz: Akutmedikation an höchstens 10 Tagen pro Monat für Triptane, Mischanalgetika und Opioide beziehungsweise 15 Tagen für Monoanalgetika — sonst droht der Medikamentenübergebrauchskopfschmerz',
+          ],
+        },
+        {
+          label: 'Medikamentöse Prophylaxe',
+          items: [
+            'Indikation: mindestens 3 Attacken pro Monat, Attacken über 72 Stunden Dauer, hoher Leidensdruck mit erheblicher Alltagsbeeinträchtigung, unzureichendes Ansprechen oder Kontraindikation der Akuttherapie, drohender oder bestehender Medikamentenübergebrauch, komplizierte oder lang anhaltende Aura, migränöser Infarkt in der Vorgeschichte',
+            'Therapieziel: Reduktion von Attackenfrequenz, -dauer und -intensität um mindestens 50 Prozent — NICHT Beschwerdefreiheit; Erfolgsmessung ausschließlich über den Kopfschmerzkalender',
+            'Erste Wahl Betablocker: Metoprololsuccinat 50 bis 200 mg oder Propranolol 40 bis 240 mg täglich, jeweils einschleichend; besonders geeignet bei begleitender arterieller Hypertonie, kontraindiziert bei Asthma bronchiale, AV-Block, Bradykardie und dekompensierter Herzinsuffizienz',
+            'Kalziumantagonist Flunarizin 5 bis 10 mg zur Nacht; Nebenwirkungen Müdigkeit, Gewichtszunahme, Depression und Parkinsonoid — nicht bei Depression oder Morbus Parkinson',
+            'Antikonvulsiva: Topiramat 25 bis 100 mg täglich (günstig bei Adipositas, Nebenwirkungen Parästhesien, kognitive Verlangsamung, Gewichtsverlust, Nephrolithiasis, Engwinkelglaukom; senkt die Wirksamkeit oraler Kontrazeptiva) und Valproat — Letzteres bei Frauen im gebärfähigen Alter wegen Teratogenität KONTRAINDIZIERT',
+            'Amitriptylin 25 bis 75 mg zur Nacht, besonders bei Komorbidität mit Spannungskopfschmerz, Depression, Angst oder Schlafstörung; Nebenwirkungen anticholinerg mit Mundtrockenheit, Obstipation, Gewichtszunahme, Müdigkeit',
+            'CGRP- und CGRP-Rezeptor-Antikörper: Erenumab, Fremanezumab, Galcanezumab subkutan monatlich oder quartalsweise, Eptinezumab intravenös — indiziert, wenn mindestens zwei leitliniengerechte Prophylaktika unwirksam, unverträglich oder kontraindiziert sind; sehr gute Verträglichkeit, häufigste Nebenwirkung Obstipation',
+            'Chronische Migräne: Botulinumtoxin A nach dem PREEMPT-Schema alle 12 Wochen sowie Topiramat; parallel immer Behandlung eines bestehenden Medikamentenübergebrauchs',
+            'Auswahl nach Komorbidität und Nebenwirkungsprofil: Betablocker bei Hypertonie, Topiramat bei Adipositas, Amitriptylin bei Schlafstörung und depressiver Komorbidität, CGRP-Antikörper bei kardiovaskulären Kontraindikationen gegen Betablocker',
+            'Praktische Regeln: langsam einschleichen, ausreichend hoch dosieren, Wirkung frühestens nach 6 bis 8 Wochen beurteilen, bei Erfolg 6 bis 12 Monate fortführen und danach ausschleichenden Auslassversuch',
+            'Kurzzeitprophylaxe der menstruellen Migräne: Naratriptan 2 × 1 mg oder Frovatriptan 2 × 2,5 mg täglich über 6 Tage perimenstruell, beginnend zwei Tage vor der erwarteten Blutung',
+          ],
+        },
+        {
+          label: 'Nichtmedikamentöse Basistherapie und Triggermanagement',
+          items: [
+            'Kopfschmerzkalender oder App als Basis jeder Behandlung: Attackentage, Dauer, Intensität, Begleitsymptome, vermutete Auslöser und vor allem die Tage mit Akutmedikation',
+            'Regelmäßigkeit als Kernprinzip der Lebensführung: konstanter Schlaf-Wach-Rhythmus auch am Wochenende, regelmäßige Mahlzeiten ohne Auslassen, ausreichende Trinkmenge, gleichmäßiger Koffeinkonsum',
+            'Individuelles Triggermanagement statt pauschaler Verbote: nur die im Kalender wirklich reproduzierbaren Auslöser meiden — meist Alkohol und Rotwein, Schlafmangel, ausgelassene Mahlzeiten, Flackerlicht',
+            'Regelmäßiger aerober Ausdauersport, drei- bis viermal wöchentlich 30 bis 40 Minuten — mit guter Evidenz prophylaktisch wirksam',
+            'Entspannungsverfahren: progressive Muskelrelaxation nach Jacobson (Verfahren der ersten Wahl), Biofeedback, achtsamkeitsbasierte Stressreduktion, autogenes Training',
+            'Kognitive Verhaltenstherapie und Stressbewältigungstraining, bei schwerem Verlauf multimodale Kopfschmerztherapie in einem spezialisierten Zentrum',
+            'Patientenschulung und Edukation als eigenständige therapeutische Maßnahme: Erklärung der Erkrankung, ihrer Gutartigkeit, ihrer Nichtheilbarkeit bei zugleich guter Behandelbarkeit — das entlastet und verbessert die Adhärenz nachweislich',
+            'Ausdrückliche Aufklärung über den Medikamentenübergebrauchskopfschmerz mit der 10-/15-Tage-Regel',
+            'Nahrungsergänzung mit schwacher Evidenz als Add-on: Magnesium 600 mg täglich, Riboflavin (Vitamin B2) 400 mg täglich, Coenzym Q10 300 mg täglich; Pestwurz wird wegen Lebertoxizität nicht mehr empfohlen',
+            'Nichtinvasive Neuromodulation als Reserveverfahren: transkutane supraorbitale Nervenstimulation, Vagusnervstimulation, transkranielle Magnetstimulation',
+            'Bei Migräne mit Aura: Verzicht auf kombinierte orale Kontrazeptiva und konsequente Nikotinkarenz wegen des additiv erhöhten Schlaganfallrisikos',
+          ],
+        },
+      ],
+      prognose: 'Die Migräne ist eine chronische, nicht heilbare, aber sehr gut behandelbare Erkrankung mit hoher Lebensqualitätsrelevanz. Der Verlauf ist über Jahrzehnte wechselhaft: Die Attackenfrequenz nimmt bei vielen Betroffenen im höheren Lebensalter und bei Frauen nach der Menopause deutlich ab, bei einem Teil persistiert die Aura ohne Kopfschmerz. Etwa 2,5 Prozent der Patienten mit episodischer Migräne chronifizieren pro Jahr; die wichtigsten Chronifizierungsfaktoren sind der Übergebrauch von Akutmedikation, Adipositas, Depression, Angststörung, Schlafapnoe und anhaltender Stress — sie sind sämtlich beeinflussbar. Unter leitliniengerechter Akut- und Prophylaxetherapie erreichen 50 bis 60 Prozent der Patienten eine Halbierung der Attackenfrequenz. Die Migräne mit Aura ist mit einem etwa zweifach erhöhten Risiko für einen ischämischen Schlaganfall verbunden, das sich durch kombinierte orale Kontrazeptiva und Rauchen multipliziert; das absolute Risiko bleibt gering, die Konsequenz für die Beratung ist jedoch eindeutig. Der migränöse Infarkt ist eine seltene Komplikation. Die Lebenserwartung ist nicht eingeschränkt.',
+      pruefungsfallen: [
+        'Reflexartig eine Bildgebung anordnen: Die Migräne ist eine rein KLINISCHE Diagnose. Bei erfüllten ICHD-3-Kriterien und unauffälligem neurologischem Befund ist weder ein CT noch ein MRT indiziert — Bildgebung nur bei Red Flags.',
+        'Nicht ausdrücklich sagen, dass der neurologische Untersuchungsbefund bei der Migräne UNAUFFÄLLIG sein MUSS. Genau dieser Satz wird erwartet; ein pathologischer Befund macht die Diagnose Migräne unmöglich.',
+        'Die ICHD-3-Kriterien nur ungefähr wiedergeben. Verlangt wird die exakte Struktur: 4 bis 72 Stunden, mindestens ZWEI von vier Schmerzmerkmalen, mindestens EINES aus Übelkeit/Erbrechen ODER Photophobie UND Phonophobie.',
+        'Die Aura falsch charakterisieren: Sie geht dem Kopfschmerz voraus, breitet sich über mindestens 5 Minuten aus, dauert 5 bis 60 Minuten, ist vollständig reversibel und erzeugt POSITIVE Phänomene — im Gegensatz zum schlagartigen negativen Defizit der TIA.',
+        'Ein Triptan während der Aura geben wollen. Es wird erst mit Beginn der Kopfschmerzphase eingesetzt.',
+        'Beim Antiemetikum nur die Übelkeit nennen: Metoclopramid hebt zusätzlich die Magenatonie auf und ermöglicht dadurch erst die Resorption des Analgetikums — das ist die erwartete Begründung.',
+        'Die Triptan-Kontraindikationen nicht kennen: koronare Herzkrankheit, Zustand nach Myokardinfarkt oder Schlaganfall, unbehandelte Hypertonie, pAVK, hemiplegische Migräne und Migräne mit Hirnstammaura. Eine VENÖSE Thrombose ist dagegen keine Kontraindikation — dieser Unterschied wird geprüft.',
+        'Die Zahl der Schmerzmitteltage pro Monat nicht erfragen. Die 10-/15-Tage-Regel des Medikamentenübergebrauchskopfschmerzes ist eine Standardfrage.',
+        'Die Prophylaxeindikation nicht beziffern: ab etwa drei Attacken pro Monat oder bei hohem Leidensdruck; Wirkung erst nach 6 bis 8 Wochen beurteilbar, Ziel ist die Halbierung, nicht die Beschwerdefreiheit.',
+        'Valproat einer Frau im gebärfähigen Alter empfehlen — wegen Teratogenität kontraindiziert.',
+        'Ein EEG anbieten oder ihm diagnostische Bedeutung zuschreiben: Es ist bei der Migräne nicht indiziert und weder sensitiv noch spezifisch.',
+        'Die Erstmanifestation eines Kopfschmerzes nach dem 50. Lebensjahr als Migräne einordnen: Hier muss immer die Riesenzellarteriitis mit BSG-Sturzsenkung, Kauclaudicatio und Druckschmerz der A. temporalis genannt werden — sonst droht die Erblindung.',
+        'Beim Cluster-Kopfschmerz das Verhalten vergessen: motorische Unruhe und Umherlaufen, während der Migränepatient sich in einen dunklen, stillen Raum zurückzieht. Dieses eine Merkmal trennt die beiden im Gespräch sofort.',
+        'Den Spannungskopfschmerz nicht sauber abgrenzen: beidseitig, drückend, keine Verstärkung durch Aktivität, keine Übelkeit — das sind die vier Gegenkriterien.',
+        'Auf die Angstfrage des Patienten mit „Machen Sie sich keine Sorgen“ antworten. Diese Floskel wird von den Patientendarstellern ausdrücklich zurückgewiesen; erwartet werden Benennen der Angst, sachliche Begründung und ein konkretes Vorgehen.',
+        'Die Wochenendmigräne dem Stress selbst zuschreiben statt dem Stressabfall, dem veränderten Schlafrhythmus und dem Koffeinentzug.',
+        'Migräne mit Aura, kombinierte orale Kontrazeptiva und Rauchen nicht als additives Schlaganfallrisiko erkennen — die Kombination ist zu vermeiden.',
+        'Fachbegriffe wie Aura, Photophobie, Phonophobie, Prophylaxe oder Triptan gegenüber dem Patienten unerklärt lassen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und wie begründen Sie sie?',
+          antwort: 'Eine Migräne, je nach Fall mit oder ohne Aura. Ich begründe sie über die Kriterien der Internationalen Kopfschmerzklassifikation: attackenartige Kopfschmerzen von 4 bis 72 Stunden Dauer, einseitig, pulsierend, mittlere bis starke Intensität und Verstärkung durch körperliche Routineaktivität, begleitet von Übelkeit und Erbrechen sowie Licht- und Lärmempfindlichkeit, dazu vollständige Beschwerdefreiheit zwischen den Attacken und ein unauffälliger neurologischer Untersuchungsbefund.',
+        },
+        {
+          frage: 'Was sind die klassischen Symptome einer Migräne, und wie unterscheiden sie sich von anderen Kopfschmerzen?',
+          antwort: 'Klassisch sind der anfallsartige Verlauf, der einseitige pulsierende Schmerz, die Verstärkung durch Bewegung, Übelkeit und Erbrechen, Licht- und Lärmempfindlichkeit sowie der Rückzug in einen dunklen, ruhigen Raum. Der Spannungskopfschmerz ist beidseitig, drückend-beengend, leicht bis mittel, wird durch Aktivität NICHT verstärkt und geht nicht mit Übelkeit einher. Der Cluster-Kopfschmerz ist streng einseitig periorbital, dauert nur 15 bis 180 Minuten, tritt mehrfach täglich auf und geht mit autonomen Symptomen wie Tränenfluss, laufender Nase und hängendem Lid sowie mit motorischer Unruhe einher.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und wie schließen Sie sie aus?',
+          antwort: 'Spannungskopfschmerz, Cluster-Kopfschmerz, Kopfschmerz bei Medikamentenübergebrauch, Subarachnoidalblutung, Meningitis, Hirntumor, Sinusvenenthrombose, Schlaganfall und TIA, Riesenzellarteriitis, Sinusitis, Trigeminusneuralgie und Glaukomanfall. Der Ausschluss erfolgt in erster Linie über die Anamnese und die neurologische Untersuchung mit Meningismusprüfung und Funduskopie; nur bei Red Flags folgen CT, MRT und gegebenenfalls Lumbalpunktion.',
+        },
+        {
+          frage: 'Was kann ich im Labor bei einer Migräne finden?',
+          antwort: 'Nichts Spezifisches — das Labor ist bei der Migräne definitionsgemäß unauffällig und trägt nicht zur Diagnose bei. Ich bestimme es nur zum Ausschluss anderer Ursachen und zur Therapiesicherheit: Blutbild, CRP und BSG, wobei eine BSG-Sturzsenkung an eine Riesenzellarteriitis denken ließe, dazu Elektrolyte, Nieren- und Leberwerte, Blutzucker und TSH.',
+        },
+        {
+          frage: 'Wir könnten ein EEG machen — was würden Sie darin bei einer Migräne finden?',
+          antwort: 'Das EEG ist bei der Migräne nicht indiziert; es ist weder sensitiv noch spezifisch. Allenfalls zeigen sich unspezifische Allgemeinveränderungen oder eine vorübergehende Herdstörung während oder nach der Aura. Indiziert wäre es nur bei Verdacht auf einen epileptischen Anfall oder um eine atypische, prolongierte Aura von einem fokalen Anfall abzugrenzen.',
+        },
+        {
+          frage: 'Braucht der Patient eine Bildgebung des Kopfes?',
+          antwort: 'Bei typischer Migräne und unauffälligem neurologischem Befund nein. Eine Bildgebung ist nur bei Red Flags indiziert: Donnerschlagkopfschmerz, fokales Defizit, Krampfanfall, Fieber mit Meningismus, Erstmanifestation nach dem 50. Lebensjahr, Änderung des gewohnten Musters, Immunsuppression, Antikoagulation, Schwangerschaft oder Wochenbett. Im Notfall ein natives CT, elektiv ein MRT mit Kontrastmittel.',
+        },
+        {
+          frage: 'Wie können Sie eine Meningitis ausschließen?',
+          antwort: 'Klinisch über Fieber und die Meningismusprüfung mit Nackensteifigkeit sowie Brudzinski- und Kernig-Zeichen, dazu Entzündungsparameter. Beweisend ist die Lumbalpunktion mit Zellzahl, Eiweiß, Glukose, Laktat, Gramfärbung und Kultur; bei Bewusstseinsstörung oder fokalem Defizit wird vorher ein CT durchgeführt.',
+        },
+        {
+          frage: 'Und wie eine Borreliose oder eine FSME?',
+          antwort: 'Bei der Borreliose über die Anamnese eines Zeckenstichs und eines Erythema migrans sowie die Borrelien-Serologie; bei Verdacht auf eine Neuroborreliose zusätzlich Liquor mit lymphozytärer Pleozytose und intrathekaler Antikörperbildung. Bei der FSME über Zeckenstich in einem Endemiegebiet, den zweigipfligen Verlauf, den Impfstatus und den Nachweis von FSME-IgM und -IgG in Serum und Liquor.',
+        },
+        {
+          frage: 'Wie behandeln Sie die akute Attacke?',
+          antwort: 'Zuerst Reizabschirmung in einem abgedunkelten, ruhigen Raum. Dann ein Antiemetikum, Metoclopramid 10 mg, etwa 15 bis 20 Minuten vor dem Schmerzmittel, weil es zusätzlich die Magenatonie aufhebt. Anschließend ein nichtopioides Analgetikum in ausreichender Dosis — Acetylsalicylsäure 1000 mg, Ibuprofen 600 mg oder Naproxen 500 mg, in der Notaufnahme ASS-Lysinat 1000 mg intravenös. Bei schwerer Attacke oder Versagen der Analgetika ein Triptan, zum Beispiel Sumatriptan 6 mg subkutan, erst mit Beginn der Kopfschmerzphase. Opioide gebe ich nicht.',
+        },
+        {
+          frage: 'Welches Antiemetikum wäre das beste, und warum?',
+          antwort: 'Metoclopramid 10 mg, gegeben 15 bis 20 Minuten vor dem Analgetikum. Es wirkt nicht nur antiemetisch, sondern auch prokinetisch und hebt die attackenbedingte Magenatonie auf, sodass das Schmerzmittel überhaupt resorbiert wird. Alternative ist Domperidon 10 mg, das die Blut-Hirn-Schranke kaum passiert und daher weniger extrapyramidale Nebenwirkungen verursacht.',
+        },
+        {
+          frage: 'Ab wann und womit beginnen Sie eine Prophylaxe?',
+          antwort: 'Ab etwa drei Attacken pro Monat, bei Attacken über 72 Stunden, bei hohem Leidensdruck, bei Versagen oder Kontraindikation der Akuttherapie sowie bei drohendem Medikamentenübergebrauch. Erste Wahl sind Betablocker wie Metoprolol oder Propranolol, alternativ Flunarizin, Topiramat oder Amitriptylin; bei Versagen von mindestens zwei Prophylaktika kommen CGRP-Antikörper infrage. Die Wirkung ist erst nach sechs bis acht Wochen beurteilbar, Ziel ist eine Halbierung der Attackenfrequenz.',
+        },
+        {
+          frage: 'Was ist ein Kopfschmerz bei Medikamentenübergebrauch, und wie behandeln Sie ihn?',
+          antwort: 'Ein sekundärer Dauerkopfschmerz durch die Einnahme von Monoanalgetika an mindestens 15 Tagen oder von Triptanen, Mischanalgetika und Opioiden an mindestens 10 Tagen pro Monat über mehr als drei Monate. Die Therapie besteht im Entzug der Akutmedikation, ambulant oder stationär, begleitet von einer Prophylaxe, Aufklärung und Verhaltenstherapie.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Migräneaura von einer TIA?',
+          antwort: 'Die Aura breitet sich langsam über mindestens fünf Minuten aus, erzeugt POSITIVE Phänomene wie Flimmern oder Kribbeln, dauert 5 bis 60 Minuten und bildet sich vollständig zurück, danach folgt typischerweise der Kopfschmerz. Die TIA beginnt schlagartig, erzeugt NEGATIVE Symptome wie Lähmung, Gefühlsverlust oder Aphasie und geht meist nicht mit Kopfschmerz einher. Bei Erstauftreten im höheren Lebensalter ist eine Bildgebung erforderlich.',
+        },
+        {
+          frage: 'Welche Auslöser einer Migräne kennen Sie?',
+          antwort: 'Stress und besonders der Stressabfall danach, sogenannte Wochenendmigräne, Schlafmangel und Schlafüberschuss, unregelmäßige oder ausgelassene Mahlzeiten, Alkohol und vor allem Rotwein, Koffeinentzug, Menstruation und hormonelle Kontrazeptiva, Wetterwechsel, Flackerlicht, Lärm und intensive Gerüche.',
+        },
+        {
+          frage: 'Was raten Sie einer Patientin mit Migräne mit Aura, die die Pille nimmt und raucht?',
+          antwort: 'Beides zusammen erhöht bei Migräne mit Aura das Risiko für einen ischämischen Schlaganfall deutlich. Kombinierte orale Kontrazeptiva sind bei Migräne mit Aura kontraindiziert; ich empfehle die Umstellung auf ein rein gestagenhaltiges oder nichthormonelles Verfahren in Absprache mit der Frauenärztin und eine konsequente Nikotinkarenz.',
+        },
+        {
+          frage: 'Der Patient fragt, ob er einen Hirntumor hat. Was antworten Sie?',
+          antwort: 'Ich benenne die Angst zuerst und nehme sie ernst, statt sie mit einer Floskel abzutun. Dann begründe ich sachlich: Die Untersuchung des Nervensystems und des Augenhintergrunds ist unauffällig, die Beschwerden bestehen seit Jahren in unverändertem Muster und dazwischen ist der Patient völlig beschwerdefrei — beides wäre bei einem Tumor untypisch, denn dort nehmen die Schmerzen stetig zu, wecken nachts auf und gehen mit weiteren Ausfällen einher. Anschließend erkläre ich das weitere Vorgehen und wann eine Bildgebung doch notwendig würde.',
+        },
+      ],
+      merksatz: 'Migräne = anfallsartig 4 bis 72 Stunden, einseitig, pulsierend, bewegungsverstärkt, mit Übelkeit oder Licht- UND Lärmscheu, dazwischen völlig beschwerdefrei und neurologisch UNAUFFÄLLIG — die Diagnose stellt man am Bett, nicht im MRT. Bildgebung nur bei SNOOP-Red-Flags. Akut: Metoclopramid zuerst, dann NSAR oder Triptan (nie in der Aura). Ab drei Attacken pro Monat Prophylaxe mit Betablocker, Amitriptylin oder Topiramat — und immer der Kopfschmerzkalender mit der 10-/15-Tage-Regel.',
+      linkedCaseIds: [
+        'case-migraene',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-mrt',
+        'auf-lumbalpunktion',
+      ],
+    },
+    {
+      id: 'fw-asthma',
+      pathology: 'Asthma bronchiale',
+      specialty: 'Pneumologie',
+      definition: 'Das Asthma bronchiale ist eine chronisch-entzündliche Erkrankung der Atemwege mit bronchialer Hyperreagibilität und VARIABLER, überwiegend REVERSIBLER Atemwegsobstruktion. Klinisch äußert es sich in anfallsartig auftretender Atemnot mit erschwerter Ausatmung, exspiratorischem Giemen und Pfeifen, thorakalem Engegefühl und trockenem Reizhusten, typischerweise nachts oder in den frühen Morgenstunden, nach Allergenexposition, körperlicher Anstrengung, Kaltluftexposition oder Atemwegsinfekten — mit vollständiger oder weitgehender Beschwerdefreiheit zwischen den Episoden. Die Obstruktion entsteht durch das Zusammenspiel von Bronchospasmus, Schleimhautödem und Hypersekretion zähen Schleims (Dyskrinie). Gesichert wird die Diagnose durch den Nachweis der Reversibilität in der Spirometrie: eine Zunahme des FEV1 um mindestens 12 % UND mindestens 200 ml nach Inhalation eines kurzwirksamen Bronchodilatators. Genau dieses Kriterium trennt das Asthma von der COPD, bei der der FEV1/FVC-Quotient auch NACH Bronchodilatation unter 0,7 bleibt.',
+      aetiologie: 'Dem Asthma liegt eine chronische Entzündung der Atemwege zugrunde, die beim häufigsten Phänotyp — der Typ-2-Inflammation — von T-Helferzellen vom Typ 2, eosinophilen Granulozyten, Mastzellen und den Zytokinen Interleukin-4, -5 und -13 getragen wird. Beim allergischen (extrinsischen) Asthma, das meist in Kindheit und Jugend auf dem Boden einer atopischen Diathese beginnt, führt der Erstkontakt mit einem Inhalationsallergen zur Bildung spezifischer IgE-Antikörper, die sich an Mastzellen binden (Sensibilisierung). Bei erneutem Kontakt kommt es zur Quervernetzung dieser IgE und zur Degranulation mit Freisetzung von Histamin, Leukotrienen und Prostaglandinen — das ist die Sofortreaktion vom Typ I nach Coombs und Gell innerhalb von Minuten; vier bis acht Stunden später folgt die eosinophil geprägte Spätreaktion. Das nicht-allergische (intrinsische) Asthma manifestiert sich meist erst im Erwachsenenalter, häufig nach einem viralen Atemwegsinfekt, ohne nachweisbare Sensibilisierung. Unabhängig vom Auslöser kommt es bei anhaltender Entzündung zum Remodeling der Atemwege mit Becherzellhyperplasie, Verdickung der Basalmembran, Hypertrophie der glatten Muskulatur und subepithelialer Fibrose, wodurch die Obstruktion mit den Jahren teilweise irreversibel werden kann. Auslöser einzelner Anfälle sind Allergene, körperliche Anstrengung (Abkühlung und Austrocknung der Schleimhaut), Kaltluft, virale Infekte, Tabakrauch, Duftstoffe und Luftschadstoffe, emotionaler Stress, gastroösophagealer Reflux sowie Medikamente — insbesondere Betablocker (auch als Augentropfen) und bei entsprechender Intoleranz Acetylsalicylsäure und andere NSAR.',
+      risikofaktoren: [
+        'Atopische Diathese und genetische Prädisposition — das Asthmarisiko steigt deutlich, wenn ein oder beide Elternteile oder Geschwister an Asthma, Heuschnupfen oder Neurodermitis leiden',
+        'Eigene atopische Erkrankungen: allergische Rhinokonjunktivitis, Neurodermitis, Nahrungsmittelallergien („atopischer Marsch“)',
+        'Sensibilisierung gegen Inhalationsallergene: Gräser- und Baumpollen, Hausstaubmilben, Tierepithelien (Katze, Hund, Nagetiere), Schimmelpilze (Alternaria, Aspergillus)',
+        'Rezidivierende virale Atemwegsinfekte im Kleinkindalter, insbesondere durch RS- und Rhinoviren',
+        'Tabakrauchexposition, auch passiv sowie pränatal während der Schwangerschaft',
+        'Luftschadstoffe, Feinstaub, Ozon, Stickoxide, Innenraumnoxen',
+        'Berufliche Exposition: Mehlstaub (Bäckerasthma), Isocyanate (Lackierer), Latex, Persulfate im Friseurhandwerk, Holzstäube, Labortiere',
+        'Adipositas — sowohl Risikofaktor als auch prognostisch ungünstiger Faktor der Asthmakontrolle',
+        'Frühgeburtlichkeit, niedriges Geburtsgewicht, gestörtes Lungenwachstum',
+        'Gastroösophagealer Reflux, chronische Rhinosinusitis mit Polyposis nasi',
+        'Analgetika-Intoleranz gegenüber Acetylsalicylsäure und NSAR (Samter- bzw. Widal-Trias)',
+        '„Hygienehypothese“: geringe mikrobielle Exposition in der frühen Kindheit; umgekehrt protektiv wirkt das Aufwachsen auf einem Bauernhof',
+      ],
+      klinik: [
+        {
+          text: 'ANFALLSARTIGE, variable Atemnot mit vorwiegend erschwerter AUSATMUNG — der Kern der Erkrankung; zwischen den Anfällen typischerweise vollständige Beschwerdefreiheit',
+        },
+        {
+          text: 'Exspiratorisches Giemen, Pfeifen und Brummen mit verlängertem Exspirium — der geforderte Fachbegriff für die vom Patienten oft als „komische Geräusche“ beschriebenen Atemgeräusche',
+        },
+        {
+          text: 'Thorakales Engegefühl („als läge ein Band um den Brustkorb“) ohne eigentlichen Schmerz',
+        },
+        {
+          text: 'Trockener, anfallsartiger Reizhusten; allenfalls am Ende des Anfalls geringe Mengen zähen, glasig-klaren Sputums',
+        },
+        {
+          text: 'Charakteristische zirkadiane Rhythmik: Beschwerden bevorzugt nachts und in den frühen Morgenstunden zwischen zwei und fünf Uhr, mit nächtlichem Erwachen und Aufsitzen',
+        },
+        {
+          text: 'Enge Bindung an Auslöser: Allergenexposition mit Saisonalität, körperliche Anstrengung, Kaltluft, Atemwegsinfekte, Rauch, Duftstoffe, Stress',
+        },
+        {
+          text: 'Im Anfall: Tachypnoe, Orthopnoe, Einsatz der Atemhilfsmuskulatur, Lippenbremse, atemerleichternde Körperstellungen, Sprechdyspnoe, Unruhe und Angst, hypersonorer Klopfschall durch akute Überblähung',
+        },
+        {
+          text: 'Begleitende Zeichen der Atopie: allergische Rhinokonjunktivitis mit Fließschnupfen und Niesattacken, Neurodermitis, Nahrungsmittelallergien',
+        },
+        {
+          text: 'Zeichen der unzureichenden Kontrolle: Symptome an mehr als zwei Tagen pro Woche, nächtliches Erwachen, Bedarfsmedikation an mehr als zwei Tagen pro Woche, Einschränkung von Alltag und Sport',
+        },
+        {
+          text: 'Zwischen den Anfällen völlig unauffälliger Auskultationsbefund und normale Spirometrie — ein Normalbefund schließt das Asthma NICHT aus',
+          atypisch: true,
+        },
+        {
+          text: '„Cough variant asthma“: isolierter, oft nächtlicher trockener Husten als EINZIGES Symptom, ohne Giemen und ohne subjektive Atemnot',
+          atypisch: true,
+        },
+        {
+          text: 'Belastungsasthma: Beschwerdebeginn erst fünf bis fünfzehn Minuten NACH Ende der Belastung, mit anschließender Refraktärphase von etwa zwei Stunden',
+          atypisch: true,
+        },
+        {
+          text: 'Analgetika-Asthma (Samter- bzw. Widal-Trias): Asthma, rezidivierende Nasenpolypen und Intoleranz gegenüber Acetylsalicylsäure und NSAR — meist nicht-allergisch, Beginn im Erwachsenenalter, oft schwerer Verlauf',
+          atypisch: true,
+        },
+        {
+          text: '„Silent chest“ — Verschwinden des Giemens im schwersten Anfall: Alarmzeichen der maximalen Obstruktion, nicht Zeichen der Besserung',
+          atypisch: true,
+        },
+        {
+          text: 'Berufsbedingtes Asthma mit deutlicher Besserung am Wochenende und im Urlaub, Verschlechterung nach Arbeitsaufnahme',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Kleinkind Manifestation als rezidivierende „obstruktive Bronchitis“, chronischer Räusperzwang oder Gedeihstörung ohne klassische Anfälle',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation im höheren Lebensalter als nicht-allergisches (intrinsisches) Asthma nach einem Virusinfekt, ohne Sensibilisierung und ohne Atopieanamnese',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'GINA-Stufentherapie (Global Initiative for Asthma, Erwachsene)',
+          inhalt: 'Stufe 1–2: niedrig dosiertes ICS-Formoterol bei Bedarf (bevorzugt) oder tägliches niedrig dosiertes ICS plus Bedarfsmedikation. Stufe 3: niedrig dosiertes ICS-Formoterol als Erhaltungs- und Bedarfstherapie (MART) oder niedrig dosiertes ICS-LABA fest. Stufe 4: mittelhoch dosiertes ICS-Formoterol als MART, bei Bedarf zusätzlich LAMA (Tiotropium). Stufe 5: hoch dosiertes ICS-LABA plus LAMA, Zuweisung an ein Zentrum zur Phänotypisierung und Biologikatherapie, orale Kortikosteroide nur als letzte Option. GRUNDPRINZIP: Auf JEDER Stufe enthält die Therapie ein inhalatives Kortikosteroid — eine SABA-Monotherapie ist obsolet.',
+        },
+        {
+          name: 'Grad der Asthmakontrolle (GINA, letzte vier Wochen)',
+          inhalt: 'Vier Fragen: Tagsymptome häufiger als zweimal pro Woche? Nächtliches Erwachen durch Asthma? Bedarfsmedikation häufiger als zweimal pro Woche? Aktivitätseinschränkung durch Asthma? — Kein Kriterium erfüllt: gut kontrolliert. Ein bis zwei Kriterien: teilweise kontrolliert. Drei bis vier Kriterien: unkontrolliert. Die Therapie richtet sich nach der KONTROLLE, nicht mehr nach der alten Schweregradeinteilung. Ergänzend der Asthma Control Test (ACT, 5 Fragen, 5–25 Punkte; ab 20 Punkten gut kontrolliert).',
+        },
+        {
+          name: 'Schweregrad des akuten Asthmaanfalls (Erwachsene)',
+          inhalt: 'Leicht bis mittelschwer: Sprechen in ganzen Sätzen, Atemfrequenz unter 25/min, Herzfrequenz unter 110/min, Peak Flow über 50 % des Bestwertes, SpO2 mindestens 92 %. Schwer: Sprechdyspnoe mit Satzabbruch, Atemfrequenz mindestens 25/min, Herzfrequenz mindestens 110/min, Peak Flow 33–50 %, SpO2 unter 92 %. Lebensbedrohlich: „silent chest“, Zyanose, frustrane Atemarbeit, Peak Flow unter 33 %, Erschöpfung, Verwirrtheit oder Somnolenz, Bradykardie, Hypotonie, arrhythmische Herzaktion sowie ein normaler oder erhöhter pCO2 (Normokapnie ist im Anfall ein ALARMZEICHEN).',
+        },
+        {
+          name: 'Ätiologische Phänotypen',
+          inhalt: 'Allergisches (extrinsisches) Asthma: Beginn in Kindheit oder Jugend, positive Atopie- und Familienanamnese, IgE-vermittelte Sensibilisierung, saisonale oder expositionsgebundene Beschwerden, gutes Ansprechen auf ICS. Nicht-allergisches (intrinsisches) Asthma: Beginn im Erwachsenenalter, häufig nach Virusinfekt, keine Sensibilisierung, oft schwerer und weniger steroidsensibel. Mischformen sind häufig. Sonderformen: Belastungsasthma, Analgetika-Asthma (Widal-Trias), berufsbedingtes Asthma, allergische bronchopulmonale Aspergillose (ABPA), Asthma-COPD-Overlap.',
+        },
+        {
+          name: 'Entzündungstyp — Grundlage der Biologikatherapie',
+          inhalt: 'Typ-2-high: eosinophile Entzündung mit Bluteosinophilen ≥ 150–300/µl, erhöhtem FeNO (≥ 25–50 ppb) und/oder erhöhtem Gesamt- und spezifischem IgE; gutes Ansprechen auf ICS und auf Biologika (Anti-IgE, Anti-IL-5, Anti-IL-4/13). Typ-2-low: neutrophile oder paucigranulozytäre Entzündung, häufig bei Adipositas, Rauchen und spätem Krankheitsbeginn, schlechteres Ansprechen auf Kortikosteroide; hier kommt Tezepelumab (Anti-TSLP) in Betracht.',
+        },
+        {
+          name: 'Historische Schweregradeinteilung (nur noch zur Ersteinschätzung)',
+          inhalt: 'Grad 1 intermittierend: Symptome seltener als einmal pro Woche, nächtlich höchstens zweimal im Monat, FEV1 ≥ 80 % des Solls. Grad 2 geringgradig persistierend: Symptome häufiger als einmal pro Woche, aber nicht täglich. Grad 3 mittelgradig persistierend: tägliche Symptome, nächtlich häufiger als einmal pro Woche, FEV1 60–80 %. Grad 4 schwergradig persistierend: anhaltende Symptome, häufige nächtliche Beschwerden, FEV1 < 60 %. Diese Einteilung ist durch das kontrollbasierte Konzept ersetzt worden; der Schweregrad wird heute retrospektiv nach der Therapiestufe definiert, die zur Kontrolle nötig ist.',
+        },
+      ],
+      redFlags: [
+        'Sprechdyspnoe — der Patient kann nur noch einzelne Wörter statt ganzer Sätze sprechen',
+        'Atemfrequenz ≥ 25/min, Herzfrequenz ≥ 110/min, Einsatz der Atemhilfsmuskulatur, paradoxe abdominelle Atmung',
+        'Peak Flow unter 50 % (schwer) beziehungsweise unter 33 % (lebensbedrohlich) des persönlichen Bestwertes',
+        'SpO2 unter 92 % beziehungsweise pO2 unter 60 mmHg trotz Sauerstoffgabe, Zyanose',
+        '„Silent chest“ — Verschwinden des Giemens bei fortbestehender Atemnot: Zeichen der schwersten Obstruktion',
+        'Normaler oder ansteigender pCO2 im Anfall — Erschöpfung der Atempumpe, drohende respiratorische Insuffizienz; erst recht eine respiratorische Azidose mit pH unter 7,35',
+        'Erschöpfung, Verwirrtheit, Somnolenz, Bradykardie, Hypotonie, arrhythmische Herzaktion — unmittelbar lebensbedrohlich',
+        'Frustrane Anwendung der Bedarfsmedikation: keine oder nur kurze Besserung nach wiederholter Inhalation',
+        'Anamnestisch frühere Intensivbehandlung, Intubation oder Beatmung wegen Asthma, mehr als eine Hospitalisierung im letzten Jahr, hoher SABA-Verbrauch (mehr als eine Packung pro Monat)',
+        'Plötzliche einseitige Verschlechterung mit hypersonorem Klopfschall und fehlendem Atemgeräusch — Pneumothorax oder Pneumomediastinum als Komplikation',
+        'Fieber mit purulentem Auswurf und Infiltrat — Pneumonie als Auslöser; Hämoptysen oder Gewichtsverlust — an eine andere Grunderkrankung denken',
+        'Inspiratorischer Stridor mit laryngealer Enge — Stimmbanddysfunktion, Anaphylaxie oder Larynxödem statt Asthma',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Leitfragen zur VARIABILITÄT — der diagnostische Kern: Treten die Beschwerden anfallsartig auf? Sind Sie zwischen den Anfällen völlig beschwerdefrei? Wie lange dauert ein Anfall, wie oft kommt er, und hat sich das verändert? Wachen Sie nachts oder in den frühen Morgenstunden davon auf?',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematische Triggeranamnese: Allergene mit Saisonalität, körperliche Anstrengung (Beginn typischerweise nach Belastungsende), Kaltluft, Atemwegsinfekte, Tabakrauch, Duftstoffe, Luftschadstoffe, emotionaler Stress, Reflux; Medikamentenanamnese mit gezielter Frage nach Betablockern einschließlich Augentropfen, Acetylsalicylsäure und NSAR sowie nach ACE-Hemmern als Hustenursache',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Atopie- und Familienanamnese: eigene allergische Rhinokonjunktivitis, Neurodermitis, Nahrungsmittelallergie, frühere Hyposensibilisierung; Asthma und Atopie bei Eltern und Geschwistern',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Umwelt-, Wohn- und Berufsanamnese: Haustiere, Vögel, Schimmel, Teppichboden, Feder- und Daunenbetten, Passivrauch; berufliche Exposition gegenüber Mehl, Isocyanaten, Latex, Persulfaten, Holzstaub und Labortieren — Leitfrage nach Besserung am Wochenende und im Urlaub',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter mit Atemfrequenz und Pulsoxymetrie; Auskultation mit exspiratorischem Giemen, Brummen und verlängertem Exspirium, Perkussion mit hypersonorem Klopfschall bei akuter Überblähung; Inspektion von Nase (allergische Rhinitis, Polypen) und Haut (Ekzem). CAVE: Im beschwerdefreien Intervall ist der Befund typischerweise normal',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Standardisierte Erfassung der Asthmakontrolle mit den vier GINA-Kontrollfragen und dem Asthma Control Test (ACT); Dokumentation der Exazerbationen, Hospitalisierungen, Steroidstöße und des Verbrauchs an Bedarfsmedikation im letzten Jahr',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: eosinophile Granulozyten als Marker der Typ-2-Entzündung (≥ 300/µl sprechen für ein eosinophiles Asthma und für ein Ansprechen auf Anti-IL-5-Biologika); CRP und ggf. Procalcitonin zur Abgrenzung eines bakteriellen Infekts',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Allergiediagnostik: Gesamt-IgE und spezifisches IgE (CAP/RAST) gegen die anamnestisch verdächtigen Inhalationsallergene — Gräser- und Baumpollen, Hausstaubmilbe, Tierepithelien, Schimmelpilze; eine Sensibilisierung ist nur zusammen mit der passenden Anamnese verwertbar',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgasanalyse im akuten Anfall: initial respiratorische Alkalose mit Hypokapnie durch Hyperventilation; ein normaler oder ansteigender pCO2 und eine respiratorische Azidose zeigen die Erschöpfung der Atempumpe an — im beschwerdefreien Intervall ist die BGA entbehrlich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Differenzialdiagnostische Zusatzparameter: NT-proBNP zur Abgrenzung der kardialen Dyspnoe, D-Dimere bei Embolieverdacht, Alpha-1-Antitrypsin bei emphysemverdächtigem Befund, Aspergillus-spezifisches IgE und Präzipitine bei Verdacht auf eine allergische bronchopulmonale Aspergillose, Serumtryptase bei Verdacht auf Mastozytose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SPIROMETRIE MIT BRONCHOSPASMOLYSETEST — die Schlüsseluntersuchung: obstruktives Muster mit erniedrigtem FEV1 und erniedrigtem FEV1/FVC-Quotienten; 15 Minuten nach Inhalation von 400 µg Salbutamol beweist eine Zunahme des FEV1 um ≥ 12 % UND ≥ 200 ml die REVERSIBLE Obstruktion. Bei der COPD bleibt der Quotient auch nach Bronchodilatation unter 0,7',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'PEAK-FLOW-PROTOKOLL über mindestens zwei Wochen mit Messung morgens und abends: eine mittlere Tagesvariabilität über 20 % belegt die Variabilität der Obstruktion und ist besonders wertvoll bei zum Untersuchungszeitpunkt beschwerdefreien Patienten; zugleich Grundlage der Selbstkontrolle und des Notfallplans',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'FeNO-Messung (fraktioniertes exhaliertes Stickstoffmonoxid) als nicht invasiver Marker der eosinophilen Atemwegsentzündung: Werte über 50 ppb sprechen für eine Typ-2-Inflammation und für ein gutes Ansprechen auf inhalative Kortikosteroide; auch zur Adhärenzkontrolle geeignet',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ganzkörperplethysmographie mit Residualvolumen und Atemwegswiderstand (Überblähung, Air trapping); die CO-Diffusionskapazität (DLCO) ist beim Asthma normal oder erhöht, beim Lungenemphysem dagegen vermindert — ein einfaches Unterscheidungsmerkmal',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen als Ausschlussdiagnostik: im Intervall unauffällig, im Anfall allenfalls Überblähungszeichen; Ausschluss von Pneumonie, Pneumothorax, Fremdkörper, Raumforderung und Stauung. CT bzw. HRCT nur bei Verdacht auf Bronchiektasen, ABPA, interstitielle Erkrankung oder bei therapierefraktärem Verlauf',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG und Echokardiographie zur Abgrenzung einer kardialen Dyspnoe; HNO-Abklärung und Bildgebung der Nasennebenhöhlen bei chronischer Rhinosinusitis mit Polyposis nasi',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Unspezifische bronchiale Provokation mit Metacholin bei normaler Spirometrie: ein FEV1-Abfall um ≥ 20 % beweist die bronchiale Hyperreagibilität; der Test hat einen hohen negativen prädiktiven Wert, ein negatives Ergebnis schließt ein Asthma weitgehend aus. Karenzzeiten der Bronchodilatatoren und Kontraindikationen beachten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Belastungsprovokation auf Laufband oder Fahrradergometer beziehungsweise Kaltluft-Hyperventilationstest zum Nachweis des Belastungsasthmas: FEV1-Abfall um ≥ 10 % innerhalb von 5–15 Minuten nach Belastungsende',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Pricktest mit den relevanten Inhalationsallergenen, bei unklarer klinischer Relevanz ergänzt durch eine spezifische inhalative Allergenprovokation; bei Verdacht auf Berufsasthma arbeitsplatzbezogene Provokation und Peak-Flow-Protokoll am Arbeitsplatz',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Laryngoskopie im Anfall bei Verdacht auf eine Stimmbanddysfunktion; induziertes Sputum mit Zelldifferenzierung (Eosinophile) zur Phänotypisierung vor einer Biologikatherapie; Bronchoskopie nur bei therapierefraktärem Verlauf, Fremdkörper- oder Tumorverdacht',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'COPD',
+          unterscheidung: 'Höheres Lebensalter, Raucheranamnese mit Packungsjahren, schleichend progrediente statt anfallsartiger Dyspnoe, chronisch produktiver Morgenhusten, KEINE beschwerdefreien Intervalle und ein FEV1/FVC-Quotient, der auch nach Bronchodilatation unter 0,7 bleibt; neutrophile statt eosinophiler Entzündung, verminderte Diffusionskapazität beim Emphysem. Mischbilder werden als Asthma-COPD-Overlap bezeichnet.',
+        },
+        {
+          dd: 'Herzinsuffizienz („Asthma cardiale“)',
+          unterscheidung: 'Orthopnoe, paroxysmale nächtliche Dyspnoe und nächtlicher Husten, aber mit Beinödemen, Nykturie, Halsvenenstauung, Gewichtszunahme und feuchten basalen Rasselgeräuschen; NT-proBNP erhöht, im EKG und in der Echokardiographie fassbare Pathologie, im Röntgen Stauungszeichen.',
+        },
+        {
+          dd: 'Stimmbanddysfunktion (Vocal Cord Dysfunction)',
+          unterscheidung: 'INspiratorischer Stridor mit laryngealer Lokalisation der Enge, plötzlicher Beginn und plötzliches Ende, kein Ansprechen auf Betamimetika, abgeflachte inspiratorische Flussvolumenkurve bei normaler Spirometrie, normales FeNO; Sicherung laryngoskopisch im Anfall. Häufig bei jungen, sportlich aktiven Patienten und oft als therapierefraktäres Asthma fehlgedeutet.',
+        },
+        {
+          dd: 'Bronchiektasen',
+          unterscheidung: 'Große Mengen dreischichtigen, oft übelriechenden Auswurfs, rezidivierende bakterielle Infekte mit Pseudomonasbesiedlung, Hämoptysen, Trommelschlegelfinger und Uhrglasnägel; Nachweis im HRCT (Ringschatten, Signet-Ring-Zeichen).',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Plötzliche Dyspnoe mit Tachykardie, atemabhängigem Thoraxschmerz, Hypoxie mit Hypokapnie, ggf. Zeichen einer tiefen Beinvenenthrombose; Wells-Score, D-Dimere und CT-Angiographie. Kein Giemen, keine Triggerbindung, keine beschwerdefreien Intervalle über Monate.',
+        },
+        {
+          dd: 'Fremdkörperaspiration',
+          unterscheidung: 'Vor allem beim Kleinkind: plötzlicher Beginn aus voller Gesundheit mit Hustenattacke, EINSEITIG abgeschwächtes Atemgeräusch und einseitiges Giemen, im Röntgen einseitige Überblähung in Exspiration; Sicherung und Therapie durch Bronchoskopie.',
+        },
+        {
+          dd: 'ACE-Hemmer-induzierter Husten',
+          unterscheidung: 'Trockener Reizhusten mit Kitzeln im Hals, Beginn Tage bis Monate nach Therapieeinleitung (z. B. Ramipril), Rückbildung innerhalb von Wochen nach Absetzen; kein Giemen, keine Obstruktion. Alternative: Wechsel auf einen AT1-Rezeptorblocker.',
+        },
+        {
+          dd: 'Gastroösophagealer Reflux mit refluxassoziiertem Husten',
+          unterscheidung: 'Sodbrennen, saures Aufstoßen, Heiserkeit und Räusperzwang, Verstärkung im Liegen und nach spätem Essen, Besserung unter Protonenpumpenhemmern; kann ein Asthma imitieren und ein bestehendes Asthma unterhalten.',
+        },
+        {
+          dd: 'Bronchialkarzinom oder andere zentrale Atemwegsstenose',
+          unterscheidung: 'Beim älteren Raucher: Hämoptysen, ungewollter Gewichtsverlust, Heiserkeit, obere Einflussstauung, lokalisiertes einseitiges Giemen oder Stridor; Sicherung durch CT-Thorax und Bronchoskopie mit Biopsie — ein kleines zentrales Karzinom kann im Röntgen-Thorax verborgen bleiben.',
+        },
+        {
+          dd: 'Hyperventilationssyndrom / Panikattacke',
+          unterscheidung: 'Anfallsartige Atemnot mit Parästhesien an Händen und um den Mund, Karpopedalspasmen, Schwindel und Todesangst, unabhängig von körperlicher Belastung; Auskultation und Spirometrie unauffällig, in der Blutgasanalyse respiratorische Alkalose.',
+        },
+        {
+          dd: 'Exogen-allergische Alveolitis',
+          unterscheidung: 'Expositionsbezogene Dyspnoe mit trockenem Husten, Fieber und Abgeschlagenheit einige Stunden nach Kontakt mit Vögeln, Heu, Schimmel oder Befeuchtern; auskultatorisch Sklerosiphonie, in der Lungenfunktion RESTRIKTION mit verminderter Diffusionskapazität, im HRCT Milchglas.',
+        },
+        {
+          dd: 'Allergische bronchopulmonale Aspergillose (ABPA)',
+          unterscheidung: 'Bei vorbestehendem Asthma oder Mukoviszidose: therapierefraktärer Verlauf, bräunliche Sputumpfröpfe, deutlich erhöhtes Gesamt-IgE (> 1000 IU/ml), spezifisches IgE und Präzipitine gegen Aspergillus fumigatus, Bluteosinophilie, zentrale Bronchiektasen und flüchtige Infiltrate; Therapie mit systemischen Steroiden und Itraconazol.',
+        },
+        {
+          dd: 'Eosinophile Granulomatose mit Polyangiitis (EGPA, Churg-Strauss-Syndrom)',
+          unterscheidung: 'Schweres, spät manifestiertes Asthma mit Polyposis nasi, ausgeprägter Bluteosinophilie über 1500/µl, Mononeuritis multiplex, Purpura, Myokard- und Nierenbeteiligung; ANCA (p-ANCA/MPO) in etwa 40 % positiv.',
+        },
+        {
+          dd: 'Mukoviszidose (zystische Fibrose) und Alpha-1-Antitrypsin-Mangel',
+          unterscheidung: 'Bei jungen Patienten mit therapierefraktärer Obstruktion: Mukoviszidose mit rezidivierenden Infekten, Bronchiektasen, Pankreasinsuffizienz und Gedeihstörung (Schweißtest, Genetik); Alpha-1-Antitrypsin-Mangel mit früh auftretendem basal betontem Emphysem und Leberbeteiligung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Bedarfs- und Dauertherapie nach dem GINA-Stufenschema',
+          items: [
+            'GRUNDREGEL: Die alleinige Bedarfstherapie mit einem kurzwirksamen Betamimetikum (SABA) ist OBSOLET — sie behandelt nur den Bronchospasmus, nicht die zugrunde liegende Entzündung, und ein hoher SABA-Verbrauch ist mit vermehrten Exazerbationen und erhöhter Mortalität verbunden. Jede Asthmatherapie enthält ein inhalatives Kortikosteroid; bevorzugte Bedarfsmedikation ist heute die Fixkombination aus niedrig dosiertem ICS und Formoterol.',
+            'Stufe 1–2: niedrig dosiertes ICS-Formoterol ausschließlich bei Bedarf (Anti-Inflammatory Reliever), alternativ tägliches niedrig dosiertes ICS plus Bedarfsmedikation.',
+            'Stufe 3: niedrig dosiertes ICS-Formoterol als Erhaltungs- UND Bedarfstherapie (MART — Maintenance and Reliever Therapy) oder niedrig dosiertes ICS-LABA fest plus Bedarfsmedikation.',
+            'Stufe 4: mittelhoch dosiertes ICS-Formoterol als MART; bei fortbestehender Symptomatik zusätzlich ein langwirksames Anticholinergikum (Tiotropium) als Dreifachtherapie.',
+            'Stufe 5: hoch dosiertes ICS-LABA plus LAMA und Überweisung an ein spezialisiertes Zentrum zur Phänotypisierung; orale Kortikosteroide als niedrigst mögliche Dauertherapie nur als allerletzte Option.',
+            'Eskalation („step up“) bei unkontrolliertem Asthma erst NACH Überprüfung von Inhalationstechnik, Adhärenz, Triggerexposition und Begleiterkrankungen; Deeskalation („step down“) frühestens nach drei Monaten stabiler Kontrolle und niemals bis zum vollständigen Absetzen des ICS.',
+            'Kontrolle nach vier bis zwölf Wochen mit ACT und Spirometrie; Reevaluation nach jeder Exazerbation.',
+            'Zusatzoptionen: Montelukast (Leukotrienrezeptor-Antagonist) besonders beim Belastungsasthma, bei begleitender allergischer Rhinitis und beim Analgetika-Asthma — CAVE neuropsychiatrische Nebenwirkungen; Theophyllin nur noch Reserve wegen der engen therapeutischen Breite und der Interaktionen.',
+            'Konsequente Mitbehandlung der Begleiterkrankungen als Teil der Asthmatherapie: allergische Rhinitis mit nasalem Steroid und Antihistaminikum (Konzept „one airway, one disease“), chronische Rhinosinusitis mit Polyposis, gastroösophagealer Reflux, Adipositas, Rauchen, Angst und Depression.',
+          ],
+        },
+        {
+          label: 'Auslöservermeidung, Allergenkarenz und Schulung',
+          items: [
+            'Strukturierte Patientenschulung mit Erklärung der Erkrankung in Patientensprache: chronische Entzündung, Verkrampfung der Bronchialmuskulatur, Schleimhautschwellung und zäher Schleim — das Kortisonspray behandelt die Entzündung, der Bronchialerweiterer den Krampf.',
+            'INHALATIONSTECHNIK bei jedem Kontakt überprüfen und vom Patienten vorführen lassen; Spacer bei Dosieraerosolen, nach jeder ICS-Inhalation Mund ausspülen oder Zähne putzen zur Prophylaxe von Mundsoor und Heiserkeit. Die falsche Anwendung des Inhalators ist die häufigste Ursache eines vermeintlichen Therapieversagens.',
+            'Schriftlicher Asthma-Aktions- und Notfallplan mit Peak-Flow-Ampelschema: grün über 80 % des persönlichen Bestwertes, gelb 50–80 % mit Intensivierung der Therapie, rot unter 50 % mit sofortiger ärztlicher Vorstellung.',
+            'Allergenkarenz je nach Sensibilisierung: Pollenflugvorhersage nutzen, Fenster nachts geschlossen halten, Haare abends waschen, Wäsche nicht im Freien trocknen; bei Hausstaubmilben Encasing von Matratze und Bettwaren, Teppichboden im Schlafzimmer entfernen, Wäsche bei 60 °C waschen; bei Tierhaarallergie kein neues Haustier.',
+            'Vermeidung unspezifischer Reize: Tabakrauch und Passivrauch (Rauchstopp anbieten), Kaltluft (Schal vor Mund und Nase, Nasenatmung), Duftstoffe, Sprays, Luftschadstoffe.',
+            'Belastungsasthma managen statt Sport verbieten: Aufwärmen über 10–15 Minuten, präventive Inhalation der Bedarfsmedikation 10–15 Minuten vor der Belastung, bevorzugt Ausdauersport in warmer, feuchter Luft; regelmäßiges Training verbessert die Symptomatik. Bei Wettkampfsportlern die Anti-Doping-Bestimmungen für Betamimetika und die medizinische Ausnahmegenehmigung beachten.',
+            'Auslösende Medikamente meiden: nicht-selektive Betablocker einschließlich Augentropfen (Timolol), bei nachgewiesener Intoleranz Acetylsalicylsäure und NSAR; ACE-Hemmer als Hustenursache bedenken.',
+            'Schutzimpfungen: jährliche Influenzaimpfung, Pneumokokken- und COVID-19-Impfung — Atemwegsinfekte sind der häufigste Auslöser von Exazerbationen.',
+            'Spezifische Immuntherapie (Hyposensibilisierung, subkutan oder sublingual) bei klinisch relevanter Monosensibilisierung, kontrolliertem Asthma und FEV1 über 70 % des Solls — sie kann den Etagenwechsel und Neusensibilisierungen verhindern; kontraindiziert bei unkontrolliertem oder schwerem Asthma.',
+            'Rehabilitation, Lungensport, Atemphysiotherapie mit Lippenbremse und atemerleichternden Körperstellungen (Kutschersitz, Torwartstellung), Sekretmanagement, Raucherentwöhnung und Gewichtsreduktion; bei berufsbedingtem Asthma Expositionskarenz und Meldung als Berufskrankheit.',
+            'Ängste vor „Kortison“ aktiv ansprechen und auflösen: inhalatives Kortison wirkt lokal in Mikrogramm-Dosen, Gewichtszunahme und Osteoporose sind davon nicht zu erwarten. Diese Aufklärung entscheidet über die Adhärenz.',
+          ],
+        },
+        {
+          label: 'Akuter Asthmaanfall und schweres Asthma',
+          akut: true,
+          items: [
+            'Sofortmaßnahmen: beruhigen und beim Patienten bleiben, sitzende Lagerung mit aufgestütztem Oberkörper (Kutschersitz), Lippenbremse anleiten, beengende Kleidung öffnen; Monitoring von Atemfrequenz, Pulsoxymetrie, Herzfrequenz und Blutdruck, Peak-Flow-Messung und venöser Zugang.',
+            'Inhalative Bronchodilatation als Erstmaßnahme: 2–4 Hübe Salbutamol über einen Spacer, Wiederholung alle 10–20 Minuten; bei schwerem Anfall Vernebelung von Salbutamol zusammen mit Ipratropiumbromid.',
+            'Systemische Glukokortikoide früh geben: Prednisolon 50 mg oral oder 50–100 mg intravenös — die Wirkung setzt erst nach etwa 4–6 Stunden ein, deshalb nicht abwarten; anschließend Kurzzeittherapie über 5–7 Tage ohne Ausschleichen.',
+            'Sauerstoffgabe nach Zielsättigung 93–95 % (anders als bei der COPD mit 88–92 %); Blutgasanalyse zur Verlaufsbeurteilung.',
+            'Eskalation beim therapierefraktären Anfall: Magnesiumsulfat 2 g intravenös über 20 Minuten, Reproterol oder Salbutamol intravenös, ausreichende Flüssigkeitszufuhr, Verlegung auf die Intensivstation; Intubation und invasive Beatmung nur als Ultima Ratio wegen des hohen Barotraumarisikos bei dynamischer Überblähung.',
+            'KONTRAINDIZIERT im Anfall: Sedativa und Anxiolytika (Atemdepression) sowie Betablocker; Mukolytika und Antitussiva sind ohne Nutzen, Antibiotika nur bei nachgewiesenem bakteriellem Infekt.',
+            'Stationäre Aufnahme bei schwerem Anfall, fehlendem Ansprechen, SpO2 unter 92 %, Peak Flow unter 50 % des Bestwertes, sozialer Isolation oder früherer Intensivbehandlung wegen Asthma.',
+            'Nach jedem Anfall: Ursachensuche, Überprüfung von Inhalationstechnik und Adhärenz, Eskalation der Dauertherapie, Aktualisierung des schriftlichen Notfallplans und Wiedervorstellung innerhalb von zwei bis sieben Tagen.',
+            'Schweres Asthma auf Stufe 5 trotz korrekter Hochdosistherapie: Phänotypisierung im Zentrum und Biologikatherapie — Omalizumab (Anti-IgE) beim schweren allergischen Asthma, Mepolizumab, Reslizumab und Benralizumab (Anti-IL-5 bzw. Anti-IL-5-Rezeptor) beim eosinophilen Asthma, Dupilumab (Anti-IL-4/IL-13) beim Typ-2-Asthma mit hohem FeNO oder Polyposis nasi, Tezepelumab (Anti-TSLP) auch beim Typ-2-Low-Asthma.',
+            'Orale Dauersteroide nur als letzte Möglichkeit, unter Osteoporose-, Blutzucker-, Blutdruck- und Augenkontrolle sowie Prophylaxe mit Calcium und Vitamin D; die bronchiale Thermoplastie bleibt Einzelfällen an spezialisierten Zentren vorbehalten.',
+          ],
+        },
+      ],
+      prognose: 'Das Asthma bronchiale ist nicht heilbar, aber in der überwiegenden Mehrzahl der Fälle sehr gut kontrollierbar: Unter leitliniengerechter Therapie mit einem inhalativen Kortikosteroid, korrekter Inhalationstechnik und konsequenter Auslöservermeidung führen die meisten Patienten ein völlig normales Leben mit uneingeschränkter körperlicher und sportlicher Belastbarkeit — zahlreiche Leistungssportler sind Asthmatiker. Bei etwa der Hälfte der im Kindesalter erkrankten Patienten kommt es in der Pubertät zu einer deutlichen Besserung oder Remission, wobei eine Rückkehr der Beschwerden im Erwachsenenalter möglich bleibt. Prognostisch ungünstig sind ein unbehandeltes oder unzureichend behandeltes Asthma, mangelnde Adhärenz, fortgesetztes Rauchen, Adipositas, häufige Exazerbationen und ein hoher Verbrauch an kurzwirksamen Betamimetika: Die persistierende Entzündung führt über das Remodeling der Atemwege zu einer zunehmend fixierten Obstruktion mit dauerhaftem Verlust an Lungenfunktion. Die Asthmamortalität ist in Deutschland niedrig und rückläufig, jedoch sind die meisten asthmabedingten Todesfälle vermeidbar und Folge einer unterschätzten Schwere, einer fehlenden antientzündlichen Basistherapie oder einer verzögerten Vorstellung im schweren Anfall.',
+      pruefungsfallen: [
+        'Das entscheidende Wort ist VARIABILITÄT: anfallsartige Beschwerden mit vollständiger Beschwerdefreiheit dazwischen. Wer nur „Atemnot seit Monaten“ dokumentiert, verliert die Diagnose an die COPD. Die Leitfrage lautet: „Wie geht es Ihnen ZWISCHEN den Anfällen?“',
+        'Der Fachbegriff muss sitzen: exspiratorisches Giemen und Brummen, Pfeifen, verlängertes Exspirium. Umgangssprachliche Formulierungen wie „komische Geräusche“ werden von Prüfern gezielt aufgegriffen. „Stridor“ ist streng genommen INspiratorisch und laryngeal und weist auf eine Stimmbanddysfunktion oder eine obere Atemwegsobstruktion hin.',
+        'Das Reversibilitätskriterium exakt nennen: FEV1-Zunahme um ≥ 12 % UND ≥ 200 ml nach Bronchodilatator. Nur die Prozentangabe genügt nicht.',
+        'Eine normale Spirometrie und ein unauffälliger Auskultationsbefund schließen ein Asthma NICHT aus — der Patient ist zwischen den Anfällen lungengesund. Dann Peak-Flow-Protokoll (Tagesvariabilität > 20 %) und Metacholin-Provokation nennen.',
+        'Die SABA-Monotherapie ist obsolet: Jede Stufe der Asthmatherapie enthält ein inhalatives Kortikosteroid, bevorzugt als ICS-Formoterol auch in der Bedarfsmedikation. Wer „Salbutamol bei Bedarf“ als Therapie anbietet, fällt in die klassische Falle.',
+        'Die Prüferfrage „Welches Asthmaspray nimmt der Patient?“ ist in den Protokollen mehrfach belegt. Immer nach Name, Farbe, Hubzahl und Häufigkeit fragen; Notfallantwort bei fehlender Angabe: „Ich werde bei der körperlichen Untersuchung noch einmal gezielt nachfragen.“',
+        'Sauerstoff-Zielsättigung nicht verwechseln: beim Asthma 93–95 %, bei der COPD kontrolliert 88–92 %.',
+        'Im schweren Anfall ist ein NORMALER oder ansteigender pCO2 ein Alarmzeichen der Erschöpfung, kein Zeichen der Besserung — ebenso wie der „silent chest“ bei verschwundenem Giemen. Sedativa sind im Anfall kontraindiziert.',
+        'Beim Belastungsasthma beginnen die Beschwerden typischerweise erst 5–15 Minuten NACH dem Belastungsende, nicht währenddessen. Sport wird nicht verboten, sondern vorbereitet (Aufwärmen, präventive Inhalation).',
+        'Aktiv nach Analgetika-Intoleranz und Nasenpolypen fragen (Samter- bzw. Widal-Trias) sowie nach Betablockern einschließlich Augentropfen — beides sind vermeidbare Auslöser schwerer Anfälle.',
+        'Beim trockenen Reizhusten immer die Medikamentenanamnese prüfen: Der ACE-Hemmer-Husten (z. B. unter Ramipril) ist die häufigste iatrogene Differenzialdiagnose und in den Protokollen ausdrücklich als Falle aufgetaucht.',
+        'Die Familien- und Atopieanamnese ist beim Asthma kein Beiwerk, sondern tragendes Argument: Asthma oder Heuschnupfen bei Eltern und Geschwistern, eigene Rhinokonjunktivitis, Neurodermitis und Nahrungsmittelallergien.',
+        'Nach jeder ICS-Anwendung Mund ausspülen (Mundsoor, Heiserkeit) und die Inhalationstechnik vorführen lassen — die falsche Anwendung ist die häufigste Ursache eines „Therapieversagens“.',
+        'Die Kortisonangst des Patienten patientengerecht auflösen: inhalativ wirkt das Kortison lokal in Mikrogramm-Dosen und verursacht weder Gewichtszunahme noch Osteoporose. Bewertet wird die Verständlichkeit, nicht die Pharmakologie.',
+        'Beim Kind mit plötzlicher einseitiger Obstruktion immer an eine Fremdkörperaspiration denken; beim älteren Raucher mit lokalisiertem Giemen an ein Bronchialkarzinom.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein Asthma bronchiale, am ehesten ein allergisches Asthma mit Belastungskomponente. Dafür sprechen die anfallsartige, variable Atemnot mit erschwerter Ausatmung, das exspiratorische Giemen, das thorakale Engegefühl und der trockene Reizhusten, die vollständige Beschwerdefreiheit zwischen den Anfällen, die nächtliche und frühmorgendliche Symptomatik, die Triggerbindung an Pollen, Anstrengung, Kaltluft und Infekte sowie die atopische Diathese mit allergischer Rhinokonjunktivitis und die positive Familienanamnese.',
+        },
+        {
+          frage: 'Sie haben „komische Geräusche“ notiert — wie lautet der medizinische Fachbegriff?',
+          antwort: 'Exspiratorisches Giemen und Brummen, also trockene Rasselgeräusche bei verlängertem Exspirium; man spricht auch vom Pfeifen. Der Begriff Stridor wäre falsch, denn ein Stridor ist typischerweise inspiratorisch und entsteht im Larynx oder in der Trachea.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie ein Asthma bronchiale von einer COPD?',
+          antwort: 'Über fünf Punkte: Alter bei Erstmanifestation (Kindheit oder junges Erwachsenenalter gegenüber über 40 Jahren), Noxen (Atopie gegenüber Rauchen mit Packungsjahren), Verlauf (anfallsartig-variabel mit beschwerdefreien Intervallen gegenüber schleichend progredient ohne symptomfreie Phasen), Reversibilität (FEV1-Zunahme um ≥ 12 % und ≥ 200 ml nach Bronchodilatator gegenüber persistierendem FEV1/FVC unter 0,7) und Entzündungstyp (eosinophil mit erhöhtem FeNO gegenüber neutrophil). Zusätzlich ist die Diffusionskapazität beim Asthma normal, beim Emphysem vermindert.',
+        },
+        {
+          frage: 'Welche Untersuchung sichert die Diagnose?',
+          antwort: 'Die Spirometrie mit Bronchospasmolysetest. Fünfzehn Minuten nach Inhalation von 400 µg Salbutamol beweist eine Zunahme des FEV1 um mindestens 12 % und mindestens 200 ml die reversible Obstruktion. Ergänzend das Peak-Flow-Protokoll über zwei Wochen mit einer Tagesvariabilität über 20 %.',
+        },
+        {
+          frage: 'Was tun Sie, wenn die Lungenfunktion völlig normal ist?',
+          antwort: 'Ein Asthma ist damit nicht ausgeschlossen, weil der Patient zwischen den Anfällen lungengesund ist. Ich würde eine unspezifische bronchiale Provokation mit Metacholin durchführen — ein FEV1-Abfall um mindestens 20 % beweist die bronchiale Hyperreagibilität —, ein Peak-Flow-Protokoll anlegen und bei Sportlern zusätzlich eine Belastungsprovokation durchführen.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die COPD, eine Herzinsuffizienz im Sinne eines Asthma cardiale, eine Stimmbanddysfunktion, Bronchiektasen, eine Lungenembolie, eine Fremdkörperaspiration, der ACE-Hemmer-induzierte Husten, ein refluxassoziierter Husten, ein Bronchialkarzinom mit zentraler Stenose, ein Hyperventilationssyndrom, eine exogen-allergische Alveolitis und bei therapierefraktärem Verlauf eine allergische bronchopulmonale Aspergillose oder eine eosinophile Granulomatose mit Polyangiitis.',
+        },
+        {
+          frage: 'Welche Therapie leiten Sie ein? Reicht ein Bedarfsspray?',
+          antwort: 'Nein — die alleinige Bedarfstherapie mit einem kurzwirksamen Betamimetikum ist obsolet, weil sie die Entzündung nicht behandelt und das Exazerbations- und Sterberisiko erhöht. Jede Asthmatherapie enthält ein inhalatives Kortikosteroid, heute bevorzugt als ICS-Formoterol auch in der Bedarfsmedikation. Bei unkontrolliertem Asthma beginne ich nach GINA auf Stufe 3 mit niedrig dosiertem ICS-Formoterol als Erhaltungs- und Bedarfstherapie und kontrolliere nach vier bis zwölf Wochen.',
+        },
+        {
+          frage: 'Was ist das MART-Konzept?',
+          antwort: 'Maintenance and Reliever Therapy: dieselbe Fixkombination aus einem inhalativen Kortikosteroid und Formoterol wird sowohl als feste Erhaltungstherapie als auch als Bedarfsmedikation eingesetzt. Formoterol wirkt rasch wie ein kurzwirksames Betamimetikum und zugleich lang; jede Bedarfsinhalation liefert damit automatisch auch antientzündliches Kortison genau dann, wenn die Entzündungsaktivität steigt.',
+        },
+        {
+          frage: 'Was tun Sie im akuten schweren Asthmaanfall?',
+          antwort: 'Beruhigen und beim Patienten bleiben, sitzende Lagerung mit aufgestütztem Oberkörper und Lippenbremse, Monitoring, Peak Flow, venöser Zugang, Sauerstoff mit Zielsättigung 93 bis 95 Prozent, 2 bis 4 Hübe Salbutamol über einen Spacer alle 10 bis 20 Minuten beziehungsweise Vernebelung von Salbutamol mit Ipratropiumbromid, früh Prednisolon 50 mg oral oder intravenös. Bei fehlendem Ansprechen Magnesiumsulfat 2 g intravenös, Betamimetika intravenös und Intensivstation. Sedativa sind kontraindiziert.',
+        },
+        {
+          frage: 'Warum ist ein normaler Kohlendioxidwert im schweren Anfall ein Alarmzeichen?',
+          antwort: 'Weil der Patient im Anfall hyperventiliert und der pCO2 deshalb erniedrigt sein müsste. Ein normaler oder ansteigender Wert zeigt die Erschöpfung der Atemmuskulatur und das Versagen der Atempumpe an und kündigt die respiratorische Insuffizienz an — der Patient gehört auf die Intensivstation.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Patienten das Asthma in einfachen Worten?',
+          antwort: '„Ihre Atemwege sind dauerhaft leicht entzündet und deshalb überempfindlich. Kommt ein Reiz dazu — Pollen, kalte Luft, Anstrengung oder ein Infekt —, verkrampft sich die Muskulatur in den Bronchien, die Schleimhaut schwillt an und bildet zähen Schleim. Die Luft kommt dann hinein, aber nur schwer wieder heraus; daher das Pfeifen beim Ausatmen und das Engegefühl. Das lässt sich gut behandeln, und zwischen den Anfällen ist Ihre Lunge in Ordnung.“',
+        },
+        {
+          frage: 'Darf ein Asthmatiker Sport treiben?',
+          antwort: 'Ausdrücklich ja. Sport wird nicht verboten, sondern vorbereitet: 10 bis 15 Minuten aufwärmen, präventiv zwei Hübe der Bedarfsmedikation etwa 15 Minuten vor Belastungsbeginn, bei kalter Luft Nasenatmung und ein Tuch vor Mund und Nase, bevorzugt Ausdauersport in warmer, feuchter Luft. Regelmäßiges Training verbessert die Symptomatik langfristig; viele Leistungssportler sind Asthmatiker.',
+        },
+        {
+          frage: 'Was ist die Widal-Trias?',
+          antwort: 'Die Samter- oder Widal-Trias besteht aus Asthma bronchiale, rezidivierenden Nasenpolypen mit chronischer Rhinosinusitis und einer Intoleranz gegenüber Acetylsalicylsäure und anderen NSAR. Ursache ist eine Verschiebung des Arachidonsäurestoffwechsels zugunsten der Leukotriene bei Hemmung der Cyclooxygenase; die Patienten profitieren besonders von Leukotrienrezeptor-Antagonisten, gegebenenfalls von einer adaptiven Desaktivierung.',
+        },
+        {
+          frage: 'Wann ist eine Hyposensibilisierung indiziert, und wann Biologika?',
+          antwort: 'Eine spezifische Immuntherapie kommt bei klinisch relevanter Monosensibilisierung, kontrolliertem Asthma und einem FEV1 über 70 % des Solls in Betracht; bei unkontrolliertem oder schwerem Asthma ist sie kontraindiziert. Biologika sind dem schweren Asthma auf GINA-Stufe 5 vorbehalten, das trotz korrekt angewendeter Hochdosistherapie unkontrolliert bleibt — nach Phänotypisierung Omalizumab beim allergischen, Mepolizumab, Reslizumab oder Benralizumab beim eosinophilen, Dupilumab beim Typ-2-Asthma mit hohem FeNO oder Polyposis und Tezepelumab auch beim Typ-2-Low-Asthma.',
+        },
+        {
+          frage: 'Welche Impfungen empfehlen Sie einem Asthmatiker?',
+          antwort: 'Die jährliche Influenzaimpfung, die Pneumokokkenimpfung und die COVID-19-Impfung, da Atemwegsinfekte der häufigste Auslöser von Exazerbationen sind; ergänzend die Auffrischung gegen Pertussis.',
+        },
+      ],
+      merksatz: 'Merke: Asthma ist die VARIABLE und REVERSIBLE Obstruktion — anfallsweise Luftnot mit exspiratorischem Giemen, nachts und nach Trigger, dazwischen beschwerdefrei; bewiesen durch FEV1 + ≥ 12 % UND ≥ 200 ml nach Bronchodilatator (COPD: FEV1/FVC bleibt < 0,7). Und therapeutisch gilt: KEIN Asthma ohne inhalatives Kortison — die reine SABA-Bedarfstherapie ist obsolet.',
+      linkedCaseIds: [
+        'case-asthma',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+      ],
+    },
   ];
 }
