@@ -7,7 +7,7 @@ import json, os, re, sys
 SRC = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.abspath(os.path.join(SRC, '..', 'src', 'data'))
 
-CASE_IDS = ['case-migraene', 'case-asthma']
+CASE_IDS = ['case-herzinsuffizienz', 'case-nierenkolik', 'case-tonsillitis']
 
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
@@ -19,6 +19,26 @@ FW = ['id','pathology','specialty','definition','aetiologie','risikofaktoren','k
 
 def pick(d, keys):
     return {k: d[k] for k in keys if k in d and d[k] is not None}
+
+# Whitelists INTERNES aux tableaux d'objets. La whitelist de premier niveau ne
+# protégeait que les champs racine : un agent avait inventé un `name_note` DANS
+# klassifikation, ce qui passait l'assembleur et ne cassait qu'au typecheck.
+ITEM_KEYS = {
+    'klassifikation': ['name', 'inhalt'],
+    'klinik': ['text', 'atypisch'],
+    'differenzialdiagnosen': ['dd', 'unterscheidung'],
+    'diagnostik': ['stufe', 'text'],
+    'therapie': ['label', 'items', 'akut'],
+    'askedInExam': ['frage', 'antwort'],
+}
+
+def clean_items(obj):
+    """Filtre récursivement les clés inconnues à l'intérieur des tableaux."""
+    for field, keys in ITEM_KEYS.items():
+        v = obj.get(field)
+        if isinstance(v, list):
+            obj[field] = [pick(it, keys) if isinstance(it, dict) else it for it in v]
+    return obj
 
 def iso_dates(s):
     out = []
@@ -40,7 +60,7 @@ def fw_id_for(case_id):
     return 'fw-' + case_id.replace('case-', '')
 
 def norm_case(raw):
-    c = raw['case']
+    c = clean_items(raw['case'])
     fwid = fw_id_for(c['id'])
     src = c.get('sourceProtocol', '')
     case = pick(c, CASE)
@@ -73,6 +93,7 @@ def norm_case(raw):
     return case
 
 def norm_fw(raw, case):
+    raw = dict(raw); raw['fachwissen'] = clean_items(raw['fachwissen'])
     fw = None
     # fachwissen may be in the case bundle or a separate file
     if raw.get('fachwissen'):

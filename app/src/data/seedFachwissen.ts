@@ -6164,5 +6164,1138 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-roentgen-thorax',
       ],
     },
+    {
+      id: 'fw-herzinsuffizienz',
+      pathology: 'Chronische Herzinsuffizienz (dekompensiert)',
+      specialty: 'Kardiologie',
+      definition: 'Die Herzinsuffizienz ist ein klinisches Syndrom, bei dem das Herz nicht mehr in der Lage ist, den Organismus in Ruhe oder unter Belastung mit ausreichend Blut und damit mit Sauerstoff zu versorgen, oder dies nur um den Preis erhöhter Füllungsdrücke leisten kann. Zur Diagnose gehören typische Symptome (Belastungsdyspnoe, Orthopnoe, Leistungsminderung, Ödeme), meist objektivierbare Zeichen (Halsvenenstauung, feuchte Rasselgeräusche, dritter Herzton, periphere Ödeme) und der Nachweis einer kardialen Funktionsstörung in der Echokardiographie. Nach der Lokalisation unterscheidet man die Linksherzinsuffizienz (Rückstau in den Lungenkreislauf), die Rechtsherzinsuffizienz (Rückstau in den Körperkreislauf) und die Globalinsuffizienz. Die akute Dekompensation ist die rasche Verschlechterung einer vorbestehenden chronischen Herzinsuffizienz mit Zeichen der Volumenüberladung und ist die häufigste internistische Aufnahmediagnose bei Patienten über 65 Jahren.',
+      aetiologie: 'Häufigste Ursache ist mit etwa 70 % die koronare Herzkrankheit, insbesondere nach Myokardinfarkt (ischämische Kardiomyopathie), gefolgt von der arteriellen Hypertonie (hypertensive Herzkrankheit, führt vor allem zur HFpEF). Weitere Ursachen: Klappenvitien (Aorten- und Mitralklappenfehler), Kardiomyopathien (dilatativ, hypertroph, restriktiv, Takotsubo, peripartal), tachykardes Vorhofflimmern und andere Tachyarrhythmien (Tachykardiomyopathie), Myokarditis, toxische Schädigung durch Alkohol und Anthrazykline sowie Trastuzumab, Speichererkrankungen (Amyloidose, Hämochromatose), Perikarderkrankungen und High-output-Formen (schwere Anämie, Hyperthyreose, arteriovenöse Fisteln). Auslöser einer akuten Dekompensation sind fast immer benennbar: mangelnde Therapietreue oder eigenmächtiges Absetzen des Diuretikums, kochsalz- und flüssigkeitsreiche Ernährung, NSAR und Glukokortikoide (Natrium- und Wasserretention), neu aufgetretenes oder tachykardes Vorhofflimmern, Infekte (Pneumonie), Myokardischämie, hypertensive Entgleisung, Anämie, Niereninsuffizienz und Hyperthyreose.',
+      risikofaktoren: [
+        'Koronare Herzkrankheit und Zustand nach Myokardinfarkt',
+        'Arterielle Hypertonie (wichtigster beeinflussbarer Risikofaktor)',
+        'Diabetes mellitus Typ 2 und metabolisches Syndrom',
+        'Vorhofflimmern und andere Tachyarrhythmien',
+        'Höheres Lebensalter, männliches Geschlecht (HFrEF), weibliches Geschlecht (HFpEF)',
+        'Nikotinabusus und chronischer Alkoholkonsum',
+        'Adipositas und Bewegungsmangel',
+        'Klappenvitien, insbesondere Aortenklappenstenose und Mitralklappeninsuffizienz',
+        'Chronische Niereninsuffizienz (kardiorenales Syndrom)',
+        'Kardiotoxische Medikamente (Anthrazykline, Trastuzumab), Bestrahlung des Mediastinums',
+        'Familiäre Kardiomyopathien',
+        'Schlafapnoe-Syndrom, Eisenmangel und Anämie als prognoseverschlechternde Begleitfaktoren',
+      ],
+      klinik: [
+        {
+          text: 'Langsam progrediente Belastungsdyspnoe — in Stockwerken oder Gehstrecke zu quantifizieren (Linksherzinsuffizienz)',
+        },
+        {
+          text: 'Orthopnoe: Atemnot im Liegen, der Patient schläft mit erhöhtem Oberkörper; die Zahl der benötigten Kopfkissen ist das entscheidende anamnestische Maß',
+        },
+        {
+          text: 'Paroxysmale nächtliche Dyspnoe (Asthma cardiale): nächtliches Aufschrecken mit Atemnot, Aufsetzen an das offene Fenster, trockener Husten und Giemen',
+        },
+        {
+          text: 'Trockener Reizhusten, besonders im Liegen und nachts, bei fortgeschrittener Stauung schaumig-weißliches, gelegentlich blutig tingiertes Sputum',
+        },
+        {
+          text: 'Feuchte, nicht wegzuhustende Rasselgeräusche über den basalen Lungenabschnitten beidseits, gedämpfter Klopfschall bei Pleuraerguss',
+        },
+        {
+          text: 'Beidseitige, symmetrische Knöchel- und prätibiale Ödeme mit eindrückbarer Delle, abends am stärksten, über Nacht rückläufig (Rechtsherzinsuffizienz)',
+        },
+        {
+          text: 'Rasche Gewichtszunahme durch Wassereinlagerung — mehr als 2 kg in drei Tagen oder 2,5 kg in einer Woche gilt als Alarmzeichen',
+        },
+        {
+          text: 'Gestaute Halsvenen und positiver hepatojugulärer Reflux',
+        },
+        {
+          text: 'Nykturie durch nächtliche Rückresorption der Ödeme, tagsüber eher Oligurie',
+        },
+        {
+          text: 'Druckschmerzhafte Hepatomegalie (Stauungsleber), Völlegefühl, Appetitlosigkeit und Übelkeit durch Stauungsgastritis, später Aszites',
+        },
+        {
+          text: 'Leistungsknick, rasche Ermüdbarkeit, Schwäche und verminderte Belastbarkeit durch das erniedrigte Herzzeitvolumen',
+        },
+        {
+          text: 'Tachykardie, dritter Herzton (Galopprhythmus), verbreiterter und nach lateral verlagerter Herzspitzenstoß',
+        },
+        {
+          text: 'Periphere Zyanose, kühle und blasse Extremitäten, verlängerte Rekapillarisierungszeit',
+        },
+        {
+          text: 'Bei älteren Patienten Erstmanifestation als Verwirrtheit, Sturzneigung, Appetitlosigkeit oder allgemeiner Leistungsabfall ohne betonte Atemnot',
+          atypisch: true,
+        },
+        {
+          text: 'Kardiale Kachexie mit ungewolltem Gewichtsverlust im fortgeschrittenen Stadium — trotz Ödemen',
+          atypisch: true,
+        },
+        {
+          text: 'Cheyne-Stokes-Atmung und zentrale Schlafapnoe, häufig zuerst vom Partner bemerkt',
+          atypisch: true,
+        },
+        {
+          text: 'Rein rechtsführende Dekompensation mit Ödemen, Aszites und Hepatomegalie ohne wesentliche Dyspnoe (Cor pulmonale, Trikuspidalklappeninsuffizienz)',
+          atypisch: true,
+        },
+        {
+          text: 'Stumme Dekompensation unter Betablockern ohne Tachykardie, sowie schmerzlose Myokardischämie als Auslöser beim Diabetiker',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'NYHA-Klassifikation (funktionell, New York Heart Association)',
+          inhalt: 'NYHA I: Herzerkrankung ohne körperliche Einschränkung, normale Belastung ohne Beschwerden. NYHA II: leichte Einschränkung, Beschwerden bei stärkerer Alltagsbelastung (z. B. zwei Stockwerke), in Ruhe beschwerdefrei. NYHA III: deutliche Einschränkung, Beschwerden bereits bei geringer Belastung (weniger als ein Stockwerk, kurze ebene Gehstrecke), in Ruhe noch beschwerdefrei. NYHA IV: Beschwerden in Ruhe, Bettlägerigkeit, jede Belastung verstärkt die Symptome. Merke: Die Einteilung erfolgt allein nach der funktionellen Belastbarkeit und ist unabhängig von der Ejektionsfraktion.',
+        },
+        {
+          name: 'Einteilung nach der linksventrikulären Ejektionsfraktion (ESC)',
+          inhalt: 'HFrEF — Herzinsuffizienz mit reduzierter Ejektionsfraktion: LVEF kleiner oder gleich 40 %. HFmrEF — mit leicht reduzierter (mildly reduced) Ejektionsfraktion: LVEF 41 bis 49 %. HFpEF — mit erhaltener (preserved) Ejektionsfraktion: LVEF grösser oder gleich 50 %, dabei Nachweis einer diastolischen Funktionsstörung bzw. strukturellen Veränderung und erhöhtes natriuretisches Peptid. Die Einteilung ist therapieentscheidend: die volle Prognosetherapie ist für die HFrEF belegt.',
+        },
+        {
+          name: 'Einteilung nach der Lokalisation',
+          inhalt: 'Linksherzinsuffizienz: Rückstau in den Lungenkreislauf — Belastungsdyspnoe, Orthopnoe, Asthma cardiale, feuchte Rasselgeräusche, Lungenödem. Rechtsherzinsuffizienz: Rückstau in den Körperkreislauf — periphere Ödeme, Halsvenenstauung, Hepatomegalie mit Druckschmerz, Aszites, Nykturie, Stauungsgastritis. Globalinsuffizienz: beides gleichzeitig, häufigste Form im fortgeschrittenen Verlauf. Häufigste Ursache einer Rechtsherzinsuffizienz ist die Linksherzinsuffizienz; die zweithäufigste ist das Cor pulmonale bei Lungenerkrankungen.',
+        },
+        {
+          name: 'ACC/AHA-Stadien (Krankheitsverlauf)',
+          inhalt: 'Stadium A: Risikofaktoren (Hypertonie, Diabetes, KHK) ohne strukturelle Herzerkrankung und ohne Symptome. Stadium B: strukturelle Herzerkrankung (z. B. Zustand nach Infarkt, Hypertrophie, reduzierte LVEF) ohne Symptome. Stadium C: strukturelle Herzerkrankung mit früheren oder aktuellen Symptomen. Stadium D: therapierefraktäre Herzinsuffizienz, die spezialisierte Verfahren erfordert (LVAD, Transplantation, Palliativkonzept).',
+        },
+        {
+          name: 'Hämodynamische Profile der akuten Dekompensation (Forrester/Stevenson)',
+          inhalt: 'Eingeteilt wird nach zwei Achsen — Stauung („nass“ oder „trocken“) und Perfusion („warm“ oder „kalt“). Daraus ergeben sich vier Profile: warm und trocken (kompensiert), warm und nass (die weitaus häufigste Form der Dekompensation, Therapie mit Diuretika und Vasodilatatoren), kalt und nass (Minderperfusion mit Stauung, Inotropika erwägen) sowie kalt und trocken (Hypovolämie/Low-output). Das Profil steuert unmittelbar die Akuttherapie.',
+        },
+      ],
+      redFlags: [
+        'Ruhedyspnoe mit Orthopnoe, feuchten Rasselgeräuschen über allen Lungenfeldern und schaumigem, rosafarbenem Auswurf — akutes Lungenödem, sofortige Notfalltherapie',
+        'Sauerstoffsättigung unter 90 % trotz Sauerstoffgabe, Zyanose, Einsatz der Atemhilfsmuskulatur, Sprechdyspnoe — Indikation zur nicht-invasiven Beatmung',
+        'Systolischer Blutdruck unter 90 mmHg mit kalten, marmorierten Extremitäten, Oligurie und Laktatanstieg — kardiogener Schock',
+        'Neu aufgetretene Bewusstseinstrübung, Verwirrtheit oder Synkope — zerebrale Minderperfusion oder maligne Rhythmusstörung',
+        'Begleitender retrosternaler Vernichtungsschmerz oder Troponinanstieg — akutes Koronarsyndrom als Auslöser der Dekompensation',
+        'Anhaltende Tachyarrhythmie über 130/min oder bradykarde Rhythmusstörung',
+        'Anurie oder Oligurie mit raschem Kreatininanstieg — kardiorenales Syndrom',
+        'Hyperkaliämie über 5,5 mmol/l unter ACE-Hemmer bzw. Mineralokortikoidrezeptor-Antagonist',
+        'Gewichtszunahme über 2 kg in drei Tagen — beginnende Dekompensation, auch ohne wesentliche Dyspnoe',
+        'Fieber mit Rasselgeräuschen — Pneumonie als Auslöser, die zugleich die wichtigste Differenzialdiagnose ist',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese der Leitsymptome mit Quantifizierung: Belastungsdyspnoe in Stockwerken und Gehstrecke (NYHA-Stadium), Zahl der Kopfkissen (Orthopnoe), nächtliches Aufwachen mit Atemnot, Nykturie, Gewichtsverlauf und Ödeme',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Suche nach dem Auslöser der Dekompensation: Therapietreue und eigenmächtiges Absetzen des Diuretikums, Kochsalz- und Trinkmenge, NSAR- oder Kortisoneinnahme, Infekt, Rhythmusstörung, Angina pectoris, hypertensive Entgleisung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter (Blutdruck, Puls und Rhythmus, Atemfrequenz, Sauerstoffsättigung, Temperatur), tägliches Gewicht, Ein- und Ausfuhrbilanz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Halsvenenstauung und hepatojugulärer Reflux, Auskultation mit drittem Herzton, Herzgeräuschen und feuchten Rasselgeräuschen basal beidseits, Perkussion auf Pleuraerguss, Palpation der druckschmerzhaften Leber, Prüfung der eindrückbaren Ödeme mit Delle, Zyanose und Rekapillarisierungszeit',
+        },
+        {
+          stufe: 'Labor',
+          text: 'NT-proBNP bzw. BNP: hoher negativer prädiktiver Wert — der Test dient vor allem dem AUSSCHLUSS. In der akuten Situation schliesst ein NT-proBNP unter 300 pg/ml, im nicht-akuten Setting unter 125 pg/ml eine Herzinsuffizienz weitgehend aus. Erhöhte Werte sind nicht spezifisch (Alter, Niereninsuffizienz, Vorhofflimmern, Lungenembolie, Sepsis); Adipositas senkt den Wert falsch-niedrig',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenretentionsparameter (Kreatinin, Harnstoff, eGFR) und Elektrolyte einschliesslich Kalium und Natrium — Ausgangswert und Verlaufskontrolle unter Diuretika, ACE-Hemmer und MRA',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild zum Nachweis einer Anämie sowie Eisenstatus mit FERRITIN und Transferrinsättigung — der Eisenmangel ist bei Herzinsuffizienz häufig und therapierelevant, auch ohne Anämie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH zum Ausschluss einer Hyper- oder Hypothyreose als Ursache bzw. Auslöser',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin und CK zur Abgrenzung eines akuten Koronarsyndroms, Leberwerte und Bilirubin (Stauungsleber), Blutzucker und HbA1c, Lipidstatus, CRP und Blutbild bei Infektverdacht, D-Dimere nur bei begründetem Verdacht auf Lungenembolie, Urinstatus (Proteinurie), arterielle oder venöse Blutgasanalyse',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG: ein völlig unauffälliges EKG macht eine systolische Herzinsuffizienz sehr unwahrscheinlich. Gesucht werden Vorhofflimmern, Q-Zacken und Infarktnarben, Linksschenkelblock mit QRS-Verbreiterung, Zeichen der Linksherzhypertrophie und Erregungsrückbildungsstörungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'ECHOKARDIOGRAPHIE — die SCHLÜSSELUNTERSUCHUNG: Bestimmung der LVEF nach Simpson (Einteilung in HFrEF, HFmrEF, HFpEF), regionale Wandbewegungsstörungen als Hinweis auf eine ischämische Genese, Wanddicken, Vorhofgrösse, diastolische Funktion (E/A, E/e\'), Klappenmorphologie und -funktion, Rechtsherzfunktion mit TAPSE, systolischer Pulmonalarteriendruck und Weite der Vena cava inferior als Volumenmass',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen: Kardiomegalie mit Herz-Thorax-Quotient über 0,5, pulmonalvenöse Stauung mit Umverteilung in die Oberfelder, Kerley-B-Linien, perihiläre Verschattung (Schmetterlingsödem) und Pleuraergüsse; zugleich Ausschluss eines Infiltrats',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie: Lungenultraschall mit B-Linien als früher Stauungsnachweis, Abdomensonographie mit Stauungsleber, gestauter Vena cava inferior ohne Atemvariabilität und Aszites, Nierensonographie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Langzeit-EKG bei Verdacht auf paroxysmales Vorhofflimmern oder ventrikuläre Rhythmusstörungen; Spiroergometrie zur objektiven Belastbarkeit; Lungenfunktionsprüfung erst im rekompensierten Zustand zur Abgrenzung einer COPD; Kardio-MRT bei Verdacht auf Myokarditis, Amyloidose oder unklare Kardiomyopathie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koronarangiographie bei Verdacht auf eine ischämische Genese oder auf ein akutes Koronarsyndrom als Auslöser, mit der Option zur Revaskularisation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Rechtsherzkatheter zur Messung der Füllungsdrücke und des Herzzeitvolumens bei unklarer Hämodynamik, bei pulmonaler Hypertonie und im Rahmen der Evaluation für Kunstherz oder Transplantation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Myokardbiopsie in Ausnahmefällen bei Verdacht auf Myokarditis, Speicher- oder Systemerkrankung; genetische Diagnostik bei familiärer Kardiomyopathie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'COPD-Exazerbation oder Asthma bronchiale',
+          unterscheidung: 'Langjähriger Nikotinkonsum, produktiver Husten mit zähem Auswurf, exspiratorisches Giemen und verlängertes Exspirium statt feuchter Rasselgeräusche, Fassthorax; keine Orthopnoe und keine symmetrischen Unterschenkelödeme, ausser bei sekundärem Cor pulmonale. Entscheidend sind NT-proBNP, Echokardiographie und die Lungenfunktion im beschwerdefreien Intervall. Beide Erkrankungen bestehen häufig gleichzeitig.',
+        },
+        {
+          dd: 'Pneumonie',
+          unterscheidung: 'Akuter Beginn mit Fieber, Schüttelfrost, purulentem Auswurf, einseitigen Rasselgeräuschen und Klopfschalldämpfung, deutlich erhöhtes CRP und Leukozytose, Infiltrat im Röntgen-Thorax. Cave: Eine Pneumonie ist zugleich ein häufiger AUSLÖSER der Dekompensation.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Plötzlicher Beginn, atemabhängiger stechender Thoraxschmerz, Tachykardie und Tachypnoe, einseitige Beinschwellung, Immobilisation oder Reise in der Anamnese, erhöhte D-Dimere, Rechtsherzbelastung im EKG (SIQIII-Typ); Nachweis im CT-Angiogramm. Die Ödeme sind hier einseitig, bei der Herzinsuffizienz beidseits.',
+        },
+        {
+          dd: 'Anämie',
+          unterscheidung: 'Belastungsdyspnoe und Leistungsknick ohne Stauungszeichen, Blässe der Konjunktiven, systolisches Strömungsgeräusch; Diagnose über das Blutbild. Die Anämie kann eine Herzinsuffizienz auch demaskieren oder dekompensieren lassen.',
+        },
+        {
+          dd: 'Niereninsuffizienz und nephrotisches Syndrom',
+          unterscheidung: 'Ödeme beginnen periorbital und sind morgens am stärksten (bei der Herzinsuffizienz an den Knöcheln und abends am stärksten), schäumender Urin mit grosser Proteinurie, Hypalbuminämie, erhöhtes Kreatinin. Beide Organsysteme beeinflussen sich im kardiorenalen Syndrom wechselseitig.',
+        },
+        {
+          dd: 'Leberzirrhose',
+          unterscheidung: 'Aszites steht im Vordergrund und geht den Beinödemen voraus, Leberhautzeichen, Ikterus, Splenomegalie, erniedrigtes Albumin und pathologische Gerinnung, Alkoholanamnese; keine Orthopnoe, keine Halsvenenstauung. Bei der Rechtsherzinsuffizienz sind die Halsvenen gestaut und die Leber ist druckschmerzhaft vergrössert.',
+        },
+        {
+          dd: 'Chronisch-venöse Insuffizienz und tiefe Beinvenenthrombose',
+          unterscheidung: 'Chronisch-venöse Insuffizienz: beidseitige, oft asymmetrische Ödeme mit Hyperpigmentierung, Stauungsdermatitis und Ulcus cruris — aber KEINE Dyspnoe, keine Orthopnoe, kein NT-proBNP-Anstieg. Tiefe Beinvenenthrombose: einseitige, überwärmte, schmerzhafte Schwellung mit Wadendruckschmerz.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Müdigkeit, Kälteintoleranz, Obstipation, Gewichtszunahme, trockene Haut, Heiserkeit und teigige, nicht eindrückbare Myxödeme; TSH erhöht. Kann eine Herzinsuffizienz zusätzlich verschlechtern (Perikarderguss, Bradykardie).',
+        },
+        {
+          dd: 'Arzneimittelbedingte Ödeme',
+          unterscheidung: 'Kalziumantagonisten vom Dihydropyridin-Typ (Amlodipin), NSAR, Glitazone, Kortikosteroide und Gabapentinoide verursachen Knöchelödeme ohne Dyspnoe und ohne Halsvenenstauung; das NT-proBNP bleibt normal. Die Medikamentenanamnese klärt.',
+        },
+        {
+          dd: 'Adipositas und Dekonditionierung',
+          unterscheidung: 'Belastungsdyspnoe ohne Orthopnoe, ohne nächtliche Atemnot und ohne Stauungszeichen; Beschwerden über Jahre stabil. Cave: Adipositas senkt das NT-proBNP falsch-niedrig, weshalb die Echokardiographie entscheidet.',
+        },
+        {
+          dd: 'ACE-Hemmer-induzierter Reizhusten',
+          unterscheidung: 'Trockener Husten unter ACE-Hemmer, typischerweise wenige Wochen nach Therapiebeginn, lageunabhängig, ohne Dyspnoe und ohne Stauungszeichen; er sistiert nach Umstellung auf einen Sartan. Bei der Stauung ist der Husten lageabhängig und nachts betont.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akuttherapie der kardialen Dekompensation',
+          akut: true,
+          items: [
+            'Oberkörperhochlagerung mit tief hängenden Beinen, Beruhigung, Monitorüberwachung von Rhythmus, Blutdruck und Sauerstoffsättigung, peripherer Venenzugang',
+            'Sauerstoffgabe nur bei einer Sättigung unter 90 %, 2 bis 6 Liter über Nasensonde oder Maske; bei Lungenödem mit persistierender Hypoxie nicht-invasive Beatmung mit CPAP oder NIV, im Extremfall Intubation',
+            'Schleifendiuretikum intravenös als wichtigste Sofortmassnahme: Furosemid 20 bis 40 mg als Bolus beim diuretikanaiven Patienten, bei Vorbehandlung das Ein- bis Zweieinhalbfache der oralen Tagesdosis intravenös; Wirkungskontrolle über die Urinausscheidung nach zwei Stunden, Dosisverdopplung bei unzureichendem Ansprechen',
+            'Vasodilatation mit Nitraten (Glyceroltrinitrat sublingual oder als Perfusor) bei hypertensiver Dekompensation und Lungenödem — kontraindiziert bei systolischem Blutdruck unter 90 mmHg, Aortenklappenstenose und nach PDE-5-Hemmern',
+            'Strenge Bilanzierung: tägliches Wiegen zur gleichen Zeit, Ein- und Ausfuhrprotokoll, Zielgewichtsabnahme 0,5 bis 1 kg pro Tag; Flüssigkeitsrestriktion auf 1,5 Liter und Kochsalzrestriktion',
+            'Auslöser sofort beseitigen: NSAR und andere natriumretinierende Medikamente absetzen, Frequenzkontrolle bei tachykardem Vorhofflimmern, Antibiose bei Infekt, Blutdruckeinstellung, Revaskularisation bei Ischämie',
+            'Engmaschige Kontrolle von Kalium, Natrium und Kreatinin — ein moderater Kreatininanstieg unter erfolgreicher Rekompensation ist tolerabel und kein Grund, die Entwässerung abzubrechen',
+            'Bei Diuretikaresistenz sequenzielle Nephronblockade durch Zugabe eines Thiazids, bei therapierefraktärer Überwässerung Ultrafiltration bzw. Dialyse',
+            'Bei Minderperfusion (kalt und nass) Inotropika wie Dobutamin oder Levosimendan, bei kardiogenem Schock Vasopressoren und Verlegung in ein Zentrum; Thromboembolieprophylaxe bei immobilen Patienten',
+            'Die orale Prognosetherapie wird während der Dekompensation nach Möglichkeit FORTGEFÜHRT und nur bei Hypotonie, Schock oder Hyperkaliämie vorübergehend reduziert',
+          ],
+        },
+        {
+          label: 'Die vier Säulen der medikamentösen Prognosetherapie bei HFrEF',
+          items: [
+            'Erste Säule — Hemmung des Renin-Angiotensin-Systems: ACE-Hemmer (z. B. Ramipril, Zieldosis 2 × 5 mg oder Enalapril 2 × 10 mg), bei Reizhusten Umstellung auf ein Sartan (Candesartan, Valsartan); bevorzugt bzw. im Verlauf Umstellung auf den ARNI Sacubitril/Valsartan, der dem ACE-Hemmer prognostisch überlegen ist (Umstellung erst 36 Stunden nach der letzten ACE-Hemmer-Gabe wegen der Angioödemgefahr)',
+            'Zweite Säule — Betablocker mit Wirksamkeitsnachweis bei Herzinsuffizienz: Bisoprolol, Carvedilol, Metoprololsuccinat oder Nebivolol beim älteren Patienten; einschleichend beginnen und langsam auftitrieren, NICHT bei akuter Dekompensation neu ansetzen, sondern erst nach Rekompensation',
+            'Dritte Säule — Mineralokortikoidrezeptor-Antagonist: Spironolacton 25 mg oder Eplerenon 25 bis 50 mg täglich; Kontrolle von Kalium und Kreatinin nach einer und nach vier Wochen, Kontraindikation bei Kalium über 5,0 mmol/l oder eGFR unter 30 ml/min; typische Nebenwirkung des Spironolactons ist die Gynäkomastie',
+            'Vierte Säule — SGLT2-Inhibitor: Dapagliflozin oder Empagliflozin 10 mg täglich, unabhängig vom Vorliegen eines Diabetes mellitus; Nutzen über alle Ejektionsfraktionen belegt, aufklären über Genitalinfektionen, Volumenmangel und die seltene euglykämische Ketoazidose',
+            'Alle vier Säulen werden heute FRÜH und PARALLEL in niedriger Dosis begonnen und anschliessend auftitriert — nicht mehr nacheinander bis zur jeweiligen Maximaldosis',
+            'Ergänzende Substanzen bei fortbestehender Symptomatik: Ivabradin bei Sinusrhythmus mit einer Herzfrequenz über 70/min unter maximal tolerierter Betablockerdosis, Vericiguat nach erneuter Dekompensation, Digitalis nur noch zur Frequenzkontrolle bei Vorhofflimmern (geringe therapeutische Breite, Cave Hypokaliämie), Hydralazin/Isosorbiddinitrat als Reserve',
+            'Bei HFmrEF und HFpEF ist bislang nur für den SGLT2-Inhibitor ein klarer Prognosevorteil belegt; im Übrigen stehen die Behandlung der Grunderkrankung — vor allem der arteriellen Hypertonie und des Vorhofflimmerns — sowie die Diuretika zur Stauungskontrolle im Vordergrund',
+            'Zu vermeiden sind NSAR, Glitazone, Klasse-I-Antiarrhythmika, Dronedaron, Verapamil und Diltiazem bei reduzierter Ejektionsfraktion sowie hoch dosierte Kortikosteroide',
+          ],
+        },
+        {
+          label: 'Diuretika zur Stauungs- und Symptomkontrolle (ohne Prognosevorteil)',
+          items: [
+            'Schleifendiuretika — Furosemid oder das länger und gleichmässiger wirkende Torasemid — sind die Mittel der Wahl gegen Ödeme, Lungenstauung und Dyspnoe',
+            'Ausdrücklich festhalten: Diuretika verbessern Symptome, Belastbarkeit und Hospitalisierungsrate, sie verlängern aber NICHT das Überleben. Sie gehören deshalb nicht zu den vier prognostisch wirksamen Säulen',
+            'Es wird die NIEDRIGSTE wirksame Dosis gewählt und nach Rekompensation reduziert; eine Bedarfsanpassung durch den geschulten Patienten anhand des täglichen Gewichts ist möglich',
+            'Kontrolle von Kalium, Natrium, Kreatinin und Blutdruck; typische Komplikationen sind Hypokaliämie, Hyponatriämie, Exsikkose mit prärenalem Nierenversagen, Hörstörungen bei rascher hoher Gabe und eine Hyperurikämie mit Gichtanfall',
+            'Bei Diuretikaresistenz sequenzielle Nephronblockade mit einem Thiazid; Kombination mit dem MRA nutzt zugleich dessen kaliumsparende Wirkung',
+            'Der häufigste Grund für eine erneute Dekompensation ist das eigenmächtige Absetzen des Diuretikums, meist wegen der lästigen Nykturie — deshalb Einnahme morgens bzw. mittags, niemals abends, und ausdrücklich thematisieren',
+          ],
+        },
+        {
+          label: 'Nicht-medikamentöse Basismassnahmen und Patientenschulung',
+          items: [
+            'TÄGLICHE Gewichtskontrolle morgens nach dem Wasserlassen und vor dem Frühstück, immer mit derselben Waage und Protokollierung; klare Alarmgrenze: mehr als 2 kg in drei Tagen oder 2,5 kg in einer Woche bedeutet Wassereinlagerung und erfordert die Vorstellung beim Arzt',
+            'Kochsalzrestriktion auf etwa 5 bis 6 Gramm pro Tag: keine Wurst, kein Räucherfisch, keine Fertiggerichte, keine Salzstangen, nicht nachsalzen',
+            'Trinkmengenbegrenzung auf 1,5 bis 2 Liter täglich bei fortgeschrittener Herzinsuffizienz und bei Hyponatriämie; bei leichter Herzinsuffizienz ist eine strenge Restriktion nicht erforderlich',
+            'Regelmässiges, angepasstes körperliches Ausdauertraining und Herzsportgruppe — bei stabiler Herzinsuffizienz prognostisch günstig; Schonung gilt nur für die akute Dekompensation',
+            'Strikte Nikotinkarenz und Alkoholkarenz, bei alkoholtoxischer Kardiomyopathie absolut; Gewichtsnormalisierung und Behandlung eines Schlafapnoe-Syndroms',
+            'Impfungen gegen Influenza jährlich sowie gegen Pneumokokken, COVID-19 und RSV — sie senken nachweislich Dekompensationen und Krankenhausaufenthalte',
+            'Konsequente Behandlung der Begleiterkrankungen: Blutdruck- und Diabeteseinstellung, Ausgleich eines Eisenmangels mit intravenöser Eisencarboxymaltose (bei Ferritin unter 100 µg/l oder Ferritin 100 bis 299 µg/l mit einer Transferrinsättigung unter 20 %), Antikoagulation bei Vorhofflimmern',
+            'Medikamentenschulung: NSAR meiden, Diuretikum nicht eigenmächtig absetzen, Selbstkontrolle von Gewicht, Puls und Blutdruck; strukturierte Herzinsuffizienzschulung, Heart-Failure-Nurse, Telemonitoring und Anbindung an eine Herzinsuffizienzambulanz',
+          ],
+        },
+        {
+          label: 'Device-Therapie und spezialisierte Verfahren',
+          items: [
+            'Implantierbarer Kardioverter-Defibrillator (ICD) zur Primärprophylaxe bei einer LVEF von 35 % oder weniger nach mindestens drei Monaten optimaler medikamentöser Therapie und einer Lebenserwartung über einem Jahr — bei ischämischer Genese besonders gut belegt; zur Sekundärprophylaxe nach überlebtem Kammerflimmern oder anhaltender ventrikulärer Tachykardie',
+            'Kardiale Resynchronisationstherapie (CRT) bei einer LVEF von 35 % oder weniger, Sinusrhythmus und Linksschenkelblock mit einer QRS-Dauer von mindestens 130 bis 150 ms trotz optimaler Therapie; sie verbessert Symptome, Ejektionsfraktion und Überleben',
+            'Katheterablation von Vorhofflimmern, insbesondere bei Verdacht auf eine Tachykardiomyopathie; bei anders nicht beherrschbarer Frequenz „Ablate and Pace“',
+            'Interventionelle Klappentherapie: Transkatheter-Edge-to-Edge-Reparatur (MitraClip) bei schwerer sekundärer Mitralklappeninsuffizienz, TAVI bei Aortenklappenstenose, Klappenersatz bei relevanten Vitien',
+            'Revaskularisation durch PCI oder Bypass-Operation bei nachgewiesener ischämischer Genese mit vitalem Myokard',
+            'Bei therapierefraktärer Herzinsuffizienz im Stadium D: Kunstherzsysteme (LVAD) als Überbrückung oder Dauertherapie und Herztransplantation nach Evaluation im Zentrum',
+            'Frühzeitige Einbindung der Palliativmedizin bei fortgeschrittener, nicht mehr besserungsfähiger Erkrankung: Symptomkontrolle der Dyspnoe mit Opioiden, Gespräche über Therapieziele und über die Deaktivierung des ICD am Lebensende',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der symptomatischen chronischen Herzinsuffizienz ist ernst und schlechter als die vieler Tumorerkrankungen: Die 5-Jahres-Mortalität liegt insgesamt bei etwa 50 %, im Stadium NYHA IV beträgt die 1-Jahres-Mortalität bis zu 50 %. Jede stationär behandelte Dekompensation verschlechtert die Prognose zusätzlich; etwa jeder vierte Patient wird innerhalb von 30 Tagen erneut aufgenommen. Häufigste Todesursachen sind das terminale Pumpversagen und der plötzliche Herztod durch ventrikuläre Rhythmusstörungen. Prognostisch ungünstig sind eine niedrige Ejektionsfraktion, ein hohes NT-proBNP, eine Hyponatriämie, eine eingeschränkte Nierenfunktion, eine kardiale Kachexie und eine geringe Belastbarkeit in der Spiroergometrie. Unter konsequenter Vierfachtherapie lässt sich die Mortalität jedoch erheblich senken — die kombinierte Gabe von ARNI, Betablocker, MRA und SGLT2-Inhibitor verlängert die Lebenserwartung gegenüber der alleinigen konventionellen Therapie um mehrere Jahre. Entscheidend sind die frühe Auftitrierung aller vier Säulen, die Therapietreue, die tägliche Gewichtskontrolle und die Behandlung der Grunderkrankung.',
+      pruefungsfallen: [
+        'Die Therapie NICHT nach dem Schema konservativ/interventionell/chirurgisch aufzählen, sondern die VIER SÄULEN nennen: ACE-Hemmer bzw. ARNI, Betablocker, MRA und SGLT2-Inhibitor. Wer den SGLT2-Inhibitor oder den MRA vergisst, verschenkt die entscheidende Frage.',
+        'Diuretika gehören NICHT zu den vier Säulen: Sie bessern Symptome und Stauung, verlängern aber das Leben nicht. Diesen Satz erwartet der Prüfer ausdrücklich.',
+        'NT-proBNP richtig einordnen: Der Wert dient dem AUSSCHLUSS (hoher negativer prädiktiver Wert). Ein erhöhter Wert beweist keine Herzinsuffizienz — er steigt auch bei Alter, Niereninsuffizienz, Vorhofflimmern und Lungenembolie; bei Adipositas ist er falsch-niedrig.',
+        'Die Echokardiographie als SCHLÜSSELUNTERSUCHUNG benennen und begründen (LVEF, Wandbewegungsstörungen, Klappen, diastolische Funktion) — sie nur beiläufig zu erwähnen genügt nicht.',
+        'NYHA und Ejektionsfraktion nicht verwechseln: NYHA ist rein funktionell (Belastbarkeit), HFrEF/HFmrEF/HFpEF beruht auf der LVEF. Ein Patient mit NYHA III kann eine erhaltene Ejektionsfraktion haben. Die Grenzen exakt nennen: 40 % und darunter, 41 bis 49 %, 50 % und mehr.',
+        'NYHA-Stadium anhand der Anamnese belegen, nicht raten: NYHA III bedeutet Beschwerden bei geringer Belastung bei Beschwerdefreiheit in Ruhe. Nächtliche Atemnot und Orthopnoe machen aus einem NYHA III noch KEIN NYHA IV — dafür wären Beschwerden in Ruhe erforderlich.',
+        'Links- und Rechtsherzinsuffizienz sauber trennen: links = Lungenstauung (Dyspnoe, Orthopnoe, feuchte Rasselgeräusche, Asthma cardiale), rechts = Halsvenenstauung, Beinödeme, Hepatomegalie, Aszites, Nykturie. Die häufigste Ursache der Rechtsherzinsuffizienz ist die Linksherzinsuffizienz.',
+        'Die Zahlen der Anamnese fixieren und in der Vorstellung wiedergeben: Stockwerke, Zahl der Kopfkissen, Häufigkeit der Nykturie, Kilogramm Gewichtszunahme in wie vielen Wochen, Packungsjahre. Genau hier sind Kandidaten in Stuttgart durchgefallen.',
+        'Nach dem AUSLÖSER der Dekompensation fragen und ihn nennen: eigenmächtiges Absetzen der „Wassertablette“, NSAR-Einnahme, salzreiche Kost, Infekt, Vorhofflimmern. Patienten erwähnen NSAR und Diuretika oft nur beiläufig als „Schmerztablette“ und „Entwässerungstablette“.',
+        'Die tägliche Gewichtskontrolle mit konkreter Alarmgrenze angeben (mehr als 2 kg in drei Tagen bzw. 2,5 kg in einer Woche) — eine vage „Gewichtskontrolle“ reicht nicht.',
+        'Vor dem Patienten „Herzschwäche“ oder „Wasseransammlung in den Beinen und in der Lunge“ sagen, nicht „Herzinsuffizienz“, „Ödeme“ oder „pulmonale Stauung“.',
+        'Den Betablocker nicht in der akuten Dekompensation neu ansetzen; eine bestehende Therapie wird jedoch möglichst fortgeführt und nicht abrupt abgesetzt.',
+        'Beim trockenen Husten unter ACE-Hemmer nicht vorschnell auf die Nebenwirkung schliessen: Ein lageabhängiger, nachts betonter Reizhusten mit Orthopnoe spricht für die Lungenstauung.',
+        'Ferritin und Transferrinsättigung im Labor nicht vergessen — der Eisenmangel ist bei Herzinsuffizienz therapierelevant und wird intravenös ausgeglichen.',
+        'Bei der Frage nach Beinödemen immer prüfen und beschreiben, ob sie beidseits, symmetrisch und mit eindrückbarer Delle bestehen — einseitige Schwellung bedeutet Thrombose.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine akut dekompensierte chronische Herzinsuffizienz, am ehesten als Globalinsuffizienz. Dafür sprechen die langsam progrediente Belastungsdyspnoe mit Verschlechterung in den letzten Wochen, die Orthopnoe mit mehreren Kopfkissen, die nächtliche Atemnot, die Nykturie, die beidseitigen eindrückbaren Knöchel- und Unterschenkelödeme sowie die rasche Gewichtszunahme durch Wassereinlagerung — bei bekannter koronarer Herzkrankheit und arterieller Hypertonie.',
+        },
+        {
+          frage: 'Was erwarten Sie in der körperlichen Untersuchung bei einer Rechtsherzinsuffizienz?',
+          antwort: 'Gestaute Halsvenen mit positivem hepatojugulärem Reflux, eine periphere Zyanose, beidseitige eindrückbare Knöchel- und prätibiale Ödeme, eine vergrösserte und druckschmerzhafte Stauungsleber, gegebenenfalls Aszites und eine Gewichtszunahme. Bei der Linksherzinsuffizienz dagegen feuchte Rasselgeräusche über den basalen Lungenabschnitten, gedämpfter Klopfschall bei Pleuraerguss, Tachykardie und ein dritter Herzton.',
+        },
+        {
+          frage: 'Warum hat der Patient Beinödeme? Gibt es Stauungszeichen?',
+          antwort: 'Durch den Rückstau vor dem rechten Herzen steigt der hydrostatische Druck im venösen Schenkel der Kapillaren, sodass Flüssigkeit ins Interstitium filtriert wird; zusätzlich aktiviert das verminderte Herzzeitvolumen das Renin-Angiotensin-Aldosteron-System mit Natrium- und Wasserretention. Stauungszeichen sind gestaute Halsvenen, die druckschmerzhafte Hepatomegalie, die Nykturie, eine gestaute Vena cava inferior in der Sonographie und die pulmonalvenöse Stauung im Röntgenbild.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie Links- von Rechtsherzinsuffizienz?',
+          antwort: 'Die Linksherzinsuffizienz staut in den Lungenkreislauf: Belastungsdyspnoe, Orthopnoe, paroxysmale nächtliche Dyspnoe als Asthma cardiale, feuchte Rasselgeräusche und im Extremfall das Lungenödem. Die Rechtsherzinsuffizienz staut in den Körperkreislauf: periphere Ödeme, Halsvenenstauung, Hepatomegalie, Aszites und Nykturie. Bestehen beide, spricht man von einer Globalinsuffizienz — die häufigste Ursache der Rechtsherzinsuffizienz ist die Linksherzinsuffizienz.',
+        },
+        {
+          frage: 'Welche Klassifikationen kennen Sie?',
+          antwort: 'Funktionell die NYHA-Klassifikation von I bis IV: I ohne Einschränkung, II Beschwerden bei stärkerer Belastung, III bei geringer Belastung, IV in Ruhe. Nach der Ejektionsfraktion die HFrEF mit einer LVEF von 40 % oder weniger, die HFmrEF mit 41 bis 49 % und die HFpEF mit 50 % oder mehr. Ausserdem die Einteilung nach Lokalisation in Links-, Rechts- und Globalinsuffizienz sowie die ACC/AHA-Stadien A bis D.',
+        },
+        {
+          frage: 'Welche Diagnostik leiten Sie ein?',
+          antwort: 'Anamnese und körperliche Untersuchung mit Vitalparametern und Gewicht; Labor mit NT-proBNP, Blutbild, Nierenwerten und Elektrolyten, TSH, Ferritin und Transferrinsättigung, Troponin, Leberwerten und Blutzucker; ein 12-Kanal-EKG; als Schlüsseluntersuchung die Echokardiographie zur Bestimmung der Ejektionsfraktion, der Wandbewegung, der Klappen und der diastolischen Funktion; ein Röntgen-Thorax in zwei Ebenen; eine Sonographie von Abdomen und Lunge. Bei Verdacht auf eine ischämische Genese ergänzend eine Koronarangiographie.',
+        },
+        {
+          frage: 'Welchen Stellenwert hat das NT-proBNP?',
+          antwort: 'Es hat einen hohen negativen prädiktiven Wert und dient vor allem dem AUSSCHLUSS: In der Akutsituation macht ein Wert unter 300 pg/ml, im ambulanten Setting unter 125 pg/ml eine Herzinsuffizienz sehr unwahrscheinlich. Ein erhöhter Wert beweist sie dagegen nicht, weil er auch bei hohem Alter, Niereninsuffizienz, Vorhofflimmern, Lungenembolie oder Sepsis ansteigt. Bei Adipositas ist der Wert falsch-niedrig.',
+        },
+        {
+          frage: 'Was sehen Sie im Röntgen-Thorax?',
+          antwort: 'Eine Kardiomegalie mit einem Herz-Thorax-Quotienten über 0,5, Zeichen der pulmonalvenösen Stauung mit Gefässumverteilung in die Oberfelder, Kerley-B-Linien als Ausdruck des interstitiellen Ödems, eine perihiläre schmetterlingsförmige Verschattung beim alveolären Lungenödem sowie beidseitige Pleuraergüsse. Zugleich lässt sich ein pneumonisches Infiltrat abgrenzen.',
+        },
+        {
+          frage: 'Wie behandeln Sie die akute Dekompensation?',
+          antwort: 'Oberkörperhochlagerung mit tief hängenden Beinen, Sauerstoff bei einer Sättigung unter 90 %, Monitoring und venöser Zugang, dann Furosemid intravenös als wichtigste Massnahme, bei hypertensiver Entgleisung zusätzlich Nitrate, bei persistierender Hypoxie eine nicht-invasive Beatmung. Dazu Flüssigkeits- und Kochsalzrestriktion, tägliches Wiegen und Bilanzierung mit einem Ziel von 0,5 bis 1 kg Gewichtsabnahme pro Tag, Kontrolle von Kalium und Kreatinin sowie die konsequente Beseitigung des Auslösers.',
+        },
+        {
+          frage: 'Wie sieht die medikamentöse Dauertherapie bei reduzierter Ejektionsfraktion aus?',
+          antwort: 'Sie ruht auf vier Säulen, die früh und parallel begonnen und auftitriert werden: erstens ein ACE-Hemmer oder besser der ARNI Sacubitril/Valsartan, bei Reizhusten ein Sartan; zweitens ein Betablocker mit Wirksamkeitsnachweis wie Bisoprolol, Carvedilol oder Metoprololsuccinat; drittens ein Mineralokortikoidrezeptor-Antagonist wie Spironolacton oder Eplerenon; viertens ein SGLT2-Inhibitor wie Dapagliflozin oder Empagliflozin. Ergänzend Ivabradin, Vericiguat oder Digitalis in speziellen Situationen.',
+        },
+        {
+          frage: 'Welchen Stellenwert haben die Diuretika?',
+          antwort: 'Schleifendiuretika wie Furosemid und Torasemid sind unverzichtbar zur Kontrolle der Stauung und damit der Symptome — sie beseitigen Ödeme und Dyspnoe und verbessern die Belastbarkeit. Sie verbessern jedoch die Prognose NICHT und gehören deshalb nicht zu den vier Säulen. Man verwendet die niedrigste wirksame Dosis und kontrolliert Kalium, Natrium und Kreatinin.',
+        },
+        {
+          frage: 'Welche nicht-medikamentösen Massnahmen empfehlen Sie?',
+          antwort: 'Vor allem die tägliche Gewichtskontrolle morgens nach dem Wasserlassen mit einer klaren Alarmgrenze — mehr als 2 kg in drei Tagen oder 2,5 kg in einer Woche bedeutet eine Wassereinlagerung und erfordert eine ärztliche Vorstellung. Ausserdem Kochsalzrestriktion auf 5 bis 6 Gramm täglich, eine Trinkmengenbegrenzung auf 1,5 bis 2 Liter bei fortgeschrittener Erkrankung, angepasstes Ausdauertraining und Herzsportgruppe, Nikotin- und Alkoholkarenz sowie die Impfungen gegen Influenza, Pneumokokken, COVID-19 und RSV.',
+        },
+        {
+          frage: 'Wann ist ein Defibrillator, wann eine Resynchronisationstherapie indiziert?',
+          antwort: 'Ein ICD zur Primärprophylaxe bei einer LVEF von 35 % oder weniger nach mindestens drei Monaten optimaler medikamentöser Therapie, besonders bei ischämischer Genese, sowie zur Sekundärprophylaxe nach überlebtem Kammerflimmern. Eine CRT bei einer LVEF von 35 % oder weniger im Sinusrhythmus mit Linksschenkelblock und einer QRS-Dauer von mindestens 130 bis 150 ms trotz optimaler Therapie.',
+        },
+        {
+          frage: 'Welche Ursachen einer Herzinsuffizienz kennen Sie?',
+          antwort: 'Mit Abstand am häufigsten die koronare Herzkrankheit, insbesondere nach Myokardinfarkt, dann die arterielle Hypertonie, Klappenvitien, Kardiomyopathien, tachykardes Vorhofflimmern im Sinne einer Tachykardiomyopathie, Myokarditis, toxische Ursachen wie Alkohol und Anthrazykline, Speichererkrankungen wie Amyloidose und Hämochromatose sowie High-output-Formen bei schwerer Anämie oder Hyperthyreose.',
+        },
+        {
+          frage: 'Welche Faktoren lösen eine Dekompensation aus?',
+          antwort: 'Am häufigsten die mangelnde Therapietreue, vor allem das eigenmächtige Absetzen des Diuretikums, ausserdem salz- und flüssigkeitsreiche Ernährung, NSAR und Kortikosteroide, neu aufgetretenes oder tachykardes Vorhofflimmern, Infekte wie eine Pneumonie, eine Myokardischämie, eine hypertensive Entgleisung, eine Anämie, eine Verschlechterung der Nierenfunktion und eine Hyperthyreose.',
+        },
+        {
+          frage: 'Warum darf der Patient keine Schmerzmittel wie Ibuprofen oder Diclofenac einnehmen?',
+          antwort: 'NSAR hemmen die Prostaglandinsynthese in der Niere, vermindern die renale Durchblutung und führen zu Natrium- und Wasserretention. Dadurch verschlechtern sie die Ödeme und den Blutdruck, schwächen die Wirkung von Diuretika und ACE-Hemmern ab und können ein akutes Nierenversagen auslösen. Sie sind eine der häufigsten vermeidbaren Ursachen einer Dekompensation; empfohlen wird stattdessen Paracetamol oder Metamizol.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten seine Erkrankung?',
+          antwort: 'Ich würde sagen: „Ihr Herz ist geschwächt und schafft es nicht mehr, das Blut kräftig genug durch den Körper zu pumpen. Deshalb staut sich Flüssigkeit zurück — in die Lunge, dann bekommen Sie schlecht Luft, und in die Beine, dann schwellen sie an. Das Wasser können wir mit einer Entwässerungstablette ausschwemmen, und mit weiteren Medikamenten entlasten wir Ihr Herz dauerhaft. Wichtig ist, dass Sie sich jeden Morgen wiegen.“',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Ernst: Die 5-Jahres-Mortalität der symptomatischen Herzinsuffizienz liegt bei etwa 50 %, im Stadium NYHA IV liegt die 1-Jahres-Mortalität bei bis zu 50 %. Häufigste Todesursachen sind das Pumpversagen und der plötzliche Herztod. Unter konsequenter Vierfachtherapie mit Auftitrierung, guter Therapietreue und Behandlung der Grunderkrankung lässt sich die Sterblichkeit jedoch deutlich senken.',
+        },
+      ],
+      merksatz: 'Treppe, Kissen, Nykturie, Waage — vier Fragen, die die Herzinsuffizienz entlarven. Echokardiographie sichert die Diagnose, das NT-proBNP schliesst sie aus. Behandelt wird auf vier Säulen: ACE-Hemmer bzw. ARNI, Betablocker, MRA und SGLT2-Inhibitor — das Diuretikum nimmt das Wasser, aber es verlängert kein Leben.',
+      linkedCaseIds: [
+        'case-herzinsuffizienz',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-koronarangiographie',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-nierenkolik',
+      pathology: 'Nephrolithiasis mit Nierenkolik',
+      specialty: 'Urologie',
+      definition: 'Die Nephrolithiasis (Harnsteinleiden, Urolithiasis) ist die Bildung von Konkrementen im Nierenhohlsystem durch Übersättigung des Harns mit steinbildenden Substanzen bei gleichzeitigem Mangel an Kristallisationsinhibitoren (Citrat, Magnesium). Wandert ein Stein in den Harnleiter (Ureterolithiasis), kommt es zur Obstruktion mit Druckanstieg im Nierenbecken, Dehnung der Ureterwand und reflektorischer Hyperperistaltik — klinisch die NIERENKOLIK: ein akut einsetzender, WELLENFÖRMIG an- und abschwellender Flankenschmerz mit Ausstrahlung entlang des Harnleiterverlaufs in die Leiste, beim Mann in den Hoden, bei der Frau in die Labien. Steckenbleiben kann der Stein an den drei physiologischen Engstellen des Ureters: am Nierenbecken-Harnleiter-Übergang, an der Überkreuzung der Iliakalgefäße und am prävesikalen Ostium.',
+      aetiologie: 'Pathophysiologisch entsteht ein Stein, wenn das Löslichkeitsprodukt der lithogenen Substanzen (Calcium, Oxalat, Phosphat, Harnsäure, Cystin) im Urin überschritten wird — begünstigt durch geringe Trinkmenge und damit hohe Harnkonzentration, durch den Urin-pH (saurer Urin unter 5,5 begünstigt Harnsäure- und Cystinsteine, alkalischer Urin über 7,0 Phosphat- und Struvitsteine) und durch fehlende Inhibitoren (Hypocitraturie). Metabolische Ursachen sind die idiopathische Hyperkalzurie, der primäre Hyperparathyreoidismus (Cave: bei Rezidivsteinen immer Calcium und Parathormon bestimmen!), die Hyperurikosurie bei Gicht und purinreicher Ernährung, die enterale Hyperoxalurie bei chronisch-entzündlichen Darmerkrankungen, nach Dünndarmresektion oder bariatrischer Operation, die renal-tubuläre Azidose Typ I und die autosomal-rezessive Cystinurie. Struvit- beziehungsweise Infektsteine entstehen durch harnstoffspaltende (ureasebildende) Bakterien — vor allem Proteus mirabilis, außerdem Klebsiellen, Pseudomonas und Ureaplasma —, die den Harn alkalisieren und rasch zu großen Ausgusssteinen führen. Begünstigend wirken ferner Harnabflussstörungen (Prostatahyperplasie, Ureterabgangsenge, Hufeisenniere), Immobilisation und Medikamente (Indinavir, Triamteren, hoch dosiertes Vitamin D und Calcium, Carboanhydrasehemmer, Sulfonamide).',
+      risikofaktoren: [
+        'Zu geringe Trinkmenge und konzentrierter Urin — der wichtigste und am leichtesten beeinflussbare Faktor',
+        'Hohe Umgebungstemperatur, starkes Schwitzen, körperliche Arbeit im Freien, Sommermonate (Häufigkeitsgipfel!), Reisen in heiße Länder',
+        'Männliches Geschlecht (etwa 2-3:1), Altersgipfel zwischen dem 30. und 60. Lebensjahr',
+        'Positive Familienanamnese (deutlich erhöhtes Risiko bei Steinleiden bei Verwandten ersten Grades)',
+        'Rezidivneigung: nach einem ersten Stein etwa 50 % Rezidive innerhalb von zehn Jahren',
+        'Ernährung: viel tierisches Eiweiß, Fleisch und Wurst, hohe Kochsalzzufuhr, oxalatreiche Nahrung (Rhabarber, Spinat, Mangold, Rote Bete, Nüsse, Schokolade, schwarzer Tee), zuckerhaltige Getränke',
+        'Adipositas, metabolisches Syndrom, Diabetes mellitus Typ 2 (saurer Urin, Harnsäuresteine)',
+        'Hyperurikämie und Gicht',
+        'Primärer Hyperparathyreoidismus und andere Ursachen einer Hyperkalzämie (Sarkoidose, Immobilisation, Vitamin-D-Überdosierung)',
+        'Chronisch-entzündliche Darmerkrankungen, Zustand nach Dünndarmresektion oder bariatrischer Operation (enterale Hyperoxalurie), chronische Diarrhoe',
+        'Rezidivierende Harnwegsinfekte mit harnstoffspaltenden Keimen (Proteus) — Infekt-/Struvitsteine',
+        'Harnabflussstörungen: benigne Prostatahyperplasie, Ureterabgangsstenose, Harnleiterstriktur, Hufeisenniere, Markschwammniere, Dauerkatheter',
+        'Medikamente: Indinavir, Triamteren, Carboanhydrasehemmer (Topiramat, Acetazolamid), Sulfonamide, Calcium- und Vitamin-D-Supplemente ohne Indikation',
+        'Immobilisation und Bettlägerigkeit (Knochenabbau mit Hyperkalzurie)',
+      ],
+      klinik: [
+        {
+          text: 'Akut, oft aus völligem Wohlbefinden einsetzender, WELLENFÖRMIG an- und abschwellender kolikartiger Flankenschmerz — das Leitsymptom der Ureterolithiasis',
+        },
+        {
+          text: 'Ausstrahlung entlang des Harnleiterverlaufs nach vorn und unten in die Leiste, beim Mann in Hoden und Skrotum, bei der Frau in die großen Schamlippen',
+        },
+        {
+          text: 'BEWEGUNGSDRANG: der Patient wälzt sich, läuft umher und findet keine schmerzlindernde Position — im klaren Gegensatz zur Peritonitis, bei der die Patienten ganz still liegen',
+        },
+        {
+          text: 'Sehr hohe Schmerzintensität, häufig 8-10 von 10, zwischen den Wellen ein dumpfes Restziehen in der Flanke',
+        },
+        {
+          text: 'Vegetative Begleitsymptomatik: Übelkeit, Erbrechen, Schweißausbruch, Blässe, Tachykardie, Meteorismus bis zum reflektorischen (paralytischen) Subileus',
+        },
+        {
+          text: 'Makro- oder Mikrohämaturie — der Urin ist rötlich verfärbt oder der Streifentest zeigt Blut',
+          atypisch: false,
+        },
+        {
+          text: 'Klopf- und Druckschmerz im Nierenlager der betroffenen Seite',
+          atypisch: false,
+        },
+        {
+          text: 'Bei prävesikalem (blasennahem) Steinsitz zusätzlich Dysurie, Algurie, imperativer Harndrang und Pollakisurie — klinisch leicht mit einer Zystitis zu verwechseln',
+        },
+        {
+          text: 'Höhenabhängige Schmerzlokalisation: hoher Stein eher Flanke und Nierenlager, mittlerer Stein Unterbauch, tiefer Stein Leiste, Hoden beziehungsweise Labien und Blasenregion',
+        },
+        {
+          text: 'Fieber über 38,5 °C mit Schüttelfrost bei gleichzeitigem Harnstau — kein Zeichen der einfachen Kolik mehr, sondern eines INFIZIERTEN Harnstaus mit drohender Urosepsis',
+          atypisch: true,
+        },
+        {
+          text: 'Völlig stummer Verlauf: große Nierenbecken- oder Ausgusssteine machen oft jahrelang keine Schmerzen und fallen als Zufallsbefund, durch rezidivierende Infekte oder erst durch eine Niereninsuffizienz auf',
+          atypisch: true,
+        },
+        {
+          text: 'Anurie bei beidseitigen Steinen, bei Einzelniere oder bei transplantierter Niere — postrenales akutes Nierenversagen',
+          atypisch: true,
+        },
+        {
+          text: 'Beim älteren Patienten atypisch abgeschwächte Symptomatik mit nur dumpfem Flankenschmerz und Verwirrtheit, bei septischem Verlauf auch ohne Fieber (Hypothermie)',
+          atypisch: true,
+        },
+        {
+          text: 'Beschwerdefreies Intervall nach spontanem Steinabgang — der Schmerz verschwindet schlagartig, der Stein wird im Urin gefunden',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Steinzusammensetzung (Häufigkeit)',
+          inhalt: 'Calciumoxalatsteine etwa 75 % (hart, röntgendicht, entstehen im sauren wie im neutralen Urin). Calciumphosphat-/Carbonatapatitsteine etwa 5-10 % (alkalischer Urin, renal-tubuläre Azidose, Hyperparathyreoidismus). Harnsäuresteine etwa 5-10 % — RÖNTGENNEGATIV, entstehen bei Urin-pH unter 5,5, bei Gicht, Adipositas und Diabetes mellitus Typ 2; als einzige Steinart medikamentös auflösbar (Chemolitholyse durch Harnalkalisierung mit Kaliumcitrat auf pH 6,5-7,0 und Allopurinol). Struvit-/Infektsteine (Magnesium-Ammonium-Phosphat) etwa 5-10 % — durch harnstoffspaltende Keime wie Proteus mirabilis, alkalischer Urin, typischerweise rasch wachsende Ausgusssteine. Cystinsteine etwa 1 % — autosomal-rezessive Cystinurie, oft schon im Kindes- und Jugendalter, Rezidivneigung.',
+        },
+        {
+          name: 'Röntgenverhalten der Steine',
+          inhalt: 'Schattengebend (auf der Abdomenübersichtsaufnahme sichtbar): Calciumoxalat, Calciumphosphat, Struvit und — schwach — Cystin. Röntgennegativ (auf der Übersichtsaufnahme NICHT sichtbar): Harnsäuresteine, Xanthin- und Indinavirsteine. Genau deshalb ist das native Computertomogramm und nicht die Röntgenübersicht der Goldstandard: im nativen CT sind alle Steine außer den seltenen Indinavirsteinen darstellbar.',
+        },
+        {
+          name: 'Einteilung nach Lokalisation',
+          inhalt: 'Nephrolithiasis: Kelchstein, Nierenbeckenstein, Ausgussstein (Korallenstein, füllt das gesamte Hohlsystem aus, meist Infektstein). Ureterolithiasis: proximales, mittleres und distales beziehungsweise prävesikales Harnleiterdrittel. Zystolithiasis: Blasenstein, meist sekundär bei subvesikaler Obstruktion (Prostatahyperplasie) oder Dauerkatheter. Prädilektionsstellen für das Steckenbleiben sind die drei physiologischen Engstellen des Ureters: pyeloureteraler Übergang, Überkreuzung der Iliakalgefäße und Ostium in der Blasenwand.',
+        },
+        {
+          name: 'Steingröße und Wahrscheinlichkeit des Spontanabgangs',
+          inhalt: 'Steine unter 5 mm gehen in etwa 70-80 % der Fälle spontan ab — hier ist ein konservativ-expektatives Vorgehen mit medikamentöser Expulsionstherapie gerechtfertigt. Steine von 5-10 mm gehen nur in etwa 25-50 % ab. Steine über 10 mm gehen praktisch nicht mehr spontan ab und bedürfen einer aktiven Sanierung. Die Wartezeit sollte vier bis sechs Wochen nicht überschreiten, da sonst irreversible Nierenschäden drohen.',
+        },
+      ],
+      redFlags: [
+        'FIEBER über 38,5 °C und/oder Schüttelfrost bei nachgewiesenem Harnstau = infizierter Harnstau (Pyonephrose) mit drohender UROSEPSIS — absoluter urologischer Notfall, sofortige Harnableitung durch DJ-Schiene oder perkutane Nephrostomie VOR jeder Steinsanierung',
+        'Sepsiszeichen: Tachykardie, Hypotonie, Tachypnoe, Verwirrtheit, Laktatanstieg, Oligurie — kalkulierte Antibiose innerhalb einer Stunde, Blutkulturen VOR der ersten Gabe',
+        'ANURIE beziehungsweise Oligurie bei beidseitigen Steinen, Einzelniere oder Transplantatniere — postrenales akutes Nierenversagen, sofortige Entlastung',
+        'Rascher Kreatinin- und Kaliumanstieg als Zeichen der obstruktiven Nierenschädigung',
+        'Trotz adäquater Analgesie nicht beherrschbarer Schmerz — Indikation zur notfallmäßigen Harnableitung',
+        'Anhaltendes Erbrechen mit Exsikkose und fehlender Möglichkeit einer oralen Therapie',
+        'Steinstraße beziehungsweise beidseitige Obstruktion nach extrakorporaler Stoßwellenlithotripsie',
+        'Kolikartiger Flankenschmerz beim älteren Patienten mit pulsierendem Abdominaltumor, Hypotonie oder Pulsdifferenz — CAVE: rupturiertes Bauchaortenaneurysma imitiert eine Nierenkolik',
+        'Schwangerschaft mit Kolik — Sonographie statt CT, hohe Rate an Komplikationen, immer Schwangerschaftstest bei Frauen im gebärfähigen Alter',
+        'Akuter, hochschmerzhafter Hodenschmerz mit Hochstand — Hodentorsion, ebenfalls Notfall mit Sechs-Stunden-Fenster',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Schmerzanamnese: wellenförmiger, kolikartiger Charakter, Ausstrahlung entlang des Harnleiters in Leiste, Hoden beziehungsweise Labien, Intensität, Beginn, und vor allem die Frage nach BEWEGUNGSDRANG — der Patient wälzt sich und findet keine Position (Abgrenzung zur Peritonitis mit Schonhaltung und Stillliegen)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Urologische Fachanamnese: Dysurie, Algurie, Pollakisurie, imperativer Harndrang, Nykturie, Harnstrahl, Urinfarbe und -geruch, Makrohämaturie, frühere Harnwegsinfekte, frühere Steine und Steinabgänge, Trinkmenge und Ernährung, Beruf mit Hitzeexposition, Familienanamnese für Steinleiden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter einschließlich Temperatur, Blutdruck und Puls (Sepsiszeichen!), Klopfschmerz im Nierenlager, Palpation des Abdomens mit Prüfung auf Abwehrspannung und Loslassschmerz, Auskultation der Darmgeräusche (reflektorischer Subileus), Untersuchung von Skrotum und Leisten, Pulsstatus und Palpation der Aorta',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit Teststreifen und Sediment: Erythrozyturie (Makro- oder Mikrohämaturie in etwa 80-90 %), Leukozyturie und Nitrit als Infektzeichen, Urin-pH als Hinweis auf die Steinart (unter 5,5 Harnsäurestein, über 7,0 Infekt-/Phosphatstein), Kristallnachweis. CAVE: eine fehlende Hämaturie schließt einen Stein NICHT aus, insbesondere bei komplettem Verschluss',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinkultur mit Antibiogramm vor jeder antibiotischen Therapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blut: Blutbild mit Differenzialblutbild, CRP und Procalcitonin, Kreatinin, Harnstoff und eGFR (Nierenfunktion bei Obstruktion!), Elektrolyte einschließlich Calcium, Harnsäure, Blutzucker, Gerinnung (vor Intervention), Laktat und Blutkulturen bei Fieber',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Schwangerschaftstest (Beta-HCG) bei jeder Frau im gebärfähigen Alter — vor jeder Strahlenexposition und zum Ausschluss einer Extrauteringravidität',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Steinanalyse nach Abgang oder Entfernung (Infrarotspektroskopie oder Röntgendiffraktion) — Grundlage jeder gezielten Metaphylaxe; Urin sieben lassen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erweiterte Stoffwechselabklärung bei Rezidivsteinen, Kindern, Ausguss-, Cystin- oder Infektsteinen: 24-Stunden-Sammelurin mit Calcium, Oxalat, Harnsäure, Citrat, Cystin und Volumen sowie Parathormon bei Hyperkalzämie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SONOGRAPHIE der Nieren und ableitenden Harnwege als Erstuntersuchung: Nachweis der Harnstauungsniere mit Dilatation des Nierenbeckenkelchsystems, direkter Steinnachweis mit dorsalem Schallschatten (gut bei Nierenbecken- und prävesikalen Steinen, schlecht im mittleren Harnleiterdrittel), Restharnbestimmung, Beurteilung des Parenchymsaums. Strahlenfrei und daher MITTEL DER WAHL in der Schwangerschaft und bei Kindern',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'NATIVES LOW-DOSE-COMPUTERTOMOGRAMM von Abdomen und Becken — GOLDSTANDARD: höchste Sensitivität und Spezifität, erfasst Größe, exakte Lage, Dichte (Hounsfield-Einheiten als Hinweis auf Steinart und Erfolgsaussicht der Stoßwellenlithotripsie) und auch RÖNTGENNEGATIVE Harnsäuresteine; zugleich Ausschluss wichtiger Differenzialdiagnosen wie Appendizitis, Divertikulitis und Bauchaortenaneurysma. KEIN Kontrastmittel erforderlich',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomenübersichtsaufnahme nur noch zur Verlaufskontrolle schattengebender Steine und zur Planung der Stoßwellenlithotripsie — für die Primärdiagnostik ungeeignet, da Harnsäuresteine nicht zur Darstellung kommen und Darmgas überlagert',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Magnetresonanztomographie beziehungsweise MR-Urographie als strahlenfreie Alternative, wenn Sonographie und CT nicht weiterhelfen oder nicht möglich sind — vor allem in der Schwangerschaft ab dem zweiten Trimenon; sie zeigt die Harnstauung und die Weichteile, der Stein selbst stellt sich nur indirekt als Signalauslöschung dar',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ausscheidungsurogramm und kontrastmittelgestütztes CT nur noch in Sonderfällen zur Darstellung der Anatomie vor einem Eingriff; Nierenfunktionsszintigraphie zur seitengetrennten Funktionsbeurteilung bei lange bestehender Obstruktion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Retrograde Ureteropyelographie im Rahmen der Zystoskopie zur exakten Darstellung des Harnleiters, meist unmittelbar vor der Einlage einer DJ-Schiene',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ureterorenoskopie — zugleich diagnostisch (direkte Inspektion, Biopsie bei Verdacht auf Urothelkarzinom als Differenzialdiagnose einer Obstruktion) und therapeutisch (Laserlithotripsie, Steinextraktion mit Körbchen)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gewinnung von Nierenbeckenurin bei perkutaner Nephrostomie zur mikrobiologischen Untersuchung bei Pyonephrose',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akute Pyelonephritis',
+          unterscheidung: 'Ebenfalls Flankenschmerz mit Fieber, Schüttelfrost und Dysurie, aber DAUERHAFTER, dumpfer Klopfschmerz im Nierenlager ohne wellenförmigen Charakter und ohne Bewegungsdrang — die Patienten liegen ruhig und schonen sich. Leukozyturie, Nitrit und Bakteriurie stehen im Vordergrund, in der Sonographie fehlt der Harnstau. Cave: beides kann gleichzeitig vorliegen (Pyelonephritis bei Stein), dann ist es ein infizierter Harnstau und ein Notfall.',
+        },
+        {
+          dd: 'Akute Zystitis / unterer Harnwegsinfekt',
+          unterscheidung: 'Dysurie, Pollakisurie und suprapubischer Schmerz ohne Flankenschmerz, ohne Fieber und ohne Klopfschmerz im Nierenlager. Ein prävesikaler Stein imitiert diese Symptomatik — deshalb bei Dysurie mit einseitigem Flankenschmerz immer sonographieren.',
+        },
+        {
+          dd: 'Rupturiertes oder symptomatisches Bauchaortenaneurysma',
+          unterscheidung: 'DIE gefährlichste Differenzialdiagnose beim Patienten über 60 Jahren: plötzlicher, vernichtender Rücken- oder Flankenschmerz, oft als Kolik fehlgedeutet, dazu pulsierender Abdominaltumor, Hypotonie, Schock, Pulsdifferenz und Blässe. Sofortige Sonographie beziehungsweise Angio-CT — die Fehldiagnose Nierenkolik ist tödlich.',
+        },
+        {
+          dd: 'Akute Appendizitis',
+          unterscheidung: 'Schmerzwanderung von periumbilikal in den rechten Unterbauch, Dauerschmerz mit Abwehrspannung, Loslass-, McBurney- und Blumberg-Zeichen, Fieber meist unter 38,5 °C mit axillo-rektaler Temperaturdifferenz. Die Patienten liegen STILL mit angezogenen Beinen — kein Bewegungsdrang. Ein rechtsseitiger distaler Ureterstein kann sie perfekt imitieren.',
+        },
+        {
+          dd: 'Akute Cholezystitis / Choledocholithiasis (Gallenkolik)',
+          unterscheidung: 'Rechtsseitiger Oberbauchschmerz, kolikartig nach fettreicher Mahlzeit, Ausstrahlung in die rechte Schulter und den Rücken, positives Murphy-Zeichen; bei Choledocholithiasis Ikterus, heller Stuhl, dunkler Urin sowie erhöhte Cholestaseparameter und Transaminasen. Sonographie klärt.',
+        },
+        {
+          dd: 'Divertikulitis des Sigmas',
+          unterscheidung: 'Linksseitiger Unterbauchdauerschmerz, oft „Linksappendizitis“ genannt, mit Stuhlunregelmäßigkeiten, Meteorismus, Fieber und lokaler Abwehrspannung; keine kolikartigen Wellen, keine Ausstrahlung in die Leiste. Beweisend ist das CT.',
+        },
+        {
+          dd: 'Hodentorsion und Epididymitis / Orchitis',
+          unterscheidung: 'Beim Mann mit Ausstrahlung in den Hoden zwingend abzugrenzen: bei der Torsion perakuter Hodenschmerz mit Hochstand, Querlage und negativem Prehn-Zeichen (Anheben bessert NICHT) — Notfall mit Sechs-Stunden-Fenster; bei der Epididymitis positives Prehn-Zeichen, Fieber und Infektzeichen. Immer den Hoden untersuchen und dopplersonographisch die Durchblutung prüfen.',
+        },
+        {
+          dd: 'Extrauteringravidität, Adnexitis, stielgedrehte Ovarialzyste',
+          unterscheidung: 'Bei jeder Frau im gebärfähigen Alter mit Unterbauch- oder Flankenschmerz obligater Schwangerschaftstest; bei der Extrauteringravidität sekundäre Amenorrhö, Schmierblutung und Schockzeichen bei Ruptur. Gynäkologisches Konsil und vaginale Sonographie.',
+        },
+        {
+          dd: 'Lumbago, Wirbelsäulensyndrom, Bandscheibenvorfall',
+          unterscheidung: 'Bewegungs- und belastungsabhängiger Schmerz mit Besserung in Ruhe, paravertebraler Muskelhartspann, Klopfschmerz über den Dornfortsätzen statt im Nierenlager, häufig Auslöser durch Heben oder Verdrehen; keine vegetative Begleitsymptomatik, keine Hämaturie.',
+        },
+        {
+          dd: 'Herpes zoster in einem lumbalen Dermatom',
+          unterscheidung: 'Brennender, streng segmental begrenzter, einseitiger Schmerz mit Hyperästhesie, der dem typischen gruppierten Bläschenausschlag um zwei bis drei Tage vorausgehen kann — deshalb bei unklarem Flankenschmerz immer die Haut inspizieren.',
+        },
+        {
+          dd: 'Niereninfarkt und Nierenvenenthrombose',
+          unterscheidung: 'Plötzlicher Dauerflankenschmerz bei Vorhofflimmern, Endokarditis oder Thrombophilie, mit deutlich erhöhter LDH, Hämaturie und typischem Perfusionsdefekt im kontrastmittelverstärkten CT; kein wellenförmiger Charakter.',
+        },
+        {
+          dd: 'Benigne Prostatahyperplasie mit Harnverhalt, Urothelkarzinom, Ureterstriktur',
+          unterscheidung: 'Andere Ursachen einer Obstruktion: beim Harnverhalt schmerzhaft gefüllte Blase mit Restharn in der Sonographie und schlagartiger Besserung nach Katheterisierung; beim Urothelkarzinom schmerzlose Makrohämaturie und Raumforderung im CT beziehungsweise in der Ureterorenoskopie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen bei der Kolik: Analgesie, Spasmolyse und Antiemese',
+          akut: true,
+          items: [
+            'Metamizol 1 g als Kurzinfusion oder ein nichtsteroidales Antirheumatikum wie Diclofenac 75 mg intramuskulär beziehungsweise Indometacin — beide sind MITTEL DER ERSTEN WAHL, weil sie zusätzlich die Prostaglandinsynthese und damit Ödem, Nierenbeckendruck und Ureterperistaltik senken',
+            'Cave bei nichtsteroidalen Antirheumatika: Niereninsuffizienz, Exsikkose, Ulkusanamnese, Herzinsuffizienz und Antikoagulation — dann Metamizol bevorzugen; Cave bei Metamizol: bekannte Unverträglichkeit oder Allergie (Exanthem, Agranulozytose) und Blutdruckabfall bei zu schneller Injektion',
+            'Bei unzureichender Wirkung Eskalation auf ein Opioid, zum Beispiel Piritramid oder Buprenorphin; Pethidin ist bei Koliken gebräuchlich, Morphin steigert den Sphinktertonus etwas stärker',
+            'Butylscopolamin als Spasmolytikum ergänzend — es wirkt allein deutlich schwächer als die Analgetika und ersetzt sie nicht',
+            'Antiemese mit Metoclopramid oder Ondansetron sowie Volumensubstitution bei Erbrechen und Exsikkose',
+            'Lokale Wärme (Wärmflasche, warmes Bad) wirkt entspannend — Cave: bei Fieber und Infektverdacht ist ein heißes Vollbad kontraindiziert',
+            'KEINE forcierte Diurese und keine übermäßige Flüssigkeitszufuhr während der akuten Kolik — sie erhöht den Druck im gestauten Hohlsystem und verstärkt den Schmerz',
+            'Engmaschige Reevaluation: Temperatur, Blutdruck, Puls, Urinausscheidung; jeder Fieberanstieg ändert sofort die Strategie',
+          ],
+        },
+        {
+          label: 'Notfallmäßige Harnableitung bei infiziertem Harnstau',
+          akut: true,
+          items: [
+            'Indikationen: Fieber oder Schüttelfrost bei nachgewiesenem Harnstau (infizierter Harnstau, Pyonephrose, Urosepsis), Anurie bei Einzelniere oder beidseitiger Obstruktion, rasch steigende Retentionswerte, trotz Analgesie nicht beherrschbarer Schmerz sowie Kolik in der Schwangerschaft',
+            'Die Entlastung erfolgt SOFORT und IMMER VOR jeder Steinsanierung — der Stein wird in dieser Sitzung bewusst nicht angetastet, da Manipulation Bakterien und Endotoxine in die Blutbahn schwemmt',
+            'Zwei Verfahren, gleichwertig: retrograde Einlage einer Doppel-J-Schiene über die Zystoskopie oder perkutane Nephrostomie in Lokalanästhesie unter Ultraschallsicht — letztere ist bei septischem Patienten, sehr großem Stau oder unpassierbarem Harnleiter zu bevorzugen und erlaubt die Gewinnung von Nierenbeckenurin',
+            'Parallel Sepsistherapie: zwei großlumige Zugänge, Blutkulturen und Urinkultur VOR der ersten Antibiotikagabe, dann kalkulierte intravenöse Antibiose innerhalb einer Stunde (zum Beispiel Cephalosporin der dritten Generation wie Ceftriaxon, Piperacillin/Tazobactam oder ein Fluorchinolon je nach lokaler Resistenzlage), balancierte Kristalloide, Laktat- und Ausscheidungskontrolle',
+            'Stationäre Aufnahme, gegebenenfalls Überwachung auf der Intensivstation; Deeskalation der Antibiose nach Antibiogramm, Gesamtdauer meist sieben bis vierzehn Tage',
+            'Die definitive Steinsanierung erfolgt erst nach Entfieberung und Sanierung des Infektes, typischerweise nach ein bis zwei Wochen',
+          ],
+        },
+        {
+          label: 'Steinsanierung: konservativ-expektativ oder aktiv',
+          items: [
+            'Konservativ-expektatives Vorgehen bei unkomplizierten Steinen unter etwa 5-6 mm ohne Infekt, ohne relevanten Stau und mit beherrschbarem Schmerz: Trinkmenge von 2,5-3 Litern täglich (nach der akuten Kolik), körperliche Bewegung, Bedarfsanalgesie und Urin sieben lassen zur Steingewinnung',
+            'Medikamentöse Expulsionstherapie mit dem Alpha-1-Blocker Tamsulosin 0,4 mg täglich über maximal vier Wochen (Off-Label): Erschlaffung der glatten Muskulatur des distalen Harnleiters, höhere Abgangsrate und weniger Koliken vor allem bei distalen Steinen über 5 mm; Nebenwirkungen Schwindel, orthostatische Dysregulation und retrograde Ejakulation',
+            'Sonographische und laborchemische Verlaufskontrolle nach etwa einer Woche; spätestens nach vier bis sechs Wochen ohne Abgang aktive Sanierung, um irreversible Parenchymschäden zu vermeiden',
+            'Extrakorporale Stoßwellenlithotripsie (ESWL) bei Nierenbecken- und proximalen Harnleitersteinen bis etwa 20 mm: nicht invasiv, ambulant möglich; Kontraindikationen sind Schwangerschaft, unbehandelte Gerinnungsstörung, akuter Harnwegsinfekt, unbehandelte Obstruktion distal des Steins und ein Aortenaneurysma im Schallweg. Komplikation: Steinstraße mit erneuter Obstruktion',
+            'Ureterorenoskopie mit Laserlithotripsie (Holmium-Laser) und Steinextraktion — Verfahren der Wahl bei distalen und mittleren Harnleitersteinen sowie bei ESWL-Versagen; höchste sofortige Steinfreiheitsrate, anschließend meist passagere DJ-Einlage',
+            'Perkutane Nephrolitholapaxie (PCNL) bei großen Nierenbecken- und Ausgusssteinen über etwa 20 mm sowie bei harten Steinen; offene oder laparoskopische Steinoperation heute nur noch als absolute Ausnahme',
+            'Chemolitholyse ausschließlich bei reinen Harnsäuresteinen: Harnalkalisierung mit Kaliumcitrat oder Natriumhydrogencarbonat auf einen Urin-pH von 6,5-7,0 unter Selbstkontrolle mit Teststreifen, dazu Allopurinol und hohe Trinkmenge — die Steine können sich vollständig auflösen',
+          ],
+        },
+        {
+          label: 'Metaphylaxe und Rezidivprophylaxe',
+          items: [
+            'Steinanalyse nach jedem gewonnenen Konkrement — ohne sie ist keine gezielte Metaphylaxe möglich; das Rezidivrisiko beträgt ohne Prophylaxe etwa 50 % in zehn Jahren',
+            'Allgemeinmaßnahmen für alle Steinarten: Trinkmenge von 2,5-3 Litern täglich gleichmäßig über den Tag verteilt mit dem Ziel einer Urinausscheidung über 2 Liter und eines hellen Urins, auch nachts trinken; ausgewogene, ballaststoffreiche Ernährung, Normalisierung des Körpergewichts, regelmäßige Bewegung, Kochsalzreduktion unter 5-6 g täglich und Begrenzung des tierischen Eiweißes',
+            'Bei Calciumoxalatsteinen: oxalatreiche Nahrungsmittel meiden (Rhabarber, Spinat, Mangold, Rote Bete, Nüsse, Schokolade, schwarzer Tee), Calciumzufuhr jedoch NICHT reduzieren — normale Calciumzufuhr mit den Mahlzeiten bindet Oxalat im Darm und senkt das Steinrisiko; bei Hypocitraturie Kaliumcitrat, bei Hyperkalzurie gegebenenfalls ein Thiaziddiuretikum',
+            'Bei Harnsäuresteinen: purinarme Kost, Alkohol- und Fruktosereduktion, Harnalkalisierung mit Kaliumcitrat auf pH 6,5-7,0 und Allopurinol; Behandlung eines Diabetes mellitus und einer Adipositas',
+            'Bei Infekt-/Struvitsteinen: vollständige Steinentfernung als einzige kausale Maßnahme, dazu Sanierung des Harnwegsinfektes, Urinkulturen im Verlauf und gegebenenfalls Harnansäuerung; bei Cystinsteinen sehr hohe Trinkmenge über 3,5 Liter, Alkalisierung und Tiopronin',
+            'Ursachensuche und Behandlung der Grunderkrankung: primärer Hyperparathyreoidismus (Calcium und Parathormon bestimmen, Nebenschilddrüsenadenom operieren), renal-tubuläre Azidose, chronisch-entzündliche Darmerkrankung, Gicht; Überprüfung steinfördernder Medikamente',
+            'Ernährungsberatung, schriftliche Empfehlungen, Sonographiekontrollen im Verlauf und Anbindung an eine urologische Steinsprechstunde bei Rezidivsteinbildnern',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der einzelnen Kolik ist sehr gut: unter adäquater Analgesie sistiert der Schmerz meist innerhalb von Minuten bis Stunden, und Steine unter 5 mm gehen in etwa 70-80 % der Fälle innerhalb von Tagen bis wenigen Wochen spontan ab. Entscheidend für die Langzeitprognose sind zwei Punkte. Erstens die Dauer der Obstruktion: eine über mehrere Wochen bestehende Harnstauung führt zu einer irreversiblen Parenchymatrophie mit dauerhaftem Funktionsverlust der betroffenen Niere, weshalb spätestens nach vier bis sechs Wochen aktiv saniert wird. Zweitens die Infektion: der unbehandelte infizierte Harnstau geht mit einer hohen Letalität einher, während die sofortige Harnableitung zusammen mit einer kalkulierten Antibiose die Prognose dramatisch verbessert. Das Harnsteinleiden ist eine chronisch rezidivierende Erkrankung — ohne Metaphylaxe erleiden etwa 50 % der Patienten innerhalb von zehn Jahren ein Rezidiv, unter konsequenter Steigerung der Trinkmenge, angepasster Ernährung und gezielter, an der Steinanalyse orientierter Prophylaxe sinkt diese Rate deutlich. Infekt- und Cystinsteine haben die schlechteste, reine Harnsäuresteine wegen der Möglichkeit der medikamentösen Auflösung die günstigste Prognose.',
+      pruefungsfallen: [
+        'Der wichtigste Unterscheidungsbefund im Gespräch ist der BEWEGUNGSDRANG: der Kolikpatient wälzt sich und findet keine Position, der Peritonitispatient liegt still mit angezogenen Beinen. Diesen Gegensatz muss man aktiv erfragen und in der Vorstellung nennen — er beeindruckt die Prüfer mehr als jede Aufzählung.',
+        'FIEBER plus HARNSTAU ist keine einfache Kolik mehr, sondern ein infizierter Harnstau mit drohender Urosepsis — also ein absoluter Notfall. Die Kette Stein → Obstruktion → Stase → Infekt → Urosepsis muss man in einem Satz erklären können; genau darauf zielt die Freiburger Frage „Wie kommt es zu Eiterniere?“.',
+        'Bei infiziertem Harnstau wird ZUERST abgeleitet (DJ-Schiene oder perkutane Nephrostomie) und ERST DANACH, nach Entfieberung, der Stein saniert. Wer im Notfall gleich die extrakorporale Stoßwellenlithotripsie oder die Ureterorenoskopie nennt, macht den klassischen Fehler.',
+        'Das native Low-Dose-CT ist der Goldstandard und braucht KEIN Kontrastmittel. Wer reflexartig „CT mit Kontrastmittel“ sagt, handelt sich die Rückfrage nach Nierenfunktion, Metformin und Kontrastmittelallergie ein.',
+        'Harnsäuresteine sind RÖNTGENNEGATIV — deshalb ist die Abdomenübersichtsaufnahme zur Primärdiagnostik ungeeignet; sie dient nur der Verlaufskontrolle schattengebender Steine.',
+        'Die Sonographie ist die ERSTE Untersuchung und in der Schwangerschaft das Mittel der Wahl; sie ist strahlenfrei und sofort verfügbar. Die MRT braucht man nur, wenn Sonographie und CT nicht weiterhelfen oder eine Strahlenexposition vermieden werden muss — genau das wurde in Freiburg gefragt.',
+        'Eine fehlende Hämaturie schließt einen Stein NICHT aus: bei komplettem Verschluss des Harnleiters kann der Urinstreifen negativ bleiben.',
+        'Beim Patienten über 60 Jahren an das rupturierte Bauchaortenaneurysma denken — es imitiert die Nierenkolik und die Fehldiagnose ist tödlich. Aorta palpieren, Pulsstatus erheben, sonographieren.',
+        'Beim Mann gehört der Hoden untersucht (Hodentorsion), bei der Frau der Schwangerschaftstest (Extrauteringravidität) zwingend dazu.',
+        'Analgetikum bewusst wählen und begründen: Metamizol oder ein nichtsteroidales Antirheumatikum sind Mittel der ersten Wahl, Butylscopolamin allein reicht nicht. Bei Metamizolallergie oder -unverträglichkeit — in Reutlingen ausdrücklich geprüft — muss man sofort eine Alternative nennen können, bei Niereninsuffizienz umgekehrt kein nichtsteroidales Antirheumatikum.',
+        'Blutkulturen und Urinkultur werden VOR der ersten Antibiotikagabe abgenommen — in Stuttgart wurde genau das gefragt („Was mache ich zuerst, wenn ich einen Zugang lege?“).',
+        'Während der akuten Kolik NICHT forciert Flüssigkeit geben; die hohe Trinkmenge von 2,5-3 Litern gehört in die Metaphylaxe, nicht in die Kolik.',
+        'Bei Calciumoxalatsteinen darf man dem Patienten nicht raten, Calcium zu meiden — normale Calciumzufuhr zu den Mahlzeiten bindet Oxalat im Darm und schützt vor Steinen. Reduziert wird Oxalat, Kochsalz und tierisches Eiweiß.',
+        'Bei Rezidivsteinen immer an den primären Hyperparathyreoidismus denken und Calcium und Parathormon bestimmen — eine beliebte Anschlussfrage.',
+        'Der Fachbegriff „Urosepsis“ muss patientengerecht erklärt werden können: eine Blutvergiftung, die von den Harnwegen ausgeht — genau diese Erklärung wurde in Reutlingen verlangt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'An was denken Sie? Wie lautet Ihre Verdachtsdiagnose?',
+          antwort: 'An eine Nierenkolik bei einem Harnleiterstein mit Harnstau. Dafür sprechen der akut einsetzende, wellenförmig kolikartige Flankenschmerz mit Ausstrahlung entlang des Harnleiters in die Leiste und den Hoden, der ausgeprägte Bewegungsdrang, die vegetative Begleitsymptomatik mit Übelkeit und Erbrechen sowie die Makrohämaturie. Da zusätzlich Fieber und Schüttelfrost bestehen, muss ich von einem infizierten Harnstau mit drohender Urosepsis ausgehen — das ist ein urologischer Notfall.',
+        },
+        {
+          frage: 'Was waren die Leitsymptome?',
+          antwort: 'Leitsymptom ist der wellenförmige, kolikartige Flankenschmerz mit Ausstrahlung in die Leiste und der begleitende Bewegungsdrang. Übelkeit, Erbrechen, Fieber, Schüttelfrost, Dysurie und die Blutbeimengung im Urin sind Begleitsymptome, nicht Leitsymptome — das ist eine wichtige Unterscheidung.',
+        },
+        {
+          frage: 'Wie kommt es zu einer Eiterniere?',
+          antwort: 'Der Stein verlegt den Harnleiter, dadurch staut sich der Urin in Nierenbecken und Kelchen. Der stehende Urin ist ein idealer Nährboden für Bakterien, die aszendierend oder hämatogen dorthin gelangen. Das gestaute Hohlsystem füllt sich mit Eiter — das ist die Pyonephrose oder Eiterniere. Weil der Abfluss verlegt ist, können Bakterien und Endotoxine durch den hohen Druck in die Blutbahn übertreten, es entsteht eine Urosepsis. Deshalb muss der Harn sofort abgeleitet werden.',
+        },
+        {
+          frage: 'Erklären Sie bitte den Begriff Urosepsis.',
+          antwort: 'Eine Urosepsis ist eine von den Harnwegen ausgehende Blutvergiftung: Bakterien und ihre Giftstoffe gelangen aus dem infizierten, gestauten Harntrakt in die Blutbahn und lösen eine lebensbedrohliche Allgemeinreaktion des Körpers mit Fieber, Schüttelfrost, Blutdruckabfall, Herzrasen und Organversagen aus. Dem Patienten würde ich sagen: eine Blutvergiftung, die von den Nieren und Harnwegen ausgeht.',
+        },
+        {
+          frage: 'Welche diagnostischen Untersuchungen werden Sie durchführen oder veranlassen?',
+          antwort: 'Zuerst die körperliche Untersuchung mit Vitalparametern, Klopfschmerz im Nierenlager und Untersuchung von Abdomen und Skrotum. Dann Urinstix mit Sediment und Urinkultur sowie Blutentnahme mit Blutbild, CRP, Kreatinin, Elektrolyten, Gerinnung, Laktat und Blutkulturen. An Bildgebung zuerst die Sonographie der Nieren und ableitenden Harnwege und dann als Goldstandard ein natives Low-Dose-CT von Abdomen und Becken.',
+        },
+        {
+          frage: 'Was sehen Sie im Ultraschall?',
+          antwort: 'Eine Harnstauungsniere mit erweitertem, echofreiem Nierenbeckenkelchsystem, bei der die normale Grenze zwischen Nierenparenchym und Nierenbecken aufgehoben ist; dazu gegebenenfalls den Stein selbst als echoreiches Reflexband mit dorsalem Schallschatten, meist am Nierenbecken oder prävesikal, sowie einen erweiterten proximalen Harnleiter. Bei der Pyonephrose finden sich zusätzlich echogene Binnenreflexe im gestauten System.',
+        },
+        {
+          frage: 'Wann brauchen wir eine MRT?',
+          antwort: 'Nur in Ausnahmefällen: wenn eine Strahlenexposition unbedingt vermieden werden muss — vor allem in der Schwangerschaft, wenn die Sonographie nicht ausreicht —, oder wenn Sonographie und CT die Ursache der Obstruktion nicht klären und Weichteile beziehungsweise Tumoren beurteilt werden müssen. Für den Steinnachweis selbst ist die MRT der Computertomographie unterlegen, da der Stein sich nur indirekt als Signalauslöschung darstellt.',
+        },
+        {
+          frage: 'Warum machen Sie ein natives CT und nicht ein Röntgenbild?',
+          antwort: 'Weil das native Low-Dose-CT alle Steine erfasst, auch die röntgennegativen Harnsäuresteine, und zugleich Größe, Lage und Dichte des Steins sowie den Stauungsgrad zeigt und wichtige Differenzialdiagnosen wie Appendizitis, Divertikulitis oder ein Bauchaortenaneurysma ausschließt. Auf der Abdomenübersichtsaufnahme sind Harnsäuresteine nicht sichtbar und Darmgas überlagert das Bild. Kontrastmittel ist dafür nicht erforderlich.',
+        },
+        {
+          frage: 'Ist das ein Notfall? Brauchen wir eine stationäre Aufnahme?',
+          antwort: 'Ja. Fieber und Schüttelfrost bei nachgewiesenem Harnstau bedeuten einen infizierten Harnstau mit drohender Urosepsis — ein absoluter urologischer Notfall. Der Patient wird stationär aufgenommen, erhält einen venösen Zugang, Analgesie, Volumen und nach Abnahme von Blut- und Urinkulturen eine kalkulierte Antibiose, und die Niere wird umgehend durch eine DJ-Schiene oder eine perkutane Nephrostomie entlastet.',
+        },
+        {
+          frage: 'Was wollen Sie zuerst machen, wenn Sie einen Zugang legen?',
+          antwort: 'Über den Zugang zuerst Blut abnehmen — Blutbild, CRP, Kreatinin, Elektrolyte, Gerinnung, Laktat — und vor allem Blutkulturen, zusammen mit einer Urinkultur, und zwar VOR der ersten Antibiotikagabe. Danach Volumengabe und sofortige Analgesie.',
+        },
+        {
+          frage: 'Welche Analgetika geben Sie, und warum?',
+          antwort: 'Mittel der ersten Wahl sind Metamizol 1 g als Kurzinfusion oder ein nichtsteroidales Antirheumatikum wie Diclofenac, weil sie über die Hemmung der Prostaglandinsynthese zusätzlich das Ödem und den Druck im Nierenbecken senken. Ergänzend Butylscopolamin als Spasmolytikum, das allein aber nicht ausreicht, und bei unzureichender Wirkung ein Opioid wie Piritramid. Bei Metamizolallergie oder -unverträglichkeit weiche ich auf ein nichtsteroidales Antirheumatikum oder ein Opioid aus, bei Niereninsuffizienz umgekehrt auf Metamizol beziehungsweise ein Opioid.',
+        },
+        {
+          frage: 'Welche Steinarten kennen Sie, und welche sind röntgennegativ?',
+          antwort: 'Am häufigsten sind Calciumoxalatsteine mit etwa 75 %, dann Calciumphosphatsteine, Harnsäuresteine, Struvit- oder Infektsteine bei harnstoffspaltenden Keimen wie Proteus und selten Cystinsteine. Röntgennegativ, also auf der Übersichtsaufnahme nicht sichtbar, sind Harnsäure-, Xanthin- und Indinavirsteine. Im nativen CT sind bis auf die Indinavirsteine alle darstellbar.',
+        },
+        {
+          frage: 'Welche Steine kann man medikamentös auflösen?',
+          antwort: 'Nur reine Harnsäuresteine. Man alkalisiert den Urin mit Kaliumcitrat oder Natriumhydrogencarbonat auf einen pH von 6,5 bis 7,0, gibt Allopurinol und sorgt für eine hohe Trinkmenge; der Patient kontrolliert den pH mit Teststreifen selbst. Calciumhaltige Steine, Struvit- und Cystinsteine lassen sich so nicht auflösen.',
+        },
+        {
+          frage: 'Ab welcher Größe geht ein Stein nicht mehr spontan ab, und was machen Sie dann?',
+          antwort: 'Steine unter 5 mm gehen in etwa 70 bis 80 % spontan ab, Steine von 5 bis 10 mm nur in etwa 25 bis 50 %, Steine über 10 mm praktisch nicht mehr. Bei kleinen Steinen ohne Infekt behandle ich konservativ-expektativ mit Analgesie, Bewegung, Trinkmenge und einer medikamentösen Expulsionstherapie mit Tamsulosin und lasse den Urin sieben. Bei größeren Steinen oder nach spätestens vier bis sechs Wochen erfolgt die aktive Sanierung durch extrakorporale Stoßwellenlithotripsie, Ureterorenoskopie mit Laserlithotripsie oder perkutane Nephrolitholapaxie.',
+        },
+        {
+          frage: 'Welche Komplikationen kann ein Harnleiterstein haben?',
+          antwort: 'Die Harnstauungsniere mit Parenchymatrophie und Funktionsverlust, den infizierten Harnstau mit Pyonephrose und Urosepsis, das postrenale akute Nierenversagen bei beidseitigen Steinen oder Einzelniere, den paralytischen Subileus, seltener eine Fornixruptur mit Urinom sowie langfristig rezidivierende Infekte und eine chronische Niereninsuffizienz.',
+        },
+        {
+          frage: 'Was raten Sie dem Patienten zur Vorbeugung?',
+          antwort: 'Nach der Kolik täglich 2,5 bis 3 Liter gleichmäßig über den Tag verteilt trinken, sodass der Urin hell bleibt, auch nachts trinken; weniger Kochsalz und weniger tierisches Eiweiß, Normalisierung des Gewichts und Bewegung. Alles Weitere richtet sich nach der Steinanalyse — deshalb muss der Urin gesiebt und der Stein untersucht werden. Bei Calciumoxalatsteinen oxalatreiche Speisen meiden, aber die Calciumzufuhr nicht reduzieren; bei Harnsäuresteinen purinarme Kost und Harnalkalisierung.',
+        },
+        {
+          frage: 'Warum ist der Patient so unruhig, und was sagt Ihnen das?',
+          antwort: 'Der Bewegungsdrang ist typisch für die Kolik: die Dehnung des Hohlorgans lässt sich durch keine Körperhaltung lindern, deshalb wälzt sich der Patient und läuft umher. Bei einer Peritonitis ist es genau umgekehrt — dort liegen die Patienten völlig still mit angezogenen Beinen, weil jede Erschütterung schmerzt. Dieser Gegensatz ist ein sehr verlässliches klinisches Unterscheidungsmerkmal.',
+        },
+      ],
+      merksatz: 'Wellenförmiger Flankenschmerz mit Ausstrahlung in die Leiste und BEWEGUNGSDRANG — der Kolikpatient wälzt sich, der Peritonitispatient liegt still. Erst Sonographie, dann natives Low-Dose-CT ohne Kontrastmittel, denn Harnsäuresteine sind röntgennegativ. Und die goldene Regel: Fieber plus Harnstau ist keine Kolik mehr, sondern eine drohende Urosepsis — sofort ableiten mit DJ oder Nephrostomie, den Stein erst danach.',
+      linkedCaseIds: [
+        'case-nierenkolik',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-ct',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-tonsillitis',
+      pathology: 'Akute Tonsillitis (Angina tonsillaris)',
+      specialty: 'Infektiologie',
+      definition: 'Die akute Tonsillitis (Angina tonsillaris) ist eine akute Entzündung der Gaumenmandeln (Tonsillae palatinae), die klinisch fast immer gemeinsam mit einer Entzündung der Rachenschleimhaut auftritt und deshalb korrekter als akute Tonsillopharyngitis bezeichnet wird. Leitsymptome sind akut einsetzende starke Halsschmerzen mit schmerzhaftem Schlucken (Odynophagie), Fieber, kloßige Sprache, Foetor ex ore und druckschmerzhaft geschwollene zervikale Lymphknoten; im Rachen finden sich gerötete, geschwollene Tonsillen mit Stippchen oder Belägen. Der Verlauf ist in der Regel selbstlimitierend über drei bis sieben Tage. Entscheidend ist die Unterscheidung zwischen der weit überwiegenden viralen und der antibiotikapflichtigen Streptokokken-Genese, die klinisch über den Centor- beziehungsweise McIsaac-Score abgeschätzt wird.',
+      aetiologie: 'Etwa 70 bis 80 % der akuten Tonsillopharyngitiden sind VIRAL bedingt — durch Adeno-, Rhino-, Influenza- und Parainfluenzaviren, Coronaviren einschließlich SARS-CoV-2, das Epstein-Barr-Virus (infektiöse Mononukleose), Coxsackieviren (Herpangina), Herpes-simplex-Viren sowie die akute HIV-Infektion. Nur etwa 20 bis 30 % sind bakteriell, dabei ganz überwiegend durch beta-hämolysierende Streptokokken der Gruppe A (Streptococcus pyogenes); seltener durch Streptokokken der Gruppen C und G, Fusobacterium necrophorum (Lemierre-Syndrom), Corynebacterium diphtheriae, Neisseria gonorrhoeae, Arcanobacterium haemolyticum oder die fusospirilläre Mischflora der Angina Plaut-Vincent. Die Übertragung erfolgt als Tröpfcheninfektion, die Inkubationszeit der Streptokokken-Angina beträgt zwei bis vier Tage. Ein Erkrankungsgipfel besteht im Schulalter und bei jungen Erwachsenen; die Streptokokken-Angina ist bei Erwachsenen deutlich seltener als bei Kindern.',
+      risikofaktoren: [
+        'Alter zwischen 5 und 15 Jahren (Häufigkeitsgipfel der Streptokokken-Angina); infektiöse Mononukleose vor allem zwischen 15 und 25 Jahren',
+        'enger Kontakt in Gemeinschaftseinrichtungen: Schule, Kindergarten, Kaserne, Wohnheim, Beruf mit intensivem Publikumsverkehr',
+        'Kalte Jahreszeit (Winter und Frühjahr)',
+        'Rauchen und Passivrauchen sowie Exposition gegenüber trockener, staubiger oder gereizter Raumluft',
+        'Mundatmung bei behinderter Nasenatmung, adenoide Vegetationen, chronische Rhinosinusitis',
+        'Immunsuppression, Diabetes mellitus, Zustand nach Splenektomie, Mangelernährung, Alkoholabusus',
+        'Rezidivierende Tonsillitiden in der Vorgeschichte, zerklüftete Tonsillenkrypten, Tonsillensteine',
+        'fehlender oder unklarer Diphtherie-Impfschutz sowie Herkunft aus Regionen mit hoher Streptokokken-Last (rheumatisches Fieber)',
+      ],
+      klinik: [
+        {
+          text: 'Akut, oft innerhalb von Stunden einsetzende starke Halsschmerzen',
+        },
+        {
+          text: 'Odynophagie — schmerzhaftes Schlucken mit deutlich reduzierter Ess- und Trinkmenge',
+        },
+        {
+          text: 'Fieber, bei der Streptokokken-Angina typischerweise über 38,5 °C, mit Schüttelfrost',
+        },
+        {
+          text: 'Kloßige, gedämpfte Sprache („heiße Kartoffel im Mund“)',
+        },
+        {
+          text: 'Foetor ex ore',
+        },
+        {
+          text: 'Druckschmerzhaft geschwollene vordere zervikale (submandibuläre und jugulodigastrische) Lymphknoten',
+        },
+        {
+          text: 'Gerötete, geschwollene Tonsillen mit weißlich-gelben Stippchen oder flächigen, abwischbaren Belägen',
+        },
+        {
+          text: 'Ausgeprägtes Krankheitsgefühl mit Abgeschlagenheit, Kopfschmerzen sowie Glieder- und Muskelschmerzen',
+        },
+        {
+          text: 'In beide Ohren ausstrahlende Schluckschmerzen (übertragener Schmerz über den Nervus glossopharyngeus)',
+        },
+        {
+          text: 'Husten, Schnupfen, Heiserkeit und Konjunktivitis — sprechen für eine VIRALE Genese und GEGEN Streptokokken',
+          atypisch: true,
+        },
+        {
+          text: 'Einseitige Zunahme der Schmerzen mit Kieferklemme, Speichelfluss und Verdrängung der Uvula zur Gegenseite — Peritonsillarabszess',
+          atypisch: true,
+        },
+        {
+          text: 'Feinfleckiges, sandpapierartiges Exanthem mit periorale Blässe und Erdbeerzunge — Scharlach',
+          atypisch: true,
+        },
+        {
+          text: 'Massive generalisierte Lymphknotenschwellung, Splenomegalie, Lidödeme und wochenlange Müdigkeit — infektiöse Mononukleose',
+          atypisch: true,
+        },
+        {
+          text: 'Einseitiger, ulzerierender Tonsillenbefund mit starkem Foetor bei erstaunlich gutem Allgemeinzustand — Angina Plaut-Vincent',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kindern häufig Bauchschmerzen, Übelkeit und Erbrechen statt geklagter Halsschmerzen',
+          atypisch: true,
+        },
+        {
+          text: 'Bei alten, immunsupprimierten oder diabetischen Patienten blander Verlauf mit wenig Fieber, aber rascher Komplikationsneigung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Centor-Score (Erwachsene)',
+          inhalt: 'Vier Kriterien mit je einem Punkt, maximal 4 Punkte: (1) Fieber über 38 °C, (2) FEHLEN von Husten, (3) geschwollene und druckschmerzhafte vordere Halslymphknoten, (4) Tonsillenexsudat beziehungsweise Beläge. Interpretation: 0 bis 1 Punkt — Streptokokken-Wahrscheinlichkeit gering (etwa 10 %), weder Test noch Antibiotikum; 2 bis 3 Punkte — mittlere Wahrscheinlichkeit (etwa 15 bis 35 %), Rachenabstrich mit Schnelltest und Antibiose nur bei positivem Ergebnis; 4 Punkte — hohe Wahrscheinlichkeit (etwa 50 bis 60 %), Schnelltest oder kalkulierte Antibiose. CAVE: Das zweite Kriterium lautet FEHLEN von Husten — wer hustet, bekommt dafür KEINEN Punkt.',
+        },
+        {
+          name: 'McIsaac-Score (Centor-Score mit Alterskorrektur)',
+          inhalt: 'Die vier Centor-Kriterien plus eine Alterskorrektur, maximal 5 Punkte: 3 bis 14 Jahre plus 1 Punkt, 15 bis 44 Jahre 0 Punkte, ab 45 Jahren minus 1 Punkt. Der McIsaac-Score ist auch bei Kindern validiert und bildet ab, dass die Streptokokken-Angina im höheren Lebensalter selten ist. Steuerung: 0 bis 1 Punkt keine weitere Diagnostik und keine Antibiose; 2 bis 3 Punkte Schnelltest, Antibiose nur bei positivem Test; 4 bis 5 Punkte Test oder direkte Antibiose.',
+        },
+        {
+          name: 'Morphologische Einteilung der Angina',
+          inhalt: 'Angina catarrhalis: Tonsillen gerötet und geschwollen ohne Beläge. Angina follicularis: gelbliche Stippchen (eitrig gefüllte Follikel). Angina lacunaris: konfluierende, abstreifbare Beläge in den Krypten. Angina ulceromembranacea (Plaut-Vincent): einseitiges Ulkus mit Membran. Angina specifica: Diphtherie mit festhaftenden, blutenden Pseudomembranen, Lues, Tuberkulose. Angina agranulocytotica: ulzerierend-nekrotisch bei medikamentöser Agranulozytose.',
+        },
+        {
+          name: 'Verlaufsbezogene Einteilung und Indikation zur Tonsillektomie',
+          inhalt: 'Akute Tonsillitis (Einzelepisode), rezidivierende akute Tonsillitis (mehrere abgrenzbare Episoden pro Jahr) und chronische Tonsillitis (persistierende Entzündung mit Detritus, Foetor und Lymphknotenschwellung). Nach der deutschen Leitlinie richtet sich die Tonsillektomie nach der Zahl ärztlich dokumentierter, antibiotikapflichtiger Episoden in den letzten zwölf Monaten: bis zu 2 Episoden keine Indikation; 3 bis 5 Episoden zunächst abwarten und nach sechs Monaten erneut beurteilen; ab 6 Episoden ist die Tonsillektomie zu empfehlen. International werden zusätzlich die Paradise-Kriterien verwendet (mindestens 7 Episoden in einem Jahr, mindestens 5 pro Jahr in zwei aufeinanderfolgenden Jahren oder mindestens 3 pro Jahr in drei Jahren).',
+        },
+        {
+          name: 'Jones-Kriterien beim rheumatischen Fieber (Folgeerkrankung)',
+          inhalt: 'Nachweis einer vorangegangenen Streptokokkeninfektion (Antistreptolysin-O-Titer, Rachenabstrich) plus entweder zwei Hauptkriterien oder ein Haupt- und zwei Nebenkriterien. Hauptkriterien: Karditis, wandernde Polyarthritis großer Gelenke, Chorea minor (Sydenham), Erythema marginatum, subkutane Knötchen. Nebenkriterien: Fieber, Arthralgie, erhöhte Entzündungsparameter (BSG, CRP), PQ-Verlängerung im EKG.',
+        },
+      ],
+      redFlags: [
+        'Kieferklemme (Trismus), einseitige Vorwölbung mit Uvula-Deviation, Speichelfluss und einseitige Schluckunfähigkeit → Peritonsillarabszess, HNO-Notfall',
+        'Inspiratorischer Stridor, Atemnot, Sitzen mit vorgebeugtem Oberkörper, „hot potato voice“ mit ausgeprägtem Speichelfluss und wenig sichtbarem Rachenbefund → Epiglottitis, keine Racheninspektion ohne Intubationsbereitschaft',
+        'Unfähigkeit zu schlucken oder zu trinken mit Exsikkose, insbesondere bei Kindern und alten Patienten',
+        'Nackensteife, Meningismus, Bewusstseinstrübung → Ausbreitung nach intrakraniell',
+        'Einseitige, druckschmerzhafte Halsschwellung entlang des Musculus sternocleidomastoideus mit septischen Temperaturen und pulmonalen Infiltraten → Lemierre-Syndrom mit septischer Jugularvenenthrombose durch Fusobacterium necrophorum',
+        'Sepsiszeichen: Tachykardie, Hypotonie, Tachypnoe, Verwirrtheit, Marmorierung',
+        'Süßlich-fader Foetor mit festhaftenden, grau-weißen, beim Ablösen blutenden Pseudomembranen und „Cäsarenhals“ → Diphtherie, sofortige Isolierung und Antitoxin',
+        'Ulzerierende Angina mit hohem Fieber unter Metamizol, Thyreostatika, Clozapin oder Zytostatika → Agranulozytose, sofortiges Differenzialblutbild und Absetzen des Medikaments',
+        'Petechien, Blutungsneigung, Blässe und Hepatosplenomegalie → hämatologische Systemerkrankung (Leukämie)',
+        'Einseitige, derbe, über Wochen persistierende Tonsillenvergrößerung mit fixierten Halslymphknoten bei einem Raucher über 50 Jahren → Tonsillenkarzinom',
+        'Zwei bis drei Wochen nach einer Angina neu auftretende wandernde Gelenkschmerzen, Fieber, Herzgeräusch oder brauner Urin → rheumatisches Fieber beziehungsweise Poststreptokokken-Glomerulonephritis',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Beginn und Dauer der Halsschmerzen, Odynophagie, Fieberhöhe und Messort; ausdrückliche Frage nach Husten, Schnupfen, Heiserkeit und Konjunktivitis (ihr Vorhandensein spricht gegen Streptokokken); Kontaktpersonen, Gemeinschaftseinrichtung, Reiseanamnese, Sexualanamnese (HIV, Gonokokken), Impfstatus (Diphtherie) und Medikamentenanamnese (Agranulozytose)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperatur, Blutdruck, Puls, Atemfrequenz und Sauerstoffsättigung; Beurteilung von Allgemeinzustand und Hydratationsstatus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Racheninspektion mit Spatel und Lichtquelle: Rötung und Schwellung der Tonsillen, Stippchen oder Beläge und deren Ablösbarkeit, Symmetrie, Stellung der Uvula, Gaumenpetechien; Beurteilung von Kieferöffnung (Trismus), Stimme und Foetor. CAVE: Bei Verdacht auf Epiglottitis keine Racheninspektion ohne Intubationsbereitschaft',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Palpation aller Lymphknotenstationen (vordere zervikale Lymphknoten druckschmerzhaft bei Streptokokken, generalisiert bei Mononukleose) sowie Palpation von Milz und Leber (Splenomegalie bei EBV)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion der Haut auf ein Exanthem (Scharlach, Arzneimittelexanthem) und der Zunge (Erdbeer- beziehungsweise Himbeerzunge); Auskultation der Lunge zum Ausschluss einer Pneumonie; Otoskopie bei Ohrenschmerzen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Berechnung und Dokumentation des Centor- beziehungsweise McIsaac-Scores — der Score steuert sowohl die Indikation zum Schnelltest als auch die Antibiotikaentscheidung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Rachenabstrich mit Streptokokken-A-Schnelltest (Antigen-Nachweis) bei mittlerem bis hohem Score: hohe Spezifität, aber geringere Sensitivität — bei negativem Test und fortbestehendem starkem Verdacht ergänzend die Kultur als Referenzmethode',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: Leukozytose mit Neutrophilie bei bakterieller Genese; Lymphozytose mit atypischen (mononukleären) Lymphozyten bei infektiöser Mononukleose; Neutropenie unter 500/µl bei Agranulozytose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter CRP und BSG zur Abschätzung von Schwere und Verlauf; Nierenwerte und Urinstatus, Leberwerte (Transaminasenerhöhung bei EBV-Hepatitis)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf eine infektiöse Mononukleose EBV-Serologie (VCA-IgM, VCA-IgG, EBNA-1-IgG) und gegebenenfalls heterophile Antikörper (Paul-Bunnell-Test)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Antistreptolysin-O-Titer NICHT in der Akutdiagnostik — er steigt erst nach ein bis drei Wochen an und belegt nur einen stattgehabten Streptokokkenkontakt; sinnvoll bei Verdacht auf rheumatisches Fieber oder Poststreptokokken-Glomerulonephritis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei entsprechendem Verdacht gezielte Erregerdiagnostik: SARS-CoV-2- und Influenza-Abstrich, HIV-Test bei mononukleoseähnlichem Bild, Spezialkultur auf Corynebacterium diphtheriae (Labor vorab informieren), Abstrich auf Gonokokken',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Halses bei einseitiger Schwellung oder Abszessverdacht sowie Sonographie des Abdomens zum Nachweis einer Splenomegalie bei Mononukleose (Sportkarenz wegen Rupturgefahr)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kontrastmittel-CT beziehungsweise MRT von Hals und Weichteilen bei Verdacht auf einen para- oder retropharyngealen Abszess, eine Mediastinitis oder ein Lemierre-Syndrom (dort zusätzlich Duplexsonographie der Jugularvene und CT-Thorax)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Husten, Dyspnoe oder thorakalen Beschwerden zum Ausschluss einer Pneumonie; EKG und Echokardiographie bei Verdacht auf ein rheumatisches Fieber mit Karditis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HNO-ärztliche Untersuchung mit Lupenlaryngoskopie; bei Verdacht auf einen Peritonsillarabszess Probepunktion und gegebenenfalls Inzision mit Drainage in Lokalanästhesie — zugleich diagnostisch und therapeutisch, mit Materialgewinnung für die Mikrobiologie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Panendoskopie mit Biopsie bei einseitiger, persistierender oder ulzerierender Tonsillenvergrößerung zum Ausschluss eines Tonsillenkarzinoms; histologische Aufarbeitung des Tonsillektomiepräparats',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Virale Pharyngitis/Tonsillitis',
+          unterscheidung: 'Mit 70 bis 80 % die häufigste Ursache. Allmählicherer Beginn, mäßiges Fieber, begleitend Husten, Schnupfen, Heiserkeit und Konjunktivitis — diese Symptome sprechen aktiv GEGEN eine Streptokokken-Angina und senken den Centor-Score. Kein oder nur zartes Exsudat, Schnelltest negativ, Therapie rein symptomatisch.',
+        },
+        {
+          dd: 'Streptokokken-Angina (Gruppe-A-Streptokokken)',
+          unterscheidung: 'Abrupter Beginn, Fieber über 38,5 °C, starke Odynophagie OHNE Husten und Schnupfen, eitrige Stippchen, druckschmerzhafte vordere Halslymphknoten, Foetor ex ore, Gaumenpetechien; Häufigkeitsgipfel im Schulalter. Sicherung über Schnelltest oder Kultur; nur hier ist eine Antibiose indiziert.',
+        },
+        {
+          dd: 'Infektiöse Mononukleose (EBV)',
+          unterscheidung: 'Meist 15 bis 25 Jahre; schmutzig-graue, konfluierende Beläge, massive generalisierte Lymphadenopathie, Splenomegalie, Hepatitis mit Transaminasenerhöhung, Lidödeme, wochenlange Müdigkeit. Blutbild mit Lymphozytose und atypischen Lymphozyten, EBV-Serologie, Milzsonographie. CAVE: keine Aminopenicilline (Exanthem), Sportkarenz bei Splenomegalie.',
+        },
+        {
+          dd: 'Peritonsillarabszess',
+          unterscheidung: 'HNO-Notfall und häufigste eitrige Komplikation: einseitige Schmerzzunahme, oft nach scheinbarer Besserung, Kieferklemme (Trismus), kloßige Sprache, Speichelfluss, einseitige Vorwölbung des vorderen Gaumenbogens mit Uvula-Deviation zur Gegenseite, hohes Fieber. Therapie: Punktion beziehungsweise Inzision und Drainage plus intravenöse Antibiose.',
+        },
+        {
+          dd: 'Scharlach',
+          unterscheidung: 'Streptokokken-Angina plus toxinvermitteltes, feinfleckiges, sandpapierartiges Exanthem mit periorale Blässe, Erdbeer- beziehungsweise Himbeerzunge und späterer groblamellärer Schuppung an Händen und Füßen.',
+        },
+        {
+          dd: 'Diphtherie',
+          unterscheidung: 'Süßlich-fader Foetor, festhaftende grau-weiße Pseudomembranen, die über die Tonsillen hinausreichen und beim Ablösen bluten, ausgeprägte Halsschwellung („Cäsarenhals“), Heiserkeit bis zum Krupp, toxische Myokarditis und Polyneuropathie. Impfstatus erfragen! Sofortige Isolierung, Antitoxin und Penicillin beziehungsweise Erythromycin, Meldepflicht.',
+        },
+        {
+          dd: 'Angina Plaut-Vincent',
+          unterscheidung: 'Einseitiger, ulzerös-membranöser Tonsillenbefund mit ausgeprägtem Foetor bei erstaunlich gutem Allgemeinzustand und nur geringem Fieber; fusospirilläre Mischinfektion aus Fusobakterien und Spirochäten, nachweisbar im Abstrich; Therapie mit Penicillin und lokaler Antiseptik.',
+        },
+        {
+          dd: 'Herpangina und Herpes-simplex-Gingivostomatitis',
+          unterscheidung: 'Herpangina (Coxsackie A): kleine Bläschen und Aphthen am weichen Gaumen und an den Gaumenbögen, vor allem bei Kindern, häufig mit Hand-Fuß-Mund-Effloreszenzen. Herpes simplex: schmerzhafte Bläschen und Ulzera an Gingiva, Zunge und Lippen mit ausgeprägter Stomatitis.',
+        },
+        {
+          dd: 'Mundsoor (oropharyngeale Candidiasis)',
+          unterscheidung: 'Weiße, abwischbare Beläge mit gerötetem, leicht blutendem Untergrund, Brennen statt starker Schluckschmerzen, meist kein Fieber; typisch bei Immunsuppression, Diabetes, nach Antibiotika oder unter inhalativen Kortikosteroiden.',
+        },
+        {
+          dd: 'Medikamentös induzierte Agranulozytose',
+          unterscheidung: 'CAVE-Diagnose: ulzerierend-nekrotische Angina mit hohem Fieber und schwerem Krankheitsgefühl unter Metamizol, Thyreostatika, Clozapin, Carbamazepin oder Zytostatika. Beweisend ist das Differenzialblutbild mit Neutrophilen unter 500/µl. Sofortiges Absetzen des auslösenden Medikaments, Isolierung und breite Antibiose.',
+        },
+        {
+          dd: 'Epiglottitis',
+          unterscheidung: 'Rasch progredient, hohes Fieber, inspiratorischer Stridor, Speichelfluss, Sitzen mit vorgebeugtem Oberkörper und auffallend blander Racheninspektionsbefund. Lebensbedrohlicher Notfall: keine Racheninspektion ohne Intubationsbereitschaft, sofortige HNO- und Anästhesie-Beteiligung.',
+        },
+        {
+          dd: 'Tonsillenkarzinom',
+          unterscheidung: 'Einseitige, derbe, ulzerierte Tonsillenvergrößerung über Wochen bis Monate, einseitige Ohrenschmerzen, derbe fixierte Halslymphknoten, B-Symptomatik; Risikofaktoren Rauchen, Alkohol und HPV 16. Klärung über Panendoskopie mit Biopsie.',
+        },
+        {
+          dd: 'Akute HIV-Infektion',
+          unterscheidung: 'Mononukleoseähnliches Bild mit Fieber, Pharyngitis, generalisierter Lymphadenopathie, makulopapulösem Stammexanthem und oralen Ulzera zwei bis sechs Wochen nach Exposition; Sexualanamnese und HIV-Test mit p24-Antigen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomatische Basistherapie — bei viraler Genese die einzige Therapie',
+          items: [
+            'Analgesie und Antipyrese als wichtigste Maßnahme: Ibuprofen 400 bis 600 mg bis zu dreimal täglich (bei Kindern 10 mg/kg Körpergewicht pro Einzeldosis) oder Paracetamol 500 bis 1000 mg bis zu viermal täglich, Tageshöchstdosis 4 g; Naproxen als Alternative',
+            'ausreichende Flüssigkeitszufuhr von mindestens zwei Litern täglich, kühle und weiche Kost, Eis und kalte Getränke; bei Kindern gezielt auf die Trinkmenge achten',
+            'Lokaltherapie zur Symptomlinderung: Lutschtabletten mit Lokalanästhetikum, Gurgeln mit Salbei- oder Kamillentee, antiseptische Lösungen, Halswickel — wirksam gegen die Beschwerden, ohne Einfluss auf den Krankheitsverlauf',
+            'körperliche Schonung, Bettruhe bei Fieber, Arbeits- beziehungsweise Schulunfähigkeit; Nikotin- und Alkoholkarenz, Vermeiden trockener und staubiger Luft',
+            'bei niedrigem Score und negativem Schnelltest KEINE Antibiotika — Aufklärung, dass 70 bis 80 % der Anginen viral sind und ein Antibiotikum den Verlauf nicht verkürzt, wohl aber Nebenwirkungen und Resistenzen erzeugt',
+            'einmalig Dexamethason 10 mg als Einzelfallentscheidung bei sehr starken Schluckschmerzen möglich; keine Routineempfehlung',
+            'Safety-Netting: sofortige Wiedervorstellung bei einseitiger Schmerzzunahme, Kieferklemme, Atemnot, Speichelfluss, Trinkunfähigkeit, erneutem Fieberanstieg nach zwischenzeitlicher Besserung oder Beschwerdedauer über sieben Tage',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Gezielte Antibiotikatherapie bei Streptokokken-Angina',
+          items: [
+            'Indikationsstellung ausschließlich über Centor- beziehungsweise McIsaac-Score und Testergebnis: 0 bis 1 Punkt weder Test noch Antibiose; 2 bis 3 Punkte Schnelltest und Antibiose nur bei positivem Ergebnis; 4 bis 5 Punkte Test oder kalkulierte Antibiose',
+            'Ziele der Antibiose: Verkürzung der Symptomdauer um lediglich etwa einen halben bis einen Tag, Verkürzung der Ansteckungsfähigkeit auf 24 Stunden sowie Verhinderung eitriger Komplikationen und des rheumatischen Fiebers — die Poststreptokokken-Glomerulonephritis wird NICHT sicher verhindert',
+            'Mittel der Wahl: Penicillin V oral, Erwachsene dreimal täglich 1 Mio. IE, Kinder 50.000 bis 100.000 IE/kg Körpergewicht und Tag in zwei bis drei Einzeldosen, über 5 bis 7 Tage; klassisch 10 Tage zur sicheren Eradikation und Prophylaxe des rheumatischen Fiebers',
+            'bei Penicillinallergie ein Makrolid: Clarithromycin zweimal täglich 250 bis 500 mg über 5 Tage oder Azithromycin einmal täglich 500 mg über 3 Tage (steigende Makrolidresistenz beachten); bei nicht-anaphylaktischer Allergie alternativ ein Oralcephalosporin der ersten oder zweiten Generation, zum Beispiel Cefuroximaxetil',
+            'ABSOLUTES VERBOT von Aminopenicillinen (Ampicillin, Amoxicillin) bei möglicher infektiöser Mononukleose: es entsteht fast regelhaft ein makulopapulöses Arzneimittelexanthem, das fälschlich als Penicillinallergie dokumentiert wird',
+            'Adhärenz sichern: die Therapie muss über die volle verordnete Dauer eingenommen werden. Das eigenmächtige Absetzen nach drei Tagen ist die klassische Ursache eines rheumatischen Fiebers zwei bis drei Wochen später',
+            '24 Stunden nach Beginn einer wirksamen Antibiose besteht keine Ansteckungsfähigkeit mehr; erst dann Wiederzulassung zu Gemeinschaftseinrichtungen. Eine Routine-Kontrollkultur nach Therapieende ist nicht erforderlich; asymptomatische Keimträger werden nicht behandelt',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Komplikationen und Sonderfälle (Peritonsillarabszess, Tonsillektomie)',
+          items: [
+            'Peritonsillarabszess = HNO-Notfall: sofortige fachärztliche Vorstellung, Probepunktion und Inzision mit Drainage in Lokalanästhesie, stationäre Aufnahme, intravenöse Antibiose mit Ampicillin/Sulbactam (nur nach Ausschluss einer Mononukleose) oder Clindamycin; bei Rezidiv oder Therapieversagen Abszesstonsillektomie („Tonsillektomie à chaud“)',
+            'para- und retropharyngealer Abszess, absteigende nekrotisierende Mediastinitis, Lemierre-Syndrom mit septischer Jugularvenenthrombose und septischen Lungenembolien: CT mit Kontrastmittel, breite intravenöse Antibiose mit Anaerobierwirksamkeit, chirurgische Sanierung, Antikoagulation im Einzelfall',
+            'stationäre Aufnahme bei Trinkunfähigkeit mit Exsikkose, septischem Krankheitsbild, Atemwegsgefährdung, Immunsuppression oder unsicherer häuslicher Versorgung; intravenöse Flüssigkeitssubstitution und intravenöse Antibiose',
+            'nicht-eitrige Folgeerkrankungen: rheumatisches Fieber zwei bis drei Wochen nach der Angina — Penicillin zur Eradikation, hochdosierte Acetylsalicylsäure beziehungsweise NSAR, bei Karditis Glukokortikoide, Echokardiographie und langjährige Rezidivprophylaxe mit Benzathin-Penicillin G intramuskulär alle drei bis vier Wochen; Poststreptokokken-Glomerulonephritis ein bis zwei Wochen nach dem Racheninfekt — Urinstatus, Blutdruck- und Gewichtskontrolle, Flüssigkeits- und Salzrestriktion, symptomatische Therapie',
+            'elektive Tonsillektomie bei rezidivierenden, ärztlich dokumentierten und antibiotikapflichtigen Episoden: ab 6 Episoden in zwölf Monaten zu empfehlen, bei 3 bis 5 Episoden abwartendes Vorgehen mit erneuter Beurteilung nach sechs Monaten; weitere Indikationen sind der rezidivierende Peritonsillarabszess, die chronische Tonsillitis mit Fokusgeschehen, die obstruktive Hyperplasie und der Malignomverdacht. Aufklärung über das relevante Nachblutungsrisiko (etwa 1 bis 5 %, besonders zwischen dem fünften und zehnten postoperativen Tag)',
+            'bei Diphtherieverdacht sofortige Isolierung, Gabe von Diphtherie-Antitoxin noch vor dem Erregernachweis, Penicillin oder Erythromycin, Meldung an das Gesundheitsamt und Umgebungsprophylaxe',
+          ],
+          akut: true,
+        },
+      ],
+      prognose: 'Die akute Tonsillopharyngitis ist ganz überwiegend selbstlimitierend: Bei viraler Genese klingen die Beschwerden innerhalb von drei bis sieben Tagen ab, bei der Streptokokken-Angina auch ohne Antibiotikum meist innerhalb einer Woche. Eine Antibiose verkürzt die Symptomdauer nur um etwa einen halben bis einen Tag; ihr eigentlicher Nutzen liegt in der Verkürzung der Ansteckungsfähigkeit und in der Verhinderung eitriger Komplikationen und des rheumatischen Fiebers. Ein Peritonsillarabszess entwickelt sich bei etwa einem bis zwei von hundert Patienten mit Streptokokken-Angina und heilt nach Drainage und Antibiose in der Regel folgenlos aus. Das rheumatische Fieber ist in Deutschland durch die konsequente Antibiotikatherapie sehr selten geworden (unter 1 Fall pro 100.000 Einwohner und Jahr), bleibt jedoch weltweit die häufigste Ursache erworbener Herzklappenfehler; die Poststreptokokken-Glomerulonephritis heilt bei Kindern meist folgenlos aus, kann bei Erwachsenen aber in eine chronische Niereninsuffizienz übergehen. Rezidivierende Tonsillitiden bedeuten eine relevante Einschränkung der Lebensqualität; nach Tonsillektomie sinkt die Zahl der Halsinfekte, allerdings ist der Effekt bei Erwachsenen moderat und muss gegen das Nachblutungsrisiko abgewogen werden.',
+      pruefungsfallen: [
+        'Den Centor-Score falsch wiedergeben: Das zweite Kriterium lautet FEHLEN von Husten. Wer hustet, erhält dafür KEINEN Punkt — Husten, Schnupfen und Heiserkeit sprechen aktiv gegen eine Streptokokken-Genese.',
+        'Den McIsaac-Score mit dem Centor-Score verwechseln: McIsaac = Centor plus Alterskorrektur (3 bis 14 Jahre plus 1, 15 bis 44 Jahre 0, ab 45 Jahren minus 1), maximal 5 Punkte.',
+        'Reflexartig ein Antibiotikum verordnen: 70 bis 80 % der Anginen sind viral. Bei niedrigem Score wird weder getestet noch antibiotisch behandelt — diese Aussage wird von den Prüfern ausdrücklich erwartet.',
+        'Bei möglicher infektiöser Mononukleose ein Aminopenicillin (Ampicillin, Amoxicillin) geben — es entsteht fast regelhaft ein makulopapulöses Arzneimittelexanthem. Der klassischste Prüferfavorit dieses Themas.',
+        'Bei Mononukleose die Milz vergessen: Sonographie und Sportkarenz für vier bis sechs Wochen wegen der Gefahr der Milzruptur.',
+        'Den Peritonsillarabszess nicht abfragen: einseitige Zunahme, Trismus, kloßige Sprache, Speichelfluss, Uvula-Deviation. Es ist ein HNO-Notfall mit Punktion beziehungsweise Inzision, nicht eine reine Antibiotikafrage.',
+        'Den Antistreptolysin-O-Titer in die Akutdiagnostik packen: Er steigt erst nach ein bis drei Wochen und dient nur der Klärung von Folgeerkrankungen.',
+        'Die Poststreptokokken-Folgeerkrankungen und ihr Zeitfenster verwechseln: rheumatisches Fieber zwei bis drei Wochen nach der Angina, Glomerulonephritis ein bis zwei Wochen nach dem Racheninfekt. Die Antibiose verhindert das rheumatische Fieber, nicht sicher die Glomerulonephritis.',
+        'Bei akuten Gelenkschmerzen mit Fieber die Frage nach einer Angina in den letzten Wochen vergessen — sie ist in der FSP Baden-Württemberg der erwartete Screening-Punkt, weil zahlreiche Protokolle das rheumatische Fieber nach unvollständig behandelter Tonsillitis abbilden.',
+        'Die Diphtherie und die medikamentöse Agranulozytose nicht als Differenzialdiagnose nennen; beide gehören zu den Cave-Diagnosen jeder Angina.',
+        'In der Fallvorstellung „Rötung“ statt „Rubor“ sagen: Ein Oberarzt in Stuttgart hat genau dies korrigiert und die vollständige Reihe Rubor, Calor, Tumor, Dolor und Functio laesa hören wollen.',
+        'Bei einseitiger, über Wochen persistierender Tonsillenvergrößerung eines älteren Rauchers das Tonsillenkarzinom übersehen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was machen Sie, um die Diagnose zu sichern?',
+          antwort: 'Zunächst die körperliche Untersuchung mit Racheninspektion — Rubor, Tumor, Beläge, Symmetrie und Uvulastellung —, Palpation der Halslymphknoten und Auskultation der Lunge zum Ausschluss einer Pneumonie. Dann der Rachenabstrich mit Streptokokken-Schnelltest, dazu Blutbild mit Differenzialblutbild, CRP und BSG sowie Nieren- und Leberwerte. Bei Husten und Fieber ergänzend ein Röntgen-Thorax.',
+        },
+        {
+          frage: 'Welche Erreger kommen in Betracht, und wie hoch ist der Anteil viraler Ursachen?',
+          antwort: 'Etwa 70 bis 80 % sind viral: Adeno-, Rhino-, Influenza-, Parainfluenza- und Coronaviren, EBV, Coxsackieviren und Herpes-simplex-Viren, ferner die akute HIV-Infektion. Bakteriell steht Streptococcus pyogenes, der beta-hämolysierende Streptokokkus der Gruppe A, im Vordergrund; seltener Streptokokken der Gruppen C und G, Fusobakterien, Corynebacterium diphtheriae und Gonokokken.',
+        },
+        {
+          frage: 'Kennen Sie den Centor-Score? Nennen Sie bitte die Kriterien.',
+          antwort: 'Vier Kriterien mit je einem Punkt: Fieber über 38 °C, FEHLEN von Husten, geschwollene und druckschmerzhafte vordere Halslymphknoten sowie Tonsillenexsudat. Bei 0 bis 1 Punkt wird weder getestet noch antibiotisch behandelt, bei 2 bis 3 Punkten erfolgt ein Schnelltest mit Antibiose nur bei positivem Ergebnis, bei 4 Punkten kann getestet oder kalkuliert behandelt werden.',
+        },
+        {
+          frage: 'Was ist der Unterschied zum McIsaac-Score?',
+          antwort: 'Der McIsaac-Score ist der Centor-Score mit einer Alterskorrektur und damit auch bei Kindern anwendbar: plus 1 Punkt bei 3 bis 14 Jahren, 0 Punkte bei 15 bis 44 Jahren, minus 1 Punkt ab 45 Jahren, maximal 5 Punkte. Er bildet ab, dass die Streptokokken-Angina im höheren Lebensalter selten ist.',
+        },
+        {
+          frage: 'Was würden Sie machen beim Nachweis einer bakteriellen Infektion?',
+          antwort: 'Penicillin V als Mittel der Wahl, für Erwachsene dreimal täglich 1 Mio. IE über 5 bis 7 Tage, klassisch 10 Tage. Bei bekannter Betalaktam- beziehungsweise Penicillinallergie stattdessen ein Makrolid wie Clarithromycin oder Azithromycin.',
+        },
+        {
+          frage: 'Welches Antibiotikum dürfen Sie bei Verdacht auf eine infektiöse Mononukleose auf keinen Fall geben, und warum?',
+          antwort: 'Keine Aminopenicilline, also weder Ampicillin noch Amoxicillin. Es kommt fast regelhaft zu einem makulopapulösen Arzneimittelexanthem, das keine echte Allergie ist, aber lebenslang fälschlich als Penicillinallergie dokumentiert wird.',
+        },
+        {
+          frage: 'Woran erkennen Sie einen Peritonsillarabszess, und was tun Sie?',
+          antwort: 'An der einseitigen Zunahme der Schmerzen, oft nach zwischenzeitlicher Besserung, an der Kieferklemme, der kloßigen Sprache, dem Speichelfluss und der einseitigen Vorwölbung mit Verdrängung der Uvula zur Gegenseite. Es ist ein HNO-Notfall: sofortige fachärztliche Vorstellung, Punktion beziehungsweise Inzision und Drainage, stationäre Aufnahme und intravenöse Antibiose, bei Rezidiv Abszesstonsillektomie.',
+        },
+        {
+          frage: 'Welche Komplikationen der Streptokokken-Angina kennen Sie?',
+          antwort: 'Eitrige Komplikationen: Peritonsillar-, Parapharyngeal- und Retropharyngealabszess, Otitis media, Sinusitis, Mastoiditis, zervikale Lymphadenitis, Sepsis und das Lemierre-Syndrom. Nicht-eitrige Folgeerkrankungen: rheumatisches Fieber, Poststreptokokken-Glomerulonephritis, Poststreptokokken-reaktive Arthritis und Scharlach.',
+        },
+        {
+          frage: 'Was ist ein rheumatisches Fieber, und wie wird es behandelt?',
+          antwort: 'Eine autoimmune Zweiterkrankung zwei bis drei Wochen nach einer Streptokokken-Angina durch Kreuzreaktion von Antikörpern gegen das M-Protein mit körpereigenem Gewebe. Klinisch wandernde Polyarthritis der großen Gelenke, Karditis, Chorea minor, Erythema marginatum und subkutane Knötchen; Diagnose über die Jones-Kriterien. Therapie: stationäre Aufnahme, Penicillin zur Eradikation, hochdosierte Acetylsalicylsäure beziehungsweise NSAR, bei Karditis Glukokortikoide, Bettruhe und eine langjährige Rezidivprophylaxe mit Benzathin-Penicillin G intramuskulär.',
+        },
+        {
+          frage: 'Welche Diagnostik veranlassen Sie bei Verdacht auf ein rheumatisches Fieber?',
+          antwort: 'Blutbild, CRP und BSG, Antistreptolysin-O-Titer, Rachenabstrich, Urinstatus auf Blut wegen der Glomerulonephritis, EKG mit Blick auf eine PQ-Verlängerung, Echokardiographie zur Beurteilung von Klappen und Perikard, Gelenksonographie und gegebenenfalls Gelenkpunktion zum Ausschluss einer septischen Arthritis.',
+        },
+        {
+          frage: 'Was ist die wichtigste Komplikation des rheumatischen Fiebers?',
+          antwort: 'Die Karditis, insbesondere die Endokarditis mit späterem Mitralklappenfehler; auch Myokarditis und Perikarditis kommen vor. Deshalb gehören EKG und Echokardiographie zur Abklärung, und deshalb ist die Rezidivprophylaxe über Jahre erforderlich.',
+        },
+        {
+          frage: 'Warum ist es so wichtig, dass der Patient das Antibiotikum vollständig einnimmt?',
+          antwort: 'Weil eine unvollständige Eradikation der Streptokokken das rheumatische Fieber und die Poststreptokokken-Glomerulonephritis begünstigt. Zahlreiche Prüfungsprotokolle beschreiben genau diesen Verlauf: Penicillin nur drei Tage eingenommen, zwei bis drei Wochen später wandernde Gelenkschmerzen mit Fieber.',
+        },
+        {
+          frage: 'Wann besteht eine Indikation zur Tonsillektomie?',
+          antwort: 'Bei ärztlich dokumentierten, antibiotikapflichtigen Rezidiven: ab sechs Episoden in zwölf Monaten ist sie zu empfehlen, bei drei bis fünf Episoden wird zunächst abgewartet und nach sechs Monaten erneut beurteilt, bis zu zwei Episoden besteht keine Indikation. Weitere Indikationen sind der rezidivierende Peritonsillarabszess, die chronische Tonsillitis als Fokus, die obstruktive Hyperplasie mit Schlafapnoe und der Malignomverdacht.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Begriffe Tonsillitis, Tonsillitis purulenta, Pharyngitis und Tonsillektomie?',
+          antwort: 'Tonsillitis ist die Mandelentzündung, Tonsillitis purulenta die eiternde Mandelentzündung, Pharyngitis die Rachenentzündung und Tonsillektomie die operative Entfernung der Mandeln.',
+        },
+        {
+          frage: 'Muss ein Patient mit Angina stationär behandelt werden?',
+          antwort: 'In der Regel nicht — die unkomplizierte Tonsillitis wird ambulant behandelt. Stationär aufgenommen wird bei Peritonsillarabszess oder tiefer Halsinfektion, bei Trinkunfähigkeit mit Exsikkose, bei Sepsiszeichen, bei Atemwegsgefährdung, bei Verdacht auf Diphtherie oder Agranulozytose sowie bei relevanter Immunsuppression.',
+        },
+      ],
+      merksatz: 'Sieben bis acht von zehn Anginen sind viral — erst der Score, dann der Test, dann erst das Antibiotikum: Centor = Fieber über 38 °C, FEHLEN von Husten, druckschmerzhafte vordere Halslymphknoten, Tonsillenexsudat; McIsaac zusätzlich mit Alterskorrektur. Penicillin V ist Mittel der Wahl, bei Allergie ein Makrolid — und NIEMALS ein Aminopenicillin, solange eine Mononukleose möglich ist. Einseitig plus Kieferklemme plus Uvula-Deviation heißt Peritonsillarabszess und damit HNO-Notfall.',
+      linkedCaseIds: [
+        'case-tonsillitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
   ];
 }
