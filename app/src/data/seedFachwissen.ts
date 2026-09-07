@@ -7297,5 +7297,2237 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-anaemie',
+      pathology: 'Eisenmangelanämie',
+      specialty: 'Hämatologie',
+      definition: 'Die Eisenmangelanämie ist mit etwa 80 % aller Anämien die weltweit häufigste Anämieform. Sie entsteht, wenn das für die Hämoglobinsynthese verfügbare Eisen nicht mehr ausreicht, und führt morphologisch zu einer mikrozytären, hypochromen Anämie (MCV und MCH erniedrigt) mit erniedrigtem Serumferritin, erhöhtem Transferrin und erniedrigter Transferrinsättigung. Entscheidend ist das Verständnis, dass die Eisenmangelanämie KEINE eigenständige Enddiagnose, sondern ein Symptom ist: Sie verpflichtet immer zur Suche nach der Ursache, in erster Linie nach einer chronischen Blutungsquelle. Bei Männern und bei postmenopausalen Frauen gilt ein gastrointestinaler Blutverlust bis zum Beweis des Gegenteils als Ursache, sodass eine Ösophago-Gastro-Duodenoskopie UND eine Ileokoloskopie obligat sind.',
+      aetiologie: 'Erstens chronischer Blutverlust — mit Abstand die häufigste Ursache: bei prämenopausalen Frauen Hypermenorrhoe und Menorrhagie (Myome, Adenomyose, Blutungsstörungen, Spirale), bei Männern und postmenopausalen Frauen gastrointestinale Blutungen (kolorektales Karzinom, Kolonpolypen, Magen- und Duodenalulkus, erosive Gastritis unter NSAR oder Acetylsalicylsäure, Angiodysplasien, Ösophagusvarizen, Hämorrhoiden, chronisch entzündliche Darmerkrankungen, in Endemiegebieten Hakenwurmbefall); seltener rezidivierendes Nasenbluten, Hämaturie, Hämoptysen oder sehr häufige Blutspenden. Zweitens verminderte Zufuhr: streng vegetarische oder vegane Ernährung, Mangelernährung, einseitige Kuhmilchernährung im Säuglingsalter. Drittens Malabsorption: Zöliakie, atrophische Autoimmungastritis, Helicobacter-pylori-Gastritis, Zustand nach Magenresektion oder bariatrischer Operation, chronisch entzündliche Darmerkrankungen sowie eine langfristige Einnahme von Protonenpumpenhemmern (die fehlende Magensäure hemmt die Reduktion und Resorption des dreiwertigen Eisens). Viertens erhöhter Bedarf: Schwangerschaft und Stillzeit, Wachstumsschübe, Leistungssport. Fünftens vermehrter Verlust bei chronischer intravasaler Hämolyse und bei Dialysepatienten.',
+      risikofaktoren: [
+        'Weibliches Geschlecht in der reproduktiven Phase (Menstruationsverluste, Schwangerschaft, Stillzeit)',
+        'Hypermenorrhoe und Menorrhagie, Uterusmyome',
+        'Alter über 50 Jahre mit noch nicht durchgeführter Vorsorgekoloskopie',
+        'Positive Familienanamnese für kolorektale Karzinome oder Polypen',
+        'Regelmäßige Einnahme von NSAR, Acetylsalicylsäure, Kortikosteroiden oder Antikoagulanzien (okkulte gastrointestinale Blutung)',
+        'Dauertherapie mit Protonenpumpenhemmern (verminderte Eisenresorption)',
+        'Vegetarische oder vegane Ernährung; sehr fleischarme Kost, viel Kaffee, schwarzer Tee, Milch oder Kalzium zu den Mahlzeiten (Resorptionshemmer)',
+        'Zöliakie, Helicobacter-pylori-Gastritis, atrophische Autoimmungastritis',
+        'Chronisch entzündliche Darmerkrankungen (Morbus Crohn, Colitis ulcerosa)',
+        'Zustand nach Magen- oder Dünndarmresektion, bariatrische Chirurgie',
+        'Chronische Nierenerkrankung und Dialyse',
+        'Häufige Blutspenden, Leistungssport (Marathon: Mikroblutungen und Hämolyse)',
+        'Niedriger sozioökonomischer Status, Migration aus Endemiegebieten für Parasitosen',
+      ],
+      klinik: [
+        {
+          text: 'Müdigkeit, Abgeschlagenheit und Leistungsknick — das führende und oft einzige Symptom',
+        },
+        {
+          text: 'Blässe von Haut und Schleimhäuten; am zuverlässigsten an den Konjunktiven, der Mundschleimhaut und dem Nagelbett zu beurteilen',
+        },
+        {
+          text: 'Belastungsdyspnoe, zunächst beim Treppensteigen und bei körperlicher Anstrengung',
+        },
+        {
+          text: 'Palpitationen, Tachykardie und ein funktionelles systolisches Strömungsgeräusch über dem Herzen',
+        },
+        {
+          text: 'Schwindel, besonders beim Aufstehen, Ohrensausen und Kopfschmerzen',
+        },
+        {
+          text: 'Konzentrations- und Merkfähigkeitsstörungen, Reizbarkeit, depressive Verstimmung',
+        },
+        {
+          text: 'Kälteintoleranz mit kalten Händen und Füßen',
+        },
+        {
+          text: 'Mundwinkelrhagaden (Cheilitis angularis) — eisenmangelspezifisches Epithelzeichen',
+        },
+        {
+          text: 'Atrophische Glossitis: glatte, gerötete, brennende Zunge mit Verlust der Papillen',
+        },
+        {
+          text: 'Brüchige, längsgeriefte Nägel, in ausgeprägten Fällen Koilonychie (Löffelnägel)',
+        },
+        {
+          text: 'Diffuser Haarausfall, trockene, rissige Haut',
+        },
+        {
+          text: 'Pica: Heißhunger auf ungewöhnliche Substanzen wie Eis (Pagophagie), Erde, Kreide oder rohe Stärke',
+        },
+        {
+          text: 'Restless-Legs-Syndrom mit nächtlicher Unruhe der Beine',
+        },
+        {
+          text: 'Dysphagie bei Plummer-Vinson-Syndrom durch ösophageale Schleimhautatrophie mit Webbildung — sehr selten, aber Präkanzerose',
+          atypisch: true,
+        },
+        {
+          text: 'Erstaunlich geringe Beschwerden trotz sehr niedrigem Hämoglobin, wenn die Anämie über Monate langsam entstanden ist (gute Kompensation)',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Angina pectoris, kardiale Dekompensation oder Synkope bei kardialer Vorerkrankung',
+          atypisch: true,
+        },
+        {
+          text: 'Bei sehr alten Patienten Verwirrtheit, Stürze oder eine rasche Verschlechterung der Mobilität statt der typischen Symptome',
+          atypisch: true,
+        },
+        {
+          text: 'Belastungsdyspnoe und Ödeme bei begleitender chronischer Herzinsuffizienz, bei der der Eisenmangel auch ohne Anämie die Leistungsfähigkeit senkt',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Morphologische Einteilung nach MCV und MCH (der Einstieg in jede Anämie-Differenzialdiagnose)',
+          inhalt: 'Mikrozytär-hypochrom (MCV unter 80 fl, MCH unter 27 pg): Eisenmangelanämie, Thalassämie, Anämie der chronischen Erkrankung im späten Verlauf, sideroblastische Anämie, Bleiintoxikation. Normozytär-normochrom (MCV 80–100 fl): akute Blutungsanämie, renale Anämie, Anämie der chronischen Erkrankung, aplastische Anämie, Hämolyse, Knochenmarkinfiltration. Makrozytär-hyperchrom (MCV über 100 fl): Vitamin-B12-Mangel, Folsäuremangel, Alkoholkrankheit, Lebererkrankung, myelodysplastisches Syndrom, Hypothyreose, Medikamente wie Methotrexat.',
+        },
+        {
+          name: 'WHO-Definition und Schweregrade der Anämie',
+          inhalt: 'Anämie ab einem Hämoglobin unter 13 g/dl beim Mann, unter 12 g/dl bei der nicht schwangeren Frau und unter 11 g/dl in der Schwangerschaft. Schweregrade: mild bis etwa 10 g/dl, mäßig 8 bis 10 g/dl, schwer unter 8 g/dl. Cave: Bei Exsikkose wird das Hämoglobin durch Hämokonzentration falsch hoch, bei Hypervolämie falsch niedrig gemessen.',
+        },
+        {
+          name: 'Stadien des Eisenmangels',
+          inhalt: 'Stadium 1 — Speichereisenmangel (latenter Eisenmangel): Ferritin erniedrigt, Hämoglobin und MCV noch normal. Stadium 2 — eisendefizitäre Erythropoese: zusätzlich Transferrin erhöht, Transferrinsättigung unter 20 %, löslicher Transferrinrezeptor erhöht, Retikulozyten-Hämoglobin erniedrigt. Stadium 3 — manifeste Eisenmangelanämie: Hämoglobin, MCV und MCH erniedrigt, Anisozytose mit erhöhtem RDW, im Ausstrich Mikrozyten und Anulozyten.',
+        },
+        {
+          name: 'Mentzer-Index zur Abgrenzung von der Thalassaemia minor',
+          inhalt: 'Mentzer-Index gleich MCV in Femtolitern geteilt durch die Erythrozytenzahl in Millionen pro Mikroliter. Ein Wert über 13 spricht für eine Eisenmangelanämie (wenige, kleine Erythrozyten), ein Wert unter 13 für eine Thalassaemia minor (viele, kleine Erythrozyten). Beweisend ist die Hämoglobin-Elektrophorese mit erhöhtem HbA2.',
+        },
+        {
+          name: 'Laborkonstellation im Vergleich zur Anämie der chronischen Erkrankung',
+          inhalt: 'Eisenmangelanämie: Ferritin erniedrigt, Transferrin ERHÖHT, Transferrinsättigung erniedrigt, löslicher Transferrinrezeptor erhöht. Anämie der chronischen Erkrankung: Ferritin normal oder erhöht (Akute-Phase-Protein), Transferrin ERNIEDRIGT, Transferrinsättigung erniedrigt, löslicher Transferrinrezeptor normal. Das Transferrin verhält sich also gegenläufig und ist der beste Diskriminator; bei kombiniertem Bild gelten Ferritinwerte unter 100 ng/ml mit einer Transferrinsättigung unter 20 % als Hinweis auf einen zusätzlichen echten Eisenmangel.',
+        },
+      ],
+      redFlags: [
+        'Hämodynamische Instabilität mit Tachykardie, Hypotonie, Synkope oder Blässe bei akuter Blutung — sofortige Kreislaufstabilisierung und Transfusionsvorbereitung',
+        'Hämatemesis, Kaffeesatzerbrechen oder Teerstuhl — obere gastrointestinale Blutung, notfallmäßige Endoskopie',
+        'Hämatochezie mit Kreislaufwirkung — untere gastrointestinale Blutung',
+        'Eisenmangelanämie bei einem Mann oder einer postmenopausalen Frau — Malignom des Gastrointestinaltrakts bis zum Beweis des Gegenteils, Endoskopie oben und unten',
+        'Begleitende B-Symptomatik mit Fieber, Nachtschweiß und ungewolltem Gewichtsverlust über 10 % — Verdacht auf Malignom oder hämatologische Systemerkrankung',
+        'Panzytopenie, Blutungsneigung, Petechien oder gehäufte Infekte — Knochenmarkerkrankung, Knochenmarkpunktion',
+        'Angina pectoris, neu aufgetretene Herzinsuffizienz oder Bewusstseinsstörung bei schwerer Anämie',
+        'Postmenopausale vaginale Blutung — dringende gynäkologische Abklärung (Endometriumkarzinom)',
+        'Ausbleibender Hämoglobinanstieg unter korrekt eingenommener Eisensubstitution — persistierende Blutungsquelle, Malabsorption oder falsche Diagnose',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Blutungsanamnese als wichtigster Schritt: schwarzer oder blutiger Stuhl, Änderung der Stuhlgewohnheiten, Bleistiftstühle, Hämorrhoiden, Hämatemesis, Nasenbluten, Hämaturie, Hämoptysen; bei Frauen Stärke und Dauer der Regelblutung sowie jede postmenopausale Blutung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ernährungsanamnese (Fleischkonsum, vegetarische oder vegane Kost, Kaffee, schwarzer Tee und Milch zu den Mahlzeiten) und Medikamentenanamnese mit gezielter Frage nach NSAR, Acetylsalicylsäure, Antikoagulanzien, Kortikosteroiden und Protonenpumpenhemmern',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese möglicher Malabsorption: Durchfälle, Blähungen, Gewichtsverlust, bekannte Zöliakie, chronisch entzündliche Darmerkrankung, frühere Magen- oder Darmoperationen; Familienanamnese für kolorektale Karzinome, Polypen und Thalassämie; frühere Vorsorgekoloskopie und Blutspenden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blässe der Konjunktiven, der Mundschleimhaut und der Nagelbetten, Mundwinkelrhagaden, glatte gerötete Zunge, brüchige Nägel und Koilonychie, Haarausfall; Herzfrequenz, Blutdruck einschließlich Orthostase, systolisches Strömungsgeräusch, Lymphknotenstatus, Milz- und Lebergröße',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Digital-rektale Untersuchung — obligat und häufig vergessen: Blut am Fingerling, palpable Raumforderung, Hämorrhoiden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Erythrozytenindices: Hämoglobin, Hämatokrit, Erythrozytenzahl, MCV und MCH erniedrigt (mikrozytär-hypochrom), MCHC erniedrigt, RDW als frühester Parameter erhöht (Anisozytose); Thrombozyten häufig reaktiv erhöht bei chronischer Blutung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ferritin als entscheidender Parameter — ein Wert unter 30 ng/ml beweist praktisch den Eisenmangel, unter 15 ng/ml ist er gesichert. CAVE: Ferritin ist ein Akute-Phase-Protein und bei Entzündung, Infekt, Tumor, Leberschaden oder Niereninsuffizienz falsch normal oder erhöht; dann gelten Werte unter 100 ng/ml zusammen mit einer Transferrinsättigung unter 20 % als Hinweis auf einen Eisenmangel',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Weiterer Eisenstatus: Transferrin erhöht, Transferrinsättigung unter 20 %, löslicher Transferrinrezeptor erhöht (entzündungsunabhängig und daher der Schlüsselparameter bei begleitender Entzündung); das Serumeisen allein ist wegen zirkadianer und nahrungsabhängiger Schwankungen wertlos',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Retikulozyten: bei unbehandeltem Eisenmangel niedrig oder normal (hyporegeneratorische Anämie); ein Anstieg etwa eine Woche nach Therapiebeginn dient als Wirksamkeitsnachweis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungs- und Differenzialparameter: CRP und BSG; LDH, Haptoglobin, indirektes Bilirubin und Coombs-Test zum Ausschluss einer Hämolyse; Kreatinin und eGFR (renale Anämie); TSH (Hypothyreose); Vitamin B12 und Folsäure, da kombinierte Mangelzustände das MCV normalisieren können',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ursachensuchendes Labor: Zöliakieserologie mit Transglutaminase-IgA und Gesamt-IgA, Helicobacter-pylori-Diagnostik, immunologischer Test auf okkultes Blut im Stuhl (positiv beweisend, negativ jedoch NICHT ausschließend — er ersetzt niemals die Endoskopie), Urinstatus auf Mikrohämaturie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei mikrozytärer Anämie mit normalem Ferritin: Berechnung des Mentzer-Index und Hämoglobin-Elektrophorese zum Nachweis einer Thalassaemia minor; im Blutausstrich Anisozytose, Poikilozytose, Anulozyten und bei Thalassämie Targetzellen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: Leber, Milz, Lymphknoten, Nieren und Hinweise auf Raumforderungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Gynäkologische Vorstellung mit vaginaler Sonographie bei jeder Frau — bei prämenopausalen Frauen zur Klärung von Myomen und Blutungsstörungen, bei postmenopausalen Frauen zum Ausschluss eines Endometriumkarzinoms',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei negativer Endoskopie und fortbestehendem Verlust ergänzend Videokapselendoskopie des Dünndarms, gegebenenfalls CT- oder MR-Enterographie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie mit Stufenbiopsien aus Magen (Helicobacter, atrophische Gastritis) und Duodenum (Zöliakie) — bei Männern und postmenopausalen Frauen obligat',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Biopsien und Polypenabtragung — obligat und gleichrangig zur Gastroskopie; beide Untersuchungen werden auch dann durchgeführt, wenn die erste bereits eine mögliche Quelle zeigt, da Doppelbefunde häufig sind',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Doppelballon-Enteroskopie bei nachgewiesener, endoskopisch nicht erreichbarer Dünndarmquelle (etwa Angiodysplasien)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion nur bei unklarer Konstellation, Panzytopenie oder Verdacht auf ein myelodysplastisches Syndrom bzw. eine Knochenmarkinfiltration — der Eisennachweis in der Berliner-Blau-Färbung ist der historische Goldstandard, heute jedoch entbehrlich',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Anämie der chronischen Erkrankung (Entzündungsanämie)',
+          unterscheidung: 'Zunächst normozytär-normochrom, im späten Verlauf auch mikrozytär. Ferritin normal oder erhöht, Transferrin ERNIEDRIGT, Transferrinsättigung erniedrigt, löslicher Transferrinrezeptor normal, CRP und BSG erhöht. Die gegenläufige Reaktion des Transferrins ist das entscheidende Unterscheidungsmerkmal; Ursache ist eine hepcidinvermittelte Eisenverwertungsstörung bei Infekt, Tumor oder Autoimmunerkrankung.',
+        },
+        {
+          dd: 'Thalassaemia minor',
+          unterscheidung: 'MCV sehr niedrig bei nur leicht erniedrigtem Hämoglobin, Erythrozytenzahl normal oder sogar erhöht, Mentzer-Index unter 13, Ferritin normal, im Ausstrich Targetzellen; Nachweis über die Hämoglobin-Elektrophorese mit erhöhtem HbA2. Häufig Mittelmeer- oder asiatische Herkunft und positive Familienanamnese. Cave: Eine Eisensubstitution ohne Eisenmangel führt hier zur Eisenüberladung.',
+        },
+        {
+          dd: 'Vitamin-B12- oder Folsäuremangel (megaloblastäre Anämie)',
+          unterscheidung: 'Makrozytär mit MCV über 100 fl, hypersegmentierte neutrophile Granulozyten im Ausstrich, LDH und indirektes Bilirubin erhöht durch ineffektive Erythropoese. Beim B12-Mangel zusätzlich neurologische Zeichen (funikuläre Myelose mit Parästhesien, Gangunsicherheit, Hinterstrangsymptomatik) und die Hunter-Glossitis. Bei kombiniertem Mangel kann das MCV normal sein — dann täuscht nur der Eisenmangel.',
+        },
+        {
+          dd: 'Renale Anämie',
+          unterscheidung: 'Normozytär-normochrom bei Erythropoetinmangel, parallel zur Abnahme der eGFR; Retikulozyten niedrig, Eisenstatus initial unauffällig. Kreatinin und Harnstoff erhöht, häufig zusätzlich Hyperphosphatämie und sekundärer Hyperparathyreoidismus.',
+        },
+        {
+          dd: 'Akute Blutungsanämie',
+          unterscheidung: 'Normozytär-normochrom; in den ersten Stunden kann das Hämoglobin trotz relevanten Blutverlusts noch normal sein, da Erythrozyten und Plasma gleichermaßen verloren gehen — der Abfall zeigt sich erst nach Verdünnung. Klinisch Tachykardie, Hypotonie, Blässe und Kaltschweißigkeit; die Retikulozyten steigen nach einigen Tagen an.',
+        },
+        {
+          dd: 'Hämolytische Anämie',
+          unterscheidung: 'Retikulozyten deutlich ERHÖHT, LDH erhöht, Haptoglobin erniedrigt, indirektes Bilirubin erhöht, häufig Ikterus und Splenomegalie; direkter Coombs-Test bei autoimmuner Genese positiv. Klinisch dunkler Urin bei intravasaler Hämolyse.',
+        },
+        {
+          dd: 'Myelodysplastisches Syndrom und andere Knochenmarkerkrankungen',
+          unterscheidung: 'Meist ältere Patienten, häufig makrozytär, oft Bi- oder Panzytopenie mit Blutungsneigung und Infektanfälligkeit, Dysplasiezeichen im Ausstrich, Blasten. Diagnosesicherung durch Knochenmarkpunktion mit Zytogenetik.',
+        },
+        {
+          dd: 'Knochenmarkinfiltration bei Leukämie, Lymphom oder Karzinommetastasen',
+          unterscheidung: 'B-Symptomatik, Lymphknotenschwellungen, Hepatosplenomegalie, Knochenschmerzen; im Blutbild Panzytopenie oder leukoerythroblastisches Blutbild. Beim multiplen Myelom zusätzlich Knochenschmerzen, Hyperkalzämie, Niereninsuffizienz, Geldrollenbildung und Paraprotein.',
+        },
+        {
+          dd: 'Sideroblastische Anämie und Bleiintoxikation',
+          unterscheidung: 'Mikrozytäre Anämie mit HOHEM Ferritin und hoher Transferrinsättigung; im Knochenmark Ringsideroblasten, im Ausstrich basophile Tüpfelung. Anamnese von Bleiexposition, Alkohol, Isoniazid oder Chloramphenicol.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Ähnliche Leitsymptome mit Müdigkeit, Leistungsknick und Konzentrationsstörung, jedoch mit Gewichtszunahme, Kälteintoleranz, Obstipation, trockener Haut, Haarausfall und Bradykardie; TSH erhöht. Die begleitende Anämie ist meist normo- oder makrozytär.',
+        },
+        {
+          dd: 'Depression und chronisches Erschöpfungssyndrom',
+          unterscheidung: 'Müdigkeit mit gedrückter Stimmung, Interessenverlust, Freudlosigkeit, Grübeln und Früherwachen ohne Blässe, ohne Epithelzeichen und mit unauffälligem Blutbild — die häufigste Fehlzuordnung bei unklarer Müdigkeit. Ein normales Blutbild schließt eine organische Ursache jedoch erst nach vollständigem Basislabor aus.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Ursachensuche und kausale Behandlung — der entscheidende erste Schritt',
+          items: [
+            'Grundsatz: Eine Eisenmangelanämie wird niemals substituiert, ohne dass die Ursache gesucht wurde. Die Substitution beseitigt das Symptom und verschleiert eine möglicherweise maligne Blutungsquelle',
+            'Bei Männern und postmenopausalen Frauen gilt jede Eisenmangelanämie als gastrointestinaler Blutverlust bis zum Beweis des Gegenteils: Ösophago-Gastro-Duodenoskopie UND Ileokoloskopie, beide auch dann, wenn eine Untersuchung bereits eine mögliche Quelle zeigt',
+            'Bei prämenopausalen Frauen zunächst gynäkologische Abklärung von Hypermenorrhoe und Menorrhagie (Myome, Adenomyose, Blutungsstörung) mit entsprechender Therapie; bei Therapieresistenz, Alter über 50 Jahre, familiärer Belastung oder gastrointestinalen Symptomen ebenfalls Endoskopie',
+            'Kausale Behandlung des Befundes: endoskopische Polypenabtragung, onkologische Therapie eines kolorektalen Karzinoms, Ulkustherapie mit Helicobacter-Eradikation, Behandlung einer chronisch entzündlichen Darmerkrankung, glutenfreie Ernährung bei Zöliakie',
+            'Auslösende Medikamente absetzen oder ersetzen: NSAR und Acetylsalicylsäure kritisch überprüfen, Antikoagulation überdenken, bei zwingender Indikation Magenschutz mit einem Protonenpumpenhemmer',
+            'Ernährungsberatung: Fleisch, Hülsenfrüchte und Vollkorn als Eisenquellen, Kombination mit Vitamin C; Kaffee, schwarzer Tee, Milch, Kalzium und Antazida hemmen die Resorption und sollten nicht zu den Mahlzeiten eingenommen werden',
+          ],
+        },
+        {
+          label: 'Eisensubstitution',
+          items: [
+            'Orale Substitution als Standard: zweiwertiges Eisen (Eisen-II-Sulfat, -Glukonat oder -Fumarat) mit etwa 50 bis 100 mg elementarem Eisen pro Gabe',
+            'Einnahme nüchtern, mindestens eine halbe bis eine Stunde vor der Mahlzeit, zusammen mit Vitamin C oder einem Glas Orangensaft; nicht mit Milch, Kaffee, schwarzem Tee, Antazida, Protonenpumpenhemmern, Kalzium, Levothyroxin oder Tetrazyklinen zusammen einnehmen',
+            'Moderne Empfehlung wegen der Hepcidin-Gegenregulation: Gabe einmal täglich oder sogar nur jeden zweiten Tag verbessert die Resorption und die Verträglichkeit gegenüber einer mehrfach täglichen Einnahme',
+            'Nebenwirkungen aktiv ansprechen, da sie die häufigste Ursache des Therapieversagens sind: Übelkeit, Magendruck, metallischer Geschmack, Obstipation oder Diarrhoe sowie die harmlose SCHWARZFÄRBUNG DES STUHLS, über die aufgeklärt werden muss (sie täuscht sonst einen Teerstuhl vor). Bei Unverträglichkeit Dosisreduktion, Einnahme jeden zweiten Tag oder Präparatewechsel',
+            'Therapiedauer: bis zur Normalisierung des Hämoglobins und anschließend weitere drei bis sechs Monate, bis die Speicher aufgefüllt sind — Zielwert des Ferritins über 100 ng/ml',
+            'Intravenöse Eisengabe (Eisencarboxymaltose, Eisenderisomaltose oder Eisensucrose) bei nachgewiesener Malabsorption, chronisch entzündlicher Darmerkrankung, Unverträglichkeit oder Unwirksamkeit der oralen Therapie, Dialyse, Tumortherapie, chronischer Herzinsuffizienz sowie wenn eine rasche Auffüllung nötig ist. Cave: anaphylaktische Reaktionen, Überwachung nach der Infusion, Hypophosphatämie, Hautverfärbung bei Paravasat; keine Gabe bei akutem Infekt',
+            'Keine Eisengabe ohne gesicherten Eisenmangel — bei Thalassämie oder Anämie der chronischen Erkrankung droht eine Eisenüberladung',
+          ],
+        },
+        {
+          label: 'Kontrolle und Verlaufsbeurteilung',
+          items: [
+            'Retikulozytenanstieg nach etwa einer Woche (Maximum am fünften bis zehnten Tag) als früher Wirksamkeitsnachweis — sogenannte Retikulozytenkrise',
+            'Hämoglobinanstieg um etwa 1 bis 2 g/dl nach vier Wochen; bleibt er aus, sind eine fortbestehende Blutungsquelle, mangelnde Einnahmetreue, eine Malabsorption oder eine falsche Diagnose zu prüfen',
+            'Ferritinkontrolle nach etwa drei Monaten und am Ende der Therapie; anschließend Verlaufskontrollen, bei bekannter Grundkrankheit dauerhaft',
+            'Rückverweisung an die kausale Ursache bei jedem Rezidiv — ein wiederkehrender Eisenmangel bedeutet einen fortbestehenden Verlust',
+            'Aufklärung der Patientin über Ernährung, Einnahmemodalitäten und die Notwendigkeit der Vorsorgekoloskopie',
+          ],
+        },
+        {
+          label: 'Transfusion — restriktiv und nur bei Symptomatik',
+          items: [
+            'Erythrozytenkonzentrate sind bei der chronischen Eisenmangelanämie die Ausnahme, da die Anämie langsam entstanden und gut kompensiert ist',
+            'Restriktive Indikation: Hämoglobin unter 7 g/dl, bei kardialer Vorerkrankung oder Symptomen wie Angina pectoris, Dyspnoe in Ruhe, Synkope und Tachykardie unter 8 g/dl',
+            'Bei akuter, hämodynamisch wirksamer Blutung sofortige Kreislaufstabilisierung mit zwei großlumigen Zugängen, Volumengabe, Kreuzblut und notfallmäßiger Endoskopie',
+            'Vor jeder Transfusion Aufklärung, Blutgruppenbestimmung, Kreuzprobe und Bedside-Test; ein Erythrozytenkonzentrat hebt das Hämoglobin um etwa 1 bis 1,5 g/dl',
+            'Nach der Akutversorgung wird die Ursachensuche fortgesetzt — die Transfusion ersetzt sie nicht',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der Eisenmangelanämie selbst ist sehr gut: Unter korrekter Substitution steigen die Retikulozyten binnen einer Woche und das Hämoglobin normalisiert sich meist innerhalb von vier bis acht Wochen; die Epithelzeichen wie Mundwinkelrhagaden, Glossitis und Nagelveränderungen bilden sich über Wochen bis Monate zurück. Die Prognose des Patienten hängt jedoch vollständig von der zugrunde liegenden Ursache ab — bei einem früh erkannten kolorektalen Karzinom ist sie günstig, bei einem fortgeschrittenen Tumor entsprechend schlecht. Wird die Ursache nicht gesucht, sondern nur Eisen gegeben, verzögert sich die Diagnose maligner Erkrankungen erheblich. Rezidive sind häufig, wenn die Quelle nicht beseitigt oder die Therapie zu früh beendet wird, weil die Speicher dann nicht aufgefüllt sind.',
+      pruefungsfallen: [
+        'Der zentrale Fehler: die Eisenmangelanämie als Enddiagnose behandeln. Sie ist ein SYMPTOM — die Prüfer erwarten den Satz, dass zuerst die Ursache gesucht und erst dann substituiert wird.',
+        'Bei Männern und postmenopausalen Frauen ist eine Eisenmangelanämie eine gastrointestinale Blutung bis zum Beweis des Gegenteils: Gastroskopie UND Koloskopie, beide, und nicht nur eine der beiden.',
+        'Ferritin ist ein Akute-Phase-Protein und kann bei Entzündung, Tumor, Leberschaden oder Niereninsuffizienz falsch normal oder erhöht sein. Dann müssen Transferrinsättigung und löslicher Transferrinrezeptor herangezogen werden.',
+        'Transferrin verhält sich gegenläufig: beim Eisenmangel ERHÖHT, bei der Anämie der chronischen Erkrankung ERNIEDRIGT. Diese Gegenüberstellung wird sehr häufig gefragt.',
+        'Das Serumeisen allein ist zur Diagnostik ungeeignet — es schwankt zirkadian und nahrungsabhängig. Nicht als Beweis anführen.',
+        'Ein negativer Test auf okkultes Blut im Stuhl schließt eine Blutungsquelle NICHT aus und ersetzt niemals die Endoskopie; Blutungen sind intermittierend.',
+        'Die Retikulozyten sind bei unbehandeltem Eisenmangel niedrig oder normal; ein Anstieg ist der Wirksamkeitsnachweis nach etwa einer Woche. Hohe Retikulozyten bei Erstvorstellung sprechen für Blutung oder Hämolyse.',
+        'Bei mikrozytärer Anämie mit NORMALEM Ferritin an die Thalassaemia minor denken: normale bis erhöhte Erythrozytenzahl, Mentzer-Index unter 13, Hämoglobin-Elektrophorese. Eine Eisengabe wäre hier schädlich.',
+        'Ein kombinierter Eisen- und Vitamin-B12-Mangel kann ein normales MCV erzeugen — deshalb gehören B12 und Folsäure ins Basislabor.',
+        'Über die Schwarzfärbung des Stuhls unter oraler Eisentherapie aufklären, sonst wird sie später als Teerstuhl fehlgedeutet — und umgekehrt darf ein Teerstuhl nicht vorschnell dem Eisenpräparat zugeschrieben werden.',
+        'Die Hunter-Glossitis gehört klassisch zum Vitamin-B12-Mangel; beim Eisenmangel spricht man von einer atrophischen Glossitis. Die neurologischen Zeichen der funikulären Myelose gehören ebenfalls zum B12-Mangel, nicht zum Eisenmangel.',
+        'Bei Vorstellung der Anämie in der Fallvorstellung immer den TYP nennen (mikrozytär-hypochrom oder normozytär-normochrom) und nicht nur das Wort Anämie — die Prüfer honorieren das ausdrücklich.',
+        'Die Therapie nicht zu früh beenden: nach Normalisierung des Hämoglobins noch drei bis sechs Monate weiter substituieren, bis das Ferritin über 100 ng/ml liegt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und welchen Typ von Anämie erwarten Sie?',
+          antwort: 'Ich vermute eine Eisenmangelanämie, also eine mikrozytäre, hypochrome Anämie mit erniedrigtem MCV und MCH. Dafür sprechen die Müdigkeit mit Leistungsknick, die Blässe, die Belastungsdyspnoe und vor allem die eisenmangelspezifischen Epithelzeichen: Mundwinkelrhagaden, brennende glatte Zunge, brüchige Nägel, Haarausfall, Restless Legs und der Heißhunger auf Eis.',
+        },
+        {
+          frage: 'Was erwarten Sie von den Laboruntersuchungen?',
+          antwort: 'Im Blutbild ein erniedrigtes Hämoglobin mit erniedrigtem MCV und MCH sowie ein erhöhtes RDW als Zeichen der Anisozytose, häufig reaktiv erhöhte Thrombozyten. Im Eisenstatus ein erniedrigtes Ferritin, ein erhöhtes Transferrin, eine Transferrinsättigung unter 20 Prozent und einen erhöhten löslichen Transferrinrezeptor. Die Retikulozyten sind niedrig oder normal.',
+        },
+        {
+          frage: 'Welcher Laborparameter ist der entscheidende, und welche Einschränkung hat er?',
+          antwort: 'Das Ferritin, weil es das Speichereisen abbildet; ein Wert unter 30 ng/ml beweist praktisch den Eisenmangel. Die Einschränkung ist, dass Ferritin ein Akute-Phase-Protein ist und bei Entzündung, Infekt, Tumor oder Lebererkrankung falsch normal oder erhöht sein kann. Dann orientiere ich mich an der Transferrinsättigung und am löslichen Transferrinrezeptor, der entzündungsunabhängig ist.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Eisenmangelanämie von der Anämie der chronischen Erkrankung?',
+          antwort: 'Vor allem über das Transferrin, das sich gegenläufig verhält: Beim Eisenmangel ist es erhöht, bei der Anämie der chronischen Erkrankung erniedrigt. Zusätzlich ist das Ferritin beim Eisenmangel erniedrigt, bei der Entzündungsanämie normal oder erhöht, und der lösliche Transferrinrezeptor ist nur beim Eisenmangel erhöht. CRP und BSG sind bei der Entzündungsanämie erhöht.',
+        },
+        {
+          frage: 'Wie teilen Sie die Anämien überhaupt ein?',
+          antwort: 'Nach dem MCV. Mikrozytär-hypochrom: Eisenmangel, Thalassämie, späte Entzündungsanämie, sideroblastische Anämie. Normozytär-normochrom: akute Blutung, renale Anämie, Entzündungsanämie, aplastische Anämie, Hämolyse. Makrozytär: Vitamin-B12- und Folsäuremangel, Alkohol, Lebererkrankung und myelodysplastisches Syndrom.',
+        },
+        {
+          frage: 'Was ist die häufigste Ursache einer Eisenmangelanämie, und was müssen Sie bei diesem Patienten ausschließen?',
+          antwort: 'Der chronische Blutverlust. Bei prämenopausalen Frauen sind es meist Menorrhagien, bei Männern und postmenopausalen Frauen gilt jedoch eine gastrointestinale Blutung bis zum Beweis des Gegenteils — vor allem ein kolorektales Karzinom, ein Ulkus oder eine NSAR-Gastropathie. Deshalb müssen eine Gastroskopie und eine Koloskopie durchgeführt werden.',
+        },
+        {
+          frage: 'Reicht eine der beiden Endoskopien nicht aus, wenn Sie bereits eine Quelle gefunden haben?',
+          antwort: 'Nein. Beide Untersuchungen werden durchgeführt, weil Doppelbefunde häufig sind und eine kleine Erosion im Magen ein gleichzeitig bestehendes Karzinom im Kolon nicht ausschließt. Bleiben beide Untersuchungen unauffällig und besteht der Verlust fort, folgt eine Videokapselendoskopie des Dünndarms.',
+        },
+        {
+          frage: 'Der Test auf okkultes Blut im Stuhl ist negativ. Können Sie eine Blutungsquelle ausschließen?',
+          antwort: 'Nein. Gastrointestinale Blutungen sind intermittierend, sodass ein negativer Test die Quelle nicht ausschließt. Er ersetzt bei einer nachgewiesenen Eisenmangelanämie niemals die Endoskopie; nur ein positiver Test hat einen Aussagewert.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Eisenmangelanämie?',
+          antwort: 'Zuerst kausal — die Ursache suchen und beseitigen. Dann eine orale Eisensubstitution mit zweiwertigem Eisen, etwa 50 bis 100 mg elementares Eisen, nüchtern eingenommen und zusammen mit Vitamin C, nicht mit Milch, Kaffee, Tee oder Antazida. Die Therapie wird nach Normalisierung des Hämoglobins noch drei bis sechs Monate fortgeführt, bis das Ferritin über 100 ng/ml liegt.',
+        },
+        {
+          frage: 'Wann geben Sie Eisen intravenös?',
+          antwort: 'Bei Unverträglichkeit oder Unwirksamkeit der oralen Therapie, bei Malabsorption, bei chronisch entzündlichen Darmerkrankungen, bei Dialysepatienten, unter Tumortherapie, bei chronischer Herzinsuffizienz und wenn die Speicher rasch aufgefüllt werden müssen. Zu beachten sind anaphylaktische Reaktionen, eine Überwachung nach der Infusion und eine mögliche Hypophosphatämie.',
+        },
+        {
+          frage: 'Woran erkennen Sie, dass die Therapie wirkt?',
+          antwort: 'Am Retikulozytenanstieg nach etwa einer Woche, der sogenannten Retikulozytenkrise, und am Hämoglobinanstieg um etwa 1 bis 2 g/dl nach vier Wochen. Bleibt der Anstieg aus, denke ich an eine fortbestehende Blutungsquelle, an mangelnde Einnahmetreue, an eine Malabsorption oder an eine falsche Diagnose.',
+        },
+        {
+          frage: 'Ab welchem Hämoglobinwert transfundieren Sie?',
+          antwort: 'Restriktiv: in der Regel erst unter 7 g/dl, bei kardialer Vorerkrankung oder bei Symptomen wie Angina pectoris, Ruhedyspnoe oder Synkope unter 8 g/dl. Bei einer chronischen Eisenmangelanämie ist die Transfusion die Ausnahme, weil die Anämie langsam entstanden und gut kompensiert ist.',
+        },
+        {
+          frage: 'Eine Patientin klagt, das Eisenpräparat schlage ihr auf den Magen. Was tun Sie?',
+          antwort: 'Ich prüfe zuerst die Einnahmemodalitäten, reduziere die Dosis oder gebe das Präparat nur jeden zweiten Tag — das verbessert wegen der Hepcidin-Gegenregulation sogar die Resorption. Alternativ wechsle ich das Präparat oder die Eisenverbindung; bleibt die Unverträglichkeit bestehen, ist die intravenöse Gabe indiziert. Wichtig ist außerdem die Aufklärung, dass der Stuhl sich schwarz verfärbt.',
+        },
+        {
+          frage: 'Was bedeuten die Begriffe Anämie und anämisch, wenn Sie sie einem Patienten erklären?',
+          antwort: 'Anämie heißt Blutarmut, also ein Mangel an rotem Blutfarbstoff beziehungsweise an roten Blutkörperchen; anämisch bedeutet blutarm. Dem Patienten würde ich sagen: Ihr Blut enthält zu wenig roten Blutfarbstoff, deshalb kommt weniger Sauerstoff im Körper an, und deshalb sind Sie müde, blass und schnell außer Atem.',
+        },
+        {
+          frage: 'Warum darf man nicht einfach Eisen geben, wenn das Ferritin niedrig ist?',
+          antwort: 'Weil man damit nur das Symptom behandelt. Ein niedriges Ferritin bedeutet, dass Eisen verloren geht oder fehlt — bei einem älteren Patienten meist durch eine chronische Blutung. Wer nur substituiert, normalisiert das Blutbild und übersieht möglicherweise über Monate ein kolorektales Karzinom.',
+        },
+      ],
+      merksatz: 'Eine Eisenmangelanämie ist kein Endpunkt, sondern eine Frage: WOHER kommt das Blut? Mikrozytär, hypochrom, Ferritin niedrig, Transferrin hoch — und bei Mann oder postmenopausaler Frau heißt das Gastroskopie UND Koloskopie, bevor die erste Eisentablette verordnet wird.',
+      linkedCaseIds: [
+        'case-anaemie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-gastroskopie',
+        'auf-sonographie',
+        'auf-bluttransfusion',
+      ],
+    },
+    {
+      id: 'fw-vorhofflimmern',
+      pathology: 'Vorhofflimmern (absolute Arrhythmie)',
+      specialty: 'Kardiologie',
+      definition: 'Das Vorhofflimmern ist die häufigste anhaltende Herzrhythmusstörung des Erwachsenen. Es liegt eine ungeordnete, kreisende elektrische Erregung der Vorhöfe mit einer Vorhoffrequenz von etwa 350 bis 600 pro Minute vor; eine koordinierte Vorhofkontraktion findet nicht mehr statt. Der AV-Knoten leitet die Erregungen unregelmäßig auf die Kammern über, woraus die absolute Arrhythmie resultiert. Der Verlust des Vorhof-Kicks kostet etwa 15 bis 20 Prozent des Herzzeitvolumens; die Blutstase im linken Vorhofohr begünstigt die Thrombenbildung. Die eigentliche Gefahr liegt daher nicht im Rhythmus, sondern in der arteriellen Thromboembolie, allen voran im kardioembolischen Schlaganfall.',
+      aetiologie: 'Kardial: arterielle Hypertonie (häufigste Ursache, über die linksatriale Dilatation), koronare Herzkrankheit und Zustand nach Myokardinfarkt, Herzinsuffizienz, Klappenvitien (besonders Mitralstenose und Mitralinsuffizienz), Kardiomyopathien, Myokarditis, Perikarditis, Vorhofseptumdefekt, Sick-Sinus-Syndrom, Präexzitationssyndrom (WPW) und herzchirurgische Eingriffe. Extrakardial: Hyperthyreose, auch die latente — deshalb ist bei jedem Patienten mit Vorhofflimmern das TSH zu bestimmen —, Alkoholexzess (Holiday-Heart-Syndrom) und chronischer Alkoholkonsum, obstruktives Schlafapnoe-Syndrom, Adipositas, Diabetes mellitus, chronische Niereninsuffizienz, Elektrolytstörungen (Hypokaliämie, Hypomagnesiämie), Lungenembolie, COPD und Pneumonie, Fieber und Sepsis, Anämie, Exsikkose sowie Medikamente und Genussmittel (Sympathomimetika, Theophyllin, Schilddrüsenhormone, Kokain, exzessives Koffein). Bei etwa 10 bis 15 Prozent findet sich keine Grunderkrankung (idiopathisches Vorhofflimmern). Die Prävalenz steigt steil mit dem Alter: unter 60 Jahren unter 1 Prozent, über 80 Jahren etwa 10 Prozent.',
+      risikofaktoren: [
+        'Höheres Lebensalter — der wichtigste nicht beeinflussbare Risikofaktor',
+        'Arterielle Hypertonie, insbesondere schlecht eingestellt',
+        'Herzinsuffizienz und koronare Herzkrankheit',
+        'Herzklappenfehler, vor allem die Mitralstenose',
+        'Hyperthyreose, auch subklinisch',
+        'Adipositas und metabolisches Syndrom',
+        'Diabetes mellitus',
+        'Obstruktives Schlafapnoe-Syndrom',
+        'Regelmäßiger und exzessiver Alkoholkonsum',
+        'Chronische Niereninsuffizienz',
+        'Nikotinkonsum',
+        'Ausdauerleistungssport in extremem Umfang',
+        'Positive Familienanamnese',
+      ],
+      klinik: [
+        {
+          text: 'Palpitationen: Herzstolpern, Herzrasen oder Aussetzer, vom Patienten oft als „durcheinander schlagendes“ Herz beschrieben',
+        },
+        {
+          text: 'Absolute Arrhythmie des Pulses — völlig unregelmäßige Pulsfolge ohne erkennbaren Grundrhythmus, wechselnde Lautstärke des ersten Herztons',
+        },
+        {
+          text: 'Pulsdefizit: die auskultierte Herzfrequenz ist höher als der peripher tastbare Puls, weil Kontraktionen nach sehr kurzer Diastole kein tastbares Schlagvolumen auswerfen',
+        },
+        {
+          text: 'Leistungsknick, allgemeine Schwäche und rasche Ermüdbarkeit',
+        },
+        {
+          text: 'Belastungsdyspnoe, bei tachykarder Überleitung auch Ruhedyspnoe',
+        },
+        {
+          text: 'Schwindel und Benommenheit, seltener Präsynkope oder Synkope',
+        },
+        {
+          text: 'Innere Unruhe, Angst und Beklemmungsgefühl',
+        },
+        {
+          text: 'Polyurie durch Freisetzung des atrialen natriuretischen Peptids bei Vorhofdehnung',
+        },
+        {
+          text: 'Angina pectoris bei tachykarder Überleitung durch verkürzte Diastole und vermindertes koronares Angebot',
+        },
+        {
+          text: 'Völlig asymptomatischer Verlauf als Zufallsbefund im EKG, beim Blutdruckmessen oder über die Smartwatch — bis zu einem Drittel der Patienten; gerade das macht die Erkrankung gefährlich',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als kardioembolischer Schlaganfall, als TIA oder als Amaurosis fugax',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als akuter peripherer Arterienverschluss (die sechs P) oder als Mesenterialinfarkt',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als dekompensierte Herzinsuffizienz mit Beinödemen und Lungenstauung, etwa bei Tachykardiomyopathie',
+          atypisch: true,
+        },
+        {
+          text: 'Beim alten Menschen unspezifische Symptomatik mit Verwirrtheit, Stürzen, Appetitlosigkeit oder plötzlicher Immobilität',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Zeitliche Einteilung (Formen des Vorhofflimmerns)',
+          inhalt: 'Erstmals diagnostiziertes Vorhofflimmern: unabhängig von Dauer und Symptomatik erstmalig festgestellt. Paroxysmal: endet spontan oder durch Intervention innerhalb von sieben Tagen, meist innerhalb von 48 Stunden. Persistierend: hält länger als sieben Tage an oder wird durch eine Kardioversion beendet. Lang anhaltend persistierend: besteht länger als ein Jahr, eine Rhythmuskontrolle wird aber weiterhin angestrebt. Permanent: der Rhythmus wird von Patient und Arzt gemeinsam akzeptiert, eine Rhythmuskontrolle wird nicht mehr verfolgt — behandelt werden dann nur noch Frequenz und Antikoagulation.',
+        },
+        {
+          name: 'CHA2DS2-VASc-Score (Thromboembolierisiko)',
+          inhalt: 'C — chronische Herzinsuffizienz oder linksventrikuläre Dysfunktion 1 Punkt; H — arterielle Hypertonie 1 Punkt; A2 — Alter ab 75 Jahren 2 Punkte; D — Diabetes mellitus 1 Punkt; S2 — Schlaganfall, TIA oder systemische Embolie in der Vorgeschichte 2 Punkte; V — vaskuläre Erkrankung (Myokardinfarkt, pAVK, Aortenplaque) 1 Punkt; A — Alter 65 bis 74 Jahre 1 Punkt; Sc — weibliches Geschlecht 1 Punkt. Maximal 9 Punkte, da die Altersstufen sich gegenseitig ausschließen. Indikation zur oralen Antikoagulation ab 1 Punkt beim Mann und ab 2 Punkten bei der Frau; das weibliche Geschlecht allein begründet keine Antikoagulation.',
+        },
+        {
+          name: 'HAS-BLED-Score (Blutungsrisiko)',
+          inhalt: 'H — unkontrollierte Hypertonie mit systolisch über 160 mmHg 1 Punkt; A — abnorme Nierenfunktion 1 Punkt und abnorme Leberfunktion 1 Punkt; S — Schlaganfall in der Vorgeschichte 1 Punkt; B — Blutungsanamnese oder Blutungsneigung 1 Punkt; L — labile INR-Werte unter Vitamin-K-Antagonist 1 Punkt; E — Alter über 65 Jahre 1 Punkt; D — Medikamente wie Thrombozytenaggregationshemmer oder NSAR 1 Punkt und Alkoholabusus 1 Punkt. Maximal 9 Punkte, ab 3 Punkten hohes Blutungsrisiko. Ein hoher Score ist ausdrücklich KEINE Kontraindikation gegen die Antikoagulation, sondern der Auftrag, die modifizierbaren Faktoren zu korrigieren und engmaschiger zu kontrollieren.',
+        },
+        {
+          name: 'EHRA-Score (Symptomlast)',
+          inhalt: 'EHRA I: keine Symptome. EHRA IIa: leichte Symptome, die den Alltag nicht beeinträchtigen. EHRA IIb: mäßige Symptome, die den Alltag nicht beeinträchtigen, den Patienten aber belasten. EHRA III: schwere Symptome mit Beeinträchtigung der normalen Alltagsaktivität. EHRA IV: invalidisierende Symptome, normale Alltagsaktivität nicht mehr möglich. Der Score steuert die Entscheidung für eine Rhythmuskontrolle.',
+        },
+        {
+          name: 'Einteilung nach Klappenbeteiligung',
+          inhalt: 'Nicht valvuläres Vorhofflimmern: kein mechanischer Klappenersatz und keine mittel- bis hochgradige Mitralstenose — hier sind die direkten oralen Antikoagulanzien Mittel der Wahl. Valvuläres Vorhofflimmern: mechanische Herzklappenprothese oder mittel- bis hochgradige Mitralstenose — hier sind DOAK kontraindiziert, es muss ein Vitamin-K-Antagonist eingesetzt werden.',
+        },
+      ],
+      redFlags: [
+        'Hämodynamische Instabilität: systolischer Blutdruck unter 90 mmHg, Kaltschweißigkeit, Schock oder Bewusstseinstrübung — sofortige synchronisierte elektrische Kardioversion',
+        'Akute Herzinsuffizienz mit Ruhedyspnoe, Orthopnoe und feuchten Rasselgeräuschen im Sinne eines Lungenödems',
+        'Angina pectoris oder Troponinanstieg unter der Tachyarrhythmie durch die verkürzte Diastole',
+        'Neu aufgetretene neurologische Ausfälle wie Halbseitenlähmung, Aphasie, Fazialisparese oder Amaurosis fugax — kardioembolischer Schlaganfall oder TIA, sofortige zerebrale Bildgebung',
+        'Akut schmerzhafte, kalte, blasse und pulslose Extremität (die sechs P) — periphere arterielle Embolie',
+        'Heftiger Abdominalschmerz bei weichem Abdomen mit Laktatanstieg — Verdacht auf Mesenterialarterienembolie',
+        'Synkope — Verdacht auf ein Tachykardie-Bradykardie-Syndrom bei Sick-Sinus-Syndrom oder auf lange präautomatische Pausen',
+        'Sehr schnelle, unregelmäßige Tachykardie mit breiten Kammerkomplexen über 200 pro Minute — Vorhofflimmern bei WPW-Syndrom; AV-Knoten-blockierende Medikamente sind wegen der Gefahr des Kammerflimmerns kontraindiziert',
+        'Fieber mit neu aufgetretenem Herzgeräusch — Verdacht auf infektiöse Endokarditis',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: exakter Beginn und Dauer der Episode — die 48-Stunden-Grenze entscheidet über das Vorgehen bei der Kardioversion —, Auslöser (Alkoholexzess, Infekt, Operation), frühere Episoden und deren Ende, Symptomlast nach EHRA, kardiale Vorerkrankungen, Schlaganfall oder TIA in der Vorgeschichte, Medikation einschließlich Thrombozytenaggregationshemmern und Blutungsanamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Auskultation des Herzens mit absolut arrhythmischem Rhythmus und wechselnder Lautstärke des ersten Herztons, gleichzeitiges Tasten des Radialispulses zur Bestimmung des Pulsdefizits, Blutdruckmessung, Auskultation der Lunge, Beurteilung von Halsvenen und Beinödemen, Palpation der Schilddrüse',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierender neurologischer Status einschließlich FAST-Prüfung (Face, Arms, Speech, Time) zum Ausschluss einer frischen zerebralen Embolie sowie Prüfung der peripheren Pulse',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung der Risikoscores CHA2DS2-VASc und HAS-BLED sowie Berechnung von BMI und kardiovaskulärem Gesamtrisiko',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH obligat, bei auffälligem Wert ergänzend fT3 und fT4 — eine Hyperthyreose kann sich allein als Vorhofflimmern manifestieren und ist kausal behandelbar',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte mit Kalium, Magnesium und Kalzium sowie Nierenretentionswerte mit Kreatinin und eGFR — Letztere steuern Auswahl und Dosierung des Antikoagulans',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (Anämie als Ursache einer Tachykardie und als Blutungshinweis), CRP, Blutzucker und HbA1c, Leberwerte sowie Gerinnung mit INR und aPTT vor Beginn der Antikoagulation',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin und NT-proBNP zur Abgrenzung eines akuten Koronarsyndroms und einer Herzinsuffizienz — Cave: unter tachykarder Überleitung ist ein leicht erhöhtes Troponin auch ohne Koronarverschluss möglich (Typ-2-Myokardschädigung)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere nur bei klinischem Verdacht auf eine Lungenembolie als Ursache des Vorhofflimmerns',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG als Basisuntersuchung: absolut unregelmäßige RR-Abstände, KEINE abgrenzbaren P-Wellen, stattdessen feine oder grobe Flimmerwellen, meist schmale Kammerkomplexe; Beurteilung der Kammerfrequenz sowie von Schenkelblock, Präexzitation und Repolarisationsstörungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Langzeit-EKG über 24 bis 72 Stunden, bei seltenen Episoden Eventrecorder, externer Loop-Recorder oder implantierbarer Ereignisrekorder — zum Nachweis eines paroxysmalen Vorhofflimmerns und zur Frequenzkontrolle im Alltag; nach kryptogenem Schlaganfall verlängertes Monitoring',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie: Größe des linken Vorhofs, linksventrikuläre Funktion und Hypertrophie, Klappenbeurteilung mit Frage nach Mitralstenose, Perikarderguss und pulmonalarterieller Druck',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax zur Beurteilung von Herzgröße und Stauung sowie zum Ausschluss pulmonaler Ursachen; Schilddrüsensonographie bei pathologischem TSH',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Polygraphie beziehungsweise Polysomnographie bei Verdacht auf ein obstruktives Schlafapnoe-Syndrom; Ergometrie zur Beurteilung der Frequenzkontrolle unter Belastung und bei Verdacht auf eine koronare Herzkrankheit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Transösophageale Echokardiographie VOR einer Kardioversion, wenn das Vorhofflimmern länger als 48 Stunden besteht oder die Dauer unklar ist — Ausschluss eines Thrombus im linken Vorhofohr; Alternative ist eine dreiwöchige therapeutische Antikoagulation vor der Kardioversion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koronarangiographie bei Verdacht auf eine koronare Herzkrankheit als Grunderkrankung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektrophysiologische Untersuchung mit Katheterablation (Pulmonalvenenisolation) bei symptomatischem, medikamentös nicht beherrschbarem Vorhofflimmern',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Vorhofflattern',
+          unterscheidung: 'Sägezahnartige Flatterwellen mit einer Vorhoffrequenz um 250 bis 350 pro Minute, meist regelmäßige Überleitung im Verhältnis 2:1 mit einer Kammerfrequenz um 150 pro Minute. Der Puls ist typischerweise regelmäßig, nicht absolut arrhythmisch. Das Embolierisiko ist vergleichbar, die Antikoagulation folgt denselben Regeln; therapeutisch ist die Isthmusablation sehr erfolgreich.',
+        },
+        {
+          dd: 'AV-Knoten-Reentry-Tachykardie und andere supraventrikuläre Tachykardien',
+          unterscheidung: 'Plötzlicher Beginn und plötzliches Ende „wie auf Knopfdruck“, streng regelmäßige Tachykardie mit schmalem Kammerkomplex um 160 bis 200 pro Minute, oft jüngere und herzgesunde Patienten. Vagusmanöver oder Adenosin beenden die Tachykardie beziehungsweise demaskieren sie.',
+        },
+        {
+          dd: 'Ventrikuläre Tachykardie',
+          unterscheidung: 'Regelmäßige Tachykardie mit breitem Kammerkomplex über 120 ms, AV-Dissoziation, meist bei struktureller Herzerkrankung und häufig hämodynamisch instabil. Abzugrenzen vom Vorhofflimmern mit Schenkelblock oder aberranter Leitung.',
+        },
+        {
+          dd: 'Sinustachykardie',
+          unterscheidung: 'Regelmäßiger Rhythmus mit vor jedem Kammerkomplex abgrenzbarer P-Welle, Frequenz meist unter 150 pro Minute, allmählicher Beginn. Ursachen: Fieber, Infekt, Anämie, Exsikkose, Schmerz, Angst, Hyperthyreose, Lungenembolie.',
+        },
+        {
+          dd: 'Supraventrikuläre und ventrikuläre Extrasystolie',
+          unterscheidung: 'Als „Herzstolpern“ mit einzelnen Aussetzern und postextrasystolischer Pause bei erhaltenem regelmäßigem Grundrhythmus geschildert. Im EKG einzelne vorzeitige Schläge mit erhaltener P-Welle beziehungsweise breitem Komplex; Quantifizierung im Langzeit-EKG.',
+        },
+        {
+          dd: 'Akutes Koronarsyndrom',
+          unterscheidung: 'Retrosternaler Vernichtungsschmerz mit Ausstrahlung in Arm, Kiefer oder Rücken, vegetative Begleitsymptomatik und Todesangst. EKG mit ST-Streckenveränderungen, Troponindynamik. Cave: Ein akutes Koronarsyndrom kann Vorhofflimmern auslösen, und ein tachykardes Vorhofflimmern kann seinerseits eine Troponinerhöhung verursachen.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Akute Dyspnoe, atemabhängiger Thoraxschmerz, Tachykardie, Hämoptysen, einseitige Beinschwellung, Immobilisation oder Langstreckenreise in der Anamnese. Wells-Score, D-Dimere und CT-Angiographie. Die Lungenembolie ist zugleich eine mögliche Ursache des Vorhofflimmerns.',
+        },
+        {
+          dd: 'Hyperthyreose bis hin zur thyreotoxischen Krise',
+          unterscheidung: 'Gewichtsabnahme trotz gutem Appetit, Wärmeintoleranz, vermehrtes Schwitzen, Tremor, innere Unruhe, Durchfälle, Struma, endokrine Orbitopathie. TSH supprimiert, fT3 und fT4 erhöht — die Hyperthyreose kann sich ausschließlich als Vorhofflimmern äußern.',
+        },
+        {
+          dd: 'Dekompensierte Herzinsuffizienz',
+          unterscheidung: 'Orthopnoe, nächtliche Atemnot, gestaute Halsvenen, beidseitige Beinödeme, rasche Gewichtszunahme, Rasselgeräusche über der Lunge, NT-proBNP deutlich erhöht. Herzinsuffizienz und Vorhofflimmern bedingen sich häufig gegenseitig.',
+        },
+        {
+          dd: 'Sick-Sinus-Syndrom (Tachykardie-Bradykardie-Syndrom)',
+          unterscheidung: 'Wechsel zwischen tachykarden Episoden und Bradykardien mit langen Pausen, Schwindel und Synkopen. Nachweis im Langzeit-EKG; therapeutisch häufig Schrittmacherimplantation, bevor eine frequenzsenkende Therapie möglich wird.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Antikoagulation zur Schlaganfallprophylaxe',
+          items: [
+            'Die wichtigste und erste Entscheidung: Das Embolierisiko wird mit dem CHA2DS2-VASc-Score bestimmt. Ab 1 Punkt beim Mann und ab 2 Punkten bei der Frau besteht die Indikation zur oralen Antikoagulation, unabhängig von der Form des Vorhofflimmerns und unabhängig davon, ob eine Rhythmuskontrolle gelingt',
+            'Direkte orale Antikoagulanzien (DOAK) als Standard beim nicht valvulären Vorhofflimmern: Apixaban 2-mal 5 mg, Rivaroxaban 1-mal 20 mg, Edoxaban 1-mal 60 mg oder Dabigatran 2-mal 150 mg täglich. Dosisanpassung nach Nierenfunktion, Alter und Körpergewicht — bei Apixaban Reduktion auf 2-mal 2,5 mg, wenn zwei der drei Kriterien Alter ab 80 Jahren, Gewicht bis 60 kg oder Kreatinin ab 1,5 mg/dl erfüllt sind',
+            'Vitamin-K-Antagonist (Phenprocoumon) mit Ziel-INR von 2,0 bis 3,0 ausschließlich bei mechanischem Klappenersatz oder mittel- bis hochgradiger Mitralstenose — dort sind DOAK kontraindiziert',
+            'Acetylsalicylsäure ist KEINE Alternative zur Antikoagulation: Sie schützt nicht vor kardioembolischen Schlaganfällen, erhöht aber das Blutungsrisiko. Eine allein aus Rhythmusgründen verordnete ASS wird abgesetzt und durch ein DOAK ersetzt',
+            'Blutungsrisiko mit dem HAS-BLED-Score abschätzen: Ein hoher Wert ist keine Kontraindikation, sondern verpflichtet zur Korrektur der modifizierbaren Faktoren — Blutdruckeinstellung, Absetzen von Thrombozytenaggregationshemmern und NSAR, Alkoholreduktion, Vermeidung labiler INR-Werte',
+            'Interventioneller Verschluss des linken Vorhofohrs (LAA-Okkluder) nur bei echter, dauerhafter Kontraindikation gegen eine Antikoagulation, etwa nach rezidivierenden schweren Blutungen',
+            'Patientenschulung: strikte Einnahmetreue, keine eigenmächtige Pause, Antikoagulationsausweis, Erkennen von Blutungszeichen, Verzicht auf NSAR in Selbstmedikation, Information vor Eingriffen und Zahnbehandlungen',
+          ],
+        },
+        {
+          label: 'Frequenzkontrolle versus Rhythmuskontrolle',
+          items: [
+            'Frequenzkontrolle als erste Maßnahme bei tachykarder Überleitung; Zielfrequenz in Ruhe zunächst unter 110 pro Minute, bei fortbestehenden Symptomen strenger',
+            'Betablocker als Mittel der ersten Wahl, zum Beispiel Metoprololsuccinat oder Bisoprolol, bei ausgeprägter Tachykardie auch intravenös unter Monitorüberwachung',
+            'Alternativen: Kalziumantagonisten vom Verapamil- oder Diltiazem-Typ — kontraindiziert bei systolischer Herzinsuffizienz und nicht mit Betablockern zu kombinieren; Digitalis vor allem bei Herzinsuffizienz und bei überwiegender Ruhefrequenzkontrolle, Cave geringe therapeutische Breite',
+            'Rhythmuskontrolle bei anhaltenden Symptomen trotz Frequenzkontrolle, bei erstmaligem Vorhofflimmern, bei jüngeren Patienten sowie bei Herzinsuffizienz; frühe Rhythmuskontrolle innerhalb des ersten Jahres verbessert die Prognose',
+            'Elektrische Kardioversion: synchronisiert, in Kurznarkose, biphasisch mit 100 bis 200 Joule — die wirksamste Methode. Medikamentöse Kardioversion mit Flecainid oder Propafenon nur beim strukturell herzgesunden Patienten (kontraindiziert bei koronarer Herzkrankheit und Herzinsuffizienz), sonst Amiodaron; Vernakalant bei kurzer Bestandsdauer',
+            'CAVE Zeitfenster: Besteht das Vorhofflimmern länger als 48 Stunden oder ist die Dauer unklar, darf nicht ohne Weiteres kardiovertiert werden. Entweder transösophageale Echokardiographie mit Ausschluss eines Vorhofohrthrombus und Kardioversion unter Antikoagulation oder dreiwöchige therapeutische Antikoagulation vor dem Eingriff',
+            'Nach jeder Kardioversion mindestens vier Wochen Antikoagulation, da die Vorhofkontraktion verzögert zurückkehrt (atriales Stunning). Die weitere Dauer richtet sich allein nach dem CHA2DS2-VASc-Score, NICHT nach dem wiederhergestellten Rhythmus',
+            'Rezidivprophylaxe mit Betablocker, bei Bedarf Amiodaron oder Dronedaron; Katheterablation mit Pulmonalvenenisolation bei symptomatischem Rezidiv trotz Antiarrhythmikum, bei Herzinsuffizienz und zunehmend als Erstlinientherapie bei jungen, symptomatischen Patienten',
+            'Beim permanenten Vorhofflimmern wird der Rhythmus akzeptiert; behandelt werden Frequenz und Antikoagulation. Ultima Ratio bei nicht kontrollierbarer Frequenz ist die AV-Knoten-Ablation mit vorheriger Schrittmacherimplantation („ablate and pace“)',
+          ],
+        },
+        {
+          label: 'Behandlung der Grunderkrankung und der Risikofaktoren',
+          items: [
+            'Konsequente Blutdruckeinstellung mit einem Zielwert systolisch unter 130 mmHg; ACE-Hemmer und AT1-Rezeptorblocker wirken der Vorhofdilatation und dem atrialen Remodeling entgegen',
+            'Diagnostik und Therapie einer Hyperthyreose — nach Euthyreose konvertieren viele Patienten spontan; Kardioversion erst nach Normalisierung der Schilddrüsenwerte',
+            'Alkoholkarenz beziehungsweise deutliche Reduktion: Abstinenz senkt die Rezidivrate erheblich, der Alkoholexzess ist ein klassischer Auslöser (Holiday-Heart-Syndrom)',
+            'Gewichtsreduktion mit einem Ziel von mindestens 10 Prozent des Körpergewichts sowie regelmäßige moderate Ausdauerbewegung',
+            'Abklärung und Therapie eines obstruktiven Schlafapnoe-Syndroms mittels Polygraphie und gegebenenfalls CPAP — unbehandelt eine der wichtigsten Rezidivursachen',
+            'Optimierung der Diabeteseinstellung, Behandlung der Dyslipidämie, Nikotinkarenz, Ausgleich von Kalium- und Magnesiumstörungen',
+            'Behandlung einer Herzinsuffizienz und Sanierung eines relevanten Klappenvitiums nach echokardiographischem Befund',
+            'Aufklärung über die Warnzeichen des Schlaganfalls (FAST) mit sofortigem Notruf sowie regelmäßige kardiologische Verlaufskontrollen',
+          ],
+        },
+        {
+          label: 'Notfallvorgehen bei hämodynamischer Instabilität',
+          items: [
+            'Kriterien der Instabilität: systolischer Blutdruck unter 90 mmHg oder Schockzeichen, Angina pectoris, akute Herzinsuffizienz mit Lungenödem, Synkope oder Bewusstseinstrübung',
+            'Sofortige synchronisierte elektrische Kardioversion in Kurznarkose, unabhängig von der Dauer des Vorhofflimmerns und ohne Abwarten einer transösophagealen Echokardiographie — parallel Heparinisierung und anschließend orale Antikoagulation',
+            'Monitorüberwachung, zwei großlumige venöse Zugänge, Sauerstoffgabe, Bereitstellung von Defibrillator und Notfallmedikamenten, Hinzuziehen der Anästhesie',
+            'Bei Vorhofflimmern mit Präexzitation (WPW-Syndrom, sehr schnelle breite Kammerkomplexe) sind Digitalis, Verapamil, Betablocker und Adenosin kontraindiziert — Gefahr des Kammerflimmerns; Mittel der Wahl sind die elektrische Kardioversion oder Ajmalin',
+            'Beim stabilen Patienten wird nicht notfallmäßig kardiovertiert, sondern Frequenz kontrolliert, antikoaguliert und das weitere Vorgehen geplant',
+          ],
+          akut: true,
+        },
+      ],
+      prognose: 'Das Vorhofflimmern erhöht die Gesamtsterblichkeit etwa um das Zweifache und das Schlaganfallrisiko um das Fünffache; rund 20 bis 30 Prozent aller ischämischen Schlaganfälle sind kardioembolisch bei Vorhofflimmern bedingt. Kardioembolische Infarkte verlaufen typischerweise schwerer und hinterlassen häufiger bleibende Behinderungen. Eine leitliniengerechte orale Antikoagulation senkt das Schlaganfallrisiko um etwa zwei Drittel und ist damit die prognostisch wirksamste Einzelmaßnahme. Eine anhaltende Tachyarrhythmie kann über Wochen eine Tachykardiomyopathie mit eingeschränkter Pumpfunktion verursachen, die nach Frequenz- oder Rhythmuskontrolle weitgehend reversibel ist. Unbehandelt schreitet die Erkrankung von der paroxysmalen über die persistierende zur permanenten Form fort („Vorhofflimmern erzeugt Vorhofflimmern“). Die Katheterablation ist bei paroxysmalen Formen in etwa 60 bis 80 Prozent der Fälle erfolgreich, häufig sind Wiederholungseingriffe erforderlich; sie ersetzt die Antikoagulation nicht.',
+      pruefungsfallen: [
+        'Die Gefahr des Vorhofflimmerns ist nicht der Rhythmus, sondern die EMBOLIE. Der Thrombus entsteht im linken Vorhofohr, die typische Komplikation ist der kardioembolische Schlaganfall. Wer nur über Frequenz und Kardioversion spricht, hat die Frage verfehlt.',
+        'Acetylsalicylsäure ist KEIN Ersatz für eine orale Antikoagulation. Ein Patient mit Vorhofflimmern, der nur ASS einnimmt, ist nicht geschützt — das Defizit muss aktiv benannt werden.',
+        'Den CHA2DS2-VASc-Score korrekt aufzählen: Alter ab 75 Jahren gibt 2 Punkte, Alter 65 bis 74 Jahre nur 1 Punkt; Schlaganfall und TIA geben 2 Punkte, alle übrigen Kriterien je 1 Punkt. Maximal sind 9 Punkte möglich, da sich die Altersstufen ausschließen.',
+        'Der HAS-BLED-Score ist KEINE Kontraindikation gegen die Antikoagulation. Ein hoher Wert bedeutet: modifizierbare Faktoren korrigieren und engmaschiger kontrollieren.',
+        'Die 48-Stunden-Regel: Bei einer Dauer über 48 Stunden oder unklarer Dauer keine Kardioversion ohne vorherige transösophageale Echokardiographie oder ohne dreiwöchige Antikoagulation — sonst droht die Embolie durch den mobilisierten Vorhofohrthrombus.',
+        'Nach erfolgreicher Kardioversion die Antikoagulation nicht absetzen: mindestens vier Wochen wegen des atrialen Stunnings, danach entscheidet der CHA2DS2-VASc-Score, nicht der Rhythmus.',
+        'Das TSH bei jedem Patienten mit Vorhofflimmern bestimmen — die Hyperthyreose ist eine kausal behandelbare Ursache und kann sich einzig als Vorhofflimmern äußern.',
+        'Das Pulsdefizit erklären können: Die auskultierte Herzfrequenz ist höher als der peripher tastbare Puls, weil Kontraktionen nach kurzer Diastole zu wenig Schlagvolumen auswerfen. Wer nur den Radialispuls zählt, unterschätzt die Frequenz.',
+        'Beim Vorhofflimmern mit Präexzitation (WPW) sind AV-Knoten-blockierende Medikamente wie Digitalis, Verapamil, Betablocker und Adenosin kontraindiziert — Gefahr des Kammerflimmerns.',
+        'Vorhofflimmern und Vorhofflattern nicht verwechseln: Flimmern bedeutet fehlende P-Wellen und absolut unregelmäßige RR-Abstände, Flattern bedeutet sägezahnartige Flatterwellen mit meist regelmäßiger Überleitung.',
+        'Flecainid und Propafenon sind nur beim strukturell herzgesunden Patienten erlaubt — bei koronarer Herzkrankheit oder Herzinsuffizienz sind sie kontraindiziert, dort Amiodaron.',
+        'Bis zu einem Drittel der Patienten ist asymptomatisch; das Vorhofflimmern wird als Zufallsbefund entdeckt. Deshalb bei jedem Patienten den Puls tasten und nach flüchtigen neurologischen Ausfällen fragen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist ein Vorhofflimmern? Erklären Sie den Begriff auch so, wie Sie es dem Patienten sagen würden.',
+          antwort: 'Das Vorhofflimmern ist die häufigste anhaltende Herzrhythmusstörung. Die Vorhöfe werden ungeordnet mit 350 bis 600 Impulsen pro Minute erregt und ziehen sich nicht mehr geordnet zusammen; der AV-Knoten leitet unregelmäßig auf die Kammern über, sodass eine absolute Arrhythmie entsteht. Dem Patienten sage ich: Die Vorkammern Ihres Herzens schlagen nicht mehr im Takt, sondern zittern nur noch. Dadurch schlägt Ihr Herz völlig unregelmäßig, das Blut bleibt in einer Ausbuchtung der Vorkammer stehen und es können sich Gerinnsel bilden, die einen Schlaganfall auslösen können.',
+        },
+        {
+          frage: 'Welche EKG-Kriterien sichern die Diagnose?',
+          antwort: 'Absolut unregelmäßige RR-Abstände, keine abgrenzbaren P-Wellen, stattdessen feine oder grobe Flimmerwellen mit einer Vorhoffrequenz von 350 bis 600 pro Minute, und in der Regel schmale Kammerkomplexe. Die Kammerfrequenz kann tachykard, normofrequent oder bradykard sein.',
+        },
+        {
+          frage: 'Was versteht man unter einem Pulsdefizit?',
+          antwort: 'Unter einem Pulsdefizit versteht man die Differenz zwischen der über dem Herzen auskultierten Frequenz und dem peripher tastbaren Puls. Nach sehr kurzen Diastolen ist die Kammer zu wenig gefüllt, sodass die Kontraktion kein tastbares Schlagvolumen auswirft. Deshalb muss man auskultieren und darf sich nicht auf den Radialispuls verlassen.',
+        },
+        {
+          frage: 'Welche Formen des Vorhofflimmerns kennen Sie?',
+          antwort: 'Das erstmals diagnostizierte Vorhofflimmern; das paroxysmale, das spontan oder durch Intervention innerhalb von sieben Tagen endet; das persistierende, das länger als sieben Tage anhält oder kardiovertiert werden muss; das lang anhaltend persistierende über einem Jahr bei weiterhin angestrebter Rhythmuskontrolle; und das permanente, bei dem der Rhythmus akzeptiert wird.',
+        },
+        {
+          frage: 'Welche Ursachen des Vorhofflimmerns kennen Sie?',
+          antwort: 'Kardial vor allem die arterielle Hypertonie als häufigste Ursache, ferner koronare Herzkrankheit, Herzinsuffizienz, Klappenvitien wie die Mitralstenose, Kardiomyopathien und Myokarditis. Extrakardial die Hyperthyreose, den Alkoholexzess im Sinne des Holiday-Heart-Syndroms, das Schlafapnoe-Syndrom, Adipositas, Diabetes mellitus, Elektrolytstörungen, die Lungenembolie sowie Infekte und Fieber.',
+        },
+        {
+          frage: 'Warum bestimmen Sie bei jedem Patienten mit Vorhofflimmern das TSH?',
+          antwort: 'Weil eine Hyperthyreose — auch eine latente — Vorhofflimmern auslösen kann und kausal behandelbar ist. Bei manchen Patienten ist das Vorhofflimmern die einzige Manifestation. Solange die Schilddrüse nicht euthyreot ist, ist eine Kardioversion wenig aussichtsreich.',
+        },
+        {
+          frage: 'Was ist die gefährlichste Komplikation, und wo entsteht der Thrombus?',
+          antwort: 'Die arterielle Thromboembolie, allen voran der kardioembolische Schlaganfall. Der Thrombus entsteht durch die Blutstase im linken Vorhofohr. Weitere Embolieziele sind die Extremitätenarterien mit akutem Arterienverschluss, die Mesenterialarterien und die Nierenarterien.',
+        },
+        {
+          frage: 'Nennen Sie die Bestandteile des CHA2DS2-VASc-Scores und die Konsequenz.',
+          antwort: 'Herzinsuffizienz 1 Punkt, Hypertonie 1 Punkt, Alter ab 75 Jahren 2 Punkte, Diabetes mellitus 1 Punkt, Schlaganfall oder TIA 2 Punkte, vaskuläre Erkrankung 1 Punkt, Alter 65 bis 74 Jahre 1 Punkt und weibliches Geschlecht 1 Punkt. Ab 1 Punkt beim Mann und ab 2 Punkten bei der Frau ist eine orale Antikoagulation indiziert.',
+        },
+        {
+          frage: 'Der Patient nimmt nur Acetylsalicylsäure. Genügt das?',
+          antwort: 'Nein. Acetylsalicylsäure ist ein Thrombozytenaggregationshemmer und verhindert keine kardioembolischen Schlaganfälle, erhöht aber das Blutungsrisiko. Bei Indikation muss auf ein orales Antikoagulans umgestellt werden; die ASS wird abgesetzt, sofern sie nicht aus einem anderen Grund zwingend erforderlich ist.',
+        },
+        {
+          frage: 'Was sagt der HAS-BLED-Score aus, und ist ein hoher Wert eine Kontraindikation?',
+          antwort: 'Er schätzt das Blutungsrisiko: unkontrollierte Hypertonie, eingeschränkte Nieren- oder Leberfunktion, Schlaganfall, Blutungsanamnese, labile INR-Werte, Alter über 65 Jahre, Medikamente wie Thrombozytenaggregationshemmer oder NSAR und Alkohol. Ab 3 Punkten besteht ein hohes Risiko. Ein hoher Wert ist jedoch keine Kontraindikation, sondern der Auftrag, die modifizierbaren Faktoren zu korrigieren.',
+        },
+        {
+          frage: 'Wann setzen Sie einen Vitamin-K-Antagonisten statt eines DOAK ein?',
+          antwort: 'Nur beim valvulären Vorhofflimmern, also bei mechanischem Klappenersatz oder mittel- bis hochgradiger Mitralstenose; dort sind DOAK kontraindiziert. In allen anderen Fällen sind die DOAK Mittel der Wahl, unter anderem wegen der fehlenden INR-Kontrollen und des geringeren Hirnblutungsrisikos.',
+        },
+        {
+          frage: 'Würden Sie sofort kardiovertieren?',
+          antwort: 'Nur bei hämodynamischer Instabilität — dann sofort und unabhängig von der Dauer. Ist der Patient stabil und besteht das Vorhofflimmern länger als 48 Stunden oder ist die Dauer unklar, muss zuvor ein Thrombus im linken Vorhofohr mittels transösophagealer Echokardiographie ausgeschlossen oder drei Wochen therapeutisch antikoaguliert werden.',
+        },
+        {
+          frage: 'Wie lange antikoagulieren Sie nach einer erfolgreichen Kardioversion?',
+          antwort: 'Mindestens vier Wochen, weil die mechanische Vorhoffunktion verzögert zurückkehrt und in dieser Phase weiterhin Thromben entstehen können. Die weitere Dauer richtet sich ausschließlich nach dem CHA2DS2-VASc-Score, nicht nach dem wiederhergestellten Sinusrhythmus.',
+        },
+        {
+          frage: 'Frequenzkontrolle oder Rhythmuskontrolle?',
+          antwort: 'Die Frequenzkontrolle mit einem Betablocker steht am Anfang, Zielfrequenz in Ruhe unter 110 pro Minute. Eine Rhythmuskontrolle wähle ich bei fortbestehenden Symptomen, bei erstmaligem Vorhofflimmern, bei jüngeren Patienten und bei Herzinsuffizienz. Beide Strategien ersetzen die Antikoagulation nicht.',
+        },
+        {
+          frage: 'Was ist das Holiday-Heart-Syndrom?',
+          antwort: 'Ein akutes Vorhofflimmern nach einem einmaligen Alkoholexzess, typischerweise nach einer Feier oder am Wochenende, auch beim Herzgesunden. Es endet meist spontan innerhalb von 24 bis 48 Stunden. Entscheidend ist die Beratung zur Alkoholkarenz, weil sie die Rezidivrate deutlich senkt.',
+        },
+        {
+          frage: 'Was versteht man unter einer Pulmonalvenenisolation?',
+          antwort: 'Eine Katheterablation, bei der die Muskelfasern um die Einmündungen der Lungenvenen in den linken Vorhof elektrisch verödet werden — durch Hochfrequenzstrom, Kälte (Kryoballon) oder gepulste Felder. Dort liegen die Trigger, die das Vorhofflimmern auslösen. Indiziert bei symptomatischem Rezidiv trotz Antiarrhythmikum, zunehmend auch als Erstlinientherapie.',
+        },
+        {
+          frage: 'Welche Antiarrhythmika dürfen Sie bei koronarer Herzkrankheit nicht einsetzen?',
+          antwort: 'Flecainid und Propafenon, also die Klasse-I-C-Antiarrhythmika; sie sind bei struktureller Herzerkrankung, koronarer Herzkrankheit und Herzinsuffizienz kontraindiziert. Dort wird Amiodaron eingesetzt — unter Kontrolle von Schilddrüse, Leber, Lunge und Augen.',
+        },
+      ],
+      merksatz: 'Kein P, unregelmäßig, Pulsdefizit — das ist Vorhofflimmern. Gefährlich ist nicht der Takt, sondern das Gerinnsel im linken Vorhofohr: erst antikoagulieren nach CHA2DS2-VASc (ASS zählt nicht!), dann Frequenz oder Rhythmus, dann die Ursache — TSH nicht vergessen, und über 48 Stunden nie ohne TEE kardiovertieren.',
+      linkedCaseIds: [
+        'case-vorhofflimmern',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+        'auf-koronarangiographie',
+      ],
+    },
+    {
+      id: 'fw-erysipel',
+      pathology: 'Erysipel (Wundrose)',
+      specialty: 'Dermatologie',
+      definition: 'Das Erysipel (Wundrose) ist eine akute, sich flächenhaft ausbreitende bakterielle Infektion der Dermis und der dermalen Lymphspalten, die in der überwiegenden Mehrzahl der Fälle durch beta-hämolysierende Streptokokken der Gruppe A (Streptococcus pyogenes) verursacht wird. Die Erreger dringen über eine — häufig winzige und übersehene — Eintrittspforte in die Haut ein und breiten sich entlang der Lymphspalten aus. Klinisch imponiert eine scharf begrenzte, flammend rote, überwärmte und druckschmerzhafte Rötung mit zungenförmigen Ausläufern, begleitet von hohem Fieber mit Schüttelfrost und ausgeprägtem Krankheitsgefühl. Abzugrenzen ist die Phlegmone (Zellulitis), die tiefer in der Subkutis liegt, unscharf begrenzt und teigig ist und häufiger durch Staphylococcus aureus verursacht wird. Prädilektionsstellen sind der Unterschenkel (etwa 80 % der Fälle) und das Gesicht.',
+      aetiologie: 'Erreger sind in etwa 80–90 % der Fälle beta-hämolysierende Streptokokken der Gruppe A (Streptococcus pyogenes), seltener Streptokokken der Gruppen B, C und G — besonders bei Diabetikern, bei chronischem Lymphödem und im höheren Lebensalter —, gelegentlich Staphylococcus aureus, vor allem beim bullösen Verlauf und bei vorbestehenden Wunden. Entscheidend ist immer eine EINTRITTSPFORTE: an erster Stelle die Interdigitalmykose (Fußpilz mit Rhagaden zwischen den Zehen), außerdem Rhagaden bei trockener Haut, Ulcus cruris, Ekzeme, Bagatellverletzungen, Insektenstiche, Nagelbettentzündungen, Bissverletzungen und Piercings; beim Gesichtserysipel eine Rhinitis, eine Konjunktivitis, eine Gehörgangsentzündung oder eine Rhagade am Naseneingang. Über die lymphogene Ausbreitung werden die Lymphgefäße dauerhaft geschädigt; es entsteht ein sekundäres Lymphödem, das seinerseits ein neues Erysipel begünstigt — ein Circulus vitiosus, der die hohe Rezidivneigung erklärt.',
+      risikofaktoren: [
+        'Chronisch-venöse Insuffizienz mit Varikosis, Beinödemen und Stauungsdermatitis',
+        'Lymphödem jeder Ursache, insbesondere nach Lymphknotendissektion, Bestrahlung oder nach früherem Erysipel',
+        'Interdigitalmykose (Fußpilz) und Onychomykose — die häufigste Eintrittspforte am Bein',
+        'Ulcus cruris, chronische Wunden, Ekzeme und Rhagaden',
+        'Diabetes mellitus (Mikroangiopathie, Neuropathie, gestörte Immunabwehr, trockene Haut)',
+        'Adipositas',
+        'Immunsuppression: Glukokortikoide, Chemotherapie, HIV-Infektion, hämatologische Erkrankungen',
+        'Früheres Erysipel — jedes durchgemachte Erysipel erhöht das Rezidivrisiko deutlich',
+        'Zustand nach Venenentnahme oder Varizenstripping am betroffenen Bein',
+        'Höheres Lebensalter, Alkoholkrankheit, Mangelernährung',
+        'pAVK und periphere Durchblutungsstörungen',
+      ],
+      klinik: [
+        {
+          text: 'Scharf begrenzte, flammend rote (feuerrote) Rötung mit charakteristischen zungenförmigen Ausläufern an den Rändern',
+        },
+        {
+          text: 'Deutliche Überwärmung, Schwellung und glänzend gespannte Haut über dem betroffenen Areal',
+        },
+        {
+          text: 'Druck-, Spannungs- und Brennschmerz — der Befund schmerzt, er juckt nicht',
+        },
+        {
+          text: 'Plötzlicher Beginn mit hohem Fieber, typischerweise über 38,5 °C, und ausgeprägtem Schüttelfrost',
+        },
+        {
+          text: 'Schweres Krankheitsgefühl mit Abgeschlagenheit, Kopf- und Gliederschmerzen, Appetitlosigkeit',
+        },
+        {
+          text: 'Schmerzhafte regionale Lymphknotenschwellung (inguinal beim Unterschenkelerysipel, submandibulär und präaurikulär beim Gesichtserysipel)',
+        },
+        {
+          text: 'Lymphangitis als roter, strichförmiger Streifen, der von der Rötung nach proximal zieht („roter Streifen“)',
+        },
+        {
+          text: 'Sichtbare Eintrittspforte, am Bein am häufigsten eine rhagadiforme Interdigitalmykose; im Gesicht eine Rhagade am Naseneingang',
+          atypisch: false,
+        },
+        {
+          text: 'Rasche Ausdehnung des Randes innerhalb von Stunden bis Tagen — daher die Markierung des Randes mit einem Stift zur Verlaufskontrolle',
+        },
+        {
+          text: 'Beim Gesichtserysipel schmetterlingsförmiger Befall über Wangen und Nasenrücken mit ausgeprägtem Lidödem',
+        },
+        {
+          text: 'Bullöses Erysipel mit Blasenbildung auf der geröteten Haut (Erysipelas bullosum)',
+          atypisch: true,
+        },
+        {
+          text: 'Hämorrhagisches Erysipel mit Einblutungen in den Herd, bei Antikoagulation und älteren Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Gangränös-nekrotisierendes Erysipel mit umschriebenen Hautnekrosen — Übergang zur nekrotisierenden Weichgewebeinfektion',
+          atypisch: true,
+        },
+        {
+          text: 'Fehlendes oder nur geringes Fieber bei alten, immunsupprimierten oder mit NSAR bzw. Glukokortikoiden vorbehandelten Patienten — die Systemzeichen werden maskiert',
+          atypisch: true,
+        },
+        {
+          text: 'Blande, nur diskret gerötete Verlaufsform bei ausgeprägtem chronischem Lymphödem, jedoch mit deutlichem Krankheitsgefühl',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierendes Erysipel mit zunehmendem Lymphödem bis zur Elephantiasis nostras verrucosa',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung der bakteriellen Weichgewebeinfektionen nach der befallenen Gewebeschicht',
+          inhalt: 'Impetigo contagiosa: Epidermis. Erysipel: Dermis und dermale Lymphspalten — scharf begrenzt, flammend rot, meist Streptokokken der Gruppe A. Phlegmone (Zellulitis): Subkutis — unscharf begrenzt, teigig geschwollen, livide, häufig Staphylococcus aureus, Einschmelzung und Abszedierung möglich. Nekrotisierende Fasziitis: Faszie — foudroyanter Verlauf, Schmerz stärker als der sichtbare Befund, chirurgischer Notfall. Pyomyositis und Gasbrand: Muskulatur.',
+        },
+        {
+          name: 'Eron-Klassifikation der Haut- und Weichgewebeinfektionen (steuert ambulant vs. stationär)',
+          inhalt: 'Klasse I: keine Systemzeichen, keine relevanten Begleiterkrankungen — ambulante orale Therapie. Klasse II: systemisch krank (Fieber, Schüttelfrost) oder relevante Komorbidität wie Diabetes mellitus, Adipositas, pAVK oder chronisch-venöse Insuffizienz — kurzstationäre bzw. parenterale Therapie erwägen. Klasse III: deutlich beeinträchtigter Allgemeinzustand, instabile Vitalparameter oder bedrohliche Begleiterkrankung — stationäre intravenöse Therapie. Klasse IV: Sepsis oder Verdacht auf eine nekrotisierende Infektion — intensivmedizinische Behandlung und sofortige chirurgische Exploration.',
+        },
+        {
+          name: 'LRINEC-Score (Laboratory Risk Indicator for Necrotizing Fasciitis)',
+          inhalt: 'Laborscore zur Abschätzung des Risikos einer nekrotisierenden Fasziitis aus sechs Parametern: CRP, Leukozytenzahl, Hämoglobin, Serumnatrium, Kreatinin und Blutzucker. Der Maximalwert beträgt 13 Punkte; ab 6 Punkten besteht ein erhöhtes, ab 8 Punkten ein hohes Risiko. Wichtig für die Prüfung: Der Score ist ein Hinweisinstrument und darf die chirurgische Exploration bei klinischem Verdacht niemals verzögern; ein niedriger Score schließt eine nekrotisierende Fasziitis nicht aus.',
+        },
+        {
+          name: 'Klinische Einteilung nach Verlaufsform',
+          inhalt: 'Erysipel simplex (Regelfall), Erysipelas bullosum (Blasenbildung), Erysipelas haemorrhagicum (Einblutungen), Erysipelas gangraenosum (Nekrosen) sowie das chronisch-rezidivierende Erysipel mit konsekutivem Lymphödem und Elephantiasis nostras.',
+        },
+      ],
+      redFlags: [
+        'Schmerz deutlich stärker als der sichtbare Hautbefund, rasche Progredienz über Stunden, livide bis bläulich-schwarze Verfärbung, Blasen, Hautnekrosen, Krepitation oder Sensibilitätsverlust im Herd → dringender Verdacht auf nekrotisierende Fasziitis, sofortige chirurgische Exploration',
+        'Sepsiszeichen: Tachykardie, Hypotonie, Tachypnoe, Verwirrtheit, Oligurie, Marmorierung — kalkulierte intravenöse Antibiose innerhalb einer Stunde nach Abnahme von Blutkulturen',
+        'Gesichtserysipel mit Lidödem, Kopfschmerz, Doppelbildern, Exophthalmus oder Sehstörung → Orbitaphlegmone und Sinus-cavernosus-Thrombose',
+        'Keine Entfieberung und keine Befundrückbildung innerhalb von 48 bis 72 Stunden unter adäquater Antibiose → Abszess, Phlegmone, resistenter Erreger oder falsche Diagnose (insbesondere übersehene tiefe Beinvenenthrombose)',
+        'Fluktuation, tastbare Einschmelzung oder Eiteraustritt → Abszess, der chirurgisch entlastet werden muss',
+        'Diabetes mellitus, Immunsuppression, pAVK oder Asplenie → Gefahr eines foudroyanten Verlaufs, großzügige Indikation zur stationären Aufnahme',
+        'Neu aufgetretene Dyspnoe oder atemabhängiger Thoraxschmerz → Lungenembolie bei gleichzeitig bestehender oder übersehener tiefer Beinvenenthrombose',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: plötzlicher Beginn, Fieber mit Schüttelfrost, Ausdehnungsdynamik der Rötung, Schmerzcharakter (Schmerz statt Juckreiz), gezielte Suche nach der EINTRITTSPFORTE (Fußpilz zwischen den Zehen, Rhagade, Ulcus cruris, Ekzem, Bagatellverletzung, Insektenstich) sowie nach früheren Erysipelepisoden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikofaktoren erfragen: chronisch-venöse Insuffizienz, Varikosis, Lymphödem, Diabetes mellitus, Adipositas, Immunsuppression, Zustand nach Venenentnahme oder Lymphknotenoperation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Das Erysipel ist eine KLINISCHE DIAGNOSE: Inspektion einer scharf begrenzten, flammend roten Rötung mit zungenförmigen Ausläufern, Überwärmung im Seitenvergleich, Druckschmerz, Schwellung; Beurteilung von Blasen, Nekrosen und Krepitation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'MARKIERUNG DES RANDES MIT EINEM WASSERFESTEN STIFT und Datum — der einfachste und wichtigste Verlaufsparameter zur Beurteilung des Therapieansprechens',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperatur, Blutdruck, Puls, Atemfrequenz und Bewusstseinslage; orientierende Sepsiseinschätzung (qSOFA)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Untersuchung der gesamten Extremität einschließlich der Zehenzwischenräume und Fußnägel, Palpation der regionalen Lymphknoten, Suche nach einer Lymphangitis; Umfangmessung beider Unterschenkel im Seitenvergleich',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gefäß- und Nervenstatus: Palpation der Fußpulse (A. dorsalis pedis, A. tibialis posterior), Rekapillarisierungszeit, Sensibilität und Motorik; klinische Thrombosezeichen (Meyer-, Payr- und Homans-Zeichen) sowie Erhebung des Wells-Scores zur Vortestwahrscheinlichkeit einer tiefen Beinvenenthrombose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: CRP (deutlich erhöht), BSG beschleunigt, Blutbild mit Differenzialblutbild (Leukozytose mit Neutrophilie und Linksverschiebung) — sie stützen die Diagnose und dienen der Verlaufskontrolle, beweisen sie aber nicht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen (zwei Paare) VOR Beginn der Antibiose bei Fieber, Schüttelfrost oder Sepsisverdacht; die Ausbeute ist mit unter 10 % gering, bei Bakteriämie aber therapieentscheidend',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Wundabstrich nur bei offener Läsion, Ulcus oder Blaseninhalt zur Erregersicherung; ein Abstrich der intakten Haut ist nicht sinnvoll und liefert nur Standortflora',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenwerte (Kreatinin, eGFR), Leberwerte und Elektrolyte zur Dosisanpassung der Antibiose; Blutzucker und HbA1c zur Erfassung eines entgleisten Diabetes als Risikofaktor',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere nur gezielt bei Verdacht auf eine tiefe Beinvenenthrombose — Cave: bei jeder Entzündung unspezifisch erhöht, daher nur zum Ausschluss bei niedriger Vortestwahrscheinlichkeit verwertbar; Laktat und Procalcitonin bei Sepsisverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Der Antistreptolysin-Titer (ASL) steigt erst nach ein bis zwei Wochen an und ist in der Akutdiagnostik NICHT hilfreich; er dient allenfalls der retrospektiven Bestätigung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kompressionssonographie der Beinvenen zum Ausschluss einer tiefen Beinvenenthrombose — die wichtigste apparative Untersuchung beim roten, geschwollenen Bein',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Weichteilsonographie zum Nachweis oder Ausschluss eines Abszesses, einer Einschmelzung, eines subkutanen Ödems mit Pflastersteinrelief („cobblestone pattern“) sowie freier Flüssigkeit entlang der Faszie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Farbkodierte Duplexsonographie der Arterien und Bestimmung des Knöchel-Arm-Index bei Verdacht auf eine begleitende pAVK, insbesondere vor einer Kompressionstherapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT oder CT der Weichteile nur bei begründetem Verdacht auf eine tiefe Infektion, eine Osteomyelitis oder eine nekrotisierende Fasziitis — die Bildgebung darf die Operation niemals verzögern',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Chirurgische Exploration mit Probeinzision bei Verdacht auf eine nekrotisierende Fasziitis: Sie ist der Goldstandard (fehlender Widerstand der Faszie beim Sondieren, trübes „Spülwassersekret“, fehlende Blutung) und zugleich der Beginn des radikalen Débridements',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Abszessspaltung mit Gewinnung von Material für Gramfärbung, Kultur und Resistenztestung; mykologischer Nativpräparat- und Kulturnachweis aus den Zehenzwischenräumen zur Sicherung der Eintrittspforte',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Tiefe Beinvenenthrombose (TVT)',
+          unterscheidung: 'Die wichtigste und prüfungsrelevanteste Abgrenzung: livide bis bläuliche statt flammend roter Verfärbung, KEIN scharfer Rand, diffuse Umfangsvermehrung mit glänzender Haut und vermehrter Venenzeichnung, Wadendruckschmerz; Fieber und Schüttelfrost fehlen typischerweise, die Entzündungsparameter sind normal oder nur gering erhöht. Vorgehen: Wells-Score, D-Dimere (bei Entzündung unspezifisch erhöht!) und vor allem die Kompressionssonographie. Beides kann auch gleichzeitig vorliegen.',
+        },
+        {
+          dd: 'Phlegmone (Zellulitis)',
+          unterscheidung: 'Tiefer gelegene Infektion der Subkutis: UNSCHARF begrenzt, teigig-derb geschwollen, eher düsterrot bis livide, häufig durch Staphylococcus aureus verursacht, oft von einer Wunde ausgehend und mit Einschmelzung bzw. Abszedierung. Das Erysipel bleibt dagegen scharf begrenzt und flächig; die Sonographie zeigt beim Abszess eine Einschmelzung.',
+        },
+        {
+          dd: 'Nekrotisierende Fasziitis',
+          unterscheidung: 'Absoluter Notfall und die gefährlichste Differenzialdiagnose: Der SCHMERZ IST VIEL STÄRKER, ALS DER BEFUND ES ERKLÄRT, die Ausbreitung erfolgt innerhalb von Stunden, es finden sich livide bis blau-schwarze Verfärbungen, Blasen, Hautnekrosen, Krepitation, ein Sensibilitätsverlust im Herd und eine rasche Sepsisentwicklung. Therapie: sofortige chirurgische Exploration mit radikalem Débridement und breite intravenöse Antibiose — niemals abwartend behandeln.',
+        },
+        {
+          dd: 'Stauungsdermatitis (Stauungsekzem) bei chronisch-venöser Insuffizienz',
+          unterscheidung: 'Meist BEIDSEITIG und chronisch über Monate bis Jahre, bräunlich-rötliche Hyperpigmentierung (Hämosiderin), Schuppung, Juckreiz, Lipodermatosklerose; kein Fieber, keine Schüttelfrost, normale Entzündungsparameter, kein akuter Beginn. Sie ist die häufigste Fehldiagnose eines vermeintlich „beidseitigen Erysipels“ — ein beidseitiges Erysipel ist eine Rarität.',
+        },
+        {
+          dd: 'Oberflächliche Thrombophlebitis (Varikophlebitis)',
+          unterscheidung: 'Strangförmige, derb tastbare, gerötete und druckschmerzhafte Verhärtung im Verlauf einer Vene, meist der Vena saphena magna, ohne flächige Rötung und ohne hohes Fieber. Sonographisch thrombosierte oberflächliche Vene; Cave: Ausdehnung in das tiefe Venensystem über die Mündung.',
+        },
+        {
+          dd: 'Akutes Kontaktekzem / allergisches Ekzem',
+          unterscheidung: 'Es JUCKT, statt zu schmerzen; typisch sind Bläschen, Nässen und Schuppung, die Begrenzung folgt dem Einwirkungsareal der auslösenden Substanz (Salbe, Pflaster, Kompressionsstrumpf, Waschmittel). Fieber, Schüttelfrost und Lymphangitis fehlen, die Entzündungsparameter sind normal.',
+        },
+        {
+          dd: 'Herpes zoster',
+          unterscheidung: 'Streng einseitige, DERMATOMBEZOGENE Ausbreitung mit gruppierten Bläschen auf gerötetem Grund, oft mit brennenden Vorschmerzen einige Tage vor dem Ausschlag; die Rötung überschreitet die Mittellinie nicht und ist nicht flächig-scharf begrenzt wie beim Erysipel.',
+        },
+        {
+          dd: 'Erythema migrans bei Lyme-Borreliose',
+          unterscheidung: 'Anamnestisch Zeckenstich, Wald- oder Wiesenaufenthalt; ringförmige, sich langsam über Tage bis Wochen ausbreitende Rötung mit ZENTRALER ABBLASSUNG, meist nicht überwärmt, nicht oder nur wenig schmerzhaft, eher leicht juckend; typischerweise KEIN hohes Fieber und normale bis nur gering erhöhte Entzündungsparameter. Genau diese Abgrenzung wird in den Prüfungen regelmäßig verlangt. Therapie: Doxycyclin.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Antibiotische Therapie',
+          items: [
+            'Mittel der Wahl ist Penicillin, da beta-hämolysierende Streptokokken der Gruppe A weiterhin uneingeschränkt penicillinempfindlich sind: Penicillin V 3 × 1,5 Mio. IE per os beim unkomplizierten ambulanten Verlauf',
+            'Bei Fieber, Schüttelfrost, ausgedehntem Befund, Gesichtserysipel, relevanten Begleiterkrankungen (Diabetes mellitus, Immunsuppression, pAVK) oder fehlendem Ansprechen: stationäre Aufnahme und Penicillin G 3–4 × 10 Mio. IE intravenös, Umstellung auf die orale Gabe nach 48–72 Stunden Fieberfreiheit (Sequenztherapie)',
+            'Gesamtdauer der Therapie 7 bis 14 Tage; bei ausgedehntem Befund, Lymphödem oder Rezidiv eher länger',
+            'Bei Penicillinallergie: Clindamycin 3 × 600 mg per os oder intravenös (zusätzlich toxinhemmend); Alternativen sind Makrolide wie Clarithromycin — Cave zunehmende Makrolidresistenz der Streptokokken',
+            'Bei Verdacht auf eine Staphylokokkenbeteiligung (Wunde, bullöser oder abszedierender Verlauf) Erweiterung auf ein staphylokokkenwirksames Präparat, zum Beispiel Cefazolin, Flucloxacillin oder Amoxicillin/Clavulansäure',
+            'Klinische Kontrolle nach 48 bis 72 Stunden: Bleiben Entfieberung und Befundrückbildung aus, müssen ein Abszess, eine Phlegmone, ein resistenter Erreger oder eine falsche Diagnose — insbesondere eine tiefe Beinvenenthrombose — gesucht werden',
+            'Bei Sepsis oder Verdacht auf eine nekrotisierende Fasziitis: sofortige breite intravenöse Kombinationstherapie (zum Beispiel Piperacillin/Tazobactam plus Clindamycin) nach Abnahme von Blutkulturen und unverzügliche chirurgische Exploration',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Begleitende Lokal- und Allgemeinmaßnahmen',
+          items: [
+            'Ruhigstellung und konsequente HOCHLAGERUNG der betroffenen Extremität — sie ist für die Rückbildung des Ödems ebenso wichtig wie das Antibiotikum',
+            'Markierung des Rötungsrandes mit einem wasserfesten Stift und Datum; tägliche Verlaufskontrolle und Fotodokumentation',
+            'Kühlende, feuchte Umschläge oder antiseptische Umschläge zur Schmerzlinderung; keine reizenden oder allergisierenden Externa (Kontaktsensibilisierungsgefahr)',
+            'Analgesie und Fiebersenkung mit Paracetamol oder Metamizol; NSAR eher zurückhaltend, da sie die Systemzeichen maskieren und einen komplizierten Verlauf verschleiern können',
+            'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin bei Immobilisation und weiteren Risikofaktoren',
+            'Ausreichende Flüssigkeitszufuhr, Optimierung der Blutzuckereinstellung, Behandlung begleitender Ödeme',
+            'Kompressionstherapie: im hochakuten, sehr schmerzhaften Stadium zunächst zurückstellen, nach Abklingen der akuten Entzündung und nach Ausschluss einer relevanten pAVK konsequent beginnen',
+            'Stationäre Aufnahme bei Systemzeichen, Gesichtserysipel, Immunsuppression, unsicherer oraler Einnahme oder ambulantem Therapieversagen',
+          ],
+        },
+        {
+          label: 'Sanierung der Eintrittspforte und Rezidivprophylaxe',
+          items: [
+            'Diese Säule entscheidet über den Langzeiterfolg: Ohne Sanierung der Eintrittspforte ist das Rezidiv vorprogrammiert',
+            'Konsequente antimykotische Behandlung einer Interdigitalmykose über mehrere Wochen, zum Beispiel mit Ciclopirox- oder Terbinafin-Creme, einschließlich Mitbehandlung der Onychomykose (gegebenenfalls systemisch) sowie Desinfektion von Schuhen und Strümpfen',
+            'Sorgfältiges Abtrocknen der Zehenzwischenräume, atmungsaktives Schuhwerk, Vermeidung von Barfußlaufen in Schwimmbad und Sauna',
+            'Behandlung von Rhagaden, Ekzemen und eines Ulcus cruris; konsequente rückfettende Hautpflege zur Vermeidung neuer Eintrittspforten',
+            'Behandlung der Grunderkrankung: Kompressionstherapie und gegebenenfalls Sanierung der Varikosis bei chronisch-venöser Insuffizienz, manuelle Lymphdrainage und Kompression beim Lymphödem, Gewichtsreduktion, Optimierung der Diabeteseinstellung, Nikotinkarenz',
+            'Antibiotische Langzeitprophylaxe bei rezidivierendem Erysipel (ab etwa zwei Episoden pro Jahr): Benzathin-Benzylpenicillin 1,2 Mio. IE intramuskulär alle zwei bis vier Wochen oder Penicillin V 2 × 250–500 mg täglich über sechs bis zwölf Monate, bei Penicillinallergie Erythromycin; Cave: Der Schutz besteht nur während der Einnahme',
+            'Aufklärung des Patienten über Frühzeichen eines Rezidivs (Fieber, Schüttelfrost, neue Rötung) mit der Anweisung, sich sofort vorzustellen',
+          ],
+        },
+      ],
+      prognose: 'Unter adäquater antibiotischer Therapie ist die Prognose gut: Die Entfieberung tritt meist innerhalb von 24 bis 72 Stunden ein, die Rötung blasst über mehrere Tage ab, häufig mit anschließender feiner Schuppung der Haut. Entscheidend für den Langzeitverlauf ist die Sanierung der Eintrittspforte: Ohne sie kommt es bei etwa 20 bis 30 % der Patienten innerhalb von drei Jahren zu einem Rezidiv. Jede Episode schädigt die Lymphgefäße zusätzlich und führt über ein sekundäres Lymphödem zu einer weiter steigenden Rezidivneigung bis hin zur Elephantiasis nostras verrucosa — ein Circulus vitiosus. Komplikationen sind Abszedierung, Phlegmone, Nekrosen, Sepsis, selten eine Glomerulonephritis nach Streptokokkeninfektion sowie beim Gesichtserysipel die Sinus-cavernosus-Thrombose. Die nekrotisierende Fasziitis ist die gefürchtetste Differenzialdiagnose mit einer Letalität von über 20 % trotz maximaler Therapie.',
+      pruefungsfallen: [
+        'Die EINTRITTSPFORTE nicht suchen ist der klassische Fehler: Die Zehenzwischenräume müssen inspiziert und der Fußpilz aktiv erfragt werden. Patienten halten „nur Fußpilz“ für belanglos und erwähnen ihn von sich aus nicht.',
+        'Die Therapie beim Antibiotikum enden lassen. Eine vollständige Antwort hat drei Säulen: Antibiose, Lokal- und Allgemeinmaßnahmen (Hochlagerung, Randmarkierung, Analgesie, Thromboseprophylaxe) UND Sanierung der Eintrittspforte mit Rezidivprophylaxe.',
+        'Die tiefe Beinvenenthrombose nur nennen, statt sie auszuschließen: Wells-Score, Kompressionssonographie und die Feststellung, dass die D-Dimere bei jeder Entzündung unspezifisch erhöht sind und hier daher kaum verwertbar bleiben.',
+        'Die nekrotisierende Fasziitis vergessen. Das Leitsymptom lautet: Der Schmerz ist viel stärker, als der Befund es erklärt. Dazu rasche Progredienz, livide Verfärbung, Blasen, Krepitation — chirurgischer Notfall, keine Bildgebung abwarten.',
+        'Erysipel und Phlegmone verwechseln: Erysipel = Dermis, scharf begrenzt, flammend rot, Streptokokken; Phlegmone = Subkutis, unscharf, teigig, häufig Staphylokokken.',
+        'Bei der Frage „Wie schließen Sie ein Erysipel aus?“ (real in Reutlingen gestellt) nicht nur die Entzündungsparameter nennen. Erwartet wird die Kombination aus Klinik (scharfe Begrenzung, Überwärmung, Schmerz statt Juckreiz), Fieber mit Schüttelfrost, vorhandener Eintrittspforte UND erhöhtem CRP, BSG und Leukozyten.',
+        'Das Erysipel ist eine KLINISCHE Diagnose. Es gibt keinen beweisenden Laborwert; der Antistreptolysin-Titer steigt erst nach ein bis zwei Wochen und hilft akut nicht. Blutkulturen sind nur bei Fieber und Sepsisverdacht indiziert und in unter 10 % positiv.',
+        'Einen Abstrich von intakter Haut abnehmen — sinnlos. Ein Abstrich ist nur bei offener Wunde, Ulcus oder Blaseninhalt sinnvoll.',
+        'Die Randmarkierung mit dem Stift vergessen: Sie ist die praxisnächste Verlaufskontrolle und wird von Prüfern gern gehört.',
+        'Ein „beidseitiges Erysipel“ diagnostizieren: Das ist eine Rarität. Beidseitige Rötung spricht für eine Stauungsdermatitis bei chronisch-venöser Insuffizienz.',
+        'Die Kompression im hochakuten Stadium unkritisch verordnen — erst nach Abklingen der akuten Entzündungsschmerzen und nach Ausschluss einer relevanten pAVK.',
+        'Vor dem Patienten „Erysipel“ sagen, ohne zu übersetzen: Der deutsche Begriff lautet Wundrose; erklärt wird es als eine Infektion der Haut durch Bakterien, die über eine kleine Hautverletzung eingedrungen sind.',
+        'Bei Penicillinallergie kein Alternativpräparat nennen können — die erwartete Antwort ist Clindamycin.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein Erysipel, also eine Wundrose, des Unterschenkels. Dafür sprechen die scharf begrenzte, flammend rote, überwärmte und druckschmerzhafte Rötung mit zungenförmigen Ausläufern, der plötzliche Beginn mit hohem Fieber und Schüttelfrost, die schmerzhafte regionale Lymphknotenschwellung mit Lymphangitis sowie eine nachweisbare Eintrittspforte, hier eine Interdigitalmykose. Risikofaktoren sind die chronisch-venöse Insuffizienz, der Diabetes mellitus und die Adipositas.',
+        },
+        {
+          frage: 'Wie können Sie ein Erysipel ausschließen beziehungsweise sichern?',
+          antwort: 'Das Erysipel ist eine klinische Diagnose. Gegen ein Erysipel sprechen eine unscharf begrenzte oder livide Rötung, fehlendes Fieber, fehlende Eintrittspforte, Juckreiz statt Schmerz und normale Entzündungsparameter. Für ein Erysipel sprechen die scharfe Begrenzung mit zungenförmigen Ausläufern, Überwärmung, Druckschmerz, Fieber mit Schüttelfrost, Lymphangitis und Lymphadenitis sowie im Labor eine Leukozytose, ein erhöhtes CRP und eine beschleunigte BSG. Beweisend ist das Labor nicht — es stützt nur.',
+        },
+        {
+          frage: 'Welcher Erreger ist verantwortlich?',
+          antwort: 'In der überwiegenden Mehrzahl der Fälle beta-hämolysierende Streptokokken der Gruppe A, also Streptococcus pyogenes. Seltener sind Streptokokken der Gruppen B, C und G, besonders bei Diabetikern und bei Lymphödem, gelegentlich Staphylococcus aureus, vor allem beim bullösen Verlauf und bei vorbestehenden Wunden.',
+        },
+        {
+          frage: 'Was ist die häufigste Eintrittspforte, und warum ist sie so wichtig?',
+          antwort: 'Am Bein die Interdigitalmykose, also der Fußpilz mit eingerissener Haut zwischen den Zehen; außerdem Rhagaden, ein Ulcus cruris, Ekzeme und Bagatellverletzungen. Im Gesicht sind es Rhagaden am Naseneingang, eine Rhinitis oder eine Gehörgangsentzündung. Ohne Sanierung der Eintrittspforte ist ein Rezidiv nahezu sicher, und jedes Rezidiv schädigt die Lymphgefäße weiter.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Vor allem die tiefe Beinvenenthrombose, außerdem die Phlegmone, die nekrotisierende Fasziitis als Notfall, die Stauungsdermatitis bei chronisch-venöser Insuffizienz, eine oberflächliche Thrombophlebitis, ein akutes Kontaktekzem, ein Herpes zoster und ein Erythema migrans bei Lyme-Borreliose.',
+        },
+        {
+          frage: 'Wie grenzen Sie die tiefe Beinvenenthrombose ab?',
+          antwort: 'Bei der Thrombose ist das Bein eher livide bis bläulich verfärbt, diffus geschwollen und ohne scharfen Rand; Fieber und Schüttelfrost fehlen typischerweise, die Entzündungsparameter sind normal oder nur gering erhöht. Ich erhebe den Wells-Score und führe eine Kompressionssonographie der Beinvenen durch. Die D-Dimere sind bei jeder Entzündung unspezifisch erhöht und daher hier nur eingeschränkt verwertbar. Beides kann auch gleichzeitig bestehen.',
+        },
+        {
+          frage: 'Worin unterscheiden sich Erysipel und Phlegmone?',
+          antwort: 'Das Erysipel betrifft die Dermis und die Lymphspalten, ist scharf begrenzt, flammend rot und wird fast immer durch Streptokokken der Gruppe A verursacht. Die Phlegmone liegt tiefer in der Subkutis, ist unscharf begrenzt, teigig und eher düsterrot, geht häufig von einer Wunde aus, wird oft durch Staphylococcus aureus verursacht und kann abszedieren.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnose dürfen Sie auf keinen Fall übersehen, und woran erkennen Sie sie?',
+          antwort: 'Die nekrotisierende Fasziitis. Typisch ist ein Schmerz, der viel stärker ist, als der sichtbare Befund es erklärt, dazu eine Ausbreitung innerhalb von Stunden, livide bis blau-schwarze Verfärbung, Blasen, Hautnekrosen, Krepitation, ein Sensibilitätsverlust im Herd und eine rasche Sepsisentwicklung. Sie ist ein chirurgischer Notfall: sofortige Exploration mit radikalem Débridement und breite intravenöse Antibiose.',
+        },
+        {
+          frage: 'Welche Diagnostik veranlassen Sie?',
+          antwort: 'Anamnese und klinische Untersuchung einschließlich Vitalparametern, Inspektion der Zehenzwischenräume, Palpation der Lymphknoten und Fußpulse sowie die Markierung des Rötungsrandes mit einem Stift. Im Labor Blutbild mit Differenzialblutbild, CRP, BSG, Nierenwerte, Blutzucker und HbA1c, Blutkulturen bei Fieber und Schüttelfrost, ein Abstrich nur bei offener Wunde. Apparativ eine Kompressionssonographie zum Ausschluss einer tiefen Beinvenenthrombose und eine Weichteilsonographie zum Ausschluss eines Abszesses.',
+        },
+        {
+          frage: 'Wie behandeln Sie das Erysipel?',
+          antwort: 'Antibiotisch mit Penicillin als Mittel der Wahl, ambulant Penicillin V 3 × 1,5 Mio. IE oral, bei Fieber, Gesichtsbefall oder relevanten Begleiterkrankungen stationär Penicillin G intravenös; Dauer 7 bis 14 Tage. Bei Penicillinallergie Clindamycin. Dazu Ruhigstellung und Hochlagerung, Kühlung, Analgesie, Thromboseprophylaxe bei Immobilisation und die Randmarkierung zur Verlaufskontrolle. Und schließlich die Sanierung der Eintrittspforte mit antimykotischer Behandlung sowie die Rezidivprophylaxe mit Hautpflege und Kompression.',
+        },
+        {
+          frage: 'Was geben Sie bei einer Penicillinallergie?',
+          antwort: 'Clindamycin, 3 × 600 mg oral oder intravenös; es wirkt zusätzlich toxinhemmend. Alternativ ein Makrolid wie Clarithromycin, wobei die Makrolidresistenz der Streptokokken zunimmt.',
+        },
+        {
+          frage: 'Warum markieren Sie den Rand der Rötung?',
+          antwort: 'Weil die Ausdehnung der Rötung der einfachste und zuverlässigste Verlaufsparameter ist. Wandert der Rand über die Markierung hinaus oder bleibt die Entfieberung nach 48 bis 72 Stunden aus, muss ich an einen Abszess, eine Phlegmone, einen resistenten Erreger oder eine falsche Diagnose denken.',
+        },
+        {
+          frage: 'Warum rezidiviert das Erysipel so häufig?',
+          antwort: 'Weil die Entzündung entlang der Lymphspalten verläuft und die Lymphgefäße dauerhaft schädigt. Es entsteht ein sekundäres Lymphödem, das die lokale Abwehr schwächt und ein neues Erysipel begünstigt — ein Circulus vitiosus. Zusätzlich bleibt die Eintrittspforte, meist der Fußpilz, oft unbehandelt.',
+        },
+        {
+          frage: 'Wann nehmen Sie einen Patienten stationär auf?',
+          antwort: 'Bei Fieber mit Schüttelfrost und deutlich reduziertem Allgemeinzustand, bei ausgedehntem Befund, beim Gesichtserysipel, bei Sepsiszeichen, bei relevanten Begleiterkrankungen wie Diabetes mellitus, Immunsuppression oder pAVK, bei Verdacht auf eine nekrotisierende Infektion sowie bei ambulantem Therapieversagen oder unsicherer Tabletteneinnahme.',
+        },
+        {
+          frage: 'Welche Komplikationen kann ein Erysipel haben?',
+          antwort: 'Abszedierung, Phlegmone, Nekrosen, Sepsis, chronisches Lymphödem bis zur Elephantiasis nostras, eine Poststreptokokken-Glomerulonephritis und beim Gesichtserysipel eine Sinus-cavernosus-Thrombose. Die schwerste Komplikation ist der Übergang in eine nekrotisierende Weichgewebeinfektion.',
+        },
+      ],
+      merksatz: 'Scharf begrenzt, flammend rot, zungenförmig und heiß, dazu Fieber mit Schüttelfrost — das ist die Wundrose. Erst die tiefe Beinvenenthrombose und die nekrotisierende Fasziitis ausschließen, dann Penicillin (bei Allergie Clindamycin), Bein hoch und Rand markieren — und immer zwischen die Zehen schauen: ohne Sanierung des Fußpilzes kommt das Rezidiv.',
+      linkedCaseIds: [
+        'case-erysipel',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-hypothyreose',
+      pathology: 'Hypothyreose (Hashimoto-Thyreoiditis)',
+      specialty: 'Endokrinologie',
+      definition: 'Die Hypothyreose ist die Unterversorgung des Organismus mit den Schilddrüsenhormonen Thyroxin (T4) und Trijodthyronin (T3) mit generalisierter Verlangsamung des Stoffwechsels. Bei der primären (thyreogenen) Form liegt die Störung in der Schilddrüse selbst: Das TSH steigt kompensatorisch an; bei normalem fT4 spricht man von einer latenten (subklinischen), bei erniedrigtem fT4 von einer manifesten Hypothyreose. Bei der seltenen sekundären (hypophysären) und tertiären (hypothalamischen) Form ist das TSH niedrig oder inadäquat normal bei erniedrigtem fT4. Häufigste Ursache in Deutschland ist die Hashimoto-Thyreoiditis, eine chronische lymphozytäre Autoimmunthyreoiditis mit Antikörpern gegen die thyreoidale Peroxidase (TPO) und gegen Thyreoglobulin, die über Jahre zur Zerstörung des Schilddrüsengewebes führt.',
+      aetiologie: 'Primäre erworbene Hypothyreose: an erster Stelle die Hashimoto-Thyreoiditis (Autoimmunthyreoiditis, Frauen etwa 5- bis 10-mal häufiger betroffen, Gipfel im mittleren Lebensalter, Assoziation mit HLA-DR3/DR5); ferner iatrogen nach Thyreoidektomie, nach Radiojodtherapie oder nach Bestrahlung der Halsregion; medikamentös durch Amiodaron, Lithium, Interferon alpha, Tyrosinkinase- und Checkpoint-Inhibitoren, Thyreostatika in Überdosierung sowie durch Jodexzess (Wolff-Chaikoff-Effekt, etwa nach jodhaltigem Kontrastmittel) oder Jodmangel; passager nach einer subakuten Thyreoiditis de Quervain und als Postpartum-Thyreoiditis. Konnatale Hypothyreose durch Athyreose, Ektopie oder Hormonsynthesestörung (Häufigkeit etwa 1:3500, deshalb Neugeborenenscreening). Sekundäre Form durch Hypophysenadenom, Hypophysenoperation oder -bestrahlung, Sheehan-Syndrom, Hypophysitis; tertiäre Form durch hypothalamische Läsionen.',
+      risikofaktoren: [
+        'Weibliches Geschlecht und mittleres Lebensalter',
+        'Positive Familienanamnese für Schilddrüsen- oder andere Autoimmunerkrankungen',
+        'Andere Autoimmunerkrankungen: Typ-1-Diabetes, Vitiligo, perniziöse Anämie, Zöliakie, Morbus Addison, rheumatoide Arthritis (polyglanduläres Autoimmunsyndrom)',
+        'Zustand nach Entbindung (Postpartum-Thyreoiditis in den ersten zwölf Monaten)',
+        'Zustand nach Thyreoidektomie, Radiojodtherapie oder Halsbestrahlung',
+        'Medikamente: Amiodaron, Lithium, Interferon alpha, Tyrosinkinase- und Checkpoint-Inhibitoren',
+        'Jodexzess, insbesondere nach jodhaltigem Kontrastmittel, sowie Jodmangel',
+        'Turner-Syndrom und Trisomie 21',
+        'Rauchen als Risikofaktor für den Übergang von der latenten in die manifeste Form',
+        'Höheres Lebensalter (Prävalenz der latenten Hypothyreose bei über 60-jährigen Frauen bis 10 %)',
+      ],
+      klinik: [
+        {
+          text: 'Müdigkeit, Antriebslosigkeit, rasche Erschöpfbarkeit und deutliche Leistungsminderung',
+        },
+        {
+          text: 'Allgemeine psychomotorische Verlangsamung mit Konzentrations- und Gedächtnisstörung, verlangsamtem Denken und Sprechen',
+        },
+        {
+          text: 'Depressive Verstimmung — wird häufig als Depression fehlgedeutet',
+        },
+        {
+          text: 'Kälteintoleranz und ständiges Frieren, kühle, blasse Haut',
+        },
+        {
+          text: 'Gewichtszunahme trotz unverändertem oder vermindertem Appetit',
+        },
+        {
+          text: 'Obstipation mit seltenem, hartem Stuhlgang',
+        },
+        {
+          text: 'Trockene, raue, schuppende, teigige Haut; verminderte Schweißsekretion',
+        },
+        {
+          text: 'Brüchige, stumpfe Haare, diffuser Haarausfall und Ausdünnung der lateralen Augenbrauen (Hertoghe-Zeichen)',
+        },
+        {
+          text: 'Heiserkeit und tiefere, raue Stimme durch Myxödem der Stimmbänder; verwaschene, langsame Sprache und Makroglossie',
+        },
+        {
+          text: 'Prätibiales und periorbitales Myxödem: teigige, NICHT eindrückbare Schwellung, verquollene Lider und Gesichtszüge',
+        },
+        {
+          text: 'Bradykardie, leise Herztöne, diastolische Hypertonie, verminderte körperliche Belastbarkeit',
+        },
+        {
+          text: 'Zyklusstörungen mit Menorrhagien, Oligomenorrhoe, verminderter Libido, Infertilität und erhöhter Abortrate',
+        },
+        {
+          text: 'Muskelschwäche, Muskelsteifigkeit, Myalgien und Wadenkrämpfe bei erhöhter Kreatinkinase',
+        },
+        {
+          text: 'Verzögerte Erschlaffungsphase der Muskeleigenreflexe, besonders des Achillessehnenreflexes',
+        },
+        {
+          text: 'Karpaltunnelsyndrom durch Weichteilmyxödem, Parästhesien der Hände',
+        },
+        {
+          text: 'Struma bei der hypertrophen Verlaufsform (Struma lymphomatosa) oder Jodmangel — die atrophe Form der Hashimoto-Thyreoiditis geht dagegen mit einer kleinen, derben Schilddrüse einher',
+          atypisch: true,
+        },
+        {
+          text: 'Perikarderguss, Pleuraerguss und Aszites bei ausgeprägter, lange unbehandelter Hypothyreose',
+          atypisch: true,
+        },
+        {
+          text: 'Hyperprolaktinämie mit Galaktorrhoe durch die gesteigerte TRH-Sekretion',
+          atypisch: true,
+        },
+        {
+          text: 'Initiale, meist mehrwöchige hyperthyreote Phase zu Beginn einer Hashimoto-Thyreoiditis („Hashitoxikose“) durch Freisetzung gespeicherten Hormons aus zerstörten Follikeln',
+          atypisch: true,
+        },
+        {
+          text: 'Weitgehende Symptomarmut bei älteren Patienten — dort dominieren Bradykardie, Verwirrtheit, Sturzneigung und Obstipation, sodass die Erkrankung als Demenz verkannt wird',
+          atypisch: true,
+        },
+        {
+          text: 'Myxödemkoma mit Bewusstseinsstörung, Hypothermie, Hypoventilation und Hypotonie als lebensbedrohliche Erstmanifestation',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Neugeborenen Trinkfaulheit, Muskelhypotonie, prolongierter Ikterus, große Zunge, Nabelhernie und verzögerte Entwicklung (konnatale Hypothyreose)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Funktionelle Einteilung nach Laborkonstellation',
+          inhalt: 'Latente (subklinische) Hypothyreose: TSH erhöht bei NORMALEM fT4 — meist wenig oder gar nicht symptomatisch. Manifeste Hypothyreose: TSH erhöht UND fT4 erniedrigt. Sekundäre (hypophysäre) beziehungsweise tertiäre (hypothalamische) Hypothyreose: fT4 erniedrigt bei niedrigem oder inadäquat normalem TSH — hier taugt das TSH nicht als Suchtest. Zur Abgrenzung dient das Euthyroid-Sick-Syndrom (Low-T3-Syndrom) bei schwerer Allgemeinerkrankung: niedriges T3 bei normalem oder niedrigem TSH ohne echte Schilddrüsenerkrankung.',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Primär (thyreogen, über 95 %): Hashimoto-Thyreoiditis, iatrogen nach Thyreoidektomie oder Radiojodtherapie, nach Halsbestrahlung, medikamentös (Amiodaron, Lithium, Interferon), Jodmangel oder Jodexzess, passager nach Thyreoiditis de Quervain oder postpartal. Sekundär (hypophysär): TSH-Mangel bei Hypophysenadenom, Operation, Bestrahlung, Sheehan-Syndrom. Tertiär (hypothalamisch): TRH-Mangel. Zusätzlich angeboren (konnatal) versus erworben.',
+        },
+        {
+          name: 'Verlaufsformen der Hashimoto-Thyreoiditis',
+          inhalt: 'Atrophe Form (häufiger): kleine, derbe, echoarme Schilddrüse, im Verlauf zunehmende Hypothyreose. Hypertrophe Form (Struma lymphomatosa Hashimoto): vergrößerte, druckdolente Schilddrüse mit lymphozytärer Infiltration. Sonderform Hashitoxikose: transiente hyperthyreote Anfangsphase. Postpartum-Thyreoiditis: typischerweise hyperthyreote Phase in den ersten Monaten nach der Entbindung, anschließend hypothyreote Phase, meist mit Rückbildung, jedoch mit erhöhtem Risiko einer bleibenden Hypothyreose.',
+        },
+        {
+          name: 'Behandlungsindikation bei latenter Hypothyreose',
+          inhalt: 'Substitution indiziert bei TSH über 10 mU/l, bei eindeutiger klinischer Symptomatik, bei positiven TPO-Antikörpern mit hohem Progressionsrisiko, bei Kinderwunsch und in der Schwangerschaft (dort trimesterspezifische Zielwerte) sowie bei kardiovaskulärem Risiko oder Struma. Bei TSH zwischen dem oberen Normwert und 10 mU/l ohne Beschwerden genügen Kontrollen alle sechs bis zwölf Monate; bei über 70-Jährigen ist ein leicht erhöhtes TSH tolerabel.',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinsstörung, Somnolenz oder Koma mit Hypothermie, Bradykardie und Hypoventilation → Myxödemkoma, sofortige Intensivtherapie',
+        'Hypotonie, Hypoglykämie und Hyponatriämie bei bekannter oder vermuteter Hypothyreose → drohende Dekompensation, immer auch an eine begleitende Nebenniereninsuffizienz denken',
+        'Neu aufgetretene Angina pectoris, Tachyarrhythmie oder Vorhofflimmern nach Beginn oder Steigerung der Levothyroxin-Therapie → Überdosierung beziehungsweise zu rasche Aufdosierung bei koronarer Herzkrankheit',
+        'Rasch wachsende, derbe, schmerzlose Struma mit Heiserkeit, Stridor, oberer Einflussstauung oder Lymphknotenschwellung → Verdacht auf ein Schilddrüsenmalignom, bei Hashimoto insbesondere auf ein primäres Schilddrüsenlymphom',
+        'Halsschmerzen mit Druckdolenz der Schilddrüse, Fieber und stark erhöhter BSG → subakute Thyreoiditis de Quervain als Differenzialdiagnose',
+        'Hypothyreose in der Frühschwangerschaft oder bei Kinderwunsch → sofortige Anpassung, Gefahr für die kindliche Hirnentwicklung und erhöhtes Abortrisiko',
+        'Perikarderguss mit Zeichen der Einflussstauung bei lange unbehandelter Hypothyreose',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Symptomanamnese: Müdigkeit, Antriebs- und Konzentrationsstörung, Kälteintoleranz, Gewichtszunahme bei unverändertem Appetit, Obstipation, trockene Haut, Haarausfall, Heiserkeit, Zyklusstörungen mit Menorrhagien, Muskelschwäche und Krämpfe — in der Prüfung wird die Aufzählung der Symptome erwartet, nicht nur „TSH bestimmen“',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ursachenanamnese: Schilddrüsenoperation, Radiojodtherapie, Halsbestrahlung, Medikamente (Amiodaron, Lithium, Interferon, Tyrosinkinase-Hemmer), jodhaltiges Kontrastmittel, Zustand nach Entbindung, Jodzufuhr, Familienanamnese für Schilddrüsen- und Autoimmunerkrankungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Inspektion, PALPATION und Auskultation der Schilddrüse (Größe, Konsistenz, Knoten, Druckschmerz, Schluckverschieblichkeit), Vitalparametern (Bradykardie, diastolische Hypertonie, Hypothermie), Haut- und Haarstatus, Prüfung des nicht eindrückbaren prätibialen Myxödems, Muskeleigenreflexe mit verzögerter Erschlaffung, BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychischer Befund zur Abgrenzung einer depressiven Episode (Freud- und Interessenverlust, Morgentief, Schuldgefühle, Suizidalität)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH basal als Screening-Parameter Nummer 1 — wegen der logarithmischen Rückkopplung der sensitivste Suchtest der primären Schilddrüsenfunktionsstörung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Freies Thyroxin (fT4) zur Stadieneinteilung: normal = latente, erniedrigt = manifeste Hypothyreose; niedriges oder inadäquat normales TSH bei erniedrigtem fT4 = sekundäre Form. Das fT3 ist zur Diagnose entbehrlich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TPO-Antikörper (bei über 90 % der Hashimoto-Patienten positiv) und Thyreoglobulin-Antikörper (etwa 50 %); TRAK nur zur Abgrenzung eines Morbus Basedow',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Begleitbefunde der Hypothyreose: Gesamt- und LDL-Cholesterin sowie Triglyzeride erhöht, Kreatinkinase erhöht, normo- oder makrozytäre Anämie, Hyponatriämie, gelegentlich Hyperprolaktinämie und erhöhtes Kreatinin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Suche nach assoziierten Autoimmunerkrankungen: Nüchternglukose und HbA1c, Vitamin B12 und Intrinsic-Faktor-Antikörper, Transglutaminase-Antikörper sowie basales Cortisol beziehungsweise ACTH zum Ausschluss einer Nebenniereninsuffizienz VOR Beginn der Substitution',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Schilddrüse: bei Hashimoto-Thyreoiditis echoarmes, inhomogenes, unscharf begrenztes und häufig verkleinertes Organ; Volumetrie (Norm: Frauen bis 18 ml, Männer bis 25 ml) und Beurteilung von Knoten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG: Sinusbradykardie, Niedervoltage, abgeflachte oder negative T-Wellen; Echokardiographie bei Verdacht auf Perikarderguss oder zur Abgrenzung einer Herzinsuffizienz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Szintigraphie NICHT zur Diagnose der Hypothyreose, sondern nur bei Knoten oder Struma zur Unterscheidung heißer und kalter Areale — und dort stets VOR einer Punktion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Sellaregion bei laborchemischem Hinweis auf eine sekundäre, hypophysäre Hypothyreose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Feinnadelpunktion nur bei sonographisch suspektem Knoten (echoarm, unscharf begrenzt, Mikroverkalkungen, Höhen-Breiten-Verhältnis über 1) oder bei rasch wachsender Struma zum Ausschluss eines Malignoms beziehungsweise eines Schilddrüsenlymphoms — nicht zur Sicherung der Autoimmunthyreoiditis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Weiterführende Hypophysendiagnostik der übrigen Achsen (Cortisol, ACTH, LH/FSH, IGF-1, Prolaktin) bei sekundärer Hypothyreose; der TRH-Test wird heute nur noch selten eingesetzt',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Neugeborenenscreening aus Fersenblut am dritten bis fünften Lebenstag zur Erfassung der konnatalen Hypothyreose',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Depressive Episode',
+          unterscheidung: 'Die wichtigste und in Prüfungen am häufigsten geforderte Abgrenzung. Für die Depression sprechen Freud- und Interessenverlust, Morgentief, Schuld- und Wertlosigkeitsgefühle, Appetit- und Gewichtsverlust sowie Suizidgedanken; für die Hypothyreose die somatischen Zeichen Kälteintoleranz, Gewichtszunahme, Obstipation, trockene Haut, Haarausfall, Heiserkeit, Myxödem und Bradykardie. Vor jeder antidepressiven Therapie ist das TSH zu bestimmen; beides kann auch koexistieren.',
+        },
+        {
+          dd: 'Anämie (Eisenmangel-, perniziöse oder Blutungsanämie)',
+          unterscheidung: 'Ebenfalls Müdigkeit, Blässe, Leistungsminderung und Haarausfall. Abgrenzung über Blutbild, Ferritin, Transferrinsättigung, Vitamin B12 und Folsäure. Cave: Die Hypothyreose verursacht über Menorrhagien selbst einen Eisenmangel und geht in bis zu 40 % mit einer Anämie einher — die Anämie ist dann Folge, nicht Ursache.',
+        },
+        {
+          dd: 'Chronische Niereninsuffizienz',
+          unterscheidung: 'Müdigkeit, blasse trockene Haut, Ödeme, Anämie und Hypertonie sind vereinbar; Abgrenzung über Kreatinin, eGFR, Harnstoff und Urinstatus. Beide können zudem eine Hyponatriämie verursachen.',
+        },
+        {
+          dd: 'Herzinsuffizienz',
+          unterscheidung: 'Leistungsminderung, Ödeme und Belastungsdyspnoe; die Ödeme sind hier eindrückbar, während das Myxödem teigig und NICHT eindrückbar ist. Abgrenzung über BNP/NT-proBNP, EKG und Echokardiographie. Cave: Eine schwere Hypothyreose kann selbst zu Perikarderguss und verminderter Kontraktilität führen.',
+        },
+        {
+          dd: 'Nebenniereninsuffizienz (Morbus Addison)',
+          unterscheidung: 'Müdigkeit, Adynamie, Hyponatriämie und autoimmune Genese (polyglanduläres Autoimmunsyndrom). Dafür sprechen Hyperpigmentierung, Salzhunger, Hypotonie mit Orthostase, Gewichtsverlust und Hyperkaliämie. Muss vor Beginn der Levothyroxin-Substitution ausgeschlossen werden, da diese sonst eine Addison-Krise auslösen kann.',
+        },
+        {
+          dd: 'Chronisches Erschöpfungssyndrom und Fibromyalgie',
+          unterscheidung: 'Ausschlussdiagnosen: diffuse Schmerzen, Erschöpfung und Schlafstörung bei unauffälligem Labor, insbesondere normalem TSH; typischerweise keine Kälteintoleranz, keine Gewichtszunahme, kein Myxödem, keine Bradykardie.',
+        },
+        {
+          dd: 'Obstruktives Schlafapnoe-Syndrom',
+          unterscheidung: 'Tagesmüdigkeit, Konzentrationsstörung, Gewichtszunahme; hinweisend sind Schnarchen, beobachtete Atempausen und Einschlafattacken. Abgrenzung über Fremdanamnese, Epworth-Skala und Polygraphie. Cave: Die Hypothyreose kann über Makroglossie und Weichteilmyxödem selbst eine Schlafapnoe verursachen.',
+        },
+        {
+          dd: 'Medikamentös induzierte Hypothyreose',
+          unterscheidung: 'Keine eigene Differenzialdiagnose, sondern eine Ursache, die aktiv erfragt werden muss: Amiodaron (jodhaltig, kann sowohl Hypo- als auch Hyperthyreose auslösen), Lithium, Interferon alpha, Tyrosinkinase- und Checkpoint-Inhibitoren, Thyreostatika in Überdosierung sowie jodhaltiges Kontrastmittel.',
+        },
+        {
+          dd: 'Zustand nach Thyreoidektomie, nach Radiojodtherapie oder nach Halsbestrahlung',
+          unterscheidung: 'Die häufigste iatrogene Ursache — durch eine gezielte Frage und die Narbe am Hals sofort zu klären. Nach Radiojodtherapie tritt die Hypothyreose oft erst nach Monaten bis Jahren auf, weshalb lebenslange Kontrollen nötig sind.',
+        },
+        {
+          dd: 'Jodmangelstruma',
+          unterscheidung: 'In Jodmangelgebieten Struma bei zunächst euthyreoter Stoffwechsellage; sonographisch homogenes, vergrößertes Organ ohne Echoarmut und mit negativen TPO-Antikörpern.',
+        },
+        {
+          dd: 'Euthyroid-Sick-Syndrom (Low-T3-Syndrom)',
+          unterscheidung: 'Bei schwerer Allgemeinerkrankung, Intensivpatienten oder Fasten: erniedrigtes T3 bei normalem oder niedrigem TSH und meist normalem fT4, ohne echte Schilddrüsenerkrankung. Keine Substitution — die Werte normalisieren sich mit der Grunderkrankung; deshalb keine Schilddrüsendiagnostik bei akut Schwerkranken.',
+        },
+        {
+          dd: 'Sekundäre (hypophysäre) Hypothyreose',
+          unterscheidung: 'Erniedrigtes fT4 bei niedrigem oder inadäquat normalem TSH; Hinweise sind Kopfschmerzen, Gesichtsfeldausfälle, Galaktorrhoe, Ausfall weiterer Achsen, Zustand nach Hypophysenoperation oder Sheehan-Syndrom. Diagnostik über die übrigen Hypophysenachsen und MRT der Sellaregion.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Levothyroxin-Substitution und Einnahmeregeln',
+          items: [
+            'Levothyroxin (L-Thyroxin) als Monotherapie mit T4, das der Körper bedarfsgerecht in das wirksame T3 umwandelt; eine Kombination mit Liothyronin (T3) ist Einzelfällen vorbehalten und nicht Standard',
+            'Volle Substitutionsdosis bei jüngeren, herzgesunden Patienten etwa 1,5 bis 1,7 µg pro Kilogramm Körpergewicht täglich, nach Thyreoidektomie entsprechend höher',
+            'Einnahme NÜCHTERN, mindestens 30 Minuten vor dem Frühstück, mit einem Glas Wasser; alternativ abends mit mindestens drei Stunden Abstand zur letzten Mahlzeit — beide Regime sind gleichwertig',
+            'Mindestens zwei Stunden Abstand zu Kalzium- und Eisenpräparaten, Protonenpumpenhemmern, Antazida, Colestyramin und Sucralfat; Kaffee, Milch und sojahaltige Nahrung vermindern die Resorption ebenfalls — dies ist der häufigste Grund für ein trotz korrekter Dosis erhöhtes TSH',
+            'Interaktionen beachten: Enzyminduktoren wie Carbamazepin, Phenytoin und Rifampicin sowie Östrogene steigern den Bedarf',
+            'Patientenschulung: Wirkungseintritt erst nach zwei bis sechs Wochen, tägliche Einnahme, in der Regel lebenslange Therapie, kein eigenmächtiges Absetzen oder Umstellen des Präparats',
+          ],
+        },
+        {
+          label: 'Einschleichende Dosisfindung und Verlaufskontrollen',
+          items: [
+            'Bei jungen, herzgesunden Patienten kann mit 50 µg begonnen und innerhalb weniger Wochen auf die gewichtsadaptierte Zieldosis gesteigert werden',
+            'Bei älteren Patienten, bei koronarer Herzkrankheit und bei lange bestehender schwerer Hypothyreose einschleichend mit 12,5 bis 25 µg beginnen und alle zwei bis vier Wochen in kleinen Schritten steigern — sonst drohen Angina pectoris, Myokardinfarkt und Tachyarrhythmien bis zum Vorhofflimmern',
+            'TSH-Kontrolle sechs bis acht Wochen nach Beginn und nach jeder Dosisänderung — früher ist der Wert nicht aussagekräftig, weil sich das TSH nur träge einstellt',
+            'Zielwert: TSH im unteren Normbereich, etwa 0,5 bis 2,5 mU/l; bei über 70-Jährigen darf der Zielwert höher liegen. Nach stabiler Einstellung jährliche Kontrolle von TSH und Klinik',
+            'Überdosierung erkennen und vermeiden: Herzrasen, Nervosität, Tremor, Schwitzen, Gewichtsabnahme, Schlafstörung, supprimiertes TSH; Langzeitfolgen sind Vorhofflimmern und Osteoporose',
+            'Bei fehlendem Ansprechen zuerst Einnahmefehler und Interaktionen prüfen (Einnahmezeitpunkt, Kalzium, Eisen, Protonenpumpenhemmer), dann eine Malabsorption etwa bei Zöliakie oder Helicobacter-pylori-Gastritis, erst zuletzt die Dosis erhöhen',
+            'Normalisierung der Begleitbefunde als Therapiekontrolle: Cholesterin, Kreatinkinase, Anämie, Natrium und Prolaktin',
+          ],
+        },
+        {
+          label: 'Sonderfälle, assoziierte Erkrankungen und Beratung',
+          items: [
+            'SCHWANGERSCHAFT: Der Bedarf steigt um etwa 25 bis 50 %; die Dosis wird bei bestätigter Schwangerschaft sofort erhöht, das TSH alle vier bis sechs Wochen mit trimesterspezifischen Zielwerten kontrolliert (erstes Trimenon TSH unter 2,5 mU/l). Grund ist die vollständige Abhängigkeit der kindlichen Hirnentwicklung vom mütterlichen Thyroxin im ersten Trimenon; eine Unterversorgung erhöht das Risiko für Aborte, Frühgeburten und kognitive Entwicklungsstörungen. Nach der Entbindung Rückkehr zur Ausgangsdosis',
+            'LATENTE HYPOTHYREOSE: Substitution bei TSH über 10 mU/l, bei Symptomatik, bei positiven TPO-Antikörpern, bei Kinderwunsch und in der Schwangerschaft, bei Struma oder kardiovaskulärem Risiko; sonst Kontrollen alle sechs bis zwölf Monate',
+            'Vor Therapiebeginn eine Nebenniereninsuffizienz ausschließen — liegt sie vor, wird IMMER zuerst Hydrocortison substituiert, da Levothyroxin sonst eine Addison-Krise auslöst',
+            'Assoziierte Autoimmunerkrankungen suchen und im Verlauf beachten: Typ-1-Diabetes, perniziöse Anämie, Zöliakie, Vitiligo, Morbus Addison, rheumatoide Arthritis',
+            'Keine Jodsupplementation bei Hashimoto-Thyreoiditis über die normale Nahrungszufuhr hinaus; jodiertes Speisesalz ist unbedenklich, hochdosierte Jodpräparate und jodhaltige Kontrastmittel sind zurückhaltend einzusetzen',
+            'Bei großer Struma mit mechanischer Beeinträchtigung oder bei suspekten Knoten operative Abklärung beziehungsweise Thyreoidektomie erwägen; sonographische Verlaufskontrollen, bei Hashimoto auch wegen des seltenen primären Schilddrüsenlymphoms',
+            'Symptomatische Begleitmaßnahmen bis zum Wirkungseintritt: ballaststoffreiche Ernährung gegen die Obstipation, rückfettende Hautpflege, Stimmschonung bei Heiserkeit',
+          ],
+        },
+        {
+          label: 'Notfall: Myxödemkoma',
+          items: [
+            'Seltene, lebensbedrohliche Dekompensation mit einer Letalität von 20 bis 40 %; ausgelöst durch Infekte, Kälteexposition, Operationen, Traumata, Sedativa oder das Absetzen der Substitution',
+            'Leitbefunde: Bewusstseinsstörung bis zum Koma, Hypothermie, Bradykardie, Hypoventilation mit Hyperkapnie, Hypotonie, Hypoglykämie, Hyponatriämie, teigige Myxödemhaut, abgeschwächte Reflexe',
+            'Intensivmedizinische Behandlung: Monitoring, gesicherter Atemweg und Beatmung bei Hyperkapnie, venöser Zugang, LANGSAME Wiedererwärmung mit Decken (keine aktive Oberflächenerwärmung wegen der Vasodilatation), Ausgleich von Glukose und Elektrolyten, vorsichtige Volumengabe',
+            'Levothyroxin intravenös 300 bis 500 µg als Initialdosis, anschließend 50 bis 100 µg täglich; ggf. zusätzlich Liothyronin (T3)',
+            'IMMER zusätzlich Hydrocortison intravenös, 100 mg initial und danach fortlaufend — vor oder gleichzeitig mit dem Schilddrüsenhormon, wegen einer möglichen begleitenden Nebenniereninsuffizienz',
+            'Auslöser suchen und behandeln, insbesondere Infekte kalkuliert antibiotisch; sedierende Medikamente konsequent meiden',
+          ],
+          akut: true,
+        },
+      ],
+      prognose: 'Unter korrekt dosierter Levothyroxin-Substitution ist die Prognose ausgezeichnet: Die Lebenserwartung ist normal, die Beschwerden bilden sich innerhalb von Wochen bis wenigen Monaten vollständig zurück, und die Begleitbefunde wie Hypercholesterinämie, Anämie, Zyklusstörungen und Kreatinkinase-Erhöhung normalisieren sich. Die Hashimoto-Thyreoiditis selbst ist nicht heilbar und schreitet in der Regel fort, sodass die Substitution meist lebenslang erforderlich ist; die Dosis muss im Verlauf angepasst werden, besonders in der Schwangerschaft. Aus einer latenten Hypothyreose mit positiven TPO-Antikörpern entwickelt sich jährlich bei etwa 3 bis 5 % der Betroffenen eine manifeste Form. Unbehandelt drohen Hypercholesterinämie mit beschleunigter Atherosklerose, Perikarderguss, Infertilität und Aborte, kognitive Beeinträchtigung und im Extremfall das Myxödemkoma; die unbehandelte konnatale Hypothyreose führt zu irreversibler geistiger und körperlicher Entwicklungsstörung, weshalb das Neugeborenenscreening entscheidend ist. Entscheidend für den Erfolg sind die Therapieadhärenz und die korrekte Einnahme.',
+      pruefungsfallen: [
+        'Die Hypothyreose wird häufig als DEPRESSION fehlgedeutet — das ist der klassische Prüfungsfall. Vor jeder antidepressiven Therapie muss das TSH bestimmt werden; umgekehrt sind Freudverlust, Morgentief und Suizidalität aktiv abzufragen, weil beides koexistieren kann.',
+        'Latent versus manifest nicht verwechseln: latente (subklinische) Hypothyreose = TSH erhöht bei NORMALEM fT4; manifeste Hypothyreose = TSH erhöht UND fT4 erniedrigt.',
+        'Das TSH ist nur bei der PRIMÄREN Form der richtige Suchtest. Bei der sekundären, hypophysären Hypothyreose ist es niedrig oder inadäquat normal bei erniedrigtem fT4 — wer nur das TSH bestimmt, übersieht sie.',
+        'Auf die Frage nach der Diagnostik nicht sofort mit „TSH bestimmen“ antworten: Erwartet wird die Aufzählung der zu suchenden Symptome und die Palpation der Schilddrüse in der körperlichen Untersuchung, erst danach das Labor.',
+        'Die Einnahmeregeln des Levothyroxins sind eine Standardfrage: nüchtern, 30 Minuten vor dem Frühstück, mit Wasser, mindestens zwei Stunden Abstand zu Kalzium, Eisen und Protonenpumpenhemmern, kein Kaffee zur Einnahme. Bleibt das TSH trotz Dosissteigerung erhöht, ist fast immer die Einnahme und nicht die Dosis das Problem.',
+        'Bei älteren Patienten und bei koronarer Herzkrankheit einschleichend mit 12,5 bis 25 µg beginnen — sonst Angina pectoris, Infarkt oder Vorhofflimmern.',
+        'Die TSH-Kontrolle erfolgt erst nach sechs bis acht Wochen, danach jährlich; eine frühere Kontrolle führt zu falschen Dosisanpassungen.',
+        'In der Schwangerschaft steigt der Bedarf um etwa 25 bis 50 % — diese Zahl wird gern abgefragt, ebenso die Begründung (kindliche Hirnentwicklung, Abort- und Frühgeburtsrisiko).',
+        'Vor Beginn der Substitution an eine begleitende Nebenniereninsuffizienz denken, besonders bei Vitiligo, Typ-1-Diabetes oder perniziöser Anämie: Zuerst Hydrocortison, sonst Addison-Krise. Dasselbe gilt im Myxödemkoma.',
+        'Nicht jede erhöhte TSH-Konstellation ist eine Hypothyreose: Beim Euthyroid-Sick-Syndrom des Schwerkranken wird NICHT substituiert, und bei akut Kranken sollte gar keine Schilddrüsendiagnostik erfolgen.',
+        'Eine Szintigraphie gehört NICHT zur Diagnostik der Hypothyreose; sie ist Knoten und Struma vorbehalten — und wird dort immer VOR einer Punktion durchgeführt.',
+        'Die asymptomatische latente Hypothyreose mit TSH unter 10 mU/l wird nicht automatisch behandelt; die Indikation muss begründet werden.',
+        'Fachbegriffe patientengerecht übersetzen: Hypothyreose = Schilddrüsenunterfunktion, Struma = Kropf, Myxödem = teigige Hautschwellung bei Schilddrüsenunterfunktion, Thyreoidektomie = operative Entfernung der Schilddrüse.',
+        'Bei einem Patienten, der von einer früheren „Schilddrüsenüberfunktion“ berichtet, nach dem Wechsel in eine Unterfunktion fragen: Nach Radiojodtherapie, Thyreoidektomie oder thyreostatischer Behandlung ist genau das die Regel — in den Protokollen wurde dieser Umschwung als Falle eingebaut.',
+        'Bei Patienten mit vorbestehender Hypothyreose immer Dauer, exakte Dosis UND Einnahmerhythmus erfragen: Angaben wie „L-Thyroxin, schon lange“ genügen nicht und wurden in Protokollen ausdrücklich als Versäumnis notiert.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist die häufigste Ursache einer Hypothyreose in Deutschland?',
+          antwort: 'Die Hashimoto-Thyreoiditis, eine chronische lymphozytäre Autoimmunthyreoiditis mit Antikörpern gegen die thyreoidale Peroxidase und gegen Thyreoglobulin. Danach folgen die iatrogenen Ursachen: Zustand nach Thyreoidektomie, nach Radiojodtherapie und nach Bestrahlung der Halsregion sowie Medikamente wie Amiodaron und Lithium.',
+        },
+        {
+          frage: 'Hypothyreose — warum und wie können Sie diese Diagnose ausschließen?',
+          antwort: 'Klinisch durch das Fehlen der typischen Symptome: Kälteintoleranz, Gewichtszunahme bei unverändertem Appetit, Obstipation, trockene Haut, Haarausfall, Heiserkeit, Myxödem, Bradykardie und verzögerte Reflexe. Beweisend ist das Labor: ein normales basales TSH schließt eine primäre Hypothyreose praktisch aus; besteht der Verdacht auf eine sekundäre Form, muss zusätzlich das fT4 bestimmt werden.',
+        },
+        {
+          frage: 'Welchen Laborwert bestimmen Sie zuerst, und warum genügt er als Screening?',
+          antwort: 'Das basale TSH. Durch die negative Rückkopplung reagiert es logarithmisch empfindlich schon auf minimale Änderungen der peripheren Hormone und ist damit der sensitivste Suchtest der primären Schilddrüsenfunktionsstörung. Anschließend bestimme ich das fT4 zur Stadieneinteilung und die TPO-Antikörper zur Ätiologie.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine latente von einer manifesten Hypothyreose?',
+          antwort: 'Bei der latenten, subklinischen Hypothyreose ist das TSH erhöht, das fT4 aber normal. Bei der manifesten Hypothyreose ist das TSH erhöht und das fT4 erniedrigt. Behandelt wird die manifeste Form immer, die latente nur bei TSH über 10 mU/l, bei Beschwerden, positiven Antikörpern, Kinderwunsch, Schwangerschaft oder kardiovaskulärem Risiko.',
+        },
+        {
+          frage: 'Wann ist das TSH als Screening-Parameter nicht verwertbar?',
+          antwort: 'Bei der sekundären, hypophysären und der tertiären, hypothalamischen Hypothyreose: Dort ist das TSH niedrig oder inadäquat normal bei erniedrigtem fT4. Ebenfalls eingeschränkt verwertbar beim Euthyroid-Sick-Syndrom des Schwerkranken, unter hochdosierten Glukokortikoiden oder Dopamin und in den ersten Wochen nach einer Dosisänderung.',
+        },
+        {
+          frage: 'Welche Antikörper bestimmen Sie bei Verdacht auf eine Hashimoto-Thyreoiditis?',
+          antwort: 'TPO-Antikörper, also Antikörper gegen die thyreoidale Peroxidase — sie sind bei über 90 % der Patienten positiv — sowie Thyreoglobulin-Antikörper, die bei etwa der Hälfte positiv sind. Die TRAK, die Antikörper gegen den TSH-Rezeptor, dienen der Abgrenzung eines Morbus Basedow.',
+        },
+        {
+          frage: 'Was erwarten Sie in der Sonographie der Schilddrüse, und brauchen Sie eine Szintigraphie?',
+          antwort: 'Bei der Hashimoto-Thyreoiditis eine echoarme, inhomogene, unscharf begrenzte und meist verkleinerte Schilddrüse; bei der hypertrophen Verlaufsform kann sie vergrößert sein. Eine Szintigraphie brauche ich für die Diagnose nicht — sie ist erst bei Knoten oder Struma indiziert, um heiße von kalten Knoten zu unterscheiden, und wird dort vor einer Punktion durchgeführt.',
+        },
+        {
+          frage: 'Welche weiteren Laborveränderungen finden Sie bei einer Hypothyreose?',
+          antwort: 'Ein erhöhtes Gesamt- und LDL-Cholesterin, eine erhöhte Kreatinkinase, eine meist normo- oder makrozytäre Anämie, eine Hyponatriämie und gelegentlich eine Hyperprolaktinämie. Im EKG zeigen sich eine Sinusbradykardie und eine Niedervoltage.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Hypothyreose, und was müssen Sie dem Patienten über die Einnahme sagen?',
+          antwort: 'Mit einer Levothyroxin-Substitution, bei jungen herzgesunden Patienten etwa 1,6 µg pro Kilogramm Körpergewicht täglich. Die Tablette wird nüchtern, mindestens 30 Minuten vor dem Frühstück, mit einem Glas Wasser eingenommen — nicht mit Kaffee oder Milch — und mit mindestens zwei Stunden Abstand zu Kalzium, Eisen und Protonenpumpenhemmern. Alternativ abends drei Stunden nach der letzten Mahlzeit. Die Wirkung setzt erst nach zwei bis sechs Wochen ein, die Therapie ist in der Regel lebenslang.',
+        },
+        {
+          frage: 'Wann kontrollieren Sie das TSH nach Therapiebeginn?',
+          antwort: 'Sechs bis acht Wochen nach Beginn und nach jeder Dosisänderung, weil sich das TSH nur träge einstellt. Ziel ist ein TSH im unteren Normbereich von etwa 0,5 bis 2,5 mU/l; nach stabiler Einstellung genügt eine jährliche Kontrolle.',
+        },
+        {
+          frage: 'Warum beginnt man bei älteren Patienten und bei koronarer Herzkrankheit mit einer niedrigen Dosis?',
+          antwort: 'Weil Schilddrüsenhormone den myokardialen Sauerstoffbedarf und die Herzfrequenz steigern. Eine zu rasche Aufsättigung kann Angina pectoris, einen Myokardinfarkt oder Tachyarrhythmien bis zum Vorhofflimmern auslösen. Deshalb beginnt man mit 12,5 bis 25 µg und steigert alle zwei bis vier Wochen in kleinen Schritten.',
+        },
+        {
+          frage: 'Was ändert sich bei einer Schwangerschaft?',
+          antwort: 'Der Levothyroxinbedarf steigt um etwa 25 bis 50 %. Die Dosis wird sofort nach Bestätigung der Schwangerschaft erhöht und das TSH alle vier bis sechs Wochen kontrolliert, im ersten Trimenon mit einem Zielwert unter 2,5 mU/l. Das ist entscheidend, weil das Kind im ersten Trimenon vollständig vom mütterlichen Thyroxin abhängt; eine Unterversorgung erhöht das Risiko für Aborte, Frühgeburten und kognitive Entwicklungsstörungen.',
+        },
+        {
+          frage: 'Was ist ein Myxödemkoma und wie behandeln Sie es?',
+          antwort: 'Die lebensbedrohliche Dekompensation einer unbehandelten Hypothyreose mit Bewusstseinsstörung, Hypothermie, Bradykardie, Hypoventilation mit Hyperkapnie, Hypotonie, Hypoglykämie und Hyponatriämie; die Letalität beträgt 20 bis 40 %. Behandelt wird intensivmedizinisch mit Beatmung bei Bedarf, langsamer Wiedererwärmung, Ausgleich von Glukose und Elektrolyten, Levothyroxin intravenös 300 bis 500 µg initial und immer zusätzlich Hydrocortison intravenös; der Auslöser, meist ein Infekt, wird behandelt.',
+        },
+        {
+          frage: 'Warum geben Sie im Myxödemkoma immer auch Hydrocortison?',
+          antwort: 'Weil eine begleitende Nebenniereninsuffizienz nicht ausgeschlossen ist — sowohl im Rahmen eines polyglandulären Autoimmunsyndroms als auch bei einer hypophysären Ursache. Schilddrüsenhormone steigern den Cortisolumsatz und können dann eine Addison-Krise auslösen. Deshalb wird Hydrocortison vor oder gleichzeitig mit dem Schilddrüsenhormon gegeben.',
+        },
+        {
+          frage: 'Ein Patient berichtet, er habe früher eine Schilddrüsenüberfunktion gehabt und nehme jetzt L-Thyroxin. Wie erklären Sie das?',
+          antwort: 'Das ist der typische Verlauf nach Behandlung einer Hyperthyreose: Nach Radiojodtherapie, nach Thyreoidektomie oder unter zu hoch dosierten Thyreostatika entsteht eine Hypothyreose, die substituiert werden muss. Ich frage deshalb gezielt nach Operation, Radiojodtherapie und früherer Medikation sowie nach Dauer, exakter Dosis und Einnahmezeitpunkt des L-Thyroxins.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Patienten die Begriffe Hypothyreose, Struma und Myxödem?',
+          antwort: 'Hypothyreose ist die Schilddrüsenunterfunktion: Die Schilddrüse bildet zu wenig Hormon, deshalb läuft der Stoffwechsel im ganzen Körper langsamer. Struma ist der Kropf, also eine vergrößerte Schilddrüse. Myxödem bezeichnet die teigige Hautschwellung bei einer Schilddrüsenunterfunktion, die sich im Gegensatz zu anderen Ödemen nicht eindrücken lässt.',
+        },
+      ],
+      merksatz: 'Müde, frierend, verstopft, heiser und langsam — das ist keine Depression, sondern erst einmal ein TSH. TSH hoch bei normalem fT4 = latent, TSH hoch bei niedrigem fT4 = manifest; TPO-Antikörper und die echoarme, inhomogene Schilddrüse sichern die Hashimoto-Thyreoiditis. Substituiert wird mit Levothyroxin nüchtern 30 Minuten vor dem Frühstück, mit Abstand zu Kalzium, Eisen und Protonenpumpenhemmern — bei Herzkranken einschleichend, Kontrolle nach sechs bis acht Wochen, in der Schwangerschaft 25 bis 50 % mehr.',
+      linkedCaseIds: [
+        'case-hypothyreose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+      ],
+    },
+    {
+      id: 'fw-niereninsuffizienz',
+      pathology: 'Chronische Niereninsuffizienz (CKD)',
+      specialty: 'Nephrologie',
+      definition: 'Von einer chronischen Niereninsuffizienz (chronic kidney disease, CKD) spricht man, wenn eine Nierenschädigung — nachweisbar an einer Albuminurie beziehungsweise Proteinurie, an einem pathologischen Urinsediment, an strukturellen Veränderungen in der Bildgebung oder an einem histologischen Befund — und/oder eine glomeruläre Filtrationsrate unter 60 ml/min/1,73 m² länger als DREI MONATE bestehen. Das Zeitkriterium von mehr als drei Monaten ist konstitutiv: Ein einzelner erhöhter Kreatininwert definiert keine chronische Niereninsuffizienz, sondern muss erst gegen ein akutes Nierenversagen abgegrenzt werden. Die Einteilung erfolgt zweidimensional nach KDIGO in ein GFR-Stadium (G1–G5) und ein Albuminuriestadium (A1–A3). Das Stadium G5 mit einer GFR unter 15 ml/min/1,73 m² wird als terminale Niereninsuffizienz bezeichnet und ist der Bereich, in dem ein Nierenersatzverfahren notwendig wird.',
+      aetiologie: 'Die beiden mit Abstand häufigsten Ursachen sind die diabetische Nephropathie (etwa 30–35 %) und die hypertensive Nephropathie (etwa 20–25 %); zusammen erklären sie rund zwei Drittel aller Fälle in Deutschland. Es folgen Glomerulonephritiden (IgA-Nephropathie, membranöse Glomerulonephritis, fokal-segmentale Glomerulosklerose), Zystennieren (autosomal-dominante polyzystische Nierenerkrankung), chronische interstitielle Nephritiden — insbesondere die Analgetika-Nephropathie bei jahrelangem NSAR- oder Mischanalgetikakonsum —, Vaskulitiden und Systemerkrankungen (ANCA-assoziierte Vaskulitis, Lupusnephritis), obstruktive Uropathien (Prostatahyperplasie, Steinleiden, Tumor), die Nierenarterienstenose sowie das multiple Myelom mit Cast-Nephropathie. Häufig liegt eine Kombination mehrerer Faktoren vor. Zusätzliche Progressionsfaktoren sind eine schlecht eingestellte arterielle Hypertonie, das Ausmaß der Proteinurie, eine schlechte Blutzuckereinstellung, Rauchen, Adipositas, wiederholte akute Nierenschädigungen sowie nephrotoxische Substanzen (NSAR, jodhaltige Kontrastmittel, Aminoglykoside, Ciclosporin).',
+      risikofaktoren: [
+        'Diabetes mellitus Typ 1 und 2, insbesondere mit langer Krankheitsdauer und schlechter Einstellung',
+        'Arterielle Hypertonie, besonders bei unzureichender Blutdruckkontrolle',
+        'Höheres Lebensalter (physiologischer GFR-Abfall etwa 1 ml/min pro Jahr ab dem 40. Lebensjahr)',
+        'Bestehende Albuminurie oder Proteinurie — zugleich der stärkste Progressionsprädiktor',
+        'Regelmäßige Einnahme von NSAR und Mischanalgetika (Analgetika-Nephropathie)',
+        'Jodhaltige Kontrastmittel, Aminoglykoside, Vancomycin, Calcineurininhibitoren, Lithium',
+        'Positive Familienanamnese für Nierenerkrankungen, insbesondere Zystennieren',
+        'Nikotinabusus, Adipositas, metabolisches Syndrom, Hyperurikämie',
+        'Zustand nach akutem Nierenversagen oder rezidivierenden Pyelonephritiden',
+        'Chronische Harnabflussstörung (benigne Prostatahyperplasie, Nephrolithiasis)',
+        'Kardiovaskuläre Vorerkrankungen und Herzinsuffizienz (kardiorenales Syndrom)',
+        'Niedriges Geburtsgewicht mit reduzierter Nephronzahl',
+      ],
+      klinik: [
+        {
+          text: 'Über Jahre symptomarmer bis symptomloser Verlauf — der zentrale klinische Punkt: Beschwerden treten meist erst ab Stadium G4 auf, die Diagnose wird zuvor fast immer als Laborzufallsbefund gestellt',
+        },
+        {
+          text: 'Müdigkeit, Abgeschlagenheit, Leistungsknick und Konzentrationsstörungen als früheste und unspezifischste Beschwerden',
+        },
+        {
+          text: 'Blässe von Haut und Konjunktiven, Belastungsdyspnoe und Tachykardie bei renaler Anämie durch Erythropoetinmangel',
+        },
+        {
+          text: 'Ödeme: eindrückbare prätibiale und präsakrale Ödeme, morgens geschwollene Augenlider, rasche Gewichtszunahme durch Flüssigkeitsretention',
+        },
+        {
+          text: 'Nykturie durch den Verlust der Konzentrationsfähigkeit der Niere — ein frühes und häufig übersehenes Zeichen',
+        },
+        {
+          text: 'Schäumender Urin als Hinweis auf eine Proteinurie',
+        },
+        {
+          text: 'Arterielle Hypertonie, häufig schwer einstellbar und mehrere Medikamente erfordernd — zugleich Ursache und Folge der Nierenschädigung',
+        },
+        {
+          text: 'Generalisierter Juckreiz mit Kratzspuren ohne Exanthem sowie trockene, schmutzig-graubraune Haut (Café-au-lait-Kolorit)',
+        },
+        {
+          text: 'Appetitverlust, Übelkeit, Fleischaversion und metallischer Geschmack im Mund als frühe urämische Symptome',
+        },
+        {
+          text: 'Foetor uraemicus — urinartiger Geruch der Ausatemluft',
+        },
+        {
+          text: 'Nächtliche Wadenkrämpfe, Restless-Legs-Symptomatik und Muskelschwäche',
+        },
+        {
+          text: 'Knochen- und Gelenkschmerzen sowie Frakturneigung bei renaler Osteopathie im Rahmen des sekundären Hyperparathyreoidismus',
+        },
+        {
+          text: 'Urämische Perikarditis mit atemabhängigem Thoraxschmerz und auskultierbarem Perikardreiben',
+          atypisch: true,
+        },
+        {
+          text: 'Urämische Enzephalopathie mit Verwirrtheit, Flapping tremor (Asterixis), Krampfanfall bis zum Koma',
+          atypisch: true,
+        },
+        {
+          text: 'Blutungsneigung mit Hämatomen, Nasenbluten und gastrointestinalen Blutungen durch urämische Thrombozytopathie',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als akute Überwässerung mit Lungenödem („fluid lung“) oder als hyperkaliämische Herzrhythmusstörung',
+          atypisch: true,
+        },
+        {
+          text: 'Scheinbare Besserung eines Diabetes mellitus: sinkender Insulinbedarf und gehäufte Hypoglykämien, weil Insulin renal abgebaut wird',
+          atypisch: true,
+        },
+        {
+          text: 'Kussmaul-Atmung bei ausgeprägter metabolischer Azidose',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'KDIGO-Stadien der Nierenfunktion (G-Stadien, eGFR in ml/min/1,73 m²)',
+          inhalt: 'G1: eGFR ≥ 90 bei nachgewiesener Nierenschädigung (ohne Schädigungsmarker keine CKD). G2: 60–89, ebenfalls nur mit Schädigungsmarker. G3a: 45–59 (leicht- bis mittelgradig eingeschränkt). G3b: 30–44 (mittel- bis hochgradig eingeschränkt). G4: 15–29 (hochgradig eingeschränkt — Vorbereitung der Nierenersatztherapie). G5: unter 15 (terminale Niereninsuffizienz, Nierenversagen; mit Dialyse als G5D bezeichnet).',
+        },
+        {
+          name: 'KDIGO-Albuminuriestadien (Albumin-Kreatinin-Quotient im Spontanurin)',
+          inhalt: 'A1: unter 30 mg/g Kreatinin (normal bis leicht erhöht). A2: 30–300 mg/g (moderat erhöht, früher „Mikroalbuminurie“). A3: über 300 mg/g (stark erhöht, früher „Makroalbuminurie“). Die Albuminurie steigt bei der diabetischen Nephropathie Jahre VOR dem Kreatinin an und ist damit der früheste Marker; sie ist zugleich der stärkste Prädiktor für Progression und kardiovaskuläres Risiko.',
+        },
+        {
+          name: 'Kombinierte KDIGO-Risikoeinteilung („Heatmap“)',
+          inhalt: 'G-Stadium und A-Stadium werden zu einem Risikoraster kombiniert: G1–G2/A1 niedriges Risiko, G3a/A1 oder G1–G2/A2 moderat erhöhtes Risiko, G3b/A1, G3a/A2 oder G1–G2/A3 hohes Risiko, alle übrigen Kombinationen sehr hohes Risiko. Aus dem Feld ergeben sich Kontrollintervall und Zeitpunkt der nephrologischen Überweisung (spätestens ab G4 oder bei A3).',
+        },
+        {
+          name: 'Stadien der diabetischen Nephropathie nach Mogensen',
+          inhalt: 'Stadium 1: glomeruläre Hyperfiltration mit vergrößerten Nieren. Stadium 2: Normalbefund im Urin bei bereits bestehenden histologischen Veränderungen. Stadium 3: beginnende Nephropathie mit moderat erhöhter Albuminurie (30–300 mg/g). Stadium 4: manifeste Nephropathie mit Albuminurie über 300 mg/g, Hypertonie und fallender GFR. Stadium 5: terminale Niereninsuffizienz. Cave: Bei Typ-2-Diabetikern kann die Albuminurie fehlen (normoalbuminurischer Verlauf).',
+        },
+      ],
+      redFlags: [
+        'Hyperkaliämie über 6,0 mmol/l oder EKG-Veränderungen (hohe spitze T-Wellen, verbreiterter QRS-Komplex, P-Wellen-Verlust) — akute Lebensgefahr durch Kammerflimmern und Asystolie',
+        'Überwässerung mit Orthopnoe, feuchten Rasselgeräuschen und Lungenödem („fluid lung“) trotz Diuretika',
+        'Perikardreiben oder atemabhängiger Thoraxschmerz als Zeichen einer urämischen Perikarditis — absolute Dialyseindikation',
+        'Urämische Enzephalopathie: Verwirrtheit, Flapping tremor, Somnolenz, Krampfanfall',
+        'Therapierefraktäre metabolische Azidose mit Kussmaul-Atmung und pH unter 7,2',
+        'Rascher Kreatininanstieg oder Oligo-/Anurie — akutes Nierenversagen auf dem Boden der chronischen Insuffizienz (akut-auf-chronisch), stets nach reversibler Ursache suchen',
+        'Harnstau beidseits oder an einer Einzelniere in der Sonographie — sofortige Entlastung durch Blasenkatheter, Nephrostomie oder Harnleiterschiene',
+        'Makrohämaturie mit Akanthozyten und Erythrozytenzylindern bei raschem Funktionsverlust — Verdacht auf rapid-progressive Glomerulonephritis, nephrologischer Notfall mit Indikation zur sofortigen Nierenbiopsie',
+        'Neu aufgetretene Blutungsneigung bei urämischer Thrombozytopathie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Dauer und Verlauf der Beschwerden (Monate bis Jahre spricht für chronisch), Nykturie, schäumender Urin, Ödeme, Juckreiz, Appetitverlust und Dysgeusie; Vorerkrankungen mit Diabetesdauer und Blutdruckeinstellung; vorangegangene akute Nierenschädigungen und Pyelonephritiden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige Medikamentenanamnese einschließlich Selbstmedikation — NSAR, Mischanalgetika, Protonenpumpenhemmer, Lithium, Aminoglykoside — sowie Frage nach kürzlichen Kontrastmitteluntersuchungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Familienanamnese auf hereditäre Nierenerkrankungen, insbesondere Zystennieren, Alport-Syndrom und Dialysepflicht bei Angehörigen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'ENTSCHEIDEND: Anforderung früherer Kreatinin- und Urinbefunde beim Hausarzt — der Vergleich mit Vorwerten trennt das akute vom chronischen Nierenversagen und belegt das Drei-Monats-Kriterium',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blutdruckmessung an beiden Armen, Gewicht und Flüssigkeitsbilanz, Ödemstatus (prätibial, präsakral, Lider), Blässe von Haut und Konjunktiven, Kratzspuren, Foetor uraemicus, Halsvenenstauung, Auskultation von Herz (Perikardreiben) und Lunge (Rasselgeräusche), Nierenlagerklopfschmerz, digital-rektale Untersuchung der Prostata, neurologischer Status mit Prüfung auf Asterixis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serum-Kreatinin und Harnstoff mit Berechnung der eGFR nach CKD-EPI — Cave: das Kreatinin steigt erst bei einem GFR-Verlust von etwa 50 % an („kreatininblinder Bereich“) und ist von der Muskelmasse abhängig; Cystatin C als ergänzender, muskelmasseunabhängiger Marker',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Albumin-Kreatinin-Quotient im Spontanurin (zweiter Morgenurin) — der früheste Marker der Nierenschädigung, steigt Jahre vor dem Kreatinin an; Bestätigung in zwei von drei Proben über drei Monate; ergänzend Protein-Kreatinin-Quotient oder 24-Stunden-Sammelurin zur Quantifizierung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit Sediment: Akanthozyten (dysmorphe Erythrozyten) und Erythrozytenzylinder beweisen eine glomeruläre Genese; Leukozyturie, Nitrit und Bakteriurie sprechen für einen Infekt; Urinkultur bei Verdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte und Säure-Basen-Haushalt: Kalium (Hyperkaliämie), Natrium, Phosphat (Hyperphosphatämie), Kalzium (Hypokalzämie), Magnesium sowie Bikarbonat beziehungsweise venöse Blutgasanalyse zum Nachweis der metabolischen Azidose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Marker des CKD-Mineral- und Knochenstoffwechsels: intaktes Parathormon, 25-OH-Vitamin-D, alkalische Phosphatase — sekundärer Hyperparathyreoidismus und renale Osteopathie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Retikulozyten sowie Eisenstatus mit Ferritin und Transferrinsättigung: normochrome, normozytäre renale Anämie durch Erythropoetinmangel; vor jeder Erythropoetintherapie muss ein Eisenmangel ausgeschlossen und behandelt werden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Stoffwechsel- und Risikoparameter: HbA1c, Lipidstatus, Harnsäure, Albumin im Serum (Ernährungszustand, nephrotisches Syndrom), CRP',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei unklarer Genese erweiterte Serologie: ANA, ANCA, Anti-GBM-Antikörper, Komplement C3/C4, Serum- und Urin-Immunfixation mit freien Leichtketten (multiples Myelom), Hepatitis-B- und -C- sowie HIV-Serologie; TSH zur Abgrenzung einer Hypothyreose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren und ableitenden Harnwege — die Schlüsseluntersuchung: Nierenlängsdurchmesser, Parenchymbreite, Echogenität, Rinden-Mark-Differenzierung, Zysten, Steine, Harnstau. Kleine, echoreiche Nieren mit schmalem Parenchymsaum beweisen praktisch einen chronischen Prozess; normal große oder vergrößerte Nieren sprechen für ein akutes Geschehen, eine diabetische Nephropathie, eine Amyloidose oder Zystennieren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Restharnbestimmung nach Miktion und Beurteilung von Blase und Prostata zum Ausschluss einer postrenalen Obstruktion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Farbduplexsonographie der Nierenarterien bei Verdacht auf Nierenarterienstenose (therapierefraktäre Hypertonie, Kreatininanstieg nach Beginn einer RAAS-Blockade, Strömungsgeräusch)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG (hohe spitze T-Wellen und QRS-Verbreiterung bei Hyperkaliämie, Zeichen der Linksherzhypertrophie) und Echokardiographie (linksventrikuläre Hypertrophie, Perikarderguss, Pumpfunktion)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Verdacht auf Überwässerung; augenärztliche Untersuchung des Augenhintergrunds — eine diabetische Retinopathie stützt die diabetische Nephropathie, ihr Fehlen macht sie unwahrscheinlich und spricht für eine Biopsie. CAVE: jodhaltiges Kontrastmittel nur bei zwingender Indikation, sonst MRT ohne Gadolinium beziehungsweise Sonographie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nierenbiopsie bei unklarer Genese, raschem Funktionsverlust, glomerulärer Hämaturie mit Akanthozyten, nephrotischer Proteinurie, Verdacht auf Glomerulonephritis oder Systemerkrankung sowie bei Diabetikern ohne Retinopathie oder mit atypischem Verlauf — nicht erforderlich bei typischer diabetischer oder hypertensiver Konstellation und bereits geschrumpften Nieren (dort erhöhtes Blutungsrisiko und kein therapeutischer Gewinn)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion bei Verdacht auf ein multiples Myelom; Gefäßdarstellung des Armes (Duplex, Phlebographie) zur Planung der Shuntanlage vor Dialysebeginn',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akutes Nierenversagen (akute Nierenschädigung, AKI)',
+          unterscheidung: 'Die wichtigste Abgrenzung. Für ein akutes Geschehen sprechen ein Kreatininanstieg über Stunden bis Tage, Oligo-/Anurie, normal große Nieren, eine normale Hämoglobinkonzentration, ein fehlender sekundärer Hyperparathyreoidismus und ein auslösendes Ereignis (Exsikkose, Sepsis, Kontrastmittel, NSAR). Für ein chronisches Geschehen sprechen kleine Nieren mit schmalem Parenchymsaum, eine normochrome Anämie, eine Hypokalzämie mit Hyperphosphatämie und erhöhtem Parathormon sowie erhöhte Vorwerte über mehr als drei Monate. Häufig liegt ein akut-auf-chronisches Nierenversagen vor.',
+        },
+        {
+          dd: 'Postrenale Obstruktion (benigne Prostatahyperplasie, Steine, Tumor)',
+          unterscheidung: 'Abgeschwächter Harnstrahl, Nachträufeln, Restharngefühl, Harnverhalt oder Kolikschmerz; beweisend sind Harnstau und erhöhter Restharn in der Sonographie sowie die vergrößerte Prostata in der digital-rektalen Untersuchung. Prinzipiell reversibel — muss deshalb immer zuerst ausgeschlossen werden.',
+        },
+        {
+          dd: 'Chronische Herzinsuffizienz (kardiorenales Syndrom)',
+          unterscheidung: 'Ödeme, Nykturie und Belastungsdyspnoe treten ebenfalls auf, jedoch mit Orthopnoe, nächtlicher Atemnot, Halsvenenstauung, drittem Herzton und erhöhtem NT-proBNP; in der Echokardiographie eingeschränkte Pumpfunktion. Beide Erkrankungen bedingen sich gegenseitig und liegen oft gemeinsam vor.',
+        },
+        {
+          dd: 'Leberzirrhose mit Ödemen und Aszites, hepatorenales Syndrom',
+          unterscheidung: 'Ikterus, Spider naevi, Palmarerythem, Aszites mit Bauchumfangszunahme, Splenomegalie, erniedrigtes Albumin, erhöhte Transaminasen und pathologische Gerinnung; das Urinsediment ist blande und die Natriumausscheidung im Urin stark vermindert.',
+        },
+        {
+          dd: 'Nephrotisches Syndrom',
+          unterscheidung: 'Definiert durch eine Proteinurie über 3,5 g pro Tag, Hypalbuminämie, ausgeprägte Ödeme bis zur Anasarka, Hyperlipidämie und Thromboseneigung; die GFR kann zunächst normal sein. Klärung durch Quantifizierung der Proteinurie und Nierenbiopsie.',
+        },
+        {
+          dd: 'Rapid-progressive Glomerulonephritis / ANCA-assoziierte Vaskulitis',
+          unterscheidung: 'Funktionsverlust innerhalb von Wochen, glomeruläre Hämaturie mit Akanthozyten und Erythrozytenzylindern, B-Symptomatik, Arthralgien, Hautvaskulitis, Hämoptysen; ANCA, Anti-GBM und Komplementverbrauch. Nephrologischer Notfall mit sofortiger Biopsie und Immunsuppression.',
+        },
+        {
+          dd: 'Multiples Myelom mit Cast-Nephropathie',
+          unterscheidung: 'Anämie, Knochenschmerzen, pathologische Frakturen, Hyperkalzämie, stark beschleunigte Blutsenkung, Eiweißlücke in der Elektrophorese; im Urin freie Leichtketten (Bence-Jones-Proteinurie), die im Teststreifen NICHT erfasst werden — daher Immunfixation anfordern.',
+        },
+        {
+          dd: 'Anämie anderer Genese (Eisenmangel bei gastrointestinaler Blutung, Malignom, Vitamin-B12-Mangel)',
+          unterscheidung: 'Bei der renalen Anämie ist das Blutbild normochrom und normozytär mit niedrigen Retikulozyten und normalem bis erhöhtem Ferritin; ein mikrozytär-hypochromes Bild mit niedrigem Ferritin und Transferrinsättigung spricht für einen Eisenmangel und erfordert die Suche nach einer Blutungsquelle.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Müdigkeit, Blässe, Kälteintoleranz, Obstipation, Gewichtszunahme und teigige Myxödeme, die im Gegensatz zu renalen Ödemen nicht eindrückbar sind; Klärung durch TSH und freie Schilddrüsenhormone.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Progressionshemmung — Nephroprotektion',
+          items: [
+            'Konsequente Blutdruckeinstellung als wichtigste Einzelmaßnahme: Zielwert systolisch unter 130 mmHg, bei ausgeprägter Albuminurie und guter Verträglichkeit unter 120 mmHg (individuell, bei alten und gebrechlichen Patienten weniger streng)',
+            'RAAS-Blockade mit einem ACE-Hemmer oder — bei Husten — einem Sartan als Mittel der Wahl bei Albuminurie, auftitriert bis zur höchsten tolerierten Dosis; niemals ACE-Hemmer und Sartan kombinieren. Kontrolle von Kreatinin und Kalium nach ein bis zwei Wochen: ein Kreatininanstieg bis 30 % ist zu akzeptieren und Ausdruck der intraglomerulären Drucksenkung, ein stärkerer Anstieg lenkt den Verdacht auf eine Nierenarterienstenose',
+            'SGLT2-Inhibitoren (Dapagliflozin, Empagliflozin) — nephro- und kardioprotektiv AUCH ohne Diabetes mellitus; initialer GFR-Abfall („eGFR dip“) ist erwartet und kein Absetzgrund. Cave Genitalinfektionen, euglykäme Ketoazidose und Pausieren bei akuter Erkrankung („sick day rules“)',
+            'Bei diabetischer Nephropathie ergänzend der nichtsteroidale Mineralokortikoidrezeptorantagonist Finerenon (Kaliumkontrolle) sowie GLP-1-Rezeptoragonisten',
+            'Optimierte Blutzuckereinstellung mit einem HbA1c-Ziel um 7 % — bei fortgeschrittener Niereninsuffizienz weniger streng wegen der Hypoglykämiegefahr durch verminderten renalen Insulinabbau',
+            'Strikte Nikotinkarenz, Gewichtsreduktion, regelmäßige körperliche Aktivität',
+            'Konsequente Vermeidung nephrotoxischer Substanzen: keine NSAR, keine Mischanalgetika, jodhaltige Kontrastmittel nur bei zwingender Indikation und dann mit Volumengabe; „sick day rules“ mit Pausieren von RAAS-Blockern, Diuretika, SGLT2-Inhibitoren und Metformin bei Erbrechen, Durchfall oder Fieber',
+            'Moderat eiweißreduzierte Kost (etwa 0,8 g/kg Körpergewicht pro Tag) und Kochsalzrestriktion unter 5–6 g pro Tag; keine Mangelernährung provozieren',
+            'Statintherapie zur Senkung des kardiovaskulären Risikos — die Todesursache Nummer eins dieser Patienten ist der Herzinfarkt, nicht die Urämie',
+            'Behandlung einer Hyperurikämie und einer metabolischen Azidose, da beide die Progression beschleunigen',
+          ],
+        },
+        {
+          label: 'Behandlung der Komplikationen',
+          items: [
+            'Renale Anämie: zuerst Eisenmangel ausgleichen (Ziel Ferritin über 100–200 µg/l, Transferrinsättigung über 20–30 %, bei fortgeschrittener CKD intravenös), danach Erythropoese-stimulierende Substanzen (Epoetin, Darbepoetin) mit einem Hämoglobin-Zielkorridor von 10–12 g/dl — keine Normalisierung, da höhere Werte Thrombosen, Schlaganfälle und Blutdruckentgleisungen begünstigen',
+            'Hyperphosphatämie und sekundärer Hyperparathyreoidismus: phosphatarme Ernährung (weniger Milchprodukte, Schmelzkäse, Cola, Fertigprodukte mit Phosphatzusätzen), Phosphatbinder zu den Mahlzeiten (Kalziumazetat, Sevelamer, Lanthancarbonat), aktives Vitamin D (Calcitriol, Paricalcitol), bei Therapieresistenz Cinacalcet oder Parathyreoidektomie — Ziel ist die Verhinderung der renalen Osteopathie und der Gefäßverkalkung',
+            'Metabolische Azidose: Ausgleich mit Natriumbikarbonat bei Bikarbonat unter 22 mmol/l — verlangsamt zugleich den Muskelabbau und die Progression',
+            'Hyperkaliämie: kaliumarme Ernährung (Bananen, Trockenobst, Nüsse, Kartoffeln, Tomatenmark meiden), Absetzen kaliumsteigernder Medikamente (NSAR, Aldosteronantagonisten), Schleifendiuretikum, Natriumbikarbonat, Kaliumbinder (Patiromer, Natrium-Zirconium-Cyclosilicat); im Notfall Kalziumglukonat als Membranstabilisierung, Glukose-Insulin-Infusion, Beta-2-Mimetikum, gegebenenfalls Dialyse',
+            'Hypervolämie und Ödeme: Trinkmengen- und Kochsalzrestriktion, tägliches Wiegen, Schleifendiuretika in ausreichender Dosis (Thiazide verlieren unter einer GFR von 30 ml/min ihre Wirkung)',
+            'Kardiovaskuläre Prävention als Kern der Betreuung: Blutdruck, Statin, Nikotinkarenz, Diabeteseinstellung — die Mehrzahl der Patienten stirbt kardiovaskulär, bevor sie dialysepflichtig wird',
+            'Urämischer Juckreiz: rückfettende Hautpflege, Phosphat- und Parathormonkontrolle, gegebenenfalls Gabapentin oder Difelikefalin',
+            'Impfungen gegen Hepatitis B (frühzeitig, da die Impfantwort mit fallender GFR abnimmt), Influenza, Pneumokokken und COVID-19',
+          ],
+        },
+        {
+          label: 'Vorbereitung und Verfahren der Nierenersatztherapie',
+          items: [
+            'Rechtzeitige nephrologische Anbindung spätestens ab Stadium G4 (eGFR unter 30 ml/min) — eine späte Zuweisung verschlechtert die Prognose nachweislich',
+            'Frühzeitige, ergebnisoffene Aufklärung über alle Verfahren: Hämodialyse, Peritonealdialyse, Nierentransplantation und konservativ-palliative Behandlung ohne Dialyse bei hochbetagten oder multimorbiden Patienten',
+            'Anlage eines arteriovenösen Shunts (Cimino-Fistel) etwa drei bis sechs Monate vor dem erwarteten Dialysebeginn, damit er ausreifen kann; ab diesem Zeitpunkt Schonung der Armvenen des Shuntarmes — dort keine Blutentnahmen, keine Venenverweilkanülen und keine Blutdruckmessung',
+            'Hämodialyse: in der Regel dreimal wöchentlich vier bis fünf Stunden im Zentrum; Komplikationen sind Hypotonie, Muskelkrämpfe, Dysäquilibriumsyndrom, Shuntinfektion und Shuntthrombose',
+            'Peritonealdialyse: tägliche Heimbehandlung über einen Tenckhoff-Katheter, erhält die Restdiurese länger und erlaubt mehr Selbstständigkeit; Hauptkomplikation ist die Peritonitis',
+            'Nierentransplantation als bestes Verfahren hinsichtlich Lebensqualität und Überleben — Lebend- oder postmortale Spende, Anmeldung bereits präemptiv möglich; lebenslange Immunsuppression mit Infektions- und Tumorrisiko',
+            'Absolute Dialyseindikationen: therapierefraktäre Hyperkaliämie, therapierefraktäre Überwässerung mit Lungenödem, therapierefraktäre metabolische Azidose, urämische Perikarditis und urämische Enzephalopathie; ansonsten wird der Beginn symptomorientiert und nicht allein nach einem GFR-Wert festgelegt',
+            'Psychosoziale Begleitung, Sozialdienst, Schwerbehindertenausweis und Regelung der Berufstätigkeit',
+          ],
+        },
+        {
+          label: 'Anpassung der Medikation an die Nierenfunktion',
+          items: [
+            'Vollständige Überprüfung der Dauermedikation anhand der aktuellen eGFR bei jeder Vorstellung; Dosisreduktion oder Intervallverlängerung bei renal eliminierten Substanzen (viele Antibiotika, Gabapentin, Allopurinol, direkte orale Antikoagulanzien, Opioide wie Morphin, Digoxin)',
+            'Metformin: Reduktion ab einer eGFR unter 45 ml/min, Absetzen unter 30 ml/min sowie Pausieren bei akuten Erkrankungen und vor Kontrastmittelgabe wegen der Gefahr einer Laktatazidose',
+            'NSAR grundsätzlich absetzen — Alternativen sind Metamizol oder Paracetamol in reduzierter Dosis; Opioide vorsichtig und bevorzugt solche mit hepatischer Elimination',
+            'Thiaziddiuretika unter einer GFR von 30 ml/min unwirksam — Umstellung auf ein Schleifendiuretikum',
+            'Kaliumsparende Diuretika und Aldosteronantagonisten nur unter engmaschiger Kaliumkontrolle; Kaliumkontrolle auch nach jeder Dosissteigerung der RAAS-Blockade',
+            'Nephrotoxische Antibiotika (Aminoglykoside, Vancomycin) möglichst meiden, sonst Spiegelkontrolle; keine Gadolinium-haltigen Kontrastmittel der Risikogruppe bei GFR unter 30 ml/min wegen der nephrogenen systemischen Fibrose',
+            'Bei Dialysepatienten Beachtung der Dialysierbarkeit von Medikamenten und Einnahme nach der Dialyse',
+            'Patientenschulung: keine frei verkäuflichen Schmerzmittel ohne Rücksprache, Medikamentenliste immer mitführen, „sick day rules“ erklären',
+          ],
+        },
+      ],
+      prognose: 'Die chronische Niereninsuffizienz ist irreversibel; das Therapieziel ist nicht die Heilung, sondern die Verlangsamung der Progression. Der natürliche GFR-Verlust beträgt unbehandelt bei diabetischer Nephropathie etwa 5–10 ml/min pro Jahr und lässt sich durch konsequente Blutdruckeinstellung, RAAS-Blockade und SGLT2-Inhibitoren auf etwa 1–3 ml/min pro Jahr senken — bei früher Diagnose kann die Dialysepflicht dadurch um viele Jahre hinausgeschoben oder ganz vermieden werden. Entscheidend für die Lebenserwartung ist jedoch nicht die Urämie, sondern das kardiovaskuläre Risiko: Die Mehrzahl der Patienten stirbt an Myokardinfarkt, Herzinsuffizienz oder Schlaganfall, bevor das terminale Stadium erreicht ist; bereits ab Stadium G3 ist das kardiovaskuläre Risiko um ein Vielfaches erhöht. Unter Dialyse liegt die jährliche Mortalität bei etwa 15 %, die Fünfjahresüberlebensrate bei rund 50 %. Die Nierentransplantation verbessert Lebensqualität und Überleben deutlich; Transplantatüberleben etwa 90 % nach einem Jahr und 60–70 % nach zehn Jahren. Prognostisch ungünstig sind eine hohe Albuminurie, eine schlechte Blutdruckeinstellung, fortgesetzter Nikotinkonsum, rezidivierende akute Nierenschädigungen und eine späte nephrologische Zuweisung.',
+      pruefungsfallen: [
+        'Die Definition enthält zwingend das Zeitkriterium: Nierenschädigung und/oder GFR unter 60 ml/min für MEHR ALS DREI MONATE. Wer nur „GFR unter 60“ sagt, hat die Abgrenzung zum akuten Nierenversagen nicht verstanden.',
+        'Der Albumin-Kreatinin-Quotient im Spontanurin ist der FRÜHESTE Marker und steigt Jahre vor dem Kreatinin an — wer die Diagnostik mit dem Kreatinin beginnen lässt, verliert Punkte. Umgekehrt: das Kreatinin steigt erst nach Verlust von etwa 50 % der Funktion („kreatininblinder Bereich“).',
+        'Die Nierengröße in der Sonographie ist das entscheidende Argument für die Chronizität: kleine, echoreiche Schrumpfnieren mit schmalem Parenchymsaum. ABER: Bei diabetischer Nephropathie, Amyloidose und Zystennieren sind die Nieren normal groß oder vergrößert — das ist die klassische Fangfrage.',
+        'Anämie plus Hypokalzämie plus Hyperphosphatämie plus erhöhtes Parathormon sprechen für einen chronischen Verlauf; ein normales Blutbild und ein normales Parathormon eher für ein akutes Geschehen.',
+        'Metformin bei eingeschränkter Nierenfunktion: Reduktion ab eGFR unter 45, Absetzen unter 30 ml/min, Pausieren vor Kontrastmittel und bei akuter Erkrankung — Laktatazidose. Diese Frage kommt regelmäßig.',
+        'Ein Kreatininanstieg bis 30 % nach Beginn eines ACE-Hemmers ist ERWÜNSCHT und kein Absetzgrund; erst darüber hinaus wird abgesetzt und an eine Nierenarterienstenose gedacht. Kalium immer mitkontrollieren.',
+        'NSAR aktiv erfragen — Patienten nennen frei verkäufliche Schmerzmittel spontan nicht und halten sie nicht für „Medikamente“. Die Analgetika-Nephropathie wird so regelmäßig übersehen.',
+        'Bei der renalen Anämie zuerst den Eisenmangel ausgleichen, erst dann Erythropoetin; das Hämoglobin wird NICHT normalisiert, sondern nur auf 10–12 g/dl angehoben.',
+        'Die häufigste Todesursache ist kardiovaskulär, nicht urämisch — dieser Satz gehört in jede Antwort zur Prognose.',
+        'Vor dem Patienten die Fachbegriffe übersetzen: Niereninsuffizienz = „Nierenschwäche, die Nieren arbeiten nicht mehr richtig“, terminale Niereninsuffizienz = „Nierenversagen im Endstadium“, Dialyse = „Blutwäsche“, Urämie = „Harnvergiftung“, Proteinurie = „Eiweiß im Urin“. Genau diese Begriffe stehen in den Fachbegriffslisten aller vier Prüfungszentren.',
+        'Den Shuntarm schonen: Ab der Vorbereitung der Dialyse dort keine Blutentnahme, keine Venenverweilkanüle und keine Blutdruckmessung — ein beliebter Praxisfehler, der im Arzt-Arzt-Gespräch abgefragt wird.',
+        'Die postrenale Ursache immer zuerst ausschließen (Sonographie mit Restharn und Prostatabeurteilung) — sie ist die einzige rasch reversible Ursache.',
+        'Beim Diabetiker mit Niereninsuffizienz an den sinkenden Insulinbedarf denken: Insulin wird renal abgebaut, es drohen Hypoglykämien — eine scheinbare „Besserung des Diabetes“ ist ein Warnzeichen.',
+        'Die Stadien G1 und G2 setzen einen Schädigungsmarker voraus; eine GFR von 75 ml/min ohne Albuminurie und ohne strukturelle Veränderung ist KEINE chronische Niereninsuffizienz.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie definieren Sie eine chronische Niereninsuffizienz?',
+          antwort: 'Als eine Nierenschädigung — belegt durch Albuminurie, pathologisches Sediment, strukturelle oder histologische Veränderungen — und/oder eine glomeruläre Filtrationsrate unter 60 ml/min/1,73 m², die länger als drei Monate besteht. Das Zeitkriterium ist entscheidend, weil es die chronische von der akuten Nierenschädigung trennt.',
+        },
+        {
+          frage: 'Erklären Sie den Begriff „terminale Niereninsuffizienz“ einem Patienten.',
+          antwort: 'Ich würde sagen: „Ihre Nieren arbeiten nur noch ganz wenig — man spricht vom Endstadium der Nierenschwäche. Die Nieren können das Blut nicht mehr ausreichend reinigen, deshalb brauchen wir ein Verfahren, das diese Aufgabe übernimmt: die Blutwäsche, also die Dialyse, oder eine Nierentransplantation.“',
+        },
+        {
+          frage: 'Was bedeutet Urämie, und was ist eine Dialyse?',
+          antwort: 'Urämie heißt wörtlich Harnvergiftung: die Anhäufung harnpflichtiger Substanzen im Blut, die zu Übelkeit, Juckreiz, Appetitverlust, Foetor uraemicus, Perikarditis und Enzephalopathie führt. Die Dialyse ist ein Verfahren zur Entfernung harnpflichtiger Substanzen und überschüssiger Flüssigkeit aus dem Blut — dem Patienten gegenüber sage ich „Blutwäsche“.',
+        },
+        {
+          frage: 'Welche beiden Ursachen sind mit Abstand am häufigsten?',
+          antwort: 'Die diabetische Nephropathie mit etwa 30–35 % und die hypertensive Nephropathie mit etwa 20–25 %; zusammen machen sie rund zwei Drittel aller Fälle aus. Danach folgen Glomerulonephritiden, Zystennieren, interstitielle Nephritiden — insbesondere die Analgetika-Nephropathie — und Vaskulitiden.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie ein akutes von einem chronischen Nierenversagen?',
+          antwort: 'Über vier Säulen: den zeitlichen Verlauf und alte Kreatininwerte, die Sonographie mit Nierengröße und Parenchymbreite — kleine Schrumpfnieren sprechen für chronisch —, die Anämie, die beim chronischen Verlauf typisch ist, und die Zeichen des Mineralstoffwechsels mit Hypokalzämie, Hyperphosphatämie und erhöhtem Parathormon. Cave: Bei diabetischer Nephropathie können die Nieren trotz Chronizität normal groß sein.',
+        },
+        {
+          frage: 'Nennen Sie die KDIGO-Stadien.',
+          antwort: 'G1 mit einer GFR über 90 bei nachgewiesener Nierenschädigung, G2 mit 60–89, G3a mit 45–59, G3b mit 30–44, G4 mit 15–29 und G5 unter 15 ml/min/1,73 m², das terminale Stadium. Dazu kommt die Albuminurie: A1 unter 30 mg/g, A2 30–300 mg/g und A3 über 300 mg/g.',
+        },
+        {
+          frage: 'Welcher Laborwert zeigt die Nierenschädigung am frühesten an?',
+          antwort: 'Der Albumin-Kreatinin-Quotient im Spontanurin. Er steigt bei der diabetischen Nephropathie Jahre vor dem Kreatinin an. Das Serumkreatinin steigt erst, wenn etwa die Hälfte der Nierenfunktion verloren ist — das nennt man den kreatininblinden Bereich.',
+        },
+        {
+          frage: 'Was suchen Sie im Urinsediment?',
+          antwort: 'Akanthozyten, also dysmorphe Erythrozyten, und Erythrozytenzylinder — beide beweisen eine glomeruläre Genese. Außerdem Leukozyten, Nitrit und Bakterien zum Ausschluss eines Infekts sowie eine Proteinurie.',
+        },
+        {
+          frage: 'Was erwarten Sie in der Sonographie?',
+          antwort: 'Bei chronischem Verlauf kleine Nieren mit schmalem Parenchymsaum, erhöhter Echogenität und aufgehobener Rinden-Mark-Differenzierung. Normal große oder vergrößerte Nieren sprechen für ein akutes Geschehen, eine diabetische Nephropathie, eine Amyloidose oder Zystennieren. Außerdem schließe ich einen Harnstau aus und bestimme den Restharn.',
+        },
+        {
+          frage: 'Wann führen Sie eine Nierenbiopsie durch?',
+          antwort: 'Bei unklarer Genese, raschem Funktionsverlust, glomerulärer Hämaturie mit Akanthozyten, nephrotischer Proteinurie oder Verdacht auf eine Glomerulonephritis oder Systemerkrankung — und bei Diabetikern, wenn eine Retinopathie fehlt oder der Verlauf atypisch ist. Bei bereits geschrumpften Nieren verzichte ich darauf: hohes Blutungsrisiko, kein therapeutischer Gewinn.',
+        },
+        {
+          frage: 'Welche Komplikationen der chronischen Niereninsuffizienz kennen Sie?',
+          antwort: 'Die renale Anämie durch Erythropoetinmangel, den sekundären Hyperparathyreoidismus mit renaler Osteopathie und Gefäßverkalkung, die metabolische Azidose, die Hyperkaliämie und Hyperphosphatämie, die Hypervolämie mit Ödemen und Lungenödem, die urämische Perikarditis, Enzephalopathie, Polyneuropathie und Thrombozytopathie sowie — am wichtigsten — das massiv erhöhte kardiovaskuläre Risiko.',
+        },
+        {
+          frage: 'Woran sterben diese Patienten am häufigsten?',
+          antwort: 'Kardiovaskulär: an Myokardinfarkt, Herzinsuffizienz und Schlaganfall — meist bevor sie überhaupt dialysepflichtig werden. Deshalb ist die kardiovaskuläre Prävention mit Blutdruckeinstellung, Statin und Nikotinkarenz genauso wichtig wie die Nephroprotektion.',
+        },
+        {
+          frage: 'Wie behandeln Sie die renale Anämie?',
+          antwort: 'Zuerst den Eisenmangel ausgleichen, bei fortgeschrittener Niereninsuffizienz intravenös, mit einem Ferritin über 100–200 µg/l und einer Transferrinsättigung über 20–30 %. Erst danach ein Erythropoese-stimulierendes Mittel wie Epoetin oder Darbepoetin, mit einem Hämoglobin-Zielbereich von 10–12 g/dl. Das Hämoglobin wird bewusst nicht normalisiert, weil höhere Werte Thrombosen und Schlaganfälle begünstigen.',
+        },
+        {
+          frage: 'Wie hemmen Sie die Progression?',
+          antwort: 'Durch eine konsequente Blutdruckeinstellung mit einem Zielwert unter 130 mmHg systolisch, eine RAAS-Blockade mit ACE-Hemmer oder Sartan bei Albuminurie, einen SGLT2-Inhibitor — auch ohne Diabetes —, eine gute Blutzuckereinstellung, Nikotinkarenz, Gewichtsreduktion, Kochsalz- und moderate Eiweißrestriktion sowie das strikte Meiden von NSAR und Kontrastmitteln.',
+        },
+        {
+          frage: 'Der Patient bekommt einen ACE-Hemmer, und das Kreatinin steigt. Was tun Sie?',
+          antwort: 'Ein Anstieg bis 30 % ist erwartet und Ausdruck der erwünschten Senkung des intraglomerulären Drucks — der ACE-Hemmer wird fortgeführt und das Kalium kontrolliert. Steigt das Kreatinin stärker, setze ich ab und denke an eine Nierenarterienstenose oder eine Hypovolämie.',
+        },
+        {
+          frage: 'Welche Medikamente müssen Sie bei diesem Patienten anpassen?',
+          antwort: 'Metformin — Reduktion ab einer eGFR unter 45, Absetzen unter 30 ml/min wegen der Laktatazidose. NSAR werden ganz abgesetzt. Thiazide sind unter einer GFR von 30 unwirksam und werden durch ein Schleifendiuretikum ersetzt. Renal eliminierte Substanzen wie viele Antibiotika, Gabapentin, Allopurinol, direkte orale Antikoagulanzien und Morphin werden in der Dosis reduziert.',
+        },
+        {
+          frage: 'Wann beginnen Sie mit der Dialyse, und welche Verfahren gibt es?',
+          antwort: 'Absolute Indikationen sind eine therapierefraktäre Hyperkaliämie, eine therapierefraktäre Überwässerung mit Lungenödem, eine therapierefraktäre Azidose, eine urämische Perikarditis und eine urämische Enzephalopathie; sonst entscheidet die Symptomatik, nicht allein der GFR-Wert. Verfahren sind die Hämodialyse dreimal wöchentlich, die Peritonealdialyse als Heimverfahren und die Nierentransplantation als bestes Verfahren; bei hochbetagten Patienten ist auch eine konservativ-palliative Behandlung eine legitime Option.',
+        },
+        {
+          frage: 'Was müssen Sie bei einem Patienten mit geplanter Hämodialyse im Alltag beachten?',
+          antwort: 'Der Shunt, meist eine Cimino-Fistel am Unterarm, wird drei bis sechs Monate vor dem erwarteten Dialysebeginn angelegt und muss ausreifen. Ab diesem Zeitpunkt gilt: am Shuntarm keine Blutentnahmen, keine Venenverweilkanülen und keine Blutdruckmessung. Außerdem wird frühzeitig gegen Hepatitis B geimpft, weil die Impfantwort mit fallender Nierenfunktion abnimmt.',
+        },
+      ],
+      merksatz: 'Nierenschaden oder GFR unter 60 — länger als DREI MONATE. Zwei Drittel sind Diabetes und Hypertonie. Lange stumm: erst Nykturie, schäumender Urin und Blässe, spät die Urämie. Albumin-Kreatinin-Quotient vor dem Kreatinin, kleine Nieren im Ultraschall beweisen chronisch. Therapie: Blutdruck, RAAS-Blockade, SGLT2-Hemmer — und die Patienten sterben am Herzen, nicht an der Niere.',
+      linkedCaseIds: [
+        'case-niereninsuffizienz',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+      ],
+    },
+    {
+      id: 'fw-lymphom',
+      pathology: 'Malignes Lymphom (Hodgkin-Lymphom)',
+      specialty: 'Onkologie',
+      definition: 'Das Hodgkin-Lymphom (Morbus Hodgkin, früher Lymphogranulomatose) ist eine maligne Erkrankung des lymphatischen Systems, die von reifen B-Zellen des Keimzentrums ausgeht. Kennzeichnend sind die einkernigen Hodgkin-Zellen und die mehrkernigen Sternberg-Reed-Riesenzellen, die nur etwa 1 % der Tumormasse ausmachen und in ein ausgedehntes reaktives Entzündungsinfiltrat aus Lymphozyten, Eosinophilen, Plasmazellen und Histiozyten eingebettet sind. Klinisch imponiert eine schmerzlose, derbe, nicht verschiebliche Lymphknotenschwellung, die sich typischerweise KONTINUIERLICH von einer Lymphknotenregion in die benachbarte ausbreitet und meist zervikal oder supraklavikulär beginnt. Die Inzidenz liegt bei etwa 2 bis 3 Fällen pro 100 000 Einwohner und Jahr; charakteristisch ist der zweigipflige Altersverlauf mit einem Maximum zwischen dem 20. und 30. Lebensjahr und einem zweiten Gipfel jenseits des 60. Lebensjahres. Abzugrenzen sind die Non-Hodgkin-Lymphome, die diskontinuierlich streuen, häufiger extranodal manifest werden und den Waldeyer-Rachenring einbeziehen.',
+      aetiologie: 'Die Ätiologie ist nicht abschließend geklärt. Pathogenetisch entgeht eine klonale B-Zelle des Keimzentrums trotz funktionsunfähiger Immunglobulingene der Apoptose, unter anderem über eine konstitutive Aktivierung des NF-κB-Signalwegs. Die Tumorzellen sezernieren Zytokine (Interleukin-5, Interleukin-6, Interleukin-10, TNF-alpha, TGF-beta), was das begleitende Entzündungsinfiltrat, die Eosinophilie, die Fibrose und die B-Symptomatik erklärt. In etwa 40 % der klassischen Hodgkin-Lymphome lässt sich das Epstein-Barr-Virus im Tumorgenom nachweisen, beim lymphozytenarmen Typ und bei HIV-Assoziation nahezu regelhaft. Weitere begünstigende Faktoren sind eine Immunsuppression (HIV-Infektion, Zustand nach Organtransplantation, immunsuppressive Dauertherapie), Autoimmunerkrankungen und eine familiäre Häufung; Geschwister Erkrankter tragen ein mehrfach erhöhtes Risiko. Eine sichere berufliche oder umweltbedingte Noxe ist nicht belegt; Rauchen erhöht das Risiko nur geringfügig.',
+      risikofaktoren: [
+        'Alter zwischen 20 und 30 Jahren beziehungsweise über 60 Jahren (zweigipflige Altersverteilung)',
+        'Männliches Geschlecht (Verhältnis etwa 3:2)',
+        'Durchgemachte Epstein-Barr-Virus-Infektion, insbesondere eine symptomatische infektiöse Mononukleose',
+        'HIV-Infektion und andere Formen der Immunsuppression, einschließlich immunsuppressiver Therapie nach Organtransplantation',
+        'Autoimmunerkrankungen wie rheumatoide Arthritis oder Sarkoidose',
+        'Positive Familienanamnese, besonders bei Geschwistern',
+        'Hoher sozioökonomischer Status und späte Erstinfektion mit gängigen Erregern (Hygienehypothese)',
+        'Rauchen (geringgradige Risikoerhöhung)',
+      ],
+      klinik: [
+        {
+          text: 'Schmerzlose, derbe, nicht verschiebliche, über Wochen bis Monate langsam größer werdende Lymphknotenschwellung — in etwa 70 % der Fälle zervikal oder supraklavikulär, seltener axillär, mediastinal, inguinal oder abdominell',
+        },
+        {
+          text: 'Fehlende Rückbildung der Schwellung über mehr als vier Wochen und fehlende Entzündungszeichen: keine Rötung, keine Überwärmung, keine Druckschmerzhaftigkeit',
+        },
+        {
+          text: 'B-Symptomatik: ungewollter Gewichtsverlust von mehr als 10 % des Körpergewichts in sechs Monaten, Fieber über 38 °C ohne nachweisbaren Infektfokus und Nachtschweiß mit Wechseln der Wäsche',
+        },
+        {
+          text: 'Generalisierter Pruritus ohne Exanthem, oft nachts betont, mit Kratzspuren an Extremitäten und Stamm',
+        },
+        {
+          text: 'Leistungsknick, Abgeschlagenheit, Fatigue und verminderte körperliche Belastbarkeit',
+        },
+        {
+          text: 'Bei Mediastinalbefall trockener Reizhusten, retrosternales Druckgefühl und Belastungsdyspnoe',
+        },
+        {
+          text: 'Hepatosplenomegalie bei fortgeschrittenem Befall',
+        },
+        {
+          text: 'Erhöhte Infektanfälligkeit durch die krankheitsbedingte zelluläre Immundefizienz, insbesondere für Viren, Pilze und Mykobakterien',
+        },
+        {
+          text: 'Alkoholschmerz: brennend-ziehender Schmerz in den befallenen Lymphknoten wenige Minuten nach Alkoholgenuss — sehr selten (unter 2 %), aber nahezu pathognomonisch',
+          atypisch: true,
+        },
+        {
+          text: 'Pel-Ebstein-Fieber: undulierendes Fieber im mehrtägigen bis mehrwöchigen Wechsel von Fieberphasen und fieberfreien Intervallen',
+          atypisch: true,
+        },
+        {
+          text: 'Obere Einflussstauung mit gestauten Halsvenen, geschwollenem Gesicht und geschwollenen Armen, Stridor und Orthopnoe bei großem Mediastinaltumor — onkologischer Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierter infradiaphragmaler Befall, etwa rein inguinal oder abdominell, ohne zervikale Beteiligung',
+          atypisch: true,
+        },
+        {
+          text: 'Knochenschmerzen bei ossärem Befall, Ikterus bei Leberbefall oder Kompression der Gallenwege',
+          atypisch: true,
+        },
+        {
+          text: 'Neurologische Ausfälle bis zur Querschnittsymptomatik bei epiduraler Manifestation',
+          atypisch: true,
+        },
+        {
+          text: 'Paraneoplastische Erscheinungen wie Erythema nodosum, Ichthyose, nephrotisches Syndrom oder eine autoimmunhämolytische Anämie',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Ann-Arbor-Klassifikation mit Cotswolds-Modifikation',
+          inhalt: 'Stadium I: Befall EINER Lymphknotenregion. Stadium II: Befall von zwei oder mehr Lymphknotenregionen auf DERSELBEN Seite des Zwerchfells. Stadium III: Befall von Lymphknotenregionen BEIDSEITS des Zwerchfells. Stadium IV: diffuser oder disseminierter Befall extralymphatischer Organe (Knochenmark, Leber, Lunge, Knochen, ZNS) mit oder ohne Lymphknotenbefall. Zusätze: A = ohne B-Symptomatik, B = mit B-Symptomatik, E = lokalisierter Befall eines extralymphatischen Organs per continuitatem, X = Bulk (großer Tumor, klassisch Mediastinaltumor über einem Drittel des maximalen Thoraxquerdurchmessers oder Konglomerat ab 10 cm), S = Milzbefall (splen).',
+        },
+        {
+          name: 'Histologische WHO-Klassifikation',
+          inhalt: 'Klassisches Hodgkin-Lymphom (etwa 95 %) mit CD30- und CD15-positiven, CD20-negativen Sternberg-Reed-Zellen, unterteilt in den nodulär-sklerosierenden Typ (häufigster Typ, etwa 60 bis 70 %, junge Frauen, Mediastinum), den Mischtyp (etwa 20 bis 25 %, häufig EBV-assoziiert), den lymphozytenreichen Typ (etwa 5 %, gute Prognose) und den lymphozytenarmen Typ (unter 5 %, ältere und HIV-positive Patienten, schlechteste Prognose). Nodulär lymphozytenprädominantes Hodgkin-Lymphom (etwa 5 %) mit CD20-positiven, CD30- und CD15-negativen „Popcorn-Zellen", indolenter Verlauf, häufig Stadium I, aber Spätrezidive und Transformationsrisiko.',
+        },
+        {
+          name: 'Risikofaktoren und Stadiengruppen der Deutschen Hodgkin-Studiengruppe (GHSG)',
+          inhalt: 'Risikofaktoren: a) großer Mediastinaltumor über einem Drittel des maximalen Thoraxquerdurchmessers, b) Extranodalbefall, c) BSG mindestens 50 mm in der ersten Stunde ohne B-Symptomatik oder mindestens 30 mm mit B-Symptomatik, d) Befall von drei oder mehr Lymphknotenarealen. Frühe limitierte Stadien: I–II ohne jeden Risikofaktor. Frühe intermediäre Stadien: I–IIA mit mindestens einem Risikofaktor sowie IIB mit den Risikofaktoren c oder d. Fortgeschrittene Stadien: III und IV sowie IIB mit großem Mediastinaltumor oder Extranodalbefall.',
+        },
+        {
+          name: 'Deauville-Score zur PET-Beurteilung des Therapieansprechens',
+          inhalt: 'Score 1: kein Uptake. Score 2: Uptake höchstens so stark wie im Mediastinum. Score 3: Uptake stärker als im Mediastinum, aber höchstens so stark wie in der Leber. Score 4: Uptake mäßig stärker als in der Leber. Score 5: Uptake deutlich stärker als in der Leber und/oder neue Läsionen. Die Scores 1 bis 3 gelten als negativ (gutes Ansprechen, Deeskalation möglich), die Scores 4 und 5 als positiv (Therapieintensivierung oder Bestrahlung eines Restbefunds).',
+        },
+      ],
+      redFlags: [
+        'Obere Einflussstauung mit gestauten Halsvenen, Gesichts- und Armschwellung, Stridor oder Orthopnoe bei großem Mediastinaltumor — onkologischer Notfall mit Oberkörperhochlagerung, Sauerstoff, Glukokortikoiden und sofortiger Einleitung der Systemtherapie beziehungsweise Notfallbestrahlung; keine Flachlagerung und keine tiefe Sedierung',
+        'Rasch progrediente Dyspnoe durch Perikard- oder Pleuraerguss mit drohender Tamponade',
+        'Tumorlysesyndrom mit Hyperkaliämie, Hyperphosphatämie, Hypokalzämie, Hyperurikämie, Kreatininanstieg und Herzrhythmusstörungen bei hoher Tumorlast und Therapiebeginn',
+        'Febrile Neutropenie unter Chemotherapie: Fieber ab 38,3 °C einmalig oder ab 38,0 °C über eine Stunde bei Neutrophilen unter 500 pro Mikroliter — Blutkulturen und kalkulierte Breitspektrum-Antibiose innerhalb einer Stunde',
+        'Neurologische Ausfälle, Rückenschmerzen mit Sensibilitätsstörung oder Blasenstörung als Hinweis auf eine epidurale Kompression — sofortiges MRT und notfallmäßige Therapie',
+        'Linkssupraklavikulärer, steinharter Knoten (Virchow-Lymphknoten) als Hinweis auf einen abdominellen Primärtumor statt eines Lymphoms',
+        'Gabe von Glukokortikoiden VOR der histologischen Sicherung — sie kann die Histologie unbeurteilbar machen und die Diagnose um Wochen verzögern',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese der Schwellung: Dauer, Schmerzlosigkeit, Konsistenz, Verschieblichkeit, Größendynamik und fehlende Rückbildung über mehr als vier Wochen; gezielte Frage nach dem Alkoholschmerz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'B-Symptomatik exakt und quantifiziert erfragen: Ausgangsgewicht und aktuelles Gewicht mit Zeitraum (mehr als 10 % in sechs Monaten), gemessenes Fieber über 38 °C ohne Infektfokus, Nachtschweiß mit Wechseln der Wäsche',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Weitere Symptome: generalisierter Pruritus ohne Exanthem, Leistungsknick, rezidivierende Infekte, trockener Husten, retrosternales Druckgefühl und Belastungsdyspnoe bei Mediastinalbefall',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Infektiologische Differenzialanamnese: vorangegangener Racheninfekt, Zahnstatus, Katzenkratzer, Zeckenstiche, Verzehr von rohem Fleisch, Reiseanamnese, Tuberkulosekontakt, Sexual- und Transfusionsanamnese; Medikamentenanamnese (Phenytoin, Carbamazepin, Allopurinol als Auslöser einer Lymphadenopathie)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung des Knotens: Größe, Zahl, Konsistenz, Druckschmerz, Überwärmung, Rötung und vor allem Verschieblichkeit gegenüber der Haut UND der Unterlage; kompletter Lymphknotenstatus aller Stationen einschließlich Waldeyer-Rachenring sowie Palpation von Leber und Milz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Suche nach einem Primärtumor zum Ausschluss einer Metastase: vollständige Hautinspektion einschließlich Kopfhaut, Fußsohlen und Interdigitalräumen, Mammapalpation, gynäkologische und HNO-ärztliche Untersuchung; Erhebung von Vitalparametern, Größe, Gewicht und Body-Mass-Index sowie des ECOG-Status',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: absolute Lymphopenie, Eosinophilie, Neutrophilie und Anämie der chronischen Erkrankung sind typisch; Blasten oder eine ausgeprägte Lymphozytose lenken auf eine Leukämie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkörperchensenkungsgeschwindigkeit — charakteristisch stark erhöht und zugleich GHSG-Risikofaktor; CRP zur Abgrenzung eines bakteriellen Infekts',
+        },
+        {
+          stufe: 'Labor',
+          text: 'LDH und Harnsäure als Marker von Zellumsatz und Tumorlast, Elektrolyte einschließlich Kalzium und Phosphat (Tumorlyserisiko), Kreatinin und eGFR, Leberwerte, Albumin, Eiweißelektrophorese, Ferritin, löslicher Interleukin-2-Rezeptor sowie TSH',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor Therapie obligate Serologien: HIV, Hepatitis B und C (Reaktivierungsrisiko unter Immunchemotherapie), EBV, CMV, Toxoplasmose, gegebenenfalls Bartonella henselae und Lues; Interferon-Gamma-Release-Assay zum Tuberkuloseausschluss',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Schwangerschaftstest bei jeder Frau im gebärfähigen Alter vor Bildgebung und Therapiebeginn',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Lymphknotenstationen und des Abdomens: malignitätsverdächtig sind ein Längs-zu-Quer-Quotient unter 2 (rundliche Form), der Verlust des echoreichen Hilus, eine unscharfe Randbegrenzung, eine inhomogene Echostruktur und Konglomeratbildung; zusätzlich Beurteilung von Leber und Milz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen zur ersten Orientierung: Mediastinalverbreiterung, großer Mediastinaltumor, bihiläre Lymphadenopathie (Sarkoidose-Differenzialdiagnose), pulmonale Herde',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Computertomographie von Hals, Thorax und Abdomen mit Kontrastmittel zur vollständigen Erfassung aller befallenen Regionen und zur Ausmessung eines Bulk',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'FDG-PET-CT als Standard für das initiale Staging, das Interim-Staging nach zwei Zyklen und die Beurteilung des Therapieansprechens nach dem Deauville-Score; bei durchgeführtem PET-CT kann auf die Knochenmarkbiopsie in der Regel verzichtet werden',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Vor Therapiebeginn zwingend: Echokardiographie mit Bestimmung der linksventrikulären Ejektionsfraktion wegen der Anthrazyklin-Kardiotoxizität sowie Lungenfunktionsprüfung mit Diffusionskapazität wegen der Bleomycin-Lungentoxizität',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'LYMPHKNOTENEXSTIRPATION des GESAMTEN Knotens mit histologischer, immunhistochemischer und molekularpathologischer Aufarbeitung — der beweisende Schritt. Eine alleinige Feinnadelpunktion oder Stanzbiopsie genügt NICHT, weil die Architektur des Lymphknotens beurteilt werden muss. Nachweis von Sternberg-Reed-Riesenzellen und Hodgkin-Zellen in einem reaktiven Entzündungsinfiltrat; Immunphänotyp CD30-positiv, CD15-positiv, CD20 meist negativ, PAX5 schwach positiv',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Aus demselben Exstirpat mikrobiologische Aufarbeitung mit Ziehl-Neelsen-Färbung, Tuberkulose-PCR und Kultur sowie gegebenenfalls Erregerdiagnostik zum Ausschluss einer granulomatösen Infektion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion mit Beckenkammbiopsie — nur bei fehlendem PET-CT, unklaren Zytopenien oder Verdacht auf Knochenmarkbefall (entspräche einem Stadium IV)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Punktion und zytologische Untersuchung von Pleura- oder Perikarderguss bei entsprechendem Befund; Liquordiagnostik nur bei neurologischen Symptomen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Fertilitätserhaltende Maßnahmen VOR dem ersten Chemotherapiezyklus: Kryokonservierung von Spermien beim Mann, von Eizellen oder Ovargewebe bei der Frau, gegebenenfalls GnRH-Analoga zur Gonadenprotektion',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Non-Hodgkin-Lymphom',
+          unterscheidung: 'Klinisch kaum abgrenzbar, Entscheidung durch die Histologie. Diskontinuierliche Ausbreitung, häufiger extranodaler Befall und Beteiligung des Waldeyer-Rachenrings, öfter Knochenmarkbefall mit Zytopenien; keine Sternberg-Reed-Zellen. Alkoholschmerz und kontinuierliche Ausbreitung sprechen für ein Hodgkin-Lymphom.',
+        },
+        {
+          dd: 'Lymphknotenmetastase eines soliden Tumors',
+          unterscheidung: 'Steinharter, höckriger, mit der Unterlage fixierter Knoten; Suche nach dem Primärtumor obligat (malignes Melanom, Mamma-, Bronchial-, HNO-, Schilddrüsen-, Magenkarzinom). Der linkssupraklavikuläre Virchow-Lymphknoten weist auf einen abdominellen Primärtumor hin. Histologisch epitheliale oder melanozytäre Zellverbände statt lymphatischen Gewebes.',
+        },
+        {
+          dd: 'Akute oder chronische lymphatische Leukämie',
+          unterscheidung: 'Generalisierte, weiche, indolente Lymphknotenschwellung mit Hepatosplenomegalie; im Blutbild Blasten beziehungsweise absolute Lymphozytose, dazu Anämie und Thrombopenie mit Blutungsneigung und Infektanfälligkeit. Klärung über Differenzialblutbild, Immunphänotypisierung und Knochenmarkuntersuchung.',
+        },
+        {
+          dd: 'Reaktive (infektiöse) Lymphadenitis',
+          unterscheidung: 'Druckschmerzhaft, weich bis prall-elastisch, verschieblich, überwärmt und gerötet, akuter Beginn nach einem Infekt der oberen Atemwege oder einer dentogenen Infektion, Rückbildung binnen zwei bis vier Wochen unter Beobachtung.',
+        },
+        {
+          dd: 'Infektiöse Mononukleose (EBV)',
+          unterscheidung: 'Junge Patienten, Fieber, Angina tonsillaris mit schmutzig-grauen Belägen, generalisierte druckschmerzhafte Lymphadenopathie, Splenomegalie, Transaminasenerhöhung, lymphomonozytäre Reizformen (Pfeiffer-Zellen) im Blutausstrich; Diagnose über die EBV-Serologie. Cave: Ampicillingabe löst ein Arzneiexanthem aus.',
+        },
+        {
+          dd: 'Toxoplasmose',
+          unterscheidung: 'Meist nuchale und zervikale, gering schmerzhafte Lymphknotenschwellung mit blander Allgemeinsymptomatik; Exposition über rohes Fleisch oder Katzenkot; Diagnose über die Serologie, bei Schwangeren besondere Bedeutung.',
+        },
+        {
+          dd: 'Lymphknotentuberkulose',
+          unterscheidung: 'Derbe, im Verlauf einschmelzende und fistelnde zervikale Lymphknoten („Skrofulose") mit identischer B-Symptomatik aus Nachtschweiß, Gewichtsverlust und subfebrilen Temperaturen. Abgrenzung über Expositions- und Migrationsanamnese, Röntgen-Thorax, Interferon-Gamma-Release-Assay und den Erregernachweis aus dem Exstirpat; histologisch verkäsende Granulome.',
+        },
+        {
+          dd: 'HIV-Infektion',
+          unterscheidung: 'Persistierende generalisierte Lymphadenopathie an mindestens zwei extrainguinalen Stationen über mehr als drei Monate, häufig mit Gewichtsverlust, Nachtschweiß, oraler Candidose und rezidivierenden Infekten. Der HIV-Test gehört zur Abklärung jeder unklaren Lymphadenopathie und vor jeder Chemotherapie.',
+        },
+        {
+          dd: 'Katzenkratzkrankheit (Bartonella henselae)',
+          unterscheidung: 'Regionale, meist schmerzhafte Lymphadenitis zwei bis drei Wochen nach Katzenkratzer oder -biss, mit kleiner Primärläsion im Drainagegebiet; überwiegend selbstlimitierend, Diagnose über Serologie oder PCR.',
+        },
+        {
+          dd: 'Sarkoidose',
+          unterscheidung: 'Bihiläre Lymphadenopathie im Röntgen-Thorax, häufig mit trockenem Husten und Belastungsdyspnoe; beim Löfgren-Syndrom Sprunggelenkarthritis und Erythema nodosum. Erhöhung von ACE und löslichem Interleukin-2-Rezeptor, Hyperkalzämie; histologisch nicht verkäsende Epitheloidzellgranulome ohne Sternberg-Reed-Zellen.',
+        },
+        {
+          dd: 'Systemischer Lupus erythematodes und andere Autoimmunerkrankungen',
+          unterscheidung: 'Generalisierte weiche Lymphadenopathie mit Arthralgien, Schmetterlingserythem, Photosensibilität, Serositis und Nierenbeteiligung; antinukleäre Antikörper und Anti-Doppelstrang-DNA positiv, Komplementverbrauch.',
+        },
+        {
+          dd: 'Medikamenteninduzierte Lymphadenopathie',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Phenytoin, Carbamazepin, Allopurinol oder Sulfonamiden, häufig mit Exanthem, Eosinophilie und Fieber (DRESS-Syndrom); Rückbildung nach Absetzen des Präparats.',
+        },
+        {
+          dd: 'Benigne Raumforderungen: Lipom, laterale Halszyste, Speicheldrüsenerkrankung, Struma nodosa',
+          unterscheidung: 'Lipom weich und gut verschieblich, über Jahre langsam wachsend; laterale Halszyste prall-elastisch und rezidivierend entzündet; Speicheldrüsenschwellung mahlzeitabhängig; Struma prätracheal und beim Schlucken mitbeweglich. In allen Fällen keine B-Symptomatik; sonographisch meist eindeutig.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Stadienadaptierte Chemotherapie',
+          items: [
+            'Behandlungsziel ist in allen Stadien die HEILUNG; Intensität und Zyklenzahl richten sich nach dem Ann-Arbor-Stadium und den Risikofaktoren der Deutschen Hodgkin-Studiengruppe',
+            'Frühe limitierte Stadien: zwei Zyklen ABVD, anschließend konsolidierende Bestrahlung des befallenen Areals',
+            'Frühe intermediäre Stadien: zwei Zyklen eskaliertes BEACOPP und zwei Zyklen ABVD („2 + 2"), anschließend Bestrahlung',
+            'Fortgeschrittene Stadien: vier bis sechs Zyklen eskaliertes BEACOPP beziehungsweise nach aktueller Studienlage BrECADD mit Brentuximab Vedotin, PET-gesteuert deeskaliert; bei Patienten über 60 Jahren oder relevanter Komorbidität sechs Zyklen ABVD beziehungsweise A(B)VD ohne Bleomycin',
+            'ABVD = Adriamycin (Doxorubicin), Bleomycin, Vinblastin, Dacarbazin. BEACOPP = Bleomycin, Etoposid, Adriamycin, Cyclophosphamid, Oncovin (Vincristin), Procarbazin, Prednison — beide Abkürzungen müssen im Prüfungsgespräch aufgelöst werden können',
+            'Therapiesteuerung über das Interim-PET nach zwei Zyklen mit Beurteilung nach dem Deauville-Score: 1 bis 3 erlauben eine Deeskalation, 4 bis 5 erfordern eine Intensivierung',
+            'Nodulär lymphozytenprädominantes Hodgkin-Lymphom im Stadium IA ohne Risikofaktoren: alleinige Involved-Site-Bestrahlung mit 30 Gray, in höheren Stadien Kombination mit Rituximab, da die Zellen CD20 exprimieren',
+            'Rezidiv oder Refraktärität: Salvage-Chemotherapie mit anschließender Hochdosistherapie und autologer Stammzelltransplantation; als zielgerichtete Optionen Brentuximab Vedotin (Anti-CD30-Antikörper-Wirkstoff-Konjugat) und Checkpoint-Inhibitoren wie Nivolumab oder Pembrolizumab; allogene Transplantation als Ultima Ratio',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Konsolidierende Strahlentherapie',
+          items: [
+            'Moderne Bestrahlung erfolgt nicht mehr großvolumig, sondern als Involved-Site-Radiotherapie ausschließlich der initial befallenen Region, um Spätfolgen zu minimieren',
+            'Frühe limitierte Stadien: 20 Gray im Anschluss an die Chemotherapie; frühe intermediäre Stadien: 30 Gray',
+            'Fortgeschrittene Stadien: Bestrahlung nur bei PET-positivem Restbefund von mindestens 2,5 cm nach Abschluss der Chemotherapie, dann mit 30 Gray',
+            'Akute Nebenwirkungen: Mukositis, Xerostomie, Dysphagie, Hautrötung, Fatigue; Aufklärung darüber ist Teil der Vorbereitung',
+            'Späte Folgen abhängig vom Bestrahlungsfeld: Hypothyreose nach Halsbestrahlung, koronare Herzkrankheit und Klappenfibrose sowie sekundäres Mammakarzinom nach Mediastinalbestrahlung, Lungenfibrose, funktionelle Asplenie nach Milzbestrahlung',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Supportivtherapie und Management onkologischer Notfälle',
+          items: [
+            'Antiemese nach emetogenem Potenzial: 5-HT3-Antagonist (Ondansetron, Granisetron) und Dexamethason, bei hoch emetogener Therapie zusätzlich ein NK1-Rezeptor-Antagonist wie Aprepitant',
+            'Infektprophylaxe: Cotrimoxazol zur Prophylaxe der Pneumocystis-jirovecii-Pneumonie unter eskaliertem BEACOPP, Aciclovir als antivirale Prophylaxe, antimykotische Prophylaxe bei langdauernder Neutropenie; Impfungen gegen Influenza, Pneumokokken und COVID-19 möglichst vor Therapiebeginn, keine Lebendimpfstoffe unter Therapie',
+            'Primärprophylaxe der Neutropenie mit granulozytenstimulierenden Wachstumsfaktoren (G-CSF, Pegfilgrastim) bei stark myelosuppressiven Schemata',
+            'FEBRILE NEUTROPENIE als Notfall: Fieber ab 38,3 °C einmalig oder ab 38,0 °C über eine Stunde bei Neutrophilen unter 500 pro Mikroliter — sofortige Abnahme von Blutkulturen aus peripherer Vene und Katheter und Beginn einer kalkulierten Breitspektrum-Antibiose innerhalb einer Stunde',
+            'OBERE EINFLUSSSTAUUNG als Notfall: Oberkörperhochlagerung, Sauerstoff, hochdosierte Glukokortikoide, zügiger Beginn der Systemtherapie oder Notfallbestrahlung; keine Flachlagerung, keine tiefe Sedierung, möglichst vorherige Sicherung der Histologie',
+            'TUMORLYSESYNDROM: Prophylaxe mit Hydrierung von mindestens drei Litern täglich und Allopurinol, bei hohem Risiko Rasburicase; engmaschige Kontrolle von Kalium, Phosphat, Kalzium, Harnsäure, Kreatinin und EKG',
+            'Mukositisprophylaxe mit Mundspülungen und Zahnsanierung vor Therapiebeginn; Transfusion bestrahlter und leukozytendepletierter Blutprodukte zur Vermeidung einer transfusionsassoziierten Graft-versus-Host-Reaktion',
+            'Psychoonkologische Mitbetreuung, Sozialdienst, Ernährungsberatung und Bewegungstherapie gegen das tumorassoziierte Fatigue-Syndrom',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nachsorge und Langzeitfolgen',
+          items: [
+            'Strukturierte Nachsorge: in den ersten zwei Jahren alle drei Monate, bis zum fünften Jahr halbjährlich, danach jährlich und lebenslang — mit Anamnese (insbesondere B-Symptomatik), körperlicher Untersuchung, Blutbild, BSG, LDH und TSH; Bildgebung befundorientiert, kein routinemäßiges PET in der Nachsorge',
+            'ZWEITMALIGNOME als wichtigste Spätfolge: therapieassoziierte akute myeloische Leukämie und myelodysplastisches Syndrom nach fünf bis zehn Jahren, solide Tumoren nach zehn bis zwanzig Jahren — vor allem Mammakarzinom nach Mediastinalbestrahlung mit Indikation zur intensivierten Früherkennung einschließlich MRT ab acht bis zehn Jahren nach Bestrahlung, ferner Bronchial-, Schilddrüsen-, Kolon- und Hautkrebs; strikte Nikotinkarenz',
+            'KARDIOTOXIZITÄT: dosisabhängige Anthrazyklin-Kardiomyopathie mit Herzinsuffizienz, nach Mediastinalbestrahlung zusätzlich koronare Herzkrankheit, Klappenfibrose und Perikardfibrose — regelmäßige Echokardiographie und konsequente Kontrolle kardiovaskulärer Risikofaktoren',
+            'LUNGENTOXIZITÄT des Bleomycins: Pneumonitis und Lungenfibrose — Lungenfunktion mit Diffusionskapazität im Verlauf; lebenslange Vorsicht bei hohen Sauerstoffkonzentrationen, was bei jeder Narkose anzugeben ist',
+            'HYPOTHYREOSE nach Halsbestrahlung: jährliche TSH-Kontrolle und rechtzeitige Substitution mit Levothyroxin',
+            'INFERTILITÄT und vorzeitige Ovarialinsuffizienz, insbesondere nach eskaliertem BEACOPP und alkylierenden Substanzen — daher Fertilitätsberatung vor Therapiebeginn und endokrinologische Betreuung danach',
+            'Funktionelle Asplenie nach Milzbestrahlung mit Impfindikation gegen Pneumokokken, Meningokokken und Haemophilus influenzae Typ b sowie Aufklärung über die Post-Splenektomie-Sepsis',
+            'Chronisches Fatigue-Syndrom, kognitive Störungen und psychosoziale Folgen: Rehabilitation, Bewegungstherapie und psychoonkologische Begleitung',
+          ],
+          akut: false,
+        },
+      ],
+      prognose: 'Das Hodgkin-Lymphom gehört zu den am besten behandelbaren malignen Erkrankungen des Erwachsenenalters. In frühen limitierten Stadien werden über 90 % der Patienten dauerhaft geheilt, in frühen intermediären Stadien etwa 90 %, in fortgeschrittenen Stadien noch 80 bis 90 %; das progressionsfreie Überleben nach fünf Jahren liegt unter eskaliertem BEACOPP über 85 %. Prognostisch ungünstig sind ein höheres Lebensalter, ein fortgeschrittenes Stadium mit B-Symptomatik, ein großer Mediastinaltumor, eine stark erhöhte BSG, eine Anämie, eine Lymphopenie, eine Hypalbuminämie sowie ein PET-positiver Befund nach zwei Zyklen (Deauville 4 bis 5). Rezidive treten überwiegend in den ersten drei Jahren auf und sind mit Hochdosistherapie und autologer Stammzelltransplantation in etwa der Hälfte der Fälle noch kurativ behandelbar. Weil die Heilungsrate so hoch ist, bestimmen heute nicht mehr die Erkrankung selbst, sondern die THERAPIEFOLGEN die Langzeitmortalität: Zweitmalignome und kardiovaskuläre Erkrankungen sind die häufigsten Todesursachen Langzeitüberlebender. Deshalb wird die Therapie konsequent risikoadaptiert deeskaliert und die Nachsorge lebenslang fortgeführt.',
+      pruefungsfallen: [
+        'Die B-Symptomatik muss WÖRTLICH mit Zahlen sitzen: ungewollter Gewichtsverlust von mehr als 10 % des Körpergewichts in sechs Monaten, Fieber über 38 °C ohne Infektfokus, Nachtschweiß mit Wechseln der Wäsche. Der Begriff wird in allen Zentren auch außerhalb onkologischer Fälle als trockene Frage gestellt („B-Symptome?").',
+        'Beim Gewicht immer das AUSGANGSGEWICHT und den ZEITRAUM erfragen — Patienten nennen spontan nur ihr aktuelles Gewicht. Ohne diese Rechnung geht das Kriterium verloren.',
+        'Die Feinnadelpunktion reicht NICHT: Beweisend ist die Exstirpation des ganzen Lymphknotens, weil die Architektur beurteilt werden muss. Die Punktion darf nur der Vorauswahl oder dem Ausschluss anderer Prozesse dienen.',
+        'Vor der Histologie dürfen KEINE Glukokortikoide gegeben werden — sie lassen das Lymphom vorübergehend schrumpfen und machen die Beurteilung unmöglich.',
+        'Sternberg-Reed-Riesenzellen sind beweisend für das klassische Hodgkin-Lymphom; ihr Immunphänotyp lautet CD30-positiv und CD15-positiv bei meist negativem CD20. Beim nodulär lymphozytenprädominanten Typ ist es genau umgekehrt: CD20-positiv, CD30- und CD15-negativ (Popcorn-Zellen).',
+        'Ann Arbor korrekt anwenden: Stadium III bedeutet Befall beidseits des Zwerchfells, Stadium IV verlangt einen diffusen extralymphatischen Organbefall. Ein Extranodalbefall per continuitatem ist NICHT Stadium IV, sondern erhält den Zusatz E.',
+        'Die Untersuchungen VOR Therapiebeginn nicht vergessen: Echokardiographie (Anthrazykline), Lungenfunktion mit Diffusionskapazität (Bleomycin), Hepatitis- und HIV-Serologie, Zahnsanierung, Schwangerschaftstest — und die FERTILITÄTSBERATUNG mit Kryokonservierung vor dem ersten Zyklus.',
+        'Den Alkoholschmerz aktiv erfragen: selten (unter 2 %), aber nahezu pathognomonisch. Er wird von Patienten fast nie spontan berichtet, weil sie ihn für Einbildung halten.',
+        'Nachtschweiß bei Frauen um das fünfzigste Lebensjahr nicht vorschnell den Wechseljahren zuschreiben — erst die Frage nach dem Wäschewechsel und die Kombination mit Fieber und Gewichtsverlust trennt B-Symptomatik von klimakterischen Beschwerden.',
+        'Bei jeder derben Lymphknotenschwellung aktiv nach einem Primärtumor suchen; der linkssupraklavikuläre Virchow-Lymphknoten spricht für einen abdominellen Primärtumor. Ein Freiburger Oberarzt hat genau hier auf die Melanommetastase gelenkt, obwohl der Kandidat ein Lymphom präsentiert hatte.',
+        'Die Lymphknotentuberkulose macht dieselbe B-Symptomatik wie das Lymphom — Expositionsanamnese, Interferon-Gamma-Release-Assay und mikrobiologische Aufarbeitung des Exstirpats gehören in die Antwort.',
+        'Bei der Therapie an die LANGZEITFOLGEN denken: Zweitmalignome, Kardiotoxizität, Lungenfibrose, Hypothyreose, Infertilität. Weil das Hodgkin-Lymphom meist geheilt wird, ist die Nachsorge fester Bestandteil der Therapieantwort.',
+        'Vor dem Patienten „malignes Lymphom" übersetzen: eine bösartige Erkrankung der Lymphknoten, der Filterstationen des Abwehrsystems. Vor der Histologie nur von einem VERDACHT sprechen, nicht von Krebs.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was verstehen Sie unter der B-Symptomatik?',
+          antwort: 'Unter B-Symptomatik versteht man die Trias aus ungewolltem Gewichtsverlust von mehr als 10 % des Körpergewichts innerhalb von sechs Monaten, Fieber über 38 Grad Celsius ohne nachweisbaren Infektfokus und Nachtschweiß mit Wechseln der Wäsche. Sie geht in die Ann-Arbor-Klassifikation als Zusatz B ein und verschlechtert die Prognose.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie klinisch eine entzündliche von einer malignen Lymphknotenschwellung?',
+          antwort: 'Der entzündliche Knoten ist druckschmerzhaft, weich bis prall-elastisch, überwärmt, gerötet, gut verschieblich und bildet sich innerhalb von zwei bis vier Wochen zurück. Der maligne Knoten ist schmerzlos, derb bis steinhart, nicht überwärmt, gegenüber Haut und Unterlage fixiert und wächst kontinuierlich über Wochen. Ich prüfe deshalb gezielt die Verschieblichkeit gegen die Haut und gegen den tiefen Untergrund sowie die Hauttemperatur.',
+        },
+        {
+          frage: 'Wie grenzen Sie einen entzündlichen Prozess laborchemisch ab?',
+          antwort: 'Über das Blutbild mit Differenzialblutbild und die Entzündungsparameter. Beim bakteriellen Infekt finden sich eine Leukozytose mit Neutrophilie und ein deutlich erhöhtes CRP. Beim Hodgkin-Lymphom sieht man eher eine Lymphopenie, eine Eosinophilie, eine Anämie der chronischen Erkrankung, eine stark erhöhte Blutkörperchensenkungsgeschwindigkeit und eine erhöhte LDH bei nur mäßigem CRP. Ergänzend Serologien für EBV, CMV, Toxoplasmose, HIV und Hepatitis sowie ein Interferon-Gamma-Release-Assay.',
+        },
+        {
+          frage: 'Welche invasive Diagnostik führen Sie durch — reicht eine Feinnadelpunktion?',
+          antwort: 'Nein. Die Feinnadelpunktion liefert nur einzelne Zellen und erlaubt keine Beurteilung der Lymphknotenarchitektur. Beweisend ist die Exstirpation des gesamten Lymphknotens mit histologischer, immunhistochemischer und molekularpathologischer Aufarbeitung. Sonographisch wähle ich vorher den am besten geeigneten Knoten aus, und aus demselben Präparat lasse ich eine Tuberkulosediagnostik durchführen.',
+        },
+        {
+          frage: 'Was ist histologisch beweisend für das Hodgkin-Lymphom?',
+          antwort: 'Der Nachweis mehrkerniger Sternberg-Reed-Riesenzellen und ihrer einkernigen Vorstufen, der Hodgkin-Zellen, eingebettet in ein reaktives Entzündungsinfiltrat aus Lymphozyten, Eosinophilen, Plasmazellen und Histiozyten. Die Tumorzellen machen nur etwa ein Prozent der Tumormasse aus. Immunhistochemisch sind sie CD30- und CD15-positiv, CD20 meist negativ und PAX5 schwach positiv.',
+        },
+        {
+          frage: 'Erklären Sie mir die Ann-Arbor-Klassifikation.',
+          antwort: 'Stadium I ist der Befall einer Lymphknotenregion, Stadium II der Befall von zwei oder mehr Regionen auf derselben Seite des Zwerchfells, Stadium III der Befall beidseits des Zwerchfells und Stadium IV der diffuse oder disseminierte Befall extralymphatischer Organe. Der Zusatz A bedeutet ohne, B mit B-Symptomatik, E einen lokalisierten Extranodalbefall per continuitatem, X einen Bulk und S einen Milzbefall.',
+        },
+        {
+          frage: 'Was ist der Alkoholschmerz und welchen Stellenwert hat er?',
+          antwort: 'Der Alkoholschmerz ist ein ziehend-brennender Schmerz in den befallenen Lymphknoten wenige Minuten nach Alkoholgenuss. Er tritt bei weniger als zwei Prozent der Patienten auf, ist also selten, gilt aber als nahezu pathognomonisch für das Hodgkin-Lymphom. Patienten berichten ihn fast nie spontan, deshalb muss man gezielt danach fragen.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei einer schmerzlosen Lymphknotenschwellung in Betracht?',
+          antwort: 'Non-Hodgkin-Lymphom, Leukämie, Lymphknotenmetastase eines soliden Tumors, reaktive Lymphadenitis, infektiöse Mononukleose, Toxoplasmose, Lymphknotentuberkulose, HIV-Infektion, Katzenkratzkrankheit, Sarkoidose, medikamenteninduzierte Lymphadenopathie sowie benigne Raumforderungen wie ein Lipom oder eine laterale Halszyste; bei einer Halsschwellung außerdem eine Struma nodosa mit Hyperthyreose.',
+        },
+        {
+          frage: 'Woran denken Sie bei einem linkssupraklavikulären Knoten besonders?',
+          antwort: 'An den Virchow-Lymphknoten. Er ist die Endstation des Ductus thoracicus und damit hochverdächtig auf eine Metastase eines abdominellen Primärtumors, klassischerweise eines Magenkarzinoms, aber auch eines Pankreas-, Kolon-, Ovarial- oder Hodentumors. Deshalb muss trotz Lymphomverdacht aktiv nach einem Primärtumor gesucht werden.',
+        },
+        {
+          frage: 'Welche Untersuchungen müssen vor Beginn der Chemotherapie erfolgen?',
+          antwort: 'Eine Echokardiographie mit Bestimmung der linksventrikulären Ejektionsfraktion wegen der Kardiotoxizität der Anthrazykline, eine Lungenfunktionsprüfung mit Diffusionskapazität wegen der Lungentoxizität des Bleomycins, Hepatitis-B- und -C- sowie HIV-Serologie wegen des Reaktivierungsrisikos, ein Schwangerschaftstest, eine Zahnsanierung und das Fertilitätsgespräch mit Angebot der Kryokonservierung. Außerdem darf vor der Histologie kein Kortison gegeben werden.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Hodgkin-Lymphom?',
+          antwort: 'Stadienadaptiert und in kurativer Absicht. In frühen limitierten Stadien zwei Zyklen ABVD und 20 Gray Involved-Site-Bestrahlung, in frühen intermediären Stadien zwei Zyklen eskaliertes BEACOPP plus zwei Zyklen ABVD und 30 Gray, in fortgeschrittenen Stadien vier bis sechs Zyklen eskaliertes BEACOPP beziehungsweise BrECADD, PET-gesteuert, mit Bestrahlung nur bei PET-positivem Restbefund ab 2,5 Zentimetern. Dazu Supportivtherapie mit Antiemese, Infektprophylaxe und Wachstumsfaktoren.',
+        },
+        {
+          frage: 'Wofür stehen die Abkürzungen ABVD und BEACOPP?',
+          antwort: 'ABVD steht für Adriamycin, also Doxorubicin, Bleomycin, Vinblastin und Dacarbazin. BEACOPP steht für Bleomycin, Etoposid, Adriamycin, Cyclophosphamid, Oncovin also Vincristin, Procarbazin und Prednison.',
+        },
+        {
+          frage: 'Wozu dient das PET-CT, und was ist der Deauville-Score?',
+          antwort: 'Das FDG-PET-CT dient dem initialen Staging, dem Interim-Staging nach zwei Zyklen und der Beurteilung des Therapieansprechens. Der Deauville-Score vergleicht den Uptake der Läsion mit Mediastinum und Leber: Score 1 kein Uptake, Score 2 höchstens wie Mediastinum, Score 3 stärker als Mediastinum aber höchstens wie Leber, Score 4 mäßig stärker als Leber, Score 5 deutlich stärker oder neue Läsionen. Die Scores 1 bis 3 gelten als negativ, 4 und 5 als positiv.',
+        },
+        {
+          frage: 'Welche Langzeitfolgen der Therapie kennen Sie?',
+          antwort: 'Zweitmalignome — akute myeloische Leukämien und myelodysplastische Syndrome nach fünf bis zehn Jahren, solide Tumoren nach zehn bis zwanzig Jahren, insbesondere ein Mammakarzinom nach Mediastinalbestrahlung —, die Kardiotoxizität der Anthrazykline mit Kardiomyopathie, die Lungenfibrose durch Bleomycin, die Hypothyreose nach Halsbestrahlung, Infertilität und vorzeitige Ovarialinsuffizienz sowie ein chronisches Fatigue-Syndrom. Deshalb ist die Nachsorge lebenslang.',
+        },
+        {
+          frage: 'Wie ist die Prognose des Hodgkin-Lymphoms?',
+          antwort: 'Sehr gut. In frühen Stadien werden über 90 Prozent der Patienten geheilt, in fortgeschrittenen Stadien immer noch 80 bis 90 Prozent. Rezidive treten meist in den ersten drei Jahren auf und sind mit Hochdosistherapie und autologer Stammzelltransplantation häufig noch kurativ behandelbar. Die Langzeitmortalität wird heute weniger von der Erkrankung selbst als von den Therapiefolgen bestimmt.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Patienten den Begriff „malignes Lymphom"?',
+          antwort: 'Ein Lymphom ist eine Erkrankung der Lymphknoten — das sind die kleinen Filterstationen unseres Abwehrsystems, die überall im Körper verteilt sind. Maligne heißt bösartig: Bestimmte Abwehrzellen vermehren sich unkontrolliert, dadurch schwellen die Lymphknoten an. Wichtig ist, dass gerade diese Erkrankung in den allermeisten Fällen heilbar ist.',
+        },
+      ],
+      merksatz: 'Schmerzlos, derb, nicht verschieblich und über Wochen wachsend — dazu B-Symptomatik (über 10 % Gewichtsverlust in sechs Monaten, Fieber über 38 °C ohne Fokus, Nachtschweiß mit Wäschewechsel), Juckreiz und Alkoholschmerz: das ist Hodgkin bis zum Beweis des Gegenteils. Beweis nur durch EXSTIRPATION des ganzen Lymphknotens (Sternberg-Reed-Zellen, CD30+/CD15+) — Feinnadelpunktion reicht nicht, Kortison vorher verboten. Stadium nach Ann Arbor, Therapie stadienadaptiert mit ABVD oder BEACOPP plus Involved-Site-Bestrahlung — und vor dem ersten Zyklus immer Echokardiographie, Lungenfunktion und Fertilitätsberatung.',
+      linkedCaseIds: [
+        'case-lymphom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-operation',
+        'auf-feinnadelpunktion',
+        'auf-ct',
+        'auf-sonographie',
+      ],
+    },
   ];
 }
