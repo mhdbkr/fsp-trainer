@@ -215,6 +215,74 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-endo-folgeschaeden', kapitel: 'fach', frage: 'Haben Sie Kribbeln oder Taubheit in den Füßen, Sehverschlechterung oder Probleme mit den Nieren?' },
     { id: 'fach-endo-familie-therapie', kapitel: 'fach', frage: 'Sind Zucker- oder Schilddrüsenerkrankungen in der Familie bekannt? Werden Sie deswegen schon behandelt oder kontrolliert?' },
   ],
+  // Anémie, hémopathies et troubles de la coagulation. La sonde sur les pertes
+  // de sang est décisive : chez la femme réglée et chez le sujet âgé, la cause
+  // d'une anémie ferriprive est une HÉMORRAGIE jusqu'à preuve du contraire.
+  Hämatologie: [
+    { id: 'fach-haem-leistung', kapitel: 'fach', frage: 'Fühlen Sie sich müde und weniger leistungsfähig als früher? Hat man Ihnen gesagt, dass Sie blass aussehen?' },
+    { id: 'fach-haem-belastung', kapitel: 'fach', frage: 'Bekommen Sie bei Anstrengung schneller Luftnot, Herzklopfen oder Schwindel als früher?' },
+    { id: 'fach-haem-blutung', kapitel: 'fach', frage: 'Bekommen Sie leicht blaue Flecken? Haben Sie Nasenbluten, Zahnfleischbluten oder kleine punktförmige Hauteinblutungen bemerkt?' },
+    { id: 'fach-haem-blutverlust', kapitel: 'fach', frage: 'Haben Sie Blut im Stuhl oder schwarzen Stuhlgang bemerkt? Ist Ihre Regelblutung stark oder verlängert?' },
+    { id: 'fach-haem-ernaehrung', kapitel: 'fach', frage: 'Wie ernähren Sie sich — essen Sie Fleisch? Ernähren Sie sich vegetarisch oder vegan?' },
+    { id: 'fach-haem-bsymptomatik', kapitel: 'fach', frage: 'Haben Sie Fieber, Nachtschweiß — so stark, dass Sie die Wäsche wechseln müssen — oder ungewollt Gewicht verloren?' },
+    { id: 'fach-haem-lymphknoten', kapitel: 'fach', frage: 'Haben Sie Schwellungen oder Knoten am Hals, in den Achseln oder in der Leiste getastet?' },
+    { id: 'fach-haem-infekte', kapitel: 'fach', frage: 'Haben Sie in letzter Zeit häufiger Infekte, Fieber oder eine schlechte Wundheilung bemerkt?' },
+    { id: 'fach-haem-knochen', kapitel: 'fach', frage: 'Haben Sie Knochen- oder Rückenschmerzen, die auch in Ruhe und nachts auftreten?' },
+    { id: 'fach-haem-thrombose', kapitel: 'fach', frage: 'Hatten Sie schon einmal eine Thrombose oder Lungenembolie? Sind Blutgerinnungsstörungen in der Familie bekannt?' },
+  ],
+  // Le motif dermatologique se décrit par sa TOPOGRAPHIE et son ÉVOLUTION avant
+  // son aspect : c'est ce qui distingue un eczéma de contact d'un zona ou d'un
+  // exanthème médicamenteux. La sonde « grain de beauté » couvre l'ABCDE.
+  Dermatologie: [
+    { id: 'fach-derma-beginn-ort', kapitel: 'fach', frage: 'Wo hat die Hautveränderung angefangen, und wie hat sie sich seitdem ausgebreitet?' },
+    { id: 'fach-derma-empfinden', kapitel: 'fach', frage: 'Juckt es, brennt es oder tut es weh? Und wann ist es am schlimmsten?' },
+    { id: 'fach-derma-aussehen', kapitel: 'fach', frage: 'Wie sieht die Stelle aus — gerötet, schuppend, mit Bläschen, Knötchen oder nässend? Hat sie sich verändert?' },
+    { id: 'fach-derma-ausloeser', kapitel: 'fach', frage: 'Gab es einen Auslöser — ein neues Medikament, eine neue Creme oder ein Waschmittel, Pflanzen, Sonne oder etwas bei der Arbeit?' },
+    { id: 'fach-derma-verlauf', kapitel: 'fach', frage: 'Tritt das in Schüben auf? Wird es zu bestimmten Jahreszeiten oder im Urlaub besser?' },
+    { id: 'fach-derma-systemisch', kapitel: 'fach', frage: 'Haben Sie dazu Fieber, Gelenkschmerzen oder Veränderungen an Mund, Augen oder im Genitalbereich?' },
+    { id: 'fach-derma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie früher Hautkrankheiten wie Neurodermitis oder Schuppenflechte? Gibt es so etwas in Ihrer Familie?' },
+    { id: 'fach-derma-muttermal', kapitel: 'fach', frage: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?' },
+    { id: 'fach-derma-vorbehandlung', kapitel: 'fach', frage: 'Womit haben Sie die Stelle bisher behandelt, und hat das geholfen?' },
+  ],
+  // Complète la Frauenanamnese générale (règles, grossesse, contraception,
+  // ménopause) : ici on entre dans le motif gynécologique lui-même.
+  Gynäkologie: [
+    { id: 'fach-gyn-blutung', kapitel: 'fach', frage: 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?' },
+    { id: 'fach-gyn-unterbauch', kapitel: 'fach', frage: 'Haben Sie Unterbauchschmerzen? Wo genau, und hängen sie mit Ihrem Zyklus zusammen?' },
+    { id: 'fach-gyn-fluor', kapitel: 'fach', frage: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?' },
+    { id: 'fach-gyn-dyspareunie', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?' },
+    { id: 'fach-gyn-schwangerschaften', kapitel: 'fach', frage: 'Wie viele Schwangerschaften und Geburten hatten Sie? Gab es Fehlgeburten oder Abbrüche?' },
+    { id: 'fach-gyn-kinderwunsch', kapitel: 'fach', frage: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?' },
+    { id: 'fach-gyn-brust', kapitel: 'fach', frage: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?' },
+    { id: 'fach-gyn-vorsorge', kapitel: 'fach', frage: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie? Sind Sie gegen HPV geimpft?' },
+    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert? Nehmen Sie Hormone ein?' },
+  ],
+  // Le rein est longtemps muet : on interroge donc les signes indirects (urine
+  // mousseuse, œdèmes, tension) et les néphrotoxiques, que le patient ne cite
+  // jamais spontanément parce qu'ils sont en vente libre.
+  Nephrologie: [
+    { id: 'fach-nephro-menge', kapitel: 'fach', frage: 'Hat sich die Urinmenge verändert — deutlich weniger oder mehr? Müssen Sie nachts aufstehen?' },
+    { id: 'fach-nephro-aussehen', kapitel: 'fach', frage: 'Wie sieht Ihr Urin aus — schaumig, trüb, rötlich oder cola-farben?' },
+    { id: 'fach-nephro-oedeme', kapitel: 'fach', frage: 'Sind Ihre Augenlider morgens geschwollen oder die Beine abends dick? Haben Sie rasch an Gewicht zugenommen?' },
+    { id: 'fach-nephro-blutdruck', kapitel: 'fach', frage: 'Ist bei Ihnen ein hoher Blutdruck bekannt, und wie ist er eingestellt?' },
+    { id: 'fach-nephro-nephrotoxisch', kapitel: 'fach', frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac ein — und wie oft? Hatten Sie kürzlich eine Untersuchung mit Kontrastmittel?' },
+    { id: 'fach-nephro-uraemie', kapitel: 'fach', frage: 'Haben Sie Juckreiz am ganzen Körper, Übelkeit, Appetitverlust oder einen metallischen Geschmack im Mund?' },
+    { id: 'fach-nephro-infekt', kapitel: 'fach', frage: 'Hatten Sie in den letzten Wochen eine Halsentzündung oder eine Hautinfektion?' },
+    { id: 'fach-nephro-vorgeschichte', kapitel: 'fach', frage: 'Ist eine Nierenerkrankung bei Ihnen oder in Ihrer Familie bekannt — etwa Zystennieren oder eine Dialyse?' },
+  ],
+  // Sondes transversales : la B-Symptomatik et le statut de prise en charge se
+  // demandent quelle que soit la localisation du cancer.
+  Onkologie: [
+    { id: 'fach-onko-bsymptomatik', kapitel: 'fach', frage: 'Haben Sie Fieber ohne Infekt, Nachtschweiß mit Wäschewechsel oder ungewollt Gewicht verloren — wie viel in welcher Zeit?' },
+    { id: 'fach-onko-leistung', kapitel: 'fach', frage: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?' },
+    { id: 'fach-onko-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen, die nachts oder in Ruhe auftreten und allmählich stärker werden?' },
+    { id: 'fach-onko-knoten', kapitel: 'fach', frage: 'Haben Sie irgendwo einen Knoten, eine Schwellung oder eine Verhärtung getastet?' },
+    { id: 'fach-onko-blutung', kapitel: 'fach', frage: 'Haben Sie Blutungen bemerkt — im Stuhl, im Urin, beim Husten oder aus der Scheide?' },
+    { id: 'fach-onko-appetit', kapitel: 'fach', frage: 'Haben Sie Schluckbeschwerden, ein Völlegefühl oder keinen Appetit mehr?' },
+    { id: 'fach-onko-vorbehandlung', kapitel: 'fach', frage: 'Ist bei Ihnen bereits eine Tumorerkrankung bekannt? Wurden Sie operiert, bestrahlt oder mit einer Chemotherapie behandelt?' },
+    { id: 'fach-onko-familie', kapitel: 'fach', frage: 'Gibt es Krebserkrankungen in Ihrer Familie — und in welchem Alter sind die Angehörigen erkrankt?' },
+    { id: 'fach-onko-vorsorge', kapitel: 'fach', frage: 'Nehmen Sie die Vorsorgeuntersuchungen wahr — Darmspiegelung, Mammographie, Hautkrebsscreening?' },
+  ],
 };
 
 // --- Index & helpers --------------------------------------------------------
