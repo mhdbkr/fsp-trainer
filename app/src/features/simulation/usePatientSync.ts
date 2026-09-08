@@ -15,6 +15,7 @@ const CHANNEL = 'fsp-patient-sync';
 export function usePatientBroadcast(caseId: string | undefined) {
   const ref = useRef<BroadcastChannel | null>(null);
   const guideChapter = useSimSession((s) => s.guideChapter);
+  const guideProbe = useSimSession((s) => s.guideProbe);
 
   useEffect(() => {
     if (typeof BroadcastChannel === 'undefined') return;
@@ -26,6 +27,7 @@ export function usePatientBroadcast(caseId: string | undefined) {
         const st = useSimSession.getState();
         if (caseId) ch.postMessage({ type: 'active-case', caseId });
         if (st.guideChapter) ch.postMessage({ type: 'guide-chapter', chapterId: st.guideChapter.chapterId });
+        ch.postMessage({ type: 'guide-probe', probeId: st.guideProbe });
       }
     };
     return () => ch.close();
@@ -39,6 +41,26 @@ export function usePatientBroadcast(caseId: string | undefined) {
   useEffect(() => {
     if (guideChapter && ref.current) ref.current.postMessage({ type: 'guide-chapter', chapterId: guideChapter.chapterId });
   }, [guideChapter]);
+  // La QUESTION précise que le candidat pose → le simulant voit LA ligne, pas
+  // seulement le chapitre (c'est ce qui dit aux deux « où on en est »).
+  useEffect(() => {
+    if (ref.current) ref.current.postMessage({ type: 'guide-probe', probeId: guideProbe });
+  }, [guideProbe]);
+}
+
+/** Côté fenêtre patient : suit la SONDE (question) que le candidat pose. */
+export function useProbeFollow(): string | null {
+  const [probeId, setProbeId] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof BroadcastChannel === 'undefined') return;
+    const ch = new BroadcastChannel(CHANNEL);
+    ch.onmessage = (e) => {
+      if (e.data?.type === 'guide-probe') setProbeId(e.data.probeId ?? null);
+    };
+    ch.postMessage({ type: 'request-active' });
+    return () => ch.close();
+  }, []);
+  return probeId;
 }
 
 /** Côté fenêtre patient : suit le cas actif diffusé (même appareil). */

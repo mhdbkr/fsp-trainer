@@ -1,5 +1,6 @@
 import type { Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
+import { FACH_PROBES } from './anamneseProbes';
 
 // ============================================================================
 // Guide d'anamnèse — Allgemeine Anamnese + Spezielle Anamnese par spécialité.
@@ -42,18 +43,21 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Wie heißen Sie mit vollständigem Namen?',
+        probe: 'pers-name',
         alts: ['Darf ich Ihren vollständigen Namen erfragen?', 'Darf ich Sie bitten, mir Ihren vollständigen Namen mitzuteilen?'],
       },
       {
         text: 'Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?',
+        probe: 'pers-name',
         alts: ['Um Sie korrekt anzusprechen: Buchstabieren Sie das bitte langsam.'],
       },
-      'Wie alt sind Sie? Wann sind Sie geboren?',
-      'Wie groß sind Sie und wie viel wiegen Sie derzeit?',
-      'Was sind Sie von Beruf? Arbeiten Sie mit besonderen Stoffen (Staub, Chemikalien)?',
-      'Haben Sie einen Hausarzt? Wie heißt er / sie?',
+      { text: 'Wie alt sind Sie? Wann sind Sie geboren?', probe: 'pers-alter' },
+      { text: 'Wie groß sind Sie und wie viel wiegen Sie derzeit?', probe: 'pers-groesse' },
+      { text: 'Was sind Sie von Beruf? Arbeiten Sie mit besonderen Stoffen (Staub, Chemikalien)?', probe: 'pers-beruf' },
+      { text: 'Haben Sie einen Hausarzt? Wie heißt er / sie?', probe: 'pers-hausarzt' },
       {
         text: 'Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?',
+        probe: ['pers-name', 'pers-alter', 'pers-groesse'],
         label: 'Technique pro',
       },
     ],
@@ -65,22 +69,27 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Was führt Sie heute zu uns?',
+        probe: 'akt-motiv',
         alts: ['Welche Beschwerden möchten Sie mir schildern?', 'Welche Symptome bringen Sie heute zu uns?'],
       },
       {
         text: 'Ort — Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen, wo es wehtut?',
+        probe: 'akt-ort',
         alts: ['Könnten Sie mir bitte genauer beschreiben, wo Sie die Schmerzen empfinden?'],
       },
       {
         text: 'Beginn — Seit wann haben Sie die Schmerzen? Kamen sie plötzlich oder schleichend?',
+        probe: 'akt-beginn',
         alts: ['Wann haben die Schmerzen begonnen?', 'Haben sich die Schmerzen langsam entwickelt oder kamen sie plötzlich?'],
       },
       {
         text: 'Charakter — Wie fühlt sich der Schmerz an: dumpf, stechend, brennend, drückend, krampfartig, pochend?',
+        probe: 'akt-charakter',
         alts: ['Könnten Sie die Schmerzen genauer beschreiben? Sind sie eher bohrend, ziehend, kribbelnd, scharf, kolikartig oder wellenförmig?'],
       },
       {
         text: 'Intensität — Auf einer Skala von 1 bis 10, wobei 1 leichte und 10 unerträgliche Schmerzen bedeutet: Wie stark sind Ihre Schmerzen?',
+        probe: 'akt-intensitaet',
         followUp: [
           'Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“',
           'Vor jedem Schmerzmittel zuerst fragen: „Gibt es Allergien oder Unverträglichkeiten gegenüber Medikamenten?“',
@@ -88,15 +97,18 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       },
       {
         text: 'Ausstrahlung — Strahlen die Schmerzen aus? Wohin, zum Beispiel in den Arm, den Rücken oder die Schulter?',
+        probe: 'akt-ausstrahlung',
         alts: ['Breiten sich die Schmerzen auf andere Körperregionen aus?', 'Sind die Schmerzen lokalisiert oder eher diffus? Wandern sie?'],
       },
       {
         text: 'Verlauf — Sind die Schmerzen dauerhaft da oder treten sie anfallsartig auf?',
+        probe: 'akt-verlauf',
         followUp: ['Falls anfallsartig: Wie lange dauert eine typische Episode? Wie oft treten die Episoden auf?'],
       },
-      'Auslöser — Gab es etwas Bestimmtes, das die Schmerzen ausgelöst hat? Was taten Sie, als sie begannen?',
+      { text: 'Auslöser — Gab es etwas Bestimmtes, das die Schmerzen ausgelöst hat? Was taten Sie, als sie begannen?', probe: 'akt-ausloeser' },
       {
         text: 'Einflussfaktoren — Gibt es etwas, das die Beschwerden bessert oder verschlimmert (Essen, Bewegung, Atmung, Körperhaltung)?',
+        probe: 'akt-einfluss',
         alts: [
           'Haben Sie festgestellt, dass bestimmte Maßnahmen die Schmerzen lindern oder verschlimmern?',
           'Haben Sie schon Medikamente dagegen probiert? Hat das etwas gebracht?',
@@ -104,9 +116,10 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       },
       {
         text: 'Frühere Episoden — Hatten Sie solche Beschwerden schon einmal?',
+        probe: 'akt-frueher',
         followUp: ['Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?'],
       },
-      'Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?',
+      { text: 'Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?', probe: 'akt-begleit' },
     ],
     tip: 'C\'est le cœur de l\'interrogatoire : creuse chaque dimension (lieu, début, caractère, intensité, irradiation, évolution, déclencheurs, facteurs, épisodes antérieurs, symptômes associés). Merke : « Schmerzen in + Dativ », « Ausstrahlung in + Akkusativ ».',
   },
@@ -116,26 +129,30 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?',
+        probe: 'veg-fieber',
         followUp: [
           'Falls ja: Seit wann? Wie hoch war die Temperatur, und wo gemessen (z. B. im Mund)?',
           'Waren Sie kürzlich im Ausland? Sind Sie regelmäßig geimpft?',
         ],
       },
-      'Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?',
+      { text: 'Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?', probe: 'veg-schuettelfrost' },
       {
         text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
+        probe: 'veg-uebelkeit',
         followUp: ['Falls ja: Können Sie das Erbrochene beschreiben? Seit wann, und wie häufig?'],
       },
       {
         text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?',
+        probe: 'veg-ausscheidung',
         followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
       },
       {
         text: 'Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?',
+        probe: 'veg-gewicht',
         followUp: ['Falls ja: Wie viele Kilogramm, und in welchem Zeitraum?'],
       },
-      'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?',
-      'Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?',
+      { text: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?', probe: 'veg-appetit' },
+      { text: 'Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?', probe: 'veg-schlaf' },
     ],
     tip: 'Une perte de poids involontaire, des sueurs nocturnes et de la fièvre forment ensemble un signal d\'alarme (« B-Symptomatik ») à ne jamais manquer. Merke : « Haben Sie gemessen? » (jamais « gemesst »).',
   },
@@ -149,13 +166,15 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       },
       {
         text: 'Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?',
+        probe: 'vor-erkrank',
         followUp: ['Falls ja: Welche, und seit wann sind sie bekannt? Werden sie behandelt?'],
       },
       {
         text: 'Wurden Sie schon einmal operiert?',
+        probe: 'vor-op',
         followUp: ['Falls ja: Welche Eingriffe wurden durchgeführt, und wann? Traten dabei Komplikationen auf?'],
       },
-      'Waren Sie in letzter Zeit im Krankenhaus?',
+      { text: 'Waren Sie in letzter Zeit im Krankenhaus?', probe: 'vor-krankenhaus' },
     ],
     tip: 'Cite des exemples concrets de maladies chroniques : les patients « habitués » oublient l\'hypertension ou le diabète. Demande toujours les complications opératoires.',
   },
@@ -165,10 +184,11 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?',
+        probe: 'med-regelmaessig',
         followUp: ['Falls ja: Welche, seit wann, in welcher Dosierung und wie oft am Tag?'],
       },
-      'Nehmen Sie Blutverdünner oder Kortison?',
-      'Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?',
+      { text: 'Nehmen Sie Blutverdünner oder Kortison?', probe: 'med-blutverduenner' },
+      { text: 'Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?', probe: 'med-otc' },
     ],
     tip: 'Demande explicitement les anticoagulants et les antalgiques en vente libre (AINS) : fréquents et cliniquement décisifs. Note le schéma en 1-0-1.',
   },
@@ -178,9 +198,10 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?',
+        probe: 'all-allergie',
         followUp: ['Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — Hautausschlag, Atemnot, Kreislaufprobleme?'],
       },
-      'Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?',
+      { text: 'Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?', probe: 'all-unvertraeglich' },
     ],
     tip: 'N\'oublie jamais l\'allergie médicamenteuse : elle conditionne toute prescription — y compris l\'antalgique que tu proposes en début d\'entretien.',
   },
@@ -190,6 +211,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Rauchen Sie?',
+        probe: 'nox-rauchen',
         followUp: [
           'Falls ja: Seit wann, und wie viele Zigaretten ungefähr pro Tag?',
           'Falls aufgehört: Wann haben Sie aufgehört? Wie viele Jahre und wie viel pro Tag davor?',
@@ -197,6 +219,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       },
       {
         text: 'Trinken Sie Alkohol?',
+        probe: 'nox-alkohol',
         followUp: [
           'Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?',
           'Trinken Sie täglich oder nur zu besonderen Anlässen? Wie viel ungefähr pro Woche?',
@@ -204,6 +227,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       },
       {
         text: 'Wie Sie wissen, ist Cannabis inzwischen legalisiert. Daher muss ich Sie aus medizinischen Gründen routinemäßig fragen: Konsumieren Sie Drogen?',
+        probe: 'nox-drogen',
         alts: ['Nehmen Sie Drogen, zum Beispiel Cannabis?'],
       },
     ],
@@ -215,19 +239,22 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     questions: [
       {
         text: 'Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?',
+        probe: 'fam-familie',
         followUp: ['Falls ja: Welche, und seit wann?'],
       },
       {
         text: 'Leben Ihre Eltern noch?',
+        probe: 'fam-eltern',
         followUp: ['Falls verstorben: Woran, und wann? (Avec empathie : „Mein herzliches Beileid.“)'],
       },
-      'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?',
+      { text: 'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?', probe: 'fam-stand' },
       {
         text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
+        probe: 'fam-beruf',
         alts: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
       },
-      'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?',
-      'Haben Sie Haustiere, um die sich jemand kümmern muss?',
+      { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },
+      { text: 'Haben Sie Haustiere, um die sich jemand kümmern muss?', probe: 'fam-haustiere' },
     ],
     tip: 'Le logement (étage, ascenseur) et l\'entourage comptent pour la sortie et l\'autonomie. En cas de deuil récent, marque un temps d\'empathie avant de continuer.',
   },
@@ -235,11 +262,12 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     id: 'frauenanamnese', title: 'Frauenanamnese', subtitle: 'Seulement si patiente', optional: true,
     icon: 'female', keywords: ['Monatsblutung', 'schwanger', 'Regelblutung', 'Verhütungsmethoden', 'Wechseljahre'],
     questions: [
-      'Verläuft Ihre Monatsblutung regelmäßig? Wann war Ihre letzte Regelblutung?',
-      'Besteht die Möglichkeit, dass Sie derzeit schwanger sind?',
-      'Verwenden Sie Verhütungsmethoden? Wenn ja, welche?',
+      { text: 'Verläuft Ihre Monatsblutung regelmäßig? Wann war Ihre letzte Regelblutung?', probe: 'frau-periode' },
+      { text: 'Besteht die Möglichkeit, dass Sie derzeit schwanger sind?', probe: 'frau-schwanger' },
+      { text: 'Verwenden Sie Verhütungsmethoden? Wenn ja, welche?', probe: 'frau-verhuetung' },
       {
         text: 'Falls in den Wechseljahren: Wann hatten Sie Ihre letzte Periode? Gehen Sie regelmäßig zum Frauenarzt?',
+        probe: 'frau-wechseljahre',
       },
     ],
     tip: 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.',
@@ -536,4 +564,33 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
 
 export function getFachanamnese(specialty: Specialty): FachanamneseGuide | undefined {
   return FACHANAMNESEN.find((f) => f.specialty === specialty);
+}
+
+/** Chapitre Fachanamnese POUR LA SIMULATION — généré depuis les SONDES de la
+ *  spécialité, pas depuis le guide rédigé ci-dessus. Raison : le guide rédigé
+ *  et les sondes ont été écrits séparément (appariement lexical ~25 %) ; or ce
+ *  sont les sondes que la fiche patient de chaque cas est tenue de répondre
+ *  (contrat checkProbeCoverage). En affichant leurs questions canoniques, on
+ *  garantit que TOUTE question Fach posée en simulation a sa réplique côté
+ *  simulant — le guide rédigé reste la référence de lecture (page Guides).
+ *  L'id, le titre, l'icône et le conseil sont repris du guide rédigé quand il
+ *  existe, pour ne pas casser l'état des cases cochées. */
+export function fachChapterForSimulation(specialty: Specialty): FachanamneseGuide | undefined {
+  const guide = getFachanamnese(specialty);
+  const probes = FACH_PROBES[specialty];
+  if (!probes || probes.length === 0) return guide;
+  const base = guide?.chapter;
+  return {
+    specialty,
+    icon: guide?.icon ?? 'stethoscope',
+    chapter: {
+      id: base?.id ?? `fach-${specialty.toLowerCase()}`,
+      title: base?.title ?? `Fachanamnese · ${specialty}`,
+      subtitle: base?.subtitle ?? 'Questions spécifiques à la spécialité',
+      icon: base?.icon ?? guide?.icon ?? 'stethoscope',
+      keywords: base?.keywords ?? [],
+      tip: base?.tip,
+      questions: probes.map((pr) => ({ text: pr.frage, probe: pr.id })),
+    },
+  };
 }

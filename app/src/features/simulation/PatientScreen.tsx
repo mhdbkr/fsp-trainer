@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCase } from '@/hooks/useData';
 import { Icon } from '@/components/icons';
-import { usePatientFollow, useChapterFollow } from './usePatientSync';
+import { usePatientFollow, useChapterFollow, useProbeFollow } from './usePatientSync';
 import { guideToRoleKapitel } from '@/lib/rolePlay';
 import { PatientSheetView } from '@/features/cases/PatientSheetView';
 import { ExaminerSheetView } from './ExaminerSheetView';
@@ -19,6 +19,7 @@ export function PatientScreen() {
   const [tab, setTab] = useState<'patient' | 'examinateur'>('patient');
   // Suivi live : le candidat avance dans son guide → la fiche s'aligne.
   const liveChapter = useChapterFollow();
+  const liveProbe = useProbeFollow();
   const [follow, setFollow] = useState(true);
   const followChapterId = follow && liveChapter ? guideToRoleKapitel(liveChapter) : null;
 
@@ -51,7 +52,7 @@ export function PatientScreen() {
       <main className="mx-auto max-w-2xl p-4">
         {c ? (
           tab === 'patient'
-            ? <PatientSheetView sheet={c.patientSheet} followChapterId={followChapterId} />
+            ? <PatientSheetView sheet={c.patientSheet} followChapterId={followChapterId} followProbeId={follow ? liveProbe : null} />
             : <ExaminerSheetView sheet={c.examinerSheet} fallback={c.examinerQuestions} caseName={c.name} caseSpecificQuestions={c.caseSpecificQuestions} />
         ) : (
           <div className="flex h-64 items-center justify-center text-slate-400">Aucun cas actif. Scanne le QR depuis la simulation.</div>

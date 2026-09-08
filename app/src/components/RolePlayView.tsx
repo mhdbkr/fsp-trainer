@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { PatientSheet } from '@/db/types';
 import { buildRollenskript, type RoleChapter, type RoleLine } from '@/lib/rolePlay';
 import { Icon } from '@/components/icons';
@@ -17,8 +17,8 @@ import { Icon } from '@/components/icons';
 
 const stripKein = (s: string) => s.replace(/^kein(e|en|em|er)?\s+/i, '').replace(/,\s*kein(e|en|em|er)?\s+/gi, ', ');
 
-export function RolePlayView({ sheet, followChapterId }: {
-  sheet: PatientSheet; followChapterId?: string | null;
+export function RolePlayView({ sheet, followChapterId, followProbeId }: {
+  sheet: PatientSheet; followChapterId?: string | null; followProbeId?: string | null;
 }) {
   const chapters = useMemo(() => buildRollenskript(sheet), [sheet]);
   const [activeId, setActiveId] = useState<string>(chapters[0]?.id ?? '');
@@ -31,6 +31,14 @@ export function RolePlayView({ sheet, followChapterId }: {
   useEffect(() => {
     if (followChapterId && chapters.some((c) => c.id === followChapterId)) setActiveId(followChapterId);
   }, [followChapterId, chapters]);
+  // Suivi live FIN : la sonde posée → on ouvre son chapitre (la sonde prime
+  // sur le chapitre : une Fach-Frage vit sous « Fachanamnese », pas sous
+  // « Aktuelle Beschwerden » où le candidat la lit).
+  useEffect(() => {
+    if (!followProbeId) return;
+    const ch = chapters.find((c) => c.lines.some((l) => l.probeId === followProbeId));
+    if (ch) setActiveId(ch.id);
+  }, [followProbeId, chapters]);
 
   const active = chapters.find((c) => c.id === activeId) ?? chapters[0];
 
@@ -137,7 +145,7 @@ export function RolePlayView({ sheet, followChapterId }: {
               </div>
             )}
 
-            {pos.length > 0 && <div className="space-y-1.5">{pos.map((line, i) => <Bubble key={i} line={line} />)}</div>}
+            {pos.length > 0 && <div className="space-y-1.5">{pos.map((line, i) => <Bubble key={line.probeId ?? i} line={line} live={!!followProbeId && line.probeId === followProbeId} />)}</div>}
 
             {negs.length > 0 && (
               <div>
@@ -162,10 +170,14 @@ export function RolePlayView({ sheet, followChapterId }: {
 }
 
 // Bulle de réplique : réponse en avant, question en repère discret au-dessus.
-function Bubble({ line }: { line: RoleLine }) {
+// `live` = c'est LA question que le candidat pose en ce moment : liseré brand,
+// défilement en vue — le partenaire sait exactement quoi répondre, et quand.
+function Bubble({ line, live = false }: { line: RoleLine; live?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (live) ref.current?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, [live]);
   return (
-    <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-800/50">
-      {line.frage && <div className="text-[11px] leading-tight text-slate-400">{line.frage}</div>}
+    <div ref={ref} className={`rounded-xl px-3 py-2 transition-[box-shadow,background-color] duration-500 ${live ? 'bg-brand-50 ring-2 ring-brand-400/70 dark:bg-brand-900/25' : 'bg-slate-50 dark:bg-slate-800/50'}`}>
+      {line.frage && <div className={`flex items-center gap-1.5 text-[11px] leading-tight ${live ? 'font-semibold text-brand-600 dark:text-brand-300' : 'text-slate-400'}`}>{live && <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />}{line.frage}</div>}
       <div className="mt-0.5 text-sm font-medium leading-snug text-slate-800 dark:text-slate-100">{line.antwort}</div>
     </div>
   );

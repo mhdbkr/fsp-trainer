@@ -4,6 +4,7 @@ import type { Phrase } from '@/data/guides/phrases';
 import { phraseAlts, phraseText } from '@/data/guides/phrases';
 import { groupFollowUps, type FollowUpGroup } from '@/data/guides/followUp';
 import { GuidedText } from '@/components/GuidedText';
+import { PROBE_BY_ID } from '@/data/guides/anamneseProbes';
 import { Icon } from '@/components/icons';
 
 // ============================================================================
@@ -174,6 +175,42 @@ function Scale({ value, onChange, threshold, theme, size }: {
       {Array.from({ length: 11 }, (_, n) => (
         <button key={n} type="button" aria-pressed={value === n} data-hot={n >= threshold} onClick={() => onChange(value === n ? null : n)}>{n}</button>
       ))}
+    </div>
+  );
+}
+
+// ── Question progressive ─────────────────────────────────────────────────────
+// Une question liée à PLUSIEURS sondes s'égrène : chaque sonde est une étape,
+// avec sa question canonique. Le médecin révèle l'étape suivante quand il l'a
+// posée ; à chaque étape `onStep` remonte la sonde courante (suivi live), donc
+// le simulant voit la réplique de CETTE étape et sait où s'arrêter.
+
+export function ProgressiveSteps({ probes, onStep, theme = 'light', size = 'md' }: {
+  probes: string[]; onStep?: (probeId: string) => void; theme?: ControlTheme; size?: ControlSize;
+}) {
+  const [shown, setShown] = useState(1);
+  const focus = theme === 'focus';
+  const xl = size === 'xl';
+  if (probes.length < 2) return null;
+  const reveal = (n: number) => { setShown(n); onStep?.(probes[n - 1]); };
+  return (
+    <div className={`${xl ? 'mx-auto mt-5 max-w-xl text-left' : 'mt-1.5'}`}>
+      <ol className="space-y-1">
+        {probes.slice(0, shown).map((id, i) => (
+          <li key={id} className={`reveal flex items-start gap-2 rounded-lg px-2 py-1 ${i === shown - 1 ? (focus ? 'bg-brand-900/30' : 'bg-brand-50/70 dark:bg-brand-900/20') : ''}`}>
+            <span className={`mt-0.5 font-mono text-[10px] tabular-nums ${i === shown - 1 ? 'text-brand-500' : focus ? 'text-slate-600' : 'text-slate-400'}`}>{String(i + 1).padStart(2, '0')}</span>
+            <span className={`${xl ? 'text-[15px]' : 'text-[13px]'} ${i === shown - 1 ? (focus ? 'text-slate-100' : 'text-slate-800 dark:text-slate-100') : focus ? 'text-slate-500' : 'text-slate-500 dark:text-slate-400'}`}>{PROBE_BY_ID[id]?.frage ?? id}</span>
+          </li>
+        ))}
+      </ol>
+      {shown < probes.length ? (
+        <button type="button" onClick={() => reveal(shown + 1)}
+          className={`mt-1.5 inline-flex items-center gap-1 rounded-full border font-semibold transition-colors ${xl ? 'px-3.5 py-1.5 text-[12.5px]' : 'px-2.5 py-1 text-[11px]'} ${focus ? 'border-slate-700 bg-slate-800/70 text-brand-300 hover:bg-slate-700' : 'border-brand-200 bg-brand-50 text-brand-700 hover:bg-brand-100 dark:border-brand-900/40 dark:bg-brand-900/20 dark:text-brand-300'}`}>
+          Nächster Teil <span className="font-mono text-[10px] opacity-70">{shown}/{probes.length}</span> <Icon name="chevron" className="h-3 w-3" />
+        </button>
+      ) : (
+        <p className={`mt-1.5 text-[11px] italic ${focus ? 'text-slate-500' : 'text-slate-400'}`}>Alle Teile gestellt.</p>
+      )}
     </div>
   );
 }

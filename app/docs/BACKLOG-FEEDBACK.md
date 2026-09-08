@@ -23,7 +23,7 @@ Zone : `features/simulation/AnamneseGuide.tsx`, `ImmersiveMode.tsx`,
 |---|---|---|---|
 | **FB-A1** | P0 | Les questions affichées sont toujours les mêmes questions standards, quel que soit le profil du patient. Un cas avec des particularités (comorbidité, âge, sexe, contexte) devrait modifier ce qu'on demande. | Pour deux cas de profils distincts, le guide affiche un jeu de questions **différent** là où le profil le justifie (ex. patiente → Frauenanamnese intégrée au bon endroit ; diabétique → sondes de complications ; personne âgée → chutes/autonomie). Les particularités du cas remontent dans le guide. |
 | **FB-A2** | P1 | Des questions d'interrogatoire **se répètent** entre chapitres d'anamnèse. | Aucune question (ou paraphrase évidente) n'apparaît dans deux chapitres d'un même guide. Un script de détection de doublons existe et passe. |
-| **FB-A3** | P0 | Il arrive qu'une question soit dans le guide mais **sans réponse dans la fiche rôle-patient**. Le simulant patient est alors muet. | Contrat : toute question affichée dans le guide a une réponse dans `patientSheet` du cas joué. Vérifié mécaniquement (`checkProbeCoverage` étendu aux questions réellement affichées, pas seulement aux sondes). |
+| **FB-A3** ✅ | P0 | Il arrive qu'une question soit dans le guide mais **sans réponse dans la fiche rôle-patient**. Le simulant patient est alors muet. | Contrat : toute question affichée dans le guide a une réponse dans `patientSheet` du cas joué. Vérifié mécaniquement (`checkProbeCoverage` étendu aux questions réellement affichées, pas seulement aux sondes). |
 
 ## B · Questions conditionnelles et progressives
 
@@ -33,8 +33,8 @@ Zone : `AnamneseGuide.tsx`, `ImmersiveMode.tsx`, `data/guides/phrases.ts`
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
 | **FB-B1** ✅ | P1 | Les variantes conditionnelles (« falls ja », « anfallsartig », « sehr stark »…) sont rendues par une **petite flèche discrète** en dessous — ça n'invite pas à interagir. | Remplacées par des **toggles / boutons** : ja/nein, échelle de douleur 0-10, choix contextuels. Cliquer révèle la suite adaptée. |
-| **FB-B2** | P0 | Les **questions progressives** (plusieurs informations dans une seule question) créent un décalage entre les deux simulants : le médecin ne sait pas où s'arrêter en lisant, le patient ne sait pas où s'arrêter en répondant. | Un composant dédié affiche la question **par étapes** (une sous-question révélée à la fois, contrôlée par le médecin), et la **fiche patient est découpée en miroir** pour que chaque étape ait sa réponse. Normal ET focus (focus = version plus immersive). |
-| **FB-B3** | P1 | Conséquence : la **structure des données** des questions progressives doit être revue côté médecin (guide) *et* côté simulant (fiche), en cohérence. | Un type `ProgressiveQuestion { steps: {frage, antwortKey}[] }` (ou équivalent) remplace les questions concaténées ; les fiches patient stockent une réponse par étape. Migration des cas existants. |
+| **FB-B2** ✅ | P0 | Les **questions progressives** (plusieurs informations dans une seule question) créent un décalage entre les deux simulants : le médecin ne sait pas où s'arrêter en lisant, le patient ne sait pas où s'arrêter en répondant. | Un composant dédié affiche la question **par étapes** (une sous-question révélée à la fois, contrôlée par le médecin), et la **fiche patient est découpée en miroir** pour que chaque étape ait sa réponse. Normal ET focus (focus = version plus immersive). |
+| **FB-B3** ✅ | P1 | Conséquence : la **structure des données** des questions progressives doit être revue côté médecin (guide) *et* côté simulant (fiche), en cohérence. | Un type `ProgressiveQuestion { steps: {frage, antwortKey}[] }` (ou équivalent) remplace les questions concaténées ; les fiches patient stockent une réponse par étape. Migration des cas existants. |
 
 ## C · Variantes de phrases
 

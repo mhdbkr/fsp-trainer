@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { Case } from '@/db/types';
-import { ALLGEMEINE_ANAMNESE, getFachanamnese } from '@/data/guides/anamneseChapters';
+import { ALLGEMEINE_ANAMNESE, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
-import { phraseAlts, phraseFollowUp, phraseLabel, phraseText, type Phrase } from '@/data/guides/phrases';
+import { phraseAlts, phraseFollowUp, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
-import { FollowUpControls, VariantPicker } from '@/components/PhraseControls';
+import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
 
 // ============================================================================
 // Mode focus / immersif — concentre l'attention sur UN chapitre et UNE
@@ -32,7 +32,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   const chapters = useMemo<FocusChapter[]>(() => {
     if (part === 'anamnese') {
       const base = ALLGEMEINE_ANAMNESE.map((ch) => ({ id: ch.id, title: ch.title, icon: ch.icon, items: ch.questions, tip: ch.tip }));
-      const fach = getFachanamnese(c.specialty);
+      const fach = fachChapterForSimulation(c.specialty);
       if (fach) {
         // Fachanamnese juste APRÈS « Aktuelle Beschwerden » (comme dans le guide),
         // pas à la fin : ces questions ciblées se posent tôt dans l'entretien.
@@ -70,6 +70,13 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   // chaque changement d'item : une variante est un choix local à la phrase.
   const [vIdx, setVIdx] = useState(-1);
   useEffect(() => { setVIdx(-1); }, [ci, ii]);
+  // Suivi live par SONDE : la question affichée en focus est, par définition,
+  // celle que le candidat pose → le simulant voit sa réplique s'allumer.
+  useEffect(() => {
+    const item = ii >= 0 ? chapters[ci]?.items[ii] : undefined;
+    useSimSession.getState().setGuideProbe(item ? (phraseProbes(item)[0] ?? null) : null);
+  }, [ci, ii, chapters]);
+  useEffect(() => () => { useSimSession.getState().setGuideProbe(null); }, []);
 
   // Mémorise la position à chaque déplacement (reprise après fermeture).
   useEffect(() => { useSimSession.getState().setFocus({ caseId: c.id, part, ci, ii }); }, [ci, ii, c.id, part]);
@@ -183,6 +190,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
                 {vIdx >= 0 ? phraseAlts(chapter.items[ii])[vIdx] : phraseText(chapter.items[ii])}
               </p>
               <VariantPicker alts={phraseAlts(chapter.items[ii])} idx={vIdx} onSelect={setVIdx} theme="focus" size="xl" />
+              <ProgressiveSteps probes={phraseProbes(chapter.items[ii])} onStep={(p) => useSimSession.getState().setGuideProbe(p)} theme="focus" size="xl" />
               <FollowUpControls raws={phraseFollowUp(chapter.items[ii])} theme="focus" size="xl" />
             </>
           )}

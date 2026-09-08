@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { AssistanceMode, Case } from '@/db/types';
-import { ALLGEMEINE_ANAMNESE, getFachanamnese, type AnamneseChapter } from '@/data/guides/anamneseChapters';
+import { ALLGEMEINE_ANAMNESE, fachChapterForSimulation, type AnamneseChapter } from '@/data/guides/anamneseChapters';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
+import { phraseProbes } from '@/data/guides/phrases';
 import { useSimSession } from '@/store/simSession';
 
 // ============================================================================
@@ -17,8 +18,14 @@ import { useSimSession } from '@/store/simSession';
 // ============================================================================
 
 export function AnamneseGuide({ c, assistance }: { c: Case; assistance: AssistanceMode }) {
-  const fach = getFachanamnese(c.specialty);
+  const fach = fachChapterForSimulation(c.specialty);
   const chapters = ALLGEMEINE_ANAMNESE;
+  // Question « posée » : le médecin clique la question qu'il est en train de
+  // poser → elle s'allume ici et sa réplique s'allume chez le simulant (suivi
+  // live par sonde). C'est ce qui règle le « on ne sait pas où on en est ».
+  const [asked, setAsked] = useState<string | null>(null);
+  const ask = (p: string | null) => { setAsked(p); useSimSession.getState().setGuideProbe(p); };
+  useEffect(() => () => { useSimSession.getState().setGuideProbe(null); }, []);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [hints, setHints] = useState(0);
   const toggle = (id: string) => setChecked((s) => ({ ...s, [id]: !s[id] }));
@@ -78,7 +85,7 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
 
       {chapters.map((ch) => (
         <Fragment key={ch.id}>
-          <ChapterToggle ch={ch} checked={!!checked[ch.id]} onToggle={() => toggle(ch.id)} assistance={assistance}
+          <ChapterToggle ch={ch} checked={!!checked[ch.id]} onToggle={() => toggle(ch.id)} assistance={assistance} asked={asked} onAsk={ask}
             onHint={() => setHints((h) => h + 1)} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
 
           {/* Fachanamnese — juste après « Aktuelle Beschwerden » : ces questions
@@ -89,7 +96,7 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
                 Fachanamnese · {c.specialty}
               </div>
               <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}
-                assistance={assistance} onHint={() => setHints((h) => h + 1)} fachwissenId={c.linkedFachwissenId} tone="violet" />
+                assistance={assistance} asked={asked} onAsk={ask} onHint={() => setHints((h) => h + 1)} fachwissenId={c.linkedFachwissenId} tone="violet" />
             </div>
           )}
         </Fragment>
@@ -98,9 +105,10 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
   );
 }
 
-function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId, tone = 'brand' }: {
+function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId, tone = 'brand', asked = null, onAsk }: {
   ch: AnamneseChapter; checked: boolean; onToggle: () => void; assistance: AssistanceMode;
   onHint: () => void; fachwissenId?: string; tone?: 'brand' | 'violet';
+  asked?: string | null; onAsk?: (p: string | null) => void;
 }) {
   const isAssiste = assistance === 'assiste';
   const [open, setOpen] = useState(isAssiste);       // Assisté : ouvert d'emblée
@@ -135,7 +143,8 @@ function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId
             <>
               <ul className="space-y-1.5 text-sm">
                 {ch.questions.map((q, i) => (
-                  <PhraseLine key={i} phrase={q} keywords={isAssiste ? ch.keywords : []} />
+                  <PhraseLine key={i} phrase={q} keywords={isAssiste ? ch.keywords : []}
+                    active={!!asked && phraseProbes(q).includes(asked)} onAsk={onAsk} />
                 ))}
               </ul>
               {isAssiste && ch.tip && (

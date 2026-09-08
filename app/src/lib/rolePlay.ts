@@ -13,6 +13,7 @@ export interface RoleLine {
   frage?: string;      // question probable du candidat (repère, affiché discret)
   antwort: string;     // réplique en Ich-Form, prête à dire
   negativ?: boolean;   // signe nié → chip « ✗ Nein »
+  probeId?: string;    // sonde d'origine — permet au suivi live de viser LA ligne
 }
 
 export interface RoleChapter {
@@ -91,7 +92,7 @@ export function buildRollenskript(sheet: PatientSheet): RoleChapter[] {
   for (const [probeId, antwort] of Object.entries(sheet.antworten ?? {})) {
     if (!antwort) continue;
     const probe = PROBE_BY_ID[probeId];
-    if (probe) byId.get(probe.kapitel)!.push({ frage: probe.frage, antwort, ord: PROBE_ORDER[probeId] ?? 999 });
+    if (probe) byId.get(probe.kapitel)!.push({ frage: probe.frage, antwort, probeId, ord: PROBE_ORDER[probeId] ?? 999 });
     else byId.get(classifyLine(antwort))!.push({ antwort, ord: 999 }); // id inconnu : on n'écarte pas le contenu
   }
   // 2) Répliques ad-hoc éventuelles (hors checklist) — placées après les sondes.
