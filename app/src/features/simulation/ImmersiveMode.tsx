@@ -23,6 +23,10 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   part: 'anamnese' | 'fallvorstellung'; c: Case; onClose: () => void; initialChapterId?: string;
 }) {
   const openDoctopus = useUi((s) => s.openDoctopus);
+  // Conseils ouverts d'emblée en mode assisté (épargne un clic à chaque
+  // chapitre), fermés en autonome où ils comptent comme un coup de pouce.
+  const assistance = useUi((s) => s.assistance);
+  const tipDefault = assistance === 'assiste';
   const amb = useTimeAmbiance();
   const chapters = useMemo<FocusChapter[]>(() => {
     if (part === 'anamnese') {
@@ -60,7 +64,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   const [ci, setCi] = useState(seed.ci);
   const [ii, setIi] = useState(seed.ii);
   const [flash, setFlash] = useState(false);
-  const [showTip, setShowTip] = useState(false);
+  const [showTip, setShowTip] = useState(tipDefault);
 
   // Mémorise la position à chaque déplacement (reprise après fermeture).
   useEffect(() => { useSimSession.getState().setFocus({ caseId: c.id, part, ci, ii }); }, [ci, ii, c.id, part]);
@@ -72,7 +76,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   const goChapter = (idx: number, startAtIntro = true) => {
     setFlash(true);
     setTimeout(() => setFlash(false), 350);
-    setCi(idx); setIi(startAtIntro ? -1 : chapters[idx].items.length - 1); setShowTip(false);
+    setCi(idx); setIi(startAtIntro ? -1 : chapters[idx].items.length - 1); setShowTip(tipDefault);
   };
 
   const next = () => {

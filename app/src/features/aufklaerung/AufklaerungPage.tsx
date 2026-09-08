@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useAufklaerungen, useCases } from '@/hooks/useData';
 import { AutoLink } from '@/components/AutoLink';
@@ -12,8 +12,8 @@ import type { AufklaerungItem } from '@/db/types';
 // questions du patient en bulles de dialogue. Objectif : apprendre le flow.
 // ============================================================================
 
-type Cat = 'Untersuchung' | 'OP' | 'Therapie';
-const CAT_META: Record<Cat, { icon: string; label: string; cls: string }> = {
+export type Cat = 'Untersuchung' | 'OP' | 'Therapie';
+export const CAT_META: Record<Cat, { icon: string; label: string; cls: string }> = {
   Untersuchung: { icon: 'stethoscope', label: 'Untersuchung', cls: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300' },
   OP: { icon: 'syringe', label: 'OP', cls: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300' },
   Therapie: { icon: 'pill', label: 'Therapie', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' },
@@ -150,6 +150,22 @@ function FlowExplorer() {
 
 function AufkCard({ item, defaultOpen }: { item: AufklaerungItem; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen ?? false);
+  // Deep-link (`?open=id`) : la carte s'ouvrait déjà, mais la page restait en
+  // haut et l'utilisateur devait la chercher à la main. On défile jusqu'à elle
+  // et on la signale par un liseré qui s'éteint seul — l'œil sait où regarder.
+  const ref = useRef<HTMLDivElement>(null);
+  const [spot, setSpot] = useState(!!defaultOpen);
+  useEffect(() => {
+    if (!defaultOpen || !ref.current) return;
+    // Petit délai : le contenu ouvert doit s'être posé avant de défiler, sinon
+    // la hauteur finale n'est pas connue et on s'arrête trop haut.
+    // Même règle que le CSS de l'app : sous prefers-reduced-motion, on saute
+    // directement à la carte au lieu d'y glisser.
+    const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    const t1 = window.setTimeout(() => ref.current?.scrollIntoView({ behavior, block: 'start' }), 80);
+    const t2 = window.setTimeout(() => setSpot(false), 2400);
+    return () => { window.clearTimeout(t1); window.clearTimeout(t2); };
+  }, [defaultOpen]);
   const cases = useCases();
   const b = item.blocks;
   const linked = (cases ?? []).filter((c) => item.linkedCaseIds.includes(c.id));
@@ -159,7 +175,7 @@ function AufkCard({ item, defaultOpen }: { item: AufklaerungItem; defaultOpen?: 
   };
 
   return (
-    <div className={`card overflow-hidden transition-shadow ${open ? 'shadow-md' : ''}`}>
+    <div ref={ref} className={`card scroll-mt-20 overflow-hidden transition-shadow duration-700 ${open ? 'shadow-md' : ''} ${spot ? 'ring-2 ring-brand-400/70' : 'ring-0 ring-transparent'}`}>
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50">
         <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${cat.cls}`}><Icon name={cat.icon} className="h-5 w-5" /></span>
         <span className="min-w-0 flex-1">
@@ -170,7 +186,7 @@ function AufkCard({ item, defaultOpen }: { item: AufklaerungItem; defaultOpen?: 
       </button>
 
       {open && (
-        <div className="border-t border-slate-100 px-4 py-4 dark:border-slate-800">
+        <div className="reveal border-t border-slate-100 px-4 py-4 dark:border-slate-800">
           {/* Timeline des 7 étapes */}
           <ol className="relative space-y-3 before:absolute before:left-[15px] before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-slate-200 dark:before:bg-slate-700">
             {FLOW_STEPS.map((s, i) => (

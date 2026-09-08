@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
-import { useCase } from '@/hooks/useData';
+import { useCase, useAufklaerungen } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { useProfiles } from '@/store/profile';
 import { useSimSession } from '@/store/simSession';
@@ -22,6 +22,7 @@ import { usePatientBroadcast, patientUrl, patientUrlIsOnline, localPatientUrl } 
 import { Icon } from '@/components/icons';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
+import { CAT_META } from '@/features/aufklaerung/AufklaerungPage';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
@@ -454,20 +455,71 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen }: {
 }
 
 function AufklaerungArea({ c }: { c: Case }) {
+  const all = useAufklaerungen() ?? [];
+  // Les actes LIÉS au cas d'abord, en vraies cartes : c'est ce que le jury va
+  // demander. Les autres restent accessibles, mais en second plan — avant, la
+  // zone n'affichait que des ids bruts (« gastroskopie ») en petits chips, et
+  // la page paraissait vide.
+  const linked = all.filter((a) => c.probableAufklaerungIds.includes(a.id));
+  const others = all.filter((a) => !c.probableAufklaerungIds.includes(a.id));
+  const firstSentence = (t: string) => (t.match(/^[^.!?]+[.!?]/)?.[0] ?? t).trim();
+
   return (
-    <div className="card p-5">
-      <div className="mb-2 flex items-center gap-2">
-        <Icon name="bolt" className="h-5 w-5 text-amber-500" />
-        <div className="label">Aufklärung à la demande</div>
+    <div className="space-y-4">
+      <div className="card card-accent p-5 pl-6">
+        <div className="flex items-start gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300"><Icon name="bolt" className="h-5 w-5" /></span>
+          <div className="min-w-0">
+            <div className="eyebrow">Aufklärung à la demande</div>
+            <h2 className="mt-1 font-display text-[17px] font-semibold tracking-tightish">« Klären Sie den Patienten auf. »</h2>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le jury t'interrompt. Ouvre l'acte concerné : tu arrives directement sur sa trame en 7 étapes, explique à voix haute, gère les questions du patient, puis évalue-toi.</p>
+          </div>
+        </div>
       </div>
-      <p className="text-sm text-slate-500 dark:text-slate-400">
-        Le jury t'interrompt : « Klären Sie den Patienten auf. » Suis la trame en 7 blocs — ouvre l'acte concerné ci-dessous, explique à voix haute, gère les questions, puis évalue-toi.
-      </p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {c.probableAufklaerungIds.map((id) => (
-          <Link key={id} to={`/aufklaerung?open=${id}`} className="chip bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-clipboard" className="h-3.5 w-3.5" />{id.replace('auf-', '')}</Link>
-        ))}
-      </div>
+
+      {linked.length > 0 && (
+        <div>
+          <div className="label mb-2">Probable pour ce cas</div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {linked.map((a) => {
+              const cat = CAT_META[a.category];
+              return (
+                <Link key={a.id} to={`/aufklaerung?open=${a.id}`}
+                  className="card card-interactive group flex flex-col gap-2.5 p-4">
+                  <div className="flex items-center gap-3">
+                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${cat.cls}`}><Icon name={cat.icon} className="h-5 w-5" /></span>
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate font-semibold">{a.name}</div>
+                      <div className="mt-0.5 flex items-center gap-1.5">
+                        <span className={`chip py-0 text-[10px] ${cat.cls}`}>{cat.label}</span>
+                        {a.shortName && <span className="mono-tag">{a.shortName}</span>}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-[13px] leading-relaxed text-slate-600 dark:text-slate-300">{firstSentence(a.blocks.warum)}</p>
+                  <span className="mt-auto inline-flex items-center gap-1 text-[12.5px] font-semibold text-brand-600 transition-transform group-hover:translate-x-0.5 dark:text-brand-300">Ouvrir la trame <Icon name="chevron" className="h-3.5 w-3.5" /></span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {others.length > 0 && (
+        <div>
+          <div className="label mb-2">{linked.length ? 'Autres actes' : 'Tous les actes'}</div>
+          <div className="flex flex-wrap gap-2">
+            {others.map((a) => {
+              const cat = CAT_META[a.category];
+              return (
+                <Link key={a.id} to={`/aufklaerung?open=${a.id}`} className="chip bg-slate-100 text-slate-700 hover:bg-brand-100 hover:text-brand-800 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-brand-900/40">
+                  <Icon name={cat.icon} className="h-3.5 w-3.5 opacity-70" />{a.shortName ?? a.name}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

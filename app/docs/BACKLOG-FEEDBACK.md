@@ -53,7 +53,7 @@ Zone : `AnamneseGuide.tsx`, `ImmersiveMode.tsx` (showTip).
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-D1** | P2 | Les conseils sont fermés, il faut cliquer. | **Ouverts par défaut en mode assisté**, fermés en mode autonome. L'état respecte `assistance`. |
+| **FB-D1** ✅ | P2 | Les conseils sont fermés, il faut cliquer. | **Ouverts par défaut en mode assisté**, fermés en mode autonome. L'état respecte `assistance`. |
 
 ## E · Prise de notes en mode focus
 
@@ -70,8 +70,8 @@ routing.
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-F1** | P1 | Depuis un cas, cliquer Aufklärung ouvre une page **quasi vide / mal disposée**. | La page met en valeur les Aufklärung **liées au cas** (probableAufklaerungIds) en premier, puis les autres. |
-| **FB-F2** | P0 | Le bouton d'une Aufklärung envoie **en début de la page** Aufklärung, il faut chercher l'examen à la main. | Le lien mène **exactement** à l'examen visé, section **ouverte**, avec **défilement animé** jusqu'à elle et animation d'ouverture (ancre + état ouvert + `scrollIntoView` smooth). |
+| **FB-F1** ✅ | P1 | Depuis un cas, cliquer Aufklärung ouvre une page **quasi vide / mal disposée**. | La page met en valeur les Aufklärung **liées au cas** (probableAufklaerungIds) en premier, puis les autres. |
+| **FB-F2** ✅ | P0 | Le bouton d'une Aufklärung envoie **en début de la page** Aufklärung, il faut chercher l'examen à la main. | Le lien mène **exactement** à l'examen visé, section **ouverte**, avec **défilement animé** jusqu'à elle et animation d'ouverture (ancre + état ouvert + `scrollIntoView` smooth). |
 
 ## G · Page pré-simulation
 
