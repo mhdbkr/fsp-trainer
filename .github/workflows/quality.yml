@@ -1,0 +1,70 @@
+name: Qualité — contrats de contenu & build
+
+# ============================================================================
+# LA COUCHE GRATUITE. Tout ce qui est vérifiable SANS jugement tourne ici, à
+# chaque push : les contrats de contenu, les types, le build. Aucun agent n'est
+# payé pour faire ce qu'un script fait mieux et pour rien.
+#
+# Leçon des lots 5 à 12 : les agents de vérification échouaient une fois sur
+# deux (limites de session, veille machine) et cela n'a JAMAIS bloqué un lot —
+# le gate déterministe attrapait tout ce qui comptait, y compris deux erreurs
+# médicales bloquantes. Les agents de jugement (.claude/agents/) n'interviennent
+# qu'APRÈS ce gate, et seulement sur ce qu'un script ne peut pas trancher.
+# ============================================================================
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  contrats:
+    name: Contrats de contenu
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+
+      # Chaque validateur sort en code ≠ 0 s'il trouve un manquement : le job
+      # échoue de lui-même, pas besoin de parser la sortie.
+      - name: Couverture des sondes d'anamnèse
+        run: node scripts/checkProbeCoverage.mjs
+      - name: Couverture des chapitres Muster
+        run: node scripts/checkMusterCoverage.mjs
+      - name: Cohérence chiffrée des cas
+        run: node scripts/checkCaseCoherence.mjs
+      - name: Contrat guide ↔ fiche patient
+        run: node scripts/checkGuideCoverage.mjs
+
+      # Informatifs : ils signalent des faiblesses de contenu (DD non
+      # neutralisées, recouvrements de sondes) sans bloquer la livraison.
+      - name: Cohésion clinique (informatif)
+        run: node scripts/checkCaseCohesion.mjs || true
+      - name: Recouvrement des sondes (informatif)
+        run: node scripts/checkProbeOverlap.mjs || true
+
+  build:
+    name: Types & build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build

@@ -5718,6 +5718,9 @@ export function seedCases(): Case[] {
           'kaum sportliche Aktivität, viel Bildschirmarbeit',
         ],
         antworten: {
+          'fach-neuro-aura': 'Nein, es kam nicht plötzlich wie ein Schlag. Das Kribbeln hat ganz schleichend angefangen und ist über Wochen langsam mehr geworden. Lichtblitze oder Zickzacklinien hatte ich keine.',
+          'fach-neuro-autonom': 'Nein, davon habe ich nichts bemerkt — kein Tränen, keine verstopfte Nase, kein hängendes Lid. Nur die Augenschmerzen bei Bewegung damals, als das Sehen auf dem rechten Auge schlechter war.',
+          'fach-neuro-anfallzeichen': 'Nein, ich war nie weg oder verwirrt. Ich erinnere mich an alles. Ich habe mir nie auf die Zunge gebissen, und Urin ist dabei nie unwillkürlich abgegangen.',
           'pers-name': 'Gabriela Hubert. H-u-b-e-r-t.',
           'pers-alter': 'Ich bin 34 Jahre alt.',
           'pers-groesse': 'Ich bin 1,68 m groß und wiege 62 Kilo.',
@@ -6649,6 +6652,9 @@ export function seedCases(): Case[] {
           'betreut derzeit vermehrt die Enkel (Schulschließungen), erhöhter Stress',
         ],
         antworten: {
+          'fach-neuro-aura': 'Nein, Vorboten gab es keine. Das kam heute Vormittag ganz plötzlich, von einer Minute auf die andere — ich wollte die Tasse nehmen, und der Arm war einfach schwach. Lichtblitze oder Zickzacklinien habe ich nicht gesehen.',
+          'fach-neuro-autonom': 'Nein, mit den Augen und der Nase ist alles wie immer. Kein Tränen, keine verstopfte Nase, das Lid hängt nicht — nur der Mundwinkel links hängt.',
+          'fach-neuro-anfallzeichen': 'Nein, bewusstlos war ich nicht, ich weiß alles noch genau. Ich habe mich nicht verletzt, ich hatte keinen Zungenbiss, und Urin ist nicht abgegangen.',
           'pers-name': 'Arnd Kartmann. K-a-r-t-m-a-n-n.',
           'pers-alter': 'Ich bin 79 Jahre alt.',
           'pers-groesse': 'Ich bin 1,76 m groß und wiege 78 Kilo.',
@@ -9870,6 +9876,9 @@ export function seedCases(): Case[] {
           'die Attacken kommen auffällig oft am Samstag, also nach den anstrengenden Arbeitstagen',
         ],
         antworten: {
+          'fach-neuro-aura': 'Ja, das kenne ich genau: Etwa zwanzig bis dreißig Minuten bevor die Kopfschmerzen anfangen, sehe ich ein Flimmern und wandernde Zickzacklinien im rechten Gesichtsfeld. Danach geht das wieder ganz weg, und dann kommt der Kopfschmerz. Kribbeln in den Fingern oder im Gesicht habe ich dabei nicht.',
+          'fach-neuro-autonom': 'Nein, mein Auge tränt nicht, die Nase ist frei, und das Augenlid hängt auch nicht. Ich bin nur extrem lichtempfindlich und ziehe mich am liebsten ins abgedunkelte Zimmer zurück.',
+          'fach-neuro-anfallzeichen': 'Nein, ich bin die ganze Zeit bei vollem Bewusstsein und erinnere mich an alles. Ich habe mich nie verletzt, ich hatte keinen Zungenbiss, und es ist auch nie unwillkürlich Urin abgegangen.',
           'pers-name': 'Elke Kovermann. K-o-v-e-r-m-a-n-n. Entschuldigen Sie, dass ich so schnell rede, mir tut der Kopf so weh.',
           'pers-alter': 'Ich bin 39 Jahre alt.',
           'pers-groesse': 'Ich bin 1,68 m groß und wiege 64 Kilo. Mein Gewicht ist seit Jahren gleich.',

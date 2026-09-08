@@ -96,9 +96,9 @@ Zone : store `ui` (layer), `lib/scoring.ts`, `features/stats/*`,
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-I1** | — | Mehdi n'a pas l'œil pour tout repérer ; il veut une **équipe virtuelle d'agents** aux rôles et skills distincts, dans un **organigramme adapté à une app médicale**, qui communiquent pour améliorer l'app en continu. | Un document d'organisation (rôles, responsabilités, canaux, rituels) + des définitions d'agents exécutables. Voir `docs/AGENTIC-TEAM.md` (à créer). |
-| **FB-I2** | — | Missions de l'équipe : tester, détecter anomalies et bugs, signaler la rédaction excessive ou le contenu inadapté, optimiser le front. | Chaque mission a un agent responsable et un livrable vérifiable. |
-| **FB-I3** | — | Préparer la **production** : publication, financement, déploiement en ligne après la fin du développement. | Feuille de route production distincte du développement produit. |
+| **FB-I1** ✅ | — | Mehdi n'a pas l'œil pour tout repérer ; il veut une **équipe virtuelle d'agents** aux rôles et skills distincts, dans un **organigramme adapté à une app médicale**, qui communiquent pour améliorer l'app en continu. | Un document d'organisation (rôles, responsabilités, canaux, rituels) + des définitions d'agents exécutables. Livré : `app/docs/AGENTIC-TEAM.md` + 5 agents dans `.claude/agents/`. |
+| **FB-I2** ✅ | — | Missions de l'équipe : tester, détecter anomalies et bugs, signaler la rédaction excessive ou le contenu inadapté, optimiser le front. | Chaque mission a un agent responsable et un livrable vérifiable. |
+| **FB-I3** ✅ | — | Préparer la **production** : publication, financement, déploiement en ligne après la fin du développement. | Livré : `app/docs/ROADMAP-PRODUCTION.md`. |
 
 ---
 
