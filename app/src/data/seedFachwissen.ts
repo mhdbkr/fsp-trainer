@@ -45,27 +45,47 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
+          label: 'Kausale Therapie und Basismaßnahmen (Alkoholabstinenz, Ernährung, Noxenkarenz)',
           items: [
-            'Absolute Alkoholabstinenz (kausal bei alkoholischer Genese)',
-            'Behandlung der Grundkrankheit (antivirale Therapie bei Hepatitis)',
-            'Aszites: Kochsalzrestriktion, Spironolacton + Schleifendiuretika',
-            'Ösophagusvarizen: nicht-selektive Betablocker zur Prophylaxe',
-            'Hepatische Enzephalopathie: Lactulose, Rifaximin, Eiweißmodulation',
+            'Behandlung der Grundkrankheit als einzige krankheitsmodifizierende Maßnahme: absolute Alkoholkarenz bei alkoholischer Genese, antivirale Therapie bei Hepatitis B (Entecavir, Tenofovir) und C (direkt wirkende antivirale Substanzen), Aderlass bei Hämochromatose, Immunsuppression bei Autoimmunhepatitis, Gewichtsreduktion bei MASH',
+            'Qualifizierte Entzugsbehandlung, Suchtberatung und psychotherapeutische Anbindung; Baclofen ist das bei Leberzirrhose am besten untersuchte Anti-Craving-Präparat',
+            'Ernährung: 1,2–1,5 g Eiweiß/kg KG und 30–35 kcal/kg KG täglich, Spätmahlzeit zur Nacht gegen die katabole Stoffwechsellage — eine Eiweißrestriktion ist obsolet',
+            'Substitution von Thiamin, Folsäure, Zink und Vitamin D; Osteoporoseprophylaxe',
+            'Vermeidung hepato- und nephrotoxischer Substanzen: kein Paracetamol über 2 g/d, keine NSAR (Nierenversagen, Blutungsrisiko), Zurückhaltung bei Sedativa und Benzodiazepinen',
+            'Impfungen gegen Hepatitis A und B, Influenza und Pneumokokken',
           ],
         },
         {
-          label: 'Interventionell',
+          label: 'Aszitestherapie im Stufenschema (Kochsalzrestriktion, Diuretika, Parazentese, TIPS)',
           items: [
-            'Endoskopische Varizenligatur / Sklerosierung',
-            'TIPS (transjugulärer intrahepatischer portosystemischer Shunt) bei refraktärem Aszites/Varizen',
-            'Therapeutische Aszitespunktion (mit Albumingabe)',
+            'Basis: Kochsalzrestriktion auf etwa 5 g NaCl täglich; Trinkmengenbeschränkung nur bei Hyponatriämie unter 125 mmol/l',
+            'Stufe 1: Spironolacton 100 mg täglich, Steigerung bis maximal 400 mg; bei unzureichender Wirkung Kombination mit Furosemid (Verhältnis 100 : 40)',
+            'Steuerungsgröße ist das tägliche Gewicht: maximal 500 g Gewichtsverlust pro Tag ohne periphere Ödeme, bis 1 kg mit Ödemen; engmaschige Kontrolle von Kalium, Natrium und Kreatinin',
+            'Stufe 2 bei gespanntem oder diuretikarefraktärem Aszites: therapeutische Parazentese; ab 5 Litern Punktatmenge Albumingabe 6–8 g pro Liter zur Vermeidung des Post-Parazentese-Kreislaufversagens',
+            'Stufe 3: TIPS (transjugulärer intrahepatischer portosystemischer Shunt) bei rezidivierendem oder refraktärem Aszites — Kontraindikationen: manifeste hepatische Enzephalopathie, Rechtsherzinsuffizienz, deutlich erhöhtes Bilirubin',
+            'Diagnostische Punktion bei Erstmanifestation und bei jeder Verschlechterung: Zellzahl, Eiweiß, Kultur in Blutkulturflaschen — ab 250 neutrophilen Granulozyten/µl liegt eine spontan bakterielle Peritonitis vor',
+            'Bei refraktärem Aszites oder Hypotonie Betablocker, ACE-Hemmer/Sartane und NSAR absetzen',
           ],
         },
         {
-          label: 'Chirurgisch',
+          label: 'Prophylaxe und Therapie der Dekompensationskomplikationen (Varizen, SBP, Enzephalopathie, hepatorenales Syndrom)',
           items: [
-            'Lebertransplantation (einzige kurative Option im Endstadium)',
+            'Ösophagusvarizen: Screening-ÖGD bei Diagnosestellung; Primärprophylaxe ab Grad II mit nicht-selektivem Betablocker (Propranolol, Carvedilol) oder endoskopischer Gummibandligatur',
+            'Akute Varizenblutung: Terlipressin, Antibiotikaprophylaxe mit Ceftriaxon, endoskopische Ligatur innerhalb von 12 Stunden; anschließend Sekundärprophylaxe mit Ligaturprogramm plus Betablocker',
+            'Spontan bakterielle Peritonitis: Cephalosporin der 3. Generation über 5–7 Tage plus Albumin 1,5 g/kg an Tag 1 und 1 g/kg an Tag 3 zur Prävention des hepatorenalen Syndroms, danach Sekundärprophylaxe mit Norfloxacin oder Ciprofloxacin',
+            'Hepatische Enzephalopathie: zuerst Auslöser suchen und beseitigen (Blutung, Infekt, Obstipation, Elektrolytstörung, Sedativa, Diuretika); Lactulose mit dem Ziel von 2–3 weichen Stühlen täglich, bei Rezidiven zusätzlich Rifaximin 2 × 550 mg',
+            'Hepatorenales Syndrom: Diuretika und Nephrotoxine absetzen, Terlipressin plus Albumin, Nierenersatzverfahren nur als Brücke zur Transplantation',
+            'HCC-Früherkennung: Sonographie alle 6 Monate, ggf. mit Alpha-Fetoprotein',
+          ],
+        },
+        {
+          label: 'Lebertransplantation und Verlaufsbeurteilung (Child-Pugh, MELD)',
+          items: [
+            'Einzige kurative Option im Endstadium; Listung und Priorisierung nach MELD-Score (Bilirubin, Kreatinin, INR), Transplantationsdringlichkeit in der Regel ab MELD ≥ 15',
+            'Indikationen: dekompensierte Zirrhose Child B/C, refraktärer Aszites, rezidivierende SBP, hepatorenales Syndrom, therapierefraktäre Enzephalopathie, hepatozelluläres Karzinom innerhalb der Mailand-Kriterien',
+            'Bei alkoholischer Genese in der Regel Voraussetzung: dokumentierte Abstinenz über 6 Monate mit suchtmedizinischer Begleitung',
+            'Kontraindikationen: fortgesetzter Alkohol- oder Drogenkonsum, extrahepatische Malignome, floride Sepsis, schwere kardiopulmonale Begleiterkrankungen',
+            'Verlaufsbeurteilung mit dem Child-Pugh-Score (Bilirubin, Albumin, Quick/INR, Aszites, Enzephalopathie) — er bestimmt Prognose und Operabilität',
           ],
         },
       ],
@@ -133,24 +153,46 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
-          items: [
-            'Akut: Ruhe, Nitroglycerin, O2 bei Hypoxie',
-            'Risikofaktoren-Management (Blutdruck, Diabetes, Nikotinkarenz)',
-            'Medikamentös: ASS, Statin, Betablocker, ggf. Ca-Antagonist / Langzeitnitrat',
-          ],
+          label: 'Kupierung des Angina-pectoris-Anfalls',
           akut: true,
-        },
-        {
-          label: 'Interventionell',
           items: [
-            'PTCA (Ballondilatation) mit Stentimplantation',
+            'Sofortiger Belastungsabbruch, körperliche Ruhe, Oberkörper hoch, beruhigen; Sauerstoffgabe nur bei SpO₂ unter 90 %',
+            'Nitroglycerin 0,4–0,8 mg sublingual als Spray oder Zerbeißkapsel, Wiederholung nach 5 Minuten möglich — Kontraindikationen: systolischer Blutdruck unter 90 mmHg, PDE-5-Hemmer in den letzten 24–48 Stunden, hypertrophe obstruktive Kardiomyopathie, hochgradige Aortenklappenstenose',
+            'Anwendung immer im Sitzen wegen der Gefahr der orthostatischen Synkope; typische Nebenwirkung Kopfschmerz',
+            'Sistieren die Beschwerden nach zwei Nitrogaben und 20 Minuten Ruhe nicht, ist ein akutes Koronarsyndrom anzunehmen: 12-Kanal-EKG, Troponin, ASS 150–300 mg, Heparin, Notarzt und sofortige Klinikeinweisung',
+            'Patientenschulung: Nitropräparat immer mitführen, Notfallausweis, Verhalten bei Anfall schriftlich mitgeben',
           ],
         },
         {
-          label: 'Chirurgisch',
+          label: 'Prognoseverbessernde Basistherapie (Risikofaktoren, Thrombozytenaggregationshemmung, Statin)',
           items: [
-            'Aortokoronare Bypass-Operation (ACVB) bei Mehrgefäß-/Hauptstammbefall',
+            'Acetylsalicylsäure 100 mg täglich lebenslang; bei Unverträglichkeit Clopidogrel 75 mg',
+            'Statin unabhängig vom Ausgangswert: LDL-Zielwert unter 55 mg/dl und mindestens 50 % Reduktion (z. B. Atorvastatin 40–80 mg); bei Nichterreichen Ezetimib, danach PCSK9-Hemmer',
+            'ACE-Hemmer beziehungsweise Sartan bei Hypertonie, Diabetes mellitus, Herzinsuffizienz oder eingeschränkter linksventrikulärer Funktion',
+            'Konsequente Risikofaktorenkontrolle: absolute Nikotinkarenz, Blutdruck unter 130/80 mmHg, HbA1c unter 7 % (bei Typ-2-Diabetes bevorzugt SGLT2-Hemmer oder GLP-1-Rezeptoragonisten), Gewichtsreduktion, mediterrane Kost',
+            'Strukturiertes Ausdauertraining 3–5 × pro Woche 30 Minuten, Herzsportgruppe, Rehabilitation; Influenza-Impfung',
+          ],
+        },
+        {
+          label: 'Antianginöse Dauertherapie zur Symptomkontrolle',
+          items: [
+            'Erste Wahl Betablocker (z. B. Metoprololsuccinat 47,5–95 mg oder Bisoprolol 5 mg) mit Ziel-Ruhefrequenz 55–60/min — senkt den myokardialen Sauerstoffverbrauch',
+            'Kalziumantagonisten alternativ oder in Kombination: Amlodipin; bei Betablocker-Kontraindikation Verapamil oder Diltiazem — diese NIE mit einem Betablocker kombinieren (Bradykardie, AV-Block)',
+            'Zweite Linie: langwirksame Nitrate (Isosorbidmononitrat) mit nitratfreiem Intervall von 8–12 Stunden gegen die Toleranzentwicklung, alternativ Molsidomin für die Nacht',
+            'Weitere Optionen bei unzureichender Kontrolle: Ivabradin (nur bei Sinusrhythmus und Frequenz über 70/min), Ranolazin, Nicorandil',
+            'Bei vasospastischer Angina (Prinzmetal) sind Kalziumantagonisten und Nitrate Mittel der Wahl, Betablocker dagegen ungünstig',
+            'Verlaufsbeurteilung anhand der CCS-Klasse, der Anfallshäufigkeit und des Nitroverbrauchs',
+          ],
+        },
+        {
+          label: 'Revaskularisation: PCI oder Bypass — Indikation und Verfahrenswahl',
+          items: [
+            'Indikation: trotz optimaler medikamentöser Therapie persistierende Angina, großes Ischämieareal in der Funktionsdiagnostik oder prognostisch relevante Stenosen (Hauptstamm, proximale RIVA, Dreigefäßerkrankung mit eingeschränkter LV-Funktion)',
+            'Koronarangiographie mit funktioneller Beurteilung intermediärer Stenosen (FFR/iFR); als hämodynamisch relevant gelten etwa 70 % Durchmesserstenose, am Hauptstamm bereits 50 %',
+            'PTCA mit medikamentenbeschichtetem Stent (DES) bevorzugt bei Ein- und Zweigefäßerkrankung, kurzstreckigen Stenosen und hohem Operationsrisiko',
+            'Nach Stentimplantation duale Plättchenhemmung mit ASS plus Clopidogrel über 6 Monate bei stabiler KHK (verkürzt bei hohem Blutungsrisiko), danach ASS als Dauertherapie — Stentthrombose bei vorzeitigem Absetzen',
+            'Aortokoronare Bypass-Operation (ACVB, bevorzugt A. mammaria interna auf den RIVA): bei Hauptstammstenose, Dreigefäßerkrankung mit hohem SYNTAX-Score, Diabetes mellitus und bei ohnehin geplantem Klappeneingriff — Entscheidung im Herzteam',
+            'Nachsorge: Anschlussheilbehandlung, Belastungsuntersuchung im Verlauf, keine erneute Intervention ohne Ischämienachweis; die Revaskularisation ersetzt nicht die Basistherapie',
           ],
         },
       ],
@@ -200,25 +242,46 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
+          label: 'Basistherapie der ersten 48 Stunden (Volumen, Analgesie, Ernährung, Monitoring)',
+          akut: true,
           items: [
-            'Intensive Flüssigkeitssubstitution (Volumentherapie)',
-            'Ausreichende Analgesie (z. B. Metamizol, Opioide)',
-            'Frühe enterale Ernährung nach Toleranz',
-            'Bei Alkoholgenese: Abstinenz; bei Hypertriglyzeridämie: Senkung',
+            'Frühe zielgerichtete Volumentherapie mit balancierter Vollelektrolytlösung (Ringer-Laktat) 5–10 ml/kg KG/h, gesteuert nach Urinausscheidung (Ziel über 0,5 ml/kg/h), Hämatokrit, Harnstoff und Kreislaufparametern — eine Überwässerung ist ebenso schädlich wie eine Untertherapie',
+            'Ausreichende Analgesie: Metamizol 4 × 1 g i. v., bei stärkeren Schmerzen Opioide (Piritramid, Buprenorphin, Pethidin)',
+            'Frühe enterale Ernährung innerhalb von 24–48 Stunden nach Toleranz, oral oder über eine nasojejunale Sonde — Nahrungskarenz und routinemäßige parenterale Ernährung sind verlassen',
+            'Engmaschiges Monitoring und Schweregradeinschätzung nach der revidierten Atlanta-Klassifikation und den SIRS-Kriterien: Vitalparameter, Bilanz, Blutbild, CRP im Verlauf, Kalzium, Blutzucker, Kreatinin, LDH, Blutgasanalyse und Laktat; bei Organversagen Intensivüberwachung',
+            'Begleitmaßnahmen: Thromboseprophylaxe mit niedermolekularem Heparin, Protonenpumpenhemmer, Ausgleich von Elektrolytstörungen (Hypokalzämie) und Insulin bei Hyperglykämie',
+            'Keine prophylaktische Antibiotikagabe bei der sterilen (auch nekrotisierenden) Pankreatitis',
           ],
         },
         {
-          label: 'Interventionell',
+          label: 'Kausale Therapie der biliären Genese (ERCP und Cholezystektomie)',
           items: [
-            'ERCP mit Papillotomie bei biliärer Pankreatitis mit Obstruktion',
+            'Notfall-ERCP mit Papillotomie und Steinextraktion innerhalb von 24 Stunden bei biliärer Pankreatitis mit begleitender Cholangitis oder persistierender Gallengangsobstruktion (steigendes Bilirubin, Gangaufstau in der Sonographie)',
+            'Ohne Cholangitis und ohne Obstruktion besteht KEINE ERCP-Indikation — der Eingriff kann selbst eine Post-ERCP-Pankreatitis auslösen (Prophylaxe: Indometacin rektal, Pankreasgangstent)',
+            'Bei unklarem Befund zuvor Endosonographie oder MRCP zur Darstellung der Konkremente',
+            'Laparoskopische Cholezystektomie bei milder biliärer Pankreatitis noch im selben stationären Aufenthalt — sonst erleiden bis zu 30 % der Patienten innerhalb weniger Wochen ein Rezidiv',
+            'Bei nekrotisierendem Verlauf Cholezystektomie erst nach Abklingen der Entzündung beziehungsweise Konsolidierung der Nekrosen, in der Regel nach etwa 6 Wochen; bei Operationsunfähigkeit ersatzweise endoskopische Papillotomie',
           ],
         },
         {
-          label: 'Chirurgisch',
+          label: 'Komplikationsmanagement bei nekrotisierendem Verlauf (Step-up-Konzept)',
           items: [
-            'Nekrosektomie nur bei infizierten Nekrosen (spät, wenn nötig)',
-            'Cholezystektomie im Verlauf bei biliärer Genese',
+            'Kontrastmittel-CT des Abdomens frühestens 72–96 Stunden nach Symptombeginn zur Nekrosedarstellung (früher werden Nekrosen unterschätzt); Verlaufs-CT bei klinischer Verschlechterung',
+            'Antibiotika (z. B. Carbapenem oder Ciprofloxacin plus Metronidazol) nur bei nachgewiesener oder hochwahrscheinlich infizierter Nekrose, bei Cholangitis oder extrapankreatischer Infektion; Erregersicherung durch Feinnadelpunktion möglich',
+            'Step-up-Konzept bei infizierter Nekrose: zunächst perkutane oder endosonographisch gesteuerte transgastrale Drainage, erst bei Versagen minimalinvasive endoskopische beziehungsweise videoassistierte retroperitoneale Nekrosektomie',
+            'Offene Nekrosektomie nur als Ultima Ratio; Eingriffe so spät wie möglich, idealerweise nach 4 Wochen bei abgekapselter Nekrose (walled-off necrosis)',
+            'Pseudozysten werden nur bei Symptomen, Infektion, Blutung oder Kompression behandelt, dann bevorzugt endoskopisch transgastral drainiert',
+            'Weitere Komplikationen im Blick behalten: Milzvenenthrombose, Pseudoaneurysma der A. lienalis, Ileus, ARDS und Multiorganversagen',
+          ],
+        },
+        {
+          label: 'Rezidivprophylaxe und Nachsorge nach Ätiologie',
+          items: [
+            'Biliär: Cholezystektomie als definitive Rezidivprophylaxe, bei Inoperabilität Papillotomie',
+            'Alkoholisch: absolute Alkoholkarenz mit qualifizierter Entzugs- und Suchtbehandlung; zusätzlich Nikotinkarenz, da Rauchen ein unabhängiger Risikofaktor ist',
+            'Hypertriglyzeridämie: Zielwert unter 500 mg/dl mit Fibraten, Omega-3-Fettsäuren, Diät, Gewichtsreduktion und guter Diabeteseinstellung; im Akutfall Insulinperfusor oder Plasmapherese',
+            'Hyperkalzämie: Abklärung eines primären Hyperparathyreoidismus; auslösende Medikamente überprüfen (Azathioprin, Valproat, Thiazide, Östrogene, GLP-1-Analoga)',
+            'Nachsorge auf Spätfolgen: exokrine Insuffizienz mit Steatorrhoe und Gewichtsverlust (Pankreasenzymsubstitution, fettlösliche Vitamine) und endokrine Insuffizienz mit pankreoprivem Diabetes',
           ],
         },
       ],
@@ -265,28 +328,42 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
-          items: [
-            'Stabilisierung: großlumige venöse Zugänge, Volumen, ggf. Transfusion',
-            'PPI hochdosiert i. v.',
-            'Bei Varizen: Terlipressin + Antibiotikaprophylaxe',
-            'Antikoagulation pausieren/antagonisieren',
-          ],
+          label: 'Hämodynamische Stabilisierung und Notfallmaßnahmen vor der Endoskopie',
           akut: true,
-        },
-        {
-          label: 'Interventionell',
           items: [
-            'Endoskopische Blutstillung (Ligatur, Clip, Adrenalininjektion, Sklerosierung)',
-            'Angiographische Embolisation bei Versagen',
+            'ABCDE-Vorgehen mit Monitorüberwachung, zwei großlumige periphere Zugänge (mindestens 16 G), Volumensubstitution mit balancierter kristalloider Lösung, Sauerstoffgabe, Blutgruppe und Kreuzblut',
+            'Restriktive Transfusionsstrategie: Erythrozytenkonzentrate ab Hb unter 7 g/dl, bei kardialer Vorerkrankung unter 8 g/dl; eine liberale Transfusion verschlechtert die Prognose, besonders bei Varizenblutung',
+            'Protonenpumpenhemmer hochdosiert intravenös: Pantoprazol 80 mg als Bolus, anschließend 8 mg/h über Perfusor',
+            'Antikoagulation pausieren und bei Bedarf antagonisieren: PPSB und Vitamin K bei Vitamin-K-Antagonisten, Idarucizumab bei Dabigatran, PPSB beziehungsweise Andexanet alfa bei Faktor-Xa-Hemmern; Thrombozytenkonzentrate bei Werten unter 50.000/µl',
+            'Bei Verdacht auf Varizenblutung zusätzlich Terlipressin (1–2 mg alle 4 Stunden) und Antibiotikaprophylaxe mit Ceftriaxon 1 g täglich',
+            'Erythromycin 250 mg i. v. 30–120 Minuten vor der Endoskopie zur Magenentleerung; Aspirationsschutz, bei Bewusstseinstrübung oder massiver Hämatemesis Schutzintubation',
+            'Risikoabschätzung mit dem Glasgow-Blatchford- und dem Rockall-Score; Nüchternheit, Intensivüberwachung bei Schockzeichen',
           ],
         },
         {
-          label: 'Chirurgisch',
-          items: [
-            'Notfall-OP bei endoskopisch nicht beherrschbarer Blutung',
-          ],
+          label: 'Notfallendoskopie: Blutstillung nach Forrest und Rescue-Verfahren',
           akut: true,
+          items: [
+            'ÖGD innerhalb von 24 Stunden nach Kreislaufstabilisierung, bei hämodynamischer Instabilität oder Varizenverdacht innerhalb von 12 Stunden',
+            'Einteilung des Ulkus nach Forrest: Ia spritzende, Ib sickernde Blutung; IIa sichtbarer Gefäßstumpf, IIb anhaftendes Koagel, IIc Hämatinbelag; III fibrinbelegter Ulkusgrund ohne Blutungszeichen',
+            'Interventionsbedürftig sind Forrest Ia, Ib und IIa sowie IIb nach Abtragung des Koagels; Forrest IIc und III werden nicht endoskopisch behandelt',
+            'Immer Kombinationsverfahren: Adrenalininjektion 1 : 10.000 nur zur Vorbereitung, dazu ein zweites Verfahren — Hämoclip, Over-the-Scope-Clip, thermische Koagulation oder Hämostasepulver',
+            'Varizenblutung: Gummibandligatur bei Ösophagusvarizen, Histoacryl-Injektion bei Fundusvarizen; bei Versagen Ballontamponade (Sengstaken-Blakemore, Linton-Nachlas) oder Ösophagusstent für maximal 24 Stunden als Überbrückung zum Notfall-TIPS',
+            'Rezidivblutung: erste Maßnahme ist die erneute Endoskopie; bei erneutem Versagen angiographische Embolisation, besonders bei hohem Operationsrisiko',
+            'Notfalloperation als Ultima Ratio bei endoskopisch und interventionell nicht beherrschbarer Blutung: Ulkusumstechung mit Gefäßligatur, selten Magenteilresektion',
+          ],
+        },
+        {
+          label: 'Ulkustherapie und Sekundärprophylaxe (PPI, Helicobacter-Eradikation, Umgang mit NSAR und Antikoagulation)',
+          items: [
+            'PPI hochdosiert intravenös über 72 Stunden bei Hochrisikoläsionen, danach orale Standarddosis (z. B. Pantoprazol 40 mg) über 4–8 Wochen',
+            'Helicobacter-pylori-Testung bei jedem Ulkus und Eradikation bei Nachweis: französische Tripeltherapie (PPI + Amoxicillin + Clarithromycin), italienische Variante mit Metronidazol oder Bismut-Quadrupeltherapie über 7–14 Tage; Erfolgskontrolle frühestens 4 Wochen nach Therapieende mit Harnstoff-Atemtest oder Stuhlantigen',
+            'Auslösende Medikamente absetzen: NSAR, Kombination mit Kortikosteroiden, SSRI; wenn ein NSAR unverzichtbar ist, nur unter PPI-Dauerprophylaxe beziehungsweise Umstellung auf einen COX-2-Hemmer',
+            'ASS in der Sekundärprävention nach kardiovaskulärem Ereignis möglichst früh (innerhalb von 3–7 Tagen) unter PPI-Schutz wieder ansetzen — das kardiale Risiko überwiegt das Blutungsrisiko',
+            'Wiederbeginn der Antikoagulation nach individueller Nutzen-Risiko-Abwägung, in der Regel nach etwa 7 Tagen und interdisziplinär abgestimmt',
+            'Bei Varizen als Blutungsquelle Sekundärprophylaxe mit Ligaturprogramm bis zur Varizeneradikation plus nicht-selektivem Betablocker',
+            'Kontrollendoskopie nach 6–8 Wochen bei Ulcus ventriculi zum Malignomausschluss; Alkohol- und Nikotinkarenz',
+          ],
         },
       ],
       prognose: 'Abhängig von Ursache, Ausmaß und Komorbidität; Varizenblutung prognostisch ungünstiger. Risikoscores: Rockall, Glasgow-Blatchford.',
@@ -408,29 +485,50 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
+          label: 'Ausschaltung der Ulkusnoxen (NSAR/ASS, Nikotin, Alkohol)',
           items: [
-            'Protonenpumpeninhibitor (z. B. Pantoprazol 40 mg 1-0-0) über 4–8 Wochen als Basistherapie',
-            'Auslösende NSAR/ASS absetzen oder pausieren; Bedarfsanalgesie auf Paracetamol umstellen',
-            'Noxenkarenz: Nikotin- und Alkoholverzicht, Stressreduktion',
-            'Bei H.-pylori-Nachweis Eradikation: italienische Triple-Therapie (PPI + Clarithromycin + Metronidazol) oder französische Variante (PPI + Clarithromycin + Amoxicillin) über 7–14 Tage; bei Resistenz Bismut-Quadrupeltherapie',
-            'Eradikationskontrolle nach frühestens 4 Wochen (13C-Atemtest oder Stuhl-Antigen)',
-            'Bei fortgesetzter NSAR-Notwendigkeit begleitende PPI-Prophylaxe',
+            'Auslösende NSAR oder ASS absetzen beziehungsweise pausieren — nach Helicobacter pylori die zweithäufigste Ursache; Bedarfsanalgesie auf Paracetamol oder Metamizol umstellen',
+            'Wenn ASS oder ein NSAR zwingend weitergegeben werden muss (z. B. nach Stentimplantation): dauerhafte begleitende PPI-Prophylaxe, alternativ Umstellung auf einen selektiven COX-2-Hemmer',
+            'Konsequente Nikotinkarenz — Rauchen verzögert die Ulkusheilung und erhöht die Rezidivrate deutlich; Alkoholkarenz während der Abheilung',
+            'Regelmäßige kleine Mahlzeiten, Verzicht auf individuell unverträgliche Speisen, Stressreduktion; Glukokortikoide sind nur in Kombination mit NSAR relevant ulzerogen',
+            'Bei Intensiv- und Beatmungspatienten Stressulkusprophylaxe mit einem PPI',
           ],
+          akut: false,
         },
         {
-          label: 'Interventionell',
+          label: 'Säuresuppression und Abheilungskontrolle (PPI-Therapie)',
           items: [
-            'Endoskopische Blutstillung bei blutendem Ulkus (Adrenalininjektion, Clip, Thermokoagulation) nach Forrest-Stadium',
-            'Endoskopische Ballondilatation bei narbiger Magenausgangsstenose',
+            'Protonenpumpeninhibitor als Basistherapie, z. B. Pantoprazol 40 mg 1-0-0, nüchtern etwa 30 Minuten vor dem Frühstück',
+            'Therapiedauer: Ulcus duodeni in der Regel 4 Wochen, Ulcus ventriculi 6–8 Wochen',
+            'H2-Rezeptorantagonisten (Famotidin) und Antazida sind dem PPI unterlegen und bleiben Reserve- beziehungsweise Symptomtherapie',
+            'Bei der Indexendoskopie immer Biopsien aus Antrum und Korpus sowie mehrere Biopsien aus dem Ulkusrand — jedes Ulcus ventriculi ist bis zum Beweis des Gegenteils malignomverdächtig',
+            'Kontroll-ÖGD beim Ulcus ventriculi nach 6–8 Wochen obligat: Abheilungskontrolle und erneute Biopsie; beim unkomplizierten Ulcus duodeni ist eine Kontrollendoskopie nicht erforderlich',
           ],
+          akut: false,
         },
         {
-          label: 'Chirurgisch',
+          label: 'Helicobacter-pylori-Eradikation mit Erfolgskontrolle',
           items: [
-            'Notfalloperation bei Perforation: Übernähung/Exzision und Lavage',
-            'Operation bei endoskopisch nicht beherrschbarer Blutung oder therapierefraktärer Stenose',
-            'Resektion (z. B. Billroth) bei malignem Befund oder Komplikationen',
+            'Nachweis invasiv über Urease-Schnelltest und Histologie aus der Biopsie, nichtinvasiv über 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test — PPI 2 Wochen und Antibiotika 4 Wochen vorher pausieren, sonst falsch negativ',
+            'Französische Tripeltherapie über 7–14 Tage: PPI 2 × 40 mg + Clarithromycin 2 × 500 mg + Amoxicillin 2 × 1000 mg',
+            'Italienische Tripeltherapie über 7–14 Tage: PPI + Clarithromycin + Metronidazol 2 × 400 mg — Variante der Wahl bei Penicillinallergie',
+            'Bei hoher Clarithromycin-Resistenz, Vortherapie oder Versagen: Bismut-Quadrupeltherapie (PPI + Bismut + Tetracyclin + Metronidazol) über 10 Tage',
+            'Patienten über Nebenwirkungen und Adhärenz aufklären: metallischer Geschmack, Diarrhoe, Schwarzfärbung des Stuhls unter Bismut, strikte Alkoholkarenz unter Metronidazol (Antabus-Effekt)',
+            'Nach der Eradikation PPI beim Ulcus ventriculi bis zur Abheilung fortführen',
+            'Eradikationskontrolle frühestens 4 Wochen nach Therapieende mittels 13C-Atemtest oder Stuhl-Antigen — die Eradikation senkt die Rezidivrate von über 60 % auf unter 5 %',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Management der Ulkuskomplikationen (Blutung, Perforation, Stenose)',
+          items: [
+            'Obere gastrointestinale Blutung: Kreislaufstabilisierung, zwei großlumige Zugänge, Volumensubstitution, Blutgruppe und Kreuzblut, Transfusion mit Ziel-Hb um 7–8 g/dl, PPI hochdosiert i. v. (80 mg Bolus, danach 8 mg/h)',
+            'Notfall-ÖGD innerhalb von 24 Stunden, bei hämodynamischer Instabilität sofort; Risikoabschätzung nach Forrest-Klassifikation',
+            'Endoskopische Blutstillung als Kombinationsverfahren: Adrenalininjektion plus Clip oder Thermokoagulation bei Forrest Ia bis IIb; Antikoagulantien pausieren beziehungsweise antagonisieren',
+            'Bei Rezidivblutung erneute ÖGD, danach angiographische Embolisation oder operative Umstechung/Resektion',
+            'Perforation (akutes Abdomen mit brettharter Abwehrspannung, freie Luft unter dem Zwerchfell): Notfalloperation mit Übernähung beziehungsweise Exzision und ausgiebiger Lavage, breite intravenöse Antibiose, Nahrungskarenz, Magensonde',
+            'Narbige Magenausgangsstenose: endoskopische Ballondilatation, bei Versagen operative Resektion (Billroth I oder II)',
+            'Malignitätsnachweis in der Biopsie: onkologisches Staging und Resektion nach Tumorboard-Beschluss',
           ],
           akut: true,
         },
@@ -805,26 +903,49 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
+          label: 'Sofortmaßnahmen und präoperative Vorbereitung',
           items: [
-            'Nahrungskarenz, intravenöse Flüssigkeitssubstitution und Analgesie zur OP-Vorbereitung',
-            'Perioperative kalkulierte Antibiotikaprophylaxe (z. B. Cephalosporin + Metronidazol)',
-            'Rein antibiotisch-konservatives Vorgehen nur in ausgewählten Fällen unkomplizierter Appendizitis oder bei OP-Kontraindikation (erhöhtes Rezidivrisiko)',
+            'Stationäre Aufnahme, strikte Nahrungs- und Flüssigkeitskarenz (Patient nüchtern lassen), intravenöse Flüssigkeitssubstitution mit balancierter Vollelektrolytlösung',
+            'Ausreichende Analgesie, z. B. Metamizol 1 g als Kurzinfusion — die früher gelehrte Zurückhaltung mit Analgetika ist verlassen, sie verschleiert den Untersuchungsbefund nicht',
+            'Perioperative kalkulierte Antibiotikaprophylaxe als Single Shot 30–60 Minuten vor Schnitt, z. B. Cefuroxim plus Metronidazol',
+            'Labor mit Blutbild, CRP, Gerinnung, Elektrolyten, Kreatinin und Schwangerschaftstest bei Frauen im gebärfähigen Alter; Blutgruppe, Aufklärung, Anästhesievorstellung',
+            'Bei nicht eindeutigem Befund engmaschige klinische und sonographische Verlaufskontrolle über 6–12 Stunden mit wiederholter Untersuchung und Laborkontrolle statt vorschneller Entlassung',
+            'Bei Peritonitis oder Sepsiszeichen: Kreislaufstabilisierung, sofortige therapeutische Antibiose und notfallmäßige Operation',
           ],
+          akut: true,
         },
         {
-          label: 'Interventionell',
+          label: 'Appendektomie als Standardtherapie (laparoskopisch versus offen)',
           items: [
-            'Ultraschall-/CT-gesteuerte Drainage eines perityphlitischen Abszesses mit anschließender Intervall-Appendektomie',
+            'Die Appendektomie ist die kausale Therapie und soll bei gesicherter Diagnose zeitnah, in der Regel innerhalb von 12–24 Stunden, erfolgen; bei Perforationsverdacht sofort',
+            'Laparoskopische Appendektomie („Schlüsselloch-Operation“) als Goldstandard: geringere Wundinfektionsrate, weniger Schmerzen, kürzerer Krankenhausaufenthalt, zugleich diagnostische Laparoskopie mit Beurteilung des kleinen Beckens — besonders wertvoll bei Frauen und bei Adipositas',
+            'Offene Appendektomie über Wechselschnitt im rechten Unterbauch bei ausgedehnter Peritonitis, schwierigen Verwachsungen, unklaren intraoperativen Verhältnissen oder fehlender laparoskopischer Expertise; Konversion jederzeit möglich',
+            'Intraoperativ Absetzen der Appendix an der Basis mit Endoloop oder Klammernahtgerät, Bergung im Bergebeutel, immer histologische Aufarbeitung (Karzinoid, Adenokarzinom, Endometriose)',
+            'Bei Perforation zusätzlich ausgiebige intraabdominelle Lavage, gegebenenfalls Drainage und postoperativ therapeutische Antibiose über 3–5 Tage',
+            'Ist die Appendix unauffällig, muss systematisch nach der wahren Ursache gesucht werden: Meckel-Divertikel, terminale Ileitis, Adnexbefund; die Appendix wird in der Regel dennoch entfernt',
+            'Postoperativ frühe Mobilisation und rascher Kostaufbau, Thromboseprophylaxe; typische Komplikationen sind Wundinfekt, intraabdomineller Abszess, Ileus durch Briden und Stumpfinsuffizienz',
           ],
+          akut: false,
         },
         {
-          label: 'Chirurgisch',
+          label: 'Sonderfall perityphlitischer Abszess und Konglomerattumor',
           items: [
-            'Laparoskopische Appendektomie (\'Schlüsselloch-Operation\') als Goldstandard – Standardverfahren bei unkomplizierter Appendizitis',
-            'Offene (konventionelle) Appendektomie über Wechselschnitt bei Perforation, ausgedehnter Peritonitis oder Verwachsungen',
-            'Bei Perforation zusätzlich intraabdominelle Lavage und postoperative therapeutische Antibiose',
+            'Bei abgekapseltem perityphlitischem Abszess oder entzündlichem Konglomerattumor ist die sofortige Operation technisch riskant (Blutung, Darmläsion)',
+            'Sonographisch oder CT-gesteuerte perkutane Drainage des Abszesses in Kombination mit intravenöser Antibiose und Nahrungskarenz',
+            'Nach Abklingen der Entzündung Intervall-Appendektomie nach etwa 6–8 Wochen; bei Patienten über 40 Jahren vorher Koloskopie zum Ausschluss eines perforierten Kolonkarzinoms',
+            'Bei Versagen der Drainage, zunehmender Peritonitis oder septischem Verlauf sofortige operative Sanierung',
           ],
+          akut: false,
+        },
+        {
+          label: 'Rein antibiotische Therapie — enge Indikation und Grenzen',
+          items: [
+            'Nur bei sonographisch oder computertomographisch gesicherter unkomplizierter Appendizitis ohne Appendikolith, Perforation oder Abszess erwägbar',
+            'Weitere Indikation: relevante Operations- oder Narkosekontraindikation, Ablehnung der Operation durch den Patienten',
+            'Schema: intravenöse Antibiose (z. B. Cephalosporin plus Metronidazol) mit oraler Fortführung über insgesamt etwa 7–10 Tage unter stationärer Beobachtung',
+            'Grenzen klar benennen: Rezidivrate von etwa 30–40 % innerhalb eines Jahres, Risiko der verzögerten Perforation, kein histologischer Malignitätsausschluss — die Appendektomie bleibt Standard',
+          ],
+          akut: false,
         },
       ],
       prognose: 'Bei rechtzeitiger Operation sehr gut mit niedriger Letalität und rascher Genesung. Prognose verschlechtert sich deutlich bei Perforation und Peritonitis (höhere Morbidität, Abszess-, Ileus- und Sepsisrisiko). Verzögerte Diagnose bei Kindern, Schwangeren und alten Patienten ist der Hauptrisikofaktor für Komplikationen.',
@@ -1630,34 +1751,54 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
+          label: 'Basistherapie: Risikofaktorenkontrolle und kardiovaskuläre Sekundärprophylaxe',
           items: [
-            'Konsequente Ausschaltung der Risikofaktoren als Basis jeder Therapie — absoluter Nikotinverzicht (wirksamste Einzelmaßnahme), optimale Diabetes- und Blutdruckeinstellung',
-            'Strukturiertes Gehtraining / Gefäßsport (Ausbildung von Kollateralkreisläufen) — Therapie der ersten Wahl im Stadium II',
-            'Thrombozytenaggregationshemmung mit ASS 100 mg (oder Clopidogrel) zur Reduktion des kardiovaskulären Gesamtrisikos',
-            'Statin zur LDL-Senken (Zielwert < 1,4 mmol/l bzw. < 55 mg/dl) und Plaquestabilisierung',
-            'Optimierung von Blutdruck (ACE-Hemmer/ARB) und Blutzucker',
-            'Cilostazol als medikamentöse Option zur Verlängerung der Gehstrecke bei Claudicatio',
-            'Konsequente Fußpflege und Wundmanagement, besonders beim Diabetiker (Vermeidung von Druckstellen/Ulzera)',
+            'Absoluter Nikotinverzicht — die wirksamste Einzelmaßnahme überhaupt; strukturierte Raucherentwöhnung mit Beratung, Verhaltenstherapie und gegebenenfalls Nikotinersatz aktiv anbieten',
+            'Thrombozytenaggregationshemmung lebenslang: ASS 100 mg täglich oder Clopidogrel 75 mg täglich zur Senkung von Herzinfarkt, Schlaganfall und Gesamtmortalität',
+            'Statin für jeden pAVK-Patienten unabhängig vom Ausgangswert, LDL-Zielwert unter 55 mg/dl (1,4 mmol/l) und mindestens 50 % Senkung; bei Nichterreichen Ezetimib oder PCSK9-Hemmer ergänzen',
+            'Blutdruckeinstellung auf Werte unter 140/90 mmHg, bevorzugt mit ACE-Hemmer oder Sartan; Betablocker sind bei pAVK entgegen einer alten Lehrmeinung nicht kontraindiziert',
+            'Optimierung des Diabetes mellitus mit einem HbA1c-Zielwert um 7 %',
+            'Tägliche Fußinspektion, professionelle Fußpflege, gut sitzendes und druckstellenfreies Schuhwerk, keine Barfußgänge, keine Wärmflaschen — besonders wichtig beim Diabetiker mit Polyneuropathie',
+            'Aufklärung: die pAVK ist ein Marker der generalisierten Atherosklerose; die Prognose bestimmt nicht das Bein, sondern das kardiovaskuläre Ereignis — daher Mitbeurteilung von KHK und Karotiden',
           ],
-          akut: true,
+          akut: false,
         },
         {
-          label: 'Interventionell',
+          label: 'Strukturiertes Gehtraining — Erstlinientherapie im Stadium II',
           items: [
-            'Perkutane transluminale Angioplastie (PTA, Ballondilatation), meist mit Stentimplantation — Methode der Wahl bei umschriebenen Stenosen/kurzstreckigen Verschlüssen',
-            'Kathetergestützte Rekanalisation; ab Stadium IIb bei hohem Leidensdruck relative, ab Stadium III/IV absolute Revaskularisationsindikation',
-            'Lokale Thrombolyse / Thrombektomie beim akuten Verschluss',
+            'Strukturiertes Gehtraining mindestens dreimal wöchentlich über 30–60 Minuten für mindestens drei Monate: gehen bis knapp unterhalb der Schmerzgrenze, kurze Pause, Wiederholung',
+            'Wirkprinzip: Ausbildung von Kollateralkreisläufen, verbesserte Muskelökonomie und Endothelfunktion — die schmerzfreie Gehstrecke lässt sich dadurch verdoppeln bis verdreifachen',
+            'Anbindung an eine Gefäßsportgruppe erhöht die Adhärenz deutlich; unbeaufsichtigtes Training ist weniger wirksam',
+            'Kontraindiziert bei kritischer Ischämie (Stadium III und IV), frischer Wunde oder nicht kompensierter Herzerkrankung; beim Beckentyp weniger wirksam als beim Oberschenkeltyp',
+            'Cilostazol, ein Phosphodiesterase-III-Hemmer, 2 × 100 mg täglich als medikamentöse Option zur Verlängerung der Gehstrecke — kontraindiziert bei Herzinsuffizienz; Naftidrofuryl als Alternative',
+            'Verlaufskontrolle über schmerzfreie und maximale Gehstrecke, Laufbandtest und Knöchel-Arm-Index',
           ],
-          akut: true,
+          akut: false,
         },
         {
-          label: 'Chirurgisch',
+          label: 'Revaskularisation: Indikationsstellung nach Fontaine-Stadium und Läsionsmorphologie',
           items: [
-            'Bypass-Operation (z. B. femoropoplitealer Venen- oder Prothesenbypass) bei langstreckigen Verschlüssen',
-            'Thrombendarteriektomie (TEA) mit Patchplastik, v. a. an der Femoralisgabel',
-            'Grenzzonen-/Minoramputation nur als Ultima Ratio bei nicht rettbarer Nekrose/Gangrän oder lebensbedrohlicher Infektion',
+            'Indikation: im Stadium IIb relativ, bei hohem Leidensdruck, beruflicher Einschränkung oder Versagen der konservativen Therapie; im Stadium III und IV absolut und dringlich',
+            'Vor jeder Intervention Lokalisationsdiagnostik: farbkodierte Duplexsonographie als erste Stufe, danach MR- oder CT-Angiographie beziehungsweise DSA in Interventionsbereitschaft',
+            'Endovaskulär: perkutane transluminale Angioplastie mit Ballon, meist mit Stentimplantation oder medikamentenbeschichtetem Ballon — Methode der Wahl bei kurzstreckigen Stenosen und Verschlüssen (TASC A und B)',
+            'Operativ: Bypass bei langstreckigen Verschlüssen (TASC C und D), z. B. femoropoplitealer Bypass; die autologe Vena saphena magna ist der Kunststoffprothese überlegen, insbesondere unterhalb des Kniegelenkspalts',
+            'Thrombendarteriektomie mit Patchplastik vor allem an der Femoralisgabel, häufig als Hybrideingriff kombiniert mit einer Intervention der Beckenstrombahn',
+            'Nach Stentimplantation duale Thrombozytenaggregationshemmung für 1–3 Monate, danach Monotherapie; die Basistherapie wird durch die Revaskularisation nicht ersetzt, sondern fortgeführt',
+            'Strukturierte Duplex-Nachsorge wegen des hohen Restenoserisikos, klinische Kontrolle von Gehstrecke und Knöchel-Arm-Index',
           ],
+          akut: false,
+        },
+        {
+          label: 'Akuter Extremitätenverschluss und kritische Ischämie — Notfallvorgehen',
+          items: [
+            'Akuter Verschluss: die 6 P nach Pratt — pain, paleness, pulselessness, paresthesia, paralysis, prostration; das Zeitfenster bis zur irreversiblen Muskelschädigung beträgt etwa sechs Stunden',
+            'Sofortmaßnahmen: Extremität tief lagern und watteweich polstern, Wärmeerhalt, keine Wärmeapplikation, Analgesie mit einem Opioid, Heparin-Bolus 5000–10000 IE intravenös, sofortige gefäßchirurgische beziehungsweise angiologische Vorstellung',
+            'Revaskularisation je nach Befund: Fogarty-Katheterembolektomie bei embolischem Verschluss, lokale Katheterlyse oder Aspirationsthrombektomie bei thrombotischem Verschluss; embolische Genese abklären (Vorhofflimmern, Aneurysma)',
+            'Kritische Ischämie (Stadium III und IV): stationäre Aufnahme, dringliche Revaskularisation, konsequente Analgesie, stadiengerechtes Wundmanagement, gezielte Antibiose nur bei Infektion',
+            'Reperfusionssyndrom beachten: Hyperkaliämie, metabolische Azidose, Myoglobinämie mit Crush-Niere und Kompartmentsyndrom — Kontrolle von Kalium, CK und Kreatinin, bei Bedarf Fasziotomie',
+            'Amputation nur als Ultima Ratio bei nicht rettbarer Nekrose oder lebensbedrohlicher Infektion, dann so grenzzonennah und sparsam wie möglich',
+          ],
+          akut: true,
         },
       ],
       prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Im Stadium IV (kritische Ischämie) drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
@@ -2011,34 +2152,53 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       therapie: [
         {
-          label: 'Konservativ',
+          label: 'Sofortversorgung in der Notaufnahme: Reposition, Retention, Weichteilschutz',
           items: [
-            'Sofortmaßnahmen nach PECH-Schema: Pause, Eis (Kühlung), Kompression, Hochlagern',
-            'Ausreichende Analgesie (z. B. Metamizol oder Ibuprofen, ggf. Paracetamol)',
-            'Weber-A-Fraktur (stabil): Ruhigstellung in Unterschenkelgips, Orthese (z. B. Aircast/Vacoped) für ca. 6 Wochen mit Teilbelastung nach Maßgabe',
-            'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin während der Immobilisation — bei bekannter Gerinnungsstörung (z. B. Faktor-V-Leiden) besonders beachten',
-            'Frühfunktionelle Nachbehandlung und Physiotherapie nach Konsolidierung',
+            'Durchblutung, Motorik und Sensibilität sowie den Weichteilzustand vor und nach jeder Manipulation prüfen und dokumentieren',
+            'PECH-Schema: Pause, Eis (Kühlung), Compression, Hochlagern; Ruhigstellung in einer gespaltenen dorsalen Unterschenkelgipsschiene',
+            'Bei Luxationsfraktur oder deutlicher Fehlstellung mit gespannter, blasser Haut: sofortige geschlossene Reposition unter Analgosedierung noch vor der Bildgebung, anschließend Retention in der Gipsschiene und Röntgenkontrolle',
+            'Ausreichende Analgesie, z. B. Metamizol oder Ibuprofen, bei starken Schmerzen Piritramid intravenös',
+            'Röntgen des oberen Sprunggelenks in zwei Ebenen; bei Verdacht auf eine Maisonneuve-Fraktur zusätzlich Unterschenkel mit proximaler Fibula — immer das gesamte Wadenbein tasten',
+            'Offene Fraktur: steriler Verband, Tetanusschutz überprüfen, sofortige intravenöse Antibiose und notfallmäßiges Débridement mit Stabilisierung innerhalb von sechs Stunden',
+            'Auf ein drohendes Kompartmentsyndrom achten: unverhältnismäßiger Schmerz, Schmerz bei passiver Dehnung, praller Weichteilbefund',
           ],
           akut: true,
         },
         {
-          label: 'Interventionell',
+          label: 'Konservative Therapie (stabile Fraktur, Weber A, intakte Syndesmose)',
           items: [
-            'Notfallmäßige geschlossene Reposition und Retention (Gipsschiene) bei Luxationsfraktur/Fehlstellung zur Entlastung der Haut und Wiederherstellung der Durchblutung',
-            'Ggf. Fixateur externe zur temporären Stabilisierung bei ausgeprägter Weichteilschwellung oder offener Fraktur bis zur definitiven Versorgung',
+            'Indikation: undislozierte, stabile Fraktur unterhalb der Syndesmose (Weber A), isolierte Außenknöchelfraktur ohne mediale Verletzung, keine Talusverschiebung in der Malleolengabel',
+            'Ruhigstellung im Unterschenkelgips oder in einer Orthese (Aircast, Vacoped) für etwa sechs Wochen',
+            'Teilbelastung mit 15–20 kg an Unterarmgehstützen, danach schrittweiser Belastungsaufbau nach Röntgenkontrolle',
+            'Röntgen-Stellungskontrollen nach einer, zwei und sechs Wochen — die sekundäre Dislokation im Gips ist die typische Komplikation und macht die Operation doch noch erforderlich',
+            'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin während der gesamten Immobilisation',
+            'Frühzeitige isometrische Übungen und Physiotherapie, um Muskelatrophie und Bewegungseinschränkung zu begrenzen',
           ],
-          akut: true,
+          akut: false,
         },
         {
-          label: 'Chirurgisch',
+          label: 'Operative Versorgung (Dislokation, Instabilität, Weber B und C)',
           items: [
-            'Weber-B- und Weber-C-Frakturen sowie instabile/dislozierte und bimalleoläre Frakturen: offene Reposition und interne Fixation (ORIF) mittels Platten- und Schraubenosteosynthese',
-            'Versorgung des Innenknöchels (Zugschrauben) und des Volkmann-Dreiecks bei relevanter Gelenkbeteiligung',
-            'Syndesmosenstabilisierung durch Stellschraube oder Syndesmosennaht (Weber C, instabile Syndesmose)',
-            'Offene Fraktur: notfallmäßiges Débridement, Antibiose, Tetanusschutz und Stabilisierung',
-            'Orthopädisch-unfallchirurgisches Konsil, ggf. Verlegung in eine (unfall-)chirurgische Abteilung',
+            'Indikation: dislozierte oder instabile Frakturen, Weber B mit Gelenkstufe oder Talusverschiebung, alle Weber-C-Frakturen, bi- und trimalleoläre Frakturen, Luxationsfrakturen sowie offene Frakturen',
+            'Operationszeitpunkt: entweder innerhalb der ersten sechs bis acht Stunden vor Einsetzen der Schwellung oder erst nach Abschwellen nach etwa fünf bis zehn Tagen; in der Zwischenzeit Hochlagerung, gegebenenfalls Fixateur externe zur temporären Überbrückung',
+            'Außenknöchel: offene Reposition und interne Fixation (ORIF) mit Zugschraube und Drittelrohrplatte',
+            'Innenknöchel: Zugschraubenosteosynthese oder Zuggurtung; das Volkmann-Dreieck wird bei Beteiligung von mehr als etwa 25 % der Gelenkfläche verschraubt',
+            'Syndesmoseninstabilität (Weber C, Maisonneuve): Stellschraube mit Entfernung nach sechs bis acht Wochen vor Vollbelastung oder dynamische Syndesmosenversorgung mit Fadenanker-System',
+            'Therapieziel ist die exakte anatomische Wiederherstellung der Malleolengabel — jeder verbliebene Millimeter Talusverschiebung erhöht das Arthroserisiko erheblich; intraoperative Bildwandlerkontrolle in zwei Ebenen',
           ],
-          akut: true,
+          akut: false,
+        },
+        {
+          label: 'Nachbehandlung, Thromboseprophylaxe und Rehabilitation',
+          items: [
+            'Frühfunktionelle Nachbehandlung: konsequente Hochlagerung, Lymphdrainage, krankengymnastische Bewegungsübungen ab dem ersten postoperativen Tag',
+            'Teilbelastung mit 15–20 kg über etwa sechs Wochen im Orthesenschuh, danach Röntgenkontrolle und stufenweiser Übergang zur Vollbelastung',
+            'Thromboseprophylaxe mit niedermolekularem Heparin bis zur schmerzfreien Vollbelastung; bei bekannter Thrombophilie oder vorbestehender Antikoagulation individuelles Gerinnungsmanagement',
+            'Anschließend Physiotherapie mit Kräftigung, Propriozeptions- und Gangschulung; Sportfähigkeit meist nach drei bis sechs Monaten',
+            'Metallentfernung frühestens nach zwölf Monaten und nur bei Beschwerden, die Stellschraube dagegen planmäßig früh',
+            'Über mögliche Komplikationen aufklären: Wundheilungsstörung und Infekt, sekundäre Dislokation, Peronaeusläsion, CRPS und posttraumatische Arthrose',
+          ],
+          akut: false,
         },
       ],
       prognose: 'Bei anatomischer Reposition und stabiler Osteosynthese ist die Prognose gut; entscheidend ist die exakte Wiederherstellung von Gelenkkongruenz und Syndesmose. Verbleibende Gelenkstufen, Fehlstellungen oder eine nicht ausgeheilte Syndesmoseninstabilität begünstigen die posttraumatische OSG-Arthrose. Weitere Komplikationen sind Wundheilungsstörung/Infekt (v. a. bei schlechtem Weichteilmantel, Diabetes, Rauchen), Thrombose während der Immobilisation, Materiallockerung und Bewegungseinschränkung. Weber-A-Frakturen heilen konservativ meist folgenlos aus.',
@@ -11571,6 +11731,2291 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-mrt',
         'auf-ct',
       ],
+    },
+    {
+      id: 'fw-divertikulitis',
+      pathology: 'Divertikulitis',
+      specialty: 'Gastroenterologie',
+      definition: 'Als Divertikel bezeichnet man Ausstülpungen der Darmwand. Beim Kolon handelt es sich fast immer um Pseudodivertikel (Pulsionsdivertikel): Nur Mukosa und Submukosa treten durch muskelschwache Lücken der Muscularis propria hindurch, dort, wo die Vasa recta die Wand durchbohren. Die Divertikulose ist der reine, asymptomatische Nachweis solcher Divertikel und hat keinen Krankheitswert. Von einer Divertikelkrankheit spricht man erst, wenn Beschwerden oder Komplikationen auftreten. Die akute Divertikulitis ist die entzündliche Komplikation: Durch Stuhlretention und Mikroperforation eines Divertikels entsteht eine Entzündung der Divertikelwand und des umgebenden Gewebes (Peridivertikulitis), die sich phlegmonös ausbreiten, abszedieren, gedeckt oder frei perforieren, Fisteln bilden oder narbig stenosieren kann. In Europa und Nordamerika sind über 90 % der Fälle im Colon sigmoideum lokalisiert — daher der klinische Merkbegriff „Linksappendizitis“; in Asien überwiegt der rechtsseitige, zökale Befall. Die Divertikelblutung ist eine eigenständige, davon zu trennende Komplikation der Divertikulose.',
+      aetiologie: 'Die Divertikelbildung beruht auf dem Zusammenspiel eines erhöhten intraluminalen Drucks und einer geschwächten Kolonwand. Eine ballaststoffarme Ernährung führt zu kleinvolumigem, hartem Stuhl, verlängerter Transitzeit und kräftigen segmentalen Kontraktionen; im engen, muskelstärksten Sigma entstehen dadurch die höchsten Drücke (Laplace-Gesetz). Gleichzeitig nimmt mit dem Alter die Elastizität des Bindegewebes ab und die Wand gibt an den Durchtrittsstellen der Vasa recta nach. Die Prävalenz der Divertikulose steigt von unter 10 % bei den unter 40-Jährigen auf über 60 % bei den über 70-Jährigen; etwa 4–15 % der Divertikelträger entwickeln im Verlauf eine Divertikulitis. Die Entzündung selbst wird durch Koprolithen oder eingedickten Stuhl im engen Divertikelhals ausgelöst: Es kommt zu Druckulzeration, bakterieller Besiedlung mit der Kolonflora (E. coli, Bacteroides fragilis, Enterokokken) und einer Mikroperforation mit Entzündung des perikolischen Fettgewebes. Bei der rechtsseitigen Divertikulitis liegen häufiger echte, angeborene Divertikel vor.',
+      risikofaktoren: [
+        'Lebensalter über 60 Jahre — der wichtigste Faktor',
+        'Ballaststoffarme, fleisch- und fettreiche „westliche“ Ernährung, hoher Konsum von rotem Fleisch',
+        'Chronische Obstipation und Bewegungsmangel',
+        'Adipositas (BMI über 30) und metabolisches Syndrom',
+        'Nikotinabusus und regelmäßiger Alkoholkonsum',
+        'NSAR, Acetylsalicylsäure, Kortikosteroide und Opioide — sie erhöhen deutlich das Perforations- und Blutungsrisiko',
+        'Immunsuppression (Chemotherapie, Steroidtherapie, Z. n. Transplantation, chronische Niereninsuffizienz, Diabetes mellitus) — abgeschwächte Klinik bei gleichzeitig höherer Komplikationsrate',
+        'Positive Familienanamnese und genetische Bindegewebserkrankungen (Marfan-Syndrom, Ehlers-Danlos-Syndrom), polyzystische Nierenerkrankung',
+        'Männliches Geschlecht in jüngeren Jahren, weibliches Geschlecht jenseits des 70. Lebensjahres',
+        'Stattgehabte Divertikulitis-Episode (Rezidivrisiko etwa 20–35 %)',
+      ],
+      klinik: [
+        {
+          text: 'Anhaltender, dumpf-drückender Schmerz im linken Unterbauch, häufig über Tage langsam zunehmend und lageunabhängig',
+        },
+        {
+          text: 'Fieber, meist subfebril bis 38,5 °C, mit Abgeschlagenheit und Krankheitsgefühl',
+        },
+        {
+          text: 'Deutlicher Druckschmerz im linken Unterbauch mit lokaler Abwehrspannung und Loslassschmerz',
+        },
+        {
+          text: 'Tastbare, walzenförmige, druckdolente Resistenz im linken Unterbauch (entzündliches Konglomerat)',
+        },
+        {
+          text: 'Stuhlunregelmäßigkeiten: neu aufgetretene Obstipation, seltener Diarrhoe, Wechsel beider Formen',
+        },
+        {
+          text: 'Übelkeit, Appetitlosigkeit, Meteorismus und Blähungsgefühl',
+        },
+        {
+          text: 'Vermindertes oder hochgestelltes Darmgeräusch bei beginnender Passagestörung',
+        },
+        {
+          text: 'Dysurie und Pollakisurie durch Reizung der benachbarten Harnblase (sympathische Zystitis)',
+        },
+        {
+          text: 'Schmerzausstrahlung in Rücken, linke Flanke oder Leiste',
+        },
+        {
+          text: 'Rechtsseitiger Unterbauchschmerz bei zökaler Divertikulitis oder bei einem nach rechts verlagerten Sigma elongatum — klinisch von einer Appendizitis nicht zu unterscheiden',
+          atypisch: true,
+        },
+        {
+          text: 'Nahezu blande Klinik ohne Fieber und ohne Abwehrspannung bei älteren, immunsupprimierten oder mit Kortikosteroiden behandelten Patienten — trotzdem bereits fortgeschrittene Komplikation möglich',
+          atypisch: true,
+        },
+        {
+          text: 'Akutes Abdomen mit brettharter Bauchdecke, Schocksymptomatik und Sepsiszeichen bei freier Perforation',
+          atypisch: true,
+        },
+        {
+          text: 'Pneumaturie, Fäkalurie und rezidivierende Harnwegsinfekte als Hinweis auf eine kolovesikale Fistel; Stuhl- oder Luftabgang aus der Scheide bei kolovaginaler Fistel',
+          atypisch: true,
+        },
+        {
+          text: 'Schmerzlose, plötzliche und oft massive Hämatochezie als Divertikelblutung — nicht Ausdruck der Entzündung, sondern der Arrosion einer Vasa recta',
+          atypisch: true,
+        },
+        {
+          text: 'Progrediente Obstipation bis zum Ileus mit Erbrechen bei narbiger Sigmastenose nach mehreren Schüben',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'CDD-Klassifikation (Classification of Diverticular Disease, deutsche S3-Leitlinie) — die im Examen erwartete Einteilung',
+          inhalt: 'Typ 0: asymptomatische Divertikulose (Zufallsbefund). Typ 1: akute unkomplizierte Divertikulitis — 1a ohne, 1b mit phlegmonöser Umgebungsreaktion. Typ 2: akute komplizierte Divertikulitis — 2a Mikroabszess (≤ 1 cm), 2b Makroabszess (> 1 cm) bzw. gedeckte Perforation, 2c freie Perforation mit generalisierter Peritonitis (2c1 eitrig, 2c2 kotig). Typ 3: chronische Divertikelkrankheit — 3a symptomatische unkomplizierte Divertikelkrankheit (SUDD, Beschwerden ohne Entzündungszeichen), 3b rezidivierende Divertikulitis ohne Komplikationen, 3c chronisch-komplizierter Verlauf mit Stenose, Fistel oder Konglomerattumor. Typ 4: Divertikelblutung. Die Zuordnung erfolgt anhand von Klinik, Entzündungsparametern und Schnittbildgebung und steuert unmittelbar die Therapieentscheidung.',
+        },
+        {
+          name: 'Klassifikation nach Hansen und Stock',
+          inhalt: 'Stadium 0: Divertikulose. Stadium I: akute unkomplizierte Divertikulitis. Stadium II: akute komplizierte Divertikulitis — IIa Peridivertikulitis/phlegmonöse Divertikulitis, IIb abszedierende Divertikulitis, gedeckte Perforation oder Fistel, IIc freie Perforation mit Peritonitis. Stadium III: chronisch rezidivierende Divertikulitis mit Stenose.',
+        },
+        {
+          name: 'Hinchey-Klassifikation der perforierten Divertikulitis (intraoperativ bzw. computertomographisch)',
+          inhalt: 'Stadium I: perikolischer Abszess oder Phlegmone. Stadium II: abgekapselter pelviner, intraabdomineller oder retroperitonealer Abszess. Stadium III: generalisierte eitrige Peritonitis. Stadium IV: generalisierte kotige Peritonitis. Die Stadien III und IV sind eine Indikation zur sofortigen Notfalloperation.',
+        },
+      ],
+      redFlags: [
+        'Brettharte Bauchdecke, diffuse Abwehrspannung und generalisierter Loslassschmerz → freie Perforation mit Peritonitis, sofortige CT und Notfalloperation',
+        'Tachykardie, Hypotonie, Verwirrtheit, Oligurie, Fieber über 39 °C oder Hypothermie → Sepsis bzw. septischer Schock',
+        'Immunsuppression, Kortikosteroidtherapie, Chemotherapie oder Diabetes mellitus → maskierte Klinik, hohe Perforationsrate; großzügige Indikation zur CT und zur stationären Aufnahme',
+        'Fehlende Besserung von Schmerz, Fieber und CRP innerhalb von 48–72 Stunden unter Antibiose → Abszess, gedeckte Perforation oder falsche Diagnose',
+        'Erbrechen, fehlender Stuhl- und Windabgang, geblähtes Abdomen → Ileus bei entzündlicher oder narbiger Stenose',
+        'Pneumaturie, Fäkalurie oder Luft in der Harnblase im CT → kolovesikale Fistel',
+        'Massive, transfusionspflichtige Hämatochezie mit Kreislaufinstabilität → Divertikelblutung',
+        'Ungewollter Gewichtsverlust, Nachtschweiß, Anämie oder Blutauflagerungen über Wochen → Kolonkarzinom bis zum Beweis des Gegenteils',
+        'Schwangerschaft sowie jeder Unterbauchschmerz bei Frauen im gebärfähigen Alter → Extrauteringravidität und Adnexerkrankungen ausschließen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese: Beginn, Lokalisation im linken Unterbauch, Dauer, Charakter, Ausstrahlung, Verlauf über die letzten Tage sowie Verstärkung nach dem Essen und bei der Defäkation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Fragen nach Fieber, Schüttelfrost, Übelkeit, Erbrechen, Stuhlverhalten, Blut- und Schleimauflagerungen, Gewichtsverlust, Dysurie und früheren, gleichartigen Episoden; Medikamentenanamnese mit NSAR, Kortikosteroiden und Immunsuppressiva',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter mit Blutdruck, Puls und Temperatur (rektal und axillär), Inspektion, Auskultation der Darmgeräusche, Palpation aller vier Quadranten mit Prüfung von Abwehrspannung, Loslassschmerz und tastbarer walzenförmiger Resistenz im linken Unterbauch',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Digital-rektale Untersuchung: Druckschmerz im Douglas-Raum, Resistenz, Blut am Fingerling; ergänzend Nierenlager klopfen zur Abgrenzung urologischer Ursachen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: CRP (Werte über 50 mg/l sprechen für einen komplizierten Verlauf, über 170 mg/l für eine Perforation), Blutbild mit Leukozytose und Linksverschiebung, Procalcitonin bei Sepsisverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor vor Therapie und Bildgebung: Kreatinin und eGFR (Kontrastmittelgabe), Elektrolyte, Transaminasen, Lipase zur Abgrenzung einer Pankreatitis, Gerinnung und Blutgruppe bei möglicher Operation, Laktat bei Sepsis- oder Ischämieverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus und -sediment: Ausschluss eines Harnwegsinfekts; eine sterile Leukozyturie oder ein Mischkeimbefund kann auf eine kolovesikale Fistel hinweisen. Bei Frauen im gebärfähigen Alter obligat β-hCG',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen (zwei Paare) vor Beginn der Antibiose bei Fieber über 38,5 °C oder Sepsisverdacht; Test auf okkultes Blut ist im akuten Schub nicht hilfreich',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomen-Sonographie als primäres, strahlenfreies und jederzeit verfügbares Verfahren: echoarme Wandverdickung des Sigmas über 5 mm („Kokarde“), echoarme Divertikel mit Kotstein, echoreiches, entzündlich reagierendes perikolisches Fett, lokaler Druckschmerz unter dem Schallkopf, freie Flüssigkeit und Abszessformationen; zugleich Beurteilung von Nieren, Harnwegen und Gallenblase',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT des Abdomens mit intravenösem und möglichst rektalem Kontrastmittel — GOLDSTANDARD zur Diagnosesicherung und Stadieneinteilung: Nachweis von Divertikeln, Wandverdickung, „fat stranding“, Abszessen, freier Luft, Fisteln und Stenosen. Indiziert bei unklarer Sonographie, Verdacht auf komplizierten Verlauf, Immunsuppression, ausbleibendem Ansprechen und vor jeder Operationsplanung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Kontraindikation gegen die CT (Schwangerschaft, junge Patienten, Kontrastmittelallergie) MRT des Abdomens mit vergleichbarer Aussagekraft',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelle Abdomenübersicht im Stehen oder in Linksseitenlage nur noch als schnelle Notfalluntersuchung bei Verdacht auf freie Perforation (subphrenische Luftsichel) oder Ileus (Spiegelbildungen) — die CT ist überlegen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Fistelverdacht ergänzend Zystoskopie, gegebenenfalls Kontrastmitteldarstellung; ein Kolonkontrasteinlauf mit Barium ist im akuten Schub wegen der Perforationsgefahr kontraindiziert (allenfalls wasserlösliches Kontrastmittel)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koloskopie ERST IM INTERVALL, etwa 4–6 Wochen nach Abklingen des Schubes — im akuten Stadium wegen Luftinsufflation und Perforationsgefahr KONTRAINDIZIERT. Ziel ist der Ausschluss eines Kolonkarzinoms, einer chronisch-entzündlichen Darmerkrankung und einer Ischämie sowie die Beurteilung von Stenosen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'CT- oder sonographisch gesteuerte perkutane Punktion und Drainage eines Abszesses — zugleich diagnostisch (Materialgewinnung für Mikrobiologie und Resistenztestung) und therapeutisch',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Laparoskopie bzw. explorative Laparotomie bei akutem Abdomen mit unklarem Befund oder bei septischem Patienten — hier zugleich die therapeutische Maßnahme',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologische Aufarbeitung des Resektats bzw. Biopsien im Intervall zum sicheren Ausschluss eines stenosierenden Karzinoms, das eine Divertikulitis imitieren kann',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Kolorektales Karzinom, insbesondere stenosierendes Sigmakarzinom',
+          unterscheidung: 'Die wichtigste Differenzialdiagnose — radiologisch und klinisch oft nicht sicher abgrenzbar, ein perforiertes Karzinom kann eine Divertikulitis exakt imitieren. Dafür sprechen ein schleichender Verlauf über Wochen bis Monate, Änderung der Stuhlgewohnheiten, Blut- und Schleimauflagerungen, Bleistiftstühle, ungewollter Gewichtsverlust, Nachtschweiß, Anämie und fehlendes Fieber. Klärung ausschließlich durch die Koloskopie mit Biopsie im entzündungsfreien Intervall nach 4–6 Wochen.',
+        },
+        {
+          dd: 'Reizdarmsyndrom (Colon irritabile) und symptomatische unkomplizierte Divertikelkrankheit (CDD Typ 3a)',
+          unterscheidung: 'Chronisch-rezidivierende, häufig defäkationsabhängige Beschwerden mit Blähungen und wechselndem Stuhlverhalten über Monate bis Jahre, typischerweise ohne Nachtsymptomatik. Es fehlen Fieber, Abwehrspannung und jede laborchemische Entzündungsreaktion (CRP und Leukozyten normal); die Bildgebung zeigt keine entzündliche Wandverdickung. Ausschlussdiagnose.',
+        },
+        {
+          dd: 'Harnwegsinfekt, Pyelonephritis und Urolithiasis',
+          unterscheidung: 'Dysurie, Pollakisurie, imperativer Harndrang und Flankenschmerz mit Klopfschmerz im Nierenlager; bei der Kolik wellenförmiger, bewegungsunruhiger Schmerz mit Ausstrahlung in die Leiste. Entscheidend sind Urinstatus (Nitrit, Leukozyten, Bakterien, Erythrozyten) und Sonographie mit Harnstau- und Konkrementnachweis. Cave: eine Blasenreizung durch die benachbarte Divertikulitis verursacht ebenfalls Dysurie, der Urin ist dann meist steril.',
+        },
+        {
+          dd: 'Akute Appendizitis',
+          unterscheidung: 'Schmerzbeginn periumbilikal mit Wanderung in den rechten Unterbauch, McBurney- und Lanz-Punkt druckschmerzhaft, Blumberg-, Rovsing- und Psoas-Zeichen positiv, jüngere Patienten. Bei einem langen Sigma elongatum, das nach rechts reicht, sowie bei rechtsseitiger zökaler Divertikulitis ist die Unterscheidung nur mit der Schnittbildgebung möglich.',
+        },
+        {
+          dd: 'Chronisch-entzündliche Darmerkrankungen (Morbus Crohn, Colitis ulcerosa)',
+          unterscheidung: 'Jüngeres Manifestationsalter, schubweiser Verlauf über Jahre, blutig-schleimige Diarrhoen, perianale Fisteln und Abszesse beim Morbus Crohn, extraintestinale Manifestationen (Arthritis, Erythema nodosum, Uveitis, primär sklerosierende Cholangitis). Die Diagnose stellt die Koloskopie mit Stufenbiopsien im Intervall.',
+        },
+        {
+          dd: 'Ischämische Kolitis',
+          unterscheidung: 'Ältere, kardiovaskulär vorerkrankte Patienten mit Vorhofflimmern oder pAVK; plötzlicher Schmerz, gefolgt von blutiger Diarrhoe, typischerweise in der Region der linken Flexur (Riolan-Anastomose, „Wasserscheide“). Laktat erhöht, im CT Wandödem und fehlende Kontrastierung; endoskopisch längsgerichtete Ulzerationen.',
+        },
+        {
+          dd: 'Infektiöse Kolitis, einschließlich Clostridioides-difficile-Kolitis',
+          unterscheidung: 'Akuter Beginn mit wässriger oder blutiger Diarrhoe, Erbrechen, Auslandsaufenthalt oder gemeinsame Mahlzeit, kurz zurückliegende Antibiotikatherapie. Diagnose durch Stuhlkulturen sowie Toxinnachweis; die Beschwerden sind diffus und nicht auf den linken Unterbauch begrenzt.',
+        },
+        {
+          dd: 'Gynäkologische Ursachen: Adnexitis, stielgedrehte Ovarialzyste, Extrauteringravidität, Endometriose',
+          unterscheidung: 'Bei jeder Frau im gebärfähigen Alter obligat β-hCG und gynäkologisches Konsil. Portioschiebeschmerz, Ausfluss, zyklusabhängige Beschwerden, sekundäre Amenorrhoe; die transvaginale Sonographie ist wegweisend.',
+        },
+        {
+          dd: 'Rupturiertes oder symptomatisches Bauchaortenaneurysma',
+          unterscheidung: 'Älterer, hypertoner Raucher mit plötzlichem, in den Rücken ausstrahlendem Vernichtungsschmerz, pulsierendem abdominellem Tumor, Blutdruckdifferenz und Kreislaufinstabilität — lebensbedrohliche Differenzialdiagnose, die durch die Sonographie in Minuten ausgeschlossen wird.',
+        },
+        {
+          dd: 'Weitere abdominelle Ursachen: perforiertes Ulkus, Pankreatitis, inkarzerierte Hernie, Nierenkolik links',
+          unterscheidung: 'Abgrenzung durch Schmerzcharakter und Lokalisation, Lipase, Bruchpforten-Untersuchung sowie die Schnittbildgebung; freie Luft im Röntgen oder CT weist auf eine Hohlorganperforation hin.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Erstversorgung und Risikostratifizierung — Entscheidung ambulant oder stationär',
+          akut: true,
+          items: [
+            'Stadieneinteilung nach der CDD-Klassifikation anhand von Klinik, CRP/Leukozyten und Schnittbildgebung — sie steuert jede weitere Entscheidung',
+            'Ambulante Behandlung möglich bei unkomplizierter Divertikulitis (CDD Typ 1) ohne relevante Komorbidität: gute Schmerzkontrolle, Fieber unter 38,5 °C, orale Nahrungsaufnahme und Tabletteneinnahme sicher möglich, verlässliche Wiedervorstellung innerhalb von 48–72 Stunden gewährleistet',
+            'Stationäre Aufnahme bei komplizierter Divertikulitis (CDD Typ 2), Peritonismus, Fieber über 38,5 °C, ausgeprägter Entzündungsreaktion, Erbrechen oder fehlender oraler Toleranz, Immunsuppression, Kortikosteroidtherapie, Niereninsuffizienz, Diabetes mellitus, hohem Alter, fehlender häuslicher Versorgung sowie in der Schwangerschaft',
+            'Bei septischem Patienten: großlumige venöse Zugänge, Volumentherapie mit balancierter Vollelektrolytlösung, Blutkulturen, kalkulierte intravenöse Antibiose innerhalb einer Stunde, Sauerstoffgabe, Monitoring von Blutdruck, Puls, Diurese und Laktat, Nüchternheit und frühzeitige Information der Chirurgie',
+            'Absetzen bzw. Vermeiden von NSAR und Kortikosteroiden, soweit klinisch vertretbar — sie erhöhen das Perforationsrisiko',
+            'Verlaufskontrolle von Klinik, Temperatur und CRP nach 48–72 Stunden: Bleibt die Besserung aus, erneute Bildgebung zur Suche nach Abszess, gedeckter Perforation oder einer anderen Diagnose',
+          ],
+        },
+        {
+          label: 'Konservative Therapie der unkomplizierten Divertikulitis (CDD Typ 1)',
+          items: [
+            'Körperliche Schonung; leichte, ballaststoffarme Kost — eine strenge Nahrungskarenz oder gar parenterale Ernährung ist bei der unkomplizierten Form nicht mehr Standard, nur bei Übelkeit, Erbrechen oder Passagestörung wird nüchtern gelassen und intravenös Flüssigkeit gegeben',
+            'Antibiotika NICHT obligat: Bei der unkomplizierten Divertikulitis ohne Risikofaktoren erlauben die Leitlinien eine rein symptomatische Therapie unter engmaschiger Kontrolle, da die Antibiose Verlauf und Komplikationsrate nicht verbessert',
+            'Antibiotische Therapie dagegen indiziert bei Risikokonstellation — Immunsuppression, Kortikosteroide, arterielle Hypertonie, chronische Niereninsuffizienz, Diabetes mellitus, allergische Disposition, deutlich erhöhtes CRP oder ausgeprägte Klinik',
+            'Orales Regime: Ciprofloxacin 2 × 500 mg plus Metronidazol 3 × 400 mg oder Amoxicillin/Clavulansäure 3 × 875/125 mg über 7–10 Tage; Cave Fluorchinolon-Warnhinweise (Tendinopathie, Aortenaneurysma)',
+            'Analgesie mit Metamizol 3–4 × 500–1000 mg oder Paracetamol; NSAR meiden (Perforationsrisiko), Opioide möglichst sparsam, da sie den intraluminalen Druck erhöhen und die Passage hemmen. Butylscopolamin bei krampfartigem Charakter',
+            'Kostaufbau nach Beschwerdefreiheit; anschließend dauerhaft ballaststoffreiche Ernährung (mindestens 30 g täglich, ggf. Flohsamenschalen), reichliche Trinkmenge, körperliche Aktivität, Gewichtsnormalisierung und Nikotinkarenz — Nüsse und Körner müssen NICHT gemieden werden',
+            'Aufklärung über Warnzeichen: zunehmender Schmerz, hohes Fieber, Erbrechen, ausbleibende Besserung nach 2–3 Tagen — dann sofortige Wiedervorstellung',
+          ],
+        },
+        {
+          label: 'Behandlung der komplizierten Divertikulitis: Abszess, gedeckte und freie Perforation (CDD Typ 2)',
+          akut: true,
+          items: [
+            'Stationäre Aufnahme, Nahrungskarenz, intravenöse Flüssigkeits- und Elektrolytsubstitution, Thromboseprophylaxe mit niedermolekularem Heparin, Analgesie',
+            'Kalkulierte intravenöse Antibiose gegen gramnegative Keime und Anaerobier: Ceftriaxon 1 × 2 g plus Metronidazol 3 × 500 mg oder Ampicillin/Sulbactam 3 × 3 g; bei schwerem Verlauf und Sepsis Piperacillin/Tazobactam 3 × 4,5 g oder ein Carbapenem; Deeskalation nach Kultur und Resistogramm, Gesamtdauer meist 7–14 Tage',
+            'Mikroabszess bis etwa 3 cm (CDD Typ 2a): alleinige antibiotische Therapie unter klinischer und sonographischer Verlaufskontrolle',
+            'Makroabszess über 3–5 cm (CDD Typ 2b): zusätzlich CT- oder sonographisch gesteuerte perkutane Drainage mit Materialgewinnung — dadurch lässt sich die Notfalloperation häufig in eine geplante Operation im Intervall überführen',
+            'Freie Perforation mit generalisierter Peritonitis (CDD Typ 2c, Hinchey III/IV): NOTFALLOPERATION nach kurzer Stabilisierung — Sigmaresektion mit Peritoneallavage; beim septischen, instabilen Patienten Diskontinuitätsresektion nach Hartmann mit endständigem Deszendostoma und Blindverschluss des Rektumstumpfes, Rückverlagerung nach etwa 3–6 Monaten',
+            'Beim stabilen Patienten und günstigen lokalen Verhältnissen alternativ Resektion mit primärer Anastomose, gegebenenfalls durch ein protektives Ileostoma geschützt; die alleinige laparoskopische Lavage ohne Resektion bleibt Einzelfällen der eitrigen Peritonitis vorbehalten',
+            'Perioperativ Sepsisbündel, Intensivüberwachung und, falls erforderlich, Katecholamintherapie',
+          ],
+        },
+        {
+          label: 'Elektive Sigmaresektion, Intervallkoloskopie und Rezidivprophylaxe',
+          items: [
+            'Koloskopie 4–6 Wochen nach Abklingen jeder erstmaligen oder komplizierten Episode — zwingend zum Ausschluss eines Kolonkarzinoms und einer chronisch-entzündlichen Darmerkrankung; im akuten Schub ist sie kontraindiziert',
+            'Absolute bzw. dringliche Operationsindikationen: chronisch-komplizierter Verlauf mit Stenose, Fistel oder Konglomerattumor (CDD Typ 3c), nicht beherrschbare Blutung sowie jeder Zustand nach freier Perforation',
+            'Elektive Operation im entzündungsfreien Intervall nach individueller Abwägung: nach abszedierender Divertikulitis (CDD Typ 2b), bei rezidivierenden Schüben mit hohem Leidensdruck (Typ 3b) und bei Immunsupprimierten wegen des hohen Komplikationsrisikos — die frühere starre Regel „Operation ab dem zweiten Schub“ gilt NICHT mehr',
+            'Verfahren der Wahl: laparoskopische Sigmaresektion mit primärer Deszendorektostomie; entscheidend ist die Mitnahme der gesamten Hochdruckzone bis auf das obere Rektum, während proximal nicht alle divertikeltragenden Abschnitte entfernt werden müssen',
+            'Präoperative Aufklärung über Anastomoseninsuffizienz, Nachblutung, Verletzung von Ureter und Nervi hypogastrici mit Blasen- und Sexualfunktionsstörungen, Wundinfektion, Narbenhernie und die Möglichkeit eines temporären Stomas; Markierung der Stomaposition vor der Operation',
+            'Rezidivprophylaxe konservativ: ballaststoffreiche Kost, ausreichende Trinkmenge, regelmäßige Bewegung, Gewichtsreduktion, Nikotinkarenz sowie kritische Überprüfung von NSAR, Kortikosteroiden und Opioiden',
+            'Nachsorge: Wundkontrolle, Kostaufbau, Planung der Stomarückverlagerung nach etwa 3–6 Monaten, gegebenenfalls Anschlussheilbehandlung; bei histologisch nachgewiesenem Karzinom onkologische Weiterbehandlung',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der unkomplizierten Divertikulitis ist gut: Über 90 % der Episoden heilen unter konservativer Behandlung innerhalb weniger Tage folgenlos ab, die Letalität ist minimal. Nach einer ersten Episode kommt es bei etwa 20–35 % der Patienten innerhalb von fünf Jahren zu einem Rezidiv; das Risiko eines komplizierten Verlaufs ist dabei am höchsten beim ersten Schub und nimmt mit weiteren Schüben nicht linear zu — deshalb wird heute nicht mehr allein wegen der Zahl der Episoden operiert. Die komplizierte Divertikulitis hat eine deutlich ernstere Prognose: Bei freier Perforation mit kotiger Peritonitis (Hinchey IV) liegt die Letalität trotz Notfalloperation bei 10–20 %, bei septischem Schock höher. Nach elektiver laparoskopischer Sigmaresektion sind die Ergebnisse sehr gut, etwa 80–90 % der Operierten sind dauerhaft beschwerdefrei, ein Rezidiv im verbliebenen Kolon ist mit unter 10 % selten. Prognostisch entscheidend sind das rechtzeitige Erkennen der Komplikationen, die Immunkompetenz des Patienten und der konsequente Ausschluss eines Karzinoms in der Intervallkoloskopie.',
+      pruefungsfallen: [
+        'Die Koloskopie ist im akuten Schub KONTRAINDIZIERT — Luftinsufflation und Vorschieben des Geräts können die entzündlich vorgeschädigte Wand perforieren. Sie erfolgt erst 4–6 Wochen nach Abklingen, dann aber verbindlich zum Karzinomausschluss. Wer im Prüfungsgespräch die Koloskopie als Akutdiagnostik nennt, verliert den Punkt.',
+        'Goldstandard der Akutdiagnostik ist die CT des Abdomens mit Kontrastmittel — sie sichert nicht nur die Diagnose, sondern liefert die Stadieneinteilung, aus der sich die Therapie ableitet. Die Sonographie steht als erste, strahlenfreie Untersuchung davor.',
+        '„Wann wird operiert?“ ist die klassische Fangfrage: Die alte Regel „ab dem zweiten Schub“ gilt nicht mehr. Notfallmäßig wird bei freier Perforation, Peritonitis und Sepsis operiert; elektiv im entzündungsfreien Intervall bei Stenose, Fistel, nach Abszess, bei Immunsuppression und bei hohem Leidensdruck — individuell, nicht nach Schubzahl.',
+        'Antibiotika sind bei der unkomplizierten Divertikulitis ohne Risikofaktoren nicht mehr obligat. Wer reflexartig „immer Antibiotikum“ sagt, sollte die Risikokonstellationen kennen, in denen sie doch indiziert sind.',
+        'Divertikulose, Divertikelkrankheit und Divertikulitis sauber trennen — die Divertikulose allein hat keinen Krankheitswert und wird nicht behandelt.',
+        'Die Divertikelblutung ist eine eigene Entität (CDD Typ 4): schmerzlose, oft massive Hämatochezie ohne Entzündungszeichen. Sie ist nicht die Blutung „einer Divertikulitis“ und tritt typischerweise rechtsseitig auf.',
+        'Bei Immunsupprimierten, Steroidpatienten und alten Menschen fehlen Fieber und Abwehrspannung häufig, obwohl bereits eine Perforation vorliegt — die scheinbar milde Klinik darf nicht beruhigen.',
+        'Kolonkarzinom immer aktiv ausschließen: Ein perforiertes Sigmakarzinom kann im CT wie eine Divertikulitis aussehen. Nur die Endoskopie mit Biopsie beziehungsweise die Histologie des Resektats klärt.',
+        'Der Kolonkontrasteinlauf mit Barium ist im akuten Schub verboten (Perforation mit Bariumperitonitis); falls überhaupt, nur wasserlösliches Kontrastmittel.',
+        'Das Wort „Linksappendizitis“ nur als Merkhilfe verwenden — rechtsseitige Divertikulitis und ein nach rechts reichendes Sigma elongatum existieren und imitieren die Appendizitis.',
+        'Bei Frauen im gebärfähigen Alter ist das β-hCG obligat, bevor eine CT veranlasst wird.',
+        'Dem Patienten verständlich erklären: Divertikel sind „Ausstülpungen der Darmwand“, Divertikulitis ist deren „Entzündung“; Nüsse und Körner sind entgegen dem verbreiteten Laienwissen nicht verboten.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ich vermute eine akute Divertikulitis des Sigmas. Dafür sprechen der über Tage zunehmende, anhaltende Schmerz im linken Unterbauch, das Fieber, der lokale Druckschmerz mit Abwehrspannung im linken Unterbauch, die veränderten Stuhlgewohnheiten sowie das Alter und die ballaststoffarme Ernährung als Risikofaktoren. Wegen der Lokalisation spricht man auch von der sogenannten Linksappendizitis.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'An erster Stelle ein kolorektales Karzinom, insbesondere ein stenosierendes Sigmakarzinom — dafür sprächen ein schleichender Verlauf, Gewichtsverlust und Blut im Stuhl. Weiterhin ein Reizdarmsyndrom, bei dem Fieber und Entzündungszeichen fehlen, ein Harnwegsinfekt oder eine Urolithiasis, die sich über den Urinstatus abgrenzen lassen, eine Appendizitis bei nach rechts reichendem Sigma, chronisch-entzündliche Darmerkrankungen, eine ischämische oder infektiöse Kolitis sowie bei Frauen gynäkologische Ursachen. Ein rupturiertes Bauchaortenaneurysma muss sonographisch ausgeschlossen werden.',
+        },
+        {
+          frage: 'Welche Untersuchungen veranlassen Sie, und in welcher Reihenfolge?',
+          antwort: 'Zuerst Anamnese und körperliche Untersuchung einschließlich digital-rektaler Untersuchung und Vitalparametern. Dann Labor mit CRP, Blutbild, Kreatinin, Elektrolyten, Lipase, Gerinnung, Urinstatus und bei Frauen β-hCG. Anschließend die Abdomen-Sonographie als erste Bildgebung und zur Sicherung und Stadieneinteilung ein CT des Abdomens mit Kontrastmittel. Die Koloskopie folgt erst im Intervall nach vier bis sechs Wochen.',
+        },
+        {
+          frage: 'Warum führen Sie im akuten Schub keine Koloskopie durch?',
+          antwort: 'Weil die Darmwand entzündlich vorgeschädigt und dadurch stark verletzlich ist. Durch die Luftinsufflation und das Vorschieben des Endoskops steigt der intraluminale Druck, sodass eine gedeckte Perforation eröffnet oder eine freie Perforation ausgelöst werden kann. Die Koloskopie wird deshalb erst vier bis sechs Wochen nach Abklingen der Entzündung durchgeführt — dann aber unbedingt, um ein Kolonkarzinom und eine chronisch-entzündliche Darmerkrankung auszuschließen.',
+        },
+        {
+          frage: 'Welche Untersuchung ist der Goldstandard, und was sehen Sie dort?',
+          antwort: 'Das CT des Abdomens mit intravenösem und möglichst rektalem Kontrastmittel. Man sieht die Divertikel, eine verdickte Sigmawand, eine entzündliche Reaktion des umgebenden Fettgewebes, außerdem Abszesse, freie Luft bei Perforation, Fisteln und Stenosen. Damit gelingt zugleich die Stadieneinteilung nach der CDD-Klassifikation, aus der sich die Therapie ableitet.',
+        },
+        {
+          frage: 'Welche Klassifikation kennen Sie, und wozu dient sie?',
+          antwort: 'Im deutschsprachigen Raum die CDD-Klassifikation: Typ 0 Divertikulose, Typ 1 akute unkomplizierte Divertikulitis, Typ 2 akute komplizierte Divertikulitis mit Mikroabszess, Makroabszess oder freier Perforation, Typ 3 chronische Divertikelkrankheit einschließlich Stenosen und Fisteln, Typ 4 Divertikelblutung. Daneben die Einteilung nach Hansen und Stock sowie die Hinchey-Klassifikation für die perforierte Form. Sie steuert die Entscheidung zwischen ambulanter, stationärer, interventioneller und operativer Behandlung.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine unkomplizierte Divertikulitis?',
+          antwort: 'Konservativ: körperliche Schonung, leichte ballaststoffarme Kost, ausreichende Flüssigkeitszufuhr und Analgesie mit Metamizol oder Paracetamol; NSAR und Opioide vermeide ich möglichst. Ein Antibiotikum ist bei der unkomplizierten Form ohne Risikofaktoren nicht zwingend erforderlich. Liegen Risikofaktoren wie Immunsuppression, Diabetes, Niereninsuffizienz oder eine ausgeprägte Entzündungsreaktion vor, gebe ich Ciprofloxacin plus Metronidazol beziehungsweise Amoxicillin/Clavulansäure über sieben bis zehn Tage. Nach 48 bis 72 Stunden kontrolliere ich Klinik und CRP.',
+        },
+        {
+          frage: 'Wann würden Sie den Patienten stationär aufnehmen?',
+          antwort: 'Bei komplizierter Divertikulitis, Peritonismus, Fieber über 38,5 Grad, hoher Entzündungsreaktion, Erbrechen oder fehlender oraler Nahrungs- und Medikamentenaufnahme, bei Immunsuppression, Kortikosteroidtherapie, Diabetes, Niereninsuffizienz, hohem Alter, in der Schwangerschaft sowie wenn die häusliche Versorgung oder eine kurzfristige Wiedervorstellung nicht gesichert ist.',
+        },
+        {
+          frage: 'Wann operieren Sie?',
+          antwort: 'Notfallmäßig bei freier Perforation mit Peritonitis, bei Sepsis und bei einer nicht beherrschbaren Blutung. Elektiv im entzündungsfreien Intervall bei chronisch-komplizierten Verläufen mit Stenose, Fistel oder Konglomerattumor, nach einer abszedierenden Divertikulitis, bei Immunsupprimierten und bei rezidivierenden Schüben mit hohem Leidensdruck. Die frühere Regel, ab dem zweiten Schub grundsätzlich zu operieren, gilt heute nicht mehr — die Indikation wird individuell gestellt.',
+        },
+        {
+          frage: 'Welches Operationsverfahren wählen Sie?',
+          antwort: 'Elektiv die laparoskopische Sigmaresektion mit primärer Anastomose zum oberen Rektum; wichtig ist, die gesamte Hochdruckzone zu entfernen. In der Notfallsituation beim septischen, instabilen Patienten mit kotiger Peritonitis die Diskontinuitätsresektion nach Hartmann mit endständigem Kolostoma und Blindverschluss des Rektumstumpfes; die Rückverlagerung erfolgt nach etwa drei bis sechs Monaten.',
+        },
+        {
+          frage: 'Wie behandeln Sie einen Abszess?',
+          antwort: 'Ein Mikroabszess bis etwa drei Zentimeter wird allein antibiotisch intravenös behandelt, zum Beispiel mit Ceftriaxon und Metronidazol, unter engmaschiger Verlaufskontrolle. Ein größerer Abszess wird zusätzlich CT- oder sonographisch gesteuert perkutan drainiert, mit Materialgewinnung für die Mikrobiologie. Dadurch lässt sich häufig eine Notfalloperation vermeiden und in eine geplante Operation im Intervall überführen.',
+        },
+        {
+          frage: 'Der Patient bessert sich unter Antibiotika nach drei Tagen nicht — was tun Sie?',
+          antwort: 'Ich denke an eine Komplikation oder an eine falsche Diagnose. Ich kontrolliere Klinik, Temperatur und Entzündungsparameter und veranlasse eine erneute Schnittbildgebung zur Suche nach einem Abszess, einer gedeckten Perforation, einer Fistel oder einem stenosierenden Karzinom. Je nach Befund folgen eine perkutane Drainage, eine Eskalation der Antibiose oder die operative Sanierung.',
+        },
+        {
+          frage: 'Warum ist die Klinik bei immunsupprimierten Patienten trügerisch?',
+          antwort: 'Unter Kortikosteroiden, Immunsuppressiva oder Chemotherapie ist die Entzündungsreaktion abgeschwächt: Fieber, Leukozytose und Abwehrspannung können fehlen, obwohl bereits eine Perforation vorliegt. Bei diesen Patienten stelle ich die Indikation zur CT und zur stationären Aufnahme deshalb sehr großzügig und behandle antibiotisch.',
+        },
+        {
+          frage: 'Was raten Sie dem Patienten nach abgeklungener Entzündung zur Vorbeugung?',
+          antwort: 'Eine ballaststoffreiche Ernährung mit mindestens 30 Gramm täglich, gegebenenfalls mit Flohsamenschalen, viel trinken, regelmäßige körperliche Bewegung, Gewichtsreduktion und Rauchstopp. NSAR, Kortikosteroide und Opioide sollten möglichst gemieden werden. Ausdrücklich sage ich ihm, dass er Nüsse, Körner und Samen nicht meiden muss — das ist ein verbreiteter Irrtum.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Erkrankung in einfachen Worten?',
+          antwort: 'Ich würde sagen: In der Wand Ihres Dickdarms haben sich kleine Ausstülpungen gebildet, sogenannte Divertikel — das ist mit zunehmendem Alter sehr häufig und an sich harmlos. Eine dieser Ausstülpungen hat sich jetzt entzündet, deshalb die Schmerzen im linken Unterbauch und das Fieber. Wir behandeln die Entzündung, und wenn sie abgeklungen ist, spiegeln wir in etwa vier bis sechs Wochen den Darm, um sicherzugehen, dass nichts anderes dahintersteckt.',
+        },
+        {
+          frage: 'Der Patient berichtet über Luft im Urin — woran denken Sie?',
+          antwort: 'An eine kolovesikale Fistel als chronische Komplikation der Divertikulitis. Typisch sind Pneumaturie, Fäkalurie und rezidivierende Harnwegsinfekte mit Mischkeimen. Ich sichere den Befund mit einer CT des Abdomens und einer Zystoskopie; die Therapie ist die elektive operative Sanierung mit Resektion des betroffenen Darmabschnitts und Übernähung der Blase.',
+        },
+      ],
+      merksatz: 'Divertikulitis = „Linksappendizitis“: Schmerz im linken Unterbauch, Fieber, CRP hoch, walzenförmige Resistenz. Diagnostik akut per Sonographie und CT — die Koloskopie NIE im Schub, sondern erst nach 4–6 Wochen zum Karzinomausschluss. Unkompliziert wird konservativ behandelt (Antibiotikum nur bei Risikofaktoren), operiert wird notfallmäßig bei freier Perforation und elektiv bei Abszess, Stenose, Fistel oder Immunsuppression — nicht mehr stur ab dem zweiten Schub.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-kolorektales-ca',
+      pathology: 'Kolorektales Karzinom',
+      specialty: 'Gastroenterologie',
+      definition: 'Das kolorektale Karzinom (KRK) ist ein maligner epithelialer Tumor des Dickdarms und des Mastdarms; in über 95 % der Fälle handelt es sich histologisch um ein Adenokarzinom, das ganz überwiegend aus einem zuvor gutartigen Adenom hervorgeht (Adenom-Karzinom-Sequenz). Definitionsgemäß gilt als Rektumkarzinom ein Tumor, dessen aboraler Rand mit dem starren Rektoskop bis 16 cm von der Anokutanlinie entfernt liegt; alles oberhalb davon ist ein Kolonkarzinom. Diese Unterscheidung ist keine Formalie, sondern bestimmt das gesamte Therapiekonzept. Das KRK ist in Deutschland bei beiden Geschlechtern das zweithäufigste Karzinom, der Altersgipfel liegt jenseits des 60. Lebensjahres, etwa zwei Drittel liegen im linken Hemikolon und im Rektum.',
+      aetiologie: 'Etwa 70–80 % der Fälle sind sporadisch und entstehen über die Adenom-Karzinom-Sequenz nach Vogelstein: eine schrittweise Akkumulation genetischer Veränderungen (APC-Verlust am Beginn, dann KRAS-Mutation, Verlust von DCC/SMAD4 und schließlich TP53) wandelt über etwa 10 Jahre normale Mukosa in ein Adenom und dieses in ein invasives Karzinom um. Zwei weitere Wege sind zu kennen: der Mikrosatelliteninstabilitäts-Weg durch Defekt der DNA-Mismatch-Reparatur (MLH1, MSH2, MSH6, PMS2) und der serratierte Weg über sessile serratierte Läsionen mit BRAF-Mutation und CpG-Insel-Hypermethylierung. Rund 20–30 % zeigen eine familiäre Häufung; etwa 5 % sind echte hereditäre Syndrome: das Lynch-Syndrom (HNPCC, autosomal-dominant, Keimbahnmutation eines MMR-Gens, rechtsseitige Tumoren in jungem Alter, assoziierte Endometrium-, Magen-, Ovarial- und Urothelkarzinome) und die familiäre adenomatöse Polyposis (FAP, APC-Keimbahnmutation auf Chromosom 5q21, hunderte bis tausende Polypen ab der Pubertät, Entartung nahezu 100 %), seltener MUTYH-assoziierte Polyposis oder Peutz-Jeghers-Syndrom. Ein eigenständiges Entzündungsrisiko besteht bei chronisch entzündlichen Darmerkrankungen, insbesondere bei langjähriger ausgedehnter Colitis ulcerosa (Dysplasie-Karzinom-Sequenz).',
+      risikofaktoren: [
+        'Lebensalter über 50 Jahre — der wichtigste nicht beeinflussbare Faktor',
+        'Kolorektale Adenome, besonders villöse, größer als 1 cm oder mit hochgradiger intraepithelialer Neoplasie; sessile serratierte Läsionen',
+        'Positive Familienanamnese: ein erstgradig Verwandter mit KRK verdoppelt bis verdreifacht das Risiko, Erkrankung vor dem 50. Lebensjahr erhöht es weiter',
+        'Hereditäre Syndrome: Lynch-Syndrom (HNPCC), familiäre adenomatöse Polyposis (FAP), MUTYH-assoziierte Polyposis, Peutz-Jeghers-Syndrom',
+        'Chronisch entzündliche Darmerkrankungen, vor allem Colitis ulcerosa mit Pancolitis über mehr als 8–10 Jahre, ebenso Colitis Crohn; zusätzlich erhöht bei primär sklerosierender Cholangitis',
+        'Ernährung: viel rotes und verarbeitetes Fleisch, hoher Fettanteil, ballaststoffarme Kost',
+        'Adipositas (BMI über 30), Bewegungsmangel, metabolisches Syndrom und Diabetes mellitus Typ 2',
+        'Nikotinabusus und regelmäßiger Alkoholkonsum',
+        'Zustand nach kolorektalem Karzinom (metachrones Zweitkarzinom) oder nach Radiotherapie des kleinen Beckens',
+        'Akromegalie und Zustand nach Ureterosigmoideostomie (seltene Sonderfälle)',
+      ],
+      klinik: [
+        {
+          text: 'Änderung der Stuhlgewohnheiten über mehr als drei bis vier Wochen: neu aufgetretene Obstipation, Diarrhoe oder ein Wechsel von beidem',
+        },
+        {
+          text: 'Peranale Blutabgänge — dem Stuhl aufgelagertes oder mit ihm vermischtes Blut, bei höher gelegenen Tumoren auch dunkles Blut oder Teerstuhl',
+        },
+        {
+          text: 'Okkulte Blutung mit mikrozytärer, hypochromer Eisenmangelanämie: Müdigkeit, Leistungsknick, Blässe, Belastungsdyspnoe, Schwindel, Palpitationen',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust, Appetitlosigkeit, Nachtschweiß und subfebrile Temperaturen (B-Symptomatik)',
+        },
+        {
+          text: 'Krampfartige, wechselnd starke Bauchschmerzen, Meteorismus und vermehrte Blähungen',
+        },
+        {
+          text: 'Bleistiftstühle beziehungsweise Kaliberschwankungen des Stuhls bei stenosierendem Tumor im linken Kolon',
+        },
+        {
+          text: 'Peranaler Schleimabgang, Tenesmen, Stuhldrang mit Gefühl der unvollständigen Entleerung und paradoxe Diarrhoe (flüssiger Stuhl an einer Stenose vorbei) beim tiefsitzenden Rektumkarzinom',
+        },
+        {
+          text: 'Tastbare Resistenz im Abdomen oder tastbarer Tumor bei der digital-rektalen Untersuchung',
+        },
+        {
+          text: 'Zeichen der Metastasierung: Hepatomegalie, Ikterus, Aszites, Belastungsdyspnoe und Husten bei Lungenmetastasen, Knochenschmerzen',
+        },
+        {
+          text: 'Völlig asymptomatischer Verlauf über Jahre — die Frühstadien machen keine Beschwerden, weshalb der Tumor häufig erst als Zufallsbefund in der Vorsorgekoloskopie auffällt',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als akuter mechanischer Ileus mit Erbrechen, Stuhl- und Windverhalt oder als Perforation mit akutem Abdomen und Peritonitis',
+          atypisch: true,
+        },
+        {
+          text: 'Klinik einer akuten Appendizitis oder einer rechtsseitigen Raumforderung bei Zökal- und Colon-ascendens-Karzinom, das lange nur okkult blutet',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende, divertikulitisähnliche Beschwerden im linken Unterbauch oder eine Fistel zur Blase mit Pneumaturie und rezidivierenden Harnwegsinfekten',
+          atypisch: true,
+        },
+        {
+          text: 'Fieber unklarer Genese beziehungsweise eine Endokarditis oder Bakteriämie durch Streptococcus gallolyticus (früher S. bovis) — gilt als Indikation zur Koloskopie',
+          atypisch: true,
+        },
+        {
+          text: 'Erstsymptom bei jungen Patienten unter 50 Jahren, oft rechtsseitig gelegen — Hinweis auf ein Lynch-Syndrom',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'TNM-Klassifikation (UICC, 8. Auflage)',
+          inhalt: 'T1: Infiltration der Submukosa. T2: Infiltration der Muscularis propria. T3: Infiltration durch die Muscularis propria in die Subserosa oder das perikolische/perirektale Fettgewebe. T4a: Perforation des viszeralen Peritoneums, T4b: Infiltration von Nachbarorganen. N1: 1–3 regionäre Lymphknotenmetastasen (N1c: Tumorknoten im Fettgewebe ohne Lymphknoten), N2: 4 oder mehr. M1a: Metastasen in einem Organ (meist Leber, dann Lunge), M1b: mehrere Organe, M1c: Peritonealkarzinose. Für ein valides pN sind mindestens 12 untersuchte Lymphknoten gefordert.',
+        },
+        {
+          name: 'UICC-Stadien und ihre therapeutische Konsequenz',
+          inhalt: 'Stadium I: T1–2 N0 M0 — alleinige Operation. Stadium II: T3–4 N0 M0 — Operation, adjuvante Chemotherapie nur bei Risikokonstellation. Stadium III: jedes T, N1–2, M0 — Operation und obligate adjuvante Chemotherapie. Stadium IV: jedes M1 — Systemtherapie, bei resektablen Metastasen kurativ intendiertes multimodales Vorgehen.',
+        },
+        {
+          name: 'Dukes-Klassifikation (historisch, in der Prüfung noch gefragt)',
+          inhalt: 'Dukes A: auf die Darmwand begrenzt (bis Muscularis propria). Dukes B: Überschreitung der Darmwand, keine Lymphknoten. Dukes C: Lymphknotenmetastasen. Dukes D: Fernmetastasen. Entspricht grob den UICC-Stadien I–IV.',
+        },
+        {
+          name: 'Höhenlokalisation des Rektumkarzinoms (starre Rektoskopie, ab Anokutanlinie)',
+          inhalt: 'Oberes Drittel: 12–16 cm; mittleres Drittel: 6–12 cm; unteres Drittel: unter 6 cm. Die Höhe entscheidet über neoadjuvante Radiochemotherapie, über partielle versus totale mesorektale Exzision und über die Möglichkeit des Sphinktererhalts.',
+        },
+        {
+          name: 'Amsterdam-II- und revidierte Bethesda-Kriterien (Lynch-Syndrom)',
+          inhalt: 'Amsterdam II („3-2-1-Regel“): mindestens 3 Verwandte mit Lynch-assoziiertem Karzinom, davon einer erstgradig verwandt mit den beiden anderen; über mindestens 2 aufeinanderfolgende Generationen; mindestens 1 Erkrankter jünger als 50 Jahre; FAP ausgeschlossen. Die Bethesda-Kriterien (u. a. KRK vor dem 50. Lebensjahr, synchrone/metachrone Tumoren, MSI-typische Histologie) sind weiter gefasst und lösen die MSI- beziehungsweise Immunhistochemie-Testung des Tumors aus.',
+        },
+        {
+          name: 'Grading und molekulare Marker',
+          inhalt: 'G1–G2 gut bis mäßig differenziert, G3–G4 schlecht differenziert bzw. undifferenziert (Muzinöse und Siegelringzellkarzinome gelten als prognostisch ungünstig). Molekular vor Systemtherapie zu bestimmen: RAS-Status (KRAS/NRAS), BRAF-V600E und MSI/MMR-Status; sie steuern den Einsatz von EGFR-Antikörpern und Immuncheckpoint-Inhibitoren.',
+        },
+      ],
+      redFlags: [
+        'Ileuszeichen: Stuhl- und Windverhalt, Erbrechen, Meteorismus, hochgestellte oder fehlende Darmgeräusche → sofortige Bildgebung und chirurgische Vorstellung',
+        'Akutes Abdomen mit Abwehrspannung und Peritonitis → gedeckte oder freie Tumorperforation, notfallmäßige Operation',
+        'Transfusionspflichtige peranale Blutung, Hb-Abfall unter 7–8 g/dl, Kreislaufinstabilität oder Synkope',
+        'Jede neu aufgetretene Eisenmangelanämie beim Mann oder bei der postmenopausalen Frau — gilt bis zum Beweis des Gegenteils als gastrointestinaler Tumor',
+        'Peranale Blutung bei einem Patienten über 50 Jahren, auch wenn Hämorrhoiden bekannt sind',
+        'Ungewollter Gewichtsverlust von mehr als 10 % des Körpergewichts in sechs Monaten mit Nachtschweiß und Leistungsknick',
+        'Neu aufgetretene, über drei bis vier Wochen anhaltende Änderung der Stuhlgewohnheiten jenseits des 50. Lebensjahres',
+        'Tastbare abdominelle Resistenz, tastbarer Tumor bei der digital-rektalen Untersuchung oder derbe supraklavikuläre Lymphknoten (Virchow-Lymphknoten)',
+        'Ikterus, Hepatomegalie oder Aszites als Hinweis auf eine fortgeschrittene Lebermetastasierung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Dauer und Art der Stuhlveränderung, Blutbeimengung (hell, dunkel, aufgelagert oder vermischt), Schleimabgang, Tenesmen, Stuhlkaliber, Bauchschmerzen, ungewollter Gewichtsverlust, Nachtschweiß, Leistungsknick und Belastungsdyspnoe als Anämiezeichen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risiko- und Familienanamnese: kolorektale Karzinome, Adenome, Endometrium-, Magen- oder Ovarialkarzinome bei Verwandten und deren Erkrankungsalter, frühere Koloskopien und Polypektomien, bekannte CED, Nikotin, Alkohol, Ernährung, Vormedikation einschließlich Antikoagulation und Eisenpräparaten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter, Blässe der Konjunktiven, Abdomenpalpation mit Suche nach Resistenz und Hepatomegalie, Auskultation der Darmgeräusche, Lymphknotenstatus einschließlich supraklavikulär, Aszites-Zeichen, Ernährungszustand und Allgemeinzustand (ECOG)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Digital-rektale Untersuchung — obligat und nie zu vergessen: etwa 10 % der kolorektalen Karzinome sind mit dem Finger tastbar; Beurteilung von Tumorhöhe, Verschieblichkeit, Sphinktertonus, Blut am Fingerling sowie Abgrenzung von Hämorrhoiden, Fissur und Fistel',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild: mikrozytäre, hypochrome Anämie als Folge der chronischen okkulten Blutung; ergänzend Eisen, Ferritin und Transferrinsättigung zur Sicherung des Eisenmangels',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CEA (carcinoembryonales Antigen) als Ausgangswert VOR der Operation — kein Screening- und kein Diagnosemarker, sondern ein Verlaufsparameter: ein präoperativ erhöhter Wert muss postoperativ abfallen, ein erneuter Anstieg in der Nachsorge weist auf ein Rezidiv oder Metastasen hin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Leberwerte einschließlich GOT, GPT, gamma-GT, AP, Bilirubin und LDH als Hinweis auf eine Lebermetastasierung; Nierenwerte und Elektrolyte vor Kontrastmittelgabe und Chemotherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Präoperative Basisdiagnostik: Gerinnung, Blutgruppe und Kreuzblut, Gesamteiweiß und Albumin zur Beurteilung des Ernährungszustands, CRP',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Immunologischer Test auf okkultes Blut im Stuhl (iFOBT/FIT) — ausschließlich Screeninginstrument bei beschwerdefreien Personen; bei symptomatischen Patienten ist er entbehrlich und ein negativer Test schließt ein Karzinom keinesfalls aus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor palliativer Systemtherapie: molekularpathologische Bestimmung von RAS (KRAS/NRAS), BRAF-V600E und MSI/MMR-Status am Tumorgewebe sowie DPD-Testung vor Fluoropyrimidinen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als schnelle, orientierende Erstuntersuchung: Lebermetastasen, Aszites, Harnstau, gelegentlich Darstellung der Kokarde bei stenosierendem Tumor',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT von Thorax und Abdomen mit intravenösem Kontrastmittel zum vollständigen Staging: lokale Tumorausdehnung, Lymphknoten, Leber- und Lungenmetastasen, Peritonealkarzinose; alternativ bei Kontraindikation Röntgen-Thorax in zwei Ebenen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Beim Rektumkarzinom zusätzlich MRT des kleinen Beckens: Bestimmung von mrT- und mrN-Kategorie, Abstand zur mesorektalen Faszie (zirkumferentieller Resektionsrand, CRM) und extramurale Gefäßinvasion — sie entscheidet über die Indikation zur neoadjuvanten Therapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Rektale Endosonographie zur genauen Beurteilung früher T-Stadien (uT1/uT2) und damit zur Abgrenzung lokal exzidierbarer Tumoren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Kolonographie oder Kolonkontrasteinlauf nur, wenn die Koloskopie den Tumor wegen einer Stenose nicht passieren kann; PET-CT bleibt Sonderfällen vorbehalten (unklarer CEA-Anstieg, Beurteilung der Resektabilität von Metastasen)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Komplette Koloskopie mit Biopsie — GOLDSTANDARD: histologische Sicherung, exakte Höhenlokalisation, Tuschemarkierung (Tattoo) für die Operation und Ausschluss synchroner Zweitkarzinome, die in etwa 5 % der Fälle vorliegen; im gleichen Eingriff Abtragung begleitender Polypen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Starre Rektoskopie beim tiefsitzenden Tumor zur reproduzierbaren Höhenmessung ab der Anokutanlinie — sie entscheidet über die Zuordnung Rektum- versus Kolonkarzinom und über das Therapiekonzept',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei nicht passierbarer Stenose: präoperativ Sigmoidoskopie und vollständige Komplettierung der Koloskopie innerhalb von drei bis sechs Monaten nach der Operation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histopathologie mit Typisierung, Grading, Beurteilung von Lymph- und Blutgefäßinvasion (L-, V-Status) sowie Immunhistochemie der Mismatch-Reparatur-Proteine (MLH1, MSH2, MSH6, PMS2); bei Auffälligkeit humangenetische Beratung wegen eines Lynch-Syndroms',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ergänzende Ösophagogastroduodenoskopie bei Eisenmangelanämie zum Ausschluss einer zweiten Blutungsquelle; diagnostische Laparoskopie bei Verdacht auf Peritonealkarzinose; abschließend Vorstellung in der interdisziplinären Tumorkonferenz',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Hämorrhoidalleiden',
+          unterscheidung: 'Hellrotes, dem Stuhl aufgelagertes Blut, Blut am Toilettenpapier, Juckreiz und Nässen, oft mit Prolaps; kein Gewichtsverlust, keine Anämie, keine Änderung der Stuhlgewohnheiten. Wichtigste Falle: Hämorrhoiden sind häufig und schließen ein Karzinom nicht aus — jenseits des 50. Lebensjahres ist die Koloskopie trotzdem obligat.',
+        },
+        {
+          dd: 'Chronisch entzündliche Darmerkrankung (Colitis ulcerosa, Morbus Crohn)',
+          unterscheidung: 'Deutlich jüngere Patienten, schubförmiger Verlauf über Jahre, blutig-schleimige Durchfälle mit Tenesmen bei der Colitis ulcerosa, extraintestinale Manifestationen (Arthritis, Erythema nodosum, Uveitis, PSC); Endoskopie und Histologie sichern die Diagnose. Cave: eine langjährige Colitis ulcerosa ist selbst ein Risikofaktor für ein KRK.',
+        },
+        {
+          dd: 'Divertikulitis und Divertikelblutung',
+          unterscheidung: 'Die Divertikulitis verläuft akut mit Fieber, Leukozytose, CRP-Anstieg und Schmerzen im linken Unterbauch („Linksappendizitis“); die Divertikelblutung ist plötzlich, meist schmerzlos und massiv, aber selbstlimitierend. Kein Gewichtsverlust, keine chronische Anämie. Nach Abklingen ist die Koloskopie zur Abgrenzung eines stenosierenden Karzinoms zwingend.',
+        },
+        {
+          dd: 'Kolorektales Adenom / Polyp',
+          unterscheidung: 'Meist asymptomatisch oder mit geringer okkulter Blutung; die Unterscheidung gelingt ausschließlich histologisch nach Abtragung. Ein großes villöses Adenom kann Schleimabgang und Hypokaliämie verursachen.',
+        },
+        {
+          dd: 'Reizdarmsyndrom',
+          unterscheidung: 'Junge bis mittlere Patienten, oft seit Jahren wechselnde Stuhlgewohnheiten mit Besserung nach Defäkation, kein Nachtsymptom, kein Blut, kein Gewichtsverlust, unauffälliges Labor — eine reine Ausschlussdiagnose, nie vor der Endoskopie zu stellen.',
+        },
+        {
+          dd: 'Angiodysplasie des Kolons',
+          unterscheidung: 'Ältere Patienten, rezidivierende schmerzlose Blutungen und chronische Eisenmangelanämie ohne Gewichtsverlust; typischerweise im Zökum und Colon ascendens, Diagnose durch Koloskopie.',
+        },
+        {
+          dd: 'Analfissur und Analkarzinom',
+          unterscheidung: 'Die Fissur verursacht heftigen, brennenden Defäkationsschmerz mit hellroten Blutspuren; das Analkarzinom (meist Plattenepithelkarzinom, HPV-assoziiert) liegt distal der Linea dentata, ist druckdolent und wird primär radiochemotherapeutisch behandelt — die digital-rektale Untersuchung und Biopsie klären.',
+        },
+        {
+          dd: 'Infektiöse Kolitis',
+          unterscheidung: 'Akuter Beginn innerhalb von Tagen, Fieber, blutige Diarrhoe, Reise- oder Antibiotikaanamnese (Campylobacter, Salmonellen, Shigellen, EHEC, Clostridioides difficile); Erregernachweis im Stuhl, spontane Rückbildung.',
+        },
+        {
+          dd: 'Ischämische Kolitis',
+          unterscheidung: 'Ältere Patienten mit kardiovaskulären Risikofaktoren, plötzlicher krampfartiger Bauchschmerz gefolgt von blutiger Diarrhoe, typisch im Bereich der Riolan-Anastomose (linke Flexur); Laktatanstieg, charakteristische Endoskopie- und CT-Befunde.',
+        },
+        {
+          dd: 'Andere Tumoren des Darms: Lymphom, GIST, neuroendokriner Tumor, Metastasen',
+          unterscheidung: 'Klinisch nicht sicher unterscheidbar; das Lymphom geht häufiger mit ausgeprägter B-Symptomatik einher, der neuroendokrine Tumor gelegentlich mit Flush und Diarrhoe (Karzinoidsyndrom). Die Diagnose stellt allein die Histologie.',
+        },
+        {
+          dd: 'Obere gastrointestinale Blutungsquelle (Magenkarzinom, Ulkus)',
+          unterscheidung: 'Teerstuhl, Hämatemesis, epigastrischer Schmerz, NSAR-Einnahme; bei Eisenmangelanämie ohne kolorektalen Befund ist die Ösophagogastroduodenoskopie obligat — die Blutungsquelle darf nicht auf den Dickdarm verengt werden.',
+        },
+        {
+          dd: 'Gynäkologische oder urologische Ursachen einer Blutung',
+          unterscheidung: 'Postmenopausale Blutung, Zwischenblutung oder Hämaturie werden von Patientinnen leicht als „Blut im Stuhl“ geschildert; gezielte Anamnese, Urinstatus und gynäkologische Untersuchung trennen sie ab.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notfallmanagement bei Tumorkomplikationen (Ileus, Perforation, transfusionspflichtige Blutung)',
+          akut: true,
+          items: [
+            'Nahrungskarenz, großlumiger venöser Zugang, Volumensubstitution mit balancierter Vollelektrolytlösung, Elektrolytausgleich, Magensonde bei Erbrechen und Ileus, Bilanzierung mit Blasenkatheter',
+            'Bei mechanischem Ileus: sofortige Bildgebung (Abdomenübersicht im Stehen bzw. CT), umgehende chirurgische Vorstellung; notfallmäßige Resektion oder Anlage eines doppelläufigen Entlastungsstomas, alternativ endoskopische Stentimplantation (Self-expanding metal stent) als „bridge to surgery“ bei linksseitiger Stenose',
+            'Bei Perforation mit Peritonitis: sofortige Laparotomie, Resektion des tumortragenden Segments mit endständigem Kolostoma (Diskontinuitätsresektion nach Hartmann), breite kalkulierte Antibiose',
+            'Bei transfusionspflichtiger Blutung: Hb-Kontrollen, Kreuzblut, Transfusion von Erythrozytenkonzentraten bei Hb unter 7–8 g/dl bzw. bei kardialer Vorerkrankung höher, Pausieren von Antikoagulanzien und Thrombozytenaggregationshemmern, endoskopische Blutstillung',
+            'Symptomkontrolle und Vorbereitung: Analgesie nach WHO-Stufenschema, Thromboseprophylaxe mit niedermolekularem Heparin, Korrektur des Eisenmangels (intravenöses Eisen präoperativ bevorzugt)',
+          ],
+        },
+        {
+          label: 'Onkologische Resektion — kurativer Kern der Behandlung',
+          items: [
+            'Grundprinzip: En-bloc-Resektion des tumortragenden Darmabschnitts mit dem zugehörigen Lymphabflussgebiet, zentraler Absetzung der versorgenden Arterie und Mitnahme von mindestens 12 Lymphknoten, Ziel ist die R0-Resektion',
+            'Kolonkarzinom, stadiengerechte Standardeingriffe: Hemikolektomie rechts (Zökum, Colon ascendens), erweiterte Hemikolektomie rechts (rechte Flexur, proximales Transversum), Transversumresektion, Hemikolektomie links, Sigmaresektion — anschließend primäre Anastomose',
+            'Rektumkarzinom: totale mesorektale Exzision (TME) beim Tumor im mittleren und unteren Drittel, partielle mesorektale Exzision (PME) im oberen Drittel; angestrebt wird die sphinktererhaltende tiefe anteriore Rektumresektion mit protektivem Ileostoma. Die abdominoperineale Rektumexstirpation mit endständigem Kolostoma bleibt Tumoren mit Infiltration des Sphinkterapparats vorbehalten',
+            'Lokale Verfahren nur bei Frühkarzinomen: endoskopische Vollwandresektion beziehungsweise transanale endoskopische Mikrochirurgie beim Low-Risk-pT1-Karzinom (G1/G2, L0, V0, R0); bei High-Risk-Konstellation ist die radikale Nachresektion erforderlich',
+            'Laparoskopisches oder robotisches Vorgehen ist bei entsprechender Expertise onkologisch gleichwertig; perioperativ Fast-Track-Konzept, Single-Shot-Antibiotikaprophylaxe und Thromboseprophylaxe',
+            'Präoperative Aufklärung über Anastomoseninsuffizienz, Nachblutung, Wundinfektion, Verletzung von Ureter und Nervi hypogastrici mit Blasenentleerungs- und Sexualfunktionsstörungen sowie über ein möglicherweise dauerhaftes Stoma; Stomaposition vor der Operation anzeichnen',
+          ],
+        },
+        {
+          label: 'Systemtherapie: neoadjuvant beim Rektum-, adjuvant beim Kolonkarzinom, palliativ im Stadium IV',
+          items: [
+            'Rektumkarzinom, lokal fortgeschritten (cT3/T4 oder N+ im MRT, bedrohter zirkumferentieller Resektionsrand): neoadjuvante Radiochemotherapie mit 50,4 Gy und begleitendem 5-Fluorouracil oder Capecitabin, Operation nach 6–8 Wochen; alternativ Kurzzeitbestrahlung mit 5 × 5 Gy oder ein totales neoadjuvantes Therapiekonzept. Ziel sind Downstaging, R0-Resektion und Senkung der Lokalrezidivrate',
+            'Kolonkarzinom: KEINE neoadjuvante Radiotherapie — hier wird primär operiert und die Systemtherapie adjuvant angeschlossen',
+            'Adjuvante Chemotherapie im UICC-Stadium III obligat: FOLFOX (5-Fluorouracil, Folinsäure, Oxaliplatin) oder CAPOX über 3–6 Monate, Beginn innerhalb von 4–8 Wochen nach der Operation',
+            'UICC-Stadium II nur bei Risikofaktoren (T4, Tumorperforation, Ileus, weniger als 12 untersuchte Lymphknoten, G3, Gefäßinvasion) und dann meist als Fluoropyrimidin-Monotherapie; Tumoren mit Mikrosatelliteninstabilität im Stadium II profitieren nicht',
+            'Stadium IV: palliative Systemtherapie als FOLFOX, FOLFIRI oder FOLFOXIRI, kombiniert nach Molekularpathologie — EGFR-Antikörper (Cetuximab, Panitumumab) nur bei RAS-Wildtyp und linksseitigem Primarius, sonst der VEGF-Antikörper Bevacizumab; bei MSI-hoher Erkrankung Immuncheckpoint-Inhibitoren (Pembrolizumab, Nivolumab/Ipilimumab)',
+            'Oligometastasierung ist nicht gleichbedeutend mit Palliation: resektable Leber- oder Lungenmetastasen werden nach Konversionschemotherapie kurativ intendiert reseziert (Fünf-Jahres-Überleben bis 40–50 %), ergänzend Radiofrequenzablation oder stereotaktische Bestrahlung; bei begrenzter Peritonealkarzinose an spezialisierten Zentren zytoreduktive Chirurgie mit HIPEC',
+            'Supportive Begleittherapie und Nebenwirkungsmanagement: antiemetische Prophylaxe, Neutropenie- und Mukositisprophylaxe, Aufklärung über die kumulative Polyneuropathie unter Oxaliplatin und das Hand-Fuß-Syndrom unter Capecitabin, DPD-Testung vor Fluoropyrimidinen; jede Entscheidung fällt im interdisziplinären Tumorboard',
+          ],
+        },
+        {
+          label: 'Strukturierte Nachsorge, Rehabilitation und Prävention in der Familie',
+          items: [
+            'Nachsorge über fünf Jahre in den Stadien II und III: klinische Untersuchung und CEA-Bestimmung alle 6 Monate über 2 Jahre, danach jährlich; Abdomensonographie und CT von Thorax und Abdomen in festgelegten Intervallen',
+            'Koloskopie-Rhythmus: Komplettierung innerhalb von 3–6 Monaten, falls präoperativ eine Stenose nicht passierbar war; sonst Kontrollkoloskopie nach einem Jahr, bei unauffälligem Befund nach 3 und dann nach 5 Jahren. Beim Rektumkarzinom zusätzlich Rektoskopie und Endosonographie zur Erfassung des Lokalrezidivs',
+            'Ein isolierter CEA-Anstieg in der Nachsorge löst eine gezielte Suche nach Rezidiv oder Metastasen aus (CT, gegebenenfalls PET-CT) — er wird nie ignoriert und nie allein therapiert',
+            'Anschlussheilbehandlung, Stomatherapie und Stomaberatung, Beckenbodentraining bei Stuhlfrequenz- und Kontinenzstörungen nach tiefer Resektion (LARS), Ernährungsberatung, psychoonkologische Betreuung und Sozialdienst mit Schwerbehindertenausweis',
+            'Sekundärprävention in der Familie: erstgradig Verwandte sollen etwa 10 Jahre vor dem Erkrankungsalter des Indexpatienten, spätestens ab dem 40.–45. Lebensjahr, koloskopiert werden',
+            'Bei Verdacht auf ein Lynch-Syndrom (junges Erkrankungsalter, Bethesda-Kriterien, MSI oder Ausfall der MMR-Proteine) humangenetische Beratung und Testung; Anlageträger erhalten ab dem 25. Lebensjahr jährliche Koloskopien und ein syndromspezifisches Vorsorgeprogramm, bei FAP ist die prophylaktische Proktokolektomie indiziert',
+            'Allgemeine Lebensstilempfehlungen: Nikotinkarenz, Alkoholreduktion, Gewichtsnormalisierung, regelmäßige körperliche Aktivität, ballaststoffreiche und fleischarme Ernährung',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt fast ausschließlich vom Stadium bei Diagnosestellung ab. Die relative Fünf-Jahres-Überlebensrate beträgt im UICC-Stadium I etwa 90–95 %, im Stadium II etwa 80–85 %, im Stadium III etwa 60–65 % und im Stadium IV nur noch etwa 10–15 %; bei vollständig resektablen Lebermetastasen steigt sie jedoch auf 40–50 %. Prognostisch ungünstig sind eine R1/R2-Situation, T4-Kategorie, hohe Lymphknotenzahl, G3-Differenzierung, Lymph- und Gefäßinvasion, Tumorperforation und ein präoperativ stark erhöhtes CEA. Etwa 80 % der Rezidive treten innerhalb der ersten zwei bis drei Jahre auf, was die engmaschige Nachsorge in diesem Zeitraum begründet. Entscheidend ist die Früherkennung: Weil sich das Karzinom über etwa zehn Jahre aus einem Adenom entwickelt, ist das kolorektale Karzinom durch Vorsorgekoloskopie und Polypektomie in hohem Maße verhinderbar — im Stadium eines abgetragenen Adenoms ist der Patient geheilt.',
+      pruefungsfallen: [
+        'Die digital-rektale Untersuchung gehört obligat in jede Antwort — etwa 10 % der kolorektalen Karzinome sind mit dem Finger tastbar. Sie zu vergessen ist einer der häufigsten Fehler in der Prüfung.',
+        'CEA ist KEIN Screening- und kein Diagnosemarker: Es dient als präoperativer Ausgangswert und als Verlaufsparameter in der Nachsorge. Ein normales CEA schließt ein Karzinom nicht aus, ein erhöhtes findet sich auch bei Leberzirrhose, Pankreatitis, CED und bei Rauchern.',
+        'Der Goldstandard ist die KOMPLETTE Koloskopie mit Biopsie, nicht das CT. Das CT dient dem Staging, die Endoskopie der Diagnose — und sie muss vollständig sein, weil in etwa 5 % ein synchrones Zweitkarzinom vorliegt.',
+        'Rektum oder Kolon ist die entscheidende Weichenstellung: Nur das lokal fortgeschrittene Rektumkarzinom erhält eine neoadjuvante Radiochemotherapie. Beim Kolonkarzinom wird primär operiert und allenfalls adjuvant chemotherapiert — eine Bestrahlung des Kolons ist falsch.',
+        'Die Höhenangabe wird ab der Anokutanlinie mit dem starren Rektoskop gemessen (bis 16 cm = Rektum); flexible Endoskope messen ungenau.',
+        'Die Screeningzahlen müssen sitzen: Vorsorgekoloskopie für Männer ab dem 50., für Frauen ab dem 55. Lebensjahr, Wiederholung nach 10 Jahren bei unauffälligem Befund; alternativ immunologischer Stuhltest (iFOBT) jährlich ab 50 beziehungsweise alle zwei Jahre ab 55 Jahren — ein positiver Test verpflichtet immer zur Koloskopie.',
+        'Risikopersonen folgen einem anderen Fahrplan: erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, beim Lynch-Syndrom jährliche Koloskopie ab dem 25. Lebensjahr, bei FAP ab dem 10.–12. Lebensjahr Rektosigmoidoskopie und prophylaktische Proktokolektomie.',
+        'Eine neu aufgetretene Eisenmangelanämie beim Mann oder bei der postmenopausalen Frau ist bis zum Beweis des Gegenteils ein gastrointestinaler Tumor — und es müssen BEIDE Endoskopien erfolgen, Koloskopie UND Ösophagogastroduodenoskopie.',
+        'Bekannte Hämorrhoiden erklären eine Blutung jenseits des 50. Lebensjahres nicht: Sie sind so häufig, dass sie ein Karzinom nur verdecken. Ohne Koloskopie darf die Diagnose „Hämorrhoidalblutung“ nicht gestellt werden.',
+        'Lebermetastasen bedeuten nicht automatisch Palliation: Resektable Leber- oder Lungenmetastasen werden nach Konversionschemotherapie kurativ intendiert operiert.',
+        'Für ein valides Lymphknotenstadium sind mindestens 12 untersuchte Lymphknoten gefordert — werden weniger gefunden, gilt dies als Risikofaktor und begründet im Stadium II eine adjuvante Therapie.',
+        'Vor jeder palliativen Systemtherapie müssen RAS-, BRAF- und MSI-Status vorliegen; EGFR-Antikörper wirken nur beim RAS-Wildtyp und sind bei RAS-Mutation sogar schädlich.',
+        'Sprachlich: dem Patienten gegenüber „Dickdarmkrebs“ oder „bösartige Geschwulst des Dickdarms“ sagen, „Darmspiegelung“ statt Koloskopie, „künstlicher Darmausgang“ statt Stoma, „Gewebeprobe“ statt Biopsie — und ein Aufklärungsgespräch nie mit dem Wort Karzinom beginnen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
+          antwort: 'Ich habe den dringenden Verdacht auf ein kolorektales Karzinom. Dafür sprechen die peranalen Blutabgänge, die über Wochen veränderten Stuhlgewohnheiten, der ungewollte Gewichtsverlust mit Leistungsknick sowie das Alter des Patienten. Passend dazu ist die mikrozytäre, hypochrome Anämie als Ausdruck einer chronischen okkulten Blutung. Die Verdachtsdiagnose muss endoskopisch und histologisch gesichert werden.',
+        },
+        {
+          frage: 'Wie lautet die Screening-Empfehlung für die Koloskopie in Deutschland?',
+          antwort: 'Die Vorsorgekoloskopie wird Männern ab dem 50. und Frauen ab dem 55. Lebensjahr angeboten; bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — jährlich ab 50, ab 55 Jahren alle zwei Jahre. Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
+        },
+        {
+          frage: 'Was ist das CEA und wofür setzen Sie es ein?',
+          antwort: 'CEA ist das carcinoembryonale Antigen, ein Tumormarker, den wir vor der Operation als Ausgangswert bestimmen und danach im Verlauf kontrollieren. Es ist ausdrücklich kein Screening- und kein Diagnosemarker: Ein normales CEA schließt ein Karzinom nicht aus, und erhöhte Werte finden sich auch bei Leberzirrhose, Pankreatitis, chronisch entzündlichen Darmerkrankungen und bei Rauchern. Ein präoperativ erhöhter Wert sollte nach der Resektion abfallen; ein erneuter Anstieg in der Nachsorge ist verdächtig auf ein Rezidiv oder auf Metastasen und löst eine gezielte Bildgebung aus.',
+        },
+        {
+          frage: 'Wie stagen Sie diesen Patienten?',
+          antwort: 'Zunächst die komplette Koloskopie mit Biopsie zur Histologie und zur genauen Höhenlokalisation, mit Tuschemarkierung und Suche nach einem Zweitkarzinom. Zum Ausschluss von Fernmetastasen ein CT von Thorax und Abdomen mit Kontrastmittel, ergänzt durch die Abdomensonographie. Liegt der Tumor im Rektum, kommen die starre Rektoskopie zur Höhenmessung, ein MRT des kleinen Beckens zur Beurteilung von T-Kategorie, Lymphknoten und mesorektaler Faszie sowie bei Frühstadien die rektale Endosonographie hinzu. Im Labor Blutbild, Leber- und Nierenwerte sowie das CEA als Ausgangswert. Anschließend Klassifikation nach TNM und UICC und Vorstellung im Tumorboard.',
+        },
+        {
+          frage: 'Der Patient hat bekannte Hämorrhoiden. Reicht das als Erklärung der Blutung?',
+          antwort: 'Nein. Hämorrhoiden sind sehr häufig und können ein Karzinom verdecken. Bei einem Patienten über 50 Jahren mit peranaler Blutung, Gewichtsverlust und Anämie muss unabhängig vom Hämorrhoidalbefund eine komplette Koloskopie erfolgen. Für Hämorrhoiden spräche hellrotes, aufgelagertes Blut ohne Gewichtsverlust und ohne Anämie — hier passt die Konstellation nicht.',
+        },
+        {
+          frage: 'Warum ist die digital-rektale Untersuchung so wichtig?',
+          antwort: 'Weil etwa 10 % aller kolorektalen Karzinome mit dem Finger tastbar sind. Ich beurteile dabei Tumorhöhe, Verschieblichkeit, den Sphinktertonus und ob Blut am Fingerling ist, und kann Hämorrhoiden, Fissuren und Fisteln abgrenzen. Sie ist der erste und einfachste Schritt und darf nie ausgelassen werden.',
+        },
+        {
+          frage: 'Welche Untersuchung ist der Goldstandard, und warum reicht ein CT nicht?',
+          antwort: 'Der Goldstandard ist die komplette Koloskopie mit Biopsie. Nur sie liefert die histologische Sicherung, erlaubt die exakte Höhenlokalisation, die Markierung für die Operation, die Abtragung begleitender Polypen und den Ausschluss eines synchronen Zweitkarzinoms, das in etwa 5 % der Fälle vorliegt. Das CT dient dem Staging, also der Suche nach Lymphknoten- und Fernmetastasen, nicht der Diagnosestellung.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen ziehen Sie in Betracht?',
+          antwort: 'Ein Hämorrhoidalleiden, chronisch entzündliche Darmerkrankungen, eine Divertikulitis oder Divertikelblutung, Adenome, eine Angiodysplasie, eine Analfissur oder ein Analkarzinom, infektiöse und ischämische Kolitiden, ein Reizdarmsyndrom sowie andere Tumoren wie Lymphom, GIST oder neuroendokriner Tumor. Zusätzlich denke ich bei der Anämie an eine obere Blutungsquelle und würde eine Magenspiegelung anschließen.',
+        },
+        {
+          frage: 'Warum bekommt ein Rektumkarzinom eine Vorbestrahlung, ein Kolonkarzinom aber nicht?',
+          antwort: 'Das Rektum liegt fixiert im kleinen Becken und ist damit gut und reproduzierbar bestrahlbar; wegen der Enge des Beckens ist die Lokalrezidivrate hoch. Deshalb erhält das lokal fortgeschrittene Rektumkarzinom, also cT3/T4 oder N-positiv im MRT, eine neoadjuvante Radiochemotherapie mit 50,4 Gy und 5-Fluorouracil beziehungsweise Capecitabin, um ein Downstaging, eine R0-Resektion und den Sphinktererhalt zu ermöglichen. Das Kolon ist dagegen mobil und liegt neben strahlensensiblen Dünndarmschlingen — es wird primär operiert und stadiengerecht adjuvant chemotherapiert.',
+        },
+        {
+          frage: 'Wann geben Sie eine adjuvante Chemotherapie, und womit?',
+          antwort: 'Im UICC-Stadium III, also bei Lymphknotenmetastasen, ist sie obligat — in der Regel als FOLFOX oder CAPOX über drei bis sechs Monate, beginnend vier bis acht Wochen nach der Operation. Im Stadium II gebe ich sie nur bei Risikofaktoren wie T4-Kategorie, Tumorperforation, Ileus, weniger als zwölf untersuchten Lymphknoten, G3 oder Gefäßinvasion, dann meist als Fluoropyrimidin-Monotherapie. Im Stadium I ist keine adjuvante Therapie indiziert.',
+        },
+        {
+          frage: 'Der Patient hat Lebermetastasen. Ist die Situation damit palliativ?',
+          antwort: 'Nicht zwangsläufig. Bei begrenzter, technisch resektabler Lebermetastasierung verfolgen wir ein kurativ intendiertes Konzept: Konversionschemotherapie, danach Resektion der Metastasen, ergänzend Radiofrequenzablation oder stereotaktische Bestrahlung. Damit sind Fünf-Jahres-Überlebensraten von 40 bis 50 % erreichbar. Erst bei diffuser, nicht resektabler Metastasierung ist die Therapie palliativ, dann stadien- und molekulargerecht mit FOLFOX oder FOLFIRI plus Bevacizumab beziehungsweise, bei RAS-Wildtyp und linksseitigem Primarius, plus Cetuximab.',
+        },
+        {
+          frage: 'Was bedeutet TME und warum ist sie wichtig?',
+          antwort: 'TME steht für totale mesorektale Exzision: die Entfernung des Rektums samt dem gesamten mesorektalen Fettgewebe innerhalb seiner intakten Hüllfaszie, in der die regionären Lymphknoten liegen. Sie hat die Lokalrezidivrate erheblich gesenkt. Beim Tumor im oberen Rektumdrittel genügt die partielle mesorektale Exzision. Angestrebt wird die sphinktererhaltende tiefe anteriore Resektion mit protektivem Ileostoma; die Rektumexstirpation mit endständigem Kolostoma bleibt der Sphinkterinfiltration vorbehalten.',
+        },
+        {
+          frage: 'Wie sieht die Nachsorge aus?',
+          antwort: 'Über fünf Jahre, am engmaschigsten in den ersten beiden, weil dort etwa 80 % der Rezidive auftreten: klinische Untersuchung und CEA alle sechs Monate über zwei Jahre, danach jährlich, dazu Abdomensonographie und CT von Thorax und Abdomen in festgelegten Intervallen. Die Koloskopie erfolgt nach einem Jahr, bei unauffälligem Befund nach drei und dann nach fünf Jahren; war die Koloskopie präoperativ wegen einer Stenose unvollständig, wird sie innerhalb von drei bis sechs Monaten komplettiert. Beim Rektumkarzinom kommen Rektoskopie und Endosonographie hinzu. Ergänzend Anschlussheilbehandlung, Stoma- und Ernährungsberatung sowie psychoonkologische Betreuung.',
+        },
+        {
+          frage: 'Wann denken Sie an ein Lynch-Syndrom, und was tun Sie dann?',
+          antwort: 'Bei jungem Erkrankungsalter unter 50 Jahren, rechtsseitiger Tumorlokalisation, synchronen oder metachronen Tumoren und einer Familienanamnese mit kolorektalen, Endometrium-, Magen- oder Ovarialkarzinomen — formalisiert in den Amsterdam-II- und den revidierten Bethesda-Kriterien. Dann lasse ich am Tumorgewebe die Mismatch-Reparatur-Proteine immunhistochemisch und die Mikrosatelliteninstabilität bestimmen und veranlasse bei Auffälligkeit eine humangenetische Beratung mit Keimbahntestung. Anlageträger erhalten jährliche Koloskopien ab dem 25. Lebensjahr und ein syndromspezifisches Vorsorgeprogramm.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Diagnose in einfachen Worten?',
+          antwort: 'Ich würde in Ruhe und ohne Fachbegriffe sagen: „Bei der Darmspiegelung haben wir eine Geschwulst im Dickdarm gefunden und eine Gewebeprobe entnommen. Die Untersuchung hat gezeigt, dass es sich um eine bösartige Veränderung handelt, also um Dickdarmkrebs.“ Danach kläre ich über die weiteren Untersuchungen zur Ausbreitung auf, erkläre die geplante Operation und dass gegebenenfalls vorübergehend oder dauerhaft ein künstlicher Darmausgang nötig sein kann, und betone, dass die Behandlung im interdisziplinären Team geplant wird. Ich lasse Raum für Fragen und biete psychoonkologische Unterstützung an.',
+        },
+      ],
+      merksatz: 'Blut im Stuhl, veränderte Stuhlgewohnheiten und Gewichtsverlust jenseits des 50. Lebensjahres sind bis zum Beweis des Gegenteils ein Dickdarmkrebs — erst der Finger, dann die komplette Koloskopie mit Biopsie, dann das CT zum Staging. CEA nur als Verlaufsmarker. Rektum wird vorbestrahlt, Kolon wird operiert und im Stadium III adjuvant chemotherapiert. Und weil der Krebs aus dem Polypen entsteht, ist er der einzige Tumor, den man wegspiegeln kann, bevor er entsteht.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-gerd',
+      pathology: 'GERD (Refluxkrankheit)',
+      specialty: 'Gastroenterologie',
+      definition: 'Die gastroösophageale Refluxkrankheit (GERD, Morbus refluxus) ist definiert als ein Rückfluss von Mageninhalt in die Speiseröhre, der zu belastenden Symptomen und/oder zu Schleimhautschäden und Komplikationen führt. Entscheidend ist der Krankheitswert: ein physiologischer, postprandialer Reflux kommt bei jedem Menschen vor. Pathophysiologisch liegt eine Insuffizienz der Antirefluxbarriere am ösophagogastralen Übergang vor — vor allem gehäufte transiente Relaxationen des unteren Ösophagussphinkters (TLESR), ein dauerhaft niedriger Sphinktertonus, der Verlust des spitzen His-Winkels und der Zwerchfellschenkelschlinge, häufig bei axialer Hiatushernie. Man unterscheidet die erosive Refluxkrankheit (ERD, endoskopisch sichtbare Erosionen, etwa 30–40 %) von der nicht-erosiven Refluxkrankheit (NERD, endoskopisch unauffällige Schleimhaut bei pathologischer Säureexposition, etwa 60–70 %). Die Beschwerdestärke korreliert NICHT mit dem endoskopischen Befund.',
+      aetiologie: 'Ursächlich ist ein Missverhältnis zwischen aggressiven Faktoren (Salzsäure, Pepsin, bei duodenogastralem Reflux auch Galle und Trypsin) und den Schutzmechanismen der Speiseröhre (Antirefluxbarriere, Ösophagusperistaltik als Clearance, Speichelbikarbonat, Schleimhautbarriere). Die primäre Form (über 90 %) entsteht durch eine funktionelle Insuffizienz des unteren Ösophagussphinkters mit vermehrten transienten Relaxationen, meist begünstigt durch eine axiale Hiatusgleithernie, erhöhten intraabdominellen Druck bei Adipositas oder Schwangerschaft und verzögerte Magenentleerung. Sekundäre Formen entstehen bei systemischer Sklerose und anderen Kollagenosen (Motilitätsverlust), Diabetes mellitus mit Gastroparese, Zustand nach Kardiaoperation oder Myotomie, Magenausgangsstenose, Schwangerschaft (Progesteron) sowie beim Zollinger-Ellison-Syndrom mit Hypersekretion. Sphinktertonussenkende Medikamente und Genussmittel (Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin, Benzodiazepine, Nikotin, Alkohol, Kaffee, Schokolade, Pfefferminze) sowie schleimhautschädigende Substanzen (NSAR, Bisphosphonate, Doxycyclin, Kaliumchlorid) unterhalten die Erkrankung.',
+      risikofaktoren: [
+        'Adipositas, besonders die stammbetonte Form mit erhöhtem intraabdominellem Druck (BMI über 30 verdoppelt das Risiko)',
+        'Axiale Hiatushernie (Gleithernie) mit Verlust des His-Winkels',
+        'Nikotinabusus — senkt den Sphinktertonus und vermindert die Speichelsekretion',
+        'Alkohol, insbesondere abends und in Kombination mit späten Mahlzeiten',
+        'Fettreiche, üppige und späte Mahlzeiten, Essen kurz vor dem Zubettgehen',
+        'Kaffee, Schwarztee, kohlensäurehaltige Getränke, Zitrusfrüchte, Tomaten, scharfe Gewürze, Schokolade, Pfefferminze',
+        'Sphinktertonussenkende Medikamente: Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin, Betasympathomimetika, Benzodiazepine, trizyklische Antidepressiva',
+        'Schleimhautschädigende Medikamente: NSAR, Acetylsalicylsäure, Bisphosphonate, Tetrazykline, Kaliumchlorid',
+        'Schwangerschaft (Progesteronwirkung und mechanischer Druck)',
+        'Stress, Schlafmangel und unregelmäßige Essenszeiten, Schichtarbeit',
+        'Systemische Sklerose, Diabetes mellitus mit Gastroparese, Zustand nach Kardiaresektion oder Myotomie',
+        'Männliches Geschlecht und höheres Lebensalter für die erosiven Formen und den Barrett-Ösophagus',
+      ],
+      klinik: [
+        {
+          text: 'Sodbrennen (Pyrosis): retrosternales Brennen, das vom Epigastrium aufsteigt — das Leitsymptom',
+        },
+        {
+          text: 'Saures oder bitteres Aufstoßen und Regurgitation von Speiseresten bis in den Rachen, teils mit unangenehmem Geschmack',
+        },
+        {
+          text: 'Verstärkung der Beschwerden im Liegen, beim Bücken, beim Pressen und nach üppigen, fettreichen oder späten Mahlzeiten',
+        },
+        {
+          text: 'Nächtliches Erwachen durch Brennen oder Hustenreiz, Besserung im Sitzen und bei Oberkörperhochlagerung',
+        },
+        {
+          text: 'Retrosternaler Druck oder Schmerz, der einer Angina pectoris ähneln kann, jedoch nicht belastungsabhängig ist',
+        },
+        {
+          text: 'Epigastrischer Druckschmerz, Völlegefühl, frühe Sättigung und Aufstoßen von Luft',
+        },
+        {
+          text: 'Rasche Besserung der Beschwerden nach Antazida oder nach einem Protonenpumpenhemmer',
+        },
+        {
+          text: 'Prompte Beschwerdefreiheit nach Nahrungskarenz und im Stehen; abdomineller Untersuchungsbefund im Übrigen unauffällig, kein Peritonismus',
+        },
+        {
+          text: 'Schlafstörung, Tagesmüdigkeit und Leistungsminderung als Folge der nächtlichen Beschwerden',
+        },
+        {
+          text: 'Chronischer Reizhusten, Heiserkeit und Räusperzwang, morgendlich betont (Laryngitis gastrica)',
+          atypisch: true,
+        },
+        {
+          text: 'Globusgefühl („Kloß im Hals“) und Schluckstörung ohne organische Stenose',
+          atypisch: true,
+        },
+        {
+          text: 'Nächtliche Dyspnoe, asthmaartige Anfälle und rezidivierende Bronchitiden durch Mikroaspiration',
+          atypisch: true,
+        },
+        {
+          text: 'Zahnschmelzerosionen, rezidivierende Aphthen und Halitosis als einziger Hinweis',
+          atypisch: true,
+        },
+        {
+          text: 'Nicht-kardialer Thoraxschmerz als alleinige Manifestation, häufig zunächst kardiologisch abgeklärt',
+          atypisch: true,
+        },
+        {
+          text: 'Beschwerdearmer oder stummer Verlauf trotz schwerer Ösophagitis, besonders bei älteren Patienten und bei Barrett-Ösophagus (die Metaplasie ist weniger schmerzempfindlich)',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation über eine Komplikation: Eisenmangelanämie durch chronische Sickerblutung, Hämatemesis oder Dysphagie bei peptischer Striktur',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Montreal-Klassifikation (2006)',
+          inhalt: 'Einteilung in ösophageale Syndrome — symptomatisch (typisches Refluxsyndrom, nicht-kardialer Thoraxschmerz) und mit Schleimhautläsion (Refluxösophagitis, Striktur, Barrett-Ösophagus, Adenokarzinom) — sowie extraösophageale Syndrome mit gesicherter Assoziation (Husten, Laryngitis, Asthma, Zahnschmelzerosionen) und vermuteter Assoziation (Pharyngitis, Sinusitis, idiopathische Lungenfibrose, rezidivierende Otitis media).',
+        },
+        {
+          name: 'Endoskopische Grundeinteilung: ERD, NERD und funktionelles Sodbrennen',
+          inhalt: 'ERD (erosive reflux disease, 30–40 %): typische Beschwerden mit endoskopisch sichtbaren Erosionen. NERD (non-erosive reflux disease, 60–70 %): typische Beschwerden bei normaler Schleimhaut, aber pathologischer Säureexposition in der pH-Metrie. Hypersensitiver Ösophagus: normale Säureexposition, aber positive Symptomassoziation. Funktionelles Sodbrennen: normale Schleimhaut, normale pH-Metrie, negative Symptomassoziation — spricht typischerweise NICHT auf PPI an. Merke: Die Beschwerdeintensität korreliert nicht mit dem Schweregrad des endoskopischen Befundes.',
+        },
+        {
+          name: 'Los-Angeles-Klassifikation der Refluxösophagitis (heutiger Standard)',
+          inhalt: 'Grad A: eine oder mehrere Schleimhautläsionen unter 5 mm, auf eine Mukosafalte begrenzt. Grad B: mindestens eine Läsion über 5 mm, auf eine Falte begrenzt, ohne Konfluenz. Grad C: konfluierende Läsionen über mehrere Falten hinweg, weniger als 75 % der Zirkumferenz. Grad D: Läsionen über mindestens 75 % der Zirkumferenz. Ab Grad C/D besteht eine Indikation zur Langzeit-PPI-Therapie und zur endoskopischen Kontrolle nach 8 Wochen.',
+        },
+        {
+          name: 'Savary-Miller-Klassifikation (ältere, im Examen noch gefragte Einteilung)',
+          inhalt: 'Stadium I: einzelne, nicht konfluierende Erosionen. Stadium II: longitudinal konfluierende Erosionen entlang der Falten. Stadium III: zirkulär konfluierende Erosionen. Stadium IV: Komplikationsstadium mit Ulkus, peptischer Striktur, Brachyösophagus oder Zylinderepithelmetaplasie (Barrett).',
+        },
+        {
+          name: 'Barrett-Ösophagus und Prag-C&M-Klassifikation',
+          inhalt: 'Barrett-Ösophagus: Ersatz des Plattenepithels des distalen Ösophagus durch spezialisiertes intestinales Zylinderepithel mit Becherzellen (Präkanzerose des Adenokarzinoms). Beschreibung nach der Prag-Klassifikation mit C = zirkumferenzielle und M = maximale Ausdehnung in Zentimetern; Short-Segment-Barrett unter 3 cm, Long-Segment-Barrett ab 3 cm. Weiter unterteilt nach der Dysplasie: keine Dysplasie, unklare Dysplasie, niedriggradige (low-grade) und hochgradige (high-grade) intraepitheliale Neoplasie.',
+        },
+      ],
+      redFlags: [
+        'Progrediente Dysphagie für feste Speisen — Verdacht auf peptische Striktur oder Ösophaguskarzinom, sofortige ÖGD',
+        'Odynophagie (schmerzhaftes Schlucken) — Verdacht auf Ulkus, infektiöse oder medikamentöse Ösophagitis',
+        'Ungewollter Gewichtsverlust, Appetitlosigkeit, Leistungsknick — Malignitätsverdacht',
+        'Hämatemesis, Kaffeesatzerbrechen oder Teerstuhl (Meläna) — obere gastrointestinale Blutung, notfallmäßige Endoskopie',
+        'Eisenmangelanämie oder positiver Test auf okkultes Blut im Stuhl — chronische Sickerblutung aus Erosionen, Ulkus oder Tumor',
+        'Rezidivierendes Erbrechen — Magenausgangsstenose oder Obstruktion',
+        'Erstmanifestation jenseits des 45.–50. Lebensjahres oder rasche Symptomzunahme',
+        'Positive Familienanamnese für Ösophagus- oder Magenkarzinom, bekannter Barrett-Ösophagus',
+        'Tastbare epigastrische Resistenz oder Lymphknoten (Virchow-Lymphknoten links supraklavikulär)',
+        'Akuter retrosternaler Vernichtungsschmerz mit Dyspnoe, Kaltschweißigkeit, Ausstrahlung in Arm oder Kiefer — akutes Koronarsyndrom, Aortendissektion oder Boerhaave-Syndrom müssen zuerst ausgeschlossen werden',
+        'Ausbleibendes Ansprechen auf eine adäquate PPI-Therapie über 8 Wochen — Diagnose überprüfen, endoskopisch abklären',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Typische Anamnese als tragende Säule: Sodbrennen und saures Aufstoßen mit Verstärkung im Liegen, beim Bücken und nach üppigen oder späten Mahlzeiten. Bei typischer Symptomatik ohne Alarmzeichen darf die Diagnose klinisch gestellt und ohne vorherige Endoskopie behandelt werden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Empirischer PPI-Versuch als diagnostischer und therapeutischer Schritt zugleich („PPI-Test“): Standarddosis, z. B. Omeprazol oder Pantoprazol 40 mg morgens (in der Testsituation auch 2 × täglich) über 2–4 Wochen; ein prompter Beschwerderückgang stützt die Diagnose. Cave: Der Test ist weder sehr sensitiv noch spezifisch und beweist die GERD nicht',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte, aktive Abfrage der Alarmsymptome: Dysphagie, Odynophagie, Gewichtsverlust, Hämatemesis, Teerstuhl, Anämiezeichen, rezidivierendes Erbrechen, Alter über 45–50 Jahre bei Erstmanifestation, familiäre Karzinombelastung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamenten-, Genuss- und Ernährungsanamnese: Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin, NSAR, Acetylsalicylsäure, Bisphosphonate; Nikotin, Alkohol, Kaffee, Essenszeiten, Portionsgrößen, Gewichtsverlauf und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung — meist unauffällig; Abdomenpalpation (epigastrischer Druckschmerz, Resistenz), Lymphknotenstatus, Auskultation von Herz und Lunge, Zahnstatus (Schmelzerosionen), HNO-Inspektion bei Heiserkeit und Globusgefühl; standardisierte Fragebögen wie der GERD-Q können ergänzen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild und Eisenstatus (Ferritin, Transferrinsättigung) zur Erfassung einer Eisenmangelanämie durch chronische Sickerblutung; ggf. Test auf okkultes Blut im Stuhl',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei retrosternalem Schmerz obligat der kardiale Ausschluss: hochsensitives Troponin im Verlauf, zusammen mit dem EKG — die Angina pectoris ist die gefährlichste Differenzialdiagnose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Helicobacter-pylori-Diagnostik (13C-Harnstoff-Atemtest, Stuhl-Antigen oder Urease-Schnelltest und Histologie aus der Endoskopie), insbesondere vor einer geplanten Langzeit-PPI-Therapie und bei ulkusverdächtiger Symptomatik',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zur differenzialdiagnostischen Abgrenzung nach Beschwerdebild: CRP und Blutbild, Lipase (Pankreatitis), Transaminasen, gamma-GT, alkalische Phosphatase und Bilirubin (biliäre Genese); vor einer Langzeittherapie Magnesium, Kalzium und Vitamin B12 als Ausgangswerte',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG bei jedem retrosternalen Schmerz zum Ausschluss eines akuten Koronarsyndroms; bei belastungsabhängiger Symptomatik ergänzend Ergometrie, Echokardiographie oder weiterführende Ischämiediagnostik',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: Ausschluss einer Cholezystolithiasis, Beurteilung von Leber, Pankreas und Aorta — differenzialdiagnostisch bei epigastrischen Beschwerden',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Breischluck mit wasserlöslichem Kontrastmittel bzw. Bariumbrei nur noch bei speziellen Fragestellungen: Größe und Typ einer Hiatushernie, Länge einer Stenose, Verdacht auf Achalasie oder Divertikel; als Refluxnachweis ist die Untersuchung ungeeignet',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei pulmonalen Begleitsymptomen (Aspirationspneumonie, Ausschluss anderer Ursachen); Thorax-CT nur bei Tumor- oder Perforationsverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie (ÖGD) — die zentrale morphologische Untersuchung. Klare Indikationen: jedes Alarmsymptom, Erstmanifestation jenseits des 45.–50. Lebensjahres, fehlendes Ansprechen auf 8 Wochen PPI, Rezidiv nach Absetzen, langjähriger Verlauf, geplante Antirefluxoperation und die Frage nach einem Barrett-Ösophagus. Beurteilt werden Erosionen (Graduierung nach Los Angeles A–D), Ulzera, Strikturen, Hiatushernie und Zylinderepithelmetaplasie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Biopsien im Rahmen der ÖGD: Stufenbiopsien aus dem distalen Ösophagus nach dem Seattle-Protokoll (vier Quadranten alle 1–2 cm) zum Nachweis eines Barrett-Ösophagus und zur Dysplasiegraduierung, zusätzliche Biopsien zum Ausschluss einer eosinophilen Ösophagitis sowie Antrum- und Korpusbiopsien zur Helicobacter-Diagnostik',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: '24-Stunden-pH-Metrie, heute als kombinierte pH-Impedanz-Messung — der Goldstandard zur Objektivierung des Refluxes: pathologisch bei einer Säureexpositionszeit (pH unter 4) über 6 % der Messzeit bzw. einem DeMeester-Score über 14,7; die Impedanz erfasst zusätzlich nicht-saure und gasförmige Refluxepisoden und erlaubt die Symptomassoziation. Indiziert bei NERD, therapierefraktären Beschwerden, extraösophagealen Symptomen und obligat vor jeder Antirefluxoperation. PPI je nach Fragestellung 7 Tage vorher pausieren',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hochauflösende Ösophagusmanometrie: obligat vor einer geplanten Fundoplikatio zum Ausschluss einer Achalasie oder einer schweren Motilitätsstörung (sonst droht postoperativ eine ausgeprägte Dysphagie) und zur korrekten Platzierung der pH-Sonde 5 cm oberhalb des unteren Ösophagussphinkters',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ergänzende endoskopische Techniken bei Barrett und Dysplasieverdacht: hochauflösende Endoskopie mit Chromoendoskopie oder Narrow-Band-Imaging, endoskopische Mukosaresektion zur histologischen Sicherung, Endosonographie zum lokalen Staging bei Karzinomverdacht',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Angina pectoris / akutes Koronarsyndrom',
+          unterscheidung: 'Die wichtigste und gefährlichste Differenzialdiagnose. Der Schmerz ist belastungsabhängig, dauert Minuten, strahlt in linken Arm, Hals, Unterkiefer oder Rücken aus und wird von Dyspnoe, Kaltschweißigkeit, Übelkeit und Vernichtungsgefühl begleitet; Besserung auf Nitrat statt auf Antazida, kardiovaskuläres Risikoprofil. Klärung durch EKG, Troponin und Ergometrie. Cave: Auch ein Reflux kann auf Nitrate ansprechen — im Zweifel immer zuerst kardial abklären.',
+        },
+        {
+          dd: 'Ulcus ventriculi oder Ulcus duodeni',
+          unterscheidung: 'Der Schmerz ist epigastrisch und nicht retrosternal-brennend, beim Duodenalulkus typischerweise Nüchtern- und Nachtschmerz mit Besserung durch Nahrungsaufnahme, beim Magenulkus Verstärkung unmittelbar nach dem Essen. Anamnestisch häufig NSAR- oder Acetylsalicylsäure-Einnahme sowie eine Helicobacter-pylori-Infektion. Klärung durch ÖGD mit Biopsie und H.-pylori-Nachweis.',
+        },
+        {
+          dd: 'Ösophaguskarzinom (Adenokarzinom des distalen Ösophagus, Plattenepithelkarzinom)',
+          unterscheidung: 'Alarmzeichen: progrediente Dysphagie zunächst für feste, später auch für flüssige Speisen, Odynophagie, ungewollter Gewichtsverlust, Anämie, Heiserkeit bei Rekurrensparese und Leistungsknick. Risikofaktoren sind ein langjähriger Barrett-Ösophagus für das Adenokarzinom sowie Nikotin und Alkohol für das Plattenepithelkarzinom. Klärung ausschließlich endoskopisch-bioptisch, danach Staging mit Endosonographie und CT.',
+        },
+        {
+          dd: 'Peptische Striktur bei langjähriger Refluxösophagitis',
+          unterscheidung: 'Ebenfalls Dysphagie für feste Speisen, aber langsam progredient bei langer Refluxanamnese und ohne Gewichtsverlust; endoskopisch glatt begrenzte, kurzstreckige Stenose im distalen Ösophagus — die bioptische Abgrenzung vom Karzinom ist trotzdem obligat.',
+        },
+        {
+          dd: 'Achalasie und andere Motilitätsstörungen (diffuser Ösophagusspasmus, Nussknackerösophagus)',
+          unterscheidung: 'Dysphagie von Beginn an auch für Flüssigkeiten, Regurgitation unverdauter, nicht saurer Speisen, nächtlicher Husten, retrosternale Krampfschmerzen. Im Breischluck Sektglas- bzw. Vogelschnabelform, in der Manometrie fehlende Erschlaffung des unteren Ösophagussphinkters mit Aperistaltik. Die Achalasie muss vor jeder Antirefluxoperation ausgeschlossen sein.',
+        },
+        {
+          dd: 'Eosinophile Ösophagitis',
+          unterscheidung: 'Jüngere Patienten, oft mit Atopie, Asthma oder Nahrungsmittelallergien; führendes Symptom ist die Bolusimpaktation mit Dysphagie, das Ansprechen auf PPI ist unbefriedigend. Endoskopisch Ringbildung (Trachealisierung), Längsfurchen und weiße Exsudate; beweisend sind über 15 Eosinophile pro Gesichtsfeld in der Biopsie.',
+        },
+        {
+          dd: 'Infektiöse Ösophagitis (Candida, Herpes simplex, Zytomegalievirus) und medikamentös-toxische Ösophagitis',
+          unterscheidung: 'Führendes Symptom ist die Odynophagie. Bei der Soorösophagitis weiße Beläge und meist Immunsuppression, Diabetes, inhalative Steroide oder HIV-Infektion. Die medikamentöse Ösophagitis folgt der Einnahme von Bisphosphonaten, Doxycyclin oder Kaliumchlorid mit wenig Flüssigkeit im Liegen und zeigt umschriebene Ulzera.',
+        },
+        {
+          dd: 'Funktionelle Dyspepsie und funktionelles Sodbrennen / hypersensitiver Ösophagus',
+          unterscheidung: 'Typische Beschwerden ohne jeden objektivierbaren Befund: normale Endoskopie UND normale Säureexposition in der pH-Metrie mit negativer Symptomassoziation. Häufig Beschwerdewechsel, Stressbezug und begleitende Reizdarmsymptomatik; das Ansprechen auf PPI ist typischerweise schlecht — das ist der Grund für viele „therapierefraktäre“ Verläufe.',
+        },
+        {
+          dd: 'Cholezystolithiasis mit Gallenkolik, akute Cholezystitis',
+          unterscheidung: 'Kolikartiger Schmerz im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, 1–4 Stunden nach fettreichem Essen, Übelkeit und Erbrechen, positives Murphy-Zeichen, ggf. Cholestaseparameter erhöht. Klärung durch Abdomensonographie.',
+        },
+        {
+          dd: 'Akute Pankreatitis',
+          unterscheidung: 'Gürtelförmiger, in den Rücken ausstrahlender Oberbauchschmerz, „Gummibauch“, Übelkeit und Erbrechen, Lipase über dem Dreifachen der Norm; Auslöser meist Gallensteine oder Alkohol.',
+        },
+        {
+          dd: 'Hiatushernie mit Roemheld-Syndrom, Aerophagie und Rumination',
+          unterscheidung: 'Postprandiales Völlegefühl, Herzstolpern, Palpitationen und Atemnot durch Zwerchfellhochstand bei großer Hernie; bei der Aerophagie steht das Aufstoßen von Luft ohne saure Regurgitation im Vordergrund. Die Hiatushernie ist ein begünstigender Faktor, aber allein keine Erklärung für die Beschwerden.',
+        },
+        {
+          dd: 'Zollinger-Ellison-Syndrom',
+          unterscheidung: 'An eine Gastrin-produzierende neuroendokrine Neoplasie denken bei multiplen, therapierefraktären Ulzera an atypischer Lokalisation, schwerer Ösophagitis, Diarrhoe und Steatorrhoe; deutlich erhöhtes Nüchtern-Gastrin (bei abgesetztem PPI), Sekretin-Test.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Basistherapie: Lebensstil, Ernährung und Meidung der Auslöser (Grundlage jeder Stufe)',
+          items: [
+            'Gewichtsreduktion bei Übergewicht — die einzige Maßnahme mit belegter Wirkung auf Symptome und Säureexposition; angestrebt werden 5–10 % des Körpergewichts, langsam und kontrolliert, ergänzt durch regelmäßige Bewegung',
+            'Nikotinkarenz und deutliche Reduktion des Alkoholkonsums, insbesondere abends — beide senken den Tonus des unteren Ösophagussphinkters',
+            'Mehrere kleine Mahlzeiten über den Tag statt weniger üppiger; letzte Mahlzeit mindestens 3 Stunden vor dem Zubettgehen, keine späten Snacks',
+            'Meidung individueller Auslöser: fettreiche und frittierte Speisen, Kaffee, Schwarztee, kohlensäurehaltige Getränke, Zitrusfrüchte, Tomatenprodukte, scharfe Gewürze, Schokolade, Pfefferminze',
+            'Schlafen mit erhöhtem Oberkörper (Kopfende des Bettes um 15–20 cm anheben, nicht nur zusätzliche Kissen); bevorzugt Linksseitenlage',
+            'Enge Gürtel, einschnürende Kleidung, schweres Heben und Bauchpresse meiden; Obstipation behandeln',
+            'Überprüfung der Dauermedikation: sphinktertonussenkende Substanzen (Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin) und schleimhautschädigende Präparate (NSAR, Acetylsalicylsäure, Bisphosphonate, Doxycyclin, Kaliumchlorid) nach Möglichkeit ersetzen oder korrekt einnehmen — aufrecht und mit reichlich Wasser',
+            'Stressreduktion, Schlafhygiene und geregelte Essenszeiten; Aufklärung, dass die Beschwerden gutartig, aber chronisch-rezidivierend sind',
+          ],
+        },
+        {
+          label: 'Medikamentöse Säuresuppression: PPI-Standardtherapie und Step-down',
+          items: [
+            'Protonenpumpenhemmer sind Mittel der ersten Wahl: Pantoprazol 40 mg, Omeprazol 20–40 mg oder Esomeprazol 40 mg — 30 bis 60 Minuten VOR dem Frühstück einnehmen, da nur aktive Protonenpumpen gehemmt werden',
+            'Standarddauer 4–8 Wochen bei NERD und Los-Angeles-Grad A/B; bei Grad C/D und bei Komplikationen 8 Wochen in doppelter Standarddosis (2 × täglich, die zweite Dosis vor dem Abendessen) mit anschließender endoskopischer Kontrolle',
+            'Nach Abheilung Step-down: Reduktion auf die niedrigste wirksame Dosis, Wechsel auf eine Bedarfstherapie („on demand“) oder intermittierende Kurzzyklen; bei Grad C/D, peptischer Striktur und Barrett-Ösophagus dagegen dauerhafte Erhaltungstherapie',
+            'Antazida (Magaldrat, Hydrotalcit) und Alginate (Natriumalginat als „Schaumbarriere“ auf dem Mageninhalt) für die rasche, kurzfristige Symptomlinderung und in der Schwangerschaft',
+            'H2-Rezeptor-Antagonisten (Famotidin, Ranitidin ist vom Markt) nur als Reserve, etwa zusätzlich zur Nacht bei nächtlichem Säuredurchbruch — Cave: rasche Tachyphylaxie',
+            'Prokinetika (Domperidon, Metoclopramid) nur bei nachgewiesener Magenentleerungsstörung und zeitlich begrenzt; Cave QT-Verlängerung und extrapyramidale Nebenwirkungen',
+            'Helicobacter pylori bei Nachweis eradizieren (französisches oder italienisches Tripelschema über 7–14 Tage) — vor allem vor einer geplanten Langzeit-PPI-Therapie und bei begleitender Ulkuskrankheit',
+            'Aufklärung über Nebenwirkungen der Langzeittherapie: Hypomagnesiämie, Vitamin-B12-Mangel, Eisenmangel, erhöhtes Risiko für Clostridioides-difficile- und ambulant erworbene Pneumonien, Osteoporose mit Frakturrisiko, interstitielle Nephritis; deshalb Indikation regelmäßig überprüfen und Rebound-Hypersekretion beim Absetzen durch Ausschleichen vermeiden',
+            'Bei Schwangerschaft: primär Lebensstil und Alginate/Antazida, bei Bedarf Omeprazol als am besten untersuchter PPI',
+          ],
+        },
+        {
+          label: 'Vorgehen bei Therapieversagen und Langzeitüberwachung des Barrett-Ösophagus',
+          items: [
+            'Bei fehlendem Ansprechen nach 8 Wochen zunächst die einfachen Ursachen prüfen: Einnahmezeitpunkt und Adhärenz, fortbestehende Auslöser, Nikotin, Alkohol, unveränderte Begleitmedikation',
+            'Danach Diagnose überprüfen: ÖGD mit Biopsien (eosinophile Ösophagitis, infektiöse Ösophagitis, Ulkus, Karzinom) und pH-Impedanz-Messung — häufig liegt ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus vor, die auf PPI nicht ansprechen',
+            'Bei nachgewiesener Hypersensitivität oder funktionellem Sodbrennen Neuromodulatoren in niedriger Dosis (z. B. trizyklische Antidepressiva) sowie psychosomatische Mitbehandlung erwägen',
+            'Barrett-Ösophagus ohne Dysplasie: dauerhafte PPI-Therapie und endoskopische Überwachung mit Stufenbiopsien alle 3–4 Jahre (bei Short-Segment ggf. länger); jeder Befund wird von zwei Pathologen bestätigt',
+            'Niedriggradige Dysplasie: Kontrolle nach 6 Monaten und dann jährlich oder — heute bevorzugt — endoskopische Ablation. Hochgradige Dysplasie und Mukosakarzinom: endoskopische Mukosaresektion des sichtbaren Herdes, anschließend Radiofrequenzablation des restlichen Barrett-Segments',
+            'Peptische Striktur: endoskopische Bougierung oder Ballondilatation, ggf. mehrfach, immer mit Biopsien zum Karzinomausschluss und obligater PPI-Dauertherapie zur Rezidivprophylaxe',
+            'Blutende Erosionen oder Ulzera: endoskopische Blutstillung und hochdosierte intravenöse PPI-Therapie',
+            'Bei gesichertem Adenokarzinom Übergabe an die onkologische Behandlung (Staging, Tumorboard, endoskopische Resektion im Frühstadium, sonst multimodale Therapie)',
+          ],
+        },
+        {
+          label: 'Antirefluxchirurgie und endoskopische Verfahren (bei Therapieversagen, Unverträglichkeit oder Patientenwunsch)',
+          items: [
+            'Indikationen: objektiv gesicherte GERD mit unzureichendem Ansprechen trotz optimierter PPI-Therapie, PPI-Unverträglichkeit, ausgeprägte Volumenregurgitation, große symptomatische Hiatushernie sowie der Wunsch junger Patienten, eine lebenslange Medikamenteneinnahme zu vermeiden',
+            'Obligate präoperative Abklärung: ÖGD, 24-Stunden-pH-Impedanz-Messung zum Beweis des pathologischen Refluxes und hochauflösende Manometrie zum Ausschluss einer Achalasie oder schweren Motilitätsstörung — sonst droht eine postoperative Dysphagie',
+            'Standardverfahren: laparoskopische Fundoplikatio nach Nissen (360-Grad-Manschette) oder als partielle Manschette nach Toupet (270 Grad posterior) bzw. Dor (180 Grad anterior) bei eingeschränkter Peristaltik, jeweils kombiniert mit der Hiatoplastik (Einengung des Hiatus oesophageus durch Zwerchfellschenkelnaht)',
+            'Erfolgsquote 85–90 % nach fünf Jahren; typische Nebenwirkungen sind das Gas-bloat-Syndrom mit Unfähigkeit zu Aufstoßen und Erbrechen, eine passagere Dysphagie in den ersten Wochen, Blähungen und Diarrhoe; ein Teil der Patienten benötigt langfristig erneut PPI',
+            'Alternative bei ausgeprägter Adipositas (BMI über 35): Roux-Y-Magenbypass als kombinierte metabolische und Antireflux-Operation — die Sleeve-Gastrektomie verschlechtert den Reflux und ist hier ungeeignet',
+            'Endoskopische und minimal-invasive Alternativen mit begrenzter Datenlage: magnetischer Sphinkterring (LINX), transorale Fundoplikatio (TIF), Radiofrequenzapplikation (Stretta) — nur an spezialisierten Zentren und bei ausgewählten Patienten',
+            'Postoperative Nachsorge: für einige Wochen weiche Kost in kleinen Portionen, langsames Essen, kohlensäurehaltige Getränke meiden, schweres Heben vermeiden; Kontrolle von Beschwerden, Gewicht und Schluckvermögen',
+          ],
+        },
+      ],
+      prognose: 'Die Refluxkrankheit ist eine gutartige, aber chronisch-rezidivierende Erkrankung. Unter Protonenpumpenhemmern werden 80–90 % der Patienten beschwerdefrei und erosive Läsionen heilen in 8 Wochen weitgehend ab; nach Absetzen kommt es jedoch bei etwa der Hälfte bis zwei Dritteln innerhalb eines Jahres zum Rezidiv, sodass viele Patienten eine Bedarfs- oder Dauertherapie benötigen. Die Lebensqualität ist bei nächtlichen Beschwerden erheblich beeinträchtigt, die Lebenserwartung dagegen nicht eingeschränkt. Etwa 10 % der Patienten mit langjähriger Refluxösophagitis entwickeln einen Barrett-Ösophagus; dessen Entartungsrisiko zum Adenokarzinom liegt bei etwa 0,1–0,5 % pro Jahr ohne Dysplasie und steigt bei hochgradiger intraepithelialer Neoplasie deutlich an — daher die endoskopische Überwachung. Weitere Komplikationen sind peptische Ulzera mit Blutung und Eisenmangelanämie, peptische Strikturen mit Dysphagie sowie extraösophageale Folgen wie Laryngitis, Asthma und Zahnschmelzerosionen. Entscheidend für den Verlauf sind Gewichtsreduktion, Nikotinkarenz und die Therapieadhärenz; die laparoskopische Fundoplikatio ist bei korrekter Indikation in 85–90 % über fünf Jahre erfolgreich.',
+      pruefungsfallen: [
+        'Die ÖGD ist NICHT bei jedem Sodbrennen indiziert. Bei typischer Symptomatik ohne Alarmzeichen darf zunächst empirisch mit einem PPI behandelt werden. Indiziert ist die Endoskopie bei Alarmsymptomen, bei Erstmanifestation jenseits des 45.–50. Lebensjahres, bei fehlendem Ansprechen nach 8 Wochen, bei Rezidiv nach Absetzen, bei langjährigem Verlauf, zur Barrett-Frage und vor einer Antirefluxoperation.',
+        'Die Alarmsymptome müssen flüssig und vollständig aufgezählt werden: Dysphagie, Odynophagie, ungewollter Gewichtsverlust, Hämatemesis oder Teerstuhl, Anämie, rezidivierendes Erbrechen, Alter über 45–50 Jahre bei Erstmanifestation, positive Familienanamnese für Ösophagus- oder Magenkarzinom — hier wird gerne nachgehakt.',
+        'Bei retrosternalem Schmerz IMMER zuerst kardial abklären: EKG und Troponin gehören in die Antwort, bevor über Reflux gesprochen wird. Ein Prüfer wertet es als schweren Fehler, wenn das akute Koronarsyndrom nicht ausgeschlossen wird.',
+        'Der Schweregrad der endoskopischen Ösophagitis korreliert NICHT mit der Beschwerdeintensität: 60–70 % der Patienten haben eine NERD mit völlig unauffälliger Schleimhaut, und umgekehrt kann eine Los-Angeles-Grad-D-Ösophagitis nahezu stumm verlaufen.',
+        'Der PPI muss 30–60 Minuten VOR dem Frühstück eingenommen werden — die häufigste Ursache eines „Therapieversagens“ ist der falsche Einnahmezeitpunkt, nicht die falsche Substanz.',
+        'Die 24-Stunden-pH-Metrie ist der Goldstandard zum BEWEIS des Refluxes, nicht die ÖGD — die Endoskopie zeigt die Schleimhautschäden und schließt ein Karzinom aus. Vor jeder Operation sind beide plus die Manometrie erforderlich.',
+        'Vor einer Fundoplikatio muss die Manometrie eine Achalasie und eine schwere Motilitätsstörung ausschließen, sonst droht postoperativ eine hochgradige Dysphagie. Typische Operationsfolge ist das Gas-bloat-Syndrom.',
+        'Der Barrett-Ösophagus ist eine Präkanzerose des ADENOkarzinoms des distalen Ösophagus (intestinale Metaplasie mit Becherzellen) — nicht des Plattenepithelkarzinoms; dieses ist mit Nikotin und Alkohol assoziiert und liegt eher im mittleren Drittel.',
+        'Die Hiatushernie ist ein begünstigender Faktor, aber KEIN Synonym für die Refluxkrankheit: viele Menschen haben eine Gleithernie ohne jede Beschwerde.',
+        'Die Langzeit-PPI-Therapie ist nicht harmlos: Hypomagnesiämie, Vitamin-B12- und Eisenmangel, Osteoporose, Clostridioides-difficile-Infektionen und Pneumonien; die Indikation ist regelmäßig zu überprüfen und beim Absetzen die Rebound-Hypersekretion zu beachten.',
+        'Dem Patienten gegenüber die Fachbegriffe übersetzen: Refluxkrankheit = Rückfluss von Magensäure in die Speiseröhre, Pyrosis = Sodbrennen, Dysphagie = Schluckstörung, Odynophagie = schmerzhaftes Schlucken, ÖGD = Magenspiegelung, Fundoplikatio = Manschettenbildung aus dem Magenanteil um die Speiseröhre.',
+        'Nicht jedes therapierefraktäre Sodbrennen ist eine GERD: funktionelles Sodbrennen und der hypersensitive Ösophagus sprechen auf PPI nicht an und werden mit pH-Impedanz-Messung abgegrenzt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
+          antwort: 'Eine gastroösophageale Refluxkrankheit, also eine Refluxösophagitis beziehungsweise Refluxkrankheit. Dafür sprechen das retrosternale Brennen, das vom Oberbauch aufsteigt, das saure Aufstoßen, die Verstärkung im Liegen, beim Bücken und nach üppigen, späten oder fettreichen Mahlzeiten, die Besserung im Sitzen und nach Antazida sowie die typischen Risikofaktoren Übergewicht, Nikotin, Alkohol, Kaffee und späte Mahlzeiten.',
+        },
+        {
+          frage: 'Wann ist bei Sodbrennen eine ÖGD indiziert?',
+          antwort: 'Nicht bei jedem Sodbrennen. Bei typischer Symptomatik ohne Alarmzeichen darf man klinisch diagnostizieren und einen PPI-Versuch über vier bis acht Wochen unternehmen. Endoskopiert wird bei jedem Alarmsymptom, bei Erstmanifestation jenseits des 45. bis 50. Lebensjahres, wenn die Beschwerden nach acht Wochen PPI fortbestehen, bei Rezidiv nach dem Absetzen, bei langjährigem Verlauf, zur Frage eines Barrett-Ösophagus und obligat vor einer geplanten Antirefluxoperation.',
+        },
+        {
+          frage: 'Nennen Sie die Alarmsymptome.',
+          antwort: 'Progrediente Dysphagie, Odynophagie, ungewollter Gewichtsverlust, Hämatemesis oder Kaffeesatzerbrechen, Teerstuhl, Eisenmangelanämie, rezidivierendes Erbrechen, Erstmanifestation nach dem 45. bis 50. Lebensjahr, eine positive Familienanamnese für Ösophagus- oder Magenkarzinom sowie ein tastbarer Tumor oder Lymphknoten. Jedes dieser Zeichen erfordert eine zeitnahe Endoskopie.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht und wie grenzen Sie sie ab?',
+          antwort: 'An erster Stelle die Angina pectoris beziehungsweise ein akutes Koronarsyndrom — dort ist der Schmerz belastungsabhängig, strahlt in den Arm, Hals oder Kiefer aus und geht mit Dyspnoe und Kaltschweißigkeit einher; ich schließe sie mit EKG und Troponin aus. Weiter das Ulcus ventriculi oder duodeni mit epigastrischem Nüchtern- oder Nachtschmerz, das Ösophaguskarzinom mit Dysphagie und Gewichtsverlust, die Achalasie mit Dysphagie auch für Flüssigkeiten, die eosinophile und die infektiöse Ösophagitis mit Odynophagie sowie biliäre und pankreatische Ursachen und die funktionelle Dyspepsie.',
+        },
+        {
+          frage: 'Warum müssen Sie bei diesem Patienten zuerst an das Herz denken?',
+          antwort: 'Weil ein retrosternaler Schmerz bis zum Beweis des Gegenteils kardial ist und ein Myokardinfarkt unmittelbar lebensbedrohlich wäre, während die Refluxkrankheit gutartig ist. Deshalb schreibe ich ein 12-Kanal-EKG, bestimme das hochsensitive Troponin im Verlauf und frage gezielt nach Belastungsabhängigkeit, Ausstrahlung, Dyspnoe und kardiovaskulären Risikofaktoren. Erst danach behandle ich den Reflux.',
+        },
+        {
+          frage: 'Was ist der PPI-Versuch, und beweist er die Diagnose?',
+          antwort: 'Der PPI-Versuch ist die probatorische Gabe eines Protonenpumpenhemmers in Standard- oder doppelter Standarddosis über zwei bis vier Wochen. Bessern sich die Beschwerden deutlich, stützt das die Diagnose. Beweisend ist er jedoch nicht, weil er weder sensitiv noch spezifisch genug ist: Auch ein Ulkus oder eine funktionelle Dyspepsie kann ansprechen, und ein funktionelles Sodbrennen spricht trotz Refluxbeschwerden nicht an.',
+        },
+        {
+          frage: 'Welche Untersuchung beweist den Reflux objektiv?',
+          antwort: 'Die 24-Stunden-pH-Metrie, heute als kombinierte pH-Impedanz-Messung — sie ist der Goldstandard. Pathologisch ist eine Säureexpositionszeit von über 6 Prozent beziehungsweise ein DeMeester-Score über 14,7. Die Impedanz erfasst zusätzlich nicht-saure Refluxepisoden und erlaubt die Zuordnung der Symptome zu den Refluxereignissen. Indiziert ist sie bei nicht-erosiver Refluxkrankheit, bei therapierefraktären oder extraösophagealen Beschwerden und obligat vor einer Operation.',
+        },
+        {
+          frage: 'Wie teilen Sie eine Refluxösophagitis endoskopisch ein?',
+          antwort: 'Nach der Los-Angeles-Klassifikation: Grad A einzelne Läsionen unter 5 mm auf einer Falte, Grad B mindestens eine Läsion über 5 mm auf einer Falte, Grad C konfluierende Läsionen über mehrere Falten unter 75 Prozent der Zirkumferenz, Grad D über mindestens 75 Prozent der Zirkumferenz. Die ältere Einteilung nach Savary-Miller unterscheidet vier Stadien bis hin zu Ulkus, Striktur und Zylinderepithelmetaplasie.',
+        },
+        {
+          frage: 'Der endoskopische Befund ist völlig unauffällig — hat der Patient dann keinen Reflux?',
+          antwort: 'Doch. 60 bis 70 Prozent der Patienten haben eine nicht-erosive Refluxkrankheit, also typische Beschwerden bei normaler Schleimhaut, aber pathologischer Säureexposition. Der Schweregrad des endoskopischen Befundes korreliert nicht mit der Beschwerdeintensität. Bleiben Endoskopie und pH-Metrie unauffällig und ist die Symptomassoziation negativ, spricht das für ein funktionelles Sodbrennen.',
+        },
+        {
+          frage: 'Wie behandeln Sie diesen Patienten?',
+          antwort: 'Zunächst Basismaßnahmen: Gewichtsreduktion, Nikotin- und Alkoholkarenz, mehrere kleine statt üppiger Mahlzeiten, letzte Mahlzeit drei Stunden vor dem Schlafengehen, Meidung von Kaffee, Fett und Scharfem sowie Schlafen mit erhöhtem Oberkörper. Medikamentös ein Protonenpumpenhemmer, zum Beispiel Pantoprazol 40 mg, 30 bis 60 Minuten vor dem Frühstück über vier bis acht Wochen, danach Reduktion auf die niedrigste wirksame Dosis oder eine Bedarfstherapie. Zusätzlich prüfe ich die Begleitmedikation auf sphinktertonussenkende und schleimhautschädigende Präparate.',
+        },
+        {
+          frage: 'Warum muss der PPI vor dem Essen eingenommen werden?',
+          antwort: 'Protonenpumpenhemmer wirken nur an aktivierten Protonenpumpen. Die Nahrungsaufnahme aktiviert die Belegzellen, deshalb muss der Wirkstoff 30 bis 60 Minuten vor der Mahlzeit eingenommen werden, damit der Wirkspiegel zum Zeitpunkt der Aktivierung vorliegt. Die falsche Einnahmezeit ist die häufigste Ursache eines vermeintlichen Therapieversagens.',
+        },
+        {
+          frage: 'Welche Risiken hat eine Langzeittherapie mit Protonenpumpenhemmern?',
+          antwort: 'Hypomagnesiämie, Vitamin-B12- und Eisenmangel, ein erhöhtes Risiko für Clostridioides-difficile-Infektionen und ambulant erworbene Pneumonien, Osteoporose mit erhöhtem Frakturrisiko sowie selten eine interstitielle Nephritis. Deshalb überprüfe ich die Indikation regelmäßig, gebe die niedrigste wirksame Dosis und setze ausschleichend ab, weil es sonst zu einer Rebound-Hypersekretion kommt.',
+        },
+        {
+          frage: 'Der Patient nimmt seit acht Wochen einen PPI und hat weiterhin Beschwerden — wie gehen Sie vor?',
+          antwort: 'Ich prüfe zuerst Adhärenz und Einnahmezeitpunkt sowie fortbestehende Auslöser wie Nikotin, Alkohol, späte Mahlzeiten und auslösende Medikamente. Bleibt es dabei, führe ich eine ÖGD mit Biopsien durch, um eine eosinophile oder infektiöse Ösophagitis, ein Ulkus oder ein Karzinom auszuschließen, und ergänze eine pH-Impedanz-Messung. Häufig findet sich dann ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus, die auf PPI nicht ansprechen.',
+        },
+        {
+          frage: 'Was ist ein Barrett-Ösophagus und welche Bedeutung hat er?',
+          antwort: 'Der Ersatz des normalen Plattenepithels im distalen Ösophagus durch spezialisiertes intestinales Zylinderepithel mit Becherzellen als Folge des chronischen Refluxes. Er ist eine Präkanzerose des Adenokarzinoms des distalen Ösophagus mit einem Entartungsrisiko von etwa 0,1 bis 0,5 Prozent pro Jahr ohne Dysplasie. Deshalb dauerhafte PPI-Therapie und endoskopische Überwachung mit Vierquadranten-Stufenbiopsien alle drei bis vier Jahre, bei niedriggradiger Dysplasie engmaschiger oder Ablation, bei hochgradiger Dysplasie endoskopische Mukosaresektion und Radiofrequenzablation.',
+        },
+        {
+          frage: 'Wann operieren Sie, und wie heißt der Eingriff?',
+          antwort: 'Bei objektiv gesicherter Refluxkrankheit mit unzureichendem Ansprechen trotz optimierter Therapie, bei PPI-Unverträglichkeit, bei ausgeprägter Volumenregurgitation, bei großer symptomatischer Hiatushernie und auf Wunsch junger Patienten, die keine Dauermedikation möchten. Der Eingriff ist die laparoskopische Fundoplikatio nach Nissen mit einer 360-Grad-Manschette oder als partielle Manschette nach Toupet, jeweils kombiniert mit einer Hiatoplastik.',
+        },
+        {
+          frage: 'Was muss vor einer Fundoplikatio zwingend abgeklärt sein, und welche Komplikationen kennen Sie?',
+          antwort: 'Vor der Operation braucht es die ÖGD, die 24-Stunden-pH-Impedanz-Messung als Refluxnachweis und die hochauflösende Manometrie, um eine Achalasie oder eine schwere Motilitätsstörung auszuschließen — sonst droht eine hochgradige postoperative Dysphagie. Typische Komplikationen sind das Gas-bloat-Syndrom mit Unfähigkeit zu Aufstoßen und Erbrechen, eine passagere Dysphagie, Blähungen, Diarrhoe sowie ein Rezidiv, das erneut PPI erforderlich macht.',
+        },
+        {
+          frage: 'Welche Komplikationen der Refluxkrankheit kennen Sie?',
+          antwort: 'Die Refluxösophagitis mit Erosionen und Ulzera, die obere gastrointestinale Blutung mit Eisenmangelanämie, die peptische Striktur mit Dysphagie, den Barrett-Ösophagus als Präkanzerose und daraus das Adenokarzinom des distalen Ösophagus sowie extraösophageale Komplikationen wie Laryngitis, chronischer Husten, Asthma, Aspirationspneumonie und Zahnschmelzerosionen.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Erkrankung auf Deutsch, ohne Fachbegriffe?',
+          antwort: 'Ich würde sagen: Der Muskelring am Übergang zwischen Speiseröhre und Magen schließt nicht mehr richtig, deshalb fließt saurer Magensaft zurück in die Speiseröhre und reizt dort die Schleimhaut. Das erklärt Ihr Sodbrennen und das saure Aufstoßen, besonders im Liegen und nach schweren Mahlzeiten. Die Erkrankung ist gutartig, kehrt aber ohne Änderung der Lebensgewohnheiten häufig zurück. Zur Untersuchung schlage ich eine Magenspiegelung vor, bei der wir mit einem dünnen, biegsamen Schlauch die Speiseröhre und den Magen von innen ansehen und kleine Gewebeproben entnehmen können.',
+        },
+      ],
+      merksatz: 'Sodbrennen und saures Aufstoßen, schlimmer im Liegen und nach spätem, fettem Essen = GERD — aber erst EKG und Troponin, damit kein Infarkt übersehen wird. Ohne Alarmsymptome genügen Lebensstil und ein PPI 30–60 Minuten vor dem Frühstück; mit Alarmsymptomen, nach dem 45. Lebensjahr oder bei Therapieversagen sofort die Magenspiegelung. Der Reflux wird durch die pH-Metrie bewiesen, die Endoskopie zeigt Los-Angeles-Grad und Barrett — und der Barrett ist die Präkanzerose des Adenokarzinoms.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-cholezystitis',
+      pathology: 'Akute Cholezystitis',
+      specialty: 'Chirurgie',
+      definition: 'Die akute Cholezystitis ist die akute Entzündung der Gallenblasenwand. In 90–95 % der Fälle liegt eine kalkulöse Form vor: Ein Konkrement verlegt den Gallenblasenhals (Infundibulum, Hartmann-Pouch) oder den Ductus cysticus, es kommt zum Sekretstau mit Wanddehnung, chemisch-entzündlicher Schleimhautschädigung durch Lysolecithin und nachfolgender bakterieller Superinfektion. In 5–10 % handelt es sich um eine akalkulöse Cholezystitis ohne Steinnachweis, überwiegend beim schwerkranken Intensivpatienten. Klinisch entscheidend ist die Abgrenzung von der einfachen Gallenkolik: Diese ist ein wehenartiger, in der Regel innerhalb von Minuten bis wenigen Stunden (unter 6 Stunden) sistierender Schmerz ohne Fieber und ohne systemische Entzündungszeichen, während die Cholezystitis einen Dauerschmerz über mehr als 6 Stunden mit Fieber, Leukozytose und CRP-Anstieg zeigt. Die Cholezystolithiasis (Steine in der Gallenblase) ist von der Choledocholithiasis (Steine im Ductus choledochus) und der aszendierenden Cholangitis zu unterscheiden.',
+      aetiologie: 'Ursächlich ist fast immer eine Cholezystolithiasis. Etwa 80 % sind Cholesterin- bzw. gemischte Steine, die bei einem Missverhältnis von Cholesterin zu Gallensäuren und Lecithin (lithogene Galle) entstehen; etwa 20 % sind Pigment- bzw. Bilirubinsteine bei Hämolyse, Leberzirrhose oder chronischer biliärer Infektion. Die Steinverlegung des Ductus cysticus führt zu Stau, Wanddehnung, Mikrozirkulationsstörung und Entzündung; sekundär siedeln sich Darmkeime an, typischerweise Escherichia coli, Klebsiella, Enterobacter, Enterokokken und Anaerobier wie Bacteroides. Die akalkulöse Cholezystitis entsteht durch Gallestase und Minderperfusion bei Intensivpatienten (Sepsis, Polytrauma, Verbrennung, Langzeitbeatmung, totale parenterale Ernährung, nach großen Operationen, Schock, hoch dosierte Katecholamine) und verläuft deutlich schwerer. Seltene Ursachen sind Salmonellen (Dauerausscheider), CMV und Kryptosporidien bei Immunsuppression, Parasiten (Askariden), eine Kompression von außen beim Mirizzi-Syndrom sowie ein stenosierendes Gallenblasenkarzinom. Medikamentös kann Ceftriaxon eine Pseudolithiasis (Sludge) und Octreotid eine Gallestase auslösen.',
+      risikofaktoren: [
+        'Die klassischen „6 F“: female (weibliches Geschlecht), fat (Adipositas), forty (Alter über 40), fertile (Multiparität), fair (heller Hauttyp) und family (positive Familienanamnese)',
+        'Weibliches Geschlecht und Östrogenexposition: Schwangerschaft, orale Kontrazeptiva, Hormonersatztherapie (Östrogene steigern die Cholesterinsekretion in die Galle)',
+        'Adipositas, metabolisches Syndrom, Diabetes mellitus, Hypertriglyzeridämie',
+        'Rasche Gewichtsabnahme, Nulldiät, Fasten und Zustand nach bariatrischer Operation (Gallenblasenhypomotilität, Sludgebildung)',
+        'Fett- und cholesterinreiche, ballaststoffarme Ernährung sowie Bewegungsmangel',
+        'Hämolytische Erkrankungen (Sphärozytose, Sichelzellanämie, Thalassämie) als Ursache von Bilirubinsteinen',
+        'Morbus Crohn mit Befall oder Resektion des terminalen Ileums (unterbrochener enterohepatischer Kreislauf der Gallensäuren)',
+        'Leberzirrhose und primär sklerosierende Cholangitis',
+        'Totale parenterale Ernährung, Langzeitfasten, Intensivbehandlung und Langzeitbeatmung (Risiko der akalkulösen Form)',
+        'Medikamente: Ceftriaxon (Pseudolithiasis), Octreotid/Somatostatin, Fibrate, Ciclosporin',
+        'Höheres Lebensalter, positive Familienanamnese und bereits bekannte, symptomatische Gallensteine',
+      ],
+      klinik: [
+        {
+          text: 'Anhaltender, dumpf-bohrender Schmerz im rechten Oberbauch bzw. Epigastrium über mehr als 6 Stunden — im Unterschied zur Gallenkolik nicht mehr wehenartig an- und abschwellend',
+        },
+        {
+          text: 'Ausstrahlung des Schmerzes in die rechte Schulter, das rechte Schulterblatt und den Rücken (Head-Zone über den N. phrenicus, C3–C5)',
+        },
+        {
+          text: 'Auslösung oder Verstärkung nach einer fettreichen, üppigen Mahlzeit, häufig abends oder nachts',
+        },
+        {
+          text: 'Übelkeit, Erbrechen, Appetitlosigkeit und ausgeprägtes Krankheitsgefühl',
+        },
+        {
+          text: 'Fieber, meist subfebril bis 38,5 °C, gelegentlich mit Schüttelfrost',
+        },
+        {
+          text: 'Positives Murphy-Zeichen: schmerzbedingter reflektorischer Abbruch der tiefen Inspiration, wenn der Untersucher unter dem rechten Rippenbogen palpiert',
+        },
+        {
+          text: 'Deutlicher Druckschmerz und lokale (umschriebene) Abwehrspannung im rechten Oberbauch',
+        },
+        {
+          text: 'Tastbare, prall-elastische, druckschmerzhafte Gallenblase bei Hydrops',
+        },
+        {
+          text: 'Unspezifische dyspeptische Vorgeschichte: Völlegefühl, Blähungen, Aufstoßen und Fettunverträglichkeit über Monate',
+        },
+        {
+          text: 'Tachykardie und trockene Schleimhäute als Ausdruck von Schmerz und Exsikkose bei Nahrungs- und Flüssigkeitskarenz',
+        },
+        {
+          text: 'Ikterus mit dunklem Urin und entfärbtem Stuhl — spricht für eine begleitende Choledocholithiasis, eine Cholangitis oder ein Mirizzi-Syndrom und nicht für die unkomplizierte Cholezystitis',
+          atypisch: true,
+        },
+        {
+          text: 'Beim älteren oder diabetischen Patienten nahezu schmerzfreier Verlauf mit lediglich Fieber, Verwirrtheit, Delir, Appetitlosigkeit oder Sturzneigung',
+          atypisch: true,
+        },
+        {
+          text: 'Rein epigastrischer oder linksbetonter Schmerz, der ein Ulkusleiden oder eine Pankreatitis imitiert',
+          atypisch: true,
+        },
+        {
+          text: 'Rechtsthorakaler Schmerz mit Atemabhängigkeit und Dyspnoe, der an eine Pneumonie, Pleuritis oder einen Hinterwandinfarkt denken lässt',
+          atypisch: true,
+        },
+        {
+          text: 'Akutes Abdomen mit brettharter, generalisierter Abwehrspannung und Kreislaufinstabilität bei Perforation und galliger Peritonitis',
+          atypisch: true,
+        },
+        {
+          text: 'Bei der akalkulösen Cholezystitis des beatmeten Intensivpatienten nur unklares Fieber, steigende Entzündungswerte und Sepsiszeichen ohne fassbaren Schmerz',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregradeinteilung nach den Tokyo Guidelines (TG18)',
+          inhalt: 'Grad I (mild): akute Cholezystitis beim ansonsten gesunden Patienten ohne Organdysfunktion und ohne ausgeprägte lokale Entzündung — frühe laparoskopische Cholezystektomie. Grad II (moderat): Leukozyten über 18 000/µl, tastbare druckschmerzhafte Resistenz im rechten Oberbauch, Beschwerdedauer über 72 Stunden oder ausgeprägte lokale Entzündung (Empyem, gangränöse Cholezystitis, pericholezystischer bzw. Leberabszess, biliäre Peritonitis) — Operation im spezialisierten Zentrum oder Drainage. Grad III (schwer): Cholezystitis mit Organdysfunktion (kardiovaskulär, neurologisch, respiratorisch, renal, hepatisch, hämatologisch) — Intensivtherapie, Antibiose und häufig zunächst perkutane Cholezystostomie.',
+        },
+        {
+          name: 'Diagnosekriterien der Tokyo Guidelines',
+          inhalt: 'A – lokale Entzündungszeichen: positives Murphy-Zeichen, Schmerz, Druckschmerz oder Resistenz im rechten Oberbauch. B – systemische Entzündungszeichen: Fieber, CRP-Erhöhung, Leukozytose. C – Bildgebung: für die Cholezystitis charakteristische Befunde in der Sonographie oder CT. Verdachtsdiagnose bei einem Kriterium aus A und einem aus B, gesicherte Diagnose bei zusätzlich erfülltem Kriterium C.',
+        },
+        {
+          name: 'Pathologisch-morphologische Verlaufsformen',
+          inhalt: 'Katarrhalisch (ödematöse Wandschwellung, reversibel) → phlegmonös (eitrige Wandinfiltration) → Gallenblasenempyem (eitergefülltes Organ) → gangränös-nekrotisierend mit Perforationsgefahr → gedeckte oder freie Perforation mit pericholezystischem Abszess bzw. galliger Peritonitis. Sonderform: emphysematöse Cholezystitis mit Gasbildnern (Clostridien, E. coli), typischerweise beim männlichen Diabetiker, mit hoher Letalität. Bei rezidivierenden Entzündungen entsteht die chronische Cholezystitis mit Schrumpfgallenblase und Porzellangallenblase.',
+        },
+        {
+          name: 'Einteilung des Gallensteinleidens nach Lokalisation und Symptomatik',
+          inhalt: 'Cholezystolithiasis (Steine in der Gallenblase): asymptomatisch — als Zufallsbefund in etwa 75 % lebenslang stumm, keine Operationsindikation; symptomatisch — Koliken, Cholezystitis, Operationsindikation. Choledocholithiasis: Steine im Ductus choledochus, mit Cholestase, Ikterus, Cholangitis oder biliärer Pankreatitis. Mirizzi-Syndrom: Kompression des Ductus hepaticus communis durch einen im Gallenblasenhals oder Ductus cysticus eingeklemmten Stein.',
+        },
+      ],
+      redFlags: [
+        'Ikterus, dunkler Urin und entfärbter Stuhl → Choledocholithiasis, Mirizzi-Syndrom oder Tumor; sofortige Bestimmung von Bilirubin, AP und Gamma-GT sowie Darstellung der Gallenwege',
+        'Charcot-Trias aus Fieber mit Schüttelfrost, Ikterus und rechtsseitigem Oberbauchschmerz → akute Cholangitis; dringliche ERCP zur Entlastung der Gallenwege',
+        'Reynolds-Pentade (Charcot-Trias plus Hypotonie und Bewusstseinstrübung) → septische Cholangitis, akut lebensbedrohlich, Intensivtherapie und notfallmäßige Gallenwegsdrainage',
+        'Brettharte Bauchdecke, generalisierte Abwehrspannung, Loslassschmerz, fehlende Darmgeräusche → Perforation mit galliger Peritonitis, Notfalloperation',
+        'Sepsiszeichen: Hypotonie, Tachykardie, Tachypnoe, Oligurie, Laktaterhöhung, Verwirrtheit (qSOFA positiv)',
+        'Gas in der Gallenblasenwand oder im Lumen in Sonographie und CT → emphysematöse Cholezystitis, besonders beim Diabetiker; sofortige Cholezystektomie',
+        'Deutlich erhöhte Lipase → biliäre Pankreatitis als Komplikation der Steinwanderung',
+        'Ausbleibende klinische Besserung unter 48–72 Stunden Antibiose → Empyem, Gangrän oder Abszess; erneute Bildgebung und Intervention',
+        'Auffallende Schmerzarmut beim alten, immunsupprimierten oder diabetischen Patienten trotz hoher Entzündungswerte — die Klinik unterschätzt hier regelmäßig den Befund',
+        'Gewichtsverlust, derbe, unverschiebliche Resistenz im rechten Oberbauch oder verkalkte Porzellangallenblase → Verdacht auf Gallenblasenkarzinom',
+        'Thorakale Ausstrahlung, Dyspnoe, Kaltschweißigkeit oder vegetative Begleitsymptomatik → Hinterwandinfarkt ausschließen, EKG und Troponin',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Schmerzanamnese: Beginn, Lokalisation im rechten Oberbauch, Dauer über 6 Stunden, Charakter (Dauerschmerz statt Kolik), Ausstrahlung in rechte Schulter und Rücken, Auslösung durch eine fettreiche Mahlzeit, frühere Koliken und bekannte Gallensteine',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Begleitsymptome erfragen: Fieber, Schüttelfrost, Übelkeit, Erbrechen, Fettunverträglichkeit, Farbe von Urin und Stuhl, Gelbfärbung von Haut und Skleren, Juckreiz, Gewichtsverlust',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vegetative Anamnese, Vor- und Begleiterkrankungen (Diabetes mellitus, Adipositas, Herz- und Lungenerkrankungen), Voroperationen am Abdomen, Medikamente einschließlich Antikoagulanzien und Kontrazeptiva, Allergien, Alkohol- und Nikotinkonsum, Schwangerschaft',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Inspektion von Haut und Skleren auf Ikterus, Auskultation der Darmgeräusche, Palpation mit Prüfung des Murphy-Zeichens, Druckschmerz und lokaler Abwehrspannung im rechten Oberbauch, tastbare Gallenblase, Prüfung von Loslassschmerz, Nierenlager und Bruchpforten sowie rektale Untersuchung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperatur, Blutdruck, Puls, Atemfrequenz, Sauerstoffsättigung und Bewusstseinslage zur Schweregradeinschätzung nach den Tokyo Guidelines und zur Sepsiserkennung (qSOFA)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: CRP (typischerweise über 3 mg/dl) und Blutbild mit Leukozytose und Linksverschiebung; Procalcitonin bei Verdacht auf Sepsis oder Cholangitis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Cholestaseparameter: Gesamt- und direktes Bilirubin, alkalische Phosphatase und Gamma-GT — eine Erhöhung weist auf eine begleitende Choledocholithiasis, eine Cholangitis oder ein Mirizzi-Syndrom hin und ändert das therapeutische Vorgehen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Transaminasen GOT und GPT (bei akuter Steinpassage kurzfristig steilerer Anstieg möglich) sowie Lipase zur Abgrenzung bzw. zum Nachweis einer biliären Pankreatitis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenretentionswerte, Elektrolyte, Blutzucker, Gerinnung mit Quick/INR und Thrombozyten sowie Blutgruppenbestimmung und Kreuzblut als präoperative Vorbereitung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zwei Paar Blutkulturen bei Fieber über 38,5 °C oder Schüttelfrost, vor Beginn der Antibiotikatherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin bei epigastrischem oder thorakal ausstrahlendem Schmerz zum Ausschluss eines Hinterwandinfarkts; Schwangerschaftstest (beta-HCG) bei Frauen im gebärfähigen Alter',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als Methode der ersten Wahl (Sensitivität über 90 %): Konkremente mit dorsalem Schallschatten, Wandverdickung über 4 mm mit Dreischichtung, pericholezystischer Flüssigkeitssaum, Hydrops (Querdurchmesser über 4 cm), Sludge und sonographisches Murphy-Zeichen (Druckschmerz unter dem Schallkopf über der Gallenblase)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Im selben Untersuchungsgang Beurteilung der Gallenwege: Weite des Ductus choledochus (normal bis 7 mm, nach Cholezystektomie bis 10 mm), intrahepatische Cholestase, Leberparenchym, Pankreas, freie Flüssigkeit und Nieren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG in zwölf Ableitungen — obligat bei jedem Oberbauchschmerz zum Ausschluss eines Hinterwandinfarkts',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax und Abdomenübersicht bei Verdacht auf Perforation (freie Luft unter dem Zwerchfell), Aerobilie, Ileus oder Pneumonie; Cave: nur etwa 15 % der Gallensteine sind röntgendicht, das Röntgenbild eignet sich nicht zum Steinnachweis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT des Abdomens mit Kontrastmittel bei unklarem Sonographiebefund, Adipositas, Verdacht auf Perforation, Abszess, emphysematöse Cholezystitis oder Tumor sowie bei unklarem akutem Abdomen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRCP als nichtinvasive Darstellung der Gallenwege bei mittlerem Risiko einer Choledocholithiasis (erhöhte Cholestasewerte ohne sicheren Steinnachweis), alternativ die Endosonographie mit hoher Sensitivität für kleine präpapilläre Steine',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ERCP als primär therapeutisches Verfahren bei gesicherter Choledocholithiasis oder Cholangitis: endoskopische Papillotomie mit Steinextraktion mittels Dormia-Körbchen oder Ballon, bei Bedarf Einlage eines Stents; dringlich innerhalb von 24 Stunden bei septischer Cholangitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Intraoperative Cholangiographie oder laparoskopische Sonographie zur Darstellung der Gallenwege und zum Ausschluss von Restkonkrementen bei unklarer Anatomie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle beim nicht operationsfähigen Hochrisikopatienten; alternativ die PTCD zur Gallenwegsentlastung, wenn die ERCP nicht gelingt',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Obligate histopathologische Untersuchung des Cholezystektomiepräparats — in etwa 1–2 % findet sich ein inzidentelles Gallenblasenkarzinom',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Einfache Gallenkolik bei Cholezystolithiasis (ohne Entzündung)',
+          unterscheidung: 'Wehenartig an- und abschwellender Schmerz, der nach Minuten bis wenigen Stunden — jedenfalls unter 6 Stunden — spontan oder auf Spasmolytika sistiert; kein Fieber, normales CRP und normale Leukozyten, sonographisch keine Wandverdickung und kein Flüssigkeitssaum.',
+        },
+        {
+          dd: 'Choledocholithiasis und akute Cholangitis',
+          unterscheidung: 'Führendes Zeichen ist der Ikterus mit dunklem Urin und hellem Stuhl; Bilirubin, AP und Gamma-GT deutlich erhöht, sonographisch erweiterter Ductus choledochus über 7 mm. Bei der Cholangitis zusätzlich hohes Fieber mit Schüttelfrost (Charcot-Trias) — Therapie ist die ERCP, nicht primär die Operation.',
+        },
+        {
+          dd: 'Akute Pankreatitis, häufig biliär',
+          unterscheidung: 'Gürtelförmiger, in den Rücken ausstrahlender Oberbauchschmerz mit prall-elastischem „Gummibauch“, Meteorismus und Übelkeit; Lipase über dem Dreifachen der Norm — beim Nachweis von Gallensteinen liegt eine biliäre Genese vor, was die Therapie mit ERCP und späterer Cholezystektomie bestimmt.',
+        },
+        {
+          dd: 'Ulcus ventriculi oder duodeni, ggf. perforiert',
+          unterscheidung: 'Epigastrisch lokalisierter, brennender Schmerz mit Bezug zur Nahrungsaufnahme (Ulcus duodeni nüchtern und nachts, Besserung nach dem Essen; Ulcus ventriculi Schmerzverstärkung nach dem Essen), Anamnese mit NSAR oder Helicobacter pylori; Klärung durch Gastroskopie, bei Perforation brettharte Bauchdecke und freie Luft im Röntgen.',
+        },
+        {
+          dd: 'Hinterwandinfarkt bzw. akutes Koronarsyndrom',
+          unterscheidung: 'Wichtigste nicht-abdominelle Differenzialdiagnose: epigastrischer Druck oder Brennen mit Vernichtungsgefühl, Kaltschweißigkeit, Dyspnoe und vegetativer Begleitsymptomatik, ohne Bezug zur Mahlzeit und ohne Murphy-Zeichen. Obligat sind EKG (ST-Hebungen in II, III und aVF) und Troponin — deshalb gehört das EKG zu jedem Oberbauchschmerz.',
+        },
+        {
+          dd: 'Rechtsseitige basale Pneumonie oder Pleuritis',
+          unterscheidung: 'Atemabhängiger Schmerz, Husten, Auswurf, Dyspnoe, abgeschwächtes Atemgeräusch mit Rasselgeräuschen; das Abdomen ist weich, das Murphy-Zeichen negativ. Klärung durch Auskultation und Röntgen-Thorax.',
+        },
+        {
+          dd: 'Akute Appendizitis, besonders bei hochstehender oder retrozökaler Lage sowie in der Schwangerschaft',
+          unterscheidung: 'Schmerzwanderung vom Epigastrium in den rechten Unterbauch, McBurney- und Lanz-Druckpunkt, Blumberg- und Psoas-Zeichen, axillär-rektale Temperaturdifferenz; die Sonographie zeigt eine kokardenförmige Appendix statt einer entzündeten Gallenblase.',
+        },
+        {
+          dd: 'Rechtsseitige Nierenkolik oder Pyelonephritis',
+          unterscheidung: 'Kolikartiger Flankenschmerz mit Ausstrahlung in Leiste und Genitale, klopfschmerzhaftes Nierenlager, Hämaturie bzw. Leukozyturie und Nitrit im Urinstatus, sonographisch Harnstau; kein Bezug zu fettreichem Essen.',
+        },
+        {
+          dd: 'Akute Hepatitis oder Stauungsleber bei Rechtsherzinsuffizienz',
+          unterscheidung: 'Dumpfer Kapselspannungsschmerz mit vergrößerter, glatt begrenzter Leber; bei der Hepatitis stehen die Transaminasen im Vordergrund (GPT über GOT, Werte im Tausenderbereich) mit positiver Virusserologie, bei der Stauungsleber bestehen obere Einflussstauung, Ödeme und Halsvenenstauung.',
+        },
+        {
+          dd: 'Funktionelle Dyspepsie und Refluxösophagitis',
+          unterscheidung: 'Chronisch rezidivierendes Sodbrennen, saures Aufstoßen, Druckgefühl ohne Fieber und ohne Entzündungszeichen, unauffällige Sonographie; Diagnose nach Ausschluss und durch Gastroskopie.',
+        },
+        {
+          dd: 'Gallenblasenkarzinom',
+          unterscheidung: 'Meist schmerzarmer Verlauf beim älteren Patienten mit B-Symptomatik, Gewichtsverlust, schmerzlosem Ikterus und derber, unverschieblicher Resistenz; Risikoindikatoren sind Porzellangallenblase, Steine über 3 cm und Polypen über 1 cm. Klärung durch CT/MRT und die obligate Histologie des Resektats.',
+        },
+        {
+          dd: 'Fitz-Hugh-Curtis-Syndrom (Perihepatitis)',
+          unterscheidung: 'Junge, sexuell aktive Frau mit rechtsseitigem Oberbauchschmerz bei aufsteigender Chlamydien- oder Gonokokkeninfektion; Unterbauchbeschwerden, Portioschiebeschmerz und Fluor in der gynäkologischen Untersuchung, unauffällige Gallenblase in der Sonographie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen bei Aufnahme: Nahrungskarenz, Analgesie und kalkulierte Antibiose',
+          akut: true,
+          items: [
+            'Stationäre Aufnahme, absolute Nahrungs- und Flüssigkeitskarenz („nihil per os“) zur Ruhigstellung der Gallenblase, dazu großlumiger peripherer Venenzugang',
+            'Intravenöse Volumen- und Elektrolytsubstitution mit balancierter Vollelektrolytlösung (etwa 2–3 Liter in 24 Stunden, angepasst an Herz- und Nierenfunktion), Bilanzierung von Ein- und Ausfuhr',
+            'Analgesie: Metamizol 1 g als Kurzinfusion bis zu viermal täglich, ergänzt durch das Spasmolytikum Butylscopolamin 20 mg intravenös; bei stärksten Schmerzen Pethidin oder Buprenorphin. Klassisch wird Morphin wegen der Tonuserhöhung am Sphincter Oddi zurückhaltend eingesetzt',
+            'Antiemese mit Metoclopramid oder Ondansetron, Protonenpumpenhemmer (z. B. Pantoprazol 40 mg intravenös) als Stressulkusprophylaxe',
+            'Kalkulierte intravenöse Antibiotikatherapie nach Abnahme von Blutkulturen, gerichtet gegen gramnegative Enterobakterien, Enterokokken und Anaerobier: Ceftriaxon 2 g täglich in Kombination mit Metronidazol 3 × 500 mg, alternativ Ampicillin/Sulbactam oder Piperacillin/Tazobactam; bei schwerem Verlauf oder Sepsis ein Carbapenem. Dauer in der Regel 4–7 Tage, Deeskalation nach Antibiogramm',
+            'Thromboseprophylaxe mit niedermolekularem Heparin, engmaschige Kontrolle von Vitalparametern, Temperatur, CRP und Leukozyten sowie klinische Verlaufsuntersuchung des Abdomens',
+            'Wichtig für die Prüfung: Die Antibiose ersetzt die Operation nicht, sondern bereitet sie vor — die kausale Therapie ist die Entfernung der steintragenden Gallenblase',
+          ],
+        },
+        {
+          label: 'Frühe laparoskopische Cholezystektomie als Standardtherapie (innerhalb von 24 Stunden)',
+          items: [
+            'Operationsindikation ist die gesicherte akute Cholezystitis; die frühelektive laparoskopische Cholezystektomie erfolgt möglichst innerhalb von 24 Stunden nach Aufnahme, jedenfalls in derselben stationären Behandlung (Ergebnis der deutschen ACDC-Studie: weniger Komplikationen, kürzere Liegedauer und geringere Kosten als bei verzögerter Operation nach sechs Wochen)',
+            'Präoperative Vorbereitung: Aufklärung über Blutung, Infektion, Verletzung von Gallengang, Darm und Gefäßen, Konversion zur Laparotomie und Gallefistel, Nüchternheit, Gerinnung, Blutgruppe und Kreuzblut, anästhesiologische Vorstellung, Single-Shot-Antibiotikaprophylaxe',
+            'Operatives Vorgehen: Laparoskopie in Vier-Trokar-Technik, Darstellung des Calot-Dreiecks in der „critical view of safety“, Clippen und Durchtrennen von Arteria cystica und Ductus cysticus, retrograde Auslösung der Gallenblase aus dem Leberbett, Bergung im Bergebeutel, bei ausgeprägter Entzündung Einlage einer Zieldrainage',
+            'Konversion zur offenen Cholezystektomie über einen Rippenbogenrandschnitt bei unklarer Anatomie, ausgeprägten Verwachsungen, Blutung oder Verdacht auf Gallengangsverletzung — die Konversion ist kein Misserfolg, sondern eine Sicherheitsentscheidung; als Ausweichverfahren bei feindlichem Situs die subtotale Cholezystektomie nach Pribram',
+            'Bei sehr ausgeprägter lokaler Entzündung mit Beschwerdedauer über 72 Stunden kann alternativ zunächst konservativ behandelt und die Cholezystektomie im entzündungsfreien Intervall nach etwa 6 Wochen durchgeführt werden',
+            'Obligate histopathologische Aufarbeitung des Resektats zum Ausschluss eines inzidentellen Gallenblasenkarzinoms',
+            'Postoperativ rascher Kostaufbau ab dem Operationstag, frühe Mobilisation, Analgesie nach WHO-Stufenschema; Entlassung meist am 1. bis 3. postoperativen Tag. Eine spezielle Diät ist nach der Cholezystektomie nicht erforderlich, in den ersten Wochen werden sehr fettreiche Mahlzeiten jedoch häufig schlechter vertragen',
+          ],
+        },
+        {
+          label: 'Begleitende Choledocholithiasis und Cholangitis: ERCP und therapeutisches Splitting',
+          akut: true,
+          items: [
+            'Verdacht bei Ikterus, erhöhtem Bilirubin, AP und Gamma-GT oder erweitertem Ductus choledochus über 7 mm; bei mittlerem Risiko vorherige Sicherung durch MRCP oder Endosonographie, um eine unnötige ERCP zu vermeiden',
+            'Bei nachgewiesenem Stein im Ductus choledochus: ERCP mit endoskopischer Papillotomie und Steinextraktion mittels Dormia-Körbchen oder Ballonkatheter, bei nicht vollständiger Sanierung Einlage eines Stents oder einer nasobiliären Sonde',
+            'Bei akuter Cholangitis mit Charcot-Trias ist die endoskopische Gallenwegsentlastung dringlich und erfolgt zusammen mit Volumentherapie und intravenöser Antibiose innerhalb von 24 Stunden; bei Reynolds-Pentade mit Sepsis notfallmäßig unter intensivmedizinischer Überwachung',
+            '„Therapeutisches Splitting“: zuerst die endoskopische Sanierung des Gallengangs, anschließend die laparoskopische Cholezystektomie in derselben stationären Behandlung, in der Regel innerhalb von 72 Stunden — nicht die Gallenblase entfernen und den Gangstein belassen',
+            'Nach ERCP auf die typischen Komplikationen achten: Post-ERCP-Pankreatitis (Lipase- und Schmerzkontrolle, Prophylaxe mit rektalem Diclofenac oder Indometacin), Blutung nach Papillotomie, Cholangitis und Perforation',
+            'Bei begleitender biliärer Pankreatitis richtet sich das Vorgehen nach dem Schweregrad: bei Cholestase oder Cholangitis frühe ERCP, danach Cholezystektomie noch im selben Aufenthalt zur Rezidivprophylaxe',
+          ],
+        },
+        {
+          label: 'Hochrisikopatient, Komplikationen und Langzeitberatung',
+          items: [
+            'Beim nicht operationsfähigen Hochrisikopatienten (Tokyo Grad III, schwere Komorbidität, Sepsis): antibiotische Therapie plus perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle zur Entlastung; die Cholezystektomie erfolgt gegebenenfalls elektiv nach Stabilisierung, wobei der Katheter frühestens nach 3 Wochen bei ausgereiftem Kanal entfernt wird',
+            'Notfallmäßige Cholezystektomie ohne Aufschub bei Perforation mit galliger Peritonitis, gangränöser oder emphysematöser Cholezystitis und bei pericholezystischem Abszess (ergänzend perkutane Abszessdrainage)',
+            'Weitere Komplikationen kennen und aktiv suchen: Gallenblasenempyem und -hydrops, Leberabszess, biliodigestive Fistel mit Gallensteinileus (Bouveret-Syndrom, Aerobilie im Röntgen), Mirizzi-Syndrom und Sepsis',
+            'Postoperative Komplikationen: Gallengangsverletzung (0,2–0,5 %), Gallefistel und Galleleck (Anstieg von Bilirubin im Drainagesekret, Sonographie, Therapie durch ERCP mit Stent), Nachblutung, Wundinfekt und Restkonkrement im Ductus choledochus',
+            'Beratung zum Postcholezystektomiesyndrom bei 10–15 % der Operierten: dyspeptische Beschwerden, Diarrhoe oder anhaltende Schmerzen; Abklärung von Restkonkrement, Papillenstenose, Reflux und funktionellen Ursachen',
+            'Prophylaxe und Lebensstil: fettarme, ballaststoffreiche Ernährung, langsame und kontrollierte Gewichtsreduktion (rasche Gewichtsabnahme begünstigt Steinbildung), regelmäßige Bewegung, gute Einstellung von Diabetes mellitus und Fettstoffwechselstörung',
+            'Umgang mit asymptomatischen Gallensteinen: keine Operationsindikation. Ausnahmen mit erhöhtem Karzinomrisiko oder Komplikationsrisiko sind die Porzellangallenblase, Konkremente über 3 cm, Gallenblasenpolypen über 1 cm, die Kombination von Polyp und Stein sowie eine geplante Organtransplantation oder ein bariatrischer Eingriff',
+          ],
+        },
+      ],
+      prognose: 'Unter frühzeitiger laparoskopischer Cholezystektomie ist die Prognose der unkomplizierten akuten Cholezystitis sehr gut: Die Letalität liegt unter 1 %, die Konversionsrate zur offenen Operation bei 5–10 % und das Risiko einer Gallengangsverletzung bei 0,2–0,5 %. Die Beschwerden bilden sich in aller Regel vollständig zurück, die Verdauung ist nach dem Wegfall des Gallenblasenreservoirs langfristig nicht wesentlich beeinträchtigt; bei 10–15 % der Operierten bleiben im Sinne eines Postcholezystektomiesyndroms dyspeptische Beschwerden oder eine Neigung zu Fettstühlen bestehen. Ohne Therapie oder bei verzögerter Behandlung drohen Empyem, Gangrän und Perforation mit galliger Peritonitis; bei der gangränösen und besonders bei der emphysematösen Form steigt die Letalität deutlich an, die akalkulöse Cholezystitis des Intensivpatienten hat je nach Grunderkrankung eine Letalität von bis zu 30 %. Rein konservativ behandelte Patienten erleiden in etwa 20–30 % innerhalb eines Jahres ein Rezidiv — deshalb ist die Cholezystektomie in derselben stationären Behandlung anzustreben. Asymptomatische Gallensteine bleiben dagegen in etwa 75 % der Fälle lebenslang stumm und bedürfen keiner Operation.',
+      pruefungsfallen: [
+        'Gallenkolik und akute Cholezystitis sauber trennen: Die Kolik dauert unter 6 Stunden, ist wehenartig und geht ohne Fieber und ohne Entzündungszeichen einher; die Cholezystitis ist ein Dauerschmerz über 6 Stunden mit Fieber, Leukozytose, CRP-Anstieg und sonographischer Wandverdickung. Wer nur „Gallenkolik“ sagt, verliert die Diagnose.',
+        'Das Murphy-Zeichen muss man beschreiben können und nicht nur nennen: schmerzbedingter reflektorischer Abbruch der tiefen Inspiration bei Palpation unter dem rechten Rippenbogen. „Sonographisches Murphy-Zeichen“ heißt dasselbe unter dem Schallkopf.',
+        'Auf die Frage „Wann operieren Sie?“ lautet die erwartete Antwort: früh, möglichst innerhalb von 24 Stunden nach Aufnahme und in jedem Fall in derselben stationären Behandlung — nicht erst nach sechs Wochen im entzündungsfreien Intervall (ACDC-Studie).',
+        'Steine im Ductus choledochus werden zuerst endoskopisch entfernt (ERCP mit Papillotomie), erst danach folgt die Cholezystektomie — das therapeutische Splitting. Die Gallenblase zu entfernen und den Gangstein zu belassen ist ein grober Fehler.',
+        'Charcot-Trias und Reynolds-Pentade gehören zur Cholangitis, nicht zur Cholezystitis. Wer den Ikterus als Symptom der unkomplizierten Cholezystitis angibt, wird korrigiert.',
+        'Bei der Analgesie an das Spasmolytikum denken (Butylscopolamin) und Metamizol nennen; klassisch wird Morphin wegen der Kontraktion des Sphincter Oddi zurückhaltend eingesetzt — diese Frage wird gern gestellt.',
+        'Die asymptomatische Cholezystolithiasis wird NICHT operiert. Ausnahmen sind Porzellangallenblase, Steine über 3 cm, Polypen über 1 cm, Polyp plus Stein sowie eine geplante Transplantation — Grund ist das erhöhte Karzinomrisiko.',
+        'Nur etwa 15 % der Gallensteine sind röntgendicht. Die Methode der Wahl ist die Abdomensonographie, nicht das Röntgenbild und nicht primär das CT.',
+        'Das EKG bei epigastrischem Schmerz nicht vergessen: Der Hinterwandinfarkt ist die gefährlichste Differenzialdiagnose des Oberbauchschmerzes; Troponin gehört ins Labor.',
+        'Die Lipase gehört immer ins Labor — sie trennt die Cholezystitis von der akuten (biliären) Pankreatitis und verändert das gesamte weitere Vorgehen.',
+        'Die Antibiotikatherapie ist keine kausale Therapie: Sie überbrückt und bereitet die Operation vor, ersetzt sie aber nicht.',
+        'Beim alten oder diabetischen Patienten kann die Klinik trotz schwerer Entzündung blande sein; Gas in der Gallenblasenwand spricht für eine emphysematöse Cholezystitis mit hoher Letalität.',
+        'Das Operationspräparat muss immer histologisch untersucht werden — in etwa 1–2 % findet sich ein inzidentelles Gallenblasenkarzinom.',
+        'Sprachfalle im Patientengespräch: „Cholezystitis“ heißt Gallenblasenentzündung, „Cholezystolithiasis“ Gallensteine, „Cholezystektomie“ Entfernung der Gallenblase, laparoskopisch bedeutet „über eine Bauchspiegelung, sogenannte Schlüssellochchirurgie“. „Ikterus“ vor dem Patienten als Gelbsucht bzw. Gelbfärbung der Haut und der Augen erklären.',
+        'Auf die Frage nach der Ernährung nach der Operation nicht „strenge Diät lebenslang“ sagen: Eine spezielle Diät ist nicht nötig, nur in den ersten Wochen werden sehr fettreiche Mahlzeiten oft schlechter vertragen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ich gehe von einer akuten Cholezystitis bei Cholezystolithiasis aus. Dafür sprechen der über sechs Stunden anhaltende Dauerschmerz im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, der Beginn nach einer fettreichen Mahlzeit, Übelkeit und Erbrechen, das Fieber sowie in der Untersuchung das positive Murphy-Zeichen mit Druckschmerz und lokaler Abwehrspannung im rechten Oberbauch. Im Labor erwarte ich erhöhtes CRP und eine Leukozytose, in der Sonographie Konkremente mit Schallschatten und eine verdickte Gallenblasenwand.',
+        },
+        {
+          frage: 'Was ist das Murphy-Zeichen, und wie prüfen Sie es?',
+          antwort: 'Ich palpiere mit den Fingerspitzen unter dem rechten Rippenbogen in der Medioklavikularlinie und bitte den Patienten, tief einzuatmen. Beim Einatmen tritt die Gallenblase gegen meine Hand; ist sie entzündet, bricht der Patient die Inspiration schmerzbedingt reflektorisch ab. Das ist ein positives Murphy-Zeichen. Prüfe ich dasselbe mit dem Schallkopf über der sonographisch dargestellten Gallenblase, spricht man vom sonographischen Murphy-Zeichen.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Gallenkolik von einer akuten Cholezystitis?',
+          antwort: 'Die Gallenkolik ist ein wehenartig an- und abschwellender Schmerz, der in der Regel nach Minuten bis wenigen Stunden, jedenfalls unter sechs Stunden, sistiert; der Patient hat kein Fieber, die Entzündungswerte sind normal und die Gallenblasenwand ist sonographisch unauffällig. Bei der Cholezystitis besteht ein Dauerschmerz über mehr als sechs Stunden mit Fieber, erhöhtem CRP, Leukozytose, positivem Murphy-Zeichen sowie sonographisch einer Wandverdickung über vier Millimeter und einem pericholezystischen Flüssigkeitssaum.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei diesem Patienten in Betracht?',
+          antwort: 'Vor allem die akute Pankreatitis mit gürtelförmigem Schmerz und erhöhter Lipase, ein Ulcus ventriculi oder duodeni mit epigastrischem, nahrungsabhängigem Schmerz, und ein Hinterwandinfarkt, den ich mit EKG und Troponin ausschließe. Weiter denke ich an eine Choledocholithiasis oder Cholangitis, eine rechtsseitige basale Pneumonie, eine rechtsseitige Nierenkolik, eine hochstehende Appendizitis und eine akute Hepatitis.',
+        },
+        {
+          frage: 'Welche Untersuchung ist die Methode der ersten Wahl, und was erwarten Sie darin?',
+          antwort: 'Die Abdomensonographie. Ich erwarte Konkremente mit dorsalem Schallschatten, eine Wandverdickung über vier Millimeter mit Dreischichtung, einen pericholezystischen Flüssigkeitssaum, gegebenenfalls einen Hydrops und Sludge sowie ein positives sonographisches Murphy-Zeichen. Zusätzlich beurteile ich die Weite des Ductus choledochus, die normalerweise unter sieben Millimeter liegt.',
+        },
+        {
+          frage: 'Warum machen Sie kein Röntgenbild zum Steinnachweis?',
+          antwort: 'Weil nur etwa 15 Prozent der Gallensteine röntgendicht sind — das Röntgenbild würde die Steine also meist übersehen. Eine Abdomenübersicht mache ich nur bei bestimmten Fragestellungen: freie Luft bei Verdacht auf Perforation, Aerobilie beim Gallensteinileus oder eine begleitende Pneumonie im Röntgen-Thorax.',
+        },
+        {
+          frage: 'Welche Laborparameter bestimmen Sie, und was sagt Ihnen jeder einzelne?',
+          antwort: 'CRP und Blutbild zeigen mir die Entzündung. Bilirubin, alkalische Phosphatase und Gamma-GT sind die Cholestaseparameter — sind sie erhöht, muss ich an eine Choledocholithiasis oder ein Mirizzi-Syndrom denken. Die Lipase trennt die Cholezystitis von einer akuten Pankreatitis. Dazu Transaminasen, Nierenwerte, Elektrolyte, Gerinnung, Blutgruppe und Kreuzblut als Operationsvorbereitung, bei Fieber Blutkulturen und bei epigastrischem Schmerz Troponin.',
+        },
+        {
+          frage: 'Wann operieren Sie diesen Patienten?',
+          antwort: 'Früh. Der heutige Standard ist die frühe laparoskopische Cholezystektomie möglichst innerhalb von 24 Stunden nach Aufnahme, in jedem Fall in derselben stationären Behandlung. Das hat die deutsche ACDC-Studie gezeigt: weniger Komplikationen, kürzere Liegedauer und geringere Kosten als bei der früher üblichen verzögerten Operation nach sechs Wochen. Nur bei sehr langer Beschwerdedauer über 72 Stunden mit ausgeprägter lokaler Entzündung kann man zunächst konservativ behandeln und im entzündungsfreien Intervall operieren.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten bis zur Operation?',
+          antwort: 'Stationäre Aufnahme, absolute Nahrungskarenz, intravenöse Flüssigkeits- und Elektrolytsubstitution. Zur Analgesie Metamizol 1 g als Kurzinfusion und Butylscopolamin 20 mg als Spasmolytikum, bei stärksten Schmerzen Pethidin; Morphin verwende ich zurückhaltend, weil es den Sphincter Oddi kontrahiert. Dazu ein Antiemetikum, ein Protonenpumpenhemmer, Thromboseprophylaxe und nach Abnahme von Blutkulturen eine kalkulierte Antibiose mit Ceftriaxon plus Metronidazol.',
+        },
+        {
+          frage: 'Reicht die Antibiotikatherapie nicht aus?',
+          antwort: 'Nein. Die Antibiose bekämpft nur die bakterielle Superinfektion und stabilisiert den Patienten bis zur Operation. Die Ursache ist der Stein, der den Ductus cysticus verlegt; deshalb ist die kausale Therapie die Entfernung der Gallenblase. Rein konservativ behandelte Patienten erleiden in etwa 20 bis 30 Prozent innerhalb eines Jahres ein Rezidiv.',
+        },
+        {
+          frage: 'Der Patient ist ikterisch und hat erhöhte Cholestasewerte — wie ändert das Ihr Vorgehen?',
+          antwort: 'Dann muss ich an eine Choledocholithiasis oder eine Cholangitis denken. Ich sichere den Befund mit Sonographie und, falls nötig, mit MRCP oder Endosonographie. Bei nachgewiesenem Gangstein führe ich zuerst eine ERCP mit Papillotomie und Steinextraktion durch und erst danach die laparoskopische Cholezystektomie in derselben stationären Behandlung — das nennt man therapeutisches Splitting. Es wäre ein Fehler, die Gallenblase zu entfernen und den Stein im Gallengang zu belassen.',
+        },
+        {
+          frage: 'Was ist die Charcot-Trias, und wozu gehört sie?',
+          antwort: 'Die Charcot-Trias besteht aus Fieber mit Schüttelfrost, Ikterus und Schmerz im rechten Oberbauch und ist typisch für die akute Cholangitis, nicht für die unkomplizierte Cholezystitis. Kommen Hypotonie und Bewusstseinstrübung hinzu, spricht man von der Reynolds-Pentade — das ist eine septische Cholangitis, ein lebensbedrohlicher Notfall mit dringlicher endoskopischer Entlastung der Gallenwege.',
+        },
+        {
+          frage: 'Welche Komplikationen der akuten Cholezystitis kennen Sie?',
+          antwort: 'Gallenblasenempyem und Hydrops, gangränöse Cholezystitis mit gedeckter oder freier Perforation und galliger Peritonitis, pericholezystischer Abszess und Leberabszess, die emphysematöse Cholezystitis mit Gasbildnern beim Diabetiker, das Mirizzi-Syndrom, die biliodigestive Fistel mit Gallensteinileus sowie die Sepsis. Langfristig entstehen Schrumpf- und Porzellangallenblase mit erhöhtem Karzinomrisiko.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Operation in einfacher Sprache?',
+          antwort: 'Ich würde sagen: Ihre Gallenblase ist entzündet, weil ein Gallenstein den Ausgang verstopft. Wir müssen die Gallenblase entfernen. Das machen wir über eine Bauchspiegelung, also über vier kleine Schnitte mit einer Kamera — man nennt das Schlüssellochchirurgie. Sie bekommen eine Vollnarkose. Selten müssen wir während der Operation auf einen offenen Bauchschnitt umsteigen, wenn die Verhältnisse unübersichtlich sind. Die Gallenblase ist nur ein Speicher — Sie können auch ohne sie ganz normal leben.',
+        },
+        {
+          frage: 'Muss der Patient nach der Operation eine besondere Diät einhalten?',
+          antwort: 'Eine spezielle Diät ist nicht erforderlich. Die Leber produziert die Galle weiterhin, sie wird nur nicht mehr zwischengespeichert. In den ersten Wochen werden sehr fettreiche Mahlzeiten häufig schlechter vertragen, deshalb empfehle ich mehrere kleine, eher fettarme Mahlzeiten. Bei etwa zehn bis fünfzehn Prozent der Operierten bleiben dyspeptische Beschwerden im Sinne eines Postcholezystektomiesyndroms bestehen — das kläre ich dann weiter ab.',
+        },
+        {
+          frage: 'Ein anderer Patient hat Gallensteine als Zufallsbefund, aber keine Beschwerden. Operieren Sie?',
+          antwort: 'Nein. Asymptomatische Gallensteine bleiben in etwa 75 Prozent der Fälle lebenslang stumm und stellen keine Operationsindikation dar. Ausnahmen sind die Porzellangallenblase, Konkremente über drei Zentimeter, Gallenblasenpolypen über einem Zentimeter, die Kombination aus Polyp und Stein sowie eine geplante Organtransplantation — hier operiere ich wegen des erhöhten Karzinom- beziehungsweise Komplikationsrisikos prophylaktisch.',
+        },
+        {
+          frage: 'Welche Risikofaktoren für Gallensteine kennen Sie?',
+          antwort: 'Klassisch die sechs F: female, fat, forty, fertile, fair und family — also weibliches Geschlecht, Übergewicht, Alter über vierzig, Multiparität, heller Hauttyp und positive Familienanamnese. Dazu Östrogene und orale Kontrazeptiva, Diabetes mellitus und metabolisches Syndrom, rasche Gewichtsabnahme oder Fasten, hämolytische Anämien für Bilirubinsteine, Morbus Crohn mit Befall des terminalen Ileums, Leberzirrhose, parenterale Ernährung sowie Medikamente wie Ceftriaxon und Octreotid.',
+        },
+        {
+          frage: 'Warum ist bei jedem Oberbauchschmerz ein EKG obligat?',
+          antwort: 'Weil sich ein Hinterwandinfarkt sehr häufig als epigastrischer Schmerz mit Übelkeit und Erbrechen äußert und klinisch kaum von einer Gallenwegserkrankung zu unterscheiden ist. Ich schreibe deshalb immer ein Zwölf-Kanal-EKG und bestimme Troponin, bevor ich den Schmerz als rein abdominell einordne.',
+        },
+        {
+          frage: 'Was passiert mit der entfernten Gallenblase?',
+          antwort: 'Sie wird immer histopathologisch untersucht. In etwa ein bis zwei Prozent der Präparate findet sich ein inzidentelles, klinisch nicht vermutetes Gallenblasenkarzinom, das dann je nach Stadium eine erweiterte onkologische Nachresektion erfordert.',
+        },
+        {
+          frage: 'Was tun Sie, wenn der Patient wegen schwerer Begleiterkrankungen nicht operationsfähig ist?',
+          antwort: 'Dann behandele ich zunächst konservativ mit Antibiose, Volumentherapie und Analgesie und entlaste die Gallenblase durch eine perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle. Nach Stabilisierung des Patienten kann die Cholezystektomie elektiv nachgeholt werden; der Drainagekatheter wird frühestens nach etwa drei Wochen entfernt, wenn der Punktionskanal ausgereift ist.',
+        },
+      ],
+      merksatz: 'Dauerschmerz über 6 Stunden im rechten Oberbauch plus Fieber, CRP-Anstieg und positives Murphy-Zeichen — das ist keine Kolik mehr, sondern eine Cholezystitis. Sonographie ist die Methode der Wahl (nur 15 % der Steine sind röntgendicht), EKG und Lipase gehören trotzdem dazu. Therapie: Nahrungskarenz, Analgesie, Antibiose — und die frühe laparoskopische Cholezystektomie innerhalb von 24 Stunden. Bei Ikterus zuerst ERCP, dann Operation: therapeutisches Splitting.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-myokardinfarkt',
+      pathology: 'Myokardinfarkt',
+      specialty: 'Kardiologie',
+      definition: 'Der Myokardinfarkt ist der ischämische Untergang von Herzmuskelgewebe (Koronarnekrose) infolge eines akuten, meist thrombotischen Verschlusses einer Koronararterie. Er gehört zusammen mit der instabilen Angina pectoris zum akuten Koronarsyndrom (ACS). Nach der Vierten Universellen Definition liegt ein Myokardinfarkt vor, wenn ein Anstieg und/oder Abfall des kardialen Troponins mit mindestens einem Wert oberhalb der 99. Perzentile nachgewiesen wird UND zusätzlich mindestens ein Ischämiekriterium besteht: typische Angina-pectoris-Symptomatik, neue ischämietypische EKG-Veränderungen, neue pathologische Q-Zacken, ein bildgebend neu nachgewiesener Verlust vitalen Myokards beziehungsweise eine neue regionale Wandbewegungsstörung oder der angiographische Nachweis eines Koronarthrombus. Klinisch-therapeutisch wird bereits an der EKG-Kurve entschieden: Beim ST-Hebungsinfarkt (STEMI) besteht ein kompletter Gefäßverschluss mit transmuraler Ischämie und die sofortige Reperfusion ist obligat; beim Nicht-ST-Hebungs-ACS (NSTE-ACS) ist das Gefäß meist inkomplett verschlossen, und die Unterscheidung zwischen NSTEMI und instabiler Angina pectoris gelingt erst über das Troponin.',
+      aetiologie: 'In über 90 % der Fälle liegt die Ruptur oder Erosion einer instabilen, lipidreichen atherosklerotischen Plaque mit dünner fibröser Kappe zugrunde. Das freigelegte thrombogene Material aktiviert Thrombozyten und die plasmatische Gerinnung, es entsteht ein okkludierender (STEMI) oder subokkludierender (NSTEMI) Thrombus. Entscheidend ist: nicht der Stenosegrad, sondern die Plaque-Instabilität bestimmt das Infarktrisiko — die meisten Infarkte entstehen aus zuvor nur mäßiggradigen Stenosen. Nach der Universellen Definition wird der Typ-1-Infarkt (Plaqueruptur) vom Typ-2-Infarkt durch Missverhältnis von Sauerstoffangebot und -bedarf abgegrenzt (Tachyarrhythmie, hypertensive Entgleisung, schwere Anämie, Sepsis, Schock, Hypoxie, Koronarspasmus, Prinzmetal-Angina, Kokainabusus, Koronarembolie, spontane Koronardissektion — SCAD, typischerweise bei jüngeren Frauen und peripartal). Auslösende Situationen sind körperliche oder emotionale Belastung, starke Blutdruckanstiege und Kälte; eine Häufung besteht in den frühen Morgenstunden durch den morgendlichen Katecholamin- und Kortisolgipfel.',
+      risikofaktoren: [
+        'Nicht beeinflussbar: Lebensalter (Männer ab 45, Frauen ab 55 Jahren), männliches Geschlecht, positive Familienanamnese für frühzeitige kardiovaskuläre Ereignisse (Vater vor dem 55., Mutter vor dem 65. Lebensjahr)',
+        'Nikotinabusus — der stärkste beeinflussbare Einzelfaktor, dosisabhängig; Angabe in Pack Years erfragen',
+        'Arterielle Hypertonie mit linksventrikulärer Hypertrophie',
+        'Diabetes mellitus — gilt als kardiovaskulärer Hochrisikofaktor und ist zugleich die häufigste Ursache eines stummen Infarkts (autonome Neuropathie)',
+        'Fettstoffwechselstörung: erhöhtes LDL-Cholesterin und Lipoprotein(a), erniedrigtes HDL-Cholesterin, Hypertriglyzeridämie',
+        'Adipositas, insbesondere viszerale (stammbetonte) Adipositas, und metabolisches Syndrom',
+        'Bewegungsmangel und ungünstige Ernährung',
+        'Psychosozialer Stress, Depression, Schlafapnoe-Syndrom, Schichtarbeit',
+        'Chronische Niereninsuffizienz und chronisch-entzündliche Erkrankungen (rheumatoide Arthritis, Psoriasis, HIV)',
+        'Vorbestehende Atherosklerose in anderen Stromgebieten: pAVK, Karotisstenose, Zustand nach Schlaganfall — sowie eine bekannte KHK, Zustand nach Infarkt, Stent oder Bypass',
+        'Kokain- und Amphetaminkonsum (Koronarspasmus, auch bei jungen Patienten ohne Atherosklerose)',
+      ],
+      klinik: [
+        {
+          text: 'Retrosternaler Vernichtungsschmerz von über 20 Minuten Dauer, in Ruhe auftretend und auf Nitroglycerin nicht oder nur unzureichend ansprechend',
+        },
+        {
+          text: 'Charakter als Druck-, Enge- oder Brennschmerz — Patienten beschreiben ein „Zuschnüren“, einen „Reifen um die Brust“ oder „als säße ein Elefant auf der Brust“',
+        },
+        {
+          text: 'Ausstrahlung in den linken Arm (ulnare Seite), in beide Arme, in Hals, Unterkiefer, Schulter, zwischen die Schulterblätter oder in den Oberbauch',
+        },
+        {
+          text: 'Ausgeprägte vegetative Begleitsymptomatik: Kaltschweißigkeit, fahle bis graue Blässe, Übelkeit und Erbrechen',
+        },
+        {
+          text: 'Todesangst, motorische Unruhe und Vernichtungsgefühl — ein anamnestisch sehr charakteristisches Zeichen',
+        },
+        {
+          text: 'Dyspnoe bis Orthopnoe als Ausdruck der akuten Linksherzinsuffizienz, gegebenenfalls mit Husten und schaumigem Auswurf beim Lungenödem',
+        },
+        {
+          text: 'Schwindel, Präsynkope oder Synkope bei Rhythmusstörungen oder kardiogenem Schock',
+        },
+        {
+          text: 'Tachykardie und Hypotonie; beim Hinterwand- und Rechtsherzinfarkt dagegen häufig Bradykardie und Hypotonie (Bezold-Jarisch-Reflex)',
+        },
+        {
+          text: 'Auskultatorisch feuchte, feinblasige Rasselgeräusche über den Lungenbasen bei pulmonaler Stauung, dritter oder vierter Herzton, gelegentlich ein neues Systolikum (Mitralinsuffizienz durch Papillarmuskeldysfunktion)',
+        },
+        {
+          text: 'Gestaute Halsvenen bei hypotonem Patienten mit freien Lungenfeldern — typische Trias des Rechtsherzinfarkts',
+        },
+        {
+          text: 'Blutdruckabfall unter 90 mmHg systolisch, Kaltschweißigkeit, Marmorierung, Oligurie und Bewusstseinstrübung als Zeichen des kardiogenen Schocks',
+        },
+        {
+          text: 'Stummer Infarkt ohne Schmerzen — vor allem bei Diabetikern mit autonomer Neuropathie, bei sehr alten Patienten und bei Niereninsuffizienz',
+          atypisch: true,
+        },
+        {
+          text: 'Alleinige Dyspnoe, plötzliche Leistungsminderung, Verwirrtheit oder Sturz als einziges Symptom beim geriatrischen Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Epigastrischer Schmerz mit Übelkeit und Erbrechen beim Hinterwandinfarkt — wird regelmäßig als Gastritis oder „verdorbener Magen“ verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Frauen häufiger uncharakteristische Beschwerden: Müdigkeit, Schlafstörungen, Rücken-, Nacken- oder Kieferschmerz, Übelkeit statt klassischem Brustschmerz',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als plötzlicher Herztod durch Kammerflimmern oder als neu aufgetretene, therapierefraktäre Herzinsuffizienz',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierter Schmerz in Unterkiefer, Zähnen, Schulter oder Ellenbogen ohne thorakale Komponente',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung des akuten Koronarsyndroms nach dem Aufnahme-EKG (therapieleitend)',
+          inhalt: 'STEMI (ST-Hebungsinfarkt): persistierende ST-Streckenhebungen oder ein neu aufgetretener Linksschenkelblock — kompletter Gefäßverschluss, sofortige Reperfusion ohne Warten auf das Troponin. NSTE-ACS (Nicht-ST-Hebungs-ACS): ST-Senkungen, T-Negativierungen oder unauffälliges EKG; hier entscheidet das hochsensitive Troponin zwischen NSTEMI (Troponin erhöht, also Nekrose) und instabiler Angina pectoris (Troponin negativ, keine Nekrose). Merke: STEMI und NSTEMI unterscheiden sich im EKG, NSTEMI und instabile Angina pectoris nur im Labor.',
+        },
+        {
+          name: 'Vierte Universelle Definition des Myokardinfarkts — Typen 1 bis 5',
+          inhalt: 'Typ 1: atherothrombotischer Infarkt durch Plaqueruptur oder -erosion. Typ 2: Ischämie durch Missverhältnis von Sauerstoffangebot und -bedarf ohne Plaqueruptur (Tachyarrhythmie, Anämie, Sepsis, Schock, hypertensive Krise, Spasmus, SCAD). Typ 3: kardialer Tod mit typischer Ischämiesymptomatik, bevor Biomarker bestimmt werden konnten. Typ 4a: PCI-assoziierter Infarkt; Typ 4b: Stentthrombose; Typ 4c: Restenose. Typ 5: Bypass-assoziierter Infarkt. Davon abzugrenzen ist die Myokardschädigung (myocardial injury) mit Troponinerhöhung ohne Ischämiekriterium — etwa bei Myokarditis, Lungenembolie, Sepsis, Tachykardie oder Niereninsuffizienz.',
+        },
+        {
+          name: 'Infarktlokalisation und Gefäßzuordnung im 12-Kanal-EKG',
+          inhalt: 'Vorderwand/anteroseptal: V1–V4 → RIVA (LAD). Lateral: I, aVL, V5–V6 → Ramus circumflexus oder Diagonalast. Hinterwand/inferior: II, III, aVF → rechte Koronararterie (bei Rechtsversorgungstyp, ca. 80 %) oder Ramus circumflexus. Strikt posteriorer Infarkt: spiegelbildliche ST-Senkung mit hohem R in V1–V3 → ergänzende Ableitungen V7–V9. Rechtsventrikulärer Infarkt: ST-Hebung in V4r bei jedem Hinterwandinfarkt suchen (rechtspräkordiale Ableitungen). Hauptstammstenose: ST-Hebung in aVR mit ausgedehnten ST-Senkungen.',
+        },
+        {
+          name: 'Killip-Klassifikation (Schweregrad der Herzinsuffizienz beim Infarkt, prognostisch)',
+          inhalt: 'Killip I: keine Zeichen der Herzinsuffizienz, Letalität etwa 5 %. Killip II: feuchte Rasselgeräusche über weniger als der Hälfte der Lungenfelder, dritter Herzton, Halsvenenstauung, Letalität etwa 10–20 %. Killip III: Lungenödem, Letalität etwa 40 %. Killip IV: kardiogener Schock mit systolischem Blutdruck unter 90 mmHg und peripherer Minderperfusion, Letalität über 50 %.',
+        },
+        {
+          name: 'Stadienhafter EKG-Verlauf des STEMI',
+          inhalt: 'Stadium 0 (Erstickungs-T): hohes, spitzes, positives T („hyperakutes T“) in den ersten Minuten. Stadium I (frisches Stadium): ST-Hebung aus dem absteigenden R-Schenkel mit monophasischer Deformierung, dazu spiegelbildliche ST-Senkung in den gegenüberliegenden Ableitungen. Zwischenstadium: Rückbildung der ST-Hebung, R-Verlust, terminale T-Negativierung, Ausbildung eines pathologischen Q (Pardee-Q: breiter als 0,04 s, tiefer als ein Viertel der R-Zacke). Stadium III (Endstadium, Wochen bis Monate): pathologisches Q bleibt als Infarktnarbe bestehen, T normalisiert sich wieder. Persistierende ST-Hebung über sechs Monate spricht für ein Herzwandaneurysma.',
+        },
+      ],
+      redFlags: [
+        'Anhaltender Brustschmerz über 20 Minuten in Ruhe, nitrorefraktär → sofort 12-Kanal-EKG innerhalb von 10 Minuten und Notruf, keine weitere Anamnese vor dem EKG',
+        'ST-Streckenhebung oder neuer Linksschenkelblock → STEMI, sofortige Alarmierung des Herzkatheterlabors; die Reperfusion darf nicht auf das Troponin warten',
+        'Systolischer Blutdruck unter 90 mmHg, Kaltschweißigkeit, Marmorierung, Oligurie, Bewusstseinstrübung → kardiogener Schock, Killip IV',
+        'Kammertachykardie, Kammerflimmern oder höhergradiger AV-Block → sofortige Defibrillation beziehungsweise Schrittmachertherapie, Monitorüberwachung obligat',
+        'Hypotonie nach Nitrogabe bei Hinterwandinfarkt → Verdacht auf rechtsventrikuläre Beteiligung; Nitrate sind kontraindiziert, stattdessen Volumengabe',
+        'Neu aufgetretenes lautes Systolikum mit rascher hämodynamischer Verschlechterung → mechanische Komplikation: Ventrikelseptumruptur oder Papillarmuskelabriss mit akuter Mitralinsuffizienz',
+        'Plötzliche elektromechanische Entkopplung, Halsvenenstauung, Schock → freie Wandruptur mit Perikardtamponade, sofortige Echokardiographie',
+        'Reißender, in den Rücken ausstrahlender Schmerz mit Blutdruckdifferenz zwischen den Armen oder Pulsdefizit → Aortendissektion; Lyse und Antikoagulation wären fatal',
+        'Ausgeprägte Dyspnoe mit Orthopnoe, Rasselgeräuschen und schaumigem Auswurf → kardiales Lungenödem',
+        'Erneuter Brustschmerz mit erneuter ST-Hebung nach Stentimplantation → akute Stentthrombose, sofortige Re-Koronarangiographie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fokussierte Notfallanamnese parallel zur Erstversorgung: Beginn und exakte Uhrzeit des Schmerzbeginns (steuert das Reperfusionsfenster), Dauer, Charakter, Lokalisation, Ausstrahlung, Auslöser, Ansprechen auf Nitroglycerin, Begleitsymptome (Kaltschweißigkeit, Übelkeit, Dyspnoe, Todesangst)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kardiovaskuläre Risikofaktoren, bekannte KHK, frühere Infarkte, Stents, Bypässe, Vormedikation (Thrombozytenaggregationshemmer, orale Antikoagulation, PDE-5-Hemmer wie Sildenafil innerhalb von 24–48 Stunden — absolute Kontraindikation für Nitrate)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Blutungsanamnese und Kontraindikationen für Antikoagulation und Lyse: Ulkusleiden, Operationen, Schlaganfall, Trauma, Tumorerkrankung, Schwangerschaft',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blutdruck an BEIDEN Armen (Seitendifferenz spricht für Aortendissektion), Puls, Atemfrequenz, Sauerstoffsättigung, Temperatur; Auskultation von Herz (Geräusche, dritter/vierter Herzton, Perikardreiben) und Lunge (Rasselgeräusche, Killip-Grad), Halsvenen, periphere Pulse, Beinumfangsdifferenz und Ödeme',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Hochsensitives kardiales Troponin T oder I als spezifischster Nekrosemarker: Bestimmung bei Aufnahme und Kontrolle nach 1 bis 3 Stunden (0/1-h- oder 0/3-h-Algorithmus); Anstieg nach 3–4 Stunden, Maximum nach 12–24 Stunden, erhöht bis zu 2 Wochen. Ein einzelner negativer Wert schließt einen Infarkt in der Frühphase NICHT aus — entscheidend ist die Dynamik',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Weitere Marker in absteigender Bedeutung: CK und CK-MB (Anteil der CK-MB von 6–20 % der Gesamt-CK spricht für myokardiale Herkunft; geeignet zur Reinfarktdiagnostik, da rasch wieder abfallend), Myoglobin (früh, aber unspezifisch), LDH (Spätmarker)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild (Anämie als Auslöser eines Typ-2-Infarkts und als Blutungsrisiko), Kreatinin und eGFR (vor Kontrastmittelgabe und für die Dosierung der Antikoagulation), Elektrolyte einschließlich Kalium und Magnesium (Arrhythmierisiko), Blutzucker, Gerinnung mit INR und aPTT, CRP, TSH',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ergänzend: NT-proBNP zur Abschätzung der ventrikulären Belastung, D-Dimere NUR bei begründetem Verdacht auf Lungenembolie oder Dissektion (ein positiver Wert ist unspezifisch), Lipidstatus und HbA1c innerhalb der ersten 24 Stunden als Ausgangswert für die Sekundärprävention, Blutgasanalyse und Laktat bei Schock',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG innerhalb von 10 Minuten nach dem ersten medizinischen Kontakt — die wichtigste und dringlichste Einzelmaßnahme: ST-Hebung (in zwei benachbarten Ableitungen mindestens 0,1 mV, in V2–V3 mindestens 0,2 mV bei Männern beziehungsweise 0,15 mV bei Frauen), ST-Senkung, T-Negativierung, pathologisches Q, neuer Linksschenkelblock',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ergänzende Ableitungen: rechtspräkordial V4r bei jedem Hinterwandinfarkt (Rechtsherzinfarkt) und dorsal V7–V9 bei Verdacht auf strikt posterioren Infarkt; EKG-Verlaufskontrollen alle 15–30 Minuten bei fortbestehendem Verdacht und unauffälligem Erst-EKG',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kontinuierliches Monitoring von Rhythmus, Blutdruck und Sauerstoffsättigung auf der Intensiv- oder Chest-Pain-Unit mit Defibrillationsbereitschaft — die meisten Todesfälle der ersten Stunden sind rhythmogen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie: regionale Wandbewegungsstörung (Hypo-, A- oder Dyskinesie) im Versorgungsgebiet, Bestimmung der linksventrikulären Ejektionsfraktion, Nachweis mechanischer Komplikationen (Ventrikelseptumdefekt, Mitralinsuffizienz, Thrombus, Perikarderguss, Aneurysma) und differenzialdiagnostisch Rechtsherzbelastung bei Lungenembolie oder Dissektionsmembran',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax zur Beurteilung von Stauung, Lungenödem, Herzgröße und Mediastinalverbreiterung sowie zum Ausschluss eines Pneumothorax — darf die Reperfusion niemals verzögern',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Angiographie des Thorax bei begründetem Verdacht auf Aortendissektion oder Lungenembolie; Koronar-CT nur bei niedriger bis mittlerer Vortestwahrscheinlichkeit im stabilen Verlauf, nicht in der Akutsituation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Im Verlauf: Kardio-MRT zur Vitalitäts- und Narbendiagnostik (Late Gadolinium Enhancement) und zur Abgrenzung von Myokarditis und Tako-Tsubo-Syndrom bei MINOCA (Infarkt ohne obstruktive Koronarstenosen); Belastungs- oder Stressuntersuchungen erst nach Stabilisierung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Sofortige Koronarangiographie mit Interventionsbereitschaft beim STEMI — Diagnostik und Therapie in einem Schritt: Darstellung des Verschlusses, Bestimmung des TIMI-Flusses und primäre perkutane Koronarintervention (PCI) mit Ballondilatation und medikamentenfreisetzendem Stent',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Beim NSTE-ACS risikoadaptierte Invasivstrategie nach GRACE-Score: sofort (unter 2 Stunden) bei hämodynamischer Instabilität, therapierefraktärem Schmerz, malignen Arrhythmien oder mechanischen Komplikationen, früh-invasiv innerhalb von 24 Stunden bei Hochrisiko',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ergänzende invasive Verfahren: fraktionelle Flussreserve (FFR/iFR) zur funktionellen Beurteilung intermediärer Stenosen der Nicht-Infarktgefäße, intravaskulärer Ultraschall (IVUS) oder optische Kohärenztomographie (OCT) bei unklarer Läsion, Plaqueerosion oder spontaner Koronardissektion; Rechtsherzkatheter bei kardiogenem Schock',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Plötzliche, häufig atemabhängige Dyspnoe und stechender, pleuritischer Thoraxschmerz, Tachypnoe, Hypoxie, Hämoptysen; Risikofaktoren Immobilisation, Operation, Tumor, Ovulationshemmer, Zustand nach Thrombose, einseitige Beinschwellung. D-Dimere hoch sensitiv, im EKG allenfalls SI-QIII-Typ, Rechtsschenkelblock oder T-Negativierung in V1–V3, keine typische ST-Hebungsdynamik; Nachweis durch CT-Angiographie, in der Echokardiographie Rechtsherzbelastung. Das Troponin kann auch hier erhöht sein — als Myokardschädigung, nicht als Infarkt.',
+        },
+        {
+          dd: 'Aortendissektion (Stanford A)',
+          unterscheidung: 'Perakuter, reißender oder vernichtender Schmerz mit Wanderung in Rücken und zwischen die Schulterblätter, Blutdruckdifferenz von über 20 mmHg zwischen beiden Armen, Pulsdefizit, neu aufgetretenes Diastolikum bei Aorteninsuffizienz, neurologische Ausfälle. Absolut ausschlusspflichtig VOR jeder Lyse oder Antikoagulation; Nachweis durch CT-Angiographie oder transösophageale Echokardiographie.',
+        },
+        {
+          dd: 'Akute Perikarditis',
+          unterscheidung: 'Scharfer, atem- und lageabhängiger Schmerz mit Besserung im Sitzen und Vornüberbeugen, Verschlechterung im Liegen und bei Inspiration; oft vorangegangener viraler Infekt, Fieber. Auskultatorisch ohrnahes Perikardreiben. Im EKG konkave ST-Hebungen aus dem aufsteigenden S-Schenkel in nahezu ALLEN Ableitungen ohne spiegelbildliche Senkungen, dazu PQ-Senkung; keine Q-Zacken, kein Gefäßterritorium.',
+        },
+        {
+          dd: 'Myokarditis',
+          unterscheidung: 'Jüngere Patienten, Infekt der oberen Atemwege ein bis drei Wochen zuvor, Abgeschlagenheit, Palpitationen, Herzinsuffizienzzeichen; Troponin erhöht bei unauffälligen Koronarien (MINOCA). Diagnosesicherung durch Kardio-MRT mit typischem subepikardialem Late Enhancement.',
+        },
+        {
+          dd: 'Tako-Tsubo-Syndrom (Stress-Kardiomyopathie)',
+          unterscheidung: 'Fast ausschließlich postmenopausale Frauen nach starker emotionaler oder körperlicher Belastung; klinisch und im EKG vom STEMI nicht zu unterscheiden, Troponin nur mäßig erhöht bei ausgedehnter Wandbewegungsstörung. In der Ventrikulographie apikales Ballooning bei unauffälligen Koronarien; meist vollständig reversibel.',
+        },
+        {
+          dd: 'Ösophagealer Schmerz: Refluxkrankheit, Ösophagusspasmus, Boerhaave-Syndrom',
+          unterscheidung: 'Brennender retrosternaler Schmerz mit Bezug zu Mahlzeiten und Liegen, saures Aufstoßen, Besserung auf Protonenpumpenhemmer. Cave: Auch ein Ösophagusspasmus bessert sich auf Nitroglycerin — das Ansprechen auf Nitrate beweist keine kardiale Genese. Beim Boerhaave-Syndrom Vernichtungsschmerz nach heftigem Erbrechen mit Hautemphysem und Mediastinitis.',
+        },
+        {
+          dd: 'Spannungspneumothorax / Pneumothorax',
+          unterscheidung: 'Plötzliche Dyspnoe mit einseitig fehlendem Atemgeräusch und hypersonorem Klopfschall, obere Einflussstauung und Kreislaufinstabilität beim Spannungspneumothorax; typischerweise junger, schlanker, großer Mann oder COPD-Patient. Klinische Blickdiagnose mit sofortiger Entlastungspunktion.',
+        },
+        {
+          dd: 'Pleuritis / Pneumonie',
+          unterscheidung: 'Atemabhängiger, streng lokalisierter Schmerz, Fieber, produktiver Husten, Auskultation mit Rasselgeräuschen oder Pleurareiben, erhöhte Entzündungsparameter, Infiltrat im Röntgenbild.',
+        },
+        {
+          dd: 'Vertebragener und muskuloskelettaler Thoraxschmerz: BWS-Blockade, Interkostalneuralgie, Tietze-Syndrom, Rippenfraktur',
+          unterscheidung: 'Schmerz durch Palpation und Bewegung reproduzierbar, lokaler Druckschmerz über den Kostosternalgelenken oder den Dornfortsätzen, Bezug zu Fehlhaltung oder Trauma, keine vegetative Begleitsymptomatik.',
+        },
+        {
+          dd: 'Herpes zoster',
+          unterscheidung: 'Brennender, streng segmental in einem Dermatom verlaufender Schmerz, der den Bläschen um Tage vorausgehen kann; Hyperästhesie der Haut.',
+        },
+        {
+          dd: 'Oberbauchursachen: akute Pankreatitis, Cholezystitis/Gallenkolik, perforiertes Ulcus ventriculi oder duodeni',
+          unterscheidung: 'Wichtige Verwechslungsgefahr in beide Richtungen — der Hinterwandinfarkt imponiert als Oberbauchbeschwerden. Gürtelförmiger Schmerz mit Lipase-Erhöhung bei der Pankreatitis, rechtsseitiger Oberbauchschmerz mit Murphy-Zeichen und sonographischen Konkrementen bei der Cholezystitis, bretthartes Abdomen mit freier Luft bei der Perforation.',
+        },
+        {
+          dd: 'Stabile Angina pectoris und instabile Angina pectoris',
+          unterscheidung: 'Stabile Angina: belastungsabhängiger, unter 20 Minuten dauernder Schmerz mit prompter Besserung in Ruhe und auf Nitrat, reproduzierbare Belastungsschwelle, Troponin negativ. Instabile Angina: Ruhe- oder Crescendo-Symptomatik beziehungsweise Erstmanifestation, aber Troponin negativ — ausschließlich der Troponinwert trennt sie vom NSTEMI.',
+        },
+        {
+          dd: 'Psychogener Thoraxschmerz: Panikattacke, Hyperventilationssyndrom, somatoforme Störung',
+          unterscheidung: 'Junge Patienten, Kribbelparästhesien perioral und an den Händen, Karpopedalspasmen, Hyperventilation mit respiratorischer Alkalose, Beschwerden in Ruhe und ohne Progredienz — eine Ausschlussdiagnose, die erst nach EKG und Troponin gestellt werden darf.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen beim akuten Koronarsyndrom („Zeit ist Muskel“)',
+          akut: true,
+          items: [
+            'Notruf 112, Oberkörperhochlagerung mit hängenden Beinen, absolute körperliche Schonung, beruhigendes Auftreten; kontinuierliches Monitoring mit EKG, Blutdruck und Pulsoxymetrie bei ständiger Defibrillationsbereitschaft, zwei großlumige periphere Zugänge',
+            '12-Kanal-EKG innerhalb von 10 Minuten und unverzügliche Information des Oberarztes beziehungsweise Voranmeldung im Herzkatheterlabor — beim STEMI wird die Reperfusion sofort ausgelöst und NICHT auf das Troponinergebnis gewartet',
+            'Acetylsalicylsäure 150–300 mg oral (oder 250 mg intravenös) als Loading Dose so früh wie möglich, bereits präklinisch',
+            'Antikoagulation: unfraktioniertes Heparin 70–100 IE/kg intravenös als Bolus, alternativ Enoxaparin gewichtsadaptiert oder Bivalirudin',
+            'Analgesie mit Morphin 3–5 mg intravenös, fraktioniert und titriert bis zur Schmerzfreiheit — senkt zugleich Sympathikotonus, Vorlast und Sauerstoffverbrauch; Antiemetikum (Metoclopramid) bereithalten. Cave: Morphin verzögert die Resorption der oralen P2Y12-Hemmer',
+            'Nitroglycerin 0,4–0,8 mg sublingual als Spray oder Kapsel bei systolischem Blutdruck über 90–100 mmHg, gegebenenfalls als Perfusor bei Hypertonie oder Lungenstauung. STRENG KONTRAINDIZIERT bei Hypotonie, rechtsventrikulärem Infarkt, Aortenklappenstenose und Einnahme von PDE-5-Hemmern (Sildenafil, Tadalafil) in den letzten 24–48 Stunden',
+            'Sauerstoff NUR bei einer Sättigung unter 90 % beziehungsweise unter 94 % mit Dyspnoe (2–4 l/min über Nasensonde) — die routinemäßige Gabe beim normoxämischen Patienten ist obsolet und potenziell schädlich',
+            'Betablocker (Metoprolol) intravenös nur bei Tachykardie und Hypertonie ohne Zeichen der Herzinsuffizienz; kontraindiziert bei Bradykardie, Hypotonie, AV-Block, akuter Linksherzdekompensation und kardiogenem Schock — sonst orale Gabe in den ersten 24 Stunden',
+            'Komplikationsmanagement: Kammerflimmern und pulslose Kammertachykardie → sofortige Defibrillation und Reanimation nach ACLS-Algorithmus; symptomatische Bradykardie oder AV-Block III → Atropin 0,5 mg, gegebenenfalls transkutaner oder transvenöser Schrittmacher; kardiogener Schock → Katecholamine (Noradrenalin, Dobutamin), Volumen beim Rechtsherzinfarkt, gegebenenfalls mechanische Kreislaufunterstützung (Impella, ECMO) und Notfall-Revaskularisation',
+            'Merkhilfe MONA-B — Morphin, Sauerstoff (O2), Nitrat, ASS, Betablocker — heute mit den genannten Einschränkungen: Sauerstoff nur bei Hypoxie, Nitrat nur bei ausreichendem Blutdruck, Betablocker nur beim stabilen Patienten',
+          ],
+        },
+        {
+          label: 'Reperfusionstherapie: primäre PCI, Fibrinolyse und operative Revaskularisation',
+          akut: true,
+          items: [
+            'Primäre perkutane Koronarintervention (PCI) mit Ballondilatation und medikamentenfreisetzendem Stent ist die Therapie der Wahl beim STEMI und deutlich besser als die Lyse — Ziel ist die Wiedereröffnung des Infarktgefäßes mit TIMI-3-Fluss',
+            'Zeitfenster: Die Reperfusion ist beim STEMI innerhalb der ersten 12 Stunden nach Symptombeginn indiziert; bei fortbestehender Ischämiesymptomatik, hämodynamischer Instabilität oder malignen Arrhythmien auch nach 12 bis 48 Stunden. Ziel ist eine Kontakt-Ballon-Zeit unter 90 Minuten (bei direkter Aufnahme im PCI-Zentrum unter 60 Minuten)',
+            'Ist eine PCI nicht innerhalb von 120 Minuten nach der STEMI-Diagnose erreichbar, wird innerhalb von 10 Minuten eine Fibrinolyse begonnen (Tenecteplase, Alteplase, Reteplase — gewichtsadaptiert, beim über 75-Jährigen halbe Dosis), gefolgt vom Transfer in ein PCI-Zentrum zur Koronarangiographie innerhalb von 2 bis 24 Stunden; bei erfolgloser Lyse sofortige Rescue-PCI',
+            'Absolute Kontraindikationen der Lyse: intrakranielle Blutung in der Anamnese, ischämischer Schlaganfall innerhalb der letzten 6 Monate, Hirntumor oder arteriovenöse Malformation, Aortendissektion, aktive Blutung, Schädel-Hirn-Trauma oder größere Operation innerhalb der letzten 3 Wochen, gastrointestinale Blutung im letzten Monat',
+            'Beim NSTE-ACS richtet sich der Zeitpunkt nach dem Risiko (GRACE-Score): sofort invasiv bei Instabilität, innerhalb von 24 Stunden bei Hochrisiko, innerhalb von 72 Stunden bei intermediärem Risiko — eine Lyse ist beim NSTE-ACS ausdrücklich NICHT indiziert',
+            'Aortokoronare Bypassoperation (ACVB) mit A. mammaria interna und Venengrafts bei koronarer Anatomie, die für eine PCI ungeeignet ist: signifikante Hauptstammstenose, Dreigefäßerkrankung insbesondere beim Diabetiker (hoher SYNTAX-Score), erfolglose PCI oder gleichzeitig sanierungsbedürftige mechanische Komplikation (Ventrikelseptumruptur, Papillarmuskelabriss)',
+            'Bei Mehrgefäßerkrankung wird beim STEMI zunächst nur die Infarktarterie („culprit lesion“) versorgt; die Behandlung der übrigen Stenosen erfolgt in gleicher Sitzung oder im Intervall FFR-gesteuert — Ausnahme: kardiogener Schock',
+          ],
+        },
+        {
+          label: 'Antithrombotische Begleittherapie nach der Intervention',
+          items: [
+            'Duale Thrombozytenaggregationshemmung (DAPT) über in der Regel 12 Monate: Acetylsalicylsäure 100 mg täglich lebenslang PLUS ein P2Y12-Inhibitor',
+            'P2Y12-Inhibitoren der Wahl: Ticagrelor (180 mg Loading, dann 2 × 90 mg) oder Prasugrel (60 mg Loading, dann 10 mg; kontraindiziert nach Schlaganfall oder TIA, Vorsicht ab 75 Jahren und unter 60 kg Körpergewicht — dann 5 mg); Clopidogrel (600 mg Loading, dann 75 mg) bei Blutungsrisiko oder erforderlicher oraler Antikoagulation',
+            'Verkürzung der DAPT auf 1 bis 6 Monate bei hohem Blutungsrisiko, Verlängerung über 12 Monate hinaus bei hohem ischämischem und niedrigem Blutungsrisiko — immer eine individuelle Abwägung',
+            'Bei zusätzlicher Indikation für eine orale Antikoagulation (Vorhofflimmern, Ventrikelthrombus) Tripeltherapie nur so kurz wie möglich (in der Regel 1 Woche stationär), dann Zweifachtherapie aus DOAK und Clopidogrel für 6 bis 12 Monate',
+            'Magenschutz mit einem Protonenpumpenhemmer während der dualen Plättchenhemmung, insbesondere bei Ulkusanamnese, höherem Lebensalter und begleitender Antikoagulation',
+            'Patientenaufklärung mit Nachdruck: Der P2Y12-Hemmer darf nach Stentimplantation NIEMALS eigenmächtig abgesetzt werden — es droht die akute Stentthrombose mit erneutem Infarkt; jeder geplante Eingriff wird vorher mit dem Kardiologen abgestimmt',
+          ],
+        },
+        {
+          label: 'Sekundärprophylaxe, Rehabilitation und Nachsorge',
+          items: [
+            'Fünf medikamentöse Säulen nach dem Infarkt: Thrombozytenaggregationshemmung, Betablocker, Statin, ACE-Hemmer sowie bei eingeschränkter Pumpfunktion ein Mineralokortikoidrezeptor-Antagonist',
+            'Hochdosierte Statintherapie unabhängig vom Ausgangswert (Atorvastatin 80 mg oder Rosuvastatin 20–40 mg) mit dem LDL-Zielwert unter 55 mg/dl und mindestens 50 % Reduktion; bei Nichterreichen zusätzlich Ezetimib und gegebenenfalls ein PCSK9-Inhibitor. Kontrolle der Transaminasen und der CK, Aufklärung über Myalgien',
+            'Betablocker (Metoprolol, Bisoprolol) zur Senkung von Herzfrequenz, Sauerstoffverbrauch und Reinfarkt- sowie Arrhythmierisiko; ACE-Hemmer (Ramipril) oder bei Husten ein Sartan, insbesondere bei Hypertonie, Diabetes, Niereninsuffizienz und eingeschränkter Ejektionsfraktion',
+            'Eplerenon oder Spironolacton bei einer Ejektionsfraktion unter 40 % mit Herzinsuffizienzzeichen oder Diabetes; bei persistierender Herzinsuffizienz Erweiterung um SGLT2-Inhibitor und Sacubitril/Valsartan, bei einer Ejektionsfraktion unter 35 % nach drei Monaten optimaler Therapie Prüfung der ICD-Indikation',
+            'Konsequente Behandlung der Risikofaktoren: Blutdruckziel unter 130/80 mmHg, HbA1c-Ziel individualisiert mit bevorzugtem Einsatz kardioprotektiver Antidiabetika (SGLT2-Inhibitoren, GLP-1-Rezeptoragonisten), Gewichtsreduktion, Behandlung eines Schlafapnoe-Syndroms',
+            'Absolute Nikotinkarenz — die wirksamste Einzelmaßnahme der Sekundärprävention; strukturierte Raucherentwöhnung mit Beratung, Verhaltenstherapie und gegebenenfalls Nikotinersatz anbieten',
+            'Mediterrane Kost, Alkoholreduktion, mindestens 150 Minuten moderates Ausdauertraining pro Woche und Anschlussheilbehandlung: kardiologische Rehabilitation mit überwachtem Training, Schulung, psychologischer Betreuung und beruflicher Wiedereingliederung',
+            'Impfungen gegen Influenza und Pneumokokken, Anbindung an eine kardiologische Nachsorge mit Echokardiographie-Kontrolle nach 6 bis 12 Wochen; Beratung zu Fahrtauglichkeit, Wiederaufnahme von Beruf und sexueller Aktivität sowie Aufklärung über die Warnzeichen eines Reinfarkts mit klarer Anweisung, sofort den Notruf zu wählen',
+          ],
+        },
+      ],
+      prognose: 'Etwa 30–40 % aller Infarktpatienten versterben, mehr als die Hälfte davon präklinisch innerhalb der ersten Stunde, meist rhythmogen durch Kammerflimmern — die Prognose entscheidet sich daher wesentlich an der Zeit bis zum ersten medizinischen Kontakt und bis zur Reperfusion. Die Krankenhausletalität konnte durch die primäre PCI auf etwa 5–8 % gesenkt werden, steigt beim kardiogenen Schock (Killip IV) jedoch auf über 50 %. Prognosebestimmend sind Infarktgröße und Ejektionsfraktion, die Zahl der betroffenen Gefäße, das Alter, Diabetes und Niereninsuffizienz sowie das Zeitintervall bis zur Reperfusion. Frühkomplikationen sind Herzrhythmusstörungen (in bis zu 95 % der Fälle, darunter ventrikuläre Tachykardien, Kammerflimmern und AV-Blockierungen), Linksherzinsuffizienz und kardiogener Schock sowie in den ersten Tagen die mechanischen Komplikationen Ventrikelseptumruptur, Papillarmuskelabriss mit akuter Mitralinsuffizienz und freie Wandruptur mit Perikardtamponade. Spätkomplikationen sind Herzwandaneurysma mit Thrombenbildung und arterieller Embolie, chronische ischämische Herzinsuffizienz, Reinfarkt, das Dressler-Syndrom (Postmyokardinfarktsyndrom, autoimmune Perikarditis nach ein bis sechs Wochen) und der plötzliche Herztod. Unter konsequenter Sekundärprävention mit Nikotinkarenz, LDL-Zielwert unter 55 mg/dl, dualer Plättchenhemmung, Betablocker, ACE-Hemmer und kardiologischer Rehabilitation ist die Langzeitprognose bei erhaltener Pumpfunktion gut; die Therapieadhärenz ist dabei der entscheidende Faktor.',
+      pruefungsfallen: [
+        'Der Myokardinfarkt ist ein NOTFALL: In der Fallvorstellung zuerst sagen, dass Sie das 12-Kanal-EKG innerhalb von 10 Minuten schreiben, den Patienten monitorisieren und sofort den Oberarzt beziehungsweise das Herzkatheterlabor informieren — erst danach über weitere Diagnostik sprechen. Wer mit Anamnese und Labor beginnt, verliert Punkte.',
+        'Beim STEMI wird NICHT auf das Troponinergebnis gewartet. Die ST-Hebung im EKG allein begründet die sofortige Reperfusion; das Troponin dient der Bestätigung und der Verlaufsbeurteilung, nicht der Indikationsstellung.',
+        'Ein einmalig negatives Troponin schließt einen Infarkt in der Frühphase nicht aus — entscheidend ist die Dynamik in der Kontrolle nach 1 bis 3 Stunden. Umgekehrt ist ein erhöhtes Troponin nicht gleichbedeutend mit einem Infarkt: Lungenembolie, Myokarditis, Sepsis, Tachyarrhythmie und Niereninsuffizienz erhöhen es ebenfalls (Myokardschädigung ohne Ischämie).',
+        'STEMI und NSTEMI werden im EKG unterschieden, NSTEMI und instabile Angina pectoris nur über das Troponin. Diese beiden Trennlinien werden regelmäßig verwechselt.',
+        'Nitrate sind beim Hinterwand- mit Rechtsherzinfarkt sowie bei Hypotonie kontraindiziert — es droht ein dramatischer Blutdruckabfall durch Vorlastsenkung. Deshalb bei jedem inferioren Infarkt die rechtspräkordiale Ableitung V4r schreiben. Ebenso ist die Einnahme von PDE-5-Hemmern (Sildenafil) in den letzten 24 bis 48 Stunden aktiv zu erfragen.',
+        'Sauerstoff wird NICHT routinemäßig gegeben, sondern nur bei einer Sättigung unter 90 %. Die MONA-B-Merkhilfe darf nicht unkommentiert heruntergebetet werden.',
+        'Vor jeder Lyse und Antikoagulation muss die Aortendissektion ausgeschlossen werden: Blutdruck immer an BEIDEN Armen messen und nach reißendem Rückenschmerz fragen.',
+        'Der Hinterwandinfarkt kann sich als Oberbauchschmerz mit Übelkeit und Erbrechen zeigen und wird als Gastritis verkannt. Bei Diabetikern, alten Menschen und Frauen ist der stumme oder atypische Infarkt häufig — bei ihnen genügen Dyspnoe, Schwäche oder Verwirrtheit als einziges Symptom.',
+        'Das Zeitfenster korrekt angeben: Reperfusion innerhalb von 12 Stunden nach Symptombeginn, Kontakt-Ballon-Zeit unter 90 Minuten; Lyse nur, wenn eine PCI nicht innerhalb von 120 Minuten erreichbar ist. Der exakte Zeitpunkt des Schmerzbeginns gehört deshalb zwingend in die Anamnese und in den Arztbrief.',
+        'Vor dem Patienten laienverständlich sprechen: „Herzinfarkt“ statt Myokardinfarkt, „Herzkranzgefäße“ statt Koronararterien, „Herzkatheteruntersuchung mit Gefäßstütze“ statt PCI mit Stent, „Blutverdünner“ statt Thrombozytenaggregationshemmer, „Herzkranzgefäßverkalkung“ statt koronare Herzkrankheit.',
+        'Der P2Y12-Hemmer darf nach Stentimplantation nicht eigenmächtig abgesetzt werden — sonst droht die Stentthrombose. Diese Aufklärung wird in der Fallvorstellung erwartet.',
+        'Bei jungen Patienten ohne Risikofaktoren an Kokainkonsum, Koronarspasmus und spontane Koronardissektion denken; bei Frauen nach starker emotionaler Belastung an das Tako-Tsubo-Syndrom.',
+        'Ein „stummes“ oder unauffälliges Erst-EKG schließt ein akutes Koronarsyndrom nicht aus — EKG-Kontrollen alle 15 bis 30 Minuten und ergänzende Ableitungen V7–V9 und V4r nicht vergessen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein akuter ST-Hebungsinfarkt, also ein STEMI im Rahmen eines akuten Koronarsyndroms. Dafür sprechen der anhaltende retrosternale Vernichtungsschmerz von über 20 Minuten Dauer in Ruhe mit Ausstrahlung in den linken Arm und den Unterkiefer, das fehlende Ansprechen auf Nitroglycerin, die vegetative Begleitsymptomatik mit Kaltschweißigkeit, Übelkeit und Todesangst sowie die kardiovaskulären Risikofaktoren. Beweisend sind die ST-Streckenhebungen im 12-Kanal-EKG in zwei benachbarten Ableitungen und der Troponinanstieg im Verlauf.',
+        },
+        {
+          frage: 'Was ist bei diesem Patienten Ihre allererste Maßnahme?',
+          antwort: 'Das ist ein Notfall. Ich schreibe innerhalb von zehn Minuten ein 12-Kanal-EKG, lege den Patienten an den Monitor mit Defibrillationsbereitschaft, messe Blutdruck an beiden Armen, Puls und Sättigung, lege zwei großlumige Zugänge und informiere sofort meinen Oberarzt und das Herzkatheterlabor. Parallel dazu gebe ich Acetylsalicylsäure, Heparin und titriertes Morphin. Erst danach folgen die weitere Anamnese und die Laborabnahme.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen einem STEMI und einem NSTEMI?',
+          antwort: 'Beim STEMI zeigt das EKG persistierende ST-Streckenhebungen oder einen neu aufgetretenen Linksschenkelblock als Ausdruck eines kompletten Gefäßverschlusses mit transmuraler Ischämie; hier muss sofort reperfundiert werden, ohne das Troponin abzuwarten. Beim NSTEMI fehlen die ST-Hebungen — man findet ST-Senkungen, T-Negativierungen oder ein unauffälliges EKG bei meist inkomplettem Verschluss. Vom NSTEMI abzugrenzen ist die instabile Angina pectoris: Sie hat dieselbe Klinik und dasselbe EKG, aber ein negatives Troponin, also keine Myokardnekrose. Kurz gefasst: STEMI gegen NSTEMI entscheidet das EKG, NSTEMI gegen instabile Angina das Troponin.',
+        },
+        {
+          frage: 'In welchem Zeitfenster muss die PCI erfolgen?',
+          antwort: 'Die Reperfusion ist beim STEMI innerhalb der ersten zwölf Stunden nach Symptombeginn indiziert, bei fortbestehender Ischämie, Instabilität oder malignen Arrhythmien auch darüber hinaus. Angestrebt wird eine Kontakt-Ballon-Zeit unter 90 Minuten, bei direkter Aufnahme im Katheterzentrum unter 60 Minuten. Ist eine PCI nicht innerhalb von 120 Minuten erreichbar, wird innerhalb von zehn Minuten lysiert und der Patient anschließend in ein PCI-Zentrum verlegt. Deshalb frage ich immer nach der genauen Uhrzeit des Schmerzbeginns — „Zeit ist Muskel“.',
+        },
+        {
+          frage: 'Wie sieht die Akuttherapie aus?',
+          antwort: 'Oberkörperhochlagerung, Monitoring, Sauerstoff nur bei einer Sättigung unter 90 Prozent, Acetylsalicylsäure 150 bis 300 Milligramm, unfraktioniertes Heparin 70 bis 100 Einheiten pro Kilogramm, Morphin fraktioniert 3 bis 5 Milligramm intravenös und Nitroglycerin sublingual bei ausreichendem Blutdruck, dazu ein Betablocker beim stabilen, tachykarden und hypertonen Patienten. Merkhilfe MONA-B. Entscheidend ist aber nicht die Medikation, sondern die sofortige Reperfusion mittels primärer PCI mit Stentimplantation.',
+        },
+        {
+          frage: 'Warum geben Sie Sauerstoff nicht routinemäßig?',
+          antwort: 'Weil beim normoxämischen Patienten kein Nutzen besteht und eine Hyperoxie über Vasokonstriktion und Bildung freier Radikale die Infarktgröße sogar vergrößern kann. Sauerstoff wird deshalb nur bei einer Sättigung unter 90 Prozent beziehungsweise unter 94 Prozent mit Dyspnoe gegeben, mit 2 bis 4 Litern pro Minute über die Nasensonde.',
+        },
+        {
+          frage: 'Bei welchem Patienten dürfen Sie kein Nitroglycerin geben?',
+          antwort: 'Bei Hypotonie unter 90 mmHg systolisch, bei rechtsventrikulärem Infarkt beziehungsweise Hinterwandinfarkt, bei hochgradiger Aortenklappenstenose, bei hypertropher obstruktiver Kardiomyopathie und wenn der Patient in den letzten 24 bis 48 Stunden einen PDE-5-Hemmer wie Sildenafil eingenommen hat. Der Grund ist die Vorlastsenkung: Beim Rechtsherzinfarkt ist der Kreislauf vorlastabhängig, es droht ein dramatischer Blutdruckabfall. Deshalb schreibe ich bei jedem inferioren Infarkt zusätzlich die Ableitung V4r und gebe bei Hypotonie stattdessen Volumen.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und wann ist das Troponin verwertbar?',
+          antwort: 'An erster Stelle das hochsensitive kardiale Troponin T oder I bei Aufnahme und in der Kontrolle nach ein bis drei Stunden; entscheidend ist die Dynamik, denn ein einzelner negativer Wert schließt einen frischen Infarkt nicht aus. Es steigt nach drei bis vier Stunden, erreicht das Maximum nach 12 bis 24 Stunden und bleibt bis zu zwei Wochen erhöht. Ergänzend CK und CK-MB — geeignet zur Reinfarktdiagnostik, weil sie schneller abfallen —, dazu Blutbild, Kreatinin und eGFR vor der Kontrastmittelgabe, Elektrolyte, Blutzucker, Gerinnung, CRP und NT-proBNP.',
+        },
+        {
+          frage: 'Ist ein erhöhtes Troponin gleichbedeutend mit einem Herzinfarkt?',
+          antwort: 'Nein. Das Troponin ist herzmuskelspezifisch, aber nicht infarktspezifisch. Es ist auch bei Lungenembolie, Myokarditis, Perikarditis, Tako-Tsubo-Syndrom, hypertensiver Krise, Tachyarrhythmie, Sepsis, Herzinsuffizienz und Niereninsuffizienz erhöht. Man spricht dann von einer Myokardschädigung. Für die Diagnose Myokardinfarkt braucht es zusätzlich ein Ischämiekriterium: typische Klinik, ischämietypische EKG-Veränderungen, eine neue Wandbewegungsstörung oder einen angiographisch nachgewiesenen Thrombus.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und wie grenzen Sie sie ab?',
+          antwort: 'Vor allem die drei lebensbedrohlichen: die Lungenembolie mit atemabhängiger Dyspnoe, Tachypnoe, Hypoxie und erhöhten D-Dimeren bei entsprechenden Risikofaktoren; die Aortendissektion mit reißendem, in den Rücken ausstrahlendem Schmerz, Blutdruckdifferenz zwischen beiden Armen und Pulsdefizit; und den Spannungspneumothorax mit einseitig fehlendem Atemgeräusch. Dazu die Perikarditis mit atem- und lageabhängigem Schmerz, Besserung beim Vornüberbeugen, Perikardreiben und konkaven ST-Hebungen in allen Ableitungen ohne spiegelbildliche Senkungen. Ferner Myokarditis, Tako-Tsubo-Syndrom, Refluxkrankheit und Ösophagusspasmus, muskuloskelettale Ursachen wie das Tietze-Syndrom, Herpes zoster sowie Oberbaucherkrankungen wie Pankreatitis, Cholezystitis und perforiertes Ulkus.',
+        },
+        {
+          frage: 'Warum ist der Ausschluss einer Aortendissektion so wichtig?',
+          antwort: 'Weil Lyse und hochdosierte Antikoagulation bei einer Dissektion fatal wären und zur Ruptur führen können. Deshalb messe ich den Blutdruck grundsätzlich an beiden Armen, achte auf eine Differenz über 20 mmHg, auf ein Pulsdefizit, ein neues Diastolikum und neurologische Ausfälle und frage gezielt nach einem reißenden, in den Rücken wandernden Schmerz. Bei Verdacht folgt eine CT-Angiographie des Thorax.',
+        },
+        {
+          frage: 'Wie deuten Sie die EKG-Veränderungen, und welches Gefäß ist betroffen?',
+          antwort: 'ST-Hebungen in V1 bis V4 sprechen für einen Vorderwandinfarkt bei Verschluss des Ramus interventricularis anterior, in I, aVL sowie V5 und V6 für einen Lateralinfarkt des Ramus circumflexus, in II, III und aVF für einen Hinterwand- beziehungsweise inferioren Infarkt der rechten Koronararterie. Eine ST-Hebung in aVR mit ausgedehnten ST-Senkungen weist auf eine Hauptstammstenose hin. Ein strikt posteriorer Infarkt zeigt nur spiegelbildliche Senkungen in V1 bis V3 und wird mit den Ableitungen V7 bis V9 erfasst, ein rechtsventrikulärer Infarkt mit V4r.',
+        },
+        {
+          frage: 'Wann operieren Sie statt zu katheterisieren?',
+          antwort: 'Eine aortokoronare Bypassoperation kommt in Betracht, wenn die Koronaranatomie für eine PCI ungeeignet ist: bei signifikanter Hauptstammstenose, bei einer Dreigefäßerkrankung mit hohem SYNTAX-Score, insbesondere beim Diabetiker, nach erfolgloser oder komplizierter PCI sowie wenn ohnehin eine mechanische Komplikation wie eine Ventrikelseptumruptur oder ein Papillarmuskelabriss operativ versorgt werden muss. Verwendet werden die Arteria mammaria interna und Venengrafts.',
+        },
+        {
+          frage: 'Welche Komplikationen erwarten Sie, und worauf achten Sie auf der Station?',
+          antwort: 'Früh vor allem Herzrhythmusstörungen bis zum Kammerflimmern — deshalb Monitorüberwachung mit Defibrillationsbereitschaft —, dann Linksherzinsuffizienz, Lungenödem und kardiogener Schock. In den ersten Tagen die mechanischen Komplikationen: Ventrikelseptumruptur und Papillarmuskelabriss, beide mit neuem lautem Systolikum und rascher Verschlechterung, sowie die freie Wandruptur mit Perikardtamponade. Spät folgen Herzwandaneurysma mit Thrombus und Embolierisiko, Reinfarkt, chronische ischämische Herzinsuffizienz, das Dressler-Syndrom nach ein bis sechs Wochen und der plötzliche Herztod.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Diagnose und die geplante Untersuchung in einfachen Worten?',
+          antwort: 'Ich würde sagen: „Ihre Beschwerden kommen vom Herzen. Eines der Blutgefäße, die den Herzmuskel mit Sauerstoff versorgen — wir nennen sie Herzkranzgefäße —, ist durch ein Blutgerinnsel verstopft. Dadurch bekommt ein Teil des Herzmuskels zu wenig Sauerstoff. Wir müssen dieses Gefäß so schnell wie möglich wieder öffnen, denn jede Minute zählt. Dafür führen wir eine Herzkatheteruntersuchung durch: Über eine Arterie am Handgelenk oder in der Leiste schieben wir einen dünnen Schlauch bis zum Herzen, stellen die Gefäße mit Kontrastmittel dar, weiten die Engstelle mit einem Ballon auf und setzen eine kleine Gefäßstütze ein, einen sogenannten Stent.“',
+        },
+        {
+          frage: 'Wie sieht die Therapie nach der Entlassung aus?',
+          antwort: 'Medikamentös auf fünf Säulen: lebenslang Acetylsalicylsäure 100 Milligramm, dazu für in der Regel zwölf Monate ein zweiter Blutverdünner — Ticagrelor, Prasugrel oder Clopidogrel —, ferner ein Betablocker, ein hochdosiertes Statin mit dem LDL-Zielwert unter 55 Milligramm pro Deziliter und ein ACE-Hemmer; bei einer Ejektionsfraktion unter 40 Prozent zusätzlich ein Aldosteronantagonist. Nicht medikamentös: absolute Nikotinkarenz, mediterrane Ernährung, Gewichtsreduktion, mindestens 150 Minuten Ausdauertraining pro Woche, Einstellung von Blutdruck und Blutzucker sowie eine kardiologische Anschlussrehabilitation. Wichtig ist die Aufklärung, dass der zweite Blutverdünner nach Stentimplantation nicht eigenmächtig abgesetzt werden darf, weil sonst eine Stentthrombose droht.',
+        },
+        {
+          frage: 'Was ist ein stummer Infarkt, und bei wem tritt er auf?',
+          antwort: 'Ein Myokardinfarkt ohne den typischen Brustschmerz. Er tritt vor allem bei Diabetikern mit autonomer Neuropathie auf, außerdem bei sehr alten Patienten, bei Niereninsuffizienz und häufiger bei Frauen. Statt Schmerz zeigen sich dann nur Dyspnoe, Übelkeit, Schwäche, Synkope oder Verwirrtheit. Deshalb muss man bei diesen Patientengruppen großzügig ein EKG schreiben und das Troponin bestimmen.',
+        },
+      ],
+      merksatz: 'Anhaltender Vernichtungsschmerz über 20 Minuten mit Kaltschweiß und Todesangst = Infarkt bis zum Beweis des Gegenteils: EKG in 10 Minuten, Monitor, Oberarzt — beim STEMI sofort ins Katheterlabor, ohne auf das Troponin zu warten (Ziel: Ballon in unter 90 Minuten, Reperfusion innerhalb von 12 Stunden). Zeit ist Muskel. MONA-B, aber Sauerstoff nur unter 90 % Sättigung und kein Nitrat beim Hinterwand- und Rechtsherzinfarkt — und vor jeder Lyse an beiden Armen messen, um die Aortendissektion auszuschließen.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-oesophaguskarzinom',
+      pathology: 'Ösophaguskarzinom',
+      specialty: 'Gastroenterologie',
+      definition: 'Das Ösophaguskarzinom ist ein maligner epithelialer Tumor der Speiseröhre. Histologisch werden zwei grundverschiedene Entitäten unterschieden: das Plattenepithelkarzinom, das aus dem ortsständigen Plattenepithel des oberen und mittleren Ösophagusdrittels hervorgeht und ätiologisch eng an Tabak und Alkohol gebunden ist, und das Adenokarzinom, das im distalen Ösophagus auf dem Boden einer Refluxkrankheit über die Sequenz Reflux → Barrett-Metaplasie (spezialisiertes intestinales Zylinderepithel) → Dysplasie → Karzinom entsteht. Klinisches Leitsymptom ist die progrediente mechanische Dysphagie, die erst bei fester, dann bei weicher und schließlich bei flüssiger Kost auftritt und wegen der großen Dehnbarkeit des Organs erst bei einer Lumeneinengung von etwa zwei Dritteln bemerkt wird — die Diagnose wird deshalb in über der Hälfte der Fälle erst im lokal fortgeschrittenen oder metastasierten Stadium gestellt. Anatomisch begünstigt die fehlende Serosa der Speiseröhre die frühe Ausbreitung in das Mediastinum, das dichte submuköse Lymphgefäßnetz die longitudinale Ausbreitung mit Skip-Metastasen.',
+      aetiologie: 'Beim Plattenepithelkarzinom (in Deutschland etwa 40 % der Fälle, weltweit die häufigere Form) wirken Tabakrauch und Alkohol multiplikativ karzinogen: Alkohol und sein Metabolit Acetaldehyd erhöhen die Schleimhautpermeabilität für die Karzinogene des Rauchs. Weitere Auslöser sind heiße Getränke, Nitrosamine in gepökelten und geräucherten Speisen, Betelnuss, eine durchgemachte Laugen- oder Säureverätzung (Latenz 20–40 Jahre), langjährige Achalasie mit Stase, das Plummer-Vinson-Syndrom, eine Radiatio des Mediastinums sowie die Tylosis palmoplantaris. Das Adenokarzinom (in westlichen Ländern mit steigender Inzidenz, inzwischen etwa 60 %) entsteht nahezu ausschließlich als Folge der chronischen gastroösophagealen Refluxkrankheit: der Säure- und Gallereflux führt zur Barrett-Metaplasie und über eine niedrig- und hochgradige intraepitheliale Neoplasie zum invasiven Karzinom; Adipositas (viszeral, mit erhöhtem intraabdominellem Druck), Hiatushernie und männliches Geschlecht sind die wesentlichen Verstärker. Eine Helicobacter-pylori-Infektion wirkt hier durch die Säureminderung eher protektiv.',
+      risikofaktoren: [
+        'Rauchen — dosisabhängig, Hauptrisikofaktor des Plattenepithelkarzinoms (Risiko steigt mit den Packungsjahren)',
+        'Chronischer Alkoholkonsum, insbesondere hochprozentige Spirituosen; Tabak und Alkohol wirken zusammen multiplikativ',
+        'Gastroösophageale Refluxkrankheit mit Barrett-Ösophagus — Hauptrisikofaktor des Adenokarzinoms (Progressionsrisiko etwa 0,1–0,5 % pro Jahr, bei hochgradiger Dysplasie deutlich höher)',
+        'Adipositas mit erhöhtem intraabdominellem Druck und axiale Hiatushernie (Adenokarzinom)',
+        'Sehr heiße Getränke und Speisen, Nitrosamine aus gepökelten/geräucherten Lebensmitteln, Betelnusskauen',
+        'Zustand nach Laugen- oder Säureverätzung der Speiseröhre (Latenz 20–40 Jahre)',
+        'Langjährig bestehende, unbehandelte Achalasie mit chronischer Stase',
+        'Plummer-Vinson-(Paterson-Kelly-)Syndrom: Eisenmangelanämie mit Ösophagusweb und Dysphagie',
+        'Tylosis palmoplantaris (Howel-Evans-Syndrom), positive Familienanamnese',
+        'Zustand nach Radiatio des Mediastinums, Zustand nach Kopf-Hals-Tumor (Feldkanzerisierung)',
+        'Männliches Geschlecht und Lebensalter über 55 Jahre, niedriger sozioökonomischer Status, obst- und gemüsearme Ernährung',
+      ],
+      klinik: [
+        {
+          text: 'Progrediente mechanische Dysphagie: zuerst bei fester Kost (Fleisch, Brot), dann bei weicher, zuletzt bei flüssiger Nahrung — Leitsymptom, meist über Wochen bis wenige Monate zunehmend',
+        },
+        {
+          text: 'Gefühl, dass das Essen hinter dem Brustbein „stecken bleibt“, mit retrosternalem Druck',
+        },
+        {
+          text: 'Odynophagie — Schmerzen beim Schluckakt',
+        },
+        {
+          text: 'Regurgitation unverdauter Speisereste ohne Übelkeit, häufig kurz nach dem Essen',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust, oft ausgeprägt (mehr als 10 % des Körpergewichts), mit Inappetenz und Kachexie',
+        },
+        {
+          text: 'Vermeidungsverhalten mit Umstellung auf Suppen und Breikost, verlängerte Essdauer, Nachtrinken zu jedem Bissen',
+        },
+        {
+          text: 'Heiserkeit bei Infiltration des Nervus laryngeus recurrens (typischerweise links) — Zeichen der lokalen Fortgeschrittenheit',
+        },
+        {
+          text: 'Husten und Verschlucken beim Trinken, rezidivierende Aspirationspneumonien; anhaltender Husten bei ösophagotrachealer Fistel',
+        },
+        {
+          text: 'Foetor ex ore und Hypersalivation („Speichelfluss“) bei hochgradiger Stenose',
+        },
+        {
+          text: 'Blässe, Müdigkeit und Belastungsdyspnoe als Ausdruck einer Anämie durch chronische okkulte Sickerblutung; seltener Hämatemesis oder Teerstuhl',
+        },
+        {
+          text: 'Tastbare supraklavikuläre Lymphknoten (Virchow-Drüse, meist links) als Metastasenzeichen',
+        },
+        {
+          text: 'Retrosternaler oder in den Rücken ausstrahlender Dauerschmerz — Zeichen der mediastinalen Infiltration, spätes Symptom',
+          atypisch: true,
+        },
+        {
+          text: 'Obere Einflussstauung mit gestauten Halsvenen und Gesichtsschwellung bei Kompression der Vena cava superior',
+          atypisch: true,
+        },
+        {
+          text: 'Horner-Syndrom mit Ptosis, Miosis und Enophthalmus bei Infiltration des Grenzstrangs',
+          atypisch: true,
+        },
+        {
+          text: 'Völlige Beschwerdefreiheit im Frühstadium — das Frühkarzinom wird meist als Zufallsbefund bei einer Barrett-Kontrollendoskopie entdeckt',
+          atypisch: true,
+        },
+        {
+          text: 'Singultus (Zwerchfellreizung) oder Ikterus bei Lebermetastasierung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Histologische Typen und Lokalisation',
+          inhalt: 'Plattenepithelkarzinom: oberes und mittleres Ösophagusdrittel, ausgehend vom ortsständigen Plattenepithel, Risikoprofil Tabak und Alkohol, häufig multifokal (Feldkanzerisierung), gutes Ansprechen auf Radiochemotherapie. Adenokarzinom: distales Drittel und ösophagogastraler Übergang, ausgehend von der Barrett-Metaplasie, Risikoprofil Reflux und Adipositas, weniger strahlensensibel, dafür Domäne der perioperativen Chemotherapie. Seltene Formen: kleinzelliges (neuroendokrines) Karzinom, adenosquamöses Karzinom, Melanom, Sarkom, Metastasen.',
+        },
+        {
+          name: 'Anatomische Einteilung nach Höhenlokalisation',
+          inhalt: 'Zervikaler Ösophagus (Ösophagusmund bis obere Thoraxapertur, ca. 15–20 cm ab Zahnreihe): Domäne der definitiven Radiochemotherapie, da eine Resektion die Laryngektomie erfordern würde. Oberer und mittlerer thorakaler Abschnitt (20–32 cm): Nähe zu Trachea, Bronchien und Aorta — Bronchoskopie zwingend. Unterer thorakaler und abdomineller Abschnitt (32–40 cm): häufigste Lokalisation des Adenokarzinoms.',
+        },
+        {
+          name: 'TNM- und UICC-Stadien (vereinfacht)',
+          inhalt: 'T1a: Tumor auf die Mukosa begrenzt (Lamina propria/Muscularis mucosae) — endoskopisch heilbar. T1b: Infiltration der Submukosa (bereits relevantes Lymphknotenrisiko). T2: Muscularis propria. T3: Adventitia. T4a: resektable Nachbarstrukturen (Pleura, Perikard, Zwerchfell), T4b: irresektabel (Aorta, Trachea, Wirbelkörper). N1–N3 nach Zahl der befallenen regionären Lymphknoten (1–2, 3–6, ≥ 7), M1 = Fernmetastasen. Grob: Stadium I lokal begrenzt, Stadium II–III lokal fortgeschritten und/oder nodal positiv, Stadium IV metastasiert. Cave: Die Speiseröhre besitzt KEINE Serosa — deshalb frühe mediastinale Ausbreitung; das submuköse Lymphgefäßnetz erlaubt longitudinale Skip-Metastasen weit entfernt vom Primärtumor.',
+        },
+        {
+          name: 'Siewert-Klassifikation der Adenokarzinome des ösophagogastralen Übergangs (AEG)',
+          inhalt: 'AEG I: distales Ösophaguskarzinom, Zentrum 1–5 cm oberhalb der Z-Linie, meist auf Barrett-Boden — Therapie wie Ösophaguskarzinom (Ösophagektomie mit Magenhochzug). AEG II: echtes Kardiakarzinom, 1 cm oberhalb bis 2 cm unterhalb der Z-Linie. AEG III: subkardiales Magenkarzinom, 2–5 cm unterhalb — Therapie wie Magenkarzinom (erweiterte Gastrektomie).',
+        },
+        {
+          name: 'Prag-Klassifikation des Barrett-Ösophagus und Dysplasiegrade',
+          inhalt: 'Endoskopische Beschreibung als C (zirkumferenzielle Ausdehnung in cm) und M (maximale Zungenlänge in cm), z. B. C2M4. Histologisch: Barrett ohne Dysplasie (Kontroll-ÖGD alle 3–5 Jahre), niedriggradige intraepitheliale Neoplasie (Kontrolle nach 6–12 Monaten oder Ablation), hochgradige intraepitheliale Neoplasie und Mukosakarzinom (endoskopische Resektion plus Radiofrequenzablation des Restbarrett).',
+        },
+        {
+          name: 'Dysphagie-Graduierung nach Mellow und Pinkas',
+          inhalt: 'Grad 0: normales Schlucken. Grad 1: Dysphagie für feste Kost. Grad 2: nur weiche/passierte Kost möglich. Grad 3: nur Flüssigkeiten möglich. Grad 4: Aphagie, auch Speichel wird nicht mehr geschluckt. Der Grad steuert die Dringlichkeit der Passagesicherung und dient als Verlaufsparameter unter palliativer Therapie.',
+        },
+      ],
+      redFlags: [
+        'Progrediente Dysphagie über Wochen, ungewollter Gewichtsverlust und Alter über 45 Jahre — Alarmkonstellation, die zwingend und ohne Verzögerung zur ÖGD führt, auch wenn eine „typische“ Refluxanamnese vorliegt',
+        'Neu aufgetretene Heiserkeit — Verdacht auf Infiltration des Nervus laryngeus recurrens (T4), HNO-Konsil mit Laryngoskopie vor jeder Intervention',
+        'Husten oder Erstickungsanfälle beim Trinken, rezidivierende Pneumonien — Verdacht auf ösophagotracheale/ösophagobronchiale Fistel; keine orale Kostgabe, Kontrastmitteldarstellung nur mit wasserlöslichem Kontrastmittel',
+        'Aphagie mit Unfähigkeit, den eigenen Speichel zu schlucken — Aspirationsgefahr, dringliche endoskopische Passagesicherung und parenterale Flüssigkeitszufuhr',
+        'Hämatemesis, Teerstuhl oder Hb-Abfall — Tumorblutung, bei arterieller Arrosion (aortoösophageale Fistel) akut lebensbedrohlich',
+        'Tastbare supraklavikuläre Lymphknoten (Virchow), Hepatomegalie, Aszites — Zeichen der Fernmetastasierung',
+        'Obere Einflussstauung, Horner-Syndrom, Querschnittsymptomatik — mediastinale bzw. ossäre Infiltration',
+        'Fieber, Thoraxschmerz und Hautemphysem nach Endoskopie oder Bougierung — Ösophagusperforation mit Mediastinitis, chirurgischer Notfall',
+        'Ausgeprägte Kachexie mit Albumin unter 30 g/l und Refeeding-Risiko bei Beginn der Ernährungstherapie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Dysphagie-Anamnese: zeitlicher Verlauf (Wochen bis Monate = alarmierend), Konsistenzabfolge fest → weich → flüssig (mechanische Stenose) im Gegensatz zur paradoxen Dysphagie und zum jahrelangen Verlauf bei der Achalasie; Odynophagie, Regurgitation, Lokalisation des Steckenbleibens',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'B-Symptomatik und Ernährungsanamnese: Gewichtsverlust in Kilogramm und Prozent des Ausgangsgewichts quantifizieren, Appetit, aktuelle Kostform, Trinkmenge, Leistungsfähigkeit (ECOG/Karnofsky)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Noxen präzise erheben: Packungsjahre, Art und tägliche Menge des Alkoholkonsums (Grundlage für die Einschätzung des Entzugsrisikos), zusätzlich Refluxanamnese, PPI-Einnahme und deren Wirkung, frühere Verätzung, Achalasie, Bestrahlung, Kopf-Hals-Tumoren',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Ernährungszustand und BMI, Zahn- und Mundstatus, Palpation der zervikalen und supraklavikulären Lymphknoten (Virchow-Drüse), Auskultation der Lunge (Aspiration), Abdomenpalpation (Hepatomegalie, Aszites), Beurteilung der Stimme und Halsvenen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild: mikrozytäre, hypochrome Anämie durch chronische okkulte Blutung; ergänzend Eisen, Ferritin und Transferrinsättigung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ernährungs- und Mangelparameter: Gesamteiweiß, Albumin und Präalbumin, Elektrolyte einschließlich Kalium, Magnesium und Phosphat (Refeeding-Risiko), Vitamin B12, Folsäure, Vitamin B1 bei Alkoholkonsum',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Organfunktion und Operabilität: Kreatinin und eGFR (Cisplatin!), Leberwerte, GGT, Gerinnung und INR (alkoholtoxischer Leberschaden, Metastasen), LDH und CRP, Blutgruppe und Kreuzblut vor der Operation',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Tumormarker CEA, CA 19-9 und SCC sind zur Diagnosestellung UNGEEIGNET und dienen allenfalls der Verlaufskontrolle bei initial erhöhtem Wert',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Molekularpathologie am Biopsat für die Systemtherapie: HER2-Status beim Adenokarzinom, PD-L1-Expression (CPS) sowie Mikrosatellitenstatus/MMR',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT von Hals, Thorax und Abdomen mit Kontrastmittel: Beurteilung der lokalen Ausdehnung, der mediastinalen Lymphknoten und der Fernmetastasen (Leber, Lunge) — Basisuntersuchung des Stagings',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Endosonographie (EUS): genaueste Methode zur Bestimmung der Wandinfiltrationstiefe (uT) und des regionären Lymphknotenstatus (uN); entscheidet über endoskopische versus multimodale Therapie. Bei hochgradiger Stenose ist die Passage mit dem Echoendoskop oft nicht möglich — dann Mini-Sonde oder Verzicht',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'FDG-PET-CT vor kurativ intendierter Therapie zum Ausschluss okkulter Fernmetastasen und zur Beurteilung des Ansprechens nach neoadjuvanter Therapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Breischluck: zeigt die typische unregelmäßige, exzentrische Stenose mit „Mausbiss“ und prästenotischer Dilatation; heute nur ergänzend — bei Fistel- oder Perforationsverdacht ausschließlich mit wasserlöslichem Kontrastmittel, niemals mit Barium',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie von Abdomen und Hals: Lebermetastasen, Aszites, zervikale und supraklavikuläre Lymphknoten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Präoperative Funktionsdiagnostik zur Beurteilung der Operabilität: Lungenfunktion mit Diffusionskapazität, Spiroergometrie, EKG und Echokardiographie, Berechnung von Risikoscores; HNO-ärztliche Laryngoskopie zur Dokumentation der Stimmlippenbeweglichkeit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophagogastroduodenoskopie (ÖGD) mit Biopsie — GOLDSTANDARD und diagnosesichernde Untersuchung: Lokalisation in Zentimetern ab Zahnreihe, Längenausdehnung, Passierbarkeit der Stenose, Beurteilung des gesamten Magens; mindestens sechs bis acht Biopsien aus dem Tumorrand',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Chromoendoskopie mit Lugol-Lösung (Plattenepithel färbt sich braun, Tumor bleibt hell) und Narrow-Band-Imaging zur Erkennung von Frühkarzinomen und synchronen Zweittumoren',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologie mit Typisierung (Plattenepithel- versus Adenokarzinom), Grading und Nachweis einer Barrett-Metaplasie in der Umgebung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie bei allen Tumoren auf oder oberhalb der Höhe der Trachealbifurkation: Ausschluss einer Infiltration von Trachea oder Hauptbronchus und einer ösophagotrachealen Fistel',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'EUS-gesteuerte Feinnadelpunktion suspekter Lymphknoten (insbesondere zöliakal oder zervikal), wenn davon die Therapieentscheidung abhängt',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Laparoskopie mit Peritonealzytologie bei Adenokarzinomen des distalen Ösophagus und des ösophagogastralen Übergangs ab cT3 zum Ausschluss einer Peritonealkarzinose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hochauflösende Manometrie und pH-Metrie NUR zur Klärung einer Motilitätsstörung, und ausschließlich NACHDEM ein Malignom endoskopisch-bioptisch ausgeschlossen ist (Pseudoachalasie!)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Achalasie',
+          unterscheidung: 'Deutlich jüngere Patienten, Verlauf über Jahre statt Wochen, paradoxe Dysphagie (Flüssigkeiten oft schlechter als feste Speisen), nächtliche Regurgitation, kein oder nur geringer Gewichtsverlust und keine B-Symptomatik. Manometrisch fehlende Erschlaffung des unteren Ösophagussphinkters, im Breischluck glatte, symmetrische „Sektglas-/Vogelschnabel“-Stenose mit Megaösophagus. CAVE Pseudoachalasie: ein Kardiakarzinom kann eine Achalasie exakt imitieren — bei kurzer Anamnese, hohem Alter und Gewichtsverlust immer erst ÖGD mit Biopsie.',
+        },
+        {
+          dd: 'Peptische Stenose bei Refluxkrankheit',
+          unterscheidung: 'Gutartige narbige Enge nach langjähriger Refluxösophagitis: langsam progrediente, über Monate bis Jahre gleichbleibende Dysphagie, im Vordergrund Sodbrennen und saures Aufstoßen, Besserung unter Protonenpumpenhemmern, kein Gewichtsverlust, kein Nachtschweiß. Endoskopisch kurze, glatte, konzentrische Stenose — die Abgrenzung gelingt nur bioptisch.',
+        },
+        {
+          dd: 'Refluxösophagitis und infektiöse Ösophagitis (Candida, Herpes, CMV)',
+          unterscheidung: 'Im Vordergrund steht die Odynophagie beziehungsweise der brennende retrosternale Dauerschmerz, nicht das mechanische Steckenbleiben; kein relevanter Gewichtsverlust. Bei der Candidaösophagitis weißliche Beläge in Mund und Rachen, meist Immunsuppression, Kortison- oder Antibiotikatherapie, Diabetes oder HIV. Endoskopisch Erosionen und Beläge statt exophytischem Tumor.',
+        },
+        {
+          dd: 'Eosinophile Ösophagitis',
+          unterscheidung: 'Junge Patienten, häufig Männer mit Atopie, Asthma oder Nahrungsmittelallergie; rezidivierende Bolusobstruktionen ohne Gewichtsverlust. Endoskopisch Trachealisierung mit Ringen und Längsfurchen, histologisch mehr als 15 Eosinophile pro Gesichtsfeld.',
+        },
+        {
+          dd: 'Ösophagusdivertikel (Zenker-Divertikel)',
+          unterscheidung: 'Regurgitation unverdauter Speisen oft Stunden nach dem Essen und nachts im Liegen, Foetor ex ore, gurgelndes Geräusch am Hals, gelegentlich tastbare Vorwölbung; typischerweise ältere Patienten, kein rascher Gewichtsverlust. Nachweis im Breischluck; Endoskopie mit Perforationsrisiko.',
+        },
+        {
+          dd: 'Magenkarzinom bzw. Kardiakarzinom (AEG)',
+          unterscheidung: 'Ebenfalls Gewichtsverlust und Anämie, jedoch häufiger epigastrischer Schmerz, Früh­sättigung und Erbrechen als Dysphagie. Die Zuordnung erfolgt nach der Siewert-Klassifikation über die Lage des Tumorzentrums zur Z-Linie und bestimmt das Operationsverfahren.',
+        },
+        {
+          dd: 'Extrinsische Kompression durch Bronchialkarzinom, mediastinale Lymphome oder Struma',
+          unterscheidung: 'Dysphagie ohne endoskopisch sichtbare Schleimhautläsion; im Vordergrund Husten, Hämoptysen, Heiserkeit, obere Einflussstauung oder B-Symptomatik. Nachweis im CT-Thorax und in der Bronchoskopie.',
+        },
+        {
+          dd: 'Schatzki-Ring und Ösophagus-Webs (Plummer-Vinson-Syndrom)',
+          unterscheidung: 'Intermittierende, nicht progrediente Dysphagie für feste Speisen mit plötzlicher Bolusimpaktation („Steakhouse-Syndrom“); beim Plummer-Vinson-Syndrom kombiniert mit Eisenmangelanämie, Mundwinkelrhagaden und atrophischer Glossitis — selbst ein Präkanzerose-Marker.',
+        },
+        {
+          dd: 'Systemische Sklerose und andere Motilitätsstörungen (diffuser Ösophagusspasmus, Nussknackerösophagus)',
+          unterscheidung: 'Bei der Sklerodermie fehlende Peristaltik der distalen zwei Drittel mit schwerem Reflux, dazu Raynaud-Phänomen, Sklerodaktylie und Hautverdickung; beim Spasmus krampfartiger retrosternaler Schmerz, der eine Angina pectoris imitiert, mit intermittierender, nicht progredienter Dysphagie.',
+        },
+        {
+          dd: 'Neurogene (oropharyngeale) Dysphagie',
+          unterscheidung: 'Nach Schlaganfall, bei Morbus Parkinson, amyotropher Lateralsklerose oder Myasthenia gravis: Schwierigkeiten bereits beim Einleiten des Schluckakts, Verschlucken mit Husten unmittelbar beim Trinken, nasale Regurgitation, Dysarthrie — der Bolus bleibt nicht retrosternal, sondern im Hals stecken.',
+        },
+        {
+          dd: 'Globusgefühl und funktionelle Dysphagie',
+          unterscheidung: 'Ständiges Kloß- oder Fremdkörpergefühl im Hals unabhängig vom Essen, das beim Schlucken sogar besser wird; kein Gewichtsverlust, unauffällige Endoskopie, oft in Verbindung mit Angst- oder Belastungssituationen — eine Ausschlussdiagnose.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Therapieentscheidung nach Staging im interdisziplinären Tumorboard',
+          items: [
+            'Grundprinzip: Die Behandlung richtet sich nach der Infiltrationstiefe (uT), dem Lymphknotenstatus (uN), dem Vorliegen von Fernmetastasen, der Histologie (Adeno- versus Plattenepithelkarzinom) und der funktionellen Operabilität des Patienten; jede Entscheidung wird im interdisziplinären Tumorboard aus Gastroenterologie, Viszeralchirurgie, Onkologie, Strahlentherapie und Radiologie getroffen',
+            'Vorstellung immer erst nach vollständigem Staging: ÖGD mit Histologie, Endosonographie, CT Hals/Thorax/Abdomen, bei kurativer Intention zusätzlich PET-CT, bei Adenokarzinomen ab cT3 diagnostische Laparoskopie',
+            'Parallel Beurteilung der Operabilität: Lungenfunktion, Spiroergometrie, kardiale Abklärung, Leberfunktion, Ernährungszustand und Alkoholkonsum — die Ösophagektomie ist einer der eingriffsstärksten viszeralchirurgischen Eingriffe mit einer Letalität von 2–5 % an Zentren',
+            'Zwingende Vorbereitung vor jeder Intervention: HNO-Konsil mit Laryngoskopie bei Heiserkeit, Bronchoskopie bei Tumoren auf oder oberhalb der Trachealbifurkation',
+            'Vom Tumorboard abhängige Weichenstellung: T1a N0 → endoskopische Resektion; cT1b–T2 N0 → primäre Operation; cT3–T4a und/oder N+ → multimodale Therapie mit anschließender Operation; T4b oder M1 → palliatives Konzept; zervikales Plattenepithelkarzinom → definitive Radiochemotherapie',
+          ],
+        },
+        {
+          label: 'Kurative Therapie im Frühstadium: endoskopische Resektion (T1a, N0)',
+          items: [
+            'Endoskopische Mukosaresektion (EMR) oder endoskopische Submukosadissektion (ESD) bei auf die Mukosa begrenztem Karzinom (T1a) ohne Lymphgefäß- oder Veneninvasion, Grading G1/G2 und R0-Resektion in der Tiefe — Heilungsraten über 90 % bei Erhalt des Organs',
+            'Beurteilung des Resektats durch den Pathologen entscheidet über das weitere Vorgehen: bei Submukosainvasion (T1b), L1/V1, G3 oder positivem tiefem Rand liegt ein relevantes Lymphknotenrisiko vor — dann Nachresektion, also Ösophagektomie beziehungsweise multimodales Konzept',
+            'Anschließende Radiofrequenzablation des verbliebenen Barrett-Epithels zur Beseitigung des Feldes, aus dem ein Zweitkarzinom entstehen kann',
+            'Dauerhafte Protonenpumpenhemmer-Therapie in doppelter Standarddosis und engmaschige endoskopische Nachsorge (nach 3, 6 und 12 Monaten, danach jährlich) mit Vierquadrantenbiopsien',
+            'Konsequente Beseitigung der Risikofaktoren: absolute Nikotin- und Alkoholkarenz, Gewichtsreduktion, Reflux-Allgemeinmaßnahmen (Oberkörperhochlagerung, keine späten Mahlzeiten)',
+          ],
+        },
+        {
+          label: 'Multimodale kurative Therapie beim lokal fortgeschrittenen Karzinom (cT2–cT4a und/oder N+)',
+          items: [
+            'Plattenepithelkarzinom: neoadjuvante Radiochemotherapie nach dem CROSS-Schema — Carboplatin und Paclitaxel wöchentlich über fünf Wochen kombiniert mit einer Bestrahlung von 41,4 Gy, anschließend Operation nach 6–8 Wochen; komplette pathologische Remissionsraten von etwa 30–40 %',
+            'Adenokarzinom: perioperative Chemotherapie nach dem FLOT-Schema (5-Fluorouracil, Leucovorin, Oxaliplatin, Docetaxel) mit vier Zyklen vor und vier Zyklen nach der Operation, alternativ neoadjuvante Radiochemotherapie nach CROSS',
+            'Operation: transthorakale subtotale Ösophagektomie mit abdomino-thorakalem Zugang (Ivor-Lewis) und Zweifeld-Lymphadenektomie; Rekonstruktion der Passage in aller Regel durch einen Magenschlauch (Magenhochzug), alternativ Koloninterponat — deshalb muss der Magen als Ersatzorgan unbedingt geschont werden',
+            'Minimalinvasive und robotisch assistierte Verfahren senken die pulmonalen Komplikationen; die Behandlung gehört an ein zertifiziertes Zentrum mit hoher Fallzahl',
+            'Definitive Radiochemotherapie ohne Operation als gleichwertige kurative Option beim zervikalen Plattenepithelkarzinom (sonst Laryngektomie nötig), bei funktioneller Inoperabilität oder bei Ablehnung der Operation — Bestrahlung mit 50–60 Gy plus Cisplatin/5-FU beziehungsweise Carboplatin/Paclitaxel',
+            'Adjuvante Immuntherapie mit Nivolumab über bis zu einem Jahr, wenn nach neoadjuvanter Radiochemotherapie und R0-Resektion Tumorreste im Präparat verbleiben (keine pathologische Komplettremission)',
+            'Typische Komplikationen der Ösophagektomie, über die aufzuklären ist: Anastomoseninsuffizienz mit Mediastinitis, Pneumonie und respiratorische Insuffizienz, Rekurrensparese mit Heiserkeit, Chylothorax, Nachblutung, später Anastomosenstenose, Dumpingsyndrom und Refluxbeschwerden',
+          ],
+        },
+        {
+          label: 'Palliative Therapie: Passage sichern, Ernährung sichern, Tumorlast bremsen',
+          items: [
+            'Indikation: Fernmetastasen (M1), Infiltration nicht resezierbarer Nachbarstrukturen (T4b: Aorta, Trachea, Wirbelsäule) oder funktionelle Inoperabilität; Ziel ist der Erhalt von Schluckfähigkeit und Lebensqualität',
+            'Endoskopische Einlage eines selbstexpandierenden Metallstents (SEMS) als schnellste und wirksamste Maßnahme gegen die Dysphagie — bei Fisteln ein beschichteter Stent; Komplikationen: Dislokation, Einwachsen des Tumors, Schmerzen, Reflux bei Stents über die Kardia (dann PPI und Schlafen mit erhöhtem Oberkörper)',
+            'Alternative lokale Verfahren zur Rekanalisation: Argon-Plasma-Koagulation oder Lasertherapie, endoluminale Brachytherapie (Afterloading), perkutane Bestrahlung zur Blutstillung und Schmerzlinderung, vorsichtige Bougierung oder Ballondilatation nur nach histologischer Sicherung und unter Sicht',
+            'Sicherung der Ernährung: Aufbau mit hochkalorischer Trinknahrung und Ernährungsberatung, bei unzureichender Zufuhr enterale Sondenernährung. CAVE: Eine PEG ist kontraindiziert, solange ein Magenhochzug als Rekonstruktion in Betracht kommt — dann stattdessen Feinnadelkatheterjejunostomie oder eine über die Stenose gelegte nasojejunale Sonde',
+            'Palliative Systemtherapie beim Adenokarzinom: Platin und Fluoropyrimidin (FOLFOX/CAPOX) als Erstlinie, kombiniert mit Nivolumab bei PD-L1-CPS ≥ 5 und mit Trastuzumab bei HER2-Überexpression; Zweitlinie Ramucirumab und Paclitaxel',
+            'Palliative Systemtherapie beim Plattenepithelkarzinom: Platin und 5-Fluorouracil plus Pembrolizumab oder Nivolumab in Abhängigkeit von der PD-L1-Expression',
+            'Symptomkontrolle nach dem WHO-Stufenschema mit früher Umstellung auf transdermale oder parenterale Applikation, da die orale Einnahme bei Stenose erschwert ist; dazu Antiemese, Behandlung von Hypersalivation und Mundtrockenheit, Aspirationsprophylaxe',
+            'Frühe Anbindung an die spezialisierte Palliativversorgung, psychoonkologische Betreuung, Sozialdienst sowie Klärung von Patientenverfügung und Vorsorgevollmacht',
+          ],
+        },
+        {
+          label: 'Supportive Begleittherapie, Risikofaktoren-Management und Nachsorge',
+          items: [
+            'Ernährungstherapie von Anfang an: Erfassung des Ernährungszustands (Gewichtsverlauf, BMI, Albumin), hochkalorische und eiweißreiche Zusatznahrung, Aufteilung auf viele kleine Mahlzeiten, angepasste Konsistenz; bei schwerer Mangelernährung langsamer Kostaufbau mit Kontrolle von Kalium, Phosphat und Magnesium wegen des Refeeding-Syndroms',
+            'Absolute Nikotin- und Alkoholkarenz mit strukturierter Entwöhnung: Sie verbessert das Ansprechen der Therapie, senkt die perioperativen Komplikationen und das Risiko eines Zweitkarzinoms',
+            'Perioperatives Alkoholentzugsmanagement bei chronischem Konsum: geplante Prophylaxe des Entzugsdelirs mit Benzodiazepinen oder Clomethiazol nach Score (CIWA), Substitution von Vitamin B1 (Thiamin) VOR jeder Glukosegabe zur Verhütung einer Wernicke-Enzephalopathie, dazu Folsäure und Magnesium',
+            'Prähabilitation vor der Operation: Atemtraining und Physiotherapie, moderates körperliches Training, Sanierung des Zahnstatus, Optimierung von Diabetes und Anämie (Eisensubstitution)',
+            'Behandlung therapiebedingter Nebenwirkungen: Antiemese unter Chemotherapie, Mundpflege und Behandlung der Mukositis unter Bestrahlung, Wachstumsfaktoren bei Neutropenie, Logopädie bei Rekurrensparese und Schluckstörung',
+            'Nachsorge nach kurativer Therapie: symptomorientierte klinische Kontrollen alle 3–6 Monate in den ersten zwei Jahren mit Anamnese, körperlicher Untersuchung, Gewichtskontrolle und Bildgebung; nach endoskopischer Resektion zusätzlich programmierte Kontroll-ÖGD; nach Magenhochzug Substitution von Vitamin B12, Eisen und fettlöslichen Vitaminen sowie Behandlung von Dumping und Anastomosenstenose (endoskopische Dilatation)',
+            'Psychoonkologische Begleitung, Einbeziehung der Angehörigen, Sozialdienst mit Klärung von Arbeitsunfähigkeit, Rehabilitation und häuslicher Versorgung',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose des Ösophaguskarzinoms ist insgesamt ungünstig, weil die Diagnose durch die späte Symptomatik meist erst im lokal fortgeschrittenen oder metastasierten Stadium gestellt wird: Über die Hälfte der Patienten ist bei Erstdiagnose nicht mehr kurativ operabel, und die 5-Jahres-Überlebensrate aller Stadien zusammen liegt bei etwa 20–25 %. Stadienabhängig bestehen jedoch erhebliche Unterschiede: Das auf die Mukosa begrenzte Frühkarzinom (T1a) wird endoskopisch mit einer 5-Jahres-Überlebensrate von über 90 % geheilt. Beim lokal fortgeschrittenen Tumor verbessert die multimodale Therapie die Aussicht deutlich — nach neoadjuvanter Radiochemotherapie und R0-Resektion werden 5-Jahres-Überlebensraten von etwa 45–50 % erreicht, wobei eine pathologische Komplettremission mit einer besonders günstigen Prognose einhergeht. Entscheidende Prognosefaktoren sind die R0-Resektion, die Zahl der befallenen Lymphknoten, die Infiltrationstiefe und der Ernährungs- sowie Allgemeinzustand des Patienten. Im metastasierten Stadium ist die Therapie rein palliativ; das mediane Überleben liegt unter Systemtherapie bei etwa 10–14 Monaten, unter Hinzunahme der Immuntherapie in ausgewählten Subgruppen etwas darüber. Die Fortführung von Rauchen und Alkoholkonsum verschlechtert die Prognose zusätzlich, unter anderem durch das Risiko eines Zweitkarzinoms im Kopf-Hals-Bereich.',
+      pruefungsfallen: [
+        'Die Trias progrediente Dysphagie + ungewollter Gewichtsverlust + Noxen (Rauchen, Alkohol) ist die klassische Alarmkonstellation: Sie muss im Prüfungsgespräch ausdrücklich als solche benannt werden und führt ohne Verzögerung zur ÖGD mit Biopsie — auch dann, wenn eine jahrelange „harmlose“ Refluxanamnese besteht.',
+        'Erste und diagnosesichernde Untersuchung ist immer die ÖGD MIT BIOPSIE. Der Röntgen-Breischluck ist keine Alternative und darf die Endoskopie nicht verzögern; bei Perforations- oder Fistelverdacht wird ausschließlich wasserlösliches Kontrastmittel verwendet, niemals Barium.',
+        'Adenokarzinom und Plattenepithelkarzinom sauber gegenüberstellen: Adenokarzinom im distalen Drittel auf Barrett-Boden bei Reflux und Adipositas; Plattenepithelkarzinom im oberen und mittleren Drittel bei Tabak und Alkohol. Wenn beide Risikoprofile gleichzeitig vorliegen, entscheidet allein die Histologie — nicht die Anamnese.',
+        'Eine neu aufgetretene Heiserkeit ist kein Nebenbefund, sondern ein Hinweis auf die Infiltration des Nervus laryngeus recurrens und damit auf ein lokal fortgeschrittenes Stadium; sie verlangt ein HNO-Konsil mit Laryngoskopie und ist präoperativ zu dokumentieren.',
+        'Keine PEG-Anlage, wenn eine Ösophagektomie mit Magenhochzug in Betracht kommt — der Magen wird als Ersatzorgan gebraucht. Richtige Antwort: Feinnadelkatheterjejunostomie oder nasojejunale Sonde.',
+        'Niemals blind bougieren oder dilatieren, bevor die Histologie vorliegt und der Befund unter Sicht beurteilt ist: Perforationsgefahr mit Mediastinitis.',
+        'Die Speiseröhre besitzt keine Serosa und ein dichtes submuköses Lymphgefäßnetz — daraus erklären sich die frühe mediastinale Ausbreitung, die longitudinalen Skip-Metastasen und die Notwendigkeit großer Sicherheitsabstände.',
+        'Die Achalasie schließt ein Karzinom nicht aus, sondern ist selbst ein Risikofaktor; umgekehrt kann ein Kardiakarzinom eine Achalasie exakt imitieren (Pseudoachalasie). Eine Manometrie wird erst nach endoskopisch-bioptischem Tumorausschluss durchgeführt.',
+        'Tumormarker (CEA, CA 19-9, SCC) taugen NICHT zur Diagnosestellung oder zum Screening — nur zur Verlaufskontrolle bei initial erhöhtem Wert. Wer sie als diagnostischen Schritt nennt, fällt auf.',
+        'Palliative Optionen vollständig aufzählen: Stent, endoluminale Verfahren (Argon-Plasma-Koagulation, Laser, Brachytherapie), Bestrahlung, Systemtherapie mit Immuntherapie, Ernährungssicherung und Schmerztherapie — die Antwort „nur Stent“ ist unvollständig.',
+        'Bei täglichem Alkoholkonsum an das perioperative Entzugsdelir denken: geplante Prophylaxe und Thiamin (Vitamin B1) VOR jeder Glukoseinfusion, sonst droht eine Wernicke-Enzephalopathie.',
+        'Bei schwerer Mangelernährung darf die Ernährung nicht zu rasch aufgebaut werden — Refeeding-Syndrom mit Abfall von Phosphat, Kalium und Magnesium.',
+        'Sprachfalle im Gespräch mit der Patientin: „Ösophaguskarzinom“ heißt Speiseröhrenkrebs, „Dysphagie“ Schluckstörung, „Odynophagie“ schmerzhaftes Schlucken, „Regurgitation“ das Hochwürgen unverdauter Speisereste, „ÖGD“ Magenspiegelung und „Ösophagektomie“ die Entfernung der Speiseröhre. Die Verdachtsdiagnose Krebs wird gegenüber der Patientin niemals als gesichert dargestellt, bevor die Histologie vorliegt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ich habe den dringenden Verdacht auf ein Ösophaguskarzinom. Dafür sprechen die seit vier Wochen rasch progrediente mechanische Dysphagie — zunächst für feste, jetzt für weiche Kost —, der ungewollte Gewichtsverlust von 15 Kilogramm im letzten Jahr, die Inappetenz, die Regurgitation unverdauter Speisereste und die neu aufgetretene Heiserkeit. Dazu kommen die klassischen Risikofaktoren: etwa 30 Packungsjahre, täglicher Alkoholkonsum und eine langjährige Refluxkrankheit. Die Kombination aus progredienter Dysphagie, Gewichtsverlust und Noxen ist eine Alarmkonstellation.',
+        },
+        {
+          frage: 'Welche Risikofaktoren des Ösophaguskarzinoms kennen Sie, und welche liegen bei dieser Patientin vor?',
+          antwort: 'Für das Plattenepithelkarzinom vor allem Rauchen und Alkohol, die sich gegenseitig verstärken, außerdem sehr heiße Getränke, Nitrosamine, Betelnuss, eine frühere Verätzung, eine langjährige Achalasie, das Plummer-Vinson-Syndrom und eine Bestrahlung des Mediastinums. Für das Adenokarzinom die Refluxkrankheit mit Barrett-Ösophagus, Adipositas und Hiatushernie. Bei dieser Patientin liegen beide Risikoprofile gleichzeitig vor: 30 Packungsjahre und täglicher Wein- und Schnapskonsum einerseits, eine jahrelange Refluxkrankheit andererseits. Welcher Typ vorliegt, entscheidet deshalb allein die Histologie.',
+        },
+        {
+          frage: 'Was unterscheidet das Adenokarzinom vom Plattenepithelkarzinom?',
+          antwort: 'Das Plattenepithelkarzinom entsteht aus dem ortsständigen Plattenepithel im oberen und mittleren Drittel, ist mit Tabak und Alkohol assoziiert, oft multifokal und spricht gut auf eine Radiochemotherapie an. Das Adenokarzinom liegt im distalen Drittel und am ösophagogastralen Übergang, entsteht über die Sequenz Reflux — Barrett-Metaplasie — Dysplasie — Karzinom, ist mit Adipositas verbunden und wird bevorzugt perioperativ chemotherapeutisch behandelt, etwa mit dem FLOT-Schema. In Deutschland nimmt das Adenokarzinom zu und macht heute etwa 60 Prozent aus.',
+        },
+        {
+          frage: 'Welche Untersuchung führen Sie zuerst durch und warum?',
+          antwort: 'Die Ösophagogastroduodenoskopie mit Biopsie. Sie ist der Goldstandard: Sie zeigt Lokalisation in Zentimetern ab der Zahnreihe, Ausdehnung und Passierbarkeit der Stenose, erlaubt die Beurteilung des gesamten Magens und sichert über mindestens sechs bis acht Biopsien die Diagnose histologisch. Ein Röntgen-Breischluck ist kein Ersatz und darf die Endoskopie nicht verzögern.',
+        },
+        {
+          frage: 'Wie gehen Sie beim Staging vor?',
+          antwort: 'Nach der histologischen Sicherung folgt die Endosonographie zur Bestimmung der Wandinfiltrationstiefe und des Lymphknotenstatus, dazu ein CT von Hals, Thorax und Abdomen mit Kontrastmittel für die Fernmetastasen. Bei kurativer Intention ergänze ich ein PET-CT, bei Adenokarzinomen ab cT3 eine diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose und bei Tumoren auf oder oberhalb der Trachealbifurkation eine Bronchoskopie. Parallel kläre ich die Operabilität mit Lungenfunktion, Spiroergometrie und Echokardiographie ab. Die Entscheidung fällt im interdisziplinären Tumorboard.',
+        },
+        {
+          frage: 'Die Patientin ist heiser. Was bedeutet das für Sie?',
+          antwort: 'Die Heiserkeit ist verdächtig auf eine Infiltration des Nervus laryngeus recurrens, typischerweise links, und spricht damit für ein lokal fortgeschrittenes Stadium, im Sinne eines T4-Tumors. Ich veranlasse ein HNO-Konsil mit Laryngoskopie, um die Stimmlippenbeweglichkeit zu beurteilen und vor einer eventuellen Operation zu dokumentieren. Differenzialdiagnostisch kämen auch ein mediastinaler Lymphknotenbefall oder ein Zweittumor im Kopf-Hals-Bereich in Betracht.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und was spricht dagegen?',
+          antwort: 'Vor allem die Achalasie, eine peptische Stenose und eine Ösophagitis, außerdem ein Zenker-Divertikel, ein Kardiakarzinom, eine äußere Kompression durch einen Bronchialtumor und eine funktionelle Dysphagie. Gegen die Achalasie sprechen der kurze Verlauf über nur vier Wochen, das Alter, der massive Gewichtsverlust und die Konsistenzabfolge fest vor flüssig statt einer paradoxen Dysphagie. Gegen die peptische Stenose sprechen die rasche Progredienz, das Fehlen einer Besserung unter Säureblockern und der Gewichtsverlust. Gegen eine Ösophagitis spricht, dass kein brennender Dauerschmerz im Vordergrund steht, keine Beläge und keine Immunsuppression bestehen.',
+        },
+        {
+          frage: 'Kann eine Achalasie ein Karzinom ausschließen?',
+          antwort: 'Nein, im Gegenteil: Eine langjährige Achalasie ist wegen der chronischen Stase selbst ein Risikofaktor für ein Plattenepithelkarzinom. Umgekehrt kann ein Kardiakarzinom das Bild einer Achalasie vollständig imitieren — das nennt man Pseudoachalasie. Deshalb wird eine Manometrie erst durchgeführt, nachdem ein Tumor endoskopisch und bioptisch ausgeschlossen ist.',
+        },
+        {
+          frage: 'Welche Laborwerte erwarten Sie, und wozu bestimmen Sie sie?',
+          antwort: 'Typisch ist eine mikrozytäre, hypochrome Anämie durch chronische okkulte Blutung, dazu Zeichen der Mangelernährung mit erniedrigtem Gesamteiweiß und Albumin. Ich bestimme außerdem Elektrolyte einschließlich Kalium, Phosphat und Magnesium wegen des Refeeding-Risikos, Nierenwerte im Hinblick auf eine platinhaltige Chemotherapie, Leberwerte und Gerinnung wegen des Alkoholkonsums und möglicher Metastasen sowie am Gewebe HER2 und PD-L1 für die Systemtherapie. Tumormarker wie CEA oder CA 19-9 eignen sich nicht zur Diagnosestellung, sondern nur zur Verlaufskontrolle.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Ösophaguskarzinom in kurativer Situation?',
+          antwort: 'Das hängt vom Stadium ab. Ein auf die Mukosa begrenztes Karzinom, also T1a, wird endoskopisch reseziert, per Mukosaresektion oder Submukosadissektion, mit anschließender Ablation des Restbarrett. Beim lokal fortgeschrittenen Tumor ab T2 oder mit Lymphknotenbefall behandeln wir multimodal: beim Plattenepithelkarzinom neoadjuvante Radiochemotherapie nach dem CROSS-Schema mit Carboplatin, Paclitaxel und 41,4 Gy, beim Adenokarzinom perioperative Chemotherapie nach FLOT. Danach folgt die subtotale Ösophagektomie mit Lymphadenektomie und Rekonstruktion durch einen Magenhochzug. Beim zervikalen Plattenepithelkarzinom ist die definitive Radiochemotherapie die Therapie der Wahl.',
+        },
+        {
+          frage: 'Welche palliativen Optionen haben Sie?',
+          antwort: 'An erster Stelle die endoskopische Einlage eines selbstexpandierenden Metallstents zur Wiederherstellung der Schluckfähigkeit, bei Fisteln beschichtet. Daneben lokal rekanalisierende Verfahren wie Argon-Plasma-Koagulation, Laser oder Brachytherapie, eine perkutane Bestrahlung zur Blutstillung und Schmerzlinderung sowie eine palliative Systemtherapie — beim Adenokarzinom Platin und Fluoropyrimidin, ergänzt um Trastuzumab bei HER2-Positivität oder Nivolumab bei hoher PD-L1-Expression. Dazu gehören zwingend die Sicherung der Ernährung, eine Schmerztherapie nach dem WHO-Stufenschema und die frühe Anbindung an die Palliativversorgung.',
+        },
+        {
+          frage: 'Die Patientin kann kaum noch essen — würden Sie eine PEG anlegen?',
+          antwort: 'Nein, nicht solange eine Operation mit Magenhochzug in Betracht kommt: Der Magen wird als Ersatzorgan für die Speiseröhre gebraucht und darf nicht durch eine PEG geschädigt werden. Stattdessen sichere ich die Ernährung durch hochkalorische Trinknahrung, eine über die Stenose gelegte nasojejunale Sonde oder eine Feinnadelkatheterjejunostomie. Bei ausgeprägter Mangelernährung baue ich die Ernährung langsam auf und kontrolliere Phosphat, Kalium und Magnesium wegen des Refeeding-Syndroms.',
+        },
+        {
+          frage: 'Würden Sie die Stenose bougieren?',
+          antwort: 'Nicht blind und nicht vor der Histologie. Eine Bougierung oder Ballondilatation darf erst nach endoskopisch-bioptischer Klärung und nur unter Sicht erfolgen, da sonst eine hohe Perforationsgefahr mit Mediastinitis besteht. Zur Passagesicherung ist beim malignen Befund der Stent das geeignetere Verfahren.',
+        },
+        {
+          frage: 'Warum wird das Ösophaguskarzinom so spät entdeckt, und warum breitet es sich früh aus?',
+          antwort: 'Die Speiseröhre ist sehr dehnbar; eine Dysphagie entsteht erst, wenn das Lumen um etwa zwei Drittel eingeengt ist — die Symptome kommen also spät. Zudem fehlt der Speiseröhre die Serosa, sodass der Tumor früh in das Mediastinum einwächst, und das dichte submuköse Lymphgefäßnetz erlaubt eine longitudinale Ausbreitung mit sogenannten Skip-Metastasen weit entfernt vom Primärtumor.',
+        },
+        {
+          frage: 'Welche Komplikationen hat die Ösophagektomie?',
+          antwort: 'Es handelt sich um einen der größten viszeralchirurgischen Eingriffe mit einer Letalität von etwa zwei bis fünf Prozent an Zentren. Zu den wichtigsten Komplikationen zählen die Anastomoseninsuffizienz mit Mediastinitis, Pneumonie und respiratorische Insuffizienz, die Rekurrensparese mit Heiserkeit und Aspirationsgefahr, der Chylothorax und Nachblutungen. Langfristig können Anastomosenstenose, Dumpingsyndrom, Refluxbeschwerden und ein Mangel an Vitamin B12 und Eisen auftreten.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Insgesamt ungünstig, weil die Diagnose meist spät gestellt wird: Die 5-Jahres-Überlebensrate über alle Stadien liegt bei etwa 20 bis 25 Prozent. Ein Mukosakarzinom, das endoskopisch entfernt wird, hat dagegen eine 5-Jahres-Überlebensrate von über 90 Prozent, und nach neoadjuvanter Radiochemotherapie mit R0-Resektion erreichen wir etwa 45 bis 50 Prozent. Im metastasierten Stadium beträgt das mediane Überleben unter Systemtherapie etwa 10 bis 14 Monate. Entscheidend sind die R0-Resektion, der Lymphknotenstatus und der Allgemein- und Ernährungszustand.',
+        },
+        {
+          frage: 'Die Patientin trinkt täglich Alkohol. Was bedeutet das für die stationäre Behandlung?',
+          antwort: 'Ich muss mit einem Alkoholentzugssyndrom bis hin zum Delir rechnen, besonders perioperativ. Deshalb erhebe ich die genaue Trinkmenge, überwache mit einem Score wie CIWA und führe eine geplante Prophylaxe mit Benzodiazepinen oder Clomethiazol durch. Wichtig ist die Gabe von Vitamin B1, also Thiamin, VOR jeder Glukoseinfusion, um eine Wernicke-Enzephalopathie zu verhindern; ergänzend Folsäure und Magnesium. Langfristig ist die Alkohol- und Nikotinkarenz auch therapeutisch entscheidend.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die geplante Untersuchung und Ihren Verdacht?',
+          antwort: 'Ich würde ihr in einfachen Worten sagen: „Frau Sichel, Ihre Beschwerden beim Schlucken und die starke Gewichtsabnahme müssen wir dringend abklären. Dafür machen wir eine Magenspiegelung — dabei schauen wir mit einem dünnen, biegsamen Schlauch in die Speiseröhre und entnehmen kleine Gewebeproben. Wir haben den Verdacht auf eine Veränderung der Speiseröhrenschleimhaut; ob sie gutartig oder bösartig ist, kann uns erst die Gewebeuntersuchung sagen. Ich verspreche Ihnen, dass wir Sie schnell abklären und dass wir jedes Ergebnis in Ruhe mit Ihnen besprechen.“ Die Diagnose Krebs stelle ich nicht in den Raum, bevor die Histologie vorliegt, nehme ihre Angst aber ernst und biete psychoonkologische Unterstützung an.',
+        },
+      ],
+      merksatz: 'Progrediente Dysphagie fest → flüssig + ungewollter Gewichtsverlust + Rauchen und Alkohol = Ösophaguskarzinom bis zum Beweis des Gegenteils — sofort ÖGD MIT BIOPSIE, kein Breischluck, keine blinde Bougierung. Oben und mittig plus Tabak/Alkohol = Plattenepithel; unten plus Reflux/Barrett = Adeno. Heiserkeit heißt Rekurrens und damit fortgeschritten; und keine PEG, wenn der Magen noch als Speiseröhrenersatz gebraucht wird.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
     },
   ];
 }
