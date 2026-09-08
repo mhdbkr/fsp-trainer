@@ -294,3 +294,20 @@ h1, h2, h3 {
    style inline, où les variantes `dark:` de Tailwind n'existent pas. */
 :root { --glass-base: 255 255 255 / 0.52; }
 .dark { --glass-base: 18 33 30 / 0.46; }
+
+/* ── Contrôles de relance : segmenté (Ja/Nein, choix) et échelle 0-10 ──────
+   Les relances « Falls ja : » étaient une flèche ↳ discrète que personne ne
+   touchait. Un toggle qu'on presse invite à jouer la scène : le médecin coche
+   la réponse du patient, la relance apparaît. aria-pressed porte l'état. */
+.seg { @apply inline-flex flex-wrap items-center gap-0.5 rounded-lg bg-slate-100 p-0.5 dark:bg-ink-700; }
+.seg > button { @apply rounded-md px-2.5 py-1 text-[11.5px] font-semibold text-slate-500 transition-[background-color,color,box-shadow] duration-200 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100; }
+.seg > button[aria-pressed="true"] { @apply bg-white text-brand-700 shadow-sm dark:bg-ink-800 dark:text-brand-300; }
+/* Valeur « chaude » (≥ seuil) sélectionnée : coral signal, le point de bascule. */
+.seg > button[data-hot="true"][aria-pressed="true"] { @apply text-signal-600 dark:text-signal-300; }
+.seg-scale > button { @apply min-w-[1.9rem] px-0 text-center font-mono tabular-nums; }
+/* Focus : sur fond sombre, contraste inversé et cibles plus larges. */
+.seg-focus { @apply bg-slate-800/80; }
+.seg-focus > button { @apply text-slate-400 hover:text-white; }
+.seg-focus > button[aria-pressed="true"] { @apply bg-slate-700 text-brand-300 shadow-none; }
+.seg-xl > button { @apply px-4 py-2 text-sm; }
+.seg-xl.seg-scale > button { @apply min-w-[2.6rem] py-2 text-base; }

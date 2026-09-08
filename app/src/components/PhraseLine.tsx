@@ -1,22 +1,22 @@
-import { useState } from 'react';
 import type { Phrase } from '@/data/guides/phrases';
-import { phraseAlts, phraseFollowUp, phraseLabel, phraseText } from '@/data/guides/phrases';
+import { phraseFollowUp, phraseLabel } from '@/data/guides/phrases';
 import { GuidedText } from '@/components/GuidedText';
+import { FollowUpControls, VariantPicker, useVariant } from '@/components/PhraseControls';
 
 // ============================================================================
 // Rendu riche d'une Phrase de guide :
-//  • texte principal (mots-clés surlignés),
-//  • étiquette de situation (« Nichtraucher », « Rettungsphrase »…),
-//  • variantes équivalentes repliées derrière « ⇄ n variantes » (anti-mur de
-//    texte : on montre UNE formulation, les synonymes restent à un clic),
-//  • relances « Falls ja : » en retrait, style dialogue.
+//  • texte principal (mots-clés surlignés) — c'est la formulation CHOISIE :
+//    sélectionner une variante la remplace en douceur (key + `reveal`), au lieu
+//    d'empiler des synonymes en italique sous la standard ;
+//  • étiquette de situation (« Nichtraucher », « Rettungsphrase »…) ;
+//  • relances « Falls ja : » en TOGGLES (Ja/Nein, choix, échelle) : on joue la
+//    réponse du patient, la relance n'apparaît que si elle est déclenchée.
 // ============================================================================
 
 export function PhraseLine({ phrase, keywords = [], tone = 'brand' }: {
   phrase: Phrase; keywords?: string[]; tone?: 'brand' | 'emerald';
 }) {
-  const [showAlts, setShowAlts] = useState(false);
-  const alts = phraseAlts(phrase);
+  const { text, idx, setIdx, alts } = useVariant(phrase);
   const followUp = phraseFollowUp(phrase);
   const label = phraseLabel(phrase);
   const dot = tone === 'emerald' ? 'bg-emerald-400' : 'bg-brand-400';
@@ -30,32 +30,15 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand' }: {
             {label}
           </span>
         )}
-        <span className="text-sm"><GuidedText text={phraseText(phrase)} keywords={keywords} /></span>
+        {/* `key={idx}` : changer de variante remonte un nouveau nœud → `reveal`
+            joue, le texte glisse en place au lieu de sauter. */}
+        <span key={idx} className="reveal inline-block text-sm">
+          <GuidedText text={text} keywords={keywords} />
+          {idx >= 0 && <span className="ml-1.5 align-middle font-mono text-[9px] uppercase tracking-wider text-brand-500">variante {idx + 1}</span>}
+        </span>
 
-        {alts.length > 0 && (
-          <button onClick={() => setShowAlts((s) => !s)}
-            className="ml-1.5 inline-flex items-center gap-0.5 rounded px-1 text-[10px] font-semibold text-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/20"
-            title="Formulations équivalentes — choisis celle qui te vient naturellement">
-            ⇄ {alts.length} variante{alts.length > 1 ? 's' : ''}
-          </button>
-        )}
-        {showAlts && (
-          <ul className="mt-1 space-y-0.5 border-l-2 border-brand-100 pl-2.5 dark:border-brand-900/40">
-            {alts.map((a, i) => (
-              <li key={i} className="text-[13px] italic text-slate-500 dark:text-slate-400">{a}</li>
-            ))}
-          </ul>
-        )}
-
-        {followUp.length > 0 && (
-          <ul className="mt-1 space-y-0.5">
-            {followUp.map((f, i) => (
-              <li key={i} className="flex gap-1.5 text-[13px] text-slate-500 dark:text-slate-400">
-                <span className="shrink-0 text-amber-500">↳</span>{f}
-              </li>
-            ))}
-          </ul>
-        )}
+        <VariantPicker alts={alts} idx={idx} onSelect={setIdx} />
+        <FollowUpControls raws={followUp} keywords={keywords} />
       </div>
     </li>
   );

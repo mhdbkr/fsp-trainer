@@ -32,7 +32,7 @@ Zone : `AnamneseGuide.tsx`, `ImmersiveMode.tsx`, `data/guides/phrases.ts`
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-B1** | P1 | Les variantes conditionnelles (« falls ja », « anfallsartig », « sehr stark »…) sont rendues par une **petite flèche discrète** en dessous — ça n'invite pas à interagir. | Remplacées par des **toggles / boutons** : ja/nein, échelle de douleur 0-10, choix contextuels. Cliquer révèle la suite adaptée. |
+| **FB-B1** ✅ | P1 | Les variantes conditionnelles (« falls ja », « anfallsartig », « sehr stark »…) sont rendues par une **petite flèche discrète** en dessous — ça n'invite pas à interagir. | Remplacées par des **toggles / boutons** : ja/nein, échelle de douleur 0-10, choix contextuels. Cliquer révèle la suite adaptée. |
 | **FB-B2** | P0 | Les **questions progressives** (plusieurs informations dans une seule question) créent un décalage entre les deux simulants : le médecin ne sait pas où s'arrêter en lisant, le patient ne sait pas où s'arrêter en répondant. | Un composant dédié affiche la question **par étapes** (une sous-question révélée à la fois, contrôlée par le médecin), et la **fiche patient est découpée en miroir** pour que chaque étape ait sa réponse. Normal ET focus (focus = version plus immersive). |
 | **FB-B3** | P1 | Conséquence : la **structure des données** des questions progressives doit être revue côté médecin (guide) *et* côté simulant (fiche), en cohérence. | Un type `ProgressiveQuestion { steps: {frage, antwortKey}[] }` (ou équivalent) remplace les questions concaténées ; les fiches patient stockent une réponse par étape. Migration des cas existants. |
 
@@ -43,9 +43,9 @@ Zone : `AnamneseGuide.tsx`, `VorstellungGuide.tsx`, `ImmersiveMode.tsx`,
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-C1** | P1 | Les variantes sont peu mises en valeur (petit « ⇄ 2 variantes »). | Le bouton variante est un vrai affordance ; cliquer ouvre les variantes avec une **animation**, en sélectionner une la fait **remplacer la phrase standard en douceur** (transition, pas de saut). |
-| **FB-C2** | P2 | Avec plusieurs variantes, pas de sélection agréable. | Liste dynamique avec **surbrillance au survol**, sélection au clic, retour possible à la standard. |
-| **FB-C3** | P1 | Le mode focus doit être **plus immersif** pour ce choix. | En focus : toggles/choix animés plein cadre, navigation clavier (← → pour parcourir les variantes, Entrée pour choisir). |
+| **FB-C1** ✅ | P1 | Les variantes sont peu mises en valeur (petit « ⇄ 2 variantes »). | Le bouton variante est un vrai affordance ; cliquer ouvre les variantes avec une **animation**, en sélectionner une la fait **remplacer la phrase standard en douceur** (transition, pas de saut). |
+| **FB-C2** ✅ | P2 | Avec plusieurs variantes, pas de sélection agréable. | Liste dynamique avec **surbrillance au survol**, sélection au clic, retour possible à la standard. |
+| **FB-C3** ✅ | P1 | Le mode focus doit être **plus immersif** pour ce choix. | En focus : toggles/choix animés plein cadre, navigation clavier (← → pour parcourir les variantes, Entrée pour choisir). |
 
 ## D · Pastilles conseils
 

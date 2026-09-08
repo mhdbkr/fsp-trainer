@@ -9,6 +9,7 @@ import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
+import { FollowUpControls, VariantPicker } from '@/components/PhraseControls';
 
 // ============================================================================
 // Mode focus / immersif — concentre l'attention sur UN chapitre et UNE
@@ -65,6 +66,10 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   const [ii, setIi] = useState(seed.ii);
   const [flash, setFlash] = useState(false);
   const [showTip, setShowTip] = useState(tipDefault);
+  // Variante choisie pour l'item courant (-1 = standard). Réinitialisée à
+  // chaque changement d'item : une variante est un choix local à la phrase.
+  const [vIdx, setVIdx] = useState(-1);
+  useEffect(() => { setVIdx(-1); }, [ci, ii]);
 
   // Mémorise la position à chaque déplacement (reprise après fermeture).
   useEffect(() => { useSimSession.getState().setFocus({ caseId: c.id, part, ci, ii }); }, [ci, ii, c.id, part]);
@@ -100,6 +105,11 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
       else if (e.key === 'Escape') { e.preventDefault(); onClose(); }
+      else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && ii >= 0) {
+        // ↑/↓ = variantes de la phrase courante ; cycle sur [standard, v1 … vn].
+        const n = phraseAlts(chapters[ci].items[ii]).length + 1;
+        if (n > 1) { e.preventDefault(); const d = e.key === 'ArrowDown' ? 1 : -1; setVIdx((i) => ((((i + 1 + d) % n) + n) % n) - 1); }
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -129,7 +139,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
           <span className="hidden items-center gap-1 text-[11px] text-slate-500 sm:flex">
             <kbd className="rounded bg-slate-800 px-1.5 py-0.5">←</kbd>
             <kbd className="rounded bg-slate-800 px-1.5 py-0.5">→</kbd>
-            naviguer · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">Échap</kbd> quitter
+            naviguer · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">↑</kbd><kbd className="rounded bg-slate-800 px-1.5 py-0.5">↓</kbd> variantes · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">Échap</kbd> quitter
           </span>
           <button onClick={() => openDoctopus()} title="Demander à Doctopus"
             className="flex items-center gap-1.5 rounded-lg bg-slate-800 px-2.5 py-1 text-sm text-slate-200 hover:bg-slate-700">
@@ -166,22 +176,14 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
                   {phraseLabel(chapter.items[ii])}
                 </span>
               )}
-              <p className="mt-6 text-2xl font-semibold leading-relaxed md:text-3xl">{phraseText(chapter.items[ii])}</p>
-              {phraseAlts(chapter.items[ii]).length > 0 && (
-                <div className="mx-auto mt-5 max-w-xl space-y-1 border-t border-slate-800 pt-4">
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">⇄ Formulations équivalentes</div>
-                  {phraseAlts(chapter.items[ii]).map((a, i) => (
-                    <p key={i} className="text-sm italic text-slate-400">{a}</p>
-                  ))}
-                </div>
-              )}
-              {phraseFollowUp(chapter.items[ii]).length > 0 && (
-                <div className="mx-auto mt-5 max-w-xl space-y-1 rounded-xl bg-slate-900 px-4 py-3 text-left">
-                  {phraseFollowUp(chapter.items[ii]).map((f, i) => (
-                    <p key={i} className="flex gap-2 text-sm text-amber-200/90"><span className="shrink-0">↳</span>{f}</p>
-                  ))}
-                </div>
-              )}
+              {/* La formulation CHOISIE devient le titre ; la key fait glisser le
+                  texte en place. Variantes et relances sont les mêmes contrôles
+                  qu'en mode normal, en version XL sur fond sombre. */}
+              <p key={vIdx} className="reveal mt-6 text-2xl font-semibold leading-relaxed md:text-3xl">
+                {vIdx >= 0 ? phraseAlts(chapter.items[ii])[vIdx] : phraseText(chapter.items[ii])}
+              </p>
+              <VariantPicker alts={phraseAlts(chapter.items[ii])} idx={vIdx} onSelect={setVIdx} theme="focus" size="xl" />
+              <FollowUpControls raws={phraseFollowUp(chapter.items[ii])} theme="focus" size="xl" />
             </>
           )}
         </div>
