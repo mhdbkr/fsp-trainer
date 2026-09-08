@@ -117,3 +117,33 @@ détail se découvre en jouant le cas.
 des listes libres ou des champs optionnels — aucun moule imposé. Seul
 `therapie` forçait une structure ; c'est corrigé aux deux niveaux (Fachwissen
 ET Case.medicalView, qui doivent rester cohérents entre eux pour un même cas).
+
+## Contrat de COHÉSION (pipeline v4)
+
+La *cohérence* vérifie que les chiffres ne se contredisent pas. La **cohésion**
+vérifie que les parties du cas SE RÉPONDENT. `checkCaseCohesion.mjs` la mesure.
+
+**Règle capitale — neutralisation des différentiels.** Chaque entrée de
+`medicalView.differenzialdiagnosen` doit avoir dans `patientSheet.negativeFindings`
+l'élément qui permet de l'écarter, en NOMMANT la DD entre parenthèses :
+
+    "kein Fieber, kein Schüttelfrost (gegen septische Arthritis)"
+
+Sans cela le candidat peut citer la DD mais pas la réfuter pendant l'entretien :
+le cas devient injouable en jeu de rôle. **Audit du 08.09.2026 : 36 cas sur 41
+échouaient sur ce seul point** — c'est le défaut dominant du corpus.
+
+Les quatre autres liens contrôlés : chaque `pruefungsfallen` a sa réponse
+(examinerSheet ou askedInExam) ; le Muster DÉRIVE du dossier (antécédents,
+médicaments, allergies repris — et aucun chiffre qui n'existe pas ailleurs dans
+le cas) ; les réponses de sonde sont de vraies répliques ; la chronologie de vie
+est possible (aucune durée > âge).
+
+## Outillage
+
+- `loadCases.mjs` — transpile le TS via esbuild et rend les VRAIS objets.
+  Avant lui, les validateurs relisaient `seedCases.ts` comme du texte et ne
+  pouvaient contrôler qu'une poignée de motifs sur les cas intégrés.
+- `checkCaseCohesion.mjs` — score de cohésion par cas + liens manquants.
+- `makeStyleSample.py` / `STYLE_SAMPLE.ts` — extrait de référence (~75 Ko) donné
+  aux agents à la place des fichiers de données (~1,5 Mo), qui les faisaient caler.
