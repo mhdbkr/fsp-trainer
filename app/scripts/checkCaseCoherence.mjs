@@ -17,6 +17,29 @@ import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
+// Un patient dit souvent son âge EN TOUTES LETTRES — et c'est parfois le bon
+// choix d'écriture : le patient dément du corpus répond « Dreiundachtzig.
+// (längere Pause) Ja, dreiundachtzig », ce qui rend son hésitation bien mieux
+// que le chiffre. Le contrôle accepte donc les deux formes.
+const UNITS = ['null','ein','zwei','drei','vier','fünf','sechs','sieben','acht','neun'];
+const TEENS = ['zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn'];
+const TENS = ['', '', 'zwanzig','dreißig','vierzig','fünfzig','sechzig','siebzig','achtzig','neunzig'];
+function ageWords(n) {
+  if (n < 10) return [UNITS[n], UNITS[n] + 's'];
+  if (n < 20) return [TEENS[n - 10]];
+  const t = TENS[Math.floor(n / 10)];
+  const u = n % 10;
+  if (!u) return [t];
+  const unit = u === 1 ? 'einund' : UNITS[u] + 'und';
+  return [unit + t];
+}
+/** L'âge est-il présent, en chiffres OU en toutes lettres ? */
+function hasAge(text, age) {
+  const t = String(text || '').toLowerCase();
+  if (t.includes(String(age))) return true;
+  return ageWords(Number(age)).some((w) => t.includes(w.toLowerCase()));
+}
+
 const ORAL_IN_WRITTEN = [/\bGuten Tag\b/i, /\bDarf ich\b/i, /ich möchte Ihnen vorstellen/i, /einverstanden\?/i];
 const KONJ = /\b(sei|seien|habe|hätten|bestünde|bestünden|leide|nehme|träten|werde|würde)\b/;
 
@@ -40,8 +63,8 @@ function checkCase(c, muster) {
   // âge
   if (pe.age != null) {
     const age = String(pe.age);
-    if (antText && !antText.includes(age)) issues.push(`âge ${age} absent des antworten`);
-    if (vor['persoenliche-daten'] && !vor['persoenliche-daten'].includes(age)) issues.push(`âge ${age} absent de vorstellung.persoenliche-daten`);
+    if (antText && !hasAge(antText, age)) issues.push(`âge ${age} absent des antworten`);
+    if (vor['persoenliche-daten'] && !hasAge(vor['persoenliche-daten'], age)) issues.push(`âge ${age} absent de vorstellung.persoenliche-daten`);
   }
   // Anrede vs sexe
   if (pe.geschlecht && ab.einleitung) {

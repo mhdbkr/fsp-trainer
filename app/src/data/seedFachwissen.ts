@@ -14017,5 +14017,1868 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
     },
+    {
+      id: 'fw-bph',
+      pathology: 'Benigne Prostatahyperplasie (benignes Prostatasyndrom)',
+      specialty: 'Urologie',
+      definition: 'Die benigne Prostatahyperplasie (BPH) ist die gutartige, hormonabhängige Vermehrung von Drüsen-, Binde- und glattem Muskelgewebe in der Übergangszone (Transitionalzone) der Prostata. Histologisch ist sie ab dem 50. Lebensjahr bei mehr als der Hälfte, ab dem 80. Lebensjahr bei etwa 90 % aller Männer nachweisbar. Klinisch relevant wird sie erst, wenn die Volumenzunahme (benigne Prostatavergrößerung, BPE) über eine mechanische und eine dynamische Komponente zur subvesikalen Obstruktion (BPO) und damit zu Symptomen des unteren Harntrakts führt — dieser Beschwerdekomplex heißt benignes Prostatasyndrom (BPS). Die Symptome werden in obstruktive (Startverzögerung, abgeschwächter und dünner Harnstrahl, Pressen, verlängerte Miktionszeit, Nachträufeln, Restharngefühl) und irritative Symptome (Pollakisurie, imperativer Harndrang, Nykturie, Dranginkontinenz) unterteilt.',
+      aetiologie: 'Multifaktoriell und androgenabhängig: Voraussetzung sind funktionsfähige Hoden und zunehmendes Lebensalter. In den Stromazellen der Übergangszone wird Testosteron durch die 5-Alpha-Reduktase (Typ 2) in das deutlich wirksamere Dihydrotestosteron (DHT) umgewandelt, das über Wachstumsfaktoren die Proliferation von Stroma und Drüsengewebe stimuliert; die mit dem Alter relativ zunehmende Östrogenwirkung wirkt permissiv. Kastrierte Männer und Männer mit angeborenem 5-Alpha-Reduktase-Mangel entwickeln keine BPH. Die Obstruktion entsteht aus einer mechanischen Komponente (Volumen des Adenoms, Einengung der prostatischen Harnröhre) und einer dynamischen Komponente (Tonus der glatten Muskulatur von Prostata, Kapsel und Blasenhals über Alpha-1-Rezeptoren) — Letztere erklärt die rasche Wirkung der Alpha-1-Blocker. Sekundär kommt es zur Detrusorhypertrophie (Balkenblase), später zur Detrusordekompensation mit Restharn, Überlaufblase und Harnstauung.',
+      risikofaktoren: [
+        'Lebensalter über 50 Jahre — der mit Abstand wichtigste Faktor',
+        'Vorhandene Androgenwirkung (funktionsfähige Hoden)',
+        'Positive Familienanamnese, insbesondere bei Erkrankungsbeginn vor dem 60. Lebensjahr',
+        'Metabolisches Syndrom, Adipositas, Insulinresistenz und Diabetes mellitus Typ 2',
+        'Bewegungsmangel; körperliche Aktivität wirkt protektiv',
+        'Arterielle Hypertonie und erhöhter Sympathikotonus',
+        'Fett- und fleischreiche Ernährung, hoher Alkoholkonsum',
+        'Chronische Prostataentzündungen als diskutierter Kofaktor',
+      ],
+      klinik: [
+        {
+          text: 'Obstruktive Symptomatik: Startverzögerung des Wasserlassens, abgeschwächter und dünner, teils unterbrochener Harnstrahl, Pressen mit der Bauchpresse, verlängerte Miktionszeit',
+        },
+        {
+          text: 'Nachträufeln nach dem Wasserlassen und Gefühl der unvollständigen Blasenentleerung',
+        },
+        {
+          text: 'Irritative Symptomatik: Pollakisurie mit häufigen kleinen Portionen tagsüber',
+        },
+        {
+          text: 'Nykturie — häufig das führende und am stärksten belastende Symptom, mit Durchschlafstörung und Tagesmüdigkeit',
+        },
+        {
+          text: 'Imperativer, schwer unterdrückbarer Harndrang, im Verlauf Dranginkontinenz',
+        },
+        {
+          text: 'Dumpfes Druckgefühl im Unterbauch bei gefüllter Blase, das nach dem Wasserlassen nachlässt',
+        },
+        {
+          text: 'Schleichender, über Monate bis Jahre langsam progredienter Verlauf mit schwankender Intensität',
+          atypisch: false,
+        },
+        {
+          text: 'Akuter Harnverhalt: plötzliche Unmöglichkeit des Wasserlassens mit prall gefüllter, schmerzhafter, perkutorisch gedämpfter Blase und starkem Harndrang — häufig ausgelöst durch Alkohol, Kälte, Bettruhe oder anticholinerg wirkende Medikamente',
+          atypisch: true,
+        },
+        {
+          text: 'Chronischer Harnverhalt mit Überlaufblase (Ischuria paradoxa): tröpfelnder, schmerzloser Harnabgang bei maximal gefüllter Blase — die Patienten glauben, sie könnten Wasser lassen',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als rezidivierender Harnwegsinfekt, als Epididymitis oder als fieberhafte Urosepsis',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Makrohämaturie durch Blutung aus gestauten Venen des Adenoms',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als postrenales Nierenversagen mit Übelkeit, Appetitlosigkeit, Juckreiz und Leistungsknick bei beidseitiger Harnstauungsniere',
+          atypisch: true,
+        },
+        {
+          text: 'Vollständige Beschwerdefreiheit trotz sehr großer Prostata — Prostatagröße und Symptomstärke korrelieren nicht',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Begriffsklärung BPH — BPE — BPO — BPS',
+          inhalt: 'BPH (benigne Prostatahyperplasie) = der histologische Befund der gutartigen Gewebevermehrung. BPE (benign prostatic enlargement) = die tastbare bzw. sonographisch messbare Vergrößerung der Drüse. BPO (benign prostatic obstruction) = die urodynamisch nachgewiesene subvesikale Obstruktion. BPS (benignes Prostatasyndrom) = der klinische Beschwerdekomplex aus LUTS, Vergrößerung und Obstruktion. Nur das BPS wird behandelt, nicht der Histologiebefund — eine sehr beliebte Prüfungsfrage.',
+        },
+        {
+          name: 'IPSS — International Prostate Symptom Score',
+          inhalt: 'Sieben Fragen zu den letzten vier Wochen (unvollständige Entleerung, Pollakisurie unter zwei Stunden, unterbrochener Strahl, imperativer Harndrang, abgeschwächter Strahl, Pressen zum Miktionsbeginn, Nykturie), jede mit 0 bis 5 Punkten, maximal 35 Punkte. Auswertung: 0–7 Punkte leichte, 8–19 Punkte mittelgradige, 20–35 Punkte schwere Symptomatik. Eine achte Frage erfasst getrennt die Lebensqualität (QoL-Index 0 = ausgezeichnet bis 6 = sehr schlecht); sie geht nicht in die Punktsumme ein, steuert aber ganz wesentlich die Therapieentscheidung.',
+        },
+        {
+          name: 'Stadien nach Alken',
+          inhalt: 'Stadium I (Reizstadium): irritative und obstruktive Symptome, kein Restharn. Stadium II (Restharnstadium): Restharnbildung über etwa 50–100 ml, beginnende Detrusorschädigung, rezidivierende Harnwegsinfekte, Balkenblase. Stadium III (Dekompensationsstadium): chronischer Harnverhalt mit Überlaufblase, beidseitige Harnstauungsnieren und postrenale Niereninsuffizienz.',
+        },
+        {
+          name: 'Einteilung der Symptome des unteren Harntrakts (LUTS)',
+          inhalt: 'Speichersymptome/irritativ: Pollakisurie, Nykturie, imperativer Harndrang, Dranginkontinenz. Entleerungssymptome/obstruktiv: Startverzögerung, schwacher und dünner Strahl, Intermittenz, Pressen, verlängerte Miktionsdauer. Postmiktionelle Symptome: Nachträufeln und Restharngefühl. Diese Trennung erwarten die Prüfer ausdrücklich in der Fallvorstellung.',
+        },
+      ],
+      redFlags: [
+        'Akuter Harnverhalt mit prall gefüllter, schmerzhafter Blase — urologischer Notfall, sofortige Katheterentlastung',
+        'Fieber, Schüttelfrost, Flankenschmerz oder reduzierter Allgemeinzustand — Verdacht auf Pyelonephritis oder Urosepsis bei infizierter Stauung',
+        'Schmerzlose Makrohämaturie — bis zum Beweis des Gegenteils Verdacht auf ein Urothelkarzinom der Blase',
+        'Anstieg des Kreatinins, Oligurie oder Anurie mit sonographisch beidseitiger Harnstauung — postrenales Nierenversagen',
+        'Harter, höckeriger, unregelmäßiger oder verbackener Tastbefund bei der digital-rektalen Untersuchung sowie ein erhöhter oder rasch ansteigender PSA-Wert — Verdacht auf Prostatakarzinom',
+        'Knochenschmerzen, insbesondere nächtlicher Rückenschmerz, mit Gewichtsverlust — Verdacht auf ossäre Metastasierung eines Prostatakarzinoms',
+        'Reithosenanästhesie, Stuhlinkontinenz, schlaffer Analsphinktertonus oder Paresen der Beine — Kaudasyndrom als neurogene Ursache der Blasenentleerungsstörung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Miktionsanamnese, getrennt nach obstruktiven und irritativen Symptomen, mit Dauer, Verlauf und Leidensdruck; Frage nach Harnverhalt, Harnwegsinfekten, Hämaturie und nach der Trinkmenge, besonders am Abend',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'IPSS-Fragebogen mit sieben Fragen zu je 0–5 Punkten (maximal 35 Punkte: 0–7 leicht, 8–19 mittelgradig, 20–35 schwer) sowie separat der Lebensqualitätsindex — objektiviert die Beschwerden und dient der Verlaufskontrolle',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Miktionsprotokoll (Blasentagebuch) über 48 bis 72 Stunden mit Trinkmenge, Miktionszeitpunkten und Einzelportionen — unterscheidet eine echte Nykturie von einer nächtlichen Polyurie bei Herzinsuffizienz, Diuretikaeinnahme oder abendlichem Trinkverhalten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese: Anticholinergika, trizyklische Antidepressiva, Alpha-Sympathomimetika in abschwellenden Nasen- und Erkältungsmitteln sowie Diuretika können die Symptomatik auslösen oder verstärken',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Inspektion des Genitales (Meatusstenose, Phimose), Palpation und Perkussion des Unterbauchs zum Nachweis einer gefüllten Blase, Nierenlagerklopfschmerz, orientierende neurologische Untersuchung mit Sensibilität der Beine, Reithosenregion und Analsphinktertonus; nach Möglichkeit Beobachtung der Miktion (Harnstrahl, Startverzögerung, Nachträufeln)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Digital-rektale Untersuchung (DRU) — obligat: beurteilt werden Größe, Konsistenz, Oberfläche, Abgrenzbarkeit, der Sulcus medianus, die Verschieblichkeit der Rektumschleimhaut und der Druckschmerz. Das Adenom ist prall-elastisch, glatt, symmetrisch und gut abgrenzbar; das Karzinom hart, höckerig und unregelmäßig; die akute Prostatitis ist überwärmt und stark druckschmerzhaft (dann keine Massage — Bakteriämiegefahr)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit Teststreifen und Sediment, bei Auffälligkeiten Urinkultur — Ausschluss eines Harnwegsinfekts und einer Mikrohämaturie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin, eGFR, Harnstoff und Elektrolyte zur Erfassung einer postrenalen Niereninsuffizienz; Blutbild und CRP; Blutzucker bzw. HbA1c zum Ausschluss einer osmotischen Polyurie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'PSA (prostataspezifisches Antigen) — nur nach Aufklärung und Einwilligung. Cave: Das PSA ist organspezifisch, aber NICHT karzinomspezifisch; es steigt auch bei der Hyperplasie selbst, bei Prostatitis, Harnverhalt, nach Katheterisierung, Zystoskopie, Ejakulation, Radfahren und nach der digital-rektalen Untersuchung. Die Blutentnahme erfolgt deshalb VOR der DRU und vor jeder Manipulation. Aussagekräftig sind vor allem der Verlauf (PSA-Anstiegsgeschwindigkeit), der Quotient aus freiem und Gesamt-PSA sowie die PSA-Dichte',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Harnblase mit Restharnbestimmung unmittelbar nach spontaner Miktion (Restharn über 100 ml gilt als pathologisch und ist ein Argument für die Therapieeskalation) sowie Beurteilung von Blasenwanddicke, Trabekulierung (Balkenblase), Pseudodivertikeln und Blasensteinen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren und ableitenden Harnwege zum Ausschluss einer ein- oder beidseitigen Harnstauung als Zeichen der Dekompensation (Stadium III nach Alken)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transrektale Sonographie (TRUS) zur exakten Volumetrie der Prostata und zur Beurteilung der Binnenstruktur; das Volumen steuert sowohl die medikamentöse als auch die operative Therapiewahl',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Uroflowmetrie (Harnstrahlmessung) bei einem Miktionsvolumen von mindestens 150 ml: ein maximaler Harnfluss (Qmax) unter 10 ml/s spricht für eine relevante Obstruktion, 10–15 ml/s ist grenzwertig; typisch ist eine flache, plateauförmige Kurve mit verlängerter Miktionszeit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Urethrozystoskopie bei Hämaturie, Verdacht auf Harnröhrenstriktur, Blasenstein oder Blasentumor sowie zur Planung des operativen Vorgehens',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Urodynamische Untersuchung mit Druck-Fluss-Messung bei diskrepanten Befunden, bei jüngeren Patienten oder bei Verdacht auf eine neurogene Blasenfunktionsstörung — sie trennt die echte Obstruktion von einer Detrusorhypokontraktilität',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Multiparametrisches MRT der Prostata und anschließende gezielte, transrektal oder perineal sonographisch gesteuerte Stanzbiopsie bei suspektem Tastbefund oder erhöhtem bzw. ansteigendem PSA — nur die Histologie sichert oder widerlegt ein Prostatakarzinom',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Prostatakarzinom',
+          unterscheidung: 'Der entscheidende Fallstrick: Ein frühes Prostatakarzinom entsteht in der peripheren Zone, verursacht deshalb LANGE KEINE Symptome und lässt sich anamnestisch nicht von der Hyperplasie trennen; beide Erkrankungen kommen häufig gemeinsam vor. Wegweisend sind der harte, höckerige Tastbefund in der DRU, ein erhöhtes oder rasch ansteigendes PSA, das multiparametrische MRT und letztlich die Stanzbiopsie. Symptome treten erst im fortgeschrittenen Stadium auf, dann mit Hämaturie, Hämatospermie, Knochenschmerzen und Gewichtsverlust.',
+        },
+        {
+          dd: 'Akute bakterielle Prostatitis bzw. chronisches Beckenschmerzsyndrom',
+          unterscheidung: 'Akuter Beginn mit Fieber, Schüttelfrost, deutlichem Krankheitsgefühl, Schmerzen im Damm, im Hoden und bei der Defäkation; die Prostata ist bei der DRU stark druckschmerzhaft, prall und überwärmt (keine Massage wegen Bakteriämiegefahr), CRP und Leukozyten sind erhöht, im Urin finden sich Leukozyten und Bakterien.',
+        },
+        {
+          dd: 'Harnwegsinfekt / akute Zystitis',
+          unterscheidung: 'Kurze Anamnese von Tagen statt Monaten, führend sind Brennen beim Wasserlassen, Algurie und suprapubischer Schmerz, trüber und übelriechender Urin; im Urinstix Leukozyten, Nitrit und Erythrozyten. Beim älteren Mann ist ein Harnwegsinfekt allerdings oft die Folge der Restharnbildung und damit nicht Alternative, sondern Komplikation der Hyperplasie.',
+        },
+        {
+          dd: 'Harnröhrenstriktur',
+          unterscheidung: 'Meist jüngere Patienten; anamnestisch Zustand nach Dauerkatheter, transurethralem Eingriff, Beckentrauma, Reitunfall oder gonorrhoischer Urethritis. Die obstruktiven Symptome stehen isoliert im Vordergrund, der Harnstrahl ist typischerweise aufgesplittert; die Prostata ist bei der DRU unauffällig. Nachweis durch Urethrozystoskopie oder retrogrades Urethrogramm.',
+        },
+        {
+          dd: 'Neurogene Blasenentleerungsstörung',
+          unterscheidung: 'Ursachen sind eine diabetische autonome Neuropathie (Zystopathie mit vermindertem Blasengefühl und großen Restharnmengen), ein Morbus Parkinson, eine multiple Sklerose, ein Zustand nach Apoplex oder ein Bandscheibenvorfall mit Kaudasyndrom. Wegweisend sind neurologische Begleitsymptome, ein gestörtes Blasenfüllungsgefühl, Reithosenanästhesie, Stuhlinkontinenz und ein herabgesetzter Analsphinktertonus; Klärung durch neurologische Untersuchung und Urodynamik.',
+        },
+        {
+          dd: 'Isolierte überaktive Blase (Overactive Bladder)',
+          unterscheidung: 'Rein irritative Symptomatik mit imperativem Harndrang, Pollakisurie und Dranginkontinenz OHNE obstruktive Komponente; keine Startverzögerung, normaler Harnstrahl, kein Restharn und normaler Qmax in der Uroflowmetrie. Die DRU ist unauffällig.',
+        },
+        {
+          dd: 'Harnblasenkarzinom',
+          unterscheidung: 'Leitsymptom ist die schmerzlose Makrohämaturie, häufig intermittierend; Risikofaktoren sind Nikotinabusus und aromatische Amine. Irritative Symptome können ein Carcinoma in situ begleiten. Abklärung durch Urinzytologie, Sonographie und Urethrozystoskopie mit Biopsie.',
+        },
+        {
+          dd: 'Blasenstein',
+          unterscheidung: 'Typisch sind ein plötzlicher Abbruch des Harnstrahls, lageabhängige Beschwerden, kolikartige Unterbauchschmerzen mit Ausstrahlung in die Glans und eine Mikrohämaturie. Nachweis in der Sonographie oder Zystoskopie. Auch hier gilt: Blasensteine sind meist Folge der Restharnbildung bei Hyperplasie.',
+        },
+        {
+          dd: 'Nykturie bei Herzinsuffizienz oder Diuretikatherapie (nächtliche Polyurie)',
+          unterscheidung: 'Hier werden nachts große Einzelportionen entleert, der Harnstrahl ist kräftig und obstruktive Symptome fehlen; klinisch bestehen Beinödeme, Belastungsdyspnoe und Orthopnoe, oder es besteht eine abendliche Einnahme eines Schleifendiuretikums. Das Miktionsprotokoll klärt die Frage, indem es Portionsgrößen und Tag-Nacht-Verteilung dokumentiert.',
+        },
+        {
+          dd: 'Medikamentös induzierte Blasenentleerungsstörung',
+          unterscheidung: 'Anticholinerg wirkende Substanzen (Antihistaminika, trizyklische Antidepressiva, Spasmolytika, Neuroleptika) schwächen den Detrusor, Alpha-Sympathomimetika in abschwellenden Nasentropfen und Erkältungsmitteln erhöhen den Blasenhalstonus. Wegweisend sind der zeitliche Zusammenhang mit dem Ansetzen des Medikaments und die Besserung nach Absetzen — häufigster Auslöser eines akuten Harnverhalts beim Adenomträger.',
+        },
+        {
+          dd: 'Polyurie bei entgleistem Diabetes mellitus',
+          unterscheidung: 'Polyurie mit großen Portionen, Polydipsie, Gewichtsverlust und Leistungsknick; wegweisend sind Glukosurie im Urinstix, erhöhter Blutzucker und HbA1c. Der Harnstrahl ist kräftig, obstruktive Symptome fehlen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Kontrolliertes Zuwarten und Verhaltensmaßnahmen (Watchful Waiting)',
+          items: [
+            'Indiziert bei leichter Symptomatik (IPSS 0–7) oder geringem Leidensdruck ohne Komplikationen, also ohne relevanten Restharn, ohne Harnverhalt, ohne rezidivierende Infekte und ohne Nierenstauung',
+            'Aufklärung über den in der Regel langsamen, keineswegs zwangsläufig progredienten Verlauf und über die Warnzeichen, bei denen sofort ein Arzt aufzusuchen ist (kein Wasserlassen möglich, Blut im Urin, Fieber mit Flankenschmerz)',
+            'Anpassung des Trinkverhaltens: ausreichende Trinkmenge über den Tag verteilt, aber Reduktion der Flüssigkeitszufuhr zwei bis drei Stunden vor dem Schlafengehen; Verzicht auf Alkohol und koffeinhaltige Getränke am Abend',
+            'Blasentraining und Miktionstechnik: Miktion in Ruhe und ohne Zeitdruck, doppelte Blasenentleerung („double voiding“), Nachdrücken der Harnröhre gegen das Nachträufeln',
+            'Konsequente Überprüfung und gegebenenfalls Umstellung der Dauermedikation, insbesondere Anticholinergika, trizyklische Antidepressiva, Alpha-Sympathomimetika in Erkältungsmitteln und abends eingenommene Diuretika',
+            'Behandlung von Obstipation, Gewichtsreduktion und regelmäßige körperliche Bewegung',
+            'Phytotherapie (Sägepalmenfrüchte, Kürbissamen, Brennnesselwurzel, Sitosterin) ist gut verträglich und wird von vielen Patienten gewünscht, ihre Wirksamkeit ist jedoch in kontrollierten Studien nicht sicher belegt — sie darf die Verlaufskontrolle nicht ersetzen',
+            'Verlaufskontrolle nach drei bis sechs Monaten, danach jährlich mit IPSS, Restharn, Kreatinin, Urinstatus, DRU und PSA',
+          ],
+        },
+        {
+          label: 'Medikamentöse Therapie nach Beschwerdebild und Prostatavolumen',
+          items: [
+            'Alpha-1-Rezeptorenblocker (Tamsulosin 0,4 mg, Alfuzosin, Silodosin) als Mittel der ersten Wahl bei mittelgradiger bis schwerer Symptomatik: Sie senken den Tonus der glatten Muskulatur von Blasenhals, Prostatakapsel und Stroma und wirken auf die Symptome bereits innerhalb weniger Tage, verkleinern die Drüse aber NICHT',
+            'Cave Alpha-1-Blocker: orthostatische Hypotonie, Schwindel und Synkopen besonders zu Beginn und bei gleichzeitiger antihypertensiver Therapie — einschleichend und abends dosieren; retrograde Ejakulation als häufige und aufklärungspflichtige Nebenwirkung; intraoperatives Floppy-Iris-Syndrom bei der Kataraktoperation — der Augenarzt MUSS über die Einnahme informiert werden; keine Kombination mit PDE-5-Hemmern in voller Dosis wegen Blutdruckabfall',
+            '5-Alpha-Reduktase-Hemmer (Finasterid 5 mg, Dutasterid 0,5 mg) bei einem Prostatavolumen über etwa 30–40 ml: Sie hemmen die Umwandlung von Testosteron in Dihydrotestosteron, verkleinern die Drüse um etwa 20–30 % und senken das Risiko von Harnverhalt und Operation — die Wirkung setzt jedoch erst nach drei bis sechs, voll nach sechs bis zwölf Monaten ein',
+            'Cave 5-Alpha-Reduktase-Hemmer: Sie HALBIEREN den PSA-Wert nach etwa sechs bis zwölf Monaten; zur Beurteilung muss der gemessene Wert verdoppelt werden, sonst wird ein Karzinom übersehen. Weitere Nebenwirkungen: Libidoverlust, erektile Dysfunktion, Ejakulationsstörungen und Gynäkomastie',
+            'Kombinationstherapie aus Alpha-1-Blocker und 5-Alpha-Reduktase-Hemmer bei großem Volumen und ausgeprägter Symptomatik — wirksamer als jede Monotherapie hinsichtlich Progression, Harnverhalt und Operationsrate',
+            'Muskarinrezeptorantagonisten (z. B. Solifenacin) oder der Beta-3-Agonist Mirabegron zusätzlich bei führender Drangsymptomatik — Cave: Anticholinergika nur bei Restharn unter etwa 150 ml und unter Restharnkontrolle, sonst droht ein Harnverhalt',
+            'Der PDE-5-Hemmer Tadalafil 5 mg täglich bessert LUTS und eine begleitende erektile Dysfunktion; Kontraindikation ist die gleichzeitige Nitrateinnahme',
+            'Erfolgskontrolle nach vier bis sechs Wochen (Alpha-Blocker) beziehungsweise nach sechs Monaten (5-Alpha-Reduktase-Hemmer) mittels IPSS, Uroflowmetrie und Restharnbestimmung',
+          ],
+        },
+        {
+          label: 'Operative Desobstruktion bei absoluter Indikation oder Therapieversagen',
+          items: [
+            'Absolute Operationsindikationen: rezidivierender oder therapierefraktärer Harnverhalt, rezidivierende Harnwegsinfekte, rezidivierende Makrohämaturie aus dem Adenom, Blasensteine, Blasendivertikel, ausgeprägte Restharnbildung mit Überlaufblase sowie eine Harnstauung mit postrenaler Niereninsuffizienz',
+            'Relative Indikation: unzureichendes Ansprechen der medikamentösen Therapie, Nebenwirkungen oder hoher Leidensdruck des Patienten',
+            'Transurethrale Resektion der Prostata (TUR-P) als Standardverfahren bis zu einem Volumen von etwa 80 ml: endoskopische, schrittweise Abtragung des Adenoms über die Harnröhre mit einer Elektroschlinge, anschließend Dauerspülkatheter',
+            'Komplikationen der TUR-P: Nachblutung, Harnröhrenstriktur und Blasenhalssklerose, Harnwegsinfekt, Belastungsinkontinenz durch Sphinkterverletzung, sehr häufig retrograde Ejakulation (in etwa 60–90 %, jedoch ohne Beeinträchtigung der Erektionsfähigkeit) sowie das TUR-Syndrom: Einschwemmung hypotoner, elektrolytfreier Spülflüssigkeit über eröffnete Prostatavenen mit Verdünnungshyponatriämie, Hirn- und Lungenödem, Verwirrtheit, Übelkeit, Bradykardie und Hypotonie — Prophylaxe durch Begrenzung der Resektionszeit auf etwa 60 Minuten, geringen Spüldruck und heute vor allem durch die bipolare Resektion in isotoner Kochsalzlösung',
+            'Laserverfahren als gleichwertige, blutungsärmere Alternative — insbesondere die Holmium-Laser-Enukleation (HoLEP) und die Thulium-Enukleation, auch bei großen Drüsen und unter fortgeführter Antikoagulation; daneben die Photoselektive Vaporisation (Greenlight-Laser)',
+            'Offene (suprapubische bzw. retropubische) Adenomenukleation oder deren laparoskopisch-roboterassistierte Variante bei sehr großer Drüse über etwa 80–100 ml',
+            'Minimalinvasive Verfahren bei Komorbidität oder Wunsch nach Erhalt der antegraden Ejakulation: Prostata-Urethra-Lift (Urolift), Wasserdampfablation (Rezum), Prostataarterienembolisation',
+            'Das entfernte Gewebe wird IMMER histologisch untersucht — in einem relevanten Anteil der Präparate findet sich ein inzidentelles Prostatakarzinom',
+            'Beim inoperablen oder nicht narkosefähigen Patienten: transurethraler Dauerkatheter, suprapubische Blasenfistel oder intermittierender Selbstkatheterismus',
+          ],
+        },
+        {
+          label: 'Notfallmanagement des akuten Harnverhalts und Nachsorge',
+          items: [
+            'Akuter Harnverhalt: sofortige Entlastung der prall gefüllten, schmerzhaften Blase durch einen transurethralen Dauerkatheter; bei frustranem Versuch, bei Harnröhrenstriktur oder nach Prostataeingriff Anlage einer suprapubischen Blasenfistel unter sonographischer Kontrolle',
+            'Cave: Den Urin kontrolliert und portionsweise ablassen und den Patienten überwachen — es drohen eine Entlastungsblutung (Ex-vacuo-Blutung) aus der entstauten Blasenschleimhaut sowie eine postobstruktive Polyurie mit Volumen- und Elektrolytverlust; deshalb Bilanzierung, Kontrolle von Kreatinin, Natrium und Kalium sowie ausreichende Flüssigkeitssubstitution',
+            'Analgesie, Bestimmung von Kreatinin und Elektrolyten, Urinstatus und Sonographie der Nieren zum Ausschluss einer Stauung',
+            'Beginn eines Alpha-1-Blockers und Auslassversuch des Katheters nach etwa drei bis sieben Tagen; gelingt die Miktion erneut nicht, besteht eine absolute Operationsindikation',
+            'Suche nach dem Auslöser: neu angesetztes anticholinerg oder alpha-sympathomimetisch wirkendes Medikament, Alkoholexzess, Kälte, Immobilisation, Obstipation oder eine Operation in Narkose',
+            'Bei fieberhaftem Harnwegsinfekt oder Urosepsis zusätzlich Blut- und Urinkulturen, kalkulierte Antibiotikatherapie und Entlastung der gestauten Niere',
+            'Strukturierte Nachsorge und Verlaufskontrolle mit IPSS und Lebensqualitätsindex, Restharnbestimmung, Uroflowmetrie, Kreatinin, Urinstatus sowie DRU und PSA im Rahmen der Krebsfrüherkennung',
+          ],
+          akut: true,
+        },
+      ],
+      prognose: 'Der Verlauf ist langsam progredient, aber keineswegs zwangsläufig: Bei einem erheblichen Teil der Patienten bleiben die Beschwerden über Jahre stabil oder bessern sich sogar spontan, weshalb bei leichter Symptomatik das kontrollierte Zuwarten gerechtfertigt ist. Unter medikamentöser Therapie bessert sich der IPSS im Mittel um vier bis sechs Punkte; die Kombinationstherapie senkt zusätzlich das Risiko von Harnverhalt und Operation. Die Prognose der operativen Desobstruktion ist sehr gut: Nach TUR-P berichten etwa 80–90 % der Patienten über eine deutliche Besserung, das Ergebnis hält im Mittel über zehn Jahre an, die Reoperationsrate liegt bei etwa 1–2 % pro Jahr. Als Preis muss der Patient in der Mehrzahl der Fälle die retrograde Ejakulation akzeptieren, während die Erektionsfähigkeit in der Regel erhalten bleibt; eine dauerhafte Belastungsinkontinenz ist selten (unter 1–2 %). Entscheidend für die Langzeitprognose ist die rechtzeitige Behandlung: Bleibt die Obstruktion bestehen, drohen Detrusordekompensation, rezidivierende Infekte, Blasensteine und eine irreversible postrenale Niereninsuffizienz. Die benigne Prostatahyperplasie selbst entartet nicht und erhöht das Risiko für ein Prostatakarzinom nicht — sie schützt aber auch nicht davor, weshalb die Krebsfrüherkennung unabhängig weiterläuft.',
+      pruefungsfallen: [
+        'Die Blutentnahme für das PSA muss VOR der digital-rektalen Untersuchung und vor jeder Manipulation erfolgen — genau diese Frage („Was ist wichtig, bevor man die rektale Untersuchung macht?“) wurde in Stuttgart gestellt und mit der Antwort „Handschuhe“ nicht akzeptiert.',
+        'Das PSA ist organspezifisch, aber NICHT karzinomspezifisch: Auch die Hyperplasie selbst, eine Prostatitis, ein Harnverhalt, ein Katheter, eine Zystoskopie, Ejakulation und Radfahren erhöhen den Wert. Vor der Bestimmung ist der Patient über die Konsequenzen aufzuklären.',
+        '5-Alpha-Reduktase-Hemmer halbieren den PSA-Wert nach sechs bis zwölf Monaten — der gemessene Wert muss verdoppelt werden, sonst wird ein Karzinom übersehen.',
+        'Prostatagröße und Symptomstärke korrelieren NICHT: Eine große Drüse kann stumm bleiben, eine kleine Drüse mit hohem Blasenhalstonus stark obstruieren. Behandelt wird der Leidensdruck, nicht der Ultraschallbefund.',
+        'Das Prostatakarzinom lässt sich anhand der Symptome NICHT von der Hyperplasie abgrenzen — es wächst in der peripheren Zone und ist im Frühstadium asymptomatisch. Nur DRU, PSA, MRT und Biopsie trennen die beiden Entitäten, die zudem häufig nebeneinander bestehen.',
+        'Die Alpha-1-Blocker verkleinern die Prostata nicht, sie senken nur den Muskeltonus; die 5-Alpha-Reduktase-Hemmer wirken erst nach Monaten. Wer beides verwechselt, verliert im Arzt-Arzt-Gespräch sofort an Glaubwürdigkeit.',
+        'Vor einer Katarakt-Operation muss der Augenarzt über die Einnahme eines Alpha-1-Blockers informiert werden — Gefahr des intraoperativen Floppy-Iris-Syndroms; das gilt auch nach dem Absetzen.',
+        'Anticholinergika gegen die Drangsymptomatik nur bei geringem Restharn und unter Kontrolle einsetzen — sonst provoziert man einen akuten Harnverhalt.',
+        'Beim akuten Harnverhalt die Blase kontrolliert entlasten: Es drohen eine Entlastungsblutung und eine postobstruktive Polyurie mit Elektrolytentgleisung.',
+        'Das TUR-Syndrom als Komplikation der monopolaren TUR-P muss man benennen können: Einschwemmung hypotoner Spülflüssigkeit mit Verdünnungshyponatriämie, Hirn- und Lungenödem.',
+        'Die Nierenfunktion und die Restharnbestimmung gehören immer zur Basisdiagnostik — sonst übersieht man das Stadium III nach Alken mit Harnstauung und postrenalem Nierenversagen.',
+        'Die Beschwerden in der Fallvorstellung sauber in obstruktive und irritative Symptome trennen — die Prüfer hören genau darauf.',
+        'Vor dem Patienten „Vorsteherdrüse“ statt „Prostata“ und „gutartige Vergrößerung der Vorsteherdrüse“ statt „benigne Prostatahyperplasie“ verwenden; „Prostatakarzinom“ heißt umgangssprachlich „Vorsteherdrüsenkrebs“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist wichtig, bevor Sie die digital-rektale Untersuchung durchführen?',
+          antwort: 'Zuerst muss der Patient über die Untersuchung aufgeklärt werden und einwilligen. Vor allem aber muss die Blutentnahme für das prostataspezifische Antigen VOR der rektalen Untersuchung erfolgen, weil jede Manipulation an der Prostata den PSA-Wert falsch erhöhen kann. Erst danach folgt die Untersuchung in Seiten- oder Knie-Ellenbogen-Lage mit Handschuh und Gleitmittel.',
+        },
+        {
+          frage: 'Was beurteilen Sie bei der digital-rektalen Untersuchung?',
+          antwort: 'Größe, Konsistenz, Oberfläche, Symmetrie, Abgrenzbarkeit, den Sulcus medianus, die Verschieblichkeit der Rektumschleimhaut und einen etwaigen Druckschmerz. Das gutartige Adenom ist prall-elastisch, glatt und symmetrisch vergrößert mit erhaltenem Sulcus; das Karzinom fühlt sich hart, höckerig und unregelmäßig an; die akute Prostatitis ist überwärmt und stark druckschmerzhaft. Zusätzlich prüfe ich den Analsphinktertonus.',
+        },
+        {
+          frage: 'Welche körperliche Untersuchung ist außer der rektalen Untersuchung noch wichtig?',
+          antwort: 'Die Beobachtung der Miktion selbst — Harnstrahl, Startverzögerung, Miktionsdauer und Nachträufeln —, dazu Inspektion des äußeren Genitales, Palpation und Perkussion des Unterbauchs zum Nachweis einer gefüllten Blase, die Prüfung der Nierenlager sowie eine orientierende neurologische Untersuchung mit Sensibilität der Beine, Reithosenregion und Sphinktertonus.',
+        },
+        {
+          frage: 'Ist ein erhöhtes PSA gleichbedeutend mit einem Prostatakarzinom?',
+          antwort: 'Nein. Das PSA ist organspezifisch, aber nicht karzinomspezifisch. Erhöht ist es auch bei der gutartigen Hyperplasie, bei einer Prostatitis, nach Harnverhalt, Katheterisierung, Zystoskopie, Ejakulation, Radfahren und nach der rektalen Untersuchung. Aussagekräftiger als ein Einzelwert sind der Verlauf, der Quotient aus freiem und Gesamt-PSA und die PSA-Dichte. Umgekehrt schließt ein normales PSA ein Karzinom nicht aus.',
+        },
+        {
+          frage: 'Kann man anhand der Beschwerden zwischen gutartiger Vergrößerung und Prostatakarzinom unterscheiden?',
+          antwort: 'Nein, und das ist der entscheidende Punkt. Die Hyperplasie entsteht in der Übergangszone rund um die Harnröhre und macht deshalb früh Symptome; das Karzinom entsteht in der peripheren Zone und bleibt lange stumm. Beide bestehen häufig nebeneinander. Die Trennung gelingt nur über die rektale Untersuchung, das PSA, das multiparametrische MRT und die Stanzbiopsie.',
+        },
+        {
+          frage: 'Wie objektivieren Sie die Beschwerden des Patienten?',
+          antwort: 'Mit dem International Prostate Symptom Score: sieben Fragen zu je null bis fünf Punkten, maximal 35 Punkte. Null bis sieben Punkte bedeuten eine leichte, acht bis 19 eine mittelgradige und 20 bis 35 eine schwere Symptomatik. Eine achte Frage erfasst getrennt die Lebensqualität. Ergänzend führe ich ein Miktionsprotokoll über 48 bis 72 Stunden.',
+        },
+        {
+          frage: 'Welche Stadien nach Alken kennen Sie?',
+          antwort: 'Stadium I ist das Reizstadium mit Symptomen, aber ohne Restharn. Stadium II ist das Restharnstadium mit einer Restharnmenge über etwa 50 bis 100 ml, Balkenblase und rezidivierenden Infekten. Stadium III ist das Dekompensationsstadium mit chronischem Harnverhalt, Überlaufblase, beidseitiger Harnstauung und postrenaler Niereninsuffizienz.',
+        },
+        {
+          frage: 'Welche apparativen Untersuchungen ordnen Sie an?',
+          antwort: 'Eine abdominelle Sonographie mit Restharnbestimmung nach der Miktion, Beurteilung von Blasenwand und Konkrementen sowie der Nieren zum Ausschluss einer Harnstauung; eine transrektale Sonographie zur Volumetrie der Prostata und eine Uroflowmetrie. Bei Hämaturie, Verdacht auf Striktur oder Blasenstein sowie zur Operationsplanung ergänze ich eine Urethrozystoskopie, bei unklarem Befund eine Urodynamik.',
+        },
+        {
+          frage: 'Wie behandeln Sie die benigne Prostatahyperplasie?',
+          antwort: 'Gestuft nach Beschwerdebild und Komplikationen. Bei leichter Symptomatik kontrolliertes Zuwarten mit Verhaltensmaßnahmen und Überprüfung der Medikation. Bei mittelgradiger bis schwerer Symptomatik medikamentös: Alpha-1-Blocker wirken innerhalb weniger Tage auf die Symptome, 5-Alpha-Reduktase-Hemmer verkleinern die Drüse über Monate, bei großem Volumen wird kombiniert. Bei absoluter Indikation oder Therapieversagen erfolgt die operative Desobstruktion, in der Regel als transurethrale Resektion der Prostata.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Patienten den Unterschied zwischen den beiden Medikamentengruppen?',
+          antwort: 'Ich sage ihm: Die eine Tablette entspannt die Muskulatur am Blasenausgang, sodass der Urin leichter abfließt — sie wirkt schon nach wenigen Tagen, macht die Drüse aber nicht kleiner. Die zweite Tablette greift in den Hormonstoffwechsel ein und lässt die Drüse über mehrere Monate schrumpfen; dafür braucht sie Geduld, wirkt dafür aber ursächlich.',
+        },
+        {
+          frage: 'Welche Nebenwirkungen der Alpha-1-Blocker müssen Sie beachten?',
+          antwort: 'Vor allem Blutdruckabfall mit Schwindel und Sturzgefahr, besonders zu Beginn und bei gleichzeitiger Blutdrucktherapie, deshalb einschleichende Dosierung und Einnahme am Abend. Weiterhin die retrograde Ejakulation und das intraoperative Floppy-Iris-Syndrom — der Augenarzt muss vor einer Kataraktoperation über die Einnahme informiert werden.',
+        },
+        {
+          frage: 'Was müssen Sie beim PSA beachten, wenn der Patient Finasterid einnimmt?',
+          antwort: '5-Alpha-Reduktase-Hemmer halbieren den PSA-Wert nach etwa sechs bis zwölf Monaten. Um den Wert richtig einzuordnen, muss man den gemessenen Wert verdoppeln, sonst wird ein Karzinom übersehen.',
+        },
+        {
+          frage: 'Was ist das TUR-Syndrom?',
+          antwort: 'Eine Komplikation der monopolaren transurethralen Resektion: Über eröffnete Prostatavenen wird hypotone, elektrolytfreie Spülflüssigkeit eingeschwemmt. Es kommt zur Hypervolämie mit Verdünnungshyponatriämie, Hirnödem mit Verwirrtheit, Übelkeit, Sehstörungen und Krampfanfällen sowie zu Lungenödem, Bradykardie und Hypotonie. Prophylaxe sind kurze Resektionszeit, niedriger Spüldruck und die bipolare Resektion mit isotoner Kochsalzlösung; die Therapie besteht in Diuretika und vorsichtigem Natriumausgleich.',
+        },
+        {
+          frage: 'Welche Komplikationen drohen bei unbehandelter Obstruktion?',
+          antwort: 'Akuter und chronischer Harnverhalt, Überlaufblase, rezidivierende Harnwegsinfekte bis zur Urosepsis, Blasensteine, Balkenblase mit Pseudodivertikeln, Makrohämaturie und schließlich beidseitige Harnstauungsnieren mit postrenalem Nierenversagen.',
+        },
+        {
+          frage: 'Was tun Sie bei einem akuten Harnverhalt?',
+          antwort: 'Das ist ein urologischer Notfall. Ich entlaste die Blase sofort über einen transurethralen Dauerkatheter, bei Misserfolg über eine suprapubische Blasenfistel. Der Urin wird kontrolliert abgelassen wegen der Gefahr einer Entlastungsblutung und einer postobstruktiven Polyurie; ich bilanziere, kontrolliere Kreatinin und Elektrolyte, beginne einen Alpha-1-Blocker und plane nach drei bis sieben Tagen einen Auslassversuch. Misslingt dieser, besteht eine absolute Operationsindikation.',
+        },
+        {
+          frage: 'Warum wird das reserzierte Gewebe untersucht?',
+          antwort: 'Weil sich in einem relevanten Anteil der Präparate ein zufällig entdecktes, inzidentelles Prostatakarzinom findet. Jedes entfernte Prostatagewebe wird deshalb histologisch aufgearbeitet.',
+        },
+        {
+          frage: 'Wie nennen Sie die Prostata gegenüber dem Patienten?',
+          antwort: 'Vorsteherdrüse. Die gutartige Vergrößerung der Vorsteherdrüse beziehungsweise das Prostataadenom; das Prostatakarzinom heißt umgangssprachlich Vorsteherdrüsenkrebs.',
+        },
+      ],
+      merksatz: 'Beschwerden trennen: obstruktiv (Startverzögerung, schwacher Strahl, Nachträufeln) und irritativ (Pollakisurie, Drang, Nykturie) — objektivieren mit IPSS, tasten mit der DRU, aber PSA IMMER VOR der DRU abnehmen. Größe und Beschwerden korrelieren nicht, und die Symptome unterscheiden Adenom und Karzinom nicht: Alpha-Blocker wirken in Tagen, 5-Alpha-Reduktase-Hemmer in Monaten und halbieren das PSA; bei absoluter Indikation TUR-P — Cave TUR-Syndrom.',
+      linkedCaseIds: [
+        'case-bph',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-operation',
+        'auf-feinnadelpunktion',
+      ],
+    },
+    {
+      id: 'fw-demenz',
+      pathology: 'Demenz vom Alzheimer-Typ',
+      specialty: 'Psychiatrie',
+      definition: 'Die Demenz ist ein erworbenes, über mindestens sechs Monate bestehendes Syndrom aus einer Störung des Gedächtnisses und mindestens einer weiteren höheren kortikalen Funktion (Sprache, Praxie, Gnosie, Urteilsvermögen, Exekutivfunktionen), das bei KLAREM Bewusstsein auftritt und die Alltagskompetenz und die Selbstständigkeit relevant beeinträchtigt — im Gegensatz zur leichten kognitiven Störung, bei der die Alltagskompetenz noch erhalten ist. Die Demenz vom Alzheimer-Typ (Alzheimer-Krankheit) ist mit etwa 60–70 % die häufigste Demenzform. Ihr liegt eine primär neurodegenerative Erkrankung mit extrazellulären Beta-Amyloid-Plaques und intrazellulären Neurofibrillenbündeln aus hyperphosphoryliertem Tau-Protein zugrunde, die im entorhinalen Kortex und im Hippocampus beginnt und sich von dort in den Neokortex ausbreitet; daraus resultieren ein Untergang cholinerger Neurone des Nucleus basalis Meynert und eine fortschreitende Hirnatrophie. Klinisch ist sie durch einen schleichenden Beginn und einen langsam progredienten Verlauf über Jahre gekennzeichnet. Dem Patienten gegenüber wird der Begriff schlicht mit „Gedächtniserkrankung“ oder „Nachlassen der Gedächtnisleistung“ übersetzt; in den Fachbegriff-Glossaren der Prüfungsprotokolle steht Demenz als „erworbene Geistesschwäche“.',
+      aetiologie: 'Multifaktorielle neurodegenerative Genese. Pathophysiologisch steht die Amyloid-Kaskade im Vordergrund: Eine gestörte Prozessierung des Amyloid-Vorläuferproteins (APP) durch Beta- und Gamma-Sekretase führt zur Ablagerung von unlöslichem Beta-Amyloid (Aβ1-42) als senile Plaques; parallel wird das Tau-Protein hyperphosphoryliert und lagert sich als Neurofibrillenbündel intrazellulär ab. Folge sind Synapsenverlust, Neuroinflammation und Neuronenuntergang, insbesondere der cholinergen Projektionsneurone des Nucleus basalis Meynert — daraus leitet sich das therapeutische Prinzip der Acetylcholinesterase-Hemmung ab. Über 95 % der Fälle sind sporadisch mit spätem Beginn nach dem 65. Lebensjahr; das Apolipoprotein-E4-Allel ist der stärkste genetische Risikofaktor. Unter 5 % sind autosomal-dominant vererbte Frühformen durch Mutationen in den Genen für APP, Präsenilin 1 und Präsenilin 2; Menschen mit Trisomie 21 erkranken durch die APP-Gendosis regelhaft früh. Abzugrenzen sind die SEKUNDÄREN, potenziell behandelbaren Demenzursachen — Hypothyreose, Vitamin-B12- und Folsäuremangel, Normaldruckhydrozephalus, chronisches Subduralhämatom, Hirntumor, Neurolues, HIV-Enzephalopathie, Alkoholfolgeschäden und medikamentös (anticholinerg, sedierend) bedingte Störungen —, die in etwa 5–10 % der Fälle vorliegen und vor jeder Diagnosestellung ausgeschlossen werden müssen.',
+      risikofaktoren: [
+        'Höheres Lebensalter — der mit Abstand wichtigste Risikofaktor: Prävalenz etwa 1–2 % zwischen 65 und 70 Jahren, über 30 % jenseits des 90. Lebensjahres',
+        'Weibliches Geschlecht (auch durch die höhere Lebenserwartung bedingt)',
+        'Positive Familienanamnese; Apolipoprotein-E4-Allel; autosomal-dominante Mutationen (APP, Präsenilin 1 und 2) bei den seltenen Frühformen',
+        'Trisomie 21',
+        'Vaskuläre Risikofaktoren im mittleren Lebensalter: arterielle Hypertonie, Diabetes mellitus, Hyperlipidämie, Adipositas, Rauchen, Bewegungsmangel',
+        'Unbehandelte Schwerhörigkeit und Sehminderung — sie beschleunigen den kognitiven Abbau und täuschen zugleich Defizite vor',
+        'Depression, sozialer Rückzug und Vereinsamung',
+        'Niedriges Bildungsniveau und geringe kognitive Reserve',
+        'Schädel-Hirn-Traumata in der Vorgeschichte',
+        'Chronischer Alkoholkonsum, Dauereinnahme anticholinerger Substanzen und von Benzodiazepinen',
+      ],
+      klinik: [
+        {
+          text: 'Störung des KURZZEITGEDÄCHTNISSES als Leitsymptom: kürzlich Erlebtes wird nicht behalten, Gespräche und Termine werden vergessen, dieselben Fragen werden wiederholt gestellt, während weit zurückliegende Erinnerungen lange gut erhalten bleiben',
+        },
+        {
+          text: 'Schleichender Beginn und langsam progredienter Verlauf über Monate bis Jahre ohne plötzliche Verschlechterung',
+        },
+        {
+          text: 'Wortfindungsstörungen mit Umschreibungen und Floskeln, später zunehmende Verarmung der Sprache',
+        },
+        {
+          text: 'Zeitliche Desorientierung zuerst, später örtliche, dann situative und zuletzt Desorientierung zur eigenen Person',
+        },
+        {
+          text: 'Nachlassen der Alltagskompetenz: Kochen, Einkaufen, Bankgeschäfte und Rechnungen, zuverlässige Medikamenteneinnahme, Autofahren',
+        },
+        {
+          text: 'Verlegen von Gegenständen an ungewöhnliche Orte, Suchen, später Bestehlungsideen',
+        },
+        {
+          text: 'Anosognosie: der Patient bagatellisiert oder bemerkt seine Defizite nicht; die Beschwerden werden von Angehörigen vorgetragen',
+        },
+        {
+          text: 'Bewusstsein klar und Aufmerksamkeit erhalten — der entscheidende Unterschied zum Delir',
+        },
+        {
+          text: 'Sozialer Rückzug, Aufgabe von Hobbys, Antriebsminderung und depressive Verstimmung, besonders im frühen Stadium, solange die Defizite noch bemerkt werden',
+        },
+        {
+          text: 'Apraxie und Agnosie im weiteren Verlauf: Ankleiden, Werkzeuggebrauch und das Erkennen vertrauter Gesichter gelingen nicht mehr',
+        },
+        {
+          text: 'Persönlichkeitsveränderung, Reizbarkeit, Misstrauen und Aggressivität im mittleren Stadium',
+        },
+        {
+          text: 'Unruhe und Verwirrtheit in den Abendstunden (Sundowning) sowie Umkehr des Tag-Nacht-Rhythmus mit nächtlichem Umherlaufen',
+        },
+        {
+          text: 'Gewichtsverlust und Exsikkose durch vergessene Nahrungs- und Flüssigkeitsaufnahme',
+        },
+        {
+          text: 'Im späten Stadium Harn- und Stuhlinkontinenz, Gangstörung, Schluckstörung, Immobilität und Mutismus',
+        },
+        {
+          text: 'Beginn mit visuell-räumlichen und Sehstörungen statt mit einer Gedächtnisstörung (posteriore kortikale Atrophie)',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation vor dem 65. Lebensjahr bei den familiären, autosomal-dominanten Formen',
+          atypisch: true,
+        },
+        {
+          text: 'Demaskierung durch ein Delir bei Infekt, Operation, Exsikkose oder Narkose — die zugrunde liegende Demenz fällt erst dadurch auf',
+          atypisch: true,
+        },
+        {
+          text: 'Myoklonien und epileptische Anfälle im fortgeschrittenen Stadium',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregradeinteilung nach dem MMST (Mini-Mental-Status-Test, maximal 30 Punkte)',
+          inhalt: '26–30 Punkte unauffällig beziehungsweise allenfalls leichte kognitive Störung; 20–25 Punkte leichtgradige Demenz; 10–19 Punkte mittelgradige Demenz; unter 10 Punkte schwergradige Demenz. Als Auffälligkeitsgrenze im Screening wird üblicherweise ein Wert unter 24 von 30 Punkten genannt. Der MMST erfasst leichte Störungen unzuverlässig — hier sind DemTect und MoCA sensibler.',
+        },
+        {
+          name: 'ICD-10',
+          inhalt: 'F00.0 / G30.0: Demenz bei Alzheimer-Krankheit mit frühem Beginn (vor dem 65. Lebensjahr); F00.1 / G30.1: mit spätem Beginn (nach dem 65. Lebensjahr); F00.2: atypische oder gemischte Form. Die ICD-10 verlangt für die Diagnose eine Symptomdauer von mindestens sechs Monaten bei klarem Bewusstsein.',
+        },
+        {
+          name: 'Stadien nach Reisberg (Global Deterioration Scale, GDS 1–7)',
+          inhalt: '1 keine Defizite; 2 rein subjektive Vergesslichkeit; 3 leichte kognitive Störung, im Beruf auffällig; 4 leichte Demenz mit Versagen bei komplexen Aufgaben wie Finanzen und Reiseplanung; 5 mittelschwere Demenz mit Hilfebedarf bei der Kleiderwahl; 6 schwere Demenz mit Hilfe bei der Körperpflege und beginnender Inkontinenz; 7 sehr schwere Demenz mit Sprachverlust und Immobilität.',
+        },
+        {
+          name: 'Braak-Stadien der Neurofibrillenpathologie',
+          inhalt: 'Stadien I–II transentorhinal und klinisch stumm; Stadien III–IV limbisch mit beginnender Gedächtnisstörung; Stadien V–VI isokortikal mit manifester Demenz. Sie erklären, warum die Erkrankung im Hippocampus beginnt und deshalb das Kurzzeitgedächtnis zuerst betroffen ist.',
+        },
+      ],
+      redFlags: [
+        'Akuter Beginn binnen Stunden bis Tagen mit getrübtem, im Tagesverlauf fluktuierendem Bewusstsein und Aufmerksamkeitsstörung — Delir; sofort nach der auslösenden Ursache suchen (Harnwegsinfekt, Pneumonie, Exsikkose, Elektrolytstörung, Medikamente, Schmerz, Harnverhalt, Obstipation)',
+        'Rasch progredienter Verlauf über Wochen bis wenige Monate, insbesondere mit Myoklonien — Verdacht auf Creutzfeldt-Jakob-Erkrankung oder eine autoimmune Enzephalitis',
+        'Fokal-neurologische Ausfälle, neu aufgetretene Kopfschmerzen, morgendliches Erbrechen, Stauungspapille oder ein erster epileptischer Anfall — Verdacht auf eine intrakranielle Raumforderung',
+        'Sturz oder Kopfanprall in den vorangegangenen Wochen, besonders unter Antikoagulation — chronisches Subduralhämatom',
+        'Trias aus Gangstörung, kognitiver Störung und Harninkontinenz — Normaldruckhydrozephalus, weil operativ behandelbar',
+        'Manifestation vor dem 65. Lebensjahr',
+        'Suizidgedanken, Wahn oder aggressive Erregung mit Eigen- oder Fremdgefährdung',
+        'Konkrete Alltagsgefährdung: unbeaufsichtigter Herd, Weglauftendenz, wiederholte Stürze, fehlerhafte Medikamenteneinnahme, Autofahren trotz Defiziten',
+        'Rascher Gewichtsverlust und Exsikkose durch vergessene Nahrungs- und Flüssigkeitsaufnahme',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Eigenanamnese UND obligate strukturierte FREMDANAMNESE mit einem Angehörigen oder einer Bezugsperson (mit Einverständnis des Patienten): Beginn, Verlauf, erste Auffälligkeiten, Verhaltens- und Persönlichkeitsänderung, Tag-Nacht-Rhythmus — der Patient selbst bagatellisiert seine Defizite (Anosognosie)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Erfassung der Alltagskompetenz (IADL): Kochen und Herdsicherheit, Einkaufen, Haushalt, Umgang mit Geld und Rechnungen, Medikamenteneinnahme, Telefon, Nutzung öffentlicher Verkehrsmittel und Fahreignung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige Medikamentenanamnese einschließlich Selbstmedikation, mit besonderem Augenmerk auf anticholinerge Substanzen, Benzodiazepine, Z-Substanzen, Opioide, Antihistaminika und Blasenmedikamente',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter, Größe, Gewicht, BMI und Gewichtsverlauf sowie Erfassung von Ernährungs- und Flüssigkeitszustand',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige internistische und neurologische Untersuchung: fokale Defizite, Parkinsonzeichen (Rigor, Tremor, Bradykinese), Gangbild, Reflexe, Sensibilität und Vibrationsempfinden (Polyneuropathie bei Vitamin-B12-Mangel), Halsgefäße, Zeichen einer Herz- oder Lebererkrankung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Prüfung von Hören und Sehen sowie der Funktion vorhandener Hilfsmittel — eine unkorrigierte Schwerhörigkeit täuscht kognitive Defizite vor und beschleunigt den Abbau',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychopathologischer Befund: Bewusstseinslage, Orientierung zu Zeit, Ort, Situation und Person, Aufmerksamkeit und Konzentration, Auffassung, Gedächtnis, Antrieb, Stimmung, Wahn, Halluzinationen und aktive Erfassung der Suizidalität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kognitive Testverfahren: MMST (unter 24 von 30 Punkten auffällig), Uhrentest, DemTect; MoCA sensibler bei leichten Störungen; ergänzend Depressionsscreening mit der Geriatrischen Depressionsskala (GDS) zur Abgrenzung einer Pseudodemenz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor zum Ausschluss BEHANDELBARER Ursachen: Blutbild, CRP, BSG, Elektrolyte einschließlich Natrium und KALZIUM, Nierenwerte (Kreatinin, Harnstoff, eGFR), Leberwerte (GOT, GPT, GGT), Blutzucker und HbA1c',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH, bei Auffälligkeit fT3 und fT4 — Hypothyreose als klassische behandelbare Ursache',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vitamin B12 (gegebenenfalls Holotranscobalamin und Methylmalonsäure) und Folsäure',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus und bei Auffälligkeit Urinkultur — der Harnwegsinfekt ist beim alten Menschen der häufigste Delirauslöser',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Risikokonstellation, jungem Erkrankungsalter oder untypischem Verlauf: Lues-Serologie (TPHA), HIV-Test, Borrelien-Serologie, Vitamin D, Albumin, Autoimmun-Enzephalitis-Antikörper und Drogen- beziehungsweise Medikamentenspiegel',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Zerebrale Bildgebung obligat: cCT nativ, besser cMRT — Ausschluss von Normaldruckhydrozephalus, chronischem Subduralhämatom, Tumor und vaskulären Läsionen; bei der Alzheimer-Demenz zeigt sich typischerweise eine mediotemporale und hippokampale Atrophie mit erweiterten inneren und äußeren Liquorräumen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG vor Beginn einer Therapie mit Acetylcholinesterase-Hemmern (Bradykardie, AV-Block, QT-Zeit)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Doppler- und Duplexsonographie der hirnversorgenden Arterien sowie Echokardiographie bei Verdacht auf eine vaskuläre Genese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EEG bei Verdacht auf ein Delir, einen nichtkonvulsiven Status epilepticus, eine Enzephalitis oder eine Creutzfeldt-Jakob-Erkrankung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion mit Bestimmung der Demenzmarker (Aβ1-42, Aβ42/40-Quotient, Gesamt-Tau, Phospho-Tau) sowie Zellzahl und Eiweiß zum Ausschluss entzündlicher und infektiöser Ursachen — indiziert bei jungem Erkrankungsalter, raschem Verlauf oder unklarem Befund',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'FDG-PET und Amyloid-PET in Spezialfällen, insbesondere zur Abgrenzung der frontotemporalen Demenz',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'DaTSCAN (Dopamintransporter-SPECT) bei Verdacht auf eine Lewy-Body-Demenz',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorablassversuch (Tap-Test) mit Gang- und Testkontrolle vor und nach der Punktion bei Verdacht auf einen Normaldruckhydrozephalus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Humangenetische Beratung und Testung nur bei früher Manifestation und familiärer Häufung, nach ausführlicher Aufklärung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Delir (akuter Verwirrtheitszustand)',
+          unterscheidung: 'Der wichtigste Notfall-Gegenspieler: akuter Beginn binnen Stunden bis Tagen, GETRÜBTES und im Tagesverlauf FLUKTUIERENDES Bewusstsein, führende Aufmerksamkeitsstörung, häufig optische Halluzinationen, psychomotorische Unruhe oder Hypoaktivität, gestörter Schlaf-Wach-Rhythmus, vegetative Begleitsymptome — und potenziell REVERSIBEL, wenn die Ursache (Infekt, Exsikkose, Elektrolytstörung, Medikamente, Schmerz, Harnverhalt) gefunden und behandelt wird. Bei der Demenz ist der Verlauf schleichend, das Bewusstsein klar und die Aufmerksamkeit erhalten. Ein Delir tritt besonders häufig auf dem Boden einer vorbestehenden Demenz auf.',
+        },
+        {
+          dd: 'Depression mit kognitiver Störung (depressive Pseudodemenz)',
+          unterscheidung: 'Der Patient KLAGT SELBST aktiv über sein Gedächtnis, während der Demente es bagatellisiert und von Angehörigen gebracht wird. Die gedrückte Stimmung geht den kognitiven Störungen VORAUS, der Beginn ist relativ rasch und oft datierbar, häufig nach einem auslösenden Ereignis. Typisch sind „weiß nicht“-Antworten statt Umschreibungen oder Konfabulationen, ein Morgentief mit Früherwachen, Schuld- und Versagensgedanken sowie Suizidalität. Die Defizite bessern sich unter einem Antidepressivum. Im Zweifel Therapieversuch mit einem SSRI und Reevaluation nach mehreren Wochen.',
+        },
+        {
+          dd: 'Vaskuläre Demenz',
+          unterscheidung: 'Stufenweiser, plötzlich einsetzender Verlauf mit Plateauphasen, fokal-neurologische Zeichen (Halbseitensymptomatik, Pyramidenbahnzeichen, Dysarthrie, Pseudobulbärparalyse), Gangstörung, frühe Exekutiv- und Verlangsamungsstörung bei vergleichsweise besser erhaltenem Gedächtnis, ausgeprägte vaskuläre Risikofaktoren und in der Bildgebung Infarkte oder eine subkortikale Marklagerschädigung. Mischformen mit der Alzheimer-Demenz sind häufig.',
+        },
+        {
+          dd: 'Lewy-Body-Demenz',
+          unterscheidung: 'Fluktuierende Kognition und Vigilanz von Tag zu Tag, ausgeprägte, detailreiche OPTISCHE Halluzinationen, Parkinsonismus, wiederholte Stürze und Synkopen, REM-Schlaf-Verhaltensstörung. Entscheidend für die Therapie: ausgeprägte NEUROLEPTIKA-ÜBEREMPFINDLICHKEIT — klassische Neuroleptika sind kontraindiziert. Nachweis über den DaTSCAN.',
+        },
+        {
+          dd: 'Frontotemporale Demenz (Morbus Pick)',
+          unterscheidung: 'Persönlichkeits- und Verhaltensänderung stehen am ANFANG: Enthemmung, Taktlosigkeit, Apathie, Vernachlässigung der Körperpflege, Essverhaltensänderung mit Heißhunger auf Süßes, Perseverationen; das Gedächtnis ist zunächst vergleichsweise gut erhalten. Deutlich jüngere Patienten (50.–65. Lebensjahr). In der Bildgebung frontotemporal betonte Atrophie, im FDG-PET frontaler Hypometabolismus.',
+        },
+        {
+          dd: 'Normaldruckhydrozephalus',
+          unterscheidung: 'Klassische Trias aus breitbeinig-kleinschrittiger, am Boden klebender GANGSTÖRUNG (meist zuerst), kognitiver Verlangsamung und HARNINKONTINENZ. In der Bildgebung erweiterte innere Liquorräume ohne entsprechende Rindenatrophie. Wichtigste Differenzialdiagnose überhaupt, weil BEHANDELBAR: Besserung nach Liquorablassversuch, Therapie durch ventrikuloperitonealen Shunt.',
+        },
+        {
+          dd: 'Chronisches Subduralhämatom',
+          unterscheidung: 'Oft banales, vergessenes Bagatelltrauma Wochen zuvor, besonders bei alten Menschen unter Antikoagulation oder Thrombozytenaggregationshemmern; langsam progrediente Wesensänderung, Kopfschmerzen, fluktuierende Vigilanz, gegebenenfalls Halbseitensymptomatik. Nachweis im cCT, neurochirurgisch durch Bohrlochtrepanation behandelbar.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Psychomotorische Verlangsamung, Antriebs- und Konzentrationsstörung, depressive Verstimmung, Obstipation, Kälteintoleranz, trockene Haut, Haarausfall, Gewichtszunahme, Bradykardie. Laborchemisch TSH erhöht — deshalb gehört das TSH obligat in jede Demenzabklärung; unter Levothyroxin sind die kognitiven Defizite reversibel.',
+        },
+        {
+          dd: 'Vitamin-B12- oder Folsäuremangel',
+          unterscheidung: 'Kognitive Störung mit makrozytärer, hyperchromer Anämie, Glossitis, Parästhesien und funikulärer Myelose mit Hinterstrangsymptomatik (Vibrations- und Lageempfinden gestört, unsicherer Gang im Dunkeln). Risiko bei Malnutrition, atrophischer Gastritis, Zustand nach Magenoperation, Metformin- und Protonenpumpenhemmer-Dauertherapie sowie veganer Ernährung. Unter Substitution zumindest teilweise reversibel.',
+        },
+        {
+          dd: 'Intrakranielle Raumforderung (Hirntumor, Metastase)',
+          unterscheidung: 'Progrediente Wesensänderung mit Kopfschmerzen, morgendlichem Nüchternerbrechen, Stauungspapille, fokal-neurologischen Defiziten oder erstmaligem epileptischem Anfall. Nachweis in der zerebralen Bildgebung — im Prüfungsgespräch als Begründung für das cCT/cMRT ausdrücklich zu nennen.',
+        },
+        {
+          dd: 'Medikamentös bedingte kognitive Störung',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Ansetzen oder Dosiserhöhung anticholinerger Substanzen (trizyklische Antidepressiva, Antihistaminika, Blasenmedikamente, Neuroleptika), Benzodiazepinen, Z-Substanzen, Opioiden oder Antikonvulsiva. Reversibel nach Absetzen — deshalb steht die vollständige Medikamentenanamnese am Beginn jeder Abklärung.',
+        },
+        {
+          dd: 'Alkoholbedingte Demenz und Wernicke-Korsakow-Syndrom',
+          unterscheidung: 'Langjähriger schwerer Alkoholkonsum; beim Korsakow-Syndrom stehen eine ausgeprägte Merkfähigkeitsstörung mit KONFABULATIONEN, Desorientiertheit und eine Polyneuropathie im Vordergrund, meist nach einer Wernicke-Enzephalopathie mit Bewusstseinsstörung, Ataxie und Augenmuskelparesen. Ursache ist ein Thiaminmangel (Vitamin B1), die Behandlung besteht in sofortiger Thiamingabe vor jeder Glukoseinfusion.',
+        },
+        {
+          dd: 'Hepatische Enzephalopathie',
+          unterscheidung: 'Kognitive Verlangsamung, Konzentrations- und Sprechstörungen bei Leberzirrhose, häufig mit Ikterus, Aszites, Foetor hepaticus und Flapping Tremor (Asterixis); die Symptome fluktuieren und bessern sich unter Lactulose und Rifaximin. Laborchemisch erhöhte Leberwerte und Ammoniak.',
+        },
+        {
+          dd: 'Leichte kognitive Störung (Mild Cognitive Impairment)',
+          unterscheidung: 'Objektivierbares Gedächtnisdefizit über der Altersnorm, aber ERHALTENE Alltagskompetenz und Selbstständigkeit — genau das ist die Trennlinie zur Demenz. Jährliche Konversionsrate zur Demenz von etwa 10–15 %, daher regelmäßige Verlaufskontrollen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Behandelbare Ursachen ausschließen und behandeln — der erste Schritt',
+          items: [
+            'Vor jeder antidementiven Verordnung Labor und Bildgebung auswerten: TSH, Vitamin B12, Folsäure, Elektrolyte einschließlich Kalzium, Nieren- und Leberwerte, Blutzucker, Blutbild, CRP und Urinstatus sowie cCT beziehungsweise cMRT',
+            'Hypothyreose mit Levothyroxin einstellen; Vitamin-B12- und Folsäuremangel substituieren; Elektrolytstörungen und eine Exsikkose ausgleichen',
+            'Infekte, insbesondere Harnwegsinfekte und Pneumonien, konsequent behandeln, Schmerzen ausreichend therapieren, Harnverhalt und Obstipation beheben — sie sind die typischen Delirauslöser',
+            'Medikamentenliste kritisch bereinigen: anticholinerge Substanzen, Benzodiazepine, Z-Substanzen und sedierende Antihistaminika absetzen oder ersetzen (Priscus-Liste)',
+            'Normaldruckhydrozephalus und chronisches Subduralhämatom bildgebend ausschließen — beide sind neurochirurgisch behandelbar und dürfen nie übersehen werden',
+            'Hören und Sehen korrigieren: Hörgerät anpassen und dessen Nutzung überprüfen, Brille und Kataraktversorgung',
+            'Eine begleitende depressive Störung konsequent behandeln und den kognitiven Verlauf danach erneut beurteilen — eine depressive Pseudodemenz bessert sich unter der Therapie',
+            'Kardiovaskuläre Risikofaktoren behandeln: Blutdruck, Blutzucker und Lipide einstellen, Nikotinkarenz',
+          ],
+        },
+        {
+          label: 'Medikamentöse Therapie (Antidementiva) und kritische Begleitmedikation',
+          items: [
+            'Acetylcholinesterase-Hemmer bei LEICHTER bis MITTELSCHWERER Alzheimer-Demenz: Donepezil 5 mg, nach vier Wochen 10 mg; Rivastigmin oral oder als transdermales Pflaster (bessere gastrointestinale Verträglichkeit); Galantamin. Einschleichend dosieren',
+            'Memantin (NMDA-Rezeptor-Antagonist) bei MITTELSCHWERER bis SCHWERER Demenz, einschleichend von 5 auf 20 mg täglich; in fortgeschrittenen Stadien Kombination mit einem Acetylcholinesterase-Hemmer möglich',
+            'Ehrliche Aufklärung: Diese Medikamente VERLANGSAMEN den Verlauf und erhalten die Alltagsfähigkeiten über einige Monate — sie HEILEN die Erkrankung NICHT und machen das Verlorene nicht rückgängig',
+            'Vor Beginn eines Acetylcholinesterase-Hemmers EKG: Cave Bradykardie, AV-Block, Sick-Sinus-Syndrom, gleichzeitige Betablockertherapie; häufige Nebenwirkungen sind Übelkeit, Erbrechen, Diarrhoe, Appetitverlust, Gewichtsverlust und Albträume',
+            'Begleitende Depression: SSRI wie Sertralin oder Citalopram (Cave QT-Verlängerung und Hyponatriämie); TRIZYKLISCHE Antidepressiva sind wegen ihrer anticholinergen Wirkung KONTRAINDIZIERT',
+            'Cave Neuroleptika bei Unruhe, Aggression oder Wahn: nur nach Ausschöpfen nichtmedikamentöser Maßnahmen, nur kurzfristig, in niedrigster Dosis und unter regelmäßiger Überprüfung — sie erhöhen Mortalität und Schlaganfallrisiko; bevorzugt Risperidon in niedriger Dosis. Bei Lewy-Body-Demenz sind klassische Neuroleptika KONTRAINDIZIERT (Neuroleptika-Überempfindlichkeit)',
+            'Benzodiazepine möglichst vermeiden: Sturzgefahr, Delirinduktion, paradoxe Reaktionen und Abhängigkeit',
+            'Ginkgo-biloba-Spezialextrakt als Option mit begrenzter Evidenz; Vitamin- und Nahrungsergänzungspräparate haben keinen belegten Nutzen',
+          ],
+        },
+        {
+          label: 'Nichtmedikamentöse Maßnahmen und Alltagsstruktur',
+          items: [
+            'Ergotherapie und kognitive Stimulation, Realitätsorientierung, Biographie- und Erinnerungsarbeit, Musik- und Bewegungstherapie',
+            'Feste, gleichbleibende Tagesstruktur mit festen Essens-, Schlaf- und Aktivitätszeiten; Reizüberflutung und häufige Umgebungswechsel vermeiden',
+            'Orientierungshilfen in der Wohnung: großer Kalender und Uhr, Wochendosierer für die Medikamente, schriftliche Merkzettel, beschriftete Schränke, Namensschilder, Notizbuch',
+            'Tageslicht und Aktivität am Tag zur Stabilisierung des Tag-Nacht-Rhythmus; abendliche Reizarmut gegen das Sundowning',
+            'Wohnraumanpassung und Sicherheit: Herdabschaltautomatik oder Gasabsperrung, Rauchmelder, Beseitigung von Stolperfallen, gute Beleuchtung, Haltegriffe, Schlüsselsicherung, gegebenenfalls Ortungssystem bei Weglauftendenz',
+            'Sturzprophylaxe mit Physiotherapie, Kraft- und Gleichgewichtstraining, regelmäßiger Bewegung und Überprüfung des Schuhwerks',
+            'Sicherstellung von Ernährung und Flüssigkeitszufuhr: Essen auf Rädern, regelmäßige Gewichtskontrolle, Trinkplan',
+            'Angemessene Kommunikation: langsam und deutlich sprechen, kurze, einfache Sätze, eine Information pro Satz, Blickkontakt, keine Prüfungsfragen, den Patienten direkt ansprechen und nicht über ihn hinweg reden',
+          ],
+        },
+        {
+          label: 'Angehörige, Recht und Versorgung',
+          items: [
+            'Sozialdienst frühzeitig einschalten — bei einem allein lebenden Patienten die zentrale Maßnahme: Klärung der häuslichen Versorgung, Vermittlung von Hilfen und Anbindung an die Gemeindepsychiatrie beziehungsweise eine Gedächtnisambulanz',
+            'Pflegegrad beantragen (Begutachtung durch den Medizinischen Dienst), ambulanten Pflegedienst, Hausnotruf, Haushaltshilfe und Essen auf Rädern organisieren',
+            'Angehörige aufklären, schulen und entlasten — sie sind mitbetroffen und selbst gefährdet: Tagespflege, Kurzzeitpflege, Verhinderungspflege, Selbsthilfegruppen und die Deutsche Alzheimer Gesellschaft',
+            'VORSORGEVOLLMACHT, Betreuungsverfügung und Patientenverfügung ansprechen und veranlassen, SOLANGE der Patient einwilligungsfähig ist; andernfalls Einrichtung einer rechtlichen Betreuung beim Betreuungsgericht',
+            'Fahreignung offen ansprechen, das Gespräch dokumentieren und Angehörige einbeziehen; bei manifester Demenz mit Alltagsdefiziten besteht in der Regel keine Fahreignung mehr',
+            'Geschäftsfähigkeit und Umgang mit Finanzen klären, unbezahlte Rechnungen und Mahnungen regeln, Schutz vor finanzieller Ausnutzung',
+            'Verlaufskontrollen mit erneuter Testung etwa alle sechs bis zwölf Monate; rechtzeitige Planung des Wohnkonzepts bis hin zum betreuten Wohnen oder zur stationären Pflege',
+            'Im fortgeschrittenen Stadium palliativmedizinische Haltung: Symptomkontrolle, Vermeidung belastender Maßnahmen, Entscheidung über Sondenernährung im Sinne des Patientenwillens',
+          ],
+        },
+      ],
+      prognose: 'Die Alzheimer-Demenz ist derzeit nicht heilbar und verläuft unaufhaltsam progredient. Von der Diagnosestellung bis zum Tod vergehen im Mittel etwa sieben bis zehn Jahre, mit erheblicher individueller Streuung; bei sehr alten Patienten ist der Verlauf oft kürzer. Der MMST fällt unbehandelt um durchschnittlich zwei bis vier Punkte pro Jahr. Antidementiva können den Verlauf über Monate verzögern und die Selbstständigkeit länger erhalten, ändern aber nichts am Endpunkt. Todesursache sind meist Komplikationen der Immobilität und der Schluckstörung — Aspirationspneumonie, Harnwegsinfekte, Dekubitus, Exsikkose und Kachexie. Prognostisch günstig wirken eine frühe Diagnose, die Behandlung sekundärer und behandelbarer Ursachen, eine gute soziale Einbindung, Bewegung, korrigiertes Hören und Sehen sowie eine tragfähige Angehörigenbetreuung; ungünstig sind ein Delir im Verlauf, Stürze, Mangelernährung und Klinikaufenthalte.',
+      pruefungsfallen: [
+        'Die Demenz nur zu nennen, ohne die drei Grundpfeiler sauber zu trennen: Demenz schleichend bei KLAREM Bewusstsein, Delir akut mit GETRÜBTEM, fluktuierendem Bewusstsein und Aufmerksamkeitsstörung, Depression mit selbst beklagter Gedächtnisstörung, die der Stimmungsstörung FOLGT.',
+        'Die Fremdanamnese vergessen: Wegen der Anosognosie ist der Patient die unzuverlässigste Quelle über sich selbst. Ohne Angehörigen- oder Bezugspersonenangaben ist die Diagnose nicht zu stellen.',
+        'Das Labor zum Ausschluss behandelbarer Ursachen nicht vollständig aufzählen. Obligat sind TSH, Vitamin B12, Folsäure, Blutbild, Elektrolyte einschließlich KALZIUM, Nieren- und Leberwerte, Glukose, CRP und Urinstatus — bei Risiko zusätzlich Lues- und HIV-Serologie.',
+        'Die Bildgebung nicht begründen. cCT oder besser cMRT dienen dem Ausschluss von Normaldruckhydrozephalus, chronischem Subduralhämatom, Tumor und vaskulärer Genese — genau diese vier sollte man beim Namen nennen.',
+        'Den Normaldruckhydrozephalus vergessen: Trias aus Gangstörung, Demenz und Harninkontinenz — die einzige durch einen Shunt behandelbare Demenzform.',
+        'Behaupten, Antidementiva heilten die Erkrankung. Acetylcholinesterase-Hemmer und Memantin verlangsamen nur den Verlauf; das muss dem Patienten und den Angehörigen ehrlich gesagt werden.',
+        'Die Stadienzuordnung der Antidementiva verwechseln: Acetylcholinesterase-Hemmer bei LEICHTER bis MITTELSCHWERER, Memantin bei MITTELSCHWERER bis SCHWERER Demenz.',
+        'Neuroleptika unkritisch verordnen: erhöhte Mortalität und Schlaganfallrisiko, nur kurzfristig und niedrig dosiert, bei Lewy-Body-Demenz kontraindiziert. Benzodiazepine erzeugen Stürze, Delir und paradoxe Reaktionen.',
+        'Nur medizinisch antworten. Bei einem allein lebenden Demenzpatienten erwartet die Kommission ausdrücklich die soziale und organisatorische Antwort: Sozialdienst, Pflegegrad, Angehörigenentlastung, Hausnotruf, Wohnraumsicherung.',
+        'Vorsorgevollmacht und Patientenverfügung zu spät ansprechen — sie müssen erstellt werden, SOLANGE der Patient einwilligungsfähig ist; danach bleibt nur die gesetzliche Betreuung.',
+        'Die Fahreignung nicht ansprechen und nicht dokumentieren, obwohl Alltagsdefizite und Parkschäden bekannt sind.',
+        'Vor dem Patienten die Wörter „dement“ oder „Geistesschwäche“ verwenden. „Demenz = erworbene Geistesschwäche“ ist die Glossarübersetzung für den Fachbegriff-Teil, NICHT die Sprache am Krankenbett; dort heißt es „eine Erkrankung, bei der das Gedächtnis nachlässt“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie unterscheiden Sie eine Demenz von einem Delir?',
+          antwort: 'Über drei Kriterien: Erstens den Verlauf — die Demenz beginnt schleichend über Monate bis Jahre, das Delir akut binnen Stunden bis Tagen. Zweitens das Bewusstsein — bei der Demenz ist es klar und die Aufmerksamkeit erhalten, beim Delir ist es getrübt und fluktuiert im Tagesverlauf, mit führender Aufmerksamkeitsstörung und häufig optischen Halluzinationen. Drittens die Reversibilität — das Delir ist potenziell reversibel, sobald die Ursache behandelt ist. Deshalb suche ich beim Delir sofort nach Infekt, Exsikkose, Elektrolytstörung, Medikamenten, Schmerz oder Harnverhalt. Beides schließt sich nicht aus: Ein Delir tritt besonders häufig auf dem Boden einer Demenz auf.',
+        },
+        {
+          frage: 'Wie grenzen Sie eine Depression beziehungsweise Pseudodemenz von einer Demenz ab?',
+          antwort: 'Bei der Depression klagt der Patient SELBST über sein Gedächtnis und leidet darunter, während der Demenzkranke seine Defizite bagatellisiert und die Angehörigen die Beschwerden vorbringen. Bei der Depression geht die gedrückte Stimmung den kognitiven Störungen VORAUS und der Beginn ist relativ rasch und oft datierbar; bei der Demenz kommt die Verstimmung erst als Reaktion auf die bemerkten Defizite. Im Test antwortet der Depressive typischerweise „ich weiß nicht“, statt zu umschreiben. Dazu kommen Morgentief, Früherwachen, Schuldgefühle und Suizidalität. Und schließlich bessern sich die kognitiven Defizite unter einem Antidepressivum — im Zweifel mache ich einen Therapieversuch mit einem SSRI und beurteile nach einigen Wochen erneut.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie bei einer Gedächtnisstörung, und warum?',
+          antwort: 'Ich bestimme sie, um BEHANDELBARE Ursachen nicht zu übersehen. Obligat sind TSH — Hypothyreose —, Vitamin B12 und Folsäure, ein Blutbild, die Elektrolyte einschließlich Natrium und Kalzium, Nierenwerte, Leberwerte, Blutzucker und HbA1c sowie CRP und ein Urinstatus, weil der Harnwegsinfekt beim alten Menschen der häufigste Delirauslöser ist. Bei entsprechendem Risiko oder untypischem Verlauf ergänze ich eine Lues-Serologie und einen HIV-Test.',
+        },
+        {
+          frage: 'Welche Bildgebung ordnen Sie an, und was wollen Sie damit ausschließen?',
+          antwort: 'Ein cCT, besser ein cMRT des Schädels. Ich will damit vier Dinge ausschließen: einen Normaldruckhydrozephalus, ein chronisches Subduralhämatom, einen Hirntumor und eine vaskuläre Genese. Bei der Alzheimer-Demenz sehe ich typischerweise eine mediotemporale, hippokampal betonte Atrophie mit erweiterten inneren und äußeren Liquorräumen.',
+        },
+        {
+          frage: 'Welche Testverfahren kennen Sie, und ab welchem Punktwert ist der MMST auffällig?',
+          antwort: 'Den Mini-Mental-Status-Test mit maximal 30 Punkten — Werte unter 24 gelten als auffällig; 20 bis 25 Punkte entsprechen einer leichtgradigen, 10 bis 19 einer mittelgradigen und unter 10 Punkte einer schwergradigen Demenz. Dazu den Uhrentest, der visuell-räumliche und exekutive Funktionen prüft, und den DemTect. Bei leichten Störungen ist der MoCA sensibler. Zur Abgrenzung einer Depression ergänze ich die Geriatrische Depressionsskala.',
+        },
+        {
+          frage: 'Welche behandelbaren Ursachen einer Demenz kennen Sie?',
+          antwort: 'Hypothyreose, Vitamin-B12- und Folsäuremangel, Normaldruckhydrozephalus, chronisches Subduralhämatom, Hirntumor, Neurolues und HIV-Enzephalopathie, Elektrolytstörungen und Exsikkose, Alkoholfolgeschäden mit Thiaminmangel sowie medikamentös bedingte Störungen durch anticholinerge Substanzen und Benzodiazepine. Sie machen etwa fünf bis zehn Prozent aus — deshalb steht ihr Ausschluss am Anfang jeder Abklärung.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Alzheimer-Demenz medikamentös? Heilen diese Medikamente?',
+          antwort: 'Bei leichter bis mittelschwerer Demenz gebe ich einen Acetylcholinesterase-Hemmer, zum Beispiel Donepezil 5 mg mit Steigerung auf 10 mg, alternativ Rivastigmin als Pflaster oder Galantamin. Bei mittelschwerer bis schwerer Demenz Memantin, einschleichend bis 20 mg. Nein, sie heilen nicht: Sie verlangsamen den Verlauf und erhalten die Alltagsfähigkeiten über einige Monate. Das sage ich dem Patienten und den Angehörigen ausdrücklich, um keine falschen Erwartungen zu wecken. Vor Beginn eines Acetylcholinesterase-Hemmers schreibe ich ein EKG wegen der Gefahr von Bradykardie und AV-Block.',
+        },
+        {
+          frage: 'Dürfen Sie einem Demenzpatienten ein Neuroleptikum geben?',
+          antwort: 'Nur sehr zurückhaltend. Zuerst schöpfe ich nichtmedikamentöse Maßnahmen aus und suche nach der Ursache der Unruhe — Schmerz, Harnverhalt, Obstipation, Infekt, Reizüberflutung. Wenn ein Neuroleptikum unumgänglich ist, dann kurzfristig, in niedrigster Dosis und mit regelmäßiger Überprüfung, weil Neuroleptika bei Demenz Mortalität und Schlaganfallrisiko erhöhen. Bei der Lewy-Body-Demenz sind klassische Neuroleptika wegen der Neuroleptika-Überempfindlichkeit kontraindiziert. Benzodiazepine vermeide ich wegen Sturzgefahr, Delir und paradoxen Reaktionen.',
+        },
+        {
+          frage: 'Was ist ein Normaldruckhydrozephalus, und warum dürfen Sie ihn nicht übersehen?',
+          antwort: 'Ein Hydrozephalus mit erweiterten inneren Liquorräumen bei normalem Liquordruck. Er zeigt die Trias aus breitbeinig-kleinschrittiger Gangstörung, kognitiver Verlangsamung und Harninkontinenz. Ich darf ihn nicht übersehen, weil er als einzige Demenzform kausal behandelbar ist: Bessert sich der Gang nach einem Liquorablassversuch, ist ein ventrikuloperitonealer Shunt indiziert.',
+        },
+        {
+          frage: 'Was raten Sie zu Vorsorgevollmacht, Patientenverfügung und Betreuung?',
+          antwort: 'Beides sollte so früh wie möglich erstellt werden, SOLANGE der Patient noch einwilligungsfähig ist — das ist im leichten Stadium der Fall. Mit der Vorsorgevollmacht bestimmt der Patient selbst, wer später für ihn entscheidet; die Patientenverfügung legt fest, welche Maßnahmen er wünscht. Ist die Einwilligungsfähigkeit bereits verloren, bleibt nur die Einrichtung einer rechtlichen Betreuung über das Betreuungsgericht.',
+        },
+        {
+          frage: 'Darf ein Demenzpatient noch Auto fahren?',
+          antwort: 'Bei einer manifesten Demenz mit Einschränkung der Alltagskompetenz ist die Fahreignung in der Regel nicht mehr gegeben, bei leichter kognitiver Störung ist eine Einzelfallprüfung möglich. Ich spreche das Thema offen an, erkläre die Gefährdung für den Patienten und für andere, beziehe die Angehörigen ein, empfehle einen Fahreignungstest und dokumentiere das Gespräch. Es ist ein häufiger, sehr konfliktträchtiger Punkt, den man nicht umgehen darf.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Laien den Begriff Demenz?',
+          antwort: 'Im Fachbegriff-Teil lautet die Übersetzung „erworbene Geistesschwäche“. Dem Patienten gegenüber sage ich das nicht so, sondern: „Es handelt sich um eine Erkrankung des Gehirns, bei der das Gedächtnis und andere geistige Fähigkeiten mit der Zeit nachlassen, sodass der Alltag immer schwerer allein zu bewältigen ist.“ Die Wörter „dement“ oder „Geistesschwäche“ vermeide ich im Gespräch mit dem Patienten.',
+        },
+        {
+          frage: 'Was machen Sie als Hausarzt für einen Demenzpatienten, der allein lebt?',
+          antwort: 'Neben der medizinischen Abklärung und Therapie steht die soziale Absicherung im Vordergrund. Ich informiere den Sozialdienst, kläre die häusliche Versorgung, beantrage einen Pflegegrad, organisiere einen ambulanten Pflegedienst, Essen auf Rädern und einen Hausnotruf, sichere die Wohnung (Herdabschaltautomatik, Rauchmelder, Stolperfallen), richte einen Wochendosierer für die Medikamente ein, binde Angehörige und Nachbarn ein und veranlasse Vorsorgevollmacht und Patientenverfügung. Zudem spreche ich die Fahreignung an und plane Verlaufskontrollen.',
+        },
+        {
+          frage: 'Warum darf man den Angehörigen nicht vergessen?',
+          antwort: 'Weil die pflegenden Angehörigen selbst mitbetroffen sind: Sie tragen die Hauptlast, sind überdurchschnittlich häufig von Erschöpfung, Depression und eigenen Erkrankungen betroffen. Ich kläre sie über den Verlauf auf, schule sie im Umgang mit dem Erkrankten, biete Entlastung durch Tages- und Kurzzeitpflege an und vermittle Selbsthilfegruppen und die Deutsche Alzheimer Gesellschaft. Eine tragfähige Angehörigenbetreuung ist der stärkste Faktor dafür, dass der Patient länger zu Hause bleiben kann.',
+        },
+      ],
+      merksatz: 'Merke: Demenz = schleichend bei KLAREM Bewusstsein — Delir = akut mit GETRÜBTEM, fluktuierendem Bewusstsein — Depression = der Patient klagt SELBST über sein Gedächtnis, beim Dementen tut es der Angehörige. Und vor jedem Antidementivum: Fremdanamnese, TSH, Vitamin B12, Folsäure und ein Bild vom Kopf.',
+      linkedCaseIds: [
+        'case-demenz',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-mrt',
+        'auf-lumbalpunktion',
+      ],
+    },
+    {
+      id: 'fw-bronchialkarzinom',
+      pathology: 'Bronchialkarzinom (Lungenkarzinom)',
+      specialty: 'Onkologie',
+      definition: 'Das Bronchialkarzinom ist ein maligner epithelialer Tumor, der vom Epithel der Bronchien oder der Bronchiolen ausgeht. Es ist die häufigste zum Tode führende Krebserkrankung. Entscheidend ist die histologische Zweiteilung: das kleinzellige Bronchialkarzinom (SCLC, etwa 15 %) ist ein hochmaligner neuroendokriner Tumor mit sehr rascher Wachstumsgeschwindigkeit und früher lymphogener und hämatogener Metastasierung, aber primär hoher Chemo- und Strahlensensibilität; das nicht-kleinzellige Bronchialkarzinom (NSCLC, etwa 85 %) umfasst das Adenokarzinom (heute häufigster Typ, eher peripher, auch bei Nichtrauchern), das Plattenepithelkarzinom (eher zentral, stark rauchassoziiert) und das großzellige Karzinom; es wächst langsamer und ist im Frühstadium operativ heilbar. Der klinische Kernpunkt ist, dass Frühsymptome fehlen: ein beginnendes Bronchialkarzinom verursacht keine Schmerzen, weshalb etwa drei Viertel der Patienten erst in einem lokal fortgeschrittenen oder metastasierten Stadium diagnostiziert werden.',
+      aetiologie: 'In etwa 85–90 % der Fälle ist das inhalative Zigarettenrauchen die Ursache; das Risiko steigt mit den Packungsjahren und sinkt nach einem Rauchstopp langsam, ohne jemals das Niveau eines Nichtrauchers zu erreichen. Weitere gesicherte Kanzerogene sind Passivrauchen, Asbest (überadditives Risiko in Kombination mit Rauchen, anerkannte Berufskrankheit), Radon in Wohnräumen und im Bergbau, Quarz- und Chromatstaub, Nickel, Arsen, polyzyklische aromatische Kohlenwasserstoffe und Dieselmotorabgase. Bei Nichtrauchern, häufiger bei Frauen und im jüngeren Lebensalter, überwiegen Adenokarzinome mit onkogenen Treibermutationen (EGFR, ALK, ROS1). Prädisponierend wirken außerdem eine vorbestehende COPD und Lungenfibrose sowie Narben (Narbenkarzinom) und eine positive Familienanamnese.',
+      risikofaktoren: [
+        'Zigarettenrauchen — dosisabhängig, in Packungsjahren zu quantifizieren (Schachteln pro Tag × Raucherjahre)',
+        'Passivrauchexposition',
+        'Asbestexposition, insbesondere in Bau-, Dachdecker-, Isolier- und Werftberufen (Berufskrankheit, meldepflichtig)',
+        'Radonexposition in Kellerwohnungen und im Erzbergbau',
+        'Berufliche Exposition gegenüber Quarzstaub, Chromaten, Nickel, Arsen, Cadmium, polyzyklischen aromatischen Kohlenwasserstoffen und Dieselmotorabgasen',
+        'COPD und Lungenemphysem (unabhängiger Risikofaktor über das Rauchen hinaus)',
+        'Lungenfibrose, Silikose, alte Narben und Tuberkulosekavernen',
+        'Positive Familienanamnese für ein Bronchialkarzinom',
+        'Höheres Lebensalter (Erkrankungsgipfel zwischen dem 60. und 70. Lebensjahr)',
+        'Luftverschmutzung mit Feinstaubbelastung',
+      ],
+      klinik: [
+        {
+          text: 'Lange Zeit völlig asymptomatisch — das Frühstadium verursacht weder Schmerz noch Luftnot, daher die typische Spätdiagnose',
+        },
+        {
+          text: 'Neu aufgetretener oder in Charakter, Frequenz und Auswurf VERÄNDERTER chronischer Husten bei einem Raucher — das häufigste und am häufigsten verkannte Symptom',
+        },
+        {
+          text: 'Hämoptysen (Bluthusten): auch eine einmalige Blutbeimengung im Sputum ist bei einem Raucher über 40 Jahren immer abklärungsbedürftig',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust, Appetitlosigkeit, Nachtschweiß und Leistungsminderung (B-Symptomatik, Tumorkachexie)',
+        },
+        {
+          text: 'Zunehmende Belastungsdyspnoe mit abnehmender Gehstrecke, teils durch Atelektase, Pleuraerguss oder Tumorobstruktion',
+        },
+        {
+          text: 'Rezidivierende oder trotz adäquater Antibiose nicht ausheilende Pneumonie an immer derselben Stelle — poststenotische Pneumonie hinter einer Tumorstenose',
+        },
+        {
+          text: 'Dumpfer, atemabhängiger Thoraxschmerz bei Pleura- oder Thoraxwandinfiltration',
+        },
+        {
+          text: 'Heiserkeit durch Rekurrensparese bei Infiltration des Nervus laryngeus recurrens',
+          atypisch: true,
+        },
+        {
+          text: 'Obere Einflussstauung (Vena-cava-superior-Syndrom): geschwollenes, gerötetes Gesicht, Lidödem, gestaute Halsvenen, Schwellung der Arme, Kopfdruck — ein onkologischer Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Pancoast-Tumor der Lungenspitze mit Horner-Syndrom (Ptosis, Miosis, Enophthalmus), Schulter-Arm-Schmerz und Paresen der oberen Extremität durch Plexus-brachialis-Infiltration',
+          atypisch: true,
+        },
+        {
+          text: 'Zwerchfellhochstand mit Belastungsdyspnoe bei Phrenikusparese; Dysphagie bei Ösophaguskompression',
+          atypisch: true,
+        },
+        {
+          text: 'Maligner Pleuraerguss mit Dämpfung, abgeschwächtem Atemgeräusch und Dyspnoe; Stridor bei zentraler Atemwegsstenose',
+          atypisch: true,
+        },
+        {
+          text: 'Paraneoplastisches SIADH mit Hyponatriämie, Verwirrtheit und Krampfanfällen (typisch beim kleinzelligen Karzinom)',
+          atypisch: true,
+        },
+        {
+          text: 'Paraneoplastische Hyperkalzämie durch PTHrP-Bildung mit Polyurie, Obstipation, Übelkeit und Verwirrtheit (typisch beim Plattenepithelkarzinom)',
+          atypisch: true,
+        },
+        {
+          text: 'Ektope ACTH-Bildung mit Cushing-Syndrom, Hypokaliämie und Muskelschwäche',
+          atypisch: true,
+        },
+        {
+          text: 'Lambert-Eaton-myasthenes Syndrom mit proximaler Muskelschwäche, die sich unter Belastung bessert',
+          atypisch: true,
+        },
+        {
+          text: 'Trommelschlegelfinger und Uhrglasnägel, hypertrophe pulmonale Osteoarthropathie (Pierre-Marie-Bamberger-Syndrom)',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation durch Metastasen: Kopfschmerz, Krampfanfall oder Wesensänderung (Hirnmetastasen), Rücken- und Knochenschmerz oder pathologische Fraktur (Knochenmetastasen), Ikterus und Oberbauchschmerz (Lebermetastasen), Nebennierenmetastasen',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende venöse Thromboembolien als paraneoplastische Gerinnungsstörung (Trousseau-Syndrom)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Histologische Grundeinteilung nach WHO — die therapeutisch entscheidende erste Weiche',
+          inhalt: 'Kleinzelliges Bronchialkarzinom (SCLC, etwa 15 %): neuroendokriner Tumor, meist zentral, sehr kurze Tumorverdopplungszeit, bereits bei Diagnose meist metastasiert, primär chemo- und strahlensensibel, in der Regel keine Operationsindikation. Nicht-kleinzelliges Bronchialkarzinom (NSCLC, etwa 85 %): Adenokarzinom (etwa 45 %, peripher, auch bei Nichtrauchern, häufig Treibermutationen), Plattenepithelkarzinom (etwa 30 %, zentral, stark rauchassoziiert, häufig Hyperkalzämie durch PTHrP), großzelliges Karzinom (etwa 10 %). Beim NSCLC ist im Frühstadium eine kurative Resektion möglich.',
+        },
+        {
+          name: 'TNM-Klassifikation und UICC-Stadien beim NSCLC',
+          inhalt: 'T beschreibt Größe und Infiltration des Primärtumors (T1 bis 3 cm, T2 bis 5 cm oder Hauptbronchus-/Pleurabefall, T3 bis 7 cm oder Thoraxwand, T4 über 7 cm oder Infiltration von Mediastinum, Herz, großen Gefäßen, Trachea, Ösophagus, Wirbelkörper). N beschreibt den Lymphknotenbefall (N1 ipsilateral hilär, N2 ipsilateral mediastinal, N3 kontralateral oder supraklavikulär). M beschreibt die Fernmetastasierung. Daraus ergeben sich die UICC-Stadien I bis IV: Stadium I und II sind primär operabel, Stadium III ist heterogen und wird multimodal behandelt, Stadium IV wird systemisch behandelt.',
+        },
+        {
+          name: 'Stadieneinteilung des SCLC (Marburger Einteilung)',
+          inhalt: 'Limited disease: der Tumor ist auf einen Hemithorax mit oder ohne ipsilaterale bzw. kontralaterale mediastinale und supraklavikuläre Lymphknoten begrenzt und in ein tolerables Bestrahlungsfeld einschließbar (etwa 30 % der Fälle) — kombinierte Radiochemotherapie in kurativer Intention. Extensive disease: alle darüber hinausgehenden Befunde einschließlich Fernmetastasen (etwa 70 %) — palliative Chemo-Immuntherapie. Ergänzend wird auch beim SCLC die TNM-Klassifikation angewendet.',
+        },
+        {
+          name: 'Molekularpathologische Charakterisierung des nicht-plattenepithelialen NSCLC',
+          inhalt: 'Obligate Testung auf therapierbare Treiberalterationen: EGFR-Mutation (Osimertinib), ALK-Translokation (Alectinib, Brigatinib), ROS1-Fusion, BRAF-V600E, MET-Exon-14-Skipping, RET-Fusion, NTRK-Fusion und KRAS G12C (Sotorasib). Ergänzend die immunhistochemische Bestimmung des PD-L1-Tumor-Proportion-Score, der die Indikation zur Immuntherapie mit Checkpoint-Inhibitoren steuert.',
+        },
+        {
+          name: 'ECOG-Performance-Status',
+          inhalt: 'ECOG 0 = uneingeschränkt leistungsfähig; 1 = leichte Arbeit möglich, körperlich anstrengende Tätigkeit eingeschränkt; 2 = gehfähig und selbstversorgend, aber arbeitsunfähig, weniger als 50 % der Wachzeit bettlägerig; 3 = nur begrenzt selbstversorgend, mehr als 50 % der Wachzeit im Bett oder Stuhl; 4 = vollständig pflegebedürftig. Ab ECOG 3 ist eine intensive Systemtherapie in der Regel nicht mehr vertretbar — der Performance-Status entscheidet mit über die Therapiefähigkeit.',
+        },
+      ],
+      redFlags: [
+        'Hämoptyse bei einem Raucher über 40 Jahren — auch einmalig immer abklären',
+        'Trotz adäquater Antibiose nicht ausheilende oder rezidivierende Pneumonie an derselben Lokalisation',
+        'Obere Einflussstauung mit geschwollenem Gesicht, gestauten Halsvenen und Kopfdruck — onkologischer Notfall',
+        'Neu aufgetretene Heiserkeit ohne Infekt, die länger als drei Wochen besteht',
+        'Horner-Syndrom mit Schulter-Arm-Schmerz — Pancoast-Tumor der Lungenspitze',
+        'Ungewollter Gewichtsverlust über 5 % des Körpergewichts in sechs Monaten mit Nachtschweiß',
+        'Unerklärte Hyponatriämie oder Hyperkalzämie bei einem Raucher — paraneoplastisches Syndrom',
+        'Neu aufgetretene Rückenschmerzen mit Sensibilitätsstörung oder Paraparese — Verdacht auf spinale Metastase mit Myelonkompression',
+        'Neu aufgetretener Krampfanfall, Kopfschmerz oder Wesensänderung — Hirnmetastasen',
+        'Rasch nachlaufender oder blutiger Pleuraerguss mit zunehmender Dyspnoe',
+        'Massive Hämoptoe über 100–200 ml — Erstickungsgefahr',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese der Alarmsymptome: Veränderung eines vorbestehenden Hustens, Hämoptysen, ungewollter Gewichtsverlust, Nachtschweiß, abnehmende Gehstrecke, Heiserkeit, Thoraxschmerz sowie rezidivierende oder nicht ausheilende Pneumonien',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Rauchanamnese mit expliziter Berechnung der Packungsjahre (Schachteln pro Tag × Raucherjahre) sowie Berufsanamnese mit Frage nach Asbest, Radon, Quarzstaub, Chromaten und Dieselabgasen — bei Exposition Verdachtsanzeige einer Berufskrankheit',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Inspektion auf obere Einflussstauung, gestaute Halsvenen, Gesichts- und Armschwellung, Horner-Syndrom, Trommelschlegelfinger und Uhrglasnägel; Auskultation und Perkussion mit Suche nach abgeschwächtem Atemgeräusch, Dämpfung und Stridor; Palpation aller Lymphknotenstationen, insbesondere supraklavikulär; Leber- und neurologischer Status',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung von Vitalparametern einschließlich Sauerstoffsättigung, Gewichtsverlauf, Body-Mass-Index sowie des ECOG-Performance-Status als Grundlage jeder Therapieentscheidung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'HNO-ärztliche Laryngoskopie bei Heiserkeit zum Nachweis oder Ausschluss einer Rekurrensparese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild, CRP, BSG, LDH als Marker der Tumorlast, Leber- und Nierenwerte sowie Gerinnung mit INR und Thrombozyten vor jeder Biopsie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Natrium und Kalzium als Suchtest auf paraneoplastische Syndrome: Hyponatriämie beim SIADH des kleinzelligen Karzinoms, Hyperkalzämie durch PTHrP beim Plattenepithelkarzinom; ergänzend Kalium und Kortisol bei Verdacht auf ektope ACTH-Bildung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Alkalische Phosphatase als Hinweis auf Knochenmetastasen sowie Blutgasanalyse zur Beurteilung der respiratorischen Reserve',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Sputumdiagnostik: Zytologie sowie mikrobiologische Untersuchung einschließlich Mykobakterien aus drei Proben zum Ausschluss einer Lungentuberkulose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Tumormarker (NSE und ProGRP beim SCLC, CYFRA 21-1, CEA und SCC beim NSCLC) sind zur Diagnosestellung und zum Screening UNGEEIGNET und allenfalls zur Verlaufskontrolle unter Therapie verwertbar',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen als Erstuntersuchung — Cave: ein unauffälliges Röntgenbild schließt ein Bronchialkarzinom NICHT aus, insbesondere kleine, zentrale oder hinter Herz und Zwerchfell verborgene Tumoren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Computertomographie des Thorax mit Kontrastmittel als entscheidende Untersuchung: Größe und Lage des Tumors, Infiltration von Thoraxwand, Mediastinum und Gefäßen, mediastinale Lymphknoten, Pleuraerguss, Mitbeurteilung von Oberbauch und Nebennieren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Staging mit PET-Computertomographie zur Erfassung von Lymphknoten- und Fernmetastasen sowie kraniale Bildgebung — bevorzugt MRT des Schädels, alternativ CT — da Hirnmetastasen häufig und klinisch stumm sind',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Abdomens (Leber, Nebennieren) und Skelettszintigraphie, sofern kein PET-CT erfolgt; Sonographie der Halsweichteile zur Beurteilung supraklavikulärer Lymphknoten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Lungenfunktionsprüfung mit Spirometrie, Bodyplethysmographie und CO-Diffusionskapazität sowie Belastungstest (Spiroergometrie, Treppentest) zur Beurteilung der funktionellen OPERABILITÄT — nicht nur die Resektabilität des Tumors zählt, sondern ob der Patient die Resektion überlebt und toleriert; ergänzend Echokardiographie und kardiale Risikoabschätzung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie mit Zangenbiopsie, Bürstenabstrich und bronchoalveolärer Lavage — die HISTOLOGISCHE Sicherung ist vor jeder onkologischen Therapie zwingend erforderlich',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Endobronchialer Ultraschall mit transbronchialer Nadelaspiration (EBUS-TBNA) zum mediastinalen Lymphknotenstaging, alternativ EUS-FNA oder Mediastinoskopie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'CT-gesteuerte transthorakale Punktion peripherer Rundherde (Cave Pneumothorax) sowie Thorakoskopie mit Pleurabiopsie; Pleurapunktion mit Zytologie bei Erguss (positive Zytologie bedeutet Stadium IV)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Molekularpathologische Aufarbeitung des Gewebes auf EGFR, ALK, ROS1, BRAF, MET, RET und KRAS G12C sowie PD-L1-Immunhistochemie; bei unzureichendem Material Liquid Biopsy aus dem Blut',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Biopsie einer gut zugänglichen Metastase (supraklavikulärer Lymphknoten, Leber, Haut) als schonendster Weg zur Histologie, wenn ohnehin ein metastasiertes Stadium vorliegt',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Pneumonie und Lungenabszess',
+          unterscheidung: 'Akuter Beginn über Tage mit Fieber, Schüttelfrost, eitrigem, beim Abszess übelriechendem Auswurf und deutlich erhöhten Entzündungsparametern; vollständige radiologische Rückbildung nach adäquater Antibiose. Eine Pneumonie, die nach vier bis sechs Wochen radiologisch nicht abgeheilt ist oder an derselben Stelle rezidiviert, ist bis zum Beweis des Gegenteils eine poststenotische Pneumonie hinter einem Tumor.',
+        },
+        {
+          dd: 'Exazerbation einer COPD',
+          unterscheidung: 'Akute Zunahme von Dyspnoe, Auswurfmenge und Auswurfpurulenz über Tage, meist infektgetriggert, mit gutem Ansprechen auf Bronchodilatatoren, Steroide und Antibiotika. Weder Hämoptysen noch ungewollter Gewichtsverlust noch Heiserkeit gehören zum Bild — und die COPD schützt nicht vor dem Karzinom, sondern ist selbst ein Risikofaktor.',
+        },
+        {
+          dd: 'Lungentuberkulose',
+          unterscheidung: 'Ebenfalls Husten, Hämoptysen, Nachtschweiß und Gewichtsverlust — klinisch nicht sicher abgrenzbar. Für die Tuberkulose sprechen Fieber, Kontakt zu Erkrankten, Herkunft aus einem Hochprävalenzland, Obdachlosigkeit, Haft oder Immunsuppression sowie apikale Infiltrate mit Kavernen. Beweis über den Nachweis säurefester Stäbchen, PCR und Kultur aus drei Sputumproben oder der Lavage.',
+        },
+        {
+          dd: 'ACE-Hemmer-induzierter Husten',
+          unterscheidung: 'Trockener, kitzelnder Reizhusten ohne Auswurf, der Wochen bis Monate nach Beginn der Therapie einsetzt und nach Absetzen innerhalb von Wochen sistiert; niemals mit Hämoptysen, Gewichtsverlust oder Heiserkeit verbunden. Ein seit Jahren unverändert und beschwerdefrei eingenommener ACE-Hemmer erklärt einen neu veränderten Husten nicht.',
+        },
+        {
+          dd: 'Benigner Lungenrundherd (Hamartom, Tuberkulom, Granulom)',
+          unterscheidung: 'Klinisch stumm, meist Zufallsbefund. Für Gutartigkeit sprechen glatte Berandung, popcornartige oder zentrale Verkalkung, Fettanteile im CT und vor allem Größenkonstanz über mehr als zwei Jahre im Vergleich mit Voraufnahmen. Ein neu aufgetretener, spikulierter oder wachsender Herd bei einem Raucher gilt bis zum histologischen Beweis als maligne.',
+        },
+        {
+          dd: 'Lungenmetastasen eines extrathorakalen Primärtumors',
+          unterscheidung: 'Typischerweise multiple, rundliche, scharf begrenzte Herde in beiden Unterfeldern statt eines solitären zentralen Tumors. Hinweise auf einen anderen Primärtumor: Blut im Stuhl oder Urin, tastbare Knoten, Hautveränderungen, auffällige Vorsorgeuntersuchungen. Klärung durch Primärtumorsuche und Histologie mit Immunhistochemie.',
+        },
+        {
+          dd: 'Sarkoidose',
+          unterscheidung: 'Meist jüngere Patienten, bihiläre symmetrische Lymphadenopathie, trockener Reizhusten, Erythema nodosum, Arthralgien, Uveitis, erhöhter ACE-Spiegel und löslicher Interleukin-2-Rezeptor sowie nicht verkäsende Epitheloidzellgranulome in der Biopsie. Hämoptysen und ungewollter Gewichtsverlust sind untypisch.',
+        },
+        {
+          dd: 'Malignes Lymphom mit mediastinalem Befall',
+          unterscheidung: 'Ebenfalls B-Symptomatik mit Fieber, Nachtschweiß und Gewichtsverlust, jedoch typischerweise schmerzlose, derbe periphere Lymphknotenschwellungen, Juckreiz und Alkoholschmerz der Lymphknoten; radiologisch mediastinale Lymphknotenpakete ohne parenchymatösen Primärtumor. Entscheidung über die Lymphknotenexstirpation mit Histologie und Immunphänotypisierung.',
+        },
+        {
+          dd: 'Lungenembolie mit Infarktpneumonie',
+          unterscheidung: 'Perakuter Beginn aus voller Ruhe mit atemabhängigem Thoraxschmerz, Tachypnoe, Tachykardie, gegebenenfalls Hämoptysen und Synkope; Risikofaktoren wie Immobilisation, lange Reise, Operation oder Thrombose. D-Dimere und CT-Angiographie klären. Cave: eine Tumorerkrankung ist selbst ein starker Risikofaktor für eine Embolie — beides kann gleichzeitig vorliegen.',
+        },
+        {
+          dd: 'Linksherzinsuffizienz',
+          unterscheidung: 'Orthopnoe mit mehreren Kissen, nächtliche Dyspnoeanfälle, beidseitige Beinödeme, Gewichtszunahme, feuchte Rasselgeräusche, erhöhtes NT-proBNP und radiologisch beidseitige Stauung statt eines umschriebenen Tumorschattens; keine B-Symptomatik und keine Hämoptysen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Erstmaßnahmen bei tumorbedingten Notfällen',
+          items: [
+            'Obere Einflussstauung: Oberkörperhochlagerung, Sauerstoffgabe, hoch dosierte Glukokortikoide, notfallmäßige Stentimplantation in die Vena cava superior oder Notfallbestrahlung, rasche Einleitung der Systemtherapie beim kleinzelligen Karzinom',
+            'Massive Hämoptoe: Seitenlagerung auf die betroffene Seite, Sauerstoff, Sicherung der Atemwege, Gerinnungsoptimierung, Tranexamsäure, starre Bronchoskopie mit Blutstillung oder Bronchialarterienembolisation',
+            'Maligner Pleuraerguss mit Dyspnoe: entlastende Pleurapunktion mit Zytologie, bei Rezidiv Talkum-Pleurodese oder Dauerkatheter',
+            'Symptomatische zentrale Atemwegsstenose mit Stridor: Bronchoskopie mit Laser-, Argon-Plasma- oder Kryotherapie und Stentimplantation, gegebenenfalls Notfallbestrahlung',
+            'Drohende oder manifeste Rückenmarkkompression durch spinale Metastasen: sofortige Bildgebung mittels MRT, hoch dosierte Glukokortikoide, notfallmäßige Bestrahlung oder neurochirurgische Dekompression',
+            'Symptomatische Hyperkalzämie: Volumensubstitution mit isotoner Kochsalzlösung, Bisphosphonate oder Denosumab; symptomatische Hyponatriämie bei SIADH: Flüssigkeitsrestriktion, langsamer Natriumausgleich, Tolvaptan',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Diagnosesicherung und Therapieentscheidung im interdisziplinären Tumorboard',
+          items: [
+            'Vor jeder onkologischen Therapie zwingend: histologische Sicherung mit Typisierung (kleinzellig oder nicht-kleinzellig, beim NSCLC weiter Adenokarzinom, Plattenepithel- oder großzelliges Karzinom)',
+            'Vollständiges Staging nach TNM beziehungsweise limited oder extensive disease, einschließlich kranialer Bildgebung',
+            'Molekularpathologie mit EGFR, ALK, ROS1, BRAF, MET, RET, KRAS G12C und PD-L1-Score beim nicht-plattenepithelialen NSCLC',
+            'Beurteilung der funktionellen Operabilität durch Lungenfunktion, Diffusionskapazität, Belastungstest und kardiale Abklärung sowie des ECOG-Performance-Status, der Komorbiditäten und des Patientenwunsches',
+            'Vorstellung im interdisziplinären Tumorboard aus Pneumologie, Thoraxchirurgie, Onkologie, Strahlentherapie, Radiologie und Pathologie — dort und nur dort fällt die Therapieentscheidung',
+            'Aufklärung des Patienten über Diagnose, Stadium, Therapieoptionen und Prognose in verständlicher Sprache, mit Angehörigen und ausreichend Zeit',
+          ],
+        },
+        {
+          label: 'Kurative Therapie des nicht-kleinzelligen Karzinoms in frühen und lokal fortgeschrittenen Stadien',
+          items: [
+            'Stadium I und II: anatomische Resektion — Lobektomie als Standard, Segmentresektion bei kleinen peripheren Tumoren oder eingeschränkter Lungenfunktion, Pneumonektomie nur wenn unumgänglich — stets mit systematischer mediastinaler Lymphadenektomie, wenn möglich minimalinvasiv als VATS oder roboterassistiert',
+            'Adjuvante Chemotherapie mit einem platinhaltigen Regime ab Stadium II sowie adjuvante zielgerichtete Therapie mit Osimertinib bei EGFR-Mutation beziehungsweise adjuvante Immuntherapie nach PD-L1-Status',
+            'Neoadjuvante Chemo-Immuntherapie zur Verkleinerung des Tumors und Verbesserung der Resektabilität in ausgewählten Stadien II und III',
+            'Bei funktioneller Inoperabilität oder Ablehnung der Operation im Stadium I: stereotaktische Bestrahlung (SBRT) mit vergleichbaren lokalen Kontrollraten',
+            'Stadium III: definitive simultane Radiochemotherapie, gefolgt von einer Konsolidierung mit dem Checkpoint-Inhibitor Durvalumab über zwölf Monate; in ausgewählten Fällen multimodales Vorgehen mit Operation',
+            'Präoperative Vorbereitung: Rauchstopp mindestens vier Wochen vor der Operation, Atemtherapie, Ernährungsoptimierung und Behandlung der COPD',
+          ],
+        },
+        {
+          label: 'Systemtherapie beim fortgeschrittenen NSCLC und beim kleinzelligen Karzinom',
+          items: [
+            'Fortgeschrittenes NSCLC mit nachgewiesener Treibermutation: zielgerichtete orale Therapie als Erstlinie — Osimertinib bei EGFR, Alectinib oder Brigatinib bei ALK, Crizotinib oder Entrectinib bei ROS1, Dabrafenib mit Trametinib bei BRAF V600E, Sotorasib bei KRAS G12C',
+            'Fortgeschrittenes NSCLC ohne Treibermutation: Immuntherapie mit Checkpoint-Inhibitoren (Pembrolizumab, Atezolizumab, Nivolumab mit Ipilimumab) als Monotherapie bei hohem PD-L1-Score oder in Kombination mit einer platinhaltigen Chemotherapie',
+            'Klassische Chemotherapie mit Cisplatin oder Carboplatin kombiniert mit Pemetrexed (nicht-plattenepithelial) beziehungsweise Gemcitabin, Paclitaxel oder Vinorelbin (Plattenepithelkarzinom)',
+            'Kleinzelliges Karzinom, limited disease: kurativ intendierte simultane Radiochemotherapie mit Cisplatin und Etoposid; eine Operation kommt nur ausnahmsweise bei sehr kleinen Tumoren ohne Lymphknotenbefall in Betracht',
+            'Kleinzelliges Karzinom, extensive disease: Chemotherapie mit Platin und Etoposid in Kombination mit einem Checkpoint-Inhibitor (Atezolizumab oder Durvalumab); hohes initiales Ansprechen, aber frühes Rezidiv',
+            'Prophylaktische Schädelbestrahlung beim SCLC nach gutem Ansprechen zur Senkung der Rate an Hirnmetastasen; alternativ engmaschige MRT-Überwachung',
+            'Management der Therapienebenwirkungen: Antiemese, Wachstumsfaktoren bei Neutropenie, Nephro- und Ototoxizität des Cisplatins, immunvermittelte Nebenwirkungen der Checkpoint-Inhibitoren wie Kolitis, Pneumonitis, Hepatitis und Thyreoiditis, die früh mit Glukokortikoiden behandelt werden müssen',
+          ],
+        },
+        {
+          label: 'Supportivtherapie, Palliativmedizin und Prävention einschließlich Rauchstopp',
+          items: [
+            'Frühe Integration der Palliativmedizin bereits ab Diagnosestellung eines fortgeschrittenen Stadiums — sie verbessert Lebensqualität und Symptomkontrolle und verlängert nachweislich das Überleben',
+            'Konsequente Schmerztherapie nach dem WHO-Stufenschema mit Opioiden, Begleitmedikation gegen Obstipation und Übelkeit sowie Koanalgetika bei neuropathischem Schmerz',
+            'Palliative Bestrahlung schmerzhafter Knochenmetastasen, von Hirnmetastasen und bei tumorbedingter Blutung; osteoprotektive Therapie mit Bisphosphonaten oder Denosumab',
+            'Endoskopische Rekanalisation mit Stentimplantation bei Atemwegsstenose, Talkum-Pleurodese oder Dauerkatheter beim rezidivierenden Pleuraerguss',
+            'Behandlung von Dyspnoe (Sauerstoff, niedrig dosierte Opioide, Ventilator), Husten, Tumorkachexie mit Ernährungsberatung, Fatigue sowie psychoonkologische und sozialdienstliche Begleitung des Patienten und der Angehörigen',
+            'Rauchstopp ist auch NACH der Diagnose sinnvoll: er verbessert Wundheilung und Operationsergebnis, senkt Komplikationen unter Chemotherapie und Bestrahlung, verringert das Zweittumorrisiko und verlängert das Überleben — angeboten werden verhaltenstherapeutische Programme, Nikotinersatz, Vareniclin oder Bupropion',
+            'Die Schuldfrage beim Raucher empathisch und ohne Vorwurf behandeln; Anzeige einer Berufskrankheit bei Asbest- oder Radonexposition prüfen, Sozialdienst, Reha-Antrag und gegebenenfalls Fahreignungsprüfung veranlassen',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose ist insgesamt ungünstig, weil die Diagnose meist spät gestellt wird: die 5-Jahres-Überlebensrate aller Stadien liegt bei etwa 15–20 %. Beim NSCLC im Stadium I liegt sie nach vollständiger Resektion bei etwa 70–90 %, im Stadium II bei etwa 50 %, im Stadium III bei etwa 15–35 % und im Stadium IV bei unter 10 %, wobei zielgerichtete Therapien und Checkpoint-Inhibitoren das Überleben bei Treibermutationen oder hohem PD-L1-Score deutlich verlängert haben. Das kleinzellige Karzinom spricht initial sehr gut auf Chemotherapie an, rezidiviert aber früh: das mediane Überleben beträgt bei limited disease etwa 15–20 Monate mit 5-Jahres-Überlebensraten um 20–25 %, bei extensive disease etwa 8–13 Monate. Prognostisch entscheidend sind Stadium, histologischer Typ, molekulares Profil, ECOG-Performance-Status, Gewichtsverlust und Komorbidität.',
+      pruefungsfallen: [
+        'Ein unauffälliges Röntgen-Thorax schließt ein Bronchialkarzinom NIEMALS aus. Bei begründetem Verdacht muss ein CT-Thorax mit Kontrastmittel folgen — genau diese Frage wurde in Stuttgart gestellt („Müssen wir unbedingt ein CT machen?“), und die anerkannte Antwort lautete: ja, weil im Röntgenbild ein kleines Bronchialkarzinom übersehen werden kann.',
+        'Keine onkologische Therapie ohne HISTOLOGIE. Wer Chemotherapie, Bestrahlung oder Operation nennt, ohne vorher die bioptische Sicherung und die Typisierung zu fordern, verliert den Punkt.',
+        'Die erste und wichtigste Weiche ist kleinzellig versus nicht-kleinzellig — sie entscheidet über Operation oder primäre Chemotherapie. Wer die Therapie beschreibt, ohne diese Einteilung zu nennen, beantwortet die Frage nicht.',
+        'Tumormarker wie NSE, ProGRP, CYFRA 21-1 und CEA sind KEINE Diagnose- oder Screeninginstrumente; sie dienen allenfalls der Verlaufskontrolle. Ein normaler Tumormarker schließt nichts aus.',
+        'Resektabilität und Operabilität sind zwei verschiedene Fragen: die eine betrifft den Tumor, die andere den Patienten. Lungenfunktion, Diffusionskapazität, Belastungstest und kardiale Abklärung entscheiden, ob der Patient die Resektion verträgt.',
+        'Eine unerklärte Hyponatriämie bei einem Raucher muss an ein SIADH beim kleinzelligen Karzinom denken lassen, eine Hyperkalzämie an eine PTHrP-Bildung beim Plattenepithelkarzinom. Natrium und Kalzium gehören deshalb obligat ins Labor.',
+        'Heiserkeit, obere Einflussstauung und Horner-Syndrom sind keine banalen Nebenbefunde, sondern Kompressions- und Infiltrationszeichen, die das Stadium und die Dringlichkeit bestimmen — die obere Einflussstauung ist ein onkologischer Notfall.',
+        'Der Kardinalpunkt der Klinik: Frühsymptome fehlen, die Symptome sind spät und banal, ein beginnendes Bronchialkarzinom tut nicht weh. Wer sagt, der Patient wäre mit Schmerzen früher gekommen, hat die Erkrankung nicht verstanden.',
+        'Eine Pneumonie, die trotz Antibiose an derselben Stelle nicht ausheilt oder rezidiviert, ist bis zum Beweis des Gegenteils poststenotisch — ein radiologisches Kontrollbild nach vier bis sechs Wochen ist Pflicht.',
+        'Der Rauchstopp lohnt sich auch nach der Diagnose: bessere Operations- und Therapieverträglichkeit, weniger Komplikationen, geringeres Zweittumorrisiko. Die Antwort „jetzt ist es sowieso zu spät“ ist falsch — und die Schuldfrage wird empathisch, nie vorwurfsvoll beantwortet.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Müssen wir bei diesem Patienten unbedingt ein CT machen, oder reicht das Röntgenbild?',
+          antwort: 'Ein CT-Thorax mit Kontrastmittel ist zwingend erforderlich, denn im Röntgen-Thorax kann ein kleines, zentrales oder von Herz, Zwerchfell und Rippen überlagertes Bronchialkarzinom übersehen werden — ein unauffälliges Röntgenbild schließt den Tumor nicht aus. Nur das CT zeigt außerdem Ausdehnung, Infiltration, mediastinale Lymphknoten und Pleuraerguss und plant den Zugangsweg zur Biopsie.',
+        },
+        {
+          frage: 'Was brauchen Sie, bevor Sie überhaupt eine onkologische Therapie beginnen dürfen?',
+          antwort: 'Die histologische Sicherung mit Typisierung, dazu das vollständige Staging und beim nicht-plattenepithelialen NSCLC die Molekularpathologie. Ohne Histologie ist weder die Unterscheidung kleinzellig versus nicht-kleinzellig noch eine Therapieentscheidung möglich. Gewonnen wird sie durch Bronchoskopie mit Biopsie, EBUS-TBNA, CT-gesteuerte transthorakale Punktion, Thorakoskopie oder die Biopsie einer gut zugänglichen Metastase.',
+        },
+        {
+          frage: 'Welche Formen des Bronchialkarzinoms unterscheiden Sie, und warum ist diese Einteilung so wichtig?',
+          antwort: 'Das kleinzellige Karzinom (SCLC, etwa 15 %) und das nicht-kleinzellige Karzinom (NSCLC, etwa 85 % mit Adenokarzinom, Plattenepithelkarzinom und großzelligem Karzinom). Die Einteilung entscheidet über die gesamte Therapie: das SCLC wächst sehr rasch, metastasiert früh, ist primär chemo- und strahlensensibel und wird in der Regel nicht operiert, eingeteilt in limited und extensive disease. Das NSCLC wird nach TNM in UICC-Stadien eingeteilt und ist im Frühstadium operativ heilbar; EGFR, ALK, ROS1 und der PD-L1-Score steuern die Systemtherapie.',
+        },
+        {
+          frage: 'Welche paraneoplastischen Syndrome kennen Sie beim Bronchialkarzinom?',
+          antwort: 'Das SIADH mit Hyponatriämie und die ektope ACTH-Bildung mit Cushing-Syndrom typischerweise beim kleinzelligen Karzinom, die Hyperkalzämie durch PTHrP typischerweise beim Plattenepithelkarzinom, das Lambert-Eaton-myasthene Syndrom mit belastungsabhängig besserer Muskelkraft, Trommelschlegelfinger und Uhrglasnägel mit hypertropher pulmonaler Osteoarthropathie sowie paraneoplastische Thromboembolien. Deshalb gehören Natrium und Kalzium obligat ins Labor.',
+        },
+        {
+          frage: 'Welchen Stellenwert haben Tumormarker in der Diagnostik?',
+          antwort: 'Sie haben in der Diagnostik keinen Stellenwert. NSE und ProGRP beim SCLC sowie CYFRA 21-1, CEA und SCC beim NSCLC sind weder zum Screening noch zur Diagnosestellung geeignet, weil sie zu unspezifisch und zu unsensitiv sind. Ein normaler Wert schließt ein Karzinom nicht aus. Verwendbar sind sie allenfalls zur Verlaufsbeurteilung unter laufender Therapie.',
+        },
+        {
+          frage: 'Wozu dient die Lungenfunktionsprüfung bei einem Patienten mit Verdacht auf ein Bronchialkarzinom?',
+          antwort: 'Zur Beurteilung der funktionellen Operabilität. Es genügt nicht, dass der Tumor technisch resektabel ist — der Patient muss die Resektion auch vertragen. Beurteilt werden FEV1, Diffusionskapazität und die vorausberechneten postoperativen Werte sowie die Belastbarkeit in der Spiroergometrie oder im Treppentest, ergänzt um die kardiale Abklärung. Bei funktioneller Inoperabilität im Frühstadium ist die stereotaktische Bestrahlung die Alternative.',
+        },
+        {
+          frage: 'Was ist ein Pancoast-Tumor, und woran erkennen Sie ihn?',
+          antwort: 'Ein Tumor der Lungenspitze, der in die Thoraxwand, den Plexus brachialis, den Grenzstrang und die ersten Rippen einwächst. Klinisch imponieren ein hartnäckiger Schulter- und Armschmerz mit Ausstrahlung in die Ulnarseite, Paresen und Sensibilitätsstörungen der Hand sowie ein Horner-Syndrom mit Ptosis, Miosis und Enophthalmus durch Schädigung des Sympathikus. Er wird häufig zunächst als orthopädisches Schulterproblem verkannt.',
+        },
+        {
+          frage: 'Was verstehen Sie unter einer oberen Einflussstauung, und wie handeln Sie?',
+          antwort: 'Das Vena-cava-superior-Syndrom durch Kompression oder Infiltration der oberen Hohlvene: geschwollenes, gerötetes Gesicht, Lidödem, gestaute Halsvenen, Schwellung von Hals und Armen, Kopfdruck, Dyspnoe und erweiterte Kollateralvenen der Thoraxwand. Das ist ein onkologischer Notfall: Oberkörperhochlagerung, Sauerstoff, hoch dosierte Glukokortikoide, notfallmäßige Stentimplantation oder Bestrahlung und rasche Einleitung der Systemtherapie, beim SCLC vorrangig Chemotherapie.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein kleinzelliges Karzinom?',
+          antwort: 'Primär medikamentös, nicht chirurgisch. Bei limited disease erfolgt eine kurativ intendierte simultane Radiochemotherapie mit Cisplatin und Etoposid, bei extensive disease eine Chemotherapie mit Platin und Etoposid kombiniert mit einem Checkpoint-Inhibitor. Nach gutem Ansprechen wird eine prophylaktische Schädelbestrahlung angeboten. Operiert wird nur ausnahmsweise ein sehr kleiner Tumor ohne Lymphknotenbefall.',
+        },
+        {
+          frage: 'Und wie behandeln Sie ein nicht-kleinzelliges Karzinom?',
+          antwort: 'Nach Stadium: im Stadium I und II die anatomische Resektion, meist Lobektomie mit systematischer Lymphadenektomie, ab Stadium II ergänzt durch adjuvante Chemotherapie beziehungsweise adjuvantes Osimertinib bei EGFR-Mutation. Im Stadium III eine definitive Radiochemotherapie mit anschließender Durvalumab-Konsolidierung, teils multimodal mit Operation. Im Stadium IV eine Systemtherapie: zielgerichtete Therapie bei Treibermutation, sonst Immuntherapie nach PD-L1-Status, allein oder mit platinhaltiger Chemotherapie. Die Entscheidung fällt im Tumorboard.',
+        },
+        {
+          frage: 'Der Patient raucht seit Jahrzehnten. Bringt ein Rauchstopp jetzt überhaupt noch etwas?',
+          antwort: 'Ja, eindeutig. Auch nach der Diagnose verbessert der Rauchstopp die Wundheilung und das Operationsergebnis, senkt pulmonale Komplikationen unter Chemotherapie und Bestrahlung, verringert das Risiko eines Zweittumors und verlängert das Überleben. Angeboten werden verhaltenstherapeutische Programme, Nikotinersatz, Vareniclin oder Bupropion. Wichtig ist, das Thema empathisch und ohne Schuldzuweisung anzusprechen.',
+        },
+        {
+          frage: 'Warum wird das Bronchialkarzinom so oft erst spät entdeckt?',
+          antwort: 'Weil es keine Frühsymptome gibt: das Lungengewebe selbst ist nicht schmerzempfindlich, und der Tumor wächst lange stumm. Die ersten Beschwerden — Husten, Auswurf, Luftnot, Müdigkeit — sind banal und werden beim Raucher der COPD oder dem Rauchen zugeschrieben. Erst Kompression, Infiltration, Metastasen oder Paraneoplasien machen Beschwerden. Deshalb muss man aktiv nach den Alarmsignalen fragen: verändertem Husten, Hämoptysen, Gewichtsverlust, Heiserkeit und nicht ausheilender Pneumonie.',
+        },
+        {
+          frage: 'Was bedeutet es, wenn eine Pneumonie an derselben Stelle nicht ausheilt?',
+          antwort: 'Das ist ein klassisches Alarmzeichen: hinter einer Bronchusstenose durch einen Tumor entsteht eine poststenotische Pneumonie, die unter Antibiose zwar klinisch bessert, aber radiologisch nicht vollständig verschwindet und an derselben Stelle rezidiviert. Deshalb ist eine radiologische Kontrolle vier bis sechs Wochen nach jeder Pneumonie beim Raucher obligat; bleibt ein Restbefund, folgen CT und Bronchoskopie.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Insgesamt ungünstig, mit einer 5-Jahres-Überlebensrate über alle Stadien von etwa 15–20 %. Beim NSCLC im Stadium I liegt sie nach Resektion bei etwa 70–90 %, im Stadium IV unter 10 %, wobei zielgerichtete Therapien und Immuntherapie das Überleben deutlich verbessert haben. Beim SCLC beträgt das mediane Überleben bei limited disease etwa 15–20 Monate, bei extensive disease etwa 8–13 Monate.',
+        },
+      ],
+      merksatz: 'Merke: Jede Hämoptyse bei einem Raucher über 40 ist ein Bronchialkarzinom, bis das Gegenteil bewiesen ist — ein unauffälliges Röntgenbild beweist gar nichts, und ohne Histologie gibt es keine Therapie.',
+      linkedCaseIds: [
+        'case-bronchialkarzinom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-bronchoskopie',
+        'auf-ct',
+        'auf-roentgen-thorax',
+        'auf-feinnadelpunktion',
+      ],
+    },
+    {
+      id: 'fw-mammakarzinom',
+      pathology: 'Mammakarzinom',
+      specialty: 'Gynäkologie',
+      definition: 'Das Mammakarzinom ist der bösartige, vom Epithel der Milchgänge (duktal) oder der Drüsenläppchen (lobulär) ausgehende Tumor der Brustdrüse und mit etwa 30 % aller Krebsneuerkrankungen die häufigste Krebserkrankung der Frau; etwa jede achte Frau erkrankt im Laufe ihres Lebens daran. Man unterscheidet nicht-invasive Vorstufen — das duktale Carcinoma in situ (DCIS), bei dem der Tumor die Basalmembran noch nicht durchbrochen hat — von den invasiven Karzinomen, unter denen das invasive Karzinom vom nicht-speziellen Typ (NST, früher invasiv-duktal) mit 70–80 % und das invasiv-lobuläre Karzinom mit 10–15 % überwiegen. Etwa 55 % der Tumoren liegen im oberen äußeren Quadranten. Selten, aber prognostisch ungünstig sind das inflammatorische Karzinom (T4d) und der Morbus Paget der Mamille. Etwa 1 % der Fälle betrifft Männer.',
+      aetiologie: 'Multifaktoriell. Zentral ist die kumulative Östrogenexposition des Brustdrüsengewebes: Je länger und ununterbrochener das Gewebe Östrogenen ausgesetzt ist (frühe Menarche, späte Menopause, Nulliparität oder späte erste Geburt, fehlende Stillzeit, Hormonersatztherapie), desto höher das Risiko. Etwa 5–10 % der Fälle sind hereditär, überwiegend durch autosomal-dominant vererbte Mutationen in den Tumorsuppressorgenen BRCA1 und BRCA2 (Lebenszeitrisiko für Mammakarzinom 50–80 %, für Ovarialkarzinom 20–40 %); seltener sind Mutationen in PALB2, CHEK2, ATM sowie das Li-Fraumeni-Syndrom (TP53) und das Cowden-Syndrom (PTEN). Weitere Faktoren sind postmenopausale Adipositas (peripher-aromatasebedingte Östrogenbildung im Fettgewebe), Alkohol, Bewegungsmangel, eine Bestrahlung des Thorax in Kindheit oder Jugend (z. B. bei Morbus Hodgkin), eine hohe mammographische Dichte sowie proliferative Mastopathien mit Atypien.',
+      risikofaktoren: [
+        'Weibliches Geschlecht und steigendes Lebensalter — die beiden wichtigsten und stets zuerst zu nennenden Faktoren',
+        'Familiäre Belastung, insbesondere Mammakarzinom bei Mutter, Schwester oder Tochter, sowie Mutationen in BRCA1 und BRCA2 — Warnzeichen sind junges Erkrankungsalter unter 50 Jahren, beidseitiger Befall, Ovarialkarzinom in der Familie und ein erkrankter Mann',
+        'Lange Östrogenexposition: frühe Menarche (vor dem 12. Lebensjahr), späte Menopause (nach dem 55. Lebensjahr), Nulliparität, späte erste Geburt (nach dem 30. Lebensjahr), fehlende oder kurze Stillzeit',
+        'Hormonersatztherapie, besonders als kombinierte Östrogen-Gestagen-Therapie über mehrere Jahre; orale Kontrazeptiva mit geringem, nach Absetzen reversiblem Risiko',
+        'Adipositas nach der Menopause (Östrogenbildung durch Aromatase im Fettgewebe) sowie Bewegungsmangel',
+        'Regelmäßiger Alkoholkonsum — dosisabhängig bereits ab kleinen täglichen Mengen; Nikotinkonsum',
+        'Bestrahlung des Thorax in Kindheit oder Jugend',
+        'Frühere Brustkrebserkrankung, DCIS, atypische duktale Hyperplasie oder lobuläre Neoplasie sowie hohe mammographische Brustdichte',
+        'Vorangegangenes Ovarial- oder Endometriumkarzinom',
+      ],
+      klinik: [
+        {
+          text: 'Derber bis harter, höckeriger, unscharf begrenzter und gegen Haut wie Unterlage nicht verschieblicher Knoten, am häufigsten im oberen äußeren Quadranten — meist von der Patientin selbst getastet',
+        },
+        {
+          text: 'Schmerzlosigkeit des Knotens: Der typische Karzinomknoten tut NICHT weh; fehlende Schmerzen sind ein Malignitätszeichen und nie ein Ausschlusskriterium',
+        },
+        {
+          text: 'Hauteinziehung und Plateauphänomen über dem Tumor, besonders beim Anheben der Arme über den Kopf',
+        },
+        {
+          text: 'Orangenhaut (Peau d’orange) durch Lymphstau bei Infiltration der Kutis',
+        },
+        {
+          text: 'Neu aufgetretene Einziehung, Abflachung oder Achsenabweichung der Mamille',
+        },
+        {
+          text: 'Einseitige, spontane blutige oder seröse Sekretion aus der Mamille',
+        },
+        {
+          text: 'Ekzem, Schuppung, Rötung und Nässen von Mamille und Warzenhof (Morbus Paget der Mamille), das unter lokaler Therapie nicht abheilt',
+        },
+        {
+          text: 'Größen-, Form- oder Konturveränderung einer Brust mit neu aufgetretener Asymmetrie',
+        },
+        {
+          text: 'Tastbare, derbe, verbackene und schlecht verschiebliche Lymphknoten axillär, infra- oder supraklavikulär',
+        },
+        {
+          text: 'Rötung, Überwärmung und diffuse Schwellung der gesamten Brust beim inflammatorischen Karzinom — imitiert eine Mastitis und heilt unter Antibiotika nicht ab',
+          atypisch: true,
+        },
+        {
+          text: 'Vollständig asymptomatischer Verlauf über lange Zeit; Entdeckung ausschließlich als Zufallsbefund im Mammographie-Screening',
+          atypisch: true,
+        },
+        {
+          text: 'Okkultes Mammakarzinom: Erstmanifestation als axilläre Lymphknotenmetastase bei klinisch und mammographisch unauffälliger Brust',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation über Fernmetastasen: Knochenschmerzen und pathologische Frakturen, Husten und Dyspnoe bei Lungenbefall oder Pleuraerguss, Ikterus und Oberbauchbeschwerden bei Leberbefall, Kopfschmerzen und neurologische Ausfälle bei Hirnmetastasen',
+          atypisch: true,
+        },
+        {
+          text: 'Mammakarzinom des Mannes (etwa 1 %), meist als derber retromamillärer Knoten mit früher Hautinfiltration — Hinweis auf eine BRCA2-Mutation',
+          atypisch: true,
+        },
+        {
+          text: 'Exulzerierender, blutender Tumor oder flächige Hautinfiltration (Cancer en cuirasse) bei sehr spät vorgestelltem Befund',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'TNM-Klassifikation (vereinfacht)',
+          inhalt: 'Tis: Carcinoma in situ (DCIS). T1: Tumor bis 2 cm. T2: über 2 bis 5 cm. T3: über 5 cm. T4: Infiltration von Brustwand (T4a) oder Haut mit Ulzeration/Satellitenknoten (T4b), beides (T4c), inflammatorisches Karzinom (T4d). N0: keine regionären Lymphknotenmetastasen. N1: bewegliche ipsilaterale axilläre Lymphknoten. N2: fixierte axilläre oder klinisch auffällige Mammaria-interna-Lymphknoten. N3: infra-/supraklavikuläre Lymphknoten. M0: keine Fernmetastasen. M1: Fernmetastasen.',
+        },
+        {
+          name: 'UICC-Stadien',
+          inhalt: 'Stadium 0: Tis N0 M0 (DCIS). Stadium I: kleiner Tumor ohne Lymphknotenbefall. Stadium II: größerer Tumor und/oder begrenzter axillärer Befall. Stadium III: lokal fortgeschritten mit ausgedehntem Lymphknotenbefall, Brustwand- oder Hautinfiltration einschließlich des inflammatorischen Karzinoms. Stadium IV: Fernmetastasen (M1) — nicht mehr kurativ, aber lange kontrollierbar.',
+        },
+        {
+          name: 'Molekulare Subtypen (steuern die Systemtherapie)',
+          inhalt: 'Luminal A: Östrogen- und Progesteronrezeptor positiv, HER2 negativ, Ki-67 niedrig — beste Prognose, primär endokrine Therapie. Luminal B: rezeptorpositiv mit hohem Ki-67 und/oder HER2-Positivität — endokrine Therapie plus Chemotherapie, gegebenenfalls Anti-HER2. HER2-angereichert: rezeptornegativ, HER2 positiv — Chemotherapie plus Trastuzumab. Triple-negativ (basal-like): Östrogenrezeptor, Progesteronrezeptor und HER2 negativ — nur Chemotherapie und Immuntherapie, häufig bei BRCA1-Mutation und jungen Frauen, aggressivster Verlauf.',
+        },
+        {
+          name: 'BI-RADS-Klassifikation der Bildgebung',
+          inhalt: '0: unvollständig, weitere Bildgebung erforderlich. 1: unauffällig. 2: sicher gutartiger Befund. 3: wahrscheinlich gutartig, Malignitätsrisiko unter 2 %, Kontrolle nach sechs Monaten. 4: suspekt (4a niedrig, 4b mittel, 4c hoch) — Biopsie indiziert. 5: hochgradig malignomverdächtig, Malignitätswahrscheinlichkeit über 95 % — Biopsie zwingend. 6: histologisch bereits gesichertes Karzinom.',
+        },
+        {
+          name: 'Grading nach Elston und Ellis',
+          inhalt: 'Punktbewertung von Tubulusbildung, Kernpolymorphie und Mitoserate: G1 gut differenziert, G2 mäßig differenziert, G3 schlecht differenziert. Höheres Grading bedeutet aggressiveres Wachstum und geht in die Therapieentscheidung ein.',
+        },
+      ],
+      redFlags: [
+        'Jeder neu aufgetretene, derbe, unverschiebliche und schmerzlose Knoten in der Brust — bis zum histologischen Beweis des Gegenteils karzinomverdächtig',
+        'Hauteinziehung, Plateauphänomen, Orangenhaut oder neu aufgetretene Mamillenretraktion',
+        'Einseitige spontane blutige Sekretion aus der Mamille',
+        'Ekzem der Mamille, das unter lokaler Therapie nicht abheilt — Verdacht auf Morbus Paget',
+        'Mastitis, die unter adäquater Antibiose binnen zwei Wochen nicht abheilt — inflammatorisches Karzinom bis zum Beweis des Gegenteils',
+        'Derbe, verbackene axilläre oder supraklavikuläre Lymphknoten',
+        'B-Symptomatik, Knochenschmerzen, pathologische Fraktur, Hyperkalzämie, Ikterus, Dyspnoe oder neurologische Ausfälle — Verdacht auf Fernmetastasen',
+        'Obere Einflussstauung oder Querschnittsymptomatik bei Wirbelsäulenmetastasen sowie hyperkalzämische Krise — onkologische Notfälle',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Dauer und Größendynamik des Knotens, Schmerzlosigkeit, Zyklusabhängigkeit und Menopausenstatus, Sekretion und Hautveränderungen, Trauma und Voroperationen der Brust, frühere Brustbefunde, Teilnahme am Mammographie-Screening, Hormonersatztherapie und Kontrazeptiva',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Anamnese als Risikoanamnese: Menarche, Zyklus, Menopause, Zahl und Zeitpunkt der Geburten, Stillzeit, Hormoneinnahme',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Familienanamnese gezielt auf Mamma- und Ovarialkarzinom, Erkrankungsalter, beidseitigen Befall und erkrankte Männer — Weichenstellung für die humangenetische Beratung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinische Untersuchung BEIDER Brüste im Sitzen und im Liegen: Inspektion mit hängenden und gehobenen Armen (Einziehung, Plateauphänomen, Orangenhaut, Mamillenretraktion, Ekzem, Asymmetrie), Palpation aller vier Quadranten und des axillären Ausläufers, Prüfung der Verschieblichkeit gegen Haut und Pektoralisfaszie, Prüfung auf Mamillensekretion',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Palpation aller Lymphabflusswege — axillär, infra- und supraklavikulär, parasternal — sowie orientierende Untersuchung auf Metastasenzeichen (Lunge, Leber, Wirbelsäulenklopfschmerz)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP, Leber- und Nierenwerte, LDH, Elektrolyte mit Kalzium und alkalischer Phosphatase (Hinweis auf Knochen- und Lebermetastasen), Gerinnung vor invasiven Maßnahmen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Tumormarker CA 15-3 und CEA sind zur Diagnosestellung und zum Screening NICHT geeignet — sie dienen nur der Verlaufs- und Rezidivkontrolle bei gesichertem Karzinom',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Frauen im gebärfähigen Alter Schwangerschaftstest vor Bildgebung und Systemtherapie; genetische Keimbahndiagnostik auf BRCA1/2 nach humangenetischer Beratung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Mammographie beider Brüste in zwei Ebenen (kraniokaudal und mediolateral-oblique) mit BI-RADS-Befundung — Standardverfahren ab dem 40. Lebensjahr; malignitätstypisch sind spikulierte Herde, Architekturstörung und gruppierter polymorpher Mikrokalk (Letzterer ist das Leitzeichen des DCIS)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie beider Brüste und beider Axillae — Verfahren der Wahl bei dichtem Drüsengewebe, bei jungen Frauen, in Schwangerschaft und Stillzeit sowie zur Steuerung der Biopsie; malignitätsverdächtig sind echoarme, unscharf begrenzte, vertikal orientierte Herde mit dorsaler Schallauslöschung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Mamma mit Kontrastmittel bei dichtem Drüsengewebe, Verdacht auf Multifokalität oder Multizentrizität, diskrepanten Befunden, nachgewiesener BRCA-Mutation, Silikonimplantaten, okkultem Karzinom und zur Beurteilung des Ansprechens unter neoadjuvanter Therapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Staging bei gesichertem Karzinom oder Metastasenverdacht: CT von Thorax und Abdomen, Sonographie der Leber, Skelettszintigraphie, bei Symptomen MRT des Schädels; alternativ PET-CT in Sondersituationen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'TRIPLE-DIAGNOSTIK: Klinik plus Bildgebung plus Histologie. Sonographisch oder stereotaktisch gesteuerte Stanzbiopsie mit Clipmarkierung VOR jeder Therapie; die Feinnadelaspiration liefert nur Zytologie und ist nicht ausreichend. Bei unklarem Ergebnis Vakuumbiopsie oder offene Exzisionsbiopsie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Am Biopsat: histologischer Typ, Grading nach Elston und Ellis sowie immunhistochemisch Östrogen- und Progesteronrezeptor, HER2 (bei 2+ ergänzende In-situ-Hybridisierung) und Ki-67 — diese Parameter steuern die gesamte Systemtherapie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Axillastaging: sonographisch gesteuerte Punktion suspekter Lymphknoten präoperativ und intraoperative Sentinel-Lymphknoten-Biopsie nach Markierung mit Technetium-99m und/oder Farbstoff',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Galaktographie oder Duktoskopie bei einseitiger pathologischer Mamillensekretion ohne Tastbefund',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Fibroadenom',
+          unterscheidung: 'Häufigster gutartiger Tumor der jungen Frau (20.–35. Lebensjahr): glatt begrenzt, derb-elastisch, gut verschieblich, langsam wachsend, ohne Haut- oder Mamillenveränderungen; sonographisch scharf begrenzt, horizontal orientiert.',
+        },
+        {
+          dd: 'Fibrozystische Mastopathie und Mammazyste',
+          unterscheidung: 'Häufigste gutartige Veränderung der prämenopausalen Frau: beidseits, diffus knotig, mit zyklusabhängiger, prämenstruell zunehmender Mastodynie; Zysten sind prall-elastisch, glatt und sonographisch echofrei mit dorsaler Schallverstärkung. Proliferative Formen mit Atypien erhöhen jedoch selbst das Karzinomrisiko.',
+        },
+        {
+          dd: 'Mastitis puerperalis und non-puerperalis',
+          unterscheidung: 'Rötung, Überwärmung, Schwellung, Schmerz, Fieber und Krankheitsgefühl; puerperal in der Stillzeit (meist Staphylococcus aureus), non-puerperal gehäuft bei Raucherinnen und Hyperprolaktinämie. CAVE: Ein inflammatorisches Karzinom sieht identisch aus — jede Mastitis, die unter Antibiotika binnen zwei Wochen nicht abheilt, muss bioptisch geklärt werden.',
+        },
+        {
+          dd: 'Mammaabszess',
+          unterscheidung: 'Umschriebene, stark druckschmerzhafte, fluktuierende und überwärmte Schwellung mit Fieber, meist als Komplikation einer Mastitis; sonographisch echoarme Formation mit Binnenechos, Therapie durch Punktion oder Inzision und Antibiose.',
+        },
+        {
+          dd: 'Lipom',
+          unterscheidung: 'Weicher, prall-elastischer, glatt begrenzter, frei verschieblicher Tumor der Subkutis ohne Hautretraktion und ohne Lymphknotenbeteiligung; sonographisch echogleich und komprimierbar.',
+        },
+        {
+          dd: 'Fettgewebsnekrose (Ölzyste) nach Trauma oder Operation',
+          unterscheidung: 'Kann Klinik und Mammographie eines Karzinoms exakt imitieren (derber Knoten, Hauteinziehung, Verkalkungen); erfordert ein Trauma, eine Operation oder eine Bestrahlung in der Anamnese, typisch sind spätere schalige „Eierschalenverkalkungen“ — die sichere Abgrenzung gelingt nur histologisch.',
+        },
+        {
+          dd: 'Milchgangspapillom',
+          unterscheidung: 'Leitsymptom ist die einseitige spontane blutige oder seröse Mamillensekretion, häufig ohne tastbaren Knoten; Nachweis über Galaktographie oder Duktoskopie, Therapie durch Milchgangsexstirpation, da eine maligne Entartung möglich ist.',
+        },
+        {
+          dd: 'Malignes Lymphom oder Metastase eines extramammären Tumors',
+          unterscheidung: 'Sehr selten; beim Lymphom B-Symptomatik mit Fieber, Nachtschweiß und Gewichtsverlust sowie generalisierte indolente Lymphknotenschwellungen; bei einer Mammametastase (Melanom, Bronchial-, Ovarialkarzinom) ein bekannter Primärtumor und meist multiple, glatt begrenzte Herde. Die Immunhistochemie klärt die Zuordnung.',
+        },
+        {
+          dd: 'Gynäkomastie beim Mann',
+          unterscheidung: 'Meist beidseitige, weiche, konzentrisch retromamillär gelegene Drüsenvermehrung, häufig medikamenten- oder leberbedingt; ein einseitiger, harter, exzentrischer und unverschieblicher Knoten beim Mann ist dagegen bis zum Beweis des Gegenteils ein Mammakarzinom.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Therapieplanung im interdisziplinären Tumorboard',
+          items: [
+            'Vorstellung im interdisziplinären Tumorboard aus Senologie/Gynäkologie, Radiologie, Pathologie, Strahlentherapie und internistischer Onkologie NACH Vorliegen von Histologie und Staging',
+            'Therapieentscheidung nach Tumorstadium (TNM/UICC), histologischem Typ, Grading und vor allem nach der Tumorbiologie (Östrogen-/Progesteronrezeptor, HER2, Ki-67)',
+            'Festlegung der Sequenz: primäre Operation versus neoadjuvante Systemtherapie, brusterhaltend versus Mastektomie',
+            'Behandlung in einem zertifizierten Brustzentrum, ausführliche Aufklärung, Angebot einer Zweitmeinung und partizipative Entscheidungsfindung',
+            'Absetzen einer laufenden Hormonersatztherapie',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Operative Therapie: brusterhaltend mit obligater Nachbestrahlung oder Mastektomie',
+          items: [
+            'Brusterhaltende Therapie (BET) mit Tumorentfernung im Gesunden (R0) als Standard, wann immer möglich — IMMER kombiniert mit der obligaten Nachbestrahlung der Restbrust; BET plus Radiatio ist der Mastektomie onkologisch gleichwertig',
+            'Mastektomie bei ungünstigem Tumor-Brust-Verhältnis, Multizentrizität, inflammatorischem Karzinom, nicht erreichbarer R0-Resektion, Kontraindikation gegen die Bestrahlung oder auf Wunsch der Patientin; hautsparende und mamillenerhaltende Verfahren sowie Rekonstruktion mit Implantat oder Eigengewebe (z. B. DIEP-Lappen) primär oder sekundär',
+            'Sentinel-Lymphknoten-Biopsie als Standard des Axillastagings bei klinisch unauffälliger Axilla — ersetzt die komplette Axilladissektion und vermeidet Lymphödem, Sensibilitätsstörungen und Schultersteife',
+            'Axilladissektion der Level I und II nur bei ausgedehntem gesichertem Lymphknotenbefall oder bei Persistenz unter neoadjuvanter Therapie',
+            'Adjuvante Strahlentherapie: nach jeder BET obligat; nach Mastektomie bei T3/T4-Tumoren, Lymphknotenbefall, R1-Situation oder ungünstiger Biologie, gegebenenfalls unter Einschluss der Lymphabflusswege',
+            'Beim DCIS Exzision im Gesunden mit Nachbestrahlung, bei rezeptorpositivem DCIS gegebenenfalls endokrine Therapie; keine Axilladissektion',
+            'Prophylaktische beidseitige Mastektomie und Adnexexstirpation als Option bei nachgewiesener BRCA1/2-Mutation nach ausführlicher Beratung',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Systemtherapie nach Tumorbiologie: endokrin, Anti-HER2, Chemotherapie',
+          items: [
+            'Endokrine Therapie über fünf bis zehn Jahre bei Hormonrezeptorpositivität: prämenopausal Tamoxifen 20 mg täglich, gegebenenfalls mit GnRH-Analoga zur ovariellen Suppression; postmenopausal Aromatasehemmer (Anastrozol, Letrozol, Exemestan)',
+            'Anti-HER2-Therapie bei HER2-Überexpression: Trastuzumab über in der Regel ein Jahr, risikoadaptiert ergänzt durch Pertuzumab oder Trastuzumab-Emtansin; Kontrolle der linksventrikulären Ejektionsfraktion wegen Kardiotoxizität',
+            'Chemotherapie risikoadaptiert, meist anthrazyklin- und taxanhaltig, vor allem bei triple-negativem oder HER2-positivem Tumor, hohem Ki-67 und Grading G3, Lymphknotenbefall oder jungem Erkrankungsalter; bei Luminal-A-Tumoren kann ein Genexpressionstest die Chemotherapieindikation klären',
+            'Neoadjuvante (primär systemische) Therapie bei lokal fortgeschrittenem, inflammatorischem, triple-negativem oder HER2-positivem Karzinom: Tumorverkleinerung, häufigere Brusterhaltung und In-vivo-Beurteilung des Ansprechens; die pathologische Komplettremission ist ein starker prognostischer Marker',
+            'In der metastasierten Situation zusätzlich CDK4/6-Inhibitoren bei rezeptorpositivem Tumor, PARP-Inhibitoren bei BRCA-Mutation, Immuntherapie beim triple-negativen Karzinom, Antikörper-Wirkstoff-Konjugate sowie Bisphosphonate oder Denosumab und lokale Bestrahlung bei Knochenmetastasen',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Nachsorge, Nebenwirkungsmanagement und Begleitung',
+          items: [
+            'Strukturierte Nachsorge über zehn Jahre: Anamnese und klinische Untersuchung zunächst vierteljährlich, ab dem vierten Jahr halbjährlich bis jährlich; jährliche Mammographie; apparatives Staging nur bei Symptomen',
+            'Lymphödemprophylaxe und -therapie nach Axillaeingriff: manuelle Lymphdrainage, Kompression, Hautpflege, Vermeidung von Blutdruckmessung, Blutentnahme und Verletzungen am betroffenen Arm; frühe Physiotherapie für die Schulterbeweglichkeit',
+            'Nebenwirkungsmanagement: unter Aromatasehemmern Arthralgien und Osteoporose mit Osteodensitometrie sowie Kalzium- und Vitamin-D-Substitution; unter Tamoxifen erhöhtes Risiko für Endometriumkarzinom und Thromboembolien mit Abklärung jeder postmenopausalen Blutung; unter Chemotherapie Alopezie, Polyneuropathie, Kardiotoxizität und Infertilität',
+            'Fertilität und Kinderwunsch ZWINGEND VOR Therapiebeginn ansprechen: Kryokonservierung von Eizellen oder Ovarialgewebe, GnRH-Schutz während der Chemotherapie',
+            'Humangenetische Beratung und BRCA1/2-Testung bei entsprechender Familien- oder Eigenanamnese, mit Konsequenzen für Operation, Systemtherapie und das Früherkennungsprogramm der Angehörigen',
+            'Psychoonkologische Mitbetreuung, Selbsthilfegruppen, Sozialdienst und Anschlussheilbehandlung; Beratung zu Perücke, Brustepithese und Rekonstruktion',
+            'Sekundärprävention und Lebensstil: Gewichtsreduktion, regelmäßige körperliche Aktivität, Alkoholkarenz, Nikotinverzicht; Teilnahme am Mammographie-Screening der Gegenseite',
+          ],
+          akut: false,
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend von Stadium, Lymphknotenstatus und Tumorbiologie ab. Die relative 5-Jahres-Überlebensrate liegt in Deutschland insgesamt bei etwa 88 %, die 10-Jahres-Rate bei etwa 82 %; im Stadium I und ohne Lymphknotenbefall liegt das 5-Jahres-Überleben über 90 %, bei ausgedehntem Lymphknotenbefall deutlich darunter. Hormonrezeptorpositive Luminal-A-Tumoren haben die beste, triple-negative und inflammatorische Karzinome die ungünstigste Prognose. Das fernmetastasierte Mammakarzinom (Stadium IV) gilt als nicht heilbar, kann aber unter moderner Systemtherapie über Jahre kontrolliert werden; häufigste Metastasenlokalisationen sind Knochen, Lunge, Leber und Gehirn. Besonderheit hormonrezeptorpositiver Tumoren sind Spätrezidive noch nach zehn bis zwanzig Jahren — daraus ergeben sich die endokrine Therapie über fünf bis zehn Jahre und die lange Nachsorge. Die Teilnahme am Mammographie-Screening senkt die brustkrebsspezifische Sterblichkeit, weil Tumoren in einem früheren, brusterhaltend und ohne Chemotherapie behandelbaren Stadium entdeckt werden.',
+      pruefungsfallen: [
+        'Der Karzinomknoten ist typischerweise SCHMERZLOS — fehlende Schmerzen sind ein Malignitätszeichen und niemals ein Ausschlusskriterium; zyklusabhängige Schmerzen sprechen dagegen eher für eine Mastopathie.',
+        'Die TRIPLE-DIAGNOSTIK muss ausdrücklich genannt werden: Klinik PLUS Bildgebung PLUS Histologie. Keine endgültige Diagnose und keine Therapie ohne histologische Sicherung.',
+        'Nicht die Feinnadelaspiration, sondern die STANZBIOPSIE nennen: Die Zytologie unterscheidet In-situ- und invasives Karzinom nicht und erlaubt keine Bestimmung von Rezeptorstatus, HER2 und Ki-67.',
+        'Östrogenrezeptor, Progesteronrezeptor, HER2 und Ki-67 sind die vier Parameter, die die gesamte Systemtherapie steuern — sie zu vergessen ist der häufigste inhaltliche Fehler.',
+        'Die Tumormarker CA 15-3 und CEA taugen NICHT zur Diagnose oder zum Screening, sondern nur zur Verlaufskontrolle.',
+        'Nach brusterhaltender Operation ist die Nachbestrahlung OBLIGAT; BET plus Radiatio ist der Mastektomie gleichwertig — „brusterhaltend“ ohne „plus Bestrahlung“ zu sagen, gilt als Fehler.',
+        'Die SENTINEL-LYMPHKNOTEN-BIOPSIE ersetzt die komplette Axilladissektion und verhindert das Lymphödem des Armes — eine Standardnachfrage zur Operation.',
+        'Eine „Mastitis“, die unter Antibiotika binnen zwei Wochen nicht abheilt, ist ein inflammatorisches Karzinom bis zum Beweis des Gegenteils; ein Mamillenekzem, das nicht abheilt, ist ein Morbus Paget.',
+        'Das deutsche Mammographie-Screening korrekt angeben: alle zwei Jahre, derzeit von 50 bis 75 Jahren, mit Doppelbefundung — nicht mit der jährlichen Krebsfrüherkennung beim Frauenarzt verwechseln.',
+        'Bei der Risikoanamnese weibliches Geschlecht und Alter ZUERST nennen, dann Familienanamnese und BRCA, dann die Östrogenexposition — wer nur die seltene BRCA-Mutation nennt, verfehlt die Frage.',
+        'Fertilität und Kinderwunsch bei jüngeren Patientinnen VOR Therapiebeginn ansprechen; ebenso die humangenetische Beratung bei familiärer Belastung.',
+        'Fachbegriffe patientengerecht übersetzen: Mammakarzinom = Brustkrebs, Mastektomie = vollständige Entfernung der Brust, Biopsie = Gewebeprobe, Metastase = Tochtergeschwulst, Radiatio = Bestrahlung, Carcinoma in situ = der Tumor hat die Basalmembran noch nicht durchbrochen.',
+        'Auf die direkte Frage der Patientin, ob sie Krebs habe oder sterben müsse, weder ausweichen noch eine Diagnose vor der Histologie stellen — ehrlich benennen, das Vorgehen erklären, Empathie zeigen und einen festen Folgetermin zusichern.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose bei einem derben, unverschieblichen Knoten in der Brust, und was spricht dafür?',
+          antwort: 'Ein Mammakarzinom bis zum histologischen Beweis des Gegenteils. Dafür sprechen die derbe bis harte Konsistenz, die unscharfe Begrenzung, die fehlende Verschieblichkeit gegen Haut und Unterlage, die Schmerzlosigkeit, eine Größenzunahme sowie Hauteinziehung mit Plateauphänomen, Orangenhaut, neu aufgetretene Mamillenretraktion und tastbare axilläre Lymphknoten.',
+        },
+        {
+          frage: 'Die Patientin sagt, der Knoten tue gar nicht weh. Beruhigt Sie das?',
+          antwort: 'Nein. Der typische Karzinomknoten ist gerade schmerzlos — die Schmerzlosigkeit ist ein Malignitätszeichen und schließt einen Tumor niemals aus. Zyklusabhängige Schmerzen sprechen eher für eine Mastopathie oder eine Zyste.',
+        },
+        {
+          frage: 'Was verstehen Sie unter der Triple-Diagnostik?',
+          antwort: 'Die Kombination aus Klinik, Bildgebung und Histologie: klinische Untersuchung beider Brüste und der Lymphabflusswege, Mammographie und Sonographie (gegebenenfalls MRT) sowie die histologische Sicherung durch Stanzbiopsie. Erst alle drei zusammen erlauben die Diagnose.',
+        },
+        {
+          frage: 'Welche Bildgebung veranlassen Sie, ab welchem Alter ist die Mammographie Standard, und was bedeutet BI-RADS?',
+          antwort: 'Mammographie beider Brüste in zwei Ebenen ab dem 40. Lebensjahr, ergänzt durch die Sonographie beider Brüste und Axillae, die bei dichtem Drüsengewebe und bei jungen Frauen bevorzugt wird. BI-RADS ist die standardisierte Befundklassifikation von 0 bis 6: 0 unvollständig, 1 unauffällig, 2 sicher gutartig, 3 wahrscheinlich gutartig mit Kontrolle nach sechs Monaten, 4 suspekt mit Biopsieindikation, 5 hochgradig malignomverdächtig, 6 histologisch gesichertes Karzinom.',
+        },
+        {
+          frage: 'Wann brauchen Sie ein MRT der Mamma?',
+          antwort: 'Bei sehr dichtem Drüsengewebe, Verdacht auf Multifokalität oder Multizentrizität, diskrepanten Befunden von Mammographie und Sonographie, nachgewiesener BRCA-Mutation, Silikonimplantaten, okkultem Karzinom mit axillärer Metastase sowie zur Beurteilung des Ansprechens unter neoadjuvanter Therapie.',
+        },
+        {
+          frage: 'Warum reicht eine Feinnadelaspiration nicht?',
+          antwort: 'Weil sie nur Zellen und damit eine Zytologie liefert. Sie kann ein Carcinoma in situ nicht von einem invasiven Karzinom unterscheiden und erlaubt keine zuverlässige Bestimmung von Rezeptorstatus, HER2 und Ki-67. Erforderlich ist eine sonographisch oder stereotaktisch gesteuerte Stanzbiopsie mit Clipmarkierung, bei unklarem Ergebnis eine Vakuum- oder offene Exzisionsbiopsie.',
+        },
+        {
+          frage: 'Welche Parameter lassen Sie am Biopsat bestimmen, und warum?',
+          antwort: 'Histologischen Typ und Grading sowie immunhistochemisch Östrogenrezeptor, Progesteronrezeptor, HER2 und Ki-67. Sie definieren den molekularen Subtyp und steuern die gesamte Therapie: Rezeptorpositivität begründet die endokrine Therapie, HER2-Positivität die Anti-HER2-Therapie mit Trastuzumab, hohes Ki-67 oder Triple-Negativität die Chemotherapie.',
+        },
+        {
+          frage: 'Welche molekularen Subtypen kennen Sie?',
+          antwort: 'Luminal A (rezeptorpositiv, HER2 negativ, Ki-67 niedrig, beste Prognose), Luminal B (rezeptorpositiv mit hohem Ki-67 und/oder HER2-Positivität), HER2-angereichert (rezeptornegativ, HER2 positiv) und triple-negativ beziehungsweise basal-like (alle drei negativ, häufig bei BRCA1-Mutation und jungen Frauen, aggressivster Verlauf).',
+        },
+        {
+          frage: 'Welche Risikofaktoren für ein Mammakarzinom kennen Sie?',
+          antwort: 'An erster Stelle weibliches Geschlecht und steigendes Lebensalter. Dann die familiäre Belastung mit BRCA1- und BRCA2-Mutationen, erkennbar an jungem Erkrankungsalter, beidseitigem Befall, Ovarialkarzinom in der Familie und erkrankten Männern. Weiter die lange Östrogenexposition durch frühe Menarche, späte Menopause, Nulliparität oder späte erste Geburt und fehlende Stillzeit, die Hormonersatztherapie, postmenopausale Adipositas, Alkohol, Bewegungsmangel, eine Thoraxbestrahlung in der Jugend sowie eine frühere Brustkrebserkrankung oder ein DCIS.',
+        },
+        {
+          frage: 'Wie ist das Mammographie-Screening in Deutschland organisiert?',
+          antwort: 'Als bevölkerungsbezogenes Einladungsverfahren mit Mammographie beider Brüste in zwei Ebenen alle zwei Jahre, derzeit für Frauen von 50 bis 75 Jahren, mit unabhängiger Doppelbefundung. Es senkt die brustkrebsspezifische Sterblichkeit, weil Tumoren in einem früheren, besser behandelbaren Stadium entdeckt werden.',
+        },
+        {
+          frage: 'Wann veranlassen Sie eine humangenetische Beratung?',
+          antwort: 'Bei Verdacht auf ein hereditäres Mamma- und Ovarialkarzinom-Syndrom: mehrere Erkrankte in der Familie, Erkrankungsalter unter 50 Jahren, beidseitiges Mammakarzinom, Mamma- und Ovarialkarzinom in derselben Familie oder bei derselben Person, Mammakarzinom beim Mann und triple-negative Tumoren bei jungen Frauen. Getestet wird nach Beratung auf BRCA1 und BRCA2, mit Konsequenzen für Operation, PARP-Inhibitoren und die Früherkennung der Angehörigen.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Mammakarzinom, und wovon hängt die Therapie ab?',
+          antwort: 'Nach histologischer Sicherung und Staging wird der Fall im interdisziplinären Tumorboard besprochen. Die Therapie richtet sich nach Stadium und Tumorbiologie: operativ brusterhaltend mit obligater Nachbestrahlung oder Mastektomie mit Rekonstruktionsoption, Axillastaging über die Sentinel-Lymphknoten-Biopsie; dazu die Systemtherapie — endokrine Therapie über fünf bis zehn Jahre bei Rezeptorpositivität, Anti-HER2-Therapie bei HER2-Positivität, Chemotherapie risikoadaptiert, gegebenenfalls neoadjuvant. Abschließend Nachsorge, Nebenwirkungsmanagement und psychoonkologische Begleitung.',
+        },
+        {
+          frage: 'Was ist eine Sentinel-Lymphknoten-Biopsie und welchen Vorteil hat sie?',
+          antwort: 'Der Wächterlymphknoten ist der erste Lymphknoten im Abflussgebiet des Tumors. Er wird mit Technetium-99m und/oder Farbstoff markiert, intraoperativ aufgesucht und histologisch untersucht. Ist er tumorfrei, kann auf die komplette Axilladissektion verzichtet werden — das vermeidet das Lymphödem des Armes, Sensibilitätsstörungen und eine Schultersteife.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen neoadjuvanter und adjuvanter Therapie?',
+          antwort: 'Neoadjuvant bedeutet vor der Operation — zur Verkleinerung des Tumors, um häufiger brusterhaltend operieren zu können, und um das Ansprechen in vivo zu beurteilen; eine pathologische Komplettremission ist prognostisch günstig. Adjuvant bedeutet nach der Operation — zur Vernichtung von Mikrometastasen und zur Senkung des Rezidivrisikos.',
+        },
+        {
+          frage: 'Welche endokrine Therapie geben Sie prämenopausal, welche postmenopausal?',
+          antwort: 'Prämenopausal Tamoxifen 20 mg täglich, gegebenenfalls kombiniert mit GnRH-Analoga zur ovariellen Suppression; postmenopausal einen Aromatasehemmer wie Anastrozol, Letrozol oder Exemestan. Die Therapie läuft über fünf bis zehn Jahre, da hormonrezeptorpositive Tumoren noch nach vielen Jahren rezidivieren können.',
+        },
+        {
+          frage: 'Welche Nebenwirkungen der endokrinen Therapie müssen Sie überwachen?',
+          antwort: 'Unter Aromatasehemmern Arthralgien und Osteoporose — daher Osteodensitometrie sowie Kalzium- und Vitamin-D-Substitution. Unter Tamoxifen ein erhöhtes Risiko für Endometriumkarzinom, Thromboembolien und Hitzewallungen — jede postmenopausale Blutung muss abgeklärt werden. Unter Trastuzumab die Kardiotoxizität mit regelmäßiger Kontrolle der Ejektionsfraktion.',
+        },
+        {
+          frage: 'Eine Patientin hat eine Mastitis, die unter Antibiotika nicht abheilt. Woran denken Sie?',
+          antwort: 'An ein inflammatorisches Mammakarzinom, also einen T4d-Tumor. Jede Mastitis, die unter adäquater Antibiose binnen etwa zwei Wochen nicht abheilt, muss durch Stanzbiopsie einschließlich Hautbiopsie geklärt werden. Analog gilt: Ein Mamillenekzem, das unter lokaler Therapie nicht abheilt, ist ein Morbus Paget bis zum Beweis des Gegenteils.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Begriffe Mammakarzinom, Mastektomie, Biopsie, Metastase und Carcinoma in situ?',
+          antwort: 'Mammakarzinom = Brustkrebs, eine bösartige Geschwulst der Brustdrüse. Mastektomie = die vollständige operative Entfernung der Brust. Biopsie = die Entnahme einer kleinen Gewebeprobe zur Untersuchung unter dem Mikroskop. Metastase = eine Tochtergeschwulst, also eine Absiedlung in einem anderen Organ. Carcinoma in situ = der Tumor hat die Basalmembran noch nicht durchbrochen und ist auf seinen Ursprungsort begrenzt.',
+        },
+        {
+          frage: 'Die Patientin fragt direkt, ob sie Krebs hat und ob sie sterben muss. Was antworten Sie?',
+          antwort: 'Ich weiche nicht aus, stelle aber auch keine Diagnose vor der Histologie: Ich benenne den auffälligen Befund ehrlich, erkläre, dass erst die Gewebeprobe Sicherheit gibt, und sage eine zügige Abklärung mit festem Folgetermin zu. Auf die Angst gehe ich empathisch ein — besonders wenn eine Angehörige an Brustkrebs verstorben ist — und ordne ein, dass Brustkrebs heute in den meisten Fällen gut behandelbar ist und die Aussichten von Stadium und Tumoreigenschaften abhängen. Zusätzlich biete ich psychoonkologische Unterstützung und, bei familiärer Belastung, eine humangenetische Beratung an.',
+        },
+        {
+          frage: 'Wie sieht die Nachsorge aus?',
+          antwort: 'Über zehn Jahre strukturiert: Anamnese und klinische Untersuchung zunächst vierteljährlich, ab dem vierten Jahr halbjährlich bis jährlich, dazu die jährliche Mammographie. Ein apparatives Staging erfolgt nur bei Symptomen. Ergänzend Lymphödemprophylaxe, Osteoporose- und Nebenwirkungsmanagement, psychoonkologische Betreuung sowie Beratung zu Bewegung, Gewichtsreduktion und Alkoholkarenz.',
+        },
+      ],
+      merksatz: 'Ein derber, unverschieblicher und vor allem SCHMERZLOSER Knoten mit Hauteinziehung oder neuer Mamillenretraktion ist Brustkrebs, bis die Histologie das Gegenteil beweist — Diagnose nur durch die Triple-Diagnostik aus Klinik, Bildgebung und STANZBIOPSIE (nie Feinnadelaspiration), Therapie gesteuert durch Rezeptorstatus, HER2 und Ki-67; brusterhaltend heißt immer plus Bestrahlung, und der Sentinel-Lymphknoten erspart die Axilladissektion.',
+      linkedCaseIds: [
+        'case-mammakarzinom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+        'auf-mrt',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-rheumatoide-arthritis',
+      pathology: 'Rheumatoide Arthritis',
+      specialty: 'Rheumatologie',
+      definition: 'Die rheumatoide Arthritis (chronische Polyarthritis) ist die häufigste entzündlich-rheumatische Systemerkrankung mit einer Prävalenz von etwa 0,5–1 % der Bevölkerung. Zugrunde liegt eine autoimmun vermittelte, chronisch-progrediente Entzündung der Synovialis: die entzündete Gelenkinnenhaut wuchert zu einem sogenannten Pannus, der Knorpel und gelenknahen Knochen destruiert. Charakteristisch ist die SYMMETRISCHE Polyarthritis der KLEINEN Gelenke — Metakarpophalangeal- und proximale Interphalangealgelenke der Hand sowie Metatarsophalangealgelenke — unter typischer AUSSPARUNG der distalen Interphalangealgelenke. Frauen sind etwa dreimal häufiger betroffen, der Erkrankungsgipfel liegt zwischen dem 40. und 60. Lebensjahr. Es handelt sich um eine Systemerkrankung mit extraartikulären Manifestationen und deutlich erhöhtem kardiovaskulärem Risiko.',
+      aetiologie: 'Multifaktoriell: genetische Prädisposition (HLA-DRB1-Allele des „shared epitope“, PTPN22) trifft auf Umweltfaktoren. Wichtigster Umweltfaktor ist das RAUCHEN, das über eine vermehrte Citrullinierung von Proteinen die Bildung von Anti-CCP-Antikörpern begünstigt; diskutiert werden ferner Parodontitis (Porphyromonas gingivalis), Störungen des Darmmikrobioms und Infektionen als Trigger. Die gegen citrullinierte Peptide gerichteten Autoantikörper können der klinischen Manifestation um Jahre vorausgehen. Es folgt eine T- und B-Zell-vermittelte Synovialitis mit Freisetzung von TNF-alpha, Interleukin-1 und Interleukin-6, Aktivierung von Osteoklasten über RANKL und dadurch Knochenerosion. Der Rheumafaktor ist ein Autoantikörper gegen das Fc-Fragment von IgG.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (etwa 3:1), Erkrankungsgipfel zwischen dem 40. und 60. Lebensjahr',
+        'Rauchen — wichtigster beeinflussbarer Risikofaktor, besonders für die Anti-CCP-positive Form; verschlechtert zusätzlich das Therapieansprechen',
+        'Positive Familienanamnese und HLA-DRB1-„shared epitope“',
+        'Parodontitis und chronische Schleimhautentzündungen',
+        'Adipositas und körperliche Inaktivität',
+        'Weibliche Hormonumstellungen: häufig Erstmanifestation im ersten Jahr nach einer Entbindung, Besserung während der Schwangerschaft',
+        'Silikat- und Staubexposition im Beruf (Quarzstaub, Bergbau)',
+      ],
+      klinik: [
+        {
+          text: 'Symmetrische Polyarthritis der kleinen Gelenke: Metakarpophalangeal- und proximale Interphalangealgelenke sowie Metatarsophalangealgelenke; die distalen Interphalangealgelenke bleiben typischerweise ausgespart',
+        },
+        {
+          text: 'Morgensteifigkeit von mehr als 60 Minuten, häufig ein bis zwei Stunden — das entscheidende anamnestische Merkmal gegenüber der Arthrose',
+        },
+        {
+          text: 'Besserung der Beschwerden durch Bewegung, Verschlechterung durch Ruhe und langes Sitzen',
+        },
+        {
+          text: 'Teigig-weiche, überwärmte Schwellung der Gelenke mit Druckschmerz; eine ausgeprägte Rötung ist untypisch',
+        },
+        {
+          text: 'Positives Gaenslen-Zeichen: schmerzhafter Querdruck über den Fingergrund- beziehungsweise Zehengrundgelenken',
+        },
+        {
+          text: 'Kraftloser Faustschluss mit Verlust der Handkraft und Feinmotorik (Knöpfe, Flaschendeckel, Schreiben)',
+        },
+        {
+          text: 'Schleichender Beginn über Wochen bis Monate mit fortschreitendem Hinzukommen weiterer Gelenke',
+        },
+        {
+          text: 'Allgemeinsymptome: Müdigkeit, Abgeschlagenheit, Leistungsknick, subfebrile Temperaturen, gelegentlich Gewichtsverlust',
+        },
+        {
+          text: 'Vorfußbeschwerden mit dem Gefühl, „auf Kieselsteinen zu laufen“, sowie Beteiligung von Hand-, Ellenbogen-, Schulter-, Knie- und oberen Sprunggelenken im Verlauf',
+        },
+        {
+          text: 'Spätdeformitäten: Ulnardeviation der Finger („Windmühlenflügelstellung“), Schwanenhals- und Knopflochdeformität, 90/90-Deformität des Daumens, Caput-ulnae-Syndrom',
+        },
+        {
+          text: 'Rheumaknoten an Streckseiten von Unterarm und Olecranon (bei etwa 20 %, fast nur bei Rheumafaktor-positiven Patienten)',
+        },
+        {
+          text: 'Extraartikuläre Manifestationen: Sicca-Symptomatik bei sekundärem Sjögren-Syndrom, Episkleritis und Skleritis, Perikarditis und Pleuritis, interstitielle Lungenbeteiligung, Vaskulitis, Anämie der chronischen Erkrankung',
+          atypisch: true,
+        },
+        {
+          text: 'Nackenschmerz, Parästhesien der Hände und Gangstörung als Zeichen einer atlantoaxialen Instabilität mit drohender Myelonkompression',
+          atypisch: true,
+        },
+        {
+          text: 'Karpaltunnelsyndrom durch Tenosynovitis der Beugesehnen als gelegentliche Erstmanifestation',
+          atypisch: true,
+        },
+        {
+          text: 'Monoartikulärer Beginn, etwa als isolierte Kniegelenkschwellung, oder oligoartikulärer asymmetrischer Beginn',
+          atypisch: true,
+        },
+        {
+          text: '„Late Onset Rheumatoid Arthritis“ jenseits des 60. Lebensjahres mit akutem Beginn, Befall großer Gelenke und Schultergürtelschmerz — klinisch kaum von einer Polymyalgia rheumatica zu trennen',
+          atypisch: true,
+        },
+        {
+          text: 'Palindromer Rheumatismus: über Stunden bis Tage anfallsartig wiederkehrende Monarthritis mit völliger Rückbildung, in einem Teil der Fälle Vorstadium einer rheumatoiden Arthritis',
+          atypisch: true,
+        },
+        {
+          text: 'Felty-Syndrom: rheumatoide Arthritis mit Splenomegalie und Neutropenie, dadurch rezidivierende Infekte',
+          atypisch: true,
+        },
+        {
+          text: 'Caplan-Syndrom: rheumatoide Arthritis mit Silikose und rundlichen Lungenrundherden bei Bergarbeitern',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ACR/EULAR-Klassifikationskriterien 2010',
+          inhalt: 'Anwendbar bei mindestens einem klinisch geschwollenen Gelenk ohne bessere Erklärung. Punktvergabe: Gelenkbeteiligung — 1 großes Gelenk 0, 2–10 große Gelenke 1, 1–3 kleine Gelenke 2, 4–10 kleine Gelenke 3, mehr als 10 Gelenke mit mindestens einem kleinen 5; Serologie — Rheumafaktor und Anti-CCP negativ 0, eines niedrig positiv 2, eines hoch positiv 3; Akute-Phase-Reaktanten — CRP und BSG normal 0, mindestens eines erhöht 1; Symptomdauer — unter 6 Wochen 0, ab 6 Wochen 1. Maximal 10 Punkte; ab 6 von 10 Punkten gilt die Diagnose als gesichert.',
+        },
+        {
+          name: 'DAS28 (Disease Activity Score)',
+          inhalt: 'Maß der Krankheitsaktivität aus der Zahl der druckschmerzhaften und der geschwollenen Gelenke von 28 definierten Gelenken, der BSG oder dem CRP und der globalen Selbsteinschätzung des Patienten auf einer visuellen Analogskala. Interpretation: Remission unter 2,6; niedrige Aktivität bis 3,2; mäßige Aktivität über 3,2 bis 5,1; hohe Aktivität über 5,1. Grundlage des „treat to target“ mit Kontrolle alle 4 bis 12 Wochen.',
+        },
+        {
+          name: 'Serologische Einteilung',
+          inhalt: 'Seropositive Form (Rheumafaktor und/oder Anti-CCP positiv, etwa 70–80 %): häufiger erosiver Verlauf, häufiger Rheumaknoten und extraartikuläre Manifestationen, ungünstigere Prognose. Seronegative Form: Diagnose rein klinisch und bildgebend, oft mildere Gelenkdestruktion, aber differenzialdiagnostisch schwieriger.',
+        },
+        {
+          name: 'Radiologische Stadien nach Steinbrocker',
+          inhalt: 'Stadium I: gelenknahe Osteoporose ohne Destruktion. Stadium II: zusätzlich Gelenkspaltverschmälerung und subchondrale Zysten. Stadium III: Erosionen und Usuren mit Deformierung, Subluxation. Stadium IV: knöcherne oder fibröse Ankylose, Gelenkzerstörung.',
+        },
+        {
+          name: 'Funktionsklassen nach Steinbrocker',
+          inhalt: 'Klasse I: volle Funktionsfähigkeit im Alltag und Beruf. Klasse II: Alltagsaktivitäten trotz Beschwerden möglich. Klasse III: nur eingeschränkte Selbstversorgung, Beruf nicht mehr ausübbar. Klasse IV: weitgehende Bettlägerigkeit oder Rollstuhlpflicht, Selbstversorgung aufgehoben.',
+        },
+      ],
+      redFlags: [
+        'Hohes Fieber, Schüttelfrost und ein einzelnes hochakut entzündetes Gelenk bei bekannter rheumatoider Arthritis unter Immunsuppression → septische Arthritis bis zum Beweis des Gegenteils, sofortige Gelenkpunktion',
+        'Nackenschmerz, Parästhesien der Hände, Gangstörung oder Blasenstörung → atlantoaxiale Instabilität mit Myelonkompression; Funktionsaufnahmen der Halswirbelsäule vor jeder Intubation',
+        'Neu aufgetretener trockener Husten mit Belastungsdyspnoe unter Methotrexat → Methotrexat-Pneumonitis, sofortiges Absetzen',
+        'Panzytopenie, Mukositis und Stomatitis unter Methotrexat → Verdacht auf versehentlich TÄGLICHE Einnahme oder Niereninsuffizienz mit Kumulation; Notfall, Folinsäure als Antidot',
+        'Hautulzera, Purpura, Mononeuritis multiplex oder Digitalgangrän → rheumatoide Vaskulitis',
+        'Atemnot, Thoraxschmerz, gestaute Halsvenen → Perikarditis mit drohender Tamponade oder Pleuritis',
+        'Fieber und rezidivierende Infekte mit Splenomegalie und Neutropenie → Felty-Syndrom',
+        'Akute Schmerzen und Rötung eines Auges mit Visusverlust → Skleritis oder Scleromalacia perforans',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Dauer der Morgensteifigkeit in Minuten, Befallsmuster und Symmetrie, Bewegungsabhängigkeit (Besserung durch Bewegung), Dauer über sechs Wochen, Allgemeinsymptome, Rauchen, Familienanamnese, Ausschluss vorangegangener Infekte und Traumata',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gelenkstatus: Inspektion und Palpation aller Gelenke, Zählung druckschmerzhafter und geschwollener Gelenke (28-Gelenke-Zählung), Gaenslen-Zeichen über Fingergrund- und Zehengrundgelenken, Faustschlusstest und Handkraft, Prüfung auf Deformitäten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suche nach extraartikulären Manifestationen: Rheumaknoten, Sicca-Symptomatik, Augenbefund, Herz- und Lungenauskultation, Lymphknoten, Milz, Haut und Nägel',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung des DAS28 als Ausgangswert und Anwendung der ACR/EULAR-Kriterien 2010',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter BSG und CRP; Blutbild mit Differenzialblutbild — normochrome, normozytäre Anämie der chronischen Erkrankung, Thrombozytose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Rheumafaktor: Sensitivität nur etwa 70 %, geringe Spezifität (positiv auch bei Gesunden, im höheren Alter, bei Sjögren-Syndrom, Hepatitis C, Endokarditis) — ein negativer Wert schließt die Erkrankung nicht aus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Anti-CCP-Antikörper (ACPA): Spezifität über 95 %, häufig früh und sogar Jahre vor Symptombeginn positiv, prognostisch ungünstig — der entscheidende serologische Marker',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Differenzialdiagnostisches Labor: ANA, gegebenenfalls ENA und Anti-dsDNA, Harnsäure, ASL-Titer, HLA-B27, Serologie für Parvovirus B19, Hepatitis B und C sowie Borrelien',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor Basistherapie: Blutbild, Transaminasen, Kreatinin, Urinstatus; vor Biologika zusätzlich Hepatitis-B- und -C-Serologie und Tuberkulose-Screening mit Interferon-Gamma-Release-Assay',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Arthrosonographie mit Power-Doppler: Nachweis von Synovitis, Tenosynovitis und Erguss bereits im Frühstadium — dem Röntgen deutlich überlegen und zur Verlaufskontrolle geeignet',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Hände mit Kontrastmittel: sensitivstes Verfahren, zeigt Knochenmarködem als Vorstufe der Erosion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen der Hände und Vorfüße in zwei Ebenen: gelenknahe (bandförmige) Osteoporose, Weichteilschwellung, Gelenkspaltverschmälerung, Erosionen und Usuren, im Spätstadium Subluxation und Ankylose — im Frühstadium typischerweise unauffällig',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen der Halswirbelsäule in Funktionsstellung zur Erfassung der atlantoaxialen Instabilität; Röntgen-Thorax vor Basistherapie und bei Verdacht auf Lungenbeteiligung, ergänzend hochauflösendes CT und Lungenfunktion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gelenkpunktion mit Synovia-Analyse bei Erguss: entzündliches Punktat mit erhöhter Zellzahl und Granulozytose, Ragozyten; Polarisationsmikroskopie, Gramfärbung und Kultur dienen dem Ausschluss einer Kristall- beziehungsweise septischen Arthritis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Echokardiographie bei Verdacht auf Perikarditis, augenärztliche Spaltlampenuntersuchung mit Schirmer-Test, in Einzelfällen Synovialbiopsie oder Biopsie eines Rheumaknotens',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Aktivierte Fingerpolyarthrose (Heberden-/Bouchard-Arthrose)',
+          unterscheidung: 'Befall der distalen Interphalangealgelenke und des Daumensattelgelenks mit harten knotigen Auftreibungen; Anlaufsteifigkeit von nur wenigen Minuten, Verschlechterung durch Belastung, Besserung durch Ruhe; Entzündungsparameter normal; im Röntgen Osteophyten und subchondrale Sklerose statt Erosionen.',
+        },
+        {
+          dd: 'Psoriasisarthritis',
+          unterscheidung: 'Meist asymmetrischer Strahlbefall mit Beteiligung der distalen Interphalangealgelenke, Daktylitis („Wurstfinger“), Enthesitis, Nagelbefall mit Tüpfelnägeln und Onycholyse, häufig axiale Beteiligung; Rheumafaktor und Anti-CCP in der Regel negativ. Der Hautbefund kann der Arthritis um Jahre vorausgehen oder fehlen.',
+        },
+        {
+          dd: 'Gichtarthritis',
+          unterscheidung: 'Perakute, meist monoartikuläre nächtliche Attacke, klassisch am Großzehengrundgelenk (Podagra), mit knallroter, extrem berührungsempfindlicher Schwellung nach purin- oder alkoholreicher Mahlzeit; selbstlimitierend über ein bis zwei Wochen. Nachweis nadelförmiger, negativ doppelbrechender Uratkristalle im Punktat.',
+        },
+        {
+          dd: 'Septische Arthritis',
+          unterscheidung: 'Monarthritis mit hohem Fieber, Schüttelfrost, reduziertem Allgemeinzustand und Eintrittspforte; CRP und Procalcitonin stark erhöht. Beweis über Gelenkpunktion mit Zellzahl über 50 000/µl, Gramfärbung und Kultur. Bei immunsupprimierten Rheumapatienten kann sie sich auf eine bestehende Arthritis aufpfropfen.',
+        },
+        {
+          dd: 'Reaktive Arthritis',
+          unterscheidung: 'Ein bis vier Wochen nach gastrointestinalem oder urogenitalem Infekt; asymmetrische Oligoarthritis vorwiegend der unteren Extremität, HLA-B27-assoziiert, klassische Trias mit Konjunktivitis und Urethritis. Meist selbstlimitierend.',
+        },
+        {
+          dd: 'Rheumatisches Fieber (Poststreptokokken-Arthritis)',
+          unterscheidung: 'Ein bis drei Wochen nach Streptokokken-Angina; WANDERNDE Arthritis großer Gelenke mit Karditis, Erythema anulare, subkutanen Knötchen und Chorea minor; ASL-Titer erhöht, Diagnose nach den Jones-Kriterien. Nicht mit der rheumatoiden Arthritis zu verwechseln.',
+        },
+        {
+          dd: 'Kollagenosen, insbesondere systemischer Lupus erythematodes',
+          unterscheidung: 'Ebenfalls symmetrische Polyarthritis der kleinen Gelenke, aber typischerweise nicht erosiv (Jaccoud-Arthropathie), begleitet von Schmetterlingserythem, Photosensibilität, oralen Ulzera, Alopezie, Raynaud-Phänomen, Serositis, Nephritis und Zytopenien; ANA und Anti-dsDNA positiv.',
+        },
+        {
+          dd: 'Polymyalgia rheumatica',
+          unterscheidung: 'Patienten über 50 Jahre, Schmerz und Steifigkeit im Schulter- und Beckengürtel, sehr hohe BSG (oft über 50 mm/h), promptes Ansprechen auf niedrig dosierte Glukokortikoide; häufig assoziiert mit Riesenzellarteriitis mit Kopfschmerz, Kauclaudicatio und Sehstörungen.',
+        },
+        {
+          dd: 'Virale Arthritiden (Parvovirus B19, Hepatitis B und C, Röteln, Chikungunya)',
+          unterscheidung: 'Können eine rheumatoide Arthritis exakt imitieren, sind jedoch innerhalb von sechs bis acht Wochen selbstlimitierend und folgen einem fieberhaften Infekt oder Exanthem; Diagnose serologisch. Bei Hepatitis C ist zudem der Rheumafaktor häufig falsch positiv.',
+        },
+        {
+          dd: 'Fibromyalgiesyndrom',
+          unterscheidung: 'Generalisierte Muskel- und Sehnenansatzschmerzen mit Erschöpfung, Schlafstörung und Druckpunkten, aber ohne objektive Gelenkschwellung, ohne Überwärmung und ohne Entzündungszeichen im Labor. Kann als Begleitsyndrom bei rheumatoider Arthritis vorkommen und die Aktivitätsbeurteilung verfälschen.',
+        },
+        {
+          dd: 'Sarkoidose mit Löfgren-Syndrom',
+          unterscheidung: 'Akute Trias aus bihilärer Lymphadenopathie, Erythema nodosum an den Schienbeinen und Sprunggelenksarthritis, häufig mit Fieber; meist selbstlimitierend. Nachweis über Röntgen-Thorax und erhöhtes ACE beziehungsweise löslichen Interleukin-2-Rezeptor.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortiger Beginn der Basistherapie — das „window of opportunity“',
+          items: [
+            'Beginn einer krankheitsmodifizierenden Basistherapie (DMARD) innerhalb der ersten Wochen bis wenigen Monate nach Symptombeginn, da die Erosionen irreversibel sind; Ziel ist die Remission nach dem Prinzip „treat to target“ mit DAS28-Kontrolle alle vier bis zwölf Wochen',
+            'Methotrexat als Ankermedikament: 10–15 mg EINMAL WÖCHENTLICH oral oder subkutan, Steigerung bis 25 mg wöchentlich; Wirkeintritt nach vier bis acht Wochen',
+            'obligate Folsäuresubstitution 5 mg einmal wöchentlich am FOLGETAG der Methotrexat-Gabe zur Verminderung von Mukositis, Hepato- und Myelotoxizität',
+            'vor Beginn Blutbild, Transaminasen, Kreatinin, Hepatitis-Serologie und Röntgen-Thorax; danach engmaschige Laborkontrollen, Dosisanpassung bei Niereninsuffizienz',
+            'Kontraindikationen und Cave: Schwangerschaft und Stillzeit (teratogen — Kontrazeption für beide Geschlechter), relevante Niereninsuffizienz, Lebererkrankung, Alkoholkonsum, floride Infektion; Cave Methotrexat-Pneumonitis',
+            'Alternativen und Kombinationspartner: Leflunomid, Sulfasalazin (auch in der Schwangerschaft möglich), Hydroxychloroquin (Cave Retinopathie, augenärztliche Kontrolle)',
+          ],
+        },
+        {
+          label: 'Symptomkontrolle und Überbrückung mit Glukokortikoiden',
+          items: [
+            'Glukokortikoide wirken innerhalb von Stunden bis Tagen und dienen als Brücke bis zum Wirkeintritt der Basistherapie, z. B. Prednisolon 15–30 mg täglich mit anschließendem zügigem Ausschleichen',
+            'im akuten Schub oder bei einzelnen aktiven Gelenken intraartikuläre Injektion nach Ausschluss einer Infektion',
+            'Grundsatz: so kurz und so niedrig wie möglich; eine Dauertherapie ist zu vermeiden, angestrebt wird das Absetzen innerhalb von drei bis sechs Monaten',
+            'Osteoporoseprophylaxe ab einer Therapiedauer über drei Monate: Kalzium und Vitamin D, Bewegung, Knochendichtemessung, bei erhöhtem Risiko Bisphosphonate',
+            'nichtsteroidale Antirheumatika als symptomatische Bedarfsmedikation unter Magenschutz mit einem Protonenpumpenhemmer — sie beeinflussen den Krankheitsverlauf NICHT',
+            'unter Glukokortikoiden Blutzucker, Blutdruck, Gewicht und Augeninnendruck kontrollieren',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Eskalation bei unzureichendem Ansprechen',
+          items: [
+            'Wenn das Therapieziel nach drei bis sechs Monaten nicht erreicht ist: Biologika — TNF-alpha-Inhibitoren (Adalimumab, Etanercept, Infliximab, Golimumab, Certolizumab), Interleukin-6-Rezeptor-Antagonisten (Tocilizumab, Sarilumab), der Kostimulationsblocker Abatacept oder der B-Zell-Antikörper Rituximab',
+            'alternativ Januskinase-Inhibitoren (Baricitinib, Tofacitinib, Upadacitinib) — Cave Thrombembolien, Herpes zoster, kardiovaskuläre Ereignisse und Malignome bei Risikopatienten über 65 Jahren',
+            'VOR Beginn zwingend Tuberkulose-Screening (Interferon-Gamma-Release-Assay und Röntgen-Thorax), Hepatitis-B- und -C-Serologie sowie Ausschluss einer floriden Infektion',
+            'Impfstatus möglichst vor Therapiebeginn vervollständigen (Influenza, Pneumokokken, COVID-19, Herpes zoster); unter laufender Therapie sind Lebendimpfstoffe kontraindiziert',
+            'Patientenschulung zum Infektionsrisiko: bei Fieber Therapie pausieren und ärztlich vorstellen; bei geplanten Operationen Therapiepause nach Halbwertszeit',
+          ],
+        },
+        {
+          label: 'Nichtmedikamentöse Begleittherapie und Langzeitbetreuung',
+          items: [
+            'Physiotherapie und medizinische Trainingstherapie zum Erhalt von Beweglichkeit, Kraft und Funktion; Ergotherapie mit Gelenkschutztraining, Schienen und Hilfsmitteln',
+            'Kälteanwendung im akuten Schub, Wärme und Bewegungsbad im beschwerdearmen Intervall; regelmäßige moderate Bewegung',
+            'konsequenter Rauchstopp als Teil der Krankheitsbehandlung; mediterrane Ernährung, Behandlung einer Parodontitis',
+            'kardiovaskuläre Risikokontrolle (Blutdruck, Lipide, Blutzucker), da die chronische Entzündung Herzinfarkt- und Schlaganfallrisiko erhöht; Osteoporoseprophylaxe',
+            'Beachtung der atlantoaxialen Instabilität: Funktionsaufnahmen der Halswirbelsäule vor Intubation und vor manueller Therapie',
+            'Kinderwunschplanung und Umstellung teratogener Medikamente; sozialmedizinische Betreuung mit Rehabilitation, Schwerbehindertenausweis und beruflicher Anpassung',
+            'im Spätstadium orthopädische Eingriffe: Synovialektomie, Sehnenrekonstruktion, Arthrodese oder endoprothetischer Gelenkersatz',
+          ],
+        },
+      ],
+      prognose: 'Ohne Behandlung entwickeln bis zu 70 % der Patienten innerhalb der ersten zwei Jahre radiologische Erosionen — deshalb das „window of opportunity“. Mit früher Basistherapie und konsequentem „treat to target“ erreicht heute etwa die Hälfte der Patienten eine Remission oder niedrige Krankheitsaktivität, und schwere Deformitäten sind selten geworden. Prognostisch ungünstig sind hohe Anti-CCP- und Rheumafaktor-Titer, frühe Erosionen, hohe Entzündungsaktivität, Befall vieler Gelenke, extraartikuläre Manifestationen und fortgesetztes Rauchen. Die Lebenserwartung ist um etwa drei bis zehn Jahre verkürzt, ganz überwiegend durch kardiovaskuläre Ereignisse und Infektionen, nicht durch die Gelenkbeteiligung selbst.',
+      pruefungsfallen: [
+        'Methotrexat wird EINMAL WÖCHENTLICH eingenommen; eine tägliche Einnahme führt zu Panzytopenie und Mukositis und kann tödlich verlaufen. Die Folsäure folgt am Tag DANACH, nicht am selben Tag.',
+        'Der Rheumafaktor ist weder sensitiv (nur etwa 70 %) noch spezifisch; der Anti-CCP-Antikörper ist der spezifische und prognostisch entscheidende Marker. Ein negativer Rheumafaktor schließt die Erkrankung nicht aus.',
+        'Die distalen Interphalangealgelenke sind bei der rheumatoiden Arthritis typischerweise FREI — sind sie befallen, denkt man an Arthrose oder Psoriasisarthritis.',
+        'Im Frühstadium ist das Röntgen unauffällig; Sonographie mit Power-Doppler und MRT sind ihm überlegen.',
+        'Glukokortikoide sind eine Brücke, keine Basistherapie — sie verhindern die Erosion nicht ausreichend und erfordern ab drei Monaten eine Osteoporoseprophylaxe.',
+        'Die atlantoaxiale Instabilität wird regelmäßig vergessen: sie ist vor jeder Intubation und vor Manipulationen an der Halswirbelsäule abzuklären.',
+        'Die rheumatoide Arthritis ist eine Systemerkrankung: das kardiovaskuläre Risiko und die extraartikulären Manifestationen gehören in jede vollständige Antwort.',
+        '„Rheuma“ ist kein Diagnosebegriff, und die rheumatoide Arthritis ist nicht das rheumatische Fieber — diese Verwechslung wird aktiv geprüft.',
+        'Rauchen ist der wichtigste Umweltrisikofaktor und verschlechtert das Therapieansprechen; der Rauchstopp gehört in den Therapieplan.',
+        'Vor Biologika sind Tuberkulose-Screening, Hepatitis-Serologie und Impfstatus obligat; Lebendimpfstoffe sind unter Therapie kontraindiziert.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was sind die Symptome von Rheuma? Wie erkennen Sie eine rheumatoide Arthritis?',
+          antwort: 'Eine symmetrische Polyarthritis der kleinen Gelenke — Fingergrund- und Fingermittelgelenke sowie Zehengrundgelenke — unter Aussparung der Fingerendgelenke, mit Morgensteifigkeit über 60 Minuten, Besserung durch Bewegung und Verschlechterung durch Ruhe, teigig-weicher überwärmter Schwellung, positivem Gaenslen-Zeichen, schleichendem Beginn über Wochen und Allgemeinsymptomen wie Müdigkeit, subfebrilen Temperaturen und Leistungsknick.',
+        },
+        {
+          frage: 'Warum ist es kein Rheuma? Wie können wir das ausschließen?',
+          antwort: 'Ausgeschlossen wird über die Kombination aus Anamnese, Klinik, Labor und Bildgebung: kurze Anlaufsteifigkeit von wenigen Minuten, Besserung durch Ruhe, Befall der Fingerendgelenke, fehlende Gelenkschwellung, normale BSG und CRP, negativer Anti-CCP-Antikörper und eine unauffällige Arthrosonographie mit Power-Doppler machen eine rheumatoide Arthritis sehr unwahrscheinlich. Die Diagnose stützt sich formal auf die ACR/EULAR-Kriterien von 2010 ab 6 von 10 Punkten.',
+        },
+        {
+          frage: 'Was sehen wir im Blut? Welche Entzündungsparameter bestimmen Sie?',
+          antwort: 'BSG und CRP als Akute-Phase-Parameter, dazu ein Blutbild mit Differenzialblutbild, das eine normochrome Anämie der chronischen Erkrankung und eine Thrombozytose zeigen kann. Immunologisch Rheumafaktor und Anti-CCP-Antikörper, ergänzend ANA zur Abgrenzung einer Kollagenose sowie Harnsäure, Leber- und Nierenwerte.',
+        },
+        {
+          frage: 'Wie spezifisch ist der Rheumafaktor?',
+          antwort: 'Wenig. Er ist nur bei etwa 70 % der Patienten positiv und kommt auch bei Gesunden, im höheren Alter, beim Sjögren-Syndrom, bei Hepatitis C und bei Endokarditis vor. Der Anti-CCP-Antikörper ist mit über 95 % hochspezifisch, oft schon Jahre vor Symptombeginn nachweisbar und mit einem erosiven Verlauf verbunden.',
+        },
+        {
+          frage: 'Wie grenzen Sie die rheumatoide Arthritis von einer Arthrose ab?',
+          antwort: 'Über drei Punkte: die Dauer der Morgensteifigkeit (über 60 Minuten gegenüber wenigen Minuten Anlaufsteifigkeit), die Bewegungsabhängigkeit (Besserung durch Bewegung gegenüber Verschlechterung durch Belastung und Besserung durch Ruhe) und das Befallsmuster (Grund- und Mittelgelenke symmetrisch mit weicher Schwellung gegenüber Endgelenken und Daumensattelgelenk mit harten Heberden- und Bouchard-Knoten). Dazu erhöhte Entzündungsparameter und im Röntgen Erosionen statt Osteophyten.',
+        },
+        {
+          frage: 'Der Patient hat eine Schuppenflechte. Ist das automatisch eine Psoriasisarthritis?',
+          antwort: 'Nein. Entscheidend ist das Befallsmuster: die Psoriasisarthritis ist meist asymmetrisch im Strahlbefall, bezieht die Fingerendgelenke ein und geht mit Daktylitis, Enthesitis und Nagelbefall einher; sie ist in der Regel Rheumafaktor- und Anti-CCP-negativ. Ein symmetrischer Befall der Grund- und Mittelgelenke mit freien Endgelenken und positivem Anti-CCP spricht für eine rheumatoide Arthritis, auch wenn eine Psoriasis besteht.',
+        },
+        {
+          frage: 'Ist die rheumatoide Arthritis dasselbe wie rheumatisches Fieber?',
+          antwort: 'Nein. Das rheumatische Fieber ist eine Zweiterkrankung ein bis drei Wochen nach einer Streptokokken-Angina mit wandernder Arthritis großer Gelenke, Karditis, Erythema anulare, subkutanen Knötchen und Chorea minor; diagnostiziert wird es über den ASL-Titer und die Jones-Kriterien. Die rheumatoide Arthritis ist eine chronische Autoimmunerkrankung der Synovialis mit symmetrischem Befall der kleinen Gelenke.',
+        },
+        {
+          frage: 'Welche Bildgebung ist im Frühstadium sinnvoll?',
+          antwort: 'Die Arthrosonographie mit Power-Doppler und die MRT der Hände. Der Ultraschall zeigt Synovitis, Tenosynovitis und Erguss, die MRT zusätzlich das Knochenmarködem als Vorstufe der Erosion. Das Röntgen ist früh unauffällig; gelenknahe Osteoporose, Gelenkspaltverschmälerung und Erosionen erscheinen erst spät, weshalb es vor allem als Ausgangs- und Verlaufsbefund dient.',
+        },
+        {
+          frage: 'Was bedeutet das „window of opportunity“?',
+          antwort: 'Das Zeitfenster der ersten Wochen bis wenigen Monate, in dem eine Basistherapie den Verlauf noch grundlegend beeinflussen kann. Da die Erosionen irreversibel sind, muss die krankheitsmodifizierende Therapie sofort nach Diagnosestellung beginnen; Ziel ist die Remission nach dem Prinzip „treat to target“ mit regelmäßiger DAS28-Kontrolle.',
+        },
+        {
+          frage: 'Wie dosieren Sie Methotrexat und was gehört zwingend dazu?',
+          antwort: '10 bis 15 mg einmal WÖCHENTLICH, oral oder subkutan, steigerbar bis 25 mg wöchentlich, mit Wirkeintritt nach vier bis acht Wochen. Zwingend dazu 5 mg Folsäure einmal wöchentlich am Folgetag. Kontrolliert werden Blutbild, Transaminasen und Kreatinin; erforderlich sind Alkoholkarenz und sichere Kontrazeption für Frauen und Männer, da Methotrexat teratogen ist. Eine tägliche Einnahme ist ein potenziell tödlicher Fehler.',
+        },
+        {
+          frage: 'Welche Rolle spielen Glukokortikoide?',
+          antwort: 'Sie wirken rasch und überbrücken die Zeit bis zum Wirkeintritt der Basistherapie, systemisch oder intraartikulär. Sie sind ausdrücklich keine Dauertherapie: so kurz und so niedrig wie möglich, Ziel ist das Absetzen innerhalb von drei bis sechs Monaten. Ab drei Monaten Therapiedauer ist eine Osteoporoseprophylaxe mit Kalzium und Vitamin D, gegebenenfalls Bisphosphonaten, erforderlich.',
+        },
+        {
+          frage: 'Was untersuchen Sie vor Beginn eines Biologikums?',
+          antwort: 'Tuberkulose-Screening mit Interferon-Gamma-Release-Assay und Röntgen-Thorax wegen der Reaktivierungsgefahr unter TNF-alpha-Blockade, Hepatitis-B- und -C-Serologie, Ausschluss einer floriden Infektion und Überprüfung des Impfstatus. Impfungen erfolgen möglichst vorher; Lebendimpfstoffe sind unter Therapie kontraindiziert.',
+        },
+        {
+          frage: 'Welche extraartikulären Manifestationen kennen Sie?',
+          antwort: 'Rheumaknoten, sekundäres Sjögren-Syndrom mit Sicca-Symptomatik, Episkleritis und Skleritis, Perikarditis und Pleuritis, interstitielle Lungenbeteiligung, rheumatoide Vaskulitis, Anämie der chronischen Erkrankung, Amyloidose, das Felty-Syndrom mit Splenomegalie und Neutropenie sowie das erhöhte kardiovaskuläre Risiko durch die chronische Entzündung.',
+        },
+        {
+          frage: 'Woran denken Sie bei einem Rheumapatienten vor der Intubation?',
+          antwort: 'An die atlantoaxiale Instabilität durch Entzündung des Bandapparates zwischen Atlas und Axis: bei Reklination des Kopfes droht eine Myelonkompression. Deshalb sind vor geplanter Narkose und vor manueller Therapie der Halswirbelsäule Röntgenfunktionsaufnahmen erforderlich. Warnzeichen sind Nackenschmerz, Parästhesien der Hände und Gangstörungen.',
+        },
+        {
+          frage: 'Welche Bedeutung hat das Rauchen?',
+          antwort: 'Rauchen ist der wichtigste beeinflussbare Umweltrisikofaktor. Über die Citrullinierung von Proteinen begünstigt es die Bildung von Anti-CCP-Antikörpern, es geht mit schwereren Verläufen einher, verschlechtert das Ansprechen auf Methotrexat und Biologika und potenziert das ohnehin erhöhte kardiovaskuläre Risiko. Der Rauchstopp ist damit Teil der Therapie.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Unbehandelt entwickeln bis zu 70 % der Patienten innerhalb von zwei Jahren Erosionen. Unter früher, konsequenter Basistherapie erreicht heute etwa die Hälfte eine Remission oder niedrige Krankheitsaktivität. Ungünstig sind hohe Anti-CCP- und Rheumafaktor-Titer, frühe Erosionen, hohe Aktivität und fortgesetztes Rauchen. Die Lebenserwartung ist vor allem kardiovaskulär um etwa drei bis zehn Jahre verkürzt.',
+        },
+      ],
+      merksatz: 'Symmetrisch, klein, Endgelenke frei und über eine Stunde morgens steif — das ist die rheumatoide Arthritis; Anti-CCP statt Rheumafaktor, Ultraschall statt Röntgen, und die Basistherapie sofort im „window of opportunity“: Methotrexat EINMAL pro Woche, Folsäure am Tag danach, Kortison nur als Brücke.',
+      linkedCaseIds: [
+        'case-rheumatoide-arthritis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-mrt',
+      ],
+    },
   ];
 }
