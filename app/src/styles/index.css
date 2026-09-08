@@ -311,3 +311,15 @@ h1, h2, h3 {
 .seg-focus > button[aria-pressed="true"] { @apply bg-slate-700 text-brand-300 shadow-none; }
 .seg-xl > button { @apply px-4 py-2 text-sm; }
 .seg-xl.seg-scale > button { @apply min-w-[2.6rem] py-2 text-base; }
+
+/* ── Croquis de Muster-Bogen : les lignes d'écriture se tracent ────────────
+   Au repos, les lignes sont visibles (la différence de forme se lit sans
+   interaction) ; au survol ou sur la carte active, elles se ré-écrivent en
+   cascade — c'est le geste de la main qu'on prévisualise. */
+@keyframes bl-draw { from { transform: scaleX(0); opacity: 0.25; } to { transform: scaleX(1); opacity: 1; } }
+.bl { transform-origin: left center; }
+.mm-card:hover .bl, .mm-card[data-active="true"] .bl {
+  animation: bl-draw 0.55s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@media (prefers-reduced-motion: reduce) { .mm-card .bl { animation: none !important; } }

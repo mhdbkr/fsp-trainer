@@ -3,7 +3,7 @@ import type { Layer } from '@/db/types';
 import { useUi } from '@/store/ui';
 import { useProfiles, PROFILE_COLORS, initials } from '@/store/profile';
 import { Icon } from '@/components/icons';
-import { MUSTER_BOGEN, MUSTER_CITIES } from '@/data/guides/musterBogen';
+import { MusterModelPicker } from '@/components/MusterModelPicker';
 import { QrCode } from '@/components/QrCode';
 import { patientUrl, localPatientUrl } from './usePatientSync';
 
@@ -53,24 +53,13 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
       {/* Rôles + fiche du simulant */}
       <RolesCard caseId={caseId} />
 
-      {/* Muster-Bogen par ville */}
+      {/* Muster-Bogen par MODÈLE (forme), les villes en second plan */}
       <div className="card p-4">
-        <div className="label mb-2">Muster-Bogen (feuille de notes)</div>
-        <div className="flex flex-wrap gap-2">
-          {MUSTER_CITIES.map((city) => {
-            const spec = MUSTER_BOGEN[city];
-            return (
-              <button key={city} onClick={() => setMuster(city)}
-                className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors ${muster === city ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30' : 'border-slate-200 hover:border-brand-300 dark:border-slate-700'}`}
-                title={spec.instruction}>
-                <Icon name="id" className="h-4 w-4 text-brand-500" />
-                <span className="font-medium">{city}</span>
-                <span className="chip bg-slate-100 text-[10px] text-slate-500 dark:bg-slate-800">{spec.style === 'ganze-saetze' ? 'ganze Sätze' : spec.style === 'frei' ? 'frei' : 'Stichpunkte'}</span>
-              </button>
-            );
-          })}
+        <div className="mb-2 flex items-baseline justify-between gap-2">
+          <div className="label">Muster-Bogen (feuille de notes)</div>
+          <span className="text-[11px] text-slate-400">Choisis la forme — les villes qui l'utilisent sont indiquées</span>
         </div>
-        <p className="mt-2 text-[11px] text-slate-400">{MUSTER_BOGEN[muster].instruction}</p>
+        <MusterModelPicker value={muster} onChange={setMuster} />
       </div>
     </div>
   );

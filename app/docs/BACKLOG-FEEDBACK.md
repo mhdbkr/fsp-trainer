@@ -80,8 +80,8 @@ store `ui` (muster).
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-G1** | P1 | Le Musterbogen se choisit **par ville** ; il devrait se choisir **par modèle**. | Le sélecteur propose les **modèles** ; chaque modèle liste en petit les villes qui l'utilisent. |
-| **FB-G2** | P1 | On ne voit pas la différence entre les modèles avant de choisir. | Chaque modèle a un **aperçu schématique minimaliste, animé** (squelette des sections) qui élucide la différence. |
+| **FB-G1** ✅ | P1 | Le Musterbogen se choisit **par ville** ; il devrait se choisir **par modèle**. | Le sélecteur propose les **modèles** ; chaque modèle liste en petit les villes qui l'utilisent. |
+| **FB-G2** ✅ | P1 | On ne voit pas la différence entre les modèles avant de choisir. | Chaque modèle a un **aperçu schématique minimaliste, animé** (squelette des sections) qui élucide la différence. |
 
 ## H · Couches (layers)
 
