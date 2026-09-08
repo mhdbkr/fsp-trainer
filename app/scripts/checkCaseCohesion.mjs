@@ -30,7 +30,14 @@ const STOP = new Set(['eine','einer','eines','einem','einen','der','die','das','
 const norm = (s) => String(s || '').toLowerCase().replace(/[^a-zäöüß0-9\s-]/g, ' ');
 // Radical grossier : l'allemand décline beaucoup, on coupe les finales usuelles.
 const stem = (w) => w.replace(/(en|em|er|es|e|n|s)$/,'');
-const toks = (s) => [...new Set(norm(s).split(/[\s-]+/).filter((w) => w.length >= 5 && !STOP.has(w)).map(stem))];
+const toks = (s) => {
+  const mots = norm(s).split(/[\s-]+/).filter((w) => w.length >= 5 && !STOP.has(w)).map(stem);
+  // Les acronymes (FSME, pAVK, TVT, COPD…) sont courts : ils échappaient au
+  // filtre de longueur alors qu'ils sont souvent LE mot qui nomme la DD.
+  const acronymes = (String(s).match(/\b[A-ZÄÖÜ]{2,}[a-zäöü]*[A-ZÄÖÜ]*\b/g) || [])
+    .map((w) => stem(w.toLowerCase())).filter((w) => w.length >= 3);
+  return [...new Set([...mots, ...acronymes])];
+};
 
 /** Un item est « repris » si au moins un de ses tokens significatifs apparaît
  *  dans le texte cible. Heuristique volontairement tolérante : on cherche les
@@ -54,7 +61,13 @@ function checkCohesion(c) {
 
   // 1) chaque DD doit être écartable par un élément du dossier
   const dossier = stemHay([...(ps.negativeFindings || []), ...(ps.begleitsymptome || []), ...(ps.leitsymptome || []), ...(ps.vorerkrankungen || [])].join(' '));
-  const ddOrph = (mv.differenzialdiagnosen || []).filter((d) => !covered(d.dd, dossier)).map((d) => d.dd);
+  // Une entrée qui se déclare complication du diagnostic principal (et non
+  // diagnostic concurrent) ne doit PAS être neutralisée : la nier
+  // contredirait le cas. Cf. le Cor pulmonale du cas COPD.
+  const estComplication = (d) => /keine konkurrierende Diagnose|sondern die (wahrscheinliche )?Komplikation|als Komplikation/i.test(d.unterscheidung || '');
+  const ddOrph = (mv.differenzialdiagnosen || [])
+    .filter((d) => !estComplication(d) && !covered(d.dd, dossier))
+    .map((d) => d.dd);
   if (ddOrph.length) issues.push({ k: 'DD non neutralisée', v: ddOrph });
 
   // 2) chaque piège doit trouver sa réponse côté examinateur
