@@ -143,6 +143,10 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-psych-schlaf', kapitel: 'fach', frage: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?', deepens: 'veg-schlaf' },
     { id: 'fach-psych-tagesverlauf', kapitel: 'fach', frage: 'Gibt es Tageszeiten, zu denen es Ihnen besser oder schlechter geht (zum Beispiel ein Morgentief)?' },
     { id: 'fach-psych-konzentration', kapitel: 'fach', frage: 'Können Sie sich noch gut konzentrieren und Entscheidungen treffen?' },
+    // Promue du guide rédigé (harmonisation) : l'angoisse et l'attaque de
+    // panique changent le diagnostic (trouble anxieux vs dépression) et ne
+    // se déduisent d'aucune autre sonde.
+    { id: 'fach-psych-angst', kapitel: 'fach', frage: 'Haben Sie Ängste, oder machen Sie sich viele Sorgen — auch wenn Sie eigentlich in Sicherheit sind? Haben Sie Panikattacken mit Luftnot oder Herzrasen?' },
     { id: 'fach-psych-suizid', kapitel: 'fach', frage: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?' },
     { id: 'fach-psych-ausloeser', kapitel: 'fach', frage: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?', deepens: 'akt-ausloeser' },
     { id: 'fach-psych-frueher', kapitel: 'fach', frage: 'Hatten Sie so etwas schon einmal? Waren Sie deswegen in Behandlung oder haben Sie Medikamente eingenommen?', deepens: 'akt-frueher' },

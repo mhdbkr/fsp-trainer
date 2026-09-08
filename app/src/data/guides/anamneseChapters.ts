@@ -365,18 +365,43 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ],
     'Le sang joue un rôle capital : vomissement « café moulu » et selles noires (méléna) = hémorragie haute ; sang rouge = basse. Précise toujours couleur ET consistance. Les faux besoins (Tenesmen) orientent vers le rectum.'),
   F('Nephrologie', 'kidney', 'nephro', 'Fachanamnese Néphrologie',
-    ['Wasserlassen', 'Brennen', 'Blut im Urin', 'Schwellungen', 'Flanken'],
+    ['Wasserlassen', 'Urin', 'Blut im Urin', 'Schwellungen', 'Juckreiz'],
     [
-      'Haben Sie Probleme beim Wasserlassen — Brennen, Schmerzen, häufiger Drang?',
-      'Müssen Sie häufig Wasser lassen? Welche Menge? Auch nachts — wie oft?',
-      'Welche Farbe hat Ihr Urin? War Blut dabei? Riecht er ungewöhnlich?',
-      'Haben Sie Schwellungen im Gesicht, an den Augen oder an den Beinen bemerkt?',
       {
-        text: 'Haben Sie Rücken- oder Flankenschmerzen?',
-        followUp: ['Strahlen die Schmerzen aus — wohin? (Typisch für la colique néphrétique : vers l\'aine.)'],
+        text: 'Müssen Sie häufig Wasser lassen? Hat sich die Menge verändert — deutlich weniger oder mehr? Müssen Sie nachts aufstehen?',
+        probe: 'fach-nephro-menge',
+        alts: ['Hat sich die Urinmenge in letzter Zeit verändert? Wie oft müssen Sie nachts zur Toilette?'],
+        followUp: ['Falls ja: Wie oft stehen Sie nachts auf? Seit wann ist das so?'],
+      },
+      {
+        text: 'Welche Farbe hat Ihr Urin — schaumig, trüb, rötlich oder cola-farben? War sichtbar Blut dabei?',
+        probe: 'fach-nephro-aussehen',
+        alts: ['Wie sieht Ihr Urin aus? Riecht er ungewöhnlich?'],
+      },
+      {
+        text: 'Sind Ihre Augenlider morgens geschwollen oder die Beine abends dick? Haben Sie rasch an Gewicht zugenommen?',
+        probe: 'fach-nephro-oedeme',
+        alts: ['Haben Sie Schwellungen im Gesicht, an den Augen oder an den Beinen bemerkt?'],
+        label: 'Ödeme',
+      },
+      { text: 'Ist bei Ihnen ein hoher Blutdruck bekannt, und wie ist er eingestellt?', probe: 'fach-nephro-blutdruck' },
+      {
+        text: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac ein — und wie oft? Hatten Sie kürzlich eine Untersuchung mit Kontrastmittel?',
+        probe: 'fach-nephro-nephrotoxisch',
+        label: 'Nierengifte',
+      },
+      {
+        text: 'Haben Sie Juckreiz am ganzen Körper, Übelkeit, Appetitverlust oder einen metallischen Geschmack im Mund?',
+        probe: 'fach-nephro-uraemie',
+        label: 'Urämie',
+      },
+      { text: 'Hatten Sie in den letzten Wochen eine Halsentzündung oder eine Hautinfektion?', probe: 'fach-nephro-infekt' },
+      {
+        text: 'Ist eine Nierenerkrankung bei Ihnen oder in Ihrer Familie bekannt — etwa Zystennieren oder eine Dialyse?',
+        probe: 'fach-nephro-vorgeschichte',
       },
     ],
-    'La colique néphrétique irradie typiquement vers l\'aine — pose la question SPÉCIFIQUEMENT. Œdèmes du visage/paupières = piste rénale ; cherche hématurie et dysurie.'),
+    'Œdèmes du visage/paupières le matin = piste rénale ; jambes le soir = piste cardiaque. Urine mousseuse → protéinurie ; couleur coca → glomérulonéphrite. Demande TOUJOURS les AINS et le produit de contraste : la cause est souvent iatrogène. La colique néphrétique, elle, irradie vers l\'aine — cherche-la dans l\'analyse de la douleur.'),
   F('Urologie', 'kidney', 'uro', 'Fachanamnese Urologie & Sexualanamnese',
     ['Wasserlassen', 'nachts', 'Ausfluss', 'Verhütung', 'Erektion'],
     [
@@ -393,29 +418,53 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ],
     'L\'anamnèse sexuelle s\'ouvre par une question OUVERTE et un ton neutre — annonce que ces questions sont routinières et médicalement nécessaires. Protection et antécédents de MST font partie du standard.'),
   F('Gynäkologie', 'female', 'gyn', 'Fachanamnese Gynäkologie',
-    ['Tage', 'Blutung', 'Ausfluss', 'schwanger', 'Wechseljahre', 'Kaiserschnitt'],
+    ['Blutung', 'Ausfluss', 'Unterbauch', 'Brust', 'Vorsorge'],
     [
-      'Bekommen Sie Ihre Tage regelmäßig? Wie lange dauern sie? Wie stark blutet es — wie viele Tampons oder Binden pro Tag?',
       {
-        text: 'Haben Sie einen Ausfluss aus der Scheide bemerkt?',
-        followUp: ['Falls ja: Welche Farbe und Konsistenz? Welcher Geruch? Seit wann?'],
-      },
-      'Haben Sie Schmierblutungen bemerkt? Blutungen bei oder nach dem Geschlechtsverkehr?',
-      'Ist Ihre Periode ausgeblieben? Kann es sein, dass Sie schwanger sind?',
-      {
-        text: 'Wie viele Schwangerschaften haben Sie gehabt? Gab es Probleme?',
-        followUp: ['Hatten Sie Fehlgeburten oder Abtreibungen?', 'Haben Sie normal entbunden oder per Kaiserschnitt? Warum?'],
-      },
-      {
-        text: 'Sind Sie schon in den Wechseljahren? Hatten Sie Blutungen, seitdem Ihre Periode aufgehört ist?',
+        text: 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?',
+        probe: 'fach-gyn-blutung',
         label: 'Alarmzeichen',
+        alts: ['Bekommen Sie Ihre Tage regelmäßig? Wie stark blutet es — wie viele Binden pro Tag?'],
+        followUp: ['Falls die Periode schon aufgehört hat: Hatten Sie seitdem noch einmal eine Blutung?'],
       },
-      'Leiden Sie unter Kopfschmerzen? Sehen Sie Blitze?',
+      {
+        text: 'Haben Sie Unterbauchschmerzen? Wo genau, und hängen sie mit Ihrem Zyklus zusammen?',
+        probe: 'fach-gyn-unterbauch',
+      },
+      {
+        text: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?',
+        probe: 'fach-gyn-fluor',
+        alts: ['Haben Sie einen Ausfluss aus der Scheide bemerkt?'],
+        followUp: ['Falls ja: Welche Konsistenz, und seit wann?'],
+      },
+      {
+        text: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?',
+        probe: 'fach-gyn-dyspareunie',
+      },
+      {
+        text: 'Wie viele Schwangerschaften und Geburten hatten Sie? Gab es Fehlgeburten oder Abbrüche?',
+        probe: 'fach-gyn-schwangerschaften',
+        followUp: ['Haben Sie normal entbunden oder per Kaiserschnitt? Warum?'],
+      },
+      {
+        text: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?',
+        probe: 'fach-gyn-kinderwunsch',
+      },
+      {
+        text: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?',
+        probe: 'fach-gyn-brust',
+        label: 'Brust',
+      },
+      {
+        text: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie? Sind Sie gegen HPV geimpft?',
+        probe: 'fach-gyn-vorsorge',
+      },
+      {
+        text: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert? Nehmen Sie Hormone ein?',
+        probe: 'fach-gyn-eingriffe',
+      },
     ],
-    'Toute métrorragie post-ménopausique est un signal d\'alarme. Chez la femme enceinte : céphalées + hypertension + protéinurie → penser pré-éclampsie (urgence).'),
-  // HARMONISÉE (voir docs/HARMONISATION-GUIDE-SONDES.md) : chaque question porte
-  // sa sonde, donc ce texte EST celui de la simulation — plus de régénération
-  // depuis les sondes, la richesse du guide (alts, relances) est enfin jouable.
+    'Toute métrorragie post-ménopausique est un signal d\'alarme jusqu\'à preuve du contraire, comme le saignement post-coïtal. Le cycle, la grossesse et la contraception sont déjà demandés dans la Frauenanamnese générale — ici on approfondit. Chez la femme enceinte : céphalées + éclairs visuels + hypertension → pré-éclampsie (urgence), à demander explicitement.'),
   F('Neurologie', 'brain', 'neuro', 'Fachanamnese Neurologie',
     ['Kopfschmerzen', 'einseitig', 'Ohnmacht', 'Aura', 'Zungenbiss', 'Kribbeln'],
     [
@@ -465,39 +514,154 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ],
     'Toujours vérifier le trio « Durchblutung – Motorik – Sensibilität » d\'un membre traumatisé (les 3 questions étiquetées), plus les questions spécifiques au cas.'),
   F('Rheumatologie', 'bone', 'rheuma', 'Fachanamnese Rhumatologie',
-    ['Gelenke', 'Morgensteifigkeit', 'geschwollen', 'gerötet'],
-    [
-      'Welche Gelenke tun weh? Ein Gelenk oder mehrere, symmetrisch?',
-      'Haben Sie morgens eine Steifigkeit? Wie lange dauert sie an?',
-      'Sind die Gelenke geschwollen, gerötet oder überwärmt?',
-      'Gibt es Begleitsymptome wie Hautausschlag, Augenentzündung oder Fieber?',
-    ],
-    'La durée de la raideur matinale (> 30–60 min = inflammatoire) et la symétrie sont les clés du raisonnement rhumatologique.'),
-  F('Hämatologie', 'blood', 'haemato', 'Fachanamnese Hématologie',
-    ['Blutungen', 'blaue Flecke', 'blasser', 'erkältet', 'Nachtschweiß'],
+    ['Gelenke', 'Morgensteifigkeit', 'geschwollen', 'gerötet', 'anfallsartig'],
     [
       {
-        text: 'Haben Sie Blutungen gehabt, eventuell auch kleinere Mengen?',
-        followUp: ['Blut im Erbrochenen, Auswurf, Stuhl oder Urin? Welche Farbe — wie Kaffeesatz, schaumig, wässerig?'],
+        text: 'Welche Gelenke sind betroffen — nur eines oder mehrere? Wechseln die Beschwerden von Gelenk zu Gelenk?',
+        probe: 'fach-rheuma-gelenke',
+        alts: ['Welche Gelenke tun weh? Ein Gelenk oder mehrere, symmetrisch?'],
+        followUp: ['Sind beide Seiten gleichermaßen betroffen, oder nur eine?'],
       },
-      'Bekommen Sie in letzter Zeit leichter blaue Flecke als üblich, auch ohne Stoß?',
-      'Fühlen Sie sich müde? Haben Sie bemerkt, dass Sie blasser geworden sind?',
-      'Waren Sie in letzter Zeit häufiger erkältet?',
-      'Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?',
-      'Haben Sie ungewollt ab- oder zugenommen? Wie viel, und in welchem Zeitraum?',
+      {
+        text: 'Sind die Gelenke morgens steif? Wie lange dauert die Steifigkeit, bis Sie sich wieder normal bewegen können?',
+        probe: 'fach-rheuma-morgensteifigkeit',
+        label: 'Schlüsselfrage',
+        followUp: ['Falls ja: Länger oder kürzer als eine halbe Stunde?'],
+      },
+      {
+        text: 'Ist das Gelenk geschwollen, gerötet oder überwärmt? Können Sie es überhaupt noch berühren?',
+        probe: 'fach-rheuma-entzuendung',
+        alts: ['Sind die Gelenke geschwollen, gerötet oder überwärmt?'],
+      },
+      {
+        text: 'Kamen die Beschwerden plötzlich und anfallsartig, oder haben sie sich langsam über Wochen entwickelt?',
+        probe: 'fach-rheuma-verlauf',
+      },
+      {
+        text: 'Gab es einen Auslöser — ein üppiges Essen mit Fleisch, Alkohol (besonders Bier), Fasten oder eine neue Tablette, etwa eine Wassertablette?',
+        probe: 'fach-rheuma-ausloeser',
+        label: 'Gicht-Trigger',
+      },
+      {
+        text: 'Haben Sie Hautveränderungen bemerkt — Schuppenflechte, Knötchen unter der Haut oder an den Ohren?',
+        probe: 'fach-rheuma-haut',
+      },
+      {
+        text: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?',
+        probe: 'fach-rheuma-systemisch',
+        alts: ['Gibt es Begleitsymptome wie Hautausschlag, Augenentzündung oder Fieber?'],
+      },
+      {
+        text: 'Hatten Sie so einen Anfall schon einmal? Sind Nierensteine oder rheumatische Erkrankungen in der Familie bekannt?',
+        probe: 'fach-rheuma-vorgeschichte',
+      },
     ],
-    'La triade fièvre + sueurs nocturnes + amaigrissement (B-Symptomatik), une pâleur, des infections répétées et une tendance hémorragique nouvelle : pense hémopathie.'),
-  F('Onkologie', 'virus', 'onko', 'Fachanamnese Onkologie',
-    ['Veränderung', 'vergrößert', 'verschieben', 'Gewicht', 'Appetit'],
+    'Deux questions décident presque tout : la DURÉE de la raideur matinale (> 30–60 min = inflammatoire) et le MODE d\'installation (brutal, monoarticulaire, nocturne = goutte / arthrite septique ; lent et symétrique = polyarthrite rhumatoïde). Le déclencheur alimentaire ou diurétique oriente vers la goutte.'),
+  F('Hämatologie', 'blood', 'haemato', 'Fachanamnese Hématologie',
+    ['Blutungen', 'blaue Flecke', 'blasser', 'Nachtschweiß', 'Lymphknoten'],
     [
-      'Wann haben Sie diese Veränderung / diesen Knoten das erste Mal bemerkt?',
-      'Hat er / sie sich vergrößert?',
-      'Tut es weh beim Tasten?',
-      'Können Sie den Knoten verschieben, oder ist er fest?',
-      'Haben Sie ungewollt ab- oder zugenommen? Wie viel, und in welchem Zeitraum?',
-      'Hat sich Ihr Appetit verändert?',
+      {
+        text: 'Fühlen Sie sich müde und weniger leistungsfähig als früher? Hat man Ihnen gesagt, dass Sie blass aussehen?',
+        probe: 'fach-haem-leistung',
+        alts: ['Fühlen Sie sich müde? Haben Sie bemerkt, dass Sie blasser geworden sind?'],
+      },
+      {
+        text: 'Bekommen Sie bei Anstrengung schneller Luftnot, Herzklopfen oder Schwindel als früher?',
+        probe: 'fach-haem-belastung',
+        followUp: ['Falls ja: Ab welcher Belastung — Treppensteigen, Gehen in der Ebene, schon in Ruhe?'],
+      },
+      {
+        text: 'Bekommen Sie leicht blaue Flecken, auch ohne Stoß? Haben Sie Nasenbluten, Zahnfleischbluten oder kleine punktförmige Hauteinblutungen bemerkt?',
+        probe: 'fach-haem-blutung',
+        alts: ['Haben Sie Blutungen gehabt, eventuell auch kleinere Mengen?'],
+        followUp: ['Falls ja: Seit wann? Blutet es länger nach, etwa nach dem Zähneputzen oder einem kleinen Schnitt?'],
+      },
+      {
+        text: 'Haben Sie Blut im Stuhl oder schwarzen Stuhlgang bemerkt? Ist Ihre Regelblutung stark oder verlängert?',
+        probe: 'fach-haem-blutverlust',
+        label: 'Blutverlustquelle',
+        followUp: ['Blut im Erbrochenen, im Auswurf oder im Urin? Welche Farbe — wie Kaffeesatz, hellrot, teerschwarz?'],
+      },
+      {
+        text: 'Wie ernähren Sie sich — essen Sie Fleisch? Ernähren Sie sich vegetarisch oder vegan?',
+        probe: 'fach-haem-ernaehrung',
+      },
+      {
+        text: 'Haben Sie Fieber, Nachtschweiß — so stark, dass Sie die Wäsche wechseln müssen — oder ungewollt Gewicht verloren?',
+        probe: 'fach-haem-bsymptomatik',
+        label: 'B-Symptomatik',
+        alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'],
+        followUp: ['Falls Gewichtsverlust: Wie viele Kilo, und in welchem Zeitraum?'],
+      },
+      {
+        text: 'Haben Sie Schwellungen oder Knoten am Hals, in den Achseln oder in der Leiste getastet?',
+        probe: 'fach-haem-lymphknoten',
+      },
+      {
+        text: 'Haben Sie in letzter Zeit häufiger Infekte, Fieber oder eine schlechte Wundheilung bemerkt?',
+        probe: 'fach-haem-infekte',
+        alts: ['Waren Sie in letzter Zeit häufiger erkältet?'],
+      },
+      {
+        text: 'Haben Sie Knochen- oder Rückenschmerzen, die auch in Ruhe und nachts auftreten?',
+        probe: 'fach-haem-knochen',
+      },
+      {
+        text: 'Hatten Sie schon einmal eine Thrombose oder Lungenembolie? Sind Blutgerinnungsstörungen in der Familie bekannt?',
+        probe: 'fach-haem-thrombose',
+      },
     ],
-    'Un nodule DUR, FIXÉ et INDOLORE qui grossit est plus suspect qu\'un nodule mou, mobile et douloureux. Cherche systématiquement la B-Symptomatik.'),
+    'Deux axes à séparer : la lignée rouge (fatigue, pâleur, dyspnée d\'effort → cherche la SOURCE du saignement et l\'alimentation) et la moelle (B-Symptomatik, adénopathies, infections répétées, douleurs osseuses nocturnes). La triade fièvre + sueurs nocturnes + amaigrissement fait basculer vers l\'hémopathie maligne.'),
+  F('Onkologie', 'virus', 'onko', 'Fachanamnese Onkologie',
+    ['Knoten', 'verschieben', 'Gewicht', 'Appetit', 'Nachtschweiß'],
+    [
+      {
+        text: 'Haben Sie irgendwo einen Knoten, eine Schwellung oder eine Verhärtung getastet?',
+        probe: 'fach-onko-knoten',
+        alts: ['Wann haben Sie diese Veränderung / diesen Knoten das erste Mal bemerkt?'],
+        followUp: [
+          'Falls ja: Ist er hart oder weich? Lässt er sich verschieben, oder sitzt er fest?',
+          'Tut er beim Tasten weh? Ist er seitdem größer geworden?',
+        ],
+      },
+      {
+        text: 'Haben Sie Fieber ohne Infekt, Nachtschweiß mit Wäschewechsel oder ungewollt Gewicht verloren — wie viel in welcher Zeit?',
+        probe: 'fach-onko-bsymptomatik',
+        label: 'B-Symptomatik',
+        alts: ['Haben Sie ungewollt ab- oder zugenommen? Wie viel, und in welchem Zeitraum?'],
+      },
+      {
+        text: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?',
+        probe: 'fach-onko-leistung',
+      },
+      {
+        text: 'Haben Sie Schmerzen, die nachts oder in Ruhe auftreten und allmählich stärker werden?',
+        probe: 'fach-onko-schmerz',
+        label: 'Alarmzeichen',
+      },
+      {
+        text: 'Haben Sie Blutungen bemerkt — im Stuhl, im Urin, beim Husten oder aus der Scheide?',
+        probe: 'fach-onko-blutung',
+      },
+      {
+        text: 'Haben Sie Schluckbeschwerden, ein Völlegefühl oder keinen Appetit mehr?',
+        probe: 'fach-onko-appetit',
+        alts: ['Hat sich Ihr Appetit verändert?'],
+      },
+      {
+        text: 'Ist bei Ihnen bereits eine Tumorerkrankung bekannt? Wurden Sie operiert, bestrahlt oder mit einer Chemotherapie behandelt?',
+        probe: 'fach-onko-vorbehandlung',
+      },
+      {
+        text: 'Gibt es Krebserkrankungen in Ihrer Familie — und in welchem Alter sind die Angehörigen erkrankt?',
+        probe: 'fach-onko-familie',
+      },
+      {
+        text: 'Nehmen Sie die Vorsorgeuntersuchungen wahr — Darmspiegelung, Mammographie, Hautkrebsscreening?',
+        probe: 'fach-onko-vorsorge',
+      },
+    ],
+    'Un nodule DUR, FIXÉ et INDOLORE qui grossit est plus suspect qu\'un nodule mou, mobile et douloureux. Cherche systématiquement la B-Symptomatik, la douleur nocturne de repos et la perte de performance sur six mois — ce sont elles qui font basculer le raisonnement vers le malin.'),
   F('Endokrinologie', 'thyroid', 'endo', 'Fachanamnese Endocrinologie',
     ['Gewicht', 'Schwitzen', 'Durst', 'Herzrasen'],
     [
@@ -526,25 +690,58 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Stimmung', 'Schlaf', 'Ängste', 'Panikattacke', 'Selbstmord'],
     [
       {
-        text: 'Was führt Sie zu uns? Erzählen Sie einfach, bitte.',
-        alts: ['Wann hat alles begonnen? Was, glauben Sie, ist der Auslöser dafür?'],
+        text: 'Wie ist Ihre Stimmung in letzter Zeit? Fühlen Sie sich niedergeschlagen, traurig oder innerlich leer?',
+        probe: 'fach-psych-stimmung',
+        alts: ['Wie ist Ihre Stimmung? Weinen Sie oft, auch scheinbar ohne Grund?'],
       },
-      'Wie ist Ihre Stimmung? Fühlen Sie sich niedergeschlagen? Weinen Sie oft, auch scheinbar ohne Grund?',
+      {
+        text: 'Haben Sie noch Freude oder Interesse an Dingen, die Ihnen früher wichtig waren?',
+        probe: 'fach-psych-interesse',
+      },
+      {
+        text: 'Wie ist Ihr Antrieb und Ihre Energie? Fällt es Ihnen schwer, den Alltag zu bewältigen?',
+        probe: 'fach-psych-antrieb',
+      },
+      {
+        text: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?',
+        probe: 'fach-psych-schlaf',
+        alts: ['Leiden Sie an Einschlaf- oder Durchschlafstörungen?'],
+      },
+      {
+        text: 'Gibt es Tageszeiten, zu denen es Ihnen besser oder schlechter geht — zum Beispiel ein Morgentief?',
+        probe: 'fach-psych-tagesverlauf',
+      },
+      {
+        text: 'Können Sie sich noch gut konzentrieren und Entscheidungen treffen?',
+        probe: 'fach-psych-konzentration',
+        alts: ['Können Sie sich gut konzentrieren, etwa um zu lesen oder zu lernen? Fühlen Sie sich ruhelos?'],
+      },
       {
         text: 'Haben Sie Ängste, oder machen Sie sich viele Sorgen — auch wenn Sie eigentlich in Sicherheit sind?',
+        probe: 'fach-psych-angst',
         followUp: ['Haben Sie Panikattacken — mit Luftnot, Herzrasen, Herzklopfen oder sogar Todesangst?'],
       },
-      'Haben Sie schon einmal das Gefühl gehabt, Ihren Körper zu verlassen, oder dass eigene Körperteile Ihnen fremd sind?',
-      'Können Sie sich gut konzentrieren, etwa um zu lesen oder zu lernen? Fühlen Sie sich ruhelos?',
-      'Leiden Sie an Einschlaf- oder Durchschlafstörungen?',
       {
-        text: 'Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?',
+        text: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
+        probe: 'fach-psych-suizid',
         label: 'Pflichtfrage',
-        followUp: ['Falls bejaht: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.'],
+        alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
+        followUp: [
+          'Haben Sie sich selbst verletzt, oder haben Sie den Wunsch, sich zu verletzen?',
+          'Falls bejaht: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
+        ],
       },
-      'Haben Sie sich selbst verletzt, oder haben Sie den Wunsch, sich zu verletzen?',
+      {
+        text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
+        probe: 'fach-psych-ausloeser',
+        alts: ['Wann hat alles begonnen? Was, glauben Sie, ist der Auslöser dafür?'],
+      },
+      {
+        text: 'Hatten Sie so etwas schon einmal? Waren Sie deswegen in Behandlung oder haben Sie Medikamente eingenommen?',
+        probe: 'fach-psych-frueher',
+      },
     ],
-    'Commence par une question OUVERTE et écoute. La question suicidaire est obligatoire, directe et calme ; une réponse positive = urgence, le patient reste hospitalisé.'),
+    'Ouvre le chapitre par une question ouverte et écoute — puis déroule la triade (humeur, intérêt, énergie) et les symptômes de rythme (sommeil, creux matinal). La question suicidaire est obligatoire, directe et calme ; une réponse positive = urgence, le patient reste hospitalisé. L\'anxiété et les attaques de panique se demandent explicitement : elles changent le diagnostic.'),
   F('Infektiologie', 'virus', 'infektio', 'Fachanamnese Infectiologie',
     ['Fieber', 'Reise', 'Kontakt', 'Impfung'],
     [
@@ -558,22 +755,55 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
   F('Dermatologie', 'skin', 'derma', 'Fachanamnese Dermatologie',
     ['Hautausschlag', 'Juckreiz', 'Bläschen', 'Muttermal', 'verändert'],
     [
-      'Wo genau haben Sie den Hautausschlag? Juckt es? Tut es weh?',
-      'Wie sieht er aus — welche Farbe? Ist er trocken oder eher nässend? Schuppend?',
       {
-        text: 'Haben Sie auch Bläschen bemerkt?',
-        followUp: ['Wie groß sind sie? Welche Farbe? Sind sie mit klarer Flüssigkeit oder mit etwas Eitrigem gefüllt?'],
+        text: 'Wo hat die Hautveränderung angefangen, und wie hat sie sich seitdem ausgebreitet?',
+        probe: 'fach-derma-beginn-ort',
+        alts: ['Wo genau haben Sie den Hautausschlag? Ist die Stelle größer geworden?'],
+        followUp: ['Haben Sie so eine Veränderung auch irgendwo anders am Körper?'],
       },
-      'Ist die Stelle größer geworden? Haben Sie so eine Veränderung auch irgendwo anders?',
       {
-        text: 'Seit wann haben Sie das Muttermal hier? War es immer so groß / unregelmäßig? Hat es geblutet?',
+        text: 'Juckt es, brennt es oder tut es weh? Und wann ist es am schlimmsten?',
+        probe: 'fach-derma-empfinden',
+        followUp: ['Hält der Juckreiz Sie nachts wach?'],
+      },
+      {
+        text: 'Wie sieht die Stelle aus — gerötet, schuppend, mit Bläschen, Knötchen oder nässend? Hat sie sich verändert?',
+        probe: 'fach-derma-aussehen',
+        alts: ['Wie sieht er aus — welche Farbe? Ist er trocken oder eher nässend? Schuppend?'],
+        followUp: ['Falls Bläschen: Wie groß sind sie? Sind sie mit klarer Flüssigkeit oder mit etwas Eitrigem gefüllt?'],
+      },
+      {
+        text: 'Gab es einen Auslöser — ein neues Medikament, eine neue Creme oder ein Waschmittel, Pflanzen, Sonne oder etwas bei der Arbeit?',
+        probe: 'fach-derma-ausloeser',
+        label: 'Auslöser',
+      },
+      {
+        text: 'Tritt das in Schüben auf? Wird es zu bestimmten Jahreszeiten oder im Urlaub besser?',
+        probe: 'fach-derma-verlauf',
+      },
+      {
+        text: 'Haben Sie dazu Fieber, Gelenkschmerzen oder Veränderungen an Mund, Augen oder im Genitalbereich?',
+        probe: 'fach-derma-systemisch',
         label: 'Alarmzeichen',
       },
-      'Waren Sie schon einmal bei der Hautkrebsvorsorge?',
-      'Haben Sie etwas daraufgemacht / daraufgeschmiert? Nehmen Sie neue Medikamente?',
-      'Hat jemand in der Familie im Moment etwas Ähnliches?',
+      {
+        text: 'Hatten Sie früher Hautkrankheiten wie Neurodermitis oder Schuppenflechte? Gibt es so etwas in Ihrer Familie?',
+        probe: 'fach-derma-vorgeschichte',
+        alts: ['Hat jemand in der Familie im Moment etwas Ähnliches?'],
+      },
+      {
+        text: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?',
+        probe: 'fach-derma-muttermal',
+        label: 'ABCDE',
+        followUp: ['Waren Sie schon einmal bei der Hautkrebsvorsorge?'],
+      },
+      {
+        text: 'Womit haben Sie die Stelle bisher behandelt, und hat das geholfen?',
+        probe: 'fach-derma-vorbehandlung',
+        alts: ['Haben Sie etwas daraufgeschmiert? Nehmen Sie neue Medikamente?'],
+      },
     ],
-    'Devant un grain de beauté : logique ABCDE (asymétrie, bords, couleur, diamètre, évolution) — l\'ÉVOLUTION récente est le signe le plus important. Toujours demander les nouveaux produits/médicaments.'),
+    'Devant un grain de beauté : logique ABCDE (asymétrie, bords, couleur, diamètre, évolution) — l\'ÉVOLUTION récente est le signe le plus important. Pour un exanthème : cherche le déclencheur (médicament, cosmétique, travail, soleil) et les signes systémiques (fièvre, muqueuses) qui font l\'urgence.'),
 ];
 
 export function getFachanamnese(specialty: Specialty): FachanamneseGuide | undefined {
