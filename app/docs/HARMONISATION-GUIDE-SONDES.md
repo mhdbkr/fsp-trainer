@@ -84,3 +84,35 @@ donc être réelle : on ne promeut que ce qui a une valeur clinique propre.
 - `checkGuideCoverage` : chaque question affichée a une réponse dans la fiche.
 - Renommer une sonde casse les `antworten` des cas → **on n'en renomme aucune** ;
   on ajoute, on ne réécrit pas les identifiants.
+
+---
+
+## Résultat (chantier terminé)
+
+**16 / 16 spécialités harmonisées.** `isFachGuideHarmonised()` est vrai partout :
+la simulation joue désormais le TEXTE RÉDIGÉ — donc ses variantes cliquables,
+ses relances conditionnelles et ses étiquettes — au lieu de régénérer un
+chapitre plat depuis les sondes. La génération depuis les sondes reste en place
+comme filet pour toute spécialité future non encore harmonisée.
+
+### Promotions retenues (7 sondes nouvelles, 31 réponses écrites)
+
+| Sonde promue | Pourquoi elle décidait quelque chose | Cas touchés |
+|---|---|---|
+| `fach-neuro-aura` | aura vs coup de tonnerre → migraine vs HSA | 3 |
+| `fach-neuro-autonom` | larmoiement, ptosis → algie vasculaire | 3 |
+| `fach-neuro-anfallzeichen` | morsure de langue, incontinence, amnésie → crise | 3 |
+| `fach-psych-angst` | angoisse / attaque de panique → change le diagnostic | 2 |
+| `fach-ortho-durchblutung` | complète le trio Durchblutung–Motorik–Sensibilität | 3 |
+| `fach-pneumo-orthopnoe` | oreillers, apnées → insuffisance cardiaque gauche, SAOS | 4 |
+| `fach-uro-sexualanamnese` + `fach-uro-funktion` | standard urologique de l'examen | 4 × 2 |
+
+Tout le reste a été traité par appariement (formulation la plus riche en tête,
+l'autre en `alts`) ou par relance conditionnelle — aucune sonde renommée,
+aucune réponse patient invalidée.
+
+### Contrôle
+
+`checkProbeCoverage` · `checkMusterCoverage` · `checkCaseCoherence` ·
+`checkGuideCoverage` · `tsc -b` · `npm run build` — tous verts sur les 52 cas.
+`SEED_VERSION` passée à 42 pour que la base locale se recharge.
