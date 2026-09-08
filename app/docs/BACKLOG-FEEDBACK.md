@@ -61,7 +61,7 @@ Zone : `ImmersiveMode.tsx`, `AnamneseBogen.tsx`, store `simSession`.
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-E1** | P1 | Aucun champ pour noter les réponses du patient en focus. | Des champs de notes **intégrés au focus**, disposition sleek fidèle à l'identité (verre, mono readout), synchronisés avec le Bogen de la vue normale (même store), sans casser l'immersion (apparition à la demande / raccourci). |
+| **FB-E1** ✅ | P1 | Aucun champ pour noter les réponses du patient en focus. | Des champs de notes **intégrés au focus**, disposition sleek fidèle à l'identité (verre, mono readout), synchronisés avec le Bogen de la vue normale (même store), sans casser l'immersion (apparition à la demande / raccourci). |
 
 ## F · Aufklärung à la demande
 
@@ -90,7 +90,7 @@ Zone : store `ui` (layer), `lib/scoring.ts`, `features/stats/*`,
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-H1** | P1 | L'avancement et le choix des couches sont manuels. | La couche recommandée est **calculée** depuis l'historique et les stats (scores pondérés, régularité, maîtrise par cas) ; l'utilisateur peut surcharger ; la règle est expliquée (« pourquoi cette couche »). |
+| **FB-H1** ✅ | P1 | L'avancement et le choix des couches sont manuels. | La couche recommandée est **calculée** depuis l'historique et les stats (scores pondérés, régularité, maîtrise par cas) ; l'utilisateur peut surcharger ; la règle est expliquée (« pourquoi cette couche »). |
 
 ## I · Vision : équipe d'agents et mise en production
 

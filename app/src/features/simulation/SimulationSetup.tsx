@@ -4,6 +4,8 @@ import { useUi } from '@/store/ui';
 import { useProfiles, PROFILE_COLORS, initials } from '@/store/profile';
 import { Icon } from '@/components/icons';
 import { MusterModelPicker } from '@/components/MusterModelPicker';
+import { useCase, useSimulations } from '@/hooks/useData';
+import { computeLayerAdvice } from '@/lib/layerAdvice';
 import { QrCode } from '@/components/QrCode';
 import { patientUrl, localPatientUrl } from './usePatientSync';
 
@@ -11,6 +13,11 @@ import { patientUrl, localPatientUrl } from './usePatientSync';
 // Muster-Bogen (5 villes) · Rôles + fiche du simulant (QR). Alimente le store.
 export function SimulationSetup({ caseId }: { caseId: string }) {
   const { assistance, setAssistance, layer, setLayer, muster, setMuster } = useUi();
+  // Couche RECOMMANDÉE, calculée depuis l'historique de ce cas — l'utilisateur
+  // n'a aucune raison de savoir tout seul s'il est prêt à monter.
+  const c = useCase(caseId);
+  const sims = useSimulations();
+  const advice = computeLayerAdvice(c, sims);
 
   return (
     <div className="space-y-4">
@@ -33,21 +40,45 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
         </div>
       </div>
 
-      {/* Couche de révision */}
+      {/* Couche de révision — recommandée automatiquement, surchargeable */}
       <div className="card p-4">
-        <div className="label mb-2">Couche de révision</div>
-        <div className="flex gap-2">
-          {([1, 2, 3] as Layer[]).map((l) => (
-            <button key={l} onClick={() => setLayer(l)}
-              className={`flex-1 rounded-lg border py-2 text-sm font-semibold transition-colors ${layer === l ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-500 dark:border-slate-700'}`}>
-              <div className="flex items-center justify-center gap-1">
-                {Array.from({ length: l }).map((_, i) => <span key={i} className="h-1.5 w-1.5 rounded-full bg-current" />)}
-              </div>
-              Couche {l}
-            </button>
-          ))}
+        <div className="mb-2 flex items-baseline justify-between gap-2">
+          <div className="label">Couche de révision</div>
+          {advice.attempts > 0 && (
+            <span className="text-[11px] text-slate-400">
+              {advice.attempts} passage{advice.attempts > 1 ? 's' : ''}
+              {advice.bestScore !== null && ` · meilleur ${advice.bestScore} %`}
+            </span>
+          )}
         </div>
-        <p className="mt-2 text-[11px] text-slate-400">Couche 1 = découverte · Couches 2-3 = consolidation (plutôt en mode Autonome).</p>
+        <div className="flex gap-2">
+          {([1, 2, 3] as Layer[]).map((l) => {
+            const recommended = l === advice.layer;
+            return (
+              <button key={l} onClick={() => setLayer(l)}
+                className={`relative flex-1 rounded-lg border py-2 text-sm font-semibold transition-colors ${layer === l ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-500 hover:border-brand-300 dark:border-slate-700'}`}>
+                Couche {l}
+                {recommended && (
+                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-white">conseillée</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+        {/* « Pourquoi cette couche » : un conseil qu'on ne comprend pas ne se
+            suit pas. Le bouton n'apparaît que si l'utilisateur s'en écarte. */}
+        <p className="mt-2.5 flex items-start gap-1.5 text-[11.5px] leading-relaxed text-slate-500 dark:text-slate-400">
+          <Icon name="bulb" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-500" />
+          <span>
+            {advice.reason}
+            {advice.suggestAutonome && assistance === 'assiste' && ' Le mode Autonome est conseillé à ce stade.'}
+          </span>
+        </p>
+        {layer !== advice.layer && (
+          <button onClick={() => setLayer(advice.layer)} className="btn-outline mt-2 w-full justify-center text-xs">
+            <Icon name="refresh" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" />Revenir à la couche conseillée ({advice.layer})
+          </button>
+        )}
       </div>
 
       {/* Rôles + fiche du simulant */}
