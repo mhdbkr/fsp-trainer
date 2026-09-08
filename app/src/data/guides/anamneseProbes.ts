@@ -155,6 +155,10 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-pneumo-husten', kapitel: 'fach', frage: 'Haben Sie Husten? Seit wann, und ist er trocken oder mit Auswurf?', deepens: 'akt-beginn' },
     { id: 'fach-pneumo-auswurf', kapitel: 'fach', frage: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?' },
     { id: 'fach-pneumo-atemnot', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft? In Ruhe oder bei Belastung? Wie viele Stockwerke schaffen Sie ohne Pause?' },
+    // Promue du guide rédigé (harmonisation) : orthopnée, nombre d'oreillers et
+    // apnées nocturnes — la bascule vers l'insuffisance cardiaque gauche et le
+    // SAOS ne se déduisait d'aucune sonde pneumologique.
+    { id: 'fach-pneumo-orthopnoe', kapitel: 'fach', frage: 'Wie viele Kissen brauchen Sie zum Schlafen? Wachen Sie nachts mit Luftnot auf, oder klagt Ihr Partner über lautes Schnarchen und Atemaussetzer?' },
     { id: 'fach-pneumo-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Atmen oder Husten? Sind sie atemabhängig?' },
     { id: 'fach-pneumo-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?', deepens: 'veg-schuettelfrost' },
     { id: 'fach-pneumo-giemen', kapitel: 'fach', frage: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?' },
@@ -180,6 +184,11 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-uro-flanke', kapitel: 'fach', frage: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Strahlen sie in die Leiste aus?' },
     { id: 'fach-uro-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?', deepens: 'veg-schuettelfrost' },
     { id: 'fach-uro-strahl', kapitel: 'fach', frage: 'Wie ist der Harnstrahl — abgeschwächt? Müssen Sie pressen, oder tropft es nach?' },
+    // Promues du guide rédigé (harmonisation) : l'anamnèse sexuelle fait partie
+    // du standard urologique de l'examen (IST, protection, fonction) et
+    // n'apparaissait dans aucune sonde.
+    { id: 'fach-uro-sexualanamnese', kapitel: 'fach', frage: 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie verhüten Sie, und wie schützen Sie sich vor Geschlechtskrankheiten? Hatten Sie schon einmal eine Geschlechtskrankheit?' },
+    { id: 'fach-uro-funktion', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr? Haben Sie Probleme, eine Erektion zu bekommen oder zu halten?' },
     { id: 'fach-uro-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder Probleme mit der Prostata?' },
   ],
   Orthopädie: [
@@ -187,6 +196,9 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-ortho-bewegung', kapitel: 'fach', frage: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?' },
     { id: 'fach-ortho-ausstrahlung', kapitel: 'fach', frage: 'Strahlen die Schmerzen aus — zum Beispiel ins Bein oder in den Arm? Bis wohin genau?', deepens: 'akt-ausstrahlung' },
     { id: 'fach-ortho-sensomotorik', kapitel: 'fach', frage: 'Haben Sie Kribbeln, Taubheitsgefühl oder Kraftverlust in Arm oder Bein bemerkt?' },
+    // Promue du guide rédigé (harmonisation) : le trio Durchblutung–Motorik–
+    // Sensibilität d'un membre traumatisé ; la perfusion manquait aux sondes.
+    { id: 'fach-ortho-durchblutung', kapitel: 'fach', frage: 'Haben Sie das Gefühl, dass die Hand oder der Fuß kälter, blasser oder bläulich geworden ist?' },
     { id: 'fach-ortho-cauda', kapitel: 'fach', frage: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang oder ein Taubheitsgefühl im Reithosen-/Genitalbereich?', deepens: 'veg-ausscheidung' },
     { id: 'fach-ortho-schwellung', kapitel: 'fach', frage: 'Ist das Gelenk geschwollen, gerötet, überwärmt oder haben Sie einen Bluterguss bemerkt?' },
     { id: 'fach-ortho-belastung', kapitel: 'fach', frage: 'Können Sie das Bein/den Arm noch belasten? Wie weit können Sie gehen, und was hilft oder verschlimmert?' },
