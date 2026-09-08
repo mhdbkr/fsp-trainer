@@ -1,5 +1,6 @@
 import type { Phrase } from '@/data/guides/phrases';
 import { phraseFollowUp, phraseLabel, phraseProbes } from '@/data/guides/phrases';
+import { PROBE_BY_ID } from '@/data/guides/anamneseProbes';
 import { GuidedText } from '@/components/GuidedText';
 import { FollowUpControls, ProgressiveSteps, VariantPicker, useVariant } from '@/components/PhraseControls';
 
@@ -26,6 +27,12 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
   const probes = phraseProbes(phrase);
   const dot = tone === 'emerald' ? 'bg-emerald-400' : 'bg-brand-400';
   const askable = !!onAsk && probes.length > 0;
+  // Recouvrement avec l'anamnèse générale : le candidat a déjà posé la question
+  // plus haut. On le DIT au lieu de le laisser répéter — « approfondit » quand
+  // la version Fach ajoute un axe clinique, « déjà demandé » quand elle
+  // n'ajoute rien.
+  const src = probes.length === 1 ? PROBE_BY_ID[probes[0]] : undefined;
+  const covered = src?.deepens ? PROBE_BY_ID[src.deepens] : undefined;
 
   return (
     <li className={`flex gap-2 rounded-lg transition-colors duration-300 ${active ? '-mx-2 bg-brand-50/70 px-2 py-1 ring-1 ring-brand-300/60 dark:bg-brand-900/20 dark:ring-brand-700/50' : ''}`}>
@@ -44,6 +51,16 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
           <GuidedText text={text} keywords={keywords} />
           {idx >= 0 && <span className="ml-1.5 align-middle font-mono text-[9px] uppercase tracking-wider text-brand-500">variante {idx + 1}</span>}
         </span>
+
+        {covered && (
+          <span title={`Anamnèse générale : « ${covered.frage} »`}
+            className={`ml-1.5 inline-flex items-center gap-1 rounded-full px-1.5 py-px align-middle text-[9.5px] font-semibold uppercase tracking-wide ${
+              src?.redundant
+                ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+                : 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300'}`}>
+            {src?.redundant ? '↻ déjà demandé' : '↗ approfondit'}
+          </span>
+        )}
 
         <VariantPicker alts={alts} idx={idx} onSelect={setIdx} />
         <ProgressiveSteps probes={probes} onStep={onAsk} />

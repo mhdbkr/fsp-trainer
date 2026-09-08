@@ -21,8 +21,8 @@ Zone : `features/simulation/AnamneseGuide.tsx`, `ImmersiveMode.tsx`,
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB-A1** | P0 | Les questions affichées sont toujours les mêmes questions standards, quel que soit le profil du patient. Un cas avec des particularités (comorbidité, âge, sexe, contexte) devrait modifier ce qu'on demande. | Pour deux cas de profils distincts, le guide affiche un jeu de questions **différent** là où le profil le justifie (ex. patiente → Frauenanamnese intégrée au bon endroit ; diabétique → sondes de complications ; personne âgée → chutes/autonomie). Les particularités du cas remontent dans le guide. |
-| **FB-A2** | P1 | Des questions d'interrogatoire **se répètent** entre chapitres d'anamnèse. | Aucune question (ou paraphrase évidente) n'apparaît dans deux chapitres d'un même guide. Un script de détection de doublons existe et passe. |
+| **FB-A1** ✅ | P0 | Les questions affichées sont toujours les mêmes questions standards, quel que soit le profil du patient. Un cas avec des particularités (comorbidité, âge, sexe, contexte) devrait modifier ce qu'on demande. | Pour deux cas de profils distincts, le guide affiche un jeu de questions **différent** là où le profil le justifie (ex. patiente → Frauenanamnese intégrée au bon endroit ; diabétique → sondes de complications ; personne âgée → chutes/autonomie). Les particularités du cas remontent dans le guide. |
+| **FB-A2** ✅ | P1 | Des questions d'interrogatoire **se répètent** entre chapitres d'anamnèse. | Aucune question (ou paraphrase évidente) n'apparaît dans deux chapitres d'un même guide. Un script de détection de doublons existe et passe. |
 | **FB-A3** ✅ | P0 | Il arrive qu'une question soit dans le guide mais **sans réponse dans la fiche rôle-patient**. Le simulant patient est alors muet. | Contrat : toute question affichée dans le guide a une réponse dans `patientSheet` du cas joué. Vérifié mécaniquement (`checkProbeCoverage` étendu aux questions réellement affichées, pas seulement aux sondes). |
 
 ## B · Questions conditionnelles et progressives

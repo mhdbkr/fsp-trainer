@@ -23,6 +23,16 @@ export interface AnamneseProbe {
   id: string;
   kapitel: RolePlayKapitel;
   frage: string;
+  /** Sonde générale que cette sonde Fach RECOUVRE. Le candidat a déjà posé la
+   *  question dans l'anamnèse générale : le guide le signale au lieu de le
+   *  laisser répéter — c'est le « ça se répète entre les chapitres » du retour
+   *  d'usage. On ne supprime pas la question : la version Fach ajoute presque
+   *  toujours un axe clinique décisif (Reithosenanästhesie, Kaffeesatz,
+   *  poids ↔ appétit…). */
+  deepens?: string;
+  /** Vrai doublon : la version générale est strictement plus riche, la question
+   *  Fach n'ajoute rien → le guide invite à passer. */
+  redundant?: boolean;
 }
 
 // --- Allgemeine Anamnese (tous les cas) -------------------------------------
@@ -97,7 +107,7 @@ export const FRAUEN_PROBES: AnamneseProbe[] = [
 // (Ajouter ici les autres spécialités au fil de la PHASE 2.)
 export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   Gastroenterologie: [
-    { id: 'fach-gastro-uebelkeit', kapitel: 'fach', frage: 'Leiden Sie an Übelkeit oder Erbrechen? Wie sah es aus (wie Kaffeesatz, mit Blut)? Wie lange nach dem Essen? Geht es Ihnen danach besser?' },
+    { id: 'fach-gastro-uebelkeit', kapitel: 'fach', frage: 'Leiden Sie an Übelkeit oder Erbrechen? Wie sah es aus (wie Kaffeesatz, mit Blut)? Wie lange nach dem Essen? Geht es Ihnen danach besser?', deepens: 'veg-uebelkeit' },
     { id: 'fach-gastro-sodbrennen', kapitel: 'fach', frage: 'Haben Sie Sodbrennen? Müssen Sie aufstoßen?' },
     { id: 'fach-gastro-voelle', kapitel: 'fach', frage: 'Haben Sie ein Völlegefühl? Werden Sie schneller satt als früher? Fühlen Sie sich aufgebläht?' },
     { id: 'fach-gastro-speisen', kapitel: 'fach', frage: 'Treten die Beschwerden nach bestimmten Speisen auf? Was haben Sie zuletzt gegessen?' },
@@ -108,7 +118,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   Kardiologie: [
     { id: 'fach-kardio-brust', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Engegefühl in der Brust? Wo genau — hinter dem Brustbein oder in der Magengrube?' },
     { id: 'fach-kardio-belastung', kapitel: 'fach', frage: 'Treten die Beschwerden nur bei Belastung oder auch in Ruhe auf? Wie lange dauern sie?' },
-    { id: 'fach-kardio-ausstrahlung', kapitel: 'fach', frage: 'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?' },
+    { id: 'fach-kardio-ausstrahlung', kapitel: 'fach', frage: 'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?', deepens: 'akt-ausstrahlung' },
     { id: 'fach-kardio-atem', kapitel: 'fach', frage: 'Hängen die Beschwerden mit dem Atmen, dem Essen oder der Körperlage zusammen?' },
     { id: 'fach-kardio-nitro', kapitel: 'fach', frage: 'Haben Sie ein Nitrospray benutzt? Hat es geholfen?' },
     { id: 'fach-kardio-herzrasen', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Herzklopfen oder Herzstolpern bemerkt?' },
@@ -119,37 +129,37 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   ],
   Chirurgie: [
     { id: 'fach-chir-essen', kapitel: 'fach', frage: 'Wann haben Sie zuletzt gegessen und getrunken? Was genau?' },
-    { id: 'fach-chir-uebelkeit', kapitel: 'fach', frage: 'Ist Ihnen übel? Haben Sie sich übergeben?' },
+    { id: 'fach-chir-uebelkeit', kapitel: 'fach', frage: 'Ist Ihnen übel? Haben Sie sich übergeben?', deepens: 'veg-uebelkeit', redundant: true },
     { id: 'fach-chir-ileus', kapitel: 'fach', frage: 'Hatten Sie heute Stuhlgang? Gehen noch Winde ab?' },
-    { id: 'fach-chir-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber?' },
-    { id: 'fach-chir-op', kapitel: 'fach', frage: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?' },
-    { id: 'fach-chir-blutverduenner', kapitel: 'fach', frage: 'Nehmen Sie Blutverdünner ein?' },
+    { id: 'fach-chir-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber?', deepens: 'veg-fieber', redundant: true },
+    { id: 'fach-chir-op', kapitel: 'fach', frage: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?', deepens: 'vor-op' },
+    { id: 'fach-chir-blutverduenner', kapitel: 'fach', frage: 'Nehmen Sie Blutverdünner ein?', deepens: 'med-blutverduenner', redundant: true },
     { id: 'fach-chir-gallensteine', kapitel: 'fach', frage: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?' },
   ],
   Psychiatrie: [
     { id: 'fach-psych-stimmung', kapitel: 'fach', frage: 'Wie ist Ihre Stimmung in letzter Zeit? Fühlen Sie sich niedergeschlagen, traurig oder innerlich leer?' },
     { id: 'fach-psych-interesse', kapitel: 'fach', frage: 'Haben Sie noch Freude oder Interesse an Dingen, die Ihnen früher wichtig waren?' },
     { id: 'fach-psych-antrieb', kapitel: 'fach', frage: 'Wie ist Ihr Antrieb und Ihre Energie? Fällt es Ihnen schwer, den Alltag zu bewältigen?' },
-    { id: 'fach-psych-schlaf', kapitel: 'fach', frage: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?' },
+    { id: 'fach-psych-schlaf', kapitel: 'fach', frage: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?', deepens: 'veg-schlaf' },
     { id: 'fach-psych-tagesverlauf', kapitel: 'fach', frage: 'Gibt es Tageszeiten, zu denen es Ihnen besser oder schlechter geht (zum Beispiel ein Morgentief)?' },
     { id: 'fach-psych-konzentration', kapitel: 'fach', frage: 'Können Sie sich noch gut konzentrieren und Entscheidungen treffen?' },
     { id: 'fach-psych-suizid', kapitel: 'fach', frage: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?' },
-    { id: 'fach-psych-ausloeser', kapitel: 'fach', frage: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?' },
-    { id: 'fach-psych-frueher', kapitel: 'fach', frage: 'Hatten Sie so etwas schon einmal? Waren Sie deswegen in Behandlung oder haben Sie Medikamente eingenommen?' },
+    { id: 'fach-psych-ausloeser', kapitel: 'fach', frage: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?', deepens: 'akt-ausloeser' },
+    { id: 'fach-psych-frueher', kapitel: 'fach', frage: 'Hatten Sie so etwas schon einmal? Waren Sie deswegen in Behandlung oder haben Sie Medikamente eingenommen?', deepens: 'akt-frueher' },
   ],
   Pneumologie: [
-    { id: 'fach-pneumo-husten', kapitel: 'fach', frage: 'Haben Sie Husten? Seit wann, und ist er trocken oder mit Auswurf?' },
+    { id: 'fach-pneumo-husten', kapitel: 'fach', frage: 'Haben Sie Husten? Seit wann, und ist er trocken oder mit Auswurf?', deepens: 'akt-beginn' },
     { id: 'fach-pneumo-auswurf', kapitel: 'fach', frage: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?' },
     { id: 'fach-pneumo-atemnot', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft? In Ruhe oder bei Belastung? Wie viele Stockwerke schaffen Sie ohne Pause?' },
     { id: 'fach-pneumo-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Atmen oder Husten? Sind sie atemabhängig?' },
-    { id: 'fach-pneumo-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?' },
+    { id: 'fach-pneumo-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?', deepens: 'veg-schuettelfrost' },
     { id: 'fach-pneumo-giemen', kapitel: 'fach', frage: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?' },
     { id: 'fach-pneumo-infekt', kapitel: 'fach', frage: 'Hatten Sie kürzlich einen Atemwegsinfekt, Kontakt zu Kranken oder eine Reise?' },
     { id: 'fach-pneumo-noxen', kapitel: 'fach', frage: 'Rauchen Sie? Waren Sie beruflich Stäuben, Asbest oder Vögeln ausgesetzt?' },
-    { id: 'fach-pneumo-allergie', kapitel: 'fach', frage: 'Haben Sie Allergien oder ein bekanntes Asthma?' },
+    { id: 'fach-pneumo-allergie', kapitel: 'fach', frage: 'Haben Sie Allergien oder ein bekanntes Asthma?', deepens: 'all-allergie' },
   ],
   Infektiologie: [
-    { id: 'fach-infekt-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?' },
+    { id: 'fach-infekt-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?', deepens: 'veg-fieber' },
     { id: 'fach-infekt-zecke', kapitel: 'fach', frage: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?' },
     { id: 'fach-infekt-haut', kapitel: 'fach', frage: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?' },
     { id: 'fach-infekt-gelenke', kapitel: 'fach', frage: 'Haben Sie Gelenk- oder Muskelschmerzen? Wandern sie von Gelenk zu Gelenk?' },
@@ -159,21 +169,21 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-infekt-impfung', kapitel: 'fach', frage: 'Wie ist Ihr Impfstatus, insbesondere gegen FSME und Tetanus?' },
   ],
   Urologie: [
-    { id: 'fach-uro-miktion', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?' },
+    { id: 'fach-uro-miktion', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?', deepens: 'veg-ausscheidung' },
     { id: 'fach-uro-frequenz', kapitel: 'fach', frage: 'Müssen Sie häufiger als sonst Wasser lassen, auch nachts? Kommt dabei nur wenig?' },
     { id: 'fach-uro-drang', kapitel: 'fach', frage: 'Haben Sie plötzlichen, starken Harndrang? Können Sie den Urin noch halten?' },
     { id: 'fach-uro-farbe', kapitel: 'fach', frage: 'Welche Farbe hat der Urin? Ist Blut dabei, oder riecht er auffällig?' },
     { id: 'fach-uro-flanke', kapitel: 'fach', frage: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Strahlen sie in die Leiste aus?' },
-    { id: 'fach-uro-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?' },
+    { id: 'fach-uro-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?', deepens: 'veg-schuettelfrost' },
     { id: 'fach-uro-strahl', kapitel: 'fach', frage: 'Wie ist der Harnstrahl — abgeschwächt? Müssen Sie pressen, oder tropft es nach?' },
     { id: 'fach-uro-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder Probleme mit der Prostata?' },
   ],
   Orthopädie: [
     { id: 'fach-ortho-mechanismus', kapitel: 'fach', frage: 'Gab es einen Unfall oder Sturz? Wie genau ist es passiert, und konnten Sie danach noch auftreten oder das Gelenk bewegen?' },
     { id: 'fach-ortho-bewegung', kapitel: 'fach', frage: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?' },
-    { id: 'fach-ortho-ausstrahlung', kapitel: 'fach', frage: 'Strahlen die Schmerzen aus — zum Beispiel ins Bein oder in den Arm? Bis wohin genau?' },
+    { id: 'fach-ortho-ausstrahlung', kapitel: 'fach', frage: 'Strahlen die Schmerzen aus — zum Beispiel ins Bein oder in den Arm? Bis wohin genau?', deepens: 'akt-ausstrahlung' },
     { id: 'fach-ortho-sensomotorik', kapitel: 'fach', frage: 'Haben Sie Kribbeln, Taubheitsgefühl oder Kraftverlust in Arm oder Bein bemerkt?' },
-    { id: 'fach-ortho-cauda', kapitel: 'fach', frage: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang oder ein Taubheitsgefühl im Reithosen-/Genitalbereich?' },
+    { id: 'fach-ortho-cauda', kapitel: 'fach', frage: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang oder ein Taubheitsgefühl im Reithosen-/Genitalbereich?', deepens: 'veg-ausscheidung' },
     { id: 'fach-ortho-schwellung', kapitel: 'fach', frage: 'Ist das Gelenk geschwollen, gerötet, überwärmt oder haben Sie einen Bluterguss bemerkt?' },
     { id: 'fach-ortho-belastung', kapitel: 'fach', frage: 'Können Sie das Bein/den Arm noch belasten? Wie weit können Sie gehen, und was hilft oder verschlimmert?' },
     { id: 'fach-ortho-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie an dieser Stelle schon einmal Beschwerden, eine Verletzung oder eine Operation?' },
@@ -182,8 +192,8 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-rheuma-gelenke', kapitel: 'fach', frage: 'Welche Gelenke sind betroffen — nur eines oder mehrere? Wechseln die Beschwerden von Gelenk zu Gelenk?' },
     { id: 'fach-rheuma-morgensteifigkeit', kapitel: 'fach', frage: 'Sind die Gelenke morgens steif? Wie lange dauert die Steifigkeit, bis Sie sich wieder normal bewegen können?' },
     { id: 'fach-rheuma-entzuendung', kapitel: 'fach', frage: 'Ist das Gelenk geschwollen, gerötet oder überwärmt? Können Sie es überhaupt noch berühren?' },
-    { id: 'fach-rheuma-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden plötzlich und anfallsartig, oder haben sie sich langsam über Wochen entwickelt?' },
-    { id: 'fach-rheuma-ausloeser', kapitel: 'fach', frage: 'Gab es einen Auslöser — ein üppiges Essen mit Fleisch, Alkohol (besonders Bier), Fasten oder eine neue Tablette (z. B. eine Wassertablette)?' },
+    { id: 'fach-rheuma-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden plötzlich und anfallsartig, oder haben sie sich langsam über Wochen entwickelt?', deepens: 'akt-verlauf' },
+    { id: 'fach-rheuma-ausloeser', kapitel: 'fach', frage: 'Gab es einen Auslöser — ein üppiges Essen mit Fleisch, Alkohol (besonders Bier), Fasten oder eine neue Tablette (z. B. eine Wassertablette)?', deepens: 'akt-ausloeser' },
     { id: 'fach-rheuma-haut', kapitel: 'fach', frage: 'Haben Sie Hautveränderungen bemerkt — Schuppenflechte, Knötchen unter der Haut oder an den Ohren?' },
     { id: 'fach-rheuma-systemisch', kapitel: 'fach', frage: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?' },
     { id: 'fach-rheuma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie so einen Anfall schon einmal? Sind Nierensteine oder rheumatische Erkrankungen in der Familie bekannt?' },
@@ -196,7 +206,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-neuro-sprache', kapitel: 'fach', frage: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?' },
     { id: 'fach-neuro-blase', kapitel: 'fach', frage: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?' },
     { id: 'fach-neuro-anfall', kapitel: 'fach', frage: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?' },
-    { id: 'fach-neuro-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?' },
+    { id: 'fach-neuro-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', deepens: 'akt-verlauf' },
     { id: 'fach-neuro-kopfschmerz', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen? Wie fühlen sie sich an, und ist Ihnen dabei übel oder lichtempfindlich?' },
   ],
   // Un seul jeu couvre les deux grands axes endocriniens de l'examen : le
@@ -205,7 +215,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   // pour que le candidat apprenne à trancher entre les deux en interrogeant).
   Endokrinologie: [
     { id: 'fach-endo-durst', kapitel: 'fach', frage: 'Haben Sie vermehrt Durst und müssen Sie häufiger Wasser lassen, auch nachts?' },
-    { id: 'fach-endo-gewicht', kapitel: 'fach', frage: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?' },
+    { id: 'fach-endo-gewicht', kapitel: 'fach', frage: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?', deepens: 'veg-gewicht' },
     { id: 'fach-endo-temperatur', kapitel: 'fach', frage: 'Schwitzen Sie vermehrt oder frieren Sie leicht? Vertragen Sie Wärme oder Kälte schlechter als früher?' },
     { id: 'fach-endo-herz-nerven', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Zittern der Hände, innere Unruhe oder umgekehrt Antriebslosigkeit und Müdigkeit bemerkt?' },
     { id: 'fach-endo-hals', kapitel: 'fach', frage: 'Haben Sie eine Schwellung am Hals, ein Engegefühl, Schluckbeschwerden oder eine Veränderung der Stimme bemerkt?' },
@@ -234,11 +244,11 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   // son aspect : c'est ce qui distingue un eczéma de contact d'un zona ou d'un
   // exanthème médicamenteux. La sonde « grain de beauté » couvre l'ABCDE.
   Dermatologie: [
-    { id: 'fach-derma-beginn-ort', kapitel: 'fach', frage: 'Wo hat die Hautveränderung angefangen, und wie hat sie sich seitdem ausgebreitet?' },
+    { id: 'fach-derma-beginn-ort', kapitel: 'fach', frage: 'Wo hat die Hautveränderung angefangen, und wie hat sie sich seitdem ausgebreitet?', deepens: 'akt-ort' },
     { id: 'fach-derma-empfinden', kapitel: 'fach', frage: 'Juckt es, brennt es oder tut es weh? Und wann ist es am schlimmsten?' },
     { id: 'fach-derma-aussehen', kapitel: 'fach', frage: 'Wie sieht die Stelle aus — gerötet, schuppend, mit Bläschen, Knötchen oder nässend? Hat sie sich verändert?' },
-    { id: 'fach-derma-ausloeser', kapitel: 'fach', frage: 'Gab es einen Auslöser — ein neues Medikament, eine neue Creme oder ein Waschmittel, Pflanzen, Sonne oder etwas bei der Arbeit?' },
-    { id: 'fach-derma-verlauf', kapitel: 'fach', frage: 'Tritt das in Schüben auf? Wird es zu bestimmten Jahreszeiten oder im Urlaub besser?' },
+    { id: 'fach-derma-ausloeser', kapitel: 'fach', frage: 'Gab es einen Auslöser — ein neues Medikament, eine neue Creme oder ein Waschmittel, Pflanzen, Sonne oder etwas bei der Arbeit?', deepens: 'akt-ausloeser' },
+    { id: 'fach-derma-verlauf', kapitel: 'fach', frage: 'Tritt das in Schüben auf? Wird es zu bestimmten Jahreszeiten oder im Urlaub besser?', deepens: 'akt-verlauf' },
     { id: 'fach-derma-systemisch', kapitel: 'fach', frage: 'Haben Sie dazu Fieber, Gelenkschmerzen oder Veränderungen an Mund, Augen oder im Genitalbereich?' },
     { id: 'fach-derma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie früher Hautkrankheiten wie Neurodermitis oder Schuppenflechte? Gibt es so etwas in Ihrer Familie?' },
     { id: 'fach-derma-muttermal', kapitel: 'fach', frage: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?' },
@@ -250,7 +260,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-gyn-blutung', kapitel: 'fach', frage: 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?' },
     { id: 'fach-gyn-unterbauch', kapitel: 'fach', frage: 'Haben Sie Unterbauchschmerzen? Wo genau, und hängen sie mit Ihrem Zyklus zusammen?' },
     { id: 'fach-gyn-fluor', kapitel: 'fach', frage: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?' },
-    { id: 'fach-gyn-dyspareunie', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?' },
+    { id: 'fach-gyn-dyspareunie', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?', deepens: 'veg-ausscheidung' },
     { id: 'fach-gyn-schwangerschaften', kapitel: 'fach', frage: 'Wie viele Schwangerschaften und Geburten hatten Sie? Gab es Fehlgeburten oder Abbrüche?' },
     { id: 'fach-gyn-kinderwunsch', kapitel: 'fach', frage: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?' },
     { id: 'fach-gyn-brust', kapitel: 'fach', frage: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?' },
@@ -278,9 +288,9 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-onko-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen, die nachts oder in Ruhe auftreten und allmählich stärker werden?' },
     { id: 'fach-onko-knoten', kapitel: 'fach', frage: 'Haben Sie irgendwo einen Knoten, eine Schwellung oder eine Verhärtung getastet?' },
     { id: 'fach-onko-blutung', kapitel: 'fach', frage: 'Haben Sie Blutungen bemerkt — im Stuhl, im Urin, beim Husten oder aus der Scheide?' },
-    { id: 'fach-onko-appetit', kapitel: 'fach', frage: 'Haben Sie Schluckbeschwerden, ein Völlegefühl oder keinen Appetit mehr?' },
+    { id: 'fach-onko-appetit', kapitel: 'fach', frage: 'Haben Sie Schluckbeschwerden, ein Völlegefühl oder keinen Appetit mehr?', deepens: 'veg-appetit' },
     { id: 'fach-onko-vorbehandlung', kapitel: 'fach', frage: 'Ist bei Ihnen bereits eine Tumorerkrankung bekannt? Wurden Sie operiert, bestrahlt oder mit einer Chemotherapie behandelt?' },
-    { id: 'fach-onko-familie', kapitel: 'fach', frage: 'Gibt es Krebserkrankungen in Ihrer Familie — und in welchem Alter sind die Angehörigen erkrankt?' },
+    { id: 'fach-onko-familie', kapitel: 'fach', frage: 'Gibt es Krebserkrankungen in Ihrer Familie — und in welchem Alter sind die Angehörigen erkrankt?', deepens: 'fam-familie' },
     { id: 'fach-onko-vorsorge', kapitel: 'fach', frage: 'Nehmen Sie die Vorsorgeuntersuchungen wahr — Darmspiegelung, Mammographie, Hautkrebsscreening?' },
   ],
 };

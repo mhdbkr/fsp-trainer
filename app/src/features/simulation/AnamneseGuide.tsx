@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { AssistanceMode, Case } from '@/db/types';
-import { ALLGEMEINE_ANAMNESE, fachChapterForSimulation, type AnamneseChapter } from '@/data/guides/anamneseChapters';
+import { adaptChaptersForCase, fachChapterForSimulation, type AnamneseChapter } from '@/data/guides/anamneseChapters';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
 import { phraseProbes } from '@/data/guides/phrases';
@@ -19,7 +19,9 @@ import { useSimSession } from '@/store/simSession';
 
 export function AnamneseGuide({ c, assistance }: { c: Case; assistance: AssistanceMode }) {
   const fach = fachChapterForSimulation(c.specialty);
-  const chapters = ALLGEMEINE_ANAMNESE;
+  // Chapitres ADAPTÉS au patient : pas de Frauenanamnese pour un homme, et
+  // analyse des symptômes reformulée quand le cas n'a pas de douleur.
+  const chapters = useMemo(() => adaptChaptersForCase(c), [c]);
   // Question « posée » : le médecin clique la question qu'il est en train de
   // poser → elle s'allume ici et sa réplique s'allume chez le simulant (suivi
   // live par sonde). C'est ce qui règle le « on ne sait pas où on en est ».

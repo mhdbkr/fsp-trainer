@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { Case } from '@/db/types';
-import { ALLGEMEINE_ANAMNESE, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
+import { adaptChaptersForCase, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { phraseAlts, phraseFollowUp, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
@@ -31,7 +31,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
   const amb = useTimeAmbiance();
   const chapters = useMemo<FocusChapter[]>(() => {
     if (part === 'anamnese') {
-      const base = ALLGEMEINE_ANAMNESE.map((ch) => ({ id: ch.id, title: ch.title, icon: ch.icon, items: ch.questions, tip: ch.tip }));
+      const base = adaptChaptersForCase(c).map((ch) => ({ id: ch.id, title: ch.title, icon: ch.icon, items: ch.questions, tip: ch.tip }));
       const fach = fachChapterForSimulation(c.specialty);
       if (fach) {
         // Fachanamnese juste APRÈS « Aktuelle Beschwerden » (comme dans le guide),

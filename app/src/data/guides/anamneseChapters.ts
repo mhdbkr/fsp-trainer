@@ -1,4 +1,4 @@
-import type { Specialty } from '@/db/types';
+import type { Case, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
 import { FACH_PROBES } from './anamneseProbes';
 
@@ -593,4 +593,58 @@ export function fachChapterForSimulation(specialty: Specialty): FachanamneseGuid
       questions: probes.map((pr) => ({ text: pr.frage, probe: pr.id })),
     },
   };
+}
+
+// ============================================================================
+// ADAPTATION AU CAS — le guide doit refléter CE patient, pas un patient moyen.
+// Deux inadéquations relevées à l'usage :
+//   1. la Frauenanamnese était proposée aux patients masculins ;
+//   2. l'analyse de la douleur (OPQRST) se déroulait intégralement même quand
+//      le cas n'a AUCUNE douleur (diabète, hyperthyroïdie, COPD, anémie…) —
+//      demander « dumpf, stechend, brennend? » à un diabétique est exactement
+//      ce qui donne l'impression d'un guide récité.
+// On ne supprime pas les sondes (le contrat de couverture reste), on REFORMULE
+// en registre « Beschwerden » et on retire ce qui n'a pas de sens sans douleur.
+// ============================================================================
+
+/** Reformulations neutres des questions d'analyse de la douleur, pour un cas
+ *  sans douleur. Clé = sonde ; valeur = texte de remplacement. */
+const PAINLESS_TEXT: Record<string, string> = {
+  'akt-ort': 'Ort — Wo genau spüren Sie die Beschwerden? Können Sie mir die Stelle zeigen?',
+  'akt-beginn': 'Beginn — Seit wann haben Sie die Beschwerden? Kamen sie plötzlich oder schleichend?',
+  'akt-charakter': 'Charakter — Wie würden Sie die Beschwerden beschreiben? Womit könnte man sie vergleichen?',
+  'akt-intensitaet': 'Ausmaß — Wie stark beeinträchtigen die Beschwerden Sie im Alltag? Auf einer Skala von 1 bis 10?',
+  'akt-ausstrahlung': 'Ausbreitung — Betreffen die Beschwerden nur eine Stelle, oder breiten sie sich aus?',
+  'akt-verlauf': 'Verlauf — Sind die Beschwerden dauerhaft da oder treten sie zeitweise auf?',
+  'akt-ausloeser': 'Auslöser — Gab es etwas Bestimmtes, das die Beschwerden ausgelöst hat?',
+  'akt-einfluss': 'Einflussfaktoren — Gibt es etwas, das die Beschwerden bessert oder verschlimmert?',
+  'akt-frueher': 'Frühere Episoden — Hatten Sie solche Beschwerden schon einmal?',
+};
+
+/** Le cas comporte-t-il une douleur à analyser ? */
+export const caseHasPain = (c: Case): boolean => !!c.patientSheet.schmerz;
+
+/** Chapitres de l'Allgemeine Anamnese ADAPTÉS au cas joué. */
+export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
+  const weiblich = c.patientSheet.personalia.geschlecht === 'w';
+  const pain = caseHasPain(c);
+  return ALLGEMEINE_ANAMNESE
+    // Frauenanamnese : uniquement pour une patiente (elle est `optional`).
+    .filter((ch) => !(ch.id === 'frauenanamnese' && !weiblich))
+    .map((ch) => {
+      if (pain || ch.id !== 'aktuell') return ch;
+      return {
+        ...ch,
+        subtitle: 'Motif + analyse des symptômes',
+        questions: ch.questions.map((q) => {
+          if (typeof q === 'string') return q;
+          const probe = typeof q.probe === 'string' ? q.probe : undefined;
+          const rewritten = probe ? PAINLESS_TEXT[probe] : undefined;
+          // Sans douleur, les relances « sehr stark / Schmerzmittel » n'ont pas
+          // lieu d'être : on ne garde que celles qui ne parlent pas de douleur.
+          const followUp = q.followUp?.filter((f) => !/schmerz/i.test(f));
+          return { ...q, ...(rewritten ? { text: rewritten } : {}), ...(followUp ? { followUp } : {}) };
+        }),
+      };
+    });
 }
