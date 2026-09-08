@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { Case } from '@/db/types';
+import type { BogenNotes, Case, MusterCity } from '@/db/types';
 import { adaptChaptersForCase, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { phraseAlts, phraseFollowUp, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
@@ -9,6 +9,7 @@ import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
+import { MUSTER_BOGEN } from '@/data/guides/musterBogen';
 import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
 
 // ============================================================================
@@ -20,8 +21,27 @@ import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/
 
 interface FocusChapter { id: string; title: string; icon: string; items: Phrase[]; tip?: string }
 
-export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
+/** Chapitre d'anamnèse → rubrique(s) candidates du Muster-Bogen, par ordre de
+ *  préférence : les modèles n'ont pas tous les mêmes rubriques, on prend la
+ *  première que le modèle courant possède. */
+const CHAPTER_TO_BOGEN: Record<string, string[]> = {
+  personalia: ['personalia'],
+  eroeffnung: ['personalia'],
+  aktuell: ['hauptbeschwerde'],
+  vegetativ: ['vegetativ', 'hauptbeschwerde'],
+  vorerkrankungen: ['vorerkrankungen', 'medikamente'],
+  medikamente: ['medikamente', 'vorerkrankungen'],
+  allergien: ['allergien'],
+  noxen: ['noxen', 'genussmittel'],
+  'familie-sozial': ['sozial', 'familie'],
+  frauenanamnese: ['frauen'],
+};
+
+export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, bogen, setBogen }: {
   part: 'anamnese' | 'fallvorstellung'; c: Case; onClose: () => void; initialChapterId?: string;
+  /** Prise de notes en focus : on écrit dans le MÊME Bogen que la vue normale
+   *  (aucune saisie en double), dans la rubrique du chapitre en cours. */
+  muster?: MusterCity; bogen?: BogenNotes; setBogen?: (b: BogenNotes) => void;
 }) {
   const openDoctopus = useUi((s) => s.openDoctopus);
   // Conseils ouverts d'emblée en mode assisté (épargne un clic à chaque
@@ -77,6 +97,19 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
     useSimSession.getState().setGuideProbe(item ? (phraseProbes(item)[0] ?? null) : null);
   }, [ci, ii, chapters]);
   useEffect(() => () => { useSimSession.getState().setGuideProbe(null); }, []);
+  // Notes : ouvertes à la demande (touche N), fermées par défaut pour ne pas
+  // encombrer la scène. Le champ vise la rubrique du Bogen correspondant au
+  // chapitre courant — noter en jouant remplit la vraie feuille.
+  const [notesOpen, setNotesOpen] = useState(false);
+  const canNote = !!setBogen && !!bogen && part === 'anamnese';
+  const spec = muster ? MUSTER_BOGEN[muster] : undefined;
+  const noteKey = useMemo(() => {
+    if (!spec) return null;
+    const has = (k: string) => spec.fields.some((f) => f.key === k);
+    const wanted = CHAPTER_TO_BOGEN[chapters[ci]?.id] ?? [];
+    return wanted.find(has) ?? (has('hauptbeschwerde') ? 'hauptbeschwerde' : spec.fields.find((f) => f.kind === 'box')?.key ?? null);
+  }, [spec, chapters, ci]);
+  const noteField = spec?.fields.find((f) => f.key === noteKey);
 
   // Mémorise la position à chaque déplacement (reprise après fermeture).
   useEffect(() => { useSimSession.getState().setFocus({ caseId: c.id, part, ci, ii }); }, [ci, ii, c.id, part]);
@@ -112,6 +145,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
       else if (e.key === 'Escape') { e.preventDefault(); onClose(); }
+      else if ((e.key === 'n' || e.key === 'N') && canNote) { e.preventDefault(); setNotesOpen((o) => !o); }
       else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && ii >= 0) {
         // ↑/↓ = variantes de la phrase courante ; cycle sur [standard, v1 … vn].
         const n = phraseAlts(chapters[ci].items[ii]).length + 1;
@@ -121,7 +155,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ci, ii, chapters]);
+  }, [ci, ii, chapters, canNote]);
 
   // Portal → <body> : couvre TOUT le viewport (sidebar, topbar, boutons flottants
   // inclus) quel que soit l'ancêtre transformé ; z-[80] au-dessus de tout le chrome.
@@ -146,8 +180,15 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
           <span className="hidden items-center gap-1 text-[11px] text-slate-500 sm:flex">
             <kbd className="rounded bg-slate-800 px-1.5 py-0.5">←</kbd>
             <kbd className="rounded bg-slate-800 px-1.5 py-0.5">→</kbd>
-            naviguer · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">↑</kbd><kbd className="rounded bg-slate-800 px-1.5 py-0.5">↓</kbd> variantes · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">Échap</kbd> quitter
+            naviguer · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">↑</kbd><kbd className="rounded bg-slate-800 px-1.5 py-0.5">↓</kbd> variantes · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">N</kbd> notes · <kbd className="rounded bg-slate-800 px-1.5 py-0.5">Échap</kbd> quitter
           </span>
+          {canNote && (
+            <button onClick={() => setNotesOpen((o) => !o)} title="Notes (N) — écrit dans le Muster-Bogen"
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-sm transition-colors ${notesOpen ? 'bg-brand-600 text-white' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'}`}>
+              <Icon name="pen" className="h-4 w-4" /><span className="hidden sm:inline">Notes</span>
+              {bogen?.[noteKey ?? ''] ? <span className="h-1.5 w-1.5 rounded-full bg-brand-400" /> : null}
+            </button>
+          )}
           <button onClick={() => openDoctopus()} title="Demander à Doctopus"
             className="flex items-center gap-1.5 rounded-lg bg-slate-800 px-2.5 py-1 text-sm text-slate-200 hover:bg-slate-700">
             <DoctopusMascot size={20} /> <span className="hidden sm:inline">Doctopus</span>
@@ -196,6 +237,35 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId }: {
           )}
         </div>
       </div>
+
+      {/* Notes — panneau de verre qui monte du bas. Il écrit dans la rubrique du
+          Muster-Bogen correspondant au chapitre : à la sortie du focus, la
+          feuille est déjà remplie, sans ressaisie. */}
+      {canNote && noteKey && (
+        <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-[94] flex justify-center px-4 pb-20 transition-[opacity,transform] duration-300 ease-fluid ${notesOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'}`}>
+          <div className="pointer-events-auto w-full max-w-2xl rounded-2xl border border-white/10 bg-slate-900/80 p-3 shadow-2xl backdrop-blur-xl">
+            <div className="mb-1.5 flex items-center justify-between">
+              <span className="label flex items-center gap-1.5 text-slate-400">
+                <Icon name={noteField?.icon ?? 'pen'} className="h-3.5 w-3.5" />
+                {noteField?.label ?? 'Notes'}
+                <span className="font-sans normal-case tracking-normal text-slate-600">· {spec?.title}</span>
+              </span>
+              <button onClick={() => setNotesOpen(false)} className="rounded-md px-2 py-0.5 text-[11px] text-slate-400 hover:bg-slate-800 hover:text-white">Fermer (N)</button>
+            </div>
+            <textarea
+              value={bogen?.[noteKey] ?? ''}
+              onChange={(e) => setBogen?.({ ...bogen, [noteKey]: e.target.value })}
+              // Échap doit fermer le focus, pas rester piégé dans le champ ;
+              // les flèches ne doivent pas naviguer entre les questions pendant
+              // qu'on écrit — d'où l'arrêt de propagation ici.
+              onKeyDown={(e) => { if (e.key === 'Escape') { e.currentTarget.blur(); setNotesOpen(false); } e.stopPropagation(); }}
+              placeholder={noteField?.hint ?? 'Notes…'}
+              rows={3}
+              className="w-full resize-none rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2 text-[15px] leading-relaxed text-slate-100 outline-none placeholder:text-slate-600 focus:border-brand-500/60"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Bas : navigation */}
       <div className="flex items-center justify-between px-6 py-5">

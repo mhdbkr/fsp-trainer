@@ -164,7 +164,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-infekt-haut', kapitel: 'fach', frage: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?' },
     { id: 'fach-infekt-gelenke', kapitel: 'fach', frage: 'Haben Sie Gelenk- oder Muskelschmerzen? Wandern sie von Gelenk zu Gelenk?' },
     { id: 'fach-infekt-neuro', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen, Nackensteifigkeit, Missempfindungen oder eine Gesichtslähmung bemerkt?' },
-    { id: 'fach-infekt-reise', kapitel: 'fach', frage: 'Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?' },
+    { id: 'fach-infekt-reise', kapitel: 'fach', frage: 'Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?', deepens: 'veg-fieber' },
     { id: 'fach-infekt-kontakt', kapitel: 'fach', frage: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?' },
     { id: 'fach-infekt-impfung', kapitel: 'fach', frage: 'Wie ist Ihr Impfstatus, insbesondere gegen FSME und Tetanus?' },
   ],

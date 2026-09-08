@@ -449,7 +449,7 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen }: {
         </div>
       </div>
       <KommunikationPanel situationIds={c.kommunikativeSituationIds} />
-      {immersive && <ImmersiveMode part="anamnese" c={c} onClose={() => setImmersive(false)} />}
+      {immersive && <ImmersiveMode part="anamnese" c={c} onClose={() => setImmersive(false)} muster={muster} bogen={bogen} setBogen={setBogen} />}
     </div>
   );
 }
