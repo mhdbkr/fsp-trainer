@@ -49,7 +49,7 @@ export async function loadAll() {
   return { cases, fachwissen, muster };
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const { cases, fachwissen } = await loadAll();
   console.log(`${cases.length} cas, ${fachwissen.length} fiches Fachwissen chargés.`);
   console.log('exemple :', cases[0].id, '—', cases[0].name);

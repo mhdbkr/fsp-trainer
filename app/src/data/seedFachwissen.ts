@@ -9529,5 +9529,2048 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-lungenembolie',
+      pathology: 'Lungenembolie',
+      specialty: 'Pneumologie',
+      definition: 'Die Lungenembolie ist der akute Verschluss einer oder mehrerer Pulmonalarterien durch einen verschleppten Embolus, in über 90 Prozent der Fälle durch einen Thrombus aus dem tiefen Venensystem der Bein- und Beckenvenen. Lungenembolie und tiefe Beinvenenthrombose sind damit zwei Manifestationen derselben Erkrankung, der venösen Thromboembolie. Der Gefäßverschluss führt zu einer Totraumventilation mit Gasaustauschstörung und zu einem akuten Anstieg des pulmonalvaskulären Widerstands mit Druckbelastung des rechten Ventrikels; bei ausgedehnter Embolie resultieren akutes Rechtsherzversagen und obstruktiver Schock. Die Lungenembolie ist eine der häufigsten Todesursachen im Krankenhaus und ein absoluter Notfall.',
+      aetiologie: 'Ursächlich ist in der überwiegenden Mehrzahl eine tiefe Bein- oder Beckenvenenthrombose, deren Entstehung durch die Virchow-Trias erklärt wird: Verlangsamung des Blutflusses (Immobilisation, langes Sitzen, Herzinsuffizienz), Schädigung der Gefäßwand (Operation, Trauma, Katheter, Entzündung) und Veränderung der Blutzusammensetzung (Thrombophilie, Malignom, Östrogene, Exsikkose, Schwangerschaft und Wochenbett). Seltene nicht-thrombotische Emboliequellen sind Fett (nach Frakturen langer Röhrenknochen), Luft (bei Katheteranlage oder Tauchunfall), Fruchtwasser (peripartal), Tumorzellen, Fremdkörper und septische Emboli bei Rechtsherzendokarditis. Auslösend wirkt typischerweise das morgendliche Aufstehen, das Pressen beim Stuhlgang oder eine plötzliche körperliche Anstrengung, bei der sich der Thrombus löst.',
+      risikofaktoren: [
+        'Immobilisation: Bettlägerigkeit, Gipsverband, lange Flug- oder Busreisen, sitzende Berufe',
+        'Operationen, insbesondere große orthopädische Eingriffe an Hüfte und Knie, sowie Traumata und Frakturen der unteren Extremität',
+        'Fehlende, zu kurz durchgeführte oder abgebrochene medikamentöse Thromboseprophylaxe',
+        'Malignome, besonders Pankreas-, Magen-, Lungen-, Ovarial- und Hirntumoren sowie laufende Chemotherapie',
+        'Früheres thromboembolisches Ereignis — der stärkste einzelne Risikofaktor',
+        'Angeborene Thrombophilie: Faktor-V-Leiden-Mutation (APC-Resistenz, häufigste Form), Prothrombin-G20210A-Mutation, Antithrombin-, Protein-C- und Protein-S-Mangel; erworben das Antiphospholipid-Syndrom',
+        'Östrogenhaltige Kontrazeptiva und Hormonersatztherapie, besonders in Kombination mit Rauchen',
+        'Schwangerschaft und Wochenbett',
+        'Höheres Lebensalter, Adipositas, Varikose und chronisch venöse Insuffizienz',
+        'Nikotinabusus',
+        'Herzinsuffizienz, Vorhofflimmern, nephrotisches Syndrom, chronisch entzündliche Darmerkrankungen, Exsikkose',
+        'Zentrale Venenkatheter und Schrittmachersonden',
+        'Heparininduzierte Thrombozytopenie Typ II — paradoxerweise mit hohem Thromboserisiko',
+      ],
+      klinik: [
+        {
+          text: 'Plötzlich einsetzende Dyspnoe, häufig aus voller Ruhe oder bei geringer Belastung wie dem Treppensteigen — das häufigste Symptom überhaupt',
+        },
+        {
+          text: 'Atemabhängiger, stechender, pleuritischer Thoraxschmerz, meist seitlich lokalisiert und ohne Ausstrahlung',
+        },
+        {
+          text: 'Tachypnoe mit flacher, beschleunigter Atmung',
+        },
+        {
+          text: 'Tachykardie, häufig als Sinustachykardie über 100 pro Minute',
+        },
+        {
+          text: 'Husten, meist trocken, seltener mit blutig tingiertem Auswurf (Hämoptysen) bei Lungeninfarkt',
+        },
+        {
+          text: 'Ausgeprägte Angst, innere Unruhe und Vernichtungsgefühl',
+        },
+        {
+          text: 'Klinische Zeichen einer tiefen Beinvenenthrombose am gleichen Bein: einseitige Schwellung mit Umfangsdifferenz, Überwärmung, livide Verfärbung, Wadendruckschmerz und Spannungsgefühl',
+        },
+        {
+          text: 'Schwindel, Präsynkope oder Synkope als Zeichen der kritischen Rechtsherzbelastung',
+        },
+        {
+          text: 'Zyanose, Halsvenenstauung, Hypotonie bis zum obstruktiven Schock bei massiver Embolie',
+        },
+        {
+          text: 'Subfebrile Temperaturen und Pleurareiben bei Lungeninfarkt mit Begleitpleuritis',
+        },
+        {
+          text: 'Völlige Beschwerdefreiheit bzw. Zufallsbefund in einer aus anderem Grund durchgeführten Computertomographie bei kleiner peripherer Embolie',
+          atypisch: true,
+        },
+        {
+          text: 'Alleinige, wiederholte kurze Synkope ohne Dyspnoe und ohne Thoraxschmerz — leicht als kardiale oder neurologische Synkope fehlgedeutet',
+          atypisch: true,
+        },
+        {
+          text: 'Neu aufgetretenes Vorhofflimmern oder eine anders nicht erklärbare Verschlechterung einer bekannten Herzinsuffizienz als einziges Zeichen',
+          atypisch: true,
+        },
+        {
+          text: 'Über Wochen rezidivierende kleine Embolien mit langsam zunehmender Belastungsdyspnoe — klinisches Bild einer beginnenden chronisch thromboembolischen pulmonalen Hypertonie',
+          atypisch: true,
+        },
+        {
+          text: 'Bei älteren Patienten Verwirrtheit, Sturz oder unklarer Leistungsknick als führendes Symptom',
+          atypisch: true,
+        },
+        {
+          text: 'Fieber und Husten mit Auswurf als Bild einer Pneumonie bei Infarktpneumonie',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Wells-Score für die Lungenembolie',
+          inhalt: 'Klinische Zeichen einer tiefen Beinvenenthrombose 3 Punkte; Lungenembolie wahrscheinlicher als eine Alternativdiagnose 3 Punkte; Herzfrequenz über 100 pro Minute 1,5 Punkte; Immobilisation oder Operation innerhalb der letzten vier Wochen 1,5 Punkte; früheres thromboembolisches Ereignis 1,5 Punkte; Hämoptysen 1 Punkt; Malignom 1 Punkt. Zweistufige Einteilung: bis einschließlich 4 Punkte Lungenembolie unwahrscheinlich — D-Dimer-Bestimmung; über 4 Punkte Lungenembolie wahrscheinlich — direkt CT-Pulmonalisangiographie ohne D-Dimer. In der dreistufigen Variante gilt: 0 bis 1 Punkt niedrige, 2 bis 6 Punkte mittlere, ab 7 Punkte hohe Wahrscheinlichkeit.',
+        },
+        {
+          name: 'Vereinfachter PESI (sPESI) zur Abschätzung der 30-Tage-Sterblichkeit',
+          inhalt: 'Je 1 Punkt für: Alter über 80 Jahre, aktives Malignom, chronische Herz- oder Lungenerkrankung, Herzfrequenz über oder gleich 110 pro Minute, systolischer Blutdruck unter 100 mmHg, arterielle Sauerstoffsättigung unter 90 Prozent. 0 Punkte bedeuten ein niedriges Risiko mit einer 30-Tage-Sterblichkeit unter 1 Prozent und ermöglichen bei fehlender Rechtsherzbelastung und unauffälligen Biomarkern eine frühe Entlassung oder ambulante Behandlung; ab 1 Punkt liegt ein erhöhtes Risiko vor.',
+        },
+        {
+          name: 'ESC-Risikostratifizierung der akuten Lungenembolie',
+          inhalt: 'Hohes Risiko: hämodynamische Instabilität mit Schock, anhaltender Hypotonie oder Reanimationspflichtigkeit — sofortige Reperfusion. Intermediär-hohes Risiko: stabil, aber Rechtsherzbelastung in Bildgebung UND erhöhte Biomarker (Troponin, NT-proBNP), sPESI mindestens 1 — Überwachung mit Reperfusionsbereitschaft. Intermediär-niedriges Risiko: nur eines der beiden Kriterien positiv — stationäre Antikoagulation. Niedriges Risiko: sPESI 0, keine Rechtsherzbelastung, normale Biomarker — frühe Entlassung oder ambulante Therapie möglich.',
+        },
+        {
+          name: 'Genfer Score (revidiert) als Alternative zum Wells-Score',
+          inhalt: 'Rein objektiver Score ohne die subjektive Einschätzung „Lungenembolie wahrscheinlicher als eine Alternativdiagnose“. Bewertet werden Alter über 65 Jahre, früheres thromboembolisches Ereignis, Operation oder Fraktur innerhalb eines Monats, aktives Malignom, einseitiger Beinschmerz, Hämoptysen, Herzfrequenz zwischen 75 und 94 beziehungsweise ab 95 pro Minute sowie einseitige Beinschwellung mit Druckschmerz entlang der tiefen Venen. Er wird ebenfalls zweistufig in wahrscheinlich und unwahrscheinlich eingeteilt und dient derselben Steuerung der Diagnostik.',
+        },
+      ],
+      redFlags: [
+        'Hypotonie mit systolischem Blutdruck unter 90 mmHg oder ein Blutdruckabfall über 40 mmHg für mehr als 15 Minuten — Hochrisiko-Lungenembolie mit obstruktivem Schock, sofortige Reperfusionstherapie',
+        'Synkope oder Präsynkope bei Dyspnoe — Zeichen des kritisch eingeschränkten Herzzeitvolumens',
+        'Zyanose, Halsvenenstauung und kaltschweißige Peripherie — akutes Rechtsherzversagen',
+        'Sauerstoffsättigung unter 90 Prozent trotz Sauerstoffgabe, Atemfrequenz über 30 pro Minute, respiratorische Erschöpfung',
+        'Reanimationspflichtigkeit mit pulsloser elektrischer Aktivität — an die Lungenembolie als reversible Ursache denken (eines der vier „H“ und „HITS“)',
+        'Neu aufgetretene rechtsventrikuläre Dilatation in der bettseitigen Echokardiographie beim instabilen Patienten — rechtfertigt die Lyse auch ohne CT',
+        'Massive Hämoptysen oder Zeichen einer aktiven Blutung unter geplanter Antikoagulation',
+        'Rasch zunehmende Beinschwellung mit livider Verfärbung und Pulslosigkeit — Phlegmasia coerulea dolens als Notfall',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese der Leitsymptome plötzliche Dyspnoe, atemabhängiger Thoraxschmerz, Tachykardie, Husten, Hämoptysen und Synkope; systematische Erfragung der Risikofaktoren: Immobilisation, Operation, Gips, lange Reise, Malignom, östrogenhaltige Kontrazeptiva und Rauchen, Schwangerschaft und Wochenbett, frühere Thrombose oder Embolie, Thrombophilie und Familienanamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern (Atemfrequenz, Herzfrequenz, Blutdruck, Sauerstoffsättigung, Temperatur), Auskultation von Herz und Lunge — der Lungenbefund ist häufig unauffällig, ein betonter zweiter Herzton über der Pulmonalklappe und Halsvenenstauung sprechen für eine Rechtsherzbelastung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Untersuchung beider Beine im Seitenvergleich auf Umfangsdifferenz, Überwärmung, livide Verfärbung, Wadendruckschmerz und Spannungsgefühl als Hinweis auf die zugrunde liegende tiefe Beinvenenthrombose',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Berechnung der klinischen Wahrscheinlichkeit mit dem Wells-Score (alternativ revidierter Genfer Score) und zweistufige Einteilung in wahrscheinlich und unwahrscheinlich — sie steuert den gesamten weiteren Algorithmus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere ausschließlich bei niedriger oder mittlerer Wahrscheinlichkeit: hoher negativer prädiktiver Wert, ein Wert unterhalb des Grenzwerts schließt die Lungenembolie praktisch aus; sehr unspezifisch, da bei Infektion, Malignom, Trauma, Operation, Schwangerschaft und im höheren Alter ebenfalls erhöht. Ab dem 50. Lebensjahr altersadjustierter Grenzwert Alter mal 10 in µg/l',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Arterielle Blutgasanalyse: Hypoxämie mit Hypokapnie und respiratorischer Alkalose durch kompensatorische Hyperventilation, vergrößerte alveolo-arterielle Sauerstoffdifferenz; Laktat zur Abschätzung der Gewebeperfusion',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Hochsensitives Troponin und NT-proBNP zur Risikostratifizierung: Marker der Myokardschädigung und der Rechtsherzbelastung, nicht der Diagnosestellung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP, Kreatinin und eGFR (vor Kontrastmittel und zur Dosierung der Antikoagulation), Elektrolyte, Leberwerte sowie Gerinnung mit Quick/INR und aPTT als Ausgangswerte vor Beginn der Antikoagulation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Pulmonalisangiographie — Goldstandard und Methode der ersten Wahl: direkter Nachweis von Kontrastmittelaussparungen in den Pulmonalarterien, Beurteilung von Embolielast und rechts-linksventrikulärem Durchmesserverhältnis, gleichzeitiger Ausschluss von Pneumonie, Pneumothorax, Aortendissektion und Tumor',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG: häufigster Befund Sinustachykardie; Zeichen der akuten Rechtsherzbelastung — SIQIII-Typ, neu aufgetretener kompletter oder inkompletter Rechtsschenkelblock, T-Negativierungen in V1 bis V4, P pulmonale, Rechtslagetyp, gelegentlich Vorhofflimmern — nur bei schwerer Form; ein normales EKG schließt die Lungenembolie nicht aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie: rechtsventrikuläre Dilatation, abgeflachtes Septum („D-Shape“), verminderte TAPSE, Trikuspidalinsuffizienz mit erhöhtem systolischem Pulmonalarteriendruck, dilatierte Vena cava inferior ohne Atemvariabilität; beim instabilen Patienten bettseitig entscheidend und ausreichend zur Indikationsstellung der Lyse',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kompressionssonographie der Beinvenen beidseits zum Nachweis der Emboliequelle: fehlende Komprimierbarkeit der Vene; besonders wertvoll, wenn eine CT nicht möglich ist',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax: meist unauffällig oder unspezifisch mit Zwerchfellhochstand, Plattenatelektasen, kleinem Pleuraerguss, gelegentlich der keilförmigen Hampton-Verschattung oder der Westermark-Aufhellung; dient vor allem dem Ausschluss der Differenzialdiagnosen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ventilations-Perfusions-Szintigraphie bei Kontrastmittelallergie, Niereninsuffizienz oder Schwangerschaft: Mismatch aus erhaltener Ventilation und fehlender Perfusion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Katheterbasierte Pulmonalisangiographie heute nur noch in Kombination mit einer interventionellen Therapie (lokale Lyse, Aspiration, Fragmentierung)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ursachenabklärung nach der Akutphase: altersgerechtes Tumorscreening bei unprovozierter Embolie; Thrombophiliediagnostik (Faktor-V-Leiden, Prothrombin-Mutation, Antithrombin-, Protein-C- und Protein-S-Mangel, Antiphospholipid-Antikörper) nur bei jungen Patienten, Rezidiven, atypischer Lokalisation oder positiver Familienanamnese',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei persistierender Belastungsdyspnoe nach drei bis sechs Monaten Abklärung einer chronisch thromboembolischen pulmonalen Hypertonie mit Echokardiographie, Ventilations-Perfusions-Szintigraphie und Rechtsherzkatheter',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akutes Koronarsyndrom / Myokardinfarkt',
+          unterscheidung: 'Retrosternaler Druck- oder Vernichtungsschmerz mit Ausstrahlung in linken Arm, Hals oder Unterkiefer, Kaltschweiß, Übelkeit; belastungsabhängig, nicht atemabhängig. EKG mit ST-Streckenveränderungen, Troponin mit typischer Dynamik. Cave: Auch bei der Lungenembolie ist das Troponin durch die Rechtsherzbelastung häufig erhöht.',
+        },
+        {
+          dd: 'Pneumonie mit Begleitpleuritis',
+          unterscheidung: 'Allmählicher Beginn über Tage, Fieber und Schüttelfrost, produktiver eitriger Auswurf, Krankheitsgefühl, Leukozytose sowie erhöhtes CRP und Procalcitonin, Infiltrat im Röntgen-Thorax.',
+        },
+        {
+          dd: 'Spontanpneumothorax',
+          unterscheidung: 'Plötzlicher atemabhängiger Schmerz mit Dyspnoe, typischerweise beim jungen schlanken Mann oder bei Emphysem; einseitig fehlendes Atemgeräusch, hypersonorer Klopfschall, Nachweis im Röntgen oder in der Sonographie (fehlendes Lungengleiten).',
+        },
+        {
+          dd: 'Aortendissektion',
+          unterscheidung: 'Perakuter reißender Schmerz zwischen den Schulterblättern mit Wanderung nach kaudal, Blutdruck- und Pulsdifferenz zwischen den Armen, Aorteninsuffizienzgeräusch, Mediastinalverbreiterung; Nachweis im CT-Angiogramm. Eine Antikoagulation wäre hier gefährlich.',
+        },
+        {
+          dd: 'Perikarditis / Myokarditis',
+          unterscheidung: 'Schmerz im Liegen verstärkt, beim Vornüberbeugen gebessert, Perikardreiben, konkavbogige ST-Hebungen aus allen Ableitungen mit PQ-Senkung, Perikarderguss im Echo, häufig nach viralem Infekt.',
+        },
+        {
+          dd: 'Akut dekompensierte Herzinsuffizienz mit Lungenödem',
+          unterscheidung: 'Über Tage zunehmende Belastungsdyspnoe, Orthopnoe, nächtliche Atemnot, beidseitige Beinödeme, Gewichtszunahme, feuchte Rasselgeräusche beidseits, Linksherzbelastung im Echo.',
+        },
+        {
+          dd: 'Exazerbation von Asthma bronchiale oder COPD',
+          unterscheidung: 'Bekannte obstruktive Vorerkrankung, exspiratorisches Giemen mit verlängertem Exspirium, chronischer Husten mit Auswurf, in der Blutgasanalyse eher Hyperkapnie; Auslöser Infekt, Allergen oder Kälte.',
+        },
+        {
+          dd: 'Rippenfraktur, muskuloskelettaler Thoraxschmerz, Interkostalneuralgie, Herpes zoster',
+          unterscheidung: 'Trauma oder ungewohnte Belastung, umschriebener Druck- und Kompressionsschmerz über der Rippe, keine relevante Dyspnoe und keine Hypoxämie; bei Zoster segmentaler Bläschenausschlag.',
+        },
+        {
+          dd: 'Panikattacke / Hyperventilationssyndrom',
+          unterscheidung: 'Auslösende Angstsituation, periorale und akrale Parästhesien, Karpopedalspasmen, respiratorische Alkalose bei NORMALER Oxygenierung, Rückbildung innerhalb von Minuten. Ausschlussdiagnose — bei jungen Patienten die klassische Fehldiagnose einer Lungenembolie.',
+        },
+        {
+          dd: 'Pleuritis (viral, tuberkulös) und Pleuraerguss anderer Genese',
+          unterscheidung: 'Subakuter Verlauf über Tage bis Wochen, Fieber, Nachtschweiß, Pleurareiben, bei Tuberkulose Gewichtsverlust und Risikoexposition; Klärung über Sonographie und Pleurapunktion.',
+        },
+        {
+          dd: 'Nicht-thrombotische Embolien: Fett-, Luft- und Fruchtwasserembolie',
+          unterscheidung: 'Fettembolie ein bis drei Tage nach Fraktur langer Röhrenknochen mit Petechien und zerebraler Symptomatik; Luftembolie unmittelbar nach Katheteranlage oder Tauchunfall; Fruchtwasserembolie peripartal mit Verbrauchskoagulopathie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen, Stabilisierung und Risikostratifizierung',
+          items: [
+            'Monitorüberwachung von EKG, Blutdruck und Sauerstoffsättigung, Oberkörperhochlagerung, körperliche Schonung und Bettruhe in der Akutphase',
+            'Sauerstoffgabe mit dem Ziel einer Sättigung über 90 Prozent; bei respiratorischer Erschöpfung nicht-invasive Beatmung oder Intubation mit möglichst niedrigem PEEP, da hohe Beatmungsdrücke die Rechtsherzfunktion verschlechtern',
+            'zwei großlumige venöse Zugänge, Blutentnahme einschließlich Gerinnung und Kreatinin; vorsichtige Volumengabe von maximal etwa 500 ml — eine Volumenüberladung dehnt den rechten Ventrikel weiter und verschlechtert die Hämodynamik',
+            'Analgesie und Anxiolyse mit einem niedrig dosierten Opioid, da Schmerz und Angst Atemarbeit und Sauerstoffverbrauch steigern',
+            'bei Hypotonie Noradrenalin zur Aufrechterhaltung des rechtsventrikulären Koronarperfusionsdrucks, gegebenenfalls Dobutamin zur Inotropiesteigerung',
+            'Risikostratifizierung nach hämodynamischer Stabilität, Rechtsherzbelastung in CT und Echokardiographie, Biomarkern (Troponin, NT-proBNP) und sPESI — daraus folgen Behandlungsort und Therapieintensität',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Antikoagulation als Basistherapie',
+          items: [
+            'sofortiger Beginn der therapeutischen Antikoagulation bereits bei hoher klinischer Wahrscheinlichkeit und noch vor der Bildgebung, sofern kein hohes Blutungsrisiko besteht',
+            'direkte orale Antikoagulanzien als Mittel der Wahl beim hämodynamisch stabilen Patienten: Apixaban oder Rivaroxaban mit initial erhöhter Einstiegsdosis, alternativ Edoxaban oder Dabigatran nach fünftägiger Vorbehandlung mit niedermolekularem Heparin',
+            'gewichtsadaptiertes niedermolekulares Heparin oder Fondaparinux subkutan als gleichwertige Alternative, insbesondere in der Schwangerschaft (dort keine direkten oralen Antikoagulanzien) und bei Tumorpatienten',
+            'unfraktioniertes Heparin intravenös mit aPTT-Steuerung bei schwerer Niereninsuffizienz, hohem Blutungsrisiko, ausgeprägter Adipositas oder geplanter Lyse, da rasch steuerbar und mit Protamin antagonisierbar',
+            'Vitamin-K-Antagonisten (Phenprocoumon, Warfarin) nur noch in Sondersituationen wie dem Antiphospholipid-Syndrom, mit überlappender Heparingabe bis zu einem INR zwischen 2 und 3 an zwei aufeinanderfolgenden Tagen',
+            'vor Therapiebeginn Blutungsrisiko und Kontraindikationen prüfen; im Verlauf Blutbild- und Kreatininkontrollen, unter Heparin an die heparininduzierte Thrombozytopenie Typ II denken',
+          ],
+        },
+        {
+          label: 'Reperfusionstherapie bei Hochrisiko-Lungenembolie',
+          items: [
+            'Indikation ausschließlich bei hämodynamischer Instabilität mit anhaltender Hypotonie, kardiogenem Schock oder Reanimationspflichtigkeit — nicht allein aufgrund einer ausgedehnten Embolie im CT',
+            'systemische Thrombolyse als Therapie der ersten Wahl, zum Beispiel mit Alteplase; absolute Kontraindikationen sind stattgehabte intrakranielle Blutung, ischämischer Schlaganfall innerhalb von sechs Monaten, zerebrales Neoplasma, schweres Trauma oder große Operation innerhalb der letzten drei Wochen sowie aktive Blutung',
+            'katheterbasierte Verfahren mit lokaler niedrig dosierter Lyse, Thrombusaspiration oder -fragmentierung bei Kontraindikation gegen die systemische Lyse oder nach erfolgloser Lyse',
+            'chirurgische Embolektomie mit Herz-Lungen-Maschine als Ultima Ratio; extrakorporale Membranoxygenierung zur Überbrückung in spezialisierten Zentren',
+            'beim intermediär-hohen Risiko keine primäre Lyse, sondern engmaschige Überwachung mit Reperfusionsbereitschaft und Rescue-Lyse bei hämodynamischer Verschlechterung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Sekundärprophylaxe, Ursachenabklärung und Nachsorge',
+          items: [
+            'Behandlungsdauer nach Auslöser: bei provozierter Lungenembolie mit vorübergehendem Risikofaktor (Operation, Immobilisation, Gips) drei bis sechs Monate; bei unprovozierter Embolie, Rezidiv, schwerer Thrombophilie oder aktivem Malignom zeitlich unbegrenzte Erhaltungstherapie mit jährlicher Neubewertung von Nutzen und Blutungsrisiko',
+            'bei Tumorpatienten niedermolekulares Heparin oder ein geeignetes direktes orales Antikoagulans über mindestens sechs Monate und solange der Tumor aktiv ist',
+            'Ursachenabklärung: altersgerechte Tumorsuche bei unprovozierter Embolie, Thrombophiliediagnostik bei jungen Patienten, Rezidiven, atypischer Lokalisation oder positiver Familienanamnese',
+            'Beseitigung modifizierbarer Risikofaktoren: Rauchentwöhnung, Gewichtsreduktion, Bewegung, Kompressionsstrümpfe bei chronisch venöser Insuffizienz, Bewegungs- und Trinkpausen bei langem Sitzen, Umstellung östrogenhaltiger Kontrazeptiva',
+            'konsequente medikamentöse Thromboseprophylaxe bei künftigen Operationen und Immobilisationsphasen über die gesamte verordnete Dauer',
+            'Patientenaufklärung über Warnzeichen eines Rezidivs und über Blutungszeichen, Ausstellung eines Antikoagulationsausweises, Hinweis auf Wechselwirkungen',
+            'Verlaufskontrolle nach drei bis sechs Monaten mit gezielter Frage nach Belastungsdyspnoe zum Ausschluss einer chronisch thromboembolischen pulmonalen Hypertonie; Cava-Schirm nur bei absoluter Kontraindikation gegen die Antikoagulation oder bei Rezidiv unter suffizienter Antikoagulation',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend von der hämodynamischen Situation und vom Zeitpunkt des Therapiebeginns ab. Die Hochrisiko-Lungenembolie mit Schock hat auch heute eine Krankenhaussterblichkeit von über 15 Prozent, bei Reanimationspflichtigkeit deutlich höher; die Mehrzahl der Todesfälle ereignet sich innerhalb der ersten Stunden. Bei rechtzeitig begonnener Antikoagulation und hämodynamischer Stabilität liegt die Sterblichkeit dagegen unter 2 Prozent. Unbehandelt beträgt die Letalität etwa 30 Prozent, vor allem durch Rezidivembolien. Nach einer unprovozierten Lungenembolie liegt das Rezidivrisiko nach Absetzen der Antikoagulation bei etwa 10 Prozent im ersten und bis zu 30 Prozent in den ersten fünf Jahren, während es nach einer durch einen vorübergehenden Faktor provozierten Embolie deutlich niedriger ist. Bei 2 bis 4 Prozent der Patienten entwickelt sich eine chronisch thromboembolische pulmonale Hypertonie, die in spezialisierten Zentren durch pulmonale Endarteriektomie oder Ballonangioplastie behandelt werden kann.',
+      pruefungsfallen: [
+        'Die Diagnostik richtet sich nach der klinischen WAHRSCHEINLICHKEIT: Bei hoher Wahrscheinlichkeit wird direkt die CT-Pulmonalisangiographie durchgeführt und KEIN D-Dimer bestimmt; nur bei niedriger oder mittlerer Wahrscheinlichkeit ist das D-Dimer sinnvoll. Wer das umdreht, verliert den Punkt.',
+        'Ein positives D-Dimer beweist nichts — es ist hoch sensitiv, aber sehr unspezifisch und bei Infektion, Malignom, Operation, Trauma, Schwangerschaft und im Alter erhöht. Sein Wert liegt allein im hohen negativen prädiktiven Wert. Ab dem 50. Lebensjahr gilt der altersadjustierte Grenzwert Alter mal 10 in µg/l.',
+        'Den Wells-Score exakt mit den Punktwerten aufsagen können: TVT-Zeichen 3, Lungenembolie wahrscheinlicher als Alternative 3, Herzfrequenz über 100 = 1,5, Immobilisation oder Operation 1,5, früheres thromboembolisches Ereignis 1,5, Hämoptysen 1, Malignom 1 — und die zweistufige Grenze bei 4 Punkten kennen.',
+        'Die Antikoagulation wird bei hoher klinischer Wahrscheinlichkeit SOFORT begonnen und nicht bis zum Ergebnis der Bildgebung aufgeschoben.',
+        'Im EKG ist die Sinustachykardie der häufigste Befund. SIQIII-Typ, Rechtsschenkelblock und T-Negativierungen in V1 bis V4 sind Zeichen der schweren Form; ein normales EKG schließt eine Lungenembolie nicht aus.',
+        'In der Blutgasanalyse besteht eine Hypoxämie mit HYPOKAPNIE und respiratorischer Alkalose — nicht mit Hyperkapnie. Die Hyperkapnie spricht für eine COPD-Exazerbation oder eine respiratorische Erschöpfung.',
+        'Troponin und NT-proBNP dienen der Risikostratifizierung, nicht der Diagnose. Ein erhöhtes Troponin bei Lungenembolie beweist keinen Myokardinfarkt, sondern zeigt die Rechtsherzbelastung an.',
+        'Die Lyse ist ausschließlich bei hämodynamischer Instabilität indiziert, nicht bei jeder großen Embolie. Beim intermediär-hohen Risiko wird überwacht und nur bei Verschlechterung lysiert.',
+        'Bei der Volumentherapie zurückhaltend sein: Mehr als etwa 500 ml können den überlasteten rechten Ventrikel weiter dehnen und die Hämodynamik verschlechtern.',
+        'Die tiefe Beinvenenthrombose als Quelle aktiv suchen — beide Beine untersuchen und die Kompressionssonographie anfordern. Patienten erwähnen die geschwollene Wade häufig nicht spontan.',
+        'Die Dauer der Antikoagulation hängt davon ab, ob die Embolie provoziert oder unprovoziert war: drei bis sechs Monate versus zeitlich unbegrenzt. Pauschalantworten sind falsch.',
+        'In der Schwangerschaft sind direkte orale Antikoagulanzien und Vitamin-K-Antagonisten kontraindiziert — Mittel der Wahl ist niedermolekulares Heparin; zur Bildgebung eignet sich die Perfusionsszintigraphie.',
+        'Vor dem Patienten Fachbegriffe übersetzen: Embolie als „verschlepptes Blutgerinnsel, das ein Gefäß verstopft“, Antikoagulation als „Blutverdünnung“, Dyspnoe als „Luftnot“, Hämoptyse als „Bluthusten“.',
+        'Bei Reanimation mit pulsloser elektrischer Aktivität an die Lungenembolie als reversible Ursache denken — unter laufender Reanimation ist eine Lyse möglich.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine akute Lungenembolie. Dafür sprechen die plötzlich einsetzende Dyspnoe, der atemabhängige stechende Thoraxschmerz, Tachypnoe und Tachykardie, Husten mit Hämoptysen und die Angst des Patienten, vor allem aber die klinischen Zeichen einer tiefen Beinvenenthrombose am gleichen Bein sowie die Risikokonstellation aus Immobilisation nach einer Operation, Varikose, Adipositas und Nikotinabusus.',
+        },
+        {
+          frage: 'Wie schätzen Sie die klinische Wahrscheinlichkeit ein?',
+          antwort: 'Mit dem Wells-Score für die Lungenembolie: klinische Zeichen einer tiefen Beinvenenthrombose 3 Punkte, Lungenembolie wahrscheinlicher als eine Alternativdiagnose 3 Punkte, Herzfrequenz über 100 pro Minute 1,5 Punkte, Immobilisation oder Operation innerhalb von vier Wochen 1,5 Punkte, früheres thromboembolisches Ereignis 1,5 Punkte, Hämoptysen 1 Punkt und ein Malignom 1 Punkt. In der zweistufigen Einteilung bedeutet ein Wert über 4 Punkte, dass die Lungenembolie wahrscheinlich ist; bis einschließlich 4 Punkte gilt sie als unwahrscheinlich. Alternativ kann der revidierte Genfer Score verwendet werden.',
+        },
+        {
+          frage: 'Würden Sie bei hoher Wahrscheinlichkeit die D-Dimere bestimmen?',
+          antwort: 'Nein. Bei hoher klinischer Wahrscheinlichkeit wird direkt die CT-Pulmonalisangiographie durchgeführt, weil das D-Dimer keine Konsequenz hätte und nur Zeit kostet. Das D-Dimer ist ausschließlich bei niedriger oder mittlerer Wahrscheinlichkeit sinnvoll, dort dank seines hohen negativen prädiktiven Werts zum Ausschluss.',
+        },
+        {
+          frage: 'Was bedeutet der altersadjustierte D-Dimer-Grenzwert?',
+          antwort: 'Ab dem 50. Lebensjahr wird statt des festen Grenzwerts von 500 µg/l ein individueller Wert nach der Formel Alter mal 10 in Mikrogramm pro Liter verwendet, bei einem 70-Jährigen also 700 µg/l. Dadurch werden bei älteren Patienten unnötige Computertomographien vermieden, ohne die Sicherheit des Ausschlusses zu gefährden.',
+        },
+        {
+          frage: 'Welche Veränderungen erwarten Sie im EKG? Schließt ein normales EKG die Lungenembolie aus?',
+          antwort: 'Am häufigsten findet sich lediglich eine Sinustachykardie. Zeichen der akuten Rechtsherzbelastung — der SIQIII-Typ, ein neu aufgetretener kompletter oder inkompletter Rechtsschenkelblock, T-Negativierungen in V1 bis V4, ein P pulmonale oder ein Rechtslagetyp — treten nur bei schwerer Form auf. Ein unauffälliges EKG schließt eine Lungenembolie ausdrücklich nicht aus; das EKG dient vor allem der Abgrenzung des akuten Koronarsyndroms.',
+        },
+        {
+          frage: 'Was erwarten Sie in der Blutgasanalyse?',
+          antwort: 'Eine Hypoxämie, kombiniert mit einer Hypokapnie und einer respiratorischen Alkalose, weil der Patient kompensatorisch hyperventiliert, sowie eine vergrößerte alveolo-arterielle Sauerstoffdifferenz. Eine Hyperkapnie spricht dagegen für eine COPD-Exazerbation oder eine beginnende respiratorische Erschöpfung.',
+        },
+        {
+          frage: 'Wozu bestimmen Sie Troponin und NT-proBNP?',
+          antwort: 'Zur Risikostratifizierung, nicht zur Diagnosestellung. Beide zeigen eine Rechtsherzbelastung und eine Myokardschädigung an. Sind sie zusammen mit Zeichen der Rechtsherzbelastung in CT oder Echokardiographie erhöht, liegt ein intermediär-hohes Risiko vor, das eine Überwachung mit Reperfusionsbereitschaft erfordert. Ein erhöhtes Troponin beweist bei der Lungenembolie keinen Myokardinfarkt.',
+        },
+        {
+          frage: 'Welche Bildgebung wählen Sie, und welche Alternativen gibt es?',
+          antwort: 'Die CT-Pulmonalisangiographie ist Goldstandard und Methode der ersten Wahl. Alternativen sind die Ventilations-Perfusions-Szintigraphie bei Kontrastmittelallergie, Niereninsuffizienz oder Schwangerschaft, die Echokardiographie beim instabilen Patienten, der nicht transportfähig ist, und die Kompressionssonographie der Beinvenen, die durch den Nachweis einer tiefen Beinvenenthrombose die Therapieentscheidung bereits begründen kann.',
+        },
+        {
+          frage: 'Wann beginnen Sie mit der Antikoagulation?',
+          antwort: 'Sofort, bereits bei hoher klinischer Wahrscheinlichkeit und noch vor dem Ergebnis der Bildgebung, sofern kein hohes Blutungsrisiko besteht. Vorher werden Gerinnung, Blutbild und Kreatinin abgenommen und Kontraindikationen geprüft.',
+        },
+        {
+          frage: 'Wie sieht Ihr therapeutisches Konzept insgesamt aus?',
+          antwort: 'Erstens Sofortmaßnahmen und Risikostratifizierung: Sauerstoff, Monitoring, venöser Zugang, Analgesie, zurückhaltende Volumengabe, bei Hypotonie Noradrenalin, Einteilung nach hämodynamischer Stabilität, Rechtsherzbelastung und Biomarkern. Zweitens die Antikoagulation als Basistherapie, beim stabilen Patienten bevorzugt mit einem direkten oralen Antikoagulans, alternativ mit niedermolekularem Heparin. Drittens die Reperfusion nur bei Hochrisiko-Lungenembolie durch systemische Lyse, Katheterverfahren oder chirurgische Embolektomie. Viertens Sekundärprophylaxe und Ursachenabklärung mit Festlegung der Therapiedauer, Tumorsuche und gegebenenfalls Thrombophiliediagnostik.',
+        },
+        {
+          frage: 'Wann ist eine Lyse indiziert, und welche Kontraindikationen kennen Sie?',
+          antwort: 'Nur bei der Hochrisiko-Lungenembolie mit hämodynamischer Instabilität, also anhaltender Hypotonie, kardiogenem Schock oder Reanimationspflichtigkeit. Absolute Kontraindikationen sind eine stattgehabte intrakranielle Blutung, ein ischämischer Schlaganfall innerhalb der letzten sechs Monate, ein zerebrales Neoplasma, ein schweres Trauma oder eine große Operation innerhalb der letzten drei Wochen sowie eine aktive Blutung. Bei Kontraindikationen kommen katheterbasierte Verfahren oder die chirurgische Embolektomie in Betracht.',
+        },
+        {
+          frage: 'Wie lange soll ein Patient nach einer Lungenembolie antikoaguliert werden?',
+          antwort: 'Das hängt vom Auslöser ab. War die Embolie durch einen vorübergehenden Risikofaktor wie eine Operation, einen Gips oder eine Immobilisation provoziert, genügen in der Regel drei bis sechs Monate. War sie unprovoziert, ein Rezidiv, mit einer schweren Thrombophilie oder einem aktiven Malignom verbunden, ist eine zeitlich unbegrenzte Erhaltungstherapie mit jährlicher Neubewertung von Nutzen und Blutungsrisiko indiziert.',
+        },
+        {
+          frage: 'Welche Komplikationen und Spätfolgen kann eine Lungenembolie haben?',
+          antwort: 'Akut das Rechtsherzversagen mit obstruktivem Schock und Tod, den Lungeninfarkt mit Infarktpneumonie und Pleuraerguss, Herzrhythmusstörungen und die Rezidivembolie. Langfristig die chronisch thromboembolische pulmonale Hypertonie mit Rechtsherzinsuffizienz sowie das postthrombotische Syndrom am betroffenen Bein. Unter der Therapie drohen Blutungskomplikationen und unter Heparin die heparininduzierte Thrombozytopenie Typ II.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Lungenembolie in der Schwangerschaft?',
+          antwort: 'Mit gewichtsadaptiertem niedermolekularem Heparin. Direkte orale Antikoagulanzien und Vitamin-K-Antagonisten sind kontraindiziert, letztere insbesondere im ersten Trimenon wegen der Embryopathie. Zur Bildgebung wird bevorzugt die Kompressionssonographie der Beinvenen eingesetzt, bei Notwendigkeit einer Lungenbildgebung die Perfusionsszintigraphie mit reduzierter Dosis oder eine dosisreduzierte CT-Pulmonalisangiographie.',
+        },
+        {
+          frage: 'Welche Komplikation der tiefen Beinvenenthrombose fürchten Sie, und gibt es einen Sonderfall?',
+          antwort: 'Die gefürchtetste Komplikation ist die Lungenembolie. Ein Sonderfall ist die paradoxe Embolie bei persistierendem Foramen ovale: Der Thrombus gelangt über den Rechts-links-Shunt in den großen Kreislauf und kann einen Schlaganfall oder einen arteriellen Verschluss verursachen. Weitere Komplikationen sind das postthrombotische Syndrom und die Phlegmasia coerulea dolens.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Erkrankung in einfachen Worten?',
+          antwort: '„In einer tiefen Vene Ihres Beins hat sich ein Blutgerinnsel gebildet. Ein Teil davon hat sich gelöst und ist mit dem Blut über das Herz in die Lunge gewandert, wo er jetzt ein Blutgefäß verstopft. Deshalb bekommen Sie schlecht Luft und es sticht beim Atmen. Wir geben Ihnen sofort ein Medikament, das das Blut verdünnt, damit sich das Gerinnsel nicht vergrößert und kein weiteres nachkommt.“',
+        },
+      ],
+      merksatz: 'Plötzliche Luftnot plus atemabhängiger Stichschmerz plus dicke Wade = Lungenembolie bis zum Beweis des Gegenteils. Erst den Wells-Score rechnen, dann entscheiden: niedrige Wahrscheinlichkeit — D-Dimer; hohe Wahrscheinlichkeit — sofort antikoagulieren und direkt ins CT. Lysiert wird nur der instabile Patient.',
+      linkedCaseIds: [
+        'case-lungenembolie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-eug',
+      pathology: 'Extrauteringravidität (Tubargravidität)',
+      specialty: 'Gynäkologie',
+      definition: 'Als Extrauteringravidität (ektope Gravidität) bezeichnet man die Einnistung und Entwicklung einer befruchteten Eizelle außerhalb des Cavum uteri. Sie betrifft etwa 1 bis 2 % aller Schwangerschaften. In 95 bis 99 % der Fälle liegt die Implantation in der Tube (Tubargravidität), am häufigsten ampullär. Da die Tubenwand der Trophoblastinvasion nicht standhält, kommt es im Verlauf regelhaft zum Tubarabort oder zur Tubarruptur mit intraabdomineller Blutung — die Extrauteringravidität ist damit die häufigste Ursache mütterlicher Todesfälle im ersten Schwangerschaftsdrittel und stets ein gynäkologischer Notfall.',
+      aetiologie: 'Ursächlich ist fast immer eine gestörte Tubenfunktion oder Tubenpassage: Die Eizelle wird zu langsam transportiert und nistet sich ein, bevor sie das Cavum uteri erreicht. Führend sind entzündliche Tubenschäden nach aufsteigenden Genitalinfektionen, insbesondere nach Chlamydia-trachomatis-Infektion und Adnexitis (Verklebung und Zerstörung des Flimmerepithels), außerdem Verwachsungen nach Bauch- oder Tubenoperationen, Endometriose, Tubenfehlbildungen sowie eine Motilitätsstörung des Flimmerepithels durch Nikotin. Ein liegendes Intrauterinpessar verhindert die intrauterine Nidation besser als die ektope und erhöht damit den relativen Anteil ektoper Schwangerschaften; nach assistierter Reproduktion ist das Risiko ebenfalls erhöht, hier auch für heterotope Schwangerschaften.',
+      risikofaktoren: [
+        'Zustand nach Adnexitis/Salpingitis, insbesondere nach Chlamydieninfektion oder Gonorrhö (wichtigster Risikofaktor)',
+        'Zustand nach vorangegangener Extrauteringravidität (Rezidivrisiko etwa 10 bis 15 %)',
+        'Zustand nach Tubenoperation, Sterilisation oder Refertilisierung sowie nach abdominellen Voroperationen mit Adhäsionen',
+        'Endometriose und Tubenfehlbildungen',
+        'Nikotinkonsum (dosisabhängige Störung der Flimmerepithelmotilität)',
+        'liegendes Intrauterinpessar sowie Gestagen-Monopräparate',
+        'Sterilitätsbehandlung, Ovulationsinduktion und In-vitro-Fertilisation',
+        'höheres mütterliches Alter (über 35 Jahre) und häufig wechselnde Sexualpartner',
+      ],
+      klinik: [
+        {
+          text: 'Sekundäre Amenorrhoe: ausgebliebene Regelblutung, typischerweise seit sechs bis acht Wochen',
+        },
+        {
+          text: 'Einseitiger, zunächst ziehend-krampfartiger Unterbauchschmerz, oft wellenförmig zunehmend',
+        },
+        {
+          text: 'Vaginale Schmierblutung, meist bräunlich und deutlich schwächer als die Regelblutung',
+        },
+        {
+          text: 'Allgemeine Schwangerschaftszeichen: morgendliche Übelkeit, Spannungsgefühl der Brüste, Müdigkeit, Appetitminderung',
+        },
+        {
+          text: 'Positiver Schwangerschaftstest bei leerem Cavum uteri',
+        },
+        {
+          text: 'Portioschiebeschmerz, einseitiger Adnexdruckschmerz und Druckschmerz im Douglas-Raum bei der bimanuellen Untersuchung',
+        },
+        {
+          text: 'Tastbare, druckschmerzhafte Resistenz im Adnexbereich',
+        },
+        {
+          text: 'Bei Ruptur: plötzlicher Vernichtungsschmerz mit Abwehrspannung und bretthartem Abdomen',
+        },
+        {
+          text: 'Bei Ruptur: Blässe, Kaltschweißigkeit, Tachykardie, Hypotonie, Präsynkope und Synkope bis zum hämorrhagischen Schock',
+        },
+        {
+          text: 'Schulterschmerz und Schmerz beim Einatmen (Kehr-Zeichen) durch Zwerchfellreizung bei Hämatoperitoneum',
+          atypisch: true,
+        },
+        {
+          text: 'Stuhl- und Harndrang sowie Übelkeit und Erbrechen durch Reizung des Douglas-Raums',
+          atypisch: true,
+        },
+        {
+          text: 'Vollständiges Fehlen einer vaginalen Blutung in bis zu einem Drittel der Fälle',
+          atypisch: true,
+        },
+        {
+          text: 'Verkennen der Schmierblutung als reguläre Regelblutung, sodass die Amenorrhoe anamnestisch verneint wird',
+          atypisch: true,
+        },
+        {
+          text: 'Rechtsseitiger Unterbauchschmerz ohne Blutung, klinisch wie eine Appendizitis imponierend',
+          atypisch: true,
+        },
+        {
+          text: 'Völlige Beschwerdefreiheit mit Zufallsbefund im Frühultraschall',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach Implantationsort',
+          inhalt: 'Tubargravidität in 95 bis 99 % (ampullär etwa 70 %, isthmisch etwa 12 %, infundibulär/fimbriell etwa 11 %, interstitiell etwa 2 % mit besonders hohem Blutungsrisiko). Seltene Formen: Ovarialgravidität, Zervixgravidität, Abdominalgravidität (Bauchhöhlenschwangerschaft), Narbengravidität in einer Sectionarbe sowie die intraligamentäre Gravidität. Als heterotope Schwangerschaft bezeichnet man das gleichzeitige Bestehen einer intrauterinen und einer ektopen Schwangerschaft — sehr selten, nach künstlicher Befruchtung jedoch deutlich häufiger.',
+        },
+        {
+          name: 'Klinische Verlaufsformen der Tubargravidität',
+          inhalt: 'Tubarabort: der häufigere Verlauf; der Trophoblast löst sich ab und wird in Richtung Fimbrientrichter in die Bauchhöhle ausgestoßen, klinisch mit allmählich zunehmendem Schmerz und Schmierblutung. Tubarruptur: Zerreißen der Tubenwand mit akuter, potenziell massiver intraabdomineller Blutung, klinisch perakuter Vernichtungsschmerz und Schockgefahr — besonders früh und heftig bei isthmischem und interstitiellem Sitz. Spontanresorption: der Trophoblast geht ohne Intervention zugrunde, das β-hCG fällt spontan ab.',
+        },
+        {
+          name: 'β-hCG-Kriterien: Diskriminationszone und Verdopplungszeit',
+          inhalt: 'Diskriminationszone: Ab einem β-hCG von etwa 1500 bis 2000 IE/l muss in der transvaginalen Sonographie eine intrauterine Fruchthöhle darstellbar sein; fehlt sie, spricht das dringend für eine Extrauteringravidität. Verdopplungszeit: Bei intakter intrauteriner Schwangerschaft verdoppelt sich das β-hCG in etwa 48 Stunden; ein Anstieg unter 50 % in 48 Stunden oder ein Plateau spricht für eine ektope oder eine gestörte Schwangerschaft. Ein einzelner Wert erlaubt niemals eine Aussage — entscheidend sind Höhe, Verlauf und Sonographie zusammen.',
+        },
+        {
+          name: 'Kriterien für ein medikamentöses Vorgehen mit Methotrexat',
+          inhalt: 'Erfüllt sein müssen: hämodynamisch stabile, schmerzarme Patientin; β-hCG unterhalb der institutionellen Grenze (meist unter 1500 bis 5000 IE/l); keine embryonale Herzaktion; Raumforderung kleiner als etwa 3 bis 4 cm; keine oder allenfalls minimale freie Flüssigkeit; unauffällige Leber-, Nieren- und Blutbildwerte; gesicherte Compliance und engmaschige Nachkontrolle. Kontraindikationen: Ruptur oder Instabilität, Stillzeit, Leber- oder Niereninsuffizienz, Knochenmarksdepression, Immundefizienz, aktives Ulkusleiden.',
+        },
+      ],
+      redFlags: [
+        'plötzlicher Vernichtungsschmerz im Unterbauch mit Abwehrspannung und bretthartem Abdomen',
+        'Schulterschmerz und atemabhängiger Schmerz (Kehr-Zeichen) als Ausdruck einer Zwerchfellreizung durch Blut im Bauchraum',
+        'Kreislaufinstabilität: Tachykardie, Hypotonie, Blässe, Kaltschweißigkeit, Schockindex über 1',
+        'Synkope oder Präkollaps bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz',
+        'ausgeprägter Portioschiebeschmerz und Druckschmerz im Douglas-Raum',
+        'freie Flüssigkeit im Douglas-Raum und perihepatisch in der Sonographie',
+        'rascher Hämoglobin- und Hämatokritabfall',
+        'positiver Schwangerschaftstest bei leerem Cavum uteri',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Zyklus- und Schwangerschaftsanamnese bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz: letzte reguläre Regelblutung, Zykluslänge, Verhütung, Kinderwunsch, Charakter und Stärke der aktuellen Blutung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikoanamnese: durchgemachte Adnexitis oder Chlamydieninfektion, Tuben- und Bauchoperationen, frühere Extrauteringravidität, Endometriose, Intrauterinpessar, Sterilitätsbehandlung, Nikotinkonsum',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Blutdruck, Puls, Schockindex und Temperatur, Beurteilung von Hautkolorit, Rekapillarisierungszeit und Bewusstseinslage',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abdominelle Untersuchung mit Druck-, Loslass- und Abwehrspannungsprüfung, Appendizitiszeichen und Nierenlagerklopfschmerz; Suche nach dem Kehr-Zeichen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Untersuchung: Spekulumeinstellung (Blutungsquelle, Muttermund) und schonende bimanuelle Palpation mit Portioschiebeschmerz, Adnexdruckschmerz, Adnexresistenz und Douglas-Schmerz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Schwangerschaftstest im Urin als obligater erster Schritt bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Quantitatives β-hCG im Serum mit Verlaufskontrolle nach 48 Stunden; Bewertung stets zusammen mit der Sonographie anhand der Diskriminationszone und der Verdopplungszeit',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Hämoglobin und Hämatokrit, CRP und Leukozyten zur Abgrenzung entzündlicher Ursachen, Gerinnung sowie Leber- und Nierenwerte als Ausgangswerte vor Methotrexat oder Operation',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgruppe, Rhesusfaktor, Antikörpersuchtest und Kreuzblut — Grundlage der Anti-D-Prophylaxe und der Transfusionsbereitschaft',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ergänzend Progesteron im Serum als Vitalitätsparameter, Urinstatus sowie zervikaler Abstrich auf Chlamydien und Gonokokken',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transvaginale Sonographie als Methode der Wahl: leeres Cavum uteri bei hoch aufgebautem Endometrium, Pseudogestationssack, echoarme Ring- oder Adnexstruktur neben dem Ovar, gelegentlich extrauteriner Embryo mit Herzaktion, freie Flüssigkeit im Douglas-Raum',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdominelle Sonographie zum Nachweis freier Flüssigkeit perihepatisch und im Morison-Pouch und zum Ausschluss von Appendizitis, Harnstau und Divertikulitis; bei Instabilität orientierende FAST-Untersuchung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Laparoskopie als Goldstandard bei unklarem Befund, Rupturverdacht oder Instabilität — zugleich therapeutischer Eingriff',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Kürettage mit Histologie ausschließlich bei sicher ausgeschlossener intakter intrauteriner Schwangerschaft: fehlende Chorionzotten, Arias-Stella-Phänomen des Endometriums; die Douglaspunktion ist heute weitgehend durch die Sonographie ersetzt',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Intakte intrauterine Frühschwangerschaft',
+          unterscheidung: 'Gleiche Schwangerschaftszeichen, aber typischerweise ohne einseitigen Schmerz und ohne Blutung; transvaginaler Nachweis einer intrauterinen Fruchthöhle und regelrechte β-hCG-Verdopplung in etwa 48 Stunden.',
+        },
+        {
+          dd: 'Gestörte intrauterine Frühschwangerschaft / Abort',
+          unterscheidung: 'Mittige, wehenartige Schmerzen mit regelstarker oder stärkerer Blutung, Abgang von Koageln oder Gewebe; sonographisch intrauterine Fruchthöhle, beim Abortus incipiens eröffneter Muttermund.',
+        },
+        {
+          dd: 'Akute Appendizitis',
+          unterscheidung: 'Schmerzwanderung vom Nabel in den rechten Unterbauch, Appetitlosigkeit, Übelkeit und Erbrechen nach Schmerzbeginn, Fieber mit axillo-rektaler Temperaturdifferenz, McBurney- und Loslassschmerz, Leukozytose und CRP-Anstieg; Schwangerschaftstest negativ.',
+        },
+        {
+          dd: 'Akute Adnexitis / Salpingitis',
+          unterscheidung: 'Meist beidseitige Unterbauchschmerzen, Fieber, eitriger oder übelriechender Fluor, Portioschiebeschmerz, deutlich erhöhte Entzündungsparameter, häufig nach Partnerwechsel; Schwangerschaftstest negativ.',
+        },
+        {
+          dd: 'Ovarialzystenruptur bzw. Adnextorsion',
+          unterscheidung: 'Perakuter, aus voller Ruhe einschießender Vernichtungsschmerz mit heftigem Erbrechen; oft bekannte Zyste oder Hormonstimulation; sonographisch vergrößertes, ödematöses Ovar mit fehlender Perfusion im Doppler.',
+        },
+        {
+          dd: 'Harnwegsinfekt bzw. Nierenkolik bei Urolithiasis',
+          unterscheidung: 'Dysurie, Pollakisurie, Hämaturie und suprapubischer Druckschmerz bzw. kolikartiger Flankenschmerz mit Ausstrahlung in Leiste und Labien, Klopfschmerz im Nierenlager; Urinstatus und Sonographie mit Harnstau.',
+        },
+        {
+          dd: 'Divertikulitis bzw. Gastroenteritis',
+          unterscheidung: 'Divertikulitis meist linksseitig mit Fieber, Stuhlgangsveränderung und CRP-Anstieg, sonographisch verdickte Darmwand; Gastroenteritis mit Durchfall, Erbrechen und diffusem Bauchschmerz.',
+        },
+        {
+          dd: 'Mittelschmerz bei der Ovulation',
+          unterscheidung: 'Einseitiger Unterbauchschmerz exakt zur Zyklusmitte, nur Stunden bis maximal zwei Tage anhaltend, ohne Amenorrhoe, ohne Schwangerschaftszeichen, Schwangerschaftstest negativ.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen bei Verdacht auf Tubarruptur und Kreislaufinstabilität',
+          items: [
+            'Schockbekämpfung: zwei großlumige periphere Zugänge, Volumensubstitution mit balancierter Vollelektrolytlösung, Sauerstoffgabe, Flachlagerung mit erhöhten Beinen, engmaschiges Monitoring einschließlich Schockindex',
+            'Notfalllabor mit Blutbild, Gerinnung, Blutgruppe und Kreuzblut; Bereitstellung von Erythrozytenkonzentraten und Transfusion bei relevantem Blutverlust',
+            'strikte Nahrungs- und Flüssigkeitskarenz, unverzügliche Aufklärung und Einwilligung, Anmeldung zur Notfalllaparoskopie',
+            'operative Blutstillung: laparoskopisch, bei Instabilität und massivem Hämatoperitoneum per Laparotomie; in der Regel Salpingektomie der rupturierten Tube',
+            'Anti-D-Prophylaxe bei Rhesus-negativer Patientin',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Abwartendes und medikamentöses Vorgehen bei stabiler Patientin',
+          items: [
+            'abwartendes Vorgehen nur bei niedrigem und spontan fallendem β-hCG, asymptomatischer Patientin und gesicherter engmaschiger Kontrolle',
+            'Methotrexat als Einmalgabe intramuskulär, gewichtsadaptiert 50 mg pro Quadratmeter Körperoberfläche, gegebenenfalls Wiederholung nach Verlauf',
+            'Voraussetzungen: Stabilität und Schmerzarmut, β-hCG unterhalb der institutionellen Grenze, keine embryonale Herzaktion, Raumforderung unter etwa 3 bis 4 cm, keine freie Flüssigkeit, unauffällige Leber-, Nieren- und Blutbildwerte, sichere Nachkontrolle',
+            'β-hCG-Kontrolle an den Tagen 4 und 7 mit erwartetem Abfall um mindestens 15 %, danach wöchentlich bis zur Negativierung',
+            'während der Therapie Verzicht auf Folsäure, NSAR und Alkohol, Sonnenschutz, sichere Kontrazeption für mindestens drei Monate wegen der Teratogenität',
+            'jederzeitige Umstellung auf ein operatives Vorgehen bei zunehmenden Schmerzen oder unzureichendem β-hCG-Abfall',
+          ],
+        },
+        {
+          label: 'Operative Sanierung',
+          items: [
+            'Laparoskopie als Standardzugang bei stabiler Patientin',
+            'tubuserhaltende Salpingotomie: Eröffnung der Tube und Ausräumung des Trophoblasten, bevorzugt bei Kinderwunsch und geschädigter oder fehlender Gegentube; obligate β-hCG-Kontrolle wegen der Gefahr eines persistierenden Trophoblasten',
+            'Salpingektomie bei Ruptur, stark zerstörter Tube, unstillbarer Blutung, Rezidiv in derselben Tube oder abgeschlossener Familienplanung',
+            'intraoperative Beurteilung der Gegentube, Spülung und sorgfältige Blutstillung; Laparotomie nur bei Instabilität oder unübersichtlichem Situs',
+            'perioperative Thromboseprophylaxe, Analgesie und frühe Mobilisation',
+          ],
+        },
+        {
+          label: 'Nachsorge, Anti-D-Prophylaxe und Beratung',
+          items: [
+            'β-hCG-Kontrollen bis zur vollständigen Negativierung, obligat nach Salpingotomie und nach Methotrexat',
+            'Anti-D-Immunglobulin bei jeder Rhesus-negativen Patientin zur Verhinderung einer Rhesus-Sensibilisierung',
+            'Beratung zum Rezidivrisiko von etwa 10 bis 15 % und zur sehr frühen transvaginalen Sonographie bei der nächsten Schwangerschaft',
+            'kausale Risikoreduktion: konsequente Nikotinkarenz, Diagnostik und Behandlung genitaler Infektionen einschließlich Partnerbehandlung, Chlamydienscreening',
+            'Kontrazeptionsberatung und Empfehlung eines zeitlichen Abstands bis zur nächsten Schwangerschaft, nach Methotrexat mindestens drei Monate',
+            'psychische Begleitung: Trauer um die verlorene Schwangerschaft ansprechen, Gesprächsangebot, Einbeziehung des Partners, bei Bedarf psychologische Mitbetreuung',
+          ],
+        },
+      ],
+      prognose: 'Bei rechtzeitiger Diagnose ist die Prognose gut; die Letalität ist in Ländern mit früher Ultraschalldiagnostik sehr niedrig, die Extrauteringravidität bleibt jedoch die häufigste Ursache mütterlicher Todesfälle im ersten Trimenon. Das Rezidivrisiko beträgt etwa 10 bis 15 %, nach zwei Ereignissen deutlich mehr. Nach Salpingektomie bleibt die Fertilität bei gesunder Gegentube weitgehend erhalten; die tubuserhaltende Salpingotomie bietet keine wesentlich höhere Rate an intrauterinen Folgeschwangerschaften, birgt aber das Risiko eines persistierenden Trophoblasten von etwa 5 bis 10 %. Unbehandelt drohen Tubarruptur, hämorrhagischer Schock und Tod.',
+      pruefungsfallen: [
+        'Bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz steht der Schwangerschaftstest am Anfang — vor Bildgebung, vor Analgesie und vor jeder anderen Differenzialdiagnose.',
+        'Ein einzelner β-hCG-Wert beweist und widerlegt nichts: Erst Höhe (Diskriminationszone 1500 bis 2000 IE/l), Verlauf über 48 Stunden und transvaginale Sonographie zusammen erlauben eine Aussage.',
+        'Auf die Frage „Wäre das hCG erhöht oder erniedrigt?“ lautet die Antwort: erhöht, denn die Patientin ist schwanger — für das rechnerische Schwangerschaftsalter jedoch typischerweise zu niedrig und mit gestörter Verdopplung.',
+        'Blutgruppe und Rhesusfaktor gehören zwingend ins Erstlabor: Bei Rhesus-negativer Frau ist die Anti-D-Prophylaxe Pflicht.',
+        'Die klassische Trias ist nicht obligat: In bis zu einem Drittel der Fälle fehlt die vaginale Blutung, und die Amenorrhoe wird häufig verneint, weil die Schmierblutung für die Regel gehalten wird.',
+        'Eine unauffällige transvaginale Sonographie schließt eine Extrauteringravidität nicht aus; ein leeres Cavum uteri bei positivem Schwangerschaftstest ist bis zum Beweis des Gegenteils eine Extrauteringravidität.',
+        'Methotrexat ist kein Ersatz für die Notfallchirurgie: Bei Kreislaufinstabilität, freier Flüssigkeit und Rupturzeichen wird sofort operiert.',
+        'Nach tubuserhaltender Salpingotomie und nach Methotrexat muss das β-hCG bis zur Negativierung kontrolliert werden — sonst wird ein persistierender Trophoblast übersehen.',
+        'Der Schulterschmerz (Kehr-Zeichen) darf nicht als orthopädisches Problem abgetan werden: Er entsteht durch Zwerchfellreizung bei Blut im Bauchraum und ist ein Rupturzeichen.',
+        'Vor der Patientin niemals den Fachbegriff stehen lassen: Extrauteringravidität heißt „Schwangerschaft außerhalb der Gebärmutter“, Tubargravidität heißt Eileiterschwangerschaft.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Eine Frau im gebärfähigen Alter kommt mit Unterbauchschmerzen — was ist Ihr allererster Schritt?',
+          antwort: 'Der Schwangerschaftstest im Urin, noch vor jeder Bildgebung, jeder Analgesie und jeder weiteren Differenzialdiagnose. Anschließend das quantitative β-hCG im Serum, die gynäkologische Untersuchung und die transvaginale Sonographie. Eine rupturierte Extrauteringravidität tötet durch innere Blutung — sie darf nie übersehen werden.',
+        },
+        {
+          frage: 'Könnte die Möglichkeit einer Extrauteringravidität bestehen, und wie klären Sie das ab?',
+          antwort: 'Ja, bei jeder Frau im gebärfähigen Alter. Abklärung durch gynäkologische Untersuchung, Schwangerschaftstest beziehungsweise Bestimmung des Beta-humanen Choriongonadotropins und transvaginale Sonographie.',
+        },
+        {
+          frage: 'Wäre das hCG bei einer Extrauteringravidität erhöht oder erniedrigt?',
+          antwort: 'Erhöht, da eine Schwangerschaft besteht. Für das rechnerische Schwangerschaftsalter ist der Wert jedoch typischerweise zu niedrig, und der Verlauf ist gestört: Statt einer Verdopplung in etwa 48 Stunden findet sich ein zu langsamer Anstieg oder ein Plateau.',
+        },
+        {
+          frage: 'Was verstehen Sie unter der Diskriminationszone?',
+          antwort: 'Den β-hCG-Bereich von etwa 1500 bis 2000 IE/l, ab dem transvaginal zwingend eine intrauterine Fruchthöhle darstellbar sein muss. Fehlt sie bei einem Wert oberhalb dieser Zone, spricht das dringend für eine Extrauteringravidität. Unterhalb ist keine sichere Aussage möglich — dann Kontrolle nach 48 Stunden.',
+        },
+        {
+          frage: 'Was sehen Sie in der transvaginalen Sonographie?',
+          antwort: 'Ein leeres Cavum uteri bei hoch aufgebautem Endometrium, gegebenenfalls einen Pseudogestationssack, eine echoarme Ring- oder Adnexstruktur neben dem Ovar, selten einen extrauterinen Embryo mit Herzaktion, und vor allem freie Flüssigkeit im Douglas-Raum als Blutungszeichen. Ein unauffälliger Ultraschall schließt die Diagnose nicht aus.',
+        },
+        {
+          frage: 'Die klassische Trias fehlt — ist die Diagnose damit vom Tisch?',
+          antwort: 'Nein. In bis zu einem Drittel der Fälle fehlt die vaginale Blutung, und die Amenorrhoe wird oft verneint, weil die Schmierblutung für die Regel gehalten wurde. Entscheidend bleiben der positive Schwangerschaftstest und das leere Cavum uteri.',
+        },
+        {
+          frage: 'Welche Laborparameter bestimmen Sie, und warum gehören Blutgruppe und Rhesusfaktor dazu?',
+          antwort: 'β-hCG quantitativ mit Verlauf, Blutbild mit Hämoglobin und Hämatokrit, CRP und Leukozyten, Gerinnung, Leber- und Nierenwerte, Urinstatus, Progesteron sowie Blutgruppe, Rhesusfaktor, Antikörpersuchtest und Kreuzblut. Blutgruppe und Rhesusfaktor sind unverzichtbar für die Transfusionsbereitschaft und weil eine Rhesus-negative Patientin eine Anti-D-Prophylaxe erhalten muss, um eine Sensibilisierung und einen Morbus haemolyticus neonatorum in einer künftigen Schwangerschaft zu verhindern.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Intakte oder gestörte intrauterine Frühschwangerschaft und Abort, akute Appendizitis, Adnexitis, Ovarialzystenruptur und Adnextorsion, Harnwegsinfekt und Nierenkolik, Divertikulitis und Gastroenteritis sowie der Mittelschmerz bei der Ovulation.',
+        },
+        {
+          frage: 'Wodurch unterscheiden Sie die Extrauteringravidität von einer Appendizitis?',
+          antwort: 'Durch die Schwangerschaftsanamnese und den Test: Amenorrhoe, Schmierblutung, morgendliche Übelkeit und Brustspannen sprechen für die Schwangerschaft. Für die Appendizitis sprechen Schmerzwanderung vom Nabel in den rechten Unterbauch, Übelkeit und Erbrechen nach Schmerzbeginn, Fieber mit axillo-rektaler Temperaturdifferenz, McBurney- und Loslassschmerz sowie Leukozytose und CRP-Anstieg.',
+        },
+        {
+          frage: 'Welche Risikofaktoren kennen Sie?',
+          antwort: 'Zustand nach Adnexitis oder Chlamydieninfektion als wichtigster Faktor, frühere Extrauteringravidität, Tuben- und Bauchoperationen, Endometriose, liegendes Intrauterinpessar, Sterilitätsbehandlung und In-vitro-Fertilisation, Rauchen sowie höheres mütterliches Alter.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Extrauteringravidität?',
+          antwort: 'Abhängig von Kreislauf, β-hCG und Sonographie: Bei Instabilität oder Rupturzeichen sofortige Schockbekämpfung und Notfalllaparoskopie, meist Salpingektomie. Bei stabiler Patientin ist Methotrexat als Einmalgabe intramuskulär möglich, wenn das β-hCG niedrig ist, keine Herzaktion vorliegt, die Raumforderung klein ist, keine freie Flüssigkeit besteht und die Nachkontrolle gesichert ist. Andernfalls die Laparoskopie mit tubuserhaltender Salpingotomie oder Salpingektomie. Ein rein abwartendes Vorgehen nur bei niedrigem, spontan fallendem β-hCG.',
+        },
+        {
+          frage: 'Wann Salpingotomie und wann Salpingektomie?',
+          antwort: 'Die tubuserhaltende Salpingotomie bei Kinderwunsch, intakter Tube und insbesondere bei geschädigter oder fehlender Gegentube — dann ist die β-hCG-Kontrolle bis zur Negativierung obligat, da in etwa 5 bis 10 % ein persistierender Trophoblast zurückbleibt. Die Salpingektomie bei Ruptur, stark zerstörter Tube, unstillbarer Blutung, Rezidiv in derselben Tube oder abgeschlossener Familienplanung.',
+        },
+        {
+          frage: 'Warum ist eine Nahrungskarenz erforderlich?',
+          antwort: 'Wegen der jederzeit möglichen Operation: Bei Ruptur muss sofort laparoskopiert werden, und für die Narkose muss die Patientin nüchtern sein, um eine Aspiration zu vermeiden.',
+        },
+        {
+          frage: 'Die Patientin klagt über Schulterschmerzen. Was bedeutet das?',
+          antwort: 'Das ist das Kehr-Zeichen: Blut im Bauchraum reizt das Zwerchfell, und der Schmerz wird über den Nervus phrenicus in die Schulter fortgeleitet. Es ist ein Rupturzeichen und erfordert sofortiges Handeln — es darf nie als orthopädisches Problem abgetan werden.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Diagnose ohne Fachbegriffe?',
+          antwort: '„Die Schwangerschaft hat sich leider nicht in der Gebärmutter eingenistet, sondern höchstwahrscheinlich im Eileiter. Dort kann sich das Kind nicht entwickeln, und der Eileiter kann einreißen und stark bluten — deshalb müssen wir das rasch behandeln.“ Anschließend das weitere Vorgehen in Alltagssprache erklären: Blutabnahme mit Schwangerschaftshormon, Ultraschall durch die Scheide, Nüchternbleiben, gegebenenfalls Bauchspiegelung.',
+        },
+        {
+          frage: 'Wie hoch ist das Rezidivrisiko, und was raten Sie für die nächste Schwangerschaft?',
+          antwort: 'Etwa 10 bis 15 %. Deshalb bei der nächsten positiven Schwangerschaftsprüfung sehr früh eine transvaginale Sonographie zur Lagebestimmung, dazu konsequente Nikotinkarenz, Behandlung und Partnerbehandlung genitaler Infektionen sowie ein Chlamydienscreening. Nach Methotrexat ist mindestens drei Monate sicher zu verhüten.',
+        },
+      ],
+      merksatz: 'Amenorrhoe + einseitiger Unterbauchschmerz + Schmierblutung = Extrauteringravidität bis zum Beweis des Gegenteils — bei JEDER Frau im gebärfähigen Alter zuerst der Schwangerschaftstest. Leeres Cavum uteri bei β-hCG über der Diskriminationszone von 1500 bis 2000 IE/l beweist sie praktisch; Schulterschmerz und Schock heißen Ruptur und sofortige Laparoskopie. Rhesusfaktor bestimmen und Anti-D nicht vergessen.',
+      linkedCaseIds: [
+        'case-eug',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-laparoskopie',
+      ],
+    },
+    {
+      id: 'fw-meningitis',
+      pathology: 'Bakterielle Meningitis',
+      specialty: 'Infektiologie',
+      definition: 'Die bakterielle (eitrige) Meningitis ist eine durch Bakterien verursachte Entzündung der weichen Hirnhäute (Pia mater und Arachnoidea) und des Subarachnoidalraums mit granulozytärer Pleozytose im Liquor. Sie ist ein absoluter Notfall: unbehandelt verläuft sie innerhalb von Stunden bis wenigen Tagen tödlich, und jede Stunde Verzögerung der Antibiotikagabe erhöht Letalität und Rate bleibender Schäden. Greift die Entzündung auf das Hirnparenchym über, spricht man von einer Meningoenzephalitis. Die Erreger erreichen die Hirnhäute hämatogen (Bakteriämie bei Pneumonie, Endokarditis, Sepsis), per continuitatem aus einem parameningealen Fokus (Otitis media, Mastoiditis, Sinusitis) oder direkt bei Schädel-Hirn-Trauma mit Liquorfistel und nach neurochirurgischen Eingriffen. Dem Patienten gegenüber heißt sie Hirnhautentzündung.',
+      aetiologie: 'Das Erregerspektrum hängt vom Lebensalter und von der Disposition ab. Bei Erwachsenen dominieren Streptococcus pneumoniae (etwa 50–70 % der ambulant erworbenen Fälle, häufig mit otogenem, sinugenem oder pulmonalem Fokus) und Neisseria meningitidis (vor allem Jugendliche und junge Erwachsene, mit Neigung zu Petechien und Purpura). Bei Neugeborenen führen B-Streptokokken, Escherichia coli und Listeria monocytogenes. Bei über 50-Jährigen, Schwangeren, Alkoholkranken und Immunsupprimierten kommen Listerien hinzu — deshalb wird die kalkulierte Therapie in Deutschland um Ampicillin ergänzt. Haemophilus influenzae Typ b ist seit der Hib-Impfung selten. Nosokomial, nach neurochirurgischem Eingriff oder bei liegendem Ventrikelshunt überwiegen Staphylokokken und gramnegative Stäbchen einschließlich Pseudomonas aeruginosa. Bei Asplenie und Komplementdefekten besteht ein besonderes Risiko für bekapselte Erreger.',
+      risikofaktoren: [
+        'Parameningealer Fokus: Otitis media und Mastoiditis, Sinusitis, Zahnwurzelinfekt — die häufigste Eintrittspforte der Pneumokokkenmeningitis beim Erwachsenen',
+        'Schädel-Hirn-Trauma mit Schädelbasisfraktur und Liquorfistel (Liquorrhoe aus Nase oder Ohr), neurochirurgische Eingriffe, liegender Ventrikelshunt oder Cochlea-Implantat',
+        'Immunsuppression: Kortisondauertherapie, Chemotherapie, HIV-Infektion, Diabetes mellitus, Leberzirrhose, Alkoholkrankheit',
+        'Asplenie oder funktionelle Asplenie sowie Komplement- und Immunglobulindefekte (bekapselte Erreger, fulminante Verläufe)',
+        'Lebensalter: Säuglinge und Kleinkinder sowie Menschen über 60 Jahre',
+        'Enges Zusammenleben in Gemeinschaftseinrichtungen: Kindergarten, Schule, Internat, Kaserne, Studentenwohnheim (Meningokokken)',
+        'Fehlender Impfschutz gegen Pneumokokken, Meningokokken und Haemophilus influenzae Typ b',
+        'Schwangerschaft (Listeriose), Konsum nicht pasteurisierter Milchprodukte und roher Wurstwaren',
+        'Rauchen und vorangegangene virale Atemwegsinfekte (gestörte Schleimhautbarriere, erleichterte Invasion)',
+      ],
+      klinik: [
+        {
+          text: 'Klassische Trias aus hohem Fieber, stärksten Kopfschmerzen und Meningismus (Nackensteifigkeit) — vollständig aber nur bei etwa der Hälfte der Patienten',
+        },
+        {
+          text: 'Rasche Entwicklung über Stunden bis maximal ein bis zwei Tage, mit schwerem Krankheitsgefühl und Schüttelfrost',
+        },
+        {
+          text: 'Nackensteifigkeit: schmerzhafte Beugehemmung des Kopfes nach vorn, das Kinn kann nicht auf die Brust gelegt werden; Seitdrehung und Reklination bleiben frei',
+        },
+        {
+          text: 'Brudzinski-Zeichen: passive Beugung des Nackens löst reflektorisch eine Beugung in Hüft- und Kniegelenken aus',
+        },
+        {
+          text: 'Kernig-Zeichen: bei gebeugter Hüfte ist die passive Streckung des Knies schmerzhaft und reflektorisch gehemmt',
+        },
+        {
+          text: 'Lasègue-Zeichen: Anheben des gestreckten Beines löst beidseits Schmerzen im Rücken und Nacken aus (bei Meningitis typischerweise beidseitig, nicht radikulär einseitig)',
+        },
+        {
+          text: 'Photophobie und Phonophobie, der Patient liegt im abgedunkelten Zimmer',
+        },
+        {
+          text: 'Schwallartiges Erbrechen ohne vorangehende Übelkeit als Hirndruckzeichen',
+        },
+        {
+          text: 'Bewusstseinstrübung von Verlangsamung und Desorientiertheit über Somnolenz bis zum Koma; Verwirrtheit, Unruhe, Delir',
+        },
+        {
+          text: 'Zerebrale Krampfanfälle, fokal-neurologische Defizite und Hirnnervenausfälle (besonders Hörminderung, Okulomotorius- und Abduzensparese)',
+        },
+        {
+          text: 'Petechien und Purpura an Stamm und Extremitäten, Kreislaufversagen und Verbrauchskoagulopathie bei Meningokokkensepsis (Waterhouse-Friderichsen-Syndrom)',
+        },
+        {
+          text: 'Hinweise auf den Fokus: Ohrenschmerzen und eitrige Otorrhoe, Klopfschmerz über dem Mastoid oder den Nasennebenhöhlen, Husten und Auswurf bei Pneumonie',
+        },
+        {
+          text: 'Beim älteren Menschen häufig nur Verwirrtheit, Sturz oder Somnolenz ohne Fieber und ohne Meningismus',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Säugling fehlender Meningismus, stattdessen Trinkschwäche, schrilles Schreien, Berührungsempfindlichkeit und gespannte Fontanelle',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Immunsupprimierten und unter laufender antibiotischer Anbehandlung blande, protrahierte Verläufe mit normaler Temperatur',
+          atypisch: true,
+        },
+        {
+          text: 'Listerienmeningitis (Rhombenzephalitis) mit ausgeprägten Hirnstamm- und Hirnnervensymptomen sowie Ataxie bei vergleichsweise geringem Meningismus',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Erregerspektrum nach Lebensalter und Disposition',
+          inhalt: 'Neugeborene: B-Streptokokken, E. coli, Listerien. Säuglinge und Kinder: Pneumokokken, Meningokokken, Haemophilus influenzae Typ b. Jugendliche und Erwachsene: Pneumokokken und Meningokokken. Über 50 Jahre, Schwangere, Alkoholkranke und Immunsupprimierte: zusätzlich Listeria monocytogenes (deshalb Ampicillin im kalkulierten Regime). Nosokomial, nach neurochirurgischem Eingriff oder bei Shunt: Staphylokokken und gramnegative Stäbchen einschließlich Pseudomonas.',
+        },
+        {
+          name: 'Liquorkonstellationen im Vergleich',
+          inhalt: 'Bakteriell: trüb bis eitrig, Zellzahl meist über 1000/µl mit granulozytärer Pleozytose, Eiweiß deutlich erhöht (über 1 g/l), Glukose erniedrigt mit Liquor-Serum-Quotient unter 0,4, Laktat über 3,5 mmol/l. Viral: klar, Zellzahl meist unter 1000/µl mit lymphozytärer Pleozytose, Eiweiß normal bis leicht erhöht, Glukose NORMAL, Laktat normal. Tuberkulös oder mykotisch: klar bis xanthochrom mit Spinnwebgerinnsel, gemischt- bis lymphozytäre Pleozytose (100–500/µl), Eiweiß stark erhöht, Glukose erniedrigt, Laktat erhöht.',
+        },
+        {
+          name: 'Indikationen für eine kraniale Bildgebung VOR der Lumbalpunktion',
+          inhalt: 'Nur bei fokal-neurologischem Defizit, Bewusstseinstrübung, neu aufgetretenem Krampfanfall, Stauungspapille oder schwerer Immunsuppression. In allen anderen Fällen wird sofort punktiert; das CT darf die Antibiotikagabe niemals verzögern. Bestehen diese Warnzeichen, gilt die Reihenfolge: Blutkulturen — Dexamethason und Antibiotikum — CT — Lumbalpunktion.',
+        },
+        {
+          name: 'Glasgow Coma Scale (GCS)',
+          inhalt: 'Augenöffnen 1–4, verbale Antwort 1–5, motorische Antwort 1–6; Summe 3 bis 15 Punkte. Ab 8 Punkten oder weniger besteht Intubationsindikation. Der GCS dokumentiert den Verlauf der Bewusstseinstrübung und ist zugleich ein Kriterium für die Bildgebung vor der Punktion.',
+        },
+      ],
+      redFlags: [
+        'Fieber mit Kopfschmerzen und Meningismus — bis zum Beweis des Gegenteils eine bakterielle Meningitis',
+        'Petechien oder Purpura, besonders rasch zunehmend: Verdacht auf Meningokokkensepsis mit Waterhouse-Friderichsen-Syndrom, höchste Dringlichkeit',
+        'Zunehmende Bewusstseinstrübung, Somnolenz, Koma (GCS-Abfall)',
+        'Neu aufgetretener zerebraler Krampfanfall',
+        'Fokal-neurologisches Defizit, Hirnnervenausfall, weite oder entrundete Pupille, Stauungspapille (Hirndruck, Einklemmungsgefahr)',
+        'Kreislaufinstabilität mit Hypotonie, Tachykardie, verlängerter Rekapillarisierungszeit, Laktaterhöhung (septischer Schock)',
+        'Eitrige Otorrhoe, Klopfschmerz über dem Mastoid oder Liquoraustritt aus Nase oder Ohr als Hinweis auf einen operativ zu sanierenden Fokus',
+        'Bekannte Immunsuppression, Asplenie oder Schwangerschaft — fulminante Verläufe und erweitertes Erregerspektrum',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Beginn und Dynamik des Kopfschmerzes, Fieberhöhe, Erbrechen, Photophobie, Bewusstseinslage, Krampfanfall; Fokussuche über Ohrenschmerzen, Otorrhoe, Sinusitis, Zahnschmerzen, Husten; Schädel-Hirn-Trauma, Voroperationen am Kopf, Shunt; Immunsuppression, Asplenie, Schwangerschaft; Impfstatus, Kontaktpersonen, Zeckenstich, Auslandsreise',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter und Sepsiszeichen (Temperatur, Blutdruck, Puls, Atemfrequenz, Sauerstoffsättigung, Rekapillarisierungszeit, qSOFA)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Prüfung der Meningismuszeichen: Nackensteifigkeit, Brudzinski-, Kernig- und Lasègue-Zeichen; Abgrenzung gegen eine schmerzhafte Bewegungseinschränkung der Halswirbelsäule, bei der auch die Seitdrehung eingeschränkt ist',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger neurologischer Status mit Vigilanz und GCS, Orientierung, Pupillenreaktion, Hirnnerven einschließlich orientierender Hörprüfung, Paresen, Reflexe und Koordination',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ganzkörperinspektion der Haut auf Petechien und Purpura (Stamm, Extremitäten, Konjunktiven, Mundschleimhaut) — der Befund entscheidet über Isolierung und Umgebungsprophylaxe',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fokussuche: Otoskopie beider Trommelfelle, Klopfschmerz über Mastoid und Nasennebenhöhlen, Racheninspektion, Auskultation von Herz (Endokarditis) und Lunge; Funduskopie zur Frage einer Stauungspapille',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Mindestens zwei Paar Blutkulturen SOFORT und vor der ersten Antibiotikagabe — sie sichern in etwa der Hälfte bis zwei Dritteln der Fälle den Erreger, dürfen die Therapie aber um keine Minute verzögern',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild (Leukozytose mit Linksverschiebung), CRP, Procalcitonin, BSG',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Gerinnung mit Quick/INR, PTT und Thrombozyten — obligat vor der Lumbalpunktion, zugleich Erfassung einer Verbrauchskoagulopathie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte, Nierenwerte, Leberwerte, Blutzucker — die Serumglukose muss ZEITGLEICH zur Liquorglukose bestimmt werden, sonst ist der Liquor-Serum-Quotient nicht verwertbar; dazu Laktat und Blutgasanalyse',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nach Stabilisierung ergänzend HIV-Test sowie bei rezidivierender Meningitis Immunglobuline, Komplementstatus und Milzsonographie zur Frage eines Immundefekts oder einer Asplenie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Lumbalpunktion mit Liquoranalyse als Goldstandard: Aussehen und Druck, Zellzahl mit Differenzierung, Eiweiß, Glukose mit Liquor-Serum-Quotient, Laktat, Grampräparat, Kultur, Multiplex-PCR und Antigenschnelltest; drei Röhrchen für Mikrobiologie, Klinische Chemie und Zytologie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Natives kraniales CT VOR der Lumbalpunktion nur bei fokal-neurologischem Defizit, Bewusstseinstrübung, Krampfanfall, Stauungspapille oder Immunsuppression — sonst verzögert es nur',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT von Felsenbein und Nasennebenhöhlen zur Fokussuche (Mastoiditis, Sinusitis, Liquorfistel) sowie Röntgen-Thorax — nach Beginn der Antibiose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniales MRT mit Kontrastmittel und MR-Venographie bei Komplikationsverdacht (Hirnabszess, subdurales Empyem, Ventrikulitis, Hydrozephalus, Vaskulitis, Sinusvenenthrombose); Echokardiographie bei Verdacht auf Endokarditis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EEG bei Krampfanfall oder anhaltender Bewusstseinstrübung; Audiometrie und otoakustische Emissionen im Verlauf und vor Entlassung wegen des drohenden Hörverlusts',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Virale (aseptische) Meningitis',
+          unterscheidung: 'Meist milderer Verlauf über Tage mit mäßigem Fieber und gutem Allgemeinzustand, häufig Enteroviren, Herpesviren oder Mumps. Liquor klar, lymphozytäre Pleozytose meist unter 1000/µl, Eiweiß normal bis leicht erhöht, Glukose und Laktat NORMAL, Grampräparat und Kultur negativ, Erregernachweis über PCR.',
+        },
+        {
+          dd: 'Herpes-simplex-Enzephalitis',
+          unterscheidung: 'Im Vordergrund stehen Wesensänderung, Verwirrtheit, Aphasie, Geruchshalluzinationen und fokale Krampfanfälle. MRT mit temporomesialer Signalanhebung, Liquor lymphozytär oft mit Erythrozyten, Diagnose über HSV-PCR. Bei Verdacht sofortige Aciclovir-Gabe zusätzlich zur Antibiose.',
+        },
+        {
+          dd: 'Subarachnoidalblutung',
+          unterscheidung: 'Schlagartiger Vernichtungskopfschmerz aus voller Ruhe oder beim Pressen, Meningismus entwickelt sich erst nach Stunden, Fieber fehlt zu Beginn. Diagnose über natives CT, bei negativem CT Lumbalpunktion mit blutigem oder xanthochromem Liquor und Drei-Gläser-Probe.',
+        },
+        {
+          dd: 'Hirnabszess oder subdurales Empyem',
+          unterscheidung: 'Meist otogen oder sinugen fortgeleitet, langsamer über Tage bis Wochen zunehmender Kopfschmerz mit fokal-neurologischem Defizit, Krampfanfällen und Hirndruckzeichen; Fieber kann fehlen. Nachweis im CT/MRT mit Kontrastmittel (ringförmige Anreicherung) — die Lumbalpunktion ist bei raumforderndem Prozess kontraindiziert.',
+        },
+        {
+          dd: 'Sinus- und Hirnvenenthrombose',
+          unterscheidung: 'Über Tage zunehmender, im Liegen und beim Pressen verstärkter Kopfschmerz, Krampfanfälle, Stauungspapille; Risikofaktoren sind orale Kontrazeptiva, Schwangerschaft, Thrombophilie und parameningeale Infekte. Nachweis über MR- oder CT-Venographie, D-Dimere erhöht.',
+        },
+        {
+          dd: 'Migräneattacke',
+          unterscheidung: 'Rezidivierende, meist einseitig-pulsierende Attacken über 4 bis 72 Stunden mit Übelkeit, Photo- und Phonophobie, häufig mit Aura, in der Vorgeschichte bekannt; kein Fieber, kein echter Meningismus, freie Halswirbelsäulenbeweglichkeit, Besserung nach Schlaf und auf Triptane.',
+        },
+        {
+          dd: 'Frühsommer-Meningoenzephalitis (FSME) und Neuroborreliose',
+          unterscheidung: 'Anamnestisch Zeckenstich oder Aufenthalt in Endemiegebiet. FSME mit zweigipfligem Verlauf: grippales Vorstadium, kurze Entfieberung, dann meningitische Phase; Liquor lymphozytär, Diagnose serologisch. Neuroborreliose mit Erythema migrans, nächtlich betonten radikulären Schmerzen und Fazialisparese, Diagnose über Serologie und Liquor-Serum-Antikörperindex.',
+        },
+        {
+          dd: 'Sepsis anderer Ursache (Pneumonie, Harnwegsinfekt, Influenza)',
+          unterscheidung: 'Hohes Fieber mit Krankheitsgefühl, aber Fokus außerhalb des Zentralnervensystems: Husten, Auswurf und Dyspnoe, Dysurie und Flankenschmerz, Durchfall oder Weichteilinfekt. Kein Meningismus, kein pathologischer Liquorbefund; Achtung: eine Pneumokokkenpneumonie kann in eine Meningitis übergehen.',
+        },
+        {
+          dd: 'Zervikaler Pseudomeningismus bei HWS-Syndrom oder Muskelverspannung',
+          unterscheidung: 'Nackenschmerz nach Fehlhaltung, Zugluft oder ungewohnter Belastung; die Beweglichkeit ist in ALLE Richtungen eingeschränkt, nicht nur die Beugung nach vorn, Brudzinski und Kernig sind negativ, es besteht kein Fieber und keine Photophobie. Besserung auf Wärme, Massage und NSAR.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortvorgehen ohne Zeitverlust — Therapiebeginn innerhalb der ersten Stunde',
+          items: [
+            'Monitorüberwachung, zwei großlumige periphere Zugänge, Sauerstoffgabe, Volumensubstitution mit balancierter Vollelektrolytlösung, Oberkörperhochlagerung um 30 Grad',
+            'Mindestens zwei Paar Blutkulturen abnehmen — danach wird ohne weiteres Zuwarten behandelt; die Diagnostik darf die Antibiose niemals verzögern',
+            'Dexamethason 10 mg intravenös unmittelbar VOR oder mit der ersten Antibiotikagabe, anschließend alle 6 Stunden über 4 Tage — es senkt bei Pneumokokkenmeningitis Letalität und Hörverlust',
+            'Kalkulierte Antibiotikatherapie beim Erwachsenen: Ceftriaxon 2 g intravenös alle 12 Stunden (oder Cefotaxim 2 g alle 6 bis 8 Stunden) PLUS Ampicillin 2 g alle 4 Stunden zur Erfassung von Listerien',
+            'Bei nosokomialer Meningitis, nach neurochirurgischem Eingriff oder bei liegendem Shunt stattdessen Vancomycin plus Meropenem; bei Verdacht auf Herpesenzephalitis zusätzlich Aciclovir',
+            'Lumbalpunktion so rasch wie möglich; ein kraniales CT vorher nur bei fokal-neurologischem Defizit, Bewusstseinstrübung, Krampfanfall, Stauungspapille oder Immunsuppression',
+            'Isolierung mit Tröpfchenschutz bis 24 Stunden nach Beginn einer wirksamen Antibiose, solange eine Meningokokkeninfektion nicht ausgeschlossen ist',
+            'Aufnahme auf die Intensivstation, Analgesie und Antipyrese, Thromboseprophylaxe, engmaschige neurologische Verlaufskontrolle mit GCS',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Gezielte Antibiotikatherapie nach Erregernachweis und Resistenzlage',
+          items: [
+            'Deeskalation beziehungsweise Anpassung nach Grampräparat, Kultur, PCR und Antibiogramm; das Ampicillin wird abgesetzt, sobald Listerien ausgeschlossen sind',
+            'Pneumokokken: Penicillin G oder Ceftriaxon über 10 bis 14 Tage; bei penicillinresistenten Stämmen Ceftriaxon plus Vancomycin oder Rifampicin',
+            'Meningokokken: Penicillin G oder Ceftriaxon über 7 Tage; bei Behandlung mit Penicillin G zusätzlich eine Eradikationstherapie des Nasen-Rachen-Raums vor Entlassung',
+            'Listerien: Ampicillin über mindestens 21 Tage, in der Regel kombiniert mit Gentamicin in den ersten Tagen',
+            'Haemophilus influenzae: Ceftriaxon über 7 bis 10 Tage; Staphylokokken je nach Empfindlichkeit Flucloxacillin oder Vancomycin, gramnegative Stäbchen Meropenem',
+            'Das Dexamethason wird abgesetzt, wenn sich ein anderer Erreger als Pneumokokken oder Haemophilus influenzae zeigt',
+            'Kontroll-Lumbalpunktion nach 24 bis 72 Stunden nur bei ausbleibender Besserung, bei resistenten Erregern oder bei Immunsuppression',
+          ],
+        },
+        {
+          label: 'Intensivüberwachung, Fokussanierung und Komplikationsmanagement',
+          items: [
+            'Sanierung des Fokus im HNO-Konsil: Parazentese mit Abstrich, Mastoidektomie oder Nasennebenhöhlensanierung, Verschluss einer Liquorfistel, Entfernung eines infizierten Shunts',
+            'Hirndrucktherapie: Oberkörperhochlagerung, Normothermie, Normokapnie, Osmotherapie mit Mannitol, bei Bewusstlosigkeit Intubation und Beatmung, gegebenenfalls externe Ventrikeldrainage bei Hydrozephalus',
+            'Antikonvulsive Therapie bei Krampfanfällen (Benzodiazepin akut, anschließend Levetiracetam)',
+            'Kreislauf- und Sepsistherapie mit Volumen und Katecholaminen, Behandlung einer Verbrauchskoagulopathie; bei Waterhouse-Friderichsen-Syndrom zusätzlich Hydrocortison bei Nebennierenversagen',
+            'Kontrolle von Natrium und Flüssigkeitsbilanz wegen des SIADH; Erkennen von zerebraler Vaskulitis, Infarkten und Sinusvenenthrombose',
+            'Audiometrie im Verlauf und vor Entlassung — der Hörverlust ist die häufigste bleibende Folge; frühzeitige Cochlea-Implantat-Abklärung bei Ertaubung',
+            'Frührehabilitation mit Physio-, Ergo- und Logotherapie, neuropsychologische Testung wegen Konzentrations- und Gedächtnisstörungen',
+          ],
+        },
+        {
+          label: 'Umgebungsprophylaxe, Meldepflicht und Impfprävention',
+          items: [
+            'Namentliche Meldung an das Gesundheitsamt binnen 24 Stunden: bei Meningokokkenmeningitis und -sepsis bereits bei Verdacht, Erkrankung und Tod nach § 6 IfSG, dazu Erregernachweis nach § 7 IfSG',
+            'Chemoprophylaxe der engen Kontaktpersonen NUR bei Meningokokken (Haushalt, Intimkontakte, Gemeinschaftseinrichtung, ungeschützte Mund-zu-Mund-Beatmung oder Intubation): Rifampicin 2 × 600 mg über 2 Tage, alternativ Ciprofloxacin 500 mg einmalig oder Ceftriaxon 250 mg intramuskulär einmalig bei Schwangeren — möglichst innerhalb von 24 Stunden, sinnvoll bis 10 Tage nach dem letzten Kontakt',
+            'Bei Haemophilus influenzae Typ b Rifampicin für Haushaltskontakte mit ungeimpften Kindern unter 4 Jahren; bei Pneumokokken ist KEINE Chemoprophylaxe erforderlich',
+            'Tätigkeits- und Besuchsverbot in Gemeinschaftseinrichtungen nach § 34 IfSG bei Meningokokkenmeningitis, bis eine Weiterverbreitung nicht mehr zu befürchten ist',
+            'Impfprävention: Pneumokokken-Konjugat- und Polysaccharidimpfung, Meningokokken C beziehungsweise ACWY und B, Hib-Impfung im Kindesalter; bei Asplenie, Komplementdefekt und Liquorfistel besondere Indikation',
+            'Beratung der Angehörigen über Frühzeichen und Vorstellung bei Fieber; Aufklärung des Patienten über Nachsorge, Hörprüfung und die Notwendigkeit, den Fokus dauerhaft zu sanieren',
+          ],
+        },
+      ],
+      prognose: 'Die bakterielle Meningitis bleibt trotz Therapie eine lebensbedrohliche Erkrankung. Die Letalität liegt bei der Pneumokokkenmeningitis des Erwachsenen bei etwa 15 bis 25 Prozent, bei der Meningokokkenmeningitis bei etwa 3 bis 10 Prozent, bei der Listerienmeningitis bis zu 30 Prozent; bei fulminanter Meningokokkensepsis mit Waterhouse-Friderichsen-Syndrom ist sie noch deutlich höher. Bis zu einem Drittel der Überlebenden behält neurologische Residuen zurück: Hörminderung oder Ertaubung als häufigste Folge, außerdem Konzentrations- und Gedächtnisstörungen, Epilepsie, Paresen und beim Kind Entwicklungsverzögerungen. Entscheidend für die Prognose sind das Zeitintervall bis zur ersten Antibiotikagabe, die Bewusstseinslage bei Aufnahme, das Alter und die Begleiterkrankungen — deshalb ist die Meningitis ein Fall, bei dem organisatorische Geschwindigkeit unmittelbar Leben rettet.',
+      pruefungsfallen: [
+        'Die Antibiotikatherapie darf NICHT auf die Diagnostik warten: Blutkulturen abnehmen, dann sofort Dexamethason und Antibiotikum innerhalb der ersten Stunde. Wer erst punktiert, dann CT macht und danach behandelt, hat die Frage verloren.',
+        'Ein kraniales CT vor der Lumbalpunktion ist nur bei fokal-neurologischem Defizit, Bewusstseinstrübung, Krampfanfall, Stauungspapille oder Immunsuppression nötig — sonst verzögert es die Diagnostik ohne Nutzen.',
+        'Der Liquorzucker ist nur im Verhältnis zur ZEITGLEICH abgenommenen Serumglukose verwertbar (Quotient unter 0,4). Wer nur den absoluten Wert nennt, übersieht den entscheidenden Punkt.',
+        'Die Glukose unterscheidet bakteriell von viral: bakteriell erniedrigt, viral normal. Dazu granulozytär gegen lymphozytär und Laktat erhöht gegen normal.',
+        'Ampicillin nicht vergessen: es wird zur Erfassung von Listerien ergänzt, obligat bei über 50-Jährigen, Schwangeren, Alkoholkranken und Immunsupprimierten.',
+        'Dexamethason gehört VOR oder MIT die erste Antibiotikagabe — nach der ersten Dosis gegeben, ist es wirkungslos.',
+        'Eine normale Körpertemperatur schließt die Meningitis nicht aus: alte, immunsupprimierte und antibiotisch anbehandelte Patienten können afebril und ohne Meningismus nur mit Verwirrtheit auffallen.',
+        'Eine Chemoprophylaxe der Kontaktpersonen ist nur bei Meningokokken (und bei Hib) indiziert, nicht bei Pneumokokken — dieser Unterschied wird gern geprüft.',
+        'Bei Meningokokken besteht namentliche Meldepflicht bereits beim VERDACHT, nicht erst beim Erregernachweis; dazu kommt das Tätigkeitsverbot in Gemeinschaftseinrichtungen nach § 34 IfSG.',
+        'Nackensteifigkeit ist nicht gleich Meningismus: ist die Beweglichkeit in alle Richtungen eingeschränkt und fehlen Fieber, Brudzinski und Kernig, spricht das für ein HWS-Syndrom.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist eine Meningitis — erklären Sie den Begriff auf Deutsch, so wie Sie ihn dem Patienten sagen würden.',
+          antwort: 'Meningitis heißt Hirnhautentzündung: eine Entzündung der weichen Häute, die Gehirn und Rückenmark umhüllen. Bei der bakteriellen Form wird sie durch Bakterien verursacht, verläuft eitrig und ist ein lebensbedrohlicher Notfall.',
+        },
+        {
+          frage: 'Wie lautet die klassische Trias, und welche Meningismuszeichen prüfen Sie?',
+          antwort: 'Hohes Fieber, stärkste Kopfschmerzen und Meningismus. Geprüft werden die Nackensteifigkeit — das Kinn kann nicht auf die Brust gelegt werden —, das Brudzinski-Zeichen mit reflektorischer Beugung der Beine bei passiver Nackenbeugung, das Kernig-Zeichen mit schmerzhafter Kniestreckung bei gebeugter Hüfte und das beidseits positive Lasègue-Zeichen.',
+        },
+        {
+          frage: 'Wie können Sie eine Meningitis ausschließen?',
+          antwort: 'Klinisch über Fieber und die Meningismusprüfung, beweisend aber nur über die Lumbalpunktion mit Liquoranalyse. Ein unauffälliger Liquor mit normaler Zellzahl schließt sie aus; ein negativer neurologischer Status allein genügt nicht.',
+        },
+        {
+          frage: 'In welcher Reihenfolge handeln Sie bei Verdacht auf eine bakterielle Meningitis?',
+          antwort: 'Zugänge und Stabilisierung, sofort Blutkulturen abnehmen, dann Dexamethason und die kalkulierte Antibiose innerhalb der ersten Stunde, anschließend so rasch wie möglich die Lumbalpunktion. Nur bei fokalem Defizit, Bewusstseinstrübung, Krampfanfall, Stauungspapille oder Immunsuppression wird vor der Punktion ein CT gemacht — und auch dann erst nach der Antibiotikagabe.',
+        },
+        {
+          frage: 'Warum darf die Antibiotikatherapie nicht auf das Ergebnis der Lumbalpunktion warten?',
+          antwort: 'Weil jede Stunde Verzögerung Letalität und bleibende Schäden erhöht. Die Blutkulturen und der Liquor bleiben auch nach der ersten Antibiotikagabe noch mehrere Stunden diagnostisch verwertbar, insbesondere über PCR und Antigennachweis — der Zeitverlust dagegen ist nicht wiedergutzumachen.',
+        },
+        {
+          frage: 'Welchen Liquorbefund erwarten Sie, und wie grenzen Sie eine virale Meningitis ab?',
+          antwort: 'Bakteriell: trüber Liquor, Zellzahl meist über 1000 pro Mikroliter mit granulozytärer Pleozytose, Eiweiß deutlich erhöht, Glukose erniedrigt mit einem Liquor-Serum-Quotienten unter 0,4 und erhöhtem Laktat. Viral: klarer Liquor, lymphozytäre Pleozytose, Eiweiß allenfalls leicht erhöht und — entscheidend — normale Glukose und normales Laktat.',
+        },
+        {
+          frage: 'Warum muss die Serumglukose zeitgleich abgenommen werden?',
+          antwort: 'Weil der Liquorzucker nur im Verhältnis zum Blutzucker beurteilbar ist. Ein Liquorwert von 50 mg/dl ist bei einem Blutzucker von 90 mg/dl normal, bei einem Blutzucker von 300 mg/dl dagegen deutlich erniedrigt. Maßgeblich ist der Quotient, normal über 0,5, bei bakterieller Meningitis unter 0,4.',
+        },
+        {
+          frage: 'Welche Erreger erwarten Sie bei welchem Patienten?',
+          antwort: 'Beim Erwachsenen Pneumokokken und Meningokokken, bei über 50-Jährigen, Schwangeren, Alkoholkranken und Immunsupprimierten zusätzlich Listerien, beim Neugeborenen B-Streptokokken, E. coli und Listerien, beim Kind Pneumokokken, Meningokokken und selten Haemophilus influenzae Typ b. Nosokomial und bei Shunt Staphylokokken und gramnegative Stäbchen.',
+        },
+        {
+          frage: 'Wie sieht die kalkulierte Antibiotikatherapie aus, und warum Ampicillin?',
+          antwort: 'Ceftriaxon 2 g intravenös alle 12 Stunden plus Ampicillin 2 g alle 4 Stunden. Das Ampicillin dient der Erfassung von Listeria monocytogenes, gegen die Cephalosporine grundsätzlich unwirksam sind. Es wird abgesetzt, sobald Listerien ausgeschlossen sind.',
+        },
+        {
+          frage: 'Wozu geben Sie Dexamethason und wann?',
+          antwort: '10 mg intravenös unmittelbar vor oder mit der ersten Antibiotikagabe, dann alle 6 Stunden über 4 Tage. Es dämpft die überschießende Entzündungsreaktion, die beim Zerfall der Bakterien ausgelöst wird, und senkt bei der Pneumokokkenmeningitis Letalität und Hörverlust. Zeigt sich ein anderer Erreger, wird es abgesetzt.',
+        },
+        {
+          frage: 'Was ist das Waterhouse-Friderichsen-Syndrom?',
+          antwort: 'Eine fulminante Meningokokkensepsis mit Verbrauchskoagulopathie, ausgedehnter Purpura, septischem Schock und beidseitigen Nebennierenrindenblutungen mit akutem Nebennierenversagen. Es betrifft vor allem Kinder und Menschen ohne Milz und hat trotz maximaler Therapie eine sehr hohe Letalität.',
+        },
+        {
+          frage: 'Welche Komplikationen und Spätfolgen kennen Sie?',
+          antwort: 'Akut Hirnödem mit Einklemmung, Hydrozephalus, Krampfanfälle, zerebrale Vaskulitis mit Infarkten, Sinusvenenthrombose, Hirnabszess, subdurales Empyem, Ventrikulitis, SIADH und septischer Schock. Als Spätfolge am häufigsten der Hörverlust bis zur Ertaubung, außerdem Epilepsie, Paresen sowie Konzentrations- und Gedächtnisstörungen.',
+        },
+        {
+          frage: 'Wer bekommt eine Chemoprophylaxe, und womit?',
+          antwort: 'Nur enge Kontaktpersonen bei Meningokokken: Haushaltsangehörige, Intimkontakte, Kontaktpersonen in Gemeinschaftseinrichtungen und medizinisches Personal nach ungeschützter Mund-zu-Mund-Beatmung oder Intubation. Rifampicin 2 × 600 mg über 2 Tage, alternativ Ciprofloxacin 500 mg einmalig oder bei Schwangeren Ceftriaxon 250 mg intramuskulär. Bei Pneumokokken ist keine Prophylaxe nötig.',
+        },
+        {
+          frage: 'Wie ist die Meldepflicht geregelt?',
+          antwort: 'Bei Meningokokkenmeningitis und -sepsis besteht nach § 6 IfSG namentliche Meldepflicht bereits bei Verdacht, Erkrankung und Tod, dazu nach § 7 IfSG die Meldung des Erregernachweises durch das Labor; die Meldung erfolgt binnen 24 Stunden an das Gesundheitsamt. Nach § 34 IfSG gilt zusätzlich ein Tätigkeits- und Besuchsverbot in Gemeinschaftseinrichtungen. Pneumokokken sind bundesweit nicht namentlich meldepflichtig.',
+        },
+        {
+          frage: 'Ein Patient hat eine Nackensteifigkeit — spricht das immer für eine Meningitis?',
+          antwort: 'Nein. Bei einem HWS-Syndrom oder einer Muskelverspannung ist die Beweglichkeit in alle Richtungen eingeschränkt, Brudzinski und Kernig sind negativ, es fehlen Fieber und Photophobie. Beim echten Meningismus ist nur die Beugung nach vorn schmerzhaft blockiert, während Seitdrehung und Reklination frei bleiben.',
+        },
+        {
+          frage: 'Kann eine Meningitis ohne Fieber und ohne Nackensteifigkeit verlaufen?',
+          antwort: 'Ja. Bei alten, immunsupprimierten und antibiotisch anbehandelten Patienten fehlen beide Zeichen häufig, und die Erkrankung zeigt sich nur als Verwirrtheit, Somnolenz oder Sturz. Beim Säugling fehlt der Meningismus regelhaft, stattdessen fallen Trinkschwäche, schrilles Schreien und eine gespannte Fontanelle auf.',
+        },
+      ],
+      merksatz: 'Fieber + Kopfschmerz + Meningismus = bakterielle Meningitis bis zum Beweis des Gegenteils: Blutkulturen abnehmen, dann Dexamethason und Antibiotikum innerhalb der ersten Stunde — die Lumbalpunktion folgt so schnell wie möglich, darf die Therapie aber nie verzögern.',
+      linkedCaseIds: [
+        'case-meningitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-lumbalpunktion',
+        'auf-ct',
+      ],
+    },
+    {
+      id: 'fw-pankreaskarzinom',
+      pathology: 'Pankreaskarzinom (duktales Adenokarzinom des Pankreas)',
+      specialty: 'Onkologie',
+      definition: 'Das Pankreaskarzinom ist ein maligner epithelialer Tumor der Bauchspeicheldrüse; in über 90 % der Fälle handelt es sich um ein duktales Adenokarzinom, das vom Epithel der Pankreasgänge ausgeht. Etwa 70 % der Tumoren liegen im Pankreaskopf, rund 20 % in Korpus und Schwanz, etwa 10 % multizentrisch. Das Pankreaskopfkarzinom komprimiert früh den Ductus choledochus und führt so zum klassischen schmerzlosen Verschlussikterus, während Korpus- und Schwanzkarzinome lange stumm bleiben und erst durch gürtelförmige Rückenschmerzen oder Gewichtsverlust auffallen. Wegen der späten Symptomatik und der frühen perineuralen, lymphogenen und hämatogenen Ausbreitung sind bei Diagnosestellung nur etwa 15–20 % der Tumoren resektabel.',
+      aetiologie: 'Die Karzinogenese verläuft über pankreatische intraepitheliale Neoplasien (PanIN) mit einer typischen Mutationsfolge (KRAS, CDKN2A, TP53, SMAD4). Wichtigster beeinflussbarer Risikofaktor ist das Rauchen; hinzu kommen die chronische Pankreatitis, der langjährige und der neu aufgetretene Diabetes mellitus, Adipositas und Bewegungsmangel. Etwa 5–10 % der Fälle sind hereditär (BRCA2 und BRCA1, PALB2, Peutz-Jeghers-Syndrom, familiäres atypisches multiples Muttermal- und Melanom-Syndrom, Lynch-Syndrom, hereditäre Pankreatitis mit PRSS1-Mutation). Präkanzerosen sind ferner intraduktale papillär-muzinöse Neoplasien (IPMN) und muzinös-zystische Neoplasien.',
+      risikofaktoren: [
+        'Rauchen — wichtigster beeinflussbarer Risikofaktor, etwa Verdoppelung des Risikos, dosisabhängig',
+        'Höheres Lebensalter, Erkrankungsgipfel zwischen dem 60. und 80. Lebensjahr',
+        'Chronische Pankreatitis, insbesondere die hereditäre Form (PRSS1)',
+        'Diabetes mellitus — sowohl langjähriger Typ-2-Diabetes als Risikofaktor wie auch der neu aufgetretene Diabetes als Frühsymptom',
+        'Adipositas, Bewegungsmangel, fett- und fleischreiche Ernährung',
+        'Positive Familienanamnese: ein erstgradiger Angehöriger erhöht das Risiko deutlich, ab zwei Angehörigen spricht man vom familiären Pankreaskarzinom',
+        'Hereditäre Syndrome: BRCA2/BRCA1, PALB2, Peutz-Jeghers-Syndrom, FAMMM-Syndrom, Lynch-Syndrom',
+        'Zystische Pankreasläsionen, insbesondere die Hauptgang-IPMN',
+        'Übermäßiger Alkoholkonsum — vor allem indirekt über die chronische Pankreatitis',
+        'Männliches Geschlecht und schwarze Hautfarbe (leicht erhöhtes Risiko), berufliche Exposition gegenüber chlorierten Kohlenwasserstoffen',
+      ],
+      klinik: [
+        {
+          text: 'Schmerzloser, langsam progredienter Ikterus mit Gelbfärbung zuerst der Skleren, dann der gesamten Haut — Leitsymptom des Pankreaskopfkarzinoms',
+        },
+        {
+          text: 'Dunkler, bierbrauner Urin durch die renale Ausscheidung von konjugiertem Bilirubin',
+        },
+        {
+          text: 'Entfärbter, lehmfarbener (acholischer) Stuhl bei fehlendem Gallefluss in den Darm',
+        },
+        {
+          text: 'Quälender, generalisierter Pruritus mit Kratzspuren, nachts betont, spricht auf Antihistaminika nicht an',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust, Appetitlosigkeit, frühes Sättigungsgefühl und rasche Leistungsminderung',
+        },
+        {
+          text: 'Schmerzlos tastbare, prall-elastische Gallenblase bei bestehendem Ikterus (Courvoisier-Zeichen)',
+        },
+        {
+          text: 'Dumpfer Oberbauchschmerz mit gürtelförmiger Ausstrahlung in den Rücken, nachts verstärkt, Linderung durch Vornüberbeugen (Kutschersitz) — meist Zeichen eines fortgeschrittenen Befundes',
+        },
+        {
+          text: 'Steatorrhoe mit voluminösen, glänzenden, übelriechenden und schwer abspülbaren Stühlen bei exokriner Pankreasinsuffizienz',
+        },
+        {
+          text: 'Allgemeine Abgeschlagenheit und Müdigkeit über Wochen ohne fassbaren Auslöser',
+        },
+        {
+          text: 'Neu aufgetretener oder plötzlich entgleister Diabetes mellitus beim älteren, schlanken Patienten ohne Familienanamnese',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende, wandernde Thrombophlebitiden (Thrombophlebitis migrans, Trousseau-Syndrom) oder eine unprovozierte tiefe Beinvenenthrombose',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als unerklärte akute Pankreatitis jenseits des 50. Lebensjahres ohne Gallensteine und ohne Alkoholanamnese',
+          atypisch: true,
+        },
+        {
+          text: 'Übelkeit, Erbrechen und Völlegefühl bei Magenausgangsstenose durch Duodenalinfiltration',
+          atypisch: true,
+        },
+        {
+          text: 'Derber, nicht verschieblicher Lymphknoten in der linken Supraklavikulargrube (Virchow-Drüse) oder periumbilikaler Knoten (Sister-Mary-Joseph-Knoten)',
+          atypisch: true,
+        },
+        {
+          text: 'Depressive Verstimmung, Antriebslosigkeit und Angst als Frühsymptom, oft Monate vor der Diagnose',
+          atypisch: true,
+        },
+        {
+          text: 'Aszites, tastbare Resistenz im Oberbauch und Hepatomegalie bei Peritonealkarzinose beziehungsweise Lebermetastasen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'TNM-Klassifikation und UICC-Stadien (8. Auflage)',
+          inhalt: 'T1: Tumor ≤ 2 cm, T2: > 2–4 cm, T3: > 4 cm, T4: Infiltration von Truncus coeliacus, Arteria mesenterica superior oder Arteria hepatica communis (unabhängig von der Größe). N0: keine regionären Lymphknotenmetastasen, N1: 1–3 befallene Lymphknoten, N2: ≥ 4 befallene Lymphknoten. M0/M1: Fernmetastasen (Leber, Peritoneum, Lunge). Stadium IA/IB: T1–T2 N0. Stadium IIA: T3 N0. Stadium IIB: T1–T3 N1. Stadium III: T1–T3 N2 oder T4 jedes N. Stadium IV: jedes M1.',
+        },
+        {
+          name: 'Resektabilitätsklassifikation (NCCN-Kriterien) — steuert die gesamte Therapie',
+          inhalt: 'Primär resektabel: kein Kontakt zu den arteriellen Gefäßen, venöser Kontakt (Vena mesenterica superior/Pfortader) ≤ 180° ohne Konturunregelmäßigkeit. Grenzwertig resektabel (borderline): venöse Ummauerung > 180° oder rekonstruierbare kurzstreckige Okklusion, arterieller Kontakt ≤ 180° zur Arteria mesenterica superior beziehungsweise begrenzter Kontakt zur Arteria hepatica communis. Lokal fortgeschritten irresektabel: arterielle Ummauerung > 180°, Infiltration des Truncus coeliacus, nicht rekonstruierbarer Venenverschluss. Metastasiert: Fernmetastasen oder Peritonealkarzinose — dann ausschließlich palliative Therapie.',
+        },
+        {
+          name: 'Einteilung nach Lokalisation',
+          inhalt: 'Pankreaskopfkarzinom etwa 70 % — früher Verschlussikterus, deshalb relativ früh entdeckt und am ehesten resektabel (Whipple-Operation beziehungsweise pyloruserhaltende partielle Duodenopankreatektomie). Korpuskarzinom etwa 15–20 % und Schwanzkarzinom etwa 10 % — lange asymptomatisch, Erstsymptome sind Rückenschmerz und Gewichtsverlust, Operation als Pankreaslinksresektion mit Splenektomie, Prognose schlechter.',
+        },
+        {
+          name: 'Einteilung des Ikterus nach der Lokalisation der Störung',
+          inhalt: 'Prähepatisch (hämolytisch): indirektes/unkonjugiertes Bilirubin erhöht, Urin und Stuhl normal bis dunkler Stuhl, Haptoglobin erniedrigt, LDH und Retikulozyten erhöht. Intrahepatisch (hepatozellulär): gemischte Hyperbilirubinämie, Transaminasen stark erhöht, Urin dunkel, Stuhl meist normal, Leberhautzeichen. Posthepatisch (cholestatisch/obstruktiv): direktes/konjugiertes Bilirubin erhöht, alkalische Phosphatase und Gamma-GT führend erhöht, dunkler Urin UND entfärbter Stuhl, Juckreiz — die Konstellation des Pankreaskopfkarzinoms.',
+        },
+        {
+          name: 'ECOG-Performance-Status (steuert die palliative Systemtherapie)',
+          inhalt: '0: uneingeschränkt leistungsfähig. 1: körperlich anstrengende Tätigkeit eingeschränkt, leichte Arbeit möglich. 2: gehfähig, Selbstversorgung möglich, über 50 % der Wachzeit auf, arbeitsunfähig. 3: nur begrenzte Selbstversorgung, über 50 % der Wachzeit an Bett oder Stuhl gebunden. 4: völlig pflegebedürftig. FOLFIRINOX setzt einen ECOG von 0–1 voraus; ab ECOG 2 wird Gemcitabin-basiert oder rein symptomorientiert behandelt.',
+        },
+      ],
+      redFlags: [
+        'Schmerzloser Ikterus beim Patienten jenseits des 50. Lebensjahres — bis zum Beweis des Gegenteils ein maligner Verschluss der Gallenwege',
+        'Courvoisier-Zeichen: schmerzlos tastbare, prall-elastische Gallenblase bei Ikterus',
+        'Neu aufgetretener Diabetes mellitus beim älteren, schlanken Patienten ohne familiäre Belastung, besonders in Kombination mit Gewichtsverlust',
+        'Unerklärte akute Pankreatitis jenseits des 50. Lebensjahres ohne Gallensteine und ohne Alkoholanamnese',
+        'Rezidivierende oder wandernde Thrombophlebitiden beziehungsweise eine unprovozierte tiefe Beinvenenthrombose (Trousseau-Syndrom)',
+        'Fieber, Schüttelfrost und Verwirrtheit bei Ikterus (Charcot-Trias, Reynolds-Pentade) — akute Cholangitis, dringliche Dekompression und Antibiose',
+        'Rascher Abfall des Quick-Wertes beziehungsweise INR-Anstieg bei Cholestase — Vitamin-K-Mangel mit Blutungsgefahr vor jeder Intervention',
+        'Gürtelförmiger, nachts verstärkter Rückenschmerz mit Linderung im Kutschersitz — Infiltration des Plexus coeliacus',
+        'Anhaltendes Erbrechen mit Völlegefühl und Gewichtssturz — Magenausgangsstenose durch Duodenalinfiltration',
+        'Rasch zunehmender Bauchumfang mit Aszites — Peritonealkarzinose',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Farbe von Urin und Stuhl aktiv erfragen, Ikterusbeginn und -verlauf, Juckreiz, Schmerzcharakter (schmerzloser Ikterus als Alarmzeichen), ungewollter Gewichtsverlust, Appetit, Leistungsknick, neu aufgetretener Diabetes, frühere Pankreatitiden, Thrombosen, Rauchen, Alkohol, Familienanamnese und Reiseanamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Ausmaß von Skleren- und Hautikterus, Kratzspuren, Prüfung des Courvoisier-Zeichens (schmerzlos tastbare, prall-elastische Gallenblase), Hepatomegalie, tastbare Oberbauchresistenz, Aszites, Virchow-Lymphknoten links supraklavikulär, Sister-Mary-Joseph-Knoten, gezielte Suche nach Leberhautzeichen (Spider naevi, Palmarerythem, Teleangiektasien, Caput medusae) zur Abgrenzung des intrahepatischen Ikterus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter, Erhebung von Größe, Gewicht, BMI und Gewichtsverlauf sowie Bestimmung des ECOG-Performance-Status als Grundlage jeder Therapieentscheidung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Cholestaseparameter als Kern der Abklärung: Gesamtbilirubin mit Fraktionierung (direktes/konjugiertes Bilirubin führend erhöht), alkalische Phosphatase und Gamma-GT deutlich erhöht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Transaminasen (GOT, GPT) — bei einer Cholestase nur mäßig erhöht, bei einer akuten Virushepatitis um ein Vielfaches; ergänzend Hepatitisserologie (Anti-HAV-IgM, HBs-Antigen, Anti-HBc, Anti-HCV, ggf. Anti-HEV) zum Ausschluss einer Virushepatitis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Pankreasenzyme (Lipase, Amylase) sowie Stuhl-Elastase zur Erfassung einer exokrinen Pankreasinsuffizienz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP, Gerinnung mit Quick/INR (Vitamin-K-Mangel bei fehlender Fettresorption), Albumin und Gesamteiweiß als Ernährungs- und Syntheseparameter, Nierenwerte, Elektrolyte, Blutzucker und HbA1c',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Tumormarker CA 19-9 — ausschließlich zur Verlaufs- und Therapiekontrolle sowie zur Rezidivüberwachung, NICHT zum Screening und nicht diagnosesichernd: falsch hoch bei jeder Cholestase und Cholangitis, falsch niedrig beziehungsweise nicht bildbar bei Lewis-negativen Patienten (etwa 5–10 % der Bevölkerung); ergänzend CEA. Sinnvoll ist die Bestimmung nach biliärer Entlastung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'IgG4 im Serum bei Verdacht auf eine Autoimmunpankreatitis, Autoantikörper (AMA, ANA, SMA) bei Verdacht auf eine primär biliäre Cholangitis oder Autoimmunhepatitis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als Erstuntersuchung: gestaute intra- und extrahepatische Gallenwege, erweiterter Ductus choledochus, prall gefüllte Gallenblase, Doppelgangzeichen (double duct sign: gleichzeitige Erweiterung von Ductus choledochus und Ductus pancreaticus), Raumforderung im Pankreaskopf, Lebermetastasen, Aszites',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Mehrphasen-CT von Abdomen und Becken nach Pankreasprotokoll (arterielle und portalvenöse Phase, dünne Schichten): Tumorgröße, Beziehung zu Truncus coeliacus, Arteria mesenterica superior, Arteria hepatica communis, Vena mesenterica superior und Pfortader — die Grundlage der Resektabilitätsbeurteilung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT mit MRCP: nicht invasive Darstellung des Gangsystems, besonders bei unklarer Raumforderung, zystischen Läsionen und zur Abgrenzung des Cholangiokarzinoms; sensitiver für kleine Lebermetastasen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Thorax zum Staging (Lungenmetastasen); PET-CT nur in ausgewählten Fällen bei Verdacht auf okkulte Fernmetastasen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Endosonographie (EUS) mit Feinnadelpunktion: sensitivste Methode für kleine Tumoren und Goldstandard der histologischen beziehungsweise zytologischen Sicherung; vor jeder palliativen Systemtherapie obligat. Cave: eine negative Punktion schließt das Karzinom nicht aus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ERCP — heute primär therapeutisch zur biliären Dekompression mit Stenteinlage (Kunststoffstent bei geplanter baldiger Operation, selbstexpandierender Metallstent in der palliativen Situation), zusätzlich Bürstenzytologie und Gangdarstellung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Staging-Laparoskopie mit Peritoneallavage bei Verdacht auf Peritonealkarzinose oder bei grenzwertig resektablem Befund; abschließende Vorstellung im interdisziplinären Tumorboard',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Choledocholithiasis mit Verschlussikterus',
+          unterscheidung: 'Kolikartiger, wellenförmiger Schmerz im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, häufig nach fettreicher Mahlzeit, oft bekannte Gallensteine; der Ikterus ist typischerweise schmerzhaft und schwankt. Die Gallenblase ist bei chronischem Steinleiden narbig geschrumpft und daher nicht tastbar (negatives Courvoisier-Zeichen). Sonographie und MRCP zeigen den Konkrementschatten.',
+        },
+        {
+          dd: 'Akute (eitrige) Cholangitis',
+          unterscheidung: 'Charcot-Trias aus Fieber mit Schüttelfrost, rechtsseitigem Oberbauchschmerz und Ikterus, bei der Reynolds-Pentade zusätzlich Verwirrtheit und Kreislaufinstabilität; deutlich erhöhtes CRP, Leukozytose, Procalcitonin. Notfall mit dringlicher Dekompression und Antibiose.',
+        },
+        {
+          dd: 'Cholangiokarzinom (Klatskin-Tumor, distales Gallengangskarzinom)',
+          unterscheidung: 'Klinisch nahezu identisch mit dem Pankreaskopfkarzinom. Beim hilusnahen Klatskin-Tumor sind die intrahepatischen Gallenwege gestaut, der Ductus choledochus distal jedoch schlank und die Gallenblase leer — kein Doppelgangzeichen. Risikofaktoren sind die primär sklerosierende Cholangitis und chronisch-entzündliche Darmerkrankungen. Endgültige Klärung durch MRCP, Endosonographie und Histologie.',
+        },
+        {
+          dd: 'Papillenkarzinom (Ampullenkarzinom)',
+          unterscheidung: 'Typischerweise intermittierender, in seiner Intensität schwankender Ikterus, da der ulzerierende Tumor zeitweise wieder Galle passieren lässt; okkulte Blutung mit Anämie und silbrig glänzendem Stuhl. Diagnose durch Duodenoskopie mit Seitblickoptik und Biopsie; deutlich bessere Prognose, da früher symptomatisch.',
+        },
+        {
+          dd: 'Chronische Pankreatitis',
+          unterscheidung: 'Meist langjähriger Alkoholabusus oder hereditäre Form, rezidivierende gürtelförmige Oberbauchschmerzattacken über Jahre, Steatorrhoe und Diabetes im Verlauf; in der Bildgebung Verkalkungen, Gangunregelmäßigkeiten und Pseudozysten. Cave: eine chronische Pankreatitis ist zugleich Risikofaktor, und die Abgrenzung einer entzündlichen Raumforderung vom Karzinom ist bildgebend oft unmöglich — im Zweifel Resektion.',
+        },
+        {
+          dd: 'Akute Virushepatitis (A, B, E)',
+          unterscheidung: 'Grippeähnliche Prodromi mit Fieber, Gliederschmerzen und Abgeschlagenheit, Reise- oder Kontaktanamnese, Druckschmerz im rechten Oberbauch, Hepatomegalie; laborchemisch stehen massiv erhöhte Transaminasen im Vordergrund, die alkalische Phosphatase ist nur mäßig erhöht. Sicherung über die Serologie.',
+        },
+        {
+          dd: 'Leberzirrhose mit intrahepatischer Cholestase',
+          unterscheidung: 'Anamnese mit Alkohol, Hepatitis oder Steatohepatitis; Leberhautzeichen wie Spider naevi, Palmarerythem, Teleangiektasien, Lackzunge, Weißnägel, Caput medusae, Gynäkomastie; Zeichen der portalen Hypertension mit Aszites, Splenomegalie und Ösophagusvarizen; erniedrigtes Albumin, Thrombozytopenie, Quick-Abfall. Die Gallenwege sind sonographisch NICHT gestaut.',
+        },
+        {
+          dd: 'Medikamentös-toxische Cholestase',
+          unterscheidung: 'Zeitlicher Zusammenhang mit einem neu angesetzten Medikament (Amoxicillin-Clavulansäure, Makrolide, Anabolika, Östrogene, Phenothiazine, Nahrungsergänzungsmittel), oft mit Eosinophilie und Exanthem; Rückbildung nach Absetzen, keine Gangdilatation in der Bildgebung.',
+        },
+        {
+          dd: 'Lebermetastasen bei anderem Primärtumor (Magen-, Kolon-, Mammakarzinom) oder Lymphom der Leberpforte',
+          unterscheidung: 'Symptome des Primärtumors (Dysphagie, Teerstuhl, Änderung der Stuhlgewohnheiten, tastbarer Knoten), B-Symptomatik und Lymphknotenschwellungen beim Lymphom; in der Bildgebung multiple Leberherde beziehungsweise Lymphknotenkonglomerate am Leberhilus statt einer Pankreasraumforderung. Klärung durch Endoskopie, CT und Histologie.',
+        },
+        {
+          dd: 'Autoimmunpankreatitis (Typ 1, IgG4-assoziiert)',
+          unterscheidung: 'Ebenfalls schmerzloser Ikterus mit Pankreasraumforderung — der wichtigste benigne Imitator. Typisch sind ein diffus wurstförmig vergrößertes Pankreas mit Halo im CT, erhöhtes Serum-IgG4, weitere IgG4-assoziierte Manifestationen (Sialadenitis, Retroperitonealfibrose) und ein prompter Ansprechen auf Glukokortikoide.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Beurteilung der Resektabilität und kurative Resektion',
+          items: [
+            'Grundprinzip: Nur die vollständige (R0-)Resektion ist potenziell kurativ — deshalb steht am Anfang jeder Therapieentscheidung die Beurteilung der Resektabilität im Mehrphasen-CT nach Pankreasprotokoll und die Vorstellung im interdisziplinären Tumorboard',
+            'Pankreaskopfkarzinom: partielle Duodenopankreatektomie nach Kausch-Whipple beziehungsweise pyloruserhaltende Variante (PPPD) mit Entfernung von Pankreaskopf, Duodenum, distalem Choledochus, Gallenblase und regionären Lymphknoten sowie Rekonstruktion durch Pankreatiko-, Hepatiko- und Gastro- beziehungsweise Duodenojejunostomie',
+            'Korpus- und Schwanzkarzinom: Pankreaslinksresektion mit Splenektomie; bei ausgedehntem Befall totale Pankreatektomie mit lebenslanger Insulin- und Enzymsubstitution',
+            'Standardisierte Lymphadenektomie, intraoperativer Schnellschnitt der Resektionsränder; die Operation gehört an ein Zentrum mit hoher Fallzahl, da die Letalität dort deutlich niedriger liegt',
+            'Grenzwertig resektabler Befund: neoadjuvante Chemotherapie (FOLFIRINOX) beziehungsweise Radiochemotherapie mit anschließendem Re-Staging und Resektion bei Ansprechen',
+            'Adjuvante Chemotherapie nach R0-Resektion für sechs Monate — modifiziertes FOLFIRINOX bei gutem Allgemeinzustand, sonst Gemcitabin, gegebenenfalls mit Capecitabin; Beginn innerhalb von zwölf Wochen postoperativ',
+            'Perioperativ: Ernährungsoptimierung, Thromboseprophylaxe, Pneumocystis- beziehungsweise Impfprophylaxe nach Splenektomie (Pneumokokken, Meningokokken, Haemophilus influenzae Typ b); postoperativ Überwachung auf Pankreasfistel, Nachblutung, verzögerte Magenentleerung und Anastomoseninsuffizienz',
+            'Strukturierte Nachsorge über fünf Jahre mit Klinik, CA 19-9 und CT, dazu Enzymsubstitution und Einstellung eines postoperativen Diabetes',
+          ],
+        },
+        {
+          label: 'Palliative Systemtherapie bei Inoperabilität',
+          items: [
+            'Vor Beginn jeder palliativen Systemtherapie ist die histologische oder zytologische Sicherung obligat (Endosonographie mit Feinnadelpunktion)',
+            'Bei gutem Allgemeinzustand (ECOG 0–1, Bilirubin weitgehend normalisiert, Alter und Komorbidität passend): FOLFIRINOX (5-Fluorouracil, Folinsäure, Irinotecan, Oxaliplatin) — wirksamste, aber toxischste Option mit Neutropenie, Diarrhoe und Polyneuropathie',
+            'Bei reduziertem Allgemeinzustand: Gemcitabin plus nab-Paclitaxel oder Gemcitabin als Monotherapie; ab ECOG 3 in der Regel nur noch Best Supportive Care',
+            'Zweitlinientherapie je nach Vortherapie: nanoliposomales Irinotecan mit 5-Fluorouracil und Folinsäure nach Gemcitabin-Versagen, oder Gemcitabin-basiert nach FOLFIRINOX',
+            'Molekulare Diagnostik in ausgewählten Fällen: Keimbahn-BRCA1/2 (Erhaltungstherapie mit Olaparib nach platinhaltiger Therapie), Mikrosatelliteninstabilität (Immuncheckpoint-Inhibitor), NTRK-Fusion',
+            'Konsequente supportive Therapie: antiemetische Prophylaxe, Wachstumsfaktoren bei Neutropenie, engmaschige Kontrolle von Blutbild, Leber- und Nierenwerten',
+            'Lokal fortgeschritten irresektabler Befund ohne Fernmetastasen: nach Induktionschemotherapie gegebenenfalls konsolidierende Radiochemotherapie',
+          ],
+        },
+        {
+          label: 'Symptomkontrolle und interventionelle Palliation',
+          items: [
+            'Biliäre Dekompression bei symptomatischem Verschlussikterus: ERCP mit Stenteinlage — Kunststoffstent bei kurzfristig geplanter Operation, selbstexpandierender Metallstent in der palliativen Situation; bei frustraner ERCP perkutane transhepatische Cholangiodrainage (PTCD) oder endosonographisch gesteuerte Ableitung; bei Cholangitis dringlich und mit kalkulierter Antibiose',
+            'Vor jeder Intervention Kontrolle von Quick/INR und Substitution von Vitamin K parenteral, da die Cholestase über die fehlende Fettresorption zu einem Mangel der Vitamine A, D, E und K führt',
+            'Pruritustherapie: Colestyramin als Mittel der ersten Wahl (mit zeitlichem Abstand zu anderen Medikamenten einnehmen), alternativ Rifampicin, Naltrexon oder Sertralin; Antihistaminika sind beim cholestatischen Juckreiz weitgehend unwirksam — kausal wirkt die biliäre Entlastung. Kühlende, rückfettende Hautpflege, kurze Fingernägel',
+            'Schmerztherapie nach WHO-Stufenschema mit frühzeitigem Einsatz retardierter Opioide plus Bedarfsmedikation, begleitend Laxanzien und Antiemetika; bei therapierefraktärem Rückenschmerz endosonographisch oder CT-gesteuerte Plexus-coeliacus-Blockade beziehungsweise Neurolyse, gegebenenfalls Radiotherapie',
+            'Pankreasenzymsubstitution (Pankreatin, lipasedosiert zur Mahlzeit) bei Steatorrhoe und Gewichtsverlust, dazu Substitution der fettlöslichen Vitamine',
+            'Ernährungstherapie: hochkalorische, häufige kleine Mahlzeiten, Trinknahrung, professionelle Ernährungsberatung; Einstellung des tumorassoziierten Diabetes, häufig mit Insulin',
+            'Magenausgangsstenose: enteraler Stent oder palliative Gastroenterostomie (bei Laparotomie gegebenenfalls prophylaktische Doppelbypass-Operation mit biliodigestiver Anastomose)',
+            'Erhöhtes Thromboserisiko beachten (Trousseau-Syndrom) — großzügige Indikation zur therapeutischen Antikoagulation mit niedermolekularem Heparin',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Begleitung, Aufklärung und Prognose',
+          items: [
+            'Aufklärung schrittweise, ehrlich und schonend: erst den Verdacht mitteilen, das Befundergebnis abwarten, keine endgültige Diagnose ohne Histologie verkünden; Vorwissen erfragen, Gesprächstempo an den Patienten anpassen, Pausen aushalten und Angehörige einbeziehen',
+            'Frühzeitige Einbindung der spezialisierten Palliativmedizin — die frühe Palliativversorgung verbessert nachweislich Lebensqualität und teilweise auch das Überleben; ambulante Palliativversorgung (SAPV), Hospizanbindung und Sozialdienst',
+            'Psychoonkologische Mitbetreuung, Selbsthilfegruppen, Unterstützung der Angehörigen',
+            'Klärung von Patientenverfügung, Vorsorgevollmacht und Therapiezielen einschließlich der Frage nach Reanimation, bevor eine Krise eintritt',
+            'Symptomorientierte Betreuung am Lebensende: Schmerz, Übelkeit, Angst, Dyspnoe und Mundtrockenheit; regelmäßige Reevaluation des Therapieziels',
+            'Sozialmedizinische Aspekte: Krankschreibung, Schwerbehindertenausweis, Pflegegrad, Anschlussheilbehandlung nach Resektion',
+          ],
+        },
+      ],
+      prognose: 'Das Pankreaskarzinom hat die schlechteste Prognose aller häufigen soliden Tumoren: Die relative 5-Jahres-Überlebensrate liegt insgesamt bei etwa 10 %. Nur 15–20 % der Patienten sind bei Diagnosestellung resektabel; nach R0-Resektion mit adjuvanter Chemotherapie werden 5-Jahres-Überlebensraten von etwa 20–30 % erreicht, bei kleinen, nodal-negativen Tumoren mehr. Beim lokal fortgeschrittenen, irresektablen Befund liegt das mediane Überleben bei etwa 9–15 Monaten, im metastasierten Stadium unter FOLFIRINOX bei etwa 11 Monaten und unter Gemcitabin-Monotherapie bei etwa 6 Monaten. Prognostisch entscheidend sind Resektabilität und R0-Status, Lymphknotenstatus, Differenzierungsgrad, der postoperative CA-19-9-Verlauf und der Allgemeinzustand. Wegen der schlechten Prognose sind die frühe Integration der Palliativmedizin und eine ehrliche, schrittweise Aufklärung Bestandteil der Therapie und kein Nebenaspekt.',
+      pruefungsfallen: [
+        'Der schmerzlose Ikterus beim älteren Patienten ist bis zum Beweis des Gegenteils maligne. Wer nur nach Schmerzen fragt, findet nichts — die Farbe von Urin UND Stuhl muss aktiv erfragt werden.',
+        'Das Courvoisier-Zeichen muss korrekt erklärt werden: eine schmerzlos tastbare, prall-elastische Gallenblase bei Ikterus spricht für einen malignen Verschluss und GEGEN ein Steinleiden, weil die Gallenblase bei chronischer Cholezystolithiasis narbig geschrumpft ist. Nach Cholezystektomie ist das Zeichen nicht verwertbar.',
+        'CA 19-9 ist kein Screening- und kein Diagnosemarker, sondern dient der Verlaufskontrolle: falsch hoch bei jeder Cholestase, falsch niedrig bei Lewis-negativen Patienten.',
+        'Die Einteilung des Ikterus in prähepatisch, intrahepatisch und posthepatisch wird fast immer verlangt — mit den zugehörigen Laborkonstellationen.',
+        'Leberhautzeichen (Spider naevi, Palmarerythem, Teleangiektasien) gehören zur Abgrenzung des intrahepatischen Ikterus und werden regelmäßig abgefragt.',
+        'Vor jeder Intervention die Gerinnung prüfen: die Cholestase führt über die fehlende Fettresorption zum Vitamin-K-Mangel mit Quick-Abfall.',
+        'Antihistaminika helfen beim cholestatischen Pruritus nicht — Mittel der Wahl sind Colestyramin und vor allem die biliäre Entlastung.',
+        'Vor einer palliativen Chemotherapie ist die histologische Sicherung obligat; bei eindeutig resektablem Befund darf ohne Biopsie operiert werden, und eine negative Punktion schließt das Karzinom nicht aus.',
+        'Ein neu aufgetretener Diabetes mellitus beim älteren, schlanken Patienten ist ein Warnzeichen und kein Zufallsbefund.',
+        'Die Autoimmunpankreatitis ist der wichtigste benigne Imitator — sie darf nicht übersehen, aber auch nicht als Vorwand für eine abwartende Haltung benutzt werden.',
+        'Fachbegriffe patientengerecht übersetzen: Ikterus = Gelbsucht, acholischer Stuhl = entfärbter Stuhl, Pruritus = Juckreiz, Cholestase = Gallenstau, Resektabilität = operative Entfernbarkeit.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist das Courvoisier-Zeichen, und was besagt es?',
+          antwort: 'Eine schmerzlos tastbare, prall-elastische, vergrößerte Gallenblase bei gleichzeitig bestehendem Ikterus. Sie spricht für einen malignen Verschluss des Ductus choledochus, typischerweise durch ein Pankreaskopfkarzinom, und gegen ein Steinleiden: Bei chronischer Cholezystolithiasis ist die Gallenblase narbig geschrumpft und lässt sich deshalb nicht tasten. Nach einer Cholezystektomie ist das Zeichen naturgemäß nicht verwertbar.',
+        },
+        {
+          frage: 'Wie teilen Sie den Ikterus ein, und welche Laborkonstellation erwarten Sie jeweils?',
+          antwort: 'Prähepatisch beziehungsweise hämolytisch: indirektes, unkonjugiertes Bilirubin erhöht, Haptoglobin erniedrigt, LDH und Retikulozyten erhöht, Stuhl normal oder dunkel. Intrahepatisch beziehungsweise hepatozellulär: gemischte Hyperbilirubinämie mit stark erhöhten Transaminasen, dunkler Urin, Stuhl meist normal, Leberhautzeichen. Posthepatisch beziehungsweise cholestatisch: direktes, konjugiertes Bilirubin erhöht, alkalische Phosphatase und Gamma-GT führend, dunkler Urin und entfärbter Stuhl, Juckreiz — das ist die Konstellation des Pankreaskopfkarzinoms.',
+        },
+        {
+          frage: 'Warum ist der Urin dunkel und der Stuhl hell?',
+          antwort: 'Bei der Cholestase staut sich konjugiertes, also wasserlösliches Bilirubin ins Blut zurück und wird über die Niere ausgeschieden — daher der bierbraune Urin. Gleichzeitig gelangt keine Galle mehr in den Darm, sodass kein Sterkobilin gebildet wird und der Stuhl seine Farbe verliert, also acholisch wird. Zusätzlich fehlen die Gallensäuren zur Fettverdauung, wodurch der Stuhl fettglänzend und schwer abspülbar wird.',
+        },
+        {
+          frage: 'Welche Bedeutung hat das CA 19-9?',
+          antwort: 'Es ist ein Verlaufsmarker, kein Screening- und kein Diagnosemarker. Es eignet sich zur Therapie- und Rezidivkontrolle, insbesondere prä- und postoperativ. Es ist bei jeder Cholestase und Cholangitis falsch hoch, weshalb man es sinnvollerweise erst nach biliärer Entlastung bestimmt, und es ist bei den etwa 5–10 % Lewis-negativen Patienten nicht bildbar, also falsch niedrig. Die Diagnose wird durch Bildgebung und Histologie gestellt.',
+        },
+        {
+          frage: 'Welche bildgebende Untersuchung führen Sie zuerst durch, und was suchen Sie?',
+          antwort: 'Die Abdomensonographie. Gesucht werden gestaute intra- und extrahepatische Gallenwege, ein erweiterter Ductus choledochus, eine prall gefüllte Gallenblase, das Doppelgangzeichen mit gleichzeitiger Erweiterung von Ductus choledochus und Ductus pancreaticus, eine Raumforderung im Pankreaskopf sowie Lebermetastasen und Aszites. Anschließend folgt das Mehrphasen-CT nach Pankreasprotokoll zur Beurteilung der Resektabilität.',
+        },
+        {
+          frage: 'Wovon hängt die Therapie ab, und welche Operation führen Sie durch?',
+          antwort: 'Alles hängt an der Resektabilität. Bei resektablem Pankreaskopfkarzinom wird die partielle Duodenopankreatektomie nach Kausch-Whipple beziehungsweise die pyloruserhaltende Variante durchgeführt, bei Korpus- und Schwanztumoren die Pankreaslinksresektion mit Splenektomie; anschließend folgt eine adjuvante Chemotherapie über sechs Monate. Grenzwertig resektable Befunde werden neoadjuvant behandelt, irresektable und metastasierte Befunde rein palliativ.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten palliativ?',
+          antwort: 'Systemisch mit FOLFIRINOX bei gutem Allgemeinzustand, sonst mit Gemcitabin, gegebenenfalls plus nab-Paclitaxel — immer nach histologischer Sicherung. Dazu die interventionelle Palliation mit biliärem Stent über eine ERCP, eine Schmerztherapie nach WHO-Stufenschema bis hin zur Plexus-coeliacus-Blockade, Pankreasenzymsubstitution, Ernährungstherapie, Thromboseprophylaxe und die frühe Einbindung der Palliativmedizin.',
+        },
+        {
+          frage: 'Was tun Sie gegen den Juckreiz?',
+          antwort: 'Kausal wirkt die biliäre Entlastung durch ERCP mit Stent. Medikamentös ist Colestyramin Mittel der ersten Wahl, alternativ Rifampicin, Naltrexon oder Sertralin. Antihistaminika sind beim cholestatischen Pruritus weitgehend unwirksam. Ergänzend kühlende, rückfettende Hautpflege und kurze Fingernägel.',
+        },
+        {
+          frage: 'Worauf achten Sie vor einer ERCP oder einer Punktion?',
+          antwort: 'Auf die Gerinnung. Bei der Cholestase fehlen die Gallensäuren zur Fettresorption, dadurch werden die fettlöslichen Vitamine A, D, E und K schlecht aufgenommen; der Vitamin-K-Mangel führt zum Abfall des Quick-Wertes. Vor jeder Intervention werden Quick und INR kontrolliert und Vitamin K parenteral substituiert.',
+        },
+        {
+          frage: 'Brauchen Sie immer eine Histologie?',
+          antwort: 'Vor jeder palliativen Systemtherapie ja — obligat, in der Regel über die Endosonographie mit Feinnadelpunktion. Bei eindeutig resektablem Befund darf hingegen ohne vorherige Biopsie operiert werden, da eine negative Punktion das Karzinom nicht ausschließt und die Resektion selbst die Diagnose sichert.',
+        },
+        {
+          frage: 'Welche Risikofaktoren kennen Sie, und welcher ist der wichtigste beeinflussbare?',
+          antwort: 'Der wichtigste beeinflussbare Risikofaktor ist das Rauchen. Hinzu kommen höheres Lebensalter, chronische Pankreatitis, Diabetes mellitus, Adipositas und Bewegungsmangel, übermäßiger Alkoholkonsum, eine positive Familienanamnese sowie hereditäre Syndrome wie BRCA2, das Peutz-Jeghers-Syndrom, das FAMMM-Syndrom und das Lynch-Syndrom. Auch zystische Läsionen wie die Hauptgang-IPMN sind Präkanzerosen.',
+        },
+        {
+          frage: 'Warum ist ein neu aufgetretener Diabetes verdächtig?',
+          antwort: 'Weil ein neu diagnostizierter Diabetes mellitus beim älteren, schlanken Patienten ohne familiäre Belastung ein paraneoplastisches Frühzeichen des Pankreaskarzinoms sein kann — er tritt oft Monate bis zwei Jahre vor der Diagnose auf. In Kombination mit Gewichtsverlust ist er ein Alarmzeichen und sollte zur Bildgebung führen.',
+        },
+        {
+          frage: 'Was ist das Trousseau-Syndrom?',
+          antwort: 'Eine paraneoplastische Hyperkoagulabilität mit rezidivierenden, wandernden Thrombophlebitiden (Thrombophlebitis migrans) beziehungsweise unprovozierten Thrombosen bei malignen Tumoren, klassisch beim Pankreaskarzinom. Es kann der Diagnose Monate vorausgehen und rechtfertigt eine großzügige Antikoagulation mit niedermolekularem Heparin.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Sehr ungünstig. Die relative 5-Jahres-Überlebensrate liegt insgesamt bei etwa 10 %. Nur 15–20 % der Patienten sind bei Diagnosestellung resektabel; nach R0-Resektion und adjuvanter Chemotherapie liegt das 5-Jahres-Überleben bei etwa 20–30 %, im metastasierten Stadium beträgt das mediane Überleben unter FOLFIRINOX etwa 11 Monate.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Fachbegriffe?',
+          antwort: 'Ikterus ist die Gelbsucht, also die Gelbfärbung von Haut und Augen durch Einlagerung von Bilirubin, dem Gallenfarbstoff. Cholestase ist der Gallenstau. Acholischer Stuhl heißt entfärbter, heller Stuhl, weil kein Gallenfarbstoff mehr in den Darm gelangt. Pruritus ist der Juckreiz. Resektabilität bedeutet, ob sich der Tumor operativ vollständig entfernen lässt.',
+        },
+        {
+          frage: 'Wie grenzen Sie eine Autoimmunpankreatitis ab?',
+          antwort: 'Über das erhöhte Serum-IgG4, das typische diffus wurstförmig vergrößerte Pankreas mit Halo im CT, weitere IgG4-assoziierte Manifestationen wie Sialadenitis oder Retroperitonealfibrose sowie das prompte Ansprechen auf Glukokortikoide. Sie ist der wichtigste benigne Imitator, darf aber die onkologische Abklärung nicht verzögern — im Zweifel wird histologisch gesichert oder reseziert.',
+        },
+      ],
+      merksatz: 'Schmerzloser Ikterus plus dunkler Urin, heller Stuhl und Juckreiz beim älteren Patienten = Pankreaskopfkarzinom bis zum Beweis des Gegenteils — Courvoisier positiv spricht gegen Steine; CA 19-9 nur zur Verlaufskontrolle, Sonographie zuerst, CT nach Pankreasprotokoll entscheidet über die Resektabilität, und vor jeder Intervention Quick und Vitamin K prüfen.',
+      linkedCaseIds: [
+        'case-pankreaskarzinom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-ct',
+        'auf-ercp',
+        'auf-feinnadelpunktion',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-zoster',
+      pathology: 'Herpes zoster (Gürtelrose)',
+      specialty: 'Dermatologie',
+      definition: 'Der Herpes zoster (Gürtelrose) ist die endogene Reaktivierung des Varizella-Zoster-Virus (VZV), das nach durchgemachten Windpocken lebenslang in den Spinal- und Hirnnervenganglien persistiert. Bei nachlassender zellulärer Immunität wandert das Virus entlang der sensiblen Nervenfasern zur Haut und erzeugt gruppierte Bläschen auf gerötetem Grund, die STRENG EINSEITIG auf ein bis zwei benachbarte Dermatome begrenzt sind und die Mittellinie NICHT überschreiten. Charakteristisch ist eine Prodromalphase von mehreren Tagen mit brennenden, stechenden Schmerzen und Missempfindungen im betroffenen Segment ohne sichtbaren Hautbefund.',
+      aetiologie: 'Reaktivierung des latenten VZV, keine Neuinfektion. Auslösend ist ein Abfall der VZV-spezifischen zellulären Immunität: physiologisch mit zunehmendem Alter (Immunseneszenz), krankheitsbedingt (HIV-Infektion, Lymphome und Leukämien, solide Tumoren, Autoimmunerkrankungen) oder therapeutisch (Glukokortikoide, Immunsuppressiva, Biologika, Chemotherapie, Bestrahlung, Zustand nach Transplantation). Weitere Auslöser sind starker körperlicher oder seelischer Stress, Erschöpfung, interkurrente Infekte, UV-Exposition und lokale Traumata. Voraussetzung ist immer eine früher durchgemachte Varizellen-Infektion.',
+      risikofaktoren: [
+        'Lebensalter über 50 Jahre — der wichtigste Risikofaktor, steiler Inzidenzanstieg ab dem 60. Lebensjahr',
+        'Immunsuppressive Dauertherapie, insbesondere Glukokortikoide, Methotrexat, Azathioprin, Biologika',
+        'HIV-Infektion — ein Zoster beim jungen Erwachsenen ohne erkennbare Ursache ist eine HIV-Indikatorerkrankung',
+        'Maligne Erkrankungen, besonders Lymphome und Leukämien, sowie laufende Chemo- oder Strahlentherapie',
+        'Zustand nach Organ- oder Stammzelltransplantation',
+        'Diabetes mellitus, chronische Niereninsuffizienz, COPD',
+        'Starker seelischer oder körperlicher Stress, Erschöpfung, Schlafmangel',
+        'Weibliches Geschlecht (leicht erhöhte Inzidenz) und positive Familienanamnese',
+      ],
+      klinik: [
+        {
+          text: 'Prodromalphase über zwei bis fünf Tage mit brennenden, stechenden Schmerzen, Juckreiz und Missempfindungen in einem umschriebenen Hautsegment OHNE sichtbaren Hautbefund',
+        },
+        {
+          text: 'Streng einseitiger, auf ein bis zwei benachbarte Dermatome begrenzter Hautbefund, der die Mittellinie nicht überschreitet',
+        },
+        {
+          text: 'Gruppierte, wasserklare Bläschen auf gerötetem, ödematösem Grund, die eintrüben, platzen, verkrusten und über zwei bis vier Wochen abheilen',
+        },
+        {
+          text: 'Schubweises Auftreten neuer Bläschen über etwa fünf Tage, dadurch nebeneinander unterschiedliche Effloreszenzstadien',
+        },
+        {
+          text: 'Brennender, stechender, einschießender Schmerz im befallenen Segment, häufig nachts verstärkt',
+        },
+        {
+          text: 'Allodynie und Hyperästhesie — schon Kleidung oder Bettdecke auf der Haut sind unerträglich',
+        },
+        {
+          text: 'Kribbeln, Taubheitsgefühl oder Hypästhesie im betroffenen Dermatom',
+        },
+        {
+          text: 'Bevorzugte Lokalisation an den thorakalen Dermatomen (etwa die Hälfte der Fälle) und im Versorgungsgebiet des N. trigeminus',
+        },
+        {
+          text: 'Regionale, druckschmerzhafte Lymphknotenschwellung auf der befallenen Seite',
+        },
+        {
+          text: 'Leichtes Krankheitsgefühl, Abgeschlagenheit, subfebrile Temperaturen',
+          atypisch: true,
+        },
+        {
+          text: 'Zoster sine herpete: typischer segmentaler Schmerz ohne jeden Hautbefund — Diagnose nur über PCR oder Serologie',
+          atypisch: true,
+        },
+        {
+          text: 'Bläschen an der Nasenspitze (Hutchinson-Zeichen) mit Augenrötung, Tränen, Lichtscheu und Sehstörung beim Zoster ophthalmicus',
+          atypisch: true,
+        },
+        {
+          text: 'Ohrenschmerz, Bläschen im äußeren Gehörgang, periphere Fazialisparese, Hörminderung, Tinnitus und Schwindel beim Zoster oticus (Ramsay-Hunt-Syndrom)',
+          atypisch: true,
+        },
+        {
+          text: 'Streuung von mehr als 20 Bläschen außerhalb des betroffenen Dermatoms (disseminierter Zoster) bei Immunsuppression',
+          atypisch: true,
+        },
+        {
+          text: 'Kopfschmerz, Nackensteifigkeit, Lichtscheu und Verwirrtheit bei Zoster-Meningitis oder -Enzephalitis',
+          atypisch: true,
+        },
+        {
+          text: 'Harnverhalt und Blasenentleerungsstörung bei sakralem Befall (S2–S4)',
+          atypisch: true,
+        },
+        {
+          text: 'Segmentale schlaffe Parese (Zoster-Myelitis, Zoster-Paresen) bei Übergreifen auf die motorischen Vorderhornzellen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Sonderformen nach Lokalisation',
+          inhalt: 'Zoster thoracicus (häufigste Form, etwa 50 %). Zoster ophthalmicus: Befall des ersten Trigeminusastes, Hutchinson-Zeichen als Hinweis auf Beteiligung des N. nasociliaris und damit des Auges — Keratitis, Uveitis, Erblindungsgefahr, sofortige augenärztliche Vorstellung. Zoster oticus: Befall des Ganglion geniculi mit Ramsay-Hunt-Syndrom (Fazialisparese, Hörminderung, Schwindel). Zoster maxillaris und mandibularis mit Bläschen an Gaumen und Wange. Zoster genitalis und sacralis mit Blasenentleerungsstörung. Zoster duplex (zwei Dermatome beidseits) und Zoster generalisatus beziehungsweise disseminatus — beide Alarmzeichen für eine Immunsuppression.',
+        },
+        {
+          name: 'Stadien des Hautbefunds',
+          inhalt: 'Stadium 1 (Prodromalstadium): segmentaler Schmerz und Missempfindung ohne Hautbefund, zwei bis fünf Tage. Stadium 2 (Erythem- und Bläschenstadium): gruppierte klare Bläschen auf gerötetem Grund, Nachschübe über etwa fünf Tage. Stadium 3 (Pustel- und Krustenstadium): Eintrübung, Platzen und Verkrustung nach sieben bis zehn Tagen; ab vollständiger Verkrustung besteht keine Ansteckungsgefahr mehr. Stadium 4 (Abheilung): Abfallen der Krusten nach zwei bis vier Wochen, gelegentlich mit Narben und Pigmentverschiebungen.',
+        },
+        {
+          name: 'Zeitliche Einteilung des Zosterschmerzes',
+          inhalt: 'Akute Zosterneuralgie: Schmerz innerhalb der ersten 30 Tage. Subakute Herpesneuralgie: Schmerz zwischen 30 Tagen und drei Monaten. Postzosterische (postherpetische) Neuralgie: Schmerz, der länger als drei Monate nach Abheilung der Hauteffloreszenzen fortbesteht — die wichtigste Komplikation, mit dem Lebensalter stark zunehmend.',
+        },
+      ],
+      redFlags: [
+        'Bläschen an Stirn, Augenlid oder Nasenspitze (Hutchinson-Zeichen), rotes oder schmerzhaftes Auge, Sehstörung — Verdacht auf Zoster ophthalmicus, sofortige augenärztliche Vorstellung',
+        'Ohrenschmerz mit Bläschen im Gehörgang, Fazialisparese, Hörminderung, Tinnitus oder Schwindel — Ramsay-Hunt-Syndrom, sofortige HNO-ärztliche Vorstellung',
+        'Streubefall über mehr als zwei Dermatome oder generalisierte Aussaat — disseminierter Zoster, Hinweis auf schwere Immunsuppression, stationäre intravenöse Therapie',
+        'Kopfschmerz, Nackensteifigkeit, Lichtscheu, Verwirrtheit oder fokale neurologische Ausfälle — Zoster-Meningitis oder -Enzephalitis',
+        'Neu aufgetretene Lähmung im befallenen Segment oder Harnverhalt',
+        'Zoster bei einem Patienten unter 50 Jahren ohne erkennbaren Auslöser — Abklärung auf HIV-Infektion und Malignom',
+        'Zunehmende flächige Rötung, Eiter, Fieber und Schüttelfrost — bakterielle Superinfektion mit Erysipel oder Phlegmone',
+        'Zoster in der Schwangerschaft oder bei einem Neugeborenen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Blickdiagnose: gruppierte Bläschen auf gerötetem Grund, streng einseitig, auf ein bis zwei benachbarte Dermatome begrenzt, ohne Überschreiten der Mittellinie — damit ist die Diagnose in der Regel klinisch gestellt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Prodromalphase mit segmentalem Brennschmerz, durchgemachte Windpocken, Beginn des Bläschenausschlags auf die Stunde genau (Zeitfenster der virostatischen Therapie), Immunsuppression, Dauermedikation und Stressbelastung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige Ganzkörperinspektion einschließlich Kopfhaut, Gesicht, Augenlid, Nasenspitze, äußerem Gehörgang und Mundschleimhaut — Suche nach dem Hutchinson-Zeichen und nach disseminierten Effloreszenzen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologische Untersuchung: Sensibilität und Berührungsempfindlichkeit im Dermatom, Hirnnervenstatus mit Prüfung des N. facialis, Meningismus, Kraftprüfung; bei sakralem Befall Frage nach Blasenentleerungsstörung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter und Erhebung von Größe, Gewicht und BMI; Suche nach Zeichen einer Superinfektion (Fieber, Schüttelfrost, flächige Rötung, Eiter)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Im typischen Fall entbehrlich; Blutbild und CRP bei schwerem Verlauf, Fieber oder Verdacht auf bakterielle Superinfektion',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin und eGFR vor Beginn der virostatischen Therapie — Aciclovir und Valaciclovir werden renal eliminiert und müssen bei Niereninsuffizienz dosisangepasst werden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'HIV-Test bei Patienten unter 50 Jahren ohne erkennbaren Auslöser sowie bei disseminiertem oder rezidivierendem Verlauf; ergänzend Suche nach einer malignen Grunderkrankung (Blutbild mit Differenzialblutbild, LDH, körperliche Untersuchung)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutzucker beziehungsweise HbA1c zur Erfassung eines Diabetes mellitus als begünstigender Grunderkrankung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Augenärztliche Untersuchung mit Spaltlampe bei jedem Zoster ophthalmicus beziehungsweise bei Bläschen im Gesicht — Frage nach Keratitis, Iridozyklitis und Retinitis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'HNO-ärztliche Untersuchung mit Otoskopie und Audiometrie bei Zoster oticus und bei peripherer Fazialisparese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'In der Prodromalphase je nach Lokalisation EKG, Röntgen-Thorax oder Oberbauchsonographie zum Ausschluss der internistischen Differenzialdiagnosen — die Fehldiagnose entsteht hier, solange der Hautbefund fehlt',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'VZV-PCR aus dem Bläschenabstrich oder dem Bläschengrund — Methode der Wahl bei unklarem oder atypischem Befund; alternativ direkter Immunfluoreszenznachweis, der Tzanck-Test ist nur historisch von Bedeutung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion mit VZV-PCR bei Verdacht auf Zoster-Meningitis oder -Enzephalitis; Serologie zur Akutdiagnostik nur eingeschränkt verwertbar',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Herpes simplex (Herpes labialis, genitalis, Eczema herpeticatum)',
+          unterscheidung: 'Nicht dermatombezogen, kleinere Bläschengruppe, rezidiviert typischerweise immer an derselben Stelle, häufig perioral oder genital; beim Zoster einmaliger, streng segmentaler Befall mit ausgeprägtem neuropathischem Schmerz. Sicherung im Zweifel durch PCR.',
+        },
+        {
+          dd: 'Erysipel und andere bakterielle Weichteilinfektionen',
+          unterscheidung: 'Flächige, scharf begrenzte, überwärmte Rötung mit hohem Fieber und Schüttelfrost, meist mit Eintrittspforte, ohne gruppierte Bläschen und ohne Dermatombindung; Blasenbildung erst beim bullösen Erysipel. Kann als Superinfektion einen Zoster begleiten.',
+        },
+        {
+          dd: 'Allergisches Kontaktekzem',
+          unterscheidung: 'Juckreiz steht im Vordergrund, Schmerz fehlt; Begrenzung folgt dem Kontaktareal (Pflaster, Schmuck, Creme) und nicht einem Dermatom, überschreitet die Mittellinie und respektiert keine Segmentgrenze.',
+        },
+        {
+          dd: 'Bullöse Impetigo contagiosa',
+          unterscheidung: 'Schlaffe Blasen mit honiggelben Krusten, bevorzugt perioral und im Gesicht, vor allem bei Kindern, ohne segmentale Anordnung und ohne neuropathischen Schmerz.',
+        },
+        {
+          dd: 'Insektenstiche, Bettwanzenbisse, Verbrennung oder Verätzung',
+          unterscheidung: 'Verstreute Einzelläsionen an exponierten Stellen beziehungsweise passende Expositionsanamnese; Juckreiz statt brennendem Segmentschmerz, keine Dermatombindung.',
+        },
+        {
+          dd: 'Akutes Koronarsyndrom (in der Prodromalphase bei thorakalem Befall)',
+          unterscheidung: 'Retrosternales Druck- und Engegefühl, Belastungsabhängigkeit, Ausstrahlung in Arm, Hals oder Kiefer, Luftnot, Kaltschweiß, vegetative Begleitsymptomatik; EKG und Troponin klären. Beim Zoster oberflächlicher Brennschmerz mit Berührungsempfindlichkeit der Haut.',
+        },
+        {
+          dd: 'Radikuläres Syndrom bei Bandscheibenvorfall, Interkostalneuralgie oder Rippenfraktur',
+          unterscheidung: 'Bewegungs- und belastungsabhängiger Schmerz, Klopfschmerz über der Wirbelsäule, Trauma in der Anamnese, motorische Ausfälle; keine Hauteffloreszenzen und keine Allodynie der Haut.',
+        },
+        {
+          dd: 'Cholezystitis, Gallenkolik, Nierenkolik, Pleuritis, Pneumonie oder Lungenembolie',
+          unterscheidung: 'Je nach befallenem Segment die klassischen internistischen Fehldiagnosen der Prodromalphase; sie unterscheiden sich durch Fieber, atemabhängigen Schmerz, Husten, Erbrechen, Druckschmerz im Abdomen, Klopfschmerz im Nierenlager sowie durch Labor und Bildgebung. Sobald der segmentale Bläschenausschlag erscheint, ist die Diagnose eindeutig.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Antivirale Therapie und ihr Zeitfenster',
+          items: [
+            'Beginn möglichst innerhalb von 72 Stunden nach Auftreten der ersten Bläschen — je früher, desto stärker die Verkürzung von Bläschenphase und Schmerzdauer und desto geringer das Risiko einer postzosterischen Neuralgie',
+            'Bei fortbestehender Bläschenbildung, bei Kopf-Hals-Befall, bei Immunsuppression und bei schwerem Verlauf wird auch nach 72 Stunden noch behandelt',
+            'Großzügige Indikation: Alter über 50 Jahre, Befall im Kopf-Hals-Bereich oder im Genitalbereich, mehr als ein Dermatom, starke Schmerzen, Immunsuppression, schwere Grunderkrankung',
+            'Orale Optionen: Aciclovir 5 × 800 mg täglich über sieben Tage; Valaciclovir 3 × 1000 mg täglich über sieben Tage; Famciclovir 3 × 250–500 mg täglich; Brivudin 1 × 125 mg täglich über sieben Tage (nur bei Immunkompetenten)',
+            'CAVE Brivudin: absolute Kontraindikation bei gleichzeitiger oder kurz zurückliegender Therapie mit 5-Fluorouracil, Capecitabin oder topischem 5-FU — lebensbedrohliche Toxizität; Sicherheitsabstand von mindestens vier Wochen',
+            'CAVE Nierenfunktion: Aciclovir und Valaciclovir werden renal eliminiert und müssen bei eingeschränkter eGFR dosisreduziert werden; auf ausreichende Trinkmenge achten (Kristallnephropathie, Neurotoxizität)',
+            'Intravenöses Aciclovir 3 × 5–10 mg/kg Körpergewicht bei Immunsuppression, disseminiertem Zoster, Zoster ophthalmicus oder oticus, ZNS-Beteiligung und bei Kindern',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Konsequente Schmerztherapie zur Vorbeugung der postzosterischen Neuralgie',
+          items: [
+            'Grundsatz: Der akute Zosterschmerz muss von Anfang an ausreichend behandelt werden — eine unzureichende Analgesie ist ein eigener Risikofaktor für die postzosterische Neuralgie',
+            'Stufengerecht nach dem WHO-Schema: Paracetamol oder Metamizol, NSAR nur mit Blick auf Niere und Magen; bei starken Schmerzen frühzeitig ein niedrig dosiertes Opioid wie Tramadol oder Oxycodon',
+            'Frühzeitiger Einsatz von Koanalgetika gegen die neuropathische Komponente: Gabapentin einschleichend bis 1200–2400 mg täglich, Pregabalin einschleichend ab 2 × 25–75 mg oder Amitriptylin einschleichend ab 10–25 mg zur Nacht (CAVE anticholinerge Nebenwirkungen im Alter)',
+            'Bei manifester postzosterischer Neuralgie zusätzlich topisch Lidocain-Pflaster 5 % oder Capsaicin-Pflaster 8 %; bei Therapieresistenz Vorstellung in einer Schmerzambulanz',
+            'Regelmäßige Schmerzevaluation mit der numerischen Analogskala und rechtzeitige Anpassung der Dosis',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Lokaltherapie, Hygiene und Ansteckungsschutz',
+          items: [
+            'Austrocknende, antiseptische Lokaltherapie mit Zinkschüttelmixtur, Lotio alba oder Polihexanid; keine feuchten Umschläge und keine fettenden Salben',
+            'Bläschen niemals öffnen, nicht kratzen, Fingernägel kurz halten; Krusten nicht abtragen',
+            'Läsionen locker abdecken, Kleidung locker und weich wählen; regelmäßige Händedesinfektion',
+            'Der Bläscheninhalt ist infektiös und überträgt bei nicht immunen Personen WINDPOCKEN, keinen Zoster: Kontakt zu Schwangeren ohne Varizellen-Immunität, zu Neugeborenen, Säuglingen und Immunsupprimierten strikt meiden, bis alle Läsionen verkrustet sind',
+            'Bei bakterieller Superinfektion antiseptische Therapie, bei Erysipel oder Phlegmone zusätzlich systemische Antibiotika',
+            'Arbeitsunfähigkeit bei Kontakt zu gefährdeten Personen, insbesondere in Pflegeberufen und Kinderbetreuung',
+          ],
+        },
+        {
+          label: 'Sonderfälle, stationäre Indikation und Prävention',
+          items: [
+            'Sofortige augenärztliche Vorstellung bei Zoster ophthalmicus beziehungsweise Hutchinson-Zeichen; sofortige HNO-ärztliche Vorstellung bei Zoster oticus und Fazialisparese',
+            'Stationäre Aufnahme mit intravenöser Therapie bei Immunsuppression, disseminiertem Zoster, ZNS-Beteiligung, schwerem Kopf-Hals-Befall, nicht beherrschbaren Schmerzen oder unsicherer häuslicher Versorgung',
+            'Bei Zoster ohne erkennbare Ursache Ursachensuche: Überprüfung der immunsuppressiven Dauermedikation, HIV-Test und Malignomsuche beim jungen Patienten',
+            'Prävention durch Impfung mit dem adjuvantierten Totimpfstoff (rekombinanter Subunit-Impfstoff), zwei Dosen im Abstand von zwei bis sechs Monaten: Standardimpfung ab 60 Jahren, Indikationsimpfung ab 50 Jahren bei Grundkrankheit oder Immunsuppression',
+            'Der Varizellen-Lebendimpfstoff ist bei Immunsupprimierten kontraindiziert und ist nicht der Zoster-Impfstoff — die beiden dürfen nicht verwechselt werden',
+            'Nachsorge: Kontrolle der Abheilung, aktives Nachfragen nach fortbestehenden Schmerzen drei Monate nach Abheilung',
+          ],
+        },
+      ],
+      prognose: 'Beim immunkompetenten Patienten heilen die Hauteffloreszenzen unter Therapie in der Regel innerhalb von zwei bis vier Wochen ab; Narben und Pigmentverschiebungen können zurückbleiben. Die wichtigste Komplikation ist die postzosterische Neuralgie: Sie betrifft insgesamt etwa 10–20 % der Patienten, bei über 60-Jährigen deutlich häufiger, und kann Monate bis Jahre anhalten. Frühe virostatische und ausreichende analgetische Therapie senken dieses Risiko. Das Rezidivrisiko liegt bei etwa 5 %; rezidivierende oder disseminierte Verläufe müssen an eine Immunschwäche denken lassen. Beim Zoster ophthalmicus drohen Keratitis, Uveitis und dauerhafte Visusminderung, beim Zoster oticus eine bleibende Fazialisparese und Hörminderung.',
+      pruefungsfallen: [
+        'Das Kardinalkriterium ist die Dermatombindung: streng einseitig, ein bis zwei benachbarte Dermatome, die Mittellinie wird NICHT überschritten. Wer von einem Ausschlag „gürtelförmig um den ganzen Brustkorb“ spricht, hat die Diagnose sprachlich zerstört.',
+        'Ansteckung: Der Bläscheninhalt überträgt bei nicht immunen Personen WINDPOCKEN, nicht eine Gürtelrose. Diese Unterscheidung wird gerne geprüft, und der Fachbegriff „Varizellen“ ist in Karlsruhe, Reutlingen und Stuttgart tatsächlich gefallen.',
+        'Das 72-Stunden-Fenster: Die virostatische Therapie beginnt am selben Tag und wird NICHT bis zum PCR-Ergebnis aufgeschoben — die Diagnose ist klinisch.',
+        'Postzosterische Neuralgie heißt Schmerz länger als DREI MONATE nach Abheilung, nicht „Schmerz nach dem Ausschlag“. Sie ist die Begründung für die frühe und ausreichende Therapie.',
+        'Brivudin darf niemals mit 5-Fluorouracil, Capecitabin oder topischem 5-FU kombiniert werden — die Kombination ist lebensbedrohlich.',
+        'Aciclovir und Valaciclovir sind nierenpflichtig: Kreatinin und eGFR vor Therapiebeginn, Dosisanpassung und ausreichende Trinkmenge.',
+        'Auch bei thorakalem Befund immer Gesicht, Auge und Ohr untersuchen: Bläschen an der Nasenspitze (Hutchinson-Zeichen) bedeuten Augenbeteiligung mit Erblindungsgefahr.',
+        'Ein Zoster beim jungen Patienten ohne erkennbaren Grund verlangt einen HIV-Test und eine Malignomsuche — diese Ursachensuche wird oft vergessen.',
+        'Zosterimpfung heißt Totimpfstoff (adjuvantierter Subunit-Impfstoff), zwei Dosen; der Varizellen-Lebendimpfstoff ist bei Immunsupprimierten kontraindiziert.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Woran erkennen Sie klinisch einen Herpes zoster?',
+          antwort: 'An gruppierten Bläschen auf gerötetem Grund, die streng einseitig auf ein bis zwei benachbarte Dermatome begrenzt sind und die Mittellinie nicht überschreiten, begleitet von brennendem Segmentschmerz. Typisch ist die vorangehende Prodromalphase mit Schmerzen ohne Hautbefund. Es handelt sich um eine klinische Blickdiagnose.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Fachbegriffe Zoster, Varizellen und Neuralgie?',
+          antwort: 'Zoster heißt auf Deutsch Gürtelrose, Varizellen sind die Windpocken und eine Neuralgie ist ein Nervenschmerz. Dem Patienten gegenüber sage ich: Ihr Nervenknoten trägt seit den Windpocken in der Kindheit dieses Virus in sich, es ist jetzt wieder aktiv geworden und entzündet einen Hautnerven.',
+        },
+        {
+          frage: 'Ist die Gürtelrose ansteckend? Was überträgt der Patient?',
+          antwort: 'Nur der Bläscheninhalt ist infektiös, und zwar bis alle Läsionen verkrustet sind. Übertragen wird das Varizella-Zoster-Virus, und eine nicht immune Person bekommt davon WINDPOCKEN, keine Gürtelrose. Kontakt zu Schwangeren ohne Varizellen-Immunität, zu Neugeborenen und zu Immunsupprimierten muss deshalb gemieden werden.',
+        },
+        {
+          frage: 'Innerhalb welcher Zeit muss die antivirale Therapie beginnen und warum?',
+          antwort: 'Möglichst innerhalb von 72 Stunden nach Auftreten der ersten Bläschen. Der frühe Beginn verkürzt die Bläschenphase und die Schmerzdauer und senkt vor allem das Risiko einer postzosterischen Neuralgie. Bei fortbestehender Bläschenbildung, Kopf-Hals-Befall oder Immunsuppression behandle ich auch später noch.',
+        },
+        {
+          frage: 'Welche Virostatika kennen Sie, und worauf müssen Sie achten?',
+          antwort: 'Aciclovir 5 × 800 mg, Valaciclovir 3 × 1000 mg, Famciclovir oder Brivudin 1 × 125 mg täglich, jeweils über sieben Tage. Aciclovir und Valaciclovir sind nierenpflichtig und müssen bei eingeschränkter Nierenfunktion dosisangepasst werden. Brivudin darf niemals zusammen mit 5-Fluorouracil oder Capecitabin gegeben werden, die Kombination ist lebensgefährlich.',
+        },
+        {
+          frage: 'Was ist die wichtigste Komplikation und wie definieren Sie sie?',
+          antwort: 'Die postzosterische Neuralgie: ein brennender, einschießender Nervenschmerz, der länger als drei Monate nach Abheilung der Hauteffloreszenzen fortbesteht. Das Risiko steigt mit dem Lebensalter. Vorgebeugt wird durch frühe Virostatika und eine von Anfang an ausreichende Schmerztherapie mit frühem Einsatz von Koanalgetika wie Gabapentin, Pregabalin oder Amitriptylin.',
+        },
+        {
+          frage: 'Welche Sonderformen müssen Sie erkennen?',
+          antwort: 'Den Zoster ophthalmicus mit dem Hutchinson-Zeichen — Bläschen an der Nasenspitze als Hinweis auf eine Augenbeteiligung mit Erblindungsgefahr, sofortige augenärztliche Vorstellung. Den Zoster oticus mit Ramsay-Hunt-Syndrom aus Fazialisparese, Hörminderung und Schwindel. Den disseminierten Zoster bei Immunsuppression und die Zoster-Meningitis.',
+        },
+        {
+          frage: 'Ein 28-jähriger Patient hat einen Zoster. Was tun Sie zusätzlich?',
+          antwort: 'Ich suche nach der Ursache der Immunschwäche: Ich biete nach Aufklärung einen HIV-Test an, erhebe Blutbild mit Differenzialblutbild und LDH und suche klinisch nach einem Malignom, insbesondere einem Lymphom. Ein Zoster in diesem Alter ohne erkennbaren Auslöser ist eine HIV-Indikatorerkrankung.',
+        },
+        {
+          frage: 'Wann nehmen Sie einen Patienten mit Zoster stationär auf?',
+          antwort: 'Bei Immunsuppression, disseminiertem Befall, Beteiligung von Auge, Ohr oder ZNS, bei nicht beherrschbaren Schmerzen, bei bakterieller Superinfektion mit systemischer Beteiligung und wenn die häusliche Versorgung nicht gesichert ist. Dann behandle ich mit Aciclovir intravenös.',
+        },
+        {
+          frage: 'Wie kann man der Gürtelrose vorbeugen?',
+          antwort: 'Durch die Impfung mit dem adjuvantierten Totimpfstoff, einem rekombinanten Subunit-Impfstoff, in zwei Dosen im Abstand von zwei bis sechs Monaten. Die STIKO empfiehlt sie als Standardimpfung ab 60 Jahren und als Indikationsimpfung ab 50 Jahren bei Grundkrankheit oder Immunsuppression. Der Varizellen-Lebendimpfstoff ist etwas anderes und bei Immunsupprimierten kontraindiziert.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnose stellt man in der Prodromalphase am häufigsten fälschlich?',
+          antwort: 'Je nach betroffenem Segment einen Herzinfarkt, eine Gallenkolik oder Cholezystitis, eine Nierenkolik oder einen Bandscheibenvorfall — weil in dieser Phase nur der Schmerz besteht und der Hautbefund noch fehlt. Sobald der segmentale Bläschenausschlag erscheint, ist die Diagnose eindeutig.',
+        },
+        {
+          frage: 'Brauchen Sie zur Diagnose eine Labordiagnostik?',
+          antwort: 'Im typischen Fall nicht, die Diagnose ist klinisch. Bei unklarem oder atypischem Befund mache ich eine VZV-PCR aus dem Bläschenabstrich. Vor der virostatischen Therapie bestimme ich Kreatinin und eGFR, bei Verdacht auf Superinfektion Blutbild und CRP.',
+        },
+      ],
+      merksatz: 'Einseitig, ein Dermatom, niemals über die Mittellinie — und der Schmerz kommt Tage vor dem Ausschlag. Virostatikum innerhalb von 72 Stunden plus konsequente Analgesie, sonst droht die postzosterische Neuralgie; der Bläscheninhalt macht bei Ungeschützten Windpocken, keine Gürtelrose.',
+      linkedCaseIds: [
+        'case-zoster',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-osteoporose',
+      pathology: 'Osteoporose mit Wirbelkörperfraktur',
+      specialty: 'Orthopädie',
+      definition: 'Die Osteoporose ist eine systemische Skeletterkrankung mit verminderter Knochenmasse und gestörter Mikroarchitektur des Knochengewebes, woraus eine erhöhte Knochenbrüchigkeit und ein erhöhtes Frakturrisiko resultieren. Operational wird sie über die Knochendichtemessung definiert: Ein T-Wert von −2,5 oder darunter an Lendenwirbelsäule oder proximalem Femur bedeutet Osteoporose; Werte zwischen −1 und −2,5 entsprechen einer Osteopenie. Von einer MANIFESTEN Osteoporose spricht man, sobald zusätzlich eine oder mehrere Fragilitätsfrakturen aufgetreten sind. Die osteoporotische Wirbelkörperfraktur (Sinterungsfraktur) ist die häufigste osteoporotische Fraktur überhaupt; sie entsteht durch ein Bagatelltrauma — Heben, Niesen, Stolpern — oder auch ohne jedes erinnerliche Ereignis und bleibt in etwa zwei Dritteln der Fälle klinisch unerkannt.',
+      aetiologie: 'Man unterscheidet die primäre von der sekundären Osteoporose. Die primäre Form macht etwa 95 % der Fälle aus: Typ I ist die postmenopausale Osteoporose der Frau durch den Östrogenmangel mit überwiegendem Verlust der trabekulären Knochenmasse (typisch Wirbelkörperfrakturen), Typ II die senile Osteoporose jenseits des 70. Lebensjahres mit Verlust von trabekulärem UND kortikalem Knochen (typisch Schenkelhals- und distale Radiusfrakturen); die idiopathische juvenile Form ist eine Rarität. Die sekundäre Osteoporose (etwa 5 %, beim MANN und bei prämenopausalen Frauen jedoch der Regelfall) beruht am häufigsten auf einer langfristigen Glukokortikoidtherapie; weitere Ursachen sind endokrin (primärer Hyperparathyreoidismus, Hyperthyreose beziehungsweise Überdosierung von Schilddrüsenhormonen, Hypogonadismus und Testosteronmangel, Cushing-Syndrom, Diabetes mellitus), gastroenterologisch (Malabsorption, Zöliakie, chronisch-entzündliche Darmerkrankungen, Zustand nach Magenresektion, Leberzirrhose), renal (chronische Niereninsuffizienz), hämatologisch-onkologisch (multiples Myelom, Mastozytose, systemische Antihormontherapie) sowie medikamentös (Antiepileptika, Protonenpumpenhemmer, Aromatasehemmer, Antiandrogene, Heparin, Ciclosporin). Pathophysiologisch überwiegt in allen Fällen die osteoklastäre Knochenresorption gegenüber der osteoblastären Knochenformation.',
+      risikofaktoren: [
+        'Weibliches Geschlecht und Postmenopause (Östrogenmangel), frühe Menopause vor dem 45. Lebensjahr',
+        'Höheres Lebensalter — das Frakturrisiko steigt exponentiell',
+        'Vorangegangene Fragilitätsfraktur nach Bagatelltrauma — der stärkste Einzelprädiktor für eine weitere Fraktur',
+        'Positive Familienanamnese, insbesondere eine Schenkelhalsfraktur bei einem Elternteil',
+        'Untergewicht mit einem BMI unter 20, Anorexia nervosa',
+        'Langfristige Glukokortikoidtherapie (bereits ab etwa 7,5 mg Prednisolonäquivalent täglich über drei Monate) — die häufigste sekundäre Form',
+        'Nikotinabusus und regelmäßiger Alkoholkonsum',
+        'Immobilität, Bewegungsmangel, langes Sitzen, Bettlägerigkeit',
+        'Kalzium- und Vitamin-D-Mangel, eiweißarme Ernährung, fehlende Sonnenlichtexposition',
+        'Endokrine Erkrankungen: Hyperparathyreoidismus, Hyperthyreose, Hypogonadismus, Cushing-Syndrom, Diabetes mellitus Typ 1 und Typ 2',
+        'Malabsorption, Zöliakie, chronisch-entzündliche Darmerkrankungen, Zustand nach Magenresektion',
+        'Medikamente: Antiepileptika, Protonenpumpenhemmer, Aromatasehemmer, Antiandrogene, Heparin, Ciclosporin',
+        'Erhöhtes Sturzrisiko: Sehstörungen, Sedativa, Polypharmazie, Gangunsicherheit, Sarkopenie',
+        'Chronische Erkrankungen mit systemischer Entzündung: rheumatoide Arthritis, COPD, chronische Niereninsuffizienz',
+      ],
+      klinik: [
+        {
+          text: 'Akut einsetzender, streng lokalisierter Rückenschmerz nach einem Bagatelltrauma — Heben, Niesen, Husten, Stolpern auf ebener Strecke — oder ohne jedes erinnerliche Ereignis',
+        },
+        {
+          text: 'Umschriebener Klopf- und Stauchungsschmerz über dem betroffenen Dornfortsatz, mit einem Finger genau lokalisierbar',
+        },
+        {
+          text: 'Schmerzverstärkung beim Aufrichten aus dem Liegen und beim Umdrehen im Bett, beim Bücken, bei Erschütterung, beim Husten und Niesen; deutliche Besserung im flachen Liegen',
+        },
+        {
+          text: 'Fehlen jeder Sensibilitäts- und Motorikstörung und jeder radikulären Ausstrahlung — das entscheidende Unterscheidungsmerkmal gegenüber dem Bandscheibenvorfall',
+        },
+        {
+          text: 'Größenverlust von mehreren Zentimetern im Verlauf, oft von den Angehörigen oder beim Vergleich mit dem Personalausweis bemerkt',
+        },
+        {
+          text: 'Zunehmende Brustkyphose bis zum Rundrücken beziehungsweise „Witwenbuckel“, mit kompensatorischer Hyperlordose der Halswirbelsäule',
+        },
+        {
+          text: 'Tannenbaumphänomen: schräg nach unten verlaufende Hautfalten am Rücken durch die Verkürzung des Rumpfes bei gleichbleibender Hautfläche',
+        },
+        {
+          text: 'Abstand zwischen unterem Rippenbogen und Beckenkamm unter zwei Querfingern; in fortgeschrittenen Fällen Kontakt der Rippen mit dem Beckenkamm',
+        },
+        {
+          text: 'Vorgewölbtes Abdomen mit Verdrängung der Bauchorgane, frühem Sättigungsgefühl, Refluxbeschwerden und Obstipation',
+        },
+        {
+          text: 'Restriktive Ventilationsstörung mit Abnahme der Vitalkapazität und Belastungsdyspnoe durch die Rumpfverkürzung',
+        },
+        {
+          text: 'Chronischer Rückenschmerz, muskuläre Verspannung der Rückenstrecker, eingeschränkte Beweglichkeit und Verlust der Selbstständigkeit',
+        },
+        {
+          text: 'Klinisch völlig stumme Sinterungsfraktur, die nur als Zufallsbefund im Röntgenbild auffällt — etwa zwei Drittel aller Wirbelkörperfrakturen',
+          atypisch: true,
+        },
+        {
+          text: 'Angabe des Schmerzes als Thorax- oder Oberbauchschmerz statt als Rückenschmerz, wodurch zunächst an einen kardiologischen oder abdominellen Notfall gedacht wird',
+          atypisch: true,
+        },
+        {
+          text: 'Frakturen an untypischen Lokalisationen wie Rippen, Becken oder Sternum bereits bei minimaler Belastung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'T-Wert und Z-Wert der DXA-Knochendichtemessung (WHO)',
+          inhalt: 'Der T-Wert gibt die Abweichung von der maximalen Knochendichte eines jungen gesunden Kollektivs in Standardabweichungen an: bis −1 normal, zwischen −1 und −2,5 Osteopenie, ab −2,5 Osteoporose, ab −2,5 mit zusätzlicher Fraktur manifeste Osteoporose. Der Z-Wert vergleicht mit einem gleichaltrigen Kollektiv und dient vor allem bei jungen Patienten dem Verdacht auf eine sekundäre Osteoporose. Gemessen wird an Lendenwirbelsäule und proximalem Femur; maßgeblich ist der niedrigste Wert.',
+        },
+        {
+          name: 'Primäre Osteoporose Typ I und Typ II',
+          inhalt: 'Typ I ist die postmenopausale Osteoporose der Frau (etwa 50. bis 70. Lebensjahr) mit überwiegendem Verlust trabekulären Knochens und typischen Wirbelkörperfrakturen. Typ II ist die senile Osteoporose jenseits des 70. Lebensjahres mit Verlust trabekulären und kortikalen Knochens und typischen Schenkelhals- sowie distalen Radiusfrakturen.',
+        },
+        {
+          name: 'Morphologische Einteilung der Wirbelkörperfraktur (Genant)',
+          inhalt: 'Nach der Form: Keilwirbel (Höhenminderung der Vorderkante), Fischwirbel (bikonkave Einsenkung der Deck- und Grundplatte) und Plattwirbel (Höhenminderung des gesamten Wirbelkörpers). Nach dem Ausmaß der Höhenminderung: Grad 1 leicht (20–25 %), Grad 2 mäßig (25–40 %), Grad 3 schwer (über 40 %).',
+        },
+        {
+          name: 'DVO-Risikomodell / FRAX',
+          inhalt: 'Berechnung des Zehn-Jahres-Risikos für Wirbelkörper- und Hüftfrakturen aus Alter, Geschlecht, T-Wert, vorangegangenen Frakturen, Glukokortikoidtherapie, Nikotin- und Alkoholkonsum, Familienanamnese und Begleiterkrankungen. Überschreitet das errechnete Risiko den Schwellenwert, besteht die Indikation zur spezifischen medikamentösen Therapie — unabhängig davon, ob der T-Wert allein die Schwelle erreicht.',
+        },
+      ],
+      redFlags: [
+        'Neurologisches Defizit: Kraftminderung, Sensibilitätsstörung, Blasen- oder Mastdarmstörung, Reithosenanästhesie — Verdacht auf Myelon- oder Kaudakompression, sofortige Notfallbildgebung',
+        'Fieber, Schüttelfrost, Nachtschweiß und erhöhte Entzündungswerte — Verdacht auf Spondylodiszitis',
+        'B-Symptomatik, ungewollter Gewichtsverlust, bekannte Tumorerkrankung, Anämie, BSG-Sturzsenkung, Hyperkalzämie oder Niereninsuffizienz — Verdacht auf multiples Myelom oder Knochenmetastasen',
+        'Nicht bewegungsabhängiger Ruhe- und Nachtschmerz, der sich im Liegen nicht bessert',
+        'Thorakal angegebener Schmerz mit Ausstrahlung, Dyspnoe, Kaltschweißigkeit oder Blutdruckdifferenz zwischen beiden Armen — akutes Koronarsyndrom oder Aortendissektion',
+        'Rasch progrediente Sinterung mit Beteiligung der Wirbelkörperhinterkante — instabile Fraktur',
+        'Erste Fragilitätsfraktur bei einem Mann unter 60 Jahren oder bei einer prämenopausalen Frau — obligate Abklärung einer sekundären Ursache',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese mit der Kernfrage nach dem Bagatelltrauma und der ausdrücklichen Verneinung von Sensibilitäts- und Motorikstörungen; Frage nach früheren Frakturen nach harmlosen Stürzen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikofaktoren systematisch erheben: Glukokortikoide und andere osteotrope Medikamente, Nikotin, Alkohol, Immobilität, Ernährung, Menopausenalter beziehungsweise Hypogonadismus, Familienanamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Klopf- und Stauchungsschmerz, aktuelle Körpergröße im Vergleich zur früheren Größe, Kyphosewinkel, Tannenbaumphänomen, Abstand Rippenbogen–Beckenkamm, Finger-Boden-Abstand',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger neurologischer Status mit Kraftgraden, Reflexen, Sensibilität, Pyramidenbahnzeichen und Blasen-/Mastdarmfunktion',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sturzrisikoabschätzung mit Timed-up-and-go-Test und Chair-Rising-Test sowie Berechnung des Frakturrisikos nach dem DVO-Risikomodell beziehungsweise FRAX',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor zum Ausschluss sekundärer Ursachen und einer pathologischen Fraktur: Blutbild, BSG, CRP, Kalzium, Phosphat, alkalische Phosphatase, Kreatinin mit eGFR, Gesamteiweiß und Serum-Eiweißelektrophorese, 25-OH-Vitamin-D, TSH — bei der unkomplizierten primären Osteoporose sind diese Werte typischerweise normal',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Beim Mann ergänzend Testosteron und PSA; bei Frauen gegebenenfalls Östradiol und FSH zur Beurteilung des Hormonstatus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Intaktes Parathormon parallel zum Serumkalzium bei Verdacht auf einen primären Hyperparathyreoidismus; Kortisol im 24-Stunden-Urin beziehungsweise Dexamethason-Hemmtest bei Verdacht auf ein Cushing-Syndrom; Transglutaminase-Antikörper bei Verdacht auf eine Zöliakie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Malignomverdacht: Immunfixation, freie Leichtketten im Serum, Urinelektrophorese mit Bence-Jones-Protein, gegebenenfalls tumorspezifische Marker',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelles Röntgen der Brust- und Lendenwirbelsäule in zwei Ebenen: Keil-, Fisch- oder Plattwirbel, Deckplatteneinbruch, vermehrte Strahlentransparenz und Rahmenstruktur; eine Osteoporose wird im Röntgen allerdings erst ab etwa 30 % Knochenmasseverlust sichtbar',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'DXA-Knochendichtemessung (Dual-Röntgen-Absorptiometrie) an Lendenwirbelsäule und proximalem Femur — Goldstandard der Diagnosesicherung und der Verlaufskontrolle, mit sehr geringer Strahlenbelastung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Wirbelsäule mit STIR-Sequenz: Knochenmarködem als Beweis der FRISCHEN Fraktur, Abgrenzung gegen alte Sinterungen, Ausschluss einer pathologischen Fraktur, einer Spondylodiszitis und einer Myelonkompression',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT zur Beurteilung von Hinterkante und Stabilität sowie zur Planung einer Kyphoplastie; quantitative Computertomographie (QCT) als Alternative zur DXA bei ausgeprägten degenerativen Veränderungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Malignomverdacht Röntgen-Thorax, CT und Skelettszintigraphie beziehungsweise Ganzkörper-Low-Dose-CT; Sonographie des Halses bei Verdacht auf ein Nebenschilddrüsenadenom',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'CT-gesteuerte Knochenbiopsie oder Beckenkammbiopsie ausschließlich bei begründetem Verdacht auf eine pathologische Fraktur, eine Spondylodiszitis oder eine unklare metabolische Osteopathie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion bei Verdacht auf ein multiples Myelom',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Osteomalazie',
+          unterscheidung: 'Mineralisationsstörung bei ausgeprägtem Vitamin-D-Mangel oder Malabsorption: diffuse, dumpfe Knochenschmerzen über Monate, proximale Muskelschwäche mit Watschelgang, Druckschmerz über Sternum und Tibia; Labor mit niedrigem Kalzium und Phosphat, deutlich erhöhter alkalischer Phosphatase, erhöhtem Parathormon und stark erniedrigtem 25-OH-Vitamin-D; im Röntgen Looser-Umbauzonen. Bei der Osteoporose ist das Basislabor typischerweise normal.',
+        },
+        {
+          dd: 'Multiples Myelom (Plasmozytom)',
+          unterscheidung: 'B-Symptomatik, Anämie, Hyperkalzämie, Niereninsuffizienz, BSG-Sturzsenkung bei nur gering erhöhtem CRP; Nachweis eines M-Gradienten in der Eiweißelektrophorese, freie Leichtketten, Bence-Jones-Proteinurie; im Röntgen scharf begrenzte Osteolysen ohne Randsklerose („Schrotschussschädel“).',
+        },
+        {
+          dd: 'Knochenmetastasen (Mamma-, Prostata-, Bronchial-, Nierenzell-, Schilddrüsenkarzinom)',
+          unterscheidung: 'Bekannte oder okkulte Tumorerkrankung, Dauer- und Nachtschmerz ohne Bewegungsabhängigkeit, Befall der Wirbelkörperhinterkante und der Bogenwurzeln, Weichteilkomponente; im MRT typisches Signalverhalten, Nachweis in der Skelettszintigraphie.',
+        },
+        {
+          dd: 'Spondylodiszitis / Spondylitis (auch tuberkulös)',
+          unterscheidung: 'Fieber, Nachtschweiß, deutlich erhöhtes CRP und BSG, Leukozytose, Eintrittspforte; im MRT Beteiligung von Bandscheibe und angrenzenden Grund- und Deckplatten mit Kontrastmittelaufnahme und paravertebralem Abszess.',
+        },
+        {
+          dd: 'Lumbaler oder thorakaler Bandscheibenvorfall',
+          unterscheidung: 'Radikulär ausstrahlender Schmerz mit Sensibilitätsstörung, Kraftminderung und Reflexabschwächung, positives Lasègue-Zeichen; bei der osteoporotischen Fraktur bleibt der Schmerz lokal und die Neurologie unauffällig.',
+        },
+        {
+          dd: 'Spondylitis ankylosans (Morbus Bechterew)',
+          unterscheidung: 'Entzündlicher Rückenschmerz mit schleichendem Beginn vor dem 40. Lebensjahr, nächtlichem Schmerz in der zweiten Nachthälfte, Morgensteifigkeit über 30 Minuten, Besserung durch Bewegung; Sakroiliitis, HLA-B27, extraartikuläre Manifestationen. Cave: Der Morbus Bechterew führt selbst zu einer sekundären Osteoporose.',
+        },
+        {
+          dd: 'Morbus Paget (Osteodystrophia deformans)',
+          unterscheidung: 'Umschriebener, überschießender Knochenumbau mit isoliert stark erhöhter alkalischer Phosphatase bei normalem Kalzium und Phosphat, Knochenverdickung und -deformierung, Überwärmung über dem Befund, im Röntgen vergröberte Trabekel und Auftreibung des Knochens.',
+        },
+        {
+          dd: 'Renale Osteopathie bei chronischer Niereninsuffizienz',
+          unterscheidung: 'Sekundärer Hyperparathyreoidismus mit erhöhtem Phosphat, erniedrigtem Kalzium, erhöhtem Parathormon und Störung der Vitamin-D-Aktivierung; die Nierenfunktion ist deutlich eingeschränkt.',
+        },
+        {
+          dd: 'Facettensyndrom und muskuläre Verspannung (unspezifischer Rückenschmerz)',
+          unterscheidung: 'Diffuser, breitflächiger Schmerz mit Muskelhartspann, kein umschriebener Klopfschmerz über einem Dornfortsatz, Besserung durch Wärme und Bewegung innerhalb weniger Tage, unauffälliges Röntgenbild.',
+        },
+        {
+          dd: 'Akutes Koronarsyndrom und Aortendissektion',
+          unterscheidung: 'Bei thorakal angegebenem Schmerz zwingend zu bedenken: retrosternales Druckgefühl mit Ausstrahlung in Arm, Hals oder Kiefer, Belastungsabhängigkeit, Dyspnoe und Kaltschweißigkeit beim ACS; reißender Vernichtungsschmerz zwischen den Schulterblättern mit Blutdruckdifferenz und Pulsdefizit bei der Dissektion. Abklärung mit EKG, Troponin und CT-Angiographie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutbehandlung der frischen Wirbelkörperfraktur',
+          items: [
+            'ausreichende Analgesie nach dem WHO-Stufenschema: Metamizol und NSAR unter Protonenpumpenhemmer-Schutz, bei stärksten Schmerzen kurzfristig ein niederpotentes Opioid wie Tilidin/Naloxon oder Tramadol',
+            'FRÜHE Mobilisation statt Bettruhe — Immobilität beschleunigt Knochen- und Muskelabbau und begünstigt Thrombose, Pneumonie und Dekubitus',
+            'Physiotherapie mit Rückenschule, Rumpfstabilisation, Atemtherapie und Anleitung zum rückenschonenden Aufstehen über die Seitenlage',
+            'Orthese oder Rumpforthese nur kurzfristig und zurückhaltend wegen der Gefahr der Muskelatrophie',
+            'Thromboseprophylaxe mit niedermolekularem Heparin nur bei relevanter Immobilität',
+            'Kyphoplastie oder Vertebroplastie erst bei therapierefraktären Schmerzen über etwa drei Wochen oder progredienter Sinterung — Cave Zementaustritt und Anschlussfrakturen',
+            'operative Stabilisierung nur bei instabiler Fraktur mit Hinterkantenbeteiligung oder bei neurologischem Defizit',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Basistherapie für jeden Patienten',
+          items: [
+            'Kalziumzufuhr von insgesamt etwa 1000 mg täglich, vorrangig über die Ernährung (Milchprodukte, kalziumreiches Mineralwasser, grünes Gemüse), sonst als Supplement',
+            'Vitamin D 800 bis 1000 Internationale Einheiten täglich und regelmäßige Sonnenlichtexposition',
+            'eiweißreiche Ernährung mit etwa 1 g Eiweiß pro Kilogramm Körpergewicht',
+            'regelmäßiges Muskelaufbau-, Kraft- und Koordinationstraining sowie tägliche Bewegung — ohne Bewegung bleibt jede medikamentöse Therapie unzureichend',
+            'Sturzprophylaxe: Wohnraumanpassung mit Beleuchtung, Haltegriffen und Entfernung von Stolperfallen, festes Schuhwerk, Sehtest, Hörtest und Revision sturzbegünstigender Medikamente',
+            'konsequente Nikotinkarenz und Reduktion des Alkoholkonsums',
+            'Hüftprotektoren bei sehr hohem Sturzrisiko in Pflegeeinrichtungen',
+          ],
+        },
+        {
+          label: 'Spezifische medikamentöse Therapie nach Frakturrisiko',
+          items: [
+            'Indikation nach dem DVO-Risikomodell: bei jeder osteoporotischen Wirbelkörper- oder Hüftfraktur, unter laufender Glukokortikoidtherapie und bei Überschreiten des berechneten Risikoschwellenwertes — bei manifester Osteoporose unabhängig vom T-Wert',
+            'Bisphosphonate als Standard: Alendronsäure 70 mg einmal wöchentlich oder Risedronat 35 mg wöchentlich oral, Zoledronsäure 5 mg intravenös einmal jährlich bei Unverträglichkeit oder Adhärenzproblemen; Wirkprinzip: Einlagerung in den Hydroxylapatit und Hemmung der Osteoklasten',
+            'Einnahmeregeln der oralen Bisphosphonate: morgens nüchtern, mit einem großen Glas Leitungswasser, danach mindestens 30 Minuten aufrecht bleiben und nüchtern bleiben — sonst Refluxösophagitis mit Ulzerationen',
+            'Denosumab 60 mg subkutan alle sechs Monate (RANKL-Antikörper), besonders bei Niereninsuffizienz — Cave Rebound-Effekt mit multiplen Wirbelfrakturen nach Absetzen, deshalb niemals ersatzlos beenden, sondern immer Anschlusstherapie mit einem Bisphosphonat',
+            'osteoanabole Therapie bei sehr hohem Frakturrisiko: Teriparatid (PTH-Analogon) subkutan täglich über maximal 24 Monate oder Romosozumab (Sklerostin-Antikörper) über 12 Monate — anschließend zwingend antiresorptive Anschlusstherapie, sonst geht der Effekt verloren',
+            'Cave Kiefernekrose und atypische Femurfraktur unter Bisphosphonaten und Denosumab: vor Therapiebeginn zahnärztliche Sanierung, gute Mundhygiene, Meldung von Schenkel- oder Leistenschmerzen',
+            'vor Beginn jeder antiresorptiven Therapie Kalzium- und Vitamin-D-Spiegel ausgleichen (Hypokalzämiegefahr); bei der Frau ist eine Hormonersatztherapie nur bei zusätzlichen klimakterischen Beschwerden und nach Nutzen-Risiko-Abwägung eine Option, Raloxifen als SERM bei jüngeren postmenopausalen Frauen',
+          ],
+        },
+        {
+          label: 'Sekundäre Ursachen behandeln und Verlaufskontrolle',
+          items: [
+            'Medikamentenrevision: Glukokortikoiddosis so niedrig wie möglich, Umstellung auf inhalative oder topische Applikation, kritische Prüfung von Protonenpumpenhemmern, Antiepileptika, Aromatasehemmern und Antiandrogenen',
+            'Behandlung endokriner Ursachen: Parathyreoidektomie beim primären Hyperparathyreoidismus, Einstellung der Hyperthyreose beziehungsweise Anpassung der Schilddrüsenhormondosis, Testosteronsubstitution bei Hypogonadismus',
+            'Behandlung gastroenterologischer Ursachen: glutenfreie Diät bei Zöliakie, Therapie der chronisch-entzündlichen Darmerkrankung, Substitution bei Malabsorption',
+            'Verlaufskontrolle: DXA-Kontrolle in der Regel nach zwei Jahren, Labor mit Kalzium, Kreatinin und 25-OH-Vitamin-D, jährliche Größenmessung als einfacher klinischer Verlaufsparameter',
+            'aktive Sicherung der Therapietreue durch Aufklärung über Sinn, Dauer und Einnahmemodus — die Adhärenz ist bei der Osteoporose notorisch schlecht und die häufigste Ursache eines Therapieversagens',
+            'Rehabilitation, Schmerztherapie im Verlauf und Anbindung an eine Osteoporose-Selbsthilfegruppe',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend davon ab, ob nach der ersten Fragilitätsfraktur konsequent behandelt wird. Nach einer osteoporotischen Wirbelkörperfraktur ist das Risiko einer weiteren Wirbelfraktur innerhalb eines Jahres etwa fünffach erhöht (Kaskadeneffekt); jede weitere Fraktur verstärkt Kyphose, Größenverlust, Schmerz und Funktionsverlust. Die Ein-Jahres-Sterblichkeit nach einer proximalen Femurfraktur liegt bei etwa 20 bis 25 %, und nur etwa die Hälfte der Betroffenen erreicht die frühere Selbstständigkeit wieder. Unter leitliniengerechter spezifischer Therapie lässt sich das Risiko für neue Wirbelkörperfrakturen um etwa 40 bis 70 % senken. Das Kernproblem der Versorgung ist die Behandlungslücke: Nur eine Minderheit der Patienten mit stattgehabter Fragilitätsfraktur erhält überhaupt eine spezifische Therapie, und viele setzen sie innerhalb des ersten Jahres wieder ab.',
+      pruefungsfallen: [
+        'Den T-Wert exakt beherrschen: bis −1 normal, −1 bis −2,5 Osteopenie, ab −2,5 Osteoporose, mit zusätzlicher Fraktur manifeste Osteoporose. Der T-Wert vergleicht mit jungen Gesunden, der Z-Wert mit Gleichaltrigen.',
+        'Bei einem Mann oder einer prämenopausalen Frau ist die Osteoporose bis zum Beweis des Gegenteils SEKUNDÄR — die häufigste Ursache ist die Glukokortikoiddauertherapie; Hyperparathyreoidismus, Hyperthyreose, Hypogonadismus und Malabsorption müssen aktiv gesucht werden.',
+        'Das Basislabor dient nicht der Diagnose der Osteoporose, sondern dem AUSSCHLUSS sekundärer Ursachen und einer pathologischen Fraktur — bei der primären Osteoporose sind Kalzium, Phosphat und alkalische Phosphatase normal. Wer das nicht sagt, wirkt unsicher.',
+        'Frische gegen alte Fraktur wird nur im MRT mit STIR-Sequenz über das Knochenmarködem unterschieden — das konventionelle Röntgenbild kann das Alter der Fraktur nicht bestimmen.',
+        'Beim Rückenschmerz des älteren Patienten immer das multiple Myelom und Knochenmetastasen mitnennen: BSG-Sturzsenkung, Anämie, Hyperkalzämie, Niereninsuffizienz; Eiweißelektrophorese gehört ins Basislabor.',
+        'Bei thorakal angegebenem Rücken- oder Brustschmerz die kardiovaskulären Notfälle beim Namen nennen — akutes Koronarsyndrom und Aortendissektion — und EKG sowie Troponin veranlassen, auch wenn die Klinik eindeutig muskuloskelettal ist.',
+        'Keine Bettruhe verordnen: Die Therapie der osteoporotischen Wirbelkörperfraktur ist die frühe Mobilisation unter ausreichender Analgesie.',
+        'Die Bisphosphonat-Einnahmeregeln (nüchtern, viel Leitungswasser, 30 Minuten aufrecht bleiben) und die Nebenwirkungen (Ösophagitis, Kiefernekrose, atypische Femurfraktur) müssen sitzen — sie sind die häufigste Nachfrage.',
+        'Denosumab niemals ersatzlos absetzen — der Rebound-Effekt führt zu multiplen Wirbelkörperfrakturen; nach osteoanaboler Therapie ist eine antiresorptive Anschlusstherapie obligat.',
+        'Vor dem Patienten Alltagssprache verwenden: Osteoporose = Knochenschwund, Osteodensitometrie = Knochendichtemessung, Sinterungsfraktur = Wirbelkörperbruch beziehungsweise „ein Wirbel ist in sich zusammengesackt“.',
+        'Größenverlust, Kyphose und Tannenbaumphänomen aktiv erfragen und messen — sie werden vom Patienten fast nie spontan berichtet und sind die klinischen Beweiszeichen für stattgehabte Wirbelfrakturen.',
+        'Eine medikamentöse Therapie ohne Kalzium, Vitamin D und vor allem ohne Bewegung ist zum Scheitern verurteilt — dieser Zusammenhang wird in der Prüfung gezielt abgefragt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Handelt es sich um eine primäre oder um eine sekundäre Osteoporose?',
+          antwort: 'Das richtet sich nach Geschlecht, Alter und Begleitumständen. Bei einer postmenopausalen Frau ist die primäre Form Typ I am wahrscheinlichsten, jenseits des 70. Lebensjahres die senile Form Typ II. Bei einem Mann im mittleren Lebensalter oder einer prämenopausalen Frau muss man von einer sekundären Osteoporose ausgehen und die Ursache aktiv suchen — allen voran eine Glukokortikoiddauertherapie.',
+        },
+        {
+          frage: 'Welche Ursachen einer sekundären Osteoporose kennen Sie, und wie bestätigen Sie einen Hyperparathyreoidismus?',
+          antwort: 'Glukokortikoide, primärer Hyperparathyreoidismus, Hyperthyreose beziehungsweise überdosierte Schilddrüsenhormone, Hypogonadismus, Cushing-Syndrom, Diabetes mellitus, Malabsorption und Zöliakie, chronisch-entzündliche Darmerkrankungen, Leberzirrhose, chronische Niereninsuffizienz, multiples Myelom sowie Medikamente wie Antiepileptika, Protonenpumpenhemmer und Aromatasehemmer. Der primäre Hyperparathyreoidismus wird über ein erhöhtes Serumkalzium bei inadäquat hohem intaktem Parathormon gesichert, dazu erniedrigtes Phosphat und erhöhte Kalziumausscheidung im Urin; lokalisiert wird das Adenom mit Halssonographie und Nebenschilddrüsen-Szintigraphie.',
+        },
+        {
+          frage: 'Welche Rolle spielt die Osteodensitometrie?',
+          antwort: 'Sie sichert die Diagnose, quantifiziert über den T-Wert das Frakturrisiko, begründet die Therapieindikation und dient der Verlaufskontrolle. Standardverfahren ist die DXA an Lendenwirbelsäule und proximalem Femur; maßgeblich ist der niedrigste gemessene T-Wert. Die Strahlenbelastung ist sehr gering. Bei ausgeprägten degenerativen Veränderungen der Wirbelsäule kann der Wert falsch hoch ausfallen — dann ist die quantitative Computertomographie eine Alternative.',
+        },
+        {
+          frage: 'Wie interpretieren Sie den T-Wert konkret?',
+          antwort: 'Bis −1 ist die Knochendichte normal, zwischen −1 und −2,5 spricht man von einer Osteopenie, ab −2,5 von einer Osteoporose. Kommt eine Fragilitätsfraktur hinzu, liegt eine manifeste Osteoporose vor. Der T-Wert gibt die Abweichung in Standardabweichungen vom Mittelwert junger gesunder Erwachsener an, der Z-Wert dagegen vom Mittelwert Gleichaltriger.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine frische von einer alten Wirbelkörperfraktur?',
+          antwort: 'Über das MRT mit STIR- oder fettsupprimierter T2-Sequenz: Die frische Fraktur zeigt ein Knochenmarködem mit Signalanhebung, die alte nicht. Das Röntgenbild zeigt nur die Formveränderung — Keil-, Fisch- oder Plattwirbel —, nicht aber das Alter der Fraktur.',
+        },
+        {
+          frage: 'Wie wirken Bisphosphonate, und welche Einnahmeregeln gelten?',
+          antwort: 'Bisphosphonate lagern sich in den Hydroxylapatit des Knochens ein, werden von den Osteoklasten aufgenommen und hemmen deren Funktion; dadurch wird die Knochenresorption gebremst. Die orale Tablette wird morgens nüchtern mit einem großen Glas Leitungswasser eingenommen, danach muss der Patient mindestens 30 Minuten aufrecht bleiben und darf nichts essen oder trinken — sonst droht eine Refluxösophagitis. Weitere Nebenwirkungen sind die Kiefernekrose, weshalb vorher eine zahnärztliche Sanierung erfolgt, und atypische Femurfrakturen bei sehr langer Anwendung.',
+        },
+        {
+          frage: 'Warum ist eine Bisphosphonattherapie bei manchen Patienten nicht wirksam?',
+          antwort: 'Am häufigsten wegen mangelnder Therapietreue — wegen der Einnahmeregeln und der Refluxbeschwerden setzen viele Patienten die Tablette innerhalb des ersten Jahres ab. Zweitens wirkt jede spezifische Therapie nur zusammen mit der Basistherapie: ausreichende Kalzium- und Vitamin-D-Zufuhr, eiweißreiche Ernährung und vor allem regelmäßige körperliche Belastung des Knochens. Bei überwiegend sitzender Lebensweise ohne Bewegung bleibt der Effekt aus. Drittens muss eine unbehandelte sekundäre Ursache — etwa eine fortlaufende Glukokortikoidtherapie — ausgeschlossen beziehungsweise mitbehandelt werden.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten insgesamt?',
+          antwort: 'Akut mit ausreichender Analgesie und früher Mobilisation statt Bettruhe, dazu Physiotherapie. Als Basistherapie Kalzium 1000 mg und Vitamin D 800 bis 1000 Einheiten täglich, eiweißreiche Ernährung, Muskelaufbau- und Koordinationstraining, Sturzprophylaxe sowie Nikotin- und Alkoholkarenz. Spezifisch je nach Frakturrisiko Bisphosphonate, Denosumab oder bei sehr hohem Risiko eine osteoanabole Therapie mit Teriparatid oder Romosozumab. Parallel Suche und Behandlung sekundärer Ursachen, Medikamentenrevision und Verlaufskontrollen mit DXA.',
+        },
+        {
+          frage: 'Muss der Patient Bettruhe einhalten?',
+          antwort: 'Nein, im Gegenteil. Bettruhe ist bei der osteoporotischen Wirbelkörperfraktur schädlich, weil Immobilität den Knochen- und Muskelabbau beschleunigt und Thrombosen, Pneumonien und Dekubitus begünstigt. Erforderlich ist eine so gute Schmerztherapie, dass eine frühe Mobilisation unter physiotherapeutischer Anleitung möglich wird.',
+        },
+        {
+          frage: 'Wann kommt eine Kyphoplastie oder Vertebroplastie in Betracht?',
+          antwort: 'Erst wenn die Schmerzen trotz konsequenter konservativer Therapie über etwa drei Wochen therapierefraktär bleiben oder der Wirbelkörper weiter sintert. Bei der Kyphoplastie wird der Wirbelkörper zunächst über einen Ballon aufgerichtet und dann mit Zement stabilisiert, bei der Vertebroplastie wird der Zement direkt injiziert. Wichtigste Risiken sind der Zementaustritt mit Nervenkompression oder Embolie und Anschlussfrakturen der benachbarten Wirbel.',
+        },
+        {
+          frage: 'Was müssen Sie bei Rückenschmerzen unbedingt ausschließen, besonders beim Mann?',
+          antwort: 'Erstens die koronare Herzkrankheit beziehungsweise das akute Koronarsyndrom, das sich als Rücken- oder Oberbauchschmerz maskieren kann — deshalb EKG und Troponin. Zweitens maligne Ursachen: multiples Myelom und Knochenmetastasen eines Prostata- oder Bronchialkarzinoms. Drittens die Spondylodiszitis. Viertens jedes neurologische Defizit als Zeichen einer Myelon- oder Kaudakompression. Und fünftens die Aortendissektion als zweiten kardiovaskulären Notfall.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die osteoporotische Wirbelfraktur vom Bandscheibenvorfall?',
+          antwort: 'Über die Neurologie: Bei der Osteoporose besteht ein streng lokalisierter Rückenschmerz OHNE Sensibilitäts- oder Motorikstörung und ohne Ausstrahlung; beim Bandscheibenvorfall strahlt der Schmerz radikulär aus und geht mit Hypästhesie oder Parästhesie, häufig auch mit Kraftminderung, Reflexabschwächung und positivem Lasègue-Zeichen einher.',
+        },
+        {
+          frage: 'Welche klinischen Zeichen einer fortgeschrittenen Osteoporose kennen Sie?',
+          antwort: 'Größenverlust von mehreren Zentimetern, zunehmende Brustkyphose bis zum Rundrücken beziehungsweise Witwenbuckel, das Tannenbaumphänomen mit schrägen Hautfalten am Rücken durch die Rumpfverkürzung, ein Abstand zwischen Rippenbogen und Beckenkamm von weniger als zwei Querfingern, ein vorgewölbtes Abdomen mit frühem Sättigungsgefühl sowie eine restriktive Ventilationsstörung mit Abnahme der Lungenfunktion.',
+        },
+        {
+          frage: 'Warum fragen Sie bei einem Raucher mit Rückenschmerz nach Bluthusten?',
+          antwort: 'Um ein Bronchialkarzinom auszuschließen, das osteolytische Knochenmetastasen setzen und dadurch eine pathologische Wirbelkörperfraktur verursachen kann. Hämoptysen, Heiserkeit, Gewichtsverlust und ein neu aufgetretener oder veränderter Husten sind die entsprechenden Alarmzeichen.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Diagnose in Alltagssprache?',
+          antwort: '„Ihre Knochen sind durch den Knochenschwund porös und brüchig geworden. Deshalb ist bei einer ganz alltäglichen Bewegung einer Ihrer Rückenwirbel in sich zusammengesackt — man nennt das einen Wirbelkörperbruch. Das Rückenmark ist dabei nicht betroffen, und der Bruch heilt in der Regel ohne Operation. Wichtig ist jetzt, dass wir die Schmerzen gut behandeln, damit Sie sich früh wieder bewegen können, und dass wir die Knochen mit Kalzium, Vitamin D, Bewegung und einem Medikament wieder stabiler machen.“',
+        },
+      ],
+      merksatz: 'Rückenschmerz nach Bagatelltrauma OHNE Sensibilitäts- oder Motorikstörung, dazu Größenverlust, Rundrücken und Tannenbaumphänomen — T-Wert ab −2,5 heißt Osteoporose, mit Fraktur manifest; behandelt wird mit Analgesie und FRÜHER Mobilisation, Kalzium, Vitamin D, Bewegung und Bisphosphonaten, und beim Mann wird immer eine sekundäre Ursache gesucht.',
+      linkedCaseIds: [
+        'case-osteoporose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-ct',
+      ],
+    },
   ];
 }

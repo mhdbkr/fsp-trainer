@@ -7,7 +7,7 @@ import json, os, re, sys
 SRC = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.abspath(os.path.join(SRC, '..', 'src', 'data'))
 
-CASE_IDS = ['case-anaemie', 'case-vorhofflimmern', 'case-erysipel', 'case-hypothyreose', 'case-niereninsuffizienz', 'case-lymphom']
+CASE_IDS = ['case-lungenembolie', 'case-eug', 'case-meningitis', 'case-pankreaskarzinom', 'case-zoster', 'case-osteoporose']
 
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
@@ -61,6 +61,10 @@ def fw_id_for(case_id):
 
 def norm_case(raw):
     c = clean_items(raw['case'])
+    # medicalView porte SES PROPRES tableaux d'objets : les nettoyer aussi.
+    # Sans cela un champ inventé (dd_note…) y passait et ne cassait qu'au tsc.
+    if isinstance(c.get('medicalView'), dict):
+        c['medicalView'] = clean_items(c['medicalView'])
     fwid = fw_id_for(c['id'])
     src = c.get('sourceProtocol', '')
     case = pick(c, CASE)
