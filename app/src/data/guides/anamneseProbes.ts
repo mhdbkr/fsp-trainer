@@ -207,7 +207,13 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-neuro-blase', kapitel: 'fach', frage: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?' },
     { id: 'fach-neuro-anfall', kapitel: 'fach', frage: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?' },
     { id: 'fach-neuro-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', deepens: 'akt-verlauf' },
-    { id: 'fach-neuro-kopfschmerz', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen? Wie fühlen sie sich an, und ist Ihnen dabei übel oder lichtempfindlich?' },
+    { id: 'fach-neuro-kopfschmerz', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen? Wo genau — einseitig oder beidseitig? Wie fühlen sie sich an, und ist Ihnen dabei übel oder lichtempfindlich?' },
+    // Promues du guide rédigé (harmonisation) : trois axes cliniques que
+    // l'examen neurologique systématique des sondes ne couvrait pas, et qui
+    // décident du diagnostic dans les trois cas neuro du corpus.
+    { id: 'fach-neuro-aura', kapitel: 'fach', frage: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?' },
+    { id: 'fach-neuro-autonom', kapitel: 'fach', frage: 'Hatten Sie dabei Begleitbeschwerden an Auge oder Nase — Tränenfluss, Nasenverstopfung, ein hängendes Augenlid?' },
+    { id: 'fach-neuro-anfallzeichen', kapitel: 'fach', frage: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?' },
   ],
   // Un seul jeu couvre les deux grands axes endocriniens de l'examen : le
   // métabolisme glucidique (polyurie/polydipsie, hypoglycémies, complications

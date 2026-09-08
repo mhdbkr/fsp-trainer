@@ -1,5 +1,6 @@
 import type { Case, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
+import { phraseProbes } from './phrases';
 import { FACH_PROBES } from './anamneseProbes';
 
 // ============================================================================
@@ -412,24 +413,37 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       'Leiden Sie unter Kopfschmerzen? Sehen Sie Blitze?',
     ],
     'Toute métrorragie post-ménopausique est un signal d\'alarme. Chez la femme enceinte : céphalées + hypertension + protéinurie → penser pré-éclampsie (urgence).'),
+  // HARMONISÉE (voir docs/HARMONISATION-GUIDE-SONDES.md) : chaque question porte
+  // sa sonde, donc ce texte EST celui de la simulation — plus de régénération
+  // depuis les sondes, la richesse du guide (alts, relances) est enfin jouable.
   F('Neurologie', 'brain', 'neuro', 'Fachanamnese Neurologie',
     ['Kopfschmerzen', 'einseitig', 'Ohnmacht', 'Aura', 'Zungenbiss', 'Kribbeln'],
     [
-      'Haben Sie Kopfschmerzen? Wo genau — einseitig oder beidseitig? Bleiben sie auf einer Seite oder wechseln sie?',
-      'Ist Ihnen während der Schmerzen übel? Sind Sie licht- oder lärmempfindlich?',
-      'Kommen die Kopfschmerzen plötzlich, oder gibt es Vorboten — Lichtblitze, Kribbeln in den Fingern oder im Gesicht?',
-      'Haben Sie Begleitbeschwerden — Tränenfluss, Nasenverstopfung, Augenschmerzen?',
-      'Haben Sie Schwindel, Sehstörungen oder Taubheitsgefühle in Armen oder Beinen? Tragen Sie eine Brille?',
       {
-        text: 'Hatten Sie Bewusstseinsausfälle? Sind Sie ohnmächtig geworden?',
-        followUp: [
-          'Erinnern Sie sich an etwas vor, während oder gleich nach der Ohnmacht?',
-          'Haben Sie sich dabei verletzt — Kopfverletzung, Zungenbiss? Ging unwillkürlich Urin ab?',
-          'Haben Sie Kopfschmerzen oder Brechreiz vor oder nach diesen Episoden?',
-        ],
+        text: 'Haben Sie Kopfschmerzen? Wo genau — einseitig oder beidseitig? Bleiben sie auf einer Seite oder wechseln sie?',
+        probe: 'fach-neuro-kopfschmerz',
+        alts: ['Haben Sie Kopfschmerzen? Wie fühlen sie sich an — pochend, drückend oder stechend?'],
+        followUp: ['Ist Ihnen während der Schmerzen übel? Sind Sie licht- oder lärmempfindlich?'],
       },
+      {
+        text: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?',
+        probe: 'fach-neuro-aura',
+      },
+      {
+        text: 'Hatten Sie dabei Begleitbeschwerden an Auge oder Nase — Tränenfluss, Nasenverstopfung, ein hängendes Augenlid?',
+        probe: 'fach-neuro-autonom',
+      },
+      { text: 'Haben Sie Sehstörungen bemerkt — Doppelbilder, verschwommenes Sehen, einen Schleier oder Schmerzen bei Augenbewegungen?', probe: 'fach-neuro-sehen' },
+      { text: 'Haben Sie Kribbeln, Taubheitsgefühl oder ein pelziges Gefühl? Wo genau, und seit wann?', probe: 'fach-neuro-sensibilitaet' },
+      { text: 'Ist ein Arm oder Bein schwächer geworden? Lassen Sie Dinge fallen oder bleiben Sie mit dem Fuß hängen?', probe: 'fach-neuro-kraft' },
+      { text: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?', probe: 'fach-neuro-koordination' },
+      { text: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?', probe: 'fach-neuro-sprache' },
+      { text: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?', probe: 'fach-neuro-blase' },
+      { text: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?', probe: 'fach-neuro-anfall' },
+      { text: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?', probe: 'fach-neuro-anfallzeichen' },
+      { text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', probe: 'fach-neuro-verlauf' },
     ],
-    'Sépare la céphalée primaire (migraine avec aura, photophobie) des signaux d\'alarme (déficit, morsure de langue + perte d\'urine = crise épileptique). La latéralité et les prodromes sont décisifs.'),
+    'Sépare la céphalée primaire (migraine avec aura, photophobie) des signaux d\'alarme : début en coup de tonnerre (hémorragie méningée), déficit focal, morsure de langue + perte d\'urine (crise épileptique). La latéralité, les prodromes et les signes autonomes (cluster) sont décisifs.'),
   F('Orthopädie', 'bone', 'ortho', 'Fachanamnese Orthopédie/Trauma',
     ['Sturz', 'Bewegung', 'Taubheit', 'kälter', 'Helm'],
     [
@@ -575,10 +589,32 @@ export function getFachanamnese(specialty: Specialty): FachanamneseGuide | undef
  *  simulant — le guide rédigé reste la référence de lecture (page Guides).
  *  L'id, le titre, l'icône et le conseil sont repris du guide rédigé quand il
  *  existe, pour ne pas casser l'état des cases cochées. */
+/** Le guide rédigé d'une spécialité est-il HARMONISÉ avec ses sondes ?
+ *  Deux conditions : chaque question affichée porte une sonde (donc la fiche
+ *  patient sait y répondre), et l'ensemble des sondes est couvert (donc rien
+ *  d'attendu par la fiche n'est absent du guide). Tant que les deux ne sont pas
+ *  vraies, on retombe sur la génération depuis les sondes — migration
+ *  progressive, spécialité par spécialité, sans big bang. */
+export function isFachGuideHarmonised(specialty: Specialty): boolean {
+  const questions = getFachanamnese(specialty)?.chapter.questions;
+  const probes = FACH_PROBES[specialty];
+  if (!questions?.length || !probes?.length) return false;
+  const bound = new Set<string>();
+  for (const q of questions) {
+    const ids = phraseProbes(q);
+    if (ids.length === 0) return false;
+    for (const id of ids) bound.add(id);
+  }
+  return probes.every((pr) => bound.has(pr.id));
+}
+
 export function fachChapterForSimulation(specialty: Specialty): FachanamneseGuide | undefined {
   const guide = getFachanamnese(specialty);
   const probes = FACH_PROBES[specialty];
   if (!probes || probes.length === 0) return guide;
+  // Spécialité harmonisée : le texte rédigé fait foi (relances, variantes,
+  // ordre clinique) — il couvre déjà toutes les sondes.
+  if (isFachGuideHarmonised(specialty)) return guide;
   const base = guide?.chapter;
   return {
     specialty,
