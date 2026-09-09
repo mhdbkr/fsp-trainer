@@ -18033,5 +18033,2205 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-lumbalpunktion',
       ],
     },
+    {
+      id: 'fw-gonarthrose',
+      pathology: 'Gonarthrose (Kniegelenkarthrose)',
+      specialty: 'Orthopädie',
+      definition: 'Die Gonarthrose ist die degenerative, primär nicht entzündliche Erkrankung des Kniegelenks mit fortschreitendem Verlust des hyalinen Gelenkknorpels und sekundärem Umbau des gesamten Gelenkes — subchondraler Knochen, Menisken, Bandapparat, Synovialis und gelenknahe Muskulatur. Ursache ist ein Missverhältnis zwischen Belastung und Belastbarkeit des Knorpels. Betroffen sind eines oder mehrere der drei Kompartimente (medial, lateral, femoropatellar); der mediale Befall ist mit Abstand am häufigsten. Klinisch imponiert sie als Anlauf- und Belastungsschmerz mit kurzer Morgensteifigkeit unter 30 Minuten. Kommt eine sekundäre Synovialitis mit Erguss, Schwellung und Ruheschmerz hinzu, spricht man von einer aktivierten Arthrose.',
+      aetiologie: 'In der Mehrzahl primäre (idiopathische) Arthrose auf dem Boden von Alter, mechanischer Überlastung und genetischer Disposition. Sekundäre Formen: posttraumatisch (Tibiakopffraktur, vordere Kreuzbandruptur mit Instabilität, Meniskusriss und besonders die Meniskektomie), Achsfehlstellung (Varus- oder Valgusdeformität mit Überlastung eines Kompartiments), postentzündlich (rheumatoide Arthritis, durchgemachte septische Arthritis), metabolisch-kristallinduziert (Gicht, Chondrokalzinose, Hämochromatose, Ochronose), endokrin (Akromegalie, Diabetes mellitus), aseptische Knochennekrose (Morbus Ahlbäck), Osteochondrosis dissecans, angeborene Dysplasien sowie iatrogen nach langfristiger intraartikulärer Steroidgabe. Pathophysiologisch stehen am Anfang Knorpelaufweichung und Fibrillation, es folgen Knorpelverlust, Freisetzung von Knorpeldetritus mit Detritussynovialitis, subchondrale Sklerosierung, Bildung von Geröllzysten und randständigen Osteophyten und schließlich Deformierung und Achsabweichung.',
+      risikofaktoren: [
+        'Höheres Lebensalter — der wichtigste nicht beeinflussbare Faktor',
+        'Adipositas und Übergewicht — der wichtigste BEEINFLUSSBARE Faktor; jedes Kilogramm wirkt am Knie mehrfach verstärkt und Fettgewebe wirkt zusätzlich proinflammatorisch',
+        'Achsfehlstellung: Varusknie (O-Bein) mit medialer, Valgusknie (X-Bein) mit lateraler Überlastung',
+        'Frühere Meniskusverletzung und besonders die Meniskektomie',
+        'Zustand nach vorderer Kreuzbandruptur mit chronischer Instabilität',
+        'Zustand nach gelenknaher Fraktur, insbesondere Tibiakopffraktur mit Gelenkstufe',
+        'Kniende oder hockende Berufstätigkeit (Fliesenleger, Bodenleger, Bergbau), schweres Heben',
+        'Leistungs- und Kontaktsport (Fußball, Handball), Laufen auf hartem Untergrund bei Vorschaden',
+        'Weibliches Geschlecht, insbesondere nach der Menopause',
+        'Positive Familienanamnese',
+        'Muskuläre Insuffizienz, vor allem Schwäche des M. quadriceps femoris',
+        'Metabolisches Syndrom, Diabetes mellitus, Hyperurikämie',
+        'Beinlängendifferenz, Instabilität, ungeeignetes Schuhwerk',
+      ],
+      klinik: [
+        {
+          text: 'ANLAUFSCHMERZ als Kardinalsymptom: Schmerz bei den ersten Schritten nach längerem Sitzen oder Liegen, der sich nach wenigen Minuten Gehen deutlich bessert',
+        },
+        {
+          text: 'Belastungsschmerz bei längerem Gehen und Stehen, beim Aufstehen aus dem Sitzen und beim In-die-Hocke-Gehen',
+        },
+        {
+          text: 'Treppabgehen ist deutlich beschwerlicher als Treppaufgehen — Hinweis auf eine Beteiligung des Femoropatellargelenks, das beim Abwärtsgehen ein Mehrfaches des Körpergewichts trägt',
+        },
+        {
+          text: 'KURZE Morgensteifigkeit von weniger als 30 Minuten — entscheidendes Abgrenzungsmerkmal zur rheumatoiden Arthritis mit über 60 Minuten; immer nach der DAUER fragen, nicht nur nach dem Vorhandensein',
+        },
+        {
+          text: 'Abnehmende schmerzfreie Gehstrecke mit zunehmender Einschränkung im Alltag (Treppe, Einkaufen, Wandern, Autofahren)',
+        },
+        {
+          text: 'Endgradige Bewegungseinschränkung, zuerst der Flexion; ein Streckdefizit ist ein Spätzeichen',
+        },
+        {
+          text: 'Krepitation: hör- und tastbares Reiben oder Knirschen bei Bewegung',
+        },
+        {
+          text: 'Druckschmerz über dem Gelenkspalt, meist medial',
+        },
+        {
+          text: 'Gelenkerguss mit Schwellung, Überwärmung und tanzender Patella bei aktivierter Arthrose („Reizknie“)',
+        },
+        {
+          text: 'Sichtbare Achsfehlstellung und Gelenkverplumpung im fortgeschrittenen Stadium',
+        },
+        {
+          text: 'Atrophie des M. quadriceps femoris, besonders des M. vastus medialis, mit Unsicherheits- und Instabilitätsgefühl',
+        },
+        {
+          text: 'Wetterfühligkeit, Beschwerdezunahme bei Kälte und Nässe',
+        },
+        {
+          text: 'Ruhe- und NACHTSCHMERZ sowie Schmerz beim Umdrehen im Bett erst im fortgeschrittenen Stadium oder bei aktivierter Arthrose',
+        },
+        {
+          text: 'Poplitealer Druck und Spannungsgefühl in der Kniekehle bei sekundärer Baker-Zyste',
+        },
+        {
+          text: 'Erstmanifestation als akuter Reizerguss ohne vorangegangene Beschwerden — klinisch einer Arthritis täuschend ähnlich',
+          atypisch: true,
+        },
+        {
+          text: 'Schmerz ausschließlich im Knie bei tatsächlich zugrunde liegender Coxarthrose (Schmerzprojektion über den N. obturatorius)',
+          atypisch: true,
+        },
+        {
+          text: 'Ausgeprägter Ruhe- und Nachtschmerz bereits im frühen Stadium — dann müssen Entzündung, Osteonekrose und Tumor ausgeschlossen werden',
+          atypisch: true,
+        },
+        {
+          text: 'Echte Gelenkblockade oder Einklemmungsgefühl — spricht eher für einen begleitenden Meniskusschaden oder einen freien Gelenkkörper',
+          atypisch: true,
+        },
+        {
+          text: 'Rasch progredienter, sehr starker Schmerz des medialen Femurkondylus beim älteren Patienten — Verdacht auf spontane Osteonekrose (Morbus Ahlbäck)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Kellgren-Lawrence-Klassifikation (radiologisch, fünf Stufen: Grad 0 bis IV)',
+          inhalt: 'Grad 0: keine Arthrosezeichen. Grad I: fragliche Gelenkspaltverschmälerung, beginnende osteophytäre Randanbauten. Grad II: definitive Osteophyten, geringe Gelenkspaltverschmälerung, beginnende subchondrale Sklerose. Grad III: multiple Osteophyten, deutliche Gelenkspaltverschmälerung, ausgeprägte Sklerose, beginnende Deformierung. Grad IV: aufgehobener Gelenkspalt mit Knochenkontakt, große Osteophyten, ausgeprägte Sklerose mit Geröllzysten, Deformierung und Achsabweichung. CAVE: Der radiologische Grad korreliert nur schwach mit den Beschwerden — die Therapieentscheidung fällt nach Klinik und Leidensdruck.',
+        },
+        {
+          name: 'Die vier radiologischen Kardinalzeichen der Arthrose (genau vier)',
+          inhalt: '1. Gelenkspaltverschmälerung als indirektes Zeichen des Knorpelverlustes, 2. subchondrale Sklerose, 3. osteophytäre Randanbauten, 4. Geröllzysten (subchondrale Pseudozysten). Als Spätzeichen kommen Deformierung, Achsabweichung und Gelenkkörper hinzu. Merkhilfe: Gelenkspalt schmal, Knochen weiß, Zacken am Rand, Löcher darunter.',
+        },
+        {
+          name: 'Einteilung nach Lokalisation (Kompartimente)',
+          inhalt: 'Mediale Gonarthrose (häufigste Form, typischerweise bei Varusfehlstellung), laterale Gonarthrose (bei Valgusfehlstellung), Femoropatellararthrose (Retropatellararthrose — Schmerz beim Treppabgehen und beim Aufstehen aus dem Sitzen, „Kinobestuhlungszeichen“) und Pangonarthrose bei Befall aller drei Kompartimente.',
+        },
+        {
+          name: 'Primäre versus sekundäre Gonarthrose',
+          inhalt: 'Primär (idiopathisch): kein fassbarer Auslöser, meist bei älteren Patienten und beidseitig. Sekundär: nach Trauma, Meniskektomie, Kreuzbandruptur mit Instabilität, bei Achsfehlstellung, nach septischer oder rheumatoider Arthritis, bei Kristallarthropathien, Hämochromatose, Osteonekrose oder Osteochondrosis dissecans — meist einseitig und bei jüngeren Patienten.',
+        },
+        {
+          name: 'Aktivierte versus nicht aktivierte Arthrose',
+          inhalt: 'Nicht aktiviert: Belastungs- und Anlaufschmerz ohne Entzündungszeichen, keine oder nur geringe Ergussbildung, CRP normal. Aktiviert: sekundäre Detritussynovialitis mit Erguss, Schwellung, Überwärmung, Ruhe- und Nachtschmerz; CRP allenfalls leicht erhöht. Wichtig: Die aktivierte Arthrose ist eine Reizung, keine bakterielle Infektion — bei Fieber und stark erhöhtem CRP muss punktiert werden.',
+        },
+      ],
+      redFlags: [
+        'Fieber, Schüttelfrost, hochrotes und stark überwärmtes Gelenk mit Ruheschmerz und reduziertem Allgemeinzustand → septische Arthritis; sofortige Gelenkpunktion, Notfall',
+        'Vorangegangene Gelenkinjektion, Punktion oder Operation, Endoprothese, Immunsuppression oder Diabetes mellitus → Gelenkinfekt bis zum Beweis des Gegenteils',
+        'Nächtlicher Dauerschmerz mit B-Symptomatik, ungewolltem Gewichtsverlust oder bekannter Tumorerkrankung → Knochenmetastase oder primärer Knochentumor',
+        'Plötzlicher Funktionsverlust mit echter Gelenkblockade → eingeklemmter Meniskusanteil oder freier Gelenkkörper',
+        'Akute schmerzhafte Wadenschwellung nach plötzlichem Schmerz in der Kniekehle → rupturierte Baker-Zyste oder tiefe Beinvenenthrombose',
+        'Rasch progrediente Schmerzen mit Gelenkdestruktion innerhalb weniger Monate → Osteonekrose (Morbus Ahlbäck) oder neuropathische Arthropathie',
+        'Sensomotorische Ausfälle, Fußheberschwäche oder fehlende Fußpulse → neurologische oder vaskuläre Ursache, nicht die Arthrose',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Schmerzanamnese: Anlaufschmerz, Belastungsschmerz, Treppabgehen schlimmer als Treppaufgehen, schmerzfreie Gehstrecke, Ruhe- und Nachtschmerz als Zeichen der Aktivierung oder eines fortgeschrittenen Stadiums',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'DAUER der Morgensteifigkeit erfragen — unter 30 Minuten spricht für Arthrose, über 60 Minuten für eine rheumatoide Arthritis. Die Frage nach dem bloßen Vorhandensein genügt nicht',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikofaktoren erheben: Alter, Gewicht mit Berechnung des BMI, frühere Meniskus- oder Kreuzbandverletzung, Meniskektomie, Achsfehlstellung, kniende Berufstätigkeit, Sport',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion im Stehen und beim Gehen: Beinachse (Varus/Valgus), Gangbild, Schonhinken, Muskelrelief mit Quadrizepsatrophie, Schwellung, Rötung, Narben',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Palpation: Gelenkspaltdruckschmerz medial und lateral, Überwärmung, Erguss mit tanzender Patella und Zohlen-Zeichen bzw. retropatellarem Verschiebeschmerz, Krepitation, Untersuchung der Kniekehle auf eine Baker-Zyste',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Funktionsprüfung: Beweglichkeit nach der Neutral-Null-Methode (Extension/Flexion), Meniskuszeichen, Bandstabilität mit Varus- und Valgusstresstest, vordere und hintere Schublade, Lachman-Test',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'OBLIGAT die Untersuchung der Hüfte des betroffenen Beins und der Wirbelsäule — eine Coxarthrose und eine Radikulopathie L3/L4 können sich ausschließlich als Knieschmerz äußern',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Periphere Durchblutung, Motorik und Sensibilität prüfen, insbesondere Fußpulse (Abgrenzung der pAVK) und Wadenumfang im Seitenvergleich (Abgrenzung der TVT)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Das Labor dient AUSSCHLIESSLICH der Differenzialdiagnose und ist bei der reinen Arthrose NORMAL: Blutbild, CRP und BSG zur Abgrenzung entzündlicher und septischer Arthritiden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Harnsäure zur Abgrenzung der Gichtarthritis; Rheumafaktor und Anti-CCP-Antikörper, gegebenenfalls ANA und HLA-B27 zur Abgrenzung der rheumatoiden Arthritis und der Spondyloarthritiden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus zum Ausschluss einer urogenitalen Infektion als Auslöser einer reaktiven Arthritis; ergänzend Serologien (Borrelien, Yersinien, Chlamydien, Streptokokken-Antikörper) nur bei entsprechendem Verdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor einer geplanten NSAR-Dauertherapie: Kreatinin, eGFR, Elektrolyte, Leberwerte und Blutbild — insbesondere beim älteren Patienten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'RÖNTGEN beider Kniegelenke in zwei Ebenen UNTER BELASTUNG, also im Stehen — im Liegen wird die Gelenkspaltverschmälerung systematisch unterschätzt; zusätzlich eine Patella-Tangentialaufnahme (Défilé-Aufnahme) zur Beurteilung des Femoropatellargelenks',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Beurteilung der vier Kardinalzeichen (Gelenkspaltverschmälerung, subchondrale Sklerose, Osteophyten, Geröllzysten) und Einteilung nach Kellgren-Lawrence',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ganzbeinstandaufnahme zur exakten Messung der Beinachse — obligat vor einer geplanten Umstellungsosteotomie oder Endoprothese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie: Nachweis eines Gelenkergusses, einer Synovialitis und einer Baker-Zyste; bei Verdacht auf eine Thrombose Kompressionssonographie der Beinvenen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT NUR bei begründetem Verdacht auf eine Meniskus- oder Bandläsion, eine Osteonekrose, eine Osteochondrosis dissecans oder einen Tumor — NICHT in der Routinediagnostik der Arthrose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gelenkpunktion bei Erguss: Beurteilung von Aussehen und Zellzahl, Gramfärbung und Kultur (septische Arthritis) sowie Polarisationsmikroskopie (nadelförmige, negativ doppelbrechende Uratkristalle bei Gicht, rhomboide, positiv doppelbrechende Kalziumpyrophosphatkristalle bei Pseudogicht). Das Arthrosepunktat ist klar-gelblich mit niedriger Zellzahl',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Arthroskopie heute nur noch mit klarer Indikation, etwa bei mechanischer Blockade durch einen Meniskusriss oder freien Gelenkkörper — die alleinige arthroskopische Lavage und Débridement bei Arthrose ist obsolet und ohne Nutzen',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Rheumatoide Arthritis',
+          unterscheidung: 'Morgensteifigkeit über 60 Minuten, symmetrischer Befall kleiner Gelenke (MCP, PIP unter Aussparung der Endgelenke), Ruhe- und Nachtschmerz mit Besserung durch Bewegung, Allgemeinsymptome; CRP und BSG erhöht, Rheumafaktor und Anti-CCP positiv, im Röntgen gelenknahe Osteoporose und Erosionen statt Osteophyten.',
+        },
+        {
+          dd: 'Gichtarthritis',
+          unterscheidung: 'Perakuter, meist nächtlicher Beginn, monoartikulär, hochrot, überwärmt und extrem berührungsempfindlich; typische Auslöser (purinreiche Mahlzeit, Alkohol, Diuretika), oft Podagra in der Vorgeschichte. Harnsäure erhöht (im Anfall aber in bis zu einem Drittel normal), beweisend ist der Kristallnachweis im Punktat.',
+        },
+        {
+          dd: 'Septische (bakterielle) Arthritis',
+          unterscheidung: 'Die wichtigste nicht zu übersehende DD: Fieber, Schüttelfrost, reduzierter Allgemeinzustand, stark überwärmtes Gelenk mit hochgradiger Bewegungssperre, Eintrittspforte oder vorangegangene Injektion; CRP und Prokalzitonin deutlich erhöht. Die Gelenkpunktion mit Zellzahl über 50 000/µl, Gramfärbung und Kultur ist obligat.',
+        },
+        {
+          dd: 'Pseudogicht (CPPD-Arthropathie, Chondrokalzinose)',
+          unterscheidung: 'Älterer Patient, akuter Erguss bevorzugt am Knie; im Röntgen Verkalkung des Faserknorpels (Menisken); im Punktat rhomboide, positiv doppelbrechende Kalziumpyrophosphatkristalle. Klinisch von einer aktivierten Arthrose kaum zu unterscheiden — daher punktieren.',
+        },
+        {
+          dd: 'Meniskusläsion',
+          unterscheidung: 'Drehtrauma oder Bagatelltrauma in der Anamnese, belastungsabhängiger, punktueller Gelenkspaltschmerz, echte Blockade und Einklemmungsgefühl, positive Meniskuszeichen; Nachweis im MRT. Cave: Degenerative Meniskusrisse begleiten die Arthrose häufig und sind dann nicht die Schmerzursache.',
+        },
+        {
+          dd: 'Coxarthrose mit Schmerzausstrahlung ins Knie',
+          unterscheidung: 'Der klassische Fallstrick: Der Patient klagt nur über Knieschmerzen, Ursache ist die Hüfte (Projektion über den N. obturatorius). Leisten- und Gesäßschmerz, Anlaufschmerz der Hüfte, Schwierigkeiten beim Schuhe- und Sockenanziehen, eingeschränkte Innenrotation und Abduktion. IMMER die Hüfte mituntersuchen.',
+        },
+        {
+          dd: 'Radikulopathie L3/L4 oder Spinalkanalstenose',
+          unterscheidung: 'Rückenschmerz mit Ausstrahlung über den Oberschenkel ins Knie, Kribbeln, Taubheit, abgeschwächter Patellarsehnenreflex, Quadrizepsschwäche; bei Spinalkanalstenose Claudicatio spinalis mit Besserung beim Vornüberbeugen und beim Radfahren.',
+        },
+        {
+          dd: 'Bursitis praepatellaris oder infrapatellaris',
+          unterscheidung: 'Umschriebene, prall-elastische, oberflächliche Schwellung VOR der Patella bei erhaltener Gelenkbeweglichkeit; typisch bei knienden Berufen, gelegentlich nach Bagatelltrauma oder infiziert (Rötung, Fieber).',
+        },
+        {
+          dd: 'Rupturierte Baker-Zyste und tiefe Beinvenenthrombose',
+          unterscheidung: 'Baker-Zyste: Spannungsgefühl in der Kniekehle, bei Ruptur akuter Wadenschmerz mit Schwellung und Hämatom („Pseudothrombophlebitis“). TVT: einseitige Wadenschwellung, Überwärmung, Druckschmerz, Immobilisation oder lange Reise in der Anamnese, D-Dimere erhöht; Abgrenzung durch Kompressionssonographie.',
+        },
+        {
+          dd: 'Periphere arterielle Verschlusskrankheit (pAVK)',
+          unterscheidung: 'Belastungsabhängiger Wadenschmerz mit REPRODUZIERBARER Gehstrecke, der zum Stehenbleiben zwingt und in Ruhe binnen Minuten verschwindet; kühle, blasse Füße, abgeschwächte oder fehlende Fußpulse, Knöchel-Arm-Index unter 0,9. Bei der Arthrose sitzt der Schmerz im Gelenk, nicht in der Wade.',
+        },
+        {
+          dd: 'Polymyalgia rheumatica',
+          unterscheidung: 'Patient über 50 Jahre, symmetrische Schmerzen und Steifigkeit im Schulter- und Beckengürtel über 45 Minuten, Nachtschmerz, Allgemeinsymptome, BSG und CRP stark erhöht, prompte Besserung auf niedrig dosierte Glukokortikoide; oft mit Riesenzellarteriitis assoziiert.',
+        },
+        {
+          dd: 'Spontane Osteonekrose des medialen Femurkondylus (Morbus Ahlbäck)',
+          unterscheidung: 'Plötzlich einsetzender, sehr starker, nachts betonter Schmerz am medialen Femurkondylus beim älteren Patienten, oft ohne Trauma; Röntgen initial unauffällig, Nachweis im MRT (Knochenmarködem, subchondrale Nekrose).',
+        },
+        {
+          dd: 'Knochenmetastase oder primärer Knochentumor',
+          unterscheidung: 'Dauerhafter, nachts betonter Ruheschmerz ohne Belastungsabhängigkeit, B-Symptomatik, ungewollter Gewichtsverlust, bekannte Tumorerkrankung, pathologische Fraktur; im Röntgen Osteolysen. Beim jungen Patienten an das Osteosarkom in Kniegelenknähe denken.',
+        },
+        {
+          dd: 'Osteoporose',
+          unterscheidung: 'Keine Gelenk-, sondern Knochenerkrankung: Verminderung der Knochendichte ohne Knorpelschaden, per se schmerzfrei, symptomatisch erst durch Frakturen (Wirbelkörper, Schenkelhals, Radius) mit Größenabnahme und Rundrücken. Diagnostik über die DXA-Knochendichtemessung, nicht über das Gelenkröntgen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Nicht-medikamentöse Basistherapie — die wirksamste Säule',
+          items: [
+            'GEWICHTSREDUKTION als Maßnahme mit dem größten Effekt bei Übergewicht: Sie senkt Schmerz und Funktionsverlust nachweislich, weil das Kniegelenk beim Gehen ein Mehrfaches des Körpergewichts trägt; realistische Zielvereinbarung, Ernährungsberatung',
+            'Regelmäßige, gelenkschonende Bewegung: Radfahren, Schwimmen, Aquagymnastik, Nordic Walking; Bewegung ernährt den Knorpel und ist ausdrücklich KEIN Verschleiß — Schonung verschlechtert den Verlauf',
+            'Physiotherapie mit gezieltem Aufbau des M. quadriceps femoris (besonders des M. vastus medialis), Dehnung der ischiokruralen Muskulatur, Koordinations- und Gangschulung',
+            'Hilfsmittel: Pufferabsätze und weiche Sohlen, laterale oder mediale Schuhaußenranderhöhung bei Achsfehlstellung, Knieorthese; GEHSTOCK auf der GEGENSEITE des betroffenen Beins getragen — er entlastet das erkrankte Gelenk am wirksamsten',
+            'Physikalische Therapie: Wärme bei nicht aktivierter Arthrose, KÄLTE bei aktivierter Arthrose mit Erguss; Elektrotherapie (TENS), Ultraschall, Balneo- und manuelle Therapie',
+            'Patientenschulung: Erklärung von Verlauf und Prognose, Vermeidung von tiefer Hocke, Knien, Springen und Treppenlast, Gelenkschutz im Alltag, Anpassung von Wohnraum und Arbeitsplatz',
+          ],
+        },
+        {
+          label: 'Medikamentöse Schmerztherapie nach Stufen',
+          items: [
+            'Erste Stufe: TOPISCHE nichtsteroidale Antirheumatika als Gel (Diclofenac, Ibuprofen) — gute lokale Wirksamkeit am oberflächennahen Kniegelenk bei minimaler systemischer Belastung; beim älteren Patienten ausdrücklich zuerst',
+            'Zweite Stufe: ORALE NSAR in der KLEINSTEN wirksamen Dosis und für die KÜRZESTE nötige Dauer, immer unter Magenschutz mit einem Protonenpumpenhemmer — z. B. Ibuprofen oder Naproxen; alternativ ein selektiver COX-2-Hemmer bei hohem gastrointestinalem Risiko',
+            'CAVE beim älteren Patienten: NSAR schädigen die Niere (Kreatinin und eGFR kontrollieren), erhöhen den Blutdruck, verschlechtern eine Herzinsuffizienz und steigern das kardiovaskuläre und gastrointestinale Blutungsrisiko; besondere Vorsicht in Kombination mit ACE-Hemmern und Diuretika',
+            'Alternativen und Reserve: Metamizol als Analgetikum ohne Nieren- und Magenbelastung (Cave Agranulozytose), Paracetamol nur mit begrenzter Wirksamkeit; schwach wirksame Opioide (Tramadol) zeitlich befristet bei starken Schmerzen und Kontraindikation gegen NSAR — Cave Sturzgefahr, Obstipation und Verwirrtheit beim alten Menschen',
+            'INTRAARTIKULÄRE GLUKOKORTIKOIDE bei aktivierter Arthrose mit Erguss: rasche und starke Wirkung über Wochen; unter strengen sterilen Kautelen, nicht häufiger als wenige Injektionen pro Jahr und nur nach Ausschluss einer bakteriellen Arthritis',
+            'Intraartikuläre Hyaluronsäure als Option bei NSAR-Unverträglichkeit oder Operationsablehnung — Wirksamkeit umstritten, Wirkung erst nach Wochen, dafür längere Wirkdauer; ebenso werden SYSADOA wie Glucosaminsulfat und Chondroitinsulfat mit begrenzter Evidenz eingesetzt',
+          ],
+        },
+        {
+          label: 'Operative Therapie bei Versagen der konservativen Maßnahmen',
+          items: [
+            'GRUNDREGEL: Die Operationsindikation ergibt sich aus dem LEIDENSDRUCK, der Funktionseinschränkung und dem Versagen einer über Monate konsequent durchgeführten konservativen Therapie — NICHT aus dem Röntgenbild. Die radiologische Schwere korreliert schlecht mit den Beschwerden',
+            'Kniegelenknahe Umstellungsosteotomie (meist valgisierende Tibiakopfosteotomie bei medialer Varusgonarthrose): Option beim jüngeren, aktiven Patienten mit einseitiger Kompartimentarthrose und Achsfehlstellung — sie verschiebt die Last auf das gesunde Kompartiment und verzögert die Prothese',
+            'Unikondyläre Schlittenprothese bei isolierter medialer oder lateraler Arthrose mit intaktem Bandapparat und guter Beweglichkeit — knochensparend, schnellere Rehabilitation',
+            'KNIE-TOTALENDOPROTHESE (Knie-TEP) als Endpunkt bei Pangonarthrose mit hohem Leidensdruck: bikondylärer Oberflächenersatz, bei Instabilität achsgeführte Modelle. Aufklärung über Infektion, Thrombose und Embolie, Nervenläsion, Gelenksteife mit Arthrofibrose, Lockerung und Standzeit von etwa 15 bis 20 Jahren sowie über die erforderliche Wechseloperation',
+            'Arthroskopische Maßnahmen nur bei klarer mechanischer Indikation (Blockade durch Meniskusriss oder freien Gelenkkörper); die alleinige Lavage mit Débridement bei Arthrose ist ohne Nutzen und wird nicht empfohlen',
+            'Arthrodese heute nur noch als Rückzugsverfahren bei nicht beherrschbarer Infektion oder gescheiterter Endoprothetik',
+          ],
+        },
+        {
+          label: 'Begleitmaßnahmen und Langzeitbetreuung',
+          items: [
+            'Anschlussheilbehandlung und Rehabilitation nach Endoprothese mit Gangschule, Muskelaufbau und Beweglichkeitstraining; Thromboseprophylaxe mit niedermolekularem Heparin für die empfohlene Dauer',
+            'Sturzprophylaxe beim älteren Patienten: Kraft- und Gleichgewichtstraining, Überprüfung sturzfördernder Medikamente, Sehhilfen, Beseitigung von Stolperfallen, Haltegriffe',
+            'Behandlung der Begleiterkrankungen und Reduktion der Gesamtmedikation; Überprüfung von Vitamin-D- und Kalziumversorgung, Osteoporoseabklärung bei Risikopatienten',
+            'Sozialmedizinische Beratung: Hilfsmittelverordnung, Wohnraumanpassung, Schwerbehindertenausweis, Anpassung oder Wechsel einer kniebelastenden Tätigkeit, Selbsthilfegruppen',
+            'Psychosoziale Begleitung: Chronischer Schmerz, Bewegungsangst und sozialer Rückzug verstärken die Behinderung; multimodale Schmerztherapie und, falls nötig, psychotherapeutische Mitbehandlung',
+            'Regelmäßige Verlaufskontrolle von Funktion, Gehstrecke, Schmerz und Medikamentenverträglichkeit (Nierenwerte, Blutbild, Blutdruck unter NSAR)',
+          ],
+        },
+      ],
+      prognose: 'Die Gonarthrose ist eine chronisch progrediente Erkrankung; der Knorpelschaden ist nicht reversibel und eine kausale, den Knorpel wiederherstellende Therapie existiert nicht. Der Verlauf ist jedoch sehr variabel und keineswegs zwangsläufig fortschreitend: Viele Patienten bleiben über Jahre mit konservativen Maßnahmen gut kompensiert, Phasen der Aktivierung wechseln mit beschwerdearmen Intervallen. Konsequente Gewichtsreduktion, regelmäßige gelenkschonende Bewegung und ein kräftiger Quadrizeps verbessern Schmerz und Funktion nachweislich und verzögern die Notwendigkeit einer Operation. Prognostisch ungünstig sind Adipositas, Achsfehlstellung, Instabilität nach Bandverletzung, Zustand nach Meniskektomie und rezidivierende Aktivierungen. Die Knie-Totalendoprothese führt bei richtiger Indikation in etwa 80 bis 90 Prozent der Fälle zu deutlicher Schmerzlinderung; die Standzeit beträgt in der Regel 15 bis 20 Jahre, weshalb die Indikation beim jüngeren Patienten zurückhaltend gestellt und zunächst eine Umstellungsosteotomie erwogen wird.',
+      pruefungsfallen: [
+        'Die Frage nach der Morgensteifigkeit muss die DAUER erfassen: unter 30 Minuten spricht für eine Arthrose, über 60 Minuten für eine rheumatoide Arthritis. Nur zu fragen, ob es morgens steif ist, wird von Prüfern regelmäßig bemängelt.',
+        'Beim Röntgen unbedingt „in zwei Ebenen UND UNTER BELASTUNG, also im Stehen“ sagen — im Liegen wird die Gelenkspaltverschmälerung unterschätzt und die Arthrose zu niedrig eingestuft.',
+        'Das Labor gehört zur Diagnostik, aber NUR zur Differenzialdiagnose: Bei der Arthrose sind CRP, BSG, Harnsäure und Rheumafaktor normal. Wer sagt, das Labor beweise die Arthrose, hat die Logik verfehlt.',
+        'Der Urinstatus wird oft vergessen — ein Prüfer in Freiburg hat das ausdrücklich gerügt: zum Ausschluss einer urogenitalen Infektion als Auslöser einer reaktiven Arthritis (Reiter-Syndrom).',
+        'Die Operationsindikation wird nach LEIDENSDRUCK und Funktion gestellt, nicht nach dem Röntgenbild — die radiologische Schwere korreliert schlecht mit den Beschwerden. Diese Frage wird sehr häufig gestellt.',
+        'IMMER die Hüfte mituntersuchen: Eine Coxarthrose kann sich ausschließlich als Knieschmerz äußern (Projektion über den N. obturatorius). Wer nur das Knie untersucht, übersieht die Diagnose.',
+        'Entzündlich oder nicht entzündlich? Die Arthroseschmerzen sind NICHT entzündlich: belastungsabhängig, Besserung in Ruhe, kurze Morgensteifigkeit. Genau diese Frage wurde in Freiburg wörtlich gestellt.',
+        'Das MRT ist KEINE Routineuntersuchung der Arthrose — es ist nur bei Verdacht auf eine Meniskus- oder Bandläsion, eine Osteonekrose oder einen Tumor indiziert. Wer es reflexartig anordnet, wird korrigiert.',
+        'Die nicht-medikamentöse Basistherapie ist die WIRKSAMSTE Säule, nicht ein Zusatz zur Tablette. Gewichtsreduktion und Bewegung zuerst nennen, erst danach die Analgetika.',
+        'Bewegung ist gut für den Knorpel — die Vorstellung „Schonung schont das Gelenk“ ist falsch und muss dem Patienten aktiv widerlegt werden. Empfohlen werden Radfahren und Schwimmen, gemieden werden tiefe Hocke, Knien und Springen.',
+        'Der Gehstock gehört auf die GEGENSEITE des betroffenen Beins — eine beliebte Prüferfrage.',
+        'Arthrose und Osteoporose nicht verwechseln: Arthrose ist eine Knorpel- und Gelenkerkrankung mit Belastungsschmerz, Osteoporose eine Verminderung der Knochendichte, die selbst nicht schmerzt und erst durch Frakturen auffällt. Diagnostik hier Röntgen, dort DXA.',
+        'Bei NSAR beim älteren Patienten immer Magenschutz nennen UND die Niere, den Blutdruck und das Herz erwähnen — der Magenschutz allein genügt der Prüfungskommission nicht.',
+        'Bei aktivierter Arthrose mit Erguss und Fieber muss punktiert werden: Die septische Arthritis ist klinisch nicht sicher abzugrenzen und zerstört das Gelenk innerhalb weniger Tage.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine Gonarthrose, also eine degenerative Kniegelenkarthrose, hier beidseits und derzeit aktiviert. Dafür sprechen der schleichende Beginn über Jahre ohne Trauma, der typische Anlaufschmerz nach längerem Sitzen, der Belastungsschmerz mit deutlicher Verschlechterung beim Treppabgehen, die kurze Morgensteifigkeit von unter 30 Minuten, die abnehmende Gehstrecke, die Krepitation sowie das Lebensalter und das Übergewicht als Risikofaktoren.',
+        },
+        {
+          frage: 'Sind die Schmerzen dieses Patienten entzündlich oder nicht entzündlich?',
+          antwort: 'Nicht entzündlich, also mechanisch. Sie sind belastungsabhängig, nehmen im Tagesverlauf und bei Belastung zu und bessern sich in Ruhe; die Morgensteifigkeit dauert unter 30 Minuten. Entzündliche Schmerzen wären umgekehrt: nachts und in Ruhe am stärksten, Besserung durch Bewegung, Morgensteifigkeit über 60 Minuten, dazu erhöhte Entzündungsparameter.',
+        },
+        {
+          frage: 'Was ist der Anlaufschmerz, und wie erklären Sie ihn dem Patienten?',
+          antwort: 'Der Anlaufschmerz ist der Schmerz bei den ersten Schritten nach längerem Sitzen oder Liegen, der nach wenigen Minuten Gehen wieder nachlässt. Dem Patienten erkläre ich: „Das Gelenk braucht ein paar Schritte, bis es wieder geschmiert und in Gang gekommen ist.“ Er ist das Kardinalsymptom der Arthrose.',
+        },
+        {
+          frage: 'Warum ist das Treppabgehen schlimmer als das Treppaufgehen?',
+          antwort: 'Weil beim Abwärtsgehen das Körpergewicht exzentrisch abgebremst werden muss und dabei besonders hohe Kräfte auf das Femoropatellargelenk und den vorderen Gelenkanteil wirken — ein Mehrfaches des Körpergewichts. Das Symptom weist auf eine Beteiligung des Femoropatellargelenks hin.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die rheumatoide Arthritis, die Gichtarthritis, die septische Arthritis, die Pseudogicht, eine Meniskusläsion, eine Bursitis praepatellaris, eine rupturierte Baker-Zyste oder eine tiefe Beinvenenthrombose, eine pAVK, eine Polymyalgia rheumatica, eine Radikulopathie, eine Osteonekrose und Knochenmetastasen. Und ganz wichtig: eine Coxarthrose, die ausschließlich ins Knie ausstrahlt.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Gonarthrose von der rheumatoiden Arthritis?',
+          antwort: 'Über die Dauer der Morgensteifigkeit — unter 30 gegenüber über 60 Minuten —, über das Befallsmuster: die Arthrose betrifft große, belastete Gelenke, die rheumatoide Arthritis symmetrisch die kleinen Fingergrund- und Mittelgelenke unter Aussparung der Endgelenke. Dazu über das Schmerzmuster (belastungsabhängig gegenüber Ruhe- und Nachtschmerz), über das Labor (CRP, BSG, Rheumafaktor und Anti-CCP normal gegenüber erhöht) und über das Röntgen (Osteophyten und Sklerose gegenüber gelenknaher Osteoporose und Erosionen).',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen Arthrose und Osteoporose?',
+          antwort: 'Die Arthrose ist eine Gelenkerkrankung mit Verschleiß des Gelenkknorpels und Umbau des gelenknahen Knochens; sie verursacht Belastungs- und Anlaufschmerz und wird im Röntgen des Gelenks diagnostiziert. Die Osteoporose ist eine Skeletterkrankung mit verminderter Knochendichte und gestörter Mikroarchitektur; sie ist für sich genommen schmerzlos und wird erst durch Frakturen symptomatisch — Wirbelkörper, Schenkelhals, Radius —, mit Größenabnahme und Rundrücken. Diagnostik durch DXA-Knochendichtemessung, Therapie mit Kalzium, Vitamin D und Bisphosphonaten.',
+        },
+        {
+          frage: 'Welche bildgebende Untersuchung führen Sie durch, und worauf achten Sie?',
+          antwort: 'Ein Röntgen beider Kniegelenke in zwei Ebenen und unter Belastung, also im Stehen, dazu eine Patella-Tangentialaufnahme. Ich achte auf die vier Kardinalzeichen: Gelenkspaltverschmälerung, subchondrale Sklerose, Osteophyten und Geröllzysten, und stufe nach Kellgren-Lawrence ein. Bei geplanter Operation ergänze ich eine Ganzbeinstandaufnahme zur Beurteilung der Beinachse.',
+        },
+        {
+          frage: 'Warum muss die Aufnahme unter Belastung erfolgen?',
+          antwort: 'Weil sich der Gelenkspalt erst unter dem Körpergewicht darstellt. Im Liegen wird die Gelenkspaltverschmälerung systematisch unterschätzt und die Arthrose zu niedrig eingestuft.',
+        },
+        {
+          frage: 'Brauchen Sie ein MRT?',
+          antwort: 'Nicht in der Routine. Die Diagnose stellt man klinisch und mit dem konventionellen Röntgen. Ein MRT ist nur bei Verdacht auf eine Meniskus- oder Bandläsion, auf eine Osteonekrose, eine Osteochondrosis dissecans oder einen Tumor indiziert — also bei Blockade, Instabilität, plötzlichem starkem Nachtschmerz oder unklarem Befund.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und was erwarten Sie?',
+          antwort: 'Blutbild, CRP und BSG, Harnsäure, Rheumafaktor und Anti-CCP sowie einen Urinstatus. Bei der reinen Arthrose sind alle diese Werte NORMAL — das Labor dient ausschließlich dem Ausschluss einer entzündlichen, kristallinduzierten, septischen oder reaktiven Arthritis. Vor einer NSAR-Therapie bestimme ich zusätzlich Kreatinin und eGFR.',
+        },
+        {
+          frage: 'Könnte es eine Gicht sein, und wie bestätigen Sie das?',
+          antwort: 'Möglich, aber untypisch: Die Gicht beginnt perakut, meist nachts, monoartikulär, mit hochrotem, überwärmtem und extrem berührungsempfindlichem Gelenk. Bestätigen würde ich sie durch die Gelenkpunktion mit Polarisationsmikroskopie: nadelförmige, negativ doppelbrechende Natriumuratkristalle. Ergänzend die Harnsäure — die im Anfall allerdings normal sein kann.',
+        },
+        {
+          frage: 'Wann punktieren Sie das Gelenk?',
+          antwort: 'Bei jedem relevanten Erguss zur Differenzialdiagnose und immer dann, wenn eine septische Arthritis im Raum steht — also bei Fieber, Schüttelfrost, stark überwärmtem Gelenk oder deutlich erhöhtem CRP. Ich bestimme Aussehen und Zellzahl, mache Gramfärbung und Kultur sowie eine Polarisationsmikroskopie auf Kristalle. Die Punktion wirkt zugleich entlastend.',
+        },
+        {
+          frage: 'Wie behandeln Sie diesen Patienten?',
+          antwort: 'An erster Stelle steht die nicht-medikamentöse Basistherapie: Gewichtsreduktion, regelmäßige gelenkschonende Bewegung wie Radfahren und Schwimmen, Physiotherapie mit Quadrizepsaufbau, geeignetes Schuhwerk und Einlagen, ein Gehstock auf der Gegenseite und Patientenschulung. Medikamentös beginne ich mit topischen NSAR, dann orale NSAR in kleinster wirksamer Dosis und kürzester Dauer unter Magenschutz; bei aktivierter Arthrose eine intraartikuläre Glukokortikoidinjektion. Operiert wird erst bei Versagen der konservativen Therapie.',
+        },
+        {
+          frage: 'Wann stellen Sie die Indikation zur Endoprothese?',
+          antwort: 'Wenn eine über Monate konsequent durchgeführte konservative Therapie versagt hat und der Leidensdruck hoch ist: Dauerschmerz, Nachtschmerz, deutlich verkürzte Gehstrecke und erhebliche Einschränkung im Alltag. Entscheidend sind Beschwerden und Funktion, NICHT das Röntgenbild — die radiologische Schwere korreliert schlecht mit den Symptomen.',
+        },
+        {
+          frage: 'Der Patient möchte nicht operiert werden. Was bieten Sie ihm an?',
+          antwort: 'Die gesamte konservative Palette: konsequente Gewichtsreduktion und Bewegungstherapie, intensivierte Physiotherapie, Hilfsmittel, physikalische Therapie mit Elektrotherapie und Kälte- oder Wärmeanwendungen, eine optimierte Analgesie sowie intraartikuläre Injektionen mit Glukokortikoiden und gegebenenfalls Hyaluronsäure. Ich respektiere seine Entscheidung, dokumentiere die Aufklärung und biete regelmäßige Verlaufskontrollen an.',
+        },
+        {
+          frage: 'Welche Risiken hat die NSAR-Dauertherapie beim älteren Patienten?',
+          antwort: 'Gastrointestinale Ulzera und Blutungen — daher immer ein Protonenpumpenhemmer —, Nierenfunktionsverschlechterung bis zum akuten Nierenversagen, Blutdruckanstieg, Dekompensation einer Herzinsuffizienz sowie ein erhöhtes kardiovaskuläres Risiko. Deshalb: kleinste wirksame Dosis, kürzeste Dauer, Kontrolle von Kreatinin, Blutdruck und Blutbild und bevorzugt topische Anwendung.',
+        },
+        {
+          frage: 'Welche Bewegungen sind bei der Gonarthrose eingeschränkt, und worauf achten Sie bei der körperlichen Untersuchung?',
+          antwort: 'Zuerst endgradig die Flexion, im fortgeschrittenen Stadium auch die Extension mit Streckdefizit. Bei der Untersuchung achte ich auf Beinachse und Gangbild, Schwellung, Erguss mit tanzender Patella, Überwärmung, Gelenkspaltdruckschmerz, Krepitation, retropatellaren Verschiebeschmerz, Meniskuszeichen, Bandstabilität im Varus- und Valgusstress, die Baker-Zyste in der Kniekehle sowie Durchblutung, Motorik und Sensibilität — und ich untersuche immer auch die Hüfte.',
+        },
+      ],
+      merksatz: 'Anlaufschmerz, Morgensteifigkeit UNTER 30 Minuten und treppab schlimmer als treppauf = Gonarthrose. Röntgen in zwei Ebenen UNTER BELASTUNG mit den vier Zeichen Gelenkspaltverschmälerung, subchondraler Sklerose, Osteophyten und Geröllzysten; das Labor ist normal und dient nur der Differenzialdiagnose. Wirksamste Therapie sind Gewichtsreduktion und Bewegung — und die Prothese wird nach dem Leidensdruck indiziert, nicht nach dem Röntgenbild.',
+      linkedCaseIds: [
+        'case-gonarthrose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-feinnadelpunktion',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-struma',
+      pathology: 'Struma nodosa (euthyreote Knotenstruma)',
+      specialty: 'Endokrinologie',
+      definition: 'Als Struma bezeichnet man jede Vergrößerung der Schilddrüse über die Norm hinaus (Frauen über 18 ml, Männer über 25 ml Volumen) — UNABHÄNGIG von der Stoffwechsellage und unabhängig von der Ursache. Eine Struma kann euthyreot, hyperthyreot oder hypothyreot sein; der Begriff sagt allein etwas über die GRÖSSE aus. Von einer Struma nodosa (Knotenstruma) spricht man, wenn die Vergrößerung mit einem oder mehreren umschriebenen Knoten einhergeht, im Gegensatz zur diffusen Struma (Struma diffusa). Die euthyreote Knotenstruma ist mit Abstand die häufigste Schilddrüsenerkrankung in Deutschland; sie entsteht überwiegend auf dem Boden eines alimentären Jodmangels. Umgangssprachlich heißt sie „Kropf“.',
+      aetiologie: 'In etwa 90 % der Fälle liegt ein alimentärer JODMANGEL zugrunde: Deutschland und besonders die süddeutschen Mittelgebirge (Schwäbische Alb, Alpenvorland) sind historische Jodmangelgebiete. Der Jodmangel führt über einen intrathyreoidalen Jodmangel zu einer vermehrten Bildung lokaler Wachstumsfaktoren (IGF-1, EGF, TGF-beta) und — bei ausgeprägtem Mangel — zu einem TSH-Anstieg. Die Folge ist zunächst eine Hypertrophie und Hyperplasie der Thyreozyten (Struma diffusa), im Verlauf über Jahre eine inhomogene, knotige Umwandlung mit regressiven Veränderungen: Zysten, Einblutungen, Verkalkungen, Fibrose sowie Areale mit funktioneller Autonomie (autonome Adenome). Seltenere Ursachen einer Struma sind die Hashimoto-Thyreoiditis, der Morbus Basedow, die Thyreoiditis de Quervain, Schilddrüsenkarzinome und Lymphome, strumigene Medikamente (Lithium, Thyreostatika, Perchlorat, Sulfonamide), angeborene Jodfehlverwertungsstörungen sowie ein gesteigerter Jodbedarf in Schwangerschaft, Stillzeit und Pubertät.',
+      risikofaktoren: [
+        'Alimentärer Jodmangel — Deutschland ist historisch ein Jodmangelgebiet; empfohlen werden etwa 200 µg Jod täglich für Erwachsene, 230 µg in der Schwangerschaft und 260 µg in der Stillzeit',
+        'Weibliches Geschlecht — Frauen sind etwa vier- bis fünfmal häufiger betroffen',
+        'Zunehmendes Lebensalter (Prävalenz der Knotenstruma steigt jenseits des 40. Lebensjahres deutlich an)',
+        'Positive Familienanamnese, familiäre Strumaneigung (genetische Disposition)',
+        'Erhöhter Jodbedarf in Pubertät, Schwangerschaft und Stillzeit',
+        'Rauchen — Thiozyanat aus dem Zigarettenrauch hemmt kompetitiv die Jodaufnahme in die Schilddrüse',
+        'Strumigene Medikamente und Substanzen: Lithium, Thyreostatika, Perchlorat, Sulfonamide, in großen Mengen Kohlgemüse und Sojaprodukte',
+        'Bestrahlung im Kopf- und Halsbereich, insbesondere im Kindesalter — Risikofaktor vor allem für maligne Knoten',
+        'Genetische Syndrome mit Malignitätsrisiko: MEN 2A und 2B, familiäres medulläres Schilddrüsenkarzinom (RET-Mutation)',
+      ],
+      klinik: [
+        {
+          text: 'Sichtbare oder tastbare Schwellung im vorderen Halsbereich, die sich beim SCHLUCKEN mitbewegt — das entscheidende klinische Zeichen für die Herkunft aus der Schilddrüse',
+        },
+        {
+          text: 'Globus- und Engegefühl am Hals, Druckgefühl; das Gefühl, der Hemdkragen oder die Halskette sei zu eng geworden',
+        },
+        {
+          text: 'Schluckbeschwerden, besonders bei festen Speisen, durch Druck auf den Ösophagus',
+        },
+        {
+          text: 'Meist EUTHYREOTE Stoffwechsellage: weder Zeichen einer Überfunktion noch einer Unterfunktion — die Größe sagt nichts über die Funktion aus',
+        },
+        {
+          text: 'Sehr langsames Wachstum über Jahre; häufig Zufallsbefund in einer Sonographie oder zuerst von Angehörigen bemerkt',
+        },
+        {
+          text: 'Bei großer Struma inspiratorischer STRIDOR und Luftnot, typischerweise zuerst im Liegen und unter Belastung (Trachealkompression, Säbelscheidentrachea)',
+        },
+        {
+          text: 'Obere Einflussstauung mit gestauten Halsvenen, Gesichtsschwellung und Zyanose, verstärkt beim Heben der Arme (positives Pemberton-Zeichen) bei retrosternaler Struma',
+        },
+        {
+          text: 'HEISERKEIT als Alarmsymptom — Hinweis auf eine Rekurrensparese und damit auf ein infiltrierend wachsendes Karzinom',
+        },
+        {
+          text: 'Derbe, nicht schluckverschiebliche Knoten und vergrößerte zervikale Lymphknoten als klinische Malignitätshinweise',
+        },
+        {
+          text: 'Zeichen einer Hyperthyreose (Herzrasen, Gewichtsverlust, Wärmeintoleranz, Tremor) bei zusätzlicher funktioneller Autonomie — häufig erst nach Jodexposition durch Kontrastmittel oder Amiodaron demaskiert',
+          atypisch: true,
+        },
+        {
+          text: 'Zeichen einer Hypothyreose (Frieren, Obstipation, Antriebslosigkeit, Gewichtszunahme, trockene Haut) bei zugrunde liegender Hashimoto-Thyreoiditis',
+          atypisch: true,
+        },
+        {
+          text: 'Schmerzen und Druckschmerzhaftigkeit der Schilddrüse — bei der blanden Knotenstruma untypisch; sprechen für eine Einblutung in einen Knoten oder für eine Thyreoiditis',
+          atypisch: true,
+        },
+        {
+          text: 'Vollständig symptomlose Struma, die erst als Zufallsbefund bei einer Karotis-Sonographie oder einem CT des Halses auffällt',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als retrosternale Struma mit belastungsabhängiger Luftnot, die zunächst als Asthma bronchiale oder Herzinsuffizienz fehlgedeutet wird',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'WHO-Klassifikation der Struma (klinische Einteilung nach Inspektion und Palpation)',
+          inhalt: 'Grad 0: Schilddrüse weder tastbar noch sichtbar. Grad I: tastbar vergrößert, bei normaler Kopfhaltung jedoch nicht sichtbar — Ia nicht sichtbar, Ib erst bei Reklination des Kopfes sichtbar. Grad II: bereits bei normaler Kopfhaltung sichtbar. Grad III: sehr große, schon aus der Entfernung sichtbare Struma, häufig mit lokalen Komplikationen wie Stridor oder oberer Einflussstauung.',
+        },
+        {
+          name: 'Einteilung nach Morphologie und Funktion',
+          inhalt: 'Morphologisch: Struma diffusa (gleichmäßige Vergrößerung) versus Struma nodosa (uninodös oder multinodös). Funktionell: euthyreote Struma (normales TSH, weitaus häufigste Form), hyperthyreote Struma (funktionelle Autonomie, Morbus Basedow) und hypothyreote Struma (Hashimoto-Thyreoiditis, extremer Jodmangel). Zusätzlich nach Lage: zervikale versus retrosternale (intrathorakale) Struma.',
+        },
+        {
+          name: 'Szintigraphische Einteilung der Knoten',
+          inhalt: 'KALTER Knoten: verminderte oder fehlende Technetium-Aufnahme, also speicherarm — malignitätsverdächtig und daher der Knoten, der punktiert wird; dennoch sind nur etwa 5 % der kalten Knoten maligne. WARMER Knoten: Speicherung wie das umgebende Gewebe. HEISSER Knoten: vermehrte Speicherung bei supprimiertem umgebendem Gewebe = autonomes Adenom, praktisch nie maligne.',
+        },
+        {
+          name: 'EU-TIRADS (sonographische Risikostratifizierung von Schilddrüsenknoten)',
+          inhalt: 'EU-TIRADS 1: normale Schilddrüse. 2: sicher benigne (rein zystisch, spongiform) — Malignitätsrisiko nahezu 0 %. 3: niedriges Risiko (isoechogen oder hyperechogen, glatt begrenzt) — etwa 2–4 %. 4: intermediäres Risiko (mäßig echoarm, ovalär, glatt begrenzt) — etwa 6–17 %. 5: hohes Risiko (deutlich echoarm, irregulär begrenzt, mehr hoch als breit, MIKROVERKALKUNGEN, extrathyreoidale Ausdehnung, suspekte Lymphknoten) — etwa 26–87 %. Punktionsindikation: EU-TIRADS 5 ab 10 mm, EU-TIRADS 4 ab 15 mm, EU-TIRADS 3 ab 20 mm.',
+        },
+        {
+          name: 'Bethesda-Klassifikation der Feinnadelpunktions-Zytologie',
+          inhalt: 'I: nicht diagnostisch (Punktion wiederholen). II: benigne, Malignitätsrisiko etwa 0–3 % (Verlaufskontrolle). III: atypia of undetermined significance, etwa 10–30 % (Wiederholung oder molekulare Diagnostik). IV: follikuläre Neoplasie, etwa 25–40 % (diagnostische Hemithyreoidektomie — die Unterscheidung follikuläres Adenom versus Karzinom ist zytologisch NICHT möglich, sie gelingt nur histologisch über den Kapsel- und Gefäßeinbruch). V: malignitätsverdächtig, etwa 50–75 %. VI: maligne, etwa 97–99 % (onkologische Operation).',
+        },
+      ],
+      redFlags: [
+        'Neu aufgetretene HEISERKEIT oder Stimmveränderung — Verdacht auf eine Rekurrensparese und damit auf ein infiltrierendes Karzinom',
+        'Rasches Wachstum innerhalb von Wochen bis wenigen Monaten, derbe, harte Konsistenz, fehlende Schluckverschieblichkeit oder Fixierung an die Unterlage',
+        'Vergrößerte, derbe zervikale Lymphknoten',
+        'Inspiratorischer Stridor, Luftnot in Ruhe oder im Liegen — obere Atemwegsstenose durch Trachealkompression, Notfall',
+        'Obere Einflussstauung mit gestauten Halsvenen, Gesichtsödem und Zyanose, positives Pemberton-Zeichen',
+        'B-Symptomatik mit Fieber, Nachtschweiß und ungewolltem Gewichtsverlust — Verdacht auf ein Schilddrüsenlymphom',
+        'Erhöhtes Calcitonin — Verdacht auf ein medulläres Schilddrüsenkarzinom, Abklärung eines MEN-2-Syndroms',
+        'Thyreotoxische Krise nach Jodexposition (Kontrastmittel, Amiodaron) bei vorbestehender funktioneller Autonomie',
+        'Postoperativ: periorale Parästhesien, Muskelkrämpfe, positives Chvostek- oder Trousseau-Zeichen (Hypokalzämie bei Hypoparathyreoidismus) sowie eine rasch zunehmende Halsschwellung mit Atemnot (Nachblutung)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Dauer und Wachstumsgeschwindigkeit der Schwellung, mechanische Beschwerden (Enge-, Druck- und Globusgefühl, Schluckbeschwerden, Luftnot im Liegen), HEISERKEIT, Zeichen einer Über- oder Unterfunktion, Jodversorgung (jodiertes Speisesalz, Seefisch), Jodexposition (Amiodaron, jodhaltiges Kontrastmittel, Jodtabletten), Bestrahlung im Halsbereich in der Kindheit, Familienanamnese für Struma, Schilddrüsenkarzinom und MEN-Syndrome',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion des Halses bei normaler Kopfhaltung und bei Reklination: Größe, Symmetrie, Schluckverschieblichkeit, gestaute Halsvenen; Einteilung nach der WHO-Klassifikation; Messung des Halsumfangs als Verlaufsparameter',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'PALPATION der Schilddrüse — die zentrale körperliche Untersuchung: von HINTEN, beide Hände umgreifen den Hals, die Daumen liegen im Nacken, Zeige- und Mittelfinger tasten beide Lappen und den Isthmus; der Patient bekommt ein Glas Wasser und muss SCHLUCKEN, damit die Drüse unter den Fingern hindurchgleitet. Beurteilt werden Größe, Konsistenz (weich, derb, hart), Oberfläche, Knoten mit Zahl und Größe, Druckschmerzhaftigkeit, Verschieblichkeit gegen die Unterlage und die zervikalen Lymphknotenstationen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Auskultation der Schilddrüse (Schwirren bei Hypervaskularisation, etwa beim Morbus Basedow), Pemberton-Zeichen bei Verdacht auf retrosternale Struma, Vitalparameter mit Puls und Blutdruck sowie orientierende Suche nach Hyperthyreose- (Tremor, feuchtwarme Haut, Tachykardie, Exophthalmus) und Hypothyreosezeichen (trockene Haut, Bradykardie, verzögerte Muskeleigenreflexe)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH basal als SCREENING-PARAMETER der Schilddrüsenfunktion; bei auffälligem Wert ergänzend die freien Hormone fT3 und fT4 — normales TSH bei normalem fT3/fT4 belegt die euthyreote Stoffwechsellage',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TPO-Antikörper und Thyreoglobulin-Antikörper zur Abgrenzung einer Hashimoto-Thyreoiditis, TRAK (TSH-Rezeptor-Antikörper) zur Abgrenzung eines Morbus Basedow',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CALCITONIN zum Ausschluss eines medullären Schilddrüsenkarzinoms — bei deutlicher Erhöhung Pentagastrin- bzw. Kalzium-Stimulationstest und genetische Abklärung eines MEN-2-Syndroms (RET-Mutation)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kalzium und Parathormon als AUSGANGSWERTE vor einer geplanten Operation (Beurteilbarkeit eines postoperativen Hypoparathyreoidismus); Blutbild sowie CRP und BSG bei Verdacht auf eine Thyreoiditis; präoperativ Gerinnung. Thyreoglobulin ist KEIN Tumormarker in der Primärdiagnostik, sondern dient der Nachsorge des differenzierten Karzinoms',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SONOGRAPHIE des Halses mit einem hochauflösenden Linearschallkopf — die Schlüsseluntersuchung: Volumetrie beider Lappen (Norm Frauen bis 18 ml, Männer bis 25 ml), Zahl, Größe und Lage der Knoten, Echogenität, Binnenstruktur (zystisch, solide, komplex), MIKROVERKALKUNGEN, unscharfe oder irreguläre Ränder, mehr hoch als breit stehende Form, gesteigerte zentrale Vaskularisation in der Duplexsonographie, Elastographie sowie zervikale Lymphknoten; abschließend Einstufung nach EU-TIRADS',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SZINTIGRAPHIE mit Technetium-99m-Pertechnetat bei supprimiertem oder niedrig-normalem TSH sowie bei Knoten über 1 cm zur Unterscheidung kalter, warmer und heißer Areale — sie klärt die FUNKTION des Knotens und ist der Schritt VOR einer Feinnadelpunktion, da heiße Knoten nicht punktiert werden; Voraussetzung ist eine ausreichende Jodkarenz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'HNO-ärztliche Laryngoskopie zur Beurteilung der Stimmbandbeweglichkeit — obligat vor und nach jeder Schilddrüsenoperation und bei jeder Heiserkeit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Verdacht auf mechanische Komplikationen: Röntgen des Thorax mit Trachea-Zielaufnahme (Trachealeinengung, Säbelscheidentrachea, retrosternale Ausdehnung), Lungenfunktion mit Fluss-Volumen-Kurve (extrathorakale Obstruktion) und Ösophagusbreischluck bei Dysphagie; MRT oder CT OHNE jodhaltiges Kontrastmittel bei retrosternaler Struma, da Jod eine geplante Szintigraphie oder Radiojodtherapie für Wochen blockiert und eine Autonomie demaskieren kann',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Sonographisch gesteuerte FEINNADELPUNKTION mit zytologischer Beurteilung nach Bethesda bei jedem suspekten Knoten (EU-TIRADS 4 ab 15 mm, EU-TIRADS 5 ab 10 mm, kalter Knoten über 1 cm, rasches Wachstum, suspekte Lymphknoten) — komplikationsarm, jedoch ohne Aussage zur Kapselinvasion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Hemithyreoidektomie mit intraoperativem SCHNELLSCHNITT bei zytologisch unklarem Befund (Bethesda III und IV), da die Unterscheidung zwischen follikulärem Adenom und follikulärem Karzinom ausschließlich histologisch über Kapsel- und Gefäßeinbruch gelingt; ergänzend Feinnadelpunktion suspekter Lymphknoten mit Thyreoglobulin-Bestimmung im Punktat',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Schilddrüsenkarzinom (papillär, follikulär, medullär, anaplastisch)',
+          unterscheidung: 'Die wichtigste auszuschließende Differenzialdiagnose. Verdächtig sind rasches Wachstum, derbe harte Konsistenz, fehlende Verschieblichkeit, Heiserkeit bzw. Rekurrensparese, vergrößerte Halslymphknoten, Alter unter 20 oder über 60 Jahren, männliches Geschlecht, Bestrahlung im Halsbereich in der Kindheit und eine positive Familienanamnese. Sonographisch echoarm, mikroverkalkt, unscharf begrenzt, mehr hoch als breit; szintigraphisch kalt; Klärung durch Feinnadelpunktion, beim medullären Karzinom durch erhöhtes Calcitonin.',
+        },
+        {
+          dd: 'Hashimoto-Thyreoiditis (chronische lymphozytäre Thyreoiditis)',
+          unterscheidung: 'Schmerzlose Struma oder im Verlauf atrophische Schilddrüse, meist Hypothyreose mit erhöhtem TSH, Frieren, Obstipation, Gewichtszunahme und Müdigkeit; sonographisch diffus echoarmes, inhomogenes Parenchym; beweisend sind stark erhöhte TPO-Antikörper. Häufig assoziiert mit anderen Autoimmunerkrankungen.',
+        },
+        {
+          dd: 'Morbus Basedow',
+          unterscheidung: 'Diffuse, hypervaskularisierte Struma mit Schwirren, manifeste Hyperthyreose mit supprimiertem TSH, Tachykardie, Gewichtsverlust und Wärmeintoleranz; endokrine Orbitopathie mit Exophthalmus, prätibiales Myxödem; TRAK positiv, szintigraphisch homogen gesteigerte Speicherung.',
+        },
+        {
+          dd: 'Funktionelle Autonomie (unifokal, multifokal oder disseminiert)',
+          unterscheidung: 'Entsteht auf dem Boden einer langjährigen Knotenstruma. TSH niedrig-normal bis supprimiert, im Szintigramm ein oder mehrere HEISSE Areale mit Suppression des übrigen Gewebes; keine TRAK, keine Orbitopathie. Gefahr der Hyperthyreose oder thyreotoxischen Krise nach Jodexposition.',
+        },
+        {
+          dd: 'Thyreoiditis de Quervain (subakute granulomatöse Thyreoiditis)',
+          unterscheidung: 'Sehr schmerzhafte, druckempfindliche Schilddrüse mit Ausstrahlung zu Ohr und Kiefer, oft wenige Wochen nach einem viralen Infekt der oberen Atemwege, Abgeschlagenheit und subfebrile Temperaturen; stark erhöhte BSG bei normalem oder nur gering erhöhtem CRP, initial passagere Hyperthyreose, szintigraphisch aufgehobene Speicherung.',
+        },
+        {
+          dd: 'Schilddrüsenzyste oder Einblutung in einen Knoten',
+          unterscheidung: 'Plötzlich, oft über Nacht aufgetretene, schmerzhafte Schwellung; sonographisch echofreie, glatt begrenzte Raumforderung mit dorsaler Schallverstärkung. Entlastung und zugleich Diagnostik durch Punktion; die Zystenwand muss beurteilt werden, da auch zystische Karzinome vorkommen.',
+        },
+        {
+          dd: 'Primäres Schilddrüsenlymphom',
+          unterscheidung: 'Sehr rasch, innerhalb von Wochen wachsende, derbe Struma, häufig auf dem Boden einer Hashimoto-Thyreoiditis, oft mit B-Symptomatik (Fieber, Nachtschweiß, Gewichtsverlust); Diagnosesicherung durch Stanzbiopsie oder offene Biopsie, nicht durch Feinnadelpunktion allein.',
+        },
+        {
+          dd: 'Zervikale Lymphknotenschwellung anderer Ursache',
+          unterscheidung: 'Lateral am Vorderrand des Musculus sternocleidomastoideus gelegen, NICHT schluckverschieblich; reaktiv bei Infekten (weich, druckschmerzhaft, verschieblich) oder maligne bei Lymphom und Metastasen (derb, unverschieblich, schmerzlos).',
+        },
+        {
+          dd: 'Mediane Halszyste (Ductus-thyreoglossus-Zyste)',
+          unterscheidung: 'Zystische Schwellung in der Mittellinie zwischen Zungenbein und Schilddrüse; sie bewegt sich beim HERAUSSTRECKEN DER ZUNGE mit (typisches Unterscheidungsmerkmal), neigt zu Infektionen und Fistelbildung, meist bei jüngeren Patienten.',
+        },
+        {
+          dd: 'Laterale Halszyste (branchiogene Zyste)',
+          unterscheidung: 'Prall-elastische, schmerzlose Schwellung am Vorderrand des Musculus sternocleidomastoideus, nicht schluckverschieblich, meist bei jüngeren Erwachsenen; Cave: bei älteren Patienten muss eine zystische Lymphknotenmetastase eines Karzinoms ausgeschlossen werden.',
+        },
+        {
+          dd: 'Lipom, Atherom und andere Weichteiltumoren des Halses',
+          unterscheidung: 'Weich, prall-elastisch, gegen die Unterlage frei verschieblich, gegenüber der Haut beim Atherom fixiert; keine Schluckverschieblichkeit, sonographisch typisches Weichteilbild ohne Bezug zur Schilddrüse.',
+        },
+        {
+          dd: 'Zenker-Divertikel',
+          unterscheidung: 'Führt zu Dysphagie, Regurgitation unverdauter Speisereste, Halitosis und gurgelnden Geräuschen; gelegentlich tastbare, komprimierbare Vorwölbung am linken Hals ohne Schluckverschieblichkeit. Nachweis im Ösophagusbreischluck — Cave: keine blinde Endoskopie wegen Perforationsgefahr.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Beobachtung und Verlaufskontrolle bei blander euthyreoter Struma',
+          items: [
+            'Bei kleiner, beschwerdefreier euthyreoter Struma ohne suspekten Knoten ist das ABWARTEN mit strukturierter Verlaufskontrolle die Therapie der Wahl: klinische Untersuchung, TSH und Sonographie zunächst nach 6 bis 12 Monaten, danach je nach Befund in längeren Abständen',
+            'Jodid 100–200 µg täglich, insbesondere bei jüngeren Patienten — es behebt die Ursache, den intrathyreoidalen Jodmangel; CAVE bei nachgewiesener funktioneller Autonomie, da Jod eine Hyperthyreose auslösen kann',
+            'Levothyroxin allein oder als Kombination mit Jodid zur Größenreduktion bei jüngeren Patienten; der Effekt ist EHRLICH ZU BENENNEN: die Volumenreduktion beträgt nur etwa 5–15 % über 6 bis 12 Monate, tritt langsam ein und geht nach Absetzen häufig wieder verloren. Ziel ist ein TSH im unteren Normbereich, keine TSH-Suppression',
+            'Levothyroxin ist KONTRAINDIZIERT bei supprimiertem TSH bzw. funktioneller Autonomie und bei älteren Patienten mit kardialer Vorerkrankung oder Osteoporose (Risiko von Vorhofflimmern und Knochendichteverlust)',
+            'Allgemeine Maßnahmen: konsequente Verwendung von jodiertem Speisesalz, Seefisch ein- bis zweimal wöchentlich, Nikotinkarenz (Thiozyanat hemmt die Jodaufnahme), Vermeidung unnötiger Jodexposition durch jodhaltiges Kontrastmittel',
+          ],
+        },
+        {
+          label: 'Definitive Therapie bei Beschwerden oder funktioneller Autonomie',
+          items: [
+            'RADIOJODTHERAPIE mit Jod-131 bei funktioneller Autonomie und mäßiger Strumagröße sowie bei erhöhtem Operationsrisiko: sie beseitigt die Autonomie und reduziert das Volumen um etwa 30–50 % innerhalb von 6 bis 12 Monaten',
+            'Vor der Radiojodtherapie strikte Jodkarenz; Kontraindikationen sind Schwangerschaft und Stillzeit sowie jeder Malignitätsverdacht; in Deutschland stationäre Durchführung mit Strahlenschutz. Häufigste Spätfolge ist eine behandlungsbedürftige Hypothyreose, außerdem eine passagere Strahlenthyreoiditis',
+            'THYREOIDEKTOMIE bei mechanischer Behinderung (Trachealkompression mit Stridor, Dysphagie, obere Einflussstauung), bei sehr großer oder retrosternaler Struma, bei Malignitätsverdacht sowie bei Rezidivstruma oder Kontraindikation gegen die Radiojodtherapie',
+            'Verfahrenswahl: Hemithyreoidektomie bei einseitigem Befund, subtotale Resektion bzw. Dunhill-Operation bei beidseitigem Knotenbefall, totale Thyreoidektomie bei Malignitätsverdacht und ausgedehntem Befund; intraoperatives NEUROMONITORING des Nervus laryngeus recurrens und sorgfältige Darstellung der Nebenschilddrüsen sind Standard',
+            'Aufklärung über die typischen Risiken: Rekurrensparese (vorübergehend 3–5 %, dauerhaft 1–2 %; beidseitig droht eine Atemwegsverlegung mit der Notwendigkeit einer Tracheotomie), Hypoparathyreoidismus (vorübergehend bis 20–30 %, dauerhaft 1–3 %), Nachblutung mit Halsschwellung und Atemnot sowie die postoperative Hypothyreose',
+            'Minimalinvasive Alternativen bei einzelnen Knoten oder Zysten: perkutane Ethanolinjektion, Radiofrequenz- oder Mikrowellenablation — nur bei zytologisch gesichert benignen Knoten',
+          ],
+        },
+        {
+          label: 'Abklärung und Vorgehen bei Malignitätsverdacht',
+          items: [
+            'Stufenweises Vorgehen bei jedem Knoten: TSH und Sonographie mit EU-TIRADS-Einstufung, bei Knoten über 1 cm oder niedrigem TSH die Szintigraphie, und erst danach die sonographisch gesteuerte FEINNADELPUNKTION des kalten bzw. sonographisch suspekten Knotens',
+            'Bethesda II (benigne): keine Operation, sondern sonographische Verlaufskontrolle in 6 bis 12 Monaten — bei Größenzunahme, neuen Malignitätskriterien oder Beschwerden erneute Punktion bzw. Operation',
+            'Bethesda III und IV: Wiederholung der Punktion, ergänzende molekulare Diagnostik oder diagnostische Hemithyreoidektomie mit Schnellschnitt, da follikuläres Adenom und follikuläres Karzinom zytologisch nicht zu trennen sind',
+            'Bethesda V und VI: onkologische Operation — totale Thyreoidektomie mit zentraler Lymphadenektomie, bei papillären Mikrokarzinomen unter 1 cm ohne Risikofaktoren ist eine Hemithyreoidektomie ausreichend; anschließend stadienabhängig Radiojodtherapie und TSH-suppressive Levothyroxin-Therapie',
+            'Bei erhöhtem Calcitonin: Verdacht auf ein medulläres Karzinom — hier ist die Operation die einzige kurative Option, eine Radiojodtherapie ist unwirksam (C-Zellen speichern kein Jod); zusätzlich genetische Abklärung eines MEN-2-Syndroms und Ausschluss eines Phäochromozytoms VOR der Operation',
+          ],
+        },
+        {
+          label: 'Nachsorge und Prophylaxe',
+          items: [
+            'Levothyroxin-Substitution nach der Operation: nach totaler Thyreoidektomie lebenslang, nach Teilresektion abhängig vom TSH; erste Kontrolle des TSH 6 bis 8 Wochen nach Therapiebeginn, danach jährlich',
+            'Kontrolle von KALZIUM und PARATHORMON am ersten und zweiten postoperativen Tag: bei Hypoparathyreoidismus periorale Parästhesien, Muskelkrämpfe, Pfötchenstellung, positives Chvostek- und Trousseau-Zeichen — Therapie mit Kalzium und aktivem Vitamin D (Calcitriol)',
+            'Laryngoskopische Kontrolle der Stimmbandbeweglichkeit vor und nach jeder Operation; bei einseitiger Rekurrensparese logopädische Behandlung, bei beidseitiger Parese Sicherung der Atemwege',
+            'Rezidivprophylaxe nach Teilresektion mit Jodid und/oder Levothyroxin — ohne Prophylaxe liegt die Rezidivrate bei etwa 10–30 % innerhalb von 10 Jahren; sonographische Verlaufskontrollen',
+            'Bevölkerungsweite Jodsalzprophylaxe als kausale Vorbeugung, Seefisch ein- bis zweimal pro Woche, erhöhte Jodzufuhr in Schwangerschaft und Stillzeit; Nikotinkarenz',
+          ],
+        },
+      ],
+      prognose: 'Die euthyreote Knotenstruma hat eine sehr gute Prognose: sie wächst in der Regel über Jahre nur langsam und bleibt lange asymptomatisch. Entscheidend sind zwei Verläufe, die man aktiv verfolgen muss — die Entwicklung einer funktionellen Autonomie mit dem Risiko einer jodinduzierten Hyperthyreose bis hin zur thyreotoxischen Krise, vor allem bei älteren Patienten nach Kontrastmittelgabe, und die mechanische Kompression von Trachea und Ösophagus bei sehr großer oder retrosternaler Struma. Nur etwa 5 % der kalten Knoten sind maligne. Wird ein Karzinom gefunden, ist die Prognose der differenzierten Formen ausgezeichnet: das papilläre Karzinom hat eine 10-Jahres-Überlebensrate von über 90 %, das follikuläre von etwa 80 %; deutlich ungünstiger sind das medulläre Karzinom und vor allem das anaplastische Karzinom mit einer mittleren Überlebenszeit von wenigen Monaten. Nach Teilresektion ohne Prophylaxe treten in etwa 10–30 % der Fälle innerhalb von 10 Jahren Rezidive auf; unter konsequenter Jodversorgung und Verlaufskontrolle ist die Langzeitprognose sehr gut.',
+      pruefungsfallen: [
+        'Der häufigste Fehler: Struma mit Hyperthyreose gleichsetzen. Struma bedeutet allein eine VERGRÖSSERUNG der Schilddrüse, unabhängig von der Funktion — sie kann euthyreot, hyperthyreot oder hypothyreot sein. In Freiburg wurde ein Kandidat, der reflexartig „Hyperthyreose“ sagte, sofort mit „hypo oder hyper?“ korrigiert.',
+        'Die Palpation der Schilddrüse muss beschrieben werden können und wird wörtlich abgefragt: von HINTEN, Daumen im Nacken, beide Lappen und der Isthmus werden getastet, und der Patient muss dabei SCHLUCKEN. Genau diese Frage wurde in Freiburg am 09.01.2024 gestellt.',
+        'Die Reihenfolge der Abklärung nicht durcheinanderbringen: Labor mit TSH → Sonographie → Szintigraphie → erst dann Feinnadelpunktion. Die Prüferin in Freiburg fragte ausdrücklich: „Aber was macht man VOR einer Biopsieentnahme?“ — die Antwort lautet Szintigraphie.',
+        '„Kalt gleich bösartig, heiß gleich gutartig“ ist nur TEILWEISE richtig; die Prüferin hat das ausdrücklich angemerkt. Nur etwa 5 % der kalten Knoten sind maligne, und die Szintigraphie beurteilt die Funktion, nicht die Dignität — diese ergibt sich aus den sonographischen Kriterien und der Zytologie.',
+        'Nach einer unauffälligen Feinnadelpunktion darf man den Patienten nicht einfach entlassen: es folgen sonographische Verlaufskontrollen etwa alle 6 Monate, und bei Größenzunahme wird operiert. Genau diese Antwort wurde in Freiburg erwartet und akzeptiert.',
+        'Die Heiserkeit nicht als Nebensache abtun — sie kann eine Rekurrensparese und damit ein infiltrierendes Karzinom anzeigen und gehört in jede Aufzählung der Malignitätshinweise.',
+        'Rekurrensparese und Hypoparathyreoidismus als Komplikationen der Thyreoidektomie müssen aktiv genannt werden; beide Begriffe tauchen regelmäßig in den Fachbegriff-Listen der Protokolle auf, ebenso Thyreoidea, Thyreoidektomie und Parathyreoidea.',
+        'Das Calcitonin vergessen: es ist der Marker zum Ausschluss eines medullären Karzinoms und führt zur Frage nach dem MEN-2-Syndrom.',
+        'Levothyroxin bei supprimiertem TSH oder nachgewiesener Autonomie ist kontraindiziert, und Jodid kann bei Autonomie eine Hyperthyreose auslösen — die Reihenfolge Szintigraphie vor Therapie schützt davor.',
+        'Kein jodhaltiges Kontrastmittel vor einer geplanten Szintigraphie oder Radiojodtherapie; bei retrosternaler Struma daher MRT oder CT ohne Kontrastmittel.',
+        'Vor dem Patienten die Fachbegriffe übersetzen: Struma heißt Kropf beziehungsweise Schilddrüsenvergrößerung, Struma nodosa eine Schilddrüsenvergrößerung mit Knoten, Thyreoidea die Schilddrüse, Parathyreoidea die Nebenschilddrüse, Thyreoidektomie die Entfernung der Schilddrüse.',
+        'Nicht vergessen, dass die Schilddrüse auch als bloße Differenzialdiagnose abgefragt wird — bei Depression, Panikattacke, Anorexie, Fibromyalgie und Schlafapnoe lautet die Frage regelmäßig: „Wie können Sie eine Hypo- beziehungsweise Hyperthyreose ausschließen?“ Antwort: Anamnese, Palpation und TSH.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was bedeutet der Begriff Struma? Hat er etwas mit der Schilddrüsenfunktion zu tun?',
+          antwort: 'Struma bezeichnet jede Vergrößerung der Schilddrüse über die Norm hinaus — bei Frauen über 18 ml, bei Männern über 25 ml Volumen — und zwar UNABHÄNGIG von der Funktion. Eine Struma kann euthyreot, hyperthyreot oder hypothyreot sein. Umgangssprachlich heißt sie Kropf. Von einer Struma nodosa spricht man, wenn sich zusätzlich Knoten finden.',
+        },
+        {
+          frage: 'Welche körperliche Untersuchung ist hier die wichtigste? Beschreiben Sie bitte die Palpation.',
+          antwort: 'Die Palpation der Schilddrüse. Ich stelle mich HINTER den sitzenden Patienten, umgreife mit beiden Händen den Hals, die Daumen liegen im Nacken, und taste mit Zeige- und Mittelfinger beide Lappen und den Isthmus. Wichtig ist, dass der Patient dabei SCHLUCKT — dazu gebe ich ihm ein Glas Wasser —, denn die Schilddrüse bewegt sich beim Schlucken mit und gleitet unter den Fingern hindurch. Ich beurteile Größe, Konsistenz, Oberfläche, Knoten, Druckschmerzhaftigkeit und die Verschieblichkeit gegen die Unterlage und taste anschließend die zervikalen Lymphknoten.',
+        },
+        {
+          frage: 'Wie teilen Sie die Struma nach der WHO ein?',
+          antwort: 'Grad 0: die Schilddrüse ist weder tastbar noch sichtbar. Grad I: sie ist tastbar vergrößert, bei normaler Kopfhaltung aber nicht sichtbar — Ia gar nicht sichtbar, Ib erst bei Reklination des Kopfes. Grad II: sie ist bereits bei normaler Kopfhaltung sichtbar. Grad III: eine sehr große, schon aus der Entfernung sichtbare Struma, meist mit lokalen Komplikationen.',
+        },
+        {
+          frage: 'Sie haben einen Knoten in der Schilddrüse getastet. Wie gehen Sie weiter vor?',
+          antwort: 'Zuerst Blutabnahme mit TSH, fT3 und fT4 sowie Antikörpern und Calcitonin, dann die Sonographie des Halses als Schlüsseluntersuchung mit Volumetrie, Beurteilung des Knotens und der Lymphknoten. Bei einem Knoten über einem Zentimeter oder niedrigem TSH schließt sich die Szintigraphie an, und erst danach — bei einem kalten oder sonographisch suspekten Knoten — die sonographisch gesteuerte Feinnadelpunktion.',
+        },
+        {
+          frage: 'Was machen Sie VOR einer Feinnadelpunktion, und warum?',
+          antwort: 'Eine Szintigraphie. Sie klärt, ob der Knoten kalt, warm oder heiß ist. Ein heißer Knoten, also ein autonomes Adenom, ist praktisch nie maligne und wird nicht punktiert, sondern funktionell behandelt; punktiert wird der KALTE Knoten.',
+        },
+        {
+          frage: 'Wie unterscheidet man in der Szintigraphie einen bösartigen Knoten von einem anderen? Ist das eine sichere Unterscheidung?',
+          antwort: 'Über die Speicherung: der kalte Knoten speichert vermindert und ist malignitätsverdächtig, der heiße Knoten speichert vermehrt und ist praktisch nie maligne. Diese Unterscheidung ist aber nur teilweise aussagekräftig — nur etwa 5 % der kalten Knoten sind tatsächlich maligne. Die Szintigraphie beurteilt die FUNKTION, nicht die Dignität; diese ergibt sich aus den sonographischen Malignitätskriterien und letztlich aus der Zytologie der Feinnadelpunktion.',
+        },
+        {
+          frage: 'Welche sonographischen Kriterien sprechen für Bösartigkeit?',
+          antwort: 'Deutliche Echoarmut, MIKROVERKALKUNGEN, unscharfe oder irreguläre Ränder, eine mehr hoch als breit stehende Form, eine gesteigerte zentrale Vaskularisation in der Duplexsonographie, eine Unterbrechung der Kapsel mit extrathyreoidaler Ausdehnung sowie suspekte zervikale Lymphknoten. Zusammengefasst werden sie in der EU-TIRADS-Einstufung.',
+        },
+        {
+          frage: 'Welche Befunde lassen Sie an eine Bösartigkeit denken?',
+          antwort: 'Rasches Wachstum, derbe Konsistenz, fehlende Verschieblichkeit, Heiserkeit beziehungsweise eine Rekurrensparese, vergrößerte Halslymphknoten, ein Alter unter 20 oder über 60 Jahren, männliches Geschlecht, eine Bestrahlung im Halsbereich in der Kindheit und eine positive Familienanamnese mit MEN-Syndromen.',
+        },
+        {
+          frage: 'Hat das Jodsalz etwas damit zu tun?',
+          antwort: 'Ja, sehr viel. Deutschland ist historisch ein Jodmangelgebiet, besonders die süddeutschen Mittelgebirge. Bei Jodmangel bilden die Schilddrüsenzellen vermehrt lokale Wachstumsfaktoren und die Drüse wächst zunächst diffus, später knotig. Die Jodsalzprophylaxe ist deshalb die kausale Vorbeugung; empfohlen sind etwa 200 µg Jod täglich, in der Schwangerschaft 230 µg und in der Stillzeit 260 µg. Umgekehrt kann eine plötzliche Jodexposition, etwa durch Kontrastmittel oder Amiodaron, bei vorbestehender Autonomie eine Hyperthyreose auslösen.',
+        },
+        {
+          frage: 'Die Feinnadelpunktion war unauffällig. Wie gehen Sie mit dem Knoten weiter um?',
+          antwort: 'Der Patient wird nicht einfach entlassen. Es folgen regelmäßige sonographische Verlaufskontrollen, zunächst etwa alle 6 Monate, zusammen mit dem TSH. Nimmt der Knoten an Größe zu, treten neue sonographische Malignitätskriterien auf oder entstehen mechanische Beschwerden, wird erneut punktiert beziehungsweise die operative Entfernung geplant.',
+        },
+        {
+          frage: 'Wann operieren Sie eine Struma, und welche Verfahren gibt es?',
+          antwort: 'Indikationen sind mechanische Behinderung mit Stridor, Dysphagie oder oberer Einflussstauung, eine sehr große oder retrosternale Struma, ein Malignitätsverdacht sowie ein Rezidiv oder eine Kontraindikation gegen die Radiojodtherapie. Verfahren sind die Hemithyreoidektomie bei einseitigem Befund, die subtotale Resektion beziehungsweise die Dunhill-Operation bei beidseitigem Knotenbefall und die totale Thyreoidektomie bei Malignitätsverdacht — immer mit intraoperativem Neuromonitoring des Nervus laryngeus recurrens.',
+        },
+        {
+          frage: 'Welche Komplikationen hat die Thyreoidektomie? Was ist eine Rekurrensparese?',
+          antwort: 'Die Rekurrensparese ist eine Lähmung des Nervus laryngeus recurrens, der die Stimmbandmuskulatur versorgt. Einseitig führt sie zu Heiserkeit, beidseitig zu Atemnot mit Stridor bis hin zur Notwendigkeit einer Tracheotomie; sie tritt vorübergehend in 3–5 % und dauerhaft in 1–2 % der Fälle auf. Weitere Komplikationen sind der Hypoparathyreoidismus durch Schädigung der Nebenschilddrüsen mit Hypokalzämie, periöralen Parästhesien und Tetanie (dauerhaft 1–3 %), die Nachblutung mit Halsschwellung und Atemwegsverlegung sowie die postoperative Hypothyreose.',
+        },
+        {
+          frage: 'Wozu bestimmen Sie das Calcitonin?',
+          antwort: 'Zum Ausschluss eines medullären Schilddrüsenkarzinoms, das von den parafollikulären C-Zellen ausgeht. Ist das Calcitonin erhöht, folgen ein Stimulationstest und die genetische Abklärung eines MEN-2-Syndroms mit RET-Mutation; vor einer Operation muss dann ein Phäochromozytom ausgeschlossen werden. Wichtig: das medulläre Karzinom speichert kein Jod, eine Radiojodtherapie ist unwirksam — es wird operiert.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine funktionelle Autonomie, und was ist bei der Radiojodtherapie zu beachten?',
+          antwort: 'Bei funktioneller Autonomie und mäßiger Größe ist die Radiojodtherapie mit Jod-131 das Verfahren der Wahl; sie beseitigt die Autonomie und reduziert das Volumen um etwa 30–50 % innerhalb von 6 bis 12 Monaten. Voraussetzung ist eine Jodkarenz; Kontraindikationen sind Schwangerschaft, Stillzeit und jeder Malignitätsverdacht. In Deutschland erfolgt sie stationär unter Strahlenschutz. Häufigste Spätfolge ist eine Hypothyreose, die dann substituiert wird.',
+        },
+        {
+          frage: 'Worauf achten Sie nach der Operation, und welche Werte kontrollieren Sie?',
+          antwort: 'Klinisch auf eine Nachblutung mit rasch zunehmender Halsschwellung und Atemnot, auf Heiserkeit als Hinweis auf eine Rekurrensparese und auf Zeichen der Hypokalzämie wie periorale Parästhesien, Muskelkrämpfe, positives Chvostek- und Trousseau-Zeichen. Laborchemisch kontrolliere ich Kalzium und Parathormon am ersten und zweiten postoperativen Tag und das TSH 6 bis 8 Wochen nach Beginn der Levothyroxin-Substitution; zusätzlich erfolgt eine laryngoskopische Kontrolle der Stimmbänder.',
+        },
+      ],
+      merksatz: 'Struma heißt nur GROSS, nicht über- oder unterfunktionierend — deshalb erst TSH, dann Sonographie, bei Knoten über 1 cm die Szintigraphie, und erst der KALTE Knoten wird punktiert. Alarmzeichen sind Heiserkeit, ein derber fixierter Knoten und Halslymphknoten; nach der Operation immer an Rekurrensparese und Hypoparathyreoidismus denken.',
+      linkedCaseIds: [
+        'case-struma',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-otitis-media',
+      pathology: 'Akute Otitis media',
+      specialty: 'Infektiologie',
+      definition: 'Die akute Otitis media ist eine akut, innerhalb von Stunden bis wenigen Tagen entstehende Entzündung der Schleimhaut des Mittelohres, also der Paukenhöhle einschließlich Tuba auditiva, Antrum und Mastoidzellen. Am Anfang steht fast immer eine Tubenventilationsstörung im Rahmen eines viralen Infektes der oberen Atemwege: Die Schleimhaut der Tube schwillt an, die Belüftung der Paukenhöhle versiegt, es entsteht ein Unterdruck mit Exsudat, in das Erreger aus dem Nasenrachenraum tubogen aufsteigen. Klinisch imponiert die Trias aus rasch einsetzender, pulsierender Otalgie, Fieber und Hörminderung vom Schallleitungstyp. Die Erkrankung ist in der Mehrzahl der Fälle selbstlimitierend; sie ist die häufigste bakterielle Infektion des Kindesalters, kommt aber in jedem Lebensalter vor.',
+      aetiologie: 'Auslösend ist in aller Regel ein viraler Infekt der oberen Atemwege (Rhino-, RS-, Influenza-, Parainfluenza-, Adenoviren) mit konsekutiver Tubenfunktionsstörung; der Keimaufstieg erfolgt tubogen aus dem Nasenrachenraum, sehr viel seltener hämatogen oder über eine bestehende Trommelfellperforation von außen. In bis zu zwei Dritteln der Fälle sind Viren allein oder als Kopathogene beteiligt — das erklärt die hohe Spontanheilungsrate. Die wichtigsten bakteriellen Erreger sind Streptococcus pneumoniae (klassischerweise der schwerste Verlauf, höchstes Mastoiditisrisiko), Haemophilus influenzae (meist nicht typisierbar, typisch das Otitis-Konjunktivitis-Syndrom, häufig Betalaktamase-Bildner) und Moraxella catarrhalis (fast immer Betalaktamase-Bildner, oft milder Verlauf); seltener Streptococcus pyogenes (Gruppe A — häufiger frühe Trommelfellperforation und Mastoiditis) und Staphylococcus aureus. Beim Neugeborenen kommen zusätzlich gramnegative Enterobakterien in Betracht. Anatomisch begünstigt beim Kleinkind die kurze, weite und horizontal verlaufende Tube den Keimaufstieg.',
+      risikofaktoren: [
+        'Kleinkindalter (Häufigkeitsgipfel zwischen dem 6. und 24. Lebensmonat) wegen der kurzen, weiten und horizontal verlaufenden Ohrtrompete',
+        'Rezidivierende Infekte der oberen Atemwege, Besuch einer Kindertagesstätte, Geschwisterkinder',
+        'Adenoide Vegetationen (vergrößerte Rachenmandel) mit mechanischer Tubenverlegung',
+        'Allergische Rhinitis, chronische Rhinosinusitis, Septumdeviation — alles Ursachen einer Tubenventilationsstörung',
+        'Passivrauchexposition und aktives Rauchen (Störung der mukoziliären Clearance)',
+        'Fehlende oder kurze Stillzeit, Flaschenfütterung im Liegen, Schnullergebrauch',
+        'Kraniofaziale Fehlbildungen: Lippen-Kiefer-Gaumen-Spalte, Trisomie 21',
+        'Immundefekte, Immunsuppression, Diabetes mellitus',
+        'Fehlende Pneumokokken- und Influenzaimpfung',
+        'Positive Familienanamnese für rezidivierende Otitiden',
+        'Gastroösophagealer Reflux und Barotrauma (Fliegen, Tauchen) als begünstigende Faktoren',
+        'Herbst- und Wintermonate (Saisonalität der Atemwegsinfekte)',
+      ],
+      klinik: [
+        {
+          text: 'Rasch einsetzende, pulsierende bzw. pochende Ohrenschmerzen (Otalgie) als Leitsymptom, häufig nachts und im Liegen verstärkt',
+        },
+        {
+          text: 'Fieber, Abgeschlagenheit, Kopfschmerzen, reduzierter Allgemeinzustand',
+        },
+        {
+          text: 'Hörminderung vom Schallleitungstyp auf dem betroffenen Ohr („wie durch Watte hören“)',
+        },
+        {
+          text: 'Druck- und Völlegefühl im Ohr, Autophonie (die eigene Stimme klingt hallend und dumpf)',
+        },
+        {
+          text: 'Ohrgeräusch, meist ein tiefes Rauschen oder Pulsieren im betroffenen Ohr',
+        },
+        {
+          text: 'Vorangegangener Infekt der oberen Atemwege mit Schnupfen und behinderter Nasenatmung — die typische Vorgeschichte',
+        },
+        {
+          text: 'Bei Trommelfellperforation schlagartige Schmerzerleichterung mit eitriger, teils blutig tingierter Otorrhoe — das Ohr „läuft“ und der Schmerz ist plötzlich weg',
+        },
+        {
+          text: 'Otoskopisch gerötetes, vorgewölbtes, trübes Trommelfell mit aufgehobenem Lichtreflex, nicht mehr abgrenzbarem Hammergriff und fehlender Beweglichkeit',
+        },
+        {
+          text: 'Beim Säugling und Kleinkind unspezifisch: Unruhe, schrilles Schreien, Griff ans Ohr, Trinkschwäche, Erbrechen, Durchfall, Fieber ohne erkennbaren Fokus',
+          atypisch: true,
+        },
+        {
+          text: 'Verlauf ganz ohne Fieber, insbesondere beim Erwachsenen',
+          atypisch: true,
+        },
+        {
+          text: 'Drehschwindel, Erbrechen und Nystagmus als Hinweis auf eine Labyrinthbeteiligung',
+          atypisch: true,
+        },
+        {
+          text: 'Periphere Fazialisparese durch Beteiligung des im Mittelohr verlaufenden Nervus facialis',
+          atypisch: true,
+        },
+        {
+          text: 'Myringitis bullosa: schmerzhafte, hämorrhagische Blasen auf dem Trommelfell, häufig bei viraler oder Mykoplasmen-Genese',
+          atypisch: true,
+        },
+        {
+          text: 'Oligosymptomatischer Verlauf beim alten oder immunsupprimierten Patienten, gelegentlich Erstmanifestation als Verwirrtheit oder Fieber unklarer Genese',
+          atypisch: true,
+        },
+        {
+          text: 'Beidseitiger Befall, beim Kleinkind häufiger als beim Erwachsenen; Otitis-Konjunktivitis-Syndrom bei Haemophilus influenzae',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Stadienverlauf der akuten Otitis media (vier Stadien)',
+          inhalt: '1. Initial- bzw. Hyperämiestadium: Tubenverschluss, Trommelfell gerötet und retrahiert, beginnender Schmerz. 2. Exsudationsstadium: seröses bis eitriges Exsudat in der Paukenhöhle, Trommelfell trüb und VORGEWÖLBT, Lichtreflex aufgehoben, maximaler pulsierender Schmerz, Fieber, Schallleitungsschwerhörigkeit. 3. Perforationsstadium: spontane Ruptur des Trommelfells mit eitriger Otorrhoe und SCHLAGARTIGEM Schmerznachlass. 4. Reparationsstadium: Rückgang der Sekretion, Verschluss der Perforation, Rückbildung des Ergusses und Normalisierung des Hörvermögens innerhalb von Wochen.',
+        },
+        {
+          name: 'Schweregradeinteilung (leichter vs. schwerer Verlauf) — steuert die Antibiotikaindikation',
+          inhalt: 'Schwerer Verlauf: mäßige bis starke Otalgie, Otalgie länger als 48 Stunden bestehend, Fieber ab 39 °C, deutlich reduzierter Allgemeinzustand, Otorrhoe. Leichter Verlauf: geringe Schmerzen, Fieber unter 39 °C, guter Allgemeinzustand — hier ist beim älteren Kind und beim Erwachsenen ein abwartendes Offenhalten vertretbar.',
+        },
+        {
+          name: 'Einteilung nach Verlaufsform',
+          inhalt: 'Akute Otitis media (einzelne Episode). Rezidivierende Otitis media: mindestens drei Episoden in sechs Monaten oder mindestens vier Episoden in zwölf Monaten. Otitis media mit Erguss (Seromukotympanon, „Paukenerguss“): reizloser Erguss ohne akute Entzündungszeichen, oft Folgezustand. Chronische Otitis media: mesotympanale Schleimhauteiterung mit zentraler Perforation oder epitympanale Knocheneiterung mit Cholesteatom.',
+        },
+        {
+          name: 'Befundbeschreibung der Stimmgabelprüfung bei Schallleitungsstörung',
+          inhalt: 'Weber (Stimmgabel auf die Schädelmitte): Lateralisation ins KRANKE Ohr. Rinne (Vergleich Knochen- und Luftleitung am Mastoid bzw. vor dem Ohr): auf der kranken Seite NEGATIV, das heißt die Knochenleitung wird länger und lauter gehört als die Luftleitung. Zum Kontrast bei einer Schallempfindungsstörung: Weber lateralisiert ins GESUNDE Ohr, Rinne bleibt beidseits positiv.',
+        },
+      ],
+      redFlags: [
+        'Retroaurikuläre Rötung, teigige Schwellung und Druckschmerz über dem Mastoid mit ABSTEHENDER Ohrmuschel → Mastoiditis, stationärer Notfall',
+        'Periphere Fazialisparese auf der betroffenen Seite → Beteiligung des Nervus facialis in seinem Verlauf durch das Mittelohr',
+        'Drehschwindel, Nystagmus, Erbrechen, rasch progrediente Innenohrschwerhörigkeit → Labyrinthitis mit Gefahr der Ertaubung',
+        'Meningismus, heftige Kopfschmerzen, Photophobie, Bewusstseinsstörung, Krampfanfall → Meningitis oder Hirnabszess',
+        'Septisches Fieber mit Schüttelfrost, Nackenschmerz und Stauungspapille → Sinus-sigmoideus-Thrombose',
+        'Erneuter Fieberanstieg oder Schmerzzunahme nach zwischenzeitlicher Besserung → Komplikation bis zum Beweis des Gegenteils',
+        'Säugling unter sechs Monaten, Immunsuppression, Einzelohr oder Zustand nach Ohroperation → immer antibiotische Therapie und engmaschige Kontrolle',
+        'Ausbleibende Besserung nach 48 bis 72 Stunden trotz adäquater Therapie',
+        'Persistierender einseitiger Paukenerguss beim Erwachsenen → Nasopharynxkarzinom durch Endoskopie des Nasenrachens ausschließen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: vorangegangener Infekt der oberen Atemwege, Beginn und Charakter des Ohrschmerzes (rasch einsetzend, pulsierend), Fieber, Hörminderung, Druckgefühl, Ohrsekretion, frühere Otitiden und Ohroperationen, Schwimmen oder Wasserkontakt, Wattestäbchengebrauch, Flug oder Tauchgang, Zahnbeschwerden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperaturmessung und Beurteilung des Allgemeinzustandes; beim Kind zusätzlich Trinkverhalten, Vigilanz und Hydratationszustand',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'OTOSKOPIE beidseits als Schlüsseluntersuchung: gerötetes, VORGEWÖLBTES, trübes Trommelfell, aufgehobener Lichtreflex, nicht mehr abgrenzbarer Hammergriff, Gefäßinjektion; bei der pneumatischen Otoskopie fehlende Beweglichkeit. Im Perforationsstadium pulsierender eitriger Sekretfluss aus einer punktförmigen Perforation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Abgrenzung der Otitis externa: Prüfung des Tragusdruckschmerzes und des Schmerzes beim Zug an der Ohrmuschel sowie Inspektion des Gehörgangs — bei der Otitis media sind beide Zeichen NEGATIV und der Gehörgang reizlos',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion und Palpation retroaurikulär: Rötung, Schwellung, Druckschmerz über dem Mastoid, abstehende Ohrmuschel, Verstreichen der retroaurikulären Falte — Suche nach einer Mastoiditis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'STIMMGABELPRÜFUNG nach Weber und Rinne: Bei der Schallleitungsstörung lateralisiert der Weber ins KRANKE Ohr und der Rinne ist auf der kranken Seite NEGATIV',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger HNO-Status: Rhinoskopie und Inspektion des Nasenrachens, Racheninspektion, Palpation der zervikalen Lymphknoten, Prüfung des Kiefergelenks und des Zahnstatus zur Abgrenzung eines fortgeleiteten Schmerzes',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende neurologische Untersuchung: Hirnnervenstatus mit besonderem Augenmerk auf den Nervus facialis, Prüfung auf Meningismus, Nystagmus, Gleichgewicht und Koordination',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei unkompliziertem Verlauf ist keine Labordiagnostik erforderlich — die Diagnose wird klinisch-otoskopisch gestellt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nur bei schwerem Verlauf, hohem Fieber, Säuglingsalter, Immunsuppression oder Komplikationsverdacht: Blutbild mit Differenzialblutbild, CRP, gegebenenfalls Procalcitonin; bei Sepsisverdacht Blutkulturen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Mikrobiologischer Abstrich des Sekrets nur bei Otorrhoe, nach Parazentese, bei Therapieversagen, bei Immunsuppression oder bei Komplikationen — der Gehörgangsabstrich ohne Perforation ist wertlos, da er nur die Gehörgangsflora erfasst',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Meningitisverdacht Liquordiagnostik mit Zellzahl, Eiweiß, Glukose, Laktat, Gramfärbung und Kultur (nach Ausschluss von Hirndruckzeichen)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Tympanometrie: flache Kurve vom Typ B als Ausdruck des Mittelohrergusses und der aufgehobenen Trommelfellbeweglichkeit; Typ C bei reiner Tubenventilationsstörung mit Unterdruck',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Tonschwellenaudiometrie beim Erwachsenen und beim kooperationsfähigen Kind: Schallleitungsschwerhörigkeit mit Luft-Knochen-Leitungs-Differenz (Air-Bone-Gap), typischerweise 20 bis 40 dB; beim Kleinkind stattdessen otoakustische Emissionen oder Hirnstammaudiometrie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Computertomographie des Felsenbeins NUR bei Komplikationsverdacht: Einschmelzung der Mastoidsepten, subperiostaler Abszess, Arrosion der Schädelbasis — keine Routineuntersuchung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniale Magnetresonanztomographie mit Kontrastmittel und MR-Venographie bei Verdacht auf intrakranielle Komplikationen: Meningitis, Hirnabszess, Sinus-sigmoideus-Thrombose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Parazentese (Trommelfellinzision) mit Sekretgewinnung: gleichzeitig diagnostisch (Erregernachweis, Resistogramm) und therapeutisch (Druckentlastung, sofortige Schmerzlinderung) — indiziert bei schwerem Verlauf, Therapieversagen, Komplikationen, Immunsuppression und beim Neugeborenen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Endoskopie des Nasenrachens mit Biopsie bei persistierendem einseitigem Paukenerguss des Erwachsenen zum Ausschluss eines Nasopharynxkarzinoms',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Explorative Mastoidektomie bzw. Antrotomie bei gesicherter Mastoiditis mit Einschmelzung oder fehlendem Ansprechen auf die intravenöse Antibiose',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Otitis externa (diffuse Gehörgangsentzündung)',
+          unterscheidung: 'Die wichtigste Abgrenzung: TRAGUSDRUCKSCHMERZ und Schmerz beim ZUG AN DER OHRMUSCHEL sind positiv, der Gehörgang ist gerötet, geschwollen und schuppig, das TROMMELFELL ist NORMAL. Typisch nach Wasserkontakt, Schwimmen oder Gebrauch von Wattestäbchen; Juckreiz geht dem Schmerz häufig voraus; Fieber und Hörminderung fehlen meist oder sind nur durch die Gehörgangsschwellung bedingt.',
+        },
+        {
+          dd: 'Zoster oticus (Ramsay-Hunt-Syndrom)',
+          unterscheidung: 'Reaktivierung des Varizella-Zoster-Virus im Ganglion geniculi: brennender, oft dem Ausschlag vorausgehender Schmerz, dann BLÄSCHEN an Ohrmuschel, Gehörgang oder Gaumen, periphere FAZIALISPARESE, häufig zusätzlich Innenohrschwerhörigkeit und Schwindel. Das Trommelfell ist meist unauffällig. Therapie mit Aciclovir und Glukokortikoiden.',
+        },
+        {
+          dd: 'Mastoiditis',
+          unterscheidung: 'Als Komplikation der Otitis media und zugleich wichtigste Abgrenzung bei protrahiertem Verlauf: retroaurikuläre Rötung, teigige Schwellung und Druckschmerz über dem Mastoid, ABSTEHENDE Ohrmuschel, Verstreichen der retroaurikulären Falte, erneuter Fieberanstieg nach initialer Besserung. Nachweis im Felsenbein-CT; stationärer Notfall.',
+        },
+        {
+          dd: 'Cerumen obturans und Fremdkörper im Gehörgang',
+          unterscheidung: 'Plötzliche Hörminderung und Druckgefühl, oft nach Wasserkontakt (Quellung des Zerumens), meist ohne Fieber und ohne Infektzeichen; die Otoskopie zeigt den obturierenden Pfropf oder den Fremdkörper, das Trommelfell ist nach Entfernung reizlos. Beim Kind an eine Fremdkörpereinlage denken.',
+        },
+        {
+          dd: 'Tubenkatarrh und Otitis media mit Erguss (Seromukotympanon)',
+          unterscheidung: 'Druckgefühl, Hörminderung, Autophonie und Knacken im Ohr OHNE ausgeprägten Schmerz und ohne Fieber; das Trommelfell ist retrahiert, bernsteinfarben oder mit Flüssigkeitsspiegel, nicht gerötet und nicht vorgewölbt. Tympanogramm Typ B oder C.',
+        },
+        {
+          dd: 'Chronische Otitis media mit Cholesteatom',
+          unterscheidung: 'Seit Monaten bestehende, FÖTIDE, oft schmerzlose Otorrhoe mit langsam zunehmender Schwerhörigkeit; otoskopisch randständige (epitympanale) Perforation mit weißlichen Schuppenmassen. Gefahr der Knochenarrosion mit Fazialisparese, Labyrinthfistel und intrakraniellen Komplikationen — immer operative Therapie.',
+        },
+        {
+          dd: 'Fortgeleiteter Zahn- oder Kiefergelenkschmerz (kraniomandibuläre Dysfunktion)',
+          unterscheidung: 'Der Schmerz wird ins Ohr projiziert, das Ohr selbst ist otoskopisch unauffällig; Schmerzverstärkung beim Kauen und Mundöffnen, Druckschmerz und Knacken über dem Kiefergelenk, Zahnstatus mit Karies, Wurzelentzündung oder retiniertem Weisheitszahn. Kein Fieber, keine Hörminderung.',
+        },
+        {
+          dd: 'Barotrauma des Mittelohres bzw. traumatische Trommelfellruptur',
+          unterscheidung: 'Eindeutiges auslösendes Ereignis: Flug, Tauchgang, Schlag auf das Ohr, Explosionsknall oder Manipulation mit einem Wattestäbchen. Sofortiger heftiger Schmerz, Hörminderung, oft blutige Otorrhoe; otoskopisch Hämatotympanon oder eine schlitzförmige Perforation mit blutigen Rändern, ohne Infektzeichen.',
+        },
+        {
+          dd: 'Nasopharynxkarzinom (bei einseitigem Paukenerguss des Erwachsenen)',
+          unterscheidung: 'Nicht der akute Schmerz, sondern der PERSISTIERENDE einseitige Erguss mit langsam zunehmender Hörminderung ist verdächtig; zusätzlich einseitig behinderte Nasenatmung, Epistaxis, zervikale Lymphknotenschwellung, Hirnnervenausfälle. Abklärung durch Nasopharynxendoskopie mit Biopsie und MRT — beim Erwachsenen niemals einen einseitigen Erguss unabgeklärt lassen.',
+        },
+        {
+          dd: 'Myringitis bullosa (Grippeotitis)',
+          unterscheidung: 'Sehr starker Schmerz bei hämorrhagischen Blasen AUF dem Trommelfell, häufig im Rahmen einer Influenza- oder Mykoplasmeninfektion; nach Platzen der Blasen blutig-seröse Sekretion. Übergänge zur akuten Otitis media sind fließend.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomatische Basistherapie und abwartendes Offenhalten',
+          items: [
+            'Ausreichende Analgesie und Antipyrese ist die WICHTIGSTE Maßnahme, denn der Schmerz ist das Leitsymptom: Ibuprofen 10 mg/kg Körpergewicht pro Einzeldosis beim Kind, beim Erwachsenen 400 bis 600 mg bis zu dreimal täglich; alternativ oder ergänzend Paracetamol 15 mg/kg pro Einzeldosis beziehungsweise 500 bis 1000 mg beim Erwachsenen. Die Analgesie wird fest angesetzt und nicht nur bei Bedarf',
+            'Abschwellende Nasentropfen oder Nasenspray (Xylometazolin, altersgerechte Konzentration) zur Verbesserung der Tubenbelüftung — CAVE: Anwendung auf maximal fünf bis sieben Tage begrenzen wegen der Gefahr einer Rhinitis medicamentosa',
+            'Allgemeinmaßnahmen: ausreichende Flüssigkeitszufuhr, körperliche Schonung, Oberkörper- bzw. Kopfhochlagerung, lokale Wärme wird von vielen Patienten als angenehm empfunden; kein Wasser ins Ohr, kein Schwimmen',
+            'Beim UNKOMPLIZIERTEN Fall des Kindes ab zwei Jahren und des Erwachsenen ist ein abwartendes Offenhalten über 48 Stunden unter suffizienter Analgesie vertretbar, weil die Mehrzahl der Fälle spontan ausheilt; dem Patienten wird ein Rezept zur Einlösung bei ausbleibender Besserung mitgegeben („delayed prescribing“)',
+            'Verbindliche Sicherheitsnetz-Aufklärung: sofortige Wiedervorstellung bei Schwellung oder Rötung hinter dem Ohr, abstehender Ohrmuschel, Gesichtslähmung, Schwindel, Nackensteifigkeit, Bewusstseinsstörung oder erneutem Fieberanstieg',
+            'Nicht empfohlen sind Antibiotika-Ohrentropfen bei intaktem Trommelfell (sie erreichen das Mittelohr nicht), Ohrentropfen mit Lokalanästhetikum bei Perforation sowie Antihistaminika und Mukolytika ohne Zusatznutzen; Acetylsalicylsäure ist beim Kind wegen des Reye-Syndroms kontraindiziert',
+          ],
+        },
+        {
+          label: 'Gezielte antibiotische Therapie bei Indikation',
+          items: [
+            'INDIKATIONEN: Säuglinge unter sechs Monaten immer; Kinder unter zwei Jahren bei beidseitigem Befall; schwere Symptome mit hohem Fieber, starken oder länger als 48 Stunden bestehenden Schmerzen und reduziertem Allgemeinzustand; Otorrhoe bzw. Trommelfellperforation; Immunsuppression, relevante Grunderkrankung, Einzelohr, Zustand nach Ohroperation, Lippen-Kiefer-Gaumen-Spalte oder Trisomie 21; ausbleibende Besserung nach 48 Stunden',
+            'Mittel der Wahl ist AMOXICILLIN: beim Kind 50 mg/kg Körpergewicht pro Tag in zwei bis drei Einzeldosen, beim Erwachsenen 3 × 750 bis 1000 mg täglich; Dauer fünf bis sieben Tage, bei Kindern unter zwei Jahren, bei Otorrhoe und bei schwerem Verlauf zehn Tage',
+            'Bei Therapieversagen nach 48 bis 72 Stunden, bei kürzlich vorausgegangener Antibiotikatherapie oder beim Otitis-Konjunktivitis-Syndrom Umstellung auf Amoxicillin/Clavulansäure wegen betalaktamasebildender Haemophilus- und Moraxella-Stämme',
+            'Bei Penicillinallergie: Cefuroximaxetil bei nicht IgE-vermittelter Reaktion (etwa einem verzögerten Exanthem); bei gesicherter Typ-I-Allergie ein Makrolid wie Clarithromycin oder Azithromycin — CAVE zunehmende Makrolidresistenz der Pneumokokken. Eine anamnestisch unklare Kindheitsreaktion sollte allergologisch abgeklärt werden, da sie sich häufig als virales Exanthem entpuppt',
+            'Der Nutzen der Antibiose ist beim unkomplizierten Verlauf begrenzt: Sie verkürzt die Schmerzdauer nur um etwa einen Tag, verhindert die Mastoiditis nicht sicher und erzeugt bei jedem zehnten bis fünfzehnten Behandelten Nebenwirkungen wie Durchfall oder Exanthem — deshalb die strenge Indikationsstellung',
+            'Kontrolle des Ansprechens nach 48 bis 72 Stunden; bei fehlender Besserung Reevaluation mit Otoskopie, Parazentese mit Abstrich und Suche nach Komplikationen',
+          ],
+        },
+        {
+          label: 'Erkennung und Behandlung von Komplikationen',
+          items: [
+            'MASTOIDITIS (häufigste Komplikation): stationäre Aufnahme, intravenöse Antibiose zum Beispiel mit Cefuroxim oder Ceftriaxon, gegebenenfalls plus Metronidazol, sofortige Parazentese mit Sekretgewinnung und Resistogramm; bei fehlendem Ansprechen innerhalb von 24 bis 48 Stunden, bei Einschmelzung oder subperiostalem Abszess Mastoidektomie (Antrotomie)',
+            'Periphere FAZIALISPARESE: sofortige Parazentese zur Druckentlastung, intravenöse Antibiose, Glukokortikoide, Augenschutz mit Uhrglasverband und Tränenersatz; bei Cholesteatom oder fehlender Erholung operative Dekompression',
+            'LABYRINTHITIS: intravenöse Antibiose und Glukokortikoide, Parazentese, Antivertiginosa nur kurzfristig — Gefahr der irreversiblen Ertaubung, deshalb frühzeitige HNO-Vorstellung und audiologische Verlaufskontrolle',
+            'MENINGITIS: sofortige Blutkulturen, Lumbalpunktion nach Ausschluss von Hirndruckzeichen, unverzügliche kalkulierte intravenöse Antibiose (zum Beispiel Ceftriaxon plus Ampicillin bei entsprechender Konstellation) zusammen mit Dexamethason, Sanierung des Fokus durch Parazentese bzw. Mastoidektomie',
+            'SINUS-SIGMOIDEUS-THROMBOSE und HIRNABSZESS: kraniale Bildgebung mit Kontrastmittel und MR-Venographie, intravenöse Antibiose, Antikoagulation nach interdisziplinärer Abwägung, neurochirurgische und HNO-ärztliche Mitbeurteilung mit Fokussanierung',
+            'Bei Trommelfellperforation mit Otorrhoe: Ohr trocken halten, kein Wasser und keine Ohrstöpsel aus Watte, systemische Antibiose statt ototoxischer Ohrentropfen; otoskopische Kontrolle des spontanen Verschlusses, der in der Regel innerhalb von zwei bis vier Wochen eintritt',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nachsorge und Prävention',
+          items: [
+            'Otoskopische Verlaufskontrolle und HÖRKONTROLLE mit Tympanometrie und Audiometrie etwa vier bis sechs Wochen nach Abklingen, da ein Paukenerguss mit Schallleitungsschwerhörigkeit persistieren kann — beim Kind mit Gefahr der Sprachentwicklungsverzögerung',
+            'Bei einem über drei Monate persistierenden beidseitigen Paukenerguss mit relevanter Hörminderung Parazentese mit Einlage von Paukenröhrchen, beim Kind gegebenenfalls kombiniert mit einer Adenotomie',
+            'Beim ERWACHSENEN mit persistierendem EINSEITIGEM Paukenerguss zwingend Endoskopie des Nasenrachens zum Ausschluss eines Nasopharynxkarzinoms',
+            'Impfprävention nach den Empfehlungen der Ständigen Impfkommission: Pneumokokken-Konjugatimpfung im Rahmen der Standardimpfungen des Säuglings sowie für Personen ab 60 Jahren und für Risikogruppen; jährliche Influenzaimpfung, insbesondere bei beruflicher Exposition und bei Risikopatienten',
+            'Beseitigung begünstigender Faktoren: konsequente Rauchkarenz im Haushalt und Verzicht auf Passivrauchexposition, Behandlung einer allergischen Rhinitis, Sanierung adenoider Vegetationen, Stillen im ersten Lebenshalbjahr, kein Füttern im Liegen',
+            'Aufklärung über die Technik des schonenden Naseputzens (jeweils ein Nasenloch, nicht gegen Widerstand) und über Druckausgleich bei Flugreisen; Verzicht auf Wattestäbchen im Gehörgang',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der unkomplizierten akuten Otitis media ist sehr gut: Etwa 80 Prozent der Patienten bessern sich auch ohne Antibiotikum innerhalb von zwei bis drei Tagen deutlich, und die Erkrankung heilt in der Regel folgenlos aus; eine antibiotische Therapie verkürzt die Schmerzdauer nur um etwa einen Tag. Eine spontane Trommelfellperforation verschließt sich meist innerhalb von zwei bis vier Wochen ohne Folgen. Ein Paukenerguss kann jedoch deutlich länger persistieren — nach einem Monat noch bei etwa einem Drittel, nach drei Monaten noch bei rund einem Zehntel der Patienten; deshalb die obligate Hörkontrolle nach vier bis sechs Wochen. Komplikationen sind seit der Verfügbarkeit von Antibiotika und der Pneumokokkenimpfung selten geworden, die Mastoiditis liegt in der Größenordnung von unter einem Promille der Episoden; unbehandelt drohen jedoch weiterhin Fazialisparese, Labyrinthitis mit Ertaubung, Meningitis, Sinusvenenthrombose und Hirnabszess. Rezidivierende Verläufe und ein chronischer Erguss können beim Kleinkind über die Schallleitungsschwerhörigkeit die Sprachentwicklung verzögern und rechtfertigen die Einlage von Paukenröhrchen.',
+      pruefungsfallen: [
+        'Die OTOSKOPIE ist die Schlüsseluntersuchung und muss aktiv genannt werden — mit dem vollständigen Befund: gerötetes, VORGEWÖLBTES, trübes Trommelfell, aufgehobener Lichtreflex, fehlende Beweglichkeit. Wer nur „Ohr anschauen“ sagt, verschenkt Punkte.',
+        'Die Stimmgabelprüfung korrekt herleiten: Bei der Schallleitungsstörung lateralisiert der WEBER ins KRANKE Ohr und der RINNE ist auf der kranken Seite NEGATIV. Häufigster Fehler ist die Verwechslung mit der Schallempfindungsstörung, bei der Weber ins GESUNDE Ohr lateralisiert und Rinne positiv bleibt.',
+        'Die Abgrenzung zur Otitis externa gehört in jede Antwort: TRAGUSDRUCKSCHMERZ und Schmerz beim ZUG AN DER OHRMUSCHEL sprechen für die Otitis externa, und dort ist das TROMMELFELL NORMAL.',
+        'Den plötzlichen Schmerznachlass richtig deuten: Lässt der Schmerz schlagartig nach und läuft Eiter aus dem Ohr, ist das KEINE Heilung, sondern eine Trommelfellperforation — das Ohr muss trocken gehalten und der Verlauf otoskopisch kontrolliert werden.',
+        'Nicht jede Otitis media bekommt ein Antibiotikum. Wer reflexhaft Amoxicillin ansetzt, verfehlt die erwartete Argumentation; erwartet werden die Analgesie als wichtigste Maßnahme und die konkrete Aufzählung der Antibiotikaindikationen.',
+        'Wird ein Antibiotikum indiziert, heißt das Mittel der Wahl AMOXICILLIN — nicht Cotrimoxazol, nicht primär ein Makrolid und beim Kind niemals ein Fluorchinolon.',
+        'Die MASTOIDITIS muss aktiv gesucht und beschrieben werden: retroaurikuläre Rötung und Schwellung, Druckschmerz über dem Mastoid und ABSTEHENDE Ohrmuschel — das ist ein stationärer Notfall mit intravenöser Antibiose und Parazentese.',
+        'Abschwellende Nasentropfen nur maximal fünf bis sieben Tage — die Rhinitis medicamentosa wird von Prüfern gerne abgefragt, wenn der Patient das Spray „schon seit Tagen“ benutzt.',
+        'Beim Kind keine Acetylsalicylsäure wegen des Reye-Syndroms; Ibuprofen und Paracetamol sind die Analgetika der Wahl.',
+        'Die Hörkontrolle nach Abklingen nicht vergessen: Ein persistierender Paukenerguss verursacht eine Schallleitungsschwerhörigkeit und kann beim Kind die Sprachentwicklung verzögern.',
+        'Beim ERWACHSENEN mit einseitigem, persistierendem Paukenerguss immer an ein NASOPHARYNXKARZINOM denken und den Nasenrachen endoskopieren.',
+        'Sprachfalle vor dem Patienten: „Otitis media“ heißt auf Deutsch MITTELOHRENTZÜNDUNG, „Otitis externa“ ist die Entzündung des äußeren Gehörgangs; „Trommelfell“ statt Membrana tympani, „Ohrtrompete“ statt Tuba auditiva, „Ohrenschmalz“ statt Zerumen, „Ohrensausen“ statt Tinnitus. Der Begriff wird in Baden-Württemberg sehr häufig als Fachbegriff gezogen.',
+        'Ein Gehörgangsabstrich bei INTAKTEM Trommelfell ist wertlos — er erfasst nur die Gehörgangsflora. Aussagekräftig sind nur das Sekret bei Perforation und das Punktat der Parazentese.',
+        'Eine Computertomographie ist keine Routinediagnostik, sondern gehört ausschließlich zum Komplikationsverdacht — wer sie unbegründet anordnet, wird nach der Indikation gefragt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine akute Otitis media, also eine akute Mittelohrentzündung. Dafür sprechen der vorausgegangene virale Infekt der oberen Atemwege mit behinderter Nasenatmung, der rasch einsetzende, pulsierende einseitige Ohrenschmerz, das Fieber, die Hörminderung vom Schallleitungstyp und das Druckgefühl im Ohr. Bestätigt wird die Diagnose otoskopisch durch ein gerötetes, vorgewölbtes, trübes Trommelfell mit aufgehobenem Lichtreflex und fehlender Beweglichkeit.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff „Otitis media“ in Alltagssprache?',
+          antwort: 'Otitis media heißt Mittelohrentzündung: Das ist eine Entzündung des Bereiches hinter dem Trommelfell. Im Unterschied dazu ist die Otitis externa eine Entzündung des äußeren Gehörgangs. Das Trommelfell ist die dünne Haut, die den Gehörgang vom Mittelohr trennt, und die Ohrtrompete ist der Verbindungsgang zwischen Mittelohr und Nasenrachen, über den das Ohr belüftet wird.',
+        },
+        {
+          frage: 'Welche Untersuchung ist bei dieser Erkrankung die entscheidende, und was sehen Sie dabei?',
+          antwort: 'Die Otoskopie. Ich sehe ein gerötetes, vorgewölbtes und trübes Trommelfell, der Lichtreflex ist aufgehoben und der Hammergriff nicht mehr abgrenzbar; bei der pneumatischen Otoskopie ist die Beweglichkeit aufgehoben. Im Perforationsstadium sieht man eine punktförmige Perforation mit pulsierender eitriger Sekretion.',
+        },
+        {
+          frage: 'Was erwarten Sie bei der Stimmgabelprüfung nach Weber und Rinne?',
+          antwort: 'Es liegt eine Schallleitungsstörung vor. Deshalb lateralisiert der Weber ins kranke Ohr und der Rinne ist auf der kranken Seite negativ, das heißt die Knochenleitung wird länger und lauter gehört als die Luftleitung. Bei einer Schallempfindungsstörung wäre es genau umgekehrt: Weber ins gesunde Ohr, Rinne beidseits positiv.',
+        },
+        {
+          frage: 'Wie grenzen Sie die Otitis media von der Otitis externa ab?',
+          antwort: 'Über drei Punkte: Bei der Otitis externa sind der Tragusdruckschmerz und der Schmerz beim Zug an der Ohrmuschel positiv, der Gehörgang ist gerötet und geschwollen, und das Trommelfell ist normal. Bei der Otitis media ist es umgekehrt — kein Tragusdruckschmerz, reizloser Gehörgang, aber ein pathologisch verändertes Trommelfell. Anamnestisch spricht Wasserkontakt oder Wattestäbchengebrauch für die Otitis externa, ein vorausgegangener Schnupfen für die Otitis media.',
+        },
+        {
+          frage: 'Welche Erreger sind typisch?',
+          antwort: 'In bis zu zwei Dritteln der Fälle sind Viren beteiligt, vor allem Rhino-, RS-, Influenza- und Adenoviren. Die wichtigsten bakteriellen Erreger sind Streptococcus pneumoniae, Haemophilus influenzae und Moraxella catarrhalis, seltener Streptococcus pyogenes und Staphylococcus aureus.',
+        },
+        {
+          frage: 'Der Patient sagt, plötzlich sei der Schmerz weg gewesen und es sei Flüssigkeit aus dem Ohr gelaufen. Was ist passiert?',
+          antwort: 'Das Trommelfell ist perforiert. Durch den Druckabfall lässt der Schmerz schlagartig nach und es entleert sich eitriges, manchmal blutig tingiertes Sekret. Das ist keine Heilung, sondern ein Stadium der Erkrankung: Das Ohr muss trocken gehalten werden, kein Wasser und keine ototoxischen Ohrentropfen; der Verschluss erfolgt meist spontan innerhalb von zwei bis vier Wochen und wird otoskopisch kontrolliert.',
+        },
+        {
+          frage: 'Behandeln Sie jede akute Otitis media mit einem Antibiotikum?',
+          antwort: 'Nein. Die Mehrzahl der Fälle ist viral bedingt und heilt spontan aus; die wichtigste Maßnahme ist deshalb eine konsequente Schmerz- und Fiebertherapie mit Ibuprofen oder Paracetamol, ergänzt durch abschwellende Nasentropfen. Beim unkomplizierten Fall des Kindes ab zwei Jahren und des Erwachsenen ist ein abwartendes Offenhalten über 48 Stunden vertretbar.',
+        },
+        {
+          frage: 'Wann setzen Sie dann doch ein Antibiotikum ein, und welches?',
+          antwort: 'Bei Säuglingen unter sechs Monaten immer, bei Kindern unter zwei Jahren mit beidseitigem Befall, bei schweren Symptomen mit hohem Fieber und starken Schmerzen, bei Otorrhoe, bei Immunsuppression oder relevanter Grunderkrankung und bei ausbleibender Besserung nach 48 Stunden. Mittel der Wahl ist Amoxicillin, beim Kind 50 mg pro Kilogramm Körpergewicht und Tag, für fünf bis sieben Tage, bei Kleinkindern und schwerem Verlauf zehn Tage. Bei Therapieversagen Amoxicillin mit Clavulansäure.',
+        },
+        {
+          frage: 'Und wenn eine Penicillinallergie besteht?',
+          antwort: 'Zunächst muss die Allergie genauer erfragt werden, denn ein Exanthem im Kindesalter ist häufig ein virales Exanthem und keine echte Allergie. Bei einer nicht IgE-vermittelten Reaktion kann Cefuroximaxetil gegeben werden, bei einer gesicherten Soforttypreaktion ein Makrolid wie Clarithromycin oder Azithromycin — dabei ist an die zunehmende Makrolidresistenz der Pneumokokken zu denken.',
+        },
+        {
+          frage: 'Welche Komplikationen kennen Sie, und welche ist die häufigste?',
+          antwort: 'Die häufigste ist die Mastoiditis. Weiter drohen eine periphere Fazialisparese, eine Labyrinthitis mit Schwindel und drohender Ertaubung, eine Meningitis, eine Sinus-sigmoideus-Thrombose und ein Hirnabszess. Lokal kann eine chronische Otitis media mit Perforation, ein persistierender Paukenerguss oder ein Cholesteatom entstehen.',
+        },
+        {
+          frage: 'Woran erkennen Sie eine Mastoiditis, und wie behandeln Sie sie?',
+          antwort: 'An der Rötung und teigigen Schwellung hinter dem Ohr, dem Druckschmerz über dem Mastoid, der abstehenden Ohrmuschel und dem erneuten Fieberanstieg nach zwischenzeitlicher Besserung. Gesichert wird sie im Felsenbein-CT. Das ist ein Notfall: stationäre Aufnahme, intravenöse Antibiose, Parazentese mit Erregergewinnung und, bei fehlendem Ansprechen oder Einschmelzung, Mastoidektomie.',
+        },
+        {
+          frage: 'Welche Rolle spielt die Bildgebung?',
+          antwort: 'Beim unkomplizierten Verlauf keine. Eine Computertomographie des Felsenbeins ist ausschließlich bei Komplikationsverdacht indiziert, insbesondere bei Mastoiditis; bei Verdacht auf eine intrakranielle Komplikation wird eine Magnetresonanztomographie mit Kontrastmittel und eine MR-Venographie ergänzt.',
+        },
+        {
+          frage: 'Was raten Sie dem Patienten nach Abklingen der Beschwerden?',
+          antwort: 'Eine Hörkontrolle mit Tympanometrie und Audiometrie nach vier bis sechs Wochen, weil ein Paukenerguss persistieren kann. Außerdem Rauchkarenz beziehungsweise Vermeidung von Passivrauch, Behandlung einer allergischen Rhinitis, die Influenzaimpfung entsprechend den Empfehlungen und beim Kind die Pneumokokken-Standardimpfung sowie die Abklärung vergrößerter Rachenmandeln bei rezidivierenden Episoden.',
+        },
+        {
+          frage: 'Ein Erwachsener hat seit drei Monaten einen einseitigen Paukenerguss ohne Schmerzen. Woran denken Sie?',
+          antwort: 'An ein Nasopharynxkarzinom. Der einseitige, persistierende Paukenerguss des Erwachsenen ist so lange verdächtig, bis das Gegenteil bewiesen ist; deshalb muss eine Endoskopie des Nasenrachens mit Biopsie erfolgen, ergänzt durch eine Magnetresonanztomographie und die Palpation der Halslymphknoten.',
+        },
+      ],
+      merksatz: 'Nach dem Schnupfen pulsierender Ohrenschmerz mit Fieber und dumpfem Hören: Otoskopie zeigt das gerötete, VORGEWÖLBTE Trommelfell, Weber geht ins KRANKE Ohr und Rinne ist dort NEGATIV. Wichtigste Therapie ist der Schmerz — Ibuprofen und abschwellende Nasentropfen, Amoxicillin nur bei klarer Indikation. Läuft es plötzlich schmerzfrei aus dem Ohr, ist das Trommelfell perforiert; steht die Ohrmuschel ab und ist es hinter dem Ohr rot, ist es eine Mastoiditis.',
+      linkedCaseIds: [
+        'case-otitis-media',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-ileus',
+      pathology: 'Mechanischer Ileus (Bridenileus)',
+      specialty: 'Chirurgie',
+      definition: 'Als Ileus bezeichnet man die vollständige Unterbrechung der Darmpassage, als Subileus die inkomplette Passagestörung. Beim MECHANISCHEN Ileus liegt ein Hindernis vor, das das Lumen von außen komprimiert (Briden, Adhäsionen, Hernien, Tumoren von außen), von innen verlegt (Tumor, Gallenstein, Bezoar, Koprostase) oder abknickt beziehungsweise abschnürt (Volvulus, Invagination, Inkarzeration). Beim PARALYTISCHEN Ileus fehlt dagegen jede Propulsion bei offenem Lumen. Der Bridenileus ist die häufigste Form des mechanischen Dünndarmileus: Nach jeder Eröffnung des Bauchraums bilden sich bindegewebige Verwachsungen (Adhäsionen) und strangförmige Briden, die eine Dünndarmschlinge abknicken oder abschnüren. Pathophysiologisch kommt es prästenotisch zu Dilatation, Wandödem und bakterieller Überwucherung, zur Sequestration großer Flüssigkeitsmengen in das Darmlumen und in die Bauchhöhle ("dritter Raum") mit Hypovolämie, Elektrolytverlust und metabolischer Alkalose durch das Erbrechen; bei Strangulation wird zusätzlich die Mesenterialdurchblutung unterbrochen — es drohen Wandnekrose, Durchwanderungsperitonitis, Perforation und Sepsis.',
+      aetiologie: 'Mechanischer Ileus: An erster Stelle stehen BRIDEN UND ADHÄSIONEN nach abdominellen oder gynäkologischen Voroperationen — sie verursachen etwa 60–75 % aller mechanischen Dünndarmileus; deshalb gehören die Frage nach Voroperationen und die Suche nach Narben zwingend zur Anamnese. Zweithäufigste Ursache sind INKARZERIERTE HERNIEN (Leisten-, Schenkel-, Nabel-, Narbenhernie, innere Hernien) — die Bruchpforten müssen immer untersucht werden. Beim Dickdarm dominiert das kolorektale KARZINOM (typisch beim älteren Patienten ohne Voroperation), gefolgt von Sigmavolvulus, Divertikelstenose, Koprostase und Kotsteinen. Weitere Ursachen: Invagination (typisch beim Kleinkind, beim Erwachsenen fast immer tumorbedingt), Gallensteinileus mit Aerobilie nach biliodigestiver Fistel, Morbus Crohn mit Stenose, Bestrahlungsstenose, Fremdkörper und Bezoare, Mekoniumileus bei Mukoviszidose. Paralytischer Ileus: reflektorisch postoperativ (physiologisch bis etwa 72 Stunden), bei Peritonitis, akuter Pankreatitis, Cholezystitis, Appendizitis, retroperitonealem Hämatom, Nierenkolik und Wirbelfrakturen; metabolisch-toxisch bei Hypokaliämie, Urämie, diabetischer Ketoazidose, Hypothyreose und Sepsis; medikamentös durch Opiate, Anticholinergika, trizyklische Antidepressiva und Neuroleptika; vaskulär als Endstadium des Mesenterialinfarkts.',
+      risikofaktoren: [
+        'Jede abdominelle oder gynäkologische Voroperation, insbesondere offene Eingriffe im Unterbauch (Hysterektomie, Appendektomie, kolorektale Eingriffe) und Operationen mit Peritonitis',
+        'Mehrfache Voroperationen und bereits stattgehabter Bridenileus (hohe Rezidivneigung)',
+        'Bekannte Hernien, die nicht versorgt wurden (Leisten-, Schenkel-, Nabel-, Narbenhernie)',
+        'Höheres Lebensalter (kolorektales Karzinom, Sigmavolvulus, Koprostase)',
+        'Chronisch entzündliche Darmerkrankungen, insbesondere Morbus Crohn mit narbigen Stenosen',
+        'Bauchbestrahlung, Peritonealkarzinose',
+        'Cholezystolithiasis mit rezidivierenden Entzündungen (Gallensteinileus über eine biliodigestive Fistel)',
+        'Immobilität, Laxanzien- und Opiatgebrauch, Exsikkose (Koprostase, paralytische Komponente)',
+        'Elektrolytstörungen, insbesondere Hypokaliämie, und Hypothyreose (paralytische Komponente)',
+      ],
+      klinik: [
+        {
+          text: 'Kolikartige, wellenförmige Bauchschmerzen mit schmerzarmen Intervallen — der Schmerz folgt der gesteigerten Peristaltik gegen das Hindernis',
+        },
+        {
+          text: 'Übelkeit und wiederholtes Erbrechen; je höher das Hindernis, desto früher und heftiger das Erbrechen',
+        },
+        {
+          text: 'MISERERE (Koterbrechen): Erbrechen von stuhlig riechendem Dünndarminhalt bei tiefem Sitz des Hindernisses — pathognomonisches Spätzeichen',
+        },
+        {
+          text: 'STUHL- UND WINDVERHALT — das entscheidende Leitsymptom, das aktiv erfragt werden muss; der fehlende Windabgang ist verlässlicher als der fehlende Stuhlgang',
+        },
+        {
+          text: 'Geblähtes, meteoristisches, trommelartig klingendes Abdomen; je tiefer das Hindernis, desto ausgeprägter die Auftreibung',
+        },
+        {
+          text: 'Auskultation beim MECHANISCHEN Ileus: hochgestellte, klingende, metallische Darmgeräusche mit Plätschern und Rumpeln über der dilatierten Schlinge',
+        },
+        {
+          text: 'Auskultation beim PARALYTISCHEN Ileus: "Totenstille" im Abdomen — über Minuten kein Darmgeräusch auskultierbar',
+        },
+        {
+          text: 'Sichtbare Darmsteifungen und tastbare Resistenz bei schlanken Patienten',
+        },
+        {
+          text: 'Operationsnarben am Abdomen als anamnestisch-klinischer Hinweis auf Briden',
+        },
+        {
+          text: 'Zeichen der Hypovolämie durch Sequestration und Erbrechen: Durst, trockene Schleimhäute, stehende Hautfalten, Oligurie, Tachykardie, Hypotonie',
+        },
+        {
+          text: 'Bei Strangulation oder Ischämie: Umschlag des kolikartigen in einen anhaltenden Dauerschmerz, Peritonismus mit Abwehrspannung, Fieber, Tachykardie, Schock',
+        },
+        {
+          text: 'Beim inkarzerierten Bruch: prall-elastische, druckschmerzhafte, nicht reponible Vorwölbung an der Bruchpforte',
+          atypisch: false,
+        },
+        {
+          text: 'Beim älteren, sedierten oder diabetischen Patienten kann die Symptomatik blande sein — Ileus trotz weichem, wenig schmerzhaftem Abdomen',
+          atypisch: true,
+        },
+        {
+          text: 'Paradoxe Diarrhoe: flüssige Stuhlentleerung an einer Stenose vorbei täuscht eine erhaltene Passage vor',
+          atypisch: true,
+        },
+        {
+          text: 'Beim hohen Dünndarmileus fehlt die Auftreibung oft ganz — im Vordergrund stehen heftiges Erbrechen und Exsikkose',
+          atypisch: true,
+        },
+        {
+          text: 'Chronisch-intermittierender Verlauf mit rezidivierenden Subileus-Episoden über Wochen bis Monate (Bride, Tumor, Morbus Crohn)',
+          atypisch: true,
+        },
+        {
+          text: 'Postoperativer früher Bridenileus in den ersten Wochen nach einem Eingriff, klinisch schwer vom paralytischen Postoperationsileus zu trennen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach dem Pathomechanismus',
+          inhalt: 'Mechanischer Ileus (Hindernis vorhanden): Obturationsileus (Verlegung des Lumens, Durchblutung erhalten — Tumor, Koprostase, Gallenstein) und Strangulationsileus (zusätzliche Abschnürung des Mesenteriums mit Ischämie — Bride, Inkarzeration, Volvulus, Invagination): der Strangulationsileus ist die dringliche Notfallindikation. Paralytischer (funktioneller) Ileus: Lumen offen, Motilität erloschen — reflektorisch, entzündlich, metabolisch, medikamentös oder vaskulär. Gemischte Formen: Jeder länger bestehende mechanische Ileus geht sekundär in eine Paralyse über.',
+        },
+        {
+          name: 'Einteilung nach der Höhe des Hindernisses',
+          inhalt: 'Hoher Dünndarmileus (proximales Jejunum): frühes, schwallartiges Erbrechen, kaum Meteorismus, rasche Exsikkose und hypochlorämische metabolische Alkalose. Tiefer Dünndarmileus: ausgeprägter Meteorismus, spätes und schließlich fäkulentes Erbrechen (Miserere). Dickdarmileus: massive Auftreibung, sehr spätes Erbrechen; bei kompetenter Bauhin-Klappe entsteht eine geschlossene Schlinge mit Perforationsgefahr am Zökum (Laplace-Gesetz, kritischer Zökumdurchmesser über 10–12 cm).',
+        },
+        {
+          name: 'Einteilung nach dem Grad der Passagestörung',
+          inhalt: 'Subileus: inkomplette Passagestörung, noch geringer Wind- oder Stuhlabgang, im Röntgen einzelne Spiegel — konservativer Auslassversuch meist möglich. Kompletter Ileus: vollständiger Stuhl- und Windverhalt, im Bild multiple Spiegel und ein Übergang von dilatierten zu kollabierten Schlingen. Die Unterscheidung steuert die Entscheidung zwischen konservativem Vorgehen und Operation.',
+        },
+        {
+          name: 'Ursachenhäufigkeit des mechanischen Dünndarmileus',
+          inhalt: 'Briden und Adhäsionen nach Voroperationen etwa 60–75 %, inkarzerierte Hernien etwa 10–15 %, Tumoren einschließlich Peritonealkarzinose etwa 5–10 %, Morbus Crohn, Invagination, Gallensteinileus und Bezoare als seltenere Ursachen. Beim Dickdarmileus dominieren das kolorektale Karzinom (etwa 60 %), Sigmavolvulus und Divertikelstenosen.',
+        },
+      ],
+      redFlags: [
+        'Umschlag des kolikartigen Schmerzes in einen anhaltenden Dauerschmerz — Hinweis auf Strangulation und beginnende Darmwandnekrose',
+        'Peritonismus mit Abwehrspannung, Loslassschmerz und brettharter Bauchdecke — Perforation oder Durchwanderungsperitonitis',
+        'Fieber, Tachykardie, Hypotonie, Verwirrtheit — septischer Verlauf',
+        'Laktatanstieg in der Blutgasanalyse mit metabolischer Azidose — Alarmzeichen der Darmischämie; Cave: ein normales Laktat schließt eine frühe Ischämie NICHT aus',
+        'Freie Luft unter dem Zwerchfell in der Abdomenübersicht im Stehen oder im CT — Perforation, sofortige Operation',
+        'Nicht reponible, druckschmerzhafte, gerötete Bruchpforte — inkarzerierte Hernie, sofortige operative Freilegung ohne Repositionsversuch',
+        'Blutiger Stuhl oder blutiges Magensondensekret bei bestehendem Ileus — Ischämie',
+        'Schmerz, der in keinem Verhältnis zum weichen Untersuchungsbefund steht, insbesondere bei Vorhofflimmern — Verdacht auf Mesenterialinfarkt',
+        'Zunehmende Zökumdilatation über 10–12 cm beim Dickdarmileus — drohende Zökumperforation',
+        'Anurie, rascher Kreatininanstieg, Schockindex über 1 — dekompensierte Hypovolämie durch Sequestration',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Beginn und Charakter der Schmerzen (kolikartig-wellenförmig gegen Dauerschmerz), Erbrechen und dessen Aussehen (gallig, fäkulent = Miserere), aktiv erfragter STUHL- UND WINDVERHALT mit Zeitpunkt des letzten Stuhlgangs und des letzten Windabgangs',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Obligate Frage nach VOROPERATIONEN am Bauch und nach früheren Ileus-Episoden — Briden sind die häufigste Ursache; ergänzend Frage nach bekannten Brüchen, Tumorleiden, Bestrahlung, Morbus Crohn, Gallensteinen sowie nach Opiaten und Laxanzien',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion: Auftreibung und Meteorismus, sichtbare Darmsteifungen, OPERATIONSNARBEN, Vorwölbungen an den Bruchpforten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'AUSKULTATION über allen vier Quadranten, mindestens eine Minute je Quadrant: hochgestellte, klingende, metallische Darmgeräusche mit Plätschern beim mechanischen Ileus gegenüber der "Totenstille" beim paralytischen Ileus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Perkussion (hypersonorer Klopfschall, Aufhebung der Leberdämpfung bei freier Luft) und Palpation mit Prüfung von Abwehrspannung, Loslassschmerz und tastbaren Resistenzen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Untersuchung ALLER BRUCHPFORTEN — Leiste, Schenkelkanal, Nabel, Narben — im Liegen und im Stehen sowie unter Pressen; das Übersehen einer inkarzerierten Hernie ist ein klassischer Fehler',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'DIGITAL-REKTALE UNTERSUCHUNG: leere Rektumampulle als Ileuszeichen, Koprostase, tastbarer Tumor, Blut am Fingerling',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter und Volumenstatus: Blutdruck, Puls, Temperatur, Rekapillarisierungszeit, Hautturgor, Urinausscheidung; Erhebung von Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (Leukozytose, Hämokonzentration), CRP und Procalcitonin als Entzündungs- und Sepsismarker',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte (Natrium, Kalium, Chlorid, Kalzium), Kreatinin und Harnstoff — Hypokaliämie und prärenales Nierenversagen durch Erbrechen und Sequestration; die Hypokaliämie unterhält zusätzlich eine Darmatonie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'LAKTAT und BLUTGASANALYSE — zentrales Alarmzeichen: Laktatanstieg mit metabolischer Azidose spricht für eine Darmischämie; typisch ist zunächst eine hypochlorämische, hypokaliämische metabolische Alkalose durch das Erbrechen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Lipase, Leberwerte, Bilirubin und Urinstatus zur Abgrenzung von Pankreatitis, Cholezystitis und Nierenkolik; Gerinnung, Blutgruppe und Kreuzblut zur Operationsvorbereitung, bei Frauen im gebärfähigen Alter ein Schwangerschaftstest',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'ABDOMENSONOGRAPHIE als schnelle bettseitige Erstuntersuchung: dilatierte, flüssigkeitsgefüllte Schlingen über 3 cm, PENDELPERISTALTIK als Zeichen des mechanischen Ileus, Wandverdickung, freie Flüssigkeit, Nachweis einer Bruchpforte, zugleich Beurteilung von Gallenblase, Leber und Nieren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT DES ABDOMENS MIT INTRAVENÖSEM KONTRASTMITTEL — GOLDSTANDARD: Nachweis des Kalibersprungs (Übergangsstelle) zwischen dilatierten und kollabierten Schlingen, Klärung der Ursache (Bride, Hernie, Tumor, Volvulus), Beurteilung von Ischämiezeichen (fehlende Wandkontrastierung, Pneumatosis intestinalis, Gas in der Pfortader, Mesenterialödem) sowie Nachweis freier Luft und freier Flüssigkeit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomenübersichtsaufnahme im Stehen oder in Linksseitenlage: Spiegelbildung, stehende Dünndarmschlingen, Kerckring-Falten beim Dünndarm gegenüber Haustren beim Dickdarm, freie Luft subdiaphragmal — heute weitgehend vom CT abgelöst, aber im Examen als Basisdiagnostik zu nennen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Passage mit WASSERLÖSLICHEM Kontrastmittel (Gastrografin) über die Magensonde: erreicht das Kontrastmittel innerhalb von 24 Stunden das Kolon, spricht dies für ein Sistieren des Ileus unter konservativer Therapie; zugleich therapeutischer Effekt durch die Hyperosmolarität. KEIN Barium bei Perforationsverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Rektoskopie beziehungsweise vorsichtige Koloskopie bei Verdacht auf ein stenosierendes Rektum- oder Kolonkarzinom, zugleich Möglichkeit der Stentanlage als Überbrückung ("bridge to surgery"); bei Sigmavolvulus endoskopische Dekompression und Darmrohreinlage',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Laparoskopie oder explorative Laparotomie bei unklarem Befund mit klinischem Verdacht auf Strangulation — beim Ileus ist die Operation zugleich Diagnostik und Therapie und darf nicht durch weitere Bildgebung verzögert werden',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Paralytischer Ileus',
+          unterscheidung: 'Dumpfer Dauerschmerz statt Koliken, AUSKULTATORISCHE TOTENSTILLE statt hochgestellter, klingender Geräusche; auslösende Ursache erkennbar (Zustand nach Operation, Peritonitis, Pankreatitis, Hypokaliämie, Opiate). Im CT gleichmäßige Dilatation von Dünn- und Dickdarm OHNE Kalibersprung.',
+        },
+        {
+          dd: 'Ogilvie-Syndrom (akute Kolon-Pseudoobstruktion)',
+          unterscheidung: 'Massive Dilatation vor allem des rechten Hemikolons ohne mechanisches Hindernis, typischerweise beim bettlägerigen, multimorbiden oder frisch operierten Patienten. Diagnosesicherung durch CT oder wasserlösliches Kontrastmitteleinlauf; Therapie mit Neostigmin und endoskopischer Dekompression, Perforationsgefahr ab einem Zökumdurchmesser über 10–12 cm.',
+        },
+        {
+          dd: 'Mesenterialinfarkt (akute mesenteriale Ischämie)',
+          unterscheidung: 'WICHTIGSTE UND GEFÄHRLICHSTE DD: Der Schmerz ist VIEL STÄRKER als der klinische Untersuchungsbefund (weiches Abdomen bei stärksten Schmerzen). Typisch der ältere Patient mit VORHOFFLIMMERN, Herzklappenersatz oder generalisierter Arteriosklerose; dreiphasiger Verlauf mit perakutem Initialschmerz, trügerischem "faulem Frieden" nach 6–12 Stunden und anschließender Durchwanderungsperitonitis mit paralytischem Ileus. Laktatanstieg, Leukozytose; Diagnose durch CT-Angiographie, Therapie ohne Verzögerung.',
+        },
+        {
+          dd: 'Perforation eines Hohlorgans (perforiertes Ulkus, perforierte Divertikulitis)',
+          unterscheidung: 'Perakuter Vernichtungsschmerz mit brettharter Bauchdecke und generalisiertem Peritonismus von Beginn an; freie Luft in der Abdomenübersicht im Stehen beziehungsweise im CT, Aufhebung der Leberdämpfung.',
+        },
+        {
+          dd: 'Akute Pankreatitis',
+          unterscheidung: 'Gürtelförmiger, in den Rücken ausstrahlender Dauerschmerz, häufig nach Alkoholexzess oder bei Gallensteinen, meist begleitender paralytischer Subileus; Lipase über das Dreifache der Norm erhöht, Sonographie und CT zeigen ein ödematöses Pankreas.',
+        },
+        {
+          dd: 'Akute Cholezystitis / Gallenkolik',
+          unterscheidung: 'Schmerz im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, positives Murphy-Zeichen, Fieber, sonographisch verdickte, dreischichtige Gallenblasenwand mit Steinnachweis; Stuhl- und Windverhalt fehlen.',
+        },
+        {
+          dd: 'Nierenkolik bei Urolithiasis',
+          unterscheidung: 'Kolikartiger Flankenschmerz mit Ausstrahlung in Leiste und Genitale, Bewegungsdrang statt Schonhaltung, Klopfschmerz im Nierenlager, Hämaturie im Urinstatus, Harnstau in der Sonographie; Winde gehen weiterhin ab.',
+        },
+        {
+          dd: 'Harnverhalt',
+          unterscheidung: 'Prall gefüllte, druckschmerzhafte Blase als suprapubische Resistenz, imperativer Harndrang ohne Miktion; sonographisch großes Restharnvolumen, Entlastung und sofortige Beschwerdefreiheit durch Katheterisierung. Wird beim geblähten Unterbauch leicht mit einem Ileus verwechselt.',
+        },
+        {
+          dd: 'Gastroenteritis',
+          unterscheidung: 'Erbrechen und krampfartige Bauchschmerzen, aber DURCHFALL statt Stuhl- und Windverhalt, lebhafte, normal gestellte Darmgeräusche, Umgebungserkrankungen oder Nahrungsmittelanamnese; keine Spiegelbildung.',
+        },
+        {
+          dd: 'Diabetische Ketoazidose (Pseudoperitonitis diabetica)',
+          unterscheidung: 'Erbrechen, Bauchschmerzen und Darmparalyse bei entgleistem Diabetes; wegweisend sind Hyperglykämie, Ketonkörper, Kussmaul-Atmung, Azetongeruch und die metabolische Azidose in der Blutgasanalyse.',
+        },
+        {
+          dd: 'Inkarzerierte Hernie ohne bekannte Ileusanamnese',
+          unterscheidung: 'Streng genommen eine Ursache und keine Differenzialdiagnose, wird aber übersehen, wenn die Bruchpforten nicht untersucht werden: prall-elastische, druckschmerzhafte, nicht reponible Vorwölbung — Indikation zur sofortigen Operation ohne Repositionsversuch.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen und Stabilisierung',
+          items: [
+            'Strikte NAHRUNGS- UND FLÜSSIGKEITSKARENZ (nihil per os), Oberkörperhochlagerung, Monitoring von Blutdruck, Puls, Sauerstoffsättigung und Temperatur',
+            'Anlage einer MAGENSONDE zur Entlastung des gestauten Darms: Ableitung des Sekretes, Verminderung von Erbrechen und Aspirationsgefahr; Menge und Aussehen des Sekretes dokumentieren (galliges gegenüber fäkulentem Sekret)',
+            'Zwei großlumige periphere Venenzugänge und großzügige VOLUMENSUBSTITUTION mit kristalloider Lösung — beim Ileus gehen durch Sequestration in den "dritten Raum" und durch Erbrechen mehrere Liter verloren',
+            'Ausgleich der Elektrolyte, insbesondere des KALIUMS, sowie Korrektur der hypochlorämischen Alkalose beziehungsweise der metabolischen Azidose nach Blutgasanalyse',
+            'BILANZIERUNG mit Blasenkatheter und stündlicher Urinmessung (Ziel mindestens 0,5 ml pro Kilogramm und Stunde), tägliches Wiegen',
+            'Analgesie mit Metamizol oder Butylscopolamin, bei stärksten Schmerzen titriert Opioide — die früher gelehrte Zurückhaltung ist verlassen, die klinische Verlaufsbeurteilung muss aber engmaschig fortgeführt werden',
+            'Thromboseprophylaxe mit niedermolekularem Heparin, Protonenpumpenhemmer als Ulkusprophylaxe',
+            'Abnahme von Labor einschließlich Laktat und Blutgasanalyse, Blutgruppe und Kreuzblut, Anmeldung des CT-Abdomens; bei Sepsiszeichen Blutkulturen und kalkulierte Antibiose, Nüchternheit und Operationsvorbereitung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Konservativer Auslassversuch beim unkomplizierten Bridenileus',
+          items: [
+            'Indikation: mechanischer Dünndarmileus bei bekannter Bride ohne Zeichen von Ischämie, Strangulation oder Peritonitis, bei stabilem Kreislauf und unauffälligem Laktat',
+            'Beobachtung über 24 bis 48 Stunden unter ENGMASCHIGER klinischer Kontrolle: mindestens sechsstündliche Untersuchung von Abdomen, Auskultationsbefund, Schmerzcharakter, Sondensekret sowie Kontrolle von Laktat, CRP und Leukozyten',
+            'Gabe von WASSERLÖSLICHEM KONTRASTMITTEL (Gastrografin) über die Magensonde: diagnostisch, weil der Übertritt in das Kolon innerhalb von 24 Stunden ein Sistieren des Ileus vorhersagt, und zugleich therapeutisch, weil das hyperosmolare Mittel Flüssigkeit in das Lumen zieht und das Wandödem vermindert',
+            'Fortführung von Karenz, Volumen- und Elektrolytsubstitution; frühzeitige Mobilisation des Patienten, sobald der Kreislauf es zulässt',
+            'ABBRUCH des konservativen Vorgehens und sofortige Operation bei: Umschlag in einen Dauerschmerz, Peritonismus, Fieber, Tachykardie, Laktatanstieg, steigenden Entzündungswerten oder fehlender Besserung nach 48 Stunden',
+            'Erfolgskriterien: Nachlassen der Koliken, abnehmende Sondenmenge, Windabgang und Stuhlgang, rückläufige Auftreibung — danach vorsichtiger Kostaufbau mit Tee und Suppe',
+          ],
+        },
+        {
+          label: 'Operative Therapie und ihre Indikationen',
+          items: [
+            'NOTFALLOPERATION ohne Aufschub bei Verdacht auf Strangulation oder Ischämie, bei Peritonitis, bei freier Luft beziehungsweise Perforation und bei septischem Kreislauf',
+            'Sofortige Operation ebenfalls bei INKARZERIERTER HERNIE — kein Repositionsversuch, da sonst nekrotischer Darm in die Bauchhöhle zurückverlagert wird',
+            'Dringliche Operation bei komplettem Dickdarmileus, bei Volvulus ohne endoskopische Reposition und bei drohender Zökumperforation',
+            'Elektive beziehungsweise verzögert dringliche Operation bei Versagen des konservativen Auslassversuchs nach 24 bis 48 Stunden',
+            'Verfahren: ADHÄSIOLYSE beziehungsweise Durchtrennung der Bride, laparoskopisch bei übersichtlichem Situs und wenigen Voroperationen, sonst offen über eine mediane Laparotomie; Beurteilung der Darmvitalität nach Lösung der Abschnürung (Farbe, Peristaltik, Pulsationen, warme Kompressen, gegebenenfalls Fluoreszenzkontrolle)',
+            'Bei Nekrose Darmresektion mit primärer Anastomose; bei Peritonitis, instabilem Kreislauf oder fraglicher Vitalität stattdessen STOMAANLAGE oder Diskontinuitätsresektion nach Hartmann, gegebenenfalls Second-Look-Laparotomie nach 24 bis 48 Stunden',
+            'Bei Hernie: Bruchpfortenversorgung mit Netz, im infizierten oder kontaminierten Situs Naht ohne Fremdmaterial; bei stenosierendem Karzinom onkologische Resektion, alternativ Stent oder Stoma als Überbrückung',
+            'Perioperativ: Single-shot-Antibiotikaprophylaxe beziehungsweise therapeutische Antibiose bei Peritonitis, unter Berücksichtigung bekannter Allergien',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung der Grundursache und Nachsorge',
+          items: [
+            'Abklärung und Behandlung der zugrunde liegenden Ursache: histologische Aufarbeitung des Resektats, bei älteren Patienten und bei jedem Dickdarmileus KOMPLETTIERENDE TUMORABKLÄRUNG mit Koloskopie nach Abklingen des Ileus',
+            'Stufenweiser Kostaufbau nach wiedereinsetzender Peristaltik, Kaugummikauen und frühe MOBILISATION als Bestandteile der beschleunigten postoperativen Erholung',
+            'Weiterführung von Thromboseprophylaxe, Atemtherapie und Physiotherapie; Kontrolle von Elektrolyten und Nierenwerten',
+            'Rezidivprophylaxe: möglichst laparoskopisches oder minimal traumatisierendes Vorgehen, sorgfältige Blutstillung, Vermeidung von Fremdmaterial, gegebenenfalls Antiadhäsiva — dennoch bleibt die Rezidivneigung hoch',
+            'Aufklärung der Patientin oder des Patienten über die Warnzeichen eines Rezidivs: kolikartige Schmerzen, Erbrechen, ausbleibender Wind- und Stuhlabgang — sofortige Wiedervorstellung',
+            'Überprüfung der Dauermedikation (Opiate, Anticholinergika, Laxanzien), Behandlung einer Obstipation, ausreichende Trinkmenge und ballaststoffreiche Kost',
+          ],
+        },
+      ],
+      prognose: 'Etwa 70 bis 80 % der unkomplizierten Bridenileus lassen sich konservativ beherrschen; entscheidend ist, den Zeitpunkt für die Operation nicht zu verpassen. Die Letalität des unkomplizierten, rechtzeitig behandelten mechanischen Ileus liegt unter 5 %, steigt jedoch bei Darmnekrose, Perforation oder Peritonitis auf 20 bis 40 % und ist beim älteren, multimorbiden Patienten deutlich höher. Prognostisch bestimmend sind die Zeit bis zur Diagnose, der Volumenersatz und die frühzeitige Erkennung einer Strangulation. Nach einem Bridenileus besteht eine hohe Rezidivneigung — je nach Serie erleiden 15 bis 30 % der Patientinnen und Patienten innerhalb weniger Jahre eine erneute Episode, und jede weitere Adhäsiolyse erhöht das Risiko. Beim tumorbedingten Ileus richtet sich die Prognose nach dem Tumorstadium.',
+      pruefungsfallen: [
+        'Den STUHL- UND WINDVERHALT nicht aktiv erfragen. Die entscheidende Frage lautet nicht nur "Hatten Sie Stuhlgang?", sondern ausdrücklich "Gehen noch Winde ab?" und "Ist Ihr Bauch aufgebläht?" — die Prüfungskommission in Freiburg hat diese beiden Fragen am 05.12.2023 ausdrücklich als das gelobt, was sie hören wollte.',
+        'Die AUSKULTATION nicht erwähnen oder den Befund verwechseln: beim MECHANISCHEN Ileus hochgestellte, klingende, metallische Darmgeräusche mit Plätschern — beim PARALYTISCHEN Ileus TOTENSTILLE. In Stuttgart wurde am 23.03.2024 gefordert, das Abdomen zuerst abzuhören, um einen Ileus auszuschließen.',
+        'Die VOROPERATIONEN nicht erfragen und die Narben nicht inspizieren — Briden und Adhäsionen sind die häufigste Ursache; ohne diese Frage geht die Diagnose verloren.',
+        'Die BRUCHPFORTEN nicht untersuchen. Eine inkarzerierte Hernie ist die zweithäufigste Ursache und eine sofortige Operationsindikation; ihr Übersehen ist der klassische Fehler.',
+        'Die DIGITAL-REKTALE UNTERSUCHUNG vergessen: leere Ampulle, Tumor, Koprostase, Blut am Fingerling.',
+        'LAKTAT und Blutgasanalyse nicht nennen — der Laktatanstieg ist das Alarmzeichen der Ischämie. Umgekehrt darf ein normales Laktat eine frühe Ischämie nicht ausschließen lassen.',
+        'Den MESENTERIALINFARKT als Differenzialdiagnose übergehen: Schmerz viel stärker als der Untersuchungsbefund, älterer Patient mit Vorhofflimmern, trügerischer "fauler Frieden" nach einigen Stunden.',
+        'Bei der Therapie die MAGENSONDE und die großzügige Volumensubstitution vergessen — der Flüssigkeitsverlust in den "dritten Raum" beträgt mehrere Liter.',
+        'Bei komplettem mechanischem Ileus Abführmittel oder Prokinetika geben — kontraindiziert, Perforationsgefahr; ebenso kein Barium bei Perforationsverdacht, sondern wasserlösliches Kontrastmittel.',
+        'Bei inkarzerierter Hernie einen Repositionsversuch unternehmen, statt sofort zu operieren.',
+        'Die Begriffe vor der Patientin nicht übersetzen: Ileus heißt DARMVERSCHLUSS, Bride heißt VERWACHSUNG, Miserere heißt KOTERBRECHEN, Adhäsiolyse heißt LÖSEN DER VERWACHSUNGEN. "Ileus" (Darmverschluss) und "Bride" (Verwachsung) gehören zu den am häufigsten abgefragten Fachbegriffen der vierten Prüfungsteile, besonders in Stuttgart.',
+        'Den Übergang vom kolikartigen Schmerz in einen Dauerschmerz als Entwarnung missdeuten — er ist im Gegenteil das Zeichen der beginnenden Nekrose beziehungsweise der Paralyse.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist ein Ileus, und wie erklären Sie ihn der Patientin auf Deutsch?',
+          antwort: 'Ein Ileus ist die vollständige Unterbrechung der Darmpassage; der Patientin gegenüber sage ich Darmverschluss. Man unterscheidet den mechanischen Ileus mit einem Hindernis von dem paralytischen Ileus, bei dem der Darm bei offenem Lumen seine Bewegung eingestellt hat. Eine unvollständige Passagestörung nennt man Subileus.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie klinisch einen mechanischen von einem paralytischen Ileus?',
+          antwort: 'Am Schmerzcharakter und vor allem am Auskultationsbefund. Der mechanische Ileus verursacht kolikartige, wellenförmige Schmerzen mit schmerzarmen Intervallen, und man hört hochgestellte, klingende, metallische Darmgeräusche mit Plätschern. Der paralytische Ileus macht einen dumpfen Dauerschmerz, und über dem Abdomen herrscht Totenstille — kein Darmgeräusch über mehrere Minuten.',
+        },
+        {
+          frage: 'Welche Befunde erwarten Sie bei der körperlichen Untersuchung?',
+          antwort: 'Ein geblähtes, meteoristisches, hypersonor klingendes Abdomen, gegebenenfalls sichtbare Darmsteifungen und Operationsnarben, hochgestellte klingende Darmgeräusche, einen diffusen Druckschmerz ohne Abwehrspannung, solange keine Peritonitis besteht. Zwingend gehören dazu die Untersuchung aller Bruchpforten und die digital-rektale Untersuchung mit leerer Ampulle.',
+        },
+        {
+          frage: 'Was ist die häufigste Ursache eines mechanischen Dünndarmileus?',
+          antwort: 'Briden und Adhäsionen nach Voroperationen — sie machen etwa 60 bis 75 Prozent aus. An zweiter Stelle stehen inkarzerierte Hernien, an dritter Tumoren. Deshalb frage ich immer nach Bauchoperationen und suche nach Narben.',
+        },
+        {
+          frage: 'Was ist eine Bride? Wie sagen Sie das der Patientin?',
+          antwort: 'Eine Bride ist ein bindegewebiger Strang, der nach einer Operation oder Entzündung zwischen Bauchfell und Darmschlingen entsteht und eine Schlinge abknicken oder abschnüren kann. Der Patientin gegenüber spreche ich von einer Verwachsung.',
+        },
+        {
+          frage: 'Was bedeutet Miserere?',
+          antwort: 'Miserere ist das Koterbrechen: Erbrechen von stuhlig riechendem Darminhalt bei tiefsitzendem Dünndarmileus. Es ist ein Spätzeichen und ein Alarmsignal.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und welcher ist der wichtigste?',
+          antwort: 'Blutbild, CRP, Procalcitonin, Elektrolyte mit Kalium, Kreatinin und Harnstoff, Lipase, Leberwerte und Gerinnung sowie Blutgruppe und Kreuzblut. Der wichtigste Wert ist das LAKTAT mit der Blutgasanalyse: ein Laktatanstieg mit metabolischer Azidose spricht für eine Darmischämie. Typisch ist außerdem eine hypochlorämische, hypokaliämische Alkalose durch das Erbrechen.',
+        },
+        {
+          frage: 'Welche Bildgebung veranlassen Sie und warum?',
+          antwort: 'Zuerst die Sonographie am Bett — sie zeigt dilatierte Schlingen, Pendelperistaltik und freie Flüssigkeit. Goldstandard ist das CT des Abdomens mit Kontrastmittel: Es zeigt die Übergangsstelle, klärt die Ursache und beurteilt Ischämiezeichen und freie Luft. Die Abdomenübersicht im Stehen oder in Linksseitenlage zeigt Spiegel und freie Luft, ist aber weitgehend vom CT abgelöst.',
+        },
+        {
+          frage: 'Woran erkennen Sie im Bild, ob der Dünndarm oder der Dickdarm betroffen ist?',
+          antwort: 'Am Faltenmuster und an der Lage: Der Dünndarm zeigt die zirkulär durchgehenden Kerckring-Falten und liegt zentral, der Dickdarm zeigt die nicht durchgehenden Haustren und liegt randständig. Der Dünndarm gilt ab etwa 3 cm als dilatiert, das Kolon ab 6 cm, das Zökum ab 9 bis 10 cm.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen dürfen Sie auf keinen Fall übersehen?',
+          antwort: 'Den Mesenterialinfarkt — der Schmerz ist dort viel stärker als der Untersuchungsbefund, typischerweise bei einem älteren Patienten mit Vorhofflimmern — sowie die Perforation eines Hohlorgans und die inkarzerierte Hernie. Alle drei sind unmittelbare Operationsindikationen.',
+        },
+        {
+          frage: 'Was ist das Ogilvie-Syndrom?',
+          antwort: 'Eine akute Pseudoobstruktion des Kolons: eine massive Dilatation vor allem des rechten Hemikolons ohne mechanisches Hindernis, meist bei bettlägerigen, multimorbiden oder frisch operierten Patienten. Behandelt wird mit Neostigmin und endoskopischer Dekompression; ab einem Zökumdurchmesser über 10 bis 12 cm droht die Perforation.',
+        },
+        {
+          frage: 'Welche Sofortmaßnahmen ergreifen Sie?',
+          antwort: 'Nahrungskarenz, Magensonde zur Entlastung, zwei großlumige Zugänge mit großzügiger Volumensubstitution und Elektrolytausgleich, Bilanzierung mit Blasenkatheter, Analgesie, Thromboseprophylaxe, Monitoring sowie Labor mit Laktat und Blutgasanalyse und die Anmeldung des CT.',
+        },
+        {
+          frage: 'Wann operieren Sie, und wann können Sie konservativ vorgehen?',
+          antwort: 'Sofort operiert wird bei Verdacht auf Ischämie oder Strangulation, bei Peritonitis, bei freier Luft und bei inkarzerierter Hernie. Beim unkomplizierten Bridenileus ohne diese Zeichen ist ein konservativer Auslassversuch über 24 bis 48 Stunden möglich, unter engmaschiger klinischer Kontrolle und mit wasserlöslichem Kontrastmittel. Bei fehlender Besserung oder Verschlechterung wird operiert.',
+        },
+        {
+          frage: 'Warum geben Sie wasserlösliches Kontrastmittel und kein Barium?',
+          antwort: 'Weil Barium bei einer Perforation eine schwere Bariumperitonitis verursacht. Das wasserlösliche Kontrastmittel ist zugleich diagnostisch und therapeutisch: Erreicht es innerhalb von 24 Stunden das Kolon, sistiert der Ileus mit hoher Wahrscheinlichkeit konservativ; durch seine Hyperosmolarität zieht es Wasser in das Lumen und vermindert das Wandödem.',
+        },
+        {
+          frage: 'Dürfen Sie bei einem kompletten mechanischen Ileus Abführmittel geben?',
+          antwort: 'Nein. Laxanzien und Prokinetika sind beim kompletten mechanischen Ileus kontraindiziert, weil sie die Peristaltik gegen ein Hindernis steigern und eine Perforation begünstigen. Behandelt wird mit Karenz, Magensonde, Volumen und gegebenenfalls Operation.',
+        },
+        {
+          frage: 'Warum ist die Patientin kreislaufgefährdet, obwohl sie nicht blutet?',
+          antwort: 'Weil beim Ileus mehrere Liter Flüssigkeit in das Darmlumen und die Bauchhöhle sequestriert werden — in den sogenannten dritten Raum — und zusätzlich durch das Erbrechen verloren gehen. Es entsteht eine Hypovolämie mit Tachykardie, Oligurie und prärenalem Nierenversagen.',
+        },
+        {
+          frage: 'Welches Operationsverfahren wählen Sie beim Bridenileus?',
+          antwort: 'Die Adhäsiolyse, also das Durchtrennen der Bride — laparoskopisch bei übersichtlichem Situs, sonst offen über eine mediane Laparotomie. Anschließend wird die Vitalität des Darms beurteilt; bei Nekrose folgt eine Resektion mit Anastomose, bei Peritonitis oder instabilem Kreislauf eher eine Stomaanlage und gegebenenfalls eine Second-Look-Operation.',
+        },
+        {
+          frage: 'Was sagen Sie der Patientin über die Gefahr eines Rezidivs?',
+          antwort: 'Dass Verwachsungen nach jeder Bauchoperation neu entstehen können und dass ein erneuter Darmverschluss möglich ist. Ich erkläre die Warnzeichen — krampfartige Bauchschmerzen, Erbrechen und ausbleibender Wind- und Stuhlabgang — und bitte sie, sich dann sofort wieder vorzustellen.',
+        },
+      ],
+      merksatz: 'Kolik + Erbrechen + STUHL- UND WINDVERHALT + geblähter Bauch = Ileus. Hochgestellte, klingende Darmgeräusche sprechen für den mechanischen, Totenstille für den paralytischen Ileus. Immer nach VOROPERATIONEN fragen (Briden!) und die BRUCHPFORTEN untersuchen. Magensonde, Volumen, Elektrolyte, Laktat und CT — und sofort operieren bei Dauerschmerz, Peritonismus, Fieber, Laktatanstieg oder freier Luft.',
+      linkedCaseIds: [
+        'case-ileus',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-sonographie',
+        'auf-laparoskopie',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-lagerungsschwindel',
+      pathology: 'Benigner paroxysmaler Lagerungsschwindel (BPPV)',
+      specialty: 'Neurologie',
+      definition: 'Der benigne paroxysmale Lagerungsschwindel (BPPV) ist die häufigste Ursache von Schwindel überhaupt. Durch Ablösung von Otolithen (Kalziumkarbonatkristalle, umgangssprachlich „Ohrsteinchen") aus der Makula des Utriculus und deren Einschwemmung in einen Bogengang — in etwa 90 % der Fälle in den hinteren Bogengang — kommt es bei jedem Lagewechsel des Kopfes zu einer verzögerten Endolymphströmung mit Auslenkung der Cupula und damit zu einem Missverhältnis zwischen vestibulärer, visueller und propriozeptiver Information. Klinisch resultieren heftige, ausschließlich durch Lagewechsel provozierte Drehschwindelattacken von Sekunden bis maximal einer Minute Dauer mit ausgeprägter vegetativer Begleitsymptomatik; zwischen den Attacken ist der Patient völlig beschwerdefrei. Definitionsgemäß bestehen weder eine Hörminderung noch ein Tinnitus noch neurologische Ausfälle. Die Diagnose ist rein klinisch (Dix-Hallpike-Manöver), die Therapie mechanisch-kausal (Befreiungsmanöver).',
+      aetiologie: 'In etwa 50-70 % der Fälle idiopathisch, mit Häufigkeitsgipfel zwischen dem 50. und 70. Lebensjahr und Bevorzugung des weiblichen Geschlechts (etwa 2:1); ursächlich ist eine altersbedingte Degeneration der Otolithenmembran. Sekundäre Formen entstehen nach Schädel-Hirn-Trauma oder HWS-Distorsion (häufigste Ursache beim jüngeren Patienten, oft beidseitig und therapieresistenter), nach abgelaufener Neuritis vestibularis oder Morbus Menière, nach Innenohr-, Mittelohr- oder Kieferoperationen, nach längerer Immobilisation und Bettlägerigkeit sowie bei Vitamin-D-Mangel, Osteoporose und Migräne. Betroffen ist zu etwa 85-90 % der hintere, zu 5-15 % der horizontale und in unter 2 % der vordere Bogengang — der hintere deshalb, weil er in aufrechter Kopfhaltung der tiefstgelegene ist und die Kristalle der Schwerkraft folgend dorthin sinken. Pathophysiologisch liegt meist eine Canalolithiasis (frei bewegliche Otolithen im Bogengang) und seltener eine Cupulolithiasis (der Cupula anhaftende Otolithen) vor.',
+      risikofaktoren: [
+        'Höheres Lebensalter — Häufigkeitsgipfel zwischen 50 und 70 Jahren',
+        'Weibliches Geschlecht (Verhältnis etwa 2:1), insbesondere postmenopausal',
+        'Schädel-Hirn-Trauma und HWS-Distorsion (Schleudertrauma) — häufigste Ursache beim jüngeren Patienten',
+        'Abgelaufene Neuritis vestibularis, Morbus Menière oder Labyrinthitis',
+        'Längere Immobilisation, Bettlägerigkeit, längere Operationen in Rückenlage',
+        'Osteoporose, Osteopenie und Vitamin-D-Mangel (erhöhtes Erst- und Rezidivrisiko)',
+        'Migräne',
+        'Operationen am Innen- oder Mittelohr, zahnärztliche und kieferchirurgische Eingriffe',
+        'Kardiovaskuläre Risikofaktoren (arterielle Hypertonie, Diabetes mellitus, Hyperlipidämie)',
+      ],
+      klinik: [
+        {
+          text: 'Heftiger Drehschwindel („alles dreht sich wie ein Karussell"), ausgelöst ausschließlich durch einen Lagewechsel des Kopfes',
+        },
+        {
+          text: 'Typische Auslöser: Umdrehen im Bett, Aufstehen aus dem und Hinlegen ins Bett, Kopf-in-den-Nacken-Legen (Wäscheaufhängen, oberes Regal, beim Friseur, beim Zahnarzt) und Bücken',
+        },
+        {
+          text: 'Dauer der einzelnen Attacke Sekunden bis maximal eine Minute — das entscheidende Zeitkriterium',
+        },
+        {
+          text: 'Latenz von wenigen Sekunden zwischen Lagewechsel und Einsetzen von Schwindel und Nystagmus',
+        },
+        {
+          text: 'Ausgeprägte vegetative Begleitsymptomatik: Übelkeit, gelegentlich Erbrechen, Blässe, Schweißausbruch',
+        },
+        {
+          text: 'Zwischen den Attacken völlige Beschwerdefreiheit, allenfalls eine unspezifische Restunsicherheit',
+        },
+        {
+          text: 'KEINE Hörminderung, KEIN Tinnitus, KEIN Druck- oder Völlegefühl im Ohr',
+        },
+        {
+          text: 'KEINE neurologischen Ausfälle: keine Doppelbilder, keine Dysarthrie, keine Dysphagie, keine Paresen, keine Sensibilitätsstörungen, keine Ataxie zwischen den Attacken',
+        },
+        {
+          text: 'Im Dix-Hallpike-Manöver auslösbarer Nystagmus: rotierend-geotrop zum unten liegenden Ohr, mit Latenz von Sekunden, unter einer Minute anhaltend, beim Aufrichten mit Richtungsumkehr und bei Wiederholung erschöpflich',
+        },
+        {
+          text: 'Sekundäre Angst- und Vermeidungshaltung: rasche Kopfbewegungen werden vermieden, der Oberkörper wird mitgedreht, das Schlafen erfolgt nur noch auf einer Seite',
+        },
+        {
+          text: 'Stürze und Beinahestürze, besonders beim älteren Patienten — mit dem Risiko einer Schenkelhals- oder Radiusfraktur',
+        },
+        {
+          text: 'Befall des horizontalen Bogengangs: Auslösung durch Kopfdrehung in Rückenlage, heftigerer und länger anhaltender, geotrop oder apogeotrop schlagender Nystagmus',
+          atypisch: true,
+        },
+        {
+          text: 'Cupulolithiasis: Nystagmus ohne Latenz, über eine Minute anhaltend und kaum erschöpflich, schlechteres Ansprechen auf Befreiungsmanöver',
+          atypisch: true,
+        },
+        {
+          text: 'Befall des vorderen Bogengangs mit Down-beat-Nystagmus — sehr selten, hier immer an eine zentrale Ursache denken',
+          atypisch: true,
+        },
+        {
+          text: 'Beidseitiger Befall, typischerweise nach Schädel-Hirn-Trauma',
+          atypisch: true,
+        },
+        {
+          text: 'Beim älteren Patienten Manifestation als isolierte Gang- und Standunsicherheit ohne klar berichteten Drehschwindel — Erstmanifestation gelegentlich als Sturz mit Fraktur',
+          atypisch: true,
+        },
+        {
+          text: 'Persistierender Schwank- oder Benommenheitsschwindel nach erfolgreichem Befreiungsmanöver im Sinne eines funktionellen (persistierenden postural-perzeptiven) Schwindels',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung des Schwindels nach der DAUER der Attacke — das klinische Ordnungsprinzip',
+          inhalt: 'Sekunden bis eine Minute, lageabhängig = benigner paroxysmaler Lagerungsschwindel. Sekunden bis Minuten MIT neurologischen Zeichen = TIA oder Hirnstamm-/Kleinhirnischämie. Minuten bis Stunden MIT Hörminderung und Tinnitus = Morbus Menière. Minuten bis Stunden MIT Kopfschmerz und Photophobie = vestibuläre Migräne. Über Tage anhaltend OHNE Hörminderung = Neuritis vestibularis. Nur beim Aufstehen = orthostatische Dysregulation. Dauerhaft und diffus = psychogener/funktioneller Schwindel, Anämie, Medikamentennebenwirkung, Polyneuropathie, Presbyvertigo. Bei Kopfdrehung des älteren Patienten = zervikogener Schwindel.',
+        },
+        {
+          name: 'Einteilung nach der Schwindelqualität',
+          inhalt: 'Drehschwindel („wie ein Karussell") — vestibulär, peripher oder zentral. Schwankschwindel („wie auf einem Schiff") — zentral, propriozeptiv, zervikogen oder funktionell. Benommenheitsschwindel („Schwarzwerden vor Augen", diffuse Unsicherheit) — internistisch, kardial, medikamentös, psychogen. Die Frage nach der Qualität muss aktiv gestellt werden, denn Patienten sagen von sich aus nur „mir ist schwindelig".',
+        },
+        {
+          name: 'Einteilung nach dem betroffenen Bogengang',
+          inhalt: 'Hinterer Bogengang etwa 85-90 % (Nachweis im Dix-Hallpike-Manöver, Therapie mit Epley- oder Semont-Manöver). Horizontaler Bogengang etwa 5-15 % (Nachweis im Supine-Roll-Test nach Pagnini-McClure, Therapie mit dem Barbecue-/Lempert-Rollmanöver). Vorderer Bogengang unter 2 % (Down-beat-Nystagmus, immer zentrale Ursache ausschließen).',
+        },
+        {
+          name: 'Canalolithiasis versus Cupulolithiasis',
+          inhalt: 'Canalolithiasis (die Regel): Otolithen schwimmen frei im Bogengang; der Nystagmus setzt mit Latenz von wenigen Sekunden ein, hält unter einer Minute an und ist erschöpflich; sehr gutes Ansprechen auf Befreiungsmanöver. Cupulolithiasis (selten): Otolithen haften der Cupula an; der Nystagmus setzt ohne Latenz ein, hält länger als eine Minute an und ist kaum erschöpflich; schlechteres Ansprechen, oft mehrere Manöver nötig.',
+        },
+        {
+          name: 'HINTS-Untersuchung (Head Impulse, Nystagmus, Test of Skew)',
+          inhalt: 'Untersuchungstrias — kein Punktescore — zur Unterscheidung peripher gegen zentral beim akuten anhaltenden vestibulären Syndrom. Peripher: pathologischer Kopfimpulstest mit Korrektursakkade, horizontal-rotierender richtungskonstanter Nystagmus, negativer Test of Skew. Zentral: UNAUFFÄLLIGER Kopfimpulstest, vertikaler oder richtungswechselnder Nystagmus, positiver Test of Skew (vertikale Divergenz im Abdecktest). Merke: bei akutem Dauerdrehschwindel ist ein normaler Kopfimpulstest das Alarmzeichen. Beim BPPV ist HINTS zwischen den Attacken erwartungsgemäß unauffällig — die Diagnose stellt das Dix-Hallpike-Manöver.',
+        },
+      ],
+      redFlags: [
+        'Neu aufgetretener, ungewohnter Kopf- oder Nackenschmerz — Verdacht auf Vertebralisdissektion oder Kleinhirnblutung',
+        'Doppelbilder, Gesichtsfeldausfall, Blickparese',
+        'Dysarthrie, Dysphagie, Sprachstörung',
+        'Hemiparese, Hemihypästhesie, Fazialisparese, Sensibilitätsstörungen',
+        'Ataxie, Stand- und Gangunfähigkeit, Rumpfataxie auch zwischen den Attacken',
+        'Vertikaler (Down-beat- oder Up-beat-) Nystagmus oder richtungswechselnder Blickrichtungsnystagmus',
+        'NICHT erschöpflicher Nystagmus oder Nystagmus ohne Latenz',
+        'Unauffälliger Kopfimpulstest bei akutem anhaltendem Drehschwindel (HINTS „central")',
+        'Positiver Test of Skew mit vertikaler Divergenz',
+        'Akute einseitige Hörminderung zusammen mit Schwindel — Verdacht auf AICA-Infarkt oder Labyrinthinfarkt',
+        'Bewusstseinsstörung, Vigilanzminderung, Kopfschmerz mit Erbrechen und rascher Verschlechterung',
+        'Beginn im unmittelbaren Zusammenhang mit einem HWS-Trauma oder einer Manipulation an der Halswirbelsäule',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Schwindelanamnese als wichtigster diagnostischer Schritt: ART des Schwindels (Drehschwindel, Schwankschwindel oder Benommenheit), DAUER der einzelnen Attacke, AUSLÖSER (Lagewechsel, Aufstehen, Kopfdrehung), Beschwerdefreiheit zwischen den Attacken sowie die drei entscheidenden Negativa Hörminderung, Tinnitus und neurologische Ausfälle',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Dix-Hallpike-Manöver beidseits, möglichst unter der Frenzel-Brille — SCHLÜSSELUNTERSUCHUNG: aus dem Sitzen rasche Rückenlagerung mit 45° zur Prüfseite gedrehtem und etwa 30° überstrecktem Kopf; positiv bei Nystagmus mit Latenz von wenigen Sekunden, rotierend-geotrop, unter einer Minute anhaltend, mit Richtungsumkehr beim Aufrichten und erschöpflich bei Wiederholung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Supine-Roll-Test (Pagnini-McClure) bei negativem Dix-Hallpike zur Prüfung des horizontalen Bogengangs',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Frenzel-Brille oder Video-Okulographie zur Ausschaltung der visuellen Fixation, die einen peripheren Nystagmus supprimiert und dadurch übersehen lässt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'HINTS-Untersuchung (Head Impulse, Nystagmus, Test of Skew) zur Abgrenzung peripher gegen zentral beim akuten vestibulären Syndrom',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige neurologische Untersuchung: Hirnnervenstatus, Kraft und Sensibilität, Finger-Nase- und Knie-Hacke-Versuch, Romberg-Stehversuch, Unterberger-Tretversuch, Gangbild und Seiltänzergang',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende Hörprüfung mit Weber- und Rinne-Versuch sowie Otoskopie beidseits (Cerumen obturans, Otitis, Cholesteatom)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter, Blutdruckmessung im Liegen und Stehen (Schellong-Test), Herzauskultation, Pulsstatus sowie kritische Durchsicht der Dauer- und Selbstmedikation (Antihypertensiva, Sedativa, Antivertiginosa, Aminoglykoside)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor zum Ausschluss internistischer Schwindelursachen — NICHT diagnostisch für den BPPV: Blutbild (Anämie), Elektrolyte einschließlich Natrium, Nierenwerte, Blutzucker, CRP und TSH',
+        },
+        {
+          stufe: 'Labor',
+          text: '25-OH-Vitamin-D-Spiegel: ein Mangel ist mit einem erhöhten Erst- und Rezidivrisiko des BPPV assoziiert; eine Substitution senkt die Rezidivrate',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Eine Bildgebung ist bei typischer Anamnese, positivem Dix-Hallpike-Manöver und unauffälligem neurologischem Status KEINE ROUTINE und ausdrücklich NICHT indiziert — der BPPV ist eine klinische Diagnose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Nur bei zentralen Warnzeichen: cMRT mit diffusionsgewichteten Sequenzen und Darstellung der hinteren Schädelgrube. Das native CT ist ungeeignet, da es frische Hirnstamm- und Kleinhirninfarkte regelmäßig übersieht; es dient allenfalls dem raschen Blutungsausschluss',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG und gegebenenfalls Langzeit-EKG bei Verdacht auf eine kardiale oder rhythmogene Genese; Doppler- und Duplexsonographie der hirnversorgenden Arterien nur bei Verdacht auf eine vertebrobasiläre Ischämie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HNO-ärztliche Vorstellung mit Tonschwellenaudiogramm bei jeder Hörminderung, jedem Tinnitus oder Ohrdruck — zum Ausschluss eines Morbus Menière, eines Hörsturzes oder eines Vestibularisschwannoms',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Videokopfimpulstest und kalorische Prüfung zur seitengetrennten Funktionsprüfung des Vestibularorgans sowie Video-Okulographie — nur bei atypischem, unklarem oder nach mehreren Befreiungsmanövern therapierefraktärem Verlauf',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'MRT mit hochauflösender CISS-Sequenz des Kleinhirnbrückenwinkels bei Verdacht auf eine Vestibularisparoxysmie (neurovaskuläre Kompression) oder ein Vestibularisschwannom',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Morbus Menière',
+          unterscheidung: 'Attacken über Minuten bis Stunden (typisch 20 Minuten bis mehrere Stunden), IMMER mit einseitiger fluktuierender Hörminderung, Tinnitus und Ohrdruck; nicht durch Lagewechsel auslösbar. Ursache ist ein endolymphatischer Hydrops. Sicherung über die Audiometrie.',
+        },
+        {
+          dd: 'Neuritis vestibularis',
+          unterscheidung: 'Über Tage bis Wochen ANHALTENDER Dauerdrehschwindel OHNE Hörminderung, mit horizontal-rotierendem Spontannystagmus zur gesunden Seite, Fallneigung zur kranken Seite, pathologischem Kopfimpulstest und pathologischer kalorischer Prüfung; häufig nach viralem Infekt. Therapie mit Glukokortikoiden und frühem Gleichgewichtstraining.',
+        },
+        {
+          dd: 'Transitorische ischämische Attacke, Hirnstamm- oder Kleinhirnischämie',
+          unterscheidung: 'Sekunden bis Minuten, aber praktisch nie isolierter Schwindel: begleitet von Doppelbildern, Dysarthrie, Dysphagie, Hemisymptomatik oder Ataxie; Nystagmus vertikal oder richtungswechselnd und nicht erschöpflich, Kopfimpulstest unauffällig (HINTS „central"). Sofortiges cMRT mit Diffusionswichtung, kein natives CT.',
+        },
+        {
+          dd: 'Vestibuläre Migräne',
+          unterscheidung: 'Attacken über Minuten bis Stunden, meist mit Kopfschmerz, Licht- und Lärmempfindlichkeit oder bekannter Migräneanamnese; nicht streng lageabhängig, häufig mit Bewegungsintoleranz. Zweithäufigste Ursache episodischen Schwindels und häufig verkannt.',
+        },
+        {
+          dd: 'Orthostatische Dysregulation',
+          unterscheidung: 'Schwindel ausschließlich beim raschen Aufstehen, mit Schwarzwerden vor Augen und Präsynkope, Besserung beim Hinsetzen oder Hinlegen; Nachweis im Schellong-Test. Häufig medikamentös mitverursacht (Antihypertensiva, Diuretika, Alphablocker).',
+        },
+        {
+          dd: 'Zervikogener Schwindel',
+          unterscheidung: 'Unsicherer Schwankschwindel bei Kopfdrehung, meist beim älteren Patienten, mit Nackenschmerz und HWS-Bewegungseinschränkung; reine Ausschlussdiagnose nach Abklärung der vestibulären und zentralen Ursachen.',
+        },
+        {
+          dd: 'Vestibularisparoxysmie (neurovaskuläre Kompression des N. vestibulocochlearis)',
+          unterscheidung: 'Sehr kurze, sekundenlange Attacken, aber sehr häufig (bis über 30-mal täglich), oft mit Tinnitus oder Hypakusis, teils durch Hyperventilation auslösbar; Ansprechen auf Carbamazepin oder Oxcarbazepin, Gefäß-Nerven-Kontakt im MRT (CISS-Sequenz).',
+        },
+        {
+          dd: 'Perilymphfistel und Bogengangsdehiszenz (Minor-Syndrom)',
+          unterscheidung: 'Schwindel und Oszillopsien, ausgelöst durch Pressen, Husten, Niesen oder laute Töne (Tullio-Phänomen), oft mit Autophonie; Nachweis im hochauflösenden Felsenbein-CT.',
+        },
+        {
+          dd: 'Kardiale Synkope und Herzrhythmusstörungen',
+          unterscheidung: 'Präsynkopales Schwarzwerden vor Augen, Palpitationen, Bewusstseinsverlust, kein Drehschwindel; EKG, Langzeit-EKG und Echokardiographie.',
+        },
+        {
+          dd: 'Funktioneller (psychogener) Schwankschwindel, Anämie, Medikamentennebenwirkung, Polyneuropathie, Presbyvertigo',
+          unterscheidung: 'Dauerhafter, diffuser, nicht attackenförmiger Benommenheits- oder Schwankschwindel ohne Lagebezug; oft multifaktoriell beim älteren Patienten. Abklärung über Blutbild, Elektrolyte, Blutzucker, TSH, Medikamentenanamnese und neurologische Untersuchung der Sensibilität.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Befreiungsmanöver als kausale Therapie',
+          items: [
+            'Epley-Manöver für den hinteren Bogengang — Standardtherapie: Ausgangslage wie im Dix-Hallpike der betroffenen Seite, dann schrittweise Kopfdrehung um jeweils 90° zur Gegenseite, anschließend Drehung von Kopf UND Rumpf in die Seitenlage der Gegenseite mit Blick zum Boden, zuletzt Aufsetzen; jede Position halten, bis der Nystagmus abgeklungen ist, mindestens etwa 30 Sekunden',
+            'Semont-Manöver als gleichwertige Alternative: rasche Umlagerung über die Sitzposition von der betroffenen auf die gesunde Seite; günstig bei eingeschränkter HWS-Beweglichkeit',
+            'Barbecue-Rollmanöver (Lempert-Manöver) beim Befall des horizontalen Bogengangs: schrittweise Rotation um 360° um die Körperlängsachse in 90°-Schritten zur gesunden Seite',
+            'Aufklärung VOR dem Manöver, dass der Schwindel dabei kurz und heftig provoziert wird; Nierenschale bereitstellen, Begleitung beim Aufstehen',
+            'Wirksamkeit 80-90 %, häufig bereits nach ein bis zwei Sitzungen; Wiederholung in derselben Sitzung zwei- bis dreimal möglich',
+            'Erfolgskontrolle durch erneutes Dix-Hallpike-Manöver — ein negativer Befund ohne Nystagmus belegt den Therapieerfolg',
+            'Relative Kontraindikationen: instabile HWS, akuter zervikaler Bandscheibenvorfall, hochgradige Karotisstenose, schwere Herzinsuffizienz, ausgeprägte Adipositas — dann modifizierte Varianten oder Durchführung durch den Facharzt',
+            'Bei Cupulolithiasis, beidseitigem oder posttraumatischem Befall sind mehrere Sitzungen und eine fachärztliche Weiterbehandlung erforderlich',
+          ],
+        },
+        {
+          label: 'Aufklärung, Selbstübungen und Verlaufskontrolle',
+          items: [
+            'Aufklärung in Alltagssprache: gelöste „Ohrsteinchen" im Gleichgewichtsorgan, eine gutartige und mechanisch behandelbare Erkrankung ohne Hinweis auf Schlaganfall oder Tumor — das nimmt den Patienten die häufig im Vordergrund stehende Angst',
+            'Anleitung in den Brandt-Daroff-Übungen für zu Hause: rasches Umlegen von der Sitzposition in die Seitenlage mit 45° zur Decke gedrehtem Kopf, jeweils etwa 30 Sekunden halten, im Wechsel beide Seiten, fünf Wiederholungen dreimal täglich über etwa zwei Wochen',
+            'AUSDRÜCKLICH KEINE BETTRUHE, keine Schonhaltung und keine Vermeidung von Lagewechseln — Bewegung fördert die Ablösung der Otolithen und die zentrale Kompensation; Schonung verzögert die Heilung und begünstigt einen funktionellen Restschwindel',
+            'Aufklärung über die Rezidivneigung (etwa 15 % pro Jahr, 30-50 % innerhalb von fünf Jahren) und über die Warnzeichen, die eine sofortige Wiedervorstellung erfordern',
+            'Beratung zur Fahrtauglichkeit und Arbeitssicherheit: kein Autofahren, keine Arbeit auf Leitern, Gerüsten oder an laufenden Maschinen, solange die Attacken auslösbar sind',
+            'Wiedervorstellung nach etwa einer Woche mit Kontroll-Dix-Hallpike; bei Persistenz erneutes Befreiungsmanöver, bei atypischem Verlauf HNO- oder neurologische Weiterabklärung',
+            'Physiotherapeutisches Gleichgewichts- und Habituationstraining bei ausgeprägter Vermeidungshaltung oder persistierendem Schwankschwindel',
+          ],
+        },
+        {
+          label: 'Symptomatische Maßnahmen mit Zurückhaltung und Sturzprophylaxe',
+          items: [
+            'Antivertiginosa (z. B. Dimenhydrinat 50 mg) NUR kurzfristig und nur bei starker Übelkeit oder Erbrechen, für höchstens wenige Tage und möglichst nicht unmittelbar vor einem Befreiungsmanöver',
+            'Begründung, die im Examen erwartet wird: Antivertiginosa unterdrücken die vestibuläre Erregbarkeit, BEHINDERN dadurch die zentrale Kompensation und verzögern die Genesung — sie sind niemals eine Dauertherapie und ersetzen das Befreiungsmanöver nicht',
+            'Beim älteren Patienten besondere Zurückhaltung: sedierende und anticholinerge Wirkung mit Sturz- und Delirrisiko; bereits selbst beschaffte Präparate aktiv erfragen und absetzen',
+            'Sturzprophylaxe: Licht im Flur und im Bad, beidseitiger Handlauf an Treppen, Entfernen von Stolperfallen und Teppichkanten, festes Schuhwerk, langsames Aufstehen in zwei Schritten, Überprüfung der Sehhilfe',
+            'Überprüfung sturzbegünstigender Dauermedikation (Antihypertensiva, Diuretika, Sedativa, Antidepressiva) sowie Kontrolle von Vitamin D und Kalzium — insbesondere bei Osteopenie oder Osteoporose',
+            'Bei Erbrechen ausreichende Flüssigkeitszufuhr, bei starker Exsikkose kurzfristig intravenöse Rehydratation',
+          ],
+        },
+        {
+          label: 'Ausschluss und Behandlung anderer Schwindelursachen',
+          items: [
+            'Blutdruck im Liegen und Stehen (Schellong-Test) und Medikamentenüberprüfung zur Abgrenzung und Behandlung einer orthostatischen Dysregulation',
+            'Laborchemischer Ausschluss internistischer Ursachen: Blutbild (Anämie), Elektrolyte, Blutzucker, Nierenwerte, TSH',
+            'HNO-ärztliche Vorstellung mit Audiometrie, sobald eine Hörminderung, ein Tinnitus oder ein Ohrdruck auftritt — Morbus Menière, Hörsturz mit Labyrinthbeteiligung, Vestibularisschwannom',
+            'Bei zentralen Warnzeichen sofortige stationäre Aufnahme, cMRT mit Diffusionswichtung und neurologisches Konsil — eine Kleinhirn- oder Hirnstammischämie darf nicht als BPPV verkannt werden',
+            'Bei vestibulärer Migräne migräneprophylaktische Therapie; bei Vestibularisparoxysmie Versuch mit Carbamazepin oder Oxcarbazepin; bei Neuritis vestibularis Glukokortikoide und frühes Gleichgewichtstraining',
+            'Beim älteren Patienten Behandlung der multifaktoriellen Presbyvertigo: Sehkorrektur, Hörgeräteversorgung, Kraft- und Gleichgewichtstraining, Reduktion der Polypharmazie',
+          ],
+        },
+      ],
+      prognose: 'Sehr gut. Der BPPV ist selbstlimitierend und sistiert auch ohne Behandlung meist innerhalb von Wochen bis wenigen Monaten; unter Befreiungsmanövern sind 80-90 % der Patienten nach ein bis zwei Sitzungen beschwerdefrei, viele bereits nach der ersten. Rezidive treten bei etwa 15 % der Patienten pro Jahr und bei 30-50 % innerhalb von fünf Jahren auf; häufiger nach Schädel-Hirn-Trauma, bei beidseitigem Befall, bei Cupulolithiasis, bei Vitamin-D-Mangel und bei Migräne. Prognostisch entscheidend ist weniger die Erkrankung selbst als ihre Folgen: die sekundäre Angst- und Vermeidungshaltung mit Übergang in einen funktionellen Schwankschwindel und — beim älteren Patienten — das erhöhte Sturzrisiko mit Schenkelhals- und Radiusfrakturen. Eine unterlassene Abgrenzung gegen eine zentrale Genese ist der prognostisch gefährlichste Fehler.',
+      pruefungsfallen: [
+        'Immer nach der ART des Schwindels fragen — Drehschwindel, Schwankschwindel oder Benommenheit. Patienten sagen von sich aus nur „mir ist schwindelig"; ohne diese Frage ist keine Differenzialdiagnose möglich. Ein Kandidat hat genau dieses Versäumnis in einem Stuttgarter Protokoll selbstkritisch festgehalten.',
+        'Die DAUER der Attacke ist das entscheidende Ordnungsprinzip der Schwindeldifferenzialdiagnose — Sekunden, Minuten, Stunden oder Tage führen zu völlig verschiedenen Diagnosen. Diese Systematik soll aktiv vorgetragen werden.',
+        'Die drei Negativa aktiv erfragen und ausdrücklich nennen: keine Hörminderung, kein Tinnitus, keine neurologischen Ausfälle. Ein verneintes Symptom ist hier ein diagnostisches Argument.',
+        'Eine Bildgebung ist beim typischen BPPV NICHT indiziert — ein reflexartig gefordertes CT ist ein Fehler. Und wenn eine Bildgebung nötig ist, dann ein MRT mit Diffusionswichtung: das native CT übersieht frische Hirnstamm- und Kleinhirninfarkte.',
+        'Antivertiginosa nur kurzfristig und nur bei starker Übelkeit — sie behindern die zentrale Kompensation. Kausal wirkt allein das Befreiungsmanöver. Dieser Punkt wird sehr häufig geprüft.',
+        'KEINE Bettruhe verordnen; Bewegung und Selbstübungen sind Teil der Therapie.',
+        'Frei verkäufliche Präparate aktiv erfragen — Patienten kaufen Dimenhydrinat selbst und halten es nicht für ein Medikament.',
+        'Bei jedem Sturz des älteren Patienten systematisch nach Schwindel UND kurzer Bewusstlosigkeit fragen; und umgekehrt bei jedem Schwindel nach Stürzen und Beinahestürzen.',
+        'Fachbegriffe patientengerecht übersetzen: Nystagmus = Augenzittern, Tinnitus = Ohrensausen beziehungsweise Klingeln oder Pfeifen in den Ohren, Vertigo = Schwindel; vor dem Patienten die deutschen Alltagsbegriffe verwenden.',
+        'Den Nystagmus vollständig beschreiben: Latenz von wenigen Sekunden, rotierend-geotrop, unter einer Minute, Richtungsumkehr beim Aufrichten, ERSCHÖPFLICH. Ein nicht erschöpflicher, vertikaler oder richtungswechselnder Nystagmus ist zentral.',
+        'Ein unauffälliger Kopfimpulstest bei akutem anhaltendem Drehschwindel ist ein Alarmzeichen für eine zentrale Ursache — die häufigste Verwechslung im HINTS-Schema.',
+        'Den Untersuchungsgang nicht mit der Therapie verwechseln: Dix-Hallpike ist diagnostisch, Epley therapeutisch — beide sehen ähnlich aus und werden im Examen gern gegeneinander abgefragt.',
+        'Die vestibuläre Migräne als zweithäufigste Ursache episodischen Schwindels nicht vergessen, aber auch nicht zur Hauptdiagnose machen, wenn Attackendauer und Lageabhängigkeit dagegen sprechen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein benigner paroxysmaler Lagerungsschwindel, am ehesten des hinteren Bogengangs. Dafür sprechen der heftige Drehschwindel, die Auslösung ausschließlich durch Lagewechsel — Umdrehen im Bett, Aufstehen, Kopf in den Nacken legen, Bücken —, die Attackendauer von nur Sekunden bis maximal einer Minute, die völlige Beschwerdefreiheit zwischen den Attacken, die vegetative Begleitsymptomatik mit Übelkeit und Erbrechen sowie das Fehlen von Hörminderung, Tinnitus und neurologischen Ausfällen.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff auf Deutsch? Was heißt Nystagmus, was Tinnitus?',
+          antwort: '„Gutartiger anfallsartiger Lagerungsschwindel": kleine Kalkkristalle, sogenannte Ohrsteinchen, haben sich im Gleichgewichtsorgan gelöst und schwimmen in einem der Bogengänge; bei jeder Lageänderung bewegen sie sich mit und lösen für Sekunden ein Drehgefühl aus. Nystagmus heißt Augenzittern, ein unwillkürliches rhythmisches Zucken der Augen. Tinnitus heißt Ohrensausen, ein Klingeln oder Pfeifen in den Ohren.',
+        },
+        {
+          frage: 'Wie ordnen Sie einen Schwindel systematisch ein?',
+          antwort: 'Nach der Dauer der Attacke, ergänzt um Auslöser und Begleitsymptome. Sekunden bis eine Minute, lageabhängig: benigner Lagerungsschwindel. Sekunden bis Minuten mit neurologischen Zeichen: TIA oder Hirnstammischämie. Minuten bis Stunden mit Hörminderung und Tinnitus: Morbus Menière. Minuten bis Stunden mit Kopfschmerz: vestibuläre Migräne. Über Tage anhaltend ohne Hörminderung: Neuritis vestibularis. Nur beim Aufstehen: orthostatische Dysregulation. Dauerhaft und diffus: psychogen, Anämie, Medikamentennebenwirkung, Polyneuropathie, Presbyvertigo. Bei Kopfdrehung des älteren Patienten: zervikogen.',
+        },
+        {
+          frage: 'Wie grenzen Sie den Morbus Menière und die Neuritis vestibularis ab?',
+          antwort: 'Der Morbus Menière macht Attacken über Minuten bis Stunden und ist immer mit einer einseitigen fluktuierenden Hörminderung, einem Tinnitus und einem Ohrdruck verbunden; er ist nicht durch Lagewechsel auslösbar. Die Neuritis vestibularis macht einen über Tage anhaltenden Dauerdrehschwindel ohne Hörminderung, mit Spontannystagmus zur gesunden Seite, Fallneigung zur kranken Seite und pathologischem Kopfimpulstest. Beim Lagerungsschwindel dauert die Attacke Sekunden und der Patient ist dazwischen völlig beschwerdefrei.',
+        },
+        {
+          frage: 'Welche Untersuchung sichert die Diagnose, und wie führen Sie sie durch?',
+          antwort: 'Das Dix-Hallpike-Manöver, möglichst unter der Frenzel-Brille. Der Patient sitzt, der Kopf wird 45° zur Prüfseite gedreht, dann erfolgt eine rasche Rückenlagerung mit etwa 30° über die Liegenkante überstrecktem Kopf; die Augen werden 30 bis 60 Sekunden beobachtet. Vorher wird der Patient aufgeklärt, dass der Schwindel dabei kurz provoziert wird. Bei negativem Befund folgt der Supine-Roll-Test für den horizontalen Bogengang.',
+        },
+        {
+          frage: 'Beschreiben Sie den typischen Nystagmus. Was bedeutet erschöpflich?',
+          antwort: 'Er setzt nach einer Latenz von wenigen Sekunden ein, ist rotierend und geotrop, schlägt also zum unten liegenden Ohr, hält weniger als eine Minute an und kehrt beim Aufrichten seine Richtung um. Erschöpflich heißt, dass er bei Wiederholung des Manövers schwächer wird und schließlich ausbleibt, weil sich die Otolithen zerstreuen. Ein nicht erschöpflicher, ein vertikaler oder ein richtungswechselnder Nystagmus spricht für eine zentrale Ursache.',
+        },
+        {
+          frage: 'Was ist die HINTS-Untersuchung?',
+          antwort: 'Head Impulse, Nystagmus und Test of Skew — eine Untersuchungstrias zur Unterscheidung peripher gegen zentral beim akuten anhaltenden vestibulären Syndrom. Peripher: pathologischer Kopfimpulstest mit Korrektursakkade, horizontal-rotierender richtungskonstanter Nystagmus, negativer Test of Skew. Zentral: unauffälliger Kopfimpulstest, vertikaler oder richtungswechselnder Nystagmus, positiver Test of Skew. Ein normaler Kopfimpulstest bei akutem Dauerdrehschwindel ist also gerade verdächtig.',
+        },
+        {
+          frage: 'Welche Bildgebung veranlassen Sie? Warum kein CT?',
+          antwort: 'Bei typischer Anamnese, positivem Dix-Hallpike und unauffälligem neurologischem Status keine — der Lagerungsschwindel ist eine klinische Diagnose und eine Bildgebung ist keine Routine. Nur bei zentralen Warnzeichen ein cMRT mit diffusionsgewichteten Sequenzen und Darstellung der hinteren Schädelgrube. Ein natives CT ist ungeeignet, weil es frische Hirnstamm- und Kleinhirninfarkte regelmäßig übersieht und sie damit nicht ausschließt.',
+        },
+        {
+          frage: 'Welche Warnzeichen sprechen für eine zentrale Ursache?',
+          antwort: 'Neu aufgetretener Kopf- oder Nackenschmerz, Doppelbilder, Dysarthrie, Dysphagie, Hemiparese oder Sensibilitätsstörungen, Ataxie und Stand- oder Gangunfähigkeit, ein vertikaler oder richtungswechselnder Nystagmus, ein nicht erschöpflicher Nystagmus, ein unauffälliger Kopfimpulstest bei anhaltendem Drehschwindel, ein positiver Test of Skew, eine akute einseitige Hörminderung sowie eine Bewusstseinsstörung.',
+        },
+        {
+          frage: 'Wie behandeln Sie? Erklären Sie das Epley-Manöver.',
+          antwort: 'Kausal mit einem Befreiungsmanöver in derselben Sitzung. Beim Epley-Manöver beginnt man in der Dix-Hallpike-Position der betroffenen Seite, dreht den Kopf schrittweise um jeweils 90° zur Gegenseite, dreht dann Kopf und Rumpf in die Seitenlage der Gegenseite mit Blick zum Boden und setzt den Patienten zuletzt auf; jede Position wird gehalten, bis der Nystagmus abgeklungen ist, mindestens etwa 30 Sekunden. Alternativ das Semont-Manöver, beim horizontalen Bogengang das Barbecue-Rollmanöver. Erfolgsrate 80 bis 90 %, häufig schon nach ein bis zwei Sitzungen; Kontrolle mit erneutem Dix-Hallpike.',
+        },
+        {
+          frage: 'Was sagen Sie zur Bettruhe?',
+          antwort: 'Ausdrücklich keine Bettruhe. Schonung und Vermeidung von Lagewechseln verzögern die Heilung, weil die zentrale Kompensation ausbleibt und sich ein sekundärer funktioneller Schwankschwindel entwickeln kann. Der Patient soll sich normal bewegen und zusätzlich zu Hause Brandt-Daroff-Übungen durchführen, dreimal täglich je fünf Wiederholungen im Wechsel über beide Seiten.',
+        },
+        {
+          frage: 'Dürfen Sie Antivertiginosa geben? Wie lange?',
+          antwort: 'Nur kurzfristig und nur bei starker Übelkeit oder Erbrechen, für höchstens wenige Tage, und möglichst nicht unmittelbar vor einem Befreiungsmanöver. Antivertiginosa wie Dimenhydrinat unterdrücken die vestibuläre Erregbarkeit und behindern dadurch die zentrale Kompensation; sie sind keine Dauertherapie. Beim älteren Patienten wirken sie zudem sedierend und begünstigen Stürze.',
+        },
+        {
+          frage: 'Was ist die Pathophysiologie? Welcher Bogengang ist am häufigsten betroffen und warum?',
+          antwort: 'Otolithen lösen sich aus der Makula des Utriculus und gelangen in einen Bogengang. Bei Lageänderung sinken sie der Schwerkraft folgend ab, erzeugen eine verzögerte Endolymphströmung und lenken die Cupula aus — daraus entstehen der Nystagmus und das Drehgefühl. In etwa 85 bis 90 % ist der hintere Bogengang betroffen, weil er in aufrechter Kopfhaltung der tiefstgelegene ist; in 5 bis 15 % der horizontale und in unter 2 % der vordere Bogengang.',
+        },
+        {
+          frage: 'Wie hoch ist die Rezidivrate, und was raten Sie dem Patienten?',
+          antwort: 'Etwa 15 % pro Jahr und 30 bis 50 % innerhalb von fünf Jahren; häufiger nach einem Schädel-Hirn-Trauma und bei Vitamin-D-Mangel. Ich kläre den Patienten über die Gutartigkeit und die Rezidivneigung auf, leite ihn in den Brandt-Daroff-Übungen an, rate ausdrücklich von Bettruhe ab, bespreche die Fahrtauglichkeit und vereinbare eine Kontrolle mit erneutem Dix-Hallpike.',
+        },
+        {
+          frage: 'Warum ist der Lagerungsschwindel beim älteren Patienten gefährlich, obwohl er benigne heißt?',
+          antwort: 'Weil er stürzen lässt. Beim älteren Patienten kann er sich als isolierte Stand- und Gangunsicherheit ohne klar berichteten Drehschwindel äußern und zu Schenkelhals- oder Radiusfrakturen führen. Deshalb gehören zur Behandlung immer eine Sturzprophylaxe, die Überprüfung sturzbegünstigender Medikamente und bei Osteoporose die Kontrolle von Vitamin D und Kalzium. Bei jedem Sturz des älteren Patienten ist umgekehrt nach Schwindel und nach einer kurzen Bewusstlosigkeit zu fragen.',
+        },
+      ],
+      merksatz: 'Sekunden statt Stunden, Lagewechsel statt Ruhe, kein Ohrsymptom und kein neurologischer Ausfall — das ist der benigne Lagerungsschwindel. Dix-Hallpike stellt die Diagnose (Latenz, rotierend-geotrop, erschöpflich), Epley heilt sie. Kein CT, keine Bettruhe, Antivertiginosa höchstens wenige Tage.',
+      linkedCaseIds: [
+        'case-lagerungsschwindel',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-synkope',
+      pathology: 'Synkope',
+      specialty: 'Kardiologie',
+      definition: 'Die Synkope ist ein transienter Bewusstseinsverlust durch globale zerebrale Minderperfusion, mit raschem Beginn, kurzer Dauer und spontaner, vollständiger Erholung. Alle vier Elemente gehören zwingend zur Definition und werden in der Prüfung wörtlich erwartet. Der Bewusstseinsverlust geht mit einem Verlust des Haltetonus einher, dauert typischerweise Sekunden bis höchstens eine Minute, und der Patient ist unmittelbar danach wieder vollständig orientiert. Abzugrenzen ist die Synkope einerseits von der Präsynkope (drohende Ohnmacht ohne tatsächlichen Bewusstseinsverlust), andererseits vom nicht-synkopalen transienten Bewusstseinsverlust, dessen wichtigster Vertreter der epileptische Anfall ist. Dem Patienten gegenüber heißt Synkope schlicht „kurze Bewusstlosigkeit" oder „Ohnmacht".',
+      aetiologie: 'Gemeinsamer Endweg aller Synkopen ist ein kritischer Abfall des zerebralen Blutflusses, meist über einen Abfall des systemischen Blutdrucks aus vermindertem Herzzeitvolumen oder vermindertem peripherem Widerstand; bereits eine Unterbrechung der zerebralen Durchblutung von sechs bis acht Sekunden genügt. Ätiologisch werden drei Gruppen unterschieden. ERSTENS die REFLEXSYNKOPE (neurokardiogene Synkope), die häufigste Form: vasovagal mit typischen Prodromi (Übelkeit, Schwitzen, Blässe, Schwarzwerden vor den Augen, Ohrensausen) und den Auslösern Schmerz, Angst, Blutanblick, langes Stehen und Hitze; situativ bei Miktion, Husten und Defäkation; sowie das Karotissinussyndrom beim älteren Patienten. ZWEITENS die ORTHOSTATISCHE SYNKOPE beim Aufstehen, sehr häufig IATROGEN durch Antihypertensiva, Diuretika, Nitrate, Alphablocker und Antidepressiva, ferner bei Volumenmangel (Blutung, Erbrechen, Diarrhoe, Exsikkose) und bei autonomer Neuropathie (Diabetes mellitus, Morbus Parkinson, Amyloidose). DRITTENS die KARDIALE SYNKOPE, die gefährliche Form: rhythmogen bei Bradykardie, AV-Block, Sick-Sinus-Syndrom oder ventrikulärer Tachykardie, oder strukturell bei Aortenklappenstenose, hypertropher obstruktiver Kardiomyopathie, Lungenembolie und Aortendissektion.',
+      risikofaktoren: [
+        'Höheres Lebensalter — mit dem Alter steigen sowohl die Häufigkeit als auch der Anteil kardialer und orthostatischer Ursachen',
+        'Bekannte strukturelle Herzerkrankung, Herzinsuffizienz oder reduzierte linksventrikuläre Pumpfunktion',
+        'Vorbestehende Rhythmusstörungen, Schenkelblock, AV-Blockierung, Schrittmacher- oder Defibrillatorträger',
+        'Polypharmazie, insbesondere Antihypertensiva, Diuretika, Nitrate, Alphablocker, Antidepressiva, Antipsychotika und QT-verlängernde Substanzen',
+        'Volumenmangel: Exsikkose, Blutung, Erbrechen, Diarrhoe, Hitzeexposition, unzureichende Trinkmenge',
+        'Autonome Neuropathie bei Diabetes mellitus, Morbus Parkinson, Multisystematrophie oder Amyloidose',
+        'Anämie',
+        'Positive Familienanamnese für plötzlichen Herztod vor dem 40. Lebensjahr, für Kardiomyopathien oder Ionenkanalerkrankungen',
+        'Alkoholkonsum und Immobilität',
+        'Langes Stehen, Hitze, überfüllte Räume, Schmerz, Angst und Blutanblick als situative Auslöser der Reflexsynkope',
+      ],
+      klinik: [
+        {
+          text: 'Plötzlicher Verlust des Bewusstseins und des Haltetonus mit Sturz, typischerweise über Sekunden bis höchstens eine Minute',
+        },
+        {
+          text: 'Spontane, vollständige und RASCHE Reorientierung — der Patient weiß unmittelbar nach dem Erwachen, wo er ist',
+        },
+        {
+          text: 'Prodromi bei der Reflexsynkope: Übelkeit, Schwitzen, Blässe, Schwarzwerden vor den Augen, Ohrensausen, Wärmegefühl, Gähnen',
+        },
+        {
+          text: 'Blasse, kaltschweißige Haut während des Ereignisses, langsamer oder kaum tastbarer Puls (fremdanamnestisch erhoben)',
+        },
+        {
+          text: 'Auslösesituation bei der Reflexsynkope: Schmerz, Angst, Blutanblick, langes Stehen, Hitze, Miktion, Husten, Defäkation',
+        },
+        {
+          text: 'Bei der orthostatischen Synkope Auftreten innerhalb von Sekunden bis drei Minuten nach dem Aufstehen aus dem Liegen oder Sitzen',
+        },
+        {
+          text: 'Bei der kardialen Synkope Auftreten ohne jede Vorwarnung — der Patient fällt „wie ein Sack" um und verletzt sich, weil die Schutzreflexe fehlen',
+        },
+        {
+          text: 'Bei der kardialen Synkope Auftreten unter körperlicher Belastung oder im Liegen',
+        },
+        {
+          text: 'Vorausgehende Palpitationen als Hinweis auf eine tachykarde Rhythmusstörung',
+        },
+        {
+          text: 'Begleitende Angina pectoris, Belastungsdyspnoe oder ein Herzgeräusch als Hinweis auf eine strukturelle kardiale Ursache',
+        },
+        {
+          text: 'Sturzverletzungen: Platz- und Rissquetschwunden, Gesichts- und Schädelverletzungen, Frakturen, zerbrochene Brille',
+        },
+        {
+          text: 'Kurze, unregelmäßige myoklonische Zuckungen von wenigen Sekunden NACH dem Sturz — konvulsive Synkope, kein epileptischer Anfall',
+          atypisch: true,
+        },
+        {
+          text: 'Kurze retrograde Amnesie für die Sekunden vor dem Ereignis, besonders beim älteren Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Unwillkürlicher Urinabgang bei voller Blase — allein kein Beweis für einen epileptischen Anfall',
+          atypisch: true,
+        },
+        {
+          text: 'Synkope als einzige Manifestation einer Lungenembolie, eines Myokardinfarkts (besonders beim älteren Patienten und beim Hinterwandinfarkt) oder einer Aortendissektion',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende Stürze ohne erinnerten Bewusstseinsverlust beim älteren Patienten — die Synkope wird als „Stolpern" fehlgedeutet',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Ätiologische Einteilung der Synkope (drei Gruppen)',
+          inhalt: '1. Reflexsynkope (neurokardiogen), die häufigste Form — vasovagal (Schmerz, Angst, Blutanblick, langes Stehen, Hitze), situativ (Miktion, Husten, Defäkation, Schlucken, Lachen) und Karotissinussyndrom. 2. Orthostatische Synkope — medikamenteninduziert (Antihypertensiva, Diuretika, Nitrate, Alphablocker, Antidepressiva), bei Volumenmangel oder bei autonomer Neuropathie. 3. Kardiale Synkope — rhythmogen (Bradykardie, AV-Block II. und III. Grades, Sick-Sinus-Syndrom, ventrikuläre Tachykardie, Torsade de pointes) oder strukturell (Aortenklappenstenose, hypertrophe obstruktive Kardiomyopathie, Lungenembolie, Aortendissektion, Myxom, Perikardtamponade, Myokardinfarkt).',
+        },
+        {
+          name: 'Hochrisikomerkmale für eine kardiale Synkope',
+          inhalt: 'Synkope im Liegen oder unter Belastung; Auftreten ohne Prodromi; vorausgehende Palpitationen; bekannte strukturelle Herzerkrankung oder reduzierte Pumpfunktion; auffälliges EKG; plötzlicher Herztod in der Familie vor dem 40. Lebensjahr; schwere Sturzverletzungen. Jedes einzelne dieser Merkmale begründet eine stationäre Abklärung mit Monitorüberwachung. Niedrigrisikomerkmale sind dagegen: typische Prodromi, eindeutiger situativer Auslöser, langes Stehen oder Hitze, junges Alter, unauffälliges EKG und fehlende Herzerkrankung.',
+        },
+        {
+          name: 'Kriterien der orthostatischen Hypotonie (Schellong-Test)',
+          inhalt: 'Zehn Minuten Liegen mit Messung von Blutdruck und Puls, danach Aufstehen und wiederholte Messung über drei Minuten. Pathologisch ist ein Abfall des systolischen Blutdrucks um mindestens 20 mmHg ODER des diastolischen Blutdrucks um mindestens 10 mmHg oder ein systolischer Wert unter 90 mmHg innerhalb dieser drei Minuten. Ein begleitender Pulsanstieg spricht für Volumenmangel, ein fehlender Pulsanstieg für eine autonome Funktionsstörung oder eine Betablockade.',
+        },
+        {
+          name: 'Abgrenzung des transienten Bewusstseinsverlusts',
+          inhalt: 'Transienter Bewusstseinsverlust wird unterteilt in synkopal (globale zerebrale Minderperfusion) und nicht-synkopal. Nicht-synkopal sind: epileptischer Anfall, Hypoglykämie, Intoxikation, psychogener Anfall, Kataplexie bei Narkolepsie sowie Schädel-Hirn-Trauma. Kein transienter Bewusstseinsverlust und daher abzugrenzen sind: Sturz ohne Bewusstseinsverlust (Drop attack), Schwindel ohne Bewusstseinsverlust und Koma.',
+        },
+      ],
+      redFlags: [
+        'Synkope UNTER BELASTUNG oder im LIEGEN — bis zum Beweis des Gegenteils kardial',
+        'Auftreten OHNE PRODROMI, der Patient fällt „wie ein Sack" um und kann sich nicht abstützen',
+        'Vorausgehende PALPITATIONEN — Hinweis auf eine tachykarde Rhythmusstörung',
+        'Bekannte strukturelle Herzerkrankung oder reduzierte linksventrikuläre Pumpfunktion',
+        'Auffälliges EKG: AV-Block, Schenkelblock, Sinusbradykardie, verlängerte QT-Zeit, Delta-Welle, Brugada-Muster, Infarktzeichen, Zeichen der linksventrikulären Hypertrophie',
+        'PLÖTZLICHER HERZTOD IN DER FAMILIE VOR DEM 40. LEBENSJAHR oder bekannte Kardiomyopathie beziehungsweise Ionenkanalerkrankung',
+        'SCHWERE STURZVERLETZUNGEN, insbesondere im Gesicht und am Schädel, als Ausdruck fehlender Schutzreflexe',
+        'Begleitender Brustschmerz, Dyspnoe, Kopfschmerz, neurologisches Defizit oder Herzgeräusch',
+        'Synkope mit Hinweis auf Blutung (Meläna, Hämatemesis, akutes Abdomen) oder mit Hypotonie und Tachykardie',
+        'Neu aufgetretene Synkope beim Patienten über 60 Jahren ohne erkennbaren Auslöser',
+        'Rezidivierende Synkopen innerhalb kurzer Zeit',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'EIGEN- UND FREMDANAMNESE — die wichtigste diagnostische Maßnahme; der Zeuge ist oft entscheidender als der Patient, weil dieser den Kern des Ereignisses selbst nicht erlebt hat. Zu erfragen sind Körperhaltung und Tätigkeit unmittelbar davor, Auslöser, Prodromi, Hautfarbe, Dauer der Bewusstlosigkeit, motorische Entäußerungen und ihr Zeitpunkt, Zungenbiss und dessen Lokalisation, Urinabgang sowie die Geschwindigkeit der Reorientierung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Suche nach den Hochrisikomerkmalen sowie vollständige Medikamentenanamnese einschließlich neu angesetzter oder in der Dosis geänderter Präparate; Familienanamnese hinsichtlich plötzlichen Herztods vor dem 40. Lebensjahr',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern, Blutdruckmessung an beiden Armen sowie im Liegen und im Stehen (Schellong-Test), Herzauskultation zur Erfassung eines Vitiums — insbesondere der AORTENKLAPPENSTENOSE —, Auskultation der Karotiden, Beurteilung des Volumenstatus und rektale Untersuchung bei Blutungsverdacht',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende neurologische Untersuchung, Inspektion des Zungenrandes (lateraler Zungenbiss), Erfassung und Dokumentation aller Sturzverletzungen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Sofortige Blutzuckerbestimmung bei jedem Bewusstseinsverlust; Blutbild (Anämie, Blutung); Elektrolyte einschließlich Kalium, Natrium, Kalzium und Magnesium (Arrhythmierisiko, Diuretika)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenretentionswerte, Leberwerte und TSH; Troponin bei Verdacht auf ein akutes Koronarsyndrom, NT-proBNP bei Verdacht auf eine kardiale Genese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere ausschließlich bei begründetem klinischem Verdacht auf eine Lungenembolie; Toxikologie und Alkoholspiegel bei entsprechendem Verdacht; bei Frauen im gebärfähigen Alter Schwangerschaftstest',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-KANAL-EKG BEI JEDEM PATIENTEN MIT SYNKOPE — Suche nach AV-Block, Schenkelblock, Sinusbradykardie, Präexzitation, verlängerter QT-Zeit, Brugada-Muster, Epsilon-Welle, Zeichen der linksventrikulären Hypertrophie und Infarktzeichen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kontinuierliche Monitorüberwachung (Telemetrie) bei jeder Hochrisiko-Synkope während des stationären Aufenthalts',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie bei Verdacht auf eine strukturelle Ursache: Klappenvitien — insbesondere die Aortenklappenstenose —, hypertrophe obstruktive Kardiomyopathie, Pumpfunktion, Rechtsherzbelastung, Perikarderguss',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Langzeit-EKG über 24 bis 72 Stunden, externer Event-Recorder bei selteneren Episoden; Röntgen-Thorax bei kardiopulmonaler Fragestellung; CT-Angiographie der Pulmonalarterien bei Verdacht auf Lungenembolie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kranielle Computertomographie nur bei Schädeltrauma, fokal-neurologischem Defizit, Antikoagulation oder anhaltender Bewusstseinsstörung; ein EEG ist nur bei begründetem Verdacht auf einen epileptischen Anfall indiziert und gehört nicht zur Routineabklärung der Synkope',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'IMPLANTIERBARER EREIGNISREKORDER bei rezidivierenden, nach vollständiger Abklärung weiterhin ungeklärten Synkopen mit Verdacht auf eine rhythmogene Ursache',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'KIPPTISCHUNTERSUCHUNG bei unklarer, vermuteter Reflexsynkope oder zum Nachweis einer orthostatischen Intoleranz, wenn Anamnese und Schellong-Test nicht ausreichen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'KAROTISDRUCKVERSUCH beim älteren Patienten mit Verdacht auf ein Karotissinussyndrom — CAVE: kontraindiziert bei Strömungsgeräusch über der Karotis sowie nach Schlaganfall oder TIA in den letzten Monaten; Durchführung nur unter EKG- und Blutdruckkontrolle',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektrophysiologische Untersuchung bei Verdacht auf eine rhythmogene Synkope bei struktureller Herzerkrankung; Koronarangiographie bei Verdacht auf eine ischämische Ursache oder vor einem geplanten Klappenersatz',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Epileptischer Anfall',
+          unterscheidung: 'Die wichtigste Abgrenzung. Dafür sprechen: Aura, tonisch-klonische Phase über Minuten, LATERALER Zungenbiss, Einnässen, blau-rote statt blasser Gesichtsfarbe und vor allem eine POSTIKTALE VERWIRRTHEIT ÜBER MINUTEN BIS STUNDEN mit Muskelkater und Kopfschmerz. Der Synkopenpatient erholt sich dagegen SOFORT und vollständig — dieser Kontrast ist der eigentliche Kipppunkt der Diagnose. Kurze myoklonische Zuckungen von wenigen Sekunden nach dem Sturz sind bei der konvulsiven Synkope häufig und beweisen keine Epilepsie.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Adrenerge Vorboten mit Heißhunger, Zittern, Schwitzen, Unruhe und Tachykardie, dann protrahierte Bewusstseinsstörung OHNE spontane rasche Erholung; Besserung erst nach Glukosegabe. Typisch bei Diabetikern unter Insulin oder Sulfonylharnstoffen. Deshalb ist die sofortige Blutzuckerbestimmung bei jedem Bewusstseinsverlust obligat.',
+        },
+        {
+          dd: 'Intoxikation (Alkohol, Sedativa, Opioide, Kohlenmonoxid)',
+          unterscheidung: 'Protrahierte, oft fluktuierende Bewusstseinsstörung ohne rasche vollständige Erholung, Foetor, Pupillenveränderungen, Atemdepression, entsprechende Anamnese und Umgebungsbefunde; Klärung durch Toxikologie und Alkoholspiegel.',
+        },
+        {
+          dd: 'Psychogener nicht-epileptischer Anfall (dissoziativer Anfall)',
+          unterscheidung: 'Oft lange Dauer über viele Minuten, geschlossene Augen mit aktivem Widerstand gegen das Öffnen, wechselnde, asynchrone Motorik, erhaltene Reaktion auf Ansprache, Auftreten meist vor Publikum; keine Verletzungen, keine Zyanose, normale Vitalparameter. Häufig psychiatrische Komorbidität.',
+        },
+        {
+          dd: 'Kataplexie bei Narkolepsie',
+          unterscheidung: 'Plötzlicher Verlust des Muskeltonus, ausgelöst durch starke Emotionen wie Lachen oder Schreck, jedoch bei ERHALTENEM BEWUSSTSEIN — der Patient bekommt alles mit. Begleitet von Tagesschläfrigkeit, Schlaflähmung und hypnagogen Halluzinationen.',
+        },
+        {
+          dd: 'Sturz ohne Bewusstseinsverlust (Drop attack, Stolpersturz)',
+          unterscheidung: 'Durchgehende Erinnerung, der Patient kann den Hergang lückenlos schildern und steht meist sofort wieder auf. Häufig beim älteren Patienten bei Gangstörung, Sarkopenie, Sehstörung oder Umgebungsgefahren. Cave: Die Synkope wird vom Patienten oft als bloßes Stolpern verharmlost — deshalb nach jedem Sturz aktiv nach Schwindel und kurzer Bewusstlosigkeit fragen.',
+        },
+        {
+          dd: 'Transitorische ischämische Attacke (TIA) und Schlaganfall',
+          unterscheidung: 'Eine TIA führt PRAKTISCH NIE zu einem isolierten Bewusstseinsverlust; sie äußert sich in fokalen Ausfällen wie Halbseitenschwäche, Sprachstörung oder Sehstörung. Nur eine vertebrobasiläre Ischämie oder ein Subclavian-steal-Syndrom können ausnahmsweise mit Bewusstseinsstörung einhergehen, dann aber mit Hirnstammsymptomen.',
+        },
+        {
+          dd: 'Schwindel ohne Bewusstseinsverlust (vestibulär oder zervikogen)',
+          unterscheidung: 'Drehschwindel oder Schwankschwindel mit Fallneigung, jedoch stets erhaltenem Bewusstsein; oft mit Nystagmus, Übelkeit und Lagerungsabhängigkeit. Sprachlich wichtig: Patienten sagen häufig „mir wurde schwarz vor Augen" und meinen sehr Unterschiedliches — hier muss präzise nachgefragt werden.',
+        },
+        {
+          dd: 'Commotio cerebri nach Sturz',
+          unterscheidung: 'Der Bewusstseinsverlust ist FOLGE des Traumas, nicht dessen Ursache; typisch sind retrograde und anterograde Amnesie, Übelkeit, Erbrechen und Kopfschmerz. Bei jedem Sturz mit Kopfverletzung ist zu klären, was zuerst kam — der Sturz oder die Bewusstlosigkeit.',
+        },
+        {
+          dd: 'Koma und protrahierte Bewusstlosigkeit anderer Genese',
+          unterscheidung: 'Keine spontane Erholung innerhalb von Sekunden bis einer Minute; Ursachen sind Meningitis, Enzephalitis, Blutung, Hirndruck, metabolische Entgleisung und Sepsis. Abgrenzung allein über die Dauer und das Fehlen der spontanen vollständigen Erholung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Risikostratifizierung und Entscheidung über die stationäre Aufnahme',
+          items: [
+            'ERSTER therapeutischer Akt ist keine Medikamentengabe, sondern die Frage: Handelt es sich um eine gefährliche kardiale Synkope? Die Risikostratifizierung entscheidet über alles Weitere',
+            'Sofortmaßnahmen im Ereignis: Flachlagerung mit Hochlagern der Beine, Freimachen der Atemwege, Prüfung von Bewusstsein und Atmung, bei fehlender normaler Atmung sofortige Reanimation',
+            'Basisdiagnostik bei jedem Patienten: Vitalparameter, 12-Kanal-EKG, sofortige Blutzuckerbestimmung, Blutdruck im Liegen und im Stehen, Herzauskultation, Erfassung der Sturzverletzungen',
+            'STATIONÄRE AUFNAHME mit Monitorüberwachung bei jedem Hochrisikomerkmal: Synkope unter Belastung oder im Liegen, fehlende Prodromi, vorausgehende Palpitationen, strukturelle Herzerkrankung, auffälliges EKG, plötzlicher Herztod in der Familie vor dem 40. Lebensjahr, schwere Sturzverletzungen, Blutungshinweise oder relevante Komorbidität',
+            'Ambulante Abklärung nur bei eindeutiger Niedrigrisiko-Konstellation: typische Prodromi, klarer situativer Auslöser, junger Patient, unauffälliges EKG, keine Herzerkrankung',
+            'Behandlung der unmittelbaren Sturzfolgen: Wundversorgung, Tetanusschutz, Frakturausschluss, bei relevantem Schädeltrauma kranielle Bildgebung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung der Reflex- und der orthostatischen Synkope',
+          items: [
+            'AUFKLÄRUNG UND BERUHIGUNG sind bereits ein Teil der Therapie: Die meisten Synkopen sind gutartig, und das Verständnis des Mechanismus nimmt dem Patienten die Angst vor der Wiederholung',
+            'Auslöservermeidung: langes Stehen, Hitze, überfüllte Räume, Alkohol, große Mahlzeiten, plötzliches Aufrichten',
+            'Ausreichende Trink- und Salzzufuhr (etwa 2 bis 3 Liter täglich, angepasst an Herz- und Nierenfunktion), Kompressionsstrümpfe, Schlafen mit leicht erhöhtem Oberkörper',
+            'GEGENDRUCKMANÖVER beim ersten Prodrom: Beine überkreuzen und die Muskulatur anspannen, kräftiges Fäusteballen, Armverschränken mit kräftigem Zug — dazu die Regel, sich sofort hinzulegen und die Beine hochzulagern',
+            'Langsames Aufstehen in zwei Schritten, erst an die Bettkante setzen; Vermeidung schneller Lagewechsel und langen unbewegten Stehens',
+            'KRITISCHE MEDIKAMENTENREVISION als zentrale Maßnahme: Sehr viele orthostatische Synkopen sind arzneimittelbedingt. Zu überprüfen sind Antihypertensiva, Diuretika, Nitrate, Alphablocker, Antidepressiva, Antipsychotika und QT-verlängernde Substanzen — Absetzen, Dosisreduktion oder Umstellung, gegebenenfalls Anhebung des Blutdruckzielwertes beim älteren Patienten',
+            'Medikamentöse Therapie nur bei therapierefraktären Verläufen: Midodrin oder Fludrocortison; ein Herzschrittmacher ausschließlich bei dokumentierter kardioinhibitorischer Reflexsynkope beziehungsweise Karotissinussyndrom mit relevanten Asystolien',
+            'Behandlung eines Volumenmangels sowie der Grunderkrankung bei autonomer Neuropathie',
+          ],
+        },
+        {
+          label: 'Behandlung der kardialen Ursache',
+          items: [
+            'HERZSCHRITTMACHER bei symptomatischen bradykarden Rhythmusstörungen: AV-Block II. Grades Typ Mobitz II und III. Grades, Sick-Sinus-Syndrom, bradykardes Vorhofflimmern, dokumentierte relevante Asystolien',
+            'IMPLANTIERBARER KARDIOVERTER-DEFIBRILLATOR bei ventrikulären Tachyarrhythmien, nach überlebtem plötzlichem Herztod sowie bei Synkope mit deutlich reduzierter linksventrikulärer Pumpfunktion',
+            'KATHETERABLATION bei supraventrikulären und geeigneten ventrikulären Tachykardien sowie bei Präexzitationssyndromen',
+            'KLAPPENERSATZ bei symptomatischer hochgradiger AORTENKLAPPENSTENOSE — kathetergestützt (TAVI) oder operativ nach Entscheidung im Herzteam; eine Synkope ist hier ein Symptom mit Interventionsindikation, eine rein medikamentöse Therapie verbessert die Prognose nicht',
+            'Bei hypertropher obstruktiver Kardiomyopathie negativ inotrope Therapie mit Betablockern, Vermeidung von Vorlastsenkern, gegebenenfalls septale Reduktionstherapie und Defibrillator',
+            'Ursachengerechte Akuttherapie bei Lungenembolie (Antikoagulation, bei Instabilität Lyse), akutem Koronarsyndrom (Revaskularisation) und Aortendissektion (notfallmäßige operative Versorgung)',
+            'CAVE bei struktureller Ausflusstraktobstruktion: Nitrate, hohe Diuretikadosen und andere stark vorlastsenkende Substanzen können den Blutdruck kritisch senken und eine Synkope auslösen',
+          ],
+        },
+        {
+          label: 'Fahreignung und Sicherheit im Alltag',
+          items: [
+            'Die Fahreignung ist bei jeder Synkope aktiv anzusprechen, zu erklären und zu DOKUMENTIEREN — eine in der Prüfung sehr häufig gestellte Frage',
+            'Grundsatz: Bis zur Klärung und wirksamen Behandlung der Ursache besteht keine Fahreignung. Die Dauer der Einschränkung richtet sich nach der Ursache — nach einer einmaligen, eindeutigen Reflexsynkope ohne Hochrisikomerkmale ist meist keine oder nur eine kurze Einschränkung erforderlich, nach einer kardialen Synkope erst nach erfolgreicher Behandlung der Grunderkrankung',
+            'Für Fahrer der Gruppe 2 (Berufskraftfahrer, Personenbeförderung) gelten deutlich strengere Anforderungen; hier ist eine arbeitsmedizinische Beurteilung erforderlich',
+            'Berufliche Beratung bei Absturzgefahr und Fremdgefährdung: Gerüst-, Dach- und Leiterarbeit, Arbeit an laufenden Maschinen, Tätigkeit als Pilot, Kranführer oder Berufskraftfahrer',
+            'Alltagssicherheit: nicht allein schwimmen, kein Baden in der Wanne bei rezidivierenden Synkopen, Vorsicht beim Treppensteigen mit Lasten',
+            'STURZPROPHYLAXE besonders beim älteren Patienten: Handläufe, gute Beleuchtung, Beseitigung von Stolperfallen, rutschfeste Schuhe, Sehkorrektur, Osteoporoseabklärung, Physiotherapie zur Kraft- und Balanceschulung, Einbeziehung der Angehörigen',
+            'Schriftliche Verhaltensregeln und Wiedervorstellungskriterien mitgeben, Hausarzt informieren, Verlaufskontrolle vereinbaren',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose wird ausschließlich von der zugrunde liegenden Ursache bestimmt, nicht von der Synkope selbst. Die Reflexsynkope und die orthostatische Synkope sind quoad vitam gutartig; ihre eigentliche Gefahr liegt in den Verletzungen durch den Sturz und in der Einschränkung der Lebensqualität durch die Angst vor der nächsten Episode. Rezidive sind bei der Reflexsynkope häufig, lassen sich aber durch Aufklärung, Auslöservermeidung, Trink- und Salzzufuhr und Gegendruckmanöver deutlich reduzieren. Die kardiale Synkope dagegen ist mit einer erheblich erhöhten Sterblichkeit im ersten Jahr verbunden, weil sie Ausdruck einer bedrohlichen Grunderkrankung ist; wird diese erkannt und behandelt — Schrittmacher, Defibrillator, Ablation oder Klappenersatz —, normalisiert sich die Prognose weitgehend. Etwa ein Drittel aller Synkopen bleibt trotz vollständiger Abklärung ätiologisch ungeklärt; bei fehlenden Hochrisikomerkmalen ist die Prognose dieser Gruppe günstig, bei Rezidiven ist der implantierbare Ereignisrekorder das Mittel der Wahl. Entscheidend für die Prognose ist damit weniger die Behandlung des Ereignisses als die korrekte Risikostratifizierung beim Erstkontakt.',
+      pruefungsfallen: [
+        'Die Definition wird wörtlich abgefragt und muss ALLE VIER Elemente enthalten: transienter Bewusstseinsverlust durch globale zerebrale Minderperfusion, rascher Beginn, kurze Dauer, spontane und VOLLSTÄNDIGE Erholung. „Kurze Bewusstlosigkeit" allein genügt nicht.',
+        'Die FREMDANAMNESE vergessen: Der Patient hat den Kern des Ereignisses nicht erlebt. Der Zeuge ist oft entscheidender als der Patient — nach ihm muss aktiv gefragt und er muss, wenn möglich, hereingebeten werden.',
+        'Die kurzen myoklonischen Zuckungen als epileptischen Anfall fehldeuten: Sie treten bei der konvulsiven Synkope regelmäßig auf. Die Unterscheidung liegt in der postiktalen Verwirrtheit über Minuten bis Stunden gegenüber der SOFORTIGEN vollständigen Erholung.',
+        'Beim Zungenbiss die Lokalisation nicht erfragen: LATERAL spricht für den epileptischen Anfall, ein Biss an der Zungenspitze ist unspezifisch. Ein Urinabgang allein beweist keinen Anfall.',
+        'Das 12-Kanal-EKG bei JEDEM Synkopenpatienten nicht nennen — es ist die Standardantwort auf „Was machen Sie bei jedem?".',
+        'Den Blutzucker vergessen: Bei jedem Bewusstseinsverlust gehört die sofortige Blutzuckerbestimmung dazu, auch beim Nicht-Diabetiker.',
+        'Die MEDIKAMENTE nicht als Ursache erwägen: Ein sehr großer Teil der orthostatischen Synkopen ist iatrogen — Antihypertensiva, Diuretika, Nitrate, Alphablocker und Antidepressiva. Besonders zu erfragen sind neu angesetzte oder in der Dosis geänderte Präparate.',
+        'Umgekehrt die Falle der bequemen Erklärung: Bei einem älteren Patienten unter Antihypertensiva vorschnell „orthostatisch" sagen, obwohl die Synkope unter BELASTUNG auftrat. Eine Belastungssynkope ist bis zum Beweis des Gegenteils kardial.',
+        'Die AUSKULTATION überspringen: Die Aortenklappenstenose ist eine klassische, gut behandelbare Ursache der Belastungssynkope und wird am Herzgeräusch erkannt.',
+        'Ein Belastungs-EKG bei symptomatischer hochgradiger Aortenklappenstenose anordnen — kontraindiziert wegen der Gefahr von Synkope, Arrhythmie und plötzlichem Herztod.',
+        'Den Karotisdruckversuch unkritisch anbieten: kontraindiziert bei Strömungsgeräusch über der Karotis sowie nach Schlaganfall oder TIA in den letzten Monaten.',
+        'Eine TIA als Erklärung eines isolierten Bewusstseinsverlusts anbieten — eine TIA führt praktisch nie zu einem isolierten Bewusstseinsverlust ohne fokale Ausfälle.',
+        'EEG und Schädel-CT reflexhaft anordnen: Beide gehören NICHT zur Routineabklärung der Synkope, sondern nur bei begründetem Verdacht auf einen epileptischen Anfall beziehungsweise bei Schädeltrauma, fokalem Defizit oder Antikoagulation.',
+        'Nach jedem STURZ die Synkopenfrage vergessen — der häufigste dokumentierte Anfängerfehler. Wird sie in der Anamnese versäumt, ist die beste Reaktion im Arzt-Arzt-Gespräch die offene Ankündigung: „Das habe ich bisher nicht gefragt. Ich werde es noch klären — ob es zum Beispiel Schwindel oder eine kurze Bewusstlosigkeit gab."',
+        'Die FAHREIGNUNG nicht ansprechen: Sie gehört von selbst in das weitere Vorgehen und wird von Prüfern sehr häufig nachgefragt — ebenso Tätigkeiten mit Absturzgefahr.',
+        'Bei der Reflexsynkope die Aufklärung als Therapie unterschlagen: Beruhigung, Erklärung des Mechanismus, Auslöservermeidung und Gegendruckmanöver sind die eigentliche Behandlung, nicht ein Medikament.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist eine Synkope? Bitte definieren Sie den Begriff.',
+          antwort: 'Eine Synkope ist ein vorübergehender Bewusstseinsverlust infolge einer globalen zerebralen Minderperfusion, mit raschem Beginn, kurzer Dauer und spontaner, vollständiger Erholung. Sie geht mit einem Verlust des Haltetonus einher und dauert in der Regel nur Sekunden bis höchstens eine Minute.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Patienten das Wort Synkope?',
+          antwort: 'Als kurze Bewusstlosigkeit oder Ohnmacht: Für einen Moment kommt zu wenig Blut im Gehirn an, deshalb wird man kurz bewusstlos. Sobald man liegt, fließt das Blut wieder zum Kopf und man wacht von selbst wieder auf.',
+        },
+        {
+          frage: 'Welche Ursachengruppen der Synkope kennen Sie, und welche ist die häufigste?',
+          antwort: 'Drei Gruppen. Erstens die Reflexsynkope, die häufigste — vasovagal mit Prodromi bei Schmerz, Angst, Blutanblick, langem Stehen und Hitze, situativ bei Miktion, Husten und Defäkation, sowie das Karotissinussyndrom beim Älteren. Zweitens die orthostatische Synkope beim Aufstehen, sehr oft iatrogen durch Antihypertensiva, Diuretika, Nitrate, Alphablocker und Antidepressiva, ferner bei Volumenmangel und autonomer Neuropathie. Drittens die kardiale Synkope, die gefährliche — rhythmogen bei Bradykardie, AV-Block, Sick-Sinus-Syndrom oder ventrikulärer Tachykardie, strukturell bei Aortenklappenstenose, hypertropher obstruktiver Kardiomyopathie, Lungenembolie und Aortendissektion.',
+        },
+        {
+          frage: 'Welche Befunde sprechen für eine kardiale, also gefährliche Synkope?',
+          antwort: 'Eine Synkope im Liegen oder unter Belastung, das Auftreten ohne Prodromi — der Patient fällt wie ein Sack um —, vorausgehende Palpitationen, eine bekannte strukturelle Herzerkrankung oder reduzierte Pumpfunktion, ein auffälliges EKG, ein plötzlicher Herztod in der Familie vor dem 40. Lebensjahr und schwere Sturzverletzungen.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Synkope von einem epileptischen Anfall?',
+          antwort: 'Für den epileptischen Anfall sprechen eine Aura, eine tonisch-klonische Phase über Minuten, ein lateraler Zungenbiss, ein Einnässen und vor allem eine postiktale Verwirrtheit über Minuten bis Stunden. Der Synkopenpatient erholt sich dagegen sofort und vollständig. Dieser Kontrast ist der eigentliche Kipppunkt der Diagnose.',
+        },
+        {
+          frage: 'Der Zeuge berichtet von einigen Zuckungen. Ist das nicht doch ein Krampfanfall?',
+          antwort: 'Nicht zwingend. Kurze, unregelmäßige myoklonische Zuckungen von wenigen Sekunden treten bei der zerebralen Minderperfusion regelmäßig auf — man nennt das eine konvulsive Synkope. Sie beginnen erst nach dem Sturz und sind nicht rhythmisch tonisch-klonisch über Minuten, und es folgt keine postiktale Verwirrtheit.',
+        },
+        {
+          frage: 'Welche Untersuchung führen Sie bei JEDEM Patienten mit Synkope durch?',
+          antwort: 'Eine ausführliche Eigen- und Fremdanamnese, eine körperliche Untersuchung mit Blutdruckmessung im Liegen und im Stehen und mit Auskultation des Herzens sowie ein 12-Kanal-EKG. Dazu gehört bei jedem Bewusstseinsverlust die sofortige Blutzuckerbestimmung.',
+        },
+        {
+          frage: 'Warum ist die Fremdanamnese hier so wichtig?',
+          antwort: 'Weil der Patient den entscheidenden Teil des Ereignisses selbst nicht erlebt hat. Der Zeuge ist oft entscheidender als der Patient: Er berichtet über die Dauer der Bewusstlosigkeit, die Hautfarbe, motorische Entäußerungen und ihren Zeitpunkt sowie über die Geschwindigkeit der Reorientierung — genau die Angaben, die Synkope und epileptischen Anfall trennen.',
+        },
+        {
+          frage: 'Wie führen Sie einen Schellong-Test durch, und wann ist er positiv?',
+          antwort: 'Der Patient liegt zehn Minuten ruhig, dann werden Blutdruck und Puls gemessen; danach steht er auf und die Messung wird über drei Minuten wiederholt. Positiv ist der Test bei einem Abfall des systolischen Blutdrucks um mindestens 20 mmHg oder des diastolischen um mindestens 10 mmHg oder bei einem systolischen Wert unter 90 mmHg innerhalb dieser drei Minuten.',
+        },
+        {
+          frage: 'Welche weiterführenden Untersuchungen kennen Sie bei unklarer Synkope?',
+          antwort: 'Eine Echokardiographie bei Verdacht auf eine strukturelle Ursache, ein Langzeit-EKG, einen externen Event-Recorder oder bei Rezidiven einen implantierbaren Ereignisrekorder, eine Kipptischuntersuchung bei unklarer Reflexsynkope und einen Karotisdruckversuch beim älteren Patienten. Eine elektrophysiologische Untersuchung bleibt Sonderfällen vorbehalten.',
+        },
+        {
+          frage: 'Welche Medikamente können eine Synkope auslösen?',
+          antwort: 'Vor allem Antihypertensiva, Diuretika, Nitrate, Alphablocker und Antidepressiva, außerdem Antipsychotika, Dopaminagonisten und QT-verlängernde Substanzen. Sehr viele orthostatische Synkopen sind arzneimittelbedingt, deshalb gehört die kritische Medikamentenrevision zur Therapie.',
+        },
+        {
+          frage: 'Wann nehmen Sie einen Patienten mit Synkope stationär auf?',
+          antwort: 'Immer bei einem Hochrisikomerkmal: Synkope unter Belastung oder im Liegen, fehlende Prodromi, vorausgehende Palpitationen, bekannte strukturelle Herzerkrankung, auffälliges EKG, plötzlicher Herztod in der Familie vor dem 40. Lebensjahr oder schwere Sturzverletzungen. Dann erfolgt die Abklärung unter Monitorüberwachung.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Reflexsynkope?',
+          antwort: 'In erster Linie durch Aufklärung und Beruhigung — die meisten Synkopen sind gutartig, und die Erklärung ist bereits ein Teil der Behandlung. Dazu Auslöservermeidung, ausreichende Trink- und Salzzufuhr, langsames Aufstehen, das frühe Erkennen der Prodromi mit sofortigem Hinlegen und Hochlagern der Beine sowie Gegendruckmanöver. Medikamente wie Midodrin oder Fludrocortison bleiben therapierefraktären Fällen vorbehalten.',
+        },
+        {
+          frage: 'Was sind Gegendruckmanöver?',
+          antwort: 'Isometrische Anspannungen, die den venösen Rückstrom und damit den Blutdruck erhöhen: die Beine überkreuzen und die Muskulatur anspannen, kräftig die Fäuste ballen oder die Arme verschränken und kräftig auseinanderziehen. Sie werden beim ersten Prodrom eingesetzt und können die Synkope verhindern.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine kardiale Synkope?',
+          antwort: 'Ursachengerecht: Herzschrittmacher bei bradykarden Rhythmusstörungen, implantierbarer Kardioverter-Defibrillator bei ventrikulären Tachyarrhythmien und reduzierter Pumpfunktion, Katheterablation bei geeigneten Tachykardien und Klappenersatz bei symptomatischer hochgradiger Aortenklappenstenose. Dazu die Akuttherapie der jeweiligen Ursache bei Lungenembolie, Myokardinfarkt oder Aortendissektion.',
+        },
+        {
+          frage: 'Darf ein Patient nach einer Synkope Auto fahren?',
+          antwort: 'Bis zur Klärung und wirksamen Behandlung der Ursache nicht. Die Dauer der Einschränkung richtet sich nach der Ursache: Nach einer einmaligen, eindeutigen Reflexsynkope ohne Hochrisikomerkmale ist meist keine oder nur eine kurze Einschränkung nötig, nach einer kardialen Synkope erst nach erfolgreicher Behandlung. Für Berufskraftfahrer der Gruppe 2 gelten deutlich strengere Anforderungen. Das Gespräch muss dokumentiert werden.',
+        },
+        {
+          frage: 'Ein älterer Patient stellt sich nach einem Sturz vor. Was fragen Sie unbedingt?',
+          antwort: 'Wie es zu dem Sturz kam: ob Schwindel oder eine kurze Bewusstlosigkeit vorausgingen, ob er sich abstützen konnte, ob eine Erinnerungslücke besteht, ob es Zeugen gab, ob er den Kopf angeschlagen hat und ob Übelkeit oder Erbrechen auftraten. Wenn ich das versäumt habe, sage ich es offen und kündige an, es nachzuholen.',
+        },
+        {
+          frage: 'Was ist eine Präsynkope?',
+          antwort: 'Die drohende Ohnmacht: dieselben Prodromi mit Schwindel, Schwarzwerden vor den Augen, Übelkeit und Schwitzen, jedoch ohne tatsächlichen Bewusstseinsverlust. Sie hat dieselbe diagnostische Wertigkeit wie die Synkope und muss ebenso abgeklärt werden — insbesondere, wenn sie unter Belastung auftritt.',
+        },
+      ],
+      merksatz: 'Synkope = kurz weg, schnell wieder ganz da — vier Elemente: transient, globale zerebrale Minderperfusion, rascher Beginn, spontane vollständige Erholung. Der Zeuge ist wichtiger als der Patient, ein EKG bekommt jeder, und der Blutzucker wird immer gemessen. Prodromi und typischer Auslöser sprechen für die harmlose Reflexsynkope; Synkope im Liegen oder unter Belastung, ohne Vorwarnung, mit Palpitationen, Herzgeräusch, auffälligem EKG, Sturzverletzung oder plötzlichem Herztod vor dem 40. Lebensjahr in der Familie heißt kardial — und kardial heißt Monitor, Echo und stationär. Zum Schluss immer an die Medikamentenrevision und an das Fahrverbot denken.',
+      linkedCaseIds: [
+        'case-synkope',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-koronarangiographie',
+        'auf-roentgen-thorax',
+      ],
+    },
   ];
 }
