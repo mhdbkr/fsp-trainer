@@ -22463,5 +22463,1107 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-roentgen-thorax',
       ],
     },
+    {
+      id: 'fw-itp',
+      pathology: 'Immunthrombozytopenie (ITP)',
+      specialty: 'Hämatologie',
+      definition: 'Die Immunthrombozytopenie (ITP, früher idiopathische thrombozytopenische Purpura oder Morbus Werlhof) ist eine erworbene Autoimmunerkrankung, bei der Autoantikörper — meist vom Typ IgG und gegen die Glykoproteine IIb/IIIa und Ib/IX der Thrombozytenmembran gerichtet — zu einem beschleunigten Abbau der Thrombozyten im retikuloendothelialen System, vor allem in der Milz, führen und zusätzlich die Megakaryopoese im Knochenmark hemmen. Definiert ist sie durch eine isolierte Thrombozytopenie unter 100.000/µl bei normalem rotem und weißem Blutbild und ohne erkennbare andere Ursache. Die ITP ist damit eine AUSSCHLUSSDIAGNOSE: Es existiert kein Test, der sie beweist. Klinisch führt sie zu Blutungen vom petechialen, also thrombozytären Typ.',
+      aetiologie: 'Der primären ITP (etwa 80 % der Fälle) liegt ein Verlust der Immuntoleranz gegenüber körpereigenen Thrombozytenantigenen zugrunde; die Ursache bleibt unbekannt. Bei Erwachsenen beginnt sie meist schleichend und verläuft chronisch, bei Kindern typischerweise akut und selbstlimitierend, häufig ein bis vier Wochen nach einem viralen Infekt oder — selten — nach einer Impfung. Sekundäre Formen (etwa 20 %) treten auf bei Infektionen (HIV, Hepatitis C, Hepatitis B, Helicobacter pylori, Epstein-Barr-Virus, Zytomegalievirus), bei Autoimmunerkrankungen (systemischer Lupus erythematodes, Antiphospholipidsyndrom, Autoimmunthyreoiditis), bei lymphoproliferativen Erkrankungen (chronische lymphatische Leukämie, Lymphome), bei Immundefekten (variables Immundefektsyndrom) sowie medikamenteninduziert (Heparin, Chinin, Chinidin, Sulfonamide, Antiepileptika wie Carbamazepin und Valproat, Rifampicin, Vancomycin, Glykoprotein-IIb/IIIa-Antagonisten).',
+      risikofaktoren: [
+        'Weibliches Geschlecht im jüngeren Erwachsenenalter (Verhältnis etwa 3:1; im höheren Lebensalter gleicht sich die Verteilung an)',
+        'Vorangegangener viraler Infekt der oberen Atemwege oder des Magen-Darm-Traktes, insbesondere bei Kindern',
+        'Bestehende Autoimmunerkrankung, vor allem systemischer Lupus erythematodes, Antiphospholipidsyndrom und Autoimmunthyreoiditis',
+        'Chronische Virusinfektionen: HIV, Hepatitis C, Hepatitis B',
+        'Helicobacter-pylori-Besiedelung (in Endemiegebieten relevant, Eradikation kann die Thrombozytenzahl anheben)',
+        'Lymphoproliferative Erkrankungen, insbesondere die chronische lymphatische Leukämie',
+        'Auslösende Medikamente, allen voran Heparin, ferner Chinin, Sulfonamide, Antiepileptika, Rifampicin und Vancomycin',
+        'Schwangerschaft (Abgrenzung zur harmlosen Gestationsthrombozytopenie erforderlich)',
+        'Positive Familienanamnese für Autoimmunerkrankungen',
+      ],
+      klinik: [
+        {
+          text: 'Hautblutungen vom PETECHIALEN Typ: stecknadelkopfgroße, nicht wegdrückbare Einblutungen, betont an den Unterschenkeln und an Druckstellen (Sockenbund, Hosenbund, Blutdruckmanschette)',
+        },
+        {
+          text: 'Hämatome nach Bagatelltraumata oder ohne erinnerliches Trauma, häufig an Armen und Oberschenkeln',
+        },
+        {
+          text: 'Zahnfleischbluten beim Zähneputzen und rezidivierendes Nasenbluten',
+        },
+        {
+          text: 'Verstärkte oder verlängerte Regelblutung (Menorrhagie, Hypermenorrhoe) — bei Frauen im gebärfähigen Alter oft das erste und führende Symptom',
+        },
+        {
+          text: 'Verlängerte Nachblutung nach Zahnextraktion, kleinen Verletzungen oder Eingriffen',
+        },
+        {
+          text: 'Guter Allgemeinzustand ohne Fieber, ohne Nachtschweiß, ohne Gewichtsverlust — dieser Kontrast zur Leukämie und zur aplastischen Anämie ist diagnostisch wegweisend',
+        },
+        {
+          text: 'Keine Lymphknotenschwellung und keine Splenomegalie; eine tastbare Milz spricht GEGEN eine primäre ITP',
+        },
+        {
+          text: 'Blutungsrisiko in Abhängigkeit von der Thrombozytenzahl: über 50.000/µl meist keine spontanen Blutungen; unter 30.000/µl Blutungsneigung; unter 10.000/µl Gefahr schwerer und spontaner Blutungen einschließlich der intrakraniellen Blutung',
+        },
+        {
+          text: 'Vollständig asymptomatischer Verlauf mit Zufallsbefund einer Thrombozytopenie in einem Routineblutbild — bei Erwachsenen häufig',
+          atypisch: true,
+        },
+        {
+          text: '„Feuchte Purpura“ mit Blutblasen an der Mundschleimhaut, Hämaturie, Teerstuhl oder Hämatemesis als Zeichen einer schweren Verlaufsform',
+          atypisch: true,
+        },
+        {
+          text: 'Intrakranielle Blutung mit Kopfschmerz, Erbrechen, Vigilanzminderung oder fokal-neurologischem Defizit — selten (unter 1 %), aber die gefürchtetste Manifestation',
+          atypisch: true,
+        },
+        {
+          text: 'Evans-Syndrom: Kombination aus Immunthrombozytopenie und autoimmunhämolytischer Anämie mit Blässe, Ikterus und Retikulozytose',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation in der Schwangerschaft, mit der Notwendigkeit der Abgrenzung von der Gestationsthrombozytopenie, der Präeklampsie und dem HELLP-Syndrom',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Krankheitsdauer',
+          inhalt: 'Neu diagnostizierte ITP: bis drei Monate nach Diagnosestellung. Persistierende ITP: drei bis zwölf Monate. Chronische ITP: länger als zwölf Monate — bei Erwachsenen der Regelfall, bei Kindern die Ausnahme. Schwere ITP: Vorliegen behandlungsbedürftiger Blutungen bei Diagnosestellung oder im Verlauf, unabhängig von der absoluten Thrombozytenzahl.',
+        },
+        {
+          name: 'Primäre und sekundäre Immunthrombozytopenie',
+          inhalt: 'Primäre ITP (etwa 80 %): isolierte Thrombozytopenie unter 100.000/µl ohne fassbare Ursache — reine Ausschlussdiagnose. Sekundäre ITP (etwa 20 %): im Rahmen von Infektionen (HIV, Hepatitis C und B, Helicobacter pylori, Epstein-Barr-Virus), Autoimmunerkrankungen (systemischer Lupus erythematodes, Antiphospholipidsyndrom), lymphoproliferativen Erkrankungen (chronische lymphatische Leukämie, Lymphome) oder medikamenteninduziert (Heparin, Chinin, Sulfonamide, Antiepileptika).',
+        },
+        {
+          name: 'Blutungsrisiko nach Thrombozytenzahl',
+          inhalt: 'Über 50.000/µl: in der Regel keine spontanen Blutungen, auch kleinere Eingriffe sind möglich. 30.000 bis 50.000/µl: vermehrte Hämatome nach Bagatelltraumata. Unter 30.000/µl: Blutungsneigung mit Petechien und Schleimhautblutungen — hier beginnt bei Blutungszeichen die Behandlungsindikation. Unter 10.000/µl: Gefahr schwerer und spontaner Blutungen einschließlich der intrakraniellen Blutung.',
+        },
+        {
+          name: 'Blutungstyp als Wegweiser der Gerinnungsstörung',
+          inhalt: 'Petechiale, flächige Haut- und Schleimhautblutungen mit sofortiger Nachblutung nach Verletzung sprechen für einen THROMBOZYTÄREN Defekt (Thrombozytopenie oder Thrombozytopathie). Große Muskel-, Weichteil- und Gelenkblutungen mit verzögerter Nachblutung sprechen für einen PLASMATISCHEN Gerinnungsdefekt (Hämophilie A und B). Das von-Willebrand-Syndrom nimmt eine Zwischenstellung ein und zeigt überwiegend Schleimhautblutungen.',
+        },
+      ],
+      redFlags: [
+        'Thrombozytenzahl unter 10.000/µl — Gefahr spontaner schwerer Blutungen, stationäre Aufnahme und sofortige Therapie',
+        'Kopfschmerzen, Erbrechen, Verwirrtheit, Vigilanzminderung oder fokal-neurologisches Defizit — Verdacht auf intrakranielle Blutung, sofortige kraniale Computertomographie',
+        '„Feuchte Purpura“ mit Blutblasen an der Mundschleimhaut, Hämaturie, Teerstuhl, Hämatemesis oder Netzhautblutung — Zeichen der schweren Verlaufsform',
+        'Fieber, Nachtschweiß, Gewichtsverlust, Lymphknotenschwellung oder Splenomegalie — spricht GEGEN eine primäre ITP und für Leukämie, Lymphom oder eine Infektion',
+        'Fragmentozyten im Ausstrich, LDH-Erhöhung, Haptoglobin-Abfall, neurologische Symptome und Nierenfunktionsstörung — thrombotisch-thrombozytopenische Purpura oder hämolytisch-urämisches Syndrom: Notfall, KEINE Thrombozytentransfusion',
+        'Thrombozytenabfall fünf bis vierzehn Tage nach Beginn einer Heparintherapie, insbesondere mit neuer Thrombose — heparininduzierte Thrombozytopenie Typ II: Heparin sofort absetzen',
+        'Pathologische Globalgerinnung mit verlängerter aPTT, erniedrigtem Quick-Wert, Fibrinogenabfall und D-Dimer-Anstieg — Verbrauchskoagulopathie',
+        'Kreislaufinstabilität bei starker vaginaler oder gastrointestinaler Blutung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Blutungsanamnese mit Bestimmung des Blutungstyps: petechiale Haut- und Schleimhautblutungen sprechen für einen thrombozytären Defekt, große Muskel- und Gelenkblutungen für einen plasmatischen Gerinnungsdefekt; Beginn, Dauer, Verlauf und bisherige hämostatische Belastungsproben (Zahnextraktion, Operationen, Geburten)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Medikamentenanamnese einschließlich Selbstmedikation: Heparin, Chinin, Sulfonamide, Antiepileptika, Rifampicin, Vancomycin; außerdem Acetylsalicylsäure und NSAR, die die Thrombozytenfunktion zusätzlich hemmen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese vorangegangener Infekte und Impfungen, Reiseanamnese, Risikoverhalten für HIV und Hepatitis, Alkoholkonsum sowie Hinweise auf eine Autoimmunerkrankung (Gelenkschmerzen, Photosensibilität, Schmetterlingserythem, Sicca-Symptomatik)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Ganzkörperinspektion von Haut und Schleimhäuten einschließlich Mundhöhle (Blutblasen als „feuchte Purpura“), Palpation aller Lymphknotenstationen, Palpation von Milz und Leber, Prüfung auf B-Symptomatik und auf neurologische Auffälligkeiten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit ISOLIERTER Thrombozytopenie bei normalem rotem und weißem Blutbild — das ist der Kernbefund; ergänzend Differenzialblutbild und Bestimmung der Retikulozyten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'BLUTAUSSTRICH obligat, aus zwei Gründen: erstens zum Ausschluss einer Pseudothrombozytopenie durch EDTA-induzierte Thrombozytenagglutination — der klassische Laborfehler, dann Kontrollabnahme im Citrat- oder Heparinröhrchen; zweitens zur Suche nach Blasten, Fragmentozyten, Riesenthrombozyten und Dysplasiezeichen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Globalgerinnung mit Quick-Wert/INR, aPTT und Fibrinogen — bei der ITP NORMAL; pathologische Werte lenken auf eine Verbrauchskoagulopathie oder eine Lebererkrankung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Hämolyseparameter: LDH, Haptoglobin, indirektes Bilirubin, Retikulozyten und direkter Coombs-Test — zum Ausschluss einer thrombotischen Mikroangiopathie und zum Nachweis eines Evans-Syndroms',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serologien zum Ausschluss sekundärer Formen: HIV, Hepatitis B und C sowie Helicobacter-pylori-Diagnostik (Atemtest oder Stuhlantigen)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Autoimmundiagnostik: antinukleäre Antikörper, Lupusantikoagulans und Antiphospholipid-Antikörper; ergänzend TSH und Schilddrüsenantikörper',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nieren- und Leberwerte, Elektrophorese und quantitative Immunglobuline; Vitamin B12 und Folsäure zum Ausschluss eines Mangels mit ineffektiver Hämatopoese; Blutgruppe und Antikörpersuchtest',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Thrombozytäre Autoantikörper (glykoproteinspezifischer Test) sind weder ausreichend sensitiv noch spezifisch und gehören NICHT in die Routinediagnostik — ein negativer Befund schließt eine ITP nicht aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Abdomens: Beurteilung von Milzgröße, Leber und abdominellen Lymphknoten — eine Splenomegalie spricht GEGEN eine ITP und lenkt auf einen Hypersplenismus bei Leberzirrhose, ein Lymphom oder eine Leukämie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniale Computertomographie ohne Kontrastmittel bei Kopfschmerzen, Erbrechen oder neurologischen Symptomen zum Ausschluss einer intrakraniellen Blutung; Augenhintergrundspiegelung bei sehr niedrigen Werten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion mit Zytologie, Histologie und Zytogenetik — NICHT routinemäßig, sondern nur bei Atypien im Blutbild oder Ausstrich, bei B-Symptomatik, Organomegalie, höherem Lebensalter, vor einer Splenektomie oder bei Therapieversagen. Bei der ITP zeigt sich ein normo- bis hyperzelluläres Mark mit normaler oder gesteigerter Zahl an Megakaryozyten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei Verdacht auf eine heparininduzierte Thrombozytopenie Typ II: Berechnung des 4T-Scores sowie Antikörpernachweis gegen den Heparin-Plättchenfaktor-4-Komplex mit funktionellem Bestätigungstest',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei Verdacht auf eine thrombotisch-thrombozytopenische Purpura: Bestimmung der ADAMTS13-Aktivität und der Inhibitoren — die Behandlung mit Plasmaaustausch darf jedoch nicht bis zum Ergebnis verzögert werden',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Pseudothrombozytopenie',
+          unterscheidung: 'Laborartefakt durch EDTA-induzierte Thrombozytenagglutination; der Patient ist völlig beschwerdefrei und hat keinerlei Blutungszeichen. Im Blutausstrich sieht man Thrombozytenaggregate. Beweis durch Kontrollabnahme im Citrat- oder Heparinröhrchen — wird dies übersehen, behandelt man einen Laborfehler.',
+        },
+        {
+          dd: 'Medikamenteninduzierte Immunthrombozytopenie, insbesondere heparininduzierte Thrombozytopenie Typ II',
+          unterscheidung: 'Zeitlicher Zusammenhang mit einem neuen Medikament; bei der HIT Typ II Abfall der Thrombozyten um mehr als 50 % fünf bis vierzehn Tage nach Heparinbeginn, paradoxerweise mit THROMBOSEN statt Blutungen. Diagnostik über 4T-Score und Antikörper gegen den Heparin-Plättchenfaktor-4-Komplex; Heparin sofort absetzen und auf Argatroban oder Danaparoid umstellen.',
+        },
+        {
+          dd: 'Verbrauchskoagulopathie (disseminierte intravasale Gerinnung)',
+          unterscheidung: 'Immer im Rahmen einer schweren Grunderkrankung (Sepsis, Polytrauma, geburtshilfliche Komplikation, Malignom). Anders als bei der ITP ist die Globalgerinnung PATHOLOGISCH: Quick-Wert erniedrigt, aPTT verlängert, Fibrinogen erniedrigt, D-Dimere stark erhöht, dazu Fragmentozyten.',
+        },
+        {
+          dd: 'Thrombotisch-thrombozytopenische Purpura und hämolytisch-urämisches Syndrom',
+          unterscheidung: 'Thrombotische Mikroangiopathie mit Coombs-negativer hämolytischer Anämie, Fragmentozyten im Ausstrich, LDH-Erhöhung, Haptoglobin-Abfall, Fieber, neurologischen Symptomen und Nierenfunktionsstörung; bei der TTP verminderte ADAMTS13-Aktivität. Absoluter Notfall mit sofortigem Plasmaaustausch — Thrombozytenkonzentrate sind hier kontraindiziert, da sie die Mikrothrombosierung verstärken.',
+        },
+        {
+          dd: 'Akute Leukämie und myelodysplastisches Syndrom',
+          unterscheidung: 'Verdrängung beziehungsweise Dysplasie der Hämatopoese: die Thrombozytopenie ist NICHT isoliert, sondern von Anämie und Leukopenie oder Leukozytose begleitet; B-Symptomatik, Infektneigung, Knochenschmerzen, Lymphknotenschwellung und Splenomegalie. Im Ausstrich Blasten oder Dysplasiezeichen — Klärung durch Knochenmarkpunktion.',
+        },
+        {
+          dd: 'Aplastische Anämie und Knochenmarkinfiltration',
+          unterscheidung: 'Panzytopenie mit Anämie, Granulozytopenie und Thrombozytopenie, Retikulozyten erniedrigt; bei Infiltration durch ein Karzinom oder Lymphom zusätzlich leukoerythroblastisches Blutbild. Im Knochenmark hypozelluläres Mark beziehungsweise Fremdzellen — bei der ITP dagegen normale oder vermehrte Megakaryozyten.',
+        },
+        {
+          dd: 'Hypersplenismus bei Leberzirrhose oder portaler Hypertension',
+          unterscheidung: 'Tastbare Splenomegalie in der Sonographie, Zeichen der Leberzirrhose (Aszites, Spider naevi, Palmarerythem, Gynäkomastie), erniedrigtes Albumin, verminderter Quick-Wert durch Synthesestörung. Anders als bei der ITP ist die Thrombozytopenie meist mäßig und nicht isoliert.',
+        },
+        {
+          dd: 'Vitamin-B12- und Folsäuremangel',
+          unterscheidung: 'Ineffektive Hämatopoese mit makrozytärer, hyperchromer Anämie, übersegmentierten Granulozyten, LDH-Erhöhung und niedrigen Retikulozyten; typischerweise Panzytopenie und nicht isolierte Thrombozytopenie. Klärung über Vitamin B12, Holotranscobalamin und Folsäure.',
+        },
+        {
+          dd: 'Sekundäre Immunthrombozytopenie bei Infektionen',
+          unterscheidung: 'HIV, Hepatitis C und B, Epstein-Barr-Virus, Zytomegalievirus und Helicobacter pylori — deshalb gehören diese Serologien in die Erstdiagnostik. Bei akuter viraler Genese oft Fieber, Lymphknotenschwellung und Transaminasenerhöhung.',
+        },
+        {
+          dd: 'Systemischer Lupus erythematodes und Antiphospholipidsyndrom',
+          unterscheidung: 'Zusätzlich Arthralgien, Schmetterlingserythem, Photosensibilität, Serositis, Nierenbeteiligung; antinukleäre Antikörper, Anti-dsDNA-Antikörper und Lupusantikoagulans positiv. Beim Antiphospholipidsyndrom Thrombosen und Aborte trotz Thrombozytopenie.',
+        },
+        {
+          dd: 'Von-Willebrand-Syndrom und Thrombozytopathien',
+          unterscheidung: 'Lebenslange, häufig familiäre Schleimhautblutungsneigung mit Epistaxis und Menorrhagie bei NORMALER Thrombozytenzahl (Ausnahme Typ 2B); verlängerte Blutungszeit, erniedrigter von-Willebrand-Faktor und Faktor VIII, aPTT gegebenenfalls verlängert.',
+        },
+        {
+          dd: 'Hämophilie A und B',
+          unterscheidung: 'Plasmatischer Gerinnungsdefekt mit großen Muskel- und Gelenkblutungen statt Petechien, X-chromosomal-rezessiv und damit fast nur bei Männern, verlängerte aPTT bei normaler Thrombozytenzahl und normalem Quick-Wert.',
+        },
+        {
+          dd: 'Schwangerschaftsassoziierte Thrombozytopenie',
+          unterscheidung: 'Gestationsthrombozytopenie im dritten Trimenon, meist mild (über 70.000/µl) und ohne Blutungszeichen; abzugrenzen von Präeklampsie und HELLP-Syndrom mit Hypertonie, Proteinurie, Transaminasenerhöhung und Hämolyse.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Abwartendes Vorgehen und Verlaufskontrolle',
+          items: [
+            'Grundprinzip der gesamten Behandlung: Behandelt wird die BLUTUNG und das Blutungsrisiko, NICHT die Thrombozytenzahl — die Zahl allein ist keine Therapieindikation',
+            'Bei asymptomatischen Patienten mit Thrombozyten oberhalb von etwa 30.000/µl und ohne Blutungszeichen genügt die abwartende Beobachtung mit regelmäßigen Blutbildkontrollen',
+            'Kontrollintervalle zunächst engmaschig (nach wenigen Tagen), bei Stabilität schrittweise verlängern; bei Kindern ist der Spontanverlauf in über 80 % der Fälle selbstlimitierend',
+            'Behandlung einer nachgewiesenen Ursache der sekundären Form: Eradikation von Helicobacter pylori, antivirale Therapie bei Hepatitis C oder HIV, Absetzen des auslösenden Medikamentes',
+            'Schulung des Patienten in der Selbstbeobachtung: neue Petechien, Schleimhautblutungen, Blut im Urin oder Stuhl, Kopfschmerzen — jeweils mit sofortiger Wiedervorstellung',
+            'Vor geplanten Eingriffen Ziel-Thrombozytenwerte definieren: für kleine Eingriffe und Zahnextraktionen etwa 30.000 bis 50.000/µl, für größere Operationen etwa 50.000/µl, für neurochirurgische Eingriffe und rückenmarknahe Anästhesie etwa 80.000 bis 100.000/µl',
+          ],
+        },
+        {
+          label: 'Medikamentöse Erstlinientherapie',
+          items: [
+            'Indikation: klinisch relevante Blutungszeichen oder sehr niedrige Thrombozytenwerte, in der Regel unter 20.000 bis 30.000/µl',
+            'Glukokortikoide sind der Standard: Prednisolon 1 mg pro Kilogramm Körpergewicht täglich über zwei bis maximal vier Wochen mit anschließendem Ausschleichen, alternativ Dexamethason 40 mg täglich über vier Tage in Zyklen',
+            'Wirkprinzip der Steroide: Hemmung der Autoantikörperbildung, Hemmung der Phagozytose der antikörperbeladenen Thrombozyten im retikuloendothelialen System und Stabilisierung des Kapillarendothels; Wirkeintritt nach zwei bis fünf Tagen',
+            'Begleitmaßnahmen unter Steroiden: Protonenpumpenhemmer als Magenschutz, Blutzucker- und Blutdruckkontrollen, Osteoporoseprophylaxe mit Calcium und Vitamin D bei längerer Gabe; Aufklärung über Gewichtszunahme, Schlafstörungen und Stimmungsschwankungen',
+            'Intravenöse Immunglobuline (0,4 g pro Kilogramm Körpergewicht täglich über fünf Tage oder 1 g pro Kilogramm an ein bis zwei Tagen) bei akutem Blutungsnotfall, bei Steroidkontraindikation, in der Schwangerschaft oder wenn ein rascher Anstieg nötig ist, etwa vor einem Eingriff — Wirkeintritt binnen 24 bis 48 Stunden durch Blockade der Fc-Rezeptoren der Makrophagen, Wirkung jedoch nur für zwei bis vier Wochen',
+            'Bei Rhesus-positiven, nicht splenektomierten Patienten alternativ Anti-D-Immunglobulin',
+            'Bei ausbleibendem Ansprechen nach zwei Wochen die Diagnose kritisch überprüfen: Wurde eine Pseudothrombozytopenie, eine sekundäre Ursache oder eine Knochenmarkerkrankung übersehen?',
+          ],
+        },
+        {
+          label: 'Zweitlinientherapie bei chronischem Verlauf',
+          items: [
+            'Indikation: fehlendes Ansprechen auf die Erstlinientherapie, Rezidiv nach dem Ausschleichen der Steroide oder inakzeptabler Steroidbedarf zur Aufrechterhaltung sicherer Werte',
+            'Thrombopoetin-Rezeptor-Agonisten als bevorzugte Option: Eltrombopag oral oder Romiplostim subkutan — sie steigern die Thrombozytenproduktion im Knochenmark; Ansprechraten über 70 %, meist Dauertherapie; zu beachten sind Thromboserisiko, Transaminasenerhöhung unter Eltrombopag und die Einnahme mit Abstand zu Milchprodukten und Kationen',
+            'Rituximab, ein monoklonaler Anti-CD20-Antikörper, zur Depletion der autoantikörperbildenden B-Lymphozyten; vor Gabe Hepatitis-B-Serologie wegen der Gefahr der Reaktivierung',
+            'Fostamatinib (Syk-Inhibitor) als weitere zugelassene Option bei refraktärem Verlauf',
+            'Splenektomie als spätere Option, frühestens nach zwölf Monaten Krankheitsdauer, da sie das Hauptorgan des Thrombozytenabbaus und der Antikörperbildung entfernt; Dauerremission in etwa zwei Dritteln der Fälle',
+            'Vor der Splenektomie obligate Impfung gegen Pneumokokken, Meningokokken und Haemophilus influenzae Typ b, möglichst zwei Wochen vor dem Eingriff; danach lebenslang Notfallausweis, Aufklärung über die Gefahr der Postsplenektomie-Sepsis (OPSI-Syndrom), antibiotische Bereitschaftsmedikation und jährliche Grippeimpfung',
+            'Immunsuppressiva wie Azathioprin, Ciclosporin A, Mycophenolatmofetil oder Cyclophosphamid als Reserveoptionen bei Refraktärität',
+          ],
+        },
+        {
+          label: 'Blutungsmanagement und Alltagsberatung',
+          items: [
+            'Bei lebensbedrohlicher Blutung, insbesondere intrakranieller Blutung: sofortige Kombination aus hochdosierten intravenösen Immunglobulinen und hochdosierten Glukokortikoiden (Methylprednisolon-Stoßtherapie)',
+            'Thrombozytenkonzentrate NUR bei lebensbedrohlicher Blutung oder vor einem dringlichen Eingriff, denn die Autoantikörper bauen auch die transfundierten Thrombozyten rasch wieder ab; gegebenenfalls wiederholte Gaben unter gleichzeitiger Immunglobulingabe',
+            'Bei thrombotisch-thrombozytopenischer Purpura und bei heparininduzierter Thrombozytopenie Typ II sind Thrombozytenkonzentrate kontraindiziert — deshalb müssen diese Diagnosen vorher ausgeschlossen sein',
+            'Antifibrinolytika wie Tranexamsäure bei Schleimhautblutungen, Epistaxis und Menorrhagie, lokal oder systemisch; bei Menorrhagie zusätzlich gynäkologische Mitbeurteilung und gegebenenfalls hormonelle Zyklusregulation',
+            'Strikte Vermeidung von Acetylsalicylsäure und NSAR wie Ibuprofen oder Diclofenac, da sie die Thrombozytenfunktion zusätzlich hemmen; als Schmerz- und Fiebermittel stattdessen Paracetamol oder Metamizol',
+            'Verzicht auf intramuskuläre Injektionen, auf Kontaktsportarten und auf Tätigkeiten mit hoher Verletzungsgefahr; weiche Zahnbürste, Vorsicht bei Nassrasur, Sturzprophylaxe',
+            'Vor Zahneingriffen und Operationen rechtzeitige Absprache mit dem Hämatologen; Notfallausweis mit Diagnose, aktuellen Werten und Ansprechpartner ausstellen',
+            'Aufklärung über Warnzeichen mit sofortiger Vorstellung: neue ausgedehnte Petechien, Blutblasen im Mund, Nasenbluten, das sich nicht stillen lässt, Blut im Urin oder Stuhl, Sehstörungen sowie starke Kopfschmerzen mit Erbrechen',
+            'Eisensubstitution bei Eisenmangel infolge chronischen Blutverlustes, insbesondere bei Menorrhagie',
+          ],
+          akut: true,
+        },
+      ],
+      prognose: 'Bei Kindern verläuft die ITP in über 80 % der Fälle akut und selbstlimitierend mit spontaner Remission innerhalb von sechs Monaten. Bei Erwachsenen wird sie dagegen in etwa 60 bis 70 % der Fälle chronisch; nur ein kleinerer Teil remittiert dauerhaft nach der Erstlinientherapie. Die Erstlinientherapie mit Glukokortikoiden führt zwar bei 60 bis 80 % der Patienten zu einem initialen Ansprechen, doch rezidivieren viele beim Ausschleichen. Mit den Thrombopoetin-Rezeptor-Agonisten, Rituximab und gegebenenfalls der Splenektomie lässt sich heute bei nahezu allen Patienten eine sichere Thrombozytenzahl erreichen. Die Letalität ist niedrig: Schwere Blutungen treten bei etwa 5 % auf, tödliche intrakranielle Blutungen bei unter 1 %; das Risiko steigt deutlich bei Werten unter 10.000/µl, bei höherem Lebensalter und bei gleichzeitiger Einnahme von Thrombozytenaggregationshemmern oder Antikoagulanzien. Die Lebenserwartung ist bei gut geführter Erkrankung nicht relevant eingeschränkt; entscheidend sind die Vermeidung von Acetylsalicylsäure und NSAR, die regelmäßige Kontrolle und die Aufklärung über Warnzeichen.',
+      pruefungsfallen: [
+        'Die ITP ist eine AUSSCHLUSSDIAGNOSE — es gibt keinen Test, der sie beweist. Das muss man ausdrücklich sagen. Thrombozytäre Autoantikörper sind weder sensitiv noch spezifisch und gehören nicht in die Routinediagnostik; ein negativer Befund schließt die ITP nicht aus.',
+        'Vor jeder Therapie die PSEUDOTHROMBOZYTOPENIE ausschließen: EDTA-induzierte Thrombozytenagglutination. Blutausstrich ansehen und Kontrollabnahme im Citratröhrchen — sonst behandelt man einen Laborartefakt.',
+        'Behandelt wird die BLUTUNG und das Blutungsrisiko, NICHT die Thrombozytenzahl. Ein asymptomatischer Patient mit Werten über 30.000/µl wird nur beobachtet.',
+        'Der BLUTUNGSTYP ist der entscheidende Wegweiser: petechiale, flächige Haut- und Schleimhautblutungen sprechen für einen thrombozytären Defekt, große Muskel- und Gelenkblutungen für einen plasmatischen Gerinnungsdefekt wie die Hämophilie.',
+        'Die Globalgerinnung mit Quick-Wert und aPTT ist bei der ITP NORMAL. Sind diese Werte pathologisch, liegt eine Verbrauchskoagulopathie oder eine Lebererkrankung vor — nicht vergessen, sie trotzdem zu bestimmen.',
+        'Eine SPLENOMEGALIE spricht GEGEN eine primäre ITP und lenkt auf Hypersplenismus bei Leberzirrhose, Lymphom oder Leukämie — deshalb gehört die Abdomensonographie in die Erstdiagnostik.',
+        'Thrombozytenkonzentrate NUR bei lebensbedrohlicher Blutung, weil die Autoantikörper sie rasch wieder abbauen. Bei thrombotisch-thrombozytopenischer Purpura und bei heparininduzierter Thrombozytopenie Typ II sind sie sogar kontraindiziert.',
+        'Die Medikamentenanamnese aktiv und namentlich führen: Heparin an erster Stelle, dazu Chinin, Sulfonamide und Antiepileptika. Patienten erwähnen Heparinspritzen nach einer Operation oft nicht von selbst.',
+        'Vor der Splenektomie muss gegen Pneumokokken, Meningokokken und Haemophilus influenzae Typ b geimpft werden, möglichst zwei Wochen vorher — und der Patient braucht danach einen Notfallausweis wegen der Gefahr der Postsplenektomie-Sepsis.',
+        'Die Knochenmarkpunktion ist KEINE Routineuntersuchung; sie ist nur bei Atypien, B-Symptomatik, Organomegalie, höherem Lebensalter, vor Splenektomie oder bei Therapieversagen indiziert.',
+        'Acetylsalicylsäure und NSAR sind bei Thrombozytopenie zu meiden; als Analgetikum eignen sich Paracetamol oder Metamizol. Ebenso sind intramuskuläre Injektionen zu unterlassen.',
+        'Den Fachbegriff patientengerecht übersetzen: „Thrombozytopenie“ heißt „Verminderung der Blutplättchenzahl“, „Thrombozyten“ sind „Blutplättchen“, „Petechien“ sind „stecknadelkopfgroße Hauteinblutungen“. Genau diese Übersetzung wurde in Freiburg, Reutlingen und Stuttgart tatsächlich verlangt.',
+        'Fieber, Nachtschweiß, Gewichtsverlust, Lymphknotenschwellung und Knochenschmerzen aktiv erfragen und verneinen lassen — der GUTE Allgemeinzustand ist das entscheidende Argument gegen Leukämie und aplastische Anämie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was verstehen Sie unter einer Thrombozytopenie? Erklären Sie es bitte so, wie Sie es der Patientin sagen würden.',
+          antwort: 'Eine Thrombozytopenie ist eine Verminderung der Blutplättchenzahl. Der Patientin würde ich sagen: „Die Blutplättchen sind die kleinsten Zellen im Blut. Sie sind dafür zuständig, dass eine Wunde schnell abgedichtet wird und die Blutung zum Stillstand kommt. Bei Ihnen sind zu wenige davon vorhanden — deshalb bekommen Sie leicht blaue Flecken und kleine punktförmige Einblutungen in der Haut.“',
+        },
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine Immunthrombozytopenie, also eine autoimmun bedingte Verminderung der Blutplättchen. Dafür sprechen die isolierte Thrombozytopenie bei normalem rotem und weißem Blutbild, die Blutungen vom petechialen Typ mit Petechien an den Unterschenkeln, Hämatomen nach Bagatelltraumata, Zahnfleischbluten, Nasenbluten und verstärkter Regelblutung, der insgesamt gute Allgemeinzustand ohne B-Symptomatik, ohne Lymphknotenschwellung und ohne Splenomegalie sowie der vorangegangene virale Infekt.',
+        },
+        {
+          frage: 'Gibt es einen Test, mit dem Sie die ITP beweisen können?',
+          antwort: 'Nein. Die ITP ist eine reine Ausschlussdiagnose — es existiert kein beweisender Test. Die Bestimmung thrombozytärer Autoantikörper ist weder sensitiv noch spezifisch genug und gehört nicht in die Routine. Die Diagnose ergibt sich aus der isolierten Thrombozytopenie, dem unauffälligen Blutausstrich und dem systematischen Ausschluss aller anderen Ursachen.',
+        },
+        {
+          frage: 'Welche Informationen liefert Ihnen ein Blutbild?',
+          antwort: 'Das Blutbild liefert die Zahl der Leukozyten, der Erythrozyten mit Hämoglobin und Hämatokrit sowie der Thrombozyten. Im Differenzialblutbild kommt die Aufschlüsselung der weißen Blutkörperchen hinzu. Bei der ITP erwarte ich eine isolierte Verminderung der Thrombozyten bei normalem rotem und weißem Blutbild — sind auch die anderen Reihen betroffen, muss ich an eine Leukämie, ein myelodysplastisches Syndrom oder eine aplastische Anämie denken.',
+        },
+        {
+          frage: 'Warum bestehen Sie auf dem Blutausstrich?',
+          antwort: 'Aus zwei Gründen. Erstens zum Ausschluss einer Pseudothrombozytopenie: Bei manchen Menschen verklumpen die Thrombozyten im EDTA-Röhrchen, das Gerät zählt zu wenige, und man würde einen Laborartefakt behandeln — im Ausstrich sieht man die Aggregate, die Kontrolle erfolgt im Citratröhrchen. Zweitens zur Suche nach Blasten als Hinweis auf eine Leukämie und nach Fragmentozyten als Hinweis auf eine thrombotische Mikroangiopathie.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die Pseudothrombozytopenie, die medikamenteninduzierte Immunthrombozytopenie einschließlich der heparininduzierten Thrombozytopenie Typ II, die Verbrauchskoagulopathie, die thrombotisch-thrombozytopenische Purpura und das hämolytisch-urämische Syndrom, Leukämien und das myelodysplastische Syndrom, die aplastische Anämie, eine Knochenmarkinfiltration, der Hypersplenismus bei Leberzirrhose, ein Vitamin-B12- oder Folsäuremangel, Infektionen wie HIV und Hepatitis C, der systemische Lupus erythematodes sowie in der Schwangerschaft die Gestationsthrombozytopenie.',
+        },
+        {
+          frage: 'Woran erkennen Sie, ob eine Gerinnungsstörung von den Blutplättchen oder vom plasmatischen System ausgeht?',
+          antwort: 'Am Blutungstyp. Petechiale, flächige Haut- und Schleimhautblutungen mit sofortiger Nachblutung sprechen für einen thrombozytären Defekt, also für eine Thrombozytopenie oder Thrombozytopathie. Große Muskel-, Weichteil- und Gelenkblutungen mit verzögerter Nachblutung sprechen für einen plasmatischen Gerinnungsdefekt, also für eine Hämophilie. Das von-Willebrand-Syndrom liegt dazwischen und zeigt überwiegend Schleimhautblutungen.',
+        },
+        {
+          frage: 'Ab welcher Thrombozytenzahl wird es gefährlich?',
+          antwort: 'Oberhalb von 50.000/µl treten in der Regel keine spontanen Blutungen auf. Unter 30.000/µl besteht eine Blutungsneigung, und unter 10.000/µl droht die Gefahr schwerer und spontaner Blutungen einschließlich der intrakraniellen Blutung. Entscheidend bleibt aber die Klinik: Wir behandeln die Blutung und das Blutungsrisiko, nicht die Zahl.',
+        },
+        {
+          frage: 'Welche Therapie leiten Sie ein?',
+          antwort: 'Bei asymptomatischen Patienten mit Werten über 30.000/µl genügt die Beobachtung mit Kontrollen. Bei Blutungszeichen oder sehr niedrigen Werten beginne ich die Erstlinientherapie mit Glukokortikoiden, also Prednisolon 1 mg pro Kilogramm Körpergewicht täglich oder Dexamethason 40 mg über vier Tage. Ist ein rascher Anstieg nötig — bei akuter Blutung oder vor einem Eingriff —, gebe ich intravenöse Immunglobuline. Im chronischen Verlauf folgen Thrombopoetin-Rezeptor-Agonisten wie Eltrombopag oder Romiplostim, Rituximab und als spätere Option die Splenektomie.',
+        },
+        {
+          frage: 'Wie wirken die intravenösen Immunglobuline, und wie schnell?',
+          antwort: 'Sie blockieren die Fc-Rezeptoren der Makrophagen im retikuloendothelialen System, sodass die antikörperbeladenen Thrombozyten nicht mehr abgebaut werden. Der Anstieg tritt innerhalb von 24 bis 48 Stunden ein — deshalb sind sie das Mittel der Wahl im Blutungsnotfall und vor dringlichen Eingriffen. Die Wirkung hält allerdings nur zwei bis vier Wochen an.',
+        },
+        {
+          frage: 'Wann geben Sie Thrombozytenkonzentrate?',
+          antwort: 'Nur bei lebensbedrohlicher Blutung oder vor einem dringlichen Eingriff, und dann möglichst zusammen mit Immunglobulinen. Der Grund für die Zurückhaltung: Die Autoantikörper richten sich auch gegen die transfundierten Thrombozyten, die daher rasch wieder abgebaut werden. Bei der thrombotisch-thrombozytopenischen Purpura und bei der heparininduzierten Thrombozytopenie Typ II sind sie sogar kontraindiziert.',
+        },
+        {
+          frage: 'Welche Medikamente muss der Patient meiden?',
+          antwort: 'Acetylsalicylsäure und alle NSAR wie Ibuprofen oder Diclofenac, weil sie zusätzlich die Thrombozytenfunktion hemmen; als Schmerz- und Fiebermittel eignen sich Paracetamol oder Metamizol. Ebenso sind intramuskuläre Injektionen zu unterlassen. Antikoagulanzien und Thrombozytenaggregationshemmer dürfen nur nach strenger hämatologischer Abwägung gegeben werden.',
+        },
+        {
+          frage: 'Was müssen Sie vor einer Splenektomie beachten?',
+          antwort: 'Der Patient muss vorher gegen Pneumokokken, Meningokokken und Haemophilus influenzae Typ b geimpft werden, möglichst zwei Wochen vor dem Eingriff. Danach erhält er einen Notfallausweis, eine antibiotische Bereitschaftsmedikation und die Aufklärung über die Postsplenektomie-Sepsis, das OPSI-Syndrom. Außerdem wird die Splenektomie frühestens nach zwölf Monaten Krankheitsdauer erwogen, da bis dahin noch Spontanremissionen möglich sind.',
+        },
+        {
+          frage: 'Wann führen Sie eine Knochenmarkpunktion durch?',
+          antwort: 'Nicht routinemäßig. Indiziert ist sie bei Atypien im Blutbild oder Ausstrich, bei B-Symptomatik, Lymphknotenschwellung oder Splenomegalie, bei höherem Lebensalter, vor einer geplanten Splenektomie und bei Therapieversagen. Bei der ITP zeigt sich ein normo- bis hyperzelluläres Mark mit normaler oder gesteigerter Megakaryozytenzahl.',
+        },
+        {
+          frage: 'Warum ist bei diesem Krankheitsbild die Milz so wichtig?',
+          antwort: 'Die Milz ist der Hauptort des Abbaus der antikörperbeladenen Thrombozyten und zugleich ein wichtiger Bildungsort der Autoantikörper. Deshalb ist die Splenektomie therapeutisch wirksam. Diagnostisch gilt umgekehrt: Eine vergrößerte Milz spricht GEGEN eine primäre ITP und lenkt auf einen Hypersplenismus bei Leberzirrhose, ein Lymphom oder eine Leukämie.',
+        },
+      ],
+      merksatz: 'Petechien an den Unterschenkeln bei gutem Allgemeinzustand und isolierter Thrombozytopenie = ITP — aber erst, wenn Pseudothrombozytopenie, Medikamente, Viren, Lupus und Knochenmark ausgeschlossen sind, denn beweisen kann man sie nicht. Behandelt wird die Blutung, nicht die Zahl; Thrombozytenkonzentrate nur bei lebensbedrohlicher Blutung.',
+      linkedCaseIds: [
+        'case-itp',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-bluttransfusion',
+        'auf-feinnadelpunktion',
+      ],
+    },
+    {
+      id: 'fw-uterus-myomatosus',
+      pathology: 'Uterus myomatosus (Leiomyome des Uterus)',
+      specialty: 'Gynäkologie',
+      definition: 'Das Uterusmyom (Leiomyom) ist ein gutartiger, monoklonaler Tumor der glatten Muskulatur des Myometriums und damit der häufigste gutartige Tumor der Frau: Bis zum 50. Lebensjahr weisen etwa 70 bis 80 % aller Frauen Myome auf, symptomatisch werden jedoch nur etwa 20 bis 30 %. Liegen mehrere Myome vor, spricht man von einem Uterus myomatosus. Das Wachstum ist östrogen- und gestagenabhängig: Myome wachsen in der Geschlechtsreife, können in der Schwangerschaft an Größe zunehmen und bilden sich NACH DER MENOPAUSE zurück. Entscheidend für die Klinik ist nicht die Größe, sondern die LOKALISATION: submuköse Myome ragen in das Cavum uteri und verursachen vor allem Blutungsstörungen, intramurale Myome liegen in der Wand und führen zu Blutungsstörungen und Dysmenorrhoe, subseröse Myome bluten kaum, machen aber Drucksymptome auf Blase und Rektum.',
+      aetiologie: 'Myome entstehen monoklonal aus einer einzelnen glatten Muskelzelle des Myometriums. Molekular finden sich in etwa 70 % der Fälle MED12-Mutationen, seltener HMGA2-Rearrangements. Die Proliferation wird über eine Überexpression von Östrogen- und Progesteronrezeptoren sowie über Wachstumsfaktoren gesteuert, weshalb Myome hormonabhängig wachsen und sich nach der Menopause zurückbilden. Eine familiäre Disposition ist gesichert: Verwandte ersten Grades haben ein etwa zwei- bis dreifach erhöhtes Risiko. Frauen afrikanischer Herkunft erkranken früher, häufiger und mit größeren Myomen. Eine maligne Entartung eines Myoms gilt als nicht gesichert — das Leiomyosarkom entsteht de novo und ist mit etwa einem Fall auf 1000 Myomoperationen sehr selten.',
+      risikofaktoren: [
+        'Alter zwischen 35 und 50 Jahren (Gipfel der Geschlechtsreife)',
+        'positive Familienanamnese — Verwandte ersten Grades mit Myomen',
+        'afrikanische Abstammung (früheres Auftreten, größere und zahlreichere Myome)',
+        'frühe Menarche und späte Menopause (lange Östrogenexposition)',
+        'Nulliparität und geringe Parität',
+        'Adipositas und metabolisches Syndrom (periphere Östrogenbildung im Fettgewebe)',
+        'arterielle Hypertonie und Diabetes mellitus',
+        'Vitamin-D-Mangel sowie ein hoher Konsum von rotem Fleisch',
+        'als protektiv gelten Multiparität, späte Menarche und die kombinierte hormonelle Kontrazeption; epidemiologisch senkt auch das Rauchen über eine verminderte Östrogenwirkung das Myomrisiko — es wird selbstverständlich niemals empfohlen',
+      ],
+      klinik: [
+        {
+          text: 'In etwa 50 bis 80 % der Fälle asymptomatisch — Zufallsbefund bei der gynäkologischen Vorsorgeuntersuchung',
+        },
+        {
+          text: 'Blutungsstörungen als Leitsymptom vor allem des SUBMUKÖSEN Myoms: Hypermenorrhoe (zu starke Blutung) und Menorrhagie (Blutung über sieben Tage hinaus) mit Abgang von Koageln',
+        },
+        {
+          text: 'Sekundäre Eisenmangelanämie durch den chronischen Blutverlust: Müdigkeit, Leistungsknick, Blässe, Belastungsdyspnoe, Schwindel, Kopfschmerzen und Konzentrationsstörungen',
+        },
+        {
+          text: 'Dysmenorrhoe — krampfartige, wehenartige Unterbauchschmerzen während der Blutung, typisch bei submukösen und intramuralen Myomen',
+        },
+        {
+          text: 'Metrorrhagie (Zwischenblutungen) bei submukösen Myomen und Myomen in statu nascendi',
+        },
+        {
+          text: 'Drucksymptome des SUBSERÖSEN Myoms auf die Blase: Pollakisurie, imperativer Harndrang, Restharngefühl und rezidivierende Harnwegsinfekte',
+        },
+        {
+          text: 'Drucksymptome auf das Rektum: Obstipation, Tenesmen und Druckgefühl beim Stuhlgang',
+        },
+        {
+          text: 'Unterbauchdruck, Fremdkörper- und Völlegefühl, Kreuzschmerzen sowie ein zunehmender Bauchumfang bei stabilem Körpergewicht',
+        },
+        {
+          text: 'Dyspareunie — tiefer Schmerz beim Geschlechtsverkehr, wird häufig nur auf gezielte Nachfrage berichtet',
+        },
+        {
+          text: 'Sterilität und wiederholte Aborte, vor allem bei submukösen Myomen mit Deformierung des Cavum uteri; in der Schwangerschaft zusätzlich Lageanomalien, Frühgeburt und Plazentationsstörungen',
+        },
+        {
+          text: 'Bimanueller Tastbefund: vergrößerter, höckeriger, derber und in der Regel nicht druckschmerzhafter Uterus',
+        },
+        {
+          text: 'Akutes Abdomen bei Stieldrehung eines gestielten subserösen Myoms — plötzlicher heftiger Unterbauchschmerz, Übelkeit, Erbrechen, Abwehrspannung und Kreislaufreaktion',
+          atypisch: true,
+        },
+        {
+          text: 'Myomnekrose („rote Degeneration“), besonders in der Schwangerschaft: Dauerschmerz, Fieber, Leukozytose und CRP-Anstieg',
+          atypisch: true,
+        },
+        {
+          text: 'Harnstau mit Nierenbeckenkelchdilatation bis zur postrenalen Niereninsuffizienz bei großer Raumforderung im kleinen Becken',
+          atypisch: true,
+        },
+        {
+          text: 'Beinödeme oder tiefe Beinvenenthrombose durch Kompression der Beckenvenen',
+          atypisch: true,
+        },
+        {
+          text: 'Zervixmyom oder submuköses „Myom in statu nascendi“, das durch den Zervikalkanal geboren wird — Blutung mit wehenartigen Schmerzen',
+          atypisch: true,
+        },
+        {
+          text: 'Rasches Wachstum, Wachstum NACH der Menopause oder neu aufgetretene Schmerzen — Warnzeichen für ein Leiomyosarkom, da sich Myome postmenopausal normalerweise zurückbilden',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'FIGO-Klassifikation der Myome (Typ 0–8)',
+          inhalt: 'Submukös: Typ 0 = vollständig intrakavitär, gestielt; Typ 1 = überwiegend intrakavitär (< 50 % intramural); Typ 2 = überwiegend intramural (≥ 50 %). Sonstige: Typ 3 = intramural mit Kontakt zum Endometrium; Typ 4 = rein intramural; Typ 5 = subserös, ≥ 50 % intramural; Typ 6 = subserös, < 50 % intramural; Typ 7 = subserös gestielt; Typ 8 = sonstige Lokalisation (zervikal, intraligamentär, parasitär). Hybridmyome werden mit zwei Ziffern angegeben (z. B. 2–5). Die Typen 0 bis 2 sind hysteroskopisch resezierbar.',
+        },
+        {
+          name: 'Einteilung nach der Lokalisation (klassisch)',
+          inhalt: 'Submukös (unter dem Endometrium, in das Cavum ragend) — Blutungsstörungen, Sterilität, Aborte. Intramural (in der Muskelwand, häufigste Form) — Blutungsstörungen und Dysmenorrhoe. Subserös (unter der Serosa nach außen wachsend, teils gestielt) — Drucksymptome, Stieldrehung. Sonderformen: intraligamentär (im Ligamentum latum, Harnleiterkompression), zervikal und das Myom in statu nascendi.',
+        },
+        {
+          name: 'PALM-COEIN-Klassifikation der abnormen uterinen Blutung (FIGO)',
+          inhalt: 'Strukturelle Ursachen (PALM): Polyp, Adenomyose, Leiomyom, Malignität und Hyperplasie. Nicht-strukturelle Ursachen (COEIN): Coagulopathie, ovulatorische Dysfunktion, Endometrium, iatrogen und „not yet classified“. Das Myom ist das „L“ und wird weiter in submukös (LSM) und andere (LO) unterteilt.',
+        },
+      ],
+      redFlags: [
+        'Rasches Größenwachstum, Wachstum NACH der Menopause oder neu aufgetretene Schmerzen → Verdacht auf ein Leiomyosarkom; weitere Abklärung mit MRT und operativer Klärung mit Histologie, keine unkontrollierte Morcellation',
+        'Jede postmenopausale Blutung ist bis zum Beweis des Gegenteils ein Endometriumkarzinom → Vaginalsonographie mit Endometriumdicke und Hysteroskopie mit fraktionierter Abrasio',
+        'Plötzlicher heftiger Unterbauchschmerz mit Abwehrspannung, Übelkeit und Kreislaufreaktion → Stieldrehung eines gestielten Myoms, akutes Abdomen',
+        'Fieber, Schüttelfrost, Leukozytose und CRP-Anstieg bei bekanntem Myom → Myomnekrose oder Infektion',
+        'Akute starke Blutung mit Tachykardie, Hypotonie, Blässe und Hb-Abfall → hämorrhagischer Schock; Kreislaufstabilisierung, Transfusion und notfallmäßige Blutstillung',
+        'Flankenschmerz, Oligurie, Anurie oder Kreatininanstieg → Harnstau mit postrenaler Niereninsuffizienz',
+        'Neu aufgetretene einseitige Beinschwellung → Kompression der Beckenvenen mit tiefer Beinvenenthrombose',
+        'Sekundäre Amenorrhoe mit positivem Schwangerschaftstest und Unterbauchschmerz → Extrauteringravidität ausschließen, bevor die Beschwerden dem Myom zugeschrieben werden',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Quantifizierte Blutungsanamnese: Zykluslänge, Blutungsdauer, Zahl der Binden oder Tampons pro Tag, nächtlicher Wechsel, Größe und Häufigkeit der Koagel, Zwischen- und Kontaktblutungen, Zeitpunkt der letzten Regelblutung — die Quantifizierung ist der Kern der gynäkologischen Anamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Symptomanamnese: Dysmenorrhoe, Dyspareunie, Drucksymptome (Pollakisurie, Harndrang, Restharngefühl, Obstipation, Kreuzschmerz), Bauchumfang sowie Anämiesymptome mit Müdigkeit, Belastungsdyspnoe und Schwindel',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Basisanamnese: Menarche, Zyklus, Schwangerschaften und Geburten, Aborte, Verhütung, Hormoneinnahme, Voroperationen an Uterus und Adnexen, Vorsorge mit PAP-Abstrich und Mammographie, Kinderwunsch und Familienplanung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern, Beurteilung von Haut- und Schleimhautblässe sowie Erhebung von Größe, Gewicht und Body-Mass-Index',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Untersuchung: Spekulumeinstellung von Vagina und Portio zum Ausschluss einer zervikalen Blutungsquelle und bimanuelle Palpation mit dem typischen vergrößerten, höckerigen, derben und meist indolenten Uterus; rektale Untersuchung bei Verdacht auf Rektumkompression',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Hämoglobin, MCV und MCH sowie Retikulozyten — typisch ist die mikrozytäre, hypochrome Eisenmangelanämie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Eisenstatus: Ferritin (bester Parameter des Speichereisens), Transferrin und Transferrinsättigung; Ferritin ist als Akutphaseprotein bei Entzündung falsch normal',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Schwangerschaftstest (β-hCG) bei jeder Frau im gebärfähigen Alter vor Bildgebung und Eingriff — Schwangerschaft und Extrauteringravidität sind auszuschließen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH zum Ausschluss einer Schilddrüsenfunktionsstörung als Blutungsursache; Gerinnungsdiagnostik einschließlich von-Willebrand-Diagnostik bei starker Blutung seit der Menarche oder verdächtiger Blutungsanamnese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus bei Pollakisurie zum Ausschluss eines Harnwegsinfekts; Kreatinin und eGFR bei Verdacht auf Harnstau',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Vaginalsonographie als Untersuchung der Wahl: Zahl, Größe und Lage der Myome, Zuordnung nach der FIGO-Klassifikation 0 bis 8, Messung der Endometriumdicke und Beurteilung der Adnexe',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Hydrosonographie (Kontrastmittelsonographie des Cavum uteri) zur sicheren Darstellung submuköser Myome und Polypen und zur Beurteilung der Cavumdeformierung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdominelle Sonographie bei großem Uterus sowie Sonographie der Nieren und ableitenden Harnwege zum Ausschluss eines Harnstaus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT des kleinen Beckens bei großem oder unklarem Befund, zur Abgrenzung gegen eine Adenomyose und zur Planung organerhaltender Eingriffe oder einer Uterusarterienembolisation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hysteroskopie bei Verdacht auf ein submuköses Myom — diagnostisch und zugleich therapeutisch, da das Myom in derselben Sitzung reseziert werden kann',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Fraktionierte Abrasio mit histologischer Aufarbeitung zur Abklärung der Blutung und zum Ausschluss einer Endometriumhyperplasie oder eines Endometriumkarzinoms',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Laparoskopie bei unklarem Adnexbefund oder Verdacht auf Stieldrehung; jedes operativ gewonnene Präparat wird histologisch untersucht, um ein Leiomyosarkom nicht zu übersehen',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Adenomyosis uteri und Endometriose',
+          unterscheidung: 'Ebenfalls Hypermenorrhoe und Dysmenorrhoe; der Uterus ist jedoch diffus vergrößert, weich und deutlich DRUCKSCHMERZHAFT, während er beim Myom höckerig, derb und meist indolent ist. Die Dysmenorrhoe beginnt oft Tage vor der Blutung. Abgrenzung sonographisch und im MRT (Junktionalzone über 12 mm). Häufig gemeinsames Auftreten mit Myomen.',
+        },
+        {
+          dd: 'Endometriumpolyp',
+          unterscheidung: 'Verursacht eher Schmier-, Zwischen- und Kontaktblutungen als eine verstärkte Regelblutung und macht keine Drucksymptome. Nachweis in Hydrosonographie oder Hysteroskopie mit Abtragung und Histologie.',
+        },
+        {
+          dd: 'Endometriumhyperplasie und Endometriumkarzinom',
+          unterscheidung: 'Muss bei jeder abnormen uterinen Blutung erwogen und bei jeder POSTMENOPAUSALEN Blutung zwingend ausgeschlossen werden. Risikofaktoren: Adipositas, Nulliparität, späte Menopause, unopponierte Östrogene, Tamoxifen, PCO-Syndrom. Abklärung über Endometriumdicke in der Vaginalsonographie und Hysteroskopie mit fraktionierter Abrasio.',
+        },
+        {
+          dd: 'Ovarialzyste und Ovarialtumor',
+          unterscheidung: 'Verursachen Druckgefühl, zunehmenden Bauchumfang und Pollakisurie, selten jedoch eine Hypermenorrhoe. Sonographisch getrennt vom Uterus darstellbar; bei soliden Anteilen, Septen oder Aszites CA 125 und weiterführende Bildgebung. Cave: Ein gestieltes subseröses Myom kann einen Adnexbefund vortäuschen.',
+        },
+        {
+          dd: 'Schwangerschaft, Abort und Extrauteringravidität',
+          unterscheidung: 'Bei jeder Frau im gebärfähigen Alter mit Blutungsstörung oder Unterbauchschmerz obligat auszuschließen — β-hCG und Vaginalsonographie. Ein myomatös vergrößerter Uterus kann eine Schwangerschaft imitieren.',
+        },
+        {
+          dd: 'Von-Willebrand-Syndrom und andere Gerinnungsstörungen',
+          unterscheidung: 'Typisch bei der jungen Frau mit sehr starken Blutungen bereits SEIT DER MENARCHE, zusätzlich Epistaxis, Zahnfleischbluten, Hämatomneigung, verlängerte Nachblutung nach Eingriffen und positive Familienanamnese. Diagnostik: Thrombozyten, Blutungszeit, aPTT, Von-Willebrand-Faktor-Antigen und -Aktivität, Faktor VIII.',
+        },
+        {
+          dd: 'Dysfunktionelle (anovulatorische) Blutung',
+          unterscheidung: 'Vor allem perimenopausal und in der Adoleszenz; unregelmäßiger Zyklus mit wechselnder Blutungsstärke ohne morphologisches Korrelat in der Sonographie.',
+        },
+        {
+          dd: 'Schilddrüsenfunktionsstörung (vor allem Hypothyreose)',
+          unterscheidung: 'Kann Hypermenorrhoe und Zyklusstörungen verursachen, begleitet von Müdigkeit, Kälteintoleranz, Gewichtszunahme, trockener Haut und Obstipation. Ausschluss durch TSH.',
+        },
+        {
+          dd: 'Iatrogene Blutungsursachen',
+          unterscheidung: 'Antikoagulanzien, Thrombozytenaggregationshemmer, Hormonpräparate und liegendes Intrauterinpessar. Immer eine vollständige Medikamentenanamnese einschließlich Selbstmedikation erheben.',
+        },
+        {
+          dd: 'Harnwegsinfekt',
+          unterscheidung: 'Erklärt Pollakisurie und Harndrang, geht jedoch mit Dysurie, Algurie und auffälligem Urinstatus einher, gegebenenfalls mit Fieber und Flankenschmerz bei Pyelonephritis.',
+        },
+        {
+          dd: 'Leiomyosarkom des Uterus',
+          unterscheidung: 'Sehr selten (etwa 1 : 1000 Myomoperationen), entsteht de novo und nicht durch Entartung eines Myoms. Verdächtig sind rasches Wachstum, Wachstum nach der Menopause, neu aufgetretene Schmerzen, postmenopausale Blutung und ein reduzierter Allgemeinzustand. Sicherung nur histologisch.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Abwartendes Vorgehen und Kontrolle beim asymptomatischen Myom',
+          items: [
+            'behandelt werden Beschwerden, nicht Sonographiebefunde: Das asymptomatische Myom bedarf keiner Therapie, und die Größe allein ist keine Operationsindikation',
+            'regelmäßige klinische und sonographische Verlaufskontrolle alle sechs bis zwölf Monate mit Dokumentation von Zahl, Größe und Lage der Myome',
+            'Aufklärung über die Östrogenabhängigkeit und die spontane Rückbildung nach der Menopause — viele Myome erfordern nie eine Behandlung',
+            'Kontrolle des Hämoglobins bei verstärkter Blutung, damit eine schleichende Eisenmangelanämie nicht übersehen wird',
+            'Neubewertung bei jeder Symptomprogredienz sowie bei raschem Wachstum oder Wachstum nach der Menopause — dann Abklärung eines Leiomyosarkoms',
+          ],
+        },
+        {
+          label: 'Medikamentöse Therapie der Blutung und der Anämie',
+          items: [
+            'nichtsteroidale Antirheumatika zyklisch ab dem ersten Blutungstag, z. B. Ibuprofen 3 × 400–600 mg oder Naproxen 2 × 500 mg — Reduktion des Blutverlustes um etwa 25 % und gleichzeitige Behandlung der Dysmenorrhoe; Magenschutz und Nierenfunktion beachten',
+            'Tranexamsäure 3 × 1 g während der Blutungstage — Reduktion des Blutverlustes um bis zu 50 %; kontraindiziert bei thromboembolischen Ereignissen in der Vorgeschichte und aktiver Thrombophilie',
+            'Gestagene zyklisch oder kontinuierlich sowie das Levonorgestrel-Intrauterinsystem als sehr wirksame Option — Voraussetzung ist ein nicht deformiertes Cavum uteri; bei submukösem Myom ist die Spirale ungeeignet und wird häufig ausgestoßen',
+            'kombinierte hormonelle Kontrazeptiva als Option bei jüngeren Frauen ohne Risikoprofil — kontraindiziert bei Raucherinnen ab dem 35. Lebensjahr sowie bei Migräne mit Aura und thromboembolischem Risiko',
+            'GnRH-Analoga ausschließlich befristet über drei bis sechs Monate zur präoperativen Verkleinerung des Myoms und zur Anhebung des Hämoglobins; wegen Hitzewallungen und Knochendichteverlust keine Dauertherapie, nach dem Absetzen erneutes Wachstum',
+            'konsequente Eisensubstitution: oral z. B. Eisen(II)-sulfat 100 mg, wirksamer jeden zweiten Tag nüchtern mit Vitamin C; bei Unverträglichkeit, schwerer Anämie oder präoperativ intravenöse Eisengabe. Nebenwirkungen des oralen Eisens: Magendruck, Obstipation, Schwarzfärbung des Stuhls',
+            'Kontrolle von Hämoglobin und Ferritin nach vier bis acht Wochen; Erythrozytenkonzentrate nur bei symptomatischer schwerer Anämie oder akuter Blutung',
+          ],
+        },
+        {
+          label: 'Organerhaltende und definitive Eingriffe je nach Kinderwunsch',
+          items: [
+            'die Wahl des Verfahrens richtet sich nach Symptomen, Kinderwunsch und Alter und wird MIT der Patientin gemeinsam entschieden, nicht für sie',
+            'hysteroskopische Myomresektion beim submukösen Myom (FIGO 0–2): transzervikal, ohne Bauchschnitt, mit rascher Besserung der Blutungsstörung und Verbesserung der Fertilität',
+            'laparoskopische oder abdominale Myomenukleation bei intramuralen und subserösen Myomen, insbesondere bei bestehendem Kinderwunsch; Rezidivrisiko etwa 15 bis 30 % in fünf Jahren, nach Eröffnung des Cavum uteri Sectio in Folgeschwangerschaften erwägen',
+            'Uterusarterienembolisation bei abgeschlossener Familienplanung: interventionell-radiologisch, Verkleinerung um etwa 40 bis 60 %; typisch das Postembolisationssyndrom mit Schmerzen und Fieber, Fertilität danach nicht gesichert',
+            'MR-gesteuerter fokussierter Ultraschall bei geeigneter Myomlage sowie Endometriumablation bei Blutungsstörung ohne relevante Myomgröße und ohne Kinderwunsch',
+            'Hysterektomie als definitive Lösung — vaginal, laparoskopisch oder abdominal — bei abgeschlossener Familienplanung, sehr großem Uterus, Rezidiven oder therapierefraktärer Blutung; die Ovarien werden bei der prämenopausalen Frau belassen',
+            'notfallmäßiges Vorgehen bei Stieldrehung, Myomnekrose mit Peritonitis, unstillbarer Blutung oder Harnstau; präoperativ Anämiekorrektur, Aufklärung über Blutung, Infektion, Organverletzung und Konversion',
+            'jedes Präparat wird histologisch untersucht; eine unkontrollierte Morcellation ist wegen des seltenen Leiomyosarkoms zu vermeiden',
+          ],
+        },
+        {
+          label: 'Nachsorge und Beratung',
+          items: [
+            'Kontrolle von Hämoglobin und Ferritin nach vier bis acht Wochen und Fortführung der Eisensubstitution bis zur Auffüllung der Speicher, meist drei bis sechs Monate über die Normalisierung des Hämoglobins hinaus',
+            'Aufklärung über das Rezidivrisiko nach Myomenukleation (etwa 15 bis 30 % in fünf Jahren) und über die Notwendigkeit weiterer sonographischer Kontrollen',
+            'Beratung zu Fertilität und Schwangerschaft nach organerhaltendem Eingriff: empfohlenes Intervall bis zur nächsten Schwangerschaft, erhöhtes Risiko für Lageanomalien, Frühgeburt und Plazentationsstörungen, Indikation zur Sectio nach Cavumeröffnung',
+            'Ausblick auf die Rückbildung der Myome nach der Menopause und Zurückhaltung bei einer postmenopausalen Hormontherapie',
+            'Beratung zu Gewichtsnormalisierung, eisenreicher Ernährung, Bewegung und Raucherentwöhnung',
+            'Ansprechen von Dyspareunie, Partnerschaft und psychosozialer Belastung; Angebot einer sexualmedizinischen oder psychologischen Beratung',
+            'klare Instruktion zur Wiedervorstellung bei plötzlichem heftigem Unterbauchschmerz, Fieber, Kreislaufschwäche oder nicht sistierender starker Blutung',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose ist sehr gut: Myome sind gutartig, und eine maligne Entartung gilt als nicht gesichert — das Leiomyosarkom entsteht de novo und ist mit etwa einem Fall auf 1000 Myomoperationen sehr selten. Da das Wachstum östrogenabhängig ist, bilden sich Myome nach der Menopause in der Regel zurück und die Beschwerden lassen nach; ein Wachstum nach der Menopause ist dagegen immer abklärungsbedürftig. Unter medikamentöser Therapie und konsequenter Eisensubstitution normalisiert sich das Hämoglobin meist innerhalb von zwei bis drei Monaten. Nach hysteroskopischer Resektion eines submukösen Myoms bessert sich die Blutungsstörung bei der großen Mehrheit der Patientinnen rasch, und die Fertilität steigt. Nach Myomenukleation liegt das Rezidivrisiko bei etwa 15 bis 30 % innerhalb von fünf Jahren, sodass ein erneuter Eingriff nötig werden kann. Die Hysterektomie ist definitiv und rezidivsicher, beendet aber die Fertilität — deshalb muss die Entscheidung gemeinsam mit der Patientin und in Kenntnis aller organerhaltenden Alternativen getroffen werden.',
+      pruefungsfallen: [
+        'Die Klinik hängt von der LOKALISATION ab, nicht von der Größe: submukös → Blutungsstörung und Sterilität, intramural → Blutung und Dysmenorrhoe, subserös → Drucksymptome. Diese Systematik ist die Kernantwort und wird erwartet.',
+        'Myome sind ÖSTROGENABHÄNGIG und bilden sich nach der Menopause zurück — ein Myom, das nach der Menopause wächst, ist verdächtig auf ein Leiomyosarkom.',
+        'Jede postmenopausale Blutung muss abgeklärt werden und ist bis zum Beweis des Gegenteils ein Endometriumkarzinom — sie darf niemals einem bekannten Myom zugeschrieben werden.',
+        'Die Blutung muss QUANTIFIZIERT werden: Zyklus, Blutungsdauer, Zahl der Binden oder Tampons pro Tag, nächtlicher Wechsel, Koagel. „Starke Regel“ ist keine Anamnese.',
+        'Bei jeder Frau im gebärfähigen Alter mit Blutungsstörung oder Unterbauchschmerz gehören β-hCG und Vaginalsonographie in die Antwort — Schwangerschaft und Extrauteringravidität zuerst ausschließen.',
+        'Ferritin nicht vergessen: Das Hämoglobin allein zeigt den Eisenmangel nicht früh genug; Ferritin ist als Akutphaseprotein bei Entzündung falsch normal.',
+        'Die Therapie richtet sich nach Symptomen, Kinderwunsch und Alter — nicht nach der Myomgröße; und sie wird gemeinsam mit der Patientin entschieden, nicht für sie.',
+        'Die Levonorgestrel-Spirale ist bei submukösem Myom mit deformiertem Cavum uteri ungeeignet und wird häufig ausgestoßen — sie darf nicht pauschal empfohlen werden.',
+        'GnRH-Analoga sind keine Dauertherapie, sondern nur eine befristete präoperative Maßnahme über maximal drei bis sechs Monate; danach wachsen die Myome wieder.',
+        'Kombinierte hormonelle Kontrazeptiva sind bei Raucherinnen ab dem 35. Lebensjahr kontraindiziert — eine gerne gestellte Fangfrage bei der Myompatientin um die 40.',
+        'Voroperationen nie ohne Ursache stehen lassen: Bei anamnestischer Hysterektomie immer nach Grund, Zeitpunkt, Verfahren und Komplikationen fragen — genau danach wurde im Arzt-Arzt-Gespräch gefragt.',
+        'Vor der Patientin übersetzen: Myom = gutartiger Muskelknoten der Gebärmutter, Hysterektomie = operative Entfernung der Gebärmutter, Uterus = Gebärmutter, Endometrium = Gebärmutterschleimhaut, Hypermenorrhoe = zu starke, Menorrhagie = zu lange Blutung, Metrorrhagie = Zwischenblutung.',
+        'Die Komplikationen aktiv nennen: Stieldrehung mit akutem Abdomen, Myomnekrose mit Schmerz und Fieber, Harnstau bei großer Raumforderung, schwere Anämie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist ein Myom?',
+          antwort: 'Ein Myom ist ein gutartiger Muskeltumor, genauer ein Leiomyom der glatten Muskulatur der Gebärmutterwand. Es ist der häufigste gutartige Tumor der Frau: Bis zum 50. Lebensjahr haben etwa 70 bis 80 % der Frauen Myome, symptomatisch werden aber nur 20 bis 30 %. Liegen mehrere Myome vor, spricht man von einem Uterus myomatosus.',
+        },
+        {
+          frage: 'Was bedeutet Hysterektomie?',
+          antwort: 'Die operative Entfernung der Gebärmutter. Sie kann vaginal, laparoskopisch oder abdominal erfolgen; bei der prämenopausalen Frau werden die Eierstöcke in der Regel belassen.',
+        },
+        {
+          frage: 'Die Patientin gibt eine Hysterektomie in der Vorgeschichte an, ohne den Grund zu nennen. Warum hatte sie eine Hysterektomie?',
+          antwort: 'Das muss gezielt nachgefragt werden — ein Voroperationsbefund darf nie ohne Ursache stehen bleiben. Ich frage nach Zeitpunkt, Grund, Verfahren und Komplikationen sowie danach, ob es sich um eine gutartige oder bösartige Ursache handelte. Die mit Abstand häufigste gutartige Ursache ist ein Uterus myomatosus mit starken Blutungen; weitere sind Adenomyose, Descensus uteri, therapierefraktäre Blutungen und Malignome.',
+        },
+        {
+          frage: 'Kann die Patientin schwanger sein, und was machen wir dann?',
+          antwort: 'Das lässt sich nur mit einem Test klären. Bei jeder Frau im gebärfähigen Alter bestimmen wir β-hCG und führen eine Sonographie durch, hier eine transvaginale Sonographie, um eine intakte Schwangerschaft und eine Extrauteringravidität auszuschließen. Erst danach folgen Bildgebung mit Strahlenbelastung, Hormontherapie oder ein operativer Eingriff.',
+        },
+        {
+          frage: 'Was können wir bei der Sonographie schauen?',
+          antwort: 'Bei der Frau ist die transvaginale Sonographie die Untersuchung der Wahl: Sie zeigt Zahl, Größe und Lage der Myome mit Einordnung nach der FIGO-Klassifikation 0 bis 8, die Endometriumdicke sowie die Adnexe. Abdominell beurteilen wir zusätzlich einen großen Uterus, freie Flüssigkeit und die Nieren zum Ausschluss eines Harnstaus. Zur gynäkologischen Basisabklärung gehören immer die gynäkologische Untersuchung und der Schwangerschaftstest.',
+        },
+        {
+          frage: 'Wovon hängt die Klinik des Myoms ab?',
+          antwort: 'Von der Lokalisation, nicht von der Größe. Submuköse Myome ragen in die Gebärmutterhöhle und verursachen vor allem Blutungsstörungen — Hypermenorrhoe und Menorrhagie mit Koagelabgang — sowie Sterilität und wiederholte Aborte. Intramurale Myome machen Blutungsstörungen und Dysmenorrhoe. Subseröse Myome bluten kaum, verursachen aber Drucksymptome: Pollakisurie und Harndrang bei Druck auf die Blase, Obstipation bei Druck auf das Rektum, Kreuzschmerz und einen zunehmenden Bauchumfang.',
+        },
+        {
+          frage: 'Warum ist eine Patientin mit Myomen müde und beim Treppensteigen kurzatmig?',
+          antwort: 'Wegen der sekundären Eisenmangelanämie durch den chronischen Blutverlust bei Hypermenorrhoe und Menorrhagie. Typisch sind Müdigkeit, Leistungsknick, Blässe, Belastungsdyspnoe, Schwindel und Kopfschmerzen; im Labor eine mikrozytäre, hypochrome Anämie mit erniedrigtem Ferritin.',
+        },
+        {
+          frage: 'Welche Untersuchung ist die Methode der Wahl, und wann brauchen Sie ein MRT?',
+          antwort: 'Die Vaginalsonographie ist die Methode der Wahl. Ein MRT des kleinen Beckens setze ich bei großem oder unklarem Befund ein, zur Abgrenzung gegen eine Adenomyose und zur Planung eines organerhaltenden Eingriffs oder einer Uterusarterienembolisation.',
+        },
+        {
+          frage: 'Wann führen Sie eine Hysteroskopie mit fraktionierter Abrasio durch?',
+          antwort: 'Bei Verdacht auf ein submuköses Myom und zur Abklärung jeder unklaren uterinen Blutung. Die Hysteroskopie ist diagnostisch und zugleich therapeutisch, weil das submuköse Myom in derselben Sitzung reseziert werden kann; die fraktionierte Abrasio liefert die Histologie zum Ausschluss einer Endometriumhyperplasie oder eines Endometriumkarzinoms.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei diesem Beschwerdebild in Betracht?',
+          antwort: 'Adenomyose und Endometriose, Endometriumpolyp, Endometriumhyperplasie und Endometriumkarzinom, Ovarialzyste und Ovarialtumor, Schwangerschaft und Extrauteringravidität, eine Gerinnungsstörung wie das von-Willebrand-Syndrom, eine dysfunktionelle Blutung, eine Schilddrüsenfunktionsstörung, iatrogene Ursachen wie Antikoagulanzien sowie ein Harnwegsinfekt für die Drucksymptome — und als seltene, aber wichtige Differenzialdiagnose das Leiomyosarkom.',
+        },
+        {
+          frage: 'Welche Komplikationen kann ein Myom verursachen?',
+          antwort: 'Die schwere Eisenmangelanämie durch chronischen Blutverlust, die Stieldrehung eines gestielten Myoms mit akutem Abdomen, die Myomnekrose mit Schmerz und Fieber, den Harnstau bis zur postrenalen Niereninsuffizienz, die Kompression der Beckenvenen mit Thrombose sowie Sterilität, wiederholte Aborte und in der Schwangerschaft Lageanomalien und Frühgeburtlichkeit.',
+        },
+        {
+          frage: 'Wie behandeln Sie einen Uterus myomatosus?',
+          antwort: 'Nach Symptomen, Kinderwunsch und Alter, nicht nach der Größe. Beim asymptomatischen Myom abwartendes Vorgehen mit Kontrollen. Bei Blutungsstörung medikamentös mit nichtsteroidalen Antirheumatika und Tranexamsäure zyklisch, hormonell mit Gestagenen oder dem Levonorgestrel-Intrauterinsystem, dazu konsequente Eisensubstitution; GnRH-Analoga nur befristet präoperativ. Operativ: hysteroskopische Resektion beim submukösen Myom, Myomenukleation bei Kinderwunsch, Uterusarterienembolisation bei abgeschlossener Familienplanung und Hysterektomie als definitive Lösung.',
+        },
+        {
+          frage: 'Was passiert mit Myomen nach der Menopause, und wann werden Sie hellhörig?',
+          antwort: 'Myome sind östrogenabhängig und bilden sich nach der Menopause in der Regel zurück, die Beschwerden lassen nach. Hellhörig werde ich bei raschem Wachstum, bei Wachstum NACH der Menopause und bei neu aufgetretenen Schmerzen — das sind Warnzeichen für ein Leiomyosarkom und erfordern eine weitere Abklärung mit MRT und histologischer Sicherung.',
+        },
+        {
+          frage: 'Erklären Sie bitte Hypermenorrhoe, Menorrhagie, Metrorrhagie, Dysmenorrhoe, Amenorrhoe und Menopause.',
+          antwort: 'Hypermenorrhoe = zu starke Regelblutung; Menorrhagie = zu lange Regelblutung, über sieben Tage; Metrorrhagie = Blutung außerhalb des Zyklus, also Zwischenblutung; Dysmenorrhoe = schmerzhafte Regelblutung; Amenorrhoe = Ausbleiben der Regelblutung; Menopause = die letzte Regelblutung, das Aufhören der Regelblutung in den Wechseljahren.',
+        },
+        {
+          frage: 'Warum darf eine 44-jährige Raucherin mit Myomen keine kombinierte Pille erhalten?',
+          antwort: 'Weil ab dem 35. Lebensjahr die Kombination aus Rauchen und einem kombinierten hormonellen Kontrazeptivum das thromboembolische und kardiovaskuläre Risiko erheblich erhöht und deshalb kontraindiziert ist. Alternativen sind reine Gestagene oder — bei nicht deformiertem Cavum uteri — das Levonorgestrel-Intrauterinsystem.',
+        },
+      ],
+      merksatz: 'Das Myom ist der häufigste gutartige Tumor der Frau, östrogenabhängig — es wächst in der Geschlechtsreife und bildet sich nach der Menopause zurück; wächst es DANACH, denke an das Leiomyosarkom. Die Klinik macht die LAGE: submukös blutet, subserös drückt. Immer die Blutung quantifizieren, Ferritin und β-hCG bestimmen, und die Therapie nach Symptomen, Kinderwunsch und Alter MIT der Patientin wählen — nicht nach der Myomgröße.',
+      linkedCaseIds: [
+        'case-uterus-myomatosus',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-operation',
+        'auf-laparoskopie',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-akutes-nierenversagen',
+      pathology: 'Akutes Nierenversagen',
+      specialty: 'Nephrologie',
+      definition: 'Das akute Nierenversagen (akute Nierenschädigung, «acute kidney injury») ist eine innerhalb von Stunden bis Tagen eintretende, grundsätzlich reversible Verschlechterung der exkretorischen Nierenfunktion mit Retention harnpflichtiger Substanzen sowie Störungen des Wasser-, Elektrolyt- und Säure-Basen-Haushalts. Nach der KDIGO-Definition liegt es vor, wenn eines von drei Kriterien erfüllt ist: ein Anstieg des Serumkreatinins um mindestens 0,3 mg/dl innerhalb von 48 Stunden ODER ein Anstieg auf das 1,5-Fache des Ausgangswerts innerhalb von sieben Tagen ODER eine Urinausscheidung unter 0,5 ml pro Kilogramm Körpergewicht und Stunde über mehr als sechs Stunden. Eingeteilt wird in die Stadien 1 bis 3. Ätiologisch wird streng zwischen prärenalem, intrarenalem und postrenalem Nierenversagen unterschieden — diese Dreiteilung strukturiert die gesamte Diagnostik und Therapie. Ein nicht-oligurisches Nierenversagen mit normaler Urinmenge ist häufig; die Diagnose stellt der Kreatininverlauf, nicht die Urinmenge.',
+      aetiologie: 'PRÄRENAL, mit etwa 60 % die mit Abstand häufigste Form: Volumenmangel durch Erbrechen, Durchfall, Blutung, Diuretika, Fieber oder Verbrennungen; Herzinsuffizienz und kardiorenales Syndrom mit vermindertem Herzzeitvolumen; Sepsis mit Vasodilatation; hepatorenales Syndrom bei Leberzirrhose; sowie medikamentös durch NSAR, ACE-Hemmer oder Sartane, welche die glomeruläre Autoregulation aufheben — das NSAR verengt über die Prostaglandinhemmung das Vas afferens, der ACE-Hemmer weitet das Vas efferens. Die Kombination aus NSAR, Diuretikum und RAAS-Blocker («Triple Whammy») beim älteren, exsikkierten Patienten ist ein klassischer und häufiger Auslöser. INTRARENAL (etwa 35 %): akute Tubulusnekrose nach protrahierter Ischämie oder durch Toxine, jodhaltige Kontrastmittel, Aminoglykoside, Cisplatin, Amphotericin B, Rhabdomyolyse mit Myoglobin, Hämolyse mit Hämoglobin, Leichtketten beim multiplen Myelom; akute interstitielle Nephritis, meist medikamentös-allergisch durch Antibiotika, NSAR oder Protonenpumpenhemmer, seltener infektiös; Glomerulonephritiden einschließlich der rasch progredienten Formen; Vaskulitiden und thrombotische Mikroangiopathien; vaskuläre Ursachen wie Nierenarterienembolie, Cholesterinembolie oder Nierenvenenthrombose. POSTRENAL (etwa 5 %): benigne Prostatahyperplasie, Prostata-, Blasen- oder Zervixkarzinom, beidseitige Steine oder Stein bei Einzelniere, retroperitoneale Fibrose, neurogene Blasenentleerungsstörung, verlegter Blasenkatheter. Beim älteren Mann ist die Prostata die häufigste postrenale Ursache; die Sonographie mit Blasenentleerung ist deshalb ein Reflex.',
+      risikofaktoren: [
+        'Höheres Lebensalter (verminderte renale Reserve, eingeschränkte Autoregulation)',
+        'Vorbestehende chronische Niereninsuffizienz — der stärkste Einzelrisikofaktor; jedes akute Ereignis wird zum akut-auf-chronischen Nierenversagen',
+        'Diabetes mellitus mit diabetischer Nephropathie',
+        'Arterielle Hypertonie, Herzinsuffizienz, Leberzirrhose, nephrotisches Syndrom',
+        'Exsikkose und Volumenmangel jeder Ursache, insbesondere bei Gastroenteritis, Fieber und Hitzewellen',
+        'Dauermedikation mit NSAR, ACE-Hemmern, Sartanen, Diuretika — besonders in der Dreierkombination («Triple Whammy»)',
+        'Nephrotoxische Medikamente: Aminoglykoside, Vancomycin, Amphotericin B, Cisplatin, Calcineurininhibitoren, hochdosiertes Methotrexat',
+        'Jodhaltige Kontrastmittelgabe, insbesondere intraarteriell und in hoher Dosis',
+        'Sepsis, große Operationen — vor allem herz- und gefäßchirurgische Eingriffe —, Polytrauma und Verbrennungen',
+        'Benigne Prostatahyperplasie und urologische Tumoren beim älteren Mann',
+        'Multiples Myelom (Cast-Nephropathie), Tumorlysesyndrom unter Chemotherapie',
+        'Rhabdomyolyse nach Sturz mit langem Liegen, Krampfanfall, exzessiver Muskelarbeit oder unter Statinen',
+      ],
+      klinik: [
+        {
+          text: 'Häufig ARM AN SYMPTOMEN — das akute Nierenversagen ist in erster Linie ein LABORBEFUND und wird oft nur durch die Kontrolle der Retentionsparameter entdeckt',
+        },
+        {
+          text: 'Oligurie (Urinausscheidung unter 500 ml in 24 Stunden) oder Anurie (unter 100 ml in 24 Stunden), oft als «ich gehe kaum noch auf die Toilette» geschildert',
+        },
+        {
+          text: 'Symptome der zugrunde liegenden Ursache: Erbrechen und Durchfall, Fieber, Blutung, Schock, Flankenschmerz bei Harnstau',
+        },
+        {
+          text: 'Zeichen des Volumenmangels beim prärenalen Versagen: Hypotonie, Tachykardie, trockene Schleimhäute, reduzierter Hautturgor, kollabierte Halsvenen, Orthostase, Gewichtsabnahme',
+        },
+        {
+          text: 'Ödeme, Gewichtszunahme und gestaute Halsvenen bei Überwässerung',
+        },
+        {
+          text: 'Luftnot bei Überwässerung bis hin zum Lungenödem mit Orthopnoe und feuchten Rasselgeräuschen',
+        },
+        {
+          text: 'Übelkeit, Erbrechen, Appetitlosigkeit und metallischer Geschmack im Mund als frühe urämische Symptome',
+        },
+        {
+          text: 'Verwirrtheit, Konzentrationsstörung, Somnolenz bis zum Koma und Krampfanfälle als urämische Enzephalopathie',
+        },
+        {
+          text: 'Juckreiz am ganzen Körper (Pruritus uraemicus), trockene, schmutzig-braune Haut, urämischer Frost bei fortgeschrittener Retention',
+        },
+        {
+          text: 'Perikardreiben bei urämischer Perikarditis und Foetor uraemicus (harnartiger Mundgeruch) in schweren Fällen',
+        },
+        {
+          text: 'Herzrhythmusstörungen bis zu Kammerflimmern und Asystolie durch die Hyperkaliämie',
+          atypisch: false,
+        },
+        {
+          text: 'Ein NICHT-OLIGURISCHES Nierenversagen mit normaler oder sogar gesteigerter Urinmenge ist häufig und wird deshalb regelmäßig übersehen',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als unklare Verwirrtheit oder Sturzneigung beim alten Menschen, ohne dass die Nieren zunächst in Betracht gezogen werden',
+          atypisch: true,
+        },
+        {
+          text: 'Polyurische Phase nach der Erholung mit mehreren Litern Urin täglich und massiven Elektrolytverlusten — hier droht ein erneutes prärenales Versagen',
+          atypisch: true,
+        },
+        {
+          text: 'Dunkelbrauner Urin ohne Erythrozyten im Sediment bei Rhabdomyolyse (Myoglobinurie) oder Hämolyse',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'KDIGO-Definition des akuten Nierenversagens',
+          inhalt: 'Ein akutes Nierenversagen liegt vor, wenn EINES der folgenden drei Kriterien erfüllt ist: Anstieg des Serumkreatinins um mindestens 0,3 mg/dl innerhalb von 48 Stunden; ODER Anstieg des Serumkreatinins auf mindestens das 1,5-Fache des bekannten oder vermuteten Ausgangswerts innerhalb der letzten sieben Tage; ODER eine Urinausscheidung unter 0,5 ml pro Kilogramm Körpergewicht und Stunde über mehr als sechs Stunden.',
+        },
+        {
+          name: 'KDIGO-Stadien 1 bis 3',
+          inhalt: 'Stadium 1: Kreatinin auf das 1,5- bis 1,9-Fache des Ausgangswerts oder Anstieg um mindestens 0,3 mg/dl; Urinausscheidung unter 0,5 ml/kg/h über 6 bis 12 Stunden. Stadium 2: Kreatinin auf das 2,0- bis 2,9-Fache; Urinausscheidung unter 0,5 ml/kg/h über mindestens 12 Stunden. Stadium 3: Kreatinin auf mindestens das 3,0-Fache ODER Anstieg auf mindestens 4,0 mg/dl ODER Beginn eines Nierenersatzverfahrens; Urinausscheidung unter 0,3 ml/kg/h über mindestens 24 Stunden ODER Anurie über mindestens 12 Stunden.',
+        },
+        {
+          name: 'Ätiologische Einteilung in prärenal, intrarenal und postrenal',
+          inhalt: 'Prärenal (etwa 60 %): renale Minderperfusion bei Volumenmangel, Herzinsuffizienz, Sepsis, hepatorenalem Syndrom oder Aufhebung der glomerulären Autoregulation durch NSAR, ACE-Hemmer und Sartane; das Nierenparenchym ist zunächst intakt und die Störung voll reversibel. Intrarenal (etwa 35 %): Schädigung von Tubuli (akute Tubulusnekrose), Interstitium (interstitielle Nephritis), Glomeruli (Glomerulonephritis, Vaskulitis) oder Gefäßen. Postrenal (etwa 5 %): Abflusshindernis in den ableitenden Harnwegen — muss zuerst ausgeschlossen werden, weil es sofort behebbar ist.',
+        },
+        {
+          name: 'Laborchemische Unterscheidung prärenal gegen akute Tubulusnekrose',
+          inhalt: 'Prärenal: Urin-Natrium unter 20 mmol/l, fraktionelle Natriumexkretion unter 1 %, Urinosmolalität über 500 mosmol/kg, spezifisches Gewicht hoch, blandes Sediment mit hyalinen Zylindern, Harnstoff-Kreatinin-Quotient im Serum erhöht. Akute Tubulusnekrose: Urin-Natrium über 40 mmol/l, fraktionelle Natriumexkretion über 2 %, Urinosmolalität unter 350 mosmol/kg, granulierte braune Zylinder im Sediment. CAVE: Unter laufender Diuretikatherapie ist die fraktionelle Natriumexkretion nicht verwertbar — dann die fraktionelle Harnstoffexkretion verwenden (prärenal unter 35 %).',
+        },
+        {
+          name: 'Klassischer Phasenverlauf des akuten Nierenversagens',
+          inhalt: '1. Schädigungsphase (Stunden bis Tage, oft klinisch stumm). 2. Oligurisch-anurische Phase (etwa 1 bis 2 Wochen, in dieser Zeit drohen Hyperkaliämie, Azidose, Überwässerung und Urämie). 3. Polyurische Phase (Tage bis Wochen, mehrere Liter Urin täglich mit erheblichen Wasser-, Kalium-, Natrium- und Magnesiumverlusten — Gefahr eines erneuten prärenalen Versagens). 4. Restitutionsphase (Wochen bis Monate bis zur vollständigen Erholung der Konzentrierungsfähigkeit).',
+        },
+        {
+          name: 'Absolute Indikationen zur Nierenersatztherapie (Merkhilfe AEIOU)',
+          inhalt: 'A — Azidose: schwere, therapierefraktäre metabolische Azidose. E — Elektrolyte: therapierefraktäre Hyperkaliämie. I — Intoxikation mit dialysierbaren Substanzen (Methanol, Ethylenglykol, Lithium, Salizylate). O — Overload: diuretikarefraktäre Überwässerung mit Lungenödem. U — Urämie: urämische Perikarditis oder Enzephalopathie. Ein absoluter Kreatinin- oder Harnstoffwert allein begründet KEINE Dialyseindikation.',
+        },
+      ],
+      redFlags: [
+        'Kalium über 6,5 mmol/l oder Hyperkaliämiezeichen im EKG (hohe spitze T-Wellen, verbreiterter QRS-Komplex, P-Verlust) — unmittelbare Lebensgefahr durch Kammerflimmern und Asystolie',
+        'Anurie unter 100 ml in 24 Stunden — dringender Verdacht auf ein postrenales Hindernis oder eine schwere Gefäß- bzw. Glomerulusschädigung',
+        'Luftnot, Orthopnoe und feuchte Rasselgeräusche bei Überwässerung — beginnendes Lungenödem',
+        'Perikardreiben, Foetor uraemicus, Verwirrtheit, Somnolenz oder Krampfanfall — urämische Perikarditis und Enzephalopathie, absolute Dialyseindikation',
+        'Schwere metabolische Azidose mit einem pH-Wert unter 7,2',
+        'Fieber, Hypotonie und Tachykardie — Urosepsis oder Sepsis als Ursache, Notwendigkeit der sofortigen Antibiose und Fokussanierung',
+        'Hämoptysen zusammen mit Hämaturie und akutem Kreatininanstieg — pulmorenales Syndrom bei ANCA-Vaskulitis oder Goodpasture-Syndrom, unbehandelt binnen Wochen dialysepflichtig',
+        'Erythrozytenzylinder und Akanthozyten im Sediment mit rasch steigendem Kreatinin — rasch progrediente Glomerulonephritis, nephrologischer Notfall mit sofortiger Biopsie',
+        'Dunkelbrauner Urin nach Sturz, langem Liegen oder Krampfanfall mit massiv erhöhter Kreatinkinase — Rhabdomyolyse',
+        'Beidseitige Hydronephrose in der Sonographie oder tastbar gefüllte Blase — sofortige Entlastung durch Katheter oder Nephrostomie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese des Volumenstatus: Erbrechen, Durchfall, Fieber, Blutung, tatsächliche Trinkmenge, geschätzte Urinmenge pro Tag und Gewichtsverlauf der letzten Tage',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'MEDIKAMENTENANAMNESE SYSTEMATISCH DURCHGEHEN, einschließlich rezeptfreier Präparate: NSAR, ACE-Hemmer und Sartane, Diuretika («Triple Whammy»), Metformin, Antibiotika, Protonenpumpenhemmer, Chemotherapeutika, pflanzliche Mittel — dazu die Frage nach einer Kontrastmittelgabe in den letzten Tagen und nach einem vorangegangenen Infekt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Frage nach postrenalen Hinweisen: Harndrang ohne Miktion, Unterbauchdruck, abgeschwächter Harnstrahl, Restharngefühl, Nykturie, bekannte Prostatahyperplasie oder urologische Tumoren',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blutdruck (im Liegen und im Stehen), Herzfrequenz, Temperatur, Hautturgor, Schleimhäute und Zungenfeuchtigkeit, Halsvenenfüllung, Ödeme, Auskultation von Herz und Lunge, Perikardreiben, Foetor uraemicus, Nierenlagerklopfschmerz, Palpation und Perkussion der Blase, digital-rektale Untersuchung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Bilanzierung: Blasenkatheter zur exakten Messung der Stundendiurese und zugleich zum Ausschluss einer Blasenentleerungsstörung, Ein- und Ausfuhrprotokoll, tägliches Wiegen zur selben Tageszeit',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Retentionsparameter im Verlauf: Kreatinin, Harnstoff und eGFR, immer im Vergleich zu einem Ausgangswert — ohne Vorwert lässt sich das KDIGO-Kriterium nicht anwenden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'KALIUM als erster und wichtigster Wert (Hyperkaliämie = akute Lebensgefahr), dazu Natrium, Kalzium, Phosphat, Bikarbonat und eine Blutgasanalyse zur Erfassung der metabolischen Azidose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild (Anämie als Hinweis auf eine chronische Komponente, Eosinophilie bei interstitieller Nephritis, Fragmentozyten bei thrombotischer Mikroangiopathie), CRP und Procalcitonin, Blutzucker, Leberwerte, Gerinnung, LDH',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinkinase und Myoglobin bei Verdacht auf eine Rhabdomyolyse; Immunfixation und freie Leichtketten bei Verdacht auf ein multiples Myelom',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit SEDIMENT: Erythrozytenzylinder und Akanthozyten sprechen für eine glomeruläre Genese, granulierte braune Zylinder für eine akute Tubulusnekrose, Leukozytenzylinder und eine Eosinophilurie für eine interstitielle Nephritis, ein blandes Sediment für ein prärenales Versagen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urin-Natrium, Urin-Kreatinin und Urinosmolalität zur Berechnung der fraktionellen Natriumexkretion (prärenal unter 1 %, bei Tubulusnekrose über 2 %) — unter Diuretika stattdessen die fraktionelle Harnstoffexkretion (prärenal unter 35 %)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Protein-Kreatinin- bzw. Albumin-Kreatinin-Quotient im Spontanurin; bei Verdacht auf eine immunologische Genese ANA, ANCA, Anti-GBM-Antikörper, Komplement C3 und C4, Kryoglobuline sowie Hepatitis- und HIV-Serologie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SONOGRAPHIE DER NIEREN UND DER ABLEITENDEN HARNWEGE — OBLIGAT UND FRÜH: Harnstau beziehungsweise Hydronephrose? Nierengröße und Parenchymbreite (kleine, echoreiche Nieren sprechen für eine chronische Erkrankung)? Steine, Zysten, Raumforderungen? Zusätzlich Blasenfüllung und Restharnbestimmung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Duplexsonographie der Nierengefäße bei Verdacht auf eine Nierenarterienstenose, eine Embolie oder eine Nierenvenenthrombose; Bestimmung des renalen Widerstandsindex',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG bei Verdacht auf Hyperkaliämie und kontinuierliches Monitoring: hohe spitze T-Wellen, PQ-Verlängerung, Abflachung und Verlust der P-Welle, QRS-Verbreiterung bis zur Sinuswelle, Kammerflimmern, Asystolie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax oder Lungensonographie zur Frage eines Lungenödems und eines Pleuraergusses; Echokardiographie zur Beurteilung von Pumpfunktion, Volumenstatus und Perikarderguss',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Native Computertomographie bei Verdacht auf Steine, Tumoren oder eine retroperitoneale Fibrose — CAVE: KEIN jodhaltiges Kontrastmittel bei akutem Nierenversagen; gadoliniumhaltige MRT-Kontrastmittel sind bei stark eingeschränkter Nierenfunktion wegen der nephrogenen systemischen Fibrose ebenfalls zu vermeiden',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Blasenkatheterisierung, bei Harnstau der oberen Harnwege perkutane Nephrostomie oder Harnleiterschienung — zugleich diagnostisch und therapeutisch',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'NIERENBIOPSIE bei unklarer Genese, insbesondere bei Verdacht auf eine Glomerulonephritis, eine rasch progrediente Glomerulonephritis, eine Vaskulitis oder eine interstitielle Nephritis — immer dann, wenn sich daraus eine immunsuppressive Therapie ergibt. Voraussetzungen: zwei Nieren normaler Größe, kontrollierter Blutdruck, regelrechte Gerinnung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Anlage eines Dialysekatheters (Shaldon-Katheter) bei absoluter Indikation zur Nierenersatztherapie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Chronische Niereninsuffizienz beziehungsweise akut-auf-chronisches Nierenversagen',
+          unterscheidung: 'Für einen chronischen Verlauf sprechen kleine, echoreiche Nieren mit verschmälertem Parenchym in der Sonographie, eine normozytäre Anämie durch Erythropoetinmangel, ein sekundärer Hyperparathyreoidismus mit Hyperphosphatämie und Hypokalzämie, eine renale Osteopathie sowie frühere erhöhte Kreatininwerte. Für eine akute Komponente sprechen ein dokumentierter Kreatininsprung innerhalb von Tagen und normal große Nieren. Beides schließt sich nicht aus: das akut-auf-chronische Nierenversagen ist der Regelfall beim multimorbiden alten Patienten.',
+        },
+        {
+          dd: 'Pseudo-Nierenversagen (Kreatininanstieg ohne Funktionsverlust)',
+          unterscheidung: 'Trimethoprim und Cimetidin hemmen die tubuläre Kreatininsekretion; das Serumkreatinin steigt, ohne dass die glomeruläre Filtrationsrate abnimmt. Harnstoff und Cystatin C bleiben normal, die Urinausscheidung ist ungestört und es finden sich keine Elektrolyt- oder Säure-Basen-Störungen. Ähnlich stören hohe Ketonkörper- und Bilirubinkonzentrationen die Kreatininbestimmung nach Jaffé.',
+        },
+        {
+          dd: 'Postrenales Nierenversagen bei benigner Prostatahyperplasie oder Tumor',
+          unterscheidung: 'Harndrang ohne Miktion, Unterbauchdruck, tastbare und perkutorisch gedämpfte Blase, abgeschwächter Strahl und Restharn. Beweis durch Sonographie mit Restharnbestimmung und Nachweis einer beidseitigen Hydronephrose. Muss immer zuerst geklärt werden, weil eine Entlastung durch Katheter oder Nephrostomie in Minuten möglich ist.',
+        },
+        {
+          dd: 'Akute Tubulusnekrose gegen prärenales Nierenversagen',
+          unterscheidung: 'Unterscheidung über Urin-Natrium, fraktionelle Natriumexkretion, Urinosmolalität und Sediment sowie über den therapeutischen Test: Bessert sich die Diurese nach adäquater Volumengabe, war die Ursache prärenal. Beide Zustände bilden ein Kontinuum — ein prärenales Versagen geht bei protrahierter Hypoperfusion in eine Tubulusnekrose über.',
+        },
+        {
+          dd: 'Akute interstitielle Nephritis',
+          unterscheidung: 'Meist medikamentös-allergisch (Antibiotika, NSAR, Protonenpumpenhemmer), Latenz von Tagen bis Wochen. Klassische Trias aus Fieber, Exanthem und Eosinophilie ist selten vollständig; im Urin sterile Leukozyturie, Leukozytenzylinder und Eosinophilurie bei nur geringer Proteinurie. Beweis durch Nierenbiopsie; Therapie: auslösendes Medikament absetzen, gegebenenfalls Glukokortikoide.',
+        },
+        {
+          dd: 'Rasch progrediente Glomerulonephritis und ANCA-assoziierte Vaskulitis',
+          unterscheidung: 'Kreatininverdopplung innerhalb von Tagen bis Wochen, nephritisches Sediment mit Erythrozytenzylindern und Akanthozyten, Proteinurie, Hypertonie und Ödeme, häufig extrarenale Zeichen wie Hämoptysen, Purpura, Arthralgien und B-Symptomatik. Serologie mit ANCA und Anti-GBM-Antikörpern, sofortige Nierenbiopsie — unbehandelt binnen Wochen dialysepflichtig.',
+        },
+        {
+          dd: 'Kontrastmittelinduzierte Nephropathie',
+          unterscheidung: 'Kreatininanstieg 24 bis 72 Stunden nach Gabe eines jodhaltigen Kontrastmittels mit Maximum am dritten bis fünften Tag und meist spontaner Rückbildung innerhalb von ein bis zwei Wochen; typischerweise nicht-oligurisch. Risikofaktoren sind vorbestehende Niereninsuffizienz, Diabetes, Exsikkose und hohe Kontrastmittelmenge. Prophylaxe durch periinterventionelle Hydrierung und Vermeidung nephrotoxischer Komedikation.',
+        },
+        {
+          dd: 'Rhabdomyolyse mit Myoglobin-induziertem Nierenversagen',
+          unterscheidung: 'Nach Sturz mit langem Liegen, Krampfanfall, exzessiver körperlicher Belastung, Trauma, unter Statinen oder bei malignem neuroleptischem Syndrom. Muskelschmerzen und Muskelschwäche, dunkelbrauner Urin, im Urinstix positive Blutreaktion ohne Erythrozyten im Sediment, massiv erhöhte Kreatinkinase, Hyperkaliämie, Hyperphosphatämie und Hypokalzämie.',
+        },
+        {
+          dd: 'Kardiorenales und hepatorenales Syndrom',
+          unterscheidung: 'Kardiorenal: dekompensierte Herzinsuffizienz mit gestauten Halsvenen, Ödemen, Orthopnoe, erhöhtem NT-proBNP und Stauung in der Echokardiographie. Hepatorenal: fortgeschrittene Leberzirrhose mit Aszites, Ikterus und Leberhautzeichen, ein sehr niedriges Urin-Natrium und fehlendes Ansprechen auf Volumengabe nach Absetzen der Diuretika; Therapie mit Albumin und Terlipressin.',
+        },
+        {
+          dd: 'Cast-Nephropathie beim multiplen Myelom',
+          unterscheidung: 'Bei älteren Patienten mit Anämie, Knochenschmerzen, Hyperkalzämie und stark beschleunigter Blutkörperchensenkung. Diskrepanz zwischen deutlicher Proteinurie im Sammelurin und negativem Albuminstreifen im Urinstix (Bence-Jones-Proteine); Nachweis über Immunfixation und freie Leichtketten im Serum.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen und Behandlung lebensbedrohlicher Komplikationen',
+          items: [
+            'Monitorüberwachung mit EKG, Blutdruck und Sauerstoffsättigung, zwei großlumige Venenzugänge, sofortige Bestimmung von Kalium und Blutgasanalyse',
+            'HYPERKALIÄMIE ZUERST: bei Kalium über 6,5 mmol/l oder EKG-Veränderungen 10 ml Kalziumglukonat 10 % langsam intravenös zur Membranstabilisierung — Wirkung binnen Minuten, senkt das Kalium selbst NICHT, Wiederholung möglich, Cave bei Digitalistherapie',
+            'Verschiebung des Kaliums nach intrazellulär: 10 I.E. Altinsulin in 50 ml Glukose 40 % intravenös (Wirkeintritt nach 15 bis 30 Minuten, Wirkdauer 4 bis 6 Stunden, engmaschige Blutzuckerkontrollen) sowie 10 bis 20 mg Salbutamol per Vernebler',
+            'Elimination des Kaliums: Kationenaustauscher (Calcium-Polystyrolsulfonat, Patiromer, Natrium-Zirconium-Cyclosilicat) mit Wirkung erst nach Stunden, Schleifendiuretikum nur bei erhaltener Restdiurese, bei Therapierefraktärität unverzügliche Hämodialyse',
+            'Ausgleich der metabolischen Azidose mit Natriumbikarbonat 8,4 % bei einem pH-Wert unter 7,2, unter Kontrolle von Blutgasanalyse, Natrium und ionisiertem Kalzium',
+            'Behandlung des Lungenödems bei Überwässerung: aufrechte Lagerung, Sauerstoffgabe, Schleifendiuretikum intravenös, gegebenenfalls nichtinvasive Beatmung; bei fehlendem Ansprechen Dialyse zur Entwässerung',
+            'strikte Kaliumkarenz: keine kaliumhaltigen Infusionen und Ersatzsalze, Absetzen kaliumsparender Diuretika, ACE-Hemmer, Sartane und Aldosteronantagonisten; kontinuierliches EKG-Monitoring bis zur Normalisierung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Beseitigung der Ursache und Wiederherstellung der Nierenperfusion',
+          items: [
+            'Volumensubstitution beim prärenalen Nierenversagen mit balancierten kristalloiden Vollelektrolytlösungen, initial 500 bis 1000 ml als Bolus, danach gesteuert nach Blutdruck, Herzfrequenz, Rekapillarisierungszeit, Stundendiurese und täglichem Gewicht — KEINE Hydroxyethylstärke, da selbst nephrotoxisch',
+            'engmaschige Reevaluation des Ansprechens: Bessert sich die Diurese unter Volumengabe, war die Genese prärenal; bleibt sie aus, ist von einer akuten Tubulusnekrose auszugehen und die Volumengabe darf nicht bis zur Überwässerung fortgesetzt werden',
+            'sofortige Entlastung eines postrenalen Hindernisses: transurethraler oder suprapubischer Blasenkatheter, bei Harnstau der oberen Harnwege perkutane Nephrostomie oder Harnleiterschiene — CAVE Postobstruktionspolyurie mit erheblichen Wasser- und Elektrolytverlusten',
+            'frühe kalkulierte Antibiotikatherapie und Fokussanierung bei Sepsis; Aufrechterhaltung eines mittleren arteriellen Drucks von mindestens 65 mmHg, nach ausreichender Volumengabe mit Noradrenalin',
+            'ABSETZEN aller nephrotoxischen Substanzen: NSAR, Aminoglykoside, Vancomycin, Amphotericin B, Calcineurininhibitoren; Pausieren von ACE-Hemmern, Sartanen und Diuretika; Absetzen von Metformin wegen der Gefahr der Laktatazidose',
+            'Dosisanpassung aller übrigen renal eliminierten Medikamente an die aktuelle Nierenfunktion (Antibiotika, direkte orale Antikoagulanzien, Gabapentin, Digoxin, Opioide, Allopurinol) mit Spiegelbestimmung im Zweifelsfall',
+            'ursachenspezifische Maßnahmen: bei Rhabdomyolyse forcierte Volumentherapie, bei interstitieller Nephritis Absetzen des auslösenden Medikaments und gegebenenfalls Glukokortikoide, bei rasch progredienter Glomerulonephritis und Vaskulitis Glukokortikoide plus Cyclophosphamid oder Rituximab und gegebenenfalls Plasmapherese, bei hepatorenalem Syndrom Albumin und Terlipressin',
+          ],
+        },
+        {
+          label: 'Supportive Therapie und Vermeidung weiterer Nierenschäden',
+          items: [
+            'exakte Bilanzierung mit Blasenkatheter, stündlicher Diuresemessung, Ein- und Ausfuhrprotokoll und täglichem Wiegen zur selben Tageszeit — das Körpergewicht ist der zuverlässigste Volumenparameter',
+            'Ernährung mit ausreichender Energiezufuhr von 20 bis 30 kcal pro Kilogramm Körpergewicht und Tag sowie einer Eiweißzufuhr von 0,8 bis 1,0 g pro Kilogramm und Tag, unter Nierenersatztherapie 1,0 bis 1,5 g — keine Hungerkost, da der Katabolismus die Retentionswerte weiter treibt',
+            'Kalium- und Phosphatrestriktion in der Kost (kein Obstsaft, keine Bananen, keine Trockenfrüchte, keine Nüsse, kein Kaliumersatzsalz), bei Hyperphosphatämie Phosphatbinder zu den Mahlzeiten',
+            'KEINE Kontrastmittel und KEINE NSAR; muss ausnahmsweise Kontrastmittel gegeben werden, dann in minimaler Menge unter periinterventioneller Hydrierung und nach Absetzen nephrotoxischer Komedikation',
+            'Schleifendiuretika verbessern die PROGNOSE des akuten Nierenversagens NICHT — sie verkürzen weder die Dauer noch den Dialysebedarf und senken die Sterblichkeit nicht; sie dienen ausschließlich der Behandlung der Überwässerung bei erhaltener Restdiurese und dürfen den Dialysebeginn nicht verzögern',
+            'Blutzuckerkontrolle nach Absetzen des Metformins, vorübergehend Insulin; Anämie- und Infektionsmanagement, zurückhaltende Transfusionsindikation',
+            'Thromboseprophylaxe in an die Nierenfunktion angepasster Dosierung, Stressulkusprophylaxe nur bei Indikation, frühe Mobilisation, Delirprävention und Sturzprophylaxe beim älteren Patienten',
+          ],
+        },
+        {
+          label: 'Nierenersatzverfahren und Verlaufskontrolle nach der akuten Phase',
+          items: [
+            'absolute Indikationen (Merkhilfe AEIOU): therapierefraktäre Azidose, therapierefraktäre Hyperkaliämie, Intoxikation mit dialysierbaren Substanzen wie Methanol, Ethylenglykol, Lithium oder Salizylaten, diuretikarefraktäre Überwässerung mit Lungenödem sowie urämische Komplikationen wie Perikarditis oder Enzephalopathie',
+            'Verfahrenswahl: intermittierende Hämodialyse beim kreislaufstabilen Patienten, kontinuierliche Nierenersatzverfahren beim kreislaufinstabilen Intensivpatienten, Peritonealdialyse als Sonderfall; Zugang über einen Shaldon-Katheter. Ein absoluter Kreatinin- oder Harnstoffwert allein ist KEINE Indikation',
+            'Aufklärung in Alltagssprache: Dialyse als «Blutwäsche», ein Verfahren zur Entfernung harnpflichtiger Substanzen aus dem Blut; beim akuten Nierenversagen in der Regel vorübergehend und nicht gleichbedeutend mit einer terminalen Niereninsuffizienz',
+            'Beachtung der polyurischen Phase nach Wiedereinsetzen der Diurese mit hohen Wasser-, Kalium-, Natrium- und Magnesiumverlusten — konsequente Substitution und Bilanzierung, sonst droht ein erneutes prärenales Nierenversagen',
+            'Wiederansetzen der pausierten Dauermedikation erst nach Erholung der Nierenfunktion und in angepasster Dosis; dauerhafter Verzicht auf NSAR, Umstellung der Analgesie auf Metamizol oder Paracetamol',
+            'Ausstellen eines Medikamentenplans mit schriftlicher NSAR-Warnung und einer Regel für «kranke Tage»: bei Erbrechen, Durchfall oder Fieber ACE-Hemmer, Sartane, Diuretika, NSAR und Metformin vorübergehend pausieren',
+            'strukturierte Nachsorge, weil ein akutes Nierenversagen das Risiko einer späteren chronischen Niereninsuffizienz deutlich erhöht: Kontrolle von Kreatinin, eGFR und Albuminurie nach drei Monaten, konsequente Blutdruck- und Blutzuckereinstellung, nephrologische Anbindung',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend von der Ursache, vom Zeitpunkt der Behandlung und von den Begleiterkrankungen ab. Ein rein prärenales Nierenversagen ist bei rechtzeitiger Volumengabe innerhalb von Stunden bis Tagen vollständig reversibel; ebenso erholt sich die Niere nach Entlastung eines postrenalen Hindernisses meist vollständig, sofern die Obstruktion nicht über Wochen bestand. Die akute Tubulusnekrose bildet sich in der Regel über zwei bis sechs Wochen zurück, da sich das Tubulusepithel regenerieren kann. Das dialysepflichtige akute Nierenversagen auf der Intensivstation hat dagegen eine Krankenhaussterblichkeit von etwa 40 bis 60 % — Todesursache ist dabei meist die Grunderkrankung, insbesondere die Sepsis, und nicht die Nierenfunktionsstörung selbst. Entscheidend für die Prüfung: Ein durchgemachtes akutes Nierenversagen ist ein unabhängiger Risikofaktor für die Entwicklung einer chronischen Niereninsuffizienz, für kardiovaskuläre Ereignisse und für eine erhöhte Langzeitsterblichkeit — auch nach vollständiger Normalisierung des Kreatinins ist deshalb eine nephrologische Nachkontrolle nach drei Monaten erforderlich.',
+      pruefungsfallen: [
+        'Die SONOGRAPHIE der Nieren und der ableitenden Harnwege sowie die Blasenentleerung müssen ZUERST genannt werden — eine postrenale Ursache lässt sich in Minuten beheben und in Sekunden übersehen. Beim älteren Mann ist die Prostata die häufigste postrenale Ursache.',
+        'Das KALIUM steht am Anfang jeder Antwort, nicht am Ende: Die Hyperkaliämie ist die einzige Komplikation, die innerhalb von Minuten zum Tod durch Kammerflimmern oder Asystolie führt.',
+        'Die Reihenfolge der Hyperkaliämietherapie muss stimmen: ZUERST Kalziumglukonat zur Membranstabilisierung — das senkt das Kalium selbst NICHT —, DANN Insulin mit Glukose und Beta-2-Mimetika zur Verschiebung nach intrazellulär, ZULETZT Kationenaustauscher oder Dialyse zur Elimination.',
+        'Ein nicht-oligurisches Nierenversagen ist HÄUFIG: Eine normale Urinmenge schließt ein akutes Nierenversagen niemals aus. Die Diagnose stellt der Kreatininverlauf.',
+        'Nach rezeptfreien Schmerzmitteln ausdrücklich fragen — Patienten zählen Ibuprofen und Diclofenac nicht zu ihren «Medikamenten». Die «Triple Whammy» aus NSAR, Diuretikum und ACE-Hemmer oder Sartan ist die klassische Medikamentenursache.',
+        'Das Diuretikum in einem Kombinationspräparat übersehen: Patienten sprechen nur von «der Blutdrucktablette» oder von «der Wassertablette».',
+        'METFORMIN muss bei jedem akuten Nierenversagen abgesetzt werden — Gefahr der Laktatazidose; ab einer eGFR unter 30 ml/min ist es kontraindiziert.',
+        'KEIN Kontrastmittel bei akutem Nierenversagen. Wer auf die Frage nach der Bildgebung ein Kontrastmittel-CT vorschlägt, fällt durch diese Frage.',
+        'Schleifendiuretika verbessern die Prognose NICHT und ersetzen die Dialyse nicht — sie behandeln nur die Überwässerung bei erhaltener Restdiurese.',
+        'Die fraktionelle Natriumexkretion ist unter laufender Diuretikatherapie NICHT verwertbar; dann gilt die fraktionelle Harnstoffexkretion mit einem Grenzwert von 35 %.',
+        'Die chronische Komponente nicht erkennen: Kleine Nieren, Anämie und sekundärer Hyperparathyreoidismus sprechen für einen chronischen Verlauf. Ohne bekannten Ausgangswert des Kreatinins lässt sich das KDIGO-Kriterium nicht sauber anwenden.',
+        'Die Dialyseindikation an einem absoluten Kreatinin- oder Harnstoffwert festmachen — es zählen die Komplikationen nach AEIOU.',
+        'Die Fachbegriffe patientengerecht übersetzen: Anurie ist eine Harnproduktion unter 100 ml in 24 Stunden, Oligurie unter 500 ml; Dialyse ist die «Blutwäsche» beziehungsweise ein Verfahren zur Entfernung harnpflichtiger Substanzen aus dem Blut; terminale Niereninsuffizienz ist das «finale Nierenversagen».',
+        'Die polyurische Phase vergessen: Nach Wiedereinsetzen der Diurese drohen erhebliche Wasser- und Elektrolytverluste mit erneutem prärenalem Versagen.',
+        'Die Nachsorge weglassen: Ein akutes Nierenversagen erhöht das Risiko einer späteren chronischen Niereninsuffizienz deutlich — Kontrolle von Kreatinin, eGFR und Albuminurie nach drei Monaten gehört in jede Antwort zur Therapie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welche Komplikationen kann eine Pyelonephritis haben?',
+          antwort: 'Ein Nierenabszess beziehungsweise eine Eiterniere, ein akutes Nierenversagen und eine Urosepsis. Beim Diabetiker ist zusätzlich an eine emphysematöse Pyelonephritis und an eine Papillennekrose zu denken. (Diese Frage wurde in Karlsruhe am 18.08.2022 gestellt; das akute Nierenversagen war Teil der erwarteten Antwort.)',
+        },
+        {
+          frage: 'Wie definiert man ein akutes Nierenversagen?',
+          antwort: 'Nach KDIGO genügt eines von drei Kriterien: ein Anstieg des Serumkreatinins um mindestens 0,3 mg/dl innerhalb von 48 Stunden, ein Anstieg auf das 1,5-Fache des Ausgangswerts innerhalb von sieben Tagen oder eine Urinausscheidung unter 0,5 ml pro Kilogramm Körpergewicht und Stunde über mehr als sechs Stunden. Eingeteilt wird in die Stadien 1 bis 3.',
+        },
+        {
+          frage: 'In welche drei Gruppen teilt man das akute Nierenversagen ein, und welche ist die häufigste?',
+          antwort: 'Prärenal, intrarenal und postrenal. Prärenal ist mit etwa 60 % die häufigste Form: Volumenmangel, Herzinsuffizienz, Sepsis, hepatorenales Syndrom und die medikamentöse Aufhebung der glomerulären Autoregulation durch NSAR, ACE-Hemmer oder Sartane. Intrarenal sind es vor allem die akute Tubulusnekrose, die interstitielle Nephritis, Glomerulonephritiden und Vaskulitiden; postrenal die Prostatahyperplasie, Steine und Tumoren.',
+        },
+        {
+          frage: 'Was ist im Labor besonders wichtig? Welcher Wert bringt den Patienten unmittelbar in Lebensgefahr?',
+          antwort: 'Das Kalium. Die Hyperkaliämie kann innerhalb von Minuten zu Kammerflimmern und Asystolie führen. Daneben Kreatinin und Harnstoff im Verlauf, Natrium, Kalzium, Phosphat, Bikarbonat und die Blutgasanalyse, ein Blutbild, das CRP und die Kreatinkinase bei Verdacht auf eine Rhabdomyolyse.',
+        },
+        {
+          frage: 'Was sehen Sie im Ultraschall?',
+          antwort: 'Ich beurteile, ob ein Harnstau beziehungsweise eine Hydronephrose vorliegt — bei der Eiterniere geht zusätzlich die Abgrenzung zwischen Nierencortex und Nierenbecken verloren —, wie groß die Nieren sind und wie breit das Parenchym ist; kleine, echoreiche Nieren sprechen für eine chronische Erkrankung. Außerdem suche ich Steine, Zysten und Raumforderungen und bestimme die Blasenfüllung sowie den Restharn.',
+        },
+        {
+          frage: 'Wann brauchen wir eine Computertomographie oder eine MRT?',
+          antwort: 'Eine native Computertomographie bei Verdacht auf ein Konkrement, einen Tumor oder eine retroperitoneale Fibrose, wenn die Sonographie nicht ausreicht; eine MRT, wenn Weichteile oder Gefäße ohne Strahlenbelastung beurteilt werden müssen. Entscheidend: Bei akutem Nierenversagen wird KEIN jodhaltiges Kontrastmittel gegeben, und auch gadoliniumhaltige Kontrastmittel sind wegen der nephrogenen systemischen Fibrose zu meiden.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie ein prärenales von einem intrarenalen Nierenversagen?',
+          antwort: 'Prärenal ist der Urin konzentriert: Urin-Natrium unter 20 mmol/l, fraktionelle Natriumexkretion unter 1 %, Urinosmolalität über 500 mosmol/kg und ein blandes Sediment. Bei der akuten Tubulusnekrose liegt das Urin-Natrium über 40 mmol/l, die fraktionelle Natriumexkretion über 2 %, die Urinosmolalität unter 350 mosmol/kg und es finden sich granulierte braune Zylinder. Unter Diuretika ist die fraktionelle Natriumexkretion nicht verwertbar, dann verwende ich die fraktionelle Harnstoffexkretion mit einem Grenzwert von 35 %.',
+        },
+        {
+          frage: 'Was ist die «Triple Whammy»?',
+          antwort: 'Die Kombination aus einem NSAR, einem Diuretikum und einem ACE-Hemmer oder Sartan. Das NSAR verengt über die Prostaglandinhemmung das Vas afferens, der RAAS-Blocker weitet das Vas efferens und das Diuretikum entzieht Volumen — dadurch bricht die glomeruläre Autoregulation zusammen. Beim älteren, exsikkierten Patienten ist dies eine der häufigsten Ursachen eines prärenalen Nierenversagens.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Hyperkaliämie?',
+          antwort: 'In drei Schritten: erstens Membranstabilisierung mit 10 ml Kalziumglukonat 10 % langsam intravenös, das wirkt binnen Minuten, senkt das Kalium aber nicht; zweitens Verschiebung nach intrazellulär mit 10 I.E. Altinsulin in 50 ml Glukose 40 % und mit Salbutamol per Vernebler, dazu Natriumbikarbonat bei Azidose; drittens Elimination mit Kationenaustauschern, mit einem Schleifendiuretikum bei erhaltener Restdiurese oder mit der Dialyse. Dabei durchgehend EKG-Monitoring und strikte Kaliumkarenz.',
+        },
+        {
+          frage: 'Was sehen Sie im EKG bei einer Hyperkaliämie?',
+          antwort: 'Zunächst hohe, spitze, zeltförmige T-Wellen, dann eine PQ-Verlängerung mit Abflachung und schließlich Verlust der P-Welle, eine Verbreiterung des QRS-Komplexes bis zur Sinuswellenkonfiguration und zuletzt Kammerflimmern oder Asystolie.',
+        },
+        {
+          frage: 'Verbessern Schleifendiuretika die Prognose des akuten Nierenversagens?',
+          antwort: 'Nein. Sie verkürzen weder die Dauer des Nierenversagens noch den Dialysebedarf und senken die Sterblichkeit nicht. Sie dienen ausschließlich der Behandlung der Überwässerung bei noch erhaltener Restdiurese und dürfen den Beginn einer notwendigen Dialyse nicht verzögern.',
+        },
+        {
+          frage: 'Wann müssen Sie dialysieren?',
+          antwort: 'Bei den absoluten Indikationen, Merkhilfe AEIOU: therapierefraktäre Azidose, therapierefraktäre Hyperkaliämie, Intoxikation mit dialysierbaren Substanzen wie Methanol, Ethylenglykol, Lithium oder Salizylaten, diuretikarefraktäre Überwässerung mit Lungenödem und urämische Komplikationen wie Perikarditis oder Enzephalopathie. Ein absoluter Kreatinin- oder Harnstoffwert allein begründet keine Dialyse.',
+        },
+        {
+          frage: 'Was ist eine Dialyse?',
+          antwort: 'Für den Patienten eine Blutwäsche; fachlich ein Verfahren zur Entfernung harnpflichtiger Substanzen, überschüssigen Wassers und von Elektrolyten aus dem Blut über eine semipermeable Membran. Man unterscheidet die Hämodialyse, die Hämofiltration und die Peritonealdialyse. Beim akuten Nierenversagen ist sie in der Regel eine vorübergehende Maßnahme.',
+        },
+        {
+          frage: 'Was bedeutet Anurie?',
+          antwort: 'Eine Harnproduktion unter 100 ml in 24 Stunden. Zum Vergleich: Oligurie bedeutet weniger als 500 ml in 24 Stunden beziehungsweise unter 0,5 ml pro Kilogramm und Stunde, Polyurie mehr als 2,5 bis 3 Liter täglich.',
+        },
+        {
+          frage: 'Was ist eine terminale Niereninsuffizienz?',
+          antwort: 'Das finale Nierenversagen, also das Endstadium der chronischen Niereninsuffizienz mit einer glomerulären Filtrationsrate unter 15 ml/min pro 1,73 m², bei dem das Überleben dauerhaft von einem Nierenersatzverfahren abhängt — Hämodialyse, Peritonealdialyse oder Nierentransplantation.',
+        },
+        {
+          frage: 'Warum muss bei Niereninsuffizienz das Metformin abgesetzt werden?',
+          antwort: 'Metformin wird unverändert renal ausgeschieden. Bei eingeschränkter Nierenfunktion kumuliert es und kann eine lebensbedrohliche Laktatazidose auslösen. Deshalb wird es bei jedem akuten Nierenversagen sofort abgesetzt und ist ab einer eGFR unter 30 ml/min kontraindiziert; auch vor einer Kontrastmittelgabe wird es pausiert.',
+        },
+        {
+          frage: 'Woran erkennen Sie, dass zusätzlich eine chronische Niereninsuffizienz vorliegt?',
+          antwort: 'An kleinen, echoreichen Nieren mit verschmälertem Parenchym in der Sonographie, an einer normozytären Anämie durch Erythropoetinmangel, an einem sekundären Hyperparathyreoidismus mit Hyperphosphatämie und Hypokalzämie sowie an früher dokumentierten erhöhten Kreatininwerten.',
+        },
+        {
+          frage: 'Welche Komplikationen kann ein akutes Nierenversagen haben?',
+          antwort: 'Hyperkaliämie mit Herzrhythmusstörungen bis zur Asystolie, metabolische Azidose, Überwässerung mit Lungenödem, urämische Perikarditis und Enzephalopathie, urämische Blutungsneigung durch Thrombozytopathie, erhöhte Infektanfälligkeit und Sepsis sowie die Kumulation renal eliminierter Medikamente. Langfristig der Übergang in eine chronische Niereninsuffizienz.',
+        },
+        {
+          frage: 'Warum wird auch nach vollständiger Erholung eine Nachkontrolle empfohlen?',
+          antwort: 'Weil ein durchgemachtes akutes Nierenversagen ein unabhängiger Risikofaktor für eine spätere chronische Niereninsuffizienz, für kardiovaskuläre Ereignisse und für eine erhöhte Langzeitsterblichkeit ist. Deshalb werden Kreatinin, eGFR und Albuminurie nach etwa drei Monaten kontrolliert und der Patient nephrologisch angebunden.',
+        },
+      ],
+      merksatz: 'Bei jedem akuten Nierenversagen zuerst drei Dinge: KALIUM (die Hyperkaliämie tötet in Minuten), SONOGRAPHIE mit Blasenentleerung (ein Harnstau ist in Minuten behoben) und die MEDIKAMENTENLISTE inklusive rezeptfreier Mittel (NSAR + Diuretikum + ACE-Hemmer = Triple Whammy, und Metformin absetzen). Prärenal ist mit Abstand am häufigsten und voll reversibel; Schleifendiuretika verbessern die Prognose NICHT; dialysiert wird nach AEIOU — Azidose, Elektrolyte, Intoxikation, Overload, Urämie.',
+      linkedCaseIds: [
+        'case-akutes-nierenversagen',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+      ],
+    },
   ];
 }
