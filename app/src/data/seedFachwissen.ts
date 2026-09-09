@@ -20233,5 +20233,2235 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-roentgen-thorax',
       ],
     },
+    {
+      id: 'fw-zoeliakie',
+      pathology: 'Zöliakie (glutensensitive Enteropathie)',
+      specialty: 'Gastroenterologie',
+      definition: 'Die Zöliakie (einheimische Sprue, glutensensitive Enteropathie) ist eine lebenslange, immunvermittelte Systemerkrankung des Dünndarms, die bei genetisch prädisponierten Personen (HLA-DQ2 oder HLA-DQ8) durch die Aufnahme von Gluten — dem Klebereiweiß aus Weizen, Roggen, Gerste, Dinkel und verwandten Getreiden — ausgelöst wird. Die Gewebstransglutaminase deamidiert die Gliadinpeptide, wodurch diese hochaffin an HLA-DQ2/DQ8 binden und eine T-Zell-vermittelte Entzündung der Dünndarmmukosa auslösen. Folge ist die charakteristische Trias aus intraepithelialer Lymphozytose, Kryptenhyperplasie und Zottenatrophie, vor allem im Duodenum und proximalen Jejunum. Der Verlust der Resorptionsfläche führt zum Malabsorptionssyndrom. Die Prävalenz liegt in Europa bei etwa 1 %, wobei nur ein Bruchteil der Betroffenen diagnostiziert ist.',
+      aetiologie: 'Multifaktoriell: obligate genetische Voraussetzung ist HLA-DQ2 (etwa 90–95 % der Betroffenen) oder HLA-DQ8 (etwa 5–10 %); da 30–40 % der Allgemeinbevölkerung diese Merkmale tragen, sind sie notwendig, aber nicht hinreichend. Obligater exogener Auslöser ist Gluten beziehungsweise dessen alkohollösliche Prolaminfraktion (Gliadin im Weizen, Secalin im Roggen, Hordein in der Gerste). Die Gewebstransglutaminase 2 deamidiert Glutaminreste der Gliadinpeptide zu Glutamat, was die Bindung an HLA-DQ2/DQ8 auf antigenpräsentierenden Zellen dramatisch verstärkt; gluten-spezifische CD4-positive T-Zellen setzen Interferon-gamma frei, intraepitheliale zytotoxische Lymphozyten zerstören die Enterozyten. Parallel entstehen Autoantikörper gegen die Transglutaminase, die diagnostisch genutzt werden. Die Manifestation kann in jedem Lebensalter erfolgen, häufig nach einem Trigger wie einer gastrointestinalen Infektion, einer Schwangerschaft, einer Operation oder einer schweren Belastung. Die Erkrankung ist bei Frauen etwa zwei- bis dreimal häufiger als bei Männern.',
+      risikofaktoren: [
+        'Genetische Prädisposition HLA-DQ2 oder HLA-DQ8',
+        'Verwandtschaft ersten Grades zu einem Zöliakiekranken — Erkrankungsrisiko etwa 10 %',
+        'Typ-1-Diabetes-mellitus (Prävalenz der Zöliakie dort etwa 5–10 %)',
+        'Hashimoto-Thyreoiditis und Morbus Basedow',
+        'Selektiver IgA-Mangel — bei Zöliakie etwa zehnmal häufiger als in der Allgemeinbevölkerung',
+        'Autoimmunhepatitis und primär biliäre Cholangitis',
+        'Dermatitis herpetiformis Duhring (kutane Manifestation, praktisch immer mit Enteropathie assoziiert)',
+        'Trisomie 21, Ullrich-Turner-Syndrom und Williams-Beuren-Syndrom',
+        'IgA-Nephropathie und Sjögren-Syndrom',
+        'Weibliches Geschlecht (Verhältnis etwa 2–3:1)',
+        'Diskutiert, aber nicht gesichert: Zeitpunkt der Glutenexposition im Säuglingsalter, Menge der Glutenzufuhr, Darminfektionen und Veränderungen des Mikrobioms',
+      ],
+      klinik: [
+        {
+          text: 'Chronische Diarrhoe mit voluminösen, breiig-wässrigen, hellen bis grauen, fettglänzenden und ausgesprochen übelriechenden Stühlen (Steatorrhoe), die auf dem Wasser schwimmen und schwer wegzuspülen sind',
+        },
+        {
+          text: 'Meteorismus, Blähbauch und vermehrte Flatulenz durch bakterielle Fermentation nicht resorbierter Kohlenhydrate',
+        },
+        {
+          text: 'Diffuse, oft krampfartige Bauchschmerzen, typischerweise nahrungsabhängig und mit Latenz von Stunden nach glutenhaltiger Kost',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust trotz erhaltenem oder sogar gesteigertem Appetit',
+        },
+        {
+          text: 'Ausgeprägte Müdigkeit, Abgeschlagenheit und Leistungsminderung',
+        },
+        {
+          text: 'Bei Kindern Gedeihstörung, Wachstumsverzögerung, vorgewölbtes Abdomen bei atrophischer Glutäalmuskulatur, Missmutigkeit und verzögerte Pubertät',
+        },
+        {
+          text: 'Therapierefraktäre Eisenmangelanämie — beim Erwachsenen der HÄUFIGSTE Anlass zur Diagnosestellung; eine Eisenmangelanämie, die auf orales Eisen nicht anspricht, muss an eine Zöliakie denken lassen',
+          atypisch: true,
+        },
+        {
+          text: 'Osteopenie und Osteoporose mit pathologischen Frakturen durch Kalzium- und Vitamin-D-Malabsorption',
+          atypisch: true,
+        },
+        {
+          text: 'Unklare, persistierende Transaminasenerhöhung ohne andere Ursache („kryptogene Hypertransaminasämie“)',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende aphthöse Stomatitis, Glossitis, Mundwinkelrhagaden und Schmelzdefekte der bleibenden Zähne',
+          atypisch: true,
+        },
+        {
+          text: 'Dermatitis herpetiformis Duhring: stark juckende, gruppiert stehende Bläschen und Papeln an den Streckseiten von Ellenbogen, Knien, am Gesäß und behaarten Kopf — die pathognomonische Hautmanifestation, meist zerkratzt und daher nur als Exkoriationen sichtbar',
+          atypisch: true,
+        },
+        {
+          text: 'Infertilität, rezidivierende Aborte, verspätete Menarche und frühe Menopause',
+          atypisch: true,
+        },
+        {
+          text: 'Neurologische und psychiatrische Manifestationen: periphere Polyneuropathie, Ataxie („Gluten-Ataxie“), Epilepsie mit okzipitalen Verkalkungen, depressive Symptomatik und Angststörung',
+          atypisch: true,
+        },
+        {
+          text: 'Ödeme bei ausgeprägter Hypoproteinämie sowie Blutungsneigung und Hämatomneigung bei Vitamin-K-Mangel',
+          atypisch: true,
+        },
+        {
+          text: 'Subklinische (asymptomatische) Form: Nachweis nur über Serologie und Histologie, etwa im Rahmen eines Screenings bei Typ-1-Diabetes oder bei Verwandten ersten Grades',
+          atypisch: true,
+        },
+        {
+          text: 'Zöliakale Krise: seltene, akut lebensbedrohliche Verlaufsform mit massiver Diarrhoe, Exsikkose, Hypokaliämie, metabolischer Azidose und Schock, meist bei Kleinkindern',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Marsh-Klassifikation (modifiziert nach Marsh-Oberhuber) der Duodenalhistologie',
+          inhalt: 'Typ 0 (präinfiltrativ): normale Schleimhaut. Typ 1 (infiltrativ): vermehrte intraepitheliale Lymphozyten (mehr als 25 pro 100 Enterozyten) bei normaler Architektur. Typ 2 (hyperplastisch): zusätzlich Kryptenhyperplasie mit vertieften Krypten. Typ 3 (destruktiv): zusätzlich Zottenatrophie — 3a partiell, 3b subtotal, 3c total. Typ 4 (hypoplastisch/atrophisch): flache Mukosa mit normaler Kryptenhöhe, sehr selten, mit refraktären Verläufen assoziiert. Beweisend für die Zöliakie sind die Stadien ab Marsh 2–3 in Verbindung mit positiver Serologie; ein Marsh-1-Befund allein ist unspezifisch und kommt auch bei Helicobacter-pylori-Infektion, NSAR-Einnahme und bakterieller Fehlbesiedlung vor.',
+        },
+        {
+          name: 'Oslo-Klassifikation der klinischen Erscheinungsformen (2013)',
+          inhalt: 'Klassische Zöliakie: mit Malabsorptionszeichen (Diarrhoe, Steatorrhoe, Gewichtsverlust, Gedeihstörung). Nicht-klassische Zöliakie: ohne Malabsorptionszeichen, mit extraintestinaler oder monosymptomatischer Manifestation wie Anämie, Osteoporose oder Transaminasenerhöhung — beim Erwachsenen heute die Mehrheit der Fälle. Subklinische Zöliakie: unterhalb der klinischen Nachweisschwelle, meist im Screening entdeckt. Potenzielle Zöliakie: positive Serologie und passende HLA-Konstellation bei noch normaler Dünndarmhistologie. Refraktäre Zöliakie: persistierende Symptome und Zottenatrophie trotz strikter glutenfreier Ernährung über mehr als zwölf Monate.',
+        },
+        {
+          name: 'Einteilung der refraktären Zöliakie',
+          inhalt: 'Typ I: die intraepithelialen Lymphozyten zeigen einen normalen Immunphänotyp (CD3 und CD8 positiv) ohne klonale T-Zell-Rezeptor-Umlagerung; Therapie mit Budesonid, gegebenenfalls Azathioprin oder Steroiden; Prognose relativ günstig. Typ II: aberranter Immunphänotyp (Verlust von CD8 und Oberflächen-CD3) mit monoklonaler T-Zell-Rezeptor-Umlagerung — eine Präkanzerose, aus der sich in etwa 30–50 % innerhalb von fünf Jahren ein enteropathieassoziiertes T-Zell-Lymphom entwickelt; Behandlung in spezialisierten Zentren.',
+        },
+        {
+          name: 'Serologische Stufendiagnostik',
+          inhalt: 'Erste Stufe: Anti-Transglutaminase-IgA (Anti-tTG-IgA, Sensitivität und Spezifität jeweils über 90 %) IMMER gemeinsam mit dem Gesamt-IgA. Bei IgA-Mangel: Anti-tTG-IgG oder Antikörper gegen deamidierte Gliadinpeptide vom IgG-Typ (Anti-DGP-IgG). Bestätigung: Endomysium-IgA-Antikörper (Spezifität nahezu 100 %). Verlassen sind die alten nativen Gliadin-Antikörper wegen mangelnder Spezifität. Bei Kindern und Jugendlichen darf bei Anti-tTG-IgA über dem Zehnfachen des oberen Normwerts, positiven Endomysium-Antikörpern in einer zweiten Probe und typischer Klinik auf die Biopsie verzichtet werden — beim ERWACHSENEN ist die Biopsie obligat.',
+        },
+      ],
+      redFlags: [
+        'Persistierende Beschwerden und Zottenatrophie trotz nachweislich strikter glutenfreier Ernährung über mehr als zwölf Monate → refraktäre Zöliakie, Diätfehler zuerst ausschließen',
+        'Erneutes Auftreten von Beschwerden nach zunächst gutem Ansprechen, verbunden mit B-Symptomatik, nächtlichen Schmerzen oder tastbarer abdomineller Resistenz → enteropathieassoziiertes T-Zell-Lymphom oder Dünndarmadenokarzinom',
+        'Akutes Abdomen mit Ileuszeichen, Perforation oder Invagination bei bekannter Zöliakie → Lymphom, ulzerative Jejunoileitis oder Striktur',
+        'Massive Diarrhoe mit Exsikkose, Hypotonie, Hypokaliämie und metabolischer Azidose → zöliakale Krise, sofortige stationäre Aufnahme mit Volumen- und Elektrolytsubstitution',
+        'Therapierefraktäre Eisenmangelanämie, die auf orales Eisen nicht anspricht → immer Zöliakie-Serologie und Endoskopie',
+        'Pathologische Fraktur oder deutlich erniedrigte Knochendichte bei jungem Patienten → schwere Malabsorption von Kalzium und Vitamin D',
+        'Blutungsneigung mit spontan erhöhtem INR → Vitamin-K-Mangel bei Fettmalabsorption',
+        'Fulminante Infektion oder Sepsis bei bekannter Zöliakie → Hyposplenismus, Impfstatus prüfen und Pneumokokken-Impfung sicherstellen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Ernährungsanamnese: Zusammenhang der Beschwerden mit glutenhaltigen Speisen (Brot, Nudeln, Kuchen, Bier) und die Latenz zwischen Mahlzeit und Beschwerden; unbedingt erfragen, ob der Patient bereits von sich aus Gluten meidet — das würde die gesamte Diagnostik entwerten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Detaillierte Stuhlanamnese: Frequenz, Volumen, Farbe, Fettglanz, Schwimmverhalten, Geruch, Blut- und Schleimbeimengung, nächtliche Stuhlentleerung; Quantifizierung des Gewichtsverlusts mit Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suche nach extraintestinalen Manifestationen: Anämiezeichen, aphthöse Stomatitis, Glossitis, Zahnschmelzdefekte, Knochenschmerzen, Parästhesien, Zyklusstörungen und Infertilität, depressive Symptomatik',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit vollständiger Hautinspektion, insbesondere der Streckseiten von Ellenbogen und Knien sowie des Gesäßes, zum Nachweis einer Dermatitis herpetiformis Duhring; Abdomenpalpation, Suche nach Resistenzen, Aszites und Ödemen; digital-rektale Untersuchung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erfassung assoziierter Autoimmunerkrankungen und der Familienanamnese (Typ-1-Diabetes, Hashimoto-Thyreoiditis, IgA-Mangel, Autoimmunhepatitis; Verwandte ersten Grades mit etwa 10 % Erkrankungsrisiko)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serologie der ersten Stufe, zwingend unter glutenhaltiger Kost: Anti-Transglutaminase-IgA gemeinsam mit dem Gesamt-IgA im Serum. Der IgA-Mangel ist bei Zöliakie etwa zehnmal häufiger als in der Allgemeinbevölkerung und die häufigste Ursache falsch negativer Serologie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei IgA-Mangel Umstieg auf Anti-tTG-IgG oder Anti-DGP-IgG; als hochspezifischer Bestätigungstest die Endomysium-IgA-Antikörper. Native Gliadin-Antikörper sind obsolet',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Malabsorptionsdiagnostik: Blutbild (mikrozytäre, hypochrome Anämie, bei Hyposplenismus Howell-Jolly-Körperchen), Ferritin und Transferrinsättigung, Vitamin B12, Folsäure, 25-OH-Vitamin-D, Kalzium, Magnesium, Zink, Albumin und Gesamteiweiß, INR als Marker des Vitamin-K-Mangels',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Transaminasen und alkalische Phosphatase — eine unklare Transaminasenerhöhung ist ein häufiger, oft einziger Erstbefund und normalisiert sich unter glutenfreier Kost; ergänzend TSH wegen der Assoziation mit der Hashimoto-Thyreoiditis und Nüchternblutzucker beziehungsweise HbA1c wegen des Typ-1-Diabetes',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Stuhldiagnostik zur Differenzialdiagnose: Calprotectin (chronisch-entzündliche Darmerkrankung), Pankreas-Elastase-1 (exokrine Pankreasinsuffizienz), Stuhlkultur sowie Untersuchung auf Parasiten einschließlich Giardia-Antigen; quantitative Stuhlfettbestimmung (über 7 g pro Tag beweist die Steatorrhoe) ist heute weitgehend verlassen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: flüssigkeitsgefüllte, dilatierte Dünndarmschlingen mit vermehrter Peristaltik, verdickte Darmwand, mesenteriale Lymphknoten, Beurteilung von Leber, Pankreas und Milz (Hyposplenismus), Ausschluss von Raumforderungen und Aszites',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Knochendichtemessung (DXA-Osteodensitometrie) bei jedem Erwachsenen mit neu diagnostizierter Zöliakie zur Erfassung von Osteopenie und Osteoporose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MR- oder CT-Enterographie bei Verdacht auf Komplikationen: Lymphom, ulzerative Jejunoileitis, Strikturen, Invagination oder Dünndarmadenokarzinom',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie mit Stufenbiopsien als diagnostischer Beweis beim Erwachsenen — mindestens vier Biopsien aus der Pars descendens duodeni plus zwei aus dem Bulbus duodeni, also insgesamt mindestens sechs, wegen des oft fleckförmigen Befalls. Makroskopisch Faltenabflachung oder -verlust, Mosaikmuster, Scalloping und durchscheinendes Gefäßmuster; ein unauffälliger makroskopischer Befund schließt die Zöliakie NICHT aus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologische Beurteilung nach Marsh-Oberhuber: intraepitheliale Lymphozytose über 25 Lymphozyten pro 100 Enterozyten, Kryptenhyperplasie und Zottenatrophie. Zwingend unter glutenhaltiger Kost entnommen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Glutenbelastung, wenn der Patient bereits glutenfrei isst: etwa 10 g Gluten täglich (rund vier Scheiben Weizenbrot) über mindestens zwei, besser sechs bis acht Wochen vor erneuter Serologie und Biopsie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HLA-DQ2-/HLA-DQ8-Typisierung ausschließlich zum AUSSCHLUSS bei unklarer Konstellation: hoher negativer prädiktiver Wert, jedoch kein Beweiswert, da 30–40 % der Allgemeinbevölkerung Träger sind',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Stufenbiopsien zum Ausschluss von Kolonkarzinom, chronisch-entzündlicher Darmerkrankung und mikroskopischer Kolitis; bei Verdacht auf Komplikationen ergänzend Kapselendoskopie oder Ballonenteroskopie mit Immunphänotypisierung der intraepithelialen Lymphozyten',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Reizdarmsyndrom (Colon irritabile)',
+          unterscheidung: 'Ausschlussdiagnose ohne Alarmsymptome: kein Gewichtsverlust, keine Steatorrhoe, keine nächtlichen Beschwerden, kein Blut im Stuhl; Zöliakie-Serologie, Calprotectin und Entzündungsparameter sind normal. Die Zöliakie muss vor der Diagnosestellung serologisch ausgeschlossen sein.',
+        },
+        {
+          dd: 'Laktoseintoleranz',
+          unterscheidung: 'Beschwerden nach Milch und Milchprodukten, nicht nach Getreide; Meteorismus und wässrige Diarrhoe ohne Steatorrhoe und ohne Gewichtsverlust. Diagnose über den H2-Atemtest mit Laktose. Cave: Als sekundärer Laktasemangel tritt sie bei Zöliakie zusätzlich auf und verschwindet nach Erholung der Zotten.',
+        },
+        {
+          dd: 'Weizenallergie',
+          unterscheidung: 'IgE-vermittelte Soforttypreaktion innerhalb von Minuten bis zwei Stunden mit Urtikaria, Angioödem, Rhinitis, Asthma oder Anaphylaxie; Sonderform weizenabhängige, anstrengungsinduzierte Anaphylaxie. Nachweis über spezifisches IgE und Pricktest; keine Zottenatrophie, keine Autoantikörper.',
+        },
+        {
+          dd: 'Nicht-Zöliakie-Weizensensitivität',
+          unterscheidung: 'Beschwerden nach Weizen bei negativer Zöliakie-Serologie, normaler Duodenalhistologie und ausgeschlossener Weizenallergie; oft auch durch FODMAP und Amylase-Trypsin-Inhibitoren mitverursacht. Reine Ausschlussdiagnose — die Zöliakie muss zuerst unter glutenhaltiger Kost ausgeschlossen werden.',
+        },
+        {
+          dd: 'Morbus Crohn',
+          unterscheidung: 'Segmentaler, transmuraler Befall des gesamten Verdauungstrakts mit Prädilektion des terminalen Ileums; Fieber, erhöhte Entzündungsparameter und Calprotectin, nächtliche Diarrhoe, perianale Fisteln und Abszesse, extraintestinale Manifestationen. Nachweis über Ileokoloskopie mit Stufenbiopsien (Epitheloidzellgranulome) und MR-Enterographie.',
+        },
+        {
+          dd: 'Exokrine Pankreasinsuffizienz bei chronischer Pankreatitis',
+          unterscheidung: 'Klassische Ursache der Steatorrhoe durch Maldigestion; gürtelförmiger Oberbauchschmerz mit Rückenausstrahlung, Alkoholanamnese, pankreopriver Diabetes, Pankreasverkalkungen. Pankreas-Elastase-1 im Stuhl vermindert; Besserung unter Pankreasenzymsubstitution.',
+        },
+        {
+          dd: 'Bakterielle Fehlbesiedlung des Dünndarms (SIBO)',
+          unterscheidung: 'Meteorismus, Diarrhoe und Steatorrhoe durch Dekonjugation der Gallensäuren, oft mit Vitamin-B12-Mangel bei normaler oder erhöhter Folsäure. Prädisponierend sind Blind loops, Divertikel, Motilitätsstörungen, Diabetes mellitus und Zustand nach Magenoperation. Nachweis über Glukose- oder Laktulose-H2-Atemtest, Therapieversuch mit Rifaximin.',
+        },
+        {
+          dd: 'Giardiasis (Lambliasis)',
+          unterscheidung: 'Kann Klinik und Histologie der Zöliakie mit Zottenatrophie täuschend imitieren; Reise- oder Trinkwasseranamnese, Kindergartenkontakt. Nachweis über Giardia-Antigen im Stuhl, Duodenalsaft oder Biopsie; Therapie mit Metronidazol.',
+        },
+        {
+          dd: 'Morbus Whipple',
+          unterscheidung: 'Seltene Infektion mit Tropheryma whipplei, meist bei Männern mittleren Alters; neben Diarrhoe und Malabsorption typischerweise Arthralgien, die der Darmsymptomatik jahrelang vorausgehen, Fieber, Lymphadenopathie und neurologische Symptome. Histologisch PAS-positive Makrophagen im Dünndarm; Therapie antibiotisch über ein Jahr.',
+        },
+        {
+          dd: 'Chologene Diarrhoe / Gallensäureverlustsyndrom',
+          unterscheidung: 'Wässrige, oft morgendliche und postprandiale Diarrhoe nach Cholezystektomie, Ileumresektion oder bei Morbus Crohn des terminalen Ileums; Steatorrhoe nur bei ausgeprägtem Gallensäureverlust. Diagnose ex juvantibus mit Colestyramin, gegebenenfalls SeHCAT-Test.',
+        },
+        {
+          dd: 'Medikamenteninduzierte Diarrhoe',
+          unterscheidung: 'Insbesondere Metformin, Protonenpumpenhemmer, Antibiotika, Magnesiumpräparate, Olmesartan (Sprue-like Enteropathy mit Zottenatrophie!) und Colchicin. Zeitlicher Zusammenhang mit Beginn oder Dosissteigerung; Besserung nach Absetzen.',
+        },
+        {
+          dd: 'Mikroskopische Kolitis (kollagene und lymphozytäre Kolitis)',
+          unterscheidung: 'Chronische, wässrige, nicht-blutige Diarrhoe, oft bei Frauen mittleren bis höheren Alters; makroskopisch unauffällige Koloskopie, Diagnose nur über Stufenbiopsien. Häufig mit Zöliakie assoziiert und daher bei Therapieversagen mitzudenken.',
+        },
+        {
+          dd: 'Kolorektales Karzinom und andere gastrointestinale Malignome',
+          unterscheidung: 'Bei Änderung der Stuhlgewohnheiten mit ungewolltem Gewichtsverlust immer abzuklären; Blut im Stuhl, Eisenmangelanämie, tastbare Resistenz, positive Familienanamnese. Nachweis über Koloskopie mit Biopsie.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Gewichtsverlust bei gesteigertem Appetit, häufigerer, aber nicht fettglänzender Stuhlgang, dazu Tachykardie, Wärmeintoleranz, Tremor, Nervosität und Schwitzen. Klärung über TSH.',
+        },
+        {
+          dd: 'Enteropathieassoziiertes T-Zell-Lymphom (EATL)',
+          unterscheidung: 'Komplikation der lange unerkannten oder refraktären Zöliakie: erneute Verschlechterung nach zunächst gutem Ansprechen auf die Diät, B-Symptomatik, abdominelle Resistenz, Ileus oder Perforation. Nachweis über Enterographie, Kapselendoskopie, Ballonenteroskopie und Histologie mit Immunphänotypisierung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Lebenslange strikte glutenfreie Ernährung — die einzige kausale Therapie',
+          items: [
+            'konsequenter, lebenslanger Verzicht auf Weizen, Roggen, Gerste, Dinkel, Grünkern, Emmer, Einkorn, Kamut und Triticale; auch geringe Mengen schaden, eine „lockere“ Diät gibt es nicht',
+            'erlaubt sind Reis, Mais, Kartoffeln, Hirse, Buchweizen, Quinoa, Amaranth, Teff, Soja, Kastanien- und Nussmehle sowie sämtliche natürlichen glutenfreien Lebensmittel wie Gemüse, Obst, Fleisch, Fisch, Eier und Milchprodukte',
+            'Hafer wird von den meisten Betroffenen vertragen, jedoch nur als zertifiziert glutenfreier Hafer und in begrenzter Menge (etwa bis 50 g täglich), da Hafer bei Ernte und Verarbeitung regelmäßig mit Weizen kontaminiert ist',
+            'auf VERSTECKTES Gluten achten: Soßenbinder und Fertigsoßen, Wurst- und Fleischwaren, panierte Speisen, Suppen und Brühen, Malzkaffee, herkömmliches Bier, Süßigkeiten, sowie Gluten als Hilfsstoff in Medikamenten',
+            'Kreuzkontamination im Haushalt vermeiden: eigener Toaster, eigenes Schneidebrett, eigenes Brotmesser, eigene Fritteuse; beim Auswärtsessen gezielt nachfragen',
+            'Kennzeichnung: das Symbol der durchgestrichenen Ähre; als glutenfrei gilt ein Gehalt unter 20 mg Gluten pro Kilogramm Lebensmittel (20 ppm)',
+            'obligate Anbindung an eine qualifizierte Ernährungsberatung sowie an die Deutsche Zöliakie-Gesellschaft (Produktlisten, Rezepte, Selbsthilfe, Beratung zu Reisen und Restaurantbesuchen)',
+            'Beschwerdefreiheit tritt meist innerhalb weniger Wochen ein, die Antikörper normalisieren sich in sechs bis zwölf Monaten, die vollständige histologische Erholung dauert beim Erwachsenen ein bis zwei Jahre',
+            'Hinweis auf sozialrechtliche Aspekte: Mehrkosten der glutenfreien Ernährung, möglicher Grad der Behinderung, Ausweis für Reisen',
+          ],
+        },
+        {
+          label: 'Ausgleich der Mangelzustände und Osteoporoseprophylaxe',
+          items: [
+            'Eisensubstitution bei Eisenmangelanämie: zunächst oral; bei ausgeprägter Zottenatrophie und fehlendem Ansprechen intravenöse Gabe, da die Resorption im Duodenum gestört ist',
+            'Vitamin B12 und Folsäure nach Spiegel substituieren; bei begleitender Metformin-Therapie den B12-Spiegel ohnehin regelmäßig kontrollieren',
+            'Vitamin D und Kalzium zur Prophylaxe und Therapie von Osteopenie und Osteoporose; Basis-Osteodensitometrie bei Diagnosestellung und Verlaufskontrolle',
+            'Substitution weiterer Defizite nach Befund: Zink, Magnesium, fettlösliche Vitamine A, E und K (Vitamin K bei erhöhtem INR)',
+            'vorübergehend laktosearme Kost bei sekundärem Laktasemangel durch die Zottenatrophie; nach Erholung der Schleimhaut ist Milch in der Regel wieder verträglich',
+            'Impfstatus überprüfen und Pneumokokken-Impfung sicherstellen, da ein funktioneller Hyposplenismus vorliegen kann',
+            'in der seltenen zöliakalen Krise stationäre Aufnahme mit intravenöser Volumen- und Elektrolytsubstitution, Korrektur der Azidose und passagerer parenteraler Ernährung; kurzfristig Glukokortikoide',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Verlaufskontrolle und Therapieüberwachung',
+          items: [
+            'klinische Kontrolle nach drei bis sechs Monaten, danach jährlich: Beschwerden, Gewicht, Ernährungsstatus, Diätadhärenz',
+            'Anti-tTG-IgA als objektiver Marker der Diätadhärenz — ein persistierend erhöhter Titer spricht in erster Linie für fortgesetzte Glutenzufuhr, meist durch verstecktes Gluten',
+            'Laborkontrollen von Blutbild, Ferritin, Vitamin B12, Folsäure, Vitamin D, Kalzium, Albumin, Transaminasen und TSH, zunächst halbjährlich, später jährlich',
+            'Kontrollbiopsie bei ausbleibender klinischer oder serologischer Besserung nach ein bis zwei Jahren',
+            'bei Therapieversagen strukturiert vorgehen: erstens Diätfehler suchen (mit Abstand häufigste Ursache), zweitens Begleiterkrankungen ausschließen (sekundärer Laktasemangel, bakterielle Fehlbesiedlung, exokrine Pankreasinsuffizienz, mikroskopische Kolitis, überlagertes Reizdarmsyndrom), drittens an die refraktäre Zöliakie denken',
+            'refraktäre Zöliakie Typ I: Budesonid, gegebenenfalls systemische Steroide oder Azathioprin. Typ II: Behandlung in spezialisierten Zentren, engmaschige Lymphomüberwachung',
+            'bei Verdacht auf ein enteropathieassoziiertes T-Zell-Lymphom oder ein Dünndarmadenokarzinom umgehende Bildgebung, Enteroskopie und onkologische Anbindung',
+          ],
+        },
+        {
+          label: 'Familienuntersuchung und Mitbetreuung assoziierter Erkrankungen',
+          items: [
+            'Screening der Verwandten ersten Grades mit Anti-tTG-IgA und Gesamt-IgA, da ihr Erkrankungsrisiko bei etwa 10 % liegt; bei negativem Befund und fortbestehender Symptomatik Wiederholung im Verlauf',
+            'regelmäßige Kontrolle der Schilddrüsenfunktion (TSH, gegebenenfalls Anti-TPO) wegen der Assoziation mit Hashimoto-Thyreoiditis und Morbus Basedow',
+            'Screening auf Typ-1-Diabetes-mellitus beziehungsweise, bei bekanntem Diabetes, Reevaluation des Typs; umgekehrt Zöliakie-Screening bei allen Patienten mit Typ-1-Diabetes',
+            'Kontrolle der Leberwerte: Eine unklare Transaminasenerhöhung normalisiert sich unter glutenfreier Kost meist innerhalb eines Jahres; andernfalls an Autoimmunhepatitis oder primär biliäre Cholangitis denken',
+            'bei Dermatitis herpetiformis Duhring glutenfreie Ernährung als Basistherapie, bei starkem Juckreiz vorübergehend Dapson',
+            'Beratung zu Schwangerschaft und Fertilität: Unter konsequenter Diät normalisieren sich Fertilität und Schwangerschaftsverlauf',
+          ],
+        },
+      ],
+      prognose: 'Unter strikter, lebenslanger glutenfreier Ernährung ist die Prognose ausgezeichnet: Die Beschwerden bessern sich meist innerhalb von zwei bis vier Wochen, die Antikörper normalisieren sich in sechs bis zwölf Monaten, die Dünndarmschleimhaut regeneriert beim Erwachsenen über ein bis zwei Jahre. Mangelzustände und Osteopenie bilden sich weitgehend zurück, Fertilität und Lebenserwartung entsprechen dann denen der Allgemeinbevölkerung. Entscheidend ist die Therapieadhärenz — und sie ist die Schwachstelle: Etwa die Hälfte der Erwachsenen hält die Diät nicht konsequent ein, meist durch verstecktes Gluten. Bei fortgesetzter Glutenzufuhr drohen persistierende Malabsorption, Osteoporose mit Frakturen, Infertilität, Polyneuropathie sowie langfristig eine refraktäre Zöliakie und ein deutlich erhöhtes Risiko für das enteropathieassoziierte T-Zell-Lymphom und das Dünndarmadenokarzinom. Bei der refraktären Zöliakie vom Typ II entwickelt sich in etwa 30–50 % der Fälle innerhalb von fünf Jahren ein Lymphom mit schlechter Prognose. Eine Heilung im Sinne einer Toleranzentwicklung gibt es nicht; medikamentöse Ansätze wie Glutenasen oder Zonulin-Antagonisten sind experimentell.',
+      pruefungsfallen: [
+        'Serologie UND Biopsie sind nur unter GLUTENHALTIGER Kost verwertbar. Hat der Patient das Gluten bereits weggelassen, normalisieren sich Antikörper und Histologie und die Diagnose ist nicht mehr zu stellen — dann ist eine Glutenbelastung mit etwa 10 g Gluten täglich über mindestens zwei, besser sechs bis acht Wochen nötig. Diesen Punkt aktiv ansprechen, bevor man Blut abnimmt.',
+        'Immer Anti-tTG-IgA ZUSAMMEN mit dem Gesamt-IgA bestimmen: Der selektive IgA-Mangel ist bei Zöliakie etwa zehnmal häufiger als in der Allgemeinbevölkerung und die häufigste Ursache einer falsch negativen Serologie. Bei IgA-Mangel auf Anti-tTG-IgG oder Anti-DGP-IgG ausweichen.',
+        'Beim ERWACHSENEN ist die Duodenalbiopsie obligat. Der biopsiefreie Weg (Anti-tTG-IgA über dem Zehnfachen der Norm plus positive Endomysium-Antikörper) gilt nur für Kinder und Jugendliche — diese Verwechslung wird gern geprüft.',
+        'Die Biopsie präzise beschreiben: mindestens vier Biopsien aus der Pars descendens duodeni PLUS zwei aus dem Bulbus, also mindestens sechs, wegen des fleckförmigen Befalls. „Eine Biopsie aus dem Duodenum“ ist keine ausreichende Antwort.',
+        'Ein makroskopisch unauffälliges Duodenum schließt die Zöliakie NICHT aus — biopsiert wird immer, auch bei normal aussehender Schleimhaut.',
+        'Die HLA-Typisierung dient dem AUSSCHLUSS, nicht dem Nachweis: hoher negativer prädiktiver Wert, aber 30–40 % der Gesunden tragen HLA-DQ2 oder DQ8. Sie als Bestätigungstest anzubieten, ist falsch.',
+        'Beim Erwachsenen ist die klassische Verlaufsform mit Diarrhoe und Steatorrhoe heute die MINDERHEIT. Häufigster Anlass zur Diagnose ist die therapierefraktäre Eisenmangelanämie — eine Eisenmangelanämie, die auf orales Eisen nicht anspricht, muss immer an eine Zöliakie denken lassen.',
+        'Die Therapie ist ausschließlich diätetisch. Kortison, Immunsuppressiva oder Antibiotika anzubieten ist falsch; nur die refraktäre Zöliakie wird immunsuppressiv behandelt.',
+        'Hafer nicht pauschal verbieten und nicht pauschal erlauben: Reiner, zertifiziert glutenfreier Hafer wird von den meisten Patienten in begrenzter Menge vertragen; das Problem ist die Kontamination mit Weizen.',
+        'Verstecktes Gluten aktiv nennen — Soßen, Wurstwaren, Fertigprodukte, Malzkaffee, Bier und Medikamentenhilfsstoffe. Der häufigste Grund für ein Therapieversagen sind Diätfehler, nicht eine refraktäre Zöliakie.',
+        'Marsh-Klassifikation korrekt wiedergeben: Marsh 1 = intraepitheliale Lymphozytose, Marsh 2 = zusätzlich Kryptenhyperplasie, Marsh 3 = zusätzlich Zottenatrophie (3a partiell, 3b subtotal, 3c total). Ein isolierter Marsh-1-Befund ist unspezifisch.',
+        'Die Dermatitis herpetiformis Duhring als kutane Manifestation nicht vergessen und die Haut tatsächlich inspizieren — die Bläschen an den Streckseiten sind meist zerkratzt und nur als Exkoriationen sichtbar.',
+        'Bei Steatorrhoe die Kette laut aussprechen: fettglänzender, voluminöser Stuhl → Steatorrhoe → Maldigestion oder Malabsorption → Dünndarm- oder Pankreaserkrankung. Wer direkt zum Karzinom springt, verliert den roten Faden.',
+        'Olmesartan als Ursache einer sprue-ähnlichen Enteropathie mit Zottenatrophie kennen — eine beliebte Zusatzfrage bei negativer Serologie mit positiver Histologie.',
+        'Vor dem Patienten „Glutenunverträglichkeit“ oder „Unverträglichkeit des Klebereiweißes aus Getreide“ sagen, nicht „glutensensitive Enteropathie“; „Zottenatrophie“ als „Rückbildung der feinen Darmzotten, mit denen der Darm die Nährstoffe aufnimmt“ übersetzen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum ist der Stuhl fettig? Ist das normal?',
+          antwort: 'Nein, das ist eine Steatorrhoe — eine krankhafte Fettausscheidung von über 7 g pro Tag. Der Stuhl wird dadurch voluminös, hell bis grau, glänzend, schwimmt auf und riecht ranzig-faulig, weil unverdautes Fett bakteriell zersetzt wird. Ursache ist entweder eine Maldigestion durch Mangel an Pankreaslipase oder Gallensäuren oder eine Malabsorption durch Verlust der Resorptionsfläche des Dünndarms — bei der Zöliakie Letzteres durch die Zottenatrophie.',
+        },
+        {
+          frage: 'Kennen Sie einige Malabsorptionserkrankungen?',
+          antwort: 'Zöliakie, Morbus Whipple, Morbus Crohn mit Dünndarmbefall, Kurzdarmsyndrom, bakterielle Fehlbesiedlung, Laktoseintoleranz, tropische Sprue, Amyloidose, Lambliasis und Strahlenenteritis. Als Maldigestionsursachen kommen die exokrine Pankreasinsuffizienz und das Gallensäureverlustsyndrom hinzu.',
+        },
+        {
+          frage: 'Wo genau im Darmtrakt tritt die Zöliakie auf?',
+          antwort: 'Im proximalen Dünndarm — im Duodenum und im oberen Jejunum. Deshalb werden die Biopsien aus dem Duodenum entnommen: mindestens vier aus der Pars descendens und zwei aus dem Bulbus.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose außer der Labordiagnostik?',
+          antwort: 'Durch die Ösophago-Gastro-Duodenoskopie mit Biopsieentnahme aus dem Duodenum. Beim Erwachsenen ist die Histologie obligat; sie muss unter glutenhaltiger Kost gewonnen werden.',
+        },
+        {
+          frage: 'Was erwarten Sie in der Histologie zu sehen?',
+          antwort: 'Eine Zottenatrophie mit Kryptenhyperplasie und eine intraepitheliale Lymphozytose von über 25 Lymphozyten pro 100 Enterozyten — klassifiziert nach Marsh: Typ 1 nur Lymphozytose, Typ 2 zusätzlich Kryptenhyperplasie, Typ 3 zusätzlich Zottenatrophie in den Stufen 3a partiell, 3b subtotal und 3c total.',
+        },
+        {
+          frage: 'Welche Schleimhautveränderungen erwarten Sie makroskopisch bei der ÖGD?',
+          antwort: 'Eine Abflachung oder ein Verlust der Kerckring-Falten, ein Mosaikmuster der Schleimhaut, Scalloping der Falten und ein durchscheinendes Gefäßmuster. Wichtig ist aber: Der makroskopische Befund kann völlig normal sein — deshalb wird grundsätzlich biopsiert.',
+        },
+        {
+          frage: 'Warum bestimmen Sie zusätzlich zum Antikörper das Gesamt-IgA?',
+          antwort: 'Weil ein selektiver IgA-Mangel bei der Zöliakie etwa zehnmal häufiger ist als in der Allgemeinbevölkerung. Bei IgA-Mangel wäre das Anti-tTG-IgA falsch negativ. Man weicht dann auf Anti-tTG-IgG oder Antikörper gegen deamidierte Gliadinpeptide vom IgG-Typ aus.',
+        },
+        {
+          frage: 'Der Patient isst schon seit Wochen kein Brot mehr. Was bedeutet das?',
+          antwort: 'Dass Serologie und Histologie nicht verwertbar sind, weil sie sich unter glutenfreier Kost normalisieren. Er müsste eine Glutenbelastung durchführen: etwa 10 g Gluten täglich, das entspricht rund vier Scheiben Weizenbrot, über mindestens zwei, besser sechs bis acht Wochen vor der erneuten Diagnostik.',
+        },
+        {
+          frage: 'Wozu dient die HLA-Typisierung?',
+          antwort: 'Ausschließlich dem Ausschluss. HLA-DQ2 liegt bei etwa 90–95 % und HLA-DQ8 bei etwa 5–10 % der Erkrankten vor; sind beide negativ, ist eine Zöliakie praktisch ausgeschlossen. Ein positiver Befund beweist dagegen nichts, weil 30–40 % der Allgemeinbevölkerung Träger sind.',
+        },
+        {
+          frage: 'Welche Therapie schlagen Sie vor?',
+          antwort: 'Eine lebenslange, strikte glutenfreie Ernährung — sie ist die einzige kausale Therapie. Dazu qualifizierte Ernährungsberatung, Anbindung an die Deutsche Zöliakie-Gesellschaft, Ausgleich der Mangelzustände mit Eisen, Vitamin B12, Folsäure, Vitamin D, Kalzium und Zink, eine Knochendichtemessung, Verlaufskontrollen der Antikörper sowie das Screening der Verwandten ersten Grades. Eine medikamentöse Therapie der Zöliakie selbst gibt es nicht.',
+        },
+        {
+          frage: 'Welches Essen ist noch erlaubt?',
+          antwort: 'Mais, Reis, Kartoffeln, Hirse, Buchweizen, Quinoa, Amaranth, Teff und Soja, dazu Gemüse wie Möhren, Obst, Fleisch, Fisch, Eier und Milchprodukte. Hafer ist meist verträglich, aber nur zertifiziert glutenfrei und in begrenzter Menge. Zu meiden sind Weizen, Roggen, Gerste, Dinkel, Grünkern und Triticale sowie verstecktes Gluten in Soßen, Wurstwaren, Fertigprodukten, Bier und Medikamenten.',
+        },
+        {
+          frage: 'Wieso führen Sie ein Kolonkarzinom als Differenzialdiagnose auf?',
+          antwort: 'Wegen des ungewollten Gewichtsverlusts — das ist ein rotes Flag und macht bei geänderten Stuhlgewohnheiten eine Karzinomabklärung mit Koloskopie und fäkalem okkultem Bluttest erforderlich, auch wenn die übrige Konstellation eindeutig für eine Malabsorption spricht.',
+        },
+        {
+          frage: 'Warum denken Sie nicht an einen Morbus Crohn?',
+          antwort: 'Weil Fieber, Blut- und Schleimbeimengung im Stuhl, nächtliche Diarrhoe, perianale Fisteln und extraintestinale Manifestationen wie Arthritis oder Uveitis fehlen und die Entzündungsparameter samt Calprotectin normal sind. Vor allem aber sind die Beschwerden streng an glutenhaltige Speisen gebunden, was für einen Morbus Crohn untypisch ist.',
+        },
+        {
+          frage: 'Welche Erkrankungen sind mit der Zöliakie assoziiert?',
+          antwort: 'Typ-1-Diabetes-mellitus, Hashimoto-Thyreoiditis und Morbus Basedow, selektiver IgA-Mangel, Autoimmunhepatitis und primär biliäre Cholangitis, Dermatitis herpetiformis Duhring, IgA-Nephropathie, Sjögren-Syndrom sowie Trisomie 21 und Ullrich-Turner-Syndrom.',
+        },
+        {
+          frage: 'Welche Komplikationen drohen bei unbehandelter Zöliakie?',
+          antwort: 'Osteoporose mit Frakturen, therapierefraktäre Eisenmangelanämie, Infertilität und rezidivierende Aborte, Polyneuropathie und Gluten-Ataxie, Wachstumsstörungen bei Kindern, Hyposplenismus mit Infektionsrisiko, die seltene zöliakale Krise sowie langfristig die refraktäre Zöliakie, das enteropathieassoziierte T-Zell-Lymphom und das Dünndarmadenokarzinom.',
+        },
+        {
+          frage: 'Woran denken Sie, wenn sich der Patient unter glutenfreier Diät nicht bessert?',
+          antwort: 'In dieser Reihenfolge: erstens und mit Abstand am häufigsten Diätfehler durch verstecktes Gluten; zweitens Begleiterkrankungen wie sekundärer Laktasemangel, bakterielle Fehlbesiedlung, exokrine Pankreasinsuffizienz, mikroskopische Kolitis oder ein überlagertes Reizdarmsyndrom; drittens die refraktäre Zöliakie Typ I oder II; viertens ein enteropathieassoziiertes T-Zell-Lymphom.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten, warum die Unverträglichkeit erst jetzt auftritt?',
+          antwort: 'Die Veranlagung ist angeboren, die Erkrankung kann aber in jedem Lebensalter ausbrechen — oft nach einem Auslöser wie einem Magen-Darm-Infekt, einer Operation, einer Schwangerschaft oder einer starken Belastung. Das Abwehrsystem richtet sich dann gegen die eigene Dünndarmschleimhaut, die feinen Darmzotten bilden sich zurück, die Aufnahmefläche schrumpft — daher Durchfall, Blähungen und Gewichtsverlust.',
+        },
+        {
+          frage: 'Wie kontrollieren Sie den Therapieerfolg?',
+          antwort: 'Klinisch über Beschwerdefreiheit und Gewichtszunahme, laborchemisch über den Abfall der Transglutaminase-IgA-Antikörper, die sich unter strikter Diät meist innerhalb von sechs bis zwölf Monaten normalisieren und damit als objektiver Marker der Diätadhärenz dienen. Dazu Kontrollen von Blutbild, Ferritin, Vitamin B12, Folsäure, Vitamin D, Kalzium und Transaminasen sowie eine Kontrollbiopsie bei ausbleibender Besserung.',
+        },
+      ],
+      merksatz: 'Fettglänzender, voluminöser, stinkender Stuhl plus Gewichtsverlust nach Brot und Nudeln = Zöliakie — aber beim Erwachsenen ist die therapierefraktäre Eisenmangelanämie der häufigere Anlass. Anti-tTG-IgA NIE ohne Gesamt-IgA, Serologie und Biopsie NIE unter glutenfreier Kost, mindestens sechs Duodenalbiopsien, HLA nur zum Ausschluss — und die einzige Therapie heißt lebenslang strikt glutenfrei.',
+      linkedCaseIds: [
+        'case-zoeliakie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-gastroskopie',
+        'auf-koloskopie',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-schenkelhalsfraktur',
+      pathology: 'Schenkelhalsfraktur (mediale Femurfraktur)',
+      specialty: 'Orthopädie',
+      definition: 'Die Schenkelhalsfraktur ist ein Bruch des Collum femoris zwischen Hüftkopf und Trochanterregion. Sie ist die häufigste hüftgelenknahe Fraktur des alten Menschen und gilt als Leitfraktur der Osteoporose: Beim älteren Patienten genügt ein Bagatelltrauma, typischerweise ein Sturz aus dem Stand auf die Hüfte, während beim jungen Menschen ein Hochrasanztrauma erforderlich ist. Die medialen Frakturen verlaufen intrakapsulär (subkapital, transzervikal, basiszervikal), die selteneren lateralen extrakapsulär. Klinisch entscheidend ist die Blutversorgung des Hüftkopfes, die überwiegend retrograd über die Retinakulumgefäße aus der A. circumflexa femoris medialis erfolgt: Reißen diese bei Dislokation ab, drohen Hüftkopfnekrose und Pseudarthrose. Die Schenkelhalsfraktur ist kein isoliertes orthopädisches Problem, sondern ein geriatrischer Notfall mit hoher Ein-Jahres-Letalität — und ein Sturzereignis, dessen Ursache eigenständig abgeklärt werden muss.',
+      aetiologie: 'Beim alten Menschen liegt die Ursache in der Kombination aus verminderter Knochenfestigkeit (Osteoporose) und einem Sturz aus dem Stand, meist mit direktem Anprall auf den Trochanter major. Der Sturz selbst ist fast nie zufällig: Ursächlich sind orthostatische Dysregulation, Exsikkose, kardiale Synkopen und Rhythmusstörungen, Aortenklappenstenose, transitorische ischämische Attacken, Krampfanfälle, Hypoglykämie, Elektrolytstörungen, Infekte (Harnwegsinfekt, Pneumonie), Seh- und Hörminderung, Polyneuropathie, Demenz und Delir, Sarkopenie sowie Medikamente — insbesondere Antihypertensiva, Diuretika, Sedativa und Benzodiazepine, Antidepressiva, Neuroleptika, Opioide und Antidiabetika. Hinzu kommen Umgebungsfaktoren wie lose Teppiche, fehlende Haltegriffe, schlechte Beleuchtung und ungeeignetes Schuhwerk. Beim jungen Patienten ist ein Hochrasanztrauma erforderlich (Verkehrsunfall, Sturz aus großer Höhe), bei Sportlern kommen Ermüdungsfrakturen vor. Bei einem Missverhältnis zwischen geringem Trauma und schwerer Fraktur ist immer an eine pathologische Fraktur bei Knochenmetastase, multiplem Myelom oder anderer Osteopathie zu denken.',
+      risikofaktoren: [
+        'Höheres Lebensalter — die Inzidenz steigt ab dem 65. Lebensjahr steil an',
+        'Weibliches Geschlecht und postmenopausaler Östrogenmangel; frühe Menopause und lange Östrogenmangelphase',
+        'Osteoporose und vorangegangene Fragilitätsfrakturen, insbesondere eine distale Radiusfraktur oder Wirbelkörperfraktur — die stärksten Prädiktoren einer weiteren Fraktur',
+        'Hüftfraktur bei einem Elternteil (eigenständiger Risikofaktor, im FRAX-Score erfasst)',
+        'Sturzneigung: Gangunsicherheit, Sarkopenie, Immobilität, Schwindel, orthostatische Dysregulation, Nykturie',
+        'Sturzfördernde Medikamente: Antihypertensiva, Diuretika, Benzodiazepine und Z-Substanzen, Antidepressiva, Neuroleptika, Opioide, Antidiabetika; Polypharmazie ab fünf Dauermedikamenten',
+        'Knochenschädigende Medikamente: Glukokortikoide, Protonenpumpenhemmer in Langzeiteinnahme, überdosiertes L-Thyroxin, Aromatasehemmer, Antiandrogene, Antiepileptika',
+        'Sensorische Einschränkungen: Katarakt, Glaukom, Makuladegeneration, Hörminderung',
+        'Nikotin- und Alkoholkonsum, Untergewicht und Mangelernährung, Vitamin-D- und Kalziummangel, Bewegungsmangel und fehlende Sonnenexposition',
+        'Kognitive Einschränkung, Demenz, Delir, Depression',
+        'Endokrine und internistische Grunderkrankungen: Hyperthyreose, Hyperparathyreoidismus, Cushing-Syndrom, Diabetes mellitus, chronische Niereninsuffizienz, Malabsorption, rheumatoide Arthritis',
+        'Häusliche Stolperfallen: Teppiche, Kabel, fehlende Haltegriffe und Nachtbeleuchtung, Treppen ohne Handlauf, Haustiere',
+      ],
+      klinik: [
+        {
+          text: 'Sofort einsetzende, starke Schmerzen in Hüfte und Leiste unmittelbar nach dem Sturz, meist 8 bis 10 von 10 bei Bewegung',
+        },
+        {
+          text: 'Unfähigkeit zu stehen und zu gehen — der Patient kann nach dem Sturz nicht mehr selbst aufstehen',
+        },
+        {
+          text: 'Typische Fehlstellung des betroffenen Beins: VERKÜRZT und nach AUSSEN ROTIERT',
+        },
+        {
+          text: 'Schmerzhaft aufgehobene aktive und passive Beweglichkeit im Hüftgelenk; das gestreckte Bein kann nicht aktiv angehoben werden',
+        },
+        {
+          text: 'Stauchungsschmerz (axiale Belastung über die Ferse) und Klopf- sowie Druckschmerz über dem Trochanter major',
+        },
+        {
+          text: 'Ausstrahlung der Schmerzen über die Oberschenkelinnenseite bis zur Knieinnenseite, vermittelt über Äste des N. obturatorius',
+        },
+        {
+          text: 'Bei der intrakapsulären Fraktur fehlt ein sichtbares Hämatom meist — im Gegensatz zur pertrochantären Fraktur mit ausgedehnter Schwellung und Blutverlust bis zu einem Liter',
+        },
+        {
+          text: 'Bei eingestauchter (Garden-I-)Fraktur können Gehen und Stehen noch möglich sein, die Fehlstellung fehlt und die Schmerzen sind gering — die gefährlichste Verlaufsform, weil sie übersehen und sekundär disloziert wird',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierter Knieschmerz ohne wegweisende Hüftbeschwerden, sodass fälschlich nur das Knie untersucht wird',
+          atypisch: true,
+        },
+        {
+          text: 'Okkulte Fraktur mit unauffälligem Röntgenbild bei eindeutiger Klinik — Nachweis erst im MRT',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Demenz oder Delir wird der Schmerz nicht geäußert; auffällig sind nur Unruhe, Nahrungsverweigerung oder eine plötzlich verlorene Gehfähigkeit',
+          atypisch: true,
+        },
+        {
+          text: 'Der Sturz wird nicht erinnert oder nicht berichtet, weil ihm eine Synkope vorausging — die Fraktur wird als „Sturzfolge“ abgehakt und die kardiale Ursache übersehen',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als postoperatives Delir, Pneumonie oder Dekubitus, wenn die Fraktur verzögert erkannt wurde',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Pauwels-Klassifikation (nach dem Frakturwinkel zur Horizontalen)',
+          inhalt: 'Gemessen wird der Winkel der Frakturlinie zur Horizontalen: Typ I unter 30 Grad, Typ II 30 bis 50 Grad, Typ III über 50 Grad. Je steiler der Verlauf, desto größer der Anteil der Scherkräfte gegenüber den Kompressionskräften und desto instabiler die Fraktur — Pauwels III hat das höchste Risiko für sekundäre Dislokation und Pseudarthrose und ist kopferhaltend am schwierigsten zu versorgen.',
+        },
+        {
+          name: 'Garden-Klassifikation (nach dem Dislokationsgrad, VIER Stadien)',
+          inhalt: 'Garden I: inkomplette, eingestauchte Fraktur in Valgusstellung. Garden II: komplette Fraktur ohne Verschiebung. Garden III: komplette Fraktur mit teilweiser Verschiebung, die Trabekel sind noch teilweise ausgerichtet. Garden IV: komplette Fraktur mit vollständiger Verschiebung und Kontaktverlust der Fragmente. Garden I und II gelten als stabil und nicht disloziert, Garden III und IV als disloziert. Diese Einteilung steuert die Therapie, weil sie über den Dislokationsgrad das Risiko der Hüftkopfnekrose durch Abriss der Retinakulumgefäße vorhersagt: bei dislozierten Frakturen bis zu etwa 30 Prozent, bei nicht dislozierten deutlich unter 10 Prozent.',
+        },
+        {
+          name: 'Einteilung nach der Lokalisation',
+          inhalt: 'Mediale, intrakapsuläre Schenkelhalsfrakturen (subkapital, transzervikal, basiszervikal) machen den weit überwiegenden Anteil aus und bergen wegen der intrakapsulären Lage das Nekroserisiko; laterale, extrakapsuläre Schenkelhalsfrakturen sind selten und heilen besser. Davon abzugrenzen sind die extrakapsulären pertrochantären und subtrochantären Femurfrakturen, die immer osteosynthetisch (Gammanagel, dynamische Hüftschraube) versorgt werden.',
+        },
+        {
+          name: 'AO-Klassifikation',
+          inhalt: 'Die proximale Femurfraktur wird als Segment 31 kodiert: 31-A pertrochantär, 31-B Schenkelhals (B1 subkapital gering disloziert, B2 transzervikal, B3 subkapital disloziert), 31-C Hüftkopf. Sie ist im Prüfungsgespräch selten gefordert, ordnet aber die Begriffe.',
+        },
+      ],
+      redFlags: [
+        'Fehlende oder abgeschwächte periphere Pulse, kalter oder blasser Fuß, Sensibilitäts- oder Motorikausfall — Gefäß- oder Nervenverletzung, sofortige Abklärung',
+        'Offene Fraktur oder Hautspannungsblasen über der Frakturregion',
+        'Hämodynamische Instabilität, Blutdruckabfall und Tachykardie — spricht eher für eine pertrochantäre oder Beckenfraktur mit erheblichem Blutverlust oder für eine Begleitverletzung',
+        'Bewusstlosigkeit, Krampfanfall, Zungenbiss oder Einnässen im Zusammenhang mit dem Sturz — Synkope oder Anfallsleiden als Sturzursache',
+        'Kopfanprall oder unklarer Sturzhergang unter Antikoagulation oder Thrombozytenaggregationshemmung — kraniale Computertomographie zwingend, Gefahr der intrakraniellen Blutung',
+        'Akute Verwirrtheit, Desorientiertheit oder Agitation — Delir, das Letalität und Verweildauer erheblich erhöht',
+        'Fieber, Infektzeichen oder Zeichen einer Sepsis als auslösende Sturzursache',
+        'Bagatelltrauma mit B-Symptomatik, Gewichtsverlust, nächtlichen Ruheschmerzen oder bekannter Tumorerkrankung — Verdacht auf pathologische Fraktur',
+        'Fortbestehender klinischer Verdacht bei unauffälligem Röntgen — okkulte Fraktur, MRT erforderlich, keine Belastung bis zum Ausschluss',
+        'Verzögerung der operativen Versorgung über 24 bis 48 Stunden ohne zwingenden Grund',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Unfallhergang UND Sturzursache erfragen: Was hat der Patient unmittelbar vor dem Sturz getan? Schwindel, Schwarzwerden vor den Augen, Herzrasen, Brustschmerz, Luftnot, Bewusstlosigkeit, Zungenbiss, Einnässen, Krämpfe, Sehstörung, Stolpern? Trinkmenge, letzte Mahlzeit, Alkohol? Fremdanamnese durch Angehörige und Rettungsdienst',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese mit gezielter Frage nach Antikoagulanzien und Thrombozytenaggregationshemmern — sie bestimmen Operationszeitpunkt und Anästhesieverfahren — sowie nach sturz- und knochenschädigenden Substanzen; dazu Allergien, Vorerkrankungen, Voroperationen und frühere Frakturen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung der prätraumatischen Funktion: Gehstrecke, Hilfsmittel, Wohn- und Versorgungssituation, Pflegegrad, Kognition, Ernährungszustand, Seh- und Hörvermögen — sie entscheiden über die Verfahrenswahl und die Rehabilitationsplanung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion: verkürztes und außenrotiertes Bein, Hämatom oder dessen Fehlen, Schwellung, offene Verletzung, Hautspannungsblasen; systematische Suche nach Begleitverletzungen an Kopf, Handgelenk, Schulter und Wirbelsäule',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Palpation und Funktionsprüfung, so schonend wie möglich: Druckschmerz über dem Trochanter, axialer Stauchungsschmerz über die Ferse, Klopfschmerz, aufgehobene aktive Beweglichkeit',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'DMS-Kontrolle: Durchblutung mit Tasten der peripheren Pulse (A. femoralis, poplitea, tibialis posterior, dorsalis pedis) und Rekapillarisierungszeit, Motorik und Sensibilität — dokumentiert vor und nach jeder Umlagerung, Reposition und Operation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Blutdruck, Puls, Temperatur, Sauerstoffsättigung und Blutzucker am Bett; Orientierungsprüfung und Delir-Screening; Schellong-Test beziehungsweise Blutdruckmessung im Liegen und Stehen nach Stabilisierung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild und CRP: Anämie, Infektzeichen; Gerinnung mit Quick/INR und aPTT als Voraussetzung für Operation und rückenmarksnahe Anästhesie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte einschließlich Kalzium, Kreatinin, Harnstoff und geschätzte glomeruläre Filtrationsrate, Blutzucker — Exsikkose, Niereninsuffizienz und Hypoglykämie als Sturzursache, zugleich Steuerung der Analgetika- und Heparindosierung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgruppe, Antikörpersuchtest und Kreuzblut mit Bereitstellung von Erythrozytenkonzentraten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zur Klärung der Sturzursache: Troponin und Herzenzyme bei Verdacht auf ein kardiales Ereignis, TSH, Urinstatus und Urinkultur, bei Fieber Blutkulturen; gegebenenfalls Blutgasanalyse',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Im Verlauf Osteoporoseabklärung: Kalzium, Phosphat, alkalische Phosphatase, 25-Hydroxy-Vitamin D, Kreatinin, TSH, Parathormon und Eiweißelektrophorese zum Ausschluss sekundärer Osteoporosen, eines Hyperparathyreoidismus und eines multiplen Myeloms',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen der Hüfte in ZWEI Ebenen: Beckenübersicht anterior-posterior und axiale Aufnahme (Lauenstein) — Nachweis der Fraktur, Beurteilung von Verlauf, Dislokation und Einstauchung, Einteilung nach Pauwels und Garden, Beurteilung der Gegenseite und der Knochenstruktur',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei unauffälligem Röntgen und fortbestehendem klinischem Verdacht MRT der Hüfte als sensitivstes Verfahren zum Nachweis der okkulten Fraktur (Knochenmarködem); alternativ CT, das schneller verfügbar ist, aber für okkulte Frakturen weniger sensitiv',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG bei jedem Sturz unklarer Ursache; bei Verdacht auf eine intermittierende Rhythmusstörung Langzeit-EKG, bei Verdacht auf eine strukturelle Herzerkrankung Echokardiographie (Aortenklappenstenose als klassische Synkopenursache im Alter)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniale Computertomographie bei Kopfanprall, unklarem Sturzhergang oder Bewusstseinsverlust — zwingend unter Antikoagulation oder Thrombozytenaggregationshemmung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Präoperativ Röntgen-Thorax bei kardiopulmonaler Vorgeschichte; CT des Beckens bei Verdacht auf Azetabulum- oder komplexe Beckenfraktur',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Im Verlauf Osteodensitometrie mittels DXA an Lendenwirbelsäule und Schenkelhals; Röntgen der Wirbelsäule bei Verdacht auf Wirbelkörperfrakturen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Erweiterte Synkopenabklärung nach Stabilisierung bei rezidivierenden oder unklaren Synkopen: Kipptischuntersuchung, Karotissinusmassage, implantierbarer Ereignisrekorder',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei Verdacht auf eine pathologische Fraktur intraoperative Gewebeentnahme aus dem Frakturbereich mit histologischer Untersuchung sowie gezielte Primärtumorsuche',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Pertrochantäre Femurfraktur',
+          unterscheidung: 'Extrakapsulär, klinisch fast identisch mit Verkürzung und Außenrotation, aber mit großem Hämatom, ausgeprägter Schwellung und Blutverlust bis zu einem Liter. Therapie grundsätzlich osteosynthetisch mit Gammanagel oder dynamischer Hüftschraube, keine Prothese, da keine Kopfnekrosegefahr besteht. Unterscheidung im Röntgen.',
+        },
+        {
+          dd: 'Subtrochantäre Femurfraktur',
+          unterscheidung: 'Unterhalb des Trochanter minor, starke Dislokation durch den Muskelzug (Flexion und Außenrotation des proximalen Fragments), hoher Blutverlust; Versorgung mit langem Marknagel. Bei Bagatelltrauma an eine atypische Femurfraktur unter langjähriger Bisphosphonattherapie denken.',
+        },
+        {
+          dd: 'Beckenfraktur, insbesondere Schambein- oder Sitzbeinastfraktur',
+          unterscheidung: 'Ebenfalls typische osteoporotische Fraktur nach Sturz aus dem Stand mit Leistenschmerz und Gehunfähigkeit, aber ohne Verkürzung und ohne Außenrotation; Beckenkompressions- und -distraktionsschmerz. Nachweis in der Beckenübersicht, bei fortbestehendem Verdacht im CT.',
+        },
+        {
+          dd: 'Azetabulumfraktur',
+          unterscheidung: 'Meist axiale Krafteinwirkung über das Knie oder höherenergetisches Trauma, Bein eher in Neutralstellung, Gefahr der Hüftkopfzentralluxation. Nachweis im CT mit dreidimensionaler Rekonstruktion.',
+        },
+        {
+          dd: 'Traumatische Hüftgelenkluxation',
+          unterscheidung: 'Hintere Luxation: Bein verkürzt, aber ADDUZIERT und INNENrotiert — genau umgekehrt zur Schenkelhalsfraktur. Erfordert erhebliche Gewalteinwirkung; Notfall wegen Kopfnekrose und Ischiadikusläsion, sofortige Reposition. Bei einliegender Prothese schon bei geringer Bewegung möglich.',
+        },
+        {
+          dd: 'Hüftkopffraktur (Pipkin-Fraktur)',
+          unterscheidung: 'Meist in Kombination mit einer Hüftluxation nach Hochrasanztrauma, beim alten Menschen sehr selten. Nachweis im CT; Einteilung nach Pipkin.',
+        },
+        {
+          dd: 'Dekompensierte Koxarthrose',
+          unterscheidung: 'Langsam progredienter Leisten-, Anlauf- und Belastungsschmerz über Monate bis Jahre mit Innenrotations- und Abduktionseinschränkung, häufig ebenfalls mit Knieausstrahlung; kein schlagartiger Beginn, keine Verkürzung, keine Außenrotationsfehlstellung, Gehen bleibt eingeschränkt möglich.',
+        },
+        {
+          dd: 'Pathologische Fraktur bei Knochenmetastase, multiplem Myelom oder anderer Osteopathie',
+          unterscheidung: 'Missverhältnis zwischen Bagatelltrauma und Frakturschwere, vorbestehende nächtliche Ruheschmerzen, B-Symptomatik, bekannte Tumorerkrankung (Mamma, Prostata, Lunge, Niere, Schilddrüse), Osteolysen im Röntgen, erhöhte alkalische Phosphatase, Hyperkalzämie, Paraproteinämie. Klärung durch Labor, Bildgebung und Histologie.',
+        },
+        {
+          dd: 'Okkulte oder eingestauchte Schenkelhalsfraktur',
+          unterscheidung: 'Keine Fehlstellung, Gehen unter Umständen noch möglich, Röntgen unauffällig — die gefährlichste Falle. Klinische Hinweise sind Leistenschmerz, Stauchungs- und Klopfschmerz. Klärung durch MRT der Hüfte, hilfsweise CT; bis dahin keine belastende Mobilisation.',
+        },
+        {
+          dd: 'Weichteilprellung, Muskelzerrung, Bursitis trochanterica',
+          unterscheidung: 'Umschriebener Druckschmerz lateral über dem Trochanter, Schmerz beim Liegen auf der betroffenen Seite, aber erhaltene Steh- und Gehfähigkeit, freie passive Beweglichkeit, keine Fehlstellung. Diagnose erst nach radiologischem Frakturausschluss.',
+        },
+        {
+          dd: 'Septische Koxitis oder Spondylodiszitis',
+          unterscheidung: 'Fieber, erhöhte Entzündungsparameter, Schmerz ohne adäquates Trauma, oft schleichender Beginn; bei der Spondylodiszitis Klopfschmerz über der Wirbelsäule. Klärung durch Labor, Sonographie, Punktion und MRT.',
+        },
+        {
+          dd: 'Die Sturzursache selbst als eigenständige Diagnose',
+          unterscheidung: 'Synkope, Herzrhythmusstörung, Aortenklappenstenose, Myokardinfarkt, transitorische ischämische Attacke, Krampfanfall, Hypoglykämie, Exsikkose, Harnwegsinfekt, Delir oder Medikamentennebenwirkung. Die Fraktur ist nur die Folge; wird die Ursache nicht behandelt, wiederholt sich der Sturz.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Erstversorgung und präoperative Stabilisierung',
+          items: [
+            'Monitoring, zwei periphere Venenzugänge, Volumen- und Elektrolytausgleich, Wärmeerhalt, Sauerstoffgabe nach Bedarf',
+            'frühzeitige und ausreichend hoch dosierte Analgesie: Paracetamol oder Metamizol intravenös als Basis, dazu ein titriertes Opioid in reduzierter Dosis; NSAR beim alten Menschen wegen Nieren-, Ulkus- und Herzinsuffizienzrisiko möglichst meiden. Besonders wirksam und delirsparend ist die ultraschallgesteuerte Fascia-iliaca- oder N.-femoralis-Blockade',
+            'schonende Lagerung des Beins auf einer Schaumstoffschiene mit leichter Knieflexion; Extensionsbehandlung ist obsolet. Dekubitus-, Pneumonie- und Obstipationsprophylaxe',
+            'Nüchternheit anordnen, unfallchirurgisches und anästhesiologisches Konsil, ASA-Einstufung, Aufklärung von Patient und Angehörigen, Klärung von Betreuung und Patientenverfügung',
+            'Antikoagulation klären: Acetylsalicylsäure und Clopidogrel sind in der Regel kein Grund, die Operation zu verschieben; bei Vitamin-K-Antagonisten Antagonisierung mit Vitamin K und PPSB, bei DOAK Einnahmezeitpunkt und Nierenfunktion beachten — sie bestimmen den Operationszeitpunkt und die Möglichkeit einer Spinalanästhesie',
+            'medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin in gewichts- und nierenadaptierter Dosis, Beginn bereits präoperativ',
+            'Delirprophylaxe von Beginn an: Reorientierung, Brille und Hörgerät belassen, Tag-Nacht-Rhythmus, Einbeziehung von Angehörigen, konsequente Analgesie, Verzicht auf Benzodiazepine, Anticholinergika, Dauerkatheter und Fixierung',
+            'Labor mit Blutgruppe und Kreuzblut, Bereitstellung von Erythrozytenkonzentraten; parallel Abklärung und Behandlung der Sturzursache',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Operative Versorgung innerhalb von 24 Stunden',
+          items: [
+            'Grundsatz: Die Schenkelhalsfraktur ist eine dringliche Operationsindikation. Die Versorgung soll innerhalb von 24 Stunden erfolgen, weil jede Verzögerung Letalität sowie Delir-, Pneumonie-, Dekubitus- und Thromboserate erhöht. Eine konservative Behandlung bleibt Ausnahmen vorbehalten: nicht transportfähige oder moribunde Patienten und streng eingestauchte Garden-I-Frakturen bei nicht operablen Patienten, dann unter engmaschiger Röntgenkontrolle wegen sekundärer Dislokation',
+            'Die Verfahrenswahl richtet sich nach ALTER, Frakturtyp nach Garden und Pauwels, biologischem Zustand und prätraumatischer Funktion — nicht nach dem kalendarischen Alter allein',
+            'Kopferhaltende Osteosynthese beim jüngeren Patienten (etwa bis 60 bis 65 Jahre) und bei nicht dislozierten Frakturen (Garden I und II): kanülierte Zugschrauben in Dreiecksanordnung, dynamische Hüftschraube mit Antirotationsschraube oder Schenkelhalsnagel. Beim jungen Patienten gilt die dislozierte Schenkelhalsfraktur als Notfall, der möglichst innerhalb von sechs Stunden reponiert und stabilisiert werden soll, um die Kopfnekroserate zu senken',
+            'Endoprothetischer Ersatz beim älteren Patienten mit dislozierter Fraktur (Garden III und IV) wegen des hohen Nekrose- und Pseudarthroserisikos: Hemiprothese beziehungsweise Duokopfprothese beim hochbetagten, wenig mobilen oder kognitiv eingeschränkten Patienten; Hüfttotalendoprothese beim aktiven, selbstständig gehfähigen Patienten mit guter Lebenserwartung oder vorbestehender Koxarthrose',
+            'zementierte Verankerung bei osteoporotischem Knochen — CAVE Knochenzement-Implantationssyndrom mit Blutdruckabfall, Hypoxie und Rhythmusstörung',
+            'perioperative Single-Shot-Antibiotikaprophylaxe 30 bis 60 Minuten vor dem Hautschnitt mit einem Cephalosporin der zweiten Generation (Cefuroxim); bei Penicillinallergie Clindamycin oder Vancomycin',
+            'Anästhesie: Spinalanästhesie und Allgemeinanästhesie sind hinsichtlich Letalität und Delir weitgehend gleichwertig; die Wahl richtet sich nach Begleiterkrankungen, Gerinnungssituation und Patientenwunsch. Eine rückenmarksnahe Anästhesie setzt eine intakte Gerinnung und Karenzzeiten bei Antikoagulanzien voraus',
+            'Dokumentation von Durchblutung, Motorik und Sensibilität vor und nach dem Eingriff; Bilanzierung von Blutverlust und Transfusionsbedarf',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Frühmobilisation, Rehabilitation und Komplikationsprophylaxe',
+          items: [
+            'Mobilisation unter erlaubter Vollbelastung am Operationstag oder spätestens am ersten postoperativen Tag — sowohl Endoprothesen als auch moderne Osteosynthesen erlauben in der Regel die sofortige Vollbelastung; dies ist die wirksamste Einzelmaßnahme gegen Pneumonie, Dekubitus, Thrombose und Delir',
+            'tägliche Physiotherapie mit Gangschulung an Rollator oder Unterarmgehstützen, Ergotherapie, Atemtherapie; suffiziente Schmerztherapie nach festem Schema, damit die Mobilisation gelingt',
+            'Luxationsprophylaxe nach Endoprothese: keine Beugung über 90 Grad, keine Adduktion über die Mittellinie, keine Innenrotation; Toilettensitzerhöhung, Keilkissen, Anziehhilfen, Schulung von Patient und Angehörigen',
+            'Fortführung der Thromboseprophylaxe mit niedermolekularem Heparin über 28 bis 35 Tage; Wundkontrolle, Behandlung einer postoperativen Anämie',
+            'Ernährungstherapie mit ausreichender Eiweiß- und Kalorienzufuhr, Trinkmengenprotokoll, Behandlung einer Mangelernährung und Sarkopenie',
+            'strukturiertes Delirmanagement, Kontinenzförderung ohne Dauerkatheter, Dekubitus- und Obstipationsprophylaxe',
+            'frühzeitige Planung der geriatrischen Frührehabilitation oder Anschlussheilbehandlung im Sinne der Alterstraumatologie mit orthopädisch-geriatrischer Mitbehandlung; Sozialdienst, Hilfsmittelversorgung, Pflegegrad, Klärung der häuslichen Versorgung',
+          ],
+        },
+        {
+          label: 'Sekundärprophylaxe: Osteoporose und Sturzursache',
+          items: [
+            'Jede Hüftfraktur nach einem Sturz aus dem Stand gilt als osteoporotische Fragilitätsfraktur und begründet für sich allein bereits eine spezifische Osteoporosetherapie; die Diagnostik darf den Therapiebeginn nicht verzögern',
+            'Osteodensitometrie mittels DXA an Lendenwirbelsäule und Schenkelhals, Basislabor zum Ausschluss sekundärer Osteoporosen, Röntgen der Wirbelsäule bei Verdacht auf Wirbelkörperfrakturen',
+            'Basistherapie: Kalzium 1000 mg täglich, bevorzugt über die Ernährung, und Vitamin D3 800 bis 1000 Internationale Einheiten täglich',
+            'spezifische Therapie mit einem Bisphosphonat (Alendronat 70 mg wöchentlich oral, Zoledronsäure 5 mg jährlich intravenös) oder Denosumab 60 mg subkutan alle sechs Monate; bei sehr hohem Frakturrisiko osteoanabole Therapie mit Teriparatid oder Romosozumab. CAVE: Nüchterneinnahme mit aufrechter Haltung bei oralen Bisphosphonaten, zahnärztliche Sanierung wegen Kiefernekrosen, Vitamin-D- und Kalziummangel vor Beginn ausgleichen, nach Absetzen von Denosumab Anschlusstherapie wegen des Rebound-Effekts',
+            'konsequente Klärung und Behandlung der Sturzursache: Blutdruckprofil und Schellong-Test, Rhythmuskontrolle, Behandlung von Exsikkose, Infekt, Anämie oder Hypoglykämie',
+            'Medikamentenrevision: Reduktion sturzfördernder Substanzen (Antihypertensiva, Diuretika, Sedativa, Anticholinergika, Antidepressiva, Neuroleptika, Opioide), Überprüfung der L-Thyroxin-Dosis, kritische Indikationsprüfung von Protonenpumpenhemmern und Glukokortikoiden',
+            'multifaktorielle Sturzprophylaxe: Kraft- und Balancetraining, augenärztliche Kontrolle und Kataraktoperation, festes Schuhwerk, Wohnraumanpassung (Teppiche und Kabel entfernen, Haltegriffe, rutschfeste Matten, Nachtbeleuchtung, Toilettensitzerhöhung, Handläufe), Hüftprotektoren bei hohem Risiko, Hausnotruf, Gehhilfen, Alkoholkarenz',
+            'Aufklärung von Patient und Angehörigen, Anbindung an Hausarzt und Osteoporose-Sprechstunde, Verlaufskontrollen von Knochendichte und Therapieadhärenz',
+          ],
+        },
+      ],
+      prognose: 'Die Schenkelhalsfraktur des alten Menschen hat trotz guter operativer Technik eine ernste Prognose: Die Ein-Jahres-Letalität liegt bei etwa 20 bis 30 Prozent, in den ersten drei Monaten ist das Risiko am höchsten. Nur etwa die Hälfte der Betroffenen erreicht das prätraumatische Funktionsniveau wieder, und ein erheblicher Teil der zuvor selbstständig lebenden Patienten wird dauerhaft pflegebedürftig. Entscheidend für das Ergebnis sind die Operation innerhalb von 24 Stunden, die Mobilisation am Operationstag oder am ersten postoperativen Tag, die Vermeidung eines Delirs und eine alterstraumatologisch-geriatrische Mitbetreuung. Nach kopferhaltender Osteosynthese drohen als spezifische Spätkomplikationen die Hüftkopfnekrose — bei dislozierten Frakturen bis zu etwa 30 Prozent, bei nicht dislozierten deutlich seltener — und die Pseudarthrose; beide erfordern meist eine sekundäre Prothesenimplantation. Nach Endoprothese sind Luxation, periprothetische Fraktur, Infektion und Lockerung die wesentlichen Risiken. Ohne konsequente Osteoporosetherapie und Sturzprophylaxe ist das Risiko einer weiteren Fraktur, insbesondere auf der Gegenseite, deutlich erhöht.',
+      pruefungsfallen: [
+        'Die wichtigste Frage lautet nicht „welche Fraktur?“, sondern „WARUM ist der Patient gestürzt?“. Wer die Sturzursache nicht aktiv erfragt, wird im Arzt-Arzt-Gespräch darauf festgenagelt — Schwindel, Synkope, Bewusstlosigkeit, Rhythmusstörung, Sehstörung, Medikamente und Exsikkose gehören in jede Anamnese nach einem Sturz.',
+        'Wird die Frage gestellt und man hat sie vergessen: offen zugeben und sofort die Lösung nachliefern. Die Prüfer werten das Eingeständnis mit Lösungsvorschlag deutlich besser als eine Ausrede.',
+        'Die Klassifikationen müssen sitzen: Pauwels nach dem Frakturwinkel zur Horizontalen (I unter 30 Grad, II 30 bis 50 Grad, III über 50 Grad) und Garden in VIER Stadien nach dem Dislokationsgrad. Garden hat vier, nicht drei Stadien — und Garden, nicht Pauwels, steuert die Entscheidung zwischen Osteosynthese und Prothese.',
+        'Eine EINGESTAUCHTE Fraktur kann eine erhaltene Gehfähigkeit vortäuschen; ein unauffälliges Röntgenbild schließt eine Schenkelhalsfraktur NICHT aus. Bei fortbestehendem klinischem Verdacht MRT der Hüfte und keine Belastung bis zum Ausschluss.',
+        'Das FEHLENDE Hämatom ist kein Argument gegen eine Fraktur: Die intrakapsuläre Schenkelhalsfraktur blutet ins Gelenk; ein großes Hämatom spricht eher für eine pertrochantäre Fraktur.',
+        'Ausstrahlende Knieschmerzen bei Hüftpathologie sind ein Klassiker — wer nur das Knie untersucht, übersieht die Fraktur. Immer das Gelenk ober- und unterhalb mituntersuchen.',
+        'Die DMS-Kontrolle darf nicht fehlen und muss vor und nach jeder Umlagerung und Operation dokumentiert werden — sie wird in Stuttgart regelmäßig abgefragt.',
+        'EKG und Herzenzyme müssen begründet werden können: Sie dienen der Suche nach einer kardialen Sturzursache und der präoperativen Risikoeinschätzung, nicht der Fraktur.',
+        'Der Zeitfaktor muss ausgesprochen werden: Operation innerhalb von 24 Stunden, weil jede Verzögerung Letalität und Komplikationen erhöht. Wer nur Analgetika, Physiotherapie und Hilfsmittel nennt, verkennt die Dringlichkeit.',
+        'NSAR sind beim hochbetagten Patienten mit Niereninsuffizienz, Ulkusrisiko und Herzinsuffizienz keine gute Antwort auf die Analgesiefrage; besser sind Paracetamol oder Metamizol plus titriertes Opioid und vor allem die Fascia-iliaca-Blockade.',
+        'Die Antikoagulation muss aktiv erfragt werden: Acetylsalicylsäure und Clopidogrel verschieben die Operation in der Regel nicht, Vitamin-K-Antagonisten und DOAK schon — und sie entscheiden über die Möglichkeit einer Spinalanästhesie.',
+        'Die OSTEOPOROSE wird am häufigsten vergessen: Eine Hüftfraktur nach Bagatelltrauma ist eine Fragilitätsfraktur. Kalzium, Vitamin D und ein Bisphosphonat oder Denosumab gehören in die Therapie, ebenso die Frage nach früheren Frakturen und die DXA-Messung im Verlauf.',
+        'Bei einem Missverhältnis zwischen Bagatelltrauma und Frakturschwere, zumal mit Gewichtsverlust oder nächtlichen Ruheschmerzen, an eine pathologische Fraktur denken und die Tumoranamnese erheben.',
+        'Bei sehr alten Patienten ist die Frage nach den Eltern wenig sinnvoll — sinnvoller sind Fragen nach eigenen früheren Frakturen, Mobilität, Wohnsituation, Pflegegrad und Angehörigen.',
+        'Bei Kopfanprall oder unklarem Sturzhergang unter Thrombozytenaggregationshemmung oder Antikoagulation gehört ein kraniales CT dazu.',
+        'Sprachlich: vor dem Patienten „Oberschenkelhalsbruch“ statt „mediale Schenkelhalsfraktur“, „künstliches Hüftgelenk“ oder „Gelenkersatz“ statt „Endoprothese“, „Knochenschwund“ statt „Osteoporose“, „Blutverdünner“ statt „Antikoagulanzien“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine mediale Schenkelhalsfraktur, also ein Oberschenkelhalsbruch. Dafür sprechen der Sturz auf die Hüfte, der schlagartig einsetzende starke Hüft- und Leistenschmerz mit Ausstrahlung bis zur Knieinnenseite, die aufgehobene Steh- und Gehfähigkeit, das verkürzte und nach außen rotierte Bein sowie der Stauchungs- und Klopfschmerz. Beim älteren Menschen genügt dafür ein Sturz aus dem Stand, weil der Knochen osteoporotisch ist.',
+        },
+        {
+          frage: 'Warum ist der Patient gestürzt? Was müssen Sie ausschließen?',
+          antwort: 'Der Sturz ist die eigentliche Diagnose. Ich frage gezielt nach Schwindel, Schwarzwerden vor den Augen, kurzer Bewusstlosigkeit, Zungenbiss, Einnässen, Herzrasen und Brustschmerz und erhebe eine Fremdanamnese. Auszuschließen sind eine kardiale Synkope oder Rhythmusstörung, eine Aortenklappenstenose, ein Myokardinfarkt, eine transitorische ischämische Attacke, ein Krampfanfall, eine Hypoglykämie, eine Exsikkose mit orthostatischer Dysregulation, ein Infekt sowie Medikamentennebenwirkungen. Dazu kommen Seh- und Gangstörungen und häusliche Stolperfallen.',
+        },
+        {
+          frage: 'Man soll die Klassifikation der Schenkelhalsfraktur kennen. Welche kennen Sie?',
+          antwort: 'Zwei: Die Pauwels-Klassifikation teilt nach dem Winkel der Frakturlinie zur Horizontalen ein — Typ I unter 30 Grad, Typ II 30 bis 50 Grad, Typ III über 50 Grad; je steiler, desto größer die Scherkräfte und desto instabiler. Die Garden-Klassifikation teilt nach dem Dislokationsgrad in vier Stadien ein — I inkomplett eingestaucht, II komplett ohne Verschiebung, III teilweise verschoben, IV vollständig verschoben. Ergänzend unterscheidet man nach der Lokalisation mediale, intrakapsuläre von lateralen, extrakapsulären Frakturen.',
+        },
+        {
+          frage: 'Welche Klassifikation entscheidet über die Therapie, und warum?',
+          antwort: 'Die Garden-Klassifikation, weil der Dislokationsgrad das Risiko der Hüftkopfnekrose vorhersagt. Der Hüftkopf wird überwiegend retrograd über die Retinakulumgefäße aus der A. circumflexa femoris medialis versorgt; bei Dislokation reißen diese Gefäße. Garden I und II sind nicht disloziert und können kopferhaltend osteosynthetisch versorgt werden, Garden III und IV sind disloziert — beim älteren Patienten wird dann eine Endoprothese implantiert.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Vor allem die pertrochantäre Femurfraktur, außerdem Beckenfrakturen wie eine Schambeinastfraktur, die Azetabulumfraktur, die Hüftgelenkluxation, eine dekompensierte Koxarthrose, eine pathologische Fraktur bei Metastase oder Myelom, eine Weichteilprellung und eine Bursitis trochanterica. Und immer die okkulte, eingestauchte Fraktur, wenn das Röntgen unauffällig ist.',
+        },
+        {
+          frage: 'Wie grenzen Sie die pertrochantäre Femurfraktur ab, und warum ist das wichtig?',
+          antwort: 'Klinisch kaum: Beide zeigen ein verkürztes, außenrotiertes Bein. Die pertrochantäre Fraktur ist extrakapsulär und geht mit einem großen Hämatom, deutlicher Schwellung und Blutverlust bis zu einem Liter einher, die intrakapsuläre Schenkelhalsfraktur meist ohne sichtbaren Bluterguss. Die Unterscheidung gelingt im Röntgen und ist entscheidend, weil die pertrochantäre Fraktur mit Gammanagel oder dynamischer Hüftschraube osteosynthetisch versorgt wird — dort besteht keine Kopfnekrosegefahr und daher keine Prothesenindikation.',
+        },
+        {
+          frage: 'Beschreiben Sie kurz Ihre körperliche Untersuchung.',
+          antwort: 'Inspektion mit Verkürzung, Außenrotation, Hämatom und offenen Verletzungen; Palpation mit Druckschmerz über dem Trochanter, axialem Stauchungsschmerz und Klopfschmerz; schonende Prüfung der Beweglichkeit — das gestreckte Bein kann nicht aktiv angehoben werden; und zwingend die DMS-Kontrolle mit Tasten der peripheren Pulse, Prüfung von Motorik und Sensibilität. Dazu Vitalparameter, Orientierung und die Suche nach Begleitverletzungen an Kopf, Handgelenk und Wirbelsäule.',
+        },
+        {
+          frage: 'Welche Bildgebung ordnen Sie an, und was tun Sie bei unauffälligem Röntgenbild?',
+          antwort: 'Röntgen der Hüfte in zwei Ebenen, also Beckenübersicht anterior-posterior und axiale Aufnahme nach Lauenstein. Bleibt das Röntgen unauffällig und der klinische Verdacht bestehen, führe ich ein MRT der Hüfte durch — es ist das sensitivste Verfahren für die okkulte Fraktur; alternativ ein CT. Bis zum Ausschluss wird nicht belastet mobilisiert.',
+        },
+        {
+          frage: 'Warum haben Sie ein EKG und Herzenzyme angefordert?',
+          antwort: 'Nicht wegen der Fraktur, sondern zur Klärung der Sturzursache und zur präoperativen Risikoeinschätzung. Ich suche nach Rhythmusstörungen, Erregungsleitungsstörungen und Ischämiezeichen bis hin zum stummen Myokardinfarkt. Bei fortbestehendem Verdacht ergänze ich ein Langzeit-EKG und eine Echokardiographie, weil die Aortenklappenstenose im Alter eine klassische Synkopenursache ist.',
+        },
+        {
+          frage: 'Wann muss operiert werden, und warum so schnell?',
+          antwort: 'Innerhalb von 24 Stunden. Jede Verzögerung erhöht die Letalität und die Rate an Delir, Pneumonie, Dekubitus und Thrombosen. Bei jungen Patienten mit dislozierter Fraktur ist es sogar ein Notfall, der möglichst innerhalb von sechs Stunden versorgt werden soll, um die Kopfnekroserate zu senken. Konservativ behandelt wird nur ausnahmsweise.',
+        },
+        {
+          frage: 'Osteosynthese oder Endoprothese — wonach entscheiden Sie?',
+          antwort: 'Nach Alter, Frakturtyp und Vorfunktion. Kopferhaltende Osteosynthese mit kanülierten Schrauben oder dynamischer Hüftschraube beim jüngeren Patienten und bei nicht dislozierten Frakturen (Garden I und II). Endoprothese beim älteren Patienten mit dislozierter Fraktur (Garden III und IV) wegen des Nekrose- und Pseudarthroserisikos: eine Hemi- beziehungsweise Duokopfprothese beim hochbetagten, wenig mobilen Patienten, eine Hüfttotalendoprothese beim aktiven, selbstständig gehfähigen Patienten oder bei vorbestehender Koxarthrose.',
+        },
+        {
+          frage: 'Welche Anästhesie wählen Sie, und was ist dabei zu beachten?',
+          antwort: 'Spinalanästhesie und Allgemeinanästhesie sind bezüglich Letalität und Delir weitgehend gleichwertig; die Wahl richtet sich nach Begleiterkrankungen, Gerinnung und Patientenwunsch. Bei chronischer Lungenerkrankung ist die Spinalanästhesie oft günstiger. Voraussetzung ist eine intakte Gerinnung mit Karenzzeiten bei Antikoagulanzien — Acetylsalicylsäure 100 mg ist keine Kontraindikation. Zu beachten sind außerdem Nüchternheit, ASA-Einstufung und das Knochenzement-Implantationssyndrom bei zementierter Prothese.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Schmerzen bei einem 90-jährigen Patienten?',
+          antwort: 'Früh und ausreichend: Paracetamol oder Metamizol intravenös als Basis, dazu ein titriertes Opioid in reduzierter Dosis. NSAR vermeide ich wegen Nieren-, Ulkus- und Herzinsuffizienzrisiko. Sehr wirksam und delirsparend ist die ultraschallgesteuerte Fascia-iliaca- oder N.-femoralis-Blockade. Wichtig ist auch die schonende Lagerung auf einer Schaumstoffschiene.',
+        },
+        {
+          frage: 'Welche Komplikationen fürchten Sie, und wie beugen Sie ihnen vor?',
+          antwort: 'Postoperatives Delir, Pneumonie, Harnwegsinfekt, Dekubitus, tiefe Beinvenenthrombose und Lungenembolie, Anämie, Wundinfektion, Prothesenluxation, periprothetische Fraktur, bei kopferhaltender Versorgung Hüftkopfnekrose und Pseudarthrose. Vorbeugend: Operation innerhalb von 24 Stunden, Mobilisation am ersten Tag, Thromboseprophylaxe über 28 bis 35 Tage, Delirprophylaxe, Atem- und Physiotherapie, Ernährungstherapie und Luxationsprophylaxe.',
+        },
+        {
+          frage: 'Was gehört nach der Operation zwingend dazu, wird aber oft vergessen?',
+          antwort: 'Die Osteoporoseabklärung und -therapie sowie die Behandlung der Sturzursache. Eine Hüftfraktur nach einem Sturz aus dem Stand ist eine Fragilitätsfraktur: Kalzium 1000 mg und Vitamin D3 800 bis 1000 Internationale Einheiten täglich, dazu ein Bisphosphonat oder Denosumab, eine DXA-Messung und ein Osteoporoselabor. Ergänzend Medikamentenrevision, Sehtest, Kraft- und Balancetraining und Wohnraumanpassung.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Ernst: Die Ein-Jahres-Letalität liegt bei etwa 20 bis 30 Prozent, und nur etwa die Hälfte der Patienten erreicht das frühere Funktionsniveau wieder; ein erheblicher Teil wird pflegebedürftig. Die frühe Operation, die Mobilisation am ersten Tag, die Delirvermeidung und eine geriatrische Mitbetreuung verbessern das Ergebnis deutlich.',
+        },
+        {
+          frage: 'Warum kann eine Schenkelhalsfraktur zur Hüftkopfnekrose führen?',
+          antwort: 'Weil der Hüftkopf beim Erwachsenen überwiegend retrograd über die Retinakulumgefäße aus der A. circumflexa femoris medialis versorgt wird und die Arterie des Lig. capitis femoris kaum beiträgt. Verläuft die Fraktur intrakapsulär und disloziert, reißen diese Gefäße ab oder werden durch den intrakapsulären Erguss komprimiert — daher steigt das Nekroserisiko mit dem Dislokationsgrad auf bis zu etwa 30 Prozent.',
+        },
+        {
+          frage: 'Der Patient nimmt Acetylsalicylsäure. Verschieben Sie die Operation?',
+          antwort: 'Nein. Acetylsalicylsäure 100 mg ist kein Grund zur Verzögerung; der Nutzen der frühen Versorgung überwiegt. Anders bei Vitamin-K-Antagonisten, die mit Vitamin K und PPSB antagonisiert werden müssen, und bei direkten oralen Antikoagulanzien, wo Einnahmezeitpunkt und Nierenfunktion den Operationszeitpunkt und die Möglichkeit einer rückenmarksnahen Anästhesie bestimmen.',
+        },
+      ],
+      merksatz: 'Verkürzt und außenrotiert, kein Stehen, kein Gehen — Schenkelhalsfraktur, Röntgen in zwei Ebenen, bei unauffälligem Bild MRT. Pauwels misst den Winkel, GARDEN entscheidet die Therapie: nicht disloziert und jung heißt Osteosynthese, disloziert und alt heißt Prothese — und immer innerhalb von 24 Stunden. Und die eigentliche Prüfungsfrage lautet nie „welche Fraktur?“, sondern „WARUM ist der Patient gestürzt?“ — plus Osteoporosetherapie, sonst folgt der nächste Bruch.',
+      linkedCaseIds: [
+        'case-schenkelhalsfraktur',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-operation',
+        'auf-ct',
+        'auf-mrt',
+        'auf-bluttransfusion',
+      ],
+    },
+    {
+      id: 'fw-ulcus-cruris',
+      pathology: 'Ulcus cruris venosum',
+      specialty: 'Dermatologie',
+      definition: 'Das Ulcus cruris venosum ist ein chronischer, meist am distalen Unterschenkel gelegener Substanzdefekt der Haut, der mindestens bis in die Dermis reicht, nicht spontan abheilt und als Endstadium (CEAP C6) einer chronisch-venösen Insuffizienz auftritt. Zugrunde liegt eine ambulatorische venöse Hypertonie durch Klappeninsuffizienz der oberflächlichen und/oder tiefen Venen, durch postthrombotische Obliteration oder durch ein Versagen der Wadenmuskelpumpe. Der dauerhaft erhöhte Venendruck führt über Ödem, Fibrinmanschetten um die Kapillaren, Leukozytenaktivierung und Mikroangiopathie zu einer Störung der Sauerstoff- und Nährstoffversorgung der Haut mit Dermatoliposklerose und schließlich zum Ulkus. Als chronisch gilt eine Wunde, die nach acht Wochen sachgerechter Behandlung keine Heilungstendenz zeigt. Das Ulcus cruris venosum ist mit etwa 70–80 % die häufigste Ursache eines Unterschenkelgeschwürs (Fachbegriff-Übersetzung: Ulcus cruris = Unterschenkelgeschwür).',
+      aetiologie: 'Ursache ist stets eine chronisch-venöse Insuffizienz. Diese entsteht (1) primär bei Varikose mit Klappeninsuffizienz der Vena saphena magna oder parva und der Perforansvenen, (2) sekundär als postthrombotisches Syndrom nach tiefer Beinvenenthrombose mit Klappenzerstörung und Rekanalisationsstrikturen, (3) durch ein Versagen der Wadenmuskelpumpe bei Bewegungsmangel, Sprunggelenksversteifung („arthrogenes Stauungssyndrom“), Adipositas oder Lähmung, seltener (4) bei angeborener Klappenaplasie oder venösen Malformationen. Der ambulatorische venöse Hypertonus überträgt sich auf die Mikrozirkulation: perikapilläre Fibrinmanschetten, Leukozyten-Endothel-Interaktion, Extravasation von Erythrozyten mit Hämosiderinablagerung (Purpura jaune d’ocre), Lipodermatosklerose und Atrophie blanche. Ausgelöst wird das Ulkus dann häufig durch ein Bagatelltrauma, einen Insektenstich, ein Kratzen bei Stauungsdermatitis oder eine Erysipelepisode.',
+      risikofaktoren: [
+        'Frühere tiefe Beinvenenthrombose mit postthrombotischem Syndrom — der wichtigste Einzelfaktor, immer aktiv erfragen',
+        'Primäre Varikose, familiäre Bindegewebsschwäche, positive Familienanamnese für Krampfadern und offene Beine',
+        'Höheres Lebensalter (Prävalenz steigt jenseits des 60. Lebensjahres deutlich an)',
+        'Weibliches Geschlecht, mehrere Schwangerschaften',
+        'Adipositas (erhöhter intraabdomineller Druck, schlechte Pumpfunktion)',
+        'Überwiegend stehende oder sitzende Berufstätigkeit (Verkäuferin, Friseurin, Koch, Fernfahrer)',
+        'Bewegungsmangel, eingeschränkte Sprunggelenksbeweglichkeit, Arthrose der Knie und Sprunggelenke',
+        'Herzinsuffizienz und andere Ödemursachen, ödemfördernde Medikamente (Kalziumantagonisten wie Amlodipin, NSAR, Kortikosteroide)',
+        'Frühere Ulzera in der Eigenanamnese — Rezidivrate ohne konsequente Kompression über 50 %',
+        'Mangelnde Adhärenz bei der Kompressionstherapie (Strümpfe zu eng, zu warm, allein nicht anziehbar)',
+        'Rauchen, Diabetes mellitus und pAVK als Faktoren, die Heilung verzögern bzw. ein Ulcus mixtum begünstigen',
+        'Malnutrition, Eiweiß-, Zink- und Vitamin-C-Mangel, Immunsuppression',
+      ],
+      klinik: [
+        {
+          text: 'Chronische, seit Wochen bis Monaten bestehende Wunde am distalen Unterschenkel, typischerweise oberhalb des Innenknöchels in der sogenannten Bisgaard-Kulisse',
+        },
+        {
+          text: 'Meist SCHMERZARME Wunde mit unregelmäßigen, flachen, nicht unterminierten Rändern und flachem, häufig fibrinbelegtem Grund',
+        },
+        {
+          text: 'Dumpfer Schwere- und Spannungsschmerz des Beines, abends am stärksten, BESSER BEIM HOCHLAGERN — der entscheidende Unterschied zum arteriellen Ulkus',
+        },
+        {
+          text: 'Ödem des Unterschenkels, im Tagesverlauf zunehmend, über Nacht rückläufig; Dellen der Sockenränder',
+        },
+        {
+          text: 'Corona phlebectatica paraplantaris: fächerförmig erweiterte kleine Venen am medialen Fußrand und unterhalb des Knöchels — Frühzeichen',
+        },
+        {
+          text: 'Purpura jaune d’ocre bzw. bräunliche Hyperpigmentierung durch Hämosiderinablagerung nach Erythrozytenextravasation',
+        },
+        {
+          text: 'Stauungsdermatitis (Stauungsekzem): gerötete, schuppende, juckende Haut der Wundumgebung',
+        },
+        {
+          text: 'Dermatoliposklerose: derbe, unverschiebliche, eingeschnürte Haut am distalen Unterschenkel mit dem Bild der „umgekehrten Champagnerflasche“ (Flaschenhalsbein)',
+        },
+        {
+          text: 'Atrophie blanche: weißliche, atrophe, narbig eingesunkene Areale mit umgebenden Teleangiektasien — ein Praeulkus',
+        },
+        {
+          text: 'Sichtbare Varizen, Besenreiser, Perforansvarizen; tastbare Faszienlücken',
+        },
+        {
+          text: 'Fußpulse TASTBAR, Haut warm und normal behaart, Rekapillarisierung normal',
+        },
+        {
+          text: 'Wundgeruch, gelblich-schmieriger Belag und Exsudation — Ausdruck der Besiedelung, nicht zwingend einer Infektion',
+        },
+        {
+          text: 'Ulcus cruris venosum ohne jede Schmerzangabe, das erst durch Geruch oder durchnässte Strümpfe auffällt — besonders bei alleinlebenden älteren Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Sehr schmerzhaftes venöses Ulkus, etwa bei begleitendem Kontaktekzem, bei Superinfektion oder bei zusätzlicher arterieller Komponente (Ulcus mixtum)',
+          atypisch: true,
+        },
+        {
+          text: 'Zirkuläres, „gamaschenförmiges“ Ulkus, das den gesamten Unterschenkel umfasst (Gamaschenulkus) bei langjährigem Verlauf',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als plötzlich blutende Varize oder als Erysipel mit nachfolgender Ulzeration',
+          atypisch: true,
+        },
+        {
+          text: 'Ulcus cruris venosum bei einem jungen Patienten ohne Varikose — an ein postthrombotisches Syndrom nach übersehener Thrombose oder an eine Thrombophilie denken',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'CEAP-Klassifikation, klinischer Teil (C)',
+          inhalt: 'C0 keine sichtbaren Zeichen; C1 Besenreiser und retikuläre Varizen; C2 Varikose; C3 Ödem; C4a Pigmentierung und Ekzem, C4b Dermatoliposklerose und Atrophie blanche; C5 abgeheiltes Ulcus cruris; C6 aktives (florides) Ulcus cruris. Ergänzt durch E (Ätiologie: primär, sekundär, kongenital), A (Anatomie: oberflächlich, tief, Perforansvenen) und P (Pathophysiologie: Reflux, Obstruktion, beides).',
+        },
+        {
+          name: 'Stadien der chronisch-venösen Insuffizienz nach Widmer (modifiziert nach Marshall)',
+          inhalt: 'Stadium I: Corona phlebectatica paraplantaris, Knöchelödem. Stadium II: Hyperpigmentierung (Purpura jaune d’ocre), Stauungsdermatitis, Dermatoliposklerose, Atrophie blanche. Stadium III: Ulcus cruris — IIIa abgeheilt, IIIb floride.',
+        },
+        {
+          name: 'Knöchel-Arm-Index (ABI) — Interpretation und Kompressionsgrenze',
+          inhalt: 'Über 1,3: falsch hoch bei Mediasklerose (Diabetes, Niereninsuffizienz) — nicht verwertbar. 0,9 bis 1,3: normal, Kompression uneingeschränkt möglich. 0,75 bis 0,9: leichte arterielle Beteiligung, Kompression nur mit reduziertem Druck und unter Kontrolle. 0,5 bis 0,75: relevante pAVK, Ulcus mixtum, allenfalls angepasste Kompression durch erfahrene Hand. Unter 0,5: kritische Ischämie — Kompression KONTRAINDIZIERT, Gefäßchirurgie/Angiologie.',
+        },
+        {
+          name: 'Kompressionsklassen medizinischer Kompressionsstrümpfe (KKL)',
+          inhalt: 'KKL I: 18–21 mmHg, leichte Ermüdungsbeschwerden. KKL II: 23–32 mmHg, Standard bei chronisch-venöser Insuffizienz, nach Thrombose und nach Ulkusabheilung. KKL III: 34–46 mmHg, schweres postthrombotisches Syndrom, Lymphödem. KKL IV: über 49 mmHg, Elephantiasis. In der Entstauungsphase zunächst Kompressionsverband mit Kurzzugbinden (hoher Arbeitsdruck, niedriger Ruhedruck), danach Umstellung auf Strümpfe.',
+        },
+        {
+          name: 'Wundheilungsphasen (Grundlage der phasengerechten Lokaltherapie)',
+          inhalt: 'Exsudations-/Reinigungsphase: Débridement, stark saugende Auflagen (Alginat, Superabsorber). Granulationsphase: feuchtes Milieu erhalten, Hydrokolloide, Schaumstoffe, Hydrofaser. Epithelisierungsphase: atraumatische, nicht verklebende Auflagen, Schutz des Wundrandes. Grundsatz: feucht behandeln, aber die Wundumgebung trocken und geschützt halten.',
+        },
+      ],
+      redFlags: [
+        'Fehlende Fußpulse, kühle blasse Haut, Ruheschmerz nachts, Besserung beim Herabhängen des Beines: arterielle Beteiligung — Knöchel-Arm-Index unter 0,9 spricht dafür, unter 0,5 ist jede Kompression kontraindiziert (Nekrosegefahr)',
+        'Fieber, Schüttelfrost, flächige scharf begrenzte überwärmte Rötung, Lymphangitis, Lymphknotenschwellung, rasche Zunahme von Schmerz und Schwellung: Erysipel, Phlegmone, drohende Sepsis',
+        'Krepitation, livide Verfärbung, Blasen, sehr starker Schmerz bei geringem Hautbefund, foudroyanter Verlauf, reduzierter Allgemeinzustand: nekrotisierende Fasziitis — chirurgischer Notfall',
+        'Extrem schmerzhaftes Ulkus mit lividrotem, unterminiertem Rand und Pathergiephänomen: Pyoderma gangraenosum — CAVE, jedes Débridement verschlimmert den Befund',
+        'Aufgeworfener, blumenkohlartiger Wundrand, exophytisches Wachstum oder ausbleibende Heilung nach drei Monaten leitliniengerechter Therapie: Ulkuskarzinom (Marjolin-Ulkus) — Probebiopsie',
+        'Sehr schmerzhafte schwarze Hautnekrosen bei dialysepflichtiger Niereninsuffizienz oder Hyperparathyreoidismus: Kalziphylaxie',
+        'Sondierbarer Knochen im Wundgrund, Fistel, freiliegende Sehne: Osteomyelitis — MRT und Chirurgie',
+        'Neu aufgetretene einseitige Wadenschwellung mit Überwärmung und Druckschmerz: akute tiefe Beinvenenthrombose',
+        'Plötzliche, spritzende Blutung aus einer Varize am Ulkusrand: Hochlagern und Kompression, keine Stauung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Dauer und Entstehung der Wunde, Schmerzcharakter und vor allem der Einfluss von Hochlagern (venös: Besserung) versus Herabhängen (arteriell: Besserung), Claudicatio intermittens mit reproduzierbarer Gehstrecke, frühere TIEFE VENENTHROMBOSE oder Lungenembolie, Varizen und Varizenoperationen, frühere Ulzera, Berufsanamnese (stehende Tätigkeit), Schwangerschaften, Diabetes, Adhärenz bei Kompressionsstrümpfen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion beider Beine im Stehen und im Liegen: Lokalisation (Bisgaard-Kulisse oberhalb des Innenknöchels), Größe (Länge × Breite × Tiefe), Rand, Wundgrund, Exsudat, Geruch; Zeichen der chronisch-venösen Insuffizienz (Ödem, Corona phlebectatica, Purpura jaune d’ocre, Stauungsdermatitis, Dermatoliposklerose mit umgekehrter Champagnerflasche, Atrophie blanche, Varizen); Fotodokumentation und planimetrische Verlaufskontrolle',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Palpation der FUSSPULSE (A. dorsalis pedis, A. tibialis posterior, A. poplitea, A. femoralis) sowie Prüfung von Hauttemperatur, Rekapillarisierungszeit, Sensibilität (Stimmgabel, Monofilament) und Sprunggelenksbeweglichkeit; Beurteilung von Mobilität und Wadenmuskelpumpe',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung von Größe, Gewicht und BMI, Blutdruck und Temperatur; Umfangmessung beider Unterschenkel im Seitenvergleich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP (nur bei klinischem Infektverdacht relevant), Nierenwerte, Leberwerte',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nüchternblutzucker und HbA1c zum Ausschluss eines bislang unbekannten Diabetes mellitus als Ko-Faktor bzw. als Ursache eines diabetischen Fußsyndroms',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ernährungs- und Heilungsparameter: Gesamteiweiß und Albumin, Zink, Vitamin D; bei Verdacht auf Vaskulitis ANA, ANCA, Komplement, Kryoglobuline, Urinstatus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Thrombophiliediagnostik nur bei jungen Patienten, rezidivierenden Thrombosen oder positiver Familienanamnese (Faktor-V-Leiden-Mutation, Prothrombinmutation, Antiphospholipid-Antikörper)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Wundabstrich NUR bei klinischen Infektzeichen (Rötung, Überwärmung, zunehmender Schmerz, Fieber, eitriges Sekret) — jede chronische Wunde ist bakteriell besiedelt, Besiedelung ist keine Infektion und keine Antibiotikaindikation; sinnvoll ist die tiefe Gewebeprobe nach Wundreinigung, nicht der oberflächliche Wattetupfer',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'DOPPLER-VERSCHLUSSDRUCKMESSUNG mit Bestimmung des KNÖCHEL-ARM-INDEX an beiden Beinen — die entscheidende Untersuchung VOR jeder Kompressionstherapie. Unter 0,9 arterielle Beteiligung, unter 0,5 absolute Kontraindikation gegen die Kompression; über 1,3 falsch hoch bei Mediasklerose, dann Zehendruckmessung oder tcpO2',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Farbkodierte Duplexsonographie des tiefen und oberflächlichen Venensystems: Reflux (über 0,5 Sekunden), postthrombotische Wandverdickungen und Obliterationen, insuffiziente Perforansvenen, Ausschluss einer frischen Thrombose — Grundlage jeder Entscheidung über eine Varizensanierung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Arterielle Duplexsonographie und bei pathologischem Befund weiterführende Angiographie (MR-, CT- oder DSA-Angiographie) zur Klärung eines Ulcus mixtum',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen oder MRT des Unterschenkels bei Verdacht auf Osteomyelitis; Echokardiographie und Nierendiagnostik bei unklarer Ödemursache',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Probebiopsie vom Ulkusrand (Spindel mit Übergang zur gesunden Haut) bei atypischem Aspekt, aufgeworfenem Rand oder ausbleibender Heilung nach drei Monaten leitliniengerechter Therapie — Ausschluss eines Ulkuskarzinoms, einer Vaskulitis oder eines Pyoderma gangraenosum',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Epikutantest (Patch-Test) bei Ekzem der Wundumgebung — Kontaktsensibilisierungen gegen Duftstoffe, Perubalsam, Wollwachsalkohole, Konservierungsstoffe und topische Antibiotika sind bei chronischen Wunden sehr häufig',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Venenfunktionsdiagnostik (Licht-Reflexions-Rheographie, Photoplethysmographie, Venenverschlussplethysmographie) und Phlebographie in Sonderfällen vor rekonstruktiven Eingriffen',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Ulcus cruris arteriosum bei peripherer arterieller Verschlusskrankheit (pAVK)',
+          unterscheidung: 'Lokalisation an Zehen, Ferse und Streckseiten oder an Druckstellen; tief, nekrotisch, mit scharf begrenztem, wie ausgestanztem Rand; STARK schmerzhaft, Verschlechterung beim Hochlagern und Besserung beim Herabhängen des Beines (Patienten schlafen sitzend); Fußpulse FEHLEN, Haut kühl, blass, atroph und haarlos; Claudicatio intermittens in der Anamnese; Knöchel-Arm-Index unter 0,9. Merksatz: venös = innen, flach, schmerzarm, Hochlagern hilft; arteriell = außen/akral, tief, sehr schmerzhaft, Herabhängen hilft.',
+        },
+        {
+          dd: 'Ulcus cruris mixtum',
+          unterscheidung: 'Kombination aus venöser und arterieller Genese; klinisch venöse Zeichen plus abgeschwächte Pulse und Knöchel-Arm-Index zwischen 0,5 und 0,9. Praktisch entscheidend, weil die Kompression nur mit reduziertem Druck und unter Kontrolle erfolgen darf; unter einem Index von 0,5 ist sie kontraindiziert.',
+        },
+        {
+          dd: 'Diabetisches Fußsyndrom (Malum perforans)',
+          unterscheidung: 'An den druckbelasteten Stellen der Fußsohle, unter den Mittelfußköpfchen oder an der Ferse; rund, von einer Hyperkeratose umgeben, SCHMERZLOS wegen der Polyneuropathie; abgeschwächtes Vibrationsempfinden und Monofilamenttest pathologisch, trockene, rissige Haut, Krallenzehen. Bekannter oder neu diagnostizierter Diabetes mellitus.',
+        },
+        {
+          dd: 'Pyoderma gangraenosum',
+          unterscheidung: 'Rasch progredientes, EXTREM schmerzhaftes Ulkus mit lividrotem, unterminiertem, wallartigem Rand; beginnt als Pustel; Pathergiephänomen (jede Verletzung, jedes Débridement verschlimmert den Befund). Assoziiert mit chronisch-entzündlichen Darmerkrankungen, rheumatoider Arthritis und hämatologischen Erkrankungen. CAVE: kein Débridement, Therapie mit Immunsuppression.',
+        },
+        {
+          dd: 'Vaskulitis (leukozytoklastische Vaskulitis, Livedovaskulopathie)',
+          unterscheidung: 'Multiple, kleine, sehr schmerzhafte Ulzera, oft mit palpabler Purpura, Livedo racemosa und sternförmigen weißen Narben (Atrophie blanche bei Livedovaskulopathie); häufig Allgemeinsymptome, Gelenkbeschwerden, Nieren- oder Darmbeteiligung. Diagnose durch Biopsie und Immunserologie.',
+        },
+        {
+          dd: 'Necrobiosis lipoidica',
+          unterscheidung: 'Meist prätibial gelegene, gelblich-braune, glänzende, atrophe Plaques mit sichtbaren Teleangiektasien, die sekundär ulzerieren können; häufig mit Diabetes mellitus assoziiert, aber auch ohne.',
+        },
+        {
+          dd: 'Ulkuskarzinom (Marjolin-Ulkus, Plattenepithelkarzinom in chronischer Wunde)',
+          unterscheidung: 'Aufgeworfener, derber, blumenkohlartiger Wundrand, exophytisches Wachstum, leichte Blutungsneigung, ausbleibende Heilung trotz korrekter Therapie über Monate. Auch ein Basalzellkarzinom oder ein amelanotisches Melanom kann ein Ulkus imitieren — Beweis nur durch Biopsie.',
+        },
+        {
+          dd: 'Kalziphylaxie (kalzifizierende urämische Arteriolopathie)',
+          unterscheidung: 'Bei dialysepflichtiger Niereninsuffizienz und sekundärem Hyperparathyreoidismus; extrem schmerzhafte livide Livedo-Zeichnung mit rasch entstehenden schwarzen Nekrosen an Unterschenkeln, Oberschenkeln und Stamm; hohe Letalität.',
+        },
+        {
+          dd: 'Erysipel und Wundinfektion',
+          unterscheidung: 'Flächige, scharf begrenzte, flammend rote und überwärmte Rötung mit Fieber, Schüttelfrost, Lymphangitis und Lymphknotenschwellung, deutlich erhöhtem CRP und Leukozytose. Abzugrenzen von der bloßen bakteriellen Besiedelung jeder chronischen Wunde, die keine Antibiose rechtfertigt.',
+        },
+        {
+          dd: 'Dekubitus (Druckgeschwür)',
+          unterscheidung: 'Entsteht durch anhaltenden Auflagedruck über knöchernen Vorsprüngen (Kreuzbein, Trochanter, Ferse, Malleolus lateralis) bei immobilen, bettlägerigen oder im Rollstuhl sitzenden Patienten; Einteilung in vier Grade. Bei mobilen Patienten und typischer Lokalisation an der Bisgaard-Kulisse unwahrscheinlich.',
+        },
+        {
+          dd: 'Kardiale und andere systemische Ödemursachen (Herzinsuffizienz, Lymphödem, Hypalbuminämie)',
+          unterscheidung: 'Symmetrische Ödeme, bei Herzinsuffizienz mit Dyspnoe, Orthopnoe, Nykturie und gestauten Halsvenen; beim Lymphödem Beteiligung des Fußrückens und der Zehen mit positivem Stemmer-Zeichen und fehlender Delle. Diese Ödemformen ulzerieren selten primär, verzögern aber jede Wundheilung und müssen mitbehandelt werden.',
+        },
+        {
+          dd: 'Kontaktekzem der Wundumgebung',
+          unterscheidung: 'Keine konkurrierende Diagnose, sondern die wahrscheinliche Komplikation der Lokaltherapie: juckende, gerötete, schuppende oder nässende Haut um das Ulkus, oft scharf auf das Areal der Salben- oder Pflasterauflage begrenzt. Sehr häufige Sensibilisierungen gegen Duftstoffe, Perubalsam, Wollwachsalkohole, Konservierungsmittel und topische Antibiotika; Nachweis im Epikutantest.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Kompressionstherapie und Aktivierung der Wadenmuskelpumpe',
+          items: [
+            'Die Kompression ist die tragende Säule und die einzige Maßnahme, die die Ursache — die venöse Hypertonie — direkt korrigiert; ohne sie heilt kein Ulcus cruris venosum dauerhaft ab',
+            'OBLIGAT VORHER: Palpation der Fußpulse und Dopplerverschlussdruckmessung mit Knöchel-Arm-Index. Über 0,9 uneingeschränkte Kompression, 0,5 bis 0,9 nur reduzierter Druck unter engmaschiger Kontrolle, unter 0,5 absolut KONTRAINDIZIERT',
+            'Entstauungsphase: Kompressionsverband mit Kurzzugbinden oder Mehrkomponentensystem (hoher Arbeitsdruck, niedriger Ruhedruck), täglich bzw. bei Ödemrückgang neu angelegt; alternativ Ulkus-Strumpfsysteme aus Unter- und Überstrumpf',
+            'Erhaltungsphase: medizinische Kompressionsstrümpfe der Klasse II (23–32 mmHg), nach Maß angepasst; bei Kraft- oder Handproblemen Anziehhilfe, Strumpfanziehgestell oder ein Zwei-Strumpf-System verordnen — die häufigste Ursache des Therapieversagens ist die mangelnde Adhärenz',
+            'Bewegungstherapie: strukturierte Gehübungen, Fuß- und Sprunggelenksgymnastik, Zehenstandsübungen, Krankengymnastik zur Verbesserung der Sprunggelenksbeweglichkeit („arthrogenes Stauungssyndrom“ durchbrechen)',
+            'Beine mehrfach täglich über Herzniveau hochlagern, langes Stehen und Sitzen meiden; Merksatz für die Patienten: Lieber Liegen und Laufen als Sitzen und Stehen',
+            'Intermittierende pneumatische Kompression als Ergänzung bei immobilen Patienten oder ausgeprägtem Ödem',
+          ],
+        },
+        {
+          label: 'Stadiengerechte lokale Wundbehandlung',
+          items: [
+            'Wundreinigung mit steriler Kochsalz- oder Ringerlösung, gegebenenfalls Duschen der Wunde; Débridement von Belägen und Nekrosen chirurgisch, mit Kürette, autolytisch, enzymatisch oder biochirurgisch (Madentherapie)',
+            'Phasengerechte feuchte Wundbehandlung: Exsudationsphase stark saugende Auflagen (Alginat, Hydrofaser, Superabsorber), Granulationsphase Schaumstoff- oder Hydrokolloidverbände, Epithelisierungsphase atraumatische, nicht verklebende Auflagen; feuchtes Milieu in der Wunde, trockene und geschützte Wundumgebung',
+            'Konsequenter Schutz der Wundumgebung mit einem reinen Fettpräparat oder Zinkpaste; KEINE routinemäßige Anwendung lokaler Antibiotika oder Antiseptika — sie sind unwirksam gegen die Ursache, verzögern die Heilung und sensibilisieren',
+            'Möglichst wenige, gut verträgliche Produkte einsetzen, da Kontaktallergien bei chronischen Wunden sehr häufig sind; bei Ekzem der Wundumgebung Epikutantest und kurzfristig ein topisches Kortikosteroid',
+            'Adäquate Analgesie, insbesondere VOR dem Verbandwechsel (orales Analgetikum rechtzeitig oder topisches Lokalanästhetikum als Lidocain-Prilocain-Creme unter Okklusion)',
+            'Antiseptika (Polihexanid, Octenidin) nur zeitlich befristet bei kritischer Kolonisation oder lokaler Infektion; silberhaltige Auflagen nur befristet und begründet',
+            'Bei therapierefraktären Wunden: Vakuumtherapie, Spalthauttransplantation, Shave-Therapie mit Meshgraft, hautäquivalente Verfahren; adjuvant kann Pentoxifyllin die Abheilung beschleunigen',
+          ],
+        },
+        {
+          label: 'Behandlung der Ursache und Rezidivprophylaxe',
+          items: [
+            'Sanierung der Varikose nach Duplexbefund: endovenöse thermische Verfahren (Radiofrequenz, Laser), Schaumsklerosierung oder klassische Crossektomie mit Stripping und Perforansdissektion — beschleunigt die Abheilung und senkt die Rezidivrate deutlich',
+            'Beim postthrombotischen Syndrom mit Beckenvenenobstruktion gegebenenfalls interventionelle Rekanalisation mit Stentimplantation in spezialisierten Zentren',
+            'LEBENSLANGE, konsequente Kompressionsversorgung nach Abheilung — ohne sie kommt es bei über der Hälfte der Patienten zum Rezidiv; Strümpfe alle sechs Monate neu verordnen, da sie ihre Spannkraft verlieren',
+            'Gewichtsreduktion, Aufbau regelmäßiger Bewegung, Umstellung ödemfördernder Medikamente (Kalziumantagonisten, NSAR), Optimierung einer Herzinsuffizienz- oder Diabetestherapie',
+            'Behandlung begleitender Ödemursachen und Verbesserung der Mobilität (Physiotherapie, Sprunggelenksbeweglichkeit, Schuhversorgung)',
+            'Strukturierte Patientenschulung und Anbindung an eine Wundsprechstunde oder einen spezialisierten Pflegedienst; Hautpflege mit rückfettenden, duftstofffreien Externa',
+            'Bei entsprechender Anamnese Thromboseprophylaxe in Risikosituationen und Abklärung einer Thrombophilie',
+          ],
+        },
+        {
+          label: 'Komplikationen und Begleitprobleme',
+          items: [
+            'Wundinfektion und Erysipel: bei Fieber, flächiger Rötung, Lymphangitis und CRP-Anstieg systemische Antibiose (Penicillin V oder Cefuroxim, bei Penicillinallergie Clindamycin), Ruhigstellung, Hochlagerung; Rezidivprophylaxe durch Behandlung der Eintrittspforte und der Interdigitalmykose',
+            'Verdacht auf nekrotisierende Fasziitis oder Osteomyelitis: sofortige stationäre Aufnahme, Bildgebung und chirurgische Sanierung',
+            'Kontaktallergie auf Salben-, Pflaster- oder Verbandbestandteile: auslösendes Produkt absetzen, Epikutantest, Umstellung auf allergenarme Präparate',
+            'Tetanusimpfschutz überprüfen und gegebenenfalls auffrischen — bei jeder chronischen Wunde',
+            'Schmerztherapie nach WHO-Stufenschema unter Beachtung der Nierenfunktion; NSAR wegen der Ödemneigung zurückhaltend einsetzen',
+            'Ernährungsberatung: ausreichend Eiweiß, Zink, Vitamin C und Eisen; Malnutrition und Hypalbuminämie verzögern die Heilung',
+            'Psychosoziale Folgen ernst nehmen: Geruch, Exsudation und soziale Isolation, depressive Entwicklung, Pflegebedürftigkeit; Sozialdienst und Pflegeleistungen organisieren',
+            'Ausbleibende Heilung nach drei Monaten: Diagnose überprüfen und Probebiopsie zum Ausschluss eines Ulkuskarzinoms',
+          ],
+        },
+      ],
+      prognose: 'Unter konsequenter Kompressionstherapie heilen etwa 60 bis 70 % der venösen Ulzera innerhalb von drei bis sechs Monaten ab; kleine, kurz bestehende Ulzera heilen deutlich schneller als große und langjährige. Die Prognose hängt fast ausschließlich von der Adhärenz ab: Ohne konsequente, lebenslange Kompression kommt es bei über der Hälfte der Patienten innerhalb eines Jahres zum Rezidiv, mit Kompression und nach Varizensanierung sinkt die Rezidivrate deutlich. Ungünstige Faktoren sind eine Ulkusdauer über sechs Monate, eine Fläche über 10 cm², ein postthrombotisches Syndrom, eine arterielle Begleitkomponente, Adipositas, Immobilität und Malnutrition. Die Erkrankung ist chronisch-rezidivierend, beeinträchtigt die Lebensqualität erheblich und verursacht hohe Kosten; sie ist jedoch weder lebensbedrohlich noch ein Grund zur Amputation, solange keine kritische Ischämie besteht. Selten entwickelt sich nach jahrzehntelangem Verlauf ein Ulkuskarzinom.',
+      pruefungsfallen: [
+        'Die Dopplerverschlussdruckmessung mit KNÖCHEL-ARM-INDEX gehört VOR jede Kompressionstherapie. Wer die Kompression nennt, ohne die arterielle Abklärung vorauszuschicken, verliert Punkte: unter 0,9 besteht eine arterielle Beteiligung, unter 0,5 ist die Kompression kontraindiziert und kann eine Nekrose auslösen.',
+        'Die Unterscheidung venös/arteriell muss aktiv und vollständig kommen: venös = Innenknöchel (Bisgaard-Kulisse), flach, schmerzarm, Besserung beim HOCHLAGERN, Fußpulse tastbar, warme Haut, Ödem; arteriell = Zehen, Ferse und Streckseiten, tief und nekrotisch mit scharfem Rand, stark schmerzhaft, Besserung beim HERABHÄNGEN, Fußpulse fehlen, kühle blasse Haut, Claudicatio intermittens.',
+        'Die frühere TIEFE VENENTHROMBOSE aktiv erfragen — Prüfer haben Kandidaten ausdrücklich gerügt, wenn die Thrombosefrage fehlte. Das postthrombotische Syndrom ist die zweithäufigste Ursache und ändert die Therapie.',
+        'Ein Wundabstrich gehört NUR bei klinischen Infektzeichen dazu: Jede chronische Wunde ist bakteriell besiedelt, Besiedelung ist keine Infektion und rechtfertigt keine Antibiose. Ein positiver Abstrich ohne Klinik verführt zur falschen Therapie.',
+        'Keine routinemäßigen lokalen Antibiotika oder Antiseptika — sie verzögern die Heilung und sensibilisieren. Die Kontaktallergie gegen Salben- und Verbandbestandteile ist bei diesen Patienten sehr häufig und wird regelmäßig übersehen.',
+        'Beim Pyoderma gangraenosum darf NICHT débridiert werden (Pathergiephänomen) — die Verwechslung mit einem venösen Ulkus und ein Débridement verschlimmern den Befund dramatisch.',
+        'Heilt die Wunde nach drei Monaten leitliniengerechter Therapie nicht ab oder ist der Rand aufgeworfen, muss biopsiert werden: Ausschluss eines Ulkuskarzinoms (Marjolin-Ulkus).',
+        'Die Kompression ist LEBENSLANG. Wer sie nach Abheilung absetzt, produziert bei über der Hälfte der Patienten ein Rezidiv. Die Adhärenz aktiv erfragen — „zu eng, zu warm, ich bekomme sie allein nicht an“ ist die typische, prüfungsrelevante Antwort, und die Lösung heißt Anziehhilfe, Maßanfertigung oder Zwei-Strumpf-System.',
+        'Ein Knöchel-Arm-Index über 1,3 ist bei Mediasklerose (Diabetes, Niereninsuffizienz) falsch hoch und darf nicht als „normal“ interpretiert werden — dann Zehendruckmessung oder transkutane Sauerstoffmessung.',
+        'Ödemfördernde Medikamente in der Dauermedikation nicht übersehen: Kalziumantagonisten wie Amlodipin, NSAR und Kortikosteroide unterhalten das Ödem und damit die Wunde.',
+        'Den Fachbegriff patientengerecht übersetzen: Ulcus cruris = Unterschenkelgeschwür, „offenes Bein“; Veneninsuffizienz = mangelhafte Funktion der Blutadern; Dekubitus = Druckgeschwür; Claudicatio intermittens = Schaufensterkrankheit. Genau diese Reihe wird in Karlsruhe und Reutlingen in der vierten Prüfungsteil-Liste abgefragt.',
+        'Den Tetanusimpfschutz vergessen — bei jeder chronischen Wunde eine erwartete Antwort.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was bedeutet der Fachbegriff „Ulcus cruris“, und wie erklären Sie ihn dem Patienten?',
+          antwort: 'Ulcus cruris heißt wörtlich Unterschenkelgeschwür. Dem Patienten gegenüber spricht man von einem „offenen Bein“ — einer Wunde am Unterschenkel, die von allein nicht mehr zuheilt. Ergänzend: Veneninsuffizienz ist eine mangelhafte Funktion der Blutadern, ein Dekubitus ist ein Druckgeschwür, und Claudicatio intermittens ist die Schaufensterkrankheit.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie klinisch ein venöses von einem arteriellen Ulcus cruris?',
+          antwort: 'Das venöse Ulkus liegt am Unterschenkel oberhalb des Innenknöchels in der Bisgaard-Kulisse, ist flach mit unregelmäßigen Rändern und eher schmerzarm; der Schmerz bessert sich beim Hochlagern, die Fußpulse sind tastbar, die Haut ist warm, es besteht ein Ödem mit den Zeichen der chronisch-venösen Insuffizienz. Das arterielle Ulkus sitzt an Zehen, Ferse oder Streckseiten, ist tief, nekrotisch und scharf begrenzt, sehr schmerzhaft; es verschlechtert sich beim Hochlagern und bessert sich beim Herabhängen des Beines, die Fußpulse fehlen, die Haut ist kühl, blass und haarlos, und anamnestisch besteht eine Claudicatio intermittens.',
+        },
+        {
+          frage: 'Welche Untersuchung müssen Sie unbedingt vor einer Kompressionstherapie durchführen?',
+          antwort: 'Die Palpation der Fußpulse und vor allem die Dopplerverschlussdruckmessung mit Bestimmung des Knöchel-Arm-Index. Ein Index unter 0,9 spricht für eine arterielle Beteiligung, unter 0,5 ist die Kompression absolut kontraindiziert, weil sie eine Nekrose auslösen kann. Werte über 1,3 sind bei Mediasklerose falsch hoch und nicht verwertbar.',
+        },
+        {
+          frage: 'Wie wird der Knöchel-Arm-Index gemessen und berechnet?',
+          antwort: 'Der Patient liegt zehn Minuten flach. Mit einer Blutdruckmanschette und einer Dopplersonde wird der systolische Verschlussdruck an der Arteria dorsalis pedis und der Arteria tibialis posterior beider Beine sowie an beiden Armen an der Arteria brachialis gemessen. Der Index ist der Quotient aus dem höheren Knöchelarteriendruck des jeweiligen Beines und dem höheren der beiden Armdrücke.',
+        },
+        {
+          frage: 'Welche Ursachen kommen für ein Ulcus cruris venosum in Frage?',
+          antwort: 'Immer eine chronisch-venöse Insuffizienz: primär bei Varikose mit Klappeninsuffizienz, sekundär als postthrombotisches Syndrom nach tiefer Beinvenenthrombose, durch Versagen der Wadenmuskelpumpe bei Bewegungsmangel, Adipositas oder versteiftem Sprunggelenk, selten bei angeborener Klappenaplasie. Der ambulatorische venöse Hypertonus führt über Ödem, Fibrinmanschetten und Mikroangiopathie zur Hautschädigung.',
+        },
+        {
+          frage: 'Was ist die Bisgaard-Kulisse, und welche weiteren Hautzeichen der chronisch-venösen Insuffizienz kennen Sie?',
+          antwort: 'Die Bisgaard-Kulisse ist das Areal um und hinter dem Innenknöchel, die typische Lokalisation des venösen Ulkus. Weitere Zeichen sind das Ödem, die Corona phlebectatica paraplantaris, die Purpura jaune d’ocre beziehungsweise Hyperpigmentierung durch Hämosiderin, die Stauungsdermatitis, die Dermatoliposklerose mit dem Bild der umgekehrten Champagnerflasche, die Atrophie blanche und die Varizen selbst.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen eines Unterschenkelgeschwürs kennen Sie?',
+          antwort: 'Das arterielle und das gemischte Ulcus cruris, das diabetische Fußsyndrom mit Malum perforans, das Pyoderma gangraenosum, Vaskulitiden und die Livedovaskulopathie, die Necrobiosis lipoidica, das Ulkuskarzinom beziehungsweise ein Basalzellkarzinom oder amelanotisches Melanom, die Kalziphylaxie, infektiöse Ursachen wie Erysipel und Ekthyma sowie der Dekubitus als Druckgeschwür.',
+        },
+        {
+          frage: 'Wann nehmen Sie einen Wundabstrich ab?',
+          antwort: 'Nur bei klinischen Infektzeichen — Fieber, zunehmender Schmerz, flächige Rötung, Überwärmung, Lymphangitis, eitriges Sekret oder CRP-Anstieg. Jede chronische Wunde ist bakteriell besiedelt; die Besiedelung ist keine Infektion und keine Indikation für Antibiotika. Sinnvoll ist die tiefe Gewebeprobe nach Reinigung, nicht der oberflächliche Abstrich.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Ulcus cruris venosum?',
+          antwort: 'Erstens die Kompressionstherapie als tragende Säule nach Ausschluss einer arteriellen Beteiligung: zunächst Kompressionsverband mit Kurzzugbinden, später Kompressionsstrümpfe der Klasse II, dazu Bewegung und Aktivierung der Wadenmuskelpumpe. Zweitens die stadiengerechte lokale Wundbehandlung mit Reinigung, Débridement, feuchter phasengerechter Wundauflage, Schutz der Wundumgebung und Analgesie vor dem Verbandwechsel. Drittens die Behandlung der Ursache und die Rezidivprophylaxe: Varizensanierung, Gewichtsreduktion, Behandlung einer Herzinsuffizienz und lebenslange Kompression. Viertens die Behandlung der Komplikationen: Wundinfektion und Erysipel, Kontaktallergie, Tetanusschutz, Schmerz und Ernährung.',
+        },
+        {
+          frage: 'Warum verbieten sich lokale Antibiotika und routinemäßige Antiseptika?',
+          antwort: 'Weil sie die bakterielle Besiedelung nicht sinnvoll beeinflussen, die Granulation und Epithelisierung stören und ein hohes Sensibilisierungspotenzial haben. Kontaktallergien gegen topische Antibiotika, Duftstoffe, Perubalsam, Wollwachsalkohole und Konservierungsstoffe sind bei chronischen Wunden sehr häufig. Antiseptika wie Polihexanid oder Octenidin nur zeitlich befristet bei kritischer Kolonisation.',
+        },
+        {
+          frage: 'Wann führen Sie eine Biopsie durch?',
+          antwort: 'Bei atypischem Aspekt, aufgeworfenem oder unterminiertem Wundrand, ungewöhnlicher Lokalisation, starkem Schmerz oder wenn die Wunde nach drei Monaten leitliniengerechter Therapie keine Heilungstendenz zeigt. Ziel ist der Ausschluss eines Ulkuskarzinoms, einer Vaskulitis oder eines Pyoderma gangraenosum. Die Probe wird spindelförmig vom Rand mit Anteil gesunder Haut entnommen.',
+        },
+        {
+          frage: 'Was ist beim Pyoderma gangraenosum besonders zu beachten?',
+          antwort: 'Es ist extrem schmerzhaft, hat einen lividroten, unterminierten Rand und zeigt ein Pathergiephänomen: Jede Verletzung und insbesondere jedes Débridement verschlimmert den Befund. Deshalb darf nicht débridiert werden; behandelt wird mit systemischen Kortikosteroiden, Ciclosporin oder TNF-alpha-Inhibitoren, und es muss nach einer assoziierten Grunderkrankung wie Colitis ulcerosa oder rheumatoider Arthritis gesucht werden.',
+        },
+        {
+          frage: 'Wie hoch ist das Rezidivrisiko, und wie beugen Sie vor?',
+          antwort: 'Ohne konsequente Kompression erleiden über die Hälfte der Patienten innerhalb eines Jahres ein Rezidiv. Vorbeugung heißt lebenslange Kompressionsstrümpfe der Klasse II mit Neuverordnung etwa alle sechs Monate, Sanierung der Varikose, Gewichtsreduktion, regelmäßige Bewegung, Hochlagern, Hautpflege und die Behandlung begleitender Ödemursachen.',
+        },
+        {
+          frage: 'Der Patient trägt seine Kompressionsstrümpfe nicht — wie gehen Sie vor?',
+          antwort: 'Zuerst nach dem Grund fragen, ohne zu werten: Meist sind die Strümpfe zu eng, zu warm, schmerzhaft oder allein nicht anzuziehen. Lösungen sind eine Anziehhilfe oder ein Strumpfanziehgestell, ein Zwei-Strumpf-System aus dünnem Unter- und Überstrumpf, eine Maßanfertigung, eine geringere Kompressionsklasse als Kompromiss, das Anziehen am Morgen vor dem Aufstehen sowie die Einbindung von Angehörigen oder eines Pflegedienstes. Aufklärung über die Konsequenz — ohne Kompression heilt die Wunde nicht und kommt wieder.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen veranlassen Sie?',
+          antwort: 'Blutbild, CRP, Nierenwerte, Blutzucker und HbA1c zum Ausschluss eines Diabetes mellitus, Gesamteiweiß und Albumin als Heilungsparameter, gegebenenfalls Zink und Vitamin D. Bei Verdacht auf eine Vaskulitis ANA, ANCA und Urinstatus; bei jungen Patienten oder rezidivierenden Thrombosen eine Thrombophiliediagnostik mit Faktor-V-Leiden-Mutation und Antiphospholipid-Antikörpern.',
+        },
+        {
+          frage: 'Welche Rolle spielt die Duplexsonographie?',
+          antwort: 'Die farbkodierte Duplexsonographie ist der Standard der Venendiagnostik: Sie zeigt den Reflux über 0,5 Sekunden, insuffiziente Perforansvenen, postthrombotische Wandveränderungen und Obstruktionen und schließt eine frische Thrombose aus. Sie entscheidet darüber, ob eine Varizensanierung möglich und sinnvoll ist. Ergänzend wird das arterielle System duplexsonographisch beurteilt.',
+        },
+        {
+          frage: 'Muss ein solcher Patient stationär aufgenommen werden?',
+          antwort: 'In der Regel nicht — das unkomplizierte Ulcus cruris venosum wird ambulant in einer Wundsprechstunde behandelt. Eine stationäre Aufnahme ist indiziert bei Erysipel oder Phlegmone mit systemischer Beteiligung, bei Verdacht auf nekrotisierende Fasziitis oder Osteomyelitis, bei kritischer Ischämie, bei nicht beherrschbaren Schmerzen, für ein ausgedehntes chirurgisches Débridement oder eine Spalthauttransplantation sowie bei fehlender häuslicher Versorgung.',
+        },
+      ],
+      merksatz: 'Innenknöchel, flach und schmerzarm, besser beim Hochlagern — das ist venös; Zehen und Ferse, tief und sehr schmerzhaft, besser beim Herabhängen — das ist arteriell. Erst den Knöchel-Arm-Index, dann die Kompression: unter 0,9 arterielle Beteiligung, unter 0,5 verboten. Abstrich nur bei Infektzeichen, keine lokalen Antibiotika, Biopsie nach drei Monaten ohne Heilung — und die Kompression bleibt lebenslang.',
+      linkedCaseIds: [
+        'case-ulcus-cruris',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-leistenhernie',
+      pathology: 'Leistenhernie (Inguinalhernie)',
+      specialty: 'Chirurgie',
+      definition: 'Als Leistenhernie (Hernia inguinalis, umgangssprachlich Leistenbruch) bezeichnet man den Austritt von parietalem Bauchfell als Bruchsack — mit oder ohne Baucheingeweide als Bruchinhalt — durch eine Lücke der Bauchwand im Bereich des Leistenkanals, die Bruchpforte. Sie ist die häufigste Hernie des Menschen und macht etwa drei Viertel aller Bauchwandhernien aus; Männer sind etwa acht- bis neunmal häufiger betroffen als Frauen. Unterschieden werden die INDIREKTE (laterale) Leistenhernie, die lateral der epigastrischen Gefäße durch den inneren Leistenring in den Leistenkanal eintritt und bis in das Skrotum reichen kann, und die DIREKTE (mediale) Leistenhernie, die medial der epigastrischen Gefäße direkt durch die geschwächte Hinterwand des Leistenkanals tritt. Davon abzugrenzen ist die Femoralhernie (Schenkelhernie), deren Bruchpforte unterhalb des Leistenbands in der Lacuna vasorum liegt. Gefürchtete Komplikation ist die Inkarzeration mit Ischämie des Bruchinhalts und mechanischem Ileus — ein absoluter chirurgischer Notfall.',
+      aetiologie: 'Die INDIREKTE Hernie ist überwiegend angeboren beziehungsweise anlagebedingt: Der Processus vaginalis peritonei, der beim Descensus testis mitgeführt wird, obliteriert nicht vollständig und bleibt als vorgeformter Bruchsack bestehen; sie ist die häufigere Form, betrifft eher jüngere Patienten und Kinder und kann bis in das Skrotum reichen. Die DIREKTE Hernie ist erworben und entsteht durch eine Schwäche des Bindegewebes und der Fascia transversalis im Hesselbach-Dreieck; sie betrifft eher ältere Patienten und geht in der Regel nicht ins Skrotum. Beiden gemeinsam ist als auslösender Faktor die chronische Erhöhung des intraabdominellen Drucks: chronischer Husten bei COPD oder Raucherhusten, chronische Obstipation mit Pressen, Pressen beim Wasserlassen bei benigner Prostatahyperplasie, Aszites, Adipositas, Schwangerschaft, schweres Heben und körperlich schwere Arbeit. Hinzu kommen eine genetisch bedingte Kollagenstörung (verändertes Verhältnis von Kollagen Typ I zu Typ III), Rauchen, Voroperationen im Unterbauch und höheres Lebensalter. Beim älteren Patienten mit neu aufgetretener Hernie ist an eine intraabdominelle Druckursache wie ein Kolonkarzinom oder einen Aszites bei Leberzirrhose zu denken.',
+      risikofaktoren: [
+        'Männliches Geschlecht (Verhältnis etwa 8:1) und höheres Lebensalter',
+        'Angeboren persistierender Processus vaginalis (indirekte Hernie), Frühgeburtlichkeit, Maldescensus testis',
+        'Bindegewebs- und Kollagenschwäche, auch im Rahmen von Marfan- oder Ehlers-Danlos-Syndrom',
+        'Positive Familienanamnese',
+        'Chronischer Husten bei COPD oder Raucherhusten',
+        'Chronische Obstipation mit starkem Pressen',
+        'Benigne Prostatahyperplasie mit Pressen beim Wasserlassen',
+        'Aszites bei Leberzirrhose, Peritonealdialyse, Schwangerschaft',
+        'Schweres Heben, körperlich schwere Arbeit, Leistungssport',
+        'Adipositas, aber auch ausgeprägte Kachexie',
+        'Rauchen (Störung des Kollagenstoffwechsels und der Wundheilung)',
+        'Frühere Operationen im Unterbauch, insbesondere offene Appendektomie und Prostatektomie',
+      ],
+      klinik: [
+        {
+          text: 'Sicht- und tastbare Schwellung oder Vorwölbung in der Leiste, die beim Stehen, Pressen, Husten und Heben größer wird und sich im Liegen spontan zurückbildet oder manuell reponieren lässt',
+        },
+        {
+          text: 'Ziehende oder brennende Schmerzen sowie ein Fremdkörper- und Druckgefühl in der Leiste, typischerweise belastungsabhängig und abends am stärksten',
+        },
+        {
+          text: 'Ausstrahlung der Beschwerden in das Skrotum, bei der Frau in die großen Schamlippen oder in den Oberschenkel',
+        },
+        {
+          text: 'Langsame Größenzunahme über Monate bis Jahre — eine Hernie bildet sich niemals spontan zurück',
+        },
+        {
+          text: 'Tastbar erweiterter äußerer Leistenring mit Anstoßen des Bruchsacks an der untersuchenden Fingerkuppe beim Husten- und Pressversuch (Untersuchung im Stehen)',
+        },
+        {
+          text: 'Skrotalhernie: Vorwölbung, die bis in den Hodensack reicht — typisch für die indirekte Hernie',
+        },
+        {
+          text: 'Inkarzeration: plötzlich einsetzender starker Schmerz, die Schwellung ist NICHT MEHR REPONIBEL, hart und stark druckschmerzhaft, begleitet von Übelkeit, Erbrechen sowie Stuhl- und Windverhalt im Sinne einer Ileussymptomatik',
+        },
+        {
+          text: 'Bei fortgeschrittener Ischämie Rötung und Überwärmung der Haut über dem Bruch, Fieber, Abwehrspannung, Tachykardie und Kreislaufinstabilität',
+        },
+        {
+          text: 'Vollständig asymptomatische Hernie als Zufallsbefund bei körperlicher Untersuchung, Sonographie oder CT',
+          atypisch: true,
+        },
+        {
+          text: 'Okkulte Hernie: ausschließlich belastungsabhängiger Leistenschmerz ohne tastbare Vorwölbung, oft als „weiche Leiste“ des Sportlers verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation direkt als Inkarzeration mit akutem Abdomen und Ileus, ohne dass zuvor eine Schwellung bemerkt wurde',
+          atypisch: true,
+        },
+        {
+          text: 'Richter-Hernie: nur ein Teil der Darmwandzirkumferenz ist eingeklemmt — es kommt zur Nekrose OHNE Ileussymptomatik, was den Befund besonders trügerisch macht',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Frauen häufig kleine, kaum sichtbare Femoralhernie unterhalb des Leistenbands, die erst durch die Einklemmung auffällt',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Säugling und Kleinkind intermittierende Vorwölbung nur beim Schreien und Pressen, sonst unauffälliger Befund',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Bruchpforte',
+          inhalt: 'INDIREKTE (laterale) Leistenhernie: Eintritt lateral der epigastrischen Gefäße durch den inneren Leistenring, Verlauf durch den gesamten Leistenkanal, Austritt am äußeren Leistenring, kann bis ins Skrotum reichen; überwiegend angeboren durch persistierenden Processus vaginalis, häufiger, eher jüngere Patienten. DIREKTE (mediale) Leistenhernie: Austritt medial der epigastrischen Gefäße direkt durch die geschwächte Hinterwand des Leistenkanals im Hesselbach-Dreieck; stets erworben durch Bindegewebsschwäche, eher ältere Patienten, geht in der Regel nicht ins Skrotum. FEMORALHERNIE: Austritt unterhalb des Leistenbands durch die Lacuna vasorum, medial der Femoralvene; häufiger bei Frauen, kleine starre Bruchpforte und dadurch deutlich höheres Inkarzerationsrisiko.',
+        },
+        {
+          name: 'Einteilung nach der Reponibilität und dem Bruchinhalt',
+          inhalt: 'Reponible Hernie: der Bruchinhalt lässt sich vollständig zurückverlagern. Irreponible (inkarzerierte) Hernie: der Inhalt lässt sich nicht mehr zurückschieben — bei Einklemmung mit Durchblutungsstörung droht die Strangulation mit Nekrose. Sonderformen: Richter-Hernie (Darmwandbruch, nur ein Teil der Zirkumferenz eingeklemmt, Nekrose ohne Ileus), Littré-Hernie (Meckel-Divertikel im Bruchsack), Gleithernie (ein retroperitoneal gelegenes Organ wie Zökum oder Harnblase bildet einen Teil der Bruchsackwand — Verletzungsgefahr bei der Operation), Amyand-Hernie (Appendix im Bruchsack).',
+        },
+        {
+          name: 'Nyhus-Klassifikation',
+          inhalt: 'Typ I: indirekte Hernie mit normal weitem innerem Leistenring (typisch beim Kind). Typ II: indirekte Hernie mit erweitertem innerem Leistenring bei intakter Hinterwand. Typ III: Hinterwanddefekt — IIIa direkte Hernie, IIIb indirekte Hernie mit Hinterwanddefekt einschließlich Skrotalhernie, IIIc Femoralhernie. Typ IV: Rezidivhernie — IVa direkt, IVb indirekt, IVc femoral, IVd kombiniert.',
+        },
+        {
+          name: 'EHS-Klassifikation der European Hernia Society',
+          inhalt: 'Dreidimensionale Einteilung, die intraoperativ dokumentiert wird: Lokalisation L (lateral gleich indirekt), M (medial gleich direkt) oder F (femoral); Größe der Bruchpforte in Zeigefingerbreiten — 1 bis etwa 1,5 cm, 2 bis etwa 3 cm, 3 über 3 cm; sowie P für primär und R für Rezidiv.',
+        },
+      ],
+      redFlags: [
+        'Plötzlich einsetzender starker Leistenschmerz mit harter, stark druckschmerzhafter und NICHT MEHR REPONIBLER Schwellung → Inkarzeration, sofortige operative Versorgung',
+        'Übelkeit, Erbrechen, Stuhl- und Windverhalt, geblähtes Abdomen, klingende oder fehlende Darmgeräusche → mechanischer Ileus bei eingeklemmtem Bruch',
+        'Rötung und Überwärmung der Haut über dem Bruch, Fieber, Abwehrspannung, Peritonismus → fortgeschrittene Ischämie mit Nekrose oder Perforation',
+        'Tachykardie, Hypotonie, Laktatanstieg, reduzierter Allgemeinzustand → drohender Schock bei Darmnekrose und Peritonitis',
+        'Nicht reponible Schwellung ohne Ileussymptomatik, aber mit zunehmenden Schmerzen → Verdacht auf Richter-Hernie mit Wandnekrose, trotz fehlender Ileuszeichen Notfall',
+        'Schwellung UNTERHALB des Leistenbands, insbesondere bei einer Frau → Femoralhernie mit hohem Inkarzerationsrisiko, frühzeitige und immer gegebene Operationsindikation',
+        'Akuter, heftigster Hoden- und Leistenschmerz beim Jungen oder jungen Mann mit Hochstand des Hodens → Hodentorsion, Zeitfenster von vier bis sechs Stunden',
+        'Neu aufgetretene Hernie beim älteren Patienten mit zunehmendem Bauchumfang, Gewichtsverlust oder Blut im Stuhl → Suche nach Aszites oder Kolonkarzinom als Ursache der Druckerhöhung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Beginn und Größenprogredienz der Schwellung, Zunahme beim Stehen, Heben, Husten und Pressen, Rückbildung im Liegen, Reponierbarkeit, ziehender Schmerz und Fremdkörpergefühl, Ausstrahlung ins Skrotum; ausdrückliche Frage nach stattgehabten Einklemmungsepisoden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erfassung der Ursachen der chronischen Druckerhöhung: chronischer Husten und Nikotinkonsum, Obstipation, Miktionsbeschwerden mit Pressen bei Prostatahyperplasie, Aszites, schweres Heben, Adipositas, Voroperationen, Familienanamnese; beim älteren Patienten gezielte Frage nach Gewichtsverlust und Blut im Stuhl',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinische Untersuchung IM STEHEN UND IM LIEGEN — obligat, da eine Hernie im Liegen vollständig verschwinden kann: Inspektion beider Leisten und des Skrotums im Seitenvergleich, Palpation mit HUSTEN- UND PRESSVERSUCH (Valsalva), Austasten des äußeren Leistenrings über die skrotale Haut mit Prüfung des Anstoßimpulses',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Prüfung der Reponibilität sowie Beurteilung von Konsistenz, Druckschmerz und Hautbeschaffenheit; Bestimmung der Lage ober- oder unterhalb des Leistenbands zur Abgrenzung der Femoralhernie; obligate Untersuchung der Gegenseite und des Skrotalinhalts einschließlich Diaphanoskopie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abdomenuntersuchung mit Auskultation der Darmgeräusche, Prüfung auf Meteorismus und Abwehrspannung sowie Erhebung der Vitalparameter zum Ausschluss eines mechanischen Ileus; bei jedem Ileus gehört umgekehrt die Untersuchung beider Leisten und des Nabels zur Pflicht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei der reponiblen Hernie ist kein diagnostisches Labor erforderlich; präoperativ Blutbild, Gerinnung, Elektrolyte, Kreatinin und Blutgruppe',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf Inkarzeration umgehend Blutbild mit Leukozyten, CRP, LAKTAT als Ischämiemarker, Elektrolyte, Kreatinin, Gerinnung, Blutgasanalyse sowie Blutgruppe und Kreuzblut',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Leiste mit hochauflösendem Linearschallkopf, dynamisch im Stehen und im Liegen unter VALSALVA-MANÖVER: Darstellung von Bruchpforte, Bruchsack und Bruchinhalt, Lage relativ zu den epigastrischen Gefäßen, Beurteilung der Perfusion des Inhalts — Untersuchung der Wahl bei unklarem klinischem Befund',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Skrotalsonographie mit Duplex zur Abgrenzung von Hydrozele, Varikozele, Epididymitis und Hodentorsion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT oder MRT des Beckens nur in Ausnahmefällen: unklarer chronischer Leistenschmerz ohne Tastbefund (okkulte Hernie), Rezidivhernie, ausgeprägte Adipositas, Verdacht auf Inkarzeration',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Verdacht auf Inkarzeration mit Ileus: Abdomen-Übersichtsaufnahme im Stehen oder in Linksseitenlage beziehungsweise CT-Abdomen mit Kontrastmittel — Spiegelbildungen, dilatierte Dünndarmschlingen, freie Flüssigkeit und fehlende Wandkontrastierung als Ischämiezeichen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Laparoskopie in Ausnahmefällen bei anhaltendem unklarem Leistenschmerz ohne fassbaren Befund oder zur Beurteilung der Gegenseite; die endgültige Zuordnung indirekt versus direkt sowie die Beurteilung der Vitalität des Bruchinhalts erfolgen ohnehin intraoperativ',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Femoralhernie (Schenkelhernie)',
+          unterscheidung: 'Bruchpforte UNTERHALB des Leistenbands in der Lacuna vasorum, medial der Femoralvene; häufiger bei Frauen, meist kleine derbe Schwellung, oft nicht reponibel. Wegen der engen starren Bruchpforte deutlich höheres Inkarzerationsrisiko — immer Operationsindikation, kein watchful waiting.',
+        },
+        {
+          dd: 'Lymphknotenschwellung der Leiste (Lymphadenitis, Lymphom, Metastase)',
+          unterscheidung: 'Derbe, verschiebliche, NICHT reponible Knoten ohne Größenänderung beim Husten oder Pressen und ohne Anstoßimpuls; Suche nach Eintrittspforte am Bein, nach B-Symptomatik und weiteren Lymphknotenstationen. Sonographie zeigt die typische Lymphknotenarchitektur mit Hilus.',
+        },
+        {
+          dd: 'Hodentorsion',
+          unterscheidung: 'Perakuter heftigster Schmerz in Hoden und Leiste, Hochstand und Querlage des Hodens, aufgehobener Kremasterreflex, negatives Prehn-Zeichen, im Duplex fehlende Perfusion. Absoluter Notfall mit Zeitfenster von vier bis sechs Stunden.',
+        },
+        {
+          dd: 'Epididymitis und Orchitis',
+          unterscheidung: 'Subakuter Verlauf mit Fieber, Dysurie und Urethralfluss, druckschmerzhaft geschwollener Nebenhoden, Schmerzlinderung beim Anheben des Hodens (positives Prehn-Zeichen), Leukozyturie, im Duplex Hyperperfusion.',
+        },
+        {
+          dd: 'Hydrozele und Varikozele',
+          unterscheidung: 'Hydrozele: prall-elastische schmerzlose Skrotalschwellung, in der Diaphanoskopie transluzent, nicht reponibel. Varikozele: „Sack voller Würmer“ am Samenstrang, links häufiger, Zunahme im Stehen und bei Valsalva; eine neu aufgetretene rechtsseitige Varikozele muss an ein Nierenzellkarzinom denken lassen.',
+        },
+        {
+          dd: 'Adduktorenläsion und „weiche Leiste“ (Sportlerleiste, Pubalgie)',
+          unterscheidung: 'Belastungsabhängiger Leistenschmerz des Sportlers OHNE tastbare Vorwölbung, Druckschmerz über Adduktorensehne und Symphyse, Schmerz bei Adduktion gegen Widerstand; im MRT Ödem der Symphyse oder des Sehnenansatzes.',
+        },
+        {
+          dd: 'Psoasabszess',
+          unterscheidung: 'Fieber, Nachtschweiß, hohe Entzündungsparameter, Schmerz bei Hüftstreckung mit Schonhaltung in Beugung (Psoas-Zeichen); Ausgangspunkt Spondylodiszitis, Nieren- oder Darmerkrankung. Nachweis im CT.',
+        },
+        {
+          dd: 'Aneurysma oder Pseudoaneurysma der A. femoralis',
+          unterscheidung: 'PULSIERENDE, expansive Schwellung mit Schwirren und Strömungsgeräusch, nicht reponibel; häufig nach Leistenpunktion im Rahmen einer Herzkatheteruntersuchung. Duplexsonographie ist beweisend.',
+        },
+        {
+          dd: 'Samenstranglipom und Weichteiltumor',
+          unterscheidung: 'Weiche, nicht reponible Raumforderung ohne Größenänderung beim Pressen; das Samenstranglipom ist der häufigste intraoperative Zufallsbefund und wird klinisch regelmäßig als Hernie fehlgedeutet.',
+        },
+        {
+          dd: 'Maldescensus testis, Nabel- und Narbenhernie',
+          unterscheidung: 'Beim Maldescensus fehlt der Hoden im entsprechenden Skrotalfach, die Leistenschwellung entspricht dem ektopen Hoden. Nabel- und Narbenhernien zeigen dieselbe Dynamik beim Pressen, liegen aber an anderer Lokalisation — bei jeder Hernienuntersuchung werden alle Bruchpforten geprüft.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notfallversorgung bei Inkarzeration',
+          items: [
+            'Die Inkarzeration ist ein absoluter chirurgischer NOTFALL: sofortige operative Versorgung ohne jeden Aufschub, da die eingeklemmte Darmwand innerhalb weniger Stunden irreversibel ischämisch wird',
+            'KEINE gewaltsamen und keine wiederholten Repositionsversuche — es droht die „Reposition en masse“, bei der eine bereits nekrotische Darmschlinge in die Bauchhöhle zurückverlagert wird und die anschließende Perforation unbemerkt bleibt. Ein einziger, sehr vorsichtiger Versuch in Analgosedierung und Kopftieflagerung ist allenfalls in der Frühphase ohne jedes Ischämiezeichen vertretbar',
+            'Vorbereitung wie beim mechanischen Ileus: strikte Nahrungs- und Flüssigkeitskarenz, großlumiger venöser Zugang, Volumen- und Elektrolytsubstitution, Magensonde bei Erbrechen, Blasenkatheter zur Bilanzierung, suffiziente Analgesie, Thromboseprophylaxe',
+            'Parallele Sofortdiagnostik: Labor mit Blutbild, CRP, Laktat, Elektrolyten, Kreatinin und Gerinnung sowie Blutgruppe und Kreuzblut; Sonographie, bei unklarem Befund CT-Abdomen; perioperative Antibiotikaprophylaxe',
+            'Intraoperativ Eröffnung des Bruchsacks, Beurteilung der Vitalität des Bruchinhalts nach Lösen der Einschnürung und Warmspülung; bei nicht erholender Schlinge Darmresektion mit Anastomose',
+            'Bei kontaminiertem Situs, insbesondere nach Darmresektion, wird auf ein Kunststoffnetz verzichtet und in Nahttechnik versorgt (Shouldice)',
+            'Nach dem Eingriff Überwachung auf Anastomoseninsuffizienz, Peritonitis und Wundinfektion',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Elektive operative Versorgung — die einzige kausale Therapie',
+          items: [
+            'Jede symptomatische Leistenhernie hat eine Operationsindikation: Eine Hernie heilt NIEMALS spontan aus, sie wird über die Zeit größer, und das Einklemmungsrisiko bleibt lebenslang bestehen',
+            'Ein Bruchband ist KEINE Therapie, sondern ein Notbehelf für Patienten, die eine Operation strikt ablehnen oder nicht operationsfähig sind; es kann die Bruchpforte erweitern, Druckschäden verursachen und eine Einklemmung verschleiern',
+            'Offenes Verfahren nach LICHTENSTEIN: spannungsfreie Verstärkung der Hinterwand des Leistenkanals mit einem Kunststoffnetz („tension free“); in Lokal-, Regional- oder Allgemeinanästhesie durchführbar und damit Verfahren der Wahl bei kardiopulmonaler Vorbelastung sowie bei großen und skrotalen Hernien',
+            'Minimalinvasive Netzverfahren: TAPP — transabdominelle präperitoneale Plastik mit Zugang über die Bauchhöhle und Eröffnung des Peritoneums — sowie TEP — total extraperitoneale Plastik ohne Eröffnung des Bauchraums. Vorteile bei beidseitigen Hernien, bei Rezidiven nach offener Voroperation, bei Frauen (sichere Mitversorgung einer Femoralhernie) und bei jüngeren, körperlich arbeitenden Patienten wegen geringerer Wundschmerzen und rascherer Belastbarkeit',
+            'Nahtverfahren ohne Netz nach SHOULDICE (Fasziendopplung der Fascia transversalis) bei Kontraindikation gegen ein Netz, kontaminiertem Situs oder auf Wunsch des Patienten; das Verfahren nach Bassini gilt als überholt',
+            'Im Kindesalter genügt die Herniotomie mit hohem Verschluss des offenen Processus vaginalis ohne Netz',
+            'Die Verfahrenswahl richtet sich nach dem Befund (ein- oder beidseitig, primär oder Rezidiv, skrotal), nach Vorerkrankungen und Voroperationen sowie nach der Erfahrung des Operateurs; bei Rezidiv wird der jeweils andere Zugangsweg gewählt',
+            'Aufklärung obligat über Blutung, Wundinfektion, Serom und Hämatom, Verletzung von Samenstranggebilden mit möglicher Hodenatrophie, Verletzung von Blase und Darm, REZIDIV (etwa 2–5 %), CHRONISCHEN LEISTENSCHMERZ nach der Operation (etwa 10 %) durch Läsion oder Einklemmung des N. ilioinguinalis, des N. iliohypogastricus oder des R. genitalis des N. genitofemoralis, Netzinfektion, Thrombose und allgemeines Narkoserisiko',
+          ],
+        },
+        {
+          label: 'Abwartendes Vorgehen (watchful waiting) beim asymptomatischen Bruch',
+          items: [
+            'Bei kleinen, vollständig asymptomatischen Leistenhernien des älteren oder multimorbiden Patienten ist ein kontrolliertes Abwarten vertretbar, da das jährliche Inkarzerationsrisiko niedrig ist',
+            'Voraussetzung ist eine sorgfältige, dokumentierte Aufklärung über die Alarmzeichen der Einklemmung — harte, nicht mehr reponible, stark schmerzhafte Schwellung, Übelkeit, Erbrechen, Stuhl- und Windverhalt — mit der klaren Anweisung, sich sofort in einer Notaufnahme vorzustellen',
+            'Regelmäßige klinische Verlaufskontrollen; die Mehrheit dieser Patienten wird über die Jahre doch symptomatisch und wechselt in die operative Behandlung',
+            'NICHT abgewartet wird bei symptomatischer Hernie, nach einer Einklemmungsepisode, bei Skrotalhernie, bei Gleit- oder Rezidivhernie und grundsätzlich NICHT bei der Femoralhernie, deren Inkarzerationsrisiko eine sofortige Operationsindikation begründet',
+            'Parallel dazu Behandlung der Ursachen der Druckerhöhung, um die Progression zu verlangsamen',
+          ],
+        },
+        {
+          label: 'Postoperative Nachsorge und Rezidivprophylaxe',
+          items: [
+            'Frühe Mobilisation noch am Operationstag, bedarfsgerechte Analgesie mit NSAR beziehungsweise Metamizol, Thromboseprophylaxe nach Risiko; der Eingriff erfolgt in der Regel ambulant oder mit kurzem stationärem Aufenthalt',
+            'Stufenweiser Belastungsaufbau: leichte Tätigkeiten sofort, schweres Heben über 10 kg für etwa zwei bis vier Wochen nach minimalinvasiver und vier bis sechs Wochen nach offener Versorgung meiden; bei körperlich schwer arbeitenden Patienten Arbeitsunfähigkeit, gegebenenfalls stufenweise Wiedereingliederung und Arbeitsplatzberatung',
+            'Konsequente Behandlung aller Ursachen der chronischen Druckerhöhung: Obstipationstherapie mit Ballaststoffen, ausreichender Trinkmenge und Macrogol, Optimierung der Therapie einer benignen Prostatahyperplasie, Behandlung des chronischen Hustens einschließlich Abklärung mittels Spirometrie',
+            'NIKOTINKARENZ als eigenständige Rezidivprophylaxe: Rauchen stört den Kollagenstoffwechsel und die Wundheilung; strukturierte Raucherentwöhnung anbieten',
+            'Gewichtsreduktion bei Übergewicht und späterer Aufbau der Bauch- und Rumpfmuskulatur nach Ablauf der Schonfrist',
+            'Wiedervorstellung bei erneuter Vorwölbung, Rötung, Schwellung, Fieber oder anhaltendem Leistenschmerz; bei chronischem postoperativem Leistenschmerz multimodale Schmerztherapie, in Einzelfällen Neurektomie oder Netzentfernung',
+          ],
+        },
+      ],
+      prognose: 'Die operative Versorgung ist der häufigste allgemeinchirurgische Eingriff überhaupt und hat bei elektiver Durchführung eine sehr gute Prognose mit niedriger Morbidität und Letalität. Die Rezidivrate liegt bei modernen spannungsfreien Netzverfahren bei etwa zwei bis fünf Prozent, bei Nahtverfahren höher; Rauchen, fortbestehende Druckerhöhung, Wundinfektion und Bindegewebsschwäche erhöhen sie. Häufigste relevante Langzeitkomplikation ist der chronische Leistenschmerz bei etwa zehn Prozent der Operierten, meist durch Nervenläsion oder Nerveneinklemmung. Unbehandelt nimmt die Hernie stetig an Größe zu; das Inkarzerationsrisiko ist bei der Leistenhernie insgesamt niedrig, bei der Femoralhernie und bei skrotalen Hernien jedoch deutlich höher. Die Letalität steigt bei der Notfalloperation einer inkarzerierten Hernie erheblich an, insbesondere wenn eine Darmresektion erforderlich wird und der Patient alt und multimorbide ist — die rechtzeitige elektive Operation ist daher die entscheidende prognostische Maßnahme.',
+      pruefungsfallen: [
+        'Die Untersuchung MUSS im Stehen erfolgen und laut angesagt werden: Eine Leistenhernie kann im Liegen vollständig verschwinden. Husten- und Pressversuch sowie die Palpation des äußeren Leistenrings gehören zwingend dazu.',
+        '„Indirekt = LATERAL der epigastrischen Gefäße, angeboren, durch den Leistenkanal, kann ins Skrotum reichen, eher jüngere Patienten“ versus „direkt = MEDIAL der epigastrischen Gefäße, erworben, direkt durch die Hinterwand, nicht ins Skrotum, eher ältere Patienten“ — diese Zuordnung wird regelmäßig abgefragt und häufig vertauscht.',
+        'Nicht behaupten, man könne indirekt und direkt klinisch sicher unterscheiden — die sichere Zuordnung gelingt erst intraoperativ.',
+        'Die Femoralhernie aktiv abgrenzen: UNTERHALB des Leistenbands, häufiger bei Frauen, HÖHERES Inkarzerationsrisiko, deshalb immer Operationsindikation und niemals watchful waiting.',
+        'Bei der Inkarzeration NIEMALS gewaltsam oder wiederholt reponieren — Gefahr der „Reposition en masse“ mit Rückverlagerung einer nekrotischen Schlinge in die Bauchhöhle.',
+        'Den Zusammenhang zum ILEUS ausdrücklich herstellen: Die inkarzerierte Hernie ist eine der häufigsten Ursachen des mechanischen Dünndarmileus; umgekehrt gehört bei jedem Ileus die Untersuchung beider Leisten und des Nabels zur Pflicht.',
+        'Die Richter-Hernie kennen: Nur ein Teil der Darmwand ist eingeklemmt, es kommt zur Nekrose OHNE Ileussymptomatik — fehlende Ileuszeichen schließen eine gefährliche Einklemmung also nicht aus.',
+        'Eine Hernie heilt NIEMALS spontan aus, und ein Bruchband ist keine Therapie, sondern ein Notbehelf — beides sind klassische Fangfragen.',
+        'Die Ursachensuche nicht vergessen: chronischer Husten, Obstipation, Pressen bei Prostatahyperplasie, Aszites, schweres Heben, Adipositas, Rauchen. Beim älteren Patienten mit neuer Hernie an Kolonkarzinom und Aszites denken.',
+        'In der Aufklärung Rezidiv, chronischen Leistenschmerz und Nervenläsion (N. ilioinguinalis, N. iliohypogastricus, R. genitalis des N. genitofemoralis) ausdrücklich nennen — das wird als Qualitätsmerkmal gewertet.',
+        'Sprachfalle: Der Patient sagt „Bruch“ oder „Beule“, im Arzt-Arzt-Gespräch heißt es „Leistenhernie“ beziehungsweise „Hernia inguinalis“. Umgekehrt muss der Fachbegriff dem Patienten übersetzt werden. Weitere geprüfte Begriffe: Hernie gleich Eingeweidebruch, Hernia umbilicalis gleich Nabelbruch, Bruchpforte, Bruchsack, Bruchinhalt.',
+        'Achtung Homonymie: In den Prüfungsprotokollen bezeichnet „Hernie“ häufig eine Diskushernie (Bandscheibenvorfall) oder eine Ösophagushernie (Hiatushernie) — immer präzisieren, welche Hernie gemeint ist.',
+        'Wenn eine Leistenhernie nur als Voroperation genannt wird, konsequent nachfragen: Seite, Alter zum Zeitpunkt der Operation, Verfahren, Komplikationen und Rezidiv. Genau danach wurde in Stuttgart gefragt.',
+        'Sich nicht an der Hernie als Hypothese festbeißen: In einem Karlsruher Protokoll zog der Simulationspatient die Angabe zurück, als der Kandidat zu hartnäckig nachbohrte. Zusammenfassen, umformulieren und offen bleiben.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie wurde die Hernie behandelt?',
+          antwort: 'Ich frage den Patienten gezielt nach der Seite (rechts, links oder beidseits), nach dem Alter zum Zeitpunkt der Operation, nach dem Verfahren (offen mit Netz nach Lichtenstein oder minimalinvasiv als TAPP beziehungsweise TEP, seltener Nahtverfahren nach Shouldice), nach dem Verlauf („komplikationslos“ oder mit Wundinfektion beziehungsweise Nachblutung) und nach einem Rezidiv. Diese Angaben sind relevant, weil eine Voroperation im Unterbauch die Wahl des Zugangswegs bei einer erneuten Operation bestimmt.',
+        },
+        {
+          frage: 'Der Patient sagt „Bruch“ oder „Beule“. Wie nennen Sie das in der Fachsprache, und wie erklären Sie es ihm?',
+          antwort: 'Fachsprachlich Leistenhernie beziehungsweise Hernia inguinalis. Dem Patienten gegenüber: „Sie haben einen Leistenbruch — in Ihrer Bauchwand ist eine Lücke entstanden, durch die sich das Bauchfell und manchmal ein Stück Darm nach außen vorwölbt.“ Allgemein ist eine Hernie ein Eingeweidebruch; die Lücke heißt Bruchpforte, die Bauchfellausstülpung Bruchsack, der vorgefallene Inhalt Bruchinhalt. Hernia umbilicalis heißt Nabelbruch.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine indirekte von einer direkten Leistenhernie?',
+          antwort: 'Die indirekte Hernie tritt LATERAL der epigastrischen Gefäße durch den inneren Leistenring ein, verläuft durch den gesamten Leistenkanal, kann bis ins Skrotum reichen und ist meist angeboren durch einen persistierenden Processus vaginalis; sie ist die häufigere Form und betrifft eher jüngere Patienten. Die direkte Hernie tritt MEDIAL der epigastrischen Gefäße direkt durch die geschwächte Hinterwand im Hesselbach-Dreieck aus, ist immer erworben durch Bindegewebsschwäche, geht in der Regel nicht ins Skrotum und betrifft eher ältere Patienten. Sicher unterscheiden lässt sich beides allerdings erst intraoperativ.',
+        },
+        {
+          frage: 'Wie grenzen Sie die Femoralhernie ab, und warum ist sie gefährlicher?',
+          antwort: 'Ihre Bruchpforte liegt unterhalb des Leistenbands in der Lacuna vasorum, medial der Femoralvene, während die Leistenhernie oberhalb des Leistenbands austritt. Sie ist bei Frauen deutlich häufiger, meist klein und derb und oft nicht reponibel. Wegen der engen, starren Bruchpforte ist das Inkarzerationsrisiko erheblich höher — deshalb besteht immer eine Operationsindikation, ein abwartendes Vorgehen ist nicht vertretbar.',
+        },
+        {
+          frage: 'Wie untersuchen Sie den Patienten? Warum genügt die Untersuchung im Liegen nicht?',
+          antwort: 'Ich untersuche entkleidet IM STEHEN UND IM LIEGEN im Seitenvergleich: Inspektion beider Leisten und des Skrotums, Palpation der Vorwölbung mit Husten- und Pressversuch, Austasten des äußeren Leistenrings über die skrotale Haut mit Prüfung des Anstoßimpulses, Prüfung der Reponibilität, Bestimmung der Lage ober- oder unterhalb des Leistenbands sowie Untersuchung der Gegenseite und des Skrotalinhalts. Im Liegen kann sich die Hernie vollständig zurückbilden und dadurch übersehen werden — deshalb ist die Untersuchung im Stehen obligat.',
+        },
+        {
+          frage: 'Woran erkennen Sie eine Inkarzeration, und welche Rolle spielt der Ileus?',
+          antwort: 'An plötzlich einsetzendem starkem Schmerz mit einer harten, stark druckschmerzhaften und nicht mehr reponiblen Schwellung, dazu Übelkeit, Erbrechen sowie Stuhl- und Windverhalt mit geblähtem Abdomen. Die eingeklemmte Schlinge ist mechanisch verlegt und zugleich in ihrer Durchblutung abgeschnürt: Es entsteht ein mechanischer Ileus mit Ischämie, Nekrose, Perforation und Peritonitis. Die inkarzerierte Hernie ist eine der häufigsten Ursachen des mechanischen Dünndarmileus.',
+        },
+        {
+          frage: 'Der Bruch lässt sich nicht mehr zurückschieben. Was tun Sie? Dürfen Sie kräftig reponieren?',
+          antwort: 'Nein. Gewaltsame oder wiederholte Repositionsversuche sind verboten, da eine bereits nekrotische Schlinge in die Bauchhöhle zurückverlagert werden könnte — die sogenannte Reposition en masse — und die Perforation dann unbemerkt bliebe. Es erfolgt die sofortige operative Versorgung; parallel dazu Nahrungskarenz, großlumiger Zugang, Volumen, Magensonde bei Erbrechen, Analgesie, Labor mit Laktat, Blutgruppe und Kreuzblut sowie eine perioperative Antibiotikaprophylaxe.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen einer Leistenschwellung kennen Sie?',
+          antwort: 'Femoralhernie, Lymphknotenschwellung der Leiste, Hodentorsion, Epididymitis und Orchitis, Hydrozele und Varikozele, Adduktorenläsion beziehungsweise weiche Leiste des Sportlers, Psoasabszess, Aneurysma der A. femoralis, Samenstranglipom und Maldescensus testis.',
+        },
+        {
+          frage: 'Welche Bildgebung veranlassen Sie?',
+          antwort: 'Die Diagnose ist primär klinisch. Bei unklarem Befund führe ich eine Sonographie der Leiste mit hochauflösendem Linearschallkopf durch, dynamisch im Stehen und unter Valsalva-Manöver; ergänzend eine Skrotalsonographie. CT oder MRT nur in Ausnahmefällen — bei okkulter Hernie, Rezidiv, ausgeprägter Adipositas oder Verdacht auf Inkarzeration mit Ileus.',
+        },
+        {
+          frage: 'Muss jede Leistenhernie operiert werden? Was halten Sie von einem Bruchband?',
+          antwort: 'Jede symptomatische Hernie wird operiert, weil sie niemals spontan ausheilt, größer wird und ein Einklemmungsrisiko behält. Beim kleinen, völlig asymptomatischen Bruch des älteren Patienten ist ein kontrolliertes Abwarten vertretbar, aber nur nach ausdrücklicher Aufklärung über die Alarmzeichen; bei der Femoralhernie nie. Ein Bruchband ist keine Therapie, sondern ein Notbehelf, der die Bruchpforte erweitern und eine Einklemmung verschleiern kann.',
+        },
+        {
+          frage: 'Welche Operationsverfahren kennen Sie?',
+          antwort: 'Offen nach Lichtenstein mit spannungsfreier Netzverstärkung der Hinterwand — auch in Lokal- oder Regionalanästhesie möglich. Minimalinvasiv TAPP, transabdominell präperitoneal, und TEP, total extraperitoneal, beide mit Netz. Ohne Netz das Nahtverfahren nach Shouldice, etwa bei kontaminiertem Situs; im Kindesalter genügt der hohe Verschluss des offenen Processus vaginalis. Die Wahl richtet sich nach Befund, Vorerkrankungen, Voroperationen und Erfahrung des Operateurs.',
+        },
+        {
+          frage: 'Worüber klären Sie vor der Operation auf?',
+          antwort: 'Über Blutung, Wundinfektion, Serom und Hämatom, Verletzung von Samenstranggebilden mit möglicher Hodenatrophie, Verletzung von Blase und Darm, Rezidiv in etwa zwei bis fünf Prozent, chronischen Leistenschmerz in etwa zehn Prozent durch Läsion des N. ilioinguinalis, des N. iliohypogastricus oder des R. genitalis des N. genitofemoralis, Netzinfektion, Thrombose sowie das allgemeine Narkoserisiko.',
+        },
+        {
+          frage: 'Was ist eine Richter-Hernie, was eine Gleithernie?',
+          antwort: 'Bei der Richter-Hernie ist nur ein Teil der Darmwandzirkumferenz eingeklemmt: Es kommt zur Wandnekrose, ohne dass eine Passagestörung und damit eine Ileussymptomatik entsteht — deshalb ist sie besonders trügerisch. Bei der Gleithernie bildet ein retroperitoneal gelegenes Organ, etwa das Zökum oder die Harnblase, einen Teil der Bruchsackwand; hier besteht bei der Operation eine erhöhte Verletzungsgefahr.',
+        },
+        {
+          frage: 'Wie sagen Sie auf Deutsch: Hernie, Hernia inguinalis, Hernia umbilicalis?',
+          antwort: 'Hernie heißt Eingeweidebruch, Hernia inguinalis Leistenbruch und Hernia umbilicalis Nabelbruch. Dazu gehören Bruchpforte für die Lücke in der Bauchwand, Bruchsack für die Bauchfellausstülpung und Bruchinhalt für das vorgefallene Organ. Achtung: „Diskushernie“ meint einen Bandscheibenvorfall und „Ösophagushernie“ eine Zwerchfell- beziehungsweise Hiatushernie.',
+        },
+        {
+          frage: 'Wie lange darf der Patient nach der Operation nicht schwer heben?',
+          antwort: 'Leichte Tätigkeiten sind sofort erlaubt, die frühe Mobilisation ist erwünscht. Schweres Heben über 10 kg sollte etwa zwei bis vier Wochen nach minimalinvasiver und vier bis sechs Wochen nach offener Versorgung vermieden werden. Bei körperlich schwer arbeitenden Patienten sind eine Arbeitsunfähigkeitsbescheinigung und gegebenenfalls eine stufenweise Wiedereingliederung erforderlich.',
+        },
+      ],
+      merksatz: 'Beule in der Leiste, die beim Stehen und Husten kommt und im Liegen geht — immer IM STEHEN untersuchen, Husten- und Pressversuch, und indirekt heißt lateral, direkt heißt medial der epigastrischen Gefäße. Wird die Beule hart, irreponibel und schmerzhaft, kommen Erbrechen und Stuhlverhalt dazu: Inkarzeration mit Ileus — sofort operieren, NIEMALS gewaltsam reponieren. Eine Hernie heilt nie von selbst, und ein Bruchband ist keine Therapie.',
+      linkedCaseIds: [
+        'case-leistenhernie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-operation',
+        'auf-laparoskopie',
+      ],
+    },
+    {
+      id: 'fw-alkoholentzug',
+      pathology: 'Alkoholentzugssyndrom',
+      specialty: 'Psychiatrie',
+      definition: 'Das Alkoholentzugssyndrom ist ein akut auftretender, potenziell lebensbedrohlicher Symptomkomplex, der bei bestehender Alkoholabhängigkeit nach abruptem Absetzen oder deutlicher Reduktion der Alkoholzufuhr entsteht. Pathophysiologisch liegt eine neuronale Gegenregulation zugrunde: Der chronische Konsum verstärkt die hemmende GABA-erge Neurotransmission und führt kompensatorisch zu einer Hochregulation der erregenden glutamatergen NMDA-Rezeptoren. Fällt der Alkohol weg, überwiegt die glutamaterge Übererregung mit sympathikotoner Entgleisung. Die Symptome folgen einer festen Zeitachse: vegetative Frühsymptome 6 bis 12 Stunden nach dem letzten Konsum, generalisierte Entzugskrampfanfälle zwischen 12 und 48 Stunden, Halluzinationen zwischen 12 und 24 Stunden und das Delirium tremens als schwerste Verlaufsform zwischen 48 und 72 Stunden. Das Delirium tremens ist durch die Trias aus vegetativer Entgleisung, Bewusstseins- und Orientierungsstörung sowie psychotischen Symptomen gekennzeichnet; unbehandelt liegt die Letalität bei bis zu 20 %, unter adäquater Behandlung unter 5 %. Ein Entzugssyndrom kann auch bei noch messbarem Blutalkoholspiegel auftreten (relativer Entzug) und ist dann Ausdruck einer ausgeprägten Toleranz.',
+      aetiologie: 'Ursache ist immer eine chronische Alkoholabhängigkeit (ICD-10 F10.2) mit neuroadaptiver Veränderung des GABA-A- und des NMDA-Rezeptorsystems. Auslöser des Entzugs ist jede abrupte Unterbrechung oder relevante Reduktion der gewohnten Zufuhr: der bewusste Selbstentzug, eine ungeplante Abstinenz durch eine Krankenhausaufnahme aus anderem Anlass (Fraktur, Pankreatitis, Operation, Infekt), eine Nahrungskarenz vor einem Eingriff oder eine Inhaftierung. Häufig wird der Entzug erst im Krankenhaus manifest, weil dort die gewohnte Zufuhr wegfällt — deshalb ist die Suchtanamnese bei jeder Aufnahme obligat. Begünstigend wirken zusätzlich Mangelernährung mit Thiamin-, Folsäure- und Magnesiummangel, Exsikkose, Elektrolytstörungen, Infekte, Schmerzen und Schlafentzug.',
+      risikofaktoren: [
+        'hohe tägliche Trinkmenge (Risiko deutlich steigend ab etwa 60 g reinem Alkohol pro Tag) und lange Konsumdauer',
+        'früherer Entzugskrampfanfall oder früheres Entzugsdelir — der beste Einzelprädiktor für ein erneutes Delir',
+        'mehrfache frühere Entzüge (Kindling-Phänomen: jeder Entzug senkt die Krampfschwelle für den nächsten)',
+        'hohe Toleranz, Morgentrinken und Erleichterungstrinken als Zeichen der körperlichen Abhängigkeit',
+        'ungeplante Abstinenz durch stationäre Aufnahme, Operation oder Nahrungskarenz',
+        'begleitende Allgemeinerkrankung: Infekt, Pneumonie, Pankreatitis, gastrointestinale Blutung, Trauma, Operation',
+        'fortgeschrittene Leberschädigung, Elektrolytstörungen (vor allem Hypomagnesiämie und Hypokaliämie), Exsikkose',
+        'Mangelernährung mit Thiaminmangel',
+        'höheres Lebensalter und begleitende Hirnschädigung (Hirnatrophie, Zustand nach Schädel-Hirn-Trauma)',
+        'zusätzlicher Konsum von Benzodiazepinen oder anderen Sedativa',
+        'männliches Geschlecht, soziale Isolation, fehlende Behandlungsanbindung',
+      ],
+      klinik: [
+        {
+          text: 'Vegetative Frühsymptome 6 bis 12 Stunden nach dem letzten Konsum: feinschlägiger Halte- und Aktionstremor der Hände, profuses Schwitzen, Tachykardie, arterielle Hypertonie, innere Unruhe und Nervosität',
+        },
+        {
+          text: 'Übelkeit, Würgereiz und Erbrechen, Appetitlosigkeit, vor allem morgens auf nüchternen Magen',
+        },
+        {
+          text: 'Ein- und Durchschlafstörung mit lebhaften Albträumen; nächtliche Verschlechterung der Symptomatik',
+        },
+        {
+          text: 'Prompte Besserung der Beschwerden nach Alkoholzufuhr (Erleichterungstrinken, Morgentrinken) — anamnestisch nahezu beweisend',
+        },
+        {
+          text: 'Angst, Reizbarkeit, Konzentrationsstörung, Hyperreflexie und Mydriasis',
+        },
+        {
+          text: 'Generalisierter tonisch-klonischer Entzugskrampfanfall zwischen 12 und 48 Stunden nach dem letzten Konsum, meist einmalig und ohne Herdbefund',
+        },
+        {
+          text: 'Optische Halluzinationen zwischen 12 und 24 Stunden, klassisch kleine, bewegliche Tiere („weiße Mäuse")',
+        },
+        {
+          text: 'Delirium tremens zwischen 48 und 72 Stunden — Trias: vegetative Entgleisung (Fieber, Tachykardie, Hypertonie, profuses Schwitzen), Bewusstseins- und Orientierungsstörung, psychotische Symptome',
+        },
+        {
+          text: 'Im Delir zusätzlich: erhöhte Suggestibilität (der Patient liest von einem leeren Blatt vor), Nesteln, Beschäftigungsdrang mit Scheinhandlungen aus dem Beruf, Verkennung der Umgebung, gestörter Tag-Nacht-Rhythmus',
+          atypisch: false,
+        },
+        {
+          text: 'Begleitbefunde der Grunderkrankung: Leberhautzeichen, Palmarerythem, Spider naevi, Hepatomegalie, Polyneuropathie, Gewichtsverlust, Vernachlässigung',
+        },
+        {
+          text: 'Alkoholhalluzinose: anhaltende, meist AKUSTISCHE Halluzinationen (dialogisierende oder kommentierende Stimmen) bei KLAREM Bewusstsein und erhaltener Orientierung — im Gegensatz zum Delir',
+          atypisch: true,
+        },
+        {
+          text: 'Delir ohne führende vegetative Symptomatik bei älteren Patienten oder unter Betablockern — die Bewusstseinsstörung steht dann isoliert im Vordergrund und wird leicht übersehen',
+          atypisch: true,
+        },
+        {
+          text: 'Entzugssyndrom trotz noch messbarem Blutalkoholspiegel (relativer Entzug) bei sehr hoher Toleranz',
+          atypisch: true,
+        },
+        {
+          text: 'Krampfanfall als ERSTE und einzige Manifestation des Entzugs, noch bevor vegetative Symptome auffallen',
+          atypisch: true,
+        },
+        {
+          text: 'Vorwiegend taktile Halluzinationen (Dermatozoenwahn, Gefühl von Insekten auf oder unter der Haut) statt optischer',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'CIWA-Ar (Clinical Institute Withdrawal Assessment for Alcohol, revised)',
+          inhalt: 'Standardinstrument zur Schweregradbeurteilung und zur Steuerung der Medikation. Zehn Items: Übelkeit/Erbrechen, Tremor, paroxysmales Schwitzen, Angst, Agitation, taktile Störungen, akustische Störungen, optische Störungen, Kopfschmerz (je 0–7 Punkte) sowie Orientierung und Bewusstseinstrübung (0–4 Punkte) — Maximum 67 Punkte. Interpretation: unter 8 bis 10 Punkte leichter Entzug, in der Regel nur Beobachtung; 8 bis 15 Punkte mittelschwerer Entzug mit medikamentöser Behandlungsindikation; über 15 bis 20 Punkte schwerer Entzug mit hohem Delir- und Krampfrisiko. Die symptomgesteuerte Gabe nach CIWA-Ar ist dem starren Dosierungsschema überlegen: geringere Gesamtdosis, kürzere Behandlungsdauer, weniger Komplikationen.',
+        },
+        {
+          name: 'ICD-10-Kriterien des Abhängigkeitssyndroms (F10.2)',
+          inhalt: 'Sechs Kriterien, von denen MINDESTENS DREI gleichzeitig innerhalb der letzten zwölf Monate erfüllt sein müssen: (1) starker Wunsch oder Zwang zu konsumieren (Craving); (2) verminderte Kontrollfähigkeit über Beginn, Beendigung und Menge; (3) körperliches Entzugssyndrom bei Reduktion oder Beendigung beziehungsweise Konsum zur Linderung von Entzugssymptomen; (4) Toleranzentwicklung mit Dosissteigerung; (5) fortschreitende Vernachlässigung anderer Interessen und erhöhter Zeitaufwand für Beschaffung und Konsum; (6) anhaltender Konsum trotz eindeutig schädlicher Folgen.',
+        },
+        {
+          name: 'ICD-10-Kodierung der alkoholbezogenen Störungen',
+          inhalt: 'F10.0 akute Intoxikation; F10.1 schädlicher Gebrauch (Abusus, ohne Abhängigkeitskriterien); F10.2 Abhängigkeitssyndrom; F10.3 Entzugssyndrom ohne Delir; F10.4 Entzugssyndrom MIT Delir (Delirium tremens); F10.5 psychotische Störung (Alkoholhalluzinose, Eifersuchtswahn); F10.6 amnestisches Syndrom (Korsakow-Syndrom).',
+        },
+        {
+          name: 'Screeninginstrumente: CAGE und AUDIT',
+          inhalt: 'CAGE: vier Fragen — Cut down (Versuch, den Konsum zu reduzieren), Annoyed (Ärger über Kritik anderer), Guilty (Schuldgefühle wegen des Trinkens), Eye-opener (Alkohol am Morgen). Bereits ZWEI positive Antworten begründen den Verdacht auf eine Abhängigkeit. AUDIT: zehn Fragen der WHO, maximal 40 Punkte; ab 8 Punkten riskanter Konsum, ab etwa 20 Punkten dringender Abhängigkeitsverdacht; die Kurzform AUDIT-C umfasst die ersten drei Fragen zu Häufigkeit und Menge.',
+        },
+        {
+          name: 'Grenzwerte des risikoarmen Konsums und Mengenberechnung',
+          inhalt: 'Reiner Alkohol in Gramm = Volumen in Millilitern × Volumenprozent × 0,8 (Dichte von Ethanol). Ein Standardglas entspricht etwa 10 bis 12 g reinem Alkohol (0,33 l Bier oder 0,1 l Wein oder 4 cl Spirituose). Als risikoarm gelten für Männer bis etwa 24 g und für Frauen bis etwa 12 g pro Tag bei mindestens zwei alkoholfreien Tagen pro Woche; ein relevantes Entzugsrisiko besteht regelhaft ab etwa 60 g pro Tag über längere Zeit.',
+        },
+        {
+          name: 'Stadien des Entzugsverlaufs',
+          inhalt: 'Stadium 1 — leichtes Entzugssyndrom (6–12 Stunden): Tremor, Schwitzen, Tachykardie, Unruhe, Übelkeit, Schlafstörung. Stadium 2 — Prädelir: verstärkte vegetative Symptomatik mit Angst, Hyperreflexie und Verkennungen, aber ERHALTENER Orientierung; Krampfanfälle möglich (12–48 Stunden). Stadium 3 — Delirium tremens (48–72 Stunden, bis Tag 4–5): vollständige Trias mit Bewusstseins- und Orientierungsstörung, optischen Halluzinationen und vegetativer Entgleisung; Dauer meist 3 bis 5 Tage.',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinstrübung, Desorientiertheit oder Verkennung der Umgebung — Übergang in ein Delirium tremens',
+        'Fieber über 38,5 °C, Tachykardie über 120 pro Minute, hypertensive Entgleisung, profuses Schwitzen — vegetative Entgleisung',
+        'generalisierter Krampfanfall, insbesondere fokaler Beginn, wiederholte Anfälle oder Status epilepticus',
+        'optische oder taktile Halluzinationen, Nesteln, Beschäftigungsdrang, erhöhte Suggestibilität',
+        'Okulomotorikstörung, Nystagmus, Doppelbilder oder Ataxie — Verdacht auf Wernicke-Enzephalopathie',
+        'fokal-neurologisches Defizit, Anisokorie oder Sturzanamnese — Verdacht auf subdurales Hämatom',
+        'Hypoglykämie sowie schwere Elektrolytstörungen (Hyponatriämie, Hypokaliämie, Hypomagnesiämie, Hypophosphatämie)',
+        'Hämatemesis, Kaffeesatzerbrechen oder Teerstuhl — obere gastrointestinale Blutung, häufig bei Ösophagusvarizen',
+        'Ikterus, Aszites, Foetor hepaticus, Asterixis — hepatische Dekompensation mit Enzephalopathie',
+        'akute Suizidalität',
+        'Rhabdomyolyse nach längerem Liegen, Aspiration, Aspirationspneumonie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suchtanamnese: Art des Getränks, Menge und Glasgröße, Umrechnung in Gramm reinen Alkohol (Volumen × Volumenprozent × 0,8), Konsumdauer, Trinkmuster, Morgentrinken und Erleichterungstrinken; die vom Patienten genannte Menge wird regelhaft verharmlost und muss ruhig und wertfrei nachgefragt werden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'ZEITPUNKT DES LETZTEN KONSUMS — die entscheidende Angabe, weil sie die aktuelle Risikophase (Frühsymptome, Krampfanfall, Delir) festlegt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Frühere Entzüge, frühere Entzugskrampfanfälle und frühere Delirien — bester Prädiktor eines erneuten Delirs; frühere Entwöhnungsbehandlungen und Abstinenzphasen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'CAGE-Fragen oder AUDIT-Fragebogen als Screening; Prüfung der sechs ICD-10-Kriterien des Abhängigkeitssyndroms',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'CIWA-Ar-Score zur Schweregradbeurteilung und zur Therapiesteuerung, mit wiederholter Erhebung im Verlauf',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter (Blutdruck, Puls, Temperatur, Atemfrequenz, Sauerstoffsättigung); körperliche Untersuchung mit Leberhautzeichen, Lebergröße, Asziteszeichen und Suche nach Verletzungen und Infektfokus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologischer Status: Vigilanz, Orientierung, Pupillen, Okulomotorik und Nystagmus, Stand- und Gangprüfung, Koordination, Reflexe, Sensibilität (Polyneuropathie); Charakterisierung des Tremors (feinschlägiger Halte- und Aktionstremor gegenüber grobschlägiger Asterixis)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychopathologischer Befund einschließlich Wahrnehmungsstörungen, Psychomotorik, Stimmung, Antrieb und ausdrücklicher Erfassung der Suizidalität',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutzucker sofort — Hypoglykämie als wichtigste sofort behandelbare Differenzialdiagnose',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutalkoholspiegel oder Atemalkoholtest; Abbau etwa 0,1 bis 0,2 Promille pro Stunde. Entzugssymptome bei noch positivem Spiegel belegen eine hohe Toleranz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit MCV (makrozytäre Anämie) und Thrombozyten; Leberwerte mit GGT, GOT/AST, GPT/ALT und De-Ritis-Quotient über 2 als Hinweis auf eine alkoholtoxische Schädigung, Bilirubin, alkalische Phosphatase; CDT (kohlenhydratdefizientes Transferrin) als Marker chronisch hohen Konsums',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte einschließlich MAGNESIUM und Phosphat, Natrium, Kalium, Kalzium; Kreatinin, Harnstoff, CRP, Gerinnung mit INR, Albumin, Lipase, Ammoniak bei Bewusstseinsstörung, TSH; Urinstatus und Drogenscreening im Urin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG: QT-Zeit (verlängert bei Elektrolytstörung, zusätzliche Verlängerung durch Neuroleptika), Sinustachykardie, Vorhofflimmern („Holiday-Heart-Syndrom")',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: Steatosis hepatis, Zirrhosezeichen, Splenomegalie, Aszites, Pankreasveränderungen; Röntgen-Thorax bei Infekt- oder Aspirationsverdacht',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniale Computertomographie bei Bewusstseinsstörung, fokal-neurologischem Defizit, Krampfanfall oder Sturzanamnese — insbesondere zum Ausschluss eines subduralen Hämatoms; MRT bei Verdacht auf eine Wernicke-Enzephalopathie (Signalanhebungen um den dritten Ventrikel und die Corpora mamillaria)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'EEG bei Krampfanfall zur Abgrenzung einer eigenständigen Epilepsie und eines nonkonvulsiven Status',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Lumbalpunktion nach vorheriger Bildgebung bei Fieber und Bewusstseinsstörung zum Ausschluss einer Meningoenzephalitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie bei Verdacht auf eine obere gastrointestinale Blutung oder Ösophagusvarizen',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Delir anderer Ursache (Infekt, Exsikkose, Hypoxie, Medikamente, postoperativ)',
+          unterscheidung: 'Fieber und Infektfokus, Leukozytose und CRP-Erhöhung, Hypoxie in der Blutgasanalyse, anticholinerge oder sedierende Medikation, hohes Lebensalter; entscheidend ist der fehlende zeitliche Bezug zum letzten Alkoholkonsum. Beide Formen können sich überlagern.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Klinisch nahezu identisch (Tremor, Schwitzen, Tachykardie, Unruhe, Verwirrtheit) und sofort behandelbar — deshalb ist die Blutzuckerbestimmung die allererste Maßnahme. Bei Alkoholkranken zusätzlich durch Hemmung der Glukoneogenese und leere Glykogenspeicher begünstigt.',
+        },
+        {
+          dd: 'Wernicke-Enzephalopathie',
+          unterscheidung: 'Trias aus Bewusstseins-/Vigilanzstörung, Okulomotorikstörung (Nystagmus, Abduzensparese, Doppelbilder) und Ataxie bei Thiaminmangel; die Trias ist nur in etwa einem Drittel der Fälle komplett. Notfall — sofortige parenterale Thiamingabe; unbehandelt Übergang in ein Korsakow-Syndrom mit anterograder Amnesie und Konfabulationen.',
+        },
+        {
+          dd: 'Hepatische Enzephalopathie',
+          unterscheidung: 'Grobschlägige Asterixis (Flapping Tremor) statt feinschlägigem Tremor, Foetor hepaticus, Ikterus, Aszites, Verlangsamung und Somnolenz statt Agitation, erhöhtes Ammoniak; typische Auslöser sind gastrointestinale Blutung, Obstipation, Infekt und Elektrolytstörung.',
+        },
+        {
+          dd: 'Schädel-Hirn-Trauma und chronisch subdurales Hämatom',
+          unterscheidung: 'Der klassische Fallstrick beim verwirrten Alkoholkranken: Sturzanamnese, oft freies Intervall von Wochen, langsam progrediente Kopfschmerzen, Wesensänderung, fokal-neurologisches Defizit, Anisokorie; begünstigt durch Hirnatrophie und Gerinnungsstörung. Diagnose durch cCT.',
+        },
+        {
+          dd: 'Benzodiazepin- oder Opiatentzug',
+          unterscheidung: 'Der Benzodiazepinentzug verläuft klinisch fast identisch und ebenfalls mit Krampfrisiko, jedoch protrahierter; der Opiatentzug zeigt Mydriasis, Gähnen, Rhinorrhoe, Gänsehaut, Diarrhoe und Muskelschmerzen ohne Delir. Unterscheidung über Medikamenten- und Suchtanamnese sowie Drogenscreening.',
+        },
+        {
+          dd: 'Meningitis und Enzephalitis',
+          unterscheidung: 'Fieber, Kopfschmerz, Meningismus, Photophobie, ggf. Exanthem oder fokale Anfälle; Diagnose durch Lumbalpunktion nach vorheriger Bildgebung. Bei Alkoholkranken erhöhtes Risiko einer Pneumokokkenmeningitis.',
+        },
+        {
+          dd: 'Elektrolyt- und Stoffwechselentgleisung',
+          unterscheidung: 'Hyponatriämie, Hypokaliämie, Hypomagnesiämie, Hypophosphatämie, Hyperkalzämie und Urämie verursachen selbst Verwirrtheit, Tremor, Krampfanfälle und Arrhythmien. Cave: Der zu rasche Ausgleich einer Hyponatriämie führt zur zentralen pontinen Myelinolyse.',
+        },
+        {
+          dd: 'Hyperthyreose und thyreotoxische Krise',
+          unterscheidung: 'Feinschlägiger Tremor, Tachykardie, Schwitzen, Unruhe, Gewichtsverlust trotz gutem Appetit, Wärmeintoleranz, Struma, ggf. endokrine Orbitopathie; TSH supprimiert, freie Schilddrüsenhormone erhöht.',
+        },
+        {
+          dd: 'Psychotische Störung (Schizophrenie) und Alkoholhalluzinose',
+          unterscheidung: 'Bei der Schizophrenie und der Alkoholhalluzinose überwiegen AKUSTISCHE Halluzinationen bei KLAREM Bewusstsein und erhaltener Orientierung, ohne vegetative Entgleisung. Beim Delir dominieren OPTISCHE Halluzinationen mit Bewusstseinstrübung und ausgeprägter vegetativer Symptomatik.',
+        },
+        {
+          dd: 'Entzugskrampfanfall gegenüber epileptischem Anfall anderer Genese',
+          unterscheidung: 'Der Entzugsanfall ist typischerweise generalisiert tonisch-klonisch, tritt 12 bis 48 Stunden nach dem letzten Konsum auf, ist meist einmalig und zeigt keinen Herdbefund. Fokaler Beginn, wiederholte Anfälle, Status epilepticus oder ein postiktales Defizit erzwingen cCT und EEG und sprechen für eine strukturelle Ursache.',
+        },
+        {
+          dd: 'Essenzieller Tremor und Morbus Parkinson',
+          unterscheidung: 'Der essenzielle Tremor ist ein oft familiärer, über Jahre langsam progredienter Halte- und Aktionstremor, der sich klassisch nach Alkoholgenuss bessert. Der Parkinson-Tremor ist ein Ruhetremor mit Rigor, Bradykinese und posturaler Instabilität. Beiden fehlt der zeitliche Bezug zum letzten Konsum und die vegetative Begleitsymptomatik.',
+        },
+        {
+          dd: 'Anticholinerges Syndrom und Intoxikation mit Stimulanzien (Kokain, Amphetamine)',
+          unterscheidung: 'Ähnliche Agitation, Tachykardie und Halluzinationen; beim anticholinergen Syndrom trockene, gerötete Haut und Harnverhalt statt profusem Schwitzen. Klärung über Fremd- und Medikamentenanamnese sowie Drogenscreening.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomgesteuerte medikamentöse Entzugsbehandlung',
+          items: [
+            'Behandlungsindikation ab einem CIWA-Ar von etwa 8 bis 10 Punkten; stationäre Behandlung bei mittelschwerem bis schwerem Entzug, früherem Krampfanfall oder Delir, relevanten Begleiterkrankungen, fehlender häuslicher Betreuung oder Suizidalität',
+            'BENZODIAZEPINE sind das Mittel der Wahl — die einzige Substanzgruppe, die sowohl den Entzugskrampfanfall als auch das Delir sicher verhindert; sie wirken über denselben GABA-A-Rezeptorkomplex wie der Alkohol (Kreuztoleranz)',
+            'Substanzwahl: Diazepam oder Chlordiazepoxid bei guter Leberfunktion (lange Halbwertszeit, selbstausschleichend); bei Leberzirrhose, hohem Lebensalter oder respiratorischer Vorerkrankung bevorzugt Lorazepam oder Oxazepam, da sie ohne aktive Metaboliten glukuronidiert werden',
+            'SYMPTOMGESTEUERTE Dosierung nach CIWA-Ar mit stündlicher Reevaluation statt starrem Schema — geringere Gesamtdosis, kürzere Behandlungsdauer, weniger Komplikationen',
+            'Clomethiazol als in Deutschland etablierte Alternative NUR unter stationärer Überwachung; Cave Atemdepression, ausgeprägte bronchiale Hypersekretion, hohes Abhängigkeitspotenzial, strikte Kontraindikation bei gleichzeitigem Alkoholkonsum und im ambulanten Setting',
+            'Antipsychotika (Haloperidol, alternativ Risperidon) NUR ERGÄNZEND zu Benzodiazepinen bei produktiv-psychotischen Symptomen und NIEMALS als Monotherapie: sie senken die Krampfschwelle, verlängern die QT-Zeit und verhindern weder Anfall noch Delir',
+            'Clonidin oder Dexmedetomidin als Ergänzung bei ausgeprägter vegetativer Symptomatik; ebenfalls nie als alleinige Therapie',
+            'beim schweren Delir intensivmedizinische Behandlung, gegebenenfalls Sedierung und Beatmung; Carbamazepin nur als Reserveoption ohne Delirschutz',
+            'Ausschleichen über wenige Tage; ein abrupter Entzug ohne Schutzmedikation und ein ambulanter Selbstentzug bei körperlicher Abhängigkeit sind gefährlich',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Thiamin-Substitution, Elektrolyte und Volumen',
+          items: [
+            'THIAMIN (Vitamin B1) parenteral, mindestens 200 bis 300 mg täglich über mehrere Tage als obligate Prophylaxe der Wernicke-Enzephalopathie; bei begründetem Verdacht deutlich höhere Dosen',
+            'MERKSATZ: THIAMIN VOR GLUKOSE — eine Glukoseinfusion vor der Thiamingabe verbraucht die letzten Thiaminreserven und kann eine Wernicke-Enzephalopathie auslösen oder verschlimmern',
+            'Magnesium substituieren: die Hypomagnesiämie senkt die Krampfschwelle und begünstigt Arrhythmien; ebenso Kalium, Phosphat und Kalzium nach Laborkontrolle',
+            'Hyponatriämie nur LANGSAM ausgleichen (höchstens 8 bis 10 mmol/l in 24 Stunden) wegen der Gefahr einer zentralen pontinen Myelinolyse',
+            'Volumensubstitution bei Exsikkose durch Schwitzen, Erbrechen und verminderte Zufuhr, unter Bilanzierung',
+            'ergänzend Folsäure, weitere B-Vitamine und ein kontrollierter Ernährungsaufbau; Cave Refeeding-Syndrom mit Hypophosphatämie bei ausgeprägter Mangelernährung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Überwachung, Sicherheit und Behandlung der auslösenden somatischen Probleme',
+          items: [
+            'engmaschiges Monitoring von Blutdruck, Puls, Temperatur, Atmung, Sauerstoffsättigung, Bewusstsein und Orientierung; wiederholte CIWA-Ar-Erhebung; beim Delir intensivmedizinische Überwachung',
+            'reizarme, ruhige und ausreichend beleuchtete Umgebung, regelmäßige Reorientierung (Uhr, Kalender, namentliche Ansprache), Tag-Nacht-Rhythmus stabilisieren, Anwesenheit vertrauter Personen ermöglichen',
+            'Sturz- und Verletzungsprophylaxe; Fixierung nur als letztes Mittel, zeitlich befristet, ärztlich angeordnet und dokumentiert, mit Thromboseprophylaxe',
+            'aktive Suche nach dem auslösenden oder begleitenden somatischen Problem: Infekt und Pneumonie, Pankreatitis, gastrointestinale Blutung, Leberdekompensation, Elektrolytentgleisung, Hypoglykämie und — nach Sturz — ein subdurales Hämatom',
+            'Behandlung der Begleiterkrankungen, Fortführung der notwendigen Vormedikation, Aspirationsprophylaxe, Thromboseprophylaxe und Dekubitusprophylaxe',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nach dem Entzug: Motivation, qualifizierte Entwöhnung und Rückfallprophylaxe',
+          items: [
+            'Grundsatz: Die körperliche Entgiftung ist NICHT die Behandlung der Abhängigkeit, sondern nur deren Voraussetzung — ohne anschließende Entwöhnung ist die Rückfallquote sehr hoch',
+            'motivierende Gesprächsführung ohne Moralisieren und ohne Schuldzuweisung: Ambivalenz benennen, Diskrepanz zwischen Zielen und Verhalten herausarbeiten, Ressourcen und Eigenverantwortung des Patienten stärken',
+            'qualifizierte Entzugsbehandlung (Entgiftung plus Motivations- und Psychotherapie über etwa zwei bis drei Wochen) statt reiner körperlicher Entgiftung',
+            'anschließende Entwöhnungstherapie stationär oder ambulant, in der Regel über den Rentenversicherungsträger; Anbindung an eine Suchtberatungsstelle und an Selbsthilfegruppen (Anonyme Alkoholiker, Kreuzbund, Guttempler); Einbeziehung der Angehörigen',
+            'Psychotherapie, insbesondere kognitive Verhaltenstherapie mit Rückfallprophylaxe, Umgang mit Craving und Risikosituationen sowie Bearbeitung auslösender Belastungen',
+            'medikamentöse Rückfallprophylaxe ergänzend: Acamprosat (Reduktion des Cravings) oder Naltrexon (Reduktion der Alkoholwirkung, kontraindiziert bei Opiattherapie); Disulfiram nur in Ausnahmefällen unter Aufsicht',
+            'Behandlung der psychiatrischen Komorbidität (Depression, Angststörung, posttraumatische Belastungsstörung) — die Stimmung sollte jedoch erst nach mehreren Wochen Abstinenz endgültig beurteilt werden, da Alkohol selbst depressiogen wirkt',
+            'sozialmedizinische Beratung: Arbeitsplatzsicherung, Wohnsituation, Schulden, Fahreignung und Umgang mit Sorge- und Umgangsrecht',
+          ],
+          akut: false,
+        },
+      ],
+      prognose: 'Das unkomplizierte Entzugssyndrom klingt unter adäquater Behandlung innerhalb von drei bis sieben Tagen ab. Das Delirium tremens dauert in der Regel drei bis fünf Tage; unbehandelt liegt seine Letalität bei bis zu 20 %, unter intensivmedizinischer Behandlung unter 5 %. Prognostisch entscheidend sind die frühzeitige Erkennung, die konsequente Benzodiazepingabe, die Thiaminsubstitution und die Behandlung der auslösenden somatischen Erkrankung. Ein durchgemachter Entzugskrampfanfall oder ein Delir erhöht das Risiko eines erneuten schweren Entzugs erheblich (Kindling-Phänomen). Für die Abhängigkeit selbst gilt: Nach reiner körperlicher Entgiftung liegt die Rückfallrate innerhalb eines Jahres bei etwa 70 bis 80 %, nach qualifizierter Entzugs- und anschließender Entwöhnungsbehandlung erreicht rund die Hälfte der Patienten eine anhaltende Abstinenz. Bei konsequenter Abstinenz sind Steatosis hepatis, Polyneuropathie und kognitive Defizite teilweise reversibel, eine bereits eingetretene Leberzirrhose und ein Korsakow-Syndrom hingegen nicht.',
+      pruefungsfallen: [
+        'Das Wort DELIRIUM TREMENS muss bei der Frage nach Entzugserscheinungen fallen — in Freiburg wartete der Prüfer explizit darauf, während der Kandidat nur Kopfschmerz, Durchfall und Zittern nannte. Immer die vollständige Kaskade aufzählen.',
+        'Die ZEITACHSE ist der Kern der Prüfungsfrage: Frühsymptome 6–12 Stunden, Krampfanfall 12–48 Stunden, Halluzinationen 12–24 Stunden, Delirium tremens 48–72 Stunden nach dem letzten Konsum. Deshalb ist die Frage nach dem exakten Zeitpunkt des letzten Konsums unverzichtbar.',
+        'Haloperidol NIEMALS als Monotherapie: Antipsychotika senken die Krampfschwelle, verlängern die QT-Zeit und verhindern weder Anfall noch Delir — sie sind nur eine Ergänzung zu Benzodiazepinen bei produktiv-psychotischen Symptomen.',
+        'THIAMIN VOR GLUKOSE — die umgekehrte Reihenfolge kann eine Wernicke-Enzephalopathie auslösen. Einer der am häufigsten geprüften Merksätze.',
+        'Die vom Patienten angegebene Trinkmenge ist fast immer verharmlost. Ruhig und wertfrei nachfragen: Was genau, wie viele Gläser, wie groß ist das Glas, seit wann, und trinken Sie morgens schon etwas? Prüfer fragen ausdrücklich, ob man dem Patienten glaube.',
+        'Die Trinkmenge in GRAMM umrechnen können: Volumen in Millilitern × Volumenprozent × 0,8. Ein Standardglas entspricht etwa 10 bis 12 g; risikoarm sind beim Mann bis etwa 24 g pro Tag.',
+        'Beim verwirrten oder gestürzten Alkoholkranken IMMER das chronisch subdurale Hämatom mitnennen und ein cCT fordern — der am häufigsten übersehene Fallstrick.',
+        'Niemals empfehlen, den Alkohol einfach abrupt und ohne ärztliche Begleitung wegzulassen: Das kann Krampfanfall und Delir auslösen. Die typische Prüferfrage lautet: „Wir dürfen den Alkohol nicht plötzlich absetzen — warum?"',
+        'Die Entgiftung ist NICHT die Therapie der Abhängigkeit. Wer nur Benzodiazepine und Thiamin nennt, hat die zweite Hälfte vergessen: qualifizierte Entzugsbehandlung, Entwöhnung, Suchtberatung, Selbsthilfegruppen, Rückfallprophylaxe.',
+        'Delir und Alkoholhalluzinose sauber trennen: Beim Delir OPTISCHE Halluzinationen mit Bewusstseins- und Orientierungsstörung und vegetativer Entgleisung; bei der Alkoholhalluzinose vorwiegend AKUSTISCHE Halluzinationen bei klarem Bewusstsein.',
+        'Feinschlägigen Entzugstremor und grobschlägige Asterixis (Flapping Tremor) der hepatischen Enzephalopathie nicht verwechseln.',
+        'Hypoglykämie und Elektrolytstörungen — besonders die Hypomagnesiämie — dürfen im Labor nicht fehlen; Magnesium wird bei der Krampfprophylaxe regelmäßig vergessen.',
+        'Ein Entzugssyndrom kann auch bei noch positivem Blutalkoholspiegel bestehen (relativer Entzug) — ein positiver Spiegel schließt den Entzug nicht aus.',
+        'Suizidalität aktiv und wörtlich erfragen: Sie wird vom Patienten nicht von selbst angesprochen, und ihr Fehlen im Befund fällt den Prüfern auf.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum hat der Patient Tremor?',
+          antwort: 'Wegen eines Alkoholentzugs. Der chronische Konsum verstärkt die hemmende GABA-erge Übertragung und führt zur Hochregulation der erregenden NMDA-Rezeptoren; fällt der Alkohol weg, überwiegt die glutamaterge Übererregung mit sympathischer Entgleisung — daraus resultieren feinschlägiger Tremor, Schwitzen, Tachykardie, Hypertonie und innere Unruhe.',
+        },
+        {
+          frage: 'Der Patient ist alkoholabhängig — wie würden Sie ihn therapieren?',
+          antwort: 'Mit einem ärztlich überwachten Alkoholentzug: stationäre Aufnahme mit Monitoring, symptomgesteuerte Gabe von Benzodiazepinen nach dem CIWA-Ar-Score, parenterale Thiamingabe, Ausgleich von Magnesium, Elektrolyten und Volumen, reizarme Umgebung und Behandlung somatischer Auslöser. Danach folgen die qualifizierte Entzugsbehandlung, die Entwöhnungstherapie, Suchtberatung und Selbsthilfegruppen sowie eine Rückfallprophylaxe.',
+        },
+        {
+          frage: 'Wir dürfen den Alkohol nicht plötzlich absetzen — warum nicht?',
+          antwort: 'Weil ein abrupter Entzug bei körperlicher Abhängigkeit einen generalisierten Krampfanfall und ein Delirium tremens auslösen kann, das lebensbedrohlich ist. Der Entzug muss deshalb unter Überwachung und mit medikamentösem Schutz durch Benzodiazepine erfolgen.',
+        },
+        {
+          frage: 'Wie äußert sich ein Alkoholdelir?',
+          antwort: 'Durch eine Trias: erstens die vegetative Entgleisung mit Fieber, Tachykardie, Hypertonie und profusem Schwitzen; zweitens die Bewusstseins- und Orientierungsstörung; drittens die psychotischen Symptome mit typischerweise optischen Halluzinationen — klassisch kleine Tiere —, erhöhter Suggestibilität, Nesteln und Beschäftigungsdrang. Es beginnt 48 bis 72 Stunden nach dem letzten Konsum und verschlechtert sich nachts.',
+        },
+        {
+          frage: 'Welche Entzugserscheinungen kennen Sie, und wann treten sie auf?',
+          antwort: 'Nach 6 bis 12 Stunden Tremor, Schwitzen, Tachykardie, Hypertonie, Unruhe, Übelkeit, Erbrechen und Schlafstörung mit Albträumen. Zwischen 12 und 48 Stunden generalisierte Entzugskrampfanfälle, zwischen 12 und 24 Stunden Halluzinationen, und zwischen 48 und 72 Stunden das Delirium tremens.',
+        },
+        {
+          frage: 'Wie gefährlich ist das Delirium tremens?',
+          antwort: 'Es ist ein lebensbedrohlicher Notfall. Unbehandelt liegt die Letalität bei bis zu 20 %, unter adäquater Behandlung unter 5 %. Todesursachen sind kardiovaskuläre Entgleisung, Herzrhythmusstörungen, Elektrolytstörungen, Aspiration, Infektionen und Rhabdomyolyse.',
+        },
+        {
+          frage: 'Welche Medikamente geben Sie, und warum gerade diese?',
+          antwort: 'Benzodiazepine als Mittel der Wahl, symptomgesteuert nach CIWA-Ar — sie wirken über denselben GABA-A-Rezeptor wie der Alkohol und sind die einzige Substanzgruppe, die Krampfanfall und Delir verhindert. Bei Leberzirrhose bevorzugt Lorazepam oder Oxazepam. Clomethiazol ist eine stationäre Alternative. Antipsychotika kommen nur ergänzend bei psychotischen Symptomen dazu.',
+        },
+        {
+          frage: 'Dürfen Sie Haloperidol allein geben?',
+          antwort: 'Nein, niemals als Monotherapie. Antipsychotika senken die Krampfschwelle, verlängern die QT-Zeit und verhindern weder den Entzugskrampfanfall noch das Delir. Sie werden ausschließlich ergänzend zu Benzodiazepinen bei produktiv-psychotischen Symptomen eingesetzt.',
+        },
+        {
+          frage: 'Warum geben Sie Thiamin, und worauf müssen Sie bei der Reihenfolge achten?',
+          antwort: 'Zur Prophylaxe der Wernicke-Enzephalopathie, da bei Alkoholabhängigen ein Thiaminmangel durch Mangelernährung und gestörte Resorption besteht. Thiamin muss VOR Glukose gegeben werden: Eine Glukoseinfusion verbraucht die letzten Thiaminreserven und kann eine Wernicke-Enzephalopathie auslösen.',
+        },
+        {
+          frage: 'Was ist die Trias der Wernicke-Enzephalopathie, und was droht unbehandelt?',
+          antwort: 'Bewusstseins- beziehungsweise Vigilanzstörung, Okulomotorikstörung mit Nystagmus oder Augenmuskelparesen und Ataxie. Die Trias ist nur in etwa einem Drittel der Fälle vollständig. Unbehandelt droht der Übergang in ein Korsakow-Syndrom mit anterograder Amnesie, Desorientierung und Konfabulationen.',
+        },
+        {
+          frage: 'Welche Laborwerte erwarten Sie bei chronischem Alkoholkonsum?',
+          antwort: 'Ein erhöhtes MCV mit makrozytärer Anämie, eine erhöhte GGT, erhöhte Transaminasen mit einem De-Ritis-Quotienten über 2, ein erhöhtes CDT, häufig eine Thrombozytopenie sowie Hypomagnesiämie, Hypokaliämie und Hypophosphatämie; bei fortgeschrittener Leberschädigung eine erhöhte INR und ein erniedrigtes Albumin.',
+        },
+        {
+          frage: 'Was bedeutet der De-Ritis-Quotient?',
+          antwort: 'Das Verhältnis von GOT beziehungsweise AST zu GPT beziehungsweise ALT. Unter 1 spricht er für eine leichte Leberzellschädigung, über 1 für eine schwere und über 2 typischerweise für eine alkoholtoxische Schädigung, da die AST auch mitochondrial gebunden ist und erst bei ausgeprägter Zellnekrose freigesetzt wird.',
+        },
+        {
+          frage: 'Wie beurteilen Sie den Schweregrad des Entzugs?',
+          antwort: 'Mit dem CIWA-Ar-Score: zehn Items — Übelkeit und Erbrechen, Tremor, paroxysmales Schwitzen, Angst, Agitation, taktile, akustische und optische Störungen, Kopfschmerz sowie Orientierung —, maximal 67 Punkte. Unter 8 bis 10 Punkten reicht meist die Beobachtung, ab 8 bis 10 Punkten besteht eine medikamentöse Behandlungsindikation, über 15 bis 20 Punkte liegt ein schwerer Entzug vor.',
+        },
+        {
+          frage: 'Wie viel Alkohol darf man trinken, und wie rechnen Sie die Menge aus?',
+          antwort: 'Reiner Alkohol in Gramm gleich Volumen in Millilitern mal Volumenprozent mal 0,8. Ein Standardglas — 0,33 l Bier, 0,1 l Wein oder 4 cl Spirituose — enthält etwa 10 bis 12 g. Als risikoarm gelten beim Mann bis etwa 24 g und bei der Frau bis etwa 12 g pro Tag mit mindestens zwei alkoholfreien Tagen pro Woche.',
+        },
+        {
+          frage: 'Wann sprechen Sie von einer Abhängigkeit statt von einem schädlichen Gebrauch?',
+          antwort: 'Nach den ICD-10-Kriterien liegt ein Abhängigkeitssyndrom vor, wenn mindestens drei von sechs Kriterien innerhalb der letzten zwölf Monate erfüllt sind: Craving, Kontrollverlust, körperliches Entzugssyndrom, Toleranzentwicklung, Vernachlässigung anderer Interessen und anhaltender Konsum trotz schädlicher Folgen. Der schädliche Gebrauch (F10.1) bezeichnet dagegen einen Konsum mit nachweislichem körperlichem oder psychischem Schaden ohne Erfüllung der Abhängigkeitskriterien.',
+        },
+        {
+          frage: 'Welche Screeningfragen kennen Sie?',
+          antwort: 'Den CAGE-Fragebogen mit vier Fragen — Reduktionsversuche, Ärger über Kritik anderer, Schuldgefühle und Alkohol am Morgen als Eye-opener; bereits zwei positive Antworten begründen den Verdacht. Und den AUDIT der WHO mit zehn Fragen, maximal 40 Punkte, ab 8 Punkten riskanter Konsum.',
+        },
+        {
+          frage: 'Der Patient ist gestürzt — was müssen Sie deswegen ausschließen?',
+          antwort: 'Ein Schädel-Hirn-Trauma, insbesondere ein chronisch subdurales Hämatom. Alkoholkranke stürzen häufig, haben eine Hirnatrophie und eine Gerinnungsstörung; das Hämatom kann sich nach einem freien Intervall von Wochen mit Kopfschmerzen, Wesensänderung und fokalen Defiziten zeigen. Deshalb bei jeder Bewusstseinsstörung, jedem fokalen Defizit und jeder Sturzanamnese ein craniales CT.',
+        },
+        {
+          frage: 'Was raten Sie dem Patienten nach dem Entzug?',
+          antwort: 'Dass die Entgiftung erst der Anfang ist: eine qualifizierte Entzugsbehandlung mit Motivationsarbeit, anschließend eine Entwöhnungstherapie, die Anbindung an eine Suchtberatungsstelle und an eine Selbsthilfegruppe, eine Psychotherapie mit Rückfallprophylaxe, gegebenenfalls Acamprosat oder Naltrexon und die Behandlung begleitender Erkrankungen wie einer Depression — ohne Moralisieren und mit Einbezug der Angehörigen.',
+        },
+      ],
+      merksatz: '6–12 Stunden Tremor und Schwitzen, 12–48 Stunden Krampfanfall, 48–72 Stunden Delirium tremens mit der Trias vegetative Entgleisung, Bewusstseinsstörung und optische Halluzinationen — unbehandelt bis 20 % letal. Benzodiazepine symptomgesteuert nach CIWA-Ar sind das Mittel der Wahl, Haloperidol nie allein (senkt die Krampfschwelle), und immer THIAMIN VOR GLUKOSE. Die Entgiftung ist nicht die Therapie der Abhängigkeit.',
+      linkedCaseIds: [
+        'case-alkoholentzug',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-sonographie',
+        'auf-gastroskopie',
+      ],
+    },
+    {
+      id: 'fw-commotio',
+      pathology: 'Commotio cerebri (leichtes Schädel-Hirn-Trauma)',
+      specialty: 'Neurologie',
+      definition: 'Die Commotio cerebri (Gehirnerschütterung) ist ein leichtes Schädel-Hirn-Trauma, definiert durch eine Glasgow Coma Scale von 13 bis 15 Punkten, eine Bewusstlosigkeit von unter 30 Minuten und eine Amnesie von unter 24 Stunden, ohne strukturelle Läsion in der Bildgebung. Es handelt sich um eine rein funktionelle, prinzipiell vollständig reversible Störung der Hirnfunktion durch Akzeleration und Dezeleration, ohne morphologisch fassbares Korrelat im CT. Wird eine strukturelle Schädigung nachgewiesen, liegt definitionsgemäß keine Commotio, sondern eine Contusio cerebri oder eine intrakranielle Blutung vor.',
+      aetiologie: 'Ursache ist eine plötzliche Beschleunigung oder Abbremsung des Kopfes mit Scherkräften auf das Hirngewebe und einer vorübergehenden Funktionsstörung der Neurone (Ionenverschiebungen, Freisetzung exzitatorischer Aminosäuren, kurzzeitige Störung der Formatio reticularis). Häufigste Mechanismen sind Stürze (führend im Kindes- und höheren Lebensalter), Verkehrsunfälle einschließlich Fahrrad- und Motorradunfällen, Sport- und Arbeitsunfälle sowie Gewalteinwirkung. Das leichte Schädel-Hirn-Trauma macht rund 90 Prozent aller Schädel-Hirn-Traumata aus.',
+      risikofaktoren: [
+        'Alter über 65 Jahre — Stürze, Hirnatrophie mit gespannten Brückenvenen und hohe Rate an Antikoagulation',
+        'Antikoagulation oder Thrombozytenaggregationshemmung sowie angeborene oder erworbene Gerinnungsstörungen',
+        'Alkohol- und Drogenkonsum: erhöht das Sturzrisiko und verschleiert Vigilanz und neurologischen Befund',
+        'Kontakt- und Risikosportarten (Boxen, Kampfsport, Fußball, Eishockey, Reiten, Radsport, Skifahren)',
+        'Fehlender oder beschädigter Helm; Radfahren und Motorradfahren im Straßenverkehr',
+        'Frühere Schädel-Hirn-Traumata — jede weitere Commotio verläuft protrahierter (Cave Second-Impact-Syndrom)',
+        'Epilepsie, Synkopenneigung, Herzrhythmusstörungen, Diabetes mellitus mit Hypoglykämieneigung, orthostatische Dysregulation',
+        'Demenz, Gangunsicherheit, Sehstörung, Polypharmazie mit sedierenden Medikamenten',
+        'Kindes- und Jugendalter (Sportunfälle, längere Erholungszeit)',
+      ],
+      klinik: [
+        {
+          text: 'Kurze Bewusstlosigkeit von Sekunden bis maximal 30 Minuten — sie kann auch vollständig fehlen und schließt die Diagnose dann nicht aus',
+        },
+        {
+          text: 'Retrograde und/oder anterograde Amnesie unter 24 Stunden: der Patient erinnert den Unfallhergang nicht („Was ist das Letzte, woran Sie sich erinnern?“)',
+        },
+        {
+          text: 'Kopfschmerz, meist dumpf-drückend und diffus, unmittelbar nach dem Trauma einsetzend',
+        },
+        {
+          text: 'Übelkeit und Erbrechen — einmaliges Erbrechen ist typisch, wiederholtes Erbrechen ist ein Warnzeichen',
+        },
+        {
+          text: 'Schwindel im Sinne von Benommenheit und Schwankgefühl, Gangunsicherheit',
+        },
+        {
+          text: 'Licht- und Lärmempfindlichkeit (Photo- und Phonophobie)',
+        },
+        {
+          text: 'Konzentrations-, Aufmerksamkeits- und Merkfähigkeitsstörung, verlangsamtes Denken, Wortfindungsverzögerung',
+        },
+        {
+          text: 'Reizbarkeit, Stimmungslabilität, rasche Erschöpfbarkeit',
+        },
+        {
+          text: 'Ein- und Durchschlafstörung oder vermehrtes Schlafbedürfnis',
+        },
+        {
+          text: 'Verschwommenes Sehen und kurzzeitige Sehstörung unmittelbar nach dem Trauma',
+        },
+        {
+          text: 'Neurologischer Untersuchungsbefund und kraniales CT sind definitionsgemäß unauffällig; GCS 13 bis 15',
+        },
+        {
+          text: 'Bei Kindern: Blässe, Unruhe, Trinkschwäche, wiederholtes Erbrechen und Reizbarkeit ohne fassbare Bewusstlosigkeit',
+          atypisch: true,
+        },
+        {
+          text: 'Beim alten oder antikoagulierten Patienten: initial völlig unauffälliger Befund, dann Tage bis Wochen später Kopfschmerz, Verwirrtheit, Wesensänderung und zunehmende Somnolenz als chronisches Subduralhämatom',
+          atypisch: true,
+        },
+        {
+          text: 'Beim alkoholisierten oder intoxikierten Patienten: Symptomatik vollständig verschleiert, Vigilanzminderung fälschlich dem Alkohol zugeschrieben',
+          atypisch: true,
+        },
+        {
+          text: 'Postkommotionelles Syndrom: Fortbestehen von Kopfschmerz, Schwindel, Konzentrationsstörung, Reizbarkeit und Schlafstörung über Wochen bis Monate',
+          atypisch: true,
+        },
+        {
+          text: 'Kurze tonische Verkrampfung oder Zuckungen unmittelbar nach dem Aufprall (impact seizure) ohne epileptische Erkrankung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Glasgow Coma Scale (GCS)',
+          inhalt: 'Drei Komponenten: Augenöffnen 1 bis 4 Punkte (kein Öffnen 1, auf Schmerzreiz 2, auf Ansprache 3, spontan 4), verbale Reaktion 1 bis 5 Punkte (keine 1, unverständliche Laute 2, unzusammenhängende Wörter 3, verwirrt 4, orientiert 5), motorische Reaktion 1 bis 6 Punkte (keine 1, Strecksynergismen 2, Beugesynergismen 3, ungezielte Abwehr 4, gezielte Abwehr 5, befolgt Aufforderungen 6). Die Summe reicht von minimal 3 bis maximal 15 Punkten.',
+        },
+        {
+          name: 'Schweregradeinteilung des Schädel-Hirn-Traumas nach der GCS',
+          inhalt: 'Leichtes Schädel-Hirn-Trauma 13 bis 15 Punkte, mittelschweres 9 bis 12 Punkte, schweres 3 bis 8 Punkte. Ab einer GCS von 8 oder weniger besteht in der Regel die Indikation zur Intubation und Beatmung sowie zur intensivmedizinischen Überwachung.',
+        },
+        {
+          name: 'Klassische Einteilung nach Tönnis und Loew',
+          inhalt: 'Grad I Commotio cerebri: voll reversible Funktionsstörung ohne morphologisches Korrelat. Grad II Contusio cerebri: Hirnprellung mit morphologischer Schädigung, Herdsymptomen und möglichen Defektheilungen. Grad III Compressio cerebri: Hirnquetschung durch raumfordernde Blutung oder Hirnödem mit Einklemmungsgefahr.',
+        },
+        {
+          name: 'Indikationskriterien für ein kraniales CT (Red Flags, sinngemäß Canadian CT Head Rule und S2e-Leitlinie)',
+          inhalt: 'GCS unter 15 zwei Stunden nach dem Trauma, Verschlechterung der Vigilanz, fokal-neurologisches Defizit, Krampfanfall, wiederholtes Erbrechen, Verdacht auf Schädelbasis- oder Impressionsfraktur, Antikoagulation oder Gerinnungsstörung, Alter über 65 Jahre, Alkohol- oder Drogeneinfluss, gefährlicher Unfallmechanismus und eine anhaltende Amnesie über 30 Minuten vor dem Trauma.',
+        },
+        {
+          name: 'Zeichen der Schädelbasisfraktur',
+          inhalt: 'Brillen- oder Monokelhämatom (periorbitales Hämatom ohne direkte Augenverletzung), Battle-Zeichen (retroaurikuläres Hämatom über dem Mastoid), Blutung oder Liquorrhoe aus Nase (Rhinoliquorrhoe) und Ohr (Otoliquorrhoe), Hautemphysem, Hirnnervenausfälle (besonders N. olfactorius, N. facialis, N. vestibulocochlearis) sowie das Halo- beziehungsweise Doppelring-Zeichen des blutigen Sekrets.',
+        },
+      ],
+      redFlags: [
+        'GCS unter 15 Punkten zwei Stunden nach dem Trauma oder jede Verschlechterung der Vigilanz',
+        'Neu aufgetretenes fokal-neurologisches Defizit: Hemiparese, Anisokorie, Sprachstörung, Doppelbilder',
+        'Krampfanfall nach dem Trauma',
+        'Wiederholtes Erbrechen (einmaliges Erbrechen ist noch kein Red Flag)',
+        'Zunehmender, therapierefraktärer Kopfschmerz',
+        'Verdacht auf Schädelbasisfraktur: Brillen- oder Monokelhämatom, Battle-Zeichen, Blutung oder Liquorrhoe aus Nase oder Ohr, Hautemphysem',
+        'Offene Schädelverletzung oder tastbare Impressionsfraktur',
+        'Antikoagulation, Thrombozytenaggregationshemmung oder bekannte Gerinnungsstörung — hier ist die Schwelle zur Bildgebung auch nach banalem Trauma sehr niedrig',
+        'Alter über 65 Jahre',
+        'Alkohol- oder Drogeneinfluss mit nicht sicher beurteilbarer Vigilanz',
+        'Gefährlicher Unfallmechanismus: Sturz aus über einem Meter Höhe oder über fünf Stufen, Anprall als Fußgänger oder Radfahrer, Herausschleudern aus dem Fahrzeug, zerbrochener Helm',
+        'Anhaltende Amnesie über mehr als 30 Minuten vor dem Trauma',
+        'Fehlende häusliche Überwachung durch eine Betreuungsperson für die ersten 24 Stunden',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Unfallhergang und Fremdanamnese durch Angehörige, Zeugen und Rettungsdienst: Mechanismus, Aufprallenergie, Helm, Zeitpunkt, Verhalten unmittelbar nach dem Trauma',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Bewusstlosigkeit und ihre Dauer, Umfang der retrograden und anterograden Amnesie über die Frage „Was ist das Letzte, woran Sie sich erinnern?“; Kopfschmerz, Übelkeit und Erbrechen (einmalig oder wiederholt), Schwindel, Sehstörung, Krampfanfall',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Frage nach Antikoagulation und Thrombozytenaggregationshemmern, Gerinnungsstörung, Alkohol- und Drogenkonsum, früheren Schädel-Hirn-Traumata sowie nach der Ursache des Sturzes (Synkope, Hypoglykämie, Rhythmusstörung, Anfall)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologische Untersuchung mit Glasgow Coma Scale, Pupillenweite und -reaktion, Okulomotorik, Hirnnerven, Kraft und Sensibilität im Seitenvergleich, Reflexen, Koordination (Finger-Nase-Versuch, Romberg, Unterberger) und Prüfung auf Meningismus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion des Kopfes auf Prellmarke, Platzwunde, Impression und auf Zeichen der Schädelbasisfraktur; Untersuchung und Immobilisation der Halswirbelsäule sowie Ganzkörperuntersuchung auf Begleitverletzungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinische Überwachung über mindestens 24 Stunden bei Risikopatienten, auffälligem Befund oder unsicherer häuslicher Betreuung, mit engmaschiger Kontrolle von GCS, Pupillen und Vitalparametern',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutzucker sofort bei jedem gestürzten oder bewusstlos aufgefundenen Patienten — Hypoglykämie als Sturzursache und als Differenzialdiagnose der Bewusstseinsstörung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, Gerinnung mit Quick/INR und aPTT (obligat bei antikoagulierten Patienten), Elektrolyte, Nierenwerte, CRP; bei Bedarf Blutgruppe und Kreuzblut',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Alkoholspiegel und Toxikologie-Screening bei unklarer Vigilanz; β-HCG bei Frauen im gebärfähigen Alter vor Röntgen und CT',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniales CT nativ als Methode der Wahl bei jedem Red Flag — Fragestellung: intrakranielle Blutung, Kontusion, Kalotten- und Schädelbasisfraktur, Mittellinienverlagerung. Bei der Commotio cerebri ist das CT definitionsgemäß unauffällig',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT oder Röntgen der Halswirbelsäule in zwei Ebenen bei Verdacht auf Begleitverletzung; gezielte Bildgebung weiterer verletzter Regionen sowie FAST-Sonographie beim Mehrfachverletzten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG und gegebenenfalls Langzeit-EKG zur Synkopenabklärung, wenn die Sturzursache unklar bleibt; EEG bei Verdacht auf einen epileptischen Anfall',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Umgehendes Verlaufs-CT bei jeder klinischen Verschlechterung und neurochirurgische Vorstellung bei intrakranieller Blutung; MRT im Verlauf bei persistierenden Beschwerden und unauffälligem CT (diffuse axonale Schädigung)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Lumbalpunktion mit Frage nach Xanthochromie nur bei fortbestehendem Verdacht auf eine Subarachnoidalblutung trotz unauffälligem CT; neuropsychologische Testung bei protrahiertem postkommotionellem Syndrom',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Contusio cerebri (Hirnprellung)',
+          unterscheidung: 'Morphologische Schädigung mit Herdsymptomatik, längerer Bewusstseinsstörung und einer Amnesie über 24 Stunden; im CT Kontusionsblutungen. Die Abgrenzung erfolgt über Bildgebung und Verlauf, nicht über die Klinik allein.',
+        },
+        {
+          dd: 'Epidurales Hämatom',
+          unterscheidung: 'Arterielle Blutung aus der A. meningea media, meist bei temporaler Fraktur. Klassisch das freie Intervall: kurze Bewusstlosigkeit, dann klares Intervall, dann rasche Eintrübung mit ipsilateraler Anisokorie und kontralateraler Hemiparese. Im CT bikonvex-linsenförmig, nahtbegrenzt. Notfall mit sofortiger operativer Entlastung.',
+        },
+        {
+          dd: 'Akutes subdurales Hämatom',
+          unterscheidung: 'Venöse Brückenvenenblutung bei schwererem Trauma, progrediente Vigilanzminderung ohne freies Intervall; im CT sichelförmig, konkav zur Hirnoberfläche, nahtüberschreitend. Deutlich schlechtere Prognose als das Epiduralhämatom.',
+        },
+        {
+          dd: 'Chronisches subdurales Hämatom',
+          unterscheidung: 'Tage bis Wochen nach einem oft bagatellisierten Trauma, typisch beim älteren oder antikoagulierten Patienten: Kopfschmerz, Verwirrtheit, Wesensänderung, zunehmende Somnolenz, Gangstörung — häufig als Demenz oder Schlaganfall verkannt. Im CT hypodense Sichel; Therapie über Bohrlochtrepanation.',
+        },
+        {
+          dd: 'Schädelfraktur, insbesondere Schädelbasisfraktur',
+          unterscheidung: 'Brillen- oder Monokelhämatom, Battle-Zeichen, Liquorrhoe oder Blutung aus Nase und Ohr, Hautemphysem, Hirnnervenausfälle; Nachweis im CT mit Knochenfenster. Cave aufsteigende Meningitis, keine nasale Sondierung.',
+        },
+        {
+          dd: 'Subarachnoidalblutung',
+          unterscheidung: 'Vernichtungskopfschmerz, Meningismus, Übelkeit und Erbrechen, Bewusstseinsstörung. Entscheidend ist die zeitliche Reihenfolge: Kopfschmerz VOR dem Sturz spricht für eine Blutung als Sturzursache. Diagnostik über CT, bei negativem Befund Lumbalpunktion.',
+        },
+        {
+          dd: 'Synkope, Hypoglykämie oder Herzrhythmusstörung als eigentliche Sturzursache',
+          unterscheidung: 'Die Schlüsselfrage lautet: Ist der Patient gestürzt, weil er bewusstlos wurde, oder wurde er bewusstlos, weil er gestürzt ist? Prodromi wie Schwitzen, Herzrasen, Schwarzwerden vor Augen und Übelkeit sprechen für eine Synkope; Blutzucker, EKG und Fremdanamnese klären.',
+        },
+        {
+          dd: 'Epileptischer Anfall',
+          unterscheidung: 'Zungenbiss (lateral), Einnässen, Muskelkater, postiktale Umdämmerung und beobachtete Konvulsionen; die Bewusstseinsstörung geht dem Sturz voraus. Abgrenzung über Fremdanamnese und EEG.',
+        },
+        {
+          dd: 'Intoxikation mit Alkohol, Drogen oder Medikamenten',
+          unterscheidung: 'Foetor, Bewusstseinsminderung ohne fokales Defizit, Miosis bei Opiaten. Cave: Intoxikation und Schädel-Hirn-Trauma treten häufig gemeinsam auf — eine Vigilanzminderung darf niemals vorschnell dem Alkohol zugeschrieben werden.',
+        },
+        {
+          dd: 'HWS-Distorsion (Schleudertrauma)',
+          unterscheidung: 'Nackenschmerz und Bewegungseinschränkung mit typischem freien Intervall von Stunden, ohne Bewusstlosigkeit und ohne Amnesie; oft begleitend zur Commotio.',
+        },
+        {
+          dd: 'Nicht traumatische Kopfschmerzursachen (Migräne, Meningitis, Sinusvenenthrombose)',
+          unterscheidung: 'Kein adäquates Trauma, anderer zeitlicher Verlauf; Fieber und Meningismus bei Meningitis, Aura und Vorgeschichte bei Migräne, subakut progredienter Kopfschmerz mit Anfällen bei Sinusvenenthrombose.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Überwachung und Entscheidung über die stationäre Aufnahme',
+          items: [
+            'Es gibt keine kausale Therapie: die Überwachung IST die Behandlung. Engmaschige Kontrolle von Glasgow Coma Scale, Pupillenweite und -reaktion, Fokalneurologie und Vitalparametern, zunächst stündlich',
+            'Stationäre Aufnahme über mindestens 24 Stunden bei Red Flags, auffälligem CT, Antikoagulation oder Gerinnungsstörung, relevanten Begleiterkrankungen, Intoxikation, Alter über 65 Jahren sowie bei unsicherer häuslicher Überwachung',
+            'Sofortige (Wiederholungs-)Bildgebung und neurochirurgische Vorstellung bei GCS-Abfall, neuem fokalem Defizit, Krampfanfall, wiederholtem Erbrechen oder zunehmendem Kopfschmerz',
+            'Basismaßnahmen: peripherer Venenzugang, Oberkörperhochlagerung um 30 Grad, Normoxie und Normokapnie, Vermeidung von Hypotonie und Hypoglykämie, Nahrungskarenz bis zum Vorliegen des Befundes',
+            'Bei antikoaguliertem Patienten INR-Bestimmung und gegebenenfalls Antagonisierung (Prothrombinkomplexkonzentrat und Vitamin K, spezifische Antidota bei direkten oralen Antikoagulanzien) nach Rücksprache mit der Neurochirurgie',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Symptomatische Therapie und körperliche wie kognitive Schonung',
+          items: [
+            'Analgesie mit Paracetamol oder Metamizol; NSAR wegen der Thrombozytenaggregationshemmung und des Blutungsrisikos in der Akutphase meiden',
+            'Antiemese mit Dimenhydrinat, Metoclopramid oder Ondansetron; ausreichende Flüssigkeitszufuhr',
+            'Reizabschirmung: ruhige, abgedunkelte Umgebung, Bildschirm- und Lärmkarenz in den ersten Tagen',
+            'Körperliche und kognitive Schonung in den ersten 24 bis 48 Stunden, danach stufenweise, beschwerdeadaptierte Steigerung von Alltag, Schule, Arbeit und Sport — strikte Bettruhe über Tage ist obsolet und verlängert die Beschwerden',
+            'Bei Sportlern gestuftes Return-to-play-Protokoll mit mindestens einer symptomfreien Phase auf jeder Stufe; kein Wiedereinstieg am Unfalltag (Cave Second-Impact-Syndrom)',
+            'Kein Alkohol, keine Sedativa oder Schlafmittel; keine Teilnahme am Straßenverkehr als Fahrer, solange Kopfschmerz, Schwindel oder Konzentrationsstörung bestehen',
+            'Antikonvulsive Prophylaxe ist bei der Commotio cerebri NICHT indiziert; Glukokortikoide sind beim Schädel-Hirn-Trauma kontraindiziert',
+          ],
+        },
+        {
+          label: 'Aufklärung über die Warnzeichen und schriftliches Merkblatt',
+          items: [
+            'Der zentrale therapeutische Akt bei jeder Entlassung nach Hause: der Patient und eine Betreuungsperson werden über die Warnzeichen aufgeklärt und erhalten ein schriftliches Merkblatt',
+            'Sofortige Wiedervorstellung bei zunehmendem Kopfschmerz, wiederholtem Erbrechen, Verwirrtheit oder Wesensänderung, zunehmender Schläfrigkeit oder Nichterweckbarkeit, Krampfanfall, Sehstörung oder Doppelbildern, Schwäche einer Körperseite, Sprachstörung sowie bei Blut oder klarer Flüssigkeit aus Nase oder Ohr',
+            'Eine zuverlässige Betreuungsperson für die ersten 24 Stunden ist Voraussetzung für die Entlassung; ist sie nicht verfügbar, wird stationär überwacht',
+            'Die Aufklärung wird dokumentiert und vom Patienten mit eigenen Worten wiederholt (Teach-back), da Merkfähigkeit und Konzentration eingeschränkt sein können',
+            'Verhaltensregeln für zu Hause: Ruhe, kein Alkohol, keine Schlafmittel, kein Fahrzeugführen, erreichbares Telefon',
+          ],
+        },
+        {
+          label: 'Verlauf und Nachsorge',
+          items: [
+            'Aufklärung über das postkommotionelle Syndrom: Kopfschmerz, Schwindel, Licht- und Lärmempfindlichkeit, Konzentrations- und Merkfähigkeitsstörung, Reizbarkeit und Schlafstörung können über Wochen bestehen und bilden sich meist vollständig zurück',
+            'Hausärztliche Wiedervorstellung nach etwa einer Woche; bei Persistenz über vier Wochen neurologische Abklärung mit MRT und neuropsychologischer Testung, gegebenenfalls multimodale Therapie mit Physiotherapie, Vestibulartraining und Psychoedukation',
+            'Beim älteren oder antikoagulierten Patienten an das chronische Subduralhämatom denken, das noch Wochen später mit Kopfschmerz, Verwirrtheit und Somnolenz auftreten kann — Angehörige gezielt darauf hinweisen',
+            'Sekundärprävention: konsequentes Tragen eines Helms, Sturzprophylaxe im Alter, Überprüfung sedierender Medikation, Abklärung und Behandlung einer Synkopen- oder Hypoglykämieneigung',
+            'Wiederholte Schädel-Hirn-Traumata vermeiden, bis die Beschwerden vollständig abgeklungen sind; bei rezidivierenden Commotiones im Sport Karriereberatung wegen des Risikos einer chronisch-traumatischen Enzephalopathie',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der isolierten Commotio cerebri ist sehr gut: Die Beschwerden bilden sich in der Regel innerhalb von Tagen bis zwei Wochen vollständig zurück, ein bleibender struktureller Schaden entsteht definitionsgemäß nicht. Bei etwa 10 bis 15 Prozent der Betroffenen persistieren die Symptome als postkommotionelles Syndrom über Wochen bis Monate; Risikofaktoren dafür sind weibliches Geschlecht, höheres Alter, frühere Schädel-Hirn-Traumata, vorbestehende Kopfschmerzen sowie psychische Komorbidität und laufende Entschädigungsverfahren. Die Amnesie für die Unfallminuten kehrt meist nicht zurück, ohne dass daraus ein Defizit resultiert. Entscheidend für die Prognose sind das Erkennen der Red Flags, die Vermeidung eines erneuten Traumas vor vollständiger Erholung (Second-Impact-Syndrom mit potenziell letalem Hirnödem) und beim älteren oder antikoagulierten Patienten das rechtzeitige Erkennen eines chronischen Subduralhämatoms.',
+      pruefungsfallen: [
+        'Die Definition muss mit allen drei Schwellenwerten kommen: GCS 13 bis 15, Bewusstlosigkeit unter 30 Minuten, Amnesie unter 24 Stunden — und ohne strukturelle Läsion in der Bildgebung.',
+        'Die Glasgow Coma Scale korrekt aufschlüsseln: Augenöffnen 1 bis 4, verbale Reaktion 1 bis 5, motorische Reaktion 1 bis 6, Summe 3 bis 15. Der niedrigste Wert ist 3, nicht 0.',
+        'Die Schweregradeinteilung nicht verwechseln: leicht 13 bis 15, mittelschwer 9 bis 12, schwer 3 bis 8.',
+        'Die Amnesie aktiv erfragen — Patienten berichten sie nicht spontan. Die Prüfungsfrage lautet: „Was ist das Letzte, woran Sie sich erinnern?“ Retrograde und anterograde Amnesie getrennt benennen.',
+        'Die Red Flags müssen als vollständige Liste abrufbar sein; sie und nicht das Bauchgefühl begründen die CT-Indikation. Einmaliges Erbrechen zählt nicht dazu, wiederholtes Erbrechen sehr wohl.',
+        'Antikoagulation und Alter über 65 Jahre senken die Schwelle zur Bildgebung drastisch — auch nach einem völlig banalen Trauma und bei unauffälligem Befund.',
+        'Das chronische Subduralhämatom Tage bis Wochen nach einem Bagatelltrauma ist der klassische Verlaufsfallstrick beim alten, antikoagulierten Patienten und muss ungefragt genannt werden.',
+        'Immer nach der Sturzursache fragen: Synkope, Hypoglykämie, Rhythmusstörung oder Anfall als Auslöser des Sturzes. Jedes im Arztbrief erwähnte Trauma zieht die Frage nach dem Mechanismus nach sich.',
+        'Keine NSAR in der Akutphase (Blutungsrisiko) und keine Glukokortikoide beim Schädel-Hirn-Trauma; eine antikonvulsive Prophylaxe ist bei der Commotio nicht indiziert.',
+        'Die Entlassungsaufklärung mit Warnzeichen, schriftlichem Merkblatt und einer Betreuungsperson für 24 Stunden ist Teil der Therapie und wird regelmäßig abgefragt.',
+        'Ein unauffälliges CT schließt eine verzögerte Blutung nicht aus — deshalb klinische Überwachung und Aufklärung, nicht Entwarnung.',
+        'Bei Frauen im gebärfähigen Alter vor Röntgen und CT an das β-HCG denken; bei nasaler Liquorrhoe keine Magensonde oder Sonde über die Nase legen.',
+        'Fachbegriffe sauber übersetzen: Commotio cerebri gleich Gehirnerschütterung, Contusio cerebri gleich Hirnprellung, Kontusion gleich Prellung, Vigilanz gleich Wachheit, Somnolenz gleich abnorme Schläfrigkeit, Synkope gleich kurze Bewusstlosigkeit.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie sagt man „Commotio cerebri“ auf Deutsch?',
+          antwort: 'Gehirnerschütterung. Contusio cerebri heißt Hirnprellung, Kontusion allgemein Prellung. Dem Patienten gegenüber sagt man: Das Gehirn wurde beim Aufprall kurz durchgeschüttelt, es ist dabei nichts eingerissen oder zerstört worden.',
+        },
+        {
+          frage: 'Wie definieren Sie eine Commotio cerebri?',
+          antwort: 'Als leichtes Schädel-Hirn-Trauma mit einer Glasgow Coma Scale von 13 bis 15 Punkten, einer Bewusstlosigkeit unter 30 Minuten und einer Amnesie unter 24 Stunden, ohne strukturelle Läsion in der Bildgebung — eine vollständig reversible Funktionsstörung.',
+        },
+        {
+          frage: 'Wie ist die Glasgow Coma Scale aufgebaut?',
+          antwort: 'Aus drei Komponenten: Augenöffnen mit 1 bis 4 Punkten, verbale Reaktion mit 1 bis 5 Punkten und motorische Reaktion mit 1 bis 6 Punkten. Die Summe reicht von 3 bis 15 Punkten. Ein wacher, orientierter Patient, der Aufforderungen befolgt, hat 4 plus 5 plus 6, also 15 Punkte.',
+        },
+        {
+          frage: 'Warum ist der Patient gestürzt?',
+          antwort: 'Das ist die entscheidende Frage: Ist er gestürzt, weil er bewusstlos wurde, oder wurde er bewusstlos, weil er gestürzt ist? Ich frage nach Prodromi wie Schwitzen, Herzrasen und Schwarzwerden vor Augen, erhebe eine Fremdanamnese, messe den Blutzucker, schreibe ein EKG und denke an Synkope, Hypoglykämie, Rhythmusstörung, epileptischen Anfall, Alkohol und Medikamente.',
+        },
+        {
+          frage: 'Welche Warnzeichen führen bei Ihnen zu einem kranialen CT?',
+          antwort: 'GCS unter 15 zwei Stunden nach dem Trauma, Verschlechterung der Vigilanz, fokal-neurologisches Defizit, Krampfanfall, wiederholtes Erbrechen, Verdacht auf Schädelbasisfraktur, offene oder Impressionsfraktur, Antikoagulation oder Gerinnungsstörung, Alter über 65 Jahre, Alkohol- oder Drogeneinfluss, gefährlicher Unfallmechanismus und eine Amnesie über 30 Minuten.',
+        },
+        {
+          frage: 'Was erwarten Sie im CT bei einer Commotio cerebri?',
+          antwort: 'Einen unauffälligen Befund — das gehört zur Definition. Gesucht werden intrakranielle Blutungen, Kontusionen und Frakturen. Ein unauffälliges CT schließt eine verzögerte Blutung jedoch nicht aus, weshalb die klinische Überwachung entscheidend bleibt.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie ein epidurales von einem subduralen Hämatom?',
+          antwort: 'Das Epiduralhämatom ist arteriell aus der A. meningea media, zeigt klassisch ein freies Intervall mit anschließend rascher Eintrübung und ist im CT bikonvex-linsenförmig und nahtbegrenzt. Das Subduralhämatom ist eine venöse Brückenvenenblutung, verläuft ohne freies Intervall oder chronisch schleichend und stellt sich im CT sichelförmig und konkav zur Hirnoberfläche dar.',
+        },
+        {
+          frage: 'Was ist bei einem älteren Patienten unter Antikoagulation zu beachten?',
+          antwort: 'Die Schwelle zur Bildgebung ist sehr niedrig: kraniales CT auch nach banalem Trauma und bei unauffälligem Befund, INR-Bestimmung und gegebenenfalls Antagonisierung, stationäre Überwachung und Verlaufs-CT. Zusätzlich muss über das chronische Subduralhämatom aufgeklärt werden, das Tage bis Wochen später mit Kopfschmerz, Verwirrtheit und Schläfrigkeit auftreten kann.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Commotio cerebri?',
+          antwort: 'Es gibt keine kausale Therapie. Im Vordergrund stehen die Überwachung von GCS, Pupillen und Vitalparametern über mindestens 24 Stunden bei Risikopatienten, die symptomatische Behandlung mit Paracetamol und Antiemetika, Reizabschirmung mit körperlicher und kognitiver Schonung und stufenweiser Wiederbelastung sowie die Aufklärung über die Warnzeichen mit schriftlichem Merkblatt.',
+        },
+        {
+          frage: 'Warum geben Sie kein Ibuprofen?',
+          antwort: 'NSAR hemmen die Thrombozytenaggregation und erhöhen in der Akutphase des Schädel-Hirn-Traumas das Blutungsrisiko. Mittel der Wahl sind Paracetamol oder Metamizol. Glukokortikoide sind beim Schädel-Hirn-Trauma kontraindiziert und eine antikonvulsive Prophylaxe ist bei der Commotio nicht indiziert.',
+        },
+        {
+          frage: 'Worüber müssen Sie den Patienten vor der Entlassung aufklären?',
+          antwort: 'Über die Warnzeichen, die eine sofortige Wiedervorstellung erfordern: zunehmender Kopfschmerz, wiederholtes Erbrechen, Verwirrtheit, zunehmende Schläfrigkeit, Krampfanfall, Sehstörungen, Schwäche einer Körperseite und klare oder blutige Flüssigkeit aus Nase oder Ohr. Dazu ein schriftliches Merkblatt, eine Betreuungsperson für 24 Stunden, Verzicht auf Alkohol und Sedativa sowie Fahrverbot bis zur Beschwerdefreiheit.',
+        },
+        {
+          frage: 'Was ist ein postkommotionelles Syndrom?',
+          antwort: 'Das Fortbestehen von Kopfschmerz, Schwindel, Licht- und Lärmempfindlichkeit, Konzentrations- und Merkfähigkeitsstörung, Reizbarkeit und Schlafstörung über Wochen bis Monate nach der Commotio. Es betrifft etwa 10 bis 15 Prozent der Patienten, ist meist selbstlimitierend und wird symptomatisch sowie mit gestufter Aktivierung behandelt.',
+        },
+        {
+          frage: 'Woran erkennen Sie eine Schädelbasisfraktur?',
+          antwort: 'An einem Brillen- oder Monokelhämatom, am Battle-Zeichen retroaurikulär, an Blutung oder klarer Liquorrhoe aus Nase oder Ohr, an einem Hautemphysem und an Hirnnervenausfällen. Cave: keine Sonde über die Nase, Gefahr der aufsteigenden Meningitis; Nachweis im CT mit Knochenfenster.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und warum kein Tumor?',
+          antwort: 'Contusio cerebri, epidurales und subdurales Hämatom, Schädelfraktur, Subarachnoidalblutung, Synkope oder Hypoglykämie als Sturzursache, epileptischer Anfall, Intoxikation und HWS-Distorsion. Gegen einen Tumor sprechen der schlagartige Beginn exakt mit dem Trauma, die fehlende Vorgeschichte langsam progredienter Kopfschmerzen, das Fehlen von Wesensänderung, Krampfanfall und fokalen Defiziten — und das unauffällige CT.',
+        },
+        {
+          frage: 'Wann kann der Patient wieder Sport treiben?',
+          antwort: 'Nach einem gestuften Return-to-play-Protokoll: erst vollständige Beschwerdefreiheit in Ruhe, dann schrittweise Steigerung über leichte Ausdauerbelastung, sportartspezifisches Training, Training ohne Körperkontakt und mit Körperkontakt bis zum Wettkampf, mit mindestens einer symptomfreien Phase pro Stufe. Am Unfalltag kein Wiedereinstieg — Cave Second-Impact-Syndrom.',
+        },
+      ],
+      merksatz: 'Commotio = GCS 13–15, Bewusstlosigkeit unter 30 Minuten, Amnesie unter 24 Stunden, Bildgebung ohne Läsion. Frage immer: „Was ist das Letzte, woran Sie sich erinnern?“ und „Warum sind Sie gestürzt?“ CT bei jedem Red Flag — Antikoagulation und Alter über 65 senken die Schwelle fast auf null. Therapie sind Überwachung, Paracetamol statt NSAR und die Aufklärung über die Warnzeichen; beim alten antikoagulierten Patienten Wochen später an das chronische Subduralhämatom denken.',
+      linkedCaseIds: [
+        'case-commotio',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-roentgen-thorax',
+      ],
+    },
   ];
 }
