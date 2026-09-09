@@ -15880,5 +15880,2158 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-mrt',
       ],
     },
+    {
+      id: 'fw-morbus-crohn',
+      pathology: 'Morbus Crohn',
+      specialty: 'Gastroenterologie',
+      definition: 'Der Morbus Crohn ist eine chronisch-entzündliche Darmerkrankung mit schubweise-rezidivierendem Verlauf, die den gesamten Verdauungstrakt VOM MUND BIS ZUM ANUS befallen kann. Charakteristisch sind ein DISKONTINUIERLICHER, segmentaler Befall mit dazwischenliegenden gesunden Abschnitten (Skip lesions) und eine TRANSMURALE Entzündung, die alle Wandschichten erfasst. Prädilektionsstelle ist das terminale Ileum mit der Ileozökalregion. Aus der transmuralen Ausbreitung erklären sich die typischen Komplikationen: Fisteln, Abszesse, Stenosen und Konglomerattumoren. Abzugrenzen ist die Colitis ulcerosa, die KONTINUIERLICH vom Rektum nach proximal aufsteigt und auf die Mukosa beschränkt bleibt.',
+      aetiologie: 'Die Ätiologie ist multifaktoriell und nicht abschließend geklärt. Zugrunde liegt eine fehlgeleitete Immunantwort der Darmschleimhaut gegen die eigene Mikrobiota bei genetischer Prädisposition (unter anderem NOD2/CARD15-, ATG16L1- und IL23R-Polymorphismen; positive Familienanamnese bei etwa 10–25 % der Betroffenen) und gestörter epithelialer Barrierefunktion. Umweltfaktoren sind das RAUCHEN als wichtigster beeinflussbarer Risikofaktor, eine westliche, ballaststoffarme Ernährung, eine vorangegangene Appendektomie, nichtsteroidale Antirheumatika, Antibiotika in der Kindheit und durchgemachte Darminfektionen. Der Erkrankungsgipfel liegt zwischen dem 15. und 35. Lebensjahr, ein zweiter, kleinerer Gipfel um das 60. Lebensjahr; Frauen und Männer sind etwa gleich häufig betroffen.',
+      risikofaktoren: [
+        'Rauchen — verdoppelt das Erkrankungsrisiko und verschlechtert Verlauf, Schubfrequenz, Fistelbildung und Rezidivrate nach Operation (bei der Colitis ulcerosa umgekehrt eher protektiv)',
+        'positive Familienanamnese für chronisch-entzündliche Darmerkrankungen, genetische Polymorphismen (NOD2/CARD15, ATG16L1, IL23R)',
+        'Alter zwischen 15 und 35 Jahren',
+        'westliche, ballaststoffarme und stark verarbeitete Ernährung',
+        'nichtsteroidale Antirheumatika',
+        'Antibiotikaexposition in der Kindheit, veränderte Darmmikrobiota',
+        'vorangegangene infektiöse Gastroenteritis',
+        'Zustand nach Appendektomie',
+        'hoher psychosozialer Stress als Schubtrigger (nicht als Ursache)',
+      ],
+      klinik: [
+        {
+          text: 'Chronisch-rezidivierende, krampfartige Bauchschmerzen, häufig im RECHTEN UNTERBAUCH — dadurch leicht mit einer Appendizitis zu verwechseln',
+        },
+        {
+          text: 'Chronische Diarrhoe über mehr als vier Wochen, meist OHNE Blutbeimengung, oft breiig bis wässrig, typischerweise auch nachts',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust und Malnutrition',
+        },
+        {
+          text: 'Subfebrile Temperaturen und Nachtschweiß',
+        },
+        {
+          text: 'Ausgeprägte Müdigkeit, Leistungsknick und Abgeschlagenheit',
+        },
+        {
+          text: 'Appetitminderung, Meteorismus, frühes Sättigungsgefühl, Übelkeit',
+        },
+        {
+          text: 'Imperativer Stuhldrang mit Tenesmen',
+        },
+        {
+          text: 'PERIANALE Befunde: Fissuren, Marisken, Fisteln, Abszesse und perianale Nässe — quasi typisch, wird von Patienten aus Scham verschwiegen',
+        },
+        {
+          text: 'Druckschmerzhafte, walzenförmige Resistenz im rechten Unterbauch als Konglomerattumor',
+        },
+        {
+          text: 'Aphthöse Läsionen der Mundschleimhaut',
+        },
+        {
+          text: 'Arthralgien und entzündlicher Rückenschmerz mit morgendlicher Steifigkeit über 30 Minuten bei Sakroiliitis',
+        },
+        {
+          text: 'Erythema nodosum an den Streckseiten der Unterschenkel, seltener Pyoderma gangraenosum',
+        },
+        {
+          text: 'Augenrötung, Augenschmerz und Lichtscheu bei Uveitis oder Episkleritis',
+        },
+        {
+          text: 'Blässe und Belastungsdyspnoe bei Eisenmangel- oder Vitamin-B12-Mangelanämie',
+        },
+        {
+          text: 'Wachstums- und Pubertätsverzögerung als Erstmanifestation im Kindes- und Jugendalter',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als akutes Abdomen mit dem Bild einer Appendizitis, die Diagnose wird intraoperativ gestellt',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation ausschließlich mit perianalem Abszess oder perianaler Fistel ohne wesentliche Darmsymptome',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Ileus bei narbiger Stenose mit Erbrechen, Stuhl- und Windverhalt',
+          atypisch: true,
+        },
+        {
+          text: 'Führende extraintestinale Manifestation (Arthritis, Erythema nodosum, Uveitis) vor jeder Darmsymptomatik',
+          atypisch: true,
+        },
+        {
+          text: 'Pneumaturie und Fäkalurie mit rezidivierenden Harnwegsinfekten bei enterovesikaler Fistel',
+          atypisch: true,
+        },
+        {
+          text: 'Blutig-schleimige Durchfälle bei ausgedehntem Kolonbefall — dann klinisch kaum von einer Colitis ulcerosa zu unterscheiden (Colitis indeterminata)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Montreal-Klassifikation',
+          inhalt: 'Drei Achsen. Alter bei Diagnose (A): A1 bis 16 Jahre, A2 17–40 Jahre, A3 über 40 Jahre. Lokalisation (L): L1 terminales Ileum, L2 Kolon, L3 ileokolisch, L4 oberer Gastrointestinaltrakt (als Zusatz). Verhalten (B): B1 nicht strikturierend und nicht penetrierend, B2 strikturierend, B3 penetrierend (fistulierend); Zusatz « p » bei perianaler Beteiligung. Beispiel für einen 26-jährigen Patienten mit ileozökalem Befall und Analfissur: A2 L1 B1p.',
+        },
+        {
+          name: 'Harvey-Bradshaw-Index (vereinfachter Aktivitätsindex)',
+          inhalt: 'Fünf Punkte, täglich erhebbar: Allgemeinbefinden (0–4), Bauchschmerzen (0–3), Anzahl der weichen Stühle pro Tag (je Stuhl 1 Punkt), abdominelle Resistenz (0–3) sowie Komplikationen (je 1 Punkt, etwa Analfissur, Fistel, Abszess, Aphthen, Arthralgie, Uveitis, Erythema nodosum). Unter 5 Punkte Remission, 5–7 milde, 8–16 mäßige und über 16 Punkte hohe Aktivität.',
+        },
+        {
+          name: 'CDAI (Crohn\'s Disease Activity Index)',
+          inhalt: 'Aufwendigerer Score aus dem Wochenprotokoll: Anzahl flüssiger Stühle, Bauchschmerzintensität, Allgemeinbefinden, Begleiterkrankungen, Antidiarrhoika-Einnahme, abdominelle Resistenz, Hämatokrit und Körpergewicht. Unter 150 Punkte Remission, 150–220 milde, 220–450 mäßige und über 450 Punkte schwere Aktivität. Vor allem in Studien verwendet.',
+        },
+        {
+          name: 'Parks-Klassifikation der Analfisteln',
+          inhalt: 'Einteilung nach dem Verlauf zum Sphinkterapparat: intersphinktär, transsphinktär, suprasphinktär und extrasphinktär, ergänzt um die submukösen und oberflächlichen Fisteln. Sie bestimmt das operative Vorgehen und die Gefahr der Inkontinenz; die Darstellung erfolgt durch Becken-MRT und endoanalen Ultraschall.',
+        },
+      ],
+      redFlags: [
+        'Hohes Fieber mit druckschmerzhafter Resistenz im Unterbauch → intraabdomineller Abszess, sofortige Bildgebung und Drainage vor jeder Immunsuppression',
+        'Brettharte Abwehrspannung, akutes Abdomen, freie Luft → gedeckte oder freie Perforation',
+        'Erbrechen, Stuhl- und Windverhalt, aufgetriebenes Abdomen, hochgestellte oder fehlende Darmgeräusche → Ileus bei Stenose',
+        'Aufgetriebenes Abdomen mit Fieber, Tachykardie und Kolondilatation über 6 cm → toxisches Megakolon, insbesondere unter Loperamid oder Opiaten',
+        'Massive untere gastrointestinale Blutung mit Kreislaufinstabilität',
+        'Pneumaturie, Fäkalurie oder rezidivierende Harnwegsinfekte → enterovesikale Fistel; Stuhlaustritt aus der Vagina → rektovaginale Fistel',
+        'Rasch progrediente Kachexie, Hypalbuminämie und Exsikkose',
+        'Fieber unter laufender Immunsuppression → opportunistische Infektion, Sepsis bis zum Beweis des Gegenteils',
+        'Ikterus, Juckreiz und Cholestaseparameter → primär sklerosierende Cholangitis mit Cholangiokarzinomrisiko',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Dauer und Frequenz der Diarrhoe, exakte Stuhlbeschreibung mit Konsistenz, Farbe, Schleim und der Unterscheidung von Blut IM Stuhl gegenüber Blut AM Toilettenpapier, nächtliche Stuhlgänge als Organizitätshinweis, Gewichtsverlauf, Fieber, Auslandsreise, Antibiotikaeinnahme, nichtsteroidale Antirheumatika, Nikotinkonsum und Familienanamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Ernährungszustand mit Größe, Gewicht und BMI, Blässe, Abdomenpalpation mit Suche nach Resistenz im rechten Unterbauch, Abwehrspannung und Darmgeräuschen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'INSPEKTION DER PERIANALREGION und digital-rektale Untersuchung: Fissuren, Marisken, Fisteln, Abszesse, Blut am Fingerling — obligater und häufig vergessener Untersuchungsschritt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suche nach extraintestinalen Manifestationen: Mundschleimhaut, Haut, Augen, periphere Gelenke und Iliosakralgelenke',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter und Basislabor: CRP, BSG, Blutbild mit Differenzialblutbild (Anämie, Thrombozytose, Leukozytose), Elektrolyte, Kreatinin, Leberwerte mit alkalischer Phosphatase und Gamma-GT, Gesamteiweiß und Albumin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Mangelparameter: Ferritin und Transferrinsättigung, VITAMIN B12 (bei terminalem Ileumbefall oder nach Ileumresektion regelhaft erniedrigt), Folsäure, Vitamin D, Calcium und Zink',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CALPROTECTIN im Stuhl — hochsensitiver Marker der intestinalen Entzündung, trennt die chronisch-entzündliche Darmerkrankung vom Reizdarmsyndrom und dient der Verlaufs- und Rezidivkontrolle',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ausschluss einer infektiösen Genese: Stuhlkulturen mit Yersinien, Campylobacter und Salmonellen, Parasiten und Wurmeier, Clostridioides-difficile-Glutamatdehydrogenase und Toxin A/B, gegebenenfalls Amöben- und Lamblienantigen; ergänzend Test auf okkultes Blut im Stuhl',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Differenzialdiagnostik und Therapievorbereitung: Transglutaminase-IgA mit Gesamt-IgA, H2-Atemtest auf Laktose, TSH, Interferon-Gamma-Release-Assay und Röntgen-Thorax zum Tuberkuloseausschluss, Hepatitis-B- und Varizellenserologie, Thiopurin-Methyltransferase-Status vor Azathioprin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als Erstuntersuchung: Darmwandverdickung über 4 mm, aufgehobene Wandschichtung, Kokardenphänomen, Hypervaskularisation im Doppler, Abszesse, Konglomerattumor, Stenosen mit prästenotischer Dilatation und freie Flüssigkeit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MR-Enterographie beziehungsweise MRT nach Sellink zur strahlenfreien Darstellung des gesamten Dünndarms: Befallsausdehnung, Skip lesions, Stenosen, Fisteln und Abszesse — Methode der Wahl bei jungen Patienten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Becken-MRT und endoanaler Ultraschall bei perianalem Befall zur Klassifikation von Fisteln und Abszessen; Computertomographie des Abdomens in der Akutsituation bei Verdacht auf Perforation oder Abszess; Abdomenübersicht bei Ileus- oder Megakolonverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ILEOKOLOSKOPIE mit Intubation des terminalen Ileums und STUFENBIOPSIEN aus allen Segmenten — GOLDSTANDARD: diskontinuierlicher Befall mit Skip lesions, aphthöse und längsgestellte (« schneckenspurartige ») Ulzera, Pflastersteinrelief, Stenosen, häufig ausgespartes Rektum',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologie: transmurale, alle Wandschichten erfassende lymphozytäre Entzündung mit NICHT VERKÄSENDEN Epitheloidzellgranulomen und mehrkernigen Riesenzellen (nur in etwa 30–40 % der Biopsien nachweisbar), Fissuren und Kryptenarchitekturstörung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie mit Biopsien zur Erfassung eines oberen Befalls und zum Zöliakieausschluss; Videokapselendoskopie nur bei isoliertem Dünndarmverdacht und nach sicherem Stenoseausschluss (Retentionsgefahr); Untersuchung in Narkose bei ausgeprägtem perianalem Befall',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Colitis ulcerosa',
+          unterscheidung: 'Kontinuierlicher Befall vom Rektum aufsteigend, auf die MUKOSA beschränkt; blutig-schleimige Diarrhoe mit Tenesmen; keine Fisteln, keine Skip lesions, keine Granulome (stattdessen Kryptenabszesse); Rauchen wirkt eher protektiv; die Proktokolektomie ist kurativ. Beim Morbus Crohn dagegen diskontinuierlicher, transmuraler Befall vom Mund bis zum Anus mit Prädilektion des terminalen Ileums.',
+        },
+        {
+          dd: 'Infektiöse Kolitis und Ileitis terminalis (Yersinien, Campylobacter, Salmonellen, Amöben, Lamblien)',
+          unterscheidung: 'Kurze Anamnese von Tagen bis wenigen Wochen, häufig Reise- oder Nahrungsmittelanamnese, oft Fieber; Yersinia enterocolitica imitiert eine Ileitis terminalis vollständig. Klärung durch Stuhlkulturen, Parasitologie und Serologie.',
+        },
+        {
+          dd: 'Clostridioides-difficile-Kolitis',
+          unterscheidung: 'Nach Antibiotikatherapie oder Krankenhausaufenthalt, endoskopisch Pseudomembranen; Nachweis von Glutamatdehydrogenase und Toxin A/B. Kann eine chronisch-entzündliche Darmerkrankung auch überlagern und einen Schub vortäuschen.',
+        },
+        {
+          dd: 'Akute Appendizitis',
+          unterscheidung: 'Akuter Verlauf über Stunden mit Schmerzwanderung vom Nabel in den rechten Unterbauch, Erbrechen, Appetitverlust, Fieber, Abwehrspannung, positivem McBurney-, Blumberg- und Psoaszeichen. Der Morbus Crohn verläuft chronisch-rezidivierend über Monate; ein akuter Schub kann eine Appendizitis jedoch imitieren.',
+        },
+        {
+          dd: 'Reizdarmsyndrom',
+          unterscheidung: 'Funktionelle Störung der Darm-Hirn-Interaktion, Ausschlussdiagnose ohne Alarmzeichen: kein Gewichtsverlust, keine nächtlichen Beschwerden, keine Anämie, CRP und CALPROTECTIN NORMAL. Nicht als « psychosomatische Krankheit » abtun.',
+        },
+        {
+          dd: 'Zöliakie',
+          unterscheidung: 'Voluminöse, fettglänzende Stühle, Meteorismus, Gewichtsverlust, Eisen- und Folsäuremangel, Besserung unter glutenfreier Kost; Transglutaminase-IgA positiv, Duodenalbiopsie mit Zottenatrophie und Kryptenhyperplasie (Marsh-Klassifikation).',
+        },
+        {
+          dd: 'Laktoseintoleranz',
+          unterscheidung: 'Blähungen und Durchfall streng nach Milchprodukten, ohne Gewichtsverlust, Fieber oder Anämie; positiver H2-Atemtest. Eine sekundäre Laktoseintoleranz kann einen Morbus Crohn allerdings begleiten.',
+        },
+        {
+          dd: 'Darmtuberkulose',
+          unterscheidung: 'Befällt ebenfalls die Ileozökalregion mit Granulomen — diese sind jedoch VERKÄSEND, dazu säurefeste Stäbchen und positive PCR. Migrations- und Expositionsanamnese; Ausschluss durch Interferon-Gamma-Release-Assay und Röntgen-Thorax zwingend vor Anti-TNF-Therapie.',
+        },
+        {
+          dd: 'Ischämische Kolitis und Divertikulitis',
+          unterscheidung: 'Höheres Lebensalter und kardiovaskuläre Vorerkrankungen; die ischämische Kolitis verläuft akut mit blutigem Stuhl und Schmerzmaximum in der linken Kolonflexur, die Divertikulitis mit Fieber und Druckschmerz im linken Unterbauch.',
+        },
+        {
+          dd: 'Kolorektales Karzinom, Dünndarmlymphom, neuroendokriner Tumor',
+          unterscheidung: 'B-Symptomatik, Anämie und positive Familienanamnese; das Karzinoid geht mit Flush und Durchfall einher (5-Hydroxyindolessigsäure im Urin, Chromogranin A). Ausschluss durch Endoskopie mit Biopsien und Schnittbildgebung.',
+        },
+        {
+          dd: 'Medikamentös bedingte Enteropathie und mikroskopische Kolitis',
+          unterscheidung: 'Nichtsteroidale Antirheumatika verursachen Ulzera und Strikturen; die mikroskopische Kolitis (kollagene und lymphozytäre Kolitis) zeigt wässrige Durchfälle bei ENDOSKOPISCH UNAUFFÄLLIGER Schleimhaut und wird allein histologisch diagnostiziert.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Remissionsinduktion im akuten Schub',
+          items: [
+            'ileozökaler Befall mit milder bis mäßiger Aktivität: Budesonid 9 mg 1-0-0 über etwa acht Wochen, danach ausschleichen — hoher hepatischer First-Pass-Effekt, dadurch geringe systemische Steroidwirkung',
+            'ausgedehnter Befall oder hohe Aktivität: systemische Glukokortikoide, Prednisolon 1 mg pro Kilogramm Körpergewicht täglich, nach Ansprechen über acht bis zwölf Wochen ausschleichen; parallel Beginn der Erhaltungstherapie, da Steroide dafür nicht geeignet sind',
+            'schwerer Verlauf, Steroidrefraktärität, Steroidabhängigkeit oder ungünstige Prognosefaktoren (junges Alter, perianaler Befall, ausgedehnter Dünndarmbefall, tiefe Ulzera): frühzeitige Biologikatherapie mit Anti-TNF-Antikörpern (Infliximab, Adalimumab), Ustekinumab oder Vedolizumab',
+            'Kinder und Jugendliche: exklusive enterale Ernährungstherapie über sechs bis acht Wochen — der Steroidtherapie gleichwertig, ohne Wachstumshemmung',
+            'Absetzen auslösender und gefährlicher Medikamente: nichtsteroidale Antirheumatika sowie Motilitätshemmer wie Loperamid (Gefahr des toxischen Megakolons); Analgesie mit Metamizol oder Paracetamol, spasmolytisch Butylscopolamin',
+            'supportiv: Flüssigkeits- und Elektrolytausgleich, hochkalorische Trinknahrung, bei schwerer Malnutrition parenterale Ernährung, Thromboseprophylaxe (deutlich erhöhtes thromboembolisches Risiko im Schub)',
+            'vor jeder Immunsuppression eine infektiöse Genese ausschließen, insbesondere Clostridioides difficile, Yersinien und eine latente Tuberkulose',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Remissionserhaltung — Kortikosteroide gehören ausdrücklich NICHT dazu',
+          items: [
+            'Glukokortikoide sind zur Remissionserhaltung NICHT indiziert: Sie verhindern kein Rezidiv und führen zu Osteoporose, Diabetes mellitus, Katarakt, Hypertonie und Infektionen — Steroidabhängigkeit ist eine Indikation zur Eskalation',
+            'Azathioprin 2–2,5 mg pro Kilogramm Körpergewicht täglich oder 6-Mercaptopurin: Wirkungseintritt erst nach acht bis zwölf Wochen; vorher Thiopurin-Methyltransferase-Status bestimmen; Kontrolle von Blutbild, Leberwerten und Lipase (Myelosuppression, Hepatotoxizität, Pankreatitis, erhöhtes Lymphom- und Hautkrebsrisiko, konsequenter Sonnenschutz)',
+            'Methotrexat 25 mg subkutan einmal wöchentlich mit Folsäuresubstitution — Alternative bei Thiopurinunverträglichkeit; in Schwangerschaft und bei Kinderwunsch streng kontraindiziert',
+            'Anti-TNF-Antikörper Infliximab (intravenös) und Adalimumab (subkutan), besonders wirksam bei fistulierendem Verlauf, gegebenenfalls als Kombinationstherapie mit Azathioprin',
+            'Ustekinumab (Anti-Interleukin-12/23) und Vedolizumab (darmselektiver Anti-Integrin-Antikörper mit besonders günstigem Infektionsprofil) als weitere Erhaltungsoptionen',
+            'Mesalazin hat beim Morbus Crohn — im Gegensatz zur Colitis ulcerosa — nur einen geringen Stellenwert; Antibiotika sind keine Erhaltungstherapie',
+            'Therapieziel ist über die klinische Remission hinaus die MUKOSAHEILUNG, gesteuert über Calprotectin, CRP und endoskopische Kontrollen; nach Ileozökalresektion Rezidivprophylaxe und Koloskopie nach sechs bis zwölf Monaten',
+          ],
+        },
+        {
+          label: 'Behandlung der Komplikationen (Fisteln, Abszesse, Stenosen)',
+          items: [
+            'Analfissur: Stuhlregulierung, Sitzbäder, lokale Analgesie und konsequente Therapie der Grunderkrankung',
+            'perianale Fisteln: Antibiotika mit Metronidazol und Ciprofloxacin, chirurgische Fadendrainage (Seton) zur Sekretableitung und Anti-TNF-Therapie als medikamentöse Basis; eine Fistelspaltung nur bei oberflächlichem Verlauf wegen der Inkontinenzgefahr',
+            'Abszess: ZUERST Drainage — sonographisch oder computertomographisch gesteuert beziehungsweise chirurgisch — plus Antibiose; eine Immunsuppression ist erst nach Sanierung erlaubt',
+            'entzündliche Stenose: medikamentöse Therapie; narbige, kurzstreckige Stenose: endoskopische Ballondilatation oder Strikturoplastik',
+            'Operationsindikationen: Ileus, Perforation, nicht drainierbarer Abszess, therapierefraktäre Stenose, nicht beherrschbare Blutung, Konglomerattumor, Dysplasie oder Karzinom; im Verlauf werden etwa die Hälfte der Betroffenen operiert',
+            'die Operation ist NICHT KURATIV — es wird darmsparend und ohne onkologischen Sicherheitsabstand reseziert, da Rezidive typischerweise an der Anastomose auftreten; nach ausgedehnter Ileumresektion drohen chologene Diarrhoe (Colestyramin), Gallensteine, Oxalatnierensteine und Vitamin-B12-Mangel',
+            'Cave toxisches Megakolon: aufgetriebenes Abdomen, Fieber, Tachykardie, Kolondilatation über 6 cm — intensivmedizinische Behandlung, bei Versagen Kolektomie',
+          ],
+        },
+        {
+          label: 'Begleitmaßnahmen, Substitution und Vorsorge',
+          items: [
+            'NIKOTINKARENZ als eigenständige Therapiemaßnahme: Rauchen erhöht beim Morbus Crohn Schubfrequenz, Fistelrate, Operationshäufigkeit und postoperative Rezidivrate; bei der Colitis ulcerosa wirkt Nikotin dagegen eher protektiv — dieser Kontrast wird in der Prüfung häufig abgefragt',
+            'Substitution: Eisen — im akuten Schub und bei oraler Unverträglichkeit intravenös —, Vitamin B12 parenteral bei terminalem Ileumbefall oder nach Ileumresektion, Folsäure (besonders unter Methotrexat und Sulfasalazin), Vitamin D, Calcium und Zink',
+            'individuelle Ernährungsberatung mit hochkalorischer, gut verträglicher Kost; keine pauschale Diät, im Schub ballaststoffarme Kost, bei Stenosen faserarme Ernährung; sekundäre Laktoseintoleranz abklären',
+            'Osteoporoseprophylaxe mit Calcium und Vitamin D unter jeder Steroidtherapie, Osteodensitometrie bei wiederholten Steroidzyklen',
+            'IMPFUNGEN VOR Beginn der Immunsuppression komplettieren (Hepatitis B, Pneumokokken, Influenza, COVID-19, Varizellen, HPV); Lebendimpfstoffe sind unter laufender Immunsuppression kontraindiziert',
+            'Karzinomüberwachung: Koloskopie mit Stufenbiopsien acht Jahre nach Erkrankungsbeginn bei ausgedehntem Kolonbefall, danach risikoadaptiert alle ein bis vier Jahre; bei begleitender primär sklerosierender Cholangitis sofort und jährlich; regelmäßige Hautkrebsvorsorge unter Thiopurinen',
+            'Diagnostik und Mitbehandlung extraintestinaler Manifestationen sowie psychosoziale Unterstützung, Selbsthilfegruppen, Familienplanung und Schwangerschaftsberatung (Konzeption möglichst in Remission)',
+          ],
+        },
+      ],
+      prognose: 'Der Morbus Crohn ist derzeit nicht heilbar und verläuft chronisch-rezidivierend; die Lebenserwartung ist bei adäquater Behandlung jedoch nahezu normal. Etwa die Hälfte der Betroffenen wird im Verlauf mindestens einmal operiert, und nach Ileozökalresektion zeigen sich ohne Rezidivprophylaxe innerhalb eines Jahres bei bis zu 70 % endoskopische Rezidive an der Anastomose. Ungünstige Prognosefaktoren sind ein junges Erkrankungsalter, ausgedehnter Dünndarmbefall, tiefe Ulzera, perianaler Befall, früher Steroidbedarf und fortgesetztes Rauchen. Unter konsequenter Nikotinkarenz, früh eingeleiteter Erhaltungstherapie mit dem Ziel der Mukosaheilung und regelmäßiger Verlaufskontrolle über Calprotectin lassen sich Schübe, Komplikationen und Operationen deutlich reduzieren. Das Kolonkarzinomrisiko ist bei langjährigem ausgedehntem Kolonbefall erhöht und erfordert ein Überwachungsprogramm.',
+      pruefungsfallen: [
+        'Blut AM Toilettenpapier ist nicht Blut IM Stuhl: Hellrotes Blut am Papier mit Brennen spricht für eine Analfissur — beim Morbus Crohn typisch — und nicht für die blutig-schleimige Diarrhoe der Colitis ulcerosa. Eine Patientin korrigierte den Kandidaten in Reutlingen ausdrücklich.',
+        'Den Kontrast Crohn gegen Colitis ulcerosa in einem Satz beherrschen: diskontinuierlich, transmural, Mund bis Anus, vor allem terminales Ileum, Fisteln, Abszesse, Stenosen, Granulome — gegenüber kontinuierlich vom Rektum aufsteigend, nur Mukosa, blutig-schleimige Diarrhoe mit Tenesmen, Kryptenabszesse.',
+        'Rauchen verschlechtert den Morbus Crohn, wirkt bei der Colitis ulcerosa eher protektiv. Die Nikotinkarenz ist beim Crohn Teil der Therapie und muss aktiv genannt werden.',
+        'Kortikosteroide gehören NICHT zur Remissionserhaltung — nur zur Remissionsinduktion. Die Erhaltung erfolgt mit Azathioprin, Methotrexat, Anti-TNF-Antikörpern, Ustekinumab oder Vedolizumab.',
+        'Das CALPROTECTIN im Stuhl nicht vergessen: Es trennt die organische Darmentzündung vom Reizdarmsyndrom und ist ein häufiges Prüfungsthema.',
+        'Nach perianalen Fisteln, Fissuren und Marisken aktiv fragen UND die Region inspizieren, dazu die digital-rektale Untersuchung — dieser Schritt wird regelmäßig vergessen, in Freiburg wurde ausdrücklich danach gefragt.',
+        'Den Test auf okkultes Blut im Stuhl explizit benennen und sein Prinzip erklären können — die Prüfer in Reutlingen wollten genau diesen Begriff hören.',
+        'Auslandsreise und exakte Stuhlbeschreibung gehören zwingend in die Anamnese; ihr Fehlen wurde in Reutlingen ausdrücklich moniert. Yersinien imitieren eine Ileitis terminalis.',
+        'Vor jeder Immunsuppression: Tuberkuloseausschluss mit Interferon-Gamma-Release-Assay und Röntgen-Thorax, Hepatitis-B-Serologie, Clostridioides difficile, Abszessausschluss und komplettierte Impfungen — Lebendimpfstoffe nur davor.',
+        'Die Operation ist nicht kurativ und wird darmsparend durchgeführt; kurativ ist allein die Proktokolektomie bei der Colitis ulcerosa.',
+        'Vitamin B12 bei terminalem Ileumbefall aktiv nennen — die Antwort « Eisen » allein genügt nicht. Nach ausgedehnter Ileumresektion außerdem chologene Diarrhoe, Gallen- und Oxalatsteine bedenken.',
+        'Loperamid und Opiate im akuten Schub können ein toxisches Megakolon auslösen; nichtsteroidale Antirheumatika unterhalten Schübe — beide Selbstmedikationen aktiv erfragen.',
+        'Granulome beim Morbus Crohn sind NICHT VERKÄSEND und nur in etwa 30–40 % der Biopsien nachweisbar — ihr Fehlen schließt die Diagnose nicht aus. Verkäsende Granulome sprechen für eine Darmtuberkulose.',
+        'Das Reizdarmsyndrom nicht als « psychosomatische Krankheit » bezeichnen — eine Oberärztin widersprach dem in der Prüfung ausdrücklich; besser: funktionelle Störung der Darm-Hirn-Interaktion.',
+        'Sprachliche Falle: Man sagt, eine Person « hat » eine Erkrankung oder Behinderung, nicht sie « leide daran » — beim Down-Syndrom wurde ein Kandidat in Reutlingen dafür ausdrücklich korrigiert.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was spricht für eine Colitis ulcerosa und gegen einen Morbus Crohn?',
+          antwort: 'Für die Colitis ulcerosa sprechen blutig-schleimige Durchfälle mit Tenesmen, ein kontinuierlicher, vom Rektum nach proximal aufsteigender Befall, die Beschränkung auf die Mukosa, Kryptenabszesse in der Histologie und das Fehlen von Fisteln. Für den Morbus Crohn sprechen der Schmerz im rechten Unterbauch, Durchfall meist ohne Blut, der diskontinuierliche transmurale Befall mit Skip lesions vom Mund bis zum Anus, das Pflastersteinrelief, nicht verkäsende Epitheloidzellgranulome sowie perianale Fisteln und Fissuren.',
+        },
+        {
+          frage: 'Warum denken Sie nicht an einen Morbus Crohn?',
+          antwort: 'Bei kurzer Anamnese von Tagen, fehlendem Gewichtsverlust, fehlenden nächtlichen Beschwerden, normalem CRP und normalem Calprotectin sowie fehlenden extraintestinalen und perianalen Manifestationen ist ein Morbus Crohn unwahrscheinlich. Zur sicheren Abgrenzung dienen Calprotectin im Stuhl und die Ileokoloskopie mit Stufenbiopsien.',
+        },
+        {
+          frage: 'Wo befindet sich der Morbus Crohn am häufigsten?',
+          antwort: 'Im terminalen Ileum und in der Ileozökalregion. Grundsätzlich kann jedoch der gesamte Verdauungstrakt vom Mund bis zum Anus befallen sein, und zwar diskontinuierlich mit Skip lesions.',
+        },
+        {
+          frage: 'Wie können Sie eine chronisch-entzündliche Darmerkrankung ausschließen?',
+          antwort: 'Durch die Kombination aus normwertigen Entzündungsparametern, normalem Calprotectin im Stuhl, unauffälliger Abdomensonographie und vor allem einer unauffälligen Ileokoloskopie mit Stufenbiopsien aus allen Segmenten einschließlich des terminalen Ileums; ergänzend eine MR-Enterographie für den Dünndarm.',
+        },
+        {
+          frage: 'Warum sollten wir einen Test auf okkultes Blut im Stuhl veranlassen, und wie funktioniert er?',
+          antwort: 'Weil zu klären ist, ob eine Blutungsquelle im Darm vorliegt oder das Blut lediglich von einer Wunde am After, etwa einer Fissur, stammt. Der immunologische Test weist mit Antikörpern menschliches Hämoglobin im Stuhl nach; üblich sind drei Stuhlproben von verschiedenen Tagen. Ein positives Ergebnis erfordert immer eine Koloskopie.',
+        },
+        {
+          frage: 'Welche diagnostischen Maßnahmen leiten Sie ein?',
+          antwort: 'Körperliche Untersuchung einschließlich Inspektion der Perianalregion und digital-rektaler Untersuchung; Labor mit CRP, BSG, Blutbild, Ferritin, Vitamin B12, Albumin und Leberwerten; Calprotectin sowie Stuhlkulturen einschließlich Clostridioides difficile; Abdomensonographie; MR-Enterographie beziehungsweise MRT nach Sellink; als Goldstandard die Ileokoloskopie mit Stufenbiopsien.',
+        },
+        {
+          frage: 'Welcher Stuhlparameter unterscheidet eine Entzündung von einem Reizdarmsyndrom?',
+          antwort: 'Das Calprotectin im Stuhl. Es stammt aus neutrophilen Granulozyten, ist beim Reizdarmsyndrom normal und bei chronisch-entzündlichen Darmerkrankungen erhöht; es eignet sich zusätzlich zur Verlaufs- und Rezidivkontrolle.',
+        },
+        {
+          frage: 'Was sehen Sie in der Koloskopie und in der Histologie?',
+          antwort: 'Endoskopisch einen diskontinuierlichen Befall mit Skip lesions, aphthöse und längsgestellte Ulzera, ein Pflastersteinrelief und Stenosen bei häufig ausgespartem Rektum. Histologisch eine transmurale Entzündung mit nicht verkäsenden Epitheloidzellgranulomen und mehrkernigen Riesenzellen, die allerdings nur in etwa 30 bis 40 Prozent der Biopsien nachweisbar sind.',
+        },
+        {
+          frage: 'Welche extraintestinalen Manifestationen kennen Sie?',
+          antwort: 'Arthritiden und die Sakroiliitis beziehungsweise ankylosierende Spondylitis, das Erythema nodosum, das Pyoderma gangraenosum, Uveitis und Episkleritis, aphthöse Stomatitis sowie die primär sklerosierende Cholangitis, die allerdings häufiger mit der Colitis ulcerosa assoziiert ist. Hinzu kommen Osteoporose, Anämie, Gallen- und Oxalatnierensteine sowie ein erhöhtes Thromboembolierisiko.',
+        },
+        {
+          frage: 'Wie behandeln Sie den akuten Schub?',
+          antwort: 'Bei ileozökalem Befall mit milder bis mäßiger Aktivität mit Budesonid 9 mg täglich über etwa acht Wochen, bei ausgedehntem Befall mit systemischen Steroiden, Prednisolon 1 mg pro Kilogramm Körpergewicht, jeweils ausschleichend; bei schwerem Verlauf frühzeitig mit Biologika. Dazu Flüssigkeits- und Elektrolytausgleich, Ernährungstherapie, Absetzen von nichtsteroidalen Antirheumatika und Loperamid sowie der Ausschluss einer Infektion vor Beginn der Immunsuppression.',
+        },
+        {
+          frage: 'Gehören Kortikosteroide zur Remissionserhaltung?',
+          antwort: 'Nein, ausdrücklich nicht. Sie verhindern keine Rezidive und verursachen Osteoporose, Diabetes, Katarakt und Infektionen. Zur Remissionserhaltung dienen Azathioprin oder 6-Mercaptopurin, Methotrexat, Anti-TNF-Antikörper wie Infliximab und Adalimumab sowie Ustekinumab und Vedolizumab.',
+        },
+        {
+          frage: 'Welche Empfehlung geben Sie zum Rauchen, und warum ist das bei der Colitis ulcerosa anders?',
+          antwort: 'Beim Morbus Crohn ist die strikte Nikotinkarenz Teil der Therapie: Rauchen erhöht Schubfrequenz, Fistelbildung, Operationsrate und das Rezidivrisiko nach Resektion. Bei der Colitis ulcerosa wirkt Nikotin dagegen eher protektiv, und die Erkrankung manifestiert sich häufig nach einem Rauchstopp — dennoch wird niemandem zum Rauchen geraten.',
+        },
+        {
+          frage: 'Ist die Operation beim Morbus Crohn kurativ?',
+          antwort: 'Nein. Da der gesamte Verdauungstrakt befallen sein kann, treten Rezidive typischerweise an der Anastomose auf. Operiert wird nur bei Komplikationen und so darmsparend wie möglich, ohne onkologischen Sicherheitsabstand. Kurativ ist allein die Proktokolektomie bei der Colitis ulcerosa.',
+        },
+        {
+          frage: 'Welche Vitamine und Spurenelemente kontrollieren Sie, und warum gerade Vitamin B12?',
+          antwort: 'Ferritin und Eisen, Vitamin B12, Folsäure, Vitamin D, Calcium und Zink. Vitamin B12 wird ausschließlich im terminalen Ileum resorbiert — genau dem Prädilektionsort des Morbus Crohn —, sodass bei Befall oder nach Resektion regelhaft ein Mangel entsteht und parenteral substituiert werden muss.',
+        },
+        {
+          frage: 'Was veranlassen Sie, bevor Sie eine immunsuppressive Therapie beginnen?',
+          antwort: 'Ausschluss einer aktiven Infektion und eines Abszesses, Stuhldiagnostik auf Clostridioides difficile, Tuberkuloseausschluss mit Interferon-Gamma-Release-Assay und Röntgen-Thorax, Hepatitis-B- und Varizellenserologie, vor Azathioprin die Bestimmung des Thiopurin-Methyltransferase-Status sowie die Komplettierung aller Impfungen — Lebendimpfstoffe ausschließlich vorher.',
+        },
+        {
+          frage: 'Wie heißt eine Kolitis, die durch ein Antibiotikum verursacht wird?',
+          antwort: 'Die pseudomembranöse Kolitis durch Clostridioides difficile. Nachweis von Glutamatdehydrogenase und Toxin A/B im Stuhl, endoskopisch Pseudomembranen; behandelt wird mit Vancomycin oral oder Fidaxomicin, bei Rezidiven auch mit fäkalem Mikrobiomtransfer.',
+        },
+        {
+          frage: 'Welche Ernährungsempfehlungen geben Sie?',
+          antwort: 'Es gibt keine allgemeingültige Crohn-Diät. Empfohlen werden eine ausgewogene, hochkalorische und individuell verträgliche Kost, im Schub ballaststoffarme Schonkost, bei Stenosen faserarme Ernährung, ausreichende Flüssigkeitszufuhr sowie die gezielte Substitution von Eisen, Vitamin B12, Vitamin D, Folsäure und Zink. Bei Kindern und Jugendlichen ist die exklusive enterale Ernährungstherapie zur Schubbehandlung den Steroiden gleichwertig.',
+        },
+      ],
+      merksatz: 'Crohn = diskontinuierlich, transmural, vom Mund bis zum Anus, am liebsten terminales Ileum — daher Fisteln, Abszesse und Stenosen; Colitis ulcerosa = kontinuierlich vom Rektum, nur Mukosa, blutig-schleimig. Calprotectin trennt Entzündung vom Reizdarm, die Ileokoloskopie mit Stufenbiopsien beweist die Diagnose. Im Schub Budesonid oder Steroide — zur Remissionserhaltung NIEMALS Steroide, sondern Azathioprin, Methotrexat oder Biologika. Und immer: Rauchen aufhören, Vitamin B12 denken, impfen VOR der Immunsuppression, operieren heilt nicht.',
+      linkedCaseIds: [
+        'case-morbus-crohn',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-sonographie',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-karpaltunnel',
+      pathology: 'Karpaltunnelsyndrom',
+      specialty: 'Orthopädie',
+      definition: 'Das Karpaltunnelsyndrom (KTS) ist die häufigste Engpassneuropathie des Menschen. Es entsteht durch eine chronische Druckschädigung des Nervus medianus im Karpaltunnel — einem osteofibrösen Kanal, der von den Handwurzelknochen als Boden und Seitenwänden und vom Retinaculum flexorum (Ligamentum carpi transversum) als Dach gebildet wird und neben dem Nerven neun Beugesehnen führt. Eine Erhöhung des Gewebedrucks im Kanal führt zunächst zu einer venösen Stauung und Ischämie des Nervs mit rein sensiblen, nächtlich betonten Reizsymptomen (Brachialgia paraesthetica nocturna), später zur segmentalen Demyelinisierung und schließlich zum axonalen Untergang mit sensiblem Defizit und motorischem Ausfall der vom Ramus muscularis versorgten Thenarmuskulatur. Betroffen sind Frauen etwa dreimal häufiger als Männer, der Häufigkeitsgipfel liegt zwischen dem 40. und 60. Lebensjahr, in bis zu 50 % der Fälle beidseits mit Betonung der dominanten Hand.',
+      aetiologie: 'In der Mehrzahl der Fälle idiopathisch, wobei eine anlagebedingt enge Kanalanatomie und eine nicht entzündliche Bindegewebsproliferation des Synovialgewebes der Beugesehnen (Tenosynovialis) den Druck erhöhen. Sekundäre Formen entstehen durch eine Volumenzunahme im Kanal (Tenosynovitis bei repetitiver Belastung und Vibration, Flüssigkeitsretention in der Schwangerschaft und bei Hypothyreose, Amyloidablagerungen bei Langzeitdialyse und bei Transthyretin-Amyloidose, Weichteilhypertrophie bei Akromegalie, Ganglien, Lipome, Tumoren), durch eine Verkleinerung des Kanals (in Fehlstellung verheilte distale Radiusfraktur, Luxation des Os lunatum, Arthrose der Handwurzel) oder durch eine erhöhte Vulnerabilität des Nervs (Diabetes mellitus, rheumatoide Arthritis, Alkoholabusus, Vitamin-B12-Mangel). Ein akutes Karpaltunnelsyndrom ist selten und entsteht traumatisch nach distaler Radiusfraktur, nach Einblutung unter Antikoagulation oder nach Infektion — es ist ein Notfall.',
+      risikofaktoren: [
+        'Weibliches Geschlecht und Lebensalter zwischen 40 und 60 Jahren',
+        'Repetitive manuelle Tätigkeit mit Kraftgriff, Beugung/Streckung im Handgelenk und Vibrationsexposition (Handwerk, Töpfern, Fließbandarbeit, Presslufthammer, Motorsäge, Melken, Fahrradfahren, Lenkradhalten)',
+        'Schwangerschaft und Stillzeit — meist im dritten Trimenon, in der Regel postpartal spontan reversibel',
+        'Hypothyreose',
+        'Diabetes mellitus und gestörte Glukosetoleranz',
+        'Rheumatoide Arthritis und andere entzündlich-rheumatische Erkrankungen mit Tenosynovitis',
+        'Langzeitdialyse und Amyloidosen (β2-Mikroglobulin-Amyloidose, Transthyretin-Amyloidose)',
+        'Akromegalie',
+        'Adipositas',
+        'Zustand nach distaler Radiusfraktur, insbesondere bei Fehlstellung, sowie nach Handgelenkverletzungen',
+        'Raumfordernde Prozesse im Kanal: Ganglion, Lipom, Tendovaginitis, anomale Muskelbäuche',
+        'Orale Kontrazeptiva, Menopause und andere Zustände mit Flüssigkeitsretention',
+      ],
+      klinik: [
+        {
+          text: 'Brachialgia paraesthetica nocturna: nächtliches Einschlafen und Kribbeln der Hand, das den Patienten aus dem Schlaf WECKT — das Leitsymptom',
+        },
+        {
+          text: 'Deutliche Besserung durch Schütteln und Ausschütteln der Hand sowie durch Herabhängenlassen des Armes („Flick-Zeichen“)',
+        },
+        {
+          text: 'Parästhesien und Hypästhesie in Daumen, Zeigefinger, Mittelfinger und der radialen Hälfte des Ringfingers — der KLEINFINGER ist ausgespart',
+        },
+        {
+          text: 'Schmerzen im Handgelenk mit Ausstrahlung nach proximal in den Unterarm, gelegentlich bis zum Ellenbogen oder zur Schulter',
+        },
+        {
+          text: 'Auslösung tagsüber durch längere Beugung oder Streckung im Handgelenk: Fahrradfahren, Telefonieren, Zeitunglesen, Autofahren, Halten des Lenkrads',
+        },
+        {
+          text: 'Positive Provokationstests: Phalen-Test (maximale Palmarflexion über 60 Sekunden), Hoffmann-Tinel-Zeichen (Beklopfen des Karpaltunnels), Durkan-Karpalkompressionstest (30 Sekunden Daumendruck über dem Retinaculum)',
+        },
+        {
+          text: 'Im Verlauf persistierende Hypästhesie mit gestörter Zweipunktdiskrimination und Stereognosie, Störung der Feinmotorik (Knöpfen, Nähen, Schmuckverschluss)',
+        },
+        {
+          text: 'Kraftverlust beim Greifen mit Fallenlassen von Gegenständen (Tasse, Glas), unsicherer Spitz- und Schlüsselgriff',
+        },
+        {
+          text: 'Thenaratrophie mit Abflachung des Daumenballens und Schwäche der Daumenabduktion und -opposition (Musculus abductor pollicis brevis, Musculus opponens pollicis) — SPÄTZEICHEN',
+          atypisch: true,
+        },
+        {
+          text: 'Positives Flaschenzeichen: die abgespreizte Daumen-Zeigefinger-Spanne umschließt eine Flasche nicht mehr vollständig',
+          atypisch: true,
+        },
+        {
+          text: 'Trophische Störungen mit trockener, schuppiger Haut und verminderter Schweißsekretion im Medianusgebiet',
+          atypisch: true,
+        },
+        {
+          text: 'Schmerzloser Verlauf mit rein motorischem Ausfall und Thenaratrophie — typisch bei langjährigem Diabetes mellitus',
+          atypisch: true,
+        },
+        {
+          text: 'Ausschließlich proximale Schmerzen in Unterarm und Schulter ohne Handbeschwerden, die eine zervikale oder Schulterproblematik vortäuschen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Klinische Stadieneinteilung',
+          inhalt: 'Stadium I (Reizstadium): rein sensible, intermittierende, nächtlich betonte Parästhesien mit Besserung durch Ausschütteln, tagsüber weitgehende Beschwerdefreiheit, klinisch-neurologisch unauffälliger Befund. Stadium II (sensibles Defizit): auch tagsüber persistierende Missempfindungen, objektivierbare Hypästhesie im Medianusgebiet mit gestörter Zweipunktdiskrimination, beginnende Feinmotorikstörung. Stadium III (motorisches Defizit): dauerhafte Sensibilitätsstörung, Schwäche der Daumenabduktion und -opposition, Thenaratrophie, positives Flaschenzeichen — hier besteht Operationsindikation.',
+        },
+        {
+          name: 'Neurophysiologische Schweregradeinteilung (Padua)',
+          inhalt: 'Sechs Grade anhand der Elektroneurographie: negativ (Normalbefund), minimal (nur segmentale oder vergleichende Auffälligkeiten), mild (verminderte sensible Nervenleitgeschwindigkeit bei normaler distaler motorischer Latenz), moderat (verminderte sensible Nervenleitgeschwindigkeit UND verlängerte distale motorische Latenz), schwer (kein sensibles Antwortpotenzial mehr ableitbar bei erhaltener motorischer Antwort), extrem schwer (auch kein motorisches Antwortpotenzial mehr ableitbar). Referenzwert: distale motorische Latenz über 4,2 ms gilt als pathologisch.',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Idiopathisches KTS (Mehrzahl der Fälle, enger Kanal plus nicht entzündliche Tenosynovialisproliferation) gegenüber sekundärem KTS bei Volumenzunahme im Kanal (Schwangerschaft, Hypothyreose, Dialyse-Amyloidose, Akromegalie, Tenosynovitis, Ganglion), bei Kanalverkleinerung (in Fehlstellung verheilte distale Radiusfraktur, Lunatumluxation, Arthrose) oder bei erhöhter Nervenvulnerabilität (Diabetes mellitus, rheumatoide Arthritis). Sonderform: akutes KTS nach Trauma, Einblutung oder Infektion — Notfall.',
+        },
+      ],
+      redFlags: [
+        'Thenaratrophie oder rasch progrediente Parese der Daumenabduktion — irreversibler Axonverlust droht, zügige operative Dekompression',
+        'Akut einsetzende, stärkste Schmerzen mit rasch zunehmender Gefühlsstörung nach distaler Radiusfraktur, Handgelenktrauma oder unter Antikoagulation — akutes Karpaltunnelsyndrom, notfallmäßige Dekompression innerhalb von Stunden',
+        'Beteiligung des Kleinfingers oder der ulnaren Handkante — spricht gegen ein isoliertes KTS und für ein Sulcus-ulnaris-Syndrom, eine untere Plexusläsion oder eine Polyneuropathie',
+        'Nackenschmerz mit segmentaler Ausstrahlung, Reflexabschwächung oder Kennmuskelparese — zervikale Radikulopathie, MRT der HWS',
+        'Sehstörungen, Doppelbilder, Gangunsicherheit, Blasenstörung oder Lhermitte-Zeichen — Verdacht auf eine zentrale Ursache, insbesondere Multiple Sklerose',
+        'Fieber, Rötung, Überwärmung und Schwellung des Handgelenks — septische Tenosynovitis oder Handphlegmone',
+        'Beidseitige, rasch progrediente Beschwerden mit Herzinsuffizienz, Polyneuropathie oder Makroglossie — Verdacht auf eine systemische Amyloidose',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: nächtliches Einschlafen der Hand mit Aufwachen, Besserung durch Ausschütteln, betroffene Finger (Kleinfinger ausgespart?), Seitenbetonung und Händigkeit, Dauer und Progredienz, Fallenlassen von Gegenständen, Feinmotorik',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Suche nach einer sekundären Ursache: berufliche und private Handbelastung mit Vibration, Schwangerschaft, Schilddrüsenerkrankung, Diabetes mellitus, rheumatoide Arthritis, Dialyse, Akromegalie, Adipositas, Zustand nach distaler Radiusfraktur',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion beider Hände im Seitenvergleich: Abflachung des Thenars, trophische Hautveränderungen, Schwellung, Rötung, Narben; Prüfung des Flaschenzeichens',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sensibilitätsprüfung im Medianusgebiet mit Zweipunktdiskrimination (pathologisch über 6 mm an der Fingerbeere) und Stereognosie; ausdrücklich Prüfung des Kleinfingers zur Abgrenzung gegenüber dem Sulcus-ulnaris-Syndrom',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kraftprüfung der Daumenabduktion und -opposition (Musculus abductor pollicis brevis, Musculus opponens pollicis) sowie des groben Faustschlusses und des Spitzgriffs',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Provokationstests: Phalen-Test (maximale Palmarflexion über 60 Sekunden), umgekehrter Phalen-Test, Hoffmann-Tinel-Zeichen über dem Karpaltunnel und Durkan-Karpalkompressionstest über 30 Sekunden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende Untersuchung der Halswirbelsäule mit Beweglichkeit, Spurling-Test, Muskeleigenreflexen (Bizeps-, Brachioradialis-, Trizepssehnenreflex) sowie der Schulter und des Ellenbogens zur Abgrenzung proximaler Ursachen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf eine sekundäre Ursache: TSH, Nüchternblutzucker und HbA1c, Kreatinin und eGFR',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungs- und Rheumaserologie bei entsprechendem Verdacht: Blutbild, CRP, BSG, Rheumafaktor und Anti-CCP-Antikörper',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ergänzend bei unklarer Polyneuropathie-Konstellation: Vitamin B12, Folsäure, Elektrolyte, Leberwerte, Eiweißelektrophorese und Immunfixation (Amyloidose, Paraproteinämie)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Hochauflösende Nervensonographie: vergrößerte Querschnittsfläche des Nervus medianus auf Höhe des Os pisiforme (pathologisch ab etwa 10–12 mm²), Kalibersprung („notch sign“), Abflachung im Kanal; zugleich Nachweis raumfordernder Ursachen wie Ganglion, Tenosynovitis oder anomaler Muskelbäuche',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen des Handgelenks in zwei Ebenen bei posttraumatischer oder arthrotischer Fragestellung; ergänzend Karpaltunnel-Zielaufnahme',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Halswirbelsäule zur Abgrenzung einer zervikalen Radikulopathie und — bei zusätzlichen zentralen Symptomen oder entsprechender Familienanamnese — MRT des Schädels zum Ausschluss einer Multiplen Sklerose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT des Handgelenks nur in Ausnahmefällen: unklare Raumforderung, Rezidiv nach Operation oder atypischer Befund',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektroneurographie als BESTÄTIGUNG der Diagnose und zur Schweregradbestimmung: verlängerte distale motorische Latenz des Nervus medianus (über 4,2 ms), verminderte sensible Nervenleitgeschwindigkeit über dem Karpaltunnelsegment, im Seitenvergleich und im Vergleich zum Nervus ulnaris derselben Hand',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektromyographie des Musculus abductor pollicis brevis bei motorischem Defizit: pathologische Spontanaktivität und chronisch neurogener Umbau als Zeichen des axonalen Schadens',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ergänzende Elektroneurographie mehrerer Nerven an Armen und Beinen, wenn eine Polyneuropathie abzugrenzen ist; Liquordiagnostik und evozierte Potenziale nur bei begründetem Verdacht auf eine zentrale Ursache',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Zervikale Radikulopathie C6/C7 (Bandscheibenvorfall, Foraminalstenose)',
+          unterscheidung: 'Nacken- und Schulterschmerz mit segmentaler Ausstrahlung von proximal nach distal, Verstärkung durch Husten, Niesen und Kopfbewegung, positiver Spurling-Test, Abschwächung des Bizeps- beziehungsweise Trizepssehnenreflexes, Kennmuskelparese. Beim KTS fehlen Nackenschmerz und Reflexausfall, die Beschwerden sind nächtlich und bessern sich durch Ausschütteln.',
+        },
+        {
+          dd: 'Sulcus-ulnaris-Syndrom (Kubitaltunnelsyndrom)',
+          unterscheidung: 'Parästhesien im KLEINFINGER und in der ulnaren Hälfte des Ringfingers, Beschwerden bei angewinkeltem Ellenbogen, Druckschmerz und Hoffmann-Tinel-Zeichen über dem Sulcus nervi ulnaris, Atrophie des Musculus interosseus dorsalis I mit Krallenhand und positivem Froment-Zeichen. Die Frage nach dem Kleinfinger trennt beide Syndrome.',
+        },
+        {
+          dd: 'Polyneuropathie, insbesondere diabetisch',
+          unterscheidung: 'Symmetrische, distal betonte, strumpf- und handschuhförmige Missempfindungen, beginnend an den FÜSSEN, brennende Schmerzen, abgeschwächter Achillessehnenreflex, gestörtes Vibrationsempfinden. Die Verteilung folgt keinem einzelnen Nerv und die Beschwerden bessern sich nicht durch Ausschütteln. Cave: beides kann gleichzeitig bestehen.',
+        },
+        {
+          dd: 'Pronator-teres-Syndrom (proximale Medianuskompression)',
+          unterscheidung: 'Belastungsabhängiger Schmerz im proximalen Unterarm, Sensibilitätsstörung AUCH über dem Thenarballen, weil der Ramus palmaris den Karpaltunnel nicht durchläuft; keine nächtliche Betonung, Provokation durch Pronation gegen Widerstand.',
+        },
+        {
+          dd: 'Thoracic-outlet-Syndrom',
+          unterscheidung: 'Beschwerden im gesamten Arm, meist ulnar betont, ausgelöst durch Überkopfarbeit und Tragen von Lasten, häufig vaskuläre Zeichen mit Blässe, Kältegefühl und Pulsabschwächung bei Provokationsmanövern; oft Halsrippe im Röntgen.',
+        },
+        {
+          dd: 'Rhizarthrose (Daumensattelgelenkarthrose)',
+          unterscheidung: 'Belastungsabhängiger, punktueller Schmerz an der Daumenbasis beim Drehen von Schlüsseln und Öffnen von Gläsern, positives Grind-Zeichen, im Röntgen Gelenkspaltverschmälerung; keine Parästhesien, keine nächtliche Symptomatik, keine Sensibilitätsstörung.',
+        },
+        {
+          dd: 'Tendovaginitis stenosans de Quervain',
+          unterscheidung: 'Schmerz über dem ersten Strecksehnenfach an der radialen Handgelenkseite mit Schwellung, positiver Finkelstein-Test; rein bewegungs- und belastungsabhängig, ohne Parästhesien und ohne nächtliche Beschwerden.',
+        },
+        {
+          dd: 'Multiple Sklerose',
+          unterscheidung: 'Zentrale Symptomatik mit sensiblen Ausfällen, die keinem peripheren Nerv folgen, häufig Optikusneuritis, Doppelbilder, Lhermitte-Zeichen, Uhthoff-Phänomen, Ataxie, Blasenstörung und gesteigerte Reflexe mit positivem Babinski-Zeichen. Abklärung mit MRT von Schädel und Wirbelsäule sowie Liquordiagnostik.',
+        },
+        {
+          dd: 'Rheumatoide Arthritis mit Tenosynovitis',
+          unterscheidung: 'Symmetrische Schwellung und Schmerzen der Fingergrund- und Fingermittelgelenke, Morgensteifigkeit über 60 Minuten, erhöhte Entzündungsparameter, Rheumafaktor und Anti-CCP positiv. Sie kann ein KTS jedoch auch verursachen — beides kann koexistieren.',
+        },
+        {
+          dd: 'Raynaud-Phänomen und andere vaskuläre Ursachen',
+          unterscheidung: 'Anfallsweise, kälte- oder stressinduzierte Trikolore-Verfärbung der Finger (weiß, blau, rot) mit Schmerz beim Wiedererwärmen; keine dermatomunabhängige, nächtliche Parästhesie und kein Ausschüttelphänomen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Konservative Therapie und Behandlung der Grunderkrankung',
+          items: [
+            'Nächtliche Handgelenkorthese in Neutralstellung (Lagerungsschiene, etwa 0 bis 10 Grad Extension) — ERSTE und wichtigste Maßnahme, konsequent über mindestens vier bis sechs Wochen getragen; sie verhindert die nächtliche Beugehaltung, die den Druck im Kanal vervielfacht',
+            'Ergonomische Beratung und Belastungsreduktion: Vermeidung repetitiver Kraftgriffe, dauerhafter Handgelenkbeugung und Vibrationsexposition, Anpassung von Arbeitsplatz, Werkzeug und Pausenrhythmus, Handgelenkauflage, gegebenenfalls Umgestaltung der Tätigkeit',
+            'Behandlung der Grunderkrankung als kausaler Ansatz: Substitution einer Hypothyreose, Optimierung der Blutzuckereinstellung, antirheumatische Therapie bei rheumatoider Arthritis, Gewichtsreduktion, Therapie einer Akromegalie',
+            'In der SCHWANGERSCHAFT primär abwartendes Vorgehen mit nächtlicher Schiene, da sich die Beschwerden nach der Entbindung in der Regel spontan zurückbilden — keine Operation ohne motorisches Defizit',
+            'Einmalige lokale Glukokortikoidinjektion in den Karpaltunnel (nicht in den Nerv, proximal und ulnar der Sehne des Musculus palmaris longus, idealerweise sonographisch gesteuert): rasche, aber meist nur vorübergehende Besserung; sie hat zugleich prädiktiven Wert für den Erfolg einer Operation',
+            'Kurzfristig NSAR unter Protonenpumpenhemmerschutz zur Schmerzlinderung — sie beheben die Kompression jedoch nicht; systemische Glukokortikoide über zwei Wochen sind allenfalls eine Überbrückung',
+            'Ergotherapie mit Nerven- und Sehnengleitübungen, manuelle Therapie und Handbad; Diuretika und Vitamin B6 sind nicht wirksam und werden nicht empfohlen',
+            'Verlaufskontrolle nach etwa sechs Wochen mit erneuter klinischer und gegebenenfalls elektroneurographischer Beurteilung',
+          ],
+        },
+        {
+          label: 'Operative Dekompression des Nervus medianus',
+          items: [
+            'Prinzip: vollständige Spaltung des Retinaculum flexorum (Ligamentum carpi transversum) und damit Erweiterung des Karpaltunnels — offen über eine kurze Hohlhandinzision oder endoskopisch; beide Verfahren sind hinsichtlich des Langzeitergebnisses gleichwertig, das endoskopische erlaubt eine schnellere Rückkehr zur Arbeit, das offene erlaubt die Inspektion und gegebenenfalls eine Tenosynovialektomie',
+            'INDIKATION: Versagen der konservativen Therapie nach etwa sechs Wochen bis drei Monaten, Thenaratrophie oder Parese der Daumenabduktion, persistierendes sensibles Defizit sowie ein elektrophysiologisch schwerer Befund — bei motorischem Defizit soll nicht länger konservativ zugewartet werden',
+            'NOTFALLINDIKATION beim akuten Karpaltunnelsyndrom nach Trauma, Fraktur, Einblutung oder Infektion: sofortige Dekompression innerhalb weniger Stunden',
+            'Durchführung in der Regel ambulant in Regionalanästhesie (Plexusblockade oder Handblock) unter Blutsperre; die Hautinzision endet distal der Rascetta beziehungsweise wahrt die Kaplan-Linie, um den Ramus palmaris und den oberflächlichen Hohlhandbogen zu schonen',
+            'Typische Risiken, über die aufzuklären ist: Nachblutung, Wundinfektion, Verletzung des Nervus medianus oder seines Ramus muscularis mit dauerhafter Thenarparese, Verletzung des Ramus palmaris mit schmerzhaftem Narbenneurom, Verletzung von Beugesehnen und Gefäßbogen, unvollständige Spaltung mit Persistenz der Beschwerden, Narbenschmerz („pillar pain“), vorübergehender Kraftverlust, komplexes regionales Schmerzsyndrom, Rezidiv',
+            'Bei sekundären Formen zusätzlich die Ursache angehen: Tenosynovialektomie, Entfernung eines Ganglions, Korrektur einer in Fehlstellung verheilten distalen Radiusfraktur',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nachbehandlung, Prognose und Rezidivvermeidung',
+          items: [
+            'Frühfunktionelle Nachbehandlung: sofortige Bewegung der Finger, keine dauerhafte Ruhigstellung; Hochlagerung, Kühlung, Fadenzug nach zehn bis vierzehn Tagen',
+            'Belastungsaufbau über etwa vier bis sechs Wochen; körperlich leichte Tätigkeiten sind nach ein bis zwei Wochen möglich, schwere Handarbeit erst nach sechs bis acht Wochen — die Arbeitsunfähigkeitsdauer ist bei manuellen Berufen individuell festzulegen',
+            'Ergotherapie mit Narbenmassage, Narbenpflege und Sehnengleitübungen; Behandlung eines Narbenschmerzes',
+            'Ergonomische Sekundärprävention und konsequente Weiterbehandlung der Grunderkrankung, um ein Rezidiv und ein Karpaltunnelsyndrom der Gegenseite zu vermeiden',
+            'Aufklärung über den Verlauf: nächtliche Parästhesien bessern sich meist innerhalb von Tagen bis wenigen Wochen, ein sensibles Defizit bildet sich über Monate zurück, eine bereits eingetretene Thenaratrophie ist nur teilweise oder gar nicht reversibel — deshalb nicht zu lange zuwarten',
+            'Bei Beschwerdepersistenz nach der Operation: Überprüfung auf unvollständige Spaltung, Rezidiv, Narbenneurom, Fehldiagnose (zervikale Radikulopathie, Polyneuropathie) oder komplexes regionales Schmerzsyndrom mittels erneuter Elektroneurographie und Sonographie',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose ist bei rechtzeitiger Behandlung sehr gut. Im Reizstadium führt allein die konsequent getragene nächtliche Schiene in vielen Fällen zu einer deutlichen Besserung, und schwangerschaftsassoziierte Formen bilden sich nach der Entbindung meist vollständig zurück. Die operative Dekompression bessert die Beschwerden in etwa 80 bis 90 Prozent der Fälle dauerhaft; die nächtlichen Parästhesien verschwinden häufig schon in den ersten Nächten. Entscheidend für das Ergebnis ist der Zeitpunkt: Sensibilitätsstörungen bilden sich über Wochen bis Monate zurück, eine bereits bestehende Thenaratrophie mit axonalem Untergang jedoch nur unvollständig oder gar nicht. Rezidive sind mit etwa 3 bis 5 Prozent selten und beruhen meist auf einer unvollständigen Spaltung oder einer nicht behandelten Grunderkrankung. Unbehandelt schreitet die Erkrankung über Jahre fort und führt zu einem irreversiblen sensomotorischen Defizit mit erheblichem Funktionsverlust der Hand.',
+      pruefungsfallen: [
+        'Der KLEINFINGER ist beim Karpaltunnelsyndrom ausgespart — diese Frage muss in der Anamnese aktiv gestellt und in der Fallvorstellung genannt werden. Sie ist das entscheidende Argument gegen ein Sulcus-ulnaris-Syndrom und wird in Reutlingen regelmäßig verlangt.',
+        'Die Provokationstests namentlich nennen: Phalen-Test, Hoffmann-Tinel-Zeichen und Durkan-Karpalkompressionstest. Die Kommission war sichtlich zufrieden, als ein Kandidat Phalen und Hoffmann-Tinel benannte — „Was machen Sie bei der körperlichen Untersuchung?“ ist eine feste Frage.',
+        'Die Inspektion nicht vergessen: Die Thenaratrophie sieht man, bevor man sie misst. Sie ist ein Spätzeichen und zugleich eine Operationsindikation — wer sie nennt, muss auch die Konsequenz nennen.',
+        'Die Diagnose wird klinisch gestellt und durch die ELEKTRONEUROGRAPHIE bestätigt — nicht durch das MRT. Das MRT dient dem Ausschluss der zervikalen Radikulopathie und der Multiplen Sklerose, nicht dem Nachweis des Karpaltunnelsyndroms.',
+        'Die sekundäre Ursache aktiv suchen: Schwangerschaft, Hypothyreose, Diabetes mellitus, rheumatoide Arthritis, Dialyse und Amyloidose, Akromegalie, Zustand nach distaler Radiusfraktur. Wer nur „idiopathisch“ sagt, verschenkt Punkte; TSH und HbA1c gehören ins Labor.',
+        'In der Schwangerschaft wird primär abgewartet und geschient — die Beschwerden bilden sich postpartal meist zurück. Eine Operation nur bei motorischem Defizit.',
+        'Die nächtliche Handgelenkschiene ist die ERSTE Maßnahme, nicht das Schmerzmittel. NSAR beheben die Kompression nicht.',
+        'Die lokale Glukokortikoidinjektion wird EINMALIG und in den Kanal, nicht in den Nerv gegeben; ihre Wirkung ist meist vorübergehend.',
+        'Der Operationsschritt heißt „Spaltung des Retinaculum flexorum“ beziehungsweise „des Ligamentum carpi transversum“ — nicht „Entfernung“. Dem Patienten gegenüber: „Wir durchtrennen das straffe Band über dem Handgelenk und schaffen dem Nerven wieder Platz.“',
+        'DER NAME: Mehrere Kandidaten haben in Reutlingen bis zu einer Minute mit einem schwierigen Doppelnamen verloren und ihn am Ende falsch geschrieben. Den Namen einmal buchstabieren lassen, sofort korrekt notieren, zurücklesen — und weitergehen.',
+        'Der schwäbische Dialekt und ein hohes Sprechtempo sind in Reutlingen dokumentiert. Höflich um Wiederholung bitten („Entschuldigen Sie, das habe ich akustisch nicht verstanden“) statt zu raten.',
+        'Unter Zeitdruck werden Allergien, Unverträglichkeiten, Impfstatus, Reiseanamnese und der Hausarztbesuch vergessen — genau diese Lücken wurden von den Prüfern angesprochen.',
+        'Nebendetails ernst nehmen: Die Patientin buchstabiert von sich aus „Flohsamen“ und erklärt, dass sie diese gegen die Verstopfung nimmt. Das ist ein Hörverstehens- und Empathietest, kein Nebengeräusch.',
+        'Die Multiple Sklerose der Mutter ist ein bewusst gelegter Differenzialdiagnose-Köder: Die Angst der Patientin ernst nehmen, die DD nennen, sie sauber klinisch entkräften und sagen, wie man sie ausschließt (MRT), statt sie zu übergehen.',
+        'Keine auswendig gelernten Sätze aufsagen — dieser Rat wird in den Reutlinger Protokollen ausdrücklich wiederholt. Frei und patientengerecht sprechen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und warum?',
+          antwort: 'Ein Karpaltunnelsyndrom, also eine Druckschädigung des Nervus medianus im Karpaltunnel, rechts betont. Dafür sprechen das nächtliche Einschlafen der Hände mit Aufwachen, die Besserung durch Ausschütteln, die Verteilung der Missempfindungen auf Daumen, Zeige-, Mittelfinger und die radiale Hälfte des Ringfingers bei ausgespartem Kleinfinger, der Kraftverlust beim Greifen mit Fallenlassen der Tasse sowie die Abflachung des Daumenballens rechts. Dazu passen die Risikofaktoren: repetitive Handarbeit, Zustand nach distaler Radiusfraktur rechts, Menopause und ein erhöhter Blutzucker.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Vor allem eine zervikale Radikulopathie C6/C7, eine Polyneuropathie — hier insbesondere diabetisch —, ein Sulcus-ulnaris-Syndrom, ein Pronator-teres-Syndrom, ein Thoracic-outlet-Syndrom, eine Rhizarthrose, eine Tendovaginitis de Quervain und, wegen der Familienanamnese, eine Multiple Sklerose.',
+        },
+        {
+          frage: 'Was erwarten Sie bei einer Multiplen Sklerose?',
+          antwort: 'Eine zentrale, schubförmige Symptomatik, die keinem peripheren Nerv folgt: Sehstörungen im Sinne einer Optikusneuritis mit Schmerzen bei Augenbewegungen, Doppelbilder, ein Lhermitte-Zeichen, ein Uhthoff-Phänomen, Gangunsicherheit und Ataxie, Blasenstörungen, gesteigerte Reflexe und ein positives Babinski-Zeichen. Nachweisbar wären im MRT von Schädel und Wirbelsäule periventrikuläre und juxtakortikale Entmarkungsherde, im Liquor oligoklonale Banden und pathologische visuell evozierte Potenziale. Bei unserer Patientin fehlt all das — ihre Beschwerden folgen exakt dem Versorgungsgebiet eines einzigen peripheren Nervs, bessern sich durch Ausschütteln und treten nachts auf, was für eine Multiple Sklerose völlig untypisch ist.',
+        },
+        {
+          frage: 'Wie schließen Sie die zervikale Radikulopathie und die Multiple Sklerose aus?',
+          antwort: 'Klinisch durch die Untersuchung der Halswirbelsäule mit Spurling-Test, Reflexstatus und Kennmuskelprüfung sowie durch die neurologische Ganzkörperuntersuchung; apparativ durch ein MRT der Halswirbelsäule und, bei fortbestehendem Verdacht, ein MRT des Schädels, gegebenenfalls ergänzt durch Liquordiagnostik und evozierte Potenziale.',
+        },
+        {
+          frage: 'Welche körperlichen Untersuchungen führen Sie zur Diagnosestellung durch?',
+          antwort: 'Zuerst die Inspektion beider Hände im Seitenvergleich mit Blick auf die Thenaratrophie, dann das Flaschenzeichen. Anschließend die Sensibilitätsprüfung im Medianusgebiet mit Zweipunktdiskrimination und Stereognosie — ausdrücklich auch am Kleinfinger, der frei sein muss. Danach die Kraftprüfung der Daumenabduktion und -opposition. Schließlich die Provokationstests: der Phalen-Test mit maximaler Beugung im Handgelenk über 60 Sekunden, das Hoffmann-Tinel-Zeichen durch Beklopfen des Karpaltunnels und der Durkan-Karpalkompressionstest mit 30 Sekunden Daumendruck. Ergänzend untersuche ich Halswirbelsäule, Schulter und Ellenbogen.',
+        },
+        {
+          frage: 'Und was noch? Wie sichern Sie die Diagnose?',
+          antwort: 'Die Elektroneurographie des Nervus medianus im Seitenvergleich: eine verlängerte distale motorische Latenz über 4,2 Millisekunden und eine verminderte sensible Nervenleitgeschwindigkeit über dem Karpaltunnelsegment bestätigen die Diagnose und bestimmen den Schweregrad. Bei motorischem Defizit ergänze ich eine Elektromyographie des Musculus abductor pollicis brevis. Zusätzlich mache ich eine hochauflösende Nervensonographie, in der die Querschnittsfläche des Nervs vergrößert ist.',
+        },
+        {
+          frage: 'Und welches Labor?',
+          antwort: 'Blutbild, CRP und BSG, außerdem gezielt TSH, Nüchternblutzucker und HbA1c sowie Kreatinin und die Nierenwerte, um eine Hypothyreose, einen Diabetes mellitus oder eine Niereninsuffizienz als sekundäre Ursache zu erfassen. Bei Verdacht auf eine entzündlich-rheumatische Genese zusätzlich Rheumafaktor und Anti-CCP-Antikörper.',
+        },
+        {
+          frage: 'Welche Therapie empfehlen Sie?',
+          antwort: 'Zunächst konservativ: eine nächtliche Handgelenkschiene in Neutralstellung als erste Maßnahme, dazu ergonomische Beratung mit Reduktion der Handbelastung und die Behandlung der Grunderkrankung, also hier die Abklärung und Einstellung des Blutzuckers. Kurzfristig NSAR unter Magenschutz zur Schmerzlinderung, gegebenenfalls eine einmalige lokale Glukokortikoidinjektion in den Kanal. Wenn die konservative Therapie nach sechs Wochen bis drei Monaten versagt — und bei dieser Patientin bereits wegen der Thenaratrophie — ist die operative Dekompression durch Spaltung des Retinaculum flexorum indiziert, offen oder endoskopisch.',
+        },
+        {
+          frage: 'Wann operieren Sie, und wann warten Sie ab?',
+          antwort: 'Operiert wird bei Versagen der konservativen Therapie, bei Thenaratrophie oder Parese der Daumenabduktion, bei persistierendem sensiblem Defizit und bei elektrophysiologisch schwerem Befund; ein akutes Karpaltunnelsyndrom nach Trauma oder Einblutung wird notfallmäßig innerhalb von Stunden dekomprimiert. Abgewartet wird bei rein sensiblen, intermittierenden Beschwerden im Reizstadium und insbesondere in der Schwangerschaft, weil sich die Beschwerden dort nach der Entbindung meist von selbst zurückbilden.',
+        },
+        {
+          frage: 'Wie heißt die Operation genau?',
+          antwort: 'Dekompression des Nervus medianus durch vollständige Spaltung des Retinaculum flexorum, also des Ligamentum carpi transversum — offen über eine kurze Hohlhandinzision oder endoskopisch. Das Band wird durchtrennt, nicht entfernt.',
+        },
+        {
+          frage: 'Welche Risiken hat dieser Eingriff?',
+          antwort: 'Nachblutung und Wundinfektion, Verletzung des Nervus medianus oder seines Thenarastes mit bleibender Schwäche des Daumenballens, Verletzung des Ramus palmaris mit einem schmerzhaften Narbenneurom, Verletzung von Beugesehnen und des oberflächlichen Hohlhandbogens, eine unvollständige Spaltung mit Fortbestehen der Beschwerden, Narbenschmerz und vorübergehender Kraftverlust, ein komplexes regionales Schmerzsyndrom sowie ein Rezidiv.',
+        },
+        {
+          frage: 'Könnten Sie der Patientin das Karpaltunnelsyndrom erklären?',
+          antwort: 'Frau Mäyerle-Schäubele, an Ihrem Handgelenk gibt es einen engen Tunnel aus Knochen, der oben von einem straffen Band überspannt wird. Durch diesen Tunnel laufen die Beugesehnen Ihrer Finger und ein wichtiger Nerv, der das Gefühl im Daumen, Zeige- und Mittelfinger versorgt und den Muskel am Daumenballen steuert. Wenn es in diesem Tunnel zu eng wird, gerät der Nerv unter Druck. Nachts liegt die Hand meist abgeknickt, dadurch steigt der Druck weiter — deshalb schlafen Ihnen die Hände nachts ein und Sie wachen davon auf, und deshalb wird es besser, wenn Sie die Hand ausschütteln. Dass Ihnen die Tasse aus der Hand gefallen ist und der Daumenballen schmaler geworden ist, zeigt uns, dass der Nerv schon länger unter Druck steht. Das ist gut behandelbar, und der Kleinfinger ist typischerweise nicht betroffen — genau das haben Sie mir ja auch berichtet.',
+        },
+        {
+          frage: 'Kann das mit Therapie heilen?',
+          antwort: 'Ja, in aller Regel. Die nächtlichen Missempfindungen bessern sich häufig schon durch die Schiene, und nach einer Operation oft bereits in den ersten Nächten. Ein Taubheitsgefühl braucht Wochen bis Monate, bis es sich zurückbildet. Nur der bereits geschwundene Muskel am Daumenballen erholt sich unter Umständen nicht mehr vollständig — deshalb sollten wir jetzt nicht zu lange warten.',
+        },
+        {
+          frage: 'Warum sind die Beschwerden gerade nachts am stärksten?',
+          antwort: 'Nachts wird die Hand unwillkürlich im Handgelenk gebeugt oder überstreckt gehalten, und dabei steigt der Druck im Karpaltunnel um ein Vielfaches. Zusätzlich fehlt die Muskelpumpe, sodass sich Flüssigkeit im Gewebe ansammelt und die venöse Stauung am Nerv zunimmt. Deshalb hilft es, die Hand auszuschütteln und herabhängen zu lassen — und deshalb ist die nächtliche Lagerungsschiene in Neutralstellung so wirksam.',
+        },
+        {
+          frage: 'Welche sekundären Ursachen eines Karpaltunnelsyndroms kennen Sie?',
+          antwort: 'Schwangerschaft, Hypothyreose, Diabetes mellitus, rheumatoide Arthritis mit Tenosynovitis, Langzeitdialyse und Amyloidose, Akromegalie, Adipositas, raumfordernde Prozesse wie Ganglien oder Lipome sowie ein in Fehlstellung verheilter distaler Radiusbruch. Deshalb gehören TSH und HbA1c ins Labor und die Frage nach einer Schwangerschaft in die Anamnese.',
+        },
+        {
+          frage: 'Warum ist der Kleinfinger nicht betroffen?',
+          antwort: 'Weil der Kleinfinger und die ulnare Hälfte des Ringfingers vom Nervus ulnaris versorgt werden, der nicht durch den Karpaltunnel, sondern durch die Guyon-Loge verläuft. Eine Beteiligung des Kleinfingers spricht deshalb gegen ein Karpaltunnelsyndrom und für ein Sulcus-ulnaris-Syndrom, eine untere Plexusläsion oder eine Polyneuropathie.',
+        },
+      ],
+      merksatz: 'Nachts einschlafende Hand, die den Patienten weckt und beim Ausschütteln besser wird, Daumen bis halber Ringfinger — Kleinfinger FREI: Karpaltunnelsyndrom. Diagnose klinisch mit Phalen, Hoffmann-Tinel und Durkan, bestätigt durch die Elektroneurographie; erst die nächtliche Schiene, bei Thenaratrophie sofort die Spaltung des Retinaculum flexorum. Und immer nach der sekundären Ursache fragen: Schwangerschaft, Schilddrüse, Zucker.',
+      linkedCaseIds: [
+        'case-karpaltunnel',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-sonographie',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-panikstoerung',
+      pathology: 'Panikstörung mit Agoraphobie',
+      specialty: 'Psychiatrie',
+      definition: 'Die Panikstörung (ICD-10 F41.0) ist eine Angststörung mit wiederkehrenden, UNERWARTETEN Panikattacken, die nicht auf eine bestimmte Situation begrenzt und daher nicht vorhersehbar sind. Eine Panikattacke ist eine abrupt einsetzende Episode intensiver Angst, die binnen weniger Minuten ihren Höhepunkt erreicht, meist 10 bis 30 Minuten dauert und von zahlreichen vegetativen Symptomen begleitet wird. Das Kernstück der Störung ist nicht die einzelne Attacke, sondern die ERWARTUNGSANGST — die «Angst vor der Angst» — und das daraus folgende Vermeidungsverhalten. Kommt die Angst vor Orten hinzu, an denen eine Flucht schwierig oder Hilfe nicht erreichbar wäre (Menschenmengen, öffentliche Verkehrsmittel, Kaufhäuser, Warteschlangen, allein das Haus verlassen), spricht man von einer Agoraphobie mit Panikstörung (F40.01). Lebenszeitprävalenz der Panikstörung etwa 2 bis 4 Prozent, Frauen sind etwa doppelt so häufig betroffen, Ersterkrankungsgipfel zwischen dem 20. und 40. Lebensjahr.',
+      aetiologie: 'Multifaktorielle Genese im Vulnerabilitäts-Stress-Modell. Eine genetische Disposition (familiäre Häufung, erhöhte Konkordanz bei eineiigen Zwillingen) trifft auf psychosoziale Auslöser (Lebensveränderungen, Verluste, Dauerbelastung, frühere Traumatisierung, ängstlich-überbehütender Erziehungsstil). Neurobiologisch besteht eine Dysregulation des Angstnetzwerks aus Amygdala, Locus coeruleus, Hippocampus und präfrontalem Kortex mit gestörter serotonerger, noradrenerger und GABAerger Neurotransmission. Psychologisch entscheidend ist der TEUFELSKREIS DER ANGST: eine harmlose körperliche Empfindung (Herzklopfen nach dem Treppensteigen, Schwindel, Wärmegefühl) wird katastrophisierend als Zeichen eines Herzinfarkts, eines Schlaganfalls oder des Verrücktwerdens fehlgedeutet; die Angst aktiviert den Sympathikus, die Symptome nehmen zu, die Fehldeutung scheint sich zu bestätigen — die Attacke schaukelt sich auf. Vermeidung, Sicherheitsverhalten (Begleitperson, Fluchtweg, Pulskontrolle, Notfalltropfen in der Tasche) und wiederholte somatische Abklärungen verhindern die korrigierende Erfahrung und UNTERHALTEN die Störung. Häufige Somatisierungsfalle: Diese Patienten stellen sich immer wieder in der Notaufnahme mit Verdacht auf Herzinfarkt vor; jede erneute unauffällige Untersuchung beruhigt nur kurz und verstärkt langfristig die Krankheitsangst.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (etwa 2:1) und Lebensalter zwischen 20 und 40 Jahren',
+        'Positive Familienanamnese für Angsterkrankungen, Depression oder Substanzabhängigkeit',
+        'Anhaltende psychosoziale Belastung: Doppelbelastung durch Familie und Beruf, Pflege von Angehörigen, finanzielle Sorgen, Partnerschaftskonflikte',
+        'Kritische Lebensereignisse: Trennung, Verlust, schwere Erkrankung im Umfeld, Umzug, Arbeitsplatzverlust',
+        'Frühere Traumatisierung, Missbrauch, häusliche Gewalt oder ein schwerer Unfall in der Vorgeschichte',
+        'Ängstlich-vermeidender Persönlichkeitsstil, hohe Angstsensitivität (Neigung, Körpersignale als gefährlich zu bewerten)',
+        'Übermäßiger Konsum von Koffein, Energydrinks, Nikotin, Cannabis oder Stimulanzien; Alkohol- und Benzodiazepinentzug',
+        'Komorbide Depression, andere Angststörungen, somatoforme Störungen und schädlicher Alkoholgebrauch (Selbstmedikation)',
+      ],
+      klinik: [
+        {
+          text: 'Abrupt und unerwartet einsetzende Attacke mit Höhepunkt binnen weniger Minuten, Dauer meist 10 bis 30 Minuten, danach oft Erschöpfung',
+        },
+        {
+          text: 'Herzrasen, Palpitationen und Herzklopfen bis zum Hals',
+        },
+        {
+          text: 'Schwitzen, fein- bis grobschlägiges Zittern, Mundtrockenheit',
+        },
+        {
+          text: 'Atemnot, Erstickungsgefühl, Kloß- und Engegefühl im Hals',
+        },
+        {
+          text: 'Thoraxschmerz oder retrosternales Druck- und Beklemmungsgefühl',
+        },
+        {
+          text: 'Übelkeit, abdominelles Missempfinden, Harndrang',
+        },
+        {
+          text: 'Schwindel, Benommenheit, Unsicherheits- und Ohnmachtsgefühl',
+        },
+        {
+          text: 'Derealisation (die Umgebung wirkt unwirklich) und Depersonalisation (Gefühl, neben sich zu stehen)',
+        },
+        {
+          text: 'Parästhesien, Kribbeln in Händen und um den Mund, bei Hyperventilation Pfötchenstellung im Sinne einer Hyperventilationstetanie',
+        },
+        {
+          text: 'Hitzewallungen oder Kälteschauer',
+        },
+        {
+          text: 'Todesangst sowie die Angst, die Kontrolle zu verlieren oder verrückt zu werden',
+        },
+        {
+          text: 'Zwischen den Attacken anhaltende Erwartungsangst («Angst vor der Angst») mit ständiger Selbstbeobachtung und Pulskontrolle',
+        },
+        {
+          text: 'Vermeidungsverhalten und agoraphobe Einengung: öffentliche Verkehrsmittel, Menschenmengen, Kaufhäuser, Warteschlangen, Aufzüge, Alleinsein oder Alleine-aus-dem-Haus-Gehen werden gemieden; sozialer Rückzug und Aufgabe von Hobbys',
+        },
+        {
+          text: 'Wiederholte Notfallvorstellungen und Arztwechsel wegen des Verdachts auf einen Herzinfarkt, mit jeweils unauffälligem Befund',
+        },
+        {
+          text: 'Nächtliche Panikattacken aus dem Schlaf heraus, ohne Albtraum und ohne Atemaussetzer',
+          atypisch: true,
+        },
+        {
+          text: 'Symptomarme Attacken («Panikattacken mit begrenzter Symptomatik»), bei denen nur zwei oder drei Symptome auftreten',
+          atypisch: true,
+        },
+        {
+          text: 'Führendes Einzelsymptom, etwa isolierter Schwindel, isolierte Atemnot oder isolierte Bauchschmerzen — vor allem bei älteren Patienten und Kindern',
+          atypisch: true,
+        },
+        {
+          text: 'Sekundäre depressive Symptomatik, sekundärer Alkohol- oder Benzodiazepingebrauch als Selbstmedikation',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ICD-10: Einordnung',
+          inhalt: 'F41.0 Panikstörung (episodisch paroxysmale Angst) — wiederkehrende schwere Angstattacken, die nicht auf eine spezifische Situation beschränkt und daher nicht vorhersehbar sind. F40.00 Agoraphobie ohne Panikstörung, F40.01 Agoraphobie MIT Panikstörung — bei diesen Patienten ist die Agoraphobie die führende Kodierung. Abzugrenzen sind F41.1 generalisierte Angststörung (anhaltende, frei flottierende Dauersorge statt Attacken) und F41.2 Angst und depressive Störung, gemischt.',
+        },
+        {
+          name: 'ICD-10: diagnostische Kriterien der Panikattacke',
+          inhalt: 'Eine einzelne Attacke erfordert mindestens VIER Symptome aus der Angstsymptomliste, davon mindestens EINES aus der vegetativen Gruppe (Palpitationen, Schwitzen, Tremor, Mundtrockenheit). Die Attacke beginnt abrupt, erreicht binnen weniger Minuten ein Maximum und dauert mindestens einige Minuten. Sie tritt unabhängig von einer objektiven Gefahr auf und ist nicht auf eine bekannte, vorhersagbare Situation beschränkt. Zwischen den Attacken müssen weitgehend angstfreie Zeiträume liegen, wobei die Erwartungsangst zulässig ist.',
+        },
+        {
+          name: 'ICD-10: Schweregrad der Panikstörung',
+          inhalt: 'Mittelgradige Panikstörung: mindestens vier Panikattacken innerhalb von vier Wochen. Schwere Panikstörung: mindestens vier Panikattacken pro Woche über vier Wochen. Die Zeitgrenze für die Diagnosestellung liegt bei etwa einem Monat mit wiederholten Attacken.',
+        },
+        {
+          name: 'Gebräuchliche Messinstrumente',
+          inhalt: 'Panik- und Agoraphobie-Skala (PAS) zur Erfassung von Attacken, Erwartungsangst, Vermeidung und Beeinträchtigung; Beck-Angst-Inventar (BAI); Hamilton-Angst-Skala (HAMA) zur Fremdbeurteilung; PHQ-9 oder BDI zur Erfassung der komorbiden Depression; Mobilitätsinventar zur Quantifizierung des agoraphoben Vermeidens.',
+        },
+      ],
+      redFlags: [
+        'Erstmanifestation nach dem 45. Lebensjahr oder plötzlicher Charakterwandel der Attacken — organische Ursache bis zum Beweis des Gegenteils',
+        'Belastungsabhängige Thoraxschmerzen, Ausstrahlung in Arm, Kiefer oder Rücken, kardiovaskuläre Risikofaktoren — akutes Koronarsyndrom ausschließen',
+        'Bewusstseinsverlust, Zungenbiss, Einnässen, postiktale Verwirrtheit oder Amnesie für die Attacke — Temporallappenepilepsie oder kardiale Synkope',
+        'Fokal-neurologisches Defizit, Nackensteifigkeit, Vernichtungskopfschmerz, Fieber',
+        'Anfallsartige Blutdruckkrisen mit der Trias Kopfschmerz, Schwitzen und Palpitationen — Phäochromozytom',
+        'Hypoglykämiezeichen mit Besserung nach Zuckerzufuhr, insbesondere unter Insulin oder Sulfonylharnstoffen',
+        'Suizidgedanken, Suizidabsicht oder eine bereits begonnene Vorbereitung — Suizidalität ist bei komorbider Depression und Panikstörung deutlich erhöht und muss IMMER aktiv erfragt werden',
+        'Zeichen eines Benzodiazepin- oder Alkoholentzugs (Tremor, Schwitzen, Tachykardie, Krampfanfall) sowie Intoxikation mit Kokain oder Amphetaminen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Detaillierte Attackenanamnese: Beginn, Dauer bis zum Höhepunkt, Gesamtdauer, Frequenz, Symptomliste, Auslösesituation oder Auftreten «aus heiterem Himmel», Verhalten während der Attacke',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezieltes Erfragen der Erwartungsangst, der katastrophisierenden Gedanken («Ich bekomme einen Herzinfarkt»), des Sicherheits- und Vermeidungsverhaltens sowie des Ausmaßes der agoraphoben Einengung und des sozialen Rückzugs',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychosoziale Anamnese: Belastungen, Partnerschaft, häusliche Gewalt, Kinderbetreuung, Pflege von Angehörigen, berufliche Situation — in Freiburg wurde ausdrücklich nach Gewalt durch den Ehemann gefragt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamenten- und Genussmittelanamnese: Schilddrüsenhormone, Sympathomimetika und Asthmasprays, Appetitzügler, Kortison, Absetzen von Benzodiazepinen oder Antidepressiva, Koffein- und Energydrinkkonsum, Alkohol, Nikotin, Cannabis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger psychopathologischer Befund mit Bewusstsein, Orientierung, Affekt, Antrieb, Denken, Wahrnehmung, Ich-Störungen sowie AKTIVE und offene Exploration der Suizidalität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern, Auskultation von Herz und Lunge, Pulsstatus, Schilddrüsenpalpation, Prüfung auf Tremor, Exophthalmus und Struma sowie orientierend-neurologischem Status',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild, Elektrolyte einschließlich Kalzium und Magnesium (Hyperventilationstetanie, Rhythmusstörungen), Blutzucker, Nierenwerte, Leberwerte und CRP',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH, bei Auffälligkeit fT3 und fT4 — die Hyperthyreose ist die wichtigste internistische Differenzialdiagnose und wird in Stuttgart und Freiburg regelmäßig abgefragt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Beim ERSTEN Ereignis und bei führendem Thoraxschmerz zusätzlich Troponin (hochsensitiv, mit Verlaufskontrolle) und D-Dimere zum Ausschluss von Myokardinfarkt und Lungenembolie; ergänzend eine Blutgasanalyse, die bei Hyperventilation eine respiratorische Alkalose zeigt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Drogenscreening im Urin (Kokain, Amphetamine, Cannabis) sowie bei begründetem Verdacht Metanephrine im Plasma oder im 24-Stunden-Urin zum Ausschluss eines Phäochromozytoms',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG in Ruhe: Ausschluss von Ischämiezeichen, Vorhofflimmern, supraventrikulärer Tachykardie, Präexzitation (WPW) und Long-QT-Syndrom — Letzteres auch vor Beginn einer antidepressiven Therapie relevant',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Langzeit-EKG über 24 Stunden bei anfallsartigem Herzrasen zur Abgrenzung paroxysmaler Rhythmusstörungen; Echokardiographie nur bei auffälligem Befund oder Herzgeräusch',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Schilddrüsensonographie bei erhöhtem TSH-Befund oder tastbarer Struma; Lungenfunktionsprüfung nur bei anamnestischem Verdacht auf Asthma bronchiale; CT-Angiographie der Pulmonalarterien ausschließlich bei begründetem Verdacht auf eine Lungenembolie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CAVE: Nach einer einmaligen, unauffälligen und zielgerichteten somatischen Abklärung wird diese NICHT endlos wiederholt. Jede erneute Untersuchung bestätigt dem Patienten seine Krankheitsüberzeugung und unterhält die Störung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnosestellung anhand der ICD-10-Kriterien, gestützt auf ein strukturiertes klinisches Interview (SKID-5 oder M.I.N.I.); die Panikstörung ist eine AUSSCHLUSSDIAGNOSE nach gezielter, aber begrenzter somatischer Abklärung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Standardisierte Testpsychologie zur Schweregradbestimmung und Verlaufsmessung: Panik- und Agoraphobie-Skala (PAS), Beck-Angst-Inventar, Mobilitätsinventar sowie PHQ-9 zur Erfassung der komorbiden Depression',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'EEG nur bei anamnestischen Hinweisen auf eine Temporallappenepilepsie (Aura, Automatismen, Amnesie, postiktale Verwirrtheit); kraniale Bildgebung nur bei fokal-neurologischem Befund',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Die wichtigste internistische Differenzialdiagnose und in Stuttgart und Freiburg regelmäßig geprüft. Dort besteht eine DAUERHAFTE, nicht anfallsartige Symptomatik: Wärmeintoleranz, vermehrtes Schwitzen auch in Ruhe, Gewichtsverlust TROTZ gesteigerten Appetits, feinschlägiger Ruhetremor, Durchfall, Haarausfall, warm-feuchte Haut, Struma, bei Morbus Basedow Exophthalmus. Beweisend ist das Labor: TSH supprimiert, fT3 und fT4 erhöht, dazu Sonographie und TRAK.',
+        },
+        {
+          dd: 'Akutes Koronarsyndrom, Angina pectoris und Myokardinfarkt',
+          unterscheidung: 'Muss beim ersten Ereignis zwingend ausgeschlossen werden. Typischerweise belastungsabhängiger retrosternaler Druck mit Ausstrahlung in linken Arm, Kiefer oder Rücken, Besserung durch Ruhe oder Nitrate, kardiovaskuläres Risikoprofil, höheres Lebensalter. Ausschluss über 12-Kanal-EKG mit Verlaufskontrolle und hochsensitives Troponin im Verlauf.',
+        },
+        {
+          dd: 'Vorhofflimmern und supraventrikuläre Tachykardie',
+          unterscheidung: 'Anfallsartiges Herzrasen ohne die typische kognitive Komponente der Todesangst; bei Vorhofflimmern arrhythmisch-unregelmäßiger Puls, bei AV-Knoten-Reentrytachykardie sehr abrupter Beginn und abruptes Ende mit Frequenzen um 180 pro Minute, oft Beendigung durch Valsalva-Manöver. Klärung durch EKG während der Attacke und Langzeit-EKG.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Plötzliche Dyspnoe und Thoraxschmerz mit Tachykardie und Hypoxie; Risikofaktoren wie Immobilisation, lange Reisen, Operationen, Malignom, hormonelle Kontrazeption oder Schwangerschaft, häufig einseitige Wadenschwellung. Wells-Score, D-Dimere und CT-Angiographie klären; die Beschwerden bilden sich nicht binnen Minuten spontan zurück.',
+        },
+        {
+          dd: 'Asthma bronchiale',
+          unterscheidung: 'Anfallsartige Atemnot mit VERLÄNGERTEM Exspirium, Giemen und Brummen, trockenem Husten, nächtlicher Betonung und Auslösung durch Allergene, Kälte oder Anstrengung; prompte Besserung auf ein Bronchospasmolytikum. Bei der Panikattacke ist die Atmung beschleunigt und vertieft (Hyperventilation) ohne Obstruktion.',
+        },
+        {
+          dd: 'Phäochromozytom',
+          unterscheidung: 'Sehr selten, aber klassische Prüfungs-Differenzialdiagnose. Anfallsartige Blutdruckkrisen mit der Trias Kopfschmerz, Schwitzen und Palpitationen, oft mit Blässe; zwischen den Attacken erhöhter Blutdruck. Nachweis über Metanephrine im Plasma oder im 24-Stunden-Urin, danach Bildgebung der Nebennieren.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Adrenerge Symptome wie Zittern, Schwitzen, Herzrasen und Heißhunger mit prompter Besserung nach Kohlenhydratzufuhr; typischerweise nüchtern oder unter Insulin beziehungsweise Sulfonylharnstoffen. Klärung durch Blutzuckermessung WÄHREND der Symptomatik.',
+        },
+        {
+          dd: 'Temporallappenepilepsie (fokale Anfälle mit Angst als Aura)',
+          unterscheidung: 'Stereotyper Ablauf, sehr kurze Dauer von Sekunden bis wenigen Minuten, aufsteigendes epigastrisches Gefühl, olfaktorische oder gustatorische Missempfindungen, Déjà-vu, orale Automatismen, Bewusstseinstrübung, postiktale Verwirrtheit und Amnesie für das Ereignis. Klärung durch EEG und MRT.',
+        },
+        {
+          dd: 'Substanzinduzierte Angst: Intoxikation oder Entzug',
+          unterscheidung: 'Kokain, Amphetamine, Cannabis, exzessiver Koffeinkonsum sowie Entzug von Alkohol oder Benzodiazepinen können identische Attacken auslösen. Zeitlicher Zusammenhang mit Konsum oder Absetzen, Mydriasis, Schlaflosigkeit; Klärung über Drogenscreening und genaue Substanz- und Medikamentenanamnese.',
+        },
+        {
+          dd: 'Generalisierte Angststörung (F41.1)',
+          unterscheidung: 'Anhaltende, frei flottierende DAUERSORGE über Monate mit Anspannung, Konzentrationsstörung, Reizbarkeit und Schlafstörung — ohne die abrupt einsetzenden, gipfelnden Attacken. Bei der Panikstörung stehen die attackenförmigen Episoden und die Erwartungsangst im Vordergrund.',
+        },
+        {
+          dd: 'Depressive Episode mit Angstsymptomatik',
+          unterscheidung: 'Führend sind gedrückte Stimmung, Anhedonie, Antriebsminderung, Morgentief, Früherwachen, Schuld- und Hoffnungslosigkeitsgedanken über mindestens zwei Wochen; die Angst ist nachgeordnet. Häufige Komorbidität — beide Diagnosen dürfen nebeneinander gestellt werden.',
+        },
+        {
+          dd: 'Posttraumatische Belastungsstörung (F43.1)',
+          unterscheidung: 'Setzt ein Trauma voraus; die Angstattacken sind an Trigger gebunden und werden von Intrusionen, Flashbacks, Albträumen, Übererregbarkeit und Vermeidung traumaassoziierter Reize begleitet. Bei der Panikstörung sind die Attacken UNERWARTET und ohne Wiedererleben — genau diese Abgrenzung wurde in Reutlingen am 12.03.2025 verlangt.',
+        },
+        {
+          dd: 'Somatoforme autonome Funktionsstörung und Herzangstneurose (Da-Costa-Syndrom)',
+          unterscheidung: 'Anhaltende, wechselnde körperbezogene Beschwerden mit ausgeprägter Krankheitsüberzeugung und wiederholten Arztkonsultationen, jedoch ohne die typischen abgrenzbaren, binnen Minuten gipfelnden Attacken mit Todesangst.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutmanagement der Panikattacke',
+          items: [
+            'Ruhige, zugewandte Präsenz, Blickkontakt, langsames und einfaches Sprechen, Reizabschirmung — den Patienten in einen ruhigen Raum bringen und nicht allein lassen',
+            'Beruhigen und benennen: «Das ist eine Panikattacke. Sie ist sehr unangenehm, aber sie ist nicht gefährlich, und sie geht von allein vorbei — meist in zehn bis zwanzig Minuten»',
+            'Atemtechnik anleiten: langsam durch die Nase ein, länger ausatmen, Vier-Sechs-Rhythmus; bei Hyperventilationstetanie Rückatmung in eine Tüte oder in die hohlen Hände nur unter Aufsicht und erst nach Ausschluss einer somatischen Ursache',
+            'Aufmerksamkeitslenkung und Erdungsübungen (Füße spüren, fünf Gegenstände im Raum benennen, kaltes Wasser über die Handgelenke)',
+            'Beim ERSTEN Ereignis parallel die somatische Basisabklärung durchführen: Vitalparameter, 12-Kanal-EKG, Blutzucker, Elektrolyte, TSH, gegebenenfalls Troponin und D-Dimere',
+            'Medikamentös in aller Regel NICHT erforderlich; nur in extremer, nicht beherrschbarer Erregung ausnahmsweise und einmalig ein kurzwirksames Benzodiazepin, zum Beispiel Lorazepam 1 mg als Schmelztablette — niemals als Dauer- oder Bedarfsmedikation zum Mitnehmen',
+            'Noch in der Akutsituation die Psychoedukation beginnen und einen konkreten Weiterbehandlungstermin vereinbaren, damit der Patient nicht erneut in die Notaufnahme geht',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Psychoedukation und kognitive Verhaltenstherapie — Mittel der ERSTEN Wahl',
+          items: [
+            'Psychoedukation als erster und wichtigster Schritt: Erklärung des TEUFELSKREISES DER ANGST — körperliche Empfindung, katastrophisierende Bewertung, Angst, Sympathikusaktivierung, Symptomzunahme; die Attacke ist eine Fehlfunktion des Alarmsystems, nicht ein Herzinfarkt',
+            'Vermittlung der zentralen Botschaft, dass eine Panikattacke selbstlimitierend und körperlich ungefährlich ist und dass Vermeidung, Sicherheitsverhalten und wiederholte Untersuchungen die Störung UNTERHALTEN',
+            'Kognitive Umstrukturierung: Identifikation und Überprüfung der katastrophisierenden Gedanken, Erarbeitung realistischer Alternativerklärungen, Führen eines Angsttagebuchs mit Situation, Gedanke, Symptom und Verlauf',
+            'Interozeptive Exposition: gezieltes Hervorrufen der gefürchteten Körperempfindungen im geschützten Rahmen (Hyperventilieren, Treppensteigen, Drehstuhl, Strohhalmatmung), um die Fehldeutung zu widerlegen',
+            'Expositionstherapie in vivo bei Agoraphobie: hierarchisch gestufte, wiederholte und ausreichend lange Konfrontation mit den gemiedenen Situationen (Bus, Supermarkt, Kaufhaus, Aufzug, Alleinsein) OHNE Sicherheitsverhalten, bis die Angst von selbst abfällt (Habituation)',
+            'Abbau aller Sicherheitssignale: Begleitperson, Fluchtwegplanung, Pulsmessen, mitgeführte Notfalltropfen — sonst bleibt die korrigierende Erfahrung aus',
+            'Wirksamkeitsnachweis: Die kognitive Verhaltenstherapie ist die Therapie der ersten Wahl mit den besten Langzeitergebnissen; sie ist der alleinigen Pharmakotherapie in der Rückfallprophylaxe überlegen. Anlaufstellen sind Psychotherapeuten mit Kassenzulassung, psychiatrische Institutsambulanzen und Terminservicestellen',
+          ],
+        },
+        {
+          label: 'Pharmakotherapie',
+          items: [
+            'Mittel der Wahl sind SSRI oder SNRI: Escitalopram, Sertralin, Paroxetin oder Citalopram; als SNRI Venlafaxin. Sie werden gleichwertig zur Psychotherapie oder in Kombination eingesetzt, insbesondere bei ausgeprägter Symptomatik, langer Wartezeit auf einen Therapieplatz oder komorbider Depression',
+            'LANGSAM eindosieren — mit der halben üblichen Anfangsdosis beginnen (etwa Escitalopram 5 mg oder Sertralin 25 mg täglich): SSRI können in den ersten Tagen eine INITIALE UNRUHE und eine paradoxe Angstzunahme auslösen, was Patienten sonst zum eigenmächtigen Absetzen bewegt. Darüber muss vorher aufgeklärt werden',
+            'Wirkeintritt erst nach ZWEI bis VIER Wochen, volle Wirkung oft erst nach sechs bis acht Wochen — Geduld und Aufklärung sichern die Adhärenz',
+            'Behandlungsdauer nach Remission mindestens SECHS bis ZWÖLF Monate, danach langsames Ausschleichen über Wochen, um Absetzphänomene zu vermeiden',
+            'Nebenwirkungen und Kontrollen: Übelkeit, Kopfschmerz, sexuelle Funktionsstörungen, Hyponatriämie, QTc-Verlängerung (besonders unter Citalopram), erhöhte Blutungsneigung in Kombination mit NSAR oder Antikoagulanzien; EKG- und Natriumkontrolle',
+            'BENZODIAZEPINE höchstens kurzfristig und nur ausnahmsweise — wegen des Abhängigkeitsrisikos, der Toleranzentwicklung, der Sturz- und Sedierungsgefahr und weil sie als Sicherheitsverhalten die Expositionstherapie unwirksam machen. Regel: möglichst gar nicht, sonst niedrigste Dosis, maximal zwei bis vier Wochen, mit klarem Absetzplan',
+            'Reserve- und Zweitlinienoptionen: das trizyklische Antidepressivum Clomipramin oder Imipramin (mehr Nebenwirkungen, EKG-Kontrolle) sowie Pregabalin; NICHT indiziert sind Betablocker als Monotherapie, niedrig potente Neuroleptika als Dauerlösung und pflanzliche Sedativa als alleinige Behandlung',
+            'Wechselwirkungen prüfen: Johanniskraut darf wegen der Gefahr eines Serotoninsyndroms und der Enzyminduktion nicht mit einem SSRI kombiniert werden — Patienten erwähnen es oft nur auf gezielte Nachfrage nach frei verkäuflichen Präparaten',
+          ],
+        },
+        {
+          label: 'Begleitmaßnahmen und Rückfallprophylaxe',
+          items: [
+            'Koffeinkarenz oder deutliche Reduktion von Kaffee, Energydrinks, Cola und schwarzem Tee sowie Nikotinreduktion — Koffein ist ein direkter Attackenauslöser',
+            'Alkoholkarenz: Alkohol wirkt kurzfristig angstlösend, verstärkt die Angst jedoch am Folgetag und birgt ein hohes Abhängigkeitsrisiko als Selbstmedikation',
+            'Regelmäßiger Ausdauersport (drei- bis fünfmal wöchentlich 30 Minuten) ist nachweislich angstlösend und zugleich eine natürliche interozeptive Exposition',
+            'Schlafhygiene, Tagesstruktur und Entspannungsverfahren als Ergänzung, nicht als Ersatz der Exposition: progressive Muskelrelaxation nach Jacobson, Achtsamkeitsübungen, autogenes Training',
+            'Einbeziehung der Angehörigen: Der Partner soll unterstützen, aber das Vermeiden NICHT erleichtern (kein ständiges Begleiten, kein Erledigen der gemiedenen Aufgaben)',
+            'Selbsthilfegruppen, Patientenratgeber und angeleitete internetbasierte Programme als niederschwellige Ergänzung',
+            'Rückfallprophylaxe: Erarbeitung eines schriftlichen Notfallplans, Frühwarnzeichen erkennen, Auffrischungssitzungen, bewusstes Aufsuchen früher gemiedener Situationen und Wiederaufnahme aufgegebener Hobbys und sozialer Kontakte',
+            'Behandlung der Komorbiditäten (Depression, schädlicher Alkoholgebrauch) und Entlastung der psychosozialen Belastungsfaktoren, gegebenenfalls Sozialdienst, Erziehungsberatung oder Pflegeunterstützung',
+          ],
+        },
+      ],
+      prognose: 'Unbehandelt verläuft die Panikstörung häufig chronisch oder in Schüben und führt über die zunehmende agoraphobe Einengung zu erheblichem sozialem Rückzug, Arbeitsunfähigkeit, sekundärer Depression und schädlichem Alkohol- oder Benzodiazepingebrauch; die Suizidalität ist gegenüber der Allgemeinbevölkerung erhöht. Unter adäquater Behandlung ist die Prognose dagegen gut: Mit kognitiver Verhaltenstherapie einschließlich Exposition erreichen etwa 70 bis 80 Prozent der Patienten eine deutliche Besserung oder Symptomfreiheit, und die Effekte sind nach Therapieende stabiler als unter alleiniger Pharmakotherapie. Prognostisch günstig sind ein kurzer Krankheitsverlauf bis zur Behandlung, eine geringe agoraphobe Vermeidung, gute soziale Unterstützung und die aktive Mitarbeit bei der Exposition; ungünstig sind lange Krankheitsdauer, ausgeprägtes Vermeiden, komorbide Depression oder Persönlichkeitsstörung, Substanzgebrauch und ein Festhalten an Sicherheitsverhalten und wiederholter somatischer Diagnostik. Nach Absetzen einer alleinigen Pharmakotherapie ist die Rückfallrate deutlich höher, weshalb mindestens sechs bis zwölf Monate weiterbehandelt und möglichst mit Psychotherapie kombiniert wird.',
+      pruefungsfallen: [
+        'Die Panikstörung ist eine AUSSCHLUSSDIAGNOSE — man muss die somatischen Differenzialdiagnosen aktiv nennen und sagen, WIE man sie ausschließt. Wer nur «das ist psychisch» sagt, fällt durch. Umgekehrt darf die Abklärung nicht endlos wiederholt werden: Jede erneute Untersuchung unterhält die Störung.',
+        'Die HYPERTHYREOSE ist die am häufigsten gefragte Differenzialdiagnose (Stuttgart 06.12.2021 und Freiburg 12.11.2024). Man muss sowohl die klinische Abgrenzung (Dauersymptomatik, Wärmeintoleranz, Gewichtsverlust bei gesteigertem Appetit, Durchfall, Ruhetremor, Struma) als auch den Nachweis (TSH, fT3, fT4, Sonographie) parat haben.',
+        '«Wie schließen Sie einen Myokardinfarkt aus?» wurde in Freiburg wörtlich gefragt. Erwartete Antwort: 12-Kanal-EKG mit Verlaufskontrolle UND hochsensitives Troponin im Verlauf, dazu die Anamnese (keine Belastungsabhängigkeit, keine typische Ausstrahlung, junges Alter, kein Risikoprofil).',
+        'BENZODIAZEPINE sind die klassische Therapiefalle: Sie dürfen allenfalls kurzfristig und ausnahmsweise eingesetzt werden. Wer sie als Dauer- oder Bedarfsmedikation vorschlägt, verliert Punkte — Begründung: Abhängigkeit, Toleranz und Wirkungsverlust der Expositionstherapie durch Sicherheitsverhalten.',
+        'Die kognitive Verhaltenstherapie mit Psychoedukation und Exposition ist Mittel der ERSTEN Wahl. Ein rein medikamentöser Therapievorschlag ist unvollständig; umgekehrt sind pflanzliche Sedativa oder «Urlaub mit der Familie» als alleinige Therapie keine ausreichende Antwort.',
+        'SSRI müssen LANGSAM eindosiert werden: In den ersten Tagen kann es zu Unruhe und einer paradoxen Angstzunahme kommen, der Wirkeintritt erfolgt erst nach zwei bis vier Wochen und die Behandlung dauert mindestens sechs bis zwölf Monate. Diese drei Zahlen werden gerne abgefragt.',
+        'Die SUIZIDALITÄT muss IMMER aktiv, offen und direkt erfragt werden — auch bei einer «reinen» Angststörung. Das Auslassen dieser Frage wird in der Psychiatrie als schwerer Fehler gewertet.',
+        'Die psychosoziale Anamnese nicht überspringen: Alter der Kinder, berufliche Situation, Belastung, häusliche Gewalt. In Freiburg wurde ausdrücklich «Gewalttaten von Ehemann?» gefragt.',
+        '«Wie sah die Patientin aus?» ist eine reale Prüferfrage aus Freiburg. Erwartet wird eine Beschreibung des Erscheinungsbildes und des psychopathologischen Eindrucks: nervös, unruhig, angespannt, beschleunigtes Sprechtempo — nicht der Laborbefund.',
+        'Panikstörung und generalisierte Angststörung nicht verwechseln: Attacken mit Höhepunkt binnen Minuten und Erwartungsangst gegenüber anhaltender, frei flottierender Dauersorge.',
+        'Die Abgrenzung zur PTBS wurde in Reutlingen verlangt: Bei der PTBS gibt es ein Trauma, Intrusionen, Flashbacks und Albträume mit triggergebundener Angst; bei der Panikstörung treten die Attacken UNERWARTET und ohne Wiedererleben auf.',
+        'Der Fachbegriff «Hyperventilationstetanie» taucht regelmäßig in den Fachbegriffslisten von Freiburg und Stuttgart auf — Erklärung: Durch die beschleunigte Atmung wird zu viel Kohlendioxid abgeatmet, es entsteht eine respiratorische Alkalose, das ionisierte Kalzium sinkt, es kommt zu Kribbeln und Pfötchenstellung.',
+        'Frei verkäufliche Präparate aktiv erfragen: Johanniskraut darf wegen des Serotoninsyndroms nicht mit einem SSRI kombiniert werden, und Patienten nennen es meist nicht von sich aus.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine Panikstörung mit Agoraphobie. Dafür sprechen die wiederkehrenden, unerwartet und ohne äußeren Anlass auftretenden Attacken, die binnen weniger Minuten ihren Höhepunkt erreichen und nach zehn bis zwanzig Minuten spontan abklingen, die typische Symptomkombination aus Herzrasen, Atemnot, Thoraxenge, Schwitzen, Zittern, Schwindel, Derealisation und Todesangst, vor allem aber die Erwartungsangst zwischen den Attacken und das Vermeidungsverhalten mit sozialem Rückzug. Hinzu kommen die wiederholten Notaufnahmevorstellungen mit jeweils unauffälligem Befund.',
+        },
+        {
+          frage: 'Warum ist das eine Ausschlussdiagnose, und wie weit treiben Sie die Abklärung?',
+          antwort: 'Weil zahlreiche organische Erkrankungen das gleiche Bild erzeugen können. Ich führe daher EINMAL eine gezielte, begrenzte Abklärung durch: Anamnese und körperliche Untersuchung, EKG, Basislabor mit Elektrolyten, Blutzucker und TSH, beim ersten Ereignis zusätzlich Troponin und D-Dimere, dazu ein Drogenscreening. Danach wiederhole ich diese Diagnostik NICHT immer wieder, weil jede erneute Untersuchung die Krankheitsüberzeugung des Patienten bestätigt und die Störung unterhält.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Somatisch die Hyperthyreose, das akute Koronarsyndrom, Vorhofflimmern und supraventrikuläre Tachykardien, die Lungenembolie, das Asthma bronchiale, das Phäochromozytom, die Hypoglykämie und die Temporallappenepilepsie sowie substanzinduzierte Angst bei Intoxikation oder Entzug. Psychiatrisch die generalisierte Angststörung, die depressive Episode mit Angstsymptomatik, die posttraumatische Belastungsstörung und eine somatoforme autonome Funktionsstörung.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Hyperthyreose von einer Panikattacke, und wie diagnostizieren Sie sie?',
+          antwort: 'Klinisch: Bei der Hyperthyreose besteht eine DAUERHAFTE Symptomatik statt abgrenzbarer Attacken, mit Wärmeintoleranz, Schwitzen auch in Ruhe, Gewichtsverlust trotz gesteigerten Appetits, Durchfall, Haarausfall, feinschlägigem Ruhetremor, warm-feuchter Haut und gegebenenfalls Struma oder Exophthalmus. Die Todesangst und die Erwartungsangst fehlen. Diagnostisch bestimme ich das TSH als Suchtest — ist es supprimiert, folgen fT3 und fT4, anschließend Schilddrüsensonographie und bei Verdacht auf Morbus Basedow die TRAK-Bestimmung.',
+        },
+        {
+          frage: 'Wie schließen Sie einen Myokardinfarkt aus?',
+          antwort: 'Durch ein 12-Kanal-EKG mit Verlaufskontrolle und die Bestimmung des hochsensitiven Troponins mit einer zweiten Messung nach ein bis drei Stunden. Unterstützend spricht die Anamnese dagegen: kein Zusammenhang mit körperlicher Belastung, keine Ausstrahlung in Arm oder Kiefer, spontanes Sistieren binnen Minuten, junges Alter und fehlendes kardiovaskuläres Risikoprofil. Bei anhaltendem Verdacht folgen Echokardiographie und kardiologische Vorstellung.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten, was eine Panikattacke ist?',
+          antwort: 'Über den Teufelskreis der Angst, in Alltagssprache: Der Körper hat ein Alarmsystem, das bei echter Gefahr sinnvoll ist. Bei der Panikstörung schlägt dieses System Fehlalarm. Eine harmlose Empfindung wie Herzklopfen wird als lebensgefährlich gedeutet, dadurch entsteht Angst, die Angst verstärkt die körperlichen Symptome, und die Symptome verstärken wiederum die Angst. So schaukelt sich der Anfall auf. Wichtig ist die Botschaft: Es ist sehr unangenehm, aber es ist nicht gefährlich, und es hört von allein wieder auf.',
+        },
+        {
+          frage: 'Was ist eine Hyperventilationstetanie?',
+          antwort: 'Durch die beschleunigte und vertiefte Atmung wird zu viel Kohlendioxid abgeatmet. Es entsteht eine respiratorische Alkalose; dadurch bindet mehr Kalzium an Albumin und der Anteil des freien, ionisierten Kalziums im Blut sinkt. Die Folge sind Kribbeln in Händen und um den Mund, Muskelkrämpfe und die typische Pfötchenstellung der Hände. Behandelt wird durch Beruhigung und Atemverlangsamung, gegebenenfalls durch Rückatmung unter Aufsicht — das Gesamtkalzium im Labor ist dabei normal.',
+        },
+        {
+          frage: 'Wie behandeln Sie diese Patientin?',
+          antwort: 'An erster Stelle stehen Psychoedukation und kognitive Verhaltenstherapie mit Erklärung des Teufelskreises, kognitiver Umstrukturierung, interozeptiver Exposition und Expositionstherapie in vivo für die agoraphobe Vermeidung. Medikamentös setze ich bei ausgeprägter Symptomatik einen SSRI ein, zum Beispiel Escitalopram oder Sertralin, langsam eindosiert. Dazu kommen Koffein- und Alkoholkarenz, regelmäßiger Ausdauersport, Entspannungsverfahren, Einbeziehung der Angehörigen und Selbsthilfeangebote.',
+        },
+        {
+          frage: 'Können Sie ein Beispiel für eine Psychotherapie nennen?',
+          antwort: 'Die kognitive Verhaltenstherapie — bei der Panikstörung das Verfahren der ersten Wahl. Sie besteht aus Psychoedukation, dem Erkennen und Überprüfen katastrophisierender Gedanken sowie der Exposition: interozeptiv durch gezieltes Hervorrufen der gefürchteten Körperempfindungen und in vivo durch schrittweise Konfrontation mit den gemiedenen Situationen. Alternativ kommen tiefenpsychologisch fundierte Psychotherapie oder analytische Psychotherapie in Betracht.',
+        },
+        {
+          frage: 'Welche Medikamente setzen Sie ein, und worauf müssen Sie beim Eindosieren achten?',
+          antwort: 'SSRI wie Escitalopram, Sertralin oder Paroxetin, alternativ der SNRI Venlafaxin. Wichtig ist das LANGSAME Eindosieren mit der halben üblichen Anfangsdosis, weil SSRI in den ersten Tagen Unruhe und eine paradoxe Angstzunahme auslösen können; darüber muss man vorher aufklären, sonst setzt der Patient das Medikament eigenmächtig ab. Der Wirkeintritt erfolgt erst nach zwei bis vier Wochen, und die Behandlung dauert nach Besserung mindestens sechs bis zwölf Monate mit anschließendem langsamem Ausschleichen.',
+        },
+        {
+          frage: 'Würden Sie ein Benzodiazepin geben?',
+          antwort: 'Höchstens kurzfristig und nur ausnahmsweise, etwa einmalig bei einer nicht beherrschbaren Erregung. Als Dauer- oder Bedarfsmedikation lehne ich es ab: Es besteht ein hohes Abhängigkeits- und Toleranzrisiko, und das Benzodiazepin wirkt als Sicherheitsverhalten — der Patient erlebt nie, dass die Angst auch ohne Tablette von selbst abklingt, wodurch die Expositionstherapie wirkungslos wird.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Panikstörung von einer generalisierten Angststörung und von einer PTBS?',
+          antwort: 'Bei der generalisierten Angststörung besteht eine anhaltende, frei flottierende DAUERSORGE über Monate mit Anspannung, Reizbarkeit und Konzentrationsstörung, ohne abgrenzbare Attacken. Bei der posttraumatischen Belastungsstörung gibt es ein definiertes Trauma; die Angst ist triggergebunden und wird von Wiedererleben, Flashbacks, Albträumen und Übererregbarkeit begleitet. Bei der Panikstörung sind die Attacken unerwartet, gipfeln binnen Minuten und im Vordergrund steht die Erwartungsangst.',
+        },
+        {
+          frage: 'Warum fragen Sie nach Kaffee, Energydrinks und Drogen?',
+          antwort: 'Weil Koffein, Kokain, Amphetamine und Cannabis identische Attacken auslösen können und ein Entzug von Alkohol oder Benzodiazepinen ebenfalls. Ein übermäßiger Koffeinkonsum von mehr als etwa 400 mg täglich ist ein häufiger, gut behebbarer Auslöser — deshalb gehören ein Drogenscreening im Urin und eine genaue Genussmittelanamnese zur Abklärung.',
+        },
+        {
+          frage: 'Müssen Sie einen Angstpatienten nach Suizidalität fragen?',
+          antwort: 'Ja, immer und aktiv. Die Panikstörung ist häufig mit einer Depression vergesellschaftet, und die Suizidalität ist gegenüber der Allgemeinbevölkerung erhöht. Ich frage offen und abgestuft: nach Hoffnungslosigkeit, nach dem Gedanken, dass das Leben nicht mehr lebenswert sei, nach konkreten Gedanken, sich etwas anzutun, nach Plänen und Vorbereitungen sowie nach schützenden Faktoren. Die Frage löst keine Suizidalität aus, sondern entlastet.',
+        },
+        {
+          frage: 'Muss die Patientin stationär aufgenommen werden?',
+          antwort: 'In der Regel nicht. Die Panikstörung wird ambulant behandelt. Eine stationäre oder teilstationäre Behandlung ist indiziert bei akuter Suizidalität, bei schwerer komorbider Depression, bei so ausgeprägter agoraphober Einengung, dass der Patient das Haus nicht mehr verlässt und eine ambulante Therapie nicht durchführbar ist, sowie bei einem behandlungsbedürftigen Entzug.',
+        },
+      ],
+      merksatz: 'Attacke in Minuten am Gipfel, Todesangst, dann spontan vorbei — und dazwischen die Angst vor der Angst: Das ist eine Panikstörung. Erst EINMAL sauber ausschließen (EKG, Troponin, TSH, Blutzucker, Drogenscreening), dann NICHT mehr wiederholen. Therapie: Teufelskreis erklären und Exposition, SSRI langsam eindosieren, Benzodiazepine so gut wie nie.',
+      linkedCaseIds: [
+        'case-panikstoerung',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-prostatakarzinom',
+      pathology: 'Prostatakarzinom',
+      specialty: 'Urologie',
+      definition: 'Das Prostatakarzinom ist der häufigste bösartige Tumor des Mannes in Deutschland (etwa ein Viertel aller Krebsneuerkrankungen bei Männern, rund 65.000 Neuerkrankungen jährlich) und die zweithäufigste krebsbedingte Todesursache des Mannes nach dem Bronchialkarzinom. Histologisch handelt es sich in über 95 % der Fälle um ein Adenokarzinom, das ganz überwiegend in der PERIPHEREN ZONE der Drüse entsteht — im Gegensatz zur benignen Prostatahyperplasie, die von der TRANSITIONALZONE um die Harnröhre ausgeht. Aus dieser Anatomie folgt die gesamte Klinik: Das Karzinom wird erst spät obstruktiv, ist aber der digital-rektalen Untersuchung zugänglich, während die Hyperplasie früh die Miktion behindert. Im heilbaren, lokal begrenzten Stadium verläuft das Prostatakarzinom in aller Regel ASYMPTOMATISCH; Symptome sprechen meist bereits für ein fortgeschrittenes Stadium. Das mittlere Erkrankungsalter liegt bei etwa 71 Jahren.',
+      aetiologie: 'Die Entstehung ist multifaktoriell und androgenabhängig: Ohne Testosteron entsteht kein Prostatakarzinom (bei präpubertärer Kastration tritt es nicht auf), Androgene sind jedoch kein Karzinogen im eigentlichen Sinne, sondern Wachstumsvoraussetzung — daraus leitet sich das Prinzip der Androgendeprivation ab. Wichtigster nicht beeinflussbarer Faktor ist das Alter mit steilem Anstieg ab dem 50. Lebensjahr; autoptisch findet sich bei über 70-Jährigen in mehr als der Hälfte ein latentes Karzinom, das klinisch nie in Erscheinung tritt. Genetische Faktoren spielen eine große Rolle: Ein erkrankter Verwandter ersten Grades verdoppelt etwa das Risiko, mehrere oder früh erkrankte Verwandte erhöhen es weiter; Keimbahnmutationen in BRCA2 (seltener BRCA1) und ein Lynch-Syndrom gehen mit früherem Beginn und aggressiveren Verläufen einher. Hinzu kommen ethnische Unterschiede (höchste Inzidenz bei Männern afrikanischer Herkunft, niedrigste in Ostasien), westliche fett- und fleischreiche Ernährung, Adipositas und metabolisches Syndrom sowie Rauchen, das mit aggressiveren Verläufen und höherer Mortalität assoziiert ist. Die benigne Prostatahyperplasie ist ausdrücklich KEINE Präkanzerose; als Vorläuferläsion gilt die hochgradige prostatische intraepitheliale Neoplasie (High-grade PIN).',
+      risikofaktoren: [
+        'Lebensalter — der mit Abstand wichtigste Faktor, steiler Anstieg ab dem 50. Lebensjahr',
+        'Positive Familienanamnese: ein erstgradig Verwandter verdoppelt das Risiko; mehrere oder vor dem 60. Lebensjahr Erkrankte sprechen für ein hereditäres Prostatakarzinom',
+        'Keimbahnmutationen in BRCA2 und BRCA1 sowie Lynch-Syndrom — Hinweis darauf sind Mamma-, Ovarial- und Pankreaskarzinome in der Familie',
+        'Ethnische Zugehörigkeit: höchstes Risiko bei Männern afrikanischer Herkunft, niedrigstes bei ostasiatischer Herkunft',
+        'Androgene Stimulation über die Lebenszeit (kein Karzinom nach präpubertärer Kastration)',
+        'Adipositas und metabolisches Syndrom, fett- und fleischreiche westliche Ernährung, geringe körperliche Aktivität',
+        'Rauchen — assoziiert mit aggressiveren Verläufen und erhöhter tumorspezifischer Sterblichkeit',
+        'Nicht gesichert und ein häufiger Prüfungsirrtum: die benigne Prostatahyperplasie; beide Erkrankungen treten nur deshalb häufig gemeinsam auf, weil beide altersabhängig sind',
+      ],
+      klinik: [
+        {
+          text: 'Im lokal begrenzten, heilbaren Stadium in der Regel vollständig beschwerdefrei — Entdeckung über die Früherkennung (PSA und digital-rektale Untersuchung) oder als Zufallsbefund, etwa im Resektat nach transurethraler Prostataresektion',
+        },
+        {
+          text: 'Tastbarer derber bis knochenharter, höckeriger, asymmetrischer und unverschieblicher Knoten in der digital-rektalen Untersuchung, oft mit aufgehobenem Sulcus medianus',
+        },
+        {
+          text: 'Erst im fortgeschrittenen Stadium obstruktive Miktionsbeschwerden wie bei der Hyperplasie: abgeschwächter Harnstrahl, Startverzögerung, Pressen, Nachträufeln, Restharngefühl',
+        },
+        {
+          text: 'Irritative Symptome: Pollakisurie, Nykturie mit konsekutiver Durchschlafstörung, imperativer Harndrang',
+        },
+        {
+          text: 'Hämaturie und Hämatospermie',
+        },
+        {
+          text: 'Neu aufgetretene oder zunehmende erektile Dysfunktion',
+        },
+        {
+          text: 'Knochenschmerzen durch osteoblastische Metastasen, typischerweise in Lendenwirbelsäule, Becken, Rippen und proximalem Femur — Ruhe- und Nachtschmerz ohne Trauma',
+        },
+        {
+          text: 'Pathologische Frakturen bei ossärer Metastasierung',
+        },
+        {
+          text: 'Allgemeinsymptome im metastasierten Stadium: Abgeschlagenheit, Appetitminderung, ungewollter Gewichtsverlust, Anämie',
+        },
+        {
+          text: 'Querschnittssymptomatik mit Beinschwäche, Sensibilitätsstörung, Reithosenanästhesie und Blasen-Mastdarm-Störung bei spinaler Kompression — ein Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Akuter Harnverhalt oder beidseitiger Harnstau mit postrenalem Nierenversagen bei lokal fortgeschrittenem Tumor',
+          atypisch: true,
+        },
+        {
+          text: 'Lymphödem eines oder beider Beine bei ausgedehntem pelvinem Lymphknotenbefall',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als tastbare supraklavikuläre Lymphknotenschwellung oder als Wirbelkörperfraktur ohne adäquates Trauma',
+          atypisch: true,
+        },
+        {
+          text: 'Blutungsneigung bei disseminierter intravasaler Gerinnung als seltene paraneoplastische Erstmanifestation',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Gleason-Score und ISUP-Gradgruppen',
+          inhalt: 'Der Gleason-Score bewertet die Drüsenarchitektur in fünf Wachstumsmustern (Grad 1 bis 5) und addiert zwei davon; in der Stanzbiopsie das häufigste plus das schlechteste Muster, im Operationspräparat die beiden häufigsten. Klinisch relevant sind Werte von 6 bis 10. Daraus abgeleitet die ISUP-Gradgruppen: Gruppe 1 = Gleason 6 oder weniger; Gruppe 2 = 3+4 = 7; Gruppe 3 = 4+3 = 7; Gruppe 4 = Gleason 8 (4+4, 3+5 oder 5+3); Gruppe 5 = Gleason 9 bis 10. Wichtig: 3+4 und 4+3 sind prognostisch NICHT gleichwertig — die Reihenfolge zählt.',
+        },
+        {
+          name: 'TNM-Klassifikation (vereinfacht)',
+          inhalt: 'T1 = klinisch nicht tastbar und nicht sichtbar (T1a/T1b als Zufallsbefund im TUR-P-Resektat, T1c als Stanzbiopsiebefund bei PSA-Erhöhung); T2 = auf die Prostata begrenzt und tastbar (T2a bis zur Hälfte eines Lappens, T2b mehr als die Hälfte eines Lappens, T2c beide Lappen); T3 = Überschreitung der Kapsel (T3a extrakapsulär, T3b Samenblaseninfiltration); T4 = Infiltration von Nachbarstrukturen wie Blasenhals, Sphinkter, Rektum oder Beckenwand. N1 = regionäre pelvine Lymphknotenmetastasen. M1a = nichtregionäre Lymphknoten, M1b = Knochenmetastasen (häufigste Form), M1c = andere Lokalisationen.',
+        },
+        {
+          name: 'D\'Amico-Risikogruppen (lokal begrenztes Karzinom)',
+          inhalt: 'Niedriges Risiko, wenn ALLE drei Kriterien erfüllt sind: PSA bis 10 ng/ml UND Gleason 6 oder weniger (ISUP 1) UND cT1 bis cT2a. Mittleres Risiko, wenn EINES zutrifft: PSA über 10 bis 20 ng/ml ODER Gleason 7 ODER cT2b. Hohes Risiko, wenn EINES zutrifft: PSA über 20 ng/ml ODER Gleason 8 oder mehr ODER cT2c und höher. Die Gruppe steuert Staging-Umfang und Therapieintensität.',
+        },
+        {
+          name: 'PI-RADS (multiparametrische MRT der Prostata)',
+          inhalt: 'Fünfstufige Skala der Karzinomwahrscheinlichkeit vor der Biopsie: 1 sehr niedrig, 2 niedrig, 3 unklar/intermediär, 4 hoch, 5 sehr hoch. Ab PI-RADS 4 besteht eine klare Indikation zur gezielten Fusionsbiopsie; bei PI-RADS 3 wird anhand von PSA-Dichte und Verlauf entschieden. Die MRT erfolgt grundsätzlich VOR der Biopsie, da Einblutungen die Beurteilung sonst stören.',
+        },
+      ],
+      redFlags: [
+        'Neu aufgetretene Beinschwäche, Sensibilitätsstörung, Reithosenanästhesie oder Blasen-Mastdarm-Störung bei bekanntem oder vermutetem Prostatakarzinom — metastatische Rückenmarkkompression: sofort hochdosiertes Dexamethason, notfallmäßiges MRT der Wirbelsäule und Bestrahlung beziehungsweise operative Dekompression',
+        'Rücken- oder Beckenschmerz in Ruhe und nachts ohne Trauma bei einem Mann über 50 Jahren — verdächtig auf ossäre Metastasierung',
+        'Akuter Harnverhalt sowie Anurie oder rascher Kreatininanstieg bei beidseitigem Harnstau — postrenales Nierenversagen, Katheter beziehungsweise Nephrostomie',
+        'Pathologische Fraktur oder plötzlicher, lokalisierter Knochenschmerz nach Bagatelltrauma',
+        'Fieber, Schüttelfrost oder Kreislaufinstabilität in den Tagen nach einer Prostatabiopsie — Urosepsis bis zum Beweis des Gegenteils',
+        'Makrohämaturie mit Koagelbildung und konsekutiver Blasentamponade',
+        'Rasch steigender PSA-Wert mit kurzer Verdopplungszeit unter laufender Therapie — Hinweis auf Progress oder Kastrationsresistenz',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Miktionsanamnese mit Trennung obstruktiver (schwacher Strahl, Startverzögerung, Pressen, Nachträufeln, Restharngefühl) und irritativer Symptome (Pollakisurie, Nykturie, Drang), Quantifizierung mit dem IPSS und einem Miktionsprotokoll',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Frage nach Alarmsymptomen: Hämaturie, Hämatospermie, erektile Dysfunktion, Gewichtsverlust, Knochen- und Rückenschmerz in Ruhe sowie neurologische Symptome der Beine',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Familienanamnese mit Erkrankungsalter der Verwandten ersten Grades sowie Frage nach Mamma-, Ovarial- und Pankreaskarzinom als Hinweis auf eine BRCA2-Konstellation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Digital-rektale Untersuchung — die Blutentnahme für den PSA-Wert erfolgt VORHER: beurteilt werden Größe, Konsistenz, Oberfläche, Symmetrie und Sulcus, Abgrenzbarkeit, Verschieblichkeit der Rektumschleimhaut und Druckschmerz. Karzinom: derb bis knochenhart, höckerig, unverschieblich. Hyperplasie: prall-elastisch, glatt, symmetrisch, verschieblich. Prostatitis: stark druckschmerzhaft. Erfasst werden nur etwa 70 % der Tumoren, ein unauffälliger Tastbefund schließt nichts aus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Beurteilung des Harnstrahls bei der Miktion, Palpation der Blase, Nierenlager, Lymphknotenstatus inguinal und supraklavikulär, Klopfschmerz über Wirbelsäule und Becken sowie orientierende neurologische Untersuchung der Beine mit Sphinktertonus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Gesamt-PSA im Serum: organspezifisch, aber NICHT karzinomspezifisch — erhöht auch bei benigner Hyperplasie, Prostatitis, Harnwegsinfekt, nach digital-rektaler Untersuchung, Ejakulation, Radfahren, Katheterisierung oder Prostatamanipulation; falsch niedrig unter 5-Alpha-Reduktase-Hemmern (Finasterid, etwa Halbierung). Jeder erhöhte Wert wird kontrolliert',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ergänzende PSA-Parameter zur Abgrenzung von der Hyperplasie: Quotient aus freiem und Gesamt-PSA (unter 15 % karzinomverdächtig, über 20 bis 25 % eher benigne), PSA-Dichte (PSA je Milliliter Prostatavolumen, verdächtig ab etwa 0,15), PSA-Anstiegsgeschwindigkeit (verdächtig über 0,75 ng/ml pro Jahr) und PSA-Verdopplungszeit',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus und Urinkultur zum Ausschluss eines Harnwegsinfekts oder einer Prostatitis vor der PSA-Bewertung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Alkalische Phosphatase und LDH als Hinweis auf osteoblastische Knochenmetastasen, Blutbild (Anämie bei Knochenmarkkarzinose), Kalzium — Cave: bei ausgeprägt osteoblastischer Metastasierung eher Hypokalzämie —, Kreatinin und eGFR bei Harnstau, Gerinnung und Testosteron als Ausgangswerte vor Biopsie beziehungsweise Hormontherapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie von Nieren, Harnblase und Prostata mit Restharnbestimmung: Harnstau, Blasenwandtrabekulierung, Divertikel, Prostatavolumen; transrektaler Ultraschall zur Volumetrie und Darstellung echoarmer Areale — allein nicht ausreichend sensitiv',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Uroflowmetrie mit Restharn zur Objektivierung der Obstruktion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Multiparametrische MRT der Prostata VOR der Biopsie, Befundung nach PI-RADS 1 bis 5; zugleich Beurteilung von Kapselüberschreitung, Samenblaseninfiltration und pelvinen Lymphknoten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Staging bei Risikokonstellation (PSA über 10 bis 20 ng/ml, ISUP 3 und höher, cT3/cT4 oder Knochenschmerzen): Skelettszintigraphie, gezielte Röntgen- oder CT-Aufnahmen der schmerzhaften Region — osteoblastisch-sklerotische Herde —, CT von Abdomen und Becken sowie PSMA-PET/CT als sensitivstes Verfahren, besonders beim biochemischen Rezidiv',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei neurologischen Symptomen umgehend MRT der gesamten Wirbelsäule zum Ausschluss einer spinalen Kompression',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'MRT-Fusionsbiopsie der Prostata, bevorzugt transperineal wegen des geringeren Infektionsrisikos, mit gezielten und systematischen Stanzen (in der Regel 10 bis 12) unter Antibiotikaprophylaxe und nach Pausieren gerinnungshemmender Medikamente',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologische Aufarbeitung mit Diagnose des Adenokarzinoms, Gleason-Score, ISUP-Gradgruppe, Anzahl und Befallsgrad der positiven Stanzen; immunhistochemisch Verlust der Basalzellschicht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Pelvine Lymphadenektomie im Rahmen der radikalen Prostatektomie als genauestes Verfahren zum Nodalstaging; Knochenbiopsie bei unklaren Skelettherden; humangenetische Beratung mit Keimbahntestung auf BRCA2 bei familiärer Häufung oder metastasierter Erkrankung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Benigne Prostatahyperplasie',
+          unterscheidung: 'Ausgang von der Transitionalzone, daher früh obstruktive Symptomatik; Tastbefund prall-elastisch, glatt, symmetrisch, Sulcus erhalten, verschieblich. PSA kann ebenfalls erhöht sein, jedoch mit hohem Quotienten aus freiem und Gesamt-PSA und niedriger PSA-Dichte. Keine B-Symptomatik, kein Knochenschmerz.',
+        },
+        {
+          dd: 'Akute und chronische Prostatitis',
+          unterscheidung: 'Perineale und suprapubische Schmerzen, Dysurie, bei der akuten Form Fieber, Schüttelfrost und stark druckschmerzhafte, teigige Prostata mit deutlich erhöhtem CRP; der PSA ist mit erhöht und darf erst nach Ausheilung bewertet werden. Cave: bei akuter Prostatitis keine Prostatamassage (Bakteriämiegefahr).',
+        },
+        {
+          dd: 'Harnwegsinfekt, Zystitis, Pyelonephritis',
+          unterscheidung: 'Dysurie, Pollakisurie, trüber und übelriechender Urin, bei Pyelonephritis Fieber und Flankenklopfschmerz. Nachweis über Urinstatus, Nitrit, Leukozyten und Urinkultur; prompte Besserung unter Antibiose.',
+        },
+        {
+          dd: 'Harnblasenkarzinom',
+          unterscheidung: 'Leitsymptom schmerzlose Makrohämaturie; Risikofaktoren Rauchen und aromatische Amine. Diagnostik über Urinzytologie, Sonographie, Zystoskopie mit Biopsie und CT-Urographie.',
+        },
+        {
+          dd: 'Harnröhrenstriktur',
+          unterscheidung: 'Abgeschwächter, aufgesplitterter Strahl nach Katheterisierung, Trauma, Urethritis oder Voroperation; Uroflowmetrie mit Plateaukurve, Nachweis durch retrograde Urethrographie oder Urethroskopie. PSA und Tastbefund unauffällig.',
+        },
+        {
+          dd: 'Neurogene Blasenentleerungsstörung',
+          unterscheidung: 'Bei Diabetes mellitus mit Polyneuropathie, Morbus Parkinson, Multipler Sklerose, Bandscheibenvorfall oder nach Beckenoperation: große Restharnmengen bei vermindertem Harndrang, Überlaufinkontinenz. Klärung über Restharn, Miktionsprotokoll, Urodynamik und neurologische Untersuchung.',
+        },
+        {
+          dd: 'Osteoporotische Wirbelkörperfraktur und degenerative Wirbelsäulenerkrankung',
+          unterscheidung: 'Belastungsabhängiger, in Ruhe nachlassender Schmerz, häufig nach Bagatelltrauma; im Gegensatz dazu spricht der nächtliche Ruheschmerz mit B-Symptomatik für eine Metastasierung. Klärung über Röntgen, MRT und Knochendichtemessung.',
+        },
+        {
+          dd: 'Multiples Myelom und andere ossär metastasierende Karzinome',
+          unterscheidung: 'Beim Myelom osteolytische Herde, Anämie, Hyperkalzämie, Niereninsuffizienz und monoklonale Gammopathie in der Serum- und Urinelektrophorese. Bronchial-, Nieren- und Schilddrüsenkarzinome metastasieren überwiegend osteolytisch, das Prostatakarzinom typischerweise osteoblastisch.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Active Surveillance beim Niedrigrisikokarzinom',
+          items: [
+            'Indikation: ISUP-Gradgruppe 1, PSA bis 10 ng/ml, cT1c bis cT2a, in der Regel höchstens zwei befallene Stanzen mit jeweils höchstens 50 % Tumoranteil',
+            'Rationale, die im Examen ausgesprochen werden muss: Vermeidung einer ÜBERTHERAPIE und ihrer Nebenwirkungen Harninkontinenz und erektile Dysfunktion — viele dieser Tumoren wachsen so langsam, dass die Patienten MIT dem Karzinom und nicht AN ihm sterben',
+            'Kontrollschema: PSA und digital-rektale Untersuchung in den ersten beiden Jahren etwa alle drei bis sechs Monate, danach halbjährlich; mpMRT und Re-Biopsie nach festgelegtem Intervall',
+            'Umstieg auf eine kurative Therapie bei Höhergradigkeit in der Re-Biopsie, kurzer PSA-Verdopplungszeit, MRT-Progress oder auf Wunsch des Patienten',
+            'Klar abzugrenzen vom Watchful Waiting: dieses ist symptomorientiert-palliativ bei einer Lebenserwartung unter zehn Jahren oder relevanter Komorbidität',
+          ],
+        },
+        {
+          label: 'Kurative lokale Therapie beim lokal begrenzten Karzinom',
+          items: [
+            'Voraussetzung: lokal begrenzter Tumor und eine Lebenserwartung von mehr als zehn Jahren; Entscheidung im interdisziplinären Tumorboard und partizipativ mit dem Patienten',
+            'Radikale Prostatektomie: Entfernung von Prostata und Samenblasen mit vesikourethraler Anastomose, je nach Risiko mit pelviner Lymphadenektomie; offen retropubisch, laparoskopisch oder roboterassistiert, bei geeigneter Konstellation nervenschonend. Komplikationen: Harninkontinenz, erektile Dysfunktion, Anastomosenstriktur, Lymphozele, Thrombose',
+            'Perkutane Strahlentherapie (IMRT/IGRT) mit etwa 74 bis 80 Gy in Fraktionen; bei mittlerem Risiko begleitende Androgendeprivation über etwa sechs Monate, bei hohem Risiko über zwei bis drei Jahre. Nebenwirkungen: Strahlenproktitis, Reizblase, später einsetzende erektile Dysfunktion, selten Zweitmalignome',
+            'Brachytherapie als Alternative beim Niedrigrisikokarzinom: LDR-Seed-Implantation mit Jod-125 oder HDR-Afterloading',
+            'Adjuvante oder Salvage-Bestrahlung der Prostataloge bei positivem Schnittrand, Kapselüberschreitung oder biochemischem Rezidiv nach Operation',
+            'Aufklärungspflicht: Harninkontinenz und erektile Dysfunktion müssen dem Patienten VOR der Entscheidung ausdrücklich genannt werden',
+          ],
+        },
+        {
+          label: 'Systemische Therapie im fortgeschrittenen und metastasierten Stadium',
+          items: [
+            'Androgendeprivation als Grundlage: GnRH-Analoga (Leuprorelin, Goserelin) — wegen des initialen Testosteronanstiegs (Flare-up) für zwei bis vier Wochen mit einem Antiandrogen wie Bicalutamid überlappen — oder GnRH-Antagonisten (Degarelix, Relugolix) ohne Flare; Alternative subkapsuläre Orchiektomie',
+            'Im metastasierten hormonsensitiven Stadium Kombination der Androgendeprivation mit Abirateron plus Prednisolon, Enzalutamid, Apalutamid oder Darolutamid beziehungsweise mit Docetaxel (Triplet-Therapie bei hoher Tumorlast)',
+            'Beim kastrationsresistenten Prostatakarzinom: Docetaxel, im Verlauf Cabazitaxel, Radioligandentherapie mit Lutetium-177-PSMA, Radium-223 bei ausschließlich ossärer Metastasierung sowie PARP-Inhibitoren wie Olaparib bei BRCA-Mutation',
+            'Knochenschutz bei Skelettmetastasen und unter Androgendeprivation: Zoledronsäure oder Denosumab, stets mit Kalzium und Vitamin D; vorher zahnärztliche Sanierung wegen der Gefahr einer Kiefernekrose',
+            'Lokale Maßnahmen: perkutane Bestrahlung schmerzhafter Knochenherde, Stabilisierung frakturgefährdeter Wirbel; bei metastatischer Rückenmarkkompression sofort hochdosiertes Dexamethason und notfallmäßige Bestrahlung oder operative Dekompression',
+            'Symptomorientiert: Analgesie nach dem WHO-Stufenschema, transurethrale Desobstruktion bei Blasenauslassobstruktion, Katheter oder Nephrostomie bei Harnverhalt beziehungsweise Harnstau',
+            'Nebenwirkungen der Androgendeprivation, die genannt werden müssen: Hitzewallungen, Libidoverlust, erektile Dysfunktion, Osteoporose, Sarkopenie, Anämie, Gynäkomastie, Gewichtszunahme, Insulinresistenz und depressive Verstimmung',
+          ],
+        },
+        {
+          label: 'Nachsorge, Rehabilitation und Lebensqualität',
+          items: [
+            'PSA als Rezidivmarker: nach radikaler Prostatektomie soll der Wert unter die Nachweisgrenze fallen; biochemisches Rezidiv bei zweimalig gemessenem PSA von 0,2 ng/ml oder mehr, nach Strahlentherapie bei einem Anstieg um mehr als 2 ng/ml über den Nadir (Phoenix-Kriterium). Kontrollen in den ersten zwei Jahren vierteljährlich',
+            'Kontinenzrehabilitation: frühzeitiges Beckenbodentraining und Physiotherapie, Anschlussheilbehandlung; bei persistierender Belastungsinkontinenz Schlingensysteme oder artifizieller Sphinkter',
+            'Potenzrehabilitation: PDE-5-Hemmer, Vakuumerektionshilfe, intrakavernöse Injektionstherapie; offene Ansprache von Sexualität und Partnerschaft',
+            'Unter Androgendeprivation Osteoporoseprophylaxe mit Kalzium, Vitamin D, Krafttraining und Knochendichtemessung sowie Kontrolle von Gewicht, Blutdruck, Blutzucker und Lipiden',
+            'Psychoonkologische Betreuung, Selbsthilfegruppen, Sozialdienst und gegebenenfalls palliativmedizinische Mitbetreuung',
+            'Beratung männlicher Angehöriger ersten Grades zur Früherkennung ab dem 40. bis 45. Lebensjahr; humangenetische Beratung bei Hinweis auf eine BRCA2-Konstellation',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend vom Stadium, von der ISUP-Gradgruppe und vom PSA-Wert ab. Das lokal begrenzte Prostatakarzinom hat eine sehr gute Prognose mit einer relativen Fünf-Jahres-Überlebensrate nahe 100 %; über alle Stadien liegt sie in Deutschland bei etwa 90 %, im metastasierten Stadium jedoch nur noch bei rund 30 %. Ein großer Teil der Patienten stirbt MIT dem Karzinom und nicht AN ihm — daraus erklären sich Active Surveillance und Watchful Waiting. Unter Androgendeprivation tritt nach median etwa zwei bis drei Jahren eine Kastrationsresistenz ein; die neuen antiandrogenen Substanzen und die Radioligandentherapie haben das Überleben in dieser Phase deutlich verlängert. Prognostisch ungünstig sind eine hohe ISUP-Gradgruppe, ein hoher Ausgangs-PSA, eine kurze PSA-Verdopplungszeit, viszerale Metastasen und eine BRCA2-Mutation.',
+      pruefungsfallen: [
+        'Der PSA-Wert wird VOR der digital-rektalen Untersuchung abgenommen — in den Protokollen zweimal unabhängig als Prüferfrage dokumentiert: „Was ist wichtig, bevor man die rektale Untersuchung macht?“',
+        'Der PSA ist organspezifisch, aber NICHT karzinomspezifisch: erhöht auch bei Hyperplasie, Prostatitis, Harnwegsinfekt, nach Palpation, Ejakulation, Radfahren und Katheterisierung; unter Finasterid dagegen etwa halbiert.',
+        'Die Zonenanatomie muss man aussprechen können: Karzinom aus der peripheren Zone — deshalb spät obstruktiv, aber rektal tastbar; Hyperplasie aus der Transitionalzone — deshalb früh obstruktiv.',
+        'Im heilbaren Stadium ist das Prostatakarzinom in der Regel asymptomatisch; Symptome bedeuten meist bereits ein fortgeschrittenes Stadium. Entdeckung sonst über Früherkennung oder als Zufallsbefund im TUR-P-Resektat.',
+        'Die benigne Prostatahyperplasie ist keine Präkanzerose und kein gesicherter Risikofaktor — Vorläuferläsion ist die High-grade PIN.',
+        'Die multiparametrische MRT gehört VOR die Biopsie (PI-RADS), nicht danach; die Biopsie erfolgt MRT-gesteuert als Fusionsbiopsie.',
+        'Gleason 3+4 (ISUP 2) und 4+3 (ISUP 3) sind prognostisch nicht gleichwertig — die Reihenfolge der Muster ist entscheidend.',
+        'Knochenmetastasen sind typischerweise OSTEOBLASTISCH: im Röntgen sklerotisch, alkalische Phosphatase erhöht, starke Speicherung in der Szintigraphie — nicht osteolytisch wie beim multiplen Myelom.',
+        'Neurologische Symptome der Beine oder eine Blasen-Mastdarm-Störung sind ein Notfall (spinale Kompression) — Dexamethason, MRT, Bestrahlung oder Dekompression, nicht abwarten.',
+        'Active Surveillance (kurative Absicht, engmaschige Kontrolle) und Watchful Waiting (palliativ, Lebenserwartung unter zehn Jahren) dürfen nicht verwechselt werden.',
+        'Vor kurativer Therapie müssen Harninkontinenz und erektile Dysfunktion aktiv als Nebenwirkungen genannt werden — das wird als Aufklärungsleistung geprüft.',
+        'Bei der Früherkennung: die digital-rektale Untersuchung ist ab 45 Jahren gesetzliche Leistung, der PSA-Test eine individuelle Gesundheitsleistung; bei familiärer Belastung Angebot ab dem 40. bis 45. Lebensjahr.',
+        'Fieber nach Prostatabiopsie bedeutet bis zum Beweis des Gegenteils eine Urosepsis.',
+        'Unter GnRH-Analoga an das Flare-up denken und ein Antiandrogen überlappend geben — sonst droht bei ossärer Metastasierung eine akute Verschlechterung bis zur Rückenmarkkompression.',
+        'Wenn das Prostatakarzinom als Nebendiagnose eines Pneumoniefalls auftaucht: Strahlentherapie plus Diabetes bedeuten Immunsuppression und rechtfertigen die stationäre Aufnahme; Lungen- und Knochenmetastasen gehören in die Differenzialdiagnose des Lungenbefundes.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist wichtig, bevor man die rektale Untersuchung macht?',
+          antwort: 'Die Blutentnahme für den PSA-Wert erfolgt vor der Palpation, außerdem die Aufklärung des Patienten und seine Einwilligung. Der PSA sollte auch nicht innerhalb von 48 Stunden nach Ejakulation, Radfahren oder Katheterisierung und nicht bei akuter Prostatitis bestimmt werden.',
+        },
+        {
+          frage: 'Was suchen Sie bei der digital-rektalen Untersuchung?',
+          antwort: 'Größe, Konsistenz — also hart oder nicht —, Oberfläche im Sinne von homogen oder höckerig, Symmetrie und Sulcus medianus, Abgrenzbarkeit, Verschieblichkeit der Rektumschleimhaut sowie Druckschmerz. Das Karzinom ist derb bis knochenhart, höckerig, asymmetrisch und unverschieblich, die Hyperplasie prall-elastisch, glatt und symmetrisch, die Prostatitis stark druckschmerzhaft.',
+        },
+        {
+          frage: 'Warum macht die Hyperplasie früh und das Karzinom erst spät Beschwerden?',
+          antwort: 'Weil die Hyperplasie in der Transitionalzone direkt um die Harnröhre entsteht und diese früh einengt, das Karzinom dagegen in der peripheren Zone, weit weg von der Harnröhre. Deshalb ist das Karzinom früh rektal tastbar, aber lange symptomlos, und Miktionsbeschwerden sprechen bereits für ein fortgeschrittenes Stadium.',
+        },
+        {
+          frage: 'Sie haben noch eine andere körperliche Untersuchung vergessen — welche?',
+          antwort: 'Die Beurteilung der Miktion und des Harnstrahls: ob der Strahl kräftig oder schwach ist, ob er unterbrochen oder aufgesplittert ist und ob nachgetröpfelt wird; dazu die Restharnbestimmung im Ultraschall und ein Miktionsprotokoll.',
+        },
+        {
+          frage: 'Beweist ein erhöhter PSA-Wert ein Karzinom?',
+          antwort: 'Nein. Der PSA ist organspezifisch, aber nicht karzinomspezifisch. Er ist auch bei benigner Hyperplasie, Prostatitis, Harnwegsinfekt, nach digital-rektaler Untersuchung, Ejakulation, Radfahren oder Katheterisierung erhöht. Jeder auffällige Wert wird kontrolliert und zusammen mit Tastbefund, PSA-Verlauf, Quotient aus freiem und Gesamt-PSA, PSA-Dichte und MRT bewertet.',
+        },
+        {
+          frage: 'Welche Untersuchungen leiten Sie ein? Was kann man im Ultraschall sehen?',
+          antwort: 'Digital-rektale Untersuchung, Labor mit PSA, Blutbild, CRP, Kreatinin, alkalischer Phosphatase und Urinstatus mit Kultur, Sonographie von Nieren und Blase mit Restharn, transrektaler Ultraschall, Uroflowmetrie, multiparametrische MRT der Prostata und anschließend die Fusionsbiopsie. Im Ultraschall sieht man Prostatavolumen, Restharn, Blasenwandtrabekulierung, Divertikel, einen Harnstau der Nieren und im transrektalen Bild echoarme Areale.',
+        },
+        {
+          frage: 'Was ist der Gleason-Score, und was sind die ISUP-Gradgruppen?',
+          antwort: 'Der Gleason-Score addiert die beiden Wachstumsmuster des Tumors, in der Stanzbiopsie das häufigste und das schlechteste. Die ISUP-Gradgruppen fassen ihn zusammen: Gruppe 1 gleich Gleason 6 oder weniger, Gruppe 2 gleich 3+4, Gruppe 3 gleich 4+3, Gruppe 4 gleich Gleason 8, Gruppe 5 gleich Gleason 9 bis 10.',
+        },
+        {
+          frage: 'Wohin metastasiert das Prostatakarzinom, und wie erkennen Sie das?',
+          antwort: 'Lymphogen in die pelvinen Lymphknoten, hämatogen vor allem in das Skelett — Wirbelsäule, Becken, Rippen und proximaler Femur — sowie in Lunge und Leber. Die Knochenmetastasen sind osteoblastisch, also im Röntgen sklerotisch, mit erhöhter alkalischer Phosphatase und starker Speicherung in der Skelettszintigraphie; sensitivstes Verfahren ist das PSMA-PET/CT.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Niedrigrisikokarzinom, und warum operieren Sie nicht sofort?',
+          antwort: 'Mit Active Surveillance: engmaschige Kontrollen von PSA, Tastbefund, MRT und Re-Biopsie, mit Umstieg auf eine kurative Therapie bei Progress. Grund ist die Vermeidung einer Übertherapie — diese Tumoren wachsen sehr langsam, viele Patienten sterben mit dem Karzinom und nicht daran, während Operation und Bestrahlung Harninkontinenz und erektile Dysfunktion verursachen können.',
+        },
+        {
+          frage: 'Welche Therapieoptionen gibt es beim lokal begrenzten Karzinom, und worüber klären Sie auf?',
+          antwort: 'Radikale Prostatektomie, gegebenenfalls nervenschonend und roboterassistiert, oder Strahlentherapie perkutan beziehungsweise als Brachytherapie. Aufzuklären ist ausdrücklich über Harninkontinenz und erektile Dysfunktion, nach Bestrahlung zusätzlich über Strahlenproktitis und Reizblase, dazu über Anastomosenstriktur, Lymphozele und die allgemeinen Operationsrisiken.',
+        },
+        {
+          frage: 'Und im metastasierten Stadium? Was ist das Flare-up-Phänomen?',
+          antwort: 'Grundlage ist die Androgendeprivation mit GnRH-Analoga oder -Antagonisten, kombiniert mit Abirateron, Enzalutamid, Apalutamid, Darolutamid oder Docetaxel; bei Kastrationsresistenz Cabazitaxel, Lutetium-177-PSMA, Radium-223 oder ein PARP-Inhibitor bei BRCA-Mutation, dazu Knochenschutz mit Zoledronsäure oder Denosumab. Das Flare-up ist der initiale Testosteronanstieg unter GnRH-Analoga; deshalb gibt man zwei bis vier Wochen überlappend ein Antiandrogen oder verwendet einen Antagonisten.',
+        },
+        {
+          frage: 'Welche Vorsorgeuntersuchungen gibt es, und ab wann?',
+          antwort: 'Ab dem 45. Lebensjahr jährlich Anamnese, Inspektion und Palpation des äußeren Genitales, digital-rektale Untersuchung und Tasten der regionären Lymphknoten als gesetzliche Früherkennung. Der PSA-Test ist keine Kassenleistung, sondern eine individuelle Gesundheitsleistung, über deren Nutzen und Risiko — vor allem die Überdiagnose — aufgeklärt werden muss. Bei familiärer Belastung wird das Angebot ab dem 40. bis 45. Lebensjahr diskutiert.',
+        },
+        {
+          frage: 'Ein Patient mit Prostatakarzinom unter Strahlentherapie bekommt eine Pneumonie. Was ist bei ihm besonders?',
+          antwort: 'Die Strahlentherapie und ein begleitender Diabetes mellitus bedeuten eine Immunsuppression. Das rechtfertigt die stationäre Aufnahme, gegebenenfalls sogar eine intensivmedizinische Überwachung. Differenzialdiagnostisch muss man bei der Verschattung auch an Lungenmetastasen denken — Knochen- und Lungenmetastasen sind die häufigsten beim Prostatakarzinom —, und die jährlichen Impfungen gegen Influenza und Pneumokokken sind zu prüfen.',
+        },
+        {
+          frage: 'Der Patient fragt Sie, ob er Krebs hat. Wie antworten Sie?',
+          antwort: 'Ehrlich, aber ohne Vorwegnahme: Die Beschwerden können von einer gutartigen Vergrößerung kommen; es gibt jedoch Befunde, die abgeklärt werden müssen. Sicherheit gibt erst die Gewebeuntersuchung. Ich erkläre die nächsten Schritte, nehme die Angst und die Familiengeschichte ernst, biete einen zeitnahen Folgetermin und die Anwesenheit einer Vertrauensperson an.',
+        },
+      ],
+      merksatz: 'Peripherie tastbar, Transitionalzone obstruktiv: Wer Symptome hat, ist meist schon fortgeschritten — PSA IMMER vor der rektalen Untersuchung, mpMRT vor der Biopsie, Gleason und ISUP aus der Histologie; Therapie risikoadaptiert von Active Surveillance über Prostatektomie oder Bestrahlung bis zur Androgendeprivation, und Knochenschmerz plus Beinschwäche heißt Rückenmarkkompression — Notfall.',
+      linkedCaseIds: [
+        'case-prostatakarzinom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-mrt',
+        'auf-feinnadelpunktion',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-hepatitis-b',
+      pathology: 'Virushepatitis (akute Hepatitis B)',
+      specialty: 'Infektiologie',
+      definition: 'Die Virushepatitis ist eine durch hepatotrope Viren (Hepatitis A, B, C, D und E) verursachte Entzündung des Leberparenchyms mit Hepatozytenuntergang. Der Leberschaden entsteht bei der Hepatitis B nicht direkt zytopathisch, sondern immunologisch: zytotoxische T-Zellen zerstören die HBV-infizierten Hepatozyten. Klinisch verläuft die akute Hepatitis in einer Prodromalphase und einer ikterischen Phase, häufig aber auch anikterisch oder ganz asymptomatisch. Als chronisch gilt eine Hepatitis B, wenn das HBsAg länger als sechs Monate nachweisbar bleibt.',
+      aetiologie: 'Hepatitis A und E werden FÄKAL-ORAL übertragen (kontaminiertes Wasser und Lebensmittel, rohe Muscheln und Meeresfrüchte, Reisen in Endemiegebiete; Hepatitis E zusätzlich über rohes Schweinefleisch und Wild). Hepatitis B, C und D werden PARENTERAL, SEXUELL und PERINATAL übertragen: Nadelstichverletzung, Tätowierung und Piercing unter unsauberen Bedingungen, i.v.-Drogenkonsum mit gemeinsamem Besteck, ungeschützter Geschlechtsverkehr, Transfusionen vor 1992 (Hepatitis C), Geburt durch eine infizierte Mutter. Das Hepatitis-D-Virus ist ein defektes Virus und kann nur zusammen mit HBV auftreten (Simultaninfektion oder Superinfektion). Inkubationszeiten: A 15–50 Tage, B 30–180 Tage (durchschnittlich 60–90 Tage), C 15–150 Tage, D wie B, E 15–60 Tage.',
+      risikofaktoren: [
+        'Reisen in Endemiegebiete (Südostasien, Afrika, Osteuropa) mit Verzehr von rohen Muscheln, ungeschältem Obst und Leitungswasser (A und E)',
+        'Tätowierungen, Piercings und Ohrlochstechen unter mangelhaften hygienischen Bedingungen (B, C, D)',
+        'Ungeschützter Geschlechtsverkehr, wechselnde Sexualpartner, Männer, die Sex mit Männern haben (B besonders effizient sexuell übertragbar)',
+        'Intravenöser Drogenkonsum mit gemeinsam benutztem Besteck, auch gemeinsam benutzte Röhrchen beim nasalen Konsum',
+        'Nadelstichverletzungen und Tätigkeit im Gesundheitswesen ohne vollständigen Impfschutz',
+        'Bluttransfusionen und Gerinnungspräparate vor 1992 (Hepatitis C)',
+        'Geburt durch eine HBsAg-positive Mutter (perinatale Übertragung, höchstes Chronifizierungsrisiko)',
+        'Dialysepflichtigkeit, Haushalts- und Sexualkontakte zu Virusträgern, Herkunft aus einem Hochprävalenzland',
+        'Fehlender oder unbekannter Impfschutz gegen Hepatitis A und B',
+        'Verzehr von rohem oder unzureichend gegartem Schweinefleisch, Wildfleisch und Innereien (Hepatitis E in Deutschland)',
+      ],
+      klinik: [
+        {
+          text: 'Prodromalphase über etwa eine bis zwei Wochen mit ausgeprägter Abgeschlagenheit, Leistungsknick, Appetitlosigkeit und Übelkeit',
+        },
+        {
+          text: 'Subfebrile Temperaturen, Kopfschmerzen sowie Gelenk- und Muskelschmerzen in der Prodromalphase',
+        },
+        {
+          text: 'Geschmacksveränderung mit Widerwillen gegen fettige Speisen und typischerweise plötzlicher WIDERWILLE GEGEN ZIGARETTEN bei Rauchern',
+        },
+        {
+          text: 'Ikterus, zuerst und am empfindlichsten an den SKLEREN sichtbar, später auch an Haut und Schleimhäuten',
+        },
+        {
+          text: 'Dunkler, biertrüber bis colafarbener Urin (Bilirubinurie) und heller, entfärbter, acholischer Stuhl',
+        },
+        {
+          text: 'Juckreiz (Pruritus) mit Kratzspuren als Ausdruck der intrahepatischen Cholestase',
+        },
+        {
+          text: 'Dumpfer Druck- und Spannungsschmerz im rechten Oberbauch mit Klopfschmerz über der Leber',
+        },
+        {
+          text: 'Druckschmerzhafte Hepatomegalie, seltener eine leichte Splenomegalie und Lymphknotenschwellungen',
+        },
+        {
+          text: 'Besserung des Allgemeinbefindens mit Auftreten des Ikterus — typischer Verlaufsknick der Hepatitis B',
+        },
+        {
+          text: 'Flüchtiges urtikarielles Exanthem und symmetrische Arthralgien als serumkrankheitsähnliches Prodrom durch Immunkomplexe — nahezu spezifisch für die Hepatitis B',
+          atypisch: true,
+        },
+        {
+          text: 'Vollständig anikterischer oder asymptomatischer Verlauf, der nur zufällig über erhöhte Transaminasen auffällt — bei Hepatitis C die Regel',
+          atypisch: true,
+        },
+        {
+          text: 'Fulminanter Verlauf mit Verwirrtheit, Tag-Nacht-Umkehr, Flapping tremor, Foetor hepaticus, Hämatomen und Blutungsneigung',
+          atypisch: true,
+        },
+        {
+          text: 'Länger anhaltender cholestatischer Verlauf mit wochenlangem Ikterus und quälendem Juckreiz bei nur mäßig erhöhten Transaminasen',
+          atypisch: true,
+        },
+        {
+          text: 'Extrahepatische Manifestationen wie Glomerulonephritis, Panarteriitis nodosa (B) oder Kryoglobulinämie und Vaskulitis (C)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Serologische Konstellationen der Hepatitis B',
+          inhalt: 'HBsAg = bestehende Infektion (akut oder chronisch); Anti-HBs = Immunität nach Impfung oder ausgeheilter Infektion; Anti-HBc = es hat ein Kontakt mit dem Virus stattgefunden, Anti-HBc-IgM spricht für eine frische Infektion, Anti-HBc-IgG bleibt lebenslang; HBeAg und HBV-DNA = aktive Replikation und hohe Infektiosität. Merke: Geimpfte haben NUR Anti-HBs, Ausgeheilte haben Anti-HBs UND Anti-HBc. In der diagnostischen Lücke (HBsAg bereits abgefallen, Anti-HBs noch nicht gebildet) ist allein Anti-HBc-IgM positiv.',
+        },
+        {
+          name: 'Verlaufsformen der akuten Virushepatitis',
+          inhalt: 'Asymptomatisch bzw. anikterisch (häufigste Form, besonders bei Hepatitis C); klassisch ikterisch mit Prodromal- und Ikterusphase; protrahiert cholestatisch mit wochenlangem Ikterus; fulminant mit akutem Leberversagen (bei Hepatitis B unter 1 %, deutlich häufiger bei HDV-Superinfektion und bei Hepatitis E in der Schwangerschaft).',
+        },
+        {
+          name: 'Chronifizierung nach Virustyp',
+          inhalt: 'Hepatitis A und E heilen praktisch immer folgenlos aus (E chronisch nur bei Immunsupprimierten, etwa nach Organtransplantation). Hepatitis B chronifiziert beim Erwachsenen in etwa 5–10 %, beim Neugeborenen jedoch in über 90 % und beim Kleinkind in etwa 30 %. Hepatitis C chronifiziert in bis zu 80 % — mit dem Weg über die Leberzirrhose zum hepatozellulären Karzinom.',
+        },
+        {
+          name: 'Akutes Leberversagen (Definition und Warnwerte)',
+          inhalt: 'Trias aus Ikterus, Gerinnungsstörung (INR ≥ 1,5 bzw. Quick unter 50 %) und hepatischer Enzephalopathie innerhalb von 26 Wochen bei zuvor Lebergesunden. Der Quick-Wert bzw. INR ist der prognostisch entscheidende Parameter, weil er die Syntheseleistung der Leber abbildet; die Höhe der Transaminasen sagt nichts über die Prognose aus.',
+        },
+        {
+          name: 'Meldepflicht nach Infektionsschutzgesetz',
+          inhalt: 'Nach § 6 IfSG sind Verdacht, Erkrankung und Tod an akuter Virushepatitis vom behandelnden Arzt namentlich innerhalb von 24 Stunden an das Gesundheitsamt zu melden; nach § 7 IfSG meldet das Labor den direkten oder indirekten Erregernachweis. Nach § 42 IfSG besteht ein Tätigkeitsverbot beim gewerbsmäßigen Umgang mit Lebensmitteln nur bei Hepatitis A und E, nicht bei Hepatitis B und C.',
+        },
+      ],
+      redFlags: [
+        'Verwirrtheit, Konzentrationsstörung, Tag-Nacht-Umkehr oder Flapping tremor → hepatische Enzephalopathie bei fulminantem Verlauf',
+        'Abfall des Quick-Wertes unter 50 % bzw. INR über 1,5, Hämatome, Nasen- oder Zahnfleischbluten → Verlust der Synthesefunktion',
+        'Rasch zunehmender Ikterus bei gleichzeitig ABFALLENDEN Transaminasen und schrumpfender Leber in der Sonographie → Zeichen des massiven Hepatozytenunterganges, nicht der Besserung',
+        'Foetor hepaticus, Somnolenz, Erbrechen und Hypoglykämie → sofortige Kontaktaufnahme mit einem Lebertransplantationszentrum',
+        'Fieber über 38,5 °C mit Schüttelfrost und schmerzhaftem Ikterus → eher Cholangitis (Charcot-Trias) als Virushepatitis',
+        'Aszites, Ödeme und Splenomegalie → bereits fortgeschrittene chronische Lebererkrankung mit portaler Hypertonie',
+        'Schwangerschaft bei Hepatitis E → Letalität bis zu 20 %',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Expositionsanamnese: Auslandsreisen mit Ort und Zeitraum, Trinkwasser, rohe Muscheln und Meeresfrüchte, rohes Schweine- und Wildfleisch, Tätowierungen und Piercings, i.v.-Drogenkonsum, ungeschützter Geschlechtsverkehr und Partnerwechsel, Nadelstichverletzung, Transfusionen, Dialyse, Impfstatus gegen Hepatitis A und B',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Frage nach Ikterus, Sklerenverfärbung, Urin- und Stuhlfarbe sowie Juckreiz — Patienten bemerken die Gelbfärbung häufig selbst nicht, sie wird meist von Angehörigen bemerkt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abgrenzende Anamnese zur Differenzialdiagnose: Alkoholmenge in Gramm pro Tag, alle Medikamente einschließlich Paracetamol, frei verkäuflicher Präparate und pflanzlicher Nahrungsergänzungsmittel, Autoimmunerkrankungen in der Familie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Inspektion von Haut und Skleren, Kratzspuren, Suche nach Leberhautzeichen (Spider naevi, Palmarerythem, Caput medusae, Weißnägel), Palpation und Perkussion der Leber (Größe, Konsistenz, Klopfschmerz), Milzpalpation, Murphy- und Courvoisier-Zeichen, Prüfung auf Aszites und Ödeme, Flapping tremor und Foetor hepaticus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Transaminasen GPT/ALT und GOT/AST — bei der Virushepatitis ist die GPT höher als die GOT (De-Ritis-Quotient unter 1) und die Werte sind oft mehr als zehnfach erhöht; ein Quotient über 2 spricht für eine alkoholische Genese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bilirubin gesamt, direkt und indirekt (bei der Hepatitis überwiegt das direkte, konjugierte Bilirubin) sowie die Cholestaseparameter gGT und alkalische Phosphatase',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Syntheseparameter: QUICK und INR sowie Albumin und Cholinesterase — der Quick-Wert ist der prognostisch entscheidende Parameter und muss im Verlauf kontrolliert werden; ergänzend Blutzucker und Ammoniak bei Verdacht auf Enzephalopathie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Hepatitis-Serologie als Kernuntersuchung: HBsAg, Anti-HBs, Anti-HBc gesamt und IgM, HBeAg und Anti-HBe, HBV-DNA; dazu Anti-HAV-IgM, Anti-HCV mit HCV-RNA und bei positivem HBsAg Anti-HDV sowie Anti-HEV',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor und Suchtest auf Begleitinfektionen: Blutbild, CRP und BSG, Kreatinin und Elektrolyte, Lipase, Urinstatus (Bilirubin und Urobilinogen), HIV- und Lues-Serologie bei sexueller Übertragung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei unklarer Serologie erweiterte Abklärung: EBV- und CMV-Serologie, Autoantikörper (ANA, SMA, LKM-1) mit IgG, Coeruloplasmin und Kupfer im Urin (Morbus Wilson), Ferritin und Transferrinsättigung (Hämochromatose), Alpha-1-Antitrypsin, AFP',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als Untersuchung der ersten Wahl: Lebergröße und Echogenität, verdickte Gallenblasenwand, Ausschluss eines erweiterten Gallengangs, von Konkrementen, Raumforderungen, Aszites, Splenomegalie und Pfortaderveränderungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei sonographisch gestauten Gallenwegen ergänzend MRCP oder Endosonographie zur Abgrenzung einer posthepatischen Cholestase; CT oder MRT bei Verdacht auf eine Raumforderung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei chronischem Verlauf Elastographie (FibroScan) und nicht invasive Fibrose-Scores sowie halbjährliche Sonographie zum HCC-Screening; ÖGD zur Suche nach Ösophagusvarizen bei Zirrhoseverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Leberbiopsie nur bei unklarer Ätiologie, Verdacht auf Autoimmunhepatitis oder Speicherkrankheit und zur Beurteilung von Entzündungsgrad und Fibrosestadium — bei eindeutiger Serologie der akuten Virushepatitis nicht erforderlich und bei Gerinnungsstörung kontraindiziert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei fulminantem Verlauf intensivmedizinische Überwachung mit engmaschiger Gerinnungs- und Ammoniakkontrolle und frühzeitige Vorstellung in einem Lebertransplantationszentrum',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Alkoholische Hepatitis',
+          unterscheidung: 'Anamnestisch relevanter täglicher Alkoholkonsum; die GOT/AST ist HÖHER als die GPT/ALT, der De-Ritis-Quotient liegt über 2, die gGT ist überproportional erhöht, das MCV vergrößert. Die Hepatitis-Serologie ist negativ.',
+        },
+        {
+          dd: 'Medikamentös-toxische Hepatitis',
+          unterscheidung: 'Zeitlicher Zusammenhang mit einer neuen Substanz: Paracetamol (dosisabhängig, Antidot N-Acetylcystein), Amoxicillin/Clavulansäure, Isoniazid, Methotrexat, Statine, Amiodaron sowie pflanzliche Nahrungsergänzungsmittel wie Grüntee-Extrakt. Besserung nach Absetzen, negative Virusserologie, gelegentlich Eosinophilie.',
+        },
+        {
+          dd: 'Autoimmunhepatitis',
+          unterscheidung: 'Überwiegend Frauen, häufig weitere Autoimmunerkrankungen (Hashimoto-Thyreoiditis, Zöliakie); deutlich erhöhtes IgG, positive Autoantikörper (ANA, SMA, LKM-1), typische Histologie mit Interface-Hepatitis; Ansprechen auf Glukokortikoide.',
+        },
+        {
+          dd: 'EBV- oder CMV-Hepatitis',
+          unterscheidung: 'Meist jüngere Patienten mit Pharyngitis, Lymphknotenschwellung und Splenomegalie; nur mäßig erhöhte Transaminasen, lymphomonozytäres Blutbild mit Reizformen, positive EBV- bzw. CMV-Serologie.',
+        },
+        {
+          dd: 'Choledocholithiasis mit posthepatischer Cholestase, ggf. Cholangitis',
+          unterscheidung: 'Kolikartige, in die rechte Schulter ausstrahlende Schmerzen; führend erhöht sind AP und gGT, die Transaminasen nur mäßig; in der Sonographie erweiterte Gallenwege und Konkremente. Bei Fieber, Schüttelfrost und Ikterus liegt die Charcot-Trias der Cholangitis vor — ein Notfall.',
+        },
+        {
+          dd: 'Pankreas- oder Gallengangskarzinom',
+          unterscheidung: 'SCHMERZLOSER, langsam zunehmender Ikterus beim älteren Patienten mit ausgeprägtem Gewichtsverlust; positives Courvoisier-Zeichen (prall-elastische, schmerzlose Gallenblase); erweiterter Gallengang und Raumforderung in Sonographie, CT oder MRCP.',
+        },
+        {
+          dd: 'Leberzirrhose und hepatozelluläres Karzinom',
+          unterscheidung: 'Chronischer Verlauf mit Leberhautzeichen, Aszites, Ödemen, Splenomegalie, Zunahme des Bauchumfangs; erniedrigtes Albumin und dauerhaft erniedrigter Quick-Wert, Thrombopenie; höckrige Leber und Raumforderung in der Bildgebung, AFP erhöht.',
+        },
+        {
+          dd: 'Morbus Wilson und Hämochromatose',
+          unterscheidung: 'Beim jüngeren Patienten immer mitzudenken: beim Morbus Wilson erniedrigtes Coeruloplasmin, erhöhte Kupferausscheidung im Urin, Kayser-Fleischer-Kornealring und neuropsychiatrische Symptome; bei der Hämochromatose Ferritin und Transferrinsättigung erhöht, Hautbronzierung, Diabetes und Arthropathie.',
+        },
+        {
+          dd: 'Stauungsleber bei Rechtsherzinsuffizienz',
+          unterscheidung: 'Halsvenenstauung, periphere Ödeme, hepatojugulärer Reflux, Dyspnoe; sonographisch gestaute Lebervenen und erweiterte Vena cava inferior; die Transaminasen steigen bei akuter Stauung stark, fallen aber unter Rekompensation rasch wieder ab.',
+        },
+        {
+          dd: 'Prähepatischer Ikterus (Hämolyse, Morbus Meulengracht)',
+          unterscheidung: 'Erhöhung des INDIREKTEN Bilirubins bei normalen Transaminasen; der Stuhl ist normal oder dunkel und der Urin hell, weil das unkonjugierte Bilirubin nicht nierengängig ist. Bei Hämolyse zusätzlich Anämie, LDH erhöht, Haptoglobin erniedrigt; beim Morbus Meulengracht Anstieg bei Fasten und Stress ohne Krankheitswert.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Allgemeinmaßnahmen und Verlaufskontrolle der akuten Hepatitis',
+          items: [
+            'Es gibt bei der akuten Hepatitis A, B und E keine spezifische antivirale Therapie — die Behandlung ist symptomatisch und besteht vor allem aus konsequenter Verlaufskontrolle',
+            'Strikte Alkoholkarenz und Absetzen bzw. Vermeiden aller hepatotoxischen Substanzen (Paracetamol, nichtsteroidale Antirheumatika, Statine, pflanzliche Nahrungsergänzungsmittel); Dosisanpassung leberabhängig verstoffwechselter Medikamente',
+            'Körperliche Schonung ohne strenge Bettruhe, leichte, kohlenhydratbetonte Kost nach Appetit, ausreichende Flüssigkeitszufuhr; eine spezielle Leberdiät ist nicht belegt',
+            'Symptomatische Therapie: Antiemetikum bei Übelkeit, Colestyramin oder Antihistaminikum bei quälendem Juckreiz, Metamizol statt Paracetamol zur Analgesie',
+            'Engmaschige Laborkontrolle im Abstand von wenigen Tagen — entscheidend sind QUICK/INR und Bilirubin, nicht die Höhe der Transaminasen; zusätzlich klinische Kontrolle auf Enzephalopathiezeichen',
+            'Ambulante Betreuung ist bei gutem Allgemeinzustand und normaler Gerinnung möglich; stationäre Aufnahme bei Erbrechen mit drohender Exsikkose, Bilirubin über 15 mg/dl, Quick unter 70 %, Komorbidität oder unsicherer häuslicher Situation',
+            'Bei fulminantem Verlauf mit Quick unter 50 % bzw. INR über 1,5 und Enzephalopathie: intensivmedizinische Überwachung, antivirale Therapie mit Entecavir oder Tenofovir auch im akuten Stadium und sofortige Vorstellung in einem Lebertransplantationszentrum',
+            'Isolierung ist bei Hepatitis B und C nicht erforderlich — es genügen die Standardhygienemaßnahmen mit sicherer Entsorgung spitzer Gegenstände; bei Hepatitis A und E dagegen Kontaktisolierung wegen der fäkal-oralen Übertragung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Antivirale Therapie der chronischen Verlaufsformen',
+          items: [
+            'Chronische Hepatitis B: Nukleos(t)idanaloga Tenofovir oder Entecavir, alternativ pegyliertes Interferon alfa bei ausgewählten Patienten; Indikation bei erhöhter HBV-DNA mit erhöhter GPT, bei Fibrose oder Zirrhose sowie vor Immunsuppression und Chemotherapie',
+            'Entscheidend für die Aufklärung: Diese Medikamente SUPPRIMIEREN das Virus dauerhaft und verhindern Zirrhose und HCC, sie HEILEN die Infektion aber nicht; die Therapie ist meist langfristig, ein Absetzen kann einen Schub auslösen',
+            'Chronische Hepatitis C: direkt wirkende antivirale Substanzen (DAA, zum Beispiel Sofosbuvir mit Velpatasvir oder Glecaprevir mit Pibrentasvir) über acht bis zwölf Wochen mit Heilungsraten über 95 % — hier ist eine echte Ausheilung möglich',
+            'Hepatitis D: pegyliertes Interferon alfa bzw. der Eintrittsinhibitor Bulevirtid; die Prognose ist die ungünstigste aller Virushepatitiden',
+            'Chronische Hepatitis E bei Immunsupprimierten: Reduktion der Immunsuppression, bei Persistenz Ribavirin',
+            'Vor jeder Immunsuppression, Chemotherapie oder Rituximab-Gabe HBsAg und Anti-HBc bestimmen — Gefahr der Hepatitis-B-Reaktivierung, gegebenenfalls antivirale Prophylaxe',
+          ],
+        },
+        {
+          label: 'Prävention, Umgebungsschutz und Meldepflicht',
+          items: [
+            'Aktive Impfung gegen Hepatitis A und B (Totimpfstoff, Grundimmunisierung gegen B im Schema 0–1–6 Monate; Impferfolg gesichert bei Anti-HBs über 100 IE/l); GEGEN HEPATITIS C GIBT ES KEINE IMPFUNG',
+            'Postexpositionsprophylaxe nach Nadelstichverletzung: Wunde bluten lassen, spülen und desinfizieren, Unfallmeldung beim Durchgangsarzt, Serologie von Index und Verletztem; bei fehlendem Schutz aktiv-passive Immunisierung mit Impfstoff und Hepatitis-B-Immunglobulin möglichst innerhalb von sechs, spätestens 48 Stunden',
+            'Perinatale Prophylaxe: HBsAg-Screening jeder Schwangeren; Neugeborene HBsAg-positiver Mütter erhalten innerhalb von zwölf Stunden simultan aktive und passive Immunisierung — dadurch wird die Übertragung in über 90 % verhindert',
+            'Untersuchung und Impfung der Sexualpartner und Haushaltskontakte; Aufklärung über die Übertragungswege: Kondombenutzung bis zur gesicherten Immunität des Partners, keine gemeinsame Nutzung von Rasierern, Zahnbürsten und Nagelscheren, kein Blut- und Organspenden',
+            'Namentliche Meldung von Verdacht, Erkrankung und Tod an das Gesundheitsamt nach § 6 Infektionsschutzgesetz innerhalb von 24 Stunden; Tätigkeitsverbot beim Umgang mit Lebensmitteln nach § 42 IfSG nur bei Hepatitis A und E',
+            'Reiseprophylaxe: Impfung gegen Hepatitis A und B vor Reisen, Trinkwasserhygiene, Verzicht auf rohe Muscheln, ungeschältes Obst und Eiswürfel, Verzicht auf Tätowierungen und Piercings im Ausland',
+          ],
+        },
+        {
+          label: 'Überwachung von Spätfolgen und Nachsorge',
+          items: [
+            'Serologische Verlaufskontrolle nach sechs Monaten: Verschwinden des HBsAg mit Auftreten von Anti-HBs beweist die Ausheilung; ein über sechs Monate persistierendes HBsAg definiert die chronische Hepatitis B',
+            'Bei chronischem Verlauf regelmäßige Kontrolle von Transaminasen, HBV-DNA, HBeAg/Anti-HBe sowie Fibrosebeurteilung mittels Elastographie',
+            'HCC-Screening mit Abdomensonographie ALLE SECHS MONATE bei Zirrhose sowie bei chronischer Hepatitis B auch ohne Zirrhose in Risikogruppen; ergänzend AFP-Bestimmung',
+            'Bei Zirrhose zusätzlich ÖGD zum Varizenscreening, Überwachung auf Aszites und Enzephalopathie sowie Impfung gegen Pneumokokken, Influenza und Hepatitis A',
+            'Nach ausgeheilter Infektion keine spezielle Nachsorge; die Anti-HBc-Positivität bleibt lebenslang bestehen und muss vor einer Immunsuppression berücksichtigt werden',
+          ],
+        },
+      ],
+      prognose: 'Die akute Hepatitis B heilt beim immunkompetenten Erwachsenen in etwa 90–95 % der Fälle folgenlos aus, meist innerhalb von zwei bis drei Monaten; die Transaminasen normalisieren sich in der Regel binnen acht bis zwölf Wochen. In 5–10 % kommt es zur Chronifizierung, beim Neugeborenen dagegen in über 90 % und beim Kleinkind in etwa 30 % — je jünger der Patient bei der Infektion, desto höher das Chronifizierungsrisiko. Ein fulminantes Leberversagen tritt in unter 1 % auf, ist aber ohne Transplantation mit einer hohen Letalität verbunden. Prognostisch entscheidend ist nicht die Höhe der Transaminasen, sondern der Quick-Wert bzw. INR als Maß der Syntheseleistung. Aus der chronischen Hepatitis B entwickeln etwa 20–30 % innerhalb von Jahrzehnten eine Zirrhose; das hepatozelluläre Karzinom kann bei der Hepatitis B auch ohne vorbestehende Zirrhose entstehen. Hepatitis A und E heilen praktisch immer aus, die Hepatitis C chronifiziert in bis zu 80 %, ist heute aber in über 95 % heilbar.',
+      pruefungsfallen: [
+        'Die Hepatitis-Serologie darf bei erhöhten Transaminasen NIE vergessen werden — in Stuttgart wurde ausdrücklich gefragt: „Würden Sie die Hepatitis-Serologie kontrollieren?“',
+        'Die Serologie der Hepatitis B muss sicher gedeutet werden: HBsAg = bestehende Infektion, Anti-HBs = Immunität, Anti-HBc = stattgehabter Kontakt (IgM = frisch), HBeAg und HBV-DNA = Replikation und Infektiosität. Ein Geimpfter hat NUR Anti-HBs, ein Ausgeheilter hat Anti-HBs UND Anti-HBc.',
+        'Die Übertragungswege dürfen nicht vertauscht werden: A und E fäkal-oral, B, C und D parenteral, sexuell und perinatal. Eine Impfung existiert gegen A und B, aber NICHT gegen C.',
+        'Der prognostisch entscheidende Laborwert ist der QUICK-Wert bzw. INR (Syntheseleistung), nicht die Höhe der Transaminasen. Fallende Transaminasen bei steigendem Bilirubin und schrumpfender Leber sind ein Alarmzeichen, kein Zeichen der Besserung.',
+        'Bei der Virushepatitis ist die GPT/ALT höher als die GOT/AST (De-Ritis-Quotient unter 1); ein Quotient über 2 spricht für eine alkoholische Hepatitis. Diese Unterscheidung wird regelmäßig verlangt.',
+        'Der Ikterus ist zuerst an den SKLEREN sichtbar (ab etwa 2 mg/dl Gesamtbilirubin), an der Haut erst ab etwa 3 mg/dl. Patienten bemerken ihn oft selbst nicht — aktiv nach Haut- und Augenfarbe, Urin- und Stuhlfarbe fragen.',
+        'Dunkler Urin UND heller Stuhl beweisen einen intra- oder posthepatischen Ikterus. Beim prähepatischen Ikterus (Hämolyse) ist der Urin hell, weil das indirekte Bilirubin nicht nierengängig ist.',
+        'Die Meldepflicht nach § 6 Infektionsschutzgesetz nennen — Verdacht, Erkrankung und Tod, namentlich, innerhalb von 24 Stunden an das Gesundheitsamt. In Freiburg wurde nach dem Umgang mit ansteckenden Infektionen gefragt und der Kandidat konnte nicht antworten.',
+        'Bei Hepatitis B und C ist KEINE Isolierung erforderlich, es genügen Standardhygienemaßnahmen; nur bei Hepatitis A und E wird kontaktisoliert und nur dort gilt das Tätigkeitsverbot nach § 42 IfSG für Lebensmittelberufe.',
+        'Die Fachbegriffe müssen patientengerecht übersetzt werden: Hepatitis = Leberentzündung, Ikterus = Gelbsucht bzw. Gelbfärbung der Haut durch Ablagerung von Gallenfarbstoff, Cholestase = Gallestauung, Cholangitis = Entzündung der Gallenwege.',
+        'Bei der chronischen Hepatitis B nicht von „Heilung“ sprechen: Tenofovir und Entecavir unterdrücken das Virus, heilen es aber nicht — im Gegensatz zur Hepatitis C, die mit direkt wirkenden Substanzen in über 95 % ausgeheilt wird.',
+        'Die Umgebung nicht vergessen: Partner und Haushaltskontakte untersuchen und impfen, Postexpositionsprophylaxe nach Nadelstich, perinatale Prophylaxe innerhalb von zwölf Stunden.',
+        'Das HCC-Screening erfolgt mittels Sonographie ALLE SECHS MONATE — nicht jährlich.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Würden Sie die Hepatitis-Serologie kontrollieren, und was genau bestimmen Sie?',
+          antwort: 'Ja, unbedingt. Ich bestimme HBsAg, Anti-HBs, Anti-HBc gesamt und IgM, HBeAg und Anti-HBe sowie die HBV-DNA, dazu Anti-HAV-IgM, Anti-HCV mit HCV-RNA und bei positivem HBsAg zusätzlich Anti-HDV; bei entsprechender Exposition auch Anti-HEV sowie einen HIV-Test.',
+        },
+        {
+          frage: 'Erklären Sie die serologischen Marker der Hepatitis B.',
+          antwort: 'HBsAg zeigt eine bestehende Infektion an, akut oder chronisch. Anti-HBs bedeutet Immunität, entweder nach Impfung oder nach ausgeheilter Infektion. Anti-HBc zeigt, dass ein Kontakt mit dem Virus stattgefunden hat; Anti-HBc-IgM spricht für eine frische Infektion. HBeAg und die HBV-DNA stehen für aktive Virusvermehrung und hohe Ansteckungsfähigkeit.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie einen Geimpften von einem Patienten mit ausgeheilter Hepatitis B?',
+          antwort: 'Der Geimpfte hat ausschließlich Anti-HBs, weil der Impfstoff nur das Oberflächenantigen enthält. Der Ausgeheilte hat Anti-HBs UND Anti-HBc, weil er Kontakt mit dem kompletten Virus hatte. Anti-HBc bleibt lebenslang nachweisbar.',
+        },
+        {
+          frage: 'Wann sprechen Sie von einer chronischen Hepatitis B, und wie hoch ist das Chronifizierungsrisiko?',
+          antwort: 'Wenn das HBsAg länger als sechs Monate nachweisbar bleibt. Beim immunkompetenten Erwachsenen chronifiziert die Hepatitis B in etwa 5 bis 10 Prozent, beim Neugeborenen jedoch in über 90 Prozent und beim Kleinkind in etwa 30 Prozent. Die Hepatitis C chronifiziert in bis zu 80 Prozent, Hepatitis A und E heilen praktisch immer aus.',
+        },
+        {
+          frage: 'Welche Übertragungswege kennen Sie?',
+          antwort: 'Hepatitis A und E werden fäkal-oral übertragen, also über kontaminiertes Wasser und Lebensmittel, rohe Muscheln, bei Hepatitis E auch über rohes Schweinefleisch und Wild. Hepatitis B, C und D werden parenteral, sexuell und perinatal übertragen: Nadelstichverletzung, Tätowierung und Piercing, intravenöser Drogenkonsum, Transfusionen vor 1992 bei der Hepatitis C und die Geburt durch eine infizierte Mutter.',
+        },
+        {
+          frage: 'Gegen welche Hepatitiden kann man impfen?',
+          antwort: 'Gegen Hepatitis A und Hepatitis B, es gibt auch einen Kombinationsimpfstoff. Die Impfung gegen B schützt indirekt auch vor Hepatitis D, weil dieses Virus nur zusammen mit HBV auftreten kann. Gegen Hepatitis C gibt es keine Impfung, gegen Hepatitis E in Europa ebenfalls nicht.',
+        },
+        {
+          frage: 'Welcher Laborwert ist prognostisch entscheidend, und warum?',
+          antwort: 'Der Quick-Wert beziehungsweise der INR, weil er die Syntheseleistung der Leber abbildet — die Gerinnungsfaktoren werden in der Leber gebildet und haben eine kurze Halbwertszeit. Ein Quick unter 50 Prozent oder ein INR über 1,5 zeigt ein drohendes Leberversagen an. Die Höhe der Transaminasen sagt dagegen nichts über die Prognose aus.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie im Labor eine Virushepatitis von einer alkoholischen Hepatitis?',
+          antwort: 'Bei der Virushepatitis ist die GPT höher als die GOT, der De-Ritis-Quotient liegt unter 1 und die Transaminasen sind oft mehr als zehnfach erhöht. Bei der alkoholischen Hepatitis ist die GOT höher als die GPT mit einem Quotienten über 2, die gGT ist überproportional erhöht und das MCV vergrößert.',
+        },
+        {
+          frage: 'Warum hat der Patient dunklen Urin und hellen Stuhl?',
+          antwort: 'Weil die Leberzellen zerstört und die kleinen Gallenwege entzündlich verlegt sind. Das bereits konjugierte, wasserlösliche Bilirubin gelangt ins Blut und wird über die Niere ausgeschieden — daher der dunkle Urin. Gleichzeitig gelangt weniger Gallenfarbstoff in den Darm, deshalb ist der Stuhl hell und entfärbt.',
+        },
+        {
+          frage: 'Muss der Patient isoliert werden? Gibt es dafür ein bestimmtes Krankenhaus?',
+          antwort: 'Nein. Die Hepatitis B wird über Blut, Sexualkontakt und perinatal übertragen, nicht aerogen oder fäkal-oral. Es genügen Standardhygienemaßnahmen mit besonderer Vorsicht bei Nadeln und Blutkontakt; ein spezielles Infektionskrankenhaus ist nicht nötig. Nur bei Hepatitis A und E wird kontaktisoliert. Meldepflichtig ist die akute Virushepatitis dennoch nach § 6 Infektionsschutzgesetz.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine akute Hepatitis B?',
+          antwort: 'In der Regel symptomatisch: Alkoholkarenz, Absetzen hepatotoxischer Medikamente, körperliche Schonung, leichte Kost und ausreichende Flüssigkeitszufuhr, dazu Antiemetika und bei Juckreiz Colestyramin. Entscheidend sind engmaschige Kontrollen von Quick, Bilirubin und Transaminasen. Eine antivirale Therapie mit Entecavir oder Tenofovir ist nur bei schwerem oder fulminantem Verlauf indiziert.',
+        },
+        {
+          frage: 'Und wie behandeln Sie die chronischen Formen?',
+          antwort: 'Die chronische Hepatitis B mit Tenofovir oder Entecavir — diese Substanzen unterdrücken das Virus dauerhaft, heilen es aber nicht. Die chronische Hepatitis C wird mit direkt wirkenden antiviralen Substanzen über acht bis zwölf Wochen behandelt, mit Heilungsraten über 95 Prozent.',
+        },
+        {
+          frage: 'Was raten Sie den Angehörigen und dem Partner?',
+          antwort: 'Partner und Haushaltskontakte sollten serologisch untersucht und, wenn sie ungeschützt sind, geimpft werden. Bis zur gesicherten Immunität des Partners Kondome benutzen, keine gemeinsamen Rasierer, Zahnbürsten oder Nagelscheren verwenden und vorerst kein Blut spenden.',
+        },
+        {
+          frage: 'Was tun Sie nach einer Nadelstichverletzung?',
+          antwort: 'Die Wunde bluten lassen, ausgiebig spülen und mit einem viruziden Mittel desinfizieren, dann Vorstellung beim Durchgangsarzt und Dokumentation als Arbeitsunfall. Serologie von Indexpatient und Verletztem, und bei fehlendem Impfschutz eine aktiv-passive Immunisierung mit Impfstoff und Hepatitis-B-Immunglobulin möglichst innerhalb von sechs, spätestens 48 Stunden.',
+        },
+        {
+          frage: 'Was sind die Spätfolgen, und wie überwachen Sie sie?',
+          antwort: 'Leberzirrhose mit portaler Hypertonie, Ösophagusvarizen, Aszites und Enzephalopathie sowie das hepatozelluläre Karzinom, das bei der Hepatitis B auch ohne Zirrhose entstehen kann. Überwacht wird mit einer Abdomensonographie alle sechs Monate, ergänzend AFP, und bei Zirrhose mit einer ÖGD zum Varizenscreening.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Begriffe Hepatitis, Ikterus und Cholestase?',
+          antwort: 'Hepatitis ist eine Leberentzündung. Ikterus ist die Gelbsucht, also eine Gelbfärbung von Haut und Augen durch die Ablagerung von Gallenfarbstoff. Cholestase bedeutet Gallestauung, und eine Cholangitis ist eine Entzündung der Gallenwege.',
+        },
+      ],
+      merksatz: 'Gelbe Skleren, dunkler Urin, heller Stuhl — und bei Rauchern der plötzliche Widerwille gegen Zigaretten: das ist die akute Virushepatitis. A und E fäkal-oral, B, C und D über Blut, Sex und Geburt; Impfung gegen A und B, keine gegen C. HBsAg = Infektion, Anti-HBs = Immunität, Anti-HBc = Kontakt, HBeAg und HBV-DNA = Ansteckungsgefahr. Über die Prognose entscheidet nicht die Höhe der Transaminasen, sondern der Quick-Wert.',
+      linkedCaseIds: [
+        'case-hepatitis-b',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+      ],
+    },
+    {
+      id: 'fw-parkinson',
+      pathology: 'Morbus Parkinson (idiopathisches Parkinson-Syndrom)',
+      specialty: 'Neurologie',
+      definition: 'Der Morbus Parkinson (idiopathisches Parkinson-Syndrom, IPS) ist eine chronisch progrediente neurodegenerative Erkrankung mit fortschreitendem Untergang der dopaminergen Neurone in der Substantia nigra pars compacta und intrazellulären Ablagerungen von fehlgefaltetem Alpha-Synuclein (Lewy-Körperchen). Der daraus folgende striatale Dopaminmangel führt zum klinischen Kernsyndrom aus obligater BRADYKINESE plus RIGOR und/oder RUHETREMOR. Klinisch manifest wird die Erkrankung erst nach Verlust von etwa 50–60 % der nigralen Neurone beziehungsweise einem striatalen Dopaminmangel von 70–80 %; nicht-motorische Symptome wie Hyposmie, REM-Schlaf-Verhaltensstörung, Obstipation und Depression gehen den motorischen Zeichen häufig um Jahre voraus. Das IPS macht etwa 75 % aller Parkinson-Syndrome aus; die Prävalenz liegt bei 100–200 pro 100 000 Einwohner und bei den über 65-Jährigen bei 1–2 %, das mittlere Erkrankungsalter bei etwa 60 Jahren, Männer sind etwas häufiger betroffen.',
+      aetiologie: 'Die Ursache des idiopathischen Parkinson-Syndroms ist nicht geklärt; angenommen wird ein multifaktorielles Zusammenspiel aus genetischer Disposition, Alterung und Umweltfaktoren. Pathophysiologisch kommt es zur Aggregation von Alpha-Synuclein mit Lewy-Körperchen-Bildung, die sich nach Braak aufsteigend vom Bulbus olfactorius und vom dorsalen Vaguskern über den Hirnstamm bis zum Neokortex ausbreitet — das erklärt, warum Hyposmie, Obstipation und REM-Schlaf-Verhaltensstörung den motorischen Symptomen um Jahre vorausgehen. Etwa 5–10 % sind monogenetisch bedingt (LRRK2, GBA, PARK2/Parkin, PINK1 — Letztere typischerweise mit Manifestation vor dem 40. Lebensjahr). Davon abzugrenzen sind die sekundären (symptomatischen) Parkinson-Syndrome: medikamentös durch klassische Neuroleptika, Metoclopramid, Flunarizin, Valproat oder Reserpin, vaskulär bei subkortikaler Mikroangiopathie, toxisch (Mangan, Kohlenmonoxid, MPTP), posttraumatisch, entzündlich sowie beim Normaldruckhydrozephalus und beim Morbus Wilson.',
+      risikofaktoren: [
+        'Höheres Lebensalter — der mit Abstand wichtigste Risikofaktor',
+        'Männliches Geschlecht (Verhältnis etwa 1,5:1)',
+        'Positive Familienanamnese bei Verwandten ersten Grades (Risiko etwa verdoppelt, aber absolut weiterhin niedrig)',
+        'Genetische Varianten, insbesondere GBA- und LRRK2-Mutationen',
+        'Exposition gegenüber Pestiziden und Herbiziden, ländliche Umgebung, Brunnenwasser',
+        'Berufliche Exposition gegenüber Schwermetallen, insbesondere Mangan, sowie Lösungsmitteln (Trichlorethylen)',
+        'Wiederholte Schädel-Hirn-Traumata (Boxen)',
+        'Bemerkenswerte Negativassoziation: Rauchen und Kaffeekonsum sind epidemiologisch mit einem niedrigeren Erkrankungsrisiko verbunden — daraus darf jedoch keine Empfehlung abgeleitet werden',
+      ],
+      klinik: [
+        {
+          text: 'BRADYKINESE (Hypo-/Akinese) als obligates Kardinalsymptom: Verlangsamung und Amplitudenabnahme (Dekrement) bei repetitiven Bewegungen, verlängerte Alltagsverrichtungen, Schwierigkeiten beim Knöpfen und beim Aufstehen aus dem Sessel',
+        },
+        {
+          text: 'RIGOR: gleichmäßig zäher, geschwindigkeitsunabhängiger Dehnungswiderstand („wächserner" Widerstand) mit Zahnradphänomen, durch das Froment-Manöver (Bewegung der Gegenseite) verstärkt',
+        },
+        {
+          text: 'RUHETREMOR mit 4–6 Hz, distal betont, als „Pillendreher- oder Münzenzähltremor"; einseitiger Beginn, Zunahme bei Aufregung, Rechnen und beim Gehen, BESSERUNG bei gezielter Bewegung und Sistieren im Schlaf',
+        },
+        {
+          text: 'ASYMMETRISCHER, einseitig betonter Beginn der Symptomatik, der auch im weiteren Verlauf seitenbetont bleibt',
+        },
+        {
+          text: 'Posturale Instabilität mit Pro- und Retropulsion und positivem Pull-Test — ein SPÄTsymptom, das typischerweise erst nach Jahren auftritt',
+        },
+        {
+          text: 'Kleinschrittiger, schlurfender Gang mit reduziertem Armschwung auf der betroffenen Seite, vornübergebeugter Haltung, Start- und Wendeschwierigkeiten sowie Freezing („die Füße kleben am Boden"), besonders in Türrahmen und unter Zeitdruck',
+        },
+        {
+          text: 'MIKROGRAPHIE: die Schrift wird zum Zeilenende hin immer kleiner — ein früh fassbares und sehr charakteristisches Zeichen',
+        },
+        {
+          text: 'Hypomimie mit Maskengesicht, seltener Lidschlag, Salbengesicht (Seborrhoe) und positiver Glabella-Reflex (fehlende Habituation)',
+        },
+        {
+          text: 'Hypophonie und Dysarthrophonie: leise, monotone, undeutliche und zum Satzende hin beschleunigte Sprache',
+        },
+        {
+          text: 'HYPOSMIE bis Anosmie — nicht-motorisches Frühsymptom, oft Jahre bis Jahrzehnte vor den motorischen Zeichen',
+        },
+        {
+          text: 'REM-SCHLAF-VERHALTENSSTÖRUNG: der Patient agiert seine Träume aus, schreit, schlägt um sich oder fällt aus dem Bett — meist berichtet es der Partner, nicht der Patient',
+        },
+        {
+          text: 'Obstipation, oft seit vielen Jahren, sowie Sialorrhoe und Dysphagie im Verlauf',
+        },
+        {
+          text: 'Depression, Antriebsminderung, Angst und Apathie; im Verlauf orthostatische Hypotonie, Blasenentleerungsstörung, Schlafstörung, Schmerzen und Parkinson-Demenz',
+          atypisch: false,
+        },
+        {
+          text: 'Erstmanifestation als therapieresistenter Schulter-Arm-Schmerz oder als „frozen shoulder" der betroffenen Seite — häufig monatelang orthopädisch fehlbehandelt',
+          atypisch: true,
+        },
+        {
+          text: 'Beginn ausschließlich mit nicht-motorischen Symptomen (Depression, Obstipation, Riechstörung, Traumausagieren) über Jahre, ohne jedes motorische Zeichen',
+          atypisch: true,
+        },
+        {
+          text: 'Reiner Tremordominanz-Typ ohne wesentliche Behinderung, mit langsamer Progredienz und günstigerer Prognose',
+          atypisch: true,
+        },
+        {
+          text: 'Beginn am Bein mit einer isolierten Gangstörung oder mit einer schmerzhaften Fuß-Dystonie, besonders beim jungen Patienten (early-onset)',
+          atypisch: true,
+        },
+        {
+          text: 'Akinetische Krise: hochgradige Immobilität, Schluck- und Sprechunfähigkeit, Fieber und Rigor, ausgelöst durch Absetzen der dopaminergen Medikation, Infekt, Exsikkose oder Operation — lebensbedrohlicher Notfall',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'MDS-Kriterien 2015 (klinische Diagnose)',
+          inhalt: 'Voraussetzung ist ein Parkinson-Syndrom: die BRADYKINESE ist obligat und muss mit mindestens EINEM der beiden Zeichen Rigor oder Ruhetremor kombiniert sein. Die posturale Instabilität gehört ausdrücklich NICHT mehr zu den definierenden Kernsymptomen. Ergänzend werden Supportivkriterien (eindeutiges und anhaltendes Ansprechen auf dopaminerge Therapie, L-Dopa-induzierte Dyskinesien, Ruhetremor einer Extremität, nachgewiesene Hyposmie oder pathologische kardiale MIBG-Szintigraphie), absolute Ausschlusskriterien (zerebelläre Zeichen, vertikale supranukleäre Blickparese, kortikale Zeichen, Behandlung mit Dopaminrezeptorblockern, fehlendes Ansprechen auf hoch dosiertes L-Dopa) und Red Flags (frühe Stürze, rasche Progredienz, frühe schwere autonome Störung, symmetrischer Beginn) gegeneinander abgewogen.',
+        },
+        {
+          name: 'Hoehn und Yahr (Stadieneinteilung, modifiziert)',
+          inhalt: 'Stadium 1: einseitige Symptomatik. Stadium 1,5: einseitige Symptomatik plus axiale Beteiligung. Stadium 2: beidseitige Symptomatik OHNE Gleichgewichtsstörung. Stadium 2,5: leichte beidseitige Symptomatik mit Ausgleich im Pull-Test. Stadium 3: beidseitige Symptomatik mit posturaler Instabilität, der Patient ist noch selbstständig. Stadium 4: schwere Behinderung, Stehen und Gehen ohne Hilfe noch möglich. Stadium 5: Rollstuhlpflicht oder Bettlägerigkeit.',
+        },
+        {
+          name: 'MDS-UPDRS (Verlaufs- und Schweregradskala)',
+          inhalt: 'Teil I: nicht-motorische Erfahrungen des täglichen Lebens. Teil II: motorische Erfahrungen des täglichen Lebens. Teil III: motorische Untersuchung durch den Arzt — dieser Teil wird beim L-Dopa-Test vor und nach Gabe erhoben, eine Verbesserung um mindestens 30 % gilt als deutliches Ansprechen. Teil IV: motorische Komplikationen (Wirkungsfluktuationen und Dyskinesien).',
+        },
+        {
+          name: 'Klinische Verlaufstypen',
+          inhalt: 'Äquivalenz-Typ (Bradykinese, Rigor und Tremor etwa gleich ausgeprägt). Akinetisch-rigider Typ (Tremor fehlt weitgehend; raschere Progredienz, höheres Demenzrisiko). Tremordominanz-Typ (Ruhetremor im Vordergrund; langsamere Progredienz, günstigere Prognose, aber schlechteres Ansprechen des Tremors auf L-Dopa).',
+        },
+        {
+          name: 'Ätiologische Einteilung der Parkinson-Syndrome',
+          inhalt: 'Idiopathisches Parkinson-Syndrom (etwa 75 %). Genetische Formen (5–10 %: LRRK2, GBA, Parkin, PINK1). Atypische Parkinson-Syndrome im Rahmen anderer Neurodegenerationen: Multisystematrophie, progressive supranukleäre Blickparese, kortikobasale Degeneration, Lewy-Körperchen-Demenz. Symptomatische (sekundäre) Parkinson-Syndrome: medikamentös, vaskulär, toxisch, posttraumatisch, entzündlich, beim Normaldruckhydrozephalus und beim Morbus Wilson.',
+        },
+      ],
+      redFlags: [
+        'Akinetische Krise: hochgradige Akinese, Rigor, Fieber, Schluck- und Sprechunfähigkeit, CK-Anstieg und Bewusstseinsstörung nach Absetzen oder Unterbrechung der dopaminergen Therapie, bei Infekt, Exsikkose oder perioperativ — intensivmedizinischer Notfall',
+        'Malignes L-Dopa-Entzugssyndrom nach abruptem Absetzen der Medikation — klinisch wie ein malignes neuroleptisches Syndrom',
+        'Neu aufgetretene Dysphagie mit Verschlucken, Husten beim Trinken oder Gewichtsverlust — Aspirationspneumonie ist die häufigste Todesursache',
+        'Stürze bereits im ersten Krankheitsjahr, rasche Progredienz oder frühe schwere posturale Instabilität — spricht gegen ein idiopathisches und für ein atypisches Parkinson-Syndrom',
+        'Frühe ausgeprägte autonome Störung mit Synkopen, orthostatischer Hypotonie und Harninkontinenz — Verdacht auf Multisystematrophie',
+        'Vertikale supranukleäre Blickparese, insbesondere Einschränkung des Blicks nach unten, mit frühen Stürzen nach hinten — Verdacht auf progressive supranukleäre Blickparese',
+        'Demenz oder optische Halluzinationen innerhalb des ersten Jahres, fluktuierende Vigilanz und ausgeprägte Neuroleptika-Überempfindlichkeit — Verdacht auf Lewy-Körperchen-Demenz',
+        'Akute Verschlechterung der Motorik nach Ansetzen eines Neuroleptikums oder von Metoclopramid',
+        'Impulskontrollstörung unter Dopaminagonisten mit Spiel-, Kauf- oder Esssucht, Hypersexualität oder Punding — kann die soziale und wirtschaftliche Existenz zerstören',
+        'Neu aufgetretene Verwirrtheit oder Psychose — häufig durch Infekt, Exsikkose oder Anticholinergika ausgelöst',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Die Diagnose des idiopathischen Parkinson-Syndroms ist eine KLINISCHE Diagnose nach den MDS-Kriterien; die Zusatzdiagnostik dient dem Ausschluss anderer Ursachen und der Differenzierung gegenüber atypischen Syndromen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese der motorischen Symptome: Seitenbetonung und Beginn, Ruhetremor mit Besserung bei Zielbewegung, Verlangsamung im Alltag, Schriftbild (Mikrographie), Gangbild, Armschwung, Start- und Wendeschwierigkeiten, Stürze',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese der nicht-motorischen Frühsymptome, möglichst unter Einbeziehung des Partners: Riechstörung, REM-Schlaf-Verhaltensstörung mit Traumausagieren, Obstipation, Depression, Angst, Schlafstörung, orthostatische Beschwerden, Blasenstörung, kognitive Veränderungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'MEDIKAMENTENANAMNESE aktiv und namentlich erfragen: klassische Neuroleptika, atypische Neuroleptika, Metoclopramid, Flunarizin, Valproat, Reserpin, Lithium, Kalziumantagonisten — auch Präparate, die nur kurz oder von Angehörigen eingenommen wurden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologische Untersuchung: Prüfung der Bradykinese mit Finger-Tapping, Hand-Öffnen/Schließen, Pronation/Supination und Fußtippen auf Verlangsamung UND Amplitudendekrement; Rigor mit Zahnradphänomen und Froment-Manöver; Charakterisierung des Tremors in Ruhe, beim Halten und beim Zielen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gangprüfung (Schrittlänge, Armschwung, Wenden, Freezing), Pull-Test zur posturalen Stabilität, Prüfung der Blickmotorik einschließlich der vertikalen Blickfolge, Reflexstatus, Pyramidenbahn- und Kleinhirnzeichen, Schriftprobe zur Objektivierung der Mikrographie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schellong-Test beziehungsweise Kipptischuntersuchung zur Erfassung einer orthostatischen Hypotonie; kognitives Screening mit MoCA oder MMST; Erhebung von MDS-UPDRS und Hoehn-und-Yahr-Stadium als Ausgangs- und Verlaufsbefund',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Das Labor dient dem Ausschluss anderer Ursachen und ist beim idiopathischen Parkinson-Syndrom unauffällig: Blutbild, CRP, Elektrolyte, Nieren- und Leberwerte, Blutzucker und HbA1c',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Schilddrüsenparameter TSH, fT3 und fT4 — sowohl die Hypothyreose (Verlangsamung, Antriebsminderung) als auch die Hyperthyreose (feinschlägiger Halte- und Aktionstremor) sind wichtige Differenzialdiagnosen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vitamin B12 und Folsäure; bei Verdacht auf einen Entzugstremor zusätzlich Leberwerte, GGT, MCV und CDT',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Erkrankungsbeginn vor dem 50. Lebensjahr obligat Coeruloplasmin und Kupfer im Serum sowie Kupferausscheidung im 24-Stunden-Urin und Spaltlampenuntersuchung zum Ausschluss eines Morbus Wilson',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'cMRT (bevorzugt) oder cCT: beim idiopathischen Parkinson-Syndrom regelrecht; dient dem Ausschluss symptomatischer Ursachen wie Normaldruckhydrozephalus, vaskulärer Läsionen, Tumor oder entzündlicher Veränderungen und zeigt bei atypischen Syndromen charakteristische Befunde (Kolibri-Zeichen bei der PSP, „hot cross bun sign" bei der MSA)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transkranielle Sonographie der Substantia nigra: Hyperechogenität bei über 90 % der Patienten mit idiopathischem Parkinson-Syndrom — nicht invasiv, kostengünstig, jedoch untersucherabhängig und bei etwa 10 % der Patienten fehlendes Schallfenster',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'DAT-SPECT (FP-CIT/DaTSCAN) bei unklarem Tremor: reduzierte striatale Dopamintransporter-Dichte beim Parkinson-Syndrom, normaler Befund beim essenziellen Tremor und beim medikamenteninduzierten Parkinsonoid; grenzt jedoch das idiopathische NICHT von den atypischen Parkinson-Syndromen ab',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'IBZM-SPECT (postsynaptische D2-Rezeptoren) und kardiale MIBG-Szintigraphie (beim idiopathischen Parkinson-Syndrom vermindert, bei der Multisystematrophie normal) zur Abgrenzung atypischer Syndrome; FDG-PET bei unklarem Befund',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Video-Polysomnographie zur Sicherung einer REM-Schlaf-Verhaltensstörung; Langzeit-Blutdruckmessung und EKG bei autonomen Symptomen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Riechtest (Sniffin\' Sticks): eine nachgewiesene Hyposmie stützt das idiopathische Parkinson-Syndrom; ein normales Riechvermögen ist ein Warnzeichen für ein atypisches Syndrom',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'L-Dopa-Test: 100–200 mg Levodopa nach Vorbehandlung mit Domperidon, Beurteilung des MDS-UPDRS-III vor und nach Gabe; eine Verbesserung um mindestens 30 % spricht für ein dopaminerg ansprechendes Syndrom. Der akute Test hat jedoch eine begrenzte Aussagekraft — beweisend ist das eindeutige und ANHALTENDE Ansprechen auf eine ausreichend dosierte Dauertherapie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Neuropsychologische Testung bei kognitiven Auffälligkeiten; Liquordiagnostik nur bei atypischem Verlauf oder Verdacht auf eine entzündliche Genese; Liquorablassversuch (Tap-Test) bei Verdacht auf einen Normaldruckhydrozephalus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Genetische Testung bei Manifestation vor dem 40. bis 50. Lebensjahr oder deutlich positiver Familienanamnese, nach humangenetischer Beratung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Essenzieller Tremor',
+          unterscheidung: 'Die wichtigste Abgrenzung: HALTE- und Aktionstremor mit 5–10 Hz statt Ruhetremor, BEIDSEITIG und weitgehend symmetrisch, häufig mit Kopf- und Stimmtremor, Besserung durch Alkohol, positive Familienanamnese in bis zu 60 % der Fälle, langsame Progredienz über Jahrzehnte. Es fehlen Bradykinese, Rigor, Hypomimie und die Gangstörung; der DAT-SPECT ist normal. Therapie mit Propranolol oder Primidon.',
+        },
+        {
+          dd: 'Medikamenteninduziertes Parkinsonoid',
+          unterscheidung: 'Häufigste sekundäre Form und ein klassischer Prüfungsfallstrick: durch klassische und atypische Neuroleptika, Metoclopramid, Flunarizin, Valproat oder Reserpin. Typischerweise SYMMETRISCHER Beginn, oft mit Akathisie und Haltetremor, zeitlicher Zusammenhang zur Medikation, normaler DAT-SPECT und Rückbildung über Wochen bis Monate nach Absetzen. Deshalb muss die Medikamentenanamnese aktiv und namentlich erhoben werden.',
+        },
+        {
+          dd: 'Vaskuläres Parkinson-Syndrom',
+          unterscheidung: '„Lower-body-Parkinson": Gang- und Standstörung mit breitbasigem, kleinschrittigem Gang bei weitgehend freier Armfunktion und fehlendem Ruhetremor. Stufenweiser Verlauf, vaskuläre Risikofaktoren, häufig Pyramidenbahnzeichen, Pseudobulbärparalyse und Harninkontinenz; im MRT ausgeprägte subkortikale Marklagerläsionen. Schlechtes Ansprechen auf L-Dopa.',
+        },
+        {
+          dd: 'Multisystematrophie (MSA)',
+          unterscheidung: 'FRÜHE und schwere autonome Störung (orthostatische Hypotonie mit Synkopen, Harninkontinenz, erektile Dysfunktion) sowie zerebelläre oder Pyramidenbahnzeichen; symmetrischer Beginn, rasche Progredienz, inspiratorischer Stridor, ausgeprägte Anterocollis. L-Dopa wirkt nur gering oder vorübergehend; im MRT „hot cross bun sign" im Pons, MIBG-Szintigraphie normal.',
+        },
+        {
+          dd: 'Progressive supranukleäre Blickparese (PSP)',
+          unterscheidung: 'Vertikale supranukleäre Blickparese, insbesondere nach unten, mit frühen Stürzen NACH HINTEN bereits im ersten Jahr, axial betontem Rigor, aufrechter bis überstreckter Haltung, starrem Blick und frontaler Wesensänderung. Symmetrisch, kaum Ruhetremor, kein relevantes Ansprechen auf L-Dopa; im MRT Mittelhirnatrophie mit Kolibri-Zeichen.',
+        },
+        {
+          dd: 'Kortikobasale Degeneration (CBD)',
+          unterscheidung: 'Ausgeprägt asymmetrische Akinese und Rigidität mit kortikalen Zeichen: Apraxie, Astereognosie, kortikale Sensibilitätsstörung, Myoklonus und „alien limb"-Phänomen. Kein Ansprechen auf L-Dopa.',
+        },
+        {
+          dd: 'Lewy-Körperchen-Demenz',
+          unterscheidung: 'Demenz, die innerhalb des ersten Jahres nach oder vor den motorischen Symptomen auftritt, mit fluktuierender Vigilanz, detaillierten optischen Halluzinationen und ausgeprägter Neuroleptika-Überempfindlichkeit. Bei der Parkinson-Demenz tritt die Demenz dagegen erst Jahre nach der Motorik auf („Ein-Jahres-Regel").',
+        },
+        {
+          dd: 'Normaldruckhydrozephalus',
+          unterscheidung: 'Klassische Trias aus Gangstörung (breitbasig, magnetisch, „am Boden klebend"), Harninkontinenz und Demenz. Kein Ruhetremor, keine Seitenbetonung; im CT/MRT erweiterte innere Liquorräume ohne entsprechende Rindenatrophie. Besserung nach Liquorablassversuch, Therapie mit ventrikuloperitonealem Shunt.',
+        },
+        {
+          dd: 'Depression mit psychomotorischer Verlangsamung',
+          unterscheidung: 'Antriebsminderung, verarmte Mimik und leise Sprache können ein Parkinson-Syndrom imitieren. Es fehlen jedoch Rigor, Ruhetremor, Mikrographie und die Seitenbetonung; im Vordergrund stehen gedrückte Stimmung, Interessenverlust und Tagesschwankungen. Cave: beides tritt sehr häufig gemeinsam auf, die Depression ist ein Frühsymptom des Parkinson.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Verlangsamung, Antriebsarmut, trockene Haut, Kälteintoleranz, Obstipation, Gewichtszunahme und verzögerte Muskeleigenreflexe; TSH erhöht. Kein Ruhetremor, kein Zahnradphänomen.',
+        },
+        {
+          dd: 'Verstärkter physiologischer Tremor: Hyperthyreose, Alkoholentzug, hepatische Enzephalopathie, Angst- und Panikstörung, Medikamente',
+          unterscheidung: 'Feinschlägiger, hochfrequenter HALTETREMOR beider Hände. Bei der Hyperthyreose mit Tachykardie, Gewichtsverlust, Diarrhoe, Hyperhidrose, Struma und supprimiertem TSH; beim Alkoholentzug morgens am stärksten, Besserung nach Alkoholzufuhr, Schwitzen, Unruhe und Übelkeit; bei der hepatischen Enzephalopathie grobschlägiger Flapping tremor (Asterixis) mit Leberhautzeichen; bei der Panikstörung anfallsartig mit Hyperventilation, Herzrasen und Todesangst. Medikamentös durch Betamimetika, Valproat, Lithium, Koffein oder Schilddrüsenhormone.',
+        },
+        {
+          dd: 'Morbus Wilson',
+          unterscheidung: 'Bei jedem Parkinson-Syndrom vor dem 50. Lebensjahr obligat auszuschließen: Kayser-Fleischer-Kornealring, Dysarthrie, Dystonie, Flapping-artiger „wing-beating"-Tremor, Leberbeteiligung und psychiatrische Auffälligkeiten. Coeruloplasmin und Serumkupfer erniedrigt, Kupferausscheidung im Urin erhöht.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Medikamentöse Symptomtherapie nach Alter und Lebenssituation',
+          items: [
+            'Grundprinzip: Es gibt keine kausale oder nachgewiesen neuroprotektive Therapie — behandelt werden die Symptome, und zwar erst dann und nur so stark, wie sie den Patienten im Alltag und im Beruf tatsächlich behindern. Die Auswahl richtet sich nach biologischem Alter, Komorbidität, Kognition und Lebenssituation',
+            'L-DOPA in fixer Kombination mit einem peripheren Decarboxylasehemmer (Benserazid oder Carbidopa) ist die wirksamste und am besten verträgliche Substanz; einschleichende Aufdosierung, mehrere Einzeldosen über den Tag verteilt. Beim ÄLTEREN Patienten (etwa ab 70 Jahren) sowie bei kognitiver Einschränkung oder Multimorbidität ist L-Dopa das Mittel der ersten Wahl und wird früh eingesetzt',
+            'Einnahme von L-Dopa etwa 30–60 Minuten VOR den Mahlzeiten: große neutrale Aminosäuren aus eiweißreicher Nahrung konkurrieren am Transporter und mindern die Resorption',
+            'Beim JÜNGEREN Patienten (etwa unter 70 Jahren) wird eher dopaminagonisten-betont begonnen (Pramipexol, Ropinirol, Rotigotin als Pflaster), um die kumulative L-Dopa-Dosis zu verringern und Dyskinesien sowie Wirkungsfluktuationen hinauszuzögern; L-Dopa wird ergänzt, sobald der Agonist allein nicht mehr ausreicht',
+            'CAVE IMPULSKONTROLLSTÖRUNGEN unter Dopaminagonisten — Spielsucht, Kaufsucht, Esssucht, Hypersexualität und Punding: vor Therapiebeginn aufklären, bei jeder Kontrolle aktiv erfragen und dabei ausdrücklich auch den Partner befragen. Weitere Nebenwirkungen: Tagesmüdigkeit mit Schlafattacken (Fahreignung!), Übelkeit, Beinödeme, Halluzinationen',
+            'MAO-B-Hemmer (Rasagilin, Selegilin, Safinamid): geeignet als Monotherapie bei leichter Symptomatik und als Kombinationspartner zur Verlängerung der L-Dopa-Wirkung. Cave Kombination mit Serotonin-Wiederaufnahmehemmern und Tramadol (Serotoninsyndrom)',
+            'COMT-Hemmer (Entacapon, Opicapon) verlängern die Halbwertszeit von L-Dopa und werden immer zusammen mit L-Dopa gegeben; typisch ist eine harmlose Rotverfärbung des Urins',
+            'Amantadin (NMDA-Antagonist) mit mäßiger Wirkung auf Akinese und Rigor und guter Wirkung auf Dyskinesien; Cave Verwirrtheit, Halluzinationen, Beinödeme, Livedo reticularis und QT-Verlängerung beim älteren Patienten',
+            'Anticholinergika (Biperiden) allenfalls beim jungen Patienten mit therapierefraktärem Tremor — beim älteren Patienten wegen Verwirrtheit, Harnverhalt, Glaukomauslösung und Verschlechterung der Kognition praktisch obsolet',
+            'Aufklärung von Patient und Angehörigen über Diagnose, Verlauf und Therapieziele, Anbindung an eine neurologische Spezialsprechstunde, Selbsthilfegruppe (Deutsche Parkinson Vereinigung), Schwerbehindertenausweis und Sozialberatung; Fahreignung individuell prüfen und dokumentieren',
+          ],
+        },
+        {
+          label: 'Behandlung der Wirkungsfluktuationen und Spätkomplikationen',
+          items: [
+            'Nach mehrjähriger Therapie verkürzt sich die Wirkdauer der Einzeldosis: WEARING-OFF (End-of-dose-Akinese), unvorhersehbare ON-OFF-Phänomene, Freezing und nächtliche Akinese sowie L-Dopa-induzierte Dyskinesien (Peak-dose-Dyskinesien, biphasische Dyskinesien, Off-Dystonie, klassisch die schmerzhafte frühmorgendliche Fuß-Dystonie)',
+            'Erste Schritte: Verteilung der Tagesdosis auf häufigere, kleinere Einzelgaben, Ergänzung eines COMT- oder MAO-B-Hemmers, Zugabe oder Umstellung eines Dopaminagonisten, retardierte Präparate zur Nacht, lösliche Schnellformulierungen oder subkutanes Apomorphin als Rescue-Medikation bei Off-Phasen; Amantadin gegen Dyskinesien',
+            'Bei nicht mehr oral beherrschbaren Fluktuationen kontinuierliche Applikationsverfahren: subkutane Apomorphin-Pumpe oder intrajejunale L-Dopa/Carbidopa-Gelinfusion über eine PEG-J-Sonde (kontinuierliche dopaminerge Stimulation)',
+            'TIEFE HIRNSTIMULATION (Deep Brain Stimulation) des Nucleus subthalamicus — bei therapierefraktärem Tremor alternativ Nucleus ventralis intermedius des Thalamus oder Globus pallidus internus. Indikation: gesichertes idiopathisches Parkinson-Syndrom mit weiterhin gutem L-Dopa-Ansprechen, aber medikamentös nicht beherrschbaren Fluktuationen oder Dyskinesien beziehungsweise therapierefraktärem Tremor. Voraussetzungen: keine relevante Demenz, keine unbehandelte Depression oder Psychose, ausreichender Allgemeinzustand, realistische Erwartungen. Der Eingriff heilt nicht, erlaubt aber meist eine deutliche Reduktion der Medikation',
+            'NOTFALL AKINETISCHE KRISE: hochgradige Akinese mit Rigor, Fieber, Schluck- und Sprechunfähigkeit, CK-Anstieg und Bewusstseinstrübung, ausgelöst durch abruptes Absetzen der Medikation, Infekt, Exsikkose oder Operation. Vorgehen: stationäre, meist intensivmedizinische Behandlung, Flüssigkeits- und Elektrolytsubstitution, Thrombose- und Pneumonieprophylaxe, Infektbehandlung, parenterale beziehungsweise über Magensonde fortgeführte dopaminerge Therapie (Apomorphin subkutan, Amantadin intravenös). Die dopaminerge Medikation darf NIEMALS abrupt abgesetzt werden, auch nicht perioperativ',
+            'Bei perioperativem Nüchternheitsgebot die Medikation über Magensonde oder mit Apomorphin überbrücken und die Operation möglichst früh am Tag planen',
+          ],
+        },
+        {
+          label: 'Nicht-medikamentöse Therapie als tragende Säule',
+          items: [
+            'Physiotherapie als Dauertherapie, nicht als Beiwerk: Gang- und Gleichgewichtstraining, Amplitudentraining (LSVT BIG), Dehnung gegen die gebeugte Haltung, Sturzprophylaxe und Transfertraining',
+            'CUEING-STRATEGIEN gegen Freezing und Startschwierigkeiten: rhythmische akustische Reize (Metronom, Marschmusik, lautes Mitzählen), visuelle Reize (Bodenmarkierungen, Querstreifen, ein vorgehaltener Gehstock als Hindernis) und mentale Bewegungsvorstellung — bewusst geplante, große Bewegungen statt automatisierter Abläufe',
+            'Logopädie wegen Hypophonie und Dysarthrophonie (LSVT LOUD) sowie Diagnostik und Behandlung der Dysphagie mit Schluckschule, Konsistenzanpassung und Aspirationsprophylaxe',
+            'Ergotherapie: Training der Alltagsaktivitäten, Feinmotorik und Schrift, Hilfsmittelversorgung (Griffverdickungen, rutschfeste Unterlagen, Knöpfhilfe, Elektrorasierer) und Wohnraumanpassung mit Entfernen von Stolperfallen, Haltegriffen und guter Beleuchtung',
+            'Regelmäßiger Sport mit nachweislich günstigem Einfluss auf Motorik, Stimmung und Lebensqualität: Nordic Walking, Radfahren, Tanzen, Tai-Chi, Boxtraining ohne Kontakt; ballaststoffreiche Ernährung mit ausreichender Trinkmenge gegen die Obstipation',
+            'Einbeziehung, Schulung und Entlastung der pflegenden Angehörigen; frühzeitige Klärung von Pflegegrad, Hilfsmitteln und beruflicher Perspektive, im weit fortgeschrittenen Stadium palliativmedizinische Mitbetreuung',
+          ],
+        },
+        {
+          label: 'Behandlung der nicht-motorischen Symptome',
+          items: [
+            'Depression und Angst: Antidepressiva (SSRI, Mirtazapin) oder Dopaminagonisten mit antidepressiver Komponente wie Pramipexol, dazu Psychotherapie; trizyklische Antidepressiva beim älteren Patienten wegen der anticholinergen Wirkung zurückhaltend einsetzen. Cave Kombination von SSRI mit MAO-B-Hemmern (Serotoninsyndrom)',
+            'PSYCHOSE UND HALLUZINATIONEN: zuerst auslösende Faktoren beseitigen (Infekt, Exsikkose, Elektrolytstörung) und die Medikation in der Reihenfolge Anticholinergika, Amantadin, Dopaminagonisten, COMT-/MAO-B-Hemmer reduzieren, L-Dopa zuletzt. CAVE: klassische Neuroleptika (Haloperidol) und die meisten Atypika verschlechtern die Motorik dramatisch und sind kontraindiziert — erlaubt sind praktisch nur QUETIAPIN und CLOZAPIN (Letzteres unter Blutbildkontrollen wegen der Agranulozytose)',
+            'Parkinson-Demenz: Cholinesterasehemmer, insbesondere Rivastigmin (zugelassen); Anticholinergika und andere kognitionsverschlechternde Medikamente konsequent absetzen',
+            'Orthostatische Hypotonie: nicht-medikamentös mit ausreichender Trinkmenge, erhöhter Kochsalzzufuhr, Kompressionsstrümpfen, langsamem Aufstehen und Hochstellen des Kopfendes; medikamentös Midodrin oder Fludrocortison, gleichzeitig Antihypertensiva überprüfen und reduzieren',
+            'Obstipation: ballaststoffreiche Kost, ausreichende Flüssigkeitszufuhr, Bewegung, Macrogol; gegen Übelkeit unter dopaminerger Therapie DOMPERIDON statt Metoclopramid, da Metoclopramid die Blut-Hirn-Schranke passiert und das Parkinson-Syndrom verschlechtert',
+            'Schlafstörung und REM-Schlaf-Verhaltensstörung: Schlafhygiene, Sicherung der Schlafumgebung gegen Verletzungen, medikamentös Melatonin oder niedrig dosiertes Clonazepam; bei nächtlicher Akinese retardiertes L-Dopa oder ein Rotigotin-Pflaster zur Nacht',
+            'Blasenstörung mit Drangsymptomatik: urologische Abklärung, Blasentraining, zurückhaltender Einsatz von Anticholinergika wegen der kognitiven Nebenwirkungen; Sialorrhoe mit Logopädie, Kaugummi oder Botulinumtoxin in die Speicheldrüsen; Schmerzen und Restless-Legs-Symptomatik dopaminerg mitbehandeln',
+          ],
+        },
+      ],
+      prognose: 'Der Morbus Parkinson ist eine chronisch progrediente, bislang nicht heilbare und nicht kausal behandelbare Erkrankung; eine neuroprotektive Therapie ist nicht belegt. Die Symptome lassen sich jedoch über viele Jahre sehr gut kontrollieren: In den ersten drei bis sechs Jahren spricht die Therapie meist stabil und zuverlässig an („Honeymoon-Phase"). Nach etwa fünf Jahren entwickeln rund 40–50 % der Patienten Wirkungsfluktuationen und Dyskinesien, die durch Kombinationstherapien, Pumpenverfahren oder tiefe Hirnstimulation weiterhin gut behandelbar sind. Der akinetisch-rigide Typ schreitet rascher fort und geht häufiger mit kognitivem Abbau einher, der Tremordominanz-Typ verläuft langsamer und günstiger. Im Langzeitverlauf entwickeln bis zu 40 % der Patienten nach zehn Jahren eine Parkinson-Demenz. Die Lebenserwartung ist bei früher Diagnose und konsequenter Therapie nur noch gering verkürzt; prognosebestimmend sind Stürze mit Frakturen, die Dysphagie und die Aspirationspneumonie, die häufigste Todesursache. Entscheidend für die Lebensqualität sind die konsequente nicht-medikamentöse Therapie, die Behandlung der nicht-motorischen Symptome und die Einbindung der Angehörigen.',
+      pruefungsfallen: [
+        'Die KARDINALSYMPTOME korrekt nennen: Die BRADYKINESE ist OBLIGAT und muss mit mindestens einem von Rigor und Ruhetremor kombiniert sein. Wer „Tremor, Rigor, Akinese und posturale Instabilität" als gleichrangige Tetrade aufzählt, antwortet nach veralteten Kriterien.',
+        'Die posturale Instabilität ist ein SPÄTsymptom. Treten Stürze bereits im ersten Jahr auf, spricht das GEGEN ein idiopathisches und FÜR ein atypisches Parkinson-Syndrom — eine sehr beliebte Prüferfrage.',
+        'Den Tremor immer klassifizieren: RUHETREMOR (Parkinson, 4–6 Hz, einseitig, bessert sich bei Zielbewegung), HALTE-/Aktionstremor (essenzieller Tremor, Hyperthyreose, Alkoholentzug, beidseitig) und INTENTIONSTREMOR (zerebellär, Zunahme kurz vor dem Ziel). Wer nur „Tremor" sagt, verliert Punkte.',
+        'Der Parkinson-Tremor wird bei gezielter Bewegung BESSER, der essenzielle Tremor schlechter; Alkohol bessert den essenziellen Tremor, nicht den Parkinson-Tremor.',
+        'Aktiv und namentlich nach Neuroleptika und METOCLOPRAMID fragen — das medikamenteninduzierte Parkinsonoid ist die häufigste sekundäre Form und der klassische Fallstrick. Patienten nennen Metoclopramid oft nur als „Tropfen gegen Übelkeit".',
+        'Der asymmetrische Beginn ist typisch für das idiopathische Parkinson-Syndrom; ein symmetrischer Beginn spricht für ein medikamenteninduziertes oder atypisches Syndrom.',
+        'Klassische Neuroleptika sind bei Parkinson-Patienten KONTRAINDIZIERT — sie verschlechtern die Motorik dramatisch. Erlaubt sind praktisch nur Quetiapin und Clozapin. Gegen Übelkeit Domperidon statt Metoclopramid.',
+        'Die dopaminerge Medikation NIEMALS abrupt absetzen — auch nicht perioperativ oder bei Aufnahme über die Notaufnahme: Gefahr der akinetischen Krise beziehungsweise eines malignen L-Dopa-Entzugssyndroms.',
+        'Impulskontrollstörungen unter Dopaminagonisten (Spiel-, Kauf-, Esssucht, Hypersexualität, Punding) müssen aktiv und unter Einbeziehung des Partners erfragt werden — der Patient berichtet sie fast nie von selbst.',
+        'Die nicht-motorischen FRÜHsymptome dürfen nicht vergessen werden: Hyposmie, REM-Schlaf-Verhaltensstörung, Obstipation und Depression gehen den motorischen Zeichen oft um Jahre voraus. Die REM-Schlaf-Verhaltensstörung berichtet regelmäßig der Partner, nicht der Patient — also fremdanamnestisch fragen.',
+        'Die Diagnose ist KLINISCH. Das MRT dient dem Ausschluss symptomatischer Ursachen und ist beim idiopathischen Parkinson-Syndrom normal; ein DAT-SPECT trennt Parkinson-Syndrom und essenziellen Tremor, NICHT aber das idiopathische vom atypischen Parkinson-Syndrom.',
+        'Physiotherapie, Logopädie und Ergotherapie sind keine Zusatzangebote, sondern eine tragende Säule der Behandlung — Prüfer erwarten sie ausdrücklich in der Therapieantwort.',
+        'Auf Deutsch heißt der Morbus Parkinson „Schüttellähmung" oder „Zitterlähmung". Dem Patienten gegenüber sollte man das Wort „Lähmung" jedoch erläutern: es besteht KEINE Lähmung, sondern eine Verlangsamung und Steifigkeit der Muskulatur.',
+        'Auf die Frage „Ist das erblich? Bekommen meine Kinder das auch?" nicht mit einem einfachen Ja oder Nein antworten: Die allermeisten Fälle sind sporadisch, nur 5–10 % sind monogenetisch bedingt; bei Verwandten ersten Grades ist das Risiko leicht erhöht, absolut aber weiterhin niedrig. Nichts versprechen, was man nicht halten kann.',
+        'Die Fahreignung ansprechen und dokumentieren — sowohl wegen der motorischen Einschränkung als auch wegen der Schlafattacken unter Dopaminagonisten.',
+        'L-Dopa wird 30–60 Minuten VOR den Mahlzeiten eingenommen, da eiweißreiche Nahrung die Resorption über den Aminosäuretransporter hemmt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff „Parkinson" auf Deutsch?',
+          antwort: 'Auf Deutsch heißt die Erkrankung Schüttellähmung oder Zitterlähmung. Dem Patienten gegenüber würde ich sagen: Es handelt sich um eine Erkrankung des Gehirns, bei der bestimmte Nervenzellen langsam zugrunde gehen, die einen Botenstoff namens Dopamin herstellen. Dadurch werden die Bewegungen langsamer und die Muskeln steifer, und es kommt zu einem Zittern in Ruhe. Das Wort „Lähmung" würde ich ausdrücklich erklären: gelähmt ist nichts, die Kraft bleibt erhalten — die Bewegungen werden nur langsamer und steifer.',
+        },
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und welche Kardinalsymptome müssen erfüllt sein?',
+          antwort: 'Ein idiopathisches Parkinson-Syndrom. Nach den MDS-Kriterien ist die Bradykinese obligat; hinzukommen muss mindestens eines der beiden Zeichen Rigor oder Ruhetremor. Die posturale Instabilität gehört ausdrücklich nicht mehr zu den definierenden Kernsymptomen, weil sie erst spät auftritt.',
+        },
+        {
+          frage: 'Warum ist die posturale Instabilität kein Frühsymptom, und was bedeutet es, wenn sie früh auftritt?',
+          antwort: 'Beim idiopathischen Parkinson-Syndrom tritt die posturale Instabilität typischerweise erst nach Jahren auf, im Stadium 3 nach Hoehn und Yahr. Stürze bereits im ersten Krankheitsjahr sind eine Red Flag und sprechen für ein atypisches Parkinson-Syndrom, insbesondere für eine progressive supranukleäre Blickparese oder eine Multisystematrophie.',
+        },
+        {
+          frage: 'Beschreiben Sie den Parkinson-Tremor und grenzen Sie ihn vom essenziellen Tremor ab.',
+          antwort: 'Der Parkinson-Tremor ist ein Ruhetremor mit einer Frequenz von 4 bis 6 Hertz, distal betont, als Pillendreher- oder Münzenzähltremor beschrieben, einseitig beginnend. Er nimmt bei Aufregung, beim Rechnen und beim Gehen zu und wird bei gezielter Bewegung besser; im Schlaf sistiert er. Der essenzielle Tremor ist dagegen ein Halte- und Aktionstremor mit 5 bis 10 Hertz, beidseitig und symmetrisch, oft mit Kopf- und Stimmtremor, bessert sich nach Alkohol und geht meist mit einer positiven Familienanamnese einher. Bradykinese, Rigor und Gangstörung fehlen dort.',
+        },
+        {
+          frage: 'Welche nicht-motorischen Frühsymptome kennen Sie, und warum sind sie so wichtig?',
+          antwort: 'Hyposmie, REM-Schlaf-Verhaltensstörung, Obstipation und Depression. Sie gehen den motorischen Symptomen oft um Jahre bis Jahrzehnte voraus, weil sich die Alpha-Synuclein-Pathologie nach Braak vom Riechkolben und vom dorsalen Vaguskern aufsteigend ausbreitet. Die REM-Schlaf-Verhaltensstörung — der Patient agiert seine Träume aus, schreit und schlägt um sich — muss fremdanamnestisch beim Partner erfragt werden, der Patient selbst weiß meist nichts davon.',
+        },
+        {
+          frage: 'Was ist das Zahnradphänomen und wie prüfen Sie es?',
+          antwort: 'Beim Rigor besteht ein gleichmäßig zäher, geschwindigkeitsunabhängiger Dehnungswiderstand. Bewegt man das Handgelenk oder den Ellenbogen passiv, gibt der Widerstand ruckartig portionsweise nach — das ist das Zahnradphänomen. Verstärken kann man es mit dem Froment-Manöver, indem man den Patienten gleichzeitig die Gegenseite bewegen lässt, zum Beispiel die andere Hand öffnen und schließen.',
+        },
+        {
+          frage: 'Wie stellen Sie die Diagnose? Welche apparative Diagnostik veranlassen Sie?',
+          antwort: 'Die Diagnose ist eine klinische Diagnose nach den MDS-Kriterien. Ein MRT des Schädels veranlasse ich zum Ausschluss symptomatischer Ursachen wie Normaldruckhydrozephalus, vaskulärer Läsionen oder eines Tumors. Bei unklarem Tremor kann ein DAT-SPECT das Parkinson-Syndrom vom essenziellen Tremor abgrenzen; die transkranielle Sonographie zeigt eine Hyperechogenität der Substantia nigra. Ergänzend Riechtest, Schellong-Test, kognitives Screening und Labor mit TSH und Vitamin B12. Gestützt wird die Diagnose durch das eindeutige und anhaltende Ansprechen auf L-Dopa.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Der essenzielle Tremor, das medikamenteninduzierte Parkinsonoid durch Neuroleptika oder Metoclopramid, das vaskuläre Parkinson-Syndrom, die atypischen Parkinson-Syndrome — Multisystematrophie, progressive supranukleäre Blickparese und kortikobasale Degeneration —, die Lewy-Körperchen-Demenz, der Normaldruckhydrozephalus, eine Depression mit psychomotorischer Verlangsamung, eine Hypothyreose sowie ein verstärkter physiologischer Tremor bei Hyperthyreose, Alkoholentzug oder Angststörung. Beim Patienten unter 50 Jahren muss zusätzlich ein Morbus Wilson ausgeschlossen werden.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie ein idiopathisches von einem atypischen Parkinson-Syndrom?',
+          antwort: 'Für das idiopathische Syndrom sprechen der asymmetrische Beginn, ein Ruhetremor, eine langsame Progredienz und vor allem ein gutes, anhaltendes Ansprechen auf L-Dopa. Red Flags für ein atypisches Syndrom sind ein symmetrischer Beginn, frühe Stürze im ersten Jahr, eine früh ausgeprägte autonome Störung, eine vertikale supranukleäre Blickparese, zerebelläre oder Pyramidenbahnzeichen, eine frühe Demenz mit Halluzinationen sowie ein fehlendes Ansprechen auf hoch dosiertes L-Dopa.',
+        },
+        {
+          frage: 'Welche Medikamente können ein Parkinson-Syndrom auslösen?',
+          antwort: 'Vor allem klassische Neuroleptika wie Haloperidol, aber auch atypische Neuroleptika, ferner Metoclopramid, Flunarizin, Valproat, Lithium und Reserpin. Das medikamenteninduzierte Parkinsonoid beginnt typischerweise symmetrisch, hat einen zeitlichen Zusammenhang zur Medikation und bildet sich nach dem Absetzen über Wochen bis Monate zurück. Deshalb muss die Medikamentenanamnese aktiv und namentlich erhoben werden.',
+        },
+        {
+          frage: 'Wie behandeln Sie einen 75-jährigen und wie einen 50-jährigen Patienten?',
+          antwort: 'Beim älteren Patienten beginne ich früh mit L-Dopa plus Decarboxylasehemmer, weil es am wirksamsten und am besten verträglich ist und weil Dopaminagonisten dort häufiger Verwirrtheit, Halluzinationen und Tagesmüdigkeit auslösen. Beim jüngeren Patienten beginne ich eher agonisten-betont mit Pramipexol, Ropinirol oder Rotigotin, um die kumulative L-Dopa-Dosis zu verringern und Dyskinesien sowie Wirkungsfluktuationen hinauszuzögern; L-Dopa kommt hinzu, sobald der Agonist nicht mehr ausreicht.',
+        },
+        {
+          frage: 'Welche typische Nebenwirkung der Dopaminagonisten müssen Sie unbedingt ansprechen?',
+          antwort: 'Die Impulskontrollstörungen: Spielsucht, Kaufsucht, Esssucht, Hypersexualität und Punding. Darüber muss vor Therapiebeginn aufgeklärt und bei jeder Kontrolle aktiv gefragt werden, am besten unter Einbeziehung des Partners, denn der Patient berichtet es von selbst fast nie. Ebenfalls wichtig sind Tagesmüdigkeit mit Schlafattacken — relevant für die Fahreignung —, Übelkeit, Beinödeme und Halluzinationen.',
+        },
+        {
+          frage: 'Was sind Wearing-off und On-off-Phänomene, und wie behandeln Sie sie?',
+          antwort: 'Das Wearing-off ist die vorhersehbare Wirkabschwächung am Ende einer Dosis, das On-off-Phänomen ein plötzlicher, unvorhersehbarer Wechsel zwischen Beweglichkeit und Unbeweglichkeit. Therapeutisch verteile ich die Tagesdosis auf häufigere, kleinere Einzelgaben, ergänze einen COMT- oder MAO-B-Hemmer oder einen Dopaminagonisten, gebe retardierte Präparate zur Nacht und lösliches L-Dopa oder subkutanes Apomorphin als Rescue-Medikation. Reicht das nicht, kommen eine Apomorphin-Pumpe, eine intrajejunale L-Dopa-Gelinfusion oder eine tiefe Hirnstimulation infrage.',
+        },
+        {
+          frage: 'Wann ist eine tiefe Hirnstimulation indiziert, und welche Struktur wird stimuliert?',
+          antwort: 'Stimuliert wird in der Regel der Nucleus subthalamicus, bei therapierefraktärem Tremor alternativ der Nucleus ventralis intermedius des Thalamus oder der Globus pallidus internus. Indiziert ist sie bei gesichertem idiopathischem Parkinson-Syndrom mit weiterhin gutem L-Dopa-Ansprechen, aber medikamentös nicht mehr beherrschbaren Fluktuationen oder Dyskinesien beziehungsweise therapierefraktärem Tremor. Voraussetzungen sind eine fehlende relevante Demenz, keine unbehandelte Depression oder Psychose und ein ausreichender Allgemeinzustand.',
+        },
+        {
+          frage: 'Welchen Stellenwert haben Physiotherapie und Logopädie?',
+          antwort: 'Sie sind kein Beiwerk, sondern eine tragende Säule der Behandlung. Die Physiotherapie trainiert Gang, Gleichgewicht und Bewegungsamplitude und arbeitet mit Cueing-Strategien gegen das Freezing — rhythmische akustische Reize, Bodenmarkierungen, lautes Mitzählen. Die Logopädie behandelt die leise, monotone Sprache und vor allem die Dysphagie, um eine Aspirationspneumonie zu verhindern. Die Ergotherapie sichert Alltagsaktivitäten und Wohnumfeld.',
+        },
+        {
+          frage: 'Der Patient wird verwirrt und sieht Gestalten im Zimmer. Was tun Sie?',
+          antwort: 'Zuerst suche und behandle ich auslösende Faktoren wie Infekt, Exsikkose oder Elektrolytstörung. Dann reduziere ich die Medikation in der Reihenfolge Anticholinergika, Amantadin, Dopaminagonisten, COMT- und MAO-B-Hemmer und lasse L-Dopa zuletzt. Ist eine antipsychotische Behandlung nötig, sind klassische Neuroleptika streng kontraindiziert — erlaubt sind praktisch nur Quetiapin und Clozapin, Letzteres unter Blutbildkontrollen wegen der Agranulozytose.',
+        },
+        {
+          frage: 'Was ist eine akinetische Krise, und wie behandeln Sie sie?',
+          antwort: 'Eine lebensbedrohliche Verschlechterung mit hochgradiger Akinese, Rigor, Fieber, Schluck- und Sprechunfähigkeit, CK-Anstieg und Bewusstseinstrübung, meist ausgelöst durch abruptes Absetzen der dopaminergen Medikation, einen Infekt, eine Exsikkose oder eine Operation. Sie erfordert eine stationäre, meist intensivmedizinische Behandlung mit Flüssigkeits- und Elektrolytsubstitution, Infektbehandlung, Thrombose- und Pneumonieprophylaxe und einer parenteral oder über Magensonde fortgeführten dopaminergen Therapie mit Apomorphin subkutan oder Amantadin intravenös. Deshalb darf die Medikation nie abrupt abgesetzt werden.',
+        },
+        {
+          frage: 'Der Patient fragt: Ist das erblich, bekommen meine Kinder das auch?',
+          antwort: 'Ich würde ehrlich und behutsam antworten: Die allermeisten Fälle treten spontan auf, ohne dass die Erkrankung in der Familie vorkommt; nur etwa 5 bis 10 Prozent sind auf eine einzelne Genveränderung zurückzuführen, vor allem bei einer Erkrankung vor dem 40. Lebensjahr. Für Kinder und Geschwister ist das Risiko leicht erhöht, insgesamt aber weiterhin niedrig. Eine Vorsorgeuntersuchung oder einen Gentest empfehle ich in dieser Situation nicht routinemäßig, und ich verspreche nichts, was ich nicht halten kann.',
+        },
+        {
+          frage: 'Warum darf man Metoclopramid bei diesen Patienten nicht geben, und was geben Sie stattdessen?',
+          antwort: 'Metoclopramid ist ein Dopaminrezeptorantagonist und passiert die Blut-Hirn-Schranke; es verschlechtert die Motorik und kann selbst ein Parkinson-Syndrom auslösen. Gegen Übelkeit unter dopaminerger Therapie gebe ich stattdessen Domperidon, das die Blut-Hirn-Schranke praktisch nicht überwindet.',
+        },
+      ],
+      merksatz: 'Bradykinese ist Pflicht, dazu Rigor mit Zahnrad ODER ein 4–6-Hz-Ruhetremor, der bei Zielbewegung besser wird — und immer EINSEITIG betont. Posturale Instabilität kommt spät; früh sind Hyposmie, Traumausagieren, Obstipation und Depression. Immer nach Neuroleptika und Metoclopramid fragen, L-Dopa niemals abrupt absetzen, und bei Psychose nur Quetiapin oder Clozapin.',
+      linkedCaseIds: [
+        'case-parkinson',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-lumbalpunktion',
+      ],
+    },
   ];
 }
