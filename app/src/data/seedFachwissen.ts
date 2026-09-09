@@ -26808,5 +26808,1510 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-ct',
       ],
     },
+    {
+      id: 'fw-hws-diskusprolaps',
+      pathology: 'Zervikaler Bandscheibenvorfall (HWS-Diskusprolaps)',
+      specialty: 'Orthopädie',
+      definition: 'Beim zervikalen Bandscheibenvorfall (Diskusprolaps der Halswirbelsäule) durchbricht Gewebe des Nucleus pulposus den geschädigten Anulus fibrosus und tritt in den Spinalkanal oder das Neuroforamen aus. Wird dabei eine Nervenwurzel komprimiert und chemisch-entzündlich gereizt, entsteht das radikuläre Syndrom der Zervikobrachialgie: Nackenschmerz mit dermatomgebundener Ausstrahlung in den Arm, Sensibilitätsstörung, Reflexabschwächung und Kennmuskelschwäche. Wird dagegen das Rückenmark selbst komprimiert, resultiert die zervikale Myelopathie — ein grundsätzlich anderes, dringlich operationsbedürftiges Krankheitsbild. Am häufigsten sind die Segmente C6/C7 und C5/C6; beim lateralen Vorfall wird die untere, gleichnamige Wurzel komprimiert (C6/C7 → Wurzel C7).',
+      aetiologie: 'Grundlage ist die altersabhängige Degeneration der bradytrophen Bandscheibe, die nur per Diffusion über die Wirbelendplatten ernährt wird: Der Wassergehalt des Nucleus pulposus nimmt ab, die Höhe des Zwischenwirbelraums sinkt, im Anulus fibrosus entstehen Risse. Ein akutes Ereignis wie das Heben einer schweren Last, eine ungewohnte Belastung oder eine ruckartige Bewegung führt dann zum Durchtritt von Bandscheibengewebe. Begünstigend wirken langdauernde Zwangshaltungen des Kopfes bei Bildschirm- und Handynutzung, eine schwache Nacken- und Schultermuskulatur sowie das Rauchen, das über Vasokonstriktion die Endplattendurchblutung und damit die Ernährung der Bandscheibe verschlechtert. Neben der reinen Kompression spielt die chemische Radikulitis durch entzündliche Mediatoren aus dem Nucleus-Gewebe eine wesentliche Rolle — sie erklärt den brennenden Schmerz und die gute Wirksamkeit von Kortikoiden. Differenzialursachen einer Wurzelkompression sind die knöcherne Foramenstenose bei Unkovertebral- und Spondylarthrose („harter Bandscheibenvorfall“), seltener Entzündung, Tumor oder Trauma.',
+      risikofaktoren: [
+        'Lebensalter zwischen 40 und 60 Jahren (Gipfel der Bandscheibendegeneration bei noch prallem Nucleus pulposus)',
+        'Rauchen — verschlechtert die Diffusionsernährung der Bandscheibe, beschleunigt die Degeneration und verzögert die Heilung sowie die Fusion nach Operation',
+        'Langdauernde Zwangshaltung des Kopfes: Bildschirmarbeit, Handynutzung, Lesen mit nach vorn geneigtem Kopf',
+        'Schweres Heben, besonders über Kopf, sowie ruckartige Bewegungen und Vibrationsbelastung',
+        'Schwache Nacken-, Schulter- und Rumpfmuskulatur, Bewegungsmangel, Übergewicht',
+        'Vorbestehende degenerative Veränderungen: Osteochondrose, Spondylose, Unkovertebralarthrose',
+        'Vorangegangenes Schleudertrauma oder HWS-Distorsion',
+        'Genetische Disposition der Bandscheibenmatrix, positive Familienanamnese',
+        'Beruflich bedingte körperliche Schwerarbeit oder anhaltende Überkopftätigkeit',
+      ],
+      klinik: [
+        {
+          text: 'Nackenschmerz mit schmerzhafter Bewegungseinschränkung, muskulärem Hartspann und Schonhaltung des Kopfes',
+        },
+        {
+          text: 'Zervikobrachialgie: einschießende, elektrisierende Schmerzausstrahlung in den Arm, die einem DERMATOM folgt — das Leitsymptom der Radikulopathie',
+        },
+        {
+          text: 'Schmerzverstärkung durch Husten, Niesen und Pressen (Steigerung des intraspinalen Drucks) sowie typischerweise durch Reklination und Drehung des Kopfes zur betroffenen Seite',
+        },
+        {
+          text: 'Parästhesien, Kribbeln und Hypästhesie in denselben Dermatomen, oft nachts betont und schlafstörend',
+        },
+        {
+          text: 'Schulterabduktionszeichen (Bakody-Zeichen): Der Patient legt den Arm über den Kopf, weil das die Nervenwurzel entlastet — ein sehr spezifischer, aktiv zu erfragender Hinweis auf eine radikuläre Genese',
+        },
+        {
+          text: 'Kennmuskelschwäche und abgeschwächter Muskeleigenreflex des betroffenen Segments, im Seitenvergleich zu prüfen',
+        },
+        {
+          text: 'C6-Syndrom: Schmerz und Gefühlsstörung über die radiale Seite des Unterarms zum DAUMEN, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex',
+        },
+        {
+          text: 'C7-Syndrom: Ausstrahlung zum MITTELFINGER, Schwäche der Ellenbogenstreckung (Trizeps) und der Fingerbeuger, abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens',
+        },
+        {
+          text: 'C8-Syndrom: Ausstrahlung zum KLEINFINGER, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex',
+        },
+        {
+          text: 'Schmerzbedingte Ein- und Durchschlafstörung mit Tagesmüdigkeit; Unfähigkeit, auf der betroffenen Seite zu liegen',
+        },
+        {
+          text: 'Zervikale Myelopathie durch Kompression des Rückenmarks selbst: Gangunsicherheit mit breitbasigem Gang, Feinmotorikstörung mit Ungeschicklichkeit beim Knöpfen und Schreiben, SPASTIK und GESTEIGERTE Reflexe an den BEINEN, positives Babinski- und Lhermitte-Zeichen, Blasenstörung — dringliche Operationsindikation und keine konservative Situation',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierter Nackenschmerz ohne Ausstrahlung beim medianen Vorfall ohne Wurzelkontakt',
+          atypisch: true,
+        },
+        {
+          text: '„Wurzeltod“: Nach Wochen lässt der Schmerz nach, während die Parese bleibt oder zunimmt — die vermeintliche Besserung ist ein Warnzeichen und keine Heilung',
+          atypisch: true,
+        },
+        {
+          text: 'Ausstrahlung in Schulterblatt, Brustkorb oder Hinterkopf, die eine kardiale, pulmonale oder primär zervikogene Kopfschmerzursache imitiert',
+          atypisch: true,
+        },
+        {
+          text: 'Beidseitige oder wechselnde Beschwerden bei mehretagigem Befall oder zentraler Enge',
+          atypisch: true,
+        },
+        {
+          text: 'Bildmorphologisch großer Vorfall ohne jede Klinik — degenerative Veränderungen und Protrusionen sind ab dem mittleren Lebensalter häufige Zufallsbefunde',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Zervikale Wurzelsyndrome (Dermatom – Kennmuskel – Reflex)',
+          inhalt: 'C5 (Segment C4/C5): Schulter außen, Deltoideus, Bizepssehnenreflex. C6 (Segment C5/C6): radialer Unterarm bis Daumen, Bizeps und Handgelenkstrecker, Bizepssehnenreflex und Radiusperiostreflex. C7 (Segment C6/C7): Mittelfinger, Trizeps und Fingerbeuger, Trizepssehnenreflex, gelegentlich Thenaratrophie. C8 (Segment C7/Th1): Kleinfinger und ulnare Handkante, Fingerspreizung und kleine Handmuskeln, Trömner-Reflex. Merke: Am häufigsten sind C6/C7 und C5/C6; der laterale Vorfall trifft die untere, gleichnamige Wurzel.',
+        },
+        {
+          name: 'Einteilung nach dem morphologischen Ausmaß',
+          inhalt: 'Bandscheibenprotrusion (Vorwölbung bei intaktem Anulus fibrosus und intaktem hinterem Längsband) — Extrusion beziehungsweise Prolaps (Durchtritt von Nucleus-Gewebe durch den Anulus, Kontakt zum Ursprungsraum erhalten) — freier Sequester (abgelöstes Gewebe im Spinalkanal, kann nach kranial oder kaudal wandern; paradoxerweise mit der besten Resorptionstendenz).',
+        },
+        {
+          name: 'Einteilung nach der Lage im Segment',
+          inhalt: 'Median (zentral, Kompression des Myelons, Gefahr der Myelopathie), mediolateral (häufigste Lage, Wurzelkompression im Recessus), foraminal/lateral (Kompression im Neuroforamen, führender Armschmerz), extraforaminal (weit lateral).',
+        },
+        {
+          name: 'Kraftgrade der Parese (British Medical Research Council, 0–5)',
+          inhalt: '0 = keine Muskelaktivität; 1 = sichtbare Kontraktion ohne Bewegungseffekt; 2 = Bewegung unter Ausschaltung der Schwerkraft; 3 = Bewegung gegen die Schwerkraft; 4 = Bewegung gegen mäßigen Widerstand; 5 = normale Kraft. Ab Kraftgrad 3 oder schlechter gilt die Parese als hochgradig und begründet eine dringliche Operationsindikation.',
+        },
+        {
+          name: 'Schweregrad der zervikalen Myelopathie',
+          inhalt: 'Nurick-Skala (0–5) nach Gangbild und Gehfähigkeit: 0 = nur Wurzelzeichen ohne Myelopathie, 1 = Myelopathiezeichen ohne Gangstörung, 2 = leichte Gangstörung ohne Einschränkung der Berufstätigkeit, 3 = Gangstörung mit Einschränkung, 4 = Gehen nur mit Hilfe, 5 = rollstuhlpflichtig oder bettlägerig. Ergänzend der mJOA-Score (modifizierter Score der Japanese Orthopaedic Association) für Motorik der Arme und Beine, Sensibilität und Blasenfunktion.',
+        },
+      ],
+      redFlags: [
+        'Zeichen der zervikalen MYELOPATHIE: Gangunsicherheit und breitbasiger Gang, Feinmotorikstörung beim Knöpfen und Schreiben, Spastik und gesteigerte Reflexe an den Beinen, positives Babinski-Zeichen, Lhermitte-Zeichen, Blasenstörung → dringliche operative Abklärung',
+        'Hochgradige (Kraftgrad 3 oder schlechter) oder rasch zunehmende Parese → dringliche Bildgebung und Operation, kein Abwarten',
+        'Fieber, Nachtschmerz, Klopfschmerz über den Dornfortsätzen, Immunsuppression, Diabetes oder intravenöser Drogenkonsum → Spondylodiszitis oder epiduraler Abszess',
+        'Bekannte Tumorerkrankung, ungewollter Gewichtsverlust, bewegungsunabhängiger Dauer- und Nachtschmerz → Wirbelmetastase oder Plasmozytom',
+        'Adäquates Trauma, Sturz, Schleudertrauma, insbesondere bei Osteoporose oder Morbus Bechterew → Fraktur oder Instabilität',
+        'Einseitiges Horner-Syndrom mit Ptosis und Miosis bei einem Raucher, Schmerz im Dermatom C8/Th1 → Pancoast-Tumor',
+        'Halsschmerz mit Schluckstörung, Heiserkeit oder Stridor → retropharyngealer Prozess, Raumforderung, Gefäßdissektion',
+        'Nackenschmerz mit heftigem Kopfschmerz, Horner-Syndrom und neurologischen Ausfällen nach Manipulation der Halswirbelsäule → Dissektion der Arteria vertebralis oder carotis',
+        'Beidseitige Arm- oder Beinsymptomatik, Sensibilitätsniveau am Rumpf → Myelonkompression',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese: Beginn und Auslöser (Heben, ungewohnte Belastung), Lokalisation und genaue Ausstrahlung bis in einzelne Finger, einschießend-elektrisierender Charakter, Verstärkung durch Husten, Niesen und Pressen sowie durch Reklination und Kopfdrehung zur betroffenen Seite',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktives Erfragen des Schulterabduktionszeichens: Bessert sich der Schmerz, wenn der Patient den Arm über den Kopf legt? Ein sehr spezifischer Hinweis auf eine radikuläre Ursache, der fast immer vergessen wird',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematisches Abfragen der Red Flags: Gangunsicherheit, Feinmotorikstörung, Blasen- und Mastdarmstörung, Fieber, Nachtschmerz, Gewichtsverlust, Tumoranamnese, Trauma',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion, Palpation und Beweglichkeitsprüfung der Halswirbelsäule: Schonhaltung, Hartspann, Klopf- und Druckschmerz, Einschränkung von Reklination, Rotation und Seitneigung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinisch-neurologische Untersuchung SEITENVERGLEICHEND mit Kennmuskeln und Kraftgraden 0 bis 5, Muskeleigenreflexen (Bizepssehnenreflex, Radiusperiostreflex, Trizepssehnenreflex, Trömner-Reflex) und Dermatomen einschließlich Spitz-Stumpf-Diskrimination',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Provokations- und Entlastungstests: Spurling-Zeichen (Reklination, Seitneigung zur betroffenen Seite und axialer Druck reproduzieren den Armschmerz) und Besserung unter manueller Traktion',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Obligate Untersuchung der BEINE auf Pyramidenbahnzeichen: Reflexniveau, Kloni, Babinski-Zeichen, Gangbild, Seiltänzergang, Romberg-Versuch; dazu Lhermitte-Zeichen — nur so wird die zervikale Myelopathie nicht übersehen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abgrenzende Untersuchung der Nachbarregionen: Schulter (Impingement-Tests), Sulcus ulnaris (Hoffmann-Tinel-Zeichen), Karpaltunnel (Phalen-Test), Epikondylen, Pulse und Blutdruck seitenvergleichend, Pupillen und Lidspalte (Horner-Syndrom), Hautinspektion (Herpes zoster)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Beim unkomplizierten Bandscheibenvorfall ist das Labor unauffällig und nicht routinemäßig erforderlich; Blutbild, CRP und BSG gezielt bei Verdacht auf Spondylodiszitis oder Tumor',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Tumorverdacht ergänzend Eiweißelektrophorese, alkalische Phosphatase, Kalzium und gegebenenfalls PSA; bei Infektverdacht Blutkulturen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenwerte, Blutbild und Leberwerte vor beziehungsweise unter längerer NSAR-Therapie; Hämoglobinkontrolle bei NSAR-Einnahme ohne Magenschutz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei differenzialdiagnostischer Erwägung einer Polyneuropathie: Nüchternblutzucker und HbA1c, Vitamin B12, TSH, Gamma-GT',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Halswirbelsäule als Untersuchung der WAHL: direkte Darstellung von Bandscheibe, Nervenwurzel, Neuroforamen und Myelon einschließlich Myelopathiesignal, ohne Strahlenbelastung. Indikation ERST bei über vier bis sechs Wochen persistierenden Beschwerden — SOFORT bei Red Flags, Myelopathiezeichen oder relevanter Parese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT der Halswirbelsäule bei MRT-Kontraindikation (Herzschrittmacher, Metallsplitter, schwere Klaustrophobie) oder zur Beurteilung knöcherner Enge und Verknöcherungen; Myelo-CT als Reserveverfahren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelles Röntgen der Halswirbelsäule in zwei Ebenen bei Trauma, Instabilitäts- oder Tumorverdacht, ergänzt durch Funktionsaufnahmen in Flexion und Extension; degenerative Veränderungen sind unspezifisch',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax beziehungsweise CT des Thorax bei Rauchern mit Schmerz im Dermatom C8/Th1 zum Ausschluss eines Pancoast-Tumors; Sonographie der Schulter bei Verdacht auf eine Rotatorenmanschettenläsion; EKG und Troponin bei möglicher kardialer Ursache',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektroneurographie und Elektromyographie zur Abgrenzung von Karpaltunnelsyndrom, Sulcus-ulnaris-Syndrom, Plexusläsion und Polyneuropathie sowie zur Objektivierung und Höhenzuordnung der Wurzelläsion — Denervierungszeichen im Kennmuskel frühestens nach zwei bis drei Wochen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische, CT- oder durchleuchtungsgesteuerte Wurzelblockade zur Identifikation des symptomatischen Segments bei mehretagigem MRT-Befund — zugleich therapeutisch wirksam',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Somatosensibel und motorisch evozierte Potenziale bei Verdacht auf zervikale Myelopathie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion nur bei Verdacht auf eine entzündliche Erkrankung des Zentralnervensystems, insbesondere Multiple Sklerose (oligoklonale Banden)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Karpaltunnelsyndrom',
+          unterscheidung: 'Peripheres Engpasssyndrom des Nervus medianus: nächtliche Brachialgia paraesthetica mit Kribbeln in Daumen, Zeige- und Mittelfinger, Besserung durch Ausschütteln, Thenaratrophie, positives Phalen- und Hoffmann-Tinel-Zeichen am Handgelenk. Kein Nackenschmerz, kein Spurling-Zeichen; Beweis durch Elektroneurographie.',
+        },
+        {
+          dd: 'Sulcus-ulnaris-Syndrom (Kubitaltunnelsyndrom)',
+          unterscheidung: 'Kompression des Nervus ulnaris am Ellenbogen: Beschwerden in Klein- und Ringfinger, ausgelöst durch Aufstützen und Beugen des Ellenbogens, Hoffmann-Tinel-Zeichen über dem Sulcus, Sensibilitätsstörung endet am Handgelenk und spart den ulnaren Unterarm aus; kein Nackenschmerz, kein Spurling-Zeichen.',
+        },
+        {
+          dd: 'Zervikalsyndrom / myofasziale Verspannung ohne Radikulopathie',
+          unterscheidung: 'Pseudoradikuläre, diffuse Ausstrahlung in Schulter und Oberarm ohne Dermatomgrenze, ohne sensiblen oder motorischen Ausfall und ohne Reflexdifferenz; Triggerpunkte tastbar, Spurling-Zeichen negativ.',
+        },
+        {
+          dd: 'Schulterpathologie: Impingement-Syndrom, Rotatorenmanschettenruptur, Frozen Shoulder',
+          unterscheidung: 'Schmerzmaximum über der Schulter, schmerzhafter Bogen zwischen 60 und 120 Grad Abduktion, Nachtschmerz beim Liegen auf der Schulter, positive Impingement-Tests, bei der Frozen Shoulder Einschränkung auch der passiven Beweglichkeit; keine Dermatomgrenze, keine Reflexabschwächung.',
+        },
+        {
+          dd: 'Epicondylitis humeri radialis oder ulnaris',
+          unterscheidung: 'Punktueller Druckschmerz über dem Epikondylus, Schmerzauslösung durch Widerstandstests der Hand- und Fingerstrecker beziehungsweise -beuger; keine Parästhesien, keine Ausstrahlung vom Nacken.',
+        },
+        {
+          dd: 'Thoracic-outlet-Syndrom',
+          unterscheidung: 'Belastungs- und lageabhängige Beschwerden beider Arme, vor allem bei Überkopfhaltung und beim Tragen; häufig vaskuläre Komponente mit Kälte, Blässe und Pulsabschwächung; Provokation durch Adson- oder Roos-Test, oft Halsrippe im Röntgen.',
+        },
+        {
+          dd: 'Neuralgische Schulteramyotrophie (Plexus-brachialis-Neuritis)',
+          unterscheidung: 'Perakuter, extremer Schulter-Arm-Schmerz über Tage, oft nach Infekt oder Impfung, danach rasch einsetzende Parese mit Atrophie bei nachlassendem Schmerz; Ausfallmuster überschreitet die Grenzen einer einzelnen Wurzel.',
+        },
+        {
+          dd: 'Herpes zoster vor dem Auftreten der Bläschen',
+          unterscheidung: 'Brennender, streng segmentaler Schmerz mit Allodynie, ohne Kraftminderung und ohne Verstärkung durch Husten oder Kopfbewegung; nach zwei bis drei Tagen segmentales Bläschenexanthem.',
+        },
+        {
+          dd: 'Pancoast-Tumor der Lungenspitze',
+          unterscheidung: 'Raucher, Schulter-Arm-Schmerz im Dermatom C8/Th1 durch Infiltration der unteren Plexusanteile, Horner-Syndrom mit Ptosis, Miosis und Enophthalmus, Gewichtsverlust, obere Einflussstauung; Nachweis im Röntgen-Thorax oder CT.',
+        },
+        {
+          dd: 'Angina pectoris bei koronarer Herzkrankheit',
+          unterscheidung: 'Die gefährlichste Verwechslung: retrosternaler Druck mit Ausstrahlung in den linken Arm, belastungsabhängig, mit Dyspnoe, Kaltschweißigkeit und Besserung in Ruhe oder auf Nitrat; keine Auslösung durch Kopfbewegung, Husten oder Niesen, keine Parästhesien im Dermatom. EKG und Troponin bei Zweifel.',
+        },
+        {
+          dd: 'Polyneuropathie',
+          unterscheidung: 'Distal-symmetrische, strumpf- und handschuhförmige Sensibilitätsstörung an allen vier Extremitäten, abgeschwächte Achillessehnenreflexe, Ursachen Diabetes mellitus, Alkohol, Vitamin-B12-Mangel; keine segmentale Grenze und kein Nackenbezug.',
+        },
+        {
+          dd: 'Zervikale Myelopathie bei Spinalkanalstenose',
+          unterscheidung: 'Nicht Ausschluss, sondern Weichenstellung: Gangunsicherheit, Feinmotorikstörung, Spastik und gesteigerte Reflexe an den Beinen, Babinski- und Lhermitte-Zeichen, Blasenstörung. Dringliche Operationsindikation.',
+        },
+        {
+          dd: 'Multiple Sklerose',
+          unterscheidung: 'Jüngeres Alter, schubförmiger Verlauf, Optikusneuritis, Lhermitte-Zeichen, Blasenstörung, Sensibilitätsniveau; im MRT periventrikuläre und spinale Entmarkungsherde, im Liquor oligoklonale Banden.',
+        },
+        {
+          dd: 'Spondylodiszitis oder epiduraler Abszess',
+          unterscheidung: 'Fieber, Nachtschmerz mit Ruheschmerz, Klopfschmerz über den Dornfortsätzen, deutlich erhöhte Entzündungsparameter, Risikofaktoren wie Diabetes, Immunsuppression oder vorangegangene Injektion; MRT mit Kontrastmittel.',
+        },
+        {
+          dd: 'Wirbelmetastase, Plasmozytom, primärer Knochentumor',
+          unterscheidung: 'Bewegungsunabhängiger Dauer- und Nachtschmerz, Gewichtsverlust, bekannte Tumorerkrankung, pathologische Fraktur, Hyperkalzämie; MRT und gegebenenfalls Skelettszintigraphie.',
+        },
+        {
+          dd: 'HWS-Distorsion oder Fraktur nach Trauma',
+          unterscheidung: 'Adäquates Trauma, Schleudertrauma, Beschwerdebeginn Stunden nach dem Ereignis, Klopfschmerz; Bildgebung mit Röntgen in zwei Ebenen und CT, bei Osteoporose und Morbus Bechterew großzügige Indikation.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung, Aktivierung und Alltagsanpassung',
+          items: [
+            'Als Erstes die gute Spontanprognose vermitteln: Die große Mehrheit der zervikalen Bandscheibenvorfälle heilt konservativ innerhalb von sechs bis zwölf Wochen aus — das nimmt dem Patienten die Angst und verbessert nachweislich den Verlauf',
+            'Keine Bettruhe: Beibehaltung der Alltagsaktivität im schmerzarmen Rahmen und frühe Mobilisation statt Schonung',
+            'Eine Halskrause allenfalls stundenweise über wenige Tage zur Schmerzlinderung — eine längere Ruhigstellung führt zu Muskelabbau, Bewegungsangst und Chronifizierung',
+            'Ergonomische Anpassung des Bildschirmarbeitsplatzes (Monitor auf Augenhöhe, Unterarmauflage, regelmäßige Pausen), vorübergehend kein schweres Heben und keine Überkopfarbeit',
+            'Wärmeanwendungen und entlastende Schlafposition mit flachem Nackenkissen und Lagerung des betroffenen Arms; die spontane Entlastung durch Auflegen des Arms über den Kopf ist erlaubt und erklärbar (Schulterabduktionszeichen)',
+            'Nikotinkarenz: Rauchen verschlechtert die Diffusionsernährung der bradytrophen Bandscheibe, beschleunigt die Degeneration und verzögert Heilung und Fusion',
+            'Klare Wiedervorstellungskriterien nennen: zunehmende Schwäche, Gangunsicherheit, Ungeschicklichkeit beim Knöpfen und Schreiben, Blasenstörung → sofortige Wiedervorstellung',
+          ],
+        },
+        {
+          label: 'Medikamentöse Schmerztherapie in Stufen',
+          items: [
+            'NSAR als Basis, zeitlich befristet: Ibuprofen 3 × 600 mg oder Diclofenac 2 × 75 mg, mit Protonenpumpenhemmer bei Risikofaktoren (Alter über 65 Jahre, Ulkusanamnese, Antikoagulation, Glukokortikoide); Kontraindikationen Niereninsuffizienz, Ulkus, Herzinsuffizienz beachten',
+            'Metamizol 3 bis 4 × 500 bis 1000 mg oder Paracetamol als Alternative bei NSAR-Kontraindikation — Cave Agranulozytose unter Metamizol',
+            'Kurzfristig ein Muskelrelaxans bei ausgeprägtem Hartspann, zum Beispiel Methocarbamol oder Tizanidin über wenige Tage — Cave Sedierung und Sturzgefahr',
+            'Bei neuropathischem, einschießendem Schmerz Gabapentin oder Pregabalin einschleichend, alternativ niedrig dosiertes Amitriptylin zur Nacht mit zusätzlichem schlafanstoßendem Effekt',
+            'Orale Glukokortikoide kurzfristig bei stark ausgeprägter radikulärer Symptomatik, zum Beispiel Prednisolon 50 mg absteigend über etwa fünf Tage — wirksam gegen die entzündliche Komponente der Wurzelreizung',
+            'Opioide wie Tilidin oder Tramadol nur kurzzeitig und als Ausnahme bei sonst nicht beherrschbaren Schmerzen — Cave Obstipation, Sedierung, Sturzgefahr und Abhängigkeit',
+            'Analgesie nach festem Zeitschema statt bei Bedarf, regelmäßige Reevaluation von Wirkung und Nebenwirkungen — Ziel ist eine Schmerzlinderung, die Bewegung und Physiotherapie überhaupt erst ermöglicht',
+          ],
+        },
+        {
+          label: 'Physikalische Therapie und interventionelle Verfahren',
+          items: [
+            'Krankengymnastik: schmerzadaptierte Mobilisation, manuelle Traktion der Halswirbelsäule, Haltungsschulung sowie Kräftigung der Nacken-, Schulter- und Rumpfmuskulatur mit Eigenübungsprogramm',
+            'Physikalische Maßnahmen: Wärme, Massage der verspannten Muskulatur, transkutane elektrische Nervenstimulation',
+            'Manuelle Therapie nur zurückhaltend und NIEMALS mit ruckartiger Manipulation der Halswirbelsäule — Gefahr der Dissektion der Arteria vertebralis mit Hirnstamminfarkt',
+            'Periradikuläre Therapie beziehungsweise CT- oder durchleuchtungsgesteuerte Wurzelinfiltration mit Lokalanästhetikum und Kortikoid bei therapieresistentem Wurzelschmerz — zugleich diagnostischer Wert zur Bestätigung des symptomatischen Segments',
+            'Bei drohender Chronifizierung multimodale Schmerztherapie, ergänzend Entspannungsverfahren, Schlafhygiene und Behandlung begleitender psychosozialer Belastungsfaktoren',
+          ],
+        },
+        {
+          label: 'Operative Behandlung bei klarer Indikation',
+          items: [
+            'DRINGLICHE Operation bei zervikaler Myelopathie (Gangunsicherheit, Feinmotorikstörung, Spastik und gesteigerte Reflexe an den Beinen, Babinski-Zeichen, Blasenstörung) sowie bei hochgradiger (Kraftgrad 3 oder schlechter) oder rasch progredienter Parese — hier ist Abwarten ein Fehler',
+            'Engmaschige klinische Kontrolle der Kraftgrade unter konservativer Therapie; eine zunehmende Schwäche ändert die Indikation sofort, auch wenn der Schmerz nachlässt („Wurzeltod“)',
+            'Elektive Operation bei therapierefraktärem radikulärem Schmerz nach sechs bis zwölf Wochen konsequenter konservativer Behandlung, sofern Klinik, Dermatom und MRT-Befund übereinstimmen',
+            'Standardverfahren: ventrale Diskektomie mit Fusion über einen Cage (Zugang von vorne über einen queren Halsschnitt, Präparation zwischen Trachea und Ösophagus einerseits und der Gefäß-Nerven-Scheide andererseits) oder Bandscheibenprothese zum Bewegungserhalt bei jüngeren Patienten mit monosegmentalem Befall',
+            'Alternative: dorsale Foraminotomie mit Zugang von hinten bei rein foraminaler, lateraler Kompression ohne Instabilität; bei mehretagiger Myelopathie Laminoplastie oder Laminektomie mit Stabilisierung',
+            'Aufklärung über die Risiken: Heiserkeit durch Läsion des Nervus laryngeus recurrens, Schluckstörung, Verletzung von Ösophagus, Trachea oder Gefäßen, Nachblutung mit Atemwegsverlegung, Infektion, Duraverletzung mit Liquorfistel, Nervenwurzel- oder Rückenmarkschädigung, Materiallockerung und Anschlussdegeneration des Nachbarsegments',
+            'Realistische Erwartung: Der ARMSCHMERZ bessert sich zuverlässiger als der Nackenschmerz; länger bestehende Paresen und Sensibilitätsstörungen bilden sich nur teilweise zurück, und bei der Myelopathie ist das Ziel primär der Stillstand der Progression',
+          ],
+          akut: true,
+        },
+      ],
+      prognose: 'Die Prognose des radikulären zervikalen Bandscheibenvorfalls ist gut: Etwa 80 bis 90 Prozent der Patienten werden unter konsequenter konservativer Behandlung innerhalb von sechs bis zwölf Wochen beschwerdefrei oder deutlich gebessert. Freie Sequester zeigen dabei die beste Resorptionstendenz, da sie durch Makrophagen abgebaut werden. Sensibilitätsstörungen bilden sich langsamer zurück als der Schmerz, und eine bereits eingetretene Parese erholt sich umso besser, je kürzer sie besteht. Rezidive und Beschwerden in Nachbarsegmenten sind bei fortbestehender Degeneration möglich, besonders bei anhaltender Fehlhaltung und fortgesetztem Nikotinkonsum. Grundlegend anders ist die Prognose der zervikalen Myelopathie: Sie verläuft unbehandelt meist schubförmig oder langsam progredient, und die Operation kann in erster Linie die weitere Verschlechterung aufhalten — eine vollständige Rückbildung bestehender Ausfälle ist nicht zu erwarten. Deshalb gilt hier: frühe Diagnose, frühe Operation.',
+      pruefungsfallen: [
+        'Segment und Wurzel nicht verwechseln: An der Halswirbelsäule komprimiert der laterale Vorfall die UNTERE, gleichnamige Wurzel — C5/C6 die Wurzel C6, C6/C7 die Wurzel C7, C7/Th1 die Wurzel C8. An der Lendenwirbelsäule trifft der mediolaterale Vorfall dagegen die durchtretende, nächsttiefere Wurzel (L4/L5 → Wurzel L5).',
+        'Die zervikale Myelopathie ist die entscheidende Weichenstellung und muss aktiv gesucht werden: Reflexe und Tonus an den BEINEN prüfen, Babinski-Zeichen, Gangbild, Lhermitte-Zeichen und Blasenfunktion. Wer nur den Arm untersucht, übersieht die einzige dringliche Operationsindikation.',
+        '„MRT erst nach vier bis sechs Wochen“ gilt nur für den reinen Schmerzpatienten OHNE Red Flags — bei Parese, Myelopathiezeichen, Fieber, Tumoranamnese oder Trauma sofort.',
+        'Degenerative Veränderungen im MRT sind ab dem mittleren Lebensalter NORMAL: Der Befund muss zur Klinik und zum Dermatom passen, sonst operiert man ein Bild statt eines Patienten.',
+        'Die Angina pectoris und das akute Koronarsyndrom als Differenzialdiagnose der Armschmerzen ausdrücklich nennen — Prüfer ergänzen das sonst selbst.',
+        'Niemals eine ruckartige chirotherapeutische Manipulation der Halswirbelsäule — Gefahr der Dissektion der Arteria vertebralis mit Hirnstamminfarkt.',
+        'Keine Bettruhe und keine Halskrause über wenige Tage hinaus: Ruhigstellung führt zu Muskelabbau, Bewegungsangst und Chronifizierung.',
+        'NSAR ohne Magenschutz sind bei älteren Patienten ein häufiger und prüfungsrelevanter Fehler — immer nach Selbstmedikation, Dosis, Dauer, Protonenpumpenhemmer und Teerstuhl fragen.',
+        'Das Schulterabduktionszeichen erfragen: Wer den Arm über den Kopf legt und dadurch Erleichterung erfährt, hat mit hoher Wahrscheinlichkeit eine Wurzelkompression.',
+        'Beim Raucher an den Pancoast-Tumor denken (Dermatom C8/Th1, Horner-Syndrom) und einen Röntgen-Thorax veranlassen.',
+        'Nachlassender Schmerz bei zunehmender Schwäche ist keine Besserung, sondern ein Warnzeichen („Wurzeltod“).',
+        '„Packungsjahre“ ausschreiben und berechnen (Schachteln pro Tag × Raucherjahre), niemals „py“ sagen oder schreiben.',
+        'Bei der Operationsaufklärung ehrlich bleiben: Der Armschmerz bessert sich zuverlässiger als der Nackenschmerz.',
+        'Vor dem Patienten Alltagssprache verwenden: „Bandscheibenvorfall an der Halswirbelsäule“, „Nervenwurzel“, „Kernspintomographie“ statt „zervikaler Diskusprolaps“, „Radix“ und „MRT“ ohne Erklärung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum handelt es sich um einen zervikalen Bandscheibenvorfall?',
+          antwort: 'Wegen der typischen Konstellation: Nackenschmerz mit schmerzhafter Bewegungseinschränkung nach dem Heben einer schweren Last, dazu eine einschießende, elektrisierende Ausstrahlung in den Arm, die einem Dermatom folgt, mit Parästhesien, Hypästhesie und Kennmuskelschwäche im selben Segment. Der Schmerz verstärkt sich beim Husten, Niesen und Pressen sowie bei Reklination und Kopfdrehung zur betroffenen Seite und bessert sich beim Auflegen des Arms über den Kopf. Das Spurling-Zeichen ist positiv.',
+        },
+        {
+          frage: 'Wo befindet sich der Bandscheibenvorfall — welche Höhe und welche Wurzel?',
+          antwort: 'Die Höhenlokalisation ergibt sich aus Dermatom, Kennmuskel und Reflex. Am häufigsten sind die Segmente C6/C7 und C5/C6. Beim lateralen Vorfall wird die untere, gleichnamige Wurzel komprimiert: C5/C6 die Wurzel C6, C6/C7 die Wurzel C7 und C7/Th1 die Wurzel C8.',
+        },
+        {
+          frage: 'Nennen Sie die zervikalen Wurzelsyndrome mit Dermatom, Kennmuskel und Reflex.',
+          antwort: 'C6: radiale Seite des Unterarms bis zum Daumen, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex. C7: Mittelfinger, Schwäche der Ellenbogenstreckung durch den Trizeps und der Fingerbeuger, abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens. C8: Kleinfinger und ulnare Handkante, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex.',
+        },
+        {
+          frage: 'Was ist die Ursache dieser Erkrankung, und welche Risikofaktoren gibt es?',
+          antwort: 'Grundlage ist die Degeneration der bradytrophen Bandscheibe mit Wasserverlust des Nucleus pulposus und Rissbildung im Anulus fibrosus; ein akutes Heben oder eine ungewohnte Belastung führt dann zum Durchtritt von Bandscheibengewebe. Risikofaktoren sind Alter zwischen 40 und 60 Jahren, Rauchen, langdauernde Zwangshaltung des Kopfes bei Bildschirmarbeit, schweres Heben und Überkopfarbeit, schwache Nackenmuskulatur, Übergewicht, vorbestehende degenerative Veränderungen und eine genetische Disposition.',
+        },
+        {
+          frage: 'Welcher Zusammenhang besteht zwischen der Diagnose und dem Rauchen?',
+          antwort: 'Die Bandscheibe hat keine eigenen Gefäße und wird nur durch Diffusion über die Wirbelendplatten ernährt. Nikotin führt zu Vasokonstriktion und verschlechtert die Durchblutung der Endplatten; die Bandscheibe degeneriert früher, verliert an Höhe und reißt leichter ein. Zusätzlich verzögert Rauchen die Heilung und die knöcherne Fusion nach einer Operation und erhöht das Risiko einer Chronifizierung.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Karpaltunnelsyndrom und Sulcus-ulnaris-Syndrom als periphere Engpasssyndrome, Zervikalsyndrom mit myofaszialer Verspannung, Schulterpathologien wie Impingement und Rotatorenmanschettenruptur, Epikondylitis, Thoracic-outlet-Syndrom, neuralgische Schulteramyotrophie, Herpes zoster vor dem Exanthem, Pancoast-Tumor mit Horner-Syndrom, Polyneuropathie, Spondylodiszitis, Wirbelmetastase, zervikale Myelopathie bei Spinalkanalstenose, Multiple Sklerose sowie — besonders wichtig — die Angina pectoris.',
+        },
+        {
+          frage: 'Welche Untersuchungen führen Sie durch?',
+          antwort: 'Anamnese und klinisch-neurologische Untersuchung im Seitenvergleich mit Kennmuskeln, Kraftgraden, Reflexen und Dermatomen, Beweglichkeitsprüfung der Halswirbelsäule, Spurling-Zeichen und Traktionstest sowie obligat die Untersuchung der Beine auf Pyramidenbahnzeichen und das Lhermitte-Zeichen. Labor nur bei Verdacht auf Infektion oder Tumor. Bildgebend Röntgen der Halswirbelsäule in zwei Ebenen und als Untersuchung der Wahl das MRT; ergänzend Elektroneurographie und Elektromyographie und ein neurologisches Konsil.',
+        },
+        {
+          frage: 'Warum ist das MRT besser als das CT?',
+          antwort: 'Weil es Weichteile darstellt: die Bandscheibe, die Nervenwurzel im Neuroforamen und das Rückenmark einschließlich eines Myelopathiesignals, außerdem entzündliche und tumoröse Veränderungen — und das ohne Strahlenbelastung. Das CT ist nur bei knöchernen Fragen und Verknöcherungen überlegen und bleibt Patienten mit MRT-Kontraindikation vorbehalten.',
+        },
+        {
+          frage: 'Was wird im MRT gefunden?',
+          antwort: 'Ein nach dorsal ausgetretenes Bandscheibengewebe mit Einengung des Spinalkanals oder des Neuroforamens und Kontakt zur Nervenwurzel, gegebenenfalls ein freier Sequester; dazu Höhenminderung und Signalverlust der Bandscheibe als Zeichen der Degeneration. Bei Myelonkompression zeigt sich eine Signalanhebung im Rückenmark in der T2-Wichtung. Wichtig: Degenerative Veränderungen sind ab dem mittleren Lebensalter häufig und müssen zur Klinik und zum Dermatom passen.',
+        },
+        {
+          frage: 'Wann soll das MRT durchgeführt werden?',
+          antwort: 'Beim reinen Wurzelschmerz ohne Red Flags erst bei Persistenz über vier bis sechs Wochen, weil die Beschwerden meist spontan abklingen. Sofort dagegen bei Red Flags: Myelopathiezeichen, hochgradige oder progrediente Parese, Fieber und Nachtschmerz, Tumoranamnese oder Trauma.',
+        },
+        {
+          frage: 'Wie wird konservativ behandelt?',
+          antwort: 'Aufklärung über die gute Spontanprognose, Aktivierung ohne Bettruhe, Halskrause allenfalls für wenige Tage, ergonomische Anpassung und Wärme. Medikamentös NSAR mit Magenschutz, alternativ Metamizol oder Paracetamol, kurzzeitig ein Muskelrelaxans, bei neuropathischem Schmerz Gabapentin oder Pregabalin, kurzfristig orale Glukokortikoide bei starker radikulärer Symptomatik und Opioide nur ausnahmsweise. Dazu Krankengymnastik mit Traktion, Haltungsschulung und Kräftigung sowie bei therapieresistentem Wurzelschmerz eine periradikuläre Therapie.',
+        },
+        {
+          frage: 'Wann sollen wir den Patienten operieren?',
+          antwort: 'Dringlich bei zervikaler Myelopathie und bei hochgradiger oder rasch progredienter Parese. Elektiv bei therapierefraktärem Wurzelschmerz nach sechs bis zwölf Wochen konsequenter konservativer Behandlung, wenn Klinik, Dermatom und MRT-Befund übereinstimmen. Ein alleiniger Bildbefund ohne passende Klinik ist keine Operationsindikation.',
+        },
+        {
+          frage: 'Können Sie die Operation erklären? Erfolgt der Zugang von vorne oder von hinten?',
+          antwort: 'In der Regel von vorne: ventrale Diskektomie über einen queren Hautschnitt am Hals, Präparation zwischen Luft- und Speiseröhre einerseits und der Gefäß-Nerven-Scheide andererseits, Ausräumen der Bandscheibe, Dekompression der Wurzel und anschließend Fusion mit einem Cage oder Einsetzen einer Bandscheibenprothese zum Bewegungserhalt. Von hinten kommt die dorsale Foraminotomie in Betracht, wenn die Kompression rein foraminal und lateral liegt.',
+        },
+        {
+          frage: 'Was erwarten wir von der Operation?',
+          antwort: 'Vor allem die Beseitigung des radikulären Armschmerzes — dieser bessert sich zuverlässig. Der Nackenschmerz bessert sich deutlich weniger sicher. Länger bestehende Taubheit und Schwäche bilden sich nur teilweise zurück, und bei der Myelopathie ist das primäre Ziel, die Progression aufzuhalten.',
+        },
+        {
+          frage: 'Was sind die Symptome einer zervikalen Myelopathie?',
+          antwort: 'Gangunsicherheit mit breitbasigem Gangbild, Feinmotorikstörung mit Ungeschicklichkeit beim Knöpfen und Schreiben, Spastik und gesteigerte Reflexe an den Beinen, positives Babinski-Zeichen, Lhermitte-Zeichen und Blasenstörung. Das ist eine dringliche operative Indikation und keine konservative Situation.',
+        },
+        {
+          frage: 'Welches Konsil fordern Sie an?',
+          antwort: 'Ein neurologisches Konsil zur Höhenlokalisation, zur elektrophysiologischen Abgrenzung peripherer Engpasssyndrome und zur Beurteilung von Myelopathiezeichen; bei Operationsindikation zusätzlich die Vorstellung in der Neurochirurgie beziehungsweise Wirbelsäulenchirurgie.',
+        },
+      ],
+      merksatz: 'Nackenschmerz plus Armschmerz im DERMATOM, verstärkt durch Husten, Niesen und Reklination, gebessert durch den Arm über dem Kopf — das ist die Wurzel: C6 Daumen, C7 Mittelfinger, C8 Kleinfinger. MRT erst nach vier bis sechs Wochen, aber SOFORT bei Parese oder Myelopathie; über 80 Prozent heilen konservativ in sechs bis zwölf Wochen, und beim Ibuprofen nie den Magenschutz vergessen.',
+      linkedCaseIds: [
+        'case-hws-diskusprolaps',
+      ],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-ct',
+        'auf-operation',
+      ],
+      keyFachbegriffeIds: [],
+    },
+    {
+      id: 'fw-laktoseintoleranz',
+      pathology: 'Laktoseintoleranz (Laktasemangel)',
+      specialty: 'Gastroenterologie',
+      definition: 'Die Laktoseintoleranz ist die Unfähigkeit, den Milchzucker (Laktose) im Dünndarm ausreichend zu spalten und zu resorbieren. Ursache ist ein Mangel oder eine verminderte Aktivität der LAKTASE (Beta-Galaktosidase), eines Enzyms des Bürstensaums der Dünndarmschleimhaut, vor allem im Jejunum. Die ungespaltene Laktose bleibt osmotisch aktiv im Darmlumen und wird im Kolon bakteriell fermentiert. Es handelt sich ausdrücklich um einen ENZYMMANGEL und NICHT um eine Allergie — im Gegensatz zur Kuhmilchallergie, die eine immunologische Reaktion gegen das Milcheiweiß darstellt. Von der Laktosemalabsorption (nur laborchemisch fassbare Spaltungsstörung) spricht man erst dann als Laktoseintoleranz, wenn zusätzlich klinische Beschwerden auftreten.',
+      aetiologie: 'PRIMÄRER (adulter) Laktasemangel: genetisch determinierter, nach dem Abstillen physiologischer Rückgang der Laktaseaktivität — weltweit der Normalzustand bei etwa 65 bis 70 % der erwachsenen Menschen. Die Laktasepersistenz beruht auf einem Polymorphismus (LCT-13910 C>T) im Enhancer-Bereich des MCM6-Gens auf Chromosom 2q21, der sich mit der Milchviehhaltung in Nord- und Westeuropa durchgesetzt hat; dort sind nur etwa 5 bis 20 % der Erwachsenen betroffen, in Ostasien und Teilen Afrikas über 90 %. SEKUNDÄRER (erworbener) Laktasemangel: Schädigung der Dünndarmschleimhaut mit Verlust der Bürstensaumenzyme — nach infektiöser Gastroenteritis, bei Zöliakie, Morbus Crohn, bakterieller Fehlbesiedlung, Giardiasis, Kurzdarmsyndrom, nach Antibiotikatherapie, Strahlen- oder Chemotherapie; diese Form ist nach Ausheilung der Grunderkrankung häufig REVERSIBEL. KONGENITALER Laktasemangel (Alaktasie): extrem seltener, autosomal-rezessiver kompletter Enzymdefekt mit lebensbedrohlicher Diarrhoe bereits ab der ersten Milchmahlzeit. Beim Frühgeborenen besteht ein vorübergehender entwicklungsbedingter Laktasemangel.',
+      risikofaktoren: [
+        'Ethnische Herkunft: sehr hohe Prävalenz in Ostasien, Afrika, Süd- und Osteuropa, dem Nahen Osten und bei indigenen Völkern Amerikas; niedrige Prävalenz in Nord- und Westeuropa',
+        'Zunehmendes Lebensalter — die Laktaseaktivität nimmt beim primären Typ im Erwachsenenalter weiter ab, sodass die Beschwerden oft erst spät auffallen',
+        'Positive Familienanamnese für Milchunverträglichkeit',
+        'Zöliakie, Morbus Crohn und andere Erkrankungen mit Schädigung der Dünndarmzotten (sekundäre Form)',
+        'Zustand nach infektiöser Gastroenteritis, insbesondere Rotavirus- und Giardia-Infektion',
+        'Antibiotikatherapie, Strahlen- und Chemotherapie des Abdomens',
+        'Bakterielle Fehlbesiedlung des Dünndarms, Kurzdarmsyndrom, ausgedehnte Dünndarmresektion',
+        'Plötzliche Steigerung der Milchzufuhr nach längerer Karenz',
+        'Begleitendes Reizdarmsyndrom, das die Symptome verstärkt und die Toleranzschwelle senkt',
+      ],
+      klinik: [
+        {
+          text: 'Blähungen und Meteorismus mit sichtbar aufgetriebenem Abdomen und hörbaren Darmgeräuschen — das Leitsymptom',
+        },
+        {
+          text: 'Vermehrter Windabgang (Flatulenz), von den Betroffenen häufig als sozial stark belastend erlebt',
+        },
+        {
+          text: 'Krampfartige, diffuse Bauchschmerzen ohne Ausstrahlung, meist periumbilikal und im Unterbauch',
+        },
+        {
+          text: 'Breiige bis wässrige Durchfälle (osmotische Diarrhoe), teils mit imperativem Stuhldrang',
+        },
+        {
+          text: 'Übelkeit, seltener Erbrechen',
+        },
+        {
+          text: 'TYPISCHES ZEITLICHES MUSTER als diagnosetragendes Merkmal: Auftreten 30 Minuten bis 2 Stunden nach dem Verzehr von Milch, Milchkaffee, Quark, Speiseeis oder Sahne',
+        },
+        {
+          text: 'Deutliche DOSISABHÄNGIGKEIT: ein Schuss Milch im Kaffee wird vertragen, ein Glas Milch nicht',
+        },
+        {
+          text: 'Gereifter Hartkäse und Joghurt werden meist gut vertragen, da sie kaum noch Laktose enthalten',
+        },
+        {
+          text: 'Vollständige Beschwerdefreiheit im Nüchternzustand und in laktosefreien Phasen',
+        },
+        {
+          text: 'Besserung der Episode nach Stuhlgang und Windabgang, dazwischen beschwerdefreies Intervall',
+        },
+        {
+          text: 'Extraintestinale Beschwerden wie Müdigkeit, Kopfschmerzen, Konzentrationsstörungen und Gliederschmerzen — werden berichtet, sind aber unspezifisch und nicht beweisend',
+          atypisch: true,
+        },
+        {
+          text: 'Chronische Obstipation statt Diarrhoe bei überwiegender Methanbildung der Darmflora',
+          atypisch: true,
+        },
+        {
+          text: 'Gewichtsverlust und Mangelzustände (Kalzium, Vitamin D, Eisen) — meist Folge einer eigenmächtigen Überrestriktion oder Hinweis auf eine zusätzliche Grunderkrankung, nicht auf die Laktoseintoleranz selbst',
+          atypisch: true,
+        },
+        {
+          text: 'Beim kongenitalen Laktasemangel bereits neonatal massive wässrige Diarrhoe mit Exsikkose und Gedeihstörung ab der ersten Milchmahlzeit',
+          atypisch: true,
+        },
+        {
+          text: 'Völlig asymptomatischer Verlauf trotz nachgewiesener Malabsorption — dann liegt eine Laktosemalabsorption, aber keine Intoleranz vor',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Formen des Laktasemangels',
+          inhalt: 'Primärer (adulter) Laktasemangel: genetisch bedingter, nach dem Abstillen physiologischer Aktivitätsverlust; weltweit die Mehrheit der Erwachsenen, in Nord- und Westeuropa selten. Sekundärer (erworbener) Laktasemangel: Folge einer Schädigung der Dünndarmschleimhaut (Zöliakie, Morbus Crohn, Gastroenteritis, Giardiasis, bakterielle Fehlbesiedlung, Antibiotika-, Strahlen- und Chemotherapie) — häufig REVERSIBEL nach Behandlung der Grunderkrankung. Kongenitaler Laktasemangel (Alaktasie): extrem seltener autosomal-rezessiver kompletter Enzymdefekt, lebensbedrohlich ab der ersten Milchmahlzeit. Entwicklungsbedingter Laktasemangel des Frühgeborenen: vorübergehend, da die Laktase erst spät in der Schwangerschaft ausreift.',
+        },
+        {
+          name: 'Laktosemalabsorption versus Laktoseintoleranz',
+          inhalt: 'Laktosemalabsorption bezeichnet allein die gestörte Spaltung und Resorption, nachweisbar im H2-Atemtest oder Genotest, ohne notwendige Beschwerden. Laktoseintoleranz liegt erst vor, wenn zusätzlich klinische Symptome auftreten. Ein positiver H2-Atemtest ohne reproduzierte Beschwerden rechtfertigt daher keine Diät — deshalb wird die Symptomatik während des Tests immer mitprotokolliert.',
+        },
+        {
+          name: 'Beurteilung des H2-Atemtests nach Laktosebelastung',
+          inhalt: 'Nach mindestens 12 Stunden Nüchternheit werden 25 bis 50 g Laktose in Wasser verabreicht und der Wasserstoff in der Ausatemluft alle 30 Minuten über 2 bis 3 Stunden gemessen. Ein Anstieg um mindestens 20 ppm über den Ausgangswert gilt als pathologisch. Ein früher Anstieg innerhalb der ersten 90 Minuten spricht für eine bakterielle Fehlbesiedlung des Dünndarms. Bei 10 bis 20 % H2-Non-Produzenten ist der Test falsch negativ — dann Methanmessung oder Laktose-Toleranztest.',
+        },
+        {
+          name: 'Laktose-Toleranztest mit Blutzuckerverlauf',
+          inhalt: 'Nach oraler Gabe von 50 g Laktose wird der Blutzucker bei 0, 60 und 120 Minuten bestimmt. Ein Anstieg von weniger als 20 mg/dl (1,1 mmol/l) über den Nüchternwert belegt die fehlende Spaltung und Resorption. Alternative bei H2-Non-Produzenten; störanfällig bei Diabetes mellitus und Magenentleerungsstörungen.',
+        },
+        {
+          name: 'Laktosegehalt wichtiger Lebensmittel (Orientierung für die Beratung)',
+          inhalt: 'Kuhmilch etwa 4,8 g je 100 ml (ein Glas von 200 ml entspricht rund 9,6 g); Sahne etwa 3,2 g je 100 ml; Quark und Frischkäse etwa 3 g je 100 g; Joghurt 3 bis 4 g je 100 g, wegen der lebenden Kulturen jedoch deutlich besser verträglich; Butter etwa 0,6 g je 100 g; gereifter Hartkäse wie Emmentaler, Parmesan und alter Gouda unter 0,1 g je 100 g; als „laktosefrei“ gilt ein Gehalt unter 0,1 g je 100 g. Die individuelle Toleranzschwelle liegt bei den meisten Betroffenen bei etwa 10 bis 12 g Laktose auf einmal.',
+        },
+      ],
+      redFlags: [
+        'Ungewollter Gewichtsverlust — spricht gegen eine reine Laktoseintoleranz und für Malabsorption, chronisch entzündliche Darmerkrankung oder Malignom',
+        'Blut oder Schleim im Stuhl, Melaena — obligate endoskopische Abklärung',
+        'Anämie, Eisenmangel oder pathologische Entzündungsparameter',
+        'Fieber und Nachtschweiß',
+        'NÄCHTLICHE Beschwerden, die den Patienten aus dem Schlaf wecken — funktionelle und rein nahrungsabhängige Störungen tun das nicht',
+        'Erstmanifestation nach dem 50. Lebensjahr',
+        'Familiäre Belastung mit kolorektalem Karzinom oder chronisch entzündlicher Darmerkrankung',
+        'Tastbare abdominelle Resistenz, Aszites, Lymphknotenvergrößerung',
+        'Ausbleibende Besserung trotz konsequenter Laktosekarenz — dann stimmt die Diagnose nicht oder sie steht nicht allein',
+        'Erhöhtes Calprotectin im Stuhl oder positive Zöliakie-Serologie',
+        'Beim Säugling: massive Diarrhoe ab der ersten Milchmahlzeit mit Exsikkose und Gedeihstörung (kongenitale Alaktasie)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ausführliche Ernährungs- und Symptomanamnese als tragende Säule: zeitliche Latenz von 30 Minuten bis 2 Stunden zwischen Verzehr und Beschwerden, Dosisabhängigkeit, gute Verträglichkeit von gereiftem Hartkäse und Joghurt, Beschwerdefreiheit im Nüchternzustand und in laktosefreien Phasen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Abgrenzung zur Kuhmilchallergie: Sofortreaktion innerhalb von Minuten, Dosisunabhängigkeit, Haut-, Schleimhaut- und Atemwegssymptome, Anaphylaxiegefahr',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematische Abfrage der ALARMZEICHEN: Gewichtsverlust, Blut im Stuhl, Fieber, Nachtschweiß, nächtliche Beschwerden, Beginn nach dem 50. Lebensjahr, familiäre Karzinom- oder CED-Belastung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suche nach Ursachen einer SEKUNDÄREN Form: vorangegangene Gastroenteritis, Antibiotika-, Strahlen- oder Chemotherapie, bekannte Zöliakie oder chronisch entzündliche Darmerkrankung, Voroperationen am Darm, Auslandsaufenthalt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'ERNÄHRUNGS- und BESCHWERDETAGEBUCH über zwei Wochen mit Uhrzeit, Art und Menge der Nahrungsmittel sowie Art und Zeitpunkt der Beschwerden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Diagnostische ELIMINATION laktosehaltiger Speisen über zwei bis vier Wochen mit anschließender kontrollierter Reexposition — praktisch häufig der überzeugendste Nachweis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Inspektion (aufgetriebenes Abdomen), Auskultation (lebhafte Darmgeräusche), Palpation (diffuser Druckschmerz ohne Abwehrspannung, keine Resistenz), Perkussion (Meteorismus), digital-rektale Untersuchung, Inspektion von Haut und Schleimhäuten sowie Erhebung von Größe, Gewicht und Body-Mass-Index',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild mit Differenzialblutbild, CRP, BSG, Elektrolyte, Nieren- und Leberwerte, Lipase, Blutzucker — bei der reinen Laktoseintoleranz sämtlich unauffällig',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zöliakie-Serologie: Transglutaminase-IgA-Antikörper ZUSAMMEN mit dem Gesamt-IgA (selektiver IgA-Mangel bei 2 bis 3 % der Zöliakiepatienten), zwingend unter laufender glutenhaltiger Kost',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Malabsorptions- und Mangelparameter: Ferritin, Transferrinsättigung, Vitamin B12, Folsäure, 25-OH-Vitamin D, Kalzium, Albumin, Zink',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH zum Ausschluss einer Hyperthyreose als Ursache chronischer Durchfälle',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CALPROTECTIN im Stuhl zur Abgrenzung der chronisch entzündlichen Darmerkrankung vom funktionellen bzw. malabsorptiven Geschehen; okkultes Blut im Stuhl',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Stuhluntersuchung auf pathogene Erreger und Parasiten einschließlich Giardia-lamblia-Antigen; Pankreas-Elastase-1 im Stuhl bei Verdacht auf exokrine Pankreasinsuffizienz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'H2-ATEMTEST nach Laktosebelastung als STANDARDUNTERSUCHUNG: 25 bis 50 g Laktose nach mindestens 12 Stunden Nüchternheit, Messung alle 30 Minuten über 2 bis 3 Stunden; Anstieg um mindestens 20 ppm über den Ausgangswert ist pathologisch. Die Symptome werden PARALLEL protokolliert, da erst H2-Anstieg plus Beschwerden die Intoleranz belegen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Laktose-Toleranztest mit Blutzuckerverlauf als Alternative, besonders bei H2-Non-Produzenten: 50 g Laktose oral, Blutzucker bei 0, 60 und 120 Minuten; ein Anstieg unter 20 mg/dl ist pathologisch',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie zur Beurteilung von Leber, Gallenwegen, Pankreas, Nieren und Darmwand sowie zum Ausschluss von Raumforderungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'H2-Atemtest mit Fruktose bei Verdacht auf Fruktosemalabsorption sowie mit Glukose oder Laktulose bei Verdacht auf bakterielle Fehlbesiedlung des Dünndarms',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie mit tiefen DUODENALBIOPSIEN bei positiver oder unklarer Zöliakie-Serologie oder bei Alarmzeichen — histologisch Zottenatrophie, Kryptenhyperplasie und intraepitheliale Lymphozytose nach der Marsh-Klassifikation; fakultativ Bestimmung der Disaccharidaseaktivität in der Biopsie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Stufenbiopsien bei Alarmzeichen, erhöhtem Calprotectin, Verdacht auf mikroskopische Kolitis oder ausbleibender Besserung unter konsequenter Karenz',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Genotypisierung des Laktase-Gens (Polymorphismus LCT-13910 C/T) nur in Einzelfällen — sie trennt die primäre von der sekundären Form, sagt jedoch nichts über die aktuelle klinische Relevanz aus',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Reizdarmsyndrom (Colon irritabile)',
+          unterscheidung: 'Sehr häufig und oft GLEICHZEITIG bestehend. Beschwerden nicht an ein einzelnes Nahrungsmittel und nicht an eine feste Latenz gebunden, Wechsel von Diarrhoe und Obstipation, ausgeprägte Stressabhängigkeit, Besserung nach Stuhlgang. AUSSCHLUSSDIAGNOSE nach den Rom-Kriterien: erst zu stellen, wenn Laktoseintoleranz, Zöliakie und CED ausgeschlossen sind.',
+        },
+        {
+          dd: 'Zöliakie (einheimische Sprue)',
+          unterscheidung: 'Wichtigste Ursache eines sekundären Laktasemangels und selbst Auslöser von Blähungen und Diarrhoe. Typisch sind Gewichtsverlust, Eisenmangelanämie, Folsäure- und Vitamin-D-Mangel, Aphthen, Dermatitis herpetiformis Duhring, Ansprechen auf glutenfreie Kost. Nachweis: Transglutaminase-IgA plus Gesamt-IgA unter glutenhaltiger Kost, Sicherung durch Duodenalbiopsien.',
+        },
+        {
+          dd: 'Kuhmilchallergie',
+          unterscheidung: 'Immunologische, IgE-vermittelte Reaktion gegen das MILCHEIWEISS — kein Enzymmangel. Sofortreaktion innerhalb von Minuten, DOSISUNABHÄNGIG (schon Spuren genügen), mit Urtikaria, Juckreiz, Lippen- und Zungenschwellung, Erbrechen, Atemnot bis zur Anaphylaxie; meist Manifestation im Kleinkindalter. Diagnostik: spezifisches IgE, Prick-Test, orale Provokation.',
+        },
+        {
+          dd: 'Fruktosemalabsorption und Sorbitunverträglichkeit',
+          unterscheidung: 'Klinisch praktisch identisch, aber Auslöser sind Obst, Fruchtsäfte, Honig, Trockenobst und Zuckeraustauschstoffe in Light-Produkten und Kaugummi. Abgrenzung über Ernährungsanamnese und H2-Atemtest mit Fruktose; häufig kombiniert mit der Laktoseintoleranz.',
+        },
+        {
+          dd: 'Chronisch entzündliche Darmerkrankungen (Morbus Crohn, Colitis ulcerosa)',
+          unterscheidung: 'Alarmzeichen im Vordergrund: Gewichtsverlust, Fieber, blutig-schleimige Durchfälle, nächtliche Beschwerden, extraintestinale Manifestationen (Arthritis, Erythema nodosum, Uveitis), perianale Fisteln. Labor mit erhöhtem CRP, Anämie und deutlich erhöhtem Calprotectin; Sicherung durch Ileokoloskopie mit Stufenbiopsien.',
+        },
+        {
+          dd: 'Bakterielle Fehlbesiedlung des Dünndarms (SIBO)',
+          unterscheidung: 'Blähungen und Diarrhoe ohne Bindung an ein einzelnes Nahrungsmittel; Risikofaktoren sind Voroperationen mit blinden Schlingen, Motilitätsstörungen, Divertikel und Protonenpumpenhemmer. Nachweis über H2-Atemtest mit Glukose oder Laktulose mit frühem Anstieg unter 90 Minuten; erzeugt beim Laktosetest falsch positive Frühgipfel.',
+        },
+        {
+          dd: 'Exokrine Pankreasinsuffizienz',
+          unterscheidung: 'Voluminöse, fettglänzende, übelriechende und schwimmende Stühle (Steatorrhoe), Gewichtsverlust, Mangel fettlöslicher Vitamine; meist bei chronischer Pankreatitis oder Alkoholabusus. Nachweis über Pankreas-Elastase-1 im Stuhl.',
+        },
+        {
+          dd: 'Giardiasis und andere parasitäre oder bakterielle Darminfektionen',
+          unterscheidung: 'Anhaltende Blähungen, Fettstühle und Gewichtsverlust nach Auslandsaufenthalt oder Genuss von Bach- und Brunnenwasser; kann selbst einen sekundären Laktasemangel hinterlassen. Nachweis über Giardia-Antigen und Stuhluntersuchung (drei Proben).',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Häufige Stühle mit Gewichtsverlust TROTZ gesteigertem Appetit, dazu Tachykardie, Wärmeintoleranz, Schwitzen, Tremor und Nervosität. Ausschluss über das TSH.',
+        },
+        {
+          dd: 'Kolorektales Karzinom',
+          unterscheidung: 'Bei Alarmzeichen zwingend zu erwägen: Gewichtsverlust, Blut im Stuhl, Anämie, Änderung der Stuhlgewohnheiten, Alter über 50 Jahre, familiäre Belastung. Sicherung durch Koloskopie mit Biopsie.',
+        },
+        {
+          dd: 'Medikamentös bedingte Diarrhoe und Laxanzienabusus',
+          unterscheidung: 'Metformin, Antibiotika, Protonenpumpenhemmer, Magnesium- und sorbithaltige Präparate sowie heimlicher Laxanzienabusus. Klärung ausschließlich über die vollständige Medikamentenanamnese einschließlich frei verkäuflicher Präparate.',
+        },
+        {
+          dd: 'Mikroskopische Kolitis (kollagene und lymphozytäre Kolitis)',
+          unterscheidung: 'Chronische, wässrige Durchfälle ohne Blut, häufig auch nachts, oft bei Frauen mittleren Alters und unter Protonenpumpenhemmern oder NSAR. Koloskopie makroskopisch unauffällig — die Diagnose gelingt nur über die Stufenbiopsien.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Ernährungsumstellung mit individueller Restmenge',
+          items: [
+            'Ziel ist ausdrücklich NICHT der vollständige Verzicht, sondern die Bestimmung der persönlichen Toleranzschwelle: nach einer zwei- bis vierwöchigen Karenzphase schrittweise Wiedereinführung; die meisten Betroffenen vertragen etwa 10 bis 12 g Laktose auf einmal, das entspricht rund 200 bis 250 ml Milch',
+            'Verteilung kleiner Mengen über den Tag statt einer großen Portion',
+            'Laktose zusammen mit anderen Speisen und nicht nüchtern aufnehmen — die verzögerte Magenentleerung nutzt die Restaktivität besser aus',
+            'Gut verträgliche Alternativen: gereifter Hartkäse (Emmentaler, Parmesan, alter Gouda, unter 0,1 g Laktose je 100 g), Joghurt und Kefir mit lebenden Kulturen, Butter, laktosefreie Milchprodukte',
+            'Schulung im Lesen von ZUTATENLISTEN wegen der versteckten Laktose in Wurst- und Fleischwaren, Fertiggerichten, Backmischungen, Soßenbindern, Süßwaren — und als Hilfsstoff in zahlreichen MEDIKAMENTEN',
+            'Keine unnötige Ausweitung der Karenz auf andere Lebensmittelgruppen; eine Glutenkarenz erst nach abgeschlossener Zöliakie-Diagnostik',
+          ],
+        },
+        {
+          label: 'Sicherung der Nährstoffversorgung',
+          items: [
+            'Kalziumzufuhr von etwa 1000 mg täglich sichern: laktosefreie Milchprodukte, gereifter Hartkäse, kalziumreiche Mineralwässer, grünes Gemüse, Nüsse und Sesam; bei unzureichender Zufuhr Supplementation',
+            'Vitamin-D-Status prüfen und gegebenenfalls substituieren — beides dient der langfristigen Vorbeugung einer OSTEOPOROSE bei jahrelanger Milchkarenz',
+            'Kontrolle und Ausgleich weiterer Mangelzustände: Eisen und Ferritin, Vitamin B12, Folsäure, Zink',
+            'Qualifizierte Ernährungsberatung, besonders wenn Betroffene bereits eigenmächtig ganze Lebensmittelgruppen gestrichen haben und die Ernährung einseitig zu werden droht',
+            'Gewichts- und Ernährungsverlauf dokumentieren; bei fortschreitender Restriktion oder Gewichtsabnahme erneute Abklärung statt Verschärfung der Diät',
+          ],
+        },
+        {
+          label: 'Enzymsubstitution für Ausnahmesituationen',
+          items: [
+            'Laktase-Präparate (Tabletten, Kautabletten, Tropfen) unmittelbar vor oder zu Beginn der laktosehaltigen Mahlzeit einnehmen; Dosierung in FCC-Einheiten nach der geplanten Laktosemenge, individuell zu titrieren',
+            'Indikation sind AUSNAHMESITUATIONEN außerhalb des Alltags — Restaurant, Einladung, Reise, Kantine —, als Ergänzung und ausdrücklich nicht als Dauerlösung oder Ersatz für die Ernährungsumstellung',
+            'Die Wirkung ist unvollständig und individuell unterschiedlich zuverlässig; Erprobung in einer beschwerdearmen Phase empfehlen',
+            'Auf laktosehaltige Hilfsstoffe in Medikamenten achten und bei Bedarf laktosefreie Zubereitungen verordnen',
+          ],
+        },
+        {
+          label: 'Ursachenbehandlung, Aufklärung und Verlaufskontrolle',
+          items: [
+            'Bei SEKUNDÄRER Form konsequente Behandlung der Grunderkrankung — glutenfreie Kost bei Zöliakie, Therapie eines Morbus Crohn, Eradikation einer Giardiasis oder bakteriellen Fehlbesiedlung —, da sich die Laktaseaktivität nach Erholung der Schleimhaut häufig normalisiert und die Karenz dann nur vorübergehend nötig ist',
+            'Aufklärung über die GUTARTIGKEIT der Störung: Enzymmangel und keine Allergie, kein Organschaden, kein erhöhtes Krebsrisiko, keine bleibende Darmschädigung — diese Entlastung ist therapeutisch zentral',
+            'Wiedervorstellung bei ALARMZEICHEN (Gewichtsverlust, Blut im Stuhl, Fieber, nächtliche Beschwerden, Anämie) und bei ausbleibender Besserung trotz konsequenter Karenz — dann stimmt die Diagnose nicht oder sie steht nicht allein',
+            'Daran denken, dass die Laktoseintoleranz sehr häufig ist und NEBEN einer anderen Erkrankung bestehen kann; ein begleitendes Reizdarmsyndrom ergänzend behandeln (Pfefferminzöl, Spasmolytika, ballaststoffmodifizierte bzw. FODMAP-arme Kost, Stressbewältigung)',
+            'Verlaufskontrolle nach vier bis sechs Wochen mit Beschwerdetagebuch, Gewicht und ausstehenden Befunden',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose ist sehr gut. Die Laktoseintoleranz ist eine gutartige Funktionsstörung, die weder zu einem Organschaden noch zu einer Entzündung oder einem erhöhten Karzinomrisiko führt. Unter Ernährungsumstellung mit individuell angepasster Restmenge werden die allermeisten Betroffenen rasch und dauerhaft beschwerdefrei; die Lebensqualität normalisiert sich. Die primäre Form ist nicht heilbar und bleibt lebenslang bestehen, die Restaktivität nimmt mit dem Alter noch leicht ab. Die sekundäre Form ist nach erfolgreicher Behandlung der Grunderkrankung häufig REVERSIBEL, sodass Milchprodukte nach Erholung der Dünndarmschleimhaut wieder vertragen werden. Die einzige relevante Langzeitkomplikation ist die Osteoporose infolge einer über Jahre unzureichenden Kalzium- und Vitamin-D-Zufuhr bei unnötig strengem Verzicht — sie ist durch Beratung und gegebenenfalls Supplementation vollständig vermeidbar. Bleiben die Beschwerden trotz konsequenter Karenz bestehen, muss die Diagnose überprüft werden: Häufig liegt zusätzlich ein Reizdarmsyndrom, eine Fruktosemalabsorption oder eine noch nicht erkannte Grunderkrankung vor.',
+      pruefungsfallen: [
+        'Laktoseintoleranz ist ein ENZYMMANGEL, keine Allergie. Die Abgrenzung zur Kuhmilchallergie muss aktiv erklärt werden: Latenz von 30 Minuten bis 2 Stunden statt Minuten, Dosisabhängigkeit statt Reaktion auf Spuren, rein gastrointestinale Symptome statt Haut- und Atemwegsbeteiligung, keine Anaphylaxiegefahr.',
+        'Die Pathophysiologie muss frei und zusätzlich in Laiensprache erklärt werden können — sie wurde in Karlsruhe mehrfach direkt abgefragt, einmal als Fachfrage und einmal als Aufklärungsauftrag am Patienten.',
+        'Sich mit der Laktoseintoleranz NICHT zufriedengeben, wenn ALARMZEICHEN bestehen: Gewichtsverlust, Blut im Stuhl, Anämie, Fieber, nächtliche Beschwerden, Beginn nach dem 50. Lebensjahr oder familiäre Darmkrebsbelastung verlangen eine weiterführende Abklärung.',
+        'Die Laktoseintoleranz ist sehr häufig und kann NEBEN einer anderen Erkrankung bestehen — sie erklärt nicht automatisch alle Beschwerden. Ausbleibende Besserung trotz konsequenter Karenz ist ein Warnsignal.',
+        'Die sekundäre Form immer mitdenken: Sie ist Ausdruck einer Schleimhautschädigung (Zöliakie, Morbus Crohn, Zustand nach Gastroenteritis oder Antibiotikatherapie) und ist oft REVERSIBEL — deshalb Ursache suchen und behandeln statt nur Diät verordnen.',
+        'Die Zöliakie-Serologie muss UNTER glutenhaltiger Kost abgenommen werden, und das Gesamt-IgA gehört immer dazu (selektiver IgA-Mangel bei 2 bis 3 % der Zöliakiepatienten macht den IgA-Antikörper falsch negativ).',
+        'Therapieziel ist NICHT der vollständige Verzicht, sondern die individuelle Restmenge — der häufigste Denkfehler von Patienten und Kandidaten. Die meisten vertragen etwa 10 bis 12 g Laktose auf einmal, über den Tag verteilt mehr.',
+        'Die Kalzium- und Vitamin-D-Versorgung wird regelmäßig vergessen: Bei jahrelanger vollständiger Milchkarenz droht eine OSTEOPOROSE.',
+        'Laktase-Präparate sind ein Hilfsmittel für Ausnahmesituationen, keine Dauerlösung und kein Ersatz für die qualifizierte Ernährungsberatung.',
+        'Versteckte Laktose nicht vergessen: Wurst, Fertiggerichte, Backmischungen, Süßwaren — und Laktose als Hilfsstoff in TABLETTEN.',
+        'Beim H2-Atemtest die Fallstricke kennen: 10 bis 20 % H2-Non-Produzenten (falsch negativ, dann Methan messen oder Laktose-Toleranztest), bakterielle Fehlbesiedlung mit falsch positivem Frühgipfel, Antibiotika in den letzten vier Wochen, Rauchen und blähende Kost am Vortag als Störfaktoren. Ein H2-Anstieg OHNE Beschwerden belegt nur eine Malabsorption, keine Intoleranz.',
+        'Das Reizdarmsyndrom ist eine AUSSCHLUSSDIAGNOSE und darf erst nach Ausschluss von Laktoseintoleranz, Zöliakie und CED genannt werden; beides kann zudem gleichzeitig vorliegen.',
+        'Die ethnische Verteilung gehört zur Erklärung: Weltweit sind etwa 65 bis 70 % der Erwachsenen betroffen — der Laktasemangel ist der Normalzustand, die Laktasepersistenz in Nord- und Westeuropa die Ausnahme. Vor dem Patienten heißt das: „Das ist keine Krankheit im eigentlichen Sinn.“',
+      ],
+      askedInExam: [
+        {
+          frage: 'Erklären Sie die Pathophysiologie der Laktoseintoleranz.',
+          antwort: 'Die Laktase, eine Beta-Galaktosidase im Bürstensaum der Dünndarmschleimhaut, vor allem im Jejunum, spaltet das Disaccharid Laktose in Glukose und Galaktose, die dann resorbiert werden. Bei Laktasemangel bleibt die Laktose ungespalten im Lumen und ist osmotisch aktiv: Wasser strömt ein, es entsteht eine osmotische Diarrhoe. Im Kolon wird die Laktose von der Darmflora fermentiert; dabei entstehen kurzkettige Fettsäuren und die Gase Wasserstoff, Kohlendioxid und Methan, die zu Meteorismus, Flatulenz und krampfartigen Schmerzen durch Dehnung der Darmwand führen. Der Wasserstoff wird resorbiert und über die Lunge abgeatmet — darauf beruht der H2-Atemtest.',
+        },
+        {
+          frage: 'Wie können Sie die Diagnose bestätigen?',
+          antwort: 'Mit dem H2-Atemtest nach Laktosebelastung als Standarduntersuchung: 25 bis 50 g Laktose nach zwölf Stunden Nüchternheit, Messung des Wasserstoffs in der Ausatemluft alle 30 Minuten über zwei bis drei Stunden; ein Anstieg um mindestens 20 ppm über den Ausgangswert zusammen mit dem Auftreten der typischen Beschwerden ist beweisend. Alternativ der Laktose-Toleranztest mit dem Blutzuckerverlauf, ein Anstieg unter 20 mg/dl ist pathologisch. Sehr überzeugend ist außerdem die diagnostische Elimination über zwei bis vier Wochen mit Reexposition. Die Genotypisierung des Laktase-Gens bleibt Einzelfällen vorbehalten.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen einer Laktoseintoleranz und einer Kuhmilchallergie?',
+          antwort: 'Die Laktoseintoleranz ist ein Enzymmangel: Der Milchzucker kann nicht gespalten werden, die Beschwerden treten mit einer Latenz von 30 Minuten bis 2 Stunden auf, sind dosisabhängig, betreffen ausschließlich den Magen-Darm-Trakt und sind ungefährlich. Die Kuhmilchallergie ist eine immunologische Reaktion gegen das Milcheiweiß: Die Reaktion kommt innerhalb von Minuten, ist dosisunabhängig — schon Spuren genügen —, zeigt Haut- und Schleimhautsymptome sowie Atemnot und kann bis zur Anaphylaxie führen. Deshalb ist bei der Allergie strikte Karenz nötig, bei der Intoleranz nicht.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und wie schließen Sie sie aus?',
+          antwort: 'Reizdarmsyndrom, Zöliakie, Kuhmilchallergie, Fruktosemalabsorption, chronisch entzündliche Darmerkrankungen, bakterielle Fehlbesiedlung, exokrine Pankreasinsuffizienz, Giardiasis, Hyperthyreose, Kolonkarzinom und medikamentöse Ursachen. Ausschluss über Transglutaminase-IgA mit Gesamt-IgA und Duodenalbiopsien für die Zöliakie, Calprotectin und Ileokoloskopie für die CED, spezifisches IgE für die Allergie, H2-Atemtest mit Fruktose beziehungsweise Glukose für Fruktosemalabsorption und SIBO, Pankreas-Elastase im Stuhl, Stuhlkulturen und Giardia-Antigen, TSH sowie die vollständige Medikamentenanamnese.',
+        },
+        {
+          frage: 'Warum ist das Reizdarmsyndrom eine Ausschlussdiagnose?',
+          antwort: 'Weil es keinen beweisenden Test gibt. Die Diagnose wird nach den Rom-Kriterien gestellt, nachdem organische Ursachen ausgeschlossen sind — Laktoseintoleranz, Zöliakie, chronisch entzündliche Darmerkrankungen, Infektionen und Malignome. Zudem können Reizdarmsyndrom und Laktoseintoleranz gleichzeitig bestehen.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen primärer und sekundärer Laktoseintoleranz, und warum ist er wichtig?',
+          antwort: 'Die primäre Form ist der genetisch bedingte, nach dem Abstillen physiologische Rückgang der Laktaseaktivität — weltweit bei etwa 65 bis 70 % der Erwachsenen, in Nord- und Westeuropa deutlich seltener; sie bleibt lebenslang bestehen. Die sekundäre Form entsteht durch Schädigung der Dünndarmschleimhaut, etwa nach Gastroenteritis, bei Zöliakie, Morbus Crohn oder nach Antibiotikatherapie, und ist nach Behandlung der Grunderkrankung häufig reversibel. Der Unterschied ist wichtig, weil man bei der sekundären Form die Ursache suchen und behandeln muss statt sich mit einer Diät zu begnügen.',
+        },
+        {
+          frage: 'Warum bekommt der Patient die Beschwerden erst als Erwachsener?',
+          antwort: 'Weil die Laktase beim Säugling für die Muttermilch hoch aktiv ist und ihre Aktivität nach dem Abstillen bei der Mehrheit der Menschen im Lauf des Lebens abnimmt. Erst wenn die Restaktivität unter eine kritische Schwelle sinkt, treten Beschwerden auf. Die Laktasepersistenz des Erwachsenen ist eine genetische Besonderheit, die sich mit der Milchviehhaltung vor allem in Nord- und Westeuropa durchgesetzt hat.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Laktoseintoleranz? Muss der Patient vollständig auf Milch verzichten?',
+          antwort: 'Nein, gerade nicht. Erstens Ernährungsumstellung mit individueller Restmenge: Die persönliche Toleranzschwelle wird ermittelt — meist etwa 10 bis 12 g Laktose auf einmal —, kleine Mengen werden über den Tag verteilt und zusammen mit anderen Speisen aufgenommen; gereifter Hartkäse, Joghurt und laktosefreie Produkte werden gut vertragen, und der Patient lernt Zutatenlisten wegen versteckter Laktose zu lesen. Zweitens Sicherung der Nährstoffversorgung mit Kalzium und Vitamin D zur Osteoporoseprophylaxe sowie eine qualifizierte Ernährungsberatung. Drittens Laktase-Präparate für Ausnahmesituationen. Viertens Behandlung einer zugrunde liegenden Ursache, Aufklärung über die Gutartigkeit und Wiedervorstellung bei Alarmzeichen.',
+        },
+        {
+          frage: 'Welche Alarmzeichen dürfen Sie bei chronischer Diarrhoe nicht übersehen?',
+          antwort: 'Ungewollter Gewichtsverlust, Blut oder Schleim im Stuhl, Anämie, Fieber, Nachtschweiß, nächtliche Beschwerden, die den Patienten wecken, Beginn nach dem 50. Lebensjahr, familiäre Darmkrebs- oder CED-Belastung sowie eine tastbare Resistenz. Jedes davon erfordert eine weiterführende Abklärung mit Endoskopie.',
+        },
+        {
+          frage: 'Welche langfristige Komplikation droht bei jahrelangem vollständigem Milchverzicht?',
+          antwort: 'Eine Osteoporose durch unzureichende Kalzium- und Vitamin-D-Zufuhr. Deshalb gehören eine Kalziumzufuhr von etwa 1000 mg täglich, die Kontrolle und gegebenenfalls Substitution von Vitamin D und eine qualifizierte Ernährungsberatung zwingend zur Therapie.',
+        },
+        {
+          frage: 'Wozu dient das Calprotectin im Stuhl?',
+          antwort: 'Es ist ein Protein aus neutrophilen Granulozyten und ein Marker der Entzündung der Darmschleimhaut. Ein normaler Wert spricht gut gegen eine chronisch entzündliche Darmerkrankung und für ein funktionelles oder malabsorptives Geschehen; ein erhöhter Wert ist die Indikation zur Ileokoloskopie mit Stufenbiopsien.',
+        },
+        {
+          frage: 'Warum bestimmen Sie neben dem Transglutaminase-Antikörper das Gesamt-IgA?',
+          antwort: 'Weil 2 bis 3 % der Zöliakiepatienten einen selektiven IgA-Mangel haben; bei ihnen ist der IgA-Antikörper falsch negativ und man muss auf IgG-basierte Antikörper ausweichen. Außerdem muss die Serologie unter laufender glutenhaltiger Kost abgenommen werden, sonst wird sie ebenfalls falsch negativ.',
+        },
+        {
+          frage: 'Welche Fallstricke hat der H2-Atemtest?',
+          antwort: '10 bis 20 % der Menschen sind H2-Non-Produzenten und bilden Methan statt Wasserstoff — der Test wird falsch negativ; dann sollte Methan mitgemessen oder der Laktose-Toleranztest verwendet werden. Eine bakterielle Fehlbesiedlung erzeugt einen falsch positiven Frühgipfel innerhalb der ersten 90 Minuten. Antibiotika in den letzten vier Wochen, Rauchen, körperliche Anstrengung und blähende Kost am Vortag verfälschen das Ergebnis. Und ein H2-Anstieg ohne Beschwerden belegt nur eine Malabsorption, keine Intoleranz.',
+        },
+        {
+          frage: 'Wie klären Sie den Patienten über den H2-Atemtest auf?',
+          antwort: 'Ich erkläre ihm, dass wir damit beweisen können, dass der Milchzucker seine Beschwerden verursacht. Er muss mindestens zwölf Stunden nüchtern kommen, am Vortag keine blähenden Speisen essen, am Morgen nicht rauchen und sich nicht anstrengen; in den letzten vier Wochen darf er keine Antibiotika genommen haben. Zuerst pusten wir in ein Gerät, das ist der Ausgangswert; dann trinkt er Milchzucker in Wasser und pustet alle 30 Minuten erneut, insgesamt zwei bis drei Stunden lang. Jede Beschwerde wird notiert. Der Test ist schmerzlos und ungefährlich, kann aber genau die gewohnten Beschwerden auslösen. Steigt der Wasserstoff um 20 ppm oder mehr und treten dabei die Beschwerden auf, ist die Unverträglichkeit bewiesen.',
+        },
+        {
+          frage: 'Der Patient fragt: Was darf ich denn noch essen?',
+          antwort: 'Sehr viel. Gereifter Hartkäse wie Emmentaler oder Parmesan enthält praktisch keinen Milchzucker mehr, Joghurt und Kefir werden wegen der lebenden Kulturen meist gut vertragen, Butter enthält nur Spuren, und es gibt ein vollständiges Sortiment laktosefreier Produkte. Kleine Mengen Milch, über den Tag verteilt und zusammen mit anderen Speisen, vertragen die meisten Betroffenen. Wichtig ist nur, auf versteckten Milchzucker in Wurst, Fertiggerichten und sogar in Tabletten zu achten — und die Kalziumversorgung sicherzustellen.',
+        },
+      ],
+      merksatz: 'Blähbauch und wässriger Durchfall 30 Minuten bis 2 Stunden nach Milch, dosisabhängig, Hartkäse und Joghurt gehen — das ist ein ENZYMMANGEL, keine Allergie. H2-Atemtest mit Symptomprotokoll sichert die Diagnose; behandelt wird mit individueller Restmenge statt Totalverzicht, plus Kalzium und Vitamin D gegen die Osteoporose. Und immer fragen: Alarmzeichen? Sekundäre Ursache? Denn Laktoseintoleranz erklärt nicht automatisch alles.',
+      linkedCaseIds: [
+        'case-laktoseintoleranz',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-gastroskopie',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-tia',
+      pathology: 'Transitorische ischämische Attacke (TIA)',
+      specialty: 'Neurologie',
+      definition: 'Die transitorische ischämische Attacke ist ein vorübergehendes fokal-neurologisches Defizit, das durch eine zerebrale oder retinale Ischämie verursacht wird und sich VOLLSTÄNDIG zurückbildet, OHNE dass sich in der Bildgebung ein Infarkt nachweisen lässt. Die frühere Zeitdefinition eines Defizits unter 24 Stunden gilt als überholt: Maßgeblich ist der GEWEBEBEFUND und nicht die Uhr — die meisten Episoden dauern ohnehin nur wenige Minuten. Die TIA ist keine Bagatelle und keine Entwarnung, sondern ein WARNSIGNAL und ein NOTFALL: Sie ist ein drohender Schlaganfall, dessen Risiko in den ersten 48 Stunden und in der ersten Woche am höchsten ist.',
+      aetiologie: 'Ursächlich ist eine passagere Minderdurchblutung eines umschriebenen Hirn- oder Netzhautareals, meist embolisch, seltener hämodynamisch. Nach der TOAST-Einteilung: Makroangiopathie durch Arteriosklerose der hirnversorgenden Arterien (arterio-arterielle Embolie aus einer Karotisstenose oder aus Aortenbogenplaques, seltener hämodynamisch bei hochgradiger Stenose und Blutdruckabfall); Kardioembolie (Vorhofflimmern als häufigste Ursache, ferner Klappenvitien und Klappenprothesen, Endokarditis, Myokardinfarkt mit Wandthrombus, dilatative Kardiomyopathie, offenes Foramen ovale mit paradoxer Embolie); Mikroangiopathie der kleinen penetrierenden Arterien durch Lipohyalinose bei Hypertonie und Diabetes; andere definierte Ursachen wie Dissektion der Arteria carotis oder vertebralis, Vaskulitiden einschließlich Riesenzellarteriitis, Thrombophilie, Polyglobulie, Sichelzellkrankheit, Drogenkonsum (Kokain, Amphetamine); sowie kryptogene Ereignisse ohne fassbare Ursache trotz vollständiger Abklärung.',
+      risikofaktoren: [
+        'Arterielle Hypertonie — der wichtigste beeinflussbare Risikofaktor',
+        'Vorhofflimmern (erhöht das Schlaganfallrisiko um das Vier- bis Fünffache; besonders gefährlich, wenn keine orale Antikoagulation erfolgt)',
+        'Diabetes mellitus',
+        'Fettstoffwechselstörung mit erhöhtem LDL-Cholesterin',
+        'RAUCHEN — der wirksamste Ansatzpunkt der Prävention, das Risiko normalisiert sich nach mehreren Jahren Karenz weitgehend',
+        'Höheres Lebensalter und männliches Geschlecht',
+        'Früherer Schlaganfall oder frühere TIA',
+        'Koronare Herzkrankheit, Herzinsuffizienz, periphere arterielle Verschlusskrankheit',
+        'Bekannte, auch asymptomatische Karotisstenose',
+        'Positive Familienanamnese für Schlaganfall',
+        'Adipositas, Bewegungsmangel, hoher Alkoholkonsum',
+        'Obstruktives Schlafapnoe-Syndrom',
+        'Orale Kontrazeptiva in Kombination mit Rauchen und Migräne mit Aura bei jüngeren Frauen',
+        'Mangelnde Therapietreue bei bestehender Antikoagulation',
+      ],
+      klinik: [
+        {
+          text: 'Schlagartiger Beginn, von Anfang an maximal ausgeprägt, mit NEGATIVsymptomen (Ausfall) — die Beschwerden wandern nicht und breiten sich nicht langsam über Minuten aus',
+        },
+        {
+          text: 'Vollständige Rückbildung, meist innerhalb von Minuten bis zu einer Stunde; zwischen den Episoden ist der neurologische Status unauffällig',
+        },
+        {
+          text: 'KAROTISSTROMGEBIET: kontralaterale Hemiparese oder Hypästhesie, fazio-brachial betont',
+        },
+        {
+          text: 'KAROTISSTROMGEBIET: Aphasie bei Beteiligung der dominanten (meist linken) Hemisphäre — Wortfindungsstörung, gestörtes Benennen und Nachsprechen bei erhaltenem Bewusstsein',
+        },
+        {
+          text: 'AMAUROSIS FUGAX: schmerzlose, EINSEITIGE Sehstörung wie ein herunterfallender Vorhang oder ein Rollo über einem Auge, wenige Minuten anhaltend — durch Embolie in die ipsilaterale Arteria ophthalmica, klassisches Zeichen einer Karotisstenose',
+        },
+        {
+          text: 'VERTEBROBASILÄRES STROMGEBIET: Doppelbilder, Schwindel, Dysarthrie, Ataxie und Gangunsicherheit, beidseitige Sehstörungen, Schluckstörung',
+        },
+        {
+          text: 'Rezidivierende Attacken in WECHSELNDEN Stromgebieten sprechen für eine kardiale Emboliequelle',
+        },
+        {
+          text: 'Neurologisch häufig unauffälliger Befund bei der Vorstellung, weil der Patient gerade deshalb kommt, weil die Symptome bereits wieder verschwunden sind — Anamnese und Fremdanamnese sind hier diagnostisch entscheidend',
+        },
+        {
+          text: 'Crescendo-TIA: zunehmende Frequenz, Dauer oder Intensität der Attacken über Tage — höchste Gefährdung, unverzügliches Handeln erforderlich',
+        },
+        {
+          text: 'Isolierter Schwindel, isolierte Übelkeit oder isolierter Sturz ohne weiteres Defizit — besonders im vertebrobasilären Stromgebiet leicht zu verkennen',
+          atypisch: true,
+        },
+        {
+          text: 'Sturz ohne Bewusstseinsverlust als einziges Symptom, insbesondere beim alten Patienten („drop attack" bei vertebrobasilärer Ischämie)',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierte Verwirrtheit, Wesensänderung oder akute Vigilanzminderung beim sehr alten oder dementen Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Rein sensible Symptomatik oder isolierte Dysarthrie — lakunäre Syndrome bei Mikroangiopathie',
+          atypisch: true,
+        },
+        {
+          text: '„Limb-shaking TIA": unwillkürliche, an einen fokalen Anfall erinnernde Schüttelbewegungen einer Extremität bei hochgradiger Karotisstenose und hämodynamischer Ischämie, typischerweise beim Aufstehen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ABCD2-Score (Risiko eines Schlaganfalls nach TIA)',
+          inhalt: 'Age ab 60 Jahren 1 Punkt; Blood pressure ab 140/90 mmHg 1 Punkt; Clinical features: einseitige Schwäche 2 Punkte, Sprachstörung ohne Schwäche 1 Punkt; Duration ab 60 Minuten 2 Punkte, 10 bis 59 Minuten 1 Punkt; Diabetes mellitus 1 Punkt. Maximal 7 Punkte; 0 bis 3 niedriges, 4 bis 5 mittleres, 6 bis 7 hohes Risiko. CAVE: Der Score ersetzt die dringliche Abklärung NICHT und darf niemals als Argument gegen eine sofortige stationäre Aufnahme dienen.',
+        },
+        {
+          name: 'Einteilung nach dem Gefäßterritorium',
+          inhalt: 'Vorderer Kreislauf (Karotisstromgebiet, Arteria carotis interna mit Arteria cerebri media und anterior sowie Arteria ophthalmica): kontralaterale fazio-brachial betonte Hemiparese und Hypästhesie, Aphasie bei dominanter Hemisphäre, Neglect bei nicht dominanter Hemisphäre, ipsilaterale Amaurosis fugax. Hinterer Kreislauf (vertebrobasiläres Stromgebiet): Schwindel, Doppelbilder, Dysarthrie, Dysphagie, Ataxie, Gangunsicherheit, beidseitige Sehstörungen, gekreuzte Symptome (Hirnnerv ipsilateral, lange Bahnen kontralateral).',
+        },
+        {
+          name: 'TOAST-Klassifikation der Ätiologie',
+          inhalt: '1. Makroangiopathie (Arteriosklerose großer Arterien, insbesondere Karotisstenose). 2. Kardioembolie (Vorhofflimmern, Klappenerkrankungen, Wandthrombus, offenes Foramen ovale). 3. Mikroangiopathie (Lipohyalinose der kleinen penetrierenden Arterien, lakunäre Syndrome). 4. Andere definierte Ursache (Dissektion, Vaskulitis, Thrombophilie, Drogen). 5. Kryptogen — keine Ursache trotz vollständiger Abklärung oder mehrere konkurrierende Ursachen.',
+        },
+        {
+          name: 'CHA2DS2-VASc-Score (Indikation zur Antikoagulation bei Vorhofflimmern)',
+          inhalt: 'Herzinsuffizienz 1, Hypertonie 1, Alter ab 75 Jahren 2, Diabetes mellitus 1, Schlaganfall/TIA/Thromboembolie in der Vorgeschichte 2, vaskuläre Vorerkrankung 1, Alter 65 bis 74 Jahre 1, weibliches Geschlecht 1. Ab 1 Punkt beim Mann und 2 Punkten bei der Frau (ohne den geschlechtsbedingten Punkt) besteht die Indikation zur oralen Antikoagulation. Jede TIA bei Vorhofflimmern bedeutet für sich bereits 2 Punkte.',
+        },
+        {
+          name: 'Gewebebasierte versus zeitbasierte Definition',
+          inhalt: 'Zeitbasiert (überholt): Defizit unter 24 Stunden = TIA, darüber = Schlaganfall. Gewebebasiert (heute gültig): TIA = vorübergehendes Defizit OHNE Infarktnachweis in der Bildgebung; Schlaganfall = Infarktnachweis, unabhängig von der Symptomdauer. Klinische Konsequenz: Bei etwa einem Drittel der klinisch als TIA eingestuften Patienten findet sich in der Diffusionswichtung des MRT bereits eine frische Läsion — dann handelt es sich definitionsgemäß um einen Schlaganfall.',
+        },
+      ],
+      redFlags: [
+        'Crescendo-TIA: zunehmende Häufigkeit, Dauer oder Intensität der Attacken innerhalb von Tagen — unmittelbar drohender Hirninfarkt',
+        'Symptomdauer über eine Stunde oder persistierendes Defizit bei der Untersuchung — es handelt sich dann bis zum Beweis des Gegenteils um einen Schlaganfall mit Lysefenster',
+        'Amaurosis fugax mit Schläfenkopfschmerz, Kauclaudicatio und stark erhöhter BSG beim älteren Patienten — Riesenzellarteriitis mit drohender Erblindung, sofortige Kortikosteroidtherapie',
+        'Kopfschmerzen, Übelkeit, Erbrechen oder Bewusstseinsstörung — Verdacht auf intrazerebrale Blutung oder Subarachnoidalblutung, keine antithrombotische Therapie vor der Bildgebung',
+        'Neu aufgetretener Hals- oder Nackenschmerz mit Horner-Syndrom nach Trauma, Chiropraxis oder Halsüberstreckung — Dissektion der Arteria carotis oder vertebralis',
+        'Fieber, Herzgeräusch, Splinterblutungen und erhöhtes CRP — septische Embolie bei infektiöser Endokarditis',
+        'Bekanntes Vorhofflimmern ohne orale Antikoagulation oder mit unterbrochener Einnahme',
+        'Hypoglykämie oder schwere Exsikkose — sofort behandelbare Ursache beziehungsweise Verstärker',
+        'Beidseitige Sehstörung, Doppelbilder, Dysphagie oder Vigilanzminderung — Verdacht auf Basilaristhrombose mit hoher Letalität',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Exakte Anamnese als wichtigstes diagnostisches Instrument: genauer ZEITPUNKT des Symptombeginns, Dauer und Zahl der Episoden, schlagartiger und von Anfang an maximaler Beginn, NEGATIVsymptome ohne Wandern, vollständige Rückbildung; Fremdanamnese durch Angehörige',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Erfassung der vaskulären Risikofaktoren: Hypertonie, Diabetes, Fettstoffwechselstörung, Rauchen, Vorhofflimmern, früherer Schlaganfall, koronare Herzkrankheit, periphere arterielle Verschlusskrankheit, Familienanamnese sowie eine bestehende Antikoagulation und deren Einnahmetreue',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige neurologische Untersuchung mit NIHSS: Bewusstsein, Sprache und Sprechen, Hirnnerven, Motorik mit Armhalte- und Beinhalteversuch, Reflexe einschließlich Babinski-Zeichen, Sensibilität, Koordination, Stand und Gang, Meningismus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Blutdruckmessung an BEIDEN Armen (Seitendifferenz als Hinweis auf Subclavian-steal oder Dissektion), Auskultation des Herzens und BEIDER Karotiden, Pulsstatus, Temperatur; Fundoskopie bei Amaurosis fugax (Cholesterinembolus, Hollenhorst-Plaque)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sofortige Blutzuckerbestimmung noch vor allen weiteren Maßnahmen — die Hypoglykämie ist die wichtigste behandelbare Verwechslung und kann jedes fokale Defizit imitieren',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, Gerinnung mit INR und aPTT als Voraussetzung vor jeder Antikoagulation; bei Polyglobulie oder Thrombozytose Hinweis auf eine hämatologische Ursache',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutzucker und HbA1c, Blutfette mit LDL-Cholesterin als Zielparameter der Sekundärprophylaxe, Elektrolyte, Nieren- und Leberwerte (die Nierenfunktion steuert Auswahl und Dosis des direkten oralen Antikoagulans)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CRP und BSG — Hinweise auf Vaskulitis, Riesenzellarteriitis oder Endokarditis; ferner TSH bei Vorhofflimmern und Troponin bei kardialer Beteiligung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei jungen Patienten oder unklarer Ätiologie erweiterte Diagnostik: Vaskulitisserologie (ANA, ANCA), Thrombophiliediagnostik, Antiphospholipid-Antikörper, Homocystein, Drogenscreening',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'UNVERZÜGLICHE zerebrale Bildgebung: MRT mit diffusionsgewichteten Sequenzen (DWI) als Methode der Wahl, ersatzweise natives CT — Ausschluss einer Blutung und Frage nach einem bereits demarkierten Infarkt; ein Läsionsnachweis macht aus der TIA definitionsgemäß einen Schlaganfall',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Gefäßdarstellung der hirnversorgenden Arterien: Doppler- und Duplexsonographie der Karotiden und Vertebralarterien, ergänzt durch CT- oder MR-Angiographie — Suche nach Karotisstenose, Plaques, Verschluss und Dissektion; zusätzlich transkranielle Dopplersonographie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG und LANGZEIT-EKG beziehungsweise verlängertes Rhythmusmonitoring über mindestens 72 Stunden, bei kryptogener Genese bis hin zum implantierbaren Ereignisrekorder — Suche nach VORHOFFLIMMERN; der ertragreichste Teil der gesamten Abklärung, weil dieser Befund die Therapie vollständig umstellt',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie: Emboliequelle, Vorhofdilatation, Klappenvitien, Wandbewegungsstörungen, Ejektionsfraktion; Langzeit-Blutdruckmessung zur Beurteilung der Hypertonie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Transösophageale Echokardiographie, besonders bei jungen Patienten und kryptogener Genese: Thrombus im linken Vorhofohr, offenes Foramen ovale mit Rechts-Links-Shunt im Bubble-Test, Vorhofseptumaneurysma, Aortenbogenplaques, Endokarditis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Digitale Subtraktionsangiographie nur noch in Ausnahmefällen vor gefäßchirurgischer oder interventioneller Therapie beziehungsweise bei Vaskulitisverdacht; Temporalarterienbiopsie bei Verdacht auf Riesenzellarteriitis; Liquorpunktion nur bei Verdacht auf Entzündung oder Subarachnoidalblutung mit unauffälligem CT',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Ischämischer Schlaganfall (Apoplex)',
+          unterscheidung: 'Bleibendes oder nur unvollständig rückläufiges Defizit UND Infarktnachweis in der Bildgebung, insbesondere in der Diffusionswichtung. Die Unterscheidung erfolgt heute über das GEWEBE, nicht über die 24-Stunden-Grenze. Bis zum Beweis des Gegenteils ist jedes akute fokale Defizit ein Schlaganfall — mit der Konsequenz des Lysefensters.',
+        },
+        {
+          dd: 'Intrazerebrale Blutung und Subarachnoidalblutung',
+          unterscheidung: 'Meist anhaltendes Defizit mit Kopfschmerzen, Übelkeit, Erbrechen, Bewusstseinsstörung, häufig unter Antikoagulation; bei der Subarachnoidalblutung Vernichtungskopfschmerz und Meningismus. Klinisch nicht sicher abgrenzbar — deshalb ist die Bildgebung vor jeder antithrombotischen Therapie obligat.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Die wichtigste behandelbare Verwechslung, IMMER zuerst auszuschließen. Kann Hemiparese, Aphasie und Verwirrtheit exakt imitieren; typisch sind Heißhunger, Kaltschweißigkeit, Tremor und Tachykardie, besonders unter Insulin oder Sulfonylharnstoffen. Ausschluss durch die sofortige Blutzuckermessung.',
+        },
+        {
+          dd: 'Migräne mit Aura',
+          unterscheidung: 'Der entscheidende Unterschied ist die AUSBREITUNGSDYNAMIK: langsam über 5 bis 20 Minuten wandernde POSITIVsymptome (Flimmerskotom, Zickzacklinien, Kribbeln), meist gefolgt von Kopfschmerz, typischerweise bei jüngeren Patienten mit bekannter Migräne. Die TIA setzt schlagartig ein, ist von Anfang an maximal, zeigt NEGATIVsymptome und wandert nicht.',
+        },
+        {
+          dd: 'Fokaler epileptischer Anfall mit postiktaler Todd-Parese',
+          unterscheidung: 'Motorische Positivsymptome (Zuckungen, tonische Verkrampfung), Zungenbiss, Einnässen, postiktale Verwirrtheit, Müdigkeit und Erinnerungslücke; die Parese bildet sich über Stunden zurück. Diagnostisch helfen Fremdanamnese und EEG.',
+        },
+        {
+          dd: 'Synkope und orthostatische Dysregulation',
+          unterscheidung: 'Kurze Bewusstlosigkeit mit Tonusverlust, Schwarzwerden vor BEIDEN Augen, Blässe und Kaltschweißigkeit, rasche vollständige Reorientierung, kein fokales Defizit. Die TIA verläuft dagegen bei erhaltenem Bewusstsein mit umschriebenem Ausfall.',
+        },
+        {
+          dd: 'Benigner paroxysmaler Lagerungsschwindel und Vestibularisneuritis',
+          unterscheidung: 'Beim Lagerungsschwindel Sekunden dauernder Drehschwindel nach Kopf- und Lagewechsel, positives Dix-Hallpike-Manöver; bei der Vestibularisneuritis tagelanger Dauerdrehschwindel mit horizontal-rotatorischem Spontannystagmus, Übelkeit und Fallneigung, pathologischer Kopfimpulstest. Beide erklären niemals Aphasie, Amaurosis fugax oder Hemiparese; ein NORMALER Kopfimpulstest bei akutem Schwindel spricht für eine zentrale Ursache.',
+        },
+        {
+          dd: 'Transiente globale Amnesie',
+          unterscheidung: 'Stunden dauernde, isolierte anterograde Gedächtnisstörung mit stereotyp wiederholten Fragen, erhaltener Personenidentität und ohne weiteres fokales Defizit; nach Abklingen bleibt eine Erinnerungslücke. Prognostisch günstig.',
+        },
+        {
+          dd: 'Multiple Sklerose beim jungen Patienten',
+          unterscheidung: 'Subakuter Beginn über Stunden bis Tage mit Symptomdauer über 24 Stunden, typischerweise Optikusneuritis mit Bulbusbewegungsschmerz, Sensibilitätsstörungen oder internukleäre Ophthalmoplegie; Nachweis über MRT mit periventrikulären Läsionen und Liquor mit oligoklonalen Banden.',
+        },
+        {
+          dd: 'Hirntumor, Hirnmetastase und chronisches subdurales Hämatom',
+          unterscheidung: 'Langsam über Wochen progredientes Defizit, häufig mit Kopfschmerzen, Wesensänderung, Krampfanfall oder Stauungspapille; beim subduralen Hämatom Sturz mit Kopfanprall in der Vorgeschichte, besonders beim alten und antikoagulierten Patienten. Klärung durch die Bildgebung.',
+        },
+        {
+          dd: 'Periphere Nervenläsion und Wurzelkompression',
+          unterscheidung: 'Verteilung entsprechend einem peripheren Nerven oder einem Dermatom, häufig lagerungs- oder bewegungsabhängig, mit Schmerzen und segmentalem Reflexausfall; keine Aphasie, keine Gesichtsbeteiligung, keine Amaurosis.',
+        },
+        {
+          dd: 'Riesenzellarteriitis (Arteriitis temporalis)',
+          unterscheidung: 'Bei jeder Amaurosis fugax des älteren Patienten mitzudenken: Schläfenkopfschmerz, Kauclaudicatio, druckschmerzhafte verhärtete Temporalarterie, Polymyalgia rheumatica, stark erhöhte BSG und CRP. Ohne sofortige Kortikosteroidtherapie droht die irreversible Erblindung.',
+        },
+        {
+          dd: 'Hypertensive Enzephalopathie und funktionelle Störung',
+          unterscheidung: 'Bei der hypertensiven Enzephalopathie stark erhöhter Blutdruck mit Kopfschmerzen, Sehstörungen, Übelkeit, Bewusstseinsstörung und Papillenödem, ohne umschriebene Fokalsymptomatik. Die funktionelle Störung zeigt inkonstante, anatomisch nicht zuordenbare Ausfälle und ist eine Ausschlussdiagnose, die niemals vor vollständiger Abklärung gestellt werden darf.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortige Abklärung und Überwachung',
+          items: [
+            'Dringliche, in der Regel STATIONÄRE Aufnahme oder Vorstellung in einer spezialisierten TIA-Einheit beziehungsweise auf einer Stroke Unit ohne Verzögerung — das Schlaganfallrisiko ist in den ersten 48 Stunden und in der ersten Woche am höchsten',
+            'Monitoring von Blutdruck, Herzrhythmus, Blutzucker, Sauerstoffsättigung und Temperatur; peripher-venöser Zugang, Labor, 12-Kanal-EKG, neurologisches Konsil',
+            'KEINE aggressive Blutdrucksenkung in der Akutphase — der erhöhte Druck erhält die Perfusion des gefährdeten Gewebes; eine Senkung erfolgt erst nach der Akutphase und dann schrittweise auf einen Zielwert unter 140/90 mmHg',
+            'Normoglykämie und Normothermie anstreben, Dysphagie-Screening vor der ersten oralen Gabe, Frühmobilisation, Thromboseprophylaxe nach Bedarf',
+            'Bei persistierendem Defizit gilt der Patient als Schlaganfall: Lysefenster prüfen, Thrombolyse und Thrombektomie erwägen — bei der reinen TIA besteht dagegen KEINE Lyseindikation',
+            'Aufklärung des Patienten und der Angehörigen über das Verhalten bei erneuten Symptomen: sofort Notruf 112, auch wenn die Beschwerden bereits wieder verschwunden sind',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Antithrombotische Sekundärprophylaxe nach Ursache',
+          items: [
+            'Die Weichenstellung nach der ÄTIOLOGIE ist der Kern der Behandlung; Voraussetzung ist immer der vorherige Blutungsausschluss in der Bildgebung',
+            'Bei ARTERIOSKLEROTISCHER Genese: Thrombozytenaggregationshemmung mit Acetylsalicylsäure 100 mg täglich; bei hohem Risiko vorübergehend duale Plättchenhemmung mit Clopidogrel über wenige Wochen (in der Regel 21 bis 30 Tage), danach Monotherapie — die dauerhafte duale Hemmung erhöht nur das Blutungsrisiko',
+            'Alternative bei Unverträglichkeit von Acetylsalicylsäure: Clopidogrel 75 mg täglich als Monotherapie',
+            'Bei VORHOFFLIMMERN: ORALE ANTIKOAGULATION STATT Plättchenhemmung, in der Regel mit einem direkten oralen Antikoagulans (Apixaban, Rivaroxaban, Edoxaban, Dabigatran), dosiert nach Alter, Körpergewicht und Nierenfunktion; Vitamin-K-Antagonist nur bei mechanischer Herzklappe oder mittel- bis hochgradiger Mitralstenose',
+            'Plättchenhemmer und orale Antikoagulation werden NICHT kombiniert — die Kombination erhöht das Blutungsrisiko ohne zusätzlichen Embolieschutz; eine bestehende Acetylsalicylsäure wird abgesetzt',
+            'Zeitpunkt des Beginns: nach reiner TIA ohne Infarktnachweis sofort, nach manifestem Infarkt gestaffelt nach Infarktgröße; die Indikationsstellung folgt dem CHA2DS2-VASc-Score, wobei jede TIA für sich bereits 2 Punkte bedeutet',
+            'Diese beiden Wege niemals verwechseln — Plättchenhemmung bei arteriosklerotischer, Antikoagulation bei kardioembolischer Ursache; die Verwechslung ist ein schwerer Fehler',
+          ],
+        },
+        {
+          label: 'Behandlung der Gefäßursache und der Risikofaktoren',
+          items: [
+            'Bei SYMPTOMATISCHER hochgradiger Karotisstenose Karotisthrombendarteriektomie oder Stentangioplastie, und zwar ZEITNAH innerhalb von zwei Wochen nach dem Ereignis — je früher der Eingriff, desto größer der Nutzen; bei asymptomatischer Stenose gilt die Indikation deutlich zurückhaltender',
+            'Konsequente STATINTHERAPIE mit hoher Intensität (zum Beispiel Atorvastatin 40 bis 80 mg) und einem LDL-Zielwert unter 70 mg/dl, bei sehr hohem Risiko unter 55 mg/dl; bei Nichterreichen zusätzlich Ezetimib, gegebenenfalls PCSK9-Hemmer',
+            'Blutdruckeinstellung nach der Akutphase auf unter 140/90 mmHg mit ACE-Hemmer oder Sartan, Kalziumantagonist und Thiaziddiuretikum',
+            'Optimierung der Diabeteseinstellung mit einem HbA1c-Zielwert um 7 Prozent; Behandlung einer Herzinsuffizienz, kardiologische Anbindung bei Vorhofflimmern zur Frequenz- oder Rhythmuskontrolle',
+            'Bei Dissektion antithrombotische Therapie und Verlaufsbildgebung; bei offenem Foramen ovale und kryptogener Ischämie beim jungen Patienten interventioneller Schirmchenverschluss im interdisziplinären Konsens',
+            'Screening und Behandlung eines obstruktiven Schlafapnoe-Syndroms',
+          ],
+        },
+        {
+          label: 'Lebensstil, Rehabilitation und Nachsorge',
+          items: [
+            'NIKOTINKARENZ als wirksamste einzelne Maßnahme — konsequent ansprechen und Entwöhnungsangebote vermitteln',
+            'Regelmäßige körperliche Aktivität von etwa 30 Minuten an mindestens fünf Tagen der Woche, mediterrane Ernährung, Gewichtsnormalisierung, Reduktion des Alkoholkonsums, salzarme Kost',
+            'Aufklärung über die WARNZEICHEN des Schlaganfalls und die FAST-Regel — Face, Arms, Speech, Time — für Patient und Angehörige, mit schriftlicher Mitgabe und der klaren Anweisung, sofort den Notruf 112 zu wählen',
+            'Klärung der FAHRTAUGLICHKEIT: nach einer TIA ist die Kraftfahreignung vorübergehend eingeschränkt; die Wiederaufnahme erfolgt erst nach neurologischer Beurteilung und stabiler Sekundärprophylaxe, für Berufskraftfahrer gelten strengere Vorgaben',
+            'Bei Restsymptomen Physiotherapie, Ergotherapie und Logopädie sowie neurologische Rehabilitation; Sturzprophylaxe und Hilfsmittelversorgung beim älteren Patienten',
+            'THERAPIETREUE bei der Dauermedikation betonen — insbesondere die lückenlose Einnahme des Antikoagulans — und regelmäßige Verlaufskontrollen von Blutdruck, Blutzucker, Lipiden, Nierenfunktion und Karotisbefund vereinbaren',
+            'Psychosoziale Begleitung: Angst vor einem erneuten Ereignis, Post-Stroke-Depression und Fahrverbot sind für die Betroffenen erheblich belastend',
+          ],
+        },
+      ],
+      prognose: 'Die einzelne Attacke hinterlässt definitionsgemäß keinen Schaden — die Prognose bestimmt sich ausschließlich über das Risiko des nachfolgenden Schlaganfalls. Ohne Behandlung erleiden etwa 10 Prozent der Patienten innerhalb von 90 Tagen einen Hirninfarkt, rund die Hälfte davon bereits in den ersten 48 Stunden; besonders gefährdet sind Patienten mit hohem ABCD2-Score, mit symptomatischer Karotisstenose und mit Crescendo-Verlauf. Durch eine unverzügliche Abklärung und eine sofort begonnene, ursachengerechte Sekundärprophylaxe lässt sich dieses Risiko um etwa 80 Prozent senken — die TIA ist damit eine der wenigen Konstellationen, in denen rasches Handeln unmittelbar messbar Schlaganfälle verhindert. Langfristig bleibt das kardiovaskuläre Gesamtrisiko erhöht: Neben erneuten zerebralen Ereignissen drohen Myokardinfarkt und vaskuläre Demenz. Entscheidend für die Langzeitprognose sind die Therapietreue bei Antikoagulation beziehungsweise Plättchenhemmung und Statin sowie die konsequente Kontrolle von Blutdruck, Blutzucker und Nikotinkonsum.',
+      pruefungsfallen: [
+        'Die TIA als harmlos darstellen, weil die Symptome bereits wieder verschwunden sind. Sie ist ein WARNSIGNAL und ein NOTFALL — das höchste Risiko besteht in den ersten 48 Stunden. Der Kandidat muss zeigen, dass er sofort handelt, statt zu beruhigen.',
+        'Die TIA über die Zeit statt über das Gewebe definieren. Die 24-Stunden-Grenze gilt als überholt: entscheidend ist der fehlende Infarktnachweis in der Bildgebung, insbesondere in der Diffusionswichtung.',
+        'Bei Vorhofflimmern eine Thrombozytenaggregationshemmung statt einer ORALEN ANTIKOAGULATION verordnen — der schwerste inhaltliche Fehler in diesem Themengebiet; und umgekehrt bei arteriosklerotischer Genese antikoagulieren.',
+        'Acetylsalicylsäure und orale Antikoagulation kombinieren: Das erhöht nur das Blutungsrisiko; die Plättchenhemmung wird abgesetzt.',
+        'Die zerebrale Bildgebung vergessen oder erst nach Beginn der antithrombotischen Therapie veranlassen — eine Blutung muss vorher ausgeschlossen sein.',
+        'Den Blutzucker nicht sofort bestimmen: Die Hypoglykämie ist die wichtigste behandelbare Verwechslung und imitiert jedes fokale Defizit.',
+        'Die Migräne mit Aura falsch abgrenzen: Nicht der Kopfschmerz, sondern die AUSBREITUNGSDYNAMIK entscheidet — langsam wandernde Positivsymptome bei der Migräne, schlagartige Negativsymptome bei der TIA.',
+        'Den ABCD2-Score als Argument gegen eine stationäre Aufnahme verwenden: Er schätzt das Risiko ab, ersetzt die dringliche Abklärung aber niemals.',
+        'Das Langzeit-EKG oder ein verlängertes Rhythmusmonitoring auslassen — der ertragreichste Teil der Abklärung, weil der Nachweis von Vorhofflimmern die gesamte Therapie umstellt.',
+        'Die Dopplersonographie der hirnversorgenden Arterien nicht nennen — die Protokolle heben sie ausdrücklich als „sehr wichtig" hervor.',
+        'Den Blutdruck in der Akutphase aggressiv senken, statt ihn zunächst zu tolerieren.',
+        'Die Amaurosis fugax nicht erkennen oder mit beidseitigen Sehstörungen verwechseln: Sie ist einseitig, schmerzlos, dauert Minuten und weist auf eine ipsilaterale Karotisstenose hin; beim älteren Patienten immer auch an eine Riesenzellarteriitis denken.',
+        'Bei akutem Schwindel voreilig eine periphere Ursache annehmen: Ein NORMALER Kopfimpulstest bei akutem Dauerschwindel spricht gerade für eine zentrale Genese.',
+        'Bei der reinen TIA eine Thrombolyse ankündigen — es gibt kein Lysefenster ohne persistierendes Defizit.',
+        'Die Fahrtauglichkeit und die FAST-Regel in der Beratung vergessen — beide gehören zu jeder Entlassung nach TIA.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist der Unterschied zwischen einer TIA und einem Apoplex?',
+          antwort: 'Bei der transitorischen ischämischen Attacke bilden sich die Symptome vollständig zurück und in der Bildgebung findet sich KEIN Infarkt. Beim Apoplex bleibt ein Defizit bestehen und ein frischer Infarkt ist nachweisbar, insbesondere in der Diffusionswichtung des MRT. Die alte Zeitdefinition unter 24 Stunden gilt als überholt — entscheidend ist das Gewebe, nicht die Uhr; die meisten TIA dauern ohnehin nur Minuten.',
+        },
+        {
+          frage: 'Was ist die Ursache einer TIA?',
+          antwort: 'Meist eine Embolie: kardioembolisch, allen voran bei Vorhofflimmern, oder arterio-arteriell aus einer arteriosklerotischen Karotisstenose beziehungsweise aus Aortenbogenplaques. Daneben mikroangiopathische Veränderungen der kleinen penetrierenden Arterien bei Hypertonie und Diabetes, seltener eine Dissektion, eine Vaskulitis, eine Thrombophilie oder ein offenes Foramen ovale mit paradoxer Embolie; hämodynamische Ereignisse bei hochgradiger Stenose und Blutdruckabfall.',
+        },
+        {
+          frage: 'Was machen wir jetzt bei diesem Patienten?',
+          antwort: 'Sofort den Blutzucker bestimmen, Vitalparameter erheben und den Blutdruck an beiden Armen messen, den neurologischen Status mit NIHSS erheben, ein 12-Kanal-EKG schreiben und den Patienten an den Monitor anschließen. Dann unverzüglich die zerebrale Bildgebung, bevorzugt ein MRT mit Diffusionswichtung, eine Doppler- und Duplexsonographie der hirnversorgenden Arterien, ein Langzeit-EKG und eine Echokardiographie. Der Patient wird stationär aufgenommen, und ein neurologisches Konsil wird angemeldet.',
+        },
+        {
+          frage: 'Welche Therapie geben Sie gegen das Vorhofflimmern?',
+          antwort: 'Eine orale Antikoagulation, in der Regel mit einem direkten oralen Antikoagulans wie Apixaban, Rivaroxaban, Edoxaban oder Dabigatran, dosiert nach Alter, Gewicht und Nierenfunktion. Ein Vitamin-K-Antagonist kommt nur bei mechanischer Klappe oder mittel- bis hochgradiger Mitralstenose in Betracht. Eine reine Thrombozytenaggregationshemmung reicht bei kardioembolischer Genese NICHT aus und wird beim Beginn der Antikoagulation abgesetzt. Voraussetzung ist der vorherige Blutungsausschluss in der Bildgebung.',
+        },
+        {
+          frage: 'Was ist die FAST-Regel?',
+          antwort: 'Ein Merkinstrument zur Erkennung eines Schlaganfalls: Face — hängender Mundwinkel beim Lächeln; Arms — Absinken eines Armes beim Armhalteversuch; Speech — undeutliche oder stockende Sprache beim Nachsprechen eines Satzes; Time — sofort den Notruf 112 wählen, denn „time is brain".',
+        },
+        {
+          frage: 'Was ist der ABCD2-Score?',
+          antwort: 'Ein Score zur Abschätzung des Schlaganfallrisikos nach einer TIA, maximal 7 Punkte: Alter ab 60 Jahren 1 Punkt, Blutdruck ab 140/90 mmHg 1 Punkt, einseitige Schwäche 2 beziehungsweise Sprachstörung ohne Schwäche 1 Punkt, Dauer ab 60 Minuten 2 beziehungsweise 10 bis 59 Minuten 1 Punkt, Diabetes mellitus 1 Punkt. Ab 4 Punkten besteht ein mittleres, ab 6 Punkten ein hohes Risiko. Er ersetzt die dringliche Abklärung jedoch nicht.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei einem vorübergehenden neurologischen Defizit in Betracht?',
+          antwort: 'Der ischämische Schlaganfall und die intrazerebrale Blutung, die Hypoglykämie — immer zuerst auszuschließen —, die Migräne mit Aura, ein fokaler epileptischer Anfall mit Todd-Parese, eine Synkope oder orthostatische Dysregulation, bei führendem Schwindel der benigne paroxysmale Lagerungsschwindel und die Vestibularisneuritis, beim jungen Patienten die Multiple Sklerose, ferner ein Hirntumor oder subdurales Hämatom, die transiente globale Amnesie, eine periphere Nervenläsion oder Wurzelkompression, eine funktionelle Störung, die hypertensive Enzephalopathie und bei Amaurosis fugax des älteren Patienten die Riesenzellarteriitis.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine TIA von einer Migräne mit Aura?',
+          antwort: 'Über die Ausbreitungsdynamik und die Art der Symptome. Die Migräneaura zeigt POSITIVsymptome — Flimmerskotom, Zickzacklinien, Kribbeln —, die langsam über 5 bis 20 Minuten wandern und meist von Kopfschmerz gefolgt werden, typischerweise beim jüngeren Patienten mit bekannter Migräne. Die TIA setzt schlagartig ein, ist von Anfang an maximal, besteht aus NEGATIVsymptomen und wandert nicht.',
+        },
+        {
+          frage: 'Warum ist die TIA ein Notfall, obwohl der Patient beschwerdefrei ist?',
+          antwort: 'Weil sie ein Warnsignal für einen unmittelbar drohenden Hirninfarkt ist. Ohne Behandlung erleiden etwa 10 Prozent der Patienten innerhalb von 90 Tagen einen Schlaganfall, rund die Hälfte davon bereits in den ersten 48 Stunden. Durch sofortige Abklärung und ursachengerechte Sekundärprophylaxe lässt sich dieses Risiko um etwa 80 Prozent senken.',
+        },
+        {
+          frage: 'Welche Untersuchung darf bei diesem Patienten auf keinen Fall fehlen?',
+          antwort: 'Das Langzeit-EKG beziehungsweise ein verlängertes Rhythmusmonitoring über mindestens 72 Stunden zur Suche nach Vorhofflimmern, weil dieser Befund die gesamte Therapie umstellt, sowie die Doppler- und Duplexsonographie der hirnversorgenden Arterien zur Suche nach einer Karotisstenose. Beides zusammen mit der zerebralen Bildgebung und der Echokardiographie.',
+        },
+        {
+          frage: 'Wann operieren Sie eine Karotisstenose, und wie schnell?',
+          antwort: 'Bei symptomatischer hochgradiger Stenose, also nach einer TIA oder einem Schlaganfall im entsprechenden Stromgebiet. Der Eingriff — Thrombendarteriektomie oder Stentangioplastie — sollte zeitnah innerhalb von zwei Wochen nach dem Ereignis erfolgen, weil der Nutzen umso größer ist, je früher operiert wird. Bei asymptomatischer Stenose wird die Indikation deutlich zurückhaltender gestellt.',
+        },
+        {
+          frage: 'Wie klären Sie den Patienten über die Diagnose auf, und was raten Sie ihm für zu Hause?',
+          antwort: 'In Alltagssprache: eine vorübergehende Durchblutungsstörung des Gehirns, also eine kurzzeitige Blutleere in einem Hirngefäß, die sich von selbst gelöst hat — aber ein Warnsignal für einen drohenden Schlaganfall. Deshalb bleibt der Patient stationär, wird überwacht und die Ursache wird sofort geklärt. Für zu Hause: die FAST-Regel erklären, bei erneuten Symptomen sofort den Notruf 112 wählen, auch wenn die Beschwerden schon wieder weg sind; dazu die Bedeutung der täglichen Einnahme der Medikamente, die vorübergehend eingeschränkte Fahrtauglichkeit und die Risikofaktoren.',
+        },
+        {
+          frage: 'Dürfen Sie bei einer TIA lysieren?',
+          antwort: 'Nein. Eine Thrombolyse setzt ein persistierendes, relevantes neurologisches Defizit innerhalb des Zeitfensters voraus. Bei vollständig zurückgebildeten Symptomen besteht keine Lyseindikation; die Behandlung besteht in der sofortigen Abklärung und der ursachengerechten Sekundärprophylaxe. Umgekehrt gilt: Solange das Defizit besteht, wird der Patient als Schlaganfall behandelt und das Lysefenster geprüft.',
+        },
+      ],
+      merksatz: 'TIA = Warnsignal, kein Entwarnungssignal: Symptome weg, Gefahr da — höchstes Infarktrisiko in den ersten 48 Stunden, also SOFORT stationär abklären. Erst Blutzucker, dann Bildgebung zum Blutungsausschluss, dann Doppler, Langzeit-EKG und Echo. Und die Weichenstellung nie verwechseln: Vorhofflimmern → orale Antikoagulation, Arteriosklerose → Plättchenhemmer plus Statin, symptomatische Karotisstenose → Operation innerhalb von zwei Wochen.',
+      linkedCaseIds: [
+        'case-tia',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-ct',
+        'auf-sonographie',
+        'auf-echokardiographie',
+      ],
+    },
+    {
+      id: 'fw-diabetes-typ1',
+      pathology: 'Diabetes mellitus Typ 1 (Erstmanifestation)',
+      specialty: 'Endokrinologie',
+      definition: 'Der Diabetes mellitus Typ 1 ist eine chronische Autoimmunerkrankung, bei der die insulinproduzierenden Betazellen der Langerhans-Inseln des Pankreas zerstört werden. Daraus resultiert ein ABSOLUTER Insulinmangel mit chronischer Hyperglykämie. Er macht etwa 5 bis 10 Prozent aller Diabetesfälle aus und manifestiert sich typischerweise im Kindes-, Jugend- oder jungen Erwachsenenalter, kann jedoch in jedem Lebensalter auftreten. Klinisch wird er erst symptomatisch, wenn etwa 80 bis 90 Prozent der Betazellmasse zerstört sind; die Symptome entwickeln sich dann über wenige Wochen bis Monate. Der absolute Insulinmangel bedingt zwingend eine sofortige und lebenslange Insulinsubstitution und die Neigung zur Ketoazidose, die bei etwa 20 bis 30 Prozent der Kinder die Erstmanifestation darstellt.',
+      aetiologie: 'T-Zell-vermittelte autoimmune Insulitis mit selektiver Zerstörung der Betazellen bei genetisch prädisponierten Personen (Typ 1A, über 90 Prozent); selten idiopathisch ohne nachweisbare Autoimmunität (Typ 1B). Genetische Prädisposition vor allem über die HLA-Klasse-II-Allele DR3/DQ2 und DR4/DQ8, ergänzt durch Nicht-HLA-Gene wie INS und PTPN22. Die Konkordanz eineiiger Zwillinge liegt bei nur 30 bis 50 Prozent, das Wiederholungsrisiko bei betroffenem Vater bei etwa 5 Prozent, bei betroffener Mutter bei etwa 3 Prozent und bei Geschwistern bei etwa 5 bis 6 Prozent — die Erkrankung ist also NICHT einfach vererbt. Als auslösende Umweltfaktoren werden virale Infektionen (Coxsackie-B-, Entero-, Röteln-, Zytomegalie-Viren), frühe Ernährungsfaktoren und Veränderungen des Mikrobioms diskutiert. Die Autoantikörper sind Marker, nicht Ursache der Zerstörung; sie können der klinischen Manifestation um Jahre vorausgehen (Stadien 1 und 2 des Typ-1-Diabetes).',
+      risikofaktoren: [
+        'Genetische Prädisposition mit HLA-DR3/DQ2 und HLA-DR4/DQ8',
+        'Positive Familienanamnese für Diabetes mellitus Typ 1 (Geschwister etwa 5 bis 6 Prozent, Vater etwa 5 Prozent, Mutter etwa 3 Prozent)',
+        'Bestehende andere Autoimmunerkrankung bei Patient oder Verwandten: Hashimoto-Thyreoiditis, Morbus Basedow, Zöliakie, Vitiligo, perniziöse Anämie, Morbus Addison, autoimmune polyglanduläre Syndrome',
+        'Nachweis von Inselautoantikörpern in der präklinischen Phase (zwei oder mehr Antikörper bedeuten ein sehr hohes Progressionsrisiko)',
+        'Virusinfektionen, insbesondere Enteroviren und Coxsackie-B-Viren, als diskutierte Auslöser',
+        'Nord-Süd-Gefälle mit höherer Inzidenz in Nordeuropa (Finnland, Sardinien als Ausnahme)',
+        'Manifestationsgipfel im Vorschulalter (5 bis 7 Jahre) und in der Pubertät; etwa die Hälfte der Erkrankungen tritt vor dem 20. Lebensjahr auf',
+      ],
+      klinik: [
+        {
+          text: 'Kurze Anamnese von wenigen Wochen bis Monaten — das TEMPO ist das wichtigste Unterscheidungsmerkmal zum Typ 2, der über Jahre schleicht',
+        },
+        {
+          text: 'POLYURIE mit großen, hellen Urinmengen und NYKTURIE durch die osmotische Diurese bei Überschreiten der Nierenschwelle von etwa 180 mg/dl',
+        },
+        {
+          text: 'Beim Kind kann eine neu aufgetretene BETTNÄSSE (sekundäre Enuresis) das erste Zeichen sein',
+        },
+        {
+          text: 'POLYDIPSIE mit quälendem Durst und dem Trinken mehrerer Liter täglich',
+        },
+        {
+          text: 'Deutlicher GEWICHTSVERLUST TROTZ normalem oder gesteigertem Appetit durch Kalorienverlust über den Urin, Lipolyse und Proteolyse — diese Kombination trägt allein die Verdachtsdiagnose',
+        },
+        {
+          text: 'Müdigkeit, Abgeschlagenheit, Leistungsknick, Konzentrationsstörungen und Muskelschwäche',
+        },
+        {
+          text: 'Schlanker bis untergewichtiger Habitus, meist Kind, Jugendlicher oder junger Erwachsener',
+        },
+        {
+          text: 'Sehstörungen mit vorübergehend verschwommenem Sehen durch osmotische Quellung der Linse (reversibel unter Stoffwechseleinstellung)',
+        },
+        {
+          text: 'Wadenkrämpfe und Muskelkrämpfe durch Elektrolyt- und Volumenverschiebungen',
+        },
+        {
+          text: 'Trockene Haut mit generalisiertem Pruritus, Pruritus vulvae bzw. ani',
+        },
+        {
+          text: 'Rezidivierende Infekte durch die Glukosurie: Candidose, Balanitis, Vulvovaginitis, Harnwegsinfekte, Furunkel, verzögerte Wundheilung',
+        },
+        {
+          text: 'Exsikkosezeichen mit trockenen Schleimhäuten, verminderten Hautturgor und Tachykardie bei fortgeschrittener Entgleisung',
+        },
+        {
+          text: 'DIABETISCHE KETOAZIDOSE als lebensbedrohliche Erstmanifestation: Übelkeit, Erbrechen, Bauchschmerzen, vertiefte und beschleunigte KUSSMAUL-Atmung, ACETONGERUCH der Ausatemluft, Exsikkose, Tachykardie, Hypotonie, Bewusstseinstrübung bis zum Koma',
+        },
+        {
+          text: 'Bauchschmerzen bis zum Bild des akuten Abdomens als Pseudoperitonitis diabetica — der Patient wird fälschlich in die Chirurgie eingewiesen',
+          atypisch: true,
+        },
+        {
+          text: 'Asymptomatische Entdeckung als Zufallsbefund bei Screening von Angehörigen oder bei Routinelabor',
+          atypisch: true,
+        },
+        {
+          text: 'Manifestation im höheren Erwachsenenalter als LADA mit langsam progredientem Verlauf und initial nicht bestehender Insulinpflicht',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation im Rahmen eines Infekts, einer Operation oder einer Kortisontherapie, die den latenten Insulinmangel demaskiert',
+          atypisch: true,
+        },
+        {
+          text: 'Sekundäre Enuresis, Wachstums- und Entwicklungsverzögerung oder Verhaltensauffälligkeit als einziges Zeichen beim Kind',
+          atypisch: true,
+        },
+        {
+          text: 'Euglykäme Ketoazidose mit nur mäßig erhöhtem Blutzucker — vor allem unter SGLT2-Hemmern, in der Schwangerschaft oder bei Nahrungskarenz',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Ätiologische Klassifikation des Diabetes mellitus (nach WHO/ADA)',
+          inhalt: 'Typ 1: autoimmune (Typ 1A) oder idiopathische (Typ 1B) Betazellzerstörung mit absolutem Insulinmangel. Typ 2: Insulinresistenz mit relativem Insulinmangel und sekretorischem Defekt. Typ 3 (andere spezifische Typen): genetische Defekte der Betazellfunktion (MODY), genetische Insulinwirkungsdefekte, Erkrankungen des exokrinen Pankreas (chronische Pankreatitis, Hämochromatose, Mukoviszidose, Pankreaskarzinom, Zustand nach Pankreatektomie), Endokrinopathien (Morbus Cushing, Akromegalie, Phäochromozytom, Hyperthyreose), medikamentös-toxisch (Glukokortikoide, Antipsychotika, Thiazide, Tacrolimus, Interferon), Infektionen und seltene immunologische Formen. Typ 4: Gestationsdiabetes.',
+        },
+        {
+          name: 'Stadien des Typ-1-Diabetes',
+          inhalt: 'Stadium 1: zwei oder mehr Inselautoantikörper bei NORMOglykämie, asymptomatisch. Stadium 2: Autoantikörper mit DYSglykämie (gestörte Nüchternglukose oder gestörte Glukosetoleranz), weiterhin asymptomatisch. Stadium 3: klinische Manifestation mit Hyperglykämie und typischer Symptomatik. Stadium 4: langjähriger Diabetes mit Folgeerkrankungen. Die Einteilung erlaubt die Identifikation von Risikopersonen vor der Manifestation.',
+        },
+        {
+          name: 'Diagnosekriterien des Diabetes mellitus',
+          inhalt: 'Nüchternplasmaglukose ab 126 mg/dl (7,0 mmol/l) nach mindestens acht Stunden Nahrungskarenz ODER Gelegenheitsplasmaglukose ab 200 mg/dl (11,1 mmol/l) zusammen mit typischer Klinik ODER HbA1c ab 6,5 Prozent (48 mmol/mol) ODER Zwei-Stunden-Wert im oralen Glukosetoleranztest ab 200 mg/dl. Vorstufen: abnorme Nüchternglukose 100 bis 125 mg/dl, gestörte Glukosetoleranz mit Zwei-Stunden-Wert 140 bis 199 mg/dl. Bei eindeutiger Symptomatik genügt ein einziger pathologischer Wert; ohne Symptome ist eine Bestätigung an einem zweiten Tag erforderlich.',
+        },
+        {
+          name: 'Diagnosekriterien und Schweregrade der diabetischen Ketoazidose',
+          inhalt: 'Blutzucker meist über 250 mg/dl (euglykäme Verlaufsform möglich), arterieller pH unter 7,3, Bikarbonat unter 15 bis 18 mmol/l, Nachweis von Ketonkörpern in Urin oder Blut und vergrößerte Anionenlücke über 12 mmol/l. Schweregrade: leicht (pH 7,25 bis 7,30, Bikarbonat 15 bis 18), mittelschwer (pH 7,00 bis 7,24, Bikarbonat 10 bis 15), schwer (pH unter 7,00, Bikarbonat unter 10, häufig Bewusstseinstrübung). Abzugrenzen ist das hyperosmolare hyperglykäme Syndrom des Typ-2-Diabetes mit Blutzucker über 600 mg/dl, Serumosmolalität über 320 mosmol/kg und fehlender oder geringer Ketose.',
+        },
+        {
+          name: 'Therapieziele bei Typ-1-Diabetes',
+          inhalt: 'HbA1c unter 7,0 Prozent (53 mmol/mol), individuell angepasst — strenger bei jungen Patienten ohne Hypoglykämiewahrnehmungsstörung, großzügiger bei Hypoglykämieneigung, langer Krankheitsdauer oder Multimorbidität. In der kontinuierlichen Glukosemessung: Zeit im Zielbereich von 70 bis 180 mg/dl über 70 Prozent, Zeit unter 70 mg/dl unter 4 Prozent, Zeit unter 54 mg/dl unter 1 Prozent, Glukosevariabilität mit einem Variationskoeffizienten unter 36 Prozent.',
+        },
+      ],
+      redFlags: [
+        'Übelkeit, Erbrechen und Bauchschmerzen bei einem Patienten mit Polyurie und Polydipsie — dringender Verdacht auf diabetische Ketoazidose, sofortiger Ketonnachweis und Blutgasanalyse',
+        'Vertiefte und beschleunigte Kussmaul-Atmung und Acetongeruch der Ausatemluft — manifeste Azidose',
+        'Bewusstseinstrübung, Somnolenz oder Koma bei Hyperglykämie — Notfall, Intensivüberwachung',
+        'Exsikkose mit Tachykardie, Hypotonie und Oligurie — hypovolämer Schock bei osmotischer Diurese',
+        'Kalium unter 3,3 mmol/l vor Beginn der Insulintherapie — Insulin zurückstellen, zuerst Kalium substituieren, sonst lebensbedrohliche Herzrhythmusstörungen',
+        'Rascher Blutzuckerabfall über 50 mg/dl pro Stunde oder Kopfschmerzen und Vigilanzminderung unter Therapie, besonders bei Kindern — Verdacht auf Hirnödem',
+        'Bild eines akuten Abdomens bei jungem Patienten ohne chirurgischen Befund — an eine Pseudoperitonitis diabetica denken, bevor operiert wird',
+        'Fieber oder Infektfokus bei entgleistem Diabetes — auslösender Infekt, der gesucht und behandelt werden muss',
+        'Schwere Hypoglykämie mit Fremdhilfebedarf, Krampfanfall oder Bewusstlosigkeit unter laufender Therapie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese mit dem TEMPO der Beschwerden (Wochen statt Jahre), Trinkmenge, Miktions- und Nykturiefrequenz, dokumentiertem Gewichtsverlauf, Appetit, Sehstörungen, Pruritus und rezidivierenden Infekten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Frage nach assoziierten Autoimmunerkrankungen bei Patient und Familie: Hashimoto-Thyreoiditis, Morbus Basedow, Zöliakie, Vitiligo, perniziöse Anämie, Morbus Addison; Familienanamnese für Diabetes einschließlich des Typs',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Suche nach Zeichen der Ketoazidose: Übelkeit, Erbrechen, Bauchschmerzen, Atemmuster, Acetonfoetor, Bewusstseinslage',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Gewicht, Größe und BMI, Volumen- und Hydratationsstatus, Blutdruck und Puls, Herz- und Lungenauskultation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Haut-, Schleimhaut- und FUSSSTATUS mit Inspektion, Pulsstatus, Vibrationsempfinden mit der Stimmgabel nach Rydel-Seiffer und Monofilamenttest als Ausgangsbefund; Inspektion von Genitale und Interdigitalräumen auf Mykosen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Sofortige kapilläre BLUTZUCKERMESSUNG am Krankenbett — sie stellt die Diagnose in Sekunden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'URINSTREIFENTEST auf Glukose und KETONE beziehungsweise Bestimmung von Beta-Hydroxybutyrat im Blut — erkennt die lebensbedrohliche Komplikation ebenso schnell; zusätzlich Nitrit, Leukozyten und Protein',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nüchternplasmaglukose und HbA1c zur Diagnosesicherung nach den Kriterien; der orale Glukosetoleranztest ist bei eindeutiger Klinik überflüssig und bei Ketoazidose KONTRAINDIZIERT',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Ketonnachweis Blutgasanalyse mit pH, Bikarbonat, Basenüberschuss und Anionenlücke sowie Elektrolyte mit KALIUM, Natrium (Korrektur bei Hyperglykämie), Chlorid, Phosphat und Serumosmolalität',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TYPISIERUNG mit Autoantikörpern: GAD65 (bei etwa 70 bis 80 Prozent positiv), IA-2 (etwa 60 Prozent), Insulinautoantikörper (vor allem bei Kindern und vor Insulingabe verwertbar) und ZnT8; mindestens ein Antikörper ist bei rund 90 Prozent der Neumanifestationen nachweisbar',
+        },
+        {
+          stufe: 'Labor',
+          text: 'C-PEPTID (nüchtern oder stimuliert) zur Abgrenzung vom Typ 2: beim Typ 1 erniedrigt bis nicht nachweisbar, beim Typ 2 normal oder erhöht; es wird äquimolar mit Insulin sezerniert und durch exogenes Insulin nicht verfälscht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor und Begleitdiagnostik: Blutbild, CRP, Kreatinin mit eGFR, Leberwerte, Lipidstatus, Lipase; TSH mit fT3 und fT4 sowie TPO- und TRAK-Antikörper; Zöliakieserologie mit Transglutaminase-IgA-Antikörpern und Gesamt-IgA; bei Verdacht Cortisol und Vitamin B12',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Schilddrüse bei auffälligem TSH oder positiven Antikörpern; Abdomensonographie zum Ausschluss einer Pankreaserkrankung als Ursache eines sekundären Diabetes',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Augenärztliche Untersuchung des Augenhintergrunds in Mydriasis als Ausgangsbefund, danach Screening in ein- bis zweijährigen Intervallen; bei Erstmanifestation Refraktionsbestimmung erst nach Stoffwechselstabilisierung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Albumin-Kreatinin-Quotient im Spontanurin und Blutdruckmessung, gegebenenfalls 24-Stunden-Blutdruckmessung; EKG als kardiovaskulärer Ausgangsbefund',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Kontinuierliche Glukosemessung (CGM) mit Auswertung von Zeit im Zielbereich, Zeit unterhalb des Zielbereichs und Glukosevariabilität — heutiger Standard der Verlaufsbeurteilung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Molekulargenetische Diagnostik auf MODY bei negativen Autoantikörpern, nachweisbarem C-Peptid und autosomal-dominanter Familienanamnese über mehrere Generationen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei differenzialdiagnostischem Verdacht auf einen Diabetes insipidus: Durstversuch mit anschließender Desmopressin-Gabe beziehungsweise Copeptin-Bestimmung, gegebenenfalls MRT der Hypophyse',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Diabetes mellitus Typ 2',
+          unterscheidung: 'Ältere, meist übergewichtige Patienten mit metabolischem Syndrom, jahrelang schleichender Verlauf, häufig Zufallsbefund, Acanthosis nigricans; Autoantikörper negativ, C-Peptid normal bis erhöht, keine Ketoseneigung. Therapie zunächst mit Lebensstilmaßnahmen und oralen Antidiabetika.',
+        },
+        {
+          dd: 'LADA (latent autoimmune diabetes in adults)',
+          unterscheidung: 'Autoimmuner Diabetes des Erwachsenen jenseits des 30. Lebensjahres, schlanker Habitus, GAD-Antikörper positiv, aber langsame Progression mit initial über mindestens sechs Monate erhaltener Insulinunabhängigkeit; wird häufig als Typ 2 fehlklassifiziert.',
+        },
+        {
+          dd: 'MODY (maturity onset diabetes of the young)',
+          unterscheidung: 'Monogene, autosomal-dominant vererbte Form bei jungen, schlanken Patienten unter 25 Jahren mit auffälliger Familienanamnese über mehrere Generationen; Autoantikörper NEGATIV, C-Peptid nachweisbar, meist milder Verlauf ohne Ketose. MODY 2 (Glukokinase) benötigt oft keine Therapie, MODY 3 (HNF1A) spricht auf Sulfonylharnstoffe an.',
+        },
+        {
+          dd: 'Sekundärer (pankreopriver oder endokriner) Diabetes',
+          unterscheidung: 'Nach chronischer Pankreatitis, Pankreatektomie oder Pankreaskarzinom, bei Hämochromatose (Bronzediabetes mit Hyperpigmentierung und Leberbeteiligung) oder Mukoviszidose; endokrin bei Morbus Cushing, Akromegalie, Phäochromozytom und Hyperthyreose; medikamentös unter Glukokortikoiden, Antipsychotika oder Tacrolimus. Anamnese und gezielte Zusatzdiagnostik führen weiter.',
+        },
+        {
+          dd: 'Diabetes insipidus (zentral oder renal)',
+          unterscheidung: 'Die eleganteste Abgrenzung: Polyurie und Polydipsie OHNE Hyperglykämie und ohne Glukosurie. Urinvolumen über 3 Liter täglich, Urin stark verdünnt mit einer Osmolalität unter 300 mosmol/kg, Serum-Natrium hochnormal bis erhöht. Klärung durch Durstversuch mit Desmopressin-Test beziehungsweise Copeptin.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Gewichtsverlust trotz gutem Appetit als gemeinsames Merkmal, jedoch mit Tachykardie, Tremor, innerer Unruhe, Wärmeintoleranz, vermehrtem Schwitzen, Struma und gegebenenfalls Exophthalmie; keine Polyurie und Polydipsie. TSH supprimiert, fT3 und fT4 erhöht.',
+        },
+        {
+          dd: 'Anämie und andere Ursachen der Müdigkeit',
+          unterscheidung: 'Blässe, Belastungsdyspnoe, Schwindel, Mundwinkelrhagaden; keine Polydipsie, keine Polyurie. Ferner Hypothyreose (Gewichtszunahme, Kälteintoleranz, Obstipation, Bradykardie), Schlafapnoe, chronische Infektion und Vitamin-B12- oder Eisenmangel.',
+        },
+        {
+          dd: 'Depressive Episode',
+          unterscheidung: 'Antriebslosigkeit, Konzentrationsstörungen, Schlafstörung und gedrückte Stimmung; typischerweise jedoch Appetitverlust, Interessenverlust und Freudlosigkeit über mindestens zwei Wochen. Sie erklärt weder Polyurie noch Polydipsie — die somatische Ursache wird zuerst ausgeschlossen.',
+        },
+        {
+          dd: 'Harnwegsinfekt, Zystitis, Prostatasyndrom',
+          unterscheidung: 'Pollakisurie mit Dysurie und kleinen Urinportionen statt großer Volumina, gegebenenfalls Fieber und Flankenschmerz. Cave: Rezidivierende Harnwegs- und Genitalinfekte sind beim Diabetiker FOLGE der Glukosurie und ein Anlass, den Blutzucker zu messen.',
+        },
+        {
+          dd: 'Konsumierende Erkrankung: Malignom, Tuberkulose, HIV, Hyperthyreose',
+          unterscheidung: 'Ungewollter Gewichtsverlust mit B-Symptomatik aus Fieber, Nachtschweiß und Leistungsknick, Lymphknotenschwellungen, Organsymptomen; kein Durst, keine Polyurie. Der Blutzucker klärt die Frage sofort.',
+        },
+        {
+          dd: 'Psychogene Polydipsie und Anorexia nervosa',
+          unterscheidung: 'Bei der psychogenen Polydipsie normaler Blutzucker und eher erniedrigtes Serum-Natrium bei sehr hoher Trinkmenge. Bei der Anorexia nervosa restriktives Essverhalten, Körperbildstörung, Amenorrhoe und niedriger BMI ohne Polyurie und Polydipsie.',
+        },
+        {
+          dd: 'Chronische Niereninsuffizienz',
+          unterscheidung: 'Nykturie, Müdigkeit, Leistungsknick und Pruritus als gemeinsame Symptome; jedoch erhöhtes Kreatinin, verminderte eGFR, Anämie, Hyperphosphatämie und meist bekannte Grunderkrankung. Der Blutzucker ist normal.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notfallbehandlung der diabetischen Ketoazidose',
+          items: [
+            'Stationäre Aufnahme mit engmaschigem Monitoring von Blutzucker (stündlich), Elektrolyten, Blutgasanalyse, Bilanz, Vitalparametern und Bewusstseinslage; bei schwerer Azidose oder Bewusstseinstrübung Intensivstation',
+            'VOLUMENSUBSTITUTION zuerst und großzügig: isotone Kochsalzlösung, etwa 1 Liter in der ersten Stunde, anschließend 0,5 bis 1 Liter pro Stunde nach Volumenstatus und Herz-Kreislauf-Situation — der Blutzucker fällt allein durch die Rehydratation deutlich',
+            'Danach INSULIN intravenös über Perfusor mit etwa 0,1 IE pro Kilogramm Körpergewicht und Stunde (gegebenenfalls nach initialem Bolus); Ziel ist eine Blutzuckersenkung von höchstens 50 mg/dl pro Stunde. Bei Erreichen von 250 mg/dl Glukose 5 bis 10 Prozent zusetzen und das Insulin fortführen, bis die Azidose ausgeglichen ist',
+            'Engmaschige KALIUMKONTROLLE und -substitution: Trotz oft normalem oder erhöhtem Ausgangswert besteht ein erhebliches Gesamtkörperdefizit; unter Insulin fällt das Kalium dramatisch. Bei Kalium unter 3,3 mmol/l zuerst substituieren und die Insulingabe zurückstellen; Zielbereich 4 bis 5 mmol/l',
+            'Langsame Korrektur von Glukose und Osmolarität wegen der Gefahr des HIRNÖDEMS, insbesondere bei Kindern und Jugendlichen; Bikarbonat nur bei einem pH unter 6,9, da es sonst die zerebrale Azidose verstärkt und die Hypokaliämie verschärft',
+            'Suche und Behandlung des AUSLÖSERS: Infekt (häufigste Ursache), Insulinauslassung oder Applikationsfehler, Pumpen- oder Katheterdefekt, Trauma, Operation, Myokardinfarkt, Alkohol; unter SGLT2-Hemmern an die euglykäme Ketoazidose denken',
+            'Supportive Maßnahmen: Thromboseprophylaxe, Magenschutz, bei Bewusstseinstrübung Magensonde wegen Aspirationsgefahr und Blasenkatheter zur Bilanzierung',
+            'Nach Stabilisierung überlappende Umstellung auf subkutanes Insulin: das erste kurzwirksame Insulin ein bis zwei Stunden VOR dem Abstellen des Perfusors geben, sonst droht ein Rezidiv',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Insulintherapie als lebenslange Basisbehandlung',
+          items: [
+            'Beim absoluten Insulinmangel ist Insulin von Beginn an und LEBENSLANG erforderlich; orale Antidiabetika sind wirkungslos — das ist der Punkt, an dem die Abgrenzung zum Typ 2 unmittelbare therapeutische Konsequenz hat',
+            'Intensivierte konventionelle Therapie nach dem Basis-Bolus-Prinzip: langwirksames Basalinsulin (Glargin, Degludec, Detemir oder NPH) ein- bis zweimal täglich für den Grundbedarf, dazu präprandial kurzwirksames Insulinanalogon (Lispro, Aspart, Glulisin) oder Normalinsulin',
+            'Dosierung: Gesamtbedarf etwa 0,5 bis 1,0 IE pro Kilogramm Körpergewicht und Tag, bei Erstmanifestation eher am unteren Rand; etwa 40 bis 50 Prozent als Basalinsulin, der Rest als Mahlzeiten- und Korrekturbolus nach BE-Faktor und Korrekturfaktor',
+            'INSULINPUMPE (kontinuierliche subkutane Insulininfusion) als gleichwertige Alternative, zunehmend als sensorunterstütztes oder Hybrid-Closed-Loop-System; besonders geeignet bei Dawn-Phänomen, Hypoglykämiewahrnehmungsstörung, stark schwankendem Tagesablauf, Kindern und Spritzenangst',
+            'Kontinuierliche Glukosemessung als heutiger Standard mit den Zielgrößen HbA1c unter 7,0 Prozent und Zeit im Zielbereich von 70 bis 180 mg/dl über 70 Prozent; Alarmfunktionen für Hypo- und Hyperglykämie',
+            'Anpassung an Kohlenhydratmenge, aktuellen Blutzuckerwert und körperliche Aktivität; Aufklärung über die Remissions- bzw. Honeymoon-Phase mit vorübergehend deutlich vermindertem Insulinbedarf — die Therapie wird angepasst, nie abgesetzt',
+            'Praktische Sicherheit: korrekte Injektionstechnik und Nadellänge, systematischer Wechsel der Injektionsstellen zur Vermeidung von Lipohypertrophien mit unberechenbarer Resorption, sachgerechte Lagerung, stets Ersatzpen und Ersatzinsulin',
+            'Adjuvante Substanzen sind beim Typ 1 die Ausnahme; Metformin oder SGLT2-Hemmer werden allenfalls in Einzelfällen ergänzt — SGLT2-Hemmer mit ausdrücklichem Hinweis auf das Risiko der euglykämen Ketoazidose',
+          ],
+        },
+        {
+          label: 'Strukturierte Schulung und Selbstmanagement',
+          items: [
+            'Die strukturierte Schulung ist der eigentliche Kern der Behandlung: Die Therapie ist ebenso Erziehung wie Verordnung, denn der Patient behandelt sich täglich selbst',
+            'Erlernen der Blutzuckerselbstmessung beziehungsweise der Sensornutzung, der Interpretation der Werte und der selbstständigen Insulinanpassung (Basalratentest, Korrekturregeln)',
+            'Kohlenhydratberechnung und Ernährungsschulung: 1 Broteinheit entspricht 12 g, 1 Kohlenhydrateinheit 10 g Kohlenhydrate; individueller BE-Faktor meist 1 bis 2 IE pro BE mit Tagesrhythmik. Keine Verbotsdiät, sondern eine an die Insulindosis angepasste ausgewogene Ernährung',
+            'Verhalten bei SPORT (Insulinreduktion, Kohlenhydrate bereithalten, Gefahr der Spätunterzuckerung bis Stunden danach), bei KRANKHEIT (Sick-Day-Regeln: Insulin niemals weglassen, der Bedarf steigt; häufiger messen, ab 250 mg/dl Ketone kontrollieren, viel trinken), auf REISEN (Zeitverschiebung, Insulin ins Handgepäck, ärztliche Bescheinigung) und bei ALKOHOL (verzögerte Hypoglykämie durch Hemmung der hepatischen Glukoneogenese)',
+            'Erkennen und Behandeln der HYPOGLYKÄMIE: adrenerge Warnzeichen (Zittern, Schwitzen, Herzklopfen, Heißhunger) und neuroglykopene Zeichen (Konzentrationsstörung, Sehstörung, Verwirrtheit, Krampfanfall, Bewusstlosigkeit); Sofortmaßnahme 15 bis 20 g schnelle Kohlenhydrate als TRAUBENZUCKER oder Saft, Kontrolle nach 15 Minuten, danach langsam resorbierbare Kohlenhydrate',
+            'Ausstattung mit GLUKAGON (intramuskulär, subkutan oder nasal) und SCHULUNG DER ANGEHÖRIGEN für den Fall der Bewusstlosigkeit — Cave: einem Bewusstlosen nie etwas einflößen; Beachtung der Hypoglykämiewahrnehmungsstörung bei langer Krankheitsdauer',
+            'DIABETIKERAUSWEIS und Notfallinformation stets mitführen',
+            'Aufklärung über die FAHRTAUGLICHKEIT: vor jeder Fahrt und auf langen Strecken regelmäßig Blutzucker messen, nicht unter 90 mg/dl losfahren, Kohlenhydrate im Fahrzeug, bei Unterzuckerungszeichen sofort anhalten; Hinweis auf die Begutachtungsleitlinien und auf Einschränkungen bei bestimmten Berufen (Personenbeförderung, Berufskraftfahrer, Arbeiten mit Absturzgefahr)',
+            'Umgang mit der Diagnose beim jungen Patienten: Schule, Ausbildung, Studium und Beruf, Partnerschaft, Kinderwunsch und Schwangerschaftsplanung; psychologische Unterstützung und Selbsthilfegruppen anbieten, da die Erstdiagnose einen tiefen Einschnitt bedeutet und Diabetes-Distress und Depression häufig sind',
+            'Regelmäßige WIEDERHOLUNG der Schulung und Anbindung an ein Disease-Management-Programm',
+          ],
+        },
+        {
+          label: 'Prävention und Kontrolle der Folgeschäden',
+          items: [
+            'Regelmäßige augenärztliche Kontrolle des AUGENHINTERGRUNDS: Ausgangsuntersuchung nach Stoffwechselstabilisierung, danach in ein- bis zweijährigen Intervallen, engmaschiger bei bestehender Retinopathie oder in der Schwangerschaft',
+            'Nierenwerte und ALBUMINAUSSCHEIDUNG: jährlicher Albumin-Kreatinin-Quotient im Spontanurin sowie Kreatinin und eGFR, beim Typ 1 ab dem fünften Jahr nach Diagnosestellung beziehungsweise ab der Pubertät; bei persistierender Albuminurie ACE-Hemmer oder Sartan und konsequente Blutdruckeinstellung',
+            'FUSSINSPEKTION bei jedem Arztkontakt und mindestens jährliche Untersuchung auf Polyneuropathie (Stimmgabel, Monofilament, Reflexe) und periphere Durchblutung; strukturierte Fußschulung, geeignetes Schuhwerk, podologische Behandlung, konsequente Behandlung von Mykosen und kleinsten Läsionen',
+            'Kardiovaskuläre Prävention: Blutdruckziel meist unter 140/90 mmHg (individuell tiefer), Lipidkontrolle mit Statinindikation nach Risiko, konsequenter Nikotinverzicht, Bewegung und Gewichtsstabilität',
+            'SCREENING auf die assoziierten Autoimmunerkrankungen bei Diagnosestellung und im Verlauf: SCHILDDRÜSE (TSH, TPO-Antikörper) und ZÖLIAKIE (Transglutaminase-IgA mit Gesamt-IgA); daran denken bei Vitiligo, perniziöser Anämie und Morbus Addison',
+            'IMPFUNGEN nach STIKO, insbesondere jährliche Influenza-Impfung sowie Pneumokokken- und COVID-19-Impfung',
+            'Regelmäßige diabetologische Anbindung mit HbA1c-Kontrolle alle drei Monate, Auswertung der Sensordaten, Überprüfung der Injektionsstellen und wiederholter Schulung; jährliche Zahnarztkontrolle wegen der Parodontitisneigung',
+          ],
+        },
+      ],
+      prognose: 'Der Diabetes mellitus Typ 1 ist derzeit nicht heilbar, aber sehr gut behandelbar. Entscheidend für die Prognose ist die Stoffwechseleinstellung: Die DCCT- und EDIC-Studien haben gezeigt, dass eine intensivierte Insulintherapie die Inzidenz mikrovaskulärer Folgeerkrankungen — Retinopathie, Nephropathie und Neuropathie — deutlich senkt und dass dieser Vorteil über Jahrzehnte fortbesteht (metabolisches Gedächtnis). Unter moderner Therapie mit kontinuierlicher Glukosemessung und Pumpen- oder Closed-Loop-Systemen ist die Lebenserwartung nur noch mäßig eingeschränkt; unbehandelt oder schlecht eingestellt drohen Erblindung, dialysepflichtige Niereninsuffizienz, diabetisches Fußsyndrom mit Amputation sowie ein deutlich erhöhtes kardiovaskuläres Risiko. Die akuten Gefahren sind die Ketoazidose (Letalität in Deutschland unter 1 Prozent, bei Kindern vor allem durch das Hirnödem) und die schwere Hypoglykämie. Nach der Manifestation folgt häufig eine Remissions- oder Honeymoon-Phase von Wochen bis Monaten mit vermindertem Insulinbedarf; sie bedeutet keine Heilung. Die Prognose hängt maßgeblich von Schulung, Selbstmanagement und Therapieadhärenz ab — die psychosoziale Begleitung junger Patienten ist deshalb prognostisch ebenso relevant wie die Insulindosis.',
+      pruefungsfallen: [
+        'Das TEMPO ist das entscheidende Unterscheidungsmerkmal: Typ 1 entwickelt sich über wenige Wochen bis Monate, Typ 2 über Jahre. Ein schlanker junger Patient mit Polyurie, Polydipsie und Gewichtsverlust hat bis zum Beweis des Gegenteils einen Typ 1.',
+        'Der Gewichtsverlust erfolgt TROTZ normalem oder gesteigertem Appetit — diese Kombination muss ausdrücklich so formuliert werden, sie ist das Herzstück der Verdachtsdiagnose.',
+        'Die diabetische Ketoazidose muss ungefragt genannt werden: Sie ist beim Typ 1 nicht selten die Erstmanifestation und der eigentliche Notfall. Wer sie nicht aktiv ausschließt (Ketone in Urin oder Blut, Blutgasanalyse), verliert Punkte.',
+        'Bei der Ketoazidosetherapie ZUERST Volumen, DANN Insulin — und immer das KALIUM kontrollieren und substituieren. Der Kaliumabfall unter Insulin ist der klassische tödliche Fehler; bei Kalium unter 3,3 mmol/l wird das Insulin zurückgestellt.',
+        'Zu rasche Korrektur von Blutzucker und Osmolarität führt zum HIRNÖDEM, besonders bei Kindern — nicht schneller als 50 mg/dl pro Stunde senken. Bikarbonat nur bei pH unter 6,9.',
+        'Der oGTT ist bei eindeutiger Klinik überflüssig und bei Ketoazidose KONTRAINDIZIERT.',
+        'ORALE ANTIDIABETIKA wirken beim absoluten Insulinmangel NICHT. Metformin beim Typ 1 vorzuschlagen zeigt, dass die Pathophysiologie nicht verstanden wurde — und mehrere Protokolle enthalten genau diesen Fehler.',
+        'Das C-Peptid und nicht der Insulinspiegel wird bestimmt, weil es äquimolar mit dem Insulin sezerniert wird und durch exogen zugeführtes Insulin nicht verfälscht wird.',
+        'Ein Diabetes mellitus Typ 2 in der Familie ist kein Argument für einen Typ 2 beim jungen Patienten — die beiden Formen werden nicht gemeinsam vererbt. Aussagekräftiger sind Autoimmunerkrankungen in der Familie.',
+        'Die ASSOZIIERTEN Autoimmunerkrankungen aktiv erfragen und screenen: Hashimoto-Thyreoiditis, ZÖLIAKIE, Vitiligo, perniziöse Anämie, Morbus Addison.',
+        'Beim Diabetes insipidus bestehen Polyurie und Polydipsie OHNE Hyperglykämie — die eleganteste Abgrenzung, in Karlsruhe ausdrücklich abgefragt.',
+        'Auf die Frage nach Alternativen zum Spritzen erwartet der Prüfer als weiterführende Antwort die PANKREASTRANSPLANTATION beziehungsweise die Inselzelltransplantation.',
+        'Bauchschmerzen bis zum akuten Abdomen bei Ketoazidose (Pseudoperitonitis diabetica) führen zur Fehleinweisung in die Chirurgie — vor jeder Operation eines jungen Patienten mit akutem Abdomen Blutzucker messen.',
+        'Sehstörungen bei Erstmanifestation sind meist eine reversible osmotische Linsenquellung und nicht bereits eine Retinopathie — keine neue Brille vor Stoffwechselstabilisierung.',
+        'Die euglykäme Ketoazidose unter SGLT2-Hemmern nicht übersehen: Ketoazidose bei nur mäßig erhöhtem Blutzucker.',
+        'Fahrtauglichkeit, Glukagon-Notfallset und Schulung der Angehörigen werden in der Therapieantwort regelmäßig vergessen, obwohl sie zur Standardaufklärung gehören.',
+        'Sprachlich: nicht „er ist Diabetiker“ oder „leidet an Diabetes“ als Etikett, sondern „bei ihm besteht ein Diabetes mellitus Typ 1“; gegenüber dem Patienten „Zuckerkrankheit“ und eine Erklärung in Alltagssprache.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und warum entscheiden Sie sich für einen Typ 1?',
+          antwort: 'Eine Erstmanifestation eines Diabetes mellitus Typ 1. Dafür sprechen das junge Alter, der schlanke Habitus, die kurze Anamnese von wenigen Wochen bis Monaten und die klassische Trias aus Polyurie mit Nykturie, Polydipsie und Gewichtsverlust trotz gutem Appetit, ergänzt durch Müdigkeit, Sehstörungen, Pruritus und rezidivierende Genitalinfekte. Gesichert wird die Zuordnung über die Autoantikörper und ein erniedrigtes C-Peptid.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen Diabetes mellitus Typ 1 und Typ 2?',
+          antwort: 'Der Typ 1 beruht auf einer autoimmunen Zerstörung der Betazellen mit ABSOLUTEM Insulinmangel: junge, schlanke Patienten, rascher Beginn über Wochen, Ketoseneigung, Autoantikörper positiv, C-Peptid erniedrigt, von Beginn an insulinpflichtig. Der Typ 2 beruht auf einer Insulinresistenz mit relativem Insulinmangel: ältere, meist übergewichtige Patienten mit metabolischem Syndrom, schleichender Verlauf über Jahre, oft Zufallsbefund, Antikörper negativ, C-Peptid normal bis erhöht, Behandlung zunächst mit Lebensstiländerung und oralen Antidiabetika.',
+        },
+        {
+          frage: 'Warum habe ich Diabetes Typ 1? — wie erklären Sie es dem Patienten?',
+          antwort: 'Das körpereigene Abwehrsystem hat die insulinbildenden Zellen der Bauchspeicheldrüse irrtümlich zerstört. Dadurch fehlt das Insulin, das den Zucker aus dem Blut in die Zellen bringt; der Zucker bleibt im Blut, wird über die Nieren ausgeschieden und zieht Wasser mit sich — daher der Durst, das häufige Wasserlassen und die Gewichtsabnahme. Das hat nichts mit Übergewicht oder Süßigkeiten zu tun und ist nicht selbst verschuldet.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht — und was ist mit dem Diabetes insipidus?',
+          antwort: 'Typ-2-Diabetes, LADA, MODY, sekundärer Diabetes, ferner Hyperthyreose, Hypothyreose, Anämie, depressive Episode, Harnwegsinfekt und konsumierende Erkrankungen. Der Diabetes insipidus ist besonders wichtig: Dort bestehen Polyurie und Polydipsie OHNE Hyperglykämie, der Urin ist stark verdünnt mit einer Osmolalität unter 300 mosmol/kg, es findet sich keine Glukosurie und das Serum-Natrium ist hochnormal bis erhöht. Gesichert wird er durch den Durstversuch mit Desmopressin-Gabe oder die Copeptin-Bestimmung.',
+        },
+        {
+          frage: 'Wie gehen Sie diagnostisch vor?',
+          antwort: 'Zuerst kapilläre Blutzuckermessung und Urinstreifentest auf Glukose und Ketone. Dann Nüchternglukose und HbA1c zur Diagnosesicherung, Blutbild, CRP, Elektrolyte, Kreatinin, Leberwerte und Lipide; zur Typisierung Autoantikörper gegen GAD, IA-2, Insulin und ZnT8 sowie C-Peptid. Bei Ketonnachweis Blutgasanalyse mit pH, Bikarbonat und Anionenlücke. Ergänzend TSH mit Schilddrüsenantikörpern, Zöliakieserologie, Schilddrüsensonographie sowie die Ausgangsuntersuchungen der Folgeschäden mit Augenhintergrund, Albuminausscheidung und Fußstatus.',
+        },
+        {
+          frage: 'Wie lauten die Diagnosekriterien, und würden Sie einen oGTT machen?',
+          antwort: 'Nüchternglukose ab 126 mg/dl, Gelegenheitsglukose ab 200 mg/dl mit typischer Klinik, HbA1c ab 6,5 Prozent oder ein Zwei-Stunden-Wert im oGTT ab 200 mg/dl. Bei eindeutiger Klinik ist der oGTT überflüssig, und bei Ketoazidose ist er kontraindiziert.',
+        },
+        {
+          frage: 'Wozu bestimmen Sie das C-Peptid und die Autoantikörper?',
+          antwort: 'Das C-Peptid misst die körpereigene Insulinsekretion, da es äquimolar mit dem Insulin freigesetzt wird und durch exogenes Insulin nicht verfälscht wird — beim Typ 1 ist es erniedrigt bis nicht nachweisbar. Die Autoantikörper GAD65, IA-2, IAA und ZnT8 belegen die autoimmune Genese; mindestens einer ist bei etwa 90 Prozent der Neumanifestationen positiv.',
+        },
+        {
+          frage: 'Was ist die gefährlichste akute Komplikation, und woran erkennen Sie sie?',
+          antwort: 'Die diabetische Ketoazidose. Klinisch Übelkeit, Erbrechen, Bauchschmerzen bis zum Bild des akuten Abdomens, vertiefte und beschleunigte Kussmaul-Atmung, Acetongeruch der Ausatemluft, Exsikkose, Tachykardie, Hypotonie und Bewusstseinstrübung bis zum Koma. Laborchemisch Blutzucker meist über 250 mg/dl, pH unter 7,3, Bikarbonat unter 15 mmol/l, positive Ketone und vergrößerte Anionenlücke.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Ketoazidose, und in welcher Reihenfolge?',
+          antwort: 'Stationäre Aufnahme mit Monitoring, gegebenenfalls Intensivstation. Zuerst großzügige Volumensubstitution mit isotoner Kochsalzlösung, etwa 1 Liter in der ersten Stunde. Danach Insulin intravenös über Perfusor mit etwa 0,1 IE pro Kilogramm und Stunde, wobei der Blutzucker nicht schneller als 50 mg/dl pro Stunde fallen soll; ab 250 mg/dl Glukose zusetzen. Engmaschige Kaliumkontrolle und -substitution, Bikarbonat nur bei pH unter 6,9, Suche und Behandlung des Auslösers, Thromboseprophylaxe.',
+        },
+        {
+          frage: 'Was passiert dabei mit dem Kalium?',
+          antwort: 'Das Serumkalium ist initial oft normal oder erhöht, obwohl ein erhebliches Gesamtkörperdefizit besteht, weil Kalium bei Azidose und Insulinmangel aus den Zellen austritt. Unter Insulin strömt es zurück in die Zellen und der Spiegel fällt dramatisch, mit der Gefahr lebensbedrohlicher Herzrhythmusstörungen. Deshalb wird frühzeitig substituiert; bei einem Kalium unter 3,3 mmol/l wird zuerst Kalium gegeben und das Insulin zurückgestellt.',
+        },
+        {
+          frage: 'Wie sieht die Dauertherapie aus? Könnten Sie Metformin geben?',
+          antwort: 'Nein — beim absoluten Insulinmangel wirken orale Antidiabetika nicht. Die Behandlung besteht in einer lebenslangen Insulinsubstitution, meist als intensivierte konventionelle Therapie nach dem Basis-Bolus-Prinzip mit langwirksamem Basalinsulin und präprandialem kurzwirksamem Insulin, alternativ über eine Insulinpumpe, ergänzt durch kontinuierliche Glukosemessung. Der Bedarf liegt bei etwa 0,5 bis 1,0 IE pro Kilogramm und Tag. Ebenso wichtig sind die strukturierte Schulung und die Kontrolle der Folgeschäden.',
+        },
+        {
+          frage: 'Der Patient möchte nicht spritzen. Welche Alternativen gibt es?',
+          antwort: 'Zunächst die praktischen Erleichterungen: sehr dünne kurze Nadeln, Pen statt Spritze, Glukosesensor statt Fingerstich und vor allem die Insulinpumpe, bei der nur alle zwei bis drei Tage ein Katheter gewechselt wird, gegebenenfalls als sensorgesteuertes Closed-Loop-System. Ganz ohne Insulin kommt der Typ-1-Diabetiker nicht aus. Als weitergehende Verfahren gibt es die PANKREASTRANSPLANTATION und die Inselzelltransplantation, meist im Zusammenhang mit einer Nierentransplantation.',
+        },
+        {
+          frage: 'Welche Folgeerkrankungen drohen, und wie kontrollieren Sie?',
+          antwort: 'Mikrovaskulär Retinopathie, Nephropathie und Polyneuropathie mit diabetischem Fußsyndrom; makrovaskulär koronare Herzkrankheit, Schlaganfall und periphere arterielle Verschlusskrankheit. Kontrolle: HbA1c alle drei Monate mit Ziel unter 7 Prozent, augenärztliche Untersuchung mit Ausgangsbefund und ein- bis zweijährlichem Screening, jährlich Albumin-Kreatinin-Quotient und Nierenwerte, Fußinspektion bei jedem Kontakt, Blutdruck und Lipide, Impfungen sowie Screening auf Schilddrüsenerkrankungen und Zöliakie.',
+        },
+        {
+          frage: 'Was sagen Sie dem Patienten zur Unterzuckerung?',
+          antwort: 'Warnzeichen sind Zittern, Schwitzen, Herzklopfen und Heißhunger, bei stärkerem Abfall Konzentrationsstörungen, Sehstörungen, Verwirrtheit bis zur Bewusstlosigkeit. Sofort 15 bis 20 g schnelle Kohlenhydrate als Traubenzucker oder Saft einnehmen, nach 15 Minuten kontrollieren und danach langsam resorbierbare Kohlenhydrate essen. Traubenzucker immer mitführen, ein Glukagon-Notfallset bereithalten und die Angehörigen schulen — einem Bewusstlosen darf nichts eingeflößt werden.',
+        },
+        {
+          frage: 'An welche assoziierten Erkrankungen denken Sie?',
+          antwort: 'An weitere Autoimmunerkrankungen: Hashimoto-Thyreoiditis und Morbus Basedow, Zöliakie, Vitiligo, perniziöse Anämie bei atrophischer Gastritis und Morbus Addison, gegebenenfalls im Rahmen eines autoimmunen polyglandulären Syndroms. Deshalb gehören TSH, TPO-Antikörper sowie Transglutaminase-IgA-Antikörper mit Gesamt-IgA zur Erstdiagnostik und zum Verlaufsscreening.',
+        },
+        {
+          frage: 'Der Patient braucht nach einigen Wochen deutlich weniger Insulin. Wie erklären Sie das?',
+          antwort: 'Das ist die Remissions- oder Honeymoon-Phase: Nach Beseitigung der Glukosetoxizität erholen sich die verbliebenen Betazellen vorübergehend und der Insulinbedarf sinkt für Wochen bis Monate. Es handelt sich nicht um eine Heilung; die Insulintherapie wird angepasst, aber niemals abgesetzt.',
+        },
+      ],
+      merksatz: 'Junger, schlanker Patient mit Polyurie, Polydipsie und Gewichtsverlust TROTZ gutem Appetit in wenigen Wochen = Typ 1 bis zum Beweis des Gegenteils. Zwei Sekundengriffe stellen die Diagnose und erkennen die Gefahr: Blutzucker UND Urinstreifen auf Ketone. Absoluter Insulinmangel heißt Insulin von Anfang an und lebenslang — orale Antidiabetika wirken nicht. Und bei der Ketoazidose gilt: erst Volumen, dann Insulin, immer das Kalium.',
+      linkedCaseIds: [
+        'case-diabetes-typ1',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
   ];
 }

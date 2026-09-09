@@ -7,7 +7,7 @@ import json, os, re, sys
 SRC = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.abspath(os.path.join(SRC, '..', 'src', 'data'))
 
-CASE_IDS = ['case-schlafapnoe', 'case-schizophrenie', 'case-delir', 'case-achalasie', 'case-septische-arthritis', 'case-spinalkanalstenose']
+CASE_IDS = ['case-hws-diskusprolaps', 'case-laktoseintoleranz', 'case-tia', 'case-diabetes-typ1']
 
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
@@ -16,6 +16,26 @@ SHEET = ['personalia','leitsymptome','begleitsymptome','schmerz','vegetativeAnam
 MV = ['verdachtsdiagnose','differenzialdiagnosen','diagnostik','therapie','erstmassnahmen','notfall']
 CASE = ['id','name','pathology','specialty','centers','frequency','difficulty','patientSheet','medicalView','linkedFachwissenId','linkedFachbegriffeIds','probableAufklaerungIds','caseSpecificQuestions','examinerQuestions','pruefungsfallen','status','confidence','sourceDates','kommunikativeSituationIds','examinerSheet']
 FW = ['id','pathology','specialty','definition','aetiologie','risikofaktoren','klinik','klassifikation','redFlags','diagnostik','differenzialdiagnosen','therapie','prognose','pruefungsfallen','askedInExam','merksatz','linkedCaseIds','keyFachbegriffeIds','linkedAufklaerungIds']
+
+# Chapitres autorisés des Muster. Trois agents successifs ont inventé un
+# chapitre surnuméraire VIDE dans l'Arztbrief ('', 'diagnostik-therapie-hinweis',
+# 'zusatz') : le validateur le voyait, l'assembleur le laissait passer. On filtre
+# ici, à la source, plutôt que de corriger le JSON à la main à chaque lot.
+MUSTER_AB = ['einleitung','patientenzustand','aktuelle-beschwerden','vorerkrankungen','medikation','allergien-noxen','familie-sozial','diagnose','diagnostik-therapie']
+MUSTER_VOR = ['persoenliche-daten','allgemeinzustand','aktuelle-beschwerden','allergien','rauchen','alkohol','drogen','sozialanamnese','familienanamnese','vorerkrankungen','medikation','diagnostik-procedere','frauenanamnese']
+
+def clean_muster(m, keys, cid, kind, report):
+    """Ne garde que les chapitres attendus et non vides."""
+    out = {}
+    for k in keys:
+        v = m.get(k)
+        if v is not None and str(v).strip():
+            out[k] = v
+    for k in m:
+        if k not in out:
+            report.append(f'   ⚠ {cid}: chapitre {kind} ignoré ({k!r} — hors contrat ou vide)')
+    return out
+
 
 def pick(d, keys):
     return {k: d[k] for k in keys if k in d and d[k] is not None}
@@ -178,7 +198,9 @@ def main():
             continue
         cases_ts.append(ts(case, 4) + ',')
         if muster:
-            muster_ts.append("  '" + cid + "': " + to_ts({'arztbrief': muster.get('arztbrief', {}), 'vorstellung': muster.get('vorstellung', {})}, 2) + ',')
+            ab = clean_muster(muster.get('arztbrief', {}), MUSTER_AB, cid, 'Arztbrief', report)
+            vo = clean_muster(muster.get('vorstellung', {}), MUSTER_VOR, cid, 'Vorstellung', report)
+            muster_ts.append("  '" + cid + "': " + to_ts({'arztbrief': ab, 'vorstellung': vo}, 2) + ',')
         if fw:
             fw_ts.append(ts(fw, 4) + ',')
         report.append(f'OK {cid}: case+{"muster" if muster else "NOMUSTER"}+{"fw" if fw else "NOFW"} · fwId={case["linkedFachwissenId"]} · dates={case.get("sourceDates")}')
