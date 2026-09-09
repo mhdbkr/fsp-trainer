@@ -7,7 +7,7 @@ import json, os, re, sys
 SRC = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.abspath(os.path.join(SRC, '..', 'src', 'data'))
 
-CASE_IDS = ['case-gastroenteritis', 'case-rheumatisches-fieber']
+CASE_IDS = ['case-influenza', 'case-coxarthrose', 'case-metabolisches-syndrom', 'case-karzinoid', 'case-abszess', 'case-anorexia-nervosa']
 
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
@@ -67,6 +67,12 @@ def iso_dates(s):
         # Les protocoles contiennent parfois des dates partielles (« 00.02.2023 »
         # quand le jour est inconnu) : elles produiraient un ISO invalide.
         if dd == '00' or mm == '00':
+            continue
+        # Les protocoles s'étalent de 2016 à aujourd'hui. Une date plus ancienne
+        # n'est pas une date d'examen mais une DATE DE NAISSANCE recopiée depuis
+        # la fiche patient du protocole (« Julia Springer / 19.09.2003 ») : elle
+        # n'a rien à faire dans sourceDates, qui trace la provenance documentaire.
+        if int(yy) < 2016:
             continue
         out.append(f'{yy}-{mm}-{dd}')
     # unique, keep order

@@ -29107,5 +29107,2383 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-roentgen-thorax',
       ],
     },
+    {
+      id: 'fw-influenza',
+      pathology: 'Influenza (Virusgrippe)',
+      specialty: 'Infektiologie',
+      definition: 'Die Influenza — die echte Virusgrippe — ist eine akute, hochkontagiöse Infektion der Atemwege durch Influenzaviren der Familie der Orthomyxoviridae, Typ A oder B, die in den Wintermonaten epidemisch auftritt. Charakteristisch ist der PLÖTZLICHE, geradezu schlagartige Beginn aus voller Gesundheit — der Patient kann die Stunde benennen, in der es losging — mit hohem Fieber über 38,5 bis 40 °C und Schüttelfrost, einem ausgeprägten Krankheitsgefühl mit schwerer Abgeschlagenheit, die den Patienten ins Bett zwingt, starken Kopf-, Glieder-, Muskel- und Rückenschmerzen, trockenem Reizhusten und Halsschmerzen. Sie ist scharf vom banalen GRIPPALEN INFEKT (Erkältung) abzugrenzen, der durch Rhino-, Corona-, Parainfluenza- oder RS-Viren verursacht wird, allmählich über Tage beginnt, von der Schnupfensymptomatik mit Niesen und verstopfter Nase geführt wird, kein oder nur mäßiges Fieber macht, den Patienten arbeitsfähig lässt und nach wenigen Tagen abklingt. Die Übertragung erfolgt durch Tröpfchen und Aerosole sowie über kontaminierte Hände und Oberflächen; die Inkubationszeit beträgt ein bis vier Tage, die Ansteckungsfähigkeit beginnt etwa einen Tag vor Symptombeginn und dauert beim Erwachsenen fünf bis sieben Tage, bei Kindern und Immunsupprimierten länger.',
+      aetiologie: 'Erreger sind Influenzaviren A und B (Typ C und D klinisch bedeutungslos beziehungsweise nur mild). Influenza A wird nach den Oberflächenproteinen Hämagglutinin (H) und Neuraminidase (N) in Subtypen eingeteilt, aktuell zirkulieren beim Menschen vor allem A(H1N1)pdm09 und A(H3N2); Influenza B wird in die Linien Victoria und Yamagata unterteilt. Die ständige Veränderung der Oberflächenproteine erklärt die jährlich wiederkehrenden Epidemien: Punktmutationen führen zur ANTIGENDRIFT (Typ A und B, Grund für die jährlich neu angepasste Impfung und für saisonale Wellen), während der Austausch ganzer Gensegmente zwischen humanen und tierischen Viren — die ANTIGENSHIFT, nur bei Typ A möglich — neue Subtypen und damit Pandemien hervorbringt (1918 Spanische Grippe H1N1, 1957 Asiatische Grippe, 1968 Hongkong-Grippe, 2009 H1N1pdm09). Reservoir des Typs A sind Wasser- und Wildvögel sowie Schweine, weshalb zoonotische Influenzen (aviäre Influenza H5N1, H7N9) auftreten können. In Deutschland verläuft die saisonale Welle typischerweise von Dezember bis April mit einem Gipfel im Februar. Die Viren binden über das Hämagglutinin an Sialinsäurerezeptoren des respiratorischen Flimmerepithels, zerstören dieses und ebnen damit bakteriellen Superinfektionen den Weg.',
+      risikofaktoren: [
+        'Alter ab 60 Jahren — die mit Abstand größte Gruppe der schweren und tödlichen Verläufe',
+        'Schwangerschaft, insbesondere ab dem zweiten Trimenon, sowie die ersten Wochen nach der Entbindung',
+        'Säuglinge und Kleinkinder, besonders unter zwei Jahren',
+        'chronische Atemwegserkrankungen: Asthma bronchiale, COPD, Mukoviszidose, Lungenfibrose',
+        'chronische Herz-Kreislauf-Erkrankungen, insbesondere Herzinsuffizienz und koronare Herzkrankheit',
+        'chronische Nieren- und Lebererkrankungen',
+        'Diabetes mellitus und andere Stoffwechselerkrankungen',
+        'angeborene oder erworbene Immundefizienz, HIV-Infektion, immunsuppressive Therapie, Zustand nach Transplantation, aktive Tumorerkrankung',
+        'neurologische Erkrankungen mit Schluckstörung oder eingeschränktem Hustenstoß (Schlaganfallfolgen, Demenz, neuromuskuläre Erkrankungen)',
+        'ausgeprägte Adipositas (Body-Mass-Index ab 40 kg/m², erhöhtes Risiko bereits ab 30 kg/m²)',
+        'Bewohnerinnen und Bewohner von Alten- und Pflegeeinrichtungen (Ausbruchsgefahr)',
+        'medizinisches und pflegerisches Personal sowie Personen mit starkem Publikumsverkehr (Expositionsrisiko und Übertragung auf Risikopatienten)',
+        'fehlende oder länger zurückliegende Influenzaimpfung',
+        'Rauchen und beengte Wohn- oder Arbeitsverhältnisse',
+        'beruflicher Kontakt zu Geflügel oder Wildvögeln (zoonotische Influenza)',
+      ],
+      klinik: [
+        {
+          text: 'Schlagartiger Beginn aus voller Gesundheit — der Patient kann meist die Stunde benennen, in der es losging',
+        },
+        {
+          text: 'Hohes Fieber über 38,5 bis 40 °C, häufig mit Schüttelfrost und nachfolgendem starkem Schwitzen',
+        },
+        {
+          text: 'Ausgeprägtes Krankheitsgefühl mit schwerer Abgeschlagenheit, die den Patienten ins Bett zwingt und ihn arbeitsunfähig macht',
+        },
+        {
+          text: 'Starke Kopfschmerzen, typischerweise frontal und retroorbital, verstärkt bei Augenbewegung',
+        },
+        {
+          text: 'Ausgeprägte Glieder-, Muskel- und Rückenschmerzen („als wäre man verprügelt worden“)',
+        },
+        {
+          text: 'Trockener, quälender Reizhusten ohne Auswurf, oft nachts betont und über Wochen persistierend',
+        },
+        {
+          text: 'Halsschmerzen, Brennen im Rachen, Heiserkeit und Schluckbeschwerden',
+        },
+        {
+          text: 'Nur geringe oder fehlende Schnupfensymptomatik — der führende Schnupfen spricht gegen die Influenza und für den grippalen Infekt',
+        },
+        {
+          text: 'Appetitlosigkeit, Übelkeit und gelegentlich Durchfall, besonders bei Kindern und bei Influenza B',
+        },
+        {
+          text: 'Fieberdauer meist drei bis fünf Tage; die Abgeschlagenheit hält oft ein bis zwei Wochen über die Entfieberung hinaus an',
+        },
+        {
+          text: 'Beim älteren Menschen häufig ATYPISCH: kein oder nur geringes Fieber, stattdessen Verwirrtheit, Sturz, Appetitlosigkeit, Exsikkose oder eine Dekompensation der Grunderkrankung',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kindern häufiger Erbrechen, Durchfall, Bauchschmerzen, Fieberkrämpfe, Otitis media sowie eine Myositis mit Wadenschmerzen und Gehverweigerung',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Immunsupprimierten oft afebriler oder oligosymptomatischer Verlauf bei gleichzeitig verlängerter Virusausscheidung',
+          atypisch: true,
+        },
+        {
+          text: 'Primäre Influenzapneumonie mit rasch progredienter Dyspnoe, Hypoxämie und diffusen Infiltraten innerhalb von Stunden bis wenigen Tagen — seltene, aber lebensbedrohliche Verlaufsform',
+          atypisch: true,
+        },
+        {
+          text: 'ZWEIGIPFLIGER Verlauf als Warnzeichen der bakteriellen Superinfektion: nach anfänglicher Besserung erneuter Fieberanstieg mit produktivem, purulentem Auswurf und Verschlechterung des Allgemeinzustands',
+          atypisch: true,
+        },
+        {
+          text: 'Extrapulmonale Manifestationen als Erstsymptom: Myokarditis mit Leistungsknick, Herzrasen und Brustschmerz, Enzephalitis mit Bewusstseinsstörung und Krampfanfall, Myositis mit Rhabdomyolyse und dunklem Urin',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Influenzaviren: Typen, Subtypen und antigene Variabilität',
+          inhalt: 'Typ A: humanpathogen und pandemiefähig, Einteilung nach Hämagglutinin (H1–H18) und Neuraminidase (N1–N11); aktuell zirkulieren A(H1N1)pdm09 und A(H3N2). Typ B: nur beim Menschen, Linien Victoria und Yamagata, epidemisch, aber nicht pandemisch. Typ C: milde Verläufe, ohne epidemiologische Bedeutung. ANTIGENDRIFT = Punktmutationen an H und N bei Typ A und B, verantwortlich für die jährlichen Epidemien und die jährlich angepasste Impfung. ANTIGENSHIFT = Reassortment ganzer Gensegmente, nur bei Typ A, verantwortlich für Pandemien (1918, 1957, 1968, 2009).',
+        },
+        {
+          name: 'Indikationsgruppen der Ständigen Impfkommission für die saisonale Influenzaimpfung',
+          inhalt: 'Alle Personen ab 60 Jahren (Hochdosis- bzw. adjuvantierter Impfstoff); Schwangere ab dem zweiten Trimenon, bei Grunderkrankung bereits ab dem ersten; Kinder, Jugendliche und Erwachsene mit chronischen Erkrankungen der Atemwege, des Herz-Kreislauf-Systems, der Leber und der Nieren, mit Diabetes mellitus und anderen Stoffwechselerkrankungen, mit neurologischen Grunderkrankungen sowie mit angeborener oder erworbener Immundefizienz einschließlich HIV; Bewohnerinnen und Bewohner von Alten- und Pflegeheimen; medizinisches und pflegerisches Personal; Personen mit erhöhter Gefährdung durch starken Publikumsverkehr; Haushaltskontakte von Risikopatienten, die selbst nicht geimpft werden können; Personen mit beruflichem Kontakt zu Geflügel und Wildvögeln. Bester Zeitpunkt: Oktober und November, jährliche Wiederholung wegen Antigendrift; Totimpfstoff, meist tetravalent.',
+        },
+        {
+          name: 'Verlaufsformen und Komplikationen',
+          inhalt: '1. Unkomplizierte Influenza: selbstlimitierend, Fieber drei bis fünf Tage, Abgeschlagenheit ein bis zwei Wochen darüber hinaus. 2. Primäre Influenzapneumonie: rasch progrediente Dyspnoe und Hypoxämie, diffuse bilaterale Infiltrate, hohe Letalität, Übergang in ein ARDS möglich. 3. Sekundäre bakterielle Pneumonie: zweigipfliger Verlauf, typische Erreger Staphylococcus aureus, Streptococcus pneumoniae und Haemophilus influenzae. 4. Extrapulmonale Komplikationen: Myokarditis und Perikarditis, Enzephalitis und Enzephalopathie, Guillain-Barré-Syndrom, Myositis mit Rhabdomyolyse und akutem Nierenversagen, Otitis media, Sinusitis, Sepsis. 5. Exazerbation von Grunderkrankungen: COPD, Asthma bronchiale, Herzinsuffizienz, Diabetes mellitus.',
+        },
+        {
+          name: 'CRB-65 zur Schweregradbeurteilung bei Pneumonieverdacht',
+          inhalt: 'Je ein Punkt für: Confusion (neu aufgetretene Bewusstseinstrübung), Atemfrequenz ≥ 30/min, Blutdruck systolisch < 90 mmHg oder diastolisch ≤ 60 mmHg, Alter ≥ 65 Jahre. 0 Punkte: ambulante Behandlung möglich; 1 bis 2 Punkte: stationäre Aufnahme erwägen; 3 bis 4 Punkte: intensivmedizinische Behandlung. Ergänzend gehen Sauerstoffsättigung und Begleiterkrankungen in die Entscheidung ein.',
+        },
+        {
+          name: 'Meldepflicht nach dem Infektionsschutzgesetz',
+          inhalt: '§ 7 Infektionsschutzgesetz: namentliche Meldepflicht des LABORS an das Gesundheitsamt beim direkten Nachweis von Influenzaviren. § 6 Infektionsschutzgesetz: zusätzliche namentliche ARZT-Meldepflicht bei Verdacht auf, Erkrankung an und Tod durch eine zoonotische Influenza (zum Beispiel aviäre Influenza). § 6 Absatz 1 Nummer 5 erfasst außerdem gehäufte nosokomiale Infektionen und Ausbrüche, etwa in Pflegeeinrichtungen.',
+        },
+      ],
+      redFlags: [
+        'Dyspnoe, Atemfrequenz über 24/min, Sauerstoffsättigung unter 92 % oder Zyanose — Verdacht auf primäre Influenzapneumonie oder bakterielle Superinfektion',
+        'Zweigipfliger Verlauf: erneuter Fieberanstieg nach anfänglicher Besserung mit purulentem Auswurf — bakterielle Superinfektion',
+        'Hämoptysen oder blutig tingierter Auswurf',
+        'Bewusstseinsstörung, Verwirrtheit, Nackensteifigkeit, Krampfanfall — Meningitis oder Influenza-Enzephalitis',
+        'Kreislaufinstabilität mit systolischem Blutdruck unter 90 mmHg, Tachykardie, verlängerter Rekapillarisierungszeit oder Oligurie — beginnende Sepsis',
+        'Brustschmerz, Palpitationen, ausgeprägter Leistungsknick oder neue Herzinsuffizienzzeichen — Myokarditis',
+        'Sehr starke Muskelschmerzen mit dunklem Urin und CK-Anstieg — Myositis mit Rhabdomyolyse und drohendem Nierenversagen',
+        'Petechien oder rasch fortschreitendes Exanthem — Meningokokkensepsis, Dengue-Fieber',
+        'Fieber nach Aufenthalt in einem Malariagebiet — Malaria bis zum Beweis des Gegenteils, Dicker Tropfen als Notfalluntersuchung',
+        'Ausgeprägte Exsikkose mit verminderter Trinkmenge, Erbrechen oder Diarrhoe, insbesondere beim alten Menschen',
+        'Fieber bei Schwangeren, Säuglingen, Immunsupprimierten oder Menschen über 60 Jahren — niedrige Schwelle für stationäre Aufnahme',
+        'Dekompensation einer chronischen Grunderkrankung: Asthma- oder COPD-Exazerbation, kardiale Dekompensation, entgleister Diabetes',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese des BEGINNS: schlagartig zur benennbaren Stunde (Influenza) versus allmählich über Tage (grippaler Infekt); Fieberhöhe, Fieberverlauf und Messmethode, Schüttelfrost, Kopf- und Gliederschmerzen, Art des Hustens (trocken oder produktiv), Halsschmerzen und das Vorhandensein oder Fehlen einer Schnupfensymptomatik',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Saisonalität und Umgebungsanamnese: Wintermonate, erkrankte Kontaktpersonen in Familie, am Arbeitsplatz, in Kindertagesstätte oder Schule, Ausbruchsgeschehen in einer Pflegeeinrichtung — sie stützt die klinische Diagnose oft stärker als jeder Schnelltest',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'IMPFANAMNESE (Influenzaimpfung der laufenden Saison, Pneumokokken, COVID-19), Vorerkrankungen, Immunsuppression, Schwangerschaft und Zuordnung zu einer Risikogruppe — davon hängen Diagnostik und Therapie ab',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Reiseanamnese: Aufenthalt in den Tropen, Kontakt zu Geflügel oder Wildvögeln; jedes Fieber nach Tropenaufenthalt erzwingt den Ausschluss einer Malaria unabhängig von einer eingenommenen Prophylaxe',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kritische Bewertung bereits durchgeführter Selbsttests: Abstrichort, Zeitpunkt im Krankheitsverlauf und Testart erfragen — ein negativer Antigenschnelltest aus dem vorderen Nasenvorhof schließt weder Influenza noch COVID-19 aus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit vollständigen Vitalparametern einschließlich Temperatur, Atemfrequenz, Blutdruck, Puls und insbesondere der SAUERSTOFFSÄTTIGUNG; Auskultation und Perkussion beider Lungen, Racheninspektion, Palpation der Lymphknoten, Herzauskultation, Prüfung des Meningismus, Hautinspektion und Beurteilung des Hydratationszustands',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Grundsatz: Beim gesunden Erwachsenen mit typischer Klinik in der Influenzasaison ist die Diagnose KLINISCH und braucht KEINE weiterführende Diagnostik',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Gezielte Erregerdiagnostik mit PCR aus dem Nasen-Rachen-Abstrich (Multiplex-PCR auf Influenza A/B, SARS-CoV-2, RSV) bei Risikopatienten, stationärer Aufnahme, unklarem klinischem Bild, geplanter antiviraler Therapie oder Ausbruchsgeschehen; Antigenschnelltests sind deutlich weniger empfindlich, ein negatives Ergebnis schließt eine Influenza nicht aus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild (bei der Influenza typischerweise Leukopenie mit relativer Lymphozytose) und CRP; Procalcitonin bei Verdacht auf eine bakterielle Superinfektion — der praktische Nutzen des Labors liegt genau in dieser Unterscheidung viral gegen bakteriell',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte, Kreatinin und Harnstoff (Exsikkose, Nierenfunktion für die Dosierung), Transaminasen, CK und Myoglobin bei ausgeprägten Muskelschmerzen, Blutzucker; bei Dyspnoe eine Blutgasanalyse mit Laktat',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Fieber nach Tropenaufenthalt: Dicker Tropfen und Blutausstrich als Notfalluntersuchung mit Wiederholung nach 12 bis 24 Stunden, Malaria-Schnelltest, Blutkulturen und Stuhlkultur (Typhus), Dengue-Serologie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus (Harnwegsinfekt, besonders beim alten Menschen mit unklarem Fieber); bei Pneumonieverdacht Blutkulturen, Sputumdiagnostik mit Gramfärbung, Kultur und Antibiogramm sowie Legionellen- und Pneumokokken-Antigen im Urin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Meldepflicht beachten: direkter Erregernachweis nach § 7 Infektionsschutzgesetz namentlich durch das Labor; bei zoonotischer Influenza zusätzlich Arztmeldepflicht nach § 6 bereits bei Verdacht',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'RÖNTGEN-THORAX in zwei Ebenen bei Dyspnoe, Hypoxämie, anhaltend hohem Fieber, auffälligem Auskultationsbefund oder zweigipfligem Verlauf — nicht als Routineuntersuchung bei unkomplizierter Influenza',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG und Troponin bei Verdacht auf eine Myokarditis (Leistungsknick, Palpitationen, Brustschmerz, Dyspnoe), ergänzt durch die Echokardiographie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Thorax zum Nachweis von Ergüssen und peripheren Infiltraten; Computertomographie des Thorax bei unklarem Befund, Verdacht auf ARDS, Abszess oder Empyem',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Peak-Flow-Messung und gegebenenfalls Lungenfunktion bei vorbestehendem Asthma bronchiale oder COPD zur Erfassung einer infektgetriggerten Exazerbation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Lumbalpunktion bei Meningismus, Bewusstseinsstörung oder Krampfanfall zum Ausschluss einer Meningitis beziehungsweise einer Influenza-Enzephalitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie mit bronchoalveolärer Lavage bei schwerem, unklarem oder therapierefraktärem Verlauf, insbesondere bei beatmeten und immunsupprimierten Patienten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Kardio-MRT und in Ausnahmefällen die Endomyokardbiopsie bei begründetem Verdacht auf eine Myokarditis',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Grippaler Infekt (banale Erkältung durch Rhino-, Corona-, Parainfluenza- oder RS-Viren)',
+          unterscheidung: 'Die zentrale Abgrenzung: allmählicher Beginn über Tage, führende Schnupfensymptomatik mit Niesen und verstopfter Nase, kein oder nur mäßiges Fieber, erhaltene Arbeitsfähigkeit, Dauer wenige Tage. Die Influenza beginnt schlagartig zur benennbaren Stunde, macht hohes Fieber mit Schüttelfrost, schwere Glieder- und Kopfschmerzen und zwingt ins Bett.',
+        },
+        {
+          dd: 'COVID-19',
+          unterscheidung: 'Klinisch kaum von der Influenza zu trennen; entschieden wird über die Testung, idealerweise mit einer Multiplex-PCR. Für COVID-19 sprechen eine Geruchs- und Geschmacksstörung, ein längeres Prodromalstadium und eine zweizeitige Verschlechterung um den achten bis zehnten Tag.',
+        },
+        {
+          dd: 'Ambulant erworbene bakterielle Pneumonie',
+          unterscheidung: 'Produktiver, eitriger oder rostbrauner Auswurf, atemabhängige Thoraxschmerzen, Tachypnoe, umschriebene feinblasige Rasselgeräusche mit Bronchialatmen, deutlich erhöhtes CRP und Procalcitonin, Infiltrat im Röntgen-Thorax. Die Influenza macht typischerweise einen trockenen Husten ohne Infiltrat.',
+        },
+        {
+          dd: 'Streptokokken-Angina (Tonsillopharyngitis)',
+          unterscheidung: 'Fieber und starke Halsschmerzen mit Schluckbeschwerden, Tonsillenbeläge, druckschmerzhafte vordere Halslymphknoten und typischerweise KEIN Husten (Centor-Kriterien). Bei der Influenza stehen Husten sowie Kopf- und Gliederschmerzen im Vordergrund.',
+        },
+        {
+          dd: 'Akute Bronchitis und Sinusitis',
+          unterscheidung: 'Die akute Bronchitis verläuft mit führendem Husten bei geringem Krankheitsgefühl und wenig Fieber; die Sinusitis mit Druckschmerz über den Nasennebenhöhlen, Kopfschmerz bei Vornüberbeugen und eitriger Rhinorrhoe. Beide können Folge einer Influenza sein.',
+        },
+        {
+          dd: 'Meningitis und Enzephalitis',
+          unterscheidung: 'Kopfschmerz mit Fieber, dazu Meningismus, Photophobie, Bewusstseinsstörung, Krampfanfall oder Petechien. Bei der Influenza ist der Nacken frei beweglich und der Patient voll orientiert — bei Zweifel Lumbalpunktion.',
+        },
+        {
+          dd: 'Harnwegsinfekt und Pyelonephritis',
+          unterscheidung: 'Dysurie, Pollakisurie, Flankenklopfschmerz; beim alten Menschen häufig einzige Ursache eines unklaren Fiebers ohne Lokalsymptome. Urinstatus und Sonographie klären die Frage.',
+        },
+        {
+          dd: 'Malaria und andere Tropenerkrankungen (Typhus abdominalis, Dengue-Fieber)',
+          unterscheidung: 'Nach Aufenthalt in einem Endemiegebiet zwingend auszuschließen — Fieber, Schüttelfrost, Kopf- und Gliederschmerzen sind identisch. Die Malaria zeigt zusätzlich Thrombozytopenie, Hämolysezeichen und Splenomegalie; der Typhus einen treppenförmigen Fieberanstieg mit relativer Bradykardie und Roseolen; das Dengue-Fieber ein Exanthem mit ausgeprägten retroorbitalen Schmerzen. Dicker Tropfen, Blutausstrich, Blutkulturen und Serologie.',
+        },
+        {
+          dd: 'Pfeiffersches Drüsenfieber (infektiöse Mononukleose)',
+          unterscheidung: 'Vor allem bei jungen Patienten: Fieber, ausgeprägte Tonsillopharyngitis mit schmierigen Belägen, generalisierte Lymphknotenschwellung, Splenomegalie, lymphozytäres Blutbild mit atypischen Lymphozyten, Transaminasenerhöhung; Nachweis über EBV-Serologie.',
+        },
+        {
+          dd: 'Akute HIV-Infektion',
+          unterscheidung: 'Mononukleoseähnliches Bild mit Fieber, Pharyngitis, makulopapulösem Exanthem, oralen und genitalen Ulzera und Lymphadenopathie zwei bis sechs Wochen nach Risikokontakt; Diagnose über HIV-Test der vierten Generation und HIV-RNA.',
+        },
+        {
+          dd: 'Myokarditis',
+          unterscheidung: 'Weniger Differenzialdiagnose als gefürchtete Komplikation: Leistungsknick über das erwartete Maß hinaus, Palpitationen, Brustschmerz, Dyspnoe, Herzinsuffizienzzeichen; EKG, Troponin und Echokardiographie sichern den Verdacht — der Grund für das strikte Sportverbot.',
+        },
+        {
+          dd: 'Endokarditis',
+          unterscheidung: 'Länger anhaltendes Fieber unklarer Ursache, neu aufgetretenes Herzgeräusch, periphere Embolien und Hautzeichen, prädisponierende Klappenerkrankung oder intravenöser Drogenkonsum; Blutkulturen und Echokardiographie.',
+        },
+        {
+          dd: 'Medikamentenfieber',
+          unterscheidung: 'Fieber ohne Infektfokus in zeitlichem Zusammenhang mit einem neu angesetzten Medikament, oft mit Eosinophilie und Exanthem, gutes Allgemeinbefinden trotz hoher Temperatur; Entfieberung nach Absetzen.',
+        },
+        {
+          dd: 'Beginnende Sepsis',
+          unterscheidung: 'Immer mitzudenken: Tachypnoe über 22/min, systolischer Blutdruck unter 100 mmHg und Bewusstseinsveränderung (qSOFA), Laktaterhöhung, verlängerte Rekapillarisierungszeit, Oligurie. Sie erzwingt sofortige Blutkulturen, Volumentherapie und eine breite Antibiose innerhalb einer Stunde.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomatische Therapie und Schonung als Regelfall',
+          items: [
+            'körperliche SCHONUNG mit Bettruhe in der Fieberphase und ausdrückliches SPORTVERBOT bis zur vollständigen Genesung, mindestens ein bis zwei Wochen über die Entfieberung hinaus — begründet mit der Gefahr einer Myokarditis',
+            'Krankschreibung; die Abgeschlagenheit hält oft ein bis zwei Wochen über das Fieber hinaus an, die Rückkehr an den Arbeitsplatz frühestens 24 bis 48 Stunden nach Entfieberung',
+            'ausreichende Flüssigkeitszufuhr von zwei bis drei Litern täglich, bei Exsikkose oder unzureichender oraler Aufnahme Infusionstherapie',
+            'fiebersenkende und schmerzstillende Behandlung mit Paracetamol (bis 4 g täglich) oder Ibuprofen (3 × 400 bis 600 mg); Cave: Acetylsalicylsäure ist bei Kindern und Jugendlichen wegen des REYE-SYNDROMS KONTRAINDIZIERT',
+            'abschwellende Nasentropfen nur zeitlich begrenzt auf höchstens fünf bis sieben Tage (Rhinitis medicamentosa), Inhalation mit Kochsalzlösung, Halswickel und Lutschtabletten gegen Halsschmerzen',
+            'Hustenstiller nur beim trockenen Reizhusten und bevorzugt zur Nacht, niemals bei produktivem Husten; leichte Kost, Alkoholkarenz',
+            'bestehende inhalative Dauertherapien bei Asthma oder COPD lückenlos fortführen und den Notfallplan besprechen',
+            'Warnzeichen benennen und einen Kontrolltermin vereinbaren',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Antivirale Therapie als gezielte Ausnahme',
+          items: [
+            'Neuraminidasehemmer Oseltamivir 2 × 75 mg oral über fünf Tage, mit Dosisanpassung bei eingeschränkter Nierenfunktion; alternativ inhalatives Zanamivir, das bei Asthma und COPD wegen möglicher Bronchospasmen zurückhaltend eingesetzt wird',
+            'Indikation nur bei Risikopatienten, bei schwerem Verlauf oder bei stationärer Behandlung — nicht beim gesunden Erwachsenen mit unkompliziertem Verlauf',
+            'der Nutzen ist am größten, wenn die Behandlung FRÜH begonnen wird, möglichst innerhalb von 48 Stunden nach Symptombeginn; bei schwerem oder hospitalisiertem Verlauf wird auch später noch behandelt',
+            'beim gesunden Erwachsenen ist der Nutzen gering — die Krankheitsdauer verkürzt sich um etwa einen Tag, ein Effekt auf Komplikationen ist nicht belegt; das muss dem Patienten ehrlich gesagt werden',
+            'postexpositionelle Prophylaxe mit Oseltamivir 1 × 75 mg täglich über zehn Tage nur bei ungeimpften Risikopersonen mit engem Kontakt, insbesondere bei Ausbrüchen in Pflegeeinrichtungen',
+            'die antivirale Therapie ersetzt weder die Abklärung anderer Fieberursachen noch die symptomatische Behandlung',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Erkennen und Behandeln der Komplikationen',
+          items: [
+            'KEINE routinemäßige Antibiotikagabe bei viraler Influenza — der häufigste und meistgeprüfte Fehler; Antibiotika sind unwirksam, fördern Resistenzen und Nebenwirkungen',
+            'Antibiotikum erst bei begründetem Verdacht auf eine bakterielle Superinfektion: ZWEIGIPFLIGER Verlauf mit erneutem Fieberanstieg, purulentem Auswurf, umschriebenem Auskultationsbefund, Infiltrat im Röntgenbild sowie erhöhtem CRP und Procalcitonin',
+            'kalkulierte Antibiose der sekundären Pneumonie mit Amoxicillin/Clavulansäure, im stationären Bereich ergänzt um ein Makrolid; bei Penicillinallergie ein Makrolid (Azithromycin, Clarithromycin) oder ein Atemwegschinolon; Erregerspektrum Staphylococcus aureus, Pneumokokken und Haemophilus influenzae',
+            'stationäre Aufnahme bei Dyspnoe, Sauerstoffbedarf, Sättigung unter 92 %, Kreislaufinstabilität, Bewusstseinsstörung, nicht beherrschbarer Exsikkose oder Dekompensation einer Grunderkrankung; Schweregradbeurteilung mit CRB-65',
+            'Sauerstoffgabe mit Zielsättigung 94 bis 98 % (bei COPD 88 bis 92 %), bei respiratorischer Erschöpfung nicht-invasive Beatmung oder Intubation, bei schwerem ARDS Verlegung in ein Zentrum',
+            'bei Myokarditisverdacht EKG, Troponin und Echokardiographie, strikte körperliche Schonung und kardiologische Anbindung; bei Enzephalitisverdacht Lumbalpunktion und neurologische Mitbeurteilung',
+            'bei Myositis mit Rhabdomyolyse CK- und Myoglobinkontrolle, forcierte Hydratation und Überwachung der Nierenfunktion; bei Asthma- oder COPD-Exazerbation kurzwirksame Betamimetika und systemische Glukokortikoide über drei bis fünf Tage',
+            'bei Sepsiszeichen unverzüglich Blutkulturen, Volumentherapie, breite Antibiose innerhalb einer Stunde und Laktatbestimmung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Prävention, Impfung und Hygiene',
+          items: [
+            'jährliche INFLUENZAIMPFUNG nach den Indikationen der Ständigen Impfkommission, bester Zeitpunkt Oktober und November; sinnvoll bleibt sie, solange Influenzaviren zirkulieren',
+            'Aufklärung über Nutzen und typische Vorbehalte: Der saisonale Impfstoff ist ein TOTIMPFSTOFF und kann keine Grippe auslösen — die Aussage „von der Impfung bekommt man die Grippe“ ist falsch und wird ruhig und ohne Belehrung widerlegt; Impfreaktionen wie Müdigkeit, Muskelschmerz und leichtes Fieber dauern ein bis zwei Tage',
+            'die Impfeffektivität schwankt je nach Passung der Stämme zwischen etwa 40 und 60 %, ist bei älteren Menschen geringer, verhindert aber vor allem schwere Verläufe, Krankenhausaufnahmen und Todesfälle; für Menschen ab 60 Jahren stehen Hochdosis- und adjuvantierte Impfstoffe zur Verfügung',
+            'Pneumokokkenimpfung bei Risikopatienten mitdenken, ebenso den COVID-19-Impfstatus, die Herpes-zoster- und die RSV-Impfung bei entsprechender Indikation',
+            'Händehygiene, Husten- und Niesetikette in die Armbeuge, Einmaltaschentücher, regelmäßiges Lüften, Abstand zu Risikopersonen, Mund-Nasen-Schutz bei unvermeidbarem Kontakt',
+            'Fernbleiben von Arbeit, Schule und Gemeinschaftseinrichtungen bis mindestens 24 bis 48 Stunden nach Entfieberung; Besuche in Pflegeeinrichtungen und bei Risikopersonen aussetzen',
+            'im institutionellen Ausbruch: Isolierung Erkrankter, Kohortierung, Testung, antivirale Therapie und Prophylaxe, Meldung an das Gesundheitsamt',
+            'dem Patienten die Warnzeichen benennen, die zur sofortigen Wiedervorstellung führen: Atemnot, Brustschmerz, erneuter Fieberanstieg, blutiger oder eitriger Auswurf, Verwirrtheit, Nackensteifigkeit, dunkler Urin mit Muskelschmerzen, Kreislaufschwäche',
+          ],
+          akut: false,
+        },
+      ],
+      prognose: 'Beim gesunden Erwachsenen ist die Influenza eine selbstlimitierende Erkrankung: Das Fieber dauert meist drei bis fünf Tage, die Abgeschlagenheit häufig ein bis zwei Wochen darüber hinaus, der trockene Husten kann mehrere Wochen persistieren; die volle Leistungsfähigkeit ist oft erst nach zwei bis drei Wochen erreicht. Die Prognose wird nicht durch die Influenza selbst, sondern durch ihre Komplikationen und die Grunderkrankungen bestimmt: Die weit überwiegende Zahl der schweren und tödlichen Verläufe betrifft Menschen ab 60 Jahren sowie chronisch Kranke, Schwangere und Immunsupprimierte. In Deutschland schwankt die Krankheitslast erheblich von Saison zu Saison; in der besonders schweren Saison 2017/2018 wurden etwa 25 000 Exzess-Todesfälle geschätzt, während milde Saisons kaum eine Übersterblichkeit zeigen. Die primäre Influenzapneumonie und das ARDS haben eine hohe Letalität; die sekundäre bakterielle Pneumonie ist bei rechtzeitiger Antibiotikagabe meist gut behandelbar. Die Myokarditis heilt in der Mehrzahl der Fälle folgenlos aus, kann aber in eine dilatative Kardiomyopathie übergehen — deshalb ist die konsequente körperliche Schonung prognostisch entscheidend. Die jährliche Impfung senkt Häufigkeit und vor allem Schwere der Erkrankung; eine durchgemachte Infektion hinterlässt nur eine subtypspezifische Immunität und schützt wegen der Antigendrift nicht vor der nächsten Saison.',
+      pruefungsfallen: [
+        'Die Begriffe sauber trennen: „Grippe“ meint umgangssprachlich jeden Schnupfen, medizinisch aber die Influenza. Wer den Patientenbegriff übernimmt, verliert die entscheidende diagnostische Unterscheidung — und genau sie will der Prüfer hören.',
+        'Die Abgrenzung Influenza gegen grippalen Infekt an konkreten Kriterien festmachen (Beginn, Fieberhöhe, Leitsymptom, Allgemeinzustand, Dauer) und nicht mit „die Influenza ist schwerer“ abtun.',
+        'KEINE routinemäßige Antibiotikagabe bei viraler Influenza — der am häufigsten geprüfte Fehler. Antibiotika erst bei begründetem Verdacht auf eine bakterielle Superinfektion.',
+        'Den ZWEIGIPFLIGEN Verlauf beim Namen nennen: anfängliche Besserung, dann erneuter Fieberanstieg mit produktivem Auswurf = bakterielle Superinfektion.',
+        'Oseltamivir ist kein Standard: nur bei Risikopatienten, schwerem Verlauf oder stationärer Behandlung, und möglichst innerhalb von 48 Stunden. Den geringen Nutzen beim Gesunden ehrlich benennen.',
+        'Acetylsalicylsäure ist bei Kindern und Jugendlichen wegen des Reye-Syndroms kontraindiziert — eine klassische Zusatzfrage.',
+        'Das Sportverbot immer mit der MYOKARDITIS begründen; „Schonung“ ohne Begründung genügt nicht.',
+        'Ein negativer Antigenschnelltest — auf Influenza wie auf SARS-CoV-2 — schließt nichts aus. Immer nachfragen, WIE, WO und WANN getestet wurde; genau diese fehlende Nachfrage wurde in Stuttgart im Arzt-Arzt-Gespräch gerügt.',
+        'Beim gesunden Erwachsenen mit typischer Klinik ist die Diagnose KLINISCH. Wer reflexartig ein volles Labor- und Röntgenprogramm auffährt, zeigt kein klinisches Urteil; die Indikation muss begründet werden.',
+        'Fieber nach Tropenaufenthalt ist eine Malaria, bis das Gegenteil bewiesen ist — auch bei eingenommener Prophylaxe. Dicker Tropfen und Blutausstrich als Notfalluntersuchung.',
+        'Die Meldepflicht korrekt zuordnen: § 7 Infektionsschutzgesetz, namentliche Meldung des direkten Erregernachweises durch das LABOR; nur bei zoonotischer Influenza zusätzlich die Arztmeldepflicht nach § 6 bereits bei Verdacht.',
+        'Bei Asthma und COPD ist inhalatives Zanamivir wegen möglicher Bronchospasmen die schlechtere Wahl — hier Oseltamivir bevorzugen.',
+        'Die Risikogruppen aktiv aufzählen können: ab 60 Jahre, Schwangere, Säuglinge und Kleinkinder, chronisch Kranke, Immunsupprimierte, stark Übergewichtige, Bewohner von Pflegeeinrichtungen, medizinisches Personal. Sie entscheiden über Diagnostik UND Therapie.',
+        'Beim alten Menschen kann das Fieber fehlen: Verwirrtheit, Sturz oder Appetitlosigkeit sind dort die Leitsymptome — das Fehlen von Fieber schließt eine Influenza nicht aus.',
+        'Axillär gemessene Temperaturen liegen etwa 0,5 °C unter der Körperkerntemperatur; die Messmethode gehört in die Dokumentation.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was machen Sie, um die Diagnose zu sichern?',
+          antwort: 'Zuerst über die Klinik: schlagartiger Beginn, hohes Fieber mit Schüttelfrost, Kopf- und Gliederschmerzen, trockener Husten, erkrankte Kontaktpersonen in der Saison — beim gesunden Erwachsenen genügt das, die Diagnose ist klinisch. Dazu die körperliche Untersuchung mit Vitalparametern und Sauerstoffsättigung, Racheninspektion, Lymphknotenpalpation und Auskultation der Lunge, um eine Pneumonie auszuschließen. Bei Risikopatienten, unklarem Bild oder geplanter antiviraler Therapie eine Multiplex-PCR aus dem Nasen-Rachen-Abstrich auf Influenza A/B und SARS-CoV-2, Blutbild, CRP und Procalcitonin sowie bei entsprechenden Zeichen ein Röntgen-Thorax.',
+        },
+        {
+          frage: 'Was würden Sie machen beim Nachweis einer bakteriellen Infektion?',
+          antwort: 'Dann behandele ich antibiotisch. Kalkuliert mit Amoxicillin/Clavulansäure, stationär ergänzt um ein Makrolid. Bei bekannter Penicillin- oder Amoxicillinallergie vermeide ich Betalaktame vollständig und gebe stattdessen ein Makrolid wie Azithromycin oder Clarithromycin, alternativ ein Atemwegschinolon. Vorher nehme ich Sputum für Gramfärbung, Kultur und Antibiogramm sowie Blutkulturen ab und passe die Therapie nach Erregernachweis an.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Influenza von einem grippalen Infekt?',
+          antwort: 'An fünf Punkten: dem Beginn — schlagartig, der Patient kann die Stunde nennen, gegenüber allmählich über Tage; der Fieberhöhe — über 38,5 bis 40 °C mit Schüttelfrost gegenüber keinem oder mäßigem Fieber; dem Leitsymptom — Kopf-, Glieder- und Muskelschmerzen mit schwerer Abgeschlagenheit gegenüber führendem Schnupfen mit Niesen und verstopfter Nase; dem Allgemeinzustand — bettlägrig und arbeitsunfähig gegenüber weitgehend arbeitsfähig; und der Dauer — Abgeschlagenheit ein bis zwei Wochen über das Fieber hinaus gegenüber wenigen Tagen.',
+        },
+        {
+          frage: 'Brauchen Sie überhaupt eine Labordiagnostik?',
+          antwort: 'Beim gesunden Erwachsenen mit typischer Klinik in der Grippesaison nicht — die Diagnose ist klinisch. Eine gezielte Erregerdiagnostik ist indiziert bei Risikopatienten, bei stationärer Aufnahme, bei unklarem klinischem Bild, wenn ich eine antivirale Therapie plane und im Ausbruchsgeschehen, etwa in einem Pflegeheim.',
+        },
+        {
+          frage: 'Antigenschnelltest oder PCR?',
+          antwort: 'Die PCR aus dem Nasen-Rachen-Abstrich ist der Goldstandard: deutlich sensitiver und spezifischer, sie differenziert Influenza A und B und erlaubt im selben Ansatz den Nachweis von SARS-CoV-2 und RSV. Der Antigenschnelltest ist schnell verfügbar, aber wenig empfindlich; ein negatives Ergebnis schließt eine Influenza nicht aus.',
+        },
+        {
+          frage: 'Der Patient hat zwei negative Corona-Selbsttests gemacht. Was machen Sie damit?',
+          antwort: 'Ich frage nach, WIE getestet wurde: an welchem Krankheitstag, mit welchem Test und vor allem an welcher Stelle abgestrichen wurde. Ein Antigenschnelltest, der nur im vorderen Nasenvorhof und sehr früh im Verlauf durchgeführt wurde, hat eine geringe Sensitivität und schließt weder COVID-19 noch eine Influenza aus. Ich wiederhole die Testung als PCR aus einem korrekt entnommenen Nasen-Rachen-Abstrich.',
+        },
+        {
+          frage: 'Wann ordnen Sie ein Röntgen-Thorax an?',
+          antwort: 'Bei Dyspnoe, bei einer Sauerstoffsättigung unter 94 %, bei auffälligem Auskultationsbefund, bei anhaltend hohem Fieber über vier bis fünf Tage und bei zweigipfligem Verlauf. Nicht routinemäßig bei unkomplizierter Influenza.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Influenza?',
+          antwort: 'Beim Gesunden symptomatisch: körperliche Schonung mit Sportverbot, Krankschreibung, reichlich Flüssigkeit, Paracetamol oder Ibuprofen zur Fiebersenkung und Schmerzlinderung, Inhalation und Halsbehandlung. Eine antivirale Therapie mit Oseltamivir 2 × 75 mg über fünf Tage kommt nur bei Risikopatienten, schwerem Verlauf oder stationärer Behandlung in Frage und wirkt nur, wenn sie früh, möglichst innerhalb von 48 Stunden, begonnen wird. Dazu die Erkennung der Komplikationen und die Prävention mit Impfung und Hygiene.',
+        },
+        {
+          frage: 'Würden Sie ein Antibiotikum geben?',
+          antwort: 'Nein. Die Influenza ist eine Virusinfektion, Antibiotika sind wirkungslos und schaden durch Nebenwirkungen und Resistenzentwicklung. Ein Antibiotikum gebe ich erst bei begründetem Verdacht auf eine bakterielle Superinfektion: zweigipfliger Verlauf mit erneutem Fieberanstieg, purulenter Auswurf, umschriebener Auskultationsbefund, Infiltrat im Röntgenbild und erhöhtes CRP und Procalcitonin.',
+        },
+        {
+          frage: 'Welche Komplikationen kennen Sie?',
+          antwort: 'Die bakterielle Superinfektion mit sekundärer Pneumonie durch Staphylococcus aureus, Pneumokokken oder Haemophilus influenzae — Warnzeichen ist der zweigipflige Verlauf; die primäre Influenzapneumonie mit rascher Verschlechterung und Hypoxämie; die Myokarditis mit Leistungsknick, Herzrasen und Brustschmerz; die Enzephalitis; die Myositis mit Rhabdomyolyse; Otitis media und Sinusitis; sowie die Exazerbation von COPD, Asthma bronchiale und Herzinsuffizienz.',
+        },
+        {
+          frage: 'Warum verordnen Sie ein Sportverbot?',
+          antwort: 'Wegen der Gefahr einer Myokarditis. Körperliche Belastung während oder kurz nach der Virusinfektion kann eine Herzmuskelentzündung mit Rhythmusstörungen, Herzinsuffizienz und im Extremfall dem plötzlichen Herztod auslösen. Deshalb Schonung bis mindestens ein bis zwei Wochen nach Entfieberung und vollständiger Beschwerdefreiheit.',
+        },
+        {
+          frage: 'Warum ist Acetylsalicylsäure bei Kindern kontraindiziert?',
+          antwort: 'Wegen des Reye-Syndroms: einer akuten Enzephalopathie mit Leberverfettung und Leberversagen, die bei Kindern und Jugendlichen unter 18 Jahren nach der Einnahme von Acetylsalicylsäure im Rahmen einer Virusinfektion, insbesondere Influenza und Varizellen, auftreten kann. Bei Kindern verwendet man Paracetamol oder Ibuprofen.',
+        },
+        {
+          frage: 'Wer soll gegen Influenza geimpft werden, und wann?',
+          antwort: 'Nach den Empfehlungen der Ständigen Impfkommission alle Menschen ab 60 Jahren, Schwangere ab dem zweiten Trimenon, chronisch Kranke mit Erkrankungen der Atemwege, des Herz-Kreislauf-Systems, der Nieren, der Leber, mit Diabetes mellitus, neurologischen Erkrankungen oder Immundefizienz, Bewohner von Alten- und Pflegeheimen, medizinisches und pflegerisches Personal, Personen mit starkem Publikumsverkehr und Kontaktpersonen von Risikopatienten. Am besten im Oktober oder November, jährlich, weil sich die Virusstämme durch Antigendrift verändern.',
+        },
+        {
+          frage: 'Der Patient sagt, von der Impfung bekomme man die Grippe. Was antworten Sie?',
+          antwort: 'Das ist ein verbreiteter Irrtum. Der saisonale Impfstoff ist ein Totimpfstoff, er enthält keine vermehrungsfähigen Viren und kann deshalb keine Grippe auslösen. Manche spüren ein bis zwei Tage lang Müdigkeit, Muskelschmerzen oder leichtes Fieber — das ist die normale Reaktion des Immunsystems. Und weil im Herbst viele Erkältungsviren zirkulieren, wird eine zufällig danach auftretende Erkältung der Impfung fälschlich zugeschrieben.',
+        },
+        {
+          frage: 'Welche Impfungen gibt es noch außer COVID und Influenza im Zusammenhang mit einer Pneumonie?',
+          antwort: 'Vor allem die Pneumokokkenimpfung, dazu Haemophilus influenzae Typ b bei Kindern, Pertussis, Masern und Varizellen, die beide durch Pneumonien kompliziert werden können, sowie die Herpes-zoster- und die RSV-Impfung für ältere Menschen und Risikopatienten.',
+        },
+        {
+          frage: 'Besteht bei der Influenza eine Meldepflicht?',
+          antwort: 'Ja. Nach § 7 Infektionsschutzgesetz ist der direkte Nachweis von Influenzaviren namentlich meldepflichtig; gemeldet wird durch das Labor an das Gesundheitsamt. Bei der zoonotischen Influenza besteht darüber hinaus nach § 6 Infektionsschutzgesetz eine namentliche Arztmeldepflicht bereits bei Verdacht, Erkrankung und Tod. Gehäufte Erkrankungen in Gemeinschaftseinrichtungen sind ebenfalls zu melden.',
+        },
+        {
+          frage: 'Wann nehmen Sie einen Patienten mit Influenza stationär auf?',
+          antwort: 'Bei Dyspnoe oder Sauerstoffbedarf, einer Sättigung unter 92 %, einer Atemfrequenz über 24 bis 30/min, Kreislaufinstabilität, Bewusstseinsstörung, nicht beherrschbarer Exsikkose sowie bei Dekompensation einer Grunderkrankung. Zur Objektivierung verwende ich bei Pneumonieverdacht den CRB-65.',
+        },
+        {
+          frage: 'Ursache von Pneumonie?',
+          antwort: 'Bakterien — allen voran Pneumokokken, außerdem Haemophilus influenzae, Staphylococcus aureus, Mykoplasmen, Chlamydien, Legionellen und bei nosokomialer Genese gramnegative Erreger; Viren wie Influenza-, RS- und SARS-CoV-2-Viren; Pilze wie Pneumocystis jirovecii und Aspergillen bei Immunsupprimierten; sowie nichtinfektiöse Ursachen wie Aspiration, Strahlenpneumonitis nach Radiotherapie und medikamentös-toxische Pneumonitis.',
+        },
+        {
+          frage: 'Ein Patient bekommt Fieber nach einem Aufenthalt in Westafrika. Reicht Ihnen die Diagnose Influenza?',
+          antwort: 'Nein. Jedes Fieber nach Tropenaufenthalt ist eine Malaria, bis das Gegenteil bewiesen ist — auch bei korrekt eingenommener Chemoprophylaxe, die das Risiko senkt, eine Malaria aber nicht ausschließt. Ich veranlasse notfallmäßig einen Dicken Tropfen mit Blutausstrich, wiederhole ihn bei negativem Ergebnis nach 12 bis 24 Stunden und denke zusätzlich an Typhus abdominalis und Dengue-Fieber.',
+        },
+      ],
+      merksatz: 'Der grippale Infekt schleicht, die Influenza schlägt zu: Der Patient nennt die Stunde, das Fieber steigt über 38,5 °C mit Schüttelfrost, und er liegt flach — Schnupfen fehlt. Beim Gesunden ist die Diagnose KLINISCH und die Therapie symptomatisch: kein Antibiotikum ohne zweigipfligen Verlauf, Oseltamivir nur für Risikopatienten und nur innerhalb von 48 Stunden, ASS bei Kindern nie (Reye), Sport verboten (Myokarditis). Und: Fieber nach Tropenaufenthalt ist Malaria, bis das Gegenteil bewiesen ist.',
+      linkedCaseIds: [
+        'case-influenza',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-ct',
+      ],
+    },
+    {
+      id: 'fw-coxarthrose',
+      pathology: 'Coxarthrose (Hüftgelenkarthrose)',
+      specialty: 'Orthopädie',
+      definition: 'Die Coxarthrose ist die degenerative, primär nicht entzündliche Erkrankung des Hüftgelenks mit fortschreitendem Verlust des hyalinen Gelenkknorpels und konsekutivem Umbau der angrenzenden Strukturen: subchondrale Sklerosierung, Ausbildung von Osteophyten, subchondralen Zysten (Geröllzysten), Kapselschrumpfung und sekundärer Synovialitis („aktivierte Arthrose“). Klinisch führt sie zu Leisten-, Gesäß- und trochantär betontem Schmerz mit Ausstrahlung an der Vorderseite des Oberschenkels bis zum Knie, zu Anlaufschmerz, zunehmender Verkürzung der schmerzfreien Gehstrecke, Funktionsverlust im Alltag und einem charakteristischen Kapselmuster mit zuerst eingeschränkter Innenrotation. Nach der Gonarthrose ist sie die zweithäufigste Arthrose der großen Gelenke; die Prävalenz steigt jenseits des 60. Lebensjahres deutlich an.',
+      aetiologie: 'In der Mehrzahl der Fälle handelt es sich um eine primäre, idiopathische Coxarthrose ohne fassbare Ursache, bei der ein Missverhältnis zwischen Belastbarkeit und tatsächlicher Belastung des Knorpels zugrunde liegt. Sekundäre Formen entstehen auf dem Boden einer präarthrotischen Deformität oder einer Gelenkschädigung: Hüftdysplasie, Morbus Perthes und Epiphyseolysis capitis femoris in der Vorgeschichte, femoroazetabuläres Impingement (Cam- und Pincer-Typ), Hüftkopfnekrose, posttraumatisch nach Azetabulum- oder Schenkelhalsfraktur, postinfektiös nach septischer Coxitis, bei rheumatoider Arthritis und anderen entzündlich-rheumatischen Erkrankungen, bei Stoffwechselerkrankungen wie Hämochromatose, Ochronose und Gicht sowie nach Bestrahlung. Pathophysiologisch kommt es über eine Störung des Gleichgewichts von Knorpelmatrixaufbau und -abbau (Matrixmetalloproteinasen, IL-1, TNF-alpha) zu Knorpelverlust, Freilegung des subchondralen Knochens und reaktivem Knochenumbau.',
+      risikofaktoren: [
+        'Höheres Lebensalter — die wichtigste nicht beeinflussbare Determinante',
+        'Übergewicht und Adipositas (jedes Kilogramm wirkt an der Hüfte mehrfach übersetzt) sowie metabolisches Syndrom',
+        'Schwere körperliche Arbeit mit Heben, Tragen, Ganzkörpervibration (Baumaschinen, Lastkraftwagen) und häufigem Auf- und Absteigen',
+        'Leistungssport mit hoher Stoß- und Drehbelastung (Fußball, Handball, Leichtathletik)',
+        'Angeborene und erworbene präarthrotische Deformitäten: Hüftdysplasie, femoroazetabuläres Impingement, Morbus Perthes, Epiphyseolysis capitis femoris',
+        'Zustand nach Fraktur des Azetabulums oder des Schenkelhalses, Zustand nach Gelenkinfektion',
+        'Hüftkopfnekrose, insbesondere bei Kortisondauertherapie und chronischem Alkoholkonsum',
+        'Familiäre Belastung und genetische Prädisposition',
+        'Beinlängendifferenz, Achsfehlstellung, muskuläre Insuffizienz und Bewegungsmangel',
+        'Weibliches Geschlecht bei der dysplastischen Form; entzündlich-rheumatische Grunderkrankungen',
+      ],
+      klinik: [
+        {
+          text: 'Schleichender Beginn über Monate bis Jahre bei einem Patienten meist jenseits des 55. bis 60. Lebensjahres',
+        },
+        {
+          text: 'Leistenschmerz als Leitsymptom, häufig zusätzlich Gesäßschmerz und trochantär betonter Schmerz an der Außenseite',
+        },
+        {
+          text: 'Ausstrahlung an der VORDERSEITE des Oberschenkels bis zum Knie — nicht unter das Knie und nicht bis zum Fuß',
+        },
+        {
+          text: 'Anlaufschmerz: die ersten Schritte nach Ruhe und morgens beim Aufstehen sind am schlimmsten und bessern sich nach einigen Schritten',
+        },
+        {
+          text: 'Belastungsschmerz mit abnehmender schmerzfreier Gehstrecke, Verschlechterung beim Treppensteigen und beim längeren Stehen',
+        },
+        {
+          text: 'Morgensteifigkeit von nur wenigen Minuten, deutlich unter 30 Minuten — im Gegensatz zur entzündlich-rheumatischen Erkrankung',
+        },
+        {
+          text: 'Ruhe- und Nachtschmerz als Zeichen der fortgeschrittenen Erkrankung, typischerweise beim Umdrehen auf die betroffene Seite',
+        },
+        {
+          text: 'Funktionsverlust in Alltagsbildern: Socken und Schuhe anziehen, Fußnägel schneiden, Ein- und Aussteigen ins Auto, Treppensteigen, längeres Sitzen',
+        },
+        {
+          text: 'Hinken: zunächst Schonhinken, später Trendelenburg-Hinken bei Insuffizienz der Abduktoren; Duchenne-Zeichen als Ausweichbewegung des Rumpfes',
+        },
+        {
+          text: 'Bewegungseinschränkung im Kapselmuster: zuerst Innenrotation und Abduktion, dann Extension; später Beugekontraktur (Thomas-Handgriff)',
+        },
+        {
+          text: 'Beinverkürzung, Muskelatrophie der Glutealmuskulatur und des Oberschenkels, Krepitation und Reiben im Gelenk',
+        },
+        {
+          text: 'Positives Zeichen nach Patrick beziehungsweise FABER und positiver anteriorer Impingementtest',
+        },
+        {
+          text: 'Ausschließlicher KNIESCHMERZ ohne jede Hüftbeschwerde — die klassische Falle: wer nur das Knie untersucht, verfehlt die Diagnose',
+          atypisch: true,
+        },
+        {
+          text: 'Führender Rücken- oder Iliosakralschmerz durch die Beugekontraktur mit kompensatorischer Hyperlordose',
+          atypisch: true,
+        },
+        {
+          text: 'Aktivierte Arthrose mit Erguss, Ruheschmerz und leicht erhöhten Entzündungsparametern — imitiert eine entzündliche Arthritis',
+          atypisch: true,
+        },
+        {
+          text: 'Rasch destruierende Coxarthrose mit Zerstörung des Gelenks innerhalb weniger Monate, vor allem bei älteren Frauen',
+          atypisch: true,
+        },
+        {
+          text: 'Frühmanifestation vor dem 50. Lebensjahr bei Dysplasie oder femoroazetabulärem Impingement, oft mit Leistenschmerz beim langen Sitzen und beim Anziehen der Schuhe',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Kellgren-Lawrence-Klassifikation (radiologisch)',
+          inhalt: 'Grad 0: keine Veränderungen. Grad 1: fragliche Gelenkspaltverschmälerung, angedeutete Osteophyten. Grad 2: geringe Gelenkspaltverschmälerung, definitive Osteophyten. Grad 3: deutliche Gelenkspaltverschmälerung, multiple Osteophyten, subchondrale Sklerosierung, beginnende Deformierung. Grad 4: weitgehende bis vollständige Aufhebung des Gelenkspalts, ausgeprägte Sklerose, Geröllzysten, Deformierung von Kopf und Pfanne. CAVE: Der radiologische Grad korreliert schlecht mit dem Beschwerdebild und ist allein KEINE Operationsindikation.',
+        },
+        {
+          name: 'Ätiologische Einteilung: primär versus sekundär',
+          inhalt: 'Primäre (idiopathische) Coxarthrose: Mehrzahl der Fälle, ohne fassbare Ursache, meist jenseits des 60. Lebensjahres. Sekundäre Coxarthrose: auf dem Boden einer präarthrotischen Deformität oder Gelenkschädigung — Hüftdysplasie, femoroazetabuläres Impingement, Morbus Perthes, Epiphyseolysis capitis femoris, Hüftkopfnekrose, posttraumatisch, postinfektiös, bei rheumatoider Arthritis oder Stoffwechselerkrankungen. Die Unterscheidung ist prüfungsrelevant, weil sie das Erkrankungsalter und die Therapieplanung bestimmt.',
+        },
+        {
+          name: 'Die vier radiologischen Kardinalzeichen der Arthrose',
+          inhalt: 'Gelenkspaltverschmälerung als Ausdruck des Knorpelverlusts, subchondrale Sklerosierung als reaktive Verdichtung des Knochens, Osteophyten (Randanbauten) und subchondrale Zysten, sogenannte Geröllzysten. Diese vier Zeichen werden in der Prüfung regelmäßig abgefragt und sollten in dieser Reihenfolge frei aufgezählt werden können.',
+        },
+        {
+          name: 'Klinische Funktions-Scores: Harris Hip Score und WOMAC',
+          inhalt: 'Der Harris Hip Score (0–100 Punkte) bewertet Schmerz, Funktion, Deformität und Bewegungsumfang; Werte unter 70 gelten als schlechtes Ergebnis. Der WOMAC-Index erfasst Schmerz, Steifigkeit und körperliche Funktion aus Patientensicht. Beide dienen der Verlaufsbeurteilung und der Objektivierung des Leidensdrucks vor und nach endoprothetischem Gelenkersatz, ersetzen aber nicht das ärztliche Gespräch.',
+        },
+        {
+          name: 'Kapselmuster des Hüftgelenks',
+          inhalt: 'Charakteristische Reihenfolge der schmerzhaften Bewegungseinschränkung bei Kapselschrumpfung: zuerst und am stärksten die INNENROTATION, dann die Abduktion, schließlich die Extension. Die Innenrotationseinschränkung ist der sensibelste klinische Frühbefund der Coxarthrose.',
+        },
+      ],
+      redFlags: [
+        'Fieber, Schüttelfrost und Nachtschweiß bei Hüftschmerz → septische Coxitis oder Spondylodiszitis; sofortige Labordiagnostik und Gelenkpunktion',
+        'Bekannte Tumorerkrankung, ungewollter Gewichtsverlust, nächtlicher Ruheschmerz von Beginn an → Knochenmetastase, Plasmozytom, primärer Knochentumor',
+        'Trauma mit sofortiger Belastungsunfähigkeit, Außenrotations- und Verkürzungsfehlstellung → Schenkelhals- oder Beckenfraktur, auch nach Bagatelltrauma bei Osteoporose',
+        'Rasche Verschlechterung binnen weniger Wochen mit ausgeprägtem Nachtschmerz → Hüftkopfnekrose oder rasch destruierende Arthropathie; MRT veranlassen',
+        'Neurologische Ausfälle am Bein, Blasen- und Mastdarmstörung, Reithosenanästhesie → Cauda-equina-Syndrom, notfallmäßige MRT der Lendenwirbelsäule',
+        'Fehlende Fußpulse, kalter blasser Fuß, Ruheschmerz im Vorfuß, Nekrosen → kritische Extremitätenischämie bei pAVK',
+        'Immunsuppression, Diabetes mellitus, liegende Endoprothese oder vorangegangene Gelenkinjektion mit neuem Schmerz und Erguss → periprothetische beziehungsweise iatrogene Infektion bis zum Beweis des Gegenteils',
+        'Neu aufgetretene Beinlängendifferenz oder plötzliche Bewegungsblockade bei einliegender Prothese → Luxation oder periprothetische Fraktur',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese mit Lokalisation (Leiste, Gesäß, Trochanter), Ausstrahlung an der Oberschenkelvorderseite bis zum Knie und ausdrücklicher Frage, ob die Beschwerden UNTER das Knie reichen — diese Grenze trennt Hüft- von Wirbelsäulenursachen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Rhythmus der Beschwerden: Anlaufschmerz nach Ruhe und morgens, Belastungsschmerz mit abnehmender Gehstrecke, Ruhe- und Nachtschmerz als Zeichen der Fortgeschrittenheit, Morgensteifigkeit von wenigen Minuten und damit unter 30 Minuten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Funktionsanamnese in Alltagsbildern: Socken und Schuhe anziehen, Nagelpflege am Fuß, Ein- und Aussteigen ins Auto, Treppensteigen, längeres Sitzen — aussagekräftiger als jede Skala und Grundlage der späteren Operationsindikation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Erhebung von Risikofaktoren und präarthrotischen Deformitäten: Hüftdysplasie in der Kindheit (Spreizhose, Schiene), Morbus Perthes, Epiphyseolysis capitis femoris, Trauma, Infektion, Kortison- und Alkoholanamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Abfrage der Red Flags: Fieber und Nachtschweiß, Tumoranamnese und Gewichtsverlust, Trauma mit Belastungsunfähigkeit, rasche Verschlechterung, neurologische Ausfälle und Blasenstörung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion und Gangbildanalyse (Schonhinken, Trendelenburg-Hinken, Duchenne-Zeichen), Beinlängenmessung, Beurteilung von Muskelatrophie und Beckenstand im Seitenvergleich; Erhebung von Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Seitenvergleichende Bewegungsprüfung nach der Neutral-Null-Methode mit Nachweis des Kapselmusters — zuerst Innenrotation und Abduktion, dann Extension; Thomas-Handgriff zur Aufdeckung einer Beugekontraktur',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Spezifische Tests: Patrick- beziehungsweise FABER-Test, anteriorer Impingementtest (Flexion, Adduktion, Innenrotation), Trendelenburg-Zeichen, Druck- und Klopfschmerz über Leiste und Trochanter major, Stauchungsschmerz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abgrenzende Untersuchung: orientierende Untersuchung der Lendenwirbelsäule und des Iliosakralgelenks mit Lasègue- und Mennell-Zeichen, Prüfung von Durchblutung, Motorik und Sensibilität, Tasten der Fußpulse; obligat Untersuchung des Kniegelenks bei jedem Knieschmerz und umgekehrt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP und BSG ausschließlich zur Abgrenzung entzündlicher und infektiöser Ursachen — bei der Arthrose sind sie NORMAL; erhöhte Werte lenken auf septische Coxitis, rheumatoide Arthritis oder Polymyalgia rheumatica',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei entsprechendem Verdacht ergänzend Rheumafaktor, Anti-CCP-Antikörper, HLA-B27, Harnsäure und Serum-Elektrophorese (Plasmozytom)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin, Harnstoff und eGFR vor jeder NSAR-Therapie sowie Leberwerte; präoperativ zusätzlich Blutbild, Gerinnung, Blutgruppe, Blutzucker und HbA1c — eine schlechte Diabeteseinstellung erhöht das periprothetische Infektionsrisiko deutlich',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen des Beckens in zwei Ebenen im Stehen (Beckenübersicht a.p. und Hüfte axial nach Lauenstein) als Untersuchung der Wahl, immer mit Darstellung BEIDER Hüftgelenke zum Seitenvergleich',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Beurteilung der vier klassischen Zeichen: Gelenkspaltverschmälerung, subchondrale Sklerosierung, Osteophyten und subchondrale Zysten (Geröllzysten); zusätzlich Kopfentrundung, Pfannendachwinkel und Zeichen einer Dysplasie oder eines Impingements',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT nur bei Verdacht auf Hüftkopfnekrose, Tumor oder Infektion sowie bei unauffälligem Röntgenbefund trotz starker Beschwerden — sie zeigt Knochenmarködem und Nekrose Wochen bis Monate vor dem Röntgen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie bei Verdacht auf Gelenkerguss, Bursitis trochanterica oder Weichteilprozess; bei unklarer Ausstrahlung zusätzlich Bildgebung der Lendenwirbelsäule sowie Knöchel-Arm-Index und Doppler-Sonographie zum Ausschluss einer pAVK',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT nur bei komplexer Deformität, präoperativer Planung oder Frakturverdacht; Skelettszintigraphie bei Verdacht auf Metastasen oder Prothesenlockerung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gelenkpunktion mit Zellzahl, Gramfärbung und mikrobiologischer Kultur bei Verdacht auf eine septische Coxitis oder eine periprothetische Infektion — bei der reinen Arthrose nicht indiziert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische intraartikuläre Infiltration mit einem Lokalanästhetikum unter Bildwandler- oder Sonographiekontrolle zur Klärung, ob der Schmerz tatsächlich aus dem Hüftgelenk stammt oder aus der Lendenwirbelsäule projiziert wird',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hüftarthroskopie in Einzelfällen bei jüngeren Patienten mit femoroazetabulärem Impingement oder Labrumläsion, sowohl diagnostisch als auch therapeutisch — bei fortgeschrittener Arthrose nicht mehr sinnvoll',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Hüftkopfnekrose (aseptische Femurkopfnekrose)',
+          unterscheidung: 'Jüngeres Alter (35–55 Jahre), rasche Progredienz innerhalb von Wochen, früher und ausgeprägter Ruhe- und Nachtschmerz; Röntgen anfangs unauffällig, MRT beweisend. Risikofaktoren: Kortisontherapie, Alkoholabusus, Sichelzellanämie, Caisson-Krankheit, Bestrahlung, Chemotherapie.',
+        },
+        {
+          dd: 'Schenkelhals- und Beckenfraktur, besonders die osteoporotische bei Bagatelltrauma',
+          unterscheidung: 'Akuter Beginn nach Sturz mit sofortiger Belastungsunfähigkeit, Außenrotations- und Verkürzungsfehlstellung, Stauchungs- und Rüttelschmerz; Röntgen in zwei Ebenen, bei fortbestehendem Verdacht MRT (okkulte Fraktur).',
+        },
+        {
+          dd: 'Septische Coxitis',
+          unterscheidung: 'Fieber, Schüttelfrost, reduzierter Allgemeinzustand, Schonhaltung in Flexion und Außenrotation, jede Bewegung schmerzhaft, deutlich erhöhte Entzündungsparameter; Beweis durch Gelenkpunktion mit Zellzahl, Gramfärbung und Kultur. Notfall — Gelenkdestruktion binnen Tagen.',
+        },
+        {
+          dd: 'Bursitis trochanterica und Gluteus-medius-Tendinopathie (Greater Trochanteric Pain Syndrome)',
+          unterscheidung: 'Schmerzmaximum seitlich über dem Trochanter major statt in der Leiste, punktueller Druckschmerz, Schmerz beim Liegen auf der betroffenen Seite, Schmerz beim Einbeinstand; die Innenrotation der Hüfte ist frei.',
+        },
+        {
+          dd: 'Lumbale Wurzelreizung bei Bandscheibenvorfall',
+          unterscheidung: 'Ausstrahlung UNTER das Knie entlang eines Dermatoms, Sensibilitätsstörungen, Kraft- und Reflexminderung, positives Lasègue-Zeichen, Verstärkung durch Husten, Niesen und Pressen; die Hüftbeweglichkeit ist frei.',
+        },
+        {
+          dd: 'Lumbale Spinalkanalstenose',
+          unterscheidung: 'Claudicatio spinalis mit belastungsabhängigem Bein- und Rückenschmerz, der sich beim Vornüberbeugen, beim Sitzen und beim Radfahren bessert (Haltungsabhängigkeit); Fußpulse erhalten. Bildgebung: MRT der Lendenwirbelsäule.',
+        },
+        {
+          dd: 'Iliosakralgelenksyndrom',
+          unterscheidung: 'Schmerzmaximum über dem Iliosakralgelenk, positives Mennell- und Vorlaufphänomen, Schmerzprovokation beim Aufstehen aus dem Sitzen; freie Hüftinnenrotation.',
+        },
+        {
+          dd: 'Periphere arterielle Verschlusskrankheit mit Claudicatio intermittens',
+          unterscheidung: 'Reproduzierbare Gehstrecke mit Wadenschmerz, der in Ruhe binnen Minuten sistiert, abgeschwächte oder fehlende Fußpulse, kühle Haut, Nagel- und Behaarungsveränderungen; Knöchel-Arm-Index und Doppler-Sonographie. Kein Anlaufschmerz.',
+        },
+        {
+          dd: 'Leistenhernie und Adduktorenzerrung',
+          unterscheidung: 'Vorwölbung in der Leiste beim Husten und Pressen beziehungsweise belastungsabhängiger Schmerz am Adduktorenansatz mit Provokation durch Adduktion gegen Widerstand, typischerweise beim jüngeren Sportler.',
+        },
+        {
+          dd: 'Spondylitis ankylosans (Morbus Bechterew)',
+          unterscheidung: 'Junger Patient, entzündlicher Rückenschmerz in der zweiten Nachthälfte mit Morgensteifigkeit über 30 Minuten und Besserung durch Bewegung, Sakroiliitis, HLA-B27-Assoziation, erhöhte Entzündungsparameter, Enthesitis und Uveitis.',
+        },
+        {
+          dd: 'Polymyalgia rheumatica, gegebenenfalls mit Riesenzellarteriitis',
+          unterscheidung: 'Älterer Patient über 50 Jahre, beidseitiger Schulter- und Beckengürtelschmerz mit ausgeprägter Morgensteifigkeit, stark erhöhte BSG und CRP, prompte Besserung auf niedrig dosiertes Prednisolon; bei Riesenzellarteriitis Kopfschmerz, Kauclaudicatio und Sehstörung.',
+        },
+        {
+          dd: 'Femoroazetabuläres Impingement und Labrumläsion',
+          unterscheidung: 'Jüngerer, sportlich aktiver Patient, Leistenschmerz bei Flexion und Innenrotation, positiver Impingementtest, Einklemmungs- und Blockadegefühl; Nachweis im Röntgen (Cam- oder Pincer-Morphologie) und in der MR-Arthrographie.',
+        },
+        {
+          dd: 'Knochenmetastase, Plasmozytom, primärer Knochentumor',
+          unterscheidung: 'Ruhe- und Nachtschmerz von Beginn an, B-Symptomatik, bekannte Tumorerkrankung, pathologische Fraktur; Osteolysen oder Osteoblastenherde im Röntgen, erhöhte alkalische Phosphatase, Serum-Elektrophorese, Skelettszintigraphie.',
+        },
+        {
+          dd: 'Gynäkologische und urologische Ursachen des Leistenschmerzes',
+          unterscheidung: 'Adnexprozesse, Endometriose, Harnleiterstein oder Prostatitis; zyklusabhängige Beschwerden, Miktions- oder Zyklusstörungen, Flankenschmerz, freie Hüftbeweglichkeit. Bei unklarem Leistenschmerz an eine Sonographie des Abdomens und des kleinen Beckens denken.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Basismaßnahmen, Aufklärung und Lebensstil',
+          items: [
+            'Aufklärung über Krankheitsbild und realistische Erwartung: Die Arthrose ist nicht heilbar und der Knorpelverlust nicht rückgängig zu machen — behandelt werden Schmerz und Funktion; der Zeitpunkt einer Operation wird gemeinsam bestimmt',
+            'Gewichtsreduktion als eine der wirksamsten Maßnahmen überhaupt; realistisches Ziel sind zunächst 5 bis 10 Prozent des Körpergewichts, unterstützt durch Ernährungsberatung',
+            'Reduktion von Alkohol und Nikotin: relevant für Gewicht, Stoffwechsel, das Risiko einer Hüftkopfnekrose sowie für Wund- und Knochenheilung vor einer möglichen Endoprothese',
+            'Gelenkschonende Bewegung statt Schonung: Radfahren, Schwimmen und Aquagymnastik statt Laufsport, Joggen und Sprungbelastungen; regelmäßige Bewegung erhält Knorpelernährung und Muskelkraft',
+            'Anpassung von Beruf und Alltag: Reduktion von schwerem Heben, Ganzkörpervibration und häufigem Auf- und Absteigen; Einbindung des Betriebsarztes, gegebenenfalls innerbetriebliche Umsetzung oder Leistungen zur Teilhabe am Arbeitsleben',
+            'Gehstock auf der GEGENSEITE des erkrankten Gelenks — er senkt die Belastung der betroffenen Hüfte um bis zu etwa 20 Prozent; der Stock wird zusammen mit dem kranken Bein vorgesetzt',
+            'Mitbehandlung der Begleiterkrankungen (Blutdruck, Blutzucker, Lipide, Harnsäure) und Aufklärung über Sturzprophylaxe',
+          ],
+        },
+        {
+          label: 'Physikalische und funktionelle Therapie',
+          items: [
+            'Krankengymnastik mit Kräftigung der Hüftabduktoren (Musculus gluteus medius) und der Oberschenkelmuskulatur sowie Erhalt der Beweglichkeit, insbesondere von Innenrotation, Abduktion und Extension',
+            'Dehnung der verkürzten Hüftbeuger und Adduktoren, Gangschulung, Koordinations- und Gleichgewichtstraining',
+            'Wärmeanwendungen, Manualtherapie und Traktion; bei aktivierter Arthrose mit Erguss kurzfristig Kälteanwendung',
+            'Ergotherapie mit Hilfsmittelversorgung und Schulung: Strumpfanzieher, langer Schuhlöffel, Greifzange, Toilettensitzerhöhung, Duschhocker, Haltegriffe und Wohnraumanpassung',
+            'Schuhzurichtung mit Pufferabsatz zur Stoßdämpfung sowie Ausgleich einer relevanten Beinlängendifferenz',
+            'Anleitung zu einem Heimübungsprogramm und Anbindung an eine Funktionsgymnastik- oder Rehabilitationssportgruppe, damit die Effekte über die Verordnungsdauer hinaus erhalten bleiben',
+            'Ergänzend Elektrotherapie, Balneotherapie und bei entsprechender Indikation eine ambulante oder stationäre Rehabilitationsmaßnahme',
+          ],
+        },
+        {
+          label: 'Medikamentöse und interventionelle Schmerztherapie',
+          items: [
+            'Paracetamol bis 3 g täglich als Basisanalgetikum und topische NSAR als Gel bei umschriebenen Beschwerden',
+            'NSAR (Ibuprofen, Diclofenac, Naproxen) zeitlich BEGRENZT und in der niedrigsten wirksamen Dosis, immer unter Beachtung von Magen, Niere und Herz — beim älteren und multimorbiden Patienten grundsätzlich mit Protonenpumpenhemmer und unter Kontrolle der Nierenfunktion; Vorsicht bei gleichzeitiger Einnahme von ACE-Hemmern und Diuretika',
+            'Metamizol als magenfreundliche Alternative unter Aufklärung über das seltene Agranulozytoserisiko',
+            'Opioide nur zurückhaltend und passager (z. B. Tilidin, Tramadol) bei starken Schmerzen und Kontraindikation gegen NSAR, mit Aufklärung über Schwindel, Obstipation, Sturzgefahr und Fahrtüchtigkeit',
+            'Intraartikuläre Glukokortikoidinjektion als Option bei stark aktivierter Arthrose, unter streng sterilen Bedingungen und bildgesteuert, mit begrenzter Wiederholungshäufigkeit — Aufklärung über das Infektionsrisiko, das vor einer geplanten Endoprothese besondere Beachtung verlangt',
+            'Ehrlicher Hinweis: Chondroitin, Glukosamin und intraartikuläre Hyaluronsäure haben an der HÜFTE keinen gesicherten Nutzen und werden nicht empfohlen',
+            'Bei chronifiziertem Schmerz multimodale Schmerztherapie mit psychologischer Mitbetreuung; Behandlung von Schlafstörung und depressiver Begleitsymptomatik',
+          ],
+        },
+        {
+          label: 'Endoprothetischer Gelenkersatz und Nachbehandlung',
+          items: [
+            'Indikation zur Hüfttotalendoprothese bei therapierefraktären Schmerzen trotz ausgeschöpfter konservativer Therapie, bei Nacht- und Ruheschmerz sowie bei erheblicher Einschränkung von Gehstrecke und Lebensqualität — die Indikation stellt der LEIDENSDRUCK des Patienten und nicht das Röntgenbild',
+            'Verfahrenswahl: zementfreie Verankerung beim jüngeren Patienten mit guter Knochenqualität, zementierte oder Hybridversorgung bei Osteoporose und höherem Lebensalter; bei der medialen Schenkelhalsfraktur des alten Patienten alternativ die Hemiendoprothese (Duokopfprothese)',
+            'Voraussetzungen und Vorbereitung: Optimierung von Gewicht, Nikotinkarenz, Blutzuckereinstellung (HbA1c) und Sanierung von Infektionsherden einschließlich des Zahnstatus zur Senkung des periprothetischen Infektionsrisikos; Röntgenplanung mit Maßstabkugel, Anästhesievorstellung, Anpassung der Dauermedikation, präoperative Physiotherapie und Gehstützentraining',
+            'Aufklärung über Nutzen und Risiken: allgemeine Operations- und Narkoserisiken, Blutung und Nachblutung, periprothetische Infektion, Luxation, Verletzung von Nervus ischiadicus und Nervus femoralis, Gefäßverletzung, periprothetische Fraktur, Thrombose und Lungenembolie, Beinlängendifferenz, heterotope Ossifikationen sowie die begrenzte Standzeit von etwa 15 bis 20 Jahren mit möglichem Wechseleingriff',
+            'Perioperativ: Antibiotikaprophylaxe (Single Shot), medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin über etwa 28 bis 35 Tage, Kompressionsstrümpfe und ausreichende Analgesie',
+            'Frühmobilisation ab dem ersten postoperativen Tag unter physiotherapeutischer Anleitung mit zügiger Vollbelastung nach Maßgabe des Operateurs, danach Anschlussheilbehandlung stationär oder ambulant',
+            'Verhaltensregeln nach der Operation, insbesondere bei dorsalem Zugang in den ersten Wochen: keine Beugung über 90 Grad, keine Adduktion über die Mittellinie, keine Innenrotation; Sitzerhöhung, keine tiefen Sessel, kein Beinüberschlagen, Schlafen in Rückenlage mit Abduktionskissen',
+            'Langfristige Nachsorge: klinische und radiologische Kontrollen zur Erkennung von Lockerung und Abrieb, Endoprothesenpass, Antibiotikaprophylaxe bei größeren zahnärztlichen und operativen Eingriffen, gelenkschonender Sport (Radfahren, Schwimmen, Wandern, Golf) und dauerhafte Gewichtskontrolle',
+            'Gelenkerhaltende Eingriffe nur beim jüngeren Patienten mit präarthrotischer Deformität und noch gutem Knorpel: arthroskopische oder offene Impingementkorrektur, Beckenosteotomie bei Dysplasie; die Arthrodese ist heute eine absolute Ausnahme',
+          ],
+        },
+      ],
+      prognose: 'Die Coxarthrose verläuft in der Regel langsam progredient über Jahre, jedoch nicht linear: Phasen der Verschlechterung wechseln mit stabilen und sogar beschwerdearmen Abschnitten, weshalb der spontane Verlauf schwer vorherzusagen ist. Konsequente Basismaßnahmen — insbesondere Gewichtsreduktion, gelenkschonende Bewegung und Kräftigung der Abduktoren — können Schmerz und Funktion über Jahre deutlich verbessern und den Zeitpunkt einer Operation hinauszögern. Der endoprothetische Gelenkersatz gehört zu den erfolgreichsten Eingriffen der Medizin: Über 90 Prozent der Patienten sind nach der Operation schmerzarm und deutlich besser beweglich, und die Standzeit moderner Prothesen liegt bei etwa 15 bis 20 Jahren, bei über 90 Prozent nach zehn Jahren noch in situ. Prognostisch ungünstig wirken Adipositas, Nikotinkonsum, ein schlecht eingestellter Diabetes mellitus, muskuläre Insuffizienz und ein später Operationszeitpunkt mit bereits eingetretener Kontraktur. Die wichtigsten Langzeitkomplikationen sind aseptische Lockerung, periprothetische Infektion, Luxation und periprothetische Fraktur.',
+      pruefungsfallen: [
+        'Die klassische Falle: Ein Teil der Patienten klagt AUSSCHLIESSLICH über Knieschmerzen. Wer bei Knieschmerz nicht die Hüfte untersucht, verfehlt die Diagnose. Umgekehrt gehört zu jedem Hüftschmerz auch die Untersuchung des Knies.',
+        'Die Ausstrahlung endet am Knie und reicht NICHT unter das Knie — diese Grenze aktiv erfragen und in der Vorstellung ausdrücklich nennen; sie grenzt die Coxarthrose von der lumbalen Radikulopathie ab.',
+        'Den ANLAUFSCHMERZ definieren können: Schmerz bei den ersten Schritten nach Ruhe, der sich nach einigen Schritten bessert. Er ist das Leitsymptom und wird in der Prüfung ausdrücklich abgefragt.',
+        'Morgensteifigkeit quantifizieren: bei der Arthrose wenige Minuten und unter 30 Minuten; über 30 bis 60 Minuten spricht für eine entzündlich-rheumatische Erkrankung.',
+        'Kapselmuster: Die INNENROTATION ist als Erstes und am stärksten eingeschränkt, danach Abduktion, dann Extension. Wer nur „Flexion und Rotation eingeschränkt“ sagt, bleibt unpräzise.',
+        'Labor bei der Arthrose ist NORMAL. Blutbild, CRP und BSG dienen nur der Abgrenzung entzündlicher und infektiöser Ursachen — erhöhte Werte gehören nicht zum Arthrosebild.',
+        'Radiologischer Befund und Beschwerden korrelieren SCHLECHT: behandelt wird der Patient, nicht das Bild. Der Kellgren-Lawrence-Grad allein rechtfertigt keine Operation.',
+        'Röntgen immer als Beckenübersicht in zwei Ebenen mit BEIDEN Hüftgelenken im Seitenvergleich anfordern, nicht nur die betroffene Seite.',
+        'Die vier radiologischen Zeichen frei aufzählen können: Gelenkspaltverschmälerung, subchondrale Sklerosierung, Osteophyten und subchondrale Zysten (Geröllzysten).',
+        'Die HÜFTKOPFNEKROSE muss man beschreiben können — jüngerer Patient, rasche Progredienz, Nachtschmerz, Kortison- und Alkoholanamnese, MRT vor dem Röntgen. Sie wird als Differenzialdiagnose regelmäßig verlangt.',
+        'Die NSAR-Falle beim älteren Patienten: Magen (Protonenpumpenhemmer!), Niere (Kreatinin, besonders in Kombination mit ACE-Hemmer und Diuretikum) und Herz. NSAR sind keine Dauermedikation.',
+        'Der Gehstock gehört auf die GEGENSEITE — eine gern gestellte und häufig falsch beantwortete Frage.',
+        'Chondroitin, Glukosamin und Hyaluronsäure an der Hüfte nicht als wirksame Therapie anbieten: Ein Nutzen ist nicht gesichert. Ehrlichkeit wird hier honoriert.',
+        'Die Fußpulse nicht vergessen: Eine pAVK macht ebenfalls eine kurze Gehstrecke und ist beim Raucher mit Diabetes die entscheidende Differenzialdiagnose.',
+        'Vor dem Patienten übersetzen: „Coxarthrose“ = Gelenkverschleiß des Hüftgelenks, „Endoprothese“ = künstliches Hüftgelenk, „intermittierend“ = mit Unterbrechungen auftretend.',
+        'Formal: Im Arztbrief jede Rubrik ausfüllen — Differenzialdiagnosen, Diagnostik und Therapie dürfen niemals fehlen, auch wenn die Zeit knapp wird.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine Coxarthrose, also ein Verschleiß des Hüftgelenks. Dafür sprechen der schleichende Beginn über Monate, der Leisten- und Gesäßschmerz mit Ausstrahlung an der Vorderseite des Oberschenkels bis zum Knie, der Anlaufschmerz nach Ruhe, der belastungsabhängige Schmerz mit abnehmender Gehstrecke, die Morgensteifigkeit von nur wenigen Minuten sowie der Funktionsverlust beim Socken- und Schuhanziehen. Dazu passen Alter, Übergewicht und schwere körperliche Arbeit als Risikofaktoren.',
+        },
+        {
+          frage: 'Der Patient klagt nur über Knieschmerzen. Warum untersuchen Sie die Hüfte?',
+          antwort: 'Weil der Coxarthroseschmerz über den Nervus obturatorius und den Nervus femoralis an der Vorderseite des Oberschenkels bis zum Knie projiziert wird und manche Patienten ausschließlich Knieschmerzen angeben. Wer dann nur das Knie untersucht, verfehlt die Diagnose. Deshalb gilt: bei Knieschmerz immer die Hüfte mituntersuchen und umgekehrt.',
+        },
+        {
+          frage: 'Warum ist es wichtig, dass die Schmerzen nur bis zum Knie und nicht bis zum Fuß ausstrahlen?',
+          antwort: 'Weil eine Ausstrahlung unter das Knie in Wade oder Fuß für eine lumbale Wurzelreizung spricht, also für einen Bandscheibenvorfall oder eine Spinalkanalstenose. Das Ende der Ausstrahlung am Knie ist typisch für eine Hüftpathologie und hilft, die Wirbelsäule als Ursache auszuschließen.',
+        },
+        {
+          frage: 'Was ist ein Anlaufschmerz?',
+          antwort: 'Der Schmerz bei den ersten Schritten nach einer Ruhephase — morgens beim Aufstehen oder nach längerem Sitzen —, der sich nach einigen Schritten deutlich bessert und bei fortgesetzter Belastung wieder zunimmt. Er ist ein Leitsymptom der Arthrose.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Hüftkopfnekrose, Schenkelhals- und Beckenfraktur, septische Coxitis, Bursitis trochanterica und Gluteus-medius-Tendinopathie, lumbale Wurzelreizung und Spinalkanalstenose, Iliosakralgelenksyndrom, Leistenhernie und Adduktorenzerrung, pAVK mit Claudicatio, Spondylitis ankylosans, Polymyalgia rheumatica, femoroazetabuläres Impingement sowie Knochenmetastase und Plasmozytom.',
+        },
+        {
+          frage: 'Was wissen Sie über die Hüftkopfnekrose?',
+          antwort: 'Sie ist eine aseptische Knochennekrose des Hüftkopfes durch eine Durchblutungsstörung. Betroffen sind meist Patienten zwischen 35 und 55 Jahren; der Verlauf ist rasch progredient über Wochen mit frühem Ruhe- und Nachtschmerz, während das Röntgenbild anfangs unauffällig bleibt — deshalb ist die MRT die Methode der Wahl. Risikofaktoren sind Kortisontherapie, Alkoholabusus, Sichelzellanämie, Caisson-Krankheit, Bestrahlung und Chemotherapie. Therapeutisch kommen im Frühstadium Entlastung und eine Anbohrung, im Spätstadium die Endoprothese in Betracht.',
+        },
+        {
+          frage: 'Worauf achten Sie bei der körperlichen Untersuchung?',
+          antwort: 'Auf das Gangbild mit Schonhinken oder Trendelenburg-Hinken, auf Beinlänge, Muskelatrophie und Beckenstand, auf Druckschmerz in der Leiste und über dem Trochanter major, auf die seitenvergleichende Bewegungsprüfung nach der Neutral-Null-Methode mit dem Kapselmuster, auf Patrick- beziehungsweise FABER-Test, Impingementtest, Trendelenburg-Zeichen und Thomas-Handgriff sowie auf Durchblutung, Motorik, Sensibilität und die Fußpulse. Ergänzend untersuche ich Lendenwirbelsäule, Iliosakralgelenk und Knie.',
+        },
+        {
+          frage: 'Welche Bewegungen sind eingeschränkt, und in welcher Reihenfolge?',
+          antwort: 'Es besteht das typische Kapselmuster: zuerst und am stärksten die Innenrotation, dann die Abduktion und schließlich die Extension. Im weiteren Verlauf ist die Beweglichkeit in allen Ebenen eingeschränkt und es entsteht eine Beugekontraktur, die man mit dem Thomas-Handgriff aufdeckt.',
+        },
+        {
+          frage: 'Welche bildgebende Untersuchung führen Sie durch, und was erwarten Sie?',
+          antwort: 'Ein Röntgen des Beckens in zwei Ebenen im Stehen mit Darstellung beider Hüftgelenke im Seitenvergleich. Erwartet werden die vier klassischen Zeichen: Gelenkspaltverschmälerung, subchondrale Sklerosierung, Osteophyten und subchondrale Zysten, sogenannte Geröllzysten.',
+        },
+        {
+          frage: 'Wann brauchen Sie ein MRT?',
+          antwort: 'Bei Verdacht auf eine Hüftkopfnekrose, auf einen Tumor oder auf eine Infektion sowie bei unauffälligem Röntgenbefund trotz starker Beschwerden. Die MRT zeigt Knochenmarködem und Nekrose Wochen bis Monate früher als das Röntgenbild.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und was erwarten Sie bei einer Arthrose?',
+          antwort: 'Blutbild, CRP und BSG — bei der Arthrose sind sie normal. Sie dienen nur der Abgrenzung entzündlicher und infektiöser Ursachen. Zusätzlich bestimme ich Kreatinin und eGFR vor einer NSAR-Therapie sowie präoperativ Gerinnung, Blutgruppe, Blutzucker und HbA1c.',
+        },
+        {
+          frage: 'Korrelieren Röntgenbefund und Beschwerden?',
+          antwort: 'Nein, sie korrelieren schlecht. Es gibt ausgeprägte radiologische Befunde mit geringen Beschwerden und umgekehrt. Deshalb gilt: Behandelt wird der Patient und nicht das Bild; die Therapieentscheidung richtet sich nach Schmerz, Gehstrecke, Nachtschmerz und Alltagsfunktion.',
+        },
+        {
+          frage: 'Wie behandeln Sie eine Coxarthrose konservativ?',
+          antwort: 'Mit Aufklärung und Lebensstiländerung — Gewichtsreduktion, gelenkschonende Bewegung wie Radfahren und Schwimmen, Anpassung von Beruf und Alltag, Gehstock auf der Gegenseite —, mit Krankengymnastik zur Kräftigung der Abduktoren und Erhalt der Beweglichkeit, mit Ergotherapie und Hilfsmitteln sowie mit einer zeitlich begrenzten, an die Komorbidität angepassten Schmerztherapie.',
+        },
+        {
+          frage: 'In welcher Hand soll der Patient den Gehstock tragen?',
+          antwort: 'Auf der Gegenseite des erkrankten Gelenks. So wird das Drehmoment auf die betroffene Hüfte verringert und die Belastung um bis zu etwa 20 Prozent gesenkt; der Stock wird zusammen mit dem kranken Bein vorgesetzt.',
+        },
+        {
+          frage: 'Wann stellen Sie die Indikation zur Hüfttotalendoprothese?',
+          antwort: 'Wenn die konservative Therapie ausgeschöpft ist und therapierefraktäre Schmerzen, Nacht- und Ruheschmerz sowie eine erhebliche Einschränkung von Gehstrecke und Lebensqualität bestehen. Entscheidend ist der Leidensdruck des Patienten, nicht das Röntgenbild.',
+        },
+        {
+          frage: 'Worüber klären Sie vor der Hüft-TEP auf?',
+          antwort: 'Über allgemeine Operations- und Narkoserisiken, Blutung und Nachblutung, periprothetische Infektion, Luxation, Verletzung von Nerven und Gefäßen — insbesondere Nervus ischiadicus und Nervus femoralis —, periprothetische Fraktur, Thrombose und Lungenembolie, Beinlängendifferenz sowie über die begrenzte Standzeit von etwa 15 bis 20 Jahren mit der Möglichkeit eines Wechseleingriffs.',
+        },
+        {
+          frage: 'Welche Verhaltensregeln gelten nach der Operation?',
+          antwort: 'Bei dorsalem Zugang in den ersten Wochen keine Beugung über 90 Grad, keine Adduktion über die Mittellinie und keine Innenrotation; Sitzerhöhung benutzen, keine tiefen Sessel, kein Beinüberschlagen, Schlafen in Rückenlage mit Abduktionskissen. Dazu Thromboseprophylaxe, Frühmobilisation, Anschlussheilbehandlung und langfristig ein Endoprothesenpass mit regelmäßigen Kontrollen.',
+        },
+        {
+          frage: 'Haben Chondroitin, Glukosamin oder Hyaluronsäure einen Stellenwert?',
+          antwort: 'An der Hüfte ist ein Nutzen nicht gesichert und die Leitlinien empfehlen sie nicht. Ich würde dem Patienten das offen sagen und stattdessen Gewichtsreduktion, Bewegungstherapie und eine angepasste Analgesie in den Vordergrund stellen.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Diagnose in Alltagssprache?',
+          antwort: '„Ihr Hüftgelenk ist verschlissen. Der Knorpel, der wie ein Stoßdämpfer zwischen Hüftkopf und Pfanne liegt, ist dünn geworden, deshalb reiben die Knochen aufeinander und es tut weh — vor allem bei den ersten Schritten und beim Gehen. Dass es bis ins Knie zieht, ist typisch und bedeutet nicht, dass mit dem Knie etwas nicht stimmt.“',
+        },
+      ],
+      merksatz: 'Leistenschmerz, der bis zum Knie zieht — aber NIE darunter —, Anlaufschmerz, kürzere Gehstrecke und Morgensteifigkeit unter 30 Minuten: das ist die Coxarthrose. Zuerst geht die Innenrotation verloren, das Röntgen des Beckens in zwei Ebenen zeigt Gelenkspaltverschmälerung, Sklerose, Osteophyten und Geröllzysten, das Labor bleibt normal. Behandelt wird der Patient und nicht das Bild — der Gehstock gehört auf die Gegenseite, und über die Prothese entscheidet der Leidensdruck.',
+      linkedCaseIds: [
+        'case-coxarthrose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-sonographie',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-metabolisches-syndrom',
+      pathology: 'Metabolisches Syndrom',
+      specialty: 'Endokrinologie',
+      definition: 'Das metabolische Syndrom ist keine eigenständige Krankheit, sondern ein Bündel kardiovaskulärer Risikofaktoren auf dem Boden einer abdominalen (viszeralen) Adipositas mit Insulinresistenz. Nach der in Deutschland gebräuchlichen Definition der International Diabetes Federation (IDF, 2005) ist die abdominale Adipositas das OBLIGATE Kriterium — Bauchumfang ab 94 cm beim Mann und ab 80 cm bei der Frau (europäische Grenzwerte) —, zu dem MINDESTENS ZWEI der folgenden vier Kriterien hinzutreten müssen: Triglyzeride ab 150 mg/dl oder entsprechende Behandlung; HDL-Cholesterin unter 40 mg/dl beim Mann beziehungsweise unter 50 mg/dl bei der Frau oder entsprechende Behandlung; Blutdruck ab 130/85 mmHg oder bereits laufende antihypertensive Behandlung; Nüchternglukose ab 100 mg/dl oder bekannter Typ-2-Diabetes. Die klinische Bedeutung liegt nicht im Gewicht als solchem, sondern im deutlich erhöhten Risiko für Typ-2-Diabetes, Herzinfarkt und Schlaganfall.',
+      aetiologie: 'Ursächlich ist das Zusammentreffen einer genetischen Disposition mit einem Lebensstil aus hyperkalorischer, stark verarbeiteter und zuckerreicher Ernährung, Bewegungsmangel, langen Sitzzeiten, Schlafmangel, Schichtarbeit, chronischem Stress und Alkoholkonsum. Das viszerale Fettgewebe ist dabei kein passiver Speicher, sondern ein endokrines Organ: Es setzt vermehrt freie Fettsäuren sowie proinflammatorische Adipokine (TNF-alpha, Interleukin-6, Resistin) frei und produziert weniger Adiponektin. Daraus entstehen eine Insulinresistenz der Skelettmuskulatur, der Leber und des Fettgewebes, eine kompensatorische Hyperinsulinämie, eine gesteigerte hepatische Glukoneogenese und VLDL-Synthese (Hypertriglyzeridämie mit niedrigem HDL und kleinen dichten LDL-Partikeln), eine renale Natriumretention mit Sympathikus- und RAAS-Aktivierung (Hypertonie) sowie eine verminderte renale Harnsäureausscheidung (Hyperurikämie). Sekundäre beziehungsweise verstärkende Ursachen sind Hypothyreose, Cushing-Syndrom, PCO-Syndrom, Hypogonadismus des Mannes, obstruktives Schlafapnoe-Syndrom und Medikamente (Glukokortikoide, bestimmte Antipsychotika wie Olanzapin und Clozapin, Valproat, Betablocker, Thiazide, Insulin und Sulfonylharnstoffe, antiretrovirale Therapie).',
+      risikofaktoren: [
+        'Abdominale (viszerale) Fettverteilung — der Bauchumfang sagt mehr aus als der BMI',
+        'Bewegungsmangel und lange Sitzzeiten, fehlende Alltagsbewegung',
+        'Hyperkalorische Ernährung mit zuckerhaltigen Getränken, stark verarbeiteten Lebensmitteln, großen Portionen, Essen außer Haus und nächtlichem Essen',
+        'Positive Familienanamnese für Typ-2-Diabetes, Hypertonie und frühzeitigen Herzinfarkt',
+        'Höheres Lebensalter; bei Frauen deutlicher Anstieg nach der Menopause',
+        'Rauchen (verstärkt die Insulinresistenz und das kardiovaskuläre Risiko) und regelmäßiger Alkoholkonsum',
+        'Schlafmangel, Schichtarbeit und unbehandeltes obstruktives Schlafapnoe-Syndrom',
+        'Chronischer psychosozialer Stress, Arbeitslosigkeit, soziale Isolation, niedriger sozioökonomischer Status',
+        'Depression und Essstörungen, insbesondere die Binge-Eating-Störung',
+        'Gewicht steigernde Medikamente: Glukokortikoide, Antipsychotika (Olanzapin, Clozapin), Valproat, Betablocker, Thiazide, Insulin, Sulfonylharnstoffe',
+        'Schwangerschaftsdiabetes in der Vorgeschichte, PCO-Syndrom, niedriges Geburtsgewicht',
+      ],
+      klinik: [
+        {
+          text: 'Häufig KEINE führende Beschwerde — die Diagnose entsteht erst aus der Zusammenschau von Anamnese, Messwerten und Labor; der Patient kommt aus einem anderen Grund',
+        },
+        {
+          text: 'Abgeschlagenheit, verminderte Belastbarkeit, Leistungsknick und Antriebsminderung',
+        },
+        {
+          text: 'Belastungsdyspnoe, etwa beim Treppensteigen, ohne kardiale oder pulmonale Grunderkrankung',
+        },
+        {
+          text: 'Vermehrtes Schwitzen, auch nachts',
+        },
+        {
+          text: 'Lautes Schnarchen mit fremdanamnestisch beobachteten Atempausen, nicht erholsamer Schlaf und Tagesmüdigkeit mit Einschlafneigung — Hinweis auf ein obstruktives Schlafapnoe-Syndrom',
+        },
+        {
+          text: 'Gelenkbeschwerden bei Übergewicht, vor allem Gonarthrose und Coxarthrose, sowie Rückenschmerzen',
+        },
+        {
+          text: 'Acanthosis nigricans: dunkle, samtartige Hautverdickung an Nacken, Achselhöhlen und Leisten als sichtbares Zeichen der Insulinresistenz',
+        },
+        {
+          text: 'Zeichen einer bereits bestehenden Hyperglykämie: Polyurie, Nykturie, Polydipsie, Sehstörungen, schlecht heilende Wunden, rezidivierende Haut- und Genitalmykosen',
+        },
+        {
+          text: 'Depressive Verstimmung, sozialer Rückzug und Scham — häufig der eigentliche Vorstellungsgrund',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Frauen Zyklusstörungen, Hirsutismus und unerfüllter Kinderwunsch im Sinne eines PCO-Syndroms',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als akuter Gichtanfall bei Hyperurikämie',
+          atypisch: true,
+        },
+        {
+          text: 'Zufällig entdeckte Fettleber in der Sonographie oder isoliert erhöhte Transaminasen und Gamma-GT',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Myokardinfarkt oder Schlaganfall bei einem bis dahin scheinbar Gesunden — beim Diabetiker auch als stumme Ischämie ohne typischen Brustschmerz',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Mann Libidoverlust und erektile Dysfunktion als früher Marker der endothelialen Dysfunktion',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'IDF-Definition 2005 (in Deutschland gebräuchlich)',
+          inhalt: 'OBLIGATES Kriterium: abdominale Adipositas mit einem Bauchumfang ab 94 cm beim Mann und ab 80 cm bei der Frau (europäische Grenzwerte). Dazu MINDESTENS ZWEI von vier: (1) Triglyzeride ab 150 mg/dl oder entsprechende Behandlung; (2) HDL-Cholesterin unter 40 mg/dl beim Mann bzw. unter 50 mg/dl bei der Frau oder entsprechende Behandlung; (3) Blutdruck ab 130/85 mmHg oder antihypertensive Therapie; (4) Nüchternglukose ab 100 mg/dl oder bekannter Typ-2-Diabetes.',
+        },
+        {
+          name: 'NCEP-ATP-III-Definition (2001, aktualisiert 2005)',
+          inhalt: 'Kein obligates Kriterium; die Diagnose wird gestellt, wenn DREI von fünf Kriterien erfüllt sind: Bauchumfang über 102 cm beim Mann bzw. über 88 cm bei der Frau; Triglyzeride ab 150 mg/dl; HDL unter 40 mg/dl (Mann) bzw. unter 50 mg/dl (Frau); Blutdruck ab 130/85 mmHg; Nüchternglukose ab 100 mg/dl. Die Grenzwerte für den Bauchumfang liegen also höher als bei der IDF.',
+        },
+        {
+          name: 'Harmonisierte Definition 2009 (IDF, AHA und NHLBI gemeinsam)',
+          inhalt: 'Drei von fünf Kriterien, keines davon obligat; der Bauchumfang wird populations- und geschlechtsspezifisch festgelegt (für Europäer 94 cm beim Mann, 80 cm bei der Frau). Diese Definition wird international am häufigsten für Studien verwendet.',
+        },
+        {
+          name: 'Gewichtsklassifikation der WHO nach dem BMI',
+          inhalt: 'Untergewicht unter 18,5 kg/m²; Normalgewicht 18,5 bis 24,9; Übergewicht (Präadipositas) 25 bis 29,9; Adipositas Grad I 30 bis 34,9; Adipositas Grad II 35 bis 39,9; Adipositas Grad III (morbide Adipositas, Adipositas permagna) ab 40 kg/m². Der BMI erfasst die Fettverteilung nicht — deshalb ist der Bauchumfang zwingend zusätzlich zu messen.',
+        },
+        {
+          name: 'Diagnosekriterien von Prädiabetes und Typ-2-Diabetes',
+          inhalt: 'Prädiabetes: abnorme Nüchternglukose (IFG) 100 bis 125 mg/dl, gestörte Glukosetoleranz (IGT) mit einem 2-Stunden-Wert im oralen Glukosetoleranztest von 140 bis 199 mg/dl, HbA1c 5,7 bis 6,4 Prozent. Diabetes mellitus: Nüchternglukose ab 126 mg/dl (7,0 mmol/l), HbA1c ab 6,5 Prozent (48 mmol/mol), 2-Stunden-Wert im oGTT ab 200 mg/dl oder Gelegenheitsglukose ab 200 mg/dl mit klassischer Symptomatik. Ohne Symptome muss ein pathologischer Wert an einem zweiten Tag bestätigt werden.',
+        },
+      ],
+      redFlags: [
+        'Ausgeprägte Hyperglykämie mit Polyurie, Polydipsie, Gewichtsverlust, Übelkeit, Bewusstseinstrübung oder Kussmaul-Atmung — Verdacht auf diabetische Ketoazidose oder hyperosmolares hyperglykämisches Syndrom, sofortige Klinikeinweisung',
+        'Blutdruck ab 180/110 mmHg mit Kopfschmerz, Sehstörung, Thoraxschmerz, Luftnot oder neurologischem Defizit — hypertensiver Notfall',
+        'Neu aufgetretener oder belastungsabhängiger Thoraxschmerz beziehungsweise plötzliche Belastungsdyspnoe — akutes Koronarsyndrom; beim Diabetiker häufig STUMME Ischämie ohne typischen Schmerz',
+        'Plötzliche Sehverschlechterung, Rußregen oder Gesichtsfeldausfall — Glaskörperblutung bei proliferativer diabetischer Retinopathie',
+        'Fußläsion mit Rötung, Überwärmung, Sekretion oder Foetor bei bestehender Polyneuropathie — diabetisches Fußsyndrom mit Amputationsgefahr, sofortige Vorstellung',
+        'Beobachtete Atempausen mit ausgeprägter Tagesschläfrigkeit und Einschlafneigung am Steuer — schweres Schlafapnoe-Syndrom, Fahrtauglichkeit ansprechen',
+        'Ungewollter Gewichtsverlust, Fieber, Nachtschweiß und Lymphknotenschwellungen — konsumierende Erkrankung, das Bild passt dann NICHT mehr zum metabolischen Syndrom',
+        'Ikterus, Aszites, Beinödeme, Verwirrtheit oder Blutungsneigung — dekompensierte Leberzirrhose bei Steatohepatitis',
+        'Suizidgedanken bei depressiver Symptomatik — sofortige psychiatrische Mitbeurteilung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese des Lebensstils: Ernährung (zuckerhaltige Getränke, Portionsgrößen, Essen außer Haus, nächtliches Essen, Heißhungerattacken), Bewegung und Sitzzeit, Schlafdauer und Schlafqualität, Beruf und Schichtarbeit, Stress, Alkohol, Rauchen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gewichtsverlauf über die Jahre, frühere Abnehmversuche und deren Ergebnis, Gewicht steigernde Medikamente (Glukokortikoide, Antipsychotika, Valproat, Betablocker, Thiazide, Insulin, Sulfonylharnstoffe)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Familienanamnese für Typ-2-Diabetes, arterielle Hypertonie und frühzeitigen Herzinfarkt oder Schlaganfall; bei Frauen Zyklusstörungen, Hirsutismus und Schwangerschaftsdiabetes',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anthropometrie: Größe, Gewicht, BMI und vor allem Messung des BAUCHUMFANGS mit dem Maßband in der Mitte zwischen unterem Rippenbogen und Beckenkamm, am Ende einer normalen Ausatmung, am stehenden Patienten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Wiederholte Blutdruckmessung an beiden Armen mit passender, ausreichend großer Oberarmmanschette (zu schmale Manschette täuscht zu hohe Werte vor), ergänzt durch Selbstmessung und 24-Stunden-Blutdruckmessung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Herz- und Lungenauskultation, Gefäßstatus mit Fußpulsen und Auskultation der Karotiden, Beinödeme, Leberrand; Haut mit Acanthosis nigricans, Striae, Intertrigo und Mykosen; Inspektion der Füße mit Stimmgabel- und Monofilament-Test',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Screening auf Begleiterkrankungen mit Fragebögen: Epworth-Schläfrigkeitsskala für die Schlafapnoe (8 Fragen, 0 bis 3 Punkte, Summe über 10 auffällig) sowie Depressionsscreening mit den zwei Whooley-Fragen beziehungsweise dem PHQ-9',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nüchternglukose und HbA1c; bei nicht eindeutigem Ergebnis oraler Glukosetoleranztest mit 75 g Glukose und Messung nach 2 Stunden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Komplettes Lipidprofil: Gesamtcholesterin, LDL-Cholesterin, HDL-Cholesterin und Triglyzeride; ergänzend Lipoprotein(a) einmal im Leben zur Risikoeinschätzung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Leberwerte GOT, GPT, Gamma-GT und alkalische Phosphatase zur Frage einer Fettleber; MCV und CDT zur Einordnung eines Alkoholkonsums',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Harnsäure (Hyperurikämie), Blutbild, Elektrolyte',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenfunktion: Kreatinin mit geschätzter GFR sowie ALBUMIN im Urin als Albumin-Kreatinin-Quotient im Spontanurin — die Albuminurie ist der früheste Marker der diabetischen Nephropathie und zugleich ein unabhängiger kardiovaskulärer Risikomarker',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH zum Ausschluss einer Hypothyreose; bei klinischem Verdacht auf ein Cushing-Syndrom 1-mg-Dexamethason-Hemmtest, freies Cortisol im 24-Stunden-Urin oder Mitternachts-Speichelcortisol; beim Mann mit Libidoverlust Testosteron, bei der Frau mit Hirsutismus und Zyklusstörung Testosteron, DHEAS, LH und FSH',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Berechnung des kardiovaskulären GESAMTRISIKOS mit einem Score (SCORE2, bei Diabetes SCORE2-Diabetes, alternativ arriba), sobald Blutdruck, Lipide und Raucherstatus vorliegen — daraus leiten sich die Blutdruck- und LDL-Zielwerte ab',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Abdomens: Nachweis einer Fettleber (echoreiche, vergrößerte Leber mit Schallabschwächung), Beurteilung der Leberkontur, der Milzgröße und der Nieren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ruhe-EKG (Linksherzhypertrophie, stumme Infarktnarben, Rhythmus); je nach Risiko Belastungs-EKG oder nicht invasive Ischämiediagnostik sowie Echokardiographie zur Frage einer hypertensiven Herzerkrankung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Duplexsonographie der Karotiden (Intima-Media-Dicke, Plaques) und Bestimmung des Knöchel-Arm-Index bei Verdacht auf eine periphere arterielle Verschlusskrankheit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Augenärztliche Untersuchung mit Funduskopie in Mydriasis zur Frage einer diabetischen Retinopathie — bei Typ-2-Diabetes bereits bei Diagnosestellung, danach jährlich',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ambulante Polygraphie bei auffälliger Epworth-Skala oder berichteten Atempausen; bei unklarem Befund Polysomnographie im Schlaflabor (Apnoe-Hypopnoe-Index 5 bis 15 leicht, 15 bis 30 mittel, über 30 pro Stunde schwer)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nicht invasive Fibroseabschätzung der Leber mit FIB-4-Index und Elastographie (FibroScan); nur bei fortbestehender Unklarheit oder Verdacht auf eine fortgeschrittene Steatohepatitis Leberbiopsie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koronarangiographie nur bei nachgewiesener Ischämie oder akutem Koronarsyndrom, nicht als Screening',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Vor einer geplanten bariatrischen Operation strukturierte Vorbereitung: Gastroskopie mit Helicobacter-Diagnostik, psychosomatische Begutachtung und ausführliche endokrinologische und ernährungsmedizinische Abklärung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Gewichtszunahme, Müdigkeit, Antriebsminderung und depressive Verstimmung sind identisch — abgrenzend sind Kälteintoleranz, Obstipation, trockene raue Haut, Haarausfall, Heiserkeit, Bradykardie und verzögerte Muskeleigenreflexe. Ausschluss einfach und obligat über das TSH.',
+        },
+        {
+          dd: 'Primäre depressive Störung',
+          unterscheidung: 'Die klassische Verwechslung: Der Patient schildert Antriebslosigkeit und gedrückte Stimmung, der Kandidat stellt die Diagnose Depression — der Oberarzt korrigiert. Bei der primären Depression stehen Interessenverlust, Freudlosigkeit, Morgentief mit Früherwachen, Schuldgefühle und Suizidgedanken im Vordergrund; typischer ist der Appetit- und GewichtsVERLUST. Beides schließt sich nicht aus, die Depression ist häufige Begleit- und Folgeerkrankung — die metabolischen Befunde entscheiden.',
+        },
+        {
+          dd: 'Cushing-Syndrom (endogen oder exogen)',
+          unterscheidung: 'Ebenfalls Stammfettsucht, Hypertonie, Hyperglykämie und Dyslipidämie — abgrenzend sind Vollmondgesicht, Stiernacken, breite rot-livide Striae, dünne Haut mit Hämatomneigung, proximale Muskelschwäche (Aufstehen aus der Hocke, Treppensteigen) und Osteoporose. Beim metabolischen Syndrom ist die Muskulatur kräftig. Ausschluss über 1-mg-Dexamethason-Hemmtest; exogene Form durch Glukokortikoid-Anamnese.',
+        },
+        {
+          dd: 'Medikamenteninduzierte Gewichtszunahme',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Beginn oder Dosissteigerung von Glukokortikoiden, Antipsychotika (besonders Olanzapin und Clozapin), Valproat, Betablockern, Thiaziden, Insulin oder Sulfonylharnstoffen. Wird regelmäßig übersehen, weil die Medikamentenanamnese zu knapp ausfällt.',
+        },
+        {
+          dd: 'Obstruktives Schlafapnoe-Syndrom',
+          unterscheidung: 'Erklärt Tagesmüdigkeit, Leistungsknick, morgendlichen Kopfschmerz, Nykturie und schwer einstellbaren Blutdruck für sich allein. Es ist zugleich Folge und Verstärker der Adipositas — beides liegt meist gemeinsam vor. Klärung durch Epworth-Skala und Polygraphie.',
+        },
+        {
+          dd: 'Alkoholkrankheit mit alkoholischer Fettleber',
+          unterscheidung: 'Alkohol liefert leere Kalorien, führt zu Fettleber, Hypertriglyzeridämie, Hypertonie und Hyperurikämie und imitiert damit das gesamte Bild. Abgrenzend sind eine Gamma-GT-Erhöhung mit einem GOT/GPT-Quotienten über 1, ein erhöhtes MCV, erhöhtes CDT und die quantifizierte Trinkmenge. Sehr häufig liegt eine Fettleber gemischter Genese vor.',
+        },
+        {
+          dd: 'Hypogonadismus des Mannes',
+          unterscheidung: 'Libidoverlust, erektile Dysfunktion, Muskelabbau, Antriebsminderung und Zunahme des viszeralen Fetts. Wechselwirkung in beide Richtungen: Adipositas senkt das Testosteron durch vermehrte Aromatisierung. Klärung über morgendliches Gesamttestosteron, LH und FSH.',
+        },
+        {
+          dd: 'PCO-Syndrom bei der Frau',
+          unterscheidung: 'Oligo- oder Amenorrhoe, Hirsutismus, Akne, unerfüllter Kinderwunsch und polyzystische Ovarien in der Sonographie bei ebenfalls bestehender Insulinresistenz — beim metabolischen Syndrom der Frau immer mitzudenken.',
+        },
+        {
+          dd: 'Konsumierende Erkrankung, Malignom, Anämie oder Herzinsuffizienz',
+          unterscheidung: 'Wird geprüft, wenn Abgeschlagenheit, Belastungsdyspnoe und Nachtschweiß im Vordergrund stehen. Gegen sie sprechen die Gewichtszunahme statt eines Gewichtsverlusts, fehlendes Fieber, fehlende Lymphknotenschwellungen und ein unauffälliges Blutbild; die Herzinsuffizienz zeigt Orthopnoe, nächtliche Atemnot, Beinödeme und ein erhöhtes NT-proBNP.',
+        },
+        {
+          dd: 'Binge-Eating-Störung und andere Essstörungen',
+          unterscheidung: 'Wiederkehrende Essanfälle mit Kontrollverlust, Essen ohne Hungergefühl, Essen bis zum unangenehmen Völlegefühl, Scham und heimliches Essen — ohne kompensatorisches Erbrechen. Ohne Behandlung der Essstörung scheitert jede Gewichtsreduktion; gezielt und wertfrei erfragen.',
+        },
+        {
+          dd: 'Monogene Formen: MODY, genetische Adipositassyndrome, Hypothalamusstörung',
+          unterscheidung: 'Beim jungen, nicht adipösen Patienten mit auffälliger Familienanamnese über mehrere Generationen an einen MODY denken; bei Adipositas seit früher Kindheit mit Entwicklungsverzögerung an ein genetisches Syndrom (Prader-Willi); nach Schädel-Hirn-Trauma, Bestrahlung oder Operation im Hypothalamusbereich an eine hypothalamische Adipositas.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Lebensstilintervention als Basis jeder Behandlung',
+          items: [
+            'Realistische ZIELVEREINBARUNG mit dem Patienten statt eines Idealgewichts: Bereits 5 bis 10 Prozent Gewichtsverlust verbessern Blutdruck, Blutzucker und Blutfette messbar — das ist die entscheidende, motivierende Botschaft des Gesprächs',
+            'Qualifizierte, verordnungsfähige Ernährungsberatung: Reduktion zuckerhaltiger Getränke und stark verarbeiteter Lebensmittel, moderate Kalorienreduktion um etwa 500 kcal pro Tag, mediterrane Kostform, ausreichend Eiweiß und Ballaststoffe — dauerhafte Umstellung statt kurzfristiger Diäten',
+            'Bewegung: mindestens 150 Minuten moderate Ausdauerbewegung pro Woche, verteilt auf mehrere Tage, ergänzt durch Krafttraining an zwei Tagen zum Erhalt der Muskelmasse; gelenkschonende Formen (Radfahren, Schwimmen, Wassergymnastik) bei Arthrose; Reduktion der Sitzzeit im Alltag',
+            'Schlafhygiene und Behandlung eines Schlafapnoe-Syndroms, Stressbewältigung, ALKOHOLreduktion und konsequente NIKOTINKARENZ mit Angebot einer strukturierten Tabakentwöhnung',
+            'Selbstbeobachtung mit Gewichts-, Ernährungs- und Bewegungsprotokoll, Schrittzähler, Gruppenprogramme (DMP, Rehabilitation, Selbsthilfe), realistische Etappenziele und ausdrücklich besprochenes Rückfallmanagement',
+            'Haltung des Arztes: sachlich, respektvoll und motivierend. Beschämung und moralisierende Zurechtweisung sind kontraproduktiv, verschlechtern die Adhärenz und werden in der Prüfung negativ bewertet',
+          ],
+        },
+        {
+          label: 'Behandlung der einzelnen Risikofaktoren nach Zielwerten',
+          items: [
+            'Arterielle Hypertonie: Zielblutdruck systolisch 120 bis 130 mmHg, sofern gut vertragen, bei Diabetes höchstens 130/80 mmHg; bevorzugt ACE-Hemmer oder Angiotensin-Rezeptorblocker (besonders bei Albuminurie) in Kombination mit Kalziumantagonist oder Thiazid — Betablocker und hoch dosierte Thiazide sind metabolisch ungünstig',
+            'LIPIDSENKUNG mit einem Statin nach dem individuellen kardiovaskulären Gesamtrisiko: LDL-Zielwert unter 70 mg/dl bei hohem und unter 55 mg/dl bei sehr hohem Risiko, jeweils mit mindestens 50-prozentiger Senkung; bei Nichterreichen zusätzlich Ezetimib, danach PCSK9-Hemmer. Hypertriglyzeridämie primär über Gewicht, Zucker und Alkoholkarenz, bei Werten über 500 mg/dl Fibrat wegen der Pankreatitisgefahr',
+            'Prädiabetes: strukturierte Lebensstilintervention als Mittel der Wahl, die die Diabetesmanifestation nachweislich verhindert; Metformin nur bei jungen Patienten mit hohem Risiko und erfolgloser Lebensstiltherapie',
+            'Typ-2-Diabetes: METFORMIN als Erstlinie, einschleichend zur Mahlzeit dosiert; individueller HbA1c-Zielkorridor von 6,5 bis 7,5 Prozent. Kontraindiziert bei einer eGFR unter 30 ml/min, Pause vor Kontrastmittelgabe und größeren Operationen',
+            'Bevorzugt Substanzen mit kardiovaskulärem und renalem ZUSATZNUTZEN: SGLT2-Hemmer (Empagliflozin, Dapagliflozin) bei Herzinsuffizienz und chronischer Nierenerkrankung; GLP-1-Rezeptoragonisten (Semaglutid, Dulaglutid, Liraglutid) bei atherosklerotischer Erkrankung und ausgeprägter Adipositas, da sie zusätzlich das Gewicht senken. Sulfonylharnstoffe und Insulin fördern Gewichtszunahme und Hypoglykämien und stehen hinten an',
+            'Hyperurikämie: purinarme Kost und Alkoholreduktion; harnsäuresenkende Therapie mit Allopurinol erst bei rezidivierenden Gichtanfällen, Tophi oder Uratnephropathie — die asymptomatische Hyperurikämie allein wird nicht medikamentös behandelt',
+            'Thrombozytenaggregationshemmung nur in der Sekundärprävention nach kardiovaskulärem Ereignis, nicht routinemäßig in der Primärprävention',
+          ],
+        },
+        {
+          label: 'Behandlung der Adipositas selbst bei unzureichendem Erfolg',
+          items: [
+            'Strukturierte multimodale Programme über mindestens sechs bis zwölf Monate mit Ernährungs-, Bewegungs- und Verhaltenstherapie sowie ambulanter oder stationärer Rehabilitation — die Rehabilitation ist die richtige Antwort auf die Frage, wohin der Patient geschickt wird, nicht die alleinige Krankengymnastik',
+            'Medikamentöse Gewichtsreduktion nach Indikation und nach Ausschöpfung der Basismaßnahmen: GLP-1-Rezeptoragonisten (Liraglutid 3,0 mg, Semaglutid 2,4 mg) oder der duale GIP/GLP-1-Agonist Tirzepatid; Orlistat als schwächere Alternative. Nach Absetzen ist eine Gewichtszunahme die Regel, die Behandlung ist langfristig angelegt',
+            'BARIATRISCHE Chirurgie nach Ausschöpfung der konservativen Maßnahmen: Indikation ab einem BMI von 40 kg/m² auch ohne Begleiterkrankung und ab 35 kg/m² mit relevanter Begleiterkrankung wie Typ-2-Diabetes; Verfahren sind vor allem der Schlauchmagen (Sleeve-Gastrektomie) und der Roux-en-Y-Magenbypass',
+            'Nach bariatrischer Operation lebenslange Nachsorge mit Substitution von Vitamin B12, Folsäure, Eisen, Kalzium, Vitamin D und Spurenelementen, Kontrolle auf Dumping-Syndrom, Anämie und Osteoporose sowie psychologische Begleitung',
+          ],
+        },
+        {
+          label: 'Vorsorge, Verlaufskontrolle und Folgeerkrankungen',
+          items: [
+            'Regelmäßige Kontrolle von Gewicht und BAUCHUMFANG, Blutdruck, HbA1c, Lipiden, Leber- und Nierenwerten einschließlich Albuminurie — mindestens halbjährlich, bei Therapieumstellung häufiger',
+            'Folgeerkrankungen aktiv abklären und behandeln: nichtalkoholische Fettleber bis zur Steatohepatitis und Zirrhose, obstruktive Schlafapnoe (Gewichtsreduktion, CPAP-Therapie), Hyperurikämie und Gicht, PCO-Syndrom, chronische Niereninsuffizienz, Arthrose, erhöhtes Risiko für bestimmte Karzinome und Depression',
+            'Jährliche augenärztliche Kontrolle mit Funduskopie und strukturierte Fußinspektion mit Monofilament- und Stimmgabeltest bei bestehendem Diabetes; Schulung des Patienten in der eigenen Fußpflege',
+            'Impfungen nach den Empfehlungen der STIKO, insbesondere gegen Influenza, Pneumokokken, COVID-19 und Herpes zoster, da Adipositas und Diabetes das Infektionsrisiko erhöhen; Teilnahme an der Krebsfrüherkennung',
+            'Psychologische oder psychiatrische Mitbetreuung bei Essstörung, Depression oder Suchterkrankung — ohne sie sind Alkoholkarenz und Gewichtsreduktion kaum umsetzbar',
+            'Langfristige, wiederholte Begleitung mit festen Wiedervorstellungsterminen: Gewichtsrückgewinn ist die Regel und kein persönliches Versagen — dieses Verständnis dem Patienten ausdrücklich vermitteln',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose wird nicht vom Gewicht selbst bestimmt, sondern von den kardiovaskulären und metabolischen Folgen: Das metabolische Syndrom verdoppelt bis verdreifacht das Risiko für Herzinfarkt und Schlaganfall und erhöht das Risiko, innerhalb weniger Jahre einen Typ-2-Diabetes zu entwickeln, um ein Mehrfaches. Umgekehrt ist der Zustand in hohem Maße beeinflussbar: Bereits eine Gewichtsreduktion von 5 bis 10 Prozent senkt Blutdruck, Nüchternglukose und Triglyzeride messbar, strukturierte Lebensstilprogramme halbieren die Diabetesinzidenz bei Prädiabetes, und eine bariatrische Operation kann einen Typ-2-Diabetes in Remission bringen. Die Schwierigkeit liegt in der Langfristigkeit: Ein Gewichtsrückgewinn nach initialem Erfolg ist physiologisch die Regel und darf weder als Versagen des Patienten noch als Scheitern der Behandlung gewertet werden. Entscheidend für die Prognose sind daher die dauerhafte ärztliche Begleitung, die konsequente Behandlung jedes einzelnen Risikofaktors nach Zielwerten und die frühzeitige Erkennung der Folgeerkrankungen.',
+      pruefungsfallen: [
+        'Die klassische Falle: Der Kandidat stellt die Verdachtsdiagnose DEPRESSION, weil der Patient Antriebslosigkeit und gedrückte Stimmung schildert — der Oberarzt korrigiert in metabolisches Syndrom. Das metabolische Syndrom ist ein BÜNDEL von Erkrankungen (Adipositas, Diabetes, Hypertonie, Dyslipidämie, Gonarthrose, Depression); die Depression gehört dazu, ist aber nicht die Hauptdiagnose.',
+        'Die DEFINITION muss mit ZAHLEN genannt werden: Bauchumfang ab 94 cm beim Mann und ab 80 cm bei der Frau als OBLIGATES Kriterium plus mindestens ZWEI von vier (Triglyzeride ab 150 mg/dl, HDL unter 40 bzw. 50 mg/dl, Blutdruck ab 130/85 mmHg, Nüchternglukose ab 100 mg/dl). Ohne Zahlen gilt die Antwort als unvollständig.',
+        'Den BAUCHUMFANG messen, nicht nur den BMI angeben — auf die Frage „Wie?“ lautet die Antwort: Lipidstatus, Nüchternglukose, HbA1c und ABDOMENUMFANG. Der Messpunkt liegt in der Mitte zwischen unterem Rippenbogen und Beckenkamm.',
+        'Sprachfalle: Auf Deutsch heißt es „morbid ADIPÖS“, nicht „morbid obes“ — dieser Fehler wurde in Karlsruhe ausdrücklich korrigiert. Vor dem Patienten „starkes Übergewicht“ oder „Fettleibigkeit“ verwenden.',
+        'HbA1c: Der Prüfer fragte nach dem Normalwert und wollte „unter 6“ hören. Exakt ist: Normbereich unter 5,7 Prozent, Prädiabetes 5,7 bis 6,4 Prozent, Diabetes ab 6,5 Prozent; der Therapiezielkorridor beim Typ-2-Diabetes liegt individuell bei 6,5 bis 7,5 Prozent. Der HbA1c bildet die Stoffwechsellage der letzten acht bis zwölf Wochen ab („Langzeitzucker“).',
+        'Bei der Frage nach den Gefäßkomplikationen wollte der Prüfer MIKROANGIOPATHIE hören: Retinopathie, Nephropathie und Neuropathie. Die pAVK gehört zur MAKROangiopathie — beide Begriffe getrennt nennen.',
+        'Bei der Therapie NICHT mit Insulin antworten. Erste Maßnahme ist die Lebensstilintervention mit der Empfehlung zur Gewichtsreduktion, erst dann Metformin; Insulin steht am Ende der Stufenleiter.',
+        'Auf die Frage, wohin der Patient geschickt wird: zum AUGENARZT (Funduskopie) und in eine REHABILITATION beziehungsweise ein strukturiertes multimodales Programm — die Antwort „Krankengymnastik“ genügt dem Prüfer nicht.',
+        'Die Zahl 5 bis 10 Prozent Gewichtsverlust als motivierende Botschaft parat haben — sie ist die therapeutisch wichtigste Aussage des Gesprächs.',
+        'Sekundäre Ursachen aktiv ausschließen und benennen: HYPOTHYREOSE über das TSH und CUSHING-Syndrom über den Dexamethason-Hemmtest. Die Verwechslung mit dem Cushing-Syndrom (Stammfettsucht, Striae rubrae, Muskelschwäche, Vollmondgesicht) wird gern geprüft.',
+        'Die Medikamentenanamnese nicht abkürzen: Glukokortikoide, Antipsychotika, Valproat, Betablocker und Thiazide sind häufige und übersehene Ursachen der Gewichtszunahme.',
+        'Die Fettleber nicht vorschnell als „nichtalkoholisch“ bezeichnen, wenn ein relevanter Alkoholkonsum besteht — dann liegt eine Fettleber gemischter Genese vor. Die Trinkmenge in Gramm pro Tag ausrechnen.',
+        'Die Haltung wird mitbewertet: Beschämung, Moralisieren und Belehren sind kontraproduktiv. Gefordert ist eine sachliche, respektvolle und motivierende Gesprächsführung — es geht nicht um Schönheit oder Disziplin, sondern um das Risiko für Diabetes, Herzinfarkt und Schlaganfall.',
+        'Die Schlafapnoe mitdenken: Schnarchen, beobachtete Atempausen und Tagesmüdigkeit gehören zwingend erfragt (Epworth-Skala, Polygraphie); ein unbehandeltes Schlafapnoe-Syndrom erklärt einen therapierefraktären Blutdruck.',
+        'Das ALBUMIN im Urin wird regelmäßig vergessen — es ist der früheste Marker der diabetischen Nephropathie und ein eigenständiger kardiovaskulärer Risikomarker.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Ihr Patient ist ja depressiv — aber welches Hauptsymptom hat er, und woran denken Sie damit?',
+          antwort: 'Das Leitsymptom ist die über zwei Jahre progrediente Gewichtszunahme. Zusammen mit der Adipositas, dem erhöhten Blutzucker, den erhöhten Blutfetten, der arteriellen Hypertonie, der Gonarthrose und der depressiven Verstimmung denke ich nicht an eine einzelne Erkrankung, sondern an ein metabolisches Syndrom — eine Gruppe von Erkrankungen, die gemeinsam auftreten und deren Kern die abdominale Adipositas mit Insulinresistenz ist. Die Depression ist dabei Begleit- und Folgeerkrankung, nicht die Hauptdiagnose.',
+        },
+        {
+          frage: 'Wie ist das metabolische Syndrom definiert? Nennen Sie bitte die Zahlen.',
+          antwort: 'Nach der Definition der International Diabetes Federation ist die abdominale Adipositas das obligate Kriterium: Bauchumfang ab 94 cm beim Mann und ab 80 cm bei der Frau, jeweils europäische Grenzwerte. Dazu müssen mindestens zwei von vier weiteren Kriterien erfüllt sein: Triglyzeride ab 150 mg/dl oder entsprechende Behandlung, HDL-Cholesterin unter 40 mg/dl beim Mann beziehungsweise unter 50 mg/dl bei der Frau, Blutdruck ab 130/85 mmHg oder antihypertensive Behandlung und eine Nüchternglukose ab 100 mg/dl oder ein bekannter Typ-2-Diabetes.',
+        },
+        {
+          frage: 'Was werden Sie bei diesem Patienten außerdem untersuchen wollen — und wie?',
+          antwort: 'Ich würde gezielt nach einem metabolischen Syndrom suchen, weil Übergewicht und Bluthochdruck bestehen. Konkret: Lipidstatus, Nüchternglukose, HbA1c und die Messung des Abdomenumfangs. Ergänzend Leberwerte mit Gamma-GT, Harnsäure, Kreatinin mit eGFR, Albumin im Urin und TSH, dazu eine Abdomensonographie, ein EKG und eine augenärztliche Vorstellung.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie zur Beurteilung des Zuckers — und was ist der Normalwert?',
+          antwort: 'Zunächst die Nüchternglukose und vor allem den HbA1c, den Langzeitzuckerwert, der die Stoffwechsellage der letzten acht bis zwölf Wochen abbildet. Der Normbereich liegt unter 5,7 Prozent, ein Prädiabetes bei 5,7 bis 6,4 Prozent und ein Diabetes ab 6,5 Prozent. Bei nicht eindeutigen Werten schließt sich ein oraler Glukosetoleranztest an.',
+        },
+        {
+          frage: 'Welche Komplikationen kann der Patient an den Gefäßen bekommen?',
+          antwort: 'Man unterscheidet die Mikroangiopathie und die Makroangiopathie. Zur MIKROANGIOPATHIE gehören die diabetische Retinopathie, die Nephropathie mit Albuminurie und die Polyneuropathie bis hin zum diabetischen Fußsyndrom. Zur Makroangiopathie gehören die koronare Herzkrankheit mit Myokardinfarkt, der Schlaganfall und die periphere arterielle Verschlusskrankheit. Beim Diabetiker kann ein Infarkt wegen der Neuropathie stumm verlaufen.',
+        },
+        {
+          frage: 'Wohin können Sie Ihren Patienten schicken? In welche Abteilung?',
+          antwort: 'Zum Augenarzt zur Funduskopie, weil bei Erstdiagnose eines Typ-2-Diabetes bereits eine Retinopathie bestehen kann. Außerdem in eine Ernährungsberatung, in ein Schlaflabor beziehungsweise zur Polygraphie bei Verdacht auf Schlafapnoe und in eine strukturierte Rehabilitation mit Bewegungs- und Verhaltenstherapie.',
+        },
+        {
+          frage: 'Und was machen Sie therapeutisch? Fangen Sie mit Insulin an?',
+          antwort: 'Nein. An erster Stelle steht die Lebensstilintervention mit der Empfehlung zur Gewichtsreduktion: Bereits 5 bis 10 Prozent Gewichtsverlust verbessern Blutdruck, Blutzucker und Blutfette messbar. Dazu qualifizierte Ernährungsberatung, mindestens 150 Minuten Bewegung pro Woche plus Krafttraining, Alkoholreduktion und Nikotinkarenz. Medikamentös ist Metformin die Erstlinie beim Typ-2-Diabetes, bevorzugt ergänzt um SGLT2-Hemmer oder GLP-1-Rezeptoragonisten wegen ihres kardiovaskulären und renalen Zusatznutzens. Insulin steht am Ende der Stufenleiter.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen müssen Sie ausschließen?',
+          antwort: 'Vor allem eine Hypothyreose, die ich über das TSH ausschließe, eine primäre depressive Störung und ein Cushing-Syndrom, das ich über den 1-mg-Dexamethason-Hemmtest ausschließe. Außerdem eine medikamenteninduzierte Gewichtszunahme, ein obstruktives Schlafapnoe-Syndrom, eine Alkoholkrankheit mit Fettleber, beim Mann einen Hypogonadismus und bei der Frau ein PCO-Syndrom.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie das metabolische Syndrom vom Cushing-Syndrom?',
+          antwort: 'Beide zeigen Stammfettsucht, Hypertonie, Hyperglykämie und Dyslipidämie. Für das Cushing-Syndrom sprechen ein Vollmondgesicht, ein Stiernacken, breite rot-livide Striae, eine dünne Haut mit Hämatomneigung und vor allem eine proximale Muskelschwäche — der Patient kommt schlecht aus der Hocke hoch oder die Treppe hinauf. Beim metabolischen Syndrom ist die Muskulatur kräftig. Gesichert wird der Ausschluss über den Dexamethason-Hemmtest oder das freie Cortisol im 24-Stunden-Urin.',
+        },
+        {
+          frage: 'Sollte der Patient abnehmen? Was kann eine Gewichtsabnahme bei ihm bewirken?',
+          antwort: 'Ja, aber mit einem realistischen Ziel. Bereits 5 bis 10 Prozent des Ausgangsgewichts senken Blutdruck, Nüchternglukose, HbA1c und Triglyzeride messbar, verbessern die Schlafapnoe und entlasten die Kniegelenke. Wichtig ist eine langsame, begleitete Reduktion mit dauerhafter Ernährungsumstellung statt einer kurzfristigen Diät — und die ausdrückliche Aussage, dass ein Rückfall zum alten Gewicht häufig vorkommt und kein persönliches Versagen ist.',
+        },
+        {
+          frage: 'Welche Folgeerkrankungen des metabolischen Syndroms kennen Sie außer Diabetes und Herzinfarkt?',
+          antwort: 'Die nichtalkoholische Fettleber bis zur Steatohepatitis und Zirrhose, das obstruktive Schlafapnoe-Syndrom, die Hyperurikämie mit Gicht, das PCO-Syndrom, die chronische Niereninsuffizienz, die Arthrose der großen Gelenke, ein erhöhtes Risiko für bestimmte Karzinome — etwa Kolon-, Mamma- und Endometriumkarzinom — sowie die Depression.',
+        },
+        {
+          frage: 'Wie messen Sie den Bauchumfang korrekt?',
+          antwort: 'Mit einem Maßband am stehenden Patienten, waagerecht in der Mitte zwischen dem unteren Rippenbogen und dem Beckenkamm, am Ende einer normalen Ausatmung und ohne das Maßband einzuschnüren. Der Bauchumfang bildet die viszerale Fettmasse ab und sagt über das kardiovaskuläre Risiko mehr aus als der BMI.',
+        },
+        {
+          frage: 'Warum ist Metformin die Erstlinie, und worauf müssen Sie achten?',
+          antwort: 'Metformin senkt die hepatische Glukoneogenese, verbessert die Insulinsensitivität, ist gewichtsneutral bis leicht gewichtssenkend und verursacht keine Hypoglykämien. Zu beachten sind gastrointestinale Nebenwirkungen zu Therapiebeginn, weshalb einschleichend dosiert wird, ein Vitamin-B12-Mangel bei Langzeittherapie und die Kontraindikation bei einer eGFR unter 30 ml/min. Vor Kontrastmittelgabe und größeren Operationen wird pausiert, um eine Laktatazidose zu vermeiden.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten das metabolische Syndrom in Alltagssprache?',
+          antwort: 'Ich würde sagen: Bei Ihnen kommen mehrere Dinge zusammen — das Gewicht am Bauch, ein erhöhter Blutzucker, erhöhte Blutfette und ein erhöhter Blutdruck. Jedes für sich wäre schon ungünstig, zusammen erhöhen sie aber das Risiko für eine Zuckerkrankheit, einen Herzinfarkt und einen Schlaganfall deutlich. Die gute Nachricht ist: Alle vier hängen zusammen, und schon eine Gewichtsabnahme von fünf bis zehn Prozent verbessert alle vier gleichzeitig.',
+        },
+        {
+          frage: 'Der Patient ist übergewichtig — würden Sie sagen, er ist adipös?',
+          antwort: 'Ja. Ich berechne dazu den Body-Mass-Index aus Gewicht und Körpergröße. Ab 25 kg/m² spricht man von Übergewicht beziehungsweise Präadipositas, ab 30 von Adipositas Grad I, ab 35 von Grad II und ab 40 von Grad III, also einer morbiden Adipositas. Auf Deutsch sagt man „morbid adipös“, nicht „morbid obes“. Zusätzlich messe ich den Bauchumfang, weil er die Fettverteilung erfasst.',
+        },
+      ],
+      merksatz: 'Merke: Der Patient kommt nie „wegen eines metabolischen Syndroms“ — er kommt müde, dick und niedergeschlagen, und die Diagnose entsteht erst aus Anamnese, Maßband und Labor. Obligat ist der Bauchumfang ab 94 cm beim Mann und ab 80 cm bei der Frau, dazu zwei von vier: Triglyzeride ab 150, HDL unter 40 bzw. 50, Blutdruck ab 130/85, Nüchternglukose ab 100. Zuerst TSH und Cushing ausschließen, dann Lebensstil vor Metformin vor Insulin — und niemals moralisieren.',
+      linkedCaseIds: [
+        'case-metabolisches-syndrom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-koloskopie',
+      ],
+    },
+    {
+      id: 'fw-karzinoid',
+      pathology: 'Neuroendokriner Tumor mit Karzinoid-Syndrom',
+      specialty: 'Onkologie',
+      definition: 'Neuroendokrine Tumoren (NET) sind Neoplasien aus den Zellen des diffusen neuroendokrinen Systems, die vasoaktive Substanzen bilden können — vor allem Serotonin, daneben Histamin, Tachykinine, Prostaglandine und Kallikrein. Am häufigsten sitzen sie im Dünndarm, insbesondere im terminalen Ileum, sowie in der Appendix, seltener in Rektum, Magen, Pankreas oder Lunge. Der ältere Begriff „Karzinoid“ ist durch „neuroendokriner Tumor“ ersetzt worden; die Prüfer fragen diese Umbenennung ausdrücklich ab. Als Karzinoid-Syndrom bezeichnet man die klinische Symptomkombination aus anfallsartigem Flush, sekretorischer Diarrhö, krampfartigen Bauchschmerzen und asthmaähnlichem Bronchospasmus. Entscheidend für das Verständnis: Das Syndrom tritt erst auf, wenn die vasoaktiven Substanzen den hepatischen First-Pass-Metabolismus umgehen — in der Regel also bei LEBERMETASTASEN, seltener bei retroperitonealer, ovarieller oder bronchialer Lokalisation. Solange der Tumor auf den Darm begrenzt ist, werden die Mediatoren über die Pfortader in der Leber abgebaut und der Patient bleibt symptomfrei. Nur etwa 10 % aller NET sind funktionell aktiv.',
+      aetiologie: 'Die meisten NET entstehen sporadisch. In etwa 5–10 % besteht ein hereditärer Hintergrund, allen voran die multiple endokrine Neoplasie Typ 1 (MEN1), seltener von-Hippel-Lindau-Syndrom, Neurofibromatose Typ 1 oder eine tuberöse Sklerose. Typ-1-Magen-NET entstehen sekundär auf dem Boden einer chronisch-atrophischen Autoimmungastritis mit Hypergastrinämie. Pathophysiologisch verstoffwechselt der Tumor Tryptophan über 5-Hydroxytryptophan zu Serotonin; das Abbauprodukt 5-Hydroxyindolessigsäure (5-HIES) wird renal ausgeschieden und ist der diagnostische Marker. Da bis zu 60 % des Nahrungstryptophans für die Serotoninsynthese verbraucht werden, fehlt Tryptophan für die Nikotinsäuresynthese — es kann eine Pellagra (Dermatitis, Diarrhö, Demenz) entstehen. Serotonin erklärt vor allem die Diarrhö und die Klappenfibrose, Kallikrein/Bradykinin und Histamin vor allem den Flush und den Bronchospasmus. Die Tumoren wachsen langsam, weshalb die Diagnose typischerweise erst nach mehreren JAHREN gestellt wird.',
+      risikofaktoren: [
+        'Multiple endokrine Neoplasie Typ 1 (MEN1) — bei jedem NET aktiv nach Nebenschilddrüsen-, Hypophysen- und Pankreasbeteiligung sowie nach Nierensteinen in der Familie fragen',
+        'von-Hippel-Lindau-Syndrom, Neurofibromatose Typ 1, tuberöse Sklerose',
+        'Positive Familienanamnese für neuroendokrine oder endokrine Tumoren',
+        'Chronisch-atrophische Autoimmungastritis Typ A mit Hypergastrinämie (Typ-1-Magen-NET)',
+        'Lebensalter zwischen 50 und 70 Jahren (Häufigkeitsgipfel)',
+        'Keine klassischen Lebensstil-Risikofaktoren — weder Rauchen noch Alkohol sind gesicherte Auslöser; das unterscheidet den NET von den meisten gastrointestinalen Karzinomen',
+      ],
+      klinik: [
+        {
+          text: 'Diagnoseverzögerung von im Mittel mehreren Jahren, weil die Beschwerden unspezifisch sind und die Patienten lange als Reizdarmsyndrom, Wechseljahresbeschwerde, Nahrungsmittelunverträglichkeit oder Allergie fehlgedeutet werden — dieses Zeitmuster ist das eigentliche Leitsymptom',
+        },
+        {
+          text: 'Anfallsartiger FLUSH: plötzliche, Sekunden bis wenige Minuten anhaltende Rötung von Gesicht, Hals und oberem Rumpf mit Hitzegefühl, charakteristischerweise OHNE Schwitzen',
+        },
+        {
+          text: 'Typisches Auslösermuster des Flushs: Alkohol (besonders Rotwein), scharfe und tyraminreiche Speisen, Käse, Schokolade, Nüsse, emotionaler Stress und körperliche Anstrengung',
+        },
+        {
+          text: 'Sekretorische, wässrige DURCHFÄLLE mit imperativem Stuhldrang, unabhängig von der Nahrungsaufnahme und auch NACHTS auftretend — der nächtliche Durchfall trennt den NET vom Reizdarmsyndrom',
+        },
+        {
+          text: 'Krampfartige, anfallsartige, diffuse Bauchschmerzen ohne feste Lokalisation',
+        },
+        {
+          text: 'Asthmaähnliche Atemnot mit Giemen durch Bronchospasmus, häufig während der Flush-Attacke',
+        },
+        {
+          text: 'Palpitationen und anfallsartige Tachykardie; während der Attacke eher Blutdruckabfall als Blutdruckanstieg',
+        },
+        {
+          text: 'Ungewollter Gewichtsverlust, Leistungsknick und Exsikkose durch die chronische Diarrhö',
+        },
+        {
+          text: 'Teleangiektasien an Wangen und Nase sowie eine bläulich-livide Verfärbung des Gesichts bei langem Verlauf',
+        },
+        {
+          text: 'Karzinoide Herzerkrankung (Hedinger-Syndrom): fibrotischer Umbau der RECHTSHERZKLAPPEN mit Trikuspidalinsuffizienz und Pulmonalstenose, Rechtsherzinsuffizienz, gestauten Halsvenen, Beinödemen und Hepatomegalie',
+          atypisch: false,
+        },
+        {
+          text: 'Karzinoide Krise als lebensbedrohliche Komplikation: schwerer Flush, Blutdruckabfall bis zum Schock, Bronchospasmus und Rhythmusstörungen, ausgelöst durch Narkoseeinleitung, Operation, Biopsie oder Embolisation',
+          atypisch: false,
+        },
+        {
+          text: 'Rezidivierende kolikartige Bauchschmerzen bis zum mechanischen ILEUS durch Fibrosierung des Mesenteriums und Strangbildung — nicht selten die Erstmanifestation',
+          atypisch: true,
+        },
+        {
+          text: 'Zufallsbefund im Appendektomiepräparat ohne jede vorherige Symptomatik — die häufigste Art, wie ein Appendix-NET entdeckt wird',
+          atypisch: true,
+        },
+        {
+          text: 'Pellagra mit lichtexponierter Dermatitis, Diarrhö und Wesensänderung durch Tryptophanverbrauch und Niacinmangel',
+          atypisch: true,
+        },
+        {
+          text: 'Rein mechanische oder gänzlich stumme Verläufe bei nicht funktionell aktiven NET — etwa 90 % aller NET machen kein Karzinoid-Syndrom',
+          atypisch: true,
+        },
+        {
+          text: 'Bronchuskarzinoid mit Husten, Hämoptysen und rezidivierender poststenotischer Pneumonie statt abdomineller Symptomatik',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'WHO-Graduierung nach dem Proliferationsindex Ki-67',
+          inhalt: 'NET G1: Ki-67 unter 3 %, Mitoserate unter 2 pro 2 mm². NET G2: Ki-67 3–20 %. NET G3: Ki-67 über 20 %, aber weiterhin GUT differenziert. Neuroendokrines Karzinom (NEC): schlecht differenziert, Ki-67 deutlich über 20 %, klein- oder großzellig. Die Graduierung entscheidet über die Therapie: G1/G2 werden mit Somatostatinanaloga, Peptidradiorezeptortherapie und zielgerichteten Substanzen behandelt, das NEC primär mit einer platinbasierten Chemotherapie.',
+        },
+        {
+          name: 'Einteilung nach Funktionalität',
+          inhalt: 'Funktionell INAKTIVE NET (etwa 90 %) fallen durch Mechanik, Metastasen oder als Zufallsbefund auf. Funktionell AKTIVE NET (etwa 10 %) produzieren Hormone: Serotonin und Tachykinine beim Karzinoid-Syndrom, Gastrin beim Gastrinom (Zollinger-Ellison-Syndrom), Insulin beim Insulinom, VIP beim VIPom (Verner-Morrison-Syndrom), Glukagon beim Glukagonom.',
+        },
+        {
+          name: 'TNM-Stadien nach ENETS/UICC',
+          inhalt: 'Stadieneinteilung nach Tumorgröße und Wandinfiltration (T), regionalem Lymphknotenbefall (N) und Fernmetastasen (M). Beim Dünndarm-NET liegen zum Diagnosezeitpunkt in über der Hälfte der Fälle bereits Lymphknoten- oder Lebermetastasen vor. Ein Karzinoid-Syndrom entspricht praktisch immer einem metastasierten Stadium (M1), weil erst die Umgehung der Leber die Mediatoren systemisch wirksam macht.',
+        },
+        {
+          name: 'Somatostatinrezeptor-Status',
+          inhalt: 'Über die Somatostatinrezeptor-Bildgebung (DOTATATE-PET/CT) wird der Tumor als rezeptorpositiv oder rezeptornegativ eingestuft. Rezeptorpositive Tumoren sprechen auf Somatostatinanaloga und auf die Peptidradiorezeptortherapie mit Lutetium-177-DOTATATE an; rezeptornegative, meist schlecht differenzierte Tumoren nicht — dann wird chemotherapiert.',
+        },
+      ],
+      redFlags: [
+        'Karzinoide Krise: schwerster Flush, Blutdruckabfall bis zum Schock, Bronchospasmus und Herzrhythmusstörungen — Notfall, sofort Octreotid intravenös; KEINE Katecholamine als Erstmaßnahme, sie können die Krise verstärken',
+        'Jeder geplante Eingriff (Narkose, Operation, Biopsie, Embolisation) ohne vorherige Octreotid-Prophylaxe und ohne Information des Anästhesisten',
+        'Zunehmende kolikartige Bauchschmerzen mit Erbrechen und Stuhlverhalt: mechanischer Ileus durch mesenteriale Fibrose',
+        'Gestaute Halsvenen, Beinödeme und ein neues systolisches Herzgeräusch am rechten Herzen: Hedinger-Syndrom mit Rechtsherzinsuffizienz',
+        'Ausgeprägte Exsikkose mit Hypokaliämie und Kreatininanstieg bei hochfrequenter sekretorischer Diarrhö',
+        'Akutes Abdomen mit Peritonismus: Tumorperforation oder mesenteriale Ischämie',
+        'Lichtempfindliche Dermatitis mit Diarrhö und Wesensänderung: Pellagra bei Niacinmangel',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese des FLUSHS: plötzlicher Beginn, Dauer von Sekunden bis Minuten, Ausbreitung über Gesicht, Hals und oberen Rumpf, Hitzegefühl OHNE Schwitzen und vor allem das Auslösermuster mit Alkohol, scharfen und tyraminreichen Speisen, Käse, Stress und Anstrengung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Stuhlanamnese: Frequenz, wässrige Konsistenz, imperativer Drang, Unabhängigkeit von den Mahlzeiten und ausdrücklich das NÄCHTLICHE Auftreten — der entscheidende Punkt gegen ein Reizdarmsyndrom; dazu Blutbeimengungen und Steatorrhö erfragen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Zeitverlauf über Monate bis Jahre erfassen und frühere Fehldiagnosen aktiv erfragen (Reizdarm, Wechseljahre, Allergie, Laktose- oder Fruktoseintoleranz) — die Diagnoseverzögerung ist ein diagnostischer Hinweis, kein Nebenbefund',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'B-Symptomatik, Gewichtsverlauf mit konkreten Kilogrammangaben, Leistungsfähigkeit sowie Atemnot und Giemen während der Attacken',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Familienanamnese im Hinblick auf eine multiple endokrine Neoplasie Typ 1: Nebenschilddrüsenüberfunktion, Nierensteine, Hypophysenadenome, Pankreastumoren, weitere endokrine Tumoren in der Familie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Haut mit Teleangiektasien und Pellagra-Zeichen, Herzauskultation gezielt auf ein Rechtsherzgeräusch (Trikuspidalinsuffizienz, Pulmonalstenose), Lungenauskultation auf Giemen, Abdomenpalpation mit Lebergröße und Resistenzen, Zeichen der Rechtsherzinsuffizienz mit gestauten Halsvenen und Beinödemen, Hydratationszustand',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter einschließlich Blutdruck und Puls sowie Größe, Gewicht und BMI zur Objektivierung des Gewichtsverlusts',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CHROMOGRANIN A im Serum als Screening- und vor allem als Verlaufsmarker — Cave falsch hohe Werte unter Protonenpumpenhemmern, bei atrophischer Gastritis und bei Niereninsuffizienz; PPI sollten vor der Bestimmung pausiert werden',
+        },
+        {
+          stufe: 'Labor',
+          text: '5-HYDROXYINDOLESSIGSÄURE (5-HIES) im 24-STUNDEN-SAMMELURIN als spezifischster Laborparameter des Karzinoid-Syndroms. Der Patientin muss erklärt werden, dass bestimmte Speisen und Medikamente das Ergebnis verfälschen und 48 Stunden vorher gemieden werden müssen: Bananen, Ananas, Kiwi, Pflaumen, Avocado, Tomaten, Auberginen, Walnüsse und andere Nüsse sowie Paracetamol, Serotonin-Wiederaufnahmehemmer und Hustensäfte mit Guaifenesin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild, Elektrolyte mit Kalium, Nierenwerte, Leberwerte und Cholestaseparameter, CRP, Gerinnung, Albumin und Eisenstatus — Ausmaß von Exsikkose, Elektrolytverlust und Leberbefall',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ausschluss der wichtigsten Differenzialdiagnosen im Labor: TSH mit fT3 und fT4 (Hyperthyreose), Metanephrine und Normetanephrine im Plasma oder im 24-Stunden-Sammelurin (Phäochromozytom), Serumtryptase (Mastozytose), Gastrin (Zollinger-Ellison-Syndrom), Calcitonin (medulläres Schilddrüsenkarzinom), Transglutaminase-Antikörper (Zöliakie), Calprotectin im Stuhl sowie Stuhlkulturen und Clostridioides-difficile-Toxin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als erste, rasch verfügbare Untersuchung: Lebermetastasen, Lymphknoten, freie Flüssigkeit, Harnstau bei retroperitonealer Fibrose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kontrastmittel-CT oder MRT von Abdomen und Becken sowie CT des Thorax zur Suche nach dem Primarius, nach Lebermetastasen, nach mesenterialer Fibrosierung mit Strahlenkranzmuster und zum Staging',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Nuklearmedizinische SOMATOSTATINREZEPTOR-Bildgebung, heute als 68-Gallium-DOTATATE-PET/CT: höchste Treffsicherheit für Primarius und Metastasen und zugleich Voraussetzung für die Peptidradiorezeptortherapie; sie hat die frühere Octreotid-Szintigraphie abgelöst',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'ECHOKARDIOGRAPHIE obligat bei jedem Karzinoid-Syndrom zur Frage der karzinoiden Herzerkrankung — Trikuspidalinsuffizienz und Pulmonalstenose; ergänzend NT-proBNP als Verlaufsparameter',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei führender Atemnot und Verdacht auf einen bronchialen Primarius: CT des Thorax und gegebenenfalls Bronchoskopie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Intubation des terminalen Ileums und Stufenbiopsien — zugleich Ausschluss eines Kolonkarzinoms und einer chronisch-entzündlichen Darmerkrankung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei negativer Koloskopie und weiter bestehendem Verdacht: Kapselendoskopie oder Ballonenteroskopie zur Darstellung des Dünndarms; Ösophagogastroduodenoskopie bei Verdacht auf einen Magen-NET',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HISTOLOGISCHE Sicherung aus dem Primärtumor oder aus einer Lebermetastase mit Immunhistochemie (Chromogranin A, Synaptophysin) und Bestimmung des Proliferationsindex Ki-67 mit Graduierung G1 bis G3 — sie entscheidet über die Therapie. Cave: Vor jeder Biopsie Octreotid-Prophylaxe wegen der Gefahr einer karzinoiden Krise',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei jungem Erkrankungsalter, multiplen Tumoren oder verdächtiger Familienanamnese: humangenetische Beratung und Screening auf MEN1 einschließlich Calcium, Parathormon, Prolaktin und Nüchtern-Gastrin',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Reizdarmsyndrom (Colon irritabile)',
+          unterscheidung: 'Die mit Abstand häufigste Fehldiagnose und der Grund für die jahrelange Verzögerung. Dagegen sprechen: nächtlicher Durchfall, der den Patienten aus dem Schlaf weckt, ungewollter Gewichtsverlust, Flush und jeder objektivierbare Laborbefund. Das Reizdarmsyndrom ist eine reine Ausschlussdiagnose ohne Nachtsymptomatik und ohne Alarmzeichen.',
+        },
+        {
+          dd: 'Klimakterium mit Hitzewallungen',
+          unterscheidung: 'Bei Frauen um das 50. Lebensjahr die naheliegendste Fehldeutung. Die klimakterische Hitzewallung dauert Minuten bis eine halbe Stunde, geht typischerweise MIT starkem Schwitzen einher, tritt gehäuft nachts auf und ist nicht durch Alkohol oder Käse reproduzierbar auslösbar. Der Flush ist kürzer, blitzartig, trocken und hat ein festes Auslösermuster. Zudem erklärt das Klimakterium weder Durchfall noch Gewichtsverlust.',
+        },
+        {
+          dd: 'Phäochromozytom',
+          unterscheidung: 'Ebenfalls anfallsartig, aber mit der klassischen Trias Kopfschmerz, Schwitzen und Palpitationen und vor allem mit BLUTDRUCKKRISEN. Beim Karzinoid-Syndrom fällt der Blutdruck während der Attacke eher ab und der Patient schwitzt gerade nicht. Abgrenzung über Metanephrine und Normetanephrine im Plasma oder im 24-Stunden-Sammelurin.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Wärmeintoleranz, Schwitzen, Tachykardie, Nervosität, Durchfall und Gewichtsverlust überschneiden sich stark. Die Hyperthyreose macht jedoch eine DAUERHAFTE, nicht anfallsartige Symptomatik, keinen scharf begrenzten Flush, häufig Tremor, Struma und gegebenenfalls eine endokrine Orbitopathie. Abgrenzung über TSH, fT3 und fT4.',
+        },
+        {
+          dd: 'Nahrungsmittelunverträglichkeiten (Laktose-, Fruktose- und Histaminintoleranz)',
+          unterscheidung: 'Beschwerden sind streng an die Nahrungsaufnahme gekoppelt, treten nicht nachts auf und führen nicht zu Gewichtsverlust in diesem Ausmaß. Die Histaminintoleranz kann zwar Rötung nach Rotwein und Käse auslösen, erklärt aber weder die sekretorische Nachtdiarrhö noch ein erhöhtes Chromogranin A. Abklärung über H2-Atemtests und Auslassversuch.',
+        },
+        {
+          dd: 'Systemische Mastozytose und Anaphylaxie',
+          unterscheidung: 'Flush, Diarrhö, Bronchospasmus und Blutdruckabfall können identisch aussehen. Für die Mastozytose sprechen Urticaria pigmentosa, positives Darier-Zeichen, Juckreiz, Osteoporose und eine erhöhte Serumtryptase. Die Anaphylaxie ist akut, einmalig, allergenbezogen und geht mit Urtikaria und Angioödem einher.',
+        },
+        {
+          dd: 'Chronisch-entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)',
+          unterscheidung: 'Ebenfalls chronische Diarrhö mit Gewichtsverlust und Nachtsymptomatik, aber typischerweise mit blutig-schleimigen Stühlen, erhöhten Entzündungsparametern, erhöhtem Calprotectin, Fisteln, perianalen Läsionen oder extraintestinalen Manifestationen. Kein Flush. Endoskopie mit Histologie sichert die Diagnose.',
+        },
+        {
+          dd: 'Zöliakie',
+          unterscheidung: 'Chronische Diarrhö, Steatorrhö, Gewichtsverlust und Eisenmangel, jedoch glutenabhängig und ohne Flush. Abgrenzung über Transglutaminase-IgA-Antikörper und Duodenalbiopsien mit Zottenatrophie.',
+        },
+        {
+          dd: 'Gastrinom mit Zollinger-Ellison-Syndrom',
+          unterscheidung: 'Ebenfalls ein neuroendokriner Tumor, aber mit rezidivierenden, therapierefraktären Ulzera, Sodbrennen und säurebedingter Diarrhö, die auf Protonenpumpenhemmer anspricht. Kein Flush. Abgrenzung über den Nüchtern-Gastrinspiegel.',
+        },
+        {
+          dd: 'VIPom (Verner-Morrison-Syndrom)',
+          unterscheidung: 'Massive wässrige Durchfälle über mehrere Liter täglich mit Hypokaliämie und Achlorhydrie („WDHA-Syndrom“), jedoch ohne Flush im engeren Sinne. Abgrenzung über den VIP-Spiegel im Serum.',
+        },
+        {
+          dd: 'Medulläres Schilddrüsenkarzinom',
+          unterscheidung: 'Kann ebenfalls Flush und Diarrhö verursachen und gehört wie der NET in den Formenkreis der neuroendokrinen Tumoren (MEN2). Abgrenzung über Calcitonin und CEA sowie die Schilddrüsensonographie mit Knotennachweis.',
+        },
+        {
+          dd: 'Kolorektales Karzinom',
+          unterscheidung: 'Bei positiver Familienanamnese die naheliegende Verdachtsdiagnose — ein Kandidat in Stuttgart lag genau deshalb falsch. Dagegen sprechen der Flush, das anfallsartige Muster und die Attackenauslöser; dafür sprächen peranale Blutabgänge, Änderung der Stuhlgewohnheiten und eine Anämie. Klärung durch Koloskopie.',
+        },
+        {
+          dd: 'Panikstörung',
+          unterscheidung: 'Anfälle mit Herzrasen, Hitzegefühl, Atemnot und Unruhe, aber mit ausgeprägter Angstsymptomatik, Parästhesien und Hyperventilation, ohne objektivierbare Hautrötung, ohne nächtlichen Durchfall und ohne Gewichtsverlust. Eine Panikstörung wird erst nach Ausschluss der somatischen Ursachen diagnostiziert.',
+        },
+        {
+          dd: 'Asthma bronchiale',
+          unterscheidung: 'Bei führender Atemnot mit Giemen naheliegend, erklärt aber weder Flush noch Diarrhö. Die Bodyplethysmographie zeigt eine reversible Obstruktion; beim Karzinoid tritt der Bronchospasmus attackengebunden gemeinsam mit dem Flush auf.',
+        },
+        {
+          dd: 'Medikamenten- und Alkoholwirkung',
+          unterscheidung: 'Nikotinsäure, Calciumantagonisten, Vancomycin („Red-Man-Syndrom“), Sulfonylharnstoffe mit Alkohol sowie der Alkoholflush bei Aldehyddehydrogenase-Mangel erzeugen ebenfalls Rötung. Sorgfältige Medikamentenanamnese einschließlich Selbstmedikation klärt dies.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomkontrolle und Notfallvorsorge',
+          items: [
+            'SOMATOSTATINANALOGA als Standard gegen Flush und Durchfall: Octreotid oder Lanreotid, initial gegebenenfalls kurzwirksames Octreotid subkutan, im Verlauf als monatliche Depotspritze — sie hemmen die Hormonfreisetzung und wirken zugleich ANTIPROLIFERATIV, verzögern also das Tumorwachstum',
+            'PROPHYLAXE DER KARZINOIDEN KRISE: vor jeder Narkose, Operation, Biopsie und Embolisation Octreotid intravenös; der Anästhesist muss ausdrücklich über die Diagnose informiert werden — dieses Detail wird in der Prüfung sehr häufig gefragt',
+            'Behandlung der eingetretenen karzinoiden Krise: sofort Octreotid intravenös als Bolus und Perfusor, großzügige Volumengabe, Sauerstoff, engmaschige Überwachung; Katecholamine sind zurückhaltend einzusetzen, da sie die Mediatorfreisetzung verstärken können',
+            'Konsequente Vermeidung der Auslöser: Alkohol, insbesondere Rotwein, scharfe und tyraminreiche Speisen, gereifter Käse, Schokolade, Nüsse sowie starke körperliche Belastung und Stress',
+            'Loperamid ergänzend gegen die Diarrhö, wenn die Somatostatinanaloga allein nicht ausreichen; bei therapierefraktärer Diarrhö kann Telotristat als Tryptophanhydroxylase-Hemmer eingesetzt werden',
+            'Substitution von Flüssigkeit und Elektrolyten, insbesondere Kalium, sowie der fettlöslichen Vitamine A, D, E und K',
+            'NIACIN-Substitution (Nikotinsäure), weil der Tryptophanverbrauch des Tumors einen Niacinmangel mit Pellagra verursachen kann',
+            'Protonenpumpenhemmer nur nach Abwägung — sie verfälschen das Chromogranin A und sollten vor Kontrollen pausiert werden',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Operative Behandlung (einzige kurative Option)',
+          items: [
+            'RADIKALE Resektion des Primärtumors mit Mesenterialwurzel- und Lymphadenektomie, wo immer technisch möglich — nur die Operation heilt',
+            'Beim Appendix-NET: Appendektomie genügt bei Tumoren unter 1 cm ohne Risikofaktoren; bei über 2 cm, bei Mesoappendixinfiltration oder G2-Histologie ist die onkologische Hemikolektomie rechts indiziert',
+            'CHOLEZYSTEKTOMIE im gleichen Eingriff, wenn eine Dauertherapie mit Somatostatinanaloga geplant ist — diese begünstigen die Gallensteinbildung; auch dies ist eine typische Prüfungsfrage',
+            'Auch im METASTASIERTEN Stadium kommt die Entfernung des Primärtumors in Betracht, weil sie Ileus und mesenteriale Komplikationen verhindert sowie Symptomatik und Prognose verbessert',
+            'Resektion oder lokale Ablation von Lebermetastasen (Radiofrequenz- oder Mikrowellenablation), gegebenenfalls als zytoreduktives Debulking; in ausgewählten Einzelfällen Lebertransplantation',
+            'Operation bei Ileus durch mesenteriale Fibrose sowie Klappenersatz am rechten Herzen bei symptomatischem Hedinger-Syndrom',
+            'Vor jedem Eingriff: Octreotid-Prophylaxe, Echokardiographie und interdisziplinäre Planung',
+          ],
+        },
+        {
+          label: 'Tumorgerichtete Therapie im Verlauf',
+          items: [
+            'Leberzielgerichtete Verfahren bei überwiegend hepatischer Metastasierung: transarterielle Embolisation und Chemoembolisation, alternativ selektive interne Radiotherapie',
+            'PEPTIDRADIOREZEPTORTHERAPIE mit Lutetium-177-DOTATATE bei somatostatinrezeptorpositiven, progredienten Tumoren — Voraussetzung ist der Rezeptornachweis im DOTATATE-PET/CT',
+            'Zielgerichtete Substanzen: Everolimus als mTOR-Inhibitor und Sunitinib als Tyrosinkinase-Inhibitor, letzterer vor allem beim Pankreas-NET',
+            'Interferon alfa als ältere, weiterhin mögliche Option zur Symptom- und Tumorkontrolle',
+            'Chemotherapie vor allem bei hoher Proliferationsrate und schlecht differenzierten Tumoren: platinbasierte Schemata mit Etoposid beim neuroendokrinen Karzinom, alternativ Capecitabin mit Temozolomid oder Streptozotocin-basierte Schemata beim gut differenzierten Pankreas-NET',
+            'Die Auswahl richtet sich nach Graduierung mit Ki-67, Somatostatinrezeptorstatus, Tumorlast, Wachstumsdynamik und Allgemeinzustand und wird stets im Tumorboard getroffen',
+          ],
+        },
+        {
+          label: 'Nachsorge, Begleitung und Aufklärung',
+          items: [
+            'Langfristige Verlaufskontrollen mit Chromogranin A, 5-HIES im 24-Stunden-Sammelurin und Schnittbildgebung in zunächst drei- bis sechsmonatigen Abständen, über viele Jahre fortgeführt, da Spätrezidive vorkommen',
+            'Regelmäßige ECHOKARDIOGRAPHIE zur Früherkennung und Verlaufsbeurteilung der karzinoiden Herzerkrankung',
+            'Interdisziplinäre Betreuung im Tumorboard und Anbindung möglichst an ein spezialisiertes NET-Zentrum',
+            'AUFKLÄRUNG über die oft GUTE Langzeitprognose auch im metastasierten Stadium: Der Patient fürchtet regelhaft eine rasche Verschlechterung, und diese realistische Einordnung ist ein wesentlicher, prüfungsrelevanter Teil des Gesprächs',
+            'Ernährungsberatung mit Auslöservermeidung, ausreichender Kalorien- und Eiweißzufuhr sowie Vitaminsubstitution',
+            'Psychoonkologische Unterstützung, Sozialdienst, Selbsthilfegruppen und Klärung der beruflichen Situation',
+            'Ausstellung eines NOTFALLAUSWEISES mit der Diagnose und dem Hinweis auf die notwendige Octreotid-Prophylaxe vor Eingriffen; Sonographie der Gallenblase unter Dauertherapie mit Somatostatinanaloga',
+            'Bei Verdacht auf MEN1 humangenetische Beratung und Familienscreening',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend von Differenzierung und Graduierung ab und ist bei gut differenzierten Tumoren deutlich besser, als die Patienten erwarten. Ein vollständig resezierter, lokalisierter NET G1 des Dünndarms oder der Appendix hat eine 5-Jahres-Überlebensrate von über 90 %. Auch im metastasierten Stadium liegt sie bei gut differenzierten Tumoren noch bei etwa 50 bis 70 %, mit medianen Überlebenszeiten von mehreren Jahren bis über ein Jahrzehnt unter moderner Therapie — die Erkrankung verläuft chronisch und ist gut kontrollierbar. Deutlich ungünstiger ist das schlecht differenzierte neuroendokrine Karzinom mit medianen Überlebenszeiten von unter einem Jahr. Prognostisch entscheidend sind außerdem die karzinoide Herzerkrankung, die unbehandelt zur Rechtsherzinsuffizienz führt, sowie mechanische Komplikationen durch die mesenteriale Fibrose. Für das Gespräch mit dem Patienten gilt: metastasiert bedeutet hier ausdrücklich nicht rasch tödlich.',
+      pruefungsfallen: [
+        'Der moderne Name muss genannt werden: „Karzinoid“ ist veraltet, korrekt heißt es NEUROENDOKRINER TUMOR (NET). In Freiburg wurde am 18.03.2025 exakt so gefragt: „Heutzutage hat es einen anderen Namen.“',
+        'Den Zusammenhang zwischen Karzinoid-Syndrom und LEBERMETASTASEN erklären können: Ohne Umgehung des hepatischen First-Pass-Effekts kein Syndrom. Wer das nicht sagt, wirkt, als habe er die Erkrankung nur auswendig gelernt.',
+        'Der NÄCHTLICHE Durchfall ist das Argument gegen das Reizdarmsyndrom — dieses Detail aktiv erfragen und in der Vorstellung ausdrücklich nennen.',
+        'Vor dem 24-Stunden-Sammelurin auf 5-HIES müssen Bananen, Ananas, Kiwi, Avocado, Tomaten, Nüsse und Paracetamol gemieden werden. Diese praktische Patientenaufklärung wird gern verlangt.',
+        'Vor JEDEM Eingriff — Narkose, Operation, Biopsie, Embolisation — Octreotid-Prophylaxe wegen der karzinoiden Krise, und den Anästhesisten informieren. Sehr gefragtes Detail.',
+        'Das Hedinger-Syndrom betrifft die RECHTSHERZKLAPPEN (Trikuspidalinsuffizienz, Pulmonalstenose), nicht die linken — weil die Mediatoren in der Lunge abgebaut werden. Die Echokardiographie gehört obligat in die Diagnostik.',
+        'Bei geplanter Dauertherapie mit Somatostatinanaloga an die CHOLEZYSTEKTOMIE im gleichen Eingriff denken (Gallensteinbildung).',
+        'Beim Flush ausdrücklich sagen, dass er OHNE Schwitzen abläuft und dass der Blutdruck eher ABFÄLLT — genau das trennt ihn vom Phäochromozytom, das mit Schwitzen und Blutdruckkrisen einhergeht.',
+        'Chromogranin A ist ein Verlaufs-, kein Beweismarker: Protonenpumpenhemmer, atrophische Gastritis und Niereninsuffizienz erhöhen es falsch.',
+        'Der Ki-67-Index mit der Graduierung G1 bis G3 steuert die Therapie — wer nach der Therapie gefragt wird, sollte die Graduierung von sich aus erwähnen.',
+        'Niacin nicht vergessen: Der Tumor verbraucht Tryptophan, dadurch droht eine Pellagra. Diese Frage wird als „Warum substituieren Sie ein Vitamin?“ gestellt.',
+        'In Freiburg wurde am 14.12.2023 gewarnt: Wer Morbus Crohn und Colitis ulcerosa als Differenzialdiagnose nennt, wird zu deren Diagnostik, Therapie UND Ernährungsempfehlungen ausgefragt — nur nennen, was man auch erklären kann.',
+        'In Stuttgart wurde am 22.05.2021 gerügt, der Kandidat habe nur nach dem Schmerz gefragt: „Fragen Sie über ALLE Symptome, nicht nur über eines.“ Beim Karzinoid ist gerade die Kombination die Diagnose.',
+        'Die Prognose nicht zu düster darstellen: Auch metastasiert leben gut differenzierte NET-Patienten oft viele Jahre. Diese Einordnung gehört ins Aufklärungsgespräch.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Sie haben den Verdacht auf ein Karzinoid. Heutzutage hat es einen anderen Namen — können Sie mir bitte erklären, wieso Sie an ein Karzinoid denken?',
+          antwort: 'Der moderne Begriff lautet neuroendokriner Tumor, kurz NET; „Karzinoid“ beziehungsweise Karzinoid-Syndrom bezeichnet heute nur noch das klinische Bild des funktionell aktiven Tumors. Ich denke daran, weil die Patientin eine typische Kombination bietet: anfallsartige Rötung von Gesicht und Hals mit Hitzegefühl, aber ohne Schwitzen, ausgelöst durch Rotwein, Käse und Stress; wässrige Durchfälle mit imperativem Drang, die sie auch nachts wecken; krampfartige, anfallsartige Bauchschmerzen; Herzrasen; sowie ein ungewollter Gewichtsverlust. Diese Kombination erklärt keine der einzelnen Differenzialdiagnosen.',
+        },
+        {
+          frage: 'Wo im Körper befindet sich das Karzinoid am häufigsten?',
+          antwort: 'Im Gastrointestinaltrakt. Am häufigsten im Dünndarm, insbesondere im terminalen Ileum, sowie in der Appendix — dort ist es der klassische Zufallsbefund im Appendektomiepräparat. Weitere Lokalisationen sind Rektum, Magen und Pankreas; außerhalb des Bauchraums vor allem die Lunge als Bronchuskarzinoid.',
+        },
+        {
+          frage: 'Sie nehmen Blut ab — welche Labordiagnostik veranlassen Sie?',
+          antwort: 'Spezifisch das Chromogranin A im Serum als Screening- und Verlaufsmarker und die 5-Hydroxyindolessigsäure im 24-Stunden-Sammelurin als spezifischsten Parameter. Dazu Basislabor mit Blutbild, Elektrolyten einschließlich Kalium, Nieren- und Leberwerten, CRP und Gerinnung. Zum Ausschluss der Differenzialdiagnosen TSH mit fT3 und fT4, Metanephrine und Normetanephrine, Serumtryptase, Gastrin, Calcitonin, Transglutaminase-Antikörper sowie Calprotectin und Erregerdiagnostik im Stuhl.',
+        },
+        {
+          frage: 'Sie machen eine Koloskopie — welche Komplikationen können auftreten?',
+          antwort: 'Die gefürchtetste ist die Perforation der Darmwand mit nachfolgender Peritonitis, die operativ versorgt werden muss. Daneben Blutungen, insbesondere nach Polypektomie oder Biopsie, Komplikationen der Sedierung mit Atemdepression und Kreislaufreaktion, Herz-Kreislauf-Ereignisse, seltener eine Infektion oder ein Postpolypektomie-Syndrom. Bei bekanntem Karzinoid-Syndrom kommt die karzinoide Krise durch Manipulation und Biopsie hinzu, weshalb vorher Octreotid gegeben wird.',
+        },
+        {
+          frage: 'Warum tritt das Karzinoid-Syndrom erst bei Lebermetastasen auf?',
+          antwort: 'Die vasoaktiven Substanzen aus einem Darmtumor gelangen über die Pfortader zuerst in die Leber und werden dort im First-Pass abgebaut, sodass sie systemisch nicht wirksam werden. Erst wenn Lebermetastasen die Mediatoren direkt in die Lebervenen abgeben oder der Tumor außerhalb des Pfortaderstromgebiets liegt — retroperitoneal, ovariell oder bronchial —, umgehen sie die Leber und lösen Flush, Diarrhö und Bronchospasmus aus. Ein Karzinoid-Syndrom bedeutet deshalb praktisch immer ein metastasiertes Stadium.',
+        },
+        {
+          frage: 'Was ist die karzinoide Krise, und wie beugen Sie ihr vor?',
+          antwort: 'Eine lebensbedrohliche massive Mediatorfreisetzung mit schwerem Flush, Blutdruckabfall bis zum Schock, Bronchospasmus und Herzrhythmusstörungen. Ausgelöst wird sie durch Narkoseeinleitung, Operation, Biopsie oder Embolisation. Vorbeugung: Octreotid intravenös vor jedem Eingriff und ausdrückliche Information des Anästhesisten. In der Krise gibt man sofort Octreotid als Bolus und Perfusor, Volumen und Sauerstoff; Katecholamine setzt man zurückhaltend ein, weil sie die Mediatorfreisetzung verstärken können.',
+        },
+        {
+          frage: 'Was verstehen Sie unter dem Hedinger-Syndrom?',
+          antwort: 'Die karzinoide Herzerkrankung: ein fibrotischer Umbau der Herzklappen durch das dauerhaft erhöhte Serotonin. Betroffen sind die RECHTSSEITIGEN Klappen mit Trikuspidalinsuffizienz und Pulmonalstenose, weil das Serotonin in der Lungenstrombahn abgebaut wird und die linksseitigen Klappen deshalb meist verschont bleiben. Klinisch zeigen sich Rechtsherzinsuffizienz mit gestauten Halsvenen, Beinödemen, Hepatomegalie und Aszites. Deshalb gehört die Echokardiographie obligat zur Diagnostik und in die Nachsorge.',
+        },
+        {
+          frage: 'Worauf muss die Patientin vor dem 24-Stunden-Sammelurin achten?',
+          antwort: 'Sie muss 48 Stunden vorher serotoninreiche Nahrungsmittel meiden: Bananen, Ananas, Kiwi, Pflaumen, Avocado, Tomaten, Auberginen und Nüsse, insbesondere Walnüsse. Ebenso müssen bestimmte Medikamente pausiert werden, vor allem Paracetamol, Serotonin-Wiederaufnahmehemmer und Hustensäfte mit Guaifenesin. Außerdem muss der Urin über volle 24 Stunden vollständig gesammelt werden — die erste Morgenportion wird verworfen, die des Folgetages gehört dazu.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie das Karzinoid-Syndrom vom Reizdarmsyndrom?',
+          antwort: 'Über drei Punkte: Erstens weckt der sekretorische Durchfall des NET den Patienten NACHTS, der Reizdarm tut das nicht. Zweitens besteht ein ungewollter Gewichtsverlust, den der Reizdarm nicht erklärt. Drittens gibt es beim NET den Flush und objektivierbare Befunde — Chromogranin A, 5-HIES, Bildgebung. Das Reizdarmsyndrom ist eine reine Ausschlussdiagnose ohne Alarmzeichen.',
+        },
+        {
+          frage: 'Wie grenzen Sie das Karzinoid-Syndrom gegen ein Phäochromozytom ab?',
+          antwort: 'Beide verlaufen anfallsartig, aber das Phäochromozytom zeigt die Trias Kopfschmerz, Schwitzen und Palpitationen mit hypertensiven Krisen. Beim Karzinoid-Syndrom fällt der Blutdruck in der Attacke eher ab, und der Flush verläuft typischerweise OHNE Schwitzen. Laborchemisch entscheiden die Metanephrine und Normetanephrine im Plasma oder im 24-Stunden-Sammelurin gegenüber Chromogranin A und 5-HIES.',
+        },
+        {
+          frage: 'Was sagt Ihnen der Ki-67-Index?',
+          antwort: 'Er ist der immunhistochemisch bestimmte Proliferationsindex und gibt den Anteil sich teilender Tumorzellen an. Daraus ergibt sich die WHO-Graduierung: G1 unter 3 %, G2 zwischen 3 und 20 %, G3 über 20 % bei erhaltener Differenzierung; ein schlecht differenziertes neuroendokrines Karzinom liegt deutlich darüber. Die Graduierung entscheidet über die Therapie — G1 und G2 werden mit Somatostatinanaloga, Peptidradiorezeptortherapie und zielgerichteten Substanzen behandelt, das Karzinom primär platinbasiert chemotherapiert.',
+        },
+        {
+          frage: 'Wie behandeln Sie das Karzinoid-Syndrom?',
+          antwort: 'Symptomatisch mit Somatostatinanaloga, Octreotid oder Lanreotid, die zugleich antiproliferativ wirken, dazu Auslöservermeidung, Loperamid, Flüssigkeits-, Elektrolyt-, Vitamin- und Niacinsubstitution. Kurativ ist allein die radikale Resektion des Primärtumors mit Lymphadenektomie, bei geplanter Dauertherapie mit Somatostatinanaloga zusammen mit der Cholezystektomie. Im metastasierten Verlauf kommen leberzielgerichtete Verfahren, die Peptidradiorezeptortherapie mit Lutetium-177-DOTATATE, Everolimus oder Sunitinib, Interferon und bei hoher Proliferationsrate eine Chemotherapie hinzu. Vor jedem Eingriff Octreotid-Prophylaxe.',
+        },
+        {
+          frage: 'Warum substituieren Sie bei diesen Patienten Niacin?',
+          antwort: 'Weil der Tumor Tryptophan für die Serotoninsynthese verbraucht — bis zu 60 % des Nahrungstryptophans. Tryptophan ist zugleich die Vorstufe der Nikotinsäure, sodass ein Niacinmangel entsteht. Klinisch droht eine Pellagra mit lichtempfindlicher Dermatitis, Diarrhö und Wesensänderung, die durch Substitution verhindert wird.',
+        },
+        {
+          frage: 'Warum entfernt man bei diesen Patienten die Gallenblase?',
+          antwort: 'Weil Somatostatinanaloga die Gallenblasenmotilität hemmen und die Gallensteinbildung fördern. Ist eine Dauertherapie mit Octreotid oder Lanreotid geplant und wird ohnehin abdominell operiert, entfernt man die Gallenblase prophylaktisch im gleichen Eingriff, um eine spätere Cholezystitis unter laufender Therapie zu vermeiden. Andernfalls kontrolliert man die Gallenblase sonographisch.',
+        },
+        {
+          frage: 'Sie nennen Morbus Crohn und Colitis ulcerosa als Differenzialdiagnosen — welche Diagnostik und Therapie und welche Ernährungsempfehlungen?',
+          antwort: 'Diagnostik: Labor mit CRP, Blutbild, Eisenstatus und Calprotectin im Stuhl, Erregerdiagnostik einschließlich Clostridioides difficile, Sonographie des Darms, Ileokoloskopie mit Stufenbiopsien und beim Morbus Crohn zusätzlich MR-Enterographie. Therapie: im Schub Glukokortikoide, bei der Colitis ulcerosa Mesalazin, im Verlauf Azathioprin, Biologika wie Anti-TNF-Antikörper, Vedolizumab oder Ustekinumab; operativ bei Stenosen, Fisteln, Abszessen oder therapierefraktärem Verlauf. Ernährung: keine allgemeine Diät, sondern individuelle Meidung unverträglicher Speisen, ausreichend Kalorien und Eiweiß, Substitution von Eisen, Vitamin B12, Vitamin D und Calcium, im akuten Schub leichte, ballaststoffarme Kost, dazu Ernährungsberatung und Nikotinkarenz beim Morbus Crohn.',
+        },
+        {
+          frage: 'Wie ist die Prognose, und was sagen Sie der Patientin?',
+          antwort: 'Ich würde ihr sagen, dass es sich um einen langsam wachsenden Tumor handelt und dass auch dann, wenn bereits Absiedlungen in der Leber vorliegen, viele Patienten über viele Jahre gut leben — die 5-Jahres-Überlebensrate liegt bei gut differenzierten Tumoren auch im metastasierten Stadium bei etwa 50 bis 70 %. Wichtig ist die Behandlung in einem spezialisierten Zentrum und die regelmäßige Nachsorge. Deutlich ungünstiger ist nur das schlecht differenzierte neuroendokrine Karzinom.',
+        },
+      ],
+      merksatz: 'Flush ohne Schwitzen + Durchfall, der nachts weckt + jahrelang „Reizdarm“ = neuroendokriner Tumor. Das Syndrom bedeutet Lebermetastasen; gesichert wird es mit Chromogranin A, 5-HIES im 24-Stunden-Urin und DOTATATE-PET/CT. Herz rechts anschauen (Hedinger), vor jedem Eingriff Octreotid geben — und dem Patienten sagen, dass metastasiert hier nicht schnell tödlich heißt.',
+      linkedCaseIds: [
+        'case-karzinoid',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-ct',
+        'auf-sonographie',
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-abszess',
+      pathology: 'Weichteilabszess (Gesäßabszess)',
+      specialty: 'Dermatologie',
+      definition: 'Ein Abszess ist eine abgekapselte Eiteransammlung in einem NICHT vorbestehenden Gewebehohlraum, der durch eine bakterielle Infektion mit Gewebeeinschmelzung entsteht und von einer bindegewebig-granulozytären Abszessmembran umgeben wird (Abgrenzung zum Empyem = Eiteransammlung in einem VORBESTEHENDEN Hohlraum, etwa Pleura oder Gallenblase). Der Weichteilabszess betrifft Haut und Unterhaut sowie tiefer gelegene Weichteile; am Gesäß entsteht er typischerweise als Injektions- oder Spritzenabszess nach intramuskulärer Injektion, als Furunkel-/Karbunkelfolge oder ausgehend von einem Pilonidalsinus. Entscheidend ist der Reifegrad: Solange die Infektion diffus infiltriert und noch nicht eingeschmolzen ist (Phlegmone, Zellulitis), wird antibiotisch behandelt; sobald sich eine abgekapselte Eiterhöhle gebildet hat — klinisch fassbar als FLUKTUATION —, gilt der chirurgische Grundsatz „ubi pus, ibi evacua“.',
+      aetiologie: 'Häufigster Erreger ist mit Abstand Staphylococcus aureus (etwa 70–80 % der Haut- und Weichteilabszesse), gefolgt von Streptokokken; bei perianalem, perinealem und abdominellem Sitz überwiegen Mischinfektionen mit gramnegativen Darmkeimen (E. coli, Klebsiellen) und Anaerobiern (Bacteroides). Bei Rezidiven, Vorbehandlung, Pflegeheim- oder Krankenhauskontakt sowie bei intravenösem Drogenkonsum ist an MRSA und an Panton-Valentine-Leukozidin-bildende Stämme zu denken. Eintrittspforten sind Bagatellverletzungen, Haarfollikel (Furunkel, Karbunkel), Rasur und mechanische Reibung, Insektenstiche, INJEKTIONEN (Spritzenabszess), Katheter und Drainagen, Fremdkörper, ein Pilonidalsinus oder eine Analdrüse (Kryptoglandulärer Perianalabszess). Pathophysiologisch führt die bakterielle Besiedelung zu einer granulozytären Entzündung mit proteolytischer Gewebeeinschmelzung; die entstehende Abszessmembran kapselt den Herd ab, senkt den pH-Wert und den Sauerstoffpartialdruck und macht die Höhle für Antibiotika und Immunzellen praktisch unerreichbar — dies ist der pharmakologische Grund, warum Antibiotika allein einen reifen Abszess nicht heilen können.',
+      risikofaktoren: [
+        'DIABETES MELLITUS — der wichtigste Faktor: Hyperglykämie stört Granulozytenfunktion, Chemotaxis und Mikrozirkulation; nicht selten wird ein Diabetes anlässlich eines Abszesses erstmals entdeckt',
+        'Adipositas und Übergewicht (Hautfalten, Schwitzen, Reibung, schlechtere Durchblutung des Fettgewebes)',
+        'Rauchen — insbesondere für die Acne inversa und für Rezidive',
+        'Immunsuppression: Kortisontherapie, immunsuppressive und zytostatische Therapie, HIV-Infektion, Neutropenie, hämatologische Erkrankungen',
+        'chronische Niereninsuffizienz, Leberzirrhose, Malnutrition, Alkoholabusus',
+        'intravenöser Drogenkonsum (Injektionsabszesse, oft Mischinfektionen und MRSA)',
+        'intramuskuläre und subkutane Injektionen, Katheter, Drainagen und Fremdkörper (iatrogener Spritzenabszess)',
+        'mangelnde Hygiene, aber ebenso mechanische Reizung durch RASUR, Reibung, enge Kleidung, langes Sitzen und Schwitzen',
+        'vorbestehende Hauterkrankungen: Acne inversa, Ekzem, Psoriasis, Interdigitalmykose, Atherome',
+        'nasale Besiedelung mit Staphylococcus aureus und rezidivierende Abszesse in der Eigenanamnese',
+        'chronisch-entzündliche Darmerkrankungen, insbesondere Morbus Crohn (perianale Abszesse und Fisteln)',
+        'Pilonidalsinus (Steißbeinfistel), besonders bei jungen, stark behaarten Männern mit sitzender Tätigkeit',
+      ],
+      klinik: [
+        {
+          text: 'Seit Tagen zunehmend SCHMERZHAFTE, geschwollene Stelle; der Schmerz ist pochend und klopfend und besteht auch in RUHE sowie nachts',
+        },
+        {
+          text: 'Klassische Entzündungszeichen: Rötung (Rubor), Überwärmung (Calor), derbe schmerzhafte Schwellung (Tumor), Schmerz (Dolor) und Funktionseinschränkung (Functio laesa)',
+        },
+        {
+          text: 'FLUKTUATION als entscheidendes Merkmal der eingeschmolzenen, abgekapselten Eiterhöhle — sie trennt den drainagepflichtigen Abszess von der noch nicht eingeschmolzenen Phlegmone',
+        },
+        {
+          text: 'Am Gesäß: Unmöglichkeit zu sitzen, Schonhaltung, Liegen auf der Gegenseite, schmerzbedingte Schlafstörung',
+        },
+        {
+          text: 'Gelegentlich zentrale Pustel, zentrale Nekrose oder ein spontan sezernierender Fistelgang mit Entleerung von Eiter',
+        },
+        {
+          text: 'Regionale schmerzhafte Lymphknotenschwellung und gelegentlich eine Lymphangitis („roter Strich“)',
+        },
+        {
+          text: 'Fieber, Schüttelfrost, Nachtschweiß und allgemeines Krankheitsgefühl bei systemischer Beteiligung',
+        },
+        {
+          text: 'Anamnestisch häufig eine fassbare Eintrittspforte: Injektion, Bagatellverletzung, Rasur, Insektenstich, Furunkel',
+        },
+        {
+          text: 'Kleiner, oberflächlicher Abszess ganz ohne Fieber und ohne Allgemeinsymptome — vollständig ambulant behandelbar',
+          atypisch: true,
+        },
+        {
+          text: 'Tief gelegener Abszess (intramuskulär, subfaszial, im kleinen Becken) mit nur diskretem äußerem Befund, aber hohem Fieber und starken Schmerzen — Diagnose erst durch Sonographie, CT oder MRT',
+          atypisch: true,
+        },
+        {
+          text: 'Beim immunsupprimierten, neutropenen oder diabetischen Patienten fehlende oder nur geringe Entzündungszeichen trotz ausgedehntem Befund — der klinische Eindruck täuscht',
+          atypisch: true,
+        },
+        {
+          text: 'Blande, kaum schmerzhafte, kalt imponierende Schwellung beim „kalten Abszess“ (Tuberkulose, Senkungsabszess)',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Sepsis mit Fieber, Tachykardie und Hypotonie bei zunächst übersehenem tiefem Herd',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Reifegrad der Weichteilinfektion — die therapieentscheidende Einteilung',
+          inhalt: 'Zellulitis/Phlegmone: diffuse, noch nicht eingeschmolzene bakterielle Infiltration von Kutis, Subkutis und Faszienräumen, klinisch teigige Schwellung OHNE Fluktuation, sonographisch echoreiches, ödematös aufgelockertes Gewebe ohne Flüssigkeitsformation — Therapie antibiotisch, keine Inzision. Eingeschmolzener Abszess: abgekapselte Eiterhöhle mit Abszessmembran, klinisch FLUKTUATION, sonographisch echoarme, septierte Formation mit Randsaum und Distanzphänomen — Therapie Inzision und Drainage, Antibiotika nur ergänzend.',
+        },
+        {
+          name: 'Einteilung nach Lokalisation und Tiefe',
+          inhalt: 'Oberflächlich (kutan/subkutan: Furunkel, Karbunkel, Injektionsabszess) versus tief (intramuskulär, subfaszial, Pyomyositis, intraabdominell, intrapelvin). Nach Sitz mit jeweils eigener Problematik: Gesäß (Spritzenabszess, Pilonidalsinus), perianal/perineal (Fistelbildung, Morbus Crohn), Gesicht im Bereich von Oberlippe und Nase (Gefahr der Sinus-cavernosus-Thrombose), Achsel und Leiste (Acne inversa), Hand (Panaritium, Sehnenscheidenphlegmone), Mamma (puerperale und nichtpuerperale Mastitis).',
+        },
+        {
+          name: 'Schweregradeinteilung der Haut- und Weichteilinfektionen (Klassen I–IV nach Eron)',
+          inhalt: 'Klasse I: lokale Infektion ohne Allgemeinsymptome und ohne Komorbidität — ambulant, orale Therapie. Klasse II: systemische Zeichen ODER relevante Komorbidität wie Diabetes oder Adipositas — kurzstationär oder engmaschig ambulant. Klasse III: deutliche systemische Beeinträchtigung (Fieber, Tachykardie, Tachypnoe, Hypotonie) — stationär, intravenöse Therapie. Klasse IV: Sepsis oder lebensbedrohliche nekrotisierende Infektion — Intensivtherapie und sofortiges chirurgisches Debridement.',
+        },
+        {
+          name: 'LRINEC-Score (Laboratory Risk Indicator for Necrotizing Fasciitis)',
+          inhalt: 'Laborscore zur Risikoabschätzung einer nekrotisierenden Fasziitis aus CRP, Leukozyten, Hämoglobin, Natrium, Kreatinin und Glukose (0–13 Punkte). Ab 6 Punkten mittleres, ab 8 Punkten hohes Risiko. WICHTIG als Prüfungspunkt: Der Score ergänzt die klinische Beurteilung, ersetzt sie aber NICHT — ein niedriger Score schließt eine nekrotisierende Fasziitis nicht aus, und bei klinischem Verdacht wird ohne Verzögerung operiert.',
+        },
+      ],
+      redFlags: [
+        'Rasch — innerhalb von Stunden — fortschreitende Rötung mit UNVERHÄLTNISMÄSSIG STARKEN Schmerzen bei zunächst blandem Hautbefund, livide Verfärbung, Blasenbildung, Krepitation, Hautnekrosen und schweres Krankheitsgefühl mit Kreislaufinstabilität → NEKROTISIERENDE FASZIITIS, chirurgischer Notfall mit sofortigem radikalem Debridement',
+        'Sepsiszeichen: Fieber oder Hypothermie, Tachykardie, Tachypnoe, Hypotonie, Verwirrtheit, Oligurie, Laktaterhöhung → sofortige Blutkulturen, Volumen, intravenöse Antibiose und Herdsanierung innerhalb einer Stunde',
+        'Gesichtsabszess im Bereich von Oberlippe und Nase (Nasolabialdreieck) → Gefahr der fortgeleiteten Sinus-cavernosus-Thrombose über die Vena angularis; keine Manipulation, keine Ausdrückversuche, Sprech- und Kauverbot, stationäre intravenöse Antibiose',
+        'PERIANALER Abszess → Gefahr der Fistelbildung und Hinweis auf einen Morbus Crohn; komplexe und rezidivierende Fisteln erfordern MRT und proktologische Mitbetreuung',
+        'Abszess beim immunsupprimierten, neutropenen oder diabetischen Patienten mit ausgedehnter Beteiligung → geringe klinische Zeichen trotz schwerem Befund, rasche Progredienz, niedrige Schwelle zur Bildgebung und zur stationären Aufnahme',
+        'Handinfektionen: Panaritium, V-Phlegmone und Sehnenscheidenphlegmone (Kanavel-Zeichen) → dringliche handchirurgische Vorstellung wegen drohenden Funktionsverlusts',
+        'Abszess bei liegender Gelenk- oder Gefäßprothese oder bei Herzklappenersatz → hämatogene Streuung mit Protheseninfektion und Endokarditis',
+        'Neu aufgetretene neurologische Ausfälle, Rückenschmerz mit Fieber → spinaler Epiduralabszess, sofortiges MRT',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Beginn und Verlauf, Schmerzcharakter (pochend, auch in Ruhe), Fieber und Schüttelfrost, Eintrittspforte (Injektion, Verletzung, Rasur, Insektenstich), Vorbehandlung, frühere Abszesse und Rezidive',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Risikofaktorenanamnese: Diabetes mellitus, Adipositas, Rauchen, Immunsuppression und Kortisontherapie, intravenöser Drogenkonsum, Hauterkrankungen, perianale Beschwerden und Stuhlveränderungen (Morbus Crohn), Tetanusschutz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion und Palpation: Ausdehnung bestimmen und den Rötungsrand mit wasserfestem Stift markieren, Prüfung auf FLUKTUATION, Suche nach zentraler Pustel, Nekrose, Krepitation oder Fistelgang; Untersuchung der regionalen Lymphknoten und auf Lymphangitis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter und Erfassung von Sepsiszeichen (qSOFA); Bestimmung von Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Bei Sitz am Gesäß und perianal: Inspektion der Rima ani und des Steißbeins (Primärporen eines Pilonidalsinus), rektal-digitale Untersuchung und Suche nach einer äußeren Fistelöffnung; Inspektion der Prädilektionsstellen der Acne inversa (Achseln, Leisten, Gesäßfalte, submammär)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild (Leukozytose mit Linksverschiebung) und CRP; Procalcitonin und Laktat bei Sepsisverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'BLUTZUCKER und HbA1c bei jedem Abszess — ein Diabetes wird hier häufig erstmals auffällig, und ein entgleister Diabetes erklärt Verlauf und Rezidivneigung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenwerte, Elektrolyte, Leberwerte und Gerinnung als Basis vor einer Intervention; bei Verdacht auf nekrotisierende Fasziitis zusätzlich CK und die Parameter des LRINEC-Scores',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen (zwei Paare, aerob und anaerob) bei Fieber und Sepsisverdacht, möglichst vor der ersten Antibiotikagabe',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SONOGRAPHIE der Weichteile mit hochauflösendem Linearschallkopf — die steuernde Untersuchung: Abgrenzung der noch nicht eingeschmolzenen Infiltration vom drainagepflichtigen Abszess (echoarme, septierte Formation mit Randsaum, Distanzphänomen, kein Farbdopplersignal im Inhalt), Bestimmung von Größe, Tiefe und Beziehung zu Gefäßen und Faszie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT mit Kontrastmittel bei tiefem, perianalem oder ausgedehntem Befund, bei Verdacht auf Faszien- oder Muskelbeteiligung und zur FISTELSUCHE (Goldstandard bei perianalen Fisteln); CT bei intraabdominellem oder intrapelvinem Sitz und in der Notfallsituation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelles Röntgen bei Verdacht auf Fremdkörper, Gasbildung im Weichteilgewebe oder begleitende Osteomyelitis; Echokardiographie bei Sepsis mit Verdacht auf Endokarditis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ABSTRICH aus der Tiefe der Abszesshöhle bei der Eröffnung mit Kultur und Antibiogramm — besonders bei Rezidiv, Risikopatient, Immunsuppression oder MRSA-Verdacht; ein oberflächlicher Hautabstrich ist wertlos, weil er nur die Standortflora erfasst',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Wertigkeit der Inzision selbst: Beurteilung von Ausdehnung, Kammerung und Tiefe; grau-livide, sich stumpf leicht ablösende Faszie mit trübem, dünnflüssigem Sekret („dishwater pus“) statt cremigem Eiter beweist praktisch die nekrotisierende Fasziitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Proktoskopie und Rektoskopie bei perianalem Sitz zur Fistelsuche; bei rezidivierendem perianalem Befall Koloskopie und Stufenbiopsien zum Ausschluss eines Morbus Crohn',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei atypischem, therapierefraktärem oder schmerzarm-derbem Befund Gewebeprobe zur Histologie und erweiterten Mikrobiologie (Tuberkulose, atypische Mykobakterien, Pilze) sowie zum Ausschluss eines Weichteiltumors',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Nekrotisierende Fasziitis',
+          unterscheidung: 'Die gefährlichste DD und ein chirurgischer Notfall: Schmerzen unverhältnismäßig stark im Vergleich zum Hautbefund, rasch über Stunden fortschreitende Rötung, livide Verfärbung, Blasen, Krepitation, Hautnekrose, schweres Krankheitsgefühl und Kreislaufinstabilität; Labor mit hohem CRP, Leukozytose, Hyponatriämie und Kreatininanstieg (LRINEC-Score). Therapie ist das sofortige radikale Debridement, nicht die einfache Inzision.',
+        },
+        {
+          dd: 'Phlegmone / Zellulitis (noch nicht eingeschmolzen)',
+          unterscheidung: 'Diffuse, teigige, unscharf begrenzte Infiltration OHNE Fluktuation und ohne abgekapselte Höhle; sonographisch ödematöses Gewebe ohne Flüssigkeitsformation. Therapie antibiotisch — eine Inzision wäre hier falsch. Genau diese Abgrenzung bestimmt das Vorgehen.',
+        },
+        {
+          dd: 'Erysipel (Wundrose)',
+          unterscheidung: 'Flächige, SCHARF BEGRENZTE, flammend rote und überwärmte Hautrötung mit zungenförmigen Ausläufern, hohes Fieber mit Schüttelfrost, meist an Unterschenkel oder Gesicht, Eintrittspforte oft eine Rhagade oder Interdigitalmykose; KEINE Fluktuation, Erreger meist Streptokokken der Gruppe A. Rein antibiotische Therapie mit Penicillin.',
+        },
+        {
+          dd: 'Furunkel und Karbunkel, Follikulitis',
+          unterscheidung: 'Vom Haarfollikel ausgehende Staphylokokkeninfektion; das Furunkel zeigt einen zentralen Nekrosepfropf, das Karbunkel entsteht durch Konfluenz mehrerer Furunkel mit mehreren Öffnungen. Fließender Übergang zum Abszess — entscheidend ist auch hier die Einschmelzung.',
+        },
+        {
+          dd: 'Pilonidalsinus (Steißbeinfistel)',
+          unterscheidung: 'Beim Gesäß die wichtigste Abgrenzung: Lokalisation in der Rima ani über dem Steißbein, sichtbare Primärporen und eingespießte Haare, typischerweise junge, behaarte Männer mit sitzender Tätigkeit, häufig rezidivierend. Der akute Abszess wird zunächst entlastet, die definitive Sanierung erfolgt elektiv nach Abklingen der Entzündung.',
+        },
+        {
+          dd: 'Perianalabszess und Analfistel',
+          unterscheidung: 'Meist kryptoglandulärer Ursprung; Schmerzen perianal mit Verstärkung beim Stuhlgang und beim Sitzen, Sekret- oder Eiteraustritt, Fieber. Hohe Fistelrate; bei rezidivierendem oder komplexem Verlauf an einen Morbus Crohn denken. MRT zur Fistelklassifikation, rektale Untersuchung obligat.',
+        },
+        {
+          dd: 'Acne inversa (Hidradenitis suppurativa)',
+          unterscheidung: 'Häufig jahrelang verkannt: rezidivierende schmerzhafte Knoten, Abszesse, Fistelgänge und Narbenstränge in Achseln, Leisten, Gesäßfalte und submammär; typisch bei Rauchern und Übergewichtigen. Behandlung nicht durch wiederholte Inzisionen, sondern durch Nikotinkarenz, Adalimumab und weiträumige Exzision (Hurley-Stadien I–III).',
+        },
+        {
+          dd: 'Infiziertes Atherom bzw. infizierte Epidermalzyste',
+          unterscheidung: 'Vorbestehende, über Monate langsam gewachsene, verschiebliche Zyste mit zentralem Porus, die sekundär entzündet ist. Nach Abklingen der akuten Entzündung muss die Zystenwand vollständig exzidiert werden, sonst Rezidiv.',
+        },
+        {
+          dd: 'Injektionsabszess bei intravenösem Drogenkonsum',
+          unterscheidung: 'Typisch an Armen, Leisten und Beinen, multiple Einstichstellen, vernarbte Haut, häufig Mischinfektionen, MRSA und Anaerobier; erhöhtes Risiko für Endokarditis, Hepatitis und HIV. Immer nach Begleitinfektionen suchen.',
+        },
+        {
+          dd: 'Bursitis (praepatellaris, olecrani, trochanterica)',
+          unterscheidung: 'Umschriebene, prall-elastische Schwellung genau über dem Schleimbeutel, bewegungs- und druckabhängiger Schmerz; die septische Bursitis zeigt zusätzlich Rötung, Überwärmung und Fieber. Abgrenzung sonographisch.',
+        },
+        {
+          dd: 'Weichteiltumor / Sarkom',
+          unterscheidung: 'Langsam über Monate wachsende, derbe, meist SCHMERZLOSE Schwellung ohne Entzündungszeichen und ohne Fieber. Vor jeder Inzision einer unklaren Weichteilraumforderung daran denken — eine unbedachte Inzision kontaminiert das Kompartiment und verschlechtert die onkologische Prognose.',
+        },
+        {
+          dd: 'Herpes zoster im Anfangsstadium',
+          unterscheidung: 'Brennender, streng segmentaler Schmerz mit Allodynie oft ein bis drei Tage VOR dem Auftreten der gruppierten Bläschen auf gerötetem Grund; Ausbreitung halbseitig und dermatombezogen, keine Fluktuation.',
+        },
+        {
+          dd: 'Tiefe Beinvenenthrombose (bei Lokalisation an der Extremität)',
+          unterscheidung: 'Einseitige teigige Schwellung, Umfangsdifferenz, Spannungsgefühl, livide Verfärbung und Wadendruckschmerz ohne umschriebene Fluktuation und meist ohne hohes Fieber; Wells-Score, D-Dimere und Kompressionssonographie.',
+        },
+        {
+          dd: 'Kalter Abszess (Tuberkulose, Senkungsabszess)',
+          unterscheidung: 'Blande, wenig schmerzhafte, nicht überwärmte Schwellung ohne wesentliche Entzündungszeichen, oft bei Wirbelsäulentuberkulose entlang des Musculus psoas; Diagnose über Bildgebung, Punktion mit spezieller Mikrobiologie und Histologie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Chirurgische Entlastung — die entscheidende Maßnahme',
+          items: [
+            'Grundsatz: „ubi pus, ibi evacua“ — der reife, eingeschmolzene Abszess wird ERÖFFNET und ENTLASTET; Antibiotika allein heilen ihn nicht, weil sie die abgekapselte Höhle nicht ausreichend erreichen',
+            'INZISION und Drainage in ausreichender Größe über der Stelle maximaler Fluktuation, in Lokalanästhesie oder bei ausgedehntem, tiefem Befund in Narkose (die Lokalanästhesie wirkt im sauren, entzündeten Gewebe schlecht)',
+            'Spreizen und Ausräumen der Abszesshöhle mit stumpfem Lösen aller Kammern und Septen sowie ausgiebige Spülung',
+            'ABSTRICH aus der Tiefe der Höhle für Kultur und Antibiogramm bei der Eröffnung',
+            'offene Wundbehandlung mit Tamponade oder Lasche statt primärem Wundverschluss, damit die Höhle von der Tiefe her granuliert und sich kein neuer Verhalt bildet; bei großen Höhlen ggf. Vakuumtherapie',
+            'regelmäßige Verbandwechsel und Wundkontrollen; bei ausbleibender Besserung Revision und erneute Bildgebung zum Ausschluss eines Restverhalts',
+            'eine alleinige PUNKTION ist keine ausreichende Therapie — die Höhle füllt sich innerhalb weniger Tage erneut; bei Verdacht auf eine nekrotisierende Fasziitis sofortiges radikales Debridement mit geplanter Second-Look-Operation',
+            'Sonderfälle: Gesichtsabszess im Nasolabialdreieck nicht manipulieren (Sinus-cavernosus-Thrombose), tiefe intraabdominelle Abszesse ggf. CT-gesteuert perkutan drainieren, Handinfektionen handchirurgisch versorgen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Begleitende medikamentöse Therapie mit klarer Indikation',
+          items: [
+            'ausreichende ANALGESIE als Basis: Metamizol, Ibuprofen oder Paracetamol, bei starken Schmerzen ergänzend ein schwaches Opioid; nach Möglichkeit orale oder intravenöse Gabe statt weiterer intramuskulärer Injektionen',
+            'ANTIBIOTIKA nur ERGÄNZEND, niemals als Ersatz für die Inzision. Indikationen: ausgedehnte umgebende Weichteilinfektion, Lymphangitis, Fieber und Allgemeinsymptome, Immunsuppression, Diabetes mellitus, Gesichtslokalisation, Herzklappen- oder Gelenkersatz, sehr großer oder multipler Befund',
+            'kalkulierte, staphylokokkenwirksame Therapie: Cefazolin oder Cefuroxim, Flucloxacillin oder Amoxicillin/Clavulansäure; bei perianalem Sitz zusätzlich anaerobierwirksam (Metronidazol)',
+            'bei PENICILLINALLERGIE: Clindamycin (zusätzlich toxinhemmend) oder ein Makrolid wie Clarithromycin; bei MRSA-Verdacht Vancomycin, Linezolid oder Cotrimoxazol',
+            'Anpassung nach Erregernachweis und Antibiogramm, Deeskalation sobald möglich; bei nekrotisierender Fasziitis breite Kombination aus Penicillin/Carbapenem plus Clindamycin plus MRSA-Abdeckung',
+            'Überprüfung und gegebenenfalls Auffrischung des TETANUSSCHUTZES',
+            'perioperativ Blutzuckerkontrolle und bedarfsgerechte Insulingabe, Thromboseprophylaxe bei Immobilisation',
+          ],
+        },
+        {
+          label: 'Behandlung der Ursache und der Risikofaktoren',
+          items: [
+            'Einstellung eines neu entdeckten oder entgleisten DIABETES mellitus: HbA1c, Therapieanpassung, diabetologische Anbindung und Schulung',
+            'Gewichtsreduktion und Aufbau regelmäßiger Bewegung; Reduktion des Alkoholkonsums',
+            'NIKOTINKARENZ, insbesondere bei Verdacht auf oder gesicherter Acne inversa und bei Rezidivneigung',
+            'Hautpflege und Vermeidung mechanischer Reizung: keine Nassrasur der betroffenen Region, atmungsaktive Kleidung, Sitzentlastung, Schwitzen reduzieren',
+            'Sanierung einer Staphylokokken-Besiedelung bei rezidivierenden Abszessen: Mupirocin-Nasensalbe über fünf Tage, antiseptische Ganzkörper- und Haarwaschungen, Wäsche- und Handtuchhygiene, ggf. Umgebungsuntersuchung',
+            'Überprüfung auslösender Maßnahmen: Verzicht auf weitere intramuskuläre Injektionen, Umstellung auf orale Analgesie und Physiotherapie; Entfernung von Fremdkörpern, Kathetern und Drainagen',
+            'Abklärung einer ACNE INVERSA bei rezidivierenden Abszessen in Achseln, Leisten und Gesäßfalte sowie eines MORBUS CROHN bei perianalem und rezidivierendem Befall',
+            'bei intravenösem Drogenkonsum Suchtberatung, Substitutionsangebot sowie Testung auf HIV und Hepatitiden',
+          ],
+        },
+        {
+          label: 'Nachsorge, Aufklärung und Prognose',
+          items: [
+            'Wundkontrollen und Verbandwechsel bis zur vollständigen Ausheilung von der Tiefe her, meist über zwei bis vier Wochen; Anbindung an Hausarzt oder chirurgische Ambulanz',
+            'AUFKLÄRUNG darüber, dass die Wunde ABSICHTLICH offen bleibt und nicht genäht wird — der Patient versteht dies sonst als Behandlungsfehler; ebenso über die zu erwartende Heilungsdauer',
+            'Arbeitsunfähigkeit und Entlastung der betroffenen Region (bei Gesäßsitz Sitzring, Liegen auf der Gegenseite)',
+            'klare Warnzeichen für eine erneute Vorstellung: zunehmende Rötung, erneutes Fieber, stärker werdende Schmerzen, Sekretstau, Krankheitsgefühl',
+            'Hinweis auf das REZIDIVRISIKO, insbesondere bei fortbestehenden Risikofaktoren; beim Pilonidalsinus Hinweis auf die spätere elektive Sanierung nach Abklingen der Entzündung, beim Atherom auf die notwendige Exzision der Zystenwand',
+            'Prognose bei rechtzeitiger Entlastung sehr gut: Entfieberung und deutliche Schmerzlinderung meist innerhalb von 24 bis 48 Stunden, folgenlose Ausheilung mit Narbe',
+          ],
+        },
+      ],
+      prognose: 'Der unkomplizierte Weichteilabszess hat nach adäquater Inzision und Drainage eine sehr gute Prognose: Die Schmerzen bessern sich meist unmittelbar nach der Entlastung, die Entfieberung tritt in der Regel innerhalb von 24 bis 48 Stunden ein, und die offene Wunde granuliert über zwei bis vier Wochen von der Tiefe her zu. Entscheidend für den Verlauf sind die Vollständigkeit der Entlastung — ein belassener Restverhalt oder eine nicht gelöste Kammerung ist die häufigste Ursache eines frühen Rezidivs — sowie die Behandlung der zugrunde liegenden Risikofaktoren. Bei schlecht eingestelltem Diabetes mellitus, fortgesetztem Nikotinkonsum, Acne inversa, Pilonidalsinus oder persistierender Staphylokokken-Besiedelung ist die Rezidivrate deutlich erhöht. Ernst ist die Prognose nur bei den Sonderformen: Die nekrotisierende Fasziitis hat trotz maximaler Therapie eine Letalität von etwa 20 bis 30 %, wobei jede Stunde Verzögerung des Debridements die Sterblichkeit erhöht; auch die Sepsis bei verschlepptem tiefem Herd und die Sinus-cavernosus-Thrombose bei Gesichtsabszessen sind lebensbedrohlich.',
+      pruefungsfallen: [
+        '„Ubi pus, ibi evacua“ muss in einem Satz fallen: Der reife Abszess wird ERÖFFNET und DRAINIERT. Antibiotika allein heilen ihn NICHT, weil sie die abgekapselte Eiterhöhle nicht ausreichend erreichen — sie sind Ergänzung, nie Ersatz.',
+        'Eine alleinige PUNKTION ist kein akzeptabler Therapievorschlag; ein Prüfer in Karlsruhe hat dies mit den Worten korrigiert, der Abszess würde sich in zwei Tagen erneut bilden. Die Antwort lautet Inzision und Drainage.',
+        'Die FLUKTUATION ist das klinische Schlüsselzeichen der Einschmelzung, die SONOGRAPHIE die steuernde Untersuchung: Sie trennt die noch nicht eingeschmolzene Phlegmone (nur Antibiose) vom drainagepflichtigen Abszess (Inzision).',
+        'Den BLUTZUCKER und das HbA1c vergessen — bei jedem Abszess gehören sie zum Programm, denn ein Diabetes wird hier häufig erstmals auffällig und bestimmt Verlauf und Rezidivneigung.',
+        'Die NEKROTISIERENDE FASZIITIS nicht nennen: Sie ist die entscheidende Red Flag und die Antwort auf „Was kann im schlimmsten Fall passieren?“. Warnzeichen sind unverhältnismäßig starke Schmerzen, rasch fortschreitende Rötung, livide Verfärbung, Blasen, Krepitation und Hautnekrose — Therapie ist das sofortige radikale Debridement, nicht die einfache Inzision.',
+        'Die Wunde bleibt ABSICHTLICH offen und wird nicht genäht — das muss dem Patienten ausdrücklich erklärt werden, sonst hält er es für einen Behandlungsfehler.',
+        'Bei einer PENICILLINALLERGIE nicht reflexartig ein Betalaktam nennen: Mittel der Wahl sind Clindamycin oder ein Makrolid wie Clarithromycin, bei MRSA-Verdacht Vancomycin oder Linezolid.',
+        'Die Abgrenzung Abszess versus Empyem als Fachbegriff sauber beherrschen: Abszess = Eiteransammlung in einem NICHT vorbestehenden Hohlraum, Empyem = Eiter in einem VORBESTEHENDEN Hohlraum. Die Definition wird in Stuttgart und Reutlingen als Vokabel abgefragt.',
+        'Beim Sitz am Gesäß den PILONIDALSINUS und den PERIANALABSZESS als Differenzialdiagnosen nennen und die rektale Untersuchung erwähnen; bei rezidivierendem perianalem Befall an einen Morbus Crohn denken.',
+        'Die ACNE INVERSA wird bei rezidivierenden Abszessen in Achseln, Leisten und Gesäßfalte regelmäßig übersehen — sie wird nicht durch wiederholte Inzisionen behandelt, sondern durch Nikotinkarenz, medikamentöse Therapie und weiträumige Exzision.',
+        'Bei einer unklaren, langsam gewachsenen, schmerzlosen derben Schwellung ohne Entzündungszeichen vor der Inzision an einen WEICHTEILTUMOR denken — eine unbedachte Inzision kontaminiert das Kompartiment.',
+        'Den Abstrich aus der TIEFE der Höhle bei der Eröffnung und möglichst vor der ersten Antibiotikagabe entnehmen; ein oberflächlicher Hautabstrich erfasst nur die Standortflora und ist wertlos.',
+        'Den TETANUSSCHUTZ nicht vergessen — er wird bei jeder Wunde und jedem eröffneten Herd abgefragt.',
+        'Der LRINEC-Score ersetzt die klinische Beurteilung NICHT: Ein niedriger Score schließt eine nekrotisierende Fasziitis nicht aus; bei klinischem Verdacht wird ohne Verzögerung operiert.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein eingeschmolzener Weichteilabszess, hier ein Spritzenabszess der rechten Gesäßhälfte nach intramuskulärer Injektion. Dafür sprechen die seit Tagen zunehmenden, pochenden Ruheschmerzen, die klassischen Entzündungszeichen mit Rötung, Überwärmung, derber Schwellung und Funktionseinschränkung, vor allem aber die zentrale FLUKTUATION als Zeichen der abgekapselten Eiterhöhle, dazu Fieber und Schüttelfrost als Ausdruck der systemischen Beteiligung.',
+        },
+        {
+          frage: 'Was ist ein Abszess — und wie erklären Sie ihn dem Patienten?',
+          antwort: 'Fachlich eine abgekapselte Eiteransammlung in einem nicht vorbestehenden Gewebehohlraum, umgeben von einer Abszessmembran; das Empyem ist im Unterschied dazu eine Eiteransammlung in einem vorbestehenden Hohlraum. Dem Patienten sage ich: „Sie haben eine Eiterbeule — der Körper hat den Eiter in einer Kammer unter der Haut abgekapselt.“',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die nekrotisierende Fasziitis als gefährlichste, die noch nicht eingeschmolzene Phlegmone beziehungsweise Zellulitis, das Erysipel, Furunkel und Karbunkel, der Pilonidalsinus, der Perianalabszess mit Analfistel, die Acne inversa, ein infiziertes Atherom, ein Injektionsabszess bei Drogenkonsum, eine Bursitis, ein Weichteiltumor, ein Herpes zoster im Anfangsstadium und — bei anderer Lokalisation — eine tiefe Beinvenenthrombose.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Phlegmone von einem Abszess, und warum ist das wichtig?',
+          antwort: 'Die Phlegmone ist eine diffuse, noch nicht eingeschmolzene Infiltration ohne Fluktuation; sonographisch findet sich ödematös aufgelockertes Gewebe ohne Flüssigkeitsformation, und sie wird antibiotisch behandelt. Der reife Abszess ist eingeschmolzen und abgekapselt, zeigt eine Fluktuation und sonographisch eine echoarme, septierte Formation mit Randsaum — er muss eröffnet werden. Genau diese Unterscheidung bestimmt die Therapie.',
+        },
+        {
+          frage: 'Wie grenzen Sie das Erysipel ab?',
+          antwort: 'Das Erysipel zeigt eine flächige, scharf begrenzte, flammend rote und überwärmte Rötung mit zungenförmigen Ausläufern und hohem Fieber mit Schüttelfrost, meist bei einer Eintrittspforte wie einer Rhagade oder einer Interdigitalmykose. Es fluktuiert NICHT und bildet keinen umschriebenen Eiterherd; Erreger sind meist Streptokokken der Gruppe A, behandelt wird rein antibiotisch.',
+        },
+        {
+          frage: 'Welcher Erreger ist am häufigsten?',
+          antwort: 'Staphylococcus aureus in etwa 70 bis 80 % der Fälle, gefolgt von Streptokokken. Bei perianalem und abdominellem Sitz überwiegen Mischinfektionen mit Darmkeimen und Anaerobiern. Bei Rezidiven, Vorbehandlung, Krankenhauskontakt oder intravenösem Drogenkonsum ist an MRSA zu denken.',
+        },
+        {
+          frage: 'Welche Untersuchungen leiten Sie ein?',
+          antwort: 'Körperliche Untersuchung mit Vitalparametern, Inspektion und Palpation einschließlich Fluktuationsprüfung, Markierung des Rötungsrandes, Lymphknotenstatus und — bei Gesäßsitz — rektaler Untersuchung; Labor mit Blutbild, CRP, Blutzucker und HbA1c, Nierenwerten und Gerinnung, Blutkulturen bei Fieber; die Sonographie der Weichteile als steuernde Untersuchung; ein MRT bei tiefem, perianalem oder unklarem Befund und zur Fistelsuche; sowie einen Abstrich mit Kultur und Antibiogramm bei der Eröffnung.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Abszess?',
+          antwort: 'Nach dem Grundsatz ubi pus, ibi evacua: Inzision in ausreichender Größe über der Stelle maximaler Fluktuation, Spreizen und Ausräumen der Höhle mit Lösen aller Kammern, Spülung, Abstrich und offene Wundbehandlung mit Tamponade oder Lasche statt primärem Verschluss, dazu regelmäßige Verbandwechsel. Begleitend eine ausreichende Analgesie und — nur bei klarer Indikation — ein staphylokokkenwirksames Antibiotikum.',
+        },
+        {
+          frage: 'Genügt nicht ein Antibiotikum? Und würde eine Punktion reichen?',
+          antwort: 'Nein, beides nicht. Das Antibiotikum erreicht die abgekapselte, saure und sauerstoffarme Eiterhöhle nicht in wirksamer Konzentration und ist deshalb nur eine Ergänzung. Und eine alleinige Punktion entlastet nur kurzfristig — die Höhle füllt sich innerhalb weniger Tage erneut, weil die Membran und die Kammerung bestehen bleiben.',
+        },
+        {
+          frage: 'Wann geben Sie zusätzlich ein Antibiotikum, und welches bei einer Penicillinallergie?',
+          antwort: 'Bei ausgedehnter umgebender Weichteilinfektion, Lymphangitis, Fieber und Allgemeinsymptomen, Immunsuppression, Diabetes mellitus, Gesichtslokalisation oder Herzklappenersatz. Kalkuliert staphylokokkenwirksam mit Cefazolin, Cefuroxim oder Amoxicillin/Clavulansäure; bei Penicillinallergie Clindamycin oder ein Makrolid wie Clarithromycin, bei MRSA-Verdacht Vancomycin oder Linezolid — anschließend Anpassung nach Antibiogramm.',
+        },
+        {
+          frage: 'Warum wird die Wunde nicht primär verschlossen?',
+          antwort: 'Damit die Höhle von der Tiefe her granuliert und sich kein neuer Verhalt bildet. Ein primärer Verschluss schließt Eiter ein und provoziert ein Rezidiv. Der Patient muss darüber ausdrücklich aufgeklärt werden, sonst hält er die offene Wunde für einen Behandlungsfehler.',
+        },
+        {
+          frage: 'Muss der Patient stationär aufgenommen werden?',
+          antwort: 'Ein kleiner, oberflächlicher Abszess beim gesunden Patienten kann ambulant in Lokalanästhesie versorgt werden. Stationär aufgenommen wird bei Fieber und Allgemeinsymptomen, bei ausgedehntem oder tiefem Befund mit Narkosebedarf, bei Diabetes mellitus oder Immunsuppression, bei Gesichts- und perianaler Lokalisation sowie bei Sepsisverdacht.',
+        },
+        {
+          frage: 'Was kann im schlimmsten Fall passieren?',
+          antwort: 'Eine Sepsis mit Organversagen, eine Ausbreitung in die Tiefe mit Pyomyositis, Osteomyelitis oder Gelenkbeteiligung, eine hämatogene Streuung mit Endokarditis — und vor allem eine nekrotisierende Fasziitis, ein chirurgischer Notfall mit einer Letalität von 20 bis 30 %, der ein sofortiges radikales Debridement erfordert.',
+        },
+        {
+          frage: 'Woran erkennen Sie eine nekrotisierende Fasziitis?',
+          antwort: 'An Schmerzen, die in keinem Verhältnis zum sichtbaren Hautbefund stehen, an einer innerhalb von Stunden fortschreitenden Rötung, an livider Verfärbung, Blasenbildung, Krepitation und Hautnekrosen sowie an schwerem Krankheitsgefühl mit Kreislaufinstabilität. Laborhinweise liefert der LRINEC-Score, der die Klinik aber nicht ersetzt. Intraoperativ beweisend sind eine grau-livide, stumpf leicht ablösbare Faszie und trübes, dünnflüssiges Sekret statt cremigen Eiters.',
+        },
+        {
+          frage: 'Welche Rolle spielt der Diabetes mellitus?',
+          antwort: 'Eine doppelte: Er begünstigt die Entstehung, weil die Hyperglykämie Granulozytenfunktion, Chemotaxis und Mikrozirkulation stört, und er verschlechtert Heilung und Rezidivneigung. Deshalb gehören Blutzucker und HbA1c zu jedem Abszess — nicht selten wird ein Diabetes hier überhaupt erst entdeckt — und die Diabeteseinstellung ist Teil der Therapie.',
+        },
+        {
+          frage: 'Warum ist ein Abszess im Gesicht besonders gefährlich?',
+          antwort: 'Weil im Bereich von Oberlippe und Nase, dem Nasolabialdreieck, die Vena angularis über die Vena ophthalmica eine klappenlose Verbindung zum Sinus cavernosus hat. Eine Keimverschleppung kann zur Sinus-cavernosus-Thrombose führen. Deshalb keine Manipulation, kein Ausdrücken, Sprech- und Kauverbot sowie stationäre intravenöse Antibiose.',
+        },
+        {
+          frage: 'Was tun Sie bei rezidivierenden Abszessen?',
+          antwort: 'Nach der Ursache suchen: Blutzucker und HbA1c bestimmen, an eine Immunschwäche denken, eine Staphylokokken-Besiedelung sanieren (Mupirocin-Nasensalbe, antiseptische Waschungen, Wäschehygiene), bei Befall von Achseln, Leisten und Gesäßfalte eine Acne inversa abklären und bei perianalem Befall einen Morbus Crohn ausschließen. Zusätzlich Nikotinkarenz und Gewichtsreduktion.',
+        },
+        {
+          frage: 'Wie klären Sie den Patienten über die Abszessspaltung auf?',
+          antwort: 'In Alltagssprache: Der Eiter liege in einer abgekapselten Kammer, in die Medikamente nicht ausreichend gelangten; deshalb werde die Stelle in örtlicher Betäubung oder kurzer Narkose eröffnet, der Eiter abgelassen, die Höhle ausgespült und ein Abstrich genommen. Risiken sind Blutung, Nachblutung, Infektion, Wundheilungsstörung, Narbe und ein mögliches Rezidiv. Wichtig ist der Hinweis, dass die Wunde absichtlich offen bleibt und von innen heilt, dass täglich verbunden wird und dass die Schmerzen unmittelbar nach der Entlastung deutlich nachlassen.',
+        },
+      ],
+      merksatz: 'Ubi pus, ibi evacua — der reife Abszess wird ERÖFFNET und drainiert, Antibiotika allein heilen ihn nie, weil sie die abgekapselte Höhle nicht erreichen. FLUKTUATION und SONOGRAPHIE entscheiden, ob geschnitten wird; die Wunde bleibt absichtlich offen; Blutzucker und HbA1c gehören immer dazu — und bei Schmerzen, die zum Hautbefund nicht passen, an die nekrotisierende Fasziitis denken.',
+      linkedCaseIds: [
+        'case-abszess',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-operation',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-anorexia-nervosa',
+      pathology: 'Anorexia nervosa (Magersucht)',
+      specialty: 'Psychiatrie',
+      definition: 'Die Anorexia nervosa (Magersucht) ist eine Essstörung mit selbst herbeigeführtem und aktiv aufrechterhaltenem Untergewicht. Diagnostische Kernmerkmale sind ein Körpergewicht unterhalb von 17,5 kg/m² Body-Mass-Index beziehungsweise unterhalb der 10. Perzentile bei Kindern und Jugendlichen, eine ausgeprägte Angst vor einer Gewichtszunahme trotz bestehenden Untergewichts, eine Körperschemastörung mit der Selbstwahrnehmung als zu dick sowie endokrine Störungen, die sich bei Frauen typischerweise als sekundäre Amenorrhoe äußern. Der Gewichtsverlust wird durch restriktives Essverhalten herbeigeführt und häufig durch exzessiven Sport, selbst induziertes Erbrechen sowie den Missbrauch von Laxanzien, Diuretika oder Appetitzüglern ergänzt. Die Erkrankung hat die höchste Sterblichkeit aller psychischen Erkrankungen — sowohl durch somatische Komplikationen als auch durch Suizid.',
+      aetiologie: 'Multifaktorielle Genese aus biologischen, psychologischen und soziokulturellen Faktoren. Genetische Disposition (Konkordanz bei eineiigen Zwillingen deutlich erhöht, familiäre Häufung von Essstörungen, affektiven Störungen und Zwangsstörungen) und Störungen im serotonergen und dopaminergen System. Psychologisch typisch sind Perfektionismus, Leistungsorientierung, hohe Angepasstheit, geringes Selbstwertgefühl, ein ausgeprägtes Kontrollbedürfnis sowie zwanghafte Persönlichkeitszüge; das Hungern wird als einziger kontrollierbarer Lebensbereich erlebt. Auslösend wirken häufig Pubertät, Trennungs- und Ablösungskonflikte, Leistungsdruck (Abitur, Ausbildung), abwertende Bemerkungen über die Figur, Mobbing sowie der Beginn einer Diät. Soziokulturell begünstigen Schlankheitsideal, soziale Medien und Risikosportarten oder Berufe mit Gewichtsanforderung (Ballett, Leichtathletik, Modeln, Turnen) die Entstehung. Der Hungerzustand selbst unterhält die Störung über kognitive Einengung, Stimmungsveränderung und verzögerte Magenentleerung.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (Verhältnis etwa 10:1), Erkrankungsgipfel zwischen 14 und 20 Jahren',
+        'Positive Familienanamnese für Essstörungen, affektive Störungen, Angst- und Zwangsstörungen',
+        'Perfektionismus, Leistungsorientierung, Angepasstheit, geringer Selbstwert, hohes Kontrollbedürfnis',
+        'Pubertät, Ablösungskonflikte, hoher schulischer oder beruflicher Leistungsdruck',
+        'Diäten in der Vorgeschichte, kritische Bemerkungen über Figur und Gewicht, Mobbing',
+        'Risikosportarten und Berufe mit Gewichtsanforderung: Ballett, Turnen, Leichtathletik, Skispringen, Modeln',
+        'Intensive Nutzung sozialer Medien mit Schlankheitsidealen',
+        'Familiäres Klima mit starker Beschäftigung mit Ernährung, Figur und Diäten',
+        'Frühkindliche Fütterstörungen, Traumatisierung, sexueller Missbrauch',
+        'Diabetes mellitus Typ 1 (Insulinpurging als besondere Risikokonstellation)',
+      ],
+      klinik: [
+        {
+          text: 'Selbst herbeigeführtes Untergewicht mit einem Body-Mass-Index unter 17,5 kg/m², bei Jugendlichen unterhalb der 10. Altersperzentile',
+        },
+        {
+          text: 'Ausgeprägte Angst vor einer Gewichtszunahme, die trotz objektiven Untergewichts fortbesteht',
+        },
+        {
+          text: 'Körperschemastörung: die Patientin nimmt sich als zu dick wahr, obwohl sie deutlich untergewichtig ist',
+        },
+        {
+          text: 'Restriktives Essverhalten mit Vermeidung fett- und kohlenhydratreicher Speisen, Zerkleinern und Verstecken von Essen, langsames Essen, Essen nur allein',
+        },
+        {
+          text: 'Exzessiver, zwanghaft betriebener Sport, häufig frühmorgens und trotz Erschöpfung',
+        },
+        {
+          text: 'Selbst induziertes Erbrechen sowie Missbrauch von Laxanzien, Diuretika und Appetitzüglern — wird nicht spontan berichtet und muss behutsam aktiv erfragt werden',
+        },
+        {
+          text: 'Sekundäre Amenorrhoe und weitere endokrine Störungen; bei Männern Libido- und Potenzverlust',
+        },
+        {
+          text: 'Bradykardie, Hypotonie und orthostatische Dysregulation mit Schwindel und Kollapsneigung',
+        },
+        {
+          text: 'Hypothermie mit ständigem Frieren, Akrozyanose, trockene schuppige Haut, brüchige Nägel, Haarausfall am Kopf',
+        },
+        {
+          text: 'Lanugobehaarung an Rücken, Unterarmen und Gesicht als Zeichen der Wärmeregulationsstörung',
+        },
+        {
+          text: 'Obstipation, Völlegefühl und verzögerte Magenentleerung; prätibiale Ödeme und Ödeme im Gesicht',
+        },
+        {
+          text: 'Osteopenie und Osteoporose mit erhöhtem Frakturrisiko bereits nach wenigen Jahren Krankheitsdauer',
+        },
+        {
+          text: 'Zahnschmelzdefekte, Karies, Parotisschwellung und Schwielen am Handrücken (Russell-Zeichen) bei induziertem Erbrechen',
+        },
+        {
+          text: 'Leistungsknick, Konzentrationsstörung, sozialer Rückzug, gedrückte Stimmung, Reizbarkeit und zwanghaftes Grübeln über Essen und Gewicht',
+        },
+        {
+          text: 'Fehlende Krankheitseinsicht: die Patientin fühlt sich gesund und wird von Angehörigen, Schule oder wegen einer körperlichen Folge vorgestellt — dies ist Teil des Krankheitsbildes und kein Ausdruck von Unwilligkeit',
+        },
+        {
+          text: 'Erstmanifestation als Kreislaufkollaps, Synkope oder Krampfanfall bei Hypoglykämie und Elektrolytentgleisung',
+          atypisch: true,
+        },
+        {
+          text: 'Erstvorstellung wegen einer Stressfraktur oder eines Ermüdungsbruchs bei Osteoporose trotz jungen Alters',
+          atypisch: true,
+        },
+        {
+          text: 'Erstvorstellung beim Gynäkologen wegen sekundärer Amenorrhoe oder unerfülltem Kinderwunsch ohne Erwähnung des Essverhaltens',
+          atypisch: true,
+        },
+        {
+          text: 'Anorexia athletica bei Leistungssportlern und die weibliche Athletentrias aus Essstörung, Amenorrhoe und Osteoporose',
+          atypisch: true,
+        },
+        {
+          text: 'Anorexia nervosa beim Mann — seltener, häufiger mit Muskelaufbau- und Fitnessorientierung, wird oft spät erkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Insulinpurging bei Diabetes mellitus Typ 1: bewusste Unterdosierung des Insulins zur Gewichtsabnahme mit rezidivierenden Ketoazidosen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ICD-10 Kodierung der Essstörungen',
+          inhalt: 'F50.0 Anorexia nervosa; F50.1 atypische Anorexia nervosa (ein Kernkriterium fehlt, zum Beispiel Amenorrhoe oder Körperschemastörung); F50.2 Bulimia nervosa; F50.3 atypische Bulimia nervosa; F50.4 Essattacken bei anderen psychischen Störungen (Binge-Eating). Diagnosekriterien der Anorexia nervosa nach ICD-10: Körpergewicht mindestens 15 % unter dem erwarteten Gewicht beziehungsweise BMI unter 17,5 kg/m²; selbst herbeigeführter Gewichtsverlust; Körperschemastörung mit überwertiger Idee, zu dick zu sein; endokrine Störung der Hypothalamus-Hypophysen-Gonaden-Achse (Amenorrhoe bei der Frau, Libido- und Potenzverlust beim Mann); bei Beginn vor der Pubertät Verzögerung der pubertären Entwicklung.',
+        },
+        {
+          name: 'Subtypen',
+          inhalt: 'Restriktiver Typ: Gewichtsabnahme allein durch Nahrungsrestriktion, Fasten und exzessiven Sport, ohne regelmäßige Essanfälle oder kompensatorisches Verhalten. Purging-Typ (Binge-Eating/Purging-Typ): zusätzlich regelmäßig selbst induziertes Erbrechen, Laxanzien-, Diuretika- oder Klistiermissbrauch — höheres Risiko für Elektrolytentgleisungen, Suizidalität und Substanzkonsum.',
+        },
+        {
+          name: 'Schweregrad nach dem Body-Mass-Index (DSM-5, Erwachsene)',
+          inhalt: 'Leicht: BMI 17,0 kg/m² und höher. Mittel: BMI 16,0 bis 16,99 kg/m². Schwer: BMI 15,0 bis 15,99 kg/m². Extrem: BMI unter 15,0 kg/m². Bei Kindern und Jugendlichen wird statt des absoluten BMI die alters- und geschlechtsbezogene Perzentile verwendet (Untergewicht unterhalb der 10. Perzentile, ausgeprägtes Untergewicht unterhalb der 3. Perzentile).',
+        },
+        {
+          name: 'SCOFF-Fragebogen (Screening in fünf Fragen)',
+          inhalt: 'Sick — Übergeben Sie sich, wenn Sie sich unangenehm voll fühlen? Control — Sorgen Sie sich, die Kontrolle über die Menge, die Sie essen, verloren zu haben? One stone — Haben Sie in den letzten drei Monaten mehr als sechs Kilogramm abgenommen? Fat — Finden Sie sich zu dick, obwohl andere Sie zu dünn finden? Food — Beherrscht Essen Ihr Leben? Zwei oder mehr bejahte Fragen sprechen für das Vorliegen einer Essstörung und begründen eine weiterführende Diagnostik.',
+        },
+        {
+          name: 'Somatische Kriterien der Behandlungsdringlichkeit',
+          inhalt: 'Kriterien für eine stationäre oder notfallmäßige Aufnahme: BMI unter 15 kg/m² beziehungsweise unterhalb der 3. Perzentile; rascher Gewichtsverlust von mehr als 20 % innerhalb eines halben Jahres; Herzfrequenz unter 40 pro Minute; systolischer Blutdruck unter 80 mmHg mit ausgeprägter Orthostase; Körpertemperatur unter 35,5 °C; Kalium unter 3,0 mmol/l, Phosphat oder Magnesium erniedrigt; QTc-Verlängerung oder Herzrhythmusstörungen im EKG; Hypoglykämie; ausbleibende Gewichtszunahme unter ambulanter Behandlung; Suizidalität oder schwere Komorbidität.',
+        },
+      ],
+      redFlags: [
+        'Hypokaliämie unter 3,0 mmol/l — lebensbedrohlich durch ventrikuläre Herzrhythmusstörungen, besonders bei Erbrechen und Laxanzienabusus',
+        'Bradykardie unter 40 pro Minute, systolischer Blutdruck unter 80 mmHg, ausgeprägte Orthostase oder Synkope',
+        'QTc-Verlängerung, Arrhythmien oder Perikarderguss im EKG beziehungsweise in der Echokardiographie',
+        'Körpertemperatur unter 35,5 °C und Hypoglykämie mit Bewusstseinsstörung',
+        'BMI unter 15 kg/m² oder Gewichtsverlust von mehr als 20 % des Körpergewichts innerhalb von sechs Monaten',
+        'Abfall von Phosphat, Kalium und Magnesium in den ersten Tagen der Ernährungstherapie — Refeeding-Syndrom',
+        'Akute Suizidalität, Selbstverletzung oder schwere depressive Episode',
+        'Fehlende Einwilligungsfähigkeit bei akuter vitaler Gefährdung',
+        'Muskelschwäche mit Unfähigkeit, aus der Hocke oder aus dem Liegen ohne Abstützen aufzustehen',
+        'Erhöhte Transaminasen als Zeichen der Hungerhepatopathie, ausgeprägte Leukopenie und Anämie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ruhige, wertfreie Gesprächsführung ohne Druck und ohne Diskussion über Zahlen und Kalorien; Erfragen des Erlebens, der Angst vor Gewichtszunahme und des Kontrollbedürfnisses; die Sorge offen, aber ohne Vorwurf ansprechen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gewichtsverlauf: höchstes und niedrigstes Gewicht, Wunschgewicht, Dynamik des Gewichtsverlusts, Beginn und Auslöser der Erkrankung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Essverhalten und typischer Tagesablauf: Mahlzeitenstruktur, vermiedene Lebensmittel, Essen in Gesellschaft, Rituale, Beschäftigung mit Essen und Kochen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktiv und behutsam erfragen: exzessiver Sport, selbst induziertes Erbrechen, Laxanzien-, Diuretika- und Appetitzüglermissbrauch, Schilddrüsenhormone, Insulinpurging bei Diabetes — dies wird nicht spontan berichtet',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Zyklusanamnese mit Menarche, letzter Regelblutung und Dauer der Amenorrhoe; Libido und sexuelle Entwicklung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychopathologischer Befund: Stimmung, Antrieb, Interessenverlust, Konzentration, Zwänge, Angst, sozialer Rückzug, Krankheitseinsicht sowie zwingend die Frage nach Suizidalität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Komorbiditäten erfassen: depressive Störung, Angst- und Zwangsstörung, Persönlichkeitsstörung, Substanzkonsum, Selbstverletzung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fremdanamnese mit Einverständnis der Patientin (Eltern, Partner, Schule) — bei fehlender Krankheitseinsicht oft die einzige verlässliche Quelle',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Gewicht, Größe und BMI, Blutdruck und Puls im Liegen und im Stehen (Schellong), Körpertemperatur, Haut (Trockenheit, Akrozyanose, Lanugobehaarung), Haare, Zähne und Parotis, Handrücken (Russell-Zeichen), Ödeme, Muskelkraft beim Aufstehen aus der Hocke',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: Anämie, Leukopenie, Thrombozytopenie bei Knochenmarkverarmung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte einschließlich Kalium, Natrium, Chlorid, Phosphat, Magnesium und Kalzium — Hypokaliämie als lebensbedrohliche Gefahr, Phosphat als Schlüsselwert vor und während der Ernährungstherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenwerte mit Kreatinin, Harnstoff und eGFR sowie Leberwerte mit Transaminasen (Hungerhepatopathie), Blutzucker (Hypoglykämie), Gesamteiweiß und Albumin, Amylase und Lipase (Parotitis und Erbrechen)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgasanalyse: hypochlorämische metabolische Alkalose bei Erbrechen, metabolische Azidose bei Laxanzienabusus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Endokrinologie: TSH, fT3 und fT4 (Low-T3-Syndrom, zugleich Ausschluss einer Hyperthyreose), LH, FSH, Östradiol, Prolaktin, Kortisol; beim Mann Testosteron',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vitamin D, Vitamin B12, Folsäure, Thiamin, Zink, Eisen und Ferritin; Schwangerschaftstest bei Amenorrhoe',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ausschlussdiagnostik somatischer Ursachen des Gewichtsverlusts: CRP und BSG, Zöliakie-Serologie (Transglutaminase-IgA und Gesamt-IgA), Calprotectin im Stuhl, HIV- und Tuberkulose-Diagnostik bei entsprechendem Verdacht, Kortisol beziehungsweise ACTH-Test bei Verdacht auf Morbus Addison',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG: Herzfrequenz, Bradykardie, QTc-Zeit, Repolarisationsstörungen und Arrhythmien — obligat vor Beginn der Ernährungstherapie und im Verlauf',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie zum Ausschluss organischer Ursachen des Gewichtsverlusts sowie gynäkologische Sonographie (Uterus- und Ovargröße, Endometriumhöhe)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Echokardiographie bei ausgeprägtem Untergewicht: Perikarderguss, verminderte Myokardmasse und eingeschränkte Pumpfunktion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Knochendichtemessung mittels DXA bei einer Krankheitsdauer von mehr als sechs bis zwölf Monaten beziehungsweise bei Amenorrhoe über sechs Monate',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Zerebrale Bildgebung (MRT) nur bei atypischer Konstellation oder neurologischen Auffälligkeiten zum Ausschluss eines Hypophysen- oder Hypothalamusprozesses',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Psychiatrisch-psychotherapeutisches Konsil mit störungsspezifischer Diagnostik: SCOFF-Fragen, strukturiertes Interview, Eating Disorder Inventory, Beurteilung von Suizidalität, Komorbidität und Einwilligungsfähigkeit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Zahnärztliche Vorstellung mit Beurteilung von Schmelzerosionen und Karies bei induziertem Erbrechen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Weiterführende invasive Abklärung nur bei begründetem organischen Verdacht: Ösophago-Gastro-Duodenoskopie mit Dünndarmbiopsie bei Verdacht auf Zöliakie, Koloskopie bei Verdacht auf eine chronisch entzündliche Darmerkrankung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Bulimia nervosa',
+          unterscheidung: 'Patientinnen sind meist normalgewichtig oder leicht übergewichtig; im Vordergrund stehen wiederkehrende Essanfälle mit Kontrollverlust und anschließendes kompensatorisches Verhalten. Bei der Anorexia nervosa besteht dagegen definitionsgemäß ein Untergewicht mit BMI unter 17,5 kg/m².',
+        },
+        {
+          dd: 'Binge-Eating-Störung',
+          unterscheidung: 'Essanfälle ohne regelmäßiges kompensatorisches Verhalten; die Patienten sind meist übergewichtig oder adipös, ein Untergewicht besteht nie.',
+        },
+        {
+          dd: 'ARFID (vermeidend-restriktive Essstörung)',
+          unterscheidung: 'Restriktives Essverhalten mit Gewichtsverlust, aber OHNE Körperschemastörung und OHNE Angst vor Gewichtszunahme; Vermeidung aus Ekel, Angst vor Erbrechen oder Verschlucken oder wegen sensorischer Empfindlichkeit, häufig seit der Kindheit.',
+        },
+        {
+          dd: 'Zöliakie',
+          unterscheidung: 'Gewichtsverlust mit Diarrhoe, Steatorrhoe, Blähungen, Eisenmangelanämie und Wachstumsstörung; der Appetit ist erhalten und die Patienten wünschen zuzunehmen. Nachweis über Transglutaminase-IgA und Dünndarmbiopsie.',
+        },
+        {
+          dd: 'Chronisch entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)',
+          unterscheidung: 'Bauchschmerzen, Durchfälle, teils blutig, Fieber, erhöhte Entzündungsparameter und Calprotectin, extraintestinale Manifestationen; Gewichtsverlust ungewollt und mit Leidensdruck verbunden.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Gewichtsverlust bei gesteigertem Appetit, Tachykardie statt Bradykardie, Wärmeintoleranz und Schwitzen statt Frieren, Tremor, Unruhe, Diarrhoe; TSH supprimiert, fT3 und fT4 erhöht. Bei der Anorexia nervosa findet sich typischerweise ein Low-T3-Syndrom bei normalem oder niedrig-normalem TSH.',
+        },
+        {
+          dd: 'Diabetes mellitus Typ 1 mit Erstmanifestation oder Insulinpurging',
+          unterscheidung: 'Polyurie, Polydipsie, Gewichtsverlust trotz Heißhunger, Hyperglykämie, Ketonurie; beim Insulinpurging rezidivierende Ketoazidosen bei bekanntem Diabetes und auffällig schlechtem HbA1c.',
+        },
+        {
+          dd: 'Nebenniereninsuffizienz (Morbus Addison)',
+          unterscheidung: 'Gewichtsverlust mit Adynamie, Hyperpigmentierung, Salzhunger, Hypotonie, Hyponatriämie und HYPERkaliämie; morgendliches Kortisol erniedrigt, ACTH erhöht, pathologischer ACTH-Test.',
+        },
+        {
+          dd: 'Malignom, insbesondere Lymphom',
+          unterscheidung: 'B-Symptomatik mit Fieber, Nachtschweiß und ungewolltem Gewichtsverlust, Lymphknotenschwellungen, Leistungsknick; der Patient leidet unter dem Gewichtsverlust und hat keine Angst vor Gewichtszunahme.',
+        },
+        {
+          dd: 'Chronische Infektion (HIV, Tuberkulose)',
+          unterscheidung: 'Fieber, Nachtschweiß, Husten, Lymphadenopathie, Risikoanamnese und Reiseanamnese; Nachweis über HIV-Test, Interferon-Gamma-Release-Assay und Röntgen-Thorax.',
+        },
+        {
+          dd: 'Malabsorption und exokrine Pankreasinsuffizienz',
+          unterscheidung: 'Voluminöse, fettglänzende Stühle, Blähungen, Gewichtsverlust trotz normaler Nahrungsaufnahme; erniedrigte Elastase im Stuhl, Vorgeschichte mit Pankreatitis oder Alkoholkonsum.',
+        },
+        {
+          dd: 'Schwere depressive Episode mit Appetitverlust',
+          unterscheidung: 'Gewichtsverlust ist Folge des Appetitverlusts und wird als belastend erlebt; es fehlen die Angst vor Gewichtszunahme, die Körperschemastörung und das aktive kompensatorische Verhalten. Beide Störungen können jedoch gleichzeitig vorliegen — die Depression ist die häufigste Komorbidität.',
+        },
+        {
+          dd: 'Zwangsstörung',
+          unterscheidung: 'Zwangsgedanken und Zwangshandlungen betreffen nicht ausschließlich Essen, Figur und Gewicht; die Zwänge werden als ich-dyston und belastend erlebt. Häufige Komorbidität der Anorexia nervosa.',
+        },
+        {
+          dd: 'Psychose mit Vergiftungswahn oder Zönästhesien',
+          unterscheidung: 'Nahrungsverweigerung aus wahnhafter Angst vor Vergiftung; formale und inhaltliche Denkstörungen, Halluzinationen; keine Körperschemastörung im Sinne der Essstörung und kein Schlankheitsstreben.',
+        },
+        {
+          dd: 'Körperdysmorphe Störung',
+          unterscheidung: 'Übermäßige Beschäftigung mit einem vermeintlichen Makel des Aussehens, der nicht Gewicht oder Figur betrifft; kein Untergewicht und kein restriktives Essverhalten.',
+        },
+        {
+          dd: 'Substanzkonsum (Stimulanzien, Amphetamine, Kokain)',
+          unterscheidung: 'Appetitminderung und Gewichtsverlust mit Tachykardie, Mydriasis, Unruhe und Schlafstörung; Drogenanamnese und Urin-Drogenscreening.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sicherung der körperlichen Stabilität und Festlegung des Behandlungsrahmens',
+          items: [
+            'Beurteilung der Behandlungsdringlichkeit anhand von BMI, Gewichtsdynamik, Herzfrequenz, Blutdruck im Liegen und Stehen, Körpertemperatur, Kalium, Phosphat, Blutzucker und EKG mit QTc-Zeit',
+            'Stationäre oder tagesklinische Aufnahme bei ausgeprägtem Untergewicht (BMI unter 15 kg/m² beziehungsweise unterhalb der 3. Perzentile), raschem Gewichtsverlust, Elektrolytentgleisung, Bradykardie unter 40 pro Minute, Hypoglykämie, Suizidalität oder erfolgloser ambulanter Behandlung',
+            'Behandlung der Hypokaliämie mit oraler beziehungsweise bei schwerer Entgleisung intravenöser Kaliumsubstitution unter EKG-Monitoring; Ausgleich der Dehydratation vorsichtig und langsam wegen der Gefahr von Ödemen und Herzinsuffizienz',
+            'Absetzen von Laxanzien und Diuretika unter Aufklärung über die vorübergehende Ödembildung und Obstipation nach dem Absetzen (Pseudo-Bartter-Mechanismus)',
+            'Klärung der Zuständigkeit und Festlegung des Behandlungsrahmens: ambulant, tagesklinisch oder stationär, Anbindung an eine spezialisierte Einrichtung, Behandlungsvertrag mit vereinbarten Gewichtszielen',
+            'Bei akuter Lebensgefahr und fehlender Einwilligungsfähigkeit Klärung der rechtlichen Grundlagen: Einbeziehung der Sorgeberechtigten bei Minderjährigen, Betreuung beziehungsweise Unterbringung nach Landesrecht als Ultima Ratio',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Ernährungsrehabilitation mit langsamem, überwachtem Gewichtsaufbau',
+          items: [
+            'Individueller Ernährungsplan mit einer schriftlich vereinbarten wöchentlichen Gewichtszunahme von etwa 500 bis 700 g stationär und 200 bis 500 g ambulant, dokumentiert durch regelmäßiges, standardisiertes Wiegen',
+            'Regelmäßige, strukturierte Mahlzeiten (drei Haupt- und zwei bis drei Zwischenmahlzeiten) mit begleiteten Essenssituationen und anschließender Nachbetreuung, um kompensatorisches Verhalten zu verhindern',
+            'Beginn mit niedriger Energiezufuhr und langsame Steigerung; hochkalorische Trinknahrung als Ergänzung, Sondenernährung nur bei vitaler Gefährdung und ausbleibender oraler Zufuhr',
+            'Substitution von Vitaminen und Spurenelementen, insbesondere THIAMIN vor Beginn der Kalorienzufuhr, sowie von Vitamin D, Zink und Eisen',
+            'REFEEDING-SYNDROM als zentrale Gefahr: durch den insulinvermittelten Einstrom in die Zellen fallen PHOSPHAT, Kalium und Magnesium ab; es kommt zu Flüssigkeitsverschiebung, Ödemen, Herzrhythmusstörungen, Herzinsuffizienz, Delir und Krampfanfällen — deshalb langsam beginnen, Phosphat, Kalium und Magnesium in den ersten Tagen täglich kontrollieren und frühzeitig substituieren',
+            'Reduktion und ärztliche Begleitung der körperlichen Aktivität; Sport wird erst bei stabilem Gewicht und in vereinbartem Umfang wieder erlaubt',
+            'Psychoedukation zu Hungerfolgen: Völlegefühl und verzögerte Magenentleerung, Obstipation und vorübergehende Ödeme in der Aufbauphase sind erwartbar und kein Zeichen einer Gewichtszunahme an Fett',
+          ],
+        },
+        {
+          label: 'Psychotherapie als tragende Säule der Behandlung',
+          items: [
+            'Störungsspezifische Psychotherapie als Verfahren der ersten Wahl, ambulant, tagesklinisch oder stationär; bewährt sind kognitive Verhaltenstherapie, fokale psychodynamische Therapie und essstörungsspezifische Ansätze',
+            'Bei Kindern und Jugendlichen ist die familienbasierte Therapie mit ausdrücklichem EINBEZUG DER FAMILIE die wirksamste Behandlungsform',
+            'Arbeit an Körperschema, Selbstwert, Kontrollbedürfnis, Perfektionismus und Angst vor Gewichtszunahme; Bearbeitung auslösender und aufrechterhaltender Konflikte',
+            'Psychoedukation der Patientin UND der Angehörigen über Krankheitsbild, körperliche Folgen, Verlauf und Rolle der Familie; Entlastung der Eltern von Schuldgefühlen',
+            'Motivationsarbeit bei fehlender Krankheitseinsicht: ruhig, wertfrei und ohne Druck; Sorge offen ansprechen, ohne über Zahlen und Kalorien zu diskutieren und ohne zu beschwichtigen',
+            'Behandlung der Komorbidität (Depression, Angst- und Zwangsstörung, Persönlichkeitsstörung, Substanzkonsum) und wiederholte Einschätzung der Suizidalität',
+            'Medikamentöse Therapie nur ergänzend: kein Medikament behandelt die Kernstörung; SSRI wie Fluoxetin allenfalls bei ausgeprägter Komorbidität und erst nach Gewichtsstabilisierung (bei Untergewicht schlecht wirksam und mit erhöhtem kardialen Risiko), niedrig dosierte atypische Neuroleptika wie Olanzapin nur im Einzelfall bei starker innerer Anspannung und Grübelzwang',
+          ],
+        },
+        {
+          label: 'Behandlung der Folgeschäden und langfristige Begleitung',
+          items: [
+            'Osteoporoseprophylaxe mit Kalzium und Vitamin D, vor allem aber durch die Normalisierung von Gewicht und Zyklus; Bisphosphonate sind bei jungen Frauen nicht Standard, eine Östrogengabe allein ersetzt die Gewichtsnormalisierung nicht',
+            'Gynäkologische Mitbetreuung wegen Amenorrhoe, Osteoporose und Fertilität; Verlaufskontrolle der Knochendichte',
+            'Zahnärztliche Behandlung bei Erbrechen: nach dem Erbrechen nicht sofort putzen, sondern mit Wasser oder Fluoridlösung spülen; regelmäßige Kontrollen wegen Schmelzerosionen',
+            'Behandlung von Obstipation, Ödemen und Hungerhepatopathie sowie Verlaufskontrolle von Elektrolyten, Blutbild, Leberwerten und EKG',
+            'Rückfallprophylaxe mit Erarbeitung von Frühwarnzeichen, Krisenplan und festen Wiegeterminen; Rückschläge gehören zum Verlauf und bedeuten kein Scheitern',
+            'Aufklärung über den oft LANGEN Verlauf über Jahre und über die Notwendigkeit einer kontinuierlichen Anbindung',
+            'Anbindung an spezialisierte Einrichtungen, Ernährungsberatung und Selbsthilfegruppen; Begleitung von Schule, Ausbildung und Beruf, gegebenenfalls Nachteilsausgleich oder stufenweise Wiedereingliederung',
+          ],
+        },
+      ],
+      prognose: 'Der Verlauf ist häufig langwierig und erstreckt sich über Jahre. Etwa 50 % der Patientinnen genesen vollständig, rund 30 % bessern sich mit residualer Symptomatik und etwa 20 % nehmen einen chronischen Verlauf. Die Anorexia nervosa hat die HÖCHSTE Sterblichkeit aller psychischen Erkrankungen: die standardisierte Mortalitätsrate liegt etwa fünf- bis zehnfach über der Allgemeinbevölkerung, die Letalität wird im Langzeitverlauf mit 5 bis 10 % angegeben. Die Todesfälle beruhen zu etwa gleichen Teilen auf somatischen Komplikationen — Herzrhythmusstörungen bei Elektrolytentgleisung, Kachexie, Infektionen, Refeeding-Syndrom — und auf SUIZID. Prognostisch günstig sind ein früher Krankheitsbeginn in der Adoleszenz, eine kurze Krankheitsdauer bis zum Behandlungsbeginn, ein geringerer Gewichtsverlust und ein tragfähiges familiäres Umfeld. Ungünstig sind ein sehr niedriger BMI, ein Purging-Verhalten, eine lange unbehandelte Krankheitsdauer, ein Erkrankungsbeginn im Erwachsenenalter sowie psychiatrische Komorbidität. Rückfälle sind häufig, insbesondere im ersten Jahr nach stationärer Behandlung, und gehören zum Verlauf.',
+      pruefungsfallen: [
+        'Die Anorexia nervosa hat die HÖCHSTE Mortalität aller psychischen Erkrankungen — die Frage „Kann man an Magersucht sterben?“ wurde in Stuttgart ausdrücklich gestellt. Die Antwort muss BEIDE Todesursachen nennen: somatische Komplikationen (Herzrhythmusstörungen bei Hypokaliämie, Kachexie, Infektion) UND Suizid.',
+        'Die Frage nach SUIZIDALITÄT darf niemals fehlen — weder in der Anamnese noch in der Fallvorstellung. Sie wird direkt, ruhig und ohne Umschweife gestellt.',
+        'Erbrechen, Laxanzien, Diuretika, Appetitzügler und exzessiver Sport werden NICHT spontan berichtet; sie müssen aktiv und behutsam erfragt werden. Ein Hinweis ist das Völlegefühl, das erst nach dem Erbrechen nachlässt.',
+        'Das REFEEDING-SYNDROM muss bei der Therapie genannt werden: Abfall von PHOSPHAT, Kalium und Magnesium, Flüssigkeitsverschiebung, Herzrhythmusstörungen und Herzinsuffizienz. Deshalb langsam beginnen, Thiamin geben und Phosphat engmaschig kontrollieren.',
+        'Das Fehlen von Krankheitseinsicht ist Teil der Erkrankung, nicht Ausdruck von Unwilligkeit — auf die Frage „Fühlt sie sich krank oder nicht?“ gehört genau diese Erklärung.',
+        'Registerfalle im Gespräch: NICHT beschwichtigen („Sie sehen doch gar nicht so dünn aus“), NICHT über Zahlen und Kalorien diskutieren, NICHT drohen oder Druck aufbauen. Gefragt wird nach dem Erleben, nach Angst und Kontrolle; die Sorge wird offen, aber ohne Vorwurf angesprochen.',
+        'Ein Gewichtsverlust ist nicht von vornherein psychiatrisch: die somatischen Differenzialdiagnosen müssen aktiv abgearbeitet werden — Hyperthyreose (TSH, fT3, fT4), Zöliakie, chronisch entzündliche Darmerkrankung, Diabetes mellitus Typ 1, Morbus Addison, Malignom und chronische Infektion.',
+        'Die Hypokaliämie ist die akut lebensbedrohliche Komplikation; sie entsteht durch Erbrechen und Laxanzienabusus und führt zu ventrikulären Herzrhythmusstörungen. EKG mit QTc-Zeit gehört obligat zur Erstdiagnostik.',
+        'Kein Medikament behandelt die Kernstörung. Die Psychotherapie ist die tragende Säule; bei Jugendlichen mit Einbezug der Familie. Antidepressiva wirken bei Untergewicht schlecht und sind allenfalls für die Komorbidität indiziert.',
+        'Nicht mit der Bulimia nervosa verwechseln: dort besteht meist Normalgewicht und die Essanfälle stehen im Vordergrund. Entscheidend für die Anorexia nervosa ist das Untergewicht mit BMI unter 17,5 kg/m².',
+        'Bei Frauen gehört die sekundäre Amenorrhoe zwingend in Anamnese und Fallvorstellung; sie ist ein diagnostisches Kriterium und zugleich Motor der Osteoporose.',
+        'Den BMI wirklich BERECHNEN und einordnen, nicht schätzen — und bei Jugendlichen die alters- und geschlechtsbezogene Perzentile statt des absoluten BMI verwenden.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
+          antwort: 'Der dringende Verdacht besteht auf eine Anorexia nervosa. Dafür sprechen das selbst herbeigeführte Untergewicht mit einem BMI unter 17,5 kg/m², der Gewichtsverlust durch bewusste Nahrungsrestriktion, die Angst vor einer Gewichtszunahme, die Körperschemastörung, der exzessive Sport, das kompensatorische Erbrechen mit Laxanzienabusus, die sekundäre Amenorrhoe sowie die fehlende Krankheitseinsicht bei Vorstellung auf Veranlassung der Mutter.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Zunächst andere Essstörungen: Bulimia nervosa, Binge-Eating-Störung und ARFID. Dann somatische Ursachen des Gewichtsverlusts: Hyperthyreose, Zöliakie, chronisch entzündliche Darmerkrankungen, Diabetes mellitus Typ 1, Morbus Addison, Malabsorption, Malignome einschließlich Lymphom und chronische Infektionen wie HIV oder Tuberkulose. Schließlich psychiatrische Differenzialdiagnosen: schwere Depression mit Appetitverlust, Zwangsstörung, Psychose mit Vergiftungswahn, körperdysmorphe Störung und Substanzkonsum.',
+        },
+        {
+          frage: 'Wie können wir eine Hypothyreose beziehungsweise eine Schilddrüsenfunktionsstörung ausschließen?',
+          antwort: 'Über die Laborbestimmung von TSH sowie fT3 und fT4. Bei der Hypothyreose ist TSH erhöht und fT4 erniedrigt, bei der Hyperthyreose ist TSH supprimiert und fT3 beziehungsweise fT4 erhöht. Bei der Anorexia nervosa findet sich typischerweise ein Low-T3-Syndrom mit erniedrigtem fT3 bei normalem oder niedrig-normalem TSH — eine Anpassung an den Hungerzustand, die keine Substitution erfordert.',
+        },
+        {
+          frage: 'Fühlt sich die Patientin krank oder nicht?',
+          antwort: 'Nein. Die fehlende Krankheitseinsicht ist ein Kernmerkmal der Anorexia nervosa und nicht Ausdruck von Unwilligkeit. Die Patientin erlebt sich als gesund, oft sogar als besonders leistungsfähig und diszipliniert; das Untergewicht wird nicht als Krankheit, sondern als Erfolg erlebt. Deshalb kommen die Betroffenen fast nie von sich aus, sondern werden von Angehörigen, der Schule oder wegen einer körperlichen Folge vorgestellt.',
+        },
+        {
+          frage: 'Welche Untersuchungen leiten Sie ein — was ist Ihr weiteres Vorgehen?',
+          antwort: 'Zuerst eine vollständige körperliche Untersuchung mit Gewicht, Größe und BMI, Blutdruck und Puls im Liegen und Stehen, Temperatur, Haut, Zähnen, Ödemen und Muskelkraft. Dann Labor mit Blutbild, Elektrolyten einschließlich Kalium, Phosphat und Magnesium, Nieren- und Leberwerten, Blutzucker, Gesamteiweiß und Albumin, Amylase, TSH, fT3, fT4, LH, FSH und Östradiol, Vitamin D, Eisen und Ferritin sowie Zöliakie-Serologie. Ergänzend EKG mit Herzfrequenz und QTc-Zeit, eine Abdomensonographie und bei längerer Krankheitsdauer eine Knochendichtemessung. Schließlich ein psychiatrisch-psychotherapeutisches Konsil und mit Einverständnis eine Fremdanamnese.',
+        },
+        {
+          frage: 'Wie behandeln Sie diese Patientin?',
+          antwort: 'Zuerst wird die körperliche Stabilität gesichert und der Behandlungsrahmen festgelegt: Beurteilung der Dringlichkeit anhand von BMI, Herzfrequenz, Blutdruck, Kalium und EKG, Ausgleich einer Hypokaliämie, gegebenenfalls stationäre Aufnahme. Dann folgen parallel die Ernährungsrehabilitation mit langsamem, überwachtem Gewichtsaufbau unter Thiamin- und Vitaminsubstitution und die störungsspezifische Psychotherapie als tragende Säule, bei Jugendlichen unter Einbezug der Familie. Schließlich die Behandlung der Folgeschäden — Osteoporoseprophylaxe, gynäkologische und zahnärztliche Mitbetreuung — sowie die langfristige Begleitung mit Rückfallprophylaxe.',
+        },
+        {
+          frage: 'Was ist das Refeeding-Syndrom und wie beugen Sie ihm vor?',
+          antwort: 'Das Refeeding-Syndrom ist eine lebensbedrohliche Komplikation zu Beginn der Ernährungstherapie. Durch die wieder einsetzende Kohlenhydratzufuhr steigt das Insulin an, Phosphat, Kalium und Magnesium strömen in die Zellen und fallen im Serum ab; gleichzeitig kommt es zu einer Flüssigkeits- und Natriumretention. Die Folgen sind Herzrhythmusstörungen, Herzinsuffizienz, Ödeme, Delir und Krampfanfälle. Vorbeugung: langsamer Beginn mit niedriger Energiezufuhr und schrittweiser Steigerung, Thiamingabe vor Beginn der Kalorienzufuhr, tägliche Kontrolle und frühzeitige Substitution von Phosphat, Kalium und Magnesium sowie Monitoring von Gewicht, Flüssigkeitsbilanz und EKG.',
+        },
+        {
+          frage: 'Kann jemand an einer Anorexia nervosa sterben?',
+          antwort: 'Ja. Die Anorexia nervosa hat die höchste Sterblichkeit aller psychischen Erkrankungen, im Langzeitverlauf etwa 5 bis 10 %. Die Todesfälle beruhen etwa zur Hälfte auf somatischen Komplikationen — vor allem Herzrhythmusstörungen bei Hypokaliämie und QTc-Verlängerung, Kachexie, Infektionen, Hypoglykämie und Refeeding-Syndrom — und zur anderen Hälfte auf Suizid. Deshalb gehören die Frage nach Suizidalität und die kardiologische Überwachung zwingend zur Behandlung.',
+        },
+        {
+          frage: 'Welche körperlichen Folgen der Erkrankung kennen Sie?',
+          antwort: 'Sekundäre Amenorrhoe und hormonelle Störungen, Bradykardie, Hypotonie und Orthostase, Hypothermie mit Frieren, trockene Haut, Lanugobehaarung, Haarausfall, Ödeme, Obstipation, Osteopenie und Osteoporose mit Frakturrisiko, Elektrolytstörungen mit Hypokaliämie als lebensbedrohlicher Gefahr, Anämie und Leukopenie, erhöhte Transaminasen im Sinne einer Hungerhepatopathie sowie bei Erbrechen Zahnschmelzdefekte, Parotisschwellung und Schwielen am Handrücken, das Russell-Zeichen.',
+        },
+        {
+          frage: 'Welche Medikamente setzen Sie ein?',
+          antwort: 'Kein Medikament behandelt die Kernstörung — das ist entscheidend. Die Pharmakotherapie ist rein ergänzend: SSRI wie Fluoxetin allenfalls bei ausgeprägter depressiver oder Zwangskomorbidität und erst nach Gewichtsstabilisierung, da sie im Untergewicht schlecht wirken und das kardiale Risiko erhöhen; niedrig dosiertes Olanzapin im Einzelfall bei starker innerer Anspannung. Substituiert werden Thiamin, Vitamin D, Kalzium, Zink und Elektrolyte. Trizyklische Antidepressiva sind wegen der QTc-Verlängerung bei bestehender Bradykardie zu vermeiden.',
+        },
+        {
+          frage: 'Wann nehmen Sie eine solche Patientin stationär auf?',
+          antwort: 'Bei einem BMI unter 15 kg/m² beziehungsweise unterhalb der 3. Perzentile, bei einem Gewichtsverlust von mehr als 20 % innerhalb eines halben Jahres, bei einer Herzfrequenz unter 40 pro Minute, bei einem systolischen Blutdruck unter 80 mmHg mit ausgeprägter Orthostase, bei einer Körpertemperatur unter 35,5 °C, bei einer Hypokaliämie unter 3,0 mmol/l oder anderen Elektrolytentgleisungen, bei QTc-Verlängerung oder Arrhythmien, bei Hypoglykämie, bei ausbleibender Gewichtszunahme unter ambulanter Behandlung sowie bei Suizidalität oder schwerer Komorbidität.',
+        },
+        {
+          frage: 'Die Patientin lehnt jede Behandlung ab. Wie gehen Sie vor?',
+          antwort: 'Zunächst wird motivierend und wertfrei weitergearbeitet: die Sorge offen ansprechen, ohne Vorwurf und ohne über Zahlen zu diskutieren, konkrete Kontrolltermine und einen niedrigschwelligen Behandlungsvertrag anbieten, die Angehörigen mit Einverständnis einbeziehen. Erst bei akuter vitaler Gefährdung und fehlender Einwilligungsfähigkeit werden die rechtlichen Grundlagen geprüft — bei Minderjährigen über die Sorgeberechtigten, bei Erwachsenen über eine Betreuung beziehungsweise eine Unterbringung nach Landesrecht. Das ist die Ultima Ratio.',
+        },
+        {
+          frage: 'Was bedeuten die Fachbegriffe Anorexia nervosa und Kachexie auf Deutsch?',
+          antwort: 'Anorexia nervosa heißt auf Deutsch Magersucht — eine Essstörung mit selbst herbeigeführtem Untergewicht, Angst vor Gewichtszunahme und gestörter Körperwahrnehmung. Kachexie bedeutet starke Abmagerung mit Kräfteverfall, also ein ausgeprägter Schwund von Fett- und Muskelmasse mit allgemeiner Schwäche.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Anorexia nervosa von der Bulimia nervosa?',
+          antwort: 'Entscheidend ist das Gewicht: Bei der Anorexia nervosa besteht ein Untergewicht mit einem BMI unter 17,5 kg/m², bei der Bulimia nervosa sind die Patientinnen meist normalgewichtig oder leicht übergewichtig. Bei der Bulimie stehen wiederkehrende Essanfälle mit Kontrollverlust und anschließendes kompensatorisches Verhalten im Vordergrund; die Krankheitseinsicht und das Schamgefühl sind meist größer. Erbrechen und Laxanzienabusus können bei beiden vorkommen — bei der Anorexia nervosa spricht man dann vom Purging-Typ.',
+        },
+      ],
+      merksatz: 'Magersucht = selbst gemachtes Untergewicht mit BMI unter 17,5, Angst vor Gewichtszunahme, Körperschemastörung und Amenorrhoe — die psychische Erkrankung mit der HÖCHSTEN Sterblichkeit, durch Hypokaliämie UND Suizid. Immer nach Erbrechen, Laxanzien und Sport fragen, immer EKG und Kalium, langsam aufnähren wegen des Refeeding-Syndroms (Phosphat!) — und Psychotherapie ist die Therapie, kein Medikament heilt die Kernstörung.',
+      linkedCaseIds: [
+        'case-anorexia-nervosa',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-gastroskopie',
+      ],
+    },
   ];
 }
