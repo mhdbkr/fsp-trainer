@@ -28313,5 +28313,799 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-gastroenteritis',
+      pathology: 'Akute infektiöse Gastroenteritis',
+      specialty: 'Infektiologie',
+      definition: 'Die akute infektiöse Gastroenteritis ist eine durch Viren, Bakterien, bakterielle Toxine oder Parasiten hervorgerufene Entzündung der Schleimhaut von Magen, Dünn- und Dickdarm. Leitsymptome sind Übelkeit, Erbrechen, Durchfall und krampfartige Bauchschmerzen, häufig begleitet von Abgeschlagenheit und je nach Erreger von Fieber. Eine Diarrhoe liegt definitionsgemäß vor bei mehr als drei ungeformten Stühlen pro Tag, einem Stuhlgewicht über 250 g pro Tag oder einem erhöhten Wassergehalt des Stuhls. Nach der Dauer wird unterschieden: akut unter 14 Tagen, persistierend 14 bis 29 Tage, chronisch ab 30 Tagen. Der Verlauf ist meist selbstlimitierend über wenige Tage; das klinisch entscheidende Problem ist nicht der Erreger, sondern der Flüssigkeits- und Elektrolytverlust.',
+      aetiologie: 'VIRAL (bei Erwachsenen die häufigste Ursache): Noroviren mit hoher Kontagiosität, kurzer Inkubationszeit von etwa 12 bis 48 Stunden, explosionsartigem Erbrechen und wässrigem Durchfall ohne Blut, gehäuft im Winter und in Gemeinschaftseinrichtungen; Rotaviren als häufigster Erreger bei Säuglingen und Kleinkindern; ferner Adeno-, Astro- und Sapoviren. BAKTERIELL-INVASIV: Campylobacter jejuni als in Deutschland am häufigsten gemeldeter bakterieller Erreger (Geflügel, Rohmilch), Salmonella enteritidis und typhimurium (Eier, Geflügel, Reptilien), Shigellen, Yersinia enterocolitica (Pseudoappendizitis) und enterohämorrhagische Escherichia coli (EHEC/STEC) mit dem Risiko eines hämolytisch-urämischen Syndroms; typisch sind hohes Fieber, stärkere Bauchschmerzen, Tenesmen und blutig-schleimige Durchfälle im Sinne einer Dysenterie. TOXINVERMITTELTE LEBENSMITTELVERGIFTUNG durch präformierte Toxine: Staphylococcus aureus und Bacillus cereus (emetische Form) mit sehr kurzer Latenz von einer bis sechs Stunden, führendem Erbrechen und fehlendem Fieber; Clostridium perfringens nach 8 bis 16 Stunden. ANTIBIOTIKA-ASSOZIIERT: Clostridioides difficile nach vorangegangener Antibiotikatherapie oder Krankenhausaufenthalt, bis zur pseudomembranösen Kolitis und zum toxischen Megakolon. PARASITÄR, vor allem nach Tropenaufenthalt: Giardia duodenalis (Lamblien) mit schaumigen, hellen, fötiden Stühlen und Meteorismus, Entamoeba histolytica mit blutig-schleimiger Amöbenruhr und der Gefahr des Leberabszesses, Kryptosporidien besonders bei Immunsupprimierten. Bei der Reisediarrhoe ist enterotoxische Escherichia coli der häufigste Erreger; Übertragung fäkal-oral über kontaminierte Lebensmittel, Wasser, Eiswürfel und Schmierinfektion.',
+      risikofaktoren: [
+        'Auslandsreise, insbesondere in tropische und subtropische Regionen mit niedrigem Hygienestandard (Eiswürfel, Leitungswasser, rohe Salate, ungeschältes Obst, Straßenverkauf)',
+        'Gemeinschaftseinrichtungen: Kindergärten, Schulen, Alten- und Pflegeheime, Krankenhäuser, Kasernen, Kreuzfahrtschiffe (Norovirus-Ausbrüche)',
+        'Kontakt zu erkrankten Personen im Haushalt oder am Arbeitsplatz, gemeinsame Mahlzeiten',
+        'Verzehr roher oder unzureichend erhitzter Lebensmittel: Geflügel, Eier, Rohmilch, Rohmilchkäse, Hackfleisch, Meeresfrüchte, Sprossen',
+        'Unterbrechung der Kühlkette und langes Warmhalten von Speisen (präformierte Toxine)',
+        'Antibiotikatherapie oder Krankenhausaufenthalt in den letzten drei Monaten (Clostridioides difficile)',
+        'Säurehemmung durch Protonenpumpenhemmer (Verlust der Magensäurebarriere)',
+        'Immunsuppression: HIV, Chemotherapie, Steroide, Biologika, Zustand nach Organtransplantation',
+        'Hohes Lebensalter, Pflegebedürftigkeit, Säuglings- und Kleinkindalter, Schwangerschaft',
+        'Vorbestehende Herz- oder Niereninsuffizienz sowie eine Dauertherapie mit Diuretika, ACE-Hemmern, Sartanen oder Metformin (Gefahr des prärenalen Nierenversagens)',
+        'Beruflicher Umgang mit Lebensmitteln, Tätigkeit in Küche, Gastronomie oder Gemeinschaftseinrichtung',
+        'Kontakt zu Reptilien (Salmonellen) und zu jungen Haustieren',
+      ],
+      klinik: [
+        {
+          text: 'Akuter Beginn mit Übelkeit und Erbrechen, wässrigen Durchfällen und krampfartigen, diffusen Bauchschmerzen',
+        },
+        {
+          text: 'Besserung der Bauchschmerzen unmittelbar nach dem Stuhlgang, Verstärkung nach Mahlzeiten',
+        },
+        {
+          text: 'Gesteigerte, hochgestellte Darmgeräusche bei der Auskultation; Meteorismus und diffuser, aber weicher Bauch ohne Abwehrspannung',
+        },
+        {
+          text: 'Abgeschlagenheit, Leistungsminderung, Appetitlosigkeit und Kopfschmerzen',
+        },
+        {
+          text: 'Fieber je nach Erreger: fehlend bei Toxinen und meist niedrig bei Viren, hoch bei invasiven bakteriellen Erregern',
+        },
+        {
+          text: 'Zeichen der Dehydratation: Durst, trockene Schleimhäute und Zunge, stehende Hautfalten mit vermindertem Hautturgor, eingesunkene Augen, Tachykardie, Hypotonie und Orthostase, verminderte Urinmenge, dunkler Urin, Gewichtsverlust',
+        },
+        {
+          text: 'Dauer meist wenige Tage mit spontaner Rückbildung; bei viraler Genese typischerweise 24 bis 72 Stunden',
+        },
+        {
+          text: 'Blutig-schleimige Durchfälle mit schmerzhaftem Stuhldrang (Tenesmen) und hohem Fieber bei invasiver bakterieller Genese (Dysenterie)',
+        },
+        {
+          text: 'Beim alten Menschen ist die VERWIRRTHEIT häufig das führende und manchmal einzige Zeichen der Exsikkose; Fieber und Bauchschmerzen können vollständig fehlen',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kleinkindern rasche Dehydratation mit eingesunkener Fontanelle, fehlenden Tränen, trockenen Windeln, Trinkverweigerung und Apathie',
+          atypisch: true,
+        },
+        {
+          text: 'Pseudoappendizitis bei Yersinia enterocolitica: rechtsseitiger Unterbauchschmerz durch mesenteriale Lymphadenitis und terminale Ileitis, klinisch von einer Appendizitis kaum zu unterscheiden',
+          atypisch: true,
+        },
+        {
+          text: 'Persistierende Diarrhoe über zwei Wochen ohne Fieber mit schaumigen, hellen, fötiden Stühlen, Meteorismus, schwefligem Aufstoßen und Gewichtsverlust nach Tropenaufenthalt — typisch für eine Lambliasis',
+          atypisch: true,
+        },
+        {
+          text: 'Führendes Erbrechen ohne Fieber innerhalb von ein bis sechs Stunden nach einer gemeinsamen Mahlzeit — präformiertes Toxin von Staphylococcus aureus oder Bacillus cereus',
+          atypisch: true,
+        },
+        {
+          text: 'Extraintestinale Folgeerkrankungen: reaktive Arthritis und Guillain-Barré-Syndrom nach Campylobacter-Enteritis, Erythema nodosum nach Yersiniose',
+          atypisch: true,
+        },
+        {
+          text: 'Fulminanter Verlauf mit Ileus, toxischem Megakolon und Sepsis bei Clostridioides-difficile-Kolitis — dabei kann der Durchfall paradoxerweise sistieren',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach Dauer der Diarrhoe',
+          inhalt: 'Akute Diarrhoe: unter 14 Tage — nahezu immer infektiös und selbstlimitierend. Persistierende Diarrhoe: 14 bis 29 Tage — es muss aktiv nach Parasiten (Giardia, Entamoeba, Kryptosporidien), Clostridioides difficile, sekundärer Laktoseintoleranz und nicht-infektiösen Ursachen gesucht werden. Chronische Diarrhoe: 30 Tage und länger — chronisch entzündliche Darmerkrankung, Zöliakie, Malabsorption, mikroskopische Kolitis, Malignom, endokrine Ursachen. Diese Einteilung ist die häufigste Prüfungsfrage bei protrahiertem Verlauf.',
+        },
+        {
+          name: 'Einteilung nach Pathomechanismus und Erregertyp',
+          inhalt: 'Sekretorisch-nichtentzündlich (Dünndarm): Viren, enterotoxische Escherichia coli, Choleratoxin, Lamblien — große Stuhlvolumina, wässrig, kein Blut, kein oder wenig Fieber, periumbilikale Krämpfe. Invasiv-entzündlich (Dickdarm, Dysenterie): Shigellen, Campylobacter, Salmonellen, EHEC, Entamoeba histolytica — kleine Volumina, blutig-schleimig, Tenesmen, hohes Fieber, Leukozyten und Calprotectin im Stuhl erhöht. Toxinvermittelte Lebensmittelvergiftung durch präformierte Toxine: Staphylococcus aureus, Bacillus cereus — Latenz von ein bis sechs Stunden, führendes Erbrechen, kein Fieber.',
+        },
+        {
+          name: 'Schweregrad der Dehydratation',
+          inhalt: 'Leicht (Gewichtsverlust unter 5 %): Durst, trockene Schleimhäute, normale Vitalparameter — orale Rehydratation ambulant. Mäßig (5 bis 10 %): stehende Hautfalten, verminderter Hautturgor, eingesunkene Augen, Tachykardie, Orthostase, Oligurie, verlängerte Rekapillarisierungszeit — orale, bei Erbrechen intravenöse Rehydratation. Schwer (über 10 %): Hypotonie, Schock, Anurie, Bewusstseinstrübung, metabolische Azidose — sofortige intravenöse Volumentherapie und stationäre, gegebenenfalls intensivmedizinische Aufnahme.',
+        },
+        {
+          name: 'Meldepflicht und Tätigkeitsverbot nach dem Infektionsschutzgesetz (IfSG)',
+          inhalt: 'Arztmeldung (§ 6 IfSG), namentlich innerhalb von 24 Stunden an das Gesundheitsamt: Verdacht auf und Erkrankung an akuter infektiöser Gastroenteritis sowie an mikrobiell bedingter Lebensmittelvergiftung, wenn die Person im Lebensmittelbereich tätig ist ODER wenn zwei oder mehr gleichartige Erkrankungen mit wahrscheinlichem epidemischem Zusammenhang auftreten; Verdacht auf und Erkrankung an enteropathischem hämolytisch-urämischem Syndrom, Cholera, Typhus und Paratyphus sowie Botulismus sind immer meldepflichtig, ebenso eine Clostridioides-difficile-Infektion mit klinisch schwerem Verlauf. Labormeldung (§ 7 IfSG): direkter Erregernachweis von Salmonellen, Shigellen, Campylobacter, Yersinia enterocolitica, EHEC, Noro- und Rotaviren, Giardia lamblia, Entamoeba histolytica und Kryptosporidien. Tätigkeitsverbot (§ 42 IfSG) für Personen, die mit Lebensmitteln umgehen — Küche, Gastronomie, Lebensmittelherstellung, Gemeinschaftsverpflegung. Gemeinschaftseinrichtungen (§ 34 IfSG): Kinder unter sechs Jahren mit infektiöser Gastroenteritis dürfen Kindergarten oder Schule nicht besuchen. Rückkehr an den Arbeitsplatz frühestens 48 Stunden nach vollständigem Sistieren der Symptome.',
+        },
+      ],
+      redFlags: [
+        'Blutige Durchfälle (Dysenterie) — invasive bakterielle Genese, EHEC, Amöbenruhr, chronisch entzündliche Darmerkrankung oder Malignom',
+        'Hohes Fieber über 39 °C, Schüttelfrost, Verwirrtheit oder Hypotonie — Sepsisverdacht, sofortige Blutkulturen und stationäre Aufnahme',
+        'Starke oder LOKALISIERTE Bauchschmerzen mit Abwehrspannung, Loslassschmerz oder fehlenden Darmgeräuschen — an Appendizitis, Divertikulitis, Perforation, Ileus und Mesenterialinfarkt denken',
+        'Schwere Dehydratation mit Anurie, Bewusstseinstrübung oder Schock; beim alten Menschen bereits neu aufgetretene Verwirrtheit',
+        'Blutiger Durchfall beim Kind mit Blässe, Oligurie und Ödemen — hämolytisch-urämisches Syndrom bei EHEC; weder Antibiotika noch Motilitätshemmer geben',
+        'Dauer über eine Woche ohne Besserung oder ungewollter Gewichtsverlust — Parasiten, Clostridioides difficile, chronisch entzündliche Darmerkrankung, Malignom',
+        'Kürzliche Auslandsreise, insbesondere in die Tropen — Malaria, Typhus, Amöbenruhr und Cholera abklären; bei Fieber sofort dicker Tropfen und Blutausstrich',
+        'Antibiotikaeinnahme oder Krankenhausaufenthalt in den letzten drei Monaten — Clostridioides-difficile-Kolitis',
+        'Immunsuppression, Schwangerschaft, hohes Lebensalter, Herz- oder Niereninsuffizienz — verschärfte Indikation zur stationären Aufnahme',
+        'Sistieren des Durchfalls bei zunehmender Bauchdistension und Verschlechterung des Allgemeinzustands — toxisches Megakolon',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Beschwerdeanamnese: Beginn und Dauer, Stuhlfrequenz, Konsistenz, Farbe, Geruch, Blut- und Schleimbeimengungen, Erbrechen, Fieber, Bauchschmerzcharakter, Besserung nach Defäkation, nächtliche Symptomatik und Gewichtsverlauf',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Expositionsanamnese: gemeinsame Mahlzeiten und verdächtige Speisen mit zeitlicher Latenz, ERKRANKTE KONTAKTPERSONEN im Haushalt, am Arbeitsplatz und in Gemeinschaftseinrichtungen, Trinkwasserquelle',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'REISEANAMNESE: Reiseland, Reisezeitraum, Zeitpunkt der Rückkehr, Eiswürfel, Leitungswasser, rohe Speisen, Süßwasserkontakt, Malariaprophylaxe und reisemedizinische Impfungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Antibiotika-, Medikamenten- und Krankenhausanamnese der letzten drei Monate (Clostridioides difficile; Metformin, Protonenpumpenhemmer, Laxanzien, Magnesium als medikamentöse Ursache)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'BERUFSANAMNESE des Patienten und der Haushaltsangehörigen — Pflichtfrage wegen Tätigkeitsverbot und Meldepflicht nach dem Infektionsschutzgesetz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperatur, Blutdruck im Liegen und im Stehen sowie Puls; Beurteilung des Volumenstatus über Hautturgor, Schleimhäute, Rekapillarisierungszeit, Urinmenge und -farbe sowie Gewichtsverlauf. Cave: Betablocker maskieren die Tachykardie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abdominelle Untersuchung: Inspektion, Auskultation (gesteigerte, hochgestellte Darmgeräusche), Perkussion, Palpation mit gezielter Prüfung auf lokalisierten Druckschmerz, Loslassschmerz und Abwehrspannung sowie Prüfung der Bruchpforten; digital-rektale Untersuchung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Bei leichtem Verlauf beim ansonsten gesunden Erwachsenen ist KEINE weitere Diagnostik erforderlich — Anamnese, Untersuchung, Rehydratation und Aufklärung über Warnzeichen genügen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei schwerem Verlauf, Risikopatienten oder Dauer über eine Woche: Blutbild mit Differenzialblutbild (Anämie als Alarmzeichen, Eosinophilie bei Parasiten), CRP und Prokalzitonin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'ELEKTROLYTE (Natrium, Kalium, Chlorid, Kalzium, Magnesium), Kreatinin und Harnstoff zur Erfassung eines prärenalen Nierenversagens sowie Blutgasanalyse zur Erfassung einer metabolischen Azidose durch Bikarbonatverlust',
+        },
+        {
+          stufe: 'Labor',
+          text: 'STUHLDIAGNOSTIK gezielt bei blutigem Durchfall, hohem Fieber, schwerem Verlauf, Immunsuppression, Reiserückkehr, Antibiotikaanamnese, Krankenhausaufenthalt, Ausbruchsgeschehen oder Tätigkeit im Lebensmittelbereich: bakterielle Kultur auf Salmonellen, Shigellen, Campylobacter, Yersinien und EHEC, Virusnachweis für Noro- und Rotaviren, Multiplex-PCR',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Clostridioides-difficile-Diagnostik als Stufenschema: GDH-Screening, Toxin A/B im Stuhl, bei Diskrepanz Toxingen-Nachweis mittels PCR',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Parasitendiagnostik in mindestens drei Stuhlproben an verschiedenen Tagen (Giardia-Antigen oder -PCR, Entamoeba histolytica, Kryptosporidien, Wurmeier); Calprotectin im Stuhl zur Abgrenzung einer chronisch entzündlichen Darmerkrankung; Test auf okkultes Blut bei Verdacht auf ein Malignom',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen bei Fieber und Sepsisverdacht; bei jedem Fieber nach Tropenaufenthalt zusätzlich dicker Tropfen und Blutausstrich zum Malariaausschluss; bei protrahiertem Verlauf Zöliakie-Serologie, TSH sowie Eisenstatus, Vitamin B12 und Folsäure',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie zum Ausschluss anderer Ursachen (Appendizitis, Divertikulitis, Cholezystitis, Pankreatitis, Harnaufstau, Abszess) sowie zur Beurteilung von Darmwanddicke, freier Flüssigkeit, mesenterialen Lymphknoten und Leber',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG bei Elektrolytstörung, insbesondere zur Erfassung von Repolarisationsstörungen und Rhythmusstörungen bei Hypokaliämie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Abdomen im Stehen oder in Linksseitenlage bei Verdacht auf Ileus, Perforation oder toxisches Megakolon; Computertomographie des Abdomens bei unklarem akutem Abdomen oder Komplikationsverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Stufenbiopsien bei persistierender oder chronischer Diarrhoe, blutigem Stuhl, Gewichtsverlust, Alter über 50 Jahren oder positiver Familienanamnese — Ausschluss von chronisch entzündlicher Darmerkrankung, mikroskopischer Kolitis und kolorektalem Karzinom; typischer Befund bei Clostridioides difficile sind gelbliche Pseudomembranen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophago-Gastro-Duodenoskopie mit Duodenalbiopsien und Duodenalsaftgewinnung bei negativer Stuhldiagnostik — Nachweis von Lamblien, Ausschluss einer Zöliakie; Laktose-H2-Atemtest erst nach Ausheilung des Infekts',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Appendizitis',
+          unterscheidung: 'Der klassische Fehler — beginnt häufig mit Übelkeit, Erbrechen und Durchfall und wird als Gastroenteritis verkannt. Wegweisend sind die Schmerzwanderung vom Epigastrium in den rechten Unterbauch, der lokalisierte Druckschmerz über McBurney und Lanz, Loslassschmerz, Abwehrspannung, positives Psoas- und Blumberg-Zeichen, axillo-rektale Temperaturdifferenz sowie steigende Leukozyten und CRP.',
+        },
+        {
+          dd: 'Divertikulitis',
+          unterscheidung: 'Meist ältere Patienten, Schmerz im linken Unterbauch („Linksappendizitis“), Fieber, walzenförmige Resistenz, erhöhte Entzündungsparameter; Nachweis in Sonographie und Computertomographie. Stuhlverhalten wechselnd, häufiger Obstipation als Diarrhoe.',
+        },
+        {
+          dd: 'Chronisch entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa) im Schub',
+          unterscheidung: 'Schleichender Beginn, Verlauf über Wochen bis Monate mit Rezidiven; bei Colitis ulcerosa blutig-schleimige Durchfälle mit Tenesmen und kontinuierlichem Befall vom Rektum aus, bei Morbus Crohn diskontinuierlicher Befall mit Prädilektion des terminalen Ileums, perianalen Fisteln und Aphthen. Extraintestinale Manifestationen an Augen, Gelenken, Haut und Gallenwegen. Calprotectin im Stuhl erhöht, Diagnose durch Ileokoloskopie mit Biopsie.',
+        },
+        {
+          dd: 'Clostridioides-difficile-Kolitis (pseudomembranöse Kolitis)',
+          unterscheidung: 'Antibiotikaeinnahme oder Krankenhausaufenthalt in den letzten Wochen bis drei Monaten; fötide, oft grünliche Durchfälle mit Fieber, Leukozytose und CRP-Anstieg, im schweren Fall toxisches Megakolon. Nachweis über GDH, Toxin A/B und Toxingen-PCR; endoskopisch gelbliche Pseudomembranen.',
+        },
+        {
+          dd: 'Ischämische Kolitis und Mesenterialinfarkt',
+          unterscheidung: 'Typischerweise beim älteren Patienten mit Vorhofflimmern, Atherosklerose oder Herzinsuffizienz. Beim Mesenterialinfarkt der dreiphasige Verlauf mit initialem Vernichtungsschmerz, trügerischem schmerzfreiem Intervall und anschließendem Durchwanderungsperitonitis; Laktatanstieg, metabolische Azidose, Diskrepanz zwischen heftigem Schmerz und blandem Tastbefund. Diagnose per Angio-Computertomographie.',
+        },
+        {
+          dd: 'Cholezystitis, Choledocholithiasis und Pankreatitis',
+          unterscheidung: 'Schmerzlokalisation im rechten Oberbauch mit Ausstrahlung in die rechte Schulter und positivem Murphy-Zeichen beziehungsweise gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken; Erbrechen im Vordergrund, Ikterus, erhöhte Cholestaseparameter beziehungsweise Lipase. Durchfall untypisch.',
+        },
+        {
+          dd: 'Harnwegsinfekt und Pyelonephritis, insbesondere beim alten Menschen',
+          unterscheidung: 'Kann sich beim geriatrischen Patienten atypisch mit Übelkeit, Bauchschmerzen, Verwirrtheit und Sturz präsentieren; Dysurie und Pollakisurie fehlen häufig. Klopfschmerz im Nierenlager, Urinstatus mit Leukozyturie und Nitrit, Urinkultur.',
+        },
+        {
+          dd: 'Diabetische Ketoazidose',
+          unterscheidung: 'Kann als Pseudoperitonitis diabetica mit Übelkeit, Erbrechen und Bauchschmerzen imponieren. Wegweisend sind Polyurie und Polydipsie, Kussmaul-Atmung, Azetongeruch, Hyperglykämie, Ketonkörper und metabolische Azidose in der Blutgasanalyse.',
+        },
+        {
+          dd: 'Nebenniereninsuffizienz (Addison-Krise) und Hyperthyreose',
+          unterscheidung: 'Addison-Krise: Übelkeit, Erbrechen, Bauchschmerzen, Hypotonie, Hyperpigmentierung, Hyponatriämie mit Hyperkaliämie und Hypoglykämie, oft nach abruptem Steroidentzug. Hyperthyreose: Gewichtsverlust trotz Appetit, häufiger Stuhlgang, Tachykardie, Tremor, Wärmeintoleranz, TSH supprimiert.',
+        },
+        {
+          dd: 'Medikamentennebenwirkung',
+          unterscheidung: 'Gezielt zu erfragen sind Metformin, Antibiotika, Protonenpumpenhemmer, Magnesium, Laxanzien, Colchicin, Digitalis, Zytostatika und Checkpoint-Inhibitoren (immunvermittelte Kolitis). Zeitlicher Zusammenhang mit dem Therapiebeginn, Besserung nach Absetzen.',
+        },
+        {
+          dd: 'Laktoseintoleranz und Zöliakie',
+          unterscheidung: 'Laktoseintoleranz: Blähungen, Krämpfe und Durchfall etwa 30 bis 120 Minuten nach Milchprodukten, kein Fieber, kein Gewichtsverlust; Nachweis über Laktose-H2-Atemtest. Sekundär auch passager nach jeder Enteritis. Zöliakie: voluminöse, fettglänzende, fötide Stühle, Meteorismus, Gewichtsverlust, Eisenmangelanämie, Dermatitis herpetiformis; Transglutaminase-IgA und Gesamt-IgA, Duodenalbiopsie.',
+        },
+        {
+          dd: 'Reizdarmsyndrom',
+          unterscheidung: 'Diagnose per exclusionem: Beschwerden über mindestens drei Monate mit Besserung nach dem Stuhlgang und wechselnder Stuhlfrequenz, aber OHNE nächtliche Symptome, ohne Gewichtsverlust, ohne Blut und ohne Anämie. Alarmzeichen schließen die Diagnose aus. Ein postinfektiöses Reizdarmsyndrom kann sich nach einer Enteritis entwickeln.',
+        },
+        {
+          dd: 'Kolorektales Karzinom',
+          unterscheidung: 'Bei Patienten über 50 Jahren mit neu aufgetretener Änderung der Stuhlgewohnheit, Blutauflagerungen, Bleistiftstühlen, paradoxer Diarrhoe bei Stenose, Gewichtsverlust und Eisenmangelanämie; positive Familienanamnese verstärkt den Verdacht. Diagnose durch Koloskopie mit Biopsie.',
+        },
+        {
+          dd: 'Malaria und andere Tropenerkrankungen nach Reise',
+          unterscheidung: 'Bei Fieber nach Aufenthalt im Endemiegebiet ist die Malaria bis zum Beweis des Gegenteils anzunehmen — dicker Tropfen und Blutausstrich noch am selben Tag; gastrointestinale Symptome sind häufig und führen in die Irre. Typhus abdominalis: stufenförmiger Fieberanstieg, relative Bradykardie, Roseolen, zunächst Obstipation, erst später erbsbreiartige Durchfälle. Ferner Amöbenruhr, Cholera und Dengue-Fieber.',
+        },
+        {
+          dd: 'Lebensmittelvergiftung durch präformierte Toxine im engeren Sinn',
+          unterscheidung: 'Sehr kurze Latenz von ein bis sechs Stunden nach der Mahlzeit, führendes heftiges Erbrechen, kaum oder kein Fieber, Dauer unter 24 Stunden, mehrere Betroffene derselben Mahlzeit. Erreger Staphylococcus aureus und Bacillus cereus; die Behandlung ist rein symptomatisch, ein Antibiotikum ist wirkungslos.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Rehydratation und Elektrolytausgleich',
+          items: [
+            'Tragende Säule der gesamten Behandlung ist der Ersatz von Flüssigkeit und Elektrolyten, nicht die Erregerelimination — die meisten Verläufe sind selbstlimitierend',
+            'orale Rehydratationslösung nach WHO-Rezeptur (Glukose-Natrium-Kotransport) in kleinen, häufigen Schlucken, alle fünf bis zehn Minuten; Ersatz des laufenden Verlusts zusätzlich zum Erhaltungsbedarf, bei Erwachsenen orientierend 2 bis 3 Liter täglich',
+            'geeignete Alternativen im Haushalt: gesalzene Brühe, verdünnte Fruchtsäfte, Salzstangen und Zwieback; ungeeignet sind reine Softdrinks und stark gezuckerte Getränke wegen der osmotischen Belastung',
+            'INTRAVENÖSE Volumen- und Elektrolytsubstitution mit balancierter Vollelektrolytlösung bei schwerer Dehydratation, anhaltendem Erbrechen mit fehlender oraler Toleranz, Bewusstseinstrübung, Schock oder bei Risikopatienten — dann mit stationärer Aufnahme',
+            'gezielter Ausgleich von Kalium, Natrium, Magnesium und Bikarbonat nach Laborwerten; engmaschige Kontrolle von Elektrolyten, Kreatinin und Blutgasanalyse, Bilanzierung von Ein- und Ausfuhr sowie tägliches Wiegen',
+            'Risikogruppen mit niedriger Schwelle zur stationären Aufnahme: Säuglinge und Kleinkinder, alte und pflegebedürftige Menschen, Schwangere, Immunsupprimierte sowie Patienten mit Herz- oder Niereninsuffizienz und Diuretika',
+            'potenziell nephrotoxische Dauermedikation vorübergehend pausieren: Diuretika, ACE-Hemmer, Sartane, nichtsteroidale Antirheumatika und Metformin (Laktatazidose-Risiko)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Symptomatische Therapie und Ernährungsaufbau',
+          items: [
+            'Antiemetika bei quälendem Erbrechen: Ondansetron 4 bis 8 mg oder Metoclopramid 10 mg, damit die orale Rehydratation überhaupt möglich wird',
+            'Butylscopolamin 10 bis 20 mg bei krampfartigen Bauchschmerzen; Paracetamol oder Metamizol bei Bedarf, nichtsteroidale Antirheumatika bei Exsikkose wegen der Nierenbelastung vermeiden',
+            'FRÜHZEITIGER KOSTAUFBAU mit leichter, salz- und kohlenhydratreicher Kost (Zwieback, Weißbrot, Reis, Kartoffeln, Bananen, Karottensuppe): Nahrungskarenz und die alte „Teepause“ sind überholt, weil sie die Regeneration der Darmzotten verzögern',
+            'passagerer Verzicht auf Milchprodukte, fettreiche Speisen, Kaffee und Alkohol wegen der sekundären, meist reversiblen Laktoseintoleranz nach Enteritis',
+            'LOPERAMID nur beim unblutigen Durchfall des Erwachsenen ohne Fieber und nur kurzfristig — AUSDRÜCKLICH NICHT bei blutigem Durchfall, hohem Fieber, Verdacht auf EHEC oder Clostridioides difficile und nicht bei Kindern, da es Erreger und Toxine im Darm zurückhält und ein toxisches Megakolon auslösen kann',
+            'Racecadotril als Enkephalinase-Hemmer hemmt die Sekretion ohne Motilitätslähmung und ist damit sicherer als Loperamid; Probiotika mit allenfalls geringem Effekt auf die Krankheitsdauer',
+            'Aufklärung über Warnzeichen, die eine sofortige Wiedervorstellung erfordern: blutiger Stuhl, hohes Fieber, starke lokalisierte Bauchschmerzen, fehlende Urinausscheidung, Benommenheit oder Verwirrtheit',
+          ],
+        },
+        {
+          label: 'Gezielte antimikrobielle Therapie als Ausnahme',
+          items: [
+            'Grundsatz: Die meisten Verläufe sind selbstlimitierend und brauchen KEIN Antibiotikum; eine ungezielte Gabe verlängert die Erregerausscheidung, fördert Resistenzen und begünstigt eine Clostridioides-difficile-Kolitis',
+            'Indikationen: schwerer Verlauf mit hohem Fieber und Sepsiszeichen, blutige Dysenterie, Immunsuppression, hohes Lebensalter, Säuglinge, Herzklappenersatz oder Gefäßprothese sowie der Nachweis bestimmter Erreger',
+            'kalkulierte Therapie bei schwerer bakterieller Enteritis: Azithromycin 500 mg täglich über drei Tage — Mittel der Wahl bei Campylobacter und bei Reisediarrhoe aus Südost- und Südasien wegen hoher Chinolonresistenz; alternativ Ciprofloxacin unter Beachtung der Warnhinweise zu Sehnen-, Nerven- und Aortenschäden',
+            'Salmonellen-Enteritis wird beim Immungesunden NICHT antibiotisch behandelt, da die Ausscheidungsdauer verlängert wird; Ausnahmen sind Säuglinge, Patienten über 70 Jahre, Immunsupprimierte, Sichelzellanämie, Gefäßprothesen und Sepsiszeichen',
+            'bei Clostridioides difficile: sofortiges Absetzen des auslösenden Antibiotikums, Vancomycin 4 × 125 mg oral über zehn Tage oder Fidaxomicin 2 × 200 mg; bei rezidivierendem Verlauf fäkaler Mikrobiomtransfer; Metronidazol nur noch als Reserve',
+            'bei Parasiten: Metronidazol oder Tinidazol bei Lambliasis unter strikter Alkoholkarenz wegen der Disulfiram-ähnlichen Reaktion; bei Entamoeba histolytica Metronidazol gefolgt von Paromomycin zur Sanierung der Zysten im Darmlumen',
+            'KEINE Antibiotika bei Verdacht auf EHEC — die Antibiotikagabe steigert die Freisetzung von Shigatoxin und erhöht das Risiko eines hämolytisch-urämischen Syndroms; ebenso keine Motilitätshemmer',
+            'Allergien beachten: Bei Penicillinallergie sind Aminopenicilline ausgeschlossen, Metronidazol, Azithromycin und Fluorchinolone sind davon nicht betroffen',
+          ],
+        },
+        {
+          label: 'Hygiene, Meldepflicht und Verhaltensregeln',
+          items: [
+            'konsequente HÄNDEHYGIENE mit Wasser und Seife nach jedem Toilettengang und vor jeder Nahrungszubereitung — alkoholische Desinfektionsmittel wirken gegen Noroviren unzureichend, es sind ausdrücklich viruzide Präparate erforderlich',
+            'eigene Handtücher, tägliche Flächendesinfektion von Toilette, Türgriffen und Armaturen, Wäsche bei mindestens 60 °C, möglichst getrennte Toilettenbenutzung im Haushalt',
+            'im Krankenhaus Kontaktisolierung im Einzelzimmer mit Schutzkittel und Handschuhen, bei Clostridioides difficile zusätzlich Sporen-wirksame Flächendesinfektion, da Alkohol gegen Sporen unwirksam ist',
+            'MELDEPFLICHT nach dem Infektionsschutzgesetz prüfen: namentliche Arztmeldung bei Verdacht und Erkrankung, wenn die Person im Lebensmittelbereich tätig ist oder wenn zwei oder mehr gleichartige Erkrankungen mit wahrscheinlichem epidemischem Zusammenhang auftreten; Erregernachweise werden zusätzlich vom Labor gemeldet',
+            'TÄTIGKEITSVERBOT für Beschäftigte in Küche, Gastronomie, Lebensmittelherstellung, Gemeinschaftsverpflegung und Gemeinschaftseinrichtungen — deshalb MUSS der Beruf des Patienten und der Haushaltsangehörigen erfragt werden; Kinder unter sechs Jahren dürfen Gemeinschaftseinrichtungen nicht besuchen',
+            'Rückkehr an den Arbeitsplatz frühestens 48 Stunden nach vollständigem Sistieren der Symptome; Krankschreibung entsprechend ausstellen',
+            'Prävention und Reiseberatung: Impfung gegen Rotaviren im Säuglingsalter als Schluckimpfung, Impfungen gegen Hepatitis A, Typhus und Cholera vor Fernreisen, Malariaprophylaxe sowie die Regel „cook it, boil it, peel it or forget it“ — kein Leitungswasser, keine Eiswürfel, kein rohes Obst und Gemüse ohne eigenes Schälen',
+          ],
+        },
+      ],
+      prognose: 'Die akute infektiöse Gastroenteritis heilt beim immungesunden Erwachsenen in der Regel innerhalb weniger Tage folgenlos aus; virale Verläufe dauern typischerweise 24 bis 72 Stunden, bakterielle Verläufe bis zu einer Woche. Die Prognose wird nicht vom Erreger, sondern vom Ausmaß des Flüssigkeits- und Elektrolytverlusts bestimmt: Weltweit ist die Dehydratation bei Durchfallerkrankungen eine führende Todesursache im Kindesalter, in Deutschland betrifft die Sterblichkeit fast ausschließlich alte, multimorbide und pflegebedürftige Menschen. Komplikationen sind das prärenale und schließlich renale Nierenversagen, Hypokaliämie mit Herzrhythmusstörungen, metabolische Azidose, Sepsis, bei EHEC das hämolytisch-urämische Syndrom mit einer Häufigkeit von etwa 5 bis 10 % der betroffenen Kinder sowie bei Clostridioides difficile das toxische Megakolon. Als Folgezustände können eine passagere sekundäre Laktoseintoleranz über Wochen, ein postinfektiöses Reizdarmsyndrom, eine reaktive Arthritis nach Campylobacter-, Yersinien- oder Salmonellen-Enteritis und selten ein Guillain-Barré-Syndrom nach Campylobacter-Infektion auftreten. Eine Diarrhoe, die länger als zwei Wochen unverändert anhält, ist prognostisch anders zu bewerten und muss vollständig abgeklärt werden.',
+      pruefungsfallen: [
+        'Die REISEANAMNESE nicht vergessen — sie ist bei jedem Durchfall Pflicht und wurde in Stuttgart einem Kandidaten, der sie ausgelassen hatte, vom Prüfer direkt vorgehalten („War der Patient im Ausland?“). Dazu gehören Reiseland, Zeitpunkt, Essen und Getränke, Eiswürfel, Leitungswasser und Malariaprophylaxe.',
+        'Nach ERKRANKTEN KONTAKTPERSONEN und gemeinsamen Mahlzeiten fragen — das ist zugleich die Grundlage der Meldepflicht bei zwei oder mehr gleichartigen Erkrankungen.',
+        'Die Therapie ist das VOLUMEN, nicht das Antibiotikum. Wer mit einem Antibiotikum beginnt, hat die Frage verfehlt: Rehydratation und Elektrolytausgleich gehören an den Anfang jeder Antwort.',
+        'LOPERAMID ist bei blutigem Durchfall, hohem Fieber, EHEC- oder Clostridioides-difficile-Verdacht und bei Kindern kontraindiziert, weil Erreger und Toxine zurückgehalten werden — ein Klassiker der Prüfungsfrage.',
+        'Bei EHEC-Verdacht KEINE Antibiotika geben: Sie steigern die Shigatoxin-Freisetzung und erhöhen das Risiko eines hämolytisch-urämischen Syndroms. Blutiger Durchfall beim Kind mit Blässe und Oligurie ist der Schlüsselbefund.',
+        'Die Salmonellen-Enteritis des Immungesunden wird NICHT antibiotisch behandelt — die Antibiotikagabe verlängert die Ausscheidung.',
+        'Die APPENDIZITIS als klassische Fehldiagnose: Sie beginnt oft mit Übelkeit und Durchfall. Deshalb immer auf lokalisierten Druckschmerz, Loslassschmerz, Abwehrspannung und Fieber untersuchen und die Yersinien-Pseudoappendizitis kennen.',
+        'MELDEPFLICHT und TÄTIGKEITSVERBOT nach dem Infektionsschutzgesetz aktiv nennen — und daraus ableiten, dass der BERUF des Patienten und der Haushaltsangehörigen erfragt werden muss. Rückkehr an den Arbeitsplatz erst 48 Stunden nach Symptomfreiheit.',
+        'Alkoholische Händedesinfektionsmittel wirken gegen NOROVIREN unzureichend und gegen Clostridioides-difficile-SPOREN gar nicht — Händewaschen mit Seife und viruzide beziehungsweise sporozide Flächendesinfektion nennen.',
+        'Beim ALTEN MENSCHEN ist die VERWIRRTHEIT das führende Zeichen der Exsikkose; Fieber und Bauchschmerz können fehlen. Umgekehrt kann sich eine Pyelonephritis beim alten Menschen als Gastroenteritis maskieren.',
+        'Betablocker maskieren die Tachykardie: Ein normfrequenter Puls schließt ein relevantes Volumendefizit nicht aus. Blutdruck im Liegen und Stehen, Hautturgor, Urinmenge und Gewicht beurteilen.',
+        'Beim leichten Verlauf des Gesunden ist KEINE weitere Diagnostik nötig — dies offen auszusprechen gilt als Zeichen klinischer Reife; ebenso wichtig ist es, die klaren Indikationen zur Stuhldiagnostik aufzählen zu können.',
+        'Eine Diarrhoe über zwei Wochen ist keine akute Gastroenteritis mehr, sondern eine persistierende Diarrhoe — dann an Parasiten, Clostridioides difficile, sekundäre Laktoseintoleranz, chronisch entzündliche Darmerkrankung und Malignom denken.',
+        'Die frühe Ernährung nicht vergessen: Die „Teepause“ ist überholt, ein früher Kostaufbau mit leichter Kost beschleunigt die Erholung der Darmschleimhaut.',
+        'Metformin, ACE-Hemmer, Sartane, Diuretika und nichtsteroidale Antirheumatika bei Exsikkose pausieren — sonst droht ein prärenales Nierenversagen beziehungsweise eine Laktatazidose.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum haben Sie einen Verdacht auf eine Gastroenteritis? Was spricht dafür?',
+          antwort: 'Der akute Beginn mit Übelkeit, Erbrechen, wässrigen Durchfällen und krampfartigen, diffusen Bauchschmerzen, die sich nach dem Stuhlgang bessern, dazu die Abgeschlagenheit, der zeitliche Zusammenhang mit einer Auslandsreise beziehungsweise einer verdächtigen Mahlzeit sowie gleichzeitig erkrankte Kontaktpersonen. Gegen ein akutes Abdomen sprechen der weiche Bauch ohne Abwehrspannung und die gesteigerten Darmgeräusche.',
+        },
+        {
+          frage: 'Welche Bakterien verursachen am häufigsten eine Gastroenteritis?',
+          antwort: 'In Deutschland ist Campylobacter jejuni der am häufigsten gemeldete bakterielle Erreger, gefolgt von Salmonellen; weiter Yersinia enterocolitica, Shigellen und enterohämorrhagische Escherichia coli. Bei der Reisediarrhoe steht enterotoxische Escherichia coli an erster Stelle. Insgesamt ist bei Erwachsenen jedoch das Norovirus der häufigste Erreger, bei Kleinkindern das Rotavirus.',
+        },
+        {
+          frage: 'Welche Labor- und bildgebenden Verfahren können eingesetzt werden?',
+          antwort: 'Blutbild mit Differenzialblutbild, CRP und Prokalzitonin, Elektrolyte, Kreatinin und Harnstoff, Blutgasanalyse, Leberwerte, Lipase und Blutzucker; Stuhldiagnostik auf Bakterien, Viren und Parasiten, Clostridioides-difficile-Toxin und Calprotectin; Blutkulturen bei Sepsisverdacht. Bildgebend die Abdomensonographie zum Ausschluss anderer Ursachen, ein EKG bei Elektrolytstörung und ein Röntgen-Abdomen nur bei Verdacht auf Ileus oder Perforation. Bei persistierender Diarrhoe folgt die Ileokoloskopie mit Biopsien.',
+        },
+        {
+          frage: 'Wie behandeln Sie die akute Gastroenteritis?',
+          antwort: 'Im Vordergrund stehen Rehydratation und Elektrolytausgleich — oral mit einer Rehydratationslösung in kleinen Schlucken, intravenös bei schwerer Dehydratation, anhaltendem Erbrechen oder Risikopatienten. Dazu symptomatisch Antiemetika, Butylscopolamin gegen Krämpfe und ein früher Kostaufbau mit leichter Kost. Ein Antibiotikum ist die Ausnahme. Abschließend Hygieneberatung, Prüfung der Meldepflicht und Aufklärung über Warnzeichen.',
+        },
+        {
+          frage: 'Könnten die Symptome von einem Antibiotikum hervorgerufen worden sein? Wie heißt eine Kolitis, die vom Antibiotikum verursacht wird?',
+          antwort: 'Ja — deshalb muss die Antibiotikaanamnese der letzten Wochen bis drei Monate aktiv erfragt werden. Es handelt sich um die antibiotikaassoziierte Kolitis durch Clostridioides difficile, die als pseudomembranöse Kolitis bezeichnet wird. Nachweis über GDH, Toxin A/B und Toxingen-PCR im Stuhl, endoskopisch gelbliche Pseudomembranen. Therapie: auslösendes Antibiotikum absetzen, orales Vancomycin oder Fidaxomicin.',
+        },
+        {
+          frage: 'Wo befindet sich der Morbus Crohn am häufigsten?',
+          antwort: 'Im terminalen Ileum — daher der alte Begriff Ileitis terminalis. Grundsätzlich kann jedoch der gesamte Verdauungstrakt von der Mundhöhle bis zum Anus diskontinuierlich und transmural befallen sein, mit den typischen Skip Lesions, dem Pflastersteinrelief, Fisteln und Stenosen.',
+        },
+        {
+          frage: 'Welche Stuhlverhältnisse erwarten wir beim Kolonkarzinom? Was bedeutet „paradoxer Stuhlgang“?',
+          antwort: 'Jede neu aufgetretene Änderung der Stuhlgewohnheit über Wochen bis Monate, typischerweise ein Wechsel von Obstipation und Diarrhoe, Blutauflagerungen, Bleistiftstühle bei stenosierendem Wachstum und eine Eisenmangelanämie. Paradoxer Stuhlgang bedeutet, dass bei einer stenosierenden Raumforderung flüssiger Stuhl an der Enge vorbeiläuft — der Patient hat also Durchfall, obwohl eine Stenose mit Obstipation vorliegt.',
+        },
+        {
+          frage: 'Der Durchfall des Patienten hält seit zwei Wochen in gleicher Schwere an — das dauert zu lange. Was könnte der Grund sein?',
+          antwort: 'Es handelt sich dann nicht mehr um eine akute, sondern um eine persistierende Diarrhoe. In Betracht kommen parasitäre Erreger wie Giardia duodenalis, Entamoeba histolytica und Kryptosporidien, eine Clostridioides-difficile-Kolitis, eine sekundäre Laktoseintoleranz nach Enteritis, ein postinfektiöses Reizdarmsyndrom, eine chronisch entzündliche Darmerkrankung, eine Zöliakie und — bei Alter über 50 Jahren oder positiver Familienanamnese — ein kolorektales Karzinom.',
+        },
+        {
+          frage: 'Warum denken Sie nicht an einen Morbus Crohn?',
+          antwort: 'Weil der Beginn akut war und einen klaren zeitlichen Zusammenhang mit einer Reise beziehungsweise einer Mahlzeit hat, während der Morbus Crohn schleichend über Wochen bis Monate mit Rezidiven verläuft. Zudem fehlen perianale Fisteln und Abszesse, Aphthen, extraintestinale Manifestationen an Augen, Gelenken und Haut sowie eine entsprechende Familienanamnese. Ein erhöhtes Calprotectin und die Ileokoloskopie würden die Frage endgültig klären.',
+        },
+        {
+          frage: 'Dürfen Sie Loperamid geben? Wann ist es kontraindiziert?',
+          antwort: 'Beim unblutigen Durchfall des fieberfreien Erwachsenen darf es kurzfristig gegeben werden. Streng kontraindiziert ist Loperamid bei blutigem Durchfall, hohem Fieber, Verdacht auf EHEC oder Clostridioides difficile und bei Kindern, weil es die Erreger und ihre Toxine im Darm zurückhält und ein toxisches Megakolon auslösen kann.',
+        },
+        {
+          frage: 'Ein Kind hat blutigen Durchfall, ist blass und lässt kaum noch Wasser. Woran denken Sie, und was dürfen Sie nicht geben?',
+          antwort: 'An ein hämolytisch-urämisches Syndrom bei einer EHEC-Infektion mit der Trias aus hämolytischer Anämie, Thrombozytopenie und akutem Nierenversagen. Es besteht sofortige stationäre Einweisungspflicht. Weder Antibiotika noch Motilitätshemmer geben, da beide das Risiko erhöhen. Der Verdacht ist unabhängig vom Beruf meldepflichtig.',
+        },
+        {
+          frage: 'Besteht eine Meldepflicht? Nach welchem Gesetz, und wer meldet was?',
+          antwort: 'Nach dem Infektionsschutzgesetz. Der Arzt meldet namentlich innerhalb von 24 Stunden den Verdacht auf und die Erkrankung an akuter infektiöser Gastroenteritis, wenn die Person im Lebensmittelbereich tätig ist oder wenn zwei oder mehr gleichartige Erkrankungen mit wahrscheinlichem epidemischem Zusammenhang auftreten. Immer meldepflichtig sind das hämolytisch-urämische Syndrom, Cholera, Typhus, Paratyphus und Botulismus. Das Labor meldet zusätzlich den direkten Erregernachweis, etwa von Salmonellen, Campylobacter, Shigellen, EHEC, Noro- und Rotaviren und Giardia lamblia.',
+        },
+        {
+          frage: 'Für wen gilt ein Tätigkeitsverbot, und wann darf die betroffene Person wieder arbeiten?',
+          antwort: 'Für Personen, die beruflich mit Lebensmitteln umgehen — in Küchen, Gastronomie, Lebensmittelherstellung und Gemeinschaftsverpflegung — sowie für Beschäftigte und betreute Kinder in Gemeinschaftseinrichtungen. Deshalb muss der Beruf immer erfragt werden. Die Rückkehr ist frühestens 48 Stunden nach vollständigem Sistieren der Symptome und unter konsequenter Händehygiene möglich.',
+        },
+        {
+          frage: 'Wie beurteilen Sie klinisch den Flüssigkeitshaushalt, und wer sind die Risikopatienten?',
+          antwort: 'Über Durst, trockene Schleimhäute und Zunge, stehende Hautfalten und verminderten Hautturgor, eingesunkene Augen, verlängerte Rekapillarisierungszeit, Tachykardie, Hypotonie und Orthostase, verminderte Urinmenge mit dunklem Urin sowie den Gewichtsverlauf; beim alten Menschen ist die Verwirrtheit das führende Zeichen. Risikopatienten sind Säuglinge und Kleinkinder, alte und pflegebedürftige Menschen, Schwangere, Immunsupprimierte sowie Patienten mit Herz- oder Niereninsuffizienz und Diuretika.',
+        },
+        {
+          frage: 'Welche Hygienemaßnahmen empfehlen Sie, und warum reicht Händedesinfektionsmittel nicht?',
+          antwort: 'Konsequentes Händewaschen mit Wasser und Seife nach jedem Toilettengang und vor der Nahrungszubereitung, eigene Handtücher, Flächendesinfektion und Wäsche bei mindestens 60 °C. Alkoholische Desinfektionsmittel wirken gegen unbehüllte Viren wie Noroviren nur unzureichend und gegen Clostridioides-difficile-Sporen gar nicht — dafür sind viruzide beziehungsweise sporozide Mittel und die mechanische Entfernung durch Waschen nötig.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine virale von einer bakteriellen Gastroenteritis?',
+          antwort: 'Viral: kurze Inkubationszeit, führendes, oft explosionsartiges Erbrechen, wässriger Durchfall ohne Blut, kein oder nur mäßiges Fieber, hohe Ansteckungsfähigkeit, Häufung im Winter und in Gemeinschaftseinrichtungen, Dauer 24 bis 72 Stunden. Bakteriell-invasiv: hohes Fieber, stärkere Bauchschmerzen, Tenesmen, blutig-schleimige Durchfälle, deutlich erhöhte Entzündungsparameter und Calprotectin. Die toxinvermittelte Lebensmittelvergiftung hat eine Latenz von nur ein bis sechs Stunden mit führendem Erbrechen ohne Fieber.',
+        },
+      ],
+      merksatz: 'Bei jedem Durchfall drei Achsen abarbeiten: Erreger (viral, bakteriell-invasiv, Toxin, Antibiotika-assoziiert, parasitär nach Reise) — Dehydratation (das ist das eigentliche Problem, beim alten Menschen ist Verwirrtheit das führende Zeichen) — Red Flags (Blut, hohes Fieber, lokalisierter Schmerz, Dauer über eine Woche, Reise, Antibiotika). Therapie ist VOLUMEN, nicht Antibiotikum; Loperamid niemals bei Blut, Fieber, EHEC, Clostridioides difficile oder Kindern; und immer nach dem BERUF fragen — Meldepflicht und Tätigkeitsverbot nach dem Infektionsschutzgesetz.',
+      linkedCaseIds: [
+        'case-gastroenteritis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-rheumatisches-fieber',
+      pathology: 'Akutes rheumatisches Fieber',
+      specialty: 'Infektiologie',
+      definition: 'Das akute rheumatische Fieber ist eine POSTINFEKTIÖSE, immunologisch vermittelte Zweiterkrankung — keine fortbestehende Infektion. Es tritt mit einer Latenz von etwa ZWEI BIS VIER WOCHEN nach einer unbehandelten oder unzureichend behandelten Racheninfektion mit beta-hämolysierenden Streptokokken der Gruppe A (Streptococcus pyogenes) auf und befällt in wechselnder Kombination Gelenke, Herz, Zentralnervensystem, Haut und Unterhautgewebe. Betroffen sind vor allem Kinder, Jugendliche und junge Erwachsene mit einem Häufigkeitsgipfel zwischen dem fünften und fünfzehnten Lebensjahr. Die klinische Diagnose stützt sich auf die JONES-KRITERIEN. Prognosebestimmend ist nicht die akute Erkrankung, sondern die rheumatische Herzklappenerkrankung als Spätfolge — weltweit die häufigste Ursache erworbener Herzklappenfehler.',
+      aetiologie: 'Auslöser ist ausschließlich eine Infektion des RACHENS (Tonsillopharyngitis) durch beta-hämolysierende Streptokokken der Lancefield-Gruppe A; Hautinfektionen mit denselben Erregern führen zur Poststreptokokken-Glomerulonephritis, nicht zum rheumatischen Fieber. Pathogenetisch liegt eine MOLEKULARE MIMIKRY zugrunde: Das M-Protein der Streptokokken ähnelt körpereigenen Strukturen, sodass die gebildeten Antikörper und die aktivierten T-Zellen mit Myosin und Laminin des Herzens, mit Strukturen der Basalganglien, mit Gelenkknorpel und Synovia sowie mit der Haut kreuzreagieren (Typ-II-Immunreaktion mit zusätzlicher zellulärer Komponente). Das freie Intervall entspricht der Zeit bis zum Aufbau dieser Immunantwort — deshalb ist der Erreger bei Krankheitsbeginn meist bereits eliminiert und der Rachenabstrich negativ. Begünstigend wirken eine genetische Prädisposition (bestimmte HLA-Klasse-II-Allele, D8/17-Alloantigen), rheumatogene M-Serotypen sowie enge Wohnverhältnisse. In Deutschland ist die Erkrankung durch die konsequente Antibiotikatherapie der Streptokokkenangina selten geworden, bleibt aber bei Patienten aus Regionen mit geringerer antibiotischer Versorgung und in Gemeinschaftsunterkünften relevant.',
+      risikofaktoren: [
+        'Unbehandelte oder vorzeitig abgebrochene Antibiotikatherapie einer Streptokokken-Tonsillopharyngitis (die häufigste und wichtigste Ursache)',
+        'Alter zwischen 5 und 15 Jahren; junge Erwachsene weiterhin betroffen',
+        'Herkunft aus Regionen mit geringer antibiotischer Versorgung und hoher Streptokokkenprävalenz',
+        'Enge Wohnverhältnisse, Gemeinschaftsunterkünfte, Kasernen, Internate, Kindergärten und Schulen',
+        'Genetische Prädisposition: bestimmte HLA-Klasse-II-Allele, D8/17-Alloantigen; positive Familienanamnese',
+        'Rheumatogene M-Serotypen von Streptococcus pyogenes',
+        'Bereits durchgemachtes rheumatisches Fieber — das mit Abstand größte Einzelrisiko für ein Rezidiv',
+        'Niedriger sozioökonomischer Status, eingeschränkter Zugang zu ärztlicher Versorgung',
+        'Rezidivierende Streptokokkeninfektionen im Umfeld, insbesondere durch erkrankte Kinder im Haushalt',
+      ],
+      klinik: [
+        {
+          text: 'Freies Intervall von zwei bis vier Wochen nach einer Racheninfektion — der Patient erwähnt die längst abgeklungenen Halsschmerzen von selbst meist NICHT mehr',
+        },
+        {
+          text: 'POLYARTHRITIS als häufigstes Hauptkriterium (etwa 60 bis 75 % der Fälle): typischerweise WANDERND und asymmetrisch an den GROSSEN Gelenken — Knie, Sprunggelenk, Ellenbogen und Handgelenk',
+        },
+        {
+          text: 'Die betroffenen Gelenke sind stark schmerzhaft, gerötet, geschwollen und überwärmt mit allen fünf Kardinalzeichen: Rubor, Calor, Tumor, Dolor und Functio laesa',
+        },
+        {
+          text: 'Promptes, geradezu dramatisches Ansprechen der Arthritis auf Salicylate und nichtsteroidale Antirheumatika innerhalb von ein bis zwei Tagen — diagnostisch verwertbar',
+        },
+        {
+          text: 'Entscheidend: Die Arthritis heilt OHNE Defekt aus und hinterlässt keine Gelenkschädigung',
+        },
+        {
+          text: 'KARDITIS als prognostisch entscheidende Manifestation (etwa 50 bis 60 %): Pankarditis mit Endokarditis, Myokarditis und Perikarditis',
+        },
+        {
+          text: 'Neu aufgetretenes HERZGERÄUSCH, meist ein Systolikum über der Herzspitze mit Fortleitung in die Axilla als Ausdruck einer Mitralinsuffizienz; seltener ein Diastolikum bei Aortenklappenbeteiligung',
+        },
+        {
+          text: 'Tachykardie in Ruhe und auch im SCHLAF, disproportional zur Fieberhöhe — ein frühes und leicht übersehenes Zeichen der Karditis',
+        },
+        {
+          text: 'Perikardreiben, Herzvergrößerung, dritter Herzton und Galopprhythmus, Zeichen der Herzinsuffizienz mit Dyspnoe, Halsvenenstauung und Ödemen, Rhythmusstörungen',
+        },
+        {
+          text: 'Fieber, meist 38,5 bis 39,5 °C, sowie Abgeschlagenheit, Appetitlosigkeit, Blässe und allgemeines Krankheitsgefühl',
+        },
+        {
+          text: 'ARTHRALGIEN ohne objektivierbare Arthritis als Nebenkriterium',
+        },
+        {
+          text: 'ERYTHEMA MARGINATUM (unter 10 %): blasses, randbetontes, girlanden- oder ringförmiges, NICHT juckendes und ausgesprochen flüchtiges Erythem an Rumpf und proximalen Extremitäten — niemals im Gesicht',
+          atypisch: true,
+        },
+        {
+          text: 'Subkutane RHEUMAKNÖTCHEN (unter 10 %): derbe, schmerzlose, verschiebliche Knötchen über Streckseiten, Ellenbogen, Knöcheln, Knien, Hinterkopf und Sehnen; sie treten fast nur bei schwerer Karditis auf',
+          atypisch: true,
+        },
+        {
+          text: 'CHOREA MINOR (Sydenham, etwa 10 bis 30 %): unwillkürliche, ausfahrende, nicht unterdrückbare Bewegungen, Grimassieren, Muskelhypotonie, Ungeschicklichkeit, Veränderung der Handschrift und emotionale Labilität — oft erst Monate später und dann als einziges Kriterium',
+          atypisch: true,
+        },
+        {
+          text: 'Subklinische Karditis ohne jedes Symptom und ohne Herzgeräusch, nur echokardiographisch fassbar — der Grund, warum die Echokardiographie obligat ist',
+          atypisch: true,
+        },
+        {
+          text: 'Monoarthritis oder Polyarthralgie ohne Wandern als atypische Gelenkmanifestation, besonders unter vorzeitiger Gabe von Antiphlogistika, die das Wandern maskieren',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation Jahrzehnte später als Mitralstenose bei einem Patienten, der sich an kein rheumatisches Fieber erinnert',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Jones-Kriterien (revidiert, AHA 2015)',
+          inhalt: 'HAUPTKRITERIEN: Karditis (klinisch oder subklinisch echokardiographisch), Polyarthritis (in Hochrisikopopulationen auch Monoarthritis oder Polyarthralgie), Chorea minor, Erythema marginatum, subkutane Rheumaknötchen. NEBENKRITERIEN: Fieber (in Niedrigrisikopopulationen ab 38,5 °C), Arthralgie ohne Arthritis, erhöhte Entzündungsparameter (BSG ab 60 mm in der ersten Stunde bzw. CRP ab 3,0 mg/dl), verlängerte PQ-Zeit im EKG. DIAGNOSE: zwei Hauptkriterien ODER ein Haupt- und zwei Nebenkriterien, jeweils PLUS Nachweis einer vorangegangenen Streptokokken-Gruppe-A-Infektion. Bei der Chorea minor und der schleichenden Karditis darf die Diagnose auch ohne diesen Nachweis gestellt werden, weil die Latenz dort Monate beträgt.',
+        },
+        {
+          name: 'Nachweis der vorangegangenen Streptokokkeninfektion',
+          inhalt: 'Erforderlich ist mindestens eines der folgenden: signifikanter ANSTIEG des Antistreptolysin-O-Titers oder des Anti-DNase-B-Titers in zwei Proben im Abstand von etwa zwei Wochen (ein einzelner erhöhter Wert genügt nicht); positive Rachenkultur oder positiver Antigen-Schnelltest auf Gruppe-A-Streptokokken; oder eine kürzlich dokumentierte Scharlacherkrankung. Zum Zeitpunkt des rheumatischen Fiebers ist der Rachenabstrich in etwa 75 % der Fälle bereits negativ.',
+        },
+        {
+          name: 'Dauer der Sekundärprophylaxe nach Herzbeteiligung (AHA/WHO)',
+          inhalt: 'Rheumatisches Fieber OHNE Karditis: fünf Jahre oder bis zum 21. Lebensjahr — der längere Zeitraum gilt. MIT Karditis, aber ohne bleibende Klappenveränderung: zehn Jahre oder bis zum 21. Lebensjahr. MIT Karditis UND bleibendem Klappenschaden: zehn Jahre oder bis zum 40. Lebensjahr, bei fortbestehendem Risiko lebenslang. Bei Erwachsenen mit Klappenschaden läuft die Prophylaxe damit praktisch lebenslang.',
+        },
+        {
+          name: 'Schweregrade der Karditis',
+          inhalt: 'LEICHT: Tachykardie und ein neues Herzgeräusch ohne Kardiomegalie und ohne Herzinsuffizienz — Behandlung mit Salicylaten bzw. nichtsteroidalen Antirheumatika. MITTELSCHWER: zusätzlich Kardiomegalie ohne manifeste Herzinsuffizienz. SCHWER: Kardiomegalie mit Herzinsuffizienz, Perikarderguss oder höhergradigem AV-Block — Indikation für Glukokortikoide und verlängerte Bettruhe.',
+        },
+      ],
+      redFlags: [
+        'Neu aufgetretenes Herzgeräusch bei einem fiebernden Patienten mit Gelenkbeschwerden → Karditis oder infektiöse Endokarditis, sofortige Echokardiographie und Blutkulturen',
+        'Ruhetachykardie, die auch im Schlaf persistiert und nicht zur Fieberhöhe passt → Myokarditis',
+        'Dyspnoe, Orthopnoe, Halsvenenstauung, Beinödeme, Rasselgeräusche → dekompensierte Karditis mit Herzinsuffizienz',
+        'Perikardreiben, Niedervoltage im EKG, Pulsus paradoxus → Perikarditis mit Erguss, Gefahr der Tamponade',
+        'Höhergradiger AV-Block, Synkope, bradykarde Rhythmusstörung → Reizleitungsbeteiligung, Monitorüberwachung',
+        'Schüttelfrost, monoartikulärer Befall mit Eintrittspforte, deutlich erhöhtes Procalcitonin → septische Arthritis, sofortige Gelenkpunktion',
+        'Petechien, Splinter-Hämorrhagien, Osler-Knötchen, Janeway-Läsionen, Embolien, Splenomegalie → infektiöse Endokarditis, Blutkulturen vor jeder Antibiotikagabe',
+        'Makrohämaturie, Lidödeme, Oligurie, neu aufgetretene Hypertonie → Poststreptokokken-Glomerulonephritis',
+        'Neu aufgetretene unwillkürliche Bewegungen, Sturzneigung, plötzliche Schriftveränderung, auffällige emotionale Labilität → Chorea minor',
+        'Ausbleiben der prompten Besserung der Arthritis unter Salicylaten oder nichtsteroidalen Antirheumatika → Diagnose überdenken',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese des FREIEN INTERVALLS: aktiv nach Halsschmerzen, Mandelentzündung oder Scharlach in den letzten zwei bis vier Wochen fragen — der Patient nennt sie spontan nicht mehr; ferner nach Rachenabstrich, verordnetem Antibiotikum und dessen TATSÄCHLICHER Einnahmedauer, nach erkrankten Kontaktpersonen, nach Herkunft und Wohnsituation sowie nach früheren Episoden eines rheumatischen Fiebers',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperatur, Blutdruck, Atemfrequenz und insbesondere der Herzfrequenz in Ruhe und im Schlaf; Erhebung von Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger Gelenkstatus im Seitenvergleich mit Rubor, Calor, Tumor, Dolor und Functio laesa, Prüfung von aktiver und passiver Beweglichkeit, Ergusszeichen, Untersuchung der Kniekehle sowie Durchblutung, Motorik, Sensibilität und peripheren Pulsen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sorgfältige HERZAUSKULTATION, im Verlauf wiederholt: ein NEU aufgetretenes Herzgeräusch ist der entscheidende klinische Befund; ferner Perikardreiben, dritter Herzton, Galopprhythmus und Zeichen der Herzinsuffizienz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige Hautinspektion am entkleideten Patienten auf Erythema marginatum und subkutane Rheumaknötchen über Streckseiten, Ellenbogen, Knöcheln und Hinterkopf; Inspektion des Rachens',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologische Untersuchung mit Blick auf eine Chorea minor: unwillkürliche Bewegungen, Grimassieren, Muskelhypotonie, Schriftprobe, emotionale Labilität — auch im Verlauf zu kontrollieren, da sie erst Monate später auftreten kann',
+        },
+        {
+          stufe: 'Labor',
+          text: 'BLUTSENKUNGSGESCHWINDIGKEIT (typischerweise stark erhöht, oft über 60 mm in der ersten Stunde) und CRP als Nebenkriterien; Blutbild mit Differenzialblutbild (Leukozytose mit Neutrophilie, normochrome Anämie)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'ANTISTREPTOLYSIN-O-TITER und Anti-DNase-B im VERLAUF mit zwei Proben im Abstand von etwa zwei Wochen — beweisend ist der signifikante TITERANSTIEG, ein Einzelwert genügt nicht. Der ASL-Titer steigt ab der ersten Woche, kulminiert nach drei bis sechs Wochen und bleibt Monate erhöht; Anti-DNase-B steigt später und persistiert länger und ist deshalb bei der Chorea minor besonders wertvoll',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Rachenabstrich mit Antigen-Schnelltest und Kultur — in etwa 75 % der Fälle bereits NEGATIV; ein negatives Ergebnis schließt die Diagnose nicht aus und ändert nichts an der Indikation zur Eradikationstherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Mindestens drei Paar Blutkulturen VOR der ersten Antibiotikagabe zum Ausschluss einer infektiösen Endokarditis; Procalcitonin zur Abgrenzung einer bakteriellen Genese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus und Urinsediment (Hämaturie, Erythrozytenzylinder, Proteinurie) sowie Kreatinin und eGFR zur Erfassung einer Poststreptokokken-Glomerulonephritis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin und NT-proBNP bei Verdacht auf Karditis; zur Abgrenzung der Differenzialdiagnosen Rheumafaktor, Anti-CCP, antinukleäre Antikörper, Harnsäure, Borrelien- und Parvovirus-B19-Serologie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG mit ausdrücklicher Messung der PQ-ZEIT (Verlängerung über 200 ms = AV-Block ersten Grades = Nebenkriterium), Beurteilung von Rhythmus, höhergradigen Blockierungen, ST-Strecke, T-Wellen und Niedervoltage',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'ECHOKARDIOGRAPHIE — obligat bei jedem Verdacht und im Verlauf zu wiederholen, auch bei völliger Beschwerdefreiheit, weil sie die SUBKLINISCHE Karditis erfasst: Mitral- und Aortenklappe, Ventrikelfunktion, Perikarderguss, Vegetationen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Gelenksonographie zur Erfassung von Erguss und Synovitis, einschließlich Darstellung der Kniekehle zum Ausschluss einer Baker-Zyste; Röntgen des betroffenen Gelenks in zwei Ebenen zum Ausschluss von Fraktur und Arthrose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Zeichen der Herzinsuffizienz: Herzgröße, pulmonalvenöse Stauung, Pleuraerguss',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'GELENKPUNKTION mit Synovia-Analyse (Zellzahl und Differenzierung, Gramfärbung, Kultur, Polarisationsmikroskopie) zum sicheren Ausschluss einer septischen Arthritis und einer Kristallarthropathie — beim rheumatischen Fieber ist das Punktat steril und nur mäßig entzündlich',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Transösophageale Echokardiographie bei unzureichender transthorakaler Schallqualität oder fortbestehendem Endokarditisverdacht; im Langzeitverlauf Herzkatheteruntersuchung vor einer geplanten Klappenoperation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Perikardpunktion bei hämodynamisch relevantem Erguss; eine Myokardbiopsie mit Nachweis von Aschoff-Knötchen und Anitschkow-Zellen ist pathognomonisch, in der Routine jedoch nicht indiziert',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Septische Arthritis und Gelenkempyem',
+          unterscheidung: 'MONOartikulär und nicht wandernd, mit Schüttelfrost, reduziertem Allgemeinzustand, Eintrittspforte, stark erhöhtem CRP und Procalcitonin. Beweisend ist die PUNKTION: trübes Punktat, Zellzahl über 50 000/µl mit über 90 % Granulozyten, positive Gramfärbung und Kultur. Muss immer aktiv ausgeschlossen werden.',
+        },
+        {
+          dd: 'Infektiöse Endokarditis',
+          unterscheidung: 'Die gefährlichste Verwechslung: ebenfalls Fieber, neues Herzgeräusch, Abgeschlagenheit und Gelenkbeschwerden. Hinweisend sind Embolien, Splinter-Hämorrhagien, Osler-Knötchen, Janeway-Läsionen, Roth-Flecken und Splenomegalie. Abgrenzung durch mindestens drei Paar BLUTKULTUREN vor jeder Antibiotikagabe und durch den Vegetationsnachweis in der Echokardiographie (Duke-Kriterien); beim rheumatischen Fieber bleiben die Blutkulturen steril.',
+        },
+        {
+          dd: 'Poststreptokokken-reaktive Arthritis',
+          unterscheidung: 'Kürzere Latenz von ein bis zwei Wochen, NICHT wandernd, eher additiv und persistierend, häufig auch kleine Gelenke und die Achse betroffen, schlechtes Ansprechen auf Salicylate, keine weiteren Jones-Hauptkriterien. Da eine Karditis nicht sicher auszuschließen ist, werden auch hier Echokardiographie und meist eine Rezidivprophylaxe empfohlen.',
+        },
+        {
+          dd: 'Reaktive Arthritis nach enteralem oder urogenitalem Infekt (Morbus Reiter)',
+          unterscheidung: 'Ein bis vier Wochen nach Durchfall (Yersinien, Campylobacter, Salmonellen, Shigellen) oder Urethritis (Chlamydien); asymmetrische Oligoarthritis der unteren Extremität, häufig mit Konjunktivitis, Urethritis, Enthesitis und Sakroiliitis, HLA-B27-assoziiert.',
+        },
+        {
+          dd: 'Lyme-Arthritis',
+          unterscheidung: 'Meist Monarthritis des Knies mit ausgeprägtem Erguss bei relativ geringem Schmerz, schubförmig über Monate. Anamnestisch Zeckenstich und ERYTHEMA MIGRANS — zentrifugal wandernd, zentral abblassend, an der Einstichstelle und über Tage bis Wochen persistierend, im Gegensatz zum flüchtigen Erythema marginatum am Rumpf. Serologie mit ELISA und Immunoblot.',
+        },
+        {
+          dd: 'Juvenile idiopathische Arthritis und rheumatoide Arthritis',
+          unterscheidung: 'Schleichender Beginn über Wochen bis Monate, SYMMETRISCHER Befall der KLEINEN Gelenke (MCP, PIP) unter Aussparung der Endgelenke, Morgensteifigkeit über 60 Minuten, chronischer Verlauf mit Erosionen; Rheumafaktor und Anti-CCP positiv. Beim Morbus Still zusätzlich hohes septisches Fieber mit lachsfarbenem Exanthem.',
+        },
+        {
+          dd: 'Virale Arthritiden, insbesondere Parvovirus B19',
+          unterscheidung: 'Symmetrische Polyarthritis vor allem der Hände und Handgelenke, milder Verlauf, häufig mit Exanthem und erkrankten Kindern im Umfeld (Ringelröteln); ebenso Röteln, Hepatitis B und Chikungunya. Spezifische IgM-Antikörper, selbstlimitierender Verlauf über Wochen.',
+        },
+        {
+          dd: 'Systemischer Lupus erythematodes',
+          unterscheidung: 'Nicht erosive Polyarthritis, Schmetterlingserythem im Gesicht mit Photosensibilität, Serositis, Nephritis, Zytopenien; antinukleäre Antikörper und Anti-dsDNA positiv, Komplement C3 und C4 erniedrigt.',
+        },
+        {
+          dd: 'Purpura Schoenlein-Henoch (IgA-Vaskulitis)',
+          unterscheidung: 'Ebenfalls oft nach einem Atemwegsinfekt: palpable Purpura vorwiegend an Streckseiten der Beine und am Gesäß, kolikartige Bauchschmerzen, Arthritis der großen Gelenke und Nephritis mit Hämaturie. Entscheidend ist der Hautbefund — Purpura statt blassem Erythema marginatum.',
+        },
+        {
+          dd: 'Gichtarthritis (Arthritis urica)',
+          unterscheidung: 'Perakuter, meist nächtlicher Beginn, monoartikulär am Großzehengrundgelenk (Podagra), extreme Berührungsempfindlichkeit, Auslöser durch purin- und alkoholreiche Mahlzeit oder Diuretika. Beweisend sind nadelförmige, negativ doppelbrechende Uratkristalle im Punktat.',
+        },
+        {
+          dd: 'Leukämie im Kindesalter',
+          unterscheidung: 'Knochen- und Gelenkschmerzen, Fieber und erhöhte Entzündungsparameter können ein rheumatisches Fieber imitieren. Hinweisend sind nächtlicher Knochenschmerz, Blässe, Blutungsneigung, Lymphknoten- und Milzvergrößerung sowie Zytopenien oder Blasten im Differenzialblutbild — bei jedem Kind mit unklarer Arthritis auszuschließen.',
+        },
+        {
+          dd: 'Aktivierte Gonarthrose, Baker-Zyste, Trauma',
+          unterscheidung: 'Die in den Prüfungsprotokollen genannten Alternativen: Die Arthrose verläuft chronisch progredient mit Anlaufschmerz und ohne hohes Fieber; die Baker-Zyste zeigt sich als prallelastische Schwellung in der Kniekehle, in der Regel ohne Fieber (aber nicht zwingend fieberfrei); das Trauma setzt ein adäquates Ereignis voraus. Klärung durch Sonographie und Röntgen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Eradikation der Streptokokken und Akutbehandlung',
+          items: [
+            'Stationäre Aufnahme zur Überwachung der Herzbeteiligung, zur Echokardiographie im Verlauf und zur Sicherung der Therapie',
+            'PENICILLIN als Mittel der Wahl: Penicillin V oral 3 × 1 Mio. IE über ZEHN Tage oder einmalig Benzathin-Benzylpenicillin G 1,2 Mio. IE intramuskulär (bei einem Körpergewicht unter 27 kg 600 000 IE) — die intramuskuläre Einmalgabe sichert die Adhärenz',
+            'Die Eradikation erfolgt AUCH DANN, wenn der Rachenabstrich bereits negativ ist: Sie beseitigt das verbliebene Trägertum und beugt einem Rezidiv vor, sie behandelt nicht die akute Erkrankung selbst',
+            'Bei Penicillinallergie Makrolide (Clarithromycin, Azithromycin, Erythromycin); bei nicht anaphylaktischer Allergie alternativ ein orales Cephalosporin der ersten Generation',
+            'Blutkulturen VOR der ersten Antibiotikagabe abnehmen, solange eine infektiöse Endokarditis nicht ausgeschlossen ist',
+            'Bettruhe und körperliche Schonung in der akuten Phase, bei Karditis deutlich verlängert und stufenweise Mobilisation; Thromboseprophylaxe bei Immobilisation',
+            'Kontaktpersonen im Haushalt und in Gemeinschaftseinrichtungen erfassen, bei Symptomen Rachenabstrich und Behandlung, um die Infektionskette zu unterbrechen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Entzündungshemmende Behandlung der Gelenk- und Herzbeteiligung',
+          items: [
+            'Hochdosierte SALICYLATE oder nichtsteroidale Antirheumatika bei Arthritis: Acetylsalicylsäure 4 bis 6 g täglich in vier Einzelgaben beim Erwachsenen, im Kindesalter 50 bis 100 mg pro Kilogramm Körpergewicht und Tag; alternativ und heute meist bevorzugt Naproxen 10 bis 20 mg pro Kilogramm und Tag — stets unter Magenschutz mit einem Protonenpumpenhemmer',
+            'Das Ansprechen ist diagnostisch verwertbar: prompte, oft schlagartige Besserung innerhalb von ein bis zwei Tagen. Bleibt sie aus, muss die Diagnose überdacht werden',
+            'Cave: Acetylsalicylsäure bei Kindern und Jugendlichen wegen des Reye-Syndroms nur unter strenger Indikation; Kontrolle von Blutbild, Leber- und Nierenwerten unter hochdosierter Salicylattherapie',
+            'GLUKOKORTIKOIDE bei schwerer Karditis mit Herzinsuffizienz, Perikarderguss oder höhergradigem AV-Block: Prednisolon 1 bis 2 mg pro Kilogramm Körpergewicht und Tag (maximal 60 bis 80 mg) über zwei bis drei Wochen, dann langsames Ausschleichen mit überlappender Gabe eines nichtsteroidalen Antirheumatikums zur Vermeidung eines Rebounds',
+            'Lokale Maßnahmen: Ruhigstellung in Funktionsstellung, Hochlagerung und Kühlung der betroffenen Gelenke, frühe schonende Mobilisation nach Abklingen der Entzündung',
+            'Symptomatische Behandlung der CHOREA MINOR, die meist selbstlimitierend über Wochen bis Monate verläuft: reizarme Umgebung, Verletzungsschutz, Aufklärung der Angehörigen; medikamentös bei Bedarf Valproat oder Carbamazepin, in schweren Fällen Haloperidol',
+          ],
+        },
+        {
+          label: 'Behandlung der Herzbeteiligung und ihrer Folgen',
+          items: [
+            'Kardiologische Anbindung von Beginn an mit wiederholter Auskultation, EKG-Monitoring bei Rhythmusstörungen und ECHOKARDIOGRAPHISCHEN VERLAUFSKONTROLLEN, da sich die Karditis auch ohne Symptome demaskieren kann',
+            'Herzinsuffizienztherapie bei manifester Karditis: Diuretika bei Stauung, ACE-Hemmer, Betablocker nach Rekompensation, Aldosteronantagonist; bei Perikarderguss Verlaufskontrolle, bei Tamponade Perikardpunktion',
+            'Rhythmusüberwachung: Der AV-Block ersten Grades ist meist passager und therapiefrei; höhergradige Blockierungen können selten eine passagere Schrittmachertherapie erfordern',
+            'Langzeitperspektive: Aus der akuten Karditis entwickelt sich über Jahre bis Jahrzehnte die rheumatische Herzklappenerkrankung, allen voran die MITRALSTENOSE, seltener Mitral- oder Aorteninsuffizienz — daher lebenslange kardiologische Kontrollen mit regelmäßiger Echokardiographie',
+            'Bei manifestem Vitium interventionelle oder operative Behandlung: perkutane Mitralklappenvalvuloplastie bei geeigneter Klappenmorphologie, sonst Klappenrekonstruktion oder Klappenersatz; bei Vorhofflimmern infolge der Mitralstenose orale Antikoagulation mit einem Vitamin-K-Antagonisten',
+            'Merke den Gegensatz: Die Arthritis heilt vollständig und OHNE Defekt aus, das Herz kann bleibend geschädigt werden',
+          ],
+        },
+        {
+          label: 'Langzeit-Rezidivprophylaxe und Aufklärung',
+          items: [
+            'Kontinuierliche PENICILLIN-REZIDIVPROPHYLAXE über JAHRE — der eigentliche Kern der Nachsorge: Benzathin-Benzylpenicillin G 1,2 Mio. IE intramuskulär alle drei bis vier Wochen oder Penicillin V 2 × 250 mg täglich oral; bei Penicillinallergie ein Makrolid oder Sulfadiazin 1 g täglich',
+            'DAUER nach Herzbeteiligung: ohne Karditis fünf Jahre oder bis zum 21. Lebensjahr; mit Karditis ohne bleibende Klappenveränderung zehn Jahre oder bis zum 21. Lebensjahr; mit Karditis und bleibendem Klappenschaden zehn Jahre oder bis zum 40. Lebensjahr — jeweils der längere Zeitraum, bei Erwachsenen mit Klappenschaden faktisch lebenslang',
+            'Aufklärung, dass JEDES REZIDIV den Herzschaden verschlimmert und dass Halsschmerzen künftig ärztlich abgeklärt und eine nachgewiesene Streptokokkenangina über die volle Dauer behandelt gehören',
+            'Sorgfältige Zahn- und Mundhygiene mit regelmäßigen zahnärztlichen Kontrollen; Information über die Endokarditisprophylaxe — nach aktuellen Leitlinien nur bei Hochrisikopatienten indiziert (Klappenersatz, durchgemachte Endokarditis), nicht bei einfachem rheumatischem Vitium; Ausstellung eines Endokarditis-Ausweises',
+            'Rezidivprophylaxe und Endokarditisprophylaxe sind ZWEI VERSCHIEDENE Maßnahmen und dürfen nicht verwechselt werden',
+            'Überprüfung und Vervollständigung des Impfstatus, jährliche Influenza- und Pneumokokkenimpfung bei bestehendem Klappenvitium; Betreuung und gegebenenfalls Abstrich symptomatischer Kontaktpersonen',
+            'Schriftlicher Therapieplan, feste Wiedervorstellungstermine für Echokardiographie und Antistreptolysin-O-Kontrolle sowie sozialmedizinische Beratung',
+          ],
+        },
+      ],
+      prognose: 'Die akute Erkrankung selbst klingt in der Regel innerhalb von sechs bis zwölf Wochen ab. Die Polyarthritis heilt vollständig und OHNE Defekt aus, die Chorea minor ist nach Wochen bis Monaten selbstlimitierend. Prognosebestimmend ist allein die Karditis: Sie tritt bei etwa 50 bis 60 % der Patienten auf und führt bei einem erheblichen Teil zu einer bleibenden rheumatischen Herzklappenerkrankung — allen voran der MITRALSTENOSE —, die sich erst Jahre bis Jahrzehnte später klinisch manifestiert. Weltweit ist das rheumatische Fieber damit die häufigste Ursache erworbener Herzklappenfehler. Rezidive sind häufig, treten überwiegend in den ersten fünf Jahren auf und verschlimmern den Klappenschaden kumulativ; sie folgen dem Muster der Erstmanifestation. Unter konsequenter Sekundärprophylaxe ist die Prognose gut, und bestehende leichte Klappenveränderungen können sich zurückbilden. Ohne Prophylaxe ist die Prognose durch Rezidive, Herzinsuffizienz, Vorhofflimmern mit Embolien und die spätere Notwendigkeit eines Klappenersatzes deutlich eingeschränkt.',
+      pruefungsfallen: [
+        'Das freie Intervall AKTIV erfragen — der Patient erwähnt die längst abgeklungenen Halsschmerzen von selbst nicht mehr. Ohne die Frage nach einer Racheninfektion in den letzten zwei bis vier Wochen wird die Diagnose nicht gefunden.',
+        'Nach der TATSÄCHLICHEN Einnahmedauer des Antibiotikums fragen, nicht nur nach der Verordnung: Der vorzeitige Abbruch nach wenigen Tagen ist die typische Ursache.',
+        'Es ist KEINE fortbestehende Infektion, sondern eine postinfektiöse, immunologisch vermittelte Zweiterkrankung durch molekulare Mimikry. Von einer „verschleppten Mandelentzündung“ zu sprechen, verrät ein falsches Konzept.',
+        'Nur eine Infektion des RACHENS führt zum rheumatischen Fieber; nach Hautinfektionen mit Gruppe-A-Streptokokken folgt die Glomerulonephritis.',
+        'Der Rachenabstrich ist zum Zeitpunkt der Erkrankung meist NEGATIV — das schließt die Diagnose nicht aus und ändert nichts an der Indikation zur Penicillingabe.',
+        'Ein einzelner Antistreptolysin-O-Wert genügt nicht: Beweisend ist der TITERANSTIEG im Verlauf, ergänzt durch Anti-DNase-B, das bei der spät auftretenden Chorea besonders wertvoll ist.',
+        'Die Echokardiographie ist auch beim beschwerdefreien Patienten OBLIGAT, weil sie die subklinische Karditis erfasst — und weil von ihrem Ergebnis die Dauer der Rezidivprophylaxe abhängt.',
+        'Die PQ-Zeit im EKG nicht vergessen: Ihre Verlängerung ist ein Nebenkriterium der Jones-Kriterien.',
+        'Karditis und Spätfolge sauber trennen: akut die Karditis, in den Protokollen als Myokarditis die „wichtigste Komplikation“; langfristig die rheumatische Herzklappenerkrankung, allen voran die Mitralstenose nach Jahren bis Jahrzehnten.',
+        'Die Poststreptokokken-Glomerulonephritis richtig einordnen: Sie ist keine Komplikation des rheumatischen Fiebers, sondern die zweite poststreptokokkale Zweiterkrankung — und sie wird durch die Antibiotikatherapie der Angina NICHT sicher verhindert, das rheumatische Fieber dagegen schon.',
+        'Rezidivprophylaxe und Endokarditisprophylaxe nicht verwechseln: kontinuierliche Penicillingabe über Jahre gegen ein Rezidiv versus einmalige Antibiotikagabe vor Eingriffen bei Hochrisikopatienten.',
+        'Die Arthritis heilt OHNE Defekt aus — eine bleibende Gelenkschädigung zu behaupten, ist ein klassischer Fehler.',
+        'Das prompte, dramatische Ansprechen der Arthritis auf Salicylate und nichtsteroidale Antirheumatika erwähnen; bleibt es aus, muss die Diagnose überdacht werden.',
+        'In der Fallvorstellung die lateinischen Kardinalzeichen nennen — RUBOR, CALOR, TUMOR, DOLOR, FUNCTIO LAESA; ein Prüfer hat „Rötung“ statt „Rubor“ ausdrücklich beanstandet. Dem Patienten gegenüber gilt umgekehrt die Alltagssprache.',
+        'Die septische Arthritis und die infektiöse Endokarditis nicht nur nennen, sondern aktiv ausschließen: Gelenkpunktion mit Zellzahl, Gramfärbung und Kultur sowie drei Paar Blutkulturen VOR der ersten Antibiotikagabe.',
+        'Die stationäre Aufnahme empfehlen — in Stuttgart ausdrücklich gefragt und mit Ja zu beantworten.',
+        'Dem Patienten die vorläufige Diagnose nicht vorenthalten: Ein Prüfer in Karlsruhe hat ausdrücklich gemahnt, damit nicht zu zögern.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und warum?',
+          antwort: 'Ein akutes rheumatisches Fieber. Dafür sprechen die wandernde, asymmetrische Polyarthritis der großen Gelenke mit allen fünf Kardinalzeichen, das hohe Fieber, das flüchtige nicht juckende Erythem am Rumpf und vor allem das freie Intervall von etwa drei Wochen nach einer durch Rachenabstrich gesicherten Streptokokken-Tonsillitis, deren Penicillintherapie vorzeitig abgebrochen wurde. Damit sind zwei Hauptkriterien und mehrere Nebenkriterien der Jones-Kriterien erfüllt.',
+        },
+        {
+          frage: 'Welcher Erreger steckt dahinter?',
+          antwort: 'Beta-hämolysierende Streptokokken der Gruppe A nach Lancefield, also Streptococcus pyogenes. Auslösend ist ausschließlich eine Infektion des Rachens; nach Hautinfektionen mit denselben Erregern folgt die Glomerulonephritis.',
+        },
+        {
+          frage: 'Erklären Sie die Pathophysiologie.',
+          antwort: 'Molekulare Mimikry: Das M-Protein der Streptokokken ähnelt körpereigenen Strukturen. Die gebildeten Antikörper und aktivierten T-Zellen reagieren kreuz mit Myosin und Laminin des Herzens, mit den Basalganglien, mit Gelenkknorpel und Synovia sowie mit der Haut — eine Typ-II-Immunreaktion mit zellulärer Komponente. Das freie Intervall von zwei bis vier Wochen entspricht dem Aufbau dieser Immunantwort; deshalb ist der Erreger bei Krankheitsbeginn meist schon eliminiert. Histologisches Korrelat am Herzen sind die Aschoff-Knötchen mit Anitschkow-Zellen.',
+        },
+        {
+          frage: 'Wie heißen die diagnostischen Kriterien, und wie lauten sie?',
+          antwort: 'Die Jones-Kriterien. Hauptkriterien: Polyarthritis, Karditis, Chorea minor, Erythema marginatum und subkutane Rheumaknötchen. Nebenkriterien: Fieber, Arthralgie ohne Arthritis, erhöhte Entzündungsparameter mit BSG und CRP sowie eine verlängerte PQ-Zeit im EKG. Die Diagnose wird gestellt bei zwei Hauptkriterien oder einem Haupt- und zwei Nebenkriterien, jeweils plus dem Nachweis der vorangegangenen Streptokokkeninfektion.',
+        },
+        {
+          frage: 'Welche Laborwerte möchten Sie sehen? Welcher ist der entscheidende?',
+          antwort: 'Blutbild mit Leukozyten, CRP und vor allem die BSG, die typischerweise stark erhöht ist; Rheumafaktor zur Abgrenzung, Procalcitonin zum Ausschluss einer bakteriellen Genese, Nierenwerte und Urinstatus. Der entscheidende Parameter ist der ANTISTREPTOLYSIN-O-TITER, ergänzt durch Anti-DNase-B.',
+        },
+        {
+          frage: 'Genügt ein einzelner Antistreptolysin-O-Wert?',
+          antwort: 'Nein. Beweisend ist der signifikante Titeranstieg in einer zweiten Probe nach etwa zwei Wochen. Der Titer steigt ab der ersten Woche, kulminiert nach drei bis sechs Wochen und bleibt Monate erhöht; Anti-DNase-B steigt später und bleibt länger nachweisbar.',
+        },
+        {
+          frage: 'Was erwarten Sie im Rachenabstrich, und was folgt daraus für die Therapie?',
+          antwort: 'Meist ein negatives Ergebnis, in etwa drei von vier Fällen, weil die Racheninfektion abgeklungen ist. Der Abstrich wird trotzdem mit Schnelltest und Kultur abgenommen, und die antibiotische Eradikationstherapie erfolgt unabhängig vom Ergebnis.',
+        },
+        {
+          frage: 'Welche apparative Untersuchung ist obligat, auch ohne Herzbeschwerden, und warum?',
+          antwort: 'Die Echokardiographie. Sie erfasst die subklinische Karditis — Klappenbeteiligung, meist eine Mitralinsuffizienz, Perikarderguss und eingeschränkte Ventrikelfunktion —, bevor der Patient etwas spürt, und von ihrem Ergebnis hängt die Dauer der Rezidivprophylaxe ab. Sie wird im Verlauf wiederholt.',
+        },
+        {
+          frage: 'Was messen Sie im EKG besonders sorgfältig?',
+          antwort: 'Die PQ-Zeit. Eine Verlängerung über 200 Millisekunden, also ein AV-Block ersten Grades, ist ein Nebenkriterium. Zusätzlich achte ich auf höhergradige Blockierungen, Rhythmusstörungen, ST- und T-Veränderungen sowie auf eine Niedervoltage bei Perikarderguss.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Septische Arthritis, infektiöse Endokarditis, Poststreptokokken-reaktive Arthritis, reaktive Arthritis nach enteralem oder urogenitalem Infekt, Lyme-Arthritis, rheumatoide und juvenile idiopathische Arthritis, virale Arthritiden einschließlich Parvovirus B19, systemischer Lupus erythematodes, Purpura Schoenlein-Henoch, Gichtarthritis sowie Gonarthrose, Baker-Zyste und Trauma; beim Kind zusätzlich die Leukämie.',
+        },
+        {
+          frage: 'Wie heißt die Hautveränderung bei der Borreliose, und wie unterscheidet sie sich?',
+          antwort: 'Erythema migrans — ein sich zentrifugal ausbreitendes, zentral abblassendes Erythem an der Zeckenstichstelle, das über Tage bis Wochen bestehen bleibt. Das Erythema marginatum sitzt am Rumpf und an den proximalen Extremitäten, nie im Gesicht, ist blass, randbetont, girlandenförmig, juckt nicht und ist ausgesprochen flüchtig.',
+        },
+        {
+          frage: 'Macht eine Baker-Zyste Fieber?',
+          antwort: 'In der Regel nicht, sie ist eine mechanische Ausstülpung der Gelenkkapsel. Völlig ausschließen lässt sich Fieber jedoch nicht: Bei rupturierter Zyste mit starker Entzündungsreaktion oder bei entzündlicher Grunderkrankung des Gelenks kann eine Temperaturerhöhung auftreten.',
+        },
+        {
+          frage: 'Welche Komplikationen kennen Sie, und welche ist die wichtigste?',
+          antwort: 'Die wichtigste ist die Karditis, in den Protokollen als Myokarditis benannt — genauer eine Pankarditis mit Endokarditis, Myokarditis und Perikarditis, kenntlich an einem neuen Herzgeräusch, einer Ruhetachykardie auch im Schlaf, Perikardreiben, Herzvergrößerung, Herzinsuffizienz und Rhythmusstörungen. Weiter die Chorea minor und, als eigenständige poststreptokokkale Zweiterkrankung, die Glomerulonephritis.',
+        },
+        {
+          frage: 'Welche Spätfolge fürchten Sie am meisten?',
+          antwort: 'Die rheumatische Herzklappenerkrankung, allen voran die Mitralstenose, die sich erst Jahre bis Jahrzehnte später manifestiert — mit Belastungsdyspnoe, Vorhofflimmern und Embolien. Deshalb ist die langfristige Rezidivprophylaxe der Kern der Behandlung.',
+        },
+        {
+          frage: 'Verhindert eine antibiotische Behandlung der Angina die Poststreptokokken-Glomerulonephritis?',
+          antwort: 'Nein, nicht sicher. Das rheumatische Fieber wird durch die rechtzeitige und vollständige Antibiotikatherapie zuverlässig verhindert, die Glomerulonephritis dagegen nicht. Sie folgt einer Rachen- oder Hautinfektion mit einer Latenz von ein bis zwei beziehungsweise drei bis sechs Wochen und äußert sich in Hämaturie, Proteinurie, Ödemen und Hypertonie.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten?',
+          antwort: 'In vier Schritten: erstens Eradikation und Akutbehandlung mit stationärer Aufnahme, Bettruhe und Penicillin V über zehn Tage oder einmalig Benzathin-Penicillin G intramuskulär, bei Allergie ein Makrolid; zweitens entzündungshemmende Behandlung mit hochdosierten Salicylaten beziehungsweise nichtsteroidalen Antirheumatika, bei schwerer Karditis Glukokortikoide; drittens Behandlung der Herzbeteiligung mit kardiologischer Anbindung, Herzinsuffizienztherapie und echokardiographischen Kontrollen; viertens die Langzeit-Rezidivprophylaxe mit Penicillin über Jahre samt Aufklärung.',
+        },
+        {
+          frage: 'Warum geben Sie ein Antibiotikum, obwohl die Angina abgeklungen und der Abstrich negativ ist?',
+          antwort: 'Weil das Antibiotikum nicht die akute, immunologisch vermittelte Erkrankung behandelt, sondern das verbliebene Streptokokken-Trägertum eradiziert und damit ein Rezidiv verhindert. Es wird deshalb unabhängig vom Abstrichergebnis gegeben.',
+        },
+        {
+          frage: 'Wie sieht die Rezidivprophylaxe aus, und wie lange führen Sie sie durch?',
+          antwort: 'Benzathin-Benzylpenicillin G 1,2 Mio. IE intramuskulär alle drei bis vier Wochen oder Penicillin V 2 × 250 mg täglich oral, bei Penicillinallergie ein Makrolid oder Sulfadiazin. Die Dauer richtet sich nach der Herzbeteiligung: ohne Karditis fünf Jahre beziehungsweise bis zum 21. Lebensjahr, mit Karditis ohne Klappenschaden zehn Jahre beziehungsweise bis zum 21. Lebensjahr, mit Karditis und bleibendem Klappenschaden zehn Jahre beziehungsweise bis zum 40. Lebensjahr — jeweils der längere Zeitraum, bei Erwachsenen mit Klappenschaden faktisch lebenslang.',
+        },
+        {
+          frage: 'Ist die Rezidivprophylaxe dasselbe wie die Endokarditisprophylaxe?',
+          antwort: 'Nein. Die Rezidivprophylaxe ist eine kontinuierliche Penicillingabe über Jahre gegen eine erneute Streptokokkeninfektion. Die Endokarditisprophylaxe ist eine einmalige Antibiotikagabe vor bestimmten Eingriffen und nach aktuellen Leitlinien nur bei Hochrisikopatienten indiziert — nach Klappenersatz oder durchgemachter Endokarditis —, nicht bei einem einfachen rheumatischen Vitium. Zahn- und Mundhygiene bleiben in jedem Fall wichtig.',
+        },
+        {
+          frage: 'Muss der Patient stationär aufgenommen werden?',
+          antwort: 'Ja. Zur Überwachung der Herzbeteiligung, zur Echokardiographie im Verlauf, zum Ausschluss von septischer Arthritis und Endokarditis, zur Sicherung der Therapie und wegen der notwendigen Bettruhe in der akuten Phase.',
+        },
+        {
+          frage: 'Heilt die Gelenkentzündung mit einem Defekt aus?',
+          antwort: 'Nein, die Arthritis heilt vollständig und ohne Defekt aus und spricht überdies prompt auf Salicylate und nichtsteroidale Antirheumatika an. Bleibend geschädigt wird das Herz.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Diagnose in einfachen Worten?',
+          antwort: 'Etwa so: „Sie haben ein rheumatisches Fieber. Das ist eine Folgeerkrankung Ihrer Mandelentzündung von vor drei Wochen. Die Bakterien selbst sind längst weg, aber Ihre Abwehr hat Antikörper gebildet, die jetzt versehentlich Ihre eigenen Gelenke angreifen — und manchmal leider auch das Herz. Die Gelenke heilen vollständig aus, aber das Herz müssen wir untersuchen. Deshalb machen wir einen Herzultraschall und behandeln mit einem Antibiotikum und einem entzündungshemmenden Medikament.“',
+        },
+      ],
+      merksatz: 'Das rheumatische Fieber LECKT die Gelenke, aber BEISST das Herz: Die wandernde Polyarthritis der großen Gelenke heilt ohne Defekt aus, die Karditis hinterlässt Jahre später die Mitralstenose. Zwei bis vier Wochen nach einer unzureichend behandelten Streptokokkenangina, Diagnose nach den Jones-Kriterien, Beweis über den ANSTIEG des Antistreptolysin-O-Titers — der Rachenabstrich ist da längst negativ, das Penicillin wird trotzdem gegeben, und die Rezidivprophylaxe läuft über Jahre.',
+      linkedCaseIds: [
+        'case-rheumatisches-fieber',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+        'auf-roentgen-thorax',
+      ],
+    },
   ];
 }
