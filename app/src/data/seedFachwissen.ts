@@ -23565,5 +23565,1112 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-feinnadelpunktion',
       ],
     },
+    {
+      id: 'fw-fibromyalgie',
+      pathology: 'Fibromyalgiesyndrom',
+      specialty: 'Rheumatologie',
+      definition: 'Das Fibromyalgiesyndrom (wörtlich Faser-Muskel-Schmerz) ist ein chronisches Schmerzsyndrom, das durch generalisierte Schmerzen in mehreren Körperregionen über mindestens drei Monate gekennzeichnet ist, verbunden mit Müdigkeit und nicht erholsamem Schlaf sowie kognitiven Störungen („Fibro-Fog“). Es handelt sich ausdrücklich WEDER um eine entzündliche NOCH um eine degenerative Erkrankung: Es liegen keine Synovitis, keine Gelenkzerstörung und keine Organschädigung vor, und alle Entzündungsparameter sind normal. Pathophysiologisch steht eine zentrale Sensibilisierung mit gestörter Schmerzverarbeitung und veränderter deszendierender Schmerzhemmung im Vordergrund. Die Diagnose ist eine KLINISCHE Diagnose, die nach Ausschluss weniger relevanter Differenzialdiagnosen gestellt wird — keine Ausschlussdiagnose im Sinne endloser Untersuchungen. Prävalenz etwa 2 % der Bevölkerung, Frauen sind zwei- bis dreimal häufiger betroffen, Erkrankungsgipfel im mittleren Lebensalter zwischen 40 und 60 Jahren.',
+      aetiologie: 'Multifaktoriell im Sinne eines biopsychosozialen Modells. Zentral ist eine zentrale Sensibilisierung: verstärkte Schmerzweiterleitung im Rückenmark („wind-up“), verminderte deszendierende Schmerzhemmung über Serotonin und Noradrenalin sowie eine erhöhte Konzentration exzitatorischer Neurotransmitter wie Substanz P im Liquor. Hinzu kommen eine genetische Disposition mit familiärer Häufung, eine gestörte Schlafarchitektur mit fehlendem Tiefschlaf, eine Dysregulation der Hypothalamus-Hypophysen-Nebennierenrinden-Achse sowie in einem Teil der Fälle eine Small-Fiber-Neuropathie. Als Auslöser und Verstärker gelten körperliche und psychische Traumatisierung, anhaltender Stress, Trennungs- und Verlusterlebnisse, Mobbing und Arbeitsplatzkonflikte, körperliche Inaktivität, Rauchen sowie vorangegangene Infektionen einschließlich COVID-19.',
+      risikofaktoren: [
+        'Weibliches Geschlecht (Verhältnis etwa 2–3:1)',
+        'Lebensalter zwischen 40 und 60 Jahren',
+        'Positive Familienanamnese für chronische Schmerzsyndrome',
+        'Depression, Angststörung und andere psychische Vorerkrankungen',
+        'Körperliche, seelische oder sexuelle Gewalterfahrung, Traumatisierung in der Kindheit',
+        'Anhaltende psychosoziale Belastung: Trennung, Scheidung, Verlusterlebnisse, Arbeitsplatzkonflikte, Mobbing',
+        'Nicht erholsamer Schlaf und Schlafstörungen',
+        'Körperliche Inaktivität und ausgeprägtes Schonverhalten',
+        'Rauchen und Adipositas',
+        'Entzündlich-rheumatische Grunderkrankung (sekundäres Fibromyalgiesyndrom bei rheumatoider Arthritis, Lupus, Spondyloarthritis)',
+        'Vorangegangene Infektionen, unter anderem nach COVID-19',
+      ],
+      klinik: [
+        {
+          text: 'CHRONISCHE, GENERALISIERTE Schmerzen in mehreren Körperregionen — in allen vier Körperquadranten und am Achsenskelett — seit mindestens drei Monaten',
+        },
+        {
+          text: 'Der Patient sagt typischerweise „mir tut alles weh“ und kann die Schmerzen nicht auf ein einzelnes Gelenk lokalisieren; die Schmerzen sind muskulär betont und belastungsunabhängig',
+        },
+        {
+          text: 'Zweite Säule: ausgeprägte MÜDIGKEIT und Erschöpfung sowie nicht erholsamer SCHLAF mit Ein- und Durchschlafstörung — der Patient wacht „wie gerädert“ auf',
+        },
+        {
+          text: 'Dritte Säule: KOGNITIVE STÖRUNGEN („Fibro-Fog“) mit Konzentrations-, Merkfähigkeits- und Wortfindungsstörungen',
+        },
+        {
+          text: 'Morgensteifigkeit von meist 15–45 Minuten, die sich durch Bewegung bessert — ausdrücklich OHNE Gelenkschwellung',
+        },
+        {
+          text: 'Subjektives Schwellungsgefühl der Hände und Missempfindungen (Kribbeln, Ameisenlaufen) ohne objektivierbare Schwellung und ohne neurologisches Defizit',
+        },
+        {
+          text: 'Reizdarmbeschwerden mit Wechsel von Diarrhoe und Obstipation, funktionelle Oberbauchbeschwerden',
+        },
+        {
+          text: 'Chronische Kopfschmerzen vom Spannungstyp und Migräne',
+        },
+        {
+          text: 'Ausgeprägte Wetterfühligkeit, Verschlechterung bei Kälte, Nässe und psychischem Stress',
+        },
+        {
+          text: 'Angst und depressive Symptome, Grübeln, Antriebsminderung, sozialer Rückzug — häufig komorbid, in bis zu 60 % der Fälle',
+        },
+        {
+          text: 'Unauffällige körperliche Untersuchung: keine Synovitis, keine Gelenkschwellung, keine Rötung oder Überwärmung, keine Bewegungseinschränkung, seitengleiche Muskelkraft, normale Reflexe und Sensibilität — der Befund ist gerade wegen seiner Unauffälligkeit beweisend',
+        },
+        {
+          text: 'Weitere funktionelle Begleitsyndrome: Reizblase, Tinnitus, Restless-Legs-Syndrom, temporomandibuläre Dysfunktion, Sicca-Gefühl ohne objektivierbare Sicca-Symptomatik',
+        },
+        {
+          text: 'Beginn als lokalisiertes Schmerzsyndrom (Nacken oder Kreuz) mit Ausbreitung über Monate bis Jahre auf den ganzen Körper',
+          atypisch: true,
+        },
+        {
+          text: 'Sekundäres Fibromyalgiesyndrom als Überlagerung einer rheumatoiden Arthritis oder eines Lupus — dann bestehen beide Erkrankungen nebeneinander und persistierende Schmerzen trotz remittierender Entzündung',
+          atypisch: true,
+        },
+        {
+          text: 'Manifestation bei Männern und bei Jugendlichen — seltener und deshalb häufig lange verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Auftreten nach einer Infektion, insbesondere im Rahmen eines Post-COVID-Syndroms',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ACR-Kriterien 2016 (revidierte Fassung der Kriterien von 2010/2011)',
+          inhalt: 'Die Diagnose wird gestellt, wenn alle vier Punkte erfüllt sind: (1) Widespread Pain Index (WPI) ≥ 7 UND Symptom Severity Scale (SSS) ≥ 5, ODER WPI 4–6 UND SSS ≥ 9. (2) Generalisierter Schmerz in mindestens 4 von 5 Körperregionen. (3) Die Symptome bestehen seit mindestens drei Monaten in ähnlicher Ausprägung. (4) Die Diagnose ist unabhängig von anderen Diagnosen gültig — eine Fibromyalgie schließt andere klinisch relevante Erkrankungen NICHT aus.',
+        },
+        {
+          name: 'Widespread Pain Index (WPI) und Symptom Severity Scale (SSS)',
+          inhalt: 'WPI: Zahl der schmerzhaften Körperregionen aus 19 vorgegebenen Regionen, Wertebereich 0–19. SSS: Schweregrad von Müdigkeit, nicht erholsamem Schlaf und kognitiven Symptomen mit je 0–3 Punkten, zuzüglich 0–3 Punkten für weitere somatische Symptome wie Kopfschmerz, Unterbauchschmerz und Depressivität; Wertebereich 0–12. Die Summe aus WPI und SSS ergibt die Fibromyalgia Severity Scale (0–31), die zur Verlaufsbeurteilung dient.',
+        },
+        {
+          name: 'Tender Points nach ACR 1990 — überholt',
+          inhalt: 'Die alten Kriterien forderten Druckschmerzhaftigkeit an mindestens 11 von 18 definierten Tender Points bei einem Druck von etwa 4 kg/cm². Diese Zählung gilt heute als ÜBERHOLT: sie ist untersucherabhängig, wenig reproduzierbar, benachteiligt Männer und erfasst weder Müdigkeit noch Schlaf noch kognitive Symptome. Sie wurde durch WPI und SSS ersetzt.',
+        },
+        {
+          name: 'Einteilung nach Genese',
+          inhalt: 'Primäres (idiopathisches) Fibromyalgiesyndrom ohne zugrunde liegende Erkrankung. Sekundäres Fibromyalgiesyndrom als Begleitsyndrom einer entzündlich-rheumatischen Erkrankung (rheumatoide Arthritis, Lupus erythematodes, Spondyloarthritis, Sjögren-Syndrom), einer Tumorerkrankung oder nach Infektion — beide Erkrankungen bestehen dann nebeneinander.',
+        },
+      ],
+      redFlags: [
+        'Fieber, Nachtschweiß und ungewollter Gewichtsverlust über 10 % des Körpergewichts in sechs Monaten → Malignom, Infektion, Vaskulitis',
+        'Objektivierbare Gelenkschwellung, Rötung oder Überwärmung → entzündlich-rheumatische Erkrankung, nicht Fibromyalgie',
+        'Erhöhtes CRP oder stark erhöhte BSG → jede Entzündungskonstellation spricht GEGEN ein reines Fibromyalgiesyndrom und muss abgeklärt werden',
+        'Erhöhte CK oder proximale Muskelschwäche beim Treppensteigen und Haarekämmen → Myositis oder medikamentös-toxische Myopathie, insbesondere Statin-Myopathie',
+        'Objektivierbares neurologisches Defizit: Paresen, Sensibilitätsausfälle, abgeschwächte Reflexe, Gangunsicherheit → Polyneuropathie, Myelopathie, Multiple Sklerose',
+        'Neu aufgetretener Schmerz bei Patienten über 50 Jahren mit stark erhöhter BSG, Kau-Claudicatio oder Sehstörung → Polymyalgia rheumatica mit Riesenzellarteriitis',
+        'Nächtlicher, in Ruhe zunehmender lokalisierter Knochenschmerz, Tumoranamnese → Knochenmetastasen, Plasmozytom',
+        'Hyperkalzämie, Anämie, Niereninsuffizienz → multiples Myelom',
+        'Akute Suizidalität bei komorbider Depression → sofortige psychiatrische Vorstellung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ausführliche Schmerzanamnese mit SCHMERZSKIZZE: Einzeichnen aller schmerzhaften Körperregionen zum Nachweis der generalisierten Verteilung in mindestens vier von fünf Körperregionen über mindestens drei Monate',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Erfassung der zweiten und dritten Säule: Müdigkeit und Erschöpfung, Schlafqualität mit Ein- und Durchschlafstörung und fehlender Erholung, kognitive Störungen mit Konzentrations- und Wortfindungsstörungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erfassung der Begleitsymptome: Morgensteifigkeit und ihre Dauer, Reizdarmbeschwerden, Kopfschmerzen, Missempfindungen und subjektives Schwellungsgefühl, Wetterfühligkeit, Reizblase',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Screening auf Depression und Angststörung (Zwei-Fragen-Test, PHQ-9, GAD-7) sowie Erhebung der psychosozialen Situation, biografischer Belastungen und des Arbeitsplatzkonflikts; aktive Frage nach Suizidgedanken',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese mit gezielter Frage nach Statinen, Aromatasehemmern, Bisphosphonaten und Chinolonen als Ursachen medikamentöser Myalgien',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige körperliche und rheumatologische Untersuchung mit Gelenkstatus, Muskelkraft, Reflexen und Sensibilität — die Unauffälligkeit des Befundes (keine Synovitis, keine Schwellung, keine Bewegungseinschränkung) ist der entscheidende positive Befund',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anwendung der ACR-Kriterien 2016 mit Widespread Pain Index und Symptom Severity Scale; die Zählung der 18 Tender Points gilt als überholt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'KLEINES, GEZIELTES BASISLABOR — und nicht mehr: Blutbild, CRP und BSG, CK, Kalzium, TSH sowie gegebenenfalls 25-OH-Vitamin-D. Alle Werte sind beim Fibromyalgiesyndrom definitionsgemäß NORMAL',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erweiterung des Labors nur bei konkretem klinischem Verdacht: Rheumafaktor und Anti-CCP bei Synovitis, ANA bei Kollagenose-Symptomen, Eiweißelektrophorese bei Anämie oder Hyperkalzämie, Ferritin, Vitamin B12 und HbA1c bei Verdacht auf Polyneuropathie, Zöliakie-Serologie bei passender Klinik',
+        },
+        {
+          stufe: 'Labor',
+          text: 'KEINE ungezielte Autoantikörper- oder Serologie-Diagnostik: ANA sind bei bis zu 15 % gesunder Frauen niedrigtitrig positiv, Borrelien-IgG persistieren jahrelang ohne Krankheitswert. Falsch positive Befunde führen zu Fehldiagnosen, Angst, somatischer Fixierung und unnötigen Therapien',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'KEINE routinemäßige Bildgebung — weder Röntgen noch Ganzkörper-MRT noch Schädel-CT. Jede zusätzliche Untersuchung verstärkt die somatische Fixierung des Patienten, erzeugt Zufallsbefunde und verzögert die eigentliche Therapie. Dieser Punkt ist zentral und wird häufig geprüft',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bildgebung ausschließlich gezielt bei Red Flags oder konkretem Verdacht: Gelenksonographie bei tastbarer Schwellung, Schilddrüsensonographie bei pathologischem TSH, Röntgen oder MRT bei umschriebenem, nächtlich betontem Knochenschmerz mit Tumoranamnese',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Polysomnographie im Schlaflabor nur bei klinischem Verdacht auf ein obstruktives Schlafapnoe-Syndrom oder auf ein Restless-Legs-Syndrom mit erheblicher Tagesmüdigkeit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektroneurographie und Elektromyographie nur bei objektivierbarem sensomotorischem Defizit; Hautstanzbiopsie zur Frage einer Small-Fiber-Neuropathie bleibt Studien und Spezialambulanzen vorbehalten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Muskelbiopsie ausschließlich bei relevanter CK-Erhöhung mit Verdacht auf eine Myositis — in der Routinediagnostik der Fibromyalgie ist sie nicht indiziert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Fachpsychiatrische oder psychosomatische Mitbeurteilung zur Diagnostik und Behandlung komorbider psychischer Erkrankungen sowie zur Indikationsstellung einer multimodalen Schmerztherapie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Rheumatoide Arthritis',
+          unterscheidung: 'Objektivierbare symmetrische Synovitis der MCP- und PIP-Gelenke unter Aussparung der Endgelenke, Morgensteifigkeit über 60 Minuten, erhöhtes CRP und erhöhte BSG, Rheumafaktor und Anti-CCP positiv, Erosionen in Sonographie und Röntgen. Bei der Fibromyalgie fehlen Schwellung und Entzündungszeichen vollständig.',
+        },
+        {
+          dd: 'Polymyalgia rheumatica',
+          unterscheidung: 'Alter über 50, meist über 60 Jahre; subakuter Beginn über Wochen, Schulter- und Beckengürtelschmerz mit ausgeprägter Morgensteifigkeit, BSG stark erhöht (häufig über 50 mm/h), promptes Ansprechen auf Prednisolon 15–25 mg innerhalb von Tagen. Cave begleitende Riesenzellarteriitis.',
+        },
+        {
+          dd: 'Kollagenosen: systemischer Lupus erythematodes, Sjögren-Syndrom',
+          unterscheidung: 'Schmetterlingserythem, Photosensibilität, orale Aphthen, Raynaud-Phänomen, Serositis, Nephritis, objektivierbare Sicca-Symptomatik mit pathologischem Schirmer-Test; ANA, Anti-dsDNA, Anti-Ro und Anti-La positiv. Cave: Ein Fibromyalgiesyndrom kann eine Kollagenose zusätzlich überlagern.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Myalgien, Müdigkeit, Konzentrationsstörung, Obstipation, Kälteintoleranz, Gewichtszunahme, trockene Haut, Haarausfall, Bradykardie, verzögerte Reflexrelaxation. Ausschluss allein über das TSH — obligater Bestandteil des Basislabors.',
+        },
+        {
+          dd: 'Vitamin-D-Mangel und Osteomalazie',
+          unterscheidung: 'Diffuse Knochen- und Muskelschmerzen, proximale Muskelschwäche, Watschelgang; alkalische Phosphatase erhöht, Kalzium und Phosphat erniedrigt, Parathormon erhöht, 25-OH-Vitamin-D deutlich erniedrigt.',
+        },
+        {
+          dd: 'Myositis (Poly-/Dermatomyositis) und medikamentöse Myopathie',
+          unterscheidung: 'Führend ist die proximale MUSKELSCHWÄCHE, nicht der Schmerz; CK deutlich erhöht, Myoglobin erhöht, pathologisches EMG und Muskelbiopsie. Häufigste medikamentöse Ursache sind STATINE — daher aktiv nach Lipidsenkern fragen; auch Aromatasehemmer und Chinolone kommen in Betracht.',
+        },
+        {
+          dd: 'Polyneuropathie',
+          unterscheidung: 'Distal symmetrische, strumpf- und handschuhförmige Missempfindungen mit objektivierbarem Sensibilitätsverlust, abgeschwächten Achillessehnenreflexen und Gangunsicherheit; Ursachen Diabetes mellitus, Alkohol, Vitamin-B12-Mangel, Urämie. Bestätigung durch Elektroneurographie.',
+        },
+        {
+          dd: 'Obstruktives Schlafapnoe-Syndrom',
+          unterscheidung: 'Nicht erholsamer Schlaf, Tagesmüdigkeit und Konzentrationsstörungen wie bei der Fibromyalgie, jedoch mit lautem Schnarchen, fremdanamnestisch beobachteten Atempausen, morgendlichem Kopfschmerz, Adipositas und großem Halsumfang. Nachweis in der Polysomnographie.',
+        },
+        {
+          dd: 'Depression und somatoforme Störung',
+          unterscheidung: 'KOMORBID, nicht alternativ — in bis zu 60 % der Fälle liegen beide Erkrankungen nebeneinander vor. Für eine führende Depression sprechen Anhedonie, Antriebslosigkeit, Morgentief, Schuldgefühle und Suizidgedanken. Die Fibromyalgie darf niemals als „nur psychisch“ abgetan werden; beide Diagnosen werden gestellt und beide behandelt.',
+        },
+        {
+          dd: 'Chronisches Erschöpfungssyndrom (ME/CFS) und Post-COVID-Syndrom',
+          unterscheidung: 'Im Vordergrund steht die Erschöpfung mit Post-Exertional Malaise — einer Verschlechterung nach Belastung, die 24 Stunden und länger anhält. Bei der Fibromyalgie steht der Schmerz im Vordergrund und Bewegung wirkt therapeutisch, nicht schädlich; die Übergänge sind fließend.',
+        },
+        {
+          dd: 'Malignom, Plasmozytom, paraneoplastisches Syndrom',
+          unterscheidung: 'B-Symptomatik mit Fieber, Nachtschweiß und Gewichtsverlust über 10 % in sechs Monaten, Anämie, stark erhöhte BSG, Hyperkalzämie, umschriebener nächtlicher Knochenschmerz, Lymphadenopathie. Ohne diese Zeichen ist keine Tumorsuche indiziert.',
+        },
+        {
+          dd: 'Späte Lyme-Borreliose',
+          unterscheidung: 'Zeckenstich und Erythema migrans in der Anamnese, danach wandernde Arthritis großer Gelenke, meist Monarthritis des Knies, gegebenenfalls Neuroborreliose. Eine ungezielte Serologie ist nicht indiziert, da persistierende IgG-Antikörper ohne Klinik häufig sind und zu unnötigen Antibiotikatherapien führen.',
+        },
+        {
+          dd: 'Spondyloarthritis, insbesondere axiale Spondyloarthritis',
+          unterscheidung: 'Entzündlicher Rückenschmerz mit Beginn vor dem 45. Lebensjahr, nächtlichem Schmerz in der zweiten Nachthälfte, Besserung durch Bewegung und Verschlechterung durch Ruhe, promptes Ansprechen auf NSAR, HLA-B27, Sakroiliitis im MRT — beim Fibromyalgiesyndrom wirken NSAR gerade nicht.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung und Edukation',
+          items: [
+            'Erster und wichtigster therapeutischer Akt: die Diagnose BENENNEN und die Beschwerden ernst nehmen. Viele Patienten haben jahrelang gehört, sie hätten „nichts“ — allein die Entlastung durch eine benannte Diagnose wirkt therapeutisch',
+            'Erklären, dass die Schmerzen REAL sind und auf einer gestörten zentralen Schmerzverarbeitung beruhen; es handelt sich weder um Einbildung noch um Simulation',
+            'Ausdrücklich mitteilen, dass KEIN Organschaden vorliegt: keine Entzündung, keine Gelenkzerstörung, keine drohende Behinderung, keine verkürzte Lebenserwartung',
+            'Die Unauffälligkeit von Untersuchung und Labor positiv umdeuten — sie ist ein aktiver, die Diagnose stützender Befund und kein „es wurde nichts gefunden“',
+            'Begründen, warum weitere Untersuchungen nicht helfen, sondern die somatische Fixierung und die Angst verstärken',
+            'Realistische Therapieziele vereinbaren: Verbesserung von Funktion, Schlaf, Stimmung und Lebensqualität statt völliger Schmerzfreiheit; Selbstwirksamkeit stärken',
+            'Angehörige einbeziehen, Patientenleitlinie und Selbsthilfegruppen empfehlen',
+          ],
+        },
+        {
+          label: 'Körperliche Aktivierung',
+          items: [
+            'Wirksamste Maßnahme mit der besten Evidenz — sie hat Vorrang vor jeder medikamentösen Therapie',
+            'Angepasstes AUSDAUERTRAINING niedriger Intensität, zwei- bis dreimal wöchentlich 20–30 Minuten, sehr langsam gesteigert nach dem Prinzip „start low, go slow“: zügiges Gehen, Nordic Walking, Radfahren',
+            'Wassergymnastik und Schwimmen im warmen Wasser (Bewegungsbad) — besonders gut verträglich durch die Entlastung vom Körpergewicht',
+            'Ergänzend moderates Krafttraining und Dehnübungen; aktives, funktionelles Training statt passiver Anwendungen',
+            'Meditative Bewegungsformen wie Tai-Chi, Qigong und Yoga sind gleichwertig wirksam und oft besser akzeptiert',
+            'Den Patienten aufklären, dass eine vorübergehende Schmerzzunahme zu Beginn normal ist und keinen Schaden bedeutet — sonst wird das Training abgebrochen',
+            'Schonverhalten, Rückzug und Dekonditionierung aktiv durchbrechen; Alltagsaktivität und frühere Hobbys wieder aufnehmen',
+          ],
+        },
+        {
+          label: 'Multimodale nichtmedikamentöse Therapie',
+          items: [
+            'Kognitive Verhaltenstherapie mit der besten Evidenz unter den psychotherapeutischen Verfahren: Schmerzbewältigung, Abbau von Katastrophisieren, Aktivitätsaufbau, Umgang mit Stress',
+            'Entspannungsverfahren: progressive Muskelrelaxation nach Jacobson, autogenes Training, achtsamkeitsbasierte Stressreduktion (MBSR), Biofeedback',
+            'Konsequente Schlafhygiene: feste Schlaf- und Aufstehzeiten, kein Mittagsschlaf, Koffein- und Bildschirmkarenz am Abend, Aufstehen bei längerem Wachliegen',
+            'Wärmeanwendungen als supportive Maßnahme: warme Bäder, Sauna, Wärmepackungen; sie ersetzen die Aktivierung nicht',
+            'Physiotherapie mit aktivem Übungsprogramm; passive Anwendungen und Dauermassagen fördern die Passivität und werden nicht empfohlen',
+            'Multimodale Schmerztherapie (teil-)stationär bei schwerem Verlauf, hoher Beeinträchtigung, ausgeprägter Komorbidität oder drohendem Arbeitsplatzverlust — ärztliche, psychotherapeutische und bewegungstherapeutische Behandlung im Team',
+            'Sozialmedizinische Begleitung: stufenweise Wiedereingliederung statt langer Arbeitsunfähigkeit, da diese die Chronifizierung fördert; Rehabilitationsmaßnahmen prüfen',
+            'Konsequente Mitbehandlung komorbider psychischer Erkrankungen sowie funktioneller Begleitsyndrome wie Reizdarm, Kopfschmerz und Restless-Legs-Syndrom',
+          ],
+        },
+        {
+          label: 'Zurückhaltende medikamentöse Therapie',
+          items: [
+            'Medikamente sind NICHT die Basis der Behandlung, sondern eine zeitlich befristete Ergänzung bei ausgeprägter Schlafstörung, Depression, Angststörung oder unzureichendem Ansprechen der nichtmedikamentösen Therapie',
+            'Amitriptylin niedrig dosiert 10–25 mg zur Nacht als Option der ersten Wahl bei Schlafstörung; einschleichend dosieren, Nebenwirkungen sind Sedierung, Mundtrockenheit, Obstipation, Gewichtszunahme und anticholinerge Effekte, Cave Engwinkelglaukom und Prostatahyperplasie',
+            'Duloxetin 30–60 mg täglich als Option bei komorbider Depression oder Angststörung; alternativ Pregabalin 150–450 mg täglich, insbesondere bei Missempfindungen und Schlafstörung',
+            'KEINE OPIOIDE — sie sind beim Fibromyalgiesyndrom unwirksam und führen zu Abhängigkeit sowie zu opioidinduzierter Hyperalgesie',
+            'KEINE GLUKOKORTIKOIDE — es liegt keine Entzündung vor; sie wirken nicht und schaden bei Dauergabe',
+            'NSAR WIRKEN NICHT und gehören nicht in die Dauertherapie; sie werden allenfalls kurzfristig bei einer zusätzlichen, klar entzündlichen oder nozizeptiven Schmerzursache eingesetzt',
+            'Auch Neuroleptika, Benzodiazepine und Muskelrelaxanzien sind nicht indiziert',
+            'Wirksamkeit nach drei bis sechs Monaten überprüfen und die Medikation bei fehlendem Nutzen konsequent absetzen',
+          ],
+        },
+      ],
+      prognose: 'Das Fibromyalgiesyndrom ist eine chronische, aber GUTARTIGE Erkrankung: Es kommt zu keiner Gelenkzerstörung, zu keiner Organschädigung, zu keiner Lähmung und zu keiner Verkürzung der Lebenserwartung — diese Botschaft ist selbst Teil der Therapie. Eine vollständige Remission ist selten; die Beschwerden verlaufen in der Regel wechselnd mit besseren und schlechteren Phasen. Unter konsequenter Aufklärung, regelmäßiger körperlicher Aktivierung und multimodaler Behandlung erreichen die meisten Patienten eine deutliche Verbesserung von Funktion, Schlaf und Lebensqualität und bleiben berufstätig. Prognostisch ungünstig sind eine lange Latenz bis zur Diagnosestellung, fortgesetzte Diagnostikspiralen mit somatischer Fixierung, ausgeprägtes Schonverhalten, eine unbehandelte Depression, ein anhaltender Arbeitsplatzkonflikt sowie laufende Rentenbegehren; günstig sind eine frühe Diagnose, ein aktiver Bewältigungsstil und stabile soziale Beziehungen.',
+      pruefungsfallen: [
+        'KERNPUNKT: Das Fibromyalgiesyndrom ist WEDER eine entzündliche NOCH eine degenerative Erkrankung. Keine Synovitis, keine Gelenkschwellung, keine Bewegungseinschränkung, alle Entzündungsparameter normal.',
+        'Die Diagnose ist eine KLINISCHE Diagnose nach Ausschluss der wichtigsten Differenzialdiagnosen — keine Ausschlussdiagnose im Sinne endloser Untersuchungen. Anamnese, Untersuchung und ein kleines Basislabor genügen.',
+        'NICHT die Diagnostik ausweiten: kein Ganzkörper-MRT, kein Schädel-CT, keine ungezielten Autoantikörper, keine Borrelien-Serologie. Jede zusätzliche Untersuchung verstärkt die somatische Fixierung und verzögert die Therapie — dieser Punkt ist zentral und wird sehr häufig geprüft.',
+        'Die Therapie NICHT um Medikamente herum aufbauen: Erster therapeutischer Akt ist die Aufklärung, wirksamste Maßnahme die körperliche Aktivierung.',
+        'Die drei Negationen müssen ausdrücklich genannt werden: KEINE Opioide, KEINE Glukokortikoide, NSAR wirken nicht.',
+        'Morgensteifigkeit richtig einordnen: 15–45 Minuten ohne Schwellung passt zur Fibromyalgie, über 60 Minuten mit Schwellung zur rheumatoiden Arthritis.',
+        'Depression und somatoforme Störung sind KOMORBID, nicht alternativ. Die Beschwerden dürfen niemals als „nur psychisch“ abgetan werden — das entwertet den Patienten; ebenso wenig darf die psychische Komponente verschwiegen werden.',
+        'Die 18 Tender Points gelten als überholt; heute werden Widespread Pain Index und Symptom Severity Scale nach den ACR-Kriterien 2016 verwendet.',
+        'Statine aktiv erfragen — die Statin-Myalgie ist die häufigste medikamentöse Differenzialdiagnose diffuser Muskelschmerzen; ebenso Aromatasehemmer und Chinolone.',
+        'Ein erhöhtes CRP oder eine stark erhöhte BSG spricht GEGEN eine reine Fibromyalgie und muss immer abgeklärt werden.',
+        'Eine Fibromyalgie schließt eine zweite Erkrankung nicht aus: Ein sekundäres Fibromyalgiesyndrom kann eine rheumatoide Arthritis oder einen Lupus überlagern und persistierende Schmerzen trotz remittierender Entzündung erklären.',
+        'Vor dem Patienten verständlich sprechen: „Faser-Muskel-Schmerz“, „Entzündungswerte“ statt CRP und BSG, „gestörte Schmerzverarbeitung“ statt zentrale Sensibilisierung.',
+        'Eine lange Krankschreibung ist kontraproduktiv — sie fördert Chronifizierung und sozialen Rückzug; anzustreben ist die stufenweise Wiedereingliederung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und worauf stützen Sie sich?',
+          antwort: 'Auf ein Fibromyalgiesyndrom. Dafür sprechen die seit über zehn Jahren bestehenden generalisierten Schmerzen in allen Körperregionen, die ausgeprägte Müdigkeit mit nicht erholsamem Schlaf, die Konzentrations- und Wortfindungsstörungen, die typischen Begleitsymptome wie Morgensteifigkeit ohne Schwellung, Reizdarmbeschwerden und Kopfschmerzen sowie vor allem der völlig unauffällige körperliche Untersuchungsbefund ohne Synovitis.',
+        },
+        {
+          frage: 'Warum ist es kein Rheuma? Wie können wir eine rheumatoide Arthritis ausschließen?',
+          antwort: 'Bei der rheumatoiden Arthritis besteht eine objektivierbare symmetrische Schwellung der Fingergrund- und -mittelgelenke, eine Morgensteifigkeit über 60 Minuten und eine laborchemische Entzündung mit erhöhtem CRP und erhöhter BSG sowie positivem Rheumafaktor und Anti-CCP; im Röntgen und in der Sonographie finden sich Erosionen. Beim Fibromyalgiesyndrom fehlt all das: keine Schwellung, kurze Morgensteifigkeit, normale Entzündungswerte.',
+        },
+        {
+          frage: 'Was sehen wir im Blut bei der rheumatoiden Arthritis?',
+          antwort: 'Erhöhte BSG und erhöhtes CRP, häufig eine normochrome Entzündungsanämie und eine Thrombozytose, dazu als Autoantikörper den Rheumafaktor und die spezifischeren Anti-CCP-Antikörper.',
+        },
+        {
+          frage: 'Welche Laborparameter bestimmen Sie beim Verdacht auf ein Fibromyalgiesyndrom?',
+          antwort: 'Nur ein kleines, gezieltes Basislabor: Blutbild, CRP und BSG, CK, Kalzium, TSH und gegebenenfalls 25-OH-Vitamin-D. Damit schließe ich Entzündung, Myopathie, Hyperkalzämie, Hypothyreose und Vitamin-D-Mangel aus. Alle Werte sind bei der Fibromyalgie normal.',
+        },
+        {
+          frage: 'Würden Sie ein Ganzkörper-MRT oder ein Schädel-CT veranlassen?',
+          antwort: 'Nein. Ohne Warnzeichen ist keine Bildgebung indiziert. Jede zusätzliche Untersuchung erzeugt Zufallsbefunde, verstärkt die somatische Fixierung des Patienten und verzögert die eigentliche Therapie. Bildgebung erfolgt nur gezielt bei konkretem Verdacht auf eine andere Erkrankung.',
+        },
+        {
+          frage: 'Warum bestimmen Sie ANA und Rheumafaktor nicht routinemäßig?',
+          antwort: 'Weil sie ohne klinischen Anhalt häufig falsch positiv sind — ANA sind bei bis zu 15 % gesunder Frauen niedrigtitrig nachweisbar. Ein solcher Zufallsbefund führt zu Fehldiagnosen, weiterer Angst und unnötiger Diagnostik. Ich bestimme sie nur bei klinischem Verdacht auf eine Kollagenose.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Rheumatoide Arthritis, Polymyalgia rheumatica, Kollagenosen wie Lupus und Sjögren-Syndrom, Hypothyreose, Vitamin-D-Mangel, Myositis und Statin-Myopathie, Polyneuropathie, obstruktives Schlafapnoe-Syndrom, Depression und somatoforme Störung als Komorbidität, ein Malignom bei B-Symptomatik sowie eine späte Borreliose.',
+        },
+        {
+          frage: 'Ist die Fibromyalgie nicht einfach eine Depression?',
+          antwort: 'Nein. Beide Erkrankungen bestehen in bis zu 60 % der Fälle nebeneinander, sie sind komorbid und nicht alternativ. Die Schmerzen sind real und beruhen auf einer gestörten zentralen Schmerzverarbeitung. Ich stelle beide Diagnosen und behandle beide — die Beschwerden als „nur psychisch“ abzutun wäre ein schwerer Fehler.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose formal?',
+          antwort: 'Über die ACR-Kriterien 2016 mit dem Widespread Pain Index und der Symptom Severity Scale: generalisierter Schmerz in mindestens vier von fünf Körperregionen, Dauer über mindestens drei Monate und die entsprechende Punktekombination. Die frühere Zählung der 18 Tender Points gilt als überholt.',
+        },
+        {
+          frage: 'Wie behandeln Sie das Fibromyalgiesyndrom?',
+          antwort: 'In vier Schritten: erstens Aufklärung und Edukation als erster therapeutischer Akt, zweitens körperliche Aktivierung mit angepasstem Ausdauertraining als wirksamste Maßnahme, drittens multimodale nichtmedikamentöse Therapie mit kognitiver Verhaltenstherapie, Entspannungsverfahren und Schlafhygiene, und erst viertens eine zurückhaltende medikamentöse Therapie.',
+        },
+        {
+          frage: 'Welche Maßnahme hat die beste Evidenz?',
+          antwort: 'Das angepasste Ausdauertraining niedriger Intensität, langsam gesteigert — Gehen, Radfahren, Wassergymnastik. Es ist wirksamer als jedes Medikament. Gleichwertig sind meditative Bewegungsformen wie Tai-Chi und Qigong.',
+        },
+        {
+          frage: 'Welche Medikamente kommen in Frage, und welche sind kontraindiziert?',
+          antwort: 'Als Optionen niedrig dosiertes Amitriptylin 10–25 mg zur Nacht bei Schlafstörung und Duloxetin 30–60 mg bei begleitender Depression oder Angststörung, alternativ Pregabalin. Ausdrücklich nicht: keine Opioide wegen Unwirksamkeit, Abhängigkeit und opioidinduzierter Hyperalgesie, keine Glukokortikoide, da keine Entzündung vorliegt, und keine NSAR, weil sie beim Fibromyalgiesyndrom nicht wirken.',
+        },
+        {
+          frage: 'Warum ist die Aufklärung selbst schon eine Therapie?',
+          antwort: 'Weil die Patienten oft jahrelang gehört haben, sie hätten „nichts“. Die Diagnose zu benennen, die Schmerzen als real anzuerkennen und mitzuteilen, dass kein Organschaden und keine drohende Zerstörung vorliegen, entlastet unmittelbar und ist die Voraussetzung dafür, dass der Patient das Schonverhalten aufgibt und wieder aktiv wird.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten das Wort Fibromyalgie?',
+          antwort: 'Wörtlich heißt es Faser-Muskel-Schmerz. Ich erkläre es als eine dauerhafte Störung der Schmerzverarbeitung: Das Nervensystem meldet Schmerz verstärkt weiter, obwohl Muskeln und Gelenke selbst nicht krank sind — so wie ein zu empfindlich eingestellter Alarm. Die Schmerzen sind echt, aber es entsteht kein Schaden.',
+        },
+        {
+          frage: 'Welche Warnzeichen würden Sie an eine andere Diagnose denken lassen?',
+          antwort: 'Fieber, Nachtschweiß und ein Gewichtsverlust über 10 % in sechs Monaten, objektivierbare Gelenkschwellung, erhöhtes CRP oder stark erhöhte BSG, erhöhte CK oder proximale Muskelschwäche, ein neurologisches Defizit, eine Hyperkalzämie mit Anämie sowie ein neu aufgetretener Schmerz jenseits des 50. Lebensjahres mit stark erhöhter BSG.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Die Erkrankung ist chronisch, aber gutartig: keine Gelenkzerstörung, keine Behinderung, keine verkürzte Lebenserwartung. Eine vollständige Heilung ist selten, unter konsequenter Aktivierung und multimodaler Therapie sind Funktion, Schlaf und Lebensqualität jedoch deutlich zu verbessern. Ungünstig sind späte Diagnose, fortgesetzte Diagnostikspiralen, Schonverhalten und eine unbehandelte Depression.',
+        },
+      ],
+      merksatz: 'Schmerz überall + Müdigkeit + Fibro-Fog, seit über drei Monaten, bei völlig unauffälliger Untersuchung und normalem Basislabor = Fibromyalgiesyndrom — weder entzündlich noch degenerativ. Klinische Diagnose, kleines Labor, KEINE Bildgebungsspirale. Therapie: erst aufklären, dann bewegen, dann multimodal — und erst zuletzt, zurückhaltend, Amitriptylin oder Duloxetin. Keine Opioide, kein Kortison, NSAR wirken nicht.',
+      linkedCaseIds: [
+        'case-fibromyalgie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-mrt',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-polymyalgia',
+      pathology: 'Polymyalgia rheumatica mit Riesenzellarteriitis',
+      specialty: 'Rheumatologie',
+      definition: 'Die Polymyalgia rheumatica ist eine entzündlich-rheumatische Systemerkrankung des höheren Lebensalters (Patienten IMMER über 50 Jahre, meist über 60, Erkrankungsgipfel um das 70. bis 80. Lebensjahr) mit plötzlich oder subakut einsetzenden, symmetrischen Schmerzen und Steifigkeit im SCHULTER- und BECKENGÜRTEL sowie einer ausgeprägten Morgensteifigkeit von über 45 bis 60 Minuten. Es handelt sich um MUSKEL- und nicht um Gelenkschmerzen; die Kraft ist bei geduldiger Prüfung erhalten und es besteht keine Muskelatrophie. Die Riesenzellarteriitis (Arteriitis temporalis, Morbus Horton) ist die häufigste Vaskulitis großer und mittelgroßer Gefäße, eine granulomatöse Panarteriitis der Aorta und ihrer Äste mit Bevorzugung der Äste der Arteria carotis externa, insbesondere der Arteria temporalis. Beide Erkrankungen gehören zum selben Krankheitsspektrum: Etwa 15 bis 20 % der Patienten mit Polymyalgia rheumatica entwickeln eine Riesenzellarteriitis, und umgekehrt weisen etwa 40 bis 50 % der Patienten mit Riesenzellarteriitis polymyalgische Beschwerden auf.',
+      aetiologie: 'Die Ursache ist nicht abschließend geklärt. Angenommen wird eine fehlgeleitete T-Zell-vermittelte Immunreaktion gegen Bestandteile der Gefäßwand bei genetisch prädisponierten Personen (Assoziation mit HLA-DRB1*04), möglicherweise durch infektiöse Trigger angestoßen. Dendritische Zellen in der Adventitia aktivieren T-Helferzellen; über Interferon gamma, Interleukin 6 und Interleukin 17 entstehen Makrophagen- und Riesenzellgranulome, die die Lamina elastica interna zerstören. Die konsekutive Intimahyperplasie führt zur Lumeneinengung und damit zur ischämischen Symptomatik — Kauclaudicatio, Schläfenkopfschmerz und vor allem die anteriore ischämische Optikusneuropathie durch Verschluss der Arteriae ciliares posteriores breves. Die stark erhöhte Interleukin-6-Produktion erklärt die massive Akute-Phase-Reaktion mit Sturzsenkung, Anämie und Thrombozytose und ist zugleich der Ansatzpunkt für Tocilizumab.',
+      risikofaktoren: [
+        'Lebensalter über 50 Jahre — das Alter ist Bestandteil der Definition; der Erkrankungsgipfel liegt zwischen dem 70. und 80. Lebensjahr',
+        'Weibliches Geschlecht (Verhältnis etwa 2 bis 3 zu 1)',
+        'Nordeuropäische, insbesondere skandinavische Abstammung; hohe Inzidenz in Nordeuropa, niedrige im Mittelmeerraum und in Asien',
+        'Genetische Prädisposition mit Assoziation zu HLA-DRB1*04',
+        'Diskutiert werden infektiöse Trigger (Varizella-Zoster-Virus, Parvovirus B19, Mykoplasmen, Chlamydien) sowie ein Einfluss des Rauchens',
+        'Bestehende Polymyalgia rheumatica als Risikofaktor für eine Riesenzellarteriitis und umgekehrt',
+      ],
+      klinik: [
+        {
+          text: 'Polymyalgia rheumatica: plötzlich oder subakut einsetzende, symmetrische Schmerzen im Schulter- und Beckengürtel, bei über 70 % der Patienten am Schultergürtel beginnend',
+        },
+        {
+          text: 'Ausgeprägte Morgensteifigkeit über 45 bis 60 Minuten, die sich durch Bewegung im Tagesverlauf bessert',
+        },
+        {
+          text: 'Aussagekräftige Alltagsbeschreibungen statt Skalen: Der Patient kann sich morgens nicht allein anziehen, die Arme nicht über den Kopf heben (Kämmen, Schrank), sich nicht die Haare waschen und nicht ohne Abstützen der Arme aus dem Sessel oder aus dem Bett aufstehen',
+        },
+        {
+          text: 'Es sind MUSKEL- und keine Gelenkschmerzen: keine sichtbare Gelenkschwellung; die Beschwerden beruhen auf einer periartikulären Bursitis subacromialis-subdeltoidea, einer Tenosynovitis der langen Bizepssehne und einer Bursitis trochanterica',
+        },
+        {
+          text: 'Die grobe Kraft ist bei geduldiger, schmerzadaptierter Prüfung ERHALTEN, es besteht KEINE Muskelatrophie — das unterscheidet die Erkrankung von der Myositis',
+        },
+        {
+          text: 'Allgemeinsymptome: Abgeschlagenheit, Leistungsknick, subfebrile Temperaturen, Appetit- und ungewollter Gewichtsverlust, Nachtschweiß, häufig auch depressive Verstimmung',
+        },
+        {
+          text: 'Riesenzellarteriitis: neu aufgetretener, bohrender, meist einseitiger und dauerhafter Schläfenkopfschmerz, der nachts nicht nachlässt und dem Patienten in dieser Form unbekannt ist',
+        },
+        {
+          text: 'Druckschmerzhafte, verdickte, geschlängelte und abgeschwächt oder gar nicht pulsierende Arteria temporalis im Seitenvergleich',
+        },
+        {
+          text: 'KAUCLAUDICATIO: belastungsabhängiger Schmerz der Kaumuskulatur nach ein bis zwei Minuten Kauen, der in der Kaupause vollständig verschwindet — quasi pathognomonisch und aktiv zu erfragen; seltener auch Zungenclaudicatio',
+        },
+        {
+          text: 'Skalpberührungsempfindlichkeit beim Kämmen, beim Tragen einer Brille oder beim Aufliegen des Kopfes auf dem Kissen; selten Hautnekrosen der Kopfhaut oder der Zunge',
+        },
+        {
+          text: 'Sehstörungen als Alarmsymptom: Amaurosis fugax, Verschwommensehen, Doppelbilder — und als gefürchtete Komplikation die plötzliche, SCHMERZLOSE und IRREVERSIBLE Erblindung durch eine anteriore ischämische Optikusneuropathie, unbehandelt in bis zu einem Drittel der Fälle auch am zweiten Auge',
+        },
+        {
+          text: 'Extrakranielle Großgefäßbeteiligung: Claudicatio der Arme mit Blutdruckdifferenz und abgeschwächten Pulsen, Strömungsgeräusche über Subklavia- und Karotisarterien, im Verlauf Aortenaneurysma und Aortendissektion',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierte Allgemeinsymptomatik als Fieber unklarer Genese mit stark erhöhter Blutsenkung, ohne Kopfschmerz und ohne Myalgien — die Riesenzellarteriitis ist eine klassische Ursache des Fiebers unklarer Genese beim alten Menschen',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierter Beckengürtelbefall oder distale Manifestationen mit Karpaltunnelsyndrom, Handgelenkarthritis oder einem teigigen Ödem der Hände und Füße (RS3PE-ähnliches Bild)',
+          atypisch: true,
+        },
+        {
+          text: 'Neurologische Manifestationen: Schlaganfall im vertebrobasilären Stromgebiet, Mononeuritis multiplex',
+          atypisch: true,
+        },
+        {
+          text: 'Kortisonresistenter Verlauf ohne Ansprechen binnen zwei bis drei Tagen — Warnsignal für ein paraneoplastisches Syndrom oder eine Infektion statt einer Polymyalgia rheumatica',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ACR/EULAR-Klassifikationskriterien der Polymyalgia rheumatica (2012)',
+          inhalt: 'Pflichtkriterien: Alter mindestens 50 Jahre, beidseitiger Schulterschmerz sowie erhöhte Blutsenkung und/oder erhöhtes CRP. Punktescore ohne Sonographie (Klassifikation ab 4 von 6 Punkten): Morgensteifigkeit über 45 Minuten (2 Punkte), Hüft- oder Beckengürtelschmerz beziehungsweise eingeschränkte Hüftbeweglichkeit (1 Punkt), negativer Rheumafaktor UND negative Anti-CCP-Antikörper (2 Punkte), Fehlen einer Beteiligung anderer Gelenke (1 Punkt). Mit Sonographie erweitert sich der Score auf 8 Punkte (Klassifikation ab 5 Punkten): Bursitis subacromialis, Tenosynovitis der Bizepssehne oder Glenohumeralsynovitis plus Trochanterbursitis oder Hüftsynovitis.',
+        },
+        {
+          name: 'ACR/EULAR-Klassifikationskriterien der Riesenzellarteriitis (2022)',
+          inhalt: 'Eintrittskriterium: Alter mindestens 50 Jahre bei gesicherter Vaskulitis mittlerer oder großer Gefäße. Klassifikation ab 6 Punkten. Klinische Kriterien: Morgensteifigkeit in Schultern oder Nacken (2), plötzlicher Sehverlust (3), Kau- oder Zungenclaudicatio (2), neu aufgetretener Schläfenkopfschmerz (2), Kopfhautempfindlichkeit (2), auffälliger Untersuchungsbefund der Arteria temporalis (2). Labor und Bildgebung: Blutsenkung mindestens 50 mm in der ersten Stunde oder CRP mindestens 10 mg/l (3), positive Biopsie oder Halo-Zeichen im Ultraschall (5), beidseitige Beteiligung der Achselarterien (2), FDG-Anreicherung der gesamten Aorta im PET (2).',
+        },
+        {
+          name: 'Chapel-Hill-Nomenklatur der Vaskulitiden (2012) — Einordnung',
+          inhalt: 'Die Riesenzellarteriitis zählt zu den Großgefäßvaskulitiden. Abzugrenzen ist die Takayasu-Arteriitis, die typischerweise Patientinnen UNTER 40 Jahren betrifft und den Aortenbogen mit seinen Abgängen befällt ("pulseless disease"). Vaskulitiden mittelgroßer Gefäße sind die Panarteriitis nodosa und das Kawasaki-Syndrom; Kleingefäßvaskulitiden umfassen die ANCA-assoziierten Formen (Granulomatose mit Polyangiitis, mikroskopische Polyangiitis, eosinophile Granulomatose mit Polyangiitis) sowie die IgA-Vaskulitis.',
+        },
+        {
+          name: 'Klinische Einteilung nach Manifestationsmuster',
+          inhalt: 'Isolierte Polymyalgia rheumatica ohne Vaskulitiszeichen; Riesenzellarteriitis mit kranieller Manifestation (Schläfenkopfschmerz, Kauclaudicatio, Sehstörung); Riesenzellarteriitis mit extrakranieller Großgefäßbeteiligung (Aorta, Subklavia- und Achselarterien, Extremitätenclaudicatio, Aortenaneurysma); Mischformen. Die Therapieintensität richtet sich nach diesem Muster — 15 bis 25 mg Prednisolon bei reiner Polymyalgia rheumatica gegenüber 40 bis 60 mg bei Riesenzellarteriitis.',
+        },
+      ],
+      redFlags: [
+        'Jede Sehstörung — Amaurosis fugax, Verschwommensehen, Doppelbilder oder Gesichtsfeldausfall — bei einem Patienten über 50 Jahre mit neuem Kopfschmerz: augenärztlicher NOTFALL, sofortige hochdosierte Glukokortikoidtherapie',
+        'Plötzliche, schmerzlose Erblindung: bereits eingetreten meist irreversibel; ohne Behandlung ist in bis zu einem Drittel der Fälle innerhalb von Tagen bis Wochen auch das zweite Auge betroffen',
+        'Kauclaudicatio oder Zungenclaudicatio: hoher positiver Vorhersagewert für eine Riesenzellarteriitis und Warnzeichen für eine drohende Ischämie',
+        'Neu aufgetretener, anhaltender Kopfschmerz jenseits des 50. Lebensjahres: bis zum Beweis des Gegenteils eine Riesenzellarteriitis',
+        'Blutdruckdifferenz zwischen beiden Armen, fehlende oder abgeschwächte Pulse, Strömungsgeräusche über Karotis oder Subklavia: extrakranielle Großgefäßbeteiligung',
+        'Neurologische Herdsymptome, insbesondere im vertebrobasilären Stromgebiet: drohender oder eingetretener Schlaganfall',
+        'Plötzlicher, reißender Thorax- oder Rückenschmerz unter bekannter Riesenzellarteriitis: Aortendissektion bei Aortitis',
+        'Ausbleibendes Ansprechen auf Glukokortikoide binnen zwei bis drei Tagen: dringender Verdacht auf ein Malignom mit paraneoplastischem Syndrom oder auf eine Infektion',
+        'Hohes Fieber mit Schüttelfrost, neues Herzgeräusch oder Zeichen einer Sepsis: Endokarditis oder andere Infektion vor Beginn der Immunsuppression ausschließen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese der Polymyalgia rheumatica: Alter über 50 Jahre, symmetrische Schmerzen im Schulter- und Beckengürtel, Dauer der Morgensteifigkeit (über 45 bis 60 Minuten) und konkrete Alltagsbeschränkungen — Anziehen, Arme über Kopf heben, Aufstehen aus dem Sessel; dazu Abgeschlagenheit, subfebrile Temperaturen, Appetit- und Gewichtsverlust sowie eine depressive Verstimmung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese der Riesenzellarteriitis, die aktiv erfragt werden muss: neu aufgetretener Schläfenkopfschmerz, Skalpberührungsempfindlichkeit beim Kämmen, KAUCLAUDICATIO und jede Sehstörung einschließlich einer nur kurz dauernden Amaurosis fugax; außerdem Claudicatio der Arme und Beine als Hinweis auf eine Großgefäßbeteiligung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Untersuchung der Gefäße: Palpation BEIDER Arteriae temporales im Seitenvergleich auf Druckschmerz, Verdickung, Schlängelung und Pulslosigkeit; Auskultation von Karotis- und Subklaviaarterien; Blutdruckmessung an beiden Armen und seitenvergleichender Pulsstatus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Muskel- und Gelenkstatus: aktiver und passiver Bewegungsumfang von Schultern und Hüften, geduldige Kraftprüfung (Kraft erhalten, keine Atrophie), Suche nach Gelenkschwellungen und Untersuchung der kleinen Gelenke zur Abgrenzung einer rheumatoiden Arthritis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende Augenuntersuchung bei jedem Verdacht: Visusprüfung im Seitenvergleich, Prüfung eines relativen afferenten Pupillendefekts (Swinging-Flashlight-Test), fingerperimetrische Gesichtsfeldprüfung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutsenkungsgeschwindigkeit: klassisch stark beschleunigt, häufig über 50 mm in der ersten Stunde ("Sturzsenkung"), und CRP deutlich erhöht — beide dienen zugleich als Ausgangs- und Verlaufsparameter; Blutentnahme möglichst VOR der ersten Kortisongabe',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: normochrome, normozytäre Anämie der chronischen Erkrankung und reaktive Thrombozytose; in der Eiweiß-Elektrophorese Vermehrung der Alpha-2-Globuline',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Definitionsgemäß NORMALE Werte als Abgrenzungskriterium: Kreatinkinase und Myoglobin (gegen eine Myositis) sowie Rheumafaktor, Anti-CCP-Antikörper und antinukleäre Antikörper (gegen rheumatoide Arthritis und Kollagenosen); ANCA sind negativ',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ausschluss von Differenzialdiagnosen und Screening vor Therapie: TSH (Hypothyreose), Kreatinin und eGFR, Leberwerte, Elektrolyte, Nüchternblutzucker und HbA1c, Lipidstatus, Vitamin D, Urinstatus; vor einer steroidsparenden Immunsuppression Hepatitis-B- und -C-Serologie sowie ein Tuberkulose-Screening',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei atypischem Verlauf oder Fieberverdacht Ausschluss anderer Ursachen einer Sturzsenkung: Blutkulturen und Procalcitonin (Endokarditis), Immunfixation und freie Leichtketten (Plasmozytom), gezielte Tumorsuche',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'FARBDUPLEXSONOGRAPHIE der Temporalarterien und ihrer Äste als nicht invasiver Erstschritt: HALO-ZEICHEN als echoarmer, konzentrischer Wandsaum (Wandödem) und positives Kompressionszeichen; hohe Sensitivität und Spezifität in geübter Hand, das Halo-Zeichen bildet sich unter Kortison innerhalb weniger Tage bis Wochen zurück',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie oder MRT der Schultern und Hüften bei Polymyalgia rheumatica: Bursitis subacromialis-subdeltoidea, Tenosynovitis der langen Bizepssehne, Bursitis trochanterica und Hüftsynovitis, typischerweise beidseits',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Augenärztliches Konsil bei JEDEM Sehsymptom, noch am selben Tag: Spaltlampe, Funduskopie (blasses Papillenödem bei anteriorer ischämischer Optikusneuropathie), Perimetrie, optische Kohärenztomographie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Verdacht auf extrakranielle Großgefäßbeteiligung: Duplexsonographie der Achsel-, Subklavia- und Halsgefäße, MR- oder CT-Angiographie der Aorta, FDG-PET-CT — Cave: nur vor beziehungsweise in den ersten Tagen der Kortisontherapie aussagekräftig; im Verlauf Echokardiographie und Schnittbildgebung zur Aneurysmakontrolle',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Vor der geplanten Langzeit-Kortisontherapie Röntgen-Thorax und Knochendichtemessung (DXA) als Ausgangsbefund',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'TEMPORALARTERIENBIOPSIE zur histologischen Sicherung: Entnahme eines mindestens 1 bis 2 cm langen Segments in Lokalanästhesie; Histologie mit granulomatöser Panarteriitis, mehrkernigen Riesenzellen, lymphomonozytärem Infiltrat, Intimahyperplasie und Fragmentierung der Lamina elastica interna',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'CAVE Segmentbefall ("skip lesions"): Ein negatives Biopsieergebnis SCHLIESST eine Riesenzellarteriitis NICHT AUS — Sensitivität etwa 70 bis 90 %; bei fortbestehendem Verdacht Biopsie der Gegenseite. Die Biopsie bleibt etwa ein bis zwei Wochen nach Therapiebeginn noch aussagekräftig, sollte aber möglichst innerhalb der ersten Woche erfolgen; sie darf den Therapiebeginn niemals verzögern',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Rheumatoide Arthritis mit Beginn im höheren Lebensalter',
+          unterscheidung: 'Symmetrische Synovitis der Fingergrund- und Fingermittelgelenke mit sichtbarer Schwellung, Morgensteifigkeit über 60 Minuten, Rheumafaktor und Anti-CCP häufig positiv, im Verlauf gelenknahe Erosionen. Bei der Polymyalgia rheumatica fehlen Gelenkschwellungen, die Autoantikörper sind negativ, und der Befall ist rein periartikulär im Schulter- und Beckengürtel.',
+        },
+        {
+          dd: 'Myositis (Polymyositis, Dermatomyositis, Einschlusskörpermyositis)',
+          unterscheidung: 'Echte, objektivierbare proximale Muskelschwäche und im Verlauf Atrophie, häufig Dysphagie; CK und Myoglobin deutlich erhöht, myositisspezifische Antikörper, pathologisches EMG und beweisende Muskelbiopsie. Bei der Polymyalgia rheumatica ist die Kraft erhalten und die CK normal.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Myalgien, Steifigkeit, Abgeschlagenheit und CK-Erhöhung, jedoch mit Kälteintoleranz, Obstipation, trockener Haut, Haarausfall, Heiserkeit und Gewichtszunahme; Blutsenkung und CRP sind normal. Klärung durch TSH.',
+        },
+        {
+          dd: 'Statininduzierte oder andere medikamentöse Myopathie',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Statin, Fibrat, Kortikoid, Colchicin oder Amiodaron; diffuse Myalgien mit CK-Erhöhung und Rückbildung nach Absetzen, normale Entzündungsparameter. Die Medikamentenanamnese muss aktiv erhoben werden.',
+        },
+        {
+          dd: 'Malignom mit paraneoplastischem Syndrom ("Pseudopolymyalgie")',
+          unterscheidung: 'B-Symptomatik und stark erhöhte Blutsenkung wie bei der Polymyalgia rheumatica, jedoch oft asymmetrische Beschwerden, nächtlicher Ruheschmerz, tastbare Resistenzen oder Lymphknoten und vor allem ein FEHLENDES Ansprechen auf Glukokortikoide. Häufig zugrunde liegend: Bronchial-, Nieren-, Pankreas- und Prostatakarzinom, multiples Myelom, Lymphome.',
+        },
+        {
+          dd: 'Infektionen, insbesondere Endokarditis, Osteomyelitis, Tuberkulose',
+          unterscheidung: 'Fieber, Schüttelfrost, Nachtschweiß, neues Herzgeräusch, Splitterblutungen, positive Blutkulturen und erhöhtes Procalcitonin. Vor jeder Immunsuppression auszuschließen; das Procalcitonin bleibt bei der Polymyalgia rheumatica typischerweise normal.',
+        },
+        {
+          dd: 'Fibromyalgiesyndrom',
+          unterscheidung: 'Meist deutlich jüngere Patientinnen, generalisierte Schmerzen an definierten Druckpunkten über mehr als drei Monate mit Erschöpfung und Schlafstörung, aber NORMALEN Werten für Blutsenkung und CRP, ohne B-Symptomatik, ohne relevante Morgensteifigkeit und ohne Ansprechen auf Kortison.',
+        },
+        {
+          dd: 'Spondylarthrose und Spondylose der Halswirbelsäule, Periarthropathia humeroscapularis, Omarthrose',
+          unterscheidung: 'Bewegungs- und belastungsabhängige, oft einseitige Schmerzen mit lokalem Druckschmerz und schmerzhaftem Bogen, ohne B-Symptomatik, mit normalen Entzündungsparametern und degenerativen Veränderungen im Röntgen.',
+        },
+        {
+          dd: 'Migräne und Spannungskopfschmerz',
+          unterscheidung: 'Migräne: attackenartiger, pulsierender, halbseitiger Kopfschmerz mit Übelkeit sowie Licht- und Lärmempfindlichkeit, häufig Aura mit Flimmerskotom, Erstmanifestation meist in jüngeren Jahren. Spannungskopfschmerz: drückend, beidseitig, wie ein Band um den Kopf. Ein erstmalig jenseits des 50. Lebensjahres auftretender, dauerhafter Schläfenkopfschmerz ist bis zum Beweis des Gegenteils eine Riesenzellarteriitis.',
+        },
+        {
+          dd: 'Kiefergelenksarthrose und kraniomandibuläre Dysfunktion',
+          unterscheidung: 'Dauerschmerz und Knacken des Kiefergelenks, Bruxismus, Druckschmerz der Kaumuskulatur, Beschwerden auch in Ruhe. Die Kauclaudicatio ist demgegenüber streng belastungsabhängig und verschwindet in der Kaupause vollständig.',
+        },
+        {
+          dd: 'Amaurosis fugax bei Karotisstenose oder kardialer Embolie, transitorische ischämische Attacke',
+          unterscheidung: 'Ebenfalls schmerzlose, vorübergehende monokuläre Sehstörung, jedoch mit Strömungsgeräusch über der Karotis, Vorhofflimmern oder begleitenden neurologischen Herdzeichen und ohne Kopfschmerz, Kauclaudicatio oder Polymyalgie. Klärung durch Duplexsonographie der Halsgefäße, EKG und Echokardiographie — die Abklärung darf die Kortisontherapie nicht verzögern.',
+        },
+        {
+          dd: 'Andere Vaskulitiden und Kollagenosen',
+          unterscheidung: 'Takayasu-Arteriitis bei Patientinnen unter 40 Jahren mit Aortenbogenbefall; ANCA-assoziierte Vaskulitiden mit Nieren-, Lungen- und HNO-Beteiligung und positiven ANCA; Lupus erythematodes und Sjögren-Syndrom mit spezifischen Antikörpern, Hautbefund, Sicca-Symptomatik und Organbeteiligung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortiger Beginn der Glukokortikoidtherapie',
+          items: [
+            'Die Glukokortikoidtherapie wird bei begründetem Verdacht auf eine Riesenzellarteriitis SOFORT begonnen — VOR der Biopsie und ohne deren Ergebnis abzuwarten; die drohende Erblindung ist irreversibel',
+            'Reine Polymyalgia rheumatica: 15 bis 25 mg Prednisolon täglich als Einmalgabe am Morgen',
+            'Riesenzellarteriitis ohne Sehstörung: 40 bis 60 mg Prednisolon täglich, orientierend etwa 1 mg pro Kilogramm Körpergewicht',
+            'Riesenzellarteriitis MIT Sehstörung oder drohendem Visusverlust: hochdosierte intravenöse Stoßtherapie mit Methylprednisolon 500 bis 1000 mg täglich über drei Tage, anschließend orale Weiterbehandlung mit etwa 1 mg Prednisolon pro Kilogramm Körpergewicht',
+            'Blutentnahme für Blutsenkung, CRP, Blutbild, Kreatinkinase, Autoantikörper, TSH und Blutzucker möglichst noch vor der ersten Kortisongabe; Farbduplexsonographie umgehend, Biopsie innerhalb der ersten Woche',
+            'Das prompte Ansprechen binnen zwei bis drei Tagen ist bei der Polymyalgia rheumatica nahezu diagnostisch; bleibt es aus, muss die Diagnose überdacht und insbesondere ein Malignom oder eine Infektion gesucht werden',
+            'Bei Sehstörungen sofortiges augenärztliches Konsil und stationäre Aufnahme zur Überwachung von Visus, Blutdruck und Blutzucker',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Ausschleichen und Verlaufskontrolle',
+          items: [
+            'Die Reduktion erfolgt LANGSAM und richtet sich nach der Klinik UND den Entzündungsparametern; bei rein laborchemischer Besserung ohne klinisches Ansprechen wird nicht reduziert',
+            'Polymyalgia rheumatica: Reduktion auf etwa 10 mg täglich innerhalb von vier bis acht Wochen, danach Verringerung um etwa 1 mg alle vier Wochen',
+            'Riesenzellarteriitis: Reduktion auf 15 bis 20 mg täglich nach zwei bis drei Monaten und auf 5 mg oder weniger nach etwa einem Jahr',
+            'Gesamtdauer in der Regel ein bis zwei Jahre, nicht selten länger; etwa die Hälfte der Patienten erleidet mindestens ein Rezidiv, das an wiederkehrenden Beschwerden mit erneutem Anstieg von Blutsenkung und CRP erkennbar ist und die Rückkehr zur zuletzt wirksamen Dosis erfordert',
+            'Kontrollen von Blutsenkung, CRP, Blutbild, Blutzucker, Blutdruck und Gewicht zunächst alle zwei bis vier Wochen, später vierteljährlich; klinisch bei jedem Termin Morgensteifigkeit, Kopfschmerz, Kauclaudicatio und Sehvermögen erfragen',
+            'Patientenschulung: sofortige Wiedervorstellung bei erneutem Kopfschmerz, Kauschmerz oder jeder Sehstörung; das Kortison darf niemals eigenmächtig abgesetzt werden (Gefahr der Nebennierenrindeninsuffizienz und des Rezidivs)',
+          ],
+        },
+        {
+          label: 'Begleit- und Prophylaxemaßnahmen der Langzeit-Kortisontherapie',
+          items: [
+            'OSTEOPOROSEPROPHYLAXE: Kalzium 1000 mg und Vitamin D 800 bis 1000 Internationale Einheiten täglich; zusätzlich ein Bisphosphonat (z. B. Alendronat 70 mg wöchentlich) bei einer Prednisolondosis ab 7,5 mg über mehr als drei Monate, bei vorbestehender Osteoporose oder hohem Frakturrisiko sofort; Verlaufs-DXA',
+            'Magenschutz mit einem Protonenpumpenhemmer, insbesondere bei gleichzeitiger Einnahme nichtsteroidaler Antirheumatika oder von Acetylsalicylsäure',
+            'Regelmäßige Kontrolle von Blutzucker und HbA1c (Steroiddiabetes) sowie von Blutdruck, Gewicht, Elektrolyten und Lipiden',
+            'Augenärztliche Kontrolle von Augeninnendruck und Linse wegen Glaukom- und Kataraktrisiko unter Langzeit-Kortison',
+            'Achten auf Infektzeichen unter Immunsuppression — Fieber kann maskiert sein; Impfstatus überprüfen und gegen Influenza, Pneumokokken und COVID-19 impfen (Totimpfstoffe; Lebendimpfstoffe vermeiden)',
+            'Ausstellung eines KORTISONAUSWEISES; Aufklärung über Nebenwirkungen (Gewichtszunahme, Vollmondgesicht, Stammfettsucht, Hautatrophie, Muskelabbau, Schlafstörung, Stimmungsschwankungen) und über die notwendige Dosiserhöhung in Stresssituationen',
+            'Einnahme der Tagesdosis morgens zwischen 6 und 8 Uhr entsprechend der zirkadianen Kortisolausschüttung; eiweißreiche, salz- und zuckerarme Kost sowie körperliche Aktivität und Physiotherapie gegen Muskelabbau',
+          ],
+        },
+        {
+          label: 'Steroidsparende Therapie und Sonderfälle',
+          items: [
+            'Indikation: Rezidive beim Ausschleichen, anhaltend hoher Kortisonbedarf oder hohes Risiko für Kortisonnebenwirkungen (Osteoporose, Diabetes mellitus, Glaukom, hohes Lebensalter)',
+            'Methotrexat 10 bis 25 mg einmal wöchentlich oral oder subkutan mit Folsäuresubstitution 24 bis 48 Stunden später; Kontrolle von Blutbild, Transaminasen und Kreatinin; kontraindiziert bei relevanter Niereninsuffizienz',
+            'Tocilizumab (Interleukin-6-Rezeptor-Antagonist) subkutan als zugelassene steroidsparende Therapie der Riesenzellarteriitis — Cave: Blutsenkung und CRP sind darunter als Verlaufsparameter NICHT mehr verwertbar, die Beurteilung erfolgt klinisch; vorher Tuberkulose- und Hepatitis-Screening, Cave Divertikulitis und Darmperforation',
+            'Notfallmanagement bei akutem Visusverlust: sofortige hochdosierte intravenöse Methylprednisolon-Stoßtherapie und unverzügliche augenärztliche Mitbeurteilung — ein bereits eingetretener Sehverlust ist in der Regel irreversibel, Ziel ist die Rettung des zweiten Auges',
+            'Niedrig dosierte Acetylsalicylsäure 100 mg täglich unter Magenschutz kann bei zusätzlichen kardiovaskulären Risikofaktoren oder ischämischen Ereignissen erwogen werden; die Datenlage ist uneinheitlich',
+            'Langfristige Nachsorge auf Aortenaneurysma und Aortendissektion mittels Echokardiographie beziehungsweise Schnittbildgebung; interdisziplinäre Anbindung an Rheumatologie und Augenheilkunde',
+          ],
+        },
+      ],
+      prognose: 'Unter rechtzeitiger und ausreichend hoch dosierter Glukokortikoidtherapie ist die Prognose gut: Die polymyalgischen Beschwerden bessern sich binnen zwei bis drei Tagen dramatisch, die Kopfschmerzen der Riesenzellarteriitis meist innerhalb von 24 bis 72 Stunden, und die Lebenserwartung ist bei unkompliziertem Verlauf nicht wesentlich eingeschränkt. Entscheidend ist die Zeit bis zum Therapiebeginn: Ein bereits eingetretener Visusverlust durch anteriore ischämische Optikusneuropathie ist in der Regel IRREVERSIBEL; unbehandelt erblindet bis zu ein Drittel der Patienten, und das zweite Auge folgt oft innerhalb von Tagen bis Wochen. Rezidive treten bei etwa der Hälfte der Patienten auf, meist während des Ausschleichens; die Gesamttherapiedauer beträgt üblicherweise ein bis zwei Jahre, gelegentlich länger. Die Morbidität wird wesentlich durch die Kortisonnebenwirkungen bestimmt — osteoporotische Frakturen, Steroiddiabetes, Katarakt, Glaukom und Infektionen —, weshalb die Begleit- und Prophylaxemaßnahmen prognostisch ebenso wichtig sind wie die Kortisondosis selbst. Als Spätkomplikation der Großgefäßbeteiligung drohen Aortenaneurysma und Aortendissektion, die eine langfristige Nachsorge erfordern.',
+      pruefungsfallen: [
+        'Die Riesenzellarteriitis muss bei jeder Polymyalgia rheumatica AKTIV gesucht werden: Schläfenkopfschmerz, Skalpempfindlichkeit, Kauclaudicatio und Sehstörungen werden von den Patienten fast nie spontan berichtet. Etwa 15 bis 20 % der Patienten mit Polymyalgia rheumatica haben eine Riesenzellarteriitis.',
+        'Bei Verdacht wird die Kortisontherapie SOFORT begonnen — vor der Biopsie und ohne deren Ergebnis abzuwarten. Ein Aufschieben zugunsten der Diagnostik ist der schwerste Fehler in diesem Fall.',
+        'Ein negatives Biopsieergebnis schließt die Riesenzellarteriitis NICHT aus (Segmentbefall, "skip lesions"); ein mindestens 1 bis 2 cm langes Segment entnehmen und gegebenenfalls die Gegenseite biopsieren. Die Biopsie bleibt ein bis zwei Wochen nach Therapiebeginn aussagekräftig.',
+        'Die beiden Dosierungen auseinanderhalten: 15 bis 25 mg Prednisolon täglich bei reiner Polymyalgia rheumatica, 40 bis 60 mg bei Riesenzellarteriitis, hochdosiert intravenös bei Sehstörungen. Diese Zahlen werden gezielt abgefragt.',
+        'Bei der Polymyalgia rheumatica ist die KRAFT ERHALTEN und es besteht KEINE Atrophie — der Patient scheitert am Schmerz, nicht an der Schwäche. Wer von "Muskelschwäche" spricht, argumentiert unfreiwillig für eine Myositis.',
+        'CK und Autoantikörper sind NORMAL. Diese negativen Befunde sind aktiv zu nennen, denn sie tragen die Abgrenzung gegen Myositis, rheumatoide Arthritis und Kollagenosen.',
+        'Es handelt sich um MUSKEL- und nicht um Gelenkschmerzen; die Ursache ist periartikulär (Bursitis subacromialis, Tenosynovitis der Bizepssehne, Bursitis trochanterica) — keine sichtbaren Gelenkschwellungen.',
+        'Die Alltagsbeschreibungen sind aussagekräftiger als jede Skala: sich morgens nicht allein anziehen können, die Arme nicht heben können, nicht aus dem Sessel aufstehen können. Prüfer honorieren diese Formulierungen.',
+        'Die Begleitmaßnahmen der Langzeit-Kortisontherapie werden am häufigsten vergessen und am häufigsten gefragt: Osteoporoseprophylaxe mit Kalzium, Vitamin D UND Bisphosphonat, Magenschutz, Blutzucker- und Blutdruckkontrolle, Augeninnendruck, Infektzeichen, Kortisonausweis.',
+        'Ein AUSBLEIBENDES Ansprechen binnen zwei bis drei Tagen spricht gegen die Diagnose und muss an ein Malignom mit paraneoplastischem Syndrom oder an eine Infektion denken lassen — nicht einfach die Dosis erhöhen.',
+        'Unter Tocilizumab sind Blutsenkung und CRP als Verlaufsparameter unbrauchbar, weil Interleukin 6 blockiert wird; die Beurteilung erfolgt rein klinisch.',
+        'Das Alter über 50 Jahre gehört zur Definition und ist Eintrittskriterium beider Klassifikationssysteme — bei jüngeren Patienten ist die Diagnose praktisch ausgeschlossen und man denkt eher an eine Takayasu-Arteriitis.',
+        'Die Amaurosis fugax nicht bagatellisieren, auch wenn sie nur Minuten dauerte und folgenlos abklang: Sie ist der Vorbote der irreversiblen Erblindung und macht den Fall zum Notfall.',
+        'Vor dem Patienten die Fachbegriffe übersetzen: Polymyalgia rheumatica als "entzündliche Erkrankung mit Schmerzen in den Muskeln von Schultern und Hüften", Arteriitis temporalis als "Entzündung der Schläfenschlagader", Amaurosis fugax als "vorübergehende Sehstörung durch eine Durchblutungsstörung des Auges".',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine Polymyalgia rheumatica mit begleitender Riesenzellarteriitis. Dafür sprechen das Alter über 50 Jahre, die symmetrischen Schmerzen und die Steifigkeit im Schulter- und Beckengürtel mit einer Morgensteifigkeit von etwa einer Stunde, die Unfähigkeit, sich anzuziehen, die Arme zu heben und aus dem Sessel aufzustehen, sowie die B-Symptomatik mit Gewichtsverlust und subfebrilen Temperaturen. Für die Riesenzellarteriitis sprechen der neu aufgetretene Schläfenkopfschmerz, die Skalpberührungsempfindlichkeit, die Kauclaudicatio und die Amaurosis fugax.',
+        },
+        {
+          frage: 'Wie erklären Sie einem Patienten die Begriffe Polymyalgia rheumatica und Arteriitis temporalis?',
+          antwort: 'Polymyalgia rheumatica heißt wörtlich "Schmerz in vielen Muskeln" — eine entzündliche Erkrankung, die vor allem die Muskeln um Schultern und Hüften betrifft. Die Arteriitis temporalis oder Riesenzellarteriitis ist eine Entzündung der Schlagaderwand, besonders der Schläfenschlagader; ihren Namen hat sie von den großen, mehrkernigen Entzündungszellen im Gewebe. Beide gehören zum selben Krankheitsbild.',
+        },
+        {
+          frage: 'Warum ist das Alter für die Diagnose entscheidend?',
+          antwort: 'Beide Erkrankungen treten praktisch ausschließlich jenseits des 50. Lebensjahres auf, mit einem Gipfel zwischen dem 70. und 80. Lebensjahr. Das Alter über 50 Jahre ist Bestandteil der Definition und Eintrittskriterium der Klassifikationskriterien von ACR und EULAR. Bei jüngeren Patienten denkt man eher an eine Takayasu-Arteriitis, eine Myositis oder eine Fibromyalgie.',
+        },
+        {
+          frage: 'Was ist eine Kauclaudicatio, und warum ist sie so wichtig?',
+          antwort: 'Ein belastungsabhängiger Schmerz der Kaumuskulatur: Nach ein bis zwei Minuten Kauen fester Speisen zwingt der Schmerz zur Pause und verschwindet in der Pause vollständig — eine Claudicatio wie beim Bein, verursacht durch die Minderdurchblutung über Äste der Arteria carotis externa. Sie ist nahezu beweisend für eine Riesenzellarteriitis, wird aber fast nie spontan berichtet und muss aktiv erfragt werden.',
+        },
+        {
+          frage: 'Was ist die gefährlichste Komplikation, und wie äußert sie sich?',
+          antwort: 'Die plötzliche, schmerzlose Erblindung durch eine anteriore ischämische Optikusneuropathie infolge eines Verschlusses der kurzen hinteren Ziliararterien. Vorboten sind eine Amaurosis fugax, Verschwommensehen oder Doppelbilder. Der Sehverlust ist irreversibel, und unbehandelt ist in bis zu einem Drittel der Fälle innerhalb von Tagen bis Wochen auch das zweite Auge betroffen.',
+        },
+        {
+          frage: 'Wann beginnen Sie mit der Kortisontherapie — vor oder nach der Biopsie?',
+          antwort: 'Sofort, also VOR der Biopsie und ohne deren Ergebnis abzuwarten. Die Erblindung ist nicht rückgängig zu machen, während eine kurzfristige Kortisongabe folgenlos bleibt. Die Biopsie bleibt noch etwa ein bis zwei Wochen nach Therapiebeginn aussagekräftig, sollte aber möglichst innerhalb der ersten Woche erfolgen.',
+        },
+        {
+          frage: 'Welche Laborbefunde erwarten Sie, und welche Werte müssen normal sein?',
+          antwort: 'Stark erhöhte Blutsenkung, klassisch über 50 mm in der ersten Stunde als Sturzsenkung, und erhöhtes CRP; im Blutbild eine normochrome Anämie der chronischen Erkrankung und eine Thrombozytose. NORMAL sind die Kreatinkinase sowie Rheumafaktor, Anti-CCP und antinukleäre Antikörper — genau diese negativen Befunde grenzen gegen Myositis, rheumatoide Arthritis und Kollagenosen ab. Zusätzlich TSH zum Ausschluss einer Hypothyreose.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Polymyalgia rheumatica von einer Myositis?',
+          antwort: 'Bei der Polymyalgia rheumatica ist die Kraft bei geduldiger Prüfung erhalten und es besteht keine Muskelatrophie — der Patient kommt vor Schmerz nicht hoch, nicht vor Schwäche —, und die Kreatinkinase ist normal. Bei der Myositis besteht eine echte proximale Parese mit Atrophie und häufig Dysphagie, die CK ist deutlich erhöht, das EMG pathologisch und die Muskelbiopsie beweisend.',
+        },
+        {
+          frage: 'Welche Bildgebung setzen Sie ein? Was ist das Halo-Zeichen?',
+          antwort: 'Als nicht invasiven Erstschritt die Farbduplexsonographie beider Temporalarterien. Das Halo-Zeichen ist ein echoarmer, konzentrischer Saum um das Gefäßlumen, der dem entzündlichen Wandödem entspricht; zusätzlich findet sich ein positives Kompressionszeichen. Bei der Polymyalgia rheumatica zeigen Sonographie oder MRT der Schultern und Hüften eine Bursitis subacromialis, eine Tenosynovitis der langen Bizepssehne und eine Bursitis trochanterica. Bei Verdacht auf Großgefäßbefall MR-Angiographie oder FDG-PET-CT.',
+        },
+        {
+          frage: 'Welche Fallstricke hat die Temporalarterienbiopsie?',
+          antwort: 'Der Befall ist segmental — sogenannte skip lesions —, deshalb muss ein mindestens 1 bis 2 cm langes Segment entnommen werden, und ein negatives Ergebnis schließt die Erkrankung NICHT aus; die Sensitivität liegt bei etwa 70 bis 90 %. Bei fortbestehendem Verdacht wird die Gegenseite biopsiert. Histologisch zeigt sich eine granulomatöse Panarteriitis mit mehrkernigen Riesenzellen und fragmentierter Lamina elastica interna.',
+        },
+        {
+          frage: 'Mit welcher Dosis behandeln Sie?',
+          antwort: 'Bei reiner Polymyalgia rheumatica 15 bis 25 mg Prednisolon täglich. Bei Riesenzellarteriitis ohne Sehstörung 40 bis 60 mg Prednisolon täglich, etwa 1 mg pro Kilogramm Körpergewicht. Bei Sehstörungen eine hochdosierte intravenöse Stoßtherapie mit Methylprednisolon 500 bis 1000 mg täglich über drei Tage und anschließende orale Weiterbehandlung.',
+        },
+        {
+          frage: 'Wie lange behandeln Sie, und wie reduzieren Sie die Dosis?',
+          antwort: 'Langsam und nach Klinik UND Entzündungsparametern. Bei der Polymyalgia rheumatica auf etwa 10 mg täglich innerhalb von vier bis acht Wochen, danach um etwa 1 mg alle vier Wochen; bei der Riesenzellarteriitis auf 15 bis 20 mg nach zwei bis drei Monaten und auf 5 mg oder weniger nach einem Jahr. Die Gesamtdauer liegt meist bei ein bis zwei Jahren; Rezidive sind häufig und erfordern die Rückkehr zur zuletzt wirksamen Dosis.',
+        },
+        {
+          frage: 'Welche Begleitmaßnahmen ordnen Sie unter der Langzeit-Kortisontherapie an?',
+          antwort: 'Osteoporoseprophylaxe mit Kalzium 1000 mg und Vitamin D 800 bis 1000 Internationalen Einheiten täglich sowie einem Bisphosphonat bei mehr als 7,5 mg Prednisolon über drei Monate; Magenschutz mit einem Protonenpumpenhemmer; regelmäßige Kontrolle von Blutzucker und HbA1c, Blutdruck, Gewicht und Elektrolyten; augenärztliche Kontrolle von Augeninnendruck und Linse; Achten auf Infektzeichen und Überprüfung des Impfstatus; Ausstellung eines Kortisonausweises und Einnahme morgens.',
+        },
+        {
+          frage: 'Wann setzen Sie Methotrexat oder Tocilizumab ein, und worauf müssen Sie achten?',
+          antwort: 'Bei Rezidiven während des Ausschleichens, bei anhaltend hohem Kortisonbedarf oder bei hohem Nebenwirkungsrisiko. Methotrexat 10 bis 25 mg einmal wöchentlich mit Folsäuresubstitution und Kontrolle von Blutbild, Transaminasen und Kreatinin. Tocilizumab ist als Interleukin-6-Rezeptor-Antagonist für die Riesenzellarteriitis zugelassen — darunter sind Blutsenkung und CRP jedoch nicht mehr als Verlaufsparameter verwertbar, die Beurteilung erfolgt rein klinisch.',
+        },
+        {
+          frage: 'Die Beschwerden bessern sich unter Kortison nach drei bis vier Tagen überhaupt nicht. Was bedeutet das?',
+          antwort: 'Das prompte Ansprechen binnen zwei bis drei Tagen ist bei der Polymyalgia rheumatica nahezu diagnostisch. Bleibt es aus, muss die Diagnose in Frage gestellt werden: zu suchen sind vor allem ein Malignom mit paraneoplastischem Syndrom, eine Infektion einschließlich Endokarditis, eine Myositis oder eine Hypothyreose.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Rheumatoide Arthritis des älteren Menschen, Myositis, Hypothyreose, statininduzierte Myopathie, Malignom mit paraneoplastischem Syndrom, Infektionen einschließlich Endokarditis, Fibromyalgie und Spondylarthrose der Halswirbelsäule. Für den Kopfschmerz zusätzlich Migräne, Spannungskopfschmerz und Kiefergelenksarthrose, für die Sehstörung eine Amaurosis fugax bei Karotisstenose oder kardialer Embolie.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Bei rechtzeitiger Behandlung gut: Die Beschwerden bessern sich innerhalb weniger Tage, und die Lebenserwartung ist kaum eingeschränkt. Ein bereits eingetretener Sehverlust bleibt jedoch irreversibel. Rezidive betreffen etwa die Hälfte der Patienten, die Therapiedauer beträgt meist ein bis zwei Jahre, und die Morbidität wird wesentlich durch Kortisonnebenwirkungen sowie als Spätfolge durch Aortenaneurysmen bestimmt.',
+        },
+      ],
+      merksatz: 'Über 50, steife Schultern und Hüften mit über 45 Minuten Morgensteifigkeit bei Sturzsenkung, aber normaler CK und normalen Antikörpern = Polymyalgia rheumatica. IMMER nach Schläfenkopfschmerz, Kauclaudicatio und Sehstörung fragen: bei Verdacht auf Riesenzellarteriitis Kortison SOFORT — vor der Biopsie —, 15 bis 25 mg bei reiner PMR, 40 bis 60 mg bei RZA, hochdosiert intravenös bei Sehstörung; und nie die Osteoporoseprophylaxe vergessen.',
+      linkedCaseIds: [
+        'case-polymyalgia',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-operation',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-pneumothorax',
+      pathology: 'Spontanpneumothorax',
+      specialty: 'Pneumologie',
+      definition: 'Als Pneumothorax bezeichnet man eine Ansammlung von Luft im Pleuraspalt, also zwischen Lungenfell (Pleura visceralis) und Rippenfell (Pleura parietalis). Dadurch geht der physiologische Unterdruck im Pleuraraum verloren und die betroffene Lunge kollabiert ganz oder teilweise. Der PRIMÄRE Spontanpneumothorax entsteht ohne erkennbare Lungenerkrankung durch die Ruptur subpleuraler Emphysemblasen (Blebs oder Bullae), typischerweise apikal, beim jungen, hochgewachsenen, schlanken, meist rauchenden Mann. Der SEKUNDÄRE Spontanpneumothorax tritt auf dem Boden einer vorbestehenden Lungenerkrankung auf — vor allem COPD und Lungenemphysem, außerdem Asthma, zystische Fibrose, Pneumocystis-Pneumonie, Tuberkulose, Lungenfibrose und Bronchialkarzinom — und ist wegen der fehlenden funktionellen Reserve deutlich gefährlicher. Davon abzugrenzen sind der traumatische und der iatrogene Pneumothorax. Sonderform und absoluter Notfall ist der SPANNUNGSPNEUMOTHORAX: Über einen Ventilmechanismus gelangt bei jeder Inspiration Luft in den Pleuraspalt, die nicht mehr entweichen kann; der intrapleurale Druck steigt an, das Mediastinum wird zur Gegenseite verschoben, der venöse Rückstrom zum Herzen bricht ein und es kommt zum obstruktiven Schock.',
+      aetiologie: 'Beim primären Spontanpneumothorax rupturieren subpleural gelegene, meist apikale Emphysemblasen (Blebs), die sich bevorzugt bei schlanken, schnell gewachsenen jungen Männern bilden — im Lungenapex herrscht ein stärkerer negativer Pleuradruck und eine relativ geringere Perfusion. Rauchen ist der wichtigste erworbene Faktor und erhöht das Risiko dosisabhängig um ein Vielfaches; auch das Rauchen von Cannabis (tiefe Inhalation mit Pressatmung) begünstigt die Blebbildung. Auslösend wirken häufig Husten, Pressen oder Lachen, sehr oft tritt das Ereignis jedoch in völliger Ruhe auf. Der sekundäre Spontanpneumothorax entsteht durch Einreißen emphysematöser Bullae oder destruierten Lungengewebes bei COPD, Emphysem, Asthma, zystischer Fibrose, Tuberkulose, Pneumocystis-jirovecii-Pneumonie, nekrotisierender Pneumonie, Lungenfibrose oder Bronchialkarzinom. Sekundär im weiteren Sinne sind auch die Pneumothoraces bei Bindegewebs- und Systemerkrankungen: Marfan-Syndrom, Ehlers-Danlos-Syndrom, Birt-Hogg-Dubé-Syndrom, Alpha-1-Antitrypsin-Mangel und Lymphangioleiomyomatose. Der katameniale Pneumothorax bei thorakaler Endometriose tritt zyklusabhängig 24 bis 72 Stunden nach Menstruationsbeginn und überwiegend rechts auf. Traumatisch entsteht der Pneumothorax bei Rippenfraktur oder penetrierender Verletzung, iatrogen nach Subklavia- oder Jugularis-Punktion, Pleurapunktion, transbronchialer oder transthorakaler Biopsie, Schrittmacherimplantation und unter Überdruckbeatmung (Barotrauma).',
+      risikofaktoren: [
+        'Männliches Geschlecht — Inzidenz des primären Spontanpneumothorax etwa 18 bis 28 pro 100.000 Männer und Jahr gegenüber 1 bis 6 pro 100.000 Frauen',
+        'Junges Lebensalter mit Gipfel zwischen dem 15. und 35. Lebensjahr',
+        'Hochgewachsener, schlanker (leptosomer) Körperbau mit niedrigem Body-Mass-Index',
+        'Rauchen — der wichtigste beeinflussbare Risikofaktor, dosisabhängig; auch Cannabiskonsum mit tiefer Inhalation',
+        'Vorbestehende Lungenerkrankung: COPD und Lungenemphysem, Asthma bronchiale, zystische Fibrose, Tuberkulose, Pneumocystis-Pneumonie, Lungenfibrose, Bronchialkarzinom (sekundärer Pneumothorax)',
+        'Positive Familienanamnese für einen Pneumothorax, insbesondere Birt-Hogg-Dubé-Syndrom mit Folliculin-Mutation',
+        'Bindegewebserkrankungen: Marfan-Syndrom, Ehlers-Danlos-Syndrom',
+        'Alpha-1-Antitrypsin-Mangel',
+        'Lymphangioleiomyomatose bei jungen Frauen; thorakale Endometriose (katamenialer Pneumothorax)',
+        'Stattgehabter Pneumothorax — Rezidivrisiko ohne definitive Versorgung etwa 30 Prozent, nach einem Rezidiv über 50 Prozent',
+        'Barotrauma: Tauchen, Fliegen in unbedruckten Kabinen, maschinelle Überdruckbeatmung',
+        'Iatrogen: zentralvenöse Punktion, Pleura- und Lungenpunktion, transbronchiale Biopsie, Schrittmacherimplantation',
+      ],
+      klinik: [
+        {
+          text: 'Plötzlich, aus voller Gesundheit einsetzender, streng einseitiger, stechender Thoraxschmerz — häufig in Ruhe, beim Husten, Lachen oder Pressen beginnend',
+        },
+        {
+          text: 'Deutliche Atemabhängigkeit des Schmerzes: Verstärkung bei tiefer Inspiration und beim Husten, Linderung bei flacher Schonatmung',
+        },
+        {
+          text: 'Akut einsetzende Dyspnoe und Tachypnoe, zunächst belastungsabhängig, bei größerem Kollaps auch in Ruhe',
+        },
+        {
+          text: 'Trockener Reizhusten ohne Auswurf',
+        },
+        {
+          text: 'Einseitig abgeschwächtes bis vollständig aufgehobenes Atemgeräusch über der betroffenen Seite',
+        },
+        {
+          text: 'Hypersonorer, schachtelartiger Klopfschall über der betroffenen Seite',
+        },
+        {
+          text: 'Verminderte Atemexkursion mit nachschleppender Thoraxhälfte und abgeschwächtem Stimmfremitus auf der betroffenen Seite',
+        },
+        {
+          text: 'Tachykardie, innere Unruhe und Angst; keine Ausstrahlung in Arm, Schulter oder Kiefer, kein Vernichtungsschmerz',
+        },
+        {
+          text: 'Kein Fieber, kein eitriger Auswurf, keine vorangegangene Infektsymptomatik',
+        },
+        {
+          text: 'Kleiner Mantelpneumothorax mit nur geringen oder ganz fehlenden Beschwerden — häufig Zufallsbefund im Röntgenbild',
+          atypisch: true,
+        },
+        {
+          text: 'Hautemphysem mit tastbarem Knistern über Thorax, Hals und Gesicht, insbesondere bei Ventilmechanismus oder nach Drainageanlage',
+          atypisch: true,
+        },
+        {
+          text: 'Spannungspneumothorax: schwerste Atemnot, Zyanose, Tachykardie, Hypotonie bis zum Schock, gestaute Halsvenen, Trachealdeviation zur Gegenseite, einseitig aufgehobenes Atemgeräusch — vitale Bedrohung innerhalb von Minuten',
+          atypisch: true,
+        },
+        {
+          text: 'Sekundärer Pneumothorax bei COPD: bereits ein kleiner Mantel führt zu schwerer Dyspnoe und respiratorischer Insuffizienz; die Auskultation ist wegen des vorbestehend abgeschwächten Atemgeräusches trügerisch und die Beschwerden werden leicht als Exazerbation fehlgedeutet',
+          atypisch: true,
+        },
+        {
+          text: 'Katamenialer Pneumothorax: zyklusabhängig, 24 bis 72 Stunden nach Beginn der Menstruation, überwiegend rechtsseitig, bei Frauen mit thorakaler Endometriose',
+          atypisch: true,
+        },
+        {
+          text: 'Hämatopneumothorax mit zusätzlicher Blutung aus einer gerissenen Verwachsung — Anämie, hämorrhagischer Schock',
+          atypisch: true,
+        },
+        {
+          text: 'Beidseitiger Spontanpneumothorax — selten, aber unmittelbar lebensbedrohlich',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: '1. Primärer Spontanpneumothorax: ohne vorbestehende Lungenerkrankung, durch Ruptur subpleuraler Blebs, typischerweise beim jungen, hochgewachsenen, schlanken, rauchenden Mann. 2. Sekundärer Spontanpneumothorax: bei vorbestehender Lungenerkrankung, vor allem COPD und Emphysem — gefährlicher, weil die funktionelle Reserve fehlt. 3. Traumatischer Pneumothorax: stumpfes Thoraxtrauma mit Rippenfraktur oder penetrierende Verletzung, offen oder geschlossen. 4. Iatrogener Pneumothorax: nach ZVK-Anlage, Pleurapunktion, Biopsie, Schrittmacherimplantation oder unter Überdruckbeatmung. Sonderform quer zu dieser Einteilung: der Spannungspneumothorax.',
+        },
+        {
+          name: 'Größeneinteilung im Röntgen-Thorax',
+          inhalt: 'Nach der britischen BTS-Einteilung gilt ein interpleuraler Abstand auf Hilushöhe von unter 2 cm als kleiner, ab 2 cm als großer Pneumothorax. Die amerikanische ACCP-Einteilung misst den Abstand der Lungenspitze zur Thoraxkuppel: unter 3 cm klein, ab 3 cm groß. Wichtig für die Prüfung: Die Größe allein entscheidet nicht — maßgeblich ist die Kombination aus Ausmaß, Symptomatik und der Frage, ob ein primärer oder ein sekundärer Pneumothorax vorliegt.',
+        },
+        {
+          name: 'Morphologische Beschreibung',
+          inhalt: 'Mantelpneumothorax: schmaler Luftsaum entlang der gesamten Lunge. Spitzenpneumothorax: auf den Apex begrenzt. Totaler Pneumothorax: vollständiger Kollaps der Lunge zum Hilus. Spannungspneumothorax: zusätzlich Mediastinalverlagerung zur Gegenseite, Zwerchfelltiefstand und Abflachung der betroffenen Zwerchfellkuppel sowie verbreiterte Interkostalräume.',
+        },
+        {
+          name: 'Sonderformen',
+          inhalt: 'Spannungspneumothorax (Ventilmechanismus, obstruktiver Schock — klinische Diagnose und sofortige Entlastung). Hämatopneumothorax (zusätzliche Blutung, meist aus einer gerissenen Adhäsion). Katamenialer Pneumothorax (thorakale Endometriose, zyklusabhängig, meist rechts). Beidseitiger Spontanpneumothorax. Chronisch persistierender Pneumothorax bei bronchopleuraler Fistel über mehr als drei bis fünf Tage.',
+        },
+      ],
+      redFlags: [
+        'Schwerste Atemnot mit Zyanose, Tachykardie und Hypotonie bis zum Schock — Verdacht auf Spannungspneumothorax, SOFORTIGE Entlastungspunktion ohne Abwarten der Bildgebung',
+        'Gestaute Halsvenen (obere Einflussstauung) bei gleichzeitiger Hypotonie — die Kombination des obstruktiven Schocks',
+        'Trachealdeviation zur Gegenseite und einseitig aufgehobenes Atemgeräusch mit hypersonorem Klopfschall',
+        'Zunehmendes Hautemphysem an Hals und Gesicht — Hinweis auf einen fortbestehenden Ventilmechanismus',
+        'Pneumothorax bei bekannter COPD, Lungenfibrose oder zystischer Fibrose — sekundärer Pneumothorax, immer stationäre Aufnahme und in der Regel Drainage',
+        'Beidseitiger Pneumothorax oder Pneumothorax bei funktioneller Einzellunge',
+        'Hämodynamische Instabilität mit Blässe und Hämoglobinabfall — Verdacht auf Hämatopneumothorax',
+        'Persistierende Luftfistel über mehr als drei bis fünf Tage bei liegender Drainage — Indikation zur operativen Versorgung',
+        'Reexpansionsödem nach zu rascher Entlastung eines lange bestehenden, großen Pneumothorax mit erneuter Verschlechterung der Oxygenierung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: plötzlicher, streng einseitiger, stechender und atemabhängiger Thoraxschmerz mit Dyspnoe, Beginn in Ruhe oder beim Husten, trockener Reizhusten; Frage nach früheren gleichartigen Episoden, nach Rauchen einschließlich Cannabis, nach vorbestehender Lungenerkrankung, nach Trauma sowie nach Pneumothoraces in der Familie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung des Phänotyps: Größe, Gewicht und BMI, leptosomer Körperbau; Suche nach Marfan-Stigmata (Arachnodaktylie, Hochwuchs, Trichterbrust, Skoliose, Linsenluxation) und nach Fibrofollikulomen im Sinne eines Birt-Hogg-Dubé-Syndroms',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter und Pulsoxymetrie: Atemfrequenz, Sauerstoffsättigung, Puls, Blutdruck, Temperatur — der Blutdruck ist der entscheidende Parameter zur Erkennung des Spannungspneumothorax',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit der klassischen Trias: einseitig abgeschwächtes oder aufgehobenes Atemgeräusch bei der Auskultation, hypersonorer Klopfschall bei der Perkussion und verminderte Atemexkursion mit nachschleppender Thoraxhälfte bei der Inspektion; zusätzlich abgeschwächter Stimmfremitus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Suche nach Spannungszeichen: gestaute Halsvenen, Trachealdeviation zur Gegenseite, Hypotonie, Zyanose, Hautemphysem mit tastbarem Knistern — deren Nachweis macht jede weitere Diagnostik entbehrlich und verlangt die sofortige Entlastung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgasanalyse: typischerweise Hypoxämie, bei Hyperventilation zunächst Hypokapnie mit respiratorischer Alkalose; eine Hyperkapnie mit respiratorischer Azidose zeigt die erschöpfte Atempumpe an und findet sich vor allem beim sekundären Pneumothorax',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin und Kreatinkinase zur Abgrenzung eines akuten Koronarsyndroms als wichtigster kardialer Differenzialdiagnose des Thoraxschmerzes',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere nur bei klinischem Verdacht auf eine Lungenembolie und nach Bestimmung der Vortestwahrscheinlichkeit mit dem Wells-Score — ein niedriger Score mit negativen D-Dimeren schließt die Lungenembolie aus, ein positives Ergebnis ist unspezifisch',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP und Gerinnungsparameter einschließlich INR und Thrombozyten — als Entzündungsausschluss und als Voraussetzung vor Punktion oder Drainageanlage',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei rezidivierendem oder sekundärem Pneumothorax ergänzend Alpha-1-Antitrypsin im Serum; bei familiärer Häufung humangenetische Abklärung (Folliculin-Gen bei Birt-Hogg-Dubé-Syndrom, Fibrillin-1 bei Marfan-Syndrom)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax im Stehen in Inspiration, posterior-anteriorer Strahlengang — Standardverfahren: sichtbarer Pneumothoraxsaum als feine Pleuralinie, vollständig fehlende Gefäßzeichnung peripher davon, Ausmessung der Mantelbreite auf Hilushöhe (ab 2 cm großer Pneumothorax). Die früher übliche Exspirationsaufnahme wird heute nicht mehr routinemäßig empfohlen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Thoraxsonographie, bettseitig und binnen Sekunden verfügbar: fehlendes Lungengleiten und fehlende B-Linien, im M-Mode das Barcode- beziehungsweise Stratosphärenzeichen statt des normalen Seashore-Zeichens; der Nachweis eines Lungenpunkts ist nahezu beweisend. Besonders wertvoll beim liegenden, instabilen Patienten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG zur Differenzialdiagnose des Thoraxschmerzes — Cave: Ein linksseitiger Pneumothorax kann Niedervoltage, Rechtsdrehung der Herzachse und einen R-Verlust in den Brustwandableitungen erzeugen und damit einen Myokardinfarkt vortäuschen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Thorax als Goldstandard bei unklarem Röntgenbefund, bei sekundärem Pneumothorax, vor geplanter Intervention und zum Nachweis von Blebs und Bullae; als CT-Angiographie zugleich Ausschluss einer Lungenembolie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Verlaufsröntgen: nach Nadelaspiration oder Drainageanlage zur Lagekontrolle und zum Nachweis der Reexpansion, beim konservativ behandelten kleinen Pneumothorax nach etwa sechs bis vierundzwanzig Stunden und anschließend im Abstand von Tagen bis zur vollständigen Ausheilung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Entlastungspunktion beim Spannungspneumothorax — sie ist zugleich diagnostisch und therapeutisch und wird allein aufgrund der Klinik durchgeführt: Punktion im zweiten Interkostalraum medioklavikular nach Monaldi oder, nach neueren Empfehlungen, im vierten bis fünften Interkostalraum in der vorderen Axillarlinie; das hörbare Entweichen der Luft bestätigt die Diagnose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Thoraxdrainage (Bülau-Drainage) im vierten bis fünften Interkostalraum der vorderen bis mittleren Axillarlinie im sogenannten sicheren Dreieck, Einführung stets am Oberrand der unteren Rippe, da am Rippenunterrand das Gefäß-Nerven-Bündel verläuft; Anschluss an ein Wasserschloss, gegebenenfalls mit Sog von minus 10 bis minus 20 cm Wassersäule. Persistierendes Fisteln zeigt eine bronchopleurale Fistel an',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Videoassistierte Thorakoskopie (VATS) mit Inspektion der Pleurahöhle, Resektion der Blebs und Bullae sowie Pleurodese — zugleich diagnostisch (Histologie, Nachweis einer thorakalen Endometriose) und definitiv therapeutisch',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie nur bei Verdacht auf eine zugrunde liegende endobronchiale Ursache, etwa ein Bronchialkarzinom oder eine Stenose beim älteren Raucher',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Ebenfalls plötzliche Dyspnoe mit atemabhängigem Thoraxschmerz, aber das Atemgeräusch ist seitengleich vorhanden und der Klopfschall sonor; häufig Risikokonstellation mit Immobilisation, Operation, Malignom, Ovulationshemmern oder Thrombose, oft einseitige Beinschwellung. Abklärung über Wells-Score, D-Dimere und CT-Angiographie; im EKG SI-QIII-Typ und Zeichen der Rechtsherzbelastung.',
+        },
+        {
+          dd: 'Akutes Koronarsyndrom (Myokardinfarkt, instabile Angina pectoris)',
+          unterscheidung: 'Retrosternaler, drückender oder brennender Vernichtungsschmerz mit Ausstrahlung in linken Arm, Schulter, Hals oder Unterkiefer, typischerweise NICHT atemabhängig, dazu Kaltschweißigkeit, Übelkeit und Todesangst; kardiovaskuläre Risikofaktoren und höheres Lebensalter. Diagnostik über EKG und Troponin. Cave: Ein linksseitiger Pneumothorax kann das EKG verändern.',
+        },
+        {
+          dd: 'Pleuritis sicca (Rippenfellentzündung)',
+          unterscheidung: 'Ebenfalls stechender, streng atemabhängiger Schmerz, jedoch meist im Rahmen eines Infekts mit Fieber, langsamerem Beginn und auskultatorischem Pleurareiben (Lederknarren); Atemgeräusch erhalten, Klopfschall sonor.',
+        },
+        {
+          dd: 'Pneumonie mit Begleitpleuritis',
+          unterscheidung: 'Fieber, Schüttelfrost, produktiver Husten mit eitrigem Auswurf, Krankheitsgefühl über Tage; auskultatorisch feinblasige, klingende Rasselgeräusche und Bronchialatmen, Klopfschall gedämpft statt hypersonor, CRP und Leukozyten erhöht, im Röntgen ein Infiltrat.',
+        },
+        {
+          dd: 'Pleuraerguss',
+          unterscheidung: 'Klopfschall GEDÄMPFT und Atemgeräusch abgeschwächt — die Perkussion unterscheidet ihn vom Pneumothorax mit hypersonorem Klopfschall; im Stehen basale Verschattung mit Randwinkelverschattung, sonographisch echofreier Saum mit erhaltenem Lungengleiten.',
+        },
+        {
+          dd: 'Rippenfraktur, Rippenprellung, Interkostalmuskelzerrung',
+          unterscheidung: 'Adäquates Trauma oder heftiger Hustenstoß in der Vorgeschichte, umschriebener Druck- und Kompressionsschmerz über der Rippe, Schmerz bei Thoraxkompression reproduzierbar; keine Dyspnoe, normales Atemgeräusch. Cave: Eine Rippenfraktur kann selbst einen Pneumothorax verursachen.',
+        },
+        {
+          dd: 'Interkostalneuralgie und Herpes zoster',
+          unterscheidung: 'Brennender, gürtelförmig einem Dermatom folgender Schmerz mit Hyperästhesie; der typische segmentale Bläschenausschlag kann dem Schmerz um mehrere Tage nachfolgen. Keine Dyspnoe, unauffälliger Auskultations- und Perkussionsbefund.',
+        },
+        {
+          dd: 'Boerhaave-Syndrom (spontane Ösophagusruptur)',
+          unterscheidung: 'Heftigstes Erbrechen unmittelbar vor dem Schmerzereignis, retrosternaler Vernichtungsschmerz, Mediastinal- und Hautemphysem, rasch septischer Verlauf; Nachweis über CT beziehungsweise Ösophagographie mit wasserlöslichem Kontrastmittel.',
+        },
+        {
+          dd: 'Aortendissektion',
+          unterscheidung: 'Plötzlicher, reißender, oft zwischen die Schulterblätter oder nach abdominell wandernder Vernichtungsschmerz, Blutdruck- und Pulsdifferenz zwischen beiden Armen, meist langjährige Hypertonie; Nachweis über CT-Angiographie oder transösophageale Echokardiographie.',
+        },
+        {
+          dd: 'Akute Exazerbation einer COPD oder Asthmaanfall',
+          unterscheidung: 'Bekannte Vorerkrankung, exspiratorisches Giemen und Brummen BEIDSEITS mit verlängertem Exspirium, vermehrter oder verfärbter Auswurf; der Klopfschall ist bei Emphysem beidseits hypersonor. Cave: Bei COPD kann sich ein sekundärer Pneumothorax genau als vermeintliche Exazerbation präsentieren — deshalb bei jeder plötzlichen Verschlechterung ein Röntgen-Thorax.',
+        },
+        {
+          dd: 'Panikattacke mit Hyperventilationssyndrom',
+          unterscheidung: 'Angst, Parästhesien an Händen und um den Mund, Pfötchenstellung, respiratorische Alkalose in der Blutgasanalyse; unauffälliger Untersuchungsbefund mit seitengleichem Atemgeräusch. Ausschlussdiagnose — beim jungen Patienten mit Thoraxschmerz niemals ohne Bildgebung annehmen.',
+        },
+        {
+          dd: 'Perikarditis',
+          unterscheidung: 'Ebenfalls atemabhängiger Schmerz, aber im Sitzen und bei Vornüberbeugen gebessert, im Liegen verstärkt; auskultatorisch Perikardreiben, im EKG konkavbogige ST-Hebungen aus allen Ableitungen, im Echo gegebenenfalls ein Erguss.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notfallmaßnahmen beim Spannungspneumothorax',
+          items: [
+            'Der Spannungspneumothorax ist eine KLINISCHE Diagnose: Bei schwerster Atemnot, Zyanose, Tachykardie, Hypotonie, gestauten Halsvenen und Trachealdeviation zur Gegenseite wird SOFORT entlastet — das Röntgenbild wird niemals abgewartet, weil der Patient in dieser Zeit versterben kann',
+            'Sofortige Entlastungspunktion mit einer großlumigen Kanüle (14 bis 16 Gauge): im zweiten Interkostalraum in der Medioklavikularlinie nach Monaldi oder, nach neueren Empfehlungen mit höherer Erfolgsrate, im vierten bis fünften Interkostalraum in der vorderen Axillarlinie; Einstich stets am OBERRAND der unteren Rippe, da am Rippenunterrand das Gefäß-Nerven-Bündel verläuft',
+            'Im Anschluss immer definitive Versorgung mit einer Thoraxdrainage (Bülau-Drainage) im vierten bis fünften Interkostalraum der vorderen bis mittleren Axillarlinie, Anschluss an ein Wasserschloss, bei Bedarf Sog von minus 10 bis minus 20 cm Wassersäule',
+            'Sauerstoffgabe über Maske mit hohem Fluss, Oberkörperhochlagerung, zwei großlumige periphere Venenzugänge, Volumensubstitution zur Stabilisierung des venösen Rückstroms',
+            'Kontinuierliches Monitoring von Blutdruck, Herzfrequenz, Sauerstoffsättigung, Atemfrequenz und EKG, ausreichende Analgesie, intensivmedizinische Überwachung',
+            'Cave bei beatmeten Patienten: Unter Überdruckbeatmung entwickelt sich ein Spannungspneumothorax besonders rasch — bei plötzlichem Beatmungsdruckanstieg mit Hypotonie sofort daran denken',
+            'Röntgen-Thorax erst NACH der Entlastung, zur Lagekontrolle der Drainage und zum Nachweis der Reexpansion',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Stadiengerechtes Vorgehen beim stabilen Pneumothorax',
+          items: [
+            'Kleiner (unter 2 cm auf Hilushöhe), asymptomatischer PRIMÄRER Spontanpneumothorax: abwartendes Verhalten mit Beobachtung, körperlicher Schonung und Analgesie; die Luft resorbiert sich spontan mit etwa 1 bis 2 Prozent des Hemithoraxvolumens pro Tag',
+            'Sauerstoffgabe mit hohem Fluss (etwa 10 Liter pro Minute über Maske) auch beim nicht hypoxämischen Patienten: Durch die Stickstoffauswaschung wird der Partialdruckgradient erhöht und die Resorption um das Drei- bis Vierfache beschleunigt',
+            'Nadelaspiration mit einer 16- bis 18-Gauge-Kanüle im zweiten Interkostalraum medioklavikular als Erstmaßnahme beim symptomatischen primären Spontanpneumothorax — Erfolgsrate etwa 60 bis 70 Prozent, ambulante Weiterbehandlung nach unauffälliger Kontrollaufnahme möglich',
+            'Thoraxdrainage bei großem Mantel (ab 2 cm auf Hilushöhe), bei relevanter Symptomatik, bei erfolgloser Nadelaspiration, bei jedem SEKUNDÄREN Pneumothorax und bei beidseitigem Befall; Anlage im sicheren Dreieck der vorderen bis mittleren Axillarlinie unter Lokalanästhesie',
+            'Beim sekundären Pneumothorax immer stationäre Aufnahme und Überwachung, auch bei kleinem Befund — die fehlende funktionelle Reserve macht ihn gefährlich; parallel Behandlung der Grunderkrankung, etwa der COPD',
+            'Langsame, kontrollierte Entlastung eines großen oder lange bestehenden Pneumothorax und Vermeidung eines zu starken Sogs, um ein Reexpansionsödem zu verhindern',
+            'Konsequente Analgesie, damit der Patient wieder tief durchatmen kann, Atemtherapie und frühe Mobilisation; Antitussiva bei quälendem Reizhusten',
+            'Verlaufsröntgen zur Kontrolle der Reexpansion; Entfernung der Drainage, wenn kein Fisteln mehr besteht und die Lunge vollständig entfaltet ist — Ziehen in Exspiration beziehungsweise unter Valsalva-Manöver, anschließend erneute Röntgenkontrolle',
+            'Kein Flugreisen und kein Tauchen, solange der Pneumothorax nicht vollständig ausgeheilt ist; Vorsicht bei invasiver und nichtinvasiver Überdruckbeatmung',
+          ],
+        },
+        {
+          label: 'Definitive Versorgung und Rezidivprophylaxe',
+          items: [
+            'Indikationen zur operativen Versorgung: zweiter ipsilateraler Pneumothorax (Rezidiv), kontralateraler oder beidseitiger Pneumothorax, persistierende Luftfistel über mehr als drei bis fünf Tage, fehlende Reexpansion trotz korrekt liegender Drainage, Hämatopneumothorax sowie Risikoberufe und Risikohobbys wie Piloten, Berufs- und Sporttaucher',
+            'Verfahren der Wahl ist die videoassistierte Thorakoskopie (VATS) mit Resektion der subpleuralen Blebs und Bullae, meist als apikale Keilresektion mit dem Klammernahtgerät',
+            'Im selben Eingriff Pleurodese zur Verklebung der Pleurablätter: mechanische Pleuraabrasion oder partielle apikale Pleurektomie beim jungen Patienten; die chemische Pleurodese mit Talkum ist eher dem sekundären oder dem inoperablen Pneumothorax vorbehalten',
+            'Bei Inoperabilität oder hohem Risiko: Talkumpleurodese über die liegende Drainage oder ein endobronchiales Ventil zum Verschluss der Fistel',
+            'Rezidivrisiko: ohne definitive Versorgung nach dem ersten primären Spontanpneumothorax etwa 30 Prozent, überwiegend innerhalb des ersten Jahres, nach einem Rezidiv über 50 Prozent; nach thorakoskopischer Blebresektion mit Pleurodese sinkt es auf unter 5 Prozent',
+            'Abklärung einer Grunderkrankung bei familiärer Häufung oder auffälligem Phänotyp: Marfan-Syndrom, Birt-Hogg-Dubé-Syndrom, Ehlers-Danlos-Syndrom, Alpha-1-Antitrypsin-Mangel, bei Frauen Lymphangioleiomyomatose und thorakale Endometriose',
+            'Behandlung der Grunderkrankung beim sekundären Pneumothorax — optimierte COPD-Therapie, gegebenenfalls Sauerstofflangzeittherapie, Behandlung einer Infektion oder eines Tumors',
+          ],
+        },
+        {
+          label: 'Aufklärung und Verhaltensregeln',
+          items: [
+            'NIKOTINKARENZ ist die wichtigste Einzelmaßnahme zur Rezidivvermeidung — konsequenter Rauchstopp einschließlich Cannabis, mit Angebot einer Raucherentwöhnung, Nikotinersatz und verhaltenstherapeutischer Begleitung',
+            'KEINE Flugreisen bis zur vollständigen radiologischen Ausheilung; anschließend ist in der Regel ein Abstand von ein bis zwei Wochen nach der unauffälligen Kontrollaufnahme einzuhalten, weil der Kabinendruckabfall die verbliebene Luft ausdehnt',
+            'KEIN Tauchen: Nach einem primären Spontanpneumothorax bleibt das Gerätetauchen dauerhaft untersagt, solange keine definitive operative Versorgung mit Pleurodese und keine tauchmedizinisch-pneumologische Freigabe erfolgt sind',
+            'Aufklärung über das hohe Rezidivrisiko von etwa 30 Prozent und über die Warnzeichen: erneuter plötzlicher einseitiger Stich, zunehmende Atemnot — sofort den Notruf wählen oder die Notaufnahme aufsuchen',
+            'Für einige Wochen keine schweren körperlichen Belastungen, kein Pressen, kein Heben schwerer Lasten und kein Leistungssport; Atemgymnastik und schrittweise Steigerung der Belastung',
+            'Bei liegender Drainage: Aufklärung über Sinn und Ablauf, über die Schmerzhaftigkeit, über die Bewegungseinschränkung, über die Lagerung des Drainagesystems unterhalb des Thoraxniveaus und über die sofortige Meldung bei plötzlicher Verschlechterung',
+            'Schriftliche Verhaltensempfehlungen und Termin zur pneumologischen Verlaufskontrolle mit Röntgenkontrolle; Arbeitsunfähigkeitsbescheinigung und, bei Risikoberufen, Klärung der beruflichen Wiedereingliederung',
+          ],
+        },
+      ],
+      prognose: 'Der primäre Spontanpneumothorax hat eine sehr gute Prognose: Kleine Befunde resorbieren sich spontan innerhalb von Tagen bis wenigen Wochen, unter Drainage entfaltet sich die Lunge meist binnen zwei bis vier Tagen vollständig, und die Letalität ist beim jungen Patienten nahezu null. Entscheidend ist das Rezidivrisiko — ohne definitive Versorgung erleiden etwa 30 Prozent der Patienten ein Rezidiv, überwiegend innerhalb des ersten Jahres; nach einem ersten Rezidiv steigt das Risiko auf über 50 Prozent. Nach videoassistierter Blebresektion mit Pleurodese sinkt es auf unter 5 Prozent. Der wichtigste beeinflussbare Faktor ist das Rauchen: Fortgesetzter Nikotinkonsum vervielfacht das Rezidivrisiko, ein konsequenter Rauchstopp senkt es erheblich. Deutlich ungünstiger ist die Prognose des sekundären Spontanpneumothorax bei COPD oder Lungenfibrose — hier liegt die Krankenhausletalität je nach Grunderkrankung und Komorbidität bei etwa 10 Prozent, der Verlauf ist protrahiert und persistierende Fisteln sind häufig. Der unbehandelte Spannungspneumothorax verläuft binnen Minuten tödlich, ist aber durch die sofortige Entlastungspunktion mit einem einfachen Handgriff vollständig reversibel.',
+      pruefungsfallen: [
+        'Der Spannungspneumothorax ist eine KLINISCHE Diagnose und wird sofort entlastet — auf das Röntgenbild zu warten ist der schwerste Fehler und in der Prüfung ein sicheres Minus. Diesen Satz muss man aktiv aussprechen.',
+        'Perkussion nicht vergessen: Beim Pneumothorax ist der Klopfschall HYPERSONOR, beim Pleuraerguss GEDÄMPFT — bei beiden ist das Atemgeräusch abgeschwächt. Nur die Perkussion trennt sie am Krankenbett.',
+        'Das Mediastinum wird beim Spannungspneumothorax zur GEGENSEITE verschoben (Verdrängung), bei der Atelektase dagegen zur kranken Seite gezogen. Diese Richtung wird gern gefragt und gern verwechselt.',
+        'Bei Punktion und Drainage immer am OBERRAND der unteren Rippe eingehen — am Rippenunterrand verläuft das Gefäß-Nerven-Bündel (Vena, Arteria und Nervus intercostalis).',
+        'Den Phänotyp des primären Spontanpneumothorax aktiv nennen: junger, hochgewachsener, schlanker Mann, meist Raucher, ohne vorbestehende Lungenerkrankung — er ist Teil der Diagnosebegründung und keine Nebensächlichkeit.',
+        'Beim COPD-Patienten mit plötzlicher Verschlechterung nicht reflexhaft eine Exazerbation diagnostizieren: Der sekundäre Pneumothorax imitiert sie, und die Auskultation ist bei vorbestehendem Emphysem trügerisch — immer ein Röntgen-Thorax.',
+        'Sauerstoff ist beim Pneumothorax keine bloße Symptomtherapie: Er beschleunigt durch Stickstoffauswaschung die Resorption um das Drei- bis Vierfache. Wer das erklären kann, punktet.',
+        'Die Verhaltensregeln werden regelmäßig vergessen: Nikotinkarenz als wichtigste Rezidivprophylaxe, kein Flug bis zur Ausheilung und dauerhaftes Tauchverbot nach primärem Spontanpneumothorax ohne definitive Versorgung.',
+        'Ein linksseitiger Pneumothorax kann im EKG Niedervoltage und R-Verlust erzeugen und damit einen Infarkt vortäuschen — das EKG darf nicht zur Fehldiagnose verleiten.',
+        'Bei der Fachbegriffserklärung sauber bleiben: Pneumothorax = Ansammlung von Luft im Pleuraspalt; Pleura = Brust- beziehungsweise Rippenfell; Pleuritis = Rippenfellentzündung; Pleurektomie = operative Entfernung des Rippenfells; Empyem = Eiteransammlung in einer vorgebildeten Körperhöhle; interkostal = zwischen den Rippen.',
+        'Bei familiärer Häufung oder auffälligem Habitus an Marfan-Syndrom, Birt-Hogg-Dubé-Syndrom und Alpha-1-Antitrypsin-Mangel denken; bei jungen Frauen mit rechtsseitigem, zyklusabhängigem Pneumothorax an den katamenialen Pneumothorax.',
+        'Ein zu rasch oder mit zu starkem Sog entlasteter, lange bestehender Pneumothorax kann ein Reexpansionsödem auslösen — langsam entlasten.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist ein Pneumothorax? Erklären Sie den Begriff.',
+          antwort: 'Ein Pneumothorax ist eine Ansammlung von Luft im Pleuraspalt, also zwischen Lungen- und Rippenfell. Dadurch geht der physiologische Unterdruck verloren und die Lunge kollabiert ganz oder teilweise. Dem Patienten gegenüber sage ich: Zwischen Lunge und Brustwand ist Luft eingedrungen, deshalb ist die Lunge auf dieser Seite in sich zusammengefallen.',
+        },
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und wie begründen Sie sie?',
+          antwort: 'Ein primärer Spontanpneumothorax. Dafür sprechen der schlagartige Beginn in Ruhe, der streng einseitige, stechende und atemabhängige Thoraxschmerz mit Dyspnoe und trockenem Reizhusten, das Fehlen von Fieber und Auswurf sowie der typische Phänotyp: ein junger, hochgewachsener, schlanker Mann, der raucht und keine vorbestehende Lungenerkrankung hat. Erhärtet wird die Diagnose durch das einseitig abgeschwächte Atemgeräusch, den hypersonoren Klopfschall und die verminderte Atemexkursion.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen einem primären und einem sekundären Spontanpneumothorax?',
+          antwort: 'Der primäre entsteht ohne vorbestehende Lungenerkrankung durch die Ruptur subpleuraler Blebs beim jungen, schlanken, meist rauchenden Mann. Der sekundäre entsteht auf dem Boden einer Lungenerkrankung, vor allem COPD und Emphysem, seltener Asthma, zystische Fibrose, Tuberkulose oder ein Bronchialkarzinom. Der sekundäre ist deutlich gefährlicher, weil die funktionelle Reserve fehlt: Schon ein kleiner Pneumothorax führt zu schwerer Atemnot, und er wird fast immer stationär und mit Drainage behandelt.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei diesem Thoraxschmerz in Betracht?',
+          antwort: 'Die Lungenembolie, das akute Koronarsyndrom, eine Pleuritis, eine Pneumonie mit Begleitpleuritis, ein Pleuraerguss, eine Rippenfraktur oder Muskelzerrung, eine Interkostalneuralgie beziehungsweise ein Herpes zoster, ein Boerhaave-Syndrom, eine Aortendissektion, eine Perikarditis und schließlich eine Panikattacke mit Hyperventilation. Bei bekannter Lungenerkrankung außerdem die COPD-Exazerbation und der Asthmaanfall.',
+        },
+        {
+          frage: 'Wenn der Troponintest negativ und das EKG unauffällig ist — was machen Sie dann?',
+          antwort: 'Dann ist ein Myokardinfarkt weitgehend unwahrscheinlich, aber der Thoraxschmerz ist damit nicht erklärt. Ich denke gezielt an die beiden verbleibenden gefährlichen Ursachen: Pneumothorax und Lungenembolie. Deshalb untersuche ich den Patienten sorgfältig mit Auskultation und Perkussion, führe eine Pulsoxymetrie und eine Blutgasanalyse durch, veranlasse einen Röntgen-Thorax und ergänze eine Thoraxsonographie. Für die Lungenembolie erhebe ich den Wells-Score und bestimme bei niedriger Vortestwahrscheinlichkeit die D-Dimere, sonst führe ich direkt eine CT-Angiographie durch. Zusätzlich wiederhole ich Troponin und EKG nach drei Stunden.',
+        },
+        {
+          frage: 'Welche Zeichen können Sie mit der Sonographie in der Lunge sehen?',
+          antwort: 'Beim Pneumothorax fehlt das Lungengleiten, es fehlen die B-Linien, und im M-Mode zeigt sich statt des normalen Seashore-Zeichens das Barcode- oder Stratosphärenzeichen; der Nachweis eines Lungenpunkts ist nahezu beweisend. Bei anderen Erkrankungen sieht man B-Linien als Zeichen einer interstitiellen Flüssigkeitsvermehrung, einen echofreien Pleuraerguss oder die Hepatisation der Lunge bei der Pneumonie.',
+        },
+        {
+          frage: 'Woran erkennen Sie einen Spannungspneumothorax, und wie gehen Sie vor?',
+          antwort: 'Klinisch an schwerster Atemnot, Zyanose, Tachykardie und Hypotonie bis zum Schock, gestauten Halsvenen, einer Trachealdeviation zur Gegenseite sowie einseitig aufgehobenem Atemgeräusch mit hypersonorem Klopfschall. Ursache ist ein Ventilmechanismus, der den intrapleuralen Druck bei jedem Atemzug steigen lässt, das Mediastinum zur Gegenseite verschiebt und den venösen Rückstrom unterbricht. Das ist eine rein klinische Diagnose: Ich entlaste sofort mit einer großlumigen Kanüle im zweiten Interkostalraum medioklavikular oder im vierten bis fünften Interkostalraum der vorderen Axillarlinie und warte auf KEIN Röntgenbild. Danach folgt die Thoraxdrainage, dazu Sauerstoff, Volumen und Monitoring.',
+        },
+        {
+          frage: 'Wo genau legen Sie eine Thoraxdrainage an, und worauf achten Sie dabei?',
+          antwort: 'Im vierten bis fünften Interkostalraum in der vorderen bis mittleren Axillarlinie, im sogenannten sicheren Dreieck. Die Alternative ist die Monaldi-Position im zweiten Interkostalraum medioklavikular. Entscheidend ist, am OBERRAND der unteren Rippe einzugehen, weil am Rippenunterrand das Gefäß-Nerven-Bündel verläuft. Die Drainage wird an ein Wasserschloss angeschlossen, bei Bedarf mit einem Sog von minus 10 bis minus 20 cm Wassersäule; anschließend erfolgt eine Röntgenkontrolle zur Lagekontrolle und zum Nachweis der Reexpansion.',
+        },
+        {
+          frage: 'Warum geben Sie Sauerstoff, wenn der Patient gar nicht hypoxämisch ist?',
+          antwort: 'Weil Sauerstoff die Resorption der Pleuraluft beschleunigt. Durch die Gabe von hochdosiertem Sauerstoff wird der Stickstoff aus dem Blut ausgewaschen, der Partialdruckgradient zwischen Pleuraraum und Kapillarblut steigt und die Luft wird drei- bis viermal schneller resorbiert als die spontanen 1 bis 2 Prozent des Hemithoraxvolumens pro Tag.',
+        },
+        {
+          frage: 'Wann operieren Sie einen Spontanpneumothorax?',
+          antwort: 'Bei einem Rezidiv auf derselben Seite, bei kontralateralem oder beidseitigem Befall, bei einer persistierenden Luftfistel über mehr als drei bis fünf Tage, bei fehlender Reexpansion trotz korrekt liegender Drainage, beim Hämatopneumothorax und bei Risikoberufen oder Risikohobbys wie Piloten und Tauchern. Verfahren ist die videoassistierte Thorakoskopie mit Resektion der Blebs und einer Pleurodese durch Pleuraabrasion oder partielle Pleurektomie.',
+        },
+        {
+          frage: 'Wie hoch ist das Rezidivrisiko, und wie senken Sie es?',
+          antwort: 'Ohne definitive Versorgung liegt es nach dem ersten primären Spontanpneumothorax bei etwa 30 Prozent, überwiegend innerhalb des ersten Jahres; nach einem Rezidiv steigt es auf über 50 Prozent. Nach thorakoskopischer Blebresektion mit Pleurodese sinkt es unter 5 Prozent. Die wichtigste konservative Maßnahme ist die konsequente Nikotinkarenz einschließlich des Verzichts auf Cannabis.',
+        },
+        {
+          frage: 'Welche Verhaltensregeln geben Sie dem Patienten mit auf den Weg?',
+          antwort: 'Erstens konsequenter Rauchstopp — das ist die wirksamste Rezidivprophylaxe. Zweitens keine Flugreisen bis zur vollständigen radiologischen Ausheilung und danach in der Regel ein Abstand von ein bis zwei Wochen nach der unauffälligen Kontrollaufnahme. Drittens kein Gerätetauchen: Nach einem primären Spontanpneumothorax bleibt das Tauchen dauerhaft untersagt, solange keine definitive operative Versorgung und keine tauchmedizinische Freigabe vorliegen. Viertens für einige Wochen kein schweres Heben, kein Pressen und kein Leistungssport. Und schließlich die Aufklärung über die Warnzeichen eines Rezidivs mit sofortiger Vorstellung.',
+        },
+        {
+          frage: 'Ein Patient mit bekannter COPD verschlechtert sich plötzlich. Woran denken Sie?',
+          antwort: 'Neben der akuten Exazerbation immer an einen sekundären Spontanpneumothorax und an eine Lungenembolie. Die Auskultation hilft beim Emphysem nur begrenzt weiter, weil das Atemgeräusch ohnehin abgeschwächt und der Klopfschall beidseits hypersonor ist. Deshalb gehört bei jeder plötzlichen Verschlechterung ein Röntgen-Thorax dazu, ergänzt durch Blutgasanalyse und Thoraxsonographie.',
+        },
+        {
+          frage: 'Erklären Sie die Begriffe Pleura, Pleuritis, Pleurektomie, Empyem und interkostal.',
+          antwort: 'Pleura ist das Brust- beziehungsweise Rippenfell, die seröse Haut, die Lunge und Brustwand überzieht; man unterscheidet Pleura visceralis und Pleura parietalis. Pleuritis ist die Rippenfell- oder Brustfellentzündung. Pleurektomie ist die operative Entfernung des Rippenfells, hier zur Verklebung der Pleurablätter. Ein Empyem ist eine Eiteransammlung in einer vorgebildeten Körperhöhle, im Thorax also Eiter im Pleuraspalt. Interkostal heißt zwischen den Rippen gelegen.',
+        },
+        {
+          frage: 'Welche Untersuchung ist der Goldstandard, und wann brauchen Sie ein CT?',
+          antwort: 'Der Standard in der Erstdiagnostik ist der Röntgen-Thorax im Stehen in Inspiration; die Thoraxsonographie ist schneller und beim liegenden Patienten überlegen. Ein CT-Thorax ist der Goldstandard und indiziert bei unklarem Röntgenbefund, beim sekundären Pneumothorax, zur Darstellung von Blebs und Bullae vor einer Intervention sowie als CT-Angiographie zum gleichzeitigen Ausschluss einer Lungenembolie.',
+        },
+      ],
+      merksatz: 'Plötzlicher einseitiger Stich beim jungen, langen, dünnen Raucher plus abgeschwächtes Atemgeräusch und HYPERSONORER Klopfschall = Spontanpneumothorax. Klein und asymptomatisch: beobachten und Sauerstoff; groß oder sekundär: Drainage im vierten bis fünften Interkostalraum am OBERRAND der Rippe. Und beim Spannungspneumothorax gilt: erst punktieren, dann röntgen — niemals umgekehrt.',
+      linkedCaseIds: [
+        'case-pneumothorax',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-ct',
+        'auf-operation',
+      ],
+    },
   ];
 }
