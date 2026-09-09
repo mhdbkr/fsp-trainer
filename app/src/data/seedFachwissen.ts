@@ -24672,5 +24672,2141 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-operation',
       ],
     },
+    {
+      id: 'fw-schlafapnoe',
+      pathology: 'Obstruktives Schlafapnoe-Syndrom',
+      specialty: 'Pneumologie',
+      definition: 'Das obstruktive Schlafapnoe-Syndrom (OSAS) ist eine schlafbezogene Atmungsstörung, bei der es im Schlaf durch einen repetitiven Kollaps der oberen Atemwege im Bereich des Pharynx zu Apnoen und Hypopnoen kommt. Eine Apnoe ist ein Sistieren des Atemflusses über mindestens 10 Sekunden, eine Hypopnoe eine Reduktion des Atemflusses um mindestens 30 % über mindestens 10 Sekunden mit einer Sauerstoffentsättigung von mindestens 3 % oder einem Arousal. Entscheidend für die Abgrenzung zur zentralen Schlafapnoe ist, dass die ATEMANSTRENGUNG ERHALTEN bleibt: Thorax und Abdomen bewegen sich frustran gegen den verschlossenen Atemweg. Die repetitiven Entsättigungen und Weckreaktionen zerstören die Schlafarchitektur und aktivieren den Sympathikus. Von einem Syndrom spricht man, wenn zu einem Apnoe-Hypopnoe-Index von mindestens 5 Ereignissen pro Stunde eine klinische Symptomatik hinzutritt — allen voran die Tagesschläfrigkeit.',
+      aetiologie: 'Ursächlich ist ein Missverhältnis zwischen dem inspiratorischen Unterdruck und dem Tonus der pharyngealen Dilatatoren (vor allem des Musculus genioglossus), der im Schlaf und besonders im REM-Schlaf physiologisch abfällt. Begünstigend wirken eine Einengung des Pharynx durch parapharyngeales Fettgewebe bei Adipositas, anatomische Faktoren (Tonsillen- und Adenoidhyperplasie, Makroglossie, Retrognathie und Mikrognathie, langes Gaumensegel, Nasenseptumdeviation, Nasenmuschelhyperplasie, Polyposis nasi), endokrine Erkrankungen (Hypothyreose mit Makroglossie, Akromegalie) sowie alles, was den Muskeltonus zusätzlich senkt: Alkohol am Abend, Benzodiazepine, Z-Substanzen, Opioide und sedierende Antihistaminika. Die Rückenlage verschiebt Zunge und Weichgaumen nach dorsal und verstärkt die Obstruktion. Rauchen unterhält ein Schleimhautödem im Pharynx. Nach der Menopause steigt die Prävalenz bei Frauen deutlich an, da die protektive Wirkung von Progesteron auf den Atemantrieb entfällt.',
+      risikofaktoren: [
+        'Adipositas — wichtigster und einzig gut beeinflussbarer Faktor; entscheidend ist die Fettverteilung am Hals (Halsumfang über 43 cm beim Mann, über 40 cm bei der Frau)',
+        'Männliches Geschlecht (Verhältnis etwa 2–3:1); bei Frauen deutlicher Anstieg nach der Menopause',
+        'Höheres Lebensalter',
+        'Anatomische Einengung: Tonsillenhyperplasie, Makroglossie, Retro- und Mikrognathie, Nasenseptumdeviation, behinderte Nasenatmung, Mallampati Grad III–IV',
+        'Alkoholkonsum am Abend, Benzodiazepine, Z-Substanzen, Opioide, sedierende Antihistaminika',
+        'Nikotinabusus (Schleimhautödem der oberen Atemwege)',
+        'Rückenlage als Schlafposition',
+        'Hypothyreose und Akromegalie',
+        'Positive Familienanamnese und kraniofaziale Konstitution',
+        'Metabolisches Syndrom, Typ-2-Diabetes, therapierefraktäre arterielle Hypertonie (bidirektionaler Zusammenhang)',
+        'Flüssigkeitsverschiebung nach kranial im Liegen bei Herz- oder Niereninsuffizienz („rostral fluid shift“)',
+      ],
+      klinik: [
+        {
+          text: 'Nächtlich: lautes, UNREGELMÄSSIGES Schnarchen mit beobachteten Atempausen, die von der Partnerin als beängstigend geschildert werden, gefolgt von explosionsartigem Nach-Luft-Schnappen',
+        },
+        {
+          text: 'Nächtlich: Erwachen mit Erstickungs- oder Würgegefühl, Herzrasen, innerer Unruhe',
+        },
+        {
+          text: 'Nächtlich: Nykturie, ausgeprägtes nächtliches Schwitzen ohne Fieber, morgendliche Mundtrockenheit durch die Mundatmung',
+        },
+        {
+          text: 'Tagsüber: nicht erholsamer Schlaf trotz ausreichender Schlafdauer — das Leitsymptom, mit dem die Patienten kommen',
+        },
+        {
+          text: 'Tagsüber: morgendlicher, dumpfer Kopfschmerz, der im Laufe des Vormittags von selbst vergeht (Folge der nächtlichen Hyperkapnie mit zerebraler Vasodilatation)',
+        },
+        {
+          text: 'Tagsüber: ausgeprägte TAGESSCHLÄFRIGKEIT mit Einschlafneigung bei monotonen Tätigkeiten — Fernsehen, Lesen, Warten, Autofahren; quantifiziert mit der Epworth Sleepiness Scale',
+        },
+        {
+          text: 'Tagsüber: Konzentrations- und Gedächtnisstörungen, verminderte Leistungsfähigkeit, Reizbarkeit, depressive Verstimmung, Libidoverlust und erektile Dysfunktion',
+        },
+        {
+          text: 'Erhöhte UNFALLGEFAHR im Straßenverkehr und am Arbeitsplatz durch Sekundenschlaf — muss aktiv erfragt und besprochen werden',
+        },
+        {
+          text: 'Kardiovaskuläre Folgen: therapieREFRAKTÄRER arterieller Hypertonus mit fehlender nächtlicher Absenkung („Non-Dipper“), Vorhofflimmern und nächtliche Bradyarrhythmien, koronare Herzkrankheit, Herzinsuffizienz, Schlaganfall, Typ-2-Diabetes, pulmonale Hypertonie mit Cor pulmonale',
+        },
+        {
+          text: 'Häufig völlig fehlende Eigenwahrnehmung der Apnoen — der Patient kommt wegen der Tagesmüdigkeit oder weil die Partnerin ihn schickt; die Fremdanamnese ist diagnostisch entscheidend',
+        },
+        {
+          text: 'Bei Frauen häufig atypische Präsentation mit Erschöpfung, Ein- und Durchschlafstörung, Kopfschmerz und depressiver Verstimmung statt klassischer Schläfrigkeit — hohe Dunkelziffer',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kindern Verhaltensauffälligkeiten, Hyperaktivität, schlechte Schulleistungen, Gedeih- und Wachstumsstörung und Mundatmung statt Schläfrigkeit; Hauptursache ist die Adenoid- und Tonsillenhyperplasie',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als nächtliche Herzrhythmusstörung, als nächtlicher Myokardinfarkt oder als rezidivierendes Vorhofflimmern nach Kardioversion',
+          atypisch: true,
+        },
+        {
+          text: 'Schlanke Patienten mit Retrognathie oder Mikrognathie ohne Adipositas — das Fehlen von Übergewicht schließt ein OSAS nicht aus',
+          atypisch: true,
+        },
+        {
+          text: 'Übergang in ein Adipositas-Hypoventilationssyndrom mit Hyperkapnie bereits am Tag, Zyanose, Beinödemen und Polyglobulie',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregrad nach dem Apnoe-Hypopnoe-Index (AHI)',
+          inhalt: 'Ereignisse pro Stunde Schlaf: unter 5/h Normalbefund; 5 bis 15/h leichtgradig; 15 bis 30/h mittelgradig; über 30/h schwergradig. Die Therapieindikation richtet sich nach dem Index UND der Symptomatik beziehungsweise den kardiovaskulären Begleiterkrankungen.',
+        },
+        {
+          name: 'Definition von Apnoe, Hypopnoe und RERA',
+          inhalt: 'Apnoe: Sistieren des Atemflusses über mindestens 10 Sekunden. Hypopnoe: Reduktion des Atemflusses um mindestens 30 % über mindestens 10 Sekunden mit einer Sauerstoffentsättigung von mindestens 3 % oder einem Arousal. RERA (respiratory effort related arousal): zunehmende Atemanstrengung, die in einer Weckreaktion endet, ohne die Kriterien einer Hypopnoe zu erfüllen. Obstruktiv = Atemanstrengung erhalten; zentral = Atemanstrengung fehlt; gemischt = zunächst zentral, dann obstruktiv.',
+        },
+        {
+          name: 'Epworth Sleepiness Scale (ESS)',
+          inhalt: 'Selbstbeurteilungsfragebogen mit acht Alltagssituationen (Lesen, Fernsehen, ruhiges Sitzen in der Öffentlichkeit, als Beifahrer, Ausruhen am Nachmittag, Gespräch, nach dem Mittagessen, im Auto beim Halten an der Ampel). Je Situation 0 bis 3 Punkte, Maximum 24 Punkte. Ab mehr als 10 Punkten liegt eine pathologische Tagesschläfrigkeit vor. Der Wert dient auch der Verlaufskontrolle unter Therapie.',
+        },
+        {
+          name: 'STOP-BANG-Fragebogen (Screening)',
+          inhalt: 'Snoring, Tiredness, Observed apnea, blood Pressure (Hypertonie), BMI über 35 kg/m², Age über 50 Jahre, Neck circumference über 40 cm, Gender male. 0 bis 2 Punkte niedriges, 3 bis 4 Punkte mittleres, 5 bis 8 Punkte hohes Risiko.',
+        },
+        {
+          name: 'Mallampati-Klassifikation der Rachenenge',
+          inhalt: 'Grad I: Gaumenbögen, weicher Gaumen und Uvula vollständig sichtbar. Grad II: Uvulaspitze durch den Zungengrund verdeckt. Grad III: nur weicher Gaumen sichtbar. Grad IV: nur harter Gaumen sichtbar. Grad III und IV sprechen für eine enge Rachenpassage und ein erhöhtes OSAS- sowie Intubationsrisiko.',
+        },
+      ],
+      redFlags: [
+        'Stattgehabter Sekundenschlaf, Beinaheunfall oder Einschlafen am Steuer → sofortiges Fahrverbot bis zum Nachweis einer wirksamen Therapie, Aufklärung dokumentieren',
+        'Beobachtete Apnoen von über 30 Sekunden Dauer oder Sauerstoffentsättigungen unter 80 % → dringliche Einleitung der Überdrucktherapie',
+        'Therapierefraktäre arterielle Hypertonie trotz Dreifachkombination einschließlich eines Diuretikums → obligate Abklärung auf ein Schlafapnoe-Syndrom',
+        'Nächtliche Bradyarrhythmien, Sinuspausen oder neu aufgetretenes Vorhofflimmern',
+        'Hyperkapnie bereits am Tag (pCO2 über 45 mmHg), Zyanose, Beinödeme, Polyglobulie → Adipositas-Hypoventilationssyndrom mit respiratorischer Globalinsuffizienz',
+        'Zeichen der Rechtsherzbelastung und pulmonalen Hypertonie',
+        'Geplante Operation oder Narkose bei unbehandeltem Syndrom → erhöhtes Atemwegs- und Atemdepressionsrisiko',
+        'Zusätzliche Alarmzeichen bei Rauchern: Hämoptysen, Heiserkeit, ungewollter Gewichtsverlust → Tumorabklärung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Strukturierte Anamnese der drei Symptomsäulen: nächtliche Symptome, Tagessymptome und kardiovaskuläre Folgen; Erfassung von Schlafgewohnheiten, Schlafposition, Alkoholkonsum am Abend und sedierender Medikation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'OBLIGATE FREMDANAMNESE des Bettpartners: Lautstärke und Regelmäßigkeit des Schnarchens, beobachtete Atempausen und deren Dauer, Nach-Luft-Schnappen, motorische Unruhe — der Patient selbst bemerkt seine Apnoen in der Regel nicht',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Frage nach Sekundenschlaf, Beinaheunfällen und Einschlafen an der Ampel sowie nach der beruflichen Fahr- und Maschinentätigkeit',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'EPWORTH SLEEPINESS SCALE zur Quantifizierung der Tagesschläfrigkeit (pathologisch ab mehr als 10 von 24 Punkten); ergänzend STOP-BANG-Fragebogen als Screening',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Größe, Gewicht, BMI, HALSUMFANG, Bauchumfang, Blutdruck an beiden Armen, Sauerstoffsättigung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion der oberen Atemwege: Tonsillenhyperplasie, Makroglossie, Retrognathie, verlängerte Uvula, Nasenseptumdeviation, Nasenmuschelhyperplasie, Polyposis, Mallampati-Klassifikation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kardiopulmonale und neurologische Untersuchung: Herz- und Lungenauskultation, Halsvenenstauung, Beinödeme, periphere Pulse; Ausschluss einer Herzinsuffizienz und eines abgelaufenen Schlaganfalls',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild: Anämie als Differenzialdiagnose der Müdigkeit, sekundäre Polyglobulie als Folge der chronischen nächtlichen Hypoxie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH (Hypothyreose als Differenzialdiagnose UND als Ursache), Nüchternblutzucker und HbA1c, Lipidstatus — Erfassung des metabolischen Syndroms',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin, Elektrolyte, Leberwerte, Ferritin (Restless-Legs-Syndrom); bei entsprechender Klinik NT-proBNP',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kapilläre Blutgasanalyse am Tag zur Erfassung einer Hyperkapnie — Abgrenzung des Adipositas-Hypoventilationssyndroms und einer respiratorischen Globalinsuffizienz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'AMBULANTE POLYGRAPHIE als Screening im häuslichen Umfeld: Atemfluss, thorakale und abdominelle Atemexkursionen, Pulsoxymetrie, Schnarchgeräusch, Herzfrequenz und Körperlage. Erhaltene Atemexkursionen bei sistierendem Atemfluss beweisen die obstruktive Genese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'POLYSOMNOGRAPHIE im Schlaflabor als GOLDSTANDARD: zusätzlich EEG, EOG und EMG mit Schlafstadienanalyse, Bestimmung des APNOE-HYPOPNOE-INDEX, des Entsättigungs- und des Arousal-Index sowie der Schlafeffizienz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Langzeit-Blutdruckmessung über 24 Stunden (fehlende nächtliche Absenkung, „Non-Dipper“), Langzeit-EKG (nächtliche Bradyarrhythmien, Vorhofflimmern) und Echokardiographie (Linksherzhypertrophie, diastolische Funktionsstörung, pulmonale Hypertonie)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Rauchern und chronischem Husten Röntgen-Thorax in zwei Ebenen sowie Lungenfunktionsprüfung mit Bronchospasmolysetest zur Erfassung einer COPD („Overlap-Syndrom“)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hals-Nasen-Ohren-ärztliche Vorstellung mit Endoskopie der oberen Atemwege zur Lokalisation einer umschriebenen Obstruktion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Medikamenteninduzierte Schlafendoskopie vor operativen Verfahren oder vor Implantation eines Zungenschrittmachers',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'CPAP-Titration mit Maskenanpassung im Schlaflabor; multipler Schlaflatenztest (MSLT) bei Verdacht auf Narkolepsie, gegebenenfalls Hypokretin-Bestimmung im Liquor',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Zentrale Schlafapnoe, Cheyne-Stokes-Atmung',
+          unterscheidung: 'FEHLENDE Atemanstrengung: keine thorakoabdominellen Exkursionen während der Apnoe, kein oder nur geringes Schnarchen, crescendo-decrescendo-förmiges Atemmuster. Ursachen: Herzinsuffizienz, Zustand nach Schlaganfall, Opioide, Höhenaufenthalt.',
+        },
+        {
+          dd: 'Einfaches primäres Schnarchen (Rhonchopathie)',
+          unterscheidung: 'Regelmäßiges Schnarchen ohne Atempausen, ohne Entsättigungen, ohne Arousals und ohne Tagessymptomatik; Apnoe-Hypopnoe-Index unter 5/h. Sozial störend, aber ohne Krankheitswert.',
+        },
+        {
+          dd: 'Chronisches Schlafmangelsyndrom, Schichtarbeit, zirkadiane Rhythmusstörung',
+          unterscheidung: 'Zu kurze oder verschobene Bettzeiten, Besserung an freien Tagen und im Urlaub; Klärung über Schlaftagebuch und Aktigraphie.',
+        },
+        {
+          dd: 'Narkolepsie',
+          unterscheidung: 'Imperativer Schlafdrang mit Einschlafattacken, Kataplexie (Tonusverlust bei Emotionen), Schlaflähmung, hypnagoge Halluzinationen; Beginn meist zwischen dem 15. und 30. Lebensjahr. Nachweis über MSLT (mittlere Einschlaflatenz unter 8 Minuten, mindestens zwei SOREM-Perioden) und Hypokretin-1 im Liquor.',
+        },
+        {
+          dd: 'Restless-Legs-Syndrom und periodische Beinbewegungen im Schlaf (PLMS)',
+          unterscheidung: 'Abendlicher Bewegungsdrang mit Missempfindungen, Besserung durch Bewegung, Verschlechterung in Ruhe; in der Polysomnographie periodische Beinbewegungen mit Arousals. Ferritin und Eisenstatus bestimmen.',
+        },
+        {
+          dd: 'Depression',
+          unterscheidung: 'Gedrückte Stimmung, Interessen- und Freudverlust über mindestens zwei Wochen stehen am Anfang; typisch sind Durchschlafstörung und Früherwachen mit Morgentief, nicht Einschlafneigung am Tag. Ein OSAS wird häufig als Depression fehlgedeutet — auf die zeitliche Reihenfolge achten.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Müdigkeit, Antriebsarmut, Kälteintoleranz, Obstipation, trockene Haut, Heiserkeit, Gewichtszunahme; TSH erhöht. Kann über Makroglossie und Schleimhautschwellung ein OSAS auch verursachen.',
+        },
+        {
+          dd: 'Anämie',
+          unterscheidung: 'Blässe, Belastungsdyspnoe, Tachykardie, Leistungsknick; Hämoglobin erniedrigt. Umgekehrt spricht eine Polyglobulie für eine chronische nächtliche Hypoxie.',
+        },
+        {
+          dd: 'Medikamentöse Sedierung und Alkoholabhängigkeit',
+          unterscheidung: 'Benzodiazepine, Z-Substanzen, sedierende Antihistaminika und Opioide erzeugen Tagesmüdigkeit und verstärken jede Obstruktion. Bei Alkoholabhängigkeit zusätzlich morgendlicher Konsum, Kontrollverlust, Entzugssymptome, erhöhte Gamma-GT und MCV.',
+        },
+        {
+          dd: 'Adipositas-Hypoventilationssyndrom (Pickwick-Syndrom)',
+          unterscheidung: 'BMI meist über 35 kg/m² mit Hyperkapnie BEREITS AM TAG (pCO2 über 45 mmHg), Zyanose, Polyglobulie, Cor pulmonale; häufig mit einem OSAS kombiniert. Abgrenzung über die Blutgasanalyse am Tag.',
+        },
+        {
+          dd: 'COPD mit nächtlicher Hypoxämie („Overlap-Syndrom“)',
+          unterscheidung: 'Belastungsdyspnoe, chronischer Husten mit Auswurf, Raucheranamnese; Spirometrie mit nicht vollständig reversibler Obstruktion (FEV1/FVC unter 0,7). Erklärt keine beobachteten Atempausen; die Kombination beider Erkrankungen ist häufig und prognostisch ungünstig.',
+        },
+        {
+          dd: 'Malignom, insbesondere Bronchialkarzinom',
+          unterscheidung: 'Bei Rauchern mit Leistungsknick, ungewolltem Gewichtsverlust, verändertem Husten oder Hämoptysen; Klärung über Röntgen-Thorax, CT und Bronchoskopie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Verhaltensänderung und Beseitigung der Risikofaktoren',
+          items: [
+            'GEWICHTSREDUKTION als Grundlage jeder Behandlung — realistisches Ziel 5 bis 10 % des Körpergewichts; sie kann den Apnoe-Hypopnoe-Index erheblich senken und leichte Formen vollständig beseitigen. Ernährungsberatung, strukturierte Bewegungstherapie, bei morbider Adipositas bariatrische Chirurgie erwägen',
+            'Alkoholkarenz, besonders am Abend: Alkohol senkt den Tonus der pharyngealen Dilatatoren, verlängert die Apnoen und dämpft die Weckreaktion',
+            'Verzicht auf Sedativa, Benzodiazepine, Z-Substanzen, Opioide und sedierende Antihistaminika',
+            'Nikotinkarenz — Rauchen unterhält das Schleimhautödem der oberen Atemwege; strukturierte Entwöhnung anbieten',
+            'Schlafhygiene und regelmäßige Schlafzeiten, ausreichende Schlafdauer, kein spätes schweres Essen, kein Koffein am Nachmittag',
+            'Vermeidung der Rückenlage durch Lagerungstherapie (Rückenlageverhinderungsweste, Lagerungsgürtel, Vibrationsgerät) — besonders wirksam bei lageabhängigem Befund',
+            'Behandlung begünstigender Grunderkrankungen: Hypothyreose, Akromegalie, behinderte Nasenatmung, allergische Rhinitis',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Apparative Überdrucktherapie (CPAP) und Therapieadhärenz',
+          items: [
+            'CPAP ist die THERAPIE DER WAHL bei mittlerer und schwerer Ausprägung sowie bei leichter Ausprägung mit relevanter Symptomatik oder kardiovaskulärer Begleiterkrankung; der kontinuierliche Überdruck schient den Pharynx pneumatisch und verhindert den Kollaps',
+            'Einstellung im Schlaflabor mit Druckтitration, Maskenanpassung (Nasenmaske, Nasenpolster, Full-Face-Maske) und beheizter Atemgasbefeuchtung; APAP als selbstregulierende und BiPAP als bilevel-Variante bei Hyperkapnie oder hohem Druckbedarf',
+            'Nachgewiesener Nutzen: Rückgang der Tagesschläfrigkeit und der Unfallrate, Senkung des Blutdrucks besonders bei therapierefraktärer Hypertonie, Rückgang der Nykturie, bessere Rezidivfreiheit nach Kardioversion bei Vorhofflimmern',
+            'Die ADHÄRENZ entscheidet über den Erfolg und muss aktiv angesprochen werden: Druckgefühl, Nasentrockenheit und Rhinitis, Konjunktivitis durch Leckage, Aerophagie, Hautdruckstellen und Klaustrophobie sind LÖSBARE Probleme (Maskenwechsel, Befeuchter, Rampenfunktion, Nasenspülung, Gewöhnung am Tag), führen sonst aber zum Abbruch',
+            'Zielgröße mindestens vier Stunden Nutzung pro Nacht in mindestens 70 % der Nächte; Einbeziehung des Partners und strukturierte Nachbetreuung',
+            'Regelmäßiges Auslesen der Gerätedaten (Nutzungsdauer, Rest-Apnoe-Hypopnoe-Index, Leckage) mit Nachjustierung statt vorschnellem Therapieabbruch',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Alternative und ergänzende Verfahren',
+          items: [
+            'UNTERKIEFERPROTRUSIONSSCHIENE bei leichter bis mittlerer Ausprägung oder bei CPAP-Unverträglichkeit; Anpassung durch den Zahnarzt, ausreichender Zahnbestand erforderlich, Erfolgskontrolle mit erneuter Polygraphie. Nebenwirkungen: Kiefergelenkbeschwerden, Zahnstellungsänderungen, Hypersalivation',
+            'Hals-Nasen-Ohren-Chirurgie nur bei UMSCHRIEBENER anatomischer Obstruktion: Tonsillektomie bei Tonsillenhyperplasie (bei Kindern Adenotonsillektomie als Therapie der Wahl), Septumplastik und Nasenmuschelverkleinerung bei behinderter Nasenatmung, Uvulopalatopharyngoplastik bei geeignetem Befund',
+            'Zungenschrittmacher (Stimulation des Nervus hypoglossus) als Sonderfall bei nachgewiesener CPAP-Unverträglichkeit, mittlerer bis schwerer Ausprägung, BMI unter etwa 35 kg/m² und geeignetem Kollapsmuster in der Schlafendoskopie',
+            'Bimaxilläre Umstellungsosteotomie bei ausgeprägter Retro- oder Mikrognathie; bariatrische Chirurgie bei morbider Adipositas als kausaler Ansatz',
+            'Konsequente Mitbehandlung der Begleiterkrankungen: arterielle Hypertonie, Vorhofflimmern, Typ-2-Diabetes, Dyslipidämie, COPD',
+          ],
+          akut: false,
+        },
+        {
+          label: 'Aufklärung, Fahrtauglichkeit und Verlaufskontrolle',
+          items: [
+            'Aufklärung über die erhöhte UNFALLGEFAHR durch Sekundenschlaf im Straßenverkehr und am Arbeitsplatz — sie ist Teil der Behandlung und kein Nebensatz; der Patient muss danach gefragt und darüber aufgeklärt werden',
+            'Bei ausgeprägter Tagesschläfrigkeit und stattgehabtem Sekundenschlaf besteht keine Fahreignung; sie wird erst nach Nachweis einer wirksamen Therapie und dokumentiertem Rückgang der Schläfrigkeit wieder bejaht. Aufklärung dokumentieren, berufliche Konsequenzen offen ansprechen',
+            'Aufklärung über die kardiovaskulären Folgen der Nichtbehandlung: therapierefraktäre Hypertonie, Vorhofflimmern, koronare Herzkrankheit, Herzinsuffizienz, Schlaganfall, Typ-2-Diabetes, pulmonale Hypertonie',
+            'Verlaufskontrolle von Blutdruck, Gewicht, Halsumfang und Epworth-Wert; Kontrollpolygraphie und Auslesen der Gerätedaten nach etwa vier Wochen, danach in der Regel jährlich',
+            'Information vor jeder geplanten Operation und Narkose wegen des erhöhten Atemwegsrisikos: schwierige Maskenbeatmung und Intubation, erhöhte Empfindlichkeit gegenüber Opioiden und Sedativa, postoperative Atemdepression; das eigene Gerät zur stationären Aufnahme mitbringen',
+            'Einbeziehung des Partners und Motivation zur langfristigen Therapietreue; bei fortbestehender Schläfrigkeit trotz wirksamer Therapie erneute Ursachensuche',
+          ],
+          akut: false,
+        },
+      ],
+      prognose: 'Unbehandelt ist das obstruktive Schlafapnoe-Syndrom eine chronisch progrediente Erkrankung mit deutlich erhöhter kardiovaskulärer Morbidität und Mortalität: Das Risiko für arterielle Hypertonie, Vorhofflimmern, Myokardinfarkt und Schlaganfall ist etwa zwei- bis dreifach erhöht, das Unfallrisiko im Straßenverkehr etwa zwei- bis siebenfach. Unter konsequenter Therapie ist die Prognose sehr gut: Die Tagesschläfrigkeit bessert sich oft schon nach wenigen Nächten, Blutdruck und Nykturie gehen zurück, die kognitive Leistungsfähigkeit und die Lebensqualität steigen, und das Unfallrisiko normalisiert sich weitgehend. Entscheidend ist die Therapieadhärenz — etwa ein Drittel bis die Hälfte der Patienten nutzt das Gerät ohne strukturierte Nachbetreuung unzureichend. Eine Gewichtsreduktion kann leichte Formen vollständig beseitigen, und die CPAP-Therapie ist wirksam, aber symptomatisch: Nach dem Absetzen kehren die Beschwerden innerhalb weniger Nächte zurück.',
+      pruefungsfallen: [
+        'Die FREMDANAMNESE des Bettpartners ist obligat: Der Patient nimmt seine Apnoen nicht wahr. Wer nur ihn befragt, hört „Müdigkeit“ und übersieht die Diagnose.',
+        'Die FAHRTAUGLICHKEIT und die Unfallgefahr durch Sekundenschlaf müssen aktiv erfragt und besprochen werden — der Punkt, den Prüfer am zuverlässigsten einfordern.',
+        'Obstruktiv versus zentral sauber trennen: Beim obstruktiven Syndrom bleibt die Atemanstrengung ERHALTEN (frustrane Thorax- und Abdomenbewegungen), bei der zentralen Form fehlt sie.',
+        'Die Schweregrade des Apnoe-Hypopnoe-Index korrekt nennen: leicht 5 bis 15, mittel 15 bis 30, schwer über 30 Ereignisse pro Stunde.',
+        'Eine normale Harnstoff-, Blutbild- oder TSH-Konstellation schließt nichts aus — die Diagnose wird durch Polygraphie und Polysomnographie gestellt, nicht durch das Labor.',
+        'Ein fehlendes Übergewicht schließt ein OSAS nicht aus (Retrognathie, Tonsillenhyperplasie); umgekehrt ist nicht jeder Schnarcher krank — entscheidend sind Apnoen plus Symptomatik.',
+        'Nur „CPAP“ zu sagen genügt nicht: Verhaltensänderung, Gewichtsreduktion und Alkoholkarenz sind die Grundlage, und die ADHÄRENZ muss angesprochen werden.',
+        'Die Nykturie nicht automatisch der Prostata zuschreiben — sie ist ein klassisches Symptom des OSAS und bessert sich unter CPAP.',
+        'Sedativa, Benzodiazepine und Opioide sind bei diesen Patienten kontraindiziert; sie werden bei „Schlafstörung“ häufig fälschlich verordnet und verschlechtern die Erkrankung.',
+        'Bei therapierefraktärer arterieller Hypertonie gehört die Frage nach Schnarchen und Atempausen zur Standardabklärung — hier wird das Syndrom am häufigsten übersehen.',
+        'Das perioperative Risiko nicht vergessen: schwierige Intubation, postoperative Atemdepression; die Anästhesie muss informiert werden und das eigene Gerät mitkommen.',
+        'Vor dem Patienten übersetzen: Apnoe = Atemstillstand, Hypopnoe = flache Atmung, Polysomnographie = Schlafuntersuchung im Schlaflabor, CPAP = nächtliche Atemmaske mit leichtem Überdruck.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was hat der Patient? Wie lautet Ihre Verdachtsdiagnose?',
+          antwort: 'Ein obstruktives Schlafapnoe-Syndrom. Dafür sprechen das fremdanamnestisch berichtete laute, unregelmäßige Schnarchen mit beobachteten Atempausen, das nächtliche Erstickungsgefühl, die Nykturie und der Nachtschweiß, dazu der nicht erholsame Schlaf, der morgendliche Kopfschmerz und die ausgeprägte Tagesschläfrigkeit sowie als Folge die therapierefraktäre arterielle Hypertonie. Risikofaktoren sind Adipositas, ein Halsumfang über 43 cm, männliches Geschlecht, Alter und abendlicher Alkoholkonsum.',
+        },
+        {
+          frage: 'Was ist ein Schlafapnoe-Syndrom? Erklären Sie es dem Patienten.',
+          antwort: 'Im Schlaf erschlafft die Muskulatur im Rachen. Bei Ihnen fällt der Rachen dabei immer wieder zusammen, sodass die Luft für einige Sekunden nicht mehr durchkommt — deshalb die Atemaussetzer, die Ihre Frau beobachtet. Der Sauerstoff im Blut fällt ab, und Ihr Körper weckt Sie ganz kurz, ohne dass Sie es merken. Das passiert viele Male pro Nacht, deshalb ist Ihr Schlaf nicht erholsam, obwohl Sie lange im Bett liegen.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine obstruktive von einer zentralen Schlafapnoe?',
+          antwort: 'Über die Atemanstrengung. Beim obstruktiven Syndrom sistiert der Atemfluss, während sich Thorax und Abdomen weiter frustran gegen den verschlossenen Rachen bewegen — begleitet von Schnarchen. Bei der zentralen Schlafapnoe fehlt der Atemantrieb, es finden sich weder Atemfluss noch Atemexkursionen; typisch ist die Cheyne-Stokes-Atmung bei Herzinsuffizienz, außerdem nach Schlaganfall und unter Opioiden.',
+        },
+        {
+          frage: 'Welche Untersuchung sichert die Diagnose?',
+          antwort: 'Zunächst eine ambulante Polygraphie als Screening mit Atemfluss, thorakoabdominellen Atemexkursionen, Pulsoxymetrie, Schnarchgeräusch und Körperlage. Der Goldstandard ist die Polysomnographie im Schlaflabor mit zusätzlicher Ableitung von EEG, EOG und EMG und der Bestimmung des Apnoe-Hypopnoe-Index.',
+        },
+        {
+          frage: 'Was ist der Apnoe-Hypopnoe-Index, und wie sind die Schweregrade definiert?',
+          antwort: 'Er gibt die Zahl der Apnoen und Hypopnoen pro Stunde Schlaf an. Apnoe: Atemstillstand über mindestens 10 Sekunden; Hypopnoe: Reduktion des Atemflusses um mindestens 30 % über mindestens 10 Sekunden mit Entsättigung von mindestens 3 % oder Arousal. Schweregrade: leicht 5 bis 15, mittel 15 bis 30, schwer über 30 Ereignisse pro Stunde.',
+        },
+        {
+          frage: 'Was ist die Epworth Sleepiness Scale?',
+          antwort: 'Ein Selbstbeurteilungsfragebogen mit acht Alltagssituationen, in denen der Patient die Wahrscheinlichkeit des Einschlafens mit 0 bis 3 Punkten angibt; das Maximum sind 24 Punkte. Mehr als 10 Punkte sprechen für eine pathologische Tagesschläfrigkeit. Der Wert dient auch der Verlaufskontrolle unter Therapie.',
+        },
+        {
+          frage: 'Was untersuchen Sie körperlich, und warum messen Sie den Halsumfang?',
+          antwort: 'Größe, Gewicht und BMI, den Halsumfang, den Blutdruck und die Sauerstoffsättigung, dazu die Inspektion der oberen Atemwege mit Tonsillen, Zungengröße, Kieferstellung, Nasenseptum und Mallampati-Grad sowie eine kardiopulmonale Untersuchung. Der Halsumfang bildet das parapharyngeale Fettgewebe ab und ist ein unabhängiger Prädiktor: ab etwa 43 cm beim Mann und 40 cm bei der Frau besteht ein deutlich erhöhtes Risiko.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie und warum?',
+          antwort: 'Blutbild wegen einer Anämie als Differenzialdiagnose und einer Polyglobulie als Folge der nächtlichen Hypoxie, TSH zum Ausschluss einer Hypothyreose, Nüchternblutzucker, HbA1c und Lipidstatus zur Erfassung des metabolischen Syndroms, dazu Kreatinin und Elektrolyte. Eine Blutgasanalyse am Tag grenzt ein Adipositas-Hypoventilationssyndrom mit Hyperkapnie ab.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Zentrale Schlafapnoe, einfaches primäres Schnarchen, chronisches Schlafmangelsyndrom, Narkolepsie, Restless-Legs-Syndrom und periodische Beinbewegungen, Depression, Hypothyreose, Anämie, medikamentöse oder alkoholbedingte Sedierung, Adipositas-Hypoventilationssyndrom, COPD mit nächtlicher Hypoxämie und bei Rauchern ein Malignom.',
+        },
+        {
+          frage: 'Wie werden Sie ihn behandeln?',
+          antwort: 'Grundlage ist die Verhaltensänderung: Gewichtsreduktion um 5 bis 10 % des Körpergewichts, Alkoholkarenz besonders am Abend, Verzicht auf Sedativa, Nikotinkarenz, Schlafhygiene und Vermeidung der Rückenlage. Standardbehandlung bei mittlerer und schwerer Ausprägung ist die nächtliche CPAP-Therapie, eingestellt im Schlaflabor. Alternativen sind die Unterkieferprotrusionsschiene, HNO-chirurgische Verfahren bei umschriebener Obstruktion und im Sonderfall der Zungenschrittmacher. Dazu gehören die Aufklärung über die Fahrtauglichkeit und die Verlaufskontrolle.',
+        },
+        {
+          frage: 'Der Patient kommt mit der Maske nicht zurecht. Was tun Sie?',
+          antwort: 'Ich spreche die Probleme konkret an, weil sie fast immer lösbar sind: Bei Druckgefühl hilft die Rampenfunktion, bei Nasentrockenheit die beheizte Befeuchtung, bei Leckage und gereizten Augen ein anderer Maskentyp, bei Klaustrophobie das Üben am Tag. Ich lese die Gerätedaten aus und justiere nach. Ziel sind mindestens vier Stunden pro Nacht. Gelingt es dennoch nicht, kommen die Unterkieferprotrusionsschiene oder operative Verfahren in Betracht.',
+        },
+        {
+          frage: 'Der Patient ist Berufskraftfahrer. Darf er weiterfahren?',
+          antwort: 'Nein, nicht im jetzigen Zustand. Bei ausgeprägter Tagesschläfrigkeit mit Sekundenschlaf und einem Beinaheunfall besteht keine Fahreignung. Der Patient muss darüber aufgeklärt werden, und die Aufklärung wird dokumentiert. Nach wirksamer Therapie und dokumentiertem Rückgang der Schläfrigkeit — belegt durch Epworth-Wert und Gerätedaten — kann er wieder fahren.',
+        },
+        {
+          frage: 'Welche Folgeerkrankungen drohen unbehandelt?',
+          antwort: 'Eine therapierefraktäre arterielle Hypertonie mit fehlender nächtlicher Absenkung, Vorhofflimmern und nächtliche Bradyarrhythmien, koronare Herzkrankheit, Herzinsuffizienz, Schlaganfall, Typ-2-Diabetes und eine pulmonale Hypertonie mit Cor pulmonale. Dazu kommen die kognitiven Einbußen, die depressive Verstimmung und die deutlich erhöhte Unfallgefahr.',
+        },
+        {
+          frage: 'Was ist perioperativ zu beachten?',
+          antwort: 'Ein unbehandeltes obstruktives Schlafapnoe-Syndrom bedeutet ein erhöhtes Atemwegsrisiko: schwierige Maskenbeatmung und Intubation, erhöhte Empfindlichkeit gegenüber Opioiden, Benzodiazepinen und Muskelrelaxanzien sowie die Gefahr der postoperativen Atemdepression. Die Anästhesie muss informiert werden, der Patient bringt sein eigenes Gerät mit und wird verlängert überwacht.',
+        },
+      ],
+      merksatz: 'Müde am Tag trotz acht Stunden Schlaf, dicker Hals und ein Blutdruck, der trotz drei Tabletten nicht runtergeht — dann fragen Sie die Ehefrau: Schnarcht er unregelmäßig, setzt die Atmung aus? Diagnose per Polygraphie und Polysomnographie mit dem Apnoe-Hypopnoe-Index (leicht 5–15, mittel 15–30, schwer über 30). Therapie: abnehmen, abends kein Alkohol, keine Schlafmittel — und CPAP, die nur wirkt, wenn sie auch getragen wird. Und IMMER nach Sekundenschlaf am Steuer fragen.',
+      linkedCaseIds: [
+        'case-schlafapnoe',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-bronchoskopie',
+      ],
+    },
+    {
+      id: 'fw-schizophrenie',
+      pathology: 'Schizophrenie (paranoide Schizophrenie, Erstmanifestation)',
+      specialty: 'Psychiatrie',
+      definition: 'Die Schizophrenie ist eine schwere psychische Erkrankung aus dem Formenkreis der endogenen Psychosen, die durch charakteristische Störungen von Denken, Wahrnehmung, Ich-Erleben, Affektivität und Antrieb bei erhaltenem Bewusstsein und erhaltener Orientierung gekennzeichnet ist. Sie verläuft typischerweise in Episoden und wird nach der Symptomatik in eine Plussymptomatik (Wahn, Halluzinationen, Ich-Störungen, formale Denkstörungen) und eine Minussymptomatik (Affektverflachung, Antriebsminderung, sozialer Rückzug, Sprachverarmung, Anhedonie) gegliedert; hinzu treten kognitive Störungen. Die Lebenszeitprävalenz liegt weltweit bei etwa 0,5 bis 1 Prozent, Männer und Frauen sind gleich häufig betroffen. Der Erkrankungsbeginn liegt bei Männern meist zwischen dem 15. und 25., bei Frauen zwischen dem 25. und 35. Lebensjahr, häufig nach einer Monate dauernden Prodromalphase mit sozialem Rückzug und Leistungsknick. Nach ICD-10 müssen die charakteristischen Symptome mindestens einen Monat bestehen (DSM-5 fordert sechs Monate einschließlich Prodromal- und Residualphase).',
+      aetiologie: 'Multifaktorielle Genese im Sinne des Vulnerabilitäts-Stress-Bewältigungs-Modells: Auf dem Boden einer weitgehend genetisch bedingten Vulnerabilität führen psychosoziale und biologische Stressoren zur Manifestation. Die Erblichkeit ist hoch — das Erkrankungsrisiko beträgt in der Allgemeinbevölkerung etwa 1 Prozent, bei einem erkrankten Elternteil etwa 10 Prozent, bei zwei erkrankten Elternteilen etwa 40 Prozent, bei eineiigen Zwillingen etwa 50 Prozent. Neurobiologisch steht die Dopaminhypothese im Vordergrund: mesolimbische dopaminerge Überaktivität erklärt die Positivsymptomatik, mesokortikale Unteraktivität die Negativsymptomatik und die kognitiven Störungen; ergänzend werden eine glutamaterge Dysfunktion (NMDA-Rezeptor-Hypofunktion) und serotonerge Veränderungen angenommen. Strukturell finden sich erweiterte Ventrikel und eine Volumenminderung von Temporallappen und Hippokampus. Als Umweltfaktoren gelten Geburtskomplikationen und pränatale Infektionen, Migration und Leben in der Großstadt, frühe Traumatisierung, hohe familiäre Emotionalität („expressed emotion“) sowie insbesondere der Cannabiskonsum — bei frühem Beginn, täglichem Gebrauch und hochpotenten Sorten steigt das Erkrankungsrisiko deutlich.',
+      risikofaktoren: [
+        'Positive Familienanamnese für schizophrene oder schizoaffektive Erkrankungen (stärkster Einzelfaktor)',
+        'Cannabiskonsum, besonders früher Konsumbeginn in der Adoleszenz, täglicher Gebrauch und hochpotente Sorten; ebenso Amphetamine, Kokain und Halluzinogene',
+        'Männliches Geschlecht für den frühen Erkrankungsbeginn und den ungünstigeren Verlauf',
+        'Geburtskomplikationen, perinatale Hypoxie, pränatale Infektionen und Mangelernährung in der Schwangerschaft, Geburt in den Wintermonaten',
+        'Aufwachsen und Leben in der Großstadt sowie Migrationshintergrund',
+        'Frühe Traumatisierung, Vernachlässigung und Missbrauch in der Kindheit',
+        'Hohe familiäre Emotionalität („high expressed emotion“) mit Kritik, Feindseligkeit und Überengagement — starker Rezidivfaktor',
+        'Prodromalsymptome mit sozialem Rückzug, Leistungsknick und Sonderlingshaftigkeit über Monate',
+        'Höheres Alter des Vaters bei der Zeugung',
+      ],
+      klinik: [
+        {
+          text: 'Prodromalphase über Monate bis Jahre mit sozialem Rückzug, Leistungsknick in Schule, Studium oder Beruf, Vernachlässigung der Körperpflege, Misstrauen, Schlafstörung und diffuser Angst',
+        },
+        {
+          text: 'Wahn als inhaltliche Denkstörung — unkorrigierbare, subjektiv gewisse Fehlüberzeugung: am häufigsten Verfolgungs- und Beziehungswahn, daneben Vergiftungs-, Beeinträchtigungs-, Größen- und Beobachtungswahn',
+        },
+        {
+          text: 'Akustische Halluzinationen in den typischen Formen: kommentierende Stimmen, die das eigene Handeln begleiten, dialogisierende Stimmen, die sich über den Patienten unterhalten, und imperative Stimmen, die Handlungen befehlen',
+        },
+        {
+          text: 'Ich-Störungen als besonders charakteristisches Merkmal: Gedankeneingebung, Gedankenentzug, Gedankenausbreitung beziehungsweise Gedankenlautwerden und Fremdbeeinflussungserleben; dazu Depersonalisation und Derealisation',
+        },
+        {
+          text: 'Formale Denkstörungen: Zerfahrenheit, Gedankenabreißen, Danebenreden, Neologismen, Konkretismus und Denkverlangsamung',
+        },
+        {
+          text: 'Negativsymptomatik (die „sechs A“): Affektverflachung, Antriebsminderung (Apathie), Anhedonie, Alogie mit Sprachverarmung, Aufmerksamkeitsstörung und sozialer Rückzug (Autismus) — sie bestimmt die Langzeitprognose stärker als die Positivsymptomatik und wird regelmäßig übersehen',
+        },
+        {
+          text: 'Kognitive Störungen von Aufmerksamkeit, Arbeitsgedächtnis, Verarbeitungsgeschwindigkeit und exekutiven Funktionen — entscheidend für die soziale und berufliche Wiedereingliederung',
+        },
+        {
+          text: 'Schlafstörung mit Ein- und Durchschlafstörung und Umkehr des Schlaf-Wach-Rhythmus; häufig Gewichtsverlust bei Vergiftungsbefürchtung oder Antriebsstörung',
+        },
+        {
+          text: 'Fehlende oder eingeschränkte Krankheitseinsicht — die Vorstellung erfolgt häufig auf Drängen von Angehörigen',
+        },
+        {
+          text: 'Katatone Symptome: Stupor, Mutismus, Katalepsie, Haltungsverharren, Negativismus, Echolalie und Echopraxie; die perniziöse (febrile) Katatonie mit Fieber und vegetativer Entgleisung ist lebensbedrohlich',
+          atypisch: true,
+        },
+        {
+          text: 'Zönästhesien — bizarre Leibmissempfindungen wie ein Brennen, Ziehen oder Schrumpfen im Körperinneren, oft als von außen gemacht erlebt',
+          atypisch: true,
+        },
+        {
+          text: 'Hebephrene Verlaufsform im Jugendalter mit läppisch-enthemmtem Affekt, Antriebsstörung und Denkzerfahrenheit, aber nur flüchtigem Wahn — leicht als Pubertätskrise verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Optische, olfaktorische, gustatorische und taktile Halluzinationen — bei der Schizophrenie selten und immer ein Hinweis, erneut an eine organische oder substanzbedingte Ursache zu denken',
+          atypisch: true,
+        },
+        {
+          text: 'Spätschizophrenie mit Erstmanifestation nach dem 40. Lebensjahr, häufiger bei Frauen, mit ausgeprägtem Wahn und geringerer Negativsymptomatik',
+          atypisch: true,
+        },
+        {
+          text: 'Postschizophrene Depression nach Abklingen der Positivsymptomatik — Phase des höchsten Suizidrisikos, weil die Krankheitseinsicht zurückkehrt',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Subtypen nach ICD-10 (F20)',
+          inhalt: 'F20.0 paranoide Schizophrenie — häufigste Form, Wahn und Halluzinationen im Vordergrund, beste Prognose. F20.1 hebephrene Schizophrenie — Beginn im Jugendalter, Affekt- und Antriebsstörung sowie Denkzerfahrenheit im Vordergrund, ungünstige Prognose. F20.2 katatone Schizophrenie — psychomotorische Störungen von Stupor bis Erregung, perniziöse Katatonie lebensbedrohlich. F20.3 undifferenzierte Schizophrenie. F20.4 postschizophrene Depression. F20.5 schizophrenes Residuum — chronische Negativsymptomatik. F20.6 Schizophrenia simplex — schleichende Negativsymptomatik ohne produktive Symptome. Die ICD-11 hat die Subtypen zugunsten einer Beschreibung nach Symptomdimensionen aufgegeben.',
+        },
+        {
+          name: 'Positiv- und Negativsymptomatik',
+          inhalt: 'Plussymptomatik (Überschuss an Erleben): Wahn, Halluzinationen, Ich-Störungen, formale Denkstörungen, psychomotorische Erregung — spricht gut auf Antipsychotika an. Minussymptomatik (Verlust an Erleben, die „sechs A“): Affektverflachung, Apathie/Antriebsminderung, Anhedonie, Alogie, Aufmerksamkeitsstörung, Autismus im Sinne des sozialen Rückzugs — spricht schlechter auf die Medikation an und bestimmt die Langzeitprognose. Zu unterscheiden ist die primäre Negativsymptomatik von der sekundären durch Depression, Medikamentennebenwirkungen oder Hospitalisierung.',
+        },
+        {
+          name: 'Symptome ersten und zweiten Ranges nach Kurt Schneider',
+          inhalt: 'Erstrangsymptome (hoch spezifisch, aber nicht beweisend): dialogische und kommentierende Stimmen, Gedankenlautwerden, Gedankeneingebung, Gedankenentzug und Gedankenausbreitung, leibliche Beeinflussungserlebnisse, Willensbeeinflussung und Wahnwahrnehmung. Zweitrangsymptome: sonstige Halluzinationen, Wahneinfall, Ratlosigkeit, depressive und euphorische Verstimmung sowie Gefühlsverarmung.',
+        },
+        {
+          name: 'Diagnosekriterien und Zeitkriterium nach ICD-10',
+          inhalt: 'Erforderlich ist mindestens ein eindeutiges Symptom der Gruppe 1 (Gedankenlautwerden, Gedankeneingebung, Gedankenentzug, Gedankenausbreitung; Kontroll- oder Beeinflussungswahn; kommentierende oder dialogische Stimmen; anhaltender kulturell unangemessener bizarrer Wahn) ODER mindestens zwei Symptome der Gruppe 2 (anhaltende Halluzinationen jeder Sinnesmodalität mit flüchtigem Wahn, Gedankenabreißen und Zerfahrenheit, katatone Symptome, Negativsymptomatik). Die Symptome müssen fast ständig während mindestens eines Monats bestanden haben. Ausschluss: organische Ursache, Intoxikation, Entzug sowie eine im Vordergrund stehende affektive Störung.',
+        },
+        {
+          name: 'Grundsymptome nach Eugen Bleuler',
+          inhalt: 'Die vier Grundsymptome („4 A“ nach Bleuler): Assoziationsstörung (formale Denkstörung), Affektstörung, Ambivalenz und Autismus im Sinne des Rückzugs in die eigene Welt. Akzessorische Symptome sind Wahn, Halluzinationen und katatone Phänomene. Von Bleuler stammt auch der Begriff der Schizophrenie im Sinne einer „Spaltung“ psychischer Funktionen — ausdrücklich NICHT einer gespaltenen Persönlichkeit.',
+        },
+      ],
+      redFlags: [
+        'Akute Suizidalität mit konkreten Plänen oder Vorbereitungen, fehlende Absprachefähigkeit — das Suizidrisiko ist bei der Schizophrenie deutlich erhöht',
+        'Imperative Stimmen, die zur Selbst- oder Fremdschädigung auffordern, sowie ein Wahn mit konkretem Handlungsdruck gegen eine bestimmte Person',
+        'Fieber, Bewusstseinsstörung, Meningismus, epileptische Anfälle, Dyskinesien oder neurologische Herdzeichen bei rasch entwickelter Psychose → dringender Verdacht auf eine Autoimmun- oder Infektionsenzephalitis, sofortige Liquorpunktion',
+        'Bewusstseinstrübung mit fluktuierendem Verlauf und Desorientiertheit → Delir, immer organisch abklären',
+        'Perniziöse (febrile) Katatonie mit Stupor, Fieber, vegetativer Entgleisung und CK-Erhöhung — lebensbedrohlich, intensivmedizinische Behandlung und Elektrokrampftherapie',
+        'Malignes neuroleptisches Syndrom unter laufender Therapie: Fieber, Rigor, Bewusstseinsstörung, vegetative Entgleisung, massiver CK-Anstieg',
+        'Agranulozytose unter Clozapin: Fieber, Halsschmerzen, Mundschleimhautulzera — sofortiges Blutbild',
+        'Nahrungs- und Flüssigkeitsverweigerung bei Vergiftungswahn mit Exsikkose und Gewichtsverlust',
+        'Erstmanifestation jenseits des 40. Lebensjahres oder mit optischen Halluzinationen → organische Ursache bis zum Beweis des Gegenteils',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ausführliche psychopathologische Befunderhebung nach dem AMDP-System: Bewusstsein, Orientierung, Aufmerksamkeit und Gedächtnis, formales und inhaltliches Denken, Wahrnehmungsstörungen, Ich-Störungen, Affektivität, Antrieb und Psychomotorik — die Schizophrenie ist eine klinische Diagnose, es gibt keinen beweisenden Test',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Exploration der Erstrangsymptome nach Kurt Schneider sowie der Negativsymptomatik, die aktiv erfragt und beobachtet werden muss',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fremdanamnese bei Angehörigen (nach Entbindung von der Schweigepflicht) zur Erfassung von Prodromalphase, Leistungsknick, Verhaltensänderung und Konsumverhalten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Strukturierte Beurteilung von Selbst- UND Fremdgefährdung: Suizidgedanken, Konkretheit, Pläne, Vorbereitungen, frühere Versuche, Absprachefähigkeit; imperative Stimmen, Anspannung, Aggressivität, Waffenbesitz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sucht- und Medikamentenanamnese mit Schwerpunkt Cannabis, Amphetamine, Kokain, Halluzinogene sowie Glukokortikoide und L-Dopa',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige körperliche und neurologische Untersuchung mit Vitalparametern, Temperatur, Meningismusprüfung, Hirnnerven, Reflexen und Prüfung auf Tremor oder Dyskinesien; Erhebung von Gewicht, Bauchumfang, BMI und Blutdruck als Ausgangswerte',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild mit Differenzialblutbild, Elektrolyte einschließlich Kalzium, Leber- und Nierenwerte, CRP, Blutzucker beziehungsweise HbA1c und Lipidstatus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'TSH mit fT3 und fT4 bei Auffälligkeit sowie Vitamin B12 und Folsäure zum Ausschluss endokriner und metabolischer Ursachen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serologien auf HIV und Lues (TPHA/TPPA) — beide können sich als organische Psychose manifestieren; je nach Region ergänzend Borrelienserologie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Drogenscreening im Urin — obligat bei jeder Erstmanifestation: THC, Amphetamine, Kokain, Opiate, Benzodiazepine; bei Frauen zusätzlich Schwangerschaftstest',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Prolaktin und Kreatinkinase als Ausgangswerte vor der antipsychotischen Therapie; ergänzend Kupfer und Coeruloplasmin bei jungen Patienten mit neurologischen Zeichen (Morbus Wilson)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniale Bildgebung mit MRT bei jeder Erstmanifestation zum Ausschluss von Tumor, Blutung, entzündlichen und demyelinisierenden Läsionen (CT nur als Ersatz, wenn ein MRT nicht verfügbar ist)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EEG zum Ausschluss einer Epilepsie, insbesondere einer Temporallappenepilepsie, und zum Nachweis einer Allgemeinveränderung bei Enzephalitis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG mit Bestimmung der QTc-Zeit vor Beginn und im Verlauf der antipsychotischen Therapie (Grenzwerte: über 450 ms bei Männern, über 470 ms bei Frauen; über 500 ms kritisch)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion bei Verdacht auf eine entzündliche oder autoimmune Genese: Zellzahl, Eiweiß, Glukose, Laktat, oligoklonale Banden sowie neuronale Autoantikörper einschließlich Anti-NMDA-Rezeptor-Antikörpern — indiziert bei rascher Entwicklung, Bewusstseinsstörung, Anfällen, Fieber oder neurologischen Zeichen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Neuropsychologische Testung von Aufmerksamkeit, Arbeitsgedächtnis, Verarbeitungsgeschwindigkeit und exekutiven Funktionen zur Objektivierung der kognitiven Störung und als Grundlage der Rehabilitation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ergänzend bei unklarem Befund: Tumorsuche bei paraneoplastischer Genese (bei Anti-NMDA-Rezeptor-Enzephalitis insbesondere Ovarialteratom), genetische Abklärung bei Hinweisen auf ein Mikrodeletionssyndrom 22q11',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Drogeninduzierte Psychose (Cannabis, Amphetamine, Kokain, Halluzinogene, „Legal Highs“)',
+          unterscheidung: 'Enger zeitlicher Zusammenhang mit dem Konsum, Rückbildung unter Abstinenz innerhalb von Tagen bis maximal einem Monat, häufiger optische Halluzinationen, vegetative Begleitzeichen und affektive Auslenkung; Ich-Störungen sind seltener. Beweisführung über Drogenscreening im Urin und Verlaufsbeobachtung unter Karenz. Cave: Der Konsum kann eine Schizophrenie auch auslösen — beides schließt sich nicht aus.',
+        },
+        {
+          dd: 'Organische Psychose bei Autoimmunenzephalitis, insbesondere Anti-NMDA-Rezeptor-Enzephalitis',
+          unterscheidung: 'Die Diagnose, die man nicht verpassen darf: rascher Verlauf über Tage bis Wochen, grippale Prodromi, Bewusstseinsstörung, epileptische Anfälle, orofaziale Dyskinesien, autonome Instabilität; häufig junge Frauen mit Ovarialteratom. Liquor mit Pleozytose und neuronalen Autoantikörpern, EEG mit Allgemeinveränderung, MRT oft unauffällig. Unter Immuntherapie gut behandelbar.',
+        },
+        {
+          dd: 'Delir (organisch bedingtes akutes Verwirrtheitssyndrom)',
+          unterscheidung: 'Der wichtigste Abgrenzungspunkt: Bewusstseinstrübung, Störung von Aufmerksamkeit und Orientierung sowie fluktuierender Verlauf mit abendlicher Verschlechterung, meist optische Halluzinationen und vegetative Symptome, immer somatische Ursache. Bei der Schizophrenie sind Bewusstsein und Orientierung erhalten.',
+        },
+        {
+          dd: 'Organische Psychose bei Hirntumor, Epilepsie, Neurolues, HIV-Enzephalopathie, Multipler Sklerose, Morbus Wilson oder Schilddrüsenfunktionsstörung',
+          unterscheidung: 'Hinweise sind neurologische Herdzeichen, epileptische Anfälle, Kopfschmerz, Wesensänderung mit kognitivem Abbau, atypisches Erkrankungsalter, optische Halluzinationen und auffällige Organbefunde. Ausschluss über MRT, EEG und ein vollständiges Labor.',
+        },
+        {
+          dd: 'Schizoaffektive Störung (F25)',
+          unterscheidung: 'Schizophrene und affektive Symptome treten gleichzeitig und etwa gleich ausgeprägt innerhalb derselben Episode auf. Die Prognose liegt zwischen der der Schizophrenie und der der affektiven Störungen.',
+        },
+        {
+          dd: 'Bipolare Störung mit psychotischen Symptomen',
+          unterscheidung: 'Synthymer, stimmungskongruenter Wahn (Größenwahn in der Manie), vermindertes Schlafbedürfnis bei gesteigerter Aktivität, Rededrang, Ideenflucht, phasenhafter Verlauf mit weitgehender Remission zwischen den Episoden.',
+        },
+        {
+          dd: 'Schwere depressive Episode mit psychotischen Symptomen',
+          unterscheidung: 'Durchgehend gedrückte Stimmung, Morgentief, Früherwachen, Interessenverlust und synthymer Wahn (Schuld-, Versündigungs-, Verarmungs-, hypochondrischer Wahn); die Negativsymptomatik der Schizophrenie kann eine Depression imitieren und umgekehrt.',
+        },
+        {
+          dd: 'Anhaltende wahnhafte Störung (F22)',
+          unterscheidung: 'Isolierter, gut systematisierter Wahn über mindestens drei Monate ohne Halluzinationen, ohne Ich-Störungen und ohne Negativsymptomatik, bei weitgehend erhaltener Persönlichkeit und Alltagsfunktion; Erkrankungsbeginn meist im mittleren Lebensalter.',
+        },
+        {
+          dd: 'Akute vorübergehende psychotische Störung (F23)',
+          unterscheidung: 'Abrupter Beginn innerhalb von zwei Wochen, oft nach akuter Belastung, rasch wechselnde polymorphe Symptomatik und vollständige Rückbildung innerhalb weniger Wochen — das Zeitkriterium von einem Monat wird nicht erfüllt.',
+        },
+        {
+          dd: 'Schizotype (F21) und schizoide Persönlichkeitsstörung',
+          unterscheidung: 'Überdauerndes Muster seit der Adoleszenz mit Sonderlingshaftigkeit, magischem Denken, Beziehungsideen, sozialer Distanz und eingeschränktem Affekt, jedoch ohne anhaltende Wahngewissheit, ohne eindeutige Halluzinationen und ohne akute Episode mit Funktionsknick.',
+        },
+        {
+          dd: 'Demenz mit Wahnsymptomen, insbesondere beim älteren Patienten',
+          unterscheidung: 'Höheres Lebensalter, im Vordergrund stehende Gedächtnis- und Orientierungsstörung, Wesensänderung, alltagspraktischer Abbau, auffällige Testung (MMST, DemTect, Uhrentest) und Bildgebung mit Atrophie.',
+        },
+        {
+          dd: 'Medikamenteninduzierte Psychose (Glukokortikoide, L-Dopa und Dopaminagonisten, Interferon, Isotretinoin, Anticholinergika, Antibiotika wie Gyrasehemmer)',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Ansetzen oder Dosissteigerung und Rückbildung nach Absetzen oder Dosisreduktion; die Medikamentenanamnese muss vollständig erhoben werden.',
+        },
+        {
+          dd: 'Posttraumatische Belastungsstörung und dissoziative Störungen',
+          unterscheidung: 'Intrusionen und Flashbacks werden als Erinnerung erlebt und nicht als von außen gemachte Wahrnehmung; das Ich-Erleben bleibt intakt, es besteht ein klarer Bezug zum Trauma.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutbehandlung und Sicherung',
+          items: [
+            'strukturierte Beurteilung und Dokumentation von Selbst- und Fremdgefährdung: Suizidgedanken, Pläne, Vorbereitungen, Absprachefähigkeit, imperative Stimmen mit Handlungsaufforderung, Anspannung und Aggressivität',
+            'reizarme, ruhige Umgebung, wenige Bezugspersonen, kurze klare Sätze, ausreichend Abstand und ein freier Zugang zur Tür',
+            'validierende, nicht konfrontierende Gesprächsführung: den Wahn weder bestätigen noch widerlegen, sondern das Erleben und das Leiden ernst nehmen („Ich glaube Ihnen, dass Sie das so erleben, und ich sehe, wie belastend das für Sie ist“)',
+            'Klärung der Behandlungsform bis hin zur stationären Aufnahme — angestrebt wird die freiwillige Aufnahme MIT dem Einverständnis des Patienten, erklärt als Schutz und Entlastung, unter Einbeziehung der Angehörigen',
+            'Zwangsmaßnahmen nur als letztes Mittel bei akuter Selbst- oder Fremdgefährdung und nur nach den gesetzlichen Vorgaben: persönliche ärztliche Untersuchung, Unterbringung nach dem jeweiligen Landesgesetz oder dem Betreuungsrecht, richterliche Entscheidung, Verhältnismäßigkeit und lückenlose Dokumentation',
+            'kurzfristige Sedierung und Anxiolyse bei Erregung, Angst und Schlaflosigkeit mit einem Benzodiazepin, zum Beispiel Lorazepam — zeitlich befristet wegen der Abhängigkeitsgefahr',
+            'parallele somatische Abklärung: Labor einschließlich Drogenscreening, EKG mit QTc, kraniales MRT und EEG, bei Verdacht auf eine entzündliche Genese Liquorpunktion',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Antipsychotische Pharmakotherapie',
+          items: [
+            'Antipsychotika der zweiten Generation als Standard: Risperidon, Olanzapin, Aripiprazol, Quetiapin oder Amisulprid — geringeres Risiko extrapyramidaler Störungen, günstigere Wirkung auf die Negativsymptomatik',
+            'Auswahl nach Nebenwirkungsprofil und Begleiterkrankungen in partizipativer Entscheidungsfindung: Olanzapin und Clozapin metabolisch ungünstig, Risperidon und Amisulprid prolaktinerhöhend, Aripiprazol metabolisch günstig, Quetiapin sedierend',
+            'einschleichende Aufdosierung und niedrigste wirksame Dosis — ersterkrankte Patienten sprechen auf deutlich niedrigere Dosen an und sind nebenwirkungsempfindlicher',
+            'Monotherapie anstreben und eine ausreichende Behandlungsdauer von zwei bis sechs Wochen in wirksamer Dosis abwarten, bevor auf Nichtansprechen geschlossen wird; die Negativsymptomatik bessert sich langsamer als die Positivsymptomatik',
+            'Antipsychotika der ersten Generation (Haloperidol, Flupentixol, Benperidol) als Reserve und in der Akutsituation — stärker antipsychotisch bei deutlich höherem Risiko extrapyramidaler Störungen',
+            'Clozapin bei Therapieresistenz — definiert als Nichtansprechen auf zwei Antipsychotika in ausreichender Dosis über jeweils mindestens zwei bis sechs Wochen — sowie bei anhaltender Suizidalität; obligate Blutbildkontrolle wegen der Agranulozytose (Risiko etwa 1 Prozent): wöchentlich in den ersten 18 Wochen, danach mindestens monatlich',
+            'Depotpräparate (Risperidon, Paliperidon, Aripiprazol, Haloperidoldecanoat) bei Adhärenzproblemen, wiederholten Rezidiven nach Absetzen oder auf Patientenwunsch',
+            'Benzodiazepine kurzfristig bei Erregung, Angst und Schlafstörung; Elektrokrampftherapie bei perniziöser Katatonie und bei therapieresistenten Verläufen',
+          ],
+        },
+        {
+          label: 'Nebenwirkungsmanagement und Monitoring',
+          items: [
+            'extrapyramidal-motorische Störungen: Frühdyskinesie innerhalb von Stunden bis Tagen (Zungen-Schlund-Krampf, Blickkrampf — Akuttherapie mit Biperiden intravenös), Parkinsonoid nach Tagen bis Wochen, Akathisie mit quälender Bewegungsunruhe (Dosisreduktion, Umstellung, gegebenenfalls Propranolol) und Spätdyskinesie nach Monaten bis Jahren, häufig irreversibel',
+            'metabolisches Syndrom: Gewichtszunahme, Blutzucker- und Lipiderhöhung — Kontrolle von Gewicht, Bauchumfang, Blutdruck, Nüchternblutzucker beziehungsweise HbA1c und Lipidstatus vor Beginn, nach drei Monaten und danach mindestens jährlich; Ernährungs- und Bewegungsberatung von Anfang an',
+            'Prolaktinerhöhung mit Galaktorrhoe, Amenorrhoe, sexuellen Funktionsstörungen und langfristig Osteoporose — vor allem unter Risperidon, Amisulprid und Haloperidol; bei Bedarf Umstellung auf Aripiprazol oder Quetiapin',
+            'QTc-Verlängerung mit dem Risiko von Torsade de pointes: EKG vor Beginn und im Verlauf, Vorsicht bei Kombination QTc-verlängernder Substanzen, Ausgleich von Hypokaliämie und Hypomagnesiämie',
+            'malignes neuroleptisches Syndrom als lebensbedrohliche Komplikation: hohes Fieber, schwerer Rigor, Bewusstseinsstörung, vegetative Entgleisung und massive CK-Erhöhung mit Rhabdomyolysegefahr, Letalität etwa 10 bis 20 Prozent — sofortiges Absetzen des Antipsychotikums, intensivmedizinische Überwachung, Kühlung, Volumen- und Elektrolytsubstitution, Dantrolen und Bromocriptin oder Amantadin, in schweren Fällen Elektrokrampftherapie',
+            'weitere Nebenwirkungen: Sedierung, orthostatische Hypotonie, anticholinerge Effekte, Senkung der Krampfschwelle, Transaminasenerhöhung; unter Clozapin zusätzlich Agranulozytose, Myokarditis, Krampfanfälle, Hypersalivation und Obstipation bis zum Ileus',
+            'regelmäßige Kontrolle von Blutbild, Leber- und Nierenwerten sowie strukturierte Erfassung der Nebenwirkungen bei jedem Termin — sie sind der häufigste Grund für eigenmächtiges Absetzen und damit für Rezidive',
+          ],
+        },
+        {
+          label: 'Psycho- und Soziotherapie sowie Rückfallprophylaxe',
+          items: [
+            'Psychoedukation des Patienten UND der Angehörigen: Krankheitsmodell, Wirkungen und Nebenwirkungen der Medikation, Umgang mit Stimmen und Misstrauen; Angehörigenarbeit senkt die Rezidivrate nachweislich, besonders bei hoher familiärer Emotionalität',
+            'kognitive Verhaltenstherapie für Psychosen zur Bearbeitung von Stimmen und Überzeugungen ohne Konfrontation sowie kognitive Remediation bei den kognitiven Defiziten',
+            'Ergotherapie, Soziotherapie, Training sozialer Fertigkeiten, Tagesstruktur, Milieutherapie und aufsuchende gemeindepsychiatrische Behandlung',
+            'berufliche Wiedereingliederung über medizinische und berufliche Rehabilitation, stufenweise Wiedereingliederung, Werkstätten oder unterstützte Beschäftigung („supported employment“)',
+            'Erarbeitung individueller Frühwarnzeichen (Schlafstörung, Rückzug, Misstrauen, Konzentrationsstörung) und eines schriftlichen Krisenplans mit Ansprechpartnern und Notfallnummern; Anbindung an Institutsambulanz und sozialpsychiatrischen Dienst',
+            'konsequente Suchtmittelkarenz, insbesondere Cannabis, mit motivierender Gesprächsführung statt Konfrontation sowie Suchtberatung — fortgesetzter Konsum ist einer der stärksten Rezidivtreiber',
+            'ausreichend lange Erhaltungstherapie nach Remission: nach einer Erstmanifestation mindestens ein bis zwei Jahre, nach einem Rezidiv zwei bis fünf Jahre, nach mehreren Rezidiven gegebenenfalls dauerhaft; Beendigung nur ausschleichend über Monate unter engmaschiger Kontrolle, da das Absetzen der häufigste Rückfallgrund ist',
+            'Behandlung komorbider Störungen — Depression, Angst, Substanzgebrauch, metabolisches Syndrom und Nikotinabhängigkeit — sowie Beachtung des erhöhten Suizidrisikos, insbesondere in der postpsychotischen Phase',
+          ],
+        },
+      ],
+      prognose: 'Grob orientierend gilt die Drittelregel: etwa ein Drittel der Patienten erreicht eine weitgehende Remission, etwa ein Drittel zeigt einen rezidivierenden Verlauf mit Residualsymptomatik, etwa ein Drittel einen chronischen Verlauf mit ausgeprägter Negativsymptomatik. Günstige Prognosefaktoren sind ein akuter Beginn, ein erkennbarer Auslöser, gute prämorbide soziale Anpassung, ausgeprägte Positivsymptomatik, weibliches Geschlecht, höheres Erkrankungsalter, eine kurze Dauer der unbehandelten Psychose und gute Therapieadhärenz mit tragfähigem sozialem Umfeld. Ungünstig sind ein schleichender Beginn, ausgeprägte Negativsymptomatik, früher Erkrankungsbeginn, männliches Geschlecht, fortgesetzter Substanzkonsum — besonders Cannabis —, fehlende Krankheitseinsicht und eine lange unbehandelte Psychosedauer. Ohne Erhaltungstherapie erleiden innerhalb eines Jahres etwa 70 Prozent der Patienten ein Rezidiv, unter fortgeführter Medikation etwa 30 Prozent. Das Suizidrisiko ist deutlich erhöht: etwa 20 bis 40 Prozent unternehmen mindestens einen Suizidversuch, etwa 5 Prozent versterben durch Suizid, besonders in der postpsychotischen Phase mit wiederkehrender Krankheitseinsicht. Die Lebenserwartung ist im Mittel um etwa 15 Jahre verkürzt, überwiegend durch kardiovaskuläre und metabolische Erkrankungen, Rauchen und eine somatische Unterversorgung.',
+      pruefungsfallen: [
+        'Den Wahn niemals diskutieren: weder bestätigen noch widerlegen. Die geforderte Haltung ist ruhig und validierend — das Erleben ernst nehmen, den Inhalt offenlassen („Ich glaube Ihnen, dass Sie das so erleben, und ich sehe, wie belastend das für Sie ist“). Diese Gesprächshaltung ist selbst Prüfungsstoff.',
+        'Selbst- UND Fremdgefährdung müssen aktiv erfragt und dokumentiert werden — Suizidgedanken, Pläne, Vorbereitungen, Absprachefähigkeit sowie imperative Stimmen mit Handlungsaufforderung. Das Auslassen der Suizidfrage ist ein schwerer Fehler.',
+        'Die Negativsymptomatik nicht vergessen: Affektverflachung, Antriebsminderung, sozialer Rückzug, Sprachverarmung und Anhedonie bestimmen die Langzeitprognose stärker als die Positivsymptomatik und werden regelmäßig übersehen.',
+        'Die Schizophrenie ist eine klinische Diagnose — es gibt keinen Test. Trotzdem muss die vollständige organische Ausschlussdiagnostik genannt werden: Labor, obligates Drogenscreening im Urin, MRT bei Erstmanifestation, EEG und bei Verdacht die Liquorpunktion.',
+        'Die Anti-NMDA-Rezeptor-Enzephalitis ist die Diagnose, die man nicht verpassen darf: rasche Entwicklung, Bewusstseinsstörung, Anfälle, Dyskinesien oder neurologische Zeichen führen sofort zur Liquorpunktion mit neuronalen Autoantikörpern.',
+        'Delir und Schizophrenie werden über das Bewusstsein getrennt: Bewusstseinstrübung, Desorientiertheit und fluktuierender Verlauf sprechen für ein Delir — bei der Schizophrenie sind Bewusstsein und Orientierung erhalten.',
+        'Cannabis ist Risikofaktor UND Differenzialdiagnose zugleich; beides muss genannt werden. Der Konsum muss aktiv erfragt und im Urin überprüft werden.',
+        'EKG mit QTc, Gewicht, Bauchumfang, Blutdruck und Blutfette gehören VOR den Beginn der antipsychotischen Therapie — dieser Punkt wird häufig vergessen.',
+        'Das maligne neuroleptische Syndrom muss mit Fieber, Rigor, Bewusstseinsstörung, vegetativer Entgleisung und CK-Erhöhung beschrieben werden können, samt sofortigem Absetzen und intensivmedizinischer Behandlung.',
+        'Clozapin niemals ohne die obligate Blutbildkontrolle nennen: wöchentlich in den ersten 18 Wochen, danach mindestens monatlich (Agranulozytose).',
+        'Zwangsmaßnahmen sind das letzte Mittel: Ziel ist die freiwillige Aufnahme mit dem Einverständnis des Patienten; eine Unterbringung gegen den Willen setzt akute Selbst- oder Fremdgefährdung, persönliche ärztliche Untersuchung und eine richterliche Entscheidung voraus.',
+        'Die Erhaltungstherapie nicht zu früh beenden — nach einer Erstmanifestation ein bis zwei Jahre; das eigenmächtige Absetzen ist der häufigste Rückfallgrund. Beendet wird nur ausschleichend.',
+        'Sprachlich: „Schizophrenie“ ist KEINE gespaltene Persönlichkeit. In den Fachbegriffslisten wird sie mit „Bewusstseinsspaltung“ wiedergegeben, „Halluzination“ mit „Sinnestäuschung“; dem Patienten gegenüber sollte man umschreiben statt zu etikettieren und „leidet an“ vermeiden.',
+        'Optische, olfaktorische oder gustatorische Halluzinationen sind für die Schizophrenie untypisch — sie lenken zurück auf eine organische oder substanzbedingte Ursache.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Der dringende Verdacht auf eine Erstmanifestation einer paranoiden Schizophrenie. Dafür sprechen das typische Alter, die monatelange Prodromalphase mit sozialem Rückzug und Leistungsknick, die seit mehr als einem Monat bestehende Positivsymptomatik mit Verfolgungs- und Beziehungswahn, kommentierenden und dialogisierenden Stimmen und Ich-Störungen, dazu die formale Denkstörung, die ausgeprägte Negativsymptomatik, die fehlende Krankheitseinsicht und das erhaltene Bewusstsein bei voller Orientierung.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Begriffe „Schizophrenie“ und „Halluzination“?',
+          antwort: '„Halluzination“ ist eine Sinnestäuschung: Man nimmt etwas wahr, das für andere nicht vorhanden ist. „Schizophrenie“ wird in den Fachbegriffslisten mit „Bewusstseinsspaltung“ wiedergegeben; dem Patienten gegenüber umschreibe ich sie als eine Erkrankung, bei der Wahrnehmung, Denken und Gefühl zeitweise verändert sind — ausdrücklich nicht als „gespaltene Persönlichkeit“.',
+        },
+        {
+          frage: 'Was verstehen Sie unter Plus- und Minussymptomatik?',
+          antwort: 'Die Plussymptomatik umfasst Wahn, Halluzinationen, Ich-Störungen und formale Denkstörungen und spricht gut auf Antipsychotika an. Die Minussymptomatik umfasst Affektverflachung, Antriebsminderung, Anhedonie, Sprachverarmung, Aufmerksamkeitsstörung und sozialen Rückzug; sie spricht schlechter auf die Medikation an und bestimmt die Langzeitprognose stärker.',
+        },
+        {
+          frage: 'Was sind Ich-Störungen, und welche Formen kennen Sie?',
+          antwort: 'Störungen der Ich-Grenze und der Meinhaftigkeit des Erlebens: Gedankeneingebung, Gedankenentzug, Gedankenausbreitung beziehungsweise Gedankenlautwerden und Fremdbeeinflussungserleben, dazu Depersonalisation und Derealisation. Sie gelten als besonders charakteristisch für die Schizophrenie.',
+        },
+        {
+          frage: 'Welche Erstrangsymptome nach Kurt Schneider kennen Sie?',
+          antwort: 'Dialogische und kommentierende Stimmen, Gedankenlautwerden, Gedankeneingebung, Gedankenentzug, Gedankenausbreitung, leibliche Beeinflussungserlebnisse, Willensbeeinflussung und die Wahnwahrnehmung.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die drogeninduzierte Psychose, organische Psychosen bei Enzephalitis — insbesondere der Autoimmunenzephalitis —, Hirntumor, Epilepsie, Neurolues oder HIV, das Delir, die schizoaffektive Störung, die bipolare Störung mit psychotischen Symptomen, die schwere Depression mit synthymem Wahn, die anhaltende wahnhafte Störung, die akute vorübergehende psychotische Störung, die schizotype und schizoide Persönlichkeitsstörung, medikamenteninduzierte Psychosen durch Kortikosteroide oder L-Dopa sowie beim älteren Patienten die Demenz mit Wahnsymptomen.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine Schizophrenie von einem Delir?',
+          antwort: 'Über Bewusstsein und Verlauf: Beim Delir bestehen eine Bewusstseinstrübung, eine Aufmerksamkeits- und Orientierungsstörung und ein fluktuierender Verlauf mit abendlicher Verschlechterung, meist mit optischen Halluzinationen und vegetativen Symptomen, und es liegt immer eine somatische Ursache zugrunde. Bei der Schizophrenie sind Bewusstsein und Orientierung erhalten.',
+        },
+        {
+          frage: 'Wie grenzen Sie eine drogeninduzierte Psychose ab?',
+          antwort: 'Über den zeitlichen Zusammenhang mit dem Konsum und die Rückbildung unter Abstinenz innerhalb von Tagen bis maximal einem Monat, über häufigere optische Halluzinationen und seltenere Ich-Störungen sowie über das Drogenscreening im Urin und die Verlaufsbeobachtung. Cave: Cannabis kann eine Schizophrenie auch auslösen, beides schließt sich nicht aus.',
+        },
+        {
+          frage: 'Welche Diagnostik veranlassen Sie? Gibt es einen beweisenden Test?',
+          antwort: 'Nein, die Schizophrenie ist eine klinische Diagnose. Ich erhebe einen ausführlichen psychopathologischen Befund nach AMDP mit Fremdanamnese und beurteile Selbst- und Fremdgefährdung. Zum Ausschluss organischer Ursachen folgen ein Labor mit Blutbild, Elektrolyten, Leber- und Nierenwerten, TSH, Vitamin B12, Blutzucker, CRP sowie HIV- und Lues-Serologie, ein obligates Drogenscreening im Urin, ein kraniales MRT, ein EEG, bei Verdacht eine Liquorpunktion und ein EKG mit QTc vor Therapiebeginn.',
+        },
+        {
+          frage: 'Wann punktieren Sie den Liquor?',
+          antwort: 'Bei jedem Verdacht auf eine entzündliche oder autoimmune Genese: rasche Entwicklung, Bewusstseinsstörung, epileptische Anfälle, Fieber, Meningismus oder neurologische Herdzeichen. Bestimmt werden Zellzahl, Eiweiß, Glukose, Laktat, oligoklonale Banden und neuronale Autoantikörper einschließlich Anti-NMDA-Rezeptor-Antikörper.',
+        },
+        {
+          frage: 'Wie behandeln Sie einen Patienten mit einer Erstmanifestation?',
+          antwort: 'In vier Schritten: Akutbehandlung und Sicherung mit Gefährdungsbeurteilung, reizarmer Umgebung, ruhigem validierendem Gespräch und möglichst freiwilliger stationärer Aufnahme; antipsychotische Pharmakotherapie mit einem Antipsychotikum der zweiten Generation, einschleichend und in der niedrigsten wirksamen Dosis; Nebenwirkungsmanagement und Monitoring; sowie Psycho- und Soziotherapie mit Psychoedukation von Patient und Angehörigen, kognitiver Verhaltenstherapie, Ergotherapie, beruflicher Wiedereingliederung, Frühwarnzeichen, Krisenplan, Suchtmittelkarenz und ausreichend langer Erhaltungstherapie.',
+        },
+        {
+          frage: 'Welche Nebenwirkungen der Antipsychotika kennen Sie?',
+          antwort: 'Extrapyramidal-motorische Störungen mit Frühdyskinesie, Parkinsonoid, Akathisie und Spätdyskinesie; das metabolische Syndrom mit Gewichtszunahme sowie erhöhtem Blutzucker und erhöhten Blutfetten; die Prolaktinerhöhung mit Galaktorrhoe, Zyklus- und sexuellen Funktionsstörungen; die QTc-Verlängerung; dazu Sedierung, orthostatische Hypotonie, anticholinerge Effekte und die Senkung der Krampfschwelle. Als lebensbedrohliche Komplikation das maligne neuroleptische Syndrom.',
+        },
+        {
+          frage: 'Was ist das maligne neuroleptische Syndrom, und wie behandeln Sie es?',
+          antwort: 'Eine seltene, lebensbedrohliche Komplikation mit hohem Fieber, schwerem Rigor, Bewusstseinsstörung, vegetativer Entgleisung und massiv erhöhter Kreatinkinase; die Letalität liegt bei etwa 10 bis 20 Prozent. Therapie: sofortiges Absetzen des Antipsychotikums, intensivmedizinische Überwachung, Kühlung, Volumen- und Elektrolytsubstitution, Dantrolen und Bromocriptin oder Amantadin, in schweren Fällen Elektrokrampftherapie.',
+        },
+        {
+          frage: 'Wann setzen Sie Clozapin ein, und was kontrollieren Sie?',
+          antwort: 'Bei Therapieresistenz nach zwei erfolglosen Behandlungsversuchen mit unterschiedlichen Antipsychotika in ausreichender Dosis über jeweils mindestens zwei bis sechs Wochen sowie bei anhaltender Suizidalität. Obligat ist die Blutbildkontrolle wegen der Agranulozytose: wöchentlich in den ersten 18 Wochen, danach mindestens monatlich. Weiter zu beachten sind Myokarditis, Krampfanfälle, Sedierung, Hypersalivation und Obstipation.',
+        },
+        {
+          frage: 'Wie lange behandeln Sie nach Remission weiter?',
+          antwort: 'Nach einer Erstmanifestation mindestens ein bis zwei Jahre, nach einem Rezidiv zwei bis fünf Jahre, nach mehreren Rezidiven gegebenenfalls dauerhaft. Das Absetzen erfolgt nur ausschleichend über Monate unter engmaschiger Kontrolle, da das zu frühe Absetzen der häufigste Rückfallgrund ist.',
+        },
+        {
+          frage: 'Der Patient hat keine Krankheitseinsicht und lehnt die Aufnahme ab. Was tun Sie?',
+          antwort: 'Zuerst Beziehungsarbeit ohne Konfrontation: nicht über den Wahn streiten, sondern das Leiden ansprechen und die Aufnahme als Schutz und Entlastung anbieten, Angehörige einbeziehen, Zeit lassen und einen kurzfristigen Wiedervorstellungstermin vereinbaren. Ziel ist die freiwillige Behandlung. Nur bei akuter Selbst- oder Fremdgefährdung kommt eine Unterbringung nach dem Landesgesetz beziehungsweise dem Betreuungsrecht in Betracht — nach persönlicher ärztlicher Untersuchung, mit richterlicher Entscheidung, verhältnismäßig und dokumentiert.',
+        },
+        {
+          frage: 'Wie sprechen Sie mit einem Patienten über seinen Wahn?',
+          antwort: 'Ruhig, in kurzen klaren Sätzen und ohne den Inhalt zu diskutieren. Ich bestätige den Wahn nicht und widerlege ihn nicht, sondern nehme das Erleben ernst: „Ich glaube Ihnen, dass Sie das so erleben, und ich sehe, wie belastend das für Sie ist.“ Anschließend lenke ich auf die Folgen — Angst, Schlaflosigkeit, Rückzug — und auf konkrete Hilfsangebote.',
+        },
+        {
+          frage: 'Wie ist die Prognose, und wie hoch ist das Suizidrisiko?',
+          antwort: 'Es gilt grob die Drittelregel: ein Drittel Remission, ein Drittel rezidivierender Verlauf mit Residuum, ein Drittel chronischer Verlauf. Günstig sind akuter Beginn, erkennbarer Auslöser, gute prämorbide Anpassung, Positivsymptomatik, weibliches Geschlecht, kurze unbehandelte Psychosedauer und gute Adhärenz. Etwa 20 bis 40 Prozent unternehmen mindestens einen Suizidversuch, etwa 5 Prozent versterben durch Suizid; die Lebenserwartung ist im Mittel um etwa 15 Jahre verkürzt, vor allem durch kardiovaskuläre Erkrankungen.',
+        },
+        {
+          frage: 'Welche Rolle spielt Cannabis?',
+          antwort: 'Eine doppelte: Cannabis ist ein gesicherter Risikofaktor für die Entwicklung einer Schizophrenie, besonders bei frühem Konsumbeginn, täglichem Gebrauch und hochpotenten Sorten, es kann eine Episode auslösen und die Rezidivrate deutlich erhöhen. Zugleich ist die cannabisinduzierte Psychose eine wichtige Differenzialdiagnose. Deshalb sind Konsumanamnese, Drogenscreening und konsequente Karenz Teil der Behandlung.',
+        },
+      ],
+      merksatz: 'Junger Erwachsener, monatelanger Rückzug und Leistungsknick, dann Wahn, kommentierende oder dialogisierende Stimmen und ICH-STÖRUNGEN bei klarem Bewusstsein — Schizophrenie. Klinische Diagnose, aber MRT, EEG, Labor und Drogenscreening schließen das Organische aus; Suizidalität, Fremdgefährdung und Cannabis immer aktiv erfragen; Wahn weder bestätigen noch widerlegen; Antipsychotikum der zweiten Generation einschleichend, EKG mit QTc VOR Beginn, Clozapin nur mit Blutbild — und die Erhaltungstherapie lange genug fortführen.',
+      linkedCaseIds: [
+        'case-schizophrenie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-lumbalpunktion',
+      ],
+    },
+    {
+      id: 'fw-delir',
+      pathology: 'Delir (akuter Verwirrtheitszustand)',
+      specialty: 'Psychiatrie',
+      definition: 'Das Delir ist ein akut bis subakut, innerhalb von Stunden bis Tagen auftretendes und im Tagesverlauf FLUKTUIERENDES hirnorganisches Syndrom mit Störung der AUFMERKSAMKEIT und des Bewusstseins, Desorientiertheit, Denk-, Wahrnehmungs- und Gedächtnisstörungen sowie gestörtem Schlaf-Wach-Rhythmus. Entscheidend: Das Delir ist KEINE eigenständige Krankheit, sondern das unspezifische Symptom einer zugrunde liegenden körperlichen Ursache — ein medizinischer NOTFALL mit deutlich erhöhter Sterblichkeit. Man unterscheidet die hyperaktive Form (Unruhe, Agitation, Aggressivität, Entfernen von Zugängen), die hypoaktive Form (Apathie, Somnolenz, Rückzug — häufig übersehen, schlechtere Prognose) und die gemischte Form. Das Alkoholentzugsdelir (Delirium tremens) ist die Sonderform mit zusätzlicher vegetativer Entgleisung.',
+      aetiologie: 'Immer multifaktoriell: prädisponierende Faktoren (hohes Lebensalter, vorbestehende Demenz oder leichte kognitive Störung, Multimorbidität, Polypharmazie, Seh- und Hörminderung, Immobilität, Mangelernährung, frühere Delirien) treffen auf einen akuten Auslöser. Auslöser systematisch: INFEKTIONEN (beim alten Menschen an erster Stelle Harnwegsinfekt und Pneumonie, auch Sepsis); MEDIKAMENTE mit anticholinerger Wirkung (Oxybutynin, Amitriptylin, Antihistaminika, Butylscopolamin), Benzodiazepine, Z-Substanzen, Opioide, Kortikosteroide, Dopaminergika sowie jede Polypharmazie; ENTZUG von Alkohol oder Benzodiazepinen; Exsikkose und Elektrolytstörungen (Hyponatriämie, Hyperkalzämie); Hypo- und Hyperglykämie; Hypoxie; Niereninsuffizienz und Leberversagen; SCHMERZ, HARNVERHALT und Obstipation als banale, oft übersehene Ursachen; Schädel-Hirn-Trauma und chronisch subdurales Hämatom nach Sturz; Schlaganfall, Myokardinfarkt, Lungenembolie; Schilddrüsenfunktionsstörungen; Vitamin-B1-Mangel (Wernicke-Enzephalopathie); Operationen und Narkose (postoperatives Delir). Dazu Umgebungsfaktoren: fehlende Brille und fehlendes Hörgerät, Fixierung, Blasenkatheter, Schlafentzug, Intensivstation, Zimmer- und Krankenhauswechsel.',
+      risikofaktoren: [
+        'Alter über 65 Jahre — das wichtigste prädisponierende Merkmal',
+        'vorbestehende Demenz oder leichte kognitive Störung — die stärkste Risikokonstellation überhaupt (Delir BEI Demenz)',
+        'Polypharmazie und delirogene Medikamente (anticholinerg, Benzodiazepine, Opioide, Kortikosteroide)',
+        'Operation, insbesondere Hüft- und Herzchirurgie sowie Notfalleingriffe',
+        'Infektion, Fieber, Sepsis',
+        'Exsikkose, Mangelernährung, Elektrolytstörungen',
+        'Seh- und Hörminderung ohne Brille oder Hörgerät',
+        'Immobilität, Fixierung, Blasenkatheter, Schlafentzug, Intensivstation',
+        'Alkohol- oder Benzodiazepinabhängigkeit',
+        'Multimorbidität, Nieren- und Leberinsuffizienz',
+        'frühere delirante Episoden',
+        'Schmerz und unzureichende Analgesie',
+      ],
+      klinik: [
+        {
+          text: 'AKUTER Beginn innerhalb von Stunden bis Tagen — das Zeitprofil ist das entscheidende Merkmal',
+        },
+        {
+          text: 'FLUKTUIERENDER Verlauf mit luziden Intervallen und abendlicher bis nächtlicher Verschlechterung (Sundowning)',
+        },
+        {
+          text: 'Störung der Aufmerksamkeit: Ablenkbarkeit, Unfähigkeit, einem Gespräch zu folgen, Verlieren des Fadens mitten im Satz',
+        },
+        {
+          text: 'Bewusstseinsstörung: qualitativ (Bewusstseinstrübung) und quantitativ (Somnolenz bis Sopor)',
+        },
+        {
+          text: 'Desorientiertheit zu Zeit, Ort und Situation, im Verlauf auch zur Person',
+        },
+        {
+          text: 'Denkstörungen mit inkohärentem Denken, Wahnideen, häufig Beeinträchtigungs- und Bestehlungsideen',
+        },
+        {
+          text: 'optische Halluzinationen und Illusionen (kleine Tiere, Fäden, Personen) — im Gegensatz zu den akustischen Halluzinationen der Schizophrenie',
+        },
+        {
+          text: 'Störung des Schlaf-Wach-Rhythmus bis zur Umkehr: nachts wach und unruhig, tagsüber schläfrig',
+        },
+        {
+          text: 'Hyperaktive Form: psychomotorische Unruhe, Agitation, Aggressivität, Umherlaufen, Ziehen an Zugängen und Kathetern — sie fällt auf',
+        },
+        {
+          text: 'Hypoaktive Form: Apathie, Somnolenz, Verlangsamung, Rückzug — sie wird HÄUFIG ÜBERSEHEN und hat die SCHLECHTERE Prognose',
+          atypisch: true,
+        },
+        {
+          text: 'gemischte Form mit Wechsel zwischen Hyper- und Hypoaktivität innerhalb eines Tages',
+        },
+        {
+          text: 'affektive Auffälligkeiten: Angst, Reizbarkeit, Ratlosigkeit, rasche Stimmungswechsel',
+        },
+        {
+          text: 'Alkoholentzugsdelir zusätzlich mit vegetativer Entgleisung: grobschlägiger Tremor, Schwitzen, Tachykardie, Hypertonie, Fieber, Mydriasis, Gefahr des Grand-mal-Anfalls',
+          atypisch: true,
+        },
+        {
+          text: 'beim alten Menschen kann das Delir das EINZIGE Symptom eines Harnwegsinfekts, einer Pneumonie oder eines Myokardinfarkts sein (stumme Präsentation)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Formen des Delirs nach Psychomotorik',
+          inhalt: 'Hyperaktives Delir (etwa 25 %): Unruhe, Agitation, Aggressivität, Halluzinationen — wird zuverlässig erkannt. Hypoaktives Delir (etwa 45 %): Apathie, Somnolenz, Rückzug — wird in über der Hälfte der Fälle übersehen und hat die schlechteste Prognose. Gemischtes Delir (etwa 30 %): Wechsel beider Bilder im Tagesverlauf.',
+        },
+        {
+          name: 'CAM — Confusion Assessment Method (Screening)',
+          inhalt: 'Delir wahrscheinlich, wenn Kriterium 1 UND 2 vorliegen und zusätzlich 3 ODER 4: (1) akuter Beginn und fluktuierender Verlauf, (2) Aufmerksamkeitsstörung, (3) desorganisiertes Denken, (4) Bewusstseinsveränderung. Auf der Intensivstation als CAM-ICU, alternativ das 4AT (Wachheit, AMT-4, Aufmerksamkeit über Monate rückwärts, akute Veränderung).',
+        },
+        {
+          name: 'Stadien des Alkoholentzugs',
+          inhalt: 'Stadium I (6–24 h): vegetative Symptomatik mit Tremor, Schwitzen, Tachykardie, Hypertonie, Unruhe, Übelkeit. Stadium II (24–48 h): zusätzlich Entzugskrampfanfälle (Grand mal). Stadium III (48–72 h, bis 5 Tage): Delirium tremens mit Desorientiertheit, optischen Halluzinationen, Suggestibilität und vegetativer Entgleisung — unbehandelt bis 20 % Letalität, behandelt unter 5 %.',
+        },
+        {
+          name: 'ICD-10-Einteilung',
+          inhalt: 'F05: Delir, nicht durch Alkohol oder andere psychotrope Substanzen bedingt (F05.0 ohne Demenz, F05.1 bei Demenz). F10.4: Alkoholentzugssyndrom mit Delir (Delirium tremens). F13.4: Entzugssyndrom mit Delir bei Sedativa und Hypnotika.',
+        },
+      ],
+      redFlags: [
+        'Blutzucker nicht gemessen — Hypoglykämie ist die schnellste reversible Ursache und muss SOFORT ausgeschlossen werden',
+        'fokal-neurologisches Defizit, Meningismus oder Anisokorie → Schlaganfall, Blutung, Meningoenzephalitis',
+        'Sturz oder Schädel-Hirn-Trauma in der Vorgeschichte, insbesondere unter Antikoagulation oder Thrombozytenaggregationshemmung → chronisch subdurales Hämatom, kraniale Computertomographie zwingend',
+        'Fieber, Tachykardie, Hypotonie, Tachypnoe → Sepsis',
+        'Sauerstoffsättigung unter 90 % oder Zyanose → Hypoxie, Pneumonie, Lungenembolie',
+        'Tremor, Schwitzen, Tachykardie und Hypertonie bei bekanntem Alkoholkonsum → drohendes Delirium tremens mit Krampfanfallrisiko',
+        'Trias aus Ophthalmoplegie, Ataxie und Verwirrtheit → Wernicke-Enzephalopathie, sofort Thiamin vor jeder Glukosegabe',
+        'hypoaktives Bild mit Somnolenz — nicht als Erschöpfung oder Depression abtun, sondern als Delir mit schlechter Prognose werten',
+        'Blickdeviation, Automatismen, fehlende Reagibilität ohne motorische Entäußerung → nicht konvulsiver Status epilepticus, EEG',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'FREMDANAMNESE mit Angehörigen oder Pflegenden — unverzichtbar: Was hat sich verändert, seit WANN genau, wie war der Patient vorher (kognitiver Ausgangszustand), und schwankt es im Tagesverlauf?',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'vollständige MEDIKAMENTENLISTE einschließlich neu angesetzter UND abgesetzter Präparate, Selbstmedikation, Schlaf- und Beruhigungsmittel; gezielte Frage nach Alkohol- und Benzodiazepinkonsum sowie nach dem Zeitpunkt der letzten Einnahme',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Screening mit der CAM (Confusion Assessment Method) oder dem 4AT; orientierende kognitive Prüfung (Monate rückwärts, Aufmerksamkeit), Beurteilung von Bewusstsein und Psychomotorik',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter einschließlich Temperatur, Blutdruck, Puls, Atemfrequenz und Sauerstoffsättigung sowie BLUTZUCKER SOFORT am Krankenbett',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'vollständige körperliche Untersuchung mit Hydratationszustand, Auskultation von Herz und Lunge, Abdomen mit Blasenpalpation, Wund- und Hautinspektion, Suche nach Sturzverletzungen und Prellmarken am Kopf',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'orientierende neurologische Untersuchung: Pupillen, Hirnnerven, Meningismus, Paresen, Sensibilität, Reflexe, Tremor — Suche nach fokalen Defiziten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, CRP und Procalcitonin (Infektfokus), Blutkulturen bei Fieber',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte (Natrium, Kalium, Kalzium), Nierenwerte mit Kreatinin und Harnstoff, Leberwerte einschließlich Ammoniak bei Verdacht auf hepatische Enzephalopathie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutzucker, TSH, Vitamin B12 und Folsäure, bei Alkoholanamnese zusätzlich Thiamin-Status, CDT und Gamma-GT',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgasanalyse (Hypoxie, Hyperkapnie, Azidose), bei entsprechendem Verdacht Troponin und D-Dimere sowie ein Medikamenten- und Drogenscreening',
+        },
+        {
+          stufe: 'Labor',
+          text: 'URINSTATUS und Urinkultur — der Harnwegsinfekt ist beim alten Menschen die häufigste Ursache und darf nicht übersehen werden',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'sonographische RESTHARNBESTIMMUNG (Blasenscan), um einen Harnverhalt als banale und sofort behebbare Ursache nicht zu übersehen; Sonographie von Abdomen und Nieren',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG: Rhythmusstörungen, stummer Myokardinfarkt, QT-Zeit vor jeder Gabe eines Antipsychotikums',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax zum Ausschluss einer Pneumonie oder Stauung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'kraniale COMPUTERTOMOGRAPHIE bei Sturz oder Schädel-Hirn-Trauma, fokal-neurologischem Defizit, Antikoagulation oder wenn die Ursache unklar bleibt — Frage nach subduralem Hämatom, Blutung, Infarkt, Raumforderung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'EEG bei fortbestehender Unklarheit: Allgemeinveränderung mit Verlangsamung beim Delir, Ausschluss eines nicht konvulsiven Status epilepticus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion bei Fieber mit Meningismus, Kopfschmerz oder unklarer Enzephalopathie zum Ausschluss von Meningitis und Enzephalitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'nach Abklingen des Delirs eine ausführliche neuropsychologische Testung (MMST, DemTect, Uhrentest) zur Klärung einer zugrunde liegenden Demenz — im Delir selbst sind diese Tests NICHT verwertbar',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Demenz',
+          unterscheidung: 'Schleichender Beginn über Monate bis Jahre, stabiler oder langsam progredienter Verlauf ohne Fluktuation, KEINE Bewusstseinsstörung, Aufmerksamkeit lange erhalten, Halluzinationen selten. Beim Delir dagegen akuter Beginn über Stunden bis Tage, Fluktuation mit luziden Intervallen und gestörte Aufmerksamkeit.',
+        },
+        {
+          dd: 'Delir BEI vorbestehender Demenz',
+          unterscheidung: 'Der häufigste und wichtigste Sonderfall — die stärkste Risikokonstellation überhaupt. Entscheidend ist die Fremdanamnese: Jede AKUTE Verschlechterung gegenüber dem gewohnten kognitiven Ausgangszustand eines Dementen ist bis zum Beweis des Gegenteils ein Delir und muss körperlich abgeklärt werden.',
+        },
+        {
+          dd: 'Depression im Alter',
+          unterscheidung: 'Wird mit dem hypoaktiven Delir verwechselt: Antriebsminderung, Verlangsamung, Rückzug. Dagegen sprechen der akute Beginn, die Fluktuation und die Aufmerksamkeitsstörung; die Depression entwickelt sich über Wochen, das Bewusstsein ist klar, typisch sind Morgentief und durchgängig gedrückte Stimmung.',
+        },
+        {
+          dd: 'Alkohol- oder Benzodiazepinentzugsdelir',
+          unterscheidung: 'Zeitlicher Bezug zur letzten Einnahme (Alkohol 48–72 Stunden, Benzodiazepine je nach Halbwertszeit auch später), zusätzlich vegetative Entgleisung mit Tremor, Schwitzen, Tachykardie, Hypertonie und Krampfanfallrisiko. Therapeutisch der entscheidende Unterschied: hier sind Benzodiazepine das Mittel der Wahl.',
+        },
+        {
+          dd: 'Nicht konvulsiver Status epilepticus',
+          unterscheidung: 'Fluktuierende Bewusstseinsstörung ohne motorische Entäußerung, oft Blickdeviation und Automatismen, häufig Epilepsie oder Schlaganfall in der Vorgeschichte. Klärung ausschließlich durch das EEG.',
+        },
+        {
+          dd: 'Schlaganfall, insbesondere mit Aphasie oder Neglect',
+          unterscheidung: 'Eine Wernicke-Aphasie wird leicht als Verwirrtheit fehlgedeutet. Es fehlen jedoch die Fluktuation und die Bewusstseinsstörung, dafür bestehen fokale Defizite. Klärung durch neurologische Untersuchung und zerebrale Bildgebung.',
+        },
+        {
+          dd: 'Chronisch subdurales Hämatom',
+          unterscheidung: 'Nach einem oft banalen Sturz, besonders unter Antikoagulation oder Thrombozytenaggregationshemmung; langsam progrediente Wesensänderung, Kopfschmerz, wechselnde Vigilanz. Beweis durch die kraniale Computertomographie.',
+        },
+        {
+          dd: 'Wernicke-Enzephalopathie',
+          unterscheidung: 'Trias aus Verwirrtheit, Ophthalmoplegie und Ataxie bei Thiaminmangel (Alkoholismus, Mangelernährung, Hyperemesis). Sofortige hochdosierte Thiamingabe VOR jeder Glukosezufuhr, sonst Übergang in das Korsakow-Syndrom.',
+        },
+        {
+          dd: 'Hypoglykämie und andere metabolische Entgleisungen',
+          unterscheidung: 'Hypoglykämie mit Schwitzen, Tachykardie und Verwirrtheit — sofort mit dem Blutzuckerstix auszuschließen und in Minuten reversibel. Ebenso Hyponatriämie, Hyperkalzämie, Urämie, hepatische Enzephalopathie mit Flapping Tremor und Hyperthyreose.',
+        },
+        {
+          dd: 'Primär psychotische Störung (Schizophrenie, wahnhafte Störung)',
+          unterscheidung: 'Klares Bewusstsein und erhaltene Orientierung, überwiegend AKUSTISCHE Halluzinationen und systematisierter Wahn, meist jüngeres Ersterkrankungsalter und bekannte psychiatrische Vorgeschichte — beim Delir dominieren optische Halluzinationen und die Bewusstseinsstörung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Kausale Therapie der auslösenden Ursache',
+          items: [
+            'Grundsatz: Die eigentliche Therapie des Delirs ist die Behandlung der URSACHE — die Aufgabe besteht darin, sie zu finden, nicht den Patienten ruhigzustellen',
+            'Infektion behandeln: kalkulierte Antibiotikatherapie bei Harnwegsinfekt, Pneumonie oder Sepsis nach Abnahme von Urin- und Blutkulturen',
+            'Volumen- und Elektrolytausgleich bei Exsikkose, Hyponatriämie oder Hyperkalzämie; Blutzucker korrigieren; Sauerstoff bei Hypoxie',
+            'SCHMERZ suffizient behandeln — unbehandelter Schmerz unterhält das Delir; bevorzugt feste Basisanalgesie mit Paracetamol oder Metamizol, Opioide so niedrig wie möglich, kein Pethidin',
+            'HARNVERHALT sonographisch ausschließen und entlasten, Obstipation beheben — beides sind banale, sofort behebbare und häufig übersehene Ursachen',
+            'kritische DURCHSICHT DER MEDIKATION: auslösende Präparate absetzen oder ersetzen — anticholinerge Substanzen, Benzodiazepine, Z-Substanzen, Opioide, Kortikosteroide; dies ist oft die wirksamste Einzelmaßnahme',
+            'bei Verdacht auf Thiaminmangel hochdosiertes Thiamin VOR jeder Glukosegabe',
+            'Blasenkatheter, Zugänge und Fixierungen konsequent auf ihre Notwendigkeit prüfen und so früh wie möglich entfernen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nichtmedikamentöse Basismaßnahmen',
+          items: [
+            'Diese Maßnahmen kommen als ERSTES und haben die beste Evidenz — sie senken Häufigkeit und Dauer des Delirs nachweislich',
+            'Reorientierung: gut sichtbare Uhr und Kalender, wiederholte namentliche Ansprache, kurze klare Sätze, Erklärung jeder Maßnahme, bekannte Gegenstände und Fotos aus der häuslichen Umgebung',
+            'BRILLE und HÖRGERÄT zurückgeben und die Funktion prüfen — sensorische Deprivation ist ein eigenständiger Delirfaktor',
+            'ruhige, ausreichend beleuchtete Umgebung, nachts gedämpftes Licht, Lärm und Zimmerwechsel vermeiden',
+            'Wiederherstellung des Tag-Nacht-Rhythmus und Schlafhygiene: tagsüber Licht und Aktivierung, nachts ungestörte Ruhephasen ohne Routinemaßnahmen',
+            'Frühmobilisation und Physiotherapie, Vermeidung von Immobilität und Bettruhe',
+            'Einbeziehung der ANGEHÖRIGEN, Rooming-in ermöglichen — vertraute Bezugspersonen wirken besser als jedes Medikament',
+            'auf ausreichendes Trinken und Essen achten, Ernährungszustand und Zahnprothese berücksichtigen',
+            'Vermeidung von Kathetern, Zugängen und insbesondere von FIXIERUNG — Fixierung verstärkt Agitation und Delir und ist rechtlich nur als letztes Mittel und mit richterlicher Genehmigung zulässig',
+          ],
+        },
+        {
+          label: 'Zurückhaltende medikamentöse Therapie',
+          items: [
+            'Indikation nur bei Eigen- oder Fremdgefährdung, bei quälenden Halluzinationen oder wenn die notwendige Behandlung sonst nicht durchführbar ist — niedrigste wirksame Dosis, kürzeste Dauer, tägliche Reevaluation',
+            'bei produktiver Symptomatik niedrig dosiertes Haloperidol (oral bevorzugt, z. B. 0,5 mg, beim alten Menschen maximal etwa 5 mg pro Tag) oder Risperidon 0,5 mg; vorher EKG mit QT-Zeit, Cave extrapyramidale Nebenwirkungen',
+            'AUSNAHME, die man wissen muss: Beim ALKOHOL- oder BENZODIAZEPINENTZUGSDELIR sind BENZODIAZEPINE das Mittel der Wahl (z. B. Diazepam oder Lorazepam symptomorientiert nach CIWA-Score), zusammen mit THIAMIN vor jeder Glukosegabe; ergänzend Clomethiazol, bei produktiver Symptomatik zusätzlich Haloperidol',
+            'Antipsychotika beim Parkinson-Patienten und bei der Lewy-Body-Demenz VERMEIDEN — stattdessen Quetiapin oder Clozapin, da klassische Antipsychotika dort schwere Rigidität auslösen können',
+            'KEINE Benzodiazepine beim nicht entzugsbedingten Delir — sie verlängern und verschlimmern es; ebenso keine anticholinergen Substanzen und kein Promethazin',
+            'bei ausgeprägter nächtlicher Unruhe kann alternativ niedrig dosiertes Melperon oder Pipamperon eingesetzt werden',
+            'Antipsychotika nach Abklingen des Delirs konsequent wieder absetzen — sie dürfen nicht zur Dauermedikation werden',
+          ],
+        },
+        {
+          label: 'Prävention, Verlauf und Aufklärung der Angehörigen',
+          items: [
+            'Risikopatienten VOR Operationen identifizieren (Alter, Demenz, Polypharmazie, Sinnesbeeinträchtigung) und ein Delirpräventionskonzept als Stationsstandard umsetzen',
+            'präoperativ: Medikation entschlacken, Nüchternzeiten kurz halten, Regionalanästhesie erwägen, postoperativ frühe Mobilisation und suffiziente Analgesie',
+            'systematisches Delirscreening mit CAM oder 4AT mindestens einmal pro Schicht bei Risikopatienten — sonst wird die hypoaktive Form übersehen',
+            'Aufklärung der Angehörigen: Das Delir ist in der Regel rückbildungsfähig, die Erholung dauert jedoch oft WOCHEN bis Monate und verläuft in Wellen',
+            'ehrlich benennen, dass ein durchgemachtes Delir das Risiko einer bleibenden kognitiven Verschlechterung und einer späteren Demenz erhöht und mit erhöhter Sterblichkeit sowie Pflegebedürftigkeit einhergeht',
+            'Entlassplanung: Nachkontrolle der Kognition nach Abklingen, Hausarztinformation über abgesetzte Medikamente, Sozialdienst, Pflegegrad, Hilfsmittel und häusliche Unterstützung organisieren',
+          ],
+        },
+      ],
+      prognose: 'Das Delir ist grundsätzlich reversibel, sobald die Ursache behandelt ist — es ist aber kein harmloses Ereignis. Die Krankenhaussterblichkeit liegt bei 20 bis 30 Prozent, beim unbehandelten Delirium tremens bei bis zu 20 Prozent, unter adäquater Therapie unter 5 Prozent. Die hypoaktive Form hat die schlechteste Prognose, weil sie am häufigsten übersehen wird. Die kognitive Erholung zieht sich häufig über Wochen bis Monate hin und verläuft fluktuierend; bei etwa einem Drittel der Betroffenen bleibt eine kognitive Verschlechterung zurück, und das Risiko, in den Folgejahren eine Demenz zu entwickeln, ist deutlich erhöht. Ein durchgemachtes Delir ist außerdem mit längerer Liegedauer, höherer Komplikationsrate, Verlust der Selbstständigkeit und häufigerer Heimaufnahme verbunden. Entscheidend für die Prognose sind die frühe Erkennung, die rasche Behandlung der Ursache und die konsequente nichtmedikamentöse Betreuung.',
+      pruefungsfallen: [
+        'Der häufigste Fehler: das Delir als eigenständige Krankheit behandeln und sedieren, statt die URSACHE zu suchen. Das Delir ist ein Symptom und ein Notfall — die richtige Antwort beginnt immer mit der Ursachensuche.',
+        'Die HYPOAKTIVE Form nicht vergessen: Sie ist häufiger als die hyperaktive, wird in über der Hälfte der Fälle übersehen und hat die SCHLECHTERE Prognose. Genau das will der Prüfer hören.',
+        'Die Abgrenzung zur Demenz sauber über das ZEITPROFIL führen: akuter Beginn, Fluktuation und Bewusstseinsstörung beim Delir; schleichender Beginn, stabiler Verlauf und klares Bewusstsein bei der Demenz. Und den Sonderfall Delir BEI Demenz aktiv nennen.',
+        'Benzodiazepine sind beim gewöhnlichen Delir KONTRAINDIZIERT (sie verschlimmern es) — beim ALKOHOL- und Benzodiazepinentzugsdelir sind sie dagegen Mittel der WAHL. Diese Umkehrung wird sehr gern geprüft.',
+        'Beim Parkinson-Patienten und bei der Lewy-Body-Demenz keine klassischen Antipsychotika — Quetiapin oder Clozapin stattdessen.',
+        'Thiamin IMMER VOR der Glukosegabe bei Alkoholanamnese, sonst droht die Wernicke-Enzephalopathie.',
+        'Den Blutzucker sofort messen — die Hypoglykämie ist die schnellste reversible Ursache und wird unter Zeitdruck vergessen.',
+        'Banale Ursachen nicht übersehen: HARNVERHALT (Restharnbestimmung!), Obstipation, Schmerz, fehlende Brille und fehlendes Hörgerät. Prüfer honorieren, wenn diese genannt werden.',
+        'Die vollständige Medikamentenanamnese mit NEU ANGESETZTEN und ABGESETZTEN Präparaten erheben — die Medikamentenrevision ist oft die wirksamste Therapie.',
+        'Nach einem Sturz und unter Thrombozytenaggregationshemmung gehört die kraniale Computertomographie zwingend dazu (subdurales Hämatom).',
+        'Fixierung ist keine Therapie: Sie verstärkt das Delir, ist rechtlich streng geregelt und darf nur als letztes Mittel eingesetzt werden.',
+        'Die Fremdanamnese ausdrücklich als diagnostischen Schritt nennen — ohne sie ist weder der Zeitverlauf noch der kognitive Ausgangszustand zu klären.',
+        'Bei Alkoholabhängigkeit den Alkohol niemals abrupt und unbegleitet absetzen lassen: Der plötzliche Entzug ist gefährlich und kann Krampfanfall und Delirium tremens auslösen — ein Prüfer in Stuttgart hat genau danach gefragt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie äußert sich ein Alkoholdelir?',
+          antwort: 'Das Delirium tremens tritt typischerweise 48 bis 72 Stunden nach der letzten Alkoholzufuhr auf. Psychisch bestehen Desorientiertheit, Aufmerksamkeits- und Bewusstseinsstörung, Suggestibilität, ausgeprägte psychomotorische Unruhe und szenische OPTISCHE Halluzinationen, klassisch kleine Tiere und weiße Mäuse. Vegetativ finden sich grobschlägiger Tremor, starkes Schwitzen, Tachykardie, Hypertonie, Fieber und Mydriasis. Gefürchtet sind der Grand-mal-Anfall und die vegetative Entgleisung; unbehandelt liegt die Letalität bei bis zu 20 Prozent.',
+        },
+        {
+          frage: 'Welche Entzugserscheinungen kennen Sie bei Alkoholabhängigkeit?',
+          antwort: 'Innerhalb von 6 bis 24 Stunden Unruhe, Angst, Schlafstörung, Tremor, Schwitzen, Tachykardie, Hypertonie, Übelkeit, Erbrechen, Diarrhoe und Kopfschmerzen. Nach 24 bis 48 Stunden können Entzugskrampfanfälle auftreten, und nach 48 bis 72 Stunden das DELIRIUM TREMENS als schwerste Form — dieses Wort gehört ausdrücklich in die Antwort.',
+        },
+        {
+          frage: 'Der Patient ist alkoholabhängig — wie würden Sie ihn therapieren?',
+          antwort: 'Ein qualifizierter Alkoholentzug unter stationärer Überwachung mit symptomorientierter medikamentöser Behandlung nach CIWA-Score (Benzodiazepine oder Clomethiazol), begleitet von Thiamin- und Elektrolytsubstitution. Anschließend die Entwöhnungsbehandlung mit Psychotherapie, Suchtberatung, Selbsthilfegruppe und gegebenenfalls Rückfallprophylaxe mit Acamprosat oder Naltrexon.',
+        },
+        {
+          frage: 'Darf der Patient den Alkohol einfach plötzlich weglassen?',
+          antwort: 'Nein. Bei bestehender Abhängigkeit ist der abrupte, unbegleitete Entzug gefährlich: Er kann ein Entzugssyndrom mit Krampfanfall und ein Delirium tremens auslösen, das lebensbedrohlich ist. Der Entzug gehört deshalb ärztlich begleitet und in der Regel stationär überwacht.',
+        },
+        {
+          frage: 'Warum hat dieser Patient einen Tremor?',
+          antwort: 'Am wahrscheinlichsten als Ausdruck eines Alkoholentzugs. Differenzialdiagnostisch kommen ein essenzieller Tremor, ein Parkinson-Ruhetremor, eine Hyperthyreose, eine Hypoglykämie sowie medikamentös bedingter Tremor in Betracht.',
+        },
+        {
+          frage: 'Was ist ein Delir, und warum ist es ein Notfall?',
+          antwort: 'Ein akut einsetzendes, fluktuierendes hirnorganisches Syndrom mit Aufmerksamkeits- und Bewusstseinsstörung. Es ist keine eigenständige Krankheit, sondern das Symptom einer körperlichen Ursache — und ein Notfall, weil diese Ursache lebensbedrohlich sein kann und weil das Delir selbst mit erhöhter Sterblichkeit, längerer Liegedauer und bleibender kognitiver Verschlechterung einhergeht.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie ein Delir von einer Demenz?',
+          antwort: 'Über den Zeitverlauf und das Bewusstsein: Das Delir beginnt akut über Stunden bis Tage, fluktuiert mit luziden Intervallen und abendlicher Verschlechterung und geht mit gestörter Aufmerksamkeit und Bewusstseinstrübung einher. Die Demenz beginnt schleichend über Monate bis Jahre, verläuft stabil progredient und lässt das Bewusstsein klar. Wichtig ist der Sonderfall des Delirs BEI vorbestehender Demenz.',
+        },
+        {
+          frage: 'Welche Ursachen eines Delirs kennen Sie?',
+          antwort: 'Systematisch: Infektionen, beim alten Menschen vor allem Harnwegsinfekt und Pneumonie; Medikamente, insbesondere anticholinerge Substanzen, Benzodiazepine, Opioide, Kortikosteroide und Polypharmazie; Entzug von Alkohol oder Benzodiazepinen; Exsikkose und Elektrolytstörungen; Hypo- und Hyperglykämie; Hypoxie; Nieren- und Leberversagen; Schmerz, Harnverhalt und Obstipation; Schädel-Hirn-Trauma und subdurales Hämatom; Schlaganfall und Myokardinfarkt; Schilddrüsenstörungen; Vitamin-B1-Mangel. Dazu Umgebungsfaktoren wie fehlende Brille und Hörgerät, Fixierung, Blasenkatheter und Schlafentzug.',
+        },
+        {
+          frage: 'Wie gehen Sie diagnostisch vor? Welche Laborwerte bestimmen Sie?',
+          antwort: 'Fremdanamnese mit Zeitverlauf und vollständiger Medikamentenliste, CAM oder 4AT, körperliche und neurologische Untersuchung, Vitalparameter mit Sauerstoffsättigung und sofort den Blutzucker. Im Labor Blutbild, CRP, Elektrolyte, Nieren- und Leberwerte, TSH, Vitamin B12, Blutgasanalyse und Blutkulturen bei Fieber, dazu Urinstatus und Urinkultur. Apparativ Restharnbestimmung, EKG, Röntgen-Thorax und bei Sturz oder unklarer Ursache eine kraniale Computertomographie; bei fortbestehender Unklarheit EEG und Liquorpunktion.',
+        },
+        {
+          frage: 'Wie behandeln Sie das Delir?',
+          antwort: 'An erster Stelle kausal: die auslösende Ursache behandeln, also Infekt therapieren, Volumen und Elektrolyte ausgleichen, Sauerstoff geben, Schmerz behandeln, Harnverhalt und Obstipation beheben und vor allem die delirogenen Medikamente absetzen. Parallel die nichtmedikamentösen Basismaßnahmen mit Reorientierung, Brille und Hörgerät, ruhiger Umgebung, Tag-Nacht-Rhythmus, Frühmobilisation und Einbeziehung der Angehörigen. Medikamente nur zurückhaltend bei Gefährdung: niedrig dosiertes Haloperidol oder Risperidon — und beim Entzugsdelir stattdessen Benzodiazepine plus Thiamin.',
+        },
+        {
+          frage: 'Warum darf man beim gewöhnlichen Delir keine Benzodiazepine geben?',
+          antwort: 'Weil sie das Delir verlängern und verschlimmern: Sie verstärken die Bewusstseinstrübung, führen paradox zu Unruhe, erhöhen die Sturz- und Aspirationsgefahr. Die einzige Ausnahme ist das Alkohol- oder Benzodiazepinentzugsdelir — dort sind sie das Mittel der Wahl.',
+        },
+        {
+          frage: 'Welche Form des Delirs wird am häufigsten übersehen?',
+          antwort: 'Die hypoaktive Form mit Apathie, Somnolenz, Verlangsamung und Rückzug. Sie ist häufiger als die hyperaktive Form, wird oft als Erschöpfung oder Depression fehlgedeutet und hat die schlechtere Prognose. Deshalb ist ein systematisches Screening mit CAM oder 4AT notwendig.',
+        },
+        {
+          frage: 'Was tun Sie als Hausarzt für einen kognitiv beeinträchtigten Patienten, der allein lebt?',
+          antwort: 'Den SOZIALDIENST einschalten und die häusliche Versorgung organisieren: Pflegegrad beantragen, ambulanten Pflegedienst und Essen auf Rädern einrichten, Hausnotruf, Medikamentendispenser und Hilfsmittel, Wohnraumanpassung zur Sturzprophylaxe, Einbindung der Angehörigen sowie die Klärung von Vorsorgevollmacht und Patientenverfügung.',
+        },
+        {
+          frage: 'Wie klären Sie die Angehörigen auf?',
+          antwort: 'Ich erkläre, dass die Verwirrtheit Folge einer körperlichen Erkrankung und in aller Regel vorübergehend ist, dass die Besserung aber Wochen dauern kann und in Wellen verläuft. Ich bitte um ihre Mithilfe bei der Reorientierung und um Besuche, weise auf Brille und Hörgerät hin und spreche offen an, dass nach einem Delir das Risiko einer bleibenden kognitiven Verschlechterung erhöht ist.',
+        },
+      ],
+      merksatz: 'Akut, fluktuierend, abends schlimmer, Aufmerksamkeit weg — das ist ein Delir und damit ein NOTFALL: Suche die Ursache (Infekt, Medikamente, Exsikkose, Schmerz, Harnverhalt), sediere sie nicht. Erst Reorientierung, Brille und Hörgerät, dann allenfalls niedrig dosiertes Haloperidol — Benzodiazepine NUR beim Entzugsdelir, und Thiamin immer vor der Glukose.',
+      linkedCaseIds: [
+        'case-delir',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-sonographie',
+        'auf-lumbalpunktion',
+      ],
+    },
+    {
+      id: 'fw-achalasie',
+      pathology: 'Achalasie',
+      specialty: 'Gastroenterologie',
+      definition: 'Die Achalasie ist eine primäre Motilitätsstörung des Ösophagus durch Degeneration der inhibitorischen (NO- und VIP-produzierenden) Neurone des Plexus myentericus (Auerbach). Daraus folgen die beiden Kernbefunde, die zugleich die Therapie erklären: eine FEHLENDE ERSCHLAFFUNG des unteren Ösophagussphinkters beim Schluckakt und eine AUFGEHOBENE PERISTALTIK des tubulären Ösophagus. Die Speise staut sich vor dem funktionell verschlossenen Sphinkter, der Ösophagus dilatiert im Verlauf. Die Erkrankung ist selten (Inzidenz etwa 1 pro 100 000 Einwohner und Jahr), betrifft Männer und Frauen gleich häufig mit einem Gipfel zwischen dem 30. und 60. Lebensjahr und ist NICHT heilbar — alle Verfahren senken lediglich den Druck des unteren Sphinkters und lindern die Beschwerden, die Peristaltik kehrt nicht zurück.',
+      aetiologie: 'Am häufigsten primär (idiopathisch): chronisch-entzündliche, vermutlich autoimmune Degeneration der inhibitorischen Ganglienzellen, teils nach viralem Trigger bei genetischer Prädisposition. Sekundär: Chagas-Krankheit durch Trypanosoma cruzi (Reise- oder Migrationsanamnese Mittel- und Südamerika); vor allem aber die PSEUDOACHALASIE durch ein Kardiakarzinom, ein distales Ösophaguskarzinom oder eine Tumorinfiltration von außen (Bronchialkarzinom, Lymphom), die das Bild vollständig imitiert. Selten beim Triple-A-Syndrom (Allgrove: Achalasie, Alakrimie, ACTH-Resistenz) oder nach zu enger Fundoplikatio bzw. Magenband.',
+      risikofaktoren: [
+        'Keine klassischen Lebensstilfaktoren — Rauchen und Alkohol spielen anders als beim Ösophaguskarzinom KEINE Rolle',
+        'Alter zwischen 30 und 60 Jahren, Männer und Frauen gleich häufig betroffen',
+        'Genetische Prädisposition (HLA-Assoziation), selten familiäre Häufung',
+        'Autoimmunerkrankungen in der Eigen- oder Familienanamnese (z. B. Hashimoto-Thyreoiditis)',
+        'Aufenthalt oder Herkunft aus Mittel- und Südamerika (Chagas-Krankheit)',
+        'Für die sekundäre Pseudoachalasie: Alter über 55 Jahre, kurze Anamnese unter sechs Monaten, rascher Gewichtsverlust',
+      ],
+      klinik: [
+        {
+          text: 'Leitsymptom DYSPHAGIE für FESTE UND FLÜSSIGE Speisen gleichermaßen, oft sogar stärker für Flüssigkeiten — der entscheidende Unterschied zur mechanischen Stenose',
+        },
+        {
+          text: 'Langsam progredienter Verlauf über MONATE BIS JAHRE mit wechselnder Ausprägung (bessere und schlechtere Phasen), nicht rasch zunehmend',
+        },
+        {
+          text: 'REGURGITATION unverdauter, NICHT saurer Speisereste, besonders im Liegen und nachts, mit Nässen des Kopfkissens',
+        },
+        {
+          text: 'Retrosternales Druck- und Engegefühl, teils krampfartige Thoraxschmerzen',
+        },
+        {
+          text: 'Sodbrennen-ähnliche Beschwerden, die auf Protonenpumpenhemmer NICHT ansprechen — hoch diskriminierend; die Patienten werden oft jahrelang als Refluxkranke fehlbehandelt (Diagnoseverzögerung im Mittel mehrere Jahre)',
+        },
+        {
+          text: 'Langsamer Gewichtsverlust durch reduzierte Nahrungsaufnahme, bei erhaltenem Appetit',
+        },
+        {
+          text: 'Typische Anpassungsmanöver, nach denen aktiv gefragt werden muss: langsames Essen, kleine Bissen, viel Nachtrinken, Aufstehen und Strecken, um den Bissen durchrutschen zu lassen',
+        },
+        {
+          text: 'Nächtlicher Husten und rezidivierende Pneumonien durch ASPIRATION',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Bolusobstruktion mit akuter kompletter Dysphagie',
+          atypisch: true,
+        },
+        {
+          text: 'Führende Thoraxschmerzen ohne wesentliche Dysphagie (vor allem beim spastischen Typ III) — verwechselbar mit einem akuten Koronarsyndrom',
+          atypisch: true,
+        },
+        {
+          text: 'Sehr lange asymptomatische oder oligosymptomatische Phasen mit erst spät auffälligem Megaösophagus',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Chicago-Klassifikation (hochauflösende Manometrie)',
+          inhalt: 'Gemeinsames Kriterium aller Typen: erhöhter integrierter Relaxationsdruck (IRP) des unteren Ösophagussphinkters, also fehlende Erschlaffung. Typ I (klassisch): keine relevante Kontraktilität im tubulären Ösophagus. Typ II: panösophageale Druckerhöhung (Pressurisierung) bei mindestens 20 % der Schlucke — die häufigste Form und die mit dem besten Therapieansprechen. Typ III (spastisch): vorzeitige, spastische Kontraktionen; klinisch führend Thoraxschmerzen, spricht am besten auf die POEM an.',
+        },
+        {
+          name: 'Eckardt-Score (Symptom- und Verlaufsscore)',
+          inhalt: 'Vier Symptome — Dysphagie, Regurgitation, retrosternaler Schmerz und Gewichtsverlust — mit je 0 bis 3 Punkten, maximal 12 Punkte. Für die ersten drei: 0 = nie, 1 = gelegentlich, 2 = täglich, 3 = bei jeder Mahlzeit. Gewichtsverlust: 0 = keiner, 1 = unter 5 kg, 2 = 5 bis 10 kg, 3 = über 10 kg. Ein Wert von 3 oder weniger nach Therapie gilt als Remission.',
+        },
+        {
+          name: 'Radiologische Stadieneinteilung nach dem Ösophagusdurchmesser',
+          inhalt: 'Stadium I: Durchmesser unter 4 cm. Stadium II: 4 bis 6 cm. Stadium III: über 6 cm, sigmoidal geschlängelter Megaösophagus im Endstadium — hier ist häufig nur noch die Ösophagektomie wirksam.',
+        },
+      ],
+      redFlags: [
+        'Kurze Anamnese unter sechs Monaten, Alter über 55 Jahre und rascher, deutlicher Gewichtsverlust → dringender Verdacht auf eine PSEUDOACHALASIE bei Tumor',
+        'Neu aufgetretene Odynophagie, Hämatemesis, Teerstuhl oder Anämie → Karzinom oder Ulkus',
+        'Fieber, Husten und Auswurf, pulmonale Infiltrate → Aspirationspneumonie',
+        'Akute komplette Dysphagie mit Speichelfluss und Unfähigkeit zu schlucken → Bolusobstruktion, notfallmäßige Endoskopie',
+        'Heftigster retrosternaler Schmerz, Dyspnoe, Hautemphysem und Fieber nach Dilatation oder Endoskopie → Ösophagusperforation mit Mediastinitis, sofortige Bildgebung',
+        'Rezidiv der Dysphagie nach erfolgreicher Therapie → nie als „bekannte Achalasie“ abtun, erneut abklären',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Genaue Charakterisierung der Dysphagie: seit wann, für feste und/oder flüssige Speisen, Verlauf über Monate bis Jahre oder rasch progredient, wechselnde Ausprägung — das ist der wichtigste diagnostische Schritt überhaupt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Frage nach Regurgitation unverdauter, nicht saurer Speisereste, nach nächtlichem Aufwachen, nassem Kopfkissen, nächtlichem Husten und abgelaufenen Pneumonien',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Frage nach dem fehlenden Ansprechen auf Protonenpumpenhemmer und nach Anpassungsmanövern (langsames Essen, Nachtrinken, Aufstehen und Strecken)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erhebung von Größe, Gewicht, Gewichtsverlauf und BMI sowie des Ernährungs- und Allgemeinzustands; Berechnung des Eckardt-Scores als Ausgangswert',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Auskultation der Lunge (Aspiration), Inspektion des Rachens, Palpation der Halslymphknoten und Abdomenuntersuchung; orientierende neurologische Untersuchung zum Ausschluss einer oropharyngealen Dysphagie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, Ferritin und Eisenstatus (Anämie als Hinweis auf eine Blutungsquelle bzw. Mangelernährung), Gesamteiweiß und Albumin zur Beurteilung der Mangelernährung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CRP, Elektrolyte, Nierenwerte, Leberwerte, TSH und Blutzucker; kein Laborparameter beweist oder widerlegt die Achalasie — das Labor dient der Beurteilung von Ernährungszustand und Differenzialdiagnosen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei entsprechender Reise- oder Migrationsanamnese Serologie auf Trypanosoma cruzi (Chagas-Krankheit)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgenbreischluck mit wasserlöslichem Kontrastmittel oder Bariumbrei: klassisches SEKTGLAS- beziehungsweise VOGELSCHNABELBILD durch die glatte, spitz zulaufende Engstellung am Übergang zum Magen, prästenotische Dilatation des tubulären Ösophagus, fehlende Peristaltik, verzögerte Entleerung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax: verbreiterte Mediastinallinie durch den dilatierten Ösophagus, Spiegelbildung im Mediastinum, fehlende Magenblase, gegebenenfalls Infiltrate als Aspirationsfolge',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT von Thorax und Abdomen bei Verdacht auf eine Pseudoachalasie, zur Suche nach einem Tumor der Kardia oder einer Infiltration von außen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ÖSOPHAGOGASTRODUODENOSKOPIE ZUERST und OBLIGAT — nicht um die Achalasie zu beweisen, sondern um ein KARZINOM und eine PSEUDOACHALASIE AUSZUSCHLIESSEN. Typischer Befund: weiter, speiseresthaltiger Ösophagus mit Flüssigkeitsspiegel, der Sphinkter lässt sich jedoch mit sanftem Druck passieren; Biopsien aus der Kardia im Zweifelsfall',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HOCHAUFLÖSENDE MANOMETRIE als GOLDSTANDARD: fehlende Relaxation des unteren Ösophagussphinkters mit erhöhtem integriertem Relaxationsdruck (IRP) und aufgehobener Peristaltik; Einteilung nach der Chicago-Klassifikation in die Typen I bis III, die die Verfahrenswahl steuert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Endosonographie bei Verdacht auf eine Pseudoachalasie zur Beurteilung der Wandschichten und der regionalen Lymphknoten; ergänzend Stufenbiopsien zum Ausschluss einer eosinophilen Ösophagitis',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Pseudoachalasie bei Kardiakarzinom oder Tumorinfiltration',
+          unterscheidung: 'Die wichtigste Abgrenzung überhaupt. Verdächtig bei kurzer Anamnese unter sechs Monaten, Alter über 55 Jahren und deutlichem Gewichtsverlust. Endoskopisch lässt sich der Sphinkter nur schwer oder gar nicht passieren, die Schleimhaut ist auffällig. Beweis über ÖGD mit Biopsien, Endosonographie und CT.',
+        },
+        {
+          dd: 'Ösophaguskarzinom',
+          unterscheidung: 'Dysphagie zuerst nur für FESTE Speisen, erst spät auch für Flüssigkeiten, RASCH progredient über Wochen bis wenige Monate; massiver Gewichtsverlust, Odynophagie, Alter über 50 Jahre, Nikotin- und Alkoholabusus. Sicherung durch ÖGD mit Biopsie.',
+        },
+        {
+          dd: 'Peptische Stenose bei langjähriger Refluxkrankheit',
+          unterscheidung: 'Jahrelanges, typisches saures Sodbrennen, das auf Protonenpumpenhemmer ANSPRICHT; die Dysphagie betrifft feste Speisen. Endoskopisch narbige, kurzstreckige Stenose mit Ösophagitis.',
+        },
+        {
+          dd: 'Eosinophile Ösophagitis',
+          unterscheidung: 'Jüngere Patienten, oft Männer, mit Atopieanamnese (Asthma, Rhinitis, Nahrungsmittelallergie); typisch sind Bolusobstruktionen bei fester Nahrung. Endoskopisch Trachealisierung, Längsfurchen und weißliche Exsudate; Diagnose über Stufenbiopsien mit mehr als 15 Eosinophilen pro Gesichtsfeld.',
+        },
+        {
+          dd: 'Diffuser Ösophagusspasmus und Nussknackerösophagus (hyperkontraktiler Ösophagus)',
+          unterscheidung: 'Führend sind krampfartige retrosternale Schmerzen, die Dysphagie ist intermittierend. In der Manometrie ist die Relaxation des unteren Sphinkters ERHALTEN (normaler IRP) — das trennt sie von der Achalasie. Radiologisch Korkenzieherösophagus.',
+        },
+        {
+          dd: 'Sklerodermie mit Ösophagusbeteiligung',
+          unterscheidung: 'Raynaud-Phänomen, Hautverdickung, Sklerodaktylie, positive Autoantikörper. Manometrisch aufgehobene Peristaltik, aber HYPOTONER unterer Sphinkter mit ausgeprägtem Reflux — das Gegenteil der Achalasie.',
+        },
+        {
+          dd: 'Zenker-Divertikel',
+          unterscheidung: 'Oropharyngeale, also hohe Dysphagie mit Regurgitation unverdauter Speisen, Foetor ex ore, gurgelnde Geräusche und Husten unmittelbar beim Schlucken; oft tastbare Vorwölbung am Hals. Nachweis im Röntgenbreischluck.',
+        },
+        {
+          dd: 'Oropharyngeale Dysphagie nach Schlaganfall oder bei Morbus Parkinson',
+          unterscheidung: 'Schwierigkeit bereits bei der Schluckeinleitung, Verschlucken mit sofortigem Husten, nasale Regurgitation, Dysarthrie; begleitende neurologische Defizite. Abklärung mit Schluckendoskopie und Videofluoroskopie.',
+        },
+        {
+          dd: 'Gastroösophageale Refluxkrankheit',
+          unterscheidung: 'Saures Sodbrennen und saure Regurgitation, verstärkt im Liegen und nach dem Essen, gutes Ansprechen auf Protonenpumpenhemmer. Bei der Achalasie ist das Regurgitat NICHT sauer und die Protonenpumpenhemmer wirken nicht.',
+        },
+        {
+          dd: 'Chagas-Krankheit',
+          unterscheidung: 'Identisches manometrisches Bild bei entsprechender Reise- oder Migrationsanamnese aus Mittel- und Südamerika; oft zusätzlich Megakolon und Kardiomyopathie. Nachweis über die Serologie.',
+        },
+        {
+          dd: 'Funktionelle Dysphagie und Globusgefühl',
+          unterscheidung: 'Fremdkörper- oder Kloßgefühl UNABHÄNGIG vom Schlucken, oft zwischen den Mahlzeiten und bei Stress, ohne Gewichtsverlust; alle apparativen Befunde sind unauffällig.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung und begleitende Maßnahmen',
+          items: [
+            'Dem Patienten klar sagen, dass die Achalasie nicht heilbar ist: Alle Verfahren senken lediglich den Druck des unteren Ösophagussphinkters und lindern die Beschwerden, die Peristaltik kehrt nicht zurück',
+            'Erklärung der chronischen Natur der Erkrankung und der Notwendigkeit einer lebenslangen Betreuung',
+            'Essen in Ruhe, kleine Bissen, gründliches Kauen und ausreichend Trinken zum Essen, um den Bissen durchzuspülen',
+            'Schlafen mit erhöhtem Oberkörper und letzte Mahlzeit mindestens drei Stunden vor dem Zubettgehen zur Vermeidung nächtlicher Regurgitation und Aspiration',
+            'Ernährungsberatung, bei Mangelernährung hochkalorische Trinknahrung, regelmäßige Gewichtskontrolle',
+            'Tabletten mit reichlich Flüssigkeit oder in flüssiger Form einnehmen — Cave Retention von Medikamenten im dilatierten Ösophagus',
+          ],
+        },
+        {
+          label: 'Endoskopische und chirurgische Verfahren der ersten Wahl',
+          items: [
+            'Gemeinsame Entscheidung mit dem Patienten: Die drei Verfahren sind in der Wirksamkeit weitgehend gleichwertig; die Auswahl richtet sich nach dem Chicago-Typ, dem Alter, den Begleiterkrankungen, der Operabilität und dem Patientenwunsch',
+            'PNEUMATISCHE BALLONDILATATION: endoskopische Dehnung des unteren Sphinkters mit ansteigenden Ballondurchmessern in mehreren Sitzungen; wichtigste Komplikation ist die ÖSOPHAGUSPERFORATION (etwa 2 %), deshalb anschließend Kontrolle mit wasserlöslichem Kontrastmittel; im Verlauf sind häufig Wiederholungen nötig, bei jungen Patienten ist die Wirkung weniger dauerhaft',
+            'LAPAROSKOPISCHE HELLER-MYOTOMIE: operative Längsspaltung der Ringmuskulatur über den unteren Sphinkter hinweg, in der Regel kombiniert mit einer partiellen FUNDOPLIKATIO (nach Dor oder Toupet) zur Refluxprophylaxe; sehr gute Langzeitergebnisse',
+            'PERORALE ENDOSKOPISCHE MYOTOMIE (POEM): endoskopische Myotomie über einen submukösen Tunnel ohne Hautschnitt; besonders wirksam beim TYP III, weil die Myotomie beliebig weit nach proximal verlängert werden kann; Nachteil ist die deutlich höhere Rate an postinterventionellem Reflux, da keine Antirefluxplastik angelegt wird',
+            'Ösophagektomie nur als Ultima Ratio beim sigmoidalen Megaösophagus im Endstadium nach Versagen aller anderen Verfahren',
+          ],
+        },
+        {
+          label: 'Medikamentöse und überbrückende Optionen',
+          items: [
+            'Diese Optionen sind ausdrücklich nur begrenzt wirksam und keine Dauerlösung — das muss so benannt werden',
+            'BOTULINUMTOXIN-Injektion in den unteren Ösophagussphinkter: reserviert für alte oder multimorbide Patienten, die für Dilatation oder Operation nicht in Frage kommen; die Wirkung hält nur wenige Monate an und lässt bei Wiederholung nach, zudem erschwert die Vernarbung eine spätere Myotomie',
+            'Nitrate (Isosorbiddinitrat sublingual vor dem Essen) und Kalziumantagonisten (Nifedipin sublingual vor dem Essen) als schwach wirksame Überbrückung; häufig Kopfschmerzen und Blutdruckabfall, rascher Wirkverlust',
+            'Protonenpumpenhemmer wirken bei der Achalasie NICHT — ihr Versagen ist ein diagnostischer Hinweis, keine Therapieoption',
+          ],
+        },
+        {
+          label: 'Nachsorge und Langzeitbetreuung',
+          items: [
+            'Behandlung des postinterventionellen Refluxes mit Protonenpumpenhemmern, nach POEM regelmäßig erforderlich; Kontrollendoskopie zur Erfassung einer Refluxösophagitis',
+            'Kontrolle von Gewicht, Ernährungszustand und Symptomen im Verlauf, standardisiert mit dem Eckardt-Score (Remission bei drei Punkten oder weniger)',
+            'Wiederauftreten oder Zunahme der Dysphagie ist immer Anlass zur erneuten Abklärung — nie als bekannte Achalasie abtun (Rezidiv, peptische Stenose, Karzinom)',
+            'Endoskopische Verlaufskontrollen wegen des langfristig erhöhten Risikos eines PLATTENEPITHELKARZINOMS des Ösophagus; das relative Risiko ist deutlich erhöht, das absolute Risiko bleibt jedoch niedrig, ein einheitliches Screening-Intervall ist nicht etabliert',
+            'Anbindung an ein Zentrum mit Erfahrung in hochauflösender Manometrie und POEM',
+          ],
+        },
+      ],
+      prognose: 'Unter adäquater Behandlung ist die Prognose gut: Ballondilatation, Heller-Myotomie und POEM erreichen Ansprechraten von etwa 80 bis 90 % nach zwei Jahren, wobei der Typ II am besten und der Typ I am schlechtesten anspricht. Eine Heilung gibt es nicht — die Peristaltik kehrt nie zurück, und im Langzeitverlauf kommt es bei einem relevanten Teil der Patienten zu Rezidiven, die eine erneute Intervention erfordern. Häufigste Langzeitfolge ist der gastroösophageale Reflux nach der Intervention, besonders nach POEM. Unbehandelt drohen Mangelernährung, rezidivierende Aspirationspneumonien und der sigmoidale Megaösophagus. Langfristig besteht ein erhöhtes Risiko für ein Plattenepithelkarzinom des Ösophagus, absolut jedoch auf niedrigem Niveau. Die Lebenserwartung ist bei behandelten Patienten nahezu normal.',
+      pruefungsfallen: [
+        'Der CHARAKTER der Dysphagie ist die Kernfrage: bei der Achalasie für FESTE UND FLÜSSIGE Speisen gleichermaßen, oft stärker für Flüssigkeiten, über Monate bis Jahre langsam progredient und wechselnd; beim Karzinom zuerst nur für feste Speisen und RASCH zunehmend. Wer das nicht sagt, verliert den Fall.',
+        'Die ÖGD wird ZUERST und OBLIGAT durchgeführt — und die Begründung muss mitgeliefert werden: nicht um die Achalasie zu beweisen, sondern um ein Karzinom und eine Pseudoachalasie auszuschließen.',
+        'Goldstandard ist die HOCHAUFLÖSENDE MANOMETRIE, nicht der Breischluck und nicht die Endoskopie. Ein unauffälliger endoskopischer Befund schließt eine Achalasie NIEMALS aus.',
+        'Das fehlende Ansprechen auf Protonenpumpenhemmer aktiv erfragen und benennen — genau daran erkennt man die jahrelang als Refluxkranke fehlbehandelten Patienten.',
+        'Die Regurgitation ist NICHT sauer und enthält unverdaute Speisereste — beim Reflux ist sie sauer. Dieses Detail wird gern nachgefragt.',
+        'Die Pseudoachalasie darf nie fehlen: kurze Anamnese unter sechs Monaten, Alter über 55 Jahre und deutlicher Gewichtsverlust sprechen für einen Tumor.',
+        'Bei der Frage nach Ösophaguserkrankungen die vier Gruppen ordnen: entzündlich (Ösophagitis), refluxbedingt (Refluxkrankheit, Barrett-Ösophagus), tumorös (Plattenepithel- und Adenokarzinom) und MOTORISCH (Achalasie, diffuser Ösophagusspasmus) — Prüfer fragen gezielt nach der motorischen Gruppe nach.',
+        'Ausdrücklich sagen, dass es KEINE Heilung gibt und alle Verfahren nur den Sphinkterdruck senken — sonst wirkt die Aufklärung des Patienten unehrlich.',
+        'Wichtigste Komplikation der pneumatischen Dilatation ist die Perforation, häufigste Folge der POEM der gastroösophageale Reflux. Beides gehört in die Antwort.',
+        'Botulinumtoxin ist keine Therapie der ersten Wahl, sondern eine Überbrückung für alte oder multimorbide Patienten, mit nur monatelanger Wirkdauer.',
+        'Die Aspiration nicht vergessen: nächtlicher Husten und rezidivierende Pneumonien sind Komplikationen der Achalasie und werden sonst als eigenständige Lungenerkrankung fehlgedeutet.',
+        'Vor dem Patienten alltagssprachlich formulieren: „Schluckstörung“ statt Dysphagie, „Zurückfließen von Speisen“ statt Regurgitation, „Speiseröhre“ statt Ösophagus, „Muskelschlitzung“ statt Myotomie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welche Speiseröhrenerkrankungen gibt es?',
+          antwort: 'Man ordnet sie am besten nach Gruppen: entzündlich die Ösophagitis, refluxbedingt die Refluxkrankheit und der Barrett-Ösophagus, tumorös das Plattenepithel- und das Adenokarzinom, MOTORISCH die Achalasie, der diffuse Ösophagusspasmus und der hyperkontraktile Ösophagus, dazu strukturell Divertikel wie das Zenker-Divertikel, Stenosen, die Hiatushernie, der Mallory-Weiss-Riss, das Boerhaave-Syndrom und Ösophagusvarizen sowie die eosinophile Ösophagitis.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie anamnestisch eine Achalasie von einem Ösophaguskarzinom?',
+          antwort: 'Über den Charakter und den Verlauf der Dysphagie. Bei der Achalasie besteht sie von Anfang an für feste UND flüssige Speisen, oft sogar stärker für Flüssigkeiten, verläuft über Monate bis Jahre langsam progredient mit wechselnder Ausprägung, der Gewichtsverlust ist langsam und es kommt zu nächtlicher Regurgitation unverdauter, nicht saurer Speisen. Beim Karzinom betrifft die Dysphagie zuerst nur feste Speisen, nimmt innerhalb von Wochen bis Monaten rasch zu, der Gewichtsverlust ist massiv und es bestehen typischerweise Nikotin- und Alkoholabusus bei höherem Lebensalter.',
+        },
+        {
+          frage: 'Mit welcher Untersuchung beginnen Sie, und warum?',
+          antwort: 'Mit der Ösophagogastroduodenoskopie. Sie ist obligat und steht am Anfang — nicht um die Achalasie zu beweisen, sondern um ein Karzinom und eine Pseudoachalasie auszuschließen. Typisch ist ein weiter, speiseresthaltiger Ösophagus, dessen Sphinkter sich mit sanftem Druck passieren lässt. Im Zweifel werden Biopsien aus der Kardia entnommen.',
+        },
+        {
+          frage: 'Was ist der Goldstandard der Diagnostik, und was findet man?',
+          antwort: 'Die hochauflösende Manometrie. Man findet eine fehlende Relaxation des unteren Ösophagussphinkters mit erhöhtem integriertem Relaxationsdruck und eine aufgehobene Peristaltik des tubulären Ösophagus. Danach erfolgt die Einteilung nach der Chicago-Klassifikation in die Typen I bis III, die die Verfahrenswahl steuert.',
+        },
+        {
+          frage: 'Was zeigt der Röntgenbreischluck?',
+          antwort: 'Das klassische Sektglas- oder Vogelschnabelbild: eine glatte, spitz zulaufende Engstellung am Übergang zum Magen mit prästenotischer Dilatation des tubulären Ösophagus, fehlender Peristaltik und verzögerter Entleerung. Im Röntgen-Thorax können eine verbreiterte Mediastinallinie, eine Spiegelbildung und eine fehlende Magenblase auffallen.',
+        },
+        {
+          frage: 'Wie erklären Sie die Erkrankung pathophysiologisch?',
+          antwort: 'Es liegt eine Degeneration der inhibitorischen Neurone des Plexus myentericus vor. Dadurch erschlafft der untere Ösophagussphinkter beim Schlucken nicht mehr und die Peristaltik ist aufgehoben. Die Speise staut sich vor dem funktionell verschlossenen Sphinkter, der Ösophagus dilatiert.',
+        },
+        {
+          frage: 'Warum haben die Protonenpumpenhemmer bei dieser Patientin nicht geholfen?',
+          antwort: 'Weil die Beschwerden nicht durch Säure entstehen, sondern durch die Stase der Speise vor dem nicht erschlaffenden Sphinkter. Das Regurgitat ist deshalb auch nicht sauer, sondern unverdaut und fad. Genau dieses Nichtansprechen ist ein wichtiger diagnostischer Hinweis und erklärt die typische jahrelange Diagnoseverzögerung.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnose müssen Sie unbedingt ausschließen?',
+          antwort: 'Die Pseudoachalasie durch ein Kardiakarzinom oder eine Tumorinfiltration. Verdächtig sind eine kurze Anamnese unter sechs Monaten, ein Alter über 55 Jahren und ein deutlicher Gewichtsverlust. Ausgeschlossen wird sie durch die ÖGD mit Biopsien, die Endosonographie und ein CT.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Achalasie?',
+          antwort: 'Es gibt keine Heilung; alle Verfahren senken nur den Druck des unteren Sphinkters. Verfahren der ersten Wahl sind die pneumatische Ballondilatation, die laparoskopische Heller-Myotomie mit Fundoplikatio und die perorale endoskopische Myotomie, zwischen denen gemeinsam mit dem Patienten entschieden wird. Botulinumtoxin sowie Nitrate und Kalziumantagonisten sind nur überbrückend wirksam. Dazu kommen Ernährungsberatung, Essen in Ruhe, Schlafen mit erhöhtem Oberkörper und eine langfristige Nachsorge.',
+        },
+        {
+          frage: 'Welche Komplikationen hat die pneumatische Ballondilatation, und welche die POEM?',
+          antwort: 'Bei der Ballondilatation ist die wichtigste Komplikation die Ösophagusperforation mit etwa 2 %, weshalb anschließend eine Kontrolle mit wasserlöslichem Kontrastmittel erfolgt; zudem sind Wiederholungen häufig. Nach der POEM ist die häufigste Folge ein gastroösophagealer Reflux, da keine Antirefluxplastik angelegt wird; er wird mit Protonenpumpenhemmern behandelt.',
+        },
+        {
+          frage: 'Wann setzen Sie Botulinumtoxin ein?',
+          antwort: 'Nur bei alten oder multimorbiden Patienten, die für eine Dilatation oder eine Operation nicht in Frage kommen. Die Wirkung hält lediglich einige Monate an, lässt bei Wiederholung nach und die entstehende Vernarbung erschwert eine spätere Myotomie.',
+        },
+        {
+          frage: 'Welche Komplikationen drohen der Patientin ohne Behandlung?',
+          antwort: 'Aspiration mit rezidivierenden Pneumonien und nächtlichem Husten, eine Ösophagitis durch Stase, Mangelernährung mit Gewichtsverlust und im Endstadium ein sigmoidaler Megaösophagus. Langfristig besteht ein erhöhtes Risiko für ein Plattenepithelkarzinom des Ösophagus, weshalb endoskopische Verlaufskontrollen empfohlen werden.',
+        },
+        {
+          frage: 'Was bedeutet der Eckardt-Score?',
+          antwort: 'Er bewertet Dysphagie, Regurgitation, retrosternalen Schmerz und Gewichtsverlust mit je null bis drei Punkten, maximal zwölf. Er dient der Verlaufsbeurteilung; ein Wert von drei oder weniger nach der Therapie gilt als Remission.',
+        },
+        {
+          frage: 'Wie klären Sie die Patientin über die Diagnose auf?',
+          antwort: 'In Alltagssprache: Die Speiseröhre transportiert das Essen nicht mehr richtig, weil der Muskelring am Übergang zum Magen sich beim Schlucken nicht öffnet und die Speiseröhre selbst ihre Bewegung verloren hat. Man kann die Erkrankung nicht heilen, aber man kann diesen Muskelring wirksam weiten oder einschneiden, sodass das Essen wieder durchläuft. Anschließend werden die Untersuchungen erklärt und Rückfragen zugelassen.',
+        },
+      ],
+      merksatz: 'Dysphagie für FESTES UND FLÜSSIGES über Jahre, nächtliche Regurgitation unverdauter, nicht saurer Speisen und Protonenpumpenhemmer ohne jede Wirkung = Achalasie. Erst ÖGD zum Ausschluss des Karzinoms, dann Manometrie als Goldstandard, im Breischluck das Sektglas. Heilung gibt es keine — Ballon, Heller-Myotomie oder POEM senken nur den Sphinkterdruck.',
+      linkedCaseIds: [
+        'case-achalasie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-gastroskopie',
+        'auf-roentgen-thorax',
+        'auf-laparoskopie',
+      ],
+    },
+    {
+      id: 'fw-septische-arthritis',
+      pathology: 'Septische Arthritis (bakterielles Gelenkempyem)',
+      specialty: 'Rheumatologie',
+      definition: 'Die septische Arthritis ist eine durch Erreger — meist Bakterien — direkt hervorgerufene Entzündung eines Gelenks mit eitriger Synovitis und Gelenkerguss (Gelenkempyem). Sie ist ein orthopädisch-rheumatologischer NOTFALL: Bakterielle Toxine sowie Proteasen der eingewanderten Granulozyten zerstören den hyalinen Gelenkknorpel bereits innerhalb weniger Tage irreversibel, und die Infektion kann über eine Bakteriämie in eine Sepsis übergehen. Betroffen ist in der Regel ein einzelnes großes Gelenk (Monarthritis), am häufigsten das Kniegelenk in etwa der Hälfte der Fälle, gefolgt von Hüft-, Sprung- und Schultergelenk. Die Inzidenz liegt bei etwa 4 bis 10 Fällen pro 100 000 Einwohner und Jahr; bei Patienten mit rheumatoider Arthritis, mit Gelenkprothese oder unter Immunsuppression ist sie um ein Vielfaches höher. Merksatz der Definition: Jedes akut geschwollene, überwärmte und schmerzhafte Gelenk ist bis zum Beweis des Gegenteils infiziert.',
+      aetiologie: 'Häufigster Erreger ist Staphylococcus aureus (etwa die Hälfte bis zwei Drittel der Fälle), gefolgt von Streptokokken (etwa ein Fünftel) sowie gramnegativen Stäbchen wie Escherichia coli und Pseudomonas aeruginosa, die vor allem bei alten, immunsupprimierten und dialysepflichtigen Patienten sowie bei intravenösem Drogenkonsum auftreten. Bei jungen, sexuell aktiven Patienten muss an Neisseria gonorrhoeae gedacht werden (typischerweise mit der Trias aus wandernder Polyarthralgie, Tenosynovitis und pustulösen Hautläsionen). Bei einliegender Gelenkprothese dominieren koagulasenegative Staphylokokken, insbesondere Staphylococcus epidermidis, sowie Cutibacterium acnes. Drei Infektionswege sind zu unterscheiden: erstens die HÄMATOGENE Streuung aus einem entfernten Fokus (häufigster Weg — Haut, Zähne, Harnwege, Pneumonie, Endokarditis, Venenkatheter); zweitens die DIREKTE INOKULATION nach Gelenkpunktion, intraartikulärer Injektion, Arthroskopie, Gelenkoperation, penetrierendem Trauma oder Biss; drittens die FORTLEITUNG per continuitatem aus einer benachbarten Osteomyelitis, einem Weichteilinfekt, einer Bursitis oder einem Abszess.',
+      risikofaktoren: [
+        'Vorbestehende Gelenkerkrankung, allen voran die rheumatoide Arthritis — das entzündlich veränderte Gelenk ist besonders anfällig und der Infekt wird leicht als Krankheitsschub verkannt',
+        'Einliegende Gelenkprothese oder Osteosynthesematerial (Biofilmbildung)',
+        'Zustand nach Gelenkpunktion, intraartikulärer Kortisoninjektion, Arthroskopie oder Gelenkoperation',
+        'Diabetes mellitus (Mikroangiopathie, Neuropathie, gestörte Granulozytenfunktion, Fußläsionen)',
+        'Immunsuppression: Glukokortikoidtherapie, Methotrexat, Biologika — insbesondere TNF-alpha-Blocker —, Chemotherapie, HIV-Infektion, Malignom',
+        'Chronische Niereninsuffizienz und Dialyse (Shunt als Eintrittspforte)',
+        'Intravenöser Drogenkonsum (typisch: Befall von Sternoklavikular-, Sakroiliakal- und Sternokostalgelenken)',
+        'Hohes Lebensalter und Multimorbidität',
+        'Hautinfektionen, Ulzera, Erysipel, Fußpilz mit Rhagaden, Dekubitus als Eintrittspforte',
+        'Leberzirrhose, Alkoholkrankheit, Mangelernährung',
+        'Ungeschützter Geschlechtsverkehr mit wechselnden Partnern (Gonokokkenarthritis)',
+        'Vorangegangene septische Arthritis desselben Gelenks',
+      ],
+      klinik: [
+        {
+          text: 'Akuter, innerhalb von Stunden bis wenigen Tagen einsetzender Beginn',
+        },
+        {
+          text: 'In der Regel MONOARTIKULÄRER Befall, am häufigsten das Kniegelenk, danach Hüft-, Sprung- und Schultergelenk',
+        },
+        {
+          text: 'Stärkster Gelenkschmerz auch in RUHE und nachts, nicht durch Schonung gebessert',
+        },
+        {
+          text: 'Alle klassischen Entzündungszeichen: Rubor, Calor, Tumor, Dolor und Functio laesa',
+        },
+        {
+          text: 'Prall-elastische Schwellung mit tastbarem Gelenkerguss, am Knie positive tanzende Patella',
+        },
+        {
+          text: 'Hochgradige Bewegungseinschränkung; der Patient hält das Gelenk in SCHONHALTUNG (am Knie etwa 20 bis 30 Grad Beugung — die Stellung des größten Kapselvolumens) und lässt es kaum berühren; jede passive Bewegung ist extrem schmerzhaft',
+        },
+        {
+          text: 'Fieber, Schüttelfrost, Abgeschlagenheit, Appetitlosigkeit und ein deutliches Krankheitsgefühl',
+        },
+        {
+          text: 'Schonhinken bzw. vollständige Belastungsunfähigkeit der betroffenen Extremität',
+        },
+        {
+          text: 'Nachweisbare Eintrittspforte oder ein vorangegangener Eingriff am Gelenk in der Anamnese',
+        },
+        {
+          text: 'FEHLENDES FIEBER beim alten, diabetischen, immunsupprimierten oder kortisonbehandelten Patienten — das Fieber fehlt in bis zu einem Drittel der Fälle und darf niemals zum Ausschluss verleiten',
+          atypisch: true,
+        },
+        {
+          text: 'Blande, nur wenig schmerzhafte Verläufe bei Prothesenlockerung mit niedrigvirulenten Erregern, oft nur mit anhaltenden Belastungsschmerzen und Fistelbildung',
+          atypisch: true,
+        },
+        {
+          text: 'Hüft- und Sakroiliakalgelenkbefall ohne sichtbare Schwellung — die einzigen Zeichen sind Bewegungs-, Stauchungs- und Rotationsschmerz sowie eine Schonhaltung in Beugung und Außenrotation; hier sind Sonographie und MRT unverzichtbar',
+          atypisch: true,
+        },
+        {
+          text: 'Polyartikulärer Befall bei hämatogener Streuung, Sepsis oder Endokarditis — mit deutlich erhöhter Letalität',
+          atypisch: true,
+        },
+        {
+          text: 'Gonokokkenarthritis junger, sexuell aktiver Patienten mit wandernden Polyarthralgien, Tenosynovitis der Handgelenke und pustulösen Hauteffloreszenzen',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Kleinkind lediglich Trinkschwäche, Schonhaltung, Pseudoparalyse oder Hinken ohne eindeutige Lokalisation',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Arthroskopische Stadieneinteilung nach Gächter (Gelenkempyem)',
+          inhalt: 'Stadium I: gerötete, hyperämische Synovialis mit petechialen Einblutungen, trübes Punktat, Knorpel intakt. Stadium II: ausgeprägte Synovitis mit Fibrinbelägen und eitrigem Punktat. Stadium III: Verdickung der Synovialmembran mit Kammer- bzw. Kompartimentbildung („Schwammbildung“), Adhäsionen. Stadium IV: aggressiver Pannus, der den Knorpel unterminiert, radiologisch subchondrale Osteolysen und Zysten, beginnende Gelenkdestruktion. Praktische Konsequenz: Stadium I und II lassen sich in der Regel arthroskopisch spülen, ab Stadium III wird häufig offen synovialektomiert.',
+        },
+        {
+          name: 'Einteilung nach dem Infektionsweg',
+          inhalt: 'Hämatogen (häufigster Weg, Streuung aus einem entfernten Fokus); exogen-direkt (Punktion, intraartikuläre Injektion, Arthroskopie, Operation, penetrierendes Trauma, Biss); per continuitatem (Fortleitung aus Osteomyelitis, Weichteilinfekt, Bursitis oder Abszess). Der Infektionsweg bestimmt das Erregerspektrum und damit die kalkulierte Antibiose.',
+        },
+        {
+          name: 'Newman-Kriterien zur Diagnosesicherung',
+          inhalt: 'A: Erregernachweis im Gelenkpunktat. B: Erregernachweis aus Blutkultur oder einem anderen Fokus bei passender Gelenkklinik. C: typische Klinik mit trübem Punktat bei bereits begonnener Antibiotikatherapie. D: pathologisch-anatomischer oder radiologischer Nachweis. Bereits ein erfülltes Kriterium sichert die Diagnose — die Therapie beginnt jedoch immer schon beim klinischen Verdacht.',
+        },
+        {
+          name: 'Einteilung der periprothetischen Gelenkinfektion nach dem Zeitpunkt',
+          inhalt: 'Frühinfektion (bis 3 Monate nach Implantation, meist hochvirulente Erreger wie Staphylococcus aureus, Prothesenerhalt mit Débridement und Inlaywechsel möglich). Verzögerte oder Low-grade-Infektion (3 bis 24 Monate, koagulasenegative Staphylokokken, Cutibacterium acnes, meist Prothesenwechsel nötig). Spätinfektion (nach mehr als 24 Monaten, überwiegend hämatogen, Vorgehen abhängig von Symptomdauer und Erreger — ein- oder zweizeitiger Wechsel).',
+        },
+        {
+          name: 'Orientierende Beurteilung des Gelenkpunktats nach Zellzahl',
+          inhalt: 'Normal: unter 200 Zellen pro Mikroliter, weniger als 25 Prozent Granulozyten. Nicht-entzündlich (z. B. Arthrose): unter 2 000 pro Mikroliter. Entzündlich (rheumatoide Arthritis, Gicht, reaktive Arthritis): etwa 2 000 bis 50 000 pro Mikroliter. Septisch: typischerweise ÜBER 50 000 pro Mikroliter, häufig über 100 000, mit mehr als 75 bis 90 Prozent Granulozyten, trüb-eitrigem Aspekt, herabgesetzter Viskosität, erniedrigter Glukose und erhöhtem Laktat.',
+        },
+      ],
+      redFlags: [
+        'Akut geschwollenes, überwärmtes, in Ruhe schmerzhaftes Gelenk mit Fieber oder Schüttelfrost — sofortige Gelenkpunktion, keine abwartende Haltung',
+        'Sepsiszeichen: Tachykardie, Hypotonie, Tachypnoe, Verwirrtheit, Oligurie, Marmorierung — qSOFA und Laktat erheben, Sepsisbündel einleiten',
+        'Vorangegangene Gelenkpunktion, intraartikuläre Injektion oder Gelenkoperation in den letzten Tagen bis Wochen',
+        'Einliegende Gelenkprothese mit neu aufgetretenem Ruheschmerz, Erguss, Rötung oder Fistel',
+        'Bekannte rheumatoide Arthritis mit einem einzelnen, deutlich stärker entzündeten Gelenk — nicht als Schub abtun',
+        'Immunsuppression, Diabetes mellitus, hohes Alter oder Kortisontherapie bei fehlendem Fieber — die Infektion kann klinisch maskiert sein',
+        'Polyartikulärer Befall, neu aufgetretenes Herzgeräusch oder persistierende Staphylokokken-Bakteriämie — Verdacht auf Endokarditis',
+        'Hüft-, Schulter- oder Sakroiliakalgelenkschmerz mit Fieber ohne äußerlich sichtbare Schwellung — tiefe Infektion, sofort Sonographie und MRT',
+        'Sichtbare Eintrittspforte: infizierte Wunde, Ulcus cruris, diabetisches Fußulkus, Erysipel, Bissverletzung, liegender Venenkatheter oder Dialyseshunt',
+        'Kind mit Hinken, Schonhaltung und Fieber — Coxitis, dringliche sonographische Abklärung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: perakuter Beginn, Ruhe- und Nachtschmerz, Fieber und Schüttelfrost; aktive Frage nach Gelenkpunktion, intraartikulärer Injektion, Arthroskopie oder Operation in den letzten Wochen, nach Verletzungen, Bissen und Hautläsionen sowie nach Immunsuppression, Kortison, Biologika, Diabetes, Dialyse, Prothesen und intravenösem Drogenkonsum',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit Temperatur, Blutdruck, Herzfrequenz, Atemfrequenz und Sauerstoffsättigung; Erhebung von qSOFA und SIRS-Kriterien zur Einschätzung einer beginnenden Sepsis',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Lokaler Gelenkstatus: Inspektion und Palpation mit Rubor, Calor, Tumor, Dolor und Functio laesa, Erguss- bzw. Patellaballottement-Prüfung, aktive und passive Beweglichkeit, Schonhaltung; Prüfung von Durchblutung, Motorik und Sensibilität sowie der regionalen Lymphknoten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ganzkörperliche Fokussuche: Haut und Nagelfalz, Interdigitalräume und Fußpilz, Wunden und Ulzera, Zahnstatus, Rachen, Harnwege, Lunge, Gefäßzugänge und Katheter, Herzauskultation zur Frage einer Endokarditis; ganzkörperlicher Gelenkstatus zur Erfassung eines polyartikulären Befalls',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: Leukozytose mit LINKSVERSCHIEBUNG; Cave, beim Immunsupprimierten kann die Leukozytose fehlen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CRP stark erhöht und BSG erhöht als Ausgangs- und Verlaufsparameter; Procalcitonin zur Abgrenzung einer bakteriellen von einer kristallinduzierten Entzündung und zur Sepsiseinschätzung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Harnsäure, Nierenretentionswerte mit Kreatinin und eGFR, Elektrolyte, Leberwerte, Blutzucker und HbA1c, Gerinnung sowie Laktat — zugleich Grundlage für die Auswahl und Dosierung von Antibiotika und Analgetika',
+        },
+        {
+          stufe: 'Labor',
+          text: 'BLUTKULTUREN: mindestens zwei Paare aus getrennten Punktionsstellen, zwingend VOR der ersten Antibiotikagabe; sie sind in etwa der Hälfte der Fälle positiv und liefern nicht selten den einzigen Erregernachweis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ergänzende Fokusdiagnostik: Urinstatus und Urinkultur, Rachen- und Wundabstriche; bei jungen sexuell aktiven Patienten Abstriche von Urethra, Zervix, Rachen und Rektum mit Nukleinsäureamplifikation auf Gonokokken und Chlamydien; bei Zeckenanamnese Borrelien-Serologie, bei Angina Antistreptolysin-O-Titer',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SONOGRAPHIE des Gelenks als schnellste apparative Untersuchung: Nachweis und Quantifizierung des Ergusses, Synovialisverdickung, Beurteilung der Weichteile — und zugleich Steuerung der Punktion, insbesondere an Hüfte und Schulter',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelles Röntgen des betroffenen Gelenks in zwei Ebenen: initial meist UNAUFFÄLLIG oder nur mit Weichteilschwellung und Gelenkspaltverbreiterung — ein normaler Befund schließt nichts aus. Es dient als Ausgangsbefund und dem Ausschluss von Fraktur, Osteomyelitis, Chondrokalzinose und Prothesenlockerung; Gelenkspaltverschmälerung und Erosionen treten erst nach ein bis zwei Wochen auf',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT mit Kontrastmittel bei Verdacht auf begleitende Osteomyelitis, tiefen Abszess oder Weichteilbeteiligung sowie bei tief gelegenen, klinisch schwer beurteilbaren Gelenken wie Hüft-, Schulter- und Sakroiliakalgelenk',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Echokardiographie — transthorakal, bei fortbestehendem Verdacht transösophageal — bei Staphylococcus-aureus-Bakteriämie, polyartikulärem Befall oder neuem Herzgeräusch zum Ausschluss einer infektiösen Endokarditis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Weiterführende Fokussuche bei unklarer Quelle: Röntgen-Thorax, Abdomen- und Nierensonographie, Orthopantomogramm zur Frage eines dentogenen Fokus, gegebenenfalls Skelettszintigraphie oder PET-CT',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'GELENKPUNKTION als SCHLÜSSELUNTERSUCHUNG: unter sterilen Kautelen, unverzüglich und VOR der ersten Antibiotikagabe. Makroskopische Beurteilung des Punktats (trüb bis eitrig, herabgesetzte Viskosität), Zellzahl mit Differenzierung — typischerweise über 50 000 Leukozyten pro Mikroliter mit überwiegend Granulozyten —, Glukose und Laktat',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Aus demselben Punktat obligat GRAM-PRÄPARAT (in etwa der Hälfte der Fälle positiv) sowie mikrobiologische KULTUR mit Antibiogramm, Beimpfung von Blutkulturflaschen zur Ausbeutesteigerung, gegebenenfalls PCR bei vorbehandelten Patienten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Obligate KRISTALLANALYSE des Punktats im Polarisationsmikroskop: nadelförmige, negativ doppelbrechende Natriumuratkristalle bei Gicht, rhomboide, positiv doppelbrechende Kalziumpyrophosphatkristalle bei Chondrokalzinose. CAVE: Der Kristallnachweis schließt eine gleichzeitige bakterielle Infektion NICHT aus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Arthroskopie mit Synovialbiopsie und Gewinnung mehrerer Gewebeproben zur Kultur und Histologie — gleichzeitig diagnostisch und therapeutisch; bei Prothesenverdacht zusätzlich Sonikation des explantierten Materials zum Nachweis von Biofilmerregern',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akuter Gichtanfall (Arthritis urica)',
+          unterscheidung: 'Die wichtigste Differenzialdiagnose und klinisch NICHT sicher abgrenzbar: ebenfalls perakute Monarthritis mit allen Entzündungszeichen, und auch bei der Gicht können CRP, Leukozyten und sogar die Temperatur deutlich erhöht sein. Für die Gicht sprechen der Befall des Großzehengrundgelenks, frühere selbstlimitierende Episoden, purinreiche Mahlzeit, Alkohol und Diuretika. Sicher trennt nur die Punktion: negativ doppelbrechende Uratkristalle bei sterilem Gram-Präparat und steriler Kultur, Zellzahl meist unter 50 000 pro Mikroliter. Beides kann gleichzeitig vorliegen.',
+        },
+        {
+          dd: 'Pseudogicht bei Chondrokalzinose (CPPD-Arthritis)',
+          unterscheidung: 'Ältere Patienten, bevorzugt Knie und Handgelenk; im Röntgen Verkalkung des Faserknorpels (Meniskus, Discus triangularis); im Punktat rhomboide, positiv doppelbrechende Kalziumpyrophosphatkristalle, Kultur steril.',
+        },
+        {
+          dd: 'Aktivierte Arthrose (Gonarthrose mit Reizerguss)',
+          unterscheidung: 'Vorgeschichte von Belastungs- und Anlaufschmerz über Monate bis Jahre, allenfalls mäßige Überwärmung, kein Fieber, kein schweres Krankheitsgefühl; Punktat nicht-entzündlich mit unter 2 000 Zellen pro Mikroliter, im Röntgen Gelenkspaltverschmälerung, subchondrale Sklerose und Osteophyten.',
+        },
+        {
+          dd: 'Schub einer rheumatoiden Arthritis oder einer Psoriasisarthritis',
+          unterscheidung: 'Meist symmetrischer Befall mehrerer kleiner Gelenke, Morgensteifigkeit über 60 Minuten, bekannter Verlauf, Besserung auf Bewegung; bei Psoriasisarthritis Hautbefund, Nagelbefall und Daktylitis. CAVE: Bei bekannter rheumatoider Arthritis ist ein einzelnes, deutlich stärker entzündetes Gelenk bis zum Beweis des Gegenteils infiziert — die Punktion ist obligat.',
+        },
+        {
+          dd: 'Reaktive Arthritis nach urogenitalem oder enteralem Infekt',
+          unterscheidung: 'Ein bis vier Wochen nach Infektion mit Chlamydien, Yersinien, Salmonellen, Shigellen oder Campylobacter; asymmetrische Oligoarthritis der unteren Extremität, häufig mit Konjunktivitis und Urethritis, HLA-B27-Assoziation, Punktat entzündlich, aber steril.',
+        },
+        {
+          dd: 'Rheumatisches Fieber (poststreptokokkenreaktive Arthritis)',
+          unterscheidung: 'Zwei bis drei Wochen nach Streptokokken-Angina; wandernde, „springende“ Polyarthritis der großen Gelenke, Karditis, Erythema marginatum, Chorea minor; erhöhter Antistreptolysin-O-Titer, Rachenabstrich, EKG und Echokardiographie.',
+        },
+        {
+          dd: 'Lyme-Arthritis',
+          unterscheidung: 'Zeckenstich und gegebenenfalls Erythema migrans in der Vorgeschichte, oft Wochen bis Monate zuvor; intermittierende Mon- oder Oligoarthritis mit typischerweise großem, prall geschwollenem Knie bei erstaunlich geringem Schmerz und gutem Allgemeinzustand; Borrelien-Serologie mit Bestätigungstest, Punktat entzündlich, aber bakteriologisch steril.',
+        },
+        {
+          dd: 'Virale Arthritis (Parvovirus B19, Röteln, Hepatitis B und C, Chikungunya)',
+          unterscheidung: 'Meist symmetrische Polyarthralgie mit Allgemeinsymptomen und Exanthem, selbstlimitierender Verlauf über Wochen; Serologie und Reiseanamnese führen weiter.',
+        },
+        {
+          dd: 'Hämarthros nach Trauma oder unter Antikoagulation',
+          unterscheidung: 'Adäquates Trauma oder Antikoagulanzieneinnahme beziehungsweise Hämophilie; rasche Schwellung innerhalb von Minuten bis Stunden, kein Fieber; im Punktat Blut, keine Erreger. Röntgen zum Frakturausschluss, Gerinnungsdiagnostik.',
+        },
+        {
+          dd: 'Periartikuläre Prozesse: Bursitis praepatellaris, Erysipel, Phlegmone, Abszess',
+          unterscheidung: 'Die Entzündung liegt VOR beziehungsweise NEBEN dem Gelenk: umschriebene, fluktuierende Schwellung über der Patella beziehungsweise flächige, scharf begrenzte Rötung mit Lymphangitis und Eintrittspforte. Entscheidendes Zeichen: Das Gelenk selbst ist PASSIV weitgehend frei und schmerzarm beweglich, es besteht kein Erguss.',
+        },
+        {
+          dd: 'Osteomyelitis beziehungsweise Spondylodiszitis',
+          unterscheidung: 'Knochenschmerz mit lokalem Klopf- und Stauchungsschmerz, häufig protrahierter Verlauf; Röntgen initial unauffällig, Diagnose über MRT mit Kontrastmittel. Beide Entitäten können in eine septische Arthritis übergehen und umgekehrt.',
+        },
+        {
+          dd: 'Kindliche Differenzialdiagnosen: Coxitis fugax und Morbus Perthes',
+          unterscheidung: 'Coxitis fugax: schmerzhaftes Hinken wenige Tage nach einem Atemwegsinfekt bei gutem Allgemeinzustand, ohne Fieber, mit normalen Entzündungswerten und rascher Spontanheilung. Morbus Perthes: schleichender, wochenlanger Hüft- oder Knieschmerz mit Hinken, ohne Entzündungszeichen, typische Veränderungen des Hüftkopfkerns in Röntgen und MRT. Zur Abgrenzung dienen die Kocher-Kriterien (Fieber, Belastungsunfähigkeit, BSG, Leukozyten).',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen und Diagnosesicherung',
+          items: [
+            'Sofortige stationäre Aufnahme, in der Regel auf eine unfallchirurgisch-orthopädische Station; bei Sepsiszeichen intensivmedizinische Überwachung',
+            'Zwei großlumige periphervenöse Zugänge, Volumensubstitution mit balancierter kristalloider Lösung, Sauerstoffgabe nach Bedarf, engmaschige Kontrolle von Vitalparametern, Bilanzierung und Laktat',
+            'Abnahme von mindestens zwei Blutkulturpaaren aus getrennten Punktionsstellen sowie der kompletten Labordiagnostik — zwingend VOR der ersten Antibiotikagabe',
+            'UNVERZÜGLICHE Gelenkpunktion unter sterilen Kautelen, wenn nötig sonographisch gesteuert, mit Versand des Punktats zur Zellzahl, Gramfärbung, Kultur mit Antibiogramm und Kristallanalyse',
+            'Direkt im Anschluss an die Materialgewinnung Beginn der KALKULIERTEN intravenösen Antibiotikatherapie — es wird NICHT auf das mikrobiologische Ergebnis gewartet',
+            'Suffiziente Analgesie, vorzugsweise mit Metamizol oder Paracetamol, bei Bedarf ergänzt durch ein Opioid; nichtsteroidale Antirheumatika nur bei erhaltener Nierenfunktion und ohne Ulkusrisiko',
+            'Kurzfristige Ruhigstellung in FUNKTIONSSTELLUNG mit Entlastung an Unterarmgehstützen — am Knie nahezu gestreckt, denn die vom Patienten eingenommene Schonhaltung in 20 bis 30 Grad Beugung führt rasch zur Beugekontraktur',
+            'Streng KEINE intraartikuläre Kortisoninjektion und keine lokale Wärmeanwendung bei Infektverdacht',
+            'Nahrungskarenz und Narkosevorbereitung, da die operative Sanierung noch am selben Tag erfolgen soll; Aufklärung des Patienten und Einwilligung einholen',
+            'Überprüfung der immunsuppressiven Dauermedikation: Methotrexat und Biologika pausieren; eine bestehende Glukokortikoidtherapie darf wegen der Gefahr einer Nebennierenrindeninsuffizienz NICHT abrupt abgesetzt, sondern muss gegebenenfalls als Stressdosis fortgeführt werden',
+            'Blutzuckereinstellung, Tetanusschutz überprüfen, Fokussuche einleiten',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Chirurgische Herdsanierung',
+          items: [
+            'Die mechanische Sanierung entscheidet über den Verlauf und ist der Antibiose gleichrangig — Antibiotika allein sanieren ein Gelenkempyem nicht',
+            'Verfahren der Wahl an den großen Gelenken ist die ARTHROSKOPISCHE Spülung („Lavage“) mit ausgiebiger Spülung, Débridement, Entfernung von Fibrinbelägen und partieller bis vollständiger SYNOVIALEKTOMIE, ergänzt durch Gewebeproben zur Kultur und Histologie',
+            'Der Eingriff wird notfallmäßig, möglichst innerhalb von Stunden, durchgeführt und bei Bedarf WIEDERHOLT — häufig ist eine Second-look-Arthroskopie nach 24 bis 48 Stunden erforderlich; die Zahl der Eingriffe richtet sich nach Klinik, Punktatbefund und CRP-Verlauf',
+            'Einlage einer Drainage, gegebenenfalls Saug-Spül-Drainage; bei fortgeschrittenem Stadium nach Gächter (Stadium III und IV) mit Kammerbildung, bei aggressivem Pannus oder bei schwer zugänglichen Gelenken offene ARTHROTOMIE mit Débridement und offener Synovialektomie',
+            'Mitsanierung des Ausgangsfokus: Abszessspaltung, Wundrevision, Entfernung infizierter Katheter, zahnärztliche oder urologische Herdsanierung',
+            'Bei infizierter GELENKPROTHESE gilt ein eigenes Vorgehen — die wiederholte Punktion allein genügt nicht: bei Frühinfekt innerhalb von etwa drei Wochen Symptomdauer Débridement mit Wechsel der mobilen Teile und Prothesenerhalt (DAIR), sonst EINZEITIGER oder ZWEIZEITIGER Prothesenwechsel mit antibiotikahaltigem Zementspacer und antibiotikafreiem Intervall',
+            'Bei begleitender Osteomyelitis zusätzlich Débridement des infizierten Knochens; als Ultima Ratio bei nicht beherrschbarer Infektion Arthrodese oder Resektionsarthroplastik',
+          ],
+        },
+        {
+          label: 'Antimikrobielle Therapie im Verlauf',
+          items: [
+            'KALKULIERTER Beginn unmittelbar nach der Materialgewinnung, immer staphylokokkenwirksam und intravenös: Cefazolin 3 × 2 g täglich oder Flucloxacillin 4 bis 6 × 2 g täglich',
+            'Bei Penicillinallergie vom Spättyp ist ein Cephalosporin der ersten oder zweiten Generation in der Regel möglich; bei anaphylaktischer Reaktion, bei MRSA-Risiko oder bei Prothesen- und Katheterinfektion stattdessen Vancomycin nach Talspiegel oder Clindamycin 3 × 600 bis 900 mg',
+            'Bei Verdacht auf gramnegative Erreger — hohes Alter, Immunsuppression, Dialyse, Harnwegsfokus, intravenöser Drogenkonsum — Erweiterung um Ceftriaxon 1 × 2 g täglich oder Piperacillin/Tazobactam 3 × 4,5 g täglich',
+            'Bei Verdacht auf eine Gonokokkenarthritis Ceftriaxon 1 × 1 bis 2 g täglich, ergänzt um die Mitbehandlung einer Chlamydieninfektion und die Partnerbehandlung',
+            'DEESKALATION beziehungsweise gezielte Umstellung, sobald Kultur und Antibiogramm vorliegen; bei implantatassoziierter Staphylokokkeninfektion Kombination mit Rifampicin — niemals als Monotherapie wegen rascher Resistenzentwicklung',
+            'Umstellung auf eine orale Gabe erst nach klinischem Ansprechen, in der Regel nach etwa zwei Wochen intravenöser Therapie, Entfieberung und deutlichem CRP-Rückgang',
+            'Gesamtdauer in der Regel mehrere Wochen: etwa vier bis sechs Wochen beim nativen Gelenk, bei begleitender Osteomyelitis oder einliegender Prothese drei bis sechs Monate',
+            'Engmaschige Verlaufskontrolle von Klinik, Temperatur, Gelenkbefund, CRP und Blutbild sowie von Nierenfunktion und Medikamentenspiegeln; erneute Punktion oder Revision bei ausbleibendem Ansprechen',
+            'Konsequente Fokussanierung und Behandlung der Eintrittspforte, bei Staphylococcus-aureus-Bakteriämie zusätzlich Echokardiographie und Kontrollblutkulturen',
+          ],
+        },
+        {
+          label: 'Funktionelle Nachbehandlung und Prognose',
+          items: [
+            'FRÜHE krankengymnastische Mobilisation, sobald die Entzündung es zulässt — anfangs passiv, unter anderem auf der Motorschiene (CPM), danach zunehmend aktiv-assistiv; die Ruhigstellung wird so kurz wie möglich gehalten, um Einsteifung, Beugekontraktur und Muskelatrophie zu verhindern',
+            'Stufenweiser Belastungsaufbau nach ärztlicher Vorgabe, Lymphdrainage und Kryotherapie zur Abschwellung, isometrisches Quadrizepstraining',
+            'Medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin für die Dauer der Immobilisation, dazu Frühmobilisation und Pneumonieprophylaxe',
+            'Wiederaufnahme der immunsuppressiven Basistherapie der Grunderkrankung erst nach beherrschter Infektion und in Absprache mit der Rheumatologie',
+            'Behandlung der Risikofaktoren und der Grunderkrankung: Blutzuckereinstellung, Hautpflege und Behandlung eines Fußpilzes, Zahnsanierung, Ernährungs- und Nikotinberatung, Versorgung von Wunden',
+            'Aufklärung über die Gefahr der bleibenden Gelenkschädigung: Bei etwa einem Viertel bis der Hälfte der Patienten verbleiben Bewegungseinschränkungen und es entwickelt sich eine sekundäre Arthrose; bei ausgedehnter Destruktion kann später eine Endoprothese oder eine Arthrodese notwendig werden',
+            'Aufklärung über Warnsymptome eines Rezidivs (erneuter Ruheschmerz, Schwellung, Rötung, Fieber) und über die Notwendigkeit, künftig jede Gelenkschwellung sofort abklären zu lassen',
+            'Anschlussheilbehandlung beziehungsweise Rehabilitation, sozialmedizinische Beratung und schrittweise berufliche Wiedereingliederung',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt unmittelbar davon ab, wie schnell punktiert, operiert und antibiotisch behandelt wird. Wird die Therapie innerhalb der ersten 24 bis 48 Stunden begonnen, ist bei vorher gesundem Gelenk in der Mehrzahl der Fälle eine gute bis vollständige Funktion zu erwarten. Bei verzögerter Behandlung kommt es innerhalb weniger Tage zur irreversiblen Knorpeldestruktion: Etwa ein Viertel bis die Hälfte der Patienten behält eine bleibende Bewegungseinschränkung, eine sekundäre Arthrose oder eine Einsteifung zurück. Die Letalität liegt bei etwa 5 bis 15 Prozent und steigt bei polyartikulärem Befall, bei Sepsis, im hohen Alter und bei bestehender rheumatoider Arthritis auf bis zu 30 Prozent. Ungünstige Prognosefaktoren sind hohes Alter, Immunsuppression, Diabetes mellitus, vorbestehender Gelenkschaden, Prothesenbefall, Hüftgelenkbefall, ein Therapiebeginn nach mehr als sieben Tagen sowie Staphylococcus aureus als Erreger.',
+      pruefungsfallen: [
+        'DER ZENTRALE PUNKT: Bei jedem akut geschwollenen, überwärmten Gelenk mit Fieber muss unverzüglich PUNKTIERT werden — und zwar VOR der ersten Antibiotikagabe. Die Antibiose darf danach aber NICHT auf das mikrobiologische Ergebnis warten: Materialgewinnung und sofortiger kalkulierter Therapiebeginn gehören in dieselbe Antwort.',
+        'Das FIEBER KANN FEHLEN — bei alten, diabetischen, immunsupprimierten oder kortisonbehandelten Patienten in bis zu einem Drittel der Fälle. Wer die Diagnose an das Fieber knüpft, übersieht genau die Patienten mit der schlechtesten Prognose.',
+        'Bei Verdacht auf eine septische Arthritis darf KEIN Kortison in das Gelenk gespritzt werden. Umgekehrt ist die intraartikuläre Injektion selbst eine der häufigsten Ursachen — nach jeder Punktion, Injektion oder Arthroskopie in den letzten Wochen muss aktiv gefragt werden.',
+        'Die KRISTALLANALYSE ist trotz eindeutigem Infektverdacht obligat — und der Nachweis von Kristallen schließt eine bakterielle Infektion NICHT aus: Gicht und septische Arthritis können gleichzeitig bestehen. Umgekehrt können auch bei der Gicht Fieber und CRP hoch sein; klinisch sind beide nicht sicher zu trennen.',
+        'Das RÖNTGEN ist initial meist unauffällig und schließt nichts aus. Es dient dem Ausgangsbefund sowie dem Ausschluss von Fraktur, Osteomyelitis und Chondrokalzinose; Gelenkspaltverschmälerung und Erosionen erscheinen erst nach ein bis zwei Wochen.',
+        'Bei bekannter RHEUMATOIDER ARTHRITIS ein einzelnes, überproportional entzündetes Gelenk nicht als Schub abtun — hier ist die Infektionsrate am höchsten und die Klinik durch die Immunsuppression abgeschwächt.',
+        'Bei infizierter PROTHESE genügt die wiederholte Punktion nicht: Es braucht ein eigenes Konzept mit Débridement und Teilewechsel oder ein- beziehungsweise zweizeitigem Prothesenwechsel.',
+        'BLUTKULTUREN werden vergessen — sie müssen mehrfach, aus getrennten Punktionsstellen und vor der Antibiose abgenommen werden und liefern häufig den einzigen Erregernachweis.',
+        'Bei Staphylococcus-aureus-Bakteriämie an die ENDOKARDITIS denken und echokardiographieren; ebenso an die Osteomyelitis, für die eine MRT nötig ist.',
+        'Immunsuppressive Basistherapie: Methotrexat und Biologika werden pausiert, eine laufende Glukokortikoidtherapie wird jedoch NICHT abrupt abgesetzt (Gefahr der Nebennierenrindeninsuffizienz), sondern gegebenenfalls als Stressdosis fortgeführt.',
+        'Analgesie bei Niereninsuffizienz: Nichtsteroidale Antirheumatika in Kombination mit ACE-Hemmer und Diuretikum („Triple Whammy“) können ein akutes Nierenversagen auslösen — hier Metamizol oder Paracetamol bevorzugen.',
+        'Bei jungen, sexuell aktiven Patienten an GONOKOKKEN denken und gezielte Abstriche von Urethra, Zervix, Rachen und Rektum abnehmen; die Kultur gelingt nur auf Spezialnährböden.',
+        'Sprachfalle: „Gelenkpunktion“ ist nicht dasselbe wie „Gelenkspiegelung“ (Arthroskopie). Gegenüber dem Patienten heißt es „Gelenkeiterung“ beziehungsweise „bakterielle Gelenkentzündung“, „Spülung des Gelenks“ und „Entnahme von Gelenkflüssigkeit“ — nicht „Empyem“ oder „Lavage“.',
+        'Zeitfalle in der Fallvorstellung: Die Dringlichkeit muss ausdrücklich benannt werden. Wer die Diagnostik korrekt aufzählt, aber nicht sagt, dass alles NOTFALLMÄSSIG und innerhalb weniger Stunden geschieht, verfehlt den Kern des Falles.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie darauf geführt?',
+          antwort: 'Eine septische Arthritis, also ein bakterielles Gelenkempyem. Dafür sprechen der akute Beginn innerhalb weniger Tage, die monoartikuläre, in Ruhe und nachts bestehende stärkste Schmerzsymptomatik mit Überwärmung, Rötung, Schwellung und tastbarem Erguss, die Schonhaltung mit hochgradiger Bewegungseinschränkung, dazu Fieber, Schüttelfrost und ein reduzierter Allgemeinzustand. Entscheidend ist außerdem die Risikokonstellation: vorangegangene intraartikuläre Injektion, bekannte rheumatoide Arthritis, Immunsuppression und Diabetes mellitus.',
+        },
+        {
+          frage: 'Was ist die wichtigste Differenzialdiagnose, und wie grenzen Sie sie ab?',
+          antwort: 'Der akute Gichtanfall. Klinisch ist er nicht sicher abgrenzbar, da auch bei der Gicht Fieber und stark erhöhte Entzündungswerte auftreten können. Sicher trennt nur die Gelenkpunktion: bei der Gicht nadelförmige, negativ doppelbrechende Uratkristalle bei steriler Kultur, bei der septischen Arthritis ein eitriges Punktat mit über 50 000 Leukozyten pro Mikroliter, überwiegend Granulozyten, positivem Gram-Präparat und positiver Kultur. Wichtig: Beides kann gleichzeitig vorliegen, der Kristallnachweis schließt eine Infektion nicht aus.',
+        },
+        {
+          frage: 'Welche Untersuchung ist die entscheidende, und wann führen Sie sie durch?',
+          antwort: 'Die Gelenkpunktion — unverzüglich, noch in der Notaufnahme, unter sterilen Kautelen und zwingend VOR der ersten Antibiotikagabe. Aus demselben Punktat werden Zellzahl mit Differenzierung, Gram-Präparat, Kultur mit Antibiogramm und die Kristallanalyse im Polarisationsmikroskop angefordert. Parallel nehme ich mindestens zwei Blutkulturpaare ab.',
+        },
+        {
+          frage: 'Warten Sie mit der Antibiotikatherapie auf das Ergebnis der Kultur?',
+          antwort: 'Nein, auf keinen Fall. Unmittelbar nachdem Punktat und Blutkulturen gewonnen sind, beginne ich eine kalkulierte intravenöse Antibiotikatherapie. Jede Stunde Verzögerung erhöht das Risiko der irreversiblen Knorpelzerstörung. Nach Vorliegen des Antibiogramms wird deeskaliert beziehungsweise gezielt umgestellt.',
+        },
+        {
+          frage: 'Welches Antibiotikum wählen Sie kalkuliert und warum?',
+          antwort: 'Eine staphylokokkenwirksame Substanz, da Staphylococcus aureus mit Abstand der häufigste Erreger ist: Cefazolin 3 × 2 g intravenös oder Flucloxacillin 4 bis 6 × 2 g intravenös. Bei anaphylaktischer Penicillinallergie, MRSA-Risiko oder Prothese Vancomycin oder Clindamycin. Bestehen Hinweise auf gramnegative Erreger — hohes Alter, Immunsuppression, Dialyse, Harnwegsfokus oder intravenöser Drogenkonsum —, erweitere ich um Ceftriaxon oder Piperacillin/Tazobactam.',
+        },
+        {
+          frage: 'Welche Erreger kommen in Frage?',
+          antwort: 'An erster Stelle Staphylococcus aureus in etwa der Hälfte bis zwei Dritteln der Fälle, danach Streptokokken. Gramnegative Stäbchen wie Escherichia coli und Pseudomonas treten bei alten, immunsupprimierten oder dialysepflichtigen Patienten und bei intravenösem Drogenkonsum auf. Bei jungen, sexuell aktiven Patienten ist an Neisseria gonorrhoeae zu denken, bei einliegender Prothese an koagulasenegative Staphylokokken und Cutibacterium acnes.',
+        },
+        {
+          frage: 'Wie kommen die Erreger in das Gelenk?',
+          antwort: 'Auf drei Wegen: hämatogen durch Streuung aus einem entfernten Fokus — das ist der häufigste Weg —, durch direkte Inokulation nach Gelenkpunktion, intraartikulärer Injektion, Arthroskopie, Operation, penetrierendem Trauma oder Biss, und durch Fortleitung per continuitatem aus einer benachbarten Osteomyelitis, einem Weichteilinfekt oder einem Abszess.',
+        },
+        {
+          frage: 'Was erwarten Sie im Punktat, und ab welcher Zellzahl sprechen Sie von einer septischen Arthritis?',
+          antwort: 'Ein trübes bis eitriges Punktat mit herabgesetzter Viskosität, einer Leukozytenzahl typischerweise über 50 000 pro Mikroliter — häufig über 100 000 — mit mehr als 75 bis 90 Prozent Granulozyten, erniedrigter Glukose und erhöhtem Laktat. Das Gram-Präparat ist in etwa der Hälfte der Fälle positiv, die Kultur häufiger. Zum Vergleich: Bei entzündlichen Erkrankungen wie Gicht oder rheumatoider Arthritis liegt die Zellzahl meist zwischen 2 000 und 50 000, bei der Arthrose unter 2 000 pro Mikroliter.',
+        },
+        {
+          frage: 'Der Patient hat kein Fieber — schließt das eine septische Arthritis aus?',
+          antwort: 'Nein. In bis zu einem Drittel der Fälle fehlt das Fieber, besonders bei alten, diabetischen, immunsupprimierten oder mit Kortison behandelten Patienten. Gerade diese Patienten haben die schlechteste Prognose. Der Verdacht stützt sich dann auf den Lokalbefund, die Entzündungsparameter und vor allem auf das Punktat.',
+        },
+        {
+          frage: 'Was zeigt das Röntgenbild?',
+          antwort: 'Initial meist nichts oder allenfalls eine Weichteilschwellung und eine Gelenkspaltverbreiterung durch den Erguss. Ein unauffälliges Röntgenbild schließt die Diagnose keinesfalls aus. Es dient als Ausgangsbefund und dem Ausschluss von Fraktur, Osteomyelitis, Chondrokalzinose und Prothesenlockerung. Gelenkspaltverschmälerung, Erosionen und Destruktionen erscheinen erst nach ein bis zwei Wochen.',
+        },
+        {
+          frage: 'Wie behandeln Sie — reicht die Antibiotikatherapie?',
+          antwort: 'Nein, die Behandlung ist immer mechanisch UND antimikrobiell. Neben der Antibiose ist die chirurgische Herdsanierung entscheidend: arthroskopische Spülung mit Débridement und Synovialektomie, notfallmäßig und bei Bedarf wiederholt, häufig als Second look nach 24 bis 48 Stunden; bei fortgeschrittenem Befund offene Arthrotomie. Dazu kommen Analgesie, kurzzeitige Ruhigstellung in Funktionsstellung, Thromboseprophylaxe und die frühe Mobilisation.',
+        },
+        {
+          frage: 'Wie lange behandeln Sie antibiotisch?',
+          antwort: 'In der Regel etwa zwei Wochen intravenös bis zum klinischen Ansprechen und deutlichen CRP-Rückgang, danach orale Fortführung; insgesamt vier bis sechs Wochen beim nativen Gelenk. Bei begleitender Osteomyelitis oder einliegender Prothese sind drei bis sechs Monate erforderlich, bei implantatassoziierter Staphylokokkeninfektion in Kombination mit Rifampicin — Rifampicin niemals als Monotherapie.',
+        },
+        {
+          frage: 'Was ist bei einer infizierten Gelenkprothese anders?',
+          antwort: 'Die wiederholte Punktion allein genügt nicht. Bei einem Frühinfekt mit kurzer Symptomdauer kann ein Débridement mit Wechsel der mobilen Teile bei Prothesenerhalt versucht werden; sonst ist ein ein- oder zweizeitiger Prothesenwechsel erforderlich, beim zweizeitigen Vorgehen mit antibiotikahaltigem Zementspacer und antibiotikafreiem Intervall vor der Reimplantation.',
+        },
+        {
+          frage: 'Welche Komplikationen fürchten Sie?',
+          antwort: 'Die irreversible Knorpeldestruktion mit sekundärer Arthrose und Einsteifung, die Ausbreitung als Osteomyelitis, die Abszedierung, die Sepsis mit Multiorganversagen sowie bei Staphylokokken-Bakteriämie die infektiöse Endokarditis. Bei Kindern kommt die Wachstumsstörung durch Schädigung der Epiphysenfuge hinzu.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Sie hängt vom Zeitpunkt des Therapiebeginns ab. Bei Behandlung innerhalb der ersten 24 bis 48 Stunden ist die Funktion meist gut. Andernfalls behalten ein Viertel bis die Hälfte der Patienten eine bleibende Bewegungseinschränkung oder eine sekundäre Arthrose. Die Letalität liegt bei etwa 5 bis 15 Prozent, bei polyartikulärem Befall, Sepsis, hohem Alter und rheumatoider Arthritis bis zu 30 Prozent.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Diagnose in Alltagssprache?',
+          antwort: '„In Ihrem Kniegelenk hat sich eine bakterielle Entzündung entwickelt — es hat sich Eiter im Gelenk gebildet. Das ist ein Notfall, weil die Bakterien den Gelenkknorpel innerhalb weniger Tage dauerhaft zerstören können. Wir müssen deshalb sofort mit einer Nadel Flüssigkeit aus dem Gelenk entnehmen, um den Erreger zu bestimmen, danach sofort ein Antibiotikum über die Vene geben und das Gelenk noch heute im Rahmen einer Gelenkspiegelung gründlich spülen und reinigen.“',
+        },
+        {
+          frage: 'Der Patient hat eine bekannte rheumatoide Arthritis. Wie gehen Sie mit seiner Basistherapie um?',
+          antwort: 'Methotrexat und Biologika werden während der akuten Infektion pausiert. Eine laufende Glukokortikoidtherapie darf jedoch nicht abrupt abgesetzt werden, weil dem Patienten unter Dauertherapie eine adrenale Insuffizienz droht — sie wird fortgeführt und in der Akutsituation gegebenenfalls als Stressdosis angepasst. Die Wiederaufnahme der Basistherapie erfolgt erst nach beherrschter Infektion in Absprache mit der Rheumatologie.',
+        },
+        {
+          frage: 'Woran denken Sie bei einem jungen, sexuell aktiven Patienten mit akuter Arthritis?',
+          antwort: 'An eine Gonokokkenarthritis. Typisch sind wandernde Polyarthralgien, eine Tenosynovitis der Handgelenke und pustulöse Hautläsionen. Ich nehme Abstriche von Urethra beziehungsweise Zervix, Rachen und Rektum ab, lasse eine Nukleinsäureamplifikation und eine Kultur auf Spezialnährboden durchführen, behandle mit Ceftriaxon und behandle Chlamydien sowie den Partner mit.',
+        },
+      ],
+      merksatz: 'Jedes akut geschwollene, überwärmte und in Ruhe schmerzhafte Gelenk ist bis zum Beweis des Gegenteils infiziert: erst PUNKTIEREN und Blutkulturen abnehmen, dann SOFORT kalkuliert antibiotisch behandeln — und noch am selben Tag arthroskopisch spülen. Fieber kann fehlen, das Röntgen ist anfangs normal, Kristalle schließen die Infektion nicht aus, und Kortison gehört bei Verdacht niemals in das Gelenk.',
+      linkedCaseIds: [
+        'case-septische-arthritis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-feinnadelpunktion',
+        'auf-sonographie',
+        'auf-operation',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-spinalkanalstenose',
+      pathology: 'Lumbale Spinalkanalstenose',
+      specialty: 'Orthopädie',
+      definition: 'Die lumbale Spinalkanalstenose ist eine knöchern-ligamentäre Einengung des Spinalkanals, der Rezessus laterales und/oder der Neuroforamina im Bereich der Lendenwirbelsäule, die zu einer Kompression und Minderdurchblutung der Cauda-equina-Wurzeln führt. Klinisches Leitbild ist die CLAUDICATIO SPINALIS: belastungs- UND haltungsabhängige Schmerzen, Schwäche, Schweregefühl und Missempfindungen in beiden Beinen beim Gehen und beim Stehen mit einer sich zunehmend verkürzenden Gehstrecke, die sich beim Vorneüberbeugen und im Sitzen prompt bessern. Betroffen sind typischerweise Menschen über 60 Jahre; am häufigsten sind die Segmente L4/L5 und L3/L4. Entscheidend ist, dass die Diagnose eine KLINISCH-RADIOLOGISCHE ist: Eine Enge in der Bildgebung allein genügt nicht.',
+      aetiologie: 'In der überwiegenden Mehrzahl DEGENERATIV erworben: Die Höhenminderung und Vorwölbung der Bandscheibe (Protrusion) verlagert Last auf die Facettengelenke, es entstehen eine Spondylarthrose mit Osteophyten, eine Hypertrophie und Verkalkung des Ligamentum flavum sowie eine degenerative Spondylolisthese (Pseudospondylolisthese, typisch L4/L5 und häufiger bei Frauen) — zusammen engen diese Strukturen den Kanal von hinten, vorn und seitlich ein. Seltener liegt eine ANLAGEBEDINGTE (kongenitale) enge Anlage mit kurzen Pedikeln zugrunde, bei der geringe degenerative Veränderungen bereits symptomatisch werden. SEKUNDÄRE Ursachen sind der posttraumatische Zustand nach Wirbelfraktur, der postoperative Zustand (Narbengewebe, Anschlussdegeneration nach Fusion), Spondylolisthesen vom Isthmustyp, der Morbus Paget, die Akromegalie, die epidurale Lipomatose unter Kortikoidtherapie, die diffuse idiopathische Skeletthyperostose (DISH), rheumatische Erkrankungen sowie Tumoren und Metastasen. Pathophysiologisch führt die Enge zu einer venösen Stauung und arteriellen Minderperfusion der Wurzeln; unter Belastung steigt der Sauerstoffbedarf, gleichzeitig wird der Kanal beim aufrechten Gehen enger — daher die Belastungsabhängigkeit. Die Kyphosierung (Vorneüberbeugen, Sitzen) spannt das Ligamentum flavum, verkleinert die Bandscheibenvorwölbung und vergrößert den Kanalquerschnitt um mehrere Quadratmillimeter, was die Beschwerden sofort lindert.',
+      risikofaktoren: [
+        'Alter über 60 Jahre — der wichtigste Faktor',
+        'degenerative Vorerkrankungen der Wirbelsäule: Bandscheibenvorwölbung, Spondylarthrose, Spondylolisthese, Skoliose',
+        'kongenital enger Spinalkanal mit kurzen Pedikeln',
+        'Zustand nach Bandscheibenoperation oder Wirbelsäulenfusion (Narben, Anschlussdegeneration)',
+        'Übergewicht und Adipositas mit vermehrter Lordosierung',
+        'körperlich schwere Arbeit mit Heben, Tragen und dauerndem Stehen',
+        'Bewegungsmangel mit Schwäche der Rumpf- und Bauchmuskulatur',
+        'Zustand nach Wirbelkörperfraktur',
+        'Morbus Paget, Akromegalie, langfristige Kortikoidtherapie (epidurale Lipomatose)',
+        'Rauchen und kardiovaskuläre Risikofaktoren — sie fördern die Bandscheibendegeneration und begünstigen zusätzlich eine pAVK, die die Diagnose verschleiert',
+      ],
+      klinik: [
+        {
+          text: 'CLAUDICATIO SPINALIS als Leitsymptom: belastungsabhängige Schmerzen, Schwäche, Schweregefühl und Missempfindungen in BEIDEN Beinen beim GEHEN und beim STEHEN, mit einer nach und nach kürzer werdenden und von Tag zu Tag schwankenden Gehstrecke',
+        },
+        {
+          text: 'HALTUNGSABHÄNGIGKEIT als pathognomonisches Merkmal: prompte Besserung beim VORNEÜBERBEUGEN und beim SITZEN innerhalb von ein bis zwei Minuten, weil die Kyphosierung den Spinalkanal erweitert; Verschlechterung im aufrechten Stehen und bei der Reklination',
+        },
+        {
+          text: 'Alltagsbilder, an denen der Patient die Diagnose selbst stellt: Er kann den EINKAUFSWAGEN vorgebeugt problemlos lange schieben, das FAHRRADFAHREN fällt ihm leicht, und bergAUF gehen ist besser als bergAB',
+        },
+        {
+          text: 'tief lumbaler, dumpf-ziehender Rückenschmerz mit PSEUDORADIKULÄRER, nicht dermatombezogener Ausstrahlung in Gesäß und Oberschenkelrückseite, meist beidseits',
+        },
+        {
+          text: 'Sensibilitätsstörungen mit Kribbeln, Brennen und Taubheitsgefühl in den Beinen, die typischerweise nur unter Belastung auftreten und im Sitzen sofort verschwinden',
+        },
+        {
+          text: 'abgeschwächte Muskeleigenreflexe, insbesondere der Achillessehnenreflex; selten Paresen, am ehesten der Fuß- und Großzehenheber',
+        },
+        {
+          text: 'bei länger bestehender Stenose Muskelatrophie der Beine, Gangunsicherheit und erhöhtes Sturzrisiko mit zunehmendem Verlust der Selbstständigkeit',
+        },
+        {
+          text: 'im Liegen und in Ruhe völlige Beschwerdefreiheit — der Patient wirkt in der Sprechstunde gesund, weshalb das Ausmaß der Behinderung leicht unterschätzt wird',
+          atypisch: true,
+        },
+        {
+          text: 'Lasègue-Zeichen meist NEGATIV — im Unterschied zum lumbalen Bandscheibenvorfall',
+          atypisch: true,
+        },
+        {
+          text: 'rein einseitiges, echt radikuläres Bild ohne Rückenschmerz bei isolierter Rezessus- oder Neuroforamenstenose',
+          atypisch: true,
+        },
+        {
+          text: 'CAUDA-EQUINA-SYNDROM mit Reithosenanästhesie, Blasen- und Mastdarmstörung und rasch zunehmender Parese als seltene, aber notfallmäßige Manifestation',
+          atypisch: true,
+        },
+        {
+          text: 'vegetativ-vaskuläre Begleitsymptome wie Kältegefühl der Beine, die fälschlich an eine pAVK denken lassen; umgekehrt kann eine pAVK gleichzeitig bestehen und beide Bilder überlagern',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Lokalisation der Enge',
+          inhalt: 'Zentrale Spinalkanalstenose (Einengung des Duralsacks, typischerweise beidseitige Claudicatio spinalis) — laterale Rezessusstenose (Einengung der abgehenden Wurzel im Recessus lateralis, oft einseitig-radikuläres Bild) — Neuroforamenstenose (Einengung im Foramen intervertebrale, radikulärer Schmerz meist ohne Belastungsabhängigkeit). Häufig liegen Mischformen und mehrere Etagen vor, am häufigsten L4/L5, gefolgt von L3/L4.',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Primär anlagebedingt (kongenital enger Kanal mit kurzen Pedikeln, Symptome oft schon vor dem 50. Lebensjahr) — sekundär erworben, ganz überwiegend degenerativ (Bandscheibenprotrusion, Spondylarthrose, Hypertrophie des Ligamentum flavum, degenerative Spondylolisthese); seltener posttraumatisch, postoperativ, bei Morbus Paget, Akromegalie, epiduraler Lipomatose, DISH oder tumorös. Kombinationsstenose = enge Anlage plus Degeneration.',
+        },
+        {
+          name: 'Morphometrische Einteilung im MRT/CT (sagittaler Durchmesser des Spinalkanals)',
+          inhalt: 'Normaler sagittaler Durchmesser lumbal etwa 15 bis 25 mm; RELATIVE Stenose bei 10 bis 12 mm; ABSOLUTE Stenose unter 10 mm. Alternativ über die Querschnittsfläche des Duralsacks: unter 100 mm² relative, unter 75 mm² absolute Stenose. CAVE: Die Korrelation zwischen Messwert und Beschwerden ist SCHLECHT — asymptomatische Stenosen sind beim alten Menschen sehr häufig.',
+        },
+        {
+          name: 'Meyerding-Klassifikation der Spondylolisthese (bei Wirbelgleiten als Ursache)',
+          inhalt: 'Einteilung nach dem Ausmaß des Wirbelgleitens gemessen an der Deckplatte des darunterliegenden Wirbels: Grad I bis 25 %, Grad II 25 bis 50 %, Grad III 50 bis 75 %, Grad IV 75 bis 100 %, Grad V (Spondyloptose) vollständiges Abrutschen. Ein nachgewiesenes Gleiten ist das Hauptargument für eine zusätzliche Spondylodese.',
+        },
+      ],
+      redFlags: [
+        'CAUDA-EQUINA-SYNDROM: Reithosenanästhesie, Blasen- und Mastdarmstörung mit Harnverhalt oder Inkontinenz, rasch zunehmende Parese der Beine — NOTFALL mit sofortiger Bildgebung und dringlicher operativer Dekompression innerhalb weniger Stunden',
+        'rasch progrediente Parese, insbesondere eine neu aufgetretene Fußheberschwäche',
+        'Fieber, Schüttelfrost und Nachtschweiß — Verdacht auf Spondylodiszitis oder epiduralen Abszess',
+        'ungewollter Gewichtsverlust, bekannte Tumorerkrankung, Alter über 50 Jahre mit erstmaligem Rückenschmerz — Verdacht auf Wirbelkörpermetastase oder multiples Myelom',
+        'nachtbetonter Ruheschmerz, der den Patienten aus dem Schlaf weckt und sich durch Lagewechsel nicht bessert',
+        'adäquates oder Bagatelltrauma bei bekannter Osteoporose oder Kortikoidtherapie — Verdacht auf Sinterungsfraktur',
+        'fehlende Fußpulse, kühle, blasse Extremität und Ruheschmerz — kritische Ischämie bei pAVK statt oder zusätzlich zur Stenose',
+        'plötzlich einschießender Rücken- oder Bauchschmerz mit pulsierendem abdominellem Tastbefund und Kreislaufinstabilität — rupturiertes Bauchaortenaneurysma',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gehstreckenanamnese: aktuelle schmerzfreie GEHSTRECKE, ihr Verlauf über die Monate und ihre Schwankung von Tag zu Tag; Ein- oder Beidseitigkeit; Charakter (Schwere, Brennen, Kraftlosigkeit statt scharfem Wurzelschmerz)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Prüfung der HALTUNGSABHÄNGIGKEIT als Schlüsselfrage: Genügt bloßes Stehenbleiben (Hinweis auf pAVK) oder braucht es das Hinsetzen bzw. Vorneüberbeugen (Hinweis auf Spinalkanalstenose)? Dazu die Alltagsfragen nach Einkaufswagen, Fahrradfahren und bergauf gegenüber bergab',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Abfrage der RED FLAGS: Blasen- und Mastdarmstörung, Reithosenanästhesie, zunehmende Parese, Fieber, Gewichtsverlust, Tumoranamnese, Nachtschmerz, Trauma',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinisch-neurologische Untersuchung: Kraftgrade (besonders Fuß- und Großzehenheber), Muskeleigenreflexe PSR und ASR, Sensibilität einschließlich Vibrationsempfinden und Reithosenregion, Lasègue- und umgekehrtes Lasègue-Zeichen (bei der Stenose meist NEGATIV), Zehen- und Hackengang, Gangbild, Romberg-Stehversuch',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Obligate PALPATION DER FUSSPULSE (A. femoralis, A. poplitea, A. tibialis posterior, A. dorsalis pedis) im Seitenvergleich sowie Beurteilung von Hauttemperatur, Kolorit, Behaarung und trophischen Störungen — der einfachste und wichtigste Schritt zur Abgrenzung der pAVK',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Wirbelsäulenuntersuchung: Klopf- und Stauchungsschmerz, Beweglichkeit nach der Neutral-Null-Methode, Schober- und Ott-Zeichen, Reklinationstest (Provokation), Statik und Beinlängendifferenz; Untersuchung von Hüft- und Kniegelenken zur Abgrenzung der Cox- und Gonarthrose',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Objektivierung mit einem standardisierten Gehtest (Flur- oder Laufbandtest) sowie Erhebung von Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CRP, BSG und Blutbild mit Differenzialblutbild bei Verdacht auf eine entzündliche oder infektiöse Ursache (Spondylodiszitis, epiduraler Abszess)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nüchternblutzucker und HbA1c sowie Vitamin B12 und Folsäure zur Abklärung einer Polyneuropathie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin, eGFR, Elektrolyte und Blutbild vor einer NSAR-Therapie beim älteren Patienten; Lipidstatus im Rahmen des kardiovaskulären Risikoprofils',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Tumorverdacht Calcium, alkalische Phosphatase, Eiweißelektrophorese, PSA sowie gegebenenfalls weitere Tumormarker',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Lendenwirbelsäule als Untersuchung der WAHL: Darstellung von Höhe, Ausmaß und Art der Einengung (zentral, Rezessus, Neuroforamen), Beurteilung von Bandscheiben, Ligamentum flavum, Facettengelenken, Duralsack und Wurzeln, Nachweis oder Ausschluss von Tumor, Entzündung und Fraktur — ohne Strahlenbelastung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Knöchel-Arm-Index (ABI) mit der Dopplersonde und farbkodierte Duplexsonographie der Beinarterien zum Ausschluss einer pAVK; ein ABI unter 0,9 beweist eine pAVK, Werte über 1,3 sind bei Mediasklerose falsch hoch',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Konventionelles Röntgen der LWS in zwei Ebenen im STEHEN mit Funktionsaufnahmen in Inklination und Reklination bei Verdacht auf Instabilität oder Spondylolisthese; zugleich Beurteilung von Wirbelkörperhöhen, Spondylarthrose und Statik',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT oder Myelo-CT der LWS bei Kontraindikationen gegen das MRT (Herzschrittmacher, Metallimplantate, Klaustrophobie), zur Beurteilung der knöchernen Enge und zur Operationsplanung; das Myelo-CT zeigt die Enge dynamisch unter Belastung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie zum Ausschluss eines Bauchaortenaneurysmas; Beckenübersicht bzw. Röntgen der Hüftgelenke bei Verdacht auf Coxarthrose; Osteodensitometrie (DXA) bei Verdacht auf Osteoporose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Elektroneurographie und Elektromyographie zur Abgrenzung einer Polyneuropathie und zur Höhenlokalisation einer radikulären Läsion, insbesondere bei Diskrepanz zwischen Klinik und Bildgebung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostisch-therapeutische periradikuläre Therapie oder epidurale Infiltration unter Bildwandler- bzw. CT-Kontrolle: Ein prompter Schmerzrückgang bestätigt die symptomatische Höhe und dient der Operationsplanung bei mehretagiger Stenose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei anhaltendem Tumor- oder Infektverdacht: MRT mit Kontrastmittel, Skelettszintigraphie und CT-gesteuerte Biopsie; bei Verdacht auf Spondylodiszitis Blutkulturen und Erregernachweis vor Antibiose',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Periphere arterielle Verschlusskrankheit (pAVK) mit Claudicatio intermittens',
+          unterscheidung: 'Die wichtigste Abgrenzung. pAVK: Besserung bereits beim bloßen STEHENBLEIBEN nach kurzer Zeit, REPRODUZIERBAR gleiche Gehstrecke, krampfartiger Wadenschmerz, FEHLENDE Fußpulse, kühle, blasse, haarlose und atrophe Haut, Verschlechterung bergauf, Fahrradfahren ebenfalls beschwerdeauslösend, ABI unter 0,9. Spinalkanalstenose: Besserung erst durch HALTUNGSÄNDERUNG (Sitzen, Vorneüberbeugen), SCHWANKENDE Gehstrecke, TASTBARE Fußpulse, warme Haut, bergauf besser als bergab, Fahrradfahren und Einkaufswagenschieben beschwerdefrei, im Sitzen völlige Beschwerdefreiheit. Beide können koexistieren.',
+        },
+        {
+          dd: 'Lumbaler Bandscheibenvorfall mit radikulärem Syndrom',
+          unterscheidung: 'Jüngerer Patient, akuter Beginn oft nach Verhebetrauma, scharfer einschießender Schmerz streng in EINEM Dermatom bis in Zehen oder Fußsohle, Verstärkung durch Husten, Niesen und Pressen, LASÈGUE POSITIV, segmentale Reflex- und Kraftausfälle. Die Stenose macht beidseitige, pseudoradikuläre Beschwerden mit negativem Lasègue-Zeichen und der typischen Haltungsabhängigkeit.',
+        },
+        {
+          dd: 'Polyneuropathie, insbesondere diabetisch',
+          unterscheidung: 'STRUMPFFÖRMIGE, symmetrische, distal betonte Missempfindungen, BELASTUNGSUNABHÄNGIG und NACHTBETONT in Ruhe, mit Pallhypästhesie und abgeschwächtem ASR; keine Haltungsabhängigkeit, keine Gehstreckenlimitierung. Abklärung mit HbA1c, Vitamin B12 und Elektroneurographie.',
+        },
+        {
+          dd: 'Coxarthrose und Gonarthrose',
+          unterscheidung: 'Leisten- bzw. Knieschmerz, Anlaufschmerz nach Ruhe, Schmerz bei Innenrotation und Abduktion der Hüfte, Schwierigkeiten beim Socken- und Schuheanziehen, positives Zeichen nach Patrick; keine Missempfindungen, keine Kyphosierungsabhängigkeit. Klinische Untersuchung und Beckenübersichtsaufnahme.',
+        },
+        {
+          dd: 'Spondylodiszitis und epiduraler Abszess',
+          unterscheidung: 'Fieber, Nachtschweiß, ausgeprägter lokaler Klopfschmerz, Ruhe- und Nachtschmerz, erhöhte Entzündungsparameter, oft Immunsuppression, Diabetes oder vorangegangener Eingriff. MRT mit Kontrastmittel, Blutkulturen und Erregernachweis vor der Antibiose.',
+        },
+        {
+          dd: 'Wirbelkörpermetastasen und multiples Myelom',
+          unterscheidung: 'Alter über 50 Jahre, ungewollter Gewichtsverlust, Tumoranamnese, nachtbetonter Ruheschmerz ohne Belastungsabhängigkeit, Hyperkalzämie, erhöhte alkalische Phosphatase, Paraprotein in der Eiweißelektrophorese. MRT mit Kontrastmittel und Skelettszintigraphie.',
+        },
+        {
+          dd: 'Osteoporotische Sinterungsfraktur',
+          unterscheidung: 'Plötzlicher, atem- und bewegungsabhängiger Rückenschmerz nach Bagatelltrauma, umschriebener Klopf- und Stauchungsschmerz, Größenverlust und Hyperkyphose, keine Claudicatio-Symptomatik. Röntgen, DXA und gegebenenfalls MRT zur Altersbestimmung der Fraktur.',
+        },
+        {
+          dd: 'Spondylitis ankylosans (Morbus Bechterew)',
+          unterscheidung: 'Beginn vor dem 45. Lebensjahr, ENTZÜNDLICHER Rückenschmerz mit Morgensteifigkeit über 30 Minuten, Nachtschmerz in der zweiten Nachthälfte, BESSERUNG DURCH BEWEGUNG und Verschlechterung in Ruhe, gutes Ansprechen auf NSAR, eingeschränktes Schober-Zeichen, HLA-B27 positiv, Sakroiliitis im MRT.',
+        },
+        {
+          dd: 'Piriformis-Syndrom und ISG-Syndrom',
+          unterscheidung: 'Gesäßbetonter Schmerz mit Druckschmerz über dem Piriformis bzw. positiven ISG-Provokationstests (Mennell, Vorlaufphänomen); Verschlechterung durch langes SITZEN — also die umgekehrte Haltungsabhängigkeit gegenüber der Spinalkanalstenose.',
+        },
+        {
+          dd: 'Tiefe Beinvenenthrombose',
+          unterscheidung: 'Einseitige Beinschwellung mit Umfangsdifferenz, Überwärmung, livider Verfärbung und Wadendruckschmerz, meist nach Immobilisation, Operation oder bei Tumorleiden; keine Haltungsabhängigkeit. D-Dimere und Kompressionssonographie.',
+        },
+        {
+          dd: 'Bauchaortenaneurysma',
+          unterscheidung: 'Bei älteren Rauchern mit Rückenschmerz stets mitzudenken: pulsierender abdomineller Tastbefund, plötzlich einschießender Rücken- oder Bauchschmerz, bei Ruptur hämodynamische Instabilität. Abdomensonographie, im Notfall Angio-CT.',
+        },
+        {
+          dd: 'Zervikale Myelopathie',
+          unterscheidung: 'Gangunsicherheit und Feinmotorikstörung der Hände, SPASTISCHE Zeichen mit gesteigerten Reflexen und positivem Babinski-Zeichen unterhalb der Läsion, Nackenschmerz und Lhermitte-Zeichen — im Gegensatz zur schlaffen Symptomatik und den abgeschwächten Reflexen bei der lumbalen Stenose. MRT der HWS.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung und Anpassung des Alltags',
+          items: [
+            'Erklärung des Mechanismus und der Haltungsabhängigkeit: Der enge Kanal wird beim Vorneüberbeugen weiter und beim Aufrichten enger — dieses Verständnis allein entlastet den Patienten erheblich',
+            'Einordnung des Verlaufs: langsam progredient, NICHT lebensbedrohlich; eine sofortige Operation ist in der Regel nicht erforderlich',
+            'bewusste Nutzung der entlastenden Haltungen im Alltag, Gehpausen im Sitzen, Aufteilen langer Wege, Vermeidung von langem aufrechtem Stehen und von Reklination',
+            'GEHHILFE oder ROLLATOR, der die Vorbeugung erzwingt und die Gehstrecke sofort und risikolos verlängert',
+            'Umstieg auf Fahrrad oder Ergometer für die Ausdauer, da diese vorgebeugte Haltung toleriert wird',
+            'Gewichtsreduktion zur mechanischen Entlastung der Lendenwirbelsäule',
+            'Sturzprophylaxe und Wohnraumanpassung: Handläufe, gute Beleuchtung, festes Schuhwerk',
+          ],
+        },
+        {
+          label: 'Aktive und physikalische Therapie',
+          items: [
+            'KRANKENGYMNASTIK als tragende Säule mit FLEXIONSBETONTEN Übungen und Kräftigung der Rumpf-, Bauch- und Glutealmuskulatur',
+            'Ergometertraining in vorgebeugter Haltung mit schrittweiser Steigerung von Dauer und Intensität',
+            'Wärmeanwendungen, Massage und Elektrotherapie zur Muskeldetonisierung als begleitende symptomatische Maßnahmen',
+            'Manualtherapie nur zurückhaltend und niemals mit ruckartigen Manipulationen bei neurologischer Symptomatik',
+            'Rücken- und Alltagsschule mit Anleitung zum selbstständigen Heimübungsprogramm',
+            'AUSDRÜCKLICH KEINE BETTRUHE — Immobilisation verschlechtert Muskelkraft, Gehstrecke und Prognose; Orthesen allenfalls kurzzeitig',
+            'Ergotherapie, Hilfsmittelversorgung und bei Chronifizierung multimodale Schmerztherapie',
+          ],
+        },
+        {
+          label: 'Medikamentöse und interventionelle Schmerztherapie',
+          items: [
+            'NSAR nur ZEITLICH BEGRENZT und in niedrigster wirksamer Dosis, unter Beachtung von Magen (Protonenpumpenhemmer), Niere und Herz beim alten Patienten — besondere Vorsicht bei ACE-Hemmern und Diuretika',
+            'Metamizol als gut steuerbare Alternative (Cave Agranulozytose, Aufklärung über Fieber und Halsschmerzen); Paracetamol als schwächere Reserve',
+            'bei neuropathischer Komponente Gabapentin oder Pregabalin, einschleichend und nierenadaptiert dosiert (Cave Sedierung, Schwindel, Sturzrisiko)',
+            'OPIOIDE nur zurückhaltend und kurzfristig bei starkem Leidensdruck, stets mit Laxans und Aufklärung über Obstipation, Sedierung und Sturzgefahr',
+            'periradikuläre Therapie (PRT) und epidurale Injektion von Lokalanästhetikum und Kortikoid unter Bildwandler- oder CT-Kontrolle zur zeitlich begrenzten Linderung — überbrückend, nicht kurativ',
+            'Behandlung der Begleitrisiken (Blutdruck, Lipide, Blutzucker); bei nachgewiesener begleitender pAVK zusätzlich Thrombozytenaggregationshemmer, Statin und strukturiertes Gehtraining',
+          ],
+        },
+        {
+          label: 'Operative Dekompression bei klarer Indikation',
+          items: [
+            'Indikation zur mikrochirurgischen DEKOMPRESSION beziehungsweise Laminotomie: Versagen der konservativen Therapie über drei bis sechs Monate, stark eingeschränkte Gehstrecke mit hohem Leidensdruck oder zunehmende Parese',
+            'Operationsprinzip: interlaminäre Fensterung mit undercutting decompression, Resektion des hypertrophierten Ligamentum flavum, Erweiterung von Rezessus und Neuroforamen unter Erhalt der Stabilität',
+            'zusätzliche SPONDYLODESE nur bei nachgewiesener segmentaler Instabilität oder Spondylolisthese — nicht routinemäßig, da sie Komplikationsrate und Anschlussdegeneration erhöht',
+            'DRINGLICHE Operation beim CAUDA-EQUINA-SYNDROM und bei rasch progredienter Parese: sofortige Bildgebung und Dekompression innerhalb weniger Stunden',
+            'präoperative Risikoabschätzung beim älteren Patienten: Narkosefähigkeit, kardiopulmonale Vorerkrankungen, Gerinnung, Osteoporose',
+            'AUFKLÄRUNG über realistische Erwartungen: Gehstrecke und Beinbeschwerden bessern sich deutlich besser als der tief lumbale Rückenschmerz; Rezidive und Anschlussdegenerationen sind möglich',
+            'Operationsrisiken: Duraverletzung mit Liquorleck, Nervenwurzelläsion, Nachblutung, Wundinfekt, Thrombose und Embolie, allgemeine Narkoserisiken',
+            'postoperativ frühe Mobilisation ab dem ersten Tag, Anschlussheilbehandlung und Fortführung der Krankengymnastik',
+          ],
+        },
+      ],
+      prognose: 'Der Verlauf ist meist langsam und über Jahre schwankend; die Erkrankung ist nicht lebensbedrohlich. Etwa ein Drittel bis die Hälfte der konservativ behandelten Patienten bleibt über Jahre stabil oder bessert sich, ein weiterer Teil verschlechtert sich langsam. Eine plötzliche dramatische Verschlechterung ist untypisch und muss an ein Cauda-equina-Syndrom oder eine andere Ursache denken lassen. Nach mikrochirurgischer Dekompression berichten etwa 70 bis 80 Prozent der richtig ausgewählten Patienten über eine deutliche Besserung, wobei sich die GEHSTRECKE und die Beinbeschwerden erheblich besser bessern als der tief lumbale Rückenschmerz. Rezidivstenosen und Anschlussdegenerationen der Nachbarsegmente treten bei etwa 10 bis 20 Prozent innerhalb von zehn Jahren auf. Prognostisch ungünstig sind lange Symptomdauer mit bereits eingetretener Muskelatrophie, ausgeprägte Komorbidität, Depression und eine begleitende Polyneuropathie oder pAVK. Entscheidend für das Langzeitergebnis sind die fortgeführte Übungstherapie und die Erhaltung der Mobilität.',
+      pruefungsfallen: [
+        'Die entscheidende Unterscheidungsfrage nicht stellen: „Hilft bloßes Stehenbleiben, oder müssen Sie sich hinsetzen beziehungsweise vornüberbeugen?“ Genau daran trennt man Claudicatio spinalis und Claudicatio intermittens — in Karlsruhe (06.04.2023) ausdrücklich verlangt.',
+        'Die FUSSPULSE nicht palpieren und den Knöchel-Arm-Index nicht nennen. Dieser einfache Schritt ist Prüfungsstoff; beide Erkrankungen können zudem koexistieren.',
+        'Bei einer Voroperation am Rücken die HÖHE nicht erfragen — in Freiburg (25.04.2023) hat der Prüfer den Kandidaten genau darauf angesprochen: „Wo war die OP im Rücken?“',
+        'Das Cauda-equina-Syndrom nicht aktiv abfragen und nicht als NOTFALL benennen. Reithosenanästhesie, Blasen- und Mastdarmstörung und rasch zunehmende Parese müssen ausdrücklich verneint oder als Notfall erkannt werden.',
+        'Eine seit Jahren bestehende Nykturie bei Prostatavergrößerung fälschlich als Cauda-Zeichen werten — entscheidend ist, dass die Störung NEU aufgetreten ist.',
+        'Nur das Bild behandeln: Asymptomatische Stenosen im MRT sind beim alten Menschen sehr häufig. Bildgebung und Klinik müssen ZUSAMMENPASSEN — operiert wird der Patient und nicht das Bild.',
+        'Ein positives Lasègue-Zeichen erwarten: Bei der Spinalkanalstenose ist es meist NEGATIV, im Gegensatz zum Bandscheibenvorfall.',
+        'Sofort zur Operation raten. Der Verlauf ist langsam und die Erkrankung nicht lebensbedrohlich — zuerst Aufklärung, Alltagsanpassung und Krankengymnastik über drei bis sechs Monate.',
+        'Bettruhe verordnen — bei allen degenerativen Rückenerkrankungen ein klarer Fehler; richtig sind frühe Mobilisation und aktive Übungstherapie.',
+        'NSAR beim alten Patienten unkritisch und dauerhaft ansetzen: Magen, Niere und Herz müssen bedacht werden, ein Protonenpumpenhemmer gehört dazu.',
+        'Bei der Operation reflexhaft eine Versteifung nennen. Die Spondylodese ist nur bei nachgewiesener Instabilität oder Spondylolisthese indiziert.',
+        'In der Aufklärung übertriebene Erwartungen wecken: Die Gehstrecke bessert sich besser als der Rückenschmerz, und Rezidive sind möglich.',
+        'Den Fachbegriff nicht in Alltagssprache übersetzen: „Spinalkanalstenose“ = Verengung des Wirbelkanals, also des Kanals in der Wirbelsäule, in dem die Nerven verlaufen (Karlsruhe, 11.06.2024).',
+      ],
+      askedInExam: [
+        {
+          frage: 'DD — warum TVT, warum Spinalkanalstenose? (Karlsruhe, 06.04.2023)',
+          antwort: 'Eine TVT, weil einseitige Beinbeschwerden beim älteren Patienten immer eine Thrombose ausschließen müssen: Schwellung mit Umfangsdifferenz, Überwärmung, livide Verfärbung und Wadendruckschmerz, geklärt durch D-Dimere und Kompressionssonographie. Eine Spinalkanalstenose, weil auch sie eine belastungsabhängige Gehstreckenlimitierung macht; sie unterscheidet sich aber dadurch, dass die Beschwerden meist BEIDSEITIG sind, mit Missempfindungen und Schweregefühl einhergehen, sich erst durch HALTUNGSÄNDERUNG bessern, die Gehstrecke von Tag zu Tag schwankt und die Fußpulse TASTBAR sind.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnose kommt bei diesem pAVK-Patienten noch in Frage? (Freiburg, 25.04.2023)',
+          antwort: 'TVT, Claudicatio spinalis bei Spinalkanalstenose und ein lumbaler Bandscheibenvorfall. Bei belastungsabhängigen Beinschmerzen gehört die neurogene Claudicatio immer in die Differenzialdiagnose, und umgekehrt gehört bei jeder Claudicatio spinalis die Palpation der Fußpulse und der Knöchel-Arm-Index zur Basisdiagnostik.',
+        },
+        {
+          frage: 'Wo war die Operation im Rücken? (Freiburg, 25.04.2023)',
+          antwort: 'Diese Frage muss in der Anamnese gestellt werden: Bei jeder Voroperation an der Wirbelsäule gehören die HÖHE (zervikal, thorakal, lumbal und das genaue Segment), das Verfahren (mikrochirurgische Diskektomie, Dekompression, Fusion), der Zeitpunkt und der Verlauf danach erfragt — sonst fehlt die entscheidende Information für die aktuelle Beurteilung.',
+        },
+        {
+          frage: 'Was ist eine Spinalkanalstenose? Erklären Sie es dem Patienten. (Karlsruhe, 11.06.2024, Fachbegriffe)',
+          antwort: 'Eine Verengung des Wirbelkanals — das ist der Kanal in der Wirbelsäule, in dem die Nervenstränge zu den Beinen verlaufen. Durch Verschleiß werden Bandscheiben, kleine Wirbelgelenke und Bänder dicker, der Kanal wird enger und drückt beim Gehen auf die Nerven. Deshalb werden die Beine nach einer gewissen Strecke schwer und kraftlos, und es wird sofort besser, wenn man sich hinsetzt oder vorbeugt.',
+        },
+        {
+          frage: 'Was ist Claudicatio intermittens, welche Zeichen gibt es? (Karlsruhe, 18.07.2023)',
+          antwort: 'Ein belastungsabhängiger, krampfartiger Muskelschmerz, meist in der Wade, durch arterielle Minderdurchblutung. Zeichen: reproduzierbare schmerzfreie Gehstrecke, prompte Besserung im Stehen nach ein bis zwei Minuten, fehlende Fußpulse, kühle, blasse, haarlose und atrophe Haut, verzögerte Rekapillarisierung, Ratschow-Lagerungsprobe positiv, ABI unter 0,9. Im Volksmund Schaufensterkrankheit, weil die Patienten scheinbar vor Schaufenstern stehen bleiben, bis der Schmerz nachlässt.',
+        },
+        {
+          frage: 'Was ist Ihre Verdachtsdiagnose und Differenzialdiagnose? (Reutlingen, 17.04.2024 — die Prüferin wollte die Spinalkanalstenose als DD hören)',
+          antwort: 'Bei Schwäche und Missempfindungen eines Beines beim älteren oder auch jüngeren Patienten gehört neben der neurologischen Ursache — hier Multiple Sklerose — stets eine spinale Kompression in die Differenzialdiagnose: Spinalkanalstenose, Bandscheibenvorfall, Myelonkompression durch Tumor oder Metastase. Die Unterscheidung erfolgt über MRT und Elektrophysiologie sowie über die Verlaufsdynamik: schubförmig und mit Vorepisoden wie einer Doppelbildstörung bei der MS, belastungs- und haltungsabhängig bei der Stenose.',
+        },
+        {
+          frage: 'Warum ist das MRT dem CT überlegen, und wann machen Sie doch ein CT? (Karlsruhe, 14.05.2024)',
+          antwort: 'Das MRT hat die beste Weichteilauflösung, stellt Bandscheiben, Ligamentum flavum, Duralsack, Nervenwurzeln, Ödem, Tumor und Entzündung dar und arbeitet ohne ionisierende Strahlung. Das CT bildet vor allem den Knochen ab. Ein CT oder Myelo-CT ist indiziert bei Kontraindikationen gegen das MRT — Herzschrittmacher, bestimmte Metallimplantate, ausgeprägte Klaustrophobie —, zur Beurteilung knöcherner Engen und zur Operationsplanung.',
+        },
+        {
+          frage: 'Wie behandeln Sie konservativ, und wie wird operiert? (Karlsruhe, 14.05.2024, übertragen)',
+          antwort: 'Konservativ mit Aufklärung und Alltagsanpassung, flexionsbetonter Krankengymnastik, Ergometertraining, Wärme, Rückenschule ohne Bettruhe sowie einer altersangepassten Analgesie, ergänzt durch periradikuläre und epidurale Injektionen. Operativ mit mikrochirurgischer Dekompression beziehungsweise Laminotomie mit undercutting decompression und Resektion des hypertrophierten Ligamentum flavum; eine Spondylodese nur bei nachgewiesener Instabilität oder Spondylolisthese.',
+        },
+        {
+          frage: 'Warum sprechen Sie von einer Parese? (Reutlingen, 17.04.2024)',
+          antwort: 'Weil es sich um eine Schwäche, also eine unvollständige Lähmung handelt. Eine vollständige Lähmung heißt Plegie oder Paralyse. Bei der Spinalkanalstenose ist eine Parese ein Warnsignal, das die Operationsindikation begründet — eine rasch zunehmende Parese ist eine dringliche Indikation.',
+        },
+        {
+          frage: 'Gibt es noch etwas auszuschließen bei Rückenschmerzen, vor allem bei Männern? (Karlsruhe, 26.01.2022)',
+          antwort: 'Ja: eine kardiale Ursache. Ein Hinterwandinfarkt kann sich als Rücken- oder interskapulärer Schmerz äußern — deshalb ein EKG schreiben und Troponin bestimmen. Außerdem an ein Bauchaortenaneurysma, eine Aortendissektion, eine Nierenkolik, eine Pankreatitis und einen Herpes zoster denken.',
+        },
+        {
+          frage: 'Muss der Patient sofort operiert werden, wenn das MRT eine hochgradige Stenose zeigt?',
+          antwort: 'Nein. Asymptomatische oder gering symptomatische Stenosen sind beim alten Menschen sehr häufig; Bildgebung und Klinik müssen zusammenpassen. Zuerst wird drei bis sechs Monate konsequent konservativ behandelt. Sofort operiert wird nur beim Cauda-equina-Syndrom und bei rasch progredienter Parese.',
+        },
+        {
+          frage: 'Was erwarten Sie bei der körperlichen Untersuchung?',
+          antwort: 'Häufig einen erstaunlich unauffälligen Ruhebefund: normale Kraft, allenfalls abgeschwächter Achillessehnenreflex, negatives Lasègue-Zeichen, tastbare Fußpulse und warme Füße. Provozierbar sind die Beschwerden durch Reklination und durch einen Gehtest. Bei längerem Verlauf zeigen sich Muskelatrophie, Sensibilitätsstörungen und ein unsicheres Gangbild.',
+        },
+      ],
+      merksatz: 'Claudicatio spinalis heißt: Stehenbleiben genügt NICHT — der Patient muss sich SETZEN oder VORBEUGEN. Einkaufswagen und Fahrrad gehen problemlos, bergauf besser als bergab, die Gehstrecke schwankt und die Fußpulse sind TASTBAR — sonst denke an die pAVK. MRT ist die Untersuchung der Wahl, aber operiert wird der PATIENT und nicht das BILD; nur das Cauda-equina-Syndrom ist ein Notfall.',
+      linkedCaseIds: [
+        'case-spinalkanalstenose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-operation',
+        'auf-ct',
+      ],
+    },
   ];
 }
