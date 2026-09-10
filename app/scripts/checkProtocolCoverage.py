@@ -121,11 +121,11 @@ ALIAS = {
     'influenza': 'Influenza (Virusgrippe)',
 
     # --- 4e passe : cibles ajoutées par le lot-20
-    'malaria': 'Malaria tropica',
+    'malaria': 'Malaria tropica (Plasmodium falciparum)',
     'endokarditis': 'Infektiöse Endokarditis', 'bakterielleendokarditis': 'Infektiöse Endokarditis',
     'infektioeseendokarditis': 'Infektiöse Endokarditis',
-    'covid19': 'COVID-19', 'covid': 'COVID-19',
-    'anaphylaktischerschock': 'Anaphylaktischer Schock', 'anaphylaxis': 'Anaphylaktischer Schock',
+    'covid19': 'COVID-19 (SARS-CoV-2-Infektion)', 'covid': 'COVID-19 (SARS-CoV-2-Infektion)',
+    'anaphylaktischerschock': 'Anaphylaktischer Schock (Anaphylaxie)', 'anaphylaxis': 'Anaphylaktischer Schock (Anaphylaxie)',
     'reaktivearthritis': 'Reaktive Arthritis', 'reaktivearthritis1': 'Reaktive Arthritis',
     'poststreptokokkenreaktivearthritis': 'Reaktive Arthritis',
     'pertussis': 'Pertussis (Keuchhusten)', 'pertusis': 'Pertussis (Keuchhusten)',
