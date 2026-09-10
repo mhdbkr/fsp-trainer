@@ -190,12 +190,30 @@ def splice(path, anchor, insertion):
     with open(path, 'w', encoding='utf-8') as f:
         f.write(new)
 
+def existing_aufklaerung_ids():
+    src = open(os.path.join(DATA, 'seedAufklaerungen.ts'), encoding='utf-8').read()
+    return set(re.findall(r"id: '(auf-[^']+)'", src))
+
+def filter_aufklaerung_ids(ids, known, cid, report):
+    """Les agents inventent parfois des ids d'Aufklärung (auf-eeg, auf-tee,
+    auf-blutentnahme…). Une référence pendante ne casse ni tsc ni le build :
+    elle disparaît silencieusement dans l'UI. On filtre et on signale."""
+    out = []
+    for i in ids or []:
+        if i in known:
+            out.append(i)
+        else:
+            report.append(f'   ⚠ {cid}: Aufklärung inconnue ignorée ({i!r})')
+    return out
+
 def main():
     cases_ts, muster_ts, fw_ts = [], [], []
     report = []
+    known_auf = existing_aufklaerung_ids()
     for cid in CASE_IDS:
         raw = json.load(open(os.path.join(SRC, cid + '.json')))
         case = norm_case(raw)
+        case['probableAufklaerungIds'] = filter_aufklaerung_ids(case.get('probableAufklaerungIds'), known_auf, cid, report)
         fw = norm_fw(raw, case)
         muster = raw.get('muster')
         # idempotency guard

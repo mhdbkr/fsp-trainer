@@ -36001,7 +36001,6 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [
-        'auf-blutentnahme',
       ],
     },
     {
@@ -36329,7 +36328,6 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [
         'auf-mrt',
-        'auf-roentgen',
       ],
     },
     {
@@ -38213,7 +38211,6 @@ export function seedFachwissen(): Fachwissen[] {
       linkedAufklaerungIds: [
         'auf-sonographie',
         'auf-roentgen-thorax',
-        'auf-blutentnahme',
       ],
     },
     {
@@ -39854,7 +39851,7 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [
         'auf-ct',
-        'auf-tee',
+        'auf-echokardiographie',
       ],
     },
     {
@@ -40543,7 +40540,6 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [
         'auf-mrt',
-        'auf-eeg',
         'auf-lumbalpunktion',
       ],
     },

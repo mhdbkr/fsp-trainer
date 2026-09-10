@@ -51402,7 +51402,6 @@ export function seedCases(): Case[] {
         notfall: false,
       },
       probableAufklaerungIds: [
-        'auf-blutentnahme',
       ],
       caseSpecificQuestions: [
         'Was war in Ihrem Leben los, als die Schmerzen vor fünf Jahren angefangen haben — gab es Veränderungen in der Beziehung, in der Familie oder bei der Arbeit?',
@@ -51888,7 +51887,6 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [
         'auf-mrt',
-        'auf-roentgen',
       ],
       caseSpecificQuestions: [
         'Tut es nur beim Gehen weh, oder auch, wenn Sie sitzen, liegen oder nachts schlafen?',
@@ -54735,7 +54733,6 @@ export function seedCases(): Case[] {
       probableAufklaerungIds: [
         'auf-sonographie',
         'auf-roentgen-thorax',
-        'auf-blutentnahme',
       ],
       caseSpecificQuestions: [
         'Wo genau waren Sie, wie lange, und wann sind Sie zurückgekommen?',
@@ -57198,7 +57195,7 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [
         'auf-ct',
-        'auf-tee',
+        'auf-echokardiographie',
       ],
       caseSpecificQuestions: [
         'Kam der Schmerz von einer Sekunde auf die andere und war er sofort am stärksten — oder hat er sich über Minuten aufgebaut?',
@@ -58147,7 +58144,6 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: [
         'auf-mrt',
-        'auf-eeg',
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
