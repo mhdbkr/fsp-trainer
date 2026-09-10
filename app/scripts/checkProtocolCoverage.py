@@ -134,6 +134,14 @@ ALIAS = {
     'colitisulcerosa': 'Colitis ulcerosa',
     'chronischepankreatitis': 'Chronische Pankreatitis',
     'myokarditispostcovid19': 'Akute Myokarditis',
+
+    # --- 6e passe : cibles ajoutées par le lot-22
+    'posttraumatischebelastungsstoerungptbs': 'Posttraumatische Belastungsstörung (PTBS)', 'posttraumatischebelastungsstoerung2x': 'Posttraumatische Belastungsstörung (PTBS)',
+    'psychosomatischeschmerzen': 'Anhaltende somatoforme Schmerzstörung',
+    'hueftkopfnekrose': 'Hüftkopfnekrose (aseptische Femurkopfnekrose)',
+    'pollenallergiemitrhinitis': 'Allergische Rhinitis (Pollinosis)',
+    'typhus': 'Typhus abdominalis',
+    'funktionelleobstipation': 'Chronische funktionelle Obstipation',
 }
 # titres qui ne désignent pas un cas exploitable
 IGNORE = {'karlsruhe', 'akutesabdomen', 'fahradunfall'}

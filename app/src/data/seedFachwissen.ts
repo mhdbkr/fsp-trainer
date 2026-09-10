@@ -35381,5 +35381,3513 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-mrt',
       ],
     },
+    {
+      id: 'fw-ptbs',
+      pathology: 'Posttraumatische Belastungsstörung (PTBS)',
+      specialty: 'Psychiatrie',
+      definition: 'Die posttraumatische Belastungsstörung (PTBS, englisch PTSD) ist eine verzögerte oder protrahierte Reaktion auf ein Ereignis von außergewöhnlicher Bedrohung oder katastrophalem Ausmaß, bei dem die eigene oder eine fremde körperliche Unversehrtheit oder das Leben bedroht war (Traumakriterium). Sie ist gekennzeichnet durch vier Symptomcluster: Wiedererleben (Intrusionen, Flashbacks, Albträume), Vermeidung, negative Veränderungen von Stimmung und Denken sowie Übererregung (Hyperarousal). Die Symptome müssen länger als einen Monat bestehen und das Funktionsniveau beeinträchtigen; davor spricht man von einer akuten Belastungsreaktion. Die komplexe PTBS (ICD-11) entsteht nach wiederholten, lang anhaltenden Traumatisierungen und umfasst zusätzlich Störungen der Affektregulation, des Selbstbildes und der Beziehungsgestaltung.',
+      aetiologie: 'Auslöser ist ein Trauma vom Typ I (einmalig, kurz: Verkehrsunfall, Überfall, Vergewaltigung, Naturkatastrophe, Zeugenschaft eines gewaltsamen Todes) oder vom Typ II (wiederholt, lang anhaltend: Krieg, Folter, Gefangenschaft, häusliche Gewalt, sexueller Missbrauch in der Kindheit). Nur ein Teil der Betroffenen entwickelt nach einem Trauma eine PTBS: das Risiko liegt nach Verkehrsunfällen bei etwa 10 %, nach sexualisierter Gewalt bei etwa 50 %. Pathophysiologisch werden eine gestörte Konsolidierung des Traumagedächtnisses (fragmentierte, sensorisch überflutende Erinnerung ohne zeitlich-räumliche Einordnung), eine Überaktivität der Amygdala bei verminderter präfrontaler Hemmung sowie eine Dysregulation der Stresshormonachse mit erhöhter Noradrenalinaktivität angenommen. Berufliche Traumatisierungen betreffen Rettungskräfte, Polizei, Soldaten und Pflegende.',
+      risikofaktoren: [
+        'Art und Schwere des Traumas: interpersonelle Gewalt (sexualisierte Gewalt, Folter) und wiederholte Traumatisierung (Typ II) sind risikoreicher als einmalige Unfälle',
+        'Subjektiv erlebte Todesangst, Hilflosigkeit und Kontrollverlust während des Ereignisses; peritraumatische Dissoziation',
+        'Weibliches Geschlecht (etwa doppelt so häufig betroffen)',
+        'Frühere Traumatisierungen, insbesondere in der Kindheit; frühere psychische Erkrankungen (Depression, Angststörung)',
+        'Fehlende soziale Unterstützung nach dem Ereignis; Schuldzuweisungen oder Beschämung durch das Umfeld',
+        'Anhaltende Belastung nach dem Trauma: Schmerzen, Verlust des Arbeitsplatzes, Rechtsstreit, unsichere aufenthaltsrechtliche Situation bei Geflüchteten',
+        'Berufliche Exposition: Rettungsdienst, Feuerwehr, Polizei, Militär, Pflege- und Notaufnahmepersonal',
+        'Substanzkonsum als Selbstbehandlung (Alkohol, Benzodiazepine, Cannabis) — verhindert die Verarbeitung und chronifiziert die Symptomatik',
+      ],
+      klinik: [
+        {
+          text: 'Wiedererleben: Intrusionen als sich aufdrängende, lebhafte und ungewollte Erinnerungen an das Ereignis',
+        },
+        {
+          text: 'Flashbacks — das Gefühl, das Ereignis geschehe jetzt wieder, mit allen Sinneseindrücken; der Patient weiß dabei, dass es eine Erinnerung ist (keine Halluzination)',
+        },
+        {
+          text: 'Albträume mit Traumainhalt und dadurch bedingte Durchschlafstörung',
+        },
+        {
+          text: 'Heftige körperliche und seelische Reaktionen auf Auslöser (Trigger): Geräusche, Gerüche, Orte, Bilder, Jahrestage — mit Herzrasen, Schwitzen, Zittern, Engegefühl',
+        },
+        {
+          text: 'Vermeidung von Gedanken, Gefühlen, Gesprächen, Orten, Tätigkeiten und Menschen, die an das Trauma erinnern — mit zunehmender Einengung des Lebens (fährt nicht mehr Auto oder Motorrad, meidet Menschenmengen, zieht sich sozial zurück)',
+        },
+        {
+          text: 'Negative Veränderungen von Stimmung und Denken: emotionale Taubheit, Entfremdung von anderen, Unfähigkeit, positive Gefühle zu empfinden, Schuld- und Schamgefühle, negative Überzeugungen über sich und die Welt („Nirgends ist es sicher“), Teilamnesie für das Ereignis',
+        },
+        {
+          text: 'Übererregung (Hyperarousal): Ein- und Durchschlafstörung, Reizbarkeit und Wutausbrüche, Hypervigilanz, übersteigerte Schreckreaktion, Konzentrationsstörungen',
+        },
+        {
+          text: 'Zeitkriterium: Symptome über mehr als einen Monat; Beginn meist innerhalb von Wochen bis sechs Monaten nach dem Ereignis, ein verzögerter Beginn nach Monaten bis Jahren ist möglich',
+        },
+        {
+          text: 'Präsentation über somatische Beschwerden: Kopfschmerzen, Herzrasen, Engegefühl in der Brust, Schlafstörung, Konzentrationsprobleme — das Trauma wird vom Patienten nicht von sich aus erwähnt',
+          atypisch: true,
+        },
+        {
+          text: 'Dissoziative Symptome: Derealisation und Depersonalisation, Gefühl, „neben sich zu stehen“ oder wie durch eine Glasscheibe zu leben',
+          atypisch: true,
+        },
+        {
+          text: 'Komplexe PTBS nach Typ-II-Trauma: zusätzlich Störungen der Affektregulation (Wutausbrüche, Selbstverletzung), anhaltend negatives Selbstbild („wertlos, beschädigt“) und Schwierigkeiten, Beziehungen aufrechtzuerhalten',
+          atypisch: true,
+        },
+        {
+          text: 'Kinder und Jugendliche: Nachspielen des Traumas im Spiel, Regression (Einnässen), Trennungsangst, Schulleistungsabfall, unspezifische Bauch- und Kopfschmerzen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Diagnosekriterien nach ICD-10 (F43.1) und ICD-11 (6B40)',
+          inhalt: 'ICD-10 F43.1: Ereignis von außergewöhnlicher Bedrohung, Wiedererleben (Nachhallerinnerungen, Flashbacks, Träume), Vermeidung, teilweise Amnesie oder anhaltende Übererregung; Beginn innerhalb von sechs Monaten nach dem Trauma. ICD-11 6B40: drei Kernmerkmale — Wiedererleben in der Gegenwart, Vermeidung, anhaltendes Gefühl aktueller Bedrohung (Hypervigilanz, Schreckreaktion) — über mehrere Wochen mit Funktionsbeeinträchtigung; neu die komplexe PTBS (6B41) mit zusätzlichen Störungen von Affektregulation, Selbstbild und Beziehungen.',
+        },
+        {
+          name: 'Die vier Symptomcluster nach DSM-5',
+          inhalt: 'B: Wiedererleben (Intrusionen, Albträume, Flashbacks, Belastung und körperliche Reaktion bei Triggern). C: Vermeidung (von inneren Erinnerungen und äußeren Reizen). D: negative Veränderungen von Kognition und Stimmung (Amnesie, negative Überzeugungen, verzerrte Schuldzuweisung, anhaltend negative Gefühle, Interessenverlust, Entfremdung, Unfähigkeit zu positiven Gefühlen). E: Übererregung (Reizbarkeit, riskantes Verhalten, Hypervigilanz, Schreckreaktion, Konzentrations- und Schlafstörung). Dauer über einen Monat, klinisch bedeutsames Leiden; Spezifizierer „mit dissoziativen Symptomen“ und „mit verzögertem Beginn“.',
+        },
+        {
+          name: 'Zeitliche Einteilung der Traumafolgestörungen',
+          inhalt: 'Akute Belastungsreaktion (ICD-10 F43.0): Beginn innerhalb von Minuten bis Stunden, Abklingen innerhalb von Stunden bis wenigen Tagen. Akute Belastungsstörung (DSM-5): drei Tage bis ein Monat nach dem Trauma. PTBS: Symptome über mehr als einen Monat. Verzögerter Beginn: Vollbild erst mehr als sechs Monate nach dem Ereignis. Chronische PTBS: Dauer über drei Monate — ohne Behandlung bei etwa einem Drittel Chronifizierung über Jahre.',
+        },
+        {
+          name: 'Trauma-Typen nach Terr',
+          inhalt: 'Typ-I-Trauma: einmalig, plötzlich, kurz (Unfall, Überfall, Naturkatastrophe) — meist klassische PTBS mit lebhaften Intrusionen. Typ-II-Trauma: wiederholt, lang anhaltend, meist interpersonell (Krieg, Gefangenschaft, Missbrauch, häusliche Gewalt) — häufiger komplexe PTBS mit Dissoziation, Affekt- und Beziehungsstörungen.',
+        },
+        {
+          name: 'Screening- und Verlaufsinstrumente',
+          inhalt: 'PCL-5 (PTSD Checklist for DSM-5): 20 Items, 0–80 Punkte, Verdacht ab 31–33 Punkten. IES-R (Impact of Event Scale – Revised): 22 Items zu Intrusion, Vermeidung und Übererregung. Primary Care PTSD Screen (PC-PTSD-5): fünf Ja/Nein-Fragen. Zur Diagnosesicherung strukturierte klinische Interviews wie das CAPS-5 (Clinician-Administered PTSD Scale).',
+        },
+      ],
+      redFlags: [
+        'Akute Suizidalität: konkrete Suizidgedanken, Pläne, Vorbereitungen, frühere Suizidversuche, Hoffnungslosigkeit — sofortige Sicherung, ggf. stationäre Aufnahme',
+        'Fremdgefährdung bei ausgeprägter Reizbarkeit, Wutausbrüchen und Waffenzugang',
+        'Fortbestehende Traumatisierung: der Patient lebt weiter mit dem Täter (häusliche Gewalt), Kinder im Haushalt gefährdet — Schutzmaßnahmen vor jeder Traumatherapie',
+        'Schwere Dissoziation mit Kontrollverlust, Zeitlücken oder Selbstverletzung',
+        'Substanzabhängigkeit mit Entzugsgefährdung (Alkohol, Benzodiazepine)',
+        'Neurologische Auffälligkeiten nach demselben Unfall (Kopfschmerz mit Erbrechen, fokale Ausfälle, Wesensänderung, Krampfanfall) — Schädel-Hirn-Trauma, subdurales Hämatom oder Raumforderung ausschließen',
+        'Psychotische Symptome (echte Halluzinationen, Wahn) — Abgrenzung zu Flashbacks, Psychose ausschließen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Die Diagnose ist KLINISCH — es gibt keinen Test und keinen Laborwert. Strukturierte Anamnese mit behutsamer, erlaubnisbasierter Eröffnung der Traumaanamnese („Manchmal stecken hinter solchen Beschwerden sehr belastende Erlebnisse — darf ich Sie fragen, ob Sie so etwas erlebt haben?“); ein Nein wird respektiert',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Traumaereignis nur in Grundzügen: Art, Zeitpunkt, Einmaligkeit oder Wiederholung, subjektive Todesangst, Verletzungen — KEINE Exploration der Einzelheiten im Erstgespräch, da sie destabilisiert; die Detailarbeit gehört in die Traumatherapie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematische Erfassung der vier Cluster: Intrusionen, Flashbacks, Albträume, Trigger / Vermeidung und Einengung des Lebens / Stimmung, Schuld, Entfremdung, Gefühlstaubheit, Amnesie / Schlaf, Reizbarkeit, Hypervigilanz, Schreckreaktion, Konzentration — mit zeitlichem Verlauf (Zeitkriterium über einen Monat)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Funktionsniveau in Arbeit, Familie und Alltag; Komorbidität aktiv erfragen: depressive Symptome, Angst und Panik, Substanzkonsum (Alkohol, Benzodiazepine, Cannabis), somatoforme Beschwerden und chronische Schmerzen; Suizidalität ausdrücklich und ruhig erfragen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Soziales Netz und Ressourcen, frühere Traumatisierungen und psychische Erkrankungen, laufende Rechtsverfahren, Begutachtungs- oder Entschädigungsfragen, bei Geflüchteten aufenthaltsrechtliche Situation; Fremdanamnese (Partner, Angehörige) mit Einverständnis des Patienten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychopathologischer Befund (Bewusstsein, Orientierung, Affekt, Antrieb, Denken, Wahrnehmung, Dissoziation, Suizidalität) und vollständige körperliche Untersuchung mit Vitalparametern und neurologischem Status — zum Ausschluss organischer Ursachen und zur Dokumentation von Verletzungsfolgen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor zum Ausschluss organischer und substanzbedingter Ursachen von Unruhe, Herzrasen, Schlaf- und Konzentrationsstörung: Blutbild, TSH (Hyperthyreose!), Elektrolyte, Nierenwerte, Leberwerte und GGT, CDT bzw. MCV bei Alkoholkonsum, Blutzucker, Vitamin B12 und Ferritin bei Erschöpfung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf Substanzkonsum oder unklarer Medikation: Drogenscreening im Urin, Ethanolspiegel; bei Frauen im gebärfähigen Alter Schwangerschaftstest vor einer medikamentösen Therapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG bei Herzrasen, Engegefühl und vor Beginn eines SSRI (QT-Zeit); bei Schlafstörung mit Schnarchen oder Tagesmüdigkeit ggf. Schlaflabor',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Zerebrale Bildgebung (cCT, besser cMRT) nur bei entsprechender Indikation: Kopfschmerz nach Unfall mit Schädelbeteiligung, neurologische Ausfälle, Wesensänderung, Amnesie — zum Ausschluss von Schädel-Hirn-Trauma-Folgen, chronischem subduralem Hämatom oder Raumforderung; ggf. EEG bei Verdacht auf Anfälle oder dissoziative Episoden',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Screening- und Verlaufsinstrumente: PCL-5, IES-R, PC-PTSD-5; zur Diagnosesicherung strukturiertes klinisches Interview (CAPS-5); begleitend Depressionsskalen (PHQ-9), Alkoholscreening (AUDIT) und Erfassung dissoziativer Symptome',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Psychiatrisch-psychotherapeutisches Konsil bzw. Vorstellung in einer Traumaambulanz; bei Geflüchteten mit qualifiziertem Dolmetscher; bei Begutachtungsfragen (Unfallversicherung, Opferentschädigung) getrennte gutachterliche Untersuchung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akute Belastungsreaktion / akute Belastungsstörung',
+          unterscheidung: 'Gleiches Symptombild, aber Dauer unter einem Monat nach dem Ereignis; klingt häufig spontan ab. Ab einem Monat spricht man von PTBS.',
+        },
+        {
+          dd: 'Anpassungsstörung',
+          unterscheidung: 'Belastendes Lebensereignis unterhalb der Traumaschwelle (Trennung, Arbeitsplatzverlust, Erkrankung); Niedergeschlagenheit, Sorgen, Überforderung — aber KEIN Wiedererleben, keine Flashbacks, keine Trigger-Reaktionen.',
+        },
+        {
+          dd: 'Depressive Episode',
+          unterscheidung: 'Gedrückte Stimmung, Interessenverlust, Antriebsmangel, Morgentief, Früherwachen — ohne Intrusionen, Albträume mit Traumainhalt, Trigger und Hypervigilanz. Cave: die Depression ist die häufigste Komorbidität der PTBS, beides kann gleichzeitig bestehen.',
+        },
+        {
+          dd: 'Panikstörung / generalisierte Angststörung',
+          unterscheidung: 'Panikstörung: paroxysmale, unerwartete Attacken von Minuten mit Herzrasen, Luftnot, Todesangst — ohne Bezug zu einem Trauma und ohne Wiedererleben; generalisierte Angststörung: frei flottierende Sorgen über Monate. Bei der PTBS sind die Anfälle an Trigger gebunden und mit Erinnerungen an das Ereignis verknüpft.',
+        },
+        {
+          dd: 'Zwangsstörung',
+          unterscheidung: 'Sich aufdrängende Gedanken sind hier Zwangsgedanken (Kontamination, Aggression, Symmetrie) mit Zwangshandlungen, nicht Erinnerungen an ein reales Ereignis.',
+        },
+        {
+          dd: 'Psychose (Schizophrenie, wahnhafte Störung)',
+          unterscheidung: 'Flashbacks sind KEINE Halluzinationen: der Patient weiß, dass es eine Erinnerung an ein reales Ereignis ist, und der Inhalt entspricht dem Trauma. Bei der Psychose fehlt die Realitätsprüfung, hinzu kommen Wahn, Ich-Störungen, formale Denkstörungen.',
+        },
+        {
+          dd: 'Dissoziative Störungen',
+          unterscheidung: 'Dissoziative Amnesie, Fugue oder Identitätsstörung stehen im Vordergrund ohne das volle Bild aus Wiedererleben und Übererregung; häufig überlappend bei komplexer PTBS.',
+        },
+        {
+          dd: 'Borderline-Persönlichkeitsstörung',
+          unterscheidung: 'Bei komplexer PTBS schwer abgrenzbar: Affektinstabilität, Selbstverletzung, Beziehungsstörungen bestehen bei beiden. Für Borderline sprechen Beginn in der Adoleszenz, Angst vor dem Verlassenwerden, chronische Leere, Impulsivität ohne klaren Traumabezug — häufig Komorbidität.',
+        },
+        {
+          dd: 'Substanzstörung (Alkohol, Benzodiazepine, Cannabis, Stimulanzien)',
+          unterscheidung: 'Schlafstörung, Reizbarkeit, Herzrasen und Konzentrationsstörung können Intoxikations- oder Entzugsfolgen sein; die PTBS ist häufig die Ursache des Konsums (Selbstbehandlung) — beides muss erfasst und behandelt werden.',
+        },
+        {
+          dd: 'Schlafstörung anderer Ursache',
+          unterscheidung: 'Insomnie, Schlafapnoe, Restless-Legs-Syndrom: Albträume ohne Traumainhalt, kein Wiedererleben; Schlafapnoe mit Schnarchen, Atemaussetzern, Tagesschläfrigkeit — Schlaflabor.',
+        },
+        {
+          dd: 'Hyperthyreose und andere körperliche Ursachen von Unruhe und Herzrasen',
+          unterscheidung: 'Gewichtsverlust trotz Appetit, Wärmeintoleranz, Tremor, Struma, Diarrhoe; TSH supprimiert. Ebenso Anämie (Blässe, Erschöpfung), Herzrhythmusstörungen (EKG, Langzeit-EKG), Phäochromozytom (anfallsartige Hypertonie), Hypoglykämien.',
+        },
+        {
+          dd: 'Schädel-Hirn-Trauma mit postkommotionellem Syndrom nach demselben Unfall',
+          unterscheidung: 'Kopfschmerz, Schwindel, Konzentrations- und Gedächtnisstörung, Reizbarkeit nach Commotio; unterscheidend sind Bewusstlosigkeit oder Amnesie beim Unfall, neurologische Befunde, Bildgebung — aber kein Wiedererleben und keine Vermeidung. Beides kann nebeneinander bestehen; ein chronisches subdurales Hämatom oder eine Raumforderung ist auszuschließen.',
+        },
+        {
+          dd: 'Trauerreaktion (anhaltende Trauerstörung)',
+          unterscheidung: 'Nach dem Verlust einer nahestehenden Person: Sehnsucht, Beschäftigung mit dem Verstorbenen, Bitterkeit; Intrusionen beziehen sich auf die Person, nicht auf eine Bedrohungsszene — bei gewaltsamem Tod Überlappung mit PTBS.',
+        },
+        {
+          dd: 'Chronisches Schmerzsyndrom / somatoforme Störung',
+          unterscheidung: 'Anhaltende Kopf-, Rücken- oder Ganzkörperschmerzen ohne ausreichendes organisches Korrelat; Schmerz kann Folge der PTBS sein (posttraumatischer Kopfschmerz, Muskelanspannung) — nach dem Trauma fragen, nicht nur Schmerztherapie eskalieren; bei häufiger Analgetikaeinnahme auch Kopfschmerz bei Medikamentenübergebrauch bedenken.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sicherheit, Stabilisierung und Psychoedukation',
+          items: [
+            'Beurteilung und Sicherung bei Suizidalität und Fremdgefährdung: ruhig und ausdrücklich nach Todeswünschen, Suizidgedanken, Plänen und früheren Versuchen fragen; bei akuter Suizidalität stationäre Aufnahme, ggf. nach Unterbringungsgesetz',
+            'Schutz vor fortgesetzter Traumatisierung: Trennung vom Täter bei häuslicher Gewalt, Frauenhaus, Opferschutz, Jugendamt bei gefährdeten Kindern — Traumabearbeitung ist erst in Sicherheit möglich',
+            'Psychoedukation als oft wichtigster Satz des Gesprächs: die Symptome sind eine NORMALE Reaktion auf ein unnormales Ereignis, kein Zeichen von Schwäche oder „Verrücktsein“; Erklärung der Trigger, Flashbacks und Übererregung als Alarmreaktion des Körpers',
+            'Beziehungsaufbau und Wahrung der Kontrolle: der Patient bestimmt Tempo und Tiefe des Gesprächs; keine Details des Traumas verlangen, nicht bewerten, nicht beschwichtigen, ein Nein respektieren',
+            'Stabilisierungstechniken: Erdungs- und Reorientierungsübungen bei Flashbacks („Ich bin hier, es ist vorbei“), Atemübungen, imaginative Techniken („sicherer Ort“), Schlafhygiene, Tagesstruktur, körperliche Aktivität',
+            'Aktivierung des sozialen Netzes und Einbeziehung der Angehörigen mit Einverständnis; Krankschreibung nur befristet, Wiederaufnahme von Alltagsaktivitäten in kleinen Schritten gegen die Vermeidung',
+            'Erfassung und Behandlung des Substanzkonsums: motivierende Gesprächsführung, Alkoholreduktion, keine Selbstmedikation mit Alkohol oder Beruhigungsmitteln',
+          ],
+        },
+        {
+          label: 'Traumafokussierte Psychotherapie (Behandlung der Wahl)',
+          items: [
+            'Die traumafokussierte Psychotherapie ist die Behandlung der ersten Wahl mit der besten Evidenz — nicht das Medikament; Beginn nach ausreichender Stabilisierung und in gesichertem Rahmen',
+            'Traumafokussierte kognitive Verhaltenstherapie (tf-KVT): gestufte Exposition an die Erinnerung (in sensu, später in vivo an vermiedene Orte und Situationen) und kognitive Bearbeitung der Bedeutungen (Schuld, Scham, „nirgends ist es sicher“); Varianten: Prolonged Exposure, Cognitive Processing Therapy, Narrative Expositionstherapie (NET) bei Geflüchteten',
+            'EMDR (Eye Movement Desensitization and Reprocessing): Bearbeitung der Traumaerinnerung unter bilateraler Stimulation (geführte Augenbewegungen); gleichwertig zur tf-KVT, in Deutschland als Richtlinienverfahren anerkannt',
+            'Setting nach Schwere: ambulant bei stabilen Patienten (8–20 Sitzungen für Typ-I-Traumata), tagesklinisch oder stationär in einer Traumastation bei Suizidalität, schwerer Komorbidität, Dissoziation oder fehlender ambulanter Versorgung; komplexe PTBS mit längerer Stabilisierungsphase',
+            'Bei Geflüchteten und Migranten mit qualifizierten Dolmetschern und kultursensiblem Vorgehen; Traumaambulanzen nach dem Opferentschädigungsgesetz bieten rasche Hilfe nach Gewalttaten',
+            'Nicht empfohlen: Debriefing-Einzelsitzungen unmittelbar nach dem Ereignis (kein Nutzen, möglicherweise schädlich); Entspannungsverfahren allein sind keine Traumatherapie',
+          ],
+        },
+        {
+          label: 'Medikamentöse Behandlung als Ergänzung',
+          items: [
+            'Medikamente sind Ergänzung, nicht Ersatz der Psychotherapie: indiziert bei ausgeprägter Symptomatik, relevanter Komorbidität (Depression, Angststörung) oder fehlender Verfügbarkeit bzw. Ablehnung der Psychotherapie',
+            'SSRI als erste Wahl: Sertralin (Beginn 25–50 mg, Ziel 50–200 mg) oder Paroxetin (20–50 mg), beide für die PTBS zugelassen; alternativ Venlafaxin (75–225 mg); Wirkungseintritt erst nach 2–4 Wochen, Aufklärung über initiale Unruhe und Übelkeit, EKG und Natrium kontrollieren',
+            'Gegen traumabezogene Albträume und Schlafstörung als Option: Prazosin (einschleichend 1 mg zur Nacht, Cave orthostatische Hypotonie) oder Doxazosin; sedierende Antidepressiva wie Mirtazapin oder Trazodon bei Insomnie',
+            'KEINE Benzodiazepine: sie verhindern die Verarbeitung des Traumas, machen rasch abhängig, verstärken die Dissoziation und verschlechtern den Verlauf — auch nicht „nur zum Schlafen“; ebenso keine Z-Substanzen als Dauerlösung',
+            'Antipsychotika (z. B. Quetiapin niedrig dosiert) nur als Reserve bei schwerer Übererregung oder psychosenahen Symptomen; keine Evidenz für Betablocker zur Prophylaxe',
+            'Dauer: nach Ansprechen mindestens 6–12 Monate fortführen, dann langsames Ausschleichen',
+          ],
+        },
+        {
+          label: 'Behandlung der Komorbidität, Rehabilitation und Verlauf',
+          items: [
+            'Integrierte Behandlung der Komorbidität: Depression, Angststörung, Substanzabhängigkeit (Entzug und Entwöhnung parallel zur Traumatherapie, nicht als Vorbedingung), chronische Schmerzen (multimodale Schmerztherapie statt Analgetika-Eskalation)',
+            'Einbeziehung der Angehörigen und Paargespräche: Erklärung der Reizbarkeit, des Rückzugs und der Gefühlstaubheit als Symptome, nicht als Ablehnung',
+            'Wiedereingliederung in Arbeit und Alltag: stufenweise Wiedereingliederung nach dem Hamburger Modell, Arbeitsplatzanpassung, medizinisch-berufliche Rehabilitation, Reha-Klinik mit Traumaschwerpunkt',
+            'Sozialrechtliche Hilfen: Opferhilfe (Weißer Ring), Opferentschädigung nach dem Sozialen Entschädigungsrecht, Berufsgenossenschaft bei Arbeits- und Wegeunfällen, Unfallversicherung; Begutachtungsfragen getrennt von der Behandlung',
+            'Aufklärung über den Verlauf: bei vielen gute Besserung unter Therapie, ein Teil remittiert auch spontan innerhalb des ersten Jahres — ohne Behandlung jedoch Chronifizierung bei etwa einem Drittel mit Depression, Sucht, Arbeitsunfähigkeit und erhöhtem Suizidrisiko',
+            'Rückfallprophylaxe: Erkennen eigener Trigger und Jahrestage, Notfallplan, Selbsthilfegruppen, Fortführung der Stabilisierungstechniken, langfristige Begleitung durch Hausarzt und Psychotherapeuten, Wiederaufnahme der Therapie bei erneuten Symptomen',
+          ],
+        },
+      ],
+      prognose: 'Etwa die Hälfte der Betroffenen erholt sich innerhalb des ersten Jahres, teils auch ohne spezifische Behandlung; unter traumafokussierter Psychotherapie erreichen 60–80 % eine deutliche Besserung oder Remission. Ohne Behandlung chronifiziert die Störung bei etwa einem Drittel über viele Jahre, mit hoher Komorbidität (Depression bei etwa 50 %, Substanzstörungen bei 20–40 %), sozialem Rückzug, Arbeitsunfähigkeit und einem deutlich erhöhten Suizidrisiko. Ungünstig sind interpersonelle und wiederholte Traumata, frühe Traumatisierung, fehlende soziale Unterstützung, laufende Rechts- und Entschädigungsverfahren sowie Substanzkonsum; günstig sind ein früher Behandlungsbeginn, ein stabiles Umfeld und ein einmaliges Typ-I-Trauma. Jahrestage des Ereignisses und neue Belastungen können Rückfälle auslösen.',
+      pruefungsfallen: [
+        'Der Patient spricht NICHT von sich aus über das Trauma — er kommt wegen Kopfschmerzen, Schlafstörung, Herzrasen oder Konzentrationsproblemen. Wer die Frage nach belastenden Erlebnissen nicht stellt, findet die Diagnose nicht.',
+        'Registerfalle: Die Traumaanamnese wird behutsam, mit Erlaubnis und ohne Drängen eröffnet („Darf ich Sie fragen, ob …?“). Keine Einzelheiten verlangen, nicht bewerten („Das war doch nicht Ihre Schuld“ ist eine Bewertung), nicht beschwichtigen („Das wird schon wieder“), und ein Nein respektieren — dieses Verhalten wird selbst bewertet.',
+        'Die vier Cluster in der richtigen Ordnung nennen können: Wiedererleben — Vermeidung — negative Veränderungen von Stimmung und Denken — Übererregung. Prüfer fragen gezielt nach den Symptomen jedes Clusters.',
+        'Zeitkriterium: über EINEN Monat; davor akute Belastungsreaktion bzw. akute Belastungsstörung. Ein verzögerter Beginn nach Monaten ist möglich und schließt die PTBS nicht aus.',
+        'Flashbacks sind KEINE Halluzinationen — der Patient weiß, dass es eine Erinnerung ist. Wer hier „Psychose“ sagt, verliert.',
+        'PTBS versus Panikstörung: Bei der Panikstörung kommen kurze, unerwartete Attacken ohne Traumabezug; bei der PTBS sind die Anfälle an Trigger gebunden, mit Wiedererleben, Vermeidung und Hypervigilanz über mehr als einen Monat nach einem Trauma. Ein altes Trauma in der Vorgeschichte macht noch keine PTBS — in Reutlingen wurde ein Kandidat genau hierüber vom Verdacht PTBS zur Panikattacke gelenkt.',
+        'Die Komorbidität ist die Regel: Depression, Angst, Substanzkonsum als Selbstbehandlung und Suizidalität müssen aktiv erfragt werden — „Denken Sie manchmal daran, sich das Leben zu nehmen?“ gehört ruhig und ausdrücklich ins Gespräch.',
+        'Therapie in der richtigen Logik: erst Sicherheit, Stabilisierung und Psychoedukation, dann die traumafokussierte Psychotherapie (tf-KVT oder EMDR) als Behandlung der Wahl — das Medikament (SSRI) ist nur Ergänzung. Wer „Antidepressiva und Schlafmittel“ als Therapie nennt, hat die Reihenfolge verkehrt.',
+        'KEINE Benzodiazepine — auch nicht „nur zum Schlafen“: sie verhindern die Verarbeitung, machen abhängig und verschlechtern den Verlauf. Dieser Verzicht wird sehr häufig geprüft.',
+        'Der wichtigste Satz der Psychoedukation: Die Beschwerden sind eine normale Reaktion auf ein unnormales Ereignis und kein Zeichen von Schwäche oder Verrücktsein.',
+        'Organische Ursachen nicht vergessen: TSH (Hyperthyreose), Blutbild (Anämie), EKG, und bei Kopfschmerz nach einem Unfall die Frage nach Bewusstlosigkeit, neurologische Untersuchung und Bildgebung (Schädel-Hirn-Trauma, subdurales Hämatom, Raumforderung) — in Reutlingen wurde ausdrücklich nach dem Hirntumor gefragt.',
+        'Keine Detailexploration des Traumas im Erstgespräch — sie destabilisiert. Die Detailarbeit gehört in die Traumatherapie; im Erstgespräch genügen Art, Zeitpunkt und Einmaligkeit oder Wiederholung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und warum PTBS?',
+          antwort: 'Eine posttraumatische Belastungsstörung. Dafür sprechen ein Ereignis mit Todesangst — der Motorradunfall vor sechs Monaten —, danach Symptome aus allen vier Clustern: Wiedererleben mit Albträumen, Flashbacks und Herzrasen bei Auslösern wie Hupen und Motorengeräuschen; Vermeidung des Motorrads, der Unfallkreuzung und der Freunde aus dem Motorradclub; negative Veränderungen von Stimmung und Denken mit Gefühlstaubheit, Schuldgefühlen und sozialem Rückzug; sowie Übererregung mit Durchschlafstörung, Schreckhaftigkeit, Reizbarkeit und Konzentrationsstörung — und das seit mehr als einem Monat mit deutlicher Beeinträchtigung bei der Arbeit.',
+        },
+        {
+          frage: 'Worin unterscheidet sich die PTBS von einer Panikattacke beziehungsweise Panikstörung?',
+          antwort: 'Bei der Panikstörung treten kurze, unerwartete Angstanfälle von Minuten mit Herzrasen, Luftnot und Todesangst auf, ohne Bezug zu einem Trauma und ohne Wiedererleben. Bei der PTBS geht ein reales traumatisches Ereignis voraus, die Anfälle sind an Trigger gebunden, und es bestehen Intrusionen, Vermeidung und Hypervigilanz über mehr als einen Monat. Ein Trauma in der Vorgeschichte allein reicht für die Diagnose nicht — es müssen Wiedererleben und Vermeidung nachweisbar sein.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Eine depressive Episode, eine Anpassungsstörung, eine Panik- oder generalisierte Angststörung, eine Schlafstörung anderer Ursache, eine Substanzstörung, dissoziative Störungen, eine Psychose — Flashbacks sind aber keine Halluzinationen — sowie körperliche Ursachen: Hyperthyreose, Anämie, Herzrhythmusstörungen und nach demselben Unfall ein Schädel-Hirn-Trauma mit postkommotionellem Syndrom, ein chronisches subdurales Hämatom oder eine Raumforderung.',
+        },
+        {
+          frage: 'Haben Sie an einen Hirntumor gedacht? Was machen Sie bei diesem Verdacht?',
+          antwort: 'Ja, ein Kopfschmerz, der seit Monaten dauerhaft besteht, muss organisch abgeklärt werden: gezielt nach Warnzeichen fragen — morgendlicher Kopfschmerz mit Erbrechen, Zunahme im Liegen, neurologische Ausfälle, Krampfanfälle, Wesensänderung —, eine vollständige neurologische Untersuchung durchführen und eine zerebrale Bildgebung veranlassen, am besten ein cMRT, alternativ ein cCT. Bei der Patientin ist das MRT bereits unauffällig, was zusätzlich für eine psychische Ursache spricht.',
+        },
+        {
+          frage: 'Welche Untersuchungen führen Sie durch?',
+          antwort: 'Eine vollständige körperliche Untersuchung mit Vitalparametern, Schilddrüse und neurologischem Status, ein Basislabor mit Blutbild, TSH, Elektrolyten, Leber- und Nierenwerten, GGT und CDT wegen des Alkoholkonsums, ein EKG wegen des Herzrasens und vor einer SSRI-Therapie, sowie Screeninginstrumente wie die PCL-5 und den PHQ-9. Die Diagnose selbst ist klinisch — es gibt keinen Test für die PTBS.',
+        },
+        {
+          frage: 'Wie eröffnen Sie das Gespräch über das Trauma?',
+          antwort: 'Behutsam und mit Erlaubnis: „Manchmal stecken hinter solchen Beschwerden sehr belastende Erlebnisse — darf ich Sie fragen, ob Sie so etwas erlebt haben?“ Ich verlange keine Einzelheiten, bewerte nicht und beschwichtige nicht. Sagt die Patientin Nein oder möchte sie nicht weitersprechen, respektiere ich das und biete an, später darauf zurückzukommen.',
+        },
+        {
+          frage: 'Können Sie ein Beispiel für Psychotherapie nennen?',
+          antwort: 'Die traumafokussierte kognitive Verhaltenstherapie mit gestufter Exposition an die Erinnerung und Bearbeitung der Bedeutungen — etwa der Schuldgefühle —, und das EMDR, bei dem die Erinnerung unter geführten Augenbewegungen verarbeitet wird. Beide haben die beste Evidenz. Ergänzend Selbsthilfegruppen und Stabilisierungstechniken, aber diese ersetzen die Traumatherapie nicht.',
+        },
+        {
+          frage: 'Welche Medikamente geben Sie — und welche auf keinen Fall?',
+          antwort: 'Wenn überhaupt, ein SSRI wie Sertralin oder Paroxetin, alternativ Venlafaxin, mit Wirkungseintritt nach zwei bis vier Wochen; gegen die Albträume kann Prazosin helfen. Auf keinen Fall Benzodiazepine: sie verhindern die Verarbeitung des Traumas, machen abhängig und verschlechtern den Verlauf — auch nicht als Schlafmittel.',
+        },
+        {
+          frage: 'Was sagen Sie der Patientin, um sie zu entlasten?',
+          antwort: 'Dass ihre Beschwerden eine normale Reaktion auf ein unnormales, lebensbedrohliches Ereignis sind — kein Zeichen von Schwäche und kein „Verrücktsein“ —, dass Flashbacks und Herzrasen die Alarmreaktion des Körpers auf Erinnerungen sind, und dass die Störung gut behandelbar ist.',
+        },
+        {
+          frage: 'Warum fragen Sie nach dem Alkoholkonsum, und wie gehen Sie damit um?',
+          antwort: 'Weil Alkohol bei der PTBS häufig als Selbstbehandlung gegen Anspannung und Schlafstörung eingesetzt wird — hier zwei bis drei Flaschen Bier jeden Abend zum Einschlafen. Er verschlechtert den Schlaf und die Verarbeitung und führt in die Abhängigkeit. Ich spreche ihn ohne Vorwurf an, erkläre den Zusammenhang, biete Alkoholreduktion und bei Bedarf Suchtberatung an — parallel zur Traumatherapie, nicht als Vorbedingung.',
+        },
+        {
+          frage: 'Wie schätzen Sie die Suizidalität ein?',
+          antwort: 'Ich frage ruhig und direkt nach Todeswünschen, Suizidgedanken, Plänen, Vorbereitungen und früheren Versuchen. Die Patientin äußert passive Todesgedanken („es wäre einfacher gewesen, wenn ich nicht aufgewacht wäre“), distanziert sich aber glaubhaft von aktiven Suizidgedanken, hat keine Pläne, ist absprachefähig und hat in ihrem Ehemann eine tragende Bezugsperson — keine akute Suizidalität, aber engmaschige Wiedervorstellung und Notfallplan.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Unter traumafokussierter Psychotherapie bessert sich die Symptomatik bei der Mehrheit deutlich, bei einem einmaligen Unfalltrauma und stabilem Umfeld ist die Prognose gut. Ohne Behandlung chronifiziert die Störung bei etwa einem Drittel, mit Depression, Substanzabhängigkeit und Arbeitsunfähigkeit; der Alkoholkonsum und die Vermeidung sind hier die Risiken, die wir früh angehen müssen.',
+        },
+      ],
+      merksatz: 'Der PTBS-Patient kommt mit Kopfschmerz, Schlafstörung und Herzrasen, nicht mit dem Trauma — behutsam und mit Erlaubnis fragen, vier Cluster ordnen (Wiedererleben, Vermeidung, negative Stimmung und Denken, Übererregung), über einen Monat; Therapie = Stabilisierung, dann traumafokussierte Psychotherapie (tf-KVT/EMDR), SSRI nur als Ergänzung, NIEMALS Benzodiazepine.',
+      linkedCaseIds: [
+        'case-ptbs',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-ct',
+      ],
+    },
+    {
+      id: 'fw-somatoforme-schmerzstoerung',
+      pathology: 'Anhaltende somatoforme Schmerzstörung',
+      specialty: 'Psychiatrie',
+      definition: 'Die anhaltende somatoforme Schmerzstörung (ICD-10 F45.40) ist gekennzeichnet durch einen andauernden, schweren und quälenden Schmerz über mindestens sechs Monate, der durch einen physiologischen Prozess oder eine körperliche Störung nicht hinreichend erklärt werden kann und in Verbindung mit emotionalen Konflikten oder psychosozialen Belastungen auftritt, denen eine entscheidende ursächliche Rolle zukommt. Der Schmerz ist real, wird weder simuliert noch eingebildet: Er beruht auf einer veränderten zentralen Schmerzverarbeitung (zentrale Sensibilisierung), bei der das Nervensystem unter anhaltender Belastung überempfindlich wird. Typisch sind eine lange „Ärzte-Odyssee“ mit vielen unauffälligen Untersuchungen, eine organische Fixierung des Patienten, hoher Leidensdruck, erhebliche Einschränkung in Beruf und Familie sowie das Gefühl, nicht ernst genommen zu werden.',
+      aetiologie: 'Multifaktoriell nach dem biopsychosozialen Modell. Prädisponierend sind Kindheitsbelastungen (Vernachlässigung, Gewalt- oder Missbrauchserfahrungen, chronische Krankheit eines Elternteils) und ein Erziehungsstil, in dem körperliche Beschwerden Zuwendung brachten, Gefühle aber nicht ausgedrückt werden durften (Alexithymie). Auslösend ist meist eine emotionale Belastung im zeitlichen Zusammenhang mit dem Beginn — Trennung, Verlust, Überforderung, Mobbing, Kündigung, Migration, Unfall —, die der Patient selbst häufig nicht mit dem Schmerz verbindet. Aufrechterhaltend wirken Katastrophisierung und Schonverhalten (Angst-Vermeidungs-Modell), Dekonditionierung, Schlafstörung, depressive und ängstliche Begleitsymptome, langjähriger Analgetika- und Opioidgebrauch (Verschlechterung der Schmerzverarbeitung, Medikamentenübergebrauch), iatrogene Fixierung durch immer neue Diagnostik sowie sekundärer Krankheitsgewinn (Zuwendung, Entlastung, Krankschreibung, Rentenverfahren). Neurobiologisch bestehen eine zentrale Sensibilisierung mit gestörter absteigender Schmerzhemmung und eine Dysregulation der Stressachse.',
+      risikofaktoren: [
+        'Weibliches Geschlecht und Beginn meist zwischen dem 30. und 50. Lebensjahr, Männer sind jedoch keineswegs selten betroffen',
+        'Kindheitsbelastungen: emotionale Vernachlässigung, körperliche oder sexuelle Gewalt, früher Verlust eines Elternteils',
+        'Familiäres Modell: chronisch schmerzkranke oder depressive Eltern, Zuwendung nur bei körperlicher Krankheit',
+        'Psychosoziale Belastung um den Beginn herum: Trennung, Verlust, Mobbing, Arbeitsplatzverlust, Überforderung, Migration',
+        'Komorbide Depression, Angststörung, posttraumatische Belastungsstörung oder Persönlichkeitsstörung',
+        'Niedriger sozioökonomischer Status, geringe Bildung, ungünstige Arbeitsbedingungen',
+        'Langjähriger Analgetika- und Opioidgebrauch, Benzodiazepine',
+        'Alexithymie und ein rein organisches Krankheitsverständnis („organische Fixierung“)',
+        'Laufende Renten-, Begutachtungs- oder Entschädigungsverfahren (fördern die Chronifizierung)',
+      ],
+      klinik: [
+        {
+          text: 'Anhaltender, schwerer und quälender Schmerz über mindestens sechs Monate, häufig über Jahre — Rücken, Kopf, Nacken, Bauch, Gelenke oder Muskeln, oft an mehreren Stellen oder wechselnd',
+        },
+        {
+          text: 'Kein ausreichend erklärender organischer Befund trotz wiederholter Untersuchungen (mehrfache Bildgebung, Laborkontrollen, viele Fachärzte) — die typische „Ärzte-Odyssee“',
+        },
+        {
+          text: 'Beginn im zeitlichen Zusammenhang mit emotionalen Konflikten oder psychosozialen Belastungen, die der Patient nicht mit dem Schmerz in Verbindung bringt und die erst in der biographischen Anamnese sichtbar werden',
+        },
+        {
+          text: 'Hoher Leidensdruck mit erheblicher Einschränkung in Beruf, Familie und Freizeit; Schonverhalten, sozialer Rückzug, lange Krankschreibungen, Arbeitsplatzverlust, Rentenbegehren',
+        },
+        {
+          text: 'Organische Fixierung: Drang nach immer neuen Untersuchungen, Enttäuschung und Kränkung nach jedem unauffälligen Befund, Gefühl, nicht ernst genommen oder als Simulant abgestempelt zu werden',
+        },
+        {
+          text: 'Begleitsymptome: Ein- und Durchschlafstörung mit Grübeln, Erschöpfung, depressive Verstimmung, Anhedonie, Ängstlichkeit, Reizbarkeit, Konzentrationsstörung, vegetative Beschwerden (Herzklopfen, Schwitzen, Magen-Darm-Beschwerden)',
+        },
+        {
+          text: 'Langjährige Einnahme von Schmerzmitteln ohne ausreichende Wirkung, häufig Kombinationspräparate, NSAR-Dauergebrauch bis hin zum Opioidgebrauch mit Abhängigkeitsentwicklung',
+        },
+        {
+          text: 'Analgetika wirken kaum, Schmerz unabhängig von Belastung und Tageszeit oder ausgeprägt stimmungs- und stressabhängig; kein Ansprechen auf Ruhe und Schonung',
+        },
+        {
+          text: 'Monolokulärer, umschriebener Schmerz (z. B. isolierter Kopf- oder Unterbauchschmerz), der zunächst wie ein organisches Krankheitsbild imponiert',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation nach einem Unfall oder einer Operation mit Persistenz der Schmerzen weit über die Heilungsphase hinaus (posttraumatische oder postoperative Chronifizierung)',
+          atypisch: true,
+        },
+        {
+          text: 'Vorwiegend im Rahmen eines Rentenverfahrens präsentierter Schmerz mit demonstrativer Symptomdarstellung — Simulation ist dennoch extrem selten und nur mit größter Zurückhaltung zu erwägen',
+          atypisch: true,
+        },
+        {
+          text: 'Larvierte Depression: Schmerz als einziges vorgetragenes Symptom, depressive Kernsymptome werden erst auf gezieltes Nachfragen berichtet',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ICD-10-Einordnung der somatoformen Störungen (F45)',
+          inhalt: 'F45.0 Somatisierungsstörung (mindestens zwei Jahre multiple, wechselnde körperliche Beschwerden). F45.2 hypochondrische Störung (Krankheitsangst statt Schmerz). F45.3 somatoforme autonome Funktionsstörung (vegetative Organsymptome, z. B. Herz, Magen-Darm). F45.40 anhaltende somatoforme Schmerzstörung (Schmerz über mindestens sechs Monate, psychosoziale Belastung entscheidend, kein erklärender Organbefund). F45.41 chronische Schmerzstörung mit somatischen und psychischen Faktoren (Schmerz mit organischer Grundlage, psychische Faktoren bestimmen Schweregrad und Chronifizierung mit — die häufigste Diagnose in der Praxis).',
+        },
+        {
+          name: 'ICD-11 und DSM-5',
+          inhalt: 'ICD-11: „chronischer primärer Schmerz“ (MG30.0, Schmerz länger als drei Monate mit emotionaler Belastung oder Funktionseinschränkung, nicht besser durch eine andere Diagnose erklärt) und „Störung mit körperlicher Belastung“ (bodily distress disorder, 6C20). DSM-5: „somatische Belastungsstörung“ (somatic symptom disorder) mit Spezifizierung „mit vorwiegendem Schmerz“ — entscheidend ist nicht mehr das Fehlen eines Organbefundes, sondern die exzessive Beschäftigung mit den Symptomen.',
+        },
+        {
+          name: 'Chronifizierungsstadien nach Gerbershagen (Mainzer Stadienmodell, MPSS)',
+          inhalt: 'Stadium I bis III anhand von vier Achsen: zeitlicher Verlauf (Dauer, Häufigkeit, Intensitätswechsel), räumliche Ausbreitung (mono- bis multilokulär), Medikamenteneinnahme (Anzahl, Entzüge, Übergebrauch) und Inanspruchnahme des Gesundheitssystems (Arztwechsel, Krankenhausaufenthalte, Operationen). Stadium III = hochgradig chronifiziert: multilokulärer Dauerschmerz, Medikamentenabusus, zahlreiche Arztwechsel und Eingriffe.',
+        },
+        {
+          name: 'Schmerzmessung und Verlaufsinstrumente',
+          inhalt: 'Numerische Rating-Skala (NRS 0–10) und visuelle Analogskala (VAS) für die Intensität; Deutscher Schmerzfragebogen (DSF) mit Schmerzbeeinträchtigung (Pain Disability Index), Schmerzgraduierung nach von Korff; Screening auf Depression (PHQ-9), Angst (GAD-7) und somatische Symptombelastung (PHQ-15); Schmerztagebuch.',
+        },
+      ],
+      redFlags: [
+        'Neu aufgetretene neurologische Ausfälle: Lähmung, Sensibilitätsstörung, Blasen- oder Mastdarmstörung, Reithosenanästhesie (Cauda-Syndrom, Myelopathie)',
+        'Ungewollter, erheblicher Gewichtsverlust, Nachtschweiß, Fieber oder B-Symptomatik (Malignom, Infektion, systemische Entzündung)',
+        'Nächtlicher Ruheschmerz mit Besserung durch Bewegung und Morgensteifigkeit über 30 Minuten bei jungen Patienten (Spondyloarthritis) oder Schulter-/Beckengürtelschmerz mit hoher BSG ab 50 Jahren (Polymyalgia rheumatica)',
+        'Neuer, andersartiger Schmerz oder Änderung des bekannten Schmerzcharakters, Schmerz nach Trauma, bekannte Tumorerkrankung, Immunsuppression, Osteoporose',
+        'Gelenkschwellung, Rötung, Überwärmung, Erguss (entzündliche Arthritis, septische Arthritis)',
+        'Suizidgedanken, konkrete Suizidpläne, Hoffnungslosigkeit — bei chronischem Schmerz und komorbider Depression deutlich erhöhtes Suizidrisiko',
+        'Zeichen einer Opioid- oder Benzodiazepinabhängigkeit: Dosissteigerung, Entzugssymptome, Beschaffung bei mehreren Ärzten, Sedierung, Atemdepression',
+        'Kopfschmerz mit Erbrechen, Wesensänderung, epileptischem Anfall, Sehstörung oder Papillenödem (Raumforderung, Hirndruck)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sorgfältige Durchsicht der VORBEFUNDE (Arztbriefe, Bildgebung, Labor) statt Wiederholung — die bereits erfolgte Diagnostik wird zusammengefasst und dem Patienten ausdrücklich als vollständig zurückgemeldet',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese: Beginn, Verlauf, Lokalisation (Schmerzzeichnung), Charakter, Intensität (NRS 0–10), Ausstrahlung, Auslöser, Tagesrhythmus, verstärkende und lindernde Faktoren, bisherige Schmerzmittel und Therapien, Schmerztagebuch',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Biopsychosoziale und biographische Anamnese: Belastungen um den Beginn herum (Trennung, Verlust, Mobbing, Kündigung, Unfall), Kindheit und Familie (chronisch kranke Eltern, Umgang mit Gefühlen und Krankheit), Krankheitsverständnis und Erwartungen des Patienten, sekundärer Krankheitsgewinn, Renten- und Begutachtungsverfahren',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychopathologischer Befund und Screening auf Depression (PHQ-9), Angst (GAD-7), Trauma, somatische Symptombelastung (PHQ-15) sowie Suchtmittel (Alkohol, Cannabis, Analgetika, Opioide, Benzodiazepine); ausdrückliche Exploration der Suizidalität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte körperliche Untersuchung, die der Patient als Ernstnehmen erlebt: Gelenkstatus, Wirbelsäule, neurologischer Status (Kraft, Sensibilität, Reflexe, Lasègue), Druckpunkte (Tender Points), Vitalparameter, Gewicht und BMI — Suche nach Red Flags',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Bewertung von Funktion und Teilhabe: Pain Disability Index, Arbeitsfähigkeit, Alltagsaktivitäten, soziale Kontakte, Chronifizierungsgrad nach MPSS',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Umschriebenes Basislabor — einmalig und danach abgeschlossen: Blutbild, CRP und BSG, TSH, Kalzium, Vitamin D, Kreatinkinase, Leber- und Nierenwerte, Blutzucker; bei Gelenkbeschwerden ergänzend Rheumafaktor und Anti-CCP, bei Verdacht Borrelienserologie, Vitamin B12 bei neuropathischen Beschwerden',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'KEINE Wiederholung bereits unauffälliger Bildgebung (kein erneutes MRT ohne neue Symptome) — nur bei Red Flags oder neuem Befund gezielt: Röntgen oder MRT der betroffenen Region, Sonographie der Gelenke, EMG/Neurographie bei Verdacht auf Polyneuropathie, MRT des Schädels bei Kopfschmerz mit Warnzeichen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Psychosomatisches oder psychiatrisches Konsil mit strukturierter Diagnostik der psychischen Komorbidität und Indikationsstellung zur Psychotherapie bzw. multimodalen Schmerztherapie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Interdisziplinäres Schmerzassessment (Schmerzmedizin, Psychologie, Physiotherapie) mit Deutschem Schmerzfragebogen und Funktionsdiagnostik vor Beginn einer multimodalen Behandlung; ausdrücklicher ABSCHLUSS der somatischen Abklärung als Ergebnis des Assessments',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Chronische Schmerzstörung mit somatischen und psychischen Faktoren (F45.41)',
+          unterscheidung: 'Die häufigste und wichtigste Abgrenzung: Hier besteht eine organische Grundlage (z. B. degenerative Wirbelsäulenveränderungen, Arthrose), deren Schmerz aber durch psychische Faktoren in Schweregrad und Chronifizierung mitbestimmt wird. Bei der anhaltenden somatoformen Schmerzstörung erklärt kein Organbefund den Schmerz ausreichend.',
+        },
+        {
+          dd: 'Fibromyalgiesyndrom',
+          unterscheidung: 'Generalisierter, beidseitiger Schmerz in mehreren Körperregionen über mindestens drei Monate mit Müdigkeit, nicht erholsamem Schlaf und kognitiven Störungen; Diagnose nach ACR-Kriterien (Widespread Pain Index, Symptomschwere-Skala). Überschneidung mit der somatoformen Schmerzstörung sehr groß, die Zuordnung ist teilweise Konvention — im Examen beide nennen.',
+        },
+        {
+          dd: 'Depression mit Schmerz als Leitsymptom (larvierte Depression)',
+          unterscheidung: 'Depressive Kernsymptome — gedrückte Stimmung, Anhedonie, Antriebsminderung — stehen im Vordergrund, Morgentief, Früherwachen, Schuldgefühle, Suizidgedanken; der Schmerz bessert sich mit der antidepressiven Behandlung. Häufige Komorbidität, beide Diagnosen können nebeneinander gestellt werden (Freiburg akzeptierte Depression als Verdachtsdiagnose, das Fallthema war die somatoforme Störung).',
+        },
+        {
+          dd: 'Angststörung und posttraumatische Belastungsstörung mit körperlichen Symptomen',
+          unterscheidung: 'Panikattacken, Erwartungsangst und Vermeidung bzw. Intrusionen, Albträume, Übererregbarkeit nach einem traumatischen Ereignis (z. B. Unfall, Gewalt); körperliche Symptome sind an Angst oder Erinnerungen gekoppelt.',
+        },
+        {
+          dd: 'Hypochondrische Störung',
+          unterscheidung: 'Im Vordergrund steht die Angst, an einer schweren Krankheit zu leiden, nicht der Schmerz selbst; anhaltende Überzeugung trotz negativer Befunde, Rückversicherungsverhalten.',
+        },
+        {
+          dd: 'Somatisierungsstörung (F45.0)',
+          unterscheidung: 'Mindestens zwei Jahre multiple, wechselnde Beschwerden aus verschiedenen Organsystemen (gastrointestinal, kardiovaskulär, urogenital, Haut), nicht auf Schmerz beschränkt.',
+        },
+        {
+          dd: 'Dissoziative Störung und Persönlichkeitsstörung',
+          unterscheidung: 'Dissoziative Störung: pseudoneurologische Ausfälle (Lähmung, Anfälle, Sensibilitätsverlust) ohne organisches Korrelat. Persönlichkeitsstörung: überdauerndes Muster in Beziehungsgestaltung und Affektregulation, das die Schmerzbewältigung mitprägt.',
+        },
+        {
+          dd: 'Medikamentenübergebrauchskopfschmerz und Opioidabhängigkeit',
+          unterscheidung: 'Kopfschmerz an mindestens 15 Tagen pro Monat bei Analgetikaeinnahme an mindestens 10–15 Tagen pro Monat über mehr als drei Monate; Opioidinduzierte Hyperalgesie, Dosissteigerung, Entzugssymptome. Kann die somatoforme Schmerzstörung überlagern und muss mitbehandelt werden.',
+        },
+        {
+          dd: 'Simulation und „Rentenneurose“',
+          unterscheidung: 'Bewusste Vortäuschung mit äußerem Ziel — außerordentlich selten und nur mit größter Zurückhaltung zu erwägen; der somatoforme Schmerz ist nicht bewusst erzeugt. Ein laufendes Rentenverfahren fördert jedoch die Chronifizierung.',
+        },
+        {
+          dd: 'Rheumatische und entzündliche Erkrankungen (rheumatoide Arthritis, Spondyloarthritis, Polymyalgia rheumatica, Kollagenosen)',
+          unterscheidung: 'Gelenkschwellung, Morgensteifigkeit, entzündlicher Rückenschmerz mit nächtlicher Besserung durch Bewegung, erhöhte CRP/BSG, Rheumafaktor, Anti-CCP, HLA-B27, Sonographie und MRT der Sakroiliakalgelenke.',
+        },
+        {
+          dd: 'Hypothyreose, Vitamin-D-Mangel, Polyneuropathie, Elektrolytstörung',
+          unterscheidung: 'Diffuse Muskel- und Gelenkschmerzen mit Müdigkeit, Gewichtszunahme, Kälteintoleranz (Hypothyreose, TSH), Knochenschmerz und Muskelschwäche (Vitamin D, Kalzium), strumpfförmige Sensibilitätsstörung (Polyneuropathie, Neurographie, HbA1c, Vitamin B12).',
+        },
+        {
+          dd: 'Malignom, Endometriose, Borreliose',
+          unterscheidung: 'Malignom: Gewichtsverlust, Nachtschweiß, Nachtschmerz, Laborveränderungen. Endometriose bei zyklusabhängigem Unterbauchschmerz und Dysmenorrhoe. Borreliose bei Zeckenstich, Erythema migrans und wandernder Arthritis (Serologie).',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Tragfähige Arzt-Patient-Beziehung und gemeinsames Krankheitsverständnis',
+          items: [
+            'Den Schmerz ausdrücklich als REAL anerkennen und dies dem Patienten in klaren Worten sagen („Ihre Schmerzen sind echt, daran habe ich keinen Zweifel — die Frage ist, wie sie entstehen und wie wir sie behandeln“); Formulierungen wie „psychisch bedingt“, „eingebildet“ oder „Sie haben nichts“ vermeiden',
+            'Gemeinsames Erklärungsmodell der SCHMERZVERARBEITUNG erarbeiten: Schmerz entsteht im Nervensystem, das unter anhaltender Belastung überempfindlich wird (Schmerzgedächtnis, zentrale Sensibilisierung); seelische Belastung ist kein Gegensatz zur Körperlichkeit, sondern ein Teil davon',
+            'Ein fester, regelmäßiger Ansprechpartner (Hausarzt oder Schmerzambulanz) statt Ärztewechsel; feste Termine in festen Abständen UNABHÄNGIG von der Schmerzstärke, damit Zuwendung nicht an die Beschwerde gekoppelt bleibt',
+            'Somatische Diagnostik ausdrücklich ABSCHLIESSEN und Vereinbarung treffen: keine weiteren Untersuchungen ohne neue Symptome; Vorbefunde zusammenfassen und dem Patienten das Ergebnis mitteilen',
+            'Realistische ZIELE vereinbaren: bessere Funktion, Schlaf, Teilhabe und Lebensqualität statt Schmerzfreiheit — und dies von Anfang an offen aussprechen',
+            'Aufklärung über Diagnose und Verlauf in Alltagssprache, Einbeziehung der Erwartungen des Patienten, Motivation zur aktiven Mitarbeit',
+          ],
+        },
+        {
+          label: 'Multimodale aktivierende Behandlung (Psychotherapie und körperliche Aktivierung)',
+          items: [
+            'PSYCHOTHERAPIE als eigentliche Therapie: kognitive Verhaltenstherapie mit Schmerzbewältigungstraining, Bearbeitung von Katastrophisierung, Angst-Vermeidung und Schonverhalten, Aufbau angenehmer Aktivitäten, Stressbewältigung; alternativ psychodynamische Therapie bei biographischen Konflikten und frühen Belastungen',
+            'Körperliche AKTIVIERUNG: abgestuftes Ausdauer- und Krafttraining nach festem Zeitplan (Pacing, nicht schmerzgesteuert), aktive Physiotherapie und Krankengymnastik statt passiver Anwendungen, Bewegung als Medikament',
+            'Entspannungsverfahren (progressive Muskelrelaxation, autogenes Training), Achtsamkeit und achtsamkeitsbasierte Stressreduktion, Biofeedback',
+            'Ergotherapie, Belastungserprobung und arbeitsbezogene Therapie; Schlafhygiene und Behandlung der Schlafstörung',
+            'Bei schwerem Verlauf oder hohem Chronifizierungsgrad: multimodale stationäre oder tagesklinische Schmerztherapie (interdisziplinär: Schmerzmedizin, Psychotherapie, Physiotherapie) oder psychosomatische Rehabilitation',
+          ],
+        },
+        {
+          label: 'Medikamentöse Behandlung mit klaren Grenzen',
+          items: [
+            'Antidepressiva mit schmerzmodulierender Wirkung — auch ohne Depression: Amitriptylin niedrig dosiert (10–25 mg zur Nacht, langsam auf 50–75 mg steigern; zugleich schlafanstoßend; Cave EKG/QT, anticholinerge Nebenwirkungen, Gewichtszunahme) oder Duloxetin 30 mg, nach einer Woche 60 mg (Cave Übelkeit, Blutdruck, Leberwerte)',
+            'Behandlung einer komorbiden Depression oder Angststörung leitliniengerecht (SSRI/SNRI, Psychotherapie); Aufklärung über den verzögerten Wirkungseintritt von zwei bis vier Wochen',
+            'Ausdrücklich KEINE Opioide (keine Wirksamkeit bei somatoformem Schmerz, Abhängigkeit, opioidinduzierte Hyperalgesie), KEINE Benzodiazepine und keine Dauertherapie mit NSAR (Gastritis, Ulkus, Nierenschaden, Medikamentenübergebrauchskopfschmerz)',
+            'Bestehende Opioide werden begleitet und langsam ausgeschlichen (z. B. Dosisreduktion um etwa 10 % alle ein bis zwei Wochen), da sie die Schmerzverarbeitung verschlechtern und abhängig machen; Entzugssymptome erklären und behandeln',
+            'Keine Injektionen, Infiltrationen, Operationen oder invasiven Eingriffe ohne klare Indikation — jeder Eingriff verstärkt die organische Fixierung; Bedarfsanalgetika auf feste Einnahmegrenzen beschränken',
+          ],
+        },
+        {
+          label: 'Soziale Maßnahmen, Verlauf und Rückfallprophylaxe',
+          items: [
+            'Einbeziehung von Partner und Familie (Paar- und Familiengespräch), damit Zuwendung nicht an den Schmerz gebunden bleibt und Schonverhalten nicht verstärkt wird',
+            'Stufenweise Wiedereingliederung in die Arbeit (Hamburger Modell), Klärung von Arbeitsplatzkonflikten, Sozialdienst; Klärung von Renten- und Begutachtungsfragen mit dem offenen Hinweis, dass ein laufendes Rentenverfahren die Chronifizierung fördert',
+            'Selbsthilfegruppe, Schmerzschule und Psychoedukation; Schmerztagebuch als Instrument zur Selbstbeobachtung, nicht zur Schmerzfixierung',
+            'Aufklärung über den langen Verlauf: Rückschläge in Belastungsphasen gehören dazu und bedeuten keinen neuen Organschaden; Erarbeitung eines Krisenplans',
+            'Langfristige, kontinuierliche Begleitung durch einen festen Behandler mit regelmäßigen Terminen; Überprüfung der Ziele Funktion, Schlaf, Teilhabe; erneute somatische Abklärung nur bei neuen Symptomen oder Red Flags',
+          ],
+        },
+      ],
+      prognose: 'Der Verlauf ist chronisch und über Jahre wechselhaft; eine vollständige Schmerzfreiheit wird nur selten erreicht, deshalb ist das Behandlungsziel die Funktion, die Teilhabe und die Lebensqualität. Unter multimodaler, aktivierender Behandlung mit Psychotherapie verbessern sich Schmerzbeeinträchtigung, Stimmung und Arbeitsfähigkeit bei einem großen Teil der Patienten deutlich; früher Behandlungsbeginn, ein tragfähiges Arbeitsbündnis, das Fehlen eines laufenden Rentenverfahrens und der Verzicht auf Opioide sind günstige Faktoren. Ungünstig wirken hoher Chronifizierungsgrad (MPSS III), komorbide Depression, Opioid- oder Benzodiazepinabhängigkeit, wiederholte Eingriffe und Arztwechsel sowie sekundärer Krankheitsgewinn. Das Suizidrisiko ist bei chronischem Schmerz mit Depression erhöht und muss regelmäßig erfragt werden.',
+      pruefungsfallen: [
+        'Das Kernproblem ist die GESPRÄCHSFÜHRUNG: Der Patient erwartet, wieder zu hören, er habe „nichts“. Der Schmerz muss ausdrücklich als real anerkannt werden („Ihre Schmerzen sind echt, daran habe ich keinen Zweifel“). Wer „eingebildet“, „psychisch bedingt“ oder „Sie haben nichts“ sagt, verliert den Patienten — und Punkte.',
+        'Freiburg 12.12.2022: Mehrere Kandidaten nannten Depression, der Prüfer wollte die somatoforme Störung hören — Depression wurde akzeptiert. Deshalb BEIDE Diagnosen nennen: anhaltende somatoforme Schmerzstörung als Fallthema, komorbide depressive Episode als Begleit- oder Differenzialdiagnose.',
+        'Keine Wiederholung der Bildgebung: Wer ein neues MRT anordnet, obwohl bereits mehrere unauffällige MRT vorliegen, wird gefragt, warum. Die Antwort lautet Durchsicht der Vorbefunde, umschriebenes Basislabor und ausdrücklicher Abschluss der somatischen Diagnostik.',
+        'Die Gegenfalle: Die somatoforme Störung ist eine Ausschlussdiagnose. Red Flags (Gewichtsverlust, Nachtschweiß, neurologische Ausfälle, Gelenkschwellung, entzündlicher Rückenschmerz) und das Basislabor mit TSH, Kalzium, Vitamin D, CK, CRP/BSG gehören in die Antwort — „Haben Sie an einen Hirntumor gedacht?“ wurde bei Kopfschmerz nach Unfall wirklich gefragt.',
+        'Fibromyalgie, Depression und somatoforme Schmerzstörung werden in Reutlingen regelmäßig gemeinsam als Diagnose oder DD geführt; die Überschneidung ist groß, die Zuordnung teils Konvention — alle drei nennen und unterscheiden können.',
+        'Nicht jede Beschwerde ohne Befund ist „psychosomatisch“: In Reutlingen widersprach die Oberärztin einem Kandidaten, der das Reizdarmsyndrom pauschal als psychosomatische Krankheit bezeichnete. Der Begriff wird nur mit Begründung (Zeitzusammenhang mit Belastung, abgeschlossene Ausschlussdiagnostik) verwendet.',
+        'Medikamentenfalle: Amitriptylin ist ein trizyklisches Antidepressivum mit schmerzmodulierender Wirkung — kein SSRI und nicht mit Sumatriptan (Triptan bei Migräne) zu verwechseln; ein Kandidat schrieb in Reutlingen „Sumatriptan“ als Antidepressivum. Duloxetin ist ein SNRI.',
+        'Opioide sind bei somatoformem Schmerz KONTRAINDIZIERT — bestehende Opioide werden nicht abrupt abgesetzt, sondern begleitet ausgeschlichen. Ebenso keine Benzodiazepine und keine NSAR-Dauertherapie.',
+        'Das Therapieziel ist FUNKTION und Lebensqualität, nicht Schmerzfreiheit — wer dem Patienten Schmerzfreiheit verspricht, produziert die nächste Enttäuschung. Feste Termine unabhängig von der Schmerzstärke, damit Zuwendung nicht an den Schmerz gekoppelt bleibt.',
+        'Suizidalität aktiv erfragen — bei chronischem Schmerz mit Depression ist das Risiko deutlich erhöht; die Frage gehört in jede psychiatrische Anamnese und wird von den Prüfern erwartet.',
+        '„Können Sie ein Beispiel für Psychotherapie nennen?“ (Reutlingen): kognitive Verhaltenstherapie mit Schmerzbewältigung, psychodynamische Therapie, Entspannungsverfahren — konkret benennen und kurz erklären, was dort geschieht.',
+        'Der Patient spricht oft 15 Minuten ohne Pause (Stuttgart 17.11.2021) oder ist gereizt und digressiv (Reutlingen 02.08.2023): freundlich strukturieren („Darf ich Sie kurz unterbrechen, damit ich nichts Wichtiges verpasse?“), nicht abwürgen, und die psychosozialen Belastungen trotzdem gezielt erfragen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine anhaltende somatoforme Schmerzstörung mit komorbider depressiver Episode. Dafür sprechen die seit Jahren bestehenden, quälenden Schmerzen an mehreren Körperstellen ohne erklärenden Organbefund trotz zahlreicher Fachärzte und mehrfacher Bildgebung, der zeitliche Zusammenhang des Beginns mit einer Trennung und einem Arbeitsplatzkonflikt, der hohe Leidensdruck mit Rückzug und Arbeitsplatzverlust, die Unwirksamkeit der Schmerzmittel sowie die depressiven Begleitsymptome mit Schlafstörung, Anhedonie und Antriebsminderung.',
+        },
+        {
+          frage: 'Ist das Psychosomatik?',
+          antwort: 'Ja, am ehesten — aber erst nach abgeschlossener somatischer Abklärung. Die Beschwerden begannen im zeitlichen Zusammenhang mit einer psychosozialen Belastung, zahlreiche Untersuchungen blieben ohne Befund, und es bestehen depressive Begleitsymptome. Wichtig ist, dem Patienten zu vermitteln, dass sein Schmerz dennoch echt ist und im Nervensystem entsteht.',
+        },
+        {
+          frage: 'Manche Kollegen haben den Fall als Depression bezeichnet. Wie sehen Sie das?',
+          antwort: 'Beides trifft zu und schließt sich nicht aus. Im Vordergrund steht die anhaltende somatoforme Schmerzstörung, der Schmerz ist das Leitsymptom; die depressive Symptomatik ist eine häufige Komorbidität und muss mitbehandelt werden. Umgekehrt muss ich an eine larvierte Depression denken, wenn die depressiven Kernsymptome überwiegen und der Schmerz unter antidepressiver Therapie verschwindet.',
+        },
+        {
+          frage: 'Haben Sie an einen Hirntumor gedacht? Welche organischen Ursachen müssen ausgeschlossen werden?',
+          antwort: 'Ja. Bei Kopfschmerz gehören eine Raumforderung, bei Rücken- und Gelenkschmerz eine Spondyloarthritis, eine rheumatoide Arthritis, eine Polymyalgia rheumatica, eine Hypothyreose, ein Vitamin-D-Mangel, eine Polyneuropathie, eine Borreliose und ein Malignom zum Ausschluss. In diesem Fall liegen bereits unauffällige MRT-Befunde von Schädel und Wirbelsäule sowie unauffällige Rheuma- und Neurologiebefunde vor; ich ergänze nur ein Basislabor und wiederhole die Bildgebung nicht, solange keine neuen Symptome oder Red Flags auftreten.',
+        },
+        {
+          frage: 'Welche Schilddrüsenwerte bestimmen Sie?',
+          antwort: 'Zunächst das TSH als Screening; bei pathologischem Wert die freien Hormone fT3 und fT4 sowie die Schilddrüsenantikörper — TPO-Antikörper und Thyreoglobulin-Antikörper bei Verdacht auf eine Hashimoto-Thyreoiditis, TRAK bei Verdacht auf Morbus Basedow — und eine Schilddrüsensonographie.',
+        },
+        {
+          frage: 'Warum ordnen Sie kein neues MRT an?',
+          antwort: 'Weil bereits mehrere unauffällige MRT vorliegen und keine neuen Symptome oder Red Flags bestehen. Jede weitere Untersuchung ohne Indikation verstärkt die organische Fixierung, enttäuscht den Patienten erneut und verzögert die eigentliche Behandlung. Stattdessen sichte ich die Vorbefunde, ergänze ein umschriebenes Basislabor und schließe die somatische Diagnostik ausdrücklich ab.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die chronische Schmerzstörung mit somatischen und psychischen Faktoren, das Fibromyalgiesyndrom, eine Depression mit Schmerz als Leitsymptom, eine Angststörung oder PTBS, eine hypochondrische Störung, die Somatisierungsstörung, ein Medikamentenübergebrauchskopfschmerz beziehungsweise eine Opioidabhängigkeit sowie die organischen Ursachen: rheumatische Erkrankungen, Hypothyreose, Vitamin-D-Mangel, Polyneuropathie und Malignom.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten, dass seine Schmerzen psychosomatisch sind, ohne ihn zu kränken?',
+          antwort: 'Ich sage zuerst, dass seine Schmerzen echt sind und ich daran keinen Zweifel habe. Dann erkläre ich, dass Schmerz im Nervensystem entsteht und dass dieses System unter langer Belastung überempfindlich werden kann wie ein zu scharf eingestellter Rauchmelder — die Alarmanlage schlägt an, obwohl kein Feuer brennt. Seelische Belastung ist dabei kein Gegensatz zum Körper, sondern ein Teil davon. Deshalb behandeln wir beides zusammen.',
+        },
+        {
+          frage: 'Können Sie ein Beispiel für Psychotherapie nennen?',
+          antwort: 'Die kognitive Verhaltenstherapie mit Schmerzbewältigungstraining: Der Patient lernt, katastrophisierende Gedanken zu erkennen und zu verändern, Schonverhalten abzubauen, Aktivitäten nach Zeitplan statt nach Schmerz zu steuern und Entspannungsverfahren einzusetzen. Alternativ die psychodynamische Therapie, wenn biographische Konflikte im Vordergrund stehen.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten?',
+          antwort: 'Multimodal und aktivierend mit dem Ziel Funktion und Lebensqualität statt Schmerzfreiheit: tragfähige Beziehung mit festen Terminen, gemeinsames Erklärungsmodell, Abschluss der Diagnostik; Psychotherapie, abgestufte körperliche Aktivierung, Entspannungsverfahren, Ergotherapie, bei schwerem Verlauf multimodale Schmerztherapie oder psychosomatische Rehabilitation; medikamentös Amitriptylin niedrig dosiert oder Duloxetin, Behandlung der Depression, keine Opioide und Benzodiazepine, bestehende Opioide ausschleichen; dazu Wiedereingliederung, Einbeziehung der Familie und langfristige Begleitung.',
+        },
+        {
+          frage: 'Welche Medikamente würden Sie geben, und welche nicht?',
+          antwort: 'Amitriptylin niedrig dosiert zur Nacht, 10 bis 25 mg mit langsamer Steigerung, oder Duloxetin 30 bis 60 mg — beide wirken schmerzmodulierend und antidepressiv. Nicht geben würde ich Opioide, Benzodiazepine und NSAR als Dauertherapie; ein bestehendes Opioid würde ich langsam ausschleichen.',
+        },
+        {
+          frage: 'Der Patient nimmt seit einem Jahr Tilidin. Wie gehen Sie damit um?',
+          antwort: 'Ich erkläre ihm, dass Opioide bei dieser Art Schmerz nicht helfen, sondern die Schmerzverarbeitung verschlechtern und abhängig machen. Ich setze sie nicht abrupt ab, sondern reduziere begleitet und langsam, etwa um zehn Prozent alle ein bis zwei Wochen, kläre über Entzugssymptome auf und beginne parallel mit Amitriptylin oder Duloxetin und der aktivierenden Behandlung.',
+        },
+        {
+          frage: 'Muss der Patient stationär aufgenommen werden?',
+          antwort: 'Nicht wegen der Schmerzen selbst. Eine stationäre oder tagesklinische multimodale Schmerztherapie beziehungsweise psychosomatische Behandlung ist bei hohem Chronifizierungsgrad, schwerer Depression, Opioidabhängigkeit oder gescheiterter ambulanter Therapie sinnvoll. Zwingend stationär wird es bei akuter Suizidalität.',
+        },
+        {
+          frage: 'Welche Rolle spielt das Rentenverfahren?',
+          antwort: 'Ein laufendes Renten- oder Begutachtungsverfahren fördert die Chronifizierung, weil es den Patienten an die Krankenrolle bindet und Besserung ungünstig erscheinen lässt. Ich spreche das offen an und empfehle stattdessen eine stufenweise Wiedereingliederung und Rehabilitation — Reha vor Rente.',
+        },
+      ],
+      merksatz: 'Schmerz seit über sechs Monaten, viele Ärzte, kein Befund, Beginn nach Belastung = somatoforme Schmerzstörung. Der Schmerz ist echt: Vorbefunde sichten statt MRT wiederholen, Basislabor, dann Diagnostik ausdrücklich abschließen. Therapie = Beziehung, Psychotherapie, Aktivierung, Amitriptylin oder Duloxetin — keine Opioide, Ziel ist Funktion statt Schmerzfreiheit.',
+      linkedCaseIds: [
+        'case-somatoforme-schmerzstoerung',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-blutentnahme',
+      ],
+    },
+    {
+      id: 'fw-hueftkopfnekrose',
+      pathology: 'Hüftkopfnekrose (aseptische Femurkopfnekrose)',
+      specialty: 'Orthopädie',
+      definition: 'Die aseptische Hüftkopfnekrose (avaskuläre Femurkopfnekrose, Osteonekrose des Femurkopfes) ist ein nicht-infektiöses Absterben von Knochen und Knochenmark im Hüftkopf infolge einer Durchblutungsstörung. Die Nekrosezone liegt meist anterosuperior im lasttragenden Anteil des Kopfes. Ohne Behandlung kommt es zur subchondralen Fraktur, zum Einbruch der Gelenkfläche (Entrundung) und schließlich zur sekundären Coxarthrose. Betroffen ist typischerweise der jüngere Erwachsene zwischen 30 und 50 Jahren, Männer etwa drei- bis viermal häufiger als Frauen; in 50 bis 80 % der Fälle sind beide Hüften betroffen, oft zeitversetzt.',
+      aetiologie: 'Gemeinsame Endstrecke ist eine Ischämie des Femurkopfes durch Unterbrechung oder Drosselung der Endarterien (vor allem der A. circumflexa femoris medialis), durch intravasale Gerinnung und Fettembolien, durch Erhöhung des intraossären Drucks (Fettzellhypertrophie unter Glukokortikoiden und Alkohol) oder durch direkte Gefäßverletzung. Man unterscheidet die posttraumatische Form (nach medialer Schenkelhalsfraktur oder Hüftluxation) von der atraumatischen Form. Bei der atraumatischen Form sind Glukokortikoide die häufigste erkennbare Ursache — auch als Stoßtherapie bei Asthma, rheumatischen Erkrankungen, chronisch-entzündlichen Darmerkrankungen, Multipler Sklerose, nach Transplantation oder bei COVID-19 —, gefolgt vom chronischen Alkoholkonsum. Etwa ein Viertel der Fälle bleibt idiopathisch.',
+      risikofaktoren: [
+        'Glukokortikoidtherapie — häufigste erkennbare Ursache; Risiko steigt mit Dosis und Dauer (als Faustregel über 20 mg Prednisolonäquivalent täglich über mehrere Wochen bzw. kumulativ über etwa 2 g), auch nach Stoßtherapien und intraartikulären Injektionen',
+        'Chronischer Alkoholkonsum (zweithäufigste Ursache; regelmäßiger Konsum ab etwa 40–80 g Ethanol täglich erhöht das Risiko deutlich)',
+        'Nikotinkonsum',
+        'Sichelzellanämie und andere Hämoglobinopathien (Sichelzellkrise mit Gefäßverschluss)',
+        'Gerinnungsstörungen und Thrombophilie (Faktor-V-Leiden, Protein-C-/S-Mangel, Antiphospholipid-Syndrom), Hypofibrinolyse',
+        'Systemischer Lupus erythematodes und andere Kollagenosen (auch unabhängig von der Kortisondosis)',
+        'Chemotherapie und Strahlentherapie im Beckenbereich',
+        'HIV-Infektion und antiretrovirale Therapie',
+        'Morbus Gaucher (Speicherkrankheit mit Knochenmarkinfiltration)',
+        'Caissonkrankheit (Dekompressionskrankheit) bei Tauchern und Druckluftarbeitern',
+        'Hyperlipidämie, Adipositas, Diabetes mellitus, Pankreatitis',
+        'Vorangegangenes Trauma: mediale Schenkelhalsfraktur, Hüftluxation, Epiphysenlösung (posttraumatische Form)',
+        'Organtransplantation (Kombination aus Kortison und Immunsuppression)',
+        'Männliches Geschlecht, Alter 30–50 Jahre',
+      ],
+      klinik: [
+        {
+          text: 'Schleichend über Wochen bis wenige Monate, seltener relativ akut einsetzender Schmerz in der Leiste, oft mit Ausstrahlung in die Oberschenkelvorderseite und bis zum Knie',
+        },
+        {
+          text: 'Zunächst belastungsabhängiger Schmerz beim Gehen, Treppensteigen und Aufstehen; im Verlauf auch in Ruhe und nachts — der Ruhe- und Nachtschmerz ist beim jungen Patienten ein Warnzeichen und für eine Arthrose in diesem Alter untypisch',
+        },
+        {
+          text: 'Schonhinken, verkürzte Gehstrecke, Schwierigkeiten beim Sockenanziehen, Beineüberschlagen und Aussteigen aus dem Auto',
+        },
+        {
+          text: 'Bewegungseinschränkung vor allem der Innenrotation und Abduktion, schmerzhafte Rotation (Rotationsschmerz), positives Viererzeichen, Kapselmuster der Hüfte',
+        },
+        {
+          text: 'Im Stadium des Kopfeinbruchs oft ein plötzlicher Schmerzsprung mit akuter Verschlechterung, Einklemmungsgefühl und weiterer Einschränkung der Beweglichkeit',
+        },
+        {
+          text: 'Keine lokalen Entzündungszeichen: keine Rötung, keine Überwärmung, keine Schwellung; kein Fieber',
+        },
+        {
+          text: 'Über Wochen bis Monate unauffälliges Röntgenbild trotz deutlicher Beschwerden (Stadium I nur im MRT sichtbar)',
+        },
+        {
+          text: 'Beidseitiger Befall in 50–80 % der Fälle, häufig zeitversetzt; die Gegenseite ist zu Beginn oft noch asymptomatisch',
+        },
+        {
+          text: 'Kniegelenkschmerz als einziges Symptom (fortgeleiteter Schmerz über den N. obturatorius) — die Hüfte wird nicht untersucht, das Knie mehrfach geröntgt',
+          atypisch: true,
+        },
+        {
+          text: 'Zufallsbefund im MRT bei asymptomatischer Gegenseite oder im Rahmen einer Abklärung anderer Beschwerden',
+          atypisch: true,
+        },
+        {
+          text: 'Multifokale Osteonekrose mit Befall von Schulter (Humeruskopf), Knie und Sprunggelenk bei Kortison- oder Alkoholanamnese',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Sichelzellanämie und Caissonkrankheit akutes Auftreten im Rahmen einer Krise bzw. nach einem Tauchgang',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ARCO-Klassifikation (Association Research Circulation Osseous, revidiert 2019)',
+          inhalt: 'Stadium 0: keine Bildgebung auffällig, nur histologisch nachweisbar (heute meist nicht mehr geführt). Stadium I: Röntgen und CT unauffällig, Nekrose nur im MRT (und ggf. in der Szintigraphie) sichtbar — Knochenmarködem, Doppellinienzeichen. Stadium II: Röntgenveränderungen ohne Deformierung — Sklerosezonen, Zysten, Osteopenie; Kopfkontur erhalten. Stadium III: subchondrale Fraktur und Einbruch — „crescent sign“ (sichelförmige subchondrale Aufhellung) und Entrundung des Kopfes; IIIA mit Einsenkung unter 2 mm, IIIB über 2 mm. Stadium IV: sekundäre Arthrose mit Gelenkspaltverschmälerung, Beteiligung der Pfanne, Osteophyten. Zusätzlich werden Größe (unter 15 %, 15–30 %, über 30 % des Kopfes) und Lage der Nekrosezone (medial, zentral, lateral) angegeben — sie bestimmen die Prognose.',
+        },
+        {
+          name: 'Klassifikation nach Ficat und Arlet (ältere, noch gebräuchliche Einteilung)',
+          inhalt: 'Stadium I: Röntgen normal, Beschwerden vorhanden (Diagnose nur über MRT). Stadium II: Sklerose und Zysten ohne Konturveränderung. Stadium III: subchondrale Fraktur, „crescent sign“, Abflachung und Einbruch des Kopfes. Stadium IV: sekundäre Coxarthrose mit Pfannenbeteiligung. Die gelenkerhaltende Therapie ist nur in den Stadien I und II erfolgversprechend.',
+        },
+        {
+          name: 'Prognostische Einteilung nach Größe der Nekrosezone (Kerboul-Winkel / Steinberg)',
+          inhalt: 'Kleine Nekrosen unter 15 % des Kopfvolumens bzw. medial gelegene Nekrosen haben eine gute Prognose und brechen selten ein; große laterale Nekrosen über 30 % bzw. ein Kerboul-Winkel über 200° brechen fast immer ein und sind für die Anbohrung ungeeignet.',
+        },
+      ],
+      redFlags: [
+        'Plötzlicher Schmerzsprung mit akuter Verschlechterung und Einklemmungsgefühl → Verdacht auf subchondrale Fraktur und Kopfeinbruch (Übergang in Stadium III)',
+        'Fieber, Schüttelfrost, deutlich erhöhtes CRP bei Hüftschmerz → septische Coxitis, sofortige Punktion — insbesondere unter Immunsuppression oder Kortison',
+        'Hüftschmerz nach Bagatelltrauma bei Osteoporose oder unter Kortison → Schenkelhalsfraktur bzw. Insuffizienzfraktur ausschließen, Belastungsverbot bis zur Bildgebung',
+        'Nachtschmerz mit Gewichtsverlust, Nachtschweiß, bekanntem Tumorleiden → ossäre Metastase oder primärer Knochentumor',
+        'Neu aufgetretene Beschwerden der Gegenseite → zweite Nekrose, MRT beider Hüften',
+        'Blasen-/Mastdarmstörung, Reithosenanästhesie, progrediente Parese → keine Hüfterkrankung, sondern Cauda-equina-Syndrom',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Beginn und Verlauf des Leistenschmerzes, Ausstrahlung zum Knie, Belastungs- und vor allem Ruhe-/Nachtschmerz, Gehstrecke, Hinken, Schmerzsprung, Beschwerden der Gegenseite und anderer Gelenke (Schulter, Knie), Trauma',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikofaktoren aktiv erfragen — der Patient verbindet sie nicht mit der Hüfte: Kortisonanamnese mit Präparat, Dosis, Dauer und Anzahl der Stoßtherapien (Asthma, Rheuma, Colitis, MS, Transplantation, COVID-19, Injektionen), Alkoholanamnese in Menge und Dauer, Nikotin, Tauchen, Sichelzellanämie und Herkunft, Gerinnungsstörungen/Thrombosen, Kollagenose, Chemo-/Strahlentherapie, HIV, Fettstoffwechselstörung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinische Untersuchung: Gangbild (Schonhinken, Trendelenburg-Zeichen), Beinlänge, Bewegungsumfang der Hüfte im Seitenvergleich nach der Neutral-Null-Methode mit eingeschränkter und schmerzhafter Innenrotation und Abduktion, Rotationsschmerz, Viererzeichen (Patrick-Test), Stauchungsschmerz, Leistendruckschmerz, Trochanterdruckschmerz; immer beide Hüften untersuchen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Untersuchung der Nachbarregionen: Lendenwirbelsäule (Lasègue, Sensibilität, Motorik, Reflexe), Kniegelenk, Leiste (Bruchpforten), periphere Pulse und Durchblutung, Vitalparameter einschließlich Temperatur; Größe, Gewicht, BMI',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsausschluss: Blutbild mit Differenzialblutbild, CRP, BSG — bei der aseptischen Nekrose normal; Erhöhung lenkt auf septische Coxitis, Tumor oder rheumatische Erkrankung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Ursachensuche: Lipidstatus, Blutzucker/HbA1c, Harnsäure, Gerinnungsdiagnostik mit Thrombophiliescreening (Faktor-V-Leiden, Protein C/S, Antithrombin, Antiphospholipid-Antikörper), Leberwerte und CDT/MCV/Gamma-GT bei Alkoholanamnese, Hämoglobinelektrophorese bei entsprechender Herkunft, ANA/Rheumafaktor/HLA-B27 bei Verdacht auf Kollagenose oder Spondyloarthritis, HIV-Test bei Risiko',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenwerte (Kreatinin, eGFR) und Leberwerte vor NSAR-Therapie und vor Kontrastmittelgabe; Blutgruppe und Gerinnung vor Operation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen des Beckens (Beckenübersicht a.p.) und der Hüfte in zwei Ebenen (axial bzw. Lauenstein-Aufnahme) als erster Schritt — CAVE: im Frühstadium über Wochen bis Monate NORMAL; später Sklerose, Zysten, „crescent sign“, Entrundung, Gelenkspaltverschmälerung. Zugleich Ausschluss von Fraktur, Arthrose, Dysplasie und Tumor',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT beider Hüften — Untersuchung der WAHL mit einer Sensitivität und Spezifität von über 95 %: zeigt die Nekrose bereits im Stadium I als umschriebene subchondrale Zone mit Doppellinienzeichen („double line sign“ in T2), Knochenmarködem und Demarkationslinie; erfasst Größe und Lage der Nekrose und die Gegenseite. Indiziert bei jedem jungen Patienten mit anhaltendem Hüftschmerz und normalem Röntgenbild',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT der Hüfte zur genauen Beurteilung von subchondraler Fraktur und Einbruch, zur Stadienzuordnung IIIA/IIIB und zur Planung einer gelenkerhaltenden Operation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Hüfte zum Nachweis eines Gelenkergusses (Coxitis) sowie Sonographie der Leiste bei Verdacht auf Hernie; Duplexsonographie der Beinarterien bei Verdacht auf pAVK',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Skelettszintigraphie nur noch selten — bei MRT-Kontraindikation (Herzschrittmacher) oder zur Suche nach multifokalem Befall; im Frühstadium Minderanreicherung („cold in hot“), später Mehranreicherung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hüftgelenkpunktion unter sonographischer oder Durchleuchtungskontrolle nur bei Erguss und Verdacht auf septische Coxitis (Zellzahl, Gramfärbung, Kultur, Kristalle); die Nekrose selbst wird nicht punktiert',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologische Sicherung nur ausnahmsweise (Biopsie aus dem Bohrkanal bei der Anbohrung): leere Osteozytenlakunen, nekrotisches Knochenmark, Reparaturzone mit Granulationsgewebe',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Coxarthrose',
+          unterscheidung: 'Älterer Patient, jahrelanger Verlauf mit Anlauf- und Belastungsschmerz, Morgensteifigkeit unter 30 Minuten, Nachtschmerz erst im Spätstadium; im Röntgen typische Arthrosezeichen — Gelenkspaltverschmälerung, subchondrale Sklerose, Osteophyten, Geröllzysten — aber KEINE umschriebene Nekrosezone. Cave: die Nekrose mündet im Stadium IV selbst in eine sekundäre Arthrose.',
+        },
+        {
+          dd: 'Transientes Knochenmarködem der Hüfte (transitorische Osteoporose)',
+          unterscheidung: 'Die wichtigste und schwierigste Abgrenzung: ähnlich akuter Leistenschmerz beim Mann mittleren Alters oder bei Schwangeren im dritten Trimenon; im MRT diffuses Ödem von Kopf und Schenkelhals OHNE umschriebene Demarkationslinie und ohne Doppellinienzeichen, im Röntgen fleckige Osteopenie; selbstlimitierend über 3–9 Monate unter Entlastung. Verlaufskontrolle im MRT entscheidet.',
+        },
+        {
+          dd: 'Septische Coxitis',
+          unterscheidung: 'Fieber, Schüttelfrost, hochakuter Schmerz, Schonhaltung in Beugung/Außenrotation, deutlich erhöhte Entzündungsparameter, Erguss in der Sonographie; unter Kortison und Immunsuppression abgeschwächt — Punktion mit Kultur ist beweisend. Reaktive Coxitis nach Infekt, Coxitis fugax beim Kind.',
+        },
+        {
+          dd: 'Schenkelhalsfraktur, Stressfraktur und Insuffizienzfraktur',
+          unterscheidung: 'Trauma bzw. Bagatelltrauma, beim Sportler und Soldaten Belastungssteigerung (Stressfraktur), bei Osteoporose oder unter Kortison auch ohne Trauma (Insuffizienzfraktur); Beinverkürzung und Außenrotation bei dislozierter Fraktur; Röntgen, bei unauffälligem Röntgen MRT oder CT.',
+        },
+        {
+          dd: 'Femoroazetabuläres Impingement (FAI) und Labrumläsion',
+          unterscheidung: 'Junger sportlicher Patient, Leistenschmerz bei Beugung und Innenrotation (positiver Impingement-Test), Einklemmungsgefühl, Schnappen; im Röntgen Cam- oder Pincer-Deformität, Labrumriss in der MR-Arthrographie; keine Nekrosezone.',
+        },
+        {
+          dd: 'Hüftdysplasie und Restdysplasie',
+          unterscheidung: 'Meist Frauen, Beschwerden ab dem jungen Erwachsenenalter, im Röntgen verminderte Überdachung des Kopfes (CE-Winkel unter 20°), Pfannendachschräge; führt zur frühen sekundären Arthrose, aber ohne Nekrosezone.',
+        },
+        {
+          dd: 'Lumbale Wurzelreizung (Radikulopathie L3/L4) und Facettensyndrom',
+          unterscheidung: 'Rückenschmerz mit dermatombezogener Ausstrahlung, Kribbeln, Taubheit, Reflexabschwächung, positives Lasègue- bzw. Femoralis-Dehnungszeichen; Hüftbeweglichkeit frei, kein Rotationsschmerz.',
+        },
+        {
+          dd: 'Bursitis trochanterica, Tendinopathie der Glutealsehnen, Adduktorenzerrung',
+          unterscheidung: 'Schmerz seitlich über dem Trochanter mit Druckschmerz und Schmerz beim Liegen auf der Seite bzw. am Adduktorenansatz; Rotation der Hüfte frei, Röntgen und MRT des Gelenks unauffällig.',
+        },
+        {
+          dd: 'Leistenhernie und Sportlerleiste',
+          unterscheidung: 'Ziehender Leistenschmerz beim Pressen, Husten und Heben, tastbare Vorwölbung beim Valsalva-Manöver; Hüftbeweglichkeit frei, Sonographie der Leiste.',
+        },
+        {
+          dd: 'Tumor und Metastase (Knochenmetastase, Osteoidosteom, Chondroblastom, Lymphom)',
+          unterscheidung: 'Nachtschmerz mit Gewichtsverlust, Nachtschweiß, bekanntes Tumorleiden; Osteoidosteom mit nächtlichem Schmerz, der auf ASS anspricht; Röntgen, MRT mit Kontrastmittel, Szintigraphie, Biopsie.',
+        },
+        {
+          dd: 'Synoviale Chondromatose und pigmentierte villonoduläre Synovitis',
+          unterscheidung: 'Einklemmungserscheinungen, Blockierungen, Erguss; freie Gelenkkörper im Röntgen/MRT bzw. hämosiderinhaltige Synovialisproliferation.',
+        },
+        {
+          dd: 'pAVK (Beckentyp) — Leriche-Syndrom',
+          unterscheidung: 'Belastungsabhängiger Gesäß- und Oberschenkelschmerz mit reproduzierbarer Gehstrecke, der in Ruhe sofort nachlässt; fehlende Leistenpulse, Knöchel-Arm-Index erniedrigt; Hüftbeweglichkeit frei.',
+        },
+        {
+          dd: 'Beim Kind und Jugendlichen: Morbus Perthes und Epiphyseolysis capitis femoris',
+          unterscheidung: 'Morbus Perthes: idiopathische Hüftkopfnekrose des Kindes (4–8 Jahre), Hinken und Knieschmerz. Epiphyseolysis capitis femoris: adipöser Jugendlicher in der Pubertät, Abrutschen der Kopfepiphyse, Drehmann-Zeichen — Notfall mit Nekroserisiko.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Ursachenbeseitigung und Grundmaßnahmen',
+          items: [
+            'Überprüfung der Glukokortikoidtherapie und — in Absprache mit dem verordnenden Arzt (Gastroenterologe, Rheumatologe, Pneumologe) — Reduktion auf die niedrigste wirksame Dosis oder Beendigung; Umstellung der Grunderkrankung auf kortisonsparende Therapien (z. B. Immunmodulatoren, Biologika); kein abruptes Absetzen wegen Nebenniereninsuffizienz',
+            'Alkoholkarenz mit Suchtberatung und ggf. qualifizierter Entzugsbehandlung; Nikotinkarenz mit Raucherentwöhnung',
+            'Behandlung von Fettstoffwechselstörung (Statin), Diabetes mellitus und nachgewiesener Gerinnungsstörung (Antikoagulation nach hämatologischer Rücksprache); Gewichtsreduktion',
+            'Aufklärung des Patienten über Erkrankung, Ursache, Beidseitigkeit (50–80 %) und die Stadienabhängigkeit der Prognose: der Hüftkopf lässt sich nur VOR dem Einbruch retten',
+            'Schmerztherapie nach WHO-Stufenschema: NSAR (Ibuprofen, Naproxen) unter Magenschutz mit Protonenpumpenhemmer, alternativ oder ergänzend Metamizol; Opioide nur kurzfristig; keine intraartikulären Kortisoninjektionen',
+          ],
+        },
+        {
+          label: 'Gelenkerhaltende Behandlung im Frühstadium (vor dem Kopfeinbruch)',
+          items: [
+            'Entlastung der betroffenen Hüfte an Unterarmgehstützen (Teilbelastung 15–20 kg) über 6 bis 12 Wochen, bei großer Nekrose bis zu mehreren Monaten, zur Verhinderung des Kopfeinbruchs; Thromboseprophylaxe mit niedermolekularem Heparin während der Entlastung',
+            'Physiotherapie zum Erhalt der Beweglichkeit und Kräftigung der hüftumgebenden Muskulatur ohne axiale Belastung (Bewegungsbad, Ergometer ohne Widerstand)',
+            'Medikamentöse Versuche mit begrenzter Evidenz: Bisphosphonate (Alendronat) zur Verzögerung des Einbruchs, das Prostazyklin-Analogon Iloprost i.v. zur Durchblutungsförderung und Ödemreduktion, Statine bei Kortisonnekrose; ergänzend hyperbare Sauerstofftherapie und Stoßwellentherapie als Einzelfallentscheidung',
+            'Entscheidende gelenkerhaltende Operation in den ARCO-Stadien I und II: Anbohrung des Hüftkopfes (Core Decompression) zur Druckentlastung des Knochenmarks und Anregung der Revaskularisierung — Erfolgsrate bei kleinen und mittleren Nekrosen etwa 70–80 %, bei großen lateralen Nekrosen deutlich schlechter',
+            'Erweiterte Verfahren: Anbohrung mit Instillation von autologem Knochenmarkkonzentrat (mesenchymale Stammzellen), Spongiosaplastik oder vaskularisiertem Fibulatransplantat; in ausgewählten Fällen mit umschriebener Nekrose intertrochantäre Umstellungsosteotomie (Flexions- oder Rotationsosteotomie), um die Nekrosezone aus der Belastungszone herauszudrehen',
+            'Nach der Anbohrung Teilbelastung über etwa 6 Wochen mit stufenweiser Belastungssteigerung und Thromboseprophylaxe',
+          ],
+        },
+        {
+          label: 'Gelenkersetzende Behandlung nach dem Kopfeinbruch',
+          items: [
+            'Hüfttotalendoprothese (Hüft-TEP) als Standard in den ARCO-Stadien III und IV mit Kopfeinbruch, Entrundung und sekundärer Arthrose; beim jungen Patienten zementfreie Verankerung, abriebarme Gleitpaarungen (Keramik-Keramik, Keramik-hochvernetztes Polyethylen)',
+            'Beim jungen Patienten muss die Indikation sorgfältig gegen die Beschwerden abgewogen werden, weil die Prothese bei hoher Aktivität und langer Lebenserwartung frühzeitig wechselpflichtig werden kann; die Ergebnisse der TEP bei Hüftkopfnekrose sind etwas schlechter als bei der primären Coxarthrose (jüngeres Alter, schlechtere Knochenqualität, Grunderkrankung)',
+            'Alternativen mit engem Indikationsbereich: Oberflächenersatz (Kappenprothese) nur bei kleiner Nekrose und gutem Knochenlager, Hemiprothese praktisch nur beim alten Patienten; Hüftarthrodese heute nur noch ausnahmsweise',
+            'Aufklärung über Standzeit (etwa 15–20 Jahre, beim jungen aktiven Patienten kürzer), Wechseloperation, Luxationsrisiko, Infektion, Beinlängendifferenz, Thrombose, Nervenschädigung sowie über Verhaltensregeln (keine tiefe Hüftbeugung über 90°, keine Adduktion mit Innenrotation, kein Beineüberschlagen in den ersten Wochen)',
+            'Perioperativ: Thromboseprophylaxe mit niedermolekularem Heparin über 4–5 Wochen, perioperative Antibiotikaprophylaxe, Frühmobilisation am ersten postoperativen Tag, Anschlussheilbehandlung',
+          ],
+        },
+        {
+          label: 'Nachsorge, Kontrolle der Gegenseite und Rezidivprophylaxe',
+          items: [
+            'Regelmäßige klinische und MRT-Kontrollen BEIDER Hüften (initial alle 3–6 Monate), weil die Gegenseite in 50–80 % folgt und früh erkannt gelenkerhaltend behandelt werden kann',
+            'Kontrolle anderer Gelenke bei Kortison- und Alkoholanamnese (Schulter, Knie, Sprunggelenk) bei neuen Beschwerden — multifokale Osteonekrose',
+            'Dauerhafte Vermeidung der Risikofaktoren: kortisonsparende Behandlung der Grunderkrankung, anhaltende Alkohol- und Nikotinkarenz, Kontrolle von Lipiden und Blutzucker',
+            'Rehabilitation nach Operation mit stufenweiser Belastungssteigerung, Gangschule, Kräftigung; Rückkehr in den Beruf abhängig von der körperlichen Belastung (ggf. Arbeitsplatzanpassung, Wiedereingliederung), gelenkschonende Sportarten (Radfahren, Schwimmen) statt Stoßbelastung',
+            'Nach Prothese: Röntgenkontrollen nach 3 Monaten, 1 Jahr und dann alle 2–5 Jahre zur Erkennung von Lockerung und Abrieb; Endoprothesenpass; Antibiotikaprophylaxe vor Eingriffen mit Bakteriämierisiko nach individueller Absprache',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt vom Stadium, von Größe und Lage der Nekrosezone und von der Beseitigung der Ursache ab. Ohne Behandlung kommt es in über 80 % der Fälle innerhalb von 2 bis 3 Jahren zum Einbruch des Hüftkopfes und in der Folge zur sekundären Arthrose. Kleine, medial gelegene Nekrosen (unter 15 % des Kopfes) haben eine gute Prognose und können unter Entlastung und Anbohrung ausheilen; große laterale Nekrosen (über 30 %) brechen trotz Anbohrung meist ein. Die Anbohrung im Stadium I–II erreicht in etwa 70–80 % ein gutes Ergebnis und kann die Prothese um Jahre hinauszögern oder vermeiden. Nach dem Einbruch ist die Hüft-TEP die einzige verlässliche Option; beim jungen Patienten ist mit einer oder mehreren Wechseloperationen im Laufe des Lebens zu rechnen. Die Gegenseite erkrankt in 50–80 % der Fälle, meist innerhalb von zwei Jahren — deshalb Kontrolle beider Hüften. Bei fortbestehendem Alkohol- oder Kortisonkonsum ist die Prognose auch nach Operation schlechter.',
+      pruefungsfallen: [
+        'Der zentrale Fehler: Ein junger Patient mit Hüftschmerz und NORMALEM Röntgenbild wird als „Muskelverspannung“ mit NSAR nach Hause geschickt. Ein normales Röntgen schließt die Hüftkopfnekrose NICHT aus — bei anhaltenden Beschwerden ist das MRT beider Hüften obligat.',
+        'Coxarthrose als Verdachtsdiagnose bei einem 40-Jährigen ohne Trauma und ohne Dysplasie ist unwahrscheinlich; der Ruhe- und Nachtschmerz beim jungen Patienten spricht für die Nekrose. Der Prüfer erwartet den Unterschied zwischen Anlaufschmerz (Arthrose) und Ruhe-/Nachtschmerz (Nekrose).',
+        'Kortison und Alkohol aktiv erfragen — der Patient nennt seine Prednisolon-Stoßtherapien nicht, weil er sie mit dem Darm, der Lunge oder dem Rheuma verbindet, nicht mit der Hüfte. Dosis, Dauer und Anzahl der Stöße dokumentieren.',
+        'Die Beidseitigkeit (50–80 %) wird gefragt: immer beide Hüften untersuchen und beide Hüften im MRT darstellen, auch wenn die Gegenseite beschwerdefrei ist.',
+        'Das Knie kann das einzige Symptom sein — bei unklarem Knieschmerz mit unauffälligem Kniebefund immer die Hüfte untersuchen (fortgeleiteter Schmerz über den N. obturatorius).',
+        'Stadien in Grundzügen kennen: ARCO I nur im MRT sichtbar, II Röntgenveränderungen ohne Deformierung, III Einbruch mit „crescent sign“, IV sekundäre Arthrose. Die Therapie ist stadienabhängig — gelenkerhaltend nur VOR dem Einbruch (I–II), TEP nach dem Einbruch (III–IV).',
+        'Die transitorische Osteoporose (transientes Knochenmarködem) nicht vergessen — sie ist die schwierigste DD im MRT und heilt von selbst aus; der Unterschied ist die fehlende Demarkationslinie.',
+        'Keine intraartikuläre Kortisoninjektion bei Verdacht auf Hüftkopfnekrose — Kortison ist die Ursache, nicht die Therapie.',
+        'Bei der Entlastung an Unterarmgehstützen die Thromboseprophylaxe nicht vergessen.',
+        'Beim jungen Patienten die TEP-Indikation nicht leichtfertig stellen: Standzeit, Wechseloperation und Verhaltensregeln müssen in der Aufklärung vorkommen.',
+        'Anamnese-Falle Karlsruhe 08.02.2023: Der Fall war eine Hüftkopfnekrose, der Kandidat stellte die Verdachtsdiagnose Coxarthrose — die Kommission ließ es durchgehen, weil Röntgen, MRT und DD genannt wurden. Sicherer ist, die Nekrose als Verdachtsdiagnose zu nennen und die Arthrose als DD.',
+        'Formulierung vor dem Patienten: „Durchblutungsstörung des Hüftkopfes, bei der Knochen abstirbt“ statt „avaskuläre Osteonekrose“; „Anbohrung“ statt „Core Decompression“; „künstliches Hüftgelenk“ statt „TEP“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine aseptische Hüftkopfnekrose rechts. Dafür sprechen das junge Alter, der über drei Monate zunehmende Leistenschmerz mit Ausstrahlung zum Knie, der Ruhe- und Nachtschmerz, die eingeschränkte und schmerzhafte Innenrotation, das unauffällige Röntgenbild trotz deutlicher Beschwerden sowie die Risikofaktoren: mehrere Prednisolon-Stoßtherapien wegen einer Colitis ulcerosa, ein täglicher Alkoholkonsum von etwa 60 g und Nikotin.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen dem Schmerz bei der Arthrose und dem Schmerz bei der Nekrose?',
+          antwort: 'Die Arthrose macht den typischen Anlaufschmerz — Schmerz bei den ersten Schritten nach dem Sitzen oder morgens, der sich nach kurzem Gehen bessert, dazu Belastungsschmerz und Ermüdungsschmerz am Abend; Ruhe- und Nachtschmerz treten erst spät auf. Die Nekrose beginnt beim jüngeren Patienten belastungsabhängig, geht aber innerhalb von Wochen in einen Ruhe- und Nachtschmerz über, was für eine Arthrose in diesem Alter untypisch ist; beim Kopfeinbruch kommt es oft zu einem Schmerzsprung.',
+        },
+        {
+          frage: 'Welche Ursachen und Risikofaktoren der Hüftkopfnekrose kennen Sie?',
+          antwort: 'Posttraumatisch nach medialer Schenkelhalsfraktur oder Hüftluxation; atraumatisch vor allem Glukokortikoide als häufigste Ursache und chronischer Alkoholkonsum als zweite, dazu Nikotin, Sichelzellanämie, Gerinnungsstörungen, systemischer Lupus, Chemo- und Strahlentherapie, HIV, Morbus Gaucher, Caissonkrankheit bei Tauchern und Hyperlipidämie; etwa ein Viertel bleibt idiopathisch.',
+        },
+        {
+          frage: 'Was hat das Kortison mit der Hüfte zu tun?',
+          antwort: 'Glukokortikoide führen zu einer Fettzellhypertrophie im Knochenmark mit Erhöhung des intraossären Drucks, zu Fettembolien und zu einer Schädigung des Endothels; der Hüftkopf mit seiner Endarterienversorgung wird dadurch minderdurchblutet und der Knochen stirbt ab. Das Risiko steigt mit Dosis und Dauer, kann aber auch nach kurzen hochdosierten Stoßtherapien auftreten.',
+        },
+        {
+          frage: 'Warum ist das Röntgenbild normal, obwohl der Patient starke Schmerzen hat?',
+          antwort: 'Weil das Röntgen nur Veränderungen der Knochenstruktur zeigt — Sklerose, Zysten, Fraktur, Entrundung —, die erst Wochen bis Monate nach dem Absterben des Knochens entstehen. Im Stadium I ist die Nekrose nur im MRT als Knochenmarködem mit Doppellinienzeichen sichtbar. Deshalb schließt ein normales Röntgenbild die Nekrose nicht aus.',
+        },
+        {
+          frage: 'Welche Untersuchung ist die Methode der Wahl, und was sehen Sie darin?',
+          antwort: 'Das MRT beider Hüften. Es zeigt die Nekrose bereits im Stadium I als umschriebene subchondrale Zone mit Doppellinienzeichen in der T2-Wichtung, Knochenmarködem und Demarkationslinie, erfasst Größe und Lage der Nekrose und die häufig mitbetroffene Gegenseite.',
+        },
+        {
+          frage: 'Wie häufig ist die Gegenseite betroffen, und welche Konsequenz hat das?',
+          antwort: 'In 50 bis 80 % der Fälle, oft zeitversetzt und zunächst ohne Beschwerden. Deshalb untersuche ich klinisch immer beide Hüften, stelle im MRT beide Hüften dar und kontrolliere die Gegenseite im Verlauf, weil sie im Frühstadium noch gelenkerhaltend behandelt werden kann.',
+        },
+        {
+          frage: 'Nennen Sie die Stadien der Hüftkopfnekrose.',
+          antwort: 'Nach ARCO: Stadium I — Röntgen unauffällig, Nekrose nur im MRT sichtbar; Stadium II — Röntgenveränderungen wie Sklerose und Zysten ohne Deformierung; Stadium III — subchondrale Fraktur und Einbruch mit dem crescent sign und Entrundung des Kopfes; Stadium IV — sekundäre Arthrose mit Gelenkspaltverschmälerung und Beteiligung der Pfanne. Größe und Lage der Nekrose bestimmen die Prognose.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Coxarthrose, transientes Knochenmarködem der Hüfte, septische Coxitis, Schenkelhalsfraktur einschließlich Stress- und Insuffizienzfraktur, femoroazetabuläres Impingement mit Labrumläsion, Hüftdysplasie, lumbale Radikulopathie, Bursitis trochanterica und Tendinopathien, Leistenhernie, Tumor und Metastase sowie eine pAVK vom Beckentyp; beim Kind Morbus Perthes und Epiphyseolysis capitis femoris.',
+        },
+        {
+          frage: 'Wie grenzen Sie das transiente Knochenmarködem von der Nekrose ab?',
+          antwort: 'Beide zeigen im MRT ein Ödem und ähnliche Beschwerden. Beim transienten Knochenmarködem ist das Ödem diffus über Kopf und Schenkelhals verteilt, ohne umschriebene Demarkationslinie und ohne Doppellinienzeichen; es tritt gehäuft bei Schwangeren im dritten Trimenon und bei Männern mittleren Alters auf und heilt unter Entlastung innerhalb von Monaten aus. Die MRT-Verlaufskontrolle entscheidet.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten — abhängig vom Stadium?',
+          antwort: 'Zuerst die Ursache: Kortison in Absprache mit dem Gastroenterologen reduzieren oder auf eine kortisonsparende Therapie umstellen, Alkohol- und Nikotinkarenz. Im Frühstadium vor dem Einbruch: Entlastung an Unterarmgehstützen mit Thromboseprophylaxe, NSAR unter Magenschutz, Physiotherapie und die gelenkerhaltende Anbohrung des Hüftkopfes, gegebenenfalls mit Knochenmarkkonzentrat. Nach dem Einbruch mit sekundärer Arthrose: die Hüfttotalendoprothese. Dazu MRT-Kontrollen der Gegenseite.',
+        },
+        {
+          frage: 'Was ist eine Core Decompression, und wann ist sie sinnvoll?',
+          antwort: 'Die Anbohrung des Hüftkopfes: Über einen Bohrkanal vom Trochanter aus wird die Nekrosezone entlastet, der intraossäre Druck gesenkt und die Revaskularisierung angeregt, ggf. mit Einbringen von Knochenmarkkonzentrat oder Spongiosa. Sie ist in den ARCO-Stadien I und II vor dem Einbruch sinnvoll, bei kleinen und mittelgroßen Nekrosen mit Erfolgsraten von etwa 70 bis 80 %.',
+        },
+        {
+          frage: 'Der Patient ist 42 Jahre alt — würden Sie ihm eine Prothese einsetzen?',
+          antwort: 'Nur nach dem Kopfeinbruch, also im Stadium III oder IV mit Entrundung und sekundärer Arthrose, wenn die Beschwerden nicht anders beherrschbar sind. Beim jungen Patienten muss man die Standzeit von etwa 15 bis 20 Jahren und die Wahrscheinlichkeit einer Wechseloperation bedenken; deshalb versuche ich vorher alles Gelenkerhaltende und wähle bei der TEP eine zementfreie Verankerung mit abriebarmer Gleitpaarung.',
+        },
+        {
+          frage: 'Welche Rolle spielt die Colitis ulcerosa bei diesem Patienten?',
+          antwort: 'Sie ist die Ursache der Kortisontherapie. Ich würde mit dem Gastroenterologen besprechen, ob die Colitis mit einer kortisonsparenden Therapie wie Azathioprin oder einem Biologikum kontrolliert werden kann, damit künftige Prednisolon-Stöße vermieden werden — sonst droht die Nekrose der Gegenseite. NSAR sind bei Colitis ulcerosa zudem problematisch, weil sie einen Schub auslösen können; hier ist Metamizol als Alternative zu bedenken.',
+        },
+        {
+          frage: 'Klären Sie den Patienten in zwei Minuten über die Diagnose und das weitere Vorgehen auf.',
+          antwort: 'Herr Lindner, wir vermuten, dass Ihr Hüftkopf — die Kugel des Hüftgelenks — nicht mehr richtig durchblutet wird und deshalb ein Teil des Knochens abstirbt; man nennt das Hüftkopfnekrose. Das Röntgenbild sieht so etwas am Anfang nicht, deshalb brauchen wir eine Kernspintomographie beider Hüften. Die wichtigsten Ursachen sind bei Ihnen das Kortison gegen die Darmentzündung und der Alkohol. Wenn wir früh dran sind, können wir den Knochen mit einer Entlastung an Gehstützen und einer kleinen Operation, einer Anbohrung, retten; ist der Kopf schon eingebrochen, hilft nur ein künstliches Gelenk. Haben Sie dazu Fragen?',
+        },
+      ],
+      merksatz: 'Junger Mann, Leistenschmerz bis zum Knie, Ruhe- und Nachtschmerz, Kortison oder Alkohol in der Anamnese und ein normales Röntgenbild = Hüftkopfnekrose bis zum Beweis des Gegenteils — MRT BEIDER Hüften (50–80 % beidseitig). Gelenkerhaltend nur VOR dem Einbruch (ARCO I–II: Entlastung, Anbohrung), danach TEP.',
+      linkedCaseIds: [
+        'case-hueftkopfnekrose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-roentgen',
+      ],
+    },
+    {
+      id: 'fw-glomerulonephritis',
+      pathology: 'Akute Glomerulonephritis (nephritisches Syndrom)',
+      specialty: 'Nephrologie',
+      definition: 'Das akute nephritische Syndrom ist der klinische Ausdruck einer ENTZÜNDUNG der Glomeruli (Glomerulonephritis) und ist gekennzeichnet durch eine glomeruläre HÄMATURIE (dysmorphe Erythrozyten, Akanthozyten, Erythrozytenzylinder), eine mäßige, nicht-nephrotische Proteinurie (meist unter 3,5 g/Tag), eine arterielle HYPERTONIE, ÖDEME (zuerst periorbital) und einen Abfall der glomerulären Filtrationsrate mit Oligurie. Es ist das Spiegelbild des nephrotischen Syndroms: dort steht das Eiweiß (Proteinurie über 3,5 g/Tag, Hypalbuminämie, massive Ödeme, Hyperlipidämie) im Vordergrund, hier das Blut. Die beiden wichtigsten Ursachen beim Erwachsenen in Europa sind die IgA-Nephropathie (häufigste Glomerulonephritis überhaupt) und die postinfektiöse, meist Poststreptokokken-Glomerulonephritis (heute selten, eher bei Kindern und jungen Erwachsenen). Der gefährlichste Verlauf ist die rasch progrediente Glomerulonephritis (RPGN) mit Verlust der Nierenfunktion innerhalb von Tagen bis Wochen — ein nephrologischer Notfall.',
+      aetiologie: 'Immunologisch vermittelte Entzündung der Glomeruli. 1) Immunkomplex-Glomerulonephritiden: postinfektiöse Glomerulonephritis (klassisch 1–3 Wochen nach Pharyngitis bzw. 3–6 Wochen nach Hautinfektion durch nephritogene Stämme von Streptococcus pyogenes, Gruppe A; auch nach Staphylokokken-, Endokarditis-, Shunt- und Hepatitis-Infektionen), IgA-Nephropathie (Ablagerung von galaktosedefizientem IgA1 im Mesangium, Makrohämaturie während oder 1–2 Tage nach einem Atemwegsinfekt), Lupusnephritis, membranoproliferative Glomerulonephritis und Kryoglobulinämie (Hepatitis C), IgA-Vaskulitis (Purpura Schönlein-Henoch). 2) Pauci-immune Glomerulonephritis bei ANCA-assoziierter Vaskulitis (Granulomatose mit Polyangiitis, mikroskopische Polyangiitis). 3) Anti-GBM-Erkrankung (Goodpasture-Syndrom) mit linearen Antikörperablagerungen entlang der Basalmembran, bei Lungenbeteiligung mit Hämoptysen. 4) Hereditär: Alport-Syndrom (Kollagen-IV-Defekt mit Innenohrschwerhörigkeit) und Syndrom der dünnen Basalmembran (familiäre benigne Hämaturie).',
+      risikofaktoren: [
+        'Vorangegangene Streptokokken-Angina oder Impetigo, insbesondere bei Kindern zwischen 5 und 12 Jahren und jungen Erwachsenen; nicht oder unvollständig behandelte Infekte, enge Wohnverhältnisse, Epidemien',
+        'Rezidivierende Atemwegsinfekte als Auslöser von Makrohämaturie-Schüben bei IgA-Nephropathie (junge Männer zwischen 20 und 40 Jahren, ostasiatische und europäische Herkunft)',
+        'Systemische Autoimmunerkrankungen: systemischer Lupus erythematodes, ANCA-Vaskulitiden, IgA-Vaskulitis',
+        'Chronische Infektionen: Hepatitis B und C, HIV, infektiöse Endokarditis, infizierte Shunts',
+        'Positive Familienanamnese für Nierenerkrankung, Hämaturie oder frühe Schwerhörigkeit (Alport-Syndrom, dünne Basalmembran)',
+        'Nephrotoxische Substanzen als Verstärker der Nierenfunktionsverschlechterung: NSAR, Kontrastmittel, Aminoglykoside',
+        'Zöliakie, chronisch-entzündliche Darmerkrankungen und Leberzirrhose (sekundäre IgA-Nephropathie)',
+        'Nikotinkonsum und Adipositas als Progressionsfaktoren jeder chronischen Nierenerkrankung',
+      ],
+      klinik: [
+        {
+          text: 'Makrohämaturie mit braunem, „colafarbenem“ oder „fleischwasserfarbenem“ Urin — der Patient beschreibt eher eine dunkle Verfärbung als sichtbares Blut; keine Koagel, keine Dysurie',
+        },
+        {
+          text: 'Verminderte Urinmenge (Oligurie unter 500 ml/Tag) bei Abfall der glomerulären Filtrationsrate',
+        },
+        {
+          text: 'Ödeme zuerst an den Augenlidern und im Gesicht (morgens am stärksten), dann an den Unterschenkeln; Gewichtszunahme durch Salz- und Wasserretention',
+        },
+        {
+          text: 'Neu aufgetretene oder verschlechterte arterielle Hypertonie durch Volumenretention, mit Kopfschmerzen',
+        },
+        {
+          text: 'Dumpfer beidseitiger Flankenschmerz durch Dehnung der Nierenkapsel, Abgeschlagenheit, Übelkeit, Appetitlosigkeit, subfebrile Temperaturen',
+        },
+        {
+          text: 'Zeitlicher Abstand zum Infekt als entscheidendes anamnestisches Merkmal: 1–3 Wochen nach Angina (3–6 Wochen nach Impetigo) bei der postinfektiösen Glomerulonephritis, dagegen Makrohämaturie WÄHREND oder 1–2 Tage nach dem Infekt bei der IgA-Nephropathie',
+        },
+        {
+          text: 'Milder Verlauf mit nur Mikrohämaturie und geringer Proteinurie als Zufallsbefund im Urinstreifen — bei der Mehrzahl der postinfektiösen Fälle und bei vielen IgA-Nephropathien',
+          atypisch: true,
+        },
+        {
+          text: 'Hypertensive Krise mit starkem Kopfschmerz, Sehstörungen, Verwirrtheit, Krampfanfall (hypertensive Enzephalopathie) oder Lungenödem mit Luftnot und Orthopnoe',
+          atypisch: true,
+        },
+        {
+          text: 'Rasch progrediente Glomerulonephritis: rasch steigendes Kreatinin, Oligurie bis Anurie, schwere Hypertonie, urämische Symptome innerhalb von Tagen bis Wochen',
+          atypisch: true,
+        },
+        {
+          text: 'Pulmorenales Syndrom: Hämoptysen und Luftnot mit Nierenversagen bei Anti-GBM-Erkrankung (Goodpasture-Syndrom) oder ANCA-Vaskulitis',
+          atypisch: true,
+        },
+        {
+          text: 'Systemzeichen einer Vaskulitis oder Kollagenose: palpable Purpura an den Unterschenkeln (IgA-Vaskulitis), Arthralgien, Schmetterlingserythem, chronische Sinusitis, Hörverlust, Mononeuritis, Episkleritis',
+          atypisch: true,
+        },
+        {
+          text: 'Nephritisch-nephrotisches Mischbild mit großer Proteinurie und Hypalbuminämie bei membranoproliferativer Glomerulonephritis und Lupusnephritis',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Kind mit postinfektiöser Glomerulonephritis: plötzliche Gesichtsschwellung, brauner Urin und Bluthochdruck; gelegentlich Krampfanfall als Erstsymptom',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Nephritisches versus nephrotisches Syndrom (Gegenüberstellung)',
+          inhalt: 'Nephritisch: Entzündung der Glomeruli — Hämaturie mit dysmorphen Erythrozyten und Erythrozytenzylindern im Vordergrund, Proteinurie mäßig (unter 3,5 g/Tag), Hypertonie, Ödeme periorbital, Oligurie und GFR-Abfall; Albumin meist normal. Nephrotisch: Störung der Filtrationsbarriere — Proteinurie über 3,5 g/Tag im Vordergrund, Hypalbuminämie unter 30 g/l, massive Ödeme bis Anasarka, Hyperlipidämie, Thromboseneigung; Hämaturie fehlt oder ist gering, Blutdruck und GFR anfangs oft normal. Merkregel: nephrItisch = Blut, nephrOtisch = Eiweiß (O wie Ödeme).',
+        },
+        {
+          name: 'Einteilung der rasch progredienten Glomerulonephritis (RPGN) nach Immunfluoreszenz',
+          inhalt: 'Typ I (etwa 10–20 %): Anti-GBM-Erkrankung mit LINEARER Ablagerung von IgG entlang der glomerulären Basalmembran, bei Lungenbeteiligung Goodpasture-Syndrom. Typ II (etwa 30–40 %): Immunkomplex-RPGN mit GRANULÄRER Ablagerung — postinfektiös, Lupus, IgA-Nephropathie, Kryoglobulinämie. Typ III (etwa 50 %): PAUCI-IMMUNE RPGN ohne relevante Ablagerungen bei ANCA-assoziierter Vaskulitis (c-ANCA/PR3 bei Granulomatose mit Polyangiitis, p-ANCA/MPO bei mikroskopischer Polyangiitis). Histologisch allen gemeinsam: extrakapilläre Proliferation mit Halbmondbildung (crescents) in über 50 % der Glomeruli.',
+        },
+        {
+          name: 'Einteilung der Glomerulonephritiden nach dem Zeitbezug zum Infekt',
+          inhalt: 'Postinfektiöse (Poststreptokokken-)Glomerulonephritis: Latenz 1–3 Wochen nach Pharyngitis, 3–6 Wochen nach Hautinfektion; Komplement C3 erniedrigt, ASL- bzw. Anti-DNase-B-Titer erhöht, histologisch diffus endokapillär-proliferativ mit subepithelialen „humps“. Parainfektiöse IgA-Nephropathie: Makrohämaturie während oder 1–2 Tage nach dem Infekt („synpharyngitische Hämaturie“); Komplement normal, IgA im Serum in etwa 50 % erhöht, histologisch mesangiale IgA-Ablagerungen.',
+        },
+        {
+          name: 'Oxford-MEST-C-Klassifikation der IgA-Nephropathie',
+          inhalt: 'Histologischer Score zur Prognoseabschätzung aus fünf Merkmalen: M = mesangiale Hyperzellularität, E = endokapilläre Hyperzellularität, S = segmentale Sklerose, T = tubuläre Atrophie/interstitielle Fibrose (T0 unter 25 %, T1 26–50 %, T2 über 50 %), C = zelluläre Halbmonde (C0 keine, C1 unter 25 %, C2 über 25 % der Glomeruli). T und C sind die stärksten Prädiktoren für die Progression zur terminalen Niereninsuffizienz.',
+        },
+        {
+          name: 'Stadien der akuten Nierenschädigung (KDIGO) zur Verlaufsbeurteilung',
+          inhalt: 'Stadium 1: Kreatininanstieg um mindestens 0,3 mg/dl innerhalb von 48 Stunden oder auf das 1,5- bis 1,9-Fache des Ausgangswerts, Urinmenge unter 0,5 ml/kg/h über 6–12 Stunden. Stadium 2: Kreatinin auf das 2,0- bis 2,9-Fache, Urinmenge unter 0,5 ml/kg/h über mindestens 12 Stunden. Stadium 3: Kreatinin auf das 3-Fache oder über 4 mg/dl, Anurie über 12 Stunden oder Nierenersatztherapie. Bei einer Glomerulonephritis zählt die Dynamik: rasch steigendes Kreatinin über Tage = Verdacht auf RPGN.',
+        },
+      ],
+      redFlags: [
+        'Rasch steigendes Kreatinin (Verdopplung innerhalb von Tagen bis wenigen Wochen), Oligurie bis Anurie → rasch progrediente Glomerulonephritis: sofortige Nephrologie-Vorstellung, dringliche Nierenbiopsie und Immunsuppression, sonst droht die Dialysepflicht',
+        'Hämoptysen oder Luftnot mit Nierenversagen → pulmorenales Syndrom (Anti-GBM-Erkrankung, ANCA-Vaskulitis) — lebensbedrohlich, Plasmapherese erwägen',
+        'Hypertensive Krise mit Kopfschmerz, Sehstörungen, Verwirrtheit oder Krampfanfall → hypertensive Enzephalopathie, intravenöse Blutdrucksenkung unter Monitorüberwachung',
+        'Orthopnoe, feuchte Rasselgeräusche, gestaute Halsvenen → Überwässerung mit Lungenödem: Schleifendiuretika i.v., Sauerstoff, ggf. Nierenersatztherapie',
+        'Kalium über 6 mmol/l, EKG-Veränderungen (hohe spitze T-Wellen, breite QRS-Komplexe) → lebensbedrohliche Hyperkaliämie, sofortige Therapie',
+        'Perikardreiben, Bewusstseinsstörung, therapierefraktäre Übelkeit → urämische Komplikationen, Indikation zur Dialyse',
+        'Palpable Purpura, Arthralgien, Fieber, Gewichtsverlust, Sinusitis, Mononeuritis → systemische Vaskulitis, Serologie und Biopsie beschleunigen',
+        'Blutige Durchfälle in den Tagen zuvor mit Hämolyse und Thrombozytopenie → hämolytisch-urämisches Syndrom nach EHEC-Infektion (keine Antibiotika, keine Thrombozytentransfusion)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: vorausgegangener Infekt (Angina, Hautinfektion, Atemwegsinfekt) und dessen zeitlicher Abstand (Wochen bei postinfektiöser Form, Tage bei IgA-Nephropathie), Urinfarbe und -menge, Ödeme, Kopfschmerz, Gewichtszunahme; Systemzeichen (Hautausschlag, Purpura, Gelenkschmerzen, Hämoptysen, Sinusitis, Hörverlust, Neuropathie); Medikamente (NSAR, Antibiotika), Hepatitis-, HIV- und Endokarditisrisiko, Zahnarztbesuch; Familienanamnese für Nierenerkrankung, Hämaturie, Dialyse und Innenohrschwerhörigkeit (Alport-Syndrom)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: BLUTDRUCK an beiden Armen, Puls, Temperatur, Gewicht und Ödemstatus (Lider, Prätibialregion, Anasarka), Halsvenen, Auskultation von Herz (Herzgeräusch, Perikardreiben) und Lunge (Rasselgeräusche), Klopfschmerz der Nierenlager, Inspektion von Rachen und Haut (Impetigo, Purpura, Schmetterlingserythem), Gelenkstatus, Nasennebenhöhlen und Hörprüfung, Sensibilität',
+        },
+        {
+          stufe: 'Labor',
+          text: 'URINSTATUS und URINSEDIMENT als Schlüsseluntersuchung: Erythrozyturie mit DYSMORPHEN Erythrozyten (über 40 %), AKANTHOZYTEN (über 5 %) und ERYTHROZYTENZYLINDERN beweisen die glomeruläre Herkunft und trennen sie von der urologischen Blutung (isomorphe Erythrozyten, keine Zylinder); Leukozyten- und Nitritnachweis gegen Harnwegsinfekt; positiver Blutstreifen ohne Erythrozyten spricht für Hämoglobinurie oder Myoglobinurie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Quantifizierung der Proteinurie über Albumin- bzw. Protein-Kreatinin-Quotienten im Spontanurin oder 24-Stunden-Sammelurin — beim nephritischen Syndrom meist unter 3,5 g/Tag; darüber nephrotisches Mischbild',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenfunktion im VERLAUF (die Dynamik zählt!): Kreatinin, Harnstoff, eGFR täglich, Elektrolyte mit Kalium, Natrium, Phosphat und Kalzium, venöse Blutgasanalyse (metabolische Azidose), Blutbild mit Thrombozyten und Fragmentozyten, CRP, Albumin, Gesamteiweiß, Lipide',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Infektnachweis: Antistreptolysin-O-Titer (steigt 1–3 Wochen nach der Angina an) und Anti-DNase-B-Titer (nach Hautinfektionen zuverlässiger, da der ASL-Titer dort oft negativ bleibt), Rachenabstrich bzw. Hautabstrich mit Kultur, Blutkulturen bei Fieber oder Herzgeräusch (Endokarditis)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'KOMPLEMENT C3 und C4: C3 erniedrigt bei postinfektiöser Glomerulonephritis (Normalisierung innerhalb von 6–8 Wochen), bei Lupusnephritis (C3 und C4 erniedrigt), membranoproliferativer Glomerulonephritis, Kryoglobulinämie und Endokarditis — NORMAL bei IgA-Nephropathie, ANCA-Vaskulitis und Anti-GBM-Erkrankung; ein anhaltend niedriges C3 über 8 Wochen spricht gegen die postinfektiöse Form',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Immunologische Ursachensuche: ANA und Anti-dsDNA-Antikörper (Lupus), ANCA mit PR3- und MPO-Spezifität (Vaskulitis), Anti-GBM-Antikörper (Goodpasture), Serum-IgA, Kryoglobuline, Rheumafaktor, Serum- und Urinelektrophorese mit freien Leichtketten bei Patienten über 50 Jahren, Hepatitis-B-, Hepatitis-C- und HIV-Serologie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'SONOGRAPHIE der Nieren und ableitenden Harnwege: Nierengröße und Parenchymbreite (normal große oder vergrößerte, echoreiche Nieren sprechen für einen akuten Prozess, kleine schrumpfende Nieren für eine chronische Erkrankung — dann keine Biopsie), Ausschluss von Harnstau, Steinen und Tumoren, Beurteilung der Blase; Doppler bei Verdacht auf Nierenvenenthrombose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Überwässerung (Stauung, Pleuraerguss, Lungenödem) und bei Hämoptysen (alveoläre Infiltrate beim pulmorenalen Syndrom); EKG bei Hyperkaliämie und Hypertonie; Echokardiographie bei Herzgeräusch oder Fieber (Endokarditis) sowie zur Beurteilung der Volumenbelastung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Hämaturie ohne glomeruläre Zeichen und bei Patienten über 40 Jahren, Rauchern oder Koagelbildung: urologische Abklärung mit Zystoskopie, CT-Urographie und Urinzytologie zum Ausschluss eines Urothel- oder Nierenzellkarzinoms',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'NIERENBIOPSIE (perkutan, sonographiegesteuert) als entscheidende Untersuchung beim Erwachsenen mit Lichtmikroskopie, Immunfluoreszenz und Elektronenmikroskopie — DRINGLICH innerhalb von 24–48 Stunden bei Verdacht auf RPGN; sonst indiziert bei anhaltender Proteinurie, Nierenfunktionsverschlechterung, unklarer Ursache, nephrotischem Mischbild oder ausbleibender Besserung nach 4–6 Wochen. Voraussetzungen: Gerinnung, Thrombozyten, Blutdruck unter 160/100 mmHg, Absetzen von Thrombozytenaggregationshemmern, zwei Nieren, Aufklärung über Blutungsrisiko (Makrohämaturie etwa 3–5 %, transfusionspflichtige Blutung unter 1 %)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Beim Kind mit typischer postinfektiöser Glomerulonephritis (Angina, Latenz, niedriges C3, ASL-Titer, Besserung innerhalb von 1–2 Wochen) kann die Biopsie entfallen; bei hereditärem Verdacht Audiometrie, augenärztliche Untersuchung und genetische Diagnostik (COL4A3–5)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Urologische Hämaturie: Nephrolithiasis, Harnwegsinfekt, Blasen- oder Nierenzellkarzinom',
+          unterscheidung: 'Isomorphe Erythrozyten, KEINE Zylinder, keine relevante Proteinurie, oft Koagel; kolikartiger Flankenschmerz und Dysurie beim Stein bzw. Infekt, schmerzlose Hämaturie beim älteren Raucher als Tumorverdacht — hier Zystoskopie, CT-Urographie und Urinzytologie; keine Ödeme, kein Blutdruckanstieg.',
+        },
+        {
+          dd: 'IgA-Nephropathie',
+          unterscheidung: 'Makrohämaturie WÄHREND oder 1–2 Tage nach dem Atemwegsinfekt (synpharyngitisch), oft rezidivierend, junge Männer; Komplement C3 normal, ASL-Titer negativ, Serum-IgA in etwa 50 % erhöht; Diagnose nur durch Biopsie mit mesangialen IgA-Ablagerungen.',
+        },
+        {
+          dd: 'Rasch progrediente Glomerulonephritis (ANCA-Vaskulitis, Anti-GBM-Erkrankung)',
+          unterscheidung: 'Kreatininanstieg innerhalb von Tagen bis Wochen, Oligurie, schwere Hypertonie; Hämoptysen beim pulmorenalen Syndrom, Sinusitis, Hörverlust, Purpura und Neuropathie bei der Vaskulitis; ANCA bzw. Anti-GBM-Antikörper positiv, C3 normal; Halbmonde in der Biopsie — sofortige Immunsuppression.',
+        },
+        {
+          dd: 'Lupusnephritis',
+          unterscheidung: 'Meist junge Frauen; Schmetterlingserythem, Photosensibilität, Arthritis, Serositis, Zytopenien; ANA und Anti-dsDNA positiv, C3 UND C4 erniedrigt; Biopsie zur Klassifikation (ISN/RPS-Klassen I–VI).',
+        },
+        {
+          dd: 'IgA-Vaskulitis (Purpura Schönlein-Henoch)',
+          unterscheidung: 'Palpable Purpura an Unterschenkeln und Gesäß, kolikartige Bauchschmerzen, Arthralgien, meist Kinder nach Atemwegsinfekt; Hämaturie und Proteinurie als renale Beteiligung, Komplement normal.',
+        },
+        {
+          dd: 'Hämolytisch-urämisches Syndrom (HUS)',
+          unterscheidung: 'Blutige Durchfälle nach EHEC-Enteritis, dann hämolytische Anämie mit Fragmentozyten, Thrombozytopenie und akutes Nierenversagen; LDH erhöht, Haptoglobin erniedrigt; keine Antibiotika.',
+        },
+        {
+          dd: 'Akute interstitielle Nephritis (medikamentös)',
+          unterscheidung: 'Nach NSAR, Penicillinen, Protonenpumpenhemmern; Fieber, Exanthem, Eosinophilie und Eosinophilurie, sterile Leukozyturie, meist keine Erythrozytenzylinder und keine Hypertonie; Absetzen des Auslösers, ggf. Glukokortikoide.',
+        },
+        {
+          dd: 'Nephrotisches Syndrom',
+          unterscheidung: 'Proteinurie über 3,5 g/Tag, Albumin unter 30 g/l, massive Ödeme, Hyperlipidämie, schäumender Urin; Hämaturie fehlt oder ist gering, Blutdruck und Nierenfunktion anfangs oft normal.',
+        },
+        {
+          dd: 'Alport-Syndrom und Syndrom der dünnen Basalmembran',
+          unterscheidung: 'Familiäre, meist persistierende Mikrohämaturie seit der Kindheit; beim Alport-Syndrom zusätzlich Innenohrschwerhörigkeit, Augenveränderungen (Lentikonus) und Progression zur Niereninsuffizienz bei Männern; kein Infektbezug, Komplement normal.',
+        },
+        {
+          dd: 'Endokarditis-assoziierte Glomerulonephritis',
+          unterscheidung: 'Fieberschübe, Nachtschweiß, neues Herzgeräusch, Janeway-Läsionen, Splinter-Blutungen, Zahnarztbesuch Wochen zuvor; schmerzlose Hämaturie, positive Blutkulturen, Vegetationen in der Echokardiographie, C3 erniedrigt.',
+        },
+        {
+          dd: 'Pseudohämaturie: Rhabdomyolyse, Hämoglobinurie, Farbstoffe',
+          unterscheidung: 'Positiver Blutstreifen OHNE Erythrozyten im Sediment bei Myoglobinurie (CK massiv erhöht nach Muskeltrauma, Krampfanfall, exzessivem Sport) oder Hämolyse; völlig negativer Streifen bei Verfärbung durch Rote Bete, Rifampicin, Porphyrie oder Bilirubin (Leberzirrhose).',
+        },
+        {
+          dd: 'Akutes Nierenversagen anderer Ursache und hypertensive Nephropathie',
+          unterscheidung: 'Prärenal (Exsikkose, Blutung) oder postrenal (Harnstau in der Sonographie) ohne aktives Sediment; hypertensive Nephrosklerose mit lange bestehender Hypertonie, Fundus hypertonicus, geringer Proteinurie und blandem Sediment.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Überwachung, Bilanzierung und symptomatische Behandlung',
+          items: [
+            'Stationäre Aufnahme bei Oligurie, Nierenfunktionsverschlechterung, schwerer Hypertonie, Überwässerung oder Hyperkaliämie; körperliche Schonung, tägliche Kontrolle von Kreatinin, Elektrolyten und Blutdruck',
+            'Bilanzierung mit Erfassung von Ein- und Ausfuhr und TÄGLICHEM WIEGEN (das Gewicht ist der beste Verlaufsparameter der Überwässerung); Trinkmenge = Urinmenge des Vortags plus etwa 500 ml',
+            'KOCHSALZRESTRIKTION (unter 5 g Kochsalz bzw. 2 g Natrium pro Tag) und Flüssigkeitsrestriktion; bei Hyperkaliämie kaliumarme Kost',
+            'SCHLEIFENDIURETIKA (Furosemid oder Torasemid, bei Oligurie intravenös und hoch dosiert) bei Ödemen, Überwässerung und Hypertonie — Thiazide sind bei eingeschränkter GFR unwirksam, kaliumsparende Diuretika wegen der Hyperkaliämie vermeiden',
+            'Konsequente BLUTDRUCKSENKUNG: neben Diuretika Kalziumantagonisten (Amlodipin, Nifedipin); bei hypertensiver Krise intravenös mit Urapidil oder Nitroglyzerin unter Monitorüberwachung, Senkung um höchstens 25 % in der ersten Stunde; ACE-Hemmer und Sartane in der oligurischen Akutphase mit Hyperkaliämie zurückhaltend, langfristig aber Mittel der Wahl',
+            'Behandlung der Hyperkaliämie: Kalziumglukonat zur Membranstabilisierung, Glukose-Insulin-Infusion, Salbutamol-Inhalation, Schleifendiuretika, Kationenaustauscher; bei therapierefraktärer Hyperkaliämie, Lungenödem, Urämie oder Azidose Nierenersatztherapie',
+            'Vermeidung nephrotoxischer Substanzen: NSAR absetzen, Kontrastmittel und Aminoglykoside vermeiden, Dosisanpassung aller renal eliminierten Medikamente an die GFR; Thromboseprophylaxe bei Immobilisation',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung der Ursache und Infektsanierung',
+          items: [
+            'Bei postinfektiöser Glomerulonephritis PENICILLIN V (bei Allergie Makrolid oder Clindamycin) über 10 Tage zur Eradikation der Streptokokken und Verhinderung der Weiterverbreitung — Cave: das Antibiotikum ändert den Verlauf der Nephritis selbst NICHT mehr; Untersuchung und ggf. Behandlung der Kontaktpersonen (Familie, Partner), Sanierung von Hautinfektionen',
+            'Behandlung einer zugrunde liegenden Endokarditis (Antibiose nach Blutkultur, ggf. Klappenoperation), Hepatitis B oder C (antivirale Therapie) oder HIV-Infektion (antiretrovirale Therapie); Abszess- und Shuntsanierung',
+            'Bei IgA-Nephropathie langfristige RAAS-BLOCKADE mit ACE-Hemmer oder Sartan in maximal verträglicher Dosis zur Senkung von Proteinurie und Progression, Blutdruckziel unter 130/80 mmHg (unter 125/75 mmHg bei Proteinurie über 1 g/Tag)',
+            'Bei IgA-Nephropathie zusätzlich SGLT2-Hemmer (Dapagliflozin, Empagliflozin) zur Nephroprotektion; bei hohem Risiko mit anhaltender Proteinurie über 1 g/Tag trotz sechsmonatiger optimierter Basistherapie systemische Glukokortikoide über 6 Monate (nur bei GFR über 30 ml/min, Infektionsrisiko!) oder neuere Substanzen wie zielgerichtet freigesetztes Budesonid und Endothelinrezeptor-Antagonisten (Sparsentan)',
+            'Tonsillektomie bei IgA-Nephropathie mit rezidivierenden Tonsillitiden umstritten, in Europa keine Routineempfehlung; bei Lupusnephritis Hydroxychloroquin als Basistherapie',
+          ],
+        },
+        {
+          label: 'Immunsuppression bei rasch progredientem oder systemischem Verlauf',
+          items: [
+            'Bei RPGN, ANCA-Vaskulitis, Anti-GBM-Erkrankung und proliferativer Lupusnephritis (Klassen III und IV) SOFORTIGER Beginn — oft schon vor dem Biopsieergebnis — mit hochdosierten Glukokortikoiden (Methylprednisolon-Stoßtherapie 250–1000 mg i.v. über 3 Tage, dann Prednisolon 1 mg/kg oral mit Reduktion)',
+            'Induktionstherapie zusätzlich mit Cyclophosphamid (i.v. Bolus oder oral) oder Rituximab (bei ANCA-Vaskulitis gleichwertig, bei Frauen mit Kinderwunsch bevorzugt); bei Lupusnephritis Mycophenolat-Mofetil oder Cyclophosphamid, ggf. plus Belimumab oder Voclosporin',
+            'Bei Anti-GBM-Erkrankung zusätzlich PLASMAPHERESE (Plasmaaustausch täglich über 14 Tage bis zum Verschwinden der Antikörper); bei ANCA-Vaskulitis Plasmapherese nur bei Lungenblutung oder dialysepflichtigem Nierenversagen erwägen',
+            'Erhaltungstherapie über mindestens 18–24 Monate mit Azathioprin, Rituximab oder Mycophenolat und niedrig dosiertem Prednisolon; regelmäßige Kontrolle von ANCA-Titer, Sediment und Nierenfunktion',
+            'Nierenersatztherapie (Hämodialyse) als Überbrückung bei Dialysepflicht — bei Erholung der Nierenfunktion unter Therapie wieder absetzbar; Anlage eines Shaldon-Katheters',
+            'Infektionsprophylaxe unter Immunsuppression: Pneumocystis-jirovecii-Prophylaxe mit Cotrimoxazol, Magenschutz, Osteoporoseprophylaxe mit Kalzium und Vitamin D, Impfstatus (Influenza, Pneumokokken, COVID-19) vor Therapiebeginn vervollständigen, Blutzuckerkontrollen, Fertilitätsberatung vor Cyclophosphamid',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Verlaufskontrolle, Prognose und Aufklärung',
+          items: [
+            'Die postinfektiöse Glomerulonephritis heilt beim Kind in über 95 % und beim Erwachsenen meist folgenlos aus: Diurese und Blutdruck normalisieren sich innerhalb von 1–2 Wochen, C3 innerhalb von 6–8 Wochen, die Hämaturie innerhalb von 6 Monaten; eine Proteinurie kann bis zu einem Jahr fortbestehen — ausbleibende Besserung ist eine Biopsieindikation',
+            'Die IgA-Nephropathie führt bei etwa 20–40 % der Patienten über 20 Jahre zur terminalen Niereninsuffizienz — Risikofaktoren sind anhaltende Proteinurie über 1 g/Tag, Hypertonie, eingeschränkte GFR bei Diagnose und ungünstige Histologie (T- und C-Score); deshalb lebenslange nephrologische Anbindung',
+            'Regelmäßige Kontrollen von Blutdruck, Urinsediment, Albumin-Kreatinin-Quotient und Nierenfunktion: anfangs wöchentlich, dann alle 3 Monate im ersten Jahr, danach jährlich; Wiedervorstellung bei erneuter Makrohämaturie, Ödemen, Gewichtszunahme oder Blutdruckanstieg',
+            'Aufklärung über Warnzeichen (brauner Urin bei Infekten, Lidschwellung, Kopfschmerz, Luftnot, verminderte Urinmenge) und über die Notwendigkeit der Kontrollen auch bei Beschwerdefreiheit; Blutdruck-Selbstmessung anleiten',
+            'Nephroprotektiver Lebensstil: Nikotinkarenz, Gewichtsnormalisierung, kochsalzarme Ernährung, ausreichende Trinkmenge, Verzicht auf NSAR (Paracetamol als Alternative), Vorsicht mit Kontrastmitteln; Impfungen gegen Influenza, Pneumokokken und Hepatitis B',
+            'Bei hereditärem Verdacht Untersuchung der Familienangehörigen (Urinstatus, Hörtest, genetische Beratung); Schwangerschaftsplanung bei Frauen mit Glomerulonephritis nur in Remission und unter nephrologischer Begleitung (Umstellung von ACE-Hemmer und Mycophenolat vor Konzeption)',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt ganz von der Ursache und von der Dynamik der Nierenfunktion ab. Die postinfektiöse Glomerulonephritis heilt beim Kind in über 95 % der Fälle und beim Erwachsenen in der Mehrzahl folgenlos aus; bei Erwachsenen — vor allem bei älteren Patienten und Diabetikern — bleiben in bis zu 20–30 % eine Hypertonie, eine Proteinurie oder eine leichte Nierenfunktionseinschränkung zurück, selten entsteht eine RPGN. Die IgA-Nephropathie verläuft chronisch: Etwa 20–40 % der Patienten erreichen innerhalb von 20 Jahren die terminale Niereninsuffizienz, während Patienten mit isolierter Mikrohämaturie ohne Proteinurie und mit normalem Blutdruck eine sehr gute Prognose haben. Bei der rasch progredienten Glomerulonephritis entscheidet der Zeitpunkt des Therapiebeginns: Unbehandelt führt sie innerhalb von Wochen zur Dialysepflicht; bei frühem Beginn der Immunsuppression erholt sich die Nierenfunktion bei der Mehrzahl, bei bereits dialysepflichtiger Anti-GBM-Erkrankung mit Halbmonden in fast allen Glomeruli dagegen nur noch ausnahmsweise. Progressionsfaktoren jeder Glomerulonephritis sind anhaltende Proteinurie, unzureichend eingestellte Hypertonie, Nikotinkonsum, Adipositas und nephrotoxische Medikamente.',
+      pruefungsfallen: [
+        'Nephritisch und nephrotisch verwechseln: Beim NEPHRITISCHEN Syndrom stehen Hämaturie, Hypertonie und GFR-Abfall im Vordergrund und die Proteinurie bleibt unter 3,5 g/Tag; beim NEPHROTISCHEN Syndrom dominieren Proteinurie über 3,5 g/Tag, Hypalbuminämie, massive Ödeme und Hyperlipidämie. Beide Syndrome in einem Satz gegenüberstellen können.',
+        'Der zeitliche Abstand zum Infekt ist die Schlüsselfrage: Makrohämaturie 1–3 WOCHEN nach der Angina spricht für die postinfektiöse Glomerulonephritis, Makrohämaturie WÄHREND oder 1–2 TAGE nach dem Infekt für die IgA-Nephropathie. Wer nur „nach einem Infekt“ dokumentiert, verschenkt die Differenzialdiagnose.',
+        'Das Urinsediment ist die Schlüsseluntersuchung und muss mit den Begriffen dysmorphe Erythrozyten, Akanthozyten und Erythrozytenzylinder benannt werden — sie BEWEISEN die glomeruläre Herkunft. Isomorphe Erythrozyten ohne Zylinder und mit Koageln bedeuten urologische Blutung und verlangen die Zystoskopie.',
+        'Komplement richtig zuordnen: C3 ERNIEDRIGT bei postinfektiöser Glomerulonephritis, Lupusnephritis, membranoproliferativer Glomerulonephritis und Endokarditis; C3 NORMAL bei IgA-Nephropathie, ANCA-Vaskulitis und Anti-GBM-Erkrankung. Ein nach 8 Wochen weiterhin niedriges C3 spricht gegen die postinfektiöse Form und für eine Biopsie.',
+        'Die rasch progrediente Glomerulonephritis nicht übersehen: rasch steigendes Kreatinin, Oligurie und schwere Hypertonie sind ein nephrologischer NOTFALL mit Biopsie innerhalb von 24–48 Stunden und sofortiger Immunsuppression — wer hier „abwarten und kontrollieren“ sagt, riskiert die Dialysepflicht des Patienten. Bei Hämoptysen das Goodpasture-Syndrom nennen.',
+        'Das Antibiotikum bei der Poststreptokokken-Glomerulonephritis wird gegeben, ändert den Verlauf der Nephritis aber NICHT mehr — es dient der Eradikation und dem Schutz der Kontaktpersonen. Anders als beim rheumatischen Fieber verhindert auch eine frühe Antibiose die Glomerulonephritis nicht sicher.',
+        'Diuretika falsch wählen: Beim nephritischen Syndrom mit eingeschränkter GFR SCHLEIFENDIURETIKA — Thiazide wirken bei niedriger GFR nicht, kaliumsparende Diuretika verstärken die Hyperkaliämie. ACE-Hemmer in der oligurischen Akutphase mit hohem Kalium nicht blind ansetzen, langfristig sind sie aber Mittel der Wahl.',
+        'NSAR in der Medikamentenanamnese übersehen: Der Patient hat gegen die Halsschmerzen und die Kopfschmerzen tagelang Ibuprofen genommen — nephrotoxisch, verschlechtert die GFR, treibt den Blutdruck und ist selbst eine Differenzialdiagnose (interstitielle Nephritis). Absetzen und Paracetamol empfehlen.',
+        'Die Nierenbiopsie gehört beim Erwachsenen in die Antwort, mit Indikation (RPGN dringlich, sonst anhaltende Proteinurie, unklare Ursache, Nierenfunktionsverschlechterung) und Voraussetzungen (Gerinnung, Blutdruck, Sonographie). Beim Kind mit typischer postinfektiöser Konstellation darf sie entfallen.',
+        'Die Sonographie nicht nur „zum Ausschluss von Steinen“ nennen: Die Nierengröße entscheidet mit — normal große oder vergrößerte Nieren sprechen für akut und biopsierbar, kleine Schrumpfnieren für chronisch und nicht mehr biopsiewürdig.',
+        'Fachbegriffe patientengerecht übersetzen: Nephritis = Nierenentzündung (Entzündung der Nierenkörperchen, die den Urin filtern), Hämaturie = Blut im Urin, Proteinurie = Eiweiß im Urin, Oligurie = zu wenig Urin, Ödem = Wassereinlagerung. „Nephritis“ und „Hämaturie“ wurden in Karlsruhe, Freiburg und Stuttgart mehrfach als Fachbegriffe abgefragt.',
+        'Das Kochsalz vergessen: Die Ödeme und die Hypertonie entstehen durch Natrium- und Wasserretention — Kochsalzrestriktion, Flüssigkeitsbilanz und tägliches Wiegen sind die Basis der Therapie und werden vor jedem Medikament erwartet.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein akutes nephritisches Syndrom, am ehesten eine postinfektiöse Glomerulonephritis nach Streptokokken-Angina. Dafür sprechen die Makrohämaturie mit colafarbenem Urin, die Oligurie, die zuerst periorbitalen Ödeme mit Gewichtszunahme, die neu aufgetretene Hypertonie mit Kopfschmerzen und der zeitliche Abstand von etwa zwei Wochen zu einer eitrigen Angina.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen einem nephritischen und einem nephrotischen Syndrom?',
+          antwort: 'Das nephritische Syndrom ist eine Entzündung der Glomeruli: Hämaturie mit dysmorphen Erythrozyten und Zylindern, mäßige Proteinurie unter 3,5 g pro Tag, Hypertonie, Ödeme und GFR-Abfall — das Blut steht im Vordergrund. Beim nephrotischen Syndrom ist die Filtrationsbarriere gestört: Proteinurie über 3,5 g pro Tag, Hypalbuminämie, massive Ödeme und Hyperlipidämie — das Eiweiß steht im Vordergrund, die Hämaturie fehlt meist.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie anamnestisch die postinfektiöse Glomerulonephritis von der IgA-Nephropathie?',
+          antwort: 'Über den zeitlichen Abstand zum Infekt: Bei der postinfektiösen Form tritt die Hämaturie ein bis drei Wochen nach der Angina auf, bei der IgA-Nephropathie während oder ein bis zwei Tage nach dem Atemwegsinfekt, oft rezidivierend. Im Labor ist das Komplement C3 bei der postinfektiösen Form erniedrigt und der ASL-Titer erhöht, bei der IgA-Nephropathie ist C3 normal.',
+        },
+        {
+          frage: 'Was erwarten Sie im Urinstatus und im Urinsediment?',
+          antwort: 'Im Streifentest Blut und Eiweiß positiv; im Sediment dysmorphe Erythrozyten, Akanthozyten und Erythrozytenzylinder als Beweis der glomerulären Herkunft. Im Spontanurin eine Proteinurie unter 3,5 g pro Tag im Protein-Kreatinin-Quotienten. Keine Koagel, kein Nitrit, keine relevante Leukozyturie.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie eine glomeruläre von einer urologischen Hämaturie?',
+          antwort: 'Glomerulär: dysmorphe Erythrozyten, Akanthozyten und Erythrozytenzylinder, begleitende Proteinurie, brauner Urin ohne Koagel, keine Schmerzen. Urologisch: isomorphe Erythrozyten, keine Zylinder, oft hellrotes Blut mit Koageln, kolikartige Schmerzen beim Stein oder Dysurie beim Infekt, schmerzlos beim Tumor des älteren Rauchers — dann Zystoskopie und CT-Urographie.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen ordnen Sie an, und was erwarten Sie?',
+          antwort: 'Kreatinin, Harnstoff und eGFR im Verlauf, Elektrolyte mit Kalium, Blutbild, CRP, Albumin, Blutgasanalyse; ASL- und Anti-DNase-B-Titer, Rachenabstrich, Komplement C3 und C4, ANA, Anti-dsDNA, ANCA, Anti-GBM-Antikörper, Hepatitis-B-, Hepatitis-C- und HIV-Serologie. Erwartet: Kreatinin erhöht, Kalium eventuell erhöht, ASL-Titer erhöht, C3 erniedrigt, C4 normal, Autoantikörper negativ.',
+        },
+        {
+          frage: 'Welche Rolle spielt das Komplement C3?',
+          antwort: 'Es ist bei der postinfektiösen Glomerulonephritis in der Akutphase erniedrigt und normalisiert sich innerhalb von sechs bis acht Wochen. Erniedrigt ist es auch bei Lupusnephritis, membranoproliferativer Glomerulonephritis und Endokarditis, normal dagegen bei IgA-Nephropathie, ANCA-Vaskulitis und Anti-GBM-Erkrankung. Bleibt es länger als acht Wochen niedrig, muss biopsiert werden.',
+        },
+        {
+          frage: 'Was zeigt die Sonographie, und warum ist sie wichtig?',
+          antwort: 'Normal große oder leicht vergrößerte, echoreiche Nieren sprechen für einen akuten Prozess; kleine Schrumpfnieren für eine chronische Erkrankung, bei der nicht mehr biopsiert wird. Außerdem schließt sie einen Harnstau, Steine und Tumoren aus und ist Voraussetzung für die Biopsie.',
+        },
+        {
+          frage: 'Wann ist eine Nierenbiopsie indiziert?',
+          antwort: 'Dringlich innerhalb von 24 bis 48 Stunden bei Verdacht auf eine rasch progrediente Glomerulonephritis mit steigendem Kreatinin und Oligurie. Sonst bei anhaltender Proteinurie, unklarer Ursache, Nierenfunktionsverschlechterung, nephrotischem Mischbild oder ausbleibender Besserung nach vier bis sechs Wochen. Beim Kind mit typischer postinfektiöser Konstellation kann sie entfallen.',
+        },
+        {
+          frage: 'Was ist eine rasch progrediente Glomerulonephritis, und warum ist sie ein Notfall?',
+          antwort: 'Eine Glomerulonephritis mit Halbmondbildung in der Biopsie und Verlust der Nierenfunktion innerhalb von Tagen bis Wochen — bei ANCA-Vaskulitis, Anti-GBM-Erkrankung oder Lupusnephritis. Ohne sofortige hochdosierte Glukokortikoide plus Cyclophosphamid oder Rituximab, bei Anti-GBM-Erkrankung zusätzlich Plasmapherese, wird der Patient dialysepflichtig. Warnzeichen sind rasch steigendes Kreatinin, Oligurie, schwere Hypertonie und Hämoptysen.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten?',
+          antwort: 'Stationär: Bilanzierung mit täglichem Wiegen, Kochsalz- und Flüssigkeitsrestriktion, Schleifendiuretika gegen Ödeme und Überwässerung, konsequente Blutdrucksenkung, Behandlung einer Hyperkaliämie, Absetzen der NSAR. Penicillin zur Eradikation der Streptokokken und Untersuchung der Kontaktpersonen. Engmaschige Kontrolle von Kreatinin und Sediment; bei Verschlechterung Biopsie und Immunsuppression.',
+        },
+        {
+          frage: 'Warum geben Sie Penicillin, wenn es die Nephritis nicht mehr beeinflusst?',
+          antwort: 'Um noch vorhandene nephritogene Streptokokken zu eradizieren, die Weiterverbreitung an Kontaktpersonen zu verhindern und eine erneute Antigenexposition zu vermeiden. Den Verlauf der bereits eingetretenen Immunkomplex-Nephritis ändert es nicht — im Gegensatz zum rheumatischen Fieber, das durch eine frühe Antibiose verhindert wird.',
+        },
+        {
+          frage: 'Welche Diuretika verwenden Sie, und welche nicht?',
+          antwort: 'Schleifendiuretika wie Furosemid oder Torasemid, weil sie auch bei eingeschränkter GFR wirken. Thiazide sind bei niedriger GFR unwirksam, kaliumsparende Diuretika wie Spironolacton sind wegen der Hyperkaliämie kontraindiziert.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Begriffe Nephritis und Hämaturie?',
+          antwort: 'Nephritis ist eine Nierenentzündung — hier eine Entzündung der kleinen Nierenkörperchen, die das Blut filtern und den Urin bilden. Hämaturie bedeutet Blut im Urin; das ist der Grund, warum der Urin braun wie Cola aussieht.',
+        },
+        {
+          frage: 'Wie ist die Prognose, und wie kontrollieren Sie den Verlauf?',
+          antwort: 'Die postinfektiöse Glomerulonephritis heilt beim Kind fast immer und beim Erwachsenen meist folgenlos aus; Diurese und Blutdruck normalisieren sich innerhalb von ein bis zwei Wochen, C3 innerhalb von sechs bis acht Wochen, die Hämaturie innerhalb von sechs Monaten. Die IgA-Nephropathie führt bei einem erheblichen Teil über Jahrzehnte zur Niereninsuffizienz. Deshalb regelmäßige Kontrollen von Blutdruck, Urinsediment, Proteinurie und Nierenfunktion über mindestens ein Jahr und nephrologische Anbindung.',
+        },
+        {
+          frage: 'Wohin verlegen Sie den Patienten, und wann?',
+          antwort: 'Stationäre Aufnahme in die Nephrologie beziehungsweise Innere Medizin mit nephrologischem Konsil; bei steigendem Kreatinin, Anurie, Hyperkaliämie, Lungenödem oder hypertensiver Krise Verlegung auf die Überwachungs- oder Intensivstation eines Zentrums mit Dialyse- und Plasmapheresemöglichkeit.',
+        },
+      ],
+      merksatz: 'Colafarbener Urin, Lidödeme und neuer Bluthochdruck ein bis drei WOCHEN nach der Angina = postinfektiöse Glomerulonephritis (C3 niedrig, ASL hoch); brauner Urin schon WÄHREND des Infekts = IgA-Nephropathie (C3 normal). Das Sediment mit Akanthozyten und Erythrozytenzylindern beweist die glomeruläre Herkunft — und rasch steigendes Kreatinin heißt RPGN: biopsieren und sofort immunsupprimieren.',
+      linkedCaseIds: [
+        'case-glomerulonephritis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-nhl',
+      pathology: 'Non-Hodgkin-Lymphom',
+      specialty: 'Hämatologie',
+      definition: 'Die Non-Hodgkin-Lymphome (NHL) sind eine große, heterogene Gruppe maligner klonaler Erkrankungen des lymphatischen Systems, die von B-Lymphozyten (etwa 85–90 %) oder T-/NK-Zellen ausgehen und per definitionem keine Hodgkin- und Reed-Sternberg-Zellen enthalten. Klinisch und prognostisch werden sie in zwei gegensätzliche Familien geordnet: indolente (niedrigmaligne) Lymphome wie das follikuläre Lymphom und die chronische lymphatische Leukämie, die über Jahre langsam wachsen, lange keine Beschwerden machen, mit Chemotherapie aber in der Regel nicht heilbar sind — und aggressive (hochmaligne) Lymphome wie das diffus großzellige B-Zell-Lymphom (DLBCL, häufigstes NHL), die über Wochen rasch wachsen, den Patienten krank machen, dringlich behandelt werden müssen und dafür bei einem großen Teil der Patienten heilbar sind. Leitsymptom ist die schmerzlose, derbe, über Wochen zunehmende Lymphknotenschwellung, häufig mit B-Symptomatik. Erkrankungsgipfel jenseits des 60. Lebensjahres; im Gegensatz zum Hodgkin-Lymphom häufiger extranodaler Befall, häufiger Knochenmarkbefall und diskontinuierliche Ausbreitung.',
+      aetiologie: 'Die Ursache ist meist unbekannt; pathogenetisch liegen erworbene chromosomale Translokationen zugrunde, die Onkogene unter die Kontrolle der Immunglobulin-Gene stellen — klassisch t(14;18) mit BCL2-Überexpression beim follikulären Lymphom, t(8;14) mit MYC beim Burkitt-Lymphom und t(11;14) mit Cyclin D1 beim Mantelzell-Lymphom. Begünstigend wirken jede chronische Immunstimulation und jede Immunschwäche: Infektionen (Epstein-Barr-Virus beim Burkitt-Lymphom und bei Lymphomen unter Immunsuppression, Helicobacter pylori beim MALT-Lymphom des Magens, Hepatitis C bei Marginalzonenlymphomen, HTLV-1 beim adulten T-Zell-Lymphom, HIV), Autoimmunerkrankungen (Sjögren-Syndrom, Hashimoto-Thyreoiditis, rheumatoide Arthritis, Zöliakie mit enteropathieassoziiertem T-Zell-Lymphom), Immunsuppression nach Organtransplantation sowie Chemikalien, Pestizide, Lösungsmittel und eine frühere Chemo- oder Strahlentherapie.',
+      risikofaktoren: [
+        'Höheres Lebensalter — Erkrankungsgipfel über 60 Jahre (das Hodgkin-Lymphom hat dagegen einen Gipfel im jungen Erwachsenenalter)',
+        'Immunsuppression: HIV-Infektion, Zustand nach Organ- oder Stammzelltransplantation, langjährige Immunsuppressiva (Methotrexat, Ciclosporin, Azathioprin)',
+        'Autoimmunerkrankungen: Sjögren-Syndrom, Hashimoto-Thyreoiditis, rheumatoide Arthritis, systemischer Lupus, Zöliakie',
+        'Virusinfektionen: Epstein-Barr-Virus, Hepatitis C, HTLV-1, humanes Herpesvirus 8',
+        'Helicobacter-pylori-Infektion beim MALT-Lymphom des Magens',
+        'Chemikalien, Pestizide, Herbizide, Lösungsmittel (Benzol), Haarfärbemittel — landwirtschaftliche Exposition',
+        'Vorangegangene Chemotherapie oder Strahlentherapie (Zweitmalignom)',
+        'Positive Familienanamnese für Lymphome oder Leukämien (gering erhöhtes Risiko)',
+        'Adipositas und Rauchen (schwache Assoziation, v. a. follikuläres Lymphom)',
+      ],
+      klinik: [
+        {
+          text: 'Schmerzlose, derbe bis derb-elastische, verschiebliche oder verbackene Lymphknotenschwellung am Hals, in der Achsel oder in der Leiste, die über Wochen zunimmt und — anders als die entzündliche — nach zwei bis drei Wochen nicht zurückgeht',
+        },
+        {
+          text: 'B-Symptomatik: Fieber über 38 °C ohne Infektnachweis, drängender Nachtschweiß mit Wechseln der Wäsche, ungewollter Gewichtsverlust von mehr als 10 % des Körpergewichts in sechs Monaten',
+        },
+        {
+          text: 'Abgeschlagenheit, Leistungsknick, Müdigkeit, verminderte Belastbarkeit',
+        },
+        {
+          text: 'Infektanfälligkeit durch Antikörpermangel und Verdrängung des gesunden Knochenmarks; Juckreiz (seltener als beim Hodgkin)',
+        },
+        {
+          text: 'Splenomegalie und Hepatomegalie mit Völlegefühl, linksseitigen Oberbauchschmerzen und frühem Sättigungsgefühl',
+        },
+        {
+          text: 'Zytopenien bei Knochenmarkbefall: Anämie mit Blässe und Luftnot, Blutungsneigung bei Thrombozytopenie, Infekte bei Neutropenie',
+        },
+        {
+          text: 'Husten, Luftnot, Stridor oder obere Einflussstauung bei mediastinalem Befall; Rückenschmerzen oder Harnstau bei retroperitonealen Lymphknotenpaketen',
+        },
+        {
+          text: 'Extranodaler Befall (bei etwa einem Drittel der NHL): Magen und Darm (Oberbauchschmerz, Blutung, Ileus), Haut (Plaques, Knoten beim kutanen T-Zell-Lymphom), ZNS (Kopfschmerz, fokale Ausfälle, Wesensänderung), Hoden (schmerzlose Schwellung), Schilddrüse, Speicheldrüsen, Knochen',
+          atypisch: true,
+        },
+        {
+          text: 'Leukämischer Verlauf mit Lymphozytose im Blutbild (chronische lymphatische Leukämie als häufigstes indolentes Lymphom in Europa, oft Zufallsbefund)',
+          atypisch: true,
+        },
+        {
+          text: 'Hyperviskositätssyndrom mit Sehstörungen, Kopfschmerz und Blutungsneigung beim Morbus Waldenström (IgM-Paraprotein)',
+          atypisch: true,
+        },
+        {
+          text: 'Onkologischer Notfall als Erstmanifestation: Tumorlysesyndrom, Hyperkalzämie, Rückenmarkkompression mit Querschnittssymptomatik, obere Einflussstauung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'WHO-Klassifikation der lymphatischen Neoplasien (vereinfachte klinische Einteilung)',
+          inhalt: 'Nach Ursprungszelle: B-Zell-Lymphome (85–90 %) und T-/NK-Zell-Lymphome (10–15 %). Nach klinischem Verhalten: INDOLENT (niedrigmaligne) — follikuläres Lymphom, chronische lymphatische Leukämie/kleinzelliges lymphozytisches Lymphom, Marginalzonenlymphome einschließlich MALT-Lymphom, Morbus Waldenström, Haarzellleukämie, Mycosis fungoides: langsames Wachstum über Jahre, mit Chemotherapie meist nicht heilbar, lange Überlebenszeiten. AGGRESSIV (hochmaligne) — diffus großzelliges B-Zell-Lymphom (30–40 % aller NHL), Mantelzell-Lymphom, periphere T-Zell-Lymphome; SEHR AGGRESSIV — Burkitt-Lymphom, lymphoblastische Lymphome: rasches Wachstum über Wochen, dringliche Therapie, kurativ behandelbar.',
+        },
+        {
+          name: 'Ann-Arbor-Klassifikation (Stadieneinteilung, Lugano-Modifikation)',
+          inhalt: 'Stadium I: Befall einer einzigen Lymphknotenregion (I) oder eines einzigen extralymphatischen Organs (I E). Stadium II: zwei oder mehr Lymphknotenregionen auf derselben Seite des Zwerchfells (II), ggf. mit lokalisiertem Organbefall (II E). Stadium III: Lymphknotenregionen auf beiden Seiten des Zwerchfells (III), ggf. mit Milzbefall (III S) oder Organbefall (III E). Stadium IV: disseminierter Befall eines oder mehrerer extralymphatischer Organe (Knochenmark, Leber, Lunge) mit oder ohne Lymphknotenbefall. Zusatz A = ohne, B = mit B-Symptomen (Fieber > 38 °C, Nachtschweiß, Gewichtsverlust > 10 % in 6 Monaten). Zusatz X = Bulk (Tumormasse über 7,5 bzw. 10 cm).',
+        },
+        {
+          name: 'Internationaler Prognostischer Index (IPI) für aggressive Lymphome',
+          inhalt: 'Fünf Risikofaktoren mit je einem Punkt: Alter über 60 Jahre, LDH über dem Normwert, Allgemeinzustand ECOG 2 oder schlechter, Ann-Arbor-Stadium III oder IV, mehr als ein extranodaler Befall. 0–1 Punkt = niedriges Risiko, 2 = niedrig-intermediär, 3 = hoch-intermediär, 4–5 = hohes Risiko. Für das follikuläre Lymphom gilt analog der FLIPI (Alter > 60, Stadium III/IV, Hämoglobin < 12 g/dl, LDH erhöht, mehr als vier befallene Lymphknotenregionen).',
+        },
+        {
+          name: 'Binet-Stadien der chronischen lymphatischen Leukämie',
+          inhalt: 'Binet A: weniger als drei befallene Lymphknotenregionen, Hämoglobin ≥ 10 g/dl, Thrombozyten ≥ 100 000/µl. Binet B: drei oder mehr befallene Regionen bei normalem Hämoglobin und Thrombozyten. Binet C: Hämoglobin < 10 g/dl oder Thrombozyten < 100 000/µl, unabhängig von der Zahl der Regionen. Therapieindikation erst bei Binet C oder bei Binet A/B mit Symptomen (aktive Erkrankung).',
+        },
+        {
+          name: 'Abgrenzung Non-Hodgkin- versus Hodgkin-Lymphom',
+          inhalt: 'Hodgkin: Reed-Sternberg-Zellen und Hodgkin-Zellen (CD30, CD15), Altersgipfel 20–30 und 60–70 Jahre, meist zervikaler Beginn, kontinuierliche Ausbreitung von Lymphknotenstation zu Nachbarstation, selten extranodal, Alkoholschmerz möglich, in über 80 % heilbar. NHL: keine Reed-Sternberg-Zellen, Gipfel über 60 Jahre, diskontinuierliche Ausbreitung, häufig extranodal (Magen, Darm, Haut, ZNS, Hoden) und häufig Knochenmarkbefall, Heilbarkeit abhängig von der Entität.',
+        },
+      ],
+      redFlags: [
+        'Obere Einflussstauung mit Gesichts- und Halsschwellung, gestauten Halsvenen, Stridor oder Luftnot → mediastinaler Bulk, sofortige Bildgebung und Therapieeinleitung',
+        'Neu aufgetretene Rückenschmerzen mit Beinschwäche, Sensibilitätsstörung oder Blasen-/Mastdarmstörung → epidurale Rückenmarkkompression, Notfall-MRT, Dexamethason, Strahlentherapie',
+        'Sehr hohe LDH, Harnsäure, Kalium und Phosphat mit Kreatininanstieg → (spontanes) Tumorlysesyndrom, insbesondere beim Burkitt-Lymphom',
+        'Fieber unter Chemotherapie bei Neutrophilen unter 500/µl → neutropenes Fieber, Blutkulturen und Breitspektrumantibiose innerhalb einer Stunde',
+        'Verwirrtheit, Polyurie, Obstipation, Erbrechen → Hyperkalzämie',
+        'Kopfschmerz, Wesensänderung, Krampfanfall, fokale Ausfälle → ZNS-Befall, Notfall-MRT und Liquorpunktion',
+        'Sehstörungen, Kopfschmerz, Schleimhautblutungen bei IgM-Paraprotein → Hyperviskositätssyndrom, Plasmapherese',
+        'Petechien, Schleimhautblutungen oder Blässe mit Luftnot → Knochenmarkinsuffizienz, sofortiges Blutbild',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Dauer und Dynamik der Lymphknotenschwellung (Wochen, zunehmend, schmerzlos), gezielte Abfrage der drei B-Symptome mit Schwellenwerten, Leistungsknick, Juckreiz, Infektanfälligkeit, Blutungsneigung, Organsymptome (Husten, Luftnot, Völlegefühl, Rückenschmerz, neurologische Ausfälle); Risikofaktoren (Immunsuppression, HIV, Autoimmunerkrankung, Chemikalien, frühere Chemo- oder Strahlentherapie) sowie Infektzeichen, Tierkontakt, Zeckenstich, Reise und Sexualanamnese als Differenzialdiagnose',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung ALLER Lymphknotenstationen (zervikal, supraklavikulär, axillär, inguinal, kubital, poplitealer) mit Größe, Konsistenz, Verschieblichkeit gegenüber Haut und Unterlage, Schmerzhaftigkeit und Überwärmung; Leber- und Milzgröße, Waldeyer-Rachenring, Haut, Hoden, Schilddrüse, neurologischer Status; Vitalparameter mit Temperatur, Gewicht und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Faustregel für die Abklärung: jeder Lymphknoten über 1–2 cm, der länger als drei bis vier Wochen besteht, ohne Infektzeichen und ohne Rückbildungstendenz, muss histologisch geklärt werden — supraklavikuläre Lymphknoten sind immer verdächtig',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild und Blutausstrich: Lymphozytose (bei CLL mit Gumprecht-Kernschatten), Zytopenien bei Knochenmarkbefall, Blasten; Retikulozyten und Hämolyseparameter (Haptoglobin, direkter Coombs-Test) bei autoimmunhämolytischer Anämie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'LDH als Marker der Tumormasse und Prognosefaktor (IPI), Beta-2-Mikroglobulin, Harnsäure; CRP und BSG; Kreatinin, Elektrolyte einschließlich Kalzium und Phosphat (Tumorlyse, Hyperkalzämie); Leberwerte, Gesamteiweiß mit Serumelektrophorese und Immunfixation (Paraprotein beim Morbus Waldenström), Immunglobuline quantitativ',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Virusserologien: HIV, Hepatitis B (HBs-Antigen, Anti-HBc — Reaktivierungsgefahr unter Rituximab), Hepatitis C, EBV, CMV; bei Fieber Blutkulturen; TSH; bei jüngeren Patienten Schwangerschaftstest vor Bildgebung und Chemotherapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Lymphknoten (rund statt oval, echoarm, aufgehobene Hilusstruktur, Größe) und des Abdomens (Leber, Milz, retroperitoneale und mesenteriale Lymphknoten, Nierenstau) als erster Schritt; Röntgen-Thorax oder besser CT bei Verdacht auf mediastinalen Befall',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Staging nach Ann Arbor: CT von Hals, Thorax und Abdomen mit Kontrastmittel; bei aggressiven und FDG-aviden Lymphomen PET-CT als Standard für Ausgangsbefund und Therapiekontrolle (Deauville-Score)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT des Schädels bei neurologischen Symptomen oder ZNS-Risikokonstellation; Echokardiographie mit Bestimmung der Ejektionsfraktion vor einer Anthrazyklin-Therapie; Lungenfunktion vor Bleomycin-haltigen Schemata',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ENTSCHEIDEND: Histologie aus der operativen Entnahme eines GANZEN Lymphknotens (Exstirpation, alternativ Stanzbiopsie) — eine Feinnadelpunktion reicht NICHT aus, weil die Lymphknotenarchitektur (follikulär, diffus) beurteilt werden muss; Wahl des am besten zugänglichen, größten Lymphknotens, möglichst nicht inguinal wegen häufiger reaktiver Veränderungen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Immunhistochemie (CD20, CD3, CD5, CD10, CD23, Cyclin D1, BCL2, BCL6, MYC, Ki-67 als Proliferationsindex), Durchflusszytometrie aus Blut oder Lymphknoten und Molekulargenetik/FISH (t(14;18), t(8;14), t(11;14)) zur exakten Klassifikation nach WHO — Referenzpathologie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion mit Aspirat und Stanzbiopsie aus dem Beckenkamm zum Nachweis eines Markbefalls (Stadium IV) — beim DLBCL bei negativem PET-CT verzichtbar; Liquorpunktion bei ZNS-Risikokonstellation (Hoden-, Nieren-, Nebennieren-, Brustbefall, hoher IPI, Burkitt-Lymphom); Gastroskopie mit Biopsien und Helicobacter-Nachweis bei Magenbefall; HLA-Typisierung und Fertilitätsberatung (Kryokonservierung) beim jüngeren Patienten vor Therapiebeginn',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Reaktive Lymphadenopathie bei bakteriellem oder viralem Infekt',
+          unterscheidung: 'Druckschmerzhaft, weich bis elastisch, verschieblich, oft überwärmt, im Abflussgebiet eines Infekts (Zahn, Rachen, Wunde am Bein, Erysipel); bildet sich innerhalb von zwei bis drei Wochen zurück; Leukozytose mit Neutrophilie und CRP-Anstieg. Persistiert der Knoten länger als vier Wochen, ist die Histologie Pflicht.',
+        },
+        {
+          dd: 'Infektiöse Mononukleose (EBV), HIV-Primoinfektion, CMV, Toxoplasmose',
+          unterscheidung: 'Junge Patienten, Fieber, Angina tonsillaris, generalisierte weiche Lymphknoten, Splenomegalie, Transaminasenanstieg; im Blutbild atypische Lymphozyten (Pfeiffer-Zellen); Serologie beweisend. HIV: Risikoanamnese, grippeähnliches Bild, Exanthem, HIV-PCR/Antigen-Antikörper-Test.',
+        },
+        {
+          dd: 'Hodgkin-Lymphom',
+          unterscheidung: 'Jüngeres Alter (20–30 Jahre), meist zervikaler oder mediastinaler Beginn, kontinuierliche Ausbreitung, selten extranodal, Alkoholschmerz, Juckreiz; histologisch Reed-Sternberg-Zellen (CD30, CD15 positiv). Klinisch nicht sicher zu trennen — die Histologie entscheidet.',
+        },
+        {
+          dd: 'Lymphknotenmetastase eines soliden Tumors',
+          unterscheidung: 'Beim älteren Raucher an erster Stelle: Kopf-Hals-Tumoren, Schilddrüsen-, Mamma-, Lungen- und Magenkarzinom (Virchow-Drüse links supraklavikulär); inguinal: Melanom des Beins, Vulva-, Penis-, Anal- und Zervixkarzinom. Lymphknoten steinhart, höckrig, mit der Unterlage verbacken, oft schmerzlos; Primärtumorsuche.',
+        },
+        {
+          dd: 'Tuberkulöse Lymphadenitis',
+          unterscheidung: 'Derbe, einschmelzende, fistelnde Lymphknoten meist zervikal, subfebrile Temperaturen, Nachtschweiß, Herkunft aus Endemiegebiet oder Immunsuppression; Interferon-Gamma-Test, Röntgen-Thorax, Histologie mit verkäsenden Granulomen und Erregernachweis.',
+        },
+        {
+          dd: 'Sarkoidose',
+          unterscheidung: 'Bihiläre Lymphadenopathie im Röntgen-Thorax, Erythema nodosum, Sprunggelenkarthritis (Löfgren-Syndrom), erhöhtes ACE und Kalzium; histologisch nicht verkäsende Epitheloidzellgranulome.',
+        },
+        {
+          dd: 'Leukämien (akute Leukämie, chronische lymphatische Leukämie)',
+          unterscheidung: 'Blasten oder ausgeprägte Lymphozytose im Differenzialblutbild, Zytopenien; die CLL ist selbst ein indolentes NHL mit leukämischem Verlauf — Diagnose über Durchflusszytometrie aus dem Blut (CD5, CD19, CD23 positiv).',
+        },
+        {
+          dd: 'Hyperthyreose und Wechseljahre (bei Gewichtsverlust und Schwitzen ohne Lymphknoten)',
+          unterscheidung: 'Hyperthyreose: Tachykardie, Wärmeintoleranz, Tremor, Durchfall, Exophthalmus, TSH supprimiert. Klimakterium: Hitzewallungen auch tagsüber, unregelmäßige Zyklen, kein Gewichtsverlust, keine Lymphknoten.',
+        },
+        {
+          dd: 'Katzenkratzkrankheit, Lues, Lymphogranuloma venereum',
+          unterscheidung: 'Katzenkontakt mit Kratzverletzung, regionäre schmerzhafte Lymphknoten (Bartonella-Serologie); inguinale Lymphknoten mit Primäraffekt am Genitale: Sexualanamnese, Lues-Serologie, Chlamydien-PCR.',
+        },
+        {
+          dd: 'Nicht-lymphatische Raumforderungen: Leistenhernie, Lipom, Atherom, Abszess, Speicheldrüsen- und Schilddrüsenknoten, Aneurysma',
+          unterscheidung: 'Hernie reponierbar mit Hustenanprall; Lipom weich, lappig, subkutan; Atherom mit Porus; Abszess fluktuierend, gerötet, schmerzhaft; Sonographie klärt die Zuordnung.',
+        },
+        {
+          dd: 'Medikamentöse Lymphadenopathie und seltene Entitäten (Kikuchi, Castleman, Kollagenosen)',
+          unterscheidung: 'Phenytoin, Carbamazepin, Allopurinol als Auslöser; Kikuchi bei jungen Frauen mit Fieber und zervikalen Lymphknoten; Lupus mit Gelenk- und Hautbefall, ANA positiv — jeweils histologisch abzugrenzen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung, Risikostratifizierung und Behandlungsplanung',
+          items: [
+            'Ruhige und ehrliche Aufklärung über Diagnose, Subtyp und Prognose — sie ist zwischen den Lymphomen sehr verschieden: „Lymphom“ bedeutet nicht automatisch unheilbar, und nicht jedes Lymphom muss sofort behandelt werden',
+            'Interdisziplinäre Therapieentscheidung im hämatoonkologischen Tumorboard auf Basis von Histologie (WHO-Entität), Ann-Arbor-Stadium, IPI/FLIPI, Alter, Begleiterkrankungen, Allgemeinzustand (ECOG) und dem Wunsch des Patienten',
+            'Bevorzugte Behandlung im Rahmen klinischer Studien; Zweitmeinung und Referenzpathologie',
+            'Vorbereitung vor Chemo-Immuntherapie: Echokardiographie vor Anthrazyklinen, Hepatitis-B-Status vor Rituximab (Reaktivierungsprophylaxe mit Entecavir/Tenofovir bei positivem Anti-HBc), HIV-Test, Impfstatus, Zahnsanierung, Portanlage',
+            'Fertilitätserhalt vor Chemotherapie beim jüngeren Patienten (Kryokonservierung von Spermien, Eizellen oder Ovarialgewebe, GnRH-Analoga); psychoonkologische Anbindung und Sozialdienst ab Diagnosestellung',
+          ],
+        },
+        {
+          label: 'Strategie bei indolenten Lymphomen',
+          items: [
+            'WATCH AND WAIT beim asymptomatischen Patienten ohne Therapiebedürftigkeit: regelmäßige Kontrollen alle drei bis sechs Monate mit Klinik, Blutbild und LDH — ein Lymphom NICHT zu behandeln ist hier richtig und verlängert das Überleben nicht weniger als eine frühe Therapie; dies muss dem Patienten, der es kaum glauben kann, erklärt werden',
+            'Therapieindikation erst bei Beschwerden: B-Symptome, große Tumormasse oder rasches Wachstum (GELF-Kriterien), Zytopenien durch Markbefall, Organkompression (Harnstau, Ileus), Autoimmunzytopenien, Pleuraerguss/Aszites',
+            'Lokalisierte frühe Stadien I–II des follikulären Lymphoms (etwa 15 %): kurativ intendierte Involved-Site-Strahlentherapie mit 24–30 Gy',
+            'Fortgeschrittene Stadien mit Therapiebedürftigkeit: Immunchemotherapie mit einem Anti-CD20-Antikörper (Rituximab oder Obinutuzumab) plus Bendamustin oder CHOP bzw. CVP, anschließend Erhaltungstherapie mit Rituximab alle zwei Monate über zwei Jahre; bei geringer Tumorlast auch Rituximab-Monotherapie',
+            'Chronische lymphatische Leukämie: bei Therapiebedürftigkeit (Binet C, aktive Erkrankung) zielgerichtete Therapie mit BTK-Inhibitoren (Ibrutinib, Acalabrutinib, Zanubrutinib) oder Venetoclax plus Obinutuzumab; Immunchemotherapie nur noch bei fitten Patienten ohne TP53-Defekt',
+            'MALT-Lymphom des Magens: Helicobacter-pylori-Eradikation als Ersttherapie — führt in frühen Stadien bei 70–80 % der Patienten allein zur Remission; bei Persistenz Strahlentherapie oder Rituximab',
+            'Bei Rezidiv erneut Immunchemotherapie mit anderem Schema, Lenalidomid plus Rituximab, bispezifische Antikörper (Mosunetuzumab), CAR-T-Zellen; autologe Stammzelltransplantation bei frühem Rezidiv',
+          ],
+        },
+        {
+          label: 'Strategie bei aggressiven Lymphomen',
+          items: [
+            'Rascher Beginn (innerhalb von Tagen bis wenigen Wochen nach Diagnose) der kurativ intendierten Immunchemotherapie — klassisch R-CHOP: Rituximab, Cyclophosphamid, Doxorubicin (Hydroxydaunorubicin), Vincristin (Oncovin) und Prednison, alle 21 Tage über sechs Zyklen; bei jungen Patienten mit hohem Risiko Pola-R-CHP (Polatuzumab statt Vincristin) oder intensivierte Protokolle',
+            'Lokalisierte Stadien I–II ohne Bulk: verkürzte Therapie mit vier Zyklen R-CHOP plus zwei Zyklen Rituximab; Bulk (über 7,5 cm) oder Restbefund: konsolidierende Involved-Site-Strahlentherapie',
+            'ZNS-Prophylaxe mit hochdosiertem Methotrexat oder intrathekaler Therapie bei Risikokonstellation (Hoden-, Nieren-, Nebennieren-, Brustbefall, CNS-IPI hoch, Burkitt-Lymphom); Burkitt- und lymphoblastische Lymphome mit intensiven kurzzyklischen Blockprotokollen wie bei der akuten Leukämie',
+            'Vorbeugung des Tumorlysesyndroms: reichliche intravenöse Hydratation, Allopurinol, bei hoher Tumorlast oder hoher Harnsäure Rasburicase; engmaschige Kontrolle von Kalium, Phosphat, Kalzium, Harnsäure und Kreatinin; Vorphase mit Prednison bei sehr großer Tumormasse',
+            'Supportive Therapie: Antiemese (5-HT3-Antagonist, Dexamethason, NK1-Antagonist), G-CSF zur Neutropenieprophylaxe bei Patienten über 65 Jahre oder hohem Risiko, Pneumocystis-Prophylaxe mit Cotrimoxazol, Magenschutz unter Prednison, Thromboseprophylaxe, Transfusionen nach Bedarf; neutropenes Fieber als Notfall mit sofortiger Breitspektrumantibiose',
+            'Zwischen- und Abschluss-Staging mit PET-CT (Deauville-Score) zur Beurteilung des Ansprechens; komplette metabolische Remission als Therapieziel',
+            'Bei Rezidiv oder Refraktärität: Hochdosischemotherapie mit autologer Stammzelltransplantation beim chemosensiblen fitten Patienten, CAR-T-Zelltherapie (Axicabtagen-Ciloleucel, Lisocabtagen) bereits ab dem ersten frühen Rezidiv, bispezifische Antikörper (Glofitamab, Epcoritamab), Polatuzumab-Bendamustin-Rituximab; allogene Transplantation in Einzelfällen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nachsorge, Spätfolgen und Begleitung',
+          items: [
+            'Verlaufskontrollen mit Anamnese (B-Symptome, neue Lymphknoten), körperlicher Untersuchung und Labor (Blutbild, LDH) im ersten Jahr alle drei Monate, im zweiten Jahr alle sechs Monate, danach jährlich über mindestens fünf Jahre; Bildgebung nur bei klinischem Verdacht auf ein Rezidiv (keine routinemäßigen CT-Kontrollen)',
+            'Überwachung der Spätfolgen: Kardiotoxizität der Anthrazykline (Echokardiographie, kumulative Doxorubicin-Dosis unter 400–450 mg/m²), Zweitmalignome (Haut, Lunge, Mamma nach Bestrahlung, therapieassoziierte Leukämie), Unfruchtbarkeit und vorzeitige Menopause, Hypothyreose nach Halsbestrahlung (TSH jährlich), Polyneuropathie durch Vincristin, Fatigue, Osteoporose nach Steroiden',
+            'Impfungen: Auffrischung von Totimpfstoffen (Influenza jährlich, Pneumokokken, COVID-19, Herpes zoster als Totimpfstoff) nach Abschluss der Therapie; Lebendimpfstoffe frühestens sechs Monate nach Chemotherapie und zwölf Monate nach Rituximab; unter Rituximab ist die Impfantwort über Monate abgeschwächt',
+            'Rehabilitation (Anschlussheilbehandlung), psychoonkologische Betreuung, Sozialberatung (Schwerbehindertenausweis, berufliche Wiedereingliederung), Selbsthilfegruppen (Deutsche Leukämie- und Lymphom-Hilfe)',
+            'Aufklärung über Warnzeichen des Rezidivs: neue Lymphknotenschwellung, Nachtschweiß, Fieber, Gewichtsverlust, Leistungsknick — bei Auftreten frühzeitige Vorstellung; Fortführung der Substitution bei Antikörpermangel mit rezidivierenden Infekten (Immunglobuline)',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt von der Entität, dem Stadium, dem IPI und dem Ansprechen auf die Therapie ab und ist paradox: Aggressive Lymphome sind bei dringlicher Behandlung heilbar — beim diffus großzelligen B-Zell-Lymphom erreichen unter R-CHOP etwa 60–70 % der Patienten eine dauerhafte Heilung, bei niedrigem IPI über 80 %, bei hohem IPI unter 50 %; die meisten Rezidive treten in den ersten zwei Jahren auf, und auch im Rezidiv sind mit autologer Transplantation, CAR-T-Zellen und bispezifischen Antikörpern noch etwa 30–40 % kurativ behandelbar. Indolente Lymphome sind dagegen im fortgeschrittenen Stadium mit Chemotherapie nicht heilbar, verlaufen aber chronisch mit medianen Überlebenszeiten von 15 bis 20 Jahren und mehr; nur die lokalisierten Stadien I–II sind durch Strahlentherapie in etwa der Hälfte der Fälle heilbar. Bedrohlich ist die Transformation eines indolenten in ein aggressives Lymphom (etwa 2–3 % pro Jahr beim follikulären Lymphom, Richter-Transformation bei der CLL). Das MALT-Lymphom des Magens hat mit Helicobacter-Eradikation eine ausgezeichnete Prognose.',
+      pruefungsfallen: [
+        'Das Kernparadox der Non-Hodgkin-Lymphome muss in einem Satz sitzen: INDOLENT = langsam, lange symptomlos, aber nicht heilbar und deshalb oft nur beobachtet; AGGRESSIV = schnell, macht krank, dringlich zu behandeln, aber bei einem großen Teil heilbar.',
+        '„Watch and wait“ ist eine legitime Erstlinienstrategie beim asymptomatischen indolenten Lymphom — nicht „nichts tun“, sondern eine aktive Entscheidung mit regelmäßigen Kontrollen; die Prüfer wollen hören, dass eine frühe Therapie das Überleben nicht verbessert.',
+        'Die Feinnadelpunktion reicht zur Lymphomdiagnose NICHT aus: Es braucht die operative Entnahme eines ganzen Lymphknotens (oder eine Stanzbiopsie), weil die Lymphknotenarchitektur beurteilt werden muss. Wer „Punktion“ sagt, wird korrigiert.',
+        'Die drei B-Symptome mit Schwellenwerten nennen: Fieber über 38 °C ohne Infekt, Nachtschweiß mit Wäschewechsel, ungewollter Gewichtsverlust über 10 % in sechs Monaten. Drei Kilogramm in vier Wochen sind alarmierend, erfüllen das 10-%-Kriterium aber formal noch nicht — differenziert argumentieren.',
+        'Die Unterschiede zum Hodgkin-Lymphom werden gefragt: Reed-Sternberg-Zellen nur beim Hodgkin, NHL älter, häufiger extranodal, häufiger Knochenmarkbefall, diskontinuierliche Ausbreitung; Alkoholschmerz spricht für Hodgkin.',
+        'R-CHOP korrekt aufschlüsseln: Rituximab, Cyclophosphamid, Doxorubicin (H wie Hydroxydaunorubicin), Vincristin (O wie Oncovin), Prednison — sechs Zyklen alle 21 Tage. Rituximab ist ein Anti-CD20-Antikörper und wirkt nur bei B-Zell-Lymphomen.',
+        'Vor Rituximab an die Hepatitis-B-Serologie denken (Reaktivierung), vor Doxorubicin an die Echokardiographie (Kardiotoxizität), vor Vincristin an die Polyneuropathie — diese drei Zuordnungen werden abgefragt.',
+        'Beim MALT-Lymphom des Magens ist die Helicobacter-Eradikation die Ersttherapie und kann allein heilen — ein beliebtes Detail, das den Zusammenhang Infektion → Lymphom belegt.',
+        'Das Tumorlysesyndrom vor Therapiebeginn aktiv ansprechen: Hydratation, Allopurinol oder Rasburicase, Kontrolle von Kalium, Phosphat, Kalzium, Harnsäure und Kreatinin.',
+        'Beim älteren Raucher mit derbem Halslymphknoten steht die Metastase eines Kopf-Hals- oder Bronchialkarzinoms VOR dem Lymphom; inguinal an Melanom, Anal-, Vulva- und Zervixkarzinom denken — in Freiburg endete ein Leistenknoten-Fall mit der Diagnose „Melanommetastase“.',
+        '„Lymphom“ dem Patienten korrekt erklären: eine bösartige Erkrankung des Lymphsystems, umgangssprachlich Lymphdrüsenkrebs — nicht „Schwellung/Entzündung der Lymphknoten“ (so stand es fälschlich in einem Reutlinger Glossar).',
+        'LDH ist beim Lymphom kein Leberwert, sondern Tumormasse- und Prognosemarker (Bestandteil des IPI); zusammen mit Beta-2-Mikroglobulin und Harnsäure immer nennen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Ein malignes Lymphom, am ehesten ein Non-Hodgkin-Lymphom. Dafür sprechen die schmerzlose, derbe, verschiebliche und über Wochen größer werdende Lymphknotenschwellung ohne Infektzeichen und ohne Rückbildungstendenz sowie die begleitende B-Symptomatik mit Nachtschweiß, Fiebergefühl und Gewichtsverlust bei Abgeschlagenheit.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen einem Hodgkin- und einem Non-Hodgkin-Lymphom?',
+          antwort: 'Das Hodgkin-Lymphom ist histologisch durch Reed-Sternberg-Zellen definiert, betrifft eher junge Erwachsene, beginnt meist zervikal und breitet sich kontinuierlich von einer Lymphknotenstation zur nächsten aus; extranodaler Befall ist selten. Non-Hodgkin-Lymphome sind eine heterogene Gruppe ohne Reed-Sternberg-Zellen, mit Erkrankungsgipfel über 60 Jahren, häufigem extranodalem Befall von Magen, Darm, Haut, ZNS oder Hoden, häufigem Knochenmarkbefall und diskontinuierlicher Ausbreitung. Der Alkoholschmerz spricht für ein Hodgkin-Lymphom.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei einer Lymphknotenschwellung in Betracht?',
+          antwort: 'Reaktive Lymphadenitis bei Infekt, infektiöse Mononukleose, HIV, Toxoplasmose, Katzenkratzkrankheit, Tuberkulose, Sarkoidose, Hodgkin-Lymphom, Leukämien, Lymphknotenmetastasen eines Karzinoms oder Melanoms, Kollagenosen, medikamentöse Lymphadenopathie und nicht-lymphatische Raumforderungen wie Leistenhernie, Lipom, Atherom oder Abszess. Bei Gewichtsverlust und Schwitzen zusätzlich die Hyperthyreose.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie klinisch einen entzündlichen von einem malignen Lymphknoten?',
+          antwort: 'Der entzündliche Lymphknoten ist druckschmerzhaft, weich bis elastisch, verschieblich, oft überwärmt, tritt im Abflussgebiet eines Infekts auf und bildet sich innerhalb von zwei bis drei Wochen zurück. Der maligne Lymphknoten ist schmerzlos, derb, beim Lymphom gummiartig und verschieblich, bei der Metastase steinhart und mit der Unterlage verbacken, und er wächst über Wochen weiter. Im Labor sprechen Leukozytose mit Neutrophilie und ein deutlicher CRP-Anstieg für eine Entzündung.',
+        },
+        {
+          frage: 'Was sind B-Symptome, und wie sind sie definiert?',
+          antwort: 'Fieber über 38 Grad Celsius ohne nachweisbaren Infekt, drängender Nachtschweiß, bei dem der Patient die Wäsche wechseln muss, und ein ungewollter Gewichtsverlust von mehr als zehn Prozent des Körpergewichts innerhalb von sechs Monaten. Sie fließen als Zusatz B in die Ann-Arbor-Klassifikation ein und verschlechtern die Prognose.',
+        },
+        {
+          frage: 'Welche Diagnostik leiten Sie ein?',
+          antwort: 'Untersuchung aller Lymphknotenstationen sowie von Leber, Milz, Rachenring und Haut; Labor mit Blutbild und Differenzialblutbild, LDH, Beta-2-Mikroglobulin, Harnsäure, CRP, BSG, Nieren- und Leberwerten, Kalzium, Elektrophorese sowie Serologien für HIV, Hepatitis B und C und EBV; Sonographie der Lymphknoten und des Abdomens; die entscheidende Untersuchung ist die operative Entnahme eines ganzen Lymphknotens mit Histologie, Immunhistochemie und Molekulargenetik; anschließend das Staging nach Ann Arbor mit CT von Hals, Thorax und Abdomen beziehungsweise PET-CT und eine Knochenmarkpunktion.',
+        },
+        {
+          frage: 'Warum reicht eine Feinnadelpunktion nicht aus?',
+          antwort: 'Weil die Diagnose und die Einordnung eines Lymphoms von der Beurteilung der Lymphknotenarchitektur abhängen — ob das Wachstum follikulär oder diffus ist — und weil Immunhistochemie und Molekulargenetik ausreichend Gewebe brauchen. Die Feinnadelpunktion liefert nur Einzelzellen und kann ein Lymphom weder sicher ausschließen noch klassifizieren. Deshalb wird der ganze Lymphknoten operativ entfernt, ersatzweise eine Stanzbiopsie entnommen.',
+        },
+        {
+          frage: 'Wie wird das Lymphom eingeteilt, und was bedeutet das Ann-Arbor-Stadium?',
+          antwort: 'Nach der WHO-Klassifikation nach Ursprungszelle in B- und T-Zell-Lymphome und nach klinischem Verhalten in indolente und aggressive Lymphome. Die Ausbreitung wird nach Ann Arbor in vier Stadien eingeteilt: Stadium I eine Lymphknotenregion, Stadium II mehrere Regionen auf einer Seite des Zwerchfells, Stadium III beide Seiten des Zwerchfells, Stadium IV disseminierter Organbefall wie Knochenmark oder Leber; A ohne und B mit B-Symptomen, E bei extranodalem und S bei Milzbefall.',
+        },
+        {
+          frage: 'Wie behandeln Sie ein Non-Hodgkin-Lymphom?',
+          antwort: 'Das hängt von der Entität, dem Stadium und dem Patienten ab. Indolente Lymphome werden beim asymptomatischen Patienten zunächst nur beobachtet — Watch and Wait — und erst bei Beschwerden, Zytopenien oder Organkompression mit Rituximab oder Obinutuzumab plus Bendamustin oder CHOP behandelt, in frühen Stadien mit Strahlentherapie. Aggressive Lymphome werden rasch und kurativ mit R-CHOP über sechs Zyklen behandelt, gegebenenfalls mit Strahlentherapie und ZNS-Prophylaxe; im Rezidiv kommen die Hochdosistherapie mit autologer Stammzelltransplantation, CAR-T-Zellen und bispezifische Antikörper zum Einsatz.',
+        },
+        {
+          frage: 'Was bedeutet R-CHOP?',
+          antwort: 'Rituximab, ein Antikörper gegen das Oberflächenmolekül CD20 der B-Zellen, kombiniert mit Cyclophosphamid, Doxorubicin — das H steht für Hydroxydaunorubicin —, Vincristin — das O für Oncovin — und Prednison. Sechs Zyklen im Abstand von 21 Tagen sind der Standard beim diffus großzelligen B-Zell-Lymphom.',
+        },
+        {
+          frage: 'Warum darf man ein indolentes Lymphom zunächst unbehandelt lassen?',
+          antwort: 'Weil das indolente Lymphom mit Chemotherapie in fortgeschrittenen Stadien nicht heilbar ist und Studien gezeigt haben, dass eine frühe Behandlung des asymptomatischen Patienten das Überleben nicht verlängert, aber Nebenwirkungen verursacht. Man beobachtet deshalb engmaschig und behandelt erst, wenn B-Symptome, eine große Tumormasse, Zytopenien oder eine Organkompression auftreten.',
+        },
+        {
+          frage: 'Welche Vorbereitungen sind vor einer Chemo-Immuntherapie nötig?',
+          antwort: 'Echokardiographie vor Anthrazyklinen wegen der Kardiotoxizität, Hepatitis-B-Serologie vor Rituximab wegen der Reaktivierungsgefahr, HIV-Test, Kontrolle von Nieren- und Leberfunktion, Fertilitätsberatung mit Kryokonservierung beim jüngeren Patienten, Portanlage, Impfstatus und Zahnsanierung sowie die Prophylaxe des Tumorlysesyndroms mit Hydratation und Allopurinol oder Rasburicase.',
+        },
+        {
+          frage: 'Welche Rolle spielt Helicobacter pylori beim Lymphom?',
+          antwort: 'Die chronische Helicobacter-Infektion stimuliert das mukosaassoziierte lymphatische Gewebe des Magens und kann ein MALT-Lymphom auslösen. In frühen Stadien führt die alleinige Eradikationstherapie bei 70 bis 80 Prozent der Patienten zur Remission — ein Beispiel dafür, dass ein Lymphom durch Beseitigung des Antigenreizes heilbar sein kann.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin den Begriff „Lymphom“?',
+          antwort: 'Ein Lymphom ist eine bösartige Erkrankung des Lymphsystems, also der Lymphknoten und Abwehrzellen — umgangssprachlich Lymphdrüsenkrebs. Es gibt sehr unterschiedliche Formen: langsam wachsende, die man oft lange nur beobachtet, und schnell wachsende, die man sofort behandelt, dafür aber häufig heilen kann.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Sehr unterschiedlich: Das aggressive diffus großzellige B-Zell-Lymphom ist unter R-CHOP bei etwa 60 bis 70 Prozent der Patienten dauerhaft heilbar, abhängig vom IPI. Indolente Lymphome sind in fortgeschrittenen Stadien nicht heilbar, verlaufen aber chronisch mit medianen Überlebenszeiten von 15 bis 20 Jahren; Gefahr ist die Transformation in ein aggressives Lymphom.',
+        },
+      ],
+      merksatz: 'Schmerzloser, derber Lymphknoten, der über Wochen wächst, plus Nachtschweiß, Fieber und Gewichtsverlust = Lymphom, bis die Histologie des GANZEN Lymphknotens das Gegenteil beweist. Indolent: langsam, lange still, nicht heilbar — deshalb oft Watch and Wait. Aggressiv: schnell, macht krank, sofort R-CHOP — und dafür heilbar.',
+      linkedCaseIds: [
+        'case-nhl',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-operation',
+        'auf-ct',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-cml',
+      pathology: 'Chronische myeloische Leukämie (CML)',
+      specialty: 'Hämatologie',
+      definition: 'Die chronische myeloische Leukämie (CML) ist eine klonale myeloproliferative Neoplasie der hämatopoetischen Stammzelle mit ungebremster Vermehrung der Granulopoese in allen Reifungsstufen. Sie ist definiert durch das Philadelphia-Chromosom, eine reziproke Translokation t(9;22)(q34;q11), bei der das Fusionsgen BCR-ABL1 entsteht. Dieses kodiert eine dauerhaft aktive Tyrosinkinase, die die Zellen zur Teilung antreibt und ihren programmierten Zelltod hemmt. Die Erkrankung verläuft langsam über Monate bis Jahre und wird bei etwa der Hälfte der Patienten als Zufallsbefund einer stark erhöhten Leukozytenzahl entdeckt. Seit der Einführung der Tyrosinkinaseinhibitoren (Imatinib, 2001) ist aus einer früher innerhalb weniger Jahre tödlichen Erkrankung eine chronische, mit Tabletten kontrollierbare Krankheit mit nahezu normaler Lebenserwartung geworden.',
+      aetiologie: 'Erworbene, somatische Mutation einer einzelnen Stammzelle — die CML ist nicht erblich und wird nicht vererbt. Die Translokation t(9;22) bringt das ABL1-Gen von Chromosom 9 unter die Kontrolle des BCR-Gens auf Chromosom 22 (Philadelphia-Chromosom = verkürztes Chromosom 22). Das Fusionsprotein BCR-ABL1 (meist p210) ist eine konstitutiv aktive Tyrosinkinase, die über Signalwege wie RAS/MAPK, PI3K/AKT und STAT5 Proliferation fördert, Apoptose hemmt und die Adhäsion der Zellen im Knochenmark stört. Einziger gesicherter äußerer Risikofaktor ist ionisierende Strahlung (Atombombenüberlebende, frühere Radiotherapie); Benzol wird diskutiert. Inzidenz etwa 1–2 pro 100 000 Einwohner und Jahr, medianes Erkrankungsalter 55–60 Jahre, Männer etwas häufiger. Die CML macht etwa 15–20 % aller Leukämien des Erwachsenen aus.',
+      risikofaktoren: [
+        'Ionisierende Strahlung (einziger gesicherter Risikofaktor: Atombombenüberlebende von Hiroshima und Nagasaki, frühere Strahlentherapie)',
+        'Höheres Lebensalter (Erkrankungsgipfel 50–60 Jahre), männliches Geschlecht (leicht häufiger)',
+        'Benzolexposition (diskutiert, weniger gesichert als bei der AML)',
+        'KEINE familiäre Häufung — die Translokation entsteht somatisch; eine Leukämie in der Familie erhöht das Risiko nicht',
+        'Ungünstige Verlaufsfaktoren (Sokal/ELTS): hohes Alter, große Milz, hohe Thrombozytenzahl, hoher Blastenanteil, Basophilie, zusätzliche Chromosomenaberrationen',
+      ],
+      klinik: [
+        {
+          text: 'In etwa 40–50 % der Fälle asymptomatischer Zufallsbefund einer Leukozytose in einer Routineblutuntersuchung — der Patient fühlt sich fast gesund',
+        },
+        {
+          text: 'Unspezifische Allgemeinsymptome über Monate: Abgeschlagenheit, Leistungsminderung, Appetitlosigkeit, subfebrile Temperaturen',
+        },
+        {
+          text: 'B-Symptomatik: Nachtschweiß, ungewollter Gewichtsverlust (> 10 % in sechs Monaten), Fieber ohne Infekt',
+        },
+        {
+          text: 'Splenomegalie als führender körperlicher Befund (bei 50–70 % bereits bei Diagnose, oft massiv bis ins Becken reichend): Druck- und Völlegefühl im linken Oberbauch, frühes Sättigungsgefühl beim Essen',
+        },
+        {
+          text: 'Akuter linksseitiger Oberbauchschmerz mit Ausstrahlung in die linke Schulter bei Milzinfarkt, reibendes Geräusch über der Milz',
+          atypisch: true,
+        },
+        {
+          text: 'Hepatomegalie (etwa 20–50 %), Lymphknoten dagegen typischerweise NICHT vergrößert',
+        },
+        {
+          text: 'Anämiezeichen: Blässe, Belastungsdyspnoe, Herzklopfen, Schwindel',
+        },
+        {
+          text: 'Blutungsneigung (Hämatome, Zahnfleisch- und Nasenbluten) durch Thrombozytenfunktionsstörung trotz normaler oder erhöhter Thrombozytenzahl',
+        },
+        {
+          text: 'Knochenschmerzen und Sternumklopfschmerz durch Markexpansion',
+        },
+        {
+          text: 'Gichtanfall oder Nierenkolik durch Hyperurikämie bei erhöhtem Zellumsatz',
+          atypisch: true,
+        },
+        {
+          text: 'Leukostase bei extremer Leukozytose (meist > 200–300 G/l): Sehstörungen, Kopfschmerz, Verwirrtheit, Luftnot, Priapismus — hämatologischer Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Akzelerierte Phase und Blastenkrise: rasch zunehmende Beschwerden, Fieber, Blutungen, Infekte, therapierefraktäre Splenomegalie, Bild einer akuten Leukämie',
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Drei Phasen des natürlichen Verlaufs (WHO/ELN)',
+          inhalt: 'Chronische Phase (etwa 90–95 % der Erstdiagnosen): Blasten < 10 % in Blut und Knochenmark, meist über Jahre stabil, gut behandelbar. Akzelerierte Phase: Blasten 10–19 %, Basophile ≥ 20 %, therapierefraktäre Leukozytose, Thrombozytopenie < 100 G/l oder Thrombozytose > 1000 G/l trotz Therapie, zunehmende Splenomegalie, zusätzliche Chromosomenaberrationen (klonale Evolution). Blastenkrise: Blasten ≥ 20 % (nach ELN; WHO 2022 verwendet ebenfalls ≥ 20 %) oder extramedulläre Blastenherde — Bild einer akuten Leukämie, in etwa zwei Dritteln myeloisch, in einem Drittel lymphatisch, mit schlechter Prognose. Die Therapie zielt darauf, den Übergang aus der chronischen Phase zu verhindern.',
+        },
+        {
+          name: 'Risikoscores bei Diagnose: Sokal, Hasford (Euro) und ELTS',
+          inhalt: 'Sokal-Score (1984): Alter, Milzgröße in cm unter dem Rippenbogen, Thrombozytenzahl und Blastenanteil im Blut — Einteilung in niedriges, mittleres und hohes Risiko. Der Hasford-Score ergänzt Eosinophile und Basophile. Der ELTS-Score (EUTOS Long-Term Survival, 2016) nutzt dieselben Variablen wie Sokal, ist aber auf die CML-bedingte Sterblichkeit unter TKI-Therapie geeicht und wird heute von der ELN bevorzugt. Ein hohes Risiko begünstigt die Wahl eines Zweitgenerations-Inhibitors in der Erstlinie.',
+        },
+        {
+          name: 'Remissionsstufen (ELN-Therapieziele)',
+          inhalt: 'Hämatologische Remission: Normalisierung von Blutbild und Differenzialblutbild, keine tastbare Milz. Zytogenetische Remission: keine Philadelphia-positiven Metaphasen mehr im Knochenmark (komplett = 0 %). Molekulare Remission, gemessen als BCR-ABL1-Transkripte nach Internationaler Skala (IS): Major Molecular Response MMR = BCR-ABL1 ≤ 0,1 % (MR3); tiefe molekulare Remission MR4 = ≤ 0,01 %, MR4,5 = ≤ 0,0032 %. Meilensteine: nach 3 Monaten ≤ 10 %, nach 6 Monaten ≤ 1 %, nach 12 Monaten ≤ 0,1 % — Verfehlen bedeutet Therapieversagen und erfordert Mutationsanalyse und Wechsel des Inhibitors.',
+        },
+        {
+          name: 'Einordnung unter den myeloproliferativen Neoplasien (WHO)',
+          inhalt: 'Die CML ist die einzige BCR-ABL1-positive MPN. Die BCR-ABL1-negativen MPN — Polycythaemia vera, essenzielle Thrombozythämie und primäre Myelofibrose — tragen meist Mutationen in JAK2 (V617F), CALR oder MPL. Der Nachweis von BCR-ABL1 trennt daher die CML von allen anderen Formen.',
+        },
+      ],
+      redFlags: [
+        'Sehstörungen, Kopfschmerz, Verwirrtheit, Luftnot oder Priapismus bei Leukozyten über 100–200 G/l → Leukostase, sofortige Zytoreduktion (Leukapherese, Hydroxyurea)',
+        'Plötzlicher stärkster Schmerz im linken Oberbauch mit Ausstrahlung in die linke Schulter → Milzinfarkt; bei Kreislaufinstabilität Milzruptur ausschließen',
+        'Fieber, Schüttelfrost bei Neutropenie unter Therapie → neutropenes Fieber, kalkulierte Antibiose',
+        'Rasch steigender Blastenanteil, neue Zytopenien, zunehmende Splenomegalie unter Therapie → Akzeleration oder Blastenkrise',
+        'Anstieg von Kalium, Phosphat, Harnsäure und Kreatinin nach Therapiebeginn → Tumorlysesyndrom',
+        'Petechien, Schleimhautblutungen bei Thrombozytopenie → Blutungsgefahr, keine intramuskulären Injektionen',
+        'Pleuraerguss mit Luftnot unter Dasatinib, Angina pectoris oder Claudicatio unter Nilotinib/Ponatinib → substanzspezifische Toxizität, Substanzwechsel prüfen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Dauer und Dynamik der Beschwerden, B-Symptome (Nachtschweiß, Gewichtsverlust, Fieber), Druck- und Völlegefühl im linken Oberbauch, frühes Sättigungsgefühl, Blutungsneigung, Infekte, Gichtanfälle, Knochenschmerzen, Sehstörungen und Kopfschmerz (Leukostase), frühere Blutbilder zur Beurteilung der Dynamik, Strahlen- und Benzolexposition',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Milz- und Lebergröße (Palpation in Zentimetern unter dem Rippenbogen), Lymphknotenstatus (bei CML typischerweise unauffällig), Haut (Blässe, Hämatome, Petechien), Sternumklopfschmerz, Fundoskopie bzw. Spaltlampenuntersuchung bei Verdacht auf Leukostase, Vitalparameter, Größe und Gewicht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild: ausgeprägte Leukozytose, häufig 50 bis mehrere 100 G/l, oft mäßige normochrome Anämie, Thrombozyten meist erhöht (Thrombozytose), seltener erniedrigt',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Differenzialblutbild (mikroskopisch) — der entscheidende Befund: pathologische Linksverschiebung mit ALLEN Reifungsstufen der Granulopoese (Myeloblasten, Promyelozyten, Myelozyten, Metamyelozyten, Stabkernige, Segmentkernige), also KEIN Hiatus leucaemicus wie bei der akuten Leukämie; Basophilie (nahezu obligat) und Eosinophilie; Blastenanteil zur Phasenbestimmung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zellumsatz und Begleitwerte: LDH und Harnsäure erhöht, Vitamin B12 erhöht (vermehrtes Transcobalamin), Kalium, Phosphat, Kreatinin (Tumorlysegefahr); klassischer, heute durch die Genetik ersetzter Befund: erniedrigter Index der alkalischen Leukozytenphosphatase (ALP) — bei der leukämoiden Reaktion dagegen erhöht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor Therapiebeginn: Leber- und Nierenwerte, Lipase, Blutzucker und HbA1c, Lipidprofil, Hepatitis-B-Serologie (Reaktivierung unter TKI), Schwangerschaftstest bei Frauen im gebärfähigen Alter',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Abdomens mit Ausmessung von Milz (Länge, Dicke; Normwert bis etwa 11–12 cm) und Leber, Suche nach Milzinfarkten; EKG mit QTc-Zeit vor Therapie mit Nilotinib oder Dasatinib; Röntgen-Thorax als Ausgangsbefund (Pleuraerguss unter Dasatinib)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nachweis des Philadelphia-Chromosoms bzw. des BCR-ABL1-Fusionsgens aus dem peripheren Blut: quantitative RT-PCR (Transkriptmenge nach Internationaler Skala — zugleich Verlaufsmarker), FISH (Fusionssignal), konventionelle Zytogenetik aus dem Knochenmark (t(9;22) und zusätzliche Aberrationen)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion mit Aspirat und Stanzbiopsie (Beckenkamm) zur Sicherung: hyperzelluläres Mark mit gesteigerter Granulopoese, Blastenanteil und Phase, Fibrosegrad, Karyotyp; Bestimmung von Sokal- bzw. ELTS-Score; bei Therapieversagen BCR-ABL1-Mutationsanalyse (z. B. T315I)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Leukämoide Reaktion (schwere Infektion, Sepsis, Tumor, nach Glukokortikoiden oder G-CSF)',
+          unterscheidung: 'Reaktive Leukozytose meist unter 50 G/l mit Linksverschiebung, aber ohne Basophilie, mit toxischen Granulationen, Fieber und Infektfokus, CRP und Procalcitonin erhöht, alkalische Leukozytenphosphatase ERHÖHT (bei CML erniedrigt), keine Splenomegalie — und vor allem OHNE BCR-ABL1: die Genetik entscheidet.',
+        },
+        {
+          dd: 'Akute myeloische Leukämie bzw. CML in Blastenkrise',
+          unterscheidung: 'Blasten ≥ 20 %, Hiatus leucaemicus (Blasten und reife Granulozyten ohne Zwischenstufen), rascher Beginn mit Zytopenien, Infekten und Blutungen; bei der CML in chronischer Phase Blasten < 10 % und lückenlose Reifungsreihe. Die Blastenkrise ist BCR-ABL1-positiv, die De-novo-AML in der Regel nicht.',
+        },
+        {
+          dd: 'BCR-ABL1-negative myeloproliferative Neoplasien: Polycythaemia vera, essenzielle Thrombozythämie, primäre Myelofibrose',
+          unterscheidung: 'Bei PV Erythrozytose mit erhöhtem Hämatokrit und Juckreiz, bei ET isolierte Thrombozytose, bei PMF Fibrose, Dakryozyten und leukoerythroblastisches Blutbild; Leukozytose deutlich geringer; JAK2-V617F-, CALR- oder MPL-Mutation, kein BCR-ABL1.',
+        },
+        {
+          dd: 'Chronische myelomonozytäre Leukämie (CMML) und myelodysplastisches Syndrom',
+          unterscheidung: 'Persistierende Monozytose > 1 G/l bzw. Dysplasiezeichen und Zytopenien, meist geringere Leukozytose, keine Basophilie, BCR-ABL1 negativ.',
+        },
+        {
+          dd: 'Chronische lymphatische Leukämie (CLL)',
+          unterscheidung: 'Lymphozytose statt Granulozytose, Gumprecht-Kernschatten im Ausstrich, generalisierte Lymphknotenvergrößerung, Immunphänotyp CD5/CD19/CD23 positiv; höheres Alter.',
+        },
+        {
+          dd: 'Splenomegalie anderer Ursache: Leberzirrhose mit portaler Hypertension, Lymphom, Malaria, Mononukleose, Speicherkrankheiten (Morbus Gaucher)',
+          unterscheidung: 'Bei Zirrhose Leberhautzeichen und Panzytopenie durch Hypersplenismus, bei Lymphom Lymphknoten und Histologie, bei Malaria Fieber und Reiseanamnese, bei Mononukleose Angina und atypische Lymphozyten — jeweils keine Granulozytose mit Basophilie, kein BCR-ABL1.',
+        },
+        {
+          dd: 'Mäßige Leukozytose durch Rauchen, Adipositas, Stress, Glukokortikoide oder nach Splenektomie',
+          unterscheidung: 'Leukozyten meist unter 15–20 G/l, reife Neutrophilie ohne unreife Vorstufen, keine Basophilie, keine Splenomegalie, keine B-Symptome.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung, Sofortmaßnahmen und Behandlungsbeginn',
+          items: [
+            'Ehrliche und zugleich ermutigende Aufklärung: Diagnose Leukämie aussprechen, den Mechanismus (Philadelphia-Chromosom, dauerhaft aktives Enzym) verständlich erklären und die heute sehr gute Prognose unter Tablettentherapie betonen; Zeit für Fragen, Angehörige einbeziehen',
+            'Bei Leukostase (Sehstörungen, Kopfschmerz, Luftnot, Priapismus) oder extremer Leukozytose: Leukapherese und Hydroxyurea (Hydroxycarbamid, z. B. 2–3 g/Tag) als kurzfristige Zytoreduktion bis zum Vorliegen der Genetik',
+            'Vorbeugung von Tumorlysesyndrom und Gicht: reichliche Hydratation (2–3 l/Tag), Allopurinol 300 mg täglich, Kontrolle von Kalium, Phosphat, Harnsäure und Kreatinin',
+            'Bestimmung von Phase und Risikoscore (Sokal/ELTS), Dokumentation der Ausgangswerte (Milzgröße, BCR-ABL1-Transkriptmenge), Anbindung an ein hämatologisches Zentrum bzw. eine CML-Studiengruppe',
+            'Keine Transfusion bei mäßiger, gut tolerierter Anämie — sie bessert sich unter Therapie; Thrombozytenaggregationshemmer und NSAR wegen der Thrombozytenfunktionsstörung nur mit Zurückhaltung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Tyrosinkinaseinhibitoren als Standardtherapie',
+          items: [
+            'Erstlinie in der chronischen Phase: Imatinib 400 mg 1-0-0 (Erstgenerations-TKI) oder ein Zweitgenerations-Inhibitor — Nilotinib 2 × 300 mg, Dasatinib 100 mg 1-0-0 oder Bosutinib 400 mg 1-0-0 —, ausgewählt nach Risikoscore, Alter, Begleiterkrankungen und Nebenwirkungsprofil; Zweitgenerations-TKI erreichen schneller tiefe Remissionen (Vorteil bei hohem Risiko und jungem Patienten mit Absetzwunsch), Imatinib ist am besten verträglich',
+            'Nebenwirkungsprofile: Imatinib — periorbitale Ödeme, Flüssigkeitsretention, Muskelkrämpfe, Übelkeit, Hautausschlag; Nilotinib — Hyperglykämie, Hyperlipidämie, QTc-Verlängerung, arterielle Gefäßverschlüsse (pAVK, Herzinfarkt), Nüchterneinnahme; Dasatinib — Pleuraergüsse, pulmonale Hypertonie, Blutungsneigung; Bosutinib — Diarrhoe, Leberwerterhöhung',
+            'Tägliche orale Einnahme lebenslang oder zumindest über viele Jahre; Wechselwirkungen beachten (CYP3A4: Azole, Makrolide, Johanniskraut, Grapefruit; Protonenpumpenhemmer senken die Resorption von Dasatinib und Bosutinib)',
+            'Kontraindikation in der Schwangerschaft (teratogen) — sichere Verhütung, Kinderwunsch nur in tiefer Remission nach Absprache; Stillen nicht erlaubt',
+            'Bei Unverträglichkeit oder Resistenz (Verfehlen der Meilensteine, Verlust der Remission): Adhärenz prüfen, BCR-ABL1-Mutationsanalyse, Wechsel auf einen anderen Inhibitor; bei T315I-Mutation ausschließlich Ponatinib (Cave arterielle Verschlüsse) oder Asciminib (allosterischer STAMP-Inhibitor)',
+          ],
+        },
+        {
+          label: 'Molekulares Monitoring und Therapieziele',
+          items: [
+            'Quantitative BCR-ABL1-PCR aus dem peripheren Blut alle 3 Monate (nach Erreichen einer stabilen MMR alle 3–6 Monate) mit definierten Meilensteinen: ≤ 10 % IS nach 3 Monaten, ≤ 1 % nach 6 Monaten, ≤ 0,1 % (MMR) nach 12 Monaten',
+            'Therapieziele in Stufen: hämatologische Remission (normales Blutbild, keine Milz tastbar, meist nach 4–6 Wochen), zytogenetische Remission (keine Ph-positiven Metaphasen), molekulare Remission (MMR, darüber hinaus MR4 und MR4,5 als tiefe Remission)',
+            'ELN-Bewertung: „optimal“ → Therapie fortführen; „Warnung“ → engmaschiger kontrollieren; „Versagen“ → Mutationsanalyse und Substanzwechsel',
+            'Verlaufskontrollen je nach Substanz: Blutbild (anfangs alle 1–2 Wochen wegen Zytopenien), Leber- und Nierenwerte, Lipase, Blutzucker und Blutfette (Nilotinib), EKG mit QTc, Gewicht und Ödeme (Imatinib), Röntgen-Thorax bei Luftnot (Dasatinib)',
+            'Therapiefreie Remission (TFR): nach mindestens 3–5 Jahren TKI-Therapie und mindestens 2 Jahren stabiler tiefer molekularer Remission (MR4 oder besser) kann unter monatlicher PCR-Kontrolle ein kontrollierter Absetzversuch unternommen werden — etwa die Hälfte der Patienten bleibt dauerhaft therapiefrei, bei Rückfall (Verlust der MMR) wird der TKI wieder aufgenommen und spricht fast immer erneut an',
+          ],
+        },
+        {
+          label: 'Therapie bei Progression, Begleitung und Nachsorge',
+          items: [
+            'Allogene Stammzelltransplantation nur noch bei Versagen mehrerer TKI, T315I-Mutation ohne Ansprechen, akzelerierter Phase oder Blastenkrise — dann nach Vorbehandlung wie bei einer akuten Leukämie (Induktionschemotherapie plus TKI) und in möglichst guter zweiter chronischer Phase',
+            'Behandlung von Nebenwirkungen und Begleiterkrankungen: kardiovaskuläres Risiko (Blutdruck, Lipide, Blutzucker, Nikotinstopp) besonders unter Nilotinib und Ponatinib, Ödem- und Krampfmanagement unter Imatinib, Pleurapunktion und Dosisanpassung unter Dasatinib',
+            'Impfungen (Influenza, Pneumokokken, COVID-19; keine Lebendimpfstoffe unter Zytopenie), Fertilitäts- und Familienplanungsberatung, ggf. Kryokonservierung vor Therapie',
+            'Adhärenzförderung als zentrale ärztliche Aufgabe: unregelmäßige Einnahme (< 90 % der Dosen) ist die häufigste Ursache eines Therapieversagens — feste Einnahmezeit, Tablettenbox, App-Erinnerung, offenes Ansprechen von Nebenwirkungen statt eigenmächtiger Pausen',
+            'Psychoonkologische Unterstützung, Selbsthilfegruppen (z. B. Leukämie-Lymphom-Hilfe), sozialmedizinische Beratung (Schwerbehinderung, Arbeitsfähigkeit) und langfristige hämatologische Anbindung über Jahrzehnte',
+          ],
+        },
+      ],
+      prognose: 'Ohne Behandlung geht die chronische Phase nach median 3–5 Jahren in Akzeleration und Blastenkrise über; die mediane Überlebenszeit lag vor der TKI-Ära bei etwa 4–6 Jahren. Unter Tyrosinkinaseinhibitoren liegt das 10-Jahres-Überleben in der chronischen Phase bei über 80–90 %, und die Lebenserwartung nähert sich der der Normalbevölkerung; die meisten Patienten sterben nicht an der CML, sondern an altersbedingten Begleiterkrankungen. Etwa 80–90 % erreichen eine Major Molecular Response, rund 40–50 % eine tiefe Remission, die einen Absetzversuch erlaubt — davon bleibt etwa die Hälfte dauerhaft therapiefrei. Prognostisch entscheidend sind die Phase bei Diagnose, der Risikoscore (Sokal/ELTS), das Erreichen der molekularen Meilensteine und vor allem die Therapieadhärenz. Die Blastenkrise hat trotz TKI und Transplantation weiterhin eine schlechte Prognose mit medianem Überleben unter einem Jahr.',
+      pruefungsfallen: [
+        'Der Prüfer will den Unterschied zur akuten Leukämie hören: bei der CML alle Reifungsstufen der Granulopoese im Ausstrich (kontinuierliche Linksverschiebung), bei der AML der Hiatus leucaemicus — Blasten und reife Zellen ohne Zwischenstufen. Wer „Blasten“ sagt, ohne den Anteil (< 10 % in chronischer Phase) zu nennen, verwechselt die Phasen.',
+        'Das Philadelphia-Chromosom richtig benennen: Translokation t(9;22) mit dem Fusionsgen BCR-ABL1 auf dem verkürzten Chromosom 22 — nicht „Chromosom 9 fehlt“. Und die Konsequenz mitliefern: dauerhaft aktive Tyrosinkinase → gezielte Hemmung durch Imatinib.',
+        'Leukämoide Reaktion als DD nicht nur nennen, sondern abgrenzen: Basophilie, Splenomegalie, erniedrigte alkalische Leukozytenphosphatase und vor allem BCR-ABL1-Nachweis sprechen für CML; Fieber, Fokus, toxische Granulation und CRP für die Reaktion.',
+        'Lymphknoten: bei der CML typischerweise NICHT vergrößert — wer generalisierte Lymphadenopathie beschreibt, denkt an CLL oder Lymphom. Splenomegalie ja, Lymphome nein.',
+        'Die Familienanamnese ist eine Falle: Der Vater hat eine „chronische Leukämie“ — die CML ist aber NICHT erblich (somatische Mutation). Den Patienten beruhigen, dass seine Kinder kein erhöhtes Risiko haben.',
+        'Therapie nicht mit „Chemotherapie“ beginnen: Standard ist der Tyrosinkinaseinhibitor als Tablette; Hydroxyurea nur zur kurzfristigen Zytoreduktion, Stammzelltransplantation nur bei Versagen oder Blastenkrise.',
+        'Vor dem Patienten das Wort „Leukämie“ nicht vermeiden, aber sofort einordnen: „Blutkrebs, bei dem das Knochenmark zu viele weiße Blutkörperchen bildet — heute mit einer Tablette am Tag sehr gut behandelbar.“',
+        'Das molekulare Monitoring gehört zur Therapie: PCR alle drei Monate mit Meilensteinen (10 % / 1 % / 0,1 %). Ein Prüfer, der nach „Therapiezielen“ fragt, will die Remissionsstufen hören, nicht nur „Beschwerdefreiheit“.',
+        'Adhärenz ist der wichtigste beeinflussbare Prognosefaktor — wer die Einnahme in weniger als 90 % der Fälle einhält, verliert die Remission. Das gehört in die Aufklärung.',
+        'Schwangerschaft und Wechselwirkungen (CYP3A4, Protonenpumpenhemmer, Johanniskraut) sind klassische Nachfragen bei der Tablettentherapie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was erwarten Sie im Blutbild, und welcher Befund ist entscheidend?',
+          antwort: 'Eine massive Leukozytose, häufig über 50 bis mehrere 100 G/l, mit einer pathologischen Linksverschiebung, bei der alle Reifungsstufen der Granulopoese vorkommen — Myeloblasten, Promyelozyten, Myelozyten, Metamyelozyten, Stabkernige und Segmentkernige — ohne Hiatus leucaemicus. Dazu Basophilie und Eosinophilie, oft eine Thrombozytose und eine mäßige Anämie. LDH und Harnsäure sind durch den Zellumsatz erhöht. Entscheidend für die Diagnose ist der Nachweis des BCR-ABL1-Fusionsgens beziehungsweise des Philadelphia-Chromosoms durch PCR, FISH oder Zytogenetik; die Knochenmarkpunktion sichert die Phase.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff Leukämie und den Begriff Splenomegalie?',
+          antwort: 'Leukämie ist eine Form von Blutkrebs, bei der das Knochenmark, die Blutfabrik in den Knochen, unkontrolliert zu viele weiße Blutkörperchen bildet. Bei der chronischen myeloischen Leukämie geschieht das langsam über Monate bis Jahre, und die Zellen reifen noch aus — deshalb fühlt man sich lange fast gesund. Splenomegalie bedeutet eine Vergrößerung der Milz, die im linken Oberbauch liegt; sie ist vergrößert, weil sie die vielen Blutzellen abbauen und speichern muss, und drückt deshalb auf den Magen.',
+        },
+        {
+          frage: 'Was ist das Philadelphia-Chromosom, und warum ist es für die Therapie so wichtig?',
+          antwort: 'Das Philadelphia-Chromosom ist ein verkürztes Chromosom 22, das durch eine reziproke Translokation zwischen den Chromosomen 9 und 22 entsteht. Dabei wird das ABL1-Gen mit dem BCR-Gen fusioniert; das Fusionsgen BCR-ABL1 kodiert eine dauerhaft aktive Tyrosinkinase, die die Zellen ständig zur Teilung antreibt. Genau diese Kinase wird durch Tyrosinkinaseinhibitoren wie Imatinib gezielt blockiert — die CML war die erste Krebserkrankung mit einer zielgerichteten Therapie gegen den ursächlichen Defekt. Der Nachweis von BCR-ABL1 ist zugleich diagnostisches Kriterium und Verlaufsmarker.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die CML von einer leukämoiden Reaktion?',
+          antwort: 'Die leukämoide Reaktion ist eine reaktive Leukozytose bei schwerer Infektion, Sepsis oder Tumor. Sie zeigt zwar auch eine Linksverschiebung, aber keine Basophilie, dafür toxische Granulationen, Fieber, einen Infektfokus und erhöhtes CRP und Procalcitonin; die alkalische Leukozytenphosphatase ist erhöht, bei der CML erniedrigt. Meist fehlt die Splenomegalie. Entscheidend ist die Genetik: Bei der leukämoiden Reaktion gibt es kein BCR-ABL1.',
+        },
+        {
+          frage: 'Welche Phasen der CML kennen Sie?',
+          antwort: 'Drei Phasen. Die chronische Phase mit Blasten unter 10 %, in der über 90 % der Patienten diagnostiziert werden und die über Jahre stabil bleibt. Die akzelerierte Phase mit Blasten von 10 bis 19 %, Basophilie über 20 %, neuen Zytopenien, therapierefraktärer Splenomegalie und zusätzlichen Chromosomenveränderungen. Und die Blastenkrise mit Blasten ab 20 % oder extramedullären Blastenherden, die dem Bild einer akuten Leukämie entspricht und eine schlechte Prognose hat. Die Therapie zielt darauf, den Übergang aus der chronischen Phase zu verhindern.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten?',
+          antwort: 'In der chronischen Phase mit einem Tyrosinkinaseinhibitor als Dauertherapie: Imatinib 400 mg einmal täglich oder ein Zweitgenerations-Inhibitor wie Nilotinib, Dasatinib oder Bosutinib, ausgewählt nach Risikoscore und Begleiterkrankungen. Bei sehr hoher Leukozytose vorübergehend Hydroxyurea, dazu Hydratation und Allopurinol gegen Tumorlyse und Gicht. Der Erfolg wird alle drei Monate mit der quantitativen BCR-ABL1-PCR kontrolliert. Eine Stammzelltransplantation ist nur noch bei Versagen mehrerer Inhibitoren oder in der Blastenkrise indiziert.',
+        },
+        {
+          frage: 'Ist die Erkrankung erblich? Der Vater des Patienten hatte auch eine chronische Leukämie.',
+          antwort: 'Nein. Das Philadelphia-Chromosom entsteht als erworbene, somatische Mutation in einer einzelnen Blutstammzelle und wird nicht über die Keimbahn weitergegeben. Die Kinder des Patienten haben kein erhöhtes Risiko. Beim Vater handelte es sich am ehesten um eine CLL, die im höheren Alter deutlich häufiger ist; auch dort gibt es zwar eine gewisse familiäre Häufung, aber keinen Zusammenhang zur CML.',
+        },
+        {
+          frage: 'Was sind die Therapieziele, und wie kontrollieren Sie den Verlauf?',
+          antwort: 'Die Therapieziele sind gestuft: hämatologische Remission mit normalem Blutbild und nicht mehr tastbarer Milz, zytogenetische Remission ohne Philadelphia-positive Metaphasen und molekulare Remission mit BCR-ABL1 unter 0,1 % nach der Internationalen Skala, der sogenannten Major Molecular Response. Kontrolliert wird alle drei Monate mit der quantitativen PCR aus dem Blut; die Meilensteine sind 10 % nach drei, 1 % nach sechs und 0,1 % nach zwölf Monaten. Werden sie verfehlt, folgen Adhärenzprüfung, Mutationsanalyse und Substanzwechsel.',
+        },
+        {
+          frage: 'Kann man die Tabletten irgendwann wieder absetzen?',
+          antwort: 'Ja, unter bestimmten Bedingungen. Nach mindestens drei bis fünf Jahren Therapie und einer über mindestens zwei Jahre stabilen tiefen molekularen Remission — MR4 oder besser — kann unter monatlicher PCR-Kontrolle ein kontrollierter Absetzversuch unternommen werden. Etwa die Hälfte der Patienten bleibt dauerhaft therapiefrei; bei den übrigen steigt die Transkriptmenge meist innerhalb der ersten sechs Monate wieder an, und der Inhibitor wird erneut begonnen und spricht fast immer wieder an.',
+        },
+        {
+          frage: 'Welche Nebenwirkungen der Tyrosinkinaseinhibitoren müssen Sie dem Patienten nennen?',
+          antwort: 'Allen gemeinsam sind anfängliche Zytopenien, Übelkeit, Hautausschlag und Müdigkeit. Imatinib verursacht typischerweise Ödeme, besonders um die Augen, Muskelkrämpfe und Gewichtszunahme. Nilotinib erhöht Blutzucker und Blutfette, verlängert die QT-Zeit und steigert das Risiko arterieller Gefäßverschlüsse. Dasatinib führt zu Pleuraergüssen und selten zu pulmonaler Hypertonie. Bosutinib verursacht Durchfall und Leberwerterhöhungen. Ponatinib hat das höchste Risiko für Gefäßverschlüsse. Dazu kommen Wechselwirkungen über CYP3A4 und die Kontraindikation in der Schwangerschaft.',
+        },
+      ],
+      merksatz: 'Zufällig entdeckte Leukozytose über 100 G/l mit Basophilie, allen Reifungsstufen und großer Milz = CML bis zum Beweis des Gegenteils; der Beweis heißt BCR-ABL1 (Philadelphia-Chromosom t(9;22)). Therapie: ein Tyrosinkinaseinhibitor am Tag, PCR alle drei Monate — und der Patient, der seine Tablette nimmt, lebt fast so lange wie ein Gesunder.',
+      linkedCaseIds: [
+        'case-cml',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-adnexitis',
+      pathology: 'Adnexitis (Pelvic Inflammatory Disease, PID)',
+      specialty: 'Gynäkologie',
+      definition: 'Die Adnexitis — im internationalen Sprachgebrauch Pelvic Inflammatory Disease (PID) — ist eine aufsteigende Infektion der oberen weiblichen Genitalorgane. Sie umfasst das Kontinuum Endometritis, Salpingitis, Oophoritis (zusammen Adnexitis = Entzündung von Eileiter und Eierstock) bis hin zum Tuboovarialabszess und zur Pelveoperitonitis. Ausgangspunkt ist fast immer eine Zervizitis, von der die Erreger über die Gebärmutterhöhle in die Tuben aufsteigen (Aszension). Die Erkrankung betrifft vor allem junge, sexuell aktive Frauen und ist wegen ihrer Spätfolgen — Tubensterilität, Extrauteringravidität und chronische Unterbauchschmerzen — von großer Bedeutung.',
+      aetiologie: 'In der Mehrzahl der Fälle sexuell übertragen: Chlamydia trachomatis (häufigster Erreger, oft subklinischer Verlauf) und Neisseria gonorrhoeae (eher akuter, eitriger Verlauf). Daneben aufsteigende Vaginal- und Darmflora — Anaerobier, Gardnerella vaginalis, Mykoplasmen, E. coli, Streptokokken — insbesondere bei bakterieller Vaginose, nach intrauterinen Eingriffen (Abrasio, Hysteroskopie, Abruptio), nach Geburt oder Fehlgeburt und in den ersten Wochen nach Einlage einer Spirale. Die Infektion ist meist polymikrobiell, weshalb die kalkulierte Therapie Chlamydien, Gonokokken UND Anaerobier abdecken muss. Begünstigt wird die Aszension durch die Menstruation (offener Zervikalkanal, Blut als Nährboden) — deshalb der typische Beginn kurz nach der Periode.',
+      risikofaktoren: [
+        'Alter unter 25 Jahren und sexuelle Aktivität',
+        'Neuer Sexualpartner oder mehrere Partner in den letzten Monaten',
+        'Fehlende Kondombenutzung (Pille schützt vor Schwangerschaft, nicht vor Infektionen)',
+        'Frühere sexuell übertragbare Infektion oder frühere Adnexitis (Rezidivneigung)',
+        'Bakterielle Vaginose, Zervizitis',
+        'Spiraleinlage (Risiko vor allem in den ersten drei Wochen nach Einlage), intrauterine Eingriffe, Geburt, Fehlgeburt',
+        'Menstruation und Geschlechtsverkehr während der Menstruation (offener Zervikalkanal)',
+        'Vaginalspülungen (Störung der Scheidenflora)',
+        'Rauchen',
+        'Partner mit Urethritis oder bekannter Geschlechtskrankheit',
+      ],
+      klinik: [
+        {
+          text: 'Unterbauchschmerzen, typischerweise beidseitig, dumpf-ziehend bis stechend, oft mit Beginn kurz nach der Menstruation',
+        },
+        {
+          text: 'Fieber und reduzierter Allgemeinzustand, gelegentlich Schüttelfrost (bei Gonokokken und Abszess ausgeprägter)',
+        },
+        {
+          text: 'Vermehrter, gelblich-grünlicher, eitriger oder übelriechender Fluor vaginalis',
+        },
+        {
+          text: 'Dyspareunie — Schmerzen beim Geschlechtsverkehr, vor allem bei tiefer Penetration',
+        },
+        {
+          text: 'Zwischenblutungen, Kontaktblutungen nach dem Verkehr, verstärkte oder verlängerte Menstruation (Zeichen der Zervizitis/Endometritis)',
+        },
+        {
+          text: 'Dysurie und Pollakisurie bei begleitender Urethritis — häufige Fehldeutung als Harnwegsinfekt',
+        },
+        {
+          text: 'Übelkeit, Appetitlosigkeit, selten Erbrechen; bei Pelveoperitonitis Abwehrspannung bis zum akuten Abdomen',
+        },
+        {
+          text: 'Untersuchungsbefund: Portioschiebeschmerz (Zervixbewegungsschmerz), Druckschmerz der Adnexe bei der bimanuellen Palpation, Druckschmerz im Unterbauch, eitriger Zervikalfluor bei der Spekulumeinstellung, Resistenz bei Abszess',
+        },
+        {
+          text: 'Subklinische Form (vor allem bei Chlamydien): kaum Beschwerden, unauffälliger Verlauf — die häufigste Präsentation, die oft erst Jahre später durch Sterilität oder Extrauteringravidität auffällt',
+          atypisch: true,
+        },
+        {
+          text: 'Fitz-Hugh-Curtis-Syndrom: Perihepatitis mit rechtsseitigen Oberbauchschmerzen, atemabhängig, Ausstrahlung in die rechte Schulter — wird als Cholezystitis oder Pleuritis verkannt (in etwa 10 % der Fälle)',
+          atypisch: true,
+        },
+        {
+          text: 'Einseitige Schmerzen mit tastbarer Resistenz und hohem Fieber — Tuboovarialabszess; bei plötzlicher Verschlechterung Rupturverdacht',
+          atypisch: true,
+        },
+        {
+          text: 'Rechtsseitig betonte Schmerzen mit Übelkeit — Verwechslung mit Appendizitis in beide Richtungen',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als reaktive Arthritis oder Konjunktivitis bei Chlamydien (Morbus Reiter) oder als disseminierte Gonokokkeninfektion mit Arthritis und Hautpusteln',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach Ausbreitung (anatomische Stadien)',
+          inhalt: 'Zervizitis (untere Genitalinfektion, noch keine PID) → Endometritis → Salpingitis (Eileiter, Kernbefund der Adnexitis) → Oophoritis bzw. Salpingo-Oophoritis → Pyosalpinx/Saktosalpinx → Tuboovarialabszess → Pelveoperitonitis (Douglas-Abszess) → generalisierte Peritonitis. Sonderform: Perihepatitis (Fitz-Hugh-Curtis-Syndrom).',
+        },
+        {
+          name: 'Klinische Schweregrade (steuern ambulant versus stationär)',
+          inhalt: 'Leicht bis mittelschwer: Unterbauchschmerz mit Portioschiebe- oder Adnexdruckschmerz, orale Einnahme möglich, kein Abszess — ambulante Therapie mit Kontrolle nach 48 bis 72 Stunden. Schwer: hohes Fieber, Peritonismus, Übelkeit und Erbrechen mit Unmöglichkeit der oralen Einnahme, Tuboovarialabszess, Schwangerschaft, fehlendes Ansprechen nach 48 bis 72 Stunden oder unklare Diagnose (Appendizitis nicht ausgeschlossen) — stationäre intravenöse Therapie.',
+        },
+        {
+          name: 'Diagnosekriterien nach CDC',
+          inhalt: 'Minimalkriterien (eines genügt, um bei sexuell aktiver Frau mit Unterbauchschmerz die Therapie zu beginnen): Portioschiebeschmerz ODER Uterusdruckschmerz ODER Adnexdruckschmerz. Zusatzkriterien, die die Diagnose stützen: Temperatur über 38,3 °C, pathologischer zervikaler oder vaginaler Fluor, reichlich Leukozyten im Nativpräparat, erhöhte BSG oder erhöhtes CRP, Nachweis von Chlamydien oder Gonokokken. Spezifische Kriterien (beweisend): Endometriumbiopsie mit Endometritis, Sonographie oder MRT mit flüssigkeitsgefüllten, verdickten Tuben oder Tuboovarialabszess, laparoskopischer Befund.',
+        },
+        {
+          name: 'Erregergruppen und ihre Bedeutung für die Therapie',
+          inhalt: 'Sexuell übertragene Erreger: Chlamydia trachomatis (intrazellulär, Doxycyclin oder Azithromycin) und Neisseria gonorrhoeae (Ceftriaxon, zunehmende Resistenzen gegen Chinolone und Azithromycin). Endogene Flora: Anaerobier, Gardnerella, E. coli, Streptokokken, Mykoplasmen (Metronidazol für Anaerobier). Deshalb immer Kombinationstherapie.',
+        },
+      ],
+      redFlags: [
+        'Hohes Fieber über 39 °C, Schüttelfrost, Tachykardie, Hypotonie → Sepsis, Tuboovarialabszess, stationäre Aufnahme',
+        'Akutes Abdomen mit Abwehrspannung und Loslassschmerz → Pelveoperitonitis oder Ruptur eines Tuboovarialabszesses, Notfall',
+        'Positiver Schwangerschaftstest bei Unterbauchschmerz und Blutung → Extrauteringravidität bis zum Beweis des Gegenteils',
+        'Einseitige, tastbare Resistenz im Adnexbereich → Tuboovarialabszess (Rupturgefahr, Sonographie sofort)',
+        'Plötzlicher, heftigster einseitiger Schmerz mit Erbrechen → Ovarialtorsion oder Zystenruptur, keine Adnexitis',
+        'Erbrechen mit Unmöglichkeit der oralen Medikamenteneinnahme → intravenöse Therapie',
+        'Keine Besserung oder Verschlechterung 48 bis 72 Stunden nach Therapiebeginn → Diagnose überprüfen, Bildgebung, Laparoskopie',
+        'Rechtsseitige Oberbauchschmerzen bei junger Frau mit Fluor → Fitz-Hugh-Curtis-Syndrom nicht als Cholezystitis verkennen',
+        'Immunsuppression oder HIV-Infektion → schwerere Verläufe, Abszessneigung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Beginn der Schmerzen in Relation zur letzten Periode, Fieber, Fluor (Menge, Farbe, Geruch), Dyspareunie, Zwischen- und Kontaktblutungen, Dysurie; Zyklus und LETZTE Periode; Schwangerschaftsmöglichkeit; Spirale, intrauterine Eingriffe, Geburt oder Fehlgeburt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sexualanamnese — obligat, sachlich und ohne Wertung, mit Erklärung des Grundes („Ich stelle diese Fragen allen Patientinnen mit diesen Beschwerden, weil sie für die Behandlung wichtig sind“): neuer oder mehrere Partner, Kondomgebrauch, frühere Geschlechtskrankheiten, Beschwerden beim Partner',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter mit rektaler Temperaturmessung; Abdomenuntersuchung mit Druckschmerz beidseits im Unterbauch, Abwehrspannung, Loslassschmerz, Nierenlager; Ausschluss eines rechtsseitigen Oberbauchdruckschmerzes (Fitz-Hugh-Curtis)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Untersuchung: Spekulumeinstellung mit Beurteilung von Portio und Zervikalfluor (eitrig, blutig), bimanuelle Palpation mit dem entscheidenden PORTIOSCHIEBESCHMERZ, Druckschmerz und Resistenz der Adnexe, Uterusdruckschmerz, Vorwölbung des Douglas-Raums',
+        },
+        {
+          stufe: 'Labor',
+          text: 'SCHWANGERSCHAFTSTEST (Urin-hCG, bei Bedarf Serum-β-hCG) als ERSTES und obligat — die Extrauteringravidität ist die gefährlichste Differenzialdiagnose und verändert die gesamte Therapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (Leukozytose), CRP und BSG (erhöht, Verlaufsparameter), bei schwerem Verlauf Blutkulturen, Elektrolyte und Kreatinin; Urinstatus und Urinkultur zur Abgrenzung des Harnwegsinfekts (Cave: Leukozyturie auch bei Urethritis)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Abstriche aus Zervix und Urethra (alternativ Erststrahlurin) mit PCR (NAAT) auf Chlamydia trachomatis und Neisseria gonorrhoeae, Mikroskopie und Kultur mit Antibiogramm (Gonokokkenresistenz); Nativpräparat auf Leukozyten, Clue Cells (bakterielle Vaginose) und Trichomonaden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Mitscreening auf weitere sexuell übertragbare Infektionen: HIV, Syphilis (TPHA/TPPA), Hepatitis B (HBs-Antigen, Anti-HBc), ggf. Hepatitis C — mit Einverständnis der Patientin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transvaginale Sonographie: verdickte, flüssigkeitsgefüllte Tuben (Saktosalpinx, Pyosalpinx, „Zahnradzeichen“), freie Flüssigkeit im Douglas-Raum, Tuboovarialabszess als komplexe Adnexraumforderung; zugleich Ausschluss von Extrauteringravidität, Ovarialzyste und Torsion (Doppler)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: Appendix, Nieren und Harnstau, freie Flüssigkeit, perihepatische Flüssigkeit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT oder MRT des Beckens bei Abszessverdacht, unklarem Befund oder Verdacht auf Appendizitis bzw. Divertikulitis; MRT bevorzugt bei jungen Frauen und in der Schwangerschaft',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Laparoskopie — Goldstandard bei unklarer Diagnose (Appendizitis nicht ausschließbar), Therapieversagen nach 48 bis 72 Stunden oder Abszess: Sicht auf gerötete, verdickte Tuben mit eitrigem Sekret, Verwachsungen, perihepatische „Geigensaiten“-Adhäsionen; gleichzeitig Abstrichentnahme, Spülung, Abszessdrainage und Adhäsiolyse möglich',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Douglas-Punktion oder sonographisch bzw. CT-gesteuerte Abszessdrainage mit mikrobiologischer Untersuchung des Punktats; Endometriumbiopsie (Endometritis) nur in Ausnahmefällen',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Extrauteringravidität (Tubargravidität)',
+          unterscheidung: 'Die gefährlichste Differenzialdiagnose — deshalb IMMER zuerst Schwangerschaftstest. Amenorrhoe oder unregelmäßige Blutung, einseitiger Schmerz, Schmierblutung, Schwindel bis zum hämorrhagischen Schock bei Ruptur; β-hCG positiv, in der Sonographie leeres Cavum uteri und Adnexraumforderung. Fieber und eitriger Fluor fehlen.',
+        },
+        {
+          dd: 'Akute Appendizitis',
+          unterscheidung: 'Die häufigste Verwechslung, in beide Richtungen. Schmerzwanderung vom Nabel in den rechten Unterbauch, Druckschmerz am McBurney-Punkt, Loslassschmerz, Übelkeit und Erbrechen, Temperaturdifferenz rektal-axillär über 1 °C; kein Fluor, kein Portioschiebeschmerz, kein Bezug zur Periode. Bei Unsicherheit Laparoskopie — klärt beides.',
+        },
+        {
+          dd: 'Ovarialtorsion',
+          unterscheidung: 'Plötzlicher, vernichtender, einseitiger Schmerz mit Erbrechen, meist bei vorbestehender Zyste; kein Fieber zu Beginn, kein Fluor. Doppler-Sonographie mit fehlender Perfusion. Notfall — sofortige Laparoskopie zur Detorquierung. Prüfer in Karlsruhe: „Bei der Torsion sind die Schmerzen viel stärker.“',
+        },
+        {
+          dd: 'Ruptur einer Ovarialzyste',
+          unterscheidung: 'Akuter einseitiger Schmerz, oft nach Geschlechtsverkehr oder Sport, zyklusabhängig (Zystenruptur um die Zyklusmitte); freie Flüssigkeit in der Sonographie, aber kein Fieber, keine Leukozytose, kein Fluor, Entzündungsparameter normal.',
+        },
+        {
+          dd: 'Mittelschmerz (Ovulationsschmerz)',
+          unterscheidung: 'Kurzer, einseitiger Schmerz um die Zyklusmitte (Tag 12 bis 16), Stunden bis maximal zwei Tage, ohne Fieber, ohne Fluor, ohne Entzündungszeichen. In Freiburg als gynäkologische DD bei Unterbauchschmerz ausdrücklich akzeptiert.',
+        },
+        {
+          dd: 'Harnwegsinfekt und Pyelonephritis',
+          unterscheidung: 'Dysurie, Pollakisurie, suprapubischer Schmerz; bei Pyelonephritis Flankenschmerz, Klopfschmerz des Nierenlagers, hohes Fieber. Urinstatus mit Nitrit und Bakteriurie, Urinkultur. Cave: Leukozyturie auch bei Chlamydien-Urethritis — Nitrit negativ, Kultur steril („sterile Leukozyturie“).',
+        },
+        {
+          dd: 'Endometriose',
+          unterscheidung: 'Chronische, zyklusabhängige Unterbauchschmerzen mit Dysmenorrhoe, Dyspareunie und Dyschezie, kein Fieber, kein Fluor, Entzündungsparameter normal; Endometriome in der Sonographie, Sicherung laparoskopisch.',
+        },
+        {
+          dd: 'Divertikulitis und chronisch-entzündliche Darmerkrankung',
+          unterscheidung: 'Divertikulitis eher bei älteren Patienten linksseitig (in Stuttgart als Fall bei einem Mann); Morbus Crohn mit Durchfällen, Gewichtsverlust, perianalen Fisteln; Stuhlanamnese, Calprotectin, Sonographie und CT, Koloskopie im Intervall.',
+        },
+        {
+          dd: 'Gastroenteritis und Nierenkolik',
+          unterscheidung: 'Gastroenteritis: Durchfall, Erbrechen, diffuse krampfartige Schmerzen, Umgebungsanamnese. Nierenkolik: wellenförmiger Flankenschmerz mit Ausstrahlung in Leiste und Labien, Hämaturie, Harnstau in der Sonographie — keine gynäkologischen Befunde.',
+        },
+        {
+          dd: 'Zervizitis oder Vaginitis ohne Aszension',
+          unterscheidung: 'Fluor, Brennen und Kontaktblutung, aber kein Unterbauchschmerz, kein Portioschiebeschmerz, kein Fieber und keine Entzündungsparameter. Vorstufe der Adnexitis — trotzdem Erregerdiagnostik und Behandlung, Partner eingeschlossen.',
+        },
+        {
+          dd: 'Tuboovarialabszess',
+          unterscheidung: 'Keine eigentliche DD, sondern Komplikation: hohes Fieber, einseitige tastbare Resistenz, stark erhöhtes CRP, komplexe Adnexraumforderung in der Sonographie. Stationäre intravenöse Therapie, Drainage bei fehlendem Ansprechen, Notfall bei Ruptur.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Rasche kalkulierte Antibiotikatherapie und Sicherung',
+          items: [
+            'Grundregel: Bei sexuell aktiver Frau mit Unterbauchschmerz und Portioschiebeschmerz oder Adnexdruckschmerz wird SOFORT behandelt, ohne den Erregernachweis abzuwarten — die Folgen des Nichtbehandelns (Sterilität) wiegen schwerer als die einer unnötigen Antibiose',
+            'Vor Therapiebeginn: Schwangerschaftstest und Abstriche entnehmen (PCR, Kultur), dann ohne Verzögerung beginnen',
+            'Kombinationstherapie, die Chlamydien, Gonokokken und Anaerobier abdeckt — ambulantes Standardschema nach Leitlinie: Ceftriaxon 1 g einmalig intramuskulär (oder intravenös) plus Doxycyclin 100 mg 1-0-1 über 14 Tage plus Metronidazol 500 mg 1-0-1 über 14 Tage',
+            'Alternative bei Doxycyclin-Unverträglichkeit oder in der Schwangerschaft: Azithromycin (1 g, Wiederholung nach einer Woche) statt Doxycyclin; Chinolone wegen der Gonokokkenresistenz nur nach Antibiogramm',
+            'STATIONÄRE Aufnahme mit intravenöser Therapie bei schwerem Verlauf: hohes Fieber, Peritonismus, Abszessverdacht, Schwangerschaft, Erbrechen mit Unmöglichkeit der oralen Einnahme, fehlendes Ansprechen nach 48 bis 72 Stunden, unklare Diagnose (Appendizitis nicht ausgeschlossen), Immunsuppression, mangelnde Compliance — z. B. Ceftriaxon 2 g intravenös täglich plus Doxycyclin plus Metronidazol, alternativ Clindamycin plus Gentamicin; Umstellung auf oral nach 24 bis 48 Stunden Fieberfreiheit',
+            'Analgesie mit Ibuprofen oder Paracetamol (kein Wärmen bei Abszessverdacht), körperliche Schonung, bei Fieber ausreichend trinken',
+            'Sexualkarenz bis zum Abschluss der Therapie BEIDER Partner; Aufklärung über die Einnahmedauer: Doxycyclin nicht mit Milch oder Antazida, Lichtschutz; Metronidazol: kein Alkohol; Doxycyclin kann die Wirkung der Pille nicht sicher aufheben, bei Erbrechen oder Durchfall trotzdem zusätzlich Kondom',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung der Komplikationen und Verlaufskontrolle',
+          items: [
+            'KONTROLLE nach 48 bis 72 Stunden — obligat bei ambulanter Therapie: Fieber, Schmerz, Portioschiebeschmerz, CRP; bei fehlender Besserung Überprüfung der Diagnose, transvaginale Sonographie, ggf. CT oder MRT, stationäre Aufnahme und Eskalation auf intravenöse Therapie, bei anhaltender Unklarheit Laparoskopie',
+            'TUBOOVARIALABSZESS: stationäre intravenöse Kombinationstherapie; bei Abszess über 8 bis 10 cm, fehlendem Ansprechen nach 48 bis 72 Stunden oder Ruptur DRAINAGE (sonographisch oder CT-gesteuert, transvaginal) oder laparoskopische Sanierung — bei der jungen Frau möglichst organerhaltend (Abszessspaltung, Spülung), Adnexektomie nur als Ausnahme; Ruptur mit Peritonitis ist ein chirurgischer Notfall',
+            'Pelveoperitonitis und Sepsis: Volumentherapie, Blutkulturen, intravenöse Antibiose, operative Sanierung',
+            'Spirale: nicht reflexartig entfernen — Entfernung nur bei ausbleibender Besserung nach 48 bis 72 Stunden unter laufender Therapie (die Antibiose wird fortgesetzt)',
+            'Anpassung nach Antibiogramm, wenn Gonokokken nachgewiesen werden; Behandlung immer bis zum Ende (14 Tage), auch bei rascher Besserung — sonst Rezidiv und Resistenzentwicklung',
+            'Fitz-Hugh-Curtis-Syndrom: gleiche antibiotische Therapie; Adhäsiolyse laparoskopisch nur bei persistierenden Schmerzen',
+          ],
+        },
+        {
+          label: 'Partnerbehandlung und Infektionsschutz',
+          items: [
+            'Untersuchung und Mitbehandlung ALLER Sexualpartner der letzten 60 Tage, auch bei völliger Beschwerdefreiheit (Männer sind häufig asymptomatische Träger von Chlamydien) — sonst Ping-Pong-Reinfektion und die gesamte Therapie war umsonst; empirisch beim Partner z. B. Ceftriaxon einmalig plus Doxycyclin über sieben Tage, Vorstellung beim Urologen oder Hausarzt',
+            'Aufklärung über sexuell übertragbare Infektionen ohne Vorwurf und ohne Schuldzuweisung: Chlamydien können seit Monaten oder Jahren unbemerkt bestehen — eine Infektion beweist keine Untreue in der aktuellen Beziehung',
+            'Konsequenter Kondomgebrauch, insbesondere bei neuen Partnern; die Pille schützt nur vor Schwangerschaft',
+            'Screening auf weitere Infektionen einschließlich HIV, Syphilis und Hepatitis B, Impfangebot gegen Hepatitis B und HPV (Nachholimpfung bis 17 Jahre von der Kasse bezahlt, ansonsten Einzelfallentscheidung)',
+            'Chlamydienscreening: in Deutschland jährliches Urin-Screening für Frauen bis zum 25. Lebensjahr als Kassenleistung — die Patientin und ihre Altersgruppe darauf hinweisen',
+            'Meldepflichten: Chlamydien und Gonorrhoe sind bundesweit nicht namentlich meldepflichtig, Meldepflicht nach Landesrecht (z. B. Sachsen); HIV und Syphilis nichtnamentlich an das Robert-Koch-Institut. Beratung zu Partnerinformation, ggf. anonym über Beratungsstellen des Gesundheitsamts',
+          ],
+        },
+        {
+          label: 'Nachsorge, Fertilität und Aufklärung',
+          items: [
+            'Kontrolle des Erregernachweises nach Therapie (Test of cure): bei Gonokokken nach etwa zwei Wochen, in der Schwangerschaft immer, bei Chlamydien frühestens vier Wochen nach Therapieende (PCR sonst falsch positiv durch DNA-Reste)',
+            'Erneutes Screening auf Chlamydien und Gonokokken nach drei bis sechs Monaten wegen der hohen Reinfektionsrate (bis zu 20 %)',
+            'Ehrliche Aufklärung über die Folgen für die FRUCHTBARKEIT: Tubensterilität nach einer Episode bei etwa 10 %, nach zwei bei etwa 25 %, nach drei bei über 50 % der Frauen; 6- bis 10-fach erhöhtes Risiko einer Extrauteringravidität; chronische Unterbauchschmerzen bei etwa jeder fünften Patientin — je früher die Therapie, desto geringer das Risiko',
+            'Hinweis für die Zukunft: bei jeder künftigen Schwangerschaft FRÜHE Vorstellung beim Frauenarzt (fünfte bis sechste Woche) mit transvaginaler Sonographie zum Ausschluss einer Extrauteringravidität',
+            'Bei späterem Kinderwunsch und ausbleibender Schwangerschaft: Abklärung der Tubendurchgängigkeit (Hysterokontrastsonographie, Chromopertubation bei Laparoskopie), ggf. In-vitro-Fertilisation',
+            'Behandlung chronischer Beschwerden: Analgesie, Physiotherapie des Beckenbodens, laparoskopische Adhäsiolyse bei therapierefraktären Schmerzen; Rezidivprophylaxe durch Kondomgebrauch, Partnerbehandlung und regelmäßiges Screening',
+            'Bei Wunsch der Patientin: Wechsel der Verhütung besprechen — die Spirale ist nach ausgeheilter Adnexitis nicht kontraindiziert, aber vor Einlage Chlamydien- und Gonokokkentest',
+          ],
+        },
+      ],
+      prognose: 'Bei früher Therapie — idealerweise innerhalb von zwei bis drei Tagen nach Symptombeginn — heilt die Adnexitis in der Regel folgenlos aus; der Erfolg der Antibiose liegt bei über 90 %. Jede Verzögerung und jede weitere Episode erhöht das Risiko der Tubensterilität: nach einer Episode etwa 10 %, nach zwei etwa 25 %, nach drei über 50 %. Das Risiko einer Extrauteringravidität ist 6- bis 10-fach erhöht, chronische Unterbauchschmerzen betreffen etwa jede fünfte Patientin, Rezidive sind häufig — vor allem ohne Partnerbehandlung (Reinfektionsrate bis zu 20 % innerhalb eines Jahres). Der Tuboovarialabszess hat unter intravenöser Therapie und Drainage eine gute Prognose; die Ruptur mit Peritonitis ist lebensbedrohlich. Die subklinische Chlamydieninfektion ist weltweit die häufigste vermeidbare Ursache der Tubensterilität — deshalb Screening und niedrige Behandlungsschwelle.',
+      pruefungsfallen: [
+        'Die SEXUALANAMNESE aus Scham auslassen — das ist eine bewertete Kompetenz. Sachlich, neutral und ohne Wertung fragen und den Grund erklären: neuer Partner, Kondomgebrauch, frühere Geschlechtskrankheiten, Beschwerden beim Partner.',
+        'Den SCHWANGERSCHAFTSTEST vergessen — in Karlsruhe ausdrücklich gefragt: „Kann die Patientin schwanger sein? Was machen Sie dann?“ (β-hCG und Sonographie). Die Extrauteringravidität ist die gefährlichste DD und verbietet Doxycyclin.',
+        'Bei einer Frau mit Unterbauchschmerz erwartet der Prüfer die Trias Appendizitis / Tubargravidität / Adnexitis — die Ovarialtorsion wurde in Karlsruhe als Antwort abgelehnt („bei der Torsion sind die Schmerzen viel stärker“), in Freiburg wurde zusätzlich der Mittelschmerz akzeptiert.',
+        'Auf den Erregernachweis WARTEN, bevor man behandelt — falsch. Bei Portioschiebeschmerz oder Adnexdruckschmerz wird sofort kalkuliert behandelt; die PCR bestätigt nachträglich.',
+        'Nur ein Antibiotikum nennen. Es muss eine KOMBINATION sein, die Chlamydien (Doxycyclin), Gonokokken (Ceftriaxon) und Anaerobier (Metronidazol) abdeckt — über 14 Tage.',
+        'Die PARTNERBEHANDLUNG vergessen: alle Partner der letzten 60 Tage, auch ohne Beschwerden — sonst Ping-Pong-Reinfektion. Der Prüfer will diesen Punkt hören.',
+        'Die Sterilitätszahlen nicht kennen: 10 % nach einer, etwa 25 % nach zwei, über 50 % nach drei Episoden — wird gefragt.',
+        'Den Portioschiebeschmerz nicht nennen — er ist DER klinische Befund der Adnexitis und fehlt bei Appendizitis und Harnwegsinfekt.',
+        'Die Leukozyturie als Harnwegsinfekt fehldeuten: bei Chlamydien-Urethritis ist der Urin leukozytenreich, aber Nitrit negativ und die Kultur steril.',
+        'Das Fitz-Hugh-Curtis-Syndrom nicht kennen: rechtsseitige Oberbauchschmerzen bei junger Frau mit Fluor sind keine Cholezystitis.',
+        'Vor der Patientin „Adnexitis“ oder „PID“ sagen, ohne zu übersetzen: „Entzündung der Eileiter und Eierstöcke“ — in Karlsruhe, Reutlingen und Stuttgart als Fachbegriff gelistet.',
+        'Die Pille als Schutz vor Infektionen missverstehen — sie schützt nur vor Schwangerschaft; Kondomgebrauch ansprechen.',
+        'Fieber nur axillär messen: rektal messen; eine Differenz von über 1 °C spricht für eine Appendizitis (Freiburger Prüferfrage).',
+        'Das 48-bis-72-Stunden-Zeitfenster vergessen: Kontrolle, und bei fehlender Besserung Bildgebung, stationäre Aufnahme und ggf. Laparoskopie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine akute Adnexitis, also eine Entzündung der Eileiter und Eierstöcke, am ehesten durch Chlamydien oder Gonokokken. Dafür sprechen beidseitige Unterbauchschmerzen mit Beginn kurz nach der Periode, Fieber, vermehrter übelriechender Ausfluss, Schmerzen beim Geschlechtsverkehr, eine Kontaktblutung sowie die Risikokonstellation: junge, sexuell aktive Frau, neuer Partner, kein Kondomgebrauch.',
+        },
+        {
+          frage: 'Kann die Patientin schwanger sein? Was machen Sie dann?',
+          antwort: 'Ja, das muss ich immer annehmen — sie ist sexuell aktiv und hat die Pille einmal vergessen. Deshalb als Erstes ein Schwangerschaftstest im Urin, bei Bedarf β-hCG im Serum, und eine transvaginale Sonographie. Bei positivem Test muss eine Extrauteringravidität ausgeschlossen werden, und die Therapie ändert sich: kein Doxycyclin, sondern stationär Ceftriaxon plus Azithromycin plus Metronidazol.',
+        },
+        {
+          frage: 'Sie ist eine Frau — was könnte es außer der Appendizitis noch sein?',
+          antwort: 'Die gynäkologischen Differenzialdiagnosen sind die Tubargravidität, die Adnexitis, die Ovarialtorsion, die Ruptur einer Ovarialzyste, der Mittelschmerz und die Endometriose. Bei einer Frau mit Unterbauchschmerz denke ich immer an die Trias Appendizitis, Tubargravidität und Adnexitis.',
+        },
+        {
+          frage: 'Warum ist es keine Ovarialtorsion?',
+          antwort: 'Die Torsion beginnt schlagartig mit vernichtendem, einseitigem Schmerz und Erbrechen — die Patientin wäre nicht in diesem Zustand hier. Bei der Adnexitis sind die Schmerzen mäßig, beidseitig und über Tage zunehmend, mit Fieber und Ausfluss. Bei Zweifel Doppler-Sonographie, weil die Torsion ein Notfall ist.',
+        },
+        {
+          frage: 'Wieso spricht dieser Fall nicht für eine Appendizitis?',
+          antwort: 'Die Schmerzen sind beidseitig und nicht vom Nabel in den rechten Unterbauch gewandert, sie begannen kurz nach der Periode, und es bestehen eitriger Ausfluss, Dyspareunie und eine Kontaktblutung — das ist ein genitaler Befund. Bei der Untersuchung erwarte ich einen Portioschiebeschmerz und keinen Druckschmerz am McBurney-Punkt. Ganz ausschließen kann ich sie klinisch nicht; bei Unklarheit klärt die Laparoskopie beides.',
+        },
+        {
+          frage: 'Wo messen Sie Fieber, und was ist der Unterschied?',
+          antwort: 'Rektal und axillär. Rektal ist die Messung genauer und etwa 0,5 °C höher als axillär. Eine Differenz von über 1 °C gilt als klassisches, wenn auch unspezifisches Zeichen der Appendizitis.',
+        },
+        {
+          frage: 'Welche Untersuchungen leiten Sie ein?',
+          antwort: 'Zuerst den Schwangerschaftstest, dann die gynäkologische Untersuchung mit Spekulum und bimanueller Palpation — Portioschiebeschmerz, Adnexdruckschmerz —, Abstriche aus Zervix und Urethra mit PCR auf Chlamydien und Gonokokken sowie Kultur, Nativpräparat, Labor mit Blutbild, CRP, BSG und Urinstatus, HIV- und Syphilisserologie mit Einverständnis, und eine transvaginale Sonographie zum Nachweis verdickter Tuben, freier Flüssigkeit und eines Abszesses.',
+        },
+        {
+          frage: 'Warten Sie mit der Therapie auf das Ergebnis der Abstriche?',
+          antwort: 'Nein. Bei sexuell aktiver Frau mit Unterbauchschmerz und Portioschiebeschmerz oder Adnexdruckschmerz beginne ich sofort kalkuliert, weil die Folgen des Nichtbehandelns — Tubensterilität — schwerer wiegen als eine unnötige Antibiose. Die Abstriche nehme ich vorher ab.',
+        },
+        {
+          frage: 'Wie behandeln Sie, und mit welchen Antibiotika?',
+          antwort: 'Mit einer Kombination, die Chlamydien, Gonokokken und Anaerobier abdeckt: Ceftriaxon 1 g einmalig intramuskulär, Doxycyclin 100 mg zweimal täglich über 14 Tage und Metronidazol 500 mg zweimal täglich über 14 Tage. Dazu Analgesie, Schonung, Sexualkarenz und eine Kontrolle nach 48 bis 72 Stunden.',
+        },
+        {
+          frage: 'Wann nehmen Sie die Patientin stationär auf?',
+          antwort: 'Bei hohem Fieber und Peritonismus, bei Verdacht auf einen Tuboovarialabszess, in der Schwangerschaft, bei Erbrechen mit Unmöglichkeit der oralen Einnahme, bei fehlendem Ansprechen nach 48 bis 72 Stunden und bei unklarer Diagnose, wenn die Appendizitis nicht ausgeschlossen ist. Dann intravenöse Therapie und gegebenenfalls Laparoskopie.',
+        },
+        {
+          frage: 'Was ist mit dem Partner?',
+          antwort: 'Alle Sexualpartner der letzten 60 Tage müssen untersucht und mitbehandelt werden, auch ohne Beschwerden — Männer sind häufig asymptomatische Chlamydienträger. Sonst kommt es zur Ping-Pong-Reinfektion. Bis zum Abschluss der Therapie beider Partner gilt Sexualkarenz.',
+        },
+        {
+          frage: 'Welche Spätfolgen drohen?',
+          antwort: 'Tubensterilität durch Verklebung und Verschluss der Eileiter — nach einer Episode etwa 10 %, nach zwei etwa 25 %, nach drei über 50 % —, ein 6- bis 10-fach erhöhtes Risiko der Extrauteringravidität, chronische Unterbauchschmerzen bei etwa jeder fünften Frau, Rezidive und der Tuboovarialabszess mit Rupturgefahr.',
+        },
+        {
+          frage: 'Was ist das Fitz-Hugh-Curtis-Syndrom?',
+          antwort: 'Eine Perihepatitis als Komplikation der Adnexitis, meist durch Chlamydien oder Gonokokken: Die Erreger breiten sich entlang des Peritoneums bis zur Leberkapsel aus. Die Patientin klagt über rechtsseitige, atemabhängige Oberbauchschmerzen, die als Cholezystitis verkannt werden; laparoskopisch sieht man „Geigensaiten“-Adhäsionen zwischen Leber und Bauchwand.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Diagnose?',
+          antwort: '„Sie haben eine Entzündung der Eileiter und Eierstöcke, die meistens durch Bakterien entsteht, die beim Geschlechtsverkehr übertragen werden — das kann jeder Frau passieren und sagt nichts über Ihre Beziehung aus, denn diese Bakterien können lange unbemerkt bleiben. Wir behandeln sofort mit Antibiotika, damit die Eileiter keinen Schaden nehmen. Wichtig ist, dass Ihr Partner mitbehandelt wird und Sie die Tabletten bis zum Ende nehmen.“',
+        },
+        {
+          frage: 'Warum wäre die Sozialanamnese hier wichtig?',
+          antwort: 'Weil sie die Risikokonstellation aufdeckt — neue Partnerschaft, Verhütungsverhalten, Rauchen — und weil die Partnerbehandlung, die Sexualkarenz und die Compliance über 14 Tage nur gelingen, wenn ich die Lebenssituation kenne: Studium, Klausuren, Wohnsituation, Beziehung. Außerdem muss ich das Gespräch über den Partner sensibel führen.',
+        },
+      ],
+      merksatz: 'Junge Frau, Unterbauchschmerz nach der Periode, Fieber, Fluor, Portioschiebeschmerz = Adnexitis: ERST Schwangerschaftstest, DANN Abstriche, und SOFORT Ceftriaxon plus Doxycyclin plus Metronidazol über 14 Tage — Partner mitbehandeln, Kontrolle nach 48 bis 72 Stunden, sonst droht die Tubensterilität (10 %, 25 %, über 50 %).',
+      linkedCaseIds: [
+        'case-adnexitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-laparoskopie',
+      ],
+    },
+    {
+      id: 'fw-allergische-rhinitis',
+      pathology: 'Allergische Rhinitis (Pollinosis)',
+      specialty: 'Pneumologie',
+      definition: 'Die allergische Rhinitis ist eine IgE-vermittelte Entzündung der Nasenschleimhaut vom Soforttyp (Typ-I-Reaktion nach Coombs und Gell), die nach Kontakt mit einem Inhalationsallergen über die Mastzelldegranulation mit Freisetzung von Histamin und Leukotrienen ausgelöst wird. Leitsymptome sind Niesattacken, wässrige Rhinorrhoe, nasale Obstruktion und Juckreiz; bei Mitbeteiligung der Bindehaut spricht man von einer allergischen Rhinokonjunktivitis. Die saisonale Form durch Pollen heißt Pollinosis oder umgangssprachlich Heuschnupfen; die ganzjährige (perenniale) Form wird meist durch Hausstaubmilben, Tierepithelien oder Schimmelpilze verursacht. Mit einer Prävalenz von etwa 15–25 % ist die allergische Rhinitis die häufigste allergische Erkrankung in Deutschland; ihre Bedeutung liegt in der Beeinträchtigung von Schlaf und Leistungsfähigkeit und vor allem im Etagenwechsel zum allergischen Asthma bronchiale.',
+      aetiologie: 'Genetisch bedingte atopische Diathese mit Neigung zur IgE-Bildung gegen an sich harmlose Umweltantigene. Nach einer Sensibilisierungsphase (Bildung allergenspezifischer IgE-Antikörper, die an Mastzellen binden) löst der erneute Allergenkontakt innerhalb von Minuten die Sofortreaktion aus (Histamin, Prostaglandine, Leukotriene: Niesen, Sekretion, Juckreiz) und nach 4–8 Stunden eine Spätphasenreaktion mit eosinophiler Entzündung (nasale Obstruktion, Hyperreagibilität). Saisonale Allergene: Frühblüher Hasel und Erle ab Februar, Birke im April (Hauptallergen Bet v 1), Gräser und Roggen von Mai bis Juli, Kräuter wie Beifuß und Ambrosia im Spätsommer. Perenniale Allergene: Hausstaubmilben (Dermatophagoides pteronyssinus und farinae, Beschwerden vor allem nachts und morgens, im Winter bei Heizungsluft), Tierepithelien (Katze, Hund, Pferd, Nager), Schimmelpilze (Alternaria, Aspergillus, feuchte Wohnungen), berufliche Allergene (Mehl beim Bäcker, Latex, Tierhaare beim Tierpfleger). Kreuzreaktionen zwischen Pollen- und Nahrungsmittelallergenen (Birke – Apfel, Haselnuss, Karotte, Steinobst) erklären das orale Allergiesyndrom.',
+      risikofaktoren: [
+        'Atopische Diathese und positive Familienanamnese (Asthma, Neurodermitis, Heuschnupfen bei Eltern oder Geschwistern — Risiko bei einem betroffenen Elternteil etwa 30 %, bei beiden über 50 %)',
+        'Eigene atopische Erkrankungen: Neurodermitis im Kindesalter, Nahrungsmittelallergien, allergisches Asthma (atopischer Marsch)',
+        'Jugendliches oder junges Erwachsenenalter — Erstmanifestation meist zwischen dem 10. und 30. Lebensjahr',
+        'Berufliche Allergenexposition: Bäcker, Landwirt, Tierpfleger, Friseur, Gärtner, Laborpersonal',
+        'Haustiere in der Wohnung, Hausstaubmilbenbelastung (Teppiche, Polstermöbel, hohe Luftfeuchtigkeit), Schimmelbefall',
+        'Passivrauch und Tabakrauch, Luftschadstoffe und Feinstaub in Städten (Pollen werden aggressiver)',
+        'Klimawandel mit längerer und intensiverer Pollensaison sowie Ausbreitung neuer Allergene wie Ambrosia',
+        'Hygienehypothese: geringe mikrobielle Exposition in der Kindheit (Stadt statt Bauernhof, wenige Geschwister) erhöht das Allergierisiko',
+      ],
+      klinik: [
+        {
+          text: 'Niessalven (Niesattacken) mit mehreren Niesern hintereinander, vor allem morgens und bei Allergenkontakt im Freien',
+        },
+        {
+          text: 'Wässrige, klare Rhinorrhoe („die Nase läuft wie ein Wasserhahn“) — im Gegensatz zum eitrigen Sekret der infektiösen Rhinitis',
+        },
+        {
+          text: 'Nasale Obstruktion mit Mundatmung, näselnder Sprache, Schnarchen und verminderter Geruchsempfindung (Hyposmie)',
+        },
+        {
+          text: 'Juckreiz in Nase, Gaumen, Rachen und Ohren; typisches Reiben der Nase („allergischer Gruß“) mit Querfalte über dem Nasenrücken bei Kindern',
+        },
+        {
+          text: 'Allergische Konjunktivitis: gerötete, juckende, brennende und tränende Augen (Epiphora), Lidschwellung, Lichtempfindlichkeit — Rhinokonjunktivitis',
+        },
+        {
+          text: 'Müdigkeit, Abgeschlagenheit, Konzentrationsstörungen und Leistungsminderung in Schule, Studium und Beruf durch die nächtliche Obstruktion und den gestörten Schlaf',
+        },
+        {
+          text: 'Charakteristisches Zeitmuster: Wiederkehr zur gleichen Jahreszeit über Wochen bis Monate, Verstärkung an trockenen, windigen Tagen und im Freien, Besserung bei Regen, hinter geschlossenen Fenstern und im Urlaub am Meer oder im Hochgebirge',
+        },
+        {
+          text: 'Kein Fieber, kein reduzierter Allgemeinzustand, keine Ansteckung im Umfeld — die entscheidenden Unterscheidungsmerkmale zum banalen Schnupfen',
+        },
+        {
+          text: 'Orales Allergiesyndrom: Kribbeln, Juckreiz und Schwellung von Lippen, Zunge und Gaumen nach rohem Apfel, Haselnuss, Karotte oder Steinobst bei Birkenpollenallergikern (Kreuzreaktion); gekocht meist verträglich',
+          atypisch: true,
+        },
+        {
+          text: 'Etagenwechsel: trockener Reizhusten vor allem nachts, Giemen, Engegefühl in der Brust und Atemnot bei Belastung als Zeichen eines beginnenden allergischen Asthma bronchiale — bei 20–40 % der unbehandelten Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Perenniale Form durch Hausstaubmilben: ganzjährige, morgens betonte verstopfte Nase mit Niesen beim Aufstehen, Verschlechterung im Winter bei trockener Heizungsluft, überwiegend Obstruktion statt Niesen',
+          atypisch: true,
+        },
+        {
+          text: 'Komplikationen: rezidivierende Sinusitis mit Druckgefühl über Stirn und Wangen, Polyposis nasi, Tubenventilationsstörung und Otitis media mit Erguss beim Kind, Schlafstörung mit Tagesmüdigkeit',
+          atypisch: true,
+        },
+        {
+          text: 'Nur okuläre Symptome oder nur nasale Obstruktion ohne Niesen („Blocker“ statt „Sneezer/Runner“) — leicht als vasomotorische Rhinitis oder Sinusitis fehlgedeutet',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ARIA-Klassifikation (Allergic Rhinitis and its Impact on Asthma)',
+          inhalt: 'Nach Dauer: intermittierend (Symptome an weniger als 4 Tagen pro Woche ODER kürzer als 4 Wochen) versus persistierend (an mehr als 4 Tagen pro Woche UND länger als 4 Wochen). Nach Schweregrad: leicht (Schlaf, Alltag, Sport, Schule und Beruf nicht beeinträchtigt, Symptome nicht störend) versus mittelschwer bis schwer (mindestens ein Kriterium beeinträchtigt: Schlafstörung, Einschränkung im Alltag, Leistungsminderung in Schule oder Beruf, störende Symptome). Die Kombination steuert die Stufentherapie.',
+        },
+        {
+          name: 'Einteilung nach dem Allergen und dem Zeitmuster',
+          inhalt: 'Saisonal (Pollinosis: Frühblüher Hasel/Erle Februar–März, Birke April, Gräser Mai–Juli, Kräuter wie Beifuß Juli–September), perennial/ganzjährig (Hausstaubmilben, Tierepithelien, Schimmelpilze), beruflich (Mehl, Latex, Tierhaare, Holzstaub). Mischformen mit ganzjähriger Basis und saisonaler Verschlechterung sind häufig.',
+        },
+        {
+          name: 'Symptomprofil „Sneezer/Runner“ versus „Blocker“',
+          inhalt: 'Sneezer/Runner: Niesattacken, wässrige Sekretion, Juckreiz, tagesabhängig, typisch für Pollenallergie und gut auf Antihistaminika ansprechend. Blocker: vorwiegend nasale Obstruktion, dickes Sekret, nachts betont, typisch für Milbenallergie und chronische Formen; hier sind nasale Glukokortikoide überlegen.',
+        },
+        {
+          name: 'Klassifikation der Sensibilisierung (spezifisches IgE, CAP-Klassen)',
+          inhalt: 'Klasse 0 (< 0,35 kU/l, negativ) bis Klasse 6 (> 100 kU/l, sehr hoch). Die Klasse beschreibt die Stärke der Sensibilisierung, NICHT die klinische Relevanz — eine Sensibilisierung ist nur zusammen mit passender Klinik eine Allergie.',
+        },
+      ],
+      redFlags: [
+        'Nächtlicher Husten, Giemen, Engegefühl in der Brust oder Atemnot bei Belastung → beginnendes allergisches Asthma bronchiale, Lungenfunktion und Therapieeskalation',
+        'Akute Atemnot mit Stridor, Schwellung von Lippen, Zunge oder Kehlkopf, Urtikaria, Kreislaufreaktion nach Allergenkontakt oder Nahrungsmittel → Anaphylaxie, Notfalltherapie mit Adrenalin',
+        'Einseitige, blutige oder übelriechende Sekretion → Tumor der Nase oder Nasennebenhöhlen, beim Kind Fremdkörper',
+        'Klare, einseitige, lageabhängige Rhinorrhoe nach Kopftrauma oder Operation → Liquorrhoe (Beta-2-Transferrin bestimmen)',
+        'Hohes Fieber, starke Kopfschmerzen, Lidschwellung, Sehstörung oder Meningismus bei Sinusitis → orbitale oder intrakranielle Komplikation',
+        'Dauerhaft verstopfte Nase trotz Therapie, Geruchsverlust und Analgetikaintoleranz → Polyposis nasi, Samter-Trias',
+        'Täglicher Gebrauch abschwellender Nasentropfen über mehr als 7–10 Tage → Rhinitis medicamentosa mit Abhängigkeitsspirale',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Allergieanamnese mit Zeitmuster als Schlüssel: Wann im Jahr, bei welchem Wetter, drinnen oder draußen, tagsüber oder nachts, Besserung bei Regen und im Urlaub — aus dem Kalender auf das Allergen schließen (Pollenflugkalender). Fragen nach Auslösern (Gräser mähen, Haustiere, Staub, Beruf), Augen- und Bronchialsymptomen (Husten, Giemen, Belastungsdyspnoe = Etagenwechsel), oralem Allergiesyndrom, Atopie in Eigen- und Familienanamnese, Wohnsituation, bisheriger Medikation und Nasentropfengebrauch',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: anteriore Rhinoskopie mit blass-livider, ödematös geschwollener Schleimhaut und klarem, wässrigem Sekret (bei Infekt gerötet und eitrig); Inspektion der Konjunktiven (Rötung, Chemosis), der Haut (Ekzem, Neurodermitis-Stigmata, Dennie-Morgan-Falte, allergische Querfalte am Nasenrücken) und des Rachens; Otoskopie beim Kind (Paukenerguss)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Obligate Lungenauskultation zur Suche nach Giemen und verlängertem Exspirium, Vitalparameter einschließlich Temperatur (kein Fieber bei Allergie); Symptomtagebuch und standardisierte Symptomscores zur Verlaufsbeurteilung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Allergenspezifisches IgE im Serum (CAP-Klassen 0–6) gegen die aus dem Zeitmuster verdächtigen Inhalationsallergene — indiziert, wenn ein Hauttest nicht durchführbar ist (ausgedehnte Hauterkrankung, Antihistaminikaeinnahme, Kleinkind, Anaphylaxierisiko) oder zur Bestätigung; molekulare Allergiediagnostik (z. B. Bet v 1, Phl p 1/5) zur Abgrenzung echter Sensibilisierungen von Kreuzreaktionen vor einer Immuntherapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Gesamt-IgE nur mit begrenzter Aussagekraft (kann bei Atopie erhöht, aber auch normal sein); Blutbild mit Differenzialblutbild (Eosinophilie), Eosinophile im Nasensekret. Merksatz: Ein positiver Test beweist nur eine SENSIBILISIERUNG — erst zusammen mit passender Klinik liegt eine ALLERGIE vor',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Lungenfunktionsprüfung mit Spirometrie (FEV1, FVC, Tiffeneau-Index) und Bronchospasmolysetest (Reversibilität: FEV1-Anstieg ≥ 12 % und ≥ 200 ml) bei jedem Patienten mit Husten, Giemen oder Belastungsdyspnoe; bei normaler Spirometrie unspezifische bronchiale Provokation mit Methacholin zum Nachweis einer bronchialen Hyperreagibilität; ggf. FeNO-Messung als Marker der eosinophilen Atemwegsentzündung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bildgebung ist bei unkomplizierter allergischer Rhinitis NICHT erforderlich; CT der Nasennebenhöhlen nur bei Verdacht auf chronische Sinusitis oder Polyposis nasi, Röntgen-Thorax nur bei atypischem Verlauf oder zur Abklärung eines vermuteten Asthmas mit Differenzialdiagnosen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hautpricktest als Standardverfahren der Allergiediagnostik: Standardreihe der häufigen Inhalationsallergene (Frühblüher, Birke, Gräser, Roggen, Beifuß, Hausstaubmilben, Katze, Hund, Schimmelpilze) mit Histamin als Positiv- und Kochsalz als Negativkontrolle, Ablesung nach 15–20 Minuten, positiv bei Quaddel ≥ 3 mm; Antihistaminika mindestens drei Tage vorher pausieren, Notfallausrüstung bereithalten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nasaler Provokationstest mit dem verdächtigen Allergen (Symptomscore, Rhinomanometrie) bei Diskrepanz zwischen Anamnese und Testergebnis oder vor einer Immuntherapie; konjunktivaler Provokationstest als Alternative',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HNO-ärztliche Vorstellung mit Nasenendoskopie bei Therapieversagen, Verdacht auf Polyposis nasi, Septumdeviation, chronischer Sinusitis, einseitigen oder blutigen Beschwerden',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Infektiöse (virale) Rhinitis, Erkältungsschnupfen',
+          unterscheidung: 'Kurze Dauer von 7–10 Tagen, anfangs wässriges, dann schleimig-eitriges Sekret, Halsschmerzen, Fieber und Abgeschlagenheit, Kontaktpersonen erkrankt, gerötete Schleimhaut; kein Juckreiz, keine Wiederkehr zur gleichen Jahreszeit.',
+        },
+        {
+          dd: 'Akute und chronische Sinusitis',
+          unterscheidung: 'Druck- und Klopfschmerz über Stirn und Wangen, Verstärkung beim Bücken, eitriges Sekret mit Postnasal-Drip, Fieber, Kopfschmerz; chronisch über 12 Wochen mit Hyposmie. Kann als Komplikation der allergischen Rhinitis auftreten.',
+        },
+        {
+          dd: 'Vasomotorische (idiopathische) und nichtallergische Rhinitis',
+          unterscheidung: 'Dauerschnupfen und Obstruktion durch Temperaturwechsel, kalte Luft, Rauch, Gerüche, Stress oder scharfes Essen; kein Juckreiz, keine Konjunktivitis, Pricktest und spezifisches IgE negativ; Beginn meist nach dem 30. Lebensjahr.',
+        },
+        {
+          dd: 'Rhinitis medicamentosa',
+          unterscheidung: 'Sehr häufig! Zunehmende nasale Obstruktion durch Übergebrauch abschwellender Nasentropfen (Xylometazolin, Oxymetazolin) über mehr als 7–10 Tage mit Rebound-Schwellung; Anamnese des Sprühgebrauchs ist entscheidend, oft auf dem Boden einer allergischen Rhinitis.',
+        },
+        {
+          dd: 'Polyposis nasi und Samter-Trias',
+          unterscheidung: 'Beidseitige, therapieresistente Obstruktion mit Geruchsverlust, in der Rhinoskopie glasige Polypen; bei der Samter-Trias zusätzlich Asthma bronchiale und Analgetikaintoleranz gegen Acetylsalicylsäure und NSAR.',
+        },
+        {
+          dd: 'Septumdeviation, Nasenmuschelhyperplasie',
+          unterscheidung: 'Fixierte, meist einseitige Obstruktion ohne Niesen, Juckreiz und Sekretion, ohne saisonale Schwankung; Diagnose durch Rhinoskopie und Endoskopie.',
+        },
+        {
+          dd: 'Hormonelle Rhinitis (Schwangerschaft, Hypothyreose)',
+          unterscheidung: 'Nasale Obstruktion ab dem zweiten Schwangerschaftstrimenon ohne Allergiezeichen, spontane Rückbildung nach der Geburt; bei Hypothyreose mit Müdigkeit, Kälteintoleranz, Gewichtszunahme — TSH bestimmen.',
+        },
+        {
+          dd: 'Fremdkörper beim Kind',
+          unterscheidung: 'Einseitige, eitrige, übelriechende Sekretion beim Kleinkind; Rhinoskopie und Entfernung.',
+        },
+        {
+          dd: 'Liquorrhoe',
+          unterscheidung: 'Klare, einseitige, lageabhängige und beim Bücken zunehmende Rhinorrhoe nach Schädel-Hirn-Trauma oder Nasennebenhöhlenoperation; Nachweis von Beta-2-Transferrin im Sekret.',
+        },
+        {
+          dd: 'Tumor der Nase und Nasennebenhöhlen',
+          unterscheidung: 'Einseitige, progrediente Obstruktion mit blutiger Sekretion, Schmerzen, Gesichtsschwellung oder Doppelbildern, meist höheres Lebensalter und Holzstaubexposition; Endoskopie mit Biopsie, CT/MRT.',
+        },
+        {
+          dd: 'Konjunktivitis anderer Ursache',
+          unterscheidung: 'Virale oder bakterielle Konjunktivitis meist einseitig beginnend mit eitrigem Sekret und verklebten Lidern, ohne Juckreiz; Keratokonjunktivitis sicca mit Fremdkörpergefühl bei älteren Patienten.',
+        },
+        {
+          dd: 'Beginnendes allergisches Asthma bronchiale',
+          unterscheidung: 'Keine Alternative, sondern die entscheidende Begleiterkrankung: Husten, Giemen, Belastungsdyspnoe, nächtliche Symptome; Nachweis durch Spirometrie mit Reversibilität oder Methacholinprovokation.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Allergenkarenz und Aufklärung als Basis',
+          items: [
+            'Bei Pollenallergie: Pollenflugvorhersage und Pollenflugkalender beachten, Fenster bei starkem Pollenflug geschlossen halten (auf dem Land morgens, in der Stadt abends lüften), Pollenschutzgitter am Fenster, abends Haare waschen und Straßenkleidung nicht ins Schlafzimmer nehmen, Sport im Freien an pollenarme Tage oder nach Regen legen, Pollenfilter im Auto, Urlaub in pollenarmen Regionen (Meer, Hochgebirge)',
+            'Bei Hausstaubmilbenallergie: allergendichte Überzüge (Encasing) für Matratze, Kissen und Bettdecke, Bettwäsche bei 60 °C waschen, Verzicht auf Teppiche, Vorhänge und Staubfänger im Schlafzimmer, Luftfeuchtigkeit unter 50 % halten, Schlafzimmer kühl und gut gelüftet, Kuscheltiere regelmäßig einfrieren oder heiß waschen',
+            'Bei Tierhaarallergie: konsequentes Meiden des Tieres — Abschaffung oder zumindest Ausschluss aus dem Schlafzimmer; bei Schimmelpilzallergie Sanierung feuchter Räume; bei beruflicher Allergie Expositionsschutz, ggf. Berufskrankheitenanzeige',
+            'Nasenspülung mit isotoner Kochsalzlösung (Nasendusche) zur Entfernung von Pollen und Sekret, Tragen einer Sonnenbrille im Freien',
+            'Aufklärung über das Krankheitsbild, die Chronizität, den Etagenwechsel zum Asthma und die Warnsymptome (Husten, Giemen, Atemnot); Aufklärung über Kreuzallergien und das orale Allergiesyndrom (Apfel, Haselnuss, Karotte, Steinobst bei Birkenpollenallergie — gekocht meist verträglich) sowie über die Gefahr der Rhinitis medicamentosa',
+          ],
+        },
+        {
+          label: 'Symptomatische Stufentherapie',
+          items: [
+            'Stufe 1 bei leichten oder intermittierenden Beschwerden: nichtsedierende orale Antihistaminika der zweiten Generation — Cetirizin 10 mg, Loratadin 10 mg, Desloratadin 5 mg oder Fexofenadin 120–180 mg einmal täglich, bei Bedarf oder als Dauertherapie während der Saison; alternativ topisch Azelastin- oder Levocabastin-Nasenspray. Die sedierenden Antihistaminika der ersten Generation (Dimetinden, Clemastin) werden wegen Müdigkeit und Fahruntüchtigkeit nicht mehr empfohlen',
+            'Stufe 2 bei mittelschweren bis schweren oder persistierenden Beschwerden: nasale Glukokortikoide als wirksamste Einzeltherapie — Mometason 50 µg (2 Sprühstöße pro Nasenloch einmal täglich), Fluticason oder Budesonid — regelmäßig und nicht nur bei Bedarf, Wirkungseintritt nach Stunden bis Tagen, Wirkmaximum nach ein bis zwei Wochen; richtige Anwendungstechnik (Kopf leicht nach vorne, Sprühstoß nach außen zur Nasenflügelseite, nicht auf das Septum); sie sind bei Langzeitanwendung sicher, die systemische Verfügbarkeit ist minimal — nicht mit systemischem Kortison verwechseln',
+            'Stufe 3 bei unzureichender Kontrolle: Kombination aus nasalem Glukokortikoid und oralem Antihistaminikum oder Kombinationsspray Azelastin/Fluticason; bei begleitendem Asthma Leukotrienrezeptorantagonist Montelukast 10 mg abends',
+            'Bei Konjunktivitis: antihistaminische Augentropfen (Azelastin, Olopatadin, Ketotifen) oder Mastzellstabilisatoren (Cromoglicinsäure, prophylaktisch mehrmals täglich); Nasenspülung mit Kochsalzlösung ergänzend',
+            'Abschwellende Nasentropfen (Xylometazolin, Oxymetazolin) nur kurzzeitig über maximal 5–7 Tage zur Überbrückung einer kompletten Obstruktion — wegen der Rhinitis medicamentosa keine Dauertherapie',
+            'KEINE systemischen Glukokortikoide als Regeltherapie und keine intramuskulären Depotinjektionen (Triamcinolon) wegen der systemischen Nebenwirkungen; ein kurzer oraler Prednisolonstoß über wenige Tage nur ausnahmsweise bei schwerster Exazerbation',
+          ],
+        },
+        {
+          label: 'Spezifische Immuntherapie als einzige kausale Behandlung',
+          items: [
+            'Indikation: nachgewiesene, klinisch relevante IgE-vermittelte Sensibilisierung (Pricktest oder spezifisches IgE passend zur Anamnese), erhebliche Beschwerden über mindestens zwei Saisons trotz Allergenkarenz und symptomatischer Therapie, Alter ab etwa 5 Jahren, hoher Leidensdruck, insbesondere junge Patienten und beginnender Etagenwechsel',
+            'Subkutane Immuntherapie (SCIT): wöchentliche Aufdosierung, dann Erhaltungsdosis alle 4–8 Wochen über 3–5 Jahre beim Allergologen; nach jeder Injektion 30 Minuten Nachbeobachtung in der Praxis, Notfallausrüstung mit Adrenalin bereithalten; Beginn außerhalb der Pollensaison (präsaisonal im Herbst/Winter)',
+            'Sublinguale Immuntherapie (SLIT): tägliche Tablette oder Tropfen zu Hause (Gräser-, Birken- und Milbentabletten zugelassen), erste Einnahme unter ärztlicher Aufsicht mit 30 Minuten Beobachtung, Beginn 3–4 Monate vor der Saison, Dauer 3 Jahre; Vorteil keine Injektionen, Nachteil hohe Anforderung an die tägliche Adhärenz',
+            'Wirkung: dauerhafte Symptomlinderung, Senkung des Medikamentenbedarfs, Verhinderung neuer Sensibilisierungen und Senkung des Risikos für den Etagenwechsel zum Asthma bronchiale um etwa die Hälfte — deshalb beim Kind und jungen Erwachsenen früh erwägen',
+            'Nebenwirkungen und Aufklärung: lokale Reaktionen an der Einstichstelle bzw. Juckreiz und Schwellung im Mund (häufig, harmlos), selten systemische Reaktionen bis zur Anaphylaxie (deshalb Nachbeobachtung, kein Sport und kein Alkohol am Injektionstag); Aufklärung über Dauer, Adhärenz und Unterbrechung bei Infekt, akutem Asthma oder Schwangerschaft',
+            'Kontraindikationen: unkontrolliertes oder schweres Asthma (FEV1 unter 70 %), schwere kardiovaskuläre Erkrankungen, Therapie mit Betablockern (relative Kontraindikation, erschwerte Anaphylaxiebehandlung), aktive Autoimmunerkrankungen, Malignome, Immundefekte; in der Schwangerschaft kein Neubeginn, Fortführung einer gut vertragenen Erhaltungstherapie möglich',
+          ],
+        },
+        {
+          label: 'Verlaufskontrolle, Asthmaüberwachung und Beratung',
+          items: [
+            'Jährliche Überprüfung von Symptomen, Therapieansprechen, Anwendungstechnik der Nasensprays und Medikamentenbedarf, Anpassung der Behandlung an die Saison (Beginn der Dauertherapie 1–2 Wochen vor dem erwarteten Pollenflug)',
+            'Lungenfunktionskontrolle bei jedem Verdacht auf Bronchialsymptome und in regelmäßigen Abständen zur Früherkennung des Asthmas; bei nachgewiesenem Asthma leitliniengerechte Therapie mit inhalativen Glukokortikoiden und Betamimetika und Anbindung an einen Pneumologen',
+            'Berufsberatung bei Jugendlichen und jungen Erwachsenen mit Vermeidung allergenbelasteter Berufe (Bäcker, Landwirt, Tierpfleger, Friseur, Gärtner)',
+            'Beratung zu Sport (im Freien pollenarme Zeiten wählen), Schwangerschaft und Stillzeit (geeignet: Cromoglicin, Loratadin, Cetirizin, nasales Budesonid; keine abschwellenden Nasentropfen), Autofahren (keine sedierenden Antihistaminika)',
+            'Überprüfung auf Kreuzallergien und Nahrungsmittelallergien (bei systemischen Reaktionen Notfallset mit Adrenalin-Autoinjektor), Impfungen nach STIKO einschließlich Influenza bei Asthma, Hinweis auf Symptomtagebuch und Pollen-Apps',
+          ],
+        },
+      ],
+      prognose: 'Die allergische Rhinitis ist eine chronische, in der Regel nicht lebensbedrohliche, aber die Lebensqualität erheblich einschränkende Erkrankung. Bei der Pollinosis nimmt die Symptomstärke im Lauf der Jahrzehnte oft ab; Spontanremissionen kommen bei 10–20 % der Patienten vor. Ohne Behandlung entwickeln 20–40 % der Patienten im Verlauf ein allergisches Asthma bronchiale (Etagenwechsel), und es kommen häufig neue Sensibilisierungen hinzu. Unter symptomatischer Therapie sind die meisten Patienten gut kontrolliert; die spezifische Immuntherapie erreicht bei 70–80 % eine deutliche Besserung, die nach Abschluss der 3–5-jährigen Behandlung über Jahre anhält, senkt den Medikamentenbedarf und halbiert das Asthmarisiko. Entscheidend sind die Früherkennung des Etagenwechsels und die Therapieadhärenz.',
+      pruefungsfallen: [
+        'Die erste Frage ist KALENDARISCH: Aus dem Zeitmuster (Februar Hasel/Erle, April Birke, Mai–Juli Gräser, Spätsommer Beifuß; ganzjährig Milben/Tiere/Schimmel) auf das Allergen schließen — wer nur „Allergie“ sagt, ohne nach Jahreszeit, Wetter, drinnen/draußen und Tag/Nacht zu fragen, hat die Anamnese nicht verstanden.',
+        'Den ETAGENWECHSEL aktiv erfragen: Husten (vor allem nachts), Giemen, Engegefühl, Atemnot bei Belastung. 20–40 % der Unbehandelten entwickeln ein Asthma — die Lungenauskultation und die Lungenfunktion gehören in jede Vorstellung.',
+        'SENSIBILISIERUNG ist nicht gleich ALLERGIE: Ein positiver Pricktest oder ein erhöhtes spezifisches IgE ist nur zusammen mit passender Klinik relevant; das Gesamt-IgE hat eine begrenzte Aussagekraft.',
+        'Die Rhinitis medicamentosa nicht übersehen: Nach abschwellenden Nasentropfen fragen (Dauer, tägliche Anwendung) — mehr als 7–10 Tage führen zur Rebound-Obstruktion; maximal 5–7 Tage verordnen.',
+        'Die alten sedierenden Antihistaminika (Dimetinden, Clemastin) NICHT empfehlen — Müdigkeit, Fahruntüchtigkeit; Standard sind Cetirizin, Loratadin, Desloratadin, Fexofenadin.',
+        'Nasale Glukokortikoide sind die wirksamste Einzeltherapie und sicher — sie werden regelmäßig und nicht bei Bedarf angewendet und sind kein „Kortison“ im Sinne einer systemischen Therapie. Systemische Glukokortikoide und Depotinjektionen sind bei der allergischen Rhinitis KEINE Regeltherapie.',
+        'Die spezifische Immuntherapie ist die EINZIGE kausale Behandlung: Dauer 3–5 Jahre, subkutan oder sublingual, Beginn außerhalb der Saison, 30 Minuten Nachbeobachtung, Anaphylaxierisiko, Kontraindikation unkontrolliertes Asthma und Betablocker — und sie kann den Etagenwechsel verhindern.',
+        'Das orale Allergiesyndrom erfragen — der Patient nennt Kribbeln im Mund nach Apfel oder Haselnuss oft als „Unverträglichkeit“ und stellt den Zusammenhang mit der Birkenpollenallergie nicht her.',
+        'Die Manifestation der Allergie IMMER benennen („Wie äußert sich die Allergie?“): Niesen, Rhinitis, tränende Augen, Juckreiz, Atemnot, Asthmaanfall, Halsödem — die Prüfer verlangen das in jeder Anamnese, auch wenn die Allergie nur Nebenbefund ist.',
+        'Bei Frauen die Atopie-Beratung zu Schwangerschaft und Stillzeit ergänzen (Cromoglicin, Loratadin/Cetirizin, nasales Budesonid; kein Neubeginn der Immuntherapie); sedierende Präparate und abschwellende Tropfen meiden.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Der Patient gibt eine Pollenallergie an — wie äußert sich die Allergie?',
+          antwort: 'Das muss immer konkret benannt werden: als allergische Rhinokonjunktivitis mit Niesattacken, wässrigem Schnupfen, verstopfter Nase, Juckreiz in Nase und Augen und tränenden Augen; bei manchen Patienten zusätzlich mit Husten, Engegefühl in der Brust oder Atemnot als Zeichen eines Etagenwechsels, selten mit Halsödem oder Urtikaria. Dazu gehört die Angabe der Saison und der bisherigen Behandlung, zum Beispiel Cetirizin 10 mg bei Bedarf.',
+        },
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine saisonale allergische Rhinokonjunktivitis, also eine Pollinosis. Dafür sprechen die Niesattacken mit wässriger Rhinorrhoe, die nasale Obstruktion, der Juckreiz von Nase und Augen, das Fehlen von Fieber und eitrigem Sekret, die Dauer über Wochen mit Wiederkehr im Frühjahr, die Besserung bei Regen und im Urlaub sowie die atopische Eigen- und Familienanamnese.',
+        },
+        {
+          frage: 'Wie schließen Sie aus dem Zeitpunkt der Beschwerden auf das Allergen?',
+          antwort: 'Über den Pollenflugkalender: Beschwerden ab Februar sprechen für Frühblüher wie Hasel und Erle, im April für Birke, von Mai bis Juli für Gräser und Roggen, im Spätsommer für Kräuter wie Beifuß. Ganzjährige Beschwerden mit Betonung in der Nacht, morgens und im Winter sprechen für Hausstaubmilben, Beschwerden nach Tierkontakt für Tierepithelien, in feuchten Räumen für Schimmelpilze.',
+        },
+        {
+          frage: 'Was verstehen Sie unter dem Etagenwechsel, und warum ist er wichtig?',
+          antwort: 'Das Übergreifen der allergischen Entzündung von der oberen auf die untere Etage der Atemwege — von der Nase auf die Bronchien — mit Entwicklung eines allergischen Asthma bronchiale. Er tritt bei 20 bis 40 Prozent der unbehandelten Patienten auf. Deshalb frage ich nach Husten, Giemen und Belastungsdyspnoe, auskultiere die Lunge, veranlasse eine Lungenfunktion und erwäge früh eine spezifische Immuntherapie, die den Etagenwechsel verhindern kann.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die infektiöse Rhinitis, die akute und chronische Sinusitis, die vasomotorische und andere nichtallergische Rhinitiden, die Rhinitis medicamentosa durch Nasentropfen, die Polyposis nasi mit Samter-Trias, eine Septumdeviation, die hormonelle Rhinitis in Schwangerschaft oder bei Hypothyreose, beim Kind ein Fremdkörper, nach Trauma eine Liquorrhoe, bei einseitiger blutiger Sekretion ein Tumor sowie ein beginnendes Asthma bronchiale als Begleiterkrankung.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die allergische Rhinitis vom Erkältungsschnupfen?',
+          antwort: 'Beim Schnupfen besteht ein kurzer Verlauf von etwa einer Woche mit anfangs wässrigem, dann eitrigem Sekret, Halsschmerzen, Fieber und Krankheitsgefühl, oft mit erkrankten Kontaktpersonen. Bei der Allergie fehlt das Fieber, das Sekret bleibt klar, es besteht Juckreiz, die Beschwerden halten über Wochen an, kehren jedes Jahr zur gleichen Zeit wieder und bessern sich bei Regen und im Urlaub.',
+        },
+        {
+          frage: 'Welche Diagnostik veranlassen Sie?',
+          antwort: 'Eine ausführliche Allergieanamnese mit Zeitmuster, Rhinoskopie, Inspektion der Konjunktiven und der Haut sowie Lungenauskultation. Als Standard der Allergiediagnostik den Hautpricktest mit den häufigen Inhalationsallergenen, alternativ oder ergänzend das spezifische IgE im Serum, bei Diskrepanz eine nasale Provokation. Bei bronchialen Symptomen eine Spirometrie mit Bronchospasmolysetest, gegebenenfalls eine Methacholinprovokation. Eine Bildgebung ist nur bei Komplikationen nötig.',
+        },
+        {
+          frage: 'Was bedeutet ein positiver Pricktest — hat der Patient dann eine Allergie?',
+          antwort: 'Nein, nicht zwangsläufig. Ein positiver Test beweist eine Sensibilisierung, also das Vorhandensein spezifischer IgE-Antikörper. Von einer Allergie spricht man erst, wenn die Sensibilisierung mit passenden klinischen Beschwerden einhergeht. Viele Menschen sind sensibilisiert, ohne Symptome zu haben; deshalb ist die Anamnese entscheidend, und im Zweifel wird eine nasale Provokation durchgeführt.',
+        },
+        {
+          frage: 'Wann bestimmen Sie das spezifische IgE anstelle des Pricktests?',
+          antwort: 'Wenn der Hauttest nicht durchführbar oder nicht verwertbar ist: bei ausgedehnter Hauterkrankung wie Neurodermitis oder Urtikaria, bei laufender Antihistaminikaeinnahme, die nicht pausiert werden kann, beim Kleinkind, bei erhöhtem Anaphylaxierisiko oder bei Dermographismus. Außerdem vor einer Immuntherapie zur molekularen Abgrenzung von Kreuzreaktionen.',
+        },
+        {
+          frage: 'Wie behandeln Sie die allergische Rhinitis?',
+          antwort: 'Stufenweise: Basis sind Allergenkarenz und Aufklärung. Bei leichten Beschwerden nichtsedierende Antihistaminika wie Cetirizin oder Loratadin, bei mittelschweren bis schweren Beschwerden regelmäßig ein nasales Glukokortikoid wie Mometason als wirksamste Einzeltherapie, bei Bedarf kombiniert; antihistaminische Augentropfen bei Konjunktivitis; abschwellende Nasentropfen nur wenige Tage. Bei relevanter Sensibilisierung und erheblichen Beschwerden die spezifische Immuntherapie als einzige kausale Therapie.',
+        },
+        {
+          frage: 'Warum sind die alten Antihistaminika nicht mehr empfohlen?',
+          antwort: 'Antihistaminika der ersten Generation wie Dimetinden oder Clemastin sind lipophil, überwinden die Blut-Hirn-Schranke und führen zu Sedierung, Müdigkeit, Konzentrationsstörungen und Fahruntüchtigkeit; außerdem wirken sie anticholinerg. Die zweite Generation — Cetirizin, Loratadin, Desloratadin, Fexofenadin — ist praktisch nicht sedierend und einmal täglich wirksam.',
+        },
+        {
+          frage: 'Erklären Sie die spezifische Immuntherapie. Wie lange dauert sie, und worüber klären Sie auf?',
+          antwort: 'Bei der Hyposensibilisierung wird das Allergen in steigender Dosis subkutan gespritzt oder täglich sublingual als Tablette gegeben, um eine Immuntoleranz zu erreichen. Sie dauert drei bis fünf Jahre, beginnt außerhalb der Pollensaison, und nach jeder Injektion bleibt der Patient 30 Minuten zur Beobachtung. Ich kläre über Lokalreaktionen, seltene systemische Reaktionen bis zur Anaphylaxie, die Notwendigkeit der konsequenten Adhärenz und die Kontraindikationen wie unkontrolliertes Asthma und Betablocker auf. Sie lindert die Beschwerden dauerhaft, senkt den Medikamentenbedarf und kann den Etagenwechsel verhindern.',
+        },
+        {
+          frage: 'Der Patient benutzt seit Wochen täglich Nasenspray — was ist das Problem?',
+          antwort: 'Abschwellende Nasensprays mit Xylometazolin führen bei Anwendung über mehr als sieben bis zehn Tage zu einer Rhinitis medicamentosa: Nach Abklingen der Wirkung schwillt die Schleimhaut reaktiv stärker an, der Patient sprüht erneut, und es entsteht eine Abhängigkeitsspirale mit Schleimhautschädigung. Das Spray muss ausgeschlichen oder abgesetzt und durch ein nasales Glukokortikoid ersetzt werden.',
+        },
+        {
+          frage: 'Der Patient berichtet über Kribbeln im Mund nach Äpfeln — was ist das?',
+          antwort: 'Ein orales Allergiesyndrom durch Kreuzreaktion: Das Birkenpollenhauptallergen Bet v 1 ähnelt Proteinen in Apfel, Haselnuss, Karotte und Steinobst. Die Beschwerden sind auf Lippen, Mund und Rachen begrenzt und treten nach rohem Obst auf; gekocht sind die Proteine meist zerstört und verträglich. Systemische Reaktionen sind selten, der Patient sollte die auslösenden rohen Nahrungsmittel meiden.',
+        },
+        {
+          frage: 'Was empfehlen Sie einer schwangeren Patientin mit Heuschnupfen?',
+          antwort: 'Allergenkarenz und Nasenspülungen als Basis; medikamentös Cromoglicin-Augentropfen und -Nasenspray, bei Bedarf Loratadin oder Cetirizin und als nasales Glukokortikoid Budesonid, für die alle ausreichend Erfahrung vorliegt. Abschwellende Nasentropfen und sedierende Antihistaminika sollten gemieden werden; eine Immuntherapie wird in der Schwangerschaft nicht neu begonnen, eine gut vertragene Erhaltungstherapie kann fortgeführt werden.',
+        },
+      ],
+      merksatz: 'Niesen, klare Nase, Juckreiz, Augen — ohne Fieber, jedes Jahr zur gleichen Zeit: Aus dem Kalender das Allergen lesen, nach Husten und Giemen fragen (Etagenwechsel bei 20–40 %), Pricktest plus Klinik (Sensibilisierung ist nicht Allergie), Antihistaminikum und nasales Kortikoid — und die Immuntherapie als einzige kausale Behandlung, die den Weg zum Asthma versperrt.',
+      linkedCaseIds: [
+        'case-allergische-rhinitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-ct',
+      ],
+    },
+    {
+      id: 'fw-typhus',
+      pathology: 'Typhus abdominalis',
+      specialty: 'Infektiologie',
+      definition: 'Der Typhus abdominalis ist eine zyklische, systemische Infektionskrankheit durch Salmonella enterica Serovar Typhi (der mildere Paratyphus durch die Serovare Paratyphi A, B, C). Die Übertragung erfolgt fäkal-oral über kontaminiertes Wasser und Lebensmittel; der Mensch ist das einzige Reservoir. Die Erreger dringen im terminalen Ileum über die Peyer-Plaques ein, vermehren sich in den Mesenteriallymphknoten und streuen über die Blutbahn in Leber, Milz, Knochenmark und Gallenblase. In Deutschland ist der Typhus mit etwa 50 bis 90 Fällen pro Jahr fast ausschließlich eine importierte Reisekrankheit, vor allem nach Aufenthalten in Südasien (Indien, Pakistan, Bangladesch, Nepal), seltener in Südostasien, Afrika und Lateinamerika. Bereits der Verdacht ist nach dem Infektionsschutzgesetz meldepflichtig.',
+      aetiologie: 'Erreger: Salmonella enterica Serovar Typhi, gramnegatives, begeißeltes Stäbchen mit Vi-Kapselantigen; Paratyphus durch S. Paratyphi A, B, C. Infektionsdosis etwa 10^5 Keime, geringer bei verminderter Magensäure (Protonenpumpenhemmer, Zustand nach Magenresektion). Quellen: fäkal verunreinigtes Trinkwasser, Eiswürfel, rohe oder unzureichend erhitzte Speisen (Salate, ungeschältes Obst, Straßenverkauf, Meeresfrüchte), selten direkter Kontakt zu Erkrankten oder Dauerausscheidern. Inkubationszeit meist 1 bis 3 Wochen (Spanne 3 bis 60 Tage), abhängig von der Erregermenge. Pathogenese: Invasion der Peyer-Plaques im terminalen Ileum, Bakteriämie mit Befall des retikuloendothelialen Systems, Besiedlung der Gallenblase mit erneuter Ausscheidung in den Darm — daraus erklären sich der zyklische Verlauf, die Ulzerationen der Peyer-Plaques (Blutung, Perforation in der dritten Woche) und das Dauerausscheidertum, besonders bei Gallensteinen.',
+      risikofaktoren: [
+        'Reise in Endemiegebiete, allen voran Südasien (Indien, Pakistan, Bangladesch, Nepal), ferner Südostasien, Subsahara-Afrika, Lateinamerika',
+        'Besuch von Freunden und Familie im Herkunftsland (VFR-Reisende): längere Aufenthalte, lokale Ernährung, seltener geimpft, unterschätztes Risiko',
+        'Fehlende oder abgelaufene Typhusimpfung (Schutz nur etwa 50 bis 80 Prozent, kein Schutz gegen Paratyphus)',
+        'Trinken von Leitungs- oder Brunnenwasser, Eiswürfel, Straßenverkauf, rohe Salate und ungeschältes Obst, einfache Unterkünfte',
+        'Verminderte Magensäure: Protonenpumpenhemmer, Antazida, Zustand nach Magenoperation',
+        'Kontakt zu Erkrankten oder zu Dauerausscheidern im Haushalt, beruflicher Umgang mit Lebensmitteln',
+        'Immunsuppression, HIV-Infektion, Sichelzellanämie, Kinder und ältere Menschen (schwererer Verlauf)',
+        'Gallensteine als Voraussetzung für das chronische Ausscheidertum',
+      ],
+      klinik: [
+        {
+          text: 'Stadium I (erste Woche, Stadium incrementi): staffelförmig, treppenartig ansteigendes Fieber, Kopfschmerz, Abgeschlagenheit, Glieder- und Bauchschmerzen, trockener Husten',
+        },
+        {
+          text: 'Beim Erwachsenen anfangs häufig OBSTIPATION statt Durchfall — eine Leitfrage des Prüfers',
+        },
+        {
+          text: 'Stadium II (zweite Woche, Stadium fastigii): Fieber als Kontinua um 40 °C, das kaum schwankt (Tagesschwankung unter 1 °C)',
+        },
+        {
+          text: 'RELATIVE BRADYKARDIE (Faget-Zeichen): der Puls ist für die Fieberhöhe zu langsam — Faustregel: pro Grad Fieber über 37 °C wären etwa 10 Schläge mehr zu erwarten',
+        },
+        {
+          text: 'Benommenheit, Apathie, Somnolenz bis zum Delir (griechisch typhos = Nebel), Kopfschmerz; belegte, graugelbe Zunge mit freien roten Rändern (Typhuszunge)',
+        },
+        {
+          text: 'Splenomegalie, Hepatomegalie, aufgetriebenes, meteoristisches und diffus druckschmerzhaftes Abdomen',
+        },
+        {
+          text: 'Roseolen: blassrote, 2 bis 4 mm große, wegdrückbare Flecken an Bauch und Stamm, nur bei etwa einem Drittel der Patienten und nur bei heller Haut sichtbar',
+        },
+        {
+          text: 'Stadium III (dritte Woche, Stadium decrementi): erbsbreiartige, gelbgrüne Durchfälle; Gefahr von Darmblutung und Darmperforation durch Ulzeration der Peyer-Plaques',
+        },
+        {
+          text: 'Stadium IV (ab der vierten Woche): lytische Entfieberung, Rekonvaleszenz über Wochen; Rezidive bei 5 bis 10 Prozent, meist zwei bis drei Wochen nach Therapieende',
+        },
+        {
+          text: 'Leukopenie mit Eosinopenie trotz schwerer bakterieller Infektion — sehr charakteristisch',
+        },
+        {
+          text: 'Milder, kürzerer Verlauf ohne klassische Stadien unter unvollständiger Antibiotikavortherapie oder beim Paratyphus',
+          atypisch: true,
+        },
+        {
+          text: 'Manifestation als Pneumonie, Meningitis, Myokarditis oder Osteomyelitis (bei Sichelzellanämie) ohne führende Darmsymptome',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kindern von Beginn an Durchfall und Erbrechen statt Obstipation; Fieberkrämpfe',
+          atypisch: true,
+        },
+        {
+          text: 'Chronischer Dauerausscheider: beschwerdefrei, aber über Monate bis lebenslang infektiös, meist mit Gallensteinen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Stadieneinteilung des klassischen Verlaufs',
+          inhalt: 'Stadium incrementi (1. Woche): treppenförmiger Fieberanstieg, Kopfschmerz, Obstipation, trockener Husten. Stadium fastigii (2. Woche): Fieberkontinua um 40 °C, relative Bradykardie, Benommenheit, Roseolen, Splenomegalie. Stadium decrementi (3. Woche): erbsbreiartige Durchfälle, Komplikationsgipfel mit Darmblutung und Perforation. Stadium der Rekonvaleszenz (ab 4. Woche): lytische Entfieberung, Rezidivgefahr.',
+        },
+        {
+          name: 'Einteilung nach Schweregrad (WHO)',
+          inhalt: 'Unkomplizierter Typhus: Fieber ohne Organkomplikation, orale Therapie (Azithromycin) möglich. Komplizierter/schwerer Typhus: Enzephalopathie, Darmblutung, Perforation, Myokarditis, Schock — stationär, intravenöses Ceftriaxon bzw. Carbapenem, bei Enzephalopathie oder Schock zusätzlich Dexamethason.',
+        },
+        {
+          name: 'Resistenzkategorien von S. Typhi',
+          inhalt: 'MDR (multiresistent): resistent gegen Ampicillin, Chloramphenicol und Cotrimoxazol. Fluorchinolon-resistent (in Südasien verbreitet, über 90 Prozent der Isolate vermindert empfindlich). XDR (extensiv resistent, seit 2016 v. a. Pakistan): zusätzlich resistent gegen Fluorchinolone und Drittgenerations-Cephalosporine — nur noch Azithromycin und Carbapeneme wirksam.',
+        },
+        {
+          name: 'Meldepflicht nach Infektionsschutzgesetz',
+          inhalt: '§ 6 IfSG: namentliche Meldung von Verdacht, Erkrankung und Tod durch den Arzt innerhalb von 24 Stunden. § 7 IfSG: Meldung des Erregernachweises durch das Labor. § 42 IfSG: Tätigkeitsverbot im Lebensmittelbereich für Erkrankte, Verdächtige und Ausscheider. § 34 IfSG: Betreuungs- und Besuchsverbot in Gemeinschaftseinrichtungen.',
+        },
+      ],
+      redFlags: [
+        'Jedes Fieber nach Tropenaufenthalt: Malaria bis zum Beweis des Gegenteils — dicker Tropfen und Ausstrich sofort, unabhängig vom Typhusverdacht',
+        'Plötzlicher, heftiger Bauchschmerz, Abwehrspannung, brettharter Bauch, Tachykardie mit Fieberabfall → Darmperforation mit Peritonitis, chirurgischer Notfall',
+        'Blutiger oder teerartiger Stuhl, Hb-Abfall, Kreislaufinstabilität → Darmblutung aus ulzerierten Peyer-Plaques',
+        'Somnolenz, Delir, Meningismus, Krampfanfall → Typhus-Enzephalopathie oder Meningitis',
+        'Hypotonie, Oligurie, Laktatanstieg, Tachypnoe → Sepsis mit Schock',
+        'Thoraxschmerz, Rhythmusstörung, Troponinanstieg → Myokarditis',
+        'Sprunghafter Pulsanstieg bei bisher relativer Bradykardie → Warnzeichen für Blutung oder Perforation',
+        'Erneuter Fieberanstieg zwei bis drei Wochen nach Therapieende → Rezidiv',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Reiseanamnese als Schlüssel: wohin, wann, wie lange, Art der Unterkunft, Wasser und Essen (Leitungswasser, Eis, Straßenverkauf), Rückreisedatum, Malariaprophylaxe mit Präparat und Einnahmetreue, Impfstatus (Typhus, Hepatitis A, Gelbfieber), Kontaktpersonen mit Fieber, Sexualkontakte',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fieberverlauf ordnen: treppenförmiger Anstieg, dann Kontinua ohne Schwankung; Obstipation vor Durchfall, trockener Husten, Kopfschmerz, Benommenheit',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Temperatur und PULS im Vergleich (relative Bradykardie), Bewusstsein und Orientierung, Haut mit Roseolen an Bauch und Stamm, belegte Zunge, aufgetriebenes druckschmerzhaftes Abdomen, Milz und Leber, Meningismus, Auskultation von Herz und Lunge',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Malaria-Ausschluss als ALLERERSTES: dicker Tropfen und dünner Ausstrich, ggf. Antigen-Schnelltest — bei negativem Befund dreimalige Wiederholung im Abstand von 12 bis 24 Stunden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen, mindestens zwei bis drei Paare, VOR der ersten Antibiotikagabe — wichtigste Nachweismethode, Trefferquote 60 bis 80 Prozent in der ersten Woche, danach abnehmend',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Stuhl- und Urinkulturen ab der zweiten bis dritten Woche (Nachweis in etwa 30 bis 40 Prozent), Knochenmarkkultur als empfindlichste Methode (über 90 Prozent, auch unter Antibiose) in Sonderfällen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild: Leukopenie oder normale Leukozyten trotz schwerer bakterieller Infektion, Eosinopenie bis Aneosinophilie, Linksverschiebung, mäßige Anämie und Thrombozytopenie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CRP erhöht, Procalcitonin, Transaminasen und LDH mäßig erhöht, Elektrolyte (Hyponatriämie), Kreatinin, Laktat, Gerinnung, Blutzucker; Blutgruppe und Kreuzblut bei Blutungsverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erweiterte Differenzialdiagnostik nach Reiseziel: Dengue-NS1-Antigen und Serologie, HIV-Test, Hepatitis-Serologie, Blutkulturen auf andere Erreger; die alte Widal-Serologie ist unzuverlässig und wird nicht mehr empfohlen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Abdomens: Splenomegalie, Hepatomegalie, verdickte Ileumwand, mesenteriale Lymphknoten, Gallenblase (Steine, Wandverdickung), freie Flüssigkeit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Abdomen im Stehen oder Linksseitenlage bzw. CT des Abdomens bei Perforationsverdacht (freie Luft); Röntgen-Thorax bei Husten zur Abgrenzung einer Pneumonie; EKG und Echokardiographie bei Myokarditisverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Antibiogramm des Isolats einschließlich Fluorchinolon-, Cephalosporin- und Azithromycin-Empfindlichkeit — entscheidet über die Therapie; Lumbalpunktion bei Meningismus',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nach Therapieende Kontroll-Stuhlkulturen (drei negative Proben im Abstand von mindestens 24 Stunden, frühestens 48 Stunden nach Antibiotikaende) zum Ausschluss des Dauerausscheidertums',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Malaria (immer zuerst ausschließen)',
+          unterscheidung: 'Lebensbedrohlich und rasch progredient; Fieber oft unregelmäßig oder rhythmisch mit Schüttelfrost, Hämolyse, Thrombozytopenie, Ikterus, keine Roseolen, keine relative Bradykardie. Nachweis im dicken Tropfen und Ausstrich — bei jedem Fieber nach Tropenreise als Erstes, unabhängig vom Typhusverdacht. Cave: Malaria und Typhus können gleichzeitig vorliegen.',
+        },
+        {
+          dd: 'Denguefieber',
+          unterscheidung: 'Kurze Inkubation von 4 bis 7 Tagen, abrupter Beginn, starke Kopf-, Retroorbital- und Gliederschmerzen (Knochenbrecherfieber), makulopapulöses Exanthem, Thrombozytopenie, kurzer biphasischer Verlauf; NS1-Antigen positiv.',
+        },
+        {
+          dd: 'Nichttyphoide Salmonellen-Gastroenteritis',
+          unterscheidung: 'Durchfall und Erbrechen stehen von Beginn an im Vordergrund, kurze Inkubation von Stunden bis 3 Tagen, selbstlimitierend nach wenigen Tagen, selten systemisch — kein treppenförmiges Fieber, keine Bradykardie.',
+        },
+        {
+          dd: 'Bakterielle Ruhr und blutige Diarrhö (Shigellen, Campylobacter, EHEC, Amöbenruhr)',
+          unterscheidung: 'Blutig-schleimige Durchfälle mit Tenesmen von Anfang an; Typhus führt erst in der dritten Woche zu Erbsbreistühlen, Blut bedeutet dort eine Komplikation.',
+        },
+        {
+          dd: 'Amöbenleberabszess',
+          unterscheidung: 'Fieber mit rechtsseitigem Oberbauchschmerz, Leukozytose, sonographisch Abszess; Serologie positiv.',
+        },
+        {
+          dd: 'Virale Hepatitis A oder E',
+          unterscheidung: 'Ikterus, dunkler Urin, deutlich erhöhte Transaminasen im dreistelligen Bereich; Fieber klingt mit Ikterusbeginn ab.',
+        },
+        {
+          dd: 'Rickettsiosen, Leptospirose, Brucellose',
+          unterscheidung: 'Rickettsiose: Zeckenbiss, Eschar, Exanthem. Leptospirose: Süßwasserkontakt, Konjunktivitis, Myalgien, Nierenbeteiligung. Brucellose: rohe Milch, undulierendes Fieber, Arthritis.',
+        },
+        {
+          dd: 'HIV-Primoinfektion',
+          unterscheidung: 'Sexualkontakte auf Reisen, Mononukleose-ähnliches Bild mit Pharyngitis, Lymphknoten und Exanthem; HIV-Test mit Antigen.',
+        },
+        {
+          dd: 'Influenza und COVID-19 nach Reise',
+          unterscheidung: 'Respiratorische Symptome führen, Kontakt, kurzer Verlauf; Antigen- oder PCR-Test.',
+        },
+        {
+          dd: 'Pneumonie',
+          unterscheidung: 'Produktiver Husten, Dyspnoe, Rasselgeräusche, Infiltrat im Röntgen — beim Typhus ist der Husten trocken und das Röntgen meist unauffällig.',
+        },
+        {
+          dd: 'Tuberkulose, viszerale Leishmaniose, Lymphom',
+          unterscheidung: 'Wochen- bis monatelanger Verlauf mit B-Symptomatik, Nachtschweiß, Gewichtsverlust, Lymphknoten und Splenomegalie.',
+        },
+        {
+          dd: 'Endokarditis und Sepsis anderer Ursache',
+          unterscheidung: 'Herzgeräusch, Embolien, positive Blutkulturen mit anderem Erreger; Tachykardie statt Bradykardie.',
+        },
+        {
+          dd: 'Morbus Crohn, Appendizitis',
+          unterscheidung: 'Bei rechtsseitigem Unterbauchschmerz und Ileumbeteiligung; Reiseanamnese und Blutkultur entscheiden.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Stationäre Aufnahme, Antibiotikatherapie und Überwachung',
+          items: [
+            'Aufnahme bei jedem gesicherten oder hochgradig verdächtigen Fall; Einzelzimmer mit Kontaktisolierung und strikter Stuhl- und Händehygiene, keine gemeinsame Toilette',
+            'Blutkulturen und Malariadiagnostik VOR der ersten Antibiotikagabe abnehmen',
+            'Kalkulierte Therapie: CEFTRIAXON 2 g i.v. einmal täglich als Erstwahl, weil in Südasien und zunehmend in Afrika verbreitet Fluorchinolonresistenz besteht',
+            'AZITHROMYCIN 500 mg bis 1 g oral einmal täglich über 7 Tage als Alternative beim unkomplizierten Verlauf oder bei XDR-Stämmen',
+            'Fluorchinolone (Ciprofloxacin 2 × 500 mg) nur bei nachgewiesener Empfindlichkeit; Carbapeneme (Meropenem) bei extensiver Resistenz oder schwerem Verlauf',
+            'Anpassung nach Antibiogramm; Gesamtdauer 10 bis 14 Tage, Entfieberung erst nach 3 bis 5 Tagen zu erwarten — kein vorzeitiger Wechsel',
+            'Überwachung von Fieber, Puls, Bewusstsein und Abdomen mehrmals täglich; Flüssigkeits- und Elektrolytersatz, Fiebersenkung mit Paracetamol, leichte Kost, Thromboseprophylaxe',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Erkennen und Behandeln der Komplikationen',
+          items: [
+            'Darmperforation (akutes Abdomen, freie Luft): sofortige chirurgische Vorstellung, Laparotomie mit Übernähung oder Segmentresektion, Breitspektrumantibiose mit Anaerobierwirkung',
+            'Darmblutung: Transfusion, Kreislaufstabilisierung, Endoskopie, bei Persistenz Operation',
+            'Schwerer Verlauf mit Enzephalopathie oder Schock: zusätzlich hochdosiertes Dexamethason (3 mg/kg initial, dann 1 mg/kg alle 6 Stunden über 48 Stunden)',
+            'Intensivmedizinische Behandlung der Sepsis, Myokarditis, Meningitis, Pneumonie; Osteomyelitis mit verlängerter Antibiose',
+            'Rezidiv (5 bis 10 Prozent, zwei bis drei Wochen nach Therapieende): erneute Blutkultur und Wiederaufnahme der Antibiose',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Infektionsschutz, Meldung und Nachsorge des Ausscheidertums',
+          items: [
+            'MELDUNG an das Gesundheitsamt bereits bei Verdacht (§ 6 IfSG), Labormeldung des Erregernachweises (§ 7 IfSG)',
+            'Beratung und Untersuchung der Kontaktpersonen (Stuhlkulturen bei Haushaltskontakten), Hände- und Stuhlhygiene im Haushalt, keine Zubereitung von Speisen für andere',
+            'Kontroll-Stuhlkulturen nach Therapieende: drei negative Proben im Abstand von mindestens 24 Stunden zum Ausschluss des Dauerausscheidertums (2 bis 5 Prozent)',
+            'TÄTIGKEITSVERBOT nach § 42 IfSG für Beschäftigte im Lebensmittelbereich und nach § 34 IfSG in Gemeinschaftseinrichtungen bis zum Nachweis der Erregerfreiheit',
+            'Dauerausscheider: Sanierungsversuch mit Ciprofloxacin über 4 Wochen (bei Empfindlichkeit) bzw. Azithromycin; bei Gallensteinen CHOLEZYSTEKTOMIE',
+          ],
+        },
+        {
+          label: 'Prävention und Reiseberatung',
+          items: [
+            'Reisemedizinische Beratung VOR Reisen in Endemiegebiete, ausdrücklich auch für Menschen, die Familie im Herkunftsland besuchen',
+            'TYPHUSIMPFUNG: parenteral inaktiviert (Vi-Polysaccharid, Schutz etwa 3 Jahre) oder oral lebend (Ty21a, drei Kapseln, kürzerer Schutz); Schutzwirkung 50 bis 80 Prozent, kein Schutz gegen Paratyphus, Auffrischung nach etwa ein bis drei Jahren je nach Impfstoff',
+            'Wasser- und Lebensmittelhygiene: cook it, boil it, peel it or forget it — abgekochtes oder verschlossenes Wasser, keine Eiswürfel, kein Straßenverkauf, keine rohen Salate',
+            'Aufklärung, dass die Impfung die Hygienemaßnahmen nicht ersetzt und dass jedes Fieber nach einer Reise sofort ärztlich abgeklärt werden muss',
+            'Malariaprophylaxe nach aktueller Resistenzlage (Atovaquon/Proguanil, Doxycyclin oder Mefloquin) und Impfstatus (Hepatitis A, Gelbfieber) mitbesprechen',
+          ],
+        },
+      ],
+      prognose: 'Unbehandelt beträgt die Letalität bis zu 20 Prozent, unter rechtzeitiger Antibiotikatherapie unter 1 Prozent. Die Entfieberung tritt erst 3 bis 5 Tage nach Therapiebeginn ein; die Rekonvaleszenz dauert Wochen. Rezidive bei 5 bis 10 Prozent, chronisches Ausscheidertum bei 2 bis 5 Prozent, vor allem bei Frauen über 50 mit Gallensteinen. Die Prognose hängt entscheidend von der frühen Diagnose (Reiseanamnese, Blutkulturen) und der Resistenzlage ab; XDR-Stämme erhöhen die Komplikationsrate.',
+      pruefungsfallen: [
+        'Malaria wird IMMER zuerst ausgeschlossen — dicker Tropfen und Ausstrich gehören in jede Antwort auf Fieber nach Tropenreise, unabhängig davon, wie typisch der Typhus wirkt.',
+        'Blutkulturen VOR der ersten Antibiotikagabe abnehmen, mehrfach — die Trefferquote ist in der ersten Woche am höchsten und sinkt unter Antibiose drastisch.',
+        'Die Impfung schließt den Typhus nicht aus: Schutz nur 50 bis 80 Prozent, zeitlich begrenzt, kein Schutz gegen Paratyphus — in Stuttgart wörtlich gefragt.',
+        'Beim Erwachsenen anfangs OBSTIPATION, nicht Durchfall; Erbsbreistühle erst in der zweiten bis dritten Woche. Blutiger Durchfall spricht primär für Shigellen, Amöben, EHEC oder Campylobacter.',
+        'Die Leukopenie ist typisch — eine bakterielle Sepsis mit normalen oder erniedrigten Leukozyten und Eosinopenie muss an Typhus denken lassen.',
+        'Die relative Bradykardie aktiv messen und benennen (Puls im Vergleich zur Temperatur), nicht nur aufzählen.',
+        'Die erste und gefährlichste Komplikation ist die Darmblutung bzw. Darmperforation in der dritten Woche — chirurgischer Notfall.',
+        'Meldepflicht bereits bei VERDACHT (§ 6 IfSG), nicht erst bei Erregernachweis; Tätigkeitsverbot im Lebensmittelbereich (§ 42 IfSG).',
+        'Fluorchinolone sind wegen der Resistenzlage in Südasien nicht mehr die kalkulierte Erstwahl — Ceftriaxon nennen, Azithromycin als Alternative.',
+        'Widal-Serologie nicht als Diagnostikum anbieten — unzuverlässig, nicht mehr empfohlen.',
+        'Der trockene Husten gehört zum Typhus; eine Pneumonie ist DD und Komplikation zugleich — Röntgen-Thorax anordnen.',
+        'Malariaprophylaxe präzise erfragen: welches Präparat, wie lange, wie regelmäßig, bis wann nach der Rückkehr; Chloroquin allein schützt in Afrika nicht mehr.',
+        'Reiseanamnese niemals auslassen — in Stuttgart wurde ein Kandidat mit „War der Patient im Ausland?“ sofort darauf gestoßen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und wie kommen Sie dahin?',
+          antwort: 'Typhus abdominalis. Dafür sprechen Fieber nach einem Aufenthalt in einem Endemiegebiet mit passender Inkubationszeit, der treppenförmige Anstieg mit anschließender Kontinua, die relative Bradykardie, Kopfschmerz und Benommenheit, der trockene Husten, die anfängliche Obstipation, Bauchschmerzen und Splenomegalie sowie eine Leukopenie mit Eosinopenie im Labor. Als Erstes muss jedoch eine Malaria ausgeschlossen werden.',
+        },
+        {
+          frage: 'Welchen diagnostischen Test und welche Therapie schlagen Sie vor?',
+          antwort: 'Dicker Tropfen und Ausstrich zum Malariaausschluss, dann mehrere Blutkulturen vor Antibiotikagabe als wichtigste Nachweismethode, ergänzend Stuhl- und Urinkulturen, Blutbild, CRP, Leberwerte, Elektrolyte, Sonographie des Abdomens. Therapie: stationäre Aufnahme mit Isolierung, Ceftriaxon 2 g intravenös einmal täglich, alternativ Azithromycin oral, Anpassung nach Antibiogramm über 10 bis 14 Tage, Meldung an das Gesundheitsamt.',
+        },
+        {
+          frage: 'Warum Typhus, wenn der Patient dagegen geimpft ist?',
+          antwort: 'Die Typhusimpfung schützt nur zu etwa 50 bis 80 Prozent, ihr Schutz lässt nach ein bis drei Jahren nach, und sie schützt nicht gegen Salmonella Paratyphi. Eine Impfung schließt die Erkrankung daher nie aus.',
+        },
+        {
+          frage: 'Wie lang ist die Inkubationszeit des Typhus?',
+          antwort: 'In der Regel ein bis drei Wochen, je nach Erregermenge zwischen drei und 60 Tagen.',
+        },
+        {
+          frage: 'Was ist die erste beziehungsweise wichtigste Komplikation?',
+          antwort: 'Die Darmblutung und die Darmperforation durch Ulzerationen der Peyer-Plaques im terminalen Ileum, typischerweise in der dritten Krankheitswoche, mit Peritonitis — ein chirurgischer Notfall. Weitere Komplikationen: Myokarditis, Pneumonie, Meningitis, Osteomyelitis, Enzephalopathie, Sepsis und das Dauerausscheidertum.',
+        },
+        {
+          frage: 'Woran denken Sie, wenn der Patient auch Husten hat?',
+          antwort: 'Der trockene Husten gehört zum Anfangsstadium des Typhus. Differenzialdiagnostisch an eine Pneumonie, Influenza oder COVID-19 nach der Reise, außerdem kann eine Pneumonie eine Komplikation des Typhus sein — deshalb Auskultation und Röntgen-Thorax.',
+        },
+        {
+          frage: 'Was wäre Ihre Diagnose bei blutiger Diarrhö?',
+          antwort: 'Dann eher eine Shigellose, Amöbenruhr, EHEC- oder Campylobacter-Infektion. Beim Typhus tritt der erbsbreiartige Durchfall erst in der zweiten bis dritten Woche nach anfänglicher Obstipation auf; Blut im Stuhl bedeutet dort die Komplikation Darmblutung.',
+        },
+        {
+          frage: 'Wo ist Malaria häufig, und warum müssen Sie sie zuerst ausschließen?',
+          antwort: 'In Subsahara-Afrika, Südasien, Südostasien, Ozeanien und Südamerika. Die Malaria tropica kann innerhalb von Stunden bis Tagen tödlich verlaufen; deshalb bei jedem Fieber nach Tropenreise sofort dicker Tropfen und Ausstrich, bei negativem Befund Wiederholung.',
+        },
+        {
+          frage: 'Was sind B-Symptome, und hat der Patient sie?',
+          antwort: 'Fieber, Nachtschweiß und ungewollter Gewichtsverlust von mehr als 10 Prozent in sechs Monaten. Beim Typhus bestehen Fieber, Nachtschweiß und ein akuter Gewichtsverlust, doch der kurze Verlauf spricht gegen ein Lymphom; bei wochenlangem Verlauf wären Tuberkulose, Lymphom und viszerale Leishmaniose abzugrenzen.',
+        },
+        {
+          frage: 'Kann der Patient im Wartebereich mit anderen Patienten sitzen?',
+          antwort: 'Nein. Bei Verdacht auf eine fäkal-oral übertragbare Erkrankung wird der Patient getrennt untergebracht, mit eigener Toilette, Händedesinfektion und Kontaktisolierung; die Übertragung erfolgt nicht über die Luft, aber über Stuhlkontakt.',
+        },
+        {
+          frage: 'Was ist ein Dauerausscheider, und was folgt daraus?',
+          antwort: 'Ein Patient, der nach Ausheilung den Erreger länger als ein Jahr über die Gallenblase mit dem Stuhl ausscheidet, meist bei Gallensteinen. Er ist beschwerdefrei, aber infektiös: Tätigkeitsverbot im Lebensmittelbereich, Sanierung mit einer langen Antibiotikatherapie und bei Gallensteinen Cholezystektomie.',
+        },
+        {
+          frage: 'Ist der Typhus meldepflichtig?',
+          antwort: 'Ja, nach § 6 IfSG bereits bei Verdacht, ebenso Erkrankung und Tod, namentlich innerhalb von 24 Stunden an das Gesundheitsamt; das Labor meldet den Erregernachweis nach § 7.',
+        },
+        {
+          frage: 'Warum ist die Wahl des Antibiotikums schwierig?',
+          antwort: 'Weil die Resistenzlage regional sehr unterschiedlich ist: In Südasien sind Fluorchinolone weitgehend unwirksam, und aus Pakistan werden extensiv resistente Stämme berichtet, die auch gegen Ceftriaxon resistent sind. Deshalb kalkuliert Ceftriaxon intravenös, Azithromycin als Alternative, Carbapeneme bei XDR, immer angepasst an das Antibiogramm.',
+        },
+      ],
+      merksatz: 'Fieber nach der Reise: erst Malaria ausschließen, dann Blutkulturen VOR dem Antibiotikum. Typhus = Treppenfieber, dann Kontinua mit zu langsamem Puls, Obstipation vor Erbsbrei, Leukopenie trotz Sepsis. Ceftriaxon statt Ciprofloxacin, Meldung schon bei Verdacht, und am Ende drei negative Stühle gegen den Dauerausscheider.',
+      linkedCaseIds: [
+        'case-typhus',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+        'auf-blutentnahme',
+      ],
+    },
+    {
+      id: 'fw-obstipation',
+      pathology: 'Chronische funktionelle Obstipation',
+      specialty: 'Gastroenterologie',
+      definition: 'Die chronische Obstipation ist eine subjektiv unbefriedigende Stuhlentleerung, die nach den ROM-IV-Kriterien definiert wird: mindestens zwei der folgenden Merkmale bei mehr als einem Viertel der Stuhlgänge über die letzten drei Monate, Symptombeginn vor mindestens sechs Monaten — weniger als drei Stuhlentleerungen pro Woche, harter oder klumpiger Stuhl (Bristol-Typ 1–2), starkes Pressen, Gefühl der unvollständigen Entleerung, Gefühl der anorektalen Blockade und manuelle Hilfe zur Entleerung. Von einer funktionellen (primären) Obstipation spricht man erst, wenn sekundäre Ursachen — Medikamente, endokrin-metabolische, neurologische und mechanische Ursachen, insbesondere ein Kolonkarzinom — ausgeschlossen sind. Die Vorstellung des Patienten von „normal“ weicht oft stark von der Definition ab; deshalb wird konkret nach Frequenz, Konsistenz und Mühe gefragt, nicht nach „Verstopfung“.',
+      aetiologie: 'Die funktionelle Obstipation entsteht aus dem Zusammenspiel von ballaststoffarmer Ernährung, geringer Trinkmenge, Bewegungsmangel, unterdrücktem Stuhldrang und einer verlangsamten Kolonmotilität; sie wird in die Normal-Transit-Obstipation (häufigste Form), die Slow-Transit-Obstipation (verlängerte Kolontransitzeit, meist jüngere Frauen) und die Entleerungsstörung durch Beckenbodendyssynergie (Anismus: paradoxe Kontraktion des Beckenbodens beim Pressen) eingeteilt. Sekundäre Ursachen müssen vorher systematisch abgefragt werden: MEDIKAMENTE als häufigste Ursache (Opioide, Anticholinergika, trizyklische Antidepressiva, Kalziumantagonisten, Eisen-, Kalzium- und Aluminiumpräparate, Diuretika, Antipsychotika, Antiparkinsonmittel, Ondansetron), endokrin-metabolische Ursachen (Hypothyreose, Diabetes mellitus mit autonomer Neuropathie, Hyperkalzämie, Hypokaliämie, Schwangerschaft), neurologische Ursachen (Morbus Parkinson, Multiple Sklerose, Querschnittlähmung, autonome Neuropathie, Demenz), mechanische Ursachen (Kolonkarzinom, entzündliche oder divertikulitische Stenose, Rektozele, Analfissur und Hämorrhoiden mit schmerzbedingter Stuhlretention) sowie psychosoziale Faktoren (Depression, Essstörung, Missbrauchsanamnese). Beim alten Menschen kommen Immobilität, Multimedikation, Exsikkose und Demenz hinzu.',
+      risikofaktoren: [
+        'Höheres Lebensalter, Immobilität und Bettlägerigkeit',
+        'Weibliches Geschlecht (funktionelle Formen, Beckenbodenschwäche nach Geburten)',
+        'Ballaststoffarme Ernährung (Fertiggerichte, wenig Obst, Gemüse und Vollkorn) und geringe Trinkmenge',
+        'Bewegungsmangel und sitzende Tätigkeit',
+        'Obstipierende Medikamente: Opioide, Anticholinergika, trizyklische Antidepressiva, Kalziumantagonisten, Eisen, Kalzium, Aluminiumhaltige Antazida, Diuretika, Antipsychotika',
+        'Langjährige Laxanzieneinnahme in Selbstmedikation',
+        'Hypothyreose, Diabetes mellitus, Hyperkalzämie, Hypokaliämie',
+        'Neurologische Erkrankungen: Morbus Parkinson, Multiple Sklerose, Querschnitt, Demenz',
+        'Depression, Essstörung, chronisches Unterdrücken des Stuhldrangs',
+        'Analfissur und Hämorrhoiden (Angst vor dem Schmerz führt zur Stuhlretention)',
+        'Schwangerschaft',
+      ],
+      klinik: [
+        {
+          text: 'Seltene Stuhlentleerung: weniger als drei Stuhlgänge pro Woche, oft nur alle drei bis vier Tage',
+        },
+        {
+          text: 'Harter, klumpiger Stuhl (Bristol-Stuhlformenskala Typ 1–2)',
+        },
+        {
+          text: 'Starkes Pressen, langes Sitzen auf der Toilette',
+        },
+        {
+          text: 'Gefühl der unvollständigen Entleerung oder der Blockade im Enddarm',
+        },
+        {
+          text: 'Völlegefühl, Blähungen, dumpfes Druckgefühl im linken Unterbauch, das nach dem Stuhlgang nachlässt',
+        },
+        {
+          text: 'Langjähriger, schleichender Verlauf, häufig mit Laxanzien in Selbstmedikation',
+        },
+        {
+          text: 'Hellrotes Blut auf dem Toilettenpapier durch Hämorrhoiden oder Analfissur nach starkem Pressen — muss dennoch abgeklärt werden',
+        },
+        {
+          text: 'Bei Beckenbodendyssynergie: manuelle Hilfe zur Entleerung, Gefühl der Blockade trotz weichem Stuhl, Versagen der Laxanzien',
+        },
+        {
+          text: 'Koprostase mit paradoxer Diarrhoe (Überlaufdiarrhoe) beim alten oder bettlägerigen Patienten — täuscht einen Durchfall vor',
+          atypisch: true,
+        },
+        {
+          text: 'Subileus oder Ileus mit Erbrechen, aufgetriebenem Abdomen und Stuhlverhalt als Komplikation der Koprostase',
+          atypisch: true,
+        },
+        {
+          text: 'Stuhlinkontinenz als Folge einer Impaktion mit Überlauf',
+          atypisch: true,
+        },
+        {
+          text: 'Verwirrtheit, Unruhe oder Harnverhalt als einziges Zeichen der Koprostase beim dementen Patienten',
+          atypisch: true,
+        },
+        {
+          text: 'Wechsel von Obstipation und Durchfall mit Bleistiftstühlen — Warnzeichen für eine stenosierende Neoplasie',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ROM-IV-Kriterien der funktionellen Obstipation',
+          inhalt: 'Mindestens zwei der folgenden sechs Kriterien bei mehr als 25 % der Stuhlgänge über die letzten drei Monate, Beginn der Beschwerden vor mindestens sechs Monaten: (1) weniger als drei spontane Stuhlentleerungen pro Woche, (2) harter oder klumpiger Stuhl (Bristol 1–2), (3) starkes Pressen, (4) Gefühl der unvollständigen Entleerung, (5) Gefühl der anorektalen Blockade, (6) manuelle Hilfe zur Entleerung. Zusätzlich: weicher Stuhl nur selten ohne Laxanzien und die Kriterien eines Reizdarmsyndroms sind nicht erfüllt (kein führender Bauchschmerz).',
+        },
+        {
+          name: 'Bristol-Stuhlformenskala',
+          inhalt: 'Typ 1: einzelne harte Kügelchen, schwer auszuscheiden. Typ 2: wurstförmig, klumpig. Typ 3: wurstförmig mit rissiger Oberfläche. Typ 4: wurstförmig, glatt und weich (Ideal). Typ 5: weiche Klümpchen mit klaren Rändern. Typ 6: breiig, flockig. Typ 7: wässrig, ohne feste Bestandteile. Typ 1–2 bedeuten Obstipation, Typ 6–7 Diarrhoe.',
+        },
+        {
+          name: 'Pathophysiologische Einteilung der funktionellen Obstipation',
+          inhalt: 'Normal-Transit-Obstipation (häufigste Form, normale Transitzeit, subjektiv harter Stuhl und Pressen, gutes Ansprechen auf Ballaststoffe und osmotische Laxanzien). Slow-Transit-Obstipation (verlängerte Kolontransitzeit über 72 Stunden im Markertest, geringer Stuhldrang, oft Versagen der Ballaststoffe, Prokinetika erwägen). Entleerungsstörung/Beckenbodendyssynergie (Anismus: paradoxe Kontraktion des Beckenbodens beim Pressen, Nachweis mit anorektaler Manometrie und Ballonexpulsionstest, Therapie mit Biofeedback statt mit Laxanzien). Mischformen sind häufig.',
+        },
+        {
+          name: 'Einteilung nach Ursache',
+          inhalt: 'Primäre (funktionelle) Obstipation nach Ausschluss sekundärer Ursachen. Sekundäre Obstipation: medikamentös (Opioide, Anticholinergika, Trizyklika, Kalziumantagonisten, Eisen), endokrin-metabolisch (Hypothyreose, Diabetes, Hyperkalzämie, Hypokaliämie, Schwangerschaft), neurologisch (Parkinson, MS, Querschnitt), mechanisch-obstruktiv (Kolonkarzinom, Stenose, Rektozele), anal (Fissur, Hämorrhoiden), psychiatrisch (Depression, Anorexie).',
+        },
+      ],
+      redFlags: [
+        'Beginn oder deutliche Änderung der Stuhlgewohnheiten nach dem 50. Lebensjahr',
+        'Blut im oder auf dem Stuhl, Teerstuhl, positiver Stuhltest auf okkultes Blut',
+        'Ungewollter Gewichtsverlust, Inappetenz, Leistungsknick',
+        'Anämie oder Eisenmangel',
+        'Familienanamnese für Kolonkarzinom oder Polypen (Verwandte ersten Grades)',
+        'Bleistiftstühle, Wechsel von Obstipation und Durchfall (paradoxe Diarrhoe bei Stenose)',
+        'Nächtliche Beschwerden, die den Patienten aus dem Schlaf wecken',
+        'Tastbare Resistenz im Abdomen oder im Rektum, Fieber',
+        'Kurze Anamnese mit rascher Verschlechterung',
+        'Erbrechen, aufgetriebenes Abdomen, Stuhl- und Windverhalt → Ileus (Notfall)',
+        'Neu aufgetretene neurologische Ausfälle, Blasenstörung, Reithosenanästhesie → Cauda-Syndrom',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Stuhlanamnese: Frequenz pro Woche, Konsistenz nach der Bristol-Skala, Pressen, Gefühl der unvollständigen Entleerung oder Blockade, manuelle Hilfe, Dauer und Beginn, Laxanzieneinnahme mit Präparat und Häufigkeit; Stuhltagebuch über zwei Wochen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Abfrage der Red Flags: Beginn oder Änderung nach dem 50. Lebensjahr, Blut im Stuhl, Gewichtsverlust, Anämiezeichen, Familienanamnese für Kolonkarzinom und Polypen, Bleistiftstühle, Wechsel mit Durchfall, nächtliche Beschwerden, Fieber',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suche nach sekundären Ursachen: vollständige Medikamentenanamnese einschließlich frei verkäuflicher Mittel (Opioide, Trizyklika, Anticholinergika, Kalziumantagonisten, Eisen, Kalzium, Antazida, Diuretika), Vorerkrankungen (Hypothyreose, Diabetes, Parkinson, Depression), Ernährung, Trinkmenge, Bewegung, unterdrückter Stuhldrang, psychosoziale Belastung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Abdomen mit Inspektion, Auskultation, Palpation (Resistenz, tastbare Stuhlwalzen im linken Unterbauch, Meteorismus), Schilddrüse, Hautturgor; Vitalparameter, Gewicht und BMI',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Digital-rektale Untersuchung — obligat: Stuhlimpaktion, Rektumtumor, Analfissur, Hämorrhoiden, Blut am Fingerling, Sphinktertonus, paradoxe Kontraktion des Beckenbodens beim Pressen, Rektozele',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild, Eisen und Ferritin (Eisenmangelanämie als Karzinomhinweis), TSH (Hypothyreose), Kalzium (Hyperkalzämie), Kalium (Hypokaliämie), Nüchternblutzucker/HbA1c, Kreatinin, CRP',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Immunologischer Stuhltest auf okkultes Blut (iFOBT) — ein positiver Test verlangt die Koloskopie; ein negativer Test schließt ein Karzinom bei Red Flags NICHT aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie bei tastbarer Resistenz, unklarem Befund oder Verdacht auf Koprostase (stuhlgefülltes Kolon, Raumforderung, freie Flüssigkeit); Röntgen-Abdomen im Stehen nur bei Verdacht auf Ileus (Spiegelbildung)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koloskopie bei ALLEN Red Flags, bei Beginn oder Änderung der Beschwerden nach dem 50. Lebensjahr und im Rahmen der Darmkrebsvorsorge — beim jungen Patienten ohne Warnzeichen ist zunächst KEINE weitere Diagnostik nötig, sondern ein Therapieversuch',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Erweiterte Funktionsdiagnostik nur bei Therapieversagen: Kolontransitzeit mit röntgendichten Markern (Hinton-Test, Slow-Transit bei Retention von über 20 % der Marker nach fünf Tagen), anorektale Manometrie und Ballonexpulsionstest (Beckenbodendyssynergie), Defäkographie bzw. MR-Defäkographie (Rektozele, Intussuszeption)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Kolorektales Karzinom',
+          unterscheidung: 'Die Differenzialdiagnose, um die sich alles dreht: neu aufgetretene oder geänderte Stuhlgewohnheiten nach dem 50. Lebensjahr, Blut im Stuhl, Bleistiftstühle, paradoxe Diarrhoe, Gewichtsverlust, Eisenmangelanämie, positive Familienanamnese, tastbare Resistenz. Ausschluss nur durch die komplette Koloskopie mit Biopsie — Tumormarker (CEA) schließen ein Karzinom nicht aus.',
+        },
+        {
+          dd: 'Reizdarmsyndrom vom Obstipationstyp (IBS-C)',
+          unterscheidung: 'Bauchschmerz steht im Vordergrund und ist mit der Defäkation verknüpft (Besserung nach dem Stuhlgang), Wechsel von Konsistenz und Frequenz, Blähungen; jüngere Patienten, keine Red Flags, normales Labor. Bei der funktionellen Obstipation fehlt der führende Schmerz.',
+        },
+        {
+          dd: 'Medikamentös induzierte Obstipation',
+          unterscheidung: 'Zeitlicher Zusammenhang mit Beginn oder Dosissteigerung von Opioiden, Trizyklika, Anticholinergika, Kalziumantagonisten, Eisen, Diuretika, Antipsychotika; Besserung nach Absetzen oder Umstellung. Häufigste sekundäre Ursache.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Müdigkeit, Kälteintoleranz, Gewichtszunahme, trockene Haut, Bradykardie, Haarausfall; TSH erhöht, fT4 erniedrigt. Obstipation bessert sich unter Substitution.',
+        },
+        {
+          dd: 'Hyperkalzämie / Hypokaliämie',
+          unterscheidung: 'Hyperkalzämie: Polyurie, Polydipsie, Übelkeit, Müdigkeit, Nierensteine (Hyperparathyreoidismus, Tumor). Hypokaliämie: Muskelschwäche, Adynamie, unter Diuretika oder Laxanzienabusus. Nachweis im Labor.',
+        },
+        {
+          dd: 'Diabetes mellitus mit autonomer Neuropathie',
+          unterscheidung: 'Langjähriger, schlecht eingestellter Diabetes mit weiteren autonomen Zeichen (Gastroparese, orthostatische Hypotonie, Blasenstörung, erektile Dysfunktion); HbA1c erhöht.',
+        },
+        {
+          dd: 'Morbus Parkinson und andere neurologische Ursachen',
+          unterscheidung: 'Obstipation oft Jahre vor den motorischen Symptomen; Rigor, Tremor, Bradykinese, kleinschrittiger Gang. Multiple Sklerose, Querschnitt und Cauda-Syndrom mit Sensibilitätsstörung und Blasenstörung.',
+        },
+        {
+          dd: 'Divertikelkrankheit mit Stenose',
+          unterscheidung: 'Bekannte Divertikulose, rezidivierende linksseitige Unterbauchschmerzen mit Fieber und CRP-Anstieg (Divertikulitis-Schübe), narbige Stenose mit Wechsel von Obstipation und Diarrhoe; Nachweis in CT und Koloskopie im Intervall.',
+        },
+        {
+          dd: 'Stenose bei chronisch entzündlicher Darmerkrankung (Morbus Crohn)',
+          unterscheidung: 'Jüngere Patienten, Bauchschmerzen, Durchfall in der Vorgeschichte, Gewichtsverlust, Fisteln, extraintestinale Manifestationen; Calprotectin, Koloskopie mit Biopsie, MR-Enterographie.',
+        },
+        {
+          dd: 'Analfissur und Hämorrhoiden',
+          unterscheidung: 'Stechender Schmerz bei und nach der Defäkation, hellrotes Blut auf dem Papier oder dem Stuhl; die Angst vor dem Schmerz führt zum Zurückhalten des Stuhls und verstärkt die Obstipation. Diagnose durch Inspektion und Proktoskopie — Blutung dennoch nie ungeprüft den Hämorrhoiden zuschreiben.',
+        },
+        {
+          dd: 'Beckenbodendyssynergie (Anismus) und Rektozele',
+          unterscheidung: 'Entleerungsstörung: Gefühl der Blockade trotz weichem Stuhl, manuelle Hilfe, Versagen der Laxanzien; paradoxe Kontraktion beim Pressen in der rektalen Untersuchung, Nachweis mit Manometrie und Ballonexpulsionstest. Therapie mit Biofeedback.',
+        },
+        {
+          dd: 'Depression und Essstörung',
+          unterscheidung: 'Gedrückte Stimmung, Antriebsverlust, Inappetenz, Schlafstörung; bei Anorexia nervosa Untergewicht und Laxanzienabusus. Zusätzlich obstipierende Wirkung der Antidepressiva.',
+        },
+        {
+          dd: 'Koprostase mit paradoxer Diarrhoe und Ileus beim alten Menschen',
+          unterscheidung: 'Bettlägerigkeit, Demenz, Opioide; harte Stuhlmassen in der Ampulle, Überlaufdiarrhoe, aufgetriebenes Abdomen, Erbrechen, Verwirrtheit. Rektale Untersuchung und Abdomenübersicht.',
+        },
+        {
+          dd: 'Megakolon und Morbus Hirschsprung',
+          unterscheidung: 'Beim Kind bzw. Jugendlichen: Obstipation seit der Geburt, verzögerter Mekoniumabgang, massiv erweitertes Kolon; Rektumbiopsie mit fehlenden Ganglienzellen. Beim Erwachsenen sehr selten.',
+        },
+        {
+          dd: 'Schwangerschaft',
+          unterscheidung: 'Bei jeder Frau im gebärfähigen Alter mit neuer Obstipation an Progesteronwirkung und Eisensubstitution denken; Schwangerschaftstest.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Behandlung der Ursache und Beseitigung der Auslöser',
+          items: [
+            'Obstipierende Medikamente absetzen, umstellen oder reduzieren, wo immer möglich: trizyklische Antidepressiva auf ein SSRI umstellen, Kalziumantagonisten durch einen ACE-Hemmer oder Sartan ersetzen, Eisen- und Kalziumpräparate überprüfen, Anticholinergika hinterfragen',
+            'Endokrin-metabolische Ursachen einstellen: Hypothyreose substituieren, Diabetes optimieren, Hyperkalzämie und Hypokaliämie ausgleichen, Exsikkose beheben',
+            'Analfissur und Hämorrhoiden behandeln (Stuhlregulierung, Lokaltherapie, Sitzbäder, Nitrat- oder Kalziumantagonisten-Salbe), damit die Angst vor dem Schmerz nicht zur Stuhlretention führt',
+            'Bei jeder Opioidtherapie prophylaktische Laxanziengabe von Anfang an (Macrogol); bei opioidinduzierter Obstipation trotz Laxanzien peripher wirksame Opioidantagonisten (Naloxegol, Methylnaltrexon) oder das Kombinationspräparat Oxycodon/Naloxon',
+            'Mechanische Ursachen kausal behandeln: Kolonkarzinom onkologisch-chirurgisch, Stenose bei Divertikulitis oder Morbus Crohn je nach Befund',
+          ],
+        },
+        {
+          label: 'Basismaßnahmen, Aufklärung und Verhaltenstherapie',
+          items: [
+            'Aufklärung und Entängstigung: Es droht keine „Vergiftung“ durch zurückgehaltenen Stuhl, und nicht jeder Tag ist ein Stuhlgang nötig — drei Stuhlgänge pro Woche bis drei pro Tag sind normal',
+            'Ballaststoffe LANGSAM über zwei bis drei Wochen auf 25 bis 30 g pro Tag steigern (Vollkorn, Obst, Gemüse, Leinsamen, Flohsamenschalen) — Cave: zu rasche Steigerung verursacht Blähungen',
+            'Ausreichende Flüssigkeit von 1,5 bis 2 Litern täglich, denn Ballaststoffe ohne Wasser verschlimmern die Obstipation (bei Herz- oder Niereninsuffizienz anpassen)',
+            'Regelmäßige körperliche Aktivität: tägliches Gehen, Treppen, Gymnastik — besonders beim alten und immobilen Patienten Mobilisation',
+            'Stuhlgangstraining: feste Toilettenzeit nach dem Frühstück zur Nutzung des gastrokolischen Reflexes, Stuhldrang nie unterdrücken, ausreichend Zeit, richtige Haltung mit Fußbank (Hockposition), kein übermäßiges Pressen',
+            'Bauchmassage im Uhrzeigersinn entlang des Kolonverlaufs, warme Getränke am Morgen',
+            'Ehrlicher Hinweis: Bei der ausgeprägten Slow-Transit-Obstipation reichen Ballaststoffe und Bewegung oft nicht aus — dann ist eine medikamentöse Dauertherapie kein Versagen, sondern die richtige Behandlung',
+          ],
+        },
+        {
+          label: 'Medikamentöse Stufentherapie mit Aufklärung über die Sicherheit',
+          items: [
+            'Stufe 1 — osmotische Laxanzien: Macrogol (Polyethylenglykol 3350/4000) 1–3 Beutel täglich als Mittel der ersten Wahl, in angepasster Dosis und als DAUERTHERAPIE zulässig; Laktulose 10–20 g täglich als Alternative (Cave Blähungen); Magnesiumsalze bei normaler Nierenfunktion',
+            'Stufe 2 — stimulierende Laxanzien: Bisacodyl 5–10 mg oder Natriumpicosulfat 5–10 Tropfen abends, bei Bedarf oder als niedrig dosierte Dauertherapie ebenfalls langfristig anwendbar — die verbreitete Angst vor „Gewöhnung“ und „Darmschädigung“ ist bei sachgerechter Anwendung unbegründet und muss dem Patienten genommen werden',
+            'Quellstoffe: Flohsamenschalen 2–3 × 5 g oder Leinsamen — immer mit reichlich Flüssigkeit, sonst Verschlechterung bis zur Impaktion',
+            'Stufe 3 — bei Therapieversagen: Prokinetikum Prucaloprid (5-HT4-Agonist) 2 mg täglich, ab 65 Jahren 1 mg; Sekretagoga wie Linaclotid bei Reizdarm mit Obstipation',
+            'Rektale Maßnahmen bei Entleerungsstörung: Bisacodyl- oder Glycerin-Zäpfchen, CO2-bildende Zäpfchen, Klistiere (Sorbit, Natriumphosphat — Cave Niereninsuffizienz)',
+            'Koprostase: zunächst Einlauf bzw. Klistier, bei Impaktion manuelle Ausräumung, anschließend Macrogol in hoher Dosis (Movicol-Schema) und Rezidivprophylaxe',
+            'Vermeiden: Paraffinöl (Aspirationsgefahr, Malabsorption fettlöslicher Vitamine) und Anthrachinone (Senna, Aloe) als Dauertherapie (Pseudomelanosis coli, Hypokaliämie)',
+          ],
+        },
+        {
+          label: 'Behandlung der Sonderformen, Verlaufskontrolle und Vorsorge',
+          items: [
+            'Beckenbodendyssynergie: Biofeedback-Training als wirksamste Maßnahme (Erfolg bei 60–70 %), Physiotherapie des Beckenbodens, Entspannungsverfahren — Laxanzien helfen hier nicht',
+            'Operative Verfahren nur in Ausnahmefällen: bei ausgeprägter symptomatischer Rektozele (Rektozelenkorrektur, STARR-Operation) oder bei therapierefraktärer, funktionsdiagnostisch gesicherter Slow-Transit-Obstipation (subtotale Kolektomie mit ileorektaler Anastomose); sakrale Nervenstimulation als Option',
+            'Obstipation beim alten und pflegebedürftigen Patienten: Mobilisation, ausreichende Trinkmenge, Toilettenstuhl statt Steckbecken, Medikamentenliste durchforsten, fester Laxanzienplan (Macrogol als Basis, rektale Maßnahmen bei Bedarf)',
+            'Regelmäßige Verlaufskontrolle von Wirkung, Dosis, Stuhltagebuch und neu aufgetretenen Red Flags; Dosis anpassen statt Präparate stapeln',
+            'Teilnahme an der Darmkrebsvorsorge ab dem 50. Lebensjahr unabhängig von der Obstipation: Vorsorgekoloskopie (Männer ab 50, Frauen ab 55) bzw. jährlicher iFOBT ab 50',
+            'Psychosomatische Mitbehandlung bei Depression, Essstörung oder Missbrauchsanamnese',
+          ],
+        },
+      ],
+      prognose: 'Die funktionelle Obstipation ist eine chronische, aber gutartige Erkrankung mit guter Symptomkontrolle unter Basismaßnahmen und einer korrekt dosierten, gegebenenfalls dauerhaften Laxanzientherapie; sie verkürzt das Leben nicht. Die Lebensqualität kann jedoch erheblich leiden, und Komplikationen wie Koprostase, Überlaufdiarrhoe, Stuhlinkontinenz, Hämorrhoiden, Analfissur und Ileus treten vor allem beim alten, immobilen oder dementen Patienten auf. Entscheidend für die Prognose ist nicht die Obstipation selbst, sondern das Nicht-Übersehen einer sekundären Ursache — insbesondere eines Kolonkarzinoms bei Patienten über 50 Jahren mit Warnzeichen. Die Beckenbodendyssynergie spricht auf Biofeedback in 60–70 % der Fälle an; die schwere Slow-Transit-Obstipation bleibt oft therapieresistent.',
+      pruefungsfallen: [
+        '„Verstopfung“ ist kein Befund: konkret nach Frequenz pro Woche, Konsistenz (Bristol-Skala), Pressen und Entleerungsgefühl fragen — ein Prüfer in Stuttgart wollte bei „drei Mal pro Woche“ ausdrücklich wissen, ob das nach der Definition (unter drei pro Woche) überhaupt eine Obstipation ist.',
+        'Die Red Flags müssen ohne Zögern aufgezählt werden: Beginn oder Änderung nach dem 50. Lebensjahr, Blut im Stuhl, Gewichtsverlust, Anämie, Familienanamnese, Bleistiftstühle, paradoxe Diarrhoe, nächtliche Beschwerden, Resistenz, Fieber, kurze rasch progrediente Anamnese.',
+        'Blut am Toilettenpapier NIE ungeprüft den Hämorrhoiden zuschreiben — beim Patienten über 50 ist die Koloskopie obligat, auch wenn Hämorrhoiden tastbar sind. Beides kann gleichzeitig vorliegen.',
+        'Die digital-rektale Untersuchung ist obligat und wird in Karlsruhe und Stuttgart regelmäßig abgefragt (Stuhlimpaktion, Tumor, Fissur, Hämorrhoiden, Sphinktertonus, paradoxe Kontraktion).',
+        'Medikamente sind die häufigste sekundäre Ursache — die Medikamentenliste durchgehen und die Laxanzien in Selbstmedikation aktiv erfragen (Dulcolax, Laxoberal, pflanzliche Abführmittel, Flohsamen, Zäpfchen); der Prüfer in Reutlingen griff genau diese Zeile heraus.',
+        'Bei Divertikulitis und Kolonkarzinom nach dem „paradoxen Stuhlgang“ fragen: Wechsel von Obstipation und Diarrhoe durch eine Stenose — in Stuttgart und Karlsruhe abgefragt.',
+        'Tumormarker (CEA) schließen ein Karzinom NICHT aus und eignen sich nicht zur Diagnose, nur zur Verlaufskontrolle — Goldstandard ist die komplette Koloskopie bis zum Zökum bzw. terminalen Ileum.',
+        'Zwei Irrtümer aktiv widerlegen: Ballaststoffe reichen nicht immer (Slow-Transit), und Laxanzien sind bei sachgerechter Anwendung NICHT gefährlich — Macrogol ist als Dauertherapie zulässig; „Gewöhnung“ und „Darmschädigung“ sind Mythen.',
+        'Ballaststoffe ohne ausreichende Flüssigkeit verschlimmern die Obstipation bis zur Impaktion — Flohsamen nur mit 1,5–2 Litern täglich.',
+        'Beim jungen Patienten ohne Warnzeichen ist zunächst KEINE Koloskopie nötig — Therapieversuch zuerst; beim Patienten über 50 ist sie unabhängig von der Obstipation als Vorsorge indiziert.',
+        'Bei der Beckenbodendyssynergie helfen Laxanzien nicht — Biofeedback ist die Therapie der Wahl; Laxanzienabusus kann selbst eine Diarrhoe und eine Hypokaliämie verursachen (Frage in Stuttgart bei Divertikulitis).',
+        'Beim alten oder dementen Patienten mit „Durchfall“ an die Koprostase mit Überlaufdiarrhoe denken — rektal untersuchen, bevor man ein Antidiarrhoikum gibt.',
+        'Fachbegriffe sicher übersetzen: Obstipation = Verstopfung, Laxans/Laxativum = Abführmittel, Hämatochezie = Blutstuhl/hellrotes Blut im Stuhl, Meläna = Teerstuhl, Defäkation = Stuhlentleerung, Koprostase = Kotstauung, Meteorismus = Blähbauch, Tenesmen = schmerzhafter Stuhldrang.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Der Patient hat drei Mal pro Woche Stuhlgang und der letzte war vor drei Tagen — ist das eine Obstipation?',
+          antwort: 'Nach der Definition liegt eine Obstipation bei weniger als drei Stuhlentleerungen pro Woche vor; drei Stuhlgänge pro Woche sind objektiv gerade noch normal. Entscheidend sind aber auch die anderen ROM-IV-Kriterien: harter Stuhl, starkes Pressen, das Gefühl der unvollständigen Entleerung oder der Blockade. Subjektiv empfindet der Patient es als Verstopfung, deshalb frage ich konkret nach Konsistenz und Mühe, nicht nur nach der Häufigkeit.',
+        },
+        {
+          frage: 'Welche Warnzeichen sprechen bei einer Obstipation für ein Kolonkarzinom?',
+          antwort: 'Beginn oder deutliche Änderung der Stuhlgewohnheiten nach dem 50. Lebensjahr, Blut im oder auf dem Stuhl, ungewollter Gewichtsverlust, Eisenmangelanämie, eine Familienanamnese für Darmkrebs oder Polypen, Bleistiftstühle, ein Wechsel von Obstipation und Durchfall, nächtliche Beschwerden, eine tastbare Resistenz, Fieber und eine kurze Anamnese mit rascher Verschlechterung.',
+        },
+        {
+          frage: 'Welche Stuhlverhältnisse erwarten wir beim Kolonkarzinom, und was bedeutet „paradoxer Stuhlgang“?',
+          antwort: 'Beim linksseitigen Karzinom eine Änderung der Stuhlgewohnheiten mit Obstipation, Bleistiftstühlen und Blutauflagerungen, beim rechtsseitigen eher eine okkulte Blutung mit Eisenmangelanämie. Paradoxer Stuhlgang bedeutet den Wechsel von Obstipation und Durchfall: Vor der Stenose staut sich der Stuhl, wird bakteriell verflüssigt und entleert sich dann als Diarrhoe — dasselbe gilt für die narbige Stenose bei Divertikulitis.',
+        },
+        {
+          frage: 'Was ist der Goldstandard beim Verdacht auf ein Kolonkarzinom, und wie weit muss das Koloskop vorgeschoben werden?',
+          antwort: 'Die komplette Koloskopie mit Biopsie. Das Koloskop wird bis zum Zökum vorgeschoben, mit Darstellung der Ileozökalklappe und der Appendixöffnung, idealerweise bis ins terminale Ileum — nur dann gilt die Untersuchung als vollständig.',
+        },
+        {
+          frage: 'Warum bestimmen Sie Tumormarker, und kann man ein Karzinom ausschließen, wenn sie nicht erhöht sind?',
+          antwort: 'Das CEA dient beim kolorektalen Karzinom als Ausgangswert für die Verlaufs- und Rezidivkontrolle nach der Therapie. Zur Diagnose oder zum Ausschluss eignet es sich nicht: Ein normales CEA schließt ein Karzinom keinesfalls aus, und es kann bei Rauchern oder Entzündungen erhöht sein. Ausschließen kann nur die Koloskopie.',
+        },
+        {
+          frage: 'Was erwarten Sie bei der körperlichen Untersuchung, und was machen Sie bei der rektalen Untersuchung?',
+          antwort: 'Am Abdomen achte ich auf Meteorismus, tastbare Stuhlwalzen im linken Unterbauch, eine Resistenz, Druckschmerz und Abwehrspannung sowie auf die Darmgeräusche zum Ausschluss eines Ileus. Die digital-rektale Untersuchung ist obligat: Ich prüfe auf Stuhlimpaktion, einen tastbaren Tumor, Hämorrhoiden, eine Fissur, Blut am Fingerling, den Sphinktertonus und die paradoxe Anspannung des Beckenbodens beim Pressen.',
+        },
+        {
+          frage: 'Welche sekundären Ursachen einer Obstipation müssen Sie ausschließen, bevor Sie von „funktionell“ sprechen?',
+          antwort: 'Zuerst Medikamente — Opioide, trizyklische Antidepressiva, Anticholinergika, Kalziumantagonisten, Eisen, Kalzium, Diuretika, Antipsychotika. Dann endokrin-metabolische Ursachen: Hypothyreose, Diabetes mellitus, Hyperkalzämie, Hypokaliämie, Schwangerschaft. Neurologische Erkrankungen wie Morbus Parkinson, Multiple Sklerose oder ein Querschnitt. Mechanische Ursachen: Kolonkarzinom, Stenose bei Divertikulitis oder Morbus Crohn, Rektozele, Analfissur und Hämorrhoiden. Und psychische Faktoren wie Depression oder Essstörung.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen veranlassen Sie?',
+          antwort: 'Blutbild, Eisen und Ferritin zur Suche nach einer Eisenmangelanämie, TSH, Kalzium, Kalium, Nüchternblutzucker beziehungsweise HbA1c, Kreatinin und CRP, dazu einen immunologischen Stuhltest auf okkultes Blut. Ein positiver Stuhltest verlangt die Koloskopie, ein negativer schließt bei Warnzeichen nichts aus.',
+        },
+        {
+          frage: 'Kann Laxanzienabusus ein Grund für Diarrhoe sein, und wann hat der Patient das Laxans zuletzt genommen?',
+          antwort: 'Ja — stimulierende Laxanzien wie Bisacodyl, Natriumpicosulfat oder Sennesblätter führen bei Überdosierung zu wässrigen Durchfällen, Hypokaliämie und Exsikkose; bei Anthrachinonen entsteht eine Pseudomelanosis coli. Deshalb frage ich nach Präparat, Dosis, Häufigkeit und dem Zeitpunkt der letzten Einnahme, und ich prüfe das Kalium.',
+        },
+        {
+          frage: 'Wie entsteht eine Divertikulose, und welche Rolle spielt die Obstipation?',
+          antwort: 'Durch eine ballaststoffarme Ernährung mit hartem Stuhl steigt der Druck im Sigma; bei starkem Pressen stülpt sich die Schleimhaut an den Gefäßdurchtrittsstellen durch die Muskelschicht aus. Chronische Obstipation, Alter und Bewegungsmangel sind die wesentlichen Risikofaktoren — die Stuhlregulierung ist deshalb zugleich Prophylaxe der Divertikulitis.',
+        },
+        {
+          frage: 'Wenn es ein Reizdarmsyndrom ist, wie behandeln Sie?',
+          antwort: 'Aufklärung über die Gutartigkeit, Ernährungsberatung mit ballaststoffreicher Kost oder Low-FODMAP-Diät, Bewegung und Stressreduktion; beim Obstipationstyp lösliche Ballaststoffe wie Flohsamen und Macrogol, bei Versagen Linaclotid oder Prucaloprid; bei Schmerzen Spasmolytika wie Mebeverin oder Butylscopolamin und Pfefferminzöl, bei ausgeprägter Symptomatik niedrig dosierte Antidepressiva und Psychotherapie.',
+        },
+        {
+          frage: 'Wie behandeln Sie die chronische Obstipation, und sind Abführmittel auf Dauer nicht schädlich?',
+          antwort: 'Zuerst die Ursache behandeln — obstipierende Medikamente umstellen, Hypothyreose einstellen. Dann Basismaßnahmen: Ballaststoffe langsam auf 25 bis 30 Gramm steigern, 1,5 bis 2 Liter trinken, Bewegung, Stuhlgangstraining nach dem Frühstück. Reicht das nicht, Macrogol als Mittel der ersten Wahl, dann stimulierende Laxanzien wie Bisacodyl oder Natriumpicosulfat, bei Versagen Prucaloprid. Macrogol und auch stimulierende Laxanzien sind bei sachgerechter Anwendung auch als Dauertherapie sicher — die Angst vor Gewöhnung und Darmschädigung ist unbegründet. Zu vermeiden sind Paraffinöl und Anthrachinone als Dauertherapie.',
+        },
+        {
+          frage: 'Was ist eine Beckenbodendyssynergie, und wie behandeln Sie sie?',
+          antwort: 'Eine Entleerungsstörung, bei der sich der Beckenboden und der äußere Schließmuskel beim Pressen paradox anspannen statt zu entspannen. Die Patienten berichten über das Gefühl der Blockade, langes Pressen und manuelle Hilfe, oft trotz weichem Stuhl. Nachweis mit anorektaler Manometrie und Ballonexpulsionstest. Therapie der Wahl ist das Biofeedback-Training, nicht die Laxanziengabe.',
+        },
+        {
+          frage: 'Klären Sie den Patienten über die Koloskopie auf.',
+          antwort: 'Ich erkläre, dass wir den Dickdarm mit einem biegsamen Schlauch mit Kamera über den After spiegeln, um die Ursache der Verstopfung und der Blutung zu finden und Polypen oder einen Tumor auszuschließen. Vorbereitung: am Vortag nur klare Flüssigkeit, abends und morgens eine Spüllösung trinken, bis der Stuhl klar ist; Blutverdünner nach Absprache pausieren. Die Untersuchung dauert 20 bis 30 Minuten, auf Wunsch mit einer Schlafspritze; dann 24 Stunden nicht Auto fahren. Risiken: Blähungen und Druckgefühl, selten Blutung nach Polypenabtragung, sehr selten Verletzung der Darmwand (Perforation) mit Operation, Kreislaufreaktion auf das Schlafmittel. Danach fragen, ob alles verstanden wurde, und die Einwilligung einholen.',
+        },
+      ],
+      merksatz: 'Obstipation heißt weniger als drei Stuhlgänge pro Woche, hart, mit Pressen — erst Medikamente und Red Flags prüfen, rektal untersuchen, ab 50 oder bei Blut koloskopieren; dann Ballaststoffe MIT Wasser, Bewegung, Macrogol als Dauertherapie, Bisacodyl als zweite Stufe, Biofeedback bei Beckenbodendyssynergie.',
+      linkedCaseIds: [
+        'case-obstipation',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-sturz-im-alter',
+      pathology: 'Sturz im Alter (geriatrisches Sturzsyndrom)',
+      specialty: 'Neurologie',
+      definition: 'Ein Sturz ist nach der WHO-Definition ein Ereignis, bei dem eine Person unbeabsichtigt auf dem Boden oder einer tieferen Ebene zu liegen kommt. Beim älteren Menschen ist ein Sturz fast nie ein Zufall, sondern ein SYMPTOM: Ausdruck einer meist multifaktoriellen Störung aus nachlassender Gang- und Gleichgewichtsfunktion, Sarkopenie, Seh- und Kognitionsverlust, Kreislaufregulationsstörungen, sturzfördernden Medikamenten und Umgebungsgefahren. Vom geriatrischen Sturzsyndrom spricht man bei wiederholten Stürzen oder bei einem Sturz mit Verletzung, langem Liegen oder anschließender Sturzangst; es gehört zu den geriatrischen „I“-Syndromen (Instabilität, Immobilität, Intellektueller Abbau, Inkontinenz, Iatrogene Schädigung). Epidemiologie: etwa ein Drittel der über 65-Jährigen und rund die Hälfte der über 80-Jährigen stürzt mindestens einmal pro Jahr; nach einem Sturz ist das Risiko eines erneuten Sturzes etwa verdoppelt. Stürze sind die häufigste Ursache von Verletzungen, Krankenhausaufnahmen und Verlust der Selbstständigkeit im Alter; etwa 10–20 % der Stürze führen zu behandlungsbedürftigen Verletzungen, rund 5 % zu Frakturen. Die Aufgabe des Arztes ist deshalb nicht nur die Versorgung der Prellung, sondern die Frage: WARUM ist der Patient gestürzt — und wie verhindern wir den nächsten, möglicherweise gefährlichen Sturz?',
+      aetiologie: 'Die Ursachen sind fast immer multifaktoriell und werden in drei Gruppen abgefragt. INTRINSISCH: Gangstörung und Muskelschwäche (Sarkopenie, Gebrechlichkeit), Gleichgewichtsstörung, Sehverschlechterung (Katarakt, Makuladegeneration, falsche oder Gleitsichtbrille auf der Treppe), Polyneuropathie mit Gefühlsstörung der Füße, Morbus Parkinson, Demenz und Delir, Depression, orthostatische Hypotonie mit Schwindel beim Aufstehen, Herzrhythmusstörungen und Synkopen, Anämie, Hypoglykämie, Harndrang mit nächtlichen Toilettengängen, Inkontinenz, Fußprobleme und ungeeignetes Schuhwerk, Arthrose und Schmerzen, Alkohol. MEDIKAMENTÖS: Polypharmazie ab fünf Präparaten und die „fall-risk-increasing drugs“ — Benzodiazepine und Z-Substanzen, Antidepressiva, Antipsychotika, Opioide, Antihypertensiva und Diuretika mit Überbehandlung des Blutdrucks, Antidiabetika mit Hypoglykämien, Anticholinergika, Antiepileptika, Antihistaminika der ersten Generation, Alphablocker (Tamsulosin). EXTRINSISCH: schlechte Beleuchtung, lose Teppiche und Kabel, fehlende Haltegriffe, Treppen ohne Geländer, glatte Böden, Badvorleger, Haustiere, ungeeignete Gehhilfe. Der einzelne Sturz entsteht typischerweise, wenn eine akute Störung (Orthostase, Infekt, neues Medikament) auf eine chronisch reduzierte Reserve (Sarkopenie, Sehverlust) trifft.',
+      risikofaktoren: [
+        'Sturz in der Vorgeschichte — der stärkste Einzelprädiktor; nach einem Sturz ist das Risiko des nächsten etwa verdoppelt',
+        'Alter über 80 Jahre, weibliches Geschlecht, Alleinleben',
+        'Gang- und Gleichgewichtsstörung, Sarkopenie und Gebrechlichkeit (Frailty), Schwierigkeiten beim Aufstehen vom Stuhl ohne Armunterstützung',
+        'Polypharmazie (fünf und mehr Dauermedikamente) und sturzfördernde Medikamente: Benzodiazepine, Z-Substanzen, Antidepressiva, Antipsychotika, Opioide, Antihypertensiva, Diuretika, Alphablocker, Antidiabetika, Anticholinergika',
+        'Orthostatische Hypotonie, Herzrhythmusstörungen, Aortenstenose, Anämie',
+        'Sehverschlechterung (Katarakt, Makuladegeneration), Gleitsichtbrille',
+        'Kognitive Einschränkung, Demenz, Delir, Depression, Sturzangst',
+        'Polyneuropathie (Diabetes, Alkohol, Vitamin-B12-Mangel), Morbus Parkinson, Zustand nach Schlaganfall',
+        'Nykturie, Harndrang, Inkontinenz — nächtliche Toilettengänge im Dunkeln',
+        'Alkoholkonsum, Mangelernährung, Vitamin-D-Mangel, Exsikkose',
+        'Arthrose, Fußdeformitäten, Schmerzen, ungeeignetes Schuhwerk (Pantoffeln, Socken)',
+        'Umgebungsgefahren: lose Teppiche, Kabel, schlechte Beleuchtung, fehlende Haltegriffe, Treppen ohne beidseitiges Geländer, Haustiere',
+        'Osteoporose — erhöht nicht das Sturzrisiko, aber die Frakturfolge jedes Sturzes',
+      ],
+      klinik: [
+        {
+          text: 'Das Sturzereignis findet meist zu Hause statt, häufig nachts oder in den frühen Morgenstunden beim Toilettengang, unmittelbar nach dem Aufstehen (orthostatisch) oder auf der Treppe; typische Angaben in Alltagsworten: „gestolpert“, „weggeknickt“, „schwindelig geworden“, „schwarz vor Augen“, „die Beine haben nicht mehr getragen“',
+        },
+        {
+          text: 'Verletzungsfolgen: Prellungen, Hämatome, Schürfwunden, Platzwunden; Frakturen typischerweise am proximalen Femur (Schenkelhals, pertrochantär), distalen Radius, an Wirbelkörpern, Becken und proximalem Humerus — an eine Osteoporose denken',
+        },
+        {
+          text: 'Klinische Zeichen einer Schenkelhalsfraktur: verkürztes, außenrotiertes Bein, Belastungsunfähigkeit, Stauchungs- und Rotationsschmerz, Druckschmerz in der Leiste oder über dem Trochanter — bei eingestauchter Fraktur kann der Patient jedoch noch gehen',
+        },
+        {
+          text: '„Long lie“: Liegezeit von über einer Stunde, weil der Patient nicht allein aufstehen kann — Folgen sind Dehydratation, Hypothermie, Rhabdomyolyse mit CK-Anstieg und Nierenversagen, Druckgeschwüre, Aspirations- und Hypostasepneumonie; Prädiktor für Pflegebedürftigkeit und Tod',
+        },
+        {
+          text: 'Gangbild: kleinschrittig, breitbasig, unsicher, verlangsamt, mit Festhalten an Möbeln und Wänden; Schwierigkeiten beim Aufstehen vom Stuhl ohne Armunterstützung, verlängerter Timed-up-and-go-Test',
+        },
+        {
+          text: 'Sturzangst (Post-Fall-Syndrom) mit Vermeidungsverhalten, sozialem Rückzug, Immobilität und Muskelabbau — ein Teufelskreis (Circulus vitiosus), der den nächsten Sturz wahrscheinlicher macht',
+        },
+        {
+          text: 'Bagatellisierung („nur ein blöder Ausrutscher“) und Verschweigen früherer Stürze aus Angst vor Verlust der Selbstständigkeit oder Heimeinweisung; deshalb immer Fremdanamnese durch Angehörige oder Pflegende',
+        },
+        {
+          text: 'Sturz als einziges Symptom einer akuten Erkrankung beim alten Menschen: Harnwegsinfekt, Pneumonie, Delir, Hyponatriämie, Exsikkose, Anämie oder Blutung, stummer Myokardinfarkt — der Sturz ist die „Präsentationsform“ der Krankheit',
+          atypisch: true,
+        },
+        {
+          text: 'Chronisches Subduralhämatom: Tage bis Wochen nach einem Bagatellsturz mit Kopfanprall entwickeln sich Kopfschmerzen, Verwirrtheit, Wesensänderung, Gangverschlechterung und Hemiparese, insbesondere unter Antikoagulation oder Thrombozytenaggregationshemmung — wird häufig als „Demenz“ oder erneuter Sturz fehlgedeutet',
+          atypisch: true,
+        },
+        {
+          text: 'Normaldruckhydrozephalus als behandelbare Sturzursache: Trias aus magnetischer, breitbasiger Gangstörung, kognitiver Verschlechterung und Harninkontinenz',
+          atypisch: true,
+        },
+        {
+          text: 'Synkopale Stürze werden vom Patienten oft als „Stolpern“ erinnert, weil die retrograde Amnesie den Bewusstseinsverlust verschleiert — Zeugen befragen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung der Sturzursachen',
+          inhalt: 'Intrinsisch (patientenbezogen: Gang-, Gleichgewichts-, Seh-, Kognitions- und Kreislaufstörungen, Sarkopenie, neurologische und kardiale Erkrankungen), medikamentös (Polypharmazie, fall-risk-increasing drugs) und extrinsisch (Umgebung, Schuhwerk, Hilfsmittel); zusätzlich situativ (Eile, nächtlicher Toilettengang, Treppe, Alkohol). Klinisch relevant ist außerdem die Trennung Sturz MIT Bewusstseinsverlust (Synkope → kardiologische Abklärung) versus Sturz OHNE Bewusstseinsverlust (mechanisch/Gangstörung → geriatrisch-neurologische Abklärung).',
+        },
+        {
+          name: 'Orthostatische Hypotonie (Schellong-Test)',
+          inhalt: 'Blutdruckmessung nach fünf Minuten Liegen, dann im Stehen nach einer und drei Minuten (klassisch bis zehn Minuten). Pathologisch: Abfall des systolischen Blutdrucks um mindestens 20 mmHg oder des diastolischen um mindestens 10 mmHg innerhalb von drei Minuten nach dem Aufstehen, oder ein systolischer Wert unter 90 mmHg — meist mit Schwindel, Schwarzwerden vor den Augen oder Synkope. Fehlender Pulsanstieg spricht für eine neurogene Ursache oder Betablockade.',
+        },
+        {
+          name: 'Timed-up-and-go-Test (TUG)',
+          inhalt: 'Vom Stuhl aufstehen, drei Meter gehen, umdrehen, zurückgehen, hinsetzen. Unter 10 Sekunden: normal; 10–19 Sekunden: leicht eingeschränkte Mobilität; 20–29 Sekunden: abklärungsbedürftige Mobilitätseinschränkung; ab 30 Sekunden: ausgeprägte Einschränkung, meist Hilfsmittel und Hilfe nötig. Ab etwa 12–14 Sekunden gilt das Sturzrisiko als erhöht.',
+        },
+        {
+          name: 'Tinetti-Test (Performance Oriented Mobility Assessment)',
+          inhalt: 'Beurteilung von Gleichgewicht (16 Punkte) und Gang (12 Punkte), maximal 28 Punkte. Unter 20 Punkten: hohes Sturzrisiko; 20–23 Punkte: erhöhtes Sturzrisiko; ab 24 Punkten: geringes Sturzrisiko.',
+        },
+        {
+          name: 'Frailty-Kriterien nach Fried',
+          inhalt: 'Fünf Kriterien: ungewollter Gewichtsverlust (über 4,5 kg oder über 5 % des Körpergewichts im Jahr), subjektive Erschöpfung, geringe körperliche Aktivität, verlangsamte Gehgeschwindigkeit (unter 0,8 m/s), verminderte Handkraft. Drei oder mehr Kriterien: Frailty (Gebrechlichkeit); ein bis zwei Kriterien: Prefrailty. Sarkopenie nach EWGSOP2: Handkraft unter 27 kg bei Männern und unter 16 kg bei Frauen, Chair-Rise-Test (fünfmal Aufstehen) über 15 Sekunden.',
+        },
+        {
+          name: 'Listen potenziell inadäquater Medikation im Alter',
+          inhalt: 'PRISCUS-Liste (deutsche Liste potenziell inadäquater Medikamente für über 65-Jährige, z. B. Benzodiazepine, Zolpidem über 5 mg, Amitriptylin, Diclofenac), Beers-Kriterien (USA), STOPP/START-Kriterien (Absetz- und Ansetzkriterien) und FORTA-Klassifikation (A = unverzichtbar bis D = vermeiden). Sie sind die Grundlage des Medikationsreviews nach einem Sturz.',
+        },
+        {
+          name: 'Garden- und Pauwels-Klassifikation der medialen Schenkelhalsfraktur',
+          inhalt: 'Garden (Dislokationsgrad im a.-p.-Röntgenbild): I = unvollständige, in Valgusstellung eingestauchte Fraktur; II = vollständige, nicht dislozierte Fraktur; III = vollständige, teilweise dislozierte Fraktur; IV = vollständige, vollständig dislozierte Fraktur. Pauwels (Winkel der Frakturlinie zur Horizontalen): I unter 30°, II 30–50°, III über 50° — je steiler, desto instabiler. Beim alten Menschen wird bei dislozierten Frakturen (Garden III/IV) meist die Endoprothese (Duokopfprothese oder Hüft-TEP) bevorzugt, bei jungen Patienten die kopferhaltende Osteosynthese innerhalb von sechs Stunden.',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinsverlust, Erinnerungslücke oder Sturz „wie ein Baum“ ohne Abfangen → Synkope: kardiale Abklärung mit EKG, Monitor, Troponin, Echokardiographie, Langzeit-EKG',
+        'Kopfanprall unter Antikoagulation oder Thrombozytenaggregationshemmung, Kopfschmerz, Erbrechen, Vigilanzminderung, Verwirrtheit, Anisokorie, neue Lähmung → sofortiges kraniales CT, auch bei zunächst unauffälligem Befund Kontroll-CT und Überwachung',
+        'Verkürztes, außenrotiertes Bein, Belastungsunfähigkeit, Leisten- oder Stauchungsschmerz → Schenkelhalsfraktur bis zum Ausschluss durch Röntgen bzw. CT',
+        'Liegezeit über eine Stunde auf dem Boden → Rhabdomyolyse (CK, Kreatinin, Kalium), Hypothermie, Exsikkose, Druckulzera, Pneumonie',
+        'Akute Verwirrtheit, Fieber, Dysurie, Husten → Delir bzw. Infekt als Sturzursache; Hyponatriämie unter Diuretika',
+        'Neue fokal-neurologische Ausfälle, Sprachstörung, Gesichtsasymmetrie → Schlaganfall oder Subduralhämatom',
+        'Brustschmerz, Dyspnoe, Palpitationen oder Bradykardie unter 40/min vor dem Sturz → akutes Koronarsyndrom, höhergradiger AV-Block, tachykarde Rhythmusstörung',
+        'Blässe, Teerstuhl, Hämatome unter Antikoagulation oder NSAR → Blutungsanämie',
+        'Schwitzen, Zittern, Verwirrtheit unter Insulin oder Sulfonylharnstoffen → Hypoglykämie',
+        'Wiederholte Stürze innerhalb weniger Wochen → dringende multifaktorielle Abklärung und stationäre geriatrische Behandlung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Strukturierte Sturzanamnese in Alltagsworten: Was haben Sie gemacht? Wie sind Sie gefallen — gestolpert, weggeknickt, schwindelig, schwarz vor Augen? Haben Sie sich abgefangen? Konnten Sie allein aufstehen? Wie lange lagen Sie? Kopfanprall? Entscheidende erste Frage: Bewusstseinsverlust oder nicht — Synkope wird kardiologisch, Stolpern und Gangunsicherheit geriatrisch-neurologisch abgeklärt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fremdanamnese von Angehörigen, Pflegenden oder Rettungsdienst, weil der Patient sich oft nicht erinnert oder bagatellisiert; Sturzhäufigkeit im letzten Jahr, frühere Verletzungen, Sturzangst, Alltagsfunktion (Aufstehen, Treppe, Einkaufen), Hilfsmittel, Wohnsituation und Alleinleben, Alkohol',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständige Medikamentenliste einschließlich Selbstmedikation, Einnahmetreue und kürzlich neu angesetzter oder erhöhter Präparate — gezielt nach Schlaf- und Beruhigungsmitteln, Blutdruck- und Wassertabletten, Prostatamitteln, Schmerzmitteln und Blutverdünnern fragen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Verletzungen (Kopf, Hüfte, Becken, Handgelenk, Wirbelsäule), Vitalparameter mit Temperatur, Blutdruck im Liegen und Stehen (Schellong-Test) und Puls (Regelmäßigkeit), Herzauskultation (Aortenstenose, Arrhythmie), Volumenstatus (Exsikkose); Beinstellung, Durchblutung, Motorik und Sensibilität (DMS), periphere Pulse',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende neurologische Untersuchung: Gang, Gleichgewicht (Romberg, Tandemstand), Kraft, Reflexe, Sensibilität der Füße und Vibrationsempfinden (Stimmgabel), Parkinson-Zeichen (Rigor, Tremor, Hypomimie), kognitives Screening, Sehtest, Fuß- und Schuhinspektion, Gelenkstatus',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (Anämie), Elektrolyte mit Natrium und Kalium, Kreatinin und Harnstoff (Exsikkose, Niereninsuffizienz), Blutzucker und HbA1c, CRP und Urinstatus (Infekt), TSH, Vitamin B12, 25-OH-Vitamin D, Kalzium; CK bei langem Liegen (Rhabdomyolyse); Troponin bei Synkopenverdacht oder Brustschmerz; INR bzw. Anti-Xa-Aktivität und Gerinnung unter Antikoagulation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG obligat (Vorhofflimmern, Bradykardie, AV-Block, Ischämiezeichen, QT-Zeit); Langzeit-EKG oder Event-Recorder bei Synkopenverdacht; Echokardiographie bei Herzgeräusch oder Synkope (Aortenstenose, Kardiomyopathie)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bildgebung nach Verletzung und Klinik: Röntgen Becken und Hüfte in zwei Ebenen bei Hüftschmerz, bei negativem Röntgen und persistierender Belastungsunfähigkeit CT oder MRT (okkulte Schenkelhalsfraktur); Röntgen Handgelenk oder Wirbelsäule je nach Befund',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniales CT bei Kopfanprall unter Antikoagulation oder Thrombozytenaggregationshemmung, bei neurologischen Zeichen, Bewusstseinsverlust, Erbrechen, Kopfschmerz oder unklarem Hergang — auch Tage bis Wochen später bei neuer Verwirrtheit (chronisches Subduralhämatom)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Knochendichtemessung (DXA) nach jedem Sturz mit Fraktur und bei Risikokonstellation; Sonographie der Halsgefäße bei TIA-Verdacht; MRT des Schädels bei Verdacht auf Normaldruckhydrozephalus oder Parkinson-Syndrom',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Geriatrisches Assessment: Timed-up-and-go-Test (über 12–14 Sekunden auffällig), Chair-Rise-Test, Tandemstand, Tinetti-Test, Barthel-Index, MMST oder MoCA, geriatrische Depressionsskala, Ernährungsscreening (MNA), Handkraftmessung (Sarkopenie)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Strukturiertes Medikationsreview mit PRISCUS-Liste, STOPP/START-Kriterien oder FORTA; augenärztliche Untersuchung (Katarakt, Brillenanpassung); Wohnungsbegehung durch Ergotherapie oder Pflegedienst zur Identifikation von Stolperfallen; Kipptischuntersuchung oder Karotissinusmassage bei unklarer Synkope',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Synkope (kardial, orthostatisch, vasovagal, Karotissinussyndrom) versus mechanischer Sturz',
+          unterscheidung: 'Entscheidend ist der Bewusstseinsverlust: fehlende Erinnerung an den Aufprall, Sturz ohne Abfangen, Zeugenbericht über Blässe und Bewusstlosigkeit. Orthostatisch: Schwindel unmittelbar nach dem Aufstehen, pathologischer Schellong-Test. Kardial: Synkope im Sitzen oder bei Belastung, Palpitationen, Herzgeräusch, pathologisches EKG — Langzeit-EKG, Echokardiographie. Beim mechanischen Sturz ist der Hergang lückenlos erinnerlich.',
+        },
+        {
+          dd: 'Schenkelhalsfraktur, pertrochantäre Fraktur oder Beckenfraktur',
+          unterscheidung: 'Verkürztes, außenrotiertes Bein, Belastungsunfähigkeit, Leisten- und Stauchungsschmerz; Röntgen Becken und Hüfte in zwei Ebenen, bei negativem Röntgen CT oder MRT. Eine Hüftprellung erlaubt meist noch die Beinbewegung ohne Fehlstellung — die Fraktur muss dennoch bildgebend ausgeschlossen werden.',
+        },
+        {
+          dd: 'Schädel-Hirn-Trauma mit intrakranieller Blutung, chronisches Subduralhämatom (als Folge UND als Ursache erneuter Stürze)',
+          unterscheidung: 'Kopfanprall, Antikoagulation, Kopfschmerz, Erbrechen, Vigilanzminderung, Verwirrtheit, Hemiparese; beim chronischen Subduralhämatom Latenz von Tagen bis Wochen nach einem Bagatelltrauma. Kraniales CT.',
+        },
+        {
+          dd: 'TIA oder Schlaganfall',
+          unterscheidung: 'Plötzliche fokale Ausfälle (Hemiparese, Sprachstörung, Gesichtsasymmetrie, Gesichtsfeldausfall) unmittelbar vor dem Sturz; Vorhofflimmern als Emboliequelle. Neurologische Untersuchung, kraniales CT bzw. MRT, Halsgefäßsonographie.',
+        },
+        {
+          dd: 'Epileptischer Anfall',
+          unterscheidung: 'Zungenbiss, Einnässen, Zuckungen, postiktale Verwirrtheit oder Muskelkater, Erinnerungslücke; Fremdanamnese entscheidend. EEG, kraniale Bildgebung.',
+        },
+        {
+          dd: 'Delir und Infekt (Harnwegsinfekt, Pneumonie)',
+          unterscheidung: 'Beim alten Menschen zeigt sich ein Infekt oft zuerst durch einen Sturz oder eine akute Verwirrtheit: fluktuierende Aufmerksamkeitsstörung, Fieber, Dysurie, Husten, erhöhtes CRP, pathologischer Urinstatus, Röntgen-Thorax.',
+        },
+        {
+          dd: 'Anämie und Blutung, insbesondere unter Antikoagulation und NSAR',
+          unterscheidung: 'Blässe, Leistungsknick, Belastungsdyspnoe, Teerstuhl; Blutbild, Hämoccult, gegebenenfalls Gastroskopie.',
+        },
+        {
+          dd: 'Exsikkose und Hyponatriämie (Diuretika, geringe Trinkmenge)',
+          unterscheidung: 'Trockene Schleimhäute, stehende Hautfalten, Verwirrtheit, Orthostase; Natrium, Kreatinin, Harnstoff, Hämatokrit.',
+        },
+        {
+          dd: 'Morbus Parkinson und Normaldruckhydrozephalus',
+          unterscheidung: 'Parkinson: kleinschrittiger Gang, fehlendes Mitschwingen der Arme, Rigor, Ruhetremor, Hypomimie, posturale Instabilität. Normaldruckhydrozephalus: breitbasig-magnetische Gangstörung, kognitive Verschlechterung, Harninkontinenz — behandelbar durch Liquorablass und Shunt.',
+        },
+        {
+          dd: 'Polyneuropathie',
+          unterscheidung: 'Strumpfförmige Gefühlsstörung, fehlendes Vibrationsempfinden, abgeschwächte Achillessehnenreflexe, Unsicherheit im Dunkeln; Ursachen Diabetes, Alkohol, Vitamin-B12-Mangel.',
+        },
+        {
+          dd: 'Vestibulopathie und benigner paroxysmaler Lagerungsschwindel',
+          unterscheidung: 'Drehschwindel bei Kopf- und Lagewechsel, Nystagmus, Übelkeit, Dauer Sekunden bis Minuten; Dix-Hallpike-Manöver positiv. Kein Zusammenhang mit dem Aufstehen aus dem Liegen an sich, sondern mit der Kopfbewegung.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Unter Insulin oder Sulfonylharnstoffen: Schwitzen, Zittern, Heißhunger, Verwirrtheit; sofortige Blutzuckermessung.',
+        },
+        {
+          dd: 'Medikamentennebenwirkung und Alkohol',
+          unterscheidung: 'Zeitlicher Zusammenhang mit neu angesetztem oder erhöhtem Präparat (Antihypertensiva, Z-Substanzen, Opioide, Alphablocker), Sedierung, Überbehandlung des Blutdrucks; Alkoholanamnese und -folgen (Ataxie, Polyneuropathie).',
+        },
+        {
+          dd: 'Aortenstenose und bradykarde Rhythmusstörung',
+          unterscheidung: 'Systolikum mit Fortleitung in die Karotiden, Belastungssynkope, Angina; Bradykardie unter 40/min, AV-Block im EKG. Echokardiographie, Langzeit-EKG.',
+        },
+        {
+          dd: 'Sarkopenie, Gebrechlichkeit und Sturzangst',
+          unterscheidung: 'Kein akutes Ereignis, sondern chronischer Kraft- und Funktionsverlust: verminderte Handkraft, langsamer Gang, Schwierigkeiten beim Aufstehen, Gewichtsverlust; Vermeidungsverhalten und Rückzug nach früheren Stürzen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutversorgung und Sicherung nach dem Sturz',
+          items: [
+            'Behandlung der Verletzungen: Analgesie (Paracetamol, Metamizol; NSAR beim alten Menschen und unter Antikoagulation vermeiden), Wundversorgung, Ruhigstellung',
+            'Ausschluss von Fraktur (Röntgen Becken und Hüfte, bei Zweifel CT/MRT) und intrakranieller Blutung (kraniales CT bei Kopfanprall unter Antikoagulation, neurologischen Zeichen, unklarem Hergang); bei Fraktur unfallchirurgisches Konsil und Operation innerhalb von 24 Stunden',
+            'Behandlung von Rhabdomyolyse (Volumengabe, Kreatinin- und Kaliumkontrolle), Exsikkose, Hypothermie und Infekt; Thromboseprophylaxe bei Immobilität',
+            'Beurteilung, ob der Patient nach Hause kann: Alleinleben, verfügbare Hilfe, Fähigkeit zum Aufstehen und Gehen, Kognition — sonst stationäre Aufnahme, gegebenenfalls geriatrische Frührehabilitation',
+            'Hausnotruf und Absprache mit den Angehörigen, Delirprophylaxe (Orientierung, Brille, Hörgerät, Schlaf-Wach-Rhythmus, keine Fixierung)',
+            'Überprüfung der Antikoagulation bei wiederholten Stürzen mit sorgfältiger Abwägung: bei Vorhofflimmern überwiegt der Nutzen der Antikoagulation meist auch bei Sturzneigung — die Angst vor Blutungen führt oft zu ungerechtfertigtem Absetzen; stattdessen Sturzursachen behandeln, NSAR absetzen, Dosis an Nierenfunktion anpassen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung der Sturzursachen und Medikationsreview',
+          items: [
+            'Medikationsreview als wirksamste Einzelmaßnahme: Absetzen oder ausschleichendes Reduzieren von Benzodiazepinen und Z-Substanzen, sedierenden und anticholinergen Substanzen; Prüfung jedes Präparats nach PRISCUS-Liste, STOPP/START oder FORTA; Priorisierung nach Nutzen',
+            'Lockerung zu strenger Blutdruck- und Blutzuckerziele beim alten Menschen (systolischer Zielblutdruck etwa 130–140 mmHg, HbA1c bis 8 % bei Gebrechlichkeit), Reduktion der Antihypertensiva, Diuretika morgens statt abends, Alphablocker abends und bei Orthostase absetzen',
+            'Behandlung der orthostatischen Hypotonie: langsames, stufenweises Aufstehen mit Sitzen auf der Bettkante (Aufstehtraining), Kompressionsstrümpfe, ausreichende Trinkmenge (1,5–2 Liter), Anpassung der Antihypertensiva, Kopfhochlagerung im Bett',
+            'Kataraktoperation und Brillenanpassung mit Verzicht auf Gleitsichtbrillen beim Gehen und auf der Treppe; Hörgeräteversorgung',
+            'Behandlung von Anämie, Vitamin-D-Mangel, Vitamin-B12-Mangel, Schilddrüsenfunktionsstörung, Parkinson-Syndrom, Depression, Schmerzen, Inkontinenz und Nykturie (Blasentraining, abendliche Flüssigkeitsverteilung), Fußproblemen (Podologie)',
+            'Schrittmacher bei bradykarder Synkope, Rhythmuskontrolle bei tachykardem Vorhofflimmern, Klappenersatz bei Aortenstenose; Shunt bei Normaldruckhydrozephalus',
+            'Alkoholreduktion, Behandlung eines Delirs und seiner Ursache, Antibiose bei Infekt',
+          ],
+        },
+        {
+          label: 'Kraft- und Gleichgewichtstraining, Hilfsmittel',
+          items: [
+            'Kraft- und Gleichgewichtstraining als Maßnahme mit der besten Evidenz zur Sturzvermeidung: Physiotherapie, Tai-Chi, Gruppenprogramme, Heimübungsprogramme (z. B. Otago-Programm) über mindestens drei bis sechs Monate, mehrmals pro Woche',
+            'Gangschulung und Anpassung der Gehhilfe (Gehstock, Rollator) durch Physiotherapie — konsequent auch in der Wohnung benutzen',
+            'Festes, geschlossenes Schuhwerk mit flacher, rutschfester Sohle statt Pantoffeln und Socken; Hüftprotektoren in Sonderfällen (Pflegeheim, hohes Frakturrisiko)',
+            'Ergotherapie mit Alltagstraining, Training des Aufstehens vom Boden und des Umgangs mit dem Hausnotruf',
+            'Behandlung der Sturzangst durch stufenweise Aktivierung statt Schonung — Immobilität verstärkt den Muskelabbau und das Sturzrisiko',
+            'Ernährung mit ausreichend Eiweiß (1–1,2 g/kg Körpergewicht täglich) und Kalorien gegen die Sarkopenie, Trinkprotokoll',
+          ],
+        },
+        {
+          label: 'Wohnraumanpassung, Osteoporosetherapie und Nachsorge',
+          items: [
+            'Wohnraumanpassung: Beseitigung von Stolperfallen (lose Teppiche, Läufer, Kabel, Badvorleger ohne Antirutschbeschichtung), gute Beleuchtung und Nachtlicht auf dem Weg zur Toilette, Haltegriffe in Bad und Toilette, Duschhocker, rutschfeste Matten, Treppengeländer beidseits, Erhöhung von Bett und Toilettensitz, Toilettenstuhl neben dem Bett bei Nykturie',
+            'Osteoporosediagnostik (DXA) und -therapie nach jedem Sturz mit Fraktur und bei Risikokonstellation: Kalzium 1000 mg täglich über die Nahrung, Vitamin D 800–1000 IE täglich, spezifische Therapie mit Bisphosphonaten (Alendronat 70 mg wöchentlich) oder Denosumab, um die Folgen des nächsten Sturzes zu mildern',
+            'Sehhilfen und Hörgeräte; Pflegegrad beantragen, Hausnotruf, Pflegedienst, Tagespflege, Essen auf Rädern; Fahreignung ansprechen',
+            'Aufklärung von Patient und Angehörigen über Sturzrisiko und Warnzeichen nach Kopfanprall (Kopfschmerz, Verwirrtheit, Schläfrigkeit, Lähmung → sofort vorstellen), auch Wochen später',
+            'Regelmäßige Wiederholung des Sturzassessments (mindestens jährlich, nach jedem Sturz), Anbindung an geriatrische Versorgung oder geriatrische Tagesklinik, Impfungen (Influenza, Pneumokokken, COVID-19, Herpes zoster)',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt weniger von der einzelnen Verletzung als von der Sturzursache und der Funktionsreserve ab. Nach einem Sturz ist das Risiko eines erneuten Sturzes etwa verdoppelt; etwa die Hälfte der Gestürzten stürzt innerhalb eines Jahres erneut. Nach einer proximalen Femurfraktur sterben 20–30 % der Patienten innerhalb des ersten Jahres, etwa die Hälfte erreicht die frühere Mobilität nicht wieder, und rund ein Viertel wird pflegebedürftig. Ein langes Liegen von über einer Stunde und die Sturzangst mit nachfolgender Immobilität sind eigenständige Prädiktoren für Pflegebedürftigkeit und Tod. Eine multifaktorielle Intervention mit Medikationsreview, Kraft- und Gleichgewichtstraining, Wohnraumanpassung und Behandlung der Einzelursachen senkt die Sturzrate um etwa 20–30 %; das Training allein reduziert Stürze um etwa ein Viertel. Entscheidend ist der Erhalt der Selbstständigkeit — das Ziel ist nicht der Schutz durch Schonung, sondern die sichere Mobilität.',
+      pruefungsfallen: [
+        'Sich auf die Prellung oder die Hüfte beschränken und die Frage nach dem WARUM vergessen: Die Prüfer fragen regelmäßig „Warum ist er gestürzt?“ — der Sturz ist ein Symptom, die Antwort ist eine multifaktorielle Ursachenanalyse.',
+        'Die Frage nach dem Bewusstseinsverlust nicht stellen: Sie entscheidet zwischen kardiologischer (Synkope) und geriatrisch-neurologischer Abklärung und muss in der Anamnese und in der Vorstellung ausdrücklich vorkommen.',
+        'Den genauen Hergang in Alltagsworten nicht erfragen (Was haben Sie gemacht? Wie sind Sie gefallen? Konnten Sie allein aufstehen? Wie lange lagen Sie?) — der Patient erzählt oft schnell und im Dialekt, hier muss nachgefragt werden.',
+        'Die Medikamentenliste unvollständig erheben: Schlaftabletten, Wassertabletten, Prostatamittel und rezeptfreie Schmerzmittel werden vom Patienten nur beiläufig oder gar nicht erwähnt. Die Frage „Wurde in letzter Zeit etwas neu angesetzt?“ ist Pflicht.',
+        'Den Schellong-Test nicht nennen: Blutdruck im Liegen UND Stehen ist die einfachste und ergiebigste Untersuchung beim Sturz mit Schwindel.',
+        'Das kraniale CT bei Kopfanprall unter Antikoagulation vergessen — und die Latenz des chronischen Subduralhämatoms (Tage bis Wochen) nicht kennen.',
+        'Die Antikoagulation bei Vorhofflimmern reflexartig absetzen: Die Prüfer erwarten die Abwägung — der Schlaganfallschutz überwiegt meist, stattdessen die Sturzursachen behandeln und NSAR absetzen.',
+        'Warum EKG und Herzenzyme? Weil ein Sturz mit vorausgehendem Schwindel eine kardiale Synkope (Rhythmusstörung, Myokardinfarkt) verbergen kann — in Stuttgart ausdrücklich gefragt.',
+        'Frühere Stürze nicht erfragen und keine Fremdanamnese erheben — der Patient bagatellisiert aus Angst vor dem Pflegeheim; diese Angst muss erkannt und mit Takt angesprochen werden.',
+        'Bei einem Sturz mit Fraktur die Osteoporose nicht abklären (DXA, Kalzium, Vitamin D, Bisphosphonat) — jeder Sturz mit Fraktur ist eine Osteoporoseabklärung.',
+        'Die Therapie als „konservativ/operativ“ präsentieren statt als multifaktorielle Intervention: Medikationsreview, Kraft- und Gleichgewichtstraining, Wohnraumanpassung, Behandlung der Einzelursachen, Hilfsmittel und Nachsorge.',
+        'Bei einem 90-jährigen Patienten ausführlich nach den Todesursachen der Eltern fragen — ein Oberarzt in Karlsruhe hat das als sinnlos bemängelt; die Familienanamnese kurz halten und stattdessen die Sozialanamnese (Alleinleben, Hilfe, Wohnung) vertiefen.',
+        'Formulierung: Der Patient „ist gestürzt“ (sein), nicht „hat gestürzt“; „Zustand nach Sturz“; „Sturzereignis“; „der Patient konnte sich nicht abfangen“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum ist der Patient gestürzt?',
+          antwort: 'Der Sturz ist beim alten Menschen fast immer multifaktoriell. Bei diesem Patienten kommen eine orthostatische Hypotonie unter antihypertensiver Mehrfachtherapie mit Diuretikum, einem kürzlich hinzugekommenen Kalziumantagonisten und Tamsulosin zusammen mit einer Z-Substanz zur Nacht, einer Sehverschlechterung durch Katarakt, nächtlichen Toilettengängen im Dunkeln, einer beginnenden Sarkopenie nach Gewichtsverlust und Umgebungsgefahren wie Badvorleger und Läufer. Dazu ist ein Sturz bereits vor zwei Monaten aufgetreten — das Sturzrisiko ist damit deutlich erhöht.',
+        },
+        {
+          frage: 'Hat der Patient das Bewusstsein verloren? Warum ist diese Frage so wichtig?',
+          antwort: 'Nein, er hat den Sturz lückenlos in Erinnerung, konnte sich mit dem Arm abstützen und hat selbst den Rettungsdienst gerufen. Die Frage entscheidet über den Abklärungsweg: Ein Sturz mit Bewusstseinsverlust ist eine Synkope und wird kardiologisch abgeklärt — EKG, Monitor, Troponin, Echokardiographie, Langzeit-EKG —, ein Sturz ohne Bewusstseinsverlust mit Schwindel beim Aufstehen und Gangunsicherheit geriatrisch-neurologisch.',
+        },
+        {
+          frage: 'Wie sieht der hämodynamische Zustand aus? Ist der Patient orientiert und ansprechbar?',
+          antwort: 'Der Patient ist wach, zu Zeit, Ort, Person und Situation orientiert, GCS 15. Der Blutdruck liegt im Liegen bei 150/85 mmHg, der Puls bei 68 pro Minute und unregelmäßig bei bekanntem Vorhofflimmern, die Sauerstoffsättigung bei 95 %, die Temperatur nach zwei Stunden auf den Fliesen bei 35,9 °C. Im Stehen fällt der systolische Blutdruck nach einer Minute auf 112/64 mmHg ab — ein Abfall um 38 mmHg systolisch mit Schwindel, also eine orthostatische Hypotonie.',
+        },
+        {
+          frage: 'Wie untersuchen Sie den Patienten körperlich — kurz?',
+          antwort: 'Vitalparameter mit Blutdruck im Liegen und Stehen, Inspektion des Kopfes und der Beule an der linken Schläfe, Pupillen und orientierender Neurostatus; an der linken Hüfte Beinlänge und Rotationsstellung, Druckschmerz über Trochanter und Leiste, Stauchungs- und Rotationsschmerz, aktive Beweglichkeit; Durchblutung, Motorik und Sensibilität des Beins mit Tasten der Fußpulse; Wirbelsäule und Handgelenke; Herzauskultation, Volumenstatus; Gangprüfung erst nach Frakturausschluss.',
+        },
+        {
+          frage: 'Was ist Ihre Verdachtsdiagnose?',
+          antwort: 'Ein Sturz im Alter im Sinne eines geriatrischen Sturzsyndroms mit rezidivierenden Stürzen, am ehesten multifaktoriell bei orthostatischer Hypotonie unter antihypertensiver Mehrfachtherapie und Tamsulosin, Z-Substanz zur Nacht, Katarakt und Nykturie; als Verletzungsfolge eine Hüftprellung links mit auszuschließender Schenkelhalsfraktur, sowie ein Kopfanprall unter Apixaban mit auszuschließender intrakranieller Blutung.',
+        },
+        {
+          frage: 'Warum haben Sie EKG und Herzenzyme angefordert?',
+          antwort: 'Weil dem Sturz ein Schwindel vorausging und der Patient ein Vorhofflimmern hat: Eine kardiale Ursache — eine Bradyarrhythmie oder Pause unter Betablocker, eine tachykarde Rhythmusstörung oder ein stummer Myokardinfarkt als Synkopenursache — muss ausgeschlossen werden. Das EKG zeigt außerdem QT-Zeit und Ischämiezeichen; bei anhaltendem Verdacht folgen Monitorüberwachung, Langzeit-EKG und Echokardiographie.',
+        },
+        {
+          frage: 'Welche Untersuchungen sind notwendig?',
+          antwort: 'Labor mit Blutbild, Natrium, Kalium, Kreatinin, Blutzucker, CRP, CK wegen der Liegezeit, Troponin, TSH, Vitamin D und B12, Gerinnung; Urinstatus; 12-Kanal-EKG; Röntgen Becken und linke Hüfte in zwei Ebenen, bei negativem Befund und fortbestehender Belastungsunfähigkeit CT; kraniales CT wegen des Kopfanpralls unter Apixaban; Schellong-Test; nach der Akutphase das geriatrische Assessment mit Timed-up-and-go, Tinetti, MoCA, Depressions- und Ernährungsscreening sowie ein Medikationsreview, augenärztliche Untersuchung und Knochendichtemessung.',
+        },
+        {
+          frage: 'Brauchen Sie ein kraniales CT — der Patient war doch nicht bewusstlos?',
+          antwort: 'Ja. Er hat sich den Kopf an der Badewanne angestoßen und steht unter Apixaban; die Kombination aus Kopfanprall, Antikoagulation und Alter über 65 ist eine klare Indikation für ein CT unabhängig vom Bewusstseinsverlust. Zudem muss ich ihn und seine Tochter über die Warnzeichen eines chronischen Subduralhämatoms aufklären, das sich erst Tage bis Wochen später mit Kopfschmerz, Verwirrtheit oder einer Halbseitenschwäche zeigen kann.',
+        },
+        {
+          frage: 'Welche Medikamente würden Sie ändern, und warum nimmt er Tamsulosin?',
+          antwort: 'Tamsulosin ist ein Alphablocker gegen die Beschwerden der Prostatavergrößerung — er senkt aber zusätzlich den Blutdruck im Stehen. Ich würde das Zolpidem ausschleichen, Diclofenac wegen Apixaban, Ramipril/HCT und Nierenrisiko sofort absetzen und durch Paracetamol oder Metamizol ersetzen, das Amlodipin pausieren und das Blutdruckziel auf etwa 130–140 mmHg systolisch lockern, das Diuretikum morgens geben und Tamsulosin auf Notwendigkeit prüfen. Apixaban und Bisoprolol behalte ich wegen des Vorhofflimmerns bei.',
+        },
+        {
+          frage: 'Wie sieht das weitere Vorgehen im Krankenhaus und nach der Entlassung aus?',
+          antwort: 'Stationäre Aufnahme zur Bildgebung, Monitorüberwachung und Medikationsanpassung; bei Fraktur unfallchirurgische Versorgung innerhalb von 24 Stunden, sonst frühe Mobilisation mit Physiotherapie. Anschließend geriatrische Frührehabilitation oder geriatrische Tagesklinik mit Kraft- und Gleichgewichtstraining, Ergotherapie mit Aufstehtraining, Wohnungsbegehung mit Beseitigung von Läufern und Badvorleger, Nachtlicht, Haltegriffen und beidseitigem Treppengeländer, Hausnotruf, Kataraktoperation, Knochendichtemessung mit Kalzium und Vitamin D, Gespräch mit der Tochter und Wiedervorstellung beim Hausarzt mit erneutem Assessment.',
+        },
+        {
+          frage: 'Der Patient bittet Sie, seiner Tochter nichts von dem früheren Sturz zu erzählen. Wie gehen Sie damit um?',
+          antwort: 'Ich respektiere die Schweigepflicht, spreche aber die dahinterliegende Angst an: die Sorge, die Selbstständigkeit oder das Haus zu verlieren. Ich erkläre, dass das Ziel der Behandlung genau das Gegenteil ist — sicher zu Hause bleiben zu können — und dass die Tochter dafür eine wichtige Hilfe ist. Ich bitte ihn um sein Einverständnis, gemeinsam mit ihr über Hausnotruf und Wohnungsanpassung zu sprechen, und respektiere seine Entscheidung.',
+        },
+        {
+          frage: 'Wie klassifizieren Sie eine Schenkelhalsfraktur, falls sich im Röntgen eine zeigt?',
+          antwort: 'Nach Garden anhand der Dislokation: I eingestaucht in Valgusstellung, II vollständig, aber nicht disloziert, III teilweise disloziert, IV vollständig disloziert; nach Pauwels anhand des Winkels der Frakturlinie zur Horizontalen: unter 30°, 30–50° und über 50°. Beim 75-jährigen Patienten würde bei dislozierter Fraktur eine Endoprothese, bei eingestauchter Fraktur eine Osteosynthese diskutiert — in jedem Fall Operation innerhalb von 24 Stunden.',
+        },
+        {
+          frage: 'Sollte man bei einem Patienten, der wiederholt stürzt, die Antikoagulation absetzen?',
+          antwort: 'In der Regel nicht. Bei Vorhofflimmern überwiegt der Schutz vor einem Schlaganfall das Blutungsrisiko durch Stürze deutlich — rechnerisch müsste ein Patient sehr häufig im Jahr stürzen, bevor das Blutungsrisiko den Nutzen aufwiegt. Richtig ist, die Sturzursachen zu behandeln, NSAR abzusetzen, die Dosis an Nierenfunktion und Alter anzupassen und nach jedem Kopfanprall großzügig ein CT zu machen.',
+        },
+      ],
+      merksatz: 'Ein Sturz im Alter ist kein Zufall, sondern ein Symptom: erst fragen, ob das Bewusstsein weg war (Synkope → Herz), dann Hergang, Liegezeit und Kopfanprall, dann die drei Ursachengruppen — intrinsisch, medikamentös, extrinsisch. Schellong, EKG, CT bei Kopfanprall unter Blutverdünner, Röntgen der Hüfte; Therapie = Medikationsreview, Kraft- und Gleichgewichtstraining, Wohnraumanpassung, Osteoporoseschutz — und die Antikoagulation bei Vorhofflimmern nicht reflexartig absetzen.',
+      linkedCaseIds: [
+        'case-sturz-im-alter',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-roentgen-thorax',
+        'auf-sonographie',
+      ],
+    },
   ];
 }
