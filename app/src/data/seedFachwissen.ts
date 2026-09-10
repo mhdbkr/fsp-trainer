@@ -31485,5 +31485,2000 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-gastroskopie',
       ],
     },
+    {
+      id: 'fw-malaria',
+      pathology: 'Malaria tropica (Plasmodium falciparum)',
+      specialty: 'Infektiologie',
+      definition: 'Die Malaria ist eine durch Plasmodien verursachte, von der weiblichen Anopheles-Mücke übertragene Protozoenerkrankung. Die Malaria tropica durch Plasmodium falciparum ist die gefährlichste Form: Sie befällt Erythrozyten jeden Alters, führt zu hohen Parasitämien, zur Sequestration parasitierter Erythrozyten in der Mikrozirkulation von Gehirn, Niere, Lunge und Plazenta und kann unbehandelt innerhalb weniger Tage tödlich verlaufen. Die Leitregel lautet: Fieber nach Aufenthalt in einem Endemiegebiet ist eine Malaria, bis das Gegenteil bewiesen ist — der Malarianachweis ist ein Notfall, der sofort und rund um die Uhr erfolgen muss.',
+      aetiologie: 'Erreger sind fünf humanpathogene Plasmodienarten: P. falciparum (Malaria tropica, etwa 80 % der importierten Fälle in Deutschland, überwiegend aus Subsahara-Afrika), P. vivax und P. ovale (Malaria tertiana, mit Leberformen — Hypnozoiten — und Rückfällen nach Monaten bis Jahren), P. malariae (Malaria quartana) und P. knowlesi (Südostasien). Übertragung durch den Stich der nachtaktiven weiblichen Anopheles-Mücke; selten durch Bluttransfusion, Nadelstich, transplazentar oder als Flughafen-Malaria. Die Sporozoiten wandern in die Leber, reifen dort zu Schizonten (präerythrozytäre Phase, klinisch stumm) und befallen dann als Merozoiten die Erythrozyten; der synchrone Zerfall der Erythrozyten löst die Fieberschübe aus. Bei P. falciparum ist die Vermehrung unsynchronisiert, weshalb das Fieber unregelmäßig bleibt. Inkubationszeit bei der Malaria tropica mindestens 7 Tage, meist 1–4 Wochen; bei P. vivax/ovale auch Monate bis Jahre.',
+      risikofaktoren: [
+        'Aufenthalt in einem Endemiegebiet, insbesondere Subsahara-Afrika, ländliche Regionen, Regenzeit, Übernachtung im Freien oder ohne Moskitonetz',
+        'Fehlende, unregelmäßig oder zu kurz eingenommene Chemoprophylaxe (nach der Rückkehr abgesetzt) sowie fehlende Expositionsprophylaxe (Netz, Repellents, lange Kleidung)',
+        'Fehlende Semi-Immunität: Reisende aus nicht-endemischen Ländern und Migranten, die nach Jahren in Europa ihre Heimat besuchen (VFR — „visiting friends and relatives“), weil die Teilimmunität verloren geht',
+        'Schwangerschaft — deutlich erhöhtes Risiko für schwere Verläufe, Hypoglykämie, Anämie, Abort und niedriges Geburtsgewicht (Sequestration in der Plazenta)',
+        'Kleinkinder, ältere Menschen, Immunsuppression, HIV-Infektion',
+        'Splenektomie oder funktionelle Asplenie — die Milz entfernt parasitierte Erythrozyten; ohne Milz höhere Parasitämien und schwerere Verläufe',
+        'Chronische Vorerkrankungen (Herz-, Nieren-, Lebererkrankungen), die die Toleranz gegenüber Anämie, Azidose und Volumenverschiebungen einschränken',
+        'Verzögerte Diagnose durch Fehldeutung als Grippe oder Magen-Darm-Infekt — der wichtigste vermeidbare Risikofaktor für einen tödlichen Verlauf',
+      ],
+      klinik: [
+        {
+          text: 'Fieber als Leitsymptom, bei der Malaria tropica typischerweise UNREGELMÄSSIG ohne festen Rhythmus, oft kontinuierlich oder in unvorhersehbaren Schüben zwischen 38 und 40 °C — der klassische Wechselfieber-Rhythmus (alle 48 Stunden bei tertiana, alle 72 Stunden bei quartana) gilt NICHT für die tropica',
+        },
+        {
+          text: 'Schüttelfrost, Hitzegefühl und anschließend starkes Schwitzen (Nachtschweiß) als Ausdruck des Erythrozytenzerfalls',
+        },
+        {
+          text: 'Kopfschmerzen, Gliederschmerzen, Myalgien und Arthralgien, ausgeprägte Abgeschlagenheit — das Bild eines „grippalen Infekts“',
+        },
+        {
+          text: 'Gastrointestinale Symptome: Übelkeit, Erbrechen, Durchfall, diffuse Bauchschmerzen — häufige Fehldiagnose Gastroenteritis',
+        },
+        {
+          text: 'Trockener Husten, gelegentlich Dyspnoe',
+        },
+        {
+          text: 'Hämolysezeichen: Blässe, Ikterus, dunkler Urin (Bilirubinurie und Hämoglobinurie), Anämie',
+        },
+        {
+          text: 'Hepatosplenomegalie — die Milz ist bei längerem Verlauf druckschmerzhaft vergrößert (Cave: fehlt zwangsläufig bei splenektomierten Patienten)',
+        },
+        {
+          text: 'Tachykardie, Hypotonie, Zeichen der Exsikkose durch Fieber, Schwitzen, Erbrechen und Durchfall',
+        },
+        {
+          text: 'Bewusstseinstrübung, Verwirrtheit, Krampfanfälle, Koma — zerebrale Malaria, die häufigste Todesursache bei Erwachsenen',
+          atypisch: true,
+        },
+        {
+          text: 'Atemnot mit Lungenödem oder ARDS, Kreislaufschock („algide Malaria“), akutes Nierenversagen mit Oligurie, Hämoglobinurie („Schwarzwasserfieber“)',
+          atypisch: true,
+        },
+        {
+          text: 'Blutungsneigung und Verbrauchskoagulopathie, spontane Hämatome, Zahnfleisch- und Schleimhautblutungen',
+          atypisch: true,
+        },
+        {
+          text: 'Hypoglykämie — besonders bei Schwangeren, Kindern und unter Chinintherapie; kann Bewusstseinsstörungen vortäuschen oder verstärken',
+          atypisch: true,
+        },
+        {
+          text: 'Afebriler oder oligosymptomatischer Verlauf bei Semi-Immunen und unter unvollständiger Chemoprophylaxe (abgeschwächtes, verzögertes Bild)',
+          atypisch: true,
+        },
+        {
+          text: 'Rückfall (Relapse) Monate bis Jahre nach der Reise bei P. vivax und P. ovale durch Hypnozoiten in der Leber',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach Erreger und Fiebertyp',
+          inhalt: 'Malaria tropica (P. falciparum): unregelmäßiges Fieber, keine Rhythmik, lebensbedrohlich, keine Leberformen. Malaria tertiana (P. vivax, P. ovale): Fieberschübe alle 48 Stunden (jeden dritten Tag), Hypnozoiten in der Leber mit Rückfällen — Radikalkur mit Primaquin nötig. Malaria quartana (P. malariae): Fieberschübe alle 72 Stunden (jeden vierten Tag), chronische Parasitämie über Jahre, Immunkomplex-Glomerulonephritis. Knowlesi-Malaria (P. knowlesi, Südostasien): 24-Stunden-Rhythmus, kann wie eine tropica schwer verlaufen.',
+        },
+        {
+          name: 'Unkomplizierte versus komplizierte (schwere) Malaria tropica — WHO-Kriterien',
+          inhalt: 'Komplizierte Malaria bei mindestens einem der folgenden Befunde: Bewusstseinstrübung oder Koma (GCS < 11), Krampfanfälle, Kreislaufschock (systolisch < 80 mmHg mit Zeichen der Minderperfusion), Lungenödem/ARDS oder Atemnot, akutes Nierenversagen (Kreatinin > 3 mg/dl), schwere Anämie (Hb < 7 g/dl bei Erwachsenen), Ikterus (Bilirubin > 3 mg/dl in Verbindung mit Parasitämie), Hypoglykämie (< 40 mg/dl), metabolische Azidose (Bikarbonat < 15 mmol/l) oder Laktat > 5 mmol/l, Spontanblutungen/Verbrauchskoagulopathie, Hämoglobinurie, Parasitämie ≥ 5 % (bei Nicht-Immunen). Jedes Kriterium bedeutet Intensivstation und intravenöses Artesunat.',
+        },
+        {
+          name: 'Parasitämie (Anteil parasitierter Erythrozyten im dünnen Ausstrich)',
+          inhalt: '< 1 %: leichte Parasitämie; 1–5 %: unkomplizierte Malaria möglich, engmaschige Kontrolle; ≥ 5 %: Kriterium der komplizierten Malaria (nach der deutschen Leitlinie bereits ab 5 %, WHO 10 %) — parenterale Therapie. Kontrolle der Parasitämie unter Therapie an Tag 1, 2 und 3; ein Abfall um 75 % bis Tag 2 bzw. Negativität an Tag 3 spricht für ein Ansprechen.',
+        },
+        {
+          name: 'Chemoprophylaxe-Kategorien nach Reiseregion (DTG/RKI)',
+          inhalt: 'Hochrisikogebiete (Subsahara-Afrika, Papua-Neuguinea): Chemoprophylaxe mit Atovaquon-Proguanil (1 Tag vor bis 7 Tage nach Aufenthalt), Doxycyclin (1 Tag vor bis 4 Wochen nach) oder Mefloquin (1–3 Wochen vor bis 4 Wochen nach; Cave neuropsychiatrische Nebenwirkungen). Gebiete mit geringem Risiko: Stand-by-Notfallmedikation (Artemether-Lumefantrin oder Atovaquon-Proguanil) mit Anweisung, bei Fieber ab dem 7. Tag ohne erreichbaren Arzt einzunehmen. Minimales Risiko: nur Expositionsprophylaxe.',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinstrübung, Verwirrtheit, Somnolenz oder Krampfanfall → zerebrale Malaria, sofort Intensivstation und intravenöses Artesunat',
+        'Hypotonie, Tachykardie, kalte Peripherie, Oligurie → Schock („algide Malaria“) oder begleitende bakterielle Sepsis — Blutkulturen und zusätzliche Antibiose',
+        'Dyspnoe, Tachypnoe, Sättigungsabfall → Lungenödem/ARDS, Cave Überwässerung bei der Volumentherapie',
+        'Ikterus, dunkler Urin, Hämoglobinurie, Hb < 7 g/dl → schwere Hämolyse, Transfusion prüfen',
+        'Blutzucker < 40 mg/dl → Hypoglykämie, insbesondere bei Schwangeren und unter Chinin — Glukose sofort',
+        'Parasitämie ≥ 5 %, Laktat > 5 mmol/l, Azidose → komplizierte Malaria auch ohne Organsymptome',
+        'Schwangerschaft, Splenektomie, Kleinkind, hohes Alter, Immunsuppression → Hochrisikogruppe, niedrige Schwelle für parenterale Therapie',
+        'Erbrechen mit Unfähigkeit, orale Medikamente zu behalten → intravenöse Therapie',
+        'Fieber nach Tropenaufenthalt mit Blutungsneigung und Kontakt zu Erkrankten oder Verstorbenen → hämorrhagisches Fieber (Ebola, Lassa) mitbedenken, Isolierung, Sonderisolierstation',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Reiseanamnese als entscheidende Weichenstellung — aktiv und präzise: WOHIN (Land, Region, Stadt oder Land), WANN (Ein- und Ausreise, Zeitabstand zum Fieberbeginn — Malaria tropica frühestens 7 Tage nach Einreise ins Endemiegebiet, meist 1–4 Wochen nach Rückkehr), WIE LANGE, welche PROPHYLAXE (welches Präparat, wie viel, wie lange, regelmäßig, auch nach der Rückkehr weitergenommen?), Moskitonetz, Repellents, Übernachtung im Freien, Süßwasserkontakt, Krankheitsfälle im Umfeld',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Fieberanamnese: Beginn, Höhe, Rhythmus (unregelmäßig bei tropica!), Schüttelfrost und Schwitzen, Begleitsymptome (Kopf- und Gliederschmerzen, Übelkeit, Erbrechen, Durchfall, Husten, dunkler Urin); Risikogruppen erfragen: Schwangerschaft, Splenektomie, Immunsuppression, Vorerkrankungen; Impfstatus (Hepatitis A/B, Typhus, Gelbfieber)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern (Temperatur, Blutdruck, Herzfrequenz, Atemfrequenz, Sauerstoffsättigung), Bewusstseinslage (GCS), Meningismus, Hautkolorit (Blässe, Ikterus, Petechien, Eschar, Exanthem), Skleren, bimanuelle Palpation von Leber und Milz (Splenomegalie), Auskultation der Lunge, Zeichen der Exsikkose, Urinfarbe',
+        },
+        {
+          stufe: 'Labor',
+          text: 'DICKER TROPFEN — die empfindlichste Methode zum Nachweis und zum Ausschluss (Anreicherung, Nachweisgrenze etwa 10–50 Parasiten/µl) — sofort, als Notfall, rund um die Uhr; das Ergebnis muss innerhalb weniger Stunden vorliegen und darf nicht auf den nächsten Morgen warten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Dünner BLUTAUSSTRICH (Giemsa-Färbung) zur Speziesbestimmung (Ringformen, Gametozyten in Halbmondform bei P. falciparum) und zur Bestimmung der PARASITÄMIE in Prozent der Erythrozyten — sie entscheidet über die Therapie (unkompliziert versus kompliziert)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei negativem Befund und fortbestehendem Verdacht WIEDERHOLUNG alle 6–12 Stunden, mindestens dreimal über 48 Stunden — ein einzelner negativer Ausstrich schließt die Malaria NICHT aus (Sequestration, frühe Phase, Prophylaxe-Einnahme)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Malaria-Schnelltest (Antigennachweis HRP-2 für P. falciparum, pLDH für andere Arten) ergänzend, insbesondere wenn keine erfahrene Mikroskopie verfügbar ist — nie als alleinige Grundlage: falsch negativ bei sehr hoher oder sehr niedriger Parasitämie und bei HRP-2-Deletionen, falsch positiv Wochen nach Therapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: THROMBOZYTOPENIE als sehr typischer Hinweis (bei über 70 % der Patienten), Anämie, meist Leukozyten normal oder erniedrigt (Leukozytose spricht eher für eine bakterielle Infektion); Hämolyseparameter LDH erhöht, Haptoglobin erniedrigt, indirektes Bilirubin erhöht, Retikulozyten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin, Harnstoff, Elektrolyte, Transaminasen, Gerinnung (Quick/INR, PTT, Fibrinogen, D-Dimere), CRP und Procalcitonin, BLUTZUCKER, Blutgasanalyse mit Laktat und Bikarbonat — die Werte definieren die Kriterien der komplizierten Malaria',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen (mindestens zwei Paare) vor jeder Antibiotikagabe, Urinstatus und Urinkultur, ggf. Stuhlkultur — zum Ausschluss von Typhus, Sepsis, Pyelonephritis und Koinfektionen; Schwangerschaftstest bei jeder Frau im gebärfähigen Alter; HIV-Test mit Einverständnis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Husten, Dyspnoe oder Sättigungsabfall (Pneumonie, Lungenödem, ARDS); EKG als Ausgangsbefund vor Artemether-Lumefantrin und Chinin (QT-Zeit)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: Splenomegalie, Hepatomegalie, Ausschluss eines Amöbenleberabszesses, Nierenmorphologie, Harnstau; bei Bewusstseinsstörung cCT und ggf. Liquorpunktion zum Ausschluss einer Meningitis/Enzephalitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'PCR zur Speziesbestätigung, bei Mischinfektionen, bei sehr niedriger Parasitämie und in Zweifelsfällen; Serologie ist zur Akutdiagnostik ungeeignet',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'G6PD-Bestimmung VOR jeder Primaquin-Gabe (Radikalkur bei P. vivax/ovale) zur Vermeidung einer Hämolyse',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Erweiterte Reisediagnostik je nach Exposition: Dengue-NS1-Antigen und Serologie, Chikungunya, Typhus-Blutkultur, Leptospirose-, Rickettsien- und Schistosomiasis-Serologie, Hepatitis-Serologie, HIV-Primoinfektion (p24/HIV-RNA); bei hämorrhagischem Fieber-Verdacht Rücksprache mit dem Kompetenzzentrum und Sonderisolierung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Influenza und grippaler Infekt',
+          unterscheidung: 'Die häufigste Fehldiagnose bei Rückkehrern! Respiratorische Symptome (Halsschmerzen, Rhinitis, Husten) stehen im Vordergrund, saisonale Häufung, meist keine Thrombozytopenie und keine Hämolyse; Influenza-PCR. Bei Tropenrückkehrern ist der Grippeverdacht erst nach dickem Tropfen erlaubt.',
+        },
+        {
+          dd: 'Denguefieber / Chikungunya',
+          unterscheidung: 'Inkubation kurz (3–14 Tage, Fieberbeginn oft noch im Reiseland oder in der ersten Woche danach), plötzlich einsetzendes hohes Fieber mit retroorbitalen Kopfschmerzen, starken Muskel- und Knochenschmerzen, makulopapulöses Exanthem ab Tag 3–5, Leukopenie und Thrombozytopenie; NS1-Antigen und Serologie. Chikungunya mit ausgeprägten, wochenlang anhaltenden symmetrischen Arthralgien.',
+        },
+        {
+          dd: 'Typhus abdominalis',
+          unterscheidung: 'Treppenförmiger Fieberanstieg, relative Bradykardie, Obstipation vor erbsbreiartigem Durchfall, Roseolen am Bauch, Benommenheit, Leukopenie mit Aneosinophilie; Nachweis von Salmonella Typhi in der Blutkultur (erste Woche) bzw. Stuhlkultur.',
+        },
+        {
+          dd: 'Amöbenleberabszess',
+          unterscheidung: 'Fieber mit Druckschmerz im rechten Oberbauch, Hepatomegalie, Leukozytose; oft Wochen bis Monate nach dem Aufenthalt; Sonographie mit Abszess, Amöbenserologie.',
+        },
+        {
+          dd: 'Virushepatitis A/B/E',
+          unterscheidung: 'Prodromale Phase mit Übelkeit und Inappetenz, dann Ikterus mit hellem Stuhl und dunklem Urin; Transaminasen massiv erhöht (> 1 000 U/l), Bilirubin direkt; Hepatitis-Serologie. Bei Malaria überwiegt das indirekte Bilirubin bei nur mäßig erhöhten Transaminasen.',
+        },
+        {
+          dd: 'HIV-Primoinfektion',
+          unterscheidung: 'Mononukleoseähnliches Bild 2–4 Wochen nach Risikokontakt: Fieber, Pharyngitis, generalisierte Lymphadenopathie, makulöses Exanthem, orale Ulzera; HIV-RNA und p24-Antigen. Als Differenzialdiagnose nur mit Begründung (Risikokontakt) nennen — Prüfer erwarten die Herleitung.',
+        },
+        {
+          dd: 'Leptospirose und Rickettsiosen',
+          unterscheidung: 'Leptospirose: Süßwasserkontakt (Flüsse, Seen, Überschwemmungen), Konjunktivitis, Wadenschmerzen, Nierenversagen, Ikterus (Morbus Weil). Rickettsiosen (Zeckenbissfieber): schwarzer Eschar an der Stichstelle, Exanthem, regionale Lymphadenopathie; Ansprechen auf Doxycyclin.',
+        },
+        {
+          dd: 'Meningitis / Enzephalitis',
+          unterscheidung: 'Fieber mit Nackensteifigkeit, Lichtscheu, Bewusstseinsstörung; Liquorpunktion nach cCT. Cave: Die zerebrale Malaria zeigt typischerweise KEINEN Meningismus, kann aber neurologisch identisch imponieren — dicker Tropfen vor der Punktion.',
+        },
+        {
+          dd: 'Pyelonephritis und andere bakterielle Fokusinfektionen (Pneumonie, Cholangitis, Sepsis)',
+          unterscheidung: 'Klinischer Fokus (Flankenschmerz, Dysurie, Husten mit Auswurf, Oberbauchschmerz), Leukozytose mit Linksverschiebung, Procalcitonin deutlich erhöht, Urinstatus, Röntgen, Blutkulturen. Cave: Bakterielle Sepsis und Malaria können gleichzeitig vorliegen — bei Schock immer beide behandeln; bei Splenektomierten OPSI durch Pneumokokken bedenken.',
+        },
+        {
+          dd: 'Akute Schistosomiasis (Katayama-Syndrom) und viszerale Leishmaniose',
+          unterscheidung: 'Katayama: 2–8 Wochen nach Süßwasserkontakt (Malawisee, Nil, Victoriasee) Fieber, Urtikaria, Husten und ausgeprägte Eosinophilie. Viszerale Leishmaniose: über Wochen bis Monate Fieber, massive Splenomegalie, Panzytopenie, Hypergammaglobulinämie.',
+        },
+        {
+          dd: 'Tuberkulose',
+          unterscheidung: 'Subakuter bis chronischer Verlauf über Wochen mit Nachtschweiß, Gewichtsverlust, Husten; Röntgen-Thorax, Sputum, Interferon-Gamma-Test.',
+        },
+        {
+          dd: 'Virale hämorrhagische Fieber (Ebola, Lassa, Marburg)',
+          unterscheidung: 'Nur bei entsprechender Exposition (Ausbruchsgebiet, Kontakt zu Erkrankten, Verstorbenen oder Nagetieren, Krankenhaustätigkeit vor Ort) innerhalb von 21 Tagen; Blutungen, Schock; sofortige Isolierung, Rücksprache mit dem Kompetenz- und Behandlungszentrum, Meldung. Die Malaria ist auch hier zuerst auszuschließen.',
+        },
+        {
+          dd: 'Nicht-infektiöse Ursachen: Medikamentenfieber, Malignom (Lymphom), Autoimmunerkrankung',
+          unterscheidung: 'Fehlende Infektzeichen, B-Symptomatik über Wochen, Lymphadenopathie, neu angesetzte Medikamente; erst nach Ausschluss der Malaria durch dreimalig negativen dicken Tropfen weiterverfolgen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortige Risikoeinschätzung und Behandlungsbeginn',
+          items: [
+            'Jede Malaria tropica wird STATIONÄR aufgenommen — auch die unkomplizierte, weil sich der Zustand innerhalb von Stunden verschlechtern kann; kein Patient mit nachgewiesener P.-falciparum-Infektion wird nach Hause geschickt',
+            'Sofortige Einstufung als unkompliziert oder kompliziert anhand der WHO-Kriterien: Bewusstsein, Kreislauf, Atmung, Nierenfunktion, Hämoglobin, Bilirubin, Blutzucker, Laktat/Azidose, Gerinnung, Parasitämie; Risikogruppen (Schwangere, Splenektomierte, Kinder, Ältere, Immunsupprimierte) erhalten eine niedrigere Schwelle für die parenterale Therapie',
+            'Therapiebeginn innerhalb einer Stunde nach dem Nachweis — KEINE Verzögerung durch weitere Diagnostik; bei dringendem klinischem Verdacht auf komplizierte Malaria und nicht sofort verfügbarem Nachweis wird bereits empirisch behandelt',
+            'Komplizierte Malaria: Intensivstation, intravenöses ARTESUNAT als Mittel der Wahl (2,4 mg/kg zu den Zeitpunkten 0, 12 und 24 Stunden, danach einmal täglich, mindestens 24 Stunden bzw. bis orale Therapie möglich, dann Umstellung auf eine orale Artemisinin-Kombination); Chinin intravenös nur noch als Reserve, wenn Artesunat nicht verfügbar ist',
+            'Gleichzeitig Stabilisierung: zwei periphere Zugänge, vorsichtiger Volumenausgleich (Cave Lungenödem — kein aggressives Volumen), Elektrolytkorrektur, Blutzuckerkontrolle mit sofortiger Glukosegabe bei Hypoglykämie, Antikonvulsiva bei Krampfanfällen (Benzodiazepine), Sauerstoff, ggf. Nierenersatzverfahren bei akutem Nierenversagen, Intubation bei GCS-Abfall oder ARDS',
+            'Bei Schock, Hypotonie oder Verdacht auf bakterielle Koinfektion: Blutkulturen abnehmen und kalkulierte Breitspektrum-Antibiose (z. B. Ceftriaxon) zusätzlich zur Malariatherapie — bei Splenektomierten wegen OPSI-Gefahr besonders früh',
+            'Sofortige Rücksprache mit einem tropenmedizinischen Zentrum bzw. Infektiologen — die Therapieentscheidung wird nicht allein getroffen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Speziesgerechte antiparasitäre Therapie',
+          items: [
+            'Unkomplizierte Malaria tropica: orale Artemisinin-basierte Kombinationstherapie (ACT) — in Deutschland üblicherweise Artemether-Lumefantrin (Riamet®: 4 Tabletten zu 0, 8, 24, 36, 48 und 60 Stunden mit fettreicher Mahlzeit, insgesamt 24 Tabletten über 3 Tage; QT-Verlängerung beachten) oder Atovaquon-Proguanil (Malarone®: 4 Tabletten täglich über 3 Tage mit einer Mahlzeit); Dihydroartemisinin-Piperaquin als Alternative',
+            'Bei Erbrechen innerhalb von 30–60 Minuten nach Einnahme Dosis wiederholen; wer orale Medikamente nicht behält, wird intravenös mit Artesunat behandelt',
+            'Malaria tertiana (P. vivax, P. ovale): Artemether-Lumefantrin oder Chloroquin (außer bei Chloroquin-Resistenz, z. B. Papua-Neuguinea, Indonesien) zur Behandlung der Blutformen — und ZUSÄTZLICH die RADIKALKUR der Leberformen (Hypnozoiten) mit Primaquin 0,5 mg/kg täglich über 14 Tage, um Rückfälle zu verhindern; VORHER zwingend G6PD-Mangel ausschließen, sonst droht eine schwere Hämolyse; Primaquin ist in der Schwangerschaft kontraindiziert',
+            'Malaria quartana (P. malariae) und Knowlesi-Malaria: Chloroquin oder ACT; keine Hypnozoiten, daher keine Radikalkur',
+            'Resistenzlage und Reiseregion beachten: Chloroquin ist bei P. falciparum weltweit nahezu unwirksam; Artemisinin-Teilresistenzen in Südostasien und neuerdings in Ostafrika (Ruanda, Uganda) — Verlaufskontrolle der Parasitämie umso wichtiger',
+            'Schwangerschaft: im ersten Trimenon Artemether-Lumefantrin nach aktueller WHO-Empfehlung möglich (früher Chinin plus Clindamycin), im zweiten und dritten Trimenon ACT; komplizierte Malaria in jeder Phase intravenöses Artesunat — Nutzen überwiegt klar das Risiko',
+            'Kontrolle der Parasitämie unter Therapie an Tag 1, 2 und 3 (Abfall um mindestens 75 % bis Tag 2, Negativität an Tag 3 erwartet); nach intravenösem Artesunat Kontrolle des Blutbilds nach 7, 14, 21 und 28 Tagen wegen der verzögerten Hämolyse (Post-Artesunat-Hämolyse in bis zu 20 % der Fälle)',
+          ],
+        },
+        {
+          label: 'Supportive Behandlung und Überwachung des Verlaufs',
+          items: [
+            'Monitoring mindestens alle 4–6 Stunden in den ersten 48 Stunden — der gefährlichste Zeitraum, in dem sich auch eine initial unkomplizierte Malaria zur komplizierten entwickeln kann: Vitalparameter, Bewusstsein, Temperatur, Blutzucker, Urinausscheidung (Bilanzierung), Urinfarbe',
+            'Fiebersenkung mit Paracetamol und physikalischen Maßnahmen (Wadenwickel); Metamizol und NSAR nur mit Zurückhaltung (Thrombozytopenie, Nierenfunktion, Allergien beachten)',
+            'Flüssigkeits- und Elektrolytausgleich oral oder intravenös nach Bilanz, Ernährung sicherstellen, Antiemetika (z. B. Ondansetron) bei Erbrechen, Thromboseprophylaxe unter Beachtung der Thrombozytenzahl',
+            'Transfusion von Erythrozytenkonzentraten bei schwerer Anämie (Hb < 7 g/dl oder symptomatisch); Thrombozyten- oder Gerinnungssubstitution nur bei Blutung oder Verbrauchskoagulopathie; Austauschtransfusion ist heute verlassen',
+            'Engmaschige Laborkontrollen (täglich Blutbild, Kreatinin, Elektrolyte, Bilirubin, LDH, Glukose, Laktat, Gerinnung) und Parasitämie; Behandlung von Begleitinfektionen (Harnwegsinfekt, Pneumonie) und Komplikationen (Nierenversagen, Lungenödem)',
+            'Entlassung erst bei klinischer Stabilität, negativem Ausstrich bzw. deutlich fallender Parasitämie, sicherer oraler Medikamenteneinnahme und geregelter Nachkontrolle; ambulante Kontrolle des Blutbilds in den Wochen danach',
+          ],
+        },
+        {
+          label: 'Prävention, Beratung und Meldung',
+          items: [
+            'MELDEPFLICHT nach § 7 Infektionsschutzgesetz: der direkte oder indirekte Erregernachweis von Plasmodien wird vom Labor an das Gesundheitsamt gemeldet (nicht namentlich); Meldung von Todesfällen. Die Malaria ist NICHT von Mensch zu Mensch übertragbar — keine Isolierung, keine Ansteckungsgefahr für Mitpatienten oder Angehörige',
+            'Reisemedizinische Beratung VOR der nächsten Reise: Expositionsprophylaxe — imprägniertes Moskitonetz, lange helle Kleidung, Repellents mit DEET oder Icaridin, Aufenthalt in geschlossenen, klimatisierten oder mückengeschützten Räumen in der Dämmerung und nachts, weil die Anopheles NACHTS sticht',
+            'Chemoprophylaxe je nach Region: Atovaquon-Proguanil (täglich, 1–2 Tage vor Einreise bis 7 Tage nach Ausreise), Doxycyclin (täglich, bis 4 Wochen nach Ausreise) oder Mefloquin (wöchentlich, bis 4 Wochen nach Ausreise); Aufklärung, dass die Prophylaxe KONSEQUENT und auch NACH der Rückkehr weitergenommen werden muss — die meisten Malariafälle bei Reisenden entstehen durch fehlende oder abgebrochene Prophylaxe; alternativ Stand-by-Notfallmedikation für Gebiete mit geringem Risiko',
+            'Aufklärung, dass jedes Fieber in den Monaten nach einer Tropenreise sofort ärztlich abgeklärt werden muss, mit ausdrücklichem Hinweis auf den Tropenaufenthalt beim ersten Arztkontakt; bei P. vivax/ovale auch nach Jahren an einen Rückfall denken',
+            'Bei Risikogruppen (Schwangere, Splenektomierte, Immunsupprimierte, Kleinkinder) besondere Beratung, gegebenenfalls von Reisen in Hochrisikogebiete abraten; bei Splenektomierten zusätzlich Impfstatus gegen Pneumokokken, Meningokokken und Haemophilus influenzae b überprüfen und auffrischen',
+            'Neue Optionen zur Kenntnis nehmen: Malaria-Impfstoffe (RTS,S, R21) sind für Kinder in Endemiegebieten zugelassen, für Reisende bisher nicht verfügbar; Blutspendeausschluss nach Malaria bzw. Tropenaufenthalt beachten',
+          ],
+        },
+      ],
+      prognose: 'Rechtzeitig erkannt und behandelt ist die unkomplizierte Malaria tropica in nahezu allen Fällen heilbar; die Letalität importierter Fälle liegt in Deutschland unter 1 %. Die komplizierte Malaria hat trotz Intensivtherapie eine Letalität von 10–20 %, unbehandelt ist die Malaria tropica bei Nicht-Immunen häufig tödlich. Entscheidend ist die Zeit bis zur Diagnose — nahezu jeder Todesfall in Europa geht auf eine verspätete Diagnose zurück, meist weil Fieber nach der Reise als Grippe oder Magen-Darm-Infekt verkannt wurde. Nach erfolgreicher Therapie hinterlässt die Malaria tropica keine Immunität und keine Leberformen; Rückfälle sind nur bei P. vivax und P. ovale (Hypnozoiten) zu erwarten. Nach intravenösem Artesunat ist eine verzögerte Hämolyse in den Wochen danach möglich, weshalb Blutbildkontrollen bis Tag 28 empfohlen werden.',
+      pruefungsfallen: [
+        'Die Leitregel muss fallen — fast wörtlich: „Fieber nach Aufenthalt in einem Endemiegebiet ist Malaria, bis das Gegenteil bewiesen ist.“ Wer bei einem Tropenrückkehrer mit Fieber „Grippe“ oder „Gastroenteritis“ als Verdachtsdiagnose nennt, ist durchgefallen.',
+        'Die Reiseanamnese wird detailliert erwartet: wohin, wann, wie lange, ländlich oder städtisch, welche Prophylaxe, wie viel, wie lange, regelmäßig, auch nach der Rückkehr, Moskitonetz. In Stuttgart wurde ausdrücklich gerügt, dass die Prophylaxe nicht genau erfragt wurde („wie viel, wie lange, was genau“).',
+        'Fiebertyp: Die Malaria tropica hat KEINEN regelmäßigen Rhythmus — das Wechselfieber alle 48 bzw. 72 Stunden gilt für tertiana und quartana. Wer bei der tropica einen „typischen Dreitagerhythmus“ beschreibt, wird korrigiert.',
+        'Inkubation: Fieber vor dem 7. Tag nach Einreise ins Endemiegebiet ist keine Malaria; umgekehrt schließt eine Rückkehr vor Monaten die tertiana (Hypnozoiten von P. vivax/ovale) nicht aus.',
+        'Der dicke Tropfen ist ein NOTFALL: sofort, rund um die Uhr, nicht bis morgen warten. Und: ein einzelner negativer Ausstrich beweist nichts — Wiederholung alle 6–12 Stunden, mindestens dreimal über 48 Stunden.',
+        'Dicker Tropfen versus Blutausstrich sauber auseinanderhalten: dicker Tropfen = Nachweis/Ausschluss (empfindlich), dünner Ausstrich = Spezies und Parasitämie in Prozent (entscheidet über die Therapie). Der Schnelltest ist nur eine Ergänzung.',
+        'Die Kriterien der komplizierten Malaria aktiv aufzählen — Bewusstseinstrübung, Krampfanfälle, Schock, ARDS, Nierenversagen, schwere Anämie, Ikterus, Blutungen, HYPOGLYKÄMIE, Azidose, Parasitämie ≥ 5 % — und die Konsequenz nennen: Intensivstation und intravenöses Artesunat.',
+        'Jede Malaria tropica wird stationär aufgenommen, auch die unkomplizierte. „Ambulante Therapie und Wiedervorstellung“ ist bei P. falciparum ein Fehler.',
+        'Die Therapieentscheidung wird nicht allein getroffen: Infektiologe, Tropenmediziner, tropenmedizinisches Zentrum (in Freiburg gefragt: Wen ziehen Sie hinzu? Gibt es ein spezialisiertes Krankenhaus in der Nähe?) — und die Meldepflicht nach Infektionsschutzgesetz nennen.',
+        'Die Malaria ist NICHT ansteckend — keine Isolierung nötig. Aber die Fangfrage aus Stuttgart: „Kann der Patient im Wartebereich sitzen?“ — vorsichtig antworten: bis andere, übertragbare Infektionen (Influenza, Typhus, hämorrhagisches Fieber) ausgeschlossen sind, sollte er getrennt warten und eine Maske tragen.',
+        '„Warum hat er dunklen Urin?“ (Freiburg): Hämolyse — Bilirubin und Hämoglobin im Urin durch den Zerfall parasitierter Erythrozyten — nicht „Blut im Urin“ und nicht nur „Exsikkose“. Hepatitis als DD ist erlaubt, aber dann mit Transaminasen und direktem Bilirubin abgrenzen.',
+        'HIV als Differenzialdiagnose nur mit Begründung (Risikokontakt, mononukleoseähnliches Bild) — der Prüfer in Freiburg war mit der bloßen Nennung nicht zufrieden. Besser: Influenza, Dengue, Typhus, Hepatitis, Leptospirose, Rickettsiose, Pyelonephritis, Sepsis.',
+        'Thrombozytopenie ist der klassische Laborhinweis — im Blutbild aktiv nennen, zusammen mit Anämie, LDH und Haptoglobin (Hämolyse). Leukozytose spricht eher gegen die Malaria und für einen bakteriellen Fokus.',
+        'Radikalkur mit Primaquin nur bei P. vivax und P. ovale — und vorher den G6PD-Mangel ausschließen (sonst Hämolyse); in der Schwangerschaft kontraindiziert. Bei der tropica gibt es keine Leberformen und keine Radikalkur.',
+        'Die Prophylaxe muss nach der Rückkehr weitergenommen werden (Atovaquon-Proguanil 7 Tage, Doxycyclin und Mefloquin 4 Wochen) — der Klassiker der Beratungsfrage. Und: Es gibt keine Impfung für Reisende, nur für Kinder in Endemiegebieten.',
+        '„Haben wir in Europa Malaria?“ — Autochthone Malaria ist in Europa seit den 1970er-Jahren eliminiert (WHO), es gibt jedoch importierte Fälle (in Deutschland etwa 500–1 000 pro Jahr), vereinzelt Flughafen-Malaria und lokale Übertragungen in Südeuropa (Griechenland, Italien) durch heimische Anopheles-Arten.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie gehen Sie bei dieser Patientin vor?',
+          antwort: 'Fieber nach Aufenthalt in einem Endemiegebiet ist eine Malaria, bis das Gegenteil bewiesen ist. Deshalb erhebe ich zuerst die Vitalparameter und die Bewusstseinslage, untersuche die Patientin mit Blick auf Ikterus, Blässe, Milz und Lunge und veranlasse sofort — als Notfall, unabhängig von der Tageszeit — einen dicken Tropfen und einen dünnen Blutausstrich, dazu ein Blutbild mit Thrombozyten, Hämolyseparameter, Nieren- und Leberwerte, Gerinnung, Blutzucker, Blutgasanalyse mit Laktat, CRP, Blutkulturen und einen Urinstatus. Bei Nachweis von Plasmodium falciparum wird die Patientin stationär aufgenommen und innerhalb einer Stunde behandelt.',
+        },
+        {
+          frage: 'Ist Malaria gefährlich?',
+          antwort: 'Ja — die Malaria tropica ist die gefährlichste Form und kann unbehandelt bei Nicht-Immunen innerhalb weniger Tage tödlich verlaufen. Komplikationen sind die zerebrale Malaria mit Bewusstseinstrübung und Krampfanfällen, Schock, Lungenödem, akutes Nierenversagen, schwere Anämie, Hypoglykämie und Verbrauchskoagulopathie. Die Letalität der komplizierten Malaria liegt trotz Intensivtherapie bei 10 bis 20 Prozent; rechtzeitig behandelt ist die unkomplizierte Malaria dagegen fast immer heilbar.',
+        },
+        {
+          frage: 'Welche Arten von Malaria gibt es?',
+          antwort: 'Die Malaria tropica durch Plasmodium falciparum mit unregelmäßigem Fieber und den schweren Verläufen; die Malaria tertiana durch Plasmodium vivax und ovale mit Fieberschüben alle 48 Stunden und Leberformen, den Hypnozoiten, die Rückfälle nach Monaten bis Jahren verursachen; die Malaria quartana durch Plasmodium malariae mit Fieber alle 72 Stunden; und die Knowlesi-Malaria in Südostasien, die wie eine tropica schwer verlaufen kann.',
+        },
+        {
+          frage: 'Hat die Patientin ständig Fieber, oder kommt und geht es? Was spricht für Malaria?',
+          antwort: 'Das Fieber kommt und geht unregelmäßig, ohne festen Rhythmus, zwischen 38 und 40 Grad, mit Schüttelfrost und Nachtschweiß — genau das passt zur Malaria tropica, die im Gegensatz zur tertiana keinen Wechselfieber-Rhythmus zeigt. Für die Malaria sprechen außerdem der eineinhalbjährige Aufenthalt in Malawi, einem Hochrisikogebiet, die Rückkehr vor drei Wochen mit Fieberbeginn elf Tage danach — also innerhalb der typischen Inkubationszeit —, die fehlende Prophylaxe, die Malaria des Ehemanns, die Kopf- und Gliederschmerzen, die gastrointestinalen Beschwerden und der dunkle Urin als Hämolysezeichen.',
+        },
+        {
+          frage: 'Welche Vitalparameter messen Sie, und was erwarten Sie?',
+          antwort: 'Temperatur, Blutdruck, Herzfrequenz, Atemfrequenz, Sauerstoffsättigung, Blutzucker und die Bewusstseinslage nach der Glasgow Coma Scale. Typisch sind Fieber um 39 bis 40 Grad, eine Tachykardie, ein grenzwertig niedriger Blutdruck durch Fieber und Flüssigkeitsverlust und ein normales Bewusstsein — jede Abweichung davon, Hypotonie, Tachypnoe, Sättigungsabfall, Hypoglykämie oder Bewusstseinstrübung, wäre ein Kriterium der komplizierten Malaria.',
+        },
+        {
+          frage: 'Welche diagnostischen Maßnahmen leiten Sie ein? Welche ist die wichtigste?',
+          antwort: 'Die wichtigste ist der dicke Tropfen, die empfindlichste Methode zum Nachweis und Ausschluss, zusammen mit dem dünnen Blutausstrich zur Bestimmung der Spezies und der Parasitämie in Prozent, die über die Therapie entscheidet. Bei negativem Befund wird die Untersuchung alle sechs bis zwölf Stunden wiederholt, mindestens dreimal in 48 Stunden. Ergänzend der Malaria-Schnelltest und die PCR, im Labor Blutbild mit Thrombozyten, LDH, Haptoglobin, Bilirubin, Kreatinin, Transaminasen, Gerinnung, Blutzucker, Blutgasanalyse mit Laktat, CRP, Blutkulturen, Urinstatus und ein Schwangerschaftstest, dazu Röntgen-Thorax und Abdomensonographie.',
+        },
+        {
+          frage: 'Warum hat die Patientin dunklen Urin? Könnte es eine Hepatitis sein?',
+          antwort: 'Der dunkle Urin ist Ausdruck der Hämolyse: Beim Zerfall der parasitierten Erythrozyten werden Bilirubin und Hämoglobin frei und über den Urin ausgeschieden. Eine Hepatitis ist eine Differenzialdiagnose, aber dort steht der Ikterus mit hellem Stuhl im Vordergrund, die Transaminasen sind massiv erhöht und das Bilirubin ist direkt; bei der Malaria überwiegt das indirekte Bilirubin, die LDH ist hoch, das Haptoglobin erniedrigt und die Transaminasen sind nur mäßig erhöht. Die Hepatitis-Serologie kläre ich trotzdem ab.',
+        },
+        {
+          frage: 'Heute können wir keine Blutuntersuchungen durchführen — was tun Sie jetzt?',
+          antwort: 'Ein Malarianachweis darf nicht auf morgen verschoben werden. Ich lasse die Patientin nicht ohne Diagnostik gehen, sondern führe einen Malaria-Schnelltest durch, sichere Blutproben für dicken Tropfen und Ausstrich und veranlasse die sofortige Verlegung in eine Klinik mit Labor rund um die Uhr, idealerweise mit tropenmedizinischer Abteilung, nach telefonischer Rücksprache. Bei Zeichen einer komplizierten Malaria würde ich die Therapie empirisch beginnen.',
+        },
+        {
+          frage: 'Nehmen Sie die Patientin stationär auf?',
+          antwort: 'Ja, unbedingt. Jede Malaria tropica wird stationär behandelt, auch die unkomplizierte, weil sich der Zustand innerhalb von Stunden verschlechtern kann und die ersten 48 Stunden die gefährlichsten sind. Bei dieser Patientin kommt die Splenektomie als Risikofaktor für einen schweren Verlauf hinzu, was die Indikation noch verstärkt.',
+        },
+        {
+          frage: 'Welche therapeutischen Maßnahmen leiten Sie ein?',
+          antwort: 'Bei unkomplizierter Malaria tropica eine orale Artemisinin-basierte Kombinationstherapie, in Deutschland Artemether-Lumefantrin über drei Tage oder Atovaquon-Proguanil; bei komplizierter Malaria intravenöses Artesunat auf der Intensivstation mit Ausgleich von Volumen, Elektrolyten und Blutzucker. Dazu supportiv Fiebersenkung mit Paracetamol, Flüssigkeit, Antiemetika, engmaschiges Monitoring von Vitalparametern, Bewusstsein, Blutzucker und Urinausscheidung, tägliche Kontrolle der Parasitämie und des Blutbilds, Transfusion bei schwerer Anämie, sowie die Rücksprache mit einem tropenmedizinischen Zentrum.',
+        },
+        {
+          frage: 'Trifft man die Entscheidung über die Therapie alleine? Wen müssen Sie hinzuziehen?',
+          antwort: 'Nein. Ich ziehe den Infektiologen beziehungsweise Tropenmediziner hinzu, bei komplizierter Malaria den Intensivmediziner, und nehme Rücksprache mit einem tropenmedizinischen Zentrum, zum Beispiel dem Bernhard-Nocht-Institut in Hamburg oder der Tropenmedizin in Tübingen oder München; zudem wird der Erregernachweis nach dem Infektionsschutzgesetz an das Gesundheitsamt gemeldet.',
+        },
+        {
+          frage: 'Gibt es ein bestimmtes Krankenhaus in der Nähe für solche Infektionen?',
+          antwort: 'Ja — Kliniken mit infektiologischer oder tropenmedizinischer Abteilung, in Baden-Württemberg etwa das Universitätsklinikum Freiburg mit seiner Infektiologie, das Institut für Tropenmedizin in Tübingen und die Infektiologie am Klinikum Stuttgart; für hochkontagiöse Erkrankungen wie Ebola gibt es Sonderisolierstationen. Für die Malaria selbst ist keine Isolierung nötig, weil sie nicht von Mensch zu Mensch übertragen wird.',
+        },
+        {
+          frage: 'Kann die Patientin im Wartebereich mit anderen Patienten sitzen?',
+          antwort: 'Die Malaria selbst ist nicht ansteckend. Solange aber die Differenzialdiagnosen nicht ausgeschlossen sind — Influenza, Typhus oder bei entsprechender Exposition ein hämorrhagisches Fieber —, sollte eine Patientin mit Fieber nach einer Tropenreise getrennt warten, eine Maske tragen und bevorzugt behandelt werden, weil der dicke Tropfen ein Notfall ist.',
+        },
+        {
+          frage: 'Haben wir in Europa Malaria?',
+          antwort: 'Eine einheimische Malaria gibt es in Europa praktisch nicht mehr, sie ist seit den 1970er-Jahren eliminiert. Wir sehen aber jedes Jahr etwa 500 bis 1 000 importierte Fälle in Deutschland, vereinzelt eine Flughafen-Malaria durch eingeschleppte Mücken sowie kleine lokale Übertragungen in Südeuropa, etwa in Griechenland oder Italien, weil die Anopheles-Mücke dort weiterhin vorkommt.',
+        },
+        {
+          frage: 'Erklären Sie der Patientin, was Malaria ist und was Sie jetzt mit ihr machen wollen.',
+          antwort: 'Frau Hüber, Sie haben nach Ihrer Rückkehr aus Malawi Fieber, und das müssen wir sehr ernst nehmen: Ich gehe von einer Malaria aus. Das ist eine Infektion mit winzigen Parasiten, die durch den Stich einer Mücke übertragen werden und sich in den roten Blutkörperchen vermehren — deshalb das Fieber, der Schüttelfrost und der dunkle Urin. Malaria ist gut behandelbar, aber nur, wenn wir schnell anfangen. Wir nehmen Ihnen jetzt Blut ab und suchen unter dem Mikroskop nach den Erregern; das Ergebnis haben wir in wenigen Stunden. Wenn es sich bestätigt, bleiben Sie bei uns im Krankenhaus und bekommen Tabletten, die die Parasiten abtöten, dazu Flüssigkeit und etwas gegen das Fieber. Wir kontrollieren Sie engmaschig, weil Ihre Milz fehlt und Ihr Körper die Infektion deshalb schlechter abwehren kann. Anstecken können Sie niemanden. Haben Sie dazu Fragen?',
+        },
+      ],
+      merksatz: 'Fieber nach Tropenaufenthalt = Malaria, bis das Gegenteil bewiesen ist: dicker Tropfen SOFORT und dreimal in 48 Stunden, Parasitämie in Prozent entscheidet — jede tropica stationär, kompliziert heißt Artesunat i.v. und Intensivstation, Primaquin nur bei vivax/ovale nach G6PD-Test.',
+      linkedCaseIds: [
+        'case-malaria',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-bluttransfusion',
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-endokarditis',
+      pathology: 'Infektiöse Endokarditis',
+      specialty: 'Kardiologie',
+      definition: 'Die infektiöse Endokarditis ist eine meist bakterielle, selten mykotische Infektion der Herzinnenhaut (Endokard), die vor allem die Herzklappen — nativ oder prothetisch — sowie klappennahe Strukturen und intrakardiales Fremdmaterial (Schrittmacher-/ICD-Sonden) befällt. Auf einem vorgeschädigten Endothel bildet sich zunächst ein steriler Thrombus, der bei einer Bakteriämie besiedelt wird; es entstehen Vegetationen aus Fibrin, Thrombozyten und Erregern, die zur Klappendestruktion, zu paravalvulären Abszessen, zu septischen Embolien und zu Immunkomplexphänomenen (Glomerulonephritis, Osler-Knötchen) führen. Man unterscheidet den akuten, fulminanten Verlauf (meist Staphylococcus aureus) vom subakuten Verlauf über Wochen (klassisch Viridans-Streptokokken nach oralem Fokus). Die Erkrankung ist das Musterbeispiel des Fiebers unklarer Genese: Die Kunst besteht darin, an sie zu denken und zu auskultieren.',
+      aetiologie: 'Voraussetzung ist das Zusammentreffen einer Endothelläsion (vorgeschädigte Klappe, Jet-Läsion bei Insuffizienz, Prothese, Sonde, mechanische Schädigung durch Katheter oder Drogenpartikel) mit einer transienten Bakteriämie. Eintrittspforten: Mundhöhle und Zähne (Zahnextraktion, Wurzelbehandlung, Parodontitis — Viridans-Streptokokken), Haut und Weichteile, intravenöser Drogenkonsum und Gefäßkatheter (Staphylococcus aureus), urogenitale und gastrointestinale Eingriffe (Enterokokken), Dickdarmtumoren (Streptococcus gallolyticus, früher S. bovis). Erregerspektrum: Staphylococcus aureus (etwa 30 %, akuter Verlauf, Drogenkonsum, Katheter, Prothesen), Viridans-Streptokokken (etwa 20–30 %, subakut, oraler Fokus), Enterokokken (etwa 10 %, ältere Patienten nach urologischen Eingriffen), koagulasenegative Staphylokokken (Prothesen, Sonden), seltener HACEK-Gruppe, Pilze (Candida bei Drogenkonsum und Immunsuppression), Coxiella burnetii, Bartonella, Brucella und Tropheryma whipplei als Ursachen der kulturnegativen Endokarditis. Häufigste Ursache negativer Blutkulturen ist jedoch eine vorausgegangene Antibiotikatherapie.',
+      risikofaktoren: [
+        'Vorbestehende Klappenerkrankung (rheumatische oder degenerative Vitien, Mitralklappenprolaps mit Insuffizienz, bikuspide Aortenklappe)',
+        'Klappenprothese (mechanisch, biologisch, TAVI) und klappenrekonstruierendes Fremdmaterial — höchstes Risiko',
+        'Durchgemachte infektiöse Endokarditis (Rezidivrisiko deutlich erhöht)',
+        'Angeborene Herzfehler, insbesondere zyanotische Vitien und mit Fremdmaterial korrigierte Defekte',
+        'Herzschrittmacher- und Defibrillatorsonden, Ventrikelunterstützungssysteme',
+        'Intravenöser Drogenkonsum (typischerweise Befall der Trikuspidalklappe, Staphylococcus aureus, septische Lungenembolien)',
+        'Zentrale Venenkatheter, Dialysezugang (Shunt, Vorhofkatheter), chronische Hämodialyse',
+        'Kürzliche Zahnbehandlung, schlechter Zahnstatus, Parodontitis, Zahnextraktion ohne Prophylaxe bei Hochrisikopatienten',
+        'Haut- und Weichteilinfektionen, Wunden, Piercings, Tattoos',
+        'Immunsuppression, Diabetes mellitus, Alkoholabhängigkeit, Leberzirrhose, Malignome',
+        'Höheres Lebensalter und männliches Geschlecht (Verhältnis etwa 2:1)',
+        'Urologische und gastrointestinale Eingriffe (Enterokokken); Kolonkarzinom oder -adenom bei Nachweis von Streptococcus gallolyticus',
+      ],
+      klinik: [
+        {
+          text: 'Fieber (etwa 90 %), beim subakuten Verlauf über Wochen wellenförmig oder schubförmig, mit Schüttelfrost und Nachtschweiß',
+        },
+        {
+          text: 'Ausgeprägte Allgemeinsymptome: Abgeschlagenheit, Leistungsknick, Appetitlosigkeit, ungewollter Gewichtsverlust, Gliederschmerzen, Myalgien, Arthralgien — der Patient war meist schon mehrfach beim Arzt und hat oft bereits ein Antibiotikum ohne durchgreifenden Erfolg erhalten',
+        },
+        {
+          text: 'Neu aufgetretenes oder verändertes Herzgeräusch (etwa 85 %) — das Schlüsselzeichen, das nur findet, wer wiederholt auskultiert',
+        },
+        {
+          text: 'Tachykardie, blasse oder café-au-lait-farbene Haut, Splenomegalie bei längerem Verlauf',
+        },
+        {
+          text: 'Zeichen der Herzinsuffizienz durch Klappendestruktion: Belastungsdyspnoe, Orthopnoe, Ödeme, Lungenödem bei akuter schwerer Mitral- oder Aorteninsuffizienz',
+        },
+        {
+          text: 'Embolische Ereignisse (20–50 %), häufig Erstmanifestation: ischämischer Schlaganfall oder Hirnblutung (mykotisches Aneurysma), Milzinfarkt und Niereninfarkt mit Flanken- oder Bauchschmerz, periphere Extremitätenembolien, Koronarembolie',
+        },
+        {
+          text: 'Nierenbeteiligung: Mikrohämaturie und Proteinurie durch Immunkomplex-Glomerulonephritis, Niereninfarkte, medikamententoxische Schäden',
+        },
+        {
+          text: 'Periphere Zeichen, heute selten (unter 10 %), aber prüfungsrelevant: Osler-Knötchen (schmerzhafte, linsengroße rötliche Knötchen an Finger- und Zehenkuppen, immunologisch), Janeway-Läsionen (schmerzlose hämorrhagische Flecken an Handflächen und Fußsohlen, embolisch), Splinter-Hämorrhagien (strichförmige Einblutungen unter den Nägeln), Petechien an Konjunktiven, Gaumen und Haut, Roth-Flecken am Augenhintergrund, Trommelschlegelfinger bei langem Verlauf',
+        },
+        {
+          text: 'Akuter, fulminanter Verlauf mit hohem Fieber, Sepsis und septischem Schock innerhalb von Tagen — typisch für Staphylococcus aureus',
+          atypisch: true,
+        },
+        {
+          text: 'Rechtsherzendokarditis bei intravenösem Drogenkonsum: Trikuspidalklappenbefall, septische Lungenembolien mit Husten, pleuritischen Schmerzen und multiplen Rundherden im Röntgen, oft ohne Herzgeräusch',
+          atypisch: true,
+        },
+        {
+          text: 'Neurologische Erstmanifestation ohne Fieber: Schlaganfall, Hirnabszess, Meningitis, Hirnblutung — besonders bei älteren Patienten und unter vorheriger Antibiose',
+          atypisch: true,
+        },
+        {
+          text: 'Neu aufgetretener AV-Block oder Schenkelblock als Hinweis auf einen Klappenringabszess mit Ausbreitung ins Reizleitungssystem',
+          atypisch: true,
+        },
+        {
+          text: 'Prothesenendokarditis mit Prothesendehiszenz, paravalvulärem Leck und Fieber ohne typische Vegetation im transthorakalen Echo',
+          atypisch: true,
+        },
+        {
+          text: 'Fieber und Rückenschmerzen als Ausdruck einer begleitenden Spondylodiszitis oder Osteomyelitis (besonders bei Staphylokokken und Enterokokken)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Duke-Kriterien (modifiziert nach Li; 2023 ergänzt als Duke-ISCVID-Kriterien)',
+          inhalt: 'Hauptkriterien: 1) positive Blutkulturen — typischer Erreger (Viridans-Streptokokken, Streptococcus gallolyticus, HACEK, Staphylococcus aureus, Enterokokken ohne anderen Fokus) in mindestens zwei getrennten Kulturen oder persistierend positive Kulturen bzw. eine positive Coxiella-burnetii-Serologie; 2) Bildgebung — im Echo Vegetation, Abszess, Pseudoaneurysma, Fistel, Klappenperforation, neue Prothesendehiszenz oder neue Klappeninsuffizienz (2023 zusätzlich PET-CT- oder Herz-CT-Befund). Nebenkriterien: Prädisposition (Herzerkrankung, i.v.-Drogenkonsum), Fieber über 38 °C, vaskuläre Phänomene (arterielle Embolien, septische Lungeninfarkte, mykotisches Aneurysma, intrakranielle oder konjunktivale Blutung, Janeway-Läsionen), immunologische Phänomene (Glomerulonephritis, Osler-Knötchen, Roth-Flecken, Rheumafaktor), mikrobiologischer Hinweis ohne Hauptkriterium. Gesicherte Endokarditis: 2 Hauptkriterien oder 1 Haupt- + 3 Nebenkriterien oder 5 Nebenkriterien; mögliche Endokarditis: 1 Haupt- + 1 Nebenkriterium oder 3 Nebenkriterien. Histologischer oder kultureller Nachweis am Klappenmaterial sichert die Diagnose allein.',
+        },
+        {
+          name: 'Einteilung nach Verlauf, Lokalisation und Erwerb',
+          inhalt: 'Verlauf: akut (Tage, hochfieberhaft-septisch, meist Staphylococcus aureus) versus subakut („Endocarditis lenta“, Wochen bis Monate, meist Viridans-Streptokokken). Lokalisation: Linksherzendokarditis (Mitral- und Aortenklappe, etwa 90 %) versus Rechtsherzendokarditis (Trikuspidalklappe, i.v.-Drogenkonsum, Sonden). Klappe: Nativklappenendokarditis versus Prothesenendokarditis (früh innerhalb eines Jahres nach Operation — nosokomiale Erreger, koagulasenegative Staphylokokken; spät — Erreger wie bei Nativklappen). Erwerb: ambulant erworben, nosokomial oder gesundheitssystemassoziiert (Dialyse, Katheter), drogenassoziiert.',
+        },
+        {
+          name: 'qSOFA-Score (Sepsis-Screening am Bett)',
+          inhalt: 'Ein Punkt je Kriterium: Atemfrequenz ≥ 22/min, systolischer Blutdruck ≤ 100 mmHg, veränderte Vigilanz (GCS < 15). Ab 2 Punkten erhöhtes Risiko für einen septischen Verlauf mit Organdysfunktion — Überwachung, Laktat, sofortige Therapie. Der Score ersetzt nicht den SOFA-Score, wird aber in Reutlingen als Struktur der ersten körperlichen Untersuchung erwartet.',
+        },
+        {
+          name: 'Indikationsgruppen für die Endokarditisprophylaxe (ESC 2023 / DGK)',
+          inhalt: 'Nur noch Hochrisikopatienten: 1) Klappenprothese jeder Art einschließlich TAVI und klappenrekonstruierendes Fremdmaterial, 2) durchgemachte infektiöse Endokarditis, 3) angeborene Herzfehler — zyanotische Vitien unkorrigiert oder mit Residualdefekt, sowie alle mit Fremdmaterial korrigierten Vitien in den ersten sechs Monaten (lebenslang bei Residualdefekt), 4) Ventrikelunterstützungssysteme. Eingriffe: zahnärztliche Eingriffe mit Manipulation der Gingiva oder periapikalen Region bzw. Perforation der Mundschleimhaut. Prophylaxe: Amoxicillin oder Ampicillin 2 g 30–60 Minuten vor dem Eingriff; bei Penicillinallergie Cephalexin 2 g (nur ohne Anaphylaxie in der Anamnese), Azithromycin oder Clarithromycin 500 mg oder Doxycyclin 100 mg — Clindamycin wird nicht mehr empfohlen. Frühere Empfehlungen für alle Klappenvitien wurden 2007/2009 deutlich eingeschränkt.',
+        },
+      ],
+      redFlags: [
+        'Sepsiszeichen: qSOFA ≥ 2, Hypotonie, Tachypnoe, Vigilanzminderung, Laktatanstieg — sofortige Blutkulturen und kalkulierte Antibiose ohne Verzug',
+        'Akute Luftnot, Orthopnoe, feuchte Rasselgeräusche, neues lautes Herzgeräusch — akute Klappendestruktion mit Lungenödem, Notfall-Herzchirurgie erwägen',
+        'Neu aufgetretener AV-Block, Schenkelblock oder PQ-Verlängerung im EKG — Klappenringabszess, Ausbreitung ins Reizleitungssystem',
+        'Fokal-neurologische Ausfälle, Kopfschmerz, Vigilanzstörung — Embolie, Hirnblutung oder mykotisches Aneurysma, sofort kraniale Bildgebung',
+        'Plötzlicher Flanken- oder Oberbauchschmerz — Milz- oder Niereninfarkt, Milzabszess',
+        'Kalte, schmerzhafte Extremität — periphere arterielle Embolie',
+        'Persistierendes Fieber oder positive Blutkulturen über 7 Tage unter adäquater Antibiose — unkontrollierte Infektion, Abszesssuche, Operationsindikation',
+        'Fieber bei Klappenprothese oder Schrittmachersonde — bis zum Beweis des Gegenteils Endokarditis',
+        'Große mobile Vegetation über 10 mm, insbesondere an der Mitralklappe — hohes Embolierisiko',
+        'Kreatininanstieg, Oligurie, nephritisches Sediment — Glomerulonephritis oder Toxizität von Vancomycin/Gentamicin',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Dauer und Muster des Fiebers, Nachtschweiß, Gewichtsverlust, vorausgegangene Antibiotika; aktive Suche nach Prädisposition und Eintrittspforte — Klappenvitium, Klappenprothese, frühere Endokarditis, Schrittmacher, Zahnbehandlung und Zahnstatus, Hautinfektionen, Katheter, Dialyse, i.v.-Drogenkonsum, urologische oder gastrointestinale Eingriffe, Auslandsaufenthalte',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung nach qSOFA (Atemfrequenz, Blutdruck, Vigilanz), Temperatur, Herzfrequenz, Sauerstoffsättigung; sorgfältige, im Verlauf WIEDERHOLTE Auskultation auf ein neues oder verändertes Herzgeräusch; Zeichen der Herzinsuffizienz (Rasselgeräusche, Halsvenenstauung, Ödeme)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion von Haut, Nägeln, Handflächen, Fußsohlen, Konjunktiven und Mundschleimhaut (Osler-Knötchen, Janeway-Läsionen, Splinter-Hämorrhagien, Petechien), Zahnstatus, Palpation der Milz, Pulsstatus, orientierender neurologischer Status, Funduskopie (Roth-Flecken)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen — erste Säule der Diagnose: mindestens drei Paare (aerob und anaerob) aus drei verschiedenen Punktionsstellen im Abstand von etwa 30 Minuten, unabhängig vom Fieberverlauf und ZWINGEND VOR der ersten Antibiotikagabe; bei vorbehandelten, stabilen Patienten Antibiotikapause und wiederholte Abnahme; Kontrollkulturen 48–72 Stunden nach Therapiebeginn',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungs- und Organparameter: Blutbild mit Differenzialblutbild (Leukozytose, normochrome Anämie der chronischen Entzündung), CRP und BSG deutlich erhöht, Procalcitonin, Laktat, Kreatinin und eGFR, Elektrolyte, Leberwerte, Gerinnung, Rheumafaktor (Nebenkriterium), Komplement',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus und Urinsediment: Mikrohämaturie, dysmorphe Erythrozyten und Erythrozytenzylinder, Proteinurie als Hinweis auf eine Immunkomplex-Glomerulonephritis; Urinkultur zur Abgrenzung eines Harnwegsinfekts',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei negativen Blutkulturen: Serologien auf Coxiella burnetii, Bartonella, Brucella, Legionellen, Mykoplasmen, Pilzantigene; Eubakterielle PCR (16S-rRNA) aus Blut oder Klappenmaterial; Frage nach vorheriger Antibiose als häufigster Ursache',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Echokardiographie — zweite Säule der Diagnose: transthorakal (TTE) als erster Schritt (Sensitivität bei Nativklappen etwa 70 %, bei Prothesen nur etwa 50 %), transösophageal (TEE) wegen der deutlich höheren Sensitivität (über 90 %) bei jedem begründeten Verdacht, bei Prothesen, Sonden und unauffälligem TTE; gesucht werden Vegetationen, Abszesse, Pseudoaneurysmen, Fisteln, Klappenperforation, Insuffizienz und Prothesendehiszenz; bei negativem Befund und fortbestehendem Verdacht Wiederholung nach 5–7 Tagen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG bei Aufnahme und im Verlauf: neuer AV-Block oder Schenkelblock als Hinweis auf einen Klappenringabszess; Röntgen-Thorax (Stauung, septische Lungenembolien als Rundherde bei Rechtsherzendokarditis)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Emboliesuche: Sonographie des Abdomens (Milz- und Niereninfarkte, Milzabszess, Splenomegalie), CT von Thorax und Abdomen, kraniales CT oder MRT bei jeder neurologischen Symptomatik (stumme Embolien in bis zu 50 %, MRT auch ohne Symptome vor Klappenoperation)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Prothesenendokarditis und unklaren Fällen: 18F-FDG-PET-CT (Diagnosekriterium bei Prothesen, frühestens 3 Monate nach Implantation) und Herz-CT (paravalvuläre Abszesse, Pseudoaneurysmen), ergänzend Leukozytenszintigraphie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Fokussuche und -sanierung: zahnärztliches Konsil mit Orthopantomogramm, dermatologische Inspektion, Entfernung infizierter Katheter und Sonden mit mikrobiologischer Aufarbeitung; Koloskopie bei Nachweis von Streptococcus gallolyticus (Kolonkarzinom/Adenom); urologische Abklärung bei Enterokokken',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei operativer Sanierung: Kultur, Histologie und PCR des Klappenmaterials — sichert die Diagnose und den Erreger auch bei negativen Blutkulturen; präoperativ Koronarangiographie oder CT-Koronarangiographie zur Beurteilung der Koronarien',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Sepsis anderer Genese (Pneumonie, Pyelonephritis, Cholangitis, Weichteilinfekt)',
+          unterscheidung: 'Organbezogene Symptome und Befunde (Husten, Infiltrat; Dysurie, Flankenklopfschmerz, Leukozyturie mit Bakteriurie; Ikterus, Cholestase); kein neues Herzgeräusch, keine peripheren Zeichen, Echo ohne Vegetation. Cave: jede Staphylococcus-aureus-Bakteriämie erfordert eine Echokardiographie.',
+        },
+        {
+          dd: 'Fieber unklarer Genese durch Malignom oder Lymphom',
+          unterscheidung: 'B-Symptomatik ohne Herzgeräusch, Lymphknotenvergrößerung, Hepatosplenomegalie, LDH-Erhöhung, Blutbildveränderungen; Blutkulturen negativ. Klärung über Bildgebung (CT, PET-CT) und Histologie.',
+        },
+        {
+          dd: 'Tuberkulose',
+          unterscheidung: 'Subfebrile Temperaturen, Nachtschweiß und Gewichtsverlust über Monate, Husten, Auslandsaufenthalt oder Kontaktanamnese; Röntgen-Thorax mit apikalen Infiltraten oder Kavernen, Interferon-Gamma-Test, Sputummikroskopie und -kultur.',
+        },
+        {
+          dd: 'Rheumatisches Fieber (Erstmanifestation oder Rezidiv)',
+          unterscheidung: '2–3 Wochen nach Streptokokken-Angina, wandernde Polyarthritis großer Gelenke, Pankarditis, Erythema anulare, Chorea minor; Antistreptolysin-Titer erhöht, Blutkulturen negativ, keine Vegetationen. Jones-Kriterien.',
+        },
+        {
+          dd: 'Systemischer Lupus erythematodes mit Libman-Sacks-Endokarditis',
+          unterscheidung: 'Junge Frauen, Schmetterlingserythem, Photosensitivität, Arthritis, Serositis, Nephritis; ANA, Anti-dsDNA, Komplementverbrauch; sterile, verruköse Vegetationen an der Mitralklappe bei negativen Blutkulturen.',
+        },
+        {
+          dd: 'Vaskulitiden (ANCA-assoziierte Vaskulitis, Riesenzellarteriitis beim älteren Patienten)',
+          unterscheidung: 'Können Fieber, Hämaturie, Nagelblutungen und CRP-Erhöhung täuschend ähnlich imitieren; c-ANCA/p-ANCA, pulmorenales Syndrom, Sinusitis; bei Riesenzellarteriitis Kopfschmerz, Kauclaudicatio, Sehstörungen, BSG stark erhöht, Temporalarterien-Sonographie. Echo ohne Vegetation, Blutkulturen negativ.',
+        },
+        {
+          dd: 'Vorhofmyxom',
+          unterscheidung: 'Die elegante Verwechslung: Fieber, Herzgeräusch (lageabhängiges Diastolikum, „tumor plop“), Embolien und Entzündungszeichen — im Echo gestielter Tumor im linken Vorhof statt Klappenvegetation, Blutkulturen negativ.',
+        },
+        {
+          dd: 'Nichtbakterielle thrombotische (marantische) Endokarditis',
+          unterscheidung: 'Bei fortgeschrittenen Tumorleiden (Adenokarzinome) und Antiphospholipid-Syndrom; sterile Vegetationen mit hohem Embolierisiko, negative Blutkulturen, oft ohne Fieber.',
+        },
+        {
+          dd: 'Malaria und andere Reiseerkrankungen (Typhus, Brucellose, Dengue)',
+          unterscheidung: 'Reiseanamnese in Endemiegebiete, periodisches Fieber, Hämolyse, Thrombozytopenie; dicker Tropfen und Schnelltest, Serologien. Brucellose kann selbst eine Endokarditis verursachen.',
+        },
+        {
+          dd: 'Osteomyelitis, Spondylodiszitis, Abszesse (Psoas, Leber, Milz)',
+          unterscheidung: 'Lokalisierter Rücken- oder Flankenschmerz, Klopfschmerz über der Wirbelsäule; MRT der Wirbelsäule, Sonographie und CT. Cave: können Begleitmanifestation einer Endokarditis sein — Echo trotzdem.',
+        },
+        {
+          dd: 'Influenza, virale Infekte, HIV-Serokonversion',
+          unterscheidung: 'Saisonalität, Kontaktpersonen, Halsschmerzen, Husten, Selbstlimitierung innerhalb einer Woche; bei HIV Exanthem, Lymphadenopathie — HIV-Test bei jedem Fieber unklarer Genese.',
+        },
+        {
+          dd: 'Medikamentenfieber (Drug fever)',
+          unterscheidung: 'Zeitlicher Zusammenhang mit neuer Medikation (Betalaktame, Antikonvulsiva), relative Bradykardie, Eosinophilie, Exanthem; Entfieberung innerhalb von 72 Stunden nach Absetzen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Stationäre Aufnahme, Diagnosesicherung und Beginn der Behandlung',
+          items: [
+            'Stationäre Aufnahme in jedem Fall — bei Sepsiszeichen oder Herzinsuffizienz auf Überwachungs- oder Intensivstation; venöser Zugang, Monitoring von Herzfrequenz, Rhythmus, Blutdruck, Sauerstoffsättigung und Temperatur, Sauerstoff bei Bedarf, Flüssigkeitsbilanz',
+            'ZUERST die Blutkulturen: drei Paare aus drei Punktionsstellen im Abstand von 30 Minuten, vor jeder Antibiotikagabe — eine vorschnelle Antibiose macht die Kulturen für Tage unbrauchbar und verhindert den Erregernachweis; beim hämodynamisch stabilen, subakuten Patienten darf das Kulturergebnis (24–48 Stunden) abgewartet werden, bei Sepsis, akuter Herzinsuffizienz oder Prothesenendokarditis beginnt die Therapie unmittelbar nach der Abnahme',
+            'Kalkulierte intravenöse Antibiotikatherapie ohne weiteren Verzug: ambulant erworbene Nativklappenendokarditis — Ampicillin plus Flucloxacillin plus Gentamicin; bei Penicillinallergie Vancomycin plus Gentamicin (Kreuzallergie gegen Cephalosporine allergologisch prüfen); Prothesenendokarditis oder nosokomialer Erwerb — Vancomycin plus Gentamicin plus Rifampicin (Rifampicin erst nach 3–5 Tagen wirksamer Therapie)',
+            'Behandlung der Herzinsuffizienz mit Diuretika, Nachlastsenkung und Sauerstoff; Rhythmusüberwachung wegen AV-Block; Thromboseprophylaxe; antipyretische Therapie mit Paracetamol (keine NSAR bei Glomerulonephritis und Nierenrisiko)',
+            'Antikoagulation: keine Neueinstellung wegen der Hirnblutungsgefahr; eine vorbestehende Antikoagulation bei mechanischer Prothese wird auf Heparin umgestellt und bei zerebraler Embolie vorübergehend pausiert',
+            'Suche und Sanierung der Eintrittspforte: zahnärztliches Konsil, Entfernung infizierter zentraler Katheter, Sonden und Ports, Sanierung von Hautinfektionen',
+            'Frühzeitige Vorstellung im Endokarditis-Team (Kardiologie, Herzchirurgie, Infektiologie, Mikrobiologie) bereits bei Diagnosestellung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Gezielte antimikrobielle Therapie über Wochen',
+          items: [
+            'Anpassung nach Erreger und Antibiogramm, in der Regel intravenös über vier bis sechs Wochen, gerechnet ab dem ersten Tag mit negativen Blutkulturen; bei Klappenprothesen mindestens sechs Wochen',
+            'Viridans-Streptokokken, penicillinempfindlich: Penicillin G, Ampicillin oder Ceftriaxon über vier Wochen (bei Nativklappe zwei Wochen möglich in Kombination mit Gentamicin); bei Penicillinallergie Vancomycin über vier Wochen',
+            'Staphylococcus aureus: methicillinempfindlich — Flucloxacillin oder Cefazolin über vier bis sechs Wochen; methicillinresistent oder Penicillinallergie — Vancomycin oder Daptomycin; bei Prothese zusätzlich Rifampicin und Gentamicin über die ersten zwei Wochen',
+            'Enterokokken: Ampicillin plus Ceftriaxon (nephroprotektiv) oder Ampicillin plus Gentamicin über vier bis sechs Wochen; bei Penicillinallergie Vancomycin plus Gentamicin; bei Resistenz Daptomycin oder Linezolid nach infektiologischer Rücksprache',
+            'Kulturnegative Endokarditis: Therapie nach Serologie — Doxycyclin plus Hydroxychloroquin bei Coxiella (Q-Fieber), Doxycyclin plus Gentamicin bei Bartonella; Pilzendokarditis: Amphotericin B oder Echinocandin plus Operation',
+            'Kontrolle des Therapieerfolgs: Blutkulturen alle 48–72 Stunden bis zur Negativität, dann bei jedem erneuten Fieber; CRP, Blutbild, Kreatinin und Elektrolyte zweimal wöchentlich; klinischer Verlauf, Auskultation und EKG',
+            'Überwachung der Toxizität: Vancomycin-Talspiegel (Ziel 15–20 mg/l) und Gentamicin-Spiegel, Nierenfunktion, Audiometrie bei Aminoglykosiden; Leberwerte und Interaktionen unter Rifampicin; CK unter Daptomycin',
+            'Bei stabilen, unkomplizierten Verläufen nach mindestens zehn Tagen intravenöser Therapie und Ausschluss eines Abszesses im TEE: ambulante parenterale Therapie (OPAT) oder orale Anschlusstherapie im Rahmen strukturierter Programme',
+          ],
+        },
+        {
+          label: 'Herzchirurgische Behandlung — Indikation früh prüfen',
+          items: [
+            'Etwa die Hälfte der Patienten muss operiert werden; die Indikation wird bereits bei Diagnosestellung und dann täglich im interdisziplinären Endokarditis-Team aus Kardiologie, Herzchirurgie und Infektiologie geprüft — ein zu spätes Operieren erhöht die Sterblichkeit',
+            'Herzinsuffizienz: Klappenersatz oder Rekonstruktion bei schwerer Mitral- oder Aorteninsuffizienz bzw. Obstruktion mit therapierefraktärem Lungenödem oder kardiogenem Schock — Notfalloperation innerhalb von 24 Stunden; bei symptomatischer Herzinsuffizienz dringlich innerhalb weniger Tage',
+            'Unkontrollierte Infektion: paravalvulärer Abszess, Pseudoaneurysma, Fistel, größenzunehmende Vegetation, neuer AV-Block; persistierend positive Blutkulturen oder Fieber über sieben Tage trotz adäquater Antibiose und Fokussanierung; schwer behandelbare Erreger (Pilze, multiresistente Keime, Staphylococcus aureus bei Prothese)',
+            'Embolieprävention: Vegetation über 10 mm mit stattgehabter Embolie unter Therapie oder mit zusätzlicher schwerer Klappendysfunktion; sehr große Vegetationen über 30 mm; isolierte Vegetation über 15 mm im Einzelfall — die Operation sollte früh erfolgen, weil das Embolierisiko in den ersten zwei Wochen am höchsten ist',
+            'Prothesenendokarditis, insbesondere durch Staphylokokken, mit Dehiszenz oder Frühinfektion — meist operativ; Schrittmacher- und ICD-Endokarditis — vollständige Systementfernung einschließlich der Sonden',
+            'Timing bei zerebralen Komplikationen: nach ischämischem Schlaganfall ohne Bewusstseinsstörung keine Verzögerung der Operation; nach Hirnblutung Aufschub von etwa vier Wochen; präoperativ MRT-Schädel, Koronarangiographie oder CT-Koronarangiographie und zahnärztliche Sanierung',
+            'Operationsprinzip: Entfernung allen infizierten Gewebes, Klappenrekonstruktion wenn möglich (vor allem Mitralklappe), sonst Ersatz; Klappenmaterial in Mikrobiologie, Histologie und PCR; Antibiotikatherapie wird postoperativ über die volle Dauer fortgeführt',
+          ],
+        },
+        {
+          label: 'Nachsorge, Prophylaxe und Aufklärung',
+          items: [
+            'Verlaufsechokardiographie bei Therapieende als neuer Ausgangsbefund, Kontrollen nach 1, 3, 6 und 12 Monaten; Blutkulturen bei jedem Fieber im ersten Jahr; langfristige kardiologische Anbindung wegen residueller Klappenschäden und Herzinsuffizienz',
+            'Zahnsanierung und konsequente Mundhygiene mit zahnärztlichen Kontrollen zweimal jährlich; strikte Hauthygiene, Vermeidung von Piercings und Tattoos; Katheter und Zugänge nur bei zwingender Indikation',
+            'Endokarditisprophylaxe mit Antibiotikum vor zahnärztlichen Eingriffen mit Manipulation der Gingiva NUR für Hochrisikopatienten — Klappenprothese, durchgemachte Endokarditis, bestimmte angeborene Herzfehler, Ventrikelunterstützungssysteme: Amoxicillin oder Ampicillin 2 g oral bzw. i.v. 30–60 Minuten vor dem Eingriff; bei Penicillinallergie Cephalexin 2 g (nur ohne Anaphylaxie), Azithromycin/Clarithromycin 500 mg oder Doxycyclin 100 mg — Clindamycin wird nicht mehr empfohlen. Die früheren, viel breiteren Empfehlungen wurden eingeschränkt',
+            'Endokarditisausweis (Endokarditis-Pass) ausstellen und den Hausarzt sowie den Zahnarzt informieren',
+            'Aufklärung über das erhöhte Rezidivrisiko und über Warnzeichen — Fieber, Schüttelfrost, Luftnot, neurologische Ausfälle, neue Schmerzen —, bei denen sofort Blutkulturen abzunehmen sind, bevor ein Antibiotikum verordnet wird',
+            'Suchtberatung und Substitution bei intravenösem Drogenkonsum; Rehabilitation und Belastungsaufbau nach Klappenoperation; psychosoziale Unterstützung bei langer Hospitalisierung',
+            'Allergologische Abklärung einer angegebenen Penicillinallergie (Delabeling), da Betalaktame die wirksamste Endokarditistherapie sind',
+          ],
+        },
+      ],
+      prognose: 'Unbehandelt verläuft die infektiöse Endokarditis fast immer tödlich. Trotz Antibiotika und Chirurgie liegt die Krankenhaussterblichkeit bei 15–30 % und die Einjahressterblichkeit bei bis zu 30–40 %; sie ist am höchsten bei Staphylococcus aureus, Prothesenendokarditis, Herzinsuffizienz, paravalvulärem Abszess, zerebralen Embolien, hohem Alter und verzögerter Diagnose. Am günstigsten verläuft die Viridans-Streptokokken-Endokarditis der Nativklappe mit einer Sterblichkeit unter 10 %. Etwa die Hälfte der Patienten benötigt eine Operation; nach überstandener Endokarditis bleiben häufig eine Klappeninsuffizienz und ein deutlich erhöhtes Rezidivrisiko (2–6 % pro Jahr, besonders bei Drogenkonsum, Prothesen und schlechtem Zahnstatus), weshalb die Patienten lebenslang als Hochrisikogruppe gelten und eine Endokarditisprophylaxe erhalten. Entscheidend für die Prognose sind das frühe Daran-Denken, korrekt vor der Antibiose abgenommene Blutkulturen, die frühe Echokardiographie und die rechtzeitige Vorstellung im Endokarditis-Team.',
+      pruefungsfallen: [
+        'Blutkulturen ZUERST, dann Antibiotikum — wer in der Fallvorstellung die kalkulierte Antibiose vor den Blutkulturen nennt, macht den entscheidenden Fehler: Eine vorschnelle Antibiose macht die Kulturen für Tage unbrauchbar. Immer sagen: „mindestens drei Blutkulturpaare aus verschiedenen Punktionsstellen VOR Beginn der Antibiotikatherapie“.',
+        'Die Echokardiographie-Fangfrage aus Reutlingen: „Welchen Typ?“ — transthorakal als erster Schritt, aber TRANSÖSOPHAGEAL ist deutlich sensitiver (über 90 % gegenüber etwa 70 %), zwingend bei Klappenprothesen, Sonden und unauffälligem TTE. Nur „Echo“ zu sagen genügt nicht.',
+        'Bei Penicillinallergie die Alternative kennen: Vancomycin plus Gentamicin (bei Prothese plus Rifampicin) — und die Kreuzallergie gegen Cephalosporine ansprechen. Isoniazid (ein Tuberkulostatikum) gehört NICHT dazu; ein Kandidat ist mit dieser Antwort durchgefallen.',
+        'Das Hauptsymptom benennen können, das der Patient in Laiensprache schildert: „rote Knötchen auf den Fingerkuppen“ = Osler-Knötchen, „Splitter unter den Nägeln“ = Splinter-Hämorrhagien, „rote Flecken an den Handflächen“ = Janeway-Läsionen. Osler = schmerzhaft, immunologisch; Janeway = schmerzlos, embolisch.',
+        'Die schmerzlose Hämaturie ist kein Harnwegsinfekt, sondern der Hinweis auf eine Immunkomplex-Glomerulonephritis (Nebenkriterium) — Urinsediment mit dysmorphen Erythrozyten, nicht nur ein Urinstreifentest.',
+        'Nach dem Auskultationsbefund und der Klappenvorgeschichte aktiv fragen — das neue oder veränderte Herzgeräusch ist das Schlüsselzeichen; die Prädisposition (Klappeninsuffizienz, rheumatisches Fieber, Prothese) und die Eintrittspforte (Zahnbehandlung vor drei bis sechs Wochen) müssen in der Anamnese aktiv erfragt werden, sie fallen dem Patienten nicht von selbst ein.',
+        'Der qSOFA-Score wird abgefragt, sobald ein Kandidat „septisch“ sagt: Atemfrequenz ≥ 22/min, systolischer Blutdruck ≤ 100 mmHg, veränderte Vigilanz — ab 2 Punkten Hochrisiko. Die Zahlen müssen sitzen.',
+        'Die Duke-Kriterien wenigstens in der Struktur können: zwei Hauptkriterien (positive Blutkulturen mit typischem Erreger, Echobefund) und die fünf Nebenkriterien (Prädisposition, Fieber, vaskuläre Phänomene, immunologische Phänomene, mikrobiologischer Hinweis); gesichert bei 2 Haupt-, 1 Haupt- + 3 Neben- oder 5 Nebenkriterien.',
+        'Endokarditisprophylaxe nicht mehr für alle Klappenvitien: Nur Hochrisikopatienten (Prothese, durchgemachte Endokarditis, bestimmte angeborene Vitien) erhalten Amoxicillin 2 g vor zahnärztlichen Eingriffen — dies wurde gegenüber früheren Empfehlungen eingeschränkt und wird gern gefragt. Nach einer durchgemachten Endokarditis wird jeder Patient zum Hochrisikopatienten.',
+        'Die Antibiotikatherapie dauert vier bis sechs Wochen INTRAVENÖS — wer „zehn Tage Antibiotikum“ sagt, hat die Erkrankung nicht verstanden. Ebenso die Operationsindikation FRÜH prüfen: Herzinsuffizienz, unkontrollierte Infektion, Embolieprävention.',
+        'Streptococcus gallolyticus (früher S. bovis) im Blut verpflichtet zur Koloskopie — Assoziation mit Kolonkarzinom und Adenomen.',
+        'Ein neu aufgetretener AV-Block im EKG bedeutet Klappenringabszess bis zum Beweis des Gegenteils — TEE und Operationsindikation.',
+        'Fachbegriffe aus den Protokollen parat haben: „Abtöten des Zahnnervs“ = Wurzelkanalbehandlung/Devitalisierung, „Zahnwurzelentfernung“ = Extraktion mit Wurzelrest; Baldrian-Tropfen = pflanzliches Sedativum/Schlafmittel; Perenterol = Saccharomyces boulardii, ein Probiotikum gegen Durchfall.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist das wichtigste Hauptsymptom bei diesem Patienten, und wie nennen Sie es fachsprachlich?',
+          antwort: 'Neben dem wellenförmigen Fieber mit Schüttelfrost sind es die schmerzhaften roten Knötchen an den Fingerkuppen, die Osler-Knötchen, und die strichförmigen Einblutungen unter den Nägeln, die Splinter-Hämorrhagien — periphere Zeichen der Endokarditis. Schmerzlose rote Flecken an Handflächen und Fußsohlen wären Janeway-Läsionen. Sie sind heute selten, aber zusammen mit Fieber, Klappenvitium und Zahnbehandlung fast beweisend.',
+        },
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine subakute infektiöse Endokarditis der Mitralklappe. Dafür sprechen das seit einer Woche schubförmige Fieber mit Schüttelfrost und Nachtschweiß, der Gewichtsverlust, die vorbestehende rheumatische Mitralklappeninsuffizienz als Prädisposition, die Zahnextraktion vor vier Wochen als Eintrittspforte, die Osler-Knötchen und Splinter-Hämorrhagien, die schmerzlose Hämaturie als Hinweis auf eine Glomerulonephritis und die neue Belastungsdyspnoe.',
+        },
+        {
+          frage: 'Welche Untersuchungen führen Sie durch?',
+          antwort: 'Zuerst die körperliche Untersuchung nach qSOFA — Atemfrequenz, Blutdruck, Vigilanz — mit sorgfältiger Auskultation auf ein neues Herzgeräusch und Inspektion von Haut und Nägeln. Dann das Labor: Blutbild, CRP, BSG, Procalcitonin, Kreatinin, Elektrolyte, Leberwerte, Gerinnung, Urinstatus mit Sediment. Entscheidend sind drei Blutkulturpaare aus verschiedenen Punktionsstellen vor der Antibiose. Dann EKG, Röntgen-Thorax und die Echokardiographie — transthorakal und transösophageal. Ergänzend Sonographie des Abdomens zur Emboliesuche und ein zahnärztliches Konsil.',
+        },
+        {
+          frage: 'Welchen Typ der Echokardiographie wählen Sie, und warum?',
+          antwort: 'Als ersten Schritt die transthorakale Echokardiographie, weil sie schnell und nicht belastend ist. Sie hat bei Nativklappen aber nur eine Sensitivität von etwa 70 %, bei Prothesen von etwa 50 %. Deshalb führe ich bei begründetem Verdacht eine transösophageale Echokardiographie durch — Sensitivität über 90 %, sie zeigt kleine Vegetationen, Abszesse und Prothesendehiszenzen. Bei negativem Befund und fortbestehendem Verdacht wiederhole ich sie nach fünf bis sieben Tagen.',
+        },
+        {
+          frage: 'Wann nehmen Sie die Blutkulturen ab, und wie viele?',
+          antwort: 'Mindestens drei Paare, jeweils aerob und anaerob, aus drei verschiedenen Punktionsstellen im Abstand von etwa 30 Minuten — und zwingend VOR der ersten Antibiotikagabe, unabhängig vom Fieberverlauf, weil die Bakteriämie bei der Endokarditis kontinuierlich ist. Wenn der Patient bereits ein Antibiotikum bekommen hat und stabil ist, warte ich nach einer Antibiotikapause mit wiederholten Abnahmen.',
+        },
+        {
+          frage: 'Wie behandeln Sie, wenn der Patient eine Penicillinallergie hat?',
+          antwort: 'Zunächst kläre ich, ob es eine echte Allergie war und ob eine Kreuzallergie gegen Cephalosporine besteht. Kalkuliert gebe ich bei Nativklappe Vancomycin plus Gentamicin intravenös, bei einer Klappenprothese zusätzlich Rifampicin. Nach dem Erregernachweis passe ich an — bei Viridans-Streptokokken Vancomycin über vier Wochen — und kontrolliere Vancomycin-Talspiegel und Nierenfunktion.',
+        },
+        {
+          frage: 'Was ist der qSOFA-Score?',
+          antwort: 'Ein Schnelltest am Bett für das Sepsisrisiko mit drei Kriterien zu je einem Punkt: Atemfrequenz von 22 pro Minute oder mehr, systolischer Blutdruck von 100 mmHg oder weniger und eine veränderte Vigilanz. Ab zwei Punkten besteht ein hohes Risiko für einen septischen Verlauf, und der Patient muss überwacht und sofort behandelt werden.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen veranlassen Sie?',
+          antwort: 'Blutbild mit Differenzialblutbild — Leukozytose und Anämie —, CRP und BSG, Procalcitonin, Laktat, Kreatinin und eGFR, Elektrolyte, Leberwerte, Gerinnung, Rheumafaktor sowie Urinstatus und Urinsediment auf Mikrohämaturie und dysmorphe Erythrozyten. Und die Blutkulturen, die eigentlich das wichtigste Labor sind.',
+        },
+        {
+          frage: 'Nennen Sie die Duke-Kriterien.',
+          antwort: 'Zwei Hauptkriterien: positive Blutkulturen mit einem typischen Erreger in mindestens zwei getrennten Kulturen und ein positiver Echokardiographiebefund — Vegetation, Abszess, neue Prothesendehiszenz oder neue Klappeninsuffizienz. Fünf Nebenkriterien: Prädisposition oder Drogenkonsum, Fieber über 38 Grad, vaskuläre Phänomene wie Embolien und Janeway-Läsionen, immunologische Phänomene wie Glomerulonephritis, Osler-Knötchen und Rheumafaktor sowie ein mikrobiologischer Hinweis ohne Hauptkriterium. Gesichert ist die Diagnose bei zwei Haupt-, einem Haupt- und drei Neben- oder fünf Nebenkriterien.',
+        },
+        {
+          frage: 'Wie lange behandeln Sie, und womit?',
+          antwort: 'Intravenös über vier bis sechs Wochen, gerechnet ab der ersten negativen Blutkultur, bei Klappenprothesen mindestens sechs Wochen. Die Substanz richtet sich nach dem Erreger: Penicillin oder Ceftriaxon bei Viridans-Streptokokken, Flucloxacillin bei Staphylococcus aureus, Ampicillin plus Ceftriaxon bei Enterokokken, Vancomycin bei MRSA oder Penicillinallergie. Kontrolle über Blutkulturen, CRP, Klinik und Spiegelbestimmungen.',
+        },
+        {
+          frage: 'Wann muss operiert werden?',
+          antwort: 'Bei drei Indikationsgruppen, die früh und im Endokarditis-Team geprüft werden: erstens Herzinsuffizienz durch Klappendestruktion, notfallmäßig bei Lungenödem oder Schock; zweitens unkontrollierte Infektion mit Abszess, Fistel, neuem AV-Block, persistierender Bakteriämie über sieben Tage oder Pilzen; drittens Embolieprävention bei Vegetationen über 10 mm mit stattgehabter Embolie oder über 30 mm. Auch die Prothesenendokarditis wird meist operiert.',
+        },
+        {
+          frage: 'Wer bekommt eine Endokarditisprophylaxe, und wie?',
+          antwort: 'Nur noch Hochrisikopatienten: Träger einer Klappenprothese, Patienten nach durchgemachter Endokarditis und Patienten mit zyanotischen oder mit Fremdmaterial korrigierten angeborenen Herzfehlern. Vor zahnärztlichen Eingriffen mit Manipulation der Gingiva erhalten sie 30 bis 60 Minuten vorher Amoxicillin 2 g, bei Penicillinallergie Clarithromycin 500 mg oder Doxycyclin 100 mg. Für einfache Klappenvitien wird sie seit 2007 nicht mehr empfohlen — dieser Patient wird aber nach der Endokarditis zum Hochrisikopatienten.',
+        },
+        {
+          frage: 'Was bedeutet „Abtöten des Zahnnervs“, und was sind Baldrian-Tropfen und Perenterol?',
+          antwort: 'Das Abtöten des Zahnnervs ist die Devitalisierung im Rahmen einer Wurzelkanalbehandlung, ein endodontischer Eingriff mit Eröffnung der Pulpa — eine typische Eintrittspforte für Viridans-Streptokokken. Baldrian-Tropfen sind ein pflanzliches Sedativum aus Valeriana officinalis, das zum Einschlafen genommen wird. Perenterol enthält die Hefe Saccharomyces boulardii, ein Probiotikum gegen Durchfall.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Eine Sepsis anderer Ursache, etwa eine Pneumonie oder eine Pyelonephritis wegen der Hämaturie, eine Influenza, ein Fieber unklarer Genese durch Lymphom oder Tumor, eine Tuberkulose, ein Rezidiv des rheumatischen Fiebers, eine Vaskulitis — die Fieber, Hämaturie und Nagelblutungen ebenfalls erklären könnte —, ein Vorhofmyxom und ein Medikamentenfieber. Gegen die meisten sprechen Klappenvorgeschichte, Zahnextraktion und die peripheren Endokarditiszeichen.',
+        },
+        {
+          frage: 'Warum ist die Zahnbehandlung für Sie wichtig?',
+          antwort: 'Weil sie die Eintrittspforte ist: Bei einer Extraktion oder Wurzelbehandlung gelangen Viridans-Streptokokken der Mundflora in die Blutbahn und siedeln sich auf der vorgeschädigten Mitralklappe an. Das typische Intervall bis zum Symptombeginn beträgt zwei bis sechs Wochen. Deshalb gehören ein zahnärztliches Konsil und die Sanierung des Fokus zur Therapie.',
+        },
+      ],
+      merksatz: 'Wochenlanges Fieber plus Klappe plus Zahnarzt = an die Endokarditis DENKEN und auskultieren. Zwei Säulen in dieser Reihenfolge: drei Blutkulturpaare VOR dem Antibiotikum, dann Echo — transthorakal zuerst, transösophageal weil sensitiver. Vier bis sechs Wochen i.v., Chirurgie früh im Endokarditis-Team prüfen, Prophylaxe nur noch für Hochrisikopatienten.',
+      linkedCaseIds: [
+        'case-endokarditis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+        'auf-ct',
+      ],
+    },
+    {
+      id: 'fw-covid19',
+      pathology: 'COVID-19 (SARS-CoV-2-Infektion)',
+      specialty: 'Infektiologie',
+      definition: 'COVID-19 (Coronavirus Disease 2019) ist die durch das Coronavirus SARS-CoV-2 ausgelöste, vorwiegend über Aerosole und Tröpfchen übertragene Infektionskrankheit mit einem außerordentlich breiten klinischen Spektrum: von der asymptomatischen Infektion über einen banalen Atemwegsinfekt bis zur viralen Pneumonie mit ARDS, Multiorganversagen und Tod. Die Inkubationszeit beträgt im Median drei bis vier Tage (Spanne ein bis vierzehn Tage). Charakteristisch ist der ZWEIPHASIGE Verlauf: In der ersten Woche dominiert die Virusreplikation, die Verschlechterung tritt bei einem Teil der Patienten erst in der zweiten Krankheitswoche (Tag 7 bis 10) durch eine überschießende Entzündungsreaktion ein — häufig, nachdem sich der Patient bereits auf dem Weg der Besserung wähnte. Die Erkrankung ist nach dem Infektionsschutzgesetz meldepflichtig.',
+      aetiologie: 'Erreger ist SARS-CoV-2, ein behülltes RNA-Virus aus der Familie der Coronaviren (Betacoronavirus), das über das Spike-Protein an den ACE2-Rezeptor der Wirtszelle bindet — ACE2 wird in Atemwegsepithel, Riechepithel, Darm, Endothel, Herz und Niere exprimiert, was die Vielfalt der Organmanifestationen erklärt. Übertragung vor allem durch Aerosole und Tröpfchen, besonders in geschlossenen, schlecht gelüfteten Räumen; Schmierinfektion nachrangig. Die höchste Infektiosität besteht ein bis zwei Tage vor bis etwa fünf Tage nach Symptombeginn. Pathophysiologisch folgt auf die virale Phase (Woche 1) bei schweren Verläufen eine hyperinflammatorische Phase (Woche 2) mit Zytokinsturm, diffusem Alveolarschaden, Endothelschädigung (Endotheliitis) und ausgeprägter Hyperkoagulabilität mit Mikro- und Makrothrombosen — die Grundlage von ARDS, Lungenembolie und Myokardschädigung. Seit den Omikron-Varianten ist der Verlauf im Mittel milder, die Anosmie seltener, die Zweiphasigkeit und die Risikogruppen bleiben unverändert.',
+      risikofaktoren: [
+        'Höheres Lebensalter — der mit Abstand wichtigste Risikofaktor (Sterblichkeit steigt ab 60 Jahren exponentiell)',
+        'Fehlender oder unvollständiger Impfschutz (keine Grundimmunisierung, keine Auffrischung bei Risikogruppen)',
+        'Adipositas (BMI ≥ 30 kg/m²) und metabolisches Syndrom',
+        'Diabetes mellitus, insbesondere schlecht eingestellt',
+        'Herz-Kreislauf-Erkrankungen: koronare Herzkrankheit, Herzinsuffizienz, arterielle Hypertonie',
+        'Chronische Lungenerkrankungen: COPD, Lungenfibrose, schweres Asthma',
+        'Chronische Niereninsuffizienz und chronische Lebererkrankungen',
+        'Immunsuppression: Organtransplantation, Chemotherapie, Kortikosteroide, Biologika, HIV, hämatologische Neoplasien',
+        'Aktive Tumorerkrankung und Tumortherapie',
+        'Schwangerschaft, besonders im dritten Trimenon',
+        'Trisomie 21 und schwere neurologische Erkrankungen',
+        'Männliches Geschlecht, aktiver Nikotinkonsum, Demenz und Pflegebedürftigkeit',
+      ],
+      klinik: [
+        {
+          text: 'Fieber, oft mit Schüttelfrost — bei einem Drittel der Patienten aber fehlend',
+        },
+        {
+          text: 'Trockener Reizhusten, Halsschmerzen, Schnupfen und Heiserkeit',
+        },
+        {
+          text: 'Ausgeprägte Abgeschlagenheit, Kopf- und Gliederschmerzen (grippeähnliches Bild)',
+        },
+        {
+          text: 'Störung von Geruch und Geschmack (Anosmie und Ageusie) — typisch ohne verstopfte Nase, meist ab dem dritten bis fünften Krankheitstag; seit den Omikron-Varianten seltener, aber weiterhin diagnostisch wegweisend und gezielt zu erfragen',
+        },
+        {
+          text: 'Gastrointestinale Beschwerden: Übelkeit, Appetitlosigkeit, Durchfall',
+        },
+        {
+          text: 'Zweiphasiger Verlauf: vorübergehende Besserung und erneute Verschlechterung mit Fieberanstieg, Belastungsdyspnoe und Engegefühl in der zweiten Woche (Tag 7 bis 10) als Zeichen der viralen Pneumonie',
+        },
+        {
+          text: 'Stille Hypoxämie („happy hypoxia“): bedrohlich niedrige Sauerstoffsättigung bei nur mäßiger oder fehlender subjektiver Luftnot, dafür Tachypnoe, Tachykardie, Schweißausbrüche',
+        },
+        {
+          text: 'Konjunktivitis, Exanthem, Frostbeulen-artige Zehenläsionen („COVID toes“)',
+          atypisch: true,
+        },
+        {
+          text: 'Asymptomatische Infektion oder isolierte Anosmie ohne jedes Atemwegssymptom',
+          atypisch: true,
+        },
+        {
+          text: 'Beim älteren oder immunsupprimierten Patienten: afebriler Verlauf mit Verwirrtheit, Delir, Stürzen, Appetitlosigkeit und Erschöpfung als einzigen Zeichen',
+          atypisch: true,
+        },
+        {
+          text: 'Primär kardiale Manifestation: Myokarditis, Perikarditis, Rhythmusstörungen mit Thoraxschmerz und Leistungsknick, auch Wochen nach dem Infekt',
+          atypisch: true,
+        },
+        {
+          text: 'Primär thromboembolische Manifestation: Lungenembolie, tiefe Beinvenenthrombose oder Schlaganfall als Erstpräsentation',
+          atypisch: true,
+        },
+        {
+          text: 'Beim Kind: PIMS/MIS-C — Multisystem-Entzündungssyndrom mit hohem Fieber, Exanthem, Konjunktivitis, Bauchschmerzen und Kreislaufversagen Wochen nach der Infektion',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregrade nach WHO',
+          inhalt: 'Leicht: symptomatische Infektion ohne Pneumoniezeichen und ohne Hypoxämie. Moderat: klinische oder radiologische Pneumonie mit SpO2 ≥ 90 % unter Raumluft. Schwer: Pneumonie mit SpO2 < 90 %, Atemfrequenz > 30/min oder schwerer Atemnot. Kritisch: ARDS, Sepsis, septischer Schock, Notwendigkeit von Beatmung oder Katecholaminen. Die deutsche S3-Leitlinie orientiert die Therapie zusätzlich am Sauerstoffbedarf: kein O2 → Low-Flow-O2 → High-Flow/NIV → invasive Beatmung/ECMO.',
+        },
+        {
+          name: 'Phasenmodell des Verlaufs (steuert die Therapie)',
+          inhalt: 'Phase 1 (Tag 1 bis etwa 7): virale Replikationsphase — Fieber, Husten, Halsschmerzen, Anosmie; hier wirken ANTIVIRALE Substanzen (Nirmatrelvir/Ritonavir innerhalb von fünf Tagen, Remdesivir innerhalb von sieben Tagen). Phase 2 (ab Tag 7 bis 10): hyperinflammatorische Phase — Pneumonie, Hypoxämie, CRP-, LDH-, Ferritin- und D-Dimer-Anstieg; hier wirken IMMUNMODULATOREN (Dexamethason nur bei Sauerstoffbedarf, ggf. Tocilizumab oder Baricitinib). Die zeitliche Umkehr — Antivirale früh, Kortison spät — ist der Kern jeder Prüfungsfrage zur Therapie.',
+        },
+        {
+          name: 'ARDS-Definition (Berlin-Kriterien)',
+          inhalt: 'Akuter Beginn innerhalb einer Woche, beidseitige Infiltrate in Röntgen oder CT, respiratorisches Versagen nicht allein durch Herzinsuffizienz oder Volumenüberladung erklärt; Schweregrad nach Horowitz-Index (paO2/FiO2) unter PEEP ≥ 5 cmH2O: mild 201–300 mmHg, moderat 101–200 mmHg, schwer ≤ 100 mmHg.',
+        },
+        {
+          name: 'Long COVID und Post-COVID-Syndrom',
+          inhalt: 'Long COVID: Beschwerden, die über vier Wochen nach der akuten Infektion hinaus bestehen. Post-COVID-Syndrom (WHO): Beschwerden, die zwölf Wochen nach der Infektion noch bestehen oder neu auftreten, mindestens zwei Monate andauern und nicht anders erklärbar sind — Fatigue, Belastungsintoleranz mit Zustandsverschlechterung nach Anstrengung (post-exertionelle Malaise), Konzentrations- und Gedächtnisstörungen („brain fog“), Luftnot, Herzrasen, anhaltende Geruchsstörung.',
+        },
+      ],
+      redFlags: [
+        'Sauerstoffsättigung unter 94 % unter Raumluft in Ruhe oder Abfall unter Belastung — auch OHNE subjektive Luftnot (stille Hypoxämie)',
+        'Atemfrequenz über 22 bis 30/min, Sprechdyspnoe, Einsatz der Atemhilfsmuskulatur, Zyanose',
+        'Erneuter Fieberanstieg und Verschlechterung nach vorübergehender Besserung in der zweiten Krankheitswoche',
+        'Plötzliche Luftnot, atemabhängiger Thoraxschmerz, Tachykardie, einseitige Beinschwellung → Lungenembolie',
+        'Thoraxschmerz, Herzrhythmusstörungen, Synkope → Myokarditis, Perikarditis, akutes Koronarsyndrom',
+        'Verwirrtheit, Somnolenz, Kreislaufschwäche, Hypotonie, Oligurie → Sepsis, Hypoxämie, akutes Nierenversagen',
+        'Dekompensation einer Grunderkrankung: Hyperglykämie/Ketoazidose bei Diabetes, kardiale Dekompensation, COPD-Exazerbation',
+        'Eitriges Sputum, zweiter Fiebergipfel unter Besserung der Virussymptome, Procalcitonin-Anstieg → bakterielle Superinfektion',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Symptombeginn und Tag der Erkrankung (entscheidend für die Therapiewahl!), Verlauf mit Frage nach Besserung und erneuter Verschlechterung, Geruchs- und Geschmacksstörung, Kontakt zu Erkrankten, bereits durchgeführte Selbst- oder Schnelltests und WIE sie durchgeführt wurden, Impfstatus einschließlich Auffrischungen und frühere Infektionen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Risikoanamnese: Alter, Vorerkrankungen (Herz, Lunge, Niere, Leber, Diabetes, Adipositas), Immunsuppression und Tumortherapie, Schwangerschaft, vollständige Medikamentenliste (Interaktionen bei Nirmatrelvir/Ritonavir), Beruf, Wohnsituation und Risikopersonen im Haushalt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern: Temperatur, Blutdruck, Herzfrequenz, Atemfrequenz und OBLIGAT die Pulsoxymetrie in Ruhe und — wenn vertretbar — nach Belastung (Gehen im Flur, Aufstehen aus dem Sitz), da die subjektive Luftnot die Hypoxämie unterschätzt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Auskultation der Lunge (feinblasige Rasselgeräusche beidseits basal, Knisterrasseln), Racheninspektion, Lymphknotenstatus, Herzauskultation, Beinumfänge und Wadendruckschmerz (Thrombose), Bewusstseinslage und Hautkolorit',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Beim jungen, gesunden Patienten mit leichtem Verlauf genügt die klinische Beurteilung — keine weitere Diagnostik außer dem Erregernachweis erforderlich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erregernachweis: PCR aus dem Nasen-Rachen-Abstrich (tiefer nasopharyngealer und oropharyngealer Abstrich) als Standard mit höchster Sensitivität; Antigenschnelltest als schnelle, aber weniger empfindliche Alternative — ein negativer Schnelltest schließt die Infektion nicht aus, besonders bei falscher Abstrichtechnik oder sehr früh im Verlauf; Multiplex-PCR auf Influenza A/B und RSV in der Saison',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: LYMPHOPENIE als typischer und prognostisch ungünstiger Befund, Neutrophilen-Lymphozyten-Verhältnis erhöht, Thrombozytopenie bei schwerem Verlauf',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungs- und Schwereparameter: CRP, LDH, Ferritin (Hyperinflammation), Interleukin-6; Procalcitonin bleibt bei rein viraler Genese niedrig und hilft, eine bakterielle Superinfektion abzugrenzen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere als Marker der Hyperkoagulabilität — bei COVID-19 häufig erhöht; ein starker Anstieg oder ein plötzlicher Sättigungsabfall lenkt auf eine Lungenembolie; Gerinnung mit Quick/INR, PTT, Fibrinogen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Organparameter: Kreatinin und Harnstoff (akutes Nierenversagen), Transaminasen und Bilirubin, Elektrolyte, Blutzucker (auch als Ausgangswert vor Dexamethason), Troponin und NT-proBNP bei Verdacht auf Myokardbeteiligung; Blutkulturen bei Fieber und Verdacht auf Sepsis, Urin-Antigen auf Pneumokokken und Legionellen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Arterielle Blutgasanalyse bei Hypoxämie: paO2, paCO2, pH, Laktat, Berechnung des Horowitz-Index (paO2/FiO2) zur Einstufung eines ARDS',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen: beidseitige, peripher und basal betonte fleckige Verschattungen; in der Frühphase häufig unauffällig — ein unauffälliges Röntgenbild schließt die Pneumonie nicht aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Computertomographie des Thorax (nativ) bei Diskrepanz zwischen Klinik und Röntgen oder bei schwerem Verlauf: beidseitige, periphere, subpleurale und basal betonte Milchglastrübungen, später „crazy paving“ und Konsolidierungen; Ausmaß des Befalls korreliert mit dem Schweregrad',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Angiographie der Pulmonalarterien bei Verdacht auf Lungenembolie (plötzliche Verschlechterung, unerklärte Hypoxämie, stark steigende D-Dimere, Rechtsherzbelastung)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG bei jedem stationären Patienten (Rhythmusstörungen, Myokarditiszeichen, Rechtsherzbelastung, QTc vor bestimmten Medikamenten); Echokardiographie bei erhöhtem Troponin, Verdacht auf Myokarditis, Perikarderguss oder Rechtsherzbelastung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Lungensonographie als strahlenfreie Alternative am Bett: B-Linien, subpleurale Konsolidierungen, Pleuraverdickung; Kompressionssonographie der Beinvenen bei Verdacht auf tiefe Beinvenenthrombose',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie mit bronchoalveolärer Lavage nur in Ausnahmefällen — bei beatmeten Patienten mit Verdacht auf Superinfektion, Pneumocystis-Pneumonie oder Aspergillose; meldepflichtige Übermittlung des Erregernachweises nach § 7 IfSG durch das Labor und der Erkrankung nach § 6 IfSG durch den Arzt an das Gesundheitsamt',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Influenza und andere virale Atemwegsinfekte (RSV, Parainfluenza, Rhino-/Adenoviren)',
+          unterscheidung: 'Klinisch kaum zu unterscheiden — das muss man ehrlich sagen; nur der Erregernachweis (Multiplex-PCR) trennt sie. Hinweise: Influenza beginnt abrupter mit hohem Fieber und stärksten Gliederschmerzen innerhalb weniger Stunden; Anosmie ohne verstopfte Nase und der zweiphasige Verlauf sprechen für COVID-19. Bei Influenza ist Oseltamivir innerhalb von 48 Stunden indiziert.',
+        },
+        {
+          dd: 'Bakterielle (Pneumokokken-)Pneumonie und bakterielle Superinfektion',
+          unterscheidung: 'Eitriges, rostbraunes Sputum, einseitige Klopfschalldämpfung und Bronchialatmen, Leukozytose mit Neutrophilie, deutlich erhöhtes Procalcitonin, lobäres Infiltrat im Röntgen; bei COVID-19 dagegen trockener Husten, Lymphopenie, niedriges PCT und beidseitige periphere Milchglastrübungen. Cave: zweiter Fiebergipfel unter Besserung → Superinfektion.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Die gefährlichste Verwechslung, weil sie zugleich Komplikation der COVID-19 sein kann: plötzliche Luftnot, atemabhängiger Thoraxschmerz, Tachykardie, Beinschwellung, Rechtsherzbelastung im EKG und Echo, stark erhöhte D-Dimere; Klärung durch CT-Angiographie. Ein unverhältnismäßiger Sättigungsabfall bei geringem Lungenbefund muss immer daran denken lassen.',
+        },
+        {
+          dd: 'Herzinsuffizienz und kardiale Dekompensation',
+          unterscheidung: 'Orthopnoe, nächtliche Dyspnoe, Beinödeme, gestaute Halsvenen, feuchte Rasselgeräusche beidseits basal mit Pleuraergüssen, erhöhtes NT-proBNP; im Röntgen zentral betonte Stauungszeichen statt peripherer Milchglastrübungen — Fieber und Infektzeichen fehlen.',
+        },
+        {
+          dd: 'Myokarditis / Perikarditis',
+          unterscheidung: 'Thoraxschmerz, Herzrasen, Rhythmusstörungen und Leistungsknick — oft Wochen nach dem Infekt; Troponin erhöht, EKG-Veränderungen, Echokardiographie mit Wandbewegungsstörung oder Perikarderguss, Kardio-MRT beweisend. Kann Komplikation der COVID-19 sein (Fall Freiburg: Myokarditis post COVID-19).',
+        },
+        {
+          dd: 'Exazerbation von Asthma bronchiale oder COPD',
+          unterscheidung: 'Bekannte Grunderkrankung, Giemen und verlängertes Exspirium, Ansprechen auf Bronchodilatatoren; ein Virusinfekt — auch SARS-CoV-2 — ist dabei häufig der Auslöser, sodass beides zusammen vorliegen kann.',
+        },
+        {
+          dd: 'Pertussis',
+          unterscheidung: 'Bei länger als zwei bis drei Wochen bestehendem Husten: anfallsartige Hustenattacken mit inspiratorischem Ziehen (Reprise) und Erbrechen nach dem Anfall, kaum Fieber; Nachweis über PCR aus dem Nasopharyngealabstrich bzw. Serologie.',
+        },
+        {
+          dd: 'Tuberkulose und Pneumocystis-jirovecii-Pneumonie',
+          unterscheidung: 'Tuberkulose: wochenlanger Husten, Nachtschweiß, Gewichtsverlust, Herkunft aus Endemiegebiet, apikale kavernöse Infiltrate. Pneumocystis-Pneumonie beim Immunsupprimierten (HIV, Transplantation): schleichende Belastungsdyspnoe, trockener Husten, LDH stark erhöht, beidseitige Milchglastrübungen — ähnliches CT-Bild!',
+        },
+        {
+          dd: 'Malaria und andere Reisekrankheiten',
+          unterscheidung: 'Fieber nach Aufenthalt in einem Endemiegebiet: jedes Fieber nach Tropenreise ist Malaria bis zum Beweis des Gegenteils — dicker Tropfen und Ausstrich; ferner Dengue, Typhus. Ohne Reiseanamnese praktisch ausgeschlossen.',
+        },
+        {
+          dd: 'Sinusitis, Angina tonsillaris, Pfeiffersches Drüsenfieber',
+          unterscheidung: 'Sinusitis: Gesichts- und Klopfschmerz über den Nebenhöhlen, eitriges Nasensekret, Anosmie hier durch verstopfte Nase (konduktiv). Angina: eitrige Tonsillenbeläge, Centor-Kriterien. Mononukleose: Jugendliche, Lymphknotenschwellung, Splenomegalie, atypische Lymphozyten.',
+        },
+        {
+          dd: 'Sepsis anderer Ursache',
+          unterscheidung: 'Fokussuche (Harnwege, Abdomen, Haut, Endokarditis), qSOFA-Kriterien, Laktat, Blutkulturen; hohes Procalcitonin spricht gegen eine rein virale Genese.',
+        },
+        {
+          dd: 'Hyperventilation und Angststörung',
+          unterscheidung: 'Herzrasen, Engegefühl, Schweißausbrüche und Luftnot ohne Fieber, mit Kribbelparästhesien und Pfötchenstellung; NORMALE Sauerstoffsättigung und unauffällige Auskultation — bei psychiatrischer Vorgeschichte niemals psychologisieren, bevor die Pulsoxymetrie die Hypoxämie ausgeschlossen hat.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Ambulante Betreuung und Überwachung des leichten Verlaufs',
+          items: [
+            'Häusliche Absonderung nach den jeweils geltenden RKI-Empfehlungen (in der Regel mindestens fünf Tage und bis 48 Stunden Symptomfreiheit), Maske im Kontakt mit Angehörigen, getrenntes Zimmer und Lüften — besonders zum Schutz von Risikopersonen im Haushalt',
+            'Körperliche Schonung, ausreichend Trinken (mindestens zwei Liter täglich bei Fieber), Bettruhe nur so lange wie nötig, frühe Mobilisation zur Thromboseprophylaxe',
+            'Symptomatische Therapie: Fiebersenkung und Analgesie mit Paracetamol (bis 4 × 1 g täglich) oder Ibuprofen (Ibuprofen ist NICHT kontraindiziert, die frühere Warnung ist widerlegt); bei quälendem Reizhusten ggf. ein Antitussivum zur Nacht; abschwellende Nasentropfen kurzfristig',
+            'Selbstmonitoring bei Risikopatienten: Pulsoxymeter mit nach Hause geben, Sättigung und Temperatur zwei- bis dreimal täglich dokumentieren; Warnzeichen, bei denen sofort Hilfe geholt wird: Sättigung unter 94 %, zunehmende Luftnot, Brustschmerz, Verwirrtheit, Kreislaufschwäche, Fieber, das nach Besserung zurückkommt',
+            'Telefonische Verlaufskontrolle durch den Hausarzt besonders um den siebten bis zehnten Krankheitstag — der kritische Zeitpunkt der zweiten Phase',
+            'Arbeitsunfähigkeitsbescheinigung, Meldung des Verdachts- bzw. Erkrankungsfalls an das Gesundheitsamt nach § 6 IfSG (der Labornachweis wird nach § 7 IfSG vom Labor gemeldet)',
+          ],
+        },
+        {
+          label: 'Gezielte antivirale und immunmodulatorische Therapie nach Risiko und Krankheitsphase',
+          items: [
+            'Antivirale Therapie FRÜH im Verlauf und NUR für Risikopatienten (Alter, Vorerkrankungen, Immunsuppression, fehlender Impfschutz): Nirmatrelvir/Ritonavir 300/100 mg 2 × täglich über fünf Tage, Beginn innerhalb von fünf Tagen nach Symptombeginn; Dosisreduktion auf 150/100 mg bei eGFR 30–59 ml/min, kontraindiziert bei eGFR < 30 ml/min und schwerer Leberinsuffizienz',
+            'AUSDRÜCKLICHE Prüfung der Wechselwirkungen vor Nirmatrelvir/Ritonavir — Ritonavir ist ein starker CYP3A4-Hemmer: Statine (Simvastatin, Atorvastatin pausieren), DOAK (Rivaroxaban, Apixaban), Amiodaron, Immunsuppressiva (Tacrolimus, Ciclosporin — Spiegel steigen massiv), Benzodiazepine und Z-Substanzen (Midazolam, Zopiclon), Antipsychotika, Antiepileptika, Sildenafil, Kolchizin; bei nicht beherrschbarer Interaktion Alternative wählen',
+            'Remdesivir als Alternative: 200 mg i.v. an Tag 1, dann 100 mg täglich — ambulant über drei Tage bei Risikopatienten (innerhalb von sieben Tagen nach Symptombeginn), stationär über fünf Tage bei Pneumonie mit Low-Flow-Sauerstoff; nicht bei invasiver Beatmung; Molnupiravir ist in der EU nicht zugelassen und wird nicht mehr empfohlen',
+            'DEXAMETHASON dagegen erst in der späteren, entzündlichen Phase und NUR bei Sauerstoffbedarf: 6 mg 1 × täglich oral oder i.v. über bis zu zehn Tage — beim leichten Verlauf ohne Sauerstoffbedarf schadet es eher (verzögerte Viruselimination, erhöhte Sterblichkeit in Subgruppen); Blutzucker unter Dexamethason kontrollieren',
+            'Weitere Immunmodulatoren nach Leitlinie im stationären Bereich bei rasch progredientem Verlauf mit hohem Sauerstoffbedarf und hohem CRP: Tocilizumab (IL-6-Rezeptor-Antagonist) oder Baricitinib (JAK-Inhibitor) zusätzlich zu Dexamethason — nach Ausschluss einer bakteriellen Infektion',
+            'Monoklonale Antikörper nur noch nach aktueller Variantenlage und Empfehlung; Passiv-Immunisierung als Prophylaxe für schwer Immunsupprimierte ohne Impfansprechen erwägen',
+          ],
+        },
+        {
+          label: 'Stationäre und intensivmedizinische Behandlung des schweren Verlaufs',
+          items: [
+            'Aufnahmeindikation: Sauerstoffsättigung unter 92–94 % unter Raumluft, Atemfrequenz über 22–30/min, Kreislaufinstabilität, Bewusstseinstrübung, Dekompensation einer Grunderkrankung, fehlende häusliche Versorgung — Isolierung im Einzelzimmer mit FFP2-Maske, Kittel, Handschuhen und Schutzbrille für das Personal',
+            'Sauerstoffgabe über Nasenbrille oder Maske mit Ziel-Sättigung 92–96 % (bei COPD 88–92 %); bei steigendem Bedarf High-Flow-Sauerstofftherapie oder nichtinvasive Beatmung (CPAP/NIV) unter engmaschiger Überwachung mit niedriger Schwelle zur Intubation bei Erschöpfung',
+            'Wache Bauchlagerung („awake proning“) bereits unter Sauerstoff und High-Flow; bei ARDS invasive lungenprotektive Beatmung (Tidalvolumen 6 ml/kg Idealgewicht, PEEP, Plateaudruck < 30 cmH2O), Bauchlagerung über 16 Stunden, in Zentren ECMO als Ultima Ratio',
+            'THROMBOSEPROPHYLAXE mit niedermolekularem Heparin für ALLE stationären Patienten wegen des hohen thromboembolischen Risikos (z. B. Enoxaparin 40 mg s.c. 1 × täglich, gewichts- und nierenadaptiert); therapeutische Antikoagulation bei nachgewiesener Lungenembolie oder Beinvenenthrombose',
+            'Dexamethason 6 mg täglich, sobald Sauerstoff benötigt wird; bei rascher Progression zusätzlich Tocilizumab oder Baricitinib; Remdesivir in der frühen Phase mit Low-Flow-Sauerstoff',
+            'Antibiotika NUR bei begründetem Verdacht auf bakterielle Superinfektion (eitriges Sputum, Procalcitonin-Anstieg, lobäres Infiltrat, Blutkulturen): Ampicillin/Sulbactam oder Amoxicillin/Clavulansäure plus Makrolid, bei Betalaktam-Allergie Makrolid oder Fluorchinolon — keine routinemäßige Antibiose',
+            'Supportive Maßnahmen: bilanzierte, eher restriktive Flüssigkeitsgabe, Fiebersenkung, Blutzuckerkontrolle unter Dexamethason mit Magenschutz bei NSAR-Komedikation, Monitoring von Sättigung, Atemfrequenz, EKG, Kreatinin, Leberwerten und D-Dimeren; Behandlung von Komplikationen (Nierenersatzverfahren, Myokarditis, Delir)',
+            'Reevaluation der Dauermedikation: ACE-Hemmer und Sartane werden NICHT abgesetzt; Metformin und SGLT2-Hemmer bei Sepsis und Hypoxämie pausieren',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Prävention, Impfung und Nachsorge',
+          items: [
+            'IMPFUNG als wirksamste Maßnahme: Grundimmunisierung mit einem an die aktuelle Variante angepassten mRNA- oder Proteinimpfstoff und jährliche Auffrischung im Herbst nach den Empfehlungen der Ständigen Impfkommission (STIKO) für Personen ab 60 Jahren, Menschen mit Grunderkrankungen, Immunsupprimierte, Schwangere, medizinisches Personal und Angehörige von Risikopersonen — gleichzeitig mit der Influenza-Impfung möglich',
+            'Ruhige und sachliche Aufklärung über Nutzen und Nebenwirkungen: Schutz vor schwerem Verlauf, Hospitalisierung und Tod; typische Impfreaktionen (Schmerzen an der Einstichstelle, Fieber, Abgeschlagenheit für ein bis zwei Tage), sehr seltene Myokarditis bei jungen Männern nach mRNA-Impfstoffen — mild und selbstlimitierend im Vergleich zur Myokarditis durch die Infektion',
+            'Hygiene und Expositionsschutz: Händehygiene, Lüften, FFP2-Maske im Kontakt mit Risikopersonen und in Gesundheitseinrichtungen, Abstand, Absonderung während der Erkrankung; Meldepflicht nach dem Infektionsschutzgesetz; Pneumokokken- und Influenza-Impfung bei Risikogruppen zur Verringerung von Superinfektionen',
+            'Nachsorge nach schwerem Verlauf: Kontrolle von Röntgen-Thorax bzw. CT und Lungenfunktion nach vier bis zwölf Wochen bei persistierender Luftnot, Echokardiographie und EKG bei Thoraxschmerz oder Rhythmusstörungen (Myokarditis), Fortführung der Thromboseprophylaxe nach Entlassung nur bei hohem Risiko',
+            'Post-COVID-Zustand ernst nehmen und benennen: Fatigue, Belastungsintoleranz, „brain fog“, Luftnot und Geruchsstörung über Wochen bis Monate; Belastungsdosierung („pacing“) statt Überforderung, keine forcierte Rekonditionierung bei post-exertioneller Malaise, Riechtraining bei Anosmie, pneumologische und kardiologische Rehabilitation, Anbindung an spezialisierte Post-COVID-Ambulanzen, psychosomatische Mitbetreuung, stufenweise Wiedereingliederung in den Beruf',
+          ],
+        },
+      ],
+      prognose: 'Die große Mehrheit der Infektionen — seit Omikron und bei geimpften Personen über 95 % — verläuft leicht und heilt innerhalb von ein bis zwei Wochen aus. Etwa 5 bis 10 % der ungeimpften Erkrankten entwickeln eine Pneumonie mit Hospitalisierungsbedarf, ein kleiner Teil davon ein ARDS mit Intensivpflichtigkeit; die Sterblichkeit beatmeter Patienten liegt bei 30 bis 50 %. Die Prognose wird vor allem von Alter, Vorerkrankungen und Impfstatus bestimmt; Lymphopenie, stark erhöhte D-Dimere, LDH und Ferritin sowie ein hoher Sauerstoffbedarf sind ungünstige Marker. Thromboembolische Komplikationen treten bei bis zu 20 % der stationären und deutlich häufiger bei intensivpflichtigen Patienten auf. Nach der Akutphase berichten 10 bis 20 % der Erkrankten über anhaltende Beschwerden im Sinne eines Long-COVID, ein Teil erfüllt die Kriterien des Post-COVID-Syndroms; die Geruchsstörung bildet sich in den meisten Fällen innerhalb von Wochen bis Monaten zurück. Die Impfung senkt das Risiko eines schweren Verlaufs, eines Todes und eines Post-COVID-Syndroms deutlich.',
+      pruefungsfallen: [
+        'Die ZWEIPHASIGKEIT ist der Kern des Falls: Die Verschlechterung kommt nicht am ersten Tag, sondern typischerweise am siebten bis zehnten Tag, wenn der Patient sich schon besser fühlte — in der Anamnese deshalb ausdrücklich nach Besserung und erneuter Verschlechterung fragen und den Krankheitstag benennen.',
+        'Die STILLE HYPOXÄMIE nicht verpassen: Der Patient gibt nur mäßige Luftnot an, die Sättigung liegt trotzdem bei 90 %. Die Pulsoxymetrie in Ruhe und nach Belastung gehört obligat zur Untersuchung — „Haben Sie Luftnot?“ allein genügt nicht; Risikopatienten bekommen ein Pulsoxymeter mit nach Hause.',
+        'Die zeitliche UMKEHR der Therapie ist die klassische Prüfungsfrage: Antivirale Substanzen (Nirmatrelvir/Ritonavir innerhalb von fünf Tagen, Remdesivir innerhalb von sieben Tagen) wirken FRÜH und nur bei Risikopatienten; Dexamethason wirkt SPÄT und NUR bei Sauerstoffbedarf — beim leichten Verlauf ohne Sauerstoff schadet Kortison eher.',
+        'Nirmatrelvir/Ritonavir ohne Interaktionscheck zu verordnen ist ein Fehler: Ritonavir hemmt CYP3A4 — Statine, DOAK, Tacrolimus, Amiodaron, Zopiclon, Kolchizin. Die Medikamentenliste des Patienten vor der Verordnung laut durchgehen.',
+        'Ein negativer Schnell- oder Selbsttest schließt COVID-19 NICHT aus. Der Prüfer fragt: „Wie wurde der Test durchgeführt?“ — nur vorne in die Nase, zu früh, ohne Rachenabstrich? Bei klinischem Verdacht immer PCR aus dem Nasen-Rachen-Abstrich.',
+        'Die Lungenembolie als Differenzialdiagnose UND Komplikation nennen: Hyperkoagulabilität, D-Dimere, CT-Angiographie bei plötzlicher Verschlechterung. Und daraus folgt: Thromboseprophylaxe mit Heparin für jeden stationären Patienten.',
+        'Keine routinemäßige Antibiose bei COVID-19 — nur bei begründetem Verdacht auf eine bakterielle Superinfektion (eitriges Sputum, Procalcitonin, lobäres Infiltrat). Bei Betalaktam-Allergie ein Makrolid (Reutlingen 28.09.2022).',
+        'Influenza und COVID-19 sind klinisch kaum zu unterscheiden — das ehrlich sagen und die Multiplex-PCR nennen, statt vermeintlich sichere klinische Unterschiede zu erfinden; nur die Anosmie ohne verstopfte Nase ist wegweisend.',
+        'Herzrasen, Engegefühl, Schweißausbrüche und Luftnot bei einer Patientin mit Burnout-Vorgeschichte nicht als Panikattacke abtun — erst die normale Sauerstoffsättigung erlaubt diese Deutung.',
+        'Impfstatus präzise erfragen: Anzahl der Impfungen, letzte Auffrischung, frühere Infektionen — „geimpft“ allein reicht nicht; ebenso Pneumokokken- und Influenza-Impfung bei Risikogruppen (Stuttgart 01.04.2023).',
+        'Ibuprofen ist bei COVID-19 NICHT kontraindiziert — die Warnung vom Frühjahr 2020 wurde widerlegt. Paracetamol und Ibuprofen sind beide zur Fiebersenkung geeignet.',
+        'Meldepflicht nicht vergessen: COVID-19 ist nach dem Infektionsschutzgesetz namentlich meldepflichtig — der Arzt meldet Verdacht, Erkrankung und Tod nach § 6, das Labor den Erregernachweis nach § 7.',
+        'Das Post-COVID-Syndrom benennen und ernst nehmen: Fatigue, Belastungsintoleranz, „brain fog“ — mit Belastungsdosierung statt Überforderung; wer es als Einbildung abtut, verliert Punkte in der Kommunikation.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was machen Sie, um die Diagnose zu sichern?',
+          antwort: 'Zuerst die körperliche Untersuchung mit Vitalparametern und Pulsoxymetrie, Racheninspektion und Auskultation der Lunge. Dann der Erregernachweis: ein Antigenschnelltest zur Orientierung und als Standard die PCR aus dem Nasen-Rachen-Abstrich, in der Saison als Multiplex-PCR auch auf Influenza und RSV. Bei Hinweisen auf eine Pneumonie ein Röntgen-Thorax und ein Labor mit Blutbild, CRP, Procalcitonin, LDH, Ferritin, D-Dimeren, Kreatinin und Leberwerten.',
+        },
+        {
+          frage: 'Wie wurde der Corona-Test durchgeführt?',
+          antwort: 'Das muss man den Patienten konkret fragen: Selbsttest oder Schnelltest in der Apotheke, an welchem Krankheitstag, nur vorne in der Nase oder als tiefer Nasen-Rachen-Abstrich. Ein oberflächlich oder zu früh durchgeführter Antigentest ist häufig falsch negativ; bei klinischem Verdacht wird deshalb eine PCR aus dem nasopharyngealen und oropharyngealen Abstrich abgenommen.',
+        },
+        {
+          frage: 'Was würden Sie machen, wenn eine bakterielle Infektion nachgewiesen wird?',
+          antwort: 'Dann behandle ich antibiotisch: bei einer ambulant erworbenen Pneumonie mit Amoxicillin/Clavulansäure oder Ampicillin/Sulbactam, stationär ergänzt um ein Makrolid; bei einer Betalaktam-Allergie — wie bei dieser Patientin gegen Amoxicillin — ein Makrolid wie Clarithromycin oder Azithromycin, alternativ ein Fluorchinolon wie Moxifloxacin. Ohne Hinweis auf eine bakterielle Superinfektion gebe ich bei COVID-19 keine Antibiotika.',
+        },
+        {
+          frage: 'Welche Impfungen sind bei dieser Patientin relevant, und wie ist ihr Impfstatus?',
+          antwort: 'Die COVID-19-Impfung: Sie hat 2021 zwei Impfungen erhalten, aber keine Auffrischung — der Impfschutz ist also unvollständig, ein Risikofaktor für den schwereren Verlauf. Zusätzlich sind Influenza- und Pneumokokken-Impfung zu erfragen, weil sie das Risiko von Superinfektionen senken, und Tetanus, weil sie als Floristin häufig Schnittverletzungen hat — Tetanus ist vor sechs Jahren aufgefrischt worden.',
+        },
+        {
+          frage: 'Wie war Farbe und Konsistenz des Sputums?',
+          antwort: 'Der Husten ist trocken und unproduktiv; wenn überhaupt, hustet die Patientin morgens wenig glasig-weißen Schleim ab. Eitriges, gelb-grünes oder rostbraunes Sputum wäre ein Hinweis auf eine bakterielle Superinfektion oder eine Pneumokokkenpneumonie, blutiges Sputum auf Lungenembolie oder Tuberkulose.',
+        },
+        {
+          frage: 'Welche Voroperationen hat die Patientin? — Sie haben das nicht erfragt.',
+          antwort: 'Das habe ich in der Anamnese nicht vollständig erhoben; ich würde es bei der körperlichen Untersuchung anhand der Narben nachfragen und ergänzen. (Dieses Vorgehen wurde in Reutlingen akzeptiert.) Tatsächlich besteht eine Appendektomie im Jugendalter.',
+        },
+        {
+          frage: 'Welcher Facharzt behandelt ein Burnout?',
+          antwort: 'Ein Psychiater beziehungsweise ein Facharzt für Psychiatrie und Psychotherapie, ergänzt durch einen psychologischen Psychotherapeuten; bei stationärem Bedarf die Psychosomatik.',
+        },
+        {
+          frage: 'Warum verschlechtert sich die Patientin erst jetzt, nach einer Woche, obwohl es ihr schon besser ging?',
+          antwort: 'Das ist der typische zweiphasige Verlauf von COVID-19. In der ersten Woche steht die Virusvermehrung im Vordergrund; bei einem Teil der Patienten folgt ab dem siebten bis zehnten Tag eine überschießende Entzündungsreaktion des Immunsystems mit viraler Pneumonie, Endothelschädigung und Hyperkoagulabilität. Deshalb ist der siebte bis zehnte Tag der kritische Zeitpunkt für eine Verlaufskontrolle.',
+        },
+        {
+          frage: 'Die Patientin sagt, sie bekomme eigentlich gut Luft. Warum messen Sie trotzdem die Sättigung?',
+          antwort: 'Wegen der stillen Hypoxämie, der sogenannten „happy hypoxia“: Bei COVID-19 kann die Sauerstoffsättigung bedrohlich abfallen, ohne dass der Patient entsprechende Luftnot verspürt, weil der Atemantrieb und die CO2-Abatmung zunächst erhalten bleiben. Die Pulsoxymetrie in Ruhe und nach Belastung ist deshalb der wichtigste Einzelbefund, und Risikopatienten bekommen ein Pulsoxymeter mit nach Hause.',
+        },
+        {
+          frage: 'Würden Sie dieser Patientin Nirmatrelvir/Ritonavir geben?',
+          antwort: 'Nein — aus zwei Gründen. Erstens ist das Zeitfenster von fünf Tagen nach Symptombeginn am achten Krankheitstag überschritten, die antivirale Therapie wirkt nur in der frühen Phase. Zweitens nimmt sie Zopiclon ein, dessen Spiegel unter Ritonavir stark ansteigen würde. Jetzt, mit Sauerstoffbedarf in der entzündlichen Phase, ist Dexamethason indiziert; Remdesivir kann bei Low-Flow-Sauerstoff noch erwogen werden.',
+        },
+        {
+          frage: 'Wann geben Sie Dexamethason, und wann nicht?',
+          antwort: 'Nur bei Sauerstoffbedarf in der entzündlichen Phase: 6 mg einmal täglich über bis zu zehn Tage. Beim leichten Verlauf ohne Sauerstoffbedarf ist Dexamethason nicht indiziert und eher schädlich, weil es die Viruselimination verzögert. Unter Dexamethason kontrolliere ich den Blutzucker.',
+        },
+        {
+          frage: 'Welche Komplikationen von COVID-19 kennen Sie?',
+          antwort: 'Pneumonie und ARDS, bakterielle Superinfektion, thromboembolische Ereignisse mit Lungenembolie und tiefer Beinvenenthrombose durch die Hyperkoagulabilität, Myokarditis und Perikarditis, Rhythmusstörungen, akutes Nierenversagen, Sepsis, neurologische Manifestationen wie Enzephalopathie, Schlaganfall und Delir sowie das Long-COVID- beziehungsweise Post-COVID-Syndrom.',
+        },
+        {
+          frage: 'Warum bekommt jeder stationäre COVID-Patient Heparin?',
+          antwort: 'Weil SARS-CoV-2 über die Endothelschädigung und die Hyperinflammation eine ausgeprägte Hyperkoagulabilität auslöst; thromboembolische Ereignisse betreffen bis zu 20 % der stationären Patienten. Deshalb erhält jeder stationäre Patient eine Thromboseprophylaxe mit niedermolekularem Heparin, zum Beispiel Enoxaparin 40 mg s.c. täglich, und bei nachgewiesener Lungenembolie eine therapeutische Antikoagulation.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Begriffe Anosmie und Ageusie?',
+          antwort: 'Anosmie bedeutet den Verlust des Geruchssinns, Ageusie den Verlust des Geschmackssinns — beides typische Zeichen der Corona-Infektion, weil das Virus die Riechschleimhaut befällt. Der Patientin sage ich: „Dass Sie nichts mehr riechen und schmecken, kommt vom Virus selbst und bildet sich in den allermeisten Fällen innerhalb von Wochen zurück.“',
+        },
+        {
+          frage: 'Was ist das Post-COVID-Syndrom, und was raten Sie?',
+          antwort: 'Beschwerden, die zwölf Wochen nach der Infektion noch bestehen und mindestens zwei Monate anhalten: Erschöpfung, Belastungsintoleranz mit Verschlechterung nach Anstrengung, Konzentrations- und Gedächtnisstörungen, Luftnot, Herzrasen, Geruchsstörung. Ich nehme die Beschwerden ernst, benenne sie, empfehle eine Belastungsdosierung statt Überforderung, kläre anhaltende Luftnot oder einen Leistungsknick kardiologisch und pneumologisch ab und binde die Patientin an eine Post-COVID-Ambulanz an.',
+        },
+        {
+          frage: 'Ist COVID-19 meldepflichtig?',
+          antwort: 'Ja, nach dem Infektionsschutzgesetz: Der Arzt meldet Verdacht, Erkrankung und Tod namentlich nach § 6 an das Gesundheitsamt, das Labor den Erregernachweis nach § 7 — innerhalb von 24 Stunden.',
+        },
+      ],
+      merksatz: 'Zweite Woche, zweiter Blick: Wer sich Tag 7 bis 10 wieder verschlechtert, braucht das Pulsoxymeter, nicht nur die Frage nach Luftnot. Antivirale Therapie früh und nur bei Risiko, Dexamethason spät und nur bei Sauerstoff — und jeder stationäre Patient bekommt Heparin.',
+      linkedCaseIds: [
+        'case-covid19',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+        'auf-ct',
+      ],
+    },
+    {
+      id: 'fw-anaphylaxie',
+      pathology: 'Anaphylaktischer Schock (Anaphylaxie)',
+      specialty: 'Dermatologie',
+      definition: 'Die Anaphylaxie ist eine akute, systemische, potenziell lebensbedrohliche Überempfindlichkeitsreaktion vom Soforttyp (Typ I nach Coombs und Gell), bei der nach Kontakt mit einem Auslöser innerhalb von Minuten bis maximal zwei Stunden Mastzellen und basophile Granulozyten – meist IgE-vermittelt, seltener nicht-immunologisch („pseudoallergisch“) – massiv Histamin, Tryptase, Leukotriene und Prostaglandine freisetzen. Folge sind Vasodilatation, Kapillarleck, Bronchospasmus und Schleimhautödem. Der anaphylaktische Schock ist die schwerste Ausprägung mit Blutdruckabfall, Organminderperfusion und drohendem Herz-Kreislauf-Stillstand. Die Diagnose wird klinisch am Krankenbett gestellt; Adrenalin intramuskulär ist die erste und wichtigste Maßnahme.',
+      aetiologie: 'Häufigste Auslöser beim Erwachsenen sind Insektengifte (Biene, Wespe, seltener Hornisse und Hummel), Medikamente (Antibiotika – vor allem Penicilline und Cephalosporine –, NSAR wie Acetylsalicylsäure und Metamizol, Röntgenkontrastmittel, Muskelrelaxanzien, Opioide, Biologika) und Nahrungsmittel (Erdnuss, Baumnüsse, Meeresfrüchte und Fisch, Sellerie, Soja, Weizen; beim Kind vor allem Milch und Hühnerei). Weitere Auslöser sind Latex, Allergenimmuntherapie, Blutprodukte und die nahrungsmittelabhängige anstrengungsinduzierte Anaphylaxie. Kofaktoren, die eine sonst tolerierte Allergenmenge gefährlich machen: körperliche Anstrengung, Alkohol, NSAR, akuter Infekt, psychischer Stress, Menstruation, Schlafmangel. In bis zu einem Fünftel der Fälle bleibt der Auslöser unklar (idiopathische Anaphylaxie – hier immer an eine Mastozytose denken).',
+      risikofaktoren: [
+        'Asthma bronchiale, insbesondere schlecht eingestelltes – wichtigster Risikofaktor für einen tödlichen Verlauf',
+        'Mastozytose oder erhöhte basale Serumtryptase (Insektengiftanaphylaxie bei Mastozytose besonders schwer)',
+        'Einnahme von Betablockern (auch als Augentropfen) und ACE-Hemmern: verstärken die Reaktion und schwächen das Ansprechen auf Adrenalin ab',
+        'Höheres Lebensalter und kardiovaskuläre Vorerkrankungen (KHK, Herzinsuffizienz)',
+        'Frühere schwere Reaktion auf denselben Auslöser und gesteigerte Lokalreaktionen nach Insektenstichen',
+        'Atopie (allergische Rhinitis, atopische Dermatitis) und Nahrungsmittelallergien vom Soforttyp',
+        'Berufliche oder freizeitbedingte Exposition gegenüber Hymenopteren (Imker, Gärtner, Floristen, Bäcker, Waldarbeiter)',
+        'Kofaktoren im Moment der Exposition: Anstrengung, Alkohol, NSAR, Infekt, Stress',
+        'Fehlendes oder nicht mitgeführtes Adrenalin-Autoinjektor-Set, fehlende Schulung',
+      ],
+      klinik: [
+        {
+          text: 'Beginn meist innerhalb von Minuten (Insektengift, i.v. Medikamente) bis maximal zwei Stunden (orale Allergene) nach Allergenkontakt; je schneller der Beginn, desto schwerer meist der Verlauf',
+        },
+        {
+          text: 'Haut und Schleimhaut (in 80–90 % der Fälle, meist zuerst): Juckreiz besonders an Handflächen, Fußsohlen, Kopfhaut und Genitalbereich, Flush, generalisierte Urtikaria mit Quaddeln, Angioödem an Lippen, Augenlidern und Zunge',
+        },
+        {
+          text: 'Obere Atemwege: Kloß- und Engegefühl im Hals, Schluckbeschwerden, Heiserkeit, inspiratorischer Stridor als Zeichen des bedrohlichen Larynxödems',
+        },
+        {
+          text: 'Untere Atemwege: Bronchospasmus mit Giemen, exspiratorischem Stridor, Husten, Dyspnoe, Tachypnoe und Sättigungsabfall',
+        },
+        {
+          text: 'Herz-Kreislauf: Tachykardie, Blutdruckabfall, Blässe, Kaltschweißigkeit, Schwindel, Synkope bis zum Schock und Herz-Kreislauf-Stillstand',
+        },
+        {
+          text: 'Gastrointestinal: krampfartige Bauchschmerzen, Übelkeit, Erbrechen, Durchfall, Stuhl- und Harndrang',
+        },
+        {
+          text: 'Allgemein und neurologisch: innere Unruhe, Angst, charakteristisches Vernichtungsgefühl, Verwirrtheit, Bewusstseinstrübung',
+        },
+        {
+          text: 'Lokal: Stichstelle mit Schwellung und Rötung, bei Bienenstich ggf. verbliebener Stachel',
+        },
+        {
+          text: 'Anaphylaxie OHNE Hautsymptome (in 10–20 % der Fälle) – verzögert die Diagnose; isoliert kardiovaskuläre oder respiratorische Präsentation',
+          atypisch: true,
+        },
+        {
+          text: 'Bradykardie statt Tachykardie unter Betablockern oder bei ausgeprägter Vagusreaktion',
+          atypisch: true,
+        },
+        {
+          text: 'Biphasische Reaktion: erneute Symptome 1 bis 72 Stunden (meist 8–12 Stunden) nach scheinbarer Erholung ohne erneuten Allergenkontakt, in etwa 5 % der Fälle',
+          atypisch: true,
+        },
+        {
+          text: 'Protrahierte Anaphylaxie über Stunden bis Tage trotz Therapie, vor allem bei oralen Allergenen und Mastozytose',
+          atypisch: true,
+        },
+        {
+          text: 'Kounis-Syndrom: allergisch bedingte Koronarspasmen mit Angina pectoris und EKG-Veränderungen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregrade nach Ring und Meßmer (1977)',
+          inhalt: 'Grad I: nur Haut- und Schleimhautsymptome (Juckreiz, Flush, Urtikaria, Angioödem). Grad II: zusätzlich leichte bis mäßige Beteiligung von Kreislauf (Tachykardie ≥ 20/min Anstieg, Blutdruckabfall ≥ 20 mmHg), Atemwegen (Heiserkeit, Dyspnoe, beginnender Bronchospasmus) oder Magen-Darm-Trakt (Übelkeit, Krämpfe). Grad III: bedrohliche Reaktion mit Schock, Larynxödem, schwerem Bronchospasmus, Zyanose, Bewusstseinstrübung, Erbrechen und Defäkation. Grad IV: Atem- und/oder Herz-Kreislauf-Stillstand. Ab Grad II ist Adrenalin intramuskulär indiziert.',
+        },
+        {
+          name: 'Klinische Diagnosekriterien (WAO/NIAID, sog. Sampson-Kriterien)',
+          inhalt: 'Eine Anaphylaxie ist hochwahrscheinlich, wenn eines der folgenden Kriterien erfüllt ist: (1) akuter Beginn mit Haut-/Schleimhautsymptomen PLUS Atemwegsbeteiligung oder Blutdruckabfall/Endorganminderperfusion; (2) nach Exposition gegenüber einem wahrscheinlichen Allergen mindestens zwei Organsysteme betroffen (Haut, Atemwege, Kreislauf, Magen-Darm-Trakt); (3) Blutdruckabfall nach Exposition gegenüber einem bekannten Allergen (beim Erwachsenen systolisch < 90 mmHg oder Abfall um mehr als 30 %). Hautsymptome sind NICHT zwingend.',
+        },
+        {
+          name: 'Pathomechanistische Einteilung',
+          inhalt: 'IgE-vermittelte (allergische) Anaphylaxie: Insektengift, Nahrungsmittel, Penicillin, Latex. Nicht-IgE-vermittelte immunologische Reaktion: IgG-/Komplement-vermittelt, z. B. Blutprodukte, Dextran. Nicht-immunologische („pseudoallergische“) Anaphylaxie durch direkte Mastzellaktivierung: Röntgenkontrastmittel, Opioide, NSAR, Muskelrelaxanzien, Kälte, Anstrengung. Idiopathische Anaphylaxie. Klinik und Akuttherapie sind bei allen Formen identisch.',
+        },
+      ],
+      redFlags: [
+        'Heiserkeit, Stridor, Kloßgefühl, Schluckstörung oder Zungenschwellung → drohendes Larynxödem, sofort Adrenalin i.m., Intubationsbereitschaft',
+        'Systolischer Blutdruck < 90 mmHg, Tachykardie > 120/min, Blässe, Kaltschweißigkeit, Synkope → anaphylaktischer Schock (Grad III)',
+        'Sättigung < 92 %, Zyanose, Giemen, Sprechdyspnoe → schwerer Bronchospasmus, besonders bei Asthmatikern',
+        'Bewusstseinstrübung, Verwirrtheit, Vernichtungsgefühl, Stuhl- oder Harnabgang → Schock mit zerebraler Minderperfusion',
+        'Symptombeginn innerhalb weniger Minuten nach Stich oder i.v. Applikation → rasch progredienter Verlauf zu erwarten',
+        'Fehlendes oder verzögertes Ansprechen auf die erste Adrenalingabe, insbesondere unter Betablockern → Glukagon, Vasopressoren, Intensivstation',
+        'Bekanntes Asthma bronchiale, Mastozytose, kardiovaskuläre Vorerkrankung oder hohes Alter → Hochrisikopatient, verlängerte Überwachung',
+        'Erneute Symptome Stunden nach Erholung → biphasische Reaktion, nie zu früh entlassen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Die Diagnose ist KLINISCH und wird sofort am Krankenbett gestellt – es wird nicht auf Laborwerte gewartet. Kurzanamnese parallel zur Therapie: Zeitabstand zum Kontakt, genauer Ablauf und Reihenfolge der Symptome, Verdachtsauslöser (Stich, Nahrungsmittel, Medikament, Latex), Kofaktoren (Anstrengung, Alkohol, NSAR, Infekt), frühere Reaktionen und deren Schweregrad, Atopie, Asthma, Medikamente (Betablocker, ACE-Hemmer), vorhandenes Notfallset',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung nach dem ABCDE-Schema: Vitalparameter (Blutdruck, Puls, Atemfrequenz, Sauerstoffsättigung, Temperatur, Bewusstsein), Inspektion von Haut (Flush, Urtikaria, Blässe, Kaltschweißigkeit), Lippen, Zunge und Rachen (Angioödem, Uvula), Stichstelle (Stachel), Auskultation der Lunge (Giemen, verlängertes Exspirium, Stridor, „stille Lunge“) und des Herzens',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Einteilung des Schweregrades nach Ring und Meßmer und Prüfung der klinischen Diagnosekriterien (mindestens zwei Organsysteme oder Blutdruckabfall nach Allergenexposition); engmaschige Verlaufskontrolle der Vitalparameter alle 5 Minuten bis zur Stabilisierung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serum-Tryptase in der Akutphase, optimal 1 bis 3 Stunden (spätestens 4 Stunden) nach Symptombeginn – bestätigt die Mastzellaktivierung im Nachhinein und steuert die Akutbehandlung NICHT; ein normaler Wert schließt die Anaphylaxie nicht aus (besonders bei Nahrungsmittelanaphylaxie)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basale Serumtryptase im beschwerdefreien Intervall (frühestens 24 Stunden später): ein Akutwert über 1,2 × Basalwert + 2 µg/l beweist die Mastzellaktivierung; ein dauerhaft erhöhter Basalwert (> 11,4 µg/l, insbesondere > 20 µg/l) weist auf eine Mastozytose hin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zur Differenzialdiagnose und Schockabklärung: Blutbild, Elektrolyte, Kreatinin, Blutzucker (Hypoglykämie!), Laktat, Blutgasanalyse, Troponin bei Thoraxschmerz oder EKG-Veränderungen, CRP bei Verdacht auf Infekt, ggf. Blutkulturen bei septischem Bild',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kontinuierliches Monitoring: EKG-Monitor (Tachykardie, Ischämiezeichen beim Kounis-Syndrom, Rhythmusstörungen), Pulsoxymetrie, nichtinvasive Blutdruckmessung; 12-Kanal-EKG bei kardialen Symptomen, älteren Patienten oder nach Adrenalingabe',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax oder Echokardiographie nur bei unklarer Differenzialdiagnose (Lungenembolie, Pneumothorax, kardiogener Schock, Aspiration) – niemals vor der Akuttherapie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Allergologische Abklärung im beschwerdefreien Intervall, etwa 2 bis 6 Wochen nach der Reaktion (zu früh getestet: falsch negative Ergebnisse durch Mastzellerschöpfung): Hauttestung (Pricktest, ggf. Intrakutantest) mit dem Verdachtsallergen, spezifisches IgE im Serum (Bienen- und Wespengift, Einzelkomponenten wie Api m 1, Ves v 5 zur Unterscheidung von Doppelsensibilisierung und Kreuzreaktion), ggf. Basophilenaktivierungstest',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Provokationstestung nur in ausgewählten Fällen (Nahrungsmittel, Medikamente) stationär unter Notfallbereitschaft; bei Verdacht auf Mastozytose Hautinspektion (Urticaria pigmentosa), KIT-D816V-Mutation, ggf. Knochenmarkbiopsie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Vasovagale Synkope (Kollaps)',
+          unterscheidung: 'Die häufigste Verwechslung, besonders nach Injektionen oder Stichen: BRADYKARDIE statt Tachykardie, blass und kaltschweißig, aber KEINE Urtikaria, kein Juckreiz, kein Angioödem, kein Bronchospasmus; rasche Erholung im Liegen mit erhöhten Beinen ohne Adrenalin.',
+        },
+        {
+          dd: 'Akuter Asthmaanfall / Exazerbation einer COPD',
+          unterscheidung: 'Isolierter Bronchospasmus mit Giemen und Dyspnoe ohne Haut-, Kreislauf- oder Magen-Darm-Symptome, bekanntes Asthma, Auslöser Infekt oder Allergenexposition über die Atemwege; keine Hypotonie. Cave: Asthmatiker haben ein erhöhtes Risiko für schwere Anaphylaxien – beides kann zusammenfallen.',
+        },
+        {
+          dd: 'Angioödem durch ACE-Hemmer oder hereditäres Angioödem (C1-Inhibitor-Mangel)',
+          unterscheidung: 'Bradykinin-vermittelt: KEIN Juckreiz, KEINE Urtikaria, kein Blutdruckabfall; langsame Entwicklung über Stunden, Schwellung von Gesicht, Zunge, Larynx und Darmwand (Bauchkoliken); spricht NICHT auf Adrenalin, Antihistaminika und Kortison an – Therapie mit C1-Inhibitor-Konzentrat oder Icatibant; ACE-Hemmer in der Medikation, positive Familienanamnese.',
+        },
+        {
+          dd: 'Fremdkörperaspiration',
+          unterscheidung: 'Plötzlicher Hustenreiz und inspiratorischer Stridor beim Essen, einseitig abgeschwächtes Atemgeräusch, keine Hautsymptome, keine Hypotonie.',
+        },
+        {
+          dd: 'Panikattacke mit Hyperventilation',
+          unterscheidung: 'Angst, Engegefühl, Kribbelparästhesien und Pfötchenstellung, Tachykardie, aber normaler Blutdruck, normale Sättigung, keine Urtikaria, kein Giemen, kein Angioödem; Besserung durch Beruhigung.',
+        },
+        {
+          dd: 'Myokardinfarkt, Lungenembolie, Kounis-Syndrom',
+          unterscheidung: 'Thoraxschmerz, EKG-Veränderungen, Troponinanstieg, Risikoprofil; bei der Lungenembolie Tachykardie, Dyspnoe und Hypoxie ohne Hautsymptome. Das Kounis-Syndrom ist die allergische Koronarspasmusform IM Rahmen einer Anaphylaxie.',
+        },
+        {
+          dd: 'Septischer, kardiogener oder hypovolämischer Schock',
+          unterscheidung: 'Fieber, Infektfokus und Laktatanstieg beim septischen Schock; Lungenödem und gestaute Halsvenen beim kardiogenen Schock; Blutungs- oder Flüssigkeitsverlust beim hypovolämischen Schock; in keinem Fall Urtikaria oder Angioödem, kein zeitlicher Bezug zu einem Allergenkontakt.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Kaltschweißigkeit, Tachykardie, Unruhe, Bewusstseinstrübung bei Diabetikern unter Insulin oder Sulfonylharnstoffen; Blutzucker sofort messen – keine Hautsymptome, kein Bronchospasmus.',
+        },
+        {
+          dd: 'Scombroid-Vergiftung (Histaminintoxikation)',
+          unterscheidung: 'Flush, Kopfschmerz, Urtikaria, Übelkeit und Durchfall nach Verzehr von verdorbenem Thunfisch, Makrele oder Sardine; mehrere Personen gleichzeitig betroffen, Tryptase normal, spricht auf Antihistaminika an.',
+        },
+        {
+          dd: 'Karzinoid-Syndrom, Phäochromozytom, Alkoholflush',
+          unterscheidung: 'Karzinoid: anfallsartiger Flush mit Durchfall und Bronchospasmus, 5-Hydroxyindolessigsäure im Urin erhöht, keine Urtikaria. Phäochromozytom: Hypertonie statt Hypotonie, Kopfschmerz, Palpitationen. Alkoholflush: Rötung ohne Urtikaria-Quaddeln und ohne Kreislaufbeteiligung.',
+        },
+        {
+          dd: 'Akute generalisierte Urtikaria ohne systemische Beteiligung',
+          unterscheidung: 'Quaddeln und Juckreiz, aber keine Atemwegs-, Kreislauf- oder Magen-Darm-Symptome – entspricht Grad I nach Ring und Meßmer; Antihistaminikum genügt, engmaschige Beobachtung, da ein Übergang in eine Anaphylaxie möglich ist.',
+        },
+        {
+          dd: 'Systemische Mastozytose',
+          unterscheidung: 'Rezidivierende, oft besonders schwere Anaphylaxien mit ausgeprägter Kreislaufbeteiligung ohne Hautsymptome, Urticaria pigmentosa, dauerhaft erhöhte basale Tryptase (> 20 µg/l); zugleich Risikofaktor und Differenzialdiagnose.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen und Adrenalin',
+          items: [
+            'Zufuhr des Auslösers sofort STOPPEN: Infusion abstellen, Medikamentengabe beenden, Stachel bei Bienenstich mit dem Fingernagel oder einer Karte abschaben (nicht mit der Pinzette quetschen, die Giftblase entleert sich sonst weiter)',
+            'Hilfe holen, Notruf 112 bzw. Reanimationsteam alarmieren, Patienten nie allein lassen; Notfallwagen mit Adrenalin, Sauerstoff, Absaugung und Intubationsbesteck bereitstellen',
+            'LAGERUNG nach Symptom: flach mit erhöhten Beinen (Schocklage) bei Kreislaufversagen, sitzend bei führender Atemnot, stabile Seitenlage bei Bewusstlosigkeit, Linksseitenlage bei Schwangeren – niemals abrupt aufsetzen oder aufstehen lassen (Gefahr des „empty ventricle“ mit Herz-Kreislauf-Stillstand)',
+            'ADRENALIN 0,3 bis 0,5 mg INTRAMUSKULÄR in den lateralen Oberschenkel (M. vastus lateralis) – Erwachsene 0,5 mg = 0,5 ml der Lösung 1 mg/ml (1:1000), Kinder 0,01 mg/kg, maximal 0,5 mg – als ERSTE und WICHTIGSTE Maßnahme ab Grad II, Wiederholung nach 5 bis 10 Minuten bei fehlender Besserung; keine absolute Kontraindikation in dieser Situation',
+            'SAUERSTOFF hochdosiert 10 bis 15 l/min über Maske mit Reservoir, Ziel-Sättigung ≥ 94 %',
+            'Zwei großlumige venöse Zugänge und rasche VOLUMENGABE mit kristalloider Lösung (balancierte Vollelektrolytlösung): Erwachsene 500 bis 1000 ml als Bolus, bei Schock bis 20 ml/kg, wiederholen nach Blutdruck',
+            'Monitoring von Blutdruck, Puls, Sättigung, Atemfrequenz, EKG und Bewusstsein; Reanimationsbereitschaft – bei Kreislaufstillstand sofortige Reanimation nach ALS-Algorithmus mit Adrenalin 1 mg i.v. und großzügiger Volumengabe',
+            'Bei therapierefraktärem Schock: Adrenalin intravenös nur titriert und unter Monitorüberwachung (Boli von 0,05 bis 0,1 mg oder Perfusor), Vasopressoren (Noradrenalin), Intubationsbereitschaft bei Larynxödem – frühzeitig, solange noch möglich',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Ergänzende medikamentöse Behandlung (dem Adrenalin nachgeordnet)',
+          items: [
+            'H1-Antihistaminikum intravenös, z. B. Dimetinden 4 mg (0,1 mg/kg) oder Clemastin 2 mg langsam i.v. – wirkt auf Juckreiz, Urtikaria und Angioödem, nicht auf Bronchospasmus und Schock; ersetzt das Adrenalin NIE',
+            'Glukokortikoid intravenös, z. B. Prednisolon 250 mg (bis 1000 mg beim schweren Verlauf) – Wirkungseintritt erst nach 30 bis 60 Minuten, Ziel ist die Abmilderung einer protrahierten oder biphasischen Reaktion; wirkt zusätzlich antiobstruktiv',
+            'Inhalatives Beta-2-Mimetikum bei Bronchospasmus: Salbutamol 2 bis 4 Hübe über Spacer oder 2,5 mg über Vernebler, wiederholbar; bei schwerem Bronchospasmus zusätzlich Adrenalin i.m. wiederholen',
+            'Inhalatives (verneblertes) Adrenalin 2 bis 5 mg bei Larynxödem und Stridor zusätzlich zur intramuskulären Gabe',
+            'GLUKAGON 1 bis 2 mg langsam i.v. (ggf. wiederholt oder als Infusion) bei Patienten unter Betablockern, die auf Adrenalin nicht ansprechen – wirkt über cAMP unabhängig vom Beta-Rezeptor positiv inotrop und chronotrop; Cave Erbrechen, Aspirationsschutz',
+            'H2-Antihistaminikum (z. B. Famotidin) allenfalls ergänzend, kein Ersatz für die genannten Maßnahmen; Vasopressin oder Methylenblau als Ultima Ratio beim refraktären vasoplegischen Schock auf der Intensivstation',
+          ],
+        },
+        {
+          label: 'Überwachung und Verhinderung der biphasischen Reaktion',
+          items: [
+            'Stationäre ÜBERWACHUNG mit Monitor über mehrere Stunden: mindestens 6 bis 12 Stunden nach Grad-II-Reaktion, 24 Stunden (Intensiv- oder Überwachungsstation) nach Grad III/IV, bei Asthma, verzögertem Ansprechen, Notwendigkeit mehrerer Adrenalingaben, oralem Allergen oder Betablockertherapie – niemals sofort nach Symptomfreiheit entlassen',
+            'Eine BIPHASISCHE Reaktion tritt in etwa 5 % der Fälle 1 bis 72 Stunden (meist 8 bis 12 Stunden) nach scheinbarer Erholung ohne erneuten Allergenkontakt auf; ein zu früh entlassener Patient ist in Lebensgefahr',
+            'Serum-Tryptase 1 bis 3 Stunden nach Symptombeginn abnehmen und Basalwert im Intervall bestimmen; Blutzucker, Elektrolyte, EKG',
+            'Genaue Dokumentation des Ablaufs (Auslöser, Latenz, Symptome nach Organsystemen, Schweregrad, Vitalparameter, verabreichte Medikamente mit Uhrzeit, Ansprechen) für die spätere allergologische Abklärung und den Arztbrief',
+            'Bei Entlassung nach der Überwachung: orale Fortführung von Antihistaminikum und Prednisolon über 2 bis 3 Tage, Ruhe, kein Alkohol, kein Sport; Wiedervorstellung bei jedem neuen Symptom',
+          ],
+        },
+        {
+          label: 'Nachsorge, Notfallset und Aufklärung',
+          items: [
+            'Verordnung und praktische SCHULUNG des ADRENALIN-AUTOINJEKTORS (0,3 mg für Erwachsene ab 30 kg, 0,15 mg für Kinder von 15 bis 30 kg) mit Übung am Demonstrator: Schutzkappe entfernen, Injektion durch die Kleidung in die Außenseite des Oberschenkels, 10 Sekunden andrücken, Massage der Stelle, danach IMMER Notruf; immer ZWEI Stifte (zweite Gabe nach 5 bis 10 Minuten möglich), jederzeit mitführen, Haltbarkeit und Lagerung (15 bis 25 °C, kein Auto im Sommer) beachten; Angehörige, Kollegen, Lehrer mitschulen',
+            'NOTFALLSET zusätzlich mit schnell wirksamem H1-Antihistaminikum (z. B. Cetirizin 20 mg) und Glukokortikoid (Prednisolon 100 mg) zum Einnehmen, bei Asthmatikern Salbutamol-Spray; schriftlicher Anaphylaxie-Notfallplan (Auslöser, Symptome, Handlungsschritte) und ALLERGIEPASS',
+            'Konsequente KARENZ des Auslösers: bei Insektengift Schutzmaßnahmen (nicht barfuß auf Wiesen, keine offenen Getränke im Freien, kein Parfum, Fenster mit Gittern, Ruhe bewahren, nicht schlagen), bei Nahrungsmitteln Schulung im Lesen von Zutatenlisten, bei Medikamenten Information von Hausarzt, Zahnarzt, Anästhesist und Radiologie (Kontrastmittel)',
+            'Allergologische Abklärung im Intervall (2 bis 6 Wochen): Hauttest, spezifisches IgE mit Komponentendiagnostik, basale Tryptase zum Ausschluss einer Mastozytose',
+            'SPEZIFISCHE IMMUNTHERAPIE (Hyposensibilisierung) bei Insektengiftallergie mit systemischer Reaktion ab Grad II – hier besonders wirksam: Schutz bei 80 bis 95 % der Patienten (Wespe etwa 95 %, Biene etwa 80 %), Dauer 3 bis 5 Jahre, Einleitung meist stationär als Schnellhyposensibilisierung, danach monatliche Erhaltungsdosis; bei Mastozytose lebenslang',
+            'Überprüfung der Dauermedikation: Betablocker und ACE-Hemmer möglichst durch Alternativen ersetzen (in Absprache mit dem Kardiologen), Asthma optimal einstellen; bei Frauen im gebärfähigen Alter Hinweis auf Kofaktor Menstruation, allgemein Kofaktoren (Alkohol, NSAR, Anstrengung) meiden',
+          ],
+        },
+      ],
+      prognose: 'Bei sofortiger Adrenalingabe ist die Prognose der Anaphylaxie gut; die meisten Patienten sind innerhalb von Stunden beschwerdefrei. Die Letalität liegt insgesamt unter 1 %, Todesfälle entstehen fast immer durch verzögerte oder unterlassene Adrenalingabe, durch Larynxödem und Bronchospasmus bei Asthmatikern, durch abruptes Aufsetzen im Schock oder durch eine zu frühe Entlassung mit biphasischer Reaktion. Der Schweregrad einer früheren Reaktion sagt den nächsten Verlauf NICHT zuverlässig voraus – jede Reaktion kann schwerer sein als die vorangegangene. Nach Insektengiftanaphylaxie liegt das Risiko einer erneuten systemischen Reaktion beim nächsten Stich ohne Hyposensibilisierung bei 30 bis 60 %; unter spezifischer Immuntherapie sinkt es auf unter 5 bis 20 %. Entscheidend für den Langzeitschutz sind die Karenz, das jederzeit mitgeführte Notfallset mit zwei Adrenalin-Autoinjektoren und die Schulung des Patienten und seiner Angehörigen.',
+      pruefungsfallen: [
+        'Die erste und wichtigste Maßnahme ist ADRENALIN INTRAMUSKULÄR in den lateralen Oberschenkel (0,3 bis 0,5 mg, wiederholbar nach 5 bis 10 Minuten) – NICHT Kortison und NICHT das Antihistaminikum. Wer die Therapie mit „Kortison und Antihistaminikum“ beginnt, hat die Frage verloren: beide wirken viel zu langsam und retten niemanden.',
+        'Adrenalin wird i.m. gegeben, nicht subkutan (zu langsame Resorption) und in der Erstversorgung nicht i.v. als Bolus (Gefahr von Kammerflimmern und Hypertonie) – i.v. nur titriert unter Monitorüberwachung durch Erfahrene.',
+        'Die Diagnose ist KLINISCH. Wer auf die Tryptase oder andere Laborwerte warten will, hat den Patienten verloren. Die Tryptase bestätigt im Nachhinein (1 bis 3 Stunden nach Beginn) und braucht einen Basalwert zum Vergleich.',
+        'Die Anaphylaxie kann OHNE Hautsymptome verlaufen (10 bis 20 %) – Kreislauf- oder Atemwegssymptome nach Allergenkontakt reichen für die Diagnose. Und der Schweregrad einer früheren Reaktion sagt den nächsten Verlauf nicht voraus.',
+        'Die vasovagale Synkope ist die häufigste Verwechslung: Bradykardie statt Tachykardie, keine Urtikaria, kein Juckreiz – und sie braucht kein Adrenalin.',
+        'Das ACE-Hemmer-Angioödem und das hereditäre Angioödem sind Bradykinin-vermittelt: kein Juckreiz, keine Urtikaria, kein Ansprechen auf Adrenalin, Antihistaminika und Kortison – Therapie mit C1-Inhibitor oder Icatibant. Ein beliebter Fallstrick in Reutlingen, wo „ACE-Hemmer: Angioödem“ als Fachbegriff geprüft wird.',
+        'Betablocker und ACE-Hemmer aktiv erfragen: Sie verstärken die Reaktion, schwächen das Ansprechen auf Adrenalin ab – Reservemittel ist GLUKAGON 1 bis 2 mg i.v. Diese Frage wird sehr gern gestellt.',
+        'Lagerung nach Symptom: Schocklage bei Kreislaufversagen, sitzend bei Atemnot, Seitenlage bei Bewusstlosigkeit – und den Patienten im Schock NIEMALS abrupt aufsetzen oder aufstehen lassen.',
+        '„Stationär oder nach Hause?“ – immer stationär überwachen (mindestens 6 bis 12 Stunden, nach schwerer Reaktion 24 Stunden), wegen der BIPHASISCHEN Reaktion. Wer die Patientin nach Symptomfreiheit nach Hause schickt, hat einen groben Fehler gemacht.',
+        'Bei Bronchospasmus wird das inhalative Beta-2-Mimetikum (Salbutamol) erwartet, bei Larynxödem inhalatives Adrenalin – beides ZUSÄTZLICH zum intramuskulären Adrenalin, nicht statt dessen.',
+        'Die Nachsorge gehört in die Antwort: ZWEI Adrenalin-Autoinjektoren mit praktischer Schulung, Notfallset, Allergiepass, allergologische Abklärung im Intervall und – bei Insektengift – die Hyposensibilisierung mit 80 bis 95 % Schutz.',
+        'Patientenfrage „Was ist ein EpiPen?“ – in einfacher Sprache erklären: eine Adrenalin-Fertigspritze, die man sich selbst durch die Kleidung in die Außenseite des Oberschenkels drückt, 10 Sekunden halten, danach immer den Notruf wählen, immer zwei Stifte dabeihaben.',
+        'Bienenstich: den Stachel abschaben, nicht mit der Pinzette quetschen; die Biene hinterlässt ihren Stachel, die Wespe nicht – ein Detail, das den Auslöser identifiziert.',
+        'Sprachfalle: „anaphylaktischer Schock“ heißt in der Patientensprache „allergischer Schock“ oder „schwere allergische Reaktion mit Kreislaufversagen“; „Urtikaria“ = Nesselsucht, „Angioödem“ = Schwellung von Lippen und Zunge, „Bronchospasmus“ = Verkrampfung der Bronchien.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was haben Sie gemacht? Schildern Sie das Notfallmanagement.',
+          antwort: 'Zuerst die Allergenzufuhr stoppen – den Bienenstachel abschaben – und Hilfe holen. Die Patientin habe ich sitzend gelagert, weil die Atemnot im Vordergrund stand, und ihr sofort Adrenalin 0,5 mg intramuskulär in den lateralen Oberschenkel gegeben, wiederholbar nach fünf bis zehn Minuten. Dann Sauerstoff über Maske mit 10 bis 15 Litern pro Minute, zwei großlumige Zugänge, 500 bis 1000 ml kristalloide Lösung, Monitoring von Blutdruck, Puls, Sättigung und EKG. Erst danach nachgeordnet ein Antihistaminikum und Prednisolon intravenös sowie Salbutamol inhalativ gegen den Bronchospasmus.',
+        },
+        {
+          frage: 'Warum Anaphylaxie? Begründen Sie Ihre Diagnose.',
+          antwort: 'Weil innerhalb weniger Minuten nach einem Bienenstich mindestens drei Organsysteme betroffen sind: die Haut mit generalisiertem Juckreiz, Urtikaria und Angioödem der Lippen und Zunge, die Atemwege mit Dyspnoe und Giemen, der Kreislauf mit Tachykardie, Blutdruckabfall und Schwindel und der Magen-Darm-Trakt mit Übelkeit. Damit sind die klinischen Diagnosekriterien erfüllt; es handelt sich um eine Grad-II- bis Grad-III-Reaktion nach Ring und Meßmer. Dazu kommen die Risikofaktoren Asthma und Atopie.',
+        },
+        {
+          frage: 'Was sehen Sie bei der körperlichen Untersuchung? Wie sind Blutdruck und Puls?',
+          antwort: 'Eine unruhige, ängstliche Patientin mit Flush und generalisierter Urtikaria, angeschwollenen Lippen und Zunge, Kaltschweißigkeit; Blutdruck erniedrigt, etwa 90 zu 55 mmHg, Puls tachykard um 120 pro Minute, Atemfrequenz 24 pro Minute, Sättigung 92 %; an der linken Flanke die Stichstelle mit Schwellung und Rötung.',
+        },
+        {
+          frage: 'Was hören Sie bei der Auskultation?',
+          antwort: 'Über beiden Lungen ein exspiratorisches Giemen und Brummen mit verlängertem Exspirium als Zeichen des Bronchospasmus; bei Larynxödem zusätzlich einen inspiratorischen Stridor. Am Herzen eine Tachykardie ohne pathologische Geräusche. Eine „stille Lunge“ wäre ein Alarmzeichen.',
+        },
+        {
+          frage: 'Was geben Sie bei einem Bronchospasmus?',
+          antwort: 'Ein inhalatives Beta-2-Mimetikum, Salbutamol zwei bis vier Hübe über Spacer oder 2,5 mg über den Vernebler, wiederholbar – zusätzlich zum intramuskulären Adrenalin, das selbst bronchodilatatorisch wirkt, und Sauerstoff. Bei Stridor durch Larynxödem inhalatives Adrenalin. Das Prednisolon wirkt erst nach 30 bis 60 Minuten.',
+        },
+        {
+          frage: 'Welche Maßnahme ist die wichtigste, und was ist die richtige Dosis von Adrenalin?',
+          antwort: 'Adrenalin intramuskulär in den lateralen Oberschenkel: 0,3 bis 0,5 mg beim Erwachsenen, also 0,5 ml der Lösung 1 mg/ml, bei Kindern 0,01 mg/kg bis maximal 0,5 mg; Wiederholung nach 5 bis 10 Minuten. Intravenös nur titriert unter Monitorüberwachung bei therapierefraktärem Schock.',
+        },
+        {
+          frage: 'Warum nicht zuerst Kortison und Antihistaminikum?',
+          antwort: 'Weil beide viel zu langsam wirken: Das Antihistaminikum lindert nur Juckreiz und Urtikaria, das Glukokortikoid entfaltet seine Wirkung erst nach 30 bis 60 Minuten. Keines von beiden behandelt den Bronchospasmus, das Larynxödem oder den Schock. Sie sind eine ergänzende Zweitlinie zur Abschwächung der protrahierten und biphasischen Reaktion.',
+        },
+        {
+          frage: 'Stationär oder nach Hause schicken?',
+          antwort: 'Stationär – immer. Nach einer Grad-II-Reaktion mindestens 6 bis 12 Stunden Monitorüberwachung, nach Grad III oder IV, bei Asthma oder verzögertem Ansprechen 24 Stunden, weil in etwa 5 % der Fälle eine biphasische Reaktion Stunden nach scheinbarer Erholung auftritt. Diese Patientin hat Asthma und eine Kreislaufbeteiligung – sie bleibt über Nacht auf der Überwachungsstation.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Die vasovagale Synkope mit Bradykardie und ohne Urtikaria, der akute Asthmaanfall ohne Haut- und Kreislaufsymptome, das Bradykinin-vermittelte Angioödem durch ACE-Hemmer oder das hereditäre Angioödem ohne Juckreiz und ohne Ansprechen auf Adrenalin, eine Panikattacke mit Hyperventilation, ein Myokardinfarkt oder eine Lungenembolie mit Schock, ein septischer oder kardiogener Schock, eine Hypoglykämie sowie die Scombroid-Vergiftung und die Mastozytose.',
+        },
+        {
+          frage: 'Welche Laboruntersuchung sichert die Diagnose im Nachhinein?',
+          antwort: 'Die Serum-Tryptase, abgenommen 1 bis 3 Stunden nach Symptombeginn, verglichen mit einem Basalwert im beschwerdefreien Intervall – ein Anstieg über 1,2 × Basalwert + 2 µg/l beweist die Mastzellaktivierung. Sie steuert die Akuttherapie nicht, und ein normaler Wert schließt die Anaphylaxie nicht aus. Ein dauerhaft erhöhter Basalwert weist auf eine Mastozytose hin.',
+        },
+        {
+          frage: 'Was ist bei Patienten unter Betablockern zu beachten?',
+          antwort: 'Betablocker verstärken die Anaphylaxie und schwächen das Ansprechen auf Adrenalin ab, außerdem kann die Tachykardie fehlen. Spricht der Patient auf Adrenalin nicht an, ist Glukagon 1 bis 2 mg intravenös das Reservemittel, weil es über cAMP unabhängig vom Beta-Rezeptor wirkt. Langfristig sollten Betablocker und ACE-Hemmer bei Anaphylaxiepatienten möglichst ersetzt werden.',
+        },
+        {
+          frage: 'Was ist zu beachten? Welche weiteren Therapien und Maßnahmen schlagen Sie vor?',
+          antwort: 'Nach der Überwachung die Verordnung von zwei Adrenalin-Autoinjektoren mit praktischer Schulung, ein Notfallset mit Antihistaminikum und Kortison, ein Allergiepass und ein Notfallplan; Schutzmaßnahmen vor erneuten Stichen; die allergologische Abklärung nach 2 bis 6 Wochen mit Hauttest, spezifischem IgE und basaler Tryptase; und – als eigentliche Langzeitbehandlung – die Hyposensibilisierung mit Bienengift über 3 bis 5 Jahre, die bei etwa 80 % der Patienten schützt. Außerdem das Asthma optimal einstellen und Kofaktoren wie Alkohol und NSAR meiden.',
+        },
+        {
+          frage: 'Erklären Sie der Patientin, was ein EpiPen ist und wie sie ihn benutzt.',
+          antwort: '„Ein EpiPen ist eine Fertigspritze mit Adrenalin, dem Medikament, das Ihnen heute geholfen hat. Sie nehmen ihn bei den ersten Zeichen einer schweren Reaktion – Atemnot, Schwindel, Schwellung im Hals –, ziehen die Schutzkappe ab und drücken ihn fest gegen die Außenseite des Oberschenkels, auch durch die Hose, zehn Sekunden halten. Danach rufen Sie immer den Notruf 112, auch wenn es Ihnen besser geht. Sie bekommen immer zwei Stifte, weil man nach fünf bis zehn Minuten einen zweiten braucht, wenn es nicht besser wird. Wir üben das jetzt gemeinsam an einem Übungsstift.“',
+        },
+        {
+          frage: 'Wie unterscheiden Sie das ACE-Hemmer-Angioödem von der Anaphylaxie?',
+          antwort: 'Das ACE-Hemmer-Angioödem ist Bradykinin-vermittelt: kein Juckreiz, keine Urtikaria, kein Blutdruckabfall, langsame Entwicklung über Stunden, oft Monate bis Jahre nach Therapiebeginn – und es spricht nicht auf Adrenalin, Antihistaminika und Kortison an. Therapie: ACE-Hemmer absetzen, Atemweg sichern, C1-Inhibitor-Konzentrat oder Icatibant.',
+        },
+      ],
+      merksatz: 'Anaphylaxie = Minuten nach Kontakt mindestens zwei Organsysteme – zuerst und sofort ADRENALIN 0,5 mg i.m. in den Oberschenkel, dann Sauerstoff und Volumen, Kortison und Antihistaminikum erst danach; Betablocker → Glukagon; immer stationär überwachen (biphasisch!) und mit ZWEI Autoinjektoren, Allergiepass und Hyposensibilisierung entlassen.',
+      linkedCaseIds: [
+        'case-anaphylaxie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-reaktive-arthritis',
+      pathology: 'Reaktive Arthritis',
+      specialty: 'Rheumatologie',
+      definition: 'Die reaktive Arthritis ist eine sterile, entzündliche Gelenkerkrankung aus dem Formenkreis der Spondyloarthritiden, die typischerweise ein bis vier, maximal sechs Wochen NACH einer Infektion an einer anderen Körperstelle auftritt — klassisch nach einer enteralen Infektion (Campylobacter, Salmonellen, Shigellen, Yersinien) oder einer urogenitalen Infektion (Chlamydia trachomatis, seltener Mykoplasmen). Im Gelenk selbst finden sich keine vermehrungsfähigen Erreger, allenfalls Erregerbestandteile; das Punktat ist entzündlich, aber steril, und ein Antibiotikum heilt die Arthritis nicht. Die frühere Bezeichnung „Reiter-Syndrom“ für die Trias aus Arthritis, Urethritis und Konjunktivitis wird heute aus historischen Gründen vermieden. Im weiteren Sinne gehört auch die Poststreptokokken-reaktive Arthritis nach einer Tonsillopharyngitis durch A-Streptokokken dazu — die Form, die in den Freiburger Protokollen tatsächlich als Hauptfall geprüft wurde.',
+      aetiologie: 'Pathogenetisch wird eine fehlgeleitete Immunantwort angenommen: Erregerantigene (bei Chlamydien sogar persistierende, nicht vermehrungsfähige Erregerformen) werden in die Synovialis verschleppt, und über molekulare Mimikry und T-Zell-Kreuzreaktivität entsteht eine sterile Synovitis. HLA-B27 ist je nach Kollektiv bei 30–70 % der Patienten nachweisbar (Allgemeinbevölkerung etwa 8 %) und begünstigt einen schweren, chronischen Verlauf mit Sakroiliitis und Uveitis. Auslöser: ENTERAL Campylobacter jejuni, Salmonella, Shigella, Yersinia enterocolitica (nach etwa 1–4 % der Enteritiden); UROGENITAL Chlamydia trachomatis als häufigster Einzelerreger in Mitteleuropa, seltener Ureaplasma/Mycoplasma; nach Streptokokken-Tonsillopharyngitis die Poststreptokokken-reaktive Arthritis mit kürzerer Latenz (etwa 7–14 Tage) als das rheumatische Fieber (2–3 Wochen). Typischer Patient: junger Erwachsener zwischen 20 und 40 Jahren; bei der urogenitalen Form überwiegen Männer deutlich, bei der enteralen Form sind beide Geschlechter gleich häufig betroffen.',
+      risikofaktoren: [
+        'HLA-B27-Positivität (schwererer und häufiger chronischer Verlauf, Sakroiliitis, Uveitis)',
+        'Junges Erwachsenenalter (20–40 Jahre), männliches Geschlecht bei der urogenitalen Form',
+        'Ungeschützter Geschlechtsverkehr, Partnerwechsel, unbehandelte Chlamydienurethritis oder -zervizitis',
+        'Auslandsreisen, Reisediarrhö, mangelnde Lebensmittel- und Trinkwasserhygiene (Campylobacter, Salmonellen, Shigellen, Yersinien)',
+        'Positive Familienanamnese für Spondyloarthritis, Psoriasis oder chronisch-entzündliche Darmerkrankung',
+        'HIV-Infektion (schwere, therapierefraktäre Verläufe mit ausgeprägter Hautbeteiligung)',
+        'Frühere Episode einer reaktiven Arthritis (Rezidivneigung bei erneuter Infektion)',
+        'Nicht oder unvollständig behandelte Streptokokken-Angina (Poststreptokokken-reaktive Arthritis, rheumatisches Fieber)',
+      ],
+      klinik: [
+        {
+          text: 'Freies Intervall: Beginn ein bis vier (bis sechs) Wochen nach einer Durchfallerkrankung, einer Urethritis/Zervizitis oder — bei der Poststreptokokken-Form — einer Angina; der auslösende Infekt ist zum Zeitpunkt der Arthritis meist längst abgeklungen und wird vom Patienten nicht spontan erwähnt',
+        },
+        {
+          text: 'Asymmetrische Oligoarthritis (meist zwei bis vier Gelenke) mit Bevorzugung der großen Gelenke der unteren Extremität: Knie, oberes Sprunggelenk, Zehengrundgelenke',
+        },
+        {
+          text: 'Lokale Entzündungszeichen am Gelenk: Schwellung, Überwärmung, Rötung, Schmerz und Funktionseinschränkung (Tumor, Calor, Rubor, Dolor, Functio laesa) mit Morgensteifigkeit über 30 Minuten',
+        },
+        {
+          text: 'Enthesitis: Entzündung der Sehnenansätze, klassisch der Fersenschmerz bei Achillessehnen- und Plantarfaszienbefall',
+        },
+        {
+          text: 'Daktylitis: strahlförmige Schwellung eines ganzen Fingers oder Zehs („Wurstfinger“, „Wurstzeh“)',
+        },
+        {
+          text: 'Entzündlicher Rückenschmerz mit Sakroiliitis: nächtlich betont, Morgensteifigkeit über 30 Minuten, Besserung durch Bewegung, keine Besserung durch Ruhe — im Gegensatz zum mechanischen Rückenschmerz',
+        },
+        {
+          text: 'Augenbeteiligung: Konjunktivitis (häufig, beidseitig, mild) oder die gefährlichere anteriore Uveitis mit einseitigem Augenschmerz, Rötung, Lichtscheu und Sehverschlechterung',
+        },
+        {
+          text: 'Urethritis mit Brennen beim Wasserlassen und Ausfluss, auch ohne Erregernachweis (steril); bei Frauen Zervizitis oder Zystitis, oft symptomarm',
+        },
+        {
+          text: 'Haut- und Schleimhautmanifestationen: Balanitis circinata, Keratoderma blennorrhagicum (pustulös-hyperkeratotische Herde an Handflächen und Fußsohlen), Nagelveränderungen, schmerzlose orale Aphthen',
+        },
+        {
+          text: 'Allgemeinsymptome: subfebrile Temperaturen bis Fieber, Abgeschlagenheit, Krankheitsgefühl, Gewichtsverlust',
+        },
+        {
+          text: 'Die vollständige Trias Arthritis + Urethritis + Konjunktivitis findet sich nur bei etwa einem Drittel der Patienten — ihr Fehlen schließt die Diagnose nicht aus',
+          atypisch: true,
+        },
+        {
+          text: 'Poststreptokokken-reaktive Arthritis: kurze Latenz von etwa 7–14 Tagen nach Angina, häufig wandernder oder additiver Befall auch der oberen Extremität (Ellenbogen, Handgelenk), schlechteres Ansprechen auf NSAR als beim rheumatischen Fieber, Fieber häufig',
+          atypisch: true,
+        },
+        {
+          text: 'Polyartikulärer, symmetrischer Befall mit kleinen Gelenken — Verwechslung mit rheumatoider Arthritis möglich',
+          atypisch: true,
+        },
+        {
+          text: 'Kardiale Beteiligung (Aortitis, Aorteninsuffizienz, AV-Block) bei langjährigem HLA-B27-positivem Verlauf; Karditis auch bei der Poststreptokokken-Form beschrieben',
+          atypisch: true,
+        },
+        {
+          text: 'Chronischer Verlauf über mehr als sechs Monate oder Übergang in eine axiale Spondyloarthritis bei etwa 15–30 %, vor allem bei HLA-B27-Positivität',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach dem auslösenden Infekt',
+          inhalt: 'Postenteritische reaktive Arthritis (Campylobacter, Salmonellen, Shigellen, Yersinien; nach Durchfall oder Auslandsreise, Männer und Frauen gleich häufig). Posturethritische reaktive Arthritis, auch SARA = sexually acquired reactive arthritis (Chlamydia trachomatis, seltener Mykoplasmen/Ureaplasmen; überwiegend junge Männer). Poststreptokokken-reaktive Arthritis nach Tonsillopharyngitis durch A-Streptokokken (Sonderform, nicht HLA-B27-assoziiert, Latenz nur 7–14 Tage). Seltener nach Atemwegsinfekten (Chlamydia pneumoniae) und nach intravesikaler BCG-Therapie.',
+        },
+        {
+          name: 'Einteilung nach dem Verlauf',
+          inhalt: 'Akute reaktive Arthritis: Ausheilung innerhalb von sechs Monaten (Mehrheit der Patienten). Chronische reaktive Arthritis: Beschwerden über mehr als sechs Monate, mit Rezidiven, Enthesitiden, Sakroiliitis und möglichem Übergang in eine axiale Spondyloarthritis — vor allem bei HLA-B27-Positivität und Chlamydien-Auslösung.',
+        },
+        {
+          name: 'Diagnosekriterien der reaktiven Arthritis (Internationaler Workshop Berlin 1999)',
+          inhalt: 'Hauptkriterien: (1) typische periphere Arthritis — asymmetrische Oligoarthritis mit Betonung der unteren Extremität; (2) Nachweis einer vorausgegangenen Infektion — anamnestisch Durchfall oder Urethritis innerhalb der letzten vier Wochen ODER mikrobiologischer/serologischer Erregernachweis. Sichere reaktive Arthritis bei beiden Hauptkriterien plus Erregernachweis; wahrscheinliche reaktive Arthritis bei typischer Arthritis mit anamnestischem Infekt ohne Erregernachweis. Ausschlusskriterien: septische Arthritis, Kristallarthritis, Lyme-Arthritis, Streptokokken-Arthritis, andere definierte rheumatische Erkrankungen.',
+        },
+        {
+          name: 'Jones-Kriterien des akuten rheumatischen Fiebers (revidiert 2015) — die entscheidende Abgrenzung der Poststreptokokken-Form',
+          inhalt: 'Voraussetzung: Nachweis einer vorausgegangenen A-Streptokokken-Infektion (Rachenabstrich/Schnelltest, ASL-Titer oder Anti-DNase B erhöht bzw. ansteigend). Hauptkriterien: Karditis (klinisch oder echokardiographisch), Polyarthritis (wandernd, große Gelenke), Chorea minor, Erythema marginatum, subkutane Knötchen. Nebenkriterien: Fieber ≥ 38,5 °C, Polyarthralgie, BSG ≥ 60 mm/h oder CRP ≥ 3 mg/dl, verlängerte PQ-Zeit im EKG. Diagnose bei zwei Hauptkriterien oder einem Haupt- und zwei Nebenkriterien (Niedrigrisikopopulation). Die Poststreptokokken-reaktive Arthritis erfüllt die Jones-Kriterien definitionsgemäß NICHT: kürzere Latenz (7–14 statt 14–21 Tage), oft nicht wandernd, additiv und protrahiert, schlechtes Ansprechen auf NSAR, keine obligate Karditis — dennoch Echokardiographie zum Ausschluss.',
+        },
+      ],
+      redFlags: [
+        'Hohes Fieber, Schüttelfrost und schwer kranker Patient mit Monarthritis → septische Arthritis bis zum Beweis des Gegenteils: sofortige Gelenkpunktion mit Gramfärbung und Kultur, Blutkulturen',
+        'Augenschmerz, Rötung, Lichtscheu, Sehverschlechterung → anteriore Uveitis: augenärztliche Vorstellung noch am selben Tag, sonst Synechien und Sehverlust',
+        'Neues Herzgeräusch, Dyspnoe, Thoraxschmerz, Palpitationen oder AV-Block nach Angina → Karditis (rheumatisches Fieber): EKG und Echokardiographie',
+        'Urethritis mit Pusteln an den Extremitäten, Tenosynovitis und wandernder Polyarthralgie → disseminierte Gonokokkeninfektion (echte Gelenkinfektion, antibiotisch zu behandeln)',
+        'Schwere, therapierefraktäre Haut- und Gelenkbeteiligung → HIV-Test',
+        'Neurologische Ausfälle, Chorea, Erythema marginatum → rheumatisches Fieber statt reaktiver Arthritis',
+        'Rasch progrediente Gelenkzerstörung oder ausgeprägter Erguss trotz Therapie → erneute Punktion, Infektion ausschließen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese mit dem ZEITLICHEN ABSTAND zur Infektion: Durchfall, Auslandsreise, Brennen beim Wasserlassen, Ausfluss, Halsschmerzen/Angina in den letzten sechs Wochen — der Patient nennt den abgeklungenen Infekt nicht von selbst',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sexualanamnese ruhig, sachlich und ohne Umschweife: neue Partner, ungeschützter Verkehr, frühere Geschlechtskrankheiten — ausdrücklich Teil der Prüfungsleistung; dazu Augen- und Hautsymptome, Rückenschmerzcharakter (entzündlich vs. mechanisch), Fersenschmerz, Familienanamnese für Psoriasis, Morbus Bechterew und chronisch-entzündliche Darmerkrankung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vollständiger Gelenkstatus mit Beschreibung von Tumor, Calor, Rubor, Dolor und Functio laesa jedes betroffenen Gelenks, Prüfung der Enthesen (Achillessehne, Plantarfaszie), Daktylitis, Wirbelsäule und Iliosakralgelenke (Mennell-Zeichen)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion von Haut, Nägeln, Mundschleimhaut und Genitale (Keratoderma blennorrhagicum, Balanitis circinata, Aphthen), Augen (Rötung, Lichtscheu), Rachen und Tonsillen; Herzauskultation (neues Geräusch), Vitalparameter mit Temperatur',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: CRP und BSG erhöht, Blutbild mit Differenzialblutbild (Leukozytose), Procalcitonin und Blutkulturen bei Fieber zur Abgrenzung einer bakteriellen Genese; Kreatinin und Leberwerte vor NSAR',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Seronegative Konstellation als Teil des Bildes: Rheumafaktor NEGATIV, Anti-CCP-Antikörper NEGATIV, ANA NEGATIV; HLA-B27 (prognostisch, nicht beweisend); Harnsäure zur Abgrenzung der Gicht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erregersuche enteral: Stuhlkultur (nur solange Durchfall besteht, sonst meist negativ) und Serologie auf Yersinien, Salmonellen, Campylobacter; urogenital: Chlamydien-PCR aus dem Erststrahlurin bzw. Urethral-/Zervixabstrich, Urinstatus (sterile Leukozyturie) — „Urin analysieren“ wurde in Freiburg ausdrücklich eingefordert',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Abgrenzung der Poststreptokokken-Arthritis und des rheumatischen Fiebers: Rachenabstrich mit Streptokokken-Schnelltest/Kultur, Antistreptolysin-O-Titer und Anti-DNase B (Titeranstieg im Verlauf nach 2–4 Wochen aussagekräftiger als ein Einzelwert)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Weitere Serologien je nach Anamnese: HIV, Hepatitis B und C, Borrelien (Lyme-Arthritis, im Schwarzwald häufig), Parvovirus B19, Röteln; Gonokokken-PCR bei Urethritis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Arthrosonographie der betroffenen Gelenke und Enthesen: Erguss, Synovitis, Enthesitis mit Verdickung und Hyperperfusion im Power-Doppler; Steuerung der Punktion',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen der betroffenen Gelenke in zwei Ebenen — in der Frühphase meist unauffällig (Weichteilschwellung), Erosionen und Periostreaktionen erst bei chronischem Verlauf; Ausschluss von Fraktur, Arthrose und Chondrokalzinose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Iliosakralgelenke bei entzündlichem Rückenschmerz (Knochenmarködem als Frühzeichen der Sakroiliitis, im Röntgen erst nach Jahren sichtbar)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EKG (PQ-Zeit) und transthorakale Echokardiographie bei jeder Poststreptokokken-Arthritis und bei Verdacht auf Karditis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'GELENKPUNKTION bei Erguss — Begründung: AUSSCHLUSS der septischen Arthritis und der Kristallarthropathie. Befund bei reaktiver Arthritis: entzündliches, aber STERILES Punktat mit 5 000–50 000 Zellen/µl, Granulozytose, keine Kristalle, Gramfärbung und Kultur negativ (septisch: > 50 000/µl, Erregernachweis)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'AUGENÄRZTLICHE Untersuchung mit Spaltlampe bei jedem Augensymptom — Abgrenzung Konjunktivitis vs. anteriore Uveitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Synovia-PCR auf Chlamydien-DNA und Synovialisbiopsie nur in Spezialfällen; keine Routine',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Septische (bakterielle) Arthritis',
+          unterscheidung: 'Steht beim Ausschluss immer an ERSTER Stelle: meist monoartikulär, hohes Fieber, Schüttelfrost, schwer kranker Patient, Eintrittspforte oder Bakteriämie; Punktat eitrig mit > 50 000 Zellen/µl, Gramfärbung und Kultur positiv. Die reaktive Arthritis hat ein steriles Punktat — ohne Punktion ist die Unterscheidung nicht sicher möglich.',
+        },
+        {
+          dd: 'Gicht und Pseudogicht (Kristallarthritis)',
+          unterscheidung: 'Perakuter nächtlicher Beginn, Podagra bzw. Knie/Handgelenk, Auslöser (Fleisch, Bier, Diuretika), Hyperurikämie; im Punktat nadelförmige, negativ doppelbrechende Uratkristalle bzw. rhomboide, positiv doppelbrechende Kalziumpyrophosphatkristalle. Kein vorausgegangener Infekt.',
+        },
+        {
+          dd: 'Lyme-Arthritis',
+          unterscheidung: 'Zeckenstich oder Erythema migrans Wochen bis Monate zuvor, meist Monarthritis des Knies mit massivem, wenig schmerzhaftem Erguss; Borrelienserologie (IgG) und Immunoblot positiv, ggf. Borrelien-PCR aus der Synovia. Im Schwarzwald eine wichtige DD.',
+        },
+        {
+          dd: 'Rheumatoide Arthritis',
+          unterscheidung: 'Symmetrische Polyarthritis der kleinen Gelenke (MCP, PIP, Handgelenke), schleichender Beginn über Wochen, Morgensteifigkeit über 60 Minuten, Rheumafaktor und Anti-CCP positiv — bei der reaktiven Arthritis seronegativ, asymmetrisch, große Gelenke der unteren Extremität.',
+        },
+        {
+          dd: 'Psoriasisarthritis',
+          unterscheidung: 'Oft schwer abzugrenzen, da ebenfalls Spondyloarthritis mit Enthesitis und Daktylitis: Hautbefund (auch versteckt: Kopfhaut, Bauchnabel, Analfalte), Nagelbefall (Tüpfel, Ölflecken), Befall der Endgelenke, Psoriasis in der Familie; kein Infekt-Intervall.',
+        },
+        {
+          dd: 'Spondylitis ankylosans (Morbus Bechterew)',
+          unterscheidung: 'Führend der chronische entzündliche Rückenschmerz über mehr als drei Monate mit Sakroiliitis, HLA-B27 in über 90 %, langsamer Beginn ohne auslösenden Infekt; die periphere Arthritis steht nicht im Vordergrund.',
+        },
+        {
+          dd: 'Enteropathische Arthritis bei chronisch-entzündlicher Darmerkrankung',
+          unterscheidung: 'Chronische, blutige Diarrhö, Gewichtsverlust, Bauchschmerzen; die Arthritis verläuft parallel zur Darmaktivität und der Durchfall klingt nicht ab, sondern persistiert. Koloskopie klärt.',
+        },
+        {
+          dd: 'Akutes rheumatisches Fieber und Poststreptokokken-reaktive Arthritis',
+          unterscheidung: 'Beide nach Streptokokken-Angina mit ASL-/Anti-DNase-B-Anstieg. Rheumatisches Fieber: Latenz 2–3 Wochen, wandernde Polyarthritis, Karditis, Erythema marginatum, Chorea, prompte Besserung auf NSAR (Jones-Kriterien). Poststreptokokken-Arthritis: kürzere Latenz (7–14 Tage), additiv, protrahiert, NSAR-refraktär, keine Karditis-Pflicht — dennoch Echokardiographie.',
+        },
+        {
+          dd: 'Virale Arthritiden (Parvovirus B19, Röteln, Hepatitis B, Chikungunya)',
+          unterscheidung: 'Symmetrische Polyarthritis der kleinen Gelenke mit Exanthem, Kontakt zu Kindern mit Ringelröteln, Reiseanamnese; Serologien; selbstlimitierend innerhalb weniger Wochen.',
+        },
+        {
+          dd: 'Gonokokkenarthritis (disseminierte Gonokokkeninfektion)',
+          unterscheidung: 'Die wichtige Abgrenzung bei Urethritis: echte Infektion des Gelenks mit wandernder Polyarthralgie, Tenosynovitis und pustulösen Hautläsionen; Nachweis über PCR/Kultur aus Urethra, Zervix, Rachen, Rektum und Synovia; wird ANTIBIOTISCH behandelt (Ceftriaxon).',
+        },
+        {
+          dd: 'Systemischer Lupus erythematodes',
+          unterscheidung: 'Junge Frau, Schmetterlingserythem, Photosensitivität, Serositis, Nephritis, Zytopenien; ANA und Anti-dsDNA positiv — bei der reaktiven Arthritis ANA negativ.',
+        },
+        {
+          dd: 'Sarkoidose (Löfgren-Syndrom)',
+          unterscheidung: 'Akute Sprunggelenkarthritis beidseits mit Erythema nodosum und bihilärer Lymphadenopathie im Röntgen-Thorax; ACE und lösl. IL-2-Rezeptor erhöht.',
+        },
+        {
+          dd: 'IgA-Vaskulitis (Purpura Schönlein-Henoch)',
+          unterscheidung: 'Ebenfalls postinfektiös, aber mit palpabler Purpura an den Unterschenkeln, kolikartigen Bauchschmerzen und Hämaturie; Arthralgien mehr als Arthritis.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung, Schonung und symptomatische Behandlung als Grundlage',
+          items: [
+            'Erklärung des postinfektiösen Mechanismus in Alltagssprache: „Die Abwehr hat den Infekt bekämpft und reagiert jetzt irrtümlich im Gelenk weiter — im Gelenk selbst sind keine Bakterien“; Betonung der insgesamt GUTEN Prognose mit Ausheilung bei der Mehrheit binnen sechs bis zwölf Monaten — das entlastet den jungen Patienten, der eine chronische Rheumaerkrankung befürchtet',
+            'Relative Schonung des entzündeten Gelenks ohne Immobilisierung: Entlastung an Unterarmgehstützen, Hochlagern, lokale Kühlung, keine Bettruhe über Tage',
+            'NSAR in ausreichender, entzündungshemmender Dosierung als Mittel der ersten Wahl: Ibuprofen 3 × 600 mg, Naproxen 2 × 500 mg oder Diclofenac 2 × 75 mg täglich über zwei bis vier Wochen, unter Magenschutz mit einem Protonenpumpenhemmer bei Risiko (Alter, Ulkusanamnese, Alkohol, Glukokortikoide); Nierenfunktion und Blutdruck beachten',
+            'Bei Fieber und reduziertem Allgemeinzustand stationäre Aufnahme bis zum Ausschluss der septischen Arthritis; Paracetamol als reines Antipyretikum ist gegen die Arthritis unzureichend',
+          ],
+        },
+        {
+          label: 'Gezielte antibiotische Behandlung der auslösenden Infektion',
+          items: [
+            'Grundsatz mit klarer Begründung: Antibiotika behandeln NICHT die Arthritis — das Gelenk ist steril; sie sind nur indiziert, wenn die auslösende Infektion nachweislich noch besteht oder Komplikationen droht',
+            'Nachgewiesene, noch bestehende CHLAMYDIENINFEKTION: Doxycyclin 2 × 100 mg über 7 Tage (Alternative Azithromycin 1 g einmalig bzw. 1,5 g verteilt über 3 Tage), sexuelle Karenz für 7 Tage — und zwingend die PARTNERBEHANDLUNG, sonst kommt es zur Reinfektion (Ping-Pong-Effekt); dieser Punkt wird oft vergessen und gern geprüft',
+            'Bei ENTERALEN Erregern (Campylobacter, Salmonellen, Shigellen, Yersinien) ist eine Antibiose in der Regel NICHT sinnvoll: die Enteritis ist abgeklungen, und eine Antibiose verkürzt weder Dauer noch Schwere der Arthritis; Ausnahmen sind schwere oder persistierende Infektionen und immunsupprimierte Patienten',
+            'Poststreptokokken-Form: Eradikation bei positivem Rachenabstrich oder unvollständig behandelter Angina mit Penicillin V 3 × 1 Mio. IE über 10 Tage (bei Penicillinallergie Cefadroxil oder Clarithromycin); eine Sekundärprophylaxe wie beim rheumatischen Fieber (Benzathin-Penicillin i. m. alle 3–4 Wochen) ist bei der reaktiven Form nicht obligat, wird aber bei Karditisnachweis oder für bis zu ein Jahr unter Echokontrolle diskutiert',
+            'Langzeitantibiose über Monate (z. B. Doxycyclin plus Rifampicin) bei chlamydieninduzierter chronischer Arthritis nur im Rahmen von Studien — keine Standardtherapie',
+          ],
+        },
+        {
+          label: 'Entzündungshemmende Therapie bei unzureichendem Ansprechen und chronischem Verlauf',
+          items: [
+            'Intraartikuläre Glukokortikoidinjektion (z. B. Triamcinolon 20–40 mg ins Knie) bei Mono- oder Oligoarthritis — erst nach Ausschluss einer Infektion im Punktat',
+            'Systemische Glukokortikoide kurzfristig bei polyartikulärem, hochfieberhaftem oder schwerem Verlauf: Prednisolon 20–30 mg täglich mit rascher Reduktion über zwei bis vier Wochen',
+            'SULFASALAZIN 2 × 1 g täglich (einschleichend) als krankheitsmodifizierende Therapie der ersten Wahl bei Persistenz über drei bis sechs Monate; Alternative Methotrexat 15–20 mg pro Woche mit Folsäure',
+            'TNF-Blocker (Adalimumab, Etanercept, Infliximab) bei therapierefraktärem chronischem Verlauf, insbesondere mit Sakroiliitis oder Enthesitis — Tuberkulose- und Hepatitisscreening vorher',
+            'Physiotherapie zum Erhalt von Beweglichkeit und Muskelkraft, besonders bei Wirbelsäulen- und Enthesenbeteiligung; nach Abklingen der akuten Entzündung zügige Mobilisation',
+          ],
+        },
+        {
+          label: 'Behandlung der Begleitmanifestationen, Verlauf und Prävention',
+          items: [
+            'SOFORTIGE augenärztliche Vorstellung bei Augenschmerz, Rötung oder Lichtscheu und lokale Therapie der anterioren Uveitis mit Glukokortikoid-Augentropfen und Mydriatika, weil eine verschleppte Uveitis das Sehvermögen bedroht; die Konjunktivitis ist meist selbstlimitierend',
+            'Hautmanifestationen (Keratoderma, Balanitis) lokal mit Glukokortikoiden oder Keratolytika; orale Aphthen symptomatisch',
+            'EKG und Echokardiographie bei Poststreptokokken-Arthritis mit Verlaufskontrolle nach vier bis sechs Wochen; bei Karditis Behandlung als rheumatisches Fieber',
+            'Aufklärung über die Möglichkeit von Rezidiven und den Übergang in eine chronische Spondyloarthritis bei etwa einem Teil der Patienten (15–30 %), besonders bei HLA-B27-Positivität; Warnzeichen (Augen, Rücken, Fersen) benennen',
+            'Beratung zu SAFER SEX (Kondome, Partnerbehandlung, Kontrollabstrich) und Vermeidung erneuter enteraler Infektionen durch Lebensmittel- und Reisehygiene; bei der Streptokokken-Form frühzeitige und vollständige Behandlung jeder künftigen Angina',
+            'Regelmäßige rheumatologische Verlaufskontrollen (Klinik, CRP/BSG, Gelenkstatus) bis zur Ausheilung; Krankschreibung nach Belastung des Berufs',
+          ],
+        },
+      ],
+      prognose: 'Insgesamt gut: Bei der Mehrheit der Patienten heilt die reaktive Arthritis innerhalb von drei bis sechs, spätestens zwölf Monaten folgenlos aus. Etwa 15–30 % entwickeln einen chronischen Verlauf über mehr als sechs Monate oder Rezidive — Risikofaktoren sind HLA-B27-Positivität, Chlamydien als Auslöser, Hüft- oder Wirbelsäulenbeteiligung, hohe Entzündungsaktivität und ein schlechtes Ansprechen auf NSAR; ein Teil dieser Patienten geht in eine axiale Spondyloarthritis über. Bleibende Gelenkschäden sind selten, die Uveitis ist die wichtigste sehkraftbedrohende Komplikation. Die Poststreptokokken-Form heilt meist innerhalb von Wochen bis wenigen Monaten aus, verläuft aber protrahierter und NSAR-refraktärer als die Arthritis des rheumatischen Fiebers; eine Karditis ist selten, muss aber echokardiographisch ausgeschlossen werden.',
+      pruefungsfallen: [
+        'Das FREIE INTERVALL aktiv herausarbeiten: Der Patient erwähnt den längst abgeklungenen Durchfall, das Brennen beim Wasserlassen oder die Halsentzündung von sich aus NICHT — nach Infekten in den letzten sechs Wochen, Reisen und neuen Medikamenten (Antibiotikum!) gezielt fragen.',
+        'Die SEXUALANAMNESE gehört dazu — ruhig, sachlich, ohne Umschweife und mit einer kurzen Einleitung („Ich muss Ihnen jetzt einige persönliche Fragen stellen, die für die Ursache wichtig sind“). Wer sie auslässt, verliert in Freiburg Punkte.',
+        'Die SEPTISCHE ARTHRITIS steht beim Ausschluss immer an erster Stelle: Gelenkpunktion mit Zellzahl, Gramfärbung, Kultur und Kristallsuche nennen — und die Begründung liefern: Das Punktat der reaktiven Arthritis ist entzündlich, aber STERIL.',
+        '„Sie haben vergessen, Urin zu analysieren — ist das wichtig?“ (Freiburg): Ja — Urinstatus und Chlamydien-PCR aus dem Erststrahlurin, um eine urogenitale reaktive Arthritis (früher Reiter-Syndrom) zu erkennen.',
+        'Antibiotika heilen die Arthritis NICHT. Indiziert nur bei nachgewiesener, noch bestehender Chlamydieninfektion — dann PARTNERBEHANDLUNG — oder bei unvollständig behandelter Streptokokken-Angina; bei enteralen Erregern in der Regel keine Antibiose.',
+        'Poststreptokokken-reaktive Arthritis und akutes rheumatisches Fieber unterscheiden können: Jones-Kriterien, Latenz, Karditis, NSAR-Ansprechen — und bei beiden EKG und Echokardiographie.',
+        'Die seronegative Konstellation korrekt benennen: Rheumafaktor, Anti-CCP und ANA NEGATIV; HLA-B27 ist ein Risiko- und Prognosemarker, aber kein Beweis (8 % der Gesunden sind positiv).',
+        'Entzündlichen von mechanischem Schmerz abgrenzen können (Freiburg-Frage): nächtlich, Morgensteifigkeit über 30 Minuten, Besserung durch Bewegung = entzündlich.',
+        'Den Begriff „Reiter-Syndrom“ nur mit dem Hinweis verwenden, dass er heute aus historischen Gründen vermieden wird; korrekt: reaktive Arthritis, ggf. mit der Trias Arthritis, Urethritis, Konjunktivitis.',
+        'Augensymptome nie bagatellisieren: Rotes, schmerzhaftes, lichtscheues Auge = Verdacht auf anteriore Uveitis = augenärztliche Vorstellung am selben Tag.',
+        'Bei Fieber über 38,5 °C und akuter Arthritis Blutkulturen VOR jeder Antibiose abnehmen und stationär aufnehmen — nicht ambulant „mit Ibuprofen nach Hause“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Sie haben vergessen, den Urin zu analysieren — ist das wichtig? (Freiburg 08.07.2020, Gelenkfall mit DD Reiter-Syndrom)',
+          antwort: 'Ja, das ist wichtig: Mit dem Urinstatus erkenne ich eine sterile Leukozyturie als Zeichen einer Urethritis, und mit der Chlamydien-PCR aus dem Erststrahlurin weise ich den häufigsten Auslöser einer urogenitalen reaktiven Arthritis nach — früher Reiter-Syndrom genannt. Zusätzlich hilft der Urin beim Ausschluss einer Gonokokkeninfektion und eines Harnwegsinfekts.',
+        },
+        {
+          frage: 'Sind die Schmerzen entzündlich oder nicht entzündlich? (Freiburg 08.07.2020)',
+          antwort: 'Entzündlich: Sie sind nachts und in Ruhe betont, gehen mit einer Morgensteifigkeit über 30 Minuten einher und bessern sich durch Bewegung; dazu Schwellung, Rötung und Überwärmung des Gelenks. Mechanische Schmerzen dagegen nehmen unter Belastung zu, bessern sich in Ruhe und zeigen nur eine kurze Anlaufsteifigkeit.',
+        },
+        {
+          frage: 'Warum haben Sie mich nach Reisen gefragt? (Patientenfrage, Freiburg 08.07.2020)',
+          antwort: 'Weil eine Gelenkentzündung einige Wochen nach einer Durchfallerkrankung auftreten kann, wie man sie sich auf Reisen durch verunreinigte Lebensmittel oder Wasser holt — Salmonellen, Campylobacter, Shigellen oder Yersinien. Und in manchen Regionen gibt es Zecken- oder Mückenübertragene Infektionen, die ebenfalls Gelenke befallen.',
+        },
+        {
+          frage: 'Wie gehen Sie vor — womit beginnen Sie die Diagnostik? (Freiburg 08.07.2020)',
+          antwort: 'Zuerst mit den Entzündungsparametern CRP, BSG und Blutbild, um eine entzündliche Arthritis von einer degenerativen abzugrenzen; parallel Rheumafaktor, Anti-CCP, Harnsäure, Urinstatus und die Sonographie des Gelenks. Bei Erguss folgt die Punktion mit Zellzahl, Kristallen, Gramfärbung und Kultur.',
+        },
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine reaktive Arthritis — eine sterile Gelenkentzündung ein bis vier Wochen nach einer Infektion an anderer Stelle. Dafür sprechen das freie Intervall nach dem Infekt, die asymmetrische Oligoarthritis der großen Gelenke der unteren Extremität, die Morgensteifigkeit, gegebenenfalls Enthesitis, Daktylitis, Konjunktivitis oder Urethritis sowie die seronegative Laborkonstellation mit erhöhtem CRP.',
+        },
+        {
+          frage: 'Warum ist die Gelenkpunktion notwendig, und was erwarten Sie im Punktat?',
+          antwort: 'Um die septische Arthritis und die Kristallarthritis auszuschließen — beide sind klinisch nicht sicher abgrenzbar. Bei der reaktiven Arthritis ist das Punktat entzündlich mit 5 000 bis 50 000 Zellen pro Mikroliter und Granulozytose, aber steril: keine Kristalle, Gramfärbung und Kultur negativ. Bei der septischen Arthritis liegen die Zellzahlen über 50 000, und der Erreger ist nachweisbar.',
+        },
+        {
+          frage: 'Wieso behandeln Sie die Arthritis nicht mit einem Antibiotikum?',
+          antwort: 'Weil im Gelenk keine vermehrungsfähigen Erreger sind — die Arthritis ist eine Immunreaktion auf einen Infekt an anderer Stelle. Ein Antibiotikum ist nur sinnvoll, wenn die auslösende Infektion noch besteht: bei nachgewiesenen Chlamydien Doxycyclin über sieben Tage mit Partnerbehandlung, bei unvollständig behandelter Streptokokken-Angina Penicillin. Bei abgeklungenen Darminfekten bringt eine Antibiose nichts.',
+        },
+        {
+          frage: 'Was gehört zwingend zur Chlamydien-Behandlung dazu?',
+          antwort: 'Die Partnerbehandlung — sonst kommt es zur Reinfektion im Ping-Pong-Effekt. Dazu sexuelle Karenz für sieben Tage, ein Kontrollabstrich und die Beratung zu Safer Sex sowie ein Screening auf weitere sexuell übertragbare Infektionen einschließlich HIV.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die reaktive Arthritis von der rheumatoiden Arthritis?',
+          antwort: 'Die rheumatoide Arthritis befällt symmetrisch die kleinen Gelenke der Hände mit Morgensteifigkeit über eine Stunde, beginnt schleichend und ist seropositiv für Rheumafaktor und Anti-CCP. Die reaktive Arthritis befällt asymmetrisch wenige große Gelenke der Beine, beginnt akut nach einem Infekt, ist seronegativ und häufig HLA-B27-positiv, mit Enthesitis, Daktylitis und Augenbeteiligung.',
+        },
+        {
+          frage: 'Was bedeutet HLA-B27 für den Patienten?',
+          antwort: 'HLA-B27 ist ein genetischer Marker der Spondyloarthritiden. Er beweist die Diagnose nicht — etwa acht Prozent der Gesunden sind positiv —, aber HLA-B27-positive Patienten haben häufiger einen schweren, chronischen Verlauf mit Sakroiliitis und Uveitis und ein höheres Rezidivrisiko.',
+        },
+        {
+          frage: 'Wie behandeln Sie die reaktive Arthritis, und wie ist die Prognose?',
+          antwort: 'Grundlage sind Aufklärung, relative Schonung und NSAR in entzündungshemmender Dosis unter Magenschutz. Bei unzureichendem Ansprechen intraartikuläre oder kurzfristig systemische Glukokortikoide, bei Verlauf über drei bis sechs Monate Sulfasalazin oder Methotrexat, bei Therapieresistenz TNF-Blocker; dazu Physiotherapie. Antibiotika nur bei noch bestehender Chlamydien- oder Streptokokkeninfektion. Die Prognose ist gut: Die Mehrheit heilt binnen sechs bis zwölf Monaten aus, 15–30 % verlaufen chronisch.',
+        },
+        {
+          frage: 'Der Patient klagt über ein rotes, schmerzhaftes Auge mit Lichtscheu — was tun Sie?',
+          antwort: 'Das ist bis zum Beweis des Gegenteils eine anteriore Uveitis und kein harmloser Bindehautkatarrh: sofortige augenärztliche Vorstellung mit Spaltlampe noch am selben Tag, lokale Therapie mit Glukokortikoid-Augentropfen und Mydriatika, sonst drohen Synechien und ein Sehverlust.',
+        },
+        {
+          frage: 'Wie grenzen Sie eine Poststreptokokken-reaktive Arthritis vom rheumatischen Fieber ab?',
+          antwort: 'Beide folgen einer Streptokokken-Angina mit ASL- und Anti-DNase-B-Anstieg. Das rheumatische Fieber erfüllt die Jones-Kriterien: Latenz zwei bis drei Wochen, wandernde Polyarthritis, Karditis, Erythema marginatum, Chorea, prompte Besserung auf NSAR. Die Poststreptokokken-Arthritis hat eine kürzere Latenz von ein bis zwei Wochen, verläuft additiv und protrahiert, spricht schlecht auf NSAR an und erfüllt die Jones-Kriterien nicht — trotzdem mache ich EKG und Echokardiographie, um eine Karditis auszuschließen.',
+        },
+      ],
+      merksatz: 'Gelenk entzündet, Infekt vorbei: reaktive Arthritis heißt steriles Gelenk nach Durchfall, Urethritis oder Angina — das freie Intervall erfragen, die Sexualanamnese führen, punktieren zum Ausschluss der Sepsis, NSAR statt Antibiotikum (außer bei aktiven Chlamydien: Doxycyclin PLUS Partner) und jedes rote Auge sofort zum Augenarzt.',
+      linkedCaseIds: [
+        'case-reaktive-arthritis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-feinnadelpunktion',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-pertussis',
+      pathology: 'Pertussis (Keuchhusten)',
+      specialty: 'Pneumologie',
+      definition: 'Pertussis (Keuchhusten) ist eine hochansteckende, meldepflichtige bakterielle Infektion der Atemwege durch Bordetella pertussis, ein gramnegatives, bekapseltes Stäbchen, das sich am Flimmerepithel der Atemwege anheftet und über Toxine (vor allem das Pertussis-Toxin, daneben das tracheale Zytotoxin) das Epithel schädigt und den charakteristischen, wochenlang anhaltenden, anfallsartigen Husten auslöst. Die Übertragung erfolgt per Tröpfcheninfektion, die Kontagiosität ist mit einer Erkrankungswahrscheinlichkeit von 80–90 % bei ungeschützten Kontaktpersonen extrem hoch; die Inkubationszeit beträgt 9–10 Tage (Spanne 6–20 Tage). Weder die durchgemachte Erkrankung noch die Impfung hinterlassen eine lebenslange Immunität, weshalb Jugendliche und Erwachsene heute die Mehrzahl der gemeldeten Fälle stellen — mit abgeschwächtem, oft nicht als Keuchhusten erkanntem Verlauf, aber voller Ansteckungsfähigkeit gegenüber ungeimpften Säuglingen, für die die Erkrankung lebensbedrohlich ist.',
+      aetiologie: 'Erreger ist Bordetella pertussis (seltener Bordetella parapertussis mit milderem Verlauf, sehr selten B. holmesii). Einziges Reservoir ist der Mensch; die Übertragung erfolgt aerogen durch Tröpfchen bei Husten, Niesen und Sprechen über eine Distanz von bis zu etwa einem Meter. Nach der Anheftung an das zilientragende Epithel von Nasopharynx, Trachea und Bronchien setzt der Erreger Pertussis-Toxin, Adenylatzyklase-Toxin und tracheales Zytotoxin frei: Die Zilien werden gelähmt und zerstört, Schleim staut sich, und die Hustenrezeptoren werden über Wochen gereizt — deshalb persistiert der Husten lange nach der Elimination des Erregers, und deshalb wirken Antibiotika im Stadium convulsivum kaum noch auf den Verlauf. Die Immunität nach Impfung (azelluläre Impfstoffe) lässt nach etwa 5–10 Jahren deutlich nach, die nach natürlicher Infektion nach etwa 10–20 Jahren; hierin liegt die Ursache der Verschiebung des Erkrankungsalters zum Erwachsenen und der Rolle der Erwachsenen als Infektionsquelle für Neugeborene und Säuglinge.',
+      risikofaktoren: [
+        'Fehlende oder mehr als 10 Jahre zurückliegende Pertussis-Impfung (Auffrischung im Erwachsenenalter meist vergessen)',
+        'Enger Kontakt zu Kindern und Jugendlichen: Kita, Schule, Kindergartenbesuche, eigene Kinder und Enkel',
+        'Beruf mit vielen Kontakten: Erziehungs- und Lehrpersonal, medizinisches Personal, Pflege',
+        'Haushalt oder Umfeld mit hustenden Kontaktpersonen in den letzten ein bis drei Wochen',
+        'Chronische Lungenerkrankungen (Asthma, COPD) mit schwererem Verlauf',
+        'Höheres Lebensalter, Immunsuppression, Schwangerschaft (Übertragung auf das Neugeborene)',
+        'Für den Säugling: Alter unter sechs Monaten, unvollständige Grundimmunisierung, fehlende Impfung der Mutter in der Schwangerschaft (kein Nestschutz)',
+      ],
+      klinik: [
+        {
+          text: 'Stadium catarrhale (1–2 Wochen): unspezifischer Erkältungsinfekt mit Schnupfen, leichtem Husten, Halskratzen und allenfalls subfebrilen Temperaturen — Ansteckungsfähigkeit maximal, Diagnose fast nie gestellt',
+        },
+        {
+          text: 'Stadium convulsivum (4–6 Wochen): anfallsartige, stakkatoartige Hustenattacken („Hustenanfälle“) mit 10–15 und mehr Hustenstößen ohne Zwischenatmung, gefolgt von einer ziehenden, juchzenden Inspiration (Reprise, „Keuchen“) — beim Erwachsenen häufig fehlend',
+        },
+        {
+          text: 'Hervorwürgen von zähem, glasigem Schleim am Ende des Anfalls, häufig mit posttussivem Erbrechen',
+        },
+        {
+          text: 'Nächtliche Betonung der Anfälle mit ausgeprägtem Schlafmangel; Auslöser sind körperliche Anstrengung, kalte Luft, Lachen, Sprechen und Essen',
+        },
+        {
+          text: 'Auffallend beschwerdefreies Intervall: Zwischen den Anfällen wirkt der Patient nicht krank, die Lunge ist auskultatorisch frei',
+        },
+        {
+          text: 'Kein oder nur geringes Fieber im gesamten Verlauf — ein hochwertiges diagnostisches Kriterium, das aktiv erfragt werden muss',
+        },
+        {
+          text: 'Zeichen des intrathorakalen Druckanstiegs: Gesichtsrötung bis Zyanose im Anfall, Konjunktivalblutungen, Petechien im Gesicht, Nasenbluten',
+        },
+        {
+          text: 'Stadium decrementi (Wochen bis Monate): langsam abklingende, seltener werdende Hustenanfälle, die bei jedem neuen Atemwegsinfekt wieder aufflammen können — daher „100-Tage-Husten“',
+        },
+        {
+          text: 'Erwachsene und geimpfte Personen: hartnäckiger, wochenlanger, oft nur nachts anfallsartiger Husten OHNE Keuchen und ohne Erbrechen — regelmäßig als „verschleppte Bronchitis“ verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Säuglinge unter sechs Monaten: statt Husten Apnoen, Zyanoseanfälle, Bradykardien, Trinkschwäche; Krampfanfälle und Enzephalopathie; hohe Letalität — jede Exposition ist ein Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Pertussis-Pneumonie beim Säugling mit extremer Hyperleukozytose (Leukozyten über 50 000/µl), pulmonaler Hypertonie und Kreislaufversagen',
+          atypisch: true,
+        },
+        {
+          text: 'Komplikationen des Erwachsenen durch die Hustenstöße: Rippenfrakturen, Rippenprellungen, Leisten- und Bauchwandhernien, Harninkontinenz, Pneumothorax, Synkopen, Bandscheibenvorfall',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Die drei Krankheitsstadien (in Karlsruhe ausdrücklich abgefragt)',
+          inhalt: 'Stadium catarrhale: 1–2 Wochen, Erkältungssymptome, subfebril, höchste Kontagiosität. Stadium convulsivum: 4–6 Wochen, stakkatoartige Hustenanfälle mit Reprise, zähem Schleim und posttussivem Erbrechen, nachts betont, afebril, freies Intervall. Stadium decrementi: 6–10 Wochen und länger, langsames Abklingen, Rezidivneigung bei jedem neuen Infekt. Gesamtverlauf „100-Tage-Husten“.',
+        },
+        {
+          name: 'Klinische Falldefinition (RKI/WHO)',
+          inhalt: 'Husten über mindestens 14 Tage PLUS mindestens eines der Kriterien: anfallsartiger Husten, inspiratorisches Ziehen (Reprise), posttussives Erbrechen oder — bei Säuglingen — Apnoen. Labordiagnostische Bestätigung durch PCR, Kultur oder Serologie; epidemiologische Bestätigung durch Kontakt zu einem gesicherten Fall.',
+        },
+        {
+          name: 'Dauer der Ansteckungsfähigkeit',
+          inhalt: 'Beginn am Ende der Inkubationszeit, Maximum im Stadium catarrhale, ohne Behandlung bis etwa 3 Wochen nach Beginn des Stadium convulsivum. Unter wirksamer Antibiotikatherapie endet die Ansteckungsfähigkeit nach etwa 5 Tagen — Grundlage der Ausschlussfristen nach § 34 Infektionsschutzgesetz.',
+        },
+        {
+          name: 'Impfschema der Ständigen Impfkommission (STIKO)',
+          inhalt: 'Grundimmunisierung der Säuglinge nach dem 2+1-Schema im Alter von 2, 4 und 11 Monaten (Sechsfachimpfstoff), Auffrischungen mit 5–6 Jahren und 9–16 Jahren. Erwachsene: einmalige Tdap-Auffrischung bei der nächsten fälligen Tetanus-Diphtherie-Impfung, Auffrischung alle 10 Jahre. Schwangere: Tdap in JEDER Schwangerschaft zu Beginn des dritten Trimenons (ab der 28. Schwangerschaftswoche), bei drohender Frühgeburt bereits im zweiten Trimenon. Enge Kontaktpersonen des Neugeborenen (Kokonstrategie): Impfung bis spätestens 4 Wochen vor der Geburt, wenn die letzte Pertussis-Impfung länger als 10 Jahre zurückliegt. Beschäftigte im Gesundheitswesen und in Gemeinschaftseinrichtungen: Auffrischung alle 10 Jahre.',
+        },
+      ],
+      redFlags: [
+        'Säugling unter sechs Monaten im Haushalt oder engen Umfeld → sofortige Chemoprophylaxe und kinderärztliche Anbindung, da Apnoen und plötzlicher Tod drohen',
+        'Schwangere im dritten Trimenon als Kontaktperson → Chemoprophylaxe, Impfung und Information der Geburtsklinik',
+        'Beim Säugling selbst: Apnoen, Zyanose, Bradykardie, Trinkschwäche, Krampfanfall → stationäre Aufnahme mit Monitorüberwachung, gegebenenfalls Intensivstation',
+        'Fieber über 38,5 °C, eitriger Auswurf, Rasselgeräusche, Dyspnoe im Intervall → bakterielle Superinfektion mit Pneumonie',
+        'Plötzlicher stechender Thoraxschmerz mit Atemnot nach Hustenanfall → Pneumothorax',
+        'Neu aufgetretener Rippenschmerz mit Druckschmerz → Rippenfraktur, Röntgen-Thorax',
+        'Synkope oder Bewusstseinsverlust im Anfall, neurologische Ausfälle → Hustensynkope, hypoxische Enzephalopathie',
+        'Nachtschweiß, Gewichtsverlust, Hämoptysen → Tuberkulose oder Bronchialkarzinom als Differenzialdiagnose nicht übersehen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: DAUER des Hustens (über 14 Tage), anfallsartiger und stakkatoartiger Charakter, nächtliche Betonung, Erbrechen nach dem Husten, Beginn als Erkältung, fehlendes Fieber, Beschwerdefreiheit zwischen den Anfällen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Expositions- und Umfeldanamnese: hustende Kontaktpersonen in den letzten 1–3 Wochen, Beruf (Gesundheitswesen, Kita, Schule), Kindergartenbesuche, SÄUGLINGE und SCHWANGERE im Haushalt und Umfeld — die dringlichste Frage des Falls',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'IMPFSTATUS mit dem Zeitpunkt der letzten Tetanus-Diphtherie-Pertussis-Auffrischung (Impfpass) — in Karlsruhe als zentrale Anamnesefrage betont; zusätzlich Medikamentenanamnese (ACE-Hemmer) und Raucheranamnese',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: typischerweise UNAUFFÄLLIG — Lunge frei, kein Fieber, guter Allgemeinzustand im Intervall; dieser Befund stützt den Verdacht eher, als dass er ihn entkräftet. Gezielt suchen: Konjunktivalblutungen, Petechien, Rippendruckschmerz, Hernien, Zeichen einer Pneumonie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild: absolute Lymphozytose (durch Pertussis-Toxin) bei meist normaler Gesamtleukozytenzahl — beim Erwachsenen weniger ausgeprägt als beim Kind; CRP und Procalcitonin meist niedrig oder normal (Abgrenzung zur bakteriellen Pneumonie)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erregerdiagnostik abhängig von der Krankheitsdauer: PCR aus dem tiefen NASOPHARYNGEALABSTRICH (Dacron- oder Flocked-Tupfer, kein Baumwolltupfer) in den ersten 2–3 Wochen nach Hustenbeginn — Methode der Wahl, hohe Sensitivität, Ergebnis innerhalb von Stunden bis 1–2 Tagen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kultur auf Spezialnährböden (Regan-Lowe- oder Bordet-Gengou-Agar) nur in den ersten 2 Wochen sinnvoll, gering sensitiv (unter 60 %), langsam (bis 7 Tage), aber 100 % spezifisch und für Resistenztestung und Typisierung wertvoll',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serologie: IgG gegen Pertussis-Toxin (Anti-PT-IgG) erst ab etwa der 3. Krankheitswoche verwertbar (Einzelwert über 100 IE/ml beweist eine frische Infektion, 40–100 IE/ml grenzwertig) — NICHT verwertbar, wenn in den letzten 12 Monaten gegen Pertussis geimpft wurde; IgA ergänzend, IgM ohne Aussagekraft',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf Differenzialdiagnosen: PCR auf Mycoplasma und Chlamydia pneumoniae, SARS-CoV-2- und Influenza-Test, bei Nachtschweiß und Gewichtsverlust Interferon-Gamma-Test (Tuberkulose)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen NICHT routinemäßig — nur bei Verdacht auf Pneumonie, Pneumothorax, Rippenfraktur oder bei Rauchern mit Alarmsymptomen (Bronchialkarzinom, Tuberkulose); bei unkomplizierter Pertussis unauffällig',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Pulsoxymetrie im Anfall und im Intervall; bei anhaltendem Husten nach Ausschluss der Pertussis Lungenfunktion mit Bronchospasmolysetest oder Methacholinprovokation (Husten-Variant-Asthma), gegebenenfalls Sonographie der Rippen (Fraktur) und der Bauchwand (Hernie)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bronchoskopie nur bei Verdacht auf Fremdkörper, Tumor oder unklarer Hämoptyse — bei der Pertussis selbst ohne Stellenwert. Grundsatz: Bei typischer Klinik und passendem Kontakt wird die Therapie und die Umgebungsprophylaxe NICHT vom Testergebnis abhängig gemacht',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Protrahierter viraler Atemwegsinfekt / postinfektiöser Husten',
+          unterscheidung: 'Häufigste Ursache eines subakuten Hustens (3–8 Wochen): kontinuierlicher Reizhusten ohne Stakkato-Anfälle, ohne posttussives Erbrechen, ohne zähen glasigen Schleim; klingt stetig ab und bessert sich unter inhalativen Steroiden. Bei Anfällen, Erbrechen und Kontaktanamnese immer Pertussis-PCR.',
+        },
+        {
+          dd: 'Asthma bronchiale mit Husten als einzigem Symptom (Husten-Variant-Asthma)',
+          unterscheidung: 'Atopie und allergische Rhinitis, saisonale oder allergene Auslöser, nächtlicher und morgendlicher trockener Husten, Giemen in der Lungenfunktion oder positive Methacholinprovokation, rasches Ansprechen auf Beta-2-Mimetika und inhalative Steroide; kein Erkältungsbeginn mit Anfällen und Erbrechen.',
+        },
+        {
+          dd: 'COPD / chronische Bronchitis des Rauchers',
+          unterscheidung: 'Langjährige Raucheranamnese mit über 20 Packungsjahren, produktiver Husten mit Auswurf an den meisten Tagen über Monate und Jahre, Belastungsdyspnoe, Giemen und verlängertes Exspirium, obstruktive Lungenfunktion (FEV1/FVC unter 0,7).',
+        },
+        {
+          dd: 'ACE-Hemmer-induzierter Husten',
+          unterscheidung: 'Die Medikamentenanamnese klärt es in einem Satz: trockener Reizhusten unter Ramipril, Enalapril und Co. bei bis zu 15 % der Behandelten, Beginn Tage bis Monate nach Therapiestart, verschwindet innerhalb von 1–4 Wochen nach Umstellung auf einen Sartan; keine Anfälle, kein Erbrechen.',
+        },
+        {
+          dd: 'Gastroösophageale Refluxkrankheit mit chronischem Husten',
+          unterscheidung: 'Sodbrennen, saures Aufstoßen, Husten im Liegen und nach üppigen Mahlzeiten, Heiserkeit am Morgen; Besserung unter Protonenpumpenhemmer-Probetherapie über 8 Wochen; kein Infektbeginn.',
+        },
+        {
+          dd: 'Chronische Rhinosinusitis mit postnasalem Sekretfluss (Upper-Airway-Cough-Syndrom)',
+          unterscheidung: 'Räusperzwang, Schleim im Rachen, verstopfte Nase, Kopf- und Gesichtsdruck, Pflastersteinrelief der Rachenhinterwand; Husten vor allem beim Hinlegen; Ansprechen auf nasale Steroide und Antihistaminika.',
+        },
+        {
+          dd: 'Mycoplasma-pneumoniae- und Chlamydia-pneumoniae-Infektion',
+          unterscheidung: 'Ebenfalls wochenlanger trockener Husten nach grippalem Beginn, aber meist mit Fieber, Kopf- und Gliederschmerzen, Pharyngitis, atypischer Pneumonie mit interstitiellen Infiltraten; Nachweis über PCR beziehungsweise Serologie; ebenfalls makrolidsensibel.',
+        },
+        {
+          dd: 'Tuberkulose',
+          unterscheidung: 'Husten über Wochen mit Nachtschweiß, Fieber, Gewichtsverlust, Hämoptysen; Herkunft aus Hochprävalenzland, Immunsuppression, Kontakt; Röntgen mit Oberlappeninfiltraten oder Kavernen, Sputummikroskopie, PCR und Kultur, Interferon-Gamma-Test.',
+        },
+        {
+          dd: 'COVID-19 und Influenza',
+          unterscheidung: 'Akuter Beginn mit Fieber, Glieder- und Kopfschmerzen, Geruchs- und Geschmacksverlust; Husten kann als postinfektiöser Husten Wochen persistieren, aber ohne Stakkato und Erbrechen; Antigen- oder PCR-Test.',
+        },
+        {
+          dd: 'Fremdkörperaspiration',
+          unterscheidung: 'Vor allem beim Kleinkind: plötzlicher Beginn mit Hustenanfall beim Essen oder Spielen, einseitig abgeschwächtes Atemgeräusch, Überblähung im Röntgen, kein Erkältungsvorlauf; Bronchoskopie.',
+        },
+        {
+          dd: 'Bronchialkarzinom',
+          unterscheidung: 'Älterer Raucher mit neu aufgetretenem oder in seinem Charakter verändertem Husten, Hämoptysen, Gewichtsverlust, Heiserkeit, Thoraxschmerz; Röntgen und CT-Thorax, Bronchoskopie mit Biopsie.',
+        },
+        {
+          dd: 'Herzinsuffizienz',
+          unterscheidung: 'Nächtlicher Husten mit Orthopnoe, Belastungsdyspnoe, Beinödemen, Nykturie, kardialer Vorgeschichte; feuchte Rasselgeräusche, erhöhtes NT-proBNP, Stauungszeichen im Röntgen, Echokardiographie.',
+        },
+        {
+          dd: 'Bronchiektasen, interstitielle Lungenerkrankung, psychogener Husten',
+          unterscheidung: 'Bronchiektasen: chronischer produktiver Husten mit reichlich eitrigem Auswurf, rezidivierende Infekte, CT-Thorax. Interstitielle Lungenerkrankung: trockener Husten mit progredienter Belastungsdyspnoe, Sklerosiphonie, Trommelschlegelfinger, Exposition. Psychogener Husten: bellend, tagsüber, verschwindet im Schlaf — Ausschlussdiagnose.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Antibiotische Therapie mit klarem Ziel',
+          items: [
+            'Makrolide sind Mittel der Wahl: Azithromycin 500 mg an Tag 1, dann 250 mg an Tag 2–5 (5 Tage) — oder Clarithromycin 2 × 500 mg über 7 Tage — oder Erythromycin 4 × 500 mg über 14 Tage (schlechter verträglich, in der Schwangerschaft neben Azithromycin bevorzugt)',
+            'Bei Makrolid-Unverträglichkeit oder -Allergie: Cotrimoxazol 2 × 960 mg über 14 Tage (nicht im letzten Schwangerschaftsdrittel, nicht bei Säuglingen unter 2 Monaten)',
+            'Das Ziel dem Patienten EHRLICH erklären: Nach Beginn des Stadium convulsivum verkürzt das Antibiotikum den Husten kaum noch, weil die Toxinschäden am Flimmerepithel bereits gesetzt sind — es beendet aber die Ansteckungsfähigkeit innerhalb von etwa 5 Tagen. Behandelt wird also vor allem, um andere zu schützen',
+            'Ein Nutzen für den eigenen Verlauf besteht nur bei sehr frühem Beginn im Stadium catarrhale oder in den ersten 1–2 Wochen des Hustens; die Behandlung ist dennoch bis zu 3 Wochen nach Hustenbeginn (bei Säuglingen, Schwangeren und Kontakt zu Risikopersonen bis 6 Wochen) indiziert',
+            'Bei typischer Klinik und passender Kontaktanamnese wird die Therapie sofort begonnen und NICHT auf das PCR-Ergebnis gewartet — jeder Tag Verzögerung ist ein Tag weiterer Ansteckung',
+            'Cave Interaktionen der Makrolide: QT-Zeit-Verlängerung, CYP3A4-Hemmung (Clarithromycin mit Statinen, Colchicin, Antikoagulanzien); Azithromycin ist hier am wenigsten problematisch',
+          ],
+        },
+        {
+          label: 'Symptomatische Behandlung und Alltagsmaßnahmen',
+          items: [
+            'Ehrliche Einordnung: Hustenstiller (Dextromethorphan, Codein) und Schleimlöser (Ambroxol, Acetylcystein) bringen bei der Pertussis nachweislich WENIG — der Patient erwartet ein wirksames Hustenmittel und muss verstehen, warum es das nicht gibt; Codein allenfalls nachts zur Schlafsicherung, keine Antihistaminika, keine Steroide, keine Beta-2-Mimetika ohne Asthma',
+            'Ausreichend trinken, kleine und häufige Mahlzeiten wegen des Erbrechens nach den Anfällen, Nahrung nach einem Anfall nachreichen, Gewicht kontrollieren',
+            'Ruhige, reizarme Umgebung mit feuchter, kühler Raumluft; Vermeidung der Auslöser Rauch, kalte Luft, Staub, Lachen, hastiges Essen und körperliche Anstrengung',
+            'Schonung und Krankschreibung für die Dauer der Ansteckungsfähigkeit und der Erschöpfung; Schlafhygiene mit erhöhtem Oberkörper',
+            'Bei Säuglingen und schweren Verläufen stationäre Aufnahme mit Isolierung, Monitorüberwachung (Apnoen, Bradykardien), Absaugen, Sauerstoffgabe, Ernährung über Sonde, bei respiratorischer Erschöpfung nichtinvasive oder invasive Beatmung bis hin zur ECMO; beim Erwachsenen stationär bei Pneumonie, Pneumothorax, Hustensynkopen oder relevanter Komorbidität',
+          ],
+        },
+        {
+          label: 'Umgebungsprophylaxe und Infektionsschutz',
+          items: [
+            'MELDEPFLICHT nach § 6 Infektionsschutzgesetz (Verdacht, Erkrankung, Tod — namentlich, innerhalb von 24 Stunden an das Gesundheitsamt) und § 7 (Erregernachweis durch das Labor)',
+            'Ausschluss von Gemeinschaftseinrichtungen (§ 34 IfSG) und vom Arbeitsplatz bis 5 Tage nach Beginn einer wirksamen Antibiotikatherapie beziehungsweise 3 Wochen nach Beginn des Stadium convulsivum ohne Behandlung; Wiederzulassung ohne ärztliches Attest',
+            'CHEMOPROPHYLAXE mit demselben Makrolid-Schema (Azithromycin 5 Tage oder Clarithromycin 7 Tage) für enge Kontaktpersonen, vorrangig für ungeimpfte oder unvollständig geimpfte SÄUGLINGE, Schwangere im letzten Trimenon, Menschen mit Grunderkrankungen (Asthma, COPD, Immunsuppression) und Beschäftigte in Kitas, Schulen und im Gesundheitswesen; geimpfte Kontaktpersonen erhalten sie nur, wenn sie Kontakt zu Risikopersonen haben; Beginn möglichst innerhalb von 3 Wochen nach Exposition',
+            'Ermittlung der Kontaktpersonen gemeinsam mit dem Gesundheitsamt: Haushalt, Arbeitsplatz, Kindergarten; hustende Kontaktpersonen werden getestet und behandelt',
+            'Hustenetikette (in die Armbeuge husten), Händehygiene, Abstand, gegebenenfalls Mund-Nasen-Schutz; im Krankenhaus Einzelzimmer und Tröpfchenisolierung bis 5 Tage nach Therapiebeginn',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Impfung und Nachsorge',
+          items: [
+            'Überprüfung des Impfpasses und Auffrischung des Impfschutzes für den Patienten (nach Genesung) und sein Umfeld nach den Empfehlungen der Ständigen Impfkommission, in der Regel als Kombinationsimpfung Tdap (Tetanus, Diphtherie, azellulärer Pertussis-Impfstoff); es gibt keinen Pertussis-Einzelimpfstoff',
+            'Ausdrückliche IMPFUNG DER SCHWANGEREN in jeder Schwangerschaft zu Beginn des dritten Trimenons (ab der 28. Woche, bei drohender Frühgeburt früher): Die mütterlichen Antikörper schützen das Neugeborene in den ersten Lebensmonaten (Nestschutz) bis zur eigenen Grundimmunisierung ab dem 2. Lebensmonat',
+            'Kokonstrategie: Impfung aller engen Kontaktpersonen des Neugeborenen (Partner, Großeltern, Geschwister, Betreuungspersonen) möglichst 4 Wochen vor der Geburt, wenn die letzte Pertussis-Impfung länger als 10 Jahre zurückliegt',
+            'Aufklärung, dass weder die durchgemachte Erkrankung noch die Impfung lebenslang schützen — eine Auffrischung bleibt auch nach überstandener Pertussis nötig (nach STIKO alle 10 Jahre, für medizinisches Personal und Erzieher verpflichtend empfohlen)',
+            'Verlaufskontrolle beim Hausarzt nach 1–2 Wochen und bei anhaltendem oder verändertem Husten; Abklärung von Komplikationen wie Rippenfraktur, Hernie, Pneumothorax, Otitis media, Pneumonie und ausgeprägtem Gewichtsverlust; bei Husten über 8 Wochen nach Abklingen der Pertussis erneute Differenzialdiagnostik (Asthma, Reflux)',
+          ],
+        },
+      ],
+      prognose: 'Beim gesunden Erwachsenen ist die Prognose gut, der Verlauf aber quälend lang: Die Hustenanfälle halten insgesamt 6–10 Wochen, gelegentlich bis zu 3 Monate an („100-Tage-Husten“) und flammen bei jedem neuen Atemwegsinfekt wieder auf; Komplikationen wie Rippenfrakturen, Hernien, Inkontinenz und Pneumonie betreffen etwa 5 % der Erwachsenen, Hospitalisierungen sind selten. Die Antibiotikatherapie verändert den Verlauf im Stadium convulsivum kaum, beendet aber die Ansteckungsfähigkeit. Beim Säugling unter sechs Monaten dagegen ist die Pertussis lebensbedrohlich: Bis zu 90 % der Todesfälle betreffen ungeimpfte Säuglinge in den ersten Lebensmonaten, die Letalität hospitalisierter Säuglinge liegt bei etwa 1 %, bei Pertussis-Pneumonie mit Hyperleukozytose deutlich höher. Die Erkrankung hinterlässt keine dauerhafte Immunität; Reinfektionen nach 10–20 Jahren sind möglich, weshalb die regelmäßige Auffrischimpfung — insbesondere der Schwangeren — die entscheidende Präventionsmaßnahme bleibt.',
+      pruefungsfallen: [
+        'Keuchhusten ist KEINE reine Kinderkrankheit: Der Erwachsene hustet wochenlang OHNE Keuchen, wirkt zwischen den Anfällen gesund und hat kein Fieber — wer bei „verschleppter Bronchitis“ nur den nächsten Hustensaft verordnet, verpasst die Diagnose und die Infektionsquelle für Säuglinge.',
+        'Die drei Stadien müssen benannt und geordnet werden: Stadium catarrhale (1–2 Wochen, höchste Ansteckung), Stadium convulsivum (4–6 Wochen, Hustenanfälle), Stadium decrementi (Wochen bis Monate). In Karlsruhe hatte ein Kandidat sie an der Prüfung vergessen — und wurde danach gefragt.',
+        'Den IMPFSTATUS aktiv erfragen — mit dem Zeitpunkt der letzten Auffrischung. Karlsruhe betont dies als zentrale Anamnesefrage; „als Kind geimpft“ reicht nicht, der Schutz hält nur 5–10 Jahre.',
+        'SÄUGLINGE und SCHWANGERE im Umfeld sind die dringlichste Frage des Falls — nicht die Behandlung des Patienten, sondern der Schutz des Umfelds ist der eigentliche ärztliche Auftrag.',
+        'Die Erregerdiagnostik hängt von der Krankheitsdauer ab: PCR aus dem Nasopharyngealabstrich in den ersten 2–3 Wochen, Serologie (Anti-PT-IgG) erst ab der 3. Woche und nur, wenn im letzten Jahr nicht geimpft wurde. Wer einen Rachenabstrich mit Baumwolltupfer oder eine Serologie in der ersten Woche vorschlägt, zeigt die Lücke.',
+        'Das Antibiotikum ehrlich einordnen: Im Stadium convulsivum verkürzt das Makrolid den Husten kaum, es beendet aber die Ansteckung binnen 5 Tagen — „Wir behandeln Sie, um Ihre Frau und das Baby zu schützen“, nicht „damit der Husten aufhört“.',
+        'Nicht auf das Testergebnis warten: Bei typischer Klinik und Kontakt sofort Makrolid, Meldung und Umgebungsprophylaxe.',
+        'Meldepflicht nicht vergessen: § 6 IfSG (Verdacht, Erkrankung, Tod) und § 7 (Erregernachweis) — seit 2013 bundesweit. Dazu § 34 IfSG: Ausschluss aus Gemeinschaftseinrichtungen bis 5 Tage nach Therapiebeginn.',
+        'Die unauffällige Auskultation ist KEIN Argument gegen die Pertussis — im Gegenteil: freie Lunge bei wochenlangem Anfallshusten ist typisch.',
+        'Bei chronischem Husten die Medikamentenanamnese nicht überspringen: ACE-Hemmer sind eine Ein-Satz-Differenzialdiagnose; ebenso Raucheranamnese in Packungsjahren, Nachtschweiß und Gewichtsverlust (Tuberkulose, Bronchialkarzinom).',
+        'Cotrimoxazol ist die Alternative bei Makrolid-Unverträglichkeit — aber nicht im letzten Schwangerschaftsdrittel und nicht beim jungen Säugling; in der Schwangerschaft Azithromycin oder Erythromycin.',
+        'Impfung der Schwangeren im dritten Trimenon in JEDER Schwangerschaft — nicht nur einmal; und nach durchgemachter Pertussis bleibt die Auffrischung trotzdem nötig.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie weisen wir eine Pertussis nach?',
+          antwort: 'Durch einen tiefen Nasopharyngealabstrich — nicht den einfachen Rachenabstrich — mit einem Dacron- oder Flocked-Tupfer, aus dem der Erreger Bordetella pertussis mittels PCR nachgewiesen wird. Die PCR ist in den ersten zwei bis drei Wochen nach Hustenbeginn die Methode der Wahl; die Kultur ist nur früh sinnvoll und wenig sensitiv. Ab der dritten Krankheitswoche ist die Serologie mit IgG gegen Pertussis-Toxin verwertbar, sofern in den letzten zwölf Monaten nicht geimpft wurde.',
+        },
+        {
+          frage: 'Wie gehen wir weiter nach dem Abstrich?',
+          antwort: 'Der Abstrich wird zur molekularen PCR ins Labor geschickt; das Ergebnis liegt innerhalb von ein bis zwei Tagen vor. Wir warten aber nicht darauf: Bei typischer Klinik und Kontaktanamnese beginnen wir sofort mit dem Makrolid, melden den Verdacht dem Gesundheitsamt und ermitteln die Kontaktpersonen, insbesondere Säuglinge und Schwangere.',
+        },
+        {
+          frage: 'Wie ist die Therapie?',
+          antwort: 'Ein Makrolid: Azithromycin 500 mg am ersten Tag, dann 250 mg über vier weitere Tage, alternativ Clarithromycin 2 × 500 mg über sieben Tage oder Erythromycin über 14 Tage; bei Unverträglichkeit Cotrimoxazol über 14 Tage. Das Antibiotikum verkürzt im Stadium convulsivum den Husten kaum, beendet aber die Ansteckungsfähigkeit nach fünf Tagen. Dazu symptomatische Maßnahmen — Hustenstiller helfen wenig —, Krankschreibung, Ausschluss vom Arbeitsplatz für fünf Tage, Chemoprophylaxe und Impfung der Kontaktpersonen.',
+        },
+        {
+          frage: 'Wie gehen wir bei schwerem Verlauf vor?',
+          antwort: 'Stationäre Aufnahme mit Tröpfchenisolierung im Einzelzimmer, Monitorüberwachung von Sauerstoffsättigung und Herzfrequenz, Sauerstoffgabe, Absaugen des Sekrets, Flüssigkeits- und Ernährungssicherung, intravenöses Makrolid, Behandlung von Komplikationen wie Pneumonie oder Pneumothorax — bei respiratorischer Erschöpfung nichtinvasive oder invasive Beatmung, bei Säuglingen mit Hyperleukozytose bis hin zur ECMO.',
+        },
+        {
+          frage: 'Nennen Sie die verschiedenen Krankheitsstadien.',
+          antwort: 'Erstens das Stadium catarrhale über ein bis zwei Wochen mit Erkältungssymptomen und höchster Ansteckungsfähigkeit; zweitens das Stadium convulsivum über vier bis sechs Wochen mit den anfallsartigen Stakkato-Hustenattacken, der ziehenden Inspiration, dem zähen Schleim und dem Erbrechen nach dem Husten; drittens das Stadium decrementi über Wochen bis Monate mit langsam abklingendem Husten.',
+        },
+        {
+          frage: 'Warum ist der Impfstatus in der Anamnese so wichtig?',
+          antwort: 'Weil die Impfimmunität nach fünf bis zehn Jahren nachlässt und die meisten Erwachsenen seit der Jugend nicht mehr gegen Pertussis geimpft sind. Der Impfstatus macht die Diagnose wahrscheinlicher, entscheidet über die Verwertbarkeit der Serologie und ist die Grundlage der Umgebungsprophylaxe — die Schwangere und die Kontaktpersonen des Neugeborenen müssen geimpft werden.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei wochenlangem Husten in Betracht?',
+          antwort: 'Ein protrahierter viraler oder postinfektiöser Husten, ein Husten-Variant-Asthma, eine COPD des Rauchers, der ACE-Hemmer-Husten, die Refluxkrankheit, eine Sinusitis mit postnasalem Sekretfluss, Mykoplasmen- und Chlamydieninfektionen, COVID-19 und Influenza, eine Tuberkulose bei Nachtschweiß und Gewichtsverlust, ein Bronchialkarzinom beim älteren Raucher, eine Herzinsuffizienz mit nächtlichem Husten sowie Bronchiektasen und eine interstitielle Lungenerkrankung.',
+        },
+        {
+          frage: 'Welche Komplikationen kann die Pertussis haben?',
+          antwort: 'Beim Erwachsenen Erschöpfung und Schlafmangel, Rippenfrakturen und Rippenprellungen, Leisten- und Bauchwandhernien, Harninkontinenz, Konjunktival- und Hautblutungen, Pneumothorax, Gewichtsverlust, Otitis media, Hustensynkopen und eine bakterielle Superinfektion mit Pneumonie. Beim Säugling Apnoen und Zyanoseanfälle statt Husten, Trinkschwäche, Krampfanfälle, Enzephalopathie und die Pertussis-Pneumonie mit Hyperleukozytose — potenziell tödlich.',
+        },
+        {
+          frage: 'Ist die Pertussis meldepflichtig?',
+          antwort: 'Ja, nach § 6 Infektionsschutzgesetz namentlich bei Verdacht, Erkrankung und Tod innerhalb von 24 Stunden an das Gesundheitsamt, und nach § 7 beim Erregernachweis durch das Labor. Nach § 34 dürfen Erkrankte Gemeinschaftseinrichtungen bis fünf Tage nach Beginn der Antibiotikatherapie nicht besuchen.',
+        },
+        {
+          frage: 'Was empfehlen Sie der schwangeren Ehefrau des Patienten?',
+          antwort: 'Sofortige Vorstellung mit Nasopharyngealabstrich und PCR, eine Chemoprophylaxe beziehungsweise Therapie mit Azithromycin — Cotrimoxazol ist im letzten Trimenon kontraindiziert —, Information der Frauenärztin und der Geburtsklinik sowie die Tdap-Impfung, die ohnehin in jeder Schwangerschaft ab der 28. Woche empfohlen ist, damit das Neugeborene über die mütterlichen Antikörper einen Nestschutz erhält.',
+        },
+      ],
+      merksatz: 'Wochenlanger Anfallshusten ohne Fieber, ohne Auskultationsbefund und mit Erbrechen danach = Pertussis, auch beim Erwachsenen. Drei Stadien, PCR aus der Nase in den ersten drei Wochen, Makrolid sofort — nicht für den Husten, sondern gegen die Ansteckung — Meldung ans Gesundheitsamt, und die dringlichste Frage lautet: Gibt es einen Säugling oder eine Schwangere im Umfeld?',
+      linkedCaseIds: [
+        'case-pertussis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-roentgen-thorax',
+      ],
+    },
   ];
 }

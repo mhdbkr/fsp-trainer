@@ -33,7 +33,7 @@ ALIAS = {
     'dmi': 'Diabetes mellitus Typ 1 (Erstmanifestation)',
     'sprue': 'Zöliakie (glutensensitive Enteropathie)', 'glutenenteropathie': 'Zöliakie (glutensensitive Enteropathie)',
     'panikattacke': 'Panikstörung mit Agoraphobie', 'panickattacke': 'Panikstörung mit Agoraphobie',
-    'anorexianervosa2x': 'ANOREXIE', 'panikattackebzwherzinfarkt': 'Panikstörung mit Agoraphobie',
+    'panikattackebzwherzinfarkt': 'Panikstörung mit Agoraphobie',
     'alzheimerkrankheit': 'Demenz vom Alzheimer-Typ', 'alzheimerkrankheit1': 'Demenz vom Alzheimer-Typ',
     'apoplex': 'Ischämischer Schlaganfall (Hirninfarkt)',
     'asthmaexazerbation': 'Asthma bronchiale',
@@ -110,6 +110,25 @@ ALIAS = {
     'pavkperipherearterielleverschlusskrankheit': 'Periphere arterielle Verschlusskrankheit (pAVK)',
     'gastroenteritis': 'Akute infektiöse Gastroenteritis',
     'rheumatischesfieber': 'Akutes rheumatisches Fieber',
+
+    # --- 3e passe : cibles ajoutées par le lot-19
+    'abszessamgesaess': 'Weichteilabszess (Gesäßabszess)', 'abzess': 'Weichteilabszess (Gesäßabszess)',
+    'anorexianervosa2x': 'Anorexia nervosa (Magersucht)',
+    'koxarthrose': 'Coxarthrose (Hüftgelenkarthrose)', 'coxartrose': 'Coxarthrose (Hüftgelenkarthrose)',
+    'coxarthrose': 'Coxarthrose (Hüftgelenkarthrose)',
+    'metabolishessyndrom': 'Metabolisches Syndrom', 'metabolischessyndrom': 'Metabolisches Syndrom',
+    'erkaeltunginfluenzaodercovid': 'Influenza (Virusgrippe)', 'grippe': 'Influenza (Virusgrippe)',
+    'influenza': 'Influenza (Virusgrippe)',
+
+    # --- 4e passe : cibles ajoutées par le lot-20
+    'malaria': 'Malaria tropica',
+    'endokarditis': 'Infektiöse Endokarditis', 'bakterielleendokarditis': 'Infektiöse Endokarditis',
+    'infektioeseendokarditis': 'Infektiöse Endokarditis',
+    'covid19': 'COVID-19', 'covid': 'COVID-19',
+    'anaphylaktischerschock': 'Anaphylaktischer Schock', 'anaphylaxis': 'Anaphylaktischer Schock',
+    'reaktivearthritis': 'Reaktive Arthritis', 'reaktivearthritis1': 'Reaktive Arthritis',
+    'poststreptokokkenreaktivearthritis': 'Reaktive Arthritis',
+    'pertussis': 'Pertussis (Keuchhusten)', 'pertusis': 'Pertussis (Keuchhusten)',
 }
 # titres qui ne désignent pas un cas exploitable
 IGNORE = {'karlsruhe', 'akutesabdomen', 'fahradunfall'}

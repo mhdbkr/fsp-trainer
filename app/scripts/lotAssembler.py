@@ -7,7 +7,7 @@ import json, os, re, sys
 SRC = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.abspath(os.path.join(SRC, '..', 'src', 'data'))
 
-CASE_IDS = ['case-influenza', 'case-coxarthrose', 'case-metabolisches-syndrom', 'case-karzinoid', 'case-abszess', 'case-anorexia-nervosa']
+CASE_IDS = ['case-malaria', 'case-endokarditis', 'case-covid19', 'case-anaphylaxie', 'case-reaktive-arthritis', 'case-pertussis']
 
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
