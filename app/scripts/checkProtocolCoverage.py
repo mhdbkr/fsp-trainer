@@ -141,6 +141,7 @@ ALIAS = {
     'hueftkopfnekrose': 'Hüftkopfnekrose (aseptische Femurkopfnekrose)',
     'pollenallergiemitrhinitis': 'Allergische Rhinitis (Pollinosis)',
     'typhus': 'Typhus abdominalis',
+    'arteriellehypertonie': 'Arterielle Hypertonie (hypertensive Entgleisung)',
     'funktionelleobstipation': 'Chronische funktionelle Obstipation',
 }
 # titres qui ne désignent pas un cas exploitable

@@ -38889,5 +38889,5526 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-sonographie',
       ],
     },
+    {
+      id: 'fw-lumboischialgie',
+      pathology: 'Akute Lumboischialgie (unspezifischer Kreuzschmerz)',
+      specialty: 'Orthopädie',
+      definition: 'Der unspezifische Kreuzschmerz (Lumbago, „Hexenschuss“) ist ein Schmerz im Bereich der Lendenwirbelsäule zwischen Rippenbogen und Gesäßfalte, für den nach Anamnese und körperlicher Untersuchung KEINE spezifische strukturelle, entzündliche, infektiöse, tumoröse oder extravertebrale Ursache nachweisbar ist. Strahlt der Schmerz ins Gesäß und in die Oberschenkelrückseite aus, ohne einem Dermatom zu folgen und ohne neurologisches Defizit, spricht man von einer pseudoradikulären Lumboischialgie. Nach der Dauer unterscheidet man akut (unter 6 Wochen), subakut (6–12 Wochen) und chronisch (über 12 Wochen). Etwa 85 % aller Kreuzschmerzen sind unspezifisch; sie sind die häufigste Ursache von Arbeitsunfähigkeit in Deutschland und klingen in über 85 % der Fälle innerhalb von sechs Wochen von selbst ab.',
+      aetiologie: 'Multifaktoriell und im Einzelfall nicht sicher zuzuordnen: funktionelle Störungen der Wirbelgelenke und des Iliosakralgelenks, muskuläre Dysbalance und reflektorischer paravertebraler Hartspann, Überlastung von Bändern und Muskulatur beim Heben, Bücken oder Drehen, degenerative altersentsprechende Veränderungen (Bandscheibendehydratation, Spondylarthrose), die jedoch auch bei Beschwerdefreien häufig sind und daher nicht als Ursache gelten dürfen. Für die Chronifizierung sind psychosoziale Faktoren („Yellow Flags“) entscheidender als der Befund der Bildgebung: Angst-Vermeidungs-Verhalten, Katastrophisieren, depressive Stimmung, Unzufriedenheit am Arbeitsplatz, Rentenbegehren, passive Behandlungserwartung und lange Krankschreibung.',
+      risikofaktoren: [
+        'Schweres Heben, Tragen, Bücken und Drehen unter Last (körperlich arbeitende Berufe: Lager, Paketzustellung, Bau, Pflege)',
+        'Langes Sitzen und Vibrationsbelastung (Berufskraftfahrer, Büroarbeit ohne Ausgleich)',
+        'Bewegungsmangel und schwache Rumpfmuskulatur',
+        'Übergewicht und Adipositas',
+        'Rauchen (schlechtere Durchblutung der Bandscheiben, erhöhtes Chronifizierungsrisiko)',
+        'Frühere Kreuzschmerzepisoden (häufigster Prädiktor für ein Rezidiv)',
+        'Psychosoziale Belastung: Stress, Unzufriedenheit am Arbeitsplatz, Depressivität, Angst-Vermeidungs-Verhalten (Yellow Flags)',
+        'Geringe Ausbildung, Arbeitslosigkeit, laufende Rentenverfahren (Blue und Black Flags)',
+        'Schwangerschaft (hormonelle Bandlockerung, Gewichtsverlagerung)',
+      ],
+      klinik: [
+        {
+          text: 'Akuter Beginn beim Heben, Bücken oder Drehen („es hat mir in den Rücken geschossen“ — Hexenschuss) oder schleichender Beginn bei Belastung',
+        },
+        {
+          text: 'Tief lumbaler Schmerz, häufig einseitig betont, dumpf-ziehend bis stechend',
+        },
+        {
+          text: 'Pseudoradikuläre Ausstrahlung ins Gesäß und in die Oberschenkelrückseite, in der Regel NICHT über das Knie hinaus und ohne Dermatombezug',
+        },
+        {
+          text: 'Schmerzverstärkung bei Bewegung und Belastung (Bücken, Aufstehen, Heben, langes Sitzen), Besserung in Ruhe und im Liegen mit angewinkelten Beinen (Stufenlagerung)',
+        },
+        {
+          text: 'Schonhaltung mit Abflachung der Lendenlordose oder Schmerzskoliose, mühsames Aufrichten aus der Beugung',
+        },
+        {
+          text: 'Paravertebraler Muskelhartspann mit Druckschmerz über der Lendenmuskulatur, den Facettengelenken oder dem Iliosakralgelenk',
+        },
+        {
+          text: 'Bewegungseinschränkung: vergrößerter Finger-Boden-Abstand, eingeschränktes Schober-Zeichen',
+        },
+        {
+          text: 'KEINE neurologischen Ausfälle: Kraft, Reflexe und Sensibilität regelrecht, Zehen- und Fersengang möglich, Lasègue-Zeichen negativ',
+        },
+        {
+          text: 'Kurze morgendliche Steifigkeit unter 30 Minuten, die sich mit Bewegung rasch bessert',
+        },
+        {
+          text: 'Rezidivierender Verlauf mit beschwerdefreien Intervallen; über 85 % der Episoden klingen binnen sechs Wochen ab',
+        },
+        {
+          text: 'Ausstrahlung unterhalb des Knies bis in Unterschenkel und Fuß mit Dermatombezug, Kribbeln, Taubheit oder Schwäche — dann keine unspezifische Lumboischialgie mehr, sondern Radikulopathie (Bandscheibenvorfall)',
+          atypisch: true,
+        },
+        {
+          text: 'Nachtschmerz und Ruheschmerz, der sich in keiner Lage bessert — Warnzeichen für Tumor, Metastase oder Infektion',
+          atypisch: true,
+        },
+        {
+          text: 'Morgensteifigkeit über 30 Minuten, nächtliches Erwachen in der zweiten Nachthälfte, Besserung durch Bewegung statt durch Ruhe beim unter 45-Jährigen — entzündlicher Rückenschmerz (Spondylitis ankylosans)',
+          atypisch: true,
+        },
+        {
+          text: 'Beidseitige Beinschwäche, Reithosenanästhesie, Blasen- oder Mastdarmstörung — Cauda-equina-Syndrom, chirurgischer Notfall',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Dauer',
+          inhalt: 'Akuter Kreuzschmerz: bis 6 Wochen. Subakuter Kreuzschmerz: 6 bis 12 Wochen. Chronischer Kreuzschmerz: über 12 Wochen. Rezidivierender Kreuzschmerz: neue Episode nach einem beschwerdefreien Intervall von mindestens sechs Monaten. Die Chronifizierung — nicht die akute Episode — ist das eigentliche medizinische und sozioökonomische Problem.',
+        },
+        {
+          name: 'Einteilung nach der Ursache (Nationale VersorgungsLeitlinie Kreuzschmerz)',
+          inhalt: 'Unspezifischer Kreuzschmerz (etwa 85 %): keine fassbare Ursache nach Anamnese und Untersuchung, keine Red Flags. Spezifischer Kreuzschmerz (etwa 15 %): nachweisbare Ursache wie Bandscheibenvorfall mit Radikulopathie, Spinalkanalstenose, Wirbelkörperfraktur, Spondylodiszitis, Tumor oder Metastase, Spondylitis ankylosans, Spondylolisthese — oder extravertebrale Ursache (Aortenaneurysma, Nierenkolik, Pankreatitis, gynäkologische Erkrankung).',
+        },
+        {
+          name: 'Einteilung nach der Ausstrahlung',
+          inhalt: 'Lumbago (lokaler Kreuzschmerz): ohne Ausstrahlung. Pseudoradikuläre Lumboischialgie: Ausstrahlung ins Gesäß und in die Oberschenkelrückseite, meist nicht über das Knie hinaus, kein Dermatombezug, kein neurologisches Defizit (Facettengelenke, ISG, Muskulatur). Radikuläre Lumboischialgie (Ischialgie, Wurzelreizsyndrom): Ausstrahlung bis in Unterschenkel und Fuß entlang eines Dermatoms, mit Parästhesien, Reflexausfall, Kennmuskelschwäche und positivem Lasègue-Zeichen.',
+        },
+        {
+          name: 'Flaggen-System der Nationalen VersorgungsLeitlinie',
+          inhalt: 'Red Flags: klinische Warnhinweise auf eine gefährliche spezifische Ursache (Fraktur, Tumor, Infektion, Cauda-equina-Syndrom, entzündlicher Rückenschmerz) — erfordern Bildgebung und Labor. Yellow Flags: psychosoziale Chronifizierungsfaktoren (Angst-Vermeidungs-Verhalten, Katastrophisieren, Depressivität, passive Behandlungserwartung, Unzufriedenheit am Arbeitsplatz). Blue Flags: arbeitsplatzbezogene Faktoren (Zeitdruck, Konflikte, geringe Zufriedenheit). Black Flags: sozialrechtliche Faktoren (Rentenbegehren, laufende Verfahren, lange Arbeitsunfähigkeit).',
+        },
+      ],
+      redFlags: [
+        'Cauda-equina-Syndrom: Reithosenanästhesie, Blasen- oder Mastdarmstörung (Harnverhalt, Inkontinenz), beidseitige oder rasch progrediente Parese → sofortiges MRT und notfallmäßige operative Dekompression innerhalb von 24 bis 48 Stunden',
+        'Tumor oder Metastase: Alter über 50 mit erstmaligem Kreuzschmerz, Tumoranamnese (Mamma, Prostata, Lunge, Niere, Schilddrüse, Plasmozytom), ungewollter Gewichtsverlust, Nachtschmerz und Ruheschmerz, der sich in keiner Lage bessert',
+        'Infektion und Spondylodiszitis: Fieber, Schüttelfrost, kürzlicher Infekt oder Eingriff an der Wirbelsäule, Immunsuppression, Diabetes mellitus, intravenöser Drogenkonsum, liegender Katheter',
+        'Wirbelkörperfraktur: adäquates Trauma, Bagatelltrauma bei bekannter Osteoporose, systemische Kortisontherapie, Alter über 70 Jahre',
+        'Entzündlicher Rückenschmerz (Spondyloarthritis): Alter unter 45, schleichender Beginn, Morgensteifigkeit über 30 Minuten, nächtliches Erwachen in der zweiten Nachthälfte, Besserung durch Bewegung und nicht durch Ruhe, gutes Ansprechen auf NSAR, Psoriasis, Uveitis, chronisch-entzündliche Darmerkrankung',
+        'Progredientes neurologisches Defizit: zunehmende Kennmuskelschwäche (Großzehenheber, Fußheber, Fußsenker), Reflexausfall, sensibles Defizit im Dermatom',
+        'Extravertebrale Ursache: pulsierender Bauchtumor, Hypotonie, Schock (Aortenaneurysma), kolikartiger Flankenschmerz mit Hämaturie (Nierenkolik), Fieber mit Flankenklopfschmerz (Pyelonephritis), gürtelförmiger Oberbauchschmerz (Pankreatitis), thorakaler Schmerz beim Mann (Koronarsyndrom, Aortendissektion)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese: Beginn und Auslöser (Heben, Bücken, Drehen), Charakter, Lokalisation, Intensität, Ausstrahlung mit oder ohne Dermatombezug (über das Knie hinaus?), Verstärker und Linderer (Bewegung vs. Ruhe, Husten/Niesen/Pressen), Tagesverlauf, frühere Episoden, bisherige Behandlung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematisches Abfragen der Red Flags: Alter, Trauma, Osteoporose und Kortison, Fieber und Infekt, Tumoranamnese und Gewichtsverlust, Nacht- und Ruheschmerz, Morgensteifigkeit, Kribbeln, Taubheit, Schwäche, Reithosenanästhesie, Blasen- und Mastdarmfunktion, intravenöser Drogenkonsum, Immunsuppression',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Yellow Flags und Sozialanamnese: Beruf und Belastung, Zufriedenheit am Arbeitsplatz, Krankschreibungen, Bewegungsverhalten, Angst vor Bewegung, Sorgen und Erwartungen des Patienten (Bildgebungswunsch, Operationsangst), Stimmung, laufende Renten- oder Versicherungsverfahren',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion: Haltung, Schonhaltung, Schmerzskoliose, Abflachung der Lendenlordose, Beckenstand, Beinlängendifferenz, Hautbefund (Herpes zoster, Café-au-lait-Flecken); Palpation: paravertebraler Muskelhartspann, Druck- und Klopfschmerz der Dornfortsätze (Fraktur, Spondylodiszitis), Facettengelenke, Iliosakralgelenk, Trochanter major',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Funktionsprüfung: Finger-Boden-Abstand, Schober-Zeichen (Normalwert 10 cm → mindestens 14–15 cm), Ott-Zeichen, Seitneigung und Rotation; ISG-Provokationstests (Vorlaufphänomen, Mennell-Zeichen); Hüftgelenksbeweglichkeit zur Abgrenzung der Coxarthrose',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologische Untersuchung — obligat: Lasègue- und Bragard-Zeichen, umgekehrter Lasègue (L3/L4); Kraft der Kennmuskeln (Großzehenheber L5, Fußheber L4, Fußsenker S1), Zehen- und Fersengang; Reflexe (Patellarsehnenreflex L4, Achillessehnenreflex S1); Sensibilität der Dermatome L4, L5, S1; bei jedem Verdacht auf Cauda: Sensibilität im Reithosenbereich, Sphinktertonus, Restharn',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Orientierende internistische Untersuchung zum Ausschluss extravertebraler Ursachen: Abdomen (pulsierender Tumor, Abwehrspannung), Nierenlager-Klopfschmerz, periphere Pulse, bei thorakaler Komponente Auskultation und EKG',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Beim akuten unspezifischen Kreuzschmerz ohne Red Flags ist in den ersten vier bis sechs Wochen KEIN Labor indiziert',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nur bei Red Flags oder Persistenz: Blutbild, CRP und BSG (Spondylodiszitis, Tumor, entzündliche Genese), Kalzium, alkalische Phosphatase, Serumelektrophorese und Immunfixation (Plasmozytom, Metastasen), PSA beim älteren Mann, HLA-B27 bei Verdacht auf Spondyloarthritis, Urinstatus bei Verdacht auf Nierenkolik oder Pyelonephritis, Lipase bei Verdacht auf Pankreatitis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Beim akuten unspezifischen Kreuzschmerz ohne Red Flags in den ersten vier bis sechs Wochen KEINE Bildgebung — sie findet altersentsprechende, klinisch bedeutungslose Veränderungen (Bandscheibenprotrusionen bei bis zu 50 % der Beschwerdefreien), fixiert den Patienten auf einen Strukturschaden und führt zu unnötigen Eingriffen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen der Lendenwirbelsäule in zwei Ebenen bei Frakturverdacht (Trauma, Osteoporose, Kortison, Alter über 70), bei Verdacht auf Spondylolisthese (Funktionsaufnahmen) oder Spondylitis ankylosans (ISG-Aufnahme, Syndesmophyten)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT der Lendenwirbelsäule — Methode der Wahl bei Red Flags, bei neurologischem Defizit, bei Verdacht auf Cauda-equina-Syndrom (sofort), Spondylodiszitis, Tumor oder Metastase (mit Kontrastmittel), bei Persistenz über sechs Wochen trotz leitliniengerechter Therapie sowie vor jeder invasiven oder operativen Behandlung; besser als das CT wegen der Darstellung von Bandscheibe, Nervenwurzeln, Rückenmark, Knochenmarködem und Weichteilen ohne Strahlenbelastung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT der Lendenwirbelsäule bei Kontraindikation gegen das MRT (Herzschrittmacher, Metall), zur Beurteilung knöcherner Strukturen bei Fraktur oder zur Operationsplanung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Verdacht auf extravertebrale Ursache: Sonographie des Abdomens (Bauchaorta, Nieren mit Harnstau, Pankreas, Gallenblase), EKG beim Mann mit thorakalem oder hohem lumbalem Schmerz, gynäkologische Sonographie bei der Frau',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nur beim chronischen Verlauf mit gesicherter struktureller Ursache: Knochenszintigraphie bei Verdacht auf Metastasen oder Spondylodiszitis, CT-gesteuerte Biopsie bei unklarer Wirbelkörperläsion, Elektromyographie und Neurographie zur Objektivierung einer Radikulopathie, diagnostische Facettengelenks- oder ISG-Infiltration unter Bildwandler zur Bestätigung des Schmerzgenerators vor einer Denervation',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Lumbaler Bandscheibenvorfall mit Radikulopathie',
+          unterscheidung: 'Radikuläre Ausstrahlung über das Knie hinaus bis in Unterschenkel und Fuß entlang eines Dermatoms (L5: Fußrücken und Großzehe; S1: Fußaußenrand und Kleinzehe), Kribbeln und Taubheit, Kennmuskelschwäche, Reflexausfall, positives Lasègue-Zeichen, Verstärkung bei Husten, Niesen und Pressen. Beim unspezifischen Kreuzschmerz endet die Ausstrahlung oberhalb des Knies, der neurologische Befund ist regelrecht.',
+        },
+        {
+          dd: 'Lumbale Spinalkanalstenose',
+          unterscheidung: 'Älterer Patient, Claudicatio spinalis: belastungsabhängige, beidseitige Bein- und Gesäßschmerzen mit Schwäche und Taubheit beim Gehen und Stehen, Besserung beim Sitzen, Bücken und Fahrradfahren (Kyphosierung); Fußpulse tastbar (Abgrenzung zur pAVK).',
+        },
+        {
+          dd: 'Facettengelenksyndrom und Iliosakralgelenkblockade',
+          unterscheidung: 'Häufigste Ursachen des pseudoradikulären Schmerzes und Teil des unspezifischen Kreuzschmerzes: Facettensyndrom mit Schmerz bei Reklination und Rotation, Druckschmerz paravertebral; ISG-Blockade mit Schmerz über dem ISG, positivem Vorlaufphänomen und Mennell-Zeichen, Ausstrahlung ins Gesäß.',
+        },
+        {
+          dd: 'Osteoporotische Wirbelkörperfraktur',
+          unterscheidung: 'Älterer Patient, Frau nach der Menopause, Kortisontherapie, Bagatelltrauma (Falschdrehung, Heben); plötzlicher, klopfschmerzhafter Dornfortsatz, Größenabnahme, Rundrücken; Röntgen der LWS in zwei Ebenen, MRT zur Altersbestimmung der Fraktur. Beim jungen Patienten ohne Trauma und ohne Risikofaktoren unwahrscheinlich.',
+        },
+        {
+          dd: 'Spondylodiszitis und epiduraler Abszess',
+          unterscheidung: 'Fieber, Schüttelfrost, nächtlicher Ruheschmerz, heftiger Klopfschmerz, kürzlicher Infekt, Eingriff, Immunsuppression, Diabetes oder intravenöser Drogenkonsum; CRP und BSG deutlich erhöht, Blutkulturen, MRT mit Kontrastmittel; beim epiduralen Abszess rasch progrediente Parese.',
+        },
+        {
+          dd: 'Wirbelmetastase und Plasmozytom',
+          unterscheidung: 'Alter über 50, Tumoranamnese, ungewollter Gewichtsverlust, Nacht- und Ruheschmerz ohne Lageabhängigkeit, Klopfschmerz; BSG stark erhöht, Anämie, Hyperkalzämie, Serumelektrophorese mit M-Gradient beim Plasmozytom; MRT, Skelettszintigraphie.',
+        },
+        {
+          dd: 'Spondylitis ankylosans und andere Spondyloarthritiden',
+          unterscheidung: 'Alter unter 45, schleichender Beginn, Morgensteifigkeit über 30 Minuten, nächtliches Erwachen in der zweiten Nachthälfte, Besserung durch Bewegung und nicht durch Ruhe, gutes Ansprechen auf NSAR, Psoriasis, Uveitis, chronisch-entzündliche Darmerkrankung; HLA-B27, Sakroiliitis im MRT.',
+        },
+        {
+          dd: 'Spondylolisthese und Morbus Scheuermann',
+          unterscheidung: 'Spondylolisthese: Jugendliche und junge Sportler (Turner, Speerwerfer) oder degenerativ beim Älteren, belastungsabhängiger Schmerz, tastbare Stufe der Dornfortsätze, Funktionsröntgen. Morbus Scheuermann: Jugendlicher mit fixierter Kyphose, Schmorl-Knötchen und Keilwirbeln im Röntgen.',
+        },
+        {
+          dd: 'Piriformis-Syndrom, Coxarthrose, Bursitis trochanterica',
+          unterscheidung: 'Piriformis-Syndrom: Gesäßschmerz mit Ausstrahlung ins Bein, Druckschmerz über dem Musculus piriformis, Schmerz bei Innenrotation der Hüfte, Wirbelsäule frei. Coxarthrose: Leisten- und Anlaufschmerz mit eingeschränkter Innenrotation der Hüfte, Röntgen des Beckens. Bursitis trochanterica: lateraler Hüftschmerz mit Druckschmerz über dem Trochanter major, Schmerz beim Liegen auf der Seite.',
+        },
+        {
+          dd: 'Herpes zoster vor dem Exanthem',
+          unterscheidung: 'Einseitiger, brennender, streng segmentaler Schmerz mit Hyperästhesie, der dem Bläschenausschlag um Tage vorausgeht; kein mechanischer Bezug, keine Bewegungseinschränkung — nach wenigen Tagen erneut die Haut inspizieren.',
+        },
+        {
+          dd: 'Bauchaortenaneurysma und Aortendissektion',
+          unterscheidung: 'Lebensbedrohlich: älterer Raucher mit Hypertonie, plötzlicher reißender Rücken- oder Flankenschmerz, pulsierender Bauchtumor, Hypotonie, Pulsdifferenz; Sonographie des Abdomens und CT-Angiographie. Beim thorakalen Schmerz des Mannes auch akutes Koronarsyndrom bedenken (EKG, Troponin).',
+        },
+        {
+          dd: 'Nierenkolik und Pyelonephritis',
+          unterscheidung: 'Nierenkolik: wellenförmiger, in die Leiste ausstrahlender Flankenschmerz mit motorischer Unruhe, Hämaturie im Urinstatus, Harnstau in der Sonographie. Pyelonephritis: Fieber, Schüttelfrost, Flankenklopfschmerz, Dysurie, Leukozyturie und Nitrit. Beide ohne Bewegungsabhängigkeit und ohne Muskelhartspann.',
+        },
+        {
+          dd: 'Pankreatitis und gynäkologische Erkrankungen',
+          unterscheidung: 'Pankreatitis: gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken, Übelkeit, Erbrechen, Alkohol- oder Gallensteinanamnese, Lipase erhöht. Endometriose, Adnexitis, Extrauteringravidität: zyklusabhängiger Unterbauch- und Kreuzschmerz, Ausfluss, ausgebliebene Periode — Schwangerschaftstest und gynäkologische Untersuchung.',
+        },
+        {
+          dd: 'Somatoforme Schmerzstörung und Depression beim chronischen Verlauf',
+          unterscheidung: 'Über Monate anhaltender, diffuser Schmerz ohne organisches Korrelat, ausgeprägte Yellow Flags, Schlafstörung, Antriebsminderung, sozialer Rückzug; Screening mit PHQ-9, multimodale Schmerztherapie statt weiterer Bildgebung.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung, Aktivierung und Beratung als eigentliche Therapie',
+          items: [
+            'Aufklärung über die gute Prognose und die Harmlosigkeit der Erkrankung als wirksamste Einzelmaßnahme: „Ihr Rücken ist nicht kaputt“ — über 85 % der Episoden klingen binnen sechs Wochen ab; die Beschwerden sind Ausdruck einer Verspannung und Überlastung, nicht eines Strukturschadens',
+            'Beibehaltung der Alltagsaktivität und der Arbeit, soweit die Schmerzen es zulassen — KEINE Bettruhe, sie verlängert die Beschwerden und fördert die Chronifizierung; Krankschreibung nur kurz und mit klarem Wiedereinstiegsziel',
+            'Erklärung, warum keine Bildgebung nötig ist: sie würde altersentsprechende Veränderungen zeigen, die auch bei Beschwerdefreien vorkommen, und nichts an der Behandlung ändern',
+            'Aufklärung darüber, dass eine Rückkehr der Schmerzen normal ist und kein Warnzeichen darstellt; Vermittlung der Warnzeichen, die eine sofortige Vorstellung erfordern (Lähmung, Taubheit im Genitalbereich, Blasen- oder Mastdarmstörung, Fieber)',
+            'Rückenschule und Ergonomie am Arbeitsplatz: rückengerechtes Heben aus den Knien mit geradem Rücken, Last körpernah tragen, Drehbewegungen unter Last vermeiden, Sitzposition und Pausen beim Fahren',
+            'Gewichtsreduktion, Nikotinkarenz, regelmäßige Bewegung',
+            'Aktives Erkennen und Ansprechen der Yellow Flags (Angst vor Bewegung, Katastrophisieren, Unzufriedenheit am Arbeitsplatz, passive Behandlungserwartung) — der Patient wird zum aktiven Partner seiner Behandlung',
+          ],
+        },
+        {
+          label: 'Zeitlich begrenzte medikamentöse Schmerztherapie',
+          items: [
+            'Ziel der Medikation ist nicht die Schmerzfreiheit, sondern die Ermöglichung von Bewegung und Alltagsaktivität — daher zeitlich begrenzt und in ausreichender Dosis',
+            'NSAR als Mittel der ersten Wahl: Ibuprofen 3 × 400–600 mg (maximal 2400 mg täglich) oder Naproxen 2 × 250–500 mg über wenige Tage bis maximal zwei Wochen; Magenschutz mit einem Protonenpumpenhemmer (z. B. Pantoprazol 20 mg) bei Risiko (Alter über 65, Ulkus- oder Refluxanamnese, Antikoagulation, Kortison, Kombination mit ASS); Kontraindikationen: Niereninsuffizienz, Herzinsuffizienz, aktives Ulkus — Cave Kombination mit ACE-Hemmer und Diuretikum (Nierenfunktion)',
+            'Metamizol 3–4 × 500–1000 mg als Alternative bei NSAR-Kontraindikation oder zur Ergänzung; Aufklärung über die seltene Agranulozytose (bei Fieber, Halsschmerzen sofort vorstellen)',
+            'Paracetamol allein wirkt beim Kreuzschmerz nachweislich kaum besser als Placebo und wird von der Leitlinie nicht mehr empfohlen — im Examen ausdrücklich nennen',
+            'Muskelrelaxanzien (z. B. Methocarbamol, Tolperison) nur kurzfristig bei ausgeprägtem Muskelhartspann, wenn NSAR allein nicht ausreichen; Cave Sedierung und Sturzgefahr',
+            'KEINE Opioide beim akuten unspezifischen Kreuzschmerz; beim chronischen Verlauf nur ausnahmsweise, zeitlich begrenzt und im Rahmen eines multimodalen Konzepts',
+            'Kein Kortison, keine Injektionen, keine intramuskulären Spritzen (Abszessgefahr, kein Nutzen) und keine Antidepressiva beim akuten unspezifischen Kreuzschmerz ohne klare Indikation',
+          ],
+        },
+        {
+          label: 'Nichtmedikamentöse und aktive Verfahren',
+          items: [
+            'Bewegungstherapie und Krankengymnastik mit Kräftigung der Rumpf- und Rückenmuskulatur, Dehnung und Haltungsschulung als Grundlage der Behandlung und der Rezidivprophylaxe; frühzeitiger Beginn, Übungen für zu Hause',
+            'Wärmeanwendung (Wärmepflaster, Fango, warmes Bad) zur Lockerung des Muskelhartspanns in der Akutphase',
+            'Manuelle Therapie und Mobilisation als Ergänzung zur aktiven Therapie, nicht als alleinige Maßnahme',
+            'Entspannungsverfahren (progressive Muskelrelaxation), Akupunktur als Option bei Persistenz',
+            'Keine passiven Dauerverfahren: Massage allein, Korsetts, Stützmieder, Bettruhe, TENS oder Kurzwelle sind nicht wirksam bzw. fördern die Passivität',
+            'Beim subakuten und chronischen Verlauf (über sechs bis zwölf Wochen) multimodale Schmerztherapie: Bewegungstherapie, kognitive Verhaltenstherapie (Abbau von Angst-Vermeidungs-Verhalten), Ergotherapie, Belastungserprobung und stufenweise Wiedereingliederung am Arbeitsplatz (Hamburger Modell)',
+          ],
+        },
+        {
+          label: 'Verlaufskontrolle, Eskalation und Rezidivprophylaxe',
+          items: [
+            'Wiedervorstellung bei fehlender Besserung nach zwei bis vier Wochen mit erneuter Prüfung der Red Flags und der neurologischen Befunde sowie gezieltem Screening der Yellow Flags',
+            'Bildgebung (MRT der LWS) und Labor erst bei Persistenz über sechs Wochen trotz leitliniengerechter Therapie, bei neu aufgetretenen Red Flags oder neurologischem Defizit — sofort bei Cauda-Verdacht',
+            'Interventionelle Verfahren (Facettengelenksinfiltration, periradikuläre Therapie, Denervation) und operative Verfahren NUR bei gesicherter struktureller Ursache mit passender Klinik — beim unspezifischen Kreuzschmerz gibt es keine Operationsindikation',
+            'Rezidivprophylaxe: regelmäßige körperliche Aktivität und Rückentraining, Rückenschule, Gewichtsnormalisierung, Nikotinkarenz, Stressbewältigung, ergonomischer Arbeitsplatz',
+            'Aufklärung über Warnzeichen, die eine sofortige Vorstellung erfordern: Lähmung, Taubheit im Reithosenbereich, Blasen- oder Mastdarmstörung, Fieber, nächtlicher Ruheschmerz, ungewollter Gewichtsverlust',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose der akuten Episode ist ausgezeichnet: über 85 % der Patienten sind innerhalb von sechs Wochen beschwerdefrei oder deutlich gebessert, die meisten bereits nach zwei Wochen. Rezidive sind jedoch häufig (etwa 50–70 % innerhalb eines Jahres) und werden am besten durch regelmäßige Bewegung und Rückentraining verhindert. Bei etwa 10 % der Patienten kommt es zur Chronifizierung — diese kleine Gruppe verursacht den Großteil der Kosten und der Arbeitsunfähigkeitstage. Entscheidend für die Chronifizierung sind nicht die Bildbefunde, sondern die Yellow Flags: Angst-Vermeidungs-Verhalten, Katastrophisieren, depressive Stimmung, Unzufriedenheit am Arbeitsplatz, passive Behandlungserwartung und lange Krankschreibung. Wer länger als sechs Monate arbeitsunfähig ist, kehrt nur noch in etwa der Hälfte der Fälle an den Arbeitsplatz zurück.',
+      pruefungsfallen: [
+        'Beim akuten unspezifischen Kreuzschmerz ohne Red Flags KEINE Bildgebung und KEIN Labor in den ersten vier bis sechs Wochen — wer reflexartig „MRT der LWS“ sagt, muss die Indikation begründen können. Die Bildgebung findet altersentsprechende Veränderungen, fixiert den Patienten und führt zu unnötigen Eingriffen.',
+        'Die Red Flags müssen ohne Zögern vollständig aufgezählt werden: Cauda-equina-Syndrom, Tumor/Metastase, Infektion/Spondylodiszitis, Fraktur, entzündlicher Rückenschmerz, progredientes neurologisches Defizit und extravertebrale Ursachen — sie entscheiden über die Bildgebung.',
+        'Pseudoradikulär und radikulär sauber trennen: Ausstrahlung bis ins Gesäß und in die Oberschenkelrückseite ohne Dermatombezug und ohne Defizit = pseudoradikulär (unspezifisch); Ausstrahlung über das Knie hinaus bis in den Fuß mit Kribbeln, Taubheit, Schwäche, Reflexausfall und positivem Lasègue = radikulär (Bandscheibenvorfall).',
+        'Bettruhe ist die falsche Antwort — sie verlängert die Beschwerden und fördert die Chronifizierung. Die Therapie heißt Aktivität, Aufklärung und Beibehaltung der Alltagsaktivität; Krankschreibung nur kurz.',
+        'Paracetamol wirkt beim Kreuzschmerz nachweislich kaum und wird von der Leitlinie nicht mehr empfohlen — wer es als Erstlinie nennt, wird korrigiert. NSAR in ausreichender Dosis zeitlich begrenzt, Metamizol als Alternative.',
+        'Keine Opioide beim akuten unspezifischen Kreuzschmerz, kein Kortison, keine Injektionen — und keine intramuskulären Voltaren-Spritzen (in Karlsruhe war ein Gesäßabszess nach i.m. Injektion Prüfungsfall).',
+        'Die Yellow Flags aktiv erfragen und im Examen als Chronifizierungsfaktoren benennen — sie sind wichtiger als jeder Bildbefund: Angst-Vermeidungs-Verhalten, Katastrophisieren, Depressivität, Unzufriedenheit am Arbeitsplatz, Rentenbegehren, passive Behandlungserwartung.',
+        'Die Einteilung nach der Dauer nennen: akut unter sechs Wochen, subakut sechs bis zwölf Wochen, chronisch über zwölf Wochen — und den Zeitpunkt der Bildgebung daran festmachen (Persistenz über sechs Wochen).',
+        'Bei Rückenschmerzen, vor allem beim Mann, an extravertebrale Notfälle denken: Bauchaortenaneurysma, Aortendissektion, akutes Koronarsyndrom (EKG!), Nierenkolik, Pankreatitis — diese Frage wurde in Karlsruhe ausdrücklich gestellt.',
+        'Die neurologische Untersuchung nicht nur pauschal nennen, sondern konkret: Kennmuskeln (Großzehenheber L5, Fußheber L4, Fußsenker S1), Reflexe (PSR L4, ASR S1), Dermatome, Lasègue, Zehen- und Fersengang, Reithosensensibilität und Sphinktertonus bei Cauda-Verdacht.',
+        'Die NSAR-Falle in den Protokollen: chronische Rückenschmerzen mit täglichem Ibuprofen oder Diclofenac ohne Magenschutz waren wiederholt Auslöser einer oberen GI-Blutung — Magenschutz bei Risiko und zeitliche Begrenzung ausdrücklich nennen, Nierenfunktion bei ACE-Hemmer und Diuretikum bedenken.',
+        'Beim unspezifischen Kreuzschmerz gibt es keine Operationsindikation — operiert wird nur bei gesicherter struktureller Ursache mit passender Klinik (Cauda-Syndrom, progrediente Parese, therapieresistente Radikulopathie).',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine akute Lumboischialgie im Sinne eines unspezifischen Kreuzschmerzes — eine Lumbago mit pseudoradikulärer Ausstrahlung. Dafür sprechen der akute Beginn beim Heben und Drehen, der tief lumbale, bewegungs- und belastungsabhängige Schmerz, die Ausstrahlung ins Gesäß und in die Oberschenkelrückseite, die nicht über das Knie hinausgeht und keinem Dermatom folgt, die Besserung im Liegen mit angewinkelten Beinen sowie das vollständige Fehlen neurologischer Ausfälle und von Red Flags.',
+        },
+        {
+          frage: 'Warum steht der Bandscheibenvorfall auf Ihrer Liste der Differenzialdiagnosen, und wie grenzen Sie ihn ab?',
+          antwort: 'Weil er die wichtigste spezifische Ursache einer ins Bein ausstrahlenden Lumboischialgie ist. Für einen Bandscheibenvorfall mit Wurzelreizung sprächen eine Ausstrahlung über das Knie hinaus bis in Unterschenkel und Fuß entlang eines Dermatoms, Kribbeln und Taubheit, eine Kennmuskelschwäche, ein Reflexausfall, ein positives Lasègue-Zeichen und eine Verstärkung bei Husten, Niesen und Pressen. Fehlen diese Zeichen, handelt es sich um eine pseudoradikuläre Ausstrahlung.',
+        },
+        {
+          frage: 'Ist ein Bandscheibenvorfall ohne Schmerzen normal?',
+          antwort: 'Im MRT ja — Bandscheibenvorwölbungen und -vorfälle finden sich bei bis zu der Hälfte der Beschwerdefreien als Zufallsbefund. Klinisch relevant ist ein Bandscheibenvorfall erst, wenn er eine Nervenwurzel komprimiert; dann bestehen in aller Regel Schmerzen mit radikulärer Ausstrahlung. Genau deshalb ist die Bildgebung beim unspezifischen Kreuzschmerz ohne Red Flags in den ersten Wochen nicht indiziert: Sie zeigt Veränderungen, die nichts mit den Beschwerden zu tun haben.',
+        },
+        {
+          frage: 'Welche Warnzeichen — Red Flags — müssen Sie erfragen, und was bedeuten sie für das Vorgehen?',
+          antwort: 'Das Cauda-equina-Syndrom mit Reithosenanästhesie, Blasen- oder Mastdarmstörung und beidseitiger Parese — sofortiges MRT und Notfalloperation. Tumor und Metastase: Alter über 50, Tumoranamnese, Gewichtsverlust, Nacht- und Ruheschmerz. Infektion und Spondylodiszitis: Fieber, kürzlicher Infekt oder Eingriff, Immunsuppression, intravenöser Drogenkonsum. Fraktur: Trauma, Osteoporose, Kortison, Alter über 70. Entzündlicher Rückenschmerz: unter 45, Morgensteifigkeit über 30 Minuten, nächtliches Erwachen, Besserung durch Bewegung. Und extravertebrale Ursachen. Jede Red Flag bedeutet Labor und Bildgebung — ohne Red Flags in den ersten vier bis sechs Wochen keine.',
+        },
+        {
+          frage: 'Gibt es bei Rückenschmerzen noch etwas auszuschließen, vor allem bei Männern?',
+          antwort: 'Ja, die extravertebralen Notfälle: das Bauchaortenaneurysma und die Aortendissektion — plötzlicher reißender Schmerz, pulsierender Bauchtumor, Hypotonie, Pulsdifferenz —, das akute Koronarsyndrom bei thorakaler oder hoher lumbaler Schmerzlokalisation, deshalb ein EKG, außerdem die Nierenkolik, die Pyelonephritis und die Pankreatitis. Abgeklärt wird mit körperlicher Untersuchung, EKG, Sonographie des Abdomens und der Aorta, Urinstatus und Lipase.',
+        },
+        {
+          frage: 'Welche Untersuchungen führen Sie durch, und warum ist das MRT besser als das CT?',
+          antwort: 'Zunächst nur die Anamnese mit Red und Yellow Flags und die körperliche Untersuchung: Inspektion der Haltung, Palpation des Hartspanns, Finger-Boden-Abstand und Schober-Zeichen, Lasègue- und Bragard-Zeichen, Kraft der Kennmuskeln, Reflexe, Sensibilität, Zehen- und Fersengang. Ohne Red Flags keine Bildgebung. Wird sie nötig, ist das MRT die Methode der Wahl, weil es Bandscheiben, Nervenwurzeln, Rückenmark, Knochenmarködem und Weichteile ohne Strahlenbelastung darstellt; das CT zeigt vor allem den Knochen und ist bei Frakturen oder bei Kontraindikationen gegen das MRT sinnvoll.',
+        },
+        {
+          frage: 'Warum verzichten Sie bei diesem Patienten auf eine Bildgebung — der Patient wünscht sie sich doch ausdrücklich?',
+          antwort: 'Weil keine Red Flags und kein neurologisches Defizit vorliegen und die Beschwerden noch keine sechs Wochen bestehen. Ein MRT würde altersentsprechende Veränderungen zeigen, die auch bei Beschwerdefreien häufig sind, nichts an der Behandlung ändern und den Patienten auf einen vermeintlichen Strukturschaden fixieren. Dem Patienten erkläre ich das ausdrücklich und vereinbare eine Wiedervorstellung; bei Persistenz über sechs Wochen oder bei neuen Warnzeichen wird die Bildgebung nachgeholt.',
+        },
+        {
+          frage: 'Wie wird konservativ behandelt?',
+          antwort: 'Aufklärung über die gute Prognose, Beibehaltung der Alltagsaktivität ohne Bettruhe, kurze Krankschreibung wenn nötig; zeitlich begrenzt NSAR in ausreichender Dosis, zum Beispiel Ibuprofen 3 × 400 bis 600 mg, mit Magenschutz bei Risiko, Metamizol als Alternative; Wärme, kurzfristig ein Muskelrelaxans bei Hartspann; Krankengymnastik mit Kräftigung der Rumpfmuskulatur, Rückenschule; keine Opioide, kein Kortison, keine Injektionen. Wiedervorstellung nach zwei bis vier Wochen.',
+        },
+        {
+          frage: 'Warum empfehlen Sie kein Paracetamol?',
+          antwort: 'Weil Paracetamol beim Kreuzschmerz in Studien nicht wirksamer war als Placebo und von der Nationalen VersorgungsLeitlinie nicht mehr empfohlen wird. Mittel der Wahl sind NSAR in ausreichender Dosis für wenige Tage bis maximal zwei Wochen, alternativ Metamizol.',
+        },
+        {
+          frage: 'Der Patient möchte am liebsten zwei Wochen im Bett bleiben — was raten Sie ihm?',
+          antwort: 'Davon rate ich ausdrücklich ab. Bettruhe verlängert die Beschwerden, schwächt die Muskulatur und fördert die Chronifizierung. Der Patient soll sich so normal wie möglich bewegen, spazieren gehen und seine Alltagsaktivitäten beibehalten; die Schmerzmittel dienen dazu, das zu ermöglichen. Zur Arbeit kann er zurück, sobald die Schmerzen es zulassen, gegebenenfalls zunächst mit leichteren Tätigkeiten.',
+        },
+        {
+          frage: 'Was sind Yellow Flags, und warum sind sie wichtig?',
+          antwort: 'Psychosoziale Faktoren, die eine Chronifizierung begünstigen: Angst-Vermeidungs-Verhalten, Katastrophisieren, depressive Stimmung, Unzufriedenheit am Arbeitsplatz, Rentenbegehren, passive Behandlungserwartung und lange Krankschreibung. Sie sagen den chronischen Verlauf besser voraus als jeder Bildbefund und müssen deshalb aktiv erfragt und angesprochen werden — beim subakuten Verlauf ist eine multimodale Schmerztherapie mit Bewegung und Verhaltenstherapie indiziert.',
+        },
+        {
+          frage: 'Wann würden Sie den Patienten operieren?',
+          antwort: 'Beim unspezifischen Kreuzschmerz nie — es gibt keine Operationsindikation. Operiert wird nur bei gesicherter struktureller Ursache mit passender Klinik: notfallmäßig beim Cauda-equina-Syndrom, dringlich bei progredienter Parese, elektiv bei therapieresistenter Radikulopathie oder Spinalkanalstenose nach Ausschöpfung der konservativen Therapie.',
+        },
+        {
+          frage: 'Erklären Sie dem Patienten seine Diagnose in einfachen Worten.',
+          antwort: '„Herr Feldmann, Sie haben einen Hexenschuss — die Muskeln und Gelenke im unteren Rücken sind durch das Heben und Drehen überlastet und verkrampft. Ihr Rücken ist nicht kaputt, die Nerven sind nicht eingeklemmt, das haben wir gerade untersucht. So etwas heilt in den allermeisten Fällen innerhalb von wenigen Wochen von selbst. Das Wichtigste ist, dass Sie in Bewegung bleiben; die Schmerzmittel helfen Ihnen dabei. Eine Aufnahme brauchen wir im Moment nicht. Sollten Sie eine Lähmung, ein taubes Gefühl im Genitalbereich oder Probleme mit Blase oder Darm bemerken, kommen Sie sofort wieder.“',
+        },
+      ],
+      merksatz: 'Kreuzschmerz ohne Red Flags = keine Bildgebung, kein Labor, keine Bettruhe: aufklären („Ihr Rücken ist nicht kaputt“), aktiv bleiben, kurz NSAR — und die Yellow Flags entscheiden über die Chronifizierung, nicht das MRT.',
+      linkedCaseIds: [
+        'case-lumboischialgie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-bauchaortenaneurysma',
+      pathology: 'Bauchaortenaneurysma (BAA)',
+      specialty: 'Chirurgie',
+      definition: 'Das Bauchaortenaneurysma (abdominelles Aortenaneurysma, BAA/AAA) ist eine umschriebene, dauerhafte Erweiterung der Bauchaorta auf über 3 cm Durchmesser beziehungsweise auf mehr als das Anderthalbfache des normalen Gefäßdurchmessers (normal etwa 2 cm). In über 90 % der Fälle liegt es infrarenal, also unterhalb des Abgangs der Nierenarterien; häufig reicht es bis in die Iliakalarterien. Es handelt sich fast immer um ein echtes Aneurysma (Aneurysma verum) mit Ausweitung aller drei Wandschichten. Dasselbe Krankheitsbild hat zwei Gesichter: Entweder ist es ein stummer Zufallsbefund beim Ultraschall wegen etwas anderem — dann geht es um Überwachung und den richtigen Zeitpunkt der Ausschaltung — oder es ist ein dramatischer Notfall bei Ruptur mit einer Gesamtsterblichkeit von über 80 %, bei dem jede Minute zählt. Dem Patienten gegenüber: „eine krankhafte Aussackung beziehungsweise Erweiterung der Hauptschlagader im Bauch“.',
+      aetiologie: 'In über 90 % degenerativ-arteriosklerotisch: Durch chronische Entzündung, oxidativen Stress und Aktivierung von Matrix-Metalloproteinasen werden Elastin und Kollagen der Media abgebaut; die geschwächte Wand gibt dem Blutdruck nach und weitet sich nach dem Laplace-Gesetz immer weiter — je größer der Durchmesser, desto größer die Wandspannung und desto schneller das Wachstum. Das Rauchen ist der mit Abstand wichtigste beeinflussbare Faktor (etwa vier- bis fünffaches Risiko), gefolgt von arterieller Hypertonie, Alter, männlichem Geschlecht und genetischer Disposition (familiäre Häufung, Verwandte ersten Grades haben ein etwa vierfach erhöhtes Risiko). Seltener sind Bindegewebserkrankungen wie das Marfan- oder Ehlers-Danlos-Syndrom beim jüngeren Patienten, entzündliche Aneurysmen (inflammatorisches Aneurysma, Vaskulitiden), mykotische (infektiöse) Aneurysmen bei Endokarditis oder Salmonellen-Bakteriämie sowie posttraumatische und postdissektionelle Aneurysmen. Ein Diabetes mellitus ist paradoxerweise mit einer geringeren Häufigkeit assoziiert.',
+      risikofaktoren: [
+        'Rauchen (aktiv oder ehemalig) — wichtigster Risikofaktor, fördert Entstehung, Wachstum und Ruptur',
+        'Männliches Geschlecht (Männer etwa vier- bis sechsmal häufiger betroffen; Frauen rupturieren jedoch bei kleinerem Durchmesser)',
+        'Alter über 65 Jahre',
+        'Positive Familienanamnese für Aortenaneurysmen bei Verwandten ersten Grades (Eltern, Geschwister)',
+        'Arterielle Hypertonie',
+        'Arteriosklerose in anderen Gefäßgebieten: koronare Herzkrankheit, pAVK, Karotisstenose',
+        'Hyperlipidämie',
+        'Aneurysmen anderer Lokalisation (Poplitealarterien, Iliakalarterien, thorakale Aorta)',
+        'Bindegewebserkrankungen (Marfan-Syndrom, Ehlers-Danlos-Syndrom Typ IV) beim jüngeren Patienten',
+        'Chronisch obstruktive Lungenerkrankung (gemeinsamer Nenner Rauchen, Proteasenaktivität)',
+      ],
+      klinik: [
+        {
+          text: 'Nicht rupturiertes Aneurysma: in den meisten Fällen völlig asymptomatisch — Zufallsbefund bei einer Sonographie, einem CT oder einer Röntgenaufnahme aus anderem Anlass oder beim Screening',
+        },
+        {
+          text: 'Gelegentlich dumpfer, tief sitzender Bauch- oder Rückenschmerz, Druck- oder Völlegefühl im Oberbauch',
+        },
+        {
+          text: 'Vom Patienten selbst bemerktes Pochen oder Pulsieren im Bauch, besonders im Liegen („wie ein zweites Herz im Bauch“)',
+        },
+        {
+          text: 'Pulsierender, expansiver Tumor bei der Palpation oberhalb des Nabels, meist links der Mittellinie; Strömungsgeräusch bei der Auskultation',
+        },
+        {
+          text: 'Symptomatisches Aneurysma: neuer oder zunehmender Bauch-, Flanken- oder Rückenschmerz bei bekanntem oder neu entdecktem Aneurysma ohne Kreislaufinstabilität — gilt als drohende Ruptur und wird dringlich versorgt',
+        },
+        {
+          text: 'Ruptur — in einem Satz zu erkennen: plötzlicher, vernichtender Bauch- oder Flankenschmerz mit Ausstrahlung in Rücken oder Leiste, Kreislaufinstabilität bis zum hämorrhagischen Schock (Hypotonie, Tachykardie, Blässe, Kaltschweißigkeit), Synkope und pulsierende Resistenz — die klassische Trias aus Schmerz, Hypotonie und pulsierendem Tumor',
+        },
+        {
+          text: 'Gedeckte retroperitoneale Ruptur: das Retroperitoneum tamponiert die Blutung zunächst, das Bild ist über Stunden bis Tage weniger dramatisch — Flankenschmerz, Hämatom in Flanke oder Leiste (Grey-Turner-Zeichen), zunächst stabiler Kreislauf; häufig als Nierenkolik oder Lumbago verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Periphere Embolien aus dem wandständigen Thrombus in die Beine: akute Beinischämie, „Blue-toe-Syndrom“ mit livide verfärbten Zehen bei tastbaren Fußpulsen',
+          atypisch: true,
+        },
+        {
+          text: 'Kompression benachbarter Strukturen: Harnstau durch Ureterkompression, Übelkeit und frühes Sättigungsgefühl durch Duodenalkompression, Rückenschmerz durch Arrosion der Wirbelkörper',
+          atypisch: true,
+        },
+        {
+          text: 'Aortokavale Fistel (Ruptur in die V. cava): Herzinsuffizienz mit Beinödemen, kontinuierliches Maschinengeräusch, Hämaturie',
+          atypisch: true,
+        },
+        {
+          text: 'Aortoenterische Fistel (Ruptur ins Duodenum, meist nach Prothesenimplantation): obere Gastrointestinalblutung mit Hämatemesis oder Meläna, oft zunächst als „Warnblutung“',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach Lokalisation',
+          inhalt: 'Infrarenal (über 90 %, Aneurysmahals unterhalb der Nierenarterien — Standard für EVAR und offene Operation); juxtarenal (Hals unter 1 cm, Nierenarterien nicht mitbetroffen); pararenal/suprarenal (Nierenarterien einbezogen); thorakoabdominell (Crawford-Klassifikation I–IV nach Ausdehnung von der thorakalen bis zur abdominellen Aorta).',
+        },
+        {
+          name: 'Einteilung nach Durchmesser (steuert Kontrollintervall und Operationsindikation)',
+          inhalt: 'Normale Bauchaorta unter 2 cm; Ektasie 2,5–3 cm; kleines Aneurysma 3–4 cm (sonographische Kontrolle etwa jährlich); mittleres Aneurysma 4–5 cm (Kontrolle alle sechs Monate); großes Aneurysma über 5 cm (Kontrolle alle drei Monate, Operationsindikation ab 5,5 cm beim Mann und 5,0 cm bei der Frau). Jährliches Rupturrisiko: unter 4 cm nahe null, 4–5 cm etwa 1 %, 5–6 cm etwa 3–15 %, über 7 cm über 20 %.',
+        },
+        {
+          name: 'Einteilung nach Morphologie und Wandaufbau',
+          inhalt: 'Fusiform (spindelförmig, häufigste Form) versus sakkulär (sackförmig, höheres Rupturrisiko). Aneurysma verum (alle drei Wandschichten erweitert, typisch beim BAA), Aneurysma dissecans (Einriss der Intima mit Wühlblutung in die Media — Aortendissektion), Aneurysma spurium (falsches Aneurysma: gedecktes Hämatom nach Gefäßverletzung, z. B. nach Punktion der Leiste).',
+        },
+        {
+          name: 'Endoleak-Klassifikation nach EVAR (Typ I–V)',
+          inhalt: 'Typ I: Undichtigkeit an der proximalen (Ia) oder distalen (Ib) Prothesenverankerung — behandlungsbedürftig. Typ II: retrograde Füllung des Aneurysmasacks über Lumbalarterien oder die A. mesenterica inferior — häufigster Typ, meist nur beobachten, Intervention bei Sackwachstum. Typ III: Defekt oder Diskonnektion der Prothesenmodule — behandlungsbedürftig. Typ IV: Porosität des Prothesengewebes, meist selbstlimitierend. Typ V (Endotension): Sackwachstum ohne nachweisbares Leck.',
+        },
+      ],
+      redFlags: [
+        'Plötzlicher, vernichtender Bauch-, Flanken- oder Rückenschmerz bei einem Mann über 65 Jahren, besonders mit Raucheranamnese → Ruptur bis zum Beweis des Gegenteils',
+        'Hypotonie, Tachykardie, Blässe, Kaltschweißigkeit, Synkope oder Präsynkope zusammen mit Bauch- oder Rückenschmerz → hämorrhagischer Schock',
+        '„Nierenkolik“ bei einem älteren Patienten ohne Hämaturie, mit Hypotonie statt Bewegungsunruhe → an die gedeckte Ruptur denken',
+        'Neuer oder zunehmender Schmerz bei bekanntem Aneurysma → symptomatisches Aneurysma, drohende Ruptur, dringliche Versorgung innerhalb von Stunden',
+        'Rasches Wachstum über 1 cm pro Jahr oder über 0,5 cm in sechs Monaten → Operationsindikation unabhängig vom Absolutdurchmesser',
+        'Hämatom in Flanke oder Leiste (Grey-Turner-Zeichen) → retroperitoneale Blutung',
+        'Akute Beinischämie oder livide Zehen bei bekanntem Aneurysma → Embolie aus dem Aneurysmathrombus',
+        'Hämatemesis oder Meläna nach Aortenprothese → aortoenterische Fistel, sofortige Endoskopie und Gefäßchirurgie',
+        'Fieber, Schüttelfrost und Bauchschmerz bei Aneurysma → mykotisches (infiziertes) Aneurysma mit hohem Rupturrisiko',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Alter, Geschlecht, Rauchen (Packungsjahre), arterielle Hypertonie, Hyperlipidämie, KHK und pAVK, Familienanamnese für Aneurysmen; Schmerzcharakter, Beginn und Verlauf, Ausstrahlung in Rücken und Leiste, Synkope; Bekanntsein eines Aneurysmas und Einhaltung der Verlaufskontrollen; Antikoagulation',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter mit Blutdruck an beiden Armen, Herzfrequenz, Schockindex; Palpation des Abdomens mit pulsierendem, expansivem Tumor oberhalb des Nabels (Sensitivität abhängig von Durchmesser und Bauchumfang), Auskultation von Strömungsgeräuschen; Prüfung der peripheren Pulse (A. femoralis, A. poplitea, Fußpulse) und der Beinperfusion; Nierenlager, Leistenregion und Wirbelsäule zur Abgrenzung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Screening: In Deutschland einmalige Ultraschalluntersuchung der Bauchaorta für Männer ab 65 Jahren als Kassenleistung; darüber hinaus Untersuchung von Geschwistern und Kindern eines Betroffenen ab dem 50. Lebensjahr',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (Hämoglobin als Verlaufsparameter — bei akuter Blutung initial noch normal), Gerinnung (Quick/INR, PTT, Fibrinogen, Thrombozyten), Kreatinin, Harnstoff, Elektrolyte, Laktat und Blutgasanalyse als Schockparameter',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutgruppe und Kreuzblut mit Bereitstellung von Erythrozytenkonzentraten (bei Rupturverdacht mindestens sechs) — im Notfall die wichtigste Laboranforderung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Zur Abgrenzung der Differenzialdiagnosen: Troponin und CK (Myokardinfarkt), Lipase (Pankreatitis), CRP und Leukozyten (Divertikulitis, mykotisches Aneurysma), Urinstatus mit Erythrozyten (Nierenkolik, Pyelonephritis)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie des Abdomens — Untersuchung der Wahl zum Nachweis, zur Durchmesserbestimmung (Außenwand zu Außenwand, quer und längs) und zur Verlaufskontrolle; schnell, strahlenfrei und bettseitig auch im Notfall: Sie beantwortet in einer Minute die Frage „Aneurysma ja oder nein“ und zeigt freie Flüssigkeit; ein retroperitoneales Hämatom kann sie jedoch nicht sicher ausschließen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Angiographie der gesamten Aorta mit Becken- und Beinarterien — Goldstandard zur exakten Darstellung von Ausdehnung, Aneurysmahals und Abstand zu den Nierenarterien, wandständigem Thrombus, Verkalkung, Rupturzeichen (retroperitoneales Hämatom, Kontrastmittelaustritt, „crescent sign“, Unterbrechung der Verkalkung) und zur Operationsplanung (EVAR-Eignung, Zugangswege) — beim kreislaufstabilen Patienten mit Rupturverdacht; beim instabilen Patienten mit bekanntem Aneurysma und passender Klinik dagegen keine Zeit für ein CT: direkt in den Operationssaal',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG und Troponin zur Abgrenzung des Myokardinfarkts sowie zur präoperativen Risikoeinschätzung; Röntgen-Thorax; beim elektiven Eingriff Echokardiographie, ggf. Ischämiediagnostik, Lungenfunktion und Duplexsonographie der Karotiden (kardiologische und pulmonale Abklärung des Operationsrisikos)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Suche nach Begleitaneurysmen: Duplexsonographie der Poplitealarterien und Iliakalarterien, CT der thorakalen Aorta (bei etwa jedem vierten Patienten ein weiteres Aneurysma); MR-Angiographie als Alternative bei Kontrastmittelallergie oder Niereninsuffizienz',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Digitale Subtraktionsangiographie nicht mehr zur Diagnose (der Thrombus täuscht ein normales Lumen vor), sondern nur intraoperativ im Hybrid-Operationssaal zur Steuerung und Abschlusskontrolle der endovaskulären Stentprothese; bei Kontrastmittelallergie CO2-Angiographie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Nierenkolik / Urolithiasis',
+          unterscheidung: 'Die gefährlichste Verwechslung! Kolik: jüngerer Patient, wellenförmiger Schmerz mit Bewegungsunruhe, Hämaturie, Nierenlager-Klopfschmerz, Harnstau im Ultraschall, normaler Blutdruck. Gedeckte Ruptur: älterer Raucher, Dauerschmerz, keine Hämaturie, Hypotonie statt Unruhe, pulsierende Resistenz — bei jedem Mann über 60 mit erster „Nierenkolik“ die Aorta schallen.',
+        },
+        {
+          dd: 'Lumbago, Bandscheibenvorfall, Spinalkanalstenose, Wirbelkörperfraktur',
+          unterscheidung: 'Bewegungs- und lageabhängiger Schmerz, Klopfschmerz über der Wirbelsäule, radikuläre Ausstrahlung mit Sensibilitäts- oder Kraftminderung, positives Lasègue-Zeichen; keine Kreislaufsymptome, kein pulsierender Tumor. Cave: der Rückenschmerz beim Aneurysma ist nicht bewegungsabhängig und spricht nicht auf Analgetika an.',
+        },
+        {
+          dd: 'Akute Pankreatitis',
+          unterscheidung: 'Gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken, Übelkeit und Erbrechen, Alkohol- oder Gallensteinanamnese, Lipase mehr als dreifach erhöht, typischer CT-Befund.',
+        },
+        {
+          dd: 'Myokardinfarkt (insbesondere Hinterwandinfarkt)',
+          unterscheidung: 'Kann als Oberbauch- oder Rückenschmerz imponieren, ebenfalls Kaltschweißigkeit und Hypotonie; Abgrenzung durch EKG (ST-Hebungen) und Troponin. Cave: beim Aneurysmapatienten oft gleichzeitig KHK — beide Diagnosen können nebeneinander bestehen.',
+        },
+        {
+          dd: 'Aortendissektion',
+          unterscheidung: 'Schlagartiger, reißender Schmerz, der von der Brust in den Rücken und nach abdominell wandert; Blutdruckdifferenz zwischen den Armen, Pulsdefizit, neues Aortenklappengeräusch, neurologische Ausfälle; im CT Dissektionsmembran mit wahrem und falschem Lumen.',
+        },
+        {
+          dd: 'Mesenterialischämie',
+          unterscheidung: 'Älterer Patient mit Vorhofflimmern, stärkster Bauchschmerz bei anfangs weichem Bauch („stiller Bauch“), blutige Diarrhoe, Laktatanstieg; im CT-Angio Verschluss der A. mesenterica superior.',
+        },
+        {
+          dd: 'Perforiertes Ulkus, Divertikulitis, Appendizitis, Cholezystitis',
+          unterscheidung: 'Peritonitische Zeichen mit brettharter Abwehrspannung bei der Perforation und freier Luft im Röntgen oder CT; Divertikulitis mit linksseitigem Unterbauchschmerz, Fieber und CRP-Anstieg; Cholezystitis mit rechtsseitigem Oberbauchschmerz und positivem Murphy-Zeichen — jeweils ohne pulsierende Resistenz.',
+        },
+        {
+          dd: 'Retroperitoneale Blutung anderer Ursache (Antikoagulation, Nierenruptur, Milzruptur)',
+          unterscheidung: 'Ähnliches Bild mit Flankenschmerz und Schock; Antikoagulationsanamnese, Trauma, Hämaturie bei Nierenverletzung; im CT normale Aortenweite, Blutung aus anderer Quelle.',
+        },
+        {
+          dd: 'Pyelonephritis',
+          unterscheidung: 'Fieber, Schüttelfrost, Dysurie, Nierenlager-Klopfschmerz, Leukozyturie und Bakteriurie; im Ultraschall unauffällige Aorta.',
+        },
+        {
+          dd: 'Leistenhernie (bei Ausstrahlung in die Leiste) und Hodentorsion',
+          unterscheidung: 'Tastbare, ggf. irreponible Vorwölbung in der Leiste mit lokalem Druckschmerz; Hodentorsion beim jungen Mann mit hochstehendem, schmerzhaftem Hoden — beides ohne Kreislaufinstabilität.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notfallmanagement bei Ruptur oder drohender Ruptur',
+          items: [
+            'Sofortige Alarmierung von Gefäßchirurgie, Anästhesie und Blutbank („Aortenalarm“) — die Diagnose Ruptur oder gedeckte Ruptur bedeutet einen Wettlauf gegen die Zeit; Verlegung nur in ein Zentrum mit gefäßchirurgischer Bereitschaft',
+            'Monitoring, zwei großlumige periphere Zugänge, Sauerstoffgabe, Blutentnahme mit Blutgruppe und Kreuzblut, Bereitstellung von mindestens sechs Erythrozytenkonzentraten sowie Gefrierplasma und Thrombozyten (Massivtransfusionsprotokoll), Tranexamsäure',
+            'Permissive Hypotonie: systolischer Zieldruck etwa 80–100 mmHg (Patient ansprechbar, Radialispuls tastbar) statt aggressiver Volumengabe — ein höherer Druck sprengt das tamponierende Hämatom und verstärkt die Blutung; keine großvolumigen Kristalloidinfusionen, kein Anstreben normaler Blutdruckwerte vor der Ausschaltung',
+            'Analgesie mit Opioiden (z. B. Piritramid oder Morphin titriert), Nüchternheit einhalten, Bettruhe, kein Pressen; keine NSAR, keine Vasopressoren zur Normalisierung des Blutdrucks',
+            'Beim kreislaufinstabilen Patienten mit bekanntem Aneurysma und passender Klinik keine diagnostische Verzögerung: bettseitige Sonographie zur Bestätigung und direkt in den Operationssaal; beim stabilen Patienten CT-Angiographie zur Entscheidung zwischen endovaskulärer und offener Versorgung',
+            'Schnellstmögliche Ausschaltung: endovaskuläre Stentprothese (EVAR, bei geeigneter Anatomie und im Hybridsaal bevorzugt, ggf. mit aortalem Ballon zur Blutungskontrolle) oder offene Operation mit Aortenklemme und Rohr- oder Y-Prothese; Narkoseeinleitung erst bei abgedecktem, operationsbereitem Patienten, da der Muskeltonusverlust die Tamponade aufhebt',
+            'Postoperativ Intensivüberwachung: abdominelles Kompartmentsyndrom, Nierenversagen, Darmischämie (Kolonischämie durch Verschluss der A. mesenterica inferior), Herzinfarkt und Beinischämie erkennen und behandeln',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Überwachung und Risikofaktorenkontrolle beim kleinen Aneurysma',
+          items: [
+            'Sonographische Verlaufskontrollen in Abhängigkeit vom Durchmesser: etwa jährlich bei 3–4 cm, alle sechs Monate bei 4–5 cm, alle drei Monate über 5 cm; immer dieselbe Messmethode (Außenwand zu Außenwand), die Wachstumsrate liegt im Mittel bei 2–3 mm pro Jahr',
+            'Konsequente Nikotinkarenz als wirksamste Einzelmaßnahme gegen Wachstum und Ruptur — strukturierte Raucherentwöhnung anbieten',
+            'Blutdruckeinstellung mit Zielwerten unter 140/90 mmHg (ACE-Hemmer oder Sartan, Betablocker), Statin und Thrombozytenaggregationshemmer (ASS 100 mg) wegen des hohen kardiovaskulären Gesamtrisikos — sie bremsen das Aneurysma selbst nicht sicher, senken aber Herzinfarkt- und Schlaganfallrate',
+            'Aufklärung über die Warnzeichen der Ruptur (plötzlicher starker Bauch- oder Rückenschmerz, Schwäche, Schwindel, Kollaps) mit sofortigem Notruf 112; Aneurysmapass mit Durchmesser und Kontrolldatum',
+            'Alltag ohne strikte Einschränkungen: moderate Bewegung ist erwünscht, lediglich schweres Heben und Pressen mit Valsalva-Manöver sowie Kontaktsportarten sollten vermieden werden; Fluorchinolone meiden (erhöhtes Aneurysma- und Rupturrisiko)',
+            'Screening auf Begleitaneurysmen (Popliteal- und Iliakalarterien, thorakale Aorta) und Mitbehandlung von KHK, pAVK und Karotisstenose',
+          ],
+        },
+        {
+          label: 'Elektive Ausschaltung des Aneurysmas nach Indikation',
+          items: [
+            'Operationsindikation: Durchmesser ab 5,5 cm beim Mann und ab 5,0 cm bei der Frau, rasches Wachstum über 1 cm pro Jahr oder über 0,5 cm in sechs Monaten, symptomatisches Aneurysma (dringlich innerhalb von Tagen), sakkuläre Form, Embolien aus dem Aneurysma oder Kompressionssymptome — unterhalb dieser Schwellen ist das Operationsrisiko höher als das Rupturrisiko',
+            'Endovaskuläre Aneurysmaausschaltung (EVAR): Einbringen einer Stentprothese über beide Leistenarterien (perkutan oder über kleine Leistenschnitte) unter Durchleuchtung, der Aneurysmasack wird vom Blutstrom ausgeschaltet; Vorteile: keine Laparotomie, kürzerer Krankenhausaufenthalt, geringere 30-Tage-Sterblichkeit (etwa 1–2 %), auch bei Hochrisikopatienten möglich; Nachteile: nur bei geeigneter Anatomie (ausreichend langer, nicht zu weiter infrarenaler Hals, geeignete Beckenarterien), lebenslange Bildkontrollen wegen Endoleaks, Prothesenmigration und Reinterventionen (10–20 %), Kontrastmittelbelastung',
+            'Offene Operation: mediane Laparotomie oder retroperitonealer Zugang, Ausklemmen der Aorta, Eröffnen des Aneurysmasacks und Einnähen einer Rohrprothese oder — bei Beteiligung der Iliakalarterien — einer Y-Prothese (aortobiiliakal), anschließend Verschluss des Sacks über der Prothese; Vorteile: dauerhafte Lösung mit geringem Nachsorgeaufwand, unabhängig von der Anatomie; Nachteile: höheres perioperatives Risiko (30-Tage-Sterblichkeit etwa 3–5 %), längerer Aufenthalt mit Intensivstation, größere Belastung für Herz und Lunge',
+            'Verfahrenswahl im gefäßchirurgischen Team nach Anatomie (CT-Angiographie), Alter, Begleiterkrankungen, Lebenserwartung und Patientenwunsch: beim jüngeren Patienten mit guter Operabilität eher offen (Dauerhaftigkeit), beim älteren oder multimorbiden Patienten eher endovaskulär',
+            'Präoperative Optimierung: kardiologische Abklärung (Echokardiographie, ggf. Ischämiediagnostik, Fortführung von Betablocker, Statin und ASS), Lungenfunktion, Nierenfunktion mit Nephroprotektion vor Kontrastmittel, Blutkonserven, Nikotinkarenz mindestens vier Wochen präoperativ',
+            'Aufklärung über die spezifischen Risiken: Blutung und Transfusion, Nierenversagen, Darmischämie (Kolon), Herzinfarkt, Beinischämie und Embolie, Paraplegie durch spinale Ischämie (selten, vor allem bei thorakoabdominellem Befall), Protheseninfektion, Narbenhernie, sexuelle Funktionsstörungen (retrograde Ejakulation nach Verletzung des Plexus hypogastricus), Endoleak und Notwendigkeit von Reinterventionen nach EVAR',
+          ],
+        },
+        {
+          label: 'Nachsorge und Langzeitbetreuung',
+          items: [
+            'Nach EVAR lebenslange Bildkontrollen: CT-Angiographie oder Kontrastmittelsonographie nach 30 Tagen, nach zwölf Monaten und danach jährlich zur Erkennung von Endoleaks, Prothesenmigration, Schenkelverschluss und Sackwachstum; Typ-I- und Typ-III-Endoleaks werden umgehend, Typ-II-Endoleaks bei Sackwachstum behandelt',
+            'Nach offener Operation nur seltene Kontrollen (z. B. nach fünf Jahren CT) wegen Anastomosenaneurysmen, Narbenhernien und aortoenterischer Fistel — bei jeder oberen Gastrointestinalblutung nach Aortenprothese sofort an die Fistel denken',
+            'Konsequente Sekundärprävention der Arteriosklerose: Nikotinkarenz, Statin, ASS 100 mg, Blutdruck- und Lipidkontrolle, Bewegung, Gewichtsnormalisierung; Mitbehandlung der Folgen an Herz, Hirn und Beinen (KHK, Karotisstenose, pAVK)',
+            'Familienscreening: einmalige Sonographie der Bauchaorta bei Geschwistern und Kindern ab dem 50. Lebensjahr wegen der familiären Häufung',
+            'Aufklärung über Beschwerden nach Prothesenimplantation (Postimplantationssyndrom mit Fieber und CRP-Anstieg in den ersten Tagen nach EVAR, Leistenschmerzen, Claudicatio bei Schenkelverschluss), über Warnzeichen (Bauch- oder Rückenschmerz, Fieber, Blutung) und über die Bedeutung der Kontrolltermine — jeder dritte Patient erscheint nicht zuverlässig zur Nachsorge',
+            'Endokarditis- bzw. Protheseninfektionsprophylaxe: Antibiotikagabe bei bakteriämiegefährdeten Eingriffen nach Rücksprache; Fluorchinolone meiden',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt entscheidend davon ab, in welcher der beiden Situationen der Patient entdeckt wird. Das elektiv versorgte Aneurysma hat eine sehr gute Prognose: Die 30-Tage-Sterblichkeit liegt bei etwa 1–2 % nach EVAR und 3–5 % nach offener Operation; langfristig gleichen sich die Überlebensraten an, da nach EVAR Reinterventionen und seltene Spätrupturen hinzukommen. Das kleine Aneurysma wächst im Mittel 2–3 mm pro Jahr, das jährliche Rupturrisiko liegt unter 4 cm nahe null, bei 5–6 cm bei etwa 3–15 % und über 7 cm über 20 %. Die Ruptur dagegen ist eine der tödlichsten Notfalldiagnosen überhaupt: Etwa die Hälfte der Patienten erreicht das Krankenhaus nicht lebend, von den operierten Patienten stirbt nochmals ein Drittel bis die Hälfte — die Gesamtsterblichkeit liegt bei über 80 %. Die Patienten sterben langfristig überwiegend an ihrer generalisierten Arteriosklerose (Herzinfarkt, Schlaganfall), deshalb ist die kardiovaskuläre Sekundärprävention Teil der Aneurysmabehandlung. Das Screening der Männer ab 65 Jahren senkt die aneurysmabedingte Sterblichkeit nachweislich um etwa 40 %.',
+      pruefungsfallen: [
+        'Das Doppelgesicht sofort erkennen: Ist der Patient ein stabiler Zufallsbefund (Überwachung, elektiver Zeitpunkt) oder ein Notfall mit Ruptur (jede Minute zählt)? Ein neuer Schmerz bei bekanntem Aneurysma ist NIE harmlos — symptomatisches Aneurysma = drohende Ruptur = dringliche Versorgung.',
+        'Die gedeckte Ruptur wird als Nierenkolik oder Lumbago verkannt: Ein Mann über 60 mit erster „Nierenkolik“ ohne Hämaturie und mit Hypotonie statt Unruhe hat ein rupturiertes Aneurysma, bis das Gegenteil bewiesen ist — Sonographie der Aorta gehört zu jeder ersten Kolik im Alter.',
+        'Bei Rückenschmerzen älterer Männer wird ausdrücklich gefragt, was noch auszuschließen ist: das Bauchaortenaneurysma (und die KHK). Nicht nur an die Bandscheibe denken, auch bei Patienten mit Wirbelsäulenvorgeschichte.',
+        'Permissive Hypotonie ist der meistgeprüfte Therapiepunkt: systolischer Zieldruck etwa 80–100 mmHg, KEINE aggressive Volumengabe — ein höherer Druck sprengt das tamponierende Hämatom. Wer „Volumen, Volumen, Volumen“ sagt, fällt durch.',
+        'Beim instabilen Patienten mit bekanntem Aneurysma und passender Klinik kein CT — direkt in den Operationssaal. Beim stabilen Patienten dagegen CT-Angiographie zur Planung. Die Frage „CT oder OP?“ hängt allein vom Kreislauf ab.',
+        'Blutgruppe und Kreuzblut aktiv nennen — sie sind im Notfall die wichtigste Laboranforderung, nicht das CRP. Ebenso die Alarmierung von Gefäßchirurgie, Anästhesie und Blutbank.',
+        'Die Zahlen sicher beherrschen: Definition über 3 cm; Operationsindikation ab 5,5 cm beim Mann und 5,0 cm bei der Frau; Wachstum über 1 cm pro Jahr; über 90 % infrarenal; Sterblichkeit der Ruptur über 80 %; Screening für Männer ab 65 Jahren.',
+        'Rauchen ist der wichtigste Risikofaktor und die Nikotinkarenz die wirksamste Maßnahme gegen das Wachstum — nicht der Betablocker. Die Familienanamnese vervielfacht das Risiko: Geschwister und Kinder ab 50 Jahren schallen.',
+        'EVAR und offene Operation korrekt gegenüberstellen: EVAR schont den Patienten, verlangt aber lebenslange Bildkontrollen wegen Endoleaks; die offene Operation ist die dauerhafte Lösung mit höherem perioperativem Risiko. Die Wahl trifft das Team nach Anatomie, Alter und Begleiterkrankungen.',
+        'Ein normaler Hämoglobinwert schließt die akute Blutung nicht aus — der Hb fällt erst mit Verdünnung. Ebenso schließt ein negatives Ultraschallbild ein retroperitoneales Hämatom nicht aus.',
+        'Sprachfalle: „Aneurysma“ dem Patienten als „krankhafte Aussackung/Erweiterung der Hauptschlagader im Bauch“ erklären; „Aorta“ heißt „Hauptschlagader“; „Ruptur“ heißt „Einriss/Platzen“; „Stentprothese“ heißt „Gefäßstütze mit Kunststoffummantelung“.',
+        'Vor der Notfalloperation den Patienten nach der letzten Mahlzeit fragen (Aspirationsrisiko, Rapid-Sequence-Induction) und nach Blutverdünnern — bei ASS oder Antikoagulation ist die Blutung stärker und das Gerinnungsmanagement (Antagonisierung, Thrombozyten) Teil der Antwort.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist ein Aneurysma, und wie erklären Sie das dem Patienten?',
+          antwort: 'Ein Aneurysma ist eine umschriebene, dauerhafte Erweiterung einer Schlagader; beim Bauchaortenaneurysma ist die Bauchaorta auf über 3 cm beziehungsweise auf mehr als das Anderthalbfache des normalen Durchmessers erweitert, in über 90 % infrarenal. Dem Patienten sage ich: „Die Hauptschlagader in Ihrem Bauch hat eine krankhafte Aussackung, die Gefäßwand ist dort geschwächt und ausgeweitet; wenn sie zu groß wird, kann sie einreißen.“',
+        },
+        {
+          frage: 'Gibt es bei Rückenschmerzen, vor allem bei Männern, noch etwas auszuschließen?',
+          antwort: 'Ja — das Bauchaortenaneurysma beziehungsweise seine gedeckte Ruptur, außerdem einen Myokardinfarkt. Ein tief sitzender, nicht bewegungsabhängiger Rückenschmerz bei einem älteren Raucher mit Hypertonie verlangt eine Palpation des Abdomens und eine Sonographie der Aorta, bevor ich von einer Lumbago ausgehe.',
+        },
+        {
+          frage: 'Welche Untersuchung ist die wichtigste, und wann machen Sie ein CT?',
+          antwort: 'Die Sonographie des Abdomens ist die Untersuchung der Wahl zum Nachweis, zur Größenbestimmung und zur Verlaufskontrolle; bettseitig beantwortet sie in einer Minute, ob ein Aneurysma vorliegt. Die CT-Angiographie ist der Goldstandard zur Darstellung von Ausdehnung, Nierenarterienabstand, Thrombus und Rupturzeichen sowie zur Operationsplanung — beim kreislaufstabilen Patienten. Ein instabiler Patient mit bekanntem Aneurysma und passender Klinik geht ohne CT direkt in den Operationssaal.',
+        },
+        {
+          frage: 'Wie erkennt man das Aneurysma im Ultraschall, und wie messen Sie?',
+          antwort: 'Als spindel- oder sackförmige Erweiterung der Aorta im Quer- und Längsschnitt, oft mit echoreichem wandständigem Thrombus und Verkalkungen; gemessen wird der maximale Außendurchmesser senkrecht zur Gefäßachse von Außenwand zu Außenwand, ab 3 cm spricht man von einem Aneurysma. Zusätzlich beurteile ich freie Flüssigkeit und die Beziehung zu den Nierenarterien.',
+        },
+        {
+          frage: 'Welche Behandlung ist möglich, wenn das Aneurysma oder eine Stenose in der infrarenalen Aorta liegt?',
+          antwort: 'Beim infrarenalen Aneurysma die endovaskuläre Stentprothese über die Leistenarterien oder die offene Operation mit Rohr- oder Y-Prothese. Bei einer Stenose oder einem Verschluss der infrarenalen Aorta und der Beckenarterien spricht man vom Leriche-Syndrom mit Claudicatio der Gesäß- und Oberschenkelmuskulatur, fehlenden Leistenpulsen und erektiler Dysfunktion; behandelt wird mit Thrombendarteriektomie, aortobifemoralem Y-Bypass oder endovaskulär mit Stents.',
+        },
+        {
+          frage: 'Wie lautet die Operationsindikation beim asymptomatischen Aneurysma?',
+          antwort: 'Ab einem Durchmesser von 5,5 cm beim Mann und 5,0 cm bei der Frau, bei raschem Wachstum von mehr als 1 cm pro Jahr oder 0,5 cm in sechs Monaten, bei sakkulärer Form oder bei Embolien. Ein symptomatisches Aneurysma wird unabhängig vom Durchmesser dringlich, ein rupturiertes sofort versorgt. Unterhalb der Schwelle wird sonographisch kontrolliert: jährlich bei 3–4 cm, halbjährlich bei 4–5 cm.',
+        },
+        {
+          frage: 'Erklären Sie die beiden Operationsverfahren mit ihren Vor- und Nachteilen.',
+          antwort: 'Bei der endovaskulären Versorgung, EVAR, wird über beide Leistenarterien eine Stentprothese in die Aorta eingebracht, die den Aneurysmasack vom Blutstrom ausschaltet — ohne Bauchschnitt, mit kurzer Erholung und geringer Sterblichkeit von etwa 1–2 %, aber nur bei geeigneter Anatomie und mit lebenslangen Bildkontrollen wegen Endoleaks. Bei der offenen Operation wird die Aorta über eine Laparotomie ausgeklemmt und eine Rohr- oder Y-Prothese eingenäht — eine dauerhafte Lösung mit wenig Nachsorge, aber mit höherem perioperativem Risiko von etwa 3–5 % und längerem Aufenthalt.',
+        },
+        {
+          frage: 'Was ist ein Endoleak?',
+          antwort: 'Eine fortbestehende Durchblutung des Aneurysmasacks nach EVAR. Typ I entsteht an der proximalen oder distalen Verankerung, Typ II durch retrograde Füllung über Lumbalarterien oder die A. mesenterica inferior — der häufigste Typ —, Typ III durch einen Prothesendefekt, Typ IV durch Porosität, Typ V ist die Endotension. Typ I und III werden sofort behandelt, Typ II nur bei Sackwachstum.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Ruptur in der Notaufnahme?',
+          antwort: 'Aortenalarm mit sofortiger Information von Gefäßchirurgie, Anästhesie und Blutbank, Monitoring, zwei großlumige Zugänge, Blutgruppe und Kreuzblut mit Bereitstellung von Erythrozytenkonzentraten, Opioidanalgesie und permissive Hypotonie mit systolischem Zieldruck von etwa 80 bis 100 mmHg ohne aggressive Volumengabe, damit das tamponierende Hämatom nicht gesprengt wird. Dann schnellstmöglicher Transport in den Operationssaal zur endovaskulären oder offenen Versorgung — beim instabilen Patienten ohne CT.',
+        },
+        {
+          frage: 'Warum keine aggressive Volumentherapie?',
+          antwort: 'Weil ein Anstieg des Blutdrucks die retroperitoneale Tamponade aufhebt und die Blutung aus dem Riss verstärkt; zusätzlich verdünnt Kristalloid die Gerinnungsfaktoren und kühlt den Patienten aus. Ziel ist ein systolischer Druck um 80 bis 100 mmHg, bei dem der Patient ansprechbar bleibt, bis die Blutung chirurgisch kontrolliert ist.',
+        },
+        {
+          frage: 'Was machen Sie, wenn der Patient eine Kontrastmittelallergie hat?',
+          antwort: 'Bei der elektiven Planung eine MR-Angiographie oder eine CT-Angiographie nach Prämedikation mit Kortikosteroid und Antihistaminikum; intraoperativ eine CO2-Angiographie. Im Notfall bei Ruptur wird das Kontrastmittel unter Prämedikation und Notfallbereitschaft gegeben, weil die Blutung das größere Risiko ist.',
+        },
+        {
+          frage: 'Welche Komplikationen drohen nach der Operation?',
+          antwort: 'Blutung und Nachblutung, Herzinfarkt, akutes Nierenversagen durch Ausklemmen oder Kontrastmittel, Darmischämie des Kolons durch Verschluss der A. mesenterica inferior, Beinischämie und Embolie, Paraplegie durch spinale Ischämie, Protheseninfektion, aortoenterische Fistel, Narbenhernie, retrograde Ejakulation; nach EVAR zusätzlich Endoleak, Prothesenmigration und Schenkelverschluss, das Postimplantationssyndrom mit Fieber.',
+        },
+        {
+          frage: 'Gibt es ein Screening in Deutschland?',
+          antwort: 'Ja, seit 2018 haben Männer ab 65 Jahren Anspruch auf eine einmalige Ultraschalluntersuchung der Bauchaorta als Kassenleistung. Zusätzlich sollten Geschwister und Kinder von Betroffenen ab dem 50. Lebensjahr einmalig geschallt werden, weil die familiäre Häufung das Risiko etwa vervierfacht.',
+        },
+        {
+          frage: 'Wie hoch ist die Sterblichkeit der Ruptur?',
+          antwort: 'Insgesamt über 80 %: Etwa die Hälfte der Patienten erreicht das Krankenhaus nicht lebend, und von den operierten Patienten stirbt nochmals ein Drittel bis die Hälfte. Beim elektiven Eingriff liegt die Sterblichkeit dagegen bei etwa 1–2 % nach EVAR und 3–5 % nach offener Operation — deshalb ist der richtige Zeitpunkt der Operation entscheidend.',
+        },
+      ],
+      merksatz: 'Bauchaorta über 3 cm = Aneurysma, über 90 % infrarenal, Raucher über 65 mit Familienanamnese: stumm schallen und ab 5,5 cm (Frau 5,0 cm) ausschalten — Schmerz, Hypotonie und pulsierender Tumor sind die Ruptur: Aortenalarm, Kreuzblut, permissive Hypotonie 80–100 mmHg, instabil ohne CT in den Saal.',
+      linkedCaseIds: [
+        'case-bauchaortenaneurysma',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-ct',
+        'auf-operation',
+        'auf-bluttransfusion',
+      ],
+    },
+    {
+      id: 'fw-aortendissektion',
+      pathology: 'Akute Aortendissektion',
+      specialty: 'Kardiologie',
+      definition: 'Die akute Aortendissektion ist ein Einriss der Aortenintima (Entry) mit Einblutung in die Media und Ausbildung eines falschen Lumens, das sich antegrad oder retrograd entlang der Aortenwand ausbreitet und die Aortenäste verlegen kann. Sie gehört mit dem intramuralen Hämatom und dem penetrierenden Aortenulkus zu den akuten Aortensyndromen; akut bedeutet ein Symptombeginn vor weniger als 14 Tagen. Sie ist der lebensbedrohlichste Thoraxschmerz überhaupt: Bei Beteiligung der Aorta ascendens (Stanford A) steigt die Sterblichkeit unbehandelt um etwa 1–2 % pro Stunde in den ersten 48 Stunden — etwa die Hälfte der Patienten stirbt ohne Operation innerhalb von zwei Tagen.',
+      aetiologie: 'Grundlage ist eine Schwächung der Aortenmedia (Mediadegeneration, „zystische Medianekrose“), auf die eine akute Druck- und Scherbelastung trifft. Häufigste Ursache ist die langjährige, oft schlecht eingestellte arterielle Hypertonie (bei etwa 70–80 % der Patienten) in Verbindung mit Arteriosklerose, Rauchen und höherem Lebensalter. Bei jüngeren Patienten stehen hereditäre Bindegewebserkrankungen im Vordergrund: Marfan-Syndrom, vaskuläres Ehlers-Danlos-Syndrom (Typ IV), Loeys-Dietz-Syndrom, familiäre thorakale Aortenaneurysmen; außerdem bikuspide Aortenklappe, Aortenisthmusstenose, Turner-Syndrom und vorbestehendes Aortenaneurysma. Weitere Auslöser: iatrogen (Herzkatheter, Herz- oder Aortenoperation, intraaortale Ballonpumpe), Dezelerationstrauma, Schwangerschaft (drittes Trimenon und peripartal), Kokain- und Amphetaminkonsum, schwere isometrische Belastung (Heben, Pressen) und entzündliche Aortenerkrankungen (Riesenzellarteriitis, Takayasu-Arteriitis, Lues).',
+      risikofaktoren: [
+        'Arterielle Hypertonie, insbesondere langjährig und schlecht eingestellt — der wichtigste Risikofaktor',
+        'Männliches Geschlecht (etwa 2:1) und Alter zwischen 60 und 75 Jahren',
+        'Arteriosklerose, Nikotinabusus, Hyperlipidämie',
+        'Bekanntes thorakales oder abdominelles Aortenaneurysma',
+        'Hereditäre Bindegewebserkrankungen: Marfan-Syndrom, Ehlers-Danlos-Syndrom Typ IV, Loeys-Dietz-Syndrom',
+        'Bikuspide Aortenklappe, Aortenisthmusstenose, Turner-Syndrom',
+        'Positive Familienanamnese für Aortenaneurysma, Dissektion oder plötzlichen Tod',
+        'Zustand nach Herzoperation, Aortenklappenersatz oder Katheterintervention',
+        'Schwangerschaft (drittes Trimenon, peripartal)',
+        'Kokain- und Amphetaminkonsum (hypertensive Krise mit Tachykardie)',
+        'Schwere isometrische Belastung (Gewichtheben, schweres Tragen, Pressen)',
+        'Entzündliche Aortenerkrankungen (Riesenzellarteriitis, Takayasu-Arteriitis, Syphilis)',
+      ],
+      klinik: [
+        {
+          text: 'Plötzlich einsetzender, sofort maximaler, reißender oder stechender Thoraxschmerz („als ob etwas im Brustkorb zerreißt“), Intensität meist 9–10/10 — im Gegensatz zum dumpf-drückenden, zunehmenden Infarktschmerz',
+        },
+        {
+          text: 'Wandernder Schmerz entsprechend der Ausbreitung der Dissektion: vom Brustbein in den Rücken zwischen die Schulterblätter, weiter nach abdominal und lumbal',
+        },
+        {
+          text: 'Vernichtungsangst, Kaltschweißigkeit, Blässe, Unruhe, Übelkeit; Synkope oder Präsynkope bei etwa 10–15 %',
+        },
+        {
+          text: 'Hypertonie bei der Aufnahme häufig (besonders bei Typ B); Hypotonie und Schock als prognostisch ungünstiges Zeichen (Tamponade, Aortenruptur, schwere Aorteninsuffizienz)',
+        },
+        {
+          text: 'Pulsdefizit und Blutdruckdifferenz zwischen beiden Armen über 20 mmHg systolisch durch Verlegung der Arteria subclavia oder brachiocephalica (bei etwa 20–30 %)',
+        },
+        {
+          text: 'Neues diastolisches Herzgeräusch als Zeichen einer akuten Aortenklappeninsuffizienz bei retrograder Dissektion in die Aortenwurzel (bei bis zu 40–50 % der Typ-A-Dissektionen)',
+        },
+        {
+          text: 'Zeichen der Perikardtamponade: gestaute Halsvenen, Hypotonie, leise Herztöne, Pulsus paradoxus — häufigste Todesursache beim Typ A',
+        },
+        {
+          text: 'Myokardinfarkt (meist Hinterwand) bei Verlegung des Abgangs einer Koronararterie, meist der rechten — die Dissektion imitiert dann einen STEMI',
+          atypisch: true,
+        },
+        {
+          text: 'Schlaganfall, Bewusstseinsstörung oder Verwirrtheit bei Beteiligung der Karotiden — der Thoraxschmerz kann dabei fehlen oder vom Patienten nicht angegeben werden',
+          atypisch: true,
+        },
+        {
+          text: 'Paraparese oder Paraplegie durch spinale Ischämie (Verlegung von Interkostal- und Lumbalarterien, Arteria radicularis magna)',
+          atypisch: true,
+        },
+        {
+          text: 'Akuter Bauchschmerz durch Mesenterialischämie, Flankenschmerz und akutes Nierenversagen mit Oligurie/Anurie bei Verlegung der Nierenarterien',
+          atypisch: true,
+        },
+        {
+          text: 'Akute Beinischämie mit kaltem, blassem, pulslosem Bein bei Ausdehnung in die Beckenarterien',
+          atypisch: true,
+        },
+        {
+          text: 'Schmerzfreie Dissektion (etwa 5–10 %, vor allem bei Diabetes, Marfan-Syndrom, nach Herzoperation und bei Synkope als Erstsymptom)',
+          atypisch: true,
+        },
+        {
+          text: 'Heiserkeit (Rekurrensparese), Dysphagie, Hämoptysen oder obere Einflussstauung durch Kompression benachbarter Strukturen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Stanford-Klassifikation (entscheidet über die Therapie)',
+          inhalt: 'Typ A (etwa 60–65 %): Beteiligung der Aorta ascendens, unabhängig vom Ort des Entry — herzchirurgischer NOTFALL, sofortige Operation. Typ B (etwa 35–40 %): Dissektion ausschließlich distal des Abgangs der linken Arteria subclavia (Aorta descendens) — primär konservativ mit Blutdruck- und Frequenzkontrolle, bei Komplikationen endovaskuläre Stentprothese (TEVAR).',
+        },
+        {
+          name: 'DeBakey-Klassifikation (nach Ursprung und Ausdehnung)',
+          inhalt: 'Typ I: Entry in der Aorta ascendens, Ausdehnung über den Bogen in die Aorta descendens (entspricht Stanford A). Typ II: auf die Aorta ascendens beschränkt (Stanford A). Typ III: Entry distal der linken Arteria subclavia (Stanford B) — IIIa auf die thorakale Aorta descendens beschränkt, IIIb bis in die abdominelle Aorta reichend.',
+        },
+        {
+          name: 'Zeitliche Einteilung',
+          inhalt: 'Akut: Symptombeginn vor weniger als 14 Tagen. Subakut: 15 bis 90 Tage. Chronisch: über 90 Tage. Die Sterblichkeit ist in der akuten Phase am höchsten; der Übergang in die chronische Phase geht mit Aneurysmabildung im falschen Lumen einher.',
+        },
+        {
+          name: 'Akutes Aortensyndrom (Svensson-Klassen)',
+          inhalt: 'Klasse 1: klassische Dissektion mit Intimaflap, wahrem und falschem Lumen. Klasse 2: intramurales Hämatom ohne nachweisbaren Intimaeinriss. Klasse 3: umschriebener Intimaeinriss mit Aortenwandvorwölbung. Klasse 4: penetrierendes arteriosklerotisches Aortenulkus. Klasse 5: iatrogene oder traumatische Dissektion. Klassen 2 und 4 werden therapeutisch wie die klassische Dissektion behandelt.',
+        },
+        {
+          name: 'ADD-RS (Aortic Dissection Detection Risk Score) — Vortestwahrscheinlichkeit',
+          inhalt: 'Je ein Punkt für das Vorliegen von mindestens einem Merkmal aus drei Kategorien: (1) Prädisposition: Marfan-Syndrom oder Bindegewebserkrankung, positive Familienanamnese, bekannte Aortenklappenerkrankung, bekanntes Aortenaneurysma, kürzliche Aortenmanipulation; (2) Schmerzcharakter: abrupt, stärkster, reißend oder stechend; (3) Untersuchungsbefund: Pulsdefizit oder Blutdruckdifferenz, neues Diastolikum, Hypotonie/Schock, fokal-neurologisches Defizit. Score 0–1 mit D-Dimer unter 500 ng/ml → Dissektion mit hoher Sicherheit ausgeschlossen; Score 2–3 oder positives D-Dimer → sofort CT-Angiographie.',
+        },
+      ],
+      redFlags: [
+        'Plötzlicher, sofort maximaler, reißender Thoraxschmerz mit Wanderung in den Rücken → bis zum Beweis des Gegenteils Aortendissektion, keine Antikoagulation',
+        'Thoraxschmerz plus neurologisches Defizit, Synkope oder Bewusstseinsstörung → Dissektion mit Karotisbeteiligung annehmen, kein Lysealgorithmus wie beim Schlaganfall',
+        'Pulsdefizit oder Blutdruckdifferenz über 20 mmHg zwischen beiden Armen → hochverdächtig, sofort Bildgebung',
+        'Neues diastolisches Geräusch mit Thoraxschmerz → akute Aorteninsuffizienz bei Typ A',
+        'Hypotonie, gestaute Halsvenen, leise Herztöne, Pulsus paradoxus → Perikardtamponade, unmittelbare Lebensgefahr, sofort Herzchirurgie',
+        'STEMI-Bild im EKG mit reißendem, wanderndem Schmerz oder verbreitertem Mediastinum → Koronarbeteiligung durch Dissektion — vor Heparin, ASS und Katheter die Aorta abklären',
+        'Kaltes, pulsloses Bein, Anurie oder akuter Bauchschmerz mit Laktatanstieg → Malperfusion, komplizierte Dissektion, sofortige Intervention',
+        'Thoraxschmerz bei jungem Patienten mit Marfan-Habitus, bikuspider Klappe, in der Schwangerschaft oder nach Kokainkonsum → niedrige Schwelle für die CT-Angiographie',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Schmerzanamnese unter Zeitdruck: Beginn (schlagartig?), Charakter (reißend, stechend, sofort maximal?), Wanderung (Brust → Rücken → Abdomen?), Synkope; Risikofaktoren (Hypertonie, Aneurysma, Bindegebserkrankung, Marfan in der Familie, Voroperation oder Katheter an Herz und Aorta, Schwangerschaft, Kokain, schweres Heben). Bereits erhaltene Medikamente erfragen (ASS, Heparin durch Rettungsdienst oder Angehörige)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blutdruck an BEIDEN Armen (Differenz über 20 mmHg systolisch), Pulsstatus aller vier Extremitäten und der Karotiden (Pulsdefizit, Seitendifferenz), Auskultation des Herzens (neues Diastolikum über Erb/Aortenareal), Halsvenenstauung, Perikardreiben, Lungenauskultation, Abdomen (Druckschmerz, Darmgeräusche), orientierender neurologischer Status (Vigilanz, Sprache, Motorik, Sensibilität, Paresen)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Einschätzung der Vortestwahrscheinlichkeit mit dem ADD-RS (Prädisposition, Schmerzcharakter, Untersuchungsbefund): bei hoher Wahrscheinlichkeit (Score ≥ 2) direkt zur Bildgebung, bei niedriger (0–1) D-Dimer-Test zum Ausschluss — und bei jedem Verdacht keine Heparin- oder ASS-Gabe, bis die Dissektion ausgeschlossen ist',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere: bei ADD-RS 0–1 und Wert unter 500 ng/ml ist eine Dissektion mit hoher Sicherheit ausgeschlossen (Sensitivität etwa 97 %); ein positiver Wert beweist nichts (auch bei Lungenembolie, Infarkt, Sepsis erhöht). Cave: falsch negativ bei thrombosiertem falschem Lumen und isoliertem intramuralem Hämatom',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin (hochsensitiv) und CK/CK-MB zur Erfassung einer Koronarbeteiligung — ein erhöhtes Troponin schließt die Dissektion NICHT aus und darf nicht reflexartig zur ACS-Therapie führen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild, Gerinnung (Quick/INR, PTT, Fibrinogen), Kreatinin, Harnstoff, Elektrolyte, Laktat (Malperfusion), Transaminasen, Lipase, Blutgasanalyse; Blutgruppe und Kreuzblut mit Bereitstellung von Erythrozytenkonzentraten — alles zugleich als Vorbereitung auf die Notoperation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG sofort zum Nachweis oder Ausschluss eines Infarkts: bei der Dissektion meist unauffällig oder mit unspezifischen ST-T-Veränderungen und Linkshypertrophiezeichen; in etwa 10–15 % Infarktzeichen durch Koronarbeteiligung (meist Hinterwand) — ein Infarkt-EKG schließt die Dissektion NICHT aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax: verbreitertes Mediastinum (über 8 cm), Doppelkontur der Aorta, verstrichener Aortenknopf, Pleuraerguss links, verlagerte Trachea — als Hinweis, aber ein unauffälliges Röntgenbild schließt die Dissektion nicht aus (bei etwa 10–20 % normal)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Angiographie der gesamten Aorta (Thorax, Abdomen, Becken) mit EKG-Triggerung beim stabilen Patienten — die entscheidende Untersuchung (Sensitivität und Spezifität über 95 %): Intimaflap, wahres und falsches Lumen, Entry und Re-Entry, Ausdehnung, Beteiligung der Aortenäste, Perikarderguss, Kontrastmittelaustritt; sie klärt zugleich die Stanford-Klassifikation und plant die Operation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie (TTE) am Bett als Orientierung: Intimaflap in der Aorta ascendens, Aortenwurzeldilatation, Aortenklappeninsuffizienz, Perikarderguss/Tamponade, regionale Wandbewegungsstörung — ein unauffälliger Befund schließt die Dissektion nicht aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT-Angiographie nur beim stabilen Patienten, bei Kontrastmittelallergie oder Niereninsuffizienz sowie in der Verlaufskontrolle (keine Strahlenbelastung) — zu zeitaufwendig für die Akutsituation',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Transösophageale Echokardiographie (TEE) am Bett beim instabilen, nicht transportfähigen Patienten oder im Operationssaal: Intimaflap, Entry, Aortenklappe, Perikard und Koronarabgänge in einer Untersuchung (Sensitivität etwa 98 %); Blindstelle im distalen Aortenbogen durch die Trachea',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koronarangiographie ist beim Verdacht auf Dissektion kontraindiziert (Katheter kann das falsche Lumen sondieren und die Dissektion ausdehnen); die Koronarabgänge werden intraoperativ beurteilt. Bei jungem Patienten oder Verdacht auf Bindegewebserkrankung nach dem Ereignis genetische Abklärung und Familienscreening',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akutes Koronarsyndrom / Myokardinfarkt',
+          unterscheidung: 'Die entscheidende Abgrenzung, weil die Therapie gegensätzlich ist: Infarktschmerz dumpf-drückend, zunehmend über Minuten, Ausstrahlung in linken Arm, Kiefer, Hals; ST-Hebungen mit Troponinanstieg; keine Blutdruckdifferenz, kein Diastolikum, kein verbreitertes Mediastinum. Cave: Die Dissektion kann durch Koronarbeteiligung selbst einen Infarkt auslösen — reißender, wandernder Schmerz mit Infarkt-EKG ist eine Dissektion, bis das Gegenteil bewiesen ist; erst dann Heparin, ASS und Katheter.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Atemabhängiger, pleuritischer Schmerz mit plötzlicher Dyspnoe, Tachykardie, Hypoxämie, Hämoptysen, Zeichen einer tiefen Venenthrombose, Immobilisation oder Tumor in der Anamnese; EKG mit Rechtsherzbelastung (S1Q3-Typ), Rechtsherzdilatation im Echo, D-Dimere ebenfalls erhöht — die CT-Angiographie der Pulmonalarterien klärt; Antikoagulation dort Therapie, hier verboten.',
+        },
+        {
+          dd: 'Perikarditis / Perikardtamponade anderer Ursache',
+          unterscheidung: 'Stechender, atem- und lageabhängiger Schmerz, besser im Sitzen und Vorbeugen, Perikardreiben, konkave ST-Hebungen in fast allen Ableitungen mit PR-Senkung, häufig Infekt in den Vorwochen; Perikarderguss im Echo ohne Intimaflap.',
+        },
+        {
+          dd: 'Pneumothorax (Spannungspneumothorax)',
+          unterscheidung: 'Plötzlicher einseitiger stechender Schmerz mit Dyspnoe, aufgehobenes Atemgeräusch, hypersonorer Klopfschall, junge schlanke Männer oder COPD; Röntgen-Thorax oder Sonographie beweisend; beim Spannungspneumothorax obere Einflussstauung mit Trachealverlagerung.',
+        },
+        {
+          dd: 'Boerhaave-Syndrom (Ösophagusruptur)',
+          unterscheidung: 'Vernichtender retrosternaler Schmerz unmittelbar nach heftigem Erbrechen, Hautemphysem am Hals, Mediastinalemphysem und Pleuraerguss links im Röntgen, Fieber und Sepsiszeichen; Nachweis im CT mit oralem Kontrastmittel.',
+        },
+        {
+          dd: 'Akute Pankreatitis, perforiertes Ulkus, Mesenterialischämie',
+          unterscheidung: 'Gürtelförmiger Oberbauchschmerz mit Lipaseerhöhung; Perforation mit brettharter Bauchdecke und freier Luft im Röntgen/CT; Mesenterialischämie mit Vorhofflimmern und Laktatanstieg. Cave: Die Dissektion selbst kann durch Verlegung der Viszeralarterien alle diese Bilder erzeugen — bei Bauchschmerz plus Thoraxschmerz die Aorta mit abklären.',
+        },
+        {
+          dd: 'Rupturiertes Bauchaortenaneurysma',
+          unterscheidung: 'Plötzlicher Bauch- und Rückenschmerz mit Schock und pulsierender Resistenz bei älterem Raucher; kein Thoraxschmerz, kein Diastolikum; Sonographie und CT unterscheiden Aneurysmaruptur und Dissektion.',
+        },
+        {
+          dd: 'Schlaganfall als Erstmanifestation',
+          unterscheidung: 'Fokal-neurologisches Defizit mit Thoraxschmerz, Synkope oder Blutdruckdifferenz ist eine Dissektion mit Karotisbeteiligung, bis das Gegenteil bewiesen ist — keine Lyse ohne Ausschluss der Aorta (CT-Angiographie von Kopf bis Becken).',
+        },
+        {
+          dd: 'Nierenkolik',
+          unterscheidung: 'Kolikartiger, wellenförmiger Flankenschmerz mit Ausstrahlung in Leiste und Genitale, Hämaturie, Bewegungsunruhe, keine Schockzeichen; Sonographie mit Harnstau. Eine Dissektion mit Nierenarterienverlegung kann eine Kolik vortäuschen — bei Flankenschmerz mit Thoraxschmerz an die Aorta denken.',
+        },
+        {
+          dd: 'Muskuloskelettaler Thoraxschmerz, Angst- und Panikstörung',
+          unterscheidung: 'Bewegungs- und druckabhängiger, reproduzierbarer Schmerz ohne vegetative Begleitsymptome; Panikattacke mit Hyperventilation, Parästhesien und normaler Untersuchung. Ausschlussdiagnosen — erst nach normalem EKG, Troponin, D-Dimer und Untersuchung ohne Pulsdefizit.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen und Kreislaufkontrolle',
+          items: [
+            'Intensivmedizinische Überwachung mit Monitoring, zwei großlumige periphere Zugänge, invasive arterielle Blutdruckmessung (am Arm mit dem höheren Druck), Blasenkatheter zur Bilanzierung, Sauerstoff nur bei Hypoxämie',
+            'Analgesie mit intravenösen Opioiden (Morphin 2–5 mg titriert, alternativ Fentanyl) — sie senkt zugleich Sympathikotonus, Blutdruck und Herzfrequenz',
+            'Zentrale Maßnahme: rasche Senkung von Blutdruck UND Herzfrequenz mit intravenösen Betablockern — Esmolol (Bolus 0,5 mg/kg, dann 50–200 µg/kg/min) oder Labetalol (20 mg Bolus, weiter titriert) — auf einen systolischen Druck von 100–120 mmHg und eine Herzfrequenz um 60/min, um die Scherkräfte (dP/dt) auf die Aortenwand zu vermindern; bei Betablocker-Kontraindikation Kalziumantagonisten vom Verapamil-/Diltiazem-Typ',
+            'Bei unzureichender Blutdrucksenkung ergänzend ein Vasodilatator (Urapidil 12,5–25 mg i.v. oder Nitroprussid-Natrium 0,3–10 µg/kg/min) — aber NIE ein Vasodilatator allein ohne vorherige Betablockade, weil die Reflextachykardie die Scherkräfte erhöht',
+            'KEINE Antikoagulation, keine Thrombozytenaggregationshemmung, keine Lyse, keine Koronarangiographie — bei jedem Verdacht auf Dissektion bis zum Ausschluss; bereits gegebenes Heparin ist nach Bestätigung zu antagonisieren (Protamin)',
+            'Blutgruppe, Kreuzblut, Bereitstellung von Erythrozyten- und Thrombozytenkonzentraten sowie Gerinnungsfaktoren; Reanimationsbereitschaft; bei Hypotonie vorsichtige Volumengabe und Suche nach Tamponade, Ruptur oder Aorteninsuffizienz',
+            'Perikardpunktion bei Tamponade nur als allerletzte Überbrückung bei drohendem Kreislaufstillstand (kleine Mengen, da die Druckentlastung die Nachblutung fördert) — die definitive Therapie ist die sofortige Operation',
+            'Unmittelbare Kontaktaufnahme mit der Herzchirurgie und arztbegleitete Verlegung in ein Zentrum mit Herz- und Gefäßchirurgie ohne weitere zeitraubende Diagnostik vor Ort',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Notfalloperation bei Stanford Typ A',
+          items: [
+            'Jede Typ-A-Dissektion ist eine Indikation zur sofortigen Operation — jede Stunde Verzögerung erhöht die Sterblichkeit um 1–2 %; auch beim alten Patienten und bei Koma nach Karotisbeteiligung wird in der Regel operiert',
+            'Prinzip: Ersatz der Aorta ascendens (und meist des Hemibogens) durch eine Gefäßprothese mit Resektion des Entry und Verschluss des falschen Lumens; bei Ausdehnung in den Bogen Bogenersatz, ggf. mit „Frozen Elephant Trunk“ (Prothese mit Stentanteil in die Aorta descendens)',
+            'Bei Aortenklappeninsuffizienz Rekonstruktion der Klappe (David- oder Yacoub-Operation) oder klappentragender Conduit (Bentall-Operation) mit Reimplantation der Koronararterien — obligat bei Marfan-Syndrom und Wurzelaneurysma',
+            'Durchführung unter Herz-Lungen-Maschine, meist mit Kreislaufstillstand in Hypothermie und selektiver antegrader Hirnperfusion für die Bogenanastomose',
+            'Bei Koronarbeteiligung Bypass; bei Malperfusion der Viszeral-, Nieren- oder Beinarterien nach dem zentralen Eingriff ggf. Fenestrierung oder Stenting; postoperativ Intensivstation mit Blutungs-, Nieren- und neurologischer Überwachung',
+            'Operative Klinikmortalität etwa 15–25 %; typische Komplikationen: Blutung, Schlaganfall, Nierenversagen, Paraplegie, Nachblutung, Reoperation',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung des Stanford Typ B nach Verlauf',
+          items: [
+            'Unkomplizierter Typ B: primär KONSERVATIV auf der Intensivstation — strenge Blutdruck- (systolisch 100–120 mmHg) und Frequenzkontrolle (um 60/min) mit intravenösen, dann oralen Betablockern, Analgesie, Bettruhe, engmaschige klinische und laborchemische Kontrolle (Laktat, Kreatinin, Hämoglobin) und Bildkontrolle mit CT nach 24–72 Stunden sowie vor der Entlassung',
+            'Komplizierter Typ B — Malperfusion (Viszeral-, Nieren-, Bein- oder Rückenmarksischämie), drohende oder gedeckte Ruptur, rasche Größenzunahme des Aortendurchmessers, therapierefraktärer Schmerz oder Hypertonie, retrograde Ausdehnung in den Bogen: endovaskuläre Versorgung mit Stentprothese (TEVAR, thorakale endovaskuläre Aortenreparatur) über die Leiste zum Verschluss des Entry und Thrombosierung des falschen Lumens',
+            'Offene Operation (Ersatz der Aorta descendens) nur, wenn TEVAR anatomisch nicht möglich ist (fehlende Landezone, Bindegewebserkrankung) — deutlich höhere Mortalität und Paraplegierate',
+            'Frühe (präventive) TEVAR auch beim unkomplizierten Typ B mit Risikomerkmalen (Aortendurchmesser über 40 mm, großes Entry, falsches Lumen über 22 mm) wird zunehmend erwogen, da sie das aortale Remodeling verbessert',
+            'Umstellung auf orale Therapie: Betablocker als Basis, ergänzt durch ACE-Hemmer/Sartan und Kalziumantagonist bis zum Zielblutdruck; Mobilisation unter Kontrolle, Entlassung erst bei stabilem Blutdruck ohne Schmerz',
+          ],
+        },
+        {
+          label: 'Nachsorge, Blutdruckeinstellung und Aufklärung',
+          items: [
+            'Lebenslange strenge Blutdruckeinstellung mit einem Betablocker als Grundlage, Zielwert unter 130/80 mmHg; Herzfrequenz unter 60–70/min; Kontrolle der Adhärenz, Heimblutdruckmessung',
+            'Regelmäßige Bildkontrollen der gesamten Aorta mit CT oder MRT nach 1, 3, 6 und 12 Monaten, danach jährlich — wegen Aneurysmabildung im falschen Lumen (in bis zu 30–40 % innerhalb von fünf Jahren), Endoleaks nach TEVAR und erneuter Dissektion; Reintervention bei Durchmesser über 55 mm oder rascher Zunahme',
+            'Vermeidung schwerer isometrischer Belastung (Gewichtheben, schweres Tragen, Pressen), Nikotinkarenz, Kontrolle von Blutfetten (Statin), Blutzucker und Gewicht; moderate aerobe Bewegung ist erlaubt und erwünscht',
+            'Genetische Abklärung und Familienuntersuchung (Echokardiographie der Aortenwurzel bei Verwandten ersten Grades) bei jungem Patienten, Marfan-Habitus oder positiver Familienanamnese',
+            'Aufklärung über Warnzeichen (erneuter reißender Schmerz, Synkope, neurologische Ausfälle, kaltes Bein, Bauchschmerz) und über die Notwendigkeit der sofortigen Vorstellung; Notfallausweis mit Diagnose und Prothesenmaterial',
+            'Kardiologische Rehabilitation und psychosoziale Begleitung nach dem Überleben eines solchen Ereignisses (Angst, Depression, posttraumatische Belastung sind häufig); bei Kokain- oder Nikotinabhängigkeit Suchtberatung; Fahrtauglichkeit und Beruf besprechen',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt von Typ, Zeit bis zur Therapie und Komplikationen ab. Die unbehandelte Typ-A-Dissektion hat eine Sterblichkeit von etwa 1–2 % pro Stunde in den ersten 48 Stunden, das heißt etwa 50 % nach zwei Tagen und über 90 % nach einem Monat; nach sofortiger Operation liegt die Klinikmortalität bei etwa 15–25 %, das 5-Jahres-Überleben nach Entlassung bei etwa 70–80 %. Die unkomplizierte Typ-B-Dissektion hat unter konservativer Therapie eine Klinikmortalität von etwa 10 %, die komplizierte Typ-B-Dissektion nach TEVAR eine von etwa 10–20 %. Langfristig droht bei bis zu einem Drittel der Patienten eine aneurysmatische Erweiterung des offenen falschen Lumens mit Rupturgefahr oder erneuter Dissektion, weshalb lebenslange Bildkontrollen und eine strenge Blutdruckeinstellung entscheidend sind. Ungünstige Faktoren: Alter über 70, Hypotonie oder Schock bei Aufnahme, Tamponade, Malperfusion, Nierenversagen, Koma, Marfan-Syndrom (Re-Dissektion).',
+      pruefungsfallen: [
+        'Die Aortendissektion bei JEDEM akuten Thoraxschmerz mitdenken und aktiv nennen — in Karlsruhe wurde bei einem Brustschmerz explizit gefragt: „Welcher Notfall könnte es sein?“ Die erwartete Antwort war die Aortendissektion.',
+        'Der entscheidende Fehler: Behandlung als Herzinfarkt mit Heparin, ASS oder Lyse — bei der Dissektion potenziell tödlich. Bis zum Ausschluss keine Antikoagulation und keine Thrombozytenhemmung; das gilt auch, wenn das EKG Infarktzeichen zeigt, denn die Dissektion kann eine Koronararterie verlegen.',
+        'Blutdruck an BEIDEN Armen messen und alle Pulse tasten — die Blutdruckdifferenz über 20 mmHg und das Pulsdefizit werden in der Fallvorstellung ausdrücklich erwartet; ebenso das neue Diastolikum als Zeichen der Aorteninsuffizienz.',
+        'Die Stanford-Klassifikation nennen und mit der Therapie verknüpfen: Typ A = Aorta ascendens beteiligt = sofortige herzchirurgische Operation; Typ B = distal der linken Subclavia = primär konservativ, bei Komplikationen TEVAR.',
+        'Bei der Blutdrucksenkung IMMER zuerst den Betablocker — ein Vasodilatator (Nitroprussid, Urapidil, Nitro) allein löst eine Reflextachykardie aus und erhöht die Scherkräfte auf die Aortenwand. Zielwerte: systolisch 100–120 mmHg, Herzfrequenz um 60/min.',
+        'Ein negatives D-Dimer schließt die Dissektion bei niedriger Vortestwahrscheinlichkeit aus, ein positives beweist nichts. Ein normales Röntgenbild und ein unauffälliges EKG schließen sie NICHT aus — die CT-Angiographie der gesamten Aorta ist die entscheidende Untersuchung, beim instabilen Patienten die TEE am Bett.',
+        'Thoraxschmerz plus neurologisches Defizit oder Synkope = Dissektion bis zum Beweis des Gegenteils — keine Schlaganfall-Lyse ohne Ausschluss der Aorta.',
+        'Die Koronarangiographie ist beim Verdacht auf Dissektion kontraindiziert — nicht in die Diagnostikliste des ACS-Schemas übernehmen.',
+        'Den Rettungsdienst und die Angehörigen nach bereits gegebenen Medikamenten fragen — ASS und Heparin werden prähospital häufig „prophylaktisch gegen den Herzinfarkt“ verabreicht.',
+        'Bei jungem Patienten die Ursache aktiv erfragen: Marfan-Syndrom (Habitus, Familie), bikuspide Klappe, Kokainkonsum, Schwangerschaft, schweres Heben — und nach dem Ereignis genetische Abklärung und Familienscreening nennen.',
+        'Vor dem Patienten „Riss in der Innenwand der Hauptschlagader“ statt „Dissektion“ und „Hauptschlagader“ statt „Aorta“ sagen; die Dringlichkeit klar, aber ohne Panik vermitteln.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Warum ist das Ihrer Meinung nach kein kardiologischer Notfall — oder doch? Welcher Notfall könnte es sein?',
+          antwort: 'Bei jedem akuten Thoraxschmerz müssen drei lebensbedrohliche Notfälle ausgeschlossen werden: das akute Koronarsyndrom, die Lungenembolie und die Aortendissektion. Gegen einen Infarkt sprechen ein reißender, sofort maximaler, in den Rücken wandernder Schmerz ohne Ausstrahlung in Arm und Kiefer; gerade dieser Charakter ist typisch für die Aortendissektion, die ich bei diesem Patienten sofort mit Blutdruckmessung an beiden Armen, Pulsstatus, EKG, D-Dimer und CT-Angiographie abklären würde.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie den Schmerz der Aortendissektion vom Infarktschmerz?',
+          antwort: 'Der Dissektionsschmerz beginnt schlagartig und ist sofort maximal, er wird als reißend oder stechend beschrieben und wandert entsprechend der Ausbreitung der Dissektion vom Brustbein in den Rücken zwischen die Schulterblätter und weiter nach abdominal. Der Infarktschmerz ist dumpf-drückend, nimmt über Minuten zu und strahlt in den linken Arm, den Hals oder den Unterkiefer aus. Beide gehen mit Vernichtungsangst und Kaltschweißigkeit einher — deshalb entscheiden Untersuchung und Bildgebung.',
+        },
+        {
+          frage: 'Welche Befunde erwarten Sie bei der körperlichen Untersuchung?',
+          antwort: 'Eine Blutdruckdifferenz zwischen beiden Armen über 20 mmHg systolisch und ein Pulsdefizit an Karotiden, Armen oder Beinen durch Verlegung der Aortenäste, ein neues diastolisches Herzgeräusch durch eine akute Aortenklappeninsuffizienz, bei Perikardtamponade gestaute Halsvenen mit Hypotonie und leisen Herztönen, außerdem fokal-neurologische Ausfälle bei Karotisbeteiligung. Bei der Aufnahme sind die Patienten häufig hyperton; Hypotonie und Schock sind ein schlechtes Zeichen.',
+        },
+        {
+          frage: 'Welche Klassifikation kennen Sie, und warum ist sie wichtig?',
+          antwort: 'Die Stanford-Klassifikation: Typ A mit Beteiligung der Aorta ascendens ist ein herzchirurgischer Notfall und wird sofort operiert; Typ B liegt nur distal des Abgangs der linken Arteria subclavia und wird primär konservativ behandelt, bei Komplikationen mit einer Stentprothese. Ergänzend die DeBakey-Klassifikation: Typ I und II entsprechen Stanford A, Typ III entspricht Stanford B.',
+        },
+        {
+          frage: 'Welche Diagnostik leiten Sie ein, und welche Untersuchung ist entscheidend?',
+          antwort: 'Sofort ein 12-Kanal-EKG zum Ausschluss eines Infarkts, Labor mit Blutbild, Gerinnung, Kreatinin, Laktat, Troponin, D-Dimer, Blutgruppe und Kreuzblut, ein Röntgen-Thorax mit der Frage nach einem verbreiterten Mediastinum und eine transthorakale Echokardiographie. Die entscheidende Untersuchung ist die CT-Angiographie der gesamten Aorta beim stabilen Patienten; beim instabilen Patienten die transösophageale Echokardiographie am Bett, die zugleich Aortenklappe und Perikard beurteilt.',
+        },
+        {
+          frage: 'Schließt ein unauffälliges EKG oder ein normales Röntgenbild die Dissektion aus?',
+          antwort: 'Nein. Das EKG ist bei der Dissektion meist unauffällig oder zeigt nur unspezifische Veränderungen; umgekehrt kann es durch Verlegung einer Koronararterie sogar Infarktzeichen zeigen. Das Röntgenbild ist bei bis zu 20 % der Patienten normal. Nur die CT-Angiographie oder die TEE schließen die Dissektion sicher aus — bei niedriger Vortestwahrscheinlichkeit auch ein negatives D-Dimer.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten in der Notaufnahme?',
+          antwort: 'Intensivüberwachung mit invasiver Blutdruckmessung und zwei großlumigen Zugängen, Analgesie mit Morphin, und als zentrale Maßnahme die Senkung von Blutdruck und Herzfrequenz mit einem intravenösen Betablocker wie Esmolol oder Labetalol auf einen systolischen Druck von 100 bis 120 mmHg und eine Frequenz um 60 pro Minute; bei Bedarf zusätzlich Urapidil oder Nitroprussid, aber nie ein Vasodilatator allein. Keine Antikoagulation, kein ASS, keine Lyse. Kreuzblut und Blutkonserven, sofortige Kontaktaufnahme mit der Herzchirurgie.',
+        },
+        {
+          frage: 'Warum darf man keinen Vasodilatator ohne Betablocker geben?',
+          antwort: 'Ein Vasodilatator allein löst eine Reflextachykardie aus. Die Herzfrequenz und die Anstiegssteilheit des Drucks — dP/dt — bestimmen die Scherkräfte auf die Aortenwand; steigen sie, breitet sich die Dissektion weiter aus. Deshalb wird zuerst die Frequenz mit einem Betablocker gesenkt und erst dann der Blutdruck mit einem Vasodilatator nachjustiert.',
+        },
+        {
+          frage: 'Was passiert, wenn Sie den Patienten wie einen Herzinfarkt behandeln?',
+          antwort: 'Heparin, Thrombozytenaggregationshemmer oder eine Lyse verhindern die Thrombosierung des falschen Lumens, fördern die Ausdehnung der Dissektion und die Einblutung ins Perikard und erhöhen die Blutungskomplikationen bei der Notoperation erheblich — die Sterblichkeit steigt deutlich. Ein Herzkatheter kann das falsche Lumen sondieren und die Dissektion ausdehnen. Deshalb gilt: Bei jedem Verdacht keine Antikoagulation, bis die Dissektion ausgeschlossen ist.',
+        },
+        {
+          frage: 'Wie wird der Typ A operiert, und wie der Typ B behandelt?',
+          antwort: 'Typ A: sofortiger Ersatz der Aorta ascendens durch eine Gefäßprothese unter Herz-Lungen-Maschine und Kreislaufstillstand in Hypothermie, bei Bedarf mit Rekonstruktion oder Ersatz der Aortenklappe und Reimplantation der Koronararterien. Typ B: unkompliziert konservativ mit strenger Blutdruck- und Frequenzkontrolle auf der Intensivstation; bei Komplikationen wie Organischämie, drohender Ruptur, Größenzunahme oder therapierefraktärem Schmerz eine endovaskuläre Stentprothese, die TEVAR.',
+        },
+        {
+          frage: 'Wie sieht die Nachsorge aus?',
+          antwort: 'Lebenslange strenge Blutdruckeinstellung mit einem Betablocker als Basis, Zielwert unter 130/80 mmHg; Bildkontrollen der gesamten Aorta mit CT oder MRT nach einem, drei, sechs und zwölf Monaten, dann jährlich, wegen Aneurysmabildung im falschen Lumen; Nikotinkarenz, Verzicht auf schweres Heben, Statin; bei jungen Patienten genetische Abklärung und Familienuntersuchung; Aufklärung über Warnzeichen und Rehabilitation.',
+        },
+        {
+          frage: 'Erklären Sie dem Patienten, warum er diesen Schmerz in der Brust hat.',
+          antwort: 'Herr Kessler, die innere Wandschicht Ihrer Hauptschlagader — der großen Ader, die vom Herzen wegführt — ist eingerissen. Das Blut drückt sich jetzt zwischen die Wandschichten und schiebt sie auseinander; das ist der reißende Schmerz, der auch in den Rücken gewandert ist. Das ist eine ernste, aber behandelbare Situation: Wir senken jetzt sofort Ihren Blutdruck und Ihren Puls, damit die Wand nicht weiter einreißt, und die Herzchirurgen bereiten eine Operation vor, bei der der eingerissene Abschnitt durch eine Gefäßprothese ersetzt wird.',
+        },
+      ],
+      merksatz: 'Reißend, sofort maximal, wandernd in den Rücken, Blutdruckdifferenz oder Pulsdefizit = Aortendissektion bis zum Beweis des Gegenteils: KEIN Heparin, KEIN ASS, KEINE Lyse — erst Betablocker (Frequenz 60, systolisch 100–120), dann CT-Angiographie; Typ A sofort in den OP, Typ B konservativ oder TEVAR.',
+      linkedCaseIds: [
+        'case-aortendissektion',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-tee',
+      ],
+    },
+    {
+      id: 'fw-perikarditis',
+      pathology: 'Akute Perikarditis',
+      specialty: 'Kardiologie',
+      definition: 'Die akute Perikarditis ist eine Entzündung des Herzbeutels (Perikard), die in Europa meist viral oder idiopathisch bedingt ist und typischerweise junge oder mittelalte Erwachsene ein bis zwei Wochen nach einem Atemwegs- oder Magen-Darm-Infekt trifft. Leitsymptom ist ein stechender, atem- und lageabhängiger retrosternaler Schmerz, der im Liegen zunimmt und im Sitzen mit Vorneüberbeugen nachlässt; auskultatorisch findet sich das Perikardreiben. Die Diagnose wird klinisch gestellt, wenn mindestens zwei von vier Kriterien erfüllt sind: typischer Thoraxschmerz, Perikardreiben, typische EKG-Veränderungen (konkave ST-Hebungen in fast allen Ableitungen mit PQ-Streckensenkung) und ein neuer oder zunehmender Perikarderguss. Die Prognose der viralen Form ist gut; gefährlich wird die Perikarditis durch zwei Komplikationen: die Perikardtamponade (akut lebensbedrohliche Kompression des Herzens durch den Erguss) und die konstriktive Perikarditis (narbig-verkalkter Herzbeutel als Spätfolge). Bei Mitbeteiligung des Myokards mit Troponinanstieg spricht man von Perimyokarditis.',
+      aetiologie: 'In Westeuropa sind 80–90 % der Fälle idiopathisch bzw. viral (Coxsackie-, Echo-, Adeno-, Influenza-, Epstein-Barr-, Herpes- und Parvo-B19-Viren, HIV, SARS-CoV-2), meist ein bis zwei Wochen nach einem Atemwegs- oder gastrointestinalen Infekt. Weitere Ursachen, die man gezielt nach dem Kontext erfragt: nach Myokardinfarkt (früh innerhalb weniger Tage als Pericarditis epistenocardica, spät nach zwei bis acht Wochen als autoimmunes Dressler-Syndrom), nach Herzoperation oder Katheterintervention (Postkardiotomie-Syndrom), bei fortgeschrittener Niereninsuffizienz (urämische Perikarditis, auch unter Dialyse), bei Autoimmunerkrankungen (systemischer Lupus erythematodes, rheumatoide Arthritis, Sklerodermie, Vaskulitiden, rheumatisches Fieber), bei Tumoren mit Perikardbefall (Bronchial- und Mammakarzinom, Lymphome, Leukämien, Melanom), nach Thoraxbestrahlung, bakteriell (Staphylokokken, Pneumokokken — purulente Perikarditis, meist per continuitatem oder hämatogen), tuberkulös (weltweit häufigste Ursache; in Deutschland bei Herkunft aus Endemiegebieten oder unter Immunsuppression), medikamentös (Hydralazin, Procainamid, Isoniazid, Minoxidil, Checkpoint-Inhibitoren) sowie bei Hypothyreose (hier meist Erguss ohne ausgeprägte Entzündung) und nach Thoraxtrauma.',
+      risikofaktoren: [
+        'Vorangegangener viraler Atemwegs- oder Magen-Darm-Infekt in den letzten ein bis drei Wochen',
+        'Männliches Geschlecht und junges bis mittleres Lebensalter (Gipfel zwischen 20 und 50 Jahren)',
+        'Zustand nach Myokardinfarkt, Herzoperation, Ablation oder Schrittmacherimplantation',
+        'Fortgeschrittene Niereninsuffizienz und Dialysepflicht (Urämie)',
+        'Autoimmunerkrankungen: Lupus, rheumatoide Arthritis, Sklerodermie, familiäres Mittelmeerfieber',
+        'Bekannte Tumorerkrankung (Bronchial-, Mammakarzinom, Lymphom) oder frühere Thoraxbestrahlung',
+        'Immunsuppression, HIV-Infektion, Herkunft aus Tuberkulose-Endemiegebieten',
+        'Auslösende Medikamente (Hydralazin, Procainamid, Isoniazid, Checkpoint-Inhibitoren)',
+        'Frühere Perikarditis-Episode (Rezidivrisiko 15–30 %, nach dem ersten Rezidiv bis 50 %)',
+        'Unvollständige Colchicin-Einnahme oder frühe Glukokortikoidgabe beim Erstereignis (fördern Rezidive)',
+      ],
+      klinik: [
+        {
+          text: 'Stechender, scharfer retrosternaler oder linksthorakaler Schmerz, der sich meist über Stunden entwickelt — nicht schlagartig wie beim Infarkt oder der Dissektion',
+        },
+        {
+          text: 'Atemabhängigkeit: Verstärkung beim tiefen Einatmen, Husten und Schlucken (pleuritische Komponente)',
+        },
+        {
+          text: 'Lageabhängigkeit: Verstärkung im Liegen, Linderung im Sitzen und beim Vornüberbeugen — das klassische Unterscheidungsmerkmal zum Koronarsyndrom',
+        },
+        {
+          text: 'Ausstrahlung in den Trapeziusrand (über den Nervus phrenicus) — quasi pathognomonisch; seltener in Hals, Schulter oder Arm',
+        },
+        {
+          text: 'Perikardreiben: kratzendes, lederartiges, systolisch-diastolisches (bis dreiphasiges) Geräusch am linken unteren Sternalrand, am besten im Sitzen mit Vorneüberbeugen in Exspiration hörbar, flüchtig und wechselnd — deshalb wiederholt suchen',
+        },
+        {
+          text: 'Begleitsymptome: subfebrile Temperaturen bis mäßiges Fieber, Abgeschlagenheit, Myalgien, Herzklopfen, Tachykardie; Vorgeschichte eines grippalen oder gastrointestinalen Infekts',
+        },
+        {
+          text: 'Luftnot, Orthopnoe und Druckgefühl bei größerem Perikarderguss',
+        },
+        {
+          text: 'Perikardtamponade: Beck-Trias aus Hypotonie, gestauten Halsvenen und leisen Herztönen, dazu Tachykardie, Luftnot, Unruhe, Pulsus paradoxus (inspiratorischer Blutdruckabfall über 10 mmHg), Niedervoltage und elektrischer Alternans im EKG — Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Perimyokarditis mit Troponinanstieg, Rhythmusstörungen und eingeschränkter Pumpfunktion — engere Überwachung erforderlich',
+          atypisch: true,
+        },
+        {
+          text: 'Oligosymptomatischer Verlauf ohne typischen Schmerz bei urämischer, tumoröser oder tuberkulöser Perikarditis — hier steht der Erguss im Vordergrund',
+          atypisch: true,
+        },
+        {
+          text: 'Konstriktive Perikarditis (Panzerherz) als Spätfolge: Rechtsherzinsuffizienz mit Halsvenenstauung, Hepatomegalie, Aszites und Beinödemen, Kussmaul-Zeichen (inspiratorischer Anstieg des Jugularvenendrucks), perikardialer Knock, Leistungsminderung',
+          atypisch: true,
+        },
+        {
+          text: 'Rezidivierende Perikarditis: erneute Episode nach einem beschwerdefreien Intervall von mindestens vier bis sechs Wochen, meist innerhalb der ersten 18 Monate',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Diagnosekriterien der akuten Perikarditis (ESC 2015 — mindestens 2 von 4)',
+          inhalt: '1. Typischer perikarditischer Thoraxschmerz (stechend, atem- und lageabhängig, im Sitzen besser). 2. Perikardreiben in der Auskultation. 3. Neue, in fast allen Ableitungen sichtbare konkave ST-Hebungen und/oder PQ-Streckensenkung im EKG. 4. Neuer oder zunehmender Perikarderguss in der Echokardiographie. Unterstützend: CRP/BSG/Leukozyten erhöht, Entzündungsnachweis im Kardio-CT oder Kardio-MRT.',
+        },
+        {
+          name: 'Verlaufsformen nach Zeitkriterium',
+          inhalt: 'Akute Perikarditis: Erstepisode, Dauer unter vier bis sechs Wochen. Inzessante (anhaltende) Perikarditis: Beschwerden über vier bis sechs Wochen, aber unter drei Monate ohne Remission. Rezidivierende Perikarditis: erneute Episode nach beschwerdefreiem Intervall von mindestens vier bis sechs Wochen (15–30 % nach dem Erstereignis). Chronische Perikarditis: Dauer über drei Monate. Konstriktive Perikarditis: narbig-verkalkte Spätform mit diastolischer Füllungsbehinderung.',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Infektiös: viral (häufigste Form in Europa), bakteriell/purulent, tuberkulös (weltweit häufigste Form), selten Pilze und Parasiten. Nicht infektiös: idiopathisch, autoimmun (Lupus, rheumatoide Arthritis, Sklerodermie, rheumatisches Fieber), postkardiale Verletzungssyndrome (Pericarditis epistenocardica, Dressler-Syndrom, Postkardiotomie-Syndrom), neoplastisch (Bronchial-, Mammakarzinom, Lymphom, Metastasen), metabolisch (Urämie, Hypothyreose), traumatisch und iatrogen (Bestrahlung, Katheterintervention), medikamentös.',
+        },
+        {
+          name: 'EKG-Stadien nach Spodick',
+          inhalt: 'Stadium I (erste Tage): konkave (sattelförmige) ST-Hebungen in fast allen Ableitungen mit PQ-Streckensenkung, in aVR spiegelbildlich ST-Senkung und PQ-Hebung. Stadium II (nach etwa einer Woche): Rückbildung der ST-Hebungen, T-Abflachung. Stadium III (Wochen 2–3): terminale T-Negativierung in den Ableitungen mit vorheriger ST-Hebung. Stadium IV (Wochen bis Monate): Normalisierung. Cave: nur etwa 60 % der Patienten durchlaufen alle Stadien lehrbuchmäßig.',
+        },
+        {
+          name: 'Risikostratifizierung (ESC 2015 — Indikation zur stationären Aufnahme)',
+          inhalt: 'Hauptkriterien: Fieber über 38 °C, subakuter Beginn über Tage bis Wochen, großer Perikarderguss (über 20 mm enddiastolisch), Tamponade, fehlendes Ansprechen auf NSAR nach einer Woche. Nebenkriterien: Myokardbeteiligung (Perimyokarditis), Immunsuppression, Trauma, orale Antikoagulation. Bei mindestens einem Kriterium: stationäre Aufnahme und Ursachensuche; sonst ambulante Therapie mit Kontrolle nach einer Woche.',
+        },
+        {
+          name: 'Beck-Trias der Perikardtamponade',
+          inhalt: '1. Arterielle Hypotonie. 2. Gestaute Halsvenen (erhöhter Jugularvenendruck). 3. Leise, abgeschwächte Herztöne. Ergänzend: Tachykardie, Pulsus paradoxus (inspiratorischer Abfall des systolischen Blutdrucks um mehr als 10 mmHg), Niedervoltage und elektrischer Alternans im EKG, echokardiographisch diastolischer Kollaps des rechten Vorhofs und Ventrikels.',
+        },
+      ],
+      redFlags: [
+        'Hypotonie, gestaute Halsvenen und leise Herztöne (Beck-Trias), Tachykardie und Pulsus paradoxus über 10 mmHg → Perikardtamponade, sofortige Echokardiographie und Perikardpunktion',
+        'Zunehmende Luftnot, Orthopnoe, Schwindel, Schwäche, Unruhe oder Synkope bei bekanntem Erguss → drohende Tamponade',
+        'Großer Perikarderguss über 20 mm oder diastolischer Kollaps des rechten Vorhofs/Ventrikels in der Echokardiographie',
+        'Fieber über 38 °C, Schüttelfrost, septischer Verlauf → purulente (bakterielle) Perikarditis, drainagepflichtig',
+        'Troponinanstieg, neue Herzrhythmusstörungen oder eingeschränkte Pumpfunktion → Perimyokarditis, Monitorüberwachung',
+        'Regional begrenzte konvexe ST-Hebungen mit spiegelbildlichen Senkungen oder Troponindynamik → akutes Koronarsyndrom nicht übersehen',
+        'Schlagartiger, reißender Schmerz mit Blutdruckdifferenz zwischen den Armen → Aortendissektion (Perikarderguss durch Einblutung!), keine Antikoagulation',
+        'Fehlendes Ansprechen auf NSAR nach einer Woche, subakuter Beginn, Immunsuppression, orale Antikoagulation → Hochrisikokonstellation, stationäre Abklärung',
+        'Rechtsherzinsuffizienz mit Aszites, Ödemen und Kussmaul-Zeichen Monate nach der Episode → konstriktive Perikarditis',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerzanamnese in den drei Abhängigkeiten: Charakter (stechend, scharf), Atemabhängigkeit (tiefes Einatmen, Husten), Lageabhängigkeit (Liegen schlechter, Sitzen und Vornüberbeugen besser), Ausstrahlung in den Trapeziusrand, Beginn über Stunden statt schlagartig; Abgrenzung zum belastungsabhängigen Angina-pectoris-Schmerz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ursachensuche nach dem Kontext: vorangegangener Atemwegs- oder Magen-Darm-Infekt, Myokardinfarkt oder Herzoperation in den letzten Wochen, Niereninsuffizienz, Autoimmun- oder Tumorerkrankung, Bestrahlung, Medikamente, Tuberkuloseexposition oder Herkunft aus Endemiegebieten, Immunsuppression, frühere Perikarditis-Episoden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Auskultation im Sitzen mit Vornüberbeugen in Exspiration am linken unteren Sternalrand (Perikardreiben — flüchtig, wiederholt suchen), Herztöne (leise bei Erguss), Blutdruck an beiden Armen und Messung des Pulsus paradoxus, Puls, Temperatur, Halsvenenfüllung, Zeichen der Rechtsherzinsuffizienz (Ödeme, Hepatomegalie, Aszites), Lungenauskultation, Suche nach Tumorzeichen und Lymphknoten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: CRP (auch als Verlaufsparameter für die Therapiedauer), BSG, Blutbild mit Differenzialblutbild (Leukozytose bei viraler, deutliche Neutrophilie bei bakterieller Genese)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Herzenzyme: Troponin T/I und CK/CK-MB — erhöht nur bei Myokardbeteiligung (Perimyokarditis), dann engmaschigere Überwachung; im Gegensatz zum Infarkt ohne typische Anstiegs-Abfall-Dynamik; NT-proBNP bei Herzinsuffizienzzeichen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kreatinin, Harnstoff und eGFR (urämische Genese, NSAR- und Colchicin-Dosierung), Elektrolyte, Leberwerte, TSH (Hypothyreose als Ergussursache), Gerinnung vor Punktion',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nur gezielt bei Verdacht oder Hochrisikokonstellation: antinukleäre Antikörper, Rheumafaktor, ANCA, Komplement (Autoimmungenese); Interferon-Gamma-Test bzw. Tuberkulintest und Sputumdiagnostik (Tuberkulose); HIV-Serologie; Tumormarker; Blutkulturen bei Fieber über 38 °C. Eine breite virologische Serologie ist beim jungen Patienten mit typischem Bild NICHT nötig, weil sie die Therapie nicht ändert',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG als Schlüsseluntersuchung: konkave, sattelförmige ST-Hebungen in fast allen Ableitungen ohne Zuordnung zu einem Versorgungsgebiet, ohne spiegelbildliche Senkungen (Ausnahme aVR und V1), PQ-Streckensenkung; im Verlauf T-Negativierung (Stadien nach Spodick); bei Erguss Niedervoltage, bei Tamponade elektrischer Alternans; Sinustachykardie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie OBLIGAT bei jedem Verdacht: Nachweis und Quantifizierung des Perikardergusses (klein unter 10 mm, mittel 10–20 mm, groß über 20 mm), Tamponadezeichen (diastolischer Kollaps des rechten Vorhofs und Ventrikels, atemvariable Flussprofile über Mitral- und Trikuspidalklappe, gestaute Vena cava inferior ohne Atemvariabilität), Beurteilung der Pumpfunktion und regionaler Wandbewegungsstörungen (Myokarditis, Infarkt), Perikardverdickung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax: bei großem Erguss (über 300 ml) Bocksbeutel- bzw. Zeltform des Herzschattens ohne Lungenstauung; Ausschluss von Pneumonie, Pneumothorax, Pleuraerguss und Tumor',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kardio-MRT bei Verdacht auf Myokardbeteiligung, bei unklarem oder rezidivierendem Verlauf und bei Verdacht auf Konstriktion: Perikardverdickung, Late-Gadolinium-Enhancement des Perikards als Entzündungszeichen, Ödem im Myokard; Kardio-CT bei Perikardverkalkungen (Konstriktion), Tumorsuche und vor Perikardektomie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Perikardpunktion (Perikardiozentese) unter echokardiographischer oder Durchleuchtungskontrolle, meist subxiphoidal, mit Drainage: therapeutisch bei Tamponade, diagnostisch bei Verdacht auf bakterielle, tuberkulöse oder maligne Genese sowie bei großem, persistierendem symptomatischem Erguss. Analyse des Punktats: Zellzahl und Zytologie, Eiweiß und LDH, Gramfärbung und Kultur, Tuberkulose-PCR, Adenosindesaminase, ggf. Tumormarker',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Perikardbiopsie bzw. Perikardioskopie nur bei unklarer, persistierender oder rezidivierender Erkrankung mit Verdacht auf Tumor oder Tuberkulose; Rechtsherzkatheter zur Abgrenzung der konstriktiven Perikarditis von der restriktiven Kardiomyopathie (Dip-Plateau-Phänomen, Angleichung der enddiastolischen Drücke); Koronarangiographie nur, wenn ein akutes Koronarsyndrom nicht sicher auszuschließen ist',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Regel: Beim jungen Patienten mit typischem Bild, niedrigem Risiko und Ansprechen auf NSAR genügt die Basisdiagnostik aus Anamnese, Untersuchung, EKG, Labor und Echokardiographie — eine breite Ursachensuche ist nicht nötig; sie ist Hochrisikopatienten und therapieresistenten Verläufen vorbehalten',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akutes Koronarsyndrom (STEMI, NSTEMI, instabile Angina)',
+          unterscheidung: 'Die entscheidende Abgrenzung: höheres Alter und kardiovaskuläres Risikoprofil, dumpf-drückender, belastungsabhängiger Schmerz mit Ausstrahlung in linken Arm, Unterkiefer oder Oberbauch, nicht atem- oder lageabhängig, Kaltschweißigkeit, Vernichtungsgefühl. EKG: konvexe, regional auf ein Versorgungsgebiet begrenzte ST-Hebungen MIT spiegelbildlichen Senkungen, keine PQ-Senkung. Troponin mit typischer Anstiegs-Abfall-Dynamik. Im Zweifel Koronarangiographie.',
+        },
+        {
+          dd: 'Myokarditis / Perimyokarditis',
+          unterscheidung: 'Gleicher viraler Kontext; führend sind Troponinanstieg, Rhythmusstörungen, Herzinsuffizienzzeichen und eingeschränkte Pumpfunktion mit Wandbewegungsstörungen im Echo; Nachweis im Kardio-MRT (Ödem, Late Enhancement des Myokards). Bei Troponinerhöhung liegt definitionsgemäß eine Perimyokarditis vor — engere Überwachung, strengere Sportkarenz.',
+        },
+        {
+          dd: 'Aortendissektion',
+          unterscheidung: 'Schlagartiger, reißender, wandernder Schmerz mit Maximum sofort zu Beginn, Ausstrahlung in den Rücken, Blutdruckdifferenz zwischen den Armen über 20 mmHg, Pulsdefizit, neues Aorteninsuffizienzgeräusch, Hypertonie- oder Marfan-Anamnese; ein hämorrhagischer Perikarderguss kann Folge der Dissektion sein. Nachweis im Angio-CT; keine Antikoagulation vor Ausschluss.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Ebenfalls atemabhängiger Schmerz, aber mit akuter Luftnot, Tachykardie, Hypoxämie, Hämoptysen, Immobilisation oder Thrombosezeichen am Bein; nicht lageabhängig; D-Dimere erhöht, Rechtsherzbelastung im EKG (S1Q3-Typ) und Echo, Nachweis im CT-Pulmonalisangiogramm.',
+        },
+        {
+          dd: 'Pleuritis / Pneumonie / Pneumothorax',
+          unterscheidung: 'Pleuritis: atemabhängiger Schmerz mit Pleurareiben, das im Gegensatz zum Perikardreiben beim Atemanhalten verschwindet; Pneumonie mit Husten, Auswurf, Fieber, Rasselgeräuschen und Infiltrat im Röntgen; Pneumothorax mit plötzlichem einseitigem Stechen, abgeschwächtem Atemgeräusch und hypersonorem Klopfschall, Nachweis im Röntgen.',
+        },
+        {
+          dd: 'Refluxkrankheit und Ösophagusspasmus',
+          unterscheidung: 'Brennender retrosternaler Schmerz, nahrungsabhängig, im Liegen und nach dem Essen schlechter (Cave: Überschneidung der Lageabhängigkeit), saures Aufstoßen, Ansprechen auf Protonenpumpenhemmer; Ösophagusspasmus nitropositiv; kein Fieber, normales EKG und CRP.',
+        },
+        {
+          dd: 'Muskuloskelettaler Thoraxschmerz und Tietze-Syndrom',
+          unterscheidung: 'Bewegungs- und druckschmerzhaft, reproduzierbar durch Palpation der Rippen-Knorpel-Grenzen, Schwellung beim Tietze-Syndrom, häufig nach Belastung oder Husten; keine Entzündungszeichen, normales EKG und Echo.',
+        },
+        {
+          dd: 'Herpes zoster (thorakal)',
+          unterscheidung: 'Brennender, streng einseitiger, dermatombezogener Schmerz, der den Hauteffloreszenzen um Tage vorausgehen kann; gruppierte Bläschen auf gerötetem Grund; Hautinspektion!',
+        },
+        {
+          dd: 'Panikstörung / funktionelle Thoraxschmerzen',
+          unterscheidung: 'Anfallsartige Beschwerden mit Todesangst, Herzrasen, Hyperventilation und Parästhesien, Dauer unter 30 Minuten, situative Auslöser; keine Atem- oder Lageabhängigkeit, kein Fieber, unauffällige EKG-, Troponin- und Echobefunde; Ausschlussdiagnose.',
+        },
+        {
+          dd: 'Perikarderguss ohne Entzündung (Hypothyreose, Herzinsuffizienz, Niereninsuffizienz)',
+          unterscheidung: 'Schleichend entstehender Erguss ohne typischen Schmerz, ohne Reiben und ohne ST-Hebungen; TSH erhöht bei Hypothyreose, Kreatinin und Harnstoff bei Urämie, Stauungszeichen bei Herzinsuffizienz. Behandlung der Grunderkrankung.',
+        },
+        {
+          dd: 'Tumorbedingter Perikarderguss (Perikardkarzinose)',
+          unterscheidung: 'Bekanntes Bronchial- oder Mammakarzinom, Lymphom; schleichende Luftnot, Gewichtsverlust, Nachtschweiß, oft hämorrhagischer und rasch nachlaufender Erguss mit Tamponadegefahr; Zytologie des Punktats, CT-Staging.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notfallbehandlung der Perikardtamponade',
+          items: [
+            'Sofortige Perikardpunktion (Perikardiozentese) unter echokardiographischer oder Durchleuchtungskontrolle, meist subxiphoidal, mit Anlage einer Drainage — die einzige kausale Behandlung der Tamponade; bereits die Entlastung von 50–100 ml bessert die Hämodynamik deutlich',
+            'Volumengabe (kristalloide Infusion) zur Überbrückung bis zur Punktion, um die Vorlast und damit die Füllung zu erhalten; bei Kreislaufversagen zurückhaltend Katecholamine',
+            'KEINE Diuretika und KEINE Vasodilatatoren (auch kein Nitrospray) bei Tamponade, weil sie die Vorlast und damit die ohnehin behinderte Füllung weiter vermindern; keine Überdruckbeatmung, wenn vermeidbar',
+            'Chirurgische Perikardfensterung oder subxiphoidale Drainage bei Rezidiv des Ergusses, gekammertem oder eitrigem Erguss, hämorrhagischem Erguss nach Trauma, Dissektion oder Ventrikelruptur — hier sofortige Herzchirurgie statt Punktion',
+            'Intensivmedizinische Überwachung mit Monitor, Verlaufsechokardiographie und Kontrolle der Drainagemenge; Analyse des Punktats (Zytologie, Kultur, Tuberkulose-PCR) zur Ursachenklärung',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Entzündungshemmende Basistherapie der unkomplizierten Perikarditis',
+          items: [
+            'Hochdosiertes NSAR als Erstlinie: Ibuprofen 600 mg dreimal täglich (bis 800 mg dreimal täglich) oder Acetylsalicylsäure 750–1000 mg dreimal täglich — ASS bevorzugt nach Herzinfarkt, weil Ibuprofen die Narbenbildung stört und die Thrombozytenhemmung von ASS aufhebt — über ein bis zwei Wochen bis zur Beschwerdefreiheit und CRP-Normalisierung, anschließend Ausschleichen über zwei bis vier Wochen nach dem CRP-Verlauf; immer mit Magenschutz durch einen Protonenpumpenhemmer',
+            'Colchicin obligat dazu, als heutiger Standard bereits beim Erstereignis: 0,5 mg zweimal täglich (bei Körpergewicht unter 70 kg 0,5 mg einmal täglich) über DREI MONATE ohne Aufsättigungsdosis — halbiert die Rezidivrate und beschleunigt die Symptomkontrolle; Dosisreduktion bei Niereninsuffizienz, typische Nebenwirkung Diarrhoe, Interaktionen mit CYP3A4- und P-Glykoprotein-Hemmern (Clarithromycin, Verapamil, Ciclosporin) beachten',
+            'Körperliche Schonung und Sportverbot bis zur Beschwerdefreiheit und Normalisierung von CRP, EKG und Echokardiographie; bei Leistungssportlern und bei Myokardbeteiligung mindestens drei Monate (nach Perimyokarditis bis sechs Monate) mit Freigabe erst nach Kontrolluntersuchung',
+            'Glukokortikoide ausdrücklich NICHT als Erstlinie, weil sie Rezidive und Chronifizierung begünstigen — nur bei Kontraindikation oder Versagen von NSAR, gesicherter Autoimmungenese, Schwangerschaft oder relevanter Niereninsuffizienz; dann niedrig dosiert (Prednison 0,2–0,5 mg/kg täglich) über zwei bis vier Wochen mit sehr langsamem Ausschleichen und stets in Kombination mit Colchicin',
+            'Stationäre Aufnahme bei mindestens einem Hochrisikokriterium (Fieber über 38 °C, subakuter Beginn, Erguss über 20 mm, Tamponade, NSAR-Versagen nach einer Woche, Perimyokarditis, Immunsuppression, Trauma, orale Antikoagulation); sonst ambulante Behandlung mit Kontrolle nach einer Woche',
+            'Bei Perimyokarditis Monitorüberwachung, keine hochdosierten NSAR bei eingeschränkter Pumpfunktion, Herzinsuffizienztherapie nach Bedarf',
+          ],
+        },
+        {
+          label: 'Behandlung der Ursache und der Sonderformen',
+          items: [
+            'Bakterielle (purulente) Perikarditis: intravenöse Antibiotika nach Erreger und Antibiogramm über mindestens zwei bis vier Wochen plus chirurgische Drainage oder Perikardfensterung, ggf. intraperikardiale Fibrinolyse; hohe Letalität ohne Drainage',
+            'Tuberkulöse Perikarditis: tuberkulostatische Vierfachtherapie (Isoniazid, Rifampicin, Pyrazinamid, Ethambutol) über mindestens sechs Monate; frühe Perikardektomie bei Entwicklung einer Konstriktion',
+            'Urämische Perikarditis: Beginn bzw. Intensivierung der Dialyse (heparinarm wegen Blutungsgefahr in den Herzbeutel), Perikarddrainage bei großem Erguss; NSAR hier nur eingeschränkt wirksam',
+            'Autoimmun- und Tumorperikarditis: Behandlung der Grunderkrankung (Immunsuppression bei Lupus und rheumatoider Arthritis; systemische Tumortherapie, intraperikardiale Zytostatika oder Perikardfensterung bei malignem Erguss); postkardiale Verletzungssyndrome (Dressler, Postkardiotomie) mit ASS und Colchicin',
+            'Medikamentös ausgelöste Perikarditis: Absetzen des auslösenden Medikaments (Hydralazin, Procainamid, Isoniazid, Checkpoint-Inhibitoren); bei Hypothyreose Substitution mit Levothyroxin',
+            'Rezidivierende Perikarditis: erneut NSAR in voller Dosis und Colchicin über mindestens SECHS Monate; bei Therapieresistenz niedrig dosierte Glukokortikoide, Immunsuppression mit Azathioprin, intravenöse Immunglobuline oder der Interleukin-1-Blocker Anakinra (bzw. Rilonacept) bei kortisonabhängigem, colchicinresistentem Verlauf; Perikardektomie als letzte Option',
+            'Konstriktive Perikarditis: die Perikardektomie (chirurgische Entfernung des verdickten Herzbeutels) ist die einzige wirksame Behandlung; medikamentös nur überbrückend Diuretika; bei frischer entzündlicher Konstriktion Versuch einer antiinflammatorischen Therapie über zwei bis drei Monate',
+          ],
+        },
+        {
+          label: 'Verlaufskontrolle, Nachsorge und Aufklärung',
+          items: [
+            'Kontrolle von Klinik, CRP, EKG und Echokardiographie nach ein bis zwei Wochen, danach bei Beschwerdefreiheit und CRP-Normalisierung erneut nach einem und drei Monaten; Steuerung des NSAR-Ausschleichens nach dem CRP',
+            'Überwachung auf Rezidiv, zunehmenden Erguss und Konstriktion; engmaschiger und mit Kardio-MRT bei Troponinerhöhung, großem Erguss, Hochrisikokriterien oder fehlendem Ansprechen',
+            'Aufklärung über die gute Prognose der viralen bzw. idiopathischen Perikarditis: meist vollständige Ausheilung innerhalb weniger Wochen, Tamponade und Konstriktion sind bei dieser Form selten (unter 1–2 %)',
+            'Aufklärung über die Bedeutung der vollständigen Colchicin-Einnahme über drei Monate trotz rascher Beschwerdefreiheit (Rezidivschutz) und über NSAR-Nebenwirkungen (Magen, Niere) mit Einnahme des Magenschutzes',
+            'Warnzeichen der Tamponade erklären, die eine sofortige Vorstellung erfordern: zunehmende Luftnot, Luftnot im Liegen, Schwindel, Schwäche, Herzrasen, Ohnmachtsneigung; ebenso Wiederauftreten des Schmerzes oder Fieber',
+            'Arbeitsunfähigkeit für die Dauer der Beschwerden, Wiederaufnahme von Arbeit und Sport erst nach ärztlicher Freigabe; Rauchstopp und Behandlung kardiovaskulärer Risikofaktoren; Impfschutz (Influenza) empfehlen',
+          ],
+        },
+      ],
+      prognose: 'Die virale und idiopathische Perikarditis heilt in 70–90 % der Fälle innerhalb weniger Wochen folgenlos aus; die Sterblichkeit ist sehr gering. Rezidive treten in 15–30 % auf, nach dem ersten Rezidiv in bis zu 50 % — durch Colchicin wird dieses Risiko etwa halbiert. Eine Tamponade entwickeln unter 3 % der viralen Fälle, eine konstriktive Perikarditis unter 1 %; beide Komplikationen sind dagegen häufig bei bakterieller (Konstriktion 20–30 %) und tuberkulöser Genese (bis 50 %) sowie bei Tumoren. Die Perimyokarditis hat bei erhaltener Pumpfunktion ebenfalls eine gute Prognose. Ungünstig sind die purulente Perikarditis ohne Drainage (Letalität bis 40 %) und der maligne Perikarderguss, der das fortgeschrittene Tumorstadium anzeigt. Die konstriktive Perikarditis ist nur durch die Perikardektomie zu bessern, mit einer operativen Letalität von 5–10 %.',
+      pruefungsfallen: [
+        'Die Perikarditis von einem Infarkt trennen — das ist die Kernfrage: stechend statt drückend, atem- und lageabhängig statt belastungsabhängig, Trapeziusrand statt linker Arm; im EKG KONKAVE ST-Hebungen in fast ALLEN Ableitungen OHNE spiegelbildliche Senkungen und MIT PQ-Streckensenkung, beim Infarkt KONVEXE, regional begrenzte Hebungen MIT reziproken Senkungen.',
+        'Die Diagnosekriterien kennen: mindestens 2 von 4 (typischer Schmerz, Perikardreiben, EKG-Veränderungen, neuer oder zunehmender Erguss). Nur einen Befund zu nennen genügt nicht.',
+        'Das Perikardreiben wird im SITZEN mit Vornüberbeugen in EXSPIRATION am linken unteren Sternalrand gesucht — es ist flüchtig; einmal nichts zu hören schließt nichts aus. Abgrenzung zum Pleurareiben: das Perikardreiben bleibt beim Atemanhalten bestehen.',
+        'Die Therapie heißt NSAR PLUS Colchicin, nicht NSAR allein: Colchicin 0,5 mg ein- bis zweimal täglich über drei Monate ist heute obligat, weil es die Rezidivrate halbiert. Beim Rezidiv sechs Monate.',
+        'Kortison ist KEINE Erstlinie — es fördert Rezidive. Wer bei einer viralen Perikarditis Prednisolon als erstes nennt, wird korrigiert. Ausnahmen: NSAR-Kontraindikation, Autoimmungenese, Schwangerschaft, Niereninsuffizienz.',
+        'Nach Herzinfarkt ASS statt Ibuprofen wählen: Ibuprofen stört die Narbenbildung und hebt die Thrombozytenhemmung von ASS auf.',
+        'Bei der Tamponade KEINE Diuretika und KEINE Nitrate: Sie senken die Vorlast und können den Kreislauf zum Erliegen bringen. Richtig sind Volumen und die sofortige Perikardpunktion.',
+        'Die Beck-Trias vollständig aufzählen: Hypotonie, gestaute Halsvenen, leise Herztöne — dazu den Pulsus paradoxus (inspiratorischer Blutdruckabfall über 10 mmHg) erklären können.',
+        'Die Echokardiographie ist bei JEDEM Verdacht obligat, auch bei unauffälligem EKG — sie beantwortet die Frage nach Erguss, Tamponade und Pumpfunktion.',
+        'Troponin bestimmen und richtig einordnen: erhöht heißt Perimyokarditis, nicht automatisch Infarkt — aber bei Erhöhung engere Überwachung und längere Sportkarenz.',
+        'Sportverbot nicht vergessen: bis zur Beschwerdefreiheit und Normalisierung von CRP, EKG und Echo; bei Sportlern mindestens drei Monate.',
+        'Beim jungen Patienten mit typischem Bild keine breite Ursachensuche (Virusserologien, Autoantikörper, Tumormarker) — das ist Hochrisikopatienten vorbehalten. Prüfer honorieren die Begründung.',
+        'Dem Patienten „Perikarditis“ als Herzbeutelentzündung erklären (Karlsruhe-Fachbegriff), das Perikard als Herzbeutel, den Erguss als Flüssigkeitsansammlung im Herzbeutel, die Tamponade als Einengung des Herzens durch die Flüssigkeit.',
+        'Die Verdachtsdiagnose dem Patienten schon im Anamnesegespräch nennen — „Ich untersuche Sie erst und sage es Ihnen dann“ wurde in Karlsruhe ausdrücklich als Fehler gewertet.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine akute, am ehesten virale Perikarditis. Dafür sprechen der stechende retrosternale Schmerz mit den drei typischen Abhängigkeiten — schlechter beim tiefen Einatmen, schlechter im Liegen, besser im Sitzen und beim Vornüberbeugen —, die Ausstrahlung in den Trapeziusrand, der langsame Beginn über Stunden, das leichte Fieber und der grippale Infekt etwa zehn Tage zuvor bei einem jungen Patienten ohne kardiovaskuläres Risikoprofil.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff Perikarditis?',
+          antwort: 'Als Herzbeutelentzündung: Das Herz liegt in einer dünnen Hülle, dem Herzbeutel. Wenn diese Hülle sich entzündet — meist nach einer Virusinfektion —, reiben die beiden Blätter aneinander, das verursacht den stechenden Schmerz. Manchmal sammelt sich Flüssigkeit im Herzbeutel, das nennen wir Perikarderguss.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Perikarditis im EKG vom Herzinfarkt?',
+          antwort: 'Bei der Perikarditis sind die ST-Hebungen konkav, also sattelförmig, sie finden sich in fast allen Ableitungen ohne Zuordnung zu einem Koronarversorgungsgebiet, es gibt keine spiegelbildlichen Senkungen — außer in aVR und V1 —, und typisch ist die PQ-Streckensenkung. Beim Infarkt sind die Hebungen konvex, regional auf ein Versorgungsgebiet begrenzt und von reziproken ST-Senkungen begleitet; die PQ-Strecke ist normal.',
+        },
+        {
+          frage: 'Welche Diagnosekriterien gibt es, und wie viele müssen erfüllt sein?',
+          antwort: 'Vier Kriterien, von denen zwei erfüllt sein müssen: der typische perikarditische Thoraxschmerz, das Perikardreiben, die typischen EKG-Veränderungen mit diffusen ST-Hebungen oder PQ-Senkung und ein neuer oder zunehmender Perikarderguss in der Echokardiographie. Erhöhte Entzündungswerte und ein Entzündungsnachweis im MRT stützen die Diagnose.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und welche müssen Sie zuerst ausschließen?',
+          antwort: 'Zuerst das akute Koronarsyndrom über EKG und Troponinverlauf, dann die Aortendissektion und die Lungenembolie als lebensbedrohliche Ursachen. Weitere Differenzialdiagnosen sind die Myokarditis, Pleuritis, Pneumonie und Pneumothorax, die Refluxkrankheit, muskuloskelettale Schmerzen und das Tietze-Syndrom, ein Herpes zoster und eine Panikstörung.',
+        },
+        {
+          frage: 'Was hören Sie bei der Auskultation, und wie untersuchen Sie das?',
+          antwort: 'Das Perikardreiben — ein kratzendes, lederartiges, systolisch-diastolisches Geräusch, am besten hörbar im Sitzen mit Vornüberbeugen in Exspiration am linken unteren Sternalrand. Es ist flüchtig, deshalb wiederholt auskultieren. Im Gegensatz zum Pleurareiben verschwindet es beim Atemanhalten nicht.',
+        },
+        {
+          frage: 'Welche Untersuchung ist obligat, und warum?',
+          antwort: 'Die Echokardiographie — bei jedem Verdacht auf Perikarditis. Sie weist den Perikarderguss nach und quantifiziert ihn, erkennt Tamponadezeichen wie den diastolischen Kollaps des rechten Vorhofs und Ventrikels und beurteilt die Pumpfunktion, also eine Myokardbeteiligung.',
+        },
+        {
+          frage: 'Wozu bestimmen Sie das Troponin bei einer Perikarditis?',
+          antwort: 'Um eine Myokardbeteiligung zu erkennen. Ein erhöhtes Troponin bedeutet Perimyokarditis — dann ist eine engmaschigere Überwachung wegen Rhythmusstörungen nötig, die Sportkarenz länger und ein Kardio-MRT sinnvoll. Anders als beim Infarkt fehlt die typische Anstiegs-Abfall-Dynamik.',
+        },
+        {
+          frage: 'Wie behandeln Sie die unkomplizierte Perikarditis?',
+          antwort: 'Mit einem hochdosierten NSAR, zum Beispiel Ibuprofen 600 mg dreimal täglich über ein bis zwei Wochen mit anschließendem Ausschleichen nach dem CRP, unter Magenschutz mit einem Protonenpumpenhemmer — und obligat dazu Colchicin 0,5 mg ein- bis zweimal täglich über drei Monate, weil es die Rezidivrate halbiert. Dazu körperliche Schonung und Sportverbot bis zur Normalisierung von Beschwerden, CRP, EKG und Echo.',
+        },
+        {
+          frage: 'Warum geben Sie kein Kortison?',
+          antwort: 'Weil Glukokortikoide bei der viralen Perikarditis Rezidive und eine Chronifizierung begünstigen. Sie sind nur zweite Wahl bei Kontraindikationen gegen NSAR, bei Autoimmungenese, in der Schwangerschaft oder bei Niereninsuffizienz — dann niedrig dosiert, langsam ausgeschlichen und mit Colchicin kombiniert.',
+        },
+        {
+          frage: 'Welche Komplikationen fürchten Sie, und wie erkennen Sie sie?',
+          antwort: 'Die Perikardtamponade — erkennbar an der Beck-Trias aus Hypotonie, gestauten Halsvenen und leisen Herztönen, dazu Tachykardie, Luftnot, ein Pulsus paradoxus mit inspiratorischem Blutdruckabfall über 10 mmHg, Niedervoltage und elektrischer Alternans im EKG, echokardiographisch der diastolische Kollaps des rechten Herzens. Und als Spätfolge die konstriktive Perikarditis mit Rechtsherzinsuffizienz, Aszites und Kussmaul-Zeichen. Außerdem das Rezidiv in 15 bis 30 Prozent.',
+        },
+        {
+          frage: 'Was machen Sie bei einer Tamponade?',
+          antwort: 'Sofortige Perikardpunktion unter Echokontrolle mit Drainage, bis dahin Volumengabe zur Aufrechterhaltung der Füllung. Ausdrücklich keine Diuretika und keine Vasodilatatoren, weil sie die Vorlast senken. Bei gekammertem, eitrigem oder hämorrhagischem Erguss nach Dissektion oder Trauma die chirurgische Perikardfensterung beziehungsweise Operation.',
+        },
+        {
+          frage: 'Welche Herzkomplikationen kann das rheumatische Fieber haben?',
+          antwort: 'Eine Pankarditis mit Perikarditis, Myokarditis und Endokarditis — die Endokarditis führt zu den späteren Klappenvitien, besonders der Mitralstenose. Die Diagnose stützt sich auf die Jones-Kriterien mit erhöhtem Antistreptolysin-Titer; die Therapie besteht aus Penicillin, Antiphlogistika und einer Penicillinprophylaxe über Jahre.',
+        },
+        {
+          frage: 'Muss der Patient stationär aufgenommen werden?',
+          antwort: 'Nur bei einem Hochrisikokriterium: Fieber über 38 Grad, subakuter Beginn, Erguss über 20 Millimeter, Tamponade, fehlendes Ansprechen auf NSAR nach einer Woche, Myokardbeteiligung, Immunsuppression, Trauma oder orale Antikoagulation. Ein junger Patient mit typischem Bild, kleinem Erguss und normalem Troponin kann ambulant behandelt und nach einer Woche kontrolliert werden.',
+        },
+        {
+          frage: 'Wann darf der Patient wieder Sport treiben?',
+          antwort: 'Erst nach Beschwerdefreiheit und Normalisierung von CRP, EKG und Echokardiographie, bei Freizeitsportlern meist nach vier bis sechs Wochen; bei Leistungssportlern und bei Myokardbeteiligung mindestens drei Monate, nach Perimyokarditis bis zu sechs Monate — jeweils erst nach ärztlicher Kontrolle und Freigabe.',
+        },
+      ],
+      merksatz: 'Stechend, atem- und lageabhängig, im Sitzen besser, in den Trapeziusrand — dazu Reiben, diffuse konkave ST-Hebungen mit PQ-Senkung und Erguss im Echo: zwei von vier Kriterien machen die Perikarditis. Therapie NSAR PLUS Colchicin drei Monate, Kortison nur zweite Wahl; bei Beck-Trias und Pulsus paradoxus sofort punktieren — Volumen ja, Diuretika und Nitrate nein.',
+      linkedCaseIds: [
+        'case-perikarditis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-epilepsie',
+      pathology: 'Epilepsie (erster generalisierter Krampfanfall)',
+      specialty: 'Neurologie',
+      definition: 'Ein epileptischer Anfall ist die vorübergehende klinische Manifestation einer abnorm exzessiven, synchronen neuronalen Entladung der Hirnrinde. Die Epilepsie ist dagegen die dauerhafte Neigung des Gehirns, unprovozierte Anfälle zu erzeugen. Nach der ILAE-Definition (2014) liegt eine Epilepsie vor bei (1) mindestens zwei unprovozierten Anfällen im Abstand von mehr als 24 Stunden, (2) einem unprovozierten Anfall mit einem Rezidivrisiko von mindestens 60 % in den nächsten zehn Jahren (z. B. epileptiforme EEG-Veränderungen, strukturelle Läsion im MRT) oder (3) der Diagnose eines Epilepsiesyndroms. Ein einzelner akut symptomatischer (provozierter) Anfall — durch Alkoholentzug, Schlafentzug, Hypoglykämie, Elektrolytstörung, Medikamente, Fieber, Schlaganfall oder Trauma — ist KEINE Epilepsie und wird nicht dauerhaft antikonvulsiv behandelt. Der Status epilepticus ist ein Anfall von über fünf Minuten Dauer (generalisiert tonisch-klonisch) oder eine Anfallsserie ohne Wiedererlangen des Bewusstseins.',
+      aetiologie: 'Nach der ILAE-Ätiologie (2017): strukturell (Hippokampussklerose, kortikale Dysplasie, Tumor, Narbe nach Schädel-Hirn-Trauma oder Schlaganfall, Gefäßmalformation), genetisch (z. B. juvenile myoklonische Epilepsie, Absence-Epilepsie des Kindesalters), infektiös (Meningitis, Enzephalitis, Neurozystizerkose), metabolisch, immunvermittelt (Autoimmunenzephalitis, z. B. Anti-NMDA-Rezeptor-Enzephalitis) und unbekannt. Beim ersten Anfall des jungen Erwachsenen steht die Abgrenzung des provozierten Anfalls im Vordergrund: Schlafentzug, Alkoholexzess und Alkoholentzug (Entzugskrampf 6–48 Stunden nach dem letzten Konsum), Drogen (Kokain, Amphetamine), Hypoglykämie, Hyponatriämie, Hypokalzämie, Hypomagnesiämie, anfallsfördernde Medikamente (Tramadol, Bupropion, trizyklische Antidepressiva, Antipsychotika, Theophyllin, Chinolone, Benzodiazepin-Entzug), Fieber und Flackerlicht bei fotosensibler Epilepsie. Beim älteren Patienten dominieren zerebrovaskuläre Ursachen und Tumoren.',
+      risikofaktoren: [
+        'Frühere unerkannte Anfälle: nächtliche Zungenbisse, unerklärte Verletzungen, morgendlicher Muskelkater, Einnässen im Schlaf, kurze Aussetzer, morgendliche Zuckungen der Arme',
+        'Fieberkrämpfe im Kleinkindalter, insbesondere komplizierte oder prolongierte',
+        'Positive Familienanamnese für Epilepsie',
+        'Schädel-Hirn-Trauma, Meningitis oder Enzephalitis in der Vorgeschichte',
+        'Perinatale Komplikationen, Entwicklungsverzögerung, zerebrale Fehlbildungen',
+        'Schlaganfall, intrazerebrale Blutung, Hirntumor, Demenz (beim älteren Patienten)',
+        'Schlafentzug, Alkoholexzess und Alkoholentzug, Drogen (Kokain, Amphetamine)',
+        'Anfallsfördernde Medikamente (Tramadol, Bupropion, Antidepressiva, Antipsychotika, Theophyllin, Chinolone) und abrupter Benzodiazepin-Entzug',
+        'Elektrolytstörungen (Hyponatriämie, Hypokalzämie, Hypomagnesiämie), Hypoglykämie, Urämie, Leberversagen',
+        'Non-Adhärenz — das Weglassen der Tabletten ist der häufigste Grund eines Anfallsrezidivs beim bekannten Epileptiker',
+      ],
+      klinik: [
+        {
+          text: 'Generalisierter tonisch-klonischer Anfall: plötzlicher Bewusstseinsverlust mit Sturz, ggf. Initialschrei, tonische Versteifung (10–30 Sekunden) mit Apnoe und Zyanose, dann rhythmische klonische Zuckungen aller Extremitäten über ein bis drei Minuten',
+        },
+        {
+          text: 'Offene, verdrehte oder nach oben gerichtete Augen, weite lichtstarre Pupillen, Schaum vor dem Mund, Speichelfluss',
+        },
+        {
+          text: 'Lateraler Zungenbiss — hochspezifisch für einen epileptischen Anfall; ein Biss an der Zungenspitze ist unspezifisch',
+        },
+        {
+          text: 'Urin-, seltener Stuhlabgang während des Anfalls',
+        },
+        {
+          text: 'Postiktale Phase: Verwirrtheit, Desorientierung, tiefer Nachschlaf, Muskelkater, Kopfschmerz, Amnesie für das Ereignis über Minuten bis Stunden',
+        },
+        {
+          text: 'Todd-Parese: vorübergehende, meist einseitige Lähmung nach fokalem Anfall (Minuten bis maximal 48 Stunden), die einen Schlaganfall imitiert',
+          atypisch: true,
+        },
+        {
+          text: 'Fokaler Anfall ohne Bewusstseinsstörung (früher: einfach-fokal): Aura als epigastrisch aufsteigendes Gefühl, Déjà-vu, Geruchs- oder Geschmackssensation, Angst, einseitige Zuckungen mit möglicher Ausbreitung (Jackson-March), Sprachstörung',
+        },
+        {
+          text: 'Fokaler Anfall mit Bewusstseinsstörung (früher: komplex-fokal): starrer Blick, Innehalten, Automatismen wie Schmatzen, Kauen, Nesteln, Umhergehen, fehlende Reaktion, danach Verwirrtheit; sekundäre Generalisierung möglich',
+        },
+        {
+          text: 'Absence (Kind, Jugendlicher): sekundenlanges Innehalten mit starrem Blick, ohne Sturz, mehrfach täglich, sofortige Wiederaufnahme der Tätigkeit, oft als Träumerei verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Myoklonische Anfälle: kurze, blitzartige, meist beidseitige Zuckungen der Arme, typisch morgens nach dem Aufwachen (juvenile myoklonische Epilepsie) — Gegenstände fallen aus der Hand',
+          atypisch: true,
+        },
+        {
+          text: 'Nächtliche Anfälle, die nur an ihren Spuren erkannt werden: Zungenbiss beim Aufwachen, nasses Bett, Muskelkater, zerwühltes Bett, unerklärte Verletzungen',
+          atypisch: true,
+        },
+        {
+          text: 'Nichtkonvulsiver Status epilepticus: prolongierte Verwirrtheit oder Bewusstseinsstörung ohne motorische Entäußerung — nur im EEG zu erkennen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ILAE-Anfallsklassifikation 2017',
+          inhalt: 'Nach dem Beginn: FOKAL (in einer Hemisphäre beginnend; weiter unterteilt nach erhaltenem oder gestörtem Bewusstsein und nach motorischem oder nicht-motorischem Beginn; fokal zu bilateral tonisch-klonisch = sekundäre Generalisierung), GENERALISIERT (von Anfang an beide Hemisphären; motorisch: tonisch-klonisch, myoklonisch, tonisch, atonisch; nicht-motorisch: Absence) und UNBEKANNTER Beginn. Die alten Begriffe „Grand mal“ (generalisiert tonisch-klonisch) und „Petit mal“ (Absence) sind veraltet, werden aber von Patienten und Prüfern noch verwendet.',
+        },
+        {
+          name: 'ILAE-Epilepsiedefinition 2014 und Ätiologie 2017',
+          inhalt: 'Epilepsie = zwei unprovozierte Anfälle im Abstand von > 24 Stunden ODER ein unprovozierter Anfall mit Rezidivrisiko ≥ 60 % über zehn Jahre ODER Diagnose eines Epilepsiesyndroms. Ätiologische Kategorien: strukturell, genetisch, infektiös, metabolisch, immunvermittelt, unbekannt. Ein akut symptomatischer Anfall (innerhalb von 7 Tagen nach Schlaganfall/Trauma, während akuter Stoffwechselentgleisung, Intoxikation oder Entzug) zählt nicht als Epilepsie.',
+        },
+        {
+          name: 'Stadien des Status epilepticus (Zeitachse t1/t2)',
+          inhalt: 't1 = 5 Minuten (generalisiert tonisch-klonisch) bzw. 10 Minuten (fokal): ab hier Behandlungsbeginn, da der Anfall nicht mehr spontan sistiert. t2 = 30 Minuten: ab hier drohen neuronale Schäden. Therapiestufen: Stufe 1 Benzodiazepin (0–10 Min), Stufe 2 Antiepileptikum i.v. (10–30 Min, „etablierter Status“), Stufe 3 Narkose auf der Intensivstation („refraktärer Status“ > 30–60 Min), „superrefraktär“ ab 24 Stunden Narkose.',
+        },
+        {
+          name: 'Fahreignung nach den Begutachtungsleitlinien zur Kraftfahreignung (Gruppe 1 = PKW, Gruppe 2 = LKW/Bus/Fahrgastbeförderung)',
+          inhalt: 'Gruppe 1: nach einem ersten unprovozierten Anfall 6 Monate Anfallsfreiheit; nach einem provozierten Anfall mit vermeidbarem Auslöser 3 Monate; bei Epilepsie 1 Jahr Anfallsfreiheit (unter oder ohne Therapie); nach Absetzen der Medikation 3 Monate Fahrpause. Gruppe 2: nach einem ersten unprovozierten Anfall 2 Jahre, bei Epilepsie 5 Jahre Anfallsfreiheit OHNE Medikation — praktisch meist ein dauerhaftes Berufsfahrverbot. Der Arzt klärt auf und dokumentiert; die Verantwortung für das Fahren trägt der Patient.',
+        },
+      ],
+      redFlags: [
+        'Anfall über 5 Minuten oder Serie ohne Wiedererlangen des Bewusstseins → Status epilepticus, sofort Benzodiazepin',
+        'Fieber, Meningismus, Kopfschmerz, Bewusstseinsstörung → Meningitis/Enzephalitis, Liquorpunktion nach Bildgebung',
+        'Neues fokal-neurologisches Defizit, das sich nicht innerhalb weniger Stunden zurückbildet → Schlaganfall, Blutung, Tumor (Todd-Parese ist eine Ausschlussdiagnose)',
+        'Kopfverletzung, Antikoagulation, Alkoholabusus mit Sturz → intrakranielle Blutung, sofortiges CT',
+        'Anhaltende Verwirrtheit über Stunden → nichtkonvulsiver Status, EEG',
+        'Schwangerschaft mit Krampfanfall ab der 20. Woche → Eklampsie, bis zum Beweis des Gegenteils',
+        'Immunsuppression, HIV, Tumorleiden → opportunistische Infektion, Metastase',
+        'Psychiatrische Symptome, Gedächtnisstörung und Anfälle beim jungen Erwachsenen → Autoimmunenzephalitis (Anti-NMDA-Rezeptor)',
+        'Kardiale Vorgeschichte, Anfall aus körperlicher Belastung, auffälliges EKG (langes QT, Brugada, AV-Block) → konvulsive Synkope bei Rhythmusstörung, plötzlicher Herztod droht',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Eigenanamnese: Was ist das Letzte, woran Sie sich erinnern? Vorgefühl/Aura (epigastrisch aufsteigend, Déjà-vu, Geruch, Angst), Prodromi einer Synkope (Schwarzwerden vor Augen, Schwitzen, Übelkeit, Herzklopfen), Situation (Stehen, Hitze, Blutabnahme, Belastung), erste Erinnerung danach, Zungenbiss (seitlich?), Einnässen, Verletzungen, Muskelkater, Kopfschmerz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'FREMDANAMNESE — der Schlüssel der Diagnose, weil der Patient amnestisch ist: Zeugen (Partner, Kollegen), Handyvideo, Rettungsdienstprotokoll. Genauer Ablauf: Sturz, Schrei, Versteifung, dann rhythmische Zuckungen, Dauer (Uhr!), Augen offen/geschlossen, Zyanose oder Blässe, Reaktivität, Dauer der Reorientierung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Frühere unerkannte Anfälle aktiv erfragen: Zungenbisse beim Aufwachen, nasses Bett, morgendlicher Muskelkater, unerklärte Verletzungen, kurze Aussetzer, morgendliche Zuckungen mit Fallenlassen von Gegenständen, Dämmerzustände — sie machen aus dem „ersten“ Anfall den zweiten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Provokationsfaktoren: Schlafentzug, Alkoholexzess und -entzug, Drogen, neue oder abgesetzte Medikamente (Benzodiazepine!), Fieber/Infekt, Flackerlicht, Hypoglykämie bei Diabetes; Vorgeschichte: Fieberkrämpfe, Geburts- und Entwicklungsanamnese, Schädel-Hirn-Trauma, Meningitis/Enzephalitis, Familienanamnese für Epilepsie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche und neurologische Untersuchung: Vitalparameter mit Temperatur, Blutzucker am Bett, Zungenbiss (lateral), Verletzungen (Schulterluxation, Wirbelkörperfraktur, Kopfplatzwunde), Meningismus, fokal-neurologisches Defizit (Todd-Parese vs. Schlaganfall), Pupillen, Vigilanz und Orientierung im Verlauf, Hinweise auf Alkoholkrankheit (Tremor, Schwitzen, Foetor)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Sofort: Blutzucker, Elektrolyte einschließlich Natrium, Kalzium und Magnesium, Blutbild, CRP, Kreatinin, Harnstoff, Leberwerte, Gerinnung, Blutgasanalyse',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CK (steigt nach 24–48 Stunden, Rhabdomyolyse bei Status), Laktat (unmittelbar nach dem Anfall erhöht, normalisiert sich innerhalb von 1–2 Stunden) und Prolaktin (Anstieg 10–20 Minuten nach einem generalisierten oder komplex-fokalen Anfall, Normalisierung nach etwa einer Stunde; nach Synkope und psychogenem Anfall normal) — hilfreich, aber nicht beweisend',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Alkoholspiegel, Drogenscreening im Urin, bei bekannter Epilepsie Antiepileptika-Spiegel (Non-Adhärenz), Schwangerschaftstest bei Frauen im gebärfähigen Alter',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG OBLIGAT zur Abgrenzung der kardialen Synkope: QT-Zeit (Long-QT-Syndrom), Brugada-Zeichen, AV-Block, Präexzitation, Hinweise auf hypertrophe Kardiomyopathie; bei Verdacht Langzeit-EKG und Echokardiographie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniales CT in der Notaufnahme bei jedem ersten Anfall zum Ausschluss von Blutung, Tumor, Trauma und Ischämie (insbesondere bei fokalem Defizit, Kopfverletzung, Antikoagulation, Fieber, Immunsuppression, Alter > 40)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniales MRT mit Epilepsieprotokoll (hochauflösende koronare T2/FLAIR durch den Hippokampus) im Verlauf als Untersuchung der Wahl zur Suche nach der strukturellen Ursache: Hippokampussklerose, kortikale Dysplasie, Tumor, Narbe, Kavernom oder AV-Malformation',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'EEG möglichst innerhalb der ersten 24 Stunden (höchste Trefferquote für epileptiforme Potenziale), sonst Routine-EEG, Schlafentzugs-EEG und Langzeit-EEG mit Fotostimulation und Hyperventilation. MERKE: Ein normales EEG schließt eine Epilepsie NICHT aus (Sensitivität eines einzelnen Routine-EEGs nur etwa 30–50 %), und unspezifische Veränderungen beweisen sie nicht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion nach Bildgebung bei Fieber, Meningismus, Kopfschmerz, Immunsuppression oder anhaltender Bewusstseinsstörung: Zellzahl, Eiweiß, Glukose, Laktat, Gramfärbung, Kultur, PCR auf HSV/VZV, Autoantikörper (NMDA-Rezeptor, LGI1) bei Verdacht auf Autoimmunenzephalitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Video-EEG-Monitoring in der Epilepsie-Ambulanz bei unklaren oder häufigen Ereignissen (Abgrenzung psychogener Anfälle, Anfallsklassifikation, prächirurgische Abklärung); ergänzend neuropsychologische Testung, ggf. PET/SPECT und invasives EEG vor einer Epilepsiechirurgie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Synkope (vasovagal, orthostatisch, kardial)',
+          unterscheidung: 'Prodromi (Schwarzwerden vor Augen, Schwitzen, Übelkeit), auslösende Situation (langes Stehen, Hitze, Schmerz, Blutabnahme; kardial: aus Belastung heraus oder ohne Vorwarnung), Blässe statt Zyanose, kurze Dauer (< 30 Sekunden), sofortige Reorientierung ohne postiktale Phase, kein lateraler Zungenbiss. Cave konvulsive Synkope: wenige, kurze, arrhythmische Zuckungen durch zerebrale Minderperfusion. EKG obligat (QT-Zeit, Brugada, AV-Block).',
+        },
+        {
+          dd: 'Psychogener nichtepileptischer Anfall (dissoziativer Anfall)',
+          unterscheidung: 'Geschlossene Augen mit Gegenwehr beim Öffnen, asynchrone, wechselnde, an- und abschwellende Bewegungen, Beckenbewegungen, Kopfschütteln, lange Dauer über viele Minuten, erhaltene Reaktivität, Weinen, keine Zyanose, Prolaktin normal, EEG im Video-EEG ohne Korrelat. Häufig komorbid mit echter Epilepsie und keine Simulation — Traumafolgestörung, psychotherapeutische Behandlung.',
+        },
+        {
+          dd: 'Hypoglykämie',
+          unterscheidung: 'Diabetiker unter Insulin oder Sulfonylharnstoff, Schwitzen, Heißhunger, Tremor, Verwirrtheit vor dem Anfall; Blutzucker am Bett; sofortige Besserung auf Glukose. Ein hypoglykämischer Anfall ist akut symptomatisch, keine Epilepsie.',
+        },
+        {
+          dd: 'Alkoholentzugskrampf, Intoxikation, Drogen',
+          unterscheidung: '6–48 Stunden nach dem letzten Konsum beim Alkoholkranken, Tremor, Schwitzen, Tachykardie, ggf. Delir; provozierter Anfall — Behandlung mit Benzodiazepinen und Thiamin, keine Dauertherapie. Kokain, Amphetamine, Benzodiazepin-Entzug ebenfalls anfallsauslösend.',
+        },
+        {
+          dd: 'TIA und Schlaganfall',
+          unterscheidung: 'Negativsymptome (Lähmung, Sprachstörung, Gesichtsfeldausfall) statt Positivsymptomen (Zuckungen, Aura); kein Bewusstseinsverlust bei hemisphärischer Ischämie; Gefäßrisikofaktoren, höheres Alter. Cave: Todd-Parese nach fokalem Anfall imitiert einen Schlaganfall und ein Schlaganfall kann selbst einen Anfall auslösen — Bildgebung.',
+        },
+        {
+          dd: 'Migräne mit Aura',
+          unterscheidung: 'Langsam über Minuten wandernde visuelle (Flimmerskotom) oder sensible Symptome von 5–60 Minuten Dauer, gefolgt von pulsierendem Kopfschmerz mit Übelkeit, Licht- und Lärmempfindlichkeit; kein Bewusstseinsverlust, keine Zuckungen. Das EEG ist bei Migräne NICHT indiziert.',
+        },
+        {
+          dd: 'Transiente globale Amnesie',
+          unterscheidung: 'Patient über 50, plötzlich einsetzende anterograde Amnesie über Stunden mit stereotypem Wiederholen derselben Fragen bei erhaltener Identität und Handlungsfähigkeit, keine motorischen Phänomene, vollständige Rückbildung innerhalb von 24 Stunden.',
+        },
+        {
+          dd: 'Narkolepsie mit Kataplexie',
+          unterscheidung: 'Plötzlicher Tonusverlust bei erhaltenem Bewusstsein, ausgelöst durch Emotionen (Lachen), dazu Tagesschläfrigkeit, Schlafparalyse, hypnagoge Halluzinationen; Diagnose im Schlaflabor.',
+        },
+        {
+          dd: 'Parasomnien und REM-Schlaf-Verhaltensstörung',
+          unterscheidung: 'Komplexe Verhaltensweisen aus dem Schlaf (Schlafwandeln, Pavor nocturnus beim Kind; Ausagieren von Träumen beim älteren Mann), kein Zungenbiss, keine stereotype Abfolge; Abgrenzung von nächtlichen Frontallappenanfällen im Video-EEG.',
+        },
+        {
+          dd: 'Bewegungsstörungen (Tics, paroxysmale Dyskinesien, Tremor)',
+          unterscheidung: 'Erhaltenes Bewusstsein, unterdrückbar (Tics), ausgelöst durch Bewegungsbeginn (paroxysmale kinesiogene Dyskinesie), keine postiktale Phase.',
+        },
+        {
+          dd: 'Panikattacke mit Hyperventilation',
+          unterscheidung: 'Angst, Herzrasen, Atemnot, Kribbeln um den Mund und in den Händen, Pfötchenstellung durch Hypokalzämie bei Alkalose, Dauer 10–30 Minuten, kein Bewusstseinsverlust, Erinnerung erhalten.',
+        },
+        {
+          dd: 'Fieberkrampf beim Kleinkind',
+          unterscheidung: 'Alter 6 Monate bis 5 Jahre, im Fieberanstieg, meist generalisiert und unter 15 Minuten (einfacher Fieberkrampf); provozierter Anfall mit guter Prognose, aber Meningitis ausschließen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutbehandlung des Anfalls und des Status epilepticus',
+          items: [
+            'Während des Anfalls: Schutz vor Verletzung — gefährliche Gegenstände wegräumen, Kopf polstern, Brille abnehmen, Kleidung lockern; KEINE Fixierung der Extremitäten und NICHTS in den Mund schieben (Verletzung des Helfers, Zahnschäden, Aspiration — der Zungenbiss ist bereits geschehen); Uhrzeit notieren und Dauer messen, wenn möglich filmen',
+            'Nach dem Anfall: stabile Seitenlage, Atemwege freihalten, Sauerstoff, Pulsoxymetrie, Blutzucker am Bett, Vitalparameter, venöser Zugang, Blutentnahme; den Patienten bis zur vollständigen Reorientierung nicht allein lassen',
+            'Ein einzelner selbstlimitierender Anfall von unter fünf Minuten wird NICHT medikamentös unterbrochen — beobachten, schützen, Ursache suchen',
+            'Status epilepticus (> 5 Minuten oder Serie ohne Bewusstseinserlangung), Stufe 1: BENZODIAZEPIN — Lorazepam 0,1 mg/kg i.v. (2–4 mg, ggf. einmal wiederholen) oder ohne Zugang Midazolam 10 mg intramuskulär, bukkal oder nasal (bei > 40 kg), alternativ Diazepam 10 mg rektal; Atemdepression beachten',
+            'Stufe 2 bei Persistenz nach 10–20 Minuten: Levetiracetam 60 mg/kg i.v. (maximal 4 500 mg), Valproat 40 mg/kg i.v. (maximal 3 000 mg; nicht bei Frauen im gebärfähigen Alter, Lebererkrankung, Mitochondriopathie) oder Phenytoin/Fosphenytoin 20 mg/kg i.v. unter EKG-Monitoring (Bradykardie, Hypotonie, Paravasat); Lacosamid als Alternative',
+            'Stufe 3 refraktärer Status (> 30–60 Minuten): Intubation und Narkose auf der Intensivstation mit Propofol, Midazolam oder Thiopental unter kontinuierlichem EEG-Monitoring bis zum Burst-Suppression-Muster',
+            'Behandlung der Ursache beim provozierten Anfall: Glukose i.v. bei Hypoglykämie (beim Alkoholkranken zuvor Thiamin 100–300 mg i.v. gegen die Wernicke-Enzephalopathie), Natrium- und Kalziumausgleich, Absetzen des auslösenden Medikaments, Benzodiazepine beim Alkoholentzug, Antibiotika/Aciclovir bei Meningitis oder Herpes-Enzephalitis, Magnesium bei Eklampsie',
+            'Stationäre Überwachung nach dem ersten Anfall bis zur abgeschlossenen Diagnostik (CT, Labor, EKG, EEG); Entlassung nur mit Aufklärung über Fahrverbot und Verhaltensregeln, nicht allein',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Entscheidung über eine Dauertherapie und Wahl des Antiepileptikums',
+          items: [
+            'Nach einem ERSTEN unprovozierten Anfall in der Regel abwarten (Rezidivrisiko etwa 40–50 % in zwei Jahren) — eine Dauertherapie senkt das kurzfristige Rezidivrisiko, verändert aber die Langzeitprognose nicht',
+            'Sofortige Therapie nach dem ersten Anfall bei HOHEM Rezidivrisiko (≥ 60 %, damit ist die Epilepsie definiert): epileptiforme Veränderungen im EEG, strukturelle Läsion im MRT, nächtlicher Anfall, fokaler Beginn, Status epilepticus als Erstmanifestation, neurologisches Defizit — oder bei besonderen beruflichen und persönlichen Umständen nach gemeinsamer Entscheidung mit dem Patienten',
+            'Nach dem ZWEITEN unprovozierten Anfall besteht die Epilepsie und damit die Indikation zur Dauertherapie; ein provozierter Anfall wird nicht dauerhaft behandelt, sondern der Auslöser beseitigt',
+            'Auswahl nach Anfallstyp und Syndrom, Alter, Geschlecht, Komorbidität, Wechselwirkungen und Nebenwirkungsprofil; immer MONOTHERAPIE, einschleichend dosiert, Ziel Anfallsfreiheit ohne Nebenwirkungen',
+            'Fokale Epilepsie: LEVETIRACETAM oder LAMOTRIGIN als Mittel der ersten Wahl; Alternativen Lacosamid, Oxcarbazepin, Carbamazepin (Enzyminduktor, Hyponatriämie), Topiramat, Zonisamid',
+            'Generalisierte (genetische) Epilepsie: VALPROAT ist am wirksamsten (auch bei myoklonischen Anfällen und Absencen), wegen der Teratogenität (Neuralrohrdefekte, Fehlbildungsrate ~10 %, kognitive Entwicklungsstörung) bei Frauen im gebärfähigen Alter grundsätzlich zu vermeiden — dort Levetiracetam oder Lamotrigin; Cave: Carbamazepin, Oxcarbazepin, Phenytoin und Vigabatrin können Absencen und Myoklonien VERSCHLECHTERN',
+            'Nebenwirkungen kennen und aufklären: Levetiracetam — Müdigkeit, Reizbarkeit, Aggressivität, Depression; Lamotrigin — Hautausschlag bis Stevens-Johnson-Syndrom bei zu schneller Aufdosierung (über 6–8 Wochen einschleichen), Schwindel, Doppelbilder; Valproat — Gewichtszunahme, Tremor, Haarausfall, Thrombopenie, Hepatotoxizität, Pankreatitis, Enzephalopathie; Carbamazepin — Hyponatriämie, Exanthem, Enzyminduktion',
+            'Wechselwirkung mit der PILLE: Enzyminduktoren (Carbamazepin, Phenytoin, Phenobarbital, Topiramat > 200 mg) senken die Wirksamkeit hormoneller Kontrazeption; umgekehrt senkt die Östrogen-Pille den Lamotrigin-Spiegel um bis zu 50 % (Anfallsrezidiv, Toxizität in der Pillenpause) — Levetiracetam ist interaktionsfrei',
+            'Spiegelbestimmung nur bei Verdacht auf Non-Adhärenz, Toxizität, Schwangerschaft oder Interaktionen — die Dosis richtet sich nach Wirkung und Verträglichkeit, nicht nach dem Spiegel',
+          ],
+        },
+        {
+          label: 'Behandlung der schwer behandelbaren Epilepsie',
+          items: [
+            'Bei Versagen der ersten Monotherapie zunächst Diagnose überprüfen (psychogene Anfälle? falsche Klassifikation? Adhärenz?), dann Wechsel auf eine zweite Monotherapie, danach Kombinationstherapie mit unterschiedlichen Wirkmechanismen (z. B. Lamotrigin + Valproat, Levetiracetam + Lacosamid)',
+            'Pharmakoresistenz = Versagen von zwei adäquat ausgewählten und dosierten Antiepileptika (etwa 30 % der Patienten) → Vorstellung in einem Epilepsiezentrum zur prächirurgischen Abklärung (Video-EEG, MRT, PET, Neuropsychologie)',
+            'EPILEPSIECHIRURGIE bei pharmakoresistenter fokaler Epilepsie mit umschriebenem Anfallsursprung: bei mesialer Temporallappenepilepsie mit Hippokampussklerose selektive Amygdalohippokampektomie mit Anfallsfreiheit in 60–80 %; Läsionektomie bei Tumor, Dysplasie oder Kavernom',
+            'Neurostimulation, wenn keine Resektion möglich ist: Vagusnervstimulation, tiefe Hirnstimulation (anteriorer Thalamus), responsive Neurostimulation — meist Anfallsreduktion, selten Anfallsfreiheit',
+            'Ketogene Diät beim Kind mit pharmakoresistenter Epilepsie; Notfallmedikament (bukkales Midazolam) für Angehörige bei prolongierten Anfällen',
+            'Behandlung der Komorbidität: Depression und Angststörung (bei bis zu einem Drittel der Patienten) — SSRI sind sicher, Bupropion und trizyklische Antidepressiva meiden; Psychotherapie bei dissoziativen Anfällen; Schlafapnoe mitbehandeln',
+          ],
+        },
+        {
+          label: 'Aufklärung, Lebensführung und Nachsorge',
+          items: [
+            'FAHRTAUGLICHKEIT ausführlich besprechen und DOKUMENTIEREN: nach einem ersten unprovozierten Anfall 6 Monate kein Fahren (PKW), nach einem provozierten Anfall mit vermeidbarem Auslöser 3 Monate, bei Epilepsie 1 Jahr Anfallsfreiheit; Berufskraftfahrer (LKW, Bus, Taxi): 2 Jahre nach einem ersten Anfall, bei Epilepsie 5 Jahre ohne Medikamente — praktisch ein Berufsverbot; die Verantwortung trägt der Patient, der Arzt muss aufklären und dies schriftlich festhalten (auch Fahrrad, Motorrad, Fahrgemeinschaft ansprechen)',
+            'Beruf und Alltag: keine Arbeiten in der Höhe (Leiter, Gerüst, Dach), an ungesicherten Maschinen, mit offenem Feuer oder Waffen; Betriebsarzt einbeziehen; Duschen statt Baden, Schwimmen nur unter Aufsicht, kein Alleinbergsteigen, Herdsicherung, Bügeleisen mit Abschaltung',
+            'Vermeidung von Auslösern: regelmäßiger und ausreichender SCHLAF (kein Schlafentzug, geregelter Schlaf-Wach-Rhythmus, Vorsicht bei Schichtarbeit), kein Alkoholexzess (kleine Mengen meist tolerabel), keine Drogen, Vorsicht mit Flackerlicht bei Fotosensibilität, fiebersenkend behandeln, anfallsfördernde Medikamente vermeiden (Tramadol, Bupropion, Chinolone) — Apotheke und Hausarzt informieren',
+            'ADHÄRENZ als entscheidender Faktor: das Weglassen der Tabletten ist der häufigste Grund eines Anfallsrezidivs; nie abrupt absetzen; Tablettenbox, Erinnerungs-App, Reserve auf Reisen; Notfallausweis und Anfallskalender führen',
+            'Angehörige schulen: Erste Hilfe beim Anfall (schützen, nicht festhalten, nichts in den Mund, Zeit messen, Seitenlage), Notruf ab 5 Minuten Dauer, Verletzung oder Serie; Notfallmedikament (bukkales Midazolam) bei bekannten prolongierten Anfällen',
+            'Familienplanung: Kontrazeption auf Wechselwirkungen prüfen; Schwangerschaft PLANEN — Umstellung auf Lamotrigin oder Levetiracetam VOR der Konzeption, Folsäure (mindestens 0,4 mg, unter Antiepileptika meist 5 mg täglich) ab drei Monate vor der Schwangerschaft, kein Valproat; die meisten Frauen mit Epilepsie haben gesunde Kinder',
+            'SUDEP behutsam ansprechen (plötzlicher unerwarteter Tod bei Epilepsie, etwa 1 pro 1 000 Patienten und Jahr, deutlich höher bei unkontrollierten nächtlichen generalisierten Anfällen): die beste Vorbeugung ist die Anfallskontrolle durch Adhärenz und Schlafhygiene; Anfallsalarm-Systeme diskutieren',
+            'Nachsorge: regelmäßige neurologische Kontrollen mit EEG, Laborwerten (Blutbild, Leber, Natrium) und ggf. Spiegeln; Absetzversuch frühestens nach 2–5 Jahren Anfallsfreiheit nur nach Abwägung (Rezidivrisiko ~30 %, bei juveniler myoklonischer Epilepsie lebenslange Therapie), langsam ausschleichend und mit 3 Monaten Fahrpause',
+            'Psychosoziale Beratung, Selbsthilfegruppen (Deutsche Epilepsievereinigung), sozialmedizinische Beratung zu Beruf, Schwerbehinderung und Umschulung; Krankschreibung bis zur abgeschlossenen Abklärung',
+          ],
+        },
+      ],
+      prognose: 'Nach einem ersten unprovozierten Anfall erleiden etwa 40–50 % der Patienten innerhalb von zwei Jahren ein Rezidiv, die meisten davon in den ersten sechs Monaten; das Risiko ist bei epileptiformem EEG, struktureller Läsion, nächtlichem Anfall oder fokalem Beginn deutlich höher. Nach einem provozierten Anfall ist die Prognose bei Vermeidung des Auslösers gut. Bei manifester Epilepsie werden unter dem ersten Antiepileptikum etwa 50 % und unter dem zweiten weitere 10–15 % anfallsfrei; etwa 30 % bleiben pharmakoresistent, von denen die Hälfte durch Epilepsiechirurgie anfallsfrei werden kann. Die juvenile myoklonische Epilepsie spricht sehr gut auf Valproat an, neigt aber nach Absetzen zu Rezidiven (> 80 %) und wird meist lebenslang behandelt. Die Sterblichkeit ist etwa zwei- bis dreifach erhöht (SUDEP, Status epilepticus, Unfälle, Suizid); die Anfallskontrolle ist der wichtigste Schutz. Entscheidend für Lebensqualität sind Adhärenz, Fahrerlaubnis, Beruf und die Behandlung von Depression und Angst.',
+      pruefungsfallen: [
+        'Ein Anfall ist noch keine Epilepsie: Erst zwei unprovozierte Anfälle im Abstand von > 24 Stunden oder ein Anfall mit hohem Rezidivrisiko definieren die Epilepsie. Ein provozierter (akut symptomatischer) Anfall wird nicht dauerhaft behandelt — Prüfer wollen diese Unterscheidung ausdrücklich hören.',
+        'Die FREMDANAMNESE ist der Schlüssel: Der Patient erinnert sich nicht. Nach Zeugen, Handyvideo und Rettungsdienstprotokoll fragen — und den Ablauf ordnen (Sturz, Versteifung, Zuckungen, Dauer, Augen, Zyanose, Reorientierung).',
+        'Nach FRÜHEREN unerkannten Anfällen fragen (Zungenbiss beim Aufwachen, nasses Bett, morgendlicher Muskelkater, morgendliche Zuckungen, Aussetzer) — sie machen aus dem „ersten“ Anfall den zweiten und aus dem Ereignis eine Epilepsie.',
+        'Lateraler Zungenbiss ist spezifisch, der Biss an der Zungenspitze nicht. Zyanose spricht für den Anfall, Blässe für die Synkope. Wenige kurze Zuckungen bei einer Synkope (konvulsive Synkope) sind KEIN epileptischer Anfall.',
+        'Das EKG nicht vergessen — die kardiale Synkope (Long-QT, Brugada, AV-Block) ist die gefährlichste Fehldiagnose; in Karlsruhe wurde umgekehrt gefragt, was ein EEG bei einer Migräne zeige — Antwort: nichts Spezifisches, das EEG ist dort nicht indiziert.',
+        'Ein normales EEG schließt eine Epilepsie NICHT aus (ein einzelnes Routine-EEG erfasst nur etwa 30–50 %), und unspezifische Veränderungen beweisen sie nicht; die Trefferquote ist innerhalb von 24 Stunden und nach Schlafentzug am höchsten.',
+        'Prolaktin und Laktat sind Hinweise, keine Beweise: Prolaktin nur innerhalb von 10–60 Minuten nach dem Anfall verwertbar, bei psychogenen Anfällen und Synkopen normal.',
+        'Erste Hilfe: NICHTS in den Mund, KEINE Fixierung, Kopf polstern, Zeit messen, Seitenlage danach — der Beißkeil ist ein Prüferköder.',
+        'Ein Anfall unter fünf Minuten wird nicht medikamentös unterbrochen; ab fünf Minuten ist es ein Status: Benzodiazepin (Lorazepam i.v. oder Midazolam i.m./bukkal), dann Levetiracetam/Valproat/Phenytoin, dann Narkose.',
+        'Das FAHRVERBOT muss aktiv angesprochen und dokumentiert werden: 6 Monate nach erstem unprovoziertem Anfall, 3 Monate nach provoziertem Anfall, 1 Jahr bei Epilepsie, Berufskraftfahrer 2 bzw. 5 Jahre. Wer es vergisst, fällt in der Aufklärung durch.',
+        'Valproat bei Frauen im gebärfähigen Alter vermeiden (Teratogenität) — und Carbamazepin/Phenytoin verschlechtern Absencen und Myoklonien bei generalisierten Epilepsien.',
+        'Die Pille: Enzyminduktoren machen sie unwirksam, die Pille senkt den Lamotrigin-Spiegel. Familienplanung mit Folsäure und Umstellung VOR der Schwangerschaft.',
+        'Todd-Parese nicht mit einem Schlaganfall verwechseln — aber ein fokales Defizit nach einem Anfall bleibt bis zur Bildgebung ein Schlaganfall.',
+        'Beim Alkoholkranken vor der Glukose Thiamin geben (Wernicke-Enzephalopathie) und den Entzugskrampf als provozierten Anfall erkennen — keine Dauertherapie, sondern Suchtbehandlung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wir könnten ein EEG machen — was würden wir bei einer Migräne finden?',
+          antwort: 'Nichts Spezifisches — bei der Migräne ist das EEG nicht indiziert, es zeigt allenfalls unspezifische Verlangsamungen und dient nicht der Diagnose. Das EEG gehört zur Abklärung eines epileptischen Anfalls: Dort sucht man epileptiforme Potenziale wie Spikes, Sharp Waves oder Spike-Wave-Komplexe, am besten innerhalb von 24 Stunden nach dem Anfall oder nach Schlafentzug.',
+        },
+        {
+          frage: 'Wie kam es zum Sturz? Haben Sie danach gefragt?',
+          antwort: 'Ja — ich habe gezielt nach Schwindel, einem Schwarzwerden vor den Augen, Herzklopfen und einer kurzen Bewusstlosigkeit gefragt, nach Zeugen des Sturzes, nach Zuckungen, Zungenbiss, Einnässen und einer Verwirrtheit danach, außerdem nach einer Kopfverletzung, Amnesie, Übelkeit und Erbrechen. So lässt sich ein einfacher Stolpersturz von einer Synkope und von einem epileptischen Anfall abgrenzen.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen einem epileptischen Anfall und einer Epilepsie?',
+          antwort: 'Der Anfall ist das Ereignis — eine vorübergehende Funktionsstörung durch synchrone Entladungen der Hirnrinde, die auch bei jedem Gesunden provoziert werden kann. Die Epilepsie ist die dauerhafte Neigung zu unprovozierten Anfällen: definiert durch zwei unprovozierte Anfälle im Abstand von über 24 Stunden oder einen Anfall mit einem Rezidivrisiko von mindestens 60 %. Ein provozierter Anfall — etwa durch Alkoholentzug oder Hypoglykämie — ist keine Epilepsie.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie einen epileptischen Anfall von einer Synkope?',
+          antwort: 'Über die Fremdanamnese: Beim Anfall Sturz ohne Vorwarnung oder nach Aura, Initialschrei, Versteifung, dann rhythmische Zuckungen über ein bis drei Minuten, offene verdrehte Augen, Zyanose, lateraler Zungenbiss, Einnässen und eine postiktale Verwirrtheit mit Nachschlaf. Bei der Synkope Prodromi wie Schwarzwerden und Schwitzen, eine auslösende Situation, Blässe, kurze Dauer unter 30 Sekunden, allenfalls wenige kurze Zuckungen und sofortige Reorientierung. Dazu EKG, Laktat und Prolaktin.',
+        },
+        {
+          frage: 'Warum haben Sie nach einem Zungenbiss und nach Einnässen gefragt?',
+          antwort: 'Weil beides den epileptischen Anfall von einer Synkope abgrenzt: Ein seitlicher Zungenbiss ist hochspezifisch für einen generalisierten tonisch-klonischen Anfall, ein Biss an der Zungenspitze dagegen unspezifisch. Der Urinabgang spricht ebenfalls für einen Anfall, kommt aber gelegentlich auch bei tiefer Synkope vor — er ist ein Hinweis, kein Beweis.',
+        },
+        {
+          frage: 'Warum haben Sie nach Alkohol und nach dem Schlaf gefragt?',
+          antwort: 'Weil Schlafentzug und Alkoholexzess beziehungsweise Alkoholentzug die häufigsten Provokationsfaktoren eines Anfalls beim jungen Erwachsenen sind. Ein Entzugskrampf tritt 6 bis 48 Stunden nach dem letzten Konsum auf und ist ein provozierter Anfall ohne Indikation für eine Dauertherapie; bei einer genetischen generalisierten Epilepsie senken Schlafmangel und Alkohol die Anfallsschwelle und lösen den ersten sichtbaren Anfall aus.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und was bringt das Prolaktin?',
+          antwort: 'Sofort Blutzucker, Natrium, Kalzium, Magnesium, Blutbild, CRP, Kreatinin, Leberwerte, Gerinnung, Blutgasanalyse, CK, Laktat, Prolaktin, Alkoholspiegel und ein Drogenscreening. Prolaktin steigt 10 bis 20 Minuten nach einem generalisierten Anfall an und normalisiert sich nach etwa einer Stunde; bei Synkope und psychogenem Anfall bleibt es normal. Es ist ein Hinweis, kein Beweis — und nur zeitnah verwertbar.',
+        },
+        {
+          frage: 'Schließt ein normales EEG eine Epilepsie aus?',
+          antwort: 'Nein. Ein einzelnes Routine-EEG zeigt nur bei etwa 30 bis 50 % der Epilepsiepatienten epileptiforme Potenziale; die Ausbeute steigt innerhalb der ersten 24 Stunden, nach Schlafentzug, im Langzeit-EEG und mit Provokation durch Hyperventilation und Fotostimulation. Umgekehrt beweisen unspezifische Veränderungen keine Epilepsie — die Diagnose bleibt klinisch.',
+        },
+        {
+          frage: 'Welche Bildgebung, und warum CT und MRT?',
+          antwort: 'In der Notaufnahme ein kraniales CT, um Blutung, Tumor, Trauma und Ischämie sofort auszuschließen. Im Verlauf ein MRT mit Epilepsieprotokoll als Untersuchung der Wahl, weil es die strukturellen Ursachen zeigt, die das CT übersieht: Hippokampussklerose, kortikale Dysplasie, kleine Tumoren, Kavernome und Narben.',
+        },
+        {
+          frage: 'Wann führen Sie eine Lumbalpunktion durch?',
+          antwort: 'Bei Fieber, Meningismus, Kopfschmerz, anhaltender Bewusstseinsstörung, Immunsuppression oder Verdacht auf eine Autoimmunenzephalitis — immer nach der Bildgebung zum Ausschluss eines Hirndrucks. Untersucht werden Zellzahl, Eiweiß, Glukose, Laktat, Gramfärbung, Kultur, HSV-PCR und Autoantikörper.',
+        },
+        {
+          frage: 'Was tun Sie während des Anfalls, und was auf keinen Fall?',
+          antwort: 'Den Patienten vor Verletzungen schützen: gefährliche Gegenstände wegräumen, den Kopf polstern, Brille abnehmen, Zeit messen. Auf keinen Fall festhalten und nichts in den Mund schieben — keinen Beißkeil, keinen Löffel. Nach dem Anfall stabile Seitenlage, Atemwege freihalten, Sauerstoff, Blutzucker messen. Ein Anfall unter fünf Minuten wird nicht medikamentös unterbrochen.',
+        },
+        {
+          frage: 'Wie behandeln Sie einen Status epilepticus?',
+          antwort: 'Ab fünf Minuten Anfallsdauer: Stufe 1 Benzodiazepin — Lorazepam 0,1 mg/kg intravenös, in der Regel 2 bis 4 mg, oder ohne Zugang Midazolam 10 mg intramuskulär oder bukkal, einmal wiederholbar. Stufe 2 nach 10 bis 20 Minuten: Levetiracetam 60 mg/kg, Valproat 40 mg/kg oder Phenytoin 20 mg/kg intravenös. Stufe 3 refraktärer Status: Intubation und Narkose mit Propofol, Midazolam oder Thiopental unter EEG-Monitoring auf der Intensivstation. Parallel Glukose, Thiamin beim Alkoholkranken und Behandlung der Ursache.',
+        },
+        {
+          frage: 'Behandeln Sie diesen Patienten nach dem ersten Anfall mit einem Antiepileptikum?',
+          antwort: 'Nach einem einzelnen unprovozierten Anfall in der Regel nicht — das Rezidivrisiko liegt bei 40 bis 50 % in zwei Jahren und eine Therapie verbessert die Langzeitprognose nicht. Sofort behandelt wird bei hohem Rezidivrisiko: epileptiforme EEG-Veränderungen, Läsion im MRT, nächtlicher Anfall, fokaler Beginn, Status als Erstmanifestation oder frühere unerkannte Anfälle — dann ist es bereits eine Epilepsie. Ein provozierter Anfall wird nie dauerhaft behandelt.',
+        },
+        {
+          frage: 'Welches Antiepileptikum wählen Sie, und warum nicht Valproat bei einer Frau?',
+          antwort: 'Bei fokalen Epilepsien Levetiracetam oder Lamotrigin als Mittel der ersten Wahl, immer als einschleichende Monotherapie. Bei generalisierten Epilepsien ist Valproat am wirksamsten, wird bei Frauen im gebärfähigen Alter aber wegen der Teratogenität grundsätzlich vermieden — Neuralrohrdefekte, Fehlbildungsrate um 10 % und kognitive Entwicklungsstörungen des Kindes. Dort Levetiracetam oder Lamotrigin; Carbamazepin und Phenytoin können generalisierte Anfälle sogar verschlechtern.',
+        },
+        {
+          frage: 'Wie lange darf der Patient nicht Auto fahren?',
+          antwort: 'Nach einem ersten unprovozierten Anfall sechs Monate Anfallsfreiheit, nach einem provozierten Anfall mit vermeidbarem Auslöser drei Monate, bei einer Epilepsie ein Jahr. Für Berufskraftfahrer der Gruppe 2 gelten zwei Jahre nach einem ersten Anfall und fünf Jahre Anfallsfreiheit ohne Medikamente bei Epilepsie — praktisch ein dauerhaftes Berufsverbot. Ich muss aufklären und das Gespräch dokumentieren; die Verantwortung trägt der Patient.',
+        },
+        {
+          frage: 'Was ist SUDEP, und wie sprechen Sie es an?',
+          antwort: 'Der plötzliche unerwartete Tod bei Epilepsie, meist nachts nach einem generalisierten tonisch-klonischen Anfall, mit etwa einem Fall pro 1 000 Patienten und Jahr, deutlich häufiger bei unkontrollierten Anfällen. Ich spreche es behutsam an, weil der wirksamste Schutz die Anfallskontrolle ist — regelmäßige Tabletteneinnahme, Schlafhygiene und Alkoholverzicht — und weil Patienten und Angehörige das Recht haben, es zu wissen.',
+        },
+        {
+          frage: 'Was erklären Sie dem Patienten zu Beruf und Alltag?',
+          antwort: 'Keine Arbeiten in der Höhe, an ungesicherten Maschinen oder mit Waffen, den Betriebsarzt einbeziehen; zu Hause duschen statt baden, schwimmen nur begleitet, Herdsicherung; regelmäßiger Schlaf, kein Alkoholexzess, keine Drogen; die Partnerin in Erster Hilfe schulen, Notruf ab fünf Minuten; Notfallausweis und Anfallskalender; und die Familienplanung frühzeitig besprechen.',
+        },
+      ],
+      merksatz: 'Erster Anfall = drei Fragen: War es epileptisch (Fremdanamnese, lateraler Zungenbiss, Zyanose, postiktale Phase — EKG gegen die Synkope)? War er provoziert (Schlafentzug, Alkohol, Zucker, Natrium, Medikamente)? Gab es schon frühere? Zwei unprovozierte Anfälle = Epilepsie. Nichts in den Mund, nicht festhalten, ab fünf Minuten Benzodiazepin — und das Fahrverbot aussprechen und dokumentieren.',
+      linkedCaseIds: [
+        'case-epilepsie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-eeg',
+        'auf-lumbalpunktion',
+      ],
+    },
+    {
+      id: 'fw-hodentorsion',
+      pathology: 'Hodentorsion',
+      specialty: 'Urologie',
+      definition: 'Die Hodentorsion ist die akute Verdrehung des Hodens um die Längsachse seines Samenstrangs (Funiculus spermaticus) mit Abschnürung zunächst des venösen Abflusses und anschließend der arteriellen Zufuhr — es folgt eine hämorrhagische Infarzierung des Hodens. Sie ist DER urologische Notfall schlechthin: Nach etwa sechs Stunden kompletter Ischämie ist das Keimepithel irreversibel geschädigt. Unterschieden werden die intravaginale Torsion (Drehung innerhalb der Tunica vaginalis, typisch beim Jugendlichen mit „Glockenklöppel“-Anlage) und die extravaginale Torsion (Drehung des gesamten Hodens samt Tunica vaginalis, typisch beim Neugeborenen). Die Inzidenz liegt bei etwa 1 : 4 000 Männer unter 25 Jahren; jedes akute Skrotum ist eine Hodentorsion, bis das Gegenteil bewiesen ist.',
+      aetiologie: 'Anatomische Grundlage der intravaginalen Torsion ist eine fehlende oder unzureichende Fixierung des Hodens und Nebenhodens an der Skrotalwand — die sogenannte „Glockenklöppel“-Anomalie (bell-clapper deformity), bei der die Tunica vaginalis den Samenstrang zu hoch umschließt und der Hoden frei wie ein Klöppel in der Glocke hängt. Diese Anlage besteht bei etwa 12 % der Männer und in der Regel BEIDSEITS — daher die prophylaktische Orchidopexie der Gegenseite. Auslöser sind eine plötzliche Kontraktion des Musculus cremaster (Kälte, Sport, Bagatelltrauma, sexuelle Erregung, Aufwachen aus dem Schlaf) und das rasche Hodenwachstum in der Pubertät; ein größerer, schwererer Hoden (auch bei Tumor) dreht leichter. Bei der extravaginalen Torsion des Neugeborenen ist die Tunica vaginalis noch nicht mit dem Skrotum verwachsen, sodass sich der gesamte Hoden perinatal verdreht. Die Torsion erfolgt meist nach innen (medial), weshalb die manuelle Detorsion nach außen („Aufklappen eines Buches“) versucht wird.',
+      risikofaktoren: [
+        'Alter: zweigipflig — Neugeborenenperiode (extravaginal) und vor allem Pubertät/Adoleszenz zwischen 12 und 18 Jahren (intravaginal); etwa zwei Drittel aller Fälle zwischen 12 und 25 Jahren',
+        '„Glockenklöppel“-Anomalie (fehlende Fixierung des Hodens an der Tunica vaginalis), meist beidseitig angelegt',
+        'Frühere Episoden mit spontaner Rückbildung (intermittierende Torsion) in der Vorgeschichte',
+        'Hodentorsion der Gegenseite in der Vorgeschichte ohne prophylaktische Orchidopexie',
+        'Maldescensus testis / Hodenhochstand (auch nach Orchidopexie im Kindesalter)',
+        'Hodentumor und vergrößertes Hodenvolumen (größere Masse, leichteres Drehen)',
+        'Auslösende Situationen: Sport, Kälte, Bagatelltrauma, Schlaf (nächtliche Kremasterkontraktion), sexuelle Aktivität',
+        'Positive Familienanamnese für Hodentorsion (familiäre Häufung der Anlage beschrieben)',
+      ],
+      klinik: [
+        {
+          text: 'Plötzlich, oft aus dem Schlaf heraus, nachts oder in den frühen Morgenstunden einsetzender, heftigster einseitiger Hodenschmerz — der Patient kann den Beginn meist auf die Minute angeben',
+        },
+        {
+          text: 'Ausstrahlung des Schmerzes entlang des Samenstrangs in die Leiste und den ipsilateralen Unterbauch (Innervation über den Plexus testicularis, Segmente Th10–L1) — Verwechslung mit Appendizitis, Gastroenteritis oder Nierenkolik',
+        },
+        {
+          text: 'Vegetative Begleitreaktion mit Übelkeit und Erbrechen bei bis zu zwei Dritteln der Patienten; kein Fieber, keine Miktionsbeschwerden',
+        },
+        {
+          text: 'Geschwollener, extrem druckschmerzhafter, derber Hoden; Skrotalhaut gerötet, ödematös, später livide',
+        },
+        {
+          text: 'Hochstand des Hodens mit Querlagerung (Brunzel-Zeichen) durch die Verkürzung des verdrehten Samenstrangs; Nebenhoden nicht mehr dorsal, sondern ventral oder lateral tastbar',
+        },
+        {
+          text: 'Erloschener Kremasterreflex auf der betroffenen Seite — das empfindlichste klinische Zeichen (Sensitivität um 90–100 % beim Kind und Jugendlichen)',
+        },
+        {
+          text: 'Negatives Prehn-Zeichen: Das Anheben des Hodens bringt KEINE Linderung (bei der Epididymitis lindert es den Schmerz = positiv) — Zuverlässigkeit begrenzt',
+        },
+        {
+          text: 'Verdickter, druckschmerzhafter, teils tastbar verdrehter Samenstrang im Leistenkanal (Knoten über dem Hoden)',
+        },
+        {
+          text: 'Blande Miktion, unauffälliger Urinstatus, allenfalls geringe Leukozytose — ein „stiller“ Urin beim akuten Skrotum spricht für die Torsion',
+        },
+        {
+          text: 'Intermittierende Torsion: anamnestisch wiederholte kurze Episoden heftigen Hodenschmerzes mit spontaner Rückbildung — muss aktiv erfragt werden',
+          atypisch: true,
+        },
+        {
+          text: '„Bauchschmerzen“ als einzige Angabe: Der beschämte Jugendliche nennt Unterbauchschmerzen und Erbrechen, den Hoden erwähnt er nicht — ohne gezielte Frage und Untersuchung wird die Torsion übersehen',
+          atypisch: true,
+        },
+        {
+          text: 'Schleichender oder nur mäßiger Schmerz bei partieller Torsion (unter 360°) mit noch erhaltener Restperfusion und unauffälligem oder grenzwertigem Doppler',
+          atypisch: true,
+        },
+        {
+          text: 'Neugeborenentorsion: schmerzarmes, hartes, dunkel verfärbtes, vergrößertes Hemiskrotum, häufig bereits pränatal eingetreten und der Hoden dann nicht mehr zu retten',
+          atypisch: true,
+        },
+        {
+          text: 'Torsion eines nicht deszendierten Hodens: schmerzhafte Schwellung in der Leiste bei leerem Hemiskrotum — Verwechslung mit inkarzerierter Hernie',
+          atypisch: true,
+        },
+        {
+          text: 'Spätstadium nach über 24 Stunden: Schmerz lässt nach (Nekrose), Skrotum livide und ödematös, reaktives Fieber und Leukozytose — imitiert dann eine Epididymitis',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Lokalisation der Drehung',
+          inhalt: 'Intravaginale Torsion (häufigste Form, Jugendliche und junge Männer): Drehung des Hodens innerhalb der Tunica vaginalis bei „Glockenklöppel“-Anlage. Extravaginale Torsion (Neugeborene, peri- und pränatal): Drehung des gesamten Hodens samt Tunica vaginalis oberhalb davon, da die Hüllen noch nicht mit dem Skrotum verwachsen sind. Sonderform: Torsion eines Leisten- oder Bauchhodens bei Maldescensus.',
+        },
+        {
+          name: 'Einteilung nach Drehungsgrad und Ischämiezeit',
+          inhalt: 'Partielle (inkomplette) Torsion unter 360° mit erhaltener Restperfusion und weniger dramatischer Klinik; komplette Torsion ab 360°, häufig 720° und mehr mit vollständiger Ischämie. Entscheidend für den Hodenerhalt ist die Ischämiezeit: innerhalb von 6 Stunden Rettungsrate über 90 %, nach 6–12 Stunden noch etwa 50 %, nach 12–24 Stunden unter 20 %, nach 24 Stunden unter 10 %. Je höher der Drehungsgrad, desto kürzer die tolerierte Zeit.',
+        },
+        {
+          name: 'TWIST-Score (Testicular Workup for Ischemia and Suspected Torsion)',
+          inhalt: 'Fünf klinische Kriterien: Hodenschwellung (2 Punkte), harter Hoden (2 Punkte), fehlender Kremasterreflex (1 Punkt), Übelkeit oder Erbrechen (1 Punkt), Hochstand des Hodens (1 Punkt) — maximal 7 Punkte. 0–2 Punkte: niedriges Risiko, Torsion unwahrscheinlich; 3–4 Punkte: mittleres Risiko, Farbdoppler-Sonographie; 5–7 Punkte: hohes Risiko, sofortige operative Freilegung, auch ohne Bildgebung. Der Score unterstützt die Einschätzung, ersetzt aber nie das klinische Urteil.',
+        },
+        {
+          name: 'Intraoperative Beurteilung der Hodenvitalität',
+          inhalt: 'Nach Detorsion und Erwärmung mit warmen Kompressen über 10–15 Minuten: rosige Farbe und kapilläre Blutung nach Inzision der Tunica albuginea = vitaler Hoden → Orchidopexie. Schwarz-livider Hoden ohne Blutung nach Inzision = Nekrose → Orchiektomie. In Grenzfällen (junger Patient) eher Belassen mit Tunica-albuginea-Inzision zur Dekompression und engmaschiger Kontrolle.',
+        },
+      ],
+      redFlags: [
+        'Akutes Skrotum bei einem Kind, Jugendlichen oder jungen Mann → Hodentorsion bis zum Beweis des Gegenteils; die Uhr läuft ab dem ersten Schmerz, nicht ab dem Eintreffen in der Klinik',
+        'Plötzliche Unterbauchschmerzen mit Übelkeit und Erbrechen bei einem jungen Mann ohne Fieber und ohne Durchfall → aktiv nach dem Hoden fragen und die Hoden untersuchen, bevor eine Appendizitis oder Gastroenteritis angenommen wird',
+        'Erloschener Kremasterreflex, Hochstand und Querlagerung des Hodens → sofortige Vorstellung beim Urologen/Operateur, keine weitere Bildgebung, die den Eingriff verzögert',
+        'Symptombeginn bereits vor mehr als 4–6 Stunden → höchste Dringlichkeit, jede Minute zählt für den Hodenerhalt',
+        'Anamnestisch wiederholte kurze Hodenschmerzepisoden mit spontaner Rückbildung → intermittierende Torsion, elektive beidseitige Orchidopexie planen',
+        'Neugeborenes mit hartem, dunkel verfärbtem, vergrößertem Hemiskrotum → extravaginale Torsion, dringliche kinderchirurgische Exploration einschließlich Gegenseite',
+        'Livides, krepitierendes Skrotum mit Fieber und septischem Bild beim Diabetiker oder Immunsupprimierten → Fournier-Gangrän, sofortiges radikales Débridement',
+        'Schmerzhafte Leistenschwellung bei leerem Hemiskrotum → Torsion eines Leistenhodens oder inkarzerierte Hernie, beides Notfälle',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese unter Zeitdruck: exakter BEGINN (Uhrzeit — die Ischämiezeit zählt ab dem ersten Schmerz), plötzlicher Einsatz aus dem Schlaf oder nach Sport, Schmerzcharakter und Ausstrahlung in Leiste/Unterbauch, Übelkeit/Erbrechen, Trauma, frühere selbstlimitierende Episoden, Fieber und Miktionsbeschwerden (sprechen für Epididymitis), Sexualanamnese, Hodenhochstand und Mumps in der Vorgeschichte',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Die Frage nach den Hoden aktiv, sachlich und ohne Umschweife stellen — der junge Patient schämt sich, minimiert und spricht von „Bauchschmerzen“; ohne gezielte Frage bleibt der Hoden unerwähnt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter (Temperatur!), Inspektion des Skrotums (Rötung, Ödem, Asymmetrie, Hochstand, Querlage), vorsichtige Palpation beider Hoden und Nebenhoden im Seitenvergleich (Lage des Nebenhodens, Konsistenz, Druckschmerz, verdickter Samenstrang), Kremasterreflex beidseits (auf der betroffenen Seite erloschen), Prehn-Zeichen (negativ), Leistenkanal auf Hernie und Leistenhoden, Abdomen (Appendizitis, Nierenlager)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Klinische Risikoeinschätzung mit dem TWIST-Score (Schwellung 2, harter Hoden 2, fehlender Kremasterreflex 1, Übelkeit/Erbrechen 1, Hochstand 1): ab 5 Punkten direkt zur Operation, bei 3–4 Punkten Doppler, bei 0–2 Punkten Torsion unwahrscheinlich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus (Streifentest, ggf. Sediment) zur Abgrenzung der Epididymitis: bei der Torsion unauffällig, bei der Epididymitis Leukozyturie, Nitrit, Bakteriurie; Urinkultur und bei sexuell aktiven Patienten Erststrahlurin auf Chlamydien und Gonokokken (PCR) nur begleitend',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Präoperatives Routinelabor ohne jede Verzögerung: Blutbild, CRP (bei Torsion allenfalls leicht erhöht, bei Epididymitis deutlich), Gerinnung (Quick/INR, PTT), Elektrolyte, Kreatinin, Blutgruppe — Blutabnahme parallel zur OP-Vorbereitung, das Ergebnis wird nicht abgewartet',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Farbdoppler-/Duplexsonographie des Skrotums als einzige weiterführende Untersuchung im Notfall: fehlende oder deutlich verminderte intratestikuläre Perfusion im Seitenvergleich, verdrehter Samenstrang („whirlpool sign“), vergrößerter, inhomogen echoarmer Hoden, reaktive Hydrozele; bei der Epididymitis dagegen Hyperperfusion. Sensitivität etwa 85–90 %, Spezifität um 95 %',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Zwingende Einschränkung: Die Sonographie darf die Operation NICHT verzögern, und ein unauffälliger Doppler schließt eine Torsion bei typischer Klinik NICHT aus (partielle Torsion, spontane Detorsion, kindlich kleiner Hoden) — dann wird trotzdem exploriert. Bei hohem TWIST-Score oder eindeutiger Klinik direkt in den OP',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Keine Hodenszintigraphie, kein MRT, kein CT in der Notfallsituation — zu zeitaufwendig; allenfalls Sonographie des Abdomens bei unklarer Differenzialdiagnose (Appendizitis, Nierenstau)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Operative skrotale Freilegung als zugleich definitive Diagnostik und Therapie: Bei begründetem klinischem Verdacht wird exploriert, ohne einen Beweis durch Bildgebung abzuwarten — eine negative Exploration (Hydatidentorsion, Epididymitis) ist kein Fehler, ein verlorener Hoden schon',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Epididymitis / Epididymoorchitis',
+          unterscheidung: 'Die wichtigste Abgrenzung, weil die Therapie gegensätzlich ist (Antibiotika statt Operation): eher älterer Patient oder sexuell aktiver junger Mann, LANGSAMER Beginn über Stunden bis Tage, Fieber, Dysurie, Pollakisurie, Ausfluss; Nebenhoden verdickt und druckschmerzhaft, Hoden normal gelagert; Prehn-Zeichen positiv (Anheben lindert), Kremasterreflex erhalten; Leukozyturie im Urinstatus, CRP deutlich erhöht; Farbdoppler mit HYPERperfusion. Cave: Bei Unsicherheit Exploration — beides kann sich überschneiden.',
+        },
+        {
+          dd: 'Hydatidentorsion (Torsion der Morgagni-Hydatide / Appendix testis)',
+          unterscheidung: 'Häufigste Ursache des akuten Skrotums beim Kind vor der Pubertät (7–12 Jahre): umschriebener Druckschmerz am oberen Hodenpol, dort tastbares Knötchen und bläulich durchscheinender Punkt („blue dot sign“), Hoden selbst normal gelagert und wenig schmerzhaft, Kremasterreflex erhalten, Perfusion im Doppler normal oder gesteigert. Harmlos, konservativ mit Analgesie — bei Unsicherheit dennoch Exploration.',
+        },
+        {
+          dd: 'Inkarzerierte Leistenhernie',
+          unterscheidung: 'Nicht reponible, schmerzhafte Vorwölbung in der Leiste, die bis ins Skrotum reichen kann, Übelkeit, Erbrechen, Ileuszeichen; Hoden selbst normal gelagert und indolent, Kremasterreflex erhalten; Darmschlingen im Ultraschall. Ebenfalls Notfall (Reposition bzw. Operation).',
+        },
+        {
+          dd: 'Hodentrauma mit Hämatozele oder Hodenruptur',
+          unterscheidung: 'Adäquates Trauma (Tritt, Ball, Sturz auf den Fahrradrahmen), Hämatom der Skrotalhaut, im Ultraschall Hämatozele oder Unterbrechung der Tunica albuginea; Cave: Ein Trauma kann eine Torsion auslösen — Doppler und ggf. Exploration.',
+        },
+        {
+          dd: 'Hodentumor',
+          unterscheidung: 'Schmerzlose, derbe, höckrige Vergrößerung des Hodens beim 20- bis 40-Jährigen, langsam über Wochen, Schweregefühl; schmerzhaft nur bei Einblutung oder Torsion des Tumorhodens; Tumormarker AFP, β-HCG, LDH und Sonographie mit solider intratestikulärer Raumforderung.',
+        },
+        {
+          dd: 'Orchitis (Mumpsorchitis)',
+          unterscheidung: 'Meist 4–7 Tage nach einer Parotitis beim postpubertären, ungeimpften Patienten, Fieber, in einem Drittel beidseits; Impfanamnese (MMR) erfragen; Doppler mit Hyperperfusion, keine Torsion des Samenstrangs.',
+        },
+        {
+          dd: 'Hydrozele, Varikozele, Spermatozele',
+          unterscheidung: 'Chronische, schmerzlose oder nur dumpf ziehende Schwellung; Hydrozele prall-elastisch, diaphanoskopisch durchscheinend; Varikozele als weicher „Wurmsack“ links, im Stehen zunehmend; Sonographie beweisend. Kein akuter Beginn, kein Erbrechen.',
+        },
+        {
+          dd: 'Fournier-Gangrän',
+          unterscheidung: 'Nekrotisierende Fasziitis des Perineums und Skrotums beim Diabetiker, Alkoholkranken oder Immunsupprimierten: rasch progrediente livide Verfärbung, Krepitation, fauliger Geruch, hohes Fieber, Sepsis; unverzüglich chirurgisches Débridement plus Breitspektrumantibiose.',
+        },
+        {
+          dd: 'Purpura Schönlein-Henoch mit Skrotalbeteiligung',
+          unterscheidung: 'Kind mit palpabler Purpura an Streckseiten und Gesäß, Gelenk- und Bauchschmerzen, Hämaturie; skrotale Schwellung mit erhaltener Perfusion im Doppler.',
+        },
+        {
+          dd: 'Idiopathisches Skrotalödem',
+          unterscheidung: 'Kind mit ausgedehnter, teigiger, wenig schmerzhafter Rötung und Schwellung der Skrotalhaut, oft beidseits und auf Perineum übergreifend; Hoden selbst unauffällig, Perfusion normal; selbstlimitierend.',
+        },
+        {
+          dd: 'Nierenkolik / Ureterstein',
+          unterscheidung: 'Wellenförmig an- und abschwellender Flankenschmerz mit Ausstrahlung in Leiste und Hoden, Unruhe, Hämaturie; Hoden selbst unauffällig, Kremasterreflex erhalten; Sonographie mit Harnstau, Urinstatus mit Erythrozyturie.',
+        },
+        {
+          dd: 'Akute Appendizitis',
+          unterscheidung: 'Wandernder Schmerz vom Epigastrium in den rechten Unterbauch, Druckschmerz am McBurney-Punkt, Loslassschmerz, Fieber, Leukozytose; Hoden bei der Untersuchung unauffällig — die Hodenuntersuchung gehört bei jedem jungen Mann zum Appendizitis-Ausschluss.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortige operative Freilegung (Notfall)',
+          items: [
+            'Notfalloperation innerhalb von sechs Stunden nach Symptombeginn — die Diagnose ist klinisch; bei begründetem Verdacht wird exploriert, im Zweifel wird operiert und nicht abgewartet, keine Bildgebung darf den Eingriff verzögern',
+            'Sofortige Nüchternheit ab dem Verdacht, venöser Zugang, Analgesie (z. B. Metamizol 1 g i. v. oder Piritramid 3,75–7,5 mg i. v.), Antiemese (Ondansetron 4 mg i. v.), präoperatives Labor parallel, Anästhesie und OP-Saal sofort informieren',
+            'Aufklärung von Patient und — bei Minderjährigen — der Eltern, ausdrücklich einschließlich der möglichen Orchiektomie, der Fixierung der Gegenseite, der Hodenatrophie und der Fertilitätsfrage; im Notfall darf die Aufklärung den Eingriff nicht aufhalten',
+            'Manueller Detorsionsversuch nur als Überbrückung, wenn die Operation nicht sofort verfügbar ist: Aufdrehen des Hodens nach lateral („wie das Öffnen eines Buches“, open-book-Manöver) unter Analgesie, Erfolg = schlagartige Schmerzlinderung und Tiefertreten des Hodens, Kontrolle im Doppler; auch bei Erfolg folgt die Operation, weil der Hoden ohne Fixierung erneut torquiert',
+            'Skrotale Freilegung, Detorsion des Samenstrangs, Beurteilung der Durchblutung nach Erwärmung mit warmen Kompressen über 10–15 Minuten (Farbe, kapilläre Blutung nach Inzision der Tunica albuginea)',
+            'Erholter, vitaler Hoden → Orchidopexie: Fixierung des Hodens mit nicht resorbierbaren Nähten an der Skrotalwand bzw. im Dartos-Pouch an mindestens drei Punkten',
+            'Nekrotischer Hoden → Orchiektomie (Entfernung des abgestorbenen Hodens, Absetzen des Samenstrangs), da ein belassener Nekrosehoden Infektion und die Bildung von Antikörpern gegen Spermien fördert',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Versorgung der Gegenseite und Schutz der Fertilität',
+          items: [
+            'Prophylaktische Orchidopexie der GEGENSEITE in derselben Sitzung — die anatomische Anlage („Glockenklöppel“-Hoden mit fehlender Fixierung) besteht beidseits, ohne Fixierung droht die kontralaterale Torsion; das gilt auch nach Orchiektomie, weil dann der einzige verbliebene Hoden geschützt werden muss',
+            'Aufklärung, dass die Fertilität nach einseitigem Hodenverlust in der Regel erhalten bleibt, da der gesunde Hoden die Hormon- und Spermienproduktion übernimmt; die Testosteronproduktion ist nicht eingeschränkt',
+            'Angebot einer Hodenprothese (Silikonimplantat) aus kosmetischen und psychischen Gründen, in der Regel im Intervall nach abgeschlossener Wundheilung, nicht in der Notfalloperation',
+            'Bei intermittierender Torsion in der Vorgeschichte ohne aktuelles Ereignis: elektive beidseitige Orchidopexie innerhalb weniger Tage, um dem Notfall zuvorzukommen',
+          ],
+        },
+        {
+          label: 'Postoperative Behandlung und Nachsorge',
+          items: [
+            'Analgesie mit Nichtopioidanalgetika (Ibuprofen 3 × 400–600 mg unter Magenschutz oder Metamizol 4 × 1 g), Hochlagerung des Skrotums mit Suspensorium oder eng anliegender Unterhose, Kühlung in den ersten 24–48 Stunden',
+            'Körperliche Schonung, Sportverzicht und kein schweres Heben über zwei bis vier Wochen; Wundkontrolle, Fäden meist resorbierbar, Krankschreibung bzw. Schulattest',
+            'Hodenatrophie als mögliche Spätfolge auch nach erfolgreicher Detorsion (in bis zu einem Drittel der Fälle bei verzögerter Operation) — sonographische Kontrolle des Hodenvolumens nach etwa drei bis sechs Monaten',
+            'Spermiogramm bei späterem Kinderwunsch; Hinweis auf mögliche Bildung von Antikörpern gegen Spermien (Autoimmunreaktion nach Ischämie), die die Fertilität beeinträchtigen kann',
+            'Bei Orchiektomie: Angebot der Prothese im Intervall, bei Bedarf psychologische Begleitung; bei Jugendlichen regelmäßige Kontrolle der Pubertätsentwicklung und ggf. Testosteronbestimmung',
+          ],
+        },
+        {
+          label: 'Aufklärung und Prävention',
+          items: [
+            'Aufklärung über die Warnzeichen und die Bedeutung der SOFORTIGEN Vorstellung bei erneutem Hodenschmerz — auch nachts, auch bei Scham, auch bei nachlassendem Schmerz; der zeitliche Faktor entscheidet über den Hodenerhalt',
+            'Information der Eltern jüngerer Patienten sowie Sensibilisierung von Sportlehrern und Trainern: Plötzlicher Hodenschmerz beim Jugendlichen ist ein Notfall und keine „Zerrung“, mit der man bis zum Morgen wartet',
+            'Selbstuntersuchung der Hoden als monatliche Gewohnheit (auch zur Früherkennung des Hodentumors) und Wissen um die Anatomie in altersgerechter, sachlicher Sprache',
+            'Bei Geschwistern mit Hodenschmerz-Episoden an die familiäre Anlage denken; Hausarzt über die beidseitige Orchidopexie informieren (Arztbrief), damit spätere Hodenbeschwerden richtig eingeordnet werden',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt fast ausschließlich von der Ischämiezeit ab: Wird innerhalb von sechs Stunden nach Symptombeginn detorquiert, bleibt der Hoden in über 90 % der Fälle erhalten; nach 6–12 Stunden noch in etwa der Hälfte, nach 12–24 Stunden in unter 20 % und nach 24 Stunden in unter 10 % der Fälle. Auch ein gerettet erscheinender Hoden kann nachträglich atrophieren — bei verzögerter Operation in bis zu einem Drittel der Fälle; deshalb die sonographische Kontrolle nach einigen Monaten. Nach einseitigem Hodenverlust bleiben Fertilität und Testosteronproduktion durch den gesunden Hoden in der Regel erhalten; die Spermienqualität kann jedoch durch die ischämische Schädigung und die Bildung von Antikörpern gegen Spermien vermindert sein. Nach beidseitiger Orchidopexie ist ein Rezidiv selten, aber nicht ausgeschlossen. Die Neugeborenentorsion hat wegen des meist pränatalen Beginns die schlechteste Prognose für den betroffenen Hoden.',
+      pruefungsfallen: [
+        'Zeitfenster falsch nennen: Etwa SECHS Stunden bis zur irreversiblen Schädigung — Rettungsrate über 90 % innerhalb von sechs Stunden, unter 10 % nach 24 Stunden. Die Zeit läuft ab dem ersten Schmerz, nicht ab der Aufnahme.',
+        'Auf den Doppler warten oder ihn zur Bedingung der Operation machen: Die Diagnose ist KLINISCH. Ein unauffälliger Doppler schließt die Torsion nicht aus (partielle Torsion, spontane Detorsion) — bei typischer Klinik wird trotzdem exploriert. Keine Szintigraphie, kein MRT im Notfall.',
+        'Prehn-Zeichen und Kremasterreflex verwechseln: Bei der Torsion ist das Prehn-Zeichen NEGATIV (Anheben lindert nicht) und der Kremasterreflex ERLOSCHEN; bei der Epididymitis ist Prehn POSITIV und der Reflex erhalten. Dazu sagen, dass beide Zeichen nur begrenzt zuverlässig sind.',
+        '„Warum keine Antibiotika?“ — weil keine Infektion vorliegt, sondern eine Ischämie; Antibiotika sind die Therapie der Epididymitis. Wer bei der Torsion Antibiotika gibt, hat die wichtigste Differenzialdiagnose nicht verstanden.',
+        'Die Orchidopexie der GEGENSEITE vergessen — die „Glockenklöppel“-Anlage ist beidseitig; dieser bilaterale Schritt wird sehr häufig gefragt und gehört immer in die Antwort, auch nach Orchiektomie.',
+        'Die manuelle Detorsion als definitive Therapie darstellen: Sie ist nur eine Überbrückung, wenn nicht sofort operiert werden kann; auch nach erfolgreicher Detorsion wird operiert und fixiert.',
+        'Vor dem Patienten Fachlatein: „Hodentorsion“ = Verdrehung des Hodens um seinen Stiel, wodurch die Blutversorgung abgeschnürt wird; „Orchidopexie“ = Annähen/Fixieren des Hodens; „Orchiektomie“ = Entfernen des Hodens; „Epididymitis“ = Nebenhodenentzündung — so wurde es in den Fachbegriff-Listen in Karlsruhe, Reutlingen und Stuttgart abgefragt.',
+        'Den Hoden nicht untersuchen, weil der Patient „Bauchschmerzen“ angibt: Bei jedem jungen Mann mit Unterbauchschmerz und Erbrechen gehört die Hodenuntersuchung dazu — die Torsion imitiert Appendizitis, Gastroenteritis und Nierenkolik.',
+        'Die intermittierende Torsion nicht erfragen: Frühere kurze Episoden mit spontaner Rückbildung sind eine Indikation zur elektiven beidseitigen Orchidopexie.',
+        'Im Arzt-Arzt-Gespräch die Fertilitätsfrage übergehen: Nach einseitigem Hodenverlust bleibt die Zeugungsfähigkeit in der Regel erhalten; Hodenprothese anbieten; Antikörper gegen Spermien und Hodenatrophie als Spätfolgen nennen.',
+        'Bei Minderjährigen die Aufklärung der Eltern vergessen — im Notfall darf sie den Eingriff aber nicht verzögern; der Jugendliche wird altersgerecht mit aufgeklärt.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
+          antwort: 'Eine Hodentorsion rechts. Dafür sprechen das Alter des Patienten, der plötzliche, aus dem Schlaf heraus einsetzende, heftigste einseitige Hodenschmerz mit Ausstrahlung in Leiste und Unterbauch, Übelkeit und Erbrechen ohne Fieber und ohne Miktionsbeschwerden, die frühere kurze Episode mit spontaner Rückbildung sowie klinisch der hochstehende, quer liegende, geschwollene Hoden mit erloschenem Kremasterreflex und negativem Prehn-Zeichen.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff „Hodentorsion“?',
+          antwort: 'Der Hoden hat sich um seinen eigenen Stiel — den Samenstrang mit den Blutgefäßen — verdreht. Dadurch wird die Blutversorgung abgeschnürt, der Hoden bekommt keinen Sauerstoff mehr und kann innerhalb weniger Stunden absterben. Deshalb müssen wir sofort operieren.',
+        },
+        {
+          frage: 'Wie schnell muss operiert werden, und warum?',
+          antwort: 'Innerhalb von sechs Stunden nach Symptombeginn. Bis dahin liegt die Rettungsrate des Hodens bei über 90 %, nach 6 bis 12 Stunden noch bei etwa 50 %, nach 24 Stunden unter 10 %. Die Zeit läuft ab dem ersten Schmerz. Deshalb wird bei begründetem Verdacht sofort exploriert und keine Untersuchung abgewartet.',
+        },
+        {
+          frage: 'Welche Untersuchung bestätigt die Diagnose?',
+          antwort: 'Die Farbdoppler-Sonographie des Skrotums zeigt eine fehlende oder verminderte Durchblutung des Hodens und den verdrehten Samenstrang, das sogenannte whirlpool sign. Die endgültige Bestätigung ist aber die operative Freilegung. Wichtig: Die Sonographie darf die Operation nicht verzögern, und ein unauffälliger Doppler schließt die Torsion bei typischer Klinik nicht aus.',
+        },
+        {
+          frage: 'Was ist das Prehn-Zeichen, und was der Kremasterreflex?',
+          antwort: 'Beim Prehn-Zeichen hebt man den Hoden an: Bei der Epididymitis lindert das den Schmerz — das Zeichen ist positiv —, bei der Torsion bringt es keine Linderung — negativ. Der Kremasterreflex wird durch Bestreichen der Oberschenkelinnenseite ausgelöst, der Hoden zieht sich hoch; bei der Torsion ist er auf der betroffenen Seite erloschen, das empfindlichste klinische Zeichen. Beide Zeichen sind nur begrenzt zuverlässig und ersetzen nicht die Exploration.',
+        },
+        {
+          frage: 'Wie grenzen Sie die Epididymitis ab, und warum ist das so wichtig?',
+          antwort: 'Die Epididymitis beginnt langsamer über Tage, geht mit Fieber, Brennen beim Wasserlassen und häufigem Wasserlassen einher, der Urinstatus zeigt Leukozyten, das Prehn-Zeichen ist positiv, der Kremasterreflex erhalten, und im Doppler ist der Hoden vermehrt durchblutet. Die Unterscheidung ist entscheidend, weil die Therapie gegensätzlich ist: Antibiotika bei der Epididymitis, sofortige Operation bei der Torsion. Im Zweifel wird operiert.',
+        },
+        {
+          frage: 'Warum geben Sie keine Antibiotika?',
+          antwort: 'Weil bei der Hodentorsion keine Infektion vorliegt, sondern eine Durchblutungsstörung durch die Verdrehung des Samenstrangs. Antibiotika helfen nicht und kosten Zeit. Antibiotika wären die Therapie der Epididymitis.',
+        },
+        {
+          frage: 'Wie behandeln Sie den Patienten konkret?',
+          antwort: 'Sofort nüchtern lassen, venöser Zugang, Analgesie und Antiemese, Aufklärung, Notfalloperation innerhalb von sechs Stunden: skrotale Freilegung, Detorsion, Beurteilung der Durchblutung nach Erwärmung. Ist der Hoden erholt, wird er fixiert — Orchidopexie —, ist er abgestorben, wird er entfernt — Orchiektomie. In derselben Sitzung wird die Gegenseite prophylaktisch fixiert.',
+        },
+        {
+          frage: 'Warum wird auch der gesunde Hoden operiert?',
+          antwort: 'Weil die anatomische Ursache — der fehlend fixierte „Glockenklöppel“-Hoden — in der Regel beidseitig besteht. Ohne Fixierung droht die Torsion der Gegenseite, und nach einer Orchiektomie wäre das der Verlust des letzten Hodens.',
+        },
+        {
+          frage: 'Was ist mit der manuellen Detorsion?',
+          antwort: 'Sie ist nur eine Überbrückung, wenn nicht sofort operiert werden kann: Der Hoden wird nach außen aufgedreht, wie beim Öffnen eines Buches. Ein Erfolg zeigt sich an der sofortigen Schmerzlinderung. Auch dann wird anschließend operiert und fixiert, weil sich der Hoden sonst erneut verdreht.',
+        },
+        {
+          frage: 'Was erklären Sie dem Patienten und den Eltern vor der Operation?',
+          antwort: 'Dass es sich um einen Notfall handelt und jede Stunde zählt; dass der Hoden freigelegt, zurückgedreht und angenäht wird; dass er entfernt werden muss, wenn er bereits abgestorben ist; dass der andere Hoden mit fixiert wird; dass die Zeugungsfähigkeit und die Hormonproduktion mit einem Hoden in der Regel erhalten bleiben; dass später eine Prothese möglich ist; und die allgemeinen Risiken der Operation: Nachblutung, Infektion, Wundheilungsstörung, Narkoserisiken, Hodenschrumpfung.',
+        },
+        {
+          frage: 'Bleibt der Patient zeugungsfähig, wenn ein Hoden entfernt werden muss?',
+          antwort: 'In der Regel ja — der gesunde Hoden übernimmt die Spermien- und Testosteronproduktion vollständig. Die Spermienqualität kann durch die ischämische Schädigung und durch Antikörper gegen Spermien vermindert sein, weshalb bei späterem Kinderwunsch ein Spermiogramm sinnvoll ist. Aus kosmetischen Gründen kann eine Hodenprothese eingesetzt werden.',
+        },
+        {
+          frage: 'Welche Spätfolgen sind möglich, und wie sieht die Nachsorge aus?',
+          antwort: 'Hodenatrophie auch nach erfolgreicher Detorsion, verminderte Spermienqualität, Antikörper gegen Spermien, selten ein Rezidiv. Nachsorge: Schonung und Sportverzicht über zwei bis vier Wochen, Wundkontrolle, sonographische Kontrolle des Hodenvolumens nach drei bis sechs Monaten, Spermiogramm bei Kinderwunsch, Aufklärung über die sofortige Vorstellung bei erneutem Hodenschmerz.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen des akuten Skrotums kennen Sie?',
+          antwort: 'Epididymitis und Epididymoorchitis, Hydatidentorsion beim Kind mit dem blue dot sign, inkarzerierte Leistenhernie, Hodentrauma mit Hämatozele, Hodentumor mit Einblutung, Hydrozele und Varikozele, Mumpsorchitis, Fournier-Gangrän beim Diabetiker, Purpura Schönlein-Henoch, idiopathisches Skrotalödem, außerdem Nierenkolik und Appendizitis mit Ausstrahlung.',
+        },
+      ],
+      merksatz: 'Akutes Skrotum beim Jugendlichen = Hodentorsion, bis das Gegenteil bewiesen ist: erloschener Kremasterreflex, negatives Prehn-Zeichen, Hochstand — im Zweifel wird OPERIERT, nicht abgewartet, innerhalb von sechs Stunden, Doppler ohne Verzögerung, und IMMER die Gegenseite mit fixieren.',
+      linkedCaseIds: [
+        'case-hodentorsion',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-operation',
+        'auf-sonographie',
+      ],
+    },
+    {
+      id: 'fw-basaliom',
+      pathology: 'Basalzellkarzinom (Basaliom)',
+      specialty: 'Dermatologie',
+      definition: 'Das Basalzellkarzinom (Basaliom, „weißer“ oder „heller Hautkrebs“) ist ein von den basalen Zellen der Epidermis und der Haarfollikel ausgehender, lokal infiltrierend und destruierend wachsender Hauttumor, der praktisch nie metastasiert (Metastasierungsrate unter 0,1 %). Es ist mit einer Inzidenz von etwa 200 Neuerkrankungen pro 100 000 Einwohner und Jahr in Deutschland der häufigste bösartige Tumor des Menschen überhaupt und zugleich der „gutartigste unter den bösartigen“: Er wächst langsam über Monate bis Jahre, ist bei rechtzeitiger vollständiger Entfernung heilbar, kann aber unbehandelt Knorpel, Knochen und Orbita zerstören (Ulcus rodens, Ulcus terebrans). Etwa 80 % der Tumoren liegen im Kopf-Hals-Bereich, bevorzugt in der sonnenexponierten Gesichtsmitte (Nase, innerer Augenwinkel, Stirn, Schläfe, Ohr).',
+      aetiologie: 'Hauptursache ist die kumulative UV-Exposition (UV-B) über das ganze Leben, insbesondere bei hellem Hauttyp I–II; im Gegensatz zum Melanom zählt weniger der einzelne Sonnenbrand als die lebenslange Gesamtdosis. Molekular liegt in über 90 % der Fälle eine Aktivierung des Hedgehog-Signalwegs zugrunde, meist durch einen Funktionsverlust des Tumorsuppressorgens PTCH1, seltener durch aktivierende SMO-Mutationen — der Angriffspunkt der Hedgehog-Inhibitoren. Weitere Ursachen sind ionisierende Strahlung (frühere Radiotherapie), chronische Arsenexposition, Immunsuppression (Organtransplantation, HIV, langjährige Immunsuppressiva), chronische Wunden und Narben sowie genetische Syndrome wie das Gorlin-Goltz-Syndrom (Basalzellnävussyndrom, PTCH1-Keimbahnmutation, multiple Basaliome schon im jungen Erwachsenenalter) und die Xeroderma pigmentosum (DNA-Reparaturdefekt).',
+      risikofaktoren: [
+        'Hohes Lebensalter — Altersgipfel zwischen 60 und 80 Jahren, Männer etwas häufiger betroffen als Frauen',
+        'Heller Hauttyp I–II nach Fitzpatrick (helle Haut, blaue oder grüne Augen, rotblondes Haar, Sonnenbrandneigung, geringe Bräunung)',
+        'Kumulative berufliche UV-Exposition: Landwirte, Bauarbeiter, Dachdecker, Gärtner, Seeleute, Straßenbauer',
+        'Private UV-Exposition: Sonnenbäder, Segeln, Bergsport, Sonnenbrände in Kindheit und Jugend, Solarium',
+        'Bereits bestehende Lichtschäden: aktinische Keratosen, Feldkanzerisierung, Elastose',
+        'Früherer heller Hautkrebs — 30 bis 50 % der Patienten entwickeln innerhalb weniger Jahre ein zweites Basaliom',
+        'Immunsuppression nach Organtransplantation, HIV-Infektion, langjährige Immunsuppressiva',
+        'Frühere Strahlentherapie (z. B. wegen Tinea capitis, Akne, Tumoren) — Tumoren im Bestrahlungsfeld nach Jahrzehnten',
+        'Chronische Arsenexposition (früher in Medikamenten, Pestiziden, Trinkwasser)',
+        'Genetische Syndrome: Gorlin-Goltz-Syndrom, Xeroderma pigmentosum, Albinismus',
+        'Chronische Wunden, Narben, Ulzera, Verbrennungsnarben',
+      ],
+      klinik: [
+        {
+          text: 'Langsam über Monate bis Jahre wachsende Hautveränderung, die „nicht heilt“, immer wieder blutet (Rasieren, Waschen, Abtrocknen), Krusten bildet und wieder aufbricht — schmerzlos und ohne Juckreiz',
+        },
+        {
+          text: 'Prädilektionsstellen: sonnenexponierte Gesichtsmitte — Nase (am häufigsten), innerer Augenwinkel, Stirn, Schläfe, Wange, Ohrmuschel; seltener Kapillitium, Hals und Rumpf',
+        },
+        {
+          text: 'Noduläres Basaliom (häufigster Subtyp, etwa 60 %): hautfarbenes bis rötliches, perlmuttartig glänzendes, derbes Knötchen mit erhabenem, perlschnurartigem Randsaum und feinen Teleangiektasien an der Oberfläche',
+        },
+        {
+          text: 'Im Verlauf zentrale Einsenkung, Erosion und Ulzeration mit Kruste — das ulzerierte Basaliom (Ulcus rodens); bei Tiefeninfiltration in Knorpel und Knochen Ulcus terebrans',
+        },
+        {
+          text: 'Im Umfeld häufig weitere Zeichen der chronischen Lichtschädigung: aktinische Keratosen, solare Elastose, Lentigines, Stirnglatze mit rauen Stellen',
+        },
+        {
+          text: 'Regionäre Lymphknoten unauffällig — eine Metastasierung ist die absolute Ausnahme',
+        },
+        {
+          text: 'Superfizielles Basaliom (etwa 15–25 %, bevorzugt Rumpf und Extremitäten): flache, scharf begrenzte, rötliche, leicht schuppende ekzemähnliche Plaque mit feinem perlschnurartigem Rand — wird als Ekzem, Psoriasis oder Morbus Bowen verkannt und oft monatelang mit Kortison behandelt',
+          atypisch: true,
+        },
+        {
+          text: 'Sklerodermiformes (morpheaartiges) Basaliom (etwa 5–10 %): narbenartige, gelblich-weiße, derbe, unscharf begrenzte Platte ohne Knötchen — die klinisch am stärksten unterschätzte Form, wächst weit über die sichtbare Grenze hinaus, höchste Rezidivrate',
+          atypisch: true,
+        },
+        {
+          text: 'Pigmentiertes Basaliom: braun-schwarzes Knötchen mit blaugrauen Anteilen — Verwechslung mit dem malignen Melanom oder einer seborrhoischen Keratose',
+          atypisch: true,
+        },
+        {
+          text: 'Fibroepitheliales Basaliom (Pinkus-Tumor): weicher, gestielter, hautfarbener Knoten am unteren Rücken — imitiert ein Fibrom',
+          atypisch: true,
+        },
+        {
+          text: 'Basaliom am inneren Augenwinkel oder Lidrand mit Wimpernverlust und Tränenwegsbeteiligung; am Ohr mit Knorpelinfiltration; bei Gorlin-Goltz-Syndrom multiple Basaliome schon vor dem 30. Lebensjahr mit Kieferzysten und Handflächengrübchen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Histologische und klinische Subtypen',
+          inhalt: 'Nodulär (solide, etwa 60 %, häufigster Typ, Gesicht); superfiziell (multizentrisch, etwa 15–25 %, Rumpf); sklerodermiform/morpheaartig (etwa 5–10 %, infiltrativ, unscharf begrenzt, höchste Rezidivrate); infiltrativ und mikronodulär (aggressive Wachstumsmuster); pigmentiert (Sonderform des nodulären oder superfiziellen Typs); fibroepithelial (Pinkus-Tumor); basosquamös/metatypisch (Mischtyp mit plattenepithelialer Differenzierung, kann metastasieren). Ulcus rodens = ulzeriertes Basaliom, Ulcus terebrans = tief in Knorpel/Knochen destruierendes Basaliom.',
+        },
+        {
+          name: 'Risikoeinteilung nach der S2k-Leitlinie (Niedrig- vs. Hochrisiko-Basaliom)',
+          inhalt: 'Hochrisiko-Kriterien: Lokalisation in der H-Zone des Gesichts (Nase, Periorbital-, Periaurikulär-, Lippenregion, Schläfe), Durchmesser über 2 cm (im Gesicht bereits über 1 cm), aggressiver Subtyp (sklerodermiform, infiltrativ, mikronodulär, basosquamös), unscharfe Begrenzung, Rezidivtumor, perineurale Invasion, Immunsuppression, Lage in bestrahlter Haut. Konsequenz: Hochrisikotumoren werden mikrographisch kontrolliert operiert und engmaschiger nachgesorgt; Niedrigrisikotumoren (klein, nodulär oder superfiziell, außerhalb der H-Zone) können konventionell exzidiert oder — bei superfiziellem Typ — topisch behandelt werden.',
+        },
+        {
+          name: 'Stadieneinteilung (AJCC/UICC-TNM für nicht-melanozytären Hautkrebs)',
+          inhalt: 'T1 ≤ 2 cm, T2 > 2 bis 4 cm, T3 > 4 cm oder geringe Knochenerosion, perineurale Invasion oder tiefe Infiltration, T4 Infiltration von Knochen, Schädelbasis oder Orbita; N und M praktisch immer 0. Klinisch entscheidender ist die Unterscheidung „lokal begrenzt — lokal fortgeschritten (inoperabel oder nur entstellend operabel) — metastasiert (extrem selten)“, weil sie die Indikation für die Systemtherapie mit Hedgehog-Inhibitoren definiert.',
+        },
+        {
+          name: 'Hauttypen nach Fitzpatrick',
+          inhalt: 'Typ I: sehr helle Haut, rotblond, Sommersprossen, immer Sonnenbrand, nie Bräunung (Eigenschutzzeit unter 10 Minuten). Typ II: helle Haut, blond, blaue/grüne Augen, meist Sonnenbrand, kaum Bräunung (10–20 Minuten). Typ III: mittlere Haut, selten Sonnenbrand, gute Bräunung. Typ IV: olivfarben, fast nie Sonnenbrand. Typ V/VI: dunkle bis schwarze Haut. Basaliome betreffen fast ausschließlich die Typen I–III.',
+        },
+      ],
+      redFlags: [
+        'Hautveränderung am inneren Augenwinkel, Lidrand oder an der Nasenspitze mit Fixierung auf der Unterlage → Gefahr der Orbita-, Tränenwegs- und Knorpelinfiltration, rasche Abklärung und Bildgebung',
+        'Ulzeration mit Tiefenwachstum, freiliegendem Knorpel oder Knochen, Blutung aus der Tiefe → Ulcus terebrans, Bildgebung und interdisziplinäre Planung',
+        'Tastbare regionäre Lymphknoten, derbe, schnell wachsende, verhornende Läsion → Verdacht auf Plattenepithelkarzinom oder basosquamöses Karzinom mit Metastasierungsrisiko',
+        'Neu aufgetretene Gefühlsstörung, Schmerz oder Lähmung im Tumorgebiet → perineurale Invasion',
+        'Pigmentierte Läsion mit Asymmetrie, unregelmäßiger Begrenzung, Farbvielfalt, rascher Veränderung (ABCDE-Regel) → Melanom ausschließen, keine Kürettage, vollständige Exzision',
+        'Multiple Basaliome vor dem 30. Lebensjahr, Kieferzysten, Rippenanomalien → Gorlin-Goltz-Syndrom, Strahlentherapie kontraindiziert',
+        'Immunsupprimierter oder transplantierter Patient → aggressiverer Verlauf, häufig multiple Tumoren und Plattenepithelkarzinome, engmaschige Kontrollen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Dauer (Monate bis Jahre), langsames Wachstum, Blutung bei Rasieren oder Waschen, Krustenbildung, Schmerz- und Juckfreiheit; berufliche und private UV-Exposition, Sonnenbrände, Solarium, Hauttyp und Sonnenbrandneigung; Immunsuppression, frühere Strahlentherapie, Arsen; früherer Hautkrebs und aktinische Keratosen; bisherige Behandlung (Wundsalben, Kortisoncremes — verzögern die Diagnose); Hautkrebs in der Familie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion des GESAMTEN Integuments bei guter Beleuchtung — nicht nur der gezeigten Stelle —, einschließlich Kapillitium, Ohren, Nasenflügel, innerer Augenwinkel, Rücken; Beschreibung von Größe, Begrenzung, Glanz, perlschnurartigem Rand, Teleangiektasien, zentraler Ulzeration, Pigment; Suche nach weiteren Tumoren und aktinischen Keratosen (Feldkanzerisierung)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Palpation der Läsion (Konsistenz, Verschieblichkeit gegen Knorpel und Knochen, Infiltrationstiefe) und der regionären Lymphknoten (präaurikulär, submandibulär, zervikal) — Letzteres nur der Vollständigkeit halber, da eine Metastasierung die Ausnahme ist; bei tastbaren Lymphknoten an ein Plattenepithelkarzinom denken',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Kein tumorspezifisches Labor, keine Tumormarker. Präoperativ nur Blutbild und Gerinnung (Quick/INR, PTT) bei Patienten unter Thrombozytenaggregationshemmern oder Antikoagulanzien sowie Blutzucker bei größeren plastischen Eingriffen; vor einer Hedgehog-Therapie Leberwerte, Kreatinkinase und bei Frauen Schwangerschaftstest',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Dermatoskopie (Auflichtmikroskopie) als Standard: baumartig verzweigte (arborisierende) Teleangiektasien, blaugraue ovoide Nester und Globuli, ahornblattartige und radspeichenartige Strukturen, glänzend-weiße Areale, Ulzeration und — entscheidend — das Fehlen eines Pigmentnetzes (Abgrenzung zum Melanom und zum Naevus)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der regionären Lymphknoten nur bei tastbarem Befund oder Verdacht auf ein Plattenepithel- bzw. basosquamöses Karzinom; hochfrequenter Hautultraschall (20 MHz) zur Abschätzung der Tumordicke vor Radiotherapie oder Systemtherapie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT (Weichteile, Orbita, perineurale Ausbreitung) oder CT (Knochen, Nasennebenhöhlen, Schädelbasis) NUR bei ausgedehnten, tief infiltrierenden, fixierten oder rezidivierten Tumoren mit Verdacht auf Knorpel-, Knochen- oder Orbitabeteiligung — nicht beim kleinen, verschieblichen Basaliom',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologische Sicherung OBLIGAT vor jeder Therapie: bei kleinen, klinisch eindeutigen Tumoren direkt als Exzisionsbiopsie in Lokalanästhesie; bei großen, unklaren oder für eine nicht operative Therapie vorgesehenen Tumoren zunächst Probebiopsie (Stanz- oder Shave-Biopsie) — histologisch basaloide Tumorzellnester mit palisadenartiger Anordnung der peripheren Zellen, Spaltbildung zum Stroma und Angabe des Subtyps',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologische Schnittrandkontrolle des Exzidats (R0-Status) — bei Hochrisikotumoren mikrographisch kontrolliert mit lückenloser dreidimensionaler Randschnittbeurteilung (Mohs-Chirurgie bzw. „Tübinger Torte“) und schrittweiser Nachresektion bis zur Tumorfreiheit',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nicht invasive Zusatzverfahren in Spezialzentren: konfokale Laserscanning-Mikroskopie und optische Kohärenztomographie zur Abgrenzung unklarer Läsionen und zur Verlaufskontrolle unter topischer Therapie; bei Verdacht auf Gorlin-Goltz-Syndrom humangenetische Beratung und PTCH1-Testung',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Plattenepithelkarzinom der Haut (Spinaliom)',
+          unterscheidung: 'Die wichtigste Abgrenzung: wächst schneller (Wochen bis Monate), derber, verhornend-schuppend oder krustig-hyperkeratotisch, häufig aus einer aktinischen Keratose oder in Narben, oft schmerzhaft; KANN lymphogen metastasieren (etwa 2–5 %) — daher Lymphknotenstatus und ggf. Sonographie. Kein perlmuttartiger Glanz, keine arborisierenden Gefäße. Nur die Histologie entscheidet sicher.',
+        },
+        {
+          dd: 'Aktinische Keratose (Carcinoma in situ, Vorstufe des Plattenepithelkarzinoms)',
+          unterscheidung: 'Raue, sandpapierartige, schuppende, rötlich-bräunliche Flecken auf lichtgeschädigter Haut, besser tastbar als sichtbar, multipel (Feldkanzerisierung); kein Knötchen, kein perlschnurartiger Rand. Beim Basaliom-Patienten fast regelmäßig gleichzeitig vorhanden — mitbehandeln.',
+        },
+        {
+          dd: 'Malignes Melanom (bei pigmentiertem Basaliom)',
+          unterscheidung: 'ABCDE-Regel: Asymmetrie, unregelmäßige Begrenzung, Farbvielfalt (Colorit), Durchmesser über 5 mm, Erhabenheit/Entwicklung; dermatoskopisch atypisches Pigmentnetz, Pseudopodien, blau-weißer Schleier statt blaugrauer Nester ohne Netz. Metastasiert früh — bei Verdacht vollständige Exzision, keine Kürettage, keine topische Therapie.',
+        },
+        {
+          dd: 'Seborrhoische Keratose (Alterswarze)',
+          unterscheidung: 'Stumpf-matte, fettig glänzende, wie aufgeklebt wirkende, scharf begrenzte bräunliche Plaque mit zerklüfteter Oberfläche und Hornzysten (dermatoskopisch Komedo-artige Öffnungen, „Hirnwindungen“); nie Teleangiektasien, blutet nur bei mechanischer Reizung, sehr häufig am Rumpf.',
+        },
+        {
+          dd: 'Dermaler Naevus / Talgdrüsenhyperplasie / Trichoepitheliom',
+          unterscheidung: 'Gutartige hautfarbene Knötchen im Gesicht älterer Menschen: dermaler Naevus weich, seit Jahrzehnten unverändert, oft behaart; Talgdrüsenhyperplasie gelblich, gelappt mit zentraler Delle und kranzförmigen, nicht verzweigten Gefäßen; Trichoepitheliom meist multipel, familiär, nasolabial. Kein Wachstum, keine Blutung, keine Ulzeration — im Zweifel Histologie.',
+        },
+        {
+          dd: 'Morbus Bowen (intraepidermales Plattenepithelkarzinom)',
+          unterscheidung: 'Scharf begrenzte, rötliche, schuppende oder krustige Plaque, meist solitär an Rumpf oder Unterschenkel; dermatoskopisch punktförmige, glomeruläre Gefäße in Gruppen statt arborisierender Gefäße. Vom superfiziellen Basaliom nur histologisch sicher zu trennen.',
+        },
+        {
+          dd: 'Nummuläres Ekzem, Psoriasis (beim superfiziellen Basaliom)',
+          unterscheidung: 'Entzündliche Dermatosen jucken, sind multipel und symmetrisch, sprechen auf Kortison an und wechseln im Verlauf; das superfizielle Basaliom ist solitär, juckt nicht, bleibt trotz Kortison über Monate stabil oder wächst langsam und zeigt einen feinen perlschnurartigen Rand — jede „Ekzemstelle“, die auf Kortison nicht abheilt, wird biopsiert.',
+        },
+        {
+          dd: 'Narbe, Morphea (zirkumskripte Sklerodermie) — beim sklerodermiformen Basaliom',
+          unterscheidung: 'Narbe hat eine Verletzungs- oder Operationsanamnese; Morphea zeigt einen lilafarbenen Entzündungsrand (Lilac Ring) und tritt meist am Rumpf auf. Eine „Narbe“ ohne Trauma im Gesicht, die langsam wächst, ist bis zum Beweis des Gegenteils ein sklerodermiformes Basaliom.',
+        },
+        {
+          dd: 'Keratoakanthom',
+          unterscheidung: 'Sehr rasch (Wochen) wachsender, kraterförmiger Knoten mit zentralem Hornpfropf, spontane Rückbildung möglich; histologisch und im Management wie ein hochdifferenziertes Plattenepithelkarzinom behandelt — vollständige Exzision.',
+        },
+        {
+          dd: 'Merkelzellkarzinom',
+          unterscheidung: 'Sehr seltener, hochmaligner neuroendokriner Tumor: rasch wachsender, schmerzloser, rot-livider, derber Knoten an sonnenexponierter Haut alter oder immunsupprimierter Menschen, früh metastasierend (AEIOU-Regel: asymptomatisch, expandiert rasch, Immunsuppression, older than 50, UV-exponiert).',
+        },
+        {
+          dd: 'Chronische Wunde, Ulkus anderer Ursache (z. B. traumatisch, arteriell, Pyoderma)',
+          unterscheidung: 'Auslöser oder Gefäßerkrankung in der Anamnese, meist an den Unterschenkeln, granulierender Wundgrund; jedes Ulkus im Gesicht ohne Ursache und jede Wunde, die nach 4–6 Wochen nicht heilt oder deren Rand aufgeworfen und perlschnurartig ist, wird biopsiert (auch das Ulkus cruris kann ein Basaliom sein).',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Operative Entfernung als Standard (Exzision mit histologischer Schnittrandkontrolle)',
+          items: [
+            'Therapie der ersten Wahl mit den höchsten Heilungsraten (über 95 %): vollständige chirurgische Exzision in Lokalanästhesie mit einem klinischen Sicherheitsabstand von etwa 3–5 mm beim Niedrigrisikotumor (5–10 mm oder mikrographisch beim Hochrisikotumor) und obligater histologischer Schnittrandkontrolle — keine Therapie ohne Histologie, kein Abschluss ohne R0',
+            'Mikrographisch kontrollierte Chirurgie (Mohs-Chirurgie, lückenlose dreidimensionale Randschnittkontrolle, „Tübinger Torte“) im Gesicht (H-Zone: Nase, Augenwinkel, Ohr, Lippe), bei sklerodermiformem, infiltrativem oder mikronodulärem Subtyp, bei Rezidiven und unscharf begrenzten Tumoren: schrittweise Nachresektion bis zur Tumorfreiheit — schont Gewebe und erreicht die niedrigste Rezidivrate (etwa 1–3 % gegenüber 5–10 % bei konventioneller Exzision)',
+            'Defektdeckung erst nach histologisch gesicherter Tumorfreiheit: primärer Verschluss bei kleinen Defekten, Lappenplastik (Rotations-, Verschiebe-, Bilobed-, Stirnlappen) oder Vollhauttransplantat bei größeren Defekten an Nase, Lid und Ohr — ggf. gemeinsam mit plastischer Chirurgie, Augenheilkunde oder HNO',
+            'Bei R1-Resektion (Tumor im Schnittrand) Nachresektion; nur bei Inoperabilität alternativ Radiotherapie des Tumorbetts',
+            'Perioperatives Management: kleine Exzisionen unter fortgeführter Acetylsalicylsäure möglich; bei oralen Antikoagulanzien Absprache mit dem Hausarzt; perioperative Antibiotikaprophylaxe nur bei großen Lappenplastiken oder Implantaten (Allergien beachten)',
+            'Aufklärung vor dem Eingriff: Narbe und kosmetisches Ergebnis, Nachblutung, Wundinfektion, Wundheilungsstörung, Nervenverletzung, Transplantatverlust, möglicher zweiter Eingriff bei Nachresektion oder zweizeitiger Deckung, Fadenzug nach 5–7 Tagen im Gesicht',
+          ],
+        },
+        {
+          label: 'Nicht operative Verfahren bei klarer Indikation',
+          items: [
+            'Indikationen: superfizielle und kleine Niedrigrisiko-Basaliome am Rumpf oder an den Extremitäten, multiple Tumoren, Inoperabilität, Ablehnung der Operation, ungünstige Lokalisation für die Rekonstruktion — NIE beim sklerodermiformen, infiltrativen oder rezidivierten Basaliom und nie ohne vorherige Histologie',
+            'Topische Therapie beim superfiziellen Basaliom: Imiquimod 5 % Creme fünfmal pro Woche über 6 Wochen (Immunmodulator, lokale Entzündungsreaktion erwünscht) oder 5-Fluorouracil 5 % Creme zweimal täglich über 4 Wochen; Heilungsraten etwa 80–90 %',
+            'Photodynamische Therapie (PDT): Auftragen von Methyl-Aminolävulinat oder 5-Aminolävulinsäure, nach 3 Stunden Bestrahlung mit Rotlicht, zwei Sitzungen im Abstand von einer Woche — für superfizielle und dünne noduläre Basaliome, gutes kosmetisches Ergebnis, schmerzhaft während der Bestrahlung',
+            'Kryotherapie mit flüssigem Stickstoff (Kontakt- oder Sprühverfahren, zwei Gefrier-Tau-Zyklen) und Kürettage mit Elektrodesikkation für kleine, gut abgrenzbare Niedrigrisikotumoren am Rumpf — ohne histologische Randkontrolle, daher nur nach Biopsie',
+            'Strahlentherapie (fraktioniert, z. B. 50–60 Gy in 20–30 Fraktionen; Weichstrahl- oder Elektronentherapie) beim alten oder inoperablen Patienten, bei Ablehnung der Operation, bei ungünstiger Lokalisation oder als Adjuvans bei R1-Situation und perineuraler Invasion — kontraindiziert beim Gorlin-Goltz-Syndrom und bei vorbestrahlter Haut, nicht bei jungen Patienten (Spätfolgen, radiogene Zweittumoren)',
+            'Grundsatz: Alle nicht operativen Verfahren haben höhere Rezidivraten als die kontrollierte Exzision und erlauben keine histologische Randkontrolle — deshalb engmaschige klinische und dermatoskopische Nachkontrollen',
+          ],
+        },
+        {
+          label: 'Systemtherapie beim fortgeschrittenen Basaliom',
+          items: [
+            'Indikation: lokal fortgeschrittenes Basaliom, das nicht oder nur entstellend operabel und nicht bestrahlbar ist, sowie das — extrem seltene — metastasierte Basaliom; Entscheidung immer im interdisziplinären Hauttumorboard',
+            'Hedgehog-Inhibitoren als Erstlinie: Vismodegib 150 mg oder Sonidegib 200 mg einmal täglich oral — Hemmung von SMO im überaktivierten Hedgehog-Signalweg; Ansprechraten etwa 40–60 %, auch neoadjuvant zur Tumorverkleinerung vor Operation möglich',
+            'Typische Nebenwirkungen, die zum Therapieabbruch führen: Muskelkrämpfe, Geschmacksverlust (Dysgeusie) mit Gewichtsabnahme, Haarausfall, Müdigkeit; Kreatinkinase und Leberwerte kontrollieren',
+            'Strenge Kontrazeption wegen Teratogenität (Hedgehog-Weg steuert die Embryonalentwicklung): sichere Verhütung bei Frauen bis 24 Monate, bei Männern Kondom bis 3 Monate nach Therapieende, keine Blutspende, keine Samenspende',
+            'Zweitlinie: Immuncheckpoint-Inhibitor (PD-1-Antikörper Cemiplimab) bei Progress oder Unverträglichkeit unter Hedgehog-Inhibitoren; palliative Radiotherapie und bestmögliche Wundversorgung bei exulzerierenden Tumoren',
+          ],
+        },
+        {
+          label: 'Nachsorge, Prävention und Aufklärung',
+          items: [
+            'Regelmäßige dermatologische Kontrollen der Narbe und der GESAMTEN Haut über mindestens drei Jahre (Niedrigrisiko: jährlich; Hochrisiko, Rezidiv, Immunsuppression: alle 3–6 Monate, dann lebenslang jährlich) — der wichtigste Satz der Nachsorge: 30 bis 50 % der Patienten entwickeln innerhalb weniger Jahre ein zweites Basaliom, deshalb wird nie nur die Narbe kontrolliert',
+            'Konsequenter Sonnenschutz: Meidung der Mittagssonne (11–15 Uhr), Schatten, dicht gewebte Kleidung, breitkrempiger Hut, Sonnenbrille, Lichtschutzfaktor 50+ auf Gesicht, Ohren, Glatze und Hände, Nachcremen; Solarium strikt meiden — auch für die Kinder und Enkel, weil die Lichtdosis kumuliert',
+            'Behandlung der aktinischen Keratosen als Feldkanzerisierung (Kryotherapie einzelner Läsionen; flächig Diclofenac-Gel, 5-Fluorouracil, Imiquimod, PDT), um Plattenepithelkarzinome zu verhindern',
+            'Anleitung zur monatlichen Selbstuntersuchung der Haut mit Spiegel und Partner: Warnzeichen sind jede Stelle, die nicht heilt, blutet, Krusten bildet, glänzt oder langsam wächst, und jedes sich verändernde Muttermal — bei Auffälligkeit sofortige Vorstellung',
+            'Teilnahme am gesetzlichen Hautkrebsscreening ab dem 35. Lebensjahr alle zwei Jahre als Kassenleistung; für Basaliom-Patienten ersetzt die fachärztliche Nachsorge das Screening',
+            'Bei transplantierten und immunsupprimierten Patienten Anpassung der Immunsuppression in Absprache mit dem Transplantationszentrum (z. B. Umstellung auf mTOR-Inhibitoren)',
+            'Berufskrankheit: Bei beruflicher UV-Exposition (Landwirtschaft, Bau, Seefahrt) Anzeige bei der Berufsgenossenschaft — Cave: Die BK-Nr. 5103 umfasst nur Plattenepithelkarzinome und multiple aktinische Keratosen durch natürliche UV-Strahlung, NICHT das Basaliom selbst; die begleitenden aktinischen Keratosen des Patienten sind jedoch anzeigepflichtig, und die Berufsgenossenschaft übernimmt dann Sonnenschutz, Feldtherapie und Nachsorge',
+            'Psychoonkologische Aufklärung: Das Wort „Krebs“ erklären — weißer Hautkrebs, heilbar, streut praktisch nie, die Gefahr liegt im Abwarten (örtliche Zerstörung, Entstellung an Nase, Auge und Ohr); Angehörige einbeziehen, Ängste ernst nehmen',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose ist bei rechtzeitiger vollständiger Entfernung ausgezeichnet: Die Heilungsrate liegt nach mikrographisch kontrollierter Exzision bei etwa 97–99 %, nach konventioneller Exzision bei etwa 90–95 %; die tumorbedingte Sterblichkeit liegt weit unter 0,1 %, eine Metastasierung ist mit unter 0,1 % eine Rarität (am ehesten bei basosquamösen, sehr großen oder vernachlässigten Tumoren). Unbehandelt wächst das Basaliom über Jahre unaufhaltsam in die Tiefe und zerstört Nase, Lid, Ohr, Knorpel, Knochen und Orbita (Ulcus terebrans) — die Gefahr liegt im Abwarten und in der Entstellung, nicht im Streuen. Die Rezidivrate beträgt etwa 5–10 % nach konventioneller und 1–3 % nach mikrographisch kontrollierter Exzision, bei nicht operativen Verfahren deutlich mehr; Rezidive treten überwiegend innerhalb der ersten drei Jahre auf. Das eigentliche Langzeitrisiko ist der Zweittumor: 30 bis 50 % der Patienten entwickeln innerhalb von drei bis fünf Jahren ein weiteres Basaliom, dazu ein erhöhtes Risiko für Plattenepithelkarzinome und Melanome — daher lebenslanger Sonnenschutz und regelmäßige Ganzkörperkontrollen.',
+      pruefungsfallen: [
+        'Das Basaliom metastasiert praktisch NIE (unter 0,1 %) — trotzdem ist es bösartig, weil es lokal infiltrierend und destruierend wächst. Weder „gutartig“ noch „streut wie jeder Krebs“ sagen: „lokal bösartig, praktisch nie metastasierend“ ist die richtige Formel.',
+        'Das Basaliom ist der HÄUFIGSTE bösartige Tumor des Menschen überhaupt — nicht das Melanom, nicht das Plattenepithelkarzinom. Häufigkeitsfolge des Hautkrebses: Basaliom vor Plattenepithelkarzinom vor Melanom; die Sterblichkeit ist umgekehrt.',
+        'Die wichtigste Differenzialdiagnose ist das Plattenepithelkarzinom, weil es metastasieren kann — bei jeder verhornenden, schnell wachsenden, derben Läsion Lymphknoten palpieren und die Histologie abwarten.',
+        'Keine Therapie ohne Histologie: Auch das klinisch eindeutige Basaliom wird histologisch gesichert (Exzisionsbiopsie oder Probebiopsie); Kryotherapie, PDT oder Imiquimod „auf Verdacht“ sind ein Fehler, ebenso Kortisoncremes auf eine nicht heilende Stelle.',
+        'Der Standard ist die vollständige Exzision MIT histologischer Schnittrandkontrolle; im Gesicht und beim sklerodermiformen Typ die mikrographisch kontrollierte Chirurgie — wer nur „rausschneiden“ sagt, ohne die Randkontrolle zu nennen, verliert Punkte.',
+        'Sicherheitsabstand: etwa 3–5 mm beim Niedrigrisikotumor — nicht die 1–2 cm des Melanoms. Die Defektdeckung erfolgt erst nach gesicherter Tumorfreiheit.',
+        'Das superfizielle Basaliom wird als Ekzem oder Psoriasis verkannt und monatelang mit Kortison behandelt — jede „Ekzemstelle“, die unter Kortison nicht abheilt, wird biopsiert. Der sklerodermiforme Typ sieht aus wie eine Narbe ohne Verletzung und wird klinisch unterschätzt.',
+        'Dermatoskopisch ist das Entscheidende beim Basaliom das FEHLENDE Pigmentnetz mit arborisierenden Gefäßen und blaugrauen Nestern — ein pigmentiertes Basaliom darf nicht mit einem Melanom verwechselt werden, aber auch nicht umgekehrt: im Zweifel vollständige Exzision.',
+        'Bildgebung (CT/MRT) ist NICHT Routine — nur bei tief infiltrierenden, fixierten oder rezidivierten Tumoren mit Verdacht auf Knochen- oder Orbitabeteiligung. Lymphknotensonographie nur bei tastbarem Befund oder Verdacht auf Plattenepithelkarzinom.',
+        'Nachsorge heißt Ganzkörperkontrolle, nicht Narbenkontrolle: 30–50 % der Patienten bekommen innerhalb weniger Jahre ein zweites Basaliom. Mindestens drei Jahre, bei Hochrisiko lebenslang.',
+        'Hedgehog-Inhibitoren (Vismodegib, Sonidegib) nur beim lokal fortgeschrittenen oder metastasierten Basaliom; sie sind teratogen — strenge Kontrazeption; typische Nebenwirkungen Muskelkrämpfe, Geschmacksverlust, Haarausfall.',
+        'Berufskrankheit: Die BK 5103 erfasst Plattenepithelkarzinome und multiple aktinische Keratosen durch natürliche UV-Strahlung, das Basaliom selbst ist NICHT als Berufskrankheit anerkannt — beim Landwirt mit aktinischen Keratosen trotzdem die BK-Anzeige erstatten.',
+        'Dem Patienten gegenüber „Basaliom“ übersetzen: „weißer Hautkrebs“ bzw. „eine Krebserkrankung der Haut, die bei rechtzeitiger Entfernung heilbar ist und praktisch nie streut“ — das war in Karlsruhe und Reutlingen die erwartete Fachbegriff-Übersetzung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist ein Basaliom, und wie erklären Sie den Begriff dem Patienten?',
+          antwort: 'Das Basaliom oder Basalzellkarzinom ist ein von den Basalzellen der Oberhaut ausgehender bösartiger Hauttumor, der lokal infiltrierend wächst, aber praktisch nie metastasiert. Dem Patienten sage ich: „Es handelt sich um eine Krebserkrankung der Haut, den sogenannten weißen Hautkrebs. Er wächst langsam, streut so gut wie nie in den Körper und ist heilbar, wenn er vollständig entfernt wird. Gefährlich wird er nur, wenn man wartet, weil er dann in die Tiefe wächst.“',
+        },
+        {
+          frage: 'Warum ist das Basaliom trotz fehlender Metastasierung ein bösartiger Tumor?',
+          antwort: 'Weil es die Kriterien der lokalen Malignität erfüllt: infiltrierendes, destruierendes Wachstum über die Basalmembran hinaus in Dermis, Knorpel und Knochen, Rezidivneigung und fehlende Selbstbegrenzung. Es ist „semimaligne“ — lokal bösartig, ohne Fernmetastasierung; unbehandelt entsteht das Ulcus rodens bzw. terebrans mit Zerstörung von Nase, Lid oder Ohr.',
+        },
+        {
+          frage: 'Wie sieht ein typisches Basaliom aus?',
+          antwort: 'Ein hautfarbenes bis rötliches, perlmuttartig glänzendes, derbes Knötchen im Gesicht mit erhabenem, perlschnurartigem Randsaum und feinen Teleangiektasien an der Oberfläche; im Verlauf zentrale Einsenkung, Kruste und Ulzeration. Anamnestisch eine Stelle, die seit Monaten nicht heilt, immer wieder blutet, nicht schmerzt und nicht juckt.',
+        },
+        {
+          frage: 'Welche Subtypen kennen Sie, und welcher ist gefährlich?',
+          antwort: 'Nodulär als häufigster Typ, superfiziell am Rumpf als ekzemähnliche rötliche Plaque, sklerodermiform als narbenartige, unscharf begrenzte Platte, pigmentiert als Melanom-Imitator, fibroepithelial als Pinkus-Tumor und basosquamös als Mischtyp. Gefährlich unterschätzt wird der sklerodermiforme Typ, weil er weit über die sichtbare Grenze hinauswächst und die höchste Rezidivrate hat; der basosquamöse Typ kann metastasieren.',
+        },
+        {
+          frage: 'Welche Risikofaktoren erfragen Sie?',
+          antwort: 'Berufliche und private UV-Exposition über das Leben (Landwirtschaft, Bau, Seefahrt, Sonnenbäder, Sonnenbrände in der Jugend), Solarium, Hauttyp und Sonnenbrandneigung, Immunsuppression nach Transplantation, frühere Strahlentherapie, Arsenexposition, frühere Hautkrebse und aktinische Keratosen, Hautkrebs in der Familie sowie genetische Syndrome wie das Gorlin-Goltz-Syndrom.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und welche ist die wichtigste?',
+          antwort: 'Plattenepithelkarzinom, aktinische Keratose, malignes Melanom beim pigmentierten Typ, seborrhoische Keratose, dermaler Naevus, Talgdrüsenhyperplasie, Trichoepitheliom, Morbus Bowen, nummuläres Ekzem und Psoriasis beim superfiziellen Typ, Narbe und Morphea beim sklerodermiformen Typ, Keratoakanthom, Merkelzellkarzinom und chronische Wunden. Die wichtigste ist das Plattenepithelkarzinom, weil es schneller wächst, verhornt und metastasieren kann.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose?',
+          antwort: 'Klinisch mit Inspektion des gesamten Integuments und Dermatoskopie — arborisierende Gefäße, blaugraue Nester, Ulzeration, fehlendes Pigmentnetz —, dann obligat histologisch: bei kleinen, klinisch eindeutigen Tumoren direkt durch Exzisionsbiopsie mit Schnittrandkontrolle, bei großen oder unklaren Läsionen zunächst durch eine Stanzbiopsie. Ohne Histologie wird nicht behandelt.',
+        },
+        {
+          frage: 'Brauchen Sie eine Bildgebung oder ein Staging?',
+          antwort: 'In der Regel nicht. CT oder MRT sind nur bei ausgedehnten, tief infiltrierenden, fixierten oder rezidivierten Tumoren mit Verdacht auf Knochen-, Knorpel- oder Orbitabeteiligung indiziert; eine Lymphknotensonographie nur bei tastbaren Lymphknoten oder Verdacht auf ein Plattenepithel- oder basosquamöses Karzinom. Tumormarker gibt es nicht.',
+        },
+        {
+          frage: 'Wie behandeln Sie das Basaliom?',
+          antwort: 'Standard ist die vollständige chirurgische Exzision mit 3–5 mm Sicherheitsabstand und histologischer Schnittrandkontrolle; im Gesicht, bei sklerodermiformem Typ und bei Rezidiven die mikrographisch kontrollierte Chirurgie mit schrittweiser Nachresektion bis zur Tumorfreiheit und anschließender plastischer Deckung. Nicht operative Verfahren — Imiquimod, 5-Fluorouracil, photodynamische Therapie, Kryotherapie, Kürettage, Strahlentherapie — nur bei superfiziellen Niedrigrisikotumoren oder Inoperabilität; sie haben höhere Rezidivraten.',
+        },
+        {
+          frage: 'Wann ist eine Strahlentherapie sinnvoll, und wann ist sie kontraindiziert?',
+          antwort: 'Sinnvoll beim alten oder inoperablen Patienten, bei Ablehnung der Operation, bei ungünstiger Lokalisation und adjuvant bei R1-Resektion oder perineuraler Invasion. Kontraindiziert beim Gorlin-Goltz-Syndrom und in vorbestrahlter Haut, ungünstig bei jungen Patienten wegen Spätfolgen und radiogener Zweittumoren.',
+        },
+        {
+          frage: 'Welche Systemtherapie gibt es beim fortgeschrittenen Basaliom?',
+          antwort: 'Hedgehog-Inhibitoren — Vismodegib 150 mg oder Sonidegib 200 mg täglich oral — beim lokal fortgeschrittenen, inoperablen oder sehr selten metastasierten Basaliom; sie hemmen den in über 90 % der Basaliome durch PTCH1-Verlust überaktivierten Hedgehog-Signalweg. Nebenwirkungen sind Muskelkrämpfe, Geschmacksverlust, Haarausfall und Gewichtsabnahme; wegen Teratogenität ist eine strenge Kontrazeption Pflicht. Zweitlinie ist der PD-1-Antikörper Cemiplimab; Entscheidung im Tumorboard.',
+        },
+        {
+          frage: 'Wie sieht die Nachsorge aus?',
+          antwort: 'Regelmäßige dermatologische Kontrolle der Narbe und der gesamten Haut über mindestens drei Jahre — jährlich beim Niedrigrisikotumor, alle drei bis sechs Monate beim Hochrisikotumor, dann lebenslang jährlich —, weil 30 bis 50 % der Patienten innerhalb weniger Jahre ein zweites Basaliom entwickeln. Dazu Sonnenschutz, Behandlung der aktinischen Keratosen, Selbstuntersuchung und Hautkrebsscreening.',
+        },
+        {
+          frage: 'Was raten Sie dem Patienten zur Vorbeugung?',
+          antwort: 'Meidung der Mittagssonne, Kleidung, breitkrempiger Hut, Sonnenbrille, Lichtschutzfaktor 50+ auf Gesicht, Ohren und Glatze mit Nachcremen, kein Solarium; monatliche Selbstuntersuchung mit den Warnzeichen „nicht heilend, blutend, wachsend, glänzend“; Teilnahme am Hautkrebsscreening ab 35 Jahren alle zwei Jahre als Kassenleistung; bei Transplantierten Anpassung der Immunsuppression.',
+        },
+        {
+          frage: 'Ist das Basaliom beim Landwirt eine Berufskrankheit?',
+          antwort: 'Das Basaliom selbst nicht — die BK-Nr. 5103 umfasst nur Plattenepithelkarzinome und multiple aktinische Keratosen durch natürliche UV-Strahlung. Hat der Landwirt zusätzlich multiple aktinische Keratosen, ist die Anzeige bei der landwirtschaftlichen Berufsgenossenschaft verpflichtend; sie übernimmt dann Sonnenschutz, Feldtherapie und Nachsorge.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten die Operation und die Narbe?',
+          antwort: '„Wir entfernen die Stelle in örtlicher Betäubung mit einem kleinen Sicherheitsrand und lassen das Gewebe unter dem Mikroskop untersuchen. Wenn der Rand noch nicht frei ist, schneiden wir gezielt nach, bis alles entfernt ist, und verschließen die Wunde erst dann — an der Nase manchmal mit einer kleinen Hautverschiebung oder einem Hauttransplantat. Es bleibt eine Narbe, die im Gesicht in der Regel gut verheilt. Die Fäden werden nach etwa einer Woche gezogen.“',
+        },
+      ],
+      merksatz: 'Glänzendes Knötchen mit Perlschnurrand und Äderchen im Gesicht eines Sonnenverbrannten, das seit Monaten blutet und nicht heilt = Basaliom: häufigster Krebs des Menschen, zerstört lokal, streut praktisch nie — Histologie immer, Exzision mit Schnittrandkontrolle, und danach die GANZE Haut lebenslang kontrollieren, weil jeder Dritte bis Zweite ein zweites bekommt.',
+      linkedCaseIds: [
+        'case-basaliom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-operation',
+      ],
+    },
+    {
+      id: 'fw-psoriasis',
+      pathology: 'Psoriasis vulgaris (mit Psoriasisarthritis)',
+      specialty: 'Dermatologie',
+      definition: 'Die Psoriasis vulgaris (Schuppenflechte) ist eine chronische, schubförmig verlaufende, immunvermittelte SYSTEMERKRANKUNG mit genetischer Disposition, die sich vor allem an der Haut manifestiert, aber Nägel, Gelenke und Enthesen, das Herz-Kreislauf-System, den Stoffwechsel und die Psyche betrifft. Pathogenetisch steht eine T-Zell-vermittelte Entzündung über die IL-23/Th17/IL-17-Achse mit einer auf etwa 3–5 Tage verkürzten Epidermisumsatzzeit (normal etwa 28 Tage) im Vordergrund — daraus resultieren die scharf begrenzten, erythematösen Plaques mit silbrig-weißer Schuppung. Etwa 2 % der Bevölkerung sind betroffen; die Erkrankung ist nicht ansteckend, nicht heilbar, aber sehr gut kontrollierbar. Bei etwa 20–30 % der Patienten tritt eine seronegative Psoriasisarthritis hinzu.',
+      aetiologie: 'Multifaktoriell: polygene Disposition (HLA-Cw6-Assoziation, positive Familienanamnese bei etwa 30–40 %; Typ I mit Beginn vor dem 40. Lebensjahr, Typ II mit Beginn um das 55.–60. Lebensjahr) plus Auslöser und Verschlechterer, die systematisch erfragt werden müssen: Streptokokkeninfekt (Angina tonsillaris — Psoriasis guttata beim Jugendlichen), psychischer Stress, mechanische Reizung (Köbner-Phänomen: neue Herde in Kratzspuren, Narben, Druckstellen), Medikamente (Betablocker, Lithium, Chloroquin/Hydroxychloroquin, ACE-Hemmer, NSAR, Interferone, Terbinafin) und das Absetzen systemischer Glukokortikoide (Rebound bis zur pustulösen Umwandlung), Alkohol, Rauchen, Übergewicht, HIV-Infektion, Klimawechsel und Sonnenmangel im Winter.',
+      risikofaktoren: [
+        'Positive Familienanamnese (Eltern, Geschwister mit Schuppenflechte), HLA-Cw6',
+        'Streptokokkeninfekte der oberen Atemwege (Guttata-Form)',
+        'Psychischer Stress und belastende Lebensereignisse',
+        'Nikotinabusus (vor allem pustulöse Formen der Handflächen und Fußsohlen)',
+        'Alkoholkonsum',
+        'Übergewicht, Adipositas und metabolisches Syndrom',
+        'Medikamente: Betablocker, Lithium, Antimalariamittel, ACE-Hemmer, NSAR, Interferon; Absetzen systemischer Kortikosteroide',
+        'Mechanische Reizung, Kratzen, Verletzungen, Narben (Köbner-Phänomen)',
+        'HIV-Infektion (ausgedehnter, therapierefraktärer Befall)',
+        'Kalte, sonnenarme Jahreszeit',
+      ],
+      klinik: [
+        {
+          text: 'Scharf begrenzte, erhabene, gerötete Plaques mit silbrig-weißer, grober, lamellärer Schuppung',
+        },
+        {
+          text: 'Symmetrischer Befall der STRECKSEITEN von Ellenbogen und Knien, der Kopfhaut (über den Haaransatz hinaus, hinter den Ohren), des Kreuzbeins, der Analfalte und des Bauchnabels',
+        },
+        {
+          text: 'Juckreiz bei etwa der Hälfte der Patienten, meist mäßig; Kratzen erzeugt neue Herde (Köbner-Phänomen)',
+        },
+        {
+          text: 'Die drei Kratzphänomene: Kerzenwachsphänomen (Schuppen lösen sich lamellenartig wie von einer Kerze), Phänomen des letzten Häutchens (glänzendes, feuchtes Häutchen nach Entfernung der Schuppen), Auspitz-Phänomen (punktförmige Blutungen aus den Papillarkapillaren)',
+        },
+        {
+          text: 'Nagelveränderungen bei bis zu 50 %: Tüpfelnägel (grübchenförmige Einsenkungen), Ölflecken (gelb-bräunliche Verfärbung unter der Nagelplatte), Onycholyse, subunguale Hyperkeratose, Krümelnägel — starker Hinweis auf eine begleitende Gelenkbeteiligung',
+        },
+        {
+          text: 'Psoriasisarthritis (20–30 %): asymmetrische Oligoarthritis, Daktylitis („Wurstfinger“/„Wurstzehe“ durch Befall im Strahl), Befall der Fingerendgelenke (DIP), Enthesitis mit Fersenschmerz (Achillessehne, Plantarfaszie), entzündlicher Rückenschmerz mit Sakroiliitis; Morgensteifigkeit; Rheumafaktor und Anti-CCP negativ',
+        },
+        {
+          text: 'Erhebliche psychosoziale Belastung: Scham, Stigmatisierung, Rückzug aus Schwimmbad, Sport, Partnerschaft und Beruf; Depression und Alkoholmissbrauch als Folge',
+        },
+        {
+          text: 'Psoriasis guttata: akut exanthematisch, tropfenförmige kleine Herde am Stamm 1–3 Wochen nach einer Streptokokken-Angina, vor allem bei Jugendlichen; oft selbstlimitierend',
+          atypisch: true,
+        },
+        {
+          text: 'Psoriasis inversa: Befall der Körperfalten (Axillen, Leisten, submammär, Analfalte) als glatte, glänzende, scharf begrenzte Rötung OHNE Schuppung — Verwechslung mit Intertrigo und Candidose',
+          atypisch: true,
+        },
+        {
+          text: 'Psoriasis pustulosa palmoplantaris (Raucher) oder generalisiert (Typ von Zumbusch) mit Fieber, Krankheitsgefühl und sterilen Pusteln auf Erythem — Notfall',
+          atypisch: true,
+        },
+        {
+          text: 'Erythrodermische Psoriasis: Rötung und Schuppung von über 90 % der Körperoberfläche mit Fieber, Schüttelfrost, Flüssigkeits-, Eiweiß- und Wärmeverlust, Herz-Kreislauf-Belastung — stationärer Notfall, häufig nach Absetzen systemischer Steroide',
+          atypisch: true,
+        },
+        {
+          text: 'Psoriasis capitis oder isolierte Nagelpsoriasis als einzige Manifestation über Jahre — wird als „Ekzem“ oder „Nagelpilz“ verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Arthritis mutilans: schwere destruierende Form der Psoriasisarthritis mit Teleskopfingern',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregradbestimmung: PASI, BSA und DLQI („Rule of Tens“)',
+          inhalt: 'PASI (Psoriasis Area and Severity Index, 0–72) bewertet Erythem, Infiltration und Schuppung je Körperregion, gewichtet nach Fläche. BSA = betroffene Körperoberfläche in Prozent (Handfläche des Patienten inklusive Finger ≈ 1 %). DLQI (Dermatology Life Quality Index, 0–30) misst die Lebensqualität. Rule of Tens: PASI > 10 ODER BSA > 10 % ODER DLQI > 10 = mittelschwere bis schwere Psoriasis → Indikation zur Systemtherapie. Unabhängig davon gilt ein Befall besonderer Lokalisationen (Kopfhaut, Gesicht, Genitale, Handflächen/Fußsohlen, Nägel) oder eine Gelenkbeteiligung als „Upgrade-Kriterium“ zur mittelschweren Form. Therapieziel: PASI 75 bzw. heute PASI 90/100 und DLQI ≤ 1.',
+        },
+        {
+          name: 'Typ-I- und Typ-II-Psoriasis (Henseler und Christophers)',
+          inhalt: 'Typ I (etwa 70 %): Frühtyp mit Beginn vor dem 40. Lebensjahr, Gipfel um das 20. Lebensjahr, starke familiäre Häufung, HLA-Cw6-assoziiert, schwererer und instabilerer Verlauf. Typ II: Spättyp mit Beginn nach dem 40. Lebensjahr, Gipfel um das 55.–60. Lebensjahr, sporadisch, milderer Verlauf, häufiger Nagel- und Gelenkbeteiligung.',
+        },
+        {
+          name: 'Klinische Formen',
+          inhalt: 'Psoriasis vulgaris vom Plaque-Typ (etwa 80–90 %), Psoriasis guttata, Psoriasis inversa (intertriginös), Psoriasis capitis, Nagelpsoriasis, Psoriasis pustulosa (palmoplantar, generalisiert Typ Zumbusch, Acrodermatitis continua suppurativa Hallopeau), erythrodermische Psoriasis, Psoriasisarthritis.',
+        },
+        {
+          name: 'CASPAR-Klassifikationskriterien der Psoriasisarthritis (2006)',
+          inhalt: 'Voraussetzung: entzündliche Gelenk-, Wirbelsäulen- oder Enthesenerkrankung. Mindestens 3 Punkte aus: aktuelle Psoriasis (2 Punkte) bzw. Psoriasis in der Eigen- oder Familienanamnese (1 Punkt); psoriatische Nagelveränderungen (1); negativer Rheumafaktor (1); Daktylitis aktuell oder anamnestisch (1); radiologische gelenknahe Knochenneubildung an Hand oder Fuß (1).',
+        },
+        {
+          name: 'Befallsmuster der Psoriasisarthritis (nach Moll und Wright)',
+          inhalt: '1. Asymmetrische Oligoarthritis (häufigste Form, mit Daktylitis); 2. Symmetrische Polyarthritis (rheumatoid-ähnlich, aber seronegativ); 3. Distaler Typ mit Befall der Fingerendgelenke (DIP); 4. Axialer Typ mit Spondylitis und Sakroiliitis (HLA-B27); 5. Arthritis mutilans.',
+        },
+      ],
+      redFlags: [
+        'Fieber, Schüttelfrost, Krankheitsgefühl und rasche Ausbreitung von Rötung und Schuppung auf über 90 % der Körperoberfläche → erythrodermische Psoriasis mit Flüssigkeits-, Eiweiß- und Wärmeverlust, stationäre Aufnahme',
+        'Sterile Pusteln auf flächigem Erythem mit Fieber und Leukozytose → generalisierte pustulöse Psoriasis (Typ Zumbusch), insbesondere nach Absetzen systemischer Glukokortikoide',
+        'Akut geschwollenes, überwärmtes, hochschmerzhaftes Einzelgelenk mit Fieber → septische Arthritis bzw. Gichtanfall abgrenzen, Punktion',
+        'Rasch zunehmende Gelenkschwellungen mit Funktionsverlust und Morgensteifigkeit → aktive Psoriasisarthritis, frühe rheumatologische Vorstellung zur Vermeidung irreversibler Gelenkdestruktion',
+        'Schmerzhaftes rotes Auge mit Lichtscheu → Uveitis',
+        'Blutige Durchfälle, Bauchschmerzen, Gewichtsverlust → assoziierte chronisch-entzündliche Darmerkrankung',
+        'Therapierefraktäres, atypisch ausgedehntes „Ekzem“ mit Gewichtsverlust → HIV-Test, kutanes Lymphom (Mycosis fungoides) ausschließen',
+        'Suizidgedanken, sozialer Rückzug, Alkoholmissbrauch → Depression bei Stigmatisierung, psychiatrische Mitbetreuung',
+        'Fieber, Husten, Nachtschweiß unter Biologikum oder Methotrexat → opportunistische Infektion, Tuberkulose-Reaktivierung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Beginn, Verlauf in Schüben, Auslöser und Verschlechterer (Infekt, Stress, Medikamente wie Betablocker, Lithium, Antimalariamittel, ACE-Hemmer, NSAR; abgesetztes Kortison), Familienanamnese, Juckreiz, GELENK- und Rückenbeschwerden mit Morgensteifigkeit, Nagelveränderungen, Alkohol, Rauchen, psychische Belastung und Einschränkung im Alltag (Schwimmbad, Beruf, Partnerschaft), bisherige Therapien und ihr Erfolg',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Inspektion der GESAMTEN Haut einschließlich Kopfhaut, Retroaurikulärregion, Gehörgang, Bauchnabel, Analfalte, Genitale, Handflächen und Fußsohlen sowie aller 20 Nägel; Kratzphänomene (Kerzenwachs, letztes Häutchen, Auspitz) als klinische Bestätigung — die Diagnose ist KLINISCH',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schweregrad: PASI, BSA und DLQI (Rule of Tens: > 10 = mittelschwer bis schwer, Systemtherapie indiziert); Dokumentation mit Fotos',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gelenkstatus mit Zahl geschwollener und druckschmerzhafter Gelenke, Daktylitis, Enthesen (Achillessehne, Plantarfaszie, Epikondylen), Wirbelsäule und Iliosakralgelenke (Mennell-Zeichen); Screening-Fragebogen für Psoriasisarthritis (z. B. GEPARD, PEST); Vitalparameter, Größe, Gewicht, BMI, Bauchumfang, Blutdruck',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild, CRP und BSG (bei Arthritis erhöht, bei reiner Hautpsoriasis meist normal), Harnsäure (Hyperurikämie durch hohen Zellumsatz — DD Gicht), Leber- und Nierenwerte',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Komorbiditätsscreening: Nüchternblutzucker, HbA1c, Lipidstatus (metabolisches Syndrom, kardiovaskuläres Risiko)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Gelenkbeteiligung: Rheumafaktor und Anti-CCP-Antikörper zur Abgrenzung der rheumatoiden Arthritis (bei Psoriasisarthritis NEGATIV), HLA-B27 bei axialem Befall, ANA bei Lupusverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'HIV-Test bei ausgedehntem, atypischem oder therapierefraktärem Befall; Streptokokkenabstrich bzw. Antistreptolysin-Titer bei Guttata-Form',
+        },
+        {
+          stufe: 'Labor',
+          text: 'VOR Systemtherapie zusätzlich: Hepatitis-B- und -C-Serologie, Tuberkulosescreening mit Interferon-Gamma-Test (IGRA) und Röntgen-Thorax, Schwangerschaftstest, ggf. Impfstatus, unter Methotrexat regelmäßig Blutbild, Transaminasen und Kreatinin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei Arthritisverdacht: Röntgen der Hände und Füße in zwei Ebenen (gelenknahe Erosionen NEBEN Proliferationen und Periostreaktionen, „Pencil-in-cup“-Deformität, keine gelenknahe Osteoporose wie bei der RA), Röntgen der Iliosakralgelenke bei Rückenschmerz',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Arthrosonographie mit Power-Doppler: Synovitis, Tenosynovitis, Enthesitis, Erguss; MRT der Iliosakralgelenke und Wirbelsäule bei Verdacht auf axialen Befall (Knochenmarködem)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Dermatoskopie: regelmäßig angeordnete Punktgefäße auf hellrotem Grund mit weißen Schuppen; Nagelbefund',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hautbiopsie NUR bei unklarem Bild (DD Ekzem, Mycosis fungoides, Lupus): Parakeratose, Verlust des Stratum granulosum, regelmäßige Akanthose mit verlängerten Reteleisten, Munro-Mikroabszesse (Neutrophile im Stratum corneum), Papillomatose mit erweiterten Kapillaren',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gelenkpunktion bei akuter Monarthritis zum Ausschluss einer septischen Arthritis oder Gicht (Zellzahl, Gramfärbung, Kultur, Kristalle); rheumatologische Mitbetreuung; bei Nagelbefall ggf. Nativpräparat und Pilzkultur zur Abgrenzung der Onychomykose',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Seborrhoisches Ekzem',
+          unterscheidung: 'Kopfhaut, Gesicht (Nasolabialfalten, Augenbrauen), Brustmitte; unscharf begrenzt, fettige, feine, gelbliche Schuppung statt grober silbriger; keine Kratzphänomene, keine Nagel- oder Gelenkbeteiligung.',
+        },
+        {
+          dd: 'Nummuläres Ekzem / atopische Dermatitis',
+          unterscheidung: 'Münzförmige, nässende, krustöse Herde bzw. Befall der BEUGESEITEN mit Lichenifikation, trockener Haut und starkem Juckreiz im Vordergrund; Atopieanamnese (Heuschnupfen, Asthma); kein Auspitz-Phänomen, meist keine Nägel.',
+        },
+        {
+          dd: 'Tinea corporis / Tinea capitis',
+          unterscheidung: 'Randbetonte, zentral abheilende Herde mit Schuppenkrause, oft asymmetrisch und einzeln; Tierkontakt; Pilznachweis im Nativpräparat mit Kalilauge und Kultur; bei Tinea capitis abgebrochene Haare.',
+        },
+        {
+          dd: 'Pityriasis rosea',
+          unterscheidung: 'DD zur Psoriasis guttata: Primärmedaillon, dann ovale Herde entlang der Hautspaltlinien am Stamm („Tannenbaummuster“) mit Collerette-Schuppung, selbstlimitierend in 6–8 Wochen, keine Streckseiten, keine Nägel.',
+        },
+        {
+          dd: 'Lichen ruber planus',
+          unterscheidung: 'Polygonale, flache, livide, stark juckende Papeln mit Wickham-Streifung an Handgelenkbeugen, Knöcheln und Mundschleimhaut; ebenfalls Köbner-Phänomen, aber keine silbrige Schuppung.',
+        },
+        {
+          dd: 'Mycosis fungoides (kutanes T-Zell-Lymphom)',
+          unterscheidung: 'Über Jahre therapierefraktäre „Ekzeme“ in lichtgeschützten Arealen (Gesäß, Rumpf), poikilodermatisch, später Plaques und Tumoren; Diagnose nur histologisch mit Immunhistochemie — bei atypischem, therapierefraktärem Verlauf biopsieren.',
+        },
+        {
+          dd: 'Lupus erythematodes (subakut-kutan / diskoid)',
+          unterscheidung: 'Photosensitive Verteilung (Gesicht, Dekolleté), anuläre oder diskoide Herde mit Atrophie und Narben, ANA positiv, Systemzeichen (Arthritis, Nephritis, Zytopenien).',
+        },
+        {
+          dd: 'Sekundäre Syphilis',
+          unterscheidung: 'Psoriasiforme Papeln an Handflächen und Fußsohlen, generalisierte Lymphknotenschwellung, Schleimhautbefall, Risikoanamnese; Treponema-Serologie (TPHA/TPPA, VDRL).',
+        },
+        {
+          dd: 'Superfizielles Basalzellkarzinom / Morbus Bowen',
+          unterscheidung: 'Solitärer, langsam wachsender, scharf begrenzter rötlicher Herd mit perlschnurartigem Randsaum bzw. Krusten in sonnenexponierter Haut beim älteren Patienten, nicht schubförmig; Dermatoskopie und Biopsie.',
+        },
+        {
+          dd: 'Intertrigo / Candida-Intertrigo',
+          unterscheidung: 'DD zur Psoriasis inversa: nässende, mazerierte Rötung in den Falten mit Satellitenpusteln, Pilznachweis; die inverse Psoriasis ist trocken, glänzend, scharf begrenzt und nicht mazeriert.',
+        },
+        {
+          dd: 'Onychomykose',
+          unterscheidung: 'DD zur Nagelpsoriasis: meist wenige Nägel, distal-lateral beginnende gelbliche Verfärbung und subunguale Hyperkeratose, Tinea pedis; Pilznachweis; Tüpfel und Ölflecken sprechen für Psoriasis — beides kann gleichzeitig vorliegen.',
+        },
+        {
+          dd: 'Rheumatoide Arthritis',
+          unterscheidung: 'Symmetrische Polyarthritis der MCP- und PIP-Gelenke unter AUSSPARUNG der Endgelenke, Morgensteifigkeit über 60 Minuten, Rheumafaktor und Anti-CCP positiv, Rheumaknoten, gelenknahe Osteoporose im Röntgen; keine Psoriasis, keine Daktylitis, keine Enthesitis.',
+        },
+        {
+          dd: 'Gicht (Arthritis urica)',
+          unterscheidung: 'Perakute, nächtliche Monarthritis (Podagra) mit Hyperurikämie; Cave: Psoriasispatienten haben durch den hohen Zellumsatz häufig eine Hyperurikämie — Beweis nur durch Uratkristalle im Punktat.',
+        },
+        {
+          dd: 'Reaktive Arthritis',
+          unterscheidung: 'Oligoarthritis der unteren Extremität 1–4 Wochen nach urogenitalem oder gastrointestinalem Infekt, Konjunktivitis, Urethritis; Keratoderma blennorrhagicum kann psoriasiform aussehen; HLA-B27.',
+        },
+        {
+          dd: 'Spondylitis ankylosans (Morbus Bechterew)',
+          unterscheidung: 'Entzündlicher Rückenschmerz beim jungen Mann, symmetrische Sakroiliitis, HLA-B27 in 90 %, keine Hautveränderungen; bei axialer Psoriasisarthritis ist die Sakroiliitis eher asymmetrisch.',
+        },
+        {
+          dd: 'Aktivierte Fingerpolyarthrose (Heberden-/Bouchard-Arthrose)',
+          unterscheidung: 'Ebenfalls Befall der Endgelenke, aber knöcherne Knoten, Anlauf- und Belastungsschmerz, kurze Morgensteifigkeit, höheres Alter, keine Daktylitis, im Röntgen Osteophyten ohne Erosionen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Basistherapie, Aufklärung und Auslöserkontrolle (alle Schweregrade)',
+          items: [
+            'Aufklärung über die chronische, schubförmige, NICHT ansteckende, nicht heilbare, aber sehr gut kontrollierbare Systemerkrankung — „nicht ansteckend“ ist der Satz, den der Patient am dringendsten braucht; realistische Therapieziele (erscheinungsfreie oder fast erscheinungsfreie Haut) und die Notwendigkeit einer dauerhaften Behandlung vermitteln',
+            'Konsequente Hautpflege (Basistherapie) als Grundlage jeder Stufe: rückfettende Externa (Salben, Cremes mit Harnstoff 5–10 %) und keratolytische Externa mit Salicylsäure 3–10 % oder Harnstoff zur Schuppenablösung, damit Wirkstoffe eindringen können; Kopfhaut mit Salicylsäure-Öl über Nacht',
+            'Auslöser vermeiden: Nikotinstopp, Alkoholreduktion, Gewichtsreduktion, Stressbewältigung (Entspannungsverfahren, Psychotherapie), Vermeidung mechanischer Reizung (Kratzen, enge Kleidung, Köbner-Phänomen)',
+            'Überprüfung der Dauermedikation und Umstellung auslösender Medikamente in Absprache mit dem Hausarzt (Betablocker z. B. auf Kalziumantagonisten oder Sartan; Lithium, Antimalariamittel, NSAR-Dauereinnahme kritisch prüfen)',
+            'Sanierung eines Streptokokkenfokus (Antibiotikum bei Angina, ggf. Tonsillektomie bei rezidivierender Guttata-Psoriasis)',
+            'Psychosoziale Unterstützung: Ansprechen der Stigmatisierung und der Lebensqualität, Patientenschulung, Selbsthilfegruppen (Deutscher Psoriasis Bund), Sonnenlicht und Meeresklima (Klimatherapie) wirken günstig',
+          ],
+        },
+        {
+          label: 'Topische Therapie und Phototherapie (leichte Psoriasis)',
+          items: [
+            'Standard der ersten Wahl: Fixkombination aus topischem GLUKOKORTIKOID (Betamethason) und VITAMIN-D-ANALOGON (Calcipotriol) als Schaum, Gel oder Salbe, einmal täglich über 4 Wochen, dann Erhaltungsschema zweimal wöchentlich („proaktive Therapie“); Steroide immer zeitlich begrenzt wegen Hautatrophie und Rebound',
+            'Vitamin-D-Analoga (Calcipotriol, Tacalcitol) auch als Monotherapie für die Langzeitanwendung (Cave: Hyperkalzämie bei großflächiger Anwendung, maximal 100 g pro Woche)',
+            'Dithranol (Cignolin) als klassische, hochwirksame Minutentherapie in der Klinik (Verfärbung und Reizung); Teerpräparate nur noch selten',
+            'Calcineurininhibitoren (Tacrolimus, Pimecrolimus) off-label im Gesicht, in den Körperfalten und im Genitalbereich, wo Steroide zur Atrophie führen',
+            'Spezielle Zubereitungen für Kopfhaut (Schaum, Shampoo, Lösung, Salicylsäure-Öl) und für Nägel (Lacke mit Steroid oder Vitamin-D-Analogon, sehr langsames Ansprechen)',
+            'PHOTOTHERAPIE als Brücke zwischen topischer und systemischer Behandlung: Schmalband-UVB 311 nm (Standard), Balneophototherapie (Solebad plus UVB), PUVA (Psoralen plus UVA) bei schweren Formen — 3- bis 5-mal wöchentlich über 6–8 Wochen; Cave kumulative UV-Dosis und Hautkrebsrisiko (vor allem PUVA), keine Kombination mit Ciclosporin, Sonnenschutz beachten',
+          ],
+        },
+        {
+          label: 'Systemtherapie (mittelschwere bis schwere Psoriasis und Psoriasisarthritis)',
+          items: [
+            'Indikation: Rule of Tens (PASI, BSA oder DLQI > 10), Gelenkbeteiligung, Befall von Nägeln, Kopfhaut, Gesicht, Genitale oder Handflächen/Fußsohlen, unzureichendes Ansprechen auf topische Therapie und Phototherapie',
+            'METHOTREXAT als klassisches Mittel der ersten Wahl — wirkt an Haut UND Gelenken: 7,5–25 mg EINMAL WÖCHENTLICH (oral oder subkutan), Folsäure 5–10 mg am Folgetag; Kontrollen von Blutbild, Transaminasen und Kreatinin (initial alle 2 Wochen, dann alle 2–3 Monate), strenger Alkoholverzicht (Hepatotoxizität), sichere Kontrazeption für BEIDE Partner (teratogen, bis 3–6 Monate nach Absetzen); Kontraindikationen: Niereninsuffizienz, Lebererkrankung, Schwangerschaft, Kinderwunsch; Cave Interaktion mit NSAR, Cotrimoxazol und Protonenpumpenhemmern',
+            'Ciclosporin 2,5–5 mg/kg/Tag nur kurzfristig (Monate) bei schwerem Schub oder als Überbrückung — nephrotoxisch, Hypertonie, keine Phototherapie',
+            'Weitere orale Optionen: Fumarsäureester (Dimethylfumarat; gastrointestinale Beschwerden, Flush, Lymphopenie), Acitretin (Retinoid; bei pustulösen Formen, streng teratogen mit 2–3 Jahren Kontrazeption nach Absetzen — bei Frauen im gebärfähigen Alter meiden), Apremilast (PDE-4-Hemmer, oral, gut verträglich, Durchfall, Gewichtsverlust), JAK-Inhibitoren und Deucravacitinib (TYK2-Hemmer)',
+            'BIOLOGIKA als heutiger Standard bei unzureichendem Ansprechen oder von Anfang an bei schwerem Verlauf: TNF-alpha-Blocker (Adalimumab, Etanercept, Infliximab, Certolizumab), IL-12/23-Blocker Ustekinumab, IL-17-Blocker (Secukinumab, Ixekizumab, Bimekizumab), IL-23-Blocker (Guselkumab, Risankizumab, Tildrakizumab) — erreichen bei der Mehrzahl eine nahezu erscheinungsfreie Haut (PASI 90/100) und wirken bei Psoriasisarthritis auch gelenkprotektiv; VOR Beginn Tuberkulosescreening (IGRA, Röntgen-Thorax), Hepatitis-B/C-Serologie, HIV, Impfstatus (Lebendimpfstoffe vorher, keine unter Therapie); Cave Infektionsrisiko, Herzinsuffizienz unter TNF-Blockern, chronisch-entzündliche Darmerkrankung unter IL-17-Blockern (dann eher IL-23- oder TNF-Blocker)',
+            'Zentraler Grundsatz: KEINE systemischen Glukokortikoide bei der Psoriasis — nach dem Absetzen drohen Rebound und Umwandlung in eine pustulöse oder erythrodermische Form; Ausnahme nur als kurzfristige Überbrückung in Rücksprache mit dem Rheumatologen bei schwerer Arthritis',
+            'Notfall erythrodermische oder generalisiert pustulöse Psoriasis: stationäre Aufnahme, Flüssigkeits-, Elektrolyt- und Eiweißausgleich, Wärmeerhalt, Infektionsschutz, rasch wirksame Systemtherapie (Ciclosporin, Infliximab, Acitretin)',
+          ],
+        },
+        {
+          label: 'Gelenke, Komorbiditäten und Langzeitbetreuung',
+          items: [
+            'Psoriasisarthritis: bei leichtem peripherem Befall NSAR (z. B. Ibuprofen, Naproxen unter Magenschutz — Cave: NSAR können die Haut verschlechtern) und lokale Steroidinjektionen; bei aktiver Arthritis frühzeitig Methotrexat, bei unzureichendem Ansprechen oder bei Enthesitis, Daktylitis und axialem Befall Biologika (TNF-, IL-17-, IL-23-Blocker) oder JAK-Inhibitoren (Tofacitinib, Upadacitinib) in rheumatologischer Mitbetreuung; Physiotherapie, Ergotherapie und Bewegung; frühe Behandlung verhindert irreversible Gelenkdestruktion',
+            'Systematisches Screening und Behandlung der Komorbiditäten: Blutdruck, Blutzucker/HbA1c, Lipide, Bauchumfang, Fettleber, kardiovaskuläres Risiko (schwere Psoriasis erhöht das Herzinfarktrisiko), Depression und Angst, Alkohol- und Nikotinkonsum, chronisch-entzündliche Darmerkrankung, Uveitis — interdisziplinär mit Hausarzt, Rheumatologie, Kardiologie und Psychosomatik',
+            'Regelmäßige Kontrollen: Haut (PASI, BSA, DLQI) und Gelenke alle 3–6 Monate, unter Systemtherapie Laborkontrollen nach Substanz (Blutbild, Leber, Niere, Lipide unter Ciclosporin/Acitretin), Hautkrebsvorsorge nach kumulativer UV-Therapie',
+            'Anpassung an Lebensphasen: Kinderwunsch und Schwangerschaft (Methotrexat, Acitretin, Fumarate absetzen; Certolizumab und UVB gelten als sicher), Operationen und Infekte (Biologikum pausieren), Impfungen (Totimpfstoffe möglich, Grippe-, Pneumokokken-, Herpes-zoster-Totimpfung empfohlen; keine Lebendimpfstoffe unter Immunsuppression)',
+            'Langfristige Adhärenz sichern: Aufklärung über den schubförmigen Verlauf, keine eigenmächtigen Therapiepausen, schriftlicher Therapieplan, Sonnenschutz unter Phototherapie, Selbsthilfe und Rehabilitation (Klimatherapie am Toten Meer oder an der Nordsee)',
+          ],
+        },
+      ],
+      prognose: 'Chronischer, lebenslanger, schubförmiger Verlauf mit individuell sehr unterschiedlicher Aktivität; spontane Remissionen sind möglich (bei der Guttata-Form häufig), eine Heilung gibt es nicht. Unter moderner Systemtherapie, insbesondere mit Biologika, erreichen die meisten Patienten eine erscheinungsfreie oder fast erscheinungsfreie Haut (PASI 90/100), sodass die Lebensqualität weitgehend normalisiert wird. Die Prognose wird von den Komorbiditäten bestimmt: Patienten mit schwerer Psoriasis haben eine um etwa 4–5 Jahre verkürzte Lebenserwartung, vor allem durch kardiovaskuläre Ereignisse im Rahmen des metabolischen Syndroms; eine unbehandelte Psoriasisarthritis führt zu irreversiblen Gelenkdestruktionen. Die psychische Belastung mit Depression und Suizidalität ist erheblich und muss aktiv angesprochen werden.',
+      pruefungsfallen: [
+        'Psoriasis ist KEINE reine Hautkrankheit: Sie ist eine immunvermittelte Systemerkrankung — im Examen Gelenke, Nägel, metabolisches Syndrom, kardiovaskuläres Risiko und Psyche aktiv ansprechen, sonst bleibt die Vorstellung „an der Plaque hängen“.',
+        'Die Psoriasisarthritis muss AKTIV erfragt werden (Morgensteifigkeit, Gelenkschwellung, Wurstfinger, Fersenschmerz, nächtlicher Rückenschmerz) — der Patient verbindet Haut und Gelenke nicht. Ein Arthritispatient mit bekannter Schuppenflechte ist bis zum Beweis des Gegenteils eine Psoriasisarthritis, nicht eine rheumatoide Arthritis (Stuttgart 21.10.2023: der Kandidat wählte die RA).',
+        'Die drei Kratzphänomene in der richtigen Reihenfolge nennen: Kerzenwachsphänomen → Phänomen des letzten Häutchens → Auspitz-Phänomen (punktförmige Blutungen).',
+        'Rheumafaktor und Anti-CCP sind bei der Psoriasisarthritis NEGATIV (seronegative Spondyloarthritis) — im Gegensatz zur rheumatoiden Arthritis; die Psoriasisarthritis befällt die Fingerendgelenke, die RA verschont sie.',
+        'KEINE systemischen Glukokortikoide bei der Psoriasis: Rebound und Umwandlung in eine pustulöse oder erythrodermische Form nach dem Absetzen — dieser Verzicht wird geprüft; topische Steroide sind dagegen Standard.',
+        'Methotrexat wird EINMAL WÖCHENTLICH gegeben, nicht täglich (Todesfälle durch tägliche Einnahme!), mit Folsäure am Folgetag, Alkoholverzicht und Kontrazeption für beide Partner.',
+        'Die Diagnose ist klinisch — eine Biopsie ist nur bei unklarem Bild nötig; wer im Examen sofort biopsiert, zeigt, dass er die Kratzphänomene nicht kennt.',
+        'Betablocker, Lithium, Chloroquin, ACE-Hemmer, NSAR und abgesetztes Kortison als Auslöser aktiv erfragen — der Hausarzt hat oft kurz vor dem Schub ein neues Blutdruckmittel angesetzt.',
+        'Rule of Tens korrekt zitieren: PASI, BSA ODER DLQI über 10 = mittelschwer bis schwer = Systemtherapie; Gelenk- und Nagelbefall sind Upgrade-Kriterien.',
+        'Vor Biologika und Methotrexat das Screening nennen: Tuberkulose (IGRA und Röntgen-Thorax), Hepatitis B und C, HIV, Schwangerschaftstest, Impfstatus.',
+        'Die Hyperurikämie beim Psoriatiker (hoher Zellumsatz) nicht mit einer Gicht verwechseln und umgekehrt — bei akuter Monarthritis punktieren.',
+        '„Nicht ansteckend“ dem Patienten AKTIV sagen und die Stigmatisierung ansprechen (Schwimmbad, Beruf, Partnerschaft) — Prüfer honorieren das empathische Gespräch.',
+        'Terminologie: Psoriasis = Schuppenflechte (Stuttgart-Liste); Daktylitis = Wurstfinger; Enthesitis = Sehnenansatzentzündung; Onycholyse = Ablösung der Nagelplatte; Tüpfelnägel = grübchenförmige Nagelveränderungen.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose?',
+          antwort: 'Ein Schub einer bekannten Psoriasis vulgaris mit Nagelbeteiligung und Erstmanifestation einer Psoriasisarthritis. Dafür sprechen die seit Jahren bekannten, scharf begrenzten, silbrig schuppenden Plaques an den Streckseiten und der Kopfhaut, die Tüpfelnägel, eine asymmetrische Oligoarthritis mit Daktylitis, Enthesitis und Morgensteifigkeit sowie die Auslöser Stress, Betablocker und Nikotin.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
+          antwort: 'Für die Gelenke: rheumatoide Arthritis, Gicht, reaktive Arthritis, aktivierte Arthrose und eine Spondylitis ankylosans; für die Haut: seborrhoisches und nummuläres Ekzem, atopische Dermatitis, Tinea, Pityriasis rosea, Lichen ruber, Mycosis fungoides und im Nagelbereich eine Onychomykose. Die Kombination aus Schuppenflechte, Nagelbefund, Daktylitis, Endgelenkbefall und negativem Rheumafaktor spricht für die Psoriasisarthritis.',
+        },
+        {
+          frage: 'Welche Diagnostik leiten Sie ein?',
+          antwort: 'Inspektion der gesamten Haut einschließlich Kopfhaut, Nabel, Analfalte und aller Nägel mit den Kratzphänomenen, Schweregrad mit PASI, BSA und DLQI, vollständiger Gelenk- und Enthesenstatus. Labor mit Blutbild, CRP, BSG, Harnsäure, Leber- und Nierenwerten, Blutzucker, HbA1c, Lipiden, Rheumafaktor, Anti-CCP und HLA-B27. Röntgen der Hände und Füße, Arthrosonographie, ggf. MRT der Iliosakralgelenke; eine Biopsie nur bei unklarem Hautbild. Vor einer Systemtherapie Hepatitis-Serologie, Interferon-Gamma-Test und Röntgen-Thorax.',
+        },
+        {
+          frage: 'Was ist im Labor wichtig?',
+          antwort: 'CRP und BSG als Aktivitätsmarker der Arthritis, Rheumafaktor und Anti-CCP-Antikörper, die bei der Psoriasisarthritis NEGATIV sind und die rheumatoide Arthritis abgrenzen, die Harnsäure wegen der Gicht als Differenzialdiagnose und der psoriasisbedingten Hyperurikämie, Leber- und Nierenwerte als Ausgangswerte vor Methotrexat sowie das metabolische Screening mit Blutzucker, HbA1c und Lipiden, weil die Psoriasis eine Systemerkrankung mit erhöhtem kardiovaskulärem Risiko ist.',
+        },
+        {
+          frage: 'Welche Therapie schlagen Sie vor?',
+          antwort: 'Basistherapie mit rückfettenden und keratolytischen Externa, Auslöserkontrolle mit Nikotinstopp, Umstellung des Betablockers und Stressbewältigung, topisch die Kombination aus Calcipotriol und Betamethason. Wegen der Gelenkbeteiligung ist eine Systemtherapie indiziert: Methotrexat einmal wöchentlich mit Folsäure am Folgetag, bei unzureichendem Ansprechen ein Biologikum wie ein TNF-, IL-17- oder IL-23-Blocker in rheumatologischer Mitbetreuung; NSAR nur kurzfristig für die Gelenke. Keine systemischen Glukokortikoide wegen des Rebounds.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten den Begriff „Psoriasis“?',
+          antwort: 'Psoriasis heißt auf Deutsch Schuppenflechte — eine chronische, nicht ansteckende Entzündung der Haut, bei der sich die Hautzellen viel zu schnell erneuern und als silbrige Schuppen auf roten Flecken sichtbar werden. Sie kann auch die Nägel und die Gelenke betreffen.',
+        },
+        {
+          frage: 'Warum darf man bei der Psoriasis keine systemischen Kortikosteroide geben?',
+          antwort: 'Weil nach dem Absetzen ein Rebound droht: Die Psoriasis kann sich in eine generalisierte pustulöse oder erythrodermische Form umwandeln, die lebensbedrohlich sein kann. Topische Steroide sind dagegen in Kombination mit Vitamin-D-Analoga Standard.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Psoriasisarthritis von der rheumatoiden Arthritis?',
+          antwort: 'Die Psoriasisarthritis ist asymmetrisch, befällt die Fingerendgelenke, zeigt Daktylitis und Enthesitis, hat Haut- und Nagelbefunde und ist seronegativ; im Röntgen finden sich Erosionen neben Knochenproliferationen ohne gelenknahe Osteoporose. Die rheumatoide Arthritis ist symmetrisch, verschont die Endgelenke, ist Rheumafaktor- und Anti-CCP-positiv und zeigt Rheumaknoten.',
+        },
+        {
+          frage: 'Was müssen Sie vor Beginn eines Biologikums abklären?',
+          antwort: 'Ein Tuberkulosescreening mit Interferon-Gamma-Test und Röntgen-Thorax, Hepatitis-B- und -C-Serologie, HIV, einen Schwangerschaftstest, den Impfstatus mit Nachholen von Lebendimpfstoffen vor Therapiebeginn, Blutbild, Leber- und Nierenwerte sowie Ausschluss einer aktiven Infektion, einer Herzinsuffizienz bei TNF-Blockern und einer chronisch-entzündlichen Darmerkrankung bei IL-17-Blockern.',
+        },
+        {
+          frage: 'Welche Komorbiditäten müssen Sie bei diesem Patienten bedenken?',
+          antwort: 'Das metabolische Syndrom mit Übergewicht, Hypertonie, Diabetes und Fettleber, das erhöhte kardiovaskuläre Risiko, das bei ihm durch Nikotin und die familiäre Herzinfarktanamnese verstärkt wird, die Hyperurikämie mit Gichtrisiko, Depression und Alkoholmissbrauch durch die Stigmatisierung sowie Uveitis und chronisch-entzündliche Darmerkrankung.',
+        },
+      ],
+      merksatz: 'Silbrig schuppende Plaques an Streckseiten und Kopfhaut, Tüpfelnägel und Wurstfinger = Psoriasis mit Psoriasisarthritis — seronegativ, systemisch, nicht ansteckend, nicht heilbar, aber kontrollierbar: topisch Steroid plus Vitamin D, systemisch Methotrexat einmal wöchentlich oder Biologika, NIE systemisches Kortison.',
+      linkedCaseIds: [
+        'case-psoriasis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-urtikaria',
+      pathology: 'Akute Urtikaria (mit Angioödem)',
+      specialty: 'Dermatologie',
+      definition: 'Die Urtikaria (Nesselsucht) ist eine heterogene Krankheitsgruppe, deren gemeinsames Merkmal das plötzliche Auftreten von Quaddeln (Urticae) und/oder Angioödemen ist. Die Quaddel ist eine hautfarbene bis rötliche, erhabene, scharf begrenzte, stark juckende Schwellung der oberen Dermis mit Reflexerythem — wie nach Brennnesselkontakt —, die FLÜCHTIG ist: Jede einzelne Quaddel bildet sich binnen weniger Stunden, spätestens nach 24 Stunden, spurlos zurück, während an anderer Stelle neue entstehen. Das Angioödem ist eine tiefer gelegene, teigige Schwellung von tiefer Dermis, Subkutis oder Submukosa (Lider, Lippen, Zunge, Hände, Genitalien), die eher spannt und schmerzt als juckt und bis zu 72 Stunden anhalten kann; es begleitet die Urtikaria in etwa 40–50 % der Fälle. Pathophysiologisch liegt eine Degranulation kutaner Mastzellen mit Freisetzung von Histamin und weiteren Mediatoren zugrunde — IgE-vermittelt (allergisch, Typ I), nicht immunologisch (pseudoallergisch, z. B. NSAR über COX-1-Hemmung), infektassoziiert oder autoimmun. Nach der DAUER wird die akute Urtikaria (unter 6 Wochen) von der chronischen Urtikaria (über 6 Wochen) unterschieden.',
+      aetiologie: 'AKUTE Urtikaria (unter 6 Wochen; Lebenszeitprävalenz etwa 20 %, meist selbstlimitierend): häufigster Auslöser beim Erwachsenen sind INFEKTE, vor allem virale Atemwegsinfekte (auch gastrointestinale Infekte, Streptokokken-Angina); MEDIKAMENTE — Antibiotika (Penicilline, Cephalosporine, Sulfonamide) meist IgE-vermittelt, NSAR und ASS als pseudoallergische Auslöser über die COX-1-Hemmung mit Verschiebung zu Leukotrienen (Kreuzreaktivität zwischen allen klassischen NSAR!), Opioide und Röntgenkontrastmittel als direkte Mastzellaktivatoren, ACE-Hemmer beim isolierten Angioödem (bradykininvermittelt, nicht histaminerg); NAHRUNGSMITTEL (Erdnüsse, Nüsse, Meeresfrüchte, Fisch, Ei, Milch; beim Erwachsenen seltener als vermutet) und Zusatzstoffe/Pseudoallergene; Insektenstiche (Biene, Wespe); Kontakturtikaria (Latex, Pflanzen, Tierhaare); in bis zu 50 % kein Auslöser identifizierbar. CHRONISCHE Urtikaria (über 6 Wochen; Prävalenz etwa 0,5–1 %): chronische spontane Urtikaria (CSU), meist autoimmun — Typ IIb mit IgG-Autoantikörpern gegen den IgE-Rezeptor FcεRI oder gegen IgE, Typ I autoallergisch mit IgE gegen Autoantigene (z. B. Thyreoperoxidase); Assoziation mit Hashimoto-Thyreoiditis und anderen Autoimmunerkrankungen; chronische induzierbare Urtikaria (CIndU) durch Kälte, Wärme, Druck (verzögerte Druckurtikaria), Anstrengung/Schwitzen (cholinergisch), Wasser (aquagen), Licht (solar), Vibration oder mechanisches Reiben (Urticaria factitia = symptomatischer Dermographismus). Nicht histaminvermittelte Angioödeme: ACE-Hemmer-Angioödem (0,1–0,7 % der Behandelten, auch nach Jahren der Einnahme), hereditäres Angioödem (HAE, autosomal-dominant, C1-Esterase-Inhibitor-Mangel Typ I oder Funktionsdefekt Typ II), erworbenes C1-Inhibitor-Mangel-Angioödem (lymphoproliferative Erkrankungen).',
+      risikofaktoren: [
+        'Akuter (viraler) Infekt der Atemwege oder des Gastrointestinaltrakts — häufigster Auslöser beim Erwachsenen',
+        'Einnahme von NSAR oder Acetylsalicylsäure, insbesondere bei bekannter Analgetika-Intoleranz (Kreuzreaktivität aller COX-1-Hemmer); Samter-Trias (Asthma, Polyposis nasi, ASS-Intoleranz)',
+        'Neu angesetzte Antibiotika (Penicilline, Cephalosporine), Opioide, Röntgenkontrastmittel',
+        'Atopische Diathese (allergische Rhinokonjunktivitis, Asthma bronchiale, atopisches Ekzem) und bekannte Nahrungsmittel- oder Insektengiftallergie',
+        'Frühere Urtikaria- oder Angioödem-Episoden',
+        'Autoimmunerkrankungen, vor allem Hashimoto-Thyreoiditis (chronische spontane Urtikaria)',
+        'ACE-Hemmer-Einnahme (isoliertes Angioödem, auch nach Jahren)',
+        'Positive Familienanamnese für rezidivierende Schwellungen ohne Quaddeln (hereditäres Angioödem)',
+        'Unspezifische Verstärker: Hitze, Alkohol, Stress, enge Kleidung, körperliche Anstrengung',
+        'Weibliches Geschlecht und mittleres Lebensalter bei der chronischen spontanen Urtikaria',
+      ],
+      klinik: [
+        {
+          text: 'Plötzlich auftretende, stark juckende Quaddeln: hautfarbene bis rötliche, erhabene, scharf begrenzte Schwellungen unterschiedlicher Größe (Millimeter bis handtellergroß), oft mit blassem Zentrum und rotem Hof, konfluierend zu Plaques und Girlandenfiguren',
+        },
+        {
+          text: 'FLÜCHTIGKEIT: Die einzelne Quaddel verschwindet spurlos innerhalb von Minuten bis wenigen Stunden (unter 24 Stunden), während neue an anderer Stelle entstehen — die Läsionen „wandern“; keine Schuppung, keine Bläschen, keine Krusten, keine Narben',
+        },
+        {
+          text: 'Juckreiz als Leitsymptom, häufig brennend, typischerweise nachts und bei Wärme stärker; das Kratzen erzeugt Reiben statt Exkoriationen',
+        },
+        {
+          text: 'Angioödem bei etwa der Hälfte der Patienten: tiefe, teigige, unscharf begrenzte, blasse Schwellung von Augenlidern, Lippen, Wangen, Zunge, Händen, Füßen oder Genitalien; eher Spannungsgefühl und Schmerz als Juckreiz; Rückbildung innerhalb von 1–3 Tagen (bis 72 Stunden)',
+        },
+        {
+          text: 'Generalisierte Verteilung am Stamm und an den Extremitäten möglich, Handflächen und Fußsohlen meist frei; positiver urtikarieller Dermographismus beim Streichen mit dem Spatel',
+        },
+        {
+          text: 'Zeitlicher Zusammenhang mit einem Auslöser: Infektsymptome (Halsschmerzen, Schnupfen, Fieber, Durchfall) in den Tagen davor, neues Medikament oder verdächtige Mahlzeit Minuten bis wenige Stunden zuvor, Insektenstich',
+        },
+        {
+          text: 'Allgemeinzustand gut, Vitalparameter stabil, keine Atemwegs- oder Kreislaufsymptome — solange die Reaktion auf die Haut beschränkt bleibt, handelt es sich um eine Anaphylaxie Grad I nach Ring und Messmer bzw. eine unkomplizierte Urtikaria',
+        },
+        {
+          text: 'Verlauf der akuten Urtikaria: schubweise über Tage bis maximal 6 Wochen, meist Abklingen innerhalb von 1–3 Wochen',
+          atypisch: false,
+        },
+        {
+          text: 'Systemische Beteiligung als Warnzeichen: Heiserkeit, Stridor, Zungen- und Kehlkopfschwellung, Dyspnoe, Schwindel, Blutdruckabfall, Tachykardie, Synkope, krampfartige Bauchschmerzen, Erbrechen, Durchfall — dann Anaphylaxie Grad II–IV',
+          atypisch: true,
+        },
+        {
+          text: 'Isoliertes Angioödem OHNE Quaddeln und OHNE Juckreiz, langsam über Stunden zunehmend, 2–5 Tage anhaltend, kein Ansprechen auf Antihistaminika und Glukokortikoide — bradykininvermittelt (ACE-Hemmer, hereditäres Angioödem); beim HAE zusätzlich kolikartige Bauchschmerzen durch Darmwandödem',
+          atypisch: true,
+        },
+        {
+          text: 'Quaddeln, die länger als 24 Stunden an derselben Stelle bleiben, eher brennen und schmerzen als jucken und eine bräunliche Hyperpigmentierung oder Purpura hinterlassen — Verdacht auf Urtikariavaskulitis',
+          atypisch: true,
+        },
+        {
+          text: 'Kleine (1–3 mm), stecknadelkopfgroße Quaddeln mit großem Reflexerythem nach Schwitzen, Anstrengung oder heißem Duschen — cholinergische Urtikaria',
+          atypisch: true,
+        },
+        {
+          text: 'Streifenförmige Quaddeln entlang von Kratzspuren oder unter Gürtel und BH-Träger — Urticaria factitia (symptomatischer Dermographismus); Schwellung an Handflächen und Fußsohlen Stunden nach Druck — verzögerte Druckurtikaria',
+          atypisch: true,
+        },
+        {
+          text: 'Urtikaria mit Fieber, Gelenkschmerzen und Lymphknotenschwellung 1–2 Wochen nach einem Medikament — Serumkrankheit-ähnliche Reaktion; mit rezidivierendem Fieber und erhöhten Entzündungswerten — autoinflammatorische Syndrome',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach der Dauer (entscheidet über Diagnostik und Therapie)',
+          inhalt: 'AKUTE Urtikaria: Beschwerden seit weniger als 6 Wochen — sehr häufig (jeder Fünfte einmal im Leben), meist selbstlimitierend, keine Routinediagnostik außer der gezielten Anamnese. CHRONISCHE Urtikaria: Beschwerden seit mehr als 6 Wochen (täglich oder fast täglich) — unterteilt in die chronische spontane Urtikaria (CSU, kein äußerer Auslöser, meist autoimmun) und die chronische induzierbare Urtikaria (CIndU: Kälte, Wärme, Druck, Anstrengung/cholinergisch, aquagen, solar, Vibration, Urticaria factitia). Beide Formen können nebeneinander bestehen.',
+        },
+        {
+          name: 'Klinische Manifestationsformen',
+          inhalt: 'Quaddeln allein (etwa 50 %), Quaddeln mit Angioödem (etwa 40 %), isoliertes Angioödem ohne Quaddeln (etwa 10 % — hier immer an eine nicht histaminvermittelte Ursache denken: ACE-Hemmer, hereditäres oder erworbenes C1-Inhibitor-Mangel-Angioödem).',
+        },
+        {
+          name: 'Anaphylaxie-Schweregrade nach Ring und Messmer',
+          inhalt: 'Grad I: nur Haut und Schleimhaut — Juckreiz, Flush, Urtikaria, Angioödem. Grad II: zusätzlich leichte systemische Reaktion — Übelkeit, Krämpfe, Rhinorrhoe, Heiserkeit, Dyspnoe, Tachykardie, Blutdruckabfall. Grad III: bedrohliche Reaktion — Erbrechen, Defäkation, Larynxödem, Bronchospasmus, Zyanose, Schock. Grad IV: Atem- und/oder Kreislaufstillstand. Merke: Ab Grad II ist Adrenalin intramuskulär die erste Maßnahme.',
+        },
+        {
+          name: 'Urtikaria-Aktivitätsscore UAS7',
+          inhalt: 'Der Patient dokumentiert täglich im Urtikaria-Tagebuch die Zahl der Quaddeln (0 = keine, 1 = unter 20, 2 = 20–50, 3 = über 50) und die Stärke des Juckreizes (0 = kein, 1 = leicht, 2 = mäßig, 3 = stark); Tageswert 0–6, Wochensumme UAS7 von 0 bis 42. Bewertung: 0 = beschwerdefrei, 1–6 = gut kontrolliert, 7–15 = leichte, 16–27 = mäßige, 28–42 = schwere Aktivität. Steuert Therapieeskalation und Absetzversuch; ergänzend Urtikaria-Kontrolltest (UCT, Ziel ≥ 12 von 16 Punkten).',
+        },
+        {
+          name: 'Einteilung der Angioödeme nach dem Mediator',
+          inhalt: 'Histaminvermittelt (mastzellvermittelt): mit Urtikaria, juckend, Beginn innerhalb von Minuten bis Stunden, Rückbildung binnen 24–72 Stunden, spricht auf Antihistaminika, Glukokortikoide und Adrenalin an. Bradykininvermittelt: ohne Quaddeln, ohne Juckreiz, langsam über Stunden zunehmend, 2–5 Tage anhaltend, NICHT auf Antihistaminika/Kortison ansprechend — hereditäres Angioödem Typ I (C1-INH quantitativ vermindert, etwa 85 %) und Typ II (C1-INH funktionell gestört, etwa 15 %), erworbener C1-INH-Mangel, ACE-Hemmer-induziertes Angioödem.',
+        },
+      ],
+      redFlags: [
+        'Heiserkeit, Stridor, Globusgefühl, Schluckstörung, Zungen-, Uvula- oder Kehlkopfschwellung → drohende Atemwegsverlegung, Anaphylaxie: Adrenalin i.m., Atemwegssicherung vorbereiten',
+        'Dyspnoe, Giemen, Bronchospasmus, Zyanose, Sättigungsabfall → Anaphylaxie Grad II–III',
+        'Schwindel, Blässe, Kaltschweißigkeit, Tachykardie, Blutdruckabfall, Synkope → anaphylaktischer Schock',
+        'Krampfartige Bauchschmerzen, Erbrechen, Durchfall im Zusammenhang mit der Hautreaktion → systemische Beteiligung (Grad II–III)',
+        'Rasch progredientes Angioödem von Lippen, Zunge oder Mundboden, insbesondere unter ACE-Hemmer → Antihistaminika wirken nicht, frühzeitig Atemweg sichern',
+        'Isoliertes Angioödem ohne Quaddeln mit kolikartigen Bauchschmerzen, positive Familienanamnese → hereditäres Angioödem, C1-Inhibitor-Konzentrat oder Icatibant',
+        'Quaddeln, die länger als 24 Stunden persistieren, schmerzen und Hyperpigmentierung oder Purpura hinterlassen, dazu Fieber, Arthralgien, erhöhte Entzündungswerte → Urtikariavaskulitis, Systemerkrankung',
+        'Urtikaria mit hohem Fieber, Lymphknotenschwellung, Schleimhautbeteiligung, Blasen oder Hautablösung → schwere Arzneimittelreaktion (SJS/TEN, DRESS) — keine Urtikaria mehr',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'GRUNDSATZ: Bei der akuten Urtikaria ist außer einer gezielten Anamnese und der körperlichen Untersuchung KEINE Diagnostik erforderlich — die aufwendige Allergiesuche ist bei einem einmaligen Ereignis nicht sinnvoll und meist ergebnislos',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese der Hautveränderung: Beginn, Ausbreitung, Aussehen, Juckreiz; Dauer der EINZELNEN Quaddel aktiv erfragen („Bleibt eine Stelle länger als einen Tag?“ — Flüchtigkeit und Wandern trennen die Urtikaria von fast allen anderen Exanthemen); Angioödem (Lider, Lippen, Zunge, Hände, Genitalien); frühere Episoden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sicherheitsanamnese — bei JEDER akuten Urtikaria: Atemnot, Heiserkeit, Stridor, Zungen- oder Halsschwellung, Schluckbeschwerden, Schwindel, Herzrasen, Synkope, Bauchschmerzen, Übelkeit, Erbrechen, Durchfall (Abgrenzung zur Anaphylaxie)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Auslöseranamnese: Infektsymptome in den Tagen zuvor; neue Medikamente in den letzten Tagen einschließlich frei verkäuflicher Schmerzmittel (NSAR, ASS), Antibiotika, ACE-Hemmer (auch seit Jahren); verdächtige Nahrungsmittel Minuten bis wenige Stunden vor Beginn; Insektenstich; Kontaktstoffe (Latex, Pflanzen, Tiere); körperliche Auslöser (Kälte, Wärme, Druck, Anstrengung, Sonne, Reiben)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vorgeschichte und Risikoprofil: Atopie (Heuschnupfen, Asthma, Neurodermitis), bekannte Allergien und Unverträglichkeiten (Analgetika-Intoleranz!), Schilddrüsen- und Autoimmunerkrankungen, Familienanamnese für Schwellungen ohne Quaddeln, Verstärker (Hitze, Alkohol, Stress, enge Kleidung)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Beschreibung der Quaddeln (Größe, Farbe, Verteilung, Konfluenz, Erythemhof), Dermographismus-Test mit dem Spatel (urtikarieller Dermographismus), Angioödem; Inspektion von Rachen, Uvula und Zunge; Auskultation der Lunge (Giemen, Stridor); Vitalparameter (Blutdruck, Puls, Sauerstoffsättigung, Atemfrequenz, Temperatur); Suche nach einem Infektfokus (Tonsillen, Lymphknoten)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Akute Urtikaria: keine Routinelabordiagnostik; allenfalls Blutbild und CRP bei Fieber zur Beurteilung eines behandlungsbedürftigen bakteriellen Infekts; Serumtryptase 1–3 Stunden nach Beginn nur bei anaphylaktischer Reaktion (Basaltryptase später zum Ausschluss einer Mastozytose)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Chronische Urtikaria — begrenztes Basisprogramm: Blutbild mit Differenzialblutbild (Eosinophilie, Basopenie), CRP und BSG; bei Verdacht TSH und Schilddrüsenantikörper (TPO-Antikörper, Hashimoto-Assoziation), Gesamt-IgE; erweiterte Diagnostik nur nach Anamnese (Infektserologien, Helicobacter-pylori-Test, Stuhl auf Parasiten, ANA, Komplement bei Verdacht auf Vaskulitis)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Isoliertes, rezidivierendes Angioödem ohne Quaddeln: C4 als Screening (bei HAE erniedrigt), C1-Esterase-Inhibitor quantitativ und funktionell (Typ I vs. Typ II), C1q beim erworbenen Mangel; Medikamentenanamnese auf ACE-Hemmer',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Nur bei chronischer Urtikaria und gezieltem Verdacht: Fokussuche (HNO-Status, Zahnstatus, Abdomensonographie, ggf. Röntgen-Thorax) — keine ungezielte Bildgebung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Urtikaria-Tagebuch mit Aktivitätsscore (UAS7) und Urtikaria-Kontrolltest (UCT) bei chronischem Verlauf zur Steuerung der Therapie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Provokationstests bei Verdacht auf induzierbare Urtikaria: Dermographismus-Test (FricTest), Kältetest (Eiswürfel, TempTest), Wärmetest, Drucktest, Belastungstest, Lichttreppe, Wassertest',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Allergologische Diagnostik NUR bei konkretem anamnestischem Verdacht auf eine IgE-vermittelte Reaktion (Pricktest, spezifisches IgE auf Nahrungsmittel, Insektengift, Latex; ggf. orale Provokation unter stationären Bedingungen) — frühestens 4–6 Wochen nach der Reaktion; bei NSAR-Intoleranz orale Provokation mit ASS bzw. Testung einer Ausweichsubstanz',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Hautbiopsie bei Quaddeln, die länger als 24 Stunden bestehen, schmerzen und Hyperpigmentierung hinterlassen — Verdacht auf Urtikariavaskulitis (leukozytoklastische Vaskulitis); ebenso bei Verdacht auf Mastozytose (Urticaria pigmentosa)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Anaphylaxie (Grad II–IV nach Ring und Messmer)',
+          unterscheidung: 'Dieselbe Hautreaktion PLUS systemische Beteiligung: Heiserkeit, Stridor, Dyspnoe, Bronchospasmus, Zungen-/Larynxödem, Schwindel, Tachykardie, Blutdruckabfall, Synkope, Bauchkrämpfe, Erbrochen. Die Urtikaria allein ist Grad I und harmlos; sobald Atemwegs-, Kreislauf- oder gastrointestinale Symptome hinzukommen, ist Adrenalin i.m. die erste Maßnahme. Deshalb bei jeder Urtikaria danach fragen und untersuchen.',
+        },
+        {
+          dd: 'ACE-Hemmer-induziertes Angioödem',
+          unterscheidung: 'Isoliertes Angioödem OHNE Quaddeln und OHNE Juckreiz, bevorzugt Gesicht, Lippen, Zunge und Larynx, auch nach Jahren der Einnahme; bradykininvermittelt, langsam über Stunden zunehmend, spricht NICHT auf Antihistaminika und Kortison an; Therapie: Absetzen, Atemwegssicherung, ggf. Icatibant.',
+        },
+        {
+          dd: 'Hereditäres Angioödem (C1-Esterase-Inhibitor-Mangel)',
+          unterscheidung: 'Rezidivierende, nicht juckende Schwellungen ohne Quaddeln seit Kindheit/Jugend, positive Familienanamnese (autosomal-dominant), kolikartige Bauchschmerzen durch Darmwandödem, Larynxödem-Gefahr; Auslöser Trauma, Stress, Östrogene, ACE-Hemmer; C4 und C1-INH erniedrigt; kein Ansprechen auf Antihistaminika — C1-Inhibitor-Konzentrat oder Icatibant.',
+        },
+        {
+          dd: 'Makulopapulöses Arzneimittelexanthem',
+          unterscheidung: 'Beginn 4–14 Tage nach Therapiebeginn (meist Antibiotika), symmetrisches, stammbetontes, fleckig-papulöses Exanthem, das NICHT flüchtig ist, sondern Tage bleibt und mit Schuppung abheilt; oft weniger Juckreiz, keine Angioödeme. Cave Alarmzeichen für SJS/TEN und DRESS (Schleimhäute, Blasen, Fieber, Eosinophilie).',
+        },
+        {
+          dd: 'Erythema exsudativum multiforme',
+          unterscheidung: 'Kokardenförmige (schießscheibenartige) Läsionen mit drei Zonen, bevorzugt akral an Handrücken und Unterarmen, oft mit Schleimhautbeteiligung, meist nach Herpes-simplex- oder Mykoplasmeninfekt; Läsionen fixiert über Tage bis Wochen, nicht flüchtig.',
+        },
+        {
+          dd: 'Urtikariavaskulitis',
+          unterscheidung: 'Quaddeln persistieren länger als 24 Stunden, brennen und schmerzen eher als sie jucken, hinterlassen Hyperpigmentierung oder Purpura; begleitend Fieber, Arthralgien, erhöhte BSG, ggf. Komplementverbrauch (Lupus, Sjögren); Diagnose durch Hautbiopsie mit leukozytoklastischer Vaskulitis.',
+        },
+        {
+          dd: 'Insektenstichreaktion / Strophulus',
+          unterscheidung: 'Umschriebene, lokal begrenzte, meist einzeln stehende juckende Papeln oder Quaddeln an unbedeckten Stellen, oft gruppiert, mit zentralem Einstich; persistieren Tage; keine generalisierten wandernden Quaddeln — außer bei systemischer Insektengiftallergie.',
+        },
+        {
+          dd: 'Kontaktdermatitis (allergisch oder irritativ) und atopisches Ekzem',
+          unterscheidung: 'Ekzemmorphe, unscharf begrenzte Rötung mit Bläschen, Nässen, Schuppung und Krusten, auf das Kontaktareal (Hände, Lider) beschränkt, Entwicklung über 24–72 Stunden, persistiert Tage bis Wochen; beim atopischen Ekzem Beugenbetonung, chronischer Verlauf, trockene Haut. Keine flüchtigen Quaddeln.',
+        },
+        {
+          dd: 'Mastozytose (Urticaria pigmentosa)',
+          unterscheidung: 'Bräunlich-rote, persistierende Makulae und Papeln, die beim Reiben urtikariell aufquellen (positives Darier-Zeichen); erhöhte Basaltryptase; Flush, Bauchschmerzen und anaphylaktoide Reaktionen; Diagnose durch Hautbiopsie.',
+        },
+        {
+          dd: 'Skabies',
+          unterscheidung: 'Nächtlich betonter, quälender Juckreiz, Milbengänge und Papeln an Fingerzwischenräumen, Handgelenken, Axillen, Genitale, Brustwarzen; Exkoriationen; Kontaktpersonen betroffen; Nachweis der Milbe im Dermatoskop oder Hautgeschabsel.',
+        },
+        {
+          dd: 'Virusexantheme',
+          unterscheidung: 'Makulöses oder makulopapulöses, meist stammbetontes Exanthem im Rahmen eines fieberhaften Infekts (Masern, Röteln, Ringelröteln, Enteroviren, EBV nach Ampicillin), das über Tage persistiert und nicht wandert; Enanthem, Lymphknotenschwellung.',
+        },
+        {
+          dd: 'Autoinflammatorische Syndrome (z. B. Schnitzler-Syndrom, Cryopyrin-assoziierte Syndrome, Morbus Still)',
+          unterscheidung: 'Chronisch-rezidivierende urtikarielle Exantheme mit rezidivierendem Fieber, Arthralgien, Knochenschmerzen, monoklonaler Gammopathie (IgM beim Schnitzler-Syndrom), stark erhöhten Entzündungswerten; Quaddeln jucken kaum; kein Ansprechen auf Antihistaminika, gutes Ansprechen auf IL-1-Blockade.',
+        },
+        {
+          dd: 'Prurigo simplex / Prurigo nodularis',
+          unterscheidung: 'Persistierende, zerkratzte Papeln und Knoten mit zentraler Exkoriation und Kruste, chronischer Verlauf über Monate; keine flüchtigen Quaddeln, keine Angioödeme.',
+        },
+        {
+          dd: 'Bullöses Pemphigoid im urtikariellen Vorstadium',
+          unterscheidung: 'Ältere Patienten (über 70 Jahre); persistierende, stark juckende urtikarielle Plaques über Wochen, im Verlauf pralle Blasen auf erythematösem Grund; Diagnose durch Biopsie mit direkter Immunfluoreszenz (lineare IgG/C3-Ablagerung) und BP180-Antikörpern.',
+        },
+        {
+          dd: 'Erysipel',
+          unterscheidung: 'Einseitige, scharf begrenzte, flammend rote, überwärmte und schmerzhafte Schwellung (Gesicht, Unterschenkel) mit Fieber, Schüttelfrost, Lymphangitis, erhöhtem CRP und Leukozytose; Eintrittspforte; kein Juckreiz, keine wandernden Quaddeln; antibiotische Therapie mit Penicillin.',
+        },
+        {
+          dd: 'Kontaktallergie an den Augenlidern (Kosmetika, Nagellack, Augentropfen)',
+          unterscheidung: 'Ekzematöse, schuppende, gerötete Lidschwellung mit Fältelung, die sich über Tage entwickelt und persistiert, oft beidseitig; Epikutantest; kein Angioödem der Lippen, keine Quaddeln am Körper.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Auslöserkarenz und Akutbehandlung',
+          items: [
+            'Sofortiges Absetzen und künftiges Meiden eines verdächtigen Medikaments — bei NSAR und ASS als Auslöser gilt die Karenz für ALLE klassischen NSAR (Kreuzreaktivität über die COX-1-Hemmung); Ausweichen auf Paracetamol, ggf. selektive COX-2-Hemmer nach Verträglichkeitstestung',
+            'Behandlung eines auslösenden Infekts (symptomatisch bei viralem Infekt; Antibiose nur bei bakteriellem Fokus wie Streptokokken-Angina — dabei Penicilline meiden, wenn diese als Auslöser infrage kommen)',
+            'Meiden eines verdächtigen Nahrungsmittels bis zur allergologischen Klärung; Entfernung eines Insektenstachels',
+            'Symptomatische Lokaltherapie: Kühlung, kühle Umschläge, Lotio alba oder Polidocanol-haltige Externa gegen den Juckreiz; Vermeidung unspezifischer Verstärker (Hitze, heißes Duschen, Alkohol, Stress, enge Kleidung, Anstrengung)',
+            'In der Notaufnahme bei ausgeprägtem Befund oder Angioödem im Gesicht: i.v.-Zugang, Monitoring, einmalig H1-Antihistaminikum i.v. (z. B. Dimetinden 4 mg oder Clemastin 2 mg) und Prednisolon 50–100 mg i.v.; Beobachtung über 2–4 Stunden; stationäre Überwachung bei Zungen-, Rachen- oder Kehlkopfbeteiligung',
+            'Bei Zeichen der Anaphylaxie (Grad II–IV) sofort Adrenalin 0,5 mg intramuskulär in den lateralen Oberschenkel (0,01 mg/kg, Kinder 0,15–0,3 mg), Wiederholung nach 5–15 Minuten möglich; Sauerstoff, Volumen (kristalloid 500–1000 ml), Lagerung, bei Bronchospasmus Salbutamol inhalativ; Antihistaminikum und Glukokortikoid erst NACH dem Adrenalin als Zweitlinienmaßnahmen; Überwachung mindestens 6–24 Stunden (biphasischer Verlauf)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Nichtsedierende H1-Antihistaminika der zweiten Generation als Therapie der Wahl',
+          items: [
+            'Mittel der ersten Wahl bei jeder Urtikaria: nichtsedierende H1-Antihistaminika der zweiten Generation in Standarddosis — Cetirizin 10 mg, Levocetirizin 5 mg, Loratadin 10 mg, Desloratadin 5 mg, Fexofenadin 180 mg oder Bilastin 20 mg einmal täglich',
+            'Bei unzureichender Wirkung nach 2–4 Wochen (chronische Form) bzw. wenigen Tagen (akute Form): Steigerung bis auf das VIERFACHE der zugelassenen Dosis (z. B. Cetirizin bis 40 mg täglich, Desloratadin bis 20 mg) — dieser leitliniengerechte Schritt geht JEDER weiteren Eskalation voraus',
+            'Regelmäßige, nicht nur bedarfsweise Einnahme, bei akuter Urtikaria bis etwa eine Woche über das Abklingen hinaus, bei chronischer Form als Dauertherapie mit Absetzversuch bei Beschwerdefreiheit',
+            'Keine sedierenden H1-Antihistaminika der ersten Generation (Dimetinden, Clemastin, Hydroxyzin) zur Dauerbehandlung — Sedierung, anticholinerge Nebenwirkungen, Beeinträchtigung der Fahrtüchtigkeit; H2-Blocker und Leukotrienantagonisten haben nur begrenzten Zusatznutzen',
+            'KURZER Glukokortikoidstoß nur beim schweren akuten Schub oder ausgeprägten Angioödem: Prednisolon 20–50 mg täglich oral über maximal 3–10 Tage, ohne Ausschleichen — ausdrücklich KEINE Dauertherapie mit Kortison (Nebenwirkungen, Rebound nach Absetzen)',
+          ],
+        },
+        {
+          label: 'Eskalation bei chronischer, therapierefraktärer Urtikaria und nicht histaminvermitteltem Angioödem',
+          items: [
+            'OMALIZUMAB (Anti-IgE-Antikörper) 300 mg subkutan alle 4 Wochen als Zusatztherapie der chronischen spontanen Urtikaria nach Versagen der hochdosierten Antihistaminika — hohe Wirksamkeit, auch bei den induzierbaren Formen; bei fehlendem Ansprechen Dosissteigerung bzw. Intervallverkürzung',
+            'Ciclosporin A (3–5 mg/kg täglich) als weitere Option bei Omalizumab-Versagen, unter Kontrolle von Blutdruck und Nierenfunktion; Leukotrienantagonisten (Montelukast 10 mg) als Ergänzung mit begrenzter Evidenz; neue Optionen: Bruton-Tyrosinkinase-Hemmer (Remibrutinib), Dupilumab',
+            'ACE-Hemmer-induziertes Angioödem: sofortiges und dauerhaftes Absetzen, Umstellung auf eine andere Substanzklasse (z. B. Kalziumantagonist; Sartane nur mit Vorsicht); im Anfall Atemwegssicherung, ggf. Icatibant off-label — Antihistaminika, Kortison und Adrenalin wirken hier nicht',
+            'Hereditäres Angioödem: im Anfall C1-Inhibitor-Konzentrat i.v. (20 IE/kg) oder Icatibant 30 mg s.c. (Bradykinin-B2-Rezeptor-Antagonist), bei Larynxbeteiligung frühzeitige Intubationsbereitschaft; Langzeitprophylaxe mit Lanadelumab, C1-INH s.c. oder Berotralstat, früher Tranexamsäure oder Danazol; Kurzzeitprophylaxe vor Eingriffen; Östrogene und ACE-Hemmer meiden',
+          ],
+        },
+        {
+          label: 'Aufklärung, Notfallvorsorge und Verlauf',
+          items: [
+            'Aufklärung über die Gutartigkeit und die meist spontane Rückbildung der akuten Urtikaria binnen Tagen bis wenigen Wochen — die Patienten fürchten eine schwere Allergie; Erklärung, dass Infekte und Schmerzmittel häufige Auslöser sind und eine Allergie im engeren Sinne oft NICHT vorliegt',
+            'Bei chronischer Form: Aufklärung über den oft jahrelangen, aber selbstlimitierenden Verlauf (etwa die Hälfte innerhalb eines Jahres beschwerdefrei) und darüber, dass ein Auslöser meist NICHT gefunden wird und die Suche nicht endlos fortgesetzt wird',
+            'Warnzeichen der Anaphylaxie erklären (Atemnot, Heiserkeit, Zungen-/Halsschwellung, Schwindel, Kreislaufschwäche) und Verhalten im Notfall: Notruf 112, Hinlegen, ggf. Autoinjektor',
+            'Notfallset mit Adrenalin-Autoinjektor (0,3 mg bzw. 0,5 mg), Antihistaminikum und Glukokortikoid NUR bei anaphylaktischer Vorgeschichte oder bei Nahrungsmittel- und Insektengiftallergie — Anwendung schulen (Kappe entfernen, fest in den seitlichen Oberschenkel drücken, 10 Sekunden halten, auch durch Kleidung); Insektengiftallergie: Hyposensibilisierung',
+            'Allergiepass bzw. Arzneimittelunverträglichkeitspass bei Medikamentenauslöser (z. B. „NSAR-Intoleranz: ASS, Ibuprofen“ mit Ausweichpräparat Paracetamol), Eintrag in die Patientenakte',
+            'Regelmäßige Kontrollen mit Aktivitätsscore (UAS7, UCT) und Anpassung der Therapie; Absetzversuch bei Beschwerdefreiheit; allergologische Abklärung nur bei konkretem Verdacht oder rezidivierenden Reaktionen; Wiedervorstellung bei Persistenz über 6 Wochen',
+          ],
+        },
+      ],
+      prognose: 'Die akute Urtikaria ist eine gutartige, selbstlimitierende Erkrankung: Die einzelne Quaddel verschwindet innerhalb von Stunden, das Angioödem innerhalb von 1–3 Tagen, und die gesamte Episode klingt meist innerhalb von 1–3 Wochen, spätestens nach 6 Wochen ab; ein Übergang in eine chronische Urtikaria ist selten. Bei Medikamentenauslöser drohen Rezidive bei erneuter Exposition — deshalb Karenz und Allergiepass. Die chronische spontane Urtikaria verläuft über Monate bis Jahre, ist aber ebenfalls selbstlimitierend: etwa die Hälfte der Patienten ist innerhalb eines Jahres beschwerdefrei, 80–90 % innerhalb von fünf Jahren; unter Antihistaminika in bis zu vierfacher Dosis und Omalizumab wird bei der großen Mehrheit eine gute Kontrolle erreicht. Die Lebensqualität ist durch Juckreiz, Schlafstörung und Angst vor Anaphylaxie erheblich eingeschränkt. Lebensbedrohlich sind nur die Anaphylaxie und das Larynxödem — insbesondere beim bradykininvermittelten Angioödem, das nicht auf die Standardtherapie anspricht.',
+      pruefungsfallen: [
+        'Die FLÜCHTIGKEIT aktiv erfragen („Bleibt eine Stelle länger als einen Tag?“) — wer nur „Ausschlag“ dokumentiert, kann die Urtikaria nicht vom Arzneimittelexanthem trennen. Einzelquaddel unter 24 Stunden, Angioödem bis 72 Stunden.',
+        'Die Sicherheitsfrage nie vergessen: Bei jeder Urtikaria nach Atemnot, Heiserkeit, Zungen-/Halsschwellung, Schluckstörung, Schwindel, Herzrasen und Bauchschmerzen fragen und Rachen, Lunge und Vitalparameter untersuchen. Mit systemischer Beteiligung ist es eine Anaphylaxie — und dann ist Adrenalin i.m. die ERSTE Maßnahme, nicht das Antihistaminikum.',
+        'Isoliertes Angioödem OHNE Quaddeln und OHNE Juckreiz ist nicht histaminvermittelt: an ACE-Hemmer (auch nach Jahren der Einnahme!) und an das hereditäre Angioödem (C1-Esterase-Inhibitor, C4) denken — Antihistaminika, Kortison und Adrenalin wirken hier NICHT; Absetzen, C1-INH-Konzentrat oder Icatibant.',
+        'Bei der akuten Urtikaria KEINE Allergiediagnostik anordnen — die Prüfer erwarten den Grundsatz „gezielte Anamnese, sonst keine Diagnostik“; Pricktests und IgE-Bestimmungen gehören nur zur chronischen Urtikaria bzw. zum konkreten Verdacht.',
+        'Nicht reflexhaft „allergische Reaktion“ sagen: Beim Erwachsenen sind Infekte der häufigste Auslöser, NSAR wirken pseudoallergisch (COX-1-Hemmung, keine IgE-Vermittlung, Kreuzreaktivität aller NSAR) — wer nach einer ASS-Reaktion Ibuprofen empfiehlt, macht den klassischen Fehler.',
+        'Die Therapie der Wahl sind nichtsedierende H1-Antihistaminika der ZWEITEN Generation — und der leitliniengerechte nächste Schritt ist die Steigerung bis auf das VIERFACHE der Dosis, bevor irgendetwas anderes (Omalizumab) kommt. Diese Frage wird gern gestellt.',
+        'Kortison nur als KURZER Stoß (maximal 3–10 Tage) beim schweren Schub oder ausgeprägten Angioödem — eine Dauertherapie mit Glukokortikoiden ist ein Fehler (Nebenwirkungen, Rebound), den Prüfer ausdrücklich abfragen.',
+        'Das Adrenalin-Notfallset nicht jedem verschreiben: nur bei anaphylaktischer Vorgeschichte oder Nahrungsmittel-/Insektengiftallergie. Aber: Erklären können, was ein „EpiPen“ ist und wie man ihn anwendet — eine reale Patientenfrage in Reutlingen.',
+        'Vor dem Patienten „Nesselsucht“ statt „Urtikaria“ und „Schwellung der tieferen Hautschichten“ statt „Angioödem“ sagen; „anaphylaktischer Schock“ heißt in Alltagssprache „allergischer Schock“.',
+        'Quaddeln, die länger als 24 Stunden bleiben, schmerzen und Flecken hinterlassen, sind keine gewöhnliche Urtikaria — Urtikariavaskulitis, Biopsie. Und Urtikaria mit Blasen, Schleimhautbefall oder hohem Fieber ist eine schwere Arzneimittelreaktion.',
+        'Die Sechs-Wochen-Grenze kennen und nennen: Sie entscheidet über Diagnostik (Basislabor, TSH, Tagebuch mit UAS7) und Therapie (Dauertherapie, Omalizumab).',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
+          antwort: 'Eine akute Urtikaria mit Angioödem. Dafür sprechen die plötzlich aufgetretenen, stark juckenden, erhabenen und scharf begrenzten Quaddeln, die flüchtig sind — jede einzelne verschwindet innerhalb weniger Stunden, während neue an anderer Stelle entstehen —, die begleitende teigige Schwellung von Lippen und Lidern sowie der zeitliche Zusammenhang mit einem Auslöser, hier einem Atemwegsinfekt und der Einnahme eines NSAR bei bekannter Analgetika-Intoleranz. Die Beschwerden bestehen seit weniger als sechs Wochen, also ist die Urtikaria akut.',
+        },
+        {
+          frage: 'Was sehen Sie bei der körperlichen Untersuchung?',
+          antwort: 'Generalisierte, unterschiedlich große, teils konfluierende, erhabene, rötliche Quaddeln mit blassem Zentrum am Stamm und an den Extremitäten, positiver urtikarieller Dermographismus, ein Angioödem von Oberlippe und Augenlidern; Rachen und Zunge frei, keine Uvulaschwellung, Lunge vesikulär ohne Giemen oder Stridor, Vitalparameter stabil. Genau diese Untersuchung von Rachen, Lunge und Kreislauf ist entscheidend für die Abgrenzung zur Anaphylaxie.',
+        },
+        {
+          frage: 'Wie sind Blutdruck und Puls, und was hören Sie bei der Auskultation?',
+          antwort: 'Bei der unkomplizierten Urtikaria sind Blutdruck und Puls normal und die Lunge ist frei. Ein Blutdruckabfall um mehr als 20 mmHg systolisch, eine Tachykardie, Giemen oder ein inspiratorischer Stridor würden eine Anaphylaxie Grad II oder III anzeigen und Adrenalin intramuskulär erfordern.',
+        },
+        {
+          frage: 'Wann ist es keine Urtikaria mehr, sondern eine Anaphylaxie — und was ist dann die erste Maßnahme?',
+          antwort: 'Sobald zu Quaddeln oder Angioödem Atemwegssymptome (Heiserkeit, Stridor, Zungen-/Kehlkopfschwellung, Atemnot, Bronchospasmus), Kreislaufsymptome (Schwindel, Tachykardie, Blutdruckabfall, Synkope) oder gastrointestinale Symptome (Krämpfe, Erbrechen, Durchfall) hinzukommen — Grad II bis IV nach Ring und Messmer. Erste Maßnahme ist Adrenalin 0,5 mg intramuskulär in den seitlichen Oberschenkel, wiederholbar nach 5–15 Minuten; dann Sauerstoff, Volumen, Lagerung, bei Bronchospasmus Salbutamol; Antihistaminikum und Kortison sind Zweitlinienmaßnahmen.',
+        },
+        {
+          frage: 'Was geben Sie bei einem Bronchospasmus?',
+          antwort: 'Im Rahmen einer Anaphylaxie zuerst Adrenalin intramuskulär, zusätzlich Sauerstoff und ein inhalatives Beta-2-Mimetikum wie Salbutamol über Vernebler oder Dosieraerosol; bei Persistenz Adrenalin auch inhalativ oder titriert intravenös unter Monitoring sowie ein Glukokortikoid i.v. als Zweitlinienmaßnahme.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und warum sind sie unwahrscheinlich?',
+          antwort: 'Die Anaphylaxie — ausgeschlossen durch fehlende Atemwegs-, Kreislauf- und gastrointestinale Symptome; das ACE-Hemmer- und das hereditäre Angioödem — unwahrscheinlich, weil Quaddeln und Juckreiz bestehen und kein ACE-Hemmer eingenommen wird; das makulopapulöse Arzneimittelexanthem — nicht flüchtig, bleibt Tage; die Urtikariavaskulitis — Quaddeln länger als 24 Stunden mit Hyperpigmentierung; das Erythema exsudativum multiforme mit Kokarden; Kontaktdermatitis, Insektenstichreaktion, Virusexanthem, Skabies, Mastozytose und beim älteren Patienten das bullöse Pemphigoid im urtikariellen Vorstadium.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie das ACE-Hemmer-Angioödem von einem allergischen Angioödem?',
+          antwort: 'Das ACE-Hemmer-Angioödem ist bradykininvermittelt: Es tritt isoliert OHNE Quaddeln und OHNE Juckreiz auf, bevorzugt an Lippen, Zunge und Kehlkopf, entwickelt sich langsam über Stunden, hält 2–5 Tage an und kann auch nach Jahren der Einnahme erstmals auftreten. Es spricht nicht auf Antihistaminika, Kortison oder Adrenalin an. Therapie: ACE-Hemmer absetzen und auf eine andere Substanzklasse umstellen, Atemweg sichern, gegebenenfalls Icatibant.',
+        },
+        {
+          frage: 'Welche diagnostischen Maßnahmen leiten Sie ein?',
+          antwort: 'Bei der akuten Urtikaria außer der gezielten Anamnese und der körperlichen Untersuchung keine — die aufwendige Allergiesuche ist bei einem einmaligen Ereignis nicht sinnvoll und meist ergebnislos. Bei Fieber allenfalls Blutbild und CRP wegen des Infekts. Erst bei einer chronischen Urtikaria über sechs Wochen ein begrenztes Basisprogramm: Differenzialblutbild, CRP und BSG, bei Verdacht TSH und Schilddrüsenantikörper, ein Urtikaria-Tagebuch mit dem UAS7, Provokationstests bei induzierbaren Formen; C1-Esterase-Inhibitor und C4 beim isolierten rezidivierenden Angioödem; Hautbiopsie bei Verdacht auf Urtikariavaskulitis.',
+        },
+        {
+          frage: 'Wie behandeln Sie die akute Urtikaria?',
+          antwort: 'Auslöser absetzen und meiden, Kühlung und Lotio alba gegen den Juckreiz, Verstärker wie Hitze und Alkohol vermeiden. Medikament der Wahl ist ein nichtsedierendes H1-Antihistaminikum der zweiten Generation, zum Beispiel Cetirizin 10 mg täglich, bei unzureichender Wirkung bis auf das Vierfache gesteigert. Beim schweren Schub oder ausgeprägten Angioödem zusätzlich ein kurzer Prednisolon-Stoß von 20 bis 50 mg über wenige Tage, maximal zehn — ausdrücklich keine Dauertherapie mit Kortison.',
+        },
+        {
+          frage: 'Was tun Sie, wenn das Antihistaminikum in Standarddosis nicht ausreicht?',
+          antwort: 'Leitliniengerecht wird die Dosis des nichtsedierenden Antihistaminikums bis auf das Vierfache der zugelassenen Dosis gesteigert, zum Beispiel Cetirizin bis 40 mg täglich. Erst wenn das bei einer chronischen Urtikaria nach zwei bis vier Wochen nicht ausreicht, folgt Omalizumab, ein Anti-IgE-Antikörper, 300 mg subkutan alle vier Wochen; danach Ciclosporin. Nicht sinnvoll ist der Wechsel auf ein sedierendes Antihistaminikum der ersten Generation oder eine Kortison-Dauertherapie.',
+        },
+        {
+          frage: 'Stationär oder nach Hause schicken?',
+          antwort: 'Eine unkomplizierte akute Urtikaria wird ambulant behandelt. Bei einem Angioödem im Gesicht beobachte ich die Patientin nach der Akuttherapie zwei bis vier Stunden in der Notaufnahme und entlasse sie mit Antihistaminikum, Aufklärung über Warnzeichen und einem Kontrolltermin. Stationär überwacht wird bei Zungen-, Rachen- oder Kehlkopfbeteiligung, bei jeder Anaphylaxie ab Grad II — wegen des biphasischen Verlaufs mindestens sechs bis 24 Stunden —, bei rasch progredientem Befund und bei bradykininvermitteltem Angioödem.',
+        },
+        {
+          frage: 'Was ist ein EpiPen, und wer braucht ihn?',
+          antwort: 'Ein Adrenalin-Autoinjektor zur Selbstanwendung: eine Fertigspritze mit 0,3 mg (Erwachsene) oder 0,15 mg (Kinder) Adrenalin, die bei Zeichen einer Anaphylaxie fest in den seitlichen Oberschenkel gedrückt wird, auch durch die Kleidung, und zehn Sekunden gehalten wird; danach Notruf. Er gehört zum Notfallset von Patienten mit anaphylaktischer Vorgeschichte oder mit Nahrungsmittel- oder Insektengiftallergie. Bei einer Urtikaria durch ein vermeidbares Medikament ohne Anaphylaxie ist er nicht erforderlich — dort sind Karenz, Allergiepass und Ausweichmedikament entscheidend.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Diagnose in Alltagssprache?',
+          antwort: '„Sie haben eine Nesselsucht — die Haut reagiert mit juckenden Quaddeln, so wie nach Brennnesseln, und an den Lippen und Augenlidern mit einer Schwellung in den tieferen Hautschichten. Das ist unangenehm, aber ungefährlich, solange Atmung und Kreislauf nicht betroffen sind. Ausgelöst wurde es wahrscheinlich durch Ihre Erkältung und das Schmerzmittel. Mit einem Antiallergikum und kurzzeitig Kortison geht es innerhalb von Tagen zurück.“',
+        },
+        {
+          frage: 'Wie erklären Sie die Reaktion auf Ibuprofen bei bekannter Aspirin-Unverträglichkeit?',
+          antwort: 'Es handelt sich nicht um eine echte Allergie gegen eine bestimmte Substanz, sondern um eine pseudoallergische Analgetika-Intoleranz: Alle klassischen NSAR hemmen die Cyclooxygenase-1, dadurch entstehen vermehrt Leukotriene und die Mastzellen werden ohne IgE aktiviert. Deshalb reagiert die Patientin auf ASS und auf Ibuprofen gleichermaßen — und würde auch auf Diclofenac oder Naproxen reagieren. Sie muss alle NSAR meiden; Paracetamol wird meist vertragen, selektive COX-2-Hemmer nach Verträglichkeitstestung.',
+        },
+      ],
+      merksatz: 'Quaddel wandert und ist in 24 Stunden weg — das ist Nesselsucht; Schwellung ohne Quaddel und ohne Juckreiz — an ACE-Hemmer und C1-Inhibitor denken, da wirkt kein Antihistaminikum. Bei akuter Urtikaria keine Allergiesuche, aber IMMER Atmung und Kreislauf prüfen: sonst ist es eine Anaphylaxie, und dann kommt Adrenalin zuerst. Therapie: Antihistaminikum der zweiten Generation, bis zum Vierfachen, Kortison nur kurz.',
+      linkedCaseIds: [
+        'case-urtikaria',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-perniziose-anaemie',
+      pathology: 'Perniziöse Anämie (Vitamin-B12-Mangel)',
+      specialty: 'Hämatologie',
+      definition: 'Der Vitamin-B12-Mangel (Cobalaminmangel) ist eine Störung der DNA-Synthese in allen rasch teilenden Geweben, die im Knochenmark zu einer megaloblastären, ineffektiven Erythropoese mit makrozytärer, hyperchromer Anämie (MCV über 100 fl, MCH erhöht) führt und zugleich das Nervensystem schädigt: Über den gestörten Methionin- und Myelinstoffwechsel entstehen eine Polyneuropathie, die funikuläre Myelose der Hinter- und Seitenstränge des Rückenmarks sowie kognitive und psychiatrische Störungen. Die perniziöse Anämie im engeren Sinn ist die häufigste Ursache: eine autoimmune, chronisch-atrophische Gastritis vom Typ A mit Autoantikörpern gegen Parietalzellen und Intrinsic Factor, wodurch das Vitamin im terminalen Ileum nicht mehr aufgenommen werden kann. Die Besonderheit und Gefahr der Erkrankung liegt darin, dass sie zwei Organsysteme trifft — Blut und Nervensystem — und dass die Anämie sich unter Substitution vollständig zurückbildet, die neurologischen Schäden ohne rechtzeitige Behandlung jedoch irreversibel werden.',
+      aetiologie: 'Vitamin B12 kommt ausschließlich in tierischen Lebensmitteln vor, wird im Magen durch Säure und Pepsin aus der Nahrungsbindung gelöst, an den von den Parietalzellen gebildeten Intrinsic Factor gebunden und im terminalen Ileum resorbiert; die Leberspeicher (2–3 mg) decken den Tagesbedarf von 2–4 µg über zwei bis fünf Jahre — deshalb der späte Beginn des Mangels. Ursachen: (1) autoimmune Typ-A-Gastritis = perniziöse Anämie, häufigste Ursache beim älteren Patienten, gehäuft mit Hashimoto-Thyreoiditis, Vitiligo, Diabetes mellitus Typ 1, Morbus Addison (polyglanduläres Autoimmunsyndrom); (2) mangelnde Zufuhr bei veganer oder streng vegetarischer Ernährung über Jahre, Mangelernährung, Alkoholismus; (3) Malabsorption: Zustand nach Magenresektion oder bariatrischer Operation, chronisch-atrophische Gastritis, Erkrankung oder Resektion des terminalen Ileums (Morbus Crohn), Zöliakie, bakterielle Fehlbesiedlung, Fischbandwurm (Diphyllobothrium latum), exokrine Pankreasinsuffizienz; (4) Medikamente: Metformin und Protonenpumpenhemmer über Jahre (häufig und oft übersehen), H2-Blocker, Colchicin; (5) Lachgaskonsum (N2O inaktiviert Cobalamin irreversibel) beim jungen Patienten; (6) erhöhter Bedarf in Schwangerschaft und Stillzeit; (7) seltene angeborene Störungen des Transports (Transcobalamin-II-Mangel).',
+      risikofaktoren: [
+        'Höheres Lebensalter (perniziöse Anämie meist jenseits des 60. Lebensjahres, Prävalenz bei über 60-Jährigen etwa 2 %)',
+        'Andere Autoimmunerkrankungen: Hashimoto-Thyreoiditis, Morbus Basedow, Vitiligo, Diabetes mellitus Typ 1, Morbus Addison, Zöliakie',
+        'Positive Familienanamnese für perniziöse Anämie oder Autoimmunerkrankungen',
+        'Vegane oder streng vegetarische Ernährung über Jahre, Mangelernährung im Alter',
+        'Zustand nach Magenresektion, Gastrektomie oder bariatrischer Operation',
+        'Morbus Crohn mit Befall oder Resektion des terminalen Ileums',
+        'Langjährige Einnahme von Metformin oder Protonenpumpenhemmern',
+        'Chronischer Alkoholkonsum',
+        'Bakterielle Fehlbesiedlung des Dünndarms, Blind-Loop-Syndrom',
+        'Lachgaskonsum (Freizeitdroge) bei jungen Patienten',
+        'Schwangerschaft und Stillzeit (erhöhter Bedarf, Risiko für das Kind)',
+        'Helicobacter-pylori-Gastritis mit Atrophie',
+      ],
+      klinik: [
+        {
+          text: 'Hämatologische Säule: allmählich zunehmende Müdigkeit, Leistungsknick, Belastungsdyspnoe, Tachykardie und Herzklopfen, Schwindel — die Anämie entwickelt sich langsam und wird deshalb oft erstaunlich gut toleriert',
+        },
+        {
+          text: 'Blässe mit leicht gelblichem, strohfarbenem Hautkolorit (Anämie plus indirekte Hyperbilirubinämie durch ineffektive Erythropoese), gelegentlich Sklerenikterus',
+        },
+        {
+          text: 'Gastrointestinale Säule: Hunter-Glossitis — glatte, rote, brennende Zunge mit Atrophie der Papillen, Zungenbrennen bei scharfen oder sauren Speisen; dazu Appetitlosigkeit, Gewichtsverlust, Völlegefühl, Durchfall',
+        },
+        {
+          text: 'Neurologische Säule — das Entscheidende: symmetrische, strumpfförmige Parästhesien und Taubheitsgefühl, zuerst an den Füßen, später an den Händen (Polyneuropathie)',
+        },
+        {
+          text: 'Funikuläre Myelose: Verlust von Vibrations- und Lagesinn (Hinterstränge) mit sensibler Ataxie, Gangunsicherheit besonders im Dunkeln, positivem Romberg-Zeichen; später spastische Paraparese mit Pyramidenbahnzeichen (Seitenstränge), Reflexe gesteigert oder — bei begleitender Polyneuropathie — abgeschwächt',
+        },
+        {
+          text: 'Neuropsychiatrische Symptome: Konzentrations- und Gedächtnisstörungen bis zur Demenz, depressive Verstimmung, Reizbarkeit, selten Psychose („megaloblastic madness“), Sehstörungen durch Optikusneuropathie',
+        },
+        {
+          text: 'Bei schwerem Mangel Leukopenie und Thrombozytopenie bis zur Panzytopenie mit Infektneigung und Blutungsneigung',
+        },
+        {
+          text: 'Neurologische Symptome OHNE Anämie und bei normalem MCV — bis zu einem Drittel der Patienten mit neurologischem Befall hat ein unauffälliges Blutbild',
+          atypisch: true,
+        },
+        {
+          text: 'Normales MCV trotz B12-Mangel bei gleichzeitigem Eisenmangel oder Thalassämie (kombinierter Mangel maskiert die Makrozytose)',
+          atypisch: true,
+        },
+        {
+          text: 'Reine psychiatrische Manifestation (Depression, kognitiver Abbau beim Älteren) ohne Anämie und ohne Parästhesien',
+          atypisch: true,
+        },
+        {
+          text: 'Junger Patient mit akuter funikulärer Myelose nach Lachgaskonsum',
+          atypisch: true,
+        },
+        {
+          text: 'Zufallsbefund einer Makrozytose oder eines erhöhten LDH ohne Beschwerden',
+          atypisch: true,
+        },
+        {
+          text: 'Unfruchtbarkeit, Fehlgeburten oder Neuralrohrdefekte beim Kind als Erstmanifestation bei jungen Frauen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Morphologische Einteilung der Anämien nach MCV und MCH',
+          inhalt: 'Mikrozytär-hypochrom (MCV unter 80 fl, MCH unter 27 pg): Eisenmangel, Thalassämie, Anämie chronischer Erkrankung. Normozytär-normochrom (MCV 80–100 fl): akute Blutung, renale Anämie, Hämolyse, aplastische Anämie. Makrozytär-hyperchrom (MCV über 100 fl, MCH über 34 pg): Vitamin-B12- und Folsäuremangel (megaloblastär), Alkohol, Lebererkrankung, Hypothyreose, myelodysplastisches Syndrom, Retikulozytose, Medikamente (nicht megaloblastär).',
+        },
+        {
+          name: 'Ätiologische Einteilung des Vitamin-B12-Mangels',
+          inhalt: 'Zufuhrmangel (vegan, Mangelernährung, Alkohol) — Freisetzungsstörung im Magen (atrophische Gastritis, Protonenpumpenhemmer) — Intrinsic-Factor-Mangel (perniziöse Anämie, Gastrektomie) — Resorptionsstörung im Ileum (Morbus Crohn, Ileumresektion, Zöliakie, bakterielle Fehlbesiedlung, Fischbandwurm, Metformin) — Inaktivierung/Verbrauch (Lachgas) — erhöhter Bedarf (Schwangerschaft) — angeborene Transportstörungen.',
+        },
+        {
+          name: 'Stadien des Vitamin-B12-Mangels (funktionelle Stadieneinteilung)',
+          inhalt: 'Stadium I: entleerte Speicher, Holotranscobalamin erniedrigt, Blutbild normal. Stadium II: funktioneller Mangel, Methylmalonsäure und Homocystein erhöht, noch keine Anämie. Stadium III: Makrozytose und hypersegmentierte Granulozyten. Stadium IV: manifeste megaloblastäre Anämie, Neurologie kann in jedem Stadium auftreten.',
+        },
+        {
+          name: 'Schweregrade der Anämie nach WHO',
+          inhalt: 'Frauen: leicht Hb 11,0–11,9 g/dl, mäßig 8,0–10,9 g/dl, schwer unter 8,0 g/dl. Männer: leicht 11,0–12,9 g/dl, mäßig 8,0–10,9 g/dl, schwer unter 8,0 g/dl. Transfusionsindikation beim B12-Mangel nur bei kardialer Dekompensation, nicht nach dem Hb-Wert allein.',
+        },
+      ],
+      redFlags: [
+        'Gangunsicherheit, Ataxie oder Verlust des Vibrationsempfindens → funikuläre Myelose, jede Woche Verzögerung erhöht das Risiko bleibender Schäden — parenterale Substitution sofort nach der Blutentnahme',
+        'Spastische Paraparese, Babinski-Zeichen, Blasenstörung → fortgeschrittener Rückenmarkbefall, MRT und neurologisches Konsil',
+        'Ruhedyspnoe, Angina pectoris, Herzinsuffizienzzeichen oder Synkope bei schwerer Anämie → kardiale Dekompensation, Monitorüberwachung, ggf. Transfusion',
+        'Fieber oder Infekt bei Leukopenie, Petechien oder Blutungen bei Thrombozytopenie → Panzytopenie, akute Leukämie und aplastische Anämie ausschließen',
+        'Verwirrtheit, Psychose oder rasch progrediente kognitive Störung beim älteren Patienten → B12 bestimmen, bevor eine Demenz diagnostiziert wird',
+        'Hypokaliämie mit Herzrhythmusstörungen in den ersten Tagen der Substitution → Kaliumkontrolle und Substitution',
+        'Gewichtsverlust, Dysphagie, Teerstuhl oder Oberbauchschmerzen bei bekannter Typ-A-Gastritis → Magenkarzinom oder neuroendokriner Tumor, Gastroskopie',
+        'Junger Patient mit Ataxie nach Partybesuch → Lachgas erfragen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese in drei Säulen: Anämiesymptome (Müdigkeit, Belastungsdyspnoe, Herzklopfen), gastrointestinale Symptome (Zungenbrennen, Appetit, Gewicht, Durchfall) und neurologische Symptome (symmetrische Parästhesien der Füße, Gangunsicherheit im Dunkeln, Gedächtnis, Stimmung, Sehen) — bei jeder Anämie die Füße erfragen, bei jeder Polyneuropathie das Blutbild anschauen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Ursachenanamnese: Ernährung (vegan/vegetarisch), Magen- und Darmoperationen, Morbus Crohn, Zöliakie, Medikamente (Metformin, Protonenpumpenhemmer, H2-Blocker), Alkohol, Lachgas, Autoimmunerkrankungen (Schilddrüse, Vitiligo, Diabetes Typ 1), Familienanamnese für perniziöse Anämie und Autoimmunität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Blässe und gelbliches Hautkolorit, Skleren, Zunge (glatt, rot, atrophisch), Vitiligo, Struma, Milzgröße, Herzfrequenz und Blutdruck, Zeichen der Herzinsuffizienz',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neurologische Untersuchung — obligat: Vibrationsempfinden an den Malleolen mit der 128-Hz-Stimmgabel (Pallhypästhesie unter 5/8), Lagesinn der Großzehen, Oberflächensensibilität strumpfförmig, Muskeleigenreflexe (gesteigert oder abgeschwächt), Babinski-Zeichen, Romberg-Test, Gangbild einschließlich Blindgang und Seiltänzergang, kognitives Screening (MoCA oder Mini-Mental-Status), Stimmung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild und Ausstrich: makrozytäre, hyperchrome Anämie (MCV über 100 fl, MCH über 34 pg), Makroovalozyten, hypersegmentierte Granulozyten mit fünf und mehr Kernsegmenten (ein einziger Granulozyt mit sechs Segmenten ist bereits beweisend), Anisozytose; Retikulozyten erniedrigt (ineffektive Erythropoese), bei schwerem Mangel Leukopenie und Thrombozytopenie bis zur Panzytopenie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vitamin B12 im Serum als Screening: unter 200 pg/ml (etwa 150 pmol/l) erniedrigt, Graubereich 200–300 pg/ml; bei grenzwertigem Wert oder hohem klinischem Verdacht die empfindlicheren Marker: Holotranscobalamin (aktives B12, frühester Marker), Methylmalonsäure (spezifisch für den B12-Mangel, bei Niereninsuffizienz falsch hoch) und Homocystein (bei B12- UND Folsäuremangel erhöht) — alle Werte VOR der ersten Injektion abnehmen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Folsäure im Serum bzw. in den Erythrozyten IMMER mitbestimmen: beide Mängel machen dasselbe Blutbild, und die Folsäuregabe allein bessert die Anämie, verschlimmert aber die Neurologie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Hämolyseparameter — Cave Verwechslung mit Hämolyse: LDH stark erhöht (oft über 1000 U/l), indirektes Bilirubin erhöht, Haptoglobin erniedrigt durch den intramedullären Zelluntergang; Unterschied zur echten Hämolyse: Retikulozyten NIEDRIG, direkter Coombs-Test negativ',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Autoantikörper: Antikörper gegen Intrinsic Factor (Spezifität über 95 %, Sensitivität nur 50–70 %) und gegen Parietalzellen (Sensitivität etwa 90 %, aber unspezifisch); Gastrin im Serum erhöht und Pepsinogen I erniedrigt als Zeichen der Korpusatrophie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Eisenstatus (Ferritin, Transferrinsättigung): ein kombinierter Mangel normalisiert das MCV; TSH und Schilddrüsenantikörper, Nüchternglukose/HbA1c, ggf. Cortisol und Transglutaminase-Antikörper zur Suche assoziierter Autoimmunerkrankungen; Kalium als Ausgangswert vor der Substitution; Leberwerte, Kreatinin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Ösophago-Gastro-Duodenoskopie mit Stufenbiopsien aus Korpus und Antrum: Sicherung der atrophischen Korpusgastritis vom Typ A (Antrum ausgespart, im Gegensatz zur Helicobacter-Gastritis Typ B), Helicobacter-Nachweis, Ausschluss von Magenkarzinom und neuroendokrinen Tumoren (ECL-Zell-Karzinoide durch die Hypergastrinämie)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bei neurologischem Befall: Elektroneurographie (axonale, sensibel betonte Polyneuropathie), somatosensibel evozierte Potenziale und MRT des Rückenmarks (T2-Hyperintensität der Hinterstränge, „inverted V sign“ im Halsmark); Abdomensonographie (Milz, Leber); EKG und ggf. Echokardiographie bei schwerer Anämie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion nur bei unklarer Panzytopenie oder fehlendem Ansprechen zum Ausschluss eines myelodysplastischen Syndroms oder einer akuten Leukämie: megaloblastäres, hyperzelluläres Mark mit Kern-Plasma-Reifungsdissoziation, Riesenmetamyelozyten',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Therapeutischer Test: Retikulozytenanstieg (Retikulozytenkrise) nach fünf bis sieben Tagen parenteraler Substitution bestätigt die Diagnose; der historische Schilling-Test (radioaktiv markiertes B12 mit und ohne Intrinsic Factor) wird nicht mehr durchgeführt',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Folsäuremangel',
+          unterscheidung: 'Identisches Blutbild (makrozytär, hypersegmentierte Granulozyten), aber KEINE neurologischen Symptome. Ursachen: Alkohol, Mangelernährung, Schwangerschaft, Methotrexat, Trimethoprim, Antiepileptika, Hämolyse. Folsäure erniedrigt, B12 normal, Methylmalonsäure normal, Homocystein erhöht. Cave: Folsäure niemals allein geben, bevor der B12-Mangel ausgeschlossen ist.',
+        },
+        {
+          dd: 'Myelodysplastisches Syndrom',
+          unterscheidung: 'Älterer Patient mit makrozytärer Anämie oder Panzytopenie, B12 und Folsäure normal, kein Ansprechen auf Substitution; Diagnose über Knochenmarkpunktion mit Dysplasiezeichen, Ringsideroblasten, Blasten und Zytogenetik.',
+        },
+        {
+          dd: 'Alkoholtoxische Makrozytose und Lebererkrankung',
+          unterscheidung: 'Makrozytose meist mäßig (MCV 100–110 fl) ohne Megaloblasten und ohne hypersegmentierte Granulozyten, Gamma-GT und Transaminasen erhöht, Alkoholanamnese; oft kombiniert mit einem Folsäuremangel.',
+        },
+        {
+          dd: 'Hypothyreose',
+          unterscheidung: 'Makrozytäre oder normozytäre Anämie mit Müdigkeit, Kälteintoleranz, Gewichtszunahme, Bradykardie; TSH erhöht. Cave: Hashimoto-Thyreoiditis und perniziöse Anämie treten gehäuft gemeinsam auf — beides prüfen.',
+        },
+        {
+          dd: 'Hämolytische Anämie',
+          unterscheidung: 'LDH, indirektes Bilirubin und Haptoglobin sind bei beiden verändert — der Unterschied: Retikulozyten bei der Hämolyse HOCH, beim B12-Mangel niedrig; Coombs-Test, Fragmentozyten, Splenomegalie.',
+        },
+        {
+          dd: 'Eisenmangelanämie / kombinierter Mangel',
+          unterscheidung: 'Mikrozytär-hypochrom mit erniedrigtem Ferritin; beim kombinierten Mangel (z. B. atrophische Gastritis mit Eisen- UND B12-Mangel) kann das MCV normal sein — deshalb Eisenstatus und B12 gemeinsam bestimmen; Hinweis ist eine hohe Erythrozytenverteilungsbreite (RDW).',
+        },
+        {
+          dd: 'Aplastische Anämie und akute Leukämie',
+          unterscheidung: 'Bei Panzytopenie zu bedenken: Blasten im Ausstrich, hypozelluläres bzw. blastenreiches Knochenmark, B12 normal, kein Ansprechen auf Substitution.',
+        },
+        {
+          dd: 'Medikamentöse Makrozytose',
+          unterscheidung: 'Hydroxyurea, Zidovudin, Methotrexat, Azathioprin, Antiepileptika (Valproat, Phenytoin) — Medikamentenanamnese, B12 normal.',
+        },
+        {
+          dd: 'Polyneuropathie anderer Ursache (Diabetes, Alkohol, Urämie, Paraproteinämie)',
+          unterscheidung: 'Ebenfalls symmetrisch-strumpfförmig; Unterscheidung über HbA1c, Alkoholanamnese, Kreatinin, Immunfixation — und über das Blutbild: Makrozytose und niedriges B12 lenken zum Cobalaminmangel. Diabetiker unter Metformin können BEIDES haben.',
+        },
+        {
+          dd: 'Multiple Sklerose, Rückenmarkskompression, Guillain-Barré-Syndrom',
+          unterscheidung: 'Bei Ataxie und Pyramidenbahnzeichen: MRT des Rückenmarks (Hinterstrangsignal beim B12-Mangel, Herde bei MS, Kompression durch Spinalkanalstenose oder Tumor), Liquor beim Guillain-Barré (zytoalbuminäre Dissoziation, aufsteigende Lähmung über Tage).',
+        },
+        {
+          dd: 'Demenz oder Depression anderer Ursache',
+          unterscheidung: 'B12-Mangel gehört zum Basislabor jeder kognitiven Störung und jeder Depression beim Älteren (in den Prüfungsprotokollen als Differenzialdiagnose der Depression genannt); ein reversibler Anteil wird nur durch die Bestimmung erkannt.',
+        },
+        {
+          dd: 'Kupfermangel',
+          unterscheidung: 'Seltene Imitation: Anämie, Neutropenie und Myelopathie mit Ataxie nach bariatrischer Operation oder bei Zinküberdosierung; B12 normal, Kupfer und Coeruloplasmin erniedrigt.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Substitution von Vitamin B12 und Behandlung der Akutsituation',
+          items: [
+            'Blutentnahme für B12, Folsäure, Holotranscobalamin, Methylmalonsäure, Homocystein, Antikörper und Eisenstatus VOR der ersten Injektion — danach ohne Verzögerung mit der Substitution beginnen, bei neurologischem Befall nicht auf Antikörper oder Gastroskopie warten',
+            'Parenterale Gabe bei perniziöser Anämie, jeder Resorptionsstörung und jedem neurologischen Befall: Hydroxocobalamin oder Cyanocobalamin 1000 µg intramuskulär (alternativ tief subkutan), zunächst täglich bis jeden zweiten Tag über ein bis zwei Wochen zur Auffüllung der Speicher, anschließend wöchentlich über etwa vier Wochen, dann als Dauertherapie monatlich (Hydroxocobalamin wird länger gespeichert, Intervalle bis zu drei Monate möglich)',
+            'Dauertherapie LEBENSLANG, weil die Ursache — der Verlust des Intrinsic Factor — nicht behebbar ist; bei neurologischen Symptomen in den ersten sechs Monaten engmaschigere Injektionen (z. B. alle zwei Wochen) bis zum Stillstand der Besserung',
+            'Hochdosierte orale Gabe von 1000–2000 µg Cyanocobalamin täglich als Alternative bei ernährungsbedingtem Mangel, unter Metformin oder Protonenpumpenhemmern und in ausgewählten Fällen ohne Neurologie, weil etwa 1 % der Dosis auch ohne Intrinsic Factor passiv resorbiert wird — bei guter Adhärenz und Laborkontrolle',
+            'KEINE Transfusion außer bei kardialer Dekompensation oder Angina pectoris, weil sich die Anämie unter Substitution rasch bessert; wenn nötig langsam, einzelne Konzentrate unter Monitorüberwachung und ggf. Diuretikum (Hypervolämie beim chronisch anämischen Herzen)',
+            'Sicherheitsregel: KEINE Folsäure allein, bevor der B12-Mangel ausgeschlossen oder behandelt ist — Folsäure bessert das Blutbild, maskiert die Diagnose und lässt die funikuläre Myelose fortschreiten',
+            'Bei kardialer Symptomatik Bettruhe, Sauerstoff, EKG-Monitoring; Sturzprophylaxe bei Ataxie vom ersten Tag an',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Überwachung des Ansprechens und der Komplikationen der Substitution',
+          items: [
+            'Retikulozytenkrise nach etwa fünf bis sieben Tagen (Retikulozyten steigen auf über 5–10 %) als Beleg des Ansprechens und zugleich als therapeutischer Diagnosetest — bleibt sie aus, Diagnose überdenken (Folsäuremangel, myelodysplastisches Syndrom, kombinierter Eisenmangel)',
+            'Hämoglobinanstieg um etwa 1 g/dl pro Woche, Normalisierung des Blutbilds über sechs bis acht Wochen; das LDH fällt innerhalb weniger Tage, das MCV normalisiert sich in etwa acht Wochen',
+            'Engmaschige KALIUMKONTROLLE in den ersten Tagen (täglich in der ersten Woche): die einsetzende Blutbildung verbraucht Kalium für die neuen Zellen und kann eine Hypokaliämie mit Herzrhythmusstörungen bis zum plötzlichen Herztod auslösen — Kalium substituieren',
+            'Kontrolle und Ergänzung von Eisen und Folsäure, die durch die gesteigerte Erythropoese verbraucht werden: bei erschöpften Eisenspeichern orale Eisengabe, Folsäure jetzt bedenkenlos zusätzlich möglich',
+            'Thrombozyten steigen rasch an — vorübergehend erhöhtes Thromboserisiko beachten, Thromboseprophylaxe bei Immobilität',
+            'Verlaufskontrollen: Blutbild und Retikulozyten nach einer Woche, Blutbild nach vier und acht Wochen, danach B12, Blutbild und neurologischer Status alle sechs bis zwölf Monate; unter Dauertherapie sind Serumspiegel-Kontrollen nur bei Verdacht auf Non-Adhärenz nötig',
+            'Nebenwirkungen der Injektion selten: lokale Reaktion, Akne, sehr selten Allergie gegen Cobalt; Hydroxocobalamin färbt den Urin rot',
+          ],
+        },
+        {
+          label: 'Behandlung der Ursache und der Begleiterkrankungen',
+          items: [
+            'Ernährungsberatung und dauerhafte orale Supplementierung bei veganer Ernährung — ausdrücklich auch für Schwangere, Stillende und deren Kinder; angereicherte Lebensmittel reichen nicht sicher aus',
+            'Überprüfung der Dauermedikation: Metformin und Protonenpumpenhemmer auf Indikation und Dosis prüfen, wenn möglich reduzieren oder absetzen; bei Fortführung dauerhafte B12-Substitution und jährliche Kontrolle',
+            'Behandlung der Grunderkrankung des Darms: Morbus Crohn, Zöliakie (glutenfreie Diät), bakterielle Fehlbesiedlung (Antibiotikum, z. B. Rifaximin), Fischbandwurm (Praziquantel), exokrine Pankreasinsuffizienz (Enzyme)',
+            'Alkoholabstinenz und Behandlung der Alkoholkrankheit; strikter Verzicht auf Lachgas',
+            'Screening und Behandlung assoziierter Autoimmunerkrankungen: TSH und Schilddrüsenantikörper (Hashimoto), Nüchternglukose (Diabetes Typ 1), Cortisol bei Verdacht auf Morbus Addison, Zöliakie-Serologie — bei perniziöser Anämie hat etwa ein Drittel eine Schilddrüsenerkrankung',
+            'Helicobacter pylori bei Nachweis eradizieren; bei Eisenmangel infolge der Achlorhydrie Eisen substituieren (ggf. intravenös, weil orales Eisen ohne Magensäure schlecht resorbiert wird)',
+          ],
+        },
+        {
+          label: 'Nachsorge, Neurologie und Karzinomvorsorge',
+          items: [
+            'Physiotherapie und Gangschulung bei funikulärer Myelose, Ergotherapie bei Handbeteiligung, Hilfsmittel (Gehstock, Rollator) und Sturzprophylaxe zu Hause (Nachtlicht, Haltegriffe, keine losen Teppiche) — ehrlicher Hinweis, dass die Rückbildung Monate dauert (Besserung meist innerhalb von sechs bis zwölf Monaten) und nach über sechs Monaten Bestehen unvollständig bleiben kann; deshalb der Wert der frühen Diagnose',
+            'Neurologische Verlaufskontrolle mit Vibrationsempfinden, Gangbild und kognitivem Screening; bei fehlender Besserung nach drei Monaten neurologische Mitbeurteilung und Suche nach einer zweiten Ursache',
+            'Endoskopische Überwachung des Magens bei atrophischer Typ-A-Gastritis wegen des zwei- bis dreifach erhöhten Risikos für Magenkarzinom und des Risikos für neuroendokrine Tumoren (ECL-Zell-Karzinoide durch Hypergastrinämie): Gastroskopie mit Biopsien etwa alle drei Jahre, bei Dysplasie oder Karzinoiden engmaschiger',
+            'Aufklärung über die Lebenslänglichkeit der Substitution und die Folgen des Absetzens (Rezidiv der Anämie nach Monaten bis wenigen Jahren, erneute und dann möglicherweise bleibende Nervenschäden); Erinnerungssystem und Injektionspass für die monatlichen Injektionen, Schulung zur Selbstinjektion oder Verabreichung durch Hausarztpraxis oder Angehörige',
+            'Familienuntersuchung bei gehäufter Autoimmunität (Blutbild, B12, TSH bei Verwandten ersten Grades); Impfschutz und Infektprophylaxe während einer Leukopenie',
+            'Psychosoziale Begleitung: depressive Symptome und Reizbarkeit bessern sich meist unter Substitution — Antidepressiva erst nach Ausschöpfung der kausalen Therapie erwägen',
+          ],
+        },
+      ],
+      prognose: 'Die hämatologischen Veränderungen sind vollständig reversibel: Die Retikulozyten steigen nach fünf bis sieben Tagen, das Hämoglobin normalisiert sich innerhalb von sechs bis acht Wochen, Glossitis, Appetit und Stimmung bessern sich oft schon in den ersten Tagen. Die neurologischen Schäden bilden sich dagegen nur langsam und nur teilweise zurück — Parästhesien und Ataxie bessern sich über sechs bis zwölf Monate, wobei das Ausmaß der Erholung vom Schweregrad und vor allem von der Dauer der Symptome vor Therapiebeginn abhängt; nach mehr als sechs Monaten unbehandelter funikulärer Myelose bleiben häufig Residuen, die Demenz kann irreversibel sein. Unter lebenslanger Substitution ist die Lebenserwartung normal. Das Restrisiko der perniziösen Anämie liegt in der Typ-A-Gastritis: zwei- bis dreifach erhöhtes Risiko für ein Magenkarzinom und erhöhtes Risiko für neuroendokrine Tumoren, deshalb endoskopische Überwachung. Unbehandelt führt der schwere Mangel zur Herzinsuffizienz durch die Anämie, zu Panzytopenie mit Infekten und zu bleibender Querschnittssymptomatik. Wird die Substitution abgesetzt, kehren Anämie und Neurologie innerhalb von Monaten bis wenigen Jahren zurück.',
+      pruefungsfallen: [
+        'Folsäure niemals allein geben, bevor der B12-Mangel ausgeschlossen ist: Sie bessert das Blutbild, maskiert die Diagnose und lässt die funikuläre Myelose fortschreiten — die klassische Fangfrage („Der Patient hat eine makrozytäre Anämie, geben Sie Folsäure?“).',
+        'Die Hämolyseparameter LDH, indirektes Bilirubin und Haptoglobin sind beim B12-Mangel verändert, ohne dass eine Hämolyse vorliegt (ineffektive Erythropoese) — der Unterschied sind die NIEDRIGEN Retikulozyten und der negative Coombs-Test.',
+        'Neurologische Symptome können OHNE Anämie und bei NORMALEM MCV auftreten — ein unauffälliges Blutbild schließt den B12-Mangel nicht aus; bei jeder Polyneuropathie, Ataxie, Depression oder Demenz B12 bestimmen. In den Prüfungsprotokollen taucht der B12-Mangel genau so auf: als Differenzialdiagnose einer Depression mit Kopfschmerzen und als Laborwert im Basisbilan bei Müdigkeit.',
+        'Die Hypokaliämie zu Beginn der Substitution: Die einsetzende Blutbildung verbraucht Kalium, es drohen Herzrhythmusstörungen — Kalium in der ersten Woche täglich kontrollieren und substituieren.',
+        'Metformin und Protonenpumpenhemmer als Ursache nicht vergessen — die häufigsten iatrogenen Ursachen, vom Patienten nie als Ursache erkannt; ebenso Lachgas beim jungen Patienten mit Ataxie.',
+        'Ein kombinierter Eisen- und B12-Mangel (typisch bei atrophischer Gastritis) normalisiert das MCV — immer Ferritin und B12 gemeinsam bestimmen; die erhöhte Erythrozytenverteilungsbreite ist der Hinweis.',
+        'Die Substitution ist bei perniziöser Anämie LEBENSLANG und parenteral — „drei Monate Tabletten“ ist falsch; nur beim ernährungsbedingten Mangel ohne Neurologie ist die hochdosierte orale Gabe gleichwertig.',
+        'Blut für B12, Folsäure, Methylmalonsäure und Antikörper VOR der ersten Injektion abnehmen — danach sind die Werte nicht mehr verwertbar; aber bei Neurologie nicht auf die Antikörper oder die Gastroskopie warten, sondern sofort substituieren.',
+        'Keine Transfusion nach dem Hb-Wert allein: Die Anämie ist chronisch adaptiert und bessert sich rasch; Transfusion nur bei kardialer Dekompensation, dann langsam und einzeln.',
+        'Die Gastroskopie gehört zur Diagnostik UND zur Nachsorge: Sicherung der Typ-A-Gastritis, Ausschluss und Überwachung von Magenkarzinom und neuroendokrinen Tumoren (etwa alle drei Jahre).',
+        'Die neurologische Untersuchung mit der Stimmgabel an den Malleolen und den Romberg-Test aktiv nennen — der Prüfer will hören, dass Vibrations- und Lagesinn geprüft werden, nicht nur „Reflexe“.',
+        'Vor dem Patienten „Blutarmut durch Vitamin-B12-Mangel“, „Vitamin-Spritzen“ und „Nervenschädigung durch den Vitaminmangel“ sagen — nicht „perniziös“, „megaloblastär“ oder „funikuläre Myelose“ ohne Erklärung; „perniziös“ heißt historisch „bösartig/tödlich“ und erschreckt den Patienten unnötig.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welche anderen Krankheiten können die Symptome der Patientin verursachen — und warum denken Sie gerade an einen Vitamin-B12-Mangel?',
+          antwort: 'Müdigkeit, Kribbeln in den Füßen und gedrückte Stimmung können auch durch eine Depression, eine Hypothyreose, eine Multiple Sklerose, einen Eisenmangel oder eine diabetische Polyneuropathie verursacht werden. Für den B12-Mangel spricht bei ihr die Kombination aus drei Säulen: die Anämiesymptome mit Blässe und gelblichem Hautkolorit, die Hunter-Glossitis mit Zungenbrennen und die symmetrische, strumpfförmige Sensibilitätsstörung mit Gangunsicherheit im Dunkeln — dazu die Autoimmunkonstellation mit Hashimoto-Thyreoiditis und Vitiligo und die Familienanamnese. Eine makrozytäre Anämie beim Hausarzt bestätigt den Verdacht.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Diagnose „perniziöse Anämie“ in einfacher Sprache?',
+          antwort: 'Sie haben eine Blutarmut, weil Ihrem Körper Vitamin B12 fehlt. Das Vitamin ist zwar in Ihrem Essen, aber Ihr Magen bildet einen Eiweißstoff nicht mehr, der das Vitamin durch die Darmwand schleust — das eigene Abwehrsystem hat die Zellen im Magen angegriffen. Ohne das Vitamin kann der Körper keine reifen roten Blutkörperchen bilden, und auch die Nerven leiden, deshalb das Kribbeln und die Unsicherheit beim Gehen. Das Gute: Wir können das Vitamin als Spritze geben, und die Blutarmut verschwindet vollständig.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und was erwarten Sie?',
+          antwort: 'Blutbild mit Differenzialblutbild und Ausstrich: makrozytäre, hyperchrome Anämie mit MCV über 100 fl, hypersegmentierte Granulozyten, niedrige Retikulozyten, gegebenenfalls Leuko- und Thrombozytopenie. Vitamin B12 unter 200 pg/ml, dazu Holotranscobalamin, Methylmalonsäure und Homocystein als empfindlichere Marker. Folsäure immer mit. Hämolyseparameter: LDH und indirektes Bilirubin erhöht, Haptoglobin erniedrigt. Antikörper gegen Intrinsic Factor und Parietalzellen, Gastrin erhöht. Eisenstatus, TSH, Kalium, Leber- und Nierenwerte.',
+        },
+        {
+          frage: 'Warum sind LDH und Bilirubin erhöht — hat die Patientin eine Hämolyse?',
+          antwort: 'Nein. Beim B12-Mangel gehen die fehlerhaft gebildeten Vorläuferzellen bereits im Knochenmark zugrunde — eine ineffektive Erythropoese, die man auch intramedulläre Hämolyse nennt. Dadurch steigen LDH und indirektes Bilirubin, das Haptoglobin sinkt. Der Unterschied zur echten Hämolyse: Die Retikulozyten sind niedrig statt hoch, und der Coombs-Test ist negativ.',
+        },
+        {
+          frage: 'Die Anämie ist makrozytär. Dürfen Sie Folsäure geben?',
+          antwort: 'Nicht, bevor der B12-Mangel ausgeschlossen oder behandelt ist. Folsäure allein bessert zwar das Blutbild, weil sie den Nukleotidstoffwechsel umgeht, aber sie behebt den Methioninmangel im Nervensystem nicht — die funikuläre Myelose schreitet fort, und die Diagnose wird maskiert. Deshalb erst Blut abnehmen, dann B12 substituieren; Folsäure kann anschließend bei Bedarf ergänzt werden.',
+        },
+        {
+          frage: 'Wie behandeln Sie, und wie lange?',
+          antwort: 'Parenteral: Hydroxocobalamin 1000 µg intramuskulär, in den ersten ein bis zwei Wochen täglich bis jeden zweiten Tag, dann wöchentlich über vier Wochen, dann monatlich — und das lebenslang, weil der Intrinsic Factor dauerhaft fehlt. Keine Transfusion, außer bei kardialer Dekompensation. Dazu Kaliumkontrolle, Eisen und Folsäure bei Bedarf, Physiotherapie, Überprüfung des Protonenpumpenhemmers, TSH-Kontrolle und Gastroskopie mit Biopsien.',
+        },
+        {
+          frage: 'Woran erkennen Sie, dass die Therapie anspricht — und worauf müssen Sie in der ersten Woche achten?',
+          antwort: 'An der Retikulozytenkrise nach fünf bis sieben Tagen; das LDH fällt innerhalb weniger Tage, das Hämoglobin steigt um etwa 1 g/dl pro Woche und ist nach sechs bis acht Wochen normal. In der ersten Woche muss ich das Kalium täglich kontrollieren, weil die einsetzende Blutbildung Kalium verbraucht und eine Hypokaliämie mit Herzrhythmusstörungen auslösen kann. Außerdem können Eisen und Folsäure durch den Verbrauch knapp werden.',
+        },
+        {
+          frage: 'Werden die neurologischen Symptome wieder verschwinden?',
+          antwort: 'Die Anämie bildet sich vollständig zurück, die Neurologie nur langsam und nicht sicher vollständig. Die Rückbildung dauert sechs bis zwölf Monate und hängt vor allem davon ab, wie lange die Symptome vor Therapiebeginn bestanden — nach mehr als sechs Monaten bleiben oft Residuen. Deshalb behandeln wir sofort, ohne die Antikörper oder die Gastroskopie abzuwarten, und leiten Physiotherapie und Sturzprophylaxe ein.',
+        },
+        {
+          frage: 'Warum ist bei dieser Patientin eine Gastroskopie nötig, und wie oft?',
+          antwort: 'Zur Sicherung der autoimmunen Typ-A-Gastritis mit Biopsien aus Korpus und Antrum, zum Ausschluss eines Magenkarzinoms und neuroendokriner Tumoren, die durch die Hypergastrinämie entstehen, sowie zum Helicobacter-Nachweis. Wegen des zwei- bis dreifach erhöhten Karzinomrisikos wird die Gastroskopie etwa alle drei Jahre wiederholt.',
+        },
+        {
+          frage: 'Welche Medikamente können einen B12-Mangel verursachen?',
+          antwort: 'Vor allem Metformin, das die Resorption im Ileum stört, und Protonenpumpenhemmer sowie H2-Blocker, die die Freisetzung des Vitamins aus der Nahrung im Magen verhindern — beides häufig und oft über Jahre eingenommen. Außerdem Colchicin, Neomycin und Lachgas als Droge. Bei Fortführung dieser Medikamente muss B12 substituiert und jährlich kontrolliert werden.',
+        },
+        {
+          frage: 'Welche Erkrankungen sind mit der perniziösen Anämie assoziiert, und was folgt daraus?',
+          antwort: 'Andere Autoimmunerkrankungen: Hashimoto-Thyreoiditis und Morbus Basedow, Vitiligo, Diabetes mellitus Typ 1, Morbus Addison und Zöliakie — im Rahmen eines polyglandulären Autoimmunsyndroms. Daraus folgt ein Screening mit TSH und Schilddrüsenantikörpern, Nüchternglukose, gegebenenfalls Cortisol und Transglutaminase-Antikörpern sowie eine Untersuchung der Verwandten ersten Grades.',
+        },
+      ],
+      merksatz: 'Makrozytäre Anämie plus Kribbeln in den Füßen = B12-Mangel, bis das Gegenteil bewiesen ist. Erst Blut abnehmen, dann sofort B12 spritzen — lebenslang, niemals Folsäure allein, Kalium in der ersten Woche kontrollieren, und den Magen alle drei Jahre spiegeln.',
+      linkedCaseIds: [
+        'case-perniziose-anaemie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-gastroskopie',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-opioidabhaengigkeit',
+      pathology: 'Opioidabhängigkeit (Substanzabhängigkeit)',
+      specialty: 'Psychiatrie',
+      definition: 'Die Opioidabhängigkeit (ICD-10 F11.2) ist eine chronische, rückfallgefährdete Erkrankung, bei der der Konsum von Opioiden — Heroin, aber zunehmend auch ärztlich verschriebene Analgetika wie Oxycodon, Tilidin, Tramadol oder Fentanyl — Vorrang vor anderen Verhaltensweisen gewinnt, die früher höher bewertet wurden. Nach ICD-10 müssen mindestens drei von sechs Kriterien über zwölf Monate erfüllt sein: starkes Verlangen (Craving), Kontrollverlust über Beginn, Ende und Menge, körperliches Entzugssyndrom, Toleranzentwicklung mit Dosissteigerung, Vernachlässigung anderer Interessen und Verpflichtungen sowie fortgesetzter Konsum trotz nachweislicher schädlicher Folgen. Toleranz und Entzug allein — wie bei jedem Schmerzpatienten unter längerer Opioidtherapie — begründen KEINE Abhängigkeit; entscheidend sind Kontrollverlust, Craving und Schaden. Die Abhängigkeit ist eine Erkrankung, keine Charakterschwäche.',
+      aetiologie: 'Multifaktorielles Bedingungsgefüge: Opioide aktivieren über µ-Rezeptoren das mesolimbische dopaminerge Belohnungssystem (Nucleus accumbens); bei wiederholter Zufuhr kommt es zu neuroadaptiven Veränderungen mit Toleranz (Rezeptordesensibilisierung, gesteigerte cAMP-Aktivität im Locus coeruleus) und zu einem Entzugssyndrom bei Abfall des Spiegels, das den Konsum durch negative Verstärkung aufrechterhält. Genetische Disposition (Erblichkeit etwa 40–60 %, positive Familienanamnese für Suchterkrankungen), psychiatrische Komorbidität (Depression, Angststörungen, PTBS, ADHS) mit Selbstmedikation, frühe Traumatisierung, soziale Faktoren (Arbeitslosigkeit, Verfügbarkeit) sowie iatrogene Faktoren (langfristige Opioidverordnung bei nicht-tumorbedingtem Schmerz ohne Reevaluation, schnell anflutende Präparate, Mehrfachverordnung durch verschiedene Ärzte) tragen bei. Der Entzug beginnt 6–12 Stunden nach der letzten Einnahme kurz wirksamer Opioide (nach Methadon erst nach 24–48 Stunden), erreicht sein Maximum nach zwei bis drei Tagen und klingt über etwa eine Woche ab.',
+      risikofaktoren: [
+        'Positive Familienanamnese für Alkohol- oder Drogenabhängigkeit',
+        'Psychiatrische Komorbidität: Depression, Angststörung, PTBS, ADHS, Persönlichkeitsstörung',
+        'Chronischer nicht-tumorbedingter Schmerz mit langfristiger Opioidverordnung, insbesondere hohe Tagesdosen über 120 mg Morphinäquivalent und schnell anflutende, nicht retardierte Präparate',
+        'Vorbestehende Abhängigkeit von Alkohol, Benzodiazepinen, Cannabis oder Stimulanzien',
+        'Junges Alter bei Erstkonsum, männliches Geschlecht',
+        'Frühe Traumatisierung, Vernachlässigung oder Missbrauch in der Kindheit',
+        'Arbeitslosigkeit, Wohnungslosigkeit, soziale Isolation, Verfügbarkeit im Umfeld',
+        'Mehrfachverordnung durch verschiedene Ärzte und Bereitschaftsdienste ohne Kommunikation („Ärzte-Hopping“)',
+        'Nikotinabhängigkeit und riskanter Alkoholkonsum als Marker erhöhter Suchtvulnerabilität',
+      ],
+      klinik: [
+        {
+          text: 'Starkes, kaum beherrschbares Verlangen nach dem Opioid (Craving) — die Gedanken kreisen um die nächste Einnahme und um die Beschaffung',
+        },
+        {
+          text: 'Kontrollverlust: Einnahme in größeren Mengen oder über längere Zeit als beabsichtigt, Rezepte werden vorzeitig eingelöst, Retardtabletten zerkaut, Präparate von verschiedenen Ärzten oder aus dem Umfeld beschafft',
+        },
+        {
+          text: 'Toleranzentwicklung mit stetiger Dosissteigerung bei nachlassender Wirkung',
+        },
+        {
+          text: 'Opioidentzugssyndrom 6–12 Stunden nach der letzten Einnahme: Unruhe, Angst, Craving, Gähnen, Tränen- und Nasenlaufen, Schwitzen, Gänsehaut ("cold turkey"), weite Pupillen, Übelkeit, Erbrechen, Durchfall, Bauchkrämpfe, Muskel- und Knochenschmerzen, Schlaflosigkeit, Tachykardie und Hypertonie',
+        },
+        {
+          text: 'Vernachlässigung von Arbeit, Familie, Interessen und Körperpflege; sozialer Rückzug, Verschuldung, Konflikte, Arbeitsplatzverlust',
+        },
+        {
+          text: 'Fortgesetzter Konsum trotz eingetretener Schäden: Überdosierungen, Unfälle, Infektionen, Beziehungsabbrüche',
+        },
+        {
+          text: 'Chronische Opioidwirkungen: Obstipation, Miosis, Müdigkeit, Gewichtsverlust und Mangelernährung, Zahnschäden, Hypogonadismus mit Libidoverlust, Amenorrhoe, Hyperalgesie',
+        },
+        {
+          text: 'Bei intravenösem Konsum: Einstichstellen, Thrombophlebitiden, Abszesse, Narben („Straßen“) an Unterarmen, Händen, Füßen und Leisten',
+        },
+        {
+          text: 'Opioidintoxikation als Notfall mit der Trias aus Bewusstseinstrübung bis Koma, Atemdepression (Bradypnoe unter 10/min, Zyanose) und stecknadelkopfgroßen miotischen Pupillen; zusätzlich Hypotonie, Bradykardie, Hypothermie, Lungenödem',
+          atypisch: true,
+        },
+        {
+          text: 'Fieber bei intravenösem Konsum: bis zum Beweis des Gegenteils Endokarditis (meist Trikuspidalklappe, Staphylococcus aureus), Sepsis oder Abszess',
+          atypisch: true,
+        },
+        {
+          text: 'Präsentation über das Umfeld: der Angehörige schickt den Patienten, der Hausarzt verweigert das Rezept, der Betrieb meldet Auffälligkeiten — das Anliegen „ich bin abhängig“ wird selten selbst formuliert',
+          atypisch: true,
+        },
+        {
+          text: 'Pseudoaddiction: scheinbar suchtartiges Verhalten (Uhr-Beobachten, Drängen auf Rezepte) bei unterbehandeltem Schmerz, das mit ausreichender Analgesie verschwindet',
+          atypisch: true,
+        },
+        {
+          text: 'Ältere Patienten mit Opioidabhängigkeit nach Operation oder Unfall: Stürze, kognitive Einschränkung, Delir und Obstipation stehen im Vordergrund, die Abhängigkeit wird übersehen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'ICD-10-Kriterien des Abhängigkeitssyndroms (F1x.2)',
+          inhalt: 'Mindestens drei der sechs Kriterien gleichzeitig während der letzten zwölf Monate: 1) starkes Verlangen oder Zwang zu konsumieren (Craving); 2) verminderte Kontrolle über Beginn, Beendigung und Menge; 3) körperliches Entzugssyndrom bei Reduktion oder Absetzen; 4) Toleranz mit Dosissteigerung; 5) fortschreitende Vernachlässigung anderer Vergnügen und Interessen, erhöhter Zeitaufwand für Beschaffung, Konsum und Erholung; 6) anhaltender Konsum trotz eindeutig schädlicher Folgen. Kodierung: F11.0 akute Intoxikation, F11.1 schädlicher Gebrauch, F11.2 Abhängigkeitssyndrom, F11.3 Entzugssyndrom, F11.4 Entzug mit Delir.',
+        },
+        {
+          name: 'Clinical Opiate Withdrawal Scale (COWS)',
+          inhalt: 'Elf Items, vom Untersucher erhoben: Ruhepuls, Schwitzen, Unruhe, Pupillenweite, Knochen- und Gelenkschmerzen, Nasenlaufen/Tränenfluss, gastrointestinale Beschwerden, Tremor, Gähnen, Angst/Reizbarkeit, Gänsehaut. Summe 5–12 leichter, 13–24 mittlerer, 25–36 mittelschwerer, über 36 schwerer Entzug. Steuert den Beginn der Buprenorphin-Gabe (erst ab deutlichen Entzugszeichen, COWS etwa ≥ 8–12, sonst Gefahr eines ausgelösten Entzugs) und die Dosis der Substitution.',
+        },
+        {
+          name: 'Zeitlicher Verlauf des Opioidentzugs',
+          inhalt: 'Kurz wirksame Opioide (Heroin, Oxycodon, Tilidin): Beginn 6–12 Stunden nach der letzten Einnahme, Maximum nach 48–72 Stunden, Abklingen über 7–10 Tage. Methadon: Beginn nach 24–48 Stunden, Maximum um Tag 3–6, Dauer bis zu drei Wochen. Anschließend protrahiertes Entzugssyndrom über Wochen bis Monate mit Dysphorie, Schlafstörung, Craving und Anhedonie — Hauptursache des Rückfalls.',
+        },
+        {
+          name: 'Morphinäquivalenzdosis (MÄD) oraler Opioide',
+          inhalt: 'Referenz Morphin oral = 1: Oxycodon 1,5–2, Hydromorphon 5–7,5, Tilidin 0,1–0,2, Tramadol 0,1–0,2, Tapentadol 0,3–0,4, transdermales Fentanyl 25 µg/h ≈ 60 mg Morphin/Tag, Buprenorphin sublingual 30–50. Die Leitlinie LONTS empfiehlt bei nicht-tumorbedingtem Schmerz eine Höchstdosis von 120 mg MÄD täglich; darüber steigt das Risiko für Abhängigkeit und Überdosierung deutlich.',
+        },
+        {
+          name: 'Stadien der Veränderungsbereitschaft (Prochaska und DiClemente)',
+          inhalt: 'Absichtslosigkeit (Precontemplation) → Absichtsbildung (Contemplation) → Vorbereitung → Handlung → Aufrechterhaltung → (Rückfall). Die Gesprächsführung wird an das Stadium angepasst: Beim absichtslosen Patienten nicht überzeugen wollen, sondern Ambivalenz erkunden (Motivierende Gesprächsführung nach Miller und Rollnick).',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinstrübung, Atemfrequenz unter 10/min, Zyanose und Miosis → Opioidintoxikation, sofort Naloxon, Atemwegssicherung, Monitorüberwachung',
+        'Fieber, Schüttelfrost oder neues Herzgeräusch bei intravenösem Konsum → Endokarditis oder Sepsis bis zum Beweis des Gegenteils, Blutkulturen und Echokardiographie',
+        'Gerötete, überwärmte, fluktuierende Schwellung an einer Einstichstelle mit Fieber → Abszess, Phlegmone, nekrotisierende Fasziitis',
+        'Beikonsum von Benzodiazepinen, Alkohol oder Gabapentinoiden → vielfach erhöhtes Risiko der tödlichen Atemdepression',
+        'Kürzlicher Entzug, Haftentlassung oder Klinikaufenthalt bei erneutem Konsum → Toleranzverlust, höchstes Überdosierungsrisiko in den ersten zwei Wochen',
+        'Suizidgedanken, konkrete Pläne, frühere Suizidversuche, Hoffnungslosigkeit → akute Suizidalität, keine Entlassung ohne psychiatrische Beurteilung',
+        'Verwirrtheit, Halluzinationen, Krampfanfall im Entzug → an begleitenden Alkohol- oder Benzodiazepinentzug denken (Delir), der im Gegensatz zum reinen Opioidentzug lebensbedrohlich ist',
+        'Schwangerschaft bei Opioidabhängigkeit → kein abrupter Entzug (Frühgeburt, intrauteriner Fruchttod), sofortige Einleitung einer Substitution',
+        'Kinder im Haushalt mit unbeaufsichtigten Opioiden oder Fentanylpflastern → Kindeswohlgefährdung, akzidentelle Intoxikation',
+        'Ikterus, Aszites, Blutungsneigung → fortgeschrittene Hepatitis-C- oder alkoholtoxische Lebererkrankung',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Suchtanamnese ohne Moralisieren und ohne Verhörstil: Substanzen, Beginn, tägliche Menge, Konsumform (oral, nasal, intravenös, geraucht), Zeitpunkt der letzten Einnahme, Verlauf der Dosissteigerung, frühere Entzüge und Substitutionsversuche, Überdosierungen, Beikonsum (Alkohol, Benzodiazepine, Kokain, Cannabis), Beschaffungswege (Rezepte, mehrere Ärzte, Schwarzmarkt), Motivation und Behandlungswunsch',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Systematische Erfassung der ICD-10-Abhängigkeitskriterien (Craving, Kontrollverlust, Entzug, Toleranz, Vernachlässigung, Konsum trotz Schaden) und Abgrenzung zur bloßen körperlichen Abhängigkeit des Schmerzpatienten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sicherheitsfragen, die niemand gern stellt: Spritzentausch, gemeinsam benutzte Utensilien, Überdosierungen, Suizidalität, Kinder im Haushalt, Fahren unter Einfluss, Waffen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Erfassung der Entzugsschwere mit der COWS-Skala (Puls, Schwitzen, Unruhe, Pupillen, Schmerzen, Nasenlaufen, gastrointestinale Symptome, Tremor, Gähnen, Angst, Gänsehaut) und Vitalparameter (Tachykardie, Hypertonie, Temperatur, Atemfrequenz)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Pupillenweite, Einstichstellen, Abszesse, Thrombophlebitiden, Lymphknoten, Ernährungszustand mit BMI, Zahnstatus, Herzauskultation (neues Geräusch), Leber (Hepatomegalie, Ikterus), Haut (Ikterus, Spider naevi), neurologischer Status',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychiatrische Befunderhebung: Bewusstsein, Orientierung, Affekt, Antrieb, Depressions- und Angstscreening (PHQ-9, GAD-7), Traumaanamnese, ADHS-Screening, strukturierte Erfassung der Suizidalität',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Sozialanamnese als Bestandteil der Diagnostik: Wohnung, Arbeit, Schulden, Partnerschaft, Kinder und Kindeswohl, rechtliche Situation, Führerschein, Angehörige — Fremdanamnese mit Einverständnis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Drogenscreening im Urin nach Aufklärung des Patienten: Opiate (Morphin, Heroin-Metabolit 6-Monoacetylmorphin), Methadon, Buprenorphin, Oxycodon (eigener Test, im Standard-Opiat-Screening oft NICHT erfasst), Fentanyl, Benzodiazepine, Kokain, Amphetamine, Cannabis; ergänzend Ethylglucuronid',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Blutbild, CRP, Elektrolyte, Kreatinin und Harnstoff, Transaminasen, γ-GT, Bilirubin, Albumin, Gerinnung (Quick/INR), Blutzucker, CK bei Immobilisation (Rhabdomyolyse), Blutgasanalyse bei Intoxikation',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serologien nach Aufklärung und Einwilligung: Hepatitis B (HBs-Antigen, Anti-HBc, Anti-HBs), Hepatitis C (Anti-HCV, bei positivem Befund HCV-RNA), HIV (Antigen-Antikörper-Test), Lues; bei Frauen Schwangerschaftstest',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Fieber: mindestens zwei bis drei Blutkulturpaare vor Antibiotikagabe, Procalcitonin, Laktat; Abstrich oder Punktat aus Abszessen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG mit Bestimmung der QTc-Zeit vor und unter Methadon (Torsade-de-pointes-Risiko ab QTc über 450–500 ms); Rhythmus, Zeichen einer Endokarditis',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Fieber, Husten oder Dyspnoe (septische Lungenembolien bei Rechtsherzendokarditis, Pneumonie, Aspiration, Lungenödem nach Intoxikation)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie bei Fieber und Herzgeräusch (Vegetationen, Trikuspidalinsuffizienz); Sonographie des Abdomens (Leber, Milz, Aszites) und der Weichteile bei Abszessverdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Transösophageale Echokardiographie bei unklarem transthorakalem Befund und fortbestehendem Endokarditisverdacht; Abszessinzision mit mikrobiologischer Untersuchung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei chronischer Hepatitis C: HCV-Genotyp, transiente Elastographie (Fibroscan) zur Fibroseeinschätzung, nur ausnahmsweise Leberbiopsie; bei Verdacht auf Hypogonadismus Testosteron, LH und FSH',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Meldung an das Substitutionsregister des Bundesinstituts für Arzneimittel und Medizinprodukte vor Beginn einer Substitution (Ausschluss einer Doppelsubstitution)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Körperliche Abhängigkeit des Schmerzpatienten ohne Suchterkrankung',
+          unterscheidung: 'Toleranz und Entzugssymptome allein sind physiologische Folgen jeder längeren Opioidtherapie und begründen KEINE Sucht. Der Unterschied liegt in Craving, Kontrollverlust (vorzeitige Rezepte, Zerkauen, mehrere Verordner), Vernachlässigung und Konsum trotz Schaden. Klärung durch systematische Abfrage der sechs ICD-10-Kriterien.',
+        },
+        {
+          dd: 'Pseudoaddiction bei unterbehandeltem Schmerz',
+          unterscheidung: 'Suchtartiges Verhalten (Drängen auf Rezepte, Uhr-Beobachten) entsteht aus unzureichender Analgesie und verschwindet bei ausreichender Schmerztherapie; keine Dosissteigerung über den Bedarf hinaus, kein Beikonsum, keine Beschaffung außerhalb der Behandlung.',
+        },
+        {
+          dd: 'Alkohol- oder Benzodiazepinentzug (bei Beikonsum oft gleichzeitig)',
+          unterscheidung: 'Tremor, Schwitzen und Tachykardie ähnlich; jedoch Krampfanfälle, Halluzinationen, Verwirrtheit und Delir — lebensbedrohlich, im Gegensatz zum reinen Opioidentzug. Pupillen nicht typisch weit, kein Gähnen/Nasenlaufen; Anamnese, Ethylglucuronid und Benzodiazepinnachweis im Urin.',
+        },
+        {
+          dd: 'Intoxikation oder Entzug anderer Substanzen (Stimulanzien, Cannabis, GHB)',
+          unterscheidung: 'Kokain- und Amphetaminintoxikation mit weiten Pupillen, Agitation, Hypertonie und Psychose, aber ohne gastrointestinale Entzugssymptome; Drogenscreening klärt.',
+        },
+        {
+          dd: 'Sepsis, Endokarditis, Abszess',
+          unterscheidung: 'Fieber, Schüttelfrost, neues Herzgeräusch, Einstichstellen, septische Embolien; CRP, Procalcitonin, Blutkulturen und Echokardiographie. Bei jedem fiebernden intravenös Konsumierenden ausschließen.',
+        },
+        {
+          dd: 'Depression, Angststörung, PTBS, ADHS als Grunderkrankung',
+          unterscheidung: 'Häufig Ursache der Selbstmedikation; Stimmung, Interessenverlust, Antrieb, Schlaf, Suizidalität, Traumaanamnese und Konzentration gezielt erheben — psychiatrische Symptome im Entzug erst nach Abklingen des Entzugs neu bewerten.',
+        },
+        {
+          dd: 'Gastroenteritis',
+          unterscheidung: 'Erbrechen und Durchfall führend, oft Fieber und Umgebungsfälle, aber keine Gänsehaut, kein Gähnen, keine weiten Pupillen, kein Craving; Opioidanamnese und zeitlicher Zusammenhang mit der letzten Einnahme entscheiden.',
+        },
+        {
+          dd: 'Grippaler Infekt / Influenza',
+          unterscheidung: 'Gliederschmerzen, Schwitzen, Nasenlaufen imitieren den Entzug („wie eine Grippe“); Fieber, Husten, Halsschmerzen und fehlende Opioidanamnese sprechen dagegen.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Unruhe, Schwitzen, Tachykardie, Gewichtsverlust, Durchfall — jedoch chronisch über Wochen, Struma, Exophthalmus, TSH supprimiert.',
+        },
+        {
+          dd: 'Hypoglykämie, Schlaganfall, intrakranielle Blutung, andere Intoxikationen bei Bewusstseinstrübung',
+          unterscheidung: 'Blutzuckermessung, fokal-neurologische Defizite, Anisokorie, Trauma; bei Miosis auch an Clonidin, Organophosphate und Ponsblutung denken. Fehlendes Ansprechen auf Naloxon spricht gegen eine reine Opioidintoxikation.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutversorgung: Intoxikation, Entzug und Komplikationen',
+          items: [
+            'Opioidintoxikation: Atemwege sichern, Beatmung mit Beutel-Maske und Sauerstoff, dann Naloxon titriert — 0,04–0,4 mg intravenös, alle 2–3 Minuten wiederholen bis zur ausreichenden Spontanatmung (nicht bis zum vollständigen Erwachen), alternativ 1,8 mg intranasal; Cave kurze Wirkdauer von 30–90 Minuten gegenüber Stunden bis Tagen bei Methadon oder Retardpräparaten → Überwachung mindestens 4–6 Stunden, ggf. Naloxon-Perfusor; ein ausgelöster Entzug mit Agitation und Erbrechen ist zu erwarten (Aspirationsschutz)',
+            'Opioidentzug — subjektiv qualvoll, aber im Gegensatz zum Alkohol- und Benzodiazepinentzug nicht lebensbedrohlich: symptomatische Behandlung mit Clonidin 3–4 × 75–150 µg täglich gegen die vegetativen Symptome unter Blutdruck- und Pulskontrolle, Metoclopramid gegen Übelkeit, Loperamid gegen Durchfall, Butylscopolamin gegen Bauchkrämpfe, Ibuprofen oder Metamizol gegen Muskel- und Knochenschmerzen, kurzfristig ein sedierendes Schlafmittel (Doxepin, Promethazin); Flüssigkeits- und Elektrolytausgleich',
+            'Besser: opioidgestützter Entzug mit Buprenorphin sublingual, Beginn erst bei deutlichen Entzugszeichen (COWS ≥ 8–12, sonst ausgelöster Entzug) mit 2–4 mg, Steigerung bis 8–16 mg am ersten Tag, dann Reduktion über 1–3 Wochen; alternativ Methadon 20–30 mg initial (maximal 40 mg am ersten Tag) mit absteigender Dosis — oder Übergang in eine dauerhafte Substitution, wenn der Patient dies wünscht',
+            'Beikonsum beachten: Benzodiazepin- oder Alkoholentzug parallel behandeln (Delir- und Krampfrisiko), Thiamin bei Alkoholabhängigkeit',
+            'Behandlung der Komplikationen: Abszessinzision, kalkulierte Antibiose bei Endokarditis nach Blutkulturen (Staphylococcus aureus: Flucloxacillin oder Cefazolin, bei MRSA Vancomycin), Behandlung der Hepatitis, Tetanusimpfschutz prüfen',
+            'Keine abrupte Entlassung ohne Anschluss: Nach dem Entzug geht die Toleranz innerhalb weniger Tage verloren, und die Überdosierungsgefahr beim Rückfall ist am höchsten — Übergabe an Substitutionspraxis oder Entwöhnungseinrichtung, Take-home-Naloxon mitgeben, Angehörige einbeziehen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Substitutionstherapie als Behandlung der Wahl',
+          items: [
+            'Evidenzbasierte Behandlung der ersten Wahl bei Opioidabhängigkeit: Methadon (Razemat, Beginn 20–30 mg, Erhaltung meist 60–120 mg täglich) oder Levomethadon (halbe Dosis), Buprenorphin (Erhaltung 8–24 mg sublingual, partieller Agonist mit Ceiling-Effekt für die Atemdepression, daher sicherer) oder Buprenorphin-Naloxon (Missbrauchsschutz bei intravenöser Anwendung), retardiertes Morphin bei Unverträglichkeit; Buprenorphin-Depot als wöchentliche oder monatliche Injektion',
+            'Tägliche Einnahme unter Sicht in der Substitutionspraxis oder Apotheke; Take-home-Regelung (bis zu sieben, in Ausnahmefällen 30 Tage) erst bei nachgewiesener Stabilität ohne Beikonsum',
+            'Ziele in dieser Reihenfolge: Überleben sichern, Beendigung des illegalen und unkontrollierten Konsums, Reduktion von Infektionen, Kriminalität und Beschaffungsdruck, soziale Stabilisierung (Arbeit, Familie), Behandlung der Komorbidität — die Abstinenz ist ein Fernziel, keine Voraussetzung',
+            'Rechtlicher Rahmen: Betäubungsmittel-Verschreibungsverordnung (§ 5 BtMVV) und Richtlinie der Bundesärztekammer, suchtmedizinische Qualifikation des Arztes, Meldung an das Substitutionsregister, regelmäßige Beikonsumkontrollen im Urin, psychosoziale Begleitung als Bestandteil der Behandlung',
+            'Überwachung: EKG mit QTc-Zeit vor Beginn und unter Methadon (Dosisreduktion oder Umstellung auf Buprenorphin ab QTc über 500 ms), Leberwerte, Wechselwirkungen (CYP3A4-Induktoren wie Rifampicin, Carbamazepin und Efavirenz senken den Methadonspiegel; Sedativa und Alkohol potenzieren die Atemdepression)',
+            'In der Schwangerschaft ist die Substitution dem Entzug vorzuziehen (Methadon oder Buprenorphin; Entzug gefährdet das Kind durch Frühgeburt und intrauterinen Fruchttod); nach der Geburt Überwachung des Neugeborenen auf ein neonatales Abstinenzsyndrom',
+            'Bei Abhängigkeit von ärztlich verordneten Opioiden: Umstellung von kurz wirksamen auf retardierte Präparate oder Buprenorphin, ein einziger Verordner mit festem Rezeptrhythmus, schriftliche Behandlungsvereinbarung, langsames Ausschleichen mit Begleitung — keine bloße Rezeptverweigerung, die den Patienten in den Schwarzmarkt treibt',
+          ],
+        },
+        {
+          label: 'Psychotherapeutische, soziale und rehabilitative Behandlung',
+          items: [
+            'Motivierende Gesprächsführung (Miller und Rollnick) als Grundhaltung: Empathie, Ambivalenz erkunden, Diskrepanz entwickeln, Widerstand nicht bekämpfen, Selbstwirksamkeit stärken — ohne Moralisieren, ohne Beschämung, die Abhängigkeit als Erkrankung benennen',
+            'Diagnostik und Behandlung der psychiatrischen Komorbidität (Depression, Angststörung, PTBS, ADHS), da sie häufig der Selbstmedikation zugrunde liegt; Antidepressiva und Psychotherapie, Cave sedierende Substanzen und Benzodiazepine',
+            'Kognitiv-verhaltenstherapeutische Rückfallprävention: Auslöser und Risikosituationen erkennen, Craving-Bewältigung, Notfallplan, Kontingenzmanagement',
+            'Bei Abstinenzwunsch: qualifizierte Entzugsbehandlung (stationär, 2–3 Wochen, mit Psychoedukation und Motivationsarbeit) und anschließende Entwöhnungsbehandlung in einer Fachklinik (meist 3–6 Monate, Kostenträger Rentenversicherung), danach Adaptionsphase und ambulante Nachsorge',
+            'Rückfallschutz nach erreichter Abstinenz: Naltrexon 50 mg täglich oral (reiner Opioidantagonist, Beginn frühestens 7–10 Tage nach dem letzten Opioid, sonst ausgelöster Entzug) — Cave: keine Analgesie mit Opioiden möglich, Toleranzverlust',
+            'Selbsthilfegruppen (Narcotics Anonymous, Selbsthilfe für Betroffene und Angehörige), Suchtberatungsstellen als niedrigschwelliger Einstieg und Lotsen',
+            'Sozialarbeit: Wohnung, Schuldnerberatung, Arbeit und berufliche Rehabilitation, Kindeswohl (Jugendamt als Unterstützung, nicht als Drohung), Führerschein (medizinisch-psychologische Untersuchung nach Abstinenznachweis), rechtliche Situation (Therapie statt Strafe nach § 35 BtMG)',
+            'Einbeziehung der Angehörigen mit Einverständnis des Patienten: Psychoedukation, Entlastung, Naloxon-Schulung, Angehörigengruppen',
+          ],
+        },
+        {
+          label: 'Schadensminderung und Prävention der Überdosierung',
+          items: [
+            'Take-home-Naloxon (intranasal 1,8 mg) mit Schulung von Patient und Angehörigen: Erkennen der Überdosierung (nicht erweckbar, langsame Atmung, enge Pupillen, blaue Lippen), Notruf 112, Naloxon, stabile Seitenlage, Beatmung — lebensrettende Maßnahme, bei jeder Entlassung aus Entzug, Klinik oder Haft',
+            'Aufklärung über den Toleranzverlust nach Abstinenz, Entzug, Haft oder Klinikaufenthalt: Die frühere Dosis kann tödlich sein; niemals allein konsumieren, nicht mit Alkohol oder Benzodiazepinen kombinieren, kleine Testdosis',
+            'Safer Use: Spritzentauschprogramme mit sterilen Nadeln, Filtern und Löffeln, kein Teilen von Utensilien, Drogenkonsumräume mit medizinischer Überwachung, Drug-Checking wo verfügbar (Fentanyl- und Nitazen-Beimischungen)',
+            'Impfung gegen Hepatitis A und B (und Tetanus, Influenza, Pneumokokken, COVID-19); Testung auf Hepatitis B/C und HIV mindestens jährlich',
+            'Hepatitis-C-Behandlung mit direkt antiviralen Substanzen (z. B. Sofosbuvir/Velpatasvir über 12 Wochen, Heilungsrate über 95 %) unabhängig vom Konsumstatus; HIV-Präexpositionsprophylaxe bei Risiko, antiretrovirale Therapie bei Infektion',
+            'Bei Opioiden aus ärztlicher Verschreibung: Überprüfung und Umstellung der Schmerztherapie (Nicht-Opioid-Analgetika, Koanalgetika, multimodale Schmerztherapie, Physiotherapie), Kommunikation zwischen allen Behandlern, ein Verordner, sichere Aufbewahrung (Kinder!), Rückgabe nicht mehr benötigter Opioide und Fentanylpflaster in der Apotheke',
+            'Fahrtauglichkeit: unter unkontrolliertem Opioidkonsum nicht gegeben — Aufklärung dokumentieren; unter stabiler Substitution ohne Beikonsum nach Einzelfallprüfung möglich',
+          ],
+        },
+      ],
+      prognose: 'Die Opioidabhängigkeit ist eine chronische Erkrankung mit hoher Rückfallneigung: Nach einem reinen Entzug ohne Anschlussbehandlung werden über 80 % innerhalb eines Jahres rückfällig, und die Sterblichkeit ist in den ersten zwei Wochen nach Entzug oder Haftentlassung durch den Toleranzverlust um ein Vielfaches erhöht. Unbehandelt liegt die jährliche Mortalität bei etwa 1–3 % (Überdosierung, Infektionen, Suizid, Unfälle). Unter Substitutionstherapie sinkt die Sterblichkeit um etwa die Hälfte bis zwei Drittel, die Haltequote ist deutlich höher als bei abstinenzorientierten Verfahren, Infektionen, Kriminalität und Beschaffungsdruck nehmen ab, und viele Patienten stabilisieren sich beruflich und familiär. Die Prognose ist am besten bei früher Diagnose, Behandlung der psychiatrischen Komorbidität, stabiler sozialer Einbindung, fehlendem Beikonsum und Zugang zu Naloxon — schlechter bei intravenösem Mischkonsum, Wohnungslosigkeit, unbehandelter Depression und Suizidalität. Die Abhängigkeit von verordneten Opioiden hat bei erhaltener sozialer Einbindung eine vergleichsweise günstige Prognose, wenn die Schmerztherapie neu strukturiert und der Patient nicht durch Rezeptverweigerung allein gelassen wird.',
+      pruefungsfallen: [
+        'Der Opioidentzug ist qualvoll, aber NICHT lebensbedrohlich — der Alkohol- und der Benzodiazepinentzug dagegen schon (Delir, Krampfanfälle). Diesen Kontrast wollen die Prüfer ausdrücklich hören; wer den Opioidentzug als lebensgefährlich bezeichnet, verwechselt die Substanzen.',
+        'Pupillen richtig zuordnen: WEITE Pupillen im Entzug, STECKNADELKOPFGROSSE Pupillen in der Intoxikation. Die Intoxikationstrias lautet Bewusstseinstrübung, Atemdepression, Miosis.',
+        'Naloxon wird titriert und nicht als Bolus gegeben, das Ziel ist die Spontanatmung, nicht das vollständige Erwachen; seine Wirkdauer von 30–90 Minuten ist KÜRZER als die der meisten Opioide — der Patient wird nach der Gabe überwacht, nicht entlassen.',
+        'Toleranz und Entzug allein sind KEINE Sucht: Der Schmerzpatient unter regelmäßiger Opioidtherapie ist körperlich abhängig, aber nicht suchtkrank. Der Unterschied liegt in Craving, Kontrollverlust und Schaden — die sechs ICD-10-Kriterien (mindestens drei über zwölf Monate) müssen benannt werden.',
+        'Nach dem Entzug geht die Toleranz verloren; die Überdosierungsgefahr beim Rückfall ist dann am höchsten. Deshalb: kein Entzug ohne Anschluss, Take-home-Naloxon, Aufklärung über die Toleranz — dieses Konzept wird explizit abgefragt.',
+        'Die Substitution ist die evidenzbasierte Behandlung der Wahl und kein „Ersatz einer Droge durch eine andere“; die Abstinenz ist Fernziel, nicht Voraussetzung. In der Schwangerschaft ist die Substitution dem Entzug vorzuziehen.',
+        'Registerfalle: nie „Junkie“, „Drogensüchtiger“ oder „Missbrauch“ als Vorwurf, nicht moralisieren, keinen Verhörstil; Formulierungen wie „Sie haben eine Abhängigkeitserkrankung“ und „Viele Menschen kommen in diese Situation, wenn sie starke Schmerzmittel bekommen“ werden honoriert.',
+        'Die Sicherheitsfragen trotzdem stellen: Konsumform (gespritzt?), Spritzentausch, Überdosierungen, Beikonsum von Benzodiazepinen und Alkohol, Suizidalität, Kinder im Haushalt, Autofahren — Empathie ersetzt nicht die Vollständigkeit.',
+        'Oxycodon und Fentanyl werden im Standard-Opiat-Screening des Urins oft nicht erfasst — gezielt anfordern; das Screening erfolgt nach Aufklärung des Patienten, nicht heimlich.',
+        'Serologien für Hepatitis B, C und HIV nur nach Aufklärung und Einwilligung; die Hepatitis-C-Therapie mit direkt antiviralen Substanzen ist unabhängig vom Konsumstatus indiziert.',
+        'Vor Methadon ein EKG mit QTc-Zeit — Torsade-de-pointes-Risiko; Buprenorphin ist bei QT-Verlängerung die sicherere Alternative.',
+        'Buprenorphin erst bei deutlichen Entzugszeichen beginnen (COWS ≥ 8–12): zu früh gegeben löst der partielle Agonist selbst einen Entzug aus.',
+        'Bei Opioiden aus ärztlicher Verschreibung ist die reine Rezeptverweigerung keine Therapie — sie treibt den Patienten in den Schwarzmarkt; stattdessen ein Verordner, Behandlungsvereinbarung, Umstellung und begleitetes Ausschleichen.',
+        'Fieber beim intravenös konsumierenden Patienten ist eine Endokarditis bis zum Beweis des Gegenteils: Blutkulturen und Echokardiographie gehören in die Antwort.',
+        'Packungsjahre in Worten und mit Rechnung nennen (Zigarettenpackungen pro Tag × Jahre), Alkoholmenge in Gramm — bei Suchtpatienten fragen die Prüfer immer „seit wann?“ und „vertrauen Sie den Angaben?“',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist die Gefahr bei Benzodiazepinen beziehungsweise bei starken Schmerzmitteln?',
+          antwort: 'Gewöhnung, also Toleranz mit Dosissteigerung, und Abhängigkeit — mit einem Entzugssyndrom beim Absetzen. Bei Opioiden kommt die Atemdepression mit Todesgefahr hinzu, insbesondere in Kombination mit Benzodiazepinen oder Alkohol.',
+        },
+        {
+          frage: 'Welche Entzugserscheinungen kennen Sie?',
+          antwort: 'Beim Opioidentzug Unruhe, Angst, Craving, Gähnen, Tränen- und Nasenlaufen, Schwitzen, Gänsehaut, weite Pupillen, Übelkeit, Erbrechen, Durchfall, Bauchkrämpfe, Muskel- und Knochenschmerzen, Schlaflosigkeit, Tachykardie und Hypertonie. Beim Alkoholentzug Tremor, Schwitzen, Tachykardie, Angst, Krampfanfälle und als schwerste Form das Delirium tremens — der Alkoholentzug ist im Gegensatz zum Opioidentzug lebensbedrohlich.',
+        },
+        {
+          frage: 'Vertrauen Sie den Angaben des Patienten zu seinem Konsum?',
+          antwort: 'Ich nehme sie ernst und dokumentiere sie wörtlich, weiß aber, dass Mengen häufig untertrieben werden — nicht aus Bosheit, sondern aus Scham. Deshalb frage ich konkret und ohne Vorwurf nach, erhebe mit Einverständnis eine Fremdanamnese, und objektiviere den Konsum mit einem Drogenscreening im Urin nach Aufklärung sowie mit Laborwerten wie Ethylglucuronid, γ-GT und MCV.',
+        },
+        {
+          frage: 'Seit wann nimmt der Patient die Substanz, und wie hat sich die Dosis entwickelt?',
+          antwort: 'Ich frage nach dem Beginn, dem Anlass — häufig eine Operation oder ein Unfall —, der Ausgangsdosis, dem Zeitpunkt und dem Grund jeder Steigerung, der aktuellen Tagesdosis in Milligramm, dem Präparat und der Einnahmeform sowie dem Zeitpunkt der letzten Einnahme. Daraus ergeben sich Toleranzentwicklung und Kontrollverlust.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie einen abhängigen Patienten von einem Schmerzpatienten, der einfach regelmäßig Opioide einnimmt?',
+          antwort: 'Toleranz und Entzug allein sind physiologisch und keine Sucht. Die Abhängigkeit erkenne ich an Craving, Kontrollverlust — vorzeitig eingelöste Rezepte, Zerkauen von Retardtabletten, mehrere Verordner —, an der Vernachlässigung von Arbeit und Familie und am fortgesetzten Konsum trotz Schaden; nach ICD-10 mindestens drei von sechs Kriterien über zwölf Monate.',
+        },
+        {
+          frage: 'Wie äußert sich eine Opioidüberdosierung, und was tun Sie?',
+          antwort: 'Trias aus Bewusstseinstrübung, Atemdepression und stecknadelkopfgroßen Pupillen, dazu Zyanose, Bradykardie und Hypotonie. Ich sichere die Atemwege, beatme mit Sauerstoff und gebe Naloxon titriert intravenös, 0,04 bis 0,4 mg alle zwei bis drei Minuten bis zur ausreichenden Spontanatmung, oder 1,8 mg intranasal. Wegen der kurzen Wirkdauer überwache ich den Patienten mehrere Stunden, bei Methadon oder Retardpräparaten länger, gegebenenfalls mit Naloxon-Perfusor.',
+        },
+        {
+          frage: 'Ist der Opioidentzug gefährlich?',
+          antwort: 'Er ist subjektiv qualvoll, aber im Gegensatz zum Alkohol- und Benzodiazepinentzug nicht lebensbedrohlich — es gibt kein Delir und keine Entzugskrampfanfälle. Gefährlich wird es erst nach dem Entzug: Die Toleranz geht verloren, und ein Rückfall mit der gewohnten Dosis kann tödlich sein. Bei Beikonsum von Alkohol oder Benzodiazepinen muss deren Entzug jedoch überwacht behandelt werden.',
+        },
+        {
+          frage: 'Wie therapieren Sie diesen Patienten?',
+          antwort: 'Zuerst die Sicherheit: Entzugssymptome lindern, Komplikationen behandeln, Suizidalität einschätzen. Dann die Behandlung der Wahl, die Substitution mit Buprenorphin oder Methadon in einer Substitutionspraxis mit psychosozialer Begleitung, alternativ bei Abstinenzwunsch die qualifizierte Entzugsbehandlung mit anschließender Entwöhnung in einer Fachklinik. Dazu Motivierende Gesprächsführung, Behandlung der Depression, Sozialarbeit und Schadensminderung mit Take-home-Naloxon und Impfungen.',
+        },
+        {
+          frage: 'Was gibt es zur Rückfallprophylaxe?',
+          antwort: 'Nach erreichter Abstinenz den Opioidantagonisten Naltrexon 50 mg täglich, frühestens sieben bis zehn Tage nach dem letzten Opioid, sonst löst er einen Entzug aus. Wichtiger ist die dauerhafte Substitution als Rückfallschutz, dazu Rückfallprävention in der Psychotherapie, Selbsthilfegruppen und Naloxon für den Notfall.',
+        },
+        {
+          frage: 'Warum hat sich der Patient nicht an seinen Hausarzt gewandt?',
+          antwort: 'Häufig hat der Hausarzt das Rezept verweigert oder das Vertrauensverhältnis ist durch vorzeitige Rezeptanforderungen belastet; viele Patienten schämen sich oder befürchten, als Süchtige abgestempelt zu werden. Deshalb kommen sie in die Notaufnahme mit Entzugssymptomen oder mit der Bitte um ein neues Rezept — und die Notaufnahme ist die Gelegenheit, die Diagnose zu benennen und den Anschluss zu organisieren, in Absprache mit dem Hausarzt.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen sind bei diesem Patienten wichtig?',
+          antwort: 'Ein Drogenscreening im Urin nach Aufklärung — mit gezieltem Oxycodon- oder Fentanyltest, weil diese im Standard-Opiat-Screening oft nicht erfasst werden —, Blutbild, CRP, Elektrolyte, Nieren- und Leberwerte einschließlich γ-GT und MCV, Blutzucker, Gerinnung sowie nach Einwilligung die Serologien für Hepatitis B, C und HIV; bei Fieber Blutkulturen; vor Methadon ein EKG mit QTc-Zeit.',
+        },
+        {
+          frage: 'Was verstehen Sie unter Substitution, und darf jeder Arzt substituieren?',
+          antwort: 'Die Substitution ersetzt das unkontrolliert konsumierte Opioid durch ein ärztlich verordnetes, lang wirksames Opioid — Methadon, Levomethadon, Buprenorphin oder retardiertes Morphin — in stabiler Dosis unter Sicht, um Entzug und Craving zu unterdrücken und den Patienten sozial zu stabilisieren. Sie ist in der Betäubungsmittel-Verschreibungsverordnung geregelt und setzt eine suchtmedizinische Qualifikation, die Meldung an das Substitutionsregister und eine psychosoziale Begleitung voraus.',
+        },
+      ],
+      merksatz: 'Craving, Kontrollverlust, Entzug, Toleranz, Vernachlässigung, Konsum trotz Schaden — drei davon über zwölf Monate = Abhängigkeit, eine Erkrankung und keine Charakterschwäche. Entzug: weite Pupillen, qualvoll, aber nicht tödlich; Intoxikation: enge Pupillen, Atemdepression, Naloxon titriert. Nach dem Entzug ist die Toleranz weg und der Rückfall am gefährlichsten — deshalb Substitution als Behandlung der Wahl und Naloxon mit nach Hause.',
+      linkedCaseIds: [
+        'case-opioidabhaengigkeit',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-sinusitis',
+      pathology: 'Akute Rhinosinusitis',
+      specialty: 'Pneumologie',
+      definition: 'Die akute Rhinosinusitis ist eine gleichzeitige Entzündung der Nasenschleimhaut und der Schleimhaut der Nasennebenhöhlen (Kiefer-, Stirn-, Siebbein- und Keilbeinhöhle) mit einer Dauer von unter zwölf Wochen und vollständiger Rückbildung. Sie entsteht in über 90 % der Fälle als Folge eines viralen Infekts der oberen Atemwege: Die Schleimhaut schwillt an, die Ostien (Ausführungsgänge) werden verlegt, das Sekret staut sich, die Belüftung fällt aus — erst auf diesem Boden kann eine bakterielle Superinfektion entstehen (nur etwa 0,5–2 % der Episoden). Nach EPOS 2020 unterscheidet man die virale (Erkältungs-)Rhinosinusitis unter zehn Tagen, die postvirale Form mit Verschlechterung nach fünf Tagen oder Persistenz über zehn Tage und die akute bakterielle Rhinosinusitis. Rezidivierend heißt sie bei mehr als vier Episoden pro Jahr mit beschwerdefreien Intervallen, chronisch ab zwölf Wochen Dauer, mit oder ohne Nasenpolypen.',
+      aetiologie: 'Auslöser ist fast immer ein viraler Atemwegsinfekt (Rhino-, Influenza-, Parainfluenza-, Adeno-, Coronaviren). Über Schleimhautödem und Verlegung der Ostien — vor allem im ostiomeatalen Komplex des mittleren Nasengangs — kommt es zu Sekretstau, Sauerstoffmangel in der Höhle und gestörter mukoziliärer Clearance. Bakterielle Superinfektion (Streptococcus pneumoniae, Haemophilus influenzae, Moraxella catarrhalis, seltener Staphylococcus aureus und Anaerobier) in nur etwa 0,5–2 % der Episoden. Die dentogene Sinusitis maxillaris (etwa 10 % der Kieferhöhlenentzündungen) geht von apikalen Zahnwurzelinfekten, Wurzelspitzen oder Implantaten des Oberkiefers aus und ist meist einseitig und anaerob-mischinfiziert. Selten: invasive Pilzsinusitis (Mucor, Aspergillus) bei Immunsupprimierten und entgleistem Diabetes, nosokomiale Sinusitis bei nasotrachealer Intubation oder Magensonde, Barotrauma beim Tauchen und Fliegen.',
+      risikofaktoren: [
+        'Vorangegangener viraler Atemwegsinfekt (häufigster Auslöser überhaupt)',
+        'Allergische Rhinitis und Asthma bronchiale (chronisch geschwollene Schleimhaut, verlegte Ostien)',
+        'Anatomische Engstellen: Septumdeviation, Concha bullosa, Nasenpolypen, enger ostiomeataler Komplex',
+        'Rauchen und Passivrauchen (gestörte mukoziliäre Clearance)',
+        'Übermäßiger Gebrauch abschwellender Nasensprays (Rhinitis medicamentosa)',
+        'Zahnwurzelinfekte, Zahnbehandlungen und Implantate im Oberkiefer (dentogene Sinusitis)',
+        'Immunsuppression, Diabetes mellitus, HIV-Infektion, Chemotherapie (schwere und invasive Verläufe)',
+        'Mukoviszidose und primäre Ziliendyskinesie (rezidivierende und chronische Formen)',
+        'Gastroösophageale Refluxkrankheit, trockene Raumluft, Staubexposition',
+        'Tauchen, Fliegen, nasotracheale Intubation und Magensonden auf der Intensivstation',
+      ],
+      klinik: [
+        {
+          text: 'Verstopfte Nase (nasale Obstruktion) mit behinderter Nasenatmung, meist beidseitig, bei bakterieller Form oft seitenbetont',
+        },
+        {
+          text: 'Eitrig gelbgrüner, zäher Schnupfen aus der Nase und postnasaler Sekretfluss („Sekretstraße“ in den Rachen) mit Räuspern und vor allem morgendlichem Husten',
+        },
+        {
+          text: 'Gesichtsschmerz und Druckgefühl über den Wangen (Kieferhöhle), der Stirn (Stirnhöhle) oder zwischen den Augen (Siebbein), Verstärkung beim Vornüberbeugen, Bücken, Pressen und beim Aufsetzen — typische Frage: „Wird es schlimmer, wenn Sie sich die Schuhe zubinden?“',
+        },
+        {
+          text: 'Klopfschmerz über den Nebenhöhlen und Druckschmerz an den Nervenaustrittspunkten des Nervus trigeminus (Foramen supraorbitale, infraorbitale)',
+        },
+        {
+          text: 'Kopfschmerz, dumpf, tagsüber zunehmend, oft frontal oder retroorbital',
+        },
+        {
+          text: 'Zahnschmerz im Oberkiefer und Aufbissschmerz bei Kieferhöhlenbeteiligung — die Wurzeln der oberen Backenzähne reichen bis an den Kieferhöhlenboden',
+        },
+        {
+          text: 'Riechminderung (Hyposmie) bis zum Riechverlust und dadurch Geschmacksstörung',
+        },
+        {
+          text: 'Fieber, Abgeschlagenheit, Krankheitsgefühl, Ohrdruck durch Tubenbelüftungsstörung',
+        },
+        {
+          text: 'Zweigipfliger Verlauf („double sickening“): nach anfänglicher Besserung des Erkältungsinfekts erneute Verschlechterung — Hinweis auf bakterielle Superinfektion',
+          atypisch: true,
+        },
+        {
+          text: 'Kinder: Husten, übel riechender Atem, Gereiztheit, Lidschwellung als erstes Zeichen einer Siebbeinbeteiligung — die Stirnhöhle ist erst ab dem Schulalter pneumatisiert',
+          atypisch: true,
+        },
+        {
+          text: 'Ältere und Immunsupprimierte: wenig Schmerz, wenig Fieber, dafür rasche Komplikationen; bei invasiver Pilzsinusitis schwarze Nekrosen der Nasenschleimhaut und des Gaumens',
+          atypisch: true,
+        },
+        {
+          text: 'Keilbeinhöhlenentzündung: tief sitzender Scheitel- oder Hinterkopfschmerz ohne typischen Nasenbefund, Gefahr der Sehnervbeteiligung und Sinus-cavernosus-Thrombose',
+          atypisch: true,
+        },
+        {
+          text: 'Einseitige, blutige, übel riechende Rhinorrhoe mit Borken — Fremdkörper beim Kind, Tumor oder Granulomatose mit Polyangiitis beim Erwachsenen',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Einteilung nach Verlauf und Dauer (EPOS 2020)',
+          inhalt: 'Akute Rhinosinusitis: unter 12 Wochen mit vollständiger Rückbildung. Untergruppen: akute virale Rhinosinusitis (Erkältung, Symptome unter 10 Tage); akute postvirale Rhinosinusitis (Verschlechterung nach 5 Tagen oder Persistenz über 10 Tage); akute bakterielle Rhinosinusitis (mindestens 3 der 5 Kriterien: verfärbtes eitriges Sekret, starker lokaler, meist einseitiger Schmerz, Fieber über 38 °C, erhöhtes CRP/BSG, zweigipfliger Verlauf). Rezidivierende akute Rhinosinusitis: mehr als 4 Episoden pro Jahr mit beschwerdefreien Intervallen. Chronische Rhinosinusitis: über 12 Wochen, mit Nasenpolypen (CRSwNP) oder ohne Nasenpolypen (CRSsNP).',
+        },
+        {
+          name: 'Einteilung nach der betroffenen Nebenhöhle',
+          inhalt: 'Sinusitis maxillaris (Kieferhöhle, am häufigsten, Wangen- und Oberkieferzahnschmerz), Sinusitis frontalis (Stirnhöhle, Stirnschmerz, größte Gefahr intrakranieller Komplikationen), Sinusitis ethmoidalis (Siebbeinzellen, Schmerz zwischen den Augen, beim Kind am häufigsten, Gefahr orbitaler Komplikationen), Sinusitis sphenoidalis (Keilbeinhöhle, Scheitel-/Hinterkopfschmerz, selten, aber gefährlich). Pansinusitis: alle Höhlen betroffen.',
+        },
+        {
+          name: 'Chandler-Klassifikation der orbitalen Komplikationen',
+          inhalt: 'Stadium I: präseptale (periorbitale) Zellulitis — Lidschwellung und Rötung, Bulbus frei beweglich, Visus normal. Stadium II: Orbitaphlegmone (orbitale Zellulitis) — Chemosis, Protrusio bulbi, schmerzhafte Bewegungseinschränkung. Stadium III: subperiostaler Abszess — Bulbusverlagerung, Doppelbilder. Stadium IV: Orbitaabszess — Ophthalmoplegie, Visusverlust. Stadium V: Sinus-cavernosus-Thrombose — beidseitige Symptomatik, Hirnnervenausfälle III, IV, V1, V2, VI, Sepsis, Meningismus. Ab Stadium II stationäre intravenöse Antibiose und CT, ab Stadium III in der Regel operative Entlastung.',
+        },
+      ],
+      redFlags: [
+        'Lidschwellung, periorbitale Rötung, Chemosis, Protrusio bulbi → orbitale Komplikation, besonders beim Kind bei Siebbeinbeteiligung',
+        'Doppelbilder, eingeschränkte Augenbeweglichkeit, Sehverschlechterung, Schmerz bei Augenbewegung → Orbitaphlegmone, subperiostaler oder Orbitaabszess (Notfall, augenärztliche und HNO-ärztliche Vorstellung, CT)',
+        'Heftigster, therapieresistenter Kopfschmerz, Meningismus (Nackensteife), Photophobie, Bewusstseinsstörung, Krampfanfall, fokal-neurologische Ausfälle → Meningitis, Hirnabszess, epidurales/subdurales Empyem',
+        'Beidseitige Lidschwellung mit Hirnnervenausfällen und septischem Bild → Sinus-cavernosus-Thrombose',
+        'Teigige, fluktuierende Schwellung der Stirn („Pott\'s puffy tumor“) → Osteomyelitis des Stirnbeins mit subperiostalem Abszess',
+        'Hohes Fieber über 39 °C mit reduziertem Allgemeinzustand, Schüttelfrost, Tachykardie → drohende Sepsis',
+        'Immunsuppression, Chemotherapie, entgleister Diabetes mit schwarzen Nekrosen der Nasen- oder Gaumenschleimhaut → invasive Pilzsinusitis (Mukormykose), lebensbedrohlich',
+        'Einseitige blutige Rhinorrhoe, Gesichtsasymmetrie, Zahnlockerung, Sensibilitätsstörung der Wange → Tumor der Nasennebenhöhlen',
+        'Wasserklare, einseitige Rhinorrhoe nach Trauma oder Operation → Liquorfistel (Beta-2-Transferrin bestimmen)',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Beginn und Dauer (unter oder über zehn Tage), Verlauf mit Zweigipfligkeit nach anfänglicher Besserung, Seitigkeit der Schmerzen, Fieberhöhe, Farbe und Menge des Sekrets, Zahnbeschwerden im Oberkiefer, Riechminderung, frühere Episoden, Allergien und Heuschnupfen, Gebrauch abschwellender Nasensprays, Rauchen, Zahnbehandlungen, Immunsuppression und Diabetes',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Aktive Suche nach Warnzeichen: Lidschwellung, Sehstörung, Doppelbilder, Augenbewegungsschmerz, schwerster Kopfschmerz, Nackensteife, Bewusstseinsstörung, Stirnschwellung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter mit Temperatur; Inspektion des Gesichts (Schwellung, Rötung, Asymmetrie); Klopfschmerz über Kiefer- und Stirnhöhle und Druckschmerz an den Nervenaustrittspunkten; anteriore Rhinoskopie mit geschwollener, geröteter Schleimhaut und Eiterstraße im mittleren Nasengang; Racheninspektion mit Sekretstraße an der Rachenhinterwand; Otoskopie; Halslymphknoten; Perkussion der Oberkieferzähne; Untersuchung der Augen mit Beweglichkeit, Visus und Pupillen; Meningismusprüfung; Lungenauskultation zum Ausschluss einer Bronchitis oder Pneumonie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Grundsatz: Die unkomplizierte akute Rhinosinusitis ist eine KLINISCHE Diagnose — es sind weder Labor noch Bildgebung erforderlich',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nur bei Verdacht auf bakterielle oder komplizierte Form: CRP, Blutbild mit Differenzialblutbild, BSG; bei septischem Bild Procalcitonin, Blutkulturen; bei geplanter Antibiose Kreatinin (Dosisanpassung)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei rezidivierendem Verlauf oder allergischer Komponente: Allergiediagnostik mit Pricktest und spezifischem IgE; bei ungewöhnlichen Verläufen HbA1c, HIV-Test, Immunglobuline; bei Verdacht auf Granulomatose mit Polyangiitis ANCA; bei wasserklarer Rhinorrhoe Beta-2-Transferrin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Keine Bildgebung bei unkomplizierter akuter Rhinosinusitis — das konventionelle Röntgen der Nasennebenhöhlen ist OBSOLET (niedrige Sensitivität und Spezifität, Schleimhautschwellung auch bei jedem Schnupfen)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT der Nasennebenhöhlen (nativ, koronar) NUR bei Verdacht auf orbitale oder intrakranielle Komplikationen, bei Therapieversagen, Immunsuppression, sowie bei rezidivierender oder chronischer Rhinosinusitis vor einer Operation (Darstellung des ostiomeatalen Komplexes)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT des Schädels mit Kontrastmittel bei Verdacht auf intrakranielle Ausbreitung (Hirnabszess, Empyem, Sinus-cavernosus-Thrombose), orbitalen Abszess oder invasive Pilzsinusitis; Sonographie der Nebenhöhlen nur orientierend, geringe Aussagekraft',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Zahnärztliche Abklärung mit Orthopantomogramm oder digitaler Volumentomographie bei einseitiger Kieferhöhlenentzündung mit Zahnschmerz (dentogene Sinusitis)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'HNO-ärztliche Vorstellung mit starrer oder flexibler Nasenendoskopie (Eiter im mittleren Nasengang, Polypen, Septumdeviation) und endoskopisch gesteuertem Abstrich aus dem mittleren Nasengang mit Kultur und Antibiogramm — indiziert bei Komplikationen, Immunsuppression, Therapieversagen nach 48–72 Stunden Antibiose, nosokomialer Sinusitis oder rezidivierendem Verlauf',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei Komplikationen: augenärztliche Untersuchung mit Visus, Motilität und Fundus; bei Meningismus Lumbalpunktion nach Ausschluss eines Hirndrucks im CT; bei Abszessverdacht operative Exploration mit Gewinnung von Material für Mikrobiologie und Histologie (Pilze!)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akute virale Rhinitis / grippaler Infekt ohne Nebenhöhlenbeteiligung',
+          unterscheidung: 'Wässriger bis schleimiger Schnupfen, Halskratzen, leichtes Krankheitsgefühl, Besserung innerhalb von 5–10 Tagen, kein einseitiger Gesichtsschmerz, kein Klopfschmerz, kein zweigipfliger Verlauf. Die Grenze ist fließend — entscheidend sind Dauer über zehn Tage und erneute Verschlechterung.',
+        },
+        {
+          dd: 'Allergische Rhinitis (Heuschnupfen, Hausstaubmilbenallergie)',
+          unterscheidung: 'Juckreiz in Nase, Augen und Gaumen, Niesattacken, klares wässriges Sekret, tränende Augen, Saisonalität oder Auslöser (Pollen, Tiere, Hausstaub), kein Fieber, keine eitrige Sekretion; positive Allergieanamnese, Pricktest und spezifisches IgE.',
+        },
+        {
+          dd: 'Rhinitis medicamentosa',
+          unterscheidung: 'Dauerhaft verstopfte Nase nach wochen- bis monatelangem Gebrauch abschwellender Nasensprays (Xylometazolin, Oxymetazolin), livide geschwollene Schleimhaut, Rebound-Schwellung nach Abklingen der Wirkung, kein Fieber, kein eitriges Sekret; Therapie: Absetzen, nasales Glukokortikoid.',
+        },
+        {
+          dd: 'Dentogene Sinusitis maxillaris',
+          unterscheidung: 'Streng einseitige Kieferhöhlenentzündung mit fötidem Sekret, Aufbiss- und Klopfschmerz eines Oberkieferzahns, Zahnbehandlung, Wurzelbehandlung oder Implantat in der Vorgeschichte; Orthopantomogramm; Therapie nur zusammen mit zahnärztlicher Sanierung, Antibiotikum mit Anaerobierwirksamkeit.',
+        },
+        {
+          dd: 'Migräne und Spannungskopfschmerz („Sinuskopfschmerz“)',
+          unterscheidung: 'Gesichts- oder Stirnschmerz OHNE eitriges Sekret, ohne Fieber und ohne verstopfte Nase; bei Migräne pulsierend, einseitig, mit Übelkeit, Licht- und Lärmempfindlichkeit, anfallsartig über Stunden; beim Spannungskopfschmerz dumpf-drückend, beidseitig, haubenförmig. Der vom Patienten als „Sinusitis“ empfundene wiederkehrende Kopfschmerz ist meist eine Migräne.',
+        },
+        {
+          dd: 'Cluster-Kopfschmerz und Trigeminusneuralgie',
+          unterscheidung: 'Cluster: streng einseitiger, unerträglicher periorbitaler Schmerz von 15–180 Minuten, nächtlich, mit Tränen, Nasenlaufen, Ptosis und Bewegungsdrang, in Perioden gehäuft. Trigeminusneuralgie: blitzartig einschießende Sekundenschmerzen, durch Kauen, Sprechen, Berührung ausgelöst, ohne Sekret und Fieber.',
+        },
+        {
+          dd: 'Zahnschmerz, Pulpitis, Kiefergelenkbeschwerden (kraniomandibuläre Dysfunktion)',
+          unterscheidung: 'Auf einen Zahn lokalisierbar, kälte- und wärmeempfindlich, Karies oder Füllungsdefekt; Kiefergelenk: Schmerz beim Kauen und Mundöffnen, Knacken, Druckschmerz vor dem Ohr, Bruxismus; kein Sekret, kein Fieber.',
+        },
+        {
+          dd: 'Riesenzellarteriitis (Arteriitis temporalis)',
+          unterscheidung: 'Patient über 50 Jahre, neu aufgetretener Schläfenkopfschmerz, verdickte druckschmerzhafte Arteria temporalis, Kauschmerz (Claudicatio masticatoria), Sehstörungen, BSG stark erhöht (Sturzsenkung), oft Polymyalgia rheumatica; keine Nasensymptome. Notfall wegen Erblindungsgefahr.',
+        },
+        {
+          dd: 'Chronische Rhinosinusitis mit oder ohne Nasenpolypen',
+          unterscheidung: 'Beschwerden über zwölf Wochen, führend Nasenobstruktion und Riechverlust, weniger Schmerz und Fieber; Polypen in der Endoskopie, häufig Asthma und Analgetika-Intoleranz (Samter-Trias: Polypen, Asthma, ASS-Intoleranz).',
+        },
+        {
+          dd: 'Nasenfremdkörper beim Kind',
+          unterscheidung: 'Einseitiges, eitriges, übel riechendes Nasensekret bei einem Kleinkind, oft blutig; Fremdkörper in der Rhinoskopie sichtbar; Entfernung heilt.',
+        },
+        {
+          dd: 'Tumor der Nase und Nasennebenhöhlen (Plattenepithelkarzinom, Adenokarzinom bei Holzstaubexposition, invertiertes Papillom)',
+          unterscheidung: 'Einseitige, blutige, therapieresistente Nasenobstruktion über Wochen, Gesichtsschwellung oder -asymmetrie, Zahnlockerung, Sensibilitätsstörung der Wange (Nervus infraorbitalis), Exophthalmus; Endoskopie mit Biopsie, CT und MRT.',
+        },
+        {
+          dd: 'Granulomatose mit Polyangiitis (Morbus Wegener)',
+          unterscheidung: 'Blutig-borkige, therapieresistente Rhinitis, Sattelnase, Ulzera, dazu Lungenrundherde mit Hämoptysen und Glomerulonephritis mit Hämaturie; c-ANCA (PR3-ANCA) positiv, Biopsie mit nekrotisierenden Granulomen.',
+        },
+        {
+          dd: 'Invasive Pilzsinusitis (Mukormykose, Aspergillose)',
+          unterscheidung: 'Immunsupprimierte, Neutropenie, entgleister Diabetes mit Ketoazidose: rasch progrediente Gesichtsschwellung, schwarze Nekrosen an Nasenmuschel und Gaumen, Hirnnervenausfälle, hohes Fieber; Notfall mit Amphotericin B und radikaler chirurgischer Sanierung.',
+        },
+        {
+          dd: 'Orbitaphlegmone und Meningitis (Komplikationen, keine eigentlichen Differenzialdiagnosen)',
+          unterscheidung: 'Lidschwellung mit Protrusio bulbi, Doppelbildern und Sehverschlechterung bzw. Nackensteife, Bewusstseinsstörung, Krampfanfall — sofortige stationäre Aufnahme, CT/MRT, intravenöse Antibiose; keinesfalls ambulant weiterbehandeln.',
+        },
+        {
+          dd: 'Liquorfistel (Rhinoliquorrhoe)',
+          unterscheidung: 'Wasserklare, einseitige Rhinorrhoe, verstärkt beim Bücken, nach Schädel-Hirn-Trauma oder Nasennebenhöhlenoperation; Glukose- und Beta-2-Transferrin-Nachweis im Sekret; Meningitisgefahr.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomatische Basistherapie und Aufklärung (Standard für die virale Rhinosinusitis)',
+          items: [
+            'Aufklärung des Patienten über den viralen, selbstlimitierenden Verlauf über ein bis zwei Wochen und über die fehlende Wirkung von Antibiotika bei Viren — der Patient erwartet oft ein Antibiotikum; das ruhige, verständliche Gespräch darüber („Antibiotika helfen hier nicht, sie schaden nur mit Nebenwirkungen und Resistenzen“) gehört zur Prüfung',
+            'Nasenspülung mit isotoner Kochsalzlösung (0,9 %) mehrmals täglich, Inhalation mit Wasserdampf (Cave Verbrühung, keine ätherischen Öle bei Kindern), Kopfende erhöhen, ausreichend trinken, körperliche Schonung, Rauchkarenz',
+            'Abschwellende Nasentropfen oder -sprays mit Xylometazolin oder Oxymetazolin (0,1 % Erwachsene, 0,05 % Kinder) zur Öffnung der Ostien — nur für MAXIMAL fünf bis sieben Tage wegen der Gefahr der Rhinitis medicamentosa',
+            'Analgesie und Fiebersenkung mit Ibuprofen (3 × 400 mg, maximal 1 200 mg täglich in Selbstmedikation) oder Paracetamol (bis 4 × 1 g); Cave Ibuprofen bei Niereninsuffizienz, Ulkusanamnese und Antikoagulation',
+            'Nasale Glukokortikoide (Mometason, Fluticason 1–2 Sprühstöße pro Nasenloch täglich) als wirksame Zusatztherapie mit guter Evidenz, besonders bei allergischer Komponente, rezidivierendem oder postviralem Verlauf; Wirkungseintritt nach einigen Tagen',
+            'Pflanzliche Sekretolytika (Myrtol, Cineol, Pelargonium, Bromelain) als Option mit mäßiger Evidenz; Acetylcystein und Ambroxol ohne belegten Nutzen; Antihistaminika nur bei allergischer Rhinitis',
+            'Wiedervorstellung bei Beschwerden über zehn Tage, erneuter Verschlechterung, hohem Fieber oder Warnzeichen; Krankschreibung nach Allgemeinzustand für einige Tage',
+          ],
+        },
+        {
+          label: 'Gezielte Antibiotikatherapie nur bei begründetem Verdacht auf bakterielle Rhinosinusitis',
+          items: [
+            'Indikation NUR bei Kriterien der bakteriellen Form: Beschwerden über zehn Tage ohne Besserung, zweigipfliger Verlauf mit erneuter Verschlechterung, hohes Fieber über 39 °C mit eitrigem Sekret über mindestens drei Tage, starke einseitige Schmerzen, deutlich erhöhtes CRP — oder bei Risikopatienten (Immunsuppression, schwere Grunderkrankungen, drohende Komplikationen). Selbst dann heilt die Mehrheit ohne Antibiotikum; ein abwartendes Vorgehen über weitere zwei bis drei Tage ist bei mildem Verlauf vertretbar',
+            'Mittel der Wahl: Amoxicillin 3 × 500–1 000 mg täglich über fünf bis sieben Tage (kurze Therapiedauer ist gleichwertig und nebenwirkungsärmer)',
+            'Amoxicillin-Clavulansäure 2–3 × 875/125 mg bei Risikofaktoren für Betalaktamase-Bildner oder Therapieversagen: Antibiose in den letzten vier Wochen, Alter über 65, Immunsuppression, dentogene Sinusitis, schwere Verlaufsform',
+            'Bei Penicillinallergie: Doxycyclin 200 mg am ersten Tag, danach 100–200 mg täglich (Cave Photosensibilisierung, nicht in Schwangerschaft und bei Kindern unter acht Jahren) oder ein Makrolid (Clarithromycin 2 × 500 mg, Azithromycin 500 mg über drei Tage; Cave QT-Verlängerung, hohe Pneumokokkenresistenz); alternativ Cefuroxim bei nicht-anaphylaktischer Penicillinreaktion',
+            'Fluorchinolone (Levofloxacin, Moxifloxacin) nur als Reserve bei Therapieversagen oder Kontraindikationen wegen schwerer Nebenwirkungen (Sehnenrupturen, Aortenaneurysma, Neuropathien) — Rote-Hand-Brief',
+            'Immer kombiniert mit der symptomatischen Basistherapie einschließlich nasalem Glukokortikoid; Wiedervorstellung bei fehlender Besserung nach 48 bis 72 Stunden → Antibiotikum wechseln (Amoxicillin-Clavulansäure), HNO-ärztliche Vorstellung mit Endoskopie und Abstrich, Komplikation ausschließen',
+          ],
+        },
+        {
+          label: 'Behandlung der Komplikationen und der dentogenen Form',
+          items: [
+            'Bei orbitalen oder intrakraniellen Warnzeichen (Lidschwellung, Protrusio, Doppelbilder, Sehverschlechterung, Meningismus, Bewusstseinsstörung) sofortige stationäre Aufnahme — kein ambulanter Therapieversuch',
+            'Sofortiges CT der Nasennebenhöhlen und der Orbita mit Kontrastmittel, bei intrakraniellem Verdacht MRT; Blutkulturen, CRP, Blutbild, Procalcitonin; augenärztliche Vorstellung mit Visus- und Motilitätskontrolle mehrmals täglich; HNO-ärztliche Vorstellung mit Endoskopie',
+            'Intravenöse Breitspektrumantibiose: Ampicillin-Sulbactam 3 × 3 g oder Ceftriaxon 2 g plus Metronidazol; bei intrakranieller Beteiligung Ceftriaxon in Meningitisdosis (2 × 2 g) plus Metronidazol, ggf. plus Vancomycin; Therapiedauer 2–3 Wochen, bei Osteomyelitis bis 6 Wochen; ergänzend abschwellende Maßnahmen und Analgesie',
+            'Notfallmäßige operative Entlastung bei subperiostalem oder Orbitaabszess (Chandler III–IV), bei Visusbedrohung, bei fehlender Besserung unter 24–48 Stunden intravenöser Antibiose oder bei intrakraniellem Abszess: endoskopische Nasennebenhöhlenoperation (Ethmoidektomie, Stirnhöhlen- und Kieferhöhlendrainage), Orbitotomie, bei Pott\'s puffy tumor Ausräumung des Stirnbeins; neurochirurgische Entlastung bei Hirnabszess oder Empyem',
+            'Sinus-cavernosus-Thrombose: intravenöse Antibiose in Meningitisdosis, therapeutische Antikoagulation mit Heparin, Sanierung des Fokus; bei invasiver Pilzsinusitis liposomales Amphotericin B, radikales chirurgisches Débridement und Kontrolle des Diabetes',
+            'Bei dentogener Sinusitis zusätzlich zahnärztliche Sanierung des Fokus (Wurzelbehandlung, Extraktion, Verschluss einer Mund-Antrum-Fistel) — ohne Sanierung keine Ausheilung; Antibiotikum mit Anaerobierwirkung (Amoxicillin-Clavulansäure oder Clindamycin)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Rezidivprophylaxe, chronische Rhinosinusitis und Nachsorge',
+          items: [
+            'Behandlung prädisponierender Faktoren: allergische Rhinitis (Antihistaminika, nasales Glukokortikoid, ggf. Hyposensibilisierung), Rhinitis medicamentosa (Nasenspray absetzen), Rauchstopp, Sanierung von Zahnherden, Refluxtherapie',
+            'Bei rezidivierender oder chronischer Rhinosinusitis Langzeittherapie mit nasalen Glukokortikoiden und täglichen Kochsalzspülungen; bei Exazerbation kurzzeitig systemisches Glukokortikoid; bei Nasenpolypen mit Typ-2-Entzündung Biologika (Dupilumab, Omalizumab, Mepolizumab) nach Ausschöpfen der Standardtherapie',
+            'Bei Therapieversagen der konservativen Behandlung: funktionelle endoskopische Nasennebenhöhlenoperation (FESS) zur Wiederherstellung der Belüftung und Drainage des ostiomeatalen Komplexes, Polypektomie; Korrektur einer Septumdeviation oder Conchotomie bei anatomischer Engstelle — immer erst nach CT',
+            'Impfungen bei Risikopatienten: jährliche Influenza-Impfung, Pneumokokken-Impfung (Konjugatimpfstoff), COVID-19-Impfung nach STIKO',
+            'Aufklärung über die Warnzeichen, die eine sofortige Vorstellung erfordern: Lidschwellung, Sehstörung oder Doppelbilder, schwerster Kopfschmerz, Nackensteife, Bewusstseinsstörung, Stirnschwellung, hohes Fieber',
+            'Nachsorge: Kontrolle nach Abschluss der Therapie, bei Riechverlust über mehrere Wochen HNO-ärztliche Vorstellung; bei mehr als vier Episoden pro Jahr Abklärung mit Nasenendoskopie, Allergiediagnostik und CT',
+          ],
+        },
+      ],
+      prognose: 'Die akute virale Rhinosinusitis heilt in der Regel innerhalb von sieben bis vierzehn Tagen folgenlos aus; etwa zwei Drittel der Patienten sind auch ohne Antibiotikum nach zwei Wochen beschwerdefrei. Selbst bei bakterieller Form kommt es in der Mehrzahl zur Spontanheilung, das Antibiotikum verkürzt die Beschwerdedauer nur um wenige Tage — um einen Patienten schneller gesund zu machen, müssen etwa 10 bis 15 behandelt werden, und einer von acht erleidet eine Nebenwirkung. Komplikationen sind selten (etwa 1 : 10 000 Episoden), aber gefährlich: Orbitaphlegmone mit Erblindungsgefahr, Meningitis, Hirnabszess und Sinus-cavernosus-Thrombose mit einer Letalität von bis zu 20–30 %. Ein Übergang in eine chronische Rhinosinusitis ist bei rezidivierenden Episoden, Allergie, Rauchen, Polypen und anatomischen Engstellen möglich. Eine Riechstörung bildet sich meist innerhalb von Wochen zurück, kann aber nach schweren Verläufen bestehen bleiben.',
+      pruefungsfallen: [
+        'Die Diagnose der unkomplizierten akuten Rhinosinusitis ist KLINISCH — wer reflexartig „Röntgen der Nasennebenhöhlen“ oder „Blutbild und CRP“ als Standard anordnet, verrät ein veraltetes Vorgehen. Röntgen-NNH ist obsolet; CT nur bei Komplikationsverdacht, Therapieversagen oder vor Operation.',
+        'Über 90 % der Fälle sind viral — die Standardtherapie ist symptomatisch. Die Prüfer wollen hören, dass Sie dem Patienten das Antibiotikum begründet VERWEIGERN und das Gespräch darüber führen können.',
+        'Die fünf Kriterien der bakteriellen Form müssen sicher aufgezählt werden: Dauer über zehn Tage, zweigipfliger Verlauf („double sickening“), Fieber über 39 °C mit eitrigem Sekret über drei Tage, starke einseitige Schmerzen, erhöhtes CRP. „Gelbgrünes Sekret“ allein ist KEIN Beweis für Bakterien.',
+        'Xylometazolin nur fünf bis sieben Tage — die Rhinitis medicamentosa aktiv erfragen („Welches Nasenspray, seit wann, wie oft?“); der Patient nennt das Spray meist nicht bei den Medikamenten.',
+        'Bei der Antibiotikawahl zuerst nach der Penicillinallergie fragen: Amoxicillin ist Mittel der Wahl, bei Allergie Doxycyclin oder Makrolid. Fluorchinolone sind Reserve — wer sie als Erstlinie nennt, erntet Widerspruch.',
+        'Die Warnzeichen der Komplikationen gehören in JEDE Antwort zur Therapie: Lidschwellung, Doppelbilder, Sehverschlechterung, Meningismus, Bewusstseinsstörung, Stirnschwellung — diese Patienten werden stationär aufgenommen, nicht mit einem Rezept nach Hause geschickt.',
+        'Einseitige Kieferhöhlenentzündung mit Oberkieferzahnschmerz → an die dentogene Sinusitis denken und den Zahnarzt einbeziehen; einseitige blutige, therapieresistente Symptomatik → an einen Tumor und die Granulomatose mit Polyangiitis denken.',
+        'Der wiederkehrende „Sinuskopfschmerz“ ohne Sekret und ohne Fieber ist meist eine Migräne — nicht jeder Stirnschmerz ist eine Sinusitis; beim älteren Patienten mit neuem Schläfenkopfschmerz an die Riesenzellarteriitis denken.',
+        'Fachbegriffe sicher übersetzen: Sinusitis maxillaris = Kieferhöhlenentzündung, Sinusitis frontalis = Stirnhöhlenentzündung, Sinus maxillaris = Kieferhöhle, Rhinorrhoe = Nasenlaufen, Hyposmie = Riechminderung, Pollinose = Heuschnupfen, Rhinitis = Schnupfen (nicht „Schuppen“!).',
+        'Bei der Lungenauskultation nicht vergessen: Der postnasale Sekretfluss erklärt den morgendlichen Husten — eine Pneumonie und eine Bronchitis müssen dennoch klinisch ausgeschlossen werden, besonders beim Raucher.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie sichern Sie die Diagnose einer akuten Rhinosinusitis?',
+          antwort: 'Klinisch: durch die Anamnese mit verstopfter Nase, eitrigem Sekret, Gesichtsschmerz mit Verstärkung beim Bücken, Riechminderung und Fieber sowie durch die körperliche Untersuchung mit Klopf- und Druckschmerz über den Nebenhöhlen, anteriorer Rhinoskopie mit geschwollener Schleimhaut und Eiterstraße im mittleren Nasengang und Sekretstraße an der Rachenhinterwand. Labor und Bildgebung sind bei unkompliziertem Verlauf nicht nötig; ein Röntgen der Nebenhöhlen ist obsolet.',
+        },
+        {
+          frage: 'Woran erkennen Sie, dass die Rhinosinusitis bakteriell ist?',
+          antwort: 'An den fünf Kriterien: Beschwerden über zehn Tage ohne Besserung, zweigipfliger Verlauf mit erneuter Verschlechterung nach anfänglicher Besserung, Fieber über 39 Grad mit eitrigem Sekret über mindestens drei Tage, starke einseitige Gesichtsschmerzen und ein erhöhtes CRP. Mindestens drei davon sollten vorliegen — die Sekretfarbe allein reicht nicht.',
+        },
+        {
+          frage: 'Was würden Sie beim Nachweis beziehungsweise Verdacht auf eine bakterielle Infektion machen?',
+          antwort: 'Eine Antibiotikatherapie mit Amoxicillin als Mittel der Wahl über fünf bis sieben Tage; bei Risikofaktoren Amoxicillin-Clavulansäure; bei Penicillinallergie Doxycyclin oder ein Makrolid wie Clarithromycin. Dazu immer die symptomatische Therapie mit Kochsalzspülungen, nasalem Glukokortikoid, kurzzeitig abschwellendem Nasenspray und Analgesie, und Wiedervorstellung bei fehlender Besserung nach 48 bis 72 Stunden.',
+        },
+        {
+          frage: 'Der Patient möchte unbedingt ein Antibiotikum. Was sagen Sie ihm?',
+          antwort: 'Dass die Entzündung in über neun von zehn Fällen durch Viren verursacht wird, gegen die Antibiotika nicht wirken, dass die Beschwerden in ein bis zwei Wochen von allein abklingen und dass ein Antibiotikum ihm nur Nebenwirkungen wie Durchfall und Allergien bringt und Resistenzen fördert. Ich erkläre ihm, was wirklich hilft — Spülungen, abschwellendes Spray für wenige Tage, Kortisonspray, Schmerzmittel — und wann er wiederkommen soll: bei Verschlechterung nach Besserung, nach zehn Tagen ohne Besserung oder bei Warnzeichen.',
+        },
+        {
+          frage: 'Welche Komplikationen fürchten Sie, und woran erkennen Sie sie?',
+          antwort: 'Orbitale Komplikationen — Lidschwellung, Rötung, Protrusio bulbi, Doppelbilder, Sehverschlechterung, eingeschränkte Augenbeweglichkeit, besonders beim Kind bei Siebbeinbeteiligung — und intrakranielle Komplikationen wie Meningitis, Hirnabszess, Empyem und Sinus-cavernosus-Thrombose mit schwerstem Kopfschmerz, Nackensteife, Bewusstseinsstörung, Krampfanfall und fokalen Ausfällen. Dazu die Stirnbeinosteomyelitis mit Stirnschwellung, der Pott\'s puffy tumor. Alle erfordern die sofortige stationäre Aufnahme mit CT, intravenöser Antibiose und gegebenenfalls operativer Entlastung.',
+        },
+        {
+          frage: 'Wann ist eine Bildgebung indiziert, und welche?',
+          antwort: 'Bei Verdacht auf orbitale oder intrakranielle Komplikationen, bei Therapieversagen, bei Immunsupprimierten und bei rezidivierender oder chronischer Rhinosinusitis vor einer Operation ein CT der Nasennebenhöhlen; bei Verdacht auf Hirnabszess, Sinus-cavernosus-Thrombose oder Orbitaabszess ein MRT mit Kontrastmittel. Das konventionelle Röntgen ist wegen geringer Aussagekraft obsolet.',
+        },
+        {
+          frage: 'Wie lange darf ein abschwellendes Nasenspray angewendet werden, und warum?',
+          antwort: 'Maximal fünf bis sieben Tage. Bei längerem Gebrauch kommt es zur Rhinitis medicamentosa: Die Schleimhaut gewöhnt sich an den gefäßverengenden Wirkstoff, schwillt nach Nachlassen der Wirkung stärker an als zuvor, und der Patient braucht immer mehr Spray — ein Teufelskreis mit dauerhaft verstopfter Nase.',
+        },
+        {
+          frage: 'Was verstehen Sie unter einer dentogenen Sinusitis, und wie behandeln Sie sie?',
+          antwort: 'Eine meist einseitige Kieferhöhlenentzündung, die von einem Zahnwurzelinfekt, einer Wurzelspitze oder einem Implantat des Oberkiefers ausgeht — die Wurzeln der oberen Backenzähne grenzen an den Kieferhöhlenboden. Typisch sind fötides Sekret, Aufbissschmerz und eine Zahnbehandlung in der Vorgeschichte. Behandlung: zahnärztliche Sanierung des Herdes plus Antibiotikum mit Anaerobierwirkung, sonst keine Ausheilung.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten „Sinusitis maxillaris“ und „Sinusitis frontalis“?',
+          antwort: 'Sinusitis maxillaris ist eine Entzündung der Kieferhöhle, also des Hohlraums im Oberkieferknochen unter den Wangen; Sinusitis frontalis ist eine Stirnhöhlenentzündung, der Hohlraum liegt im Stirnbein über den Augen. Beides sind Nasennebenhöhlenentzündungen — die Nebenhöhlen sind mit Schleimhaut ausgekleidete, luftgefüllte Räume, die in die Nase münden.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei Gesichtsschmerz mit verstopfter Nase in Betracht?',
+          antwort: 'Der einfache Erkältungsschnupfen, die allergische Rhinitis, die Rhinitis medicamentosa, die dentogene Sinusitis, Zahnschmerz und Kiefergelenkbeschwerden, Migräne und Spannungskopfschmerz, Cluster-Kopfschmerz und Trigeminusneuralgie, beim älteren Patienten die Riesenzellarteriitis, ferner Nasenpolypen, ein Tumor der Nebenhöhlen, die Granulomatose mit Polyangiitis und bei Immunsupprimierten die invasive Pilzsinusitis; beim Kind der Nasenfremdkörper.',
+        },
+        {
+          frage: 'Wann stellen Sie den Patienten beim HNO-Arzt vor?',
+          antwort: 'Bei Komplikationen, bei Immunsuppression, bei fehlender Besserung 48 bis 72 Stunden nach Beginn der Antibiose, bei rezidivierendem Verlauf mit mehr als vier Episoden pro Jahr, bei chronischer Rhinosinusitis, bei einseitiger blutiger oder therapieresistenter Symptomatik und bei anhaltendem Riechverlust — zur Nasenendoskopie, zum Abstrich aus dem mittleren Nasengang und gegebenenfalls zur Operationsplanung.',
+        },
+      ],
+      merksatz: 'Über 90 % viral, Diagnose klinisch, kein Röntgen, kein Antibiotikum — außer bei mehr als zehn Tagen, Zweigipfligkeit, Fieber über 39 °C mit Eiter, einseitigem Schmerz oder erhöhtem CRP: dann Amoxicillin, bei Allergie Doxycyclin. Nasenspray maximal sieben Tage. Lidschwellung, Doppelbilder oder Nackensteife = stationär, CT, i.v. Antibiose, OP.',
+      linkedCaseIds: [
+        'case-sinusitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-ct',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-arterielle-hypertonie',
+      pathology: 'Arterielle Hypertonie (hypertensive Entgleisung)',
+      specialty: 'Kardiologie',
+      definition: 'Die arterielle Hypertonie ist eine dauerhafte Erhöhung des Praxisblutdrucks auf mindestens 140/90 mmHg, festgestellt durch wiederholte Messungen an mindestens zwei verschiedenen Tagen — niemals aus einer einzelnen Messung. Sie ist die häufigste kardiovaskuläre Erkrankung überhaupt, betrifft etwa ein Drittel der Erwachsenen (über 60 Jahre mehr als die Hälfte) und bleibt lange stumm („silent killer“). Von der chronischen Erkrankung abzugrenzen sind zwei akute Situationen: die hypertensive Entgleisung (Blutdruckkrise, meist ab 180/120 mmHg, OHNE akuten Endorganschaden — dringlich, oral und ambulant über Stunden bis Tage behandelbar) und der hypertensive Notfall (jede Blutdruckerhöhung MIT akutem Endorganschaden — Enzephalopathie, Schlaganfall, Lungenödem, akutes Koronarsyndrom, Aortendissektion, akutes Nierenversagen, Eklampsie — intravenös und intensivmedizinisch). Entscheidend ist nicht die Höhe des Blutdrucks, sondern der Organschaden.',
+      aetiologie: 'Primäre (essenzielle) Hypertonie in etwa 90 % der Fälle: multifaktoriell durch Alter, genetische Disposition (positive Familienanamnese), Übergewicht, hohe Salzzufuhr, Alkohol, Bewegungsmangel und chronischen Stress; pathophysiologisch Aktivierung von Sympathikus und Renin-Angiotensin-Aldosteron-System, erhöhter peripherer Widerstand und Natriumretention. Sekundäre Hypertonie in etwa 10 %: renoparenchymatös (Glomerulonephritis, diabetische Nephropathie, Zystennieren), renovaskulär (Nierenarterienstenose — atherosklerotisch beim Älteren, fibromuskuläre Dysplasie bei der jungen Frau), endokrin (primärer Hyperaldosteronismus/Conn-Syndrom als häufigste endokrine Ursache mit bis zu 5–10 % der Hypertoniker, Phäochromozytom, Cushing-Syndrom, Hyperthyreose, Hyperparathyreoidismus, Akromegalie), obstruktives Schlafapnoe-Syndrom, Aortenisthmusstenose sowie Medikamente und Substanzen (NSAR, Glukokortikoide, Ovulationshemmer, Sympathomimetika und abschwellende Nasensprays, Ciclosporin, Erythropoetin, Lakritz, Alkohol, Kokain und Amphetamine). Die häufigste Ursache einer hypertensiven Entgleisung ist die Nichteinnahme bzw. das Absetzen der antihypertensiven Medikation, gefolgt von Schmerz, Angst, Stress, NSAR und Drogen.',
+      risikofaktoren: [
+        'Höheres Lebensalter (Gefäßsteifigkeit, isolierte systolische Hypertonie)',
+        'Positive Familienanamnese für Hypertonie, Schlaganfall oder Herzinfarkt',
+        'Übergewicht und Adipositas, insbesondere viszerale Fettverteilung (Bauchumfang > 102 cm beim Mann, > 88 cm bei der Frau)',
+        'Hohe Kochsalzzufuhr (über 5–6 g pro Tag), kaliumarme Ernährung',
+        'Regelmäßiger Alkoholkonsum (mehr als 20 g pro Tag beim Mann, 10 g bei der Frau)',
+        'Bewegungsmangel, sitzende Tätigkeit',
+        'Chronischer Stress, Schichtarbeit, Schlafmangel',
+        'Rauchen (Verstärker des kardiovaskulären Gesamtrisikos)',
+        'Diabetes mellitus, Dyslipidämie, metabolisches Syndrom',
+        'Obstruktives Schlafapnoe-Syndrom (Schnarchen, Atemaussetzer, Tagesmüdigkeit)',
+        'Blutdrucksteigernde Medikamente: NSAR, Kortison, Pille, Sympathomimetika, Ciclosporin',
+        'Chronische Nierenerkrankung',
+      ],
+      klinik: [
+        {
+          text: 'Meist KEINE Beschwerden — die Hypertonie wird als Zufallsbefund beim Hausarzt, Betriebsarzt oder in der Apotheke entdeckt',
+        },
+        {
+          text: 'Kopfschmerz bei hohen Werten, typischerweise morgens beim Aufwachen und okzipital (im Hinterkopf), drückend, im Laufe des Vormittags nachlassend',
+        },
+        {
+          text: 'Schwindel, Ohrensausen (Tinnitus), Nasenbluten (Epistaxis)',
+        },
+        {
+          text: 'Sehstörungen (Flimmern, Verschwommensehen), Herzklopfen, innere Unruhe, Nervosität, Schlafstörung, Gesichtsrötung',
+        },
+        {
+          text: 'Belastungsdyspnoe und Leistungsminderung bei beginnender hypertensiver Herzkrankheit',
+        },
+        {
+          text: 'Hypertensive Entgleisung: Blutdruck meist über 180/120 mmHg mit Kopfschmerz, Schwindel, Unruhe, Nasenbluten — aber ohne neurologische Ausfälle, ohne Thoraxschmerz, ohne Luftnot, ohne Bewusstseinsstörung',
+        },
+        {
+          text: 'Zeichen des akuten Endorganschadens (= hypertensiver Notfall): Bewusstseinsstörung, Verwirrtheit, Krampfanfall, Sehverlust (Enzephalopathie, Retinopathie); fokale neurologische Ausfälle (Schlaganfall); Thoraxschmerz (Infarkt, Dissektion); Luftnot, Orthopnoe, Rasselgeräusche (Lungenödem); Oligurie (Nierenversagen); in der Schwangerschaft Ödeme, Proteinurie, Oberbauchschmerz (Präeklampsie)',
+        },
+        {
+          text: 'Folgeschäden der chronischen Hypertonie: Herz (Linksherzhypertrophie, Herzinsuffizienz, KHK, Vorhofflimmern), Gehirn (Schlaganfall, vaskuläre Demenz), Niere (Nephrosklerose, Albuminurie, Niereninsuffizienz), Augen (hypertensive Retinopathie), Gefäße (pAVK, Aortenaneurysma, Karotisstenose)',
+        },
+        {
+          text: 'Anfallsartige Blutdruckspitzen mit Kopfschmerz, Schweißausbruch, Herzrasen und Blässe — Trias des Phäochromozytoms',
+          atypisch: true,
+        },
+        {
+          text: 'Hypertonie mit Hypokaliämie, Muskelschwäche und Wadenkrämpfen — Hinweis auf primären Hyperaldosteronismus (Conn-Syndrom), oft aber normokaliämisch',
+          atypisch: true,
+        },
+        {
+          text: 'Hypertonie beim jungen Patienten unter 40 Jahren mit Blutdruckdifferenz zwischen Armen und Beinen und abgeschwächten Femoralispulsen — Aortenisthmusstenose',
+          atypisch: true,
+        },
+        {
+          text: 'Weißkittelhypertonie (nur in der Praxis erhöht) und maskierte Hypertonie (nur zu Hause bzw. nachts erhöht, in der Praxis normal) — nur durch Langzeitblutdruckmessung erkennbar',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierte systolische Hypertonie des älteren Menschen (systolisch ≥ 140, diastolisch < 90 mmHg) durch Gefäßsteifigkeit',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregrade nach ESC/ESH (Praxisblutdruck, in mmHg)',
+          inhalt: 'Optimal: < 120/80. Normal: 120–129/80–84. Hochnormal: 130–139/85–89. Hypertonie Grad 1 (leicht): 140–159/90–99. Grad 2 (mittelschwer): 160–179/100–109. Grad 3 (schwer): ≥ 180/≥ 110. Isolierte systolische Hypertonie: systolisch ≥ 140 und diastolisch < 90. Maßgeblich ist jeweils der höhere Wert (systolisch oder diastolisch).',
+        },
+        {
+          name: 'Grenzwerte je nach Messmethode',
+          inhalt: 'Praxismessung: ≥ 140/90 mmHg. Heimblutdruckmessung (Selbstmessung): ≥ 135/85 mmHg. 24-Stunden-Langzeitblutdruckmessung: 24-h-Mittelwert ≥ 130/80, Tagesmittel ≥ 135/85, Nachtmittel ≥ 120/70 mmHg; physiologische Nachtabsenkung („Dipping“) um 10–20 % — fehlendes Dipping („Non-Dipper“) spricht für sekundäre Hypertonie (v. a. Schlafapnoe) und höheres Risiko.',
+        },
+        {
+          name: 'Hypertensive Entgleisung versus hypertensiver Notfall',
+          inhalt: 'Hypertensive Entgleisung (hypertensive Krise, „urgency“): meist > 180/120 mmHg, KEIN akuter Endorganschaden, Symptome wie Kopfschmerz, Schwindel, Nasenbluten; orale Therapie, Senkung über Stunden bis Tage, ambulant. Hypertensiver Notfall („emergency“): Blutdruckerhöhung (in jeder Höhe!) MIT akutem Endorganschaden — hypertensive Enzephalopathie, intrazerebrale Blutung oder ischämischer Schlaganfall, Lungenödem/akute Linksherzinsuffizienz, akutes Koronarsyndrom, Aortendissektion, akutes Nierenversagen, Eklampsie/HELLP, Phäochromozytomkrise; intravenöse, kontrollierte Senkung auf der Intensivstation. Die Unterscheidung trifft der ORGANSCHADEN, nicht der Messwert.',
+        },
+        {
+          name: 'Ätiologische Einteilung',
+          inhalt: 'Primäre (essenzielle) Hypertonie (ca. 90 %): keine fassbare Einzelursache, multifaktoriell. Sekundäre Hypertonie (ca. 10 %): renal (parenchymatös, renovaskulär), endokrin (Conn-Syndrom, Phäochromozytom, Cushing, Hyperthyreose), Schlafapnoe, Aortenisthmusstenose, medikamentös/toxisch. An eine sekundäre Form denken bei: Alter unter 40 Jahren, Grad 3 oder therapieresistenter Hypertonie (unkontrolliert unter drei Substanzen inklusive Diuretikum), plötzlichem Beginn oder plötzlicher Verschlechterung, Hypokaliämie, Nebennierenraumforderung als Zufallsbefund, fehlendem Dipping.',
+        },
+        {
+          name: 'Hypertensive Retinopathie (Keith-Wagener-Barker)',
+          inhalt: 'Stadium I: Engstellung der Arteriolen. Stadium II: Kaliberschwankungen, Kreuzungszeichen (Gunn-Zeichen). Stadium III: zusätzlich Blutungen, Cotton-Wool-Herde, harte Exsudate. Stadium IV: zusätzlich Papillenödem — Stadium III und IV entsprechen einem hypertensiven Notfall (maligne Hypertonie).',
+        },
+      ],
+      redFlags: [
+        'Bewusstseinsstörung, Verwirrtheit, Krampfanfall oder starker Kopfschmerz mit Erbrechen → hypertensive Enzephalopathie oder intrazerebrale Blutung',
+        'Fokale neurologische Ausfälle (Hemiparese, Sprachstörung, Gesichtsasymmetrie) → Schlaganfall',
+        'Thoraxschmerz, insbesondere reißend mit Ausstrahlung in den Rücken und Blutdruckdifferenz zwischen den Armen → Aortendissektion bzw. akutes Koronarsyndrom',
+        'Akute Luftnot, Orthopnoe, feuchte Rasselgeräusche → hypertensives Lungenödem',
+        'Akute Sehstörung oder Sehverlust, Papillenödem → maligne Hypertonie mit Retinopathie',
+        'Oligurie, Hämaturie, rascher Kreatininanstieg → akutes hypertensives Nierenversagen',
+        'Schwangere mit Blutdruck ≥ 140/90, Ödemen, Proteinurie, Oberbauchschmerz, Sehstörungen → Präeklampsie, Eklampsie, HELLP-Syndrom',
+        'Anfallsartige Krisen mit Kopfschmerz, Schweißausbruch, Blässe und Tachykardie → Phäochromozytom',
+        'Kokain- oder Amphetaminkonsum mit Blutdruckkrise → Cave: kein Betablocker ohne Alphablockade',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Dauer und frühere Blutdruckwerte, Symptome (morgendlicher okzipitaler Kopfschmerz, Schwindel, Ohrensausen, Nasenbluten, Sehstörungen, Herzklopfen), gezielte Frage nach Endorganzeichen (Thoraxschmerz, Luftnot, neurologische Ausfälle, Sehverlust, Urinmenge), kardiovaskuläre Risikofaktoren, Familienanamnese (Hypertonie, Schlaganfall, Herzinfarkt, Nierenerkrankungen), Salz, Alkohol, Rauchen, Bewegung, Stress, Schnarchen und Tagesmüdigkeit',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamenten- und Substanzanamnese: NSAR, Kortison, Pille, abschwellende Nasensprays, Sympathomimetika, Ciclosporin, Lakritz, Kokain und Amphetamine — und bei bekannter Hypertonie die EINNAHMETREUE (Nichteinnahme ist die häufigste Ursache der Entgleisung)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Korrekte Blutdruckmessung: nach fünf Minuten Ruhe im Sitzen, Rücken angelehnt, Arm auf Herzhöhe, passende Manschettengröße, an BEIDEN Armen (Differenz > 15–20 mmHg → Gefäßstenose oder Dissektion), zwei bis drei Messungen im Abstand von ein bis zwei Minuten, beim älteren Patienten und bei Diabetes zusätzlich im Stehen (orthostatische Hypotonie); keine Diagnose aus einer einzelnen Messung',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Gewicht, Größe, BMI, Bauchumfang; Herzauskultation (Herzgeräusche, 4. Herzton), Lungenauskultation (Rasselgeräusche), Pulsstatus aller Extremitäten inklusive Femoralispulse, Strömungsgeräusche über Karotiden, Nierenarterien (paraumbilikal) und Femoralarterien, Ödeme, Halsvenenstauung, orientierender neurologischer Status, Cushing-Zeichen (Stammfettsucht, Striae, Vollmondgesicht), Struma, Augenhintergrund',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor nach Leitlinie: Natrium, KALIUM (Hypokaliämie → Conn-Syndrom oder Diuretika), Kreatinin mit eGFR, Harnstoff, Nüchternblutzucker und HbA1c, Lipidstatus (Gesamt-, LDL-, HDL-Cholesterin, Triglyzeride), Harnsäure, Blutbild, TSH, Leberwerte, Kalzium',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit Albumin-Kreatinin-Quotient (Mikroalbuminurie als frühestes Zeichen des hypertensiven Nierenschadens), Hämaturie und Proteinurie als Hinweis auf renoparenchymatöse Ursache; bei Frauen im gebärfähigen Alter Schwangerschaftstest',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Beim Verdacht auf hypertensiven Notfall zusätzlich: Troponin, BNP/NT-proBNP, Blutgasanalyse mit Laktat, Gerinnung, D-Dimere bei Dissektionsverdacht, Drogenscreening im Urin',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG: Zeichen der Linksherzhypertrophie (Sokolow-Lyon-Index S in V1 + R in V5/V6 > 3,5 mV), Erregungsrückbildungsstörungen, Vorhofflimmern, Ischämiezeichen; Ausgangsbefund für den Verlauf',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '24-Stunden-Langzeitblutdruckmessung (ABDM) zur Diagnosesicherung und zum Nachweis von Weißkittelhypertonie, maskierter Hypertonie und fehlender Nachtabsenkung; alternativ strukturierte Heimblutdruckmessung über sieben Tage (morgens und abends je zwei Messungen, Grenze 135/85 mmHg)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Echokardiographie: linksventrikuläre Hypertrophie (Septumdicke, linksventrikuläre Masse), diastolische Dysfunktion, Ejektionsfraktion, Aortenwurzel, Klappen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren (Größe, Seitendifferenz, Parenchym, Zysten, Harnstau) mit Duplexsonographie der Nierenarterien (Nierenarterienstenose); Karotisduplex (Intima-Media-Dicke, Plaques, Stenosen); Knöchel-Arm-Index bei Verdacht auf pAVK; Augenhintergrund (Fundoskopie) bei Grad 3 oder Sehstörungen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Beim Notfall: Röntgen-Thorax (Lungenödem, verbreitertes Mediastinum), kraniales CT bei neurologischen Zeichen (Blutung oder Ischämie), CT-Angiographie der Aorta bei Dissektionsverdacht, Herzecho bei Lungenödem',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Gezielte Abklärung der sekundären Hypertonie bei Verdacht: Aldosteron-Renin-Quotient (Conn-Syndrom; vorher Spironolacton und möglichst Betablocker/RAAS-Blocker pausieren, Kalium normalisieren), freie Metanephrine im Plasma oder fraktionierte Metanephrine im 24-Stunden-Sammelurin (Phäochromozytom), Dexamethason-Hemmtest bzw. Cortisol im Speichel um Mitternacht (Cushing-Syndrom), fT3/fT4 bei erniedrigtem TSH',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Kardiorespiratorische Polygraphie bzw. Polysomnographie im Schlaflabor bei Schnarchen, Atemaussetzern und Tagesmüdigkeit (obstruktives Schlafapnoe-Syndrom, Apnoe-Hypopnoe-Index)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei auffälligem Screening: CT oder MRT der Nebennieren, MR- oder CT-Angiographie der Nierenarterien, selektive Nebennierenvenenkatheterisierung zur Seitenlokalisation beim Conn-Syndrom; Berechnung des kardiovaskulären Gesamtrisikos (SCORE2) zur Festlegung von Therapiebeginn und Zielwerten',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Hypertensiver Notfall (mit akutem Endorganschaden)',
+          unterscheidung: 'Die entscheidende Weiche: Bewusstseinsstörung, Verwirrtheit, Krampfanfall, fokale Ausfälle, Sehverlust, Thoraxschmerz, Luftnot/Orthopnoe, Oligurie — nicht die Blutdruckhöhe. Nachweis über neurologischen Status, EKG, Troponin, BNP, Kreatinin, Augenhintergrund, Röntgen-Thorax, cCT. Erfordert Intensivstation und intravenöse Therapie.',
+        },
+        {
+          dd: 'Weißkittelhypertonie und situative Blutdruckerhöhung (Schmerz, Angst, Harnverhalt, Panikattacke)',
+          unterscheidung: 'Erhöhte Werte nur in der Praxis oder in einer Belastungssituation; Heim- und Langzeitblutdruckmessung normal, kein Endorganschaden. Bei Schmerz, Harnverhalt oder Angst normalisiert sich der Blutdruck nach Behandlung der Ursache.',
+        },
+        {
+          dd: 'Phäochromozytom',
+          unterscheidung: 'Anfallsartige Krisen mit der Trias Kopfschmerz, Schweißausbruch und Herzrasen, Blässe, Gewichtsverlust, paradoxer Anstieg unter Betablockern; Nachweis über Metanephrine im Plasma oder Sammelurin, dann CT/MRT der Nebennieren.',
+        },
+        {
+          dd: 'Primärer Hyperaldosteronismus (Conn-Syndrom)',
+          unterscheidung: 'Schwere oder therapieresistente Hypertonie, Hypokaliämie (nur bei etwa einem Drittel), Muskelschwäche, Polyurie; erhöhter Aldosteron-Renin-Quotient, Bestätigungstest (Kochsalzbelastung), Nebennieren-CT.',
+        },
+        {
+          dd: 'Hyperthyreose',
+          unterscheidung: 'Vorwiegend systolische Hypertonie mit hoher Blutdruckamplitude, Tachykardie, Gewichtsverlust bei gutem Appetit, Hitzeintoleranz, Tremor, Schlafstörung, Struma; TSH supprimiert, fT3/fT4 erhöht.',
+        },
+        {
+          dd: 'Obstruktives Schlafapnoe-Syndrom',
+          unterscheidung: 'Adipositas, lautes Schnarchen, beobachtete Atemaussetzer, unerholsamer Schlaf, Tagesmüdigkeit, morgendlicher Kopfschmerz; fehlende Nachtabsenkung in der ABDM, Diagnose durch Polygraphie/Polysomnographie.',
+        },
+        {
+          dd: 'Renale Hypertonie (Nierenarterienstenose, renoparenchymatös)',
+          unterscheidung: 'Plötzlicher Beginn oder Verschlechterung, Kreatininanstieg über 30 % nach ACE-Hemmer-Beginn, paraumbilikales Strömungsgeräusch, Seitendifferenz der Nierengröße, Proteinurie/Hämaturie; Duplexsonographie der Nierenarterien, MR-Angiographie.',
+        },
+        {
+          dd: 'Medikamenten-, Drogen- und Entzugswirkung',
+          unterscheidung: 'NSAR, Kortison, Pille, Nasenspray, Sympathomimetika, Ciclosporin, Lakritz; Kokain und Amphetamine (mit Mydriasis, Agitation, Tachykardie); Alkohol- oder Clonidin-Entzug. Klärung durch gezielte Anamnese und Drogenscreening; Besserung nach Absetzen.',
+        },
+        {
+          dd: 'Präeklampsie / Eklampsie',
+          unterscheidung: 'Schwangerschaft ab der 20. Woche mit Blutdruck ≥ 140/90, Proteinurie, Ödemen, Oberbauchschmerz, Sehstörungen, Krampfanfall; HELLP-Labor (Hämolyse, erhöhte Leberwerte, Thrombopenie). Therapie mit Alpha-Methyldopa, Nifedipin, Magnesium, Entbindung.',
+        },
+        {
+          dd: 'Kopfschmerz anderer Ursache mit reaktiver Blutdruckerhöhung (Spannungskopfschmerz, Migräne, Subarachnoidalblutung, erhöhter Hirndruck)',
+          unterscheidung: 'Donnerschlagkopfschmerz mit Meningismus → SAB (cCT, Lumbalpunktion); Kopfschmerz mit Erbrechen, Stauungspapille und Bradykardie → Hirndruck (Cushing-Reflex). Beim hypertensiven Kopfschmerz normalisiert sich der Kopfschmerz mit dem Blutdruck.',
+        },
+        {
+          dd: 'Aortendissektion',
+          unterscheidung: 'Plötzlicher reißender Thoraxschmerz mit Ausstrahlung in den Rücken, Blutdruckdifferenz zwischen den Armen, Pulsdefizit, neues Aorteninsuffizienzgeräusch; CT-Angiographie. Zielblutdruck rasch systolisch 100–120 mmHg mit Esmolol.',
+        },
+        {
+          dd: 'Aortenisthmusstenose beim jungen Patienten',
+          unterscheidung: 'Hypertonie an den Armen bei niedrigem Blutdruck an den Beinen, abgeschwächte Femoralispulse, Systolikum zwischen den Schulterblättern, Rippenusuren im Röntgen; Echokardiographie, MR-Angiographie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Akutbehandlung: hypertensive Entgleisung vs. hypertensiver Notfall',
+          items: [
+            'Erster Schritt immer: Endorganschaden ausschließen oder nachweisen — neurologischer Status, Thoraxschmerz, Luftnot, Sehstörung, Urinmenge, EKG, Troponin, Kreatinin, Augenhintergrund; davon hängt der gesamte Weg ab, nicht vom Messwert',
+            'Hypertensive ENTGLEISUNG ohne Organschaden: Ruhe in reizarmer Umgebung, Wiederholung der Messung nach 20–30 Minuten, Behandlung von Schmerz, Angst und Harnverhalt; orale Medikation mit einem lang wirksamen Präparat (z. B. Amlodipin 5–10 mg, Ramipril, Urapidil oral) oder Wiederaufnahme bzw. Anpassung der bestehenden Therapie; langsame Senkung über 24–48 Stunden, ambulante Kontrolle innerhalb weniger Tage beim Hausarzt',
+            'KEIN Zerbeißen von Nifedipin-Kapseln und keine sublinguale Kurzzeit-Nifedipin-Gabe — unkontrollierter Blutdruckabfall mit Reflextachykardie, Schlaganfall- und Infarktgefahr',
+            'Entgleisung unter laufender Therapie: die Einnahmetreue ist die erste Maßnahme — Ursache des Absetzens klären, Therapie wieder ansetzen, Fixkombination anbieten, auslösende Substanzen (NSAR, Nasenspray) absetzen',
+            'Hypertensiver NOTFALL mit Organschaden: Intensivstation, Monitoring, kontrollierte INTRAVENÖSE Senkung mit Urapidil (Alpha-1-Blocker, Mittel der ersten Wahl in Deutschland, 12,5–25 mg als Bolus, dann Perfusor), Nitroglycerin (bei Lungenödem und akutem Koronarsyndrom), Clevidipin oder Nicardipin, Labetalol; bei Aortendissektion Esmolol zur Herzfrequenz- und Blutdrucksenkung; bei Lungenödem zusätzlich Furosemid i.v. und Sauerstoff',
+            'Regel der kontrollierten Senkung: NICHT mehr als 20–25 % des mittleren arteriellen Drucks in der ersten Stunde, dann auf etwa 160/100 mmHg innerhalb von 2–6 Stunden, Normalisierung erst über 24–48 Stunden — eine zu rasche Senkung führt zu Ischämie von Gehirn, Herz und Niere (verschobene Autoregulation)',
+            'Ausnahmen von der Regel: Aortendissektion — rasch (innerhalb von 20 Minuten) auf systolisch 100–120 mmHg und Herzfrequenz unter 60/min; ischämischer Schlaganfall — permissive Hypertonie, nur senken über 220/120 mmHg (bzw. über 185/110 mmHg vor und nach Lysetherapie); intrazerebrale Blutung — systolisch auf etwa 140–160 mmHg; Eklampsie — Magnesiumsulfat, Nifedipin oder Urapidil und Entbindung',
+            'Cave beim Phäochromozytom und bei Kokainkrise: erst Alphablockade (Phentolamin, Urapidil), kein Betablocker allein (ungebremste Alphawirkung mit weiterem Blutdruckanstieg)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Lebensstiländerung als Grundlage jeder Behandlung',
+          items: [
+            'Salzreduktion auf unter 5–6 g Kochsalz pro Tag: kein Nachsalzen, Verzicht auf Fertiggerichte, Wurst, Käse, Brot als versteckte Salzquellen — Senkung um etwa 5 mmHg systolisch',
+            'Mediterrane, kaliumreiche Ernährung (DASH-Diät: Gemüse, Obst, Vollkorn, fettarme Milchprodukte, wenig rotes Fleisch) — etwa 4–10 mmHg',
+            'Gewichtsreduktion: etwa 1 mmHg pro Kilogramm Gewichtsverlust, Ziel BMI 20–25 und Bauchumfang < 94 cm beim Mann bzw. < 80 cm bei der Frau',
+            'Regelmäßige Ausdauerbewegung: mindestens 30 Minuten moderat an 5–7 Tagen pro Woche (Gehen, Radfahren, Schwimmen) — etwa 4–8 mmHg',
+            'Alkoholreduktion auf unter 14 Einheiten pro Woche beim Mann, unter 8 bei der Frau, alkoholfreie Tage — etwa 4 mmHg',
+            'Nikotinkarenz: senkt den Blutdruck kaum, halbiert aber das kardiovaskuläre Gesamtrisiko — Raucherentwöhnung anbieten',
+            'Stressbewältigung, ausreichender Schlaf, Entspannungsverfahren; Behandlung einer Schlafapnoe',
+            'Absetzen blutdrucksteigernder Substanzen: NSAR (Paracetamol als Alternative), abschwellende Nasensprays, Lakritz, Kortison und Pille überprüfen, Drogenverzicht',
+            'Merke: Jede Einzelmaßnahme senkt um etwa 4–10 mmHg; zusammen entspricht das der Wirkung eines Antihypertensivums. Bei Grad 1 ohne hohes Risiko sind drei bis sechs Monate Lebensstiländerung allein gerechtfertigt',
+          ],
+        },
+        {
+          label: 'Medikamentöse Dauertherapie nach Leitlinie',
+          items: [
+            'Therapiebeginn: Grad 1 nach drei bis sechs Monaten Lebensstiländerung ohne ausreichenden Erfolg, sofort bei hohem kardiovaskulären Risiko, Endorganschaden, Diabetes oder Nierenerkrankung; Grad 2 und 3 sofort medikamentös plus Lebensstiländerung',
+            'Standard heute: von Anfang an KOMBINATIONSTHERAPIE mit zwei Substanzen in einer Tablette (Fixkombination, „single pill“) — RAAS-Blocker (ACE-Hemmer wie Ramipril oder Sartan wie Candesartan) plus Kalziumantagonist (Amlodipin) oder Thiazid-/thiazidartiges Diuretikum (Hydrochlorothiazid, Chlortalidon, Indapamid); Monotherapie nur bei Grad 1 mit niedrigem Risiko, bei sehr alten oder gebrechlichen Patienten',
+            'Eskalation: bei unzureichender Kontrolle nach vier Wochen Dreifachkombination RAAS-Blocker + Kalziumantagonist + Diuretikum in einer Tablette; bei therapieresistenter Hypertonie (unkontrolliert unter drei Substanzen inklusive Diuretikum) Spironolacton 25–50 mg als vierte Substanz, alternativ Betablocker, Doxazosin oder Moxonidin — vorher Adhärenz und sekundäre Ursachen prüfen',
+            'Betablocker (Bisoprolol, Metoprolol, Nebivolol) NICHT mehr in der ersten Linie, sondern nur bei zusätzlicher Indikation: KHK, Herzinsuffizienz, Vorhofflimmern mit Frequenzkontrolle, junge Frauen mit Kinderwunsch',
+            'Auswahl nach Begleiterkrankungen: ACE-Hemmer oder Sartan bei Diabetes, Albuminurie und Nephropathie (nephroprotektiv); Kalziumantagonist oder Thiazid bei isolierter systolischer Hypertonie des Älteren; Betablocker plus ACE-Hemmer bei KHK und Herzinsuffizienz; ACE-Hemmer und Sartan NIEMALS kombinieren',
+            'Schwangerschaft: ACE-Hemmer, Sartane und Spironolacton sind kontraindiziert (fetotoxisch) — Alpha-Methyldopa, Nifedipin retard oder Labetalol; bei Frauen mit Kinderwunsch Auswahl vorausschauend treffen',
+            'Zielwert: unter 130/80 mmHg bei den meisten Patienten unter 65 Jahren (wenn vertragen, nicht unter 120/70), 130–139 systolisch bei über 65-Jährigen, individuell und vorsichtiger beim gebrechlichen, alten oder orthostatischen Patienten; Kontrolle des Erfolgs über Heimblutdruckmessung und ABDM',
+            'Aufklärung über Nebenwirkungen: trockener Reizhusten (5–10 %) und selten Angioödem unter ACE-Hemmer (→ Umstellung auf Sartan), Knöchelödeme, Flush und Gingivahyperplasie unter Amlodipin, Hypokaliämie, Hyponatriämie, Hyperurikämie/Gichtanfall und Hyperglykämie unter Thiazid, Hyperkaliämie und Kreatininanstieg unter RAAS-Blockade (Kalium und Kreatinin nach 1–2 Wochen kontrollieren), Gynäkomastie unter Spironolacton, Bradykardie und Müdigkeit unter Betablockern',
+            'Einmal-täglich-Gabe morgens (oder abends bei Non-Dippern), lang wirksame Präparate, möglichst wenige Tabletten — die Therapie ist in der Regel lebenslang',
+          ],
+        },
+        {
+          label: 'Ursachenbehandlung, Verlaufskontrolle und Adhärenz',
+          items: [
+            'Gezielte Therapie der sekundären Hypertonie: Adrenalektomie beim einseitigen Conn-Adenom, Spironolacton oder Eplerenon bei beidseitiger Hyperplasie; Alphablockade (Phenoxybenzamin) und Adrenalektomie beim Phäochromozytom; CPAP-Therapie bei obstruktiver Schlafapnoe; Nierenarterienstent nur in Ausnahmefällen (fibromuskuläre Dysplasie, rezidivierendes Lungenödem, rasch progrediente Niereninsuffizienz); Absetzen auslösender Medikamente; Thyreostatika bei Hyperthyreose',
+            'Regelmäßige Verlaufskontrolle: Blutdruck alle 4 Wochen bis zur Einstellung, dann alle 3–6 Monate; Kalium und Kreatinin 1–2 Wochen nach Beginn oder Dosisänderung eines RAAS-Blockers oder Diuretikums; jährlich EKG, Albuminurie, Lipide, Blutzucker; Echokardiographie und Augenhintergrund nach Risiko',
+            'Heimblutdruckprotokoll: Patient misst morgens vor der Tabletteneinnahme und abends, dokumentiert die Werte und bringt sie mit — Einbeziehung in die eigene Messung erhöht die Adhärenz',
+            'Kardiovaskuläres Gesamtrisiko mitbehandeln: Statin nach SCORE2 und LDL-Zielwert, Blutzuckereinstellung, Nikotinkarenz; Acetylsalicylsäure nur in der Sekundärprävention (nach Infarkt, Schlaganfall, bei pAVK), nicht routinemäßig in der Primärprävention',
+            'ADHÄRENZ als Kern der Langzeitbehandlung: bis zu 50 % der Patienten nehmen ihre Antihypertensiva nach einem Jahr nicht mehr regelmäßig — Einmal-täglich-Schemata, Fixkombinationen, Kopplung an eine Alltagsroutine, Erinnerungssysteme (Tablettenbox, Handy-App), offenes Nachfragen ohne Vorwurf („Wie oft vergessen Sie die Tablette?“)',
+            'Erklären, warum man ein Medikament nimmt, obwohl man nichts spürt: der Blutdruck tut nicht weh, aber er schädigt über Jahre Herz, Gehirn, Niere und Augen; das Ziel ist die Verhinderung von Schlaganfall, Herzinfarkt und Dialyse — jede Senkung um 10 mmHg systolisch senkt das Schlaganfallrisiko um etwa ein Drittel',
+            'Patientenschulung und Aufklärung über die Warnzeichen des Notfalls (Sehstörung, Lähmung, Sprachstörung, Brustschmerz, Luftnot, Verwirrtheit → sofort 112) und über die lebenslange Natur der Behandlung; Medikamente nie eigenmächtig absetzen, auch nicht bei normalen Werten — die Werte sind normal, WEIL die Tablette wirkt',
+          ],
+        },
+      ],
+      prognose: 'Unbehandelt verkürzt die arterielle Hypertonie die Lebenserwartung deutlich: Sie ist der wichtigste Risikofaktor für Schlaganfall und ein Hauptrisikofaktor für Herzinfarkt, Herzinsuffizienz, Vorhofflimmern, Niereninsuffizienz und Demenz. Das Risiko steigt ab 115/75 mmHg kontinuierlich und verdoppelt sich mit jeder Zunahme um 20/10 mmHg. Unter konsequenter Therapie sinkt das Schlaganfallrisiko um etwa 35–40 %, das Herzinfarktrisiko um 20–25 % und das Risiko einer Herzinsuffizienz um etwa die Hälfte. Die hypertensive Entgleisung ohne Organschaden hat eine gute Prognose, wenn die Ursache — meist die Nichteinnahme — behoben wird; der hypertensive Notfall dagegen ist lebensbedrohlich und hat unbehandelt eine Einjahresmortalität von über 50 %. Entscheidend für die Langzeitprognose ist die Adhärenz: Nur etwa die Hälfte der behandelten Hypertoniker erreicht den Zielwert, und die Mehrzahl der Entgleisungen entsteht durch abgesetzte oder unregelmäßig eingenommene Medikamente.',
+      pruefungsfallen: [
+        'Die Kernfrage jeder Prüfung: Entgleisung oder Notfall? Nicht die Höhe des Blutdrucks entscheidet, sondern der akute ENDORGANSCHADEN. Wer nur den Messwert nennt, hat die Frage verfehlt — die Endorganzeichen (Neurologie, Thorax, Lunge, Niere, Auge) müssen aktiv erfragt, untersucht und in der Antwort aufgezählt werden.',
+        'Beim Notfall nie „so schnell wie möglich senken“ sagen: kontrollierte Senkung um NICHT mehr als 20–25 % in der ersten Stunde, sonst Ischämie von Gehirn und Niere. Die Ausnahmen kennen: Aortendissektion (rasch auf 100–120 systolisch mit Esmolol) und ischämischer Schlaganfall (nur über 220/120 senken).',
+        'Nifedipin-Kapseln zerbeißen ist ein Prüfungsfehler — unkontrollierter Blutdruckabfall mit Reflextachykardie; bei der Entgleisung orale, lang wirksame Präparate.',
+        'Die häufigste Ursache einer Entgleisung ist die NICHTEINNAHME der Medikamente — immer aktiv und ohne Vorwurf nach der Einnahmetreue fragen („Wie oft vergessen Sie die Tablette? Wann haben Sie sie zuletzt genommen?“). Prüfer erwarten die Frage „Ist die Hypertonie gut eingestellt?“ auch in Fällen, in denen die Hypertonie nur Vorerkrankung ist.',
+        'Die Diagnose einer chronischen Hypertonie wird NIE aus einer einzelnen Messung gestellt — wiederholte Praxismessungen, Heimblutdruckmessung (Grenze 135/85) oder besser die 24-Stunden-Langzeitblutdruckmessung. Ohne sie werden Weißkittelhypertonie und maskierte Hypertonie übersehen.',
+        'Die Grenzwerte parat haben: Praxis 140/90, Heimmessung 135/85, ABDM-Tagesmittel 135/85 und 24-h-Mittel 130/80; Grad 1 bis 159/99, Grad 2 bis 179/109, Grad 3 ab 180/110; Entgleisung meist ab 180/120; Zielwert unter 130/80.',
+        'Bei jedem jungen Patienten unter 40, bei Grad 3, therapieresistenter Hypertonie, plötzlichem Beginn oder Hypokaliämie an die SEKUNDÄRE Hypertonie denken und die Liste nennen können: Niere, Nierenarterienstenose, Conn, Phäochromozytom, Cushing, Hyperthyreose, Schlafapnoe, Aortenisthmusstenose, Medikamente und Drogen.',
+        'Die Medikamentenanamnese ist Teil der Ursachensuche: NSAR, Kortison, Pille, abschwellendes Nasenspray, Lakritz, Kokain — der Patient nennt Ibuprofen aus der Apotheke oft nur auf Nachfrage.',
+        'Das Kalium im Basislabor nicht vergessen: Hypokaliämie ist der Hinweis auf das Conn-Syndrom, die häufigste endokrine Ursache; ebenso die Albuminurie im Urin als frühestes Zeichen des Nierenschadens (in Stuttgart gefragt: „Was suchen Sie im Urin?“).',
+        'Betablocker sind heute nicht mehr Mittel der ersten Wahl — nur bei zusätzlicher Indikation (KHK, Herzinsuffizienz, Vorhofflimmern). Erste Wahl ist die Zweifach-Fixkombination aus RAAS-Blocker plus Kalziumantagonist oder Thiazid.',
+        'Beim Phäochromozytom und bei der Kokainkrise KEIN Betablocker ohne vorherige Alphablockade — sonst weiterer Blutdruckanstieg.',
+        'In der Schwangerschaft sind ACE-Hemmer und Sartane kontraindiziert; dort Alpha-Methyldopa, Nifedipin retard, Labetalol. Bei Frauen im gebärfähigen Alter danach fragen.',
+        'Die Blutdruckmessung selbst ist Prüfungsstoff: fünf Minuten Ruhe, Sitzen, passende Manschette, beide Arme, zwei bis drei Messungen, beim älteren Patienten auch im Stehen.',
+        'Sprachliche Falle: „Blutdruckkrise/hypertensive Krise“ und „hypertensive Entgleisung“ sind Synonyme (Blutdruck ohne Organschaden); „hypertensiver Notfall“ ist die Situation mit Organschaden. Vor dem Patienten „Bluthochdruck“, „Blutdruckentgleisung“ und „Blutdruck zu stark und zu schnell“ sagen, nicht „Hypertonie Grad 3“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Ist die Hypertonie des Patienten gut eingestellt?',
+          antwort: 'Nein. Der Patient nimmt sein Ramipril seit etwa vier Wochen nicht mehr und davor nur unregelmäßig ein; heute wurden 200/120 mmHg beim Betriebsarzt und 190/115 mmHg bei uns gemessen, dazu berichtet er über morgendliche Kopfschmerzen und Nasenbluten. Die Hypertonie ist also unzureichend eingestellt, und die Nichteinnahme ist die wahrscheinlichste Ursache der Entgleisung.',
+        },
+        {
+          frage: 'Handelt es sich um eine hypertensive Entgleisung oder um einen hypertensiven Notfall — und woran machen Sie das fest?',
+          antwort: 'Um eine hypertensive Entgleisung, weil kein akuter Endorganschaden vorliegt: Der Patient ist wach und orientiert, ohne fokale neurologische Ausfälle, ohne Sehverlust, ohne Thoraxschmerz, ohne Luftnot oder Orthopnoe und ohne Oligurie. Nicht die Höhe des Blutdrucks entscheidet, sondern der Organschaden. Ich sichere das durch EKG, Troponin, Kreatinin, Urinstatus und Augenhintergrund ab.',
+        },
+        {
+          frage: 'Welche Endorganschäden definieren den hypertensiven Notfall?',
+          antwort: 'Hypertensive Enzephalopathie, intrazerebrale Blutung oder ischämischer Schlaganfall, hypertensive Retinopathie Stadium III–IV mit Papillenödem, akutes Lungenödem beziehungsweise akute Linksherzinsuffizienz, akutes Koronarsyndrom, Aortendissektion, akutes Nierenversagen sowie Eklampsie und HELLP-Syndrom in der Schwangerschaft.',
+        },
+        {
+          frage: 'Wie behandeln Sie die hypertensive Entgleisung ohne Organschaden?',
+          antwort: 'Ruhe, Wiederholung der Messung, Behandlung von Schmerz und Angst, dann orale Gabe eines lang wirksamen Antihypertensivums — zum Beispiel Amlodipin oder Wiederaufnahme des Ramipril — mit langsamer Senkung über 24 bis 48 Stunden und ambulanter Kontrolle beim Hausarzt innerhalb weniger Tage. Kein Zerbeißen von Nifedipin-Kapseln. Bei diesem Patienten zusätzlich das Ibuprofen absetzen und die Einnahmetreue stärken.',
+        },
+        {
+          frage: 'Und wie beim hypertensiven Notfall? Wie schnell dürfen Sie senken?',
+          antwort: 'Auf der Intensivstation mit intravenöser, titrierbarer Medikation — Urapidil als Mittel der ersten Wahl, Nitroglycerin bei Lungenödem oder Koronarsyndrom, Clevidipin oder Labetalol. Der mittlere arterielle Druck wird in der ersten Stunde um nicht mehr als 20 bis 25 Prozent gesenkt, dann auf etwa 160/100 mmHg über 2 bis 6 Stunden, weil eine zu rasche Senkung durch die verschobene Autoregulation zu Ischämien von Gehirn und Niere führt. Ausnahmen: Bei der Aortendissektion rasch auf systolisch 100 bis 120 mmHg mit Esmolol, beim ischämischen Schlaganfall nur über 220/120 mmHg senken.',
+        },
+        {
+          frage: 'Wann denken Sie an eine sekundäre Hypertonie, und welche Ursachen kennen Sie?',
+          antwort: 'Bei jungen Patienten unter 40 Jahren, bei schwerer oder therapieresistenter Hypertonie, bei plötzlichem Beginn oder plötzlicher Verschlechterung, bei Hypokaliämie und bei fehlender Nachtabsenkung. Ursachen sind Nierenerkrankungen und Nierenarterienstenose, primärer Hyperaldosteronismus, Phäochromozytom, Cushing-Syndrom, Hyperthyreose, obstruktives Schlafapnoe-Syndrom, Aortenisthmusstenose sowie Medikamente wie NSAR, Kortison, Pille und Sympathomimetika, Lakritz, Alkohol und Kokain.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie, und was suchen Sie im Urin?',
+          antwort: 'Natrium und vor allem Kalium als Hinweis auf ein Conn-Syndrom, Kreatinin mit eGFR, Nüchternblutzucker und HbA1c, den Lipidstatus mit LDL und HDL wegen des kardiovaskulären Gesamtrisikos, Harnsäure, Blutbild und TSH. Im Urin suche ich Eiweiß beziehungsweise die Mikroalbuminurie als frühestes Zeichen des hypertensiven Nierenschadens, außerdem Blut und Glukose.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose einer chronischen Hypertonie?',
+          antwort: 'Nie aus einer einzelnen Messung. Durch korrekt durchgeführte, wiederholte Praxismessungen an mindestens zwei Tagen, durch eine Heimblutdruckmessung über sieben Tage mit dem Grenzwert 135/85 mmHg oder am besten durch die 24-Stunden-Langzeitblutdruckmessung mit einem Tagesmittel über 135/85 mmHg — nur sie entlarvt die Weißkittelhypertonie und die maskierte Hypertonie und zeigt die Nachtabsenkung.',
+        },
+        {
+          frage: 'Wie messen Sie den Blutdruck korrekt?',
+          antwort: 'Nach fünf Minuten Ruhe im Sitzen mit angelehntem Rücken, der Arm auf Herzhöhe, mit einer der Oberarmumfang entsprechenden Manschette, an beiden Armen — eine Differenz über 15 bis 20 mmHg weist auf eine Gefäßstenose oder Dissektion hin —, zwei bis drei Messungen im Abstand von ein bis zwei Minuten, und beim älteren oder diabetischen Patienten zusätzlich im Stehen zur Erfassung einer Orthostase.',
+        },
+        {
+          frage: 'Welche medikamentöse Dauertherapie empfehlen Sie, und was ist der Zielwert?',
+          antwort: 'Nach Leitlinie von Anfang an eine Zweifach-Fixkombination aus einem RAAS-Blocker — ACE-Hemmer wie Ramipril oder Sartan — plus Kalziumantagonist wie Amlodipin oder Thiaziddiuretikum, bei Bedarf als Dreifachkombination, und Spironolacton als vierte Substanz bei Therapieresistenz. Betablocker nur bei zusätzlicher Indikation wie KHK, Herzinsuffizienz oder Vorhofflimmern. Zielwert unter 130/80 mmHg bei Patienten unter 65 Jahren, individuell beim älteren oder gebrechlichen Patienten.',
+        },
+        {
+          frage: 'Über welche Nebenwirkungen klären Sie den Patienten auf?',
+          antwort: 'Unter ACE-Hemmern über den trockenen Reizhusten und das seltene Angioödem — dann Umstellung auf ein Sartan —, unter Amlodipin über Knöchelödeme und Flush, unter Thiaziden über Hypokaliämie, Hyponatriämie, Gichtanfälle und Blutzuckeranstieg, unter RAAS-Blockade und Spironolacton über Hyperkaliämie und Kreatininanstieg mit Kontrolle nach ein bis zwei Wochen, unter Betablockern über Bradykardie, Müdigkeit und kalte Hände.',
+        },
+        {
+          frage: 'Welche Lebensstiländerungen empfehlen Sie, und wie viel bringen sie?',
+          antwort: 'Salzreduktion auf unter 5 bis 6 Gramm täglich, mediterrane kaliumreiche Ernährung, Gewichtsreduktion mit etwa 1 mmHg pro Kilogramm, regelmäßige Ausdauerbewegung von 30 Minuten an fünf Tagen pro Woche, Alkoholreduktion, Nikotinkarenz, Stressbewältigung und ausreichender Schlaf sowie das Absetzen blutdrucksteigernder Substanzen wie NSAR. Jede Maßnahme senkt um etwa 4 bis 10 mmHg; zusammen entspricht das der Wirkung eines Medikaments.',
+        },
+        {
+          frage: 'Der Patient sagt, er spüre nichts und wolle keine Tabletten nehmen. Wie gehen Sie mit der Adhärenz um?',
+          antwort: 'Ich erkläre ohne Vorwurf, dass der hohe Blutdruck nicht wehtut, aber über Jahre Herz, Gehirn, Niere und Augen schädigt, und dass die Tablette Schlaganfall, Herzinfarkt und Dialyse verhindern soll — sein Vater hatte einen Schlaganfall. Praktisch: eine Fixkombination einmal täglich, Kopplung an eine Alltagsroutine wie das Zähneputzen, Tablettenbox oder Handy-Erinnerung, Heimblutdruckprotokoll, damit er den Erfolg selbst sieht, und ein fester Kontrolltermin. Die Medikamente dürfen auch bei normalen Werten nie eigenmächtig abgesetzt werden.',
+        },
+        {
+          frage: 'Welche Folgeschäden der chronischen Hypertonie kennen Sie?',
+          antwort: 'Am Herzen Linksherzhypertrophie, Herzinsuffizienz, koronare Herzkrankheit und Vorhofflimmern; am Gehirn Schlaganfall, intrazerebrale Blutung und vaskuläre Demenz; an der Niere Nephrosklerose mit Albuminurie und Niereninsuffizienz; am Auge die hypertensive Retinopathie; an den Gefäßen pAVK, Karotisstenose und Aortenaneurysma beziehungsweise Aortendissektion.',
+        },
+        {
+          frage: 'Warum fragen Sie nach Schnarchen und Tagesmüdigkeit?',
+          antwort: 'Weil das obstruktive Schlafapnoe-Syndrom eine häufige und behandelbare Ursache der sekundären beziehungsweise therapieresistenten Hypertonie ist: nächtliche Sauerstoffabfälle aktivieren den Sympathikus, die Nachtabsenkung fehlt, morgens bestehen Kopfschmerzen. Bei Verdacht veranlasse ich eine Polygraphie, die Therapie ist die CPAP-Beatmung.',
+        },
+      ],
+      merksatz: 'Nicht der Messwert, der Organschaden entscheidet: Entgleisung = hoch ohne Organschaden → Ruhe, oral, langsam, ambulant; Notfall = Organschaden → Intensivstation, intravenös, maximal 25 Prozent in der ersten Stunde (außer Dissektion). Häufigste Ursache der Entgleisung: die nicht genommene Tablette.',
+      linkedCaseIds: [
+        'case-arterielle-hypertonie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-antikoagulation',
+      pathology: 'Antikoagulation und Thrombozytenaggregationshemmung',
+      specialty: 'Allgemein',
+      definition: 'Unter Antikoagulation versteht man die medikamentöse Hemmung der plasmatischen Gerinnung (Thrombinbildung bzw. -wirkung) zur Behandlung und Verhütung venöser und kardioembolischer Thromboembolien; unter Thrombozytenaggregationshemmung die Hemmung der Plättchenfunktion zur Verhütung arterieller (atherothrombotischer) Ereignisse. Zur Verfügung stehen vier Substanzgruppen: Vitamin-K-Antagonisten (Phenprocoumon/Marcumar, Warfarin), direkte orale Antikoagulanzien (DOAK: Apixaban, Rivaroxaban, Edoxaban als Faktor-Xa-Hemmer, Dabigatran als Thrombinhemmer), parenterale Antikoagulanzien (unfraktioniertes Heparin, niedermolekulare Heparine, Fondaparinux, Argatroban) und Thrombozytenaggregationshemmer (Acetylsalicylsäure, Clopidogrel, Prasugrel, Ticagrelor). Der Patient sagt „Blutverdünner“, „Gerinnungshemmer“ oder nennt den Handelsnamen (Marcumar, Xarelto, Eliquis, Lixiana, Pradaxa) — der Arzt muss daraus Substanzgruppe, Indikation, Dosis, Monitoring, perioperatives Vorgehen und Antidot ableiten.',
+      aetiologie: 'Physiologische Grundlage ist die Gerinnungskaskade mit dem Endprodukt Thrombin, das Fibrinogen zu Fibrin spaltet, und die Thrombozytenaktivierung über Thromboxan A2 und den ADP-Rezeptor P2Y12. Vitamin-K-Antagonisten hemmen die Vitamin-K-Epoxid-Reduktase in der Leber und damit die Gamma-Carboxylierung der Faktoren II, VII, IX und X sowie der Proteine C und S — Wirkbeginn erst nach 3–5 Tagen (Abbau der bereits gebildeten Faktoren), anfangs durch den rascheren Abfall von Protein C sogar prokoagulatorisch (deshalb Heparin-Überlappung, Kumarinnekrose). DOAK hemmen direkt und reversibel Faktor Xa (Apixaban, Rivaroxaban, Edoxaban) oder Thrombin (Dabigatran) mit Wirkbeginn nach 1–4 Stunden und Halbwertszeiten von etwa 12 Stunden (Apixaban 12 h, Rivaroxaban 5–13 h, Edoxaban 10–14 h, Dabigatran 12–17 h, deutlich länger bei Niereninsuffizienz; Dabigatran wird zu 80 % renal eliminiert). Unfraktioniertes Heparin verstärkt Antithrombin um das 1000-Fache und hemmt Thrombin und Faktor Xa gleichermaßen; niedermolekulare Heparine hemmen überwiegend Faktor Xa (Verhältnis Anti-Xa zu Anti-IIa etwa 3:1) und werden renal eliminiert; Fondaparinux ist ein synthetisches Pentasaccharid mit reiner Anti-Xa-Wirkung. ASS hemmt die Cyclooxygenase-1 irreversibel für die gesamte Thrombozytenlebensdauer von 7–10 Tagen; Clopidogrel und Prasugrel (Prodrugs, irreversibel) und Ticagrelor (reversibel, kein Prodrug) blockieren den P2Y12-Rezeptor.',
+      risikofaktoren: [
+        'Blutungsrisiko unter Antikoagulation (HAS-BLED): unkontrollierte Hypertonie (systolisch > 160 mmHg), Niereninsuffizienz (Kreatinin > 2,3 mg/dl, Dialyse), Leberzirrhose, Z. n. Schlaganfall, frühere Blutung oder Anämie, labile INR (Zeit im Zielbereich < 60 %), Alter über 65 Jahre, gleichzeitige NSAR- oder Thrombozytenaggregationshemmer-Einnahme, Alkoholkonsum über 8 Getränke pro Woche',
+        'Sturzneigung, Demenz und mangelnde Adhärenz — DOAK mit kurzer Halbwertszeit schützen bei ausgelassenen Dosen nicht mehr; VKA setzen regelmäßige INR-Kontrollen voraus',
+        'Niereninsuffizienz: Kumulation von NMH, Fondaparinux und DOAK (vor allem Dabigatran); Dosisreduktion oder Kontraindikation nach Kreatinin-Clearance (Cockcroft-Gault), nicht nach eGFR',
+        'Hohes Lebensalter (≥ 80 Jahre), niedriges Körpergewicht (≤ 60 kg) und Kreatinin ≥ 1,5 mg/dl als Dosisreduktionskriterien für Apixaban (2 von 3 Kriterien → 2 × 2,5 mg)',
+        'Interaktionen: starke CYP3A4- und P-Glykoprotein-Hemmer (Ketoconazol, Itraconazol, Ritonavir, Clarithromycin, Verapamil, Amiodaron, Dronedaron) erhöhen DOAK-Spiegel; Induktoren (Rifampicin, Carbamazepin, Phenytoin, Johanniskraut) senken sie. Bei VKA erhöhen Antibiotika (Cotrimoxazol, Metronidazol, Clarithromycin), Amiodaron, Fluconazol und Allopurinol die INR; Rifampicin, Carbamazepin und Vitamin-K-reiche Kost senken sie',
+        'Kombination mehrerer gerinnungshemmender Substanzen (Triple-Therapie aus OAK + ASS + Clopidogrel) — Blutungsrisiko etwa verdoppelt bis verdreifacht; Dauer so kurz wie möglich',
+        'Thromboembolisches Risiko (Gegenseite): Vorhofflimmern mit CHA2DS2-VASc ≥ 2 (Männer) bzw. ≥ 3 (Frauen), mechanische Herzklappe, Mitralstenose, Z. n. venöser Thromboembolie, Malignom, Immobilisation, Fraktur der unteren Extremität, große Operation, Östrogene (Pille, Hormonersatz), Schwangerschaft und Wochenbett, Rauchen, Adipositas, Thrombophilie (Faktor-V-Leiden, Prothrombin-Mutation, Antiphospholipid-Syndrom, Protein-C-/S-/Antithrombin-Mangel), positive Familienanamnese, Alter',
+        'Heparin-induzierte Thrombozytopenie Typ II: unfraktioniertes Heparin (Risiko bis 3 %) mehr als NMH (unter 0,1 %), chirurgische mehr als internistische Patienten, Frauen, vorausgegangene Heparinexposition innerhalb der letzten 100 Tage',
+      ],
+      klinik: [
+        {
+          text: 'Anamnestischer Schlüsselsatz: „Nehmen Sie Blutverdünner ein?“ — der Patient antwortet mit Handelsnamen (Marcumar, Xarelto 20 mg 1-0-0, Eliquis, Lixiana, Pradaxa) oder „ASS 100“; der Arzt muss Substanz, Indikation („weswegen?“), Dosis, letzte Einnahme, INR-Werte und Blutungen aktiv nachfragen',
+        },
+        {
+          text: 'Blutungszeichen unter Gerinnungshemmung: Nasenbluten, Zahnfleischbluten, ausgedehnte Hämatome nach Bagatelltraumen, Hämaturie, Meläna oder Hämatemesis, verlängerte Blutung nach Schnittverletzungen, Menorrhagie',
+        },
+        {
+          text: 'Zeichen der Überdosierung eines Vitamin-K-Antagonisten: INR über dem Zielbereich (> 3, kritisch > 5), oft nach neuem Antibiotikum, Durchfall, Alkoholexzess oder Ernährungsumstellung',
+        },
+        {
+          text: 'Zeichen des Wirkverlustes: tiefe Venenthrombose, Lungenembolie, Schlaganfall oder TIA unter laufender Therapie — Adhärenz, Dosis, Interaktionen (Rifampicin, Johanniskraut) und Indikationsfehler (DOAK bei mechanischer Klappe) prüfen',
+        },
+        {
+          text: 'Tiefe Venenthrombose: einseitige Beinschwellung, Spannungsschmerz, Zyanose, Überwärmung, Wadendruckschmerz (Meyer), Fußsohlendruckschmerz (Payr), Wadenschmerz bei Dorsalflexion (Homans); Lungenembolie: akute Dyspnoe, Thoraxschmerz, Tachykardie, Synkope',
+        },
+        {
+          text: 'Arterielle Thrombose/Embolie: akuter Extremitätenverschluss mit den 6 P (pain, pallor, pulselessness, paresthesia, paralysis, prostration), Schlaganfall mit Hemiparese oder Aphasie bei Vorhofflimmern',
+        },
+        {
+          text: 'Heparin-induzierte Thrombozytopenie Typ II: Thrombozytenabfall um mehr als 50 % zwischen Tag 5 und 14 der Heparintherapie mit paradoxen venösen oder arteriellen Thrombosen, Hautnekrosen an der Injektionsstelle',
+          atypisch: true,
+        },
+        {
+          text: 'Kumarinnekrose: 3–8 Tage nach Beginn eines Vitamin-K-Antagonisten schmerzhafte Hautnekrosen an fettreichen Arealen (Mamma, Bauch, Gesäß) durch Protein-C-Abfall — vor allem bei fehlender Heparin-Überlappung',
+          atypisch: true,
+        },
+        {
+          text: 'Retroperitoneales oder Psoas-Hämatom unter Antikoagulation: Flankenschmerz, Hb-Abfall, Hüftbeugekontraktur ohne äußere Blutung',
+          atypisch: true,
+        },
+        {
+          text: 'Intrakranielle Blutung nach Bagatellsturz: Kopfschmerz, Vigilanzminderung, fokale Defizite — auch bei initial unauffälligem Befund verzögert möglich',
+          atypisch: true,
+        },
+        {
+          text: 'Ticagrelor-typische Dyspnoe (bis 15 %) und Bradykardien ohne kardiopulmonale Ursache; Clopidogrel-Nonresponse bei CYP2C19-Polymorphismus',
+          atypisch: true,
+        },
+        {
+          text: 'Osteoporose, Haarausfall und Transaminasenanstieg unter Langzeit-Heparin; Hyperkaliämie durch Aldosteronhemmung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Substanzgruppen mit Standarddosierungen und Monitoring',
+          inhalt: 'Vitamin-K-Antagonisten: Phenprocoumon (Marcumar) — Halbwertszeit etwa 6 Tage (bis zu 7 Tage), Warfarin 36–42 Stunden; Steuerung über INR, Ziel 2–3 (mechanische Mitralklappe 2,5–3,5); Antidot Vitamin K (Phytomenadion) und PPSB. DOAK: Apixaban 2 × 5 mg (2 × 2,5 mg bei mindestens 2 von 3 Kriterien: Alter ≥ 80 Jahre, Gewicht ≤ 60 kg, Kreatinin ≥ 1,5 mg/dl), Rivaroxaban 1 × 20 mg (15 mg bei Kreatinin-Clearance 15–49 ml/min, Einnahme mit dem Essen), Edoxaban 1 × 60 mg (30 mg bei Clearance 15–50 ml/min, Gewicht ≤ 60 kg oder starken P-gp-Hemmern), Dabigatran 2 × 150 mg (2 × 110 mg ab 80 Jahren oder unter Verapamil; kontraindiziert bei Clearance < 30 ml/min); kein Routinemonitoring. Heparine: unfraktioniertes Heparin i.v. (Bolus 80 IE/kg, dann 18 IE/kg/h, Ziel-aPTT das 1,5- bis 2,5-Fache des Ausgangswertes, etwa 60–80 Sekunden), Halbwertszeit 1–2 Stunden, Antidot Protamin (1 ml Protamin 1000 neutralisiert 1000 IE Heparin); niedermolekulares Heparin s.c. (Enoxaparin therapeutisch 1 mg/kg alle 12 Stunden, bei Clearance < 30 ml/min 1 mg/kg einmal täglich; prophylaktisch 40 mg einmal täglich), Steuerung nur bei Bedarf über Anti-Xa-Spiegel (4 Stunden nach Gabe 0,6–1,0 IE/ml bei zweimal täglicher Gabe); Fondaparinux 2,5 mg s.c. prophylaktisch, therapeutisch 7,5 mg (5 mg unter 50 kg, 10 mg über 100 kg), kein Antidot. Thrombozytenaggregationshemmer: ASS 100 mg (Aufsättigung 150–300 mg), Clopidogrel 75 mg (Aufsättigung 300–600 mg), Prasugrel 10 mg (5 mg ab 75 Jahren oder unter 60 kg; Aufsättigung 60 mg), Ticagrelor 2 × 90 mg (Aufsättigung 180 mg).',
+        },
+        {
+          name: 'CHA2DS2-VASc-Score (Schlaganfallrisiko bei Vorhofflimmern, 0–9 Punkte)',
+          inhalt: 'C = Herzinsuffizienz (1), H = Hypertonie (1), A2 = Alter ≥ 75 Jahre (2), D = Diabetes mellitus (1), S2 = Schlaganfall/TIA/Thromboembolie (2), V = vaskuläre Erkrankung: KHK, pAVK, Aortenplaque (1), A = Alter 65–74 Jahre (1), Sc = weibliches Geschlecht (1). Orale Antikoagulation empfohlen ab 2 Punkten bei Männern und ab 3 Punkten bei Frauen, zu erwägen ab 1 Punkt (Männer) bzw. 2 Punkten (Frauen); bei 0 Punkten (Männer) oder 1 Punkt (Frauen) keine Antikoagulation. Die ESC-Leitlinie 2024 verwendet den CHA2DS2-VA ohne Geschlechtspunkt: ab 2 Punkten Antikoagulation, bei 1 Punkt erwägen. DOAK sind Vitamin-K-Antagonisten bei Vorhofflimmern vorzuziehen — außer bei mechanischer Klappe und mittel- bis hochgradiger Mitralstenose. ASS hat in der Schlaganfallprophylaxe bei Vorhofflimmern keinen Platz.',
+        },
+        {
+          name: 'HAS-BLED-Score (Blutungsrisiko unter oraler Antikoagulation, 0–9 Punkte)',
+          inhalt: 'H = Hypertonie, systolisch > 160 mmHg (1), A = abnorme Nieren- oder Leberfunktion (je 1), S = Schlaganfall (1), B = Blutung in der Anamnese oder Blutungsneigung (1), L = labile INR (1), E = Alter > 65 Jahre (1), D = Drugs: NSAR oder Thrombozytenaggregationshemmer (1) bzw. Alkohol (1). Ab 3 Punkten hohes Blutungsrisiko — das ist KEINE Kontraindikation gegen die Antikoagulation, sondern der Auftrag, die modifizierbaren Faktoren zu beheben (Blutdruck einstellen, NSAR absetzen, Alkohol reduzieren, INR stabilisieren) und engmaschiger zu kontrollieren.',
+        },
+        {
+          name: '4T-Score bei Verdacht auf HIT II (0–8 Punkte)',
+          inhalt: 'Je 0–2 Punkte für Thrombozytopenie (Abfall > 50 % und Nadir ≥ 20 000/µl = 2), Timing (Tag 5–10 nach Heparinbeginn oder innerhalb 1 Tages bei Exposition in den letzten 30 Tagen = 2), Thrombose (neue Thrombose, Hautnekrose, anaphylaktoide Reaktion = 2) und andere Ursachen der Thrombozytopenie (keine = 2). 0–3 Punkte: niedrige Wahrscheinlichkeit (unter 1 %), Heparin kann weiterlaufen; 4–5 Punkte: mittlere; 6–8 Punkte: hohe Wahrscheinlichkeit — Heparin sofort stoppen und alternativ antikoagulieren, Antikörpertest (PF4/Heparin-ELISA) und Funktionstest (HIPA) veranlassen.',
+        },
+        {
+          name: 'Perioperative Risikoeinteilung: Blutungsrisiko des Eingriffs und Thromboembolierisiko des Patienten',
+          inhalt: 'Blutungsrisiko niedrig (Antikoagulation fortführen oder nur kurz pausieren): Zahnextraktion von bis zu 3 Zähnen, Kataraktoperation, diagnostische Gastroskopie/Koloskopie ohne Polypektomie, Hautexzision, Punktion oberflächlicher Gefäße. Hoch (Pause erforderlich): Polypektomie über 1 cm, ERCP mit Sphinkterotomie, PEG-Anlage, endosonographische Punktion, große Bauch-, Thorax-, Gefäß- und Gelenkoperationen, Prostata- und Nierenchirurgie, Leber-/Nierenbiopsie, jeder intrakranielle und spinale Eingriff, rückenmarknahe Anästhesie. Thromboembolierisiko hoch (Bridging bei VKA erwägen): mechanische Mitralklappe, mechanische Aortenklappe alter Bauart oder mit Vorhofflimmern, Schlaganfall/TIA innerhalb der letzten 3 Monate, venöse Thromboembolie innerhalb der letzten 3 Monate, schwere Thrombophilie (Antiphospholipid-Syndrom, Antithrombin-, Protein-C-/S-Mangel, homozygote Faktor-V-Leiden-Mutation), rheumatische Mitralstenose, Vorhofflimmern mit CHA2DS2-VASc ≥ 6–7. Niedrig bis mittel (kein Bridging): Vorhofflimmern ohne Schlaganfall, Bioprothese nach mehr als 3 Monaten, venöse Thromboembolie vor mehr als 12 Monaten.',
+        },
+        {
+          name: 'Risikokategorien der stationären Thromboseprophylaxe',
+          inhalt: 'Niedriges Risiko (kleiner Eingriff, kurze Immobilisation, keine Zusatzfaktoren): Basismaßnahmen — Frühmobilisation, Bewegungsübungen, ausreichend Flüssigkeit, ggf. medizinische Thromboseprophylaxestrümpfe. Mittleres Risiko (längere Operation, internistisch mit Infekt oder Herzinsuffizienz, Gips der unteren Extremität): Basismaßnahmen plus NMH in Prophylaxedosis (z. B. Enoxaparin 20–40 mg s.c. einmal täglich). Hohes Risiko (Hüft-/Knieendoprothese, hüftnahe Fraktur, große Tumorchirurgie, Polytrauma, frühere Thromboembolie, Thrombophilie): NMH in Hochrisikodosis (Enoxaparin 40 mg, Dalteparin 5000 IE) oder Fondaparinux 2,5 mg, nach Hüftendoprothese 28–35 Tage, nach Knieendoprothese 11–14 Tage, nach großer Tumorchirurgie im Bauch- oder Beckenraum 4 Wochen fortführen.',
+        },
+      ],
+      redFlags: [
+        'Kopfschmerz, Vigilanzminderung, Erbrechen oder neurologisches Defizit nach Sturz oder Bagatelltrauma unter Antikoagulation → CCT sofort, auch ohne äußere Verletzung; bei Antikoagulierten ist nach jedem Kopfanpralltrauma ein CCT indiziert',
+        'Hämatemesis, Meläna oder Hämatochezie mit Tachykardie, Hypotonie oder Hb-Abfall unter Gerinnungshemmern → Antikoagulation stoppen, Volumen, Blutgruppe und Kreuzblut, PPI-Bolus, Notfall-ÖGD innerhalb von 24 Stunden, bei Instabilität sofort',
+        'INR über 5 mit Blutung oder über 8 ohne Blutung → Vitamin K, bei schwerer Blutung zusätzlich PPSB; Antibiotikum oder Interaktion als Auslöser suchen',
+        'Flankenschmerz, Leistenschmerz oder Hüftbeugekontraktur mit Hb-Abfall unter Antikoagulation → retroperitoneales oder Psoas-Hämatom, CT-Abdomen',
+        'Neue Rückenschmerzen mit Paresen oder Blasenstörung nach rückenmarknaher Anästhesie oder Punktion unter Antikoagulation → spinales Hämatom, Notfall-MRT und neurochirurgische Dekompression innerhalb weniger Stunden',
+        'Thrombozytenabfall um mehr als 50 % zwischen Tag 5 und 14 einer Heparintherapie, vor allem mit neuer Thrombose → HIT II, Heparin sofort in allen Formen stoppen (auch Spüllösungen, Katheter), Argatroban',
+        'Akute Dyspnoe, Thoraxschmerz, Synkope oder einseitige Beinschwellung unter oder trotz Antikoagulation → Lungenembolie bzw. Thrombose, Therapieversagen oder Adhärenzproblem',
+        'Plötzlich kalte, blasse, pulslose Extremität → akuter arterieller Verschluss, Vollheparinisierung und sofortige gefäßchirurgische Vorstellung',
+        'Neu aufgetretene schmerzhafte Hautnekrosen 3–8 Tage nach Beginn eines Vitamin-K-Antagonisten → Kumarinnekrose, VKA stoppen, Heparin, Protein-C-Substitution erwägen',
+        'Schwangerschaft unter Vitamin-K-Antagonist (Kumarin-Embryopathie zwischen der 6. und 12. Woche) oder DOAK → sofort auf niedermolekulares Heparin umstellen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese als Pflichtsonde: „Nehmen Sie blutverdünnende Medikamente ein?“ — Präparat (Handelsname übersetzen: Xarelto = Rivaroxaban, Eliquis = Apixaban, Lixiana = Edoxaban, Pradaxa = Dabigatran, Marcumar = Phenprocoumon), Dosis und Einnahmeschema, Indikation („weswegen?“), Beginn und geplante Dauer, Zeitpunkt der letzten Einnahme, Adhärenz, Marcumar-Ausweis und letzte INR-Werte, Blutungen unter Therapie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Bei „ASS 100“ immer die Indikation erfragen (KHK, Stent, pAVK, Z. n. Schlaganfall) und klarstellen, dass ASS kein Antikoagulans ist; bei „Blutverdünner nach Thrombose“ die Substanz klären — ein Z. n. TVT wird nicht mit ASS behandelt',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Thromboembolie-Anamnese: frühere Thrombose oder Lungenembolie (wann, Auslöser, Dauer der Behandlung), Vorhofflimmern, Herzklappenersatz, Schlaganfall/TIA, Malignom, bekannte Thrombophilie (Faktor-V-Leiden), Thrombosen in der Familie, Östrogeneinnahme, Immobilisation, lange Reisen, Rauchen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Blutungsanamnese: Nasen- und Zahnfleischbluten, Hämatome, Meläna, Hämaturie, Menorrhagie, Blutungen bei früheren Operationen oder Zahnextraktionen, Ulkusanamnese, Alkohol, NSAR-Einnahme, Sturzneigung; Berechnung von CHA2DS2-VASc und HAS-BLED',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter (Tachykardie, Hypotonie als Blutungszeichen), Hautblutungen, Schleimhäute, rektale Untersuchung bei Blutungsverdacht, Beinumfangsdifferenz, Wadendruckschmerz, Pulsstatus (Puls fühlen unterscheidet TVT von pAVK), neurologischer Status, Herzauskultation (Klappengeräusch, Arrhythmie)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basisgerinnung: Quick/INR (Vitamin-K-Antagonisten, Lebersynthese; Rivaroxaban und Edoxaban verlängern die PT), aPTT (unfraktioniertes Heparin; Dabigatran verlängert aPTT und Thrombinzeit — eine normale Thrombinzeit schließt eine relevante Dabigatran-Wirkung aus), Fibrinogen, Thrombozyten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Anti-Xa-Aktivität: NMH-Steuerung bei Niereninsuffizienz, Schwangerschaft, Adipositas über 120 kg oder Kindern (Abnahme 4 Stunden nach Injektion); kalibrierte Anti-Xa-Spiegel für Rivaroxaban, Apixaban, Edoxaban in Notfallsituationen (Blutung, Notoperation, Lyseentscheidung) — Routinegerinnung ist bei Apixaban oft normal trotz voller Wirkung',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenfunktion mit Kreatinin-Clearance nach Cockcroft-Gault (nicht eGFR) für die DOAK- und NMH-Dosierung, Leberwerte, Blutbild mit Hb-Verlauf, bei Blutung Blutgruppe und Kreuzblut; unter unfraktioniertem Heparin Thrombozytenkontrolle vor Beginn und zwischen Tag 5 und 14',
+        },
+        {
+          stufe: 'Labor',
+          text: 'D-Dimere bei Thromboseverdacht (hoher negativer prädiktiver Wert bei niedriger klinischer Wahrscheinlichkeit; unter laufender Antikoagulation nicht verwertbar); Thrombophilie-Diagnostik (APC-Resistenz/Faktor-V-Leiden, Prothrombin-Mutation, Protein C/S, Antithrombin, Antiphospholipid-Antikörper) nur bei unprovozierter Thrombose in jungem Alter oder positiver Familienanamnese, Protein C/S und Antithrombin nicht unter VKA bzw. Heparin bestimmen',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf HIT II: Thrombozytenverlauf, 4T-Score, PF4/Heparin-Antikörper (ELISA, hochsensitiv) und Bestätigung durch Funktionstest (HIPA); bei Leberzirrhose Quick/INR, Thrombozyten und Albumin als Synthese- und Blutungsmarker',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kompressions- und Farbduplexsonographie der Beinvenen bei TVT-Verdacht (fehlende Komprimierbarkeit beweisend), CT-Pulmonalisangiographie bei Lungenembolieverdacht, Echokardiographie bei Vorhofflimmern, Klappenersatz oder Rechtsherzbelastung (transösophageal zum Thrombenausschluss im Vorhofohr vor Kardioversion)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG und Langzeit-EKG (Vorhofflimmern als Ursache von TIA/Schlaganfall), Duplex der Karotiden, CCT oder MRT bei neurologischem Defizit oder Kopftrauma unter Antikoagulation, CT-Abdomen bei Verdacht auf retroperitoneale Blutung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophagogastroduodenoskopie innerhalb von 24 Stunden bei oberer GI-Blutung unter Antikoagulation (Ulkus, Varizen), Koloskopie bei unterer GI-Blutung; Blutungsquelle stillen, Antikoagulation danach zeitnah wieder aufnehmen (bei Vorhofflimmern in der Regel nach 7 Tagen, DOAK bevorzugt)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'INR-Selbstmanagement mit Kapillarblut (CoaguChek) nach Schulung; Kontrollintervalle unter VKA alle 1–4 Wochen, unter DOAK Kreatinin, Blutbild und Leberwerte mindestens jährlich, bei Clearance < 60 ml/min alle 6 Monate (Faustregel: Clearance geteilt durch 10 = Kontrollintervall in Monaten)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Antikoagulans versus Thrombozytenaggregationshemmer („Blutverdünner“ ist kein Fachbegriff)',
+          unterscheidung: 'Antikoagulanzien (Marcumar, DOAK, Heparin) hemmen die plasmatische Gerinnung und werden bei venösen und kardioembolischen Ereignissen (TVT, Lungenembolie, Vorhofflimmern, Klappen) eingesetzt; Thrombozytenaggregationshemmer (ASS, Clopidogrel, Ticagrelor, Prasugrel) hemmen die Plättchen und gelten für arterielle Atherothrombose (KHK, Stent, pAVK, Schlaganfall ohne Vorhofflimmern). ASS ersetzt bei Vorhofflimmern oder nach Thrombose keine Antikoagulation; umgekehrt ersetzt ein DOAK nach Stent nicht die Plättchenhemmung.',
+        },
+        {
+          dd: 'Marcumar (Phenprocoumon) versus DOAK (z. B. Xarelto)',
+          unterscheidung: 'VKA: indirekte Wirkung über Vitamin K, Wirkbeginn nach 3–5 Tagen, Halbwertszeit etwa 6 Tage, INR-Monitoring nötig, viele Nahrungs- und Arzneimittelinteraktionen, aber Antidot (Vitamin K, PPSB) und Zulassung bei mechanischer Klappe, Mitralstenose und schwerer Niereninsuffizienz. DOAK: direkte Hemmung von Faktor Xa oder Thrombin, Wirkbeginn nach 1–4 Stunden, Halbwertszeit etwa 12 Stunden, feste Dosis ohne Monitoring, weniger intrakranielle Blutungen, aber nierenabhängig, kontraindiziert bei mechanischer Klappe, mittel- bis hochgradiger Mitralstenose, Schwangerschaft und Clearance < 15 ml/min (Dabigatran < 30 ml/min); Antidote Idarucizumab (Dabigatran) und Andexanet alfa (Faktor-Xa-Hemmer), ersatzweise PPSB.',
+        },
+        {
+          dd: 'Unfraktioniertes Heparin versus niedermolekulares Heparin',
+          unterscheidung: 'UFH: i.v. Perfusor, aPTT-gesteuert, Halbwertszeit 1–2 Stunden, vollständig durch Protamin antagonisierbar, unabhängig von der Nierenfunktion — Mittel der Wahl bei Clearance < 30 ml/min, instabilen Patienten mit möglicher Intervention und Dialyse; HIT-Risiko bis 3 %. NMH: s.c. gewichtsadaptiert, kein Routinemonitoring, bessere Bioverfügbarkeit und Vorhersagbarkeit, renale Elimination (Dosisreduktion bei Clearance < 30 ml/min), nur zu etwa 60 % durch Protamin neutralisierbar, HIT-Risiko unter 0,1 %.',
+        },
+        {
+          dd: 'Tiefe Venenthrombose versus pAVK / akuter arterieller Verschluss',
+          unterscheidung: 'TVT: warmes, geschwollenes, livides Bein mit Spannungsschmerz und tastbaren Fußpulsen — Therapie Antikoagulation. Arterieller Verschluss: kaltes, blasses, pulsloses Bein mit Schmerz, Sensibilitäts- und Motorikausfall — Puls fühlen genügt zur Erstunterscheidung; Therapie Heparin plus Revaskularisation. Chronische pAVK: Claudicatio mit reproduzierbarer Gehstrecke, Thrombozytenaggregationshemmung.',
+        },
+        {
+          dd: 'Erhöhte INR unter Vitamin-K-Antagonist versus Lebersynthesestörung, Vitamin-K-Mangel, DIC',
+          unterscheidung: 'VKA: Anamnese, isolierte PT/INR-Verlängerung, Ansprechen auf Vitamin K. Leberzirrhose: Quick erniedrigt mit Thrombozytopenie, Albumin erniedrigt, Bilirubin erhöht, kaum Ansprechen auf Vitamin K, Blutungsrisiko durch Varizen und Thrombozytopenie, gleichzeitig Thromboseneigung (Protein-C-Mangel). Vitamin-K-Mangel (Cholestase, Antibiotika, Malabsorption): Ansprechen auf Vitamin K. DIC: Fibrinogen und Thrombozyten erniedrigt, D-Dimere massiv erhöht, Grundkrankheit (Sepsis).',
+        },
+        {
+          dd: 'Thrombozytopenie unter Heparin: HIT II versus HIT I, Pseudothrombozytopenie, ITP, DIC',
+          unterscheidung: 'HIT I: nicht-immunologisch, in den ersten 4 Tagen, Abfall unter 30 %, keine Thrombosen, Heparin kann weiterlaufen. HIT II: immunologisch, Tag 5–14, Abfall über 50 %, Thrombosen — Heparin stoppen. Pseudothrombozytopenie: EDTA-Artefakt, Kontrolle im Citratblut normal. ITP: isolierte Thrombozytopenie mit Blutungsneigung, keine Thrombosen. DIC: zusätzlich Fibrinogenabfall und verlängerte Gerinnungszeiten.',
+        },
+        {
+          dd: 'Verlängerte aPTT: Heparin versus Hämophilie, von-Willebrand-Syndrom, Lupus-Antikoagulans, Dabigatran',
+          unterscheidung: 'Heparin: Thrombinzeit verlängert, Normalisierung nach Heparinase. Hämophilie A/B: isolierte aPTT-Verlängerung mit Faktor-VIII- oder -IX-Mangel, Gelenkblutungen, Plasmatauschtest korrigiert. Lupus-Antikoagulans: aPTT verlängert ohne Blutung, Plasmatauschtest korrigiert NICHT, paradoxe Thromboseneigung (Antiphospholipid-Syndrom — hier VKA statt DOAK). Dabigatran: aPTT und Thrombinzeit verlängert, Anamnese.',
+        },
+        {
+          dd: 'Blutung unter Antikoagulation: Überdosierung versus strukturelle Läsion',
+          unterscheidung: 'Jede Blutung unter Antikoagulation gilt als demaskierte Läsion, bis das Gegenteil bewiesen ist: Hämaturie → Urothelkarzinom, Nierenstein; Meläna → Ulkus, Kolonkarzinom, Varizen; Hämoptysen → Bronchialkarzinom. Auch bei INR im Zielbereich ist die Abklärung (Endoskopie, Zystoskopie, Bildgebung) obligat — die Antikoagulation ist der Verstärker, nicht die Ursache.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Neueinstellung bei Vorhofflimmern und nach TIA/Schlaganfall',
+          items: [
+            'Indikation nach CHA2DS2-VASc: ab 2 Punkten (Männer) bzw. 3 Punkten (Frauen) orale Antikoagulation, unabhängig davon, ob das Vorhofflimmern paroxysmal oder permanent ist; Blutungsrisiko nach HAS-BLED erheben und modifizierbare Faktoren beheben, nicht die Antikoagulation verweigern',
+            'Erste Wahl DOAK: Apixaban 2 × 5 mg, Rivaroxaban 1 × 20 mg zum Essen, Edoxaban 1 × 60 mg oder Dabigatran 2 × 150 mg — Dosisreduktion nach Nierenfunktion (Cockcroft-Gault), Alter und Gewicht nach den substanzspezifischen Kriterien; vor Beginn Kreatinin, Blutbild, Leberwerte',
+            'Vitamin-K-Antagonist (Phenprocoumon, INR 2–3) bleibt Mittel der Wahl bei mechanischer Herzklappe, mittel- bis hochgradiger Mitralstenose, Antiphospholipid-Syndrom und Kreatinin-Clearance < 15 ml/min; Beginn mit 3 Tabletten à 3 mg am ersten Tag, 2 am zweiten, danach nach INR, unter Heparin-Überlappung bis INR ≥ 2 an zwei aufeinanderfolgenden Tagen',
+            'Nach TIA oder ischämischem Schlaganfall mit Vorhofflimmern: keine Vollheparinisierung (erhöht das Einblutungsrisiko ohne Nutzen), sondern Thromboseprophylaxe mit NMH und Beginn der oralen Antikoagulation nach Infarktgröße — Faustregel 1-3-6-12: nach TIA ab Tag 1, kleiner Infarkt ab Tag 3, mittlerer ab Tag 6, großer ab Tag 12; vorher CCT/MRT zum Blutungsausschluss, EKG, Langzeit-EKG, Echokardiographie und Karotisduplex. Prüfer akzeptieren im Arzt-Arzt-Gespräch auch „Heparin und Marcumar“, die leitliniengerechte Antwort lautet „orale Antikoagulation mit einem DOAK, zeitlich gestaffelt“',
+            'Schlaganfall/TIA OHNE Vorhofflimmern: Thrombozytenaggregationshemmung mit ASS 100 mg (nach leichtem Schlaganfall oder Hochrisiko-TIA für 21 Tage ASS plus Clopidogrel), Statin, Blutdruckeinstellung, Karotisabklärung',
+            'Vor elektiver Kardioversion mindestens 3 Wochen effektive Antikoagulation oder transösophagealer Thrombenausschluss, danach mindestens 4 Wochen, langfristig nach CHA2DS2-VASc; bei Vorhofflimmern unter 48 Stunden Dauer Heparin und sofortige Kardioversion möglich',
+            'Kein ASS zur Schlaganfallprophylaxe bei Vorhofflimmern (unwirksam, gleiches Blutungsrisiko); bei Kontraindikation gegen jede Antikoagulation interventioneller Vorhofohrverschluss',
+          ],
+        },
+        {
+          label: 'Neueinstellung bei tiefer Venenthrombose und Lungenembolie',
+          items: [
+            'Sofortige therapeutische Antikoagulation bereits bei hoher klinischer Wahrscheinlichkeit, noch vor der Bildgebung: NMH gewichtsadaptiert (Enoxaparin 1 mg/kg s.c. alle 12 Stunden oder 1,5 mg/kg einmal täglich; bei Kreatinin-Clearance < 30 ml/min 1 mg/kg einmal täglich), Fondaparinux 7,5 mg s.c. (50–100 kg) oder unfraktioniertes Heparin i.v. mit aPTT-Kontrolle (Bolus 80 IE/kg, dann 18 IE/kg/h, Ziel das 1,5- bis 2,5-Fache) bei Niereninsuffizienz, Instabilität oder geplanter Lyse',
+            'DOAK ohne Heparin-Vorphase möglich: Rivaroxaban 2 × 15 mg für 21 Tage, dann 1 × 20 mg; Apixaban 2 × 10 mg für 7 Tage, dann 2 × 5 mg. Edoxaban (60 mg) und Dabigatran (2 × 150 mg) erst nach mindestens 5 Tagen parenteraler Antikoagulation',
+            'Klassische Alternative: Bridging zum Vitamin-K-Antagonisten — NMH und Phenprocoumon überlappend über mindestens 5 Tage, NMH absetzen, sobald die INR an zwei aufeinanderfolgenden Tagen ≥ 2 liegt; Ziel-INR 2–3',
+            'Dauer: provozierte Thrombose (Operation, Immobilisation, Flug, Pille) 3 Monate; unprovozierte proximale TVT oder Lungenembolie mindestens 3–6 Monate mit anschließender Nutzen-Risiko-Bewertung, meist verlängerte Antikoagulation (in Karlsruhe wollte der Oberarzt „1 Jahr“ hören); Rezidiv, aktives Malignom, Antiphospholipid-Syndrom oder schwere Thrombophilie: zeitlich unbefristet. Bei Tumorpatienten NMH oder DOAK (Apixaban, Edoxaban; nicht bei gastrointestinalen oder urogenitalen Tumoren wegen Blutungsrisiko) so lange, wie der Tumor aktiv ist',
+            'Begleitmaßnahmen: Kompressionstherapie (initial Wickeln, dann Kompressionsstrumpf Klasse II für mindestens 3 Monate, bei postthrombotischem Syndrom länger), Mobilisation statt Bettruhe, Analgesie; ambulante Behandlung der unkomplizierten TVT möglich, Lungenembolie mit Rechtsherzbelastung stationär',
+            'Schwangerschaft: ausschließlich NMH in therapeutischer Dosis (VKA teratogen, DOAK kontraindiziert), Fortführung bis 6 Wochen post partum; Stillzeit: Warfarin oder NMH möglich',
+            'Bei hämodynamisch instabiler Lungenembolie systemische Lyse mit rtPA 100 mg über 2 Stunden unter unfraktioniertem Heparin; bei Kontraindikation gegen Antikoagulation Vena-cava-Filter',
+            'Risikofaktoren abstellen: Östrogenpille absetzen und auf gestagenhaltige oder nicht-hormonelle Verhütung umstellen, Rauchstopp, Thrombophilie-Diagnostik nur bei Konsequenz; PFO als Ursache einer paradoxen Embolie bedenken',
+          ],
+        },
+        {
+          label: 'Thromboseprophylaxe stationär, bei Fraktur und Immobilisation',
+          items: [
+            'Jeder immobilisierte Patient und jeder Patient mit Gips oder Orthese der unteren Extremität (Sprunggelenk-, Unterschenkelfraktur) erhält für die Dauer der Immobilisation eine medikamentöse Thromboseprophylaxe — in drei Protokollen war „Heparin“ die entscheidende Antwort, Analgetika allein wurden sanktioniert',
+            'Standard: niedermolekulares Heparin s.c. einmal täglich, z. B. Enoxaparin 40 mg (mittleres und hohes Risiko) bzw. 20 mg (niedriges Risiko oder Clearance < 30 ml/min), Dalteparin 5000 IE, Certoparin 3000 IE; Beginn präoperativ am Vorabend oder 6–12 Stunden postoperativ, bei internistischen Patienten bei Aufnahme',
+            'Alternativen: Fondaparinux 2,5 mg s.c. einmal täglich (auch bei bekannter Thrombophilie wie Faktor-V-Leiden nach Rücksprache und bei HIT-Anamnese; kontraindiziert bei Clearance < 20 ml/min); unfraktioniertes Heparin 3 × 5000 IE s.c. bei schwerer Niereninsuffizienz; nach Hüft- oder Knieendoprothese auch Rivaroxaban 10 mg, Apixaban 2 × 2,5 mg oder Dabigatran 220 mg oral',
+            'Basismaßnahmen immer: Frühmobilisation, Bewegungsübungen im Bett, ausreichende Flüssigkeitszufuhr, medizinische Thromboseprophylaxestrümpfe, intermittierende pneumatische Kompression bei Kontraindikation gegen Heparin',
+            'Dauer: bis zur vollen Mobilisation; nach Hüftendoprothese und hüftnaher Fraktur 28–35 Tage, nach Knieendoprothese 11–14 Tage, nach großer abdominopelviner Tumorchirurgie 4 Wochen; internistisch 6–14 Tage',
+            'Vor Beginn Thrombozyten und Kreatinin bestimmen; unter UFH und postoperativ unter NMH Thrombozytenkontrolle zwischen Tag 5 und 14 (HIT II); bei Thrombophilie oder Z. n. Thrombose zusätzlich Gerinnungsparameter (Quick, aPTT, ggf. Faktor-V-Leiden-Status) erfragen und dokumentieren',
+            'Bei bereits laufender oraler Antikoagulation (DOAK, Marcumar) keine zusätzliche NMH-Prophylaxe — Doppelantikoagulation vermeiden; bei pausiertem DOAK prophylaktisches NMH bis zur Wiederaufnahme',
+          ],
+        },
+        {
+          label: 'Thrombozytenaggregationshemmung bei KHK, nach Stent, bei pAVK',
+          items: [
+            'Chronisches Koronarsyndrom: ASS 100 mg lebenslang (bei Unverträglichkeit Clopidogrel 75 mg); nach elektiver PTCA mit Stent duale Plättchenhemmung ASS 100 mg plus Clopidogrel 75 mg für 6 Monate (bei hohem Blutungsrisiko 1–3 Monate), danach ASS allein',
+            'Akutes Koronarsyndrom: Aufsättigung mit ASS 150–300 mg und einem P2Y12-Hemmer (Ticagrelor 180 mg, Prasugrel 60 mg vor PCI, Clopidogrel 600 mg als Reserve) plus parenterale Antikoagulation (unfraktioniertes Heparin 70–100 IE/kg bei PCI, Fondaparinux 2,5 mg bei konservativem NSTEMI); danach DAPT für 12 Monate (Ticagrelor 2 × 90 mg oder Prasugrel 10 mg, 5 mg ab 75 Jahren oder unter 60 kg; Prasugrel kontraindiziert nach Schlaganfall/TIA), dann ASS 100 mg lebenslang. Antwort auf „Was nach PTCA?“: duale Thrombozytenaggregationshemmung, nicht Antikoagulation',
+            'Vorhofflimmern plus Stent: Triple-Therapie (DOAK + ASS + Clopidogrel) nur für 1 Woche bis 1 Monat, dann DOAK plus Clopidogrel bis 12 Monate, danach DOAK allein; Ticagrelor und Prasugrel nicht in der Triple-Therapie',
+            'pAVK: ASS 100 mg oder Clopidogrel 75 mg lebenslang, nach Revaskularisation DAPT für 1–6 Monate; bei hohem ischämischem Risiko Rivaroxaban 2 × 2,5 mg plus ASS (COMPASS-Schema); Statin, Gehtraining, Rauchstopp; bei Wunde zusätzlich Wundversorgung und Revaskularisation',
+            'Immer Magenschutz mit PPI unter DAPT oder Kombination mit Antikoagulation, Ulkus- und Blutungsanamnese; NSAR meiden (heben die ASS-Wirkung auf und erhöhen das Blutungsrisiko)',
+            'Perioperativ: ASS in der Sekundärprophylaxe möglichst fortführen (Ausnahme intrakranielle, spinale, hintere Augenkammer- und transurethrale Prostataeingriffe), P2Y12-Hemmer vor großen Eingriffen pausieren — Clopidogrel und Ticagrelor 5 Tage, Prasugrel 7 Tage; elektive Eingriffe nicht innerhalb der DAPT-Phase nach Stent planen (mindestens 1 Monat nach elektivem Stent, 6 Monate nach ACS), bei zwingender Operation Kardiologie einbinden',
+          ],
+        },
+        {
+          label: 'Perioperatives Management und Bridging: wann pausieren, wie lange, wann überbrücken',
+          items: [
+            'Drei Fragen klären: Blutungsrisiko des Eingriffs (niedrig/hoch), Thromboembolierisiko des Patienten (niedrig/hoch), Substanz und Nierenfunktion. Eingriffe mit niedrigem Blutungsrisiko (diagnostische Gastroskopie oder Koloskopie ohne große Polypektomie, Zahnextraktion bis 3 Zähne, Katarakt, Hautexzision) brauchen keine Pause der oralen Antikoagulation',
+            'Vitamin-K-Antagonist vor Eingriff mit hohem Blutungsrisiko: Phenprocoumon etwa 7 Tage vorher absetzen (Warfarin 5 Tage), INR am Vortag kontrollieren, Ziel < 1,5; falls nicht erreicht, Vitamin K 1–2,5 mg oral; Wiederbeginn am Abend des Operationstages oder am 1. postoperativen Tag, sobald Hämostase gesichert',
+            'Bridging mit NMH NUR bei hohem Thromboembolierisiko (mechanische Mitralklappe, mechanische Aortenklappe mit Zusatzrisiko, Schlaganfall oder venöse Thromboembolie in den letzten 3 Monaten, schwere Thrombophilie, CHA2DS2-VASc ≥ 6–7): therapeutisch dosiertes NMH ab INR < 2 (meist 3–4 Tage nach Absetzen), letzte therapeutische Gabe 24 Stunden vor dem Eingriff, postoperativ Wiederbeginn nach 24–72 Stunden je nach Blutungsrisiko und Fortführung bis INR ≥ 2. Bei Vorhofflimmern ohne diese Kriterien KEIN Bridging — die BRIDGE-Studie zeigte keinen Nutzen, aber mehr Blutungen (3,2 % vs. 1,3 %); nur prophylaktisches NMH während der Pause',
+            'DOAK: kein Bridging, weil kurze Halbwertszeit — Pause vor niedrigem Blutungsrisiko ≥ 24 Stunden (letzte Dosis am Vortag, bei einmal täglicher Gabe Morgendosis weglassen), vor hohem Blutungsrisiko ≥ 48 Stunden; Dabigatran länger nach Nierenfunktion (Clearance ≥ 80: 24/48 h, 50–79: 36/72 h, 30–49: 48/96 h); rückenmarknahe Anästhesie 48–72 Stunden. Wiederbeginn 24 Stunden nach Eingriffen mit niedrigem und 48–72 Stunden nach hohem Blutungsrisiko, dazwischen prophylaktisches NMH',
+            'Gastroskopie: diagnostisch keine Pause (VKA mit INR im Zielbereich, DOAK ohne Morgendosis); Koloskopie mit Polypektomie über 1 cm, ERCP mit Sphinkterotomie, PEG oder endosonographischer Punktion: VKA 5 Tage vorher pausieren, INR < 1,5, DOAK letzte Dosis mindestens 48 Stunden vorher (Dabigatran bei Clearance 30–50 ml/min 72 Stunden); kleine Polypen unter 1 cm mit kalter Schlinge ohne Pause möglich',
+            'Zahnextraktion: VKA fortführen, wenn INR ≤ 3,5 (am Vortag messen), DOAK fortführen oder Morgendosis auf nach dem Eingriff verschieben; lokale Blutstillung mit Kompression, Naht, Tranexamsäure-Mundspülung 5 % für 2 Tage; NSAR meiden',
+            'Heparine vor rückenmarknaher Punktion oder Katheterentfernung: prophylaktisches NMH 12 Stunden, therapeutisches NMH 24 Stunden, UFH s.c. 4 Stunden, Fondaparinux 36–42 Stunden vorher; nächste Gabe frühestens 4 Stunden nach Punktion',
+            'Notfalloperation unter Antikoagulation: VKA mit PPSB 25–50 IE/kg plus Vitamin K 10 mg i.v.; Dabigatran mit Idarucizumab 5 g; Faktor-Xa-Hemmer mit Andexanet alfa oder PPSB; Anti-Xa-Spiegel bzw. INR bestimmen, Anästhesie und Chirurgie informieren',
+          ],
+        },
+        {
+          label: 'Vorgehen bei Blutung unter Antikoagulation und Plättchenhemmung',
+          items: [
+            'Sofort: Antikoagulans absetzen, Zeitpunkt der letzten Einnahme und Nierenfunktion klären, zwei großlumige Zugänge, Volumen, Monitoring; Labor mit Blutbild, Quick/INR, aPTT, Thrombinzeit, Fibrinogen, Anti-Xa-Spiegel, Kreatinin, Blutgruppe und Kreuzblut; Erythrozytenkonzentrate restriktiv ab Hb < 7 g/dl (bei KHK < 8 g/dl) nach Blutgruppenbestimmung und Kreuzprobe',
+            'Lokale Blutstillung hat Vorrang: Kompression, Nasentamponade, chirurgische oder endoskopische Versorgung; bei oberer GI-Blutung PPI 80 mg i.v. Bolus, dann 8 mg/h, ÖGD innerhalb von 24 Stunden (bei Instabilität sofort); bei Varizenblutung Terlipressin und Antibiotikaprophylaxe mit Ceftriaxon, Ligatur; Tranexamsäure 1 g i.v. bei traumatischer oder schwerer Blutung',
+            'Vitamin-K-Antagonist: leichte Blutung oder INR 5–8 ohne Blutung — Marcumar pausieren, INR kontrollieren; INR > 8 ohne Blutung oder jede relevante Blutung — Vitamin K (Phytomenadion) 5–10 mg oral oder langsam i.v. (Wirkung nach 6–12 Stunden, i.v. schneller); lebensbedrohliche oder intrakranielle Blutung — zusätzlich PPSB 25–50 IE/kg i.v. (Faustformel: kg × gewünschter Quick-Anstieg in % = IE; sofortige Wirkung) und Vitamin K 10 mg i.v.; FFP nur als Ersatz, wenn PPSB nicht verfügbar. Cave: nach Vitamin K ist der Patient tagelang schwer neu einzustellen',
+            'Dabigatran: Idarucizumab (Praxbind) 2 × 2,5 g i.v. innerhalb weniger Minuten, zusätzlich Hämodialyse möglich (nur Dabigatran ist dialysierbar); Aktivkohle bei Einnahme vor weniger als 2–4 Stunden',
+            'Apixaban, Rivaroxaban, Edoxaban: Andexanet alfa (Bolus und Infusion, zugelassen für Apixaban und Rivaroxaban) oder — in den meisten Häusern verfügbar — PPSB 25–50 IE/kg; Aktivkohle bei kurz zurückliegender Einnahme; keine Dialyse (hohe Eiweißbindung); Halbwertszeit von etwa 12 Stunden abwarten, Nierenfunktion bestimmt die Dauer',
+            'Heparin: UFH stoppen (Halbwertszeit 1–2 Stunden) und Protamin 1 ml (1000 IE) pro 1000 IE Heparin der letzten 2–3 Stunden, langsam i.v.; NMH nur zu etwa 60 % antagonisierbar (1 mg Protamin pro 1 mg Enoxaparin); Fondaparinux kein Antidot, ggf. rekombinanter Faktor VIIa',
+            'Thrombozytenaggregationshemmer: bei lebensbedrohlicher Blutung Thrombozytenkonzentrate (wirken unter ASS, Clopidogrel und Prasugrel, NICHT unter Ticagrelor, weil zirkulierender reversibler Wirkstoff auch die transfundierten Plättchen hemmt), Desmopressin 0,3 µg/kg i.v.; Absetzen nach Stent nur nach Rücksprache mit der Kardiologie (Stentthrombose)',
+            'Nach der Blutung: Ursache abklären (jede Blutung als demaskierte Läsion), Blutungsrisiko senken (PPI, NSAR absetzen, Blutdruck, Alkohol), Antikoagulation bei fortbestehender Indikation wieder aufnehmen — nach GI-Blutung meist nach 7 Tagen, nach intrakranieller Blutung nach 4–8 Wochen interdisziplinär; Umstellung von VKA auf DOAK oder Dosisreduktion prüfen, Vorhofohrverschluss bei rezidivierenden Blutungen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Heparin-induzierte Thrombozytopenie Typ II',
+          items: [
+            'Bei Thrombozytenabfall über 50 % zwischen Tag 5 und 14 oder neuer Thrombose unter Heparin: 4T-Score, sofort ALLE Heparine stoppen (auch NMH, Spüllösungen, heparinbeschichtete Katheter), keine Thrombozytentransfusion',
+            'Alternative Antikoagulation in therapeutischer Dosis auch ohne Thrombose: Argatroban i.v. (aPTT-gesteuert, hepatische Elimination — bei Niereninsuffizienz geeignet), Danaparoid oder Fondaparinux (off-label), später DOAK',
+            'Vitamin-K-Antagonist erst nach Thrombozytenerholung über 150 000/µl unter überlappender alternativer Antikoagulation (sonst venöse Gangrän durch Protein-C-Abfall); HIT im Allergiepass dokumentieren — lebenslang kein Heparin; Diagnose durch PF4/Heparin-ELISA und HIPA-Test bestätigen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Umstellung zwischen Antikoagulanzien',
+          items: [
+            'Vitamin-K-Antagonist → DOAK: Marcumar absetzen, INR kontrollieren, DOAK beginnen, sobald INR < 2 (Rivaroxaban laut Fachinformation ≤ 3, Edoxaban ≤ 2,5) — bei Phenprocoumon oft erst nach 7–10 Tagen, dazwischen ggf. NMH-Prophylaxe',
+            'DOAK → Vitamin-K-Antagonist: Marcumar überlappend beginnen und DOAK erst absetzen, wenn INR ≥ 2 (INR unmittelbar vor der nächsten DOAK-Dosis messen, weil Rivaroxaban/Edoxaban die INR verfälschen); bei Dabigatran je nach Clearance 1–3 Tage vor dem Absetzen mit VKA beginnen',
+            'NMH → DOAK: DOAK zum Zeitpunkt der nächsten fälligen NMH-Gabe starten; UFH → DOAK: unmittelbar nach Stopp des Perfusors; DOAK → parenterale Antikoagulation: zum Zeitpunkt der nächsten fälligen DOAK-Dosis',
+            'NMH → Vitamin-K-Antagonist (klassisches Bridging bei TVT): beide mindestens 5 Tage parallel, NMH stoppen bei INR ≥ 2 an zwei aufeinanderfolgenden Tagen',
+            'Wechsel zwischen DOAK: zum Zeitpunkt der nächsten fälligen Dosis; Indikationsprüfung bei jeder Umstellung — DOAK niemals bei mechanischer Klappe, dort Rückumstellung auf VKA mit INR-Ziel je nach Klappentyp (Aortenklappe 2–3, Mitralklappe 2,5–3,5), ggf. plus ASS 100 mg',
+          ],
+        },
+        {
+          label: 'Aufklärung und Schulung des antikoagulierten Patienten',
+          items: [
+            'Ausweis: Marcumar-Ausweis mit INR-Werten und Zielbereich bzw. DOAK-Patientenausweis immer mitführen und bei jedem Arzt-, Zahnarzt- und Klinikkontakt vorlegen; regelmäßige INR-Kontrollen (anfangs wöchentlich, dann alle 2–4 Wochen) oder INR-Selbstmessung nach Schulung',
+            'Keine Selbstmedikation: NSAR (Ibuprofen, Diclofenac, Naproxen, hochdosiertes ASS) meiden — Paracetamol oder Metamizol als Schmerzmittel; jedes neue Medikament, insbesondere Antibiotika, Antimykotika, Amiodaron, Johanniskraut und Rifampicin, mit dem Arzt besprechen; keine intramuskulären Injektionen, Impfungen s.c. oder i.m. mit dünner Nadel und Kompression',
+            'Ernährung unter Marcumar: Vitamin-K-reiche Lebensmittel (Kohl, Spinat, Brokkoli, Salat) nicht meiden, sondern KONSTANT verzehren; Alkohol nur in geringen Mengen und regelmäßig, kein Exzess; Durchfall, Erbrechen und Fieber erhöhen die INR — dann früher kontrollieren',
+            'DOAK: feste Einnahmezeiten, Rivaroxaban zum Essen; vergessene Dosis bei zweimal täglicher Gabe innerhalb von 6 Stunden nachholen, bei einmal täglicher innerhalb von 12 Stunden, nie doppelt nehmen; kurze Halbwertszeit bedeutet Schutzverlust nach 1–2 ausgelassenen Dosen; jährliche Nierenwertkontrolle',
+            'Blutungszeichen erkennen und sofort melden: schwarzer Stuhl, Blut im Urin, Bluterbrechen, Nasenbluten über 20 Minuten, große Blutergüsse, plötzlicher starker Kopfschmerz; nach Sturz auf den Kopf immer ärztliche Vorstellung (CCT), auch ohne Beschwerden',
+            'Sturzprophylaxe (Sehhilfe, Gehhilfe, Stolperfallen, Schuhwerk), Vorsicht bei Kontaktsportarten, elektrischer Rasierer und weiche Zahnbürste; Antikoagulation nie eigenmächtig absetzen — vor Operationen, Endoskopien und Zahneingriffen rechtzeitig Rücksprache, Absetz- und Bridging-Plan schriftlich mitgeben',
+            'Schwangerschaftswunsch oder Schwangerschaft sofort mitteilen (VKA und DOAK kontraindiziert, Umstellung auf NMH); unter Antikoagulation sichere Verhütung ohne Östrogene; nach Thrombose oder Vorhofflimmern die geplante Dauer und das Warum der Therapie erklären, um die Adhärenz zu sichern',
+          ],
+        },
+      ],
+      prognose: 'Die orale Antikoagulation senkt das Schlaganfallrisiko bei Vorhofflimmern um etwa zwei Drittel (relative Risikoreduktion 64 % unter VKA, DOAK vergleichbar wirksam bei etwa halbiertem Risiko intrakranieller Blutungen) und das Rezidivrisiko venöser Thromboembolien um 80–90 %. Der Preis sind schwere Blutungen bei 2–3 % der Patienten pro Jahr, davon intrakranielle Blutungen bei 0,3–0,6 % pro Jahr — das Risiko steigt mit HAS-BLED, Alter, Niereninsuffizienz und Kombinationstherapien. Unter VKA ist die Prognose direkt an die Zeit im INR-Zielbereich gebunden (angestrebt über 70 %); jede fünfte schwere Blutung ist Folge einer Interaktion oder Fehldosierung. Nach unprovozierter Thrombose beträgt das Rezidivrisiko nach Absetzen etwa 10 % im ersten Jahr und 30 % nach 5 Jahren, nach provozierter Thrombose unter 3 % pro Jahr — daher die unterschiedliche Therapiedauer. Die HIT II ist unbehandelt mit Thrombosen bei bis zu 50 % und einer Letalität von 5–10 % verbunden, unter alternativer Antikoagulation gut beherrschbar. Nach Stentimplantation ist die frühzeitige Beendigung der dualen Plättchenhemmung die wichtigste vermeidbare Ursache der Stentthrombose (Letalität bis 40 %). Entscheidend für den Verlauf sind Adhärenz, regelmäßige Kontrolle der Nierenfunktion, konsequente Vermeidung von NSAR und ein strukturiertes perioperatives Management.',
+      pruefungsfallen: [
+        '„Blutverdünner“ ist kein Fachbegriff: ASS ist ein Thrombozytenaggregationshemmer, kein Antikoagulans. Bei „ASS 100 mg 1-0-0“ immer fragen, weswegen — der Prüfer in Stuttgart bemängelte genau das. Ein Z. n. TVT wird nicht mit ASS behandelt.',
+        'Nach einer Fraktur mit Gips oder Immobilisation lautet die erwartete Antwort „Thromboseprophylaxe mit niedermolekularem Heparin s.c.“ — in Reutlingen, Karlsruhe und Stuttgart wurde bestraft, wer nur Analgetika nannte. Bei bekannter Thrombophilie (Faktor-V-Leiden) zusätzlich nach früheren Thrombosen fragen und ggf. Fondaparinux nennen.',
+        '„Was nach PTCA?“ heißt duale Thrombozytenaggregationshemmung (ASS + Clopidogrel bzw. Ticagrelor/Prasugrel), nicht „Antikoagulation“; „was zuerst, PTCA oder Belastungs-EKG?“ — beim ACS die PTCA, ein Belastungs-EKG ist im akuten Koronarsyndrom kontraindiziert.',
+        'Die Dauer der Antikoagulation nach TVT nicht mit „3 Monate“ abhaken: 3 Monate nur bei klar provozierter Thrombose; unprovoziert mindestens 3–6 Monate mit Tendenz zur verlängerten Therapie (Karlsruher Oberarzt: „1 Jahr wäre besser“), bei Malignom oder Rezidiv unbefristet.',
+        'Bridging ist die Ausnahme, nicht die Regel: bei Vorhofflimmern ohne Hochrisikomerkmale kein NMH-Bridging (BRIDGE-Studie), DOAK werden nie gebridgt. Bridging erwarten die Prüfer bei mechanischer Mitralklappe, frischer Thromboembolie (< 3 Monate) und schwerer Thrombophilie — und als Begriff bei der NMH-Marcumar-Überlappung nach TVT.',
+        'DOAK und mechanische Herzklappe ist ein Kunstfehler (RE-ALIGN-Studie: mehr Thrombosen UND Blutungen) — ebenso DOAK bei mittel- bis hochgradiger Mitralstenose und in der Schwangerschaft. Dort ausschließlich Marcumar bzw. in der Schwangerschaft NMH.',
+        'Marcumar-Antidot vollständig nennen: Vitamin K (Phytomenadion) wirkt erst nach 6–12 Stunden — bei lebensbedrohlicher Blutung sofort PPSB 25–50 IE/kg dazu. Dabigatran: Idarucizumab; Faktor-Xa-Hemmer: Andexanet alfa oder PPSB. Heparin: Protamin.',
+        'Die Nierenfunktion nach Cockcroft-Gault ist die Schaltstelle: Dabigatran unter 30 ml/min kontraindiziert, alle DOAK unter 15 ml/min; NMH bei Clearance < 30 ml/min auf 1 mg/kg einmal täglich reduzieren oder auf UFH mit aPTT wechseln. Wer eine Dosis nennt, muss die Nierenanpassung mitnennen.',
+        'Vor einer diagnostischen Gastroskopie muss die Antikoagulation NICHT pausiert werden; vor Koloskopie mit Polypektomie, ERCP mit Papillotomie oder Operation: VKA etwa 5–7 Tage vorher absetzen (INR < 1,5), DOAK 48 Stunden vorher (Dabigatran bei Niereninsuffizienz länger).',
+        'Nach TIA/Schlaganfall bei Vorhofflimmern wurde „voll heparinisieren und Marcumar“ akzeptiert — die leitliniengerechte Antwort ist die orale Antikoagulation mit einem DOAK nach der 1-3-6-12-Regel ohne therapeutische Heparinisierung. Beides kennen, die moderne Antwort geben und die Diagnostik (EKG, Langzeit-EKG, Echo, Karotisduplex) mitnennen.',
+        'HIT II nicht mit HIT I verwechseln: Typ II ab Tag 5, Abfall über 50 %, paradoxe Thrombosen — Heparin in JEDER Form stoppen und mit Argatroban weiter antikoagulieren; keine Thrombozytentransfusion.',
+        'Jede Blutung unter Antikoagulation ist eine demaskierte Läsion: Hämaturie und Meläna auch bei INR im Zielbereich endoskopisch bzw. urologisch abklären. Bei GI-Blutung: Blutgruppe und Kreuzblut, Gerinnungsparameter, PPI, ÖGD — das war die erwartete Reihenfolge in Reutlingen und Freiburg.',
+        'Bei Leberzirrhose sind Quick/INR erhöht und Thrombozyten erniedrigt — das ist kein Blutungsschutz, sondern ein Synthesedefekt; die Frage „welche Gerinnungsparameter?“ zielt auf Quick/INR, Thrombozyten und Albumin (Child-Pugh).',
+        'Fachbegriffe vor dem Patienten übersetzen: Antikoagulation = Blutverdünnung/Gerinnungshemmung, Thrombozyten = Blutplättchen, Thromboembolie = Verschleppung eines Blutgerinnsels, Hämorrhagie = Blutung, INR = Gerinnungswert, Bridging = vorübergehende Überbrückung mit Heparinspritzen.',
+        'Aufklärung nicht vergessen: Ausweis, keine NSAR, keine i.m.-Injektionen, Blutungszeichen, Sturz auf den Kopf → CCT, Vitamin-K-Kost konstant (nicht meiden), Alkohol maßvoll, vor jedem Eingriff Rücksprache.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was für Medikamente soll der Patient nach einer PTCA mit Stent einnehmen?',
+          antwort: 'Eine duale Thrombozytenaggregationshemmung: ASS 100 mg lebenslang plus einen P2Y12-Hemmer — nach elektiver Stentimplantation Clopidogrel 75 mg für 6 Monate, nach akutem Koronarsyndrom Ticagrelor 2 × 90 mg oder Prasugrel 10 mg für 12 Monate, bei hohem Blutungsrisiko verkürzt auf 1–3 Monate. Dazu ein Statin in hoher Dosis, Betablocker und ACE-Hemmer sowie Magenschutz mit einem PPI. Eine Antikoagulation ist nach PTCA nur nötig, wenn zusätzlich Vorhofflimmern besteht — dann Triple-Therapie für maximal 1 Monat, danach DOAK plus Clopidogrel.',
+        },
+        {
+          frage: 'Was würden Sie beim akuten Koronarsyndrom zuerst erledigen, PTCA oder Belastungs-EKG?',
+          antwort: 'Die PTCA. Beim akuten Koronarsyndrom ist das Belastungs-EKG kontraindiziert, weil es einen Infarkt provozieren kann. Der Patient erhält ASS 250–500 mg i.v., einen P2Y12-Hemmer als Aufsättigung, unfraktioniertes Heparin 70–100 IE/kg und wird zur Koronarangiographie gebracht — beim STEMI innerhalb von 120 Minuten, beim NSTEMI je nach Risiko innerhalb von 24–72 Stunden. Das Belastungs-EKG gehört in die Abklärung der stabilen Angina pectoris.',
+        },
+        {
+          frage: 'Welche therapeutischen Maßnahmen ordnen Sie bei einer tiefen Venenthrombose an?',
+          antwort: 'Sofortige therapeutische Antikoagulation, bereits bei hoher klinischer Wahrscheinlichkeit vor der Duplexsonographie: niedermolekulares Heparin gewichtsadaptiert, z. B. Enoxaparin 1 mg/kg s.c. alle 12 Stunden, bei Kreatinin-Clearance unter 30 ml/min 1 mg/kg einmal täglich; alternativ Vollheparinisierung mit unfraktioniertem Heparin i.v. unter aPTT-Kontrolle mit Ziel dem 1,5- bis 2,5-Fachen bei Niereninsuffizienz. Heute gleichwertig ein DOAK direkt oral: Rivaroxaban 2 × 15 mg für 3 Wochen, dann 20 mg, oder Apixaban 2 × 10 mg für 7 Tage, dann 2 × 5 mg. Dazu Kompressionstherapie, Mobilisation, Analgesie und das Absetzen auslösender Faktoren wie der Östrogenpille.',
+        },
+        {
+          frage: 'Was können wir machen, um die Patientin mit TVT auf die Entlassung vorzubereiten?',
+          antwort: 'Die Überleitung auf eine orale Antikoagulation. Klassisch das Bridging zum Marcumar: Phenprocoumon überlappend mit dem NMH beginnen, beide mindestens 5 Tage parallel, NMH absetzen, sobald die INR an zwei aufeinanderfolgenden Tagen zwischen 2 und 3 liegt; Marcumar-Ausweis, INR-Kontrollen beim Hausarzt und Aufklärung über Interaktionen. Einfacher heute die Umstellung auf ein DOAK zum Zeitpunkt der nächsten fälligen NMH-Gabe. Dazu Kompressionsstrumpf Klasse II, Aufklärung über Blutungszeichen und Rezidivsymptome, Verhütung ohne Östrogene und die Festlegung der Therapiedauer.',
+        },
+        {
+          frage: 'Wie lange sollte die Patientin Marcumar einnehmen?',
+          antwort: 'Bei einer provozierten Thrombose — etwa nach Operation, Immobilisation oder langem Flug unter Östrogenpille — mindestens 3 Monate. Bei einer unprovozierten proximalen TVT oder Lungenembolie mindestens 3–6 Monate mit anschließender Nutzen-Risiko-Bewertung; wegen des hohen Rezidivrisikos von etwa 10 % im ersten Jahr wird dann meist verlängert antikoaguliert, in Karlsruhe wollte der Oberarzt ausdrücklich „ein Jahr“ hören. Bei Rezidivthrombose, aktivem Malignom, Antiphospholipid-Syndrom oder schwerer Thrombophilie zeitlich unbefristet; bei Tumorpatienten bevorzugt NMH oder ein DOAK, solange der Tumor aktiv ist.',
+        },
+        {
+          frage: 'Welche Komplikationen der tiefen Venenthrombose können auftreten — und Schlaganfall in welchem Sonderfall?',
+          antwort: 'Akut die Lungenembolie mit Rechtsherzbelastung und Kreislaufstillstand, chronisch das postthrombotische Syndrom mit Ödem, Hyperpigmentierung und Ulcus cruris sowie die chronisch thromboembolische pulmonale Hypertonie. Ein Schlaganfall entsteht als paradoxe Embolie bei persistierendem Foramen ovale oder anderem Rechts-links-Shunt: Der venöse Thrombus gelangt unter Umgehung der Lunge in den Systemkreislauf. Unter der Antikoagulation selbst drohen Blutungen, unter Heparin die HIT II.',
+        },
+        {
+          frage: 'Welche Risikofaktoren für eine Thrombose hat die Patientin — und wie unterscheiden Sie TVT und pAVK bei der körperlichen Untersuchung?',
+          antwort: 'Erworbene Risikofaktoren: Immobilisation und langer Flug, Östrogenpille, Rauchen, arterielle Hypertonie und Adipositas als vaskuläre Risiken, dazu Alter, Malignom, Operation, Schwangerschaft und frühere Thrombosen; angeborene: Faktor-V-Leiden, Prothrombin-Mutation, Protein-C-, -S- und Antithrombin-Mangel. Die Unterscheidung von der pAVK gelingt einfach durch Puls fühlen: Bei der Thrombose ist das Bein warm, geschwollen und livide mit tastbaren Fußpulsen; beim arteriellen Verschluss ist es kalt, blass und pulslos. Zusätzlich sprechen Wadendruckschmerz, Fußsohlendruckschmerz und Umfangsdifferenz für die TVT, Claudicatio mit reproduzierbarer Gehstrecke für die pAVK.',
+        },
+        {
+          frage: 'Der Patient mit Sprunggelenkfraktur hat eine Faktor-V-Leiden-Mutation. Welche Labore veranlassen Sie, und welche Prophylaxe geben Sie?',
+          antwort: 'Die Gerinnungsparameter Quick/INR, aPTT, Thrombozyten und Fibrinogen als Ausgangswerte, dazu Kreatinin für die Dosierung und Blutbild; die APC-Resistenz ist bereits bekannt und muss nicht wiederholt werden. Anamnestisch unbedingt erfragen, ob schon einmal eine Thrombose aufgetreten ist und ob er derzeit ein Antikoagulans einnimmt. Die Faktor-V-Leiden-Mutation erhöht das Thromboserisiko heterozygot um das 5- bis 8-Fache, homozygot um das 50- bis 80-Fache. Deshalb erhält er für die gesamte Dauer der Immobilisation eine medikamentöse Thromboseprophylaxe: niedermolekulares Heparin, z. B. Enoxaparin 40 mg s.c. einmal täglich, oder — wie in Stuttgart erwartet — Fondaparinux 2,5 mg s.c. einmal täglich, dazu Frühmobilisation und Kompressionsstrumpf am gesunden Bein.',
+        },
+        {
+          frage: 'Welche Medikamente bekommt ein Patient mit Unterschenkel- oder Sprunggelenkfraktur?',
+          antwort: 'Neben der Analgesie nach WHO-Stufenschema — Metamizol oder Ibuprofen unter Magenschutz, bei starken Schmerzen Piritramid — ist die entscheidende Antwort das Heparin: Thromboseprophylaxe mit niedermolekularem Heparin s.c. einmal täglich, z. B. Enoxaparin 40 mg, für die gesamte Dauer der Immobilisation im Gips oder in der Orthese, auch ambulant. Dazu ggf. Antibiotikaprophylaxe bei offener Fraktur oder Osteosynthese, Tetanusschutz prüfen, Abschwellung durch Hochlagerung und Kühlung. Bei bekannter Gerinnungsstörung mit Thromboseneigung Rücksprache mit der Hämostaseologie und ggf. Fondaparinux.',
+        },
+        {
+          frage: 'Welche ist die Ursache für eine TIA, welche Therapie gegen Vorhofflimmern, und was machen wir jetzt?',
+          antwort: 'Die häufigste kardiale Ursache ist das Vorhofflimmern mit kardioembolischem Thrombus aus dem linken Vorhohr, daneben Karotisstenose, Arteriosklerose der Hirngefäße und Mikroangiopathie. Jetzt: neurologische Untersuchung, CCT oder MRT zum Blutungsausschluss, 12-Kanal- und Langzeit-EKG, Echokardiographie, Duplex der Karotiden, Labor mit Gerinnung, Blutzucker und Lipiden; ASS 100 mg bis zur Klärung. Bei nachgewiesenem Vorhofflimmern orale Antikoagulation zur Schlaganfallprophylaxe nach CHA2DS2-VASc — bevorzugt ein DOAK wie Apixaban 2 × 5 mg oder Rivaroxaban 20 mg, nach TIA ab Tag 1, nach Infarkt nach der 1-3-6-12-Regel; Marcumar mit INR 2–3 bei mechanischer Klappe oder Mitralstenose. Eine therapeutische Heparinisierung ist nicht mehr Standard, wird im Gespräch aber häufig als Antwort akzeptiert.',
+        },
+        {
+          frage: 'Was ist der Unterschied zwischen Marcumar und Xarelto?',
+          antwort: 'Marcumar (Phenprocoumon) ist ein Vitamin-K-Antagonist: Es hemmt indirekt die Synthese der Faktoren II, VII, IX und X in der Leber, wirkt erst nach 3–5 Tagen, hat eine Halbwertszeit von etwa 6 Tagen, braucht INR-Kontrollen mit Ziel 2–3, interagiert mit Nahrung und vielen Medikamenten, ist aber mit Vitamin K und PPSB antagonisierbar und bei mechanischer Klappe, Mitralstenose und schwerer Niereninsuffizienz das einzige zugelassene Mittel. Xarelto (Rivaroxaban) ist ein DOAK, hemmt direkt Faktor Xa, wirkt nach 2–4 Stunden, hat eine Halbwertszeit von 5–13 Stunden, wird in fester Dosis 20 mg zum Essen ohne Monitoring gegeben — 15 mg bei Clearance 15–49 ml/min, kontraindiziert unter 15 ml/min —, verursacht weniger intrakranielle Blutungen und wird mit Andexanet alfa oder PPSB antagonisiert. Bei Vorhofflimmern und Thrombose sind DOAK heute erste Wahl.',
+        },
+        {
+          frage: 'Der Patient nimmt Xarelto 20 mg. Was tun Sie vor der Gastroskopie?',
+          antwort: 'Vor einer rein diagnostischen Gastroskopie mit Biopsie muss Rivaroxaban nicht pausiert werden — allenfalls die Morgendosis am Untersuchungstag weglassen und nach dem Eingriff einnehmen; auch Marcumar läuft bei INR im Zielbereich weiter. Anders bei Eingriffen mit hohem Blutungsrisiko wie Polypektomie über 1 cm, ERCP mit Papillotomie oder PEG-Anlage: Rivaroxaban 48 Stunden vorher absetzen, also letzte Einnahme 2 Tage vor dem Eingriff, bei Niereninsuffizienz länger, Marcumar 5–7 Tage vorher mit INR-Ziel unter 1,5. Kein Bridging bei DOAK; Wiederbeginn 24–48 Stunden nach gesicherter Hämostase. Immer Nierenfunktion und Zeitpunkt der letzten Einnahme dokumentieren.',
+        },
+        {
+          frage: 'Der Patient ist antikoaguliert und hat eine Blutung — was tun Sie?',
+          antwort: 'Antikoagulans sofort absetzen, Kreislauf sichern mit zwei Zugängen und Volumen, Labor mit Blutbild, Quick/INR, aPTT, Kreatinin, Blutgruppe und Kreuzblut, lokale Blutstillung als Erstes — bei Meläna oder Hämatemesis PPI-Bolus 80 mg und ÖGD innerhalb von 24 Stunden. Substanzspezifisch: unter Marcumar Vitamin K 5–10 mg i.v. und bei lebensbedrohlicher Blutung PPSB 25–50 IE/kg mit sofortiger Wirkung; unter Dabigatran Idarucizumab 5 g i.v.; unter Rivaroxaban, Apixaban oder Edoxaban Andexanet alfa oder PPSB; unter Heparin Protamin; unter Thrombozytenaggregationshemmern Thrombozytenkonzentrate und Desmopressin. Erythrozytenkonzentrate ab Hb unter 7 g/dl nach Blutgruppe und Kreuzprobe, Tranexamsäure 1 g bei schwerer Blutung. Danach die Blutungsquelle abklären und die Antikoagulation nach etwa 7 Tagen wieder aufnehmen.',
+        },
+        {
+          frage: 'Was ist wichtig bei der Bluttransfusion, und welche Medikamente geben Sie bei einer oberen GI-Blutung?',
+          antwort: 'Vor jeder Transfusion Blutgruppe und Rhesusfaktor, Kreuzprobe und Bedside-Test am Patientenbett, zwei Zugänge, Aufklärung und Einwilligung, Überwachung auf Transfusionsreaktionen; restriktive Indikation ab Hb unter 7 g/dl, bei KHK unter 8 g/dl. Medikamentös einen Protonenpumpenhemmer, z. B. Pantoprazol 80 mg i.v. als Bolus, dann 8 mg/h oder 2 × 40 mg, bei Varizenverdacht Terlipressin und Ceftriaxon 2 g als Antibiotikaprophylaxe, Erythromycin vor der Endoskopie zur Magenentleerung; laufende Antikoagulation und NSAR pausieren, Gerinnung mit Vitamin K oder PPSB korrigieren, ÖGD innerhalb von 24 Stunden.',
+        },
+        {
+          frage: 'Welche Gerinnungsparameter prüfen Sie bei einer Leberzirrhose, und warum?',
+          antwort: 'Quick beziehungsweise INR als Maß der Lebersyntheseleistung — sie gehen in den Child-Pugh-Score ein —, die Thrombozyten, die durch den Hypersplenismus bei portaler Hypertonie erniedrigt sind, sowie Fibrinogen und Albumin. Eine erhöhte INR bei Zirrhose bedeutet keinen Schutz vor Thrombosen, weil gleichzeitig Protein C und S fehlen; das Blutungsrisiko entsteht vor allem durch Ösophagusvarizen und die Thrombozytopenie. Bei Verdacht auf Varizenblutung mit Hämatemesis: ÖGD, Terlipressin, Antibiotika, Ligatur. Bei nötiger Antikoagulation eignet sich die INR bei Zirrhose nicht zur Steuerung; NMH oder DOAK nur bei Child A/B.',
+        },
+        {
+          frage: 'Der Patient nimmt ASS 100 mg — weswegen, und ist das ein Blutverdünner?',
+          antwort: 'Weswegen muss man den Patienten fragen: In der Regel wegen einer KHK, eines Stents, einer pAVK oder eines früheren Schlaganfalls als Sekundärprophylaxe. ASS ist ein Thrombozytenaggregationshemmer, kein Antikoagulans: Es hemmt irreversibel die Cyclooxygenase-1 der Blutplättchen und damit die Thromboxanbildung für die gesamte Thrombozytenlebensdauer von 7–10 Tagen. Es schützt vor arteriellen Ereignissen, aber nicht vor kardioembolischem Schlaganfall bei Vorhofflimmern und nicht vor venösen Thrombosen — dafür ist eine Antikoagulation nötig. Für die Anamnese heißt das: Indikation klären, Blutungs- und Ulkusanamnese, keine NSAR kombinieren, perioperativ in der Regel fortführen.',
+        },
+        {
+          frage: 'Welche Patienten müssen vor einer Operation gebridgt werden?',
+          antwort: 'Bridging heißt, die Pause eines Vitamin-K-Antagonisten mit therapeutisch dosiertem NMH zu überbrücken. Das ist nur bei hohem Thromboembolierisiko gerechtfertigt: mechanische Mitralklappe, mechanische Aortenklappe alter Bauart oder mit Vorhofflimmern, Schlaganfall oder venöse Thromboembolie in den letzten 3 Monaten, schwere Thrombophilie wie Antiphospholipid-Syndrom, rheumatische Mitralstenose und Vorhofflimmern mit CHA2DS2-VASc ab 6–7. Praktisch: Marcumar 7 Tage vorher absetzen, ab INR unter 2 Enoxaparin 1 mg/kg alle 12 Stunden, letzte Gabe 24 Stunden vor dem Eingriff, postoperativ nach 24–72 Stunden wieder bis INR über 2. Beim gewöhnlichen Vorhofflimmern kein Bridging — die BRIDGE-Studie zeigte keinen Nutzen, aber 3,2 statt 1,3 % schwere Blutungen. DOAK werden nie gebridgt, sondern 24 bis 48 Stunden pausiert.',
+        },
+        {
+          frage: 'Wie stellen Sie die Dosis eines DOAK ein, und wann sind DOAK kontraindiziert?',
+          antwort: 'Nach Nierenfunktion, Alter und Gewicht. Apixaban 2 × 5 mg, reduziert auf 2 × 2,5 mg bei mindestens zwei von drei Kriterien — Alter ab 80 Jahren, Gewicht bis 60 kg, Kreatinin ab 1,5 mg/dl; Rivaroxaban 20 mg, 15 mg bei Clearance 15–49 ml/min; Edoxaban 60 mg, 30 mg bei Clearance 15–50 ml/min oder Gewicht bis 60 kg; Dabigatran 2 × 150 mg, 2 × 110 mg ab 80 Jahren oder unter Verapamil. Die Clearance wird nach Cockcroft-Gault berechnet und mindestens jährlich kontrolliert. Kontraindikationen: mechanische Herzklappe, mittel- bis hochgradige Mitralstenose, Clearance unter 15 ml/min für alle und unter 30 ml/min für Dabigatran, Schwangerschaft und Stillzeit, aktive Blutung, Triple-positives Antiphospholipid-Syndrom sowie starke CYP3A4- und P-Glykoprotein-Hemmer wie Ketoconazol oder Ritonavir.',
+        },
+        {
+          frage: 'Was ist eine HIT, und wie behandeln Sie sie?',
+          antwort: 'Die Heparin-induzierte Thrombozytopenie Typ II ist eine immunologische Reaktion mit Antikörpern gegen den Komplex aus Plättchenfaktor 4 und Heparin: Thrombozytenabfall über 50 % zwischen Tag 5 und 14, paradoxerweise mit venösen und arteriellen Thrombosen, häufiger unter unfraktioniertem als unter niedermolekularem Heparin. Diagnose über den 4T-Score, PF4/Heparin-ELISA und den HIPA-Funktionstest. Therapie: sofort alle Heparine stoppen, auch Spüllösungen und beschichtete Katheter, alternative Antikoagulation in therapeutischer Dosis mit Argatroban oder Danaparoid, keine Thrombozytentransfusion, Marcumar erst ab Thrombozyten über 150 000/µl überlappend beginnen, Eintrag in den Allergiepass — lebenslang kein Heparin. Die harmlose HIT I in den ersten 4 Tagen mit Abfall unter 30 % erfordert keine Maßnahme.',
+        },
+        {
+          frage: 'Worüber klären Sie einen Patienten auf, der neu auf Marcumar eingestellt wird?',
+          antwort: 'Über Wirkung und Ziel — Blutverdünnung zum Schutz vor Gerinnseln, INR-Zielbereich 2–3 mit regelmäßigen Kontrollen und Marcumar-Ausweis —, über Blutungszeichen wie schwarzen Stuhl, Blut im Urin, große Blutergüsse oder anhaltendes Nasenbluten, über das Vorgehen nach Sturz auf den Kopf mit sofortiger ärztlicher Vorstellung, über Interaktionen: keine Selbstmedikation mit Ibuprofen oder Diclofenac, jedes neue Medikament, vor allem Antibiotika, mit dem Arzt besprechen, keine intramuskulären Spritzen, Vitamin-K-reiche Kost wie Kohl und Spinat nicht meiden, sondern gleichmäßig essen, Alkohol nur maßvoll. Weiter: vor jeder Operation, Endoskopie und Zahnbehandlung rechtzeitig Bescheid geben, Marcumar nie eigenmächtig absetzen, bei Kinderwunsch sofort melden, weil Marcumar in der Schwangerschaft schädlich ist.',
+        },
+      ],
+      merksatz: '„Nehmen Sie Blutverdünner?“ — dann Substanz, Indikation und Niere klären: Marcumar = INR 2–3, langsam, Vitamin K + PPSB; DOAK = feste Dosis nach Niere, 12 Stunden Halbwertszeit, kein Bridging, nie bei mechanischer Klappe; Heparin = aPTT, NMH = 1 mg/kg alle 12 h, Protamin; ASS ist KEIN Antikoagulans. Fraktur → NMH-Prophylaxe, Vorhofflimmern → CHA2DS2-VASc, Stent → DAPT, Blutung → absetzen, Antidot, Endoskopie.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-elektrolytstoerungen',
+      pathology: 'Elektrolytstörungen (Kalium, Natrium, Kalzium)',
+      specialty: 'Allgemein',
+      definition: 'Elektrolytstörungen sind Abweichungen der Serumkonzentration der wichtigsten Blutsalze von ihrem Referenzbereich: Kalium 3,5–5,0 mmol/l, Natrium 135–145 mmol/l, Gesamtkalzium 2,2–2,65 mmol/l (ionisiertes Kalzium 1,15–1,30 mmol/l), Magnesium 0,75–1,05 mmol/l, Phosphat 0,8–1,45 mmol/l. Sie sind keine eigenständige Krankheit, sondern das Laborzeichen einer Grundstörung — Niereninsuffizienz, Diuretika, Erbrechen und Durchfall, Herzinsuffizienz, Leberzirrhose, SIADH, Tumorerkrankung, Alkoholabusus oder Mangelernährung. Klinisch entscheidend sind nicht nur der Absolutwert, sondern die Geschwindigkeit der Entstehung (akut unter 48 Stunden versus chronisch), die Symptome (EKG-Veränderungen, neurologische Zeichen) und die Regel, dass eine chronische Störung ebenso langsam korrigiert werden muss, wie sie entstanden ist. Die Hyponatriämie ist die häufigste Elektrolytstörung stationärer Patienten (15–30 %), die Hyperkaliämie die gefährlichste, weil sie ohne Vorwarnung zum Kammerflimmern führt.',
+      aetiologie: 'HYPERKALIÄMIE: verminderte renale Ausscheidung (akutes und chronisches Nierenversagen — mit Abstand häufigste Ursache; Morbus Addison, hyporeninämischer Hypoaldosteronismus des Diabetikers), Medikamente (ACE-Hemmer, Sartane, Spironolacton und Eplerenon, Amilorid, Triamteren, NSAR, Trimethoprim, Heparin, Ciclosporin, Digitalis-Intoxikation, Succinylcholin), Verschiebung aus der Zelle (metabolische Azidose, Insulinmangel, Rhabdomyolyse, Tumorlyse, Hämolyse, Verbrennung, Massivtransfusion) sowie die Pseudohyperkaliämie durch Hämolyse in der Probe, lange Stauung, Thrombozytose über 1 000/nl oder Leukozytose. HYPOKALIÄMIE: renaler Verlust (Schleifen- und Thiaziddiuretika, primärer Hyperaldosteronismus/Conn-Syndrom, Cushing, Lakritz, Bartter- und Gitelman-Syndrom, Hypomagnesiämie, Amphotericin B), gastrointestinaler Verlust (Erbrechen — vor allem über die Alkalose und den renalen Verlust —, Diarrhoe, Laxanzienabusus, Fisteln, Ileus), Verschiebung in die Zelle (Insulin, Beta-2-Mimetika, Alkalose, Refeeding, Theophyllin, hypokaliämische periodische Paralyse) und verminderte Zufuhr (Anorexie, Alkoholismus). HYPONATRIÄMIE: nach Volumenstatus — hypovoläm (Erbrechen, Diarrhoe, Thiazide, zerebrales Salzverlustsyndrom, Nebenniereninsuffizienz), euvoläm (SIADH bei kleinzelligem Bronchialkarzinom, Pneumonie, ZNS-Prozessen, Schmerz, postoperativ und durch SSRI, Carbamazepin, Antipsychotika, Cyclophosphamid, MDMA; Hypothyreose; primäre Polydipsie; Bier-Potomanie bei Alkoholikern; „Tea-and-Toast“-Diät alter Menschen) und hypervoläm (Herzinsuffizienz, Leberzirrhose, nephrotisches Syndrom, fortgeschrittene Niereninsuffizienz). Cave Pseudohyponatriämie bei Hyperlipidämie und Paraproteinämie sowie hypertone Hyponatriämie bei Hyperglykämie. HYPERNATRIÄMIE: fast immer Wasserverlust bei fehlendem Durstzugang — Exsikkose des alten oder dementen Menschen, Fieber, Diarrhoe, osmotische Diurese, zentraler oder nephrogener Diabetes insipidus (Lithium!); selten Salzzufuhr. HYPERKALZÄMIE: primärer Hyperparathyreoidismus (häufigste ambulante Ursache) und Tumorhyperkalzämie (häufigste stationäre Ursache: PTHrP bei Plattenepithel-, Mamma- und Nierenzellkarzinom, Osteolysen bei Mammakarzinom und Plasmozytom, Calcitriol bei Lymphomen) — zusammen 90 %; selten Sarkoidose, Vitamin-D-Intoxikation, Thiazide, Lithium, Immobilisation, Hyperthyreose, Milch-Alkali-Syndrom. HYPOKALZÄMIE: Hypoparathyreoidismus nach Thyreoidektomie oder Parathyreoidektomie (Hungry-Bone-Syndrom), Vitamin-D-Mangel und Malabsorption, chronische Niereninsuffizienz, Hypomagnesiämie, akute Pankreatitis, Rhabdomyolyse und Tumorlyse (Hyperphosphatämie), Citrat bei Massivtransfusion, Sepsis, Bisphosphonate und Denosumab; Pseudohypokalzämie bei Hypoalbuminämie. MAGNESIUM/PHOSPHAT: Alkoholabusus, Diuretika, Protonenpumpenhemmer, Diarrhoe und das Refeeding-Syndrom (Phosphat-, Kalium- und Magnesiumabfall nach Wiederernährung bei Mangelernährung, Anorexie, Alkoholismus).',
+      risikofaktoren: [
+        'Chronische Niereninsuffizienz und akutes Nierenversagen (Hyperkaliämie, Hypokalzämie, Hyperphosphatämie)',
+        'RAAS-Blocker (ACE-Hemmer, Sartane) in Kombination mit Spironolacton oder Eplerenon — besonders bei Herzinsuffizienz und Leberzirrhose („kaliumsparend“)',
+        'Schleifen- und Thiaziddiuretika (Hypokaliämie, Hyponatriämie, Hypomagnesiämie; Thiazide zusätzlich Hyperkalzämie)',
+        'Erbrechen, Diarrhoe, Laxanzien- und Diuretikaabusus (Hypokaliämie, Exsikkose)',
+        'Hohes Lebensalter mit vermindertem Durstgefühl, Demenz, Pflegebedürftigkeit (Hypernatriämie/Exsikkose, Thiazid-Hyponatriämie)',
+        'Alkoholabusus und Mangelernährung (Hypokaliämie, Hypomagnesiämie, Hypophosphatämie, Bier-Potomanie, Refeeding-Syndrom)',
+        'Herzinsuffizienz und Leberzirrhose mit Aszites (Verdünnungshyponatriämie, sekundärer Hyperaldosteronismus)',
+        'Tumorerkrankung, insbesondere Bronchial-, Mamma- und Nierenzellkarzinom sowie Plasmozytom (Hyperkalzämie, SIADH, Tumorlyse)',
+        'Psychopharmaka: SSRI, Carbamazepin, Antipsychotika (SIADH), Lithium (nephrogener Diabetes insipidus, Hyperkalzämie)',
+        'Diabetes mellitus mit Ketoazidose oder hyperosmolarem Syndrom (Kaliumverschiebung, osmotische Diurese, Hypernatriämie)',
+        'Zustand nach Schilddrüsen- oder Nebenschilddrüsenoperation (Hypokalzämie)',
+        'Digitalistherapie — Hypokaliämie und Hyperkalzämie erhöhen die Digitalistoxizität',
+      ],
+      klinik: [
+        {
+          text: 'Hyperkaliämie: lange asymptomatisch, dann Muskelschwäche, Parästhesien, Paresen, Bradykardie — die erste Manifestation kann das Kammerflimmern sein; EKG: hohe, spitze, zeltförmige T-Wellen, PQ-Verlängerung und P-Abflachung, QRS-Verbreiterung, Sinuswelle, Asystolie',
+        },
+        {
+          text: 'Hypokaliämie: Adynamie, Muskelschwäche bis zur Paralyse, Obstipation und paralytischer Ileus, Polyurie (renaler Konzentrationsdefekt); EKG: ST-Senkung, T-Abflachung, U-Welle, QT-(QU-)Verlängerung, Extrasystolen, Torsade de pointes, erhöhte Digitalisempfindlichkeit',
+        },
+        {
+          text: 'Hyponatriämie: über 125 mmol/l meist asymptomatisch; 120–125 mmol/l Übelkeit, Kopfschmerz, Konzentrationsstörung, Gangunsicherheit und Stürze; unter 120 mmol/l oder bei akuter Entwicklung Verwirrtheit, Somnolenz, Krampfanfall, Koma durch Hirnödem',
+        },
+        {
+          text: 'Hypernatriämie: Durst (fehlt beim alten Menschen!), trockene Schleimhäute, stehende Hautfalten, Oligurie, Tachykardie, Hypotonie; neurologisch Unruhe, Verwirrtheit, Somnolenz, Krampfanfall — die Schrumpfung des Gehirns kann Brückenvenen zerreißen',
+        },
+        {
+          text: 'Hyperkalzämie: „Stein, Bein und Magenpein“ — Nephrolithiasis und Polyurie, Knochenschmerzen, Übelkeit, Obstipation, Pankreatitis, Ulkus; dazu Müdigkeit, Depression, Verwirrtheit; EKG: QT-Verkürzung; Polyurie und Erbrechen treiben eine Exsikkose an, die das Kalzium weiter steigen lässt (Circulus vitiosus)',
+        },
+        {
+          text: 'Hypokalzämie: neuromuskuläre Übererregbarkeit mit periorale und akralen Parästhesien, Tetanie mit Pfötchenstellung, Chvostek-Zeichen (Zucken der Mundwinkel beim Beklopfen des N. facialis), Trousseau-Zeichen (Pfötchenstellung nach 3 Minuten Blutdruckmanschette 20 mmHg über dem systolischen Druck); EKG: QT-Verlängerung',
+        },
+        {
+          text: 'Hyperventilationstetanie: identische Tetanie-Symptomatik bei normalem Gesamtkalzium — die respiratorische Alkalose senkt nur das ionisierte Kalzium; typischerweise junge Patienten unter Angst und Stress',
+        },
+        {
+          text: 'Hypomagnesiämie: Tremor, Tetanie, Krampfanfälle, Rhythmusstörungen (Torsade), therapierefraktäre Hypokaliämie und Hypokalzämie',
+        },
+        {
+          text: 'Refeeding-Syndrom: 2–5 Tage nach Wiederernährung Hypophosphatämie mit Muskelschwäche, Herzinsuffizienz, Rhythmusstörungen, Verwirrtheit, respiratorischer Insuffizienz und Wernicke-Enzephalopathie bei Thiaminmangel',
+        },
+        {
+          text: 'Hyperkaliämie ohne jede EKG-Veränderung trotz Werten über 7 mmol/l bei chronischer Niereninsuffizienz — das EKG ist nicht sensitiv genug, um eine schwere Hyperkaliämie auszuschließen',
+          atypisch: true,
+        },
+        {
+          text: 'Sturz oder Delir als einzige Manifestation einer chronischen Hyponatriämie beim alten Menschen unter Thiaziden oder SSRI',
+          atypisch: true,
+        },
+        {
+          text: 'Hypokaliämische periodische Paralyse: anfallsartige schlaffe Lähmungen nach kohlenhydratreicher Mahlzeit oder Sport, familiär oder bei Hyperthyreose (v. a. asiatische Männer)',
+          atypisch: true,
+        },
+        {
+          text: 'Hyperkalzämische Krise als erstes Zeichen eines okkulten Karzinoms: Kalzium über 3,5 mmol/l mit Exsikkose, Erbrechen, Bewusstseinsstörung, Niereninsuffizienz',
+          atypisch: true,
+        },
+        {
+          text: 'Laryngospasmus, Bronchospasmus oder generalisierter Krampfanfall als Erstmanifestation einer schweren Hypokalzämie in den ersten 24–72 Stunden nach Thyreoidektomie',
+          atypisch: true,
+        },
+        {
+          text: 'Zentrale pontine Myelinolyse (osmotisches Demyelinisierungssyndrom) 2–6 Tage nach zu schneller Natriumkorrektur: Dysarthrie, Dysphagie, Tetraparese, Locked-in-Syndrom — iatrogen und irreversibel',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Schweregrade der Hyperkaliämie (nach Serumkalium)',
+          inhalt: 'Leicht: 5,1–5,9 mmol/l. Mittelschwer: 6,0–6,4 mmol/l. Schwer: ab 6,5 mmol/l oder jede EKG-Veränderung oder Symptome — unabhängig vom Absolutwert eine Notfalltherapie mit Membranstabilisierung. Vorher Pseudohyperkaliämie (Hämolyse, Stauung) durch unverzügliche Kontrolle in der Blutgasanalyse ausschließen.',
+        },
+        {
+          name: 'Schweregrade der Hypokaliämie',
+          inhalt: 'Leicht: 3,0–3,4 mmol/l (meist asymptomatisch, orale Substitution). Mittelschwer: 2,5–2,9 mmol/l. Schwer: unter 2,5 mmol/l oder EKG-Veränderungen, Rhythmusstörungen, Paresen oder Digitalistherapie — intravenöse Substitution unter Monitorüberwachung. Faustregel: 1 mmol/l unter dem Normwert entspricht einem Gesamtkörperdefizit von etwa 200–400 mmol.',
+        },
+        {
+          name: 'Hyponatriämie nach Schwere, Akuität und Symptomatik (Europäische Leitlinie)',
+          inhalt: 'Leicht 130–134 mmol/l, mittelschwer 125–129 mmol/l, schwer unter 125 mmol/l. Akut: Entstehung innerhalb von 48 Stunden (Hirnödem-Gefahr, schnellere Korrektur erlaubt); chronisch: länger als 48 Stunden oder unbekannt — im Zweifel immer als chronisch behandeln (Myelinolyse-Gefahr). Mittelschwere Symptome: Übelkeit, Verwirrtheit, Kopfschmerz; schwere Symptome: Erbrechen, Somnolenz, Krampfanfall, Koma, kardiorespiratorische Störung — schwere Symptome sind unabhängig vom Wert die Indikation für hypertone Kochsalzlösung.',
+        },
+        {
+          name: 'Hyponatriämie nach Osmolalität und Volumenstatus (diagnostischer Algorithmus)',
+          inhalt: 'Schritt 1 Serumosmolalität: isoton (Pseudohyponatriämie bei Hyperlipidämie, Paraprotein), hyperton (Hyperglykämie, Mannitol) oder hypoton unter 275 mOsm/kg (echte Hyponatriämie). Schritt 2 Urinosmolalität: unter 100 mOsm/kg = ADH supprimiert (primäre Polydipsie, Bier-Potomanie); über 100 mOsm/kg = ADH wirksam. Schritt 3 Volumenstatus und Urin-Natrium: hypovoläm mit Urin-Natrium unter 30 mmol/l (extrarenaler Verlust: Erbrechen, Diarrhoe) oder über 30 mmol/l (renaler Verlust: Diuretika, Nebenniereninsuffizienz, Salzverlust); euvoläm mit Urin-Natrium über 30 mmol/l (SIADH, Hypothyreose, Cortisolmangel); hypervoläm mit Ödemen (Herzinsuffizienz, Zirrhose, nephrotisches Syndrom — Urin-Natrium unter 30 mmol/l; Niereninsuffizienz — über 30 mmol/l).',
+        },
+        {
+          name: 'Hypernatriämie nach Volumenstatus',
+          inhalt: 'Hypovoläm (Wasser- und geringerer Salzverlust: Diarrhoe, Schwitzen, osmotische Diurese, Schleifendiuretika), euvoläm (reiner Wasserverlust: Diabetes insipidus centralis oder renalis, fehlende Zufuhr beim alten Menschen), hypervoläm (iatrogene Salzzufuhr: hypertone Infusionen, Natriumbikarbonat, Conn-Syndrom). Schwer ab 160 mmol/l.',
+        },
+        {
+          name: 'Schweregrade der Hyperkalzämie (albuminkorrigiertes Gesamtkalzium)',
+          inhalt: 'Leicht: 2,65–3,0 mmol/l (meist asymptomatisch, ambulante Abklärung). Mittelschwer: 3,0–3,5 mmol/l (Symptome, stationäre Therapie). Schwer/hyperkalzämische Krise: über 3,5 mmol/l oder symptomatisch mit Exsikkose, Erbrechen, Bewusstseinsstörung, Niereninsuffizienz — intensivmedizinischer Notfall mit Letalität bis 50 %. Korrekturformel: korrigiertes Kalzium = gemessenes Kalzium + 0,02 × (40 − Albumin in g/l).',
+        },
+        {
+          name: 'Hypokalzämie',
+          inhalt: 'Gesamtkalzium unter 2,2 mmol/l bzw. ionisiertes Kalzium unter 1,15 mmol/l; schwer und behandlungsbedürftig i.v. bei Gesamtkalzium unter 1,9 mmol/l, ionisiertem Kalzium unter 1,0 mmol/l, Tetanie, Krampfanfall, Laryngospasmus oder QT-Verlängerung. Ätiologisch nach PTH: PTH niedrig (Hypoparathyreoidismus postoperativ, autoimmun, Hypomagnesiämie) versus PTH hoch (sekundärer Hyperparathyreoidismus bei Vitamin-D-Mangel, Niereninsuffizienz, Malabsorption).',
+        },
+      ],
+      redFlags: [
+        'Kalium ab 6,5 mmol/l oder jede EKG-Veränderung (spitze T-Wellen, breite QRS) → sofort Kalziumglukonat i.v., Monitor, Dialysebereitschaft',
+        'Kalium unter 2,5 mmol/l, Rhythmusstörungen, Paresen oder Digitalistherapie → i.v.-Substitution unter Monitor, Magnesium mitbestimmen',
+        'Natrium unter 120 mmol/l mit Erbrechen, Somnolenz oder Krampfanfall → hypertone Kochsalzlösung 3 % sofort, unabhängig von der Ursache',
+        'Natriumanstieg über 10 mmol/l in 24 Stunden unter Therapie → Korrektur stoppen, Glukose 5 % und ggf. Desmopressin zur Wiederabsenkung (Myelinolyse-Prophylaxe)',
+        'Natrium über 160 mmol/l oder Bewusstseinsstörung bei Exsikkose → langsame Rehydratation, zerebrale Blutung bedenken (Brückenvenenriss)',
+        'Kalzium über 3,5 mmol/l, Exsikkose, Erbrechen, Bewusstseinsstörung → hyperkalzämische Krise, aggressive Volumentherapie, Bisphosphonat, Calcitonin',
+        'Tetanie, Laryngospasmus, Krampfanfall oder QT-Verlängerung nach Schilddrüsen-Operation → Kalziumglukonat i.v. sofort',
+        'Hyperkaliämie bei Digitalistherapie → Digitalisintoxikation bedenken; Kalzium nur äußerst zurückhaltend, Digitalis-Antikörper erwägen',
+        'Elektrolytstörung plus Oligurie/Anurie oder Kreatininanstieg → akutes Nierenversagen, Nephrologie und Dialyse frühzeitig einbinden',
+        'Mangelernährter, Anorektiker oder Alkoholiker mit Beginn der Ernährung → Refeeding-Syndrom, Phosphat unter 0,5 mmol/l ist lebensbedrohlich',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese als Schlüssel: Diuretika („Wassertabletten“), ACE-Hemmer/Sartane, Spironolacton, NSAR, SSRI, Carbamazepin, Lithium, Digitalis, Laxanzien, Vitamin-D- und Kalziumpräparate; Trinkmenge und Trinkverhalten (Bier, Tee und Toast, exzessives Wassertrinken)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Verluste und Zufuhr: Erbrechen, Durchfall (Dauer, Frequenz), Fieber, Schwitzen, Polyurie, Polydipsie, Nahrungskarenz, Alkoholkonsum, Gewichtsverlauf; Vorerkrankungen Niere, Herz, Leber, Tumor, Schilddrüse, Nebenniere, Operationen am Hals',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Neuromuskuläre und neurologische Symptome: Schwäche, Parästhesien, Krämpfe, Verwirrtheit, Krampfanfall, Sturz; gastrointestinal Übelkeit, Obstipation; kardial Palpitationen, Synkope',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Volumenstatus am Krankenbett: Hautturgor (stehende Hautfalte), Schleimhäute, Halsvenenfüllung, Ödeme, Aszites, Orthostase (Blutdruck und Puls im Liegen und Stehen), Gewicht, Urinmenge; Chvostek- und Trousseau-Zeichen; Tetanie; Muskeleigenreflexe',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elektrolyte im Serum (Natrium, Kalium, Kalzium, Magnesium, Phosphat, Chlorid) — bei jedem auffälligen Wert sofortige Kontrolle in der Blutgasanalyse, um Hämolyse- und Stauungsartefakte (Pseudohyperkaliämie) auszuschließen und Säure-Basen-Status sowie ionisiertes Kalzium zu erhalten',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Nierenwerte (Kreatinin, Harnstoff, eGFR), Blutzucker, Albumin (Kalziumkorrektur), Gesamteiweiß und Lipide (Pseudohyponatriämie), Blutbild (Hämolyse, Thrombozytose), CK und LDH (Rhabdomyolyse, Tumorlyse), Harnsäure',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Serumosmolalität (Normal 280–295 mOsm/kg), Urinosmolalität und Urin-Natrium in einer Spontanurinprobe VOR Therapiebeginn — die drei Werte entscheiden die Hyponatriämie-Einteilung; bei Hypernatriämie unterscheidet die Urinosmolalität Diabetes insipidus (unter 300 mOsm/kg) von extrarenalem Wasserverlust (über 600 mOsm/kg)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Endokrine Abklärung nach Konstellation: TSH und morgendliches Cortisol bzw. ACTH-Test (SIADH-Diagnose nur nach Ausschluss von Hypothyreose und Nebenniereninsuffizienz); Aldosteron-Renin-Quotient bei Hypokaliämie mit Hypertonie (Conn); Parathormon bei jeder Kalziumstörung, ergänzend 25-OH-Vitamin D, PTHrP, Serumeiweißelektrophorese und freie Leichtketten (Plasmozytom), alkalische Phosphatase',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urin-Kalium und transtubulärer Kaliumgradient bei unklarer Hypokaliämie (renal über 20 mmol/l versus extrarenal unter 20 mmol/l); Kalziumausscheidung im 24-Stunden-Urin (familiäre hypokalziurische Hyperkalzämie ausschließen)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: '12-Kanal-EKG sofort bei jeder Kalium- und Kalziumstörung und Monitorüberwachung bei schweren Formen: spitze T-Wellen und QRS-Verbreiterung (Hyperkaliämie), U-Welle und QT-Verlängerung (Hypokaliämie, Hypokalzämie), QT-Verkürzung (Hyperkalzämie)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren und Harnwege (Harnstau, Nephrolithiasis, Schrumpfnieren) und der Vena cava zur Volumenbeurteilung; Röntgen-Thorax bzw. CT bei Verdacht auf Bronchialkarzinom (SIADH, PTHrP) oder Pneumonie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Nebenschilddrüsensonographie und Sestamibi-Szintigraphie bei primärem Hyperparathyreoidismus; Knochendichtemessung (DXA); Skelettszintigraphie oder Low-dose-CT bei Verdacht auf Osteolysen/Plasmozytom',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kraniales CT oder MRT bei Verwirrtheit, Krampfanfall oder fokalem Defizit — auch zum Nachweis einer Hirnblutung bei Hypernatriämie oder einer pontinen Myelinolyse (MRT, 1–2 Wochen verzögert)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Durstversuch mit Desmopressin-Test bei Verdacht auf Diabetes insipidus (zentral: Urinosmolalität steigt nach Desmopressin um über 50 %; nephrogen: kein Anstieg); Kochsalzbelastungstest bei Conn-Verdacht',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Dialyse-Katheter (Shaldon) bei therapierefraktärer Hyperkaliämie oder hyperkalzämischer Krise mit Nierenversagen; zentralvenöser Zugang für hochkonzentrierte Kaliumsubstitution über 40 mmol/l',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Pseudohyperkaliämie (Hämolyse, Stauung, Thrombozytose) versus echte Hyperkaliämie',
+          unterscheidung: 'Hämolysevermerk des Labors, lange Stauung oder „Faustpumpen“ bei der Abnahme, Thrombozyten über 1 000/nl oder Leukozyten über 100/nl; keine EKG-Veränderungen, keine Symptome. Beweis: sofortige Kontrolle aus der Blutgasanalyse ohne Stauung — normales Kalium.',
+        },
+        {
+          dd: 'Hypokaliämie durch Erbrechen versus durch Diarrhoe',
+          unterscheidung: 'Erbrechen: hypochlorämische metabolische Alkalose (Verlust von Magensäure), Kaliumverlust überwiegend renal über den sekundären Hyperaldosteronismus. Diarrhoe: hyperchlorämische metabolische Azidose (Bikarbonatverlust), direkter enteraler Kaliumverlust. Die Blutgasanalyse trennt die beiden.',
+        },
+        {
+          dd: 'Diuretika-Hypokaliämie versus Conn-Syndrom',
+          unterscheidung: 'Conn: Hypokaliämie mit therapierefraktärer Hypertonie und metabolischer Alkalose OHNE Diuretika, Aldosteron hoch und Renin supprimiert (Aldosteron-Renin-Quotient erhöht), Nebennierenadenom im CT. Diuretika: zeitlicher Zusammenhang, Renin und Aldosteron beide erhöht, Normalisierung nach Absetzen.',
+        },
+        {
+          dd: 'Pseudohyponatriämie / hypertone Hyponatriämie versus echte hypotone Hyponatriämie',
+          unterscheidung: 'Pseudohyponatriämie: Serumosmolalität normal bei massiver Hyperlipidämie oder Paraproteinämie — Messartefakt, keine Therapie. Hypertone Form: Hyperglykämie zieht Wasser aus der Zelle; Korrektur des Natriums um etwa 2 mmol/l pro 100 mg/dl Glukose über 100 mg/dl. Echte Hyponatriämie: Serumosmolalität unter 275 mOsm/kg.',
+        },
+        {
+          dd: 'SIADH versus hypovoläme Hyponatriämie (Exsikkose)',
+          unterscheidung: 'SIADH: klinisch euvoläm, Urin-Natrium über 30 mmol/l, Urinosmolalität über 100 mOsm/kg, Harnsäure niedrig, Verschlechterung unter NaCl 0,9 %. Hypovolämie: stehende Hautfalte, Orthostase, Harnstoff und Harnsäure erhöht, Urin-Natrium unter 30 mmol/l bei extrarenalem Verlust, Besserung unter NaCl 0,9 %. Der Volumenstatus entscheidet über Flüssigkeitsrestriktion oder Infusion.',
+        },
+        {
+          dd: 'SIADH versus Bier-Potomanie / primäre Polydipsie',
+          unterscheidung: 'Bier-Potomanie und Polydipsie: Urinosmolalität unter 100 mOsm/kg (ADH supprimiert, maximal verdünnter Urin), Anamnese von großen Bier- oder Wassermengen bei minimaler Nahrungsaufnahme (zu wenig osmotisch wirksame Substanzen). Cave: nach Nahrungszufuhr rasche Wasserdiurese mit Gefahr der Überkorrektur. SIADH: Urin unangemessen konzentriert über 100 mOsm/kg.',
+        },
+        {
+          dd: 'Hyponatriämie durch Nebenniereninsuffizienz oder Hypothyreose',
+          unterscheidung: 'Morbus Addison: Hyponatriämie MIT Hyperkaliämie, Hypotonie, Hyperpigmentierung, Cortisol niedrig, ACTH hoch; Hypothyreose: TSH erhöht. Beide müssen ausgeschlossen sein, bevor ein SIADH diagnostiziert wird.',
+        },
+        {
+          dd: 'Diabetes insipidus versus osmotische Diurese versus Exsikkose bei fehlender Zufuhr',
+          unterscheidung: 'Diabetes insipidus: Polyurie über 3 l mit Urinosmolalität unter 300 mOsm/kg trotz Hypernatriämie; zentral spricht auf Desmopressin an, nephrogen (Lithium) nicht. Osmotische Diurese: Hyperglykämie, Mannitol, Urinosmolalität über 300 mOsm/kg. Reine Exsikkose: Oligurie mit maximal konzentriertem Urin über 600 mOsm/kg.',
+        },
+        {
+          dd: 'Primärer Hyperparathyreoidismus versus Tumorhyperkalzämie',
+          unterscheidung: 'Primärer Hyperparathyreoidismus: PTH erhöht oder inadäquat hoch-normal, Phosphat niedrig, langsamer Verlauf, meist leichte Hyperkalzämie, Nephrolithiasis, Osteoporose, Nebenschilddrüsenadenom in Sonographie/Sestamibi. Tumorhyperkalzämie: PTH supprimiert, PTHrP erhöht oder Osteolysen, rascher Verlauf, oft über 3,0 mmol/l, bekannte oder okkulte Tumorerkrankung.',
+        },
+        {
+          dd: 'Hypokalzämische Tetanie versus Hyperventilationstetanie',
+          unterscheidung: 'Hyperventilationstetanie: Gesamtkalzium normal, nur das ionisierte Kalzium fällt durch die respiratorische Alkalose (pCO2 niedrig, pH hoch in der Blutgasanalyse), junge Patienten unter Angst, Besserung durch Beruhigung und Rückatmung — KEINE Kalziumgabe. Hypokalzämische Tetanie: Gesamt- und ionisiertes Kalzium erniedrigt, Hals-OP, Vitamin-D-Mangel oder Niereninsuffizienz in der Anamnese.',
+        },
+        {
+          dd: 'Hypokalzämie versus Pseudohypokalzämie bei Hypoalbuminämie',
+          unterscheidung: 'Bei Leberzirrhose, nephrotischem Syndrom oder Malnutrition ist das Gesamtkalzium proportional zum Albumin erniedrigt, das ionisierte Kalzium jedoch normal — albuminkorrigiertes Kalzium berechnen oder ionisiertes Kalzium in der Blutgasanalyse messen; keine Symptome, keine Substitution.',
+        },
+        {
+          dd: 'Zentrale pontine Myelinolyse versus Hirnödem versus Delir bei Natriumstörungen',
+          unterscheidung: 'Hirnödem: akute Hyponatriämie, Kopfschmerz, Erbrechen, Krampfanfall, Koma — Natrium anheben. Myelinolyse: 2–6 Tage NACH zu schneller Korrektur, Dysarthrie, Dysphagie, Tetraparese, MRT der Pons. Delir: fluktuierende Aufmerksamkeitsstörung, meist chronische Störung beim alten Menschen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Hyperkaliämie — Notfalltherapie in fester Reihenfolge (Kalium ≥ 6,5 mmol/l oder EKG-Veränderungen) und Dauerbehandlung',
+          items: [
+            'Sofort: Monitor, 12-Kanal-EKG, i.v.-Zugang, Kontrolle in der Blutgasanalyse; alle kaliumhaltigen Infusionen, Kaliumsubstitution, RAAS-Blocker, Spironolacton, NSAR und Trimethoprim absetzen; kaliumarme Kost',
+            '1. Membranstabilisierung (wirkt in 1–3 Minuten, hält 30–60 Minuten, senkt das Kalium NICHT): Kalziumglukonat 10 % 10 ml langsam i.v. über 5–10 Minuten unter EKG-Kontrolle, bei persistierenden EKG-Veränderungen nach 5–10 Minuten wiederholen (bis 30 ml) — Cave bei Digitalistherapie nur sehr langsam und zurückhaltend',
+            '2. Verschiebung des Kaliums in die Zelle (Wirkeintritt 15–30 Minuten, senkt um 0,6–1,0 mmol/l für 4–6 Stunden): 10 IE Normalinsulin in 25 g Glukose (z. B. 250 ml Glukose 10 % oder 50 ml Glukose 50 %) über 15–30 Minuten i.v.; Blutzuckerkontrollen alle 30 Minuten über 6 Stunden (Hypoglykämie in 10–20 %); bei Blutzucker über 250 mg/dl Insulin allein',
+            '3. Beta-2-Mimetikum: Salbutamol 10–20 mg vernebelt inhalativ (senkt um 0,5–1,0 mmol/l nach 15–30 Minuten; abgeschwächt unter Betablockern, Cave Tachykardie) — additiv zu Insulin-Glukose',
+            '4. Natriumbikarbonat 8,4 % 50–100 ml i.v. NUR bei begleitender metabolischer Azidose (pH unter 7,2) — nicht über denselben Zugang wie Kalzium (Ausfällung); als alleinige Maßnahme unwirksam',
+            '5. Elimination des Kaliums aus dem Körper: Schleifendiuretikum Furosemid 40–80 mg i.v. bei erhaltener Diurese unter Volumenausgleich; Kationenaustauscher (Natriumpolystyrolsulfonat 15–30 g oral oder als Einlauf, Wirkung erst nach Stunden; moderner Patiromer 8,4 g/Tag oder Natrium-Zirkonium-Cyclosilikat 10 g dreimal täglich)',
+            '6. Hämodialyse als definitive Maßnahme bei therapierefraktärer Hyperkaliämie, Oligo-/Anurie, akutem Nierenversagen, Rhabdomyolyse oder Tumorlyse — Nephrologie frühzeitig informieren; bei Kreislaufstillstand Reanimation mit Kalziumchlorid, Insulin-Glukose und Bikarbonat als reversible Ursache (4 H: Hyperkaliämie)',
+            'Kaliumkontrolle 1, 2, 4 und 6 Stunden nach Therapiebeginn — der Effekt von Insulin und Salbutamol ist nur temporär, das Kalium steigt wieder an',
+            'Dauerbehandlung und Prophylaxe: Ursache beheben (Nierenfunktion, Azidose, Addison mit Hydrocortison und Fludrocortison), Medikamente reduzieren oder umstellen; bei Herzinsuffizienz oder Zirrhose unter RAAS-Blocker plus Spironolacton regelmäßige Kaliumkontrollen (nach 1 Woche, 4 Wochen, dann alle 3 Monate) und ggf. Patiromer, um die prognostisch wichtige Therapie fortsetzen zu können; kaliumarme Diät bei chronischer Niereninsuffizienz (Bananen, Trockenobst, Nüsse, Kartoffeln meiden)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Hypokaliämie — orale und intravenöse Substitution mit Geschwindigkeitsgrenzen, Magnesium mitkorrigieren',
+          items: [
+            'Bei Kalium unter 2,5 mmol/l, EKG-Veränderungen, Rhythmusstörungen, Paresen, Digitalistherapie oder fehlender oraler Möglichkeit: intravenöse Substitution unter Monitorüberwachung mit Kaliumchlorid in NaCl 0,9 % — peripher maximal 40 mmol pro Liter und maximal 10 mmol pro Stunde; über zentralen Venenkatheter bis 20 mmol pro Stunde unter Intensivüberwachung (nur im Notfall, z. B. Torsade); niemals unverdünnt oder als Bolus (Asystolie), keine Glukoselösung als Träger (Insulinausschüttung verschiebt Kalium nach intrazellulär)',
+            'Kaliumkontrolle alle 2–4 Stunden während der i.v.-Gabe; Faustregel: 1 mmol/l Serumabfall entspricht 200–400 mmol Gesamtdefizit, also Substitution über Tage, nicht Stunden',
+            'Leichte bis mittelschwere Hypokaliämie (3,0–3,4 mmol/l, asymptomatisch): oral Kaliumchlorid 40–100 mmol pro Tag in 2–3 Einzeldosen (z. B. Kaliumcitrat/-chlorid-Brausetabletten à 40 mmol), kaliumreiche Kost (Bananen, Trockenobst, Kartoffeln, Nüsse); Kontrolle nach 2–3 Tagen',
+            'Magnesium IMMER mitbestimmen und mitsubstituieren (Magnesiumsulfat 1–2 g = 4–8 mmol i.v. oder 300 mg oral täglich): ohne Magnesiumausgleich bleibt die Hypokaliämie therapierefraktär, weil Magnesiummangel den renalen Kaliumverlust unterhält',
+            'Ursache beheben: Diuretikum reduzieren oder auf kaliumsparendes Diuretikum (Spironolacton, Amilorid) bzw. Kombination umstellen; Laxanzien absetzen, Erbrechen und Diarrhoe behandeln (Alkalose mit NaCl und Kalium korrigieren, Chlorid ist der Schlüssel); Conn-Syndrom mit Spironolacton oder Adrenalektomie; Lakritz meiden',
+            'Besonderheit diabetische Ketoazidose: Gesamtkörperdefizit trotz normalem oder hohem Serumkalium — Kalium ab einem Wert unter 5,3 mmol/l bereits mit der Insulintherapie substituieren (20–30 mmol pro Liter Infusion), Insulin erst starten, wenn das Kalium über 3,3 mmol/l liegt',
+            'Bei Digitalis-Patienten Kalium hochnormal (4,0–5,0 mmol/l) halten — die Hypokaliämie potenziert die Digitalistoxizität',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Hyponatriämie — nach Akuität, Symptomatik und Volumenstatus; Korrekturgeschwindigkeit als oberstes Gebot',
+          items: [
+            'Schwere Symptome (Erbrechen, Somnolenz, Krampfanfall, Koma) unabhängig von Wert und Ursache: 150 ml hypertone Kochsalzlösung 3 % i.v. über 20 Minuten, Natriumkontrolle, Wiederholung bis zu dreimal bis zu einem Anstieg um 5 mmol/l in der ersten Stunde — das genügt zur Entlastung des Hirnödems; Intensivüberwachung',
+            'Danach und bei allen chronischen Formen die REGEL der langsamen Korrektur: Anstieg maximal 8–10 mmol/l in den ersten 24 Stunden (bei hohem Myelinolyse-Risiko — Natrium unter 105 mmol/l, Hypokaliämie, Alkoholabusus, Malnutrition, Leberzirrhose — maximal 8 mmol/l) und nicht mehr als 18 mmol/l in 48 Stunden; Natriumkontrollen alle 2–4 Stunden, Bilanzierung; Ziel ist nicht der Normwert, sondern ein sicherer Bereich um 125–130 mmol/l',
+            'Bei Überkorrektur (Anstieg über 10 mmol/l in 24 Stunden, oft durch plötzliche Wasserdiurese nach Volumengabe oder bei Bier-Potomanie): Wiederabsenkung mit Glukose 5 % (z. B. 10 ml/kg über 1 Stunde) und Desmopressin 2 µg i.v. — die pontine Myelinolyse ist irreversibel',
+            'Hypovoläme Hyponatriämie: NaCl 0,9 % 0,5–1 ml/kg/h (bzw. 500–1 000 ml über Stunden), Thiazid absetzen, Grunderkrankung behandeln (bei Addison Hydrocortison 100 mg i.v.); nach Volumenausgleich fällt das ADH ab — Cave Wasserdiurese und Überkorrektur',
+            'Euvoläme Hyponatriämie/SIADH: Flüssigkeitsrestriktion auf 800–1 000 ml pro Tag (etwa 500 ml unter dem Urinvolumen), auslösende Medikamente (SSRI, Carbamazepin, Thiazid) absetzen, Ursache behandeln (Tumor, Pneumonie, Schmerz); bei Versagen Kochsalz oral 3–6 g täglich plus Schleifendiuretikum, Harnstoff 15–30 g täglich oder — nur stationär unter engmaschiger Kontrolle — der Vaptan Tolvaptan 15 mg (Überkorrekturgefahr, nicht mit hypertoner Lösung kombinieren); KEINE isotone Kochsalzlösung, sie verschlechtert das Natrium',
+            'Hypervoläme Hyponatriämie (Herzinsuffizienz, Leberzirrhose, nephrotisches Syndrom): Flüssigkeitsrestriktion 1–1,5 l täglich, Kochsalzrestriktion, Schleifendiuretikum (kein Thiazid), Behandlung der Grunderkrankung; bei Zirrhose Diuretika pausieren, wenn Natrium unter 125 mmol/l fällt',
+            'Bier-Potomanie und primäre Polydipsie: Wasserrestriktion, Zufuhr von Kochsalz und Eiweiß (osmotische Last) — engmaschige Kontrolle, weil die Diurese explosionsartig einsetzt; Thiamin bei Alkoholikern',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Hypernatriämie — Ausgleich des Wasserdefizits, langsam wegen der Hirnödem-Gefahr',
+          items: [
+            'Zuerst den Kreislauf sichern: bei hypovolämem Schock zunächst NaCl 0,9 % oder Ringer-Lösung bis zur hämodynamischen Stabilität, erst dann hypotone Lösungen',
+            'Wasserdefizit berechnen: freies Wasserdefizit (l) = 0,6 × Körpergewicht (kg) × (Serumnatrium/140 − 1); bei Frauen und alten Menschen Faktor 0,5 — Beispiel 70 kg, Natrium 160 mmol/l: 0,6 × 70 × (160/140 − 1) = 6 Liter; laufende Verluste (Fieber, Diarrhoe, Diabetes insipidus) addieren',
+            'Chronische Hypernatriämie (über 48 Stunden oder unbekannt, Regelfall beim alten Menschen): Absenkung maximal 0,5 mmol/l pro Stunde bzw. 10 mmol/l in 24 Stunden — das Gehirn hat idiogene Osmole gebildet, zu schnelle Absenkung führt zum Hirnödem mit Krampfanfällen; das Defizit wird über 48–72 Stunden ausgeglichen',
+            'Akute Hypernatriämie (unter 48 Stunden, z. B. iatrogen oder Diabetes insipidus nach Hypophysen-OP): rasche Korrektur mit 1 mmol/l pro Stunde erlaubt',
+            'Flüssigkeitswahl: wann immer möglich enteral (Trinken, Magensonde mit Wasser), sonst Glukose 5 % oder NaCl 0,45 % i.v.; Natriumkontrollen alle 4–6 Stunden, Blutzucker unter Glukose 5 % überwachen',
+            'Ursache behandeln: Diabetes insipidus centralis mit Desmopressin (z. B. 1–2 Hübe nasal à 10 µg oder 1–4 µg i.v./s.c.), nephrogener Diabetes insipidus mit Lithium-Absetzen, Thiazid und salzarmer Kost; Fieber senken, Diarrhoe behandeln; Prophylaxe beim Pflegebedürftigen durch Trinkprotokoll und angebotene Flüssigkeit (Durstgefühl fehlt)',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Hyperkalzämie — hyperkalzämische Krise stufenweise, dann Behandlung der Grundkrankheit',
+          items: [
+            'Basis jeder Therapie: forcierte Rehydratation mit NaCl 0,9 %, in der ersten Stunde 1 000 ml, dann 200–300 ml/h, insgesamt 3–6 l in 24 Stunden unter Bilanzierung und Kontrolle von Herzinsuffizienz und Nierenfunktion — behebt die Exsikkose und steigert die Kalziurie; alle Kalzium-, Vitamin-D-, Thiazid- und Lithiumpräparate sowie Digitalis-Kontrolle',
+            'Schleifendiuretikum Furosemid 20–40 mg i.v. ERST nach ausgeglichenem Volumenstatus zur Steigerung der Kalziumausscheidung und gegen die Überwässerung — nie als Ersatz für die Rehydratation; Thiazide sind kontraindiziert',
+            'Bisphosphonat als Standard bei Tumorhyperkalzämie und jeder Krise: Zoledronat 4 mg i.v. über mindestens 15 Minuten (bei Niereninsuffizienz Dosisreduktion oder Pamidronat 60–90 mg über 2–4 Stunden); Wirkeintritt nach 2–4 Tagen, Wirkdauer 3–4 Wochen — deshalb Überbrückung nötig',
+            'Calcitonin 4–8 IE/kg s.c. oder i.m. alle 6–12 Stunden für die ersten 48 Stunden: schnellster Effekt innerhalb von 4–6 Stunden (Senkung um 0,3–0,5 mmol/l), danach Tachyphylaxie — Brücke bis zur Bisphosphonatwirkung',
+            'Denosumab 120 mg s.c. bei bisphosphonatrefraktärer Hyperkalzämie oder schwerer Niereninsuffizienz (kein renaler Abbau); Glukokortikoide (Prednisolon 20–40 mg täglich) bei Lymphom, Plasmozytom, Sarkoidose und Vitamin-D-Intoxikation (hemmen die Calcitriolbildung); Cinacalcet bei inoperablem primärem Hyperparathyreoidismus und Nebenschilddrüsenkarzinom',
+            'Hämodialyse mit kalziumarmem Dialysat bei Kalzium über 4 mmol/l, Nierenversagen, Herzinsuffizienz oder Bewusstseinsstörung — Kalziumkontrollen alle 6 Stunden, EKG-Monitor (QT-Verkürzung, Digitalis-Toxizität)',
+            'Kausale Dauertherapie: Parathyreoidektomie bei symptomatischem primärem Hyperparathyreoidismus (Indikation auch bei Kalzium über 0,25 mmol/l über der Norm, Nephrolithiasis, Osteoporose, eGFR unter 60 ml/min, Alter unter 50 Jahren); Tumortherapie; Bisphosphonat-Zyklen alle 3–4 Wochen bei ossärer Metastasierung; ausreichend trinken (2–3 l), Immobilisation vermeiden, Thiazide meiden',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Hypokalzämie — Tetanie akut, dann Kalzium-Vitamin-D-Substitution und Magnesium',
+          items: [
+            'Symptomatische Hypokalzämie (Tetanie, Laryngospasmus, Krampfanfall, QT-Verlängerung) oder Gesamtkalzium unter 1,9 mmol/l bzw. ionisiert unter 1,0 mmol/l: Kalziumglukonat 10 % 10–20 ml (1–2 Ampullen, entsprechend 2,25–4,5 mmol Kalzium) langsam i.v. über 10–20 Minuten unter EKG-Monitor — zu schnelle Gabe verursacht Bradykardie und Asystolie, paravenös Nekrosen; Cave Digitalis',
+            'Anschließend Dauerinfusion, weil der Bolus nur 2–3 Stunden hält: z. B. 10 Ampullen Kalziumglukonat 10 % in 1 000 ml NaCl 0,9 % mit 50–100 ml/h (etwa 0,5–1,5 mg elementares Kalzium/kg/h), Kalziumkontrollen alle 4–6 Stunden, Ziel im unteren Normbereich; kein Bikarbonat oder Phosphat über denselben Zugang',
+            'Magnesium bestimmen und bei Mangel zuerst korrigieren (Magnesiumsulfat 1–2 g i.v.) — Hypomagnesiämie verursacht PTH-Mangel und PTH-Resistenz, die Hypokalzämie bleibt sonst therapierefraktär',
+            'Hyperventilationstetanie: KEIN Kalzium — Beruhigung, ruhige Anleitung zum langsamen Atmen, Rückatmung in eine Tüte, ggf. Benzodiazepin in niedriger Dosis; Blutgasanalyse beweist die respiratorische Alkalose',
+            'Nach Thyreoidektomie: Kalzium und PTH am Abend der OP und am 1. postoperativen Tag kontrollieren; bei Abfall frühzeitig oral Kalzium 1–3 g täglich plus Calcitriol 0,25–1 µg täglich; vorübergehender Hypoparathyreoidismus in 20–30 %, permanent in 1–3 % — Patienten über Kribbeln und Krämpfe als Warnzeichen aufklären',
+            'Dauersubstitution: bei Hypoparathyreoidismus Kalzium 1–3 g täglich oral plus aktives Vitamin D (Calcitriol 0,25–1 µg täglich), Ziel-Kalzium im unteren Normbereich, Kalziurie im 24-Stunden-Urin kontrollieren (Nephrokalzinose); bei Vitamin-D-Mangel Colecalciferol 1 000–2 000 IE täglich (Aufsättigung z. B. 20 000 IE pro Woche über 8 Wochen); bei Malabsorption (Zöliakie, Kurzdarm, nach Darmresektion) parenterale Gabe erwägen; bei chronischer Niereninsuffizienz Phosphatbinder und aktives Vitamin D',
+            'Osteoporose-Kontext (Prüfungsfrage): Basistherapie Kalzium 1 000–1 200 mg täglich (bevorzugt über die Ernährung), Vitamin D 800–1 000 IE täglich, Bisphosphonat (Alendronat 70 mg einmal wöchentlich nüchtern, aufrecht) und körperliche Bewegung; vorher Hyperkalzämie, Hyperparathyreoidismus (Parathormon!) und Vitamin-D-Mangel ausschließen',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Magnesium und Phosphat — Refeeding-Syndrom erkennen und verhindern',
+          items: [
+            'Risikopatienten identifizieren (BMI unter 16 kg/m², Gewichtsverlust über 15 % in 3–6 Monaten, Nahrungskarenz über 10 Tage, Anorexia nervosa, Alkoholabusus, Malabsorption, bereits niedriges Kalium, Phosphat oder Magnesium vor Ernährungsbeginn)',
+            'Vor Beginn der Ernährung: Kalium, Phosphat, Magnesium und Glukose bestimmen und Defizite ausgleichen; Thiamin 200–300 mg täglich oral oder i.v. ab mindestens 30 Minuten vor der ersten Kohlenhydratzufuhr über 10 Tage (Wernicke-Prophylaxe) und Vitamin-B-Komplex',
+            'Langsamer Kostaufbau mit 5–10 kcal/kg/Tag bei hohem Risiko, Steigerung über 4–7 Tage bis zum Zielbedarf; tägliche Elektrolytkontrollen in der ersten Woche, Flüssigkeit und Natrium anfangs restriktiv (Ödemneigung)',
+            'Hypophosphatämie: unter 0,5 mmol/l oder symptomatisch Natriumglycerophosphat oder Kaliumphosphat 10–20 mmol i.v. über 6–12 Stunden; leichte Formen oral (Milch, Phosphatbrausetabletten); Cave Hypokalzämie durch Ausfällung bei zu schneller Gabe',
+            'Hypomagnesiämie: symptomatisch oder unter 0,5 mmol/l Magnesiumsulfat 1–2 g (4–8 mmol) i.v. über 15–60 Minuten, bei Torsade de pointes 2 g als Bolus; Erhaltung oral 300–600 mg täglich (Diarrhoe limitiert); Protonenpumpenhemmer als Ursache bedenken',
+            'Hypermagnesiämie (Niereninsuffizienz, Magnesiumtherapie bei Präeklampsie, Laxanzien) mit Reflexverlust, Bradykardie, Atemdepression: Kalziumglukonat 10 % 10 ml i.v. als Antidot, Schleifendiuretikum, ggf. Dialyse',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt fast ausschließlich von der Grundkrankheit und von der Qualität der Korrektur ab. Die schwere Hyperkaliämie ist mit korrekter Reihenfolge — Kalzium, Insulin-Glukose, Elimination, Dialyse — innerhalb von Stunden beherrschbar; unbehandelt ist sie über Kammerflimmern und Asystolie tödlich, weshalb sie zu den reversiblen Ursachen des Kreislaufstillstands zählt. Die Hypokaliämie ist gut behandelbar, ihre Gefahr liegt in der zu schnellen intravenösen Gabe und in der übersehenen Hypomagnesiämie. Die Hyponatriämie erhöht die Krankenhausmortalität und die Sturz- und Frakturrate auch in leichten chronischen Formen; die akute symptomatische Form ist ein Notfall mit Hirnödem-Gefahr, die chronische Form dagegen wird durch ihre Therapie gefährlich — die pontine Myelinolyse nach Überkorrektur ist irreversibel und iatrogen. Die Hypernatriämie des alten Menschen hat eine Letalität von 40–60 %, vor allem als Marker der schweren Grunderkrankung und Pflegebedürftigkeit. Die hyperkalzämische Krise hat unbehandelt eine Letalität bis 50 %, die Tumorhyperkalzämie zeigt ein fortgeschrittenes Stadium mit einer medianen Überlebenszeit von wenigen Monaten an, während der primäre Hyperparathyreoidismus durch Parathyreoidektomie heilbar ist. Die postoperative Hypokalzämie ist meist transient (20–30 %), permanent in 1–3 %. Entscheidend ist in allen Fällen die Rezidivprophylaxe: Medikamentenüberprüfung, Trinkprotokolle, regelmäßige Elektrolytkontrollen unter Diuretika und RAAS-Blockern und die Behandlung der Ursache.',
+      pruefungsfallen: [
+        '„Das Kalium ist 6,8 — was tun Sie?“ verlangt die Reihenfolge, nicht eine Liste: zuerst EKG und Kalziumglukonat zur Membranstabilisierung (senkt das Kalium nicht!), dann Insulin-Glukose und Salbutamol zur Verschiebung, dann Diuretikum/Kationenaustauscher und Dialyse zur Elimination — und vorher immer die Hämolyse-Kontrolle in der Blutgasanalyse erwähnen.',
+        'Kalium niemals als i.v.-Bolus, niemals unverdünnt und peripher nicht schneller als 10 mmol/h bzw. konzentrierter als 40 mmol/l — der Prüfer will die Zahl hören. Und: ohne Magnesiumausgleich bleibt die Hypokaliämie therapierefraktär.',
+        'Die Korrekturgeschwindigkeit der Hyponatriämie ist die klassische Nachfrage: maximal 8–10 mmol/l in 24 Stunden wegen der zentralen pontinen Myelinolyse. Wer „auf Normalwerte anheben“ sagt, fällt durch. Hypertone Kochsalzlösung 3 % nur bei schweren Symptomen (Krampfanfall, Koma), Ziel + 5 mmol/l in der ersten Stunde.',
+        'Bei SIADH KEINE isotone Kochsalzlösung — sie verschlechtert das Natrium; Flüssigkeitsrestriktion ist die Therapie. Der Volumenstatus entscheidet also zwischen Infusion (Exsikkose) und Restriktion (SIADH); die drei Laborwerte Serumosmolalität, Urinosmolalität und Urin-Natrium müssen VOR der Therapie abgenommen werden.',
+        'Auch die Hypernatriämie wird langsam korrigiert (maximal 10 mmol/l in 24 Stunden) — hier droht das Hirnödem, nicht die Myelinolyse. Die Richtung der Gefahr nicht verwechseln.',
+        'Spironolacton ist „kaliumsparend“ — bei Leberzirrhose mit Aszites Mittel der ersten Wahl (Aldosteronantagonist), ergänzt durch ein Schleifendiuretikum im Verhältnis 100 mg zu 40 mg; in Kombination mit ACE-Hemmer oder Sartan Hyperkaliämie-Gefahr, deshalb Kaliumkontrolle. Diese Frage wurde in Karlsruhe, Freiburg und Stuttgart gestellt.',
+        '„Hyperventilationstetanie“ als Fachbegriff wird in Stuttgart und Freiburg häufig abgefragt: Pfötchenstellung durch zu schnelles Atmen, das Gesamtkalzium ist normal, nur das ionisierte Kalzium fällt — Therapie Beruhigung und Rückatmung, KEIN Kalzium.',
+        'Exsikkose (Austrocknung) und Dehydratation (Flüssigkeitsmangel) sind Prüfungs-Fachbegriffe bei Gastroenteritis, Pyelonephritis und Migräne; die erwartete Therapie heißt „Flüssigkeits- und Elektrolytsubstitution“ und die erwartete Komplikation „akutes Nierenversagen“ — das führt den Prüfer direkt zur Hyperkaliämie.',
+        'Bei Osteoporose und Wirbelfraktur den sekundären Auslöser nicht vergessen: Hyperparathyreoidismus ausschließen — Kalzium und Parathormon bestimmen, Nebenschilddrüsensonographie (Karlsruhe, 26.01.2022). Therapie: Kalzium, Vitamin D, Bisphosphonat, körperliche Bewegung.',
+        'Bei der Hyperkalzämie das Schleifendiuretikum NICHT vor der Rehydratation geben und Thiazide absetzen; Bisphosphonate wirken erst nach 2–4 Tagen, Calcitonin überbrückt. PTH trennt Hyperparathyreoidismus (PTH hoch) von Tumorhyperkalzämie (PTH supprimiert).',
+        'Bei Hypoalbuminämie (Leberzirrhose, nephrotisches Syndrom) das Kalzium korrigieren: + 0,02 mmol/l je g/l Albumin unter 40 — sonst wird eine Pseudohypokalzämie behandelt.',
+        'Diabetische Ketoazidose: das Serumkalium ist trügerisch normal oder hoch, der Körper ist entleert — Kalium ab unter 5,3 mmol/l substituieren, Insulin erst bei Kalium über 3,3 mmol/l.',
+        '„Elektrolyte“ gehören in jede Laborliste der Fallvorstellung: „kleines Blutbild, CRP, BSG, Elektrolyte, Nieren- und Leberwerte“ — und in der Blutgasanalyse zusätzlich der Säure-Basen-Haushalt (Reutlingen, 08.05.2024, Polytrauma). Vor dem Patienten heißen sie „Blutsalze“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie wirkt Spironolacton, und warum ist es bei der Leberzirrhose mit Aszites das Diuretikum der ersten Wahl?',
+          antwort: 'Spironolacton ist ein Aldosteronantagonist und damit ein kaliumsparendes Diuretikum: Es blockiert den Mineralokortikoidrezeptor im distalen Tubulus und Sammelrohr, hemmt die Natriumrückresorption und die Kaliumsekretion. Bei der Zirrhose besteht ein sekundärer Hyperaldosteronismus, deshalb ist Spironolacton kausal wirksam — Beginn mit 100 mg täglich, Steigerung bis 400 mg, bei unzureichender Wirkung ergänzt durch Furosemid im Verhältnis 100 mg zu 40 mg, Ziel eine Gewichtsabnahme von 0,5 kg täglich ohne und 1 kg täglich mit peripheren Ödemen. Die wichtigsten Nebenwirkungen sind Hyperkaliämie, besonders in Kombination mit ACE-Hemmern, Sartanen oder NSAR, sowie Gynäkomastie — deshalb Kalium und Kreatinin nach einer Woche und dann regelmäßig kontrollieren.',
+        },
+        {
+          frage: 'Welche Diuretika kennen Sie, und wie beeinflussen sie das Kalium?',
+          antwort: 'Schleifendiuretika wie Furosemid und Torasemid hemmen den Natrium-Kalium-2-Chlorid-Kotransporter in der Henle-Schleife und sind die stärksten Diuretika — sie führen zu Hypokaliämie, Hypomagnesiämie, Hypokalzämie und metabolischer Alkalose. Thiazide wie Hydrochlorothiazid hemmen den Natrium-Chlorid-Kotransporter im distalen Tubulus — sie verursachen Hypokaliämie, Hyponatriämie, Hyperkalzämie und Hyperurikämie. Kaliumsparende Diuretika — die Aldosteronantagonisten Spironolacton und Eplerenon sowie Amilorid und Triamteren — wirken schwach diuretisch und führen zur Hyperkaliämie, besonders bei Niereninsuffizienz und in Kombination mit RAAS-Blockern. Deshalb werden Schleifendiuretika oder Thiazide oft mit kaliumsparenden Diuretika kombiniert.',
+        },
+        {
+          frage: 'Was verstehen Sie unter einer Hyperkaliämie, und wie erklären Sie das dem Patienten?',
+          antwort: 'Eine Hyperkaliämie ist ein Serumkalium über 5,0 mmol/l; ab 6,5 mmol/l oder bei EKG-Veränderungen sprechen wir von einer schweren, lebensbedrohlichen Form, weil sie zu Herzrhythmusstörungen bis zum Kammerflimmern führt. Die häufigsten Ursachen sind eine Niereninsuffizienz, Medikamente wie ACE-Hemmer, Sartane und Spironolacton, eine Azidose und ein Zellzerfall. Dem Patienten sage ich: „Sie haben zu viel Kalium im Blut. Kalium ist ein Blutsalz, das Ihre Nieren normalerweise ausscheiden; ist zu viel davon da, kann das Herz aus dem Takt geraten. Deshalb machen wir sofort ein EKG und geben Ihnen Medikamente, die das Kalium senken.“',
+        },
+        {
+          frage: 'Das Kalium ist 6,8 mmol/l und im EKG sehen Sie hohe, spitze T-Wellen — was tun Sie in welcher Reihenfolge?',
+          antwort: 'Erstens Monitor, 12-Kanal-EKG, i.v.-Zugang und eine sofortige Kontrolle in der Blutgasanalyse, um eine Hämolyse auszuschließen, gleichzeitig alle kaliumhaltigen Infusionen und kaliumsteigernden Medikamente stoppen. Zweitens Membranstabilisierung mit Kalziumglukonat 10 % 10 ml langsam i.v. über 5 bis 10 Minuten — das wirkt innerhalb von Minuten am Herzen, senkt aber das Kalium nicht; bei persistierenden EKG-Veränderungen wiederholen. Drittens Verschiebung nach intrazellulär mit 10 Einheiten Normalinsulin in 25 g Glukose über 15 bis 30 Minuten, dazu Salbutamol 10 bis 20 mg inhalativ; Natriumbikarbonat nur bei Azidose. Viertens Elimination: Furosemid 40 bis 80 mg i.v. bei erhaltener Diurese, Kationenaustauscher, und bei Nierenversagen oder Therapieversagen die Hämodialyse. Kaliumkontrolle nach 1, 2 und 4 Stunden, Blutzuckerkontrollen wegen der Hypoglykämiegefahr.',
+        },
+        {
+          frage: 'Welche EKG-Veränderungen erwarten Sie bei Hyper- und bei Hypokaliämie?',
+          antwort: 'Bei der Hyperkaliämie in aufsteigender Reihenfolge hohe, spitze, zeltförmige T-Wellen, dann Abflachung der P-Welle mit PQ-Verlängerung, dann eine QRS-Verbreiterung, schließlich eine Sinuswellenform und Kammerflimmern oder Asystolie. Bei der Hypokaliämie eine ST-Senkung, Abflachung der T-Welle, eine zusätzliche U-Welle, eine QT- beziehungsweise QU-Verlängerung sowie ventrikuläre Extrasystolen bis zur Torsade de pointes — unter Digitalis ist die Hypokaliämie besonders gefährlich. Wichtig: Ein unauffälliges EKG schließt eine schwere Hyperkaliämie nicht aus.',
+        },
+        {
+          frage: 'Der Patient hat seit zwei Wochen Durchfall — welche Elektrolytstörungen erwarten Sie, und wie behandeln Sie?',
+          antwort: 'Bei anhaltender Diarrhoe erwarte ich eine Dehydratation beziehungsweise Exsikkose mit Hypokaliämie durch den enteralen Kaliumverlust, eine hyperchlorämische metabolische Azidose durch den Bikarbonatverlust, je nach Trinkverhalten eine Hyper- oder Hyponatriämie sowie eine Hypomagnesiämie; als Komplikation droht ein prärenales akutes Nierenversagen mit Kreatininanstieg. Ich bestimme Elektrolyte, Kreatinin, Harnstoff und eine Blutgasanalyse und substituiere Flüssigkeit und Elektrolyte — bei leichter Form oral mit Rehydratationslösung, bei Erbrechen oder Exsikkose intravenös mit Ringer- oder NaCl-Lösung und Kaliumchlorid nach Wert. Bei Durchfall über zwei Wochen muss ich außerdem die Ursache klären: Stuhlkulturen mit Clostridioides difficile nach Antibiotika, Parasiten nach Auslandsaufenthalt, eine chronisch-entzündliche Darmerkrankung oder Laxanzienabusus.',
+        },
+        {
+          frage: 'Was bedeuten Exsikkose und Dehydratation, und wie erkennen Sie sie klinisch?',
+          antwort: 'Dehydratation bedeutet Flüssigkeitsmangel, Exsikkose ist die Austrocknung des Körpers als klinisches Bild. Ich erkenne sie an trockenen Schleimhäuten und trockener Zunge, stehenden Hautfalten, eingesunkenen Augen, Tachykardie, Hypotonie mit Orthostase, Oligurie mit konzentriertem Urin und beim alten Menschen an Verwirrtheit oder Somnolenz. Im Labor finden sich ein erhöhter Hämatokrit, ein Anstieg von Harnstoff und Kreatinin mit einem Harnstoff-Kreatinin-Quotienten über 20 sowie je nach Verlust eine Hyper- oder Hyponatriämie. Besonders gefährdet sind alte, demente Patienten, weil ihr Durstgefühl fehlt — die Therapie besteht in der langsamen Flüssigkeitssubstitution mit einer Natriumabsenkung von maximal 10 mmol/l in 24 Stunden.',
+        },
+        {
+          frage: 'Eine 78-jährige Patientin unter Hydrochlorothiazid ist verwirrt, das Natrium beträgt 118 mmol/l — wie gehen Sie vor?',
+          antwort: 'Zunächst beurteile ich, ob schwere Symptome vorliegen — Krampfanfall, Erbrechen, Somnolenz — und den Volumenstatus. Vor jeder Therapie nehme ich Serumosmolalität, Urinosmolalität und Urin-Natrium ab, dazu TSH, Cortisol, Blutzucker und Nierenwerte. Bei schweren Symptomen gebe ich 150 ml NaCl 3 % über 20 Minuten, wiederholbar bis zu einem Anstieg um 5 mmol/l. Ist die Patientin nur verwirrt, setze ich das Thiazid ab, gleiche bei Hypovolämie vorsichtig mit NaCl 0,9 % aus oder beschränke bei Euvolämie die Flüssigkeit auf 1 Liter täglich. Entscheidend ist die langsame Korrektur: maximal 8 bis 10 mmol/l in den ersten 24 Stunden, Natriumkontrollen alle 4 Stunden, weil eine zu schnelle Anhebung eine zentrale pontine Myelinolyse verursacht — eine irreversible Schädigung des Hirnstamms mit Schluck- und Sprechstörungen und Tetraparese.',
+        },
+        {
+          frage: 'Was ist ein SIADH, wie diagnostizieren Sie es, und warum darf man keine isotone Kochsalzlösung geben?',
+          antwort: 'Das Syndrom der inadäquaten ADH-Sekretion ist eine euvoläme hypotone Hyponatriämie durch nicht supprimierbare ADH-Freisetzung, am häufigsten bei kleinzelligem Bronchialkarzinom, Pneumonie, ZNS-Erkrankungen, postoperativ und unter SSRI, Carbamazepin oder Antipsychotika. Diagnosekriterien: Serumosmolalität unter 275 mOsm/kg, Urinosmolalität über 100 mOsm/kg, Urin-Natrium über 30 mmol/l, klinische Euvolämie und Ausschluss von Hypothyreose, Nebenniereninsuffizienz und Diuretikaeinnahme. Isotone Kochsalzlösung verschlechtert das Natrium, weil die Niere das Natrium ausscheidet, das freie Wasser aber unter ADH-Wirkung zurückhält. Die Therapie ist die Flüssigkeitsrestriktion auf 800 bis 1 000 ml täglich, Absetzen der Auslöser, bei Versagen Kochsalz oral plus Schleifendiuretikum, Harnstoff oder unter stationärer Kontrolle Tolvaptan.',
+        },
+        {
+          frage: 'Was passiert bei zu schneller Korrektur einer Hyponatriämie, und was bei zu schneller Korrektur einer Hypernatriämie?',
+          antwort: 'Bei einer chronischen Hyponatriämie hat das Gehirn osmotisch wirksame Substanzen abgegeben, um sein Volumen zu halten; steigt das Natrium schneller als 10 mmol/l in 24 Stunden, entzieht es den Hirnzellen Wasser und es entsteht 2 bis 6 Tage später das osmotische Demyelinisierungssyndrom, die zentrale pontine Myelinolyse — Dysarthrie, Dysphagie, Tetraparese, Locked-in-Syndrom, irreversibel. Bei einer chronischen Hypernatriämie hat das Gehirn idiogene Osmole gebildet; senkt man das Natrium schneller als 0,5 mmol/l pro Stunde oder 10 mmol/l in 24 Stunden, strömt Wasser in die Hirnzellen und es entsteht ein Hirnödem mit Krampfanfällen. Die Regel lautet in beiden Richtungen: chronische Störungen langsam korrigieren, akute Störungen unter 48 Stunden dürfen schneller korrigiert werden.',
+        },
+        {
+          frage: 'Was erwarten Sie im Labor bei einer Leberzirrhose, und welche Elektrolytstörungen gehören dazu?',
+          antwort: 'Typisch sind eine Anämie, Thrombozytopenie, Hypoalbuminämie, ein erhöhtes Bilirubin, eine verminderte Syntheseleistung mit erniedrigtem Quick-Wert beziehungsweise erhöhter INR und im Frühstadium erhöhte, im fortgeschrittenen Stadium oft normale Transaminasen, weil kaum noch Leberparenchym vorhanden ist; dazu ein erhöhtes Ammoniak. An Elektrolyten finde ich eine Verdünnungshyponatriämie durch den sekundären Hyperaldosteronismus und die ADH-Aktivierung — prognostisch ungünstig unter 130 mmol/l —, unter Schleifendiuretika eine Hypokaliämie und Hypomagnesiämie, unter Spironolacton dagegen eine Hyperkaliämie, sowie ein Gesamtkalzium, das wegen der Hypoalbuminämie erniedrigt gemessen wird und albuminkorrigiert werden muss. Fällt das Natrium unter 125 mmol/l, werden die Diuretika pausiert.',
+        },
+        {
+          frage: 'Der Tumorpatient hat ein Kalzium von 3,6 mmol/l, ist exsikkiert und verwirrt — Diagnose und Therapie?',
+          antwort: 'Das ist eine hyperkalzämische Krise, meist durch PTHrP-Sekretion oder Osteolysen bei Mamma-, Bronchial- oder Nierenzellkarzinom oder Plasmozytom. Ich sichere den Zugang, lege einen EKG-Monitor an — QT-Verkürzung —, bestimme albuminkorrigiertes Kalzium, Phosphat, PTH, PTHrP, Kreatinin und beginne die forcierte Rehydratation mit NaCl 0,9 %, 1 Liter in der ersten Stunde und dann 200 bis 300 ml pro Stunde, insgesamt 3 bis 6 Liter in 24 Stunden unter Bilanzierung. Erst nach Volumenausgleich Furosemid 20 bis 40 mg i.v. Dann Zoledronat 4 mg i.v. über 15 Minuten, dessen Wirkung nach 2 bis 4 Tagen einsetzt, überbrückt durch Calcitonin 4 bis 8 IE/kg s.c. alle 6 bis 12 Stunden für 48 Stunden. Bei Niereninsuffizienz oder Bisphosphonatresistenz Denosumab 120 mg s.c., bei Lymphom Glukokortikoide, bei Kalzium über 4 mmol/l oder Nierenversagen Dialyse. Kalzium-, Vitamin-D- und Thiazidpräparate absetzen, Digitalis kontrollieren.',
+        },
+        {
+          frage: 'Bei Osteoporose mit Wirbelfraktur — welche sekundäre Ursache schließen Sie aus, und wie behandeln Sie?',
+          antwort: 'Ich schließe einen primären Hyperparathyreoidismus aus, indem ich Kalzium, Phosphat und Parathormon bestimme und eine Sonographie der Nebenschilddrüsen veranlasse — bei Hyperkalzämie mit erhöhtem oder inadäquat normalem PTH liegt er vor und wird durch Parathyreoidektomie geheilt. Weitere sekundäre Ursachen sind Vitamin-D-Mangel, Hyperthyreose, Cushing, Hypogonadismus, Plasmozytom (Eiweißelektrophorese) und Glukokortikoidtherapie. Die Therapie der Osteoporose besteht aus Kalzium 1 000 bis 1 200 mg täglich, bevorzugt über die Ernährung, Vitamin D 800 bis 1 000 IE täglich, einem Bisphosphonat wie Alendronat 70 mg einmal wöchentlich und regelmäßiger körperlicher Bewegung mit Sturzprophylaxe; bei schwerer Form Denosumab oder Teriparatid.',
+        },
+        {
+          frage: 'Nach einer Thyreoidektomie klagt die Patientin am ersten postoperativen Tag über Kribbeln um den Mund und Krämpfe in den Händen — was ist passiert, und was tun Sie?',
+          antwort: 'Das ist eine hypokalzämische Tetanie durch einen postoperativen Hypoparathyreoidismus, weil die Nebenschilddrüsen mitentfernt oder in ihrer Durchblutung geschädigt wurden; sie tritt in 20 bis 30 % vorübergehend und in 1 bis 3 % dauerhaft auf. Ich prüfe Chvostek- und Trousseau-Zeichen, bestimme Gesamt- und ionisiertes Kalzium, Magnesium, Phosphat und PTH und schreibe ein EKG wegen der QT-Verlängerung. Bei Symptomen gebe ich Kalziumglukonat 10 % 10 bis 20 ml langsam i.v. über 10 bis 20 Minuten unter Monitor, anschließend eine Dauerinfusion mit Kalziumkontrollen alle 4 bis 6 Stunden, gleichzeitig Magnesium bei Mangel. Dauerhaft oral Kalzium 1 bis 3 g täglich plus Calcitriol 0,25 bis 1 µg täglich mit dem Ziel eines Kalziums im unteren Normbereich; die Patientin kläre ich über Kribbeln und Krämpfe als Warnzeichen auf.',
+        },
+        {
+          frage: 'Was ist eine Hyperventilationstetanie, und wie behandeln Sie sie?',
+          antwort: 'Eine Hyperventilationstetanie entsteht, wenn ein Patient — meist jung, unter Angst oder Schmerz — zu schnell und zu tief atmet: Das Kohlendioxid wird abgeatmet, es entsteht eine respiratorische Alkalose, und bei steigendem pH bindet Albumin mehr Kalzium, sodass das ionisierte Kalzium sinkt, obwohl das Gesamtkalzium normal ist. Die Folge sind periorale und akrale Parästhesien, Pfötchenstellung der Hände, Karpopedalspasmen, Schwindel und Engegefühl. Die Blutgasanalyse zeigt einen niedrigen pCO2 und einen hohen pH. Die Therapie ist Beruhigung, ruhiges Anleiten zu langsamer Atmung und Rückatmung in eine Tüte, ausnahmsweise ein niedrig dosiertes Benzodiazepin — Kalzium ist nicht indiziert. Vor dem Patienten sage ich: „Muskelkrämpfe durch zu schnelles Atmen.“',
+        },
+        {
+          frage: 'Warum verlieren Patienten nach einer Darmresektion Kalzium und Vitamin D, und wie erklären Sie das dem Patienten?',
+          antwort: 'Nach einer Hemikolektomie oder einer Dünndarmresektion, insbesondere des terminalen Ileums, gehen Gallensäuren verloren und die Fettverdauung ist gestört; die fettlöslichen Vitamine A, D, E und K werden nicht mehr ausreichend aufgenommen, und ohne Vitamin D sinkt die enterale Kalziumresorption. Zusätzlich bindet nicht resorbiertes Fett das Kalzium im Darm, was auch die Oxalatsteinbildung fördert. Die Folgen sind Hypokalzämie, sekundärer Hyperparathyreoidismus, Osteomalazie und Osteoporose. Dem Patienten erkläre ich: „Ihr Darm kann die wichtigsten Bestandteile der Nahrung — Kalzium, Vitamin D, Phosphat und Gallensäuren — nicht mehr ausreichend aufnehmen; deshalb kontrollieren wir diese Werte regelmäßig und ersetzen sie mit Tabletten oder Spritzen.“',
+        },
+        {
+          frage: 'Wie substituieren Sie Kalium bei einem Kalium von 2,4 mmol/l — und was beachten Sie?',
+          antwort: 'Ein Kalium unter 2,5 mmol/l ist eine schwere Hypokaliämie, die ich unter Monitorüberwachung intravenös substituiere: Kaliumchlorid in NaCl 0,9 %, peripher maximal 40 mmol pro Liter und maximal 10 mmol pro Stunde, über einen zentralen Venenkatheter im Notfall bis 20 mmol pro Stunde — nie als Bolus, nie unverdünnt und nicht in Glukose, weil das Insulin das Kalium in die Zelle verschiebt. Kaliumkontrollen alle 2 bis 4 Stunden. Da 1 mmol/l Serumabfall einem Defizit von 200 bis 400 mmol entspricht, folgt die orale Substitution mit 40 bis 100 mmol täglich über Tage. Gleichzeitig bestimme und ersetze ich Magnesium, weil die Hypokaliämie sonst therapierefraktär bleibt, und ich suche die Ursache: Diuretika, Erbrechen, Durchfall, Laxanzien, Conn-Syndrom bei Hypertonie.',
+        },
+        {
+          frage: 'Welche Laborwerte bestimmen Sie routinemäßig, und wozu die Blutgasanalyse?',
+          antwort: 'In der Fallvorstellung nenne ich das kleine Blutbild, CRP und BSG, die Elektrolyte — Natrium, Kalium, Kalzium, ergänzt um Magnesium und Phosphat —, die Nierenwerte Kreatinin und Harnstoff, die Leberenzyme, Blutzucker, Gerinnung, bei kardialer Fragestellung Troponin und CK sowie das TSH. Die Blutgasanalyse liefert innerhalb von Minuten den Gasaustausch, den Säure-Basen-Haushalt und die Elektrolyte einschließlich des ionisierten Kalziums und des Laktats — sie ist deshalb beim Polytrauma, in der Notaufnahme und bei jedem auffälligen Kaliumwert die erste Kontrolle, weil sie ohne Stauung und Hämolyseartefakt abgenommen werden kann und die Azidose als Ursache einer Hyperkaliämie oder die Alkalose beim Erbrechen sofort zeigt.',
+        },
+        {
+          frage: 'Was ist das Refeeding-Syndrom, und wie verhindern Sie es?',
+          antwort: 'Das Refeeding-Syndrom tritt bei mangelernährten Patienten — Anorexia nervosa, Alkoholabusus, Tumorkachexie, Nahrungskarenz über 10 Tage — 2 bis 5 Tage nach Wiederbeginn der Ernährung auf: Die Insulinausschüttung verschiebt Phosphat, Kalium und Magnesium in die Zelle, es entstehen Hypophosphatämie, Hypokaliämie, Hypomagnesiämie, Natrium- und Wasserretention und ein Thiaminmangel mit Herzinsuffizienz, Rhythmusstörungen, respiratorischer Insuffizienz, Verwirrtheit und Wernicke-Enzephalopathie. Prävention: vor Ernährungsbeginn Elektrolyte messen und ausgleichen, Thiamin 200 bis 300 mg täglich ab 30 Minuten vor der ersten Nahrung über 10 Tage, langsamer Kostaufbau mit 5 bis 10 kcal/kg täglich und Steigerung über 4 bis 7 Tage, tägliche Kontrolle von Phosphat, Kalium und Magnesium in der ersten Woche; ein Phosphat unter 0,5 mmol/l wird intravenös mit 10 bis 20 mmol über 6 bis 12 Stunden substituiert.',
+        },
+        {
+          frage: 'Welche Elektrolytstörungen erwarten Sie beim chronischen Alkoholiker?',
+          antwort: 'Der Alkoholiker hat typischerweise eine Hypokaliämie durch Mangelernährung, Erbrechen und Diarrhoe, eine Hypomagnesiämie durch renalen Verlust und Malnutrition — die die Hypokaliämie und Hypokalzämie unterhält und Krampfanfälle und Rhythmusstörungen begünstigt —, eine Hypophosphatämie, eine Hyponatriämie durch Bier-Potomanie mit maximal verdünntem Urin unter 100 mOsm/kg bei geringer Salz- und Eiweißzufuhr sowie bei Zirrhose eine Verdünnungshyponatriämie. Dazu kommt ein Thiamin- und Folsäuremangel. Er ist ein Hochrisikopatient für die pontine Myelinolyse — Natrium maximal 8 mmol/l in 24 Stunden anheben — und für das Refeeding-Syndrom, deshalb vor Glukoseinfusion immer Thiamin 100 bis 300 mg i.v. geben.',
+        },
+      ],
+      merksatz: 'Kalium ≥ 6,5 oder EKG-Zeichen: erst Kalziumglukonat (schützt das Herz, senkt nichts), dann Insulin-Glukose und Salbutamol (verschieben), dann Diuretikum, Austauscher, Dialyse (eliminieren). Kalium i.v. nie über 10 mmol/h, nie ohne Magnesium. Natrium in beide Richtungen maximal 8–10 mmol/l pro 24 Stunden — zu schnell hoch: Myelinolyse, zu schnell runter: Hirnödem; SIADH bekommt Wasserrestriktion, nicht Kochsalz. Kalzium hoch: Volumen, dann Furosemid, dann Bisphosphonat und Calcitonin; Kalzium niedrig mit Tetanie: Kalziumglukonat i.v. — außer bei Hyperventilation.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
+    {
+      id: 'fw-sepsis',
+      pathology: 'Sepsis und septischer Schock',
+      specialty: 'Allgemein',
+      definition: 'Die Sepsis ist nach der Sepsis-3-Definition (2016) eine lebensbedrohliche Organdysfunktion, die durch eine fehlregulierte Wirtsantwort auf eine Infektion entsteht. Sie ist damit keine eigenständige Erkrankung und kein Aufnahmegrund, sondern ein ZUSTAND, der jede bakterielle, seltener auch virale oder mykotische Infektion komplizieren kann — Pneumonie, Pyelonephritis, Cholangitis, Divertikulitis, Endokarditis, Erysipel, Abszess, Meningitis. Die Organdysfunktion wird über einen Anstieg des SOFA-Scores um mindestens 2 Punkte gegenüber dem Ausgangswert definiert. Der septische Schock ist die schwerste Verlaufsform: eine Sepsis mit so ausgeprägter Kreislauf- und Stoffwechselstörung, dass trotz adäquater Volumentherapie Vasopressoren nötig sind, um einen mittleren arteriellen Druck von mindestens 65 mmHg zu halten, UND das Serumlaktat über 2 mmol/l (etwa 18 mg/dl) bleibt. Die alten SIRS-Kriterien (Sepsis-1/-2: Infektion plus mindestens zwei von Fieber/Hypothermie, Tachykardie, Tachypnoe, Leukozytose/Leukopenie) sind seit 2016 NICHT mehr Bestandteil der Definition, weil sie unspezifisch sind und die entscheidende Organdysfunktion nicht abbilden. Patientengerecht: „Blutvergiftung“ — Keime beziehungsweise ihre Gifte lösen eine überschießende Abwehrreaktion des ganzen Körpers aus, die die Organe schädigt; der septische Schock ist der lebensbedrohliche Kreislaufzusammenbruch dabei.',
+      aetiologie: 'Ausgangspunkt ist immer ein Infektionsfokus, aus dem Erreger oder deren Bestandteile (Endotoxin gramnegativer Bakterien, Exotoxine und Superantigene grampositiver Erreger) in die Blutbahn gelangen. Die angeborene Immunantwort schießt über: Ausschüttung von Zytokinen (TNF-α, Interleukin-1 und -6), Aktivierung von Komplement- und Gerinnungssystem, Endothelschädigung mit Kapillarleck (Capillary Leak), Vasodilatation und Mikrozirkulationsstörung. Folgen sind relative Hypovolämie, verminderte Sauerstoffausschöpfung im Gewebe, Laktatanstieg, disseminierte intravasale Gerinnung und schließlich Organversagen (Niere, Lunge, Leber, Herz, ZNS). Häufigste Foci in absteigender Reihenfolge: Lunge (etwa 40–50 %), Abdomen (etwa 20–25 %: Cholangitis, Divertikulitis, Peritonitis, Abszess), Harnwege (etwa 10–15 %, Urosepsis), Haut und Weichteile (Erysipel, Phlegmone, nekrotisierende Fasziitis, Dekubitus), Fremdmaterial (zentraler Venenkatheter, Port, Blasenkatheter, Gelenkprothese), Endokard und ZNS. Erreger: gramnegative Stäbchen (E. coli, Klebsiellen, Pseudomonas aeruginosa), grampositive Kokken (Staphylococcus aureus einschließlich MRSA, Streptokokken, Enterokokken), Anaerobier bei abdominellem Fokus, Candida bei Immunsupprimierten und nach langer Intensivtherapie. In Deutschland treten jährlich über 300 000 Sepsisfälle mit etwa 75 000 Todesfällen auf — die Sepsis ist damit eine der häufigsten Todesursachen im Krankenhaus.',
+      risikofaktoren: [
+        'Hohes Lebensalter (über 65 Jahre) und Säuglingsalter',
+        'Diabetes mellitus — bei diesem Patienten auch der Grund, warum der Prüfer eine ambulante Behandlung der Pyelonephritis ablehnt',
+        'Immunsuppression: Glukokortikoide, Chemotherapie mit Neutropenie (Neutrophile unter 500/µl), Biologika, HIV-Infektion, Organtransplantation',
+        'Asplenie oder Hyposplenismus (OPSI — overwhelming post-splenectomy infection durch Pneumokokken, Meningokokken, Haemophilus influenzae)',
+        'Chronische Organerkrankungen: COPD, Herzinsuffizienz, Leberzirrhose, chronische Niereninsuffizienz, Dialysepflicht',
+        'Alkoholabhängigkeit, Mangelernährung, Adipositas',
+        'Fremdmaterial: zentraler Venenkatheter, Port, Dauerkatheter, Gelenk- und Klappenprothesen, Schrittmacher',
+        'Kürzliche Operation, Trauma, Verbrennung, invasiver Eingriff (Zahn-OP vor Endokarditis, ERCP, Prostatabiopsie)',
+        'Vorbestehende Klappenvitien, Klappenprothese, intravenöser Drogenkonsum (Endokarditis)',
+        'Harnabflussstörung, Harnsteine, Prostatahyperplasie, Schwangerschaft (obstruktive Pyelonephritis, Urosepsis)',
+        'Vorherige Krankenhausaufenthalte und Antibiotikatherapien (multiresistente Erreger: ESBL, MRSA, VRE)',
+        'Fehlende Impfungen gegen Pneumokokken, Influenza, COVID-19 und Meningokokken',
+      ],
+      klinik: [
+        {
+          text: 'Fieber über 38 °C mit Schüttelfrost und Nachtschweiß — die Trias, die in jeder Anamnese bei Infektverdacht aktiv erfragt werden muss (in Freiburg wurde das Vergessen ausdrücklich angemerkt)',
+        },
+        {
+          text: 'Tachykardie über 90/min und Tachypnoe über 20–22/min als früheste Kreislauf- und Atemzeichen, oft vor dem Blutdruckabfall',
+        },
+        {
+          text: 'Hypotonie mit systolischem Blutdruck unter 100 mmHg, mittlerer arterieller Druck unter 65 mmHg, verlängerte Rekapillarisierungszeit über 2 Sekunden, marmorierte Haut (Mottling) an den Knien',
+        },
+        {
+          text: 'Warme, gerötete Haut in der hyperdynamen Frühphase („warmer Schock“ durch Vasodilatation), später kühle, feuchte, blasse Extremitäten („kalter Schock“)',
+        },
+        {
+          text: 'Veränderte Bewusstseinslage: Verwirrtheit, Somnolenz, Unruhe, Delir — ein Kriterium des qSOFA und häufig das einzige Frühzeichen',
+        },
+        {
+          text: 'Oligurie unter 0,5 ml/kg/h als Zeichen der Nierenhypoperfusion (akutes Nierenversagen)',
+        },
+        {
+          text: 'Symptome des Fokus: Husten, Dyspnoe und Thoraxschmerz (Pneumonie); Flankenschmerz, Dysurie, klopfschmerzhaftes Nierenlager (Pyelonephritis); rechtsseitiger Oberbauchschmerz mit Ikterus (Cholangitis, Charcot-Trias); flächige Rötung mit Eintrittspforte (Erysipel); Kopfschmerz, Meningismus, Petechien (Meningitis)',
+        },
+        {
+          text: 'Endokarditis-Zeichen: undulierendes Fieber bis 40 °C, neues Herzgeräusch, Petechien, Osler-Knötchen und Janeway-Läsionen („kleine rote Linsen“ an den Fingern), Splinter-Hämorrhagien, Hämaturie',
+        },
+        {
+          text: 'Zeichen der Gerinnungsstörung: Petechien, Blutungen aus Einstichstellen, disseminierte intravasale Gerinnung',
+        },
+        {
+          text: 'Alter Mensch: KEIN Fieber, sondern Verwirrtheit, Sturz, Appetitverlust, „ist nicht mehr der Alte“ — Sepsis ohne Fieber ist beim über 75-Jährigen die Regel, nicht die Ausnahme',
+          atypisch: true,
+        },
+        {
+          text: 'Hypothermie unter 36 °C statt Fieber — prognostisch ungünstiger als Fieber',
+          atypisch: true,
+        },
+        {
+          text: 'Neutropenie unter 500/µl (Chemotherapie): kaum Lokalbefund, keine Eiterbildung, kein Infiltrat im Röntgen — Fieber ist oft das einzige Zeichen und gilt bis zum Beweis des Gegenteils als Sepsis',
+          atypisch: true,
+        },
+        {
+          text: 'Unter Glukokortikoiden, Betablockern oder bei Diabetikern: abgeschwächtes Fieber, fehlende Tachykardie, fehlender Schmerz',
+          atypisch: true,
+        },
+        {
+          text: 'Säuglinge und Kleinkinder: Trinkschwäche, Apathie, Berührungsempfindlichkeit, graues Hautkolorit, Hypothermie',
+          atypisch: true,
+        },
+        {
+          text: 'Meningokokkensepsis mit Waterhouse-Friderichsen-Syndrom: Purpura fulminans, Nebennierenblutung, fulminanter Verlauf innerhalb von Stunden',
+          atypisch: true,
+        },
+        {
+          text: 'Toxisches Schocksyndrom (Staphylokokken, Streptokokken): flächiges Erythem mit späterer Schuppung, Multiorganversagen bei oft unauffälligem Fokus (Tampon, Wundinfekt)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Sepsis-3-Definitionen (Singer et al. 2016)',
+          inhalt: 'Infektion: nachgewiesene oder vermutete Invasion von Erregern. Sepsis: Infektion PLUS lebensbedrohliche Organdysfunktion, operationalisiert als Anstieg des SOFA-Scores um ≥ 2 Punkte (Ausgangswert bei Gesunden 0). Septischer Schock: Sepsis PLUS Vasopressorbedarf zur Aufrechterhaltung eines MAP ≥ 65 mmHg PLUS Laktat > 2 mmol/l trotz adäquater Volumentherapie. Die Begriffe „schwere Sepsis“ und „SIRS-Sepsis“ sind abgeschafft — jede Sepsis ist definitionsgemäß schwer.',
+        },
+        {
+          name: 'SOFA-Score (Sequential Organ Failure Assessment)',
+          inhalt: 'Sechs Organsysteme mit je 0–4 Punkten (maximal 24): Lunge (Horovitz-Quotient PaO₂/FiO₂), Gerinnung (Thrombozyten), Leber (Bilirubin), Kreislauf (MAP bzw. Katecholaminbedarf), ZNS (Glasgow Coma Scale), Niere (Kreatinin bzw. Urinausscheidung). Ein Anstieg um ≥ 2 Punkte entspricht einer Krankenhausletalität von etwa 10 %. Für die Intensivstation gedacht — braucht Blutgasanalyse und Labor.',
+        },
+        {
+          name: 'qSOFA (quick SOFA) — Bettseitiges Warninstrument',
+          inhalt: 'Drei klinische Kriterien ohne Labor: Atemfrequenz ≥ 22/min, systolischer Blutdruck ≤ 100 mmHg, veränderte Bewusstseinslage (GCS < 15). Bei ≥ 2 Kriterien besteht ein hohes Risiko für einen ungünstigen Verlauf — SOFA erheben, Laktat bestimmen, Sepsisbündel starten. CAVE: Der qSOFA ist spezifisch, aber wenig sensitiv (er erkennt etwa nur jede zweite Sepsis); die Surviving Sepsis Campaign 2021 empfiehlt ihn deshalb NICHT als alleiniges Screening-Instrument, sondern kombiniert mit NEWS2, MEWS oder SIRS. Ein negativer qSOFA schließt eine Sepsis nicht aus.',
+        },
+        {
+          name: 'SIRS-Kriterien (Sepsis-1/-2, historisch, für das Screening weiter nützlich)',
+          inhalt: 'Mindestens zwei von vier: Temperatur > 38 °C oder < 36 °C; Herzfrequenz > 90/min; Atemfrequenz > 20/min oder PaCO₂ < 32 mmHg; Leukozyten > 12 000/µl oder < 4 000/µl oder > 10 % unreife Neutrophile (Linksverschiebung). SIRS plus Infektion war bis 2016 die Sepsis-Definition. Problem: unspezifisch (auch nach Trauma, OP, Pankreatitis erfüllt) und bei Alten und Immunsupprimierten oft nicht erfüllt.',
+        },
+        {
+          name: 'Einteilung nach Fokus und Erwerbsort',
+          inhalt: 'Nach Fokus: pulmonale Sepsis (Pneumonie), Urosepsis (Pyelonephritis, obstruktive Uropathie), abdominelle Sepsis (Cholangitis, Divertikulitis, Peritonitis), Weichteilsepsis (Erysipel, Phlegmone, nekrotisierende Fasziitis), Katheter-assoziierte Sepsis, Endokarditis, Meningokokkensepsis, Sepsis bei unbekanntem Fokus (etwa 10–20 %). Nach Erwerbsort: ambulant erworben versus nosokomial (mehr als 48 Stunden nach Aufnahme, höheres Resistenzrisiko) — entscheidend für die kalkulierte Antibiotikawahl.',
+        },
+        {
+          name: 'Schweregrade der Hypoperfusion nach Laktat',
+          inhalt: 'Laktat < 2 mmol/l: normal. Laktat > 2 mmol/l (18 mg/dl): Gewebehypoperfusion, Kontrolle nach 2–4 Stunden, Ziel Laktat-Clearance ≥ 10–20 %. Laktat ≥ 4 mmol/l: schwere Hypoperfusion — auch OHNE Hypotonie sofort 30 ml/kg Kristalloide („kryptischer Schock“). Persistierendes Laktat > 2 mmol/l unter Vasopressoren = septischer Schock.',
+        },
+      ],
+      redFlags: [
+        'qSOFA ≥ 2 (Atemfrequenz ≥ 22/min, systolischer RR ≤ 100 mmHg, Bewusstseinsänderung) bei Infektverdacht → sofort Laktat, Blutkulturen, Antibiose innerhalb einer Stunde',
+        'Systolischer Blutdruck < 90 mmHg oder MAP < 65 mmHg, der auf 30 ml/kg Kristalloide nicht anspricht → septischer Schock, Noradrenalin, Intensivstation',
+        'Laktat ≥ 4 mmol/l — auch bei normalem Blutdruck (kryptischer Schock)',
+        'Oligurie < 0,5 ml/kg/h über 2 Stunden oder Kreatininanstieg ≥ 0,3 mg/dl in 48 Stunden → akutes Nierenversagen',
+        'Neu aufgetretene Verwirrtheit, Somnolenz oder Delir beim alten Patienten OHNE Fieber',
+        'Hypothermie < 36 °C, marmorierte Haut, Rekapillarisierungszeit > 2 Sekunden',
+        'Petechien, Purpura, Blutungen aus Einstichstellen → Meningokokkensepsis bzw. disseminierte intravasale Gerinnung',
+        'Fieber bei Neutropenie < 500/µl, Asplenie oder unter Immunsuppression → Sepsis bis zum Beweis des Gegenteils, Antibiose sofort',
+        'Fieber mit Klappenprothese, neuem Herzgeräusch oder nach zahnärztlichem Eingriff → Endokarditis mit septischer Embolie',
+        'Klinische Verschlechterung TROTZ laufender Antibiose → Fokus nicht saniert (Abszess, Harnstau, Empyem, Katheter), resistenter Erreger, falsches Antibiotikum — Kulturen, Sonographie/CT, Breitspektrum',
+        'Ikterus mit Fieber und Oberbauchschmerz (Charcot-Trias) plus Hypotonie und Bewusstseinsstörung (Reynolds-Pentade) → Cholangiosepsis, ERCP innerhalb von 24 Stunden',
+        'Unverhältnismäßiger Schmerz mit Hautnekrosen und Krepitation → nekrotisierende Fasziitis, sofortiges chirurgisches Débridement',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese mit Fokussuche: Fieber, Schüttelfrost, Nachtschweiß; Atemwegssymptome, Dysurie/Flankenschmerz, Bauchschmerz/Ikterus/Durchfall, Hautrötung/Wunde/Eintrittspforte, Kopfschmerz/Nackensteife; Fremdmaterial (Katheter, Port, Prothese), kürzliche Eingriffe (Zahn-OP, ERCP), Krankenhausaufenthalte und Antibiotikavortherapien (Resistenzrisiko), Auslandsreisen, Immunsuppression, Impfstatus, Asplenie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Vitalparameter komplett und wiederholt: Temperatur (Fieber ODER Hypothermie), Herzfrequenz, Atemfrequenz (der am häufigsten vergessene Parameter!), Blutdruck mit MAP, Sauerstoffsättigung, Bewusstseinslage (GCS) — daraus qSOFA und SIRS ableiten',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung als systematische Fokussuche „von Kopf bis Fuß“: Meningismus, Rachen, Herzauskultation (neues Geräusch), Lungenauskultation (Rasselgeräusche, abgeschwächtes Atemgeräusch bei Erguss/Empyem), Abdomen (Abwehrspannung, Murphy-Zeichen), Nierenlagerklopfschmerz, Haut komplett einschließlich Rücken, Sakrum und Interdigitalräume (Erysipel, Dekubitus, Fasziitis), Gelenke (septische Arthritis), alle Katheter- und Einstichstellen, Osler-Knötchen und Splinter-Hämorrhagien',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Perfusionszeichen: Rekapillarisierungszeit (> 2 Sekunden pathologisch), Mottling-Score an den Knien, Hauttemperatur, Urinausscheidung über Blasenkatheter (Ziel ≥ 0,5 ml/kg/h)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Laktat (arteriell oder venös) SOFORT — Marker der Gewebehypoperfusion: > 2 mmol/l pathologisch, ≥ 4 mmol/l schwere Hypoperfusion; Kontrolle nach 2–4 Stunden zur Beurteilung der Laktat-Clearance',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutkulturen: mindestens ZWEI Paare (je eine aerobe und eine anaerobe Flasche, 8–10 ml pro Flasche) aus zwei getrennten peripheren Punktionsstellen VOR der ersten Antibiotikagabe, bei liegendem zentralem Katheter zusätzlich ein Paar aus dem Katheter; bei Endokarditisverdacht drei Paare im Abstand von je 30 Minuten. Die Antibiose darf dadurch nicht über 45 Minuten verzögert werden',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter: Blutbild mit Differenzialblutbild (Leukozytose mit Linksverschiebung ODER Leukopenie < 4 000/µl als ungünstiges Zeichen; Thrombozytopenie), CRP, Procalcitonin (> 0,5 ng/ml spricht für bakterielle Genese, > 2 ng/ml für Sepsis; vor allem zur Verlaufskontrolle und Deeskalation, nicht zwingend — der Prüfer in Karlsruhe scherzte über die Kosten), BSG bei Endokarditisverdacht',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Organparameter für den SOFA-Score: Kreatinin, Harnstoff, Elektrolyte; Bilirubin, GOT, GPT, Lipase; Gerinnung mit Quick/INR, PTT, Fibrinogen, D-Dimere (DIC: Thrombozyten < 100 000/µl, Fibrinogen fallend, D-Dimere steigend); Blutgasanalyse mit pH, PaO₂/FiO₂, Base Excess; Blutzucker; Troponin und NT-proBNP bei septischer Kardiomyopathie; Kreuzblut',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Fokusdiagnostik mikrobiologisch: Urinstatus und Urinkultur mit Antibiogramm aus Mittelstrahlurin bzw. frisch gelegtem Katheter („Urinkultur!!!“ — in Karlsruhe fast vergessen und angemahnt), Sputum/Trachealsekret, Legionellen- und Pneumokokken-Antigen im Urin, Wundabstrich, Liquorpunktion bei Meningitisverdacht (nach CT bei Bewusstseinsstörung), Punktat aus Gelenk/Erguss/Aszites, Katheterspitze nach Entfernung, Stuhlkultur und Clostridioides-difficile-Toxin bei Diarrhoe, Malaria-Ausstrich nach Tropenreise',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax in zwei Ebenen (Infiltrat, Erguss, Empyem) und 12-Kanal-EKG (Tachykardie, Vorhofflimmern, Ischämiezeichen bei Typ-2-Infarkt)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie am Bett (Point-of-Care): Nieren und ableitende Harnwege (Harnstau als Ursache der obstruktiven Urosepsis, Nierenabszess — die Frage „Was sehen wir in der Sonografie?“ aus Karlsruhe), Leber und Gallenwege (Cholezystitis, erweiterte Gallengänge bei Cholangitis), freie Flüssigkeit, Abszess; Lungensonographie (Konsolidierung, Erguss); Vena cava inferior zur Volumenbeurteilung; Echokardiographie (Pumpfunktion, Vegetationen)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT mit Kontrastmittel (Thorax/Abdomen/Becken) bei unklarem Fokus oder Verdacht auf Abszess, Divertikulitis mit Perforation, Empyem, retroperitonealen Prozess, Spondylodiszitis; kraniales CT vor Liquorpunktion bei Bewusstseinsstörung oder fokalem Defizit',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale und vor allem transösophageale Echokardiographie (TEE) bei Endokarditisverdacht (Vegetationen, Klappeninsuffizienz, paravalvulärer Abszess) — die erwartete Antwort in Reutlingen auf die Frage „Welche Verfahren?“',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Erweitertes hämodynamisches Monitoring auf der Intensivstation: arterielle Druckmessung, zentraler Venenkatheter mit zentralvenöser Sättigung (ScvO₂ ≥ 70 %), Blasenkatheter zur Bilanzierung, ggf. PiCCO oder Echokardiographie zur Steuerung von Volumen und Katecholaminen',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Punktionen mit Zellzahl, Gramfärbung und Kultur: Gelenkpunktion (septische Arthritis: Zellzahl > 50 000/µl), Pleurapunktion (Empyem: pH < 7,2), Aszitespunktion (spontan-bakterielle Peritonitis: > 250 Granulozyten/µl), Lumbalpunktion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Screening auf multiresistente Erreger (MRSA-Nasenabstrich, ESBL/VRE-Rektalabstrich) bei Risikopatienten zur Steuerung der Isolierung und Antibiotikawahl',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Hypovolämischer Schock (Blutung, Exsikkose, Verbrennung)',
+          unterscheidung: 'Anamnese mit Blutverlust oder Flüssigkeitsverlust, kein Fieber, kalte Peripherie von Anfang an, niedriger zentraler Venendruck, Hämoglobinabfall oder Hämatokritanstieg; Procalcitonin normal. Cave: Sepsis und Hypovolämie überlagern sich häufig (Gastroenteritis mit Exsikkose).',
+        },
+        {
+          dd: 'Kardiogener Schock (Infarkt, Myokarditis, Lungenembolie als obstruktiver Schock)',
+          unterscheidung: 'Thoraxschmerz, gestaute Halsvenen, Lungenödem, EKG-Veränderungen, Troponin- und BNP-Anstieg, im Echo eingeschränkte Pumpfunktion oder Rechtsherzbelastung; kalte, feuchte Haut ohne Vasodilatation. Cave: die septische Kardiomyopathie ahmt ihn nach — Fieber und Fokus geben den Ausschlag.',
+        },
+        {
+          dd: 'Anaphylaktischer Schock',
+          unterscheidung: 'Sekunden bis Minuten nach Allergenkontakt (Medikament, Insektenstich, Nahrungsmittel), Urtikaria, Angioödem, Bronchospasmus, kein Fieber; Adrenalin i.m. 0,5 mg statt Antibiotika.',
+        },
+        {
+          dd: 'Nicht-infektiöses SIRS: Pankreatitis, Polytrauma, Verbrennung, große Operation, Lungenembolie',
+          unterscheidung: 'Erfüllt die SIRS-Kriterien ohne Erreger; Lipase, Anamnese und Bildgebung klären. Procalcitonin meist niedrig, Blutkulturen steril. Deshalb fordert Sepsis-3 die Organdysfunktion DURCH Infektion.',
+        },
+        {
+          dd: 'Addison-Krise (akute Nebennierenrindeninsuffizienz)',
+          unterscheidung: 'Hypotonie, Hyponatriämie, Hyperkaliämie, Hypoglykämie, Hyperpigmentierung, bekannte Kortisontherapie mit abruptem Absetzen; spricht dramatisch auf Hydrocortison 100 mg i.v. an — häufig durch einen Infekt ausgelöst, dann beides behandeln.',
+        },
+        {
+          dd: 'Thyreotoxische Krise',
+          unterscheidung: 'Fieber, Tachykardie, Unruhe und Bewusstseinsstörung wie bei Sepsis, aber Struma, Exophthalmus, Jodexposition; TSH supprimiert, fT3/fT4 hoch; Thiamazol, Betablocker, Glukokortikoide.',
+        },
+        {
+          dd: 'Malignes neuroleptisches Syndrom, Serotoninsyndrom, Hitzschlag, Intoxikation',
+          unterscheidung: 'Medikamentenanamnese (Neuroleptika, SSRI, Anticholinergika), Rigor, CK-Anstieg, Hyperthermie ohne Fokus; Blutkulturen steril.',
+        },
+        {
+          dd: 'Akuter Gichtanfall versus septische Arthritis',
+          unterscheidung: 'Klinisch nicht sicher zu trennen — beide monoartikulär, rot, überwärmt. Fieber, Schüttelfrost, Eintrittspforte und Procalcitonin sprechen für Infektion; entscheidend ist die Gelenkpunktion: Zellzahl > 50 000/µl, Gramfärbung, Kultur (septisch) versus negativ doppelbrechende Uratkristalle (Gicht). Beides kann gleichzeitig vorliegen — Standard-DD bei jedem Arthritisfall in Karlsruhe und Freiburg.',
+        },
+        {
+          dd: 'Bakteriämie ohne Sepsis und lokal begrenzte Infektion',
+          unterscheidung: 'Erregernachweis im Blut oder Infektfokus OHNE Organdysfunktion (SOFA-Anstieg < 2, Laktat normal, Kreislauf stabil). Wird behandelt, ist aber definitionsgemäß keine Sepsis — die Prüfer erwarten die Formulierung „Pyelonephritis mit drohender Urosepsis“ statt einer vorschnellen Sepsisdiagnose.',
+        },
+        {
+          dd: 'Lymphom, Leukämie, Vaskulitis, Morbus Still, Drug Fever',
+          unterscheidung: 'Fieber unklarer Genese über Wochen mit Nachtschweiß und Gewichtsverlust, B-Symptomatik, Lymphknoten, Splenomegalie, Blutbildveränderungen, negative Kulturen, fehlendes Ansprechen auf Antibiotika.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Erste Stunde — das Hour-1-Bundle der Surviving Sepsis Campaign',
+          items: [
+            'Sepsis erkennen und laut aussprechen („Ich habe den Verdacht auf eine Sepsis mit Fokus …“): qSOFA erheben, Vitalparameter, Sauerstoffgabe bei SpO₂ < 94 %, zwei großlumige periphere Zugänge, Monitoring, Oberarzt und Intensivstation informieren',
+            'Laktat messen — bei > 2 mmol/l Kontrolle nach 2–4 Stunden, bis es normalisiert ist',
+            'Blutkulturen abnehmen: mindestens zwei Paare aus zwei Punktionsstellen VOR der Antibiose, dazu Urinkultur und Kulturen aus dem vermuteten Fokus; die Antibiose darf dadurch aber nicht länger als 45 Minuten warten',
+            'Kalkulierte Breitspektrum-Antibiotikatherapie INTRAVENÖS innerhalb der ersten Stunde nach Erkennung — beim septischen Schock ist jede Stunde Verzögerung mit etwa 7–8 % höherer Letalität verbunden; Auswahl nach Fokus, Erwerbsort (ambulant/nosokomial), Vortherapie, Resistenzlage und Allergien, hoch dosiert (Sepsisdosis), erste Gabe als Bolus',
+            'Bei Hypotonie (systolisch < 100 mmHg, MAP < 65 mmHg) oder Laktat ≥ 4 mmol/l: 30 ml/kg Körpergewicht balancierte Kristalloide (Ringer-Acetat/-Laktat) innerhalb der ersten 3 Stunden — bei 70 kg etwa 2 100 ml; danach weitere Boli von 250–500 ml nach Volumenreagibilität (Beinhebeversuch, Vena-cava-Sonographie), Vorsicht bei Herzinsuffizienz',
+            'Noradrenalin als Vasopressor der ersten Wahl, wenn der MAP trotz oder während der Volumengabe unter 65 mmHg bleibt — Beginn mit 0,05–0,1 µg/kg/min, titriert; notfalls über den peripheren Zugang starten, nicht auf den ZVK warten',
+            'Fokus dokumentieren und die Fokussanierung planen (siehe nächste Stufe); Blasenkatheter zur Bilanzierung; Bewusstsein, Atemfrequenz und Urinausscheidung stündlich kontrollieren',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Erste 6 Stunden — Kreislaufstabilisierung, Fokussanierung und Intensivstation',
+          items: [
+            'Verlegung auf die Intensivstation bei Vasopressorbedarf, Laktat ≥ 4 mmol/l, respiratorischer Insuffizienz oder Bewusstseinsstörung; arterielle Druckmessung, zentraler Venenkatheter (ScvO₂ ≥ 70 %), ggf. PiCCO/Echo zur Steuerung',
+            'Hämodynamische Ziele: MAP ≥ 65 mmHg, Urin ≥ 0,5 ml/kg/h, Laktat fallend (Clearance ≥ 10–20 % in 2 Stunden), Rekapillarisierungszeit ≤ 2 Sekunden, warme Peripherie',
+            'Bei Noradrenalinbedarf ≥ 0,25 µg/kg/min: Vasopressin 0,03 IE/min als zweiten Vasopressor ergänzen; bei nachgewiesener myokardialer Dysfunktion mit persistierender Hypoperfusion Dobutamin (2,5–10 µg/kg/min) oder Adrenalin',
+            'Hydrocortison 200 mg pro Tag i.v. (4 × 50 mg oder kontinuierlich) beim refraktären septischen Schock mit anhaltendem Vasopressorbedarf (Noradrenalin ≥ 0,25 µg/kg/min über mindestens 4 Stunden); kein Hydrocortison bei Sepsis ohne Schock',
+            'Albumin 20 % erwägen, wenn große Kristalloidmengen nötig sind; Hydroxyethylstärke (HES) und Gelatine sind kontraindiziert (Nierenversagen, Blutungen)',
+            'FOKUSSANIERUNG so früh wie möglich, spätestens innerhalb von 6–12 Stunden — „source control“: Entfernung infizierter Katheter, Ports und Fremdkörper; sonographisch oder CT-gesteuerte Drainage von Abszessen; Harnableitung bei obstruktiver Urosepsis (Harnleiterschiene oder perkutane Nephrostomie); ERCP mit Steinextraktion oder Stent bei Cholangitis (innerhalb von 24 Stunden); Inzision und Débridement bei Abszess, Phlegmone und nekrotisierender Fasziitis (Notfalloperation innerhalb weniger Stunden); Laparotomie bei Perforation oder Peritonitis; Thoraxdrainage beim Empyem; Klappenoperation bei Endokarditis mit Herzinsuffizienz, unkontrollierter Infektion oder Embolierisiko',
+            'Antibiose an den Fokus anpassen, sobald Sonographie/CT den Fokus zeigen; Erregernachweis und Antibiogramm nach 24–72 Stunden abwarten',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Kalkulierte Antibiotikatherapie nach Fokus — Beispiele für das Arzt-Arzt-Gespräch, anschließend Deeskalation',
+          items: [
+            'Grundprinzip: erst breit und hoch dosiert („hit hard and early“), dann nach Antibiogramm gezielt und schmal („Deeskalation“) — in der Regel nach 48–72 Stunden; Therapiedauer meist 7–10 Tage, länger bei Endokarditis (4–6 Wochen), Abszess, Osteomyelitis, Staphylococcus-aureus-Bakteriämie (mindestens 14 Tage); Procalcitonin-gesteuerte Beendigung bei < 0,5 ng/ml oder Abfall um ≥ 80 % vom Maximum',
+            'Unbekannter Fokus, ambulant erworben: Piperacillin/Tazobactam 3–4 × 4,5 g i.v.; nosokomial oder ESBL-Risiko: Meropenem 3 × 1 g i.v.; bei MRSA-Risiko (Besiedlung, Katheter, Dialyse) plus Vancomycin (Ladedosis 25–30 mg/kg, dann nach Talspiegel 15–20 mg/l) oder Linezolid 2 × 600 mg',
+            'Pulmonale Sepsis (schwere ambulant erworbene Pneumonie): Piperacillin/Tazobactam 3 × 4,5 g oder Ceftriaxon 1 × 2 g i.v. PLUS Makrolid (Clarithromycin 2 × 500 mg oder Azithromycin 1 × 500 mg) für die atypischen Erreger; bei Penicillinallergie Moxifloxacin 1 × 400 mg oder Ceftriaxon plus Makrolid nach Allergieanamnese (Kreuzallergie unter 1–2 % bei nicht-schweren Reaktionen) — die Karlsruher Antwort „Makrolid/Clarithromycin, alternativ Ceftriaxon“',
+            'Urosepsis (Pyelonephritis, obstruktive Uropathie; Erreger E. coli in etwa 75 %, Klebsiellen, Proteus, Enterokokken): Piperacillin/Tazobactam 3 × 4,5 g oder Ceftriaxon 1 × 2 g i.v.; Ciprofloxacin 2 × 400 mg i.v. nur bei niedriger lokaler Resistenzrate; Meropenem 3 × 1 g bei ESBL-Verdacht; IMMER Sonographie zum Ausschluss eines Harnstaus, der abgeleitet werden muss — Antibiotika allein reichen dann nicht',
+            'Abdominelle Sepsis (Divertikulitis, Cholangitis, Peritonitis, Abszess): Ceftriaxon 1 × 2 g PLUS Metronidazol 3 × 500 mg i.v. („gramnegative und anaerobe Erreger erfassen“ — Karlsruhe 18.12.2023) oder Piperacillin/Tazobactam 3 × 4,5 g; beim septischen Schock Meropenem 3 × 1 g; plus Enterokokken- und Candida-Abdeckung bei postoperativer oder tertiärer Peritonitis',
+            'Haut- und Weichteilsepsis: Erysipel Penicillin G 3 × 10 Mio. IE i.v. (bei Allergie Clindamycin 3 × 600 mg); Phlegmone/Abszess mit Staphylokokkenverdacht Ampicillin/Sulbactam 3 × 3 g oder Cefazolin 3 × 2 g; nekrotisierende Fasziitis Piperacillin/Tazobactam oder Meropenem PLUS Clindamycin 3 × 900 mg (Toxinhemmung) und sofortige Chirurgie',
+            'Endokarditis (kalkuliert, vor Erregernachweis): Nativklappe Ampicillin 4–6 × 2 g PLUS Flucloxacillin 4–6 × 2 g PLUS Gentamicin 3 mg/kg/d i.v.; Klappenprothese (Reutlinger Fall: Mitralklappenprothese, Zahn-OP vor 3 Wochen) Vancomycin PLUS Gentamicin PLUS Rifampicin 3 × 300 mg (Rifampicin nach 3–5 Tagen); Dauer 4–6 Wochen, Klappenchirurgie mit Herzchirurgie besprechen',
+            'Meningokokken-/Pneumokokkenmeningitis mit Sepsis: Ceftriaxon 2 × 2 g i.v. PLUS Ampicillin 6 × 2 g (Listerien bei über 50-Jährigen und Immunsupprimierten) PLUS Dexamethason 4 × 10 mg über 4 Tage, erste Gabe vor oder mit dem Antibiotikum; Isolierung, Chemoprophylaxe der Kontaktpersonen mit Rifampicin oder Ciprofloxacin 500 mg einmalig',
+            'Katheter-assoziierte Sepsis: Katheter ENTFERNEN und Spitze einschicken, Vancomycin plus gramnegative Abdeckung (Piperacillin/Tazobactam oder Meropenem); Candida-Verdacht (TPN, lange Intensivtherapie, Neutropenie) Caspofungin 70 mg, dann 50 mg täglich',
+            'Neutropenische Sepsis (Neutrophile < 500/µl): innerhalb von 30–60 Minuten Piperacillin/Tazobactam 4 × 4,5 g oder Meropenem 3 × 1 g, Vancomycin bei Katheter- oder Weichteilinfekt; keine Wartezeit auf Kulturen',
+            'Dosis an Nierenfunktion und Dialyse anpassen (aber erste Dosis IMMER voll), therapeutisches Drug-Monitoring für Vancomycin und Aminoglykoside, Antibiotic Stewardship: nach Antibiogramm auf das schmalste wirksame Präparat umstellen, i.v.–oral-Sequenz bei klinischer Stabilität',
+          ],
+        },
+        {
+          label: 'Intensivmedizinische Organunterstützung und Supportivtherapie (Tag 1–7)',
+          items: [
+            'Beatmung: Sauerstoff über Nasenbrille/Maske, High-Flow oder nicht-invasive Beatmung; bei septischem ARDS lungenprotektive invasive Beatmung mit 6 ml/kg idealem Körpergewicht Tidalvolumen, Plateaudruck < 30 cmH₂O, PEEP nach Tabelle, Bauchlagerung bei PaO₂/FiO₂ < 150 mmHg',
+            'Nierenersatzverfahren (kontinuierliche Hämodialyse/-filtration) bei akutem Nierenversagen mit Hyperkaliämie, Azidose, Überwässerung oder Urämie — kein präventiver Beginn allein wegen der Sepsis',
+            'Blutzucker: Insulinperfusor ab zweimalig > 180 mg/dl (10 mmol/l), Ziel 140–180 mg/dl; Hypoglykämien vermeiden — keine intensivierte Insulintherapie',
+            'Thromboseprophylaxe mit niedermolekularem Heparin (z. B. Enoxaparin 40 mg s.c. 1 × täglich, bei Niereninsuffizienz unfraktioniertes Heparin) plus mechanische Prophylaxe; Stressulkusprophylaxe mit Pantoprazol 40 mg i.v. bei Blutungsrisiko (Beatmung, Gerinnungsstörung)',
+            'Transfusion von Erythrozytenkonzentraten erst bei Hämoglobin < 7 g/dl (bei akuter Ischämie < 8–9 g/dl); Thrombozyten bei < 10 000/µl bzw. < 20 000/µl mit Blutungsrisiko; Frischplasma nur bei Blutung mit Gerinnungsstörung',
+            'Enterale Ernährung früh (innerhalb von 24–48 Stunden) und niedrig beginnend; Elektrolyte, Phosphat und Magnesium ausgleichen; Vitamin C, Thiamin und Immunglobuline sind NICHT empfohlen (kein Nutzenbeleg)',
+            'Analgosedierung so flach wie möglich, tägliche Aufwachversuche, Delirprophylaxe und -screening (CAM-ICU), Frühmobilisation und Physiotherapie',
+            'Keine Bikarbonatgabe bei Laktatazidose mit pH ≥ 7,15; Fiebersenkung mit Paracetamol nur bei Beschwerden oder kardialer Belastung — Fieber ist kein Therapieziel',
+            'Tägliche Reevaluation: Fokus saniert? Antibiotikum deeskaliert? Katheter noch nötig? Sedierung reduzierbar? Volumen abbauen (Deresuscitation ab Tag 3)?',
+          ],
+        },
+        {
+          label: 'Nach der Akutphase — Nachsorge, Post-Sepsis-Syndrom und Prävention',
+          items: [
+            'Post-Sepsis-Syndrom bei etwa jedem zweiten Überlebenden: Muskelschwäche und Critical-Illness-Polyneuropathie/-Myopathie, kognitive Störungen (Konzentration, Gedächtnis), Angst, Depression, posttraumatische Belastungsstörung, Schlafstörungen, chronische Schmerzen, Dysphagie nach Intubation — strukturierte Nachsorge, Rehabilitation, Physio- und Ergotherapie, psychologische Betreuung',
+            'Im Entlassbrief dokumentieren: Sepsis-Diagnose mit Fokus und Erreger, Organdysfunktionen, Antibiotikadauer, Katheterentfernung, verbleibende Nierenfunktion; Hausarzt über Rehospitalisierungsrisiko (etwa 30 % im ersten Jahr) informieren',
+            'Impfungen nachholen und auffrischen: Pneumokokken (Konjugatimpfstoff PCV20 ab 60 Jahren und bei Risikopatienten), Influenza jährlich, COVID-19, Herpes zoster ab 60 Jahren; nach Sepsis-Überleben besteht ein erhöhtes Risiko für erneute Infektionen',
+            'Asplenie: Impfung gegen Pneumokokken, Meningokokken ACWY und B sowie Haemophilus influenzae Typ b (idealerweise 2 Wochen vor elektiver Splenektomie), Notfallausweis, Stand-by-Antibiotikum Amoxicillin/Clavulansäure 3 × 875/125 mg bei jedem Fieber (OPSI-Letalität bis 50 %)',
+            'Katheterhygiene und Krankenhaushygiene: Indikation für jeden Katheter täglich prüfen und Katheter frühzeitig entfernen, Händedesinfektion, aseptisches Legen von ZVK und Blasenkatheter, Bündelstrategien; MRSA-Screening und Isolierung',
+            'Grundkrankheiten optimieren: Diabeteseinstellung, Ernährung, Alkoholkarenz, Zahnsanierung vor Klappenersatz, Endokarditisprophylaxe (Amoxicillin 2 g oral 30–60 Minuten vor zahnärztlichen Eingriffen bei Klappenprothese oder Endokarditis in der Vorgeschichte)',
+            'Patientenschulung: Warnzeichen einer Sepsis (Fieber mit Schüttelfrost, Verwirrtheit, schnelle Atmung, Blutdruckabfall) erklären und den Weg zur Notaufnahme klären — insbesondere bei Immunsupprimierten, Neutropenie und Asplenie',
+          ],
+        },
+      ],
+      prognose: 'Die Krankenhausletalität liegt bei der Sepsis bei etwa 10–20 % und steigt beim septischen Schock auf etwa 40 % und mehr; entscheidend sind die Anzahl der versagenden Organe (jedes weitere Organversagen erhöht die Letalität um etwa 15–20 %), das Alter, die Komorbidität und vor allem die ZEIT bis zur Antibiose und zur Fokussanierung — beim septischen Schock verschlechtert jede Stunde Verzögerung der wirksamen Antibiotikagabe die Überlebenschance um etwa 7–8 %. Der Laktatverlauf ist der wichtigste frühe Prognosemarker: fällt das Laktat innerhalb von 6 Stunden nicht ab, verdoppelt sich das Sterberisiko. Unbehandelt oder zu spät behandelt entwickelt sich in Stunden bis Tagen ein Multiorganversagen (Nieren, Lunge/ARDS, Leber, Herz, Gerinnung, ZNS). Wer die Akutphase überlebt, ist häufig nicht gesund: Bis zu die Hälfte der Überlebenden entwickelt ein Post-Sepsis-Syndrom mit körperlicher Schwäche, kognitiven Einschränkungen und psychischen Folgen; die Ein-Jahres-Sterblichkeit nach überstandener Sepsis bleibt mit etwa 15–20 % hoch, die Rehospitalisierungsrate bei etwa 30 %. Prävention (Impfungen, Katheterhygiene, Aufklärung von Risikogruppen) und Früherkennung („Time is tissue“) verbessern die Prognose mehr als jede Einzelmaßnahme auf der Intensivstation.',
+      pruefungsfallen: [
+        '„Sepsis“ oder „septischer Schock“ NUR dann aussprechen, wenn man die Definition liefern kann — in Reutlingen folgte auf die beiläufige Erwähnung des septischen Schocks sofort die Frage nach dem qSOFA-Score (Atemfrequenz ≥ 22/min, systolischer RR ≤ 100 mmHg, veränderte Bewusstseinslage, positiv ab 2 Kriterien).',
+        'Die Sepsis nicht mehr über SIRS definieren: Sepsis-3 verlangt eine Organdysfunktion (SOFA-Anstieg ≥ 2 Punkte); der septische Schock verlangt Vasopressoren für einen MAP ≥ 65 mmHg UND ein Laktat > 2 mmol/l trotz Volumen — beides muss erfüllt sein.',
+        'Die Reihenfolge ist prüfungsrelevant: Blutkulturen (mindestens zwei Paare aus zwei Punktionsstellen) VOR der ersten Antibiotikagabe — aber die Antibiose darf dadurch nicht länger als 45 Minuten verzögert werden. „Erst Antibiotikum, dann Kultur“ ist ein klassischer Fehler.',
+        'Die Urinkultur mit Antibiogramm bei der Pyelonephritis nicht vergessen — ein Karlsruher Prüfer notierte „Urinkultur!!!“ und „Kultur fast vergessen“; ebenso die Sonographie der Nieren, weil ein Harnstau abgeleitet werden muss und Antibiotika allein nicht ausreichen.',
+        'Verschlechterung trotz Antibiose bedeutet nicht einfach „mehr Antibiotikum“: die erwartete Antwort umfasst Breitspektrum-Antibiose PLUS erneute Fokussuche (Abszess, Harnstau, Empyem, Katheter) PLUS Kulturen PLUS Prüfung der Sepsiskriterien und ggf. Intensivstation.',
+        'Der Diabetiker mit Pyelonephritis oder Gesäßabszess wird NICHT mit Rezept nach Hause geschickt (Karlsruhe 18.08.2022 und 30.01.2025): stationäre Aufnahme wegen des erhöhten Komplikationsrisikos (Urosepsis, Abszess, Nierenversagen, Entgleisung des Diabetes) — die Begründung muss aktiv formuliert werden.',
+        'Beim alten Patienten fehlt das Fieber: Verwirrtheit, Sturz und Hypothermie SIND die Sepsiszeichen. „Kein Fieber, also keine Sepsis“ ist falsch — ebenso beim Neutropenischen, unter Kortison und unter Betablockern (keine Tachykardie).',
+        'Die Atemfrequenz wird bei den Vitalparametern regelmäßig vergessen — sie ist qSOFA-Kriterium und meist das erste abnorme Zeichen.',
+        'Volumenmenge und Vasopressor konkret nennen: 30 ml/kg balancierte Kristalloide innerhalb von 3 Stunden, dann Noradrenalin bei MAP < 65 mmHg; Hydrocortison 200 mg/d NUR beim refraktären Schock, nicht bei jeder Sepsis; HES ist kontraindiziert.',
+        'Procalcitonin nicht als unverzichtbar darstellen — in Karlsruhe scherzte der Prüfer über die Kosten („wer hat zu viel Geld?“); es dient dem Ausschluss einer bakteriellen Genese und der Steuerung der Antibiotikadauer, aber CRP, Blutbild, Laktat und Kulturen sind die Basis.',
+        'Fokussanierung als eigenen Therapiepfeiler nennen — Antibiotika heilen keinen Abszess, keinen Harnstau, kein Empyem und keinen infizierten Katheter. „Source control“ innerhalb von 6–12 Stunden gehört in jede Antwort zur Sepsistherapie.',
+        'Fachbegriffe patientengerecht: Sepsis = Blutvergiftung; Urosepsis = eine von einer Entzündung der Harnwege ausgehende Blutvergiftung; Asepsis = Keimfreiheit/Sterilität; aseptisch = keimfrei; Blutkulturen = Blutproben, in denen wir nach Bakterien suchen; septischer Schock = lebensbedrohlicher Kreislaufzusammenbruch bei einer Blutvergiftung. „Aseptisch“ ist NICHT das Gegenteil von „septisch“ im Sinne von „ohne Sepsis“, sondern bedeutet keimfrei (aseptische Wundversorgung, aseptische Knochennekrose).',
+        'Bei jeder akuten Monarthritis (Gicht, rheumatisches Fieber, Gonarthrose) die septische Arthritis als DD nennen UND den Ausschluss beschreiben: Gelenkpunktion mit Zellzahl, Gramfärbung und Kultur — nur die Nennung reicht den Prüfern nicht.',
+        'Bei der Frage nach dem Antibiotikum darf man den Namen vergessen, nicht aber das Spektrum: „Ich würde gramnegative und anaerobe Erreger erfassen, z. B. Ceftriaxon plus Metronidazol“ wurde in Karlsruhe mit „Sehr gut, kein Problem“ akzeptiert.',
+        'Fieber, Schüttelfrost und Nachtschweiß in JEDER Anamnese erfragen — in Freiburg musste ein Kandidat dies im Arzt-Arzt-Gespräch nachholen; Schüttelfrost spricht für eine Bakteriämie.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welche Komplikationen hat eine Pyelonephritis? (Karlsruhe, 18.08.2022 und 26.04.2023)',
+          antwort: 'Die gefährlichste Komplikation ist die Urosepsis bis hin zum septischen Schock — vor allem bei Harnstau, Diabetes mellitus, Schwangerschaft und im Alter. Daneben der Nierenabszess und der paranephritische Abszess, das akute Nierenversagen, die emphysematöse Pyelonephritis beim Diabetiker, die Pyonephrose bei Obstruktion sowie langfristig die chronische Pyelonephritis mit Narbenniere und arterieller Hypertonie. Deshalb gehören bei jeder Pyelonephritis die Nierensonographie zum Ausschluss eines Harnstaus und die Kontrolle von Kreatinin und Vitalparametern dazu.',
+        },
+        {
+          frage: 'Erklären Sie bitte den Begriff Urosepsis. (Reutlingen, 19.06.2024 — Fachbegriff in Karlsruhe dreimal)',
+          antwort: 'Arzt-Arzt: Die Urosepsis ist eine Sepsis, deren Infektionsfokus im Urogenitaltrakt liegt — meist eine Pyelonephritis, häufig bei obstruktiver Uropathie durch Harnsteine, Prostatahyperplasie oder Tumor, oder nach urologischen Eingriffen. Erreger sind in etwa drei Vierteln E. coli, außerdem Klebsiellen, Proteus, Pseudomonas und Enterokokken. Sie erfüllt die Sepsis-3-Kriterien, also eine Organdysfunktion mit SOFA-Anstieg um mindestens 2 Punkte, und verlangt neben der Antibiose zwingend die Ableitung eines Harnstaus. Für den Patienten: eine Blutvergiftung, die von einer Entzündung der Harnwege ausgeht — die Bakterien aus der Niere sind ins Blut übergetreten und lösen eine gefährliche Reaktion des ganzen Körpers aus.',
+        },
+        {
+          frage: 'Sie haben ein Antibiotikum gegeben, aber dem Patienten geht es trotzdem nicht gut. Was machen wir? (Karlsruhe, 18.08.2022)',
+          antwort: 'Dann muss ich von einem Therapieversagen mit drohender Urosepsis ausgehen und drei Dinge gleichzeitig tun. Erstens die Sepsiskriterien prüfen: Vitalparameter mit Atemfrequenz und Bewusstseinslage — qSOFA —, Laktat, Blutbild, CRP, Kreatinin, Gerinnung; bei qSOFA ≥ 2 oder Hypotonie das Sepsisbündel mit 30 ml/kg Kristalloiden und Verlegung auf die Intensivstation. Zweitens die Antibiose auf ein Breitspektrum-Präparat eskalieren, zum Beispiel von Ceftriaxon oder Ciprofloxacin auf Piperacillin/Tazobactam 3 × 4,5 g oder bei ESBL-Verdacht Meropenem 3 × 1 g i.v., nachdem ich Blutkulturen und eine Urinkultur mit Antibiogramm abgenommen habe. Drittens den Fokus erneut suchen: Sonographie, ggf. CT — ein Harnstau muss mit Harnleiterschiene oder Nephrostomie abgeleitet, ein Nierenabszess drainiert werden. Antibiotika allein reichen bei nicht saniertem Fokus nicht aus.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen veranlassen Sie bei der Pyelonephritis? (Karlsruhe, 18.08.2022: „Labor? Urinkultur!!!“; Stuttgart, 05.08.2023)',
+          antwort: 'Urinstatus mit Streifentest und Sediment — Leukozyturie, Nitrit, Bakteriurie, Hämaturie — und obligatorisch die Urinkultur mit Antibiogramm aus dem Mittelstrahlurin, vor der ersten Antibiotikagabe abgenommen. Im Blut: Blutbild mit Differenzialblutbild, CRP, ggf. Procalcitonin, Kreatinin und Harnstoff, Elektrolyte, Blutzucker beziehungsweise HbA1c beim Diabetiker, bei Fieber mit Schüttelfrost oder reduziertem Allgemeinzustand zusätzlich zwei Paare Blutkulturen und Laktat; bei Frauen im gebärfähigen Alter ein Schwangerschaftstest. Ergänzend die Sonographie der Nieren wegen Harnstau und Abszess.',
+        },
+        {
+          frage: 'Welche Bakterien verursachen die Pyelonephritis, und welches Antibiotikum geben Sie? (Karlsruhe, 18.08.2022; Reutlingen, 19.06.2024; Stuttgart, 05.08.2023)',
+          antwort: 'In etwa 75–80 % Escherichia coli, außerdem Klebsiellen, Proteus mirabilis, Enterokokken und bei Katheterträgern Pseudomonas. Ambulant bei leichter Pyelonephritis Ciprofloxacin 2 × 500 mg oder Cefpodoxim 2 × 200 mg oral über 7–10 Tage. Stationär — also bei Erbrechen, Diabetes, Schwangerschaft, Harnstau oder Sepsiszeichen — intravenös ein Betalaktam-Antibiotikum: Ceftriaxon 1 × 2 g oder Piperacillin/Tazobactam 3 × 4,5 g, alternativ Ciprofloxacin 2 × 400 mg i.v.; bei ESBL-Verdacht Meropenem 3 × 1 g. Anschließend nach Antibiogramm deeskalieren und auf oral umstellen. Als Spasmolytikum bei kolikartigen Beschwerden Butylscopolamin 20 mg i.v., dazu Metamizol 1 g oder Paracetamol 1 g.',
+        },
+        {
+          frage: 'Schicken Sie den Patienten mit einem Rezept nach Hause? Erklären Sie das bitte gegenüber der Krankenversicherung. (Karlsruhe, 18.08.2022 — Diabetiker mit Pyelonephritis; ähnlich 30.01.2025 beim Abszess)',
+          antwort: 'Nein. Der Patient hat einen Diabetes mellitus und damit ein deutlich erhöhtes Risiko für einen komplizierten Verlauf: Urosepsis, Nierenabszess, emphysematöse Pyelonephritis, akutes Nierenversagen und eine Entgleisung des Blutzuckers durch die Infektion. Zusätzlich sprechen Fieber mit Schüttelfrost, Erbrechen mit unsicherer oraler Antibiotikaaufnahme, ein Harnstau in der Sonographie und ein reduzierter Allgemeinzustand für die stationäre Aufnahme. Stationär kann ich intravenös antibiotisch behandeln, Vitalparameter, Kreatinin und Blutzucker engmaschig überwachen, die Urinkultur abwarten und bei Verschlechterung sofort eskalieren — das ist medizinisch notwendig und deshalb auch gegenüber der Krankenkasse begründet.',
+        },
+        {
+          frage: 'Was ist der qSOFA-Score, und wie unterscheiden Sie Sepsis und septischen Schock? (Reutlingen, 18.01.2023 — nach Erwähnung des septischen Schocks)',
+          antwort: 'Der qSOFA ist ein bettseitiges Screening ohne Labor mit drei Kriterien: Atemfrequenz ≥ 22/min, systolischer Blutdruck ≤ 100 mmHg und eine veränderte Bewusstseinslage, also GCS unter 15. Ab 2 von 3 Kriterien besteht bei Infektverdacht ein hohes Risiko — dann Laktat, SOFA-Score und Sepsisbündel. Seine Sensitivität ist begrenzt, ein negativer qSOFA schließt eine Sepsis nicht aus. Die Sepsis selbst ist nach Sepsis-3 eine lebensbedrohliche Organdysfunktion durch eine fehlregulierte Antwort auf eine Infektion, definiert als SOFA-Anstieg um mindestens 2 Punkte. Der septische Schock liegt vor, wenn trotz adäquater Volumentherapie Vasopressoren nötig sind, um einen MAP von mindestens 65 mmHg zu halten, UND das Laktat über 2 mmol/l bleibt — mit einer Letalität von etwa 40 %.',
+        },
+        {
+          frage: 'Der Patient mit Endokarditis wird septisch — was würden Sie jetzt machen? (Reutlingen, 18.01.2023)',
+          antwort: 'Ich starte das Hour-1-Bundle: Monitoring, Sauerstoff, zwei großlumige Zugänge, Laktat messen, mindestens zwei — bei Endokarditisverdacht drei — Paare Blutkulturen aus getrennten Punktionsstellen, und innerhalb der ersten Stunde eine kalkulierte intravenöse Antibiose, hier bei Klappenprothese Vancomycin plus Gentamicin plus Rifampicin, bei Nativklappe Ampicillin plus Flucloxacillin plus Gentamicin. Bei Hypotonie oder Laktat ≥ 4 mmol/l 30 ml/kg balancierte Kristalloide innerhalb von 3 Stunden, vorsichtig wegen der Klappeninsuffizienz, und Noradrenalin, wenn der MAP unter 65 mmHg bleibt. Dann Verlegung auf die Intensivstation, transösophageale Echokardiographie und frühzeitige Vorstellung in der Herzchirurgie — bei Herzinsuffizienz, paravalvulärem Abszess, persistierender Sepsis oder Embolien ist die Klappenoperation die Fokussanierung.',
+        },
+        {
+          frage: 'Welche Laboruntersuchungen und welche Verfahren veranlassen Sie bei Verdacht auf Endokarditis? (Reutlingen, 18.01.2023 und 25.09.2024)',
+          antwort: 'Blutbild mit Differenzialblutbild, CRP, BSG, Procalcitonin, Elektrolyte, Nieren- und Leberwerte, Gerinnung, Laktat, Troponin und NT-proBNP sowie Urinstatus wegen der Hämaturie bei Immunkomplexnephritis. Entscheidend sind drei Paare Blutkulturen aus verschiedenen Punktionsstellen im Abstand von jeweils etwa 30 Minuten, VOR der Antibiose, damit die Duke-Kriterien erfüllt werden können. Apparativ: 12-Kanal-EKG, Röntgen-Thorax, transthorakale und dann transösophageale Echokardiographie zum Nachweis von Vegetationen, Klappeninsuffizienz und Abszess; bei Embolieverdacht CT oder MRT des Schädels und CT des Abdomens; Zahnstatus zur Fokussuche. Therapie: stationäre Aufnahme, intravenöse Antibiose über 4–6 Wochen nach Antibiogramm.',
+        },
+        {
+          frage: 'Welches Antibiotikum verabreichen Sie bei der komplizierten Divertikulitis, und warum? (Karlsruhe, 18.12.2023 und 26.03.2024)',
+          antwort: 'Ceftriaxon 1 × 2 g i.v. plus Metronidazol 3 × 500 mg i.v., weil ich das Erregerspektrum des Dickdarms abdecken muss: gramnegative Enterobakterien wie E. coli und Klebsiellen mit dem Cephalosporin, Anaerobier wie Bacteroides fragilis mit dem Metronidazol. Alternativ Piperacillin/Tazobactam 3 × 4,5 g als Monotherapie, das zusätzlich Enterokokken erfasst; beim septischen Schock oder nach Antibiotikavortherapie Meropenem 3 × 1 g. Bei Abszess über 3–4 cm zusätzlich die CT-gesteuerte Drainage, bei freier Perforation die Notfalloperation — ohne Fokussanierung droht die abdominelle Sepsis.',
+        },
+        {
+          frage: 'Der Pneumoniepatient hat eine Penicillinallergie — welche Antibiotika geben Sie? Gibt es andere? (Karlsruhe, Pneumonie)',
+          antwort: 'Zunächst kläre ich die Allergie: Handelte es sich um eine Anaphylaxie oder nur um ein Exanthem? Bei nicht-schwerer Reaktion kann ich Ceftriaxon 1 × 2 g i.v. geben, die Kreuzreaktion liegt unter 1–2 %. Bei schwerer Sofortreaktion ein Makrolid, zum Beispiel Clarithromycin 2 × 500 mg, oder ein Fluorchinolon der Gruppe IV wie Moxifloxacin 1 × 400 mg, das Pneumokokken und atypische Erreger abdeckt. Bei schwerer Pneumonie mit Sepsiszeichen kombiniere ich ein Betalaktam — bei Allergie das Cephalosporin oder Moxifloxacin — mit einem Makrolid und lege Blutkulturen sowie Legionellen- und Pneumokokken-Antigen im Urin an.',
+        },
+        {
+          frage: 'Muss der Patient mit dem Gesäßabszess im Krankenhaus bleiben? (Karlsruhe, 30.01.2025 — Diabetiker)',
+          antwort: 'Ja. Ein Abszess muss chirurgisch inzidiert und drainiert werden — „ubi pus, ibi evacua“ —, und beim Diabetiker ist die Wundheilung gestört und das Risiko für Phlegmone, nekrotisierende Fasziitis, Fournier-Gangrän und Sepsis deutlich erhöht. Stationär erhält er eine intravenöse Antibiose gegen Staphylokokken, Streptokokken und bei perianaler Lage auch gramnegative und anaerobe Darmkeime, zum Beispiel Ampicillin/Sulbactam 3 × 3 g, dazu eine Blutzuckereinstellung, Wundkontrollen und Schmerztherapie. Bei Fieber, Schüttelfrost, Tachykardie oder CRP-Anstieg unter Therapie prüfe ich die Sepsiskriterien und erweitere die Bildgebung auf ein CT.',
+        },
+        {
+          frage: 'Erklären Sie dem Patienten die Begriffe Sepsis, Blutkulturen und aseptisch. (Fachbegriffe Karlsruhe, Reutlingen, Stuttgart, Freiburg)',
+          antwort: 'Sepsis: „Das nennt man umgangssprachlich Blutvergiftung. Bakterien aus einem Entzündungsherd — hier aus der Niere — sind ins Blut gelangt, und der Körper reagiert so heftig darauf, dass Kreislauf und Organe Schaden nehmen können. Das ist ein Notfall, den wir sofort mit Antibiotika über die Vene und Infusionen behandeln.“ Blutkulturen: „Wir nehmen mehrmals Blut ab und legen es in spezielle Flaschen, in denen Bakterien wachsen können. So finden wir heraus, welcher Keim Sie krank macht und welches Antibiotikum am besten wirkt.“ Aseptisch: „Das bedeutet keimfrei — wir arbeiten zum Beispiel beim Legen des Katheters unter sterilen Bedingungen, damit keine Keime hineingelangen.“ Arzt-Arzt: Asepsis = Keimfreiheit, Sterilität; aseptische Nekrose = Knochenuntergang ohne Erreger.',
+        },
+        {
+          frage: 'Wie viele Blutkulturen nehmen Sie ab, und wann? (implizit in Reutlingen bei Endokarditis, in Karlsruhe bei Pyelonephritis)',
+          antwort: 'Mindestens zwei Paare, also je eine aerobe und eine anaerobe Flasche mit 8–10 ml Blut, aus zwei getrennten peripheren Venenpunktionen, bei liegendem zentralem Katheter zusätzlich ein Paar aus dem Katheter — alle VOR der ersten Antibiotikagabe, aber ohne die Antibiose um mehr als 45 Minuten zu verzögern. Bei Endokarditisverdacht drei Paare im Abstand von je 30 Minuten, weil die Bakteriämie dort kontinuierlich ist. Die Abnahme erfolgt unter Hautdesinfektion mit einer Einwirkzeit von mindestens 30 Sekunden, um Kontaminationen mit Hautkeimen zu vermeiden; nicht auf den Fieberanstieg warten — Schüttelfrost ist der beste Zeitpunkt.',
+        },
+        {
+          frage: 'Wie behandeln Sie einen septischen Schock konkret — welche Menge, welches Medikament?',
+          antwort: 'Innerhalb der ersten Stunde: Laktat, Blutkulturen, Breitspektrum-Antibiose i.v., und 30 ml/kg balancierte Kristalloide innerhalb von 3 Stunden — bei 70 kg etwa 2 Liter Ringer-Acetat, weitere Boli von 250–500 ml nach Volumenreagibilität. Bleibt der MAP unter 65 mmHg, Noradrenalin über Perfusor ab 0,05–0,1 µg/kg/min, titriert, notfalls zunächst peripher. Bei Noradrenalin ≥ 0,25 µg/kg/min zusätzlich Vasopressin 0,03 IE/min, bei Pumpversagen Dobutamin. Bei refraktärem Schock mit anhaltendem Vasopressorbedarf über mehr als 4 Stunden Hydrocortison 200 mg pro Tag i.v. Parallel Fokussanierung innerhalb von 6–12 Stunden — Drainage, Katheterentfernung, Operation — und intensivmedizinische Organunterstützung: Beatmung, Nierenersatz, Blutzucker 140–180 mg/dl, Thromboseprophylaxe. Ziele: MAP ≥ 65 mmHg, Urin ≥ 0,5 ml/kg/h, Laktat fallend.',
+        },
+        {
+          frage: 'Eine 82-jährige Patientin kommt verwirrt, ohne Fieber, mit Blutdruck 95/50 mmHg und Atemfrequenz 26/min. Was denken Sie?',
+          antwort: 'Das ist bis zum Beweis des Gegenteils eine Sepsis — der qSOFA ist mit Atemfrequenz ≥ 22/min, systolischem Druck ≤ 100 mmHg und Verwirrtheit mit 3 von 3 Kriterien positiv. Fehlendes Fieber schließt beim alten Menschen nichts aus; Verwirrtheit, Hypothermie und Sturz sind dort die typischen Frühzeichen. Ich messe Temperatur und Laktat, nehme Blutkulturen und Urinkultur ab, suche den Fokus — bei alten Frauen am häufigsten Harnwege und Lunge, außerdem Haut, Dekubitus und Abdomen —, gebe innerhalb einer Stunde Piperacillin/Tazobactam 3 × 4,5 g i.v. und 30 ml/kg Kristalloide unter Beachtung der Herzfunktion, und informiere die Intensivstation. Ein Delir als „Alterserscheinung“ abzutun wäre der gefährlichste Fehler.',
+        },
+        {
+          frage: 'Wie grenzen Sie die septische Arthritis vom Gichtanfall oder vom rheumatischen Fieber ab? (Karlsruhe, 09.02.2023; Stuttgart, 23.03.2024; Freiburg, 08.07.2020)',
+          antwort: 'Klinisch überlappen sie sich: akutes, rotes, überwärmtes, schmerzhaftes Gelenk. Für die septische Arthritis sprechen Fieber mit Schüttelfrost, reduzierter Allgemeinzustand, eine Eintrittspforte, Gelenkprothese oder vorangegangene Injektion, Immunsuppression sowie deutlich erhöhte CRP- und Procalcitoninwerte. Beweisend ist die Gelenkpunktion: trübes Punktat mit Zellzahl über 50 000/µl und über 90 % Granulozyten, positive Gramfärbung und Kultur, keine Kristalle — bei der Gicht nadelförmige, negativ doppelbrechende Uratkristalle. Das rheumatische Fieber zeigt eine wandernde Polyarthritis großer Gelenke 2–3 Wochen nach Streptokokken-Angina mit erhöhtem Antistreptolysin-Titer. Die septische Arthritis ist ein Notfall: Punktion, Blutkulturen, Flucloxacillin 4 × 2 g oder Cefazolin i.v. innerhalb von Stunden und arthroskopische Spülung, sonst Knorpelzerstörung und Sepsis.',
+        },
+        {
+          frage: 'Wofür steht Procalcitonin, und wann setzen Sie es ein? (Karlsruhe, 18.12.2023 — mit Scherz über die Kosten)',
+          antwort: 'Procalcitonin ist ein Marker, der bei bakteriellen Infektionen mit systemischer Beteiligung ansteigt, bei viralen Infekten und Kristallarthritiden dagegen niedrig bleibt: unter 0,5 ng/ml ist eine Sepsis unwahrscheinlich, über 2 ng/ml wahrscheinlich. Ich nutze es zum Ausschluss einer bakteriellen Genese, wenn die Klinik unklar ist, und vor allem zur Verlaufskontrolle: Fällt es unter 0,5 ng/ml oder um mehr als 80 % vom Maximum, kann ich die Antibiose beenden — das spart Antibiotikatage. Es ersetzt aber weder Blutkulturen noch Laktat noch die klinische Beurteilung, und bei stabilen Patienten mit klarem Fokus ist es verzichtbar.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten, warum er in die Klinik muss und was jetzt passiert? (Aufklärung in 2 Minuten)',
+          antwort: '„Herr Müller, Ihre Nierenbeckenentzündung hat sich ausgebreitet, die Bakterien sind wahrscheinlich ins Blut gelangt — das nennen wir Blutvergiftung. Das ist ernst, aber gut behandelbar, wenn wir schnell sind. Sie bekommen jetzt einen Zugang in die Vene, wir nehmen Blut ab, unter anderem Blutkulturen, in denen wir nach den Bakterien suchen, und geben Ihnen sofort ein starkes Antibiotikum und Infusionen für den Kreislauf. Mit dem Ultraschall schauen wir, ob der Urin aus der Niere abfließen kann — falls nicht, legen die Urologen eine kleine Schiene. Wir überwachen Blutdruck, Atmung und Nierenwerte engmaschig, deshalb ist ein Aufenthalt zu Hause nicht sicher. Haben Sie dazu Fragen?“ — Rückfragen zulassen, Angehörige informieren, Rückversicherung.',
+        },
+        {
+          frage: 'Welche Sepsisprävention kennen Sie — etwa beim splenektomierten oder immunsupprimierten Patienten?',
+          antwort: 'Impfungen: Pneumokokken mit Konjugatimpfstoff, Meningokokken ACWY und B, Haemophilus influenzae Typ b, jährlich Influenza, COVID-19 — bei elektiver Splenektomie idealerweise 2 Wochen vor der Operation. Der Asplenie-Patient erhält einen Notfallausweis und ein Stand-by-Antibiotikum, Amoxicillin/Clavulansäure 3 × 875/125 mg, das er bei jedem Fieber sofort einnimmt und sich dann vorstellt, weil die OPSI innerhalb von Stunden tödlich verlaufen kann. Weitere Maßnahmen: Katheterindikation täglich prüfen und Katheter früh entfernen, Händedesinfektion und aseptische Technik, MRSA-Screening, Endokarditisprophylaxe mit Amoxicillin 2 g vor Zahneingriffen bei Klappenprothese, gute Diabeteseinstellung, Zahnsanierung, Patientenschulung über die Warnzeichen Fieber mit Schüttelfrost, Verwirrtheit, schnelle Atmung und Blutdruckabfall.',
+        },
+      ],
+      merksatz: 'Sepsis = Infektion + Organdysfunktion (SOFA ≥ 2), septischer Schock = Vasopressor für MAP ≥ 65 mmHg + Laktat > 2 mmol/l trotz Volumen. Am Bett qSOFA: Atmung ≥ 22, Druck ≤ 100, Kopf verwirrt — ab 2 von 3 läuft die Uhr. In der ersten Stunde: Laktat, Kulturen VOR Antibiose, Breitspektrum i.v., 30 ml/kg Kristalloide, Noradrenalin — und den Fokus sanieren, denn kein Antibiotikum heilt einen Abszess, einen Harnstau oder einen infizierten Katheter.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
   ];
 }
