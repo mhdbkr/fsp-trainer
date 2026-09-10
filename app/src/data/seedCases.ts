@@ -20,7 +20,7 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         personalia: {
-          name: 'Karl Aupperle', age: 58, groesseCm: 178, gewichtKg: 82,
+          name: 'Karl Aupperle', age: 58, geschlecht: 'm', groesseCm: 178, gewichtKg: 82,
           beruf: 'Maschinenarbeiter', hausarzt: 'Dr. Kiis',
           familienstand: 'geschieden', wohnsituation: 'lebe allein, 2 gesunde Töchter',
         },
@@ -265,7 +265,7 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         personalia: {
-          name: 'Manfred Bauer', age: 64, groesseCm: 175, gewichtKg: 92,
+          name: 'Manfred Bauer', age: 64, geschlecht: 'm', groesseCm: 175, gewichtKg: 92,
           beruf: 'Rentner (früher Busfahrer)', hausarzt: 'Dr. Weber',
           familienstand: 'verheiratet', wohnsituation: 'mit Ehefrau, 2. Etage ohne Aufzug',
         },
@@ -631,7 +631,7 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
-        personalia: { name: 'Werner Klein', age: 71, groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
+        personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
         begleitsymptome: ['Schwindel, Schwäche', 'Blässe', 'Oberbauchschmerzen seit Wochen'],
         schmerz: { ort: 'Oberbauch', charakter: 'brennend', intensitaet: 4, beginn: 'seit Wochen', verstaerker: 'nüchtern' },
@@ -1130,7 +1130,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
-        personalia: { name: 'Heinrich Vogt', age: 68, beruf: 'Rentner', familienstand: 'verheiratet' },
+        personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
         begleitsymptome: ['ungewollter Gewichtsverlust 6 kg', 'Müdigkeit (Anämie)', 'Bleistiftstühle'],
         vegetativeAnamnese: ['ungewollter Gewichtsverlust ca. 6 kg', 'Leistungsknick, Müdigkeit', 'wechselnder Stuhlgang, teils Bleistiftstühle'],
@@ -1459,7 +1459,7 @@ export function seedCases(): Case[] {
       name: 'Akuter Myokardinfarkt (STEMI)', pathology: 'Myokardinfarkt', specialty: 'Kardiologie',
       centers: ['Freiburg', 'Karlsruhe', 'Reutlingen'], frequency: 7, difficulty: 3,
       patientSheet: {
-        personalia: { name: 'Dieter Fischer', age: 59, beruf: 'Bauleiter', familienstand: 'verheiratet' },
+        personalia: { name: 'Dieter Fischer', age: 59, geschlecht: 'm', beruf: 'Bauleiter', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 45 Minuten stärkste Schmerzen hinter dem Brustbein, auch in Ruhe'],
         begleitsymptome: ['Kaltschweißigkeit', 'Übelkeit', 'Todesangst', 'Ausstrahlung linker Arm/Kiefer'],
         schmerz: { ort: 'retrosternal', charakter: 'Vernichtungsschmerz, drückend', intensitaet: 10, ausstrahlung: 'linker Arm, Unterkiefer', beginn: 'vor 45 min in Ruhe', verlauf: 'anhaltend' },
