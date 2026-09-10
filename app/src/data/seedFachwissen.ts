@@ -44406,5 +44406,395 @@ export function seedFachwissen(): Fachwissen[] {
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
     },
+    {
+      id: 'fw-schmerztherapie',
+      pathology: 'Schmerztherapie nach dem WHO-Stufenschema',
+      specialty: 'Allgemein',
+      definition: 'Schmerz ist nach der IASP „ein unangenehmes Sinnes- und Gefühlserlebnis, das mit einer tatsächlichen oder drohenden Gewebeschädigung verknüpft ist oder mit den Begriffen einer solchen Schädigung beschrieben wird“. Der akute Schmerz ist ein Warnsignal und klingt mit der Ursache ab; der chronische Schmerz besteht länger als 3 (bis 6) Monate, hat seine Warnfunktion verloren und ist eine eigenständige Erkrankung mit somatischen, psychischen und sozialen Anteilen (biopsychosoziales Modell). Das WHO-Stufenschema (1986 für den Tumorschmerz entwickelt, heute analog auf andere Schmerzen übertragen) ordnet die Analgetika in drei Stufen: Stufe 1 Nicht-Opioid-Analgetika (Paracetamol, Metamizol, NSAR), Stufe 2 schwache Opioide (Tramadol, Tilidin/Naloxon, Codein), Stufe 3 starke Opioide (Morphin, Oxycodon, Hydromorphon, Fentanyl, Buprenorphin) — auf jeder Stufe ergänzt durch Koanalgetika und Adjuvanzien. Die vier WHO-Regeln lauten: „by the mouth“ (möglichst oral), „by the clock“ (nach festem Zeitplan, nicht erst bei Schmerz), „by the ladder“ (stufenweise eskalieren) und „for the individual“ (individuelle Dosisfindung mit Dokumentation).',
+      aetiologie: 'Pathophysiologisch werden unterschieden: nozizeptiver somatischer Schmerz (Haut, Muskel, Knochen, Gelenk — gut lokalisierbar, dumpf-drückend oder stechend; z. B. Fraktur, Arthrose, Knochenmetastase), nozizeptiver viszeraler Schmerz (Hohlorgane und Kapseln — schlecht lokalisierbar, kolikartig oder dumpf, häufig mit vegetativer Begleitsymptomatik und Head-Zonen; z. B. Gallen- und Nierenkolik, Pankreatitis), neuropathischer Schmerz (Läsion des somatosensorischen Systems — brennend, einschießend, elektrisierend, mit Allodynie, Hyperalgesie und Sensibilitätsstörung im Versorgungsgebiet; z. B. diabetische Polyneuropathie, Post-Zoster-Neuralgie, radikuläre Schmerzen, Trigeminusneuralgie) und der Mischschmerz („mixed pain“, z. B. Bandscheibenvorfall mit Radikulopathie, Tumorschmerz mit Nerveninfiltration). Der Tumorschmerz entsteht durch den Tumor selbst (Knocheninfiltration, Nervenkompression, Kapseldehnung, Ulzeration), durch die Therapie (Chemotherapie-induzierte Polyneuropathie, Mukositis, Radiodermatitis, Narbenschmerz) oder unabhängig davon. Die Chronifizierung wird durch periphere und zentrale Sensibilisierung (Wind-up, Schmerzgedächtnis), durch psychosoziale Faktoren (Yellow Flags: Angst-Vermeidungs-Verhalten, Depression, Katastrophisieren, Arbeitsplatzkonflikte, Rentenbegehren) und durch eine unzureichende Akutschmerztherapie begünstigt.',
+      risikofaktoren: [
+        'Risiko für NSAR-Komplikationen: Alter über 65 Jahre, Ulkus- oder Blutungsanamnese, Helicobacter-pylori-Infektion, gleichzeitige Einnahme von Acetylsalicylsäure, Antikoagulanzien, Glukokortikoiden oder SSRI, hohe Dosis und lange Einnahmedauer',
+        'Risiko für ein NSAR-induziertes akutes Nierenversagen: vorbestehende Niereninsuffizienz (eGFR unter 60 ml/min), Exsikkose, Herzinsuffizienz, Kombination mit ACE-Hemmer/Sartan und Diuretikum („Triple Whammy“)',
+        'Kardiovaskuläres Risiko unter NSAR und Coxiben: koronare Herzkrankheit, Zustand nach Herzinfarkt oder Schlaganfall, pAVK, Herzinsuffizienz, unkontrollierte Hypertonie — Diclofenac und Coxibe besonders ungünstig, Naproxen am ehesten vertretbar',
+        'Analgetika-Intoleranz (Samter-Trias: Asthma, Nasenpolypen, ASS-Unverträglichkeit) — NSAR lösen Bronchospasmus aus',
+        'Paracetamol-Hepatotoxizität: chronischer Alkoholkonsum, Lebervorerkrankung, Mangelernährung/Kachexie, Körpergewicht unter 50 kg, Glutathionmangel — Tageshöchstdosis auf 2 g senken',
+        'Metamizol: bekannte Metamizol-/Novalgin-Allergie (im Examen sehr häufig auf dem Rollenblatt!), frühere Agranulozytose oder Knochenmarkschädigung, Glukose-6-Phosphat-Dehydrogenase-Mangel, Hypotonie und Hypovolämie bei i.v.-Gabe',
+        'Risiko für Opioid-Nebenwirkungen und Delir: hohes Alter, Niereninsuffizienz (Kumulation von Morphin-6-Glucuronid), Leberinsuffizienz, COPD und Schlafapnoe (Atemdepression), Kombination mit Benzodiazepinen, Alkohol oder Sedativa',
+        'Risiko für Fehlgebrauch und Abhängigkeit: Suchtanamnese (Alkohol, Drogen, Nikotin), psychiatrische Komorbidität (Depression, Angst, PTBS), junge Patienten, unklare Schmerzursache, schnell freisetzende Präparate, fehlende Zieldefinition',
+        'Serotonin-Syndrom: Tramadol oder Tapentadol in Kombination mit SSRI, SNRI, MAO-Hemmern, Triptanen, Linezolid oder trizyklischen Antidepressiva',
+        'Schwangerschaft: NSAR ab der 28. Schwangerschaftswoche kontraindiziert (vorzeitiger Verschluss des Ductus arteriosus Botalli, Oligohydramnion), Metamizol im 3. Trimenon kontraindiziert; Paracetamol ist Mittel der Wahl',
+        'Chronifizierungsrisiko: unzureichend behandelter Akutschmerz, Yellow Flags (Depression, Angst-Vermeidung, Katastrophisieren, passive Krankheitsbewältigung), Blue und Black Flags (Arbeitsplatzunzufriedenheit, Rentenverfahren), Dauer der Arbeitsunfähigkeit',
+      ],
+      klinik: [
+        {
+          text: 'Nozizeptiver somatischer Schmerz: gut lokalisierbar, dumpf, drückend, bohrend oder stechend, bewegungs- und belastungsabhängig — typisch bei Fraktur, Arthrose, Muskelverletzung, Knochenmetastasen; spricht gut auf NSAR und Opioide an',
+        },
+        {
+          text: 'Nozizeptiver viszeraler Schmerz: schlecht lokalisierbar, diffus, dumpf oder wellenförmig-kolikartig, oft mit Übelkeit, Erbrechen, Schwitzen, Blässe und Unruhe („der Patient windet sich“); Ausstrahlung in Head-Zonen (Gallenkolik → rechte Schulter, Nierenkolik → Leiste/Hoden); spricht auf Metamizol und Spasmolytika an',
+        },
+        {
+          text: 'Neuropathischer Schmerz: brennend, elektrisierend, einschießend, kribbelnd, mit Allodynie (Schmerz bei Berührung), Hyperalgesie und Sensibilitätsminderung im Versorgungsgebiet eines Nervs, einer Wurzel oder eines Dermatoms; spricht schlecht auf NSAR und Paracetamol an — Koanalgetika sind Erstlinie',
+        },
+        {
+          text: 'Akuter Schmerz: klar erkennbare Ursache, zeitlich begrenzt, sympathikotone Begleitreaktion (Tachykardie, Hypertonie, Schwitzen, Mydriasis); Ziel ist die kausale Behandlung plus rasche, ausreichende Analgesie',
+        },
+        {
+          text: 'Chronischer Schmerz (über 3–6 Monate): Warnfunktion verloren, vegetative Zeichen fehlen, Schlafstörung, depressive Verstimmung, sozialer Rückzug, Arbeitsunfähigkeit, Katastrophisieren und Angst-Vermeidungs-Verhalten; der Patient wirkt oft „nicht schmerzgeplagt genug“ — das darf nicht zur Bagatellisierung führen',
+        },
+        {
+          text: 'Durchbruchschmerz: vorübergehende Schmerzexazerbation trotz stabil eingestellter Basisanalgesie (bei Tumorschmerz in 40–80 %), Dauer meist unter 30–60 Minuten, spontan oder ereignisbezogen (Bewegung, Husten, Defäkation, Verbandwechsel)',
+        },
+        {
+          text: 'Schmerzintensität als „fünftes Vitalzeichen“: Numerische Rating-Skala 0–10 (0 = kein Schmerz, 10 = stärkster vorstellbarer Schmerz); ab NRS 4 besteht Handlungsbedarf, Therapieziel in Ruhe ≤ 3, bei Belastung ≤ 5; Dokumentation vor und nach jeder Intervention',
+        },
+        {
+          text: 'Schmerz beim dementen oder nicht auskunftsfähigen Patienten: Unruhe, Abwehr bei Pflege, Grimassieren, Stöhnen, veränderte Atmung, Appetitverlust, Aggressivität oder Delir statt Schmerzangabe — Fremdbeurteilung mit der BESD-Skala (PAINAD); Schmerz ist eine der häufigsten reversiblen Delirursachen',
+          atypisch: true,
+        },
+        {
+          text: 'Opioid-induzierte Hyperalgesie: paradoxe Schmerzzunahme, diffuse Ausbreitung und Allodynie unter steigenden Opioiddosen — Dosiserhöhung verschlechtert, Dosisreduktion oder Rotation bessert',
+          atypisch: true,
+        },
+        {
+          text: 'Medikamentenübergebrauchskopfschmerz: chronischer Kopfschmerz an ≥ 15 Tagen pro Monat bei Einnahme von Analgetika an ≥ 15 Tagen bzw. Triptanen oder Opioiden an ≥ 10 Tagen pro Monat über mehr als 3 Monate',
+          atypisch: true,
+        },
+        {
+          text: 'Opioidentzug bei abruptem Absetzen: Unruhe, Angst, Schwitzen, Gähnen, Rhinorrhoe, Mydriasis, Tränenfluss, Gänsehaut, Diarrhoe, Bauchkrämpfe, Muskelschmerzen, Tachykardie, Schlaflosigkeit — Beginn 6–12 Stunden nach der letzten Morphin-Dosis, Maximum nach 2–3 Tagen',
+          atypisch: true,
+        },
+        {
+          text: 'Serotonin-Syndrom unter Tramadol plus Serotonerika: Agitation, Verwirrtheit, Tremor, Myoklonien, Hyperreflexie, Schwitzen, Fieber, Tachykardie, Diarrhoe innerhalb von 24 Stunden nach Neuansetzen oder Dosiserhöhung',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'WHO-Stufenschema (1986, drei Stufen plus Koanalgetika)',
+          inhalt: 'Stufe 1: Nicht-Opioid-Analgetika — Paracetamol, Metamizol, NSAR (Ibuprofen, Diclofenac, Naproxen), Coxibe (Celecoxib, Etoricoxib), Acetylsalicylsäure. Stufe 2: schwache Opioide plus Nicht-Opioid — Tramadol, Tilidin/Naloxon, Codein, Dihydrocodein. Stufe 3: starke Opioide plus Nicht-Opioid — Morphin, Oxycodon (± Naloxon), Hydromorphon, Fentanyl, Buprenorphin, Tapentadol (zwischen Stufe 2 und 3), Piritramid (postoperativ). Auf jeder Stufe: Koanalgetika (Antidepressiva, Antikonvulsiva, Glukokortikoide, Bisphosphonate, Spasmolytika) und Adjuvanzien (Laxanzien, Antiemetika, Magenschutz). Beim Tumorschmerz darf Stufe 2 übersprungen werden; bei starken Schmerzen (NRS ≥ 7) wird direkt auf Stufe 3 begonnen. Als „Stufe 4“ werden invasive Verfahren bezeichnet (rückenmarksnahe Opioide, Nervenblockaden, Neurolyse, Spinal-Cord-Stimulation).',
+        },
+        {
+          name: 'Einteilung der Analgetika nach Wirkort und Wirkmechanismus',
+          inhalt: 'Peripher/antiphlogistisch: NSAR und Coxibe (Cyclooxygenase-Hemmung → weniger Prostaglandine → analgetisch, antiphlogistisch, antipyretisch; nichtselektive NSAR hemmen COX-1 und COX-2, Coxibe selektiv COX-2 → weniger Magen-, mehr Herz-Kreislauf-Risiko). Überwiegend zentral: Paracetamol (analgetisch, antipyretisch, NICHT antiphlogistisch) und Metamizol (analgetisch, antipyretisch, spasmolytisch, kaum antiphlogistisch). Opioide: Agonisten am µ-Rezeptor im ZNS und Rückenmark — reine Agonisten (Morphin, Oxycodon, Hydromorphon, Fentanyl, Piritramid), Partialagonist mit Ceiling-Effekt (Buprenorphin), Opioide mit zusätzlicher Monoamin-Wiederaufnahmehemmung (Tramadol, Tapentadol), Prodrug (Codein → Morphin über CYP2D6, Tilidin → Nortilidin).',
+        },
+        {
+          name: 'Einteilung nach Dauer und Chronifizierung',
+          inhalt: 'Akuter Schmerz: bis zu Tagen/Wochen, kausal zugeordnet, Warnfunktion. Subakuter Schmerz: 6–12 Wochen. Chronischer Schmerz: über 3 Monate (Rückenschmerz: über 12 Wochen), Warnfunktion verloren, eigenständige Erkrankung. Chronifizierungsgrad nach dem Mainzer Stadienmodell (MPSS, Gerbershagen) in drei Stadien anhand von zeitlichem Verlauf, räumlicher Ausbreitung, Medikamenteneinnahmeverhalten und Inanspruchnahme des Gesundheitswesens. Beim Tumorschmerz zusätzlich Dauer- vs. Durchbruchschmerz.',
+        },
+        {
+          name: 'Opioid-Äquivalenztabelle (bezogen auf 30 mg orales Morphin pro Tag)',
+          inhalt: 'Morphin oral 30 mg ≈ Morphin i.v./s.c. 10 mg (oral : parenteral = 3 : 1) ≈ Oxycodon oral 15 mg (Faktor 2) ≈ Hydromorphon oral 4 mg (Faktor 7,5) ≈ Tapentadol oral 75 mg (Faktor 2,5) ≈ Tramadol oral 300 mg (Faktor 10) ≈ Tilidin oral 300 mg (Faktor 10) ≈ Codein 300 mg (Faktor 10). Transdermal: Fentanyl 25 µg/h ≈ 60 mg orales Morphin pro Tag (Faktor 100), Buprenorphin 35 µg/h ≈ 60 mg orales Morphin pro Tag. Bei jeder Opioidrotation wird die errechnete Äquivalenzdosis wegen inkompletter Kreuztoleranz um 25–50 % reduziert. Tageshöchstdosen: Tramadol 400 mg, Tilidin 600 mg, Codein 240 mg, Tapentadol 500 mg — starke Opioide haben KEINE Höchstdosis, die Dosis richtet sich nach Wirkung und Nebenwirkung.',
+        },
+        {
+          name: 'Schmerzmessung',
+          inhalt: 'Numerische Rating-Skala (NRS 0–10) und Visuelle Analogskala (VAS 0–100 mm) beim auskunftsfähigen Erwachsenen; Verbale Rating-Skala (kein – leicht – mittel – stark – unerträglich); Smiley-/Gesichterskala (Faces Pain Scale) bei Kindern ab etwa 4 Jahren; KUSS-Skala bei Säuglingen und Kleinkindern; BESD (Beurteilung von Schmerzen bei Demenz, deutsche PAINAD) beim dementen Patienten. Screening auf neuropathischen Schmerz: painDETECT oder DN4-Fragebogen. Bei chronischen Schmerzen zusätzlich Deutscher Schmerzfragebogen mit Funktions-, Schlaf- und Stimmungsbewertung (HADS, PHQ-9).',
+        },
+      ],
+      redFlags: [
+        'Fieber, Halsschmerzen, Stomatitis oder Schüttelfrost unter Metamizol → Verdacht auf Agranulozytose: sofort absetzen, Blutbild mit Differenzialblutbild, bei Neutrophilen unter 500/µl stationäre Aufnahme',
+        'Teerstuhl, Hämatemesis, Kaffeesatzerbrechen, Hb-Abfall oder epigastrische Schmerzen unter NSAR → gastrointestinale Blutung oder Ulkus, Gastroskopie',
+        'Oligurie, Kreatininanstieg, Ödeme oder Hyperkaliämie unter NSAR — besonders bei ACE-Hemmer plus Diuretikum → akutes Nierenversagen, NSAR sofort absetzen',
+        'Atemfrequenz unter 8–10/min, Miosis, Somnolenz oder Sauerstoffsättigung unter 90 % unter Opioiden → Atemdepression: Naloxon, Atemwegssicherung, Monitoring',
+        'Ikterus, Transaminasenanstieg oder Einnahme von mehr als 7,5–10 g Paracetamol (bzw. über 150 mg/kg) → Paracetamol-Intoxikation: Spiegelbestimmung nach 4 Stunden, N-Acetylcystein nach Rumack-Matthew-Nomogramm, nicht auf Symptome warten (Latenz 24–72 Stunden)',
+        'Zunehmender Schmerz unter steigender Opioiddosis mit diffuser Ausbreitung und Allodynie → opioidinduzierte Hyperalgesie oder Toleranz, keine weitere Eskalation, Rotation',
+        'Neu aufgetretener Rückenschmerz mit Blasen-/Mastdarmstörung, Reithosenanästhesie, progredienter Parese, Fieber, Gewichtsverlust, Tumoranamnese, Alter über 50 oder Trauma → keine reine Analgesie, sondern sofortige Abklärung (Cauda-Syndrom, Spondylodiszitis, Metastase, Fraktur)',
+        'Thoraxschmerz mit Engegefühl, Dyspnoe, Ausstrahlung oder vegetativer Symptomatik → kein NSAR „auf Verdacht“, sondern EKG, Troponin, Morphin i.v., Nitro und Sauerstoff nach ACS-Algorithmus',
+        'Unruhe, Fieber, Tremor, Myoklonien, Hyperreflexie nach Neuansetzen von Tramadol bei SSRI-Einnahme → Serotonin-Syndrom, beides absetzen',
+        'Steigender Analgetikakonsum mit Kontrollverlust, Rezeptfälschung, Mehrfachverordnung durch verschiedene Ärzte („doctor shopping“), Einnahme gegen Angst oder Schlafstörung → Fehlgebrauch und Abhängigkeit, Suchtmedizin einbeziehen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Strukturierte Schmerzanamnese nach dem OPQRST-/SOCRATES-Schema: Ort (Site), Beginn (Onset), Charakter, Ausstrahlung (Radiation), Begleitsymptome (Associated symptoms), zeitlicher Verlauf (Time), verstärkende und lindernde Faktoren (Exacerbating/relieving), Intensität (Severity, NRS 0–10 in Ruhe und Belastung) — die Prüfer erwarten diese Punkte vollständig im Arztbrief',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Medikamentenanamnese exakt: Name, Einzeldosis, Häufigkeit und Dauer („Ibuprofen 800 mg 1-1-1 seit 10 Tagen“), Selbstmedikation aus der Apotheke, „bei Bedarf“ konkretisieren (wie viele Tabletten an wie vielen Tagen pro Woche?) und die Wirkung dokumentieren („mit geringem Ansprechen“); Allergien und Unverträglichkeiten gegen Analgetika (Metamizol, ASS, NSAR, Opioide) VOR jeder Verordnung erfragen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Kontraindikationen abfragen: Ulkus-/Blutungsanamnese, Nieren- und Lebererkrankung, Herzinsuffizienz und KHK, Asthma, Antikoagulation, Schwangerschaft/Stillzeit, Alkohol- und Suchtanamnese, Psychopharmaka (SSRI!), Benzodiazepine',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Schmerztypisierung: nozizeptiv-somatisch, viszeral, neuropathisch oder gemischt; bei Verdacht auf neuropathischen Schmerz painDETECT/DN4 und neurologischer Status (Allodynie mit dem Pinsel, Hyperalgesie mit dem Zahnstocher, Hypästhesie, Reflexe, Kraft, Dermatomzuordnung)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Psychosoziale Anamnese und Chronifizierungsrisiko: Schlaf, Stimmung (PHQ-9, HADS), Angst-Vermeidungs-Verhalten, Arbeitsplatz, Rentenbegehren, Krankheitsverständnis und Erwartung des Patienten; Funktionsniveau (Gehstrecke, Treppensteigen, Arbeitsfähigkeit) als Therapieziel',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung mit Vitalparametern (Herzfrequenz, Blutdruck, Atemfrequenz, Temperatur, Sauerstoffsättigung) — vor Opioidgabe Atemfrequenz und Vigilanz, vor Metamizol i.v. den Blutdruck; Untersuchung der schmerzenden Region und Suche nach Red Flags',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor NSAR oder Opioiden: Kreatinin und eGFR (NSAR nicht unter 30 ml/min, Morphin-Metaboliten kumulieren), Kalium, Leberwerte (Paracetamol-Dosis), Blutbild (Anämie als Hinweis auf okkulte Blutung; Ausgangswert vor Metamizol)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Metamizol-Dauertherapie Blutbildkontrollen und Aufklärung über Agranulozytose-Symptome; bei Verdacht sofort Differenzialblutbild',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Verdacht auf Paracetamol-Intoxikation: Paracetamol-Serumspiegel frühestens 4 Stunden nach Einnahme (Rumack-Matthew-Nomogramm), Transaminasen, INR, Bilirubin, Kreatinin, Blutgasanalyse mit Laktat',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei chronischer Opioidtherapie oder Verdacht auf Fehlgebrauch: Drogenscreening im Urin nach Aufklärung; bei Tumorschmerz Kalzium (Hyperkalzämie bei Knochenmetastasen) und CRP',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Bildgebung nur bei Red Flags oder therapeutischer Konsequenz — beim unspezifischen akuten Rückenschmerz KEINE Routinebildgebung in den ersten 4–6 Wochen; Röntgen bei Fraktur, Sonographie bei Kolik, MRT bei radikulärer Symptomatik mit Defizit, Skelettszintigraphie/CT bei Knochenmetastasen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Vor Opioidtherapie bei Risikopatienten: Pulsoxymetrie, ggf. Schlafapnoe-Screening; EKG (QTc) vor Methadon/Levomethadon; unter Opioid-Titration in der Notaufnahme Monitoring von Atemfrequenz und Sauerstoffsättigung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Diagnostische Nervenblockade oder Facettengelenksinfiltration zur Klärung der Schmerzquelle; quantitative sensorische Testung (QST) bei neuropathischem Schmerz; Hautbiopsie bei Small-Fiber-Neuropathie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Interdisziplinäres multimodales Assessment (Schmerzmedizin, Psychologie, Physiotherapie) bei chronischem Schmerz über 12 Wochen mit Chronifizierungsrisiko — Voraussetzung für die multimodale Schmerztherapie',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Nozizeptiver vs. neuropathischer Schmerz',
+          unterscheidung: 'Nozizeptiv: dumpf, drückend, bewegungsabhängig, gut lokalisierbar, spricht auf NSAR/Opioide an. Neuropathisch: brennend, einschießend, elektrisierend, mit Allodynie und Sensibilitätsstörung im Nervenversorgungsgebiet, painDETECT ≥ 19 Punkte; NSAR und Paracetamol wirken kaum — Erstlinie sind Antikonvulsiva und Antidepressiva, Opioide erst in zweiter oder dritter Linie.',
+        },
+        {
+          dd: 'Viszeraler Kolikschmerz vs. peritonitischer Schmerz',
+          unterscheidung: 'Kolik: wellenförmig, der Patient windet sich, kein Peritonismus — Metamizol plus Butylscopolamin. Peritonitis: Dauerschmerz, Abwehrspannung, bretthartes Abdomen, Patient liegt still mit angezogenen Beinen — kein Spasmolytikum, chirurgische Abklärung; die Analgesie darf NICHT vorenthalten werden, sie verschleiert die Diagnose nicht (Studienlage eindeutig).',
+        },
+        {
+          dd: 'Akuter vs. chronischer Schmerz',
+          unterscheidung: 'Akut: Ursache erkennbar, vegetative Begleitreaktion, kausale Therapie plus zeitlich befristete Analgesie. Chronisch (über 3 Monate): Warnfunktion verloren, keine vegetativen Zeichen, psychosoziale Komponenten — Bettruhe, wiederholte Bildgebung und Opioid-Eskalation sind hier Fehler; multimodale Therapie mit Aktivierung ist der Standard.',
+        },
+        {
+          dd: 'Durchbruchschmerz vs. End-of-dose-Failure vs. unzureichende Basisanalgesie',
+          unterscheidung: 'Durchbruchschmerz: kurze Exazerbation trotz stabiler Basis — schnell wirksame Bedarfsmedikation. End-of-dose-Failure: Schmerz regelmäßig vor der nächsten Retard-Gabe — Dosierintervall verkürzen oder Dosis erhöhen. Unzureichende Basis: mehr als 3–4 Bedarfsgaben pro Tag — Retard-Dosis um 30–50 % erhöhen.',
+        },
+        {
+          dd: 'Toleranz vs. körperliche Abhängigkeit vs. Sucht (psychische Abhängigkeit)',
+          unterscheidung: 'Toleranz: Wirkverlust bei gleicher Dosis, pharmakologisch erwartbar. Körperliche Abhängigkeit: Entzugssymptome beim Absetzen, ebenfalls erwartbar und durch Ausschleichen vermeidbar — KEINE Sucht. Sucht: zwanghafter Konsum trotz Schaden, Kontrollverlust, Craving, Einnahme gegen Stimmung statt Schmerz, Rezeptfälschung — bei leitliniengerechter Tumorschmerztherapie selten, bei chronischen Nicht-Tumorschmerzen relevant.',
+        },
+        {
+          dd: 'Opioidinduzierte Hyperalgesie vs. Toleranz vs. Krankheitsprogression',
+          unterscheidung: 'Hyperalgesie: diffuse, sich ausbreitende Schmerzen mit Allodynie, die unter Dosiserhöhung ZUNEHMEN — Dosisreduktion, Rotation, Ketamin. Toleranz: gleiche Schmerzlokalisation, Besserung nach Dosiserhöhung. Progression: neue Schmerzlokalisation, Staging wiederholen (Metastase, Fraktur).',
+        },
+        {
+          dd: 'Opioidbedingte Sedierung/Delir vs. Hyperkalzämie vs. Hirnmetastasen (beim Tumorpatienten)',
+          unterscheidung: 'Opioide: Miosis, Beginn nach Dosiserhöhung oder Niereninsuffizienz, bessert sich nach Reduktion; Hyperkalzämie: Polyurie, Obstipation, Kalzium über 3 mmol/l; Hirnmetastasen: fokale Neurologie, Kopfschmerz, Erbrechen — cCT/MRT.',
+        },
+        {
+          dd: 'Medikamentenübergebrauchskopfschmerz vs. chronische Migräne',
+          unterscheidung: 'Übergebrauch: Analgetika an ≥ 15 Tagen bzw. Triptane/Opioide an ≥ 10 Tagen pro Monat über 3 Monate, dumpfer täglicher Kopfschmerz — Therapie ist die Medikamentenpause. Chronische Migräne: ≥ 15 Kopfschmerztage mit ≥ 8 Migränetagen pro Monat, Prophylaxe (Betablocker, Topiramat, Amitriptylin, CGRP-Antikörper).',
+        },
+        {
+          dd: 'Somatoforme Schmerzstörung / Fibromyalgie vs. entzündlich-rheumatische Erkrankung',
+          unterscheidung: 'Fibromyalgie: chronischer Ganzkörperschmerz über 3 Monate mit Schlafstörung, Erschöpfung, normale Entzündungswerte, keine Synovitis — Opioide und NSAR sind unwirksam, Therapie mit Ausdauertraining, Amitriptylin, Duloxetin, Pregabalin und Psychotherapie. Rheumatisch: Morgensteifigkeit über 60 Minuten, Synovitis, CRP/BSG erhöht, Autoantikörper.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Notaufnahme und Akutschmerz: das Sofortschema',
+          items: [
+            'Reihenfolge im Rollenspiel und in der Realität: Empathie zeigen („Ich sehe, dass Sie starke Schmerzen haben, ich gebe Ihnen gleich ein Schmerzmittel“) → Allergien und bereits eingenommene Medikamente erfragen → Vitalparameter und Zugang → Analgesie nach NRS → Wirkung nach 30 Minuten kontrollieren und dokumentieren („Als sofortige Maßnahme habe ich dem Patienten ein Analgetikum verabreicht“; auch ein Verzicht des Patienten wird dokumentiert)',
+            'Leichter Schmerz (NRS 1–3): Stufe 1 oral — Ibuprofen 400–600 mg (max. 2 400 mg/Tag, rezeptfrei max. 1 200 mg/Tag) oder Paracetamol 1 000 mg (max. 4 g/Tag) oder Metamizol 500–1 000 mg (max. 4 g/Tag)',
+            'Mittelstarker Schmerz (NRS 4–6): Stufe 1 i.v. — Metamizol 1 g als Kurzinfusion in 100 ml NaCl 0,9 % über 15–20 Minuten (nie als schneller Bolus: Hypotonie bis Schock) oder Paracetamol 1 g i.v. über 15 Minuten (bei unter 50 kg 15 mg/kg); ggf. plus schwaches Opioid Tramadol 50–100 mg oral/i.v. (max. 400 mg/Tag)',
+            'Starker Schmerz (NRS ≥ 7, Fraktur, Kolik, Verbrennung, ACS): Stufe 3 i.v. titriert — Morphin 2–3 mg i.v. alle 5–10 Minuten bis zur Schmerzlinderung (Richtwert 0,05–0,1 mg/kg), beim ACS 3–5 mg i.v.; alternativ Piritramid 3,75–7,5 mg i.v. (0,05–0,1 mg/kg) oder Fentanyl 0,05–0,1 mg i.v.; Monitoring von Atemfrequenz, Sauerstoffsättigung und Vigilanz; Naloxon bereithalten (0,04–0,08 mg i.v. fraktioniert, im Notfall 0,4 mg; Halbwertszeit 30–90 Minuten → Nachdosierung oder Perfusor, da Opioide länger wirken)',
+            'Kolikschmerz (Gallen-, Nierenkolik, Pyelonephritis): Metamizol 1 g i.v. als Kurzinfusion plus Spasmolytikum Butylscopolamin 20 mg i.v. (max. 100 mg/Tag); bei Nierenkolik alternativ Diclofenac 75 mg i.m./i.v. bzw. 100 mg rektal (NSAR senken den Ureterdruck) — nur bei normaler Nierenfunktion; bei Metamizol-Allergie Paracetamol i.v. plus Butylscopolamin, bei Bedarf Opioid',
+            'Gichtanfall: NSAR (Naproxen 2 × 500 mg, Ibuprofen 3 × 800 mg) unter PPI, oder Colchicin 1 mg initial und 0,5 mg nach einer Stunde (max. 1,5 mg am ersten Tag), oder — ausdrücklich zu nennen — Prednisolon 30–35 mg über 3–5 Tage',
+            'Migräneattacke: ASS 1 000 mg oder Ibuprofen 400–600 mg, bei schwerer Attacke Sumatriptan 50–100 mg oral (6 mg s.c.), plus Metoclopramid 10 mg gegen Übelkeit und zur Resorptionsverbesserung; Triptane nicht bei KHK, Schlaganfall oder unkontrollierter Hypertonie; Übergebrauchsgrenze: Triptane an höchstens 10 Tagen pro Monat',
+            'Fraktur oder Weichteilverletzung: Ruhigstellung, Hochlagern, Kühlen (PECH-Regel) — pharmakologisch Ibuprofen oder Diclofenac (antiphlogistisch) unter PPI-Schutz, bei Ulkusanamnese Paracetamol oder Metamizol, bei starken Schmerzen Piritramid; an die Thromboseprophylaxe mit niedermolekularem Heparin (z. B. Enoxaparin 40 mg s.c. 1 × täglich) bei Ruhigstellung der unteren Extremität denken — die Prüfer erwarten diese Antwort',
+            'Analgesie beim akuten Abdomen wird nicht vorenthalten: Sie erschwert die Diagnose nicht und wird in den Leitlinien ausdrücklich empfohlen; Metamizol oder Opioid, kein Spasmolytikum bei Peritonismus',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Postoperative Schmerztherapie (multimodal, prozedurenspezifisch)',
+          items: [
+            'Ziel: NRS ≤ 3 in Ruhe und ≤ 5 bei Bewegung, um frühe Mobilisation, tiefe Atmung und Physiotherapie zu ermöglichen; regelmäßige Schmerzerfassung durch die Pflege (mindestens alle 8 Stunden und 30 Minuten nach jeder Gabe)',
+            'Basisanalgesie nach festem Zeitplan („by the clock“) mit einem Nicht-Opioid: Metamizol 4 × 1 g i.v./oral (max. 4 g/Tag) oder Ibuprofen 3 × 400–600 mg oral oder Paracetamol 4 × 1 g i.v./oral; Kombination Metamizol plus Ibuprofen bzw. Paracetamol plus NSAR ist möglich, zwei NSAR werden NIE kombiniert',
+            'Opioid als Bedarfsmedikation für Schmerzspitzen: Piritramid 3,75–7,5 mg i.v./s.c. (bis 15 mg s.c.) oder als patientenkontrollierte Analgesie (PCA-Pumpe: Piritramid-Bolus 1,5–2 mg, Sperrzeit 5–10 Minuten, kein Basalflow); oral Oxycodon 5–10 mg oder Tilidin/Naloxon 50/4 mg',
+            'Regionalanästhesie als Opioid-sparende Verfahren: thorakaler Periduralkatheter (Ropivacain plus Sufentanil) bei großen abdominellen und thorakalen Eingriffen, periphere Nervenblockaden (Femoralis-, Plexuskatheter) in der Orthopädie, Wundinfiltration mit Lokalanästhetikum',
+            'Adjuvanzien: Antiemetikum bei PONV (Ondansetron 4 mg, Dexamethason 4 mg, Droperidol), Laxans ab dem ersten Opioidtag, PPI bei NSAR-Gabe und Risikofaktoren, Ketamin (Esketamin 0,125–0,25 mg/kg) bei opioidgewohnten Patienten',
+            'Postoperativ nicht vergessen: Thromboseprophylaxe mit niedermolekularem Heparin, frühe Mobilisation, Atemtherapie; Opioide vor Entlassung reduzieren und nur für wenige Tage in kleiner Packung mitgeben — die postoperative Opioidverordnung ist ein häufiger Einstieg in einen Langzeitgebrauch',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Tumorschmerz: die klassische Anwendung des WHO-Stufenschemas',
+          items: [
+            'Grundregeln: oral (by the mouth), nach festem Zeitplan mit Retardpräparaten (by the clock), stufenweise (by the ladder), individuell titriert (for the individual) und mit Aufmerksamkeit für Details (schriftlicher Einnahmeplan, Nebenwirkungsprophylaxe); damit sind 80–90 % der Tumorschmerzen ausreichend behandelbar',
+            'Stufe 1 fortführen und ergänzen: Metamizol 4 × 1 g (gute Wahl bei viszeralem und Knochenschmerz), Ibuprofen/Naproxen bei Knochenmetastasen (antiphlogistisch), Paracetamol als schwächste Option — bei starken Schmerzen (NRS ≥ 7) Stufe 2 überspringen und direkt Stufe 3 beginnen',
+            'Stufe 3 Einstellung: Morphin retard 2 × 10–30 mg oral (opioidnaiv: 2 × 10 mg, älter: 2 × 5 mg) oder Oxycodon retard 2 × 10 mg oder Hydromorphon retard 2 × 4 mg; Dosistitration alle 24–48 Stunden nach Bedarfsverbrauch um 30–50 %; keine Höchstdosis — die richtige Dosis ist die, die den Schmerz bei tolerablen Nebenwirkungen kontrolliert',
+            'Bedarfsmedikation obligat mitverordnen: 1/6 der Tagesdosis (10–15 %) als schnell freisetzendes Präparat desselben Opioids (Morphin-Tropfen/-Tabletten, Oxycodon akut, Hydromorphon akut), Wiederholung nach 30–60 Minuten möglich; bei mehr als 3–4 Bedarfsgaben pro Tag die Retard-Dosis erhöhen; bei sehr kurzen Durchbruchschmerzen transmukosales Fentanyl (nasal/buccal) nur unter stabiler Basistherapie von mindestens 60 mg Morphinäquivalent',
+            'Transdermale Systeme bei stabilem Schmerz, Schluckstörung, Ileus oder Compliance-Problemen: Fentanyl-Pflaster 12–100 µg/h alle 72 Stunden (25 µg/h ≈ 60 mg orales Morphin/Tag; Wirkbeginn nach 12–24 Stunden, deshalb nicht zur Ersteinstellung bei instabilem Schmerz; Fieber, Wärmflasche und Sonne steigern die Resorption) oder Buprenorphin-Pflaster 35–70 µg/h alle 72–96 Stunden bzw. 5–20 µg/h alle 7 Tage (Partialagonist mit Ceiling-Effekt für die Atemdepression, bei Niereninsuffizienz ohne Dosisanpassung)',
+            'Obstipationsprophylaxe OBLIGAT ab dem ersten Tag und für die gesamte Therapiedauer — hier entwickelt sich keine Toleranz: Macrogol 1–3 Beutel täglich oder Natriumpicosulfat 10–20 Tropfen abends, bei Versagen Naloxegol 25 mg oral oder Methylnaltrexon 12 mg s.c.; Oxycodon/Naloxon-Kombination (max. 160/80 mg pro Tag) als Alternative',
+            'Übelkeit tritt bei 20–30 % initial auf und klingt nach 1–2 Wochen ab (Toleranz): Metoclopramid 3 × 10 mg oder Haloperidol 0,5–1 mg abends für die ersten 7–14 Tage; Sedierung, Schwitzen und Juckreiz bessern sich ebenfalls; Miosis bleibt; Atemdepression ist bei schrittweiser Titration nach Schmerz praktisch nicht zu erwarten',
+            'Koanalgetika gezielt: Dexamethason 4–8 mg (bis 16 mg bei Rückenmarkkompression oder Hirndruck) bei Nervenkompression, Leberkapselspannung und Knochenschmerz; Zoledronat 4 mg i.v. alle 4 Wochen oder Denosumab 120 mg s.c. alle 4 Wochen bei Knochenmetastasen (Cave Kieferosteonekrose, Zahnsanierung vorher; Hypokalzämie); Pregabalin/Gabapentin oder Amitriptylin bei neuropathischer Komponente; Butylscopolamin bei Kolik; palliative Strahlentherapie bei schmerzhaften Knochenmetastasen (Einzeitbestrahlung 8 Gy)',
+            'Opioidrotation bei unzureichender Wirkung oder nicht beherrschbaren Nebenwirkungen: Äquivalenzdosis berechnen und um 25–50 % reduzieren; bei Niereninsuffizienz Wechsel von Morphin auf Hydromorphon, Buprenorphin oder Fentanyl',
+            'Stufe 4 bei Therapieversagen: subkutane oder intravenöse Opioid-Dauerinfusion (Morphin s.c. = 1/3 der oralen Dosis), rückenmarksnahe Applikation (peridural, intrathekal), Plexus-coeliacus-Neurolyse beim Pankreaskarzinom; Palliativmedizin und SAPV früh einbinden',
+            'BtM-Verordnung: dreiteiliges gelbes Betäubungsmittelrezept, nur innerhalb von 7 Tagen nach Ausstellung einlösbar, Teil III bleibt 3 Jahre beim Arzt; Höchstmengen für 30 Tage (z. B. Morphin 20 000 mg, Oxycodon 15 000 mg, Hydromorphon 5 000 mg, Fentanyl 1 000 mg, Buprenorphin 800 mg) können mit dem Buchstaben „A“ überschritten werden; nicht BtM-pflichtig sind Tramadol, Tilidin/Naloxon retard und Codein',
+          ],
+        },
+        {
+          label: 'Chronischer Nicht-Tumorschmerz und chronischer Rückenschmerz (LONTS, NVL Kreuzschmerz)',
+          items: [
+            'Grundsatz: keine Bettruhe, Bewegung und Alltagsaktivität beibehalten, Aufklärung über die gute Prognose (unspezifischer Kreuzschmerz bessert sich in 80–90 % innerhalb von 6 Wochen), keine Bildgebung ohne Red Flags, Yellow Flags früh erfassen und ansprechen',
+            'Medikamente nur zeitlich befristet und zur Unterstützung der Aktivierung: NSAR in niedrigster wirksamer Dosis für maximal 2–4 Wochen (Ibuprofen 3 × 400–600 mg, Naproxen 2 × 250–500 mg, Diclofenac 2–3 × 50 mg, max. 150 mg/Tag) unter PPI bei Risikofaktoren; Paracetamol ist beim Kreuzschmerz nachweislich unwirksam und wird nicht mehr empfohlen; Metamizol als Alternative bei NSAR-Kontraindikation; Muskelrelaxanzien nicht routinemäßig',
+            'Opioide beim chronischen Nicht-Tumorschmerz (LONTS-Leitlinie): nur als Therapieversuch über 4–12 Wochen mit vorher definiertem Ziel (Funktion, nicht Schmerzfreiheit), retardierte Präparate nach festem Schema, Tageshöchstdosis in der Regel 120 mg Morphinäquivalent nicht überschreiten; Fortführung nur bei belegter Verbesserung von Schmerz UND Funktion; Reevaluation alle 3 Monate; Ausschleichen bei fehlendem Effekt; keine Opioide bei Fibromyalgie, primären Kopfschmerzen, funktionellen und somatoformen Störungen, chronischer Pankreatitis ohne Schub, chronisch-entzündlichen Darmerkrankungen',
+            'Praktische Opioidwahl ambulant: Tilidin/Naloxon retard 2 × 50/4 bis 2 × 100/8 mg (hepatische Elimination, weniger Obstipation, nicht BtM-pflichtig in Retardform) oder Tramadol retard 2 × 100–200 mg (Cave SSRI, Krampfschwelle, Übelkeit) — Tramadol-Tropfen: 20 Tropfen = 50 mg; Tapentadol retard 2 × 50–250 mg bei gemischtem Schmerz; keine unretardierten Opioide beim chronischen Schmerz',
+            'Neuropathischer Rückenschmerz (Radikulopathie): Pregabalin 2 × 75 mg (Steigerung bis 600 mg/Tag, Dosisanpassung an die eGFR) oder Gabapentin 3 × 100–300 mg bis 3 600 mg/Tag, Amitriptylin 10–25 mg abends bis 75 mg, Duloxetin 30–60 mg; periradikuläre Infiltration als Option; OP nur bei Cauda-Syndrom, progredienter Parese oder Therapieresistenz über 6–12 Wochen',
+            'Multimodale Schmerztherapie (interdisziplinär, ab 12 Wochen Dauer oder bei Chronifizierungsrisiko nach 6 Wochen): medizinische Trainingstherapie, Physiotherapie, Verhaltenstherapie (Schmerzbewältigung, Angst-Vermeidung), Entspannungsverfahren (progressive Muskelrelaxation), Ergotherapie, Sozialberatung, Patientenedukation — Ziel ist Funktion und Teilhabe, nicht Schmerzfreiheit',
+            'Fahrtauglichkeit: in der Einstellungs- und jeder Dosisänderungsphase von Opioiden, Antikonvulsiva und Antidepressiva besteht keine Fahrtauglichkeit (etwa 1–2 Wochen); unter stabiler Dauertherapie ist das Fahren grundsätzlich möglich; die Aufklärung wird dokumentiert',
+            'Beenden einer Opioidtherapie: nie abrupt — Reduktion um 10–25 % der Dosis alle 1–2 Wochen (bei langer Therapie langsamer); Entzugssymptome sind Ausdruck körperlicher Gewöhnung, keine Sucht',
+          ],
+        },
+        {
+          label: 'Neuropathischer Schmerz und Koanalgetika (Stufe „plus“)',
+          items: [
+            'Erstlinie bei neuropathischem Schmerz: Antikonvulsiva mit Kalziumkanalwirkung — Pregabalin 2 × 75 mg (Start bei Älteren 2 × 25–50 mg), Steigerung nach 3–7 Tagen bis max. 600 mg/Tag, oder Gabapentin einschleichend 3 × 100–300 mg bis max. 3 600 mg/Tag; beide renal eliminiert (Dosisreduktion ab eGFR unter 60), Nebenwirkungen Schwindel, Müdigkeit, Ödeme, Gewichtszunahme; Pregabalin hat Missbrauchspotenzial',
+            'Erstlinie gleichwertig: Antidepressiva — Amitriptylin 10–25 mg zur Nacht, Steigerung bis 50–75 mg (Cave anticholinerg, QT-Verlängerung, Harnverhalt, Glaukom, Sturz beim Älteren; EKG vorher) oder Duloxetin 30 mg, nach einer Woche 60 mg (bis 120 mg; Mittel der Wahl bei diabetischer Polyneuropathie; nicht mit Tramadol kombinieren — Serotonin-Syndrom)',
+            'Trigeminusneuralgie: Carbamazepin 2 × 200 mg einschleichend bis 600–1 200 mg/Tag (Cave Hyponatriämie, Enzyminduktion, Exanthem; HLA-B*15:02 bei asiatischer Herkunft) oder Oxcarbazepin; bei Versagen mikrovaskuläre Dekompression nach Jannetta',
+            'Topische Verfahren bei lokalisiertem neuropathischem Schmerz (Post-Zoster-Neuralgie): Lidocain-5 %-Pflaster 12 Stunden auf, 12 Stunden ab; Capsaicin-8 %-Pflaster für 30–60 Minuten, Wiederholung frühestens nach 90 Tagen',
+            'Zweitlinie: Opioide — Tramadol (auch noradrenerg/serotonerg) oder Tapentadol, bei starkem Schmerz Oxycodon oder Morphin; Drittlinie: Kombinationen, Botulinumtoxin, Cannabinoide (Dronabinol) bei Therapieresistenz; Spinal-Cord-Stimulation beim Failed-Back-Surgery-Syndrom',
+            'Glukokortikoide als Koanalgetika: Dexamethason 4–8 mg täglich bei Nervenkompression, Hirnödem, Leberkapselspannung, Lymphödem und Knochenschmerz; 16 mg initial bei drohender Querschnittsymptomatik durch Wirbelmetastasen; kurzfristig Prednisolon 30–35 mg beim Gichtanfall; immer mit PPI, Blutzuckerkontrolle',
+            'Bisphosphonate und Denosumab bei Knochenmetastasen und Plasmozytom: Zoledronat 4 mg i.v. alle 4 Wochen (Dosisanpassung an die Nierenfunktion, nicht unter eGFR 30) oder Denosumab 120 mg s.c. alle 4 Wochen — reduzieren Schmerz und skelettale Ereignisse; vorher Zahnstatus (Kieferosteonekrose), Kalzium und Vitamin D substituieren',
+            'Spasmolytika beim viszeralen Schmerz: Butylscopolamin 20 mg i.v./s.c./oral bis 100 mg/Tag (anticholinerg: nicht bei Glaukom, Harnverhalt, Tachyarrhythmie, Ileus); Nitroglycerin bei Ösophagusspasmus und Gallenkolik als Option',
+            'Nicht-medikamentöse Koanalgesie immer mitnennen: Physiotherapie, Wärme/Kälte, TENS, Akupunktur, Entspannungsverfahren, Psychotherapie, Ergotherapie, Hilfsmittel — bei chronischem Schmerz gleichwertig mit der Medikation',
+          ],
+        },
+        {
+          label: 'Besondere Patientengruppen: Niere, Leber, Alter, Schwangerschaft, Kinder',
+          items: [
+            'Niereninsuffizienz: keine NSAR und Coxibe ab eGFR unter 30 ml/min (unter 60 nur kurz und mit Kontrolle; nie mit ACE-Hemmer plus Diuretikum); Paracetamol und Metamizol sind möglich; Morphin und Codein meiden oder deutlich reduzieren (aktive Metaboliten Morphin-6-Glucuronid und Morphin-3-Glucuronid kumulieren → Sedierung, Atemdepression, Myoklonien), Tramadol Dosis halbieren; bevorzugt Hydromorphon, Buprenorphin (keine Anpassung nötig) oder Fentanyl; Pethidin kontraindiziert (Norpethidin → Krampfanfälle); Gabapentin/Pregabalin nach eGFR dosieren',
+            'Leberinsuffizienz: Paracetamol maximal 2 g/Tag (bei Alkoholabusus und Kachexie ebenso), NSAR wegen Blutungsneigung, Aszites und hepatorenalem Syndrom meiden, Metamizol möglich; Opioide reduziert und mit verlängertem Intervall (Tilidin als Prodrug unwirksam, Tramadol und Codein reduziert), Hydromorphon oder Buprenorphin bevorzugt',
+            'Ältere und multimorbide Patienten: „start low, go slow“ — Opioide mit der halben Startdosis (Morphin retard 2 × 5 mg), Sturz- und Delirrisiko beachten; NSAR nach PRISCUS-/FORTA-Liste möglichst vermeiden (Blutung, Nierenversagen, Herzinsuffizienz, Blutdruckanstieg), wenn nötig Ibuprofen oder Naproxen kurz unter PPI; Tilidin/Naloxon und Hydromorphon gut geeignet, Tramadol und Codein wegen Delir und Übelkeit ungünstig; Amitriptylin und Carbamazepin meiden; Schmerzerfassung mit BESD bei Demenz',
+            'Schwangerschaft: Paracetamol ist in allen Trimestern Mittel der ersten Wahl (max. 4 g/Tag, so kurz wie möglich); Ibuprofen bis zur 28. Schwangerschaftswoche in niedriger Dosis möglich, ab dem 3. Trimenon streng kontraindiziert (Verschluss des Ductus arteriosus, Oligohydramnion, Nierenschädigung des Feten, Wehenhemmung); Metamizol im 3. Trimenon kontraindiziert, im 1./2. nur bei strenger Indikation; Opioide (Tramadol, Morphin) bei starkem Schmerz kurzfristig möglich, bei Geburtsnähe Atemdepression und Entzug des Neugeborenen; Triptane (Sumatriptan) bei Migräne vertretbar. Stillzeit: Paracetamol und Ibuprofen unbedenklich, Codein und Tramadol meiden',
+            'Kinder: Paracetamol 10–15 mg/kg alle 6 Stunden (max. 60 mg/kg/Tag, rektal Wirkbeginn verzögert), Ibuprofen 10 mg/kg alle 8 Stunden (max. 30 mg/kg/Tag, ab 3 Monaten), Metamizol 10–15 mg/kg; KEINE Acetylsalicylsäure unter 12 Jahren (Reye-Syndrom); Codein bei Kindern unter 12 Jahren kontraindiziert (CYP2D6-Ultrarapid-Metabolizer, Todesfälle); Fentanyl intranasal 1,5 µg/kg bei Frakturen in der Notaufnahme; Schmerzskala nach Alter (KUSS, Gesichterskala)',
+            'Opioidgewohnte Patienten und Substituierte (Methadon, Buprenorphin): Substitution fortführen und zusätzlich analgetisch behandeln (höherer Bedarf, kürzere Wirkdauer), Nicht-Opioide und Regionalverfahren ausschöpfen, keine Partialagonisten zu reinen Agonisten hinzufügen (Entzug), Suchtmedizin einbeziehen',
+            'Kardiovaskuläre Risikopatienten: Diclofenac und Coxibe bei KHK, Herzinsuffizienz, pAVK und nach Schlaganfall kontraindiziert; wenn NSAR unvermeidbar, Naproxen kurzzeitig; Ibuprofen mindestens 30 Minuten NACH oder 8 Stunden VOR der ASS-Einnahme, da es die Thrombozytenhemmung von ASS aufhebt; Antikoagulierte erhalten keine NSAR — Paracetamol, Metamizol oder Opioide',
+          ],
+        },
+      ],
+      prognose: 'Akute Schmerzen sind bei kausaler Therapie und konsequenter Analgesie nach dem Stufenschema in der Regel vollständig rückläufig; ein unzureichend behandelter Akutschmerz ist jedoch der wichtigste vermeidbare Risikofaktor für die Chronifizierung — etwa 10 % der Patienten entwickeln nach Operationen einen chronischen postoperativen Schmerz. Beim Tumorschmerz lässt sich mit dem WHO-Stufenschema bei 80–90 % der Patienten eine ausreichende Kontrolle erreichen; die verbleibenden 10–20 % benötigen invasive Verfahren oder eine spezialisierte Palliativversorgung. Der chronische Nicht-Tumorschmerz ist selten heilbar; realistisches Ziel ist eine Schmerzreduktion um 30–50 % mit Verbesserung von Funktion, Schlaf und Teilhabe — die multimodale Therapie ist hier der Opioid-Eskalation überlegen. Unter ärztlich geführter Opioidtherapie bei Tumorschmerz ist eine Sucht selten; bei Nicht-Tumorschmerz liegt das Risiko eines problematischen Gebrauchs bei etwa 3–10 % und steigt mit Suchtanamnese, psychiatrischer Komorbidität und hoher Dosis. Die Nebenwirkungen bestimmen die Prognose der Stufe 1: NSAR verursachen in Deutschland jährlich tausende Krankenhausaufnahmen wegen gastrointestinaler Blutungen und akutem Nierenversagen, die Metamizol-Agranulozytose verläuft unbehandelt in etwa 10 % tödlich, und die Paracetamol-Überdosierung ist die häufigste Ursache des akuten Leberversagens in westlichen Ländern.',
+      pruefungsfallen: [
+        'Im Rollenspiel wird das „Schmerzmittel anbieten“ bewertet: Empathie → „Ich gebe Ihnen gleich ein Schmerzmittel“ → aber ZUERST nach Allergien gegen Medikamente und nach bereits eingenommenen Schmerzmitteln fragen. Wer ohne Allergiefrage Metamizol verabreicht, fällt in vielen Rollen (Novalgin-Allergie mit Anaphylaxie oder Angioödem auf dem Rollenblatt!) durch.',
+        '„Ibuprofen bei Bedarf — was bedeutet das?“: Der Prüfer will Präparat, Einzeldosis, Häufigkeit pro Tag und Woche, Einnahmedauer und Wirkung („Ibuprofen 400 mg, an 3–4 Tagen pro Woche je 1–2 Tabletten, seit 3 Monaten, mit geringem Ansprechen“). „Bei Bedarf“ ohne Zahl ist keine Medikamentenanamnese.',
+        '„Bekommt der Patient einen Magenschutz?“ — bei jedem NSAR mit Risikofaktor (Alter über 65, Ulkusanamnese, ASS, Antikoagulanzien, Glukokortikoide, SSRI) einen PPI, z. B. Pantoprazol 20–40 mg 1-0-0, mitverordnen und aktiv nennen: „NSAR unter Magenschutz mit einem Protonenpumpenhemmer“.',
+        'Metamizol ist nicht immer die richtige Antwort: Bei Fraktur oder Weichteilentzündung erwartet der Prüfer ein antiphlogistisches NSAR (Ibuprofen, Diclofenac) oder Paracetamol, bei starken Schmerzen ein Opioid — und bei Ruhigstellung die Thromboseprophylaxe mit Heparin („die wichtige Antwort sei Heparin gewesen“). In Karlsruhe schüttelte der Prüfer bei „Metamizol“ als Antwort für eine Sprunggelenkfraktur den Kopf.',
+        'Metamizol-Nebenwirkungen vollständig nennen: Agranulozytose (Fieber, Halsschmerzen, Stomatitis → sofort absetzen, Blutbild), Anaphylaxie, Blutdruckabfall bei schneller i.v.-Gabe (deshalb Kurzinfusion über 15–20 Minuten am liegenden Patienten), selten Rotfärbung des Urins. Vorteil: keine Magen-, kaum Nieren-Toxizität, spasmolytisch.',
+        'NSAR-Kontraindikationen im Block aufsagen: Ulkus/GI-Blutung, Niereninsuffizienz (eGFR unter 30), Herzinsuffizienz und KHK (Diclofenac, Coxibe), Antikoagulation, ASS-Asthma, 3. Trimenon, Exsikkose, Triple Whammy (ACE-Hemmer + Diuretikum + NSAR). Und: zwei NSAR nie kombinieren; Ibuprofen hebt die Thrombozytenhemmung von ASS auf.',
+        '„Welche Analgetika bei Niereninsuffizienz?“: keine NSAR; Paracetamol und Metamizol möglich; Morphin meiden (Metabolitenkumulation), stattdessen Hydromorphon, Buprenorphin oder Fentanyl; Gabapentin und Pregabalin nach eGFR dosieren; Pethidin kontraindiziert.',
+        'Bei Opioiden der Stufe 3 gehören drei Dinge in jede Antwort: Retardpräparat nach der Uhr + Bedarfsmedikation 1/6 der Tagesdosis + Obstipationsprophylaxe vom ersten Tag an (keine Toleranz!). Übelkeit ist initial und vergeht; Atemdepression ist bei Titration nach Schmerz kein praktisches Problem; Miosis bleibt.',
+        'Stärkere Analgetika sind nicht immer Opioide: Beim Gichtanfall wollte der Prüfer nach NSAR und Colchicin ausdrücklich die Glukokortikoide hören; beim viszeralen Schmerz ist das Spasmolytikum die Ergänzung; beim neuropathischen Schmerz sind Antikonvulsiva und Antidepressiva die Erstlinie, nicht das Opioid.',
+        'Patientenfrage „Kann Opioid-Tropfen mir helfen?“ (z. B. bei Gastroenteritis, Fibromyalgie, Kopfschmerz): Nein — mit Begründung (Obstipation, Sedierung, Abhängigkeitspotenzial, beim Bauchschmerz Maskierung; bei Fibromyalgie und Migräne unwirksam) und mit Alternative (Metamizol, Butylscopolamin, Wärme, Amitriptylin).',
+        'Patientenfrage „Habe ich ein großes Risiko für Magengeschwür wegen Ibuprofen?“: Risikofaktoren aufzählen (Alter, frühere Ulzera, Cortison, Blutverdünner, Rauchen, Alkohol, Dauer und Dosis), Schutz anbieten (PPI, Einnahme zu den Mahlzeiten, niedrigste Dosis, kürzeste Dauer) und Warnzeichen nennen (schwarzer Stuhl, Bluterbrechen, Magenschmerzen).',
+        'Paracetamol nicht bagatellisieren: max. 4 g/Tag (2 g bei Leberschaden, Alkoholabusus, Kachexie), Intoxikation ab etwa 7,5–10 g bzw. 150 mg/kg mit stummer Latenz von 1–3 Tagen, Antidot N-Acetylcystein. Beim Kreuzschmerz ist Paracetamol nachweislich unwirksam.',
+        'Tramadol plus SSRI/SNRI (Citalopram, Sertralin, Venlafaxin, Duloxetin) = Serotonin-Syndrom; Tramadol senkt außerdem die Krampfschwelle. In vielen Rollen nimmt der Patient ein Antidepressivum — Interaktion aktiv ansprechen.',
+        'Fachbegriffe übersetzen können: Analgetika = Schmerzmittel, Antipyretika = fiebersenkende Mittel, Antiphlogistika = entzündungshemmende Mittel, Spasmolytika = krampflösende Mittel, Sedativa = Beruhigungsmittel, Anxiolyse = Angstlösung, Lokalanästhesie = örtliche Betäubung, Applikation = Verabreichung, Opioid = morphinartiges Schmerzmittel, retardiert = verzögert freisetzend.',
+        'Die WHO-Regeln als Satz parat haben: „Möglichst oral, nach festem Zeitplan, stufenweise und individuell dosiert — Nicht-Opioid, dann schwaches, dann starkes Opioid, jeweils mit Koanalgetika, Magenschutz bei NSAR und Laxans bei Opioiden.“ Das Stufenschema wird selten namentlich abgefragt, die Logik dahinter fast immer.',
+        'Abhängigkeit und Fahrtauglichkeit korrekt einordnen: körperliche Gewöhnung (Entzug beim Absetzen, Toleranz) ist keine Sucht; ausschleichen um 10–25 % alle 1–2 Wochen. Fahrverbot in der Einstellungsphase und nach Dosisänderung, unter stabiler Dauertherapie möglich — Aufklärung dokumentieren.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welches Schmerzmittel haben Sie bei den kolikartigen Schmerzen gegeben, und warum? (Cholelithiasis, Freiburg)',
+          antwort: 'Ein Nicht-Opioid-Analgetikum der WHO-Stufe 1 mit spasmolytischer Wirkung, nämlich Metamizol 1 g als Kurzinfusion in 100 ml NaCl 0,9 % über 15–20 Minuten, kombiniert mit dem Spasmolytikum Butylscopolamin 20 mg i.v. Metamizol ist bei viszeralem Kolikschmerz das Mittel der Wahl, weil es zusätzlich zur Analgesie die glatte Muskulatur relaxiert, antipyretisch wirkt und weder die Magenschleimhaut noch die Nierenfunktion belastet. Zu beachten sind der Blutdruckabfall bei schneller i.v.-Gabe, eine mögliche Anaphylaxie — deshalb vorher nach einer Metamizol-Allergie fragen — und die seltene Agranulozytose, über die der Patient aufgeklärt wird. Bei unzureichender Wirkung würde ich ein Opioid, z. B. Piritramid 7,5 mg i.v., ergänzen.',
+        },
+        {
+          frage: 'Was haben Sie als Schmerzmittel gegeben? — Der Prüfer schüttelt bei „Metamizol“ den Kopf. (Sprunggelenkfraktur, Karlsruhe)',
+          antwort: 'Bei einer Fraktur mit Weichteilschwellung würde ich zunächst ein antiphlogistisch wirksames NSAR verordnen, z. B. Ibuprofen 3 × 600 mg unter Magenschutz mit Pantoprazol 40 mg, alternativ Diclofenac 2 × 75 mg retard, sofern Nierenfunktion, Magen und Herz das erlauben; bei Kontraindikationen Paracetamol 4 × 1 g. Bei starken Schmerzen in der Notaufnahme zusätzlich ein Opioid, z. B. Piritramid 7,5 mg i.v. oder Tilidin/Naloxon 50/4 mg oral. Ebenso wichtig sind Ruhigstellung, Hochlagerung und Kühlung — und bei Ruhigstellung der unteren Extremität die Thromboseprophylaxe mit niedermolekularem Heparin, z. B. Enoxaparin 40 mg s.c. einmal täglich, besonders bei einer Thrombophilie wie dem Faktor-V-Leiden. Metamizol wäre nicht falsch, ist aber bei einer Fraktur nicht die erwartete erste Antwort, weil es nicht antiphlogistisch wirkt.',
+        },
+        {
+          frage: 'Geben Sie dem Patienten eine Spritze? (Abszess am Gesäß, Karlsruhe)',
+          antwort: 'Nein, eine Spritze ist nicht erforderlich. Der Patient nimmt bereits Paracetamol ohne ausreichende Wirkung ein; daher würde ich auf ein antiphlogistisch wirksames NSAR wechseln, Ibuprofen 400–600 mg dreimal täglich oral, maximal 2 400 mg pro Tag, für wenige Tage, bei Risikofaktoren mit einem Protonenpumpenhemmer. Die kausale Therapie des Abszesses ist jedoch die chirurgische Inzision und Drainage — „ubi pus, ibi evacua“ —, danach lassen die Schmerzen meist rasch nach. Antibiotika sind nur bei Umgebungsphlegmone, Fieber oder Immunsuppression nötig.',
+        },
+        {
+          frage: 'Bekommt der Patient wegen des Ibuprofens einen Magenschutz? (HWS-Diskusprolaps, Reutlingen)',
+          antwort: 'Ja, wenn Risikofaktoren vorliegen: Alter über 65 Jahre, Ulkus- oder Blutungsanamnese, gleichzeitige Einnahme von ASS, Antikoagulanzien, Glukokortikoiden oder SSRI, hohe NSAR-Dosis oder längere Einnahmedauer. Dann verordne ich einen Protonenpumpenhemmer, z. B. Pantoprazol 20–40 mg morgens, für die Dauer der NSAR-Therapie. Bei einem jungen, gesunden Patienten mit einer Einnahme über wenige Tage ist ein PPI nicht zwingend, aber ich würde ihn zur Einnahme zu den Mahlzeiten anhalten, die niedrigste wirksame Dosis wählen und über Warnzeichen wie Teerstuhl aufklären. Alternativ kann bei hohem gastrointestinalem und niedrigem kardiovaskulärem Risiko ein Coxib wie Celecoxib 2 × 100–200 mg eingesetzt werden.',
+        },
+        {
+          frage: 'Die Patientin nimmt Ibuprofen bei Bedarf. Was bedeutet das — wie oft bei Bedarf? (Fibromyalgie, Reutlingen)',
+          antwort: '„Bei Bedarf“ muss ich in der Anamnese konkretisieren: Welche Stärke — 400, 600 oder 800 mg —, wie viele Tabletten pro Tag, an wie vielen Tagen pro Woche oder Monat, seit wann, und mit welchem Effekt. Pharmakologisch bedeutet „bei Bedarf“ höchstens dreimal täglich mit mindestens 6 Stunden Abstand, in Selbstmedikation maximal 1 200 mg pro Tag und nicht länger als 3–4 Tage ohne ärztliche Rücksprache. Eine Einnahme an mehr als 10–15 Tagen pro Monat ist ein Warnsignal für einen Übergebrauch mit Risiko für Nierenschaden, Ulkus und — bei Kopfschmerz — Medikamentenübergebrauchskopfschmerz. Bei der Fibromyalgie sind NSAR ohnehin unwirksam, weil kein entzündlicher Prozess vorliegt; hier sind Ausdauertraining, Amitriptylin 10–25 mg abends, Duloxetin oder Pregabalin und Psychotherapie indiziert — Opioide sind kontraindiziert.',
+        },
+        {
+          frage: 'Der Prüfer will über stärkere Analgetika hören — Sie haben NSAR, Metamizol und Paracetamol genannt. (Gichtanfall, Karlsruhe)',
+          antwort: 'Beim Gichtanfall sind die stärkeren Optionen nicht die Opioide, sondern erstens Colchicin — 1 mg initial und 0,5 mg nach einer Stunde, maximal 1,5 mg am ersten Tag, Dosisreduktion bei Niereninsuffizienz — und zweitens die Glukokortikoide: Prednisolon 30–35 mg täglich über 3–5 Tage oral oder eine intraartikuläre Injektion nach Ausschluss einer Infektion. Kortikosteroide sind bei Niereninsuffizienz, Antikoagulation und Multimorbidität sogar Mittel der Wahl. Allgemein gilt beim Stufenschema: Wenn ein Nicht-Opioid nicht ausreicht, ergänze ich ein schwaches Opioid wie Tramadol oder Tilidin/Naloxon und bei sehr starken Schmerzen ein starkes Opioid wie Morphin — beim Gichtanfall ist das jedoch selten nötig, da die Entzündungshemmung den Schmerz kausal behandelt.',
+        },
+        {
+          frage: 'Welche Analgetika geben Sie — Achtung, der Patient hat eine Novalgin-Allergie? (Pyelonephritis, Reutlingen)',
+          antwort: 'Metamizol ist bei bekannter Allergie streng kontraindiziert, da eine Anaphylaxie droht. Ich würde Paracetamol 1 g i.v. oder oral bis viermal täglich als Analgetikum und Antipyretikum wählen und bei kolikartigem Charakter das Spasmolytikum Butylscopolamin 20 mg i.v. ergänzen. Ein NSAR wie Ibuprofen ist bei einer Pyelonephritis zurückhaltend einzusetzen, weil die Nierendurchblutung bei Infekt, Fieber und Exsikkose bereits kompromittiert ist — allenfalls kurzfristig nach Kontrolle des Kreatinins. Bei starken Schmerzen ein Opioid, z. B. Piritramid 7,5 mg i.v. oder Tilidin/Naloxon oral. Dazu Flüssigkeit, Bettruhe und die kalkulierte Antibiose, z. B. Ceftriaxon 2 g i.v. oder Ciprofloxacin 2 × 500 mg oral.',
+        },
+        {
+          frage: 'Warum nimmt der Patient Voltaren ein, und was bedeutet das für Ihre Beurteilung? (Divertikulitis, Karlsruhe)',
+          antwort: 'Voltaren ist Diclofenac, ein NSAR — ich muss die Indikation erfragen, hier meist degenerative Gelenk- oder Rückenschmerzen, sowie Dosis und Dauer (z. B. 100 mg retard 1-0-0 seit Monaten). Für die Beurteilung ist das in dreifacher Hinsicht relevant: NSAR erhöhen das Risiko für eine komplizierte Divertikulitis mit Perforation und Blutung, sie können eine gastrointestinale Blutung verursachen und sie belasten Niere und Herz-Kreislauf-System (Diclofenac ist kardiovaskulär besonders ungünstig). Ich würde Diclofenac in der akuten Situation pausieren, die Schmerzen mit Metamizol behandeln — kein Opioid wegen der Darmmotilität und der möglichen Verschleierung einer Peritonitis, Vorsicht auch mit Butylscopolamin — und langfristig eine Alternative für die Grunderkrankung suchen.',
+        },
+        {
+          frage: 'Welche Medikamente verordnen Sie? — Erwartet war Heparin, nicht die Analgetika. (Sprunggelenkfraktur, Reutlingen)',
+          antwort: 'Neben der Analgesie mit Ibuprofen unter PPI-Schutz oder Paracetamol und bei Bedarf einem Opioid gehört bei jeder Ruhigstellung der unteren Extremität die medikamentöse Thromboseprophylaxe mit niedermolekularem Heparin dazu, z. B. Enoxaparin 40 mg s.c. einmal täglich (bei Niereninsuffizienz unter 30 ml/min Dosisreduktion oder unfraktioniertes Heparin) für die gesamte Dauer der Immobilisation. Ergänzend Thrombozytenkontrolle in der ersten Woche wegen der heparininduzierten Thrombozytopenie und Aufklärung über Blutungszeichen. Bei einer Operation zusätzlich die perioperative Antibiotikaprophylaxe mit Cefazolin 2 g i.v.',
+        },
+        {
+          frage: 'Welche Therapie und welches Antiemetikum wären bei der Migräne am besten? (Karlsruhe)',
+          antwort: 'Bei leichter bis mittelschwerer Attacke ein Nicht-Opioid: Acetylsalicylsäure 1 000 mg, Ibuprofen 400–600 mg oder Metamizol 1 000 mg. Bei schwerer Attacke ein Triptan, z. B. Sumatriptan 50–100 mg oral oder 6 mg s.c., nicht bei KHK, Schlaganfall, pAVK oder unkontrollierter Hypertonie. Als Antiemetikum Metoclopramid 10 mg oral oder i.v. 15–30 Minuten vor dem Analgetikum — es bekämpft die Übelkeit und verbessert durch die Förderung der Magenentleerung die Resorption; alternativ Domperidon 10 mg. Opioide sind bei Migräne nicht indiziert. Zur Prophylaxe bei mehr als 3 Attacken pro Monat Betablocker (Metoprolol, Propranolol), Amitriptylin, Topiramat oder Flunarizin; Übergebrauchsgrenze: Triptane an höchstens 10 und Analgetika an höchstens 15 Tagen pro Monat.',
+        },
+        {
+          frage: 'Der Patient fragt: „Können mir Opioid-Tropfen helfen?“ (Gastroenteritis, Reutlingen)',
+          antwort: 'Patientengerecht verneinen und begründen: „Opioide wie Tramadol-Tropfen sind bei Ihren Bauchkrämpfen nicht das richtige Mittel — sie machen müde und übel, sie verstopfen den Darm, was bei einer Darminfektion die Erregerausscheidung verzögert, und bei längerer Einnahme kann man sich daran gewöhnen. Außerdem könnten sie Warnzeichen verschleiern, falls sich doch etwas Ernstes entwickelt.“ Alternative anbieten: Metamizol 500–1 000 mg bis viermal täglich oder ein Spasmolytikum wie Butylscopolamin 10–20 mg, Wärme, ausreichend trinken, orale Rehydratation. Im Arzt-Arzt-Gespräch ergänzen, dass bei viszeralem Schmerz die Stufe 1 mit Spasmolytikum die Erstlinie ist und Opioide dem starken Schmerz nach Ausschluss eines akuten Abdomens vorbehalten bleiben.',
+        },
+        {
+          frage: 'Der Patient fragt: „Habe ich ein großes Risiko für ein Magengeschwür wegen Ibuprofen?“ (Gonarthrose, Stuttgart)',
+          antwort: 'Erklären: Ibuprofen hemmt die Bildung schützender Prostaglandine in der Magenschleimhaut; das Risiko für ein Ulkus oder eine Blutung ist etwa um das Drei- bis Vierfache erhöht und steigt mit Alter über 65, früheren Magengeschwüren, Cortison, Blutverdünnern, Rauchen, Alkohol, hoher Dosis und langer Einnahme. Dann Schutz anbieten: einen Protonenpumpenhemmer wie Pantoprazol 20–40 mg morgens, Einnahme zu den Mahlzeiten, niedrigste wirksame Dosis, so kurz wie möglich, keine Kombination mit anderen NSAR oder ASS. Warnzeichen nennen: schwarzer Stuhl, Bluterbrechen, anhaltende Magenschmerzen. Bei Gonarthrose zusätzlich topisches Diclofenac-Gel, Physiotherapie, Gewichtsreduktion und bei Bedarf Metamizol oder ein schwaches Opioid als Alternative.',
+        },
+        {
+          frage: 'Welche Nebenwirkungen und Kontraindikationen hat Metamizol? (mehrfach, alle Zentren)',
+          antwort: 'Die gefürchtetste Nebenwirkung ist die Agranulozytose — selten, aber potenziell letal, mit Fieber, Halsschmerzen und Stomatitis; bei diesen Symptomen sofort absetzen und ein Differenzialblutbild bestimmen, der Patient wird darüber aufgeklärt. Weiter: anaphylaktische Reaktionen bis zum Schock, Blutdruckabfall bei schneller intravenöser Gabe — deshalb Kurzinfusion über 15–20 Minuten am liegenden, überwachten Patienten —, selten Hautreaktionen bis zum Stevens-Johnson-Syndrom, Rotfärbung des Urins, sehr selten Nierenschädigung. Kontraindikationen: bekannte Metamizol- oder Pyrazolon-Allergie, frühere Agranulozytose, Knochenmarkinsuffizienz, akute hepatische Porphyrie, Glukose-6-Phosphat-Dehydrogenase-Mangel, drittes Trimenon der Schwangerschaft, Hypotonie und Hypovolämie bei i.v.-Gabe. Dosierung: 500–1 000 mg bis viermal täglich, maximal 4 g pro Tag. Vorteile: keine Magen- und kaum Nierentoxizität, spasmolytisch, antipyretisch — Mittel der Wahl bei Kolik, Tumorschmerz und postoperativ.',
+        },
+        {
+          frage: 'Darf der Patient mit Niereninsuffizienz Ibuprofen einnehmen? Welche Analgetika sind bei Niereninsuffizienz erlaubt?',
+          antwort: 'Nein. NSAR hemmen die prostaglandinvermittelte Dilatation des Vas afferens und senken die glomeruläre Filtration; ab einer eGFR unter 30 ml/min sind sie kontraindiziert, zwischen 30 und 60 nur kurzfristig unter Kreatininkontrolle und niemals in Kombination mit ACE-Hemmer oder Sartan plus Diuretikum — dem „Triple Whammy“ mit akutem Nierenversagen. Erlaubt sind Paracetamol bis 4 g und Metamizol bis 4 g täglich. Bei den Opioiden meide ich Morphin und Codein, weil das aktive Morphin-6-Glucuronid kumuliert und zu Sedierung, Myoklonien und Atemdepression führt; Tramadol halbiere ich. Bevorzugt sind Hydromorphon, Buprenorphin — das keine Dosisanpassung braucht — und Fentanyl. Pethidin ist kontraindiziert, Gabapentin und Pregabalin werden nach der eGFR reduziert.',
+        },
+        {
+          frage: 'Wie stellen Sie einen Patienten mit Tumorschmerzen auf ein starkes Opioid ein?',
+          antwort: 'Nach dem WHO-Stufenschema: oral, nach festem Zeitplan, individuell titriert. Ich beginne beim opioidnaiven Patienten mit Morphin retard 2 × 10 mg (beim älteren 2 × 5 mg), alternativ Oxycodon retard 2 × 10 mg oder Hydromorphon retard 2 × 4 mg, und behalte das Nicht-Opioid, meist Metamizol 4 × 1 g, bei. Dazu verordne ich obligat eine Bedarfsmedikation von einem Sechstel der Tagesdosis als schnell freisetzendes Präparat — hier Morphin 5 mg unretardiert, bei Bedarf alle 30–60 Minuten wiederholbar. Braucht der Patient mehr als drei Bedarfsgaben täglich, erhöhe ich die Retarddosis um 30–50 %. Vom ersten Tag an gebe ich Macrogol 1–3 Beutel als Obstipationsprophylaxe und für die ersten 1–2 Wochen Metoclopramid 3 × 10 mg gegen die initiale Übelkeit. Ich kläre über Müdigkeit, Fahrverbot in der Einstellungsphase und darüber auf, dass es keine Höchstdosis gibt und die Sucht bei dieser Indikation nicht im Vordergrund steht. Das Rezept ist ein Betäubungsmittelrezept.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Opioid-Nebenwirkungen, insbesondere die Obstipation?',
+          antwort: 'Die Obstipation ist die einzige Opioidnebenwirkung ohne Toleranzentwicklung und muss prophylaktisch und dauerhaft behandelt werden: osmotisch mit Macrogol 1–3 Beutel täglich oder stimulierend mit Natriumpicosulfat 10–20 Tropfen abends bzw. Bisacodyl; bei Versagen peripher wirksame µ-Antagonisten wie Naloxegol 25 mg oral oder Methylnaltrexon 12 mg s.c., oder Wechsel auf die Oxycodon/Naloxon-Kombination. Übelkeit und Erbrechen betreffen 20–30 % initial und vergehen nach 1–2 Wochen: Metoclopramid 3 × 10 mg oder Haloperidol 0,5–1 mg abends. Sedierung und Schwindel klingen ab, die Fahrtauglichkeit ist in der Einstellungsphase aufgehoben. Juckreiz mit Antihistaminika oder Rotation. Bei Atemdepression — Atemfrequenz unter 8–10 pro Minute, Somnolenz — Naloxon 0,04–0,08 mg i.v. fraktioniert bis 0,4 mg, wegen der kurzen Halbwertszeit ggf. wiederholt oder als Perfusor. Bei Harnverhalt, Myoklonien oder Delir Dosisreduktion oder Opioidrotation, insbesondere bei Niereninsuffizienz.',
+        },
+        {
+          frage: 'Wie rechnen Sie Opioide um, z. B. von oralem Morphin auf ein Fentanyl-Pflaster oder auf Hydromorphon?',
+          antwort: 'Bezogen auf 30 mg orales Morphin pro Tag gelten: Morphin i.v. oder s.c. 10 mg (Faktor 3), Oxycodon oral 15 mg (Faktor 2), Hydromorphon oral 4 mg (Faktor 7,5), Tapentadol 75 mg, Tramadol oder Tilidin 300 mg (Faktor 10). Transdermal entsprechen 60 mg orales Morphin pro Tag einem Fentanyl-Pflaster von 25 µg/h — also Faktor 100 — oder Buprenorphin 35 µg/h. Beispiel: Ein Patient mit Morphin retard 2 × 60 mg, also 120 mg täglich, erhält Fentanyl 50 µg/h alle 72 Stunden bzw. Hydromorphon retard 2 × 8 mg. Bei jeder Rotation reduziere ich die errechnete Dosis wegen inkompletter Kreuztoleranz um 25–50 % und titriere mit der Bedarfsmedikation nach. Das Fentanyl-Pflaster wirkt erst nach 12–24 Stunden, daher überlappend die letzte Retard-Gabe geben, und es eignet sich nur bei stabilem Schmerz; Fieber und Wärme steigern die Freisetzung.',
+        },
+        {
+          frage: 'Welche Analgetika dürfen Sie in der Schwangerschaft geben?',
+          antwort: 'Paracetamol ist in allen Trimestern Mittel der ersten Wahl, in der üblichen Dosis bis 4 g täglich und so kurz wie möglich. Ibuprofen kann bis zur 28. Schwangerschaftswoche in niedriger Dosis gegeben werden; ab dem dritten Trimenon sind alle NSAR streng kontraindiziert, weil sie den vorzeitigen Verschluss des Ductus arteriosus Botalli, ein Oligohydramnion und eine fetale Nierenschädigung verursachen und die Wehen hemmen. Metamizol ist im dritten Trimenon kontraindiziert und davor nur bei strenger Indikation vertretbar. Bei starken Schmerzen sind Opioide wie Tramadol oder Morphin kurzfristig möglich, in Geburtsnähe droht die Atemdepression des Neugeborenen, bei Dauereinnahme ein neonatales Entzugssyndrom. Sumatriptan ist bei Migräne vertretbar. In der Stillzeit sind Paracetamol und Ibuprofen unbedenklich, Codein und Tramadol werden gemieden.',
+        },
+        {
+          frage: 'Macht der Patient sich mit Opioiden abhängig? Und darf er damit Auto fahren?',
+          antwort: 'Man muss drei Begriffe trennen: Toleranz — die Wirkung lässt bei gleicher Dosis nach —, körperliche Gewöhnung — beim abrupten Absetzen treten Entzugssymptome wie Schwitzen, Unruhe, Durchfall und Gähnen auf — und die Sucht, also der zwanghafte Konsum trotz Schaden mit Kontrollverlust. Die ersten beiden sind pharmakologisch erwartbar und durch Ausschleichen um 10–25 % alle 1–2 Wochen beherrschbar; sie sind keine Sucht. Das Suchtrisiko ist bei leitliniengerechter Tumorschmerztherapie gering und beim chronischen Nicht-Tumorschmerz mit etwa 3–10 % relevant, vor allem bei Suchtanamnese, psychiatrischer Komorbidität und schnell freisetzenden Präparaten — deshalb Retardpräparate, klare Ziele, Reevaluation alle 3 Monate. Zur Fahrtauglichkeit: In der Einstellungsphase und nach jeder Dosisänderung darf der Patient etwa 1–2 Wochen nicht fahren; unter stabiler Dauertherapie ohne Sedierung ist das Fahren grundsätzlich möglich, ich kläre darüber auf und dokumentiere das Gespräch; die Kombination mit Alkohol oder Benzodiazepinen schließt das Fahren aus.',
+        },
+        {
+          frage: 'Was ist ein Betäubungsmittelrezept, und welche Opioide brauchen es?',
+          antwort: 'Das BtM-Rezept ist ein dreiteiliges, gelbes, amtlich nummeriertes Formular, das der Arzt bei der Bundesopiumstelle anfordert. Teil I und II gehen mit dem Patienten in die Apotheke, Teil III bleibt 3 Jahre in der Praxis. Es muss innerhalb von 7 Tagen nach Ausstellung eingelöst werden und enthält Name, Anschrift und Geburtsdatum des Patienten, Präparat, Stärke, Menge in Gramm oder Stückzahl, Gebrauchsanweisung sowie Unterschrift. Für 30 Tage gelten Höchstmengen, z. B. Morphin 20 000 mg, Oxycodon 15 000 mg, Hydromorphon 5 000 mg, Fentanyl 1 000 mg, Buprenorphin 800 mg; sie dürfen in begründeten Fällen mit dem Buchstaben „A“ überschritten werden. BtM-pflichtig sind alle starken Opioide sowie Tapentadol und nicht-retardiertes Tilidin; NICHT BtM-pflichtig sind Tramadol, Tilidin/Naloxon in Retardform und Codein in analgetischer Dosierung. Im Notfall kann ein Opioid auf einem normalen Rezept mit dem Vermerk „Notfall-Verschreibung“ verordnet und das BtM-Rezept unverzüglich nachgereicht werden.',
+        },
+        {
+          frage: 'Erklären Sie mir das WHO-Stufenschema in zwei Sätzen, und welche Regeln gelten dabei?',
+          antwort: 'Das WHO-Stufenschema behandelt Schmerzen stufenweise: Stufe 1 mit Nicht-Opioid-Analgetika — Paracetamol, Metamizol oder NSAR —, Stufe 2 mit einem schwachen Opioid wie Tramadol oder Tilidin/Naloxon zusätzlich zum Nicht-Opioid, Stufe 3 mit einem starken Opioid wie Morphin, Oxycodon, Hydromorphon, Fentanyl oder Buprenorphin, wiederum plus Nicht-Opioid; auf jeder Stufe kommen Koanalgetika wie Antidepressiva, Antikonvulsiva, Glukokortikoide, Bisphosphonate oder Spasmolytika und Adjuvanzien wie Laxanzien und Antiemetika hinzu. Die Regeln lauten: möglichst oral, nach festem Zeitplan mit Retardpräparaten und nicht erst bei Schmerz, stufenweise eskalierend — beim starken Tumorschmerz darf Stufe 2 übersprungen werden —, individuell titriert nach NRS mit dokumentiertem Ziel, dazu die Bedarfsmedikation von einem Sechstel der Tagesdosis, Magenschutz bei NSAR und Obstipationsprophylaxe bei Opioiden. Beim neuropathischen Schmerz sind die Koanalgetika Erstlinie, beim chronischen Nicht-Tumorschmerz ist die multimodale Therapie wichtiger als jede Stufe.',
+        },
+        {
+          frage: 'Erklären Sie dem Patienten die Begriffe Analgetika, Antipyretika, Spasmolytika, Sedativa und Lokalanästhesie.',
+          antwort: 'Analgetika sind Schmerzmittel, Antipyretika fiebersenkende Mittel — Paracetamol und Metamizol sind beides. Antiphlogistika sind entzündungshemmende Mittel wie Ibuprofen. Spasmolytika sind krampflösende Mittel, die die Muskulatur von Darm, Gallenwegen oder Harnleiter entspannen, zum Beispiel Buscopan. Sedativa sind Beruhigungsmittel, die müde machen, und Anxiolyse bedeutet Angstlösung, etwa vor einem Eingriff. Eine Lokalanästhesie ist eine örtliche Betäubung, bei der nur die betroffene Stelle mit einer Spritze unempfindlich gemacht wird, im Gegensatz zur Vollnarkose. Opioide sind starke, morphinartige Schmerzmittel, retardiert heißt „verzögert freisetzend“, und Applikation bedeutet schlicht die Art der Verabreichung — als Tablette, Spritze, Tropfen, Zäpfchen oder Pflaster.',
+        },
+      ],
+      merksatz: 'Erst Empathie und Allergiefrage, dann das Schmerzmittel: oral, nach der Uhr, stufenweise, individuell — Nicht-Opioid (Paracetamol max. 4 g, Metamizol max. 4 g als Kurzinfusion, NSAR nur mit PPI und gesunder Niere), dann schwaches, dann starkes Opioid als Retard plus 1/6 Bedarf plus Laxans vom ersten Tag; neuropathisch heißt Antikonvulsivum und Antidepressivum, Kolik heißt Metamizol plus Butylscopolamin, Fraktur heißt NSAR plus Heparin.',
+      linkedCaseIds: [],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [],
+    },
   ];
 }
