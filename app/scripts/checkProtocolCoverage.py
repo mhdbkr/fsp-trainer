@@ -129,6 +129,11 @@ ALIAS = {
     'reaktivearthritis': 'Reaktive Arthritis', 'reaktivearthritis1': 'Reaktive Arthritis',
     'poststreptokokkenreaktivearthritis': 'Reaktive Arthritis',
     'pertussis': 'Pertussis (Keuchhusten)', 'pertusis': 'Pertussis (Keuchhusten)',
+
+    # --- 5e passe : cibles ajoutées par le lot-21
+    'colitisulcerosa': 'Colitis ulcerosa',
+    'chronischepankreatitis': 'Chronische Pankreatitis',
+    'myokarditispostcovid19': 'Akute Myokarditis',
 }
 # titres qui ne désignent pas un cas exploitable
 IGNORE = {'karlsruhe', 'akutesabdomen', 'fahradunfall'}

@@ -33480,5 +33480,1906 @@ export function seedFachwissen(): Fachwissen[] {
         'auf-roentgen-thorax',
       ],
     },
+    {
+      id: 'fw-colitis-ulcerosa',
+      pathology: 'Colitis ulcerosa',
+      specialty: 'Gastroenterologie',
+      definition: 'Die Colitis ulcerosa ist eine chronisch-entzündliche Darmerkrankung (CED), bei der die Entzündung auf die Mukosa und Submukosa des Dickdarms beschränkt bleibt. Sie beginnt praktisch immer im Rektum und breitet sich kontinuierlich, ohne gesunde Zwischenabschnitte, nach proximal aus — als Proktitis, Linksseitenkolitis oder Pankolitis. Der Dünndarm ist nicht betroffen; lediglich bei einer Pankolitis kann das terminale Ileum im Sinne einer „Backwash-Ileitis“ mitreagieren. Leitsymptom sind blutig-schleimige Durchfälle mit Tenesmen; die Erkrankung verläuft in Schüben mit beschwerdefreien oder beschwerdearmen Intervallen. Zusammen mit dem Morbus Crohn bildet sie die Gruppe der CED; lässt sich ein Fall nicht sicher zuordnen, spricht man von einer Colitis indeterminata.',
+      aetiologie: 'Die Ursache ist multifaktoriell und nicht abschließend geklärt: Auf dem Boden einer genetischen Prädisposition (familiäre Häufung bei etwa 10–15 % der Betroffenen, Assoziation mit HLA-Merkmalen) kommt es zu einer gestörten mukosalen Barriere und einer fehlregulierten, überschießenden Immunantwort gegen die eigene Darmflora. Umweltfaktoren wie westliche Ernährung, Hygiene und wiederholte Antibiotikagaben verändern das Mikrobiom; nichtsteroidale Antirheumatika und gastrointestinale Infektionen können Schübe auslösen. Epidemiologisch bemerkenswert: Rauchen wirkt bei der Colitis ulcerosa protektiv — ein Krankheitsbeginn kurz nach dem Rauchstopp ist ein klassisches Bild —, während es den Morbus Crohn verschlechtert; auch eine frühere Appendektomie senkt das Risiko. Die Erstmanifestation liegt typischerweise zwischen dem 20. und 35. Lebensjahr, mit einem zweiten, kleineren Gipfel zwischen dem 55. und 65. Lebensjahr; Frauen und Männer sind etwa gleich häufig betroffen. Die Prävalenz in Deutschland liegt bei etwa 200 pro 100 000 Einwohner.',
+      risikofaktoren: [
+        'Positive Familienanamnese für chronisch-entzündliche Darmerkrankungen (Verwandte ersten Grades)',
+        'Nichtraucherstatus und insbesondere ein kürzlich erfolgter Rauchstopp (Rauchen wirkt bei der Colitis ulcerosa protektiv — im Gegensatz zum Morbus Crohn)',
+        'Einnahme nichtsteroidaler Antirheumatika als Schubauslöser',
+        'Vorangegangene gastrointestinale Infektionen (z. B. Salmonellen, Campylobacter) und wiederholte Antibiotikagaben',
+        'Westliche, ballaststoffarme und fett- bzw. zuckerreiche Ernährung',
+        'Psychosozialer Stress als Auslöser von Schüben (nicht als Ursache der Erkrankung)',
+        'Primär sklerosierende Cholangitis (etwa drei Viertel der PSC-Patienten haben eine CED, meist eine Colitis ulcerosa)',
+        'Jüngeres Erwachsenenalter (20.–35. Lebensjahr) sowie ein zweiter Altersgipfel um das 60. Lebensjahr',
+      ],
+      klinik: [
+        {
+          text: 'Blutig-schleimige Durchfälle als Leitsymptom: häufige, kleinvolumige Stühle mit frischem Blut und Schleim, im Schub bis zu zehn- bis zwanzigmal täglich',
+        },
+        {
+          text: 'Nächtliche Stuhlgänge, die die Patientin aus dem Schlaf reißen — ein wichtiges Argument gegen ein Reizdarmsyndrom',
+        },
+        {
+          text: 'Tenesmen: schmerzhafter, imperativer Stuhldrang mit dem Gefühl der unvollständigen Entleerung, oft mit Stuhlinkontinenz-Angst',
+        },
+        {
+          text: 'Krampfartige Schmerzen im linken Unterbauch, die kurz vor der Defäkation am stärksten sind und sich nach der Entleerung bessern',
+        },
+        {
+          text: 'Abgeschlagenheit, Leistungsminderung, Gewichtsverlust, subfebrile Temperaturen und Blässe durch die Blutungsanämie',
+        },
+        {
+          text: 'Schubförmiger Verlauf mit beschwerdefreien oder beschwerdearmen Intervallen; Erstmanifestation meist zwischen dem 20. und 35. Lebensjahr, häufig kurz nach einem Rauchstopp',
+        },
+        {
+          text: 'Extraintestinale Manifestationen an Gelenken (periphere Arthritis, Sakroiliitis, Spondylitis ankylosans), Haut (Erythema nodosum, Pyoderma gangraenosum), Augen (Uveitis, Episkleritis) und Leber (primär sklerosierende Cholangitis)',
+        },
+        {
+          text: 'Im schweren Schub: Fieber, Tachykardie, mehr als sechs blutige Stühle täglich, Anämie und deutlich erhöhte Entzündungsparameter (Truelove-Witts)',
+        },
+        {
+          text: 'Isolierte Proktitis mit Blut- und Schleimabgang bei geformtem Stuhl oder sogar Obstipation („paradoxe Obstipation“) — keine Durchfälle, daher leicht als Hämorrhoidalblutung verkannt',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation über eine extraintestinale Manifestation (Arthritis, Erythema nodosum, Uveitis), bevor die Darmsymptome auffallen',
+          atypisch: true,
+        },
+        {
+          text: 'Fulminanter Erstschub mit toxischem Megakolon: hohes Fieber, Tachykardie, aufgetriebenes, druckschmerzhaftes Abdomen und Rückgang der Stuhlfrequenz als Zeichen der Darmparalyse',
+          atypisch: true,
+        },
+        {
+          text: 'Im Kindes- und Jugendalter Wachstumsverzögerung und Pubertätsverzögerung als führendes Zeichen; bei älteren Patienten Verwechslung mit ischämischer oder Divertikel-assoziierter Kolitis',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Montreal-Klassifikation nach Ausdehnung',
+          inhalt: 'E1 Proktitis: Befall auf das Rektum beschränkt (bis etwa 15 cm ab ano). E2 Linksseitenkolitis: Befall bis zur linken Kolonflexur. E3 Pankolitis (extensive Kolitis): Befall über die linke Flexur hinaus. Die Ausdehnung bestimmt die Wahl zwischen rektaler, oraler und kombinierter Mesalazin-Therapie sowie das spätere Karzinomrisiko und das Überwachungsintervall.',
+        },
+        {
+          name: 'Schweregrad nach Truelove und Witts',
+          inhalt: 'Leichter Schub: weniger als vier Stühle täglich mit wenig Blut, kein Fieber, Herzfrequenz unter 90/min, Hämoglobin über 11,5 g/dl, BSG unter 20 mm/h bzw. CRP normal. Schwerer Schub: sechs oder mehr blutige Stühle täglich UND mindestens eines der Zeichen Temperatur über 37,8 °C, Herzfrequenz über 90/min, Hämoglobin unter 10,5 g/dl oder BSG über 30 mm/h bzw. CRP über 30 mg/l. Mittelschwerer Schub: dazwischen. Der schwere Schub ist eine stationäre Indikation.',
+        },
+        {
+          name: 'Mayo-Score (Aktivitätsindex)',
+          inhalt: 'Vier Teilbereiche mit je 0–3 Punkten: Stuhlfrequenz über der Norm, rektale Blutung, endoskopischer Befund und ärztliche Gesamtbeurteilung, maximal 12 Punkte. 0–2 Remission, 3–5 leicht, 6–10 mittelschwer, 11–12 schwer. Der endoskopische Mayo-Subscore (0 normal bis 3 spontane Blutungen und Ulzera) dient als Maß für die Mukosaheilung.',
+        },
+        {
+          name: 'Verlaufsformen',
+          inhalt: 'Chronisch-rezidivierend (etwa 85 %): Schübe mit vollständiger Remission dazwischen. Chronisch-kontinuierlich (etwa 10 %): keine vollständige Remission, anhaltende Aktivität. Akut-fulminant (etwa 5 %): schwerer Erstschub mit Gefahr von toxischem Megakolon, Perforation und Sepsis.',
+        },
+      ],
+      redFlags: [
+        'Fieber über 38,5 °C, Tachykardie über 120/min, aufgetriebenes und druckschmerzhaftes Abdomen mit nachlassenden Darmgeräuschen → toxisches Megakolon (Kolondurchmesser über 6 cm im Röntgen), chirurgischer Notfall',
+        'Akutes Abdomen mit Abwehrspannung, freie Luft im Röntgen oder CT → Perforation, sofortige Operation',
+        'Massive rektale Blutung mit Hämoglobinabfall, Kreislaufinstabilität oder Transfusionsbedarf',
+        'Sechs oder mehr blutige Stühle täglich mit Fieber, Tachykardie, Anämie oder hohem CRP → schwerer Schub nach Truelove-Witts, stationäre Aufnahme',
+        'Fehlendes Ansprechen auf intravenöse Glukokortikoide nach etwa drei Tagen → enges Zeitfenster für Ciclosporin, Infliximab oder Kolektomie',
+        'Abnehmende Stuhlfrequenz bei gleichzeitig zunehmendem Bauchumfang und Verschlechterung des Allgemeinzustands → Darmparalyse, kein Zeichen der Besserung',
+        'Beinschwellung, Dyspnoe oder Thoraxschmerz im Schub → thromboembolisches Ereignis (deutlich erhöhtes Risiko bei aktiver CED)',
+        'Ikterus, Juckreiz oder Cholestasewerte → primär sklerosierende Cholangitis mit erhöhtem Cholangiokarzinom- und Kolonkarzinomrisiko',
+        'Neue Stuhlunregelmäßigkeit, Stenosesymptomatik oder anhaltender Gewichtsverlust bei langjähriger Kolitis → kolitisassoziiertes Karzinom ausschließen',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese: Stuhlfrequenz tags und nachts, Stuhlbeschaffenheit, Blut- und Schleimbeimengung, Tenesmen und imperativer Stuhldrang, Verlauf in Schüben, Gewichtsverlauf, Fieber; Rauchen und insbesondere ein kürzlicher Rauchstopp; NSAR- und Antibiotikaeinnahme, Auslandsaufenthalt, Lebensmittelanamnese, Familienanamnese für CED und Kolonkarzinom',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Frage nach extraintestinalen Manifestationen: Gelenkschmerzen und -schwellungen, tief sitzender Rückenschmerz, rote schmerzhafte Hautknoten an den Schienbeinen, Augenrötung oder -schmerz, Juckreiz und Ikterus',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter (Temperatur, Herzfrequenz, Blutdruck) und Gewicht; Abdomen mit Druckschmerz im linken Unterbauch, Darmgeräuschen, Meteorismus und Abwehrspannung; digital-rektale Untersuchung mit Blut am Fingerling, Ausschluss von Fissur, Fistel und Abszess; Inspektion von Haut, Gelenken, Augen und Mundschleimhaut (Aphthen sprechen eher für Morbus Crohn)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Anämie (Eisenmangel und Entzündung), Leukozytose, Thrombozytose; CRP und BSG; Eisenstatus mit Ferritin und Transferrinsättigung; Albumin als Marker für Schwere und Eiweißverlust; Elektrolyte und Nierenwerte bei Durchfall',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Leber- und Cholestaseparameter (GOT, GPT, GGT, alkalische Phosphatase, Bilirubin) — eine erhöhte alkalische Phosphatase lenkt auf eine primär sklerosierende Cholangitis; Serologie für Hepatitis B, Interferon-Gamma-Test auf Tuberkulose und HIV-Test als Vorbereitung einer möglichen Immunsuppression',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Stuhldiagnostik: fäkales Calprotectin als Entzündungsmarker (normal beim Reizdarm, erhöht bei CED; ideal zur Verlaufskontrolle), Erregernachweis auf Salmonellen, Shigellen, Campylobacter, Yersinien und EHEC, Test auf Clostridioides-difficile-Toxin (auch ohne vorangegangene Antibiotika!), bei Reiseanamnese Parasiten und Amöben; ein Test auf okkultes Blut ist bei sichtbarem Blut entbehrlich',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie: Wandverdickung des betroffenen Kolonabschnitts mit Verlust der Wandschichtung, vermehrte Durchblutung in der Farbdoppler-Sonographie, freie Flüssigkeit; Beurteilung von Leber und Gallenwegen',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Abdomenübersicht im Stehen oder Linksseitenlage bei Verdacht auf toxisches Megakolon (Kolondurchmesser über 6 cm, Verlust der Haustrierung) oder Perforation (freie Luft); CT-Abdomen bei unklarem akutem Abdomen oder Abszessverdacht',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT-Enterographie (MR-Sellink) oder Kapselendoskopie nur zur Abgrenzung vom Morbus Crohn bei unklarem Befund (Dünndarmbeteiligung); MRCP bei Verdacht auf primär sklerosierende Cholangitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ileokoloskopie mit Stufenbiopsien aus allen Segmenten und dem terminalen Ileum als entscheidende Untersuchung: kontinuierliche, vom Rektum aufsteigende Rötung, Verlust der Gefäßzeichnung, granulierte, kontaktvulnerable Schleimhaut, Ulzerationen, Pseudopolypen, scharfe Grenze zum gesunden Darm; im schweren Schub nur vorsichtige Sigmoidoskopie ohne Vorbereitung — beim toxischen Megakolon KEINE Koloskopie wegen der Perforationsgefahr',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Histologie: auf die Mukosa beschränkte Entzündung mit Kryptenabszessen, Kryptenverzweigung und -verlust, Becherzellverlust und dichtem lymphoplasmazellulärem Infiltrat; keine Granulome und keine transmurale Entzündung (beides spricht für Morbus Crohn)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Ösophagogastroduodenoskopie bei Oberbauchsymptomen oder unklarer Zuordnung (Magen- und Duodenalbefall beim Morbus Crohn); Überwachungskoloskopie mit Chromoendoskopie und gezielten Biopsien ab etwa acht Jahren nach Erstdiagnose',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Morbus Crohn',
+          unterscheidung: 'Drei Achsen: LOKALISATION — Crohn befällt diskontinuierlich („skip lesions“) den gesamten Verdauungstrakt vom Mund bis zum After, am häufigsten das terminale Ileum, das Rektum ist oft ausgespart; die Colitis ulcerosa beginnt immer im Rektum und breitet sich kontinuierlich aus, bleibt aber auf das Kolon beschränkt. TIEFE — Crohn ist transmural mit Fisteln, Abszessen, Stenosen und epitheloidzelligen Granulomen; die Colitis ulcerosa ist auf Mukosa und Submukosa beschränkt mit Kryptenabszessen. LEITSYMPTOM — Crohn: eher unblutige Durchfälle, Schmerzen im rechten Unterbauch, Gewichtsverlust, perianale Fisteln, Aphthen; Colitis ulcerosa: blutig-schleimige Durchfälle mit Tenesmen. Rauchen verschlechtert den Crohn und schützt bei der Colitis ulcerosa. Bleibt die Zuordnung offen: Colitis indeterminata.',
+        },
+        {
+          dd: 'Infektiöse Kolitis (Campylobacter, Salmonellen, Shigellen, EHEC, Yersinien, Amöben)',
+          unterscheidung: 'Akuter Beginn, meist Fieber, Reise- oder Lebensmittelanamnese, Erkrankungen im Umfeld, Dauer in der Regel unter zwei bis drei Wochen; positive Stuhlkultur. Cave: Eine Infektion kann einen CED-Schub imitieren oder auslösen — deshalb vor jeder Steroidtherapie Erreger ausschließen.',
+        },
+        {
+          dd: 'Clostridioides-difficile-Kolitis (pseudomembranöse Kolitis)',
+          unterscheidung: 'Wässrige, übelriechende Durchfälle nach Antibiotikaeinnahme, Protonenpumpenhemmern oder Krankenhausaufenthalt; Nachweis von Toxin A/B im Stuhl, endoskopisch Pseudomembranen. Bei CED-Patienten auch ohne Antibiotika gehäuft und mit schwererem Verlauf — immer mittesten.',
+        },
+        {
+          dd: 'Ischämische Kolitis',
+          unterscheidung: 'Älterer Gefäßpatient mit Arteriosklerose, Vorhofflimmern, Herzinsuffizienz oder nach Hypotonie; plötzlicher krampfartiger Schmerz mit anschließendem blutigem Durchfall; typischerweise linke Flexur und Sigma bei ausgespartem Rektum, meist selbstlimitierend innerhalb weniger Tage.',
+        },
+        {
+          dd: 'Mikroskopische Kolitis (kollagene, lymphozytäre Kolitis)',
+          unterscheidung: 'Chronisch wässrige Durchfälle OHNE Blut, meist ältere Frauen, Assoziation mit NSAR, Protonenpumpenhemmern und Autoimmunerkrankungen; Koloskopie makroskopisch unauffällig, Diagnose nur histologisch.',
+        },
+        {
+          dd: 'Divertikulitis / segmentale Kolitis bei Divertikulose',
+          unterscheidung: 'Meist ältere Patienten, akuter Schmerz im linken Unterbauch mit Fieber und Leukozytose, tastbare Walze; Blutung eher aus Divertikeln ohne Durchfall; Nachweis von Divertikeln mit Wandverdickung und Umgebungsreaktion in Sonographie oder CT; Koloskopie erst nach sechs bis acht Wochen.',
+        },
+        {
+          dd: 'Kolorektales Karzinom',
+          unterscheidung: 'Ab dem mittleren Lebensalter bei jeder Blutbeimengung auszuschließen: Wechsel von Durchfall und Verstopfung („paradoxe Diarrhö“), Bleistiftstühle, B-Symptomatik, Eisenmangelanämie, positive Familienanamnese; Koloskopie mit Biopsie ist beweisend. Bei langjähriger Kolitis auch als kolitisassoziiertes Karzinom.',
+        },
+        {
+          dd: 'Reizdarmsyndrom',
+          unterscheidung: 'Ausschlussdiagnose: keine Blutbeimengung, keine nächtlichen Durchfälle, kein Gewichtsverlust, kein Fieber, normales Calprotectin, normales Blutbild und CRP, unauffällige Koloskopie; Beschwerden bessern sich nach der Defäkation und hängen mit Stress zusammen.',
+        },
+        {
+          dd: 'Hämorrhoiden und Analfissur',
+          unterscheidung: 'Hellrotes Blut auf dem Toilettenpapier oder auf dem geformten Stuhl, kein Schleim, keine Durchfälle, Schmerzen bei der Defäkation bei Fissur; Diagnose durch Inspektion, digital-rektale Untersuchung und Proktoskopie. Erklären nie eine Blutung mit Durchfall und Tenesmen.',
+        },
+        {
+          dd: 'NSAR-Kolitis, Strahlenkolitis, Divertikel-assoziierte Kolitis',
+          unterscheidung: 'Medikamentenanamnese (Diclofenac, Ibuprofen), Bestrahlung im Becken (Prostata-, Zervixkarzinom) in der Vorgeschichte; endoskopisch Ulzera oder Teleangiektasien, Besserung nach Absetzen des NSAR.',
+        },
+        {
+          dd: 'Zöliakie und Laktoseintoleranz',
+          unterscheidung: 'Voluminöse, fettglänzende oder wässrige Stühle OHNE Blut, Blähungen, Zusammenhang mit gluten- bzw. milchhaltigen Speisen; Transglutaminase-IgA-Antikörper und Duodenalbiopsie bzw. H2-Atemtest.',
+        },
+        {
+          dd: 'Sexuell übertragbare Proktitis (Gonokokken, Chlamydien, Herpes, Lues)',
+          unterscheidung: 'Isolierte Proktitis mit Schleim, Blut und Schmerzen bei entsprechender Sexualanamnese (Analverkehr); Abstrich mit PCR, Serologie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung, Basisbetreuung und Behandlung der Begleitprobleme',
+          items: [
+            'Aufklärung über die chronische, schubförmig verlaufende, aber gut behandelbare Erkrankung mit dem Ziel der klinischen Remission UND der Mukosaheilung; Anbindung an eine gastroenterologische Sprechstunde, Selbsthilfegruppe (DCCV) und psychosoziale Begleitung',
+            'Ernährungsberatung: keine spezielle Diät und keine Verbote im beschwerdefreien Intervall — ausgewogene, ballaststoffreiche Kost; im Schub leicht verdauliche, ballaststoffarme Kost, ausreichend Flüssigkeit, Laktose nur bei nachgewiesener Unverträglichkeit meiden',
+            'Eisensubstitution bei Anämie — im aktiven Schub bevorzugt intravenös, weil orales Eisen schlecht vertragen wird; Vitamin-D- und Kalziumversorgung, insbesondere unter Steroiden (Osteoporoseprophylaxe)',
+            'Thromboseprophylaxe mit niedermolekularem Heparin bei jedem stationär behandelten Schub (deutlich erhöhtes thromboembolisches Risiko bei aktiver CED)',
+            'Impfstatus VOR einer Immunsuppression vervollständigen: Influenza, Pneumokokken, Hepatitis B, Herpes zoster, COVID-19; Lebendimpfungen unter Immunsuppression kontraindiziert',
+            'Motilitätshemmer wie Loperamid im aktiven Schub meiden (Gefahr des toxischen Megakolons); NSAR absetzen und Paracetamol oder Spasmolytika bevorzugen',
+          ],
+        },
+        {
+          label: 'Stufengerechte Schubtherapie nach Ausdehnung und Schwere',
+          items: [
+            'Leichter bis mittelschwerer Schub — Mesalazin (5-ASA) als Basis: bei Proktitis rektal als Zäpfchen (1 g täglich), bei Linksseitenkolitis als Einlauf oder Schaum (1–4 g täglich); bei ausgedehnterem Befall oral (mindestens 3 g täglich) UND rektal kombiniert — die Kombination ist wirksamer als jede Einzelform',
+            'Bei unzureichendem Ansprechen nach etwa zwei Wochen: Glukokortikoide — topisch wirksames Budesonid (rektal als Schaum oder oral als MMX-Präparat 9 mg) oder systemisch Prednisolon 40–60 mg täglich mit Ausschleichen über sechs bis acht Wochen; Steroide dienen nur der Schubtherapie und sind NIE eine Dauertherapie',
+            'Schwerer Schub nach Truelove-Witts (≥ 6 blutige Stühle täglich plus Fieber, Tachykardie, Anämie oder hohes CRP): stationäre Aufnahme, Ausschluss von Clostridioides difficile und Zytomegalievirus, intravenöse Glukokortikoide (Prednisolon 1 mg/kg bzw. Methylprednisolon 60 mg täglich), Flüssigkeits- und Elektrolytausgleich, Thromboseprophylaxe, Eisen- bzw. Transfusionsbedarf prüfen, tägliche klinische Kontrolle und frühzeitige chirurgische Mitbeurteilung',
+            'Fehlendes Ansprechen auf intravenöse Steroide nach etwa drei Tagen (Stuhlfrequenz über 8/Tag oder CRP über 45 mg/l): Eskalation auf Ciclosporin oder Infliximab (Rescue-Therapie) oder die Entscheidung zur Kolektomie — das Zeitfenster ist eng und muss aktiv gesteuert werden, um Megakolon und Perforation zuvorzukommen',
+            'Vor jeder Steroidtherapie eine infektiöse Kolitis ausschließen; bei toxischem Megakolon zusätzlich Nahrungskarenz, Magensonde, Breitspektrumantibiotika und engmaschige Röntgenkontrolle, bei fehlender Besserung binnen 24–72 Stunden Kolektomie',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Remissionserhaltende und immunsuppressive Therapie',
+          items: [
+            'Mesalazin als Dauertherapie zum Remissionserhalt (oral 2 g täglich, bei Proktitis rektal 3 × pro Woche) — senkt zugleich das Risiko eines kolitisassoziierten Karzinoms; Kontrolle der Nierenfunktion unter 5-ASA',
+            'Thiopurine (Azathioprin 2–2,5 mg/kg täglich, alternativ 6-Mercaptopurin) bei steroidabhängigem Verlauf oder häufigen Schüben; Wirkeintritt erst nach zwei bis drei Monaten, vorher TPMT-Aktivität bestimmen, Blutbild und Leberwerte kontrollieren, Cave Pankreatitis und Lymphomrisiko',
+            'Biologika bei steroidrefraktärem oder therapierefraktärem Verlauf: TNF-alpha-Blocker (Infliximab, Adalimumab, Golimumab), das darmselektive Vedolizumab, Ustekinumab, alternativ JAK-Inhibitoren (Tofacitinib, Upadacitinib, Filgotinib) oder Ozanimod; vor Beginn Screening auf latente Tuberkulose (Interferon-Gamma-Test, Röntgen-Thorax), Hepatitis B und HIV, Impfstatus vervollständigen',
+            'Aufklärung über das erhöhte Infektionsrisiko unter Immunsuppression, Fieber als Alarmzeichen, Verzicht auf Lebendimpfungen; Kombination von Infliximab mit Azathioprin erhöht die Wirksamkeit, aber auch das Lymphomrisiko',
+            'Kein Wirksamkeitsnachweis für Probiotika außer E. coli Nissle als Alternative zu Mesalazin im Remissionserhalt; Rauchen trotz protektiver Wirkung niemals empfehlen',
+          ],
+        },
+        {
+          label: 'Chirurgische Therapie und Langzeitüberwachung',
+          items: [
+            'Die restaurative Proktokolektomie mit ileoanaler Pouchanlage (J-Pouch), meist zwei- oder dreizeitig mit protektivem Ileostoma, ist bei der Colitis ulcerosa HEILEND, weil die Erkrankung auf das Kolon beschränkt ist — im Gegensatz zum Morbus Crohn, bei dem Operationen nur Komplikationen behandeln',
+            'Notfallindikationen: toxisches Megakolon ohne Besserung binnen 24–72 Stunden, Perforation, unstillbare Blutung, fulminanter Schub ohne Ansprechen auf die Rescue-Therapie — dann meist subtotale Kolektomie mit Ileostoma, Pouch später',
+            'Elektive Indikationen: Therapieversagen oder Steroidabhängigkeit mit inakzeptabler Lebensqualität, hochgradige Dysplasie oder Karzinom, Wachstumsverzögerung bei Kindern; Cave Pouchitis (Antibiotika: Ciprofloxacin, Metronidazol) und Fertilitätsminderung bei Frauen nach Pouchanlage',
+            'Überwachungskoloskopien mit Chromoendoskopie ab etwa acht Jahren nach Erstdiagnose, Intervall je nach Ausdehnung und Risiko ein bis fünf Jahre; bei zusätzlicher primär sklerosierender Cholangitis ab Diagnose jährlich',
+            'Verlaufskontrolle mit Calprotectin, Blutbild, CRP, Leber- und Cholestasewerten sowie Nierenfunktion; Aufklärung über Warnzeichen des schweren Schubs (Fieber, mehr als sechs blutige Stühle, Bauchschmerzen mit aufgetriebenem Bauch) und über extraintestinale Manifestationen',
+          ],
+        },
+      ],
+      prognose: 'Die Lebenserwartung ist bei adäquater Behandlung nahezu normal. Etwa 85 % der Patienten haben einen chronisch-rezidivierenden Verlauf mit Schüben und Remissionen; unter konsequenter Mesalazin-Dauertherapie bleibt die Mehrzahl über Jahre in Remission. Rund 10 bis 20 % der Patienten benötigen im Verlauf eine Kolektomie, die — anders als beim Morbus Crohn — die Erkrankung heilt, aber mit Pouchitis und Stuhlfrequenzen von fünf bis sieben Stühlen täglich verbunden sein kann. Das Risiko eines kolitisassoziierten Karzinoms steigt ab etwa acht bis zehn Jahren Krankheitsdauer und ist bei Pankolitis, früher Erstmanifestation, schwerer Entzündungsaktivität, positiver Familienanamnese und begleitender primär sklerosierender Cholangitis am höchsten — deshalb die regelmäßigen Überwachungskoloskopien. Der fulminante Schub mit toxischem Megakolon und Perforation ist die gefährlichste Komplikation und hat auch heute noch eine hohe Letalität, wenn zu spät operiert wird. Die primär sklerosierende Cholangitis verschlechtert die Prognose durch Leberzirrhose und Cholangiokarzinom.',
+      pruefungsfallen: [
+        'Die Abgrenzung zum Morbus Crohn wird fast immer gefragt — die Antwort strukturiert in drei Achsen geben: LOKALISATION (Rektum, kontinuierlich, nur Kolon vs. Mund bis After, diskontinuierlich, terminales Ileum), TIEFE (Mukosa/Submukosa vs. transmural mit Fisteln, Abszessen, Stenosen) und LEITSYMPTOM (blutig-schleimige Durchfälle mit Tenesmen vs. unblutige Durchfälle mit rechtsseitigem Unterbauchschmerz und perianalen Fisteln).',
+        '„Wo befindet sich Morbus Crohn am häufigsten?“ — im terminalen Ileum (Ileozökalregion). Die Colitis ulcerosa beginnt dagegen IMMER im Rektum.',
+        'Blutig-schleimige Durchfälle mit Tenesmen sind das Leitsymptom — nicht einfach „Durchfall“. Prüfer verlangen die genaue Beschreibung des Stuhls (Frequenz, Menge, Konsistenz, Blut, Schleim, nächtlich); das Fehlen dieser Fragen wurde in Reutlingen ausdrücklich gerügt.',
+        'Blut im Stuhl bei einem Patienten ab dem mittleren Lebensalter niemals ohne Koloskopie als Hämorrhoiden abtun — das kolorektale Karzinom ist bis zum Beweis des Gegenteils auszuschließen. Die Prüferfrage „Könnte es nur eine Wunde am Anus sein?“ ist eine Fangfrage.',
+        'Vor jeder Steroidtherapie die infektiöse Kolitis ausschließen: Stuhlkultur UND Clostridioides-difficile-Toxin — auch ohne vorangegangene Antibiotika, denn bei CED ist die C.-difficile-Infektion gehäuft und imitiert oder verschlimmert den Schub.',
+        'Auf die Frage nach einer „Colitis vom Antibiotikum“ heißt die Antwort: pseudomembranöse Kolitis durch Clostridioides difficile.',
+        'Glukokortikoide dienen ausschließlich der Schubtherapie und sind NIE eine Dauertherapie; der Remissionserhalt erfolgt mit Mesalazin, Thiopurinen oder Biologika.',
+        'Loperamid (Imodium) und Anticholinergika im schweren Schub absetzen — sie begünstigen das toxische Megakolon. Patienten bringen solche Selbstmedikation oft mit.',
+        'Beim Verdacht auf ein toxisches Megakolon oder eine Perforation KEINE Koloskopie (Perforationsgefahr), sondern Röntgen-Abdomen bzw. CT; die Koloskopie ist im fulminanten Schub nur als vorsichtige Sigmoidoskopie ohne Vorbereitung erlaubt.',
+        'Die Proktokolektomie HEILT die Colitis ulcerosa, weil die Erkrankung auf das Kolon beschränkt ist — beim Morbus Crohn heilt keine Operation. Dieser Unterschied ist ein Lieblingssatz der Prüfer.',
+        'Rauchen wirkt bei der Colitis ulcerosa protektiv und ein Rauchstopp kann die Erstmanifestation auslösen — trotzdem darf man das Rauchen niemals empfehlen; beim Morbus Crohn verschlechtert Rauchen den Verlauf.',
+        'Nächtliche Durchfälle, Blut, Gewichtsverlust, Fieber und ein erhöhtes Calprotectin sprechen GEGEN ein Reizdarmsyndrom — das Reizdarmsyndrom ist eine Ausschlussdiagnose und nach Auffassung der Prüfer nicht rein psychosomatisch.',
+        'Die Überwachungskoloskopie beginnt etwa acht Jahre nach Erstdiagnose, bei zusätzlicher PSC jedoch sofort und jährlich — die PSC ist die typisch mit der Colitis ulcerosa assoziierte Lebererkrankung und erhöht zusätzlich das Cholangiokarzinomrisiko.',
+        'Vor Immunsuppression und Biologika: Tuberkulose- und Hepatitis-B-Screening sowie Vervollständigung des Impfstatus (keine Lebendimpfungen unter Therapie) — wird bei der Therapiefrage gern nachgehakt.',
+        'Nahrungsempfehlung: Es gibt keine „Colitis-Diät“ und keine Verbote in der Remission; im Schub ballaststoffarme, leicht verdauliche Kost, viel trinken, Eisen und Vitamin D substituieren.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was spricht für eine Colitis ulcerosa und gegen einen Morbus Crohn?',
+          antwort: 'Drei Achsen: Erstens die Lokalisation — die Colitis ulcerosa beginnt immer im Rektum, breitet sich kontinuierlich nach proximal aus und bleibt auf das Kolon beschränkt; der Morbus Crohn befällt diskontinuierlich mit „skip lesions“ den gesamten Verdauungstrakt vom Mund bis zum After, am häufigsten das terminale Ileum. Zweitens die Tiefe — die Colitis ulcerosa ist auf Mukosa und Submukosa beschränkt, der Crohn ist transmural, daher seine Fisteln, Abszesse und Stenosen. Drittens das Leitsymptom — blutig-schleimige Durchfälle mit Tenesmen bei der Colitis ulcerosa, eher unblutige Durchfälle mit Schmerzen im rechten Unterbauch, Gewichtsverlust und perianalen Fisteln beim Crohn.',
+        },
+        {
+          frage: 'Wo befindet sich der Morbus Crohn am häufigsten?',
+          antwort: 'Im terminalen Ileum, also in der Ileozökalregion — deshalb die Schmerzen im rechten Unterbauch, die eine Appendizitis imitieren können. Die Colitis ulcerosa dagegen beginnt immer im Rektum.',
+        },
+        {
+          frage: 'Was wäre Ihre Diagnose, wenn der Patient blutige Durchfälle hätte?',
+          antwort: 'In erster Linie eine Colitis ulcerosa, insbesondere bei chronischem, schubförmigem Verlauf mit Tenesmen und nächtlichen Stühlen. Differenzialdiagnostisch eine infektiöse Kolitis durch Shigellen, EHEC, Campylobacter oder Amöben, eine Clostridioides-difficile-Kolitis, eine ischämische Kolitis beim älteren Gefäßpatienten und — ab dem mittleren Lebensalter — ein kolorektales Karzinom.',
+        },
+        {
+          frage: 'Wie heißt eine Colitis, die durch ein Antibiotikum verursacht wird?',
+          antwort: 'Die pseudomembranöse Kolitis, verursacht durch Clostridioides difficile. Sie tritt nach Antibiotika, Protonenpumpenhemmern oder Krankenhausaufenthalten auf, bei CED-Patienten aber auch ohne Antibiotika; Nachweis über Toxin A/B im Stuhl, Therapie mit Vancomycin oral oder Fidaxomicin.',
+        },
+        {
+          frage: 'Wie kann man eine chronisch-entzündliche Darmerkrankung ausschließen?',
+          antwort: 'Über das fäkale Calprotectin als Entzündungsmarker — ein normaler Wert macht eine aktive CED sehr unwahrscheinlich — und letztlich über die Ileokoloskopie mit Stufenbiopsien: Bei unauffälliger Schleimhaut und unauffälliger Histologie ist eine CED praktisch ausgeschlossen. Dazu gehören Blutbild und CRP.',
+        },
+        {
+          frage: 'Warum sollten wir einen Test auf okkultes Blut im Stuhl veranlassen — könnte es nicht nur eine Wunde am Anus sein?',
+          antwort: 'Weil eine anale Läsion Blut auf dem Papier erklärt, aber niemals Durchfälle mit Schleim, Tenesmen und nächtlichen Stühlen. Der Nachweis von Blut im Stuhl beweist eine Blutungsquelle im Darm und zwingt bei einer Patientin über 50 zur Koloskopie, um ein Karzinom auszuschließen. Bei sichtbarem Blut ist der Test allerdings entbehrlich — dann geht man direkt zur Koloskopie.',
+        },
+        {
+          frage: 'Erklären Sie bitte das Verfahren des Tests auf okkultes Blut im Stuhl.',
+          antwort: 'Der immunologische Stuhltest (iFOBT) weist menschliches Hämoglobin im Stuhl mit Antikörpern nach, das mit bloßem Auge nicht sichtbar ist. Die Patientin entnimmt zu Hause mit dem beiliegenden Stäbchen eine kleine Stuhlprobe, gibt sie in das Röhrchen und schickt es ins Labor. Eine besondere Diät ist nicht nötig. Ein positiver Test bedeutet nicht Krebs, macht aber eine Darmspiegelung erforderlich.',
+        },
+        {
+          frage: 'Welche diagnostischen und therapeutischen Maßnahmen ergreifen Sie bei der Colitis ulcerosa?',
+          antwort: 'Diagnostisch: Anamnese und körperliche Untersuchung mit rektaler Untersuchung; Labor mit Blutbild, CRP, BSG, Eisenstatus, Albumin, Leber- und Cholestasewerten; Stuhl auf Calprotectin, Erreger und Clostridioides difficile; Abdomensonographie; als entscheidende Untersuchung die Ileokoloskopie mit Stufenbiopsien. Therapeutisch stufengerecht: Mesalazin rektal und oral, bei unzureichendem Ansprechen Steroide nur im Schub, beim schweren Schub stationär intravenöse Steroide und bei Versagen Ciclosporin, Infliximab oder Kolektomie; zum Remissionserhalt Mesalazin, bei Steroidabhängigkeit Azathioprin oder Biologika; die Proktokolektomie heilt.',
+        },
+        {
+          frage: 'Welche Nahrungsempfehlung geben Sie?',
+          antwort: 'Es gibt keine spezielle Colitis-Diät. In der Remission eine ausgewogene, ballaststoffreiche Kost ohne Verbote; im Schub leicht verdauliche, ballaststoffarme Kost in kleinen Mahlzeiten, ausreichend trinken, Alkohol und scharfe Speisen meiden. Eisen, Vitamin D und Kalzium substituieren, Laktose nur bei nachgewiesener Unverträglichkeit weglassen, im schweren Schub gegebenenfalls Trinknahrung.',
+        },
+        {
+          frage: 'Der Durchfall hält seit Monaten in gleicher Schwere an — was könnte der Grund sein?',
+          antwort: 'Ein Durchfall über mehr als vier Wochen ist definitionsgemäß chronisch und spricht gegen eine einfache Gastroenteritis. Die wichtigsten Ursachen sind eine chronisch-entzündliche Darmerkrankung, eine mikroskopische Kolitis, eine Zöliakie oder Laktoseintoleranz, ein kolorektales Karzinom, eine Clostridioides-difficile-Infektion, Parasiten wie Lamblien nach Reisen, eine Hyperthyreose sowie Medikamente wie Metformin oder Antibiotika.',
+        },
+        {
+          frage: 'Was spricht bei dieser Patientin gegen eine infektiöse Ursache?',
+          antwort: 'Der Verlauf über vier Monate mit Zunahme statt Abklingen, die fehlende Reise- und Lebensmittelanamnese, keine erkrankten Kontaktpersonen, keine vorangegangene Antibiotikaeinnahme und das Muster der kleinvolumigen, blutig-schleimigen Stühle mit Tenesmen. Trotzdem werden Stuhlkultur und Clostridioides-Toxin bestimmt, bevor Steroide gegeben werden.',
+        },
+        {
+          frage: 'Welche Rolle spielen Tumormarker?',
+          antwort: 'Keine in der Diagnostik. CEA und CA 19-9 sind weder sensitiv noch spezifisch genug, um ein Kolonkarzinom auszuschließen oder nachzuweisen — sie dienen nur der Verlaufskontrolle nach gesicherter Tumordiagnose. Der Ausschluss erfolgt über die Koloskopie mit Biopsie.',
+        },
+        {
+          frage: 'Welche Komplikationen der Colitis ulcerosa kennen Sie?',
+          antwort: 'Akut das toxische Megakolon mit Fieber, Tachykardie, aufgetriebenem, druckschmerzhaftem Abdomen und Gefahr der Perforation — ein chirurgischer Notfall —, die schwere Blutung mit Anämie und thromboembolische Ereignisse im Schub. Langfristig das nach etwa acht bis zehn Jahren steigende Kolonkarzinomrisiko, weshalb Überwachungskoloskopien durchgeführt werden, außerdem extraintestinale Manifestationen an Gelenken, Haut, Augen und die primär sklerosierende Cholangitis mit Cholangiokarzinomrisiko sowie Osteoporose.',
+        },
+        {
+          frage: 'Was ist ein toxisches Megakolon, und wie gehen Sie vor?',
+          antwort: 'Eine akute Dilatation des Kolons auf über sechs Zentimeter mit systemischen Entzündungszeichen: Fieber über 38,5 °C, Tachykardie, Leukozytose, aufgetriebenes und druckschmerzhaftes Abdomen; die Stuhlfrequenz kann trügerisch abnehmen. Vorgehen: keine Koloskopie, Röntgen-Abdomen oder CT, Nahrungskarenz, Flüssigkeit und Elektrolyte, intravenöse Steroide und Breitspektrumantibiotika, Loperamid und Opioide absetzen, engmaschige Kontrolle und frühe chirurgische Vorstellung — bei fehlender Besserung binnen 24 bis 72 Stunden oder Perforation subtotale Kolektomie.',
+        },
+        {
+          frage: 'Warum wirkt Rauchen bei der Colitis ulcerosa schützend, und empfehlen Sie es?',
+          antwort: 'Nikotin verändert die Schleimschicht und die Immunantwort der Kolonmukosa; epidemiologisch erkranken Raucher seltener, und die Erstmanifestation tritt häufig kurz nach einem Rauchstopp auf. Beim Morbus Crohn ist es umgekehrt. Empfehlen darf man das Rauchen trotzdem niemals — die kardiovaskulären und onkologischen Risiken überwiegen bei Weitem; stattdessen wird die Colitis mit Mesalazin behandelt.',
+        },
+      ],
+      merksatz: 'Blutig-schleimige Durchfälle mit Tenesmen, auch nachts, vom Rektum kontinuierlich aufsteigend und auf die Mukosa des Kolons beschränkt = Colitis ulcerosa. Erst Erreger und Clostridioides ausschließen, dann Ileokoloskopie mit Stufenbiopsien; Mesalazin als Basis, Steroide nur im Schub, und die Proktokolektomie heilt — anders als beim Crohn.',
+      linkedCaseIds: [
+        'case-colitis-ulcerosa',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-koloskopie',
+        'auf-sonographie',
+        'auf-bluttransfusion',
+      ],
+    },
+    {
+      id: 'fw-chronische-pankreatitis',
+      pathology: 'Chronische Pankreatitis',
+      specialty: 'Gastroenterologie',
+      definition: 'Die chronische Pankreatitis ist eine fortschreitende, irreversible entzündliche Erkrankung der Bauchspeicheldrüse, bei der das Parenchym über Jahre durch Fibrose ersetzt wird. Folge ist der schrittweise Verlust zunächst der exokrinen Funktion (Maldigestion mit Steatorrhoe, Gewichtsverlust, Mangel an fettlöslichen Vitaminen) und später der endokrinen Funktion (pankreopriver Diabetes mellitus Typ 3c). Klinisch stehen rezidivierende oder anhaltende, gürtelförmig in den Rücken ausstrahlende Oberbauchschmerzen im Vordergrund. Im Gegensatz zur akuten Pankreatitis handelt es sich nicht um einen Notfall mit einem einzelnen Anfall, sondern um eine chronische Organzerstörung mit Verkalkungen, Gangveränderungen und einem deutlich erhöhten Risiko für ein Pankreaskarzinom. Die Inzidenz liegt in Deutschland bei etwa 5–10 pro 100 000 Einwohner und Jahr.',
+      aetiologie: 'Häufigste Ursache in Deutschland mit deutlichem Abstand ist der chronische Alkoholkonsum (etwa 70–80 % der Fälle), typischerweise mehr als 80 g Alkohol täglich über 6–12 Jahre — wobei nur etwa 5–10 % der schweren Trinker erkranken, was auf Kofaktoren hinweist. Rauchen ist ein eigenständiger, dosisabhängiger Risikofaktor und beschleunigt Progression, Verkalkung und Karzinomentstehung. Seltener: idiopathisch (etwa 10–20 %), hereditär (junge Patienten; Mutationen in PRSS1 [kationisches Trypsinogen], SPINK1, CFTR, CTRC — Familienanamnese!), autoimmun (Typ 1 als IgG4-assoziierte Erkrankung, Typ 2 mit Assoziation zu chronisch-entzündlichen Darmerkrankungen), obstruktiv nach Gangverlegung (Pancreas divisum, Tumor, Narbe nach Trauma), metabolisch (Hyperkalzämie bei Hyperparathyreoidismus, Hypertriglyzeridämie über 1 000 mg/dl) sowie nach rezidivierenden akuten Pankreatitiden. Pathogenetisch führen wiederholte Schübe über die Aktivierung pankreatischer Sternzellen zu Fibrose, Proteinpfröpfe verkalken zu Gangsteinen, der Gangdruck steigt, und Parenchym geht verloren.',
+      risikofaktoren: [
+        'Chronischer Alkoholkonsum (wichtigster Faktor; bei Frauen bereits bei geringeren Mengen als bei Männern)',
+        'Rauchen — eigenständiger Risikofaktor, Progressionsbeschleuniger und Karzinomrisiko',
+        'Zustand nach akuter oder rezidivierender akuter Pankreatitis',
+        'Positive Familienanamnese für Pankreatitis oder Pankreaskarzinom (hereditäre Formen: PRSS1, SPINK1, CFTR)',
+        'Hypertriglyzeridämie, Hyperkalzämie (primärer Hyperparathyreoidismus)',
+        'Anatomische Anomalien und Gangobstruktion (Pancreas divisum, Tumor, Stenose)',
+        'Autoimmunerkrankungen (IgG4-assoziierte Erkrankung, chronisch-entzündliche Darmerkrankungen)',
+        'Chronische Niereninsuffizienz, fettreiche und proteinarme Ernährung',
+      ],
+      klinik: [
+        {
+          text: 'Rezidivierende oder anhaltende, tief bohrende Oberbauchschmerzen, gürtelförmig in den Rücken ausstrahlend, postprandial und nach Alkohol verstärkt, Besserung in Kauerstellung (nach vorn gebeugtes Sitzen)',
+        },
+        {
+          text: 'Exokrine Insuffizienz: voluminöse, übelriechende, fettglänzende, schwer wegspülbare Fettstühle (Steatorrhoe) — erst bei Verlust von über 90 % der exokrinen Funktion',
+        },
+        {
+          text: 'Gewichtsverlust trotz erhaltenen Appetits durch Maldigestion; zusätzlich schmerzbedingte Nahrungsvermeidung („Angst vor dem Essen“)',
+        },
+        {
+          text: 'Blähungen, Meteorismus, Völlegefühl, Übelkeit und gelegentliches Erbrechen',
+        },
+        {
+          text: 'Mangel an fettlöslichen Vitaminen A, D, E, K: Nachtblindheit, Osteoporose/Osteomalazie, Blutungsneigung, Muskelschwäche',
+        },
+        {
+          text: 'Endokrine Insuffizienz: pankreopriver Diabetes (Typ 3c) mit Polyurie, Polydipsie — durch gleichzeitigen Glukagonverlust schwere, schwer beherrschbare Hypoglykämien',
+        },
+        {
+          text: 'Zeichen der Alkoholkrankheit: Tremor, Spider naevi, Palmarerythem, Gynäkomastie, Parotisschwellung; reduzierter Ernährungszustand',
+        },
+        {
+          text: '„Ausgebranntes“ Pankreas („burn-out“): Nachlassen des Schmerzes nach Jahren bei fortgeschrittenem Funktionsverlust — kein gutes Zeichen',
+          atypisch: true,
+        },
+        {
+          text: 'Schmerzloser Verlauf (etwa 10–15 %), Erstmanifestation durch Diabetes, Steatorrhoe oder eine Komplikation',
+          atypisch: true,
+        },
+        {
+          text: 'Ikterus, Cholangitis oder Pruritus durch Stenose des Ductus choledochus im Pankreaskopf — immer Karzinom abgrenzen',
+          atypisch: true,
+        },
+        {
+          text: 'Obere gastrointestinale Blutung aus Magenfundusvarizen bei Milzvenenthrombose (segmentale portale Hypertension)',
+          atypisch: true,
+        },
+        {
+          text: 'Aszites oder Pleuraerguss mit hoher Amylase bei Pankreasfistel oder Pseudozystenruptur',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'TIGAR-O-Klassifikation (ätiologisch)',
+          inhalt: 'T = toxisch-metabolisch (Alkohol, Rauchen, Hyperkalzämie, Hypertriglyzeridämie, chronische Niereninsuffizienz), I = idiopathisch, G = genetisch (PRSS1, SPINK1, CFTR, CTRC), A = autoimmun (Typ 1 IgG4-assoziiert, Typ 2), R = rezidivierende und schwere akute Pankreatitis, O = obstruktiv (Pancreas divisum, Tumor, Gangstenose).',
+        },
+        {
+          name: 'Cambridge-Klassifikation (morphologisch, ERCP/MRCP/Endosonographie)',
+          inhalt: 'Grad 0 = unauffällig; Grad 1 (fraglich) = unter 3 pathologische Seitenäste; Grad 2 (leicht) = 3 oder mehr pathologische Seitenäste bei normalem Hauptgang; Grad 3 (mäßig) = zusätzlich veränderter Hauptgang; Grad 4 (schwer) = Hauptgang mit Zysten, Stenosen, Steinen, Verkalkungen oder Befall der Nachbarorgane.',
+        },
+        {
+          name: 'M-ANNHEIM-Klassifikation',
+          inhalt: 'Multiple Risikofaktoren: Alkohol, Nikotin, Nutrition, Heredität, Efferente Gangfaktoren, Immunologische Faktoren, Miscellaneous (verschiedene seltene Faktoren). Zusätzlich Stadieneinteilung (asymptomatisch, symptomatisch ohne/mit Insuffizienz, fortgeschritten) und Schweregrad-Score (A–E) nach Schmerz, Schmerzmitteln, exokriner und endokriner Insuffizienz, Morphologie und Komplikationen.',
+        },
+        {
+          name: 'Diabetes mellitus Typ 3c (pankreopriver Diabetes)',
+          inhalt: 'Diabetes infolge einer Erkrankung des exokrinen Pankreas (chronische Pankreatitis, Pankreasresektion, Karzinom, Mukoviszidose, Hämochromatose). Kriterien: exokrine Insuffizienz (Elastase-1 im Stuhl erniedrigt), pathologische Pankreasbildgebung, kein Typ-1-Autoantikörpernachweis. Besonderheit: gleichzeitiger Insulin- UND Glukagonmangel — labiler Verlauf mit schweren Hypoglykämien („brittle diabetes“).',
+        },
+      ],
+      redFlags: [
+        'Neu aufgetretener schmerzloser Ikterus, rascher Gewichtsverlust, neu aufgetretener Diabetes beim älteren Patienten oder jede unerklärte Verschlechterung → Pankreaskarzinom ausschließen (CT/MRT, Endosonographie mit Punktion, CA 19-9)',
+        'Fieber, Schüttelfrost, Ikterus, Oberbauchschmerz (Charcot-Trias) → Cholangitis bei Choledochusstenose oder infizierte Pseudozyste',
+        'Hämatemesis, Teerstuhl → Fundusvarizenblutung bei Milzvenenthrombose, Ulkus, Pseudoaneurysmablutung (Hämosuccus pancreaticus)',
+        'Galliges, anhaltendes Erbrechen → Duodenalstenose oder Magenausgangsstenose durch Pankreaskopf oder Pseudozyste',
+        'Zunehmender Bauchumfang, Dyspnoe → pankreatogener Aszites oder Pleuraerguss',
+        'Bewusstseinsstörung, Schwitzen, Krampfanfall beim insulinpflichtigen Patienten → schwere Hypoglykämie bei Typ-3c-Diabetes',
+        'Akuter Schub mit heftigem Schmerz, Lipaseanstieg und Entzündungszeichen → stationäre Behandlung wie akute Pankreatitis',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Schmerzcharakter (bohrend, gürtelförmig, postprandial, alkoholabhängig, Kauerstellung), Stuhlcharakter (Fettstühle aktiv erfragen — der Patient verbindet sie nicht mit dem Bauchschmerz), Gewichtsverlauf, Diabetessymptome, frühere akute Pankreatitiden',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Präzise, wertfreie Alkoholanamnese (Menge in Gramm, Muster, Dauer, Entzugserscheinungen, frühere Abstinenzversuche, Haltung des Patienten — Schub oft nach Exzess), Rauchen in Packungsjahren, Familienanamnese (Pankreatitis, Pankreaskarzinom, Mukoviszidose), Medikamente',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Ernährungszustand mit BMI, Bauchbefund (epigastrischer Druckschmerz, Resistenz bei Pseudozyste), Ikterus, Zeichen der Alkoholkrankheit (Spider naevi, Palmarerythem, Tremor, Hepatomegalie) und des Vitaminmangels (Hämatome, Muskelschwäche)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Lipase und Amylase — im chronischen Stadium oft NORMAL oder nur leicht erhöht (Parenchymverlust); ein normaler Wert schließt die chronische Pankreatitis nicht aus, ein deutlicher Anstieg spricht für einen akuten Schub',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (MCV, Thrombozyten), Leber- und Cholestasewerte (GOT, GPT, γ-GT, AP, Bilirubin), CRP, Nüchternglukose und HbA1c (Typ-3c-Diabetes), Kalzium und Triglyzeride (Ätiologie), Albumin, Alkoholmarker (γ-GT, MCV, CDT), IgG4 bei Verdacht auf Autoimmunpankreatitis',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vitaminstatus: 25-OH-Vitamin D, Vitamin A, E, Quick/INR als Vitamin-K-Marker, Zink, Magnesium; Ferritin und Vitamin B12 bei Anämie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Elastase-1 im Stuhl als Standardtest der exokrinen Funktion: unter 200 µg/g Stuhl pathologisch, unter 100 µg/g schwere Insuffizienz (Cave: bei wässrigem Stuhl falsch niedrig); Stuhlfettbestimmung über 72 Stunden (über 7 g/Tag) nur noch in Studien',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Abdomensonographie als erster Schritt: Verkalkungen, erweiterter und unregelmäßiger Ductus pancreaticus (über 3 mm), Pseudozysten, Organatrophie, Gallenwegsstau, Milzvenenthrombose; zugleich Ausschluss von Cholelithiasis und Leberzirrhose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Endosonographie (EUS) als sensitivste Methode für Frühveränderungen (Rosemont-Kriterien: Lobulierung, hyperechogene Stränge und Foci, Gangunregelmäßigkeiten, Steine); erlaubt Feinnadelpunktion bei Raumforderung',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT mit MRCP (ggf. sekretinstimuliert) zur nicht-invasiven Darstellung des Gangsystems: Stenosen, Dilatationen, Seitenastveränderungen, Pseudozysten, Cambridge-Grad',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'CT-Abdomen mit Kontrastmittel: Nachweis von Verkalkungen (nahezu beweisend), Gangerweiterung, Pseudozysten, Pankreasatrophie; Abgrenzung von Karzinom, Milzvenenthrombose, Pseudoaneurysma',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Knochendichtemessung (DXA) bei Steatorrhoe und Vitamin-D-Mangel; Ösophagogastroduodenoskopie bei Oberbauchbeschwerden (Ulkus, Varizen, Duodenalstenose)',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'ERCP nur noch therapeutisch (Stent, Steinextraktion, Papillotomie), nicht mehr zur Diagnose — Risiko der Post-ERCP-Pankreatitis',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei jeder neuen Raumforderung oder Verschlechterung: Abgrenzung zum Pankreaskarzinom mit CA 19-9 (Cave: auch bei Cholestase erhöht), Endosonographie mit Feinnadelpunktion, gezielter Schnittbildgebung',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Genetische Testung (PRSS1, SPINK1, CFTR, CTRC) bei Manifestation vor dem 20.–30. Lebensjahr, positiver Familienanamnese oder idiopathischer Form; IgG4-Serologie und Histologie bei Verdacht auf Autoimmunpankreatitis',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Pankreaskarzinom',
+          unterscheidung: 'Die entscheidende und gefährlichste Abgrenzung — die chronische Pankreatitis ist selbst ein Risikofaktor. Verdächtig: neu aufgetretener schmerzloser Ikterus (Courvoisier-Zeichen), rascher Gewichtsverlust, neuer Diabetes beim älteren Patienten, Rückenschmerz ohne Schubdynamik, Thrombosen. Klärung durch CT/MRT, Endosonographie mit Punktion, CA 19-9; im Zweifel Resektion.',
+        },
+        {
+          dd: 'Akute Pankreatitis bzw. akuter Schub',
+          unterscheidung: 'Plötzlicher, heftiger Dauerschmerz mit Lipase über dem Dreifachen der Norm, Erbrechen, Entzündungszeichen; bei chronischer Form Lipase oft normal, Verkalkungen und Gangveränderungen in der Bildgebung, Steatorrhoe und Diabetes als Zeichen des Funktionsverlusts.',
+        },
+        {
+          dd: 'Ulcus ventriculi / Ulcus duodeni',
+          unterscheidung: 'Nüchternschmerz (Ulcus duodeni) bzw. Schmerz direkt nach dem Essen (Ulcus ventriculi), Besserung durch Antazida, Teerstuhl; Risikofaktoren NSAR, Alkohol, Rauchen, Helicobacter pylori. Klärung durch ÖGD; keine Steatorrhoe.',
+        },
+        {
+          dd: 'Cholelithiasis, Cholezystitis, Cholangitis',
+          unterscheidung: 'Kolikartiger, wellenförmiger rechtsseitiger Oberbauchschmerz mit Ausstrahlung in die rechte Schulter, Fettunverträglichkeit, Ikterus und Fieber bei Cholangitis; Sonographie mit Steinen und verdickter Gallenblasenwand, Cholestasewerte erhöht.',
+        },
+        {
+          dd: 'Magenkarzinom',
+          unterscheidung: 'Inappetenz, Abneigung gegen Fleisch, Völlegefühl, Gewichtsverlust, Anämie, Teerstuhl, Virchow-Lymphknoten; keine Steatorrhoe (im Examen gefragt: „Was spricht gegen Pankreatitis?“ — das Fehlen der Fettstühle). Klärung durch ÖGD mit Biopsie.',
+        },
+        {
+          dd: 'Zöliakie und andere Malabsorptionsursachen',
+          unterscheidung: 'Ebenfalls Fettstühle, Gewichtsverlust, Vitaminmangel und Anämie, jedoch ohne gürtelförmigen Schmerz; Transglutaminase-IgA-Antikörper und Duodenalbiopsie (Zottenatrophie); Elastase im Stuhl normal (Malabsorption statt Maldigestion).',
+        },
+        {
+          dd: 'Bakterielle Fehlbesiedlung des Dünndarms (SIBO)',
+          unterscheidung: 'Blähungen, Durchfall, Vitamin-B12-Mangel, häufig als Folge der Pankreatitis oder bei Motilitätsstörung; Glukose-Wasserstoff-Atemtest positiv, Ansprechen auf Rifaximin.',
+        },
+        {
+          dd: 'Morbus Crohn',
+          unterscheidung: 'Junge Patienten, chronische Durchfälle, Fisteln, Analveränderungen, extraintestinale Manifestationen; Calprotectin im Stuhl erhöht, Ileokoloskopie mit segmentalem Befall.',
+        },
+        {
+          dd: 'Reizdarmsyndrom, funktionelle Dyspepsie',
+          unterscheidung: 'Ausschlussdiagnose: kein Gewichtsverlust, keine Fettstühle, kein nächtlicher Schmerz, Besserung nach Defäkation, normale Labor- und Bildgebungsbefunde.',
+        },
+        {
+          dd: 'Mesenterialischämie (Angina abdominalis)',
+          unterscheidung: 'Gefäßpatient mit Vorhofflimmern oder Arteriosklerose, postprandialer Schmerz 15–30 Minuten nach dem Essen mit Nahrungsangst und Gewichtsverlust, Laktatanstieg; Klärung durch CT-Angiographie.',
+        },
+        {
+          dd: 'Bauchaortenaneurysma, Wirbelsäulenerkrankung, Nierenkolik',
+          unterscheidung: 'Bei Rückenschmerz: pulsierende Resistenz und Sonographie der Aorta; bewegungsabhängiger, lageabhängiger Rückenschmerz ohne Verdauungssymptome; kolikartiger Flankenschmerz mit Hämaturie.',
+        },
+        {
+          dd: 'Alkoholische Leberzirrhose (Komorbidität)',
+          unterscheidung: 'Häufig gleichzeitig vorhanden: Spider naevi, Aszites, Ösophagusvarizen, Thrombozytopenie, erniedrigter Quick; Sonographie mit knotiger Leber, Elastographie — schließt die Pankreatitis nicht aus, sondern begleitet sie.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Beseitigung der Noxen und Ernährungstherapie',
+          items: [
+            'Absolute Alkoholkarenz als wirksamste Einzelmaßnahme: verlangsamt die Progression, reduziert Schübe und Schmerz; Suchtberatung, Motivationsgespräch, gegebenenfalls qualifizierte Entzugsbehandlung (Cave: kein abruptes Absetzen ohne Überwachung bei Abhängigkeit — Entzugsdelir), Rückfallprophylaxe (Naltrexon, Acamprosat), Selbsthilfegruppe — ohne Abstinenz hilft alles andere wenig',
+            'Nikotinkarenz: senkt Progression, Verkalkung, Schmerz und Karzinomrisiko; Raucherentwöhnung mit Nikotinersatz, Vareniclin oder Bupropion',
+            'Ernährungsberatung: häufige kleine (5–6) kohlenhydrat- und eiweißreiche Mahlzeiten; ausdrücklich KEINE strenge Fettrestriktion mehr, da sie den Gewichtsverlust und den Vitaminmangel verschlimmert — Fett wird unter ausreichender Enzymsubstitution vertragen; ballaststoffreiche Kost nicht übertreiben (bindet Enzyme)',
+            'Substitution der fettlöslichen Vitamine A, D, E, K sowie von Kalzium und Vitamin D (Osteoporoseprophylaxe), bei Bedarf Zink, Magnesium, Vitamin B12; bei schwerer Mangelernährung mittelkettige Triglyzeride (MCT-Fette) oder enterale Ernährung',
+          ],
+        },
+        {
+          label: 'Substitution der exokrinen Pankreasinsuffizienz',
+          items: [
+            'Indikation: Steatorrhoe, Gewichtsverlust, Vitaminmangel oder Elastase-1 unter 200 µg/g mit Symptomen — Pankreasenzyme (Pankreatin, z. B. Kreon) als magensaftresistente Mikropellets ZU JEDER Mahlzeit, über die Mahlzeit verteilt eingenommen',
+            'Ausreichende Dosis, die sich nach dem Fettgehalt richtet: mindestens 20 000–40 000 IE Lipase pro Hauptmahlzeit, bei unzureichendem Ansprechen verdoppeln (bis 80 000 IE), 10 000–20 000 IE pro Zwischenmahlzeit — der häufigste Fehler ist die Unterdosierung; keine Obergrenze außer bei Mukoviszidose (fibrosierende Kolonopathie über 10 000 IE/kg/Tag)',
+            'Bei unzureichendem Ansprechen: Protonenpumpenhemmer zusätzlich (Säure inaktiviert die Lipase, Freisetzung der Pellets erst bei pH über 5,5), Compliance und Einnahmezeitpunkt prüfen, bakterielle Fehlbesiedlung und Zöliakie ausschließen',
+            'Verlaufskontrolle über Gewicht, Stuhlbeschaffenheit, Blähungen, Albumin und Vitaminstatus — nicht über die Elastase, die unter Substitution unverändert bleibt',
+          ],
+        },
+        {
+          label: 'Schmerztherapie und Behandlung der Komplikationen',
+          items: [
+            'Schmerztherapie nach dem WHO-Stufenschema: Stufe 1 Paracetamol (bei Alkoholkonsum höchstens 2–3 g täglich unter Leberwertkontrolle) und Metamizol (Cave Agranulozytose); NSAR wegen Ulkusgefahr bei Alkohol zurückhaltend; bei neuropathischer Komponente Pregabalin oder Gabapentin, ggf. Amitriptylin',
+            'Opioide (Tramadol, Tilidin, dann Oxycodon/Hydromorphon) nur bei therapierefraktärem Schmerz, unter Beachtung der Suchtgefahr beim Alkoholkranken und möglichst zeitlich begrenzt; keine Dauertherapie ohne interventionelle Optionen zu prüfen; Enzymsubstitution kann Schmerz durch Feedback-Hemmung lindern',
+            'Endoskopische Verfahren bei Gangstenose oder Gangsteinen mit Aufstau: ERCP mit Papillotomie, Dilatation und Stenteinlage, Steinextraktion; große Gangsteine (über 5 mm) vorher mit extrakorporaler Stoßwellenlithotripsie (ESWL) zertrümmern',
+            'Pseudozysten: nur bei Symptomen, Größe über 5–6 cm mit Wachstum, Kompression oder Infektion drainieren — endosonographisch gesteuert transgastral/transduodenal (Stent), alternativ transpapillär oder chirurgisch (Zystojejunostomie)',
+            'Choledochusstenose mit Cholestase oder Cholangitis: endoskopische Stenteinlage (mehrere Plastikstents oder gecoverter Metallstent), bei persistierender Stenose biliodigestive Anastomose; Duodenalstenose: Gastroenterostomie; Milzvenenthrombose mit blutenden Fundusvarizen: Splenektomie',
+            'Operative Verfahren bei therapierefraktärem Schmerz, Karzinomverdacht oder Komplikationen — bei Dauerschmerz dem endoskopischen Vorgehen langfristig überlegen (ESCAPE-Studie): Drainageoperation bei erweitertem Gang (laterolaterale Pankreatikojejunostomie nach Partington-Rochelle, Gang über 7 mm), duodenumerhaltende Pankreaskopfresektion nach Beger, Frey oder Berner Modifikation bei entzündlichem Kopftumor, pyloruserhaltende Whipple-Operation bei Karzinomverdacht',
+          ],
+        },
+        {
+          label: 'Behandlung des pankreopriven Diabetes und Langzeitüberwachung',
+          items: [
+            'Typ-3c-Diabetes: Insulin in der Regel von Anfang an, weil kein Insulin mehr gebildet wird (Basis-Bolus-Schema); Metformin nur ergänzend bei Insulinresistenz (zusätzlicher Vorteil: senkt möglicherweise das Karzinomrisiko); keine Sulfonylharnstoffe (Hypoglykämien), keine GLP-1-Analoga (Pankreatitisrisiko, Gewichtsverlust)',
+            'Besondere Schulung wegen der Hypoglykämiegefahr durch den fehlenden Glukagon-Gegenspieler, Alkohol und unregelmäßige Nahrungsaufnahme: moderate HbA1c-Ziele (7–8 %), regelmäßige Mahlzeiten, kontinuierliche Glukosemessung, Angehörige mit Glukagon-Notfallset schulen',
+            'Regelmäßige Verlaufskontrollen alle 6–12 Monate: Gewicht, BMI, Blutzucker und HbA1c, Vitamin D und fettlösliche Vitamine, Albumin, Knochendichte (DXA alle 2 Jahre bei Osteopenie), Abstinenzkontrolle',
+            'Wachsame Überwachung wegen des Karzinomrisikos (etwa 10- bis 15-fach erhöht, bei hereditärer Pankreatitis lebenslang etwa 40 %): Bildgebung bei jeder Verschlechterung, neuem Ikterus, Gewichtsverlust oder neuem Diabetes; bei hereditärer Form jährliches Screening mit MRT/Endosonographie ab dem 40. Lebensjahr',
+            'Impfungen (Influenza, Pneumokokken, COVID-19, Hepatitis A und B), Osteoporoseprophylaxe, Aufklärung über Warnzeichen (Ikterus, Fieber, Gewichtsverlust, Teerstuhl, Hypoglykämiezeichen), psychosoziale Begleitung und Anbindung an Hausarzt und Gastroenterologen',
+          ],
+        },
+      ],
+      prognose: 'Die chronische Pankreatitis ist nicht heilbar; ihr Verlauf lässt sich durch Alkohol- und Nikotinkarenz entscheidend verlangsamen. Die 10-Jahres-Überlebensrate liegt bei etwa 70 %, die 20-Jahres-Überlebensrate bei etwa 45 % — die Übersterblichkeit entsteht überwiegend durch die Folgen der Alkoholkrankheit (Leberzirrhose, Unfälle, Suizid), kardiovaskuläre Erkrankungen und das Pankreaskarzinom, dessen Risiko etwa 10- bis 15-fach erhöht ist (kumulativ etwa 4 % nach 20 Jahren). Der Schmerz lässt bei etwa der Hälfte der Patienten nach 5–10 Jahren mit dem „Ausbrennen“ des Organs nach; eine exokrine Insuffizienz entwickelt sich im Median nach 10–15 Jahren, ein Diabetes bei über der Hälfte der Patienten nach 20 Jahren. Unter Abstinenz, konsequenter Enzymsubstitution und Vitaminausgleich sind Gewicht und Lebensqualität meist gut zu stabilisieren; fortgesetzter Alkoholkonsum verdoppelt die Sterblichkeit.',
+      pruefungsfallen: [
+        'Die Lipase ist im chronischen Stadium oft NORMAL — ein normaler Wert schließt die chronische Pankreatitis nicht aus, weil kaum noch enzymproduzierendes Parenchym vorhanden ist. Deshalb Elastase-1 im Stuhl und Bildgebung.',
+        'Die Steatorrhoe tritt erst auf, wenn über 90 % der exokrinen Funktion verloren sind — sie ist ein Spätzeichen, ihr Fehlen schließt eine chronische Pankreatitis nicht aus (aber: im Stuttgarter Magenkarzinom-Fall war das Fehlen der Fettstühle das Argument GEGEN die Pankreatitis).',
+        'Fettstühle aktiv erfragen (voluminös, übelriechend, fettglänzend, schwer wegspülbar, kleben an der Toilettenschüssel): der Patient verbindet sie nicht mit dem Bauchschmerz und nennt sie nicht spontan.',
+        'Das Pankreaskarzinom ist die entscheidende Differenzialdiagnose UND eine Komplikation — bei schmerzlosem Ikterus, raschem Gewichtsverlust oder neuem Diabetes beim älteren Patienten immer nennen und mit CT/Endosonographie und CA 19-9 abklären.',
+        'Rauchen als eigenständigen Risikofaktor nicht vergessen — Prüfer erwarten neben der Alkoholkarenz ausdrücklich die Nikotinkarenz.',
+        'Keine strenge Fettrestriktion mehr empfehlen — sie verschlimmert Gewichtsverlust und Vitaminmangel. Richtig: normale Fettzufuhr unter ausreichender Enzymsubstitution, häufige kleine Mahlzeiten.',
+        'Pankreasenzyme zu JEDER Mahlzeit und in ausreichender Dosis (mindestens 20 000–40 000 IE Lipase pro Hauptmahlzeit) — der häufigste Fehler ist die Unterdosierung; bei Nichtansprechen Protonenpumpenhemmer dazu.',
+        'Beim Typ-3c-Diabetes fehlt auch das Glukagon — deshalb schwere Hypoglykämien, Insulin von Anfang an, keine Sulfonylharnstoffe, moderate HbA1c-Ziele.',
+        'Bei Alkoholabhängigkeit die Alkoholkarenz nicht als „einfach aufhören“ formulieren: Entzugsdelir-Gefahr, qualifizierte Entzugsbehandlung, Suchtberatung — Prüfer fragen „Warum darf man Alkohol nicht plötzlich absetzen?“.',
+        'Opioide beim Alkoholkranken nur zeitlich begrenzt und mit Suchtgefahr im Blick; vorher Enzyme, Nicht-Opioide, Pregabalin und interventionelle Optionen ausschöpfen.',
+        'ERCP ist keine Diagnostik mehr, sondern nur noch Therapie (Post-ERCP-Pankreatitis) — diagnostisch MRCP und Endosonographie nennen.',
+        'Bei jungen Patienten oder positiver Familienanamnese die hereditäre Pankreatitis (PRSS1, SPINK1) und bei erhöhtem IgG4 die Autoimmunpankreatitis erwähnen — letztere spricht auf Steroide an.',
+        'Das Nachlassen des Schmerzes nach Jahren („burn-out“) ist keine Heilung, sondern Ausdruck des fortgeschrittenen Funktionsverlusts.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Welche Art von Pankreatitis erwarten Sie bei diesem Patienten?',
+          antwort: 'Eine alkoholtoxische chronische Pankreatitis — Alkohol ist in Deutschland die häufigste Ursache (70–80 %), Rauchen beschleunigt die Progression. Nach der TIGAR-O-Klassifikation gehört sie zu den toxisch-metabolischen Formen; weitere Ursachen sind idiopathisch, genetisch, autoimmun, rezidivierend akut und obstruktiv.',
+        },
+        {
+          frage: 'Was spricht gegen eine Pankreatitis?',
+          antwort: 'Beim Stuttgarter Fall mit Verdacht auf Magenkarzinom: das Fehlen der Steatorrhoe. Fettige, voluminöse, übelriechende Stühle sind typisch für die exokrine Insuffizienz bei chronischer Pankreatitis; dagegen sprechen bei einem Magenkarzinom Fleischabneigung, Teerstuhl und Anämie.',
+        },
+        {
+          frage: 'Welche Laborparameter bestimmen Sie bei einer Pankreatitis?',
+          antwort: 'Lipase und Amylase — wobei die Lipase spezifischer ist und bei chronischer Pankreatitis oft normal bleibt. Dazu Blutbild, CRP, Leber- und Cholestasewerte, Blutzucker und HbA1c, Kalzium, Triglyzeride, Albumin, die Alkoholmarker γ-GT, MCV und CDT sowie die Elastase-1 im Stuhl als Test der exokrinen Funktion.',
+        },
+        {
+          frage: 'Kann die Lipase bei einer chronischen Pankreatitis normal sein?',
+          antwort: 'Ja, im chronischen Stadium ist sie oft normal, weil das enzymproduzierende Parenchym durch Fibrose ersetzt ist. Ein normaler Wert schließt die Erkrankung nicht aus; ein deutlicher Anstieg über das Dreifache spricht für einen akuten Schub.',
+        },
+        {
+          frage: 'Wie weisen Sie die exokrine Insuffizienz nach?',
+          antwort: 'Mit der Elastase-1 im Stuhl: unter 200 µg/g Stuhl pathologisch, unter 100 µg/g schwere Insuffizienz. Die Steatorrhoe tritt klinisch erst auf, wenn über 90 % der Funktion verloren sind.',
+        },
+        {
+          frage: 'Warum führen wir eine ÖGD durch?',
+          antwort: 'Zum Ausschluss eines Ulcus ventriculi oder duodeni und von Ösophagus- oder Fundusvarizen — beim alkoholkranken Patienten mit Oberbauchschmerz, Rauchen und NSAR-Einnahme sind Ulkus und Varizen wichtige Differenzialdiagnosen bzw. Komplikationen; außerdem Ausschluss eines Magenkarzinoms und einer Duodenalstenose.',
+        },
+        {
+          frage: 'Welche Bildgebung ist bei der chronischen Pankreatitis am sensitivsten?',
+          antwort: 'Die Endosonographie erkennt Frühveränderungen am empfindlichsten (Rosemont-Kriterien). Im Alltag beginnt man mit der Sonographie, das CT zeigt Verkalkungen nahezu beweisend, die MRCP stellt das Gangsystem dar. Die ERCP wird nur noch therapeutisch eingesetzt.',
+        },
+        {
+          frage: 'Welche Komplikationen der chronischen Pankreatitis kennen Sie?',
+          antwort: 'Pseudozysten mit Schmerz, Kompression, Infektion oder Blutung; Gangstenosen und Pankreassteine; Stenose des Ductus choledochus mit Ikterus und Cholangitis; Duodenalstenose; Milzvenenthrombose mit Fundusvarizen; pankreatogener Aszites und Pleuraerguss; exokrine und endokrine Insuffizienz mit Osteoporose und Diabetes Typ 3c; sowie das deutlich erhöhte Risiko für ein Pankreaskarzinom.',
+        },
+        {
+          frage: 'Der Patient ist alkoholabhängig — wie behandeln Sie ihn, und warum darf man Alkohol nicht plötzlich absetzen?',
+          antwort: 'Absolute Alkoholkarenz ist die wirksamste Einzelmaßnahme, aber bei Abhängigkeit unter ärztlicher Überwachung: qualifizierter Entzug mit Benzodiazepinen oder Clomethiazol, Thiamin, Elektrolyt- und Vitalzeichenkontrolle, danach Suchtberatung, Entwöhnungstherapie und Rückfallprophylaxe mit Naltrexon oder Acamprosat. Abruptes Absetzen ohne Überwachung kann ein lebensbedrohliches Entzugsdelir mit Krampfanfällen, Tachykardie, Hypertonie, Halluzinationen und Desorientiertheit auslösen.',
+        },
+        {
+          frage: 'Wie behandeln Sie die exokrine Insuffizienz?',
+          antwort: 'Mit magensaftresistenten Pankreasenzym-Mikropellets zu jeder Mahlzeit, mindestens 20 000–40 000 IE Lipase pro Hauptmahlzeit und 10 000–20 000 IE pro Zwischenmahlzeit, bei Bedarf verdoppelt; dazu ein Protonenpumpenhemmer bei unzureichender Wirkung, Substitution der fettlöslichen Vitamine, häufige kleine Mahlzeiten ohne strenge Fettrestriktion. Kontrolle über Gewicht und Stuhl.',
+        },
+        {
+          frage: 'Was ist das Besondere am Diabetes bei chronischer Pankreatitis?',
+          antwort: 'Es ist ein pankreopriver Diabetes Typ 3c: Neben dem Insulin fehlt auch das Glukagon als Gegenspieler, daher drohen schwere, schwer beherrschbare Hypoglykämien — verstärkt durch Alkohol und unregelmäßiges Essen. Behandlung mit Insulin von Anfang an, moderaten HbA1c-Zielen, intensiver Schulung, Metformin nur ergänzend; keine Sulfonylharnstoffe.',
+        },
+        {
+          frage: 'Welche Prognose hat die Erkrankung, und was verbessert sie?',
+          antwort: 'Sie ist nicht heilbar, aber beeinflussbar: 10-Jahres-Überleben etwa 70 %, 20-Jahres-Überleben etwa 45 %. Alkohol- und Nikotinkarenz verlangsamen die Progression und senken das Karzinomrisiko entscheidend; Enzymsubstitution und Vitaminausgleich stabilisieren Gewicht und Lebensqualität.',
+        },
+        {
+          frage: 'Würden Sie den Patienten stationär behandeln?',
+          antwort: 'Bei einem akuten Schub, Erbrechen mit Unfähigkeit zur oralen Ernährung, Ikterus oder Cholangitis, Blutung, Verdacht auf Entzugssyndrom oder schwerer Mangelernährung ja — zur Analgesie, Flüssigkeits- und Ernährungstherapie, überwachtem Alkoholentzug und Abklärung. Die stabile chronische Pankreatitis wird ambulant geführt.',
+        },
+        {
+          frage: 'Welche Getränke und Lebensmittel verschlimmern die Beschwerden?',
+          antwort: 'Alkohol in jeder Form — Bier, Wein und Schnaps —, fettreiche und große Mahlzeiten, insbesondere fettes Fleisch, Wurst und Frittiertes; günstig sind häufige kleine, kohlenhydrat- und eiweißreiche Mahlzeiten unter Enzymsubstitution.',
+        },
+      ],
+      merksatz: 'Gürtelförmiger Oberbauchschmerz nach Essen und Alkohol, Fettstühle und Gewichtsverlust bei einem Trinker, der raucht = chronische Pankreatitis — die Lipase darf dabei normal sein, die Elastase im Stuhl zeigt die Insuffizienz, das CT die Verkalkungen. Therapie: Alkohol und Nikotin weg, Enzyme zu jeder Mahlzeit in ausreichender Dosis, Vitamine ersetzen, Schmerz nach WHO, Insulin beim Typ-3c — und bei jeder Verschlechterung an das Karzinom denken.',
+      linkedCaseIds: [
+        'case-chronische-pankreatitis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-gastroskopie',
+        'auf-ct',
+        'auf-mrt',
+      ],
+    },
+    {
+      id: 'fw-myokarditis',
+      pathology: 'Akute Myokarditis',
+      specialty: 'Kardiologie',
+      definition: 'Die Myokarditis ist eine entzündliche Erkrankung des Herzmuskels, die histologisch durch ein entzündliches Infiltrat mit Myozytennekrose ohne ischämische Ursache definiert ist (Dallas-Kriterien). Bei Mitbeteiligung des Herzbeutels spricht man von einer Perimyokarditis. Klinisch reicht das Spektrum von der asymptomatischen, nur laborchemisch fassbaren Myozytenschädigung über das infarktähnliche Bild bis zur fulminanten Myokarditis mit kardiogenem Schock. Die Myokarditis gehört zu den führenden Ursachen des plötzlichen Herztods bei jungen Sportlern und ist eine wichtige Vorstufe der dilatativen Kardiomyopathie.',
+      aetiologie: 'In Europa überwiegend viral: Parvovirus B19 und humanes Herpesvirus 6 (am häufigsten im Biopsiematerial), Coxsackie-B- und Adenoviren (klassisch), SARS-CoV-2, Influenza, Epstein-Barr-Virus, Zytomegalievirus, HIV. Seltener bakteriell und parasitär: Borrelia burgdorferi (Lyme-Karditis mit AV-Block), Corynebacterium diphtheriae, Staphylokokken und Streptokokken bei Sepsis oder Endokarditis, rheumatisches Fieber als Poststreptokokken-Erkrankung, Trypanosoma cruzi (Chagas-Krankheit). Nicht infektiös: Autoimmun- und Systemerkrankungen (systemischer Lupus erythematodes, Sklerodermie, Vaskulitiden, chronisch-entzündliche Darmerkrankungen), kardiale Sarkoidose, Riesenzellmyokarditis, eosinophile Myokarditis (Hypersensitivität, Hypereosinophilie-Syndrom); toxisch und medikamentös durch Alkohol, Kokain und Amphetamine, Anthrazykline, Clozapin, Immun-Checkpoint-Inhibitoren; sehr selten nach mRNA-Impfung gegen COVID-19 (meist junge Männer, wenige Tage nach der zweiten Dosis, in der Regel milder Verlauf). Der Mechanismus umfasst die direkte virale Myozytenschädigung, die zellvermittelte Immunantwort und bei Persistenz eine Autoimmunreaktion gegen kardiale Antigene.',
+      risikofaktoren: [
+        'Junges Erwachsenenalter (20 bis 40 Jahre) und männliches Geschlecht',
+        'Vorausgegangener viraler Infekt (grippaler Infekt, Gastroenteritis, COVID-19, Influenza) innerhalb der letzten ein bis vier Wochen',
+        'Körperliche Belastung und Sport während oder kurz nach dem Infekt — verschlechtert bei Coxsackie-Myokarditis nachweislich Virusreplikation und Verlauf',
+        'Kokain- und Amphetaminkonsum, chronischer Alkoholabusus',
+        'Kardiotoxische Medikamente: Anthrazykline, Trastuzumab, Clozapin, Immun-Checkpoint-Inhibitoren',
+        'Autoimmun- und Systemerkrankungen, Sarkoidose, Hypereosinophilie',
+        'Zeckenstich in Endemiegebieten (Lyme-Karditis), Aufenthalt in Südamerika (Chagas)',
+        'Immunsuppression und HIV-Infektion',
+        'Vorausgegangene Myokarditis (Rezidivneigung)',
+      ],
+      klinik: [
+        {
+          text: 'Anamnestisch ein viraler Infekt ein bis drei Wochen vor Beginn der kardialen Symptome, dazwischen ein freies Intervall — dieser Zusammenhang muss aktiv erfragt werden',
+        },
+        {
+          text: 'Thoraxschmerz: bei Perikardbeteiligung stechend, atemabhängig und lageabhängig, Besserung im Sitzen und beim Vorbeugen, Verschlechterung im Liegen; bei reiner Myokarditis auch infarktähnlich drückend-retrosternal',
+        },
+        {
+          text: 'Belastungsdyspnoe, rasche Erschöpfbarkeit und ein deutlicher Leistungsknick im Vergleich zum Zustand vor dem Infekt',
+        },
+        {
+          text: 'Palpitationen, Herzstolpern durch Extrasystolen, Herzrasen — auch in Ruhe',
+        },
+        {
+          text: 'Subfebrile Temperaturen, Abgeschlagenheit, Myalgien, Arthralgien als Zeichen der systemischen Entzündung',
+        },
+        {
+          text: 'Sinustachykardie in Ruhe, die nicht zum Fieber passt; Perikardreiben bei Perimyokarditis; leiser dritter Herzton bei Pumpfunktionsstörung',
+        },
+        {
+          text: 'Neu aufgetretene Herzinsuffizienz mit Orthopnoe, Beinödemen, Halsvenenstauung und Lungenstauung',
+        },
+        {
+          text: 'Präsynkope oder Synkope durch ventrikuläre Tachykardie oder höhergradigen AV-Block — Warnsymptom für den plötzlichen Herztod',
+          atypisch: false,
+        },
+        {
+          text: 'Vollständig asymptomatischer Verlauf mit zufällig entdeckten EKG-Veränderungen oder Troponinerhöhung',
+          atypisch: true,
+        },
+        {
+          text: 'Fulminante Myokarditis: innerhalb weniger Tage kardiogener Schock mit Hypotonie, Oligurie, kalten Extremitäten und Laktatanstieg — typisch für die Riesenzellmyokarditis',
+          atypisch: true,
+        },
+        {
+          text: 'Plötzlicher Herztod beim Sport als Erstmanifestation, insbesondere bei jungen Männern',
+          atypisch: true,
+        },
+        {
+          text: 'Isolierter höhergradiger AV-Block beim jungen Patienten nach Zeckenstich (Lyme-Karditis) oder bei kardialer Sarkoidose',
+          atypisch: true,
+        },
+        {
+          text: 'Bei Kindern und Säuglingen unspezifisch: Trinkschwäche, Erbrechen, Blässe, Tachypnoe — Fehldeutung als Gastroenteritis oder Pneumonie',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Klinische Verlaufsformen (nach Lieberman)',
+          inhalt: 'Fulminante Myokarditis: abrupter Beginn wenige Tage nach dem Infekt mit schwerer Pumpfunktionsstörung und kardiogenem Schock — bei Überleben der Akutphase paradoxerweise gute Erholung. Akute Myokarditis: subakuter Beginn, mäßig eingeschränkte Pumpfunktion, häufigste Form, Ausheilung oder Übergang in eine dilatative Kardiomyopathie. Chronisch-aktive Myokarditis: Rezidive und schleichende Verschlechterung. Chronisch-persistierende Myokarditis: anhaltendes Infiltrat bei erhaltener Pumpfunktion.',
+        },
+        {
+          name: 'Diagnostische Kriterien der ESC für die klinisch vermutete Myokarditis (2013)',
+          inhalt: 'Mindestens ein klinisches Kriterium (Thoraxschmerz, neue oder zunehmende Dyspnoe, Palpitationen, Synkope, ungeklärter kardiogener Schock) plus mindestens ein diagnostisches Kriterium aus EKG (ST-Strecken- oder T-Wellen-Veränderungen, AV-Block, Arrhythmien), Troponinerhöhung, funktionellen oder strukturellen Auffälligkeiten in Echokardiographie oder MRT und typischem Gewebesignal im Kardio-MRT — jeweils nach Ausschluss einer koronaren Herzkrankheit. Beim asymptomatischen Patienten sind zwei diagnostische Kriterien erforderlich.',
+        },
+        {
+          name: 'Lake-Louise-Kriterien (Kardio-MRT, aktualisiert 2018)',
+          inhalt: 'Zwei Hauptkriterien: Ödemnachweis (T2-gewichtete Bilder oder erhöhte T2-Relaxationszeit) und Nachweis einer nicht-ischämischen Myokardschädigung (spätes Gadolinium-Enhancement, erhöhte native T1-Zeit oder erhöhtes extrazelluläres Volumen). Sind beide erfüllt, ist die Diagnose sehr wahrscheinlich. Unterstützende Kriterien: Perikarderguss oder Perikard-Enhancement und regionale oder globale Wandbewegungsstörung. Typisches Muster der Myokarditis: subepikardiales oder intramurales Late Enhancement, meist inferolateral — beim Infarkt dagegen subendokardial oder transmural im Versorgungsgebiet einer Koronararterie.',
+        },
+        {
+          name: 'Dallas-Kriterien (Histologie der Endomyokardbiopsie, 1986)',
+          inhalt: 'Aktive Myokarditis: entzündliches Infiltrat mit Myozytennekrose ohne ischämische Ursache. Borderline-Myokarditis: Infiltrat ohne Nekrose. Ergänzt durch Immunhistochemie (mehr als 14 Leukozyten pro mm², davon CD3-positive T-Zellen) und PCR auf Virusgenom — die Virus-PCR entscheidet, ob eine Immunsuppression überhaupt erlaubt ist.',
+        },
+      ],
+      redFlags: [
+        'Synkope, Präsynkope oder Herzrasen unter Belastung beim jungen Patienten nach Infekt → maligne Rhythmusstörung, sofortige Monitorüberwachung',
+        'Hypotonie, Tachykardie, kalte Peripherie, Oligurie, Laktatanstieg → fulminante Myokarditis mit kardiogenem Schock, Intensivstation, Kreislaufunterstützung',
+        'Neu aufgetretene Herzinsuffizienz mit Orthopnoe, Lungenstauung und Halsvenenstauung → dekompensierte Myokarditis',
+        'Höhergradiger AV-Block oder ventrikuläre Tachykardie im EKG → Schrittmacher- bzw. Defibrillatorbereitschaft',
+        'Anhaltend steigendes Troponin über Tage oder stark erhöhtes NT-proBNP → progrediente Myozytenschädigung',
+        'Hochgradig eingeschränkte Pumpfunktion (Ejektionsfraktion unter 35 Prozent) oder Wandverdickung mit Perikarderguss → schwerer Verlauf, Biopsie erwägen',
+        'Begleitende Eosinophilie, Hautausschlag oder neue Medikamente → eosinophile Hypersensitivitätsmyokarditis',
+        'Bekannte Sarkoidose, Autoimmunerkrankung oder Riesenzellmyokarditis in der Vorgeschichte → rasch progredienter Verlauf möglich',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Anamnese nach dem Dreischritt Infekt → freies Intervall → kardiale Symptome unter Belastung: Art und Zeitpunkt des Infekts, Sport während und nach dem Infekt, Belastungsdyspnoe, Palpitationen, Synkope; Drogen (Kokain, Amphetamine), Alkohol, kardiotoxische Medikamente, Impfungen, Zeckenstich, Reisen; Familienanamnese für Kardiomyopathien und plötzlichen Herztod vor dem 50. Lebensjahr',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter (Tachykardie, Hypotonie, Temperatur, Sauerstoffsättigung), Auskultation mit Perikardreiben, drittem Herzton und Rasselgeräuschen, Halsvenenstauung, Beinödeme, kalte Peripherie; Zeichen der Grunderkrankung (Erythema migrans, Exanthem, Lymphknoten, Pharyngitis)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: '12-Kanal-EKG sofort bei Aufnahme: Sinustachykardie, unspezifische ST-Strecken- und T-Wellen-Veränderungen, häufig diffuse, konkave ST-Hebungen ohne Zuordnung zu einem Versorgungsgebiet und ohne spiegelbildliche Senkungen (Perimyokarditis), PQ-Senkung, ventrikuläre und supraventrikuläre Extrasystolen, AV-Blockierungen, Schenkelblock, ventrikuläre Tachykardien — die Abgrenzung zum Infarkt ist am EKG allein nicht sicher',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Troponin T oder I hochsensitiv als Marker der Myozytenschädigung — bei der Myokarditis häufig über Tage plateauartig erhöht statt des typischen Anstiegs und Abfalls beim Infarkt; ergänzend CK und CK-MB',
+        },
+        {
+          stufe: 'Labor',
+          text: 'NT-proBNP oder BNP zur Abschätzung der hämodynamischen Belastung und Herzinsuffizienz',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Entzündungsparameter CRP, BSG, Blutbild mit Differenzialblutbild (Leukozytose, Lymphozytose, Eosinophilie als Hinweis auf eine eosinophile Myokarditis), Procalcitonin bei Verdacht auf bakterielle Genese',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Basislabor: Elektrolyte einschließlich Kalium und Magnesium (Arrhythmieneigung), Kreatinin, Leberwerte, Laktat und Blutgasanalyse bei Schockzeichen, TSH bei Palpitationen, D-Dimere zur Abgrenzung der Lungenembolie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Erregerdiagnostik mit begrenztem Nutzen: Virusserologien beweisen die Myokarditis nicht und sind meist entbehrlich; gezielt sinnvoll sind Borrelienserologie bei Zeckenanamnese oder AV-Block, HIV-Test, Antistreptolysin-Titer bei Verdacht auf rheumatisches Fieber, ANA und ANCA bei Verdacht auf Autoimmungenese',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transthorakale Echokardiographie als erste bildgebende Untersuchung: globale oder regionale Wandbewegungsstörungen, eingeschränkte linksventrikuläre Ejektionsfraktion, ödembedingte Wandverdickung, Perikarderguss, Ventrikeldilatation, Thromben — zugleich Abgrenzung von Perikardtamponade, Klappenvitien und Kardiomyopathien',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kardio-MRT als Schlüsseluntersuchung (innerhalb der ersten zwei bis drei Wochen): Ödem in der T2-Wichtung, subepikardiales oder intramurales spätes Gadolinium-Enhancement, T1- und T2-Mapping nach den Lake-Louise-Kriterien — nicht-ischämisches Verteilungsmuster im Gegensatz zum subendokardialen Enhancement des Infarkts',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax bei Dyspnoe: Herzgröße, Lungenstauung, Pleuraerguss, Pneumonie als Differenzialdiagnose',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Kontinuierliches Rhythmusmonitoring während des stationären Aufenthalts und Langzeit-EKG über 24 bis 72 Stunden zur Erfassung ventrikulärer Tachykardien und AV-Blockierungen; Belastungs-EKG erst in der Erholungsphase vor der Sportfreigabe',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Koronarangiographie oder CT-Koronarangiographie zum Ausschluss einer koronaren Herzkrankheit — obligat beim älteren Patienten, bei kardiovaskulären Risikofaktoren oder infarktähnlichem EKG, weil die Troponinerhöhung sonst nicht sicher zuzuordnen ist; beim jungen Patienten ohne Risikofaktoren kann bei typischem MRT-Befund darauf verzichtet werden',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Endomyokardbiopsie als Goldstandard (Histologie nach Dallas, Immunhistochemie, Virus-PCR) — nur bei schwerem oder rasch progredientem Verlauf, hämodynamischer Instabilität, höhergradigem AV-Block oder ventrikulären Tachykardien, fehlender Besserung unter Therapie sowie bei Verdacht auf Riesenzellmyokarditis, eosinophile Myokarditis oder kardiale Sarkoidose, wenn sich daraus eine therapeutische Konsequenz ergibt',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Akutes Koronarsyndrom / Myokardinfarkt',
+          unterscheidung: 'Die wichtigste DD, weil Troponin und EKG bei beiden verändert sind. Für den Infarkt sprechen höheres Alter, Risikoprofil, drückender Schmerz mit Ausstrahlung, ST-Hebungen in einem Versorgungsgebiet mit spiegelbildlichen Senkungen, typische Troponindynamik und subendokardiales Late Enhancement; Beweis durch Koronarangiographie. Für die Myokarditis: junger Patient ohne Risikofaktoren, Infektanamnese, diffuse ST-Hebungen, plateauartiges Troponin, subepikardiales Enhancement.',
+        },
+        {
+          dd: 'Akute Perikarditis ohne Myokardbeteiligung',
+          unterscheidung: 'Gleicher lageabhängiger Schmerz und gleiche diffuse ST-Hebungen, aber normales Troponin, normale Pumpfunktion und kein myokardiales Enhancement im MRT; Perikardreiben und Perikarderguss stehen im Vordergrund. Bei erhöhtem Troponin spricht man von Perimyokarditis.',
+        },
+        {
+          dd: 'Lungenembolie',
+          unterscheidung: 'Plötzliche Dyspnoe, atemabhängiger Schmerz, Tachykardie, Hypoxämie, Risikofaktoren wie Immobilisation, Pille, Thrombose; D-Dimere erhöht, Rechtsherzbelastung im EKG und Echo, Nachweis in der CT-Pulmonalisangiographie. Auch hier kann das Troponin erhöht sein.',
+        },
+        {
+          dd: 'Takotsubo-Kardiomyopathie',
+          unterscheidung: 'Meist postmenopausale Frauen nach emotionalem oder körperlichem Stress, infarktähnliches Bild mit apikaler Ballonierung bei unauffälligen Koronarien; kein Ödem und kein Late Enhancement im MRT, rasche Erholung.',
+        },
+        {
+          dd: 'Dilatative oder hypertrophe Kardiomyopathie, arrhythmogene rechtsventrikuläre Kardiomyopathie',
+          unterscheidung: 'Schleichender Beginn ohne Infektanamnese, positive Familienanamnese für Kardiomyopathie oder plötzlichen Herztod, typische Morphologie im Echo und MRT, kein akutes Ödem; die Myokarditis kann allerdings in eine dilatative Kardiomyopathie übergehen.',
+        },
+        {
+          dd: 'Pneumonie, Pleuritis, Pneumothorax',
+          unterscheidung: 'Atemabhängiger Schmerz mit Husten, Auswurf, Fieber, feuchten Rasselgeräuschen bzw. aufgehobenem Atemgeräusch; Röntgen-Thorax und Sonographie klären; Troponin und Echokardiographie unauffällig.',
+        },
+        {
+          dd: 'Aortendissektion',
+          unterscheidung: 'Vernichtender, reißender Schmerz mit Wanderung in den Rücken, Blutdruckdifferenz zwischen den Armen, neues Diastolikum, Hypertonie oder Marfan-Syndrom; Nachweis in der CT-Angiographie. Cave: bei Beteiligung der Koronarostien ebenfalls Troponinerhöhung.',
+        },
+        {
+          dd: 'Refluxkrankheit und Ösophagusspasmus',
+          unterscheidung: 'Brennender retrosternaler Schmerz nach Mahlzeiten und im Liegen, Sodbrennen, saures Aufstoßen, Besserung auf Protonenpumpenhemmer; keine Troponinerhöhung, unauffälliges EKG.',
+        },
+        {
+          dd: 'Muskuloskelettaler Thoraxschmerz, Tietze-Syndrom',
+          unterscheidung: 'Reproduzierbarer Druckschmerz über den Rippenknorpeln, Bewegungsabhängigkeit, Zusammenhang mit Training oder Trauma; Labor, EKG und Echo normal.',
+        },
+        {
+          dd: 'Herpes zoster',
+          unterscheidung: 'Brennender, dermatomgebundener Halbseitenschmerz, nach wenigen Tagen gruppierte Bläschen auf gerötetem Grund.',
+        },
+        {
+          dd: 'Panikstörung mit Hyperventilation',
+          unterscheidung: 'Anfallsartige Angst, Kribbelparästhesien, Pfötchenstellung, unauffälliges Troponin und EKG — eine Ausschlussdiagnose, die erst nach kardialer Abklärung gestellt werden darf.',
+        },
+        {
+          dd: 'Hyperthyreose, Anämie, Sepsis mit kardialer Beteiligung',
+          unterscheidung: 'Palpitationen und Tachykardie durch TSH-Erniedrigung, Hämoglobinabfall bzw. Infektfokus mit Organdysfunktion; die Sepsis kann selbst eine Troponinerhöhung und septische Kardiomyopathie verursachen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Überwachung und Schonung',
+          items: [
+            'Stationäre Aufnahme mit kontinuierlichem Rhythmus- und Kreislaufmonitoring bei erhöhtem Troponin, Rhythmusstörungen, eingeschränkter Pumpfunktion oder Herzinsuffizienzzeichen — Monitoring mindestens über die ersten Tage, weil maligne Arrhythmien in der Akutphase am häufigsten sind; bei Schockzeichen sofort Intensivstation',
+            'Strikte körperliche Schonung und absolutes Sportverbot ab dem Verdacht — Belastung steigert Virusreplikation, Entzündung und Arrhythmierisiko und ist die Hauptursache des plötzlichen Herztods bei jungen Sportlern',
+            'Verzicht auf Alkohol, Nikotin, Kokain und andere Kardiotoxine; Absetzen nicht zwingend erforderlicher kardiotoxischer Medikamente',
+            'Symptomatische Behandlung von Fieber und Schmerz: Paracetamol oder Metamizol; NSAR bei reiner Myokarditis mit Pumpfunktionsstörung zurückhaltend, weil sie im Tiermodell die Myokardschädigung verstärken und die Herzinsuffizienz verschlechtern können — bei führender Perikarditis (Perimyokarditis mit erhaltener Pumpfunktion) sind dagegen NSAR wie Ibuprofen plus Colchicin über drei Monate Mittel der Wahl',
+            'Thromboseprophylaxe mit niedermolekularem Heparin bei Immobilisation, Antikoagulation bei nachgewiesenem Ventrikelthrombus oder Vorhofflimmern',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Behandlung der Herzinsuffizienz und der Rhythmusstörungen',
+          items: [
+            'Bei eingeschränkter Pumpfunktion leitliniengerechte Herzinsuffizienztherapie mit ACE-Hemmer oder Sartan, Betablocker (nach Stabilisierung, nicht im akuten Schock), Mineralokortikoidrezeptorantagonist und SGLT2-Hemmer; Diuretika bei Stauung',
+            'Antiarrhythmische Behandlung nur bei symptomatischen oder hämodynamisch relevanten Rhythmusstörungen (Betablocker, Amiodaron bei ventrikulären Tachykardien); Elektrolyte im hochnormalen Bereich halten',
+            'Passagerer transvenöser Schrittmacher bei höhergradigem AV-Block, weil sich die Überleitung nach der Akutphase meist erholt — keine vorschnelle Implantation eines permanenten Systems',
+            'Tragbare Defibrillatorweste (LifeVest) als Überbrückung bei schwer eingeschränkter Pumpfunktion; ICD erst nach Abwarten der Erholungsphase von etwa drei bis sechs Monaten unter optimaler Therapie, weil sich die Pumpfunktion häufig normalisiert',
+            'Fulminanter Verlauf mit kardiogenem Schock: intensivmedizinische Behandlung mit Katecholaminen und Inodilatatoren (Dobutamin, Levosimendan), mechanischer Kreislaufunterstützung (Impella, veno-arterielle ECMO) als Überbrückung zur Erholung, zum Kunstherz oder zur Herztransplantation',
+          ],
+        },
+        {
+          label: 'Kausale und immunmodulatorische Behandlung in ausgewählten Fällen',
+          items: [
+            'Eine spezifische Therapie gibt es nur bei gesicherter Ursache: Antibiotika bei Lyme-Karditis (Ceftriaxon intravenös), Diphtherie (Antitoxin plus Penicillin) und bakterieller Genese; Penicillin und Rezidivprophylaxe beim rheumatischen Fieber; Absetzen kardiotoxischer Substanzen (Checkpoint-Inhibitoren, Clozapin, Kokain)',
+            'Immunsuppression mit Glukokortikoiden, ggf. Azathioprin oder Ciclosporin, NUR bei bioptisch gesicherter Riesenzellmyokarditis, eosinophiler Myokarditis, kardialer Sarkoidose oder Autoimmunmyokarditis — und nur nach Ausschluss einer aktiven Virusinfektion in der Biopsie-PCR, da Steroide die Virusreplikation fördern',
+            'Keine routinemäßigen Virostatika, Immunglobuline oder Steroide bei der gewöhnlichen viralen Myokarditis — diese Frage wird im Examen gestellt; Immunadsorption und Interferon-beta bleiben Studienansätzen vorbehalten',
+            'Bei Checkpoint-Inhibitor-Myokarditis dagegen umgehend hochdosierte Steroide, weil der Verlauf sonst hochletal ist',
+          ],
+        },
+        {
+          label: 'Nachsorge, Sportfreigabe und Prognose',
+          items: [
+            'Sportverbot über mindestens drei bis sechs Monate — auch beim leichten Verlauf und auch beim Freizeitsportler; Alltagsbelastungen ohne Anstrengung sind erlaubt',
+            'Wiederaufnahme des Sports erst nach Normalisierung von Pumpfunktion, Troponin und NT-proBNP sowie Ausschluss relevanter Arrhythmien im Belastungs-EKG und Langzeit-EKG; bei Leistungssportlern kardiologische Freigabe mit Kontroll-MRT, da persistierendes Late Enhancement das Arrhythmierisiko erhöht',
+            'Verlaufskontrollen mit klinischer Untersuchung, EKG, Echokardiographie und ggf. MRT nach etwa drei, sechs und zwölf Monaten, weil ein Teil der Patienten eine dilatative Kardiomyopathie entwickelt',
+            'Fortführung der Herzinsuffizienztherapie bis zur Erholung der Pumpfunktion und darüber hinaus nach Leitlinie; Krankschreibung entsprechend der beruflichen Belastung',
+            'Aufklärung über die insgesamt gute Prognose des leichten Verlaufs, über Warnzeichen (Synkope, Herzrasen, zunehmende Luftnot, Ödeme), über Verzicht auf Alkohol und Drogen sowie über Impfungen gegen Influenza und COVID-19 nach Abklingen der Entzündung',
+          ],
+        },
+      ],
+      prognose: 'Der leichte Verlauf mit erhaltener Pumpfunktion heilt in der Mehrzahl der Fälle innerhalb von Wochen bis wenigen Monaten folgenlos aus. Etwa 20 bis 30 Prozent der Patienten mit eingeschränkter Pumpfunktion entwickeln jedoch eine dilatative Kardiomyopathie mit chronischer Herzinsuffizienz, und die Myokarditis ist für einen relevanten Anteil des plötzlichen Herztods bei unter 35-Jährigen verantwortlich. Prognostisch ungünstig sind eine Ejektionsfraktion unter 35 Prozent, ventrikuläre Tachykardien, höhergradiger AV-Block, ausgedehntes Late Enhancement im MRT, Riesenzellmyokarditis und Sarkoidose. Die fulminante Myokarditis hat eine hohe Akutsterblichkeit, bei Überleben der Akutphase unter mechanischer Kreislaufunterstützung aber eine erstaunlich gute Langzeiterholung. Sport in der Akutphase verschlechtert die Prognose messbar.',
+      pruefungsfallen: [
+        'Der Infekt wird nicht erfragt: Der Patient nennt den vier Wochen alten grippalen Infekt nicht von selbst, weil er ihn für abgeklungen hält — der Dreischritt Infekt, freies Intervall, kardiale Symptome unter Belastung muss aktiv herausgearbeitet werden.',
+        'Troponinerhöhung plus ST-Hebungen beim jungen Patienten reflexhaft als Infarkt einordnen: Die Verteilung der ST-Hebungen (diffus, konkav, ohne spiegelbildliche Senkungen) und das Fehlen von Risikofaktoren sprechen für die Perimyokarditis — dennoch darf die koronare Genese nur nach Risikoabwägung, im Zweifel per Koronarangiographie, ausgeschlossen werden.',
+        'Die Virusserologie als Beweis anbieten: Sie beweist die Myokarditis nicht und wird von Prüfern gern als Fangfrage gestellt — Schlüsseluntersuchung ist das Kardio-MRT, Goldstandard die Endomyokardbiopsie.',
+        'Die Endomyokardbiopsie als Routine nennen: Sie erfolgt nur bei schwerem oder progredientem Verlauf, bei Verdacht auf Riesenzellmyokarditis, eosinophile Myokarditis oder Sarkoidose — und nur, wenn sich eine therapeutische Konsequenz ergibt.',
+        'Steroide, Virostatika oder Immunglobuline als Standardtherapie vorschlagen: Bei der viralen Myokarditis gibt es keine kausale Therapie; Immunsuppression ausschließlich bei bioptisch gesicherter Riesenzell-, eosinophiler, Sarkoidose- oder Autoimmunmyokarditis nach Ausschluss von Virusgenom.',
+        'Das Sportverbot vergessen oder zu kurz ansetzen: mindestens drei bis sechs Monate, auch beim leichten Verlauf und beim Freizeitsportler — Sport ist die Hauptursache des plötzlichen Herztods bei jungen Sportlern mit Myokarditis. Das ist der wichtigste Therapiepunkt im Examen.',
+        'NSAR undifferenziert verschreiben: Bei reiner Myokarditis mit Pumpfunktionsstörung zurückhaltend, bei führender Perikarditis dagegen mit Colchicin Mittel der Wahl.',
+        'Einen ICD sofort empfehlen: Erst nach drei bis sechs Monaten Erholungsphase unter optimaler Therapie, weil sich die Pumpfunktion häufig normalisiert; dazwischen Defibrillatorweste.',
+        'Beim Fachbegriff-Teil: Myokarditis = Herzmuskelentzündung, Perikarditis = Herzbeutelentzündung, Endokarditis = Entzündung der Herzinnenhaut (Herzklappen) — wird in Freiburg, Karlsruhe und Stuttgart regelmäßig abgefragt.',
+        'Beim rheumatischen Fieber ist die Myokarditis (Pankarditis) die wichtigste Komplikation — diese Frage ist in Karlsruhe und Stuttgart mehrfach protokolliert; Diagnostik über Antistreptolysin-Titer, EKG (PQ-Verlängerung) und Echo.',
+        'Die Familienanamnese nach plötzlichem Herztod und Kardiomyopathien nicht erheben — sie grenzt hereditäre Kardiomyopathien ab und wird bei jungen Patienten mit Thoraxschmerz erwartet.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was ist eine Myokarditis, und wie erklären Sie das dem Patienten?',
+          antwort: 'Eine Entzündung des Herzmuskels, meist durch Viren — dem Patienten gegenüber: eine Herzmuskelentzündung. Zur Abgrenzung: Perikarditis ist die Herzbeutelentzündung, Endokarditis die Entzündung der Herzinnenhaut und der Herzklappen. Sind Herzmuskel und Herzbeutel gemeinsam betroffen, spricht man von einer Perimyokarditis.',
+        },
+        {
+          frage: 'Welche Erreger verursachen eine Myokarditis?',
+          antwort: 'Überwiegend Viren: Parvovirus B19, humanes Herpesvirus 6, Coxsackie-B- und Adenoviren, SARS-CoV-2 und Influenza. Seltener Bakterien wie Borrelien bei der Lyme-Karditis, Corynebacterium diphtheriae oder Streptokokken im Rahmen des rheumatischen Fiebers. Daneben nicht-infektiöse Ursachen: Autoimmunerkrankungen, Sarkoidose, Riesenzellmyokarditis, Alkohol, Kokain, Anthrazykline und Checkpoint-Inhibitoren.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie die Myokarditis vom Myokardinfarkt?',
+          antwort: 'Klinisch durch das Profil: junger Patient ohne Risikofaktoren, vorausgegangener Infekt, lage- und atemabhängiger Schmerz. Im EKG diffuse, konkave ST-Hebungen ohne Versorgungsgebiet und ohne spiegelbildliche Senkungen. Das Troponin verläuft plateauartig statt mit Anstieg und Abfall. Im MRT liegt das Late Enhancement subepikardial statt subendokardial. Sicher trennt nur die Koronarangiographie, die beim älteren Patienten oder bei Risikofaktoren obligat ist.',
+        },
+        {
+          frage: 'Welche Untersuchung ist die Schlüsseluntersuchung, und welche der Goldstandard?',
+          antwort: 'Schlüsseluntersuchung ist das Kardio-MRT mit Nachweis von Ödem und nicht-ischämischem Late Enhancement nach den Lake-Louise-Kriterien. Goldstandard ist die Endomyokardbiopsie mit Histologie nach den Dallas-Kriterien, Immunhistochemie und Virus-PCR — sie wird aber nur bei schwerem oder progredientem Verlauf und bei therapeutischer Konsequenz durchgeführt.',
+        },
+        {
+          frage: 'Brauchen Sie eine Virusserologie?',
+          antwort: 'Nein, in der Regel nicht. Die Serologie beweist die Myokarditis nicht und ändert die Therapie nicht. Gezielt sinnvoll sind nur die Borrelienserologie bei Zeckenanamnese oder AV-Block, ein HIV-Test und der Antistreptolysin-Titer bei Verdacht auf rheumatisches Fieber.',
+        },
+        {
+          frage: 'Wie behandeln Sie die Myokarditis?',
+          antwort: 'Es gibt keine kausale Therapie der viralen Myokarditis. Stationäre Aufnahme mit Monitoring, strikte Schonung und absolutes Sportverbot, Verzicht auf Alkohol und Kardiotoxine. Bei eingeschränkter Pumpfunktion leitliniengerechte Herzinsuffizienztherapie mit ACE-Hemmer, Betablocker, Mineralokortikoidrezeptorantagonist und SGLT2-Hemmer, Diuretika bei Stauung. Rhythmusstörungen werden behandelt, ein AV-Block passager mit Schrittmacher überbrückt. Beim fulminanten Verlauf Intensivtherapie mit Katecholaminen und ECMO.',
+        },
+        {
+          frage: 'Geben Sie Kortison?',
+          antwort: 'Nicht routinemäßig. Immunsuppression nur bei bioptisch gesicherter Riesenzellmyokarditis, eosinophiler Myokarditis, kardialer Sarkoidose oder Autoimmunmyokarditis — und nur nach Ausschluss einer aktiven Virusinfektion in der Biopsie, weil Steroide die Virusreplikation fördern. Ausnahme: die Checkpoint-Inhibitor-Myokarditis, bei der sofort hochdosierte Steroide gegeben werden.',
+        },
+        {
+          frage: 'Wie lange darf der Patient keinen Sport treiben, und warum?',
+          antwort: 'Mindestens drei bis sechs Monate, auch beim leichten Verlauf. Belastung fördert Virusreplikation und Entzündung und löst ventrikuläre Rhythmusstörungen aus — die Myokarditis ist eine der führenden Ursachen des plötzlichen Herztods bei jungen Sportlern. Die Freigabe erfolgt erst nach Normalisierung von Pumpfunktion, Biomarkern sowie unauffälligem Belastungs- und Langzeit-EKG, bei Leistungssportlern mit Kontroll-MRT.',
+        },
+        {
+          frage: 'Welche Komplikationen fürchten Sie?',
+          antwort: 'Maligne ventrikuläre Arrhythmien und den plötzlichen Herztod, höhergradige AV-Blockierungen, die akute Herzinsuffizienz bis zum kardiogenen Schock bei der fulminanten Form, Ventrikelthromben mit Embolien, den Perikarderguss mit Tamponade sowie langfristig den Übergang in eine dilatative Kardiomyopathie.',
+        },
+        {
+          frage: 'Die wichtigste Komplikation beim rheumatischen Fieber?',
+          antwort: 'Die Karditis — als Pankarditis mit Myokarditis, Endokarditis und Perikarditis. Die Endokarditis führt zu den bleibenden Klappenschäden, vor allem der Mitralstenose. Die Diagnostik umfasst EKG mit PQ-Verlängerung, Echokardiographie, CRP, BSG und Antistreptolysin-Titer; die Prophylaxe besteht aus Penicillin über Jahre.',
+        },
+        {
+          frage: 'Wie ist die Prognose?',
+          antwort: 'Beim leichten Verlauf mit erhaltener Pumpfunktion gut mit Ausheilung innerhalb von Wochen bis Monaten. Etwa 20 bis 30 Prozent der Patienten mit eingeschränkter Pumpfunktion entwickeln eine dilatative Kardiomyopathie. Ungünstig sind eine Ejektionsfraktion unter 35 Prozent, ventrikuläre Tachykardien, ausgedehntes Late Enhancement, die Riesenzellmyokarditis und Sport in der Akutphase.',
+        },
+        {
+          frage: 'Wann muss der Patient stationär aufgenommen werden?',
+          antwort: 'Bei erhöhtem Troponin, jeder Rhythmusstörung, eingeschränkter Pumpfunktion, Herzinsuffizienzzeichen, Synkope oder hämodynamischer Instabilität — praktisch bei jeder klinisch vermuteten akuten Myokarditis, mindestens für die ersten Tage mit Monitorüberwachung, weil maligne Arrhythmien in der Akutphase am häufigsten sind.',
+        },
+      ],
+      merksatz: 'Junger Patient, Infekt, freies Intervall, dann Brustschmerz und Herzstolpern unter Belastung = Myokarditis, bis das Gegenteil bewiesen ist. Troponin plateauartig, EKG diffus, MRT subepikardial (Lake Louise), Biopsie nur bei schwerem Verlauf. Keine kausale Therapie, keine Routine-Steroide — Monitoring, Herzinsuffizienztherapie und absolutes Sportverbot über drei bis sechs Monate.',
+      linkedCaseIds: [
+        'case-myokarditis',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-mrt',
+        'auf-koronarangiographie',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-nephrotisches-syndrom',
+      pathology: 'Nephrotisches Syndrom',
+      specialty: 'Nephrologie',
+      definition: 'Das nephrotische Syndrom ist kein eigenständiges Krankheitsbild, sondern ein Symptomkomplex, der durch eine gestörte Permeabilität der glomerulären Filtrationsbarriere entsteht und hinter dem immer eine glomeruläre Erkrankung steht. Es ist definiert durch die Trias aus großer Proteinurie über 3,5 g pro Tag (bezogen auf 1,73 m² Körperoberfläche), Hypalbuminämie unter 30 g/l und Ödemen; als vierte, fakultative Komponente kommt die Hyperlipidämie (Hypercholesterinämie mit Hypertriglyzeridämie) hinzu. Der renale Eiweißverlust betrifft nicht nur Albumin, sondern auch Antithrombin III, Immunglobuline, Transferrin, Vitamin-D-bindendes Protein und Thyroxin-bindendes Globulin — daraus erklären sich die typischen Komplikationen. Die Aufgabe des Klinikers besteht darin, die Trias zu erkennen, die zugrunde liegende Ursache zu suchen und die Komplikationen zu kennen.',
+      aetiologie: 'Primäre (idiopathische) Glomerulopathien: beim Kind in etwa 90 % die Minimal-Change-Glomerulopathie, die prompt auf Glukokortikoide anspricht; beim Erwachsenen die membranöse Glomerulonephritis (häufigste primäre Ursache, in etwa 70–80 % mit Anti-PLA2R-Antikörpern, in etwa 10–20 % sekundär, unter anderem paraneoplastisch), die fokal-segmentale Glomerulosklerose (FSGS) und die Minimal-Change-Erkrankung, seltener die membranoproliferative Glomerulonephritis. Sekundäre Formen, die systematisch abgeklärt werden: diabetische Nephropathie als häufigste Ursache eines nephrotischen Syndroms überhaupt, Amyloidose (AL bei Plasmozytom, AA bei chronischer Entzündung), Lupusnephritis, Infektionen (Hepatitis B und C, HIV, Syphilis, Malaria), Medikamente (NSAR, Gold, D-Penicillamin, Lithium, Interferon, Bisphosphonate), Plasmozytom und Leichtkettenerkrankung, Präeklampsie, Tumoren (Lungen-, Kolon-, Magenkarzinom, Lymphome) sowie hereditäre Formen (Alport-Syndrom, kongenitales nephrotisches Syndrom).',
+      risikofaktoren: [
+        'Diabetes mellitus mit langer Krankheitsdauer und schlechter Einstellung (diabetische Nephropathie)',
+        'Arterielle Hypertonie und Adipositas (sekundäre FSGS)',
+        'Chronische Einnahme von NSAR, Gold, D-Penicillamin oder Lithium',
+        'Chronische Infektionen: Hepatitis B, Hepatitis C, HIV',
+        'Systemerkrankungen: systemischer Lupus erythematodes, rheumatoide Arthritis, chronische Entzündungen (AA-Amyloidose)',
+        'Monoklonale Gammopathie und Plasmozytom (AL-Amyloidose, Leichtkettennephropathie)',
+        'Malignome, insbesondere solide Tumoren bei der membranösen Glomerulonephritis über 60 Jahren; Nikotinabusus',
+        'Kindesalter (Minimal-Change-Erkrankung, Häufigkeitsgipfel zwischen dem 2. und 6. Lebensjahr)',
+        'Schwangerschaft (Präeklampsie)',
+        'Positive Familienanamnese für Nierenerkrankungen (Alport-Syndrom, familiäre FSGS)',
+      ],
+      klinik: [
+        {
+          text: 'Ödeme, die morgens an den Augenlidern und im Gesicht beginnen (Lidödeme) und im Tagesverlauf in die Beine absinken — weiche, wegdrückbare, symmetrische Beinödeme',
+        },
+        {
+          text: 'Generalisierte Ödeme bis zur Anasarka mit Aszites, Pleuraerguss und Skrotal- bzw. Labienödem; Gewichtszunahme um mehrere Kilogramm über Tage bis Wochen',
+        },
+        {
+          text: 'Alltagszeichen, nach denen man fragen muss: Schuhe und Ringe passen nicht mehr, Hosenbund spannt, Bauchumfang nimmt zu',
+        },
+        {
+          text: 'Schäumender Urin als direkter Hinweis auf die Eiweißausscheidung — der Patient nennt es nicht von selbst, man muss danach fragen',
+        },
+        {
+          text: 'Urin typischerweise NICHT blutig und nicht cola-farben (Abgrenzung zum nephritischen Syndrom)',
+        },
+        {
+          text: 'Müdigkeit, Abgeschlagenheit, Appetitlosigkeit, Blässe, Muskelschwund bei anhaltendem Eiweißverlust',
+        },
+        {
+          text: 'Gelegentlich Blutdruckerhöhung; Blutdruck kann aber auch normal oder bei Hypovolämie erniedrigt sein',
+        },
+        {
+          text: 'Belastungsdyspnoe durch Pleuraergüsse und Gewichtszunahme, jedoch ohne Orthopnoe und ohne gestaute Halsvenen',
+        },
+        {
+          text: 'Xanthelasmen und Xanthome bei ausgeprägter, länger bestehender Hyperlipidämie',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als Komplikation: Nierenvenenthrombose mit Flankenschmerz und Hämaturie, Beinvenenthrombose, Lungenembolie',
+          atypisch: true,
+        },
+        {
+          text: 'Erstmanifestation als schwere Infektion — Pneumokokkenperitonitis beim Kind, Erysipel, Pneumonie, Sepsis',
+          atypisch: true,
+        },
+        {
+          text: 'Akutes Nierenversagen mit Oligurie bei Hypovolämie, insbesondere unter forcierter Diuretikatherapie',
+          atypisch: true,
+        },
+        {
+          text: 'Oligosymptomatischer Verlauf mit reiner Proteinurie und Hypalbuminämie ohne fassbare Ödeme (Zufallsbefund bei Urinstatus)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'Definition (Trias plus fakultative vierte Komponente)',
+          inhalt: '1. Große Proteinurie > 3,5 g/24 h bzw. pro 1,73 m² Körperoberfläche (Protein-Kreatinin-Quotient im Spontanurin > 3,5 g/g); 2. Hypalbuminämie < 30 g/l (mit Hypoproteinämie); 3. Ödeme; 4. fakultativ Hyperlipidämie (Gesamtcholesterin oft > 300 mg/dl, Triglyzeride erhöht). Beim Kind gilt eine Proteinurie > 40 mg/m²/h bzw. > 1 g/m²/24 h.',
+        },
+        {
+          name: 'Nephrotisches versus nephritisches Syndrom',
+          inhalt: 'Nephrotisch: große Proteinurie > 3,5 g/d, Hypalbuminämie, ausgeprägte Ödeme, Hyperlipidämie, keine oder nur geringe Hämaturie, Nierenfunktion anfangs meist erhalten, Blutdruck normal bis leicht erhöht (Störung der Podozyten bzw. der Filtrationsbarriere). Nephritisch: Hämaturie mit dysmorphen Erythrozyten und Erythrozytenzylindern, Proteinurie meist < 3,5 g/d, arterielle Hypertonie, Oligurie, rasche Verschlechterung der Nierenfunktion mit Kreatininanstieg, mäßige Ödeme (entzündliche Glomerulonephritis, z. B. postinfektiös, IgA-Nephropathie, RPGN). Mischbilder kommen vor (membranoproliferative GN, Lupusnephritis).',
+        },
+        {
+          name: 'Einteilung der Ursachen nach Alter und Genese',
+          inhalt: 'Kind: Minimal-Change-Glomerulopathie in etwa 90 %, selten FSGS oder kongenitale Formen. Erwachsener, primär: membranöse Glomerulonephritis (häufigste primäre Form, Anti-PLA2R-Antikörper), fokal-segmentale Glomerulosklerose, Minimal-Change-Erkrankung, membranoproliferative GN. Erwachsener, sekundär (systematisch abzuklären): diabetische Nephropathie (häufigste Ursache überhaupt), Amyloidose, Lupusnephritis, Hepatitis B und C, HIV, Medikamente (NSAR, Gold, Penicillamin, Lithium), Plasmozytom, Malignome (paraneoplastische membranöse GN), Präeklampsie.',
+        },
+        {
+          name: 'Risikostratifizierung der membranösen Glomerulonephritis (KDIGO 2021, vereinfacht)',
+          inhalt: 'Niedriges Risiko: eGFR normal, Proteinurie < 3,5 g/d oder Rückgang um > 50 % unter RAAS-Blockade, Albumin > 30 g/l — abwartend behandeln, da Spontanremissionen in etwa einem Drittel vorkommen. Mittleres Risiko: eGFR normal, Proteinurie > 3,5 g/d ohne Rückgang nach 6 Monaten konservativer Therapie. Hohes Risiko: eGFR < 60 ml/min und/oder Proteinurie > 8 g/d über mehr als 6 Monate, sehr hohe Anti-PLA2R-Titer, Albumin < 25 g/l — Immunsuppression (Rituximab, Cyclophosphamid plus Glukokortikoide, Calcineurininhibitoren). Sehr hohes Risiko: rasch fallende eGFR oder lebensbedrohliche Komplikationen.',
+        },
+      ],
+      redFlags: [
+        'Akuter Flankenschmerz mit Hämaturie und Kreatininanstieg → Nierenvenenthrombose (Doppler-Sonographie, CT- oder MR-Angiographie, therapeutische Antikoagulation)',
+        'Einseitige Beinschwellung mit Wadenschmerz, akute Dyspnoe, Thoraxschmerz, Tachykardie → tiefe Beinvenenthrombose bzw. Lungenembolie',
+        'Fieber, Schüttelfrost, Bauchschmerzen mit Abwehrspannung bei Aszites → bakterielle Peritonitis (Pneumokokken), Sepsis bei Immunglobulinmangel',
+        'Oligurie, rascher Kreatininanstieg, Hypotonie, Schwindel unter Diuretika → prärenales akutes Nierenversagen durch Hypovolämie',
+        'Zunehmende Ruhedyspnoe, Orthopnoe → ausgeprägter Pleuraerguss oder Lungenödem',
+        'Albumin unter 20 g/l → hohes Thromboserisiko, Indikation zur prophylaktischen Antikoagulation prüfen',
+        'Makrohämaturie, Erythrozytenzylinder und Hypertonie mit rascher GFR-Verschlechterung → nephritische Komponente, rasch progrediente Glomerulonephritis (Notfall-Biopsie)',
+        'B-Symptomatik, Gewichtsverlust trotz Ödemen, Nikotinabusus, Alter über 60 Jahre bei membranöser GN → paraneoplastische Genese, Tumorsuche',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese: Beginn und Tagesverteilung der Ödeme (Augenlider morgens, Beine abends), schäumender Urin, Urinmenge, Gewichtsverlauf, Infekte in den letzten Wochen, Diabetes mellitus, Medikamente — besonders NSAR, Gold, Penicillamin, Lithium —, Systemerkrankungen (Gelenkschmerzen, Hautausschlag, Lichtempfindlichkeit), Hepatitis- und HIV-Risiko, Tumoranamnese und B-Symptomatik, Nikotin, Familienanamnese für Nierenerkrankungen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Gewicht (Vergleich mit dem Ausgangsgewicht), Blutdruck und Puls, Verteilung und Wegdrückbarkeit der Ödeme (periorbital, prätibial, sakral, Skrotum), Aszites (Flankendämpfung, Undulation), Pleuraerguss (abgeschwächtes Atemgeräusch, Klopfschalldämpfung), Halsvenen und Lebergröße zur Abgrenzung kardialer und hepatischer Ödeme, Haut (Xanthelasmen, Purpura, Schmetterlingserythem), Lymphknoten, Gelenke, Waden (Thrombosezeichen)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Urinstatus mit Teststreifen: starke Proteinurie (3+ bis 4+), keine oder nur geringe Hämaturie; Urinsediment: Fettzylinder, Lipidtropfen und ovale Fettkörperchen (im Polarisationslicht „Malteserkreuze“), hyaline Zylinder — keine Erythrozytenzylinder',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Quantifizierung der Proteinurie: Protein- bzw. Albumin-Kreatinin-Quotient im Spontanurin (nephrotisch ab > 3,5 g/g bzw. Albumin-Kreatinin-Quotient > 2 200 mg/g) oder 24-Stunden-Sammelurin (> 3,5 g/24 h); Urin-Eiweißelektrophorese (selektive vs. unselektive glomeruläre Proteinurie, Bence-Jones-Proteine)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blut — Basisdiagnostik: Albumin (< 30 g/l) und Gesamteiweiß, Kreatinin, Harnstoff und eGFR, Elektrolyte (Natrium, Kalium, Kalzium), Lipidprofil (Gesamt- und LDL-Cholesterin, Triglyzeride), Blutbild, CRP, Gerinnung mit Antithrombin III, Fibrinogen und D-Dimeren, Nüchternblutzucker und HbA1c, TSH, 25-OH-Vitamin D, Ferritin und Transferrin',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blut — Ursachensuche (Immunologie und Serologie): Serumelektrophorese und Immunfixation in Serum und Urin, freie Leichtketten, Komplement C3 und C4, ANA und Anti-dsDNA, ANCA, Anti-PLA2R-Antikörper (membranöse GN), Rheumafaktor, Kryoglobuline, Hepatitis-B- und Hepatitis-C-Serologie, HIV-Test, ggf. Lues-Serologie',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Sonographie der Nieren und ableitenden Harnwege: Nierengröße (bei akuter Glomerulopathie normal bis vergrößert, bei chronischer Schädigung klein mit schmalem Parenchym), Parenchymecho, Harnstau; Farbdoppler der Nierenvenen bei Verdacht auf Nierenvenenthrombose; Sonographie des Abdomens (Aszites, Leber) und der Pleura (Ergüsse)',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax (Pleuraergüsse, Herzgröße, Stauungszeichen, Rundherd) und Echokardiographie (Pumpfunktion, Perikarderguss) zur Abgrenzung kardialer Ödeme; Kompressionssonographie der Beinvenen bei asymmetrischer Schwellung; EKG',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Altersgerechtes Tumorscreening bei membranöser Glomerulonephritis, insbesondere bei Patienten über 60 Jahren, Rauchern oder negativem Anti-PLA2R: Röntgen-Thorax bzw. CT-Thorax, Koloskopie, Gastroskopie, Prostata-spezifisches Antigen, Mammographie und gynäkologische Untersuchung, Sonographie des Abdomens',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Nierenbiopsie (sonographisch gesteuerte Stanzbiopsie) als entscheidende Untersuchung beim Erwachsenen: Lichtmikroskopie, Immunfluoreszenz (IgG, C3, Leichtketten) und Elektronenmikroskopie sichern die histologische Diagnose und steuern die Therapie. Voraussetzungen: eingestellter Blutdruck, normale Gerinnung, Absetzen von Thrombozytenaggregationshemmern, beide Nieren vorhanden; Komplikationen: Blutung, Makrohämaturie, arteriovenöse Fistel',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Beim Kind dagegen zunächst ein Glukokortikoid-Behandlungsversuch (Minimal-Change-Erkrankung ist die Regel); Biopsie nur bei Nichtansprechen nach 4–6 Wochen, atypischem Alter (< 1 Jahr, > 12 Jahre), Hämaturie, Hypertonie, Niereninsuffizienz oder erniedrigtem Komplement',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Bei Verdacht auf Amyloidose: Biopsie des subkutanen Bauchfetts oder der Rektumschleimhaut mit Kongorotfärbung (apfelgrüne Doppelbrechung); bei Verdacht auf Plasmozytom Knochenmarkpunktion; Pleura- oder Aszitespunktion bei unklarem Erguss (Transsudat mit niedrigem Eiweiß)',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Herzinsuffizienz (Rechtsherz- oder Globalinsuffizienz)',
+          unterscheidung: 'Orthopnoe, nächtliche Dyspnoe, gestaute Halsvenen, hepatojugulärer Reflux, Stauungsleber, dritter Herzton, erhöhtes NT-proBNP, eingeschränkte Pumpfunktion oder Rechtsherzbelastung in der Echokardiographie, Stauungszeichen im Röntgen-Thorax; Albumin normal und KEINE große Proteinurie (allenfalls geringe Stauungsproteinurie < 1 g/d).',
+        },
+        {
+          dd: 'Leberzirrhose mit Aszites',
+          unterscheidung: 'Hypalbuminämie durch Syntheseverlust, nicht durch renalen Verlust — daher keine große Proteinurie; Leberhautzeichen (Spider naevi, Palmarerythem, Ikterus), Alkohol- oder Hepatitisanamnese, erhöhte Transaminasen und Bilirubin, verminderter Quick-Wert, Thrombozytopenie, Splenomegalie und Umgehungskreisläufe; Aszites steht im Vordergrund, Lidödeme fehlen.',
+        },
+        {
+          dd: 'Eiweißverlust über den Darm (exsudative Enteropathie) oder Mangelernährung (Kwashiorkor, Malabsorption)',
+          unterscheidung: 'Chronische Durchfälle, Gewichtsverlust, Fettstühle, Malabsorptionszeichen, erhöhtes Alpha-1-Antitrypsin im Stuhl; Hypalbuminämie ohne Proteinurie im Urin — der Urinstatus trennt die Ursachen sofort.',
+        },
+        {
+          dd: 'Medikamentöse Ödeme (Kalziumantagonisten, NSAR, Glitazone, Glukokortikoide, Östrogene, Pregabalin)',
+          unterscheidung: 'Zeitlicher Zusammenhang mit dem Medikamentenbeginn, meist prätibiale und Knöchelödeme ohne Lidödeme, keine Proteinurie, normales Albumin; Rückbildung nach Absetzen. Cave: NSAR können ihrerseits ein nephrotisches Syndrom auslösen (Minimal-Change, membranöse GN, interstitielle Nephritis) — dann ist die Proteinurie der Unterschied.',
+        },
+        {
+          dd: 'Hypothyreose mit Myxödem',
+          unterscheidung: 'Teigige, NICHT wegdrückbare Ödeme (Glykosaminoglykane), Kälteintoleranz, Bradykardie, Obstipation, trockene Haut, raue Stimme, erhöhtes TSH; Cave: beim nephrotischen Syndrom ist das TSH durch Verlust des Thyroxin-bindenden Globulins ebenfalls leicht erhöht — freies T4 mitbestimmen.',
+        },
+        {
+          dd: 'Chronisch-venöse Insuffizienz und Lymphödem (lokale Ursachen)',
+          unterscheidung: 'Meist einseitig oder asymmetrisch, Varikosis, Hyperpigmentierung, Stauungsdermatitis, Ulcus cruris; Lymphödem mit positivem Stemmer-Zeichen und Zehenbeteiligung, nicht wegdrückbar; keine Lidödeme, keine Proteinurie, keine Gewichtszunahme von mehreren Kilogramm.',
+        },
+        {
+          dd: 'Nephritisches Syndrom und rasch progrediente Glomerulonephritis',
+          unterscheidung: 'Hämaturie mit dysmorphen Erythrozyten und Erythrozytenzylindern, Proteinurie meist < 3,5 g/d, arterielle Hypertonie, Oligurie, rasch steigendes Kreatinin; häufig nach Infekt (postinfektiöse GN, IgA-Nephropathie); bei RPGN ANCA, Anti-GBM-Antikörper und Halbmonde in der Biopsie.',
+        },
+        {
+          dd: 'Diabetische Nephropathie',
+          unterscheidung: 'Häufigste Ursache des nephrotischen Syndroms überhaupt; langjähriger Diabetes mit Retinopathie und Neuropathie, langsame Progression von der Mikroalbuminurie zur Makroproteinurie, meist ohne Hämaturie; bei typischer Konstellation kann auf die Biopsie verzichtet werden, bei atypischem Verlauf (keine Retinopathie, rascher Beginn, Hämaturie) Biopsie.',
+        },
+        {
+          dd: 'Amyloidose und Plasmozytom (Leichtkettennephropathie)',
+          unterscheidung: 'Alter über 50 Jahre, Knochenschmerzen, Anämie, Hyperkalzämie, monoklonale Gammopathie in Elektrophorese und Immunfixation, freie Leichtketten, Bence-Jones-Proteinurie (im Teststreifen nicht erfasst!); Amyloidose zusätzlich mit Makroglossie, Kardiomyopathie, Polyneuropathie; Nachweis durch Kongorotfärbung.',
+        },
+        {
+          dd: 'Präeklampsie',
+          unterscheidung: 'Nur in der Schwangerschaft nach der 20. Woche: neu aufgetretene Hypertonie über 140/90 mmHg plus Proteinurie oder Organbeteiligung, Kopfschmerzen, Sehstörungen, erhöhte Transaminasen, Thrombozytopenie (HELLP); Schwangerschaftstest bei jeder Frau im gebärfähigen Alter.',
+        },
+        {
+          dd: 'Nierenvenenthrombose',
+          unterscheidung: 'Kann Komplikation UND Ursache einer nephrotischen Proteinurie sein: akuter Flankenschmerz, Makrohämaturie, Kreatininanstieg, vergrößerte Niere; Diagnose mit Farbdoppler, CT- oder MR-Angiographie; besonders bei membranöser GN und Albumin unter 20 g/l.',
+        },
+        {
+          dd: 'Angioödem und allergische Lidschwellung',
+          unterscheidung: 'Akut innerhalb von Stunden, asymmetrisch, oft mit Urtikaria, Juckreiz oder Lippen-/Zungenschwellung, Auslöser (ACE-Hemmer, Nahrungsmittel), keine Gewichtszunahme, keine Beinödeme, keine Proteinurie; Rückbildung innerhalb von 1–3 Tagen.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Symptomatische Therapie der Ödeme und der Proteinurie',
+          items: [
+            'Schleifendiuretika als Basis der Ödemtherapie, z. B. Furosemid 40–80 mg oder Torasemid 10–20 mg täglich oral — in höherer Dosis als üblich, weil das Diuretikum im Blut an Albumin gebunden zur Niere transportiert wird und die Resorption bei Darmwandödemen eingeschränkt ist; bei ausgeprägten Ödemen initial intravenös',
+            'Bei unzureichendem Ansprechen sequenzielle Nephronblockade durch Kombination mit einem Thiazid (Hydrochlorothiazid 25 mg) oder mit Spironolacton bei Hypokaliämie; Kaliumkontrolle',
+            'LANGSAME Ausschwemmung von etwa 0,5 bis 1 kg pro Tag mit täglichem Wiegen — eine zu rasche Entwässerung provoziert durch Hypovolämie ein prärenales Nierenversagen und Thrombosen; Albumininfusionen nur ausnahmsweise bei therapierefraktären Ödemen mit Hypovolämie oder Anasarka',
+            'Kochsalzrestriktion auf unter 5–6 g pro Tag und maßvolle Flüssigkeitsbegrenzung auf etwa 1,5 l täglich; bei Hyponatriämie strengere Begrenzung',
+            'ACE-Hemmer (z. B. Ramipril 2,5 mg einschleichend bis 5–10 mg) oder Sartan (z. B. Candesartan, Losartan) unabhängig von der Ursache zur Senkung der Proteinurie um 30–50 % und des Blutdrucks — Zielblutdruck unter 130/80 mmHg; Kontrolle von Kreatinin und Kalium nach ein bis zwei Wochen; keine Kombination von ACE-Hemmer und Sartan',
+            'Ausdrücklich KEINE eiweißreiche Ernährung, die die glomeruläre Hyperfiltration und damit die Proteinurie nur steigert, sondern eine normale Eiweißzufuhr von etwa 0,8 bis 1 g pro kg Körpergewicht und Tag mit ausreichender Kalorienzufuhr; Bettruhe vermeiden, Beine hochlagern, Kompressionsstrümpfe nach Ausschluss einer pAVK',
+            'Ergänzend SGLT2-Inhibitoren (Dapagliflozin, Empagliflozin) bei chronischer proteinurischer Nierenerkrankung zur Progressionshemmung, sofern keine Kontraindikation',
+          ],
+        },
+        {
+          label: 'Behandlung und Vorbeugung der Komplikationen',
+          items: [
+            'Thromboembolie: prophylaktische Antikoagulation mit niedermolekularem Heparin (z. B. Enoxaparin 40 mg s. c. täglich) oder Vitamin-K-Antagonist bei Albumin unter etwa 20–25 g/l und zusätzlichen Risikofaktoren (membranöse GN, Proteinurie > 10 g/d, Immobilisation, Adipositas, frühere Thrombose, Antithrombin III < 70 %); therapeutische Antikoagulation für mindestens 6–12 Monate bei nachgewiesener Nierenvenen-, Beinvenenthrombose oder Lungenembolie; Cave: Heparinwirkung bei Antithrombin-III-Mangel abgeschwächt',
+            'Infektionen: Impfung gegen Pneumokokken, Influenza, SARS-CoV-2 und Herpes zoster (Totimpfstoffe; Lebendimpfstoffe nicht unter Immunsuppression), niedrige Schwelle für die Abklärung und frühzeitige antibiotische Behandlung von Infekten (Pneumokokkenperitonitis beim Kind, Erysipel, Pneumonie); Immunglobulinsubstitution nur bei schwerem IgG-Mangel mit rezidivierenden Infekten',
+            'Hyperlipidämie: Statin (z. B. Atorvastatin 20–40 mg) zur Senkung des kardiovaskulären Risikos, solange das nephrotische Syndrom persistiert; Kontrolle der Transaminasen und der CK',
+            'Akutes Nierenversagen vermeiden: langsame Diurese, keine nephrotoxischen Substanzen (NSAR absetzen, Kontrastmittel nur bei strenger Indikation), Anpassung der Diuretika bei Erbrechen, Durchfall oder Fieber, Kontrolle von Kreatinin, Harnstoff und Elektrolyten',
+            'Substitution der verlorenen Bindungsproteine: Vitamin D (Cholecalciferol) bei nachgewiesenem Mangel, ggf. Kalzium; Schilddrüsenfunktion (TSH und freies T4) kontrollieren und Levothyroxin nur bei manifester Hypothyreose; Eisensubstitution bei Transferrinverlust mit Eisenmangelanämie',
+            'Blutdruck- und Kaliumkontrolle unter Diuretika und RAAS-Blockade; Ödem- und Gewichtsprotokoll; Bilanzierung stationär bei Anasarka',
+          ],
+        },
+        {
+          label: 'Kausale Therapie nach histologischer Diagnose',
+          items: [
+            'Minimal-Change-Glomerulopathie: Glukokortikoide (Prednisolon 1 mg/kg Körpergewicht täglich, maximal 80 mg, über 4–8 Wochen bis zur Remission, danach über Monate ausschleichend) mit meist promptem Ansprechen innerhalb von 2–4 Wochen; beim Kind ohne vorherige Biopsie. Bei häufigen Rezidiven oder Steroidabhängigkeit Calcineurininhibitoren (Ciclosporin, Tacrolimus), Cyclophosphamid, Mycophenolat oder Rituximab; bei Steroidresistenz Biopsie (Verdacht auf FSGS)',
+            'Membranöse Glomerulonephritis: bei niedrigem Risiko abwartendes Vorgehen über etwa 6 Monate mit RAAS-Blockade und symptomatischer Therapie, weil in etwa einem Drittel Spontanremissionen vorkommen; bei mittlerem bis hohem Risiko (persistierende Proteinurie > 3,5–8 g/d, fallende eGFR, hohe Anti-PLA2R-Titer, Albumin < 25 g/l) Immunsuppression mit Rituximab (Erstlinie), alternativ Cyclophosphamid alternierend mit Glukokortikoiden über 6 Monate (modifiziertes Ponticelli-Schema) oder Calcineurininhibitoren; Verlaufskontrolle über den Anti-PLA2R-Titer',
+            'Fokal-segmentale Glomerulosklerose (primär): Glukokortikoide über 12–16 Wochen, bei Steroidresistenz oder -abhängigkeit Calcineurininhibitoren (Ciclosporin, Tacrolimus), ggf. Rituximab; bei sekundärer FSGS (Adipositas, Hypertonie, Refluxnephropathie) keine Immunsuppression, sondern Behandlung der Ursache und RAAS-Blockade',
+            'Sekundäre Formen — Behandlung der Grunderkrankung: optimale Diabeteseinstellung mit SGLT2-Inhibitor und RAAS-Blockade bei diabetischer Nephropathie; Absetzen des auslösenden Medikaments (NSAR, Gold, Penicillamin, Lithium); antivirale Therapie bei Hepatitis B (Entecavir, Tenofovir), Hepatitis C (direkt antivirale Substanzen) und HIV; Lupusnephritis mit Glukokortikoiden plus Mycophenolat oder Cyclophosphamid, ggf. Belimumab oder Voclosporin; Amyloidose und Plasmozytom mit hämatologischer Therapie (Bortezomib-basiert, Daratumumab); paraneoplastische membranöse GN mit Tumortherapie',
+            'Unter Immunsuppression: Magenschutz, Osteoporoseprophylaxe (Vitamin D, Kalzium), Pneumocystis-Prophylaxe bei Cyclophosphamid, Hepatitis-B-Screening vor Rituximab, Blutzuckerkontrolle unter Glukokortikoiden',
+          ],
+        },
+        {
+          label: 'Verlaufskontrolle, Aufklärung und Langzeitbetreuung',
+          items: [
+            'Regelmäßige Kontrolle von Gewicht, Blutdruck, Proteinurie (Protein-Kreatinin-Quotient), Albumin, Kreatinin und eGFR, Elektrolyten und Lipiden — initial wöchentlich, dann alle 1–3 Monate; Remission definiert als Proteinurie < 0,3 g/d (komplett) bzw. < 3,5 g/d mit Rückgang um > 50 % (partiell)',
+            'Nephrologische Anbindung mit Verlaufsbiopsie nur bei unklarem Verlauf; bei Progression in eine chronische Niereninsuffizienz rechtzeitige Vorbereitung auf ein Nierenersatzverfahren',
+            'Aufklärung über die Prognose je nach Ursache: die Minimal-Change-Erkrankung heilt in über 90 % aus, neigt aber zu Rezidiven; membranöse GN und FSGS können in etwa einem Drittel der Fälle innerhalb von 10 Jahren in eine terminale Niereninsuffizienz münden; sekundäre Formen folgen der Grunderkrankung',
+            'Vermeidung nephrotoxischer Substanzen: keine NSAR (Paracetamol oder Metamizol als Alternative), Kontrastmittel nur bei strenger Indikation, Dosisanpassung renal eliminierter Medikamente',
+            'Aufklärung über Warnzeichen für Thrombose (einseitige Beinschwellung, Wadenschmerz, Flankenschmerz, Luftnot, Thoraxschmerz) und Infektion (Fieber, Schüttelfrost, Bauchschmerzen) — sofortige Vorstellung',
+            'Selbstwiegen täglich mit Ödemprotokoll, Blutdruck-Selbstmessung, Umgang mit Diuretika und RAAS-Blockern bei Erbrechen, Durchfall und Fieber (Pausieren nach Rücksprache, \'Sick-Day-Regeln\'), Nikotinkarenz, Bewegung, Impfstatus aktuell halten',
+          ],
+        },
+      ],
+      prognose: 'Die Prognose hängt von der zugrunde liegenden Ursache ab. Die Minimal-Change-Glomerulopathie spricht in über 90 % der Fälle prompt auf Glukokortikoide an und heilt meist aus, neigt aber besonders im Kindesalter zu Rezidiven. Bei der membranösen Glomerulonephritis gilt die Drittelregel: etwa ein Drittel erreicht eine Spontanremission, ein Drittel behält eine persistierende Proteinurie bei stabiler Nierenfunktion, und ein Drittel entwickelt innerhalb von etwa 10 Jahren eine fortschreitende Niereninsuffizienz — ungünstig sind Proteinurie über 8 g/d, eingeschränkte eGFR bei Diagnose, männliches Geschlecht und hohes Alter. Die primäre FSGS hat die schlechteste Prognose der primären Formen mit häufiger Steroidresistenz und Progression in die terminale Niereninsuffizienz sowie Rezidiven im Transplantat. Bei sekundären Formen bestimmt die Grunderkrankung den Verlauf. Die Höhe der Proteinurie ist der wichtigste Prädiktor für den Nierenfunktionsverlust; thromboembolische Komplikationen (bis zu 25 % bei membranöser GN), Infektionen und das kardiovaskuläre Risiko bestimmen die Morbidität.',
+      pruefungsfallen: [
+        'Die Definition mit ZAHLEN parat haben: Proteinurie über 3,5 g pro Tag bzw. pro 1,73 m², Albumin unter 30 g/l, Ödeme — und die Hyperlipidämie als vierte, fakultative Komponente. Die Trias wird fast immer abgefragt.',
+        'Nephrotisch versus nephritisch gegenüberstellen können: beim nephrotischen Syndrom ist der Urin NICHT blutig; Hämaturie, Erythrozytenzylinder, Hypertonie und Kreatininanstieg sprechen für das nephritische Syndrom.',
+        'Den schäumenden Urin AKTIV erfragen — der Patient nennt ihn nicht von selbst; ebenso Ringe, Schuhe, Hosenbund und den Gewichtsverlauf.',
+        'Die Ödeme beginnen morgens an den AUGENLIDERN und sinken tagsüber in die Beine — das trennt renale von kardialen Ödemen, die abends an den Knöcheln beginnen und mit Orthopnoe einhergehen.',
+        'Die Ursachen nach ALTER ordnen: Kind = Minimal-Change (Kortisonversuch ohne Biopsie), Erwachsener = membranöse GN, FSGS, Minimal-Change — und die diabetische Nephropathie als häufigste Ursache überhaupt.',
+        'Die Komplikationen SPONTAN nennen, ohne dass der Prüfer nachfragt: Thromboembolie (Antithrombin-III-Verlust, Nierenvenenthrombose!), Infektanfälligkeit (Immunglobulinverlust), Hyperlipidämie, akutes Nierenversagen, Eiweißmangel, Vitamin-D-Mangel und Hypothyreose durch Verlust der Bindungsproteine.',
+        'KEINE eiweißreiche Ernährung empfehlen — sie steigert die Proteinurie. Normale Eiweißzufuhr von 0,8–1 g/kg/Tag. Dieser kontraintuitive Punkt wird gezielt geprüft.',
+        'Die Entwässerung LANGSAM: etwa 0,5–1 kg pro Tag. Eine zu rasche Diurese verursacht ein prärenales Nierenversagen und begünstigt Thrombosen.',
+        'Schleifendiuretika werden HÖHER dosiert als sonst — wegen der Albuminbindung des Diuretikums und der Darmwandödeme; ggf. intravenös und in Kombination mit einem Thiazid.',
+        'ACE-Hemmer oder Sartan gehören zur Therapie JEDES nephrotischen Syndroms, unabhängig von der Ursache und auch bei normalem Blutdruck — sie senken die Proteinurie um 30–50 %.',
+        'Beim Erwachsenen ist die NIERENBIOPSIE die entscheidende Untersuchung vor einer Immunsuppression; beim Kind zuerst der Kortisonversuch. Die Reihenfolge nicht verwechseln.',
+        'Bei membranöser Glomerulonephritis an das TUMORSCREENING und die Anti-PLA2R-Antikörper denken; bei Rauchern über 60 Jahren ist die paraneoplastische Form eine Prüferfrage.',
+        'NSAR sind nicht nur nephrotoxisch, sondern können selbst ein nephrotisches Syndrom auslösen — die Schmerzmittelanamnese gehört zur Ursachensuche, und NSAR werden abgesetzt.',
+        'Bence-Jones-Proteine werden vom Urinteststreifen NICHT erfasst — bei älteren Patienten mit Proteinurie immer Serumelektrophorese, Immunfixation und freie Leichtketten anfordern.',
+        'Das erhöhte TSH beim nephrotischen Syndrom nicht vorschnell als Hypothyreose behandeln — freies T4 mitbestimmen (Verlust des Thyroxin-bindenden Globulins).',
+        'Vor dem Patienten Fachbegriffe übersetzen: Proteinurie = Eiweiß im Urin, Hypalbuminämie = zu wenig Eiweiß im Blut, Ödem = Wassereinlagerung im Gewebe, Nierenbiopsie = Gewebeentnahme aus der Niere mit einer feinen Nadel.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie ist das nephrotische Syndrom definiert?',
+          antwort: 'Durch die Trias aus großer Proteinurie über 3,5 g pro Tag beziehungsweise pro 1,73 m² Körperoberfläche, Hypalbuminämie unter 30 g/l und Ödemen; als vierte, fakultative Komponente kommt die Hyperlipidämie hinzu. Es ist kein eigenständiges Krankheitsbild, sondern ein Syndrom, hinter dem eine glomeruläre Erkrankung steht.',
+        },
+        {
+          frage: 'Worin unterscheidet sich das nephrotische vom nephritischen Syndrom?',
+          antwort: 'Beim nephrotischen Syndrom stehen die große Proteinurie, die Hypalbuminämie und die Ödeme im Vordergrund, der Urin ist nicht blutig und die Nierenfunktion ist anfangs meist erhalten. Beim nephritischen Syndrom finden sich Hämaturie mit dysmorphen Erythrozyten und Erythrozytenzylindern, eine geringere Proteinurie unter 3,5 g pro Tag, arterielle Hypertonie, Oligurie und ein rascher Anstieg des Kreatinins.',
+        },
+        {
+          frage: 'Warum hat der Patient Beinödeme? Wie grenzen Sie renale von kardialen und hepatischen Ödemen ab?',
+          antwort: 'Renale Ödeme entstehen durch den Albuminverlust mit Abfall des onkotischen Drucks und durch eine renale Natriumretention; sie beginnen morgens an den Augenlidern, sind symmetrisch und weich und gehen mit schäumendem Urin und großer Proteinurie einher. Kardiale Ödeme beginnen abends an den Knöcheln und sind von Orthopnoe, gestauten Halsvenen, Stauungsleber und erhöhtem NT-proBNP begleitet; hepatische Ödeme zeigen sich vor allem als Aszites mit Leberhautzeichen, erhöhten Leberwerten und Gerinnungsstörung — beide ohne große Proteinurie.',
+        },
+        {
+          frage: 'Was erwarten Sie im Labor und im Urin?',
+          antwort: 'Im Urin eine starke Proteinurie im Teststreifen, im Sediment Fettzylinder und ovale Fettkörperchen, keine oder nur geringe Hämaturie; quantifiziert über den Protein-Kreatinin-Quotienten oder den 24-Stunden-Sammelurin mit über 3,5 g. Im Blut Hypalbuminämie unter 30 g/l, Hypoproteinämie, Hyperlipidämie mit erhöhtem Cholesterin und Triglyzeriden, erniedrigtes Antithrombin III, erhöhte D-Dimere, ggf. erniedrigtes IgG, erhöhtes TSH und erniedrigtes Vitamin D; Kreatinin und eGFR anfangs meist normal.',
+        },
+        {
+          frage: 'Welche Ursachen kommen beim Erwachsenen in Frage, und welche beim Kind?',
+          antwort: 'Beim Kind fast immer die Minimal-Change-Glomerulopathie. Beim Erwachsenen die membranöse Glomerulonephritis als häufigste primäre Form, die fokal-segmentale Glomerulosklerose und die Minimal-Change-Erkrankung; dazu die große Gruppe der sekundären Formen: diabetische Nephropathie als häufigste Ursache überhaupt, Amyloidose, Lupusnephritis, Hepatitis B und C, HIV, Medikamente wie NSAR, Gold, Penicillamin und Lithium, Plasmozytom, Tumoren und in der Schwangerschaft die Präeklampsie.',
+        },
+        {
+          frage: 'Wie sichern Sie die Diagnose beziehungsweise die Ursache?',
+          antwort: 'Beim Erwachsenen durch die sonographisch gesteuerte Nierenbiopsie mit Lichtmikroskopie, Immunfluoreszenz und Elektronenmikroskopie — sie ist entscheidend für die Diagnose und steuert die Therapie. Vorher werden die sekundären Ursachen mit Blutzucker und HbA1c, Serumelektrophorese und Immunfixation, ANA, Anti-dsDNA, ANCA, Komplement, Anti-PLA2R-Antikörpern sowie Hepatitis-B-, Hepatitis-C- und HIV-Serologie abgeklärt. Beim Kind beginnt man dagegen mit einem Kortisonversuch und biopsiert nur bei Nichtansprechen.',
+        },
+        {
+          frage: 'Welche Komplikationen müssen Sie kennen?',
+          antwort: 'Thromboembolien durch den renalen Verlust von Antithrombin III — insbesondere die Nierenvenenthrombose mit Flankenschmerz und Hämaturie, tiefe Beinvenenthrombosen und Lungenembolien; eine erhöhte Infektanfälligkeit durch den Verlust von Immunglobulinen, beim Kind die Pneumokokkenperitonitis; die Hyperlipidämie mit erhöhtem kardiovaskulären Risiko; ein akutes Nierenversagen bei Hypovolämie unter Diuretika; Eiweißmangel mit Muskelschwund; Vitamin-D-Mangel und Hypothyreose durch Verlust der Bindungsproteine sowie eine Eisenmangelanämie durch Transferrinverlust.',
+        },
+        {
+          frage: 'Welche Diuretika geben Sie, und was müssen Sie dabei beachten?',
+          antwort: 'Schleifendiuretika wie Furosemid oder Torasemid, in höherer Dosis als üblich, weil das Diuretikum an Albumin gebunden zur Niere transportiert wird und Darmwandödeme die Resorption behindern — bei ausgeprägten Ödemen initial intravenös, bei unzureichendem Ansprechen kombiniert mit einem Thiazid. Entscheidend ist eine langsame Ausschwemmung von etwa einem halben bis einem Kilogramm pro Tag mit Kontrolle von Gewicht, Kreatinin und Kalium, weil eine zu rasche Entwässerung ein prärenales Nierenversagen und Thrombosen auslöst.',
+        },
+        {
+          frage: 'Welche Diät empfehlen Sie — soll der Patient viel Eiweiß essen?',
+          antwort: 'Nein. Eine eiweißreiche Ernährung steigert die glomeruläre Hyperfiltration und damit die Proteinurie. Empfohlen wird eine normale Eiweißzufuhr von etwa 0,8 bis 1 g pro Kilogramm Körpergewicht und Tag, dazu Kochsalzrestriktion unter 5 bis 6 g täglich und eine maßvolle Flüssigkeitsbegrenzung auf etwa 1,5 Liter.',
+        },
+        {
+          frage: 'Warum geben Sie einen ACE-Hemmer, obwohl der Blutdruck nur leicht erhöht ist?',
+          antwort: 'Weil ACE-Hemmer und Sartane den intraglomerulären Druck über eine Dilatation des Vas efferens senken und dadurch die Proteinurie unabhängig von der Ursache um 30 bis 50 % reduzieren — sie sind bei jedem nephrotischen Syndrom indiziert. Kreatinin und Kalium werden nach ein bis zwei Wochen kontrolliert.',
+        },
+        {
+          frage: 'Wann würden Sie den Patienten antikoagulieren?',
+          antwort: 'Prophylaktisch mit niedermolekularem Heparin oder einem Vitamin-K-Antagonisten bei einem Albumin unter etwa 20 bis 25 g/l und zusätzlichen Risikofaktoren wie membranöser Glomerulonephritis, Proteinurie über 10 g pro Tag, Immobilisation oder früherer Thrombose; therapeutisch bei nachgewiesener Nierenvenen-, Beinvenenthrombose oder Lungenembolie. Zu beachten ist, dass Heparin bei Antithrombin-III-Mangel schwächer wirkt.',
+        },
+        {
+          frage: 'Wie behandeln Sie die membranöse Glomerulonephritis kausal?',
+          antwort: 'Bei niedrigem Risiko zunächst abwartend über etwa sechs Monate mit RAAS-Blockade und symptomatischer Therapie, weil in etwa einem Drittel Spontanremissionen vorkommen. Bei hohem Risiko — persistierende Proteinurie über 8 g pro Tag, fallende eGFR, hohe Anti-PLA2R-Titer — Immunsuppression mit Rituximab als Erstlinie, alternativ Cyclophosphamid alternierend mit Glukokortikoiden nach dem modifizierten Ponticelli-Schema oder Calcineurininhibitoren.',
+        },
+        {
+          frage: 'Warum denken Sie bei diesem Patienten an ein Tumorscreening?',
+          antwort: 'Weil die membranöse Glomerulonephritis in etwa 10 bis 20 % sekundär und darunter paraneoplastisch ist, vor allem bei Patienten über 60 Jahren, bei Rauchern und bei negativen Anti-PLA2R-Antikörpern. Deshalb gehören ein Röntgen- oder CT-Thorax, eine Koloskopie, eine Gastroskopie, das PSA und die Sonographie des Abdomens zur Abklärung.',
+        },
+        {
+          frage: 'Müssen Sie den Patienten stationär aufnehmen? Begründen Sie das.',
+          antwort: 'Ja, bei ausgeprägten Ödemen mit Gewichtszunahme von sieben Kilogramm, Albumin unter 20 g/l und hohem Thromboserisiko: zur bilanzierten, langsamen Ausschwemmung mit täglicher Kontrolle von Gewicht, Kreatinin und Kalium, zur Einleitung der Antikoagulation, zur vollständigen Ursachenabklärung und zur Nierenbiopsie, die eine stationäre Überwachung wegen der Blutungsgefahr erfordert.',
+        },
+        {
+          frage: 'Wie erklären Sie dem Patienten seine Erkrankung in einfachen Worten?',
+          antwort: 'Die Nieren arbeiten wie ein Filter, der das Eiweiß im Blut zurückhalten soll. Dieser Filter ist undicht geworden, deshalb geht viel Eiweiß mit dem Urin verloren — daher schäumt der Urin. Weil im Blut zu wenig Eiweiß ist, kann das Wasser nicht in den Gefäßen gehalten werden und lagert sich im Gewebe ein — daher die Schwellungen. Mit einer Gewebeprobe aus der Niere finden wir heraus, warum der Filter undicht ist, und richten die Behandlung danach.',
+        },
+      ],
+      merksatz: 'Proteinurie über 3,5 g, Albumin unter 30 g/l, Ödeme — plus Hyperlipidämie: das ist das nephrotische Syndrom, und es ist nur ein Symptom. Schäumenden Urin erfragen, Ursache biopsieren, Komplikationen spontan nennen (Thrombose, Infekt, Nierenversagen), Diuretika hoch dosieren, aber LANGSAM entwässern, ACE-Hemmer immer — und KEINE eiweißreiche Kost.',
+      linkedCaseIds: [
+        'case-nephrotisches-syndrom',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-feinnadelpunktion',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-akute-leukaemie',
+      pathology: 'Akute Leukämie (AML und ALL)',
+      specialty: 'Hämatologie',
+      definition: 'Die akute Leukämie ist eine klonale maligne Erkrankung einer hämatopoetischen Stamm- oder Vorläuferzelle, bei der sich unreife, funktionsuntüchtige Blasten unkontrolliert im Knochenmark vermehren und in das Blut ausgeschwemmt werden. Die Blasten verdrängen die normale Blutbildung — daraus entsteht die Knochenmarkinsuffizienz mit der klassischen Trias aus Anämie, Thrombozytopenie und Granulozytopenie, die sich innerhalb von Tagen bis wenigen Wochen entwickelt. Nach der Herkunft der Blasten unterscheidet man die akute myeloische Leukämie (AML, Inzidenz etwa 3–4/100 000 pro Jahr, medianes Alter bei Diagnose etwa 65–70 Jahre, Erkrankung des Erwachsenen mit steigendem Alter) von der akuten lymphatischen Leukämie (ALL, häufigste Krebserkrankung des Kindes mit Gipfel zwischen dem 2. und 5. Lebensjahr, beim Erwachsenen selten mit etwa 1/100 000 pro Jahr). Diagnostisch gilt ein Blastenanteil von mindestens 20 % in Knochenmark oder Blut; bei bestimmten genetischen Aberrationen (t(15;17), t(8;21), inv(16)) wird die AML unabhängig vom Blastenanteil diagnostiziert. Unbehandelt verläuft die akute Leukämie innerhalb weniger Wochen bis Monate tödlich.',
+      aetiologie: 'In den meisten Fällen bleibt die Ursache unbekannt; die Leukämie entsteht durch erworbene somatische Mutationen (Chromosomentranslokationen, Genmutationen wie NPM1, FLT3, CEBPA, TP53) in einer Vorläuferzelle. Gesicherte Auslöser sind eine vorangegangene Chemotherapie (Alkylanzien nach 5–7 Jahren, Topoisomerase-II-Hemmer nach 1–3 Jahren — therapieassoziierte AML) oder Strahlentherapie, ionisierende Strahlung, Benzol und benzolhaltige Lösungsmittel, Rauchen sowie hämatologische Vorerkrankungen (myelodysplastisches Syndrom, myeloproliferative Neoplasien, aplastische Anämie, paroxysmale nächtliche Hämoglobinurie). Genetische Prädispositionen sind die Trisomie 21 (10- bis 20-fach erhöhtes Risiko für ALL und AML), Fanconi-Anämie, Ataxia teleangiectatica, Bloom-Syndrom, Li-Fraumeni-Syndrom sowie familiäre Keimbahnmutationen (RUNX1, CEBPA, GATA2). Bei der T-ALL des Erwachsenen findet sich in Endemiegebieten das HTLV-1-Virus.',
+      risikofaktoren: [
+        'Vorangegangene Chemotherapie (Alkylanzien, Topoisomerase-II-Hemmer) oder Strahlentherapie — therapieassoziierte AML/MDS',
+        'Benzol und benzolhaltige Lösungsmittel (Lackierer, Tankstellen, chemische Industrie, Schreinerei mit Lacken und Verdünnern)',
+        'Rauchen (etwa 1,5-fach erhöhtes AML-Risiko)',
+        'Ionisierende Strahlung (Radiologie, Atomunfälle)',
+        'Myelodysplastisches Syndrom und myeloproliferative Neoplasien (Übergang in eine sekundäre AML)',
+        'Aplastische Anämie, paroxysmale nächtliche Hämoglobinurie',
+        'Trisomie 21 (Down-Syndrom) und andere genetische Syndrome (Fanconi-Anämie, Bloom-Syndrom, Li-Fraumeni-Syndrom)',
+        'Familiäre Prädisposition mit Keimbahnmutationen (RUNX1, CEBPA, GATA2)',
+        'Höheres Lebensalter (AML) bzw. Kindesalter zwischen 2 und 5 Jahren (ALL)',
+        'HTLV-1-Infektion (adulte T-Zell-Leukämie/Lymphom)',
+      ],
+      klinik: [
+        {
+          text: 'Rasche Entwicklung der Beschwerden innerhalb von Tagen bis wenigen Wochen — das Tempo unterscheidet die akute Leukämie von den chronischen Leukämien und Lymphomen',
+        },
+        {
+          text: 'Anämie-Symptome: Müdigkeit, Leistungsknick, Blässe von Haut und Schleimhäuten, Belastungsdyspnoe, Tachykardie, Herzrasen, Schwindel, Kopfschmerzen',
+        },
+        {
+          text: 'Thrombozytopenie mit hämorrhagischer Diathese: Petechien an den Unterschenkeln, Hämatome nach Bagatelltraumen, Zahnfleisch- und Nasenbluten, verlängerte und verstärkte Regelblutung',
+        },
+        {
+          text: 'Granulozytopenie mit rezidivierenden oder ungewöhnlich schweren Infekten: Fieber, Angina, Aphthen, Gingivitis, Pneumonie — der Patient „wird nicht mehr gesund“',
+        },
+        {
+          text: 'B-Symptomatik: Fieber ohne Infektfokus, Nachtschweiß mit Wäschewechsel, ungewollter Gewichtsverlust',
+        },
+        {
+          text: 'Knochenschmerzen durch Markexpansion (Sternum, Wirbelsäule, Becken, lange Röhrenknochen); beim Kind Hinken und Verweigerung des Gehens',
+        },
+        {
+          text: 'Lymphknotenschwellungen, Hepatosplenomegalie mit Druckgefühl im Oberbauch und Mediastinaltumor — vor allem bei der ALL (T-ALL: Mediastinaltumor mit Stridor und oberer Einflussstauung)',
+        },
+        {
+          text: 'Gingivahyperplasie, Hautinfiltrate (Leukaemia cutis) und Chlorome bei monozytären AML-Formen (FAB M4/M5)',
+          atypisch: true,
+        },
+        {
+          text: 'Neurologische Symptome bei ZNS-Befall (Kopfschmerzen, Hirnnervenausfälle, Meningismus) und Hodenschwellung bei der ALL',
+          atypisch: true,
+        },
+        {
+          text: 'Leukostase-Symptome bei sehr hohen Blastenzahlen: Luftnot, Sehstörungen, Verwirrtheit, neurologische Ausfälle, Priapismus',
+          atypisch: true,
+        },
+        {
+          text: 'Disseminierte intravasale Gerinnung mit schweren Blutungen als Erstmanifestation der akuten Promyelozytenleukämie',
+          atypisch: true,
+        },
+        {
+          text: 'Akutes Nierenversagen durch spontanes Tumorlysesyndrom bei hoher Tumorlast',
+          atypisch: true,
+        },
+        {
+          text: 'Zufallsbefund im Blutbild bei beschwerdearmem Patienten — die Leukozytenzahl kann normal oder erniedrigt sein (aleukämischer Verlauf)',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'WHO-Klassifikation (2022) / ICC',
+          inhalt: 'Einteilung nach Zelllinie und Genetik. AML mit definierenden genetischen Aberrationen (APL mit PML::RARA, AML mit RUNX1::RUNX1T1 = t(8;21), CBFB::MYH11 = inv(16), NPM1-Mutation, CEBPA-Mutation, KMT2A-Rearrangement), AML mit myelodysplasie-assoziierten Veränderungen, therapieassoziierte myeloische Neoplasien, AML nicht anderweitig klassifiziert. ALL: B-lymphoblastische Leukämie/Lymphom (etwa 75–85 %, Untergruppen u. a. mit BCR::ABL1 = Philadelphia-Chromosom, KMT2A-Rearrangement, ETV6::RUNX1, Hyperdiploidie) und T-lymphoblastische Leukämie/Lymphom (etwa 15–25 %). Schwelle: 20 % Blasten; bei APL, t(8;21) und inv(16) auch darunter.',
+        },
+        {
+          name: 'FAB-Klassifikation (historisch, zytomorphologisch)',
+          inhalt: 'AML M0 (minimal differenziert), M1 (ohne Ausreifung), M2 (mit Ausreifung), M3 (akute Promyelozytenleukämie — DIC-Gefahr, ATRA-sensibel), M4 (myelomonozytär), M5 (monozytär — Gingivahyperplasie, Hautinfiltrate), M6 (Erythroleukämie), M7 (megakaryoblastär, gehäuft bei Trisomie 21). ALL L1–L3 (L3 = Burkitt-Typ). Heute durch die WHO-Klassifikation abgelöst, die Bezeichnung M3 ist im klinischen Sprachgebrauch weiterhin verbreitet.',
+        },
+        {
+          name: 'ELN-Risikostratifizierung der AML (2022)',
+          inhalt: 'Günstig: t(8;21), inv(16)/t(16;16), NPM1-Mutation ohne FLT3-ITD, biallelische CEBPA-bZIP-Mutation. Intermediär: NPM1-Mutation mit FLT3-ITD, FLT3-ITD ohne NPM1-Mutation, t(9;11), zytogenetisch normale AML ohne günstige oder ungünstige Marker. Ungünstig: komplexer oder monosomaler Karyotyp, −5/del(5q), −7, −17/abn(17p), TP53-Mutation, KMT2A-Rearrangements außer t(9;11), t(9;22), inv(3), myelodysplasie-assoziierte Mutationen (ASXL1, RUNX1, SRSF2 u. a.). Die Risikogruppe entscheidet über die allogene Stammzelltransplantation in erster Remission.',
+        },
+        {
+          name: 'Risikogruppen der ALL des Erwachsenen (GMALL)',
+          inhalt: 'Hochrisiko bei Leukozyten über 30 000/µl (B-ALL) bzw. über 100 000/µl (T-ALL), pro-B-ALL oder früher/reifer T-ALL, KMT2A-Rearrangement (t(4;11)), später Remission nach der Induktion und persistierender messbarer Resterkrankung (MRD). Die Philadelphia-positive ALL (BCR::ABL1, etwa 25–30 % der erwachsenen B-ALL, Häufigkeit mit dem Alter steigend) bildet eine eigene Gruppe mit Tyrosinkinaseinhibitor-Therapie. Standardrisiko: alle übrigen.',
+        },
+        {
+          name: 'Remissionskriterien',
+          inhalt: 'Komplette Remission (CR): unter 5 % Blasten im Knochenmark, keine Blasten mit Auer-Stäbchen im Blut, keine extramedulläre Manifestation, Neutrophile über 1 000/µl und Thrombozyten über 100 000/µl, transfusionsunabhängig. CRi = komplette Remission mit unvollständiger Regeneration des Blutbilds. MRD-Negativität (messbare Resterkrankung unter 10⁻⁴ per Durchflusszytometrie oder PCR) als prognostisch entscheidender Tiefenparameter des Ansprechens.',
+        },
+      ],
+      redFlags: [
+        'Fieber ≥ 38,3 °C einmalig oder ≥ 38,0 °C über eine Stunde bei Neutrophilen unter 500/µl → febrile Neutropenie = Notfall: Blutkulturen abnehmen und Breitspektrumantibiose innerhalb einer Stunde, ohne auf Befunde zu warten',
+        'Petechien, Schleimhautblutungen, Hämatome oder Kopfschmerzen mit neurologischen Ausfällen bei Thrombozyten unter 10 000–20 000/µl → Gefahr der intrakraniellen Blutung, sofortige Thrombozytentransfusion',
+        'Luftnot, Sehstörungen, Verwirrtheit, Kopfschmerzen oder Priapismus bei Leukozyten über 100 000/µl → Leukostase, sofortige Zytoreduktion (Hydroxyurea, Leukapherese)',
+        'Diffuse Blutungsneigung mit Fibrinogenabfall, D-Dimer-Anstieg und Thrombozytenabfall → disseminierte intravasale Gerinnung, insbesondere bei akuter Promyelozytenleukämie: sofort All-trans-Retinsäure, ohne Bestätigung der Genetik abzuwarten',
+        'Hyperkaliämie, Hyperphosphatämie, Hyperurikämie, Hypokalzämie und Kreatininanstieg zu Therapiebeginn → Tumorlysesyndrom mit Gefahr von Herzrhythmusstörungen und Nierenversagen',
+        'Stridor, obere Einflussstauung, Gesichtsschwellung bei Mediastinaltumor der T-ALL → drohende Atemwegsverlegung',
+        'Kopfschmerzen, Hirnnervenausfälle, Meningismus → ZNS-Befall, Liquorpunktion nur nach Thrombozytensubstitution und Gerinnungskorrektur',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Anamnese mit dem Tempo der Beschwerden (Tage bis wenige Wochen), Infekten und ihrer Häufung, Blutungszeichen (Petechien, Hämatome, Zahnfleisch-, Nasenbluten, Menorrhagie), Knochenschmerzen, B-Symptomatik, Vorbehandlungen (Chemo-, Strahlentherapie), Exposition (Benzol, Lösungsmittel, Strahlung), Rauchen, hämatologischen Vorerkrankungen und genetischen Syndromen in der Familie',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Körperliche Untersuchung: Vitalparameter mit Temperatur, Blässe von Haut und Konjunktiven, Petechien und Hämatome, Schleimhäute und Zahnfleisch (Gingivitis, Aphthen, Gingivahyperplasie), Lymphknotenstatus aller Stationen, Palpation von Leber und Milz, Klopfschmerz über dem Sternum, Hautinfiltrate, neurologischer Status mit Hirnnerven, Hodenpalpation bei Verdacht auf ALL, Suche nach einem Infektfokus (Rachen, Lunge, Haut, Perianalregion, Zugänge)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild mit Differenzialblutbild als erster und entscheidender Schritt: normochrome Anämie, Thrombozytopenie und je nach Form Leukozytose, Normalwerte oder Leukopenie — die Leukozytenzahl kann NORMAL oder erniedrigt sein; entscheidend ist die absolute Neutrophilenzahl (Neutropenie unter 500/µl) und der Nachweis von Blasten im maschinellen und mikroskopischen Differenzialblutbild',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutausstrich (mikroskopische Beurteilung durch den Hämatologen): Blasten mit großem Kern und feinem Chromatin, Auer-Stäbchen (beweisend für eine myeloische Linie), Hiatus leucaemicus — Blasten und reife Granulozyten ohne die mittleren Reifungsstufen (Abgrenzung zur CML mit kontinuierlicher Linksverschiebung)',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Gerinnung mit Quick/INR, aPTT, Fibrinogen und D-Dimeren (DIC-Screening, obligat bei Verdacht auf Promyelozytenleukämie); LDH und Harnsäure als Umsatzmarker; Elektrolyte mit Kalium, Phosphat und Kalzium, Kreatinin und Harnstoff (Tumorlysesyndrom), Leberwerte, CRP und Procalcitonin, Blutzucker',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Bei Fieber sofort mindestens zwei Blutkulturpaare (peripher und aus jedem liegenden Katheter) VOR der ersten Antibiotikagabe, Urinstatus und Urinkultur, ggf. Abstriche; Blutgruppe mit Antikörpersuchtest für Transfusionen; Virusserologien (HBV, HCV, HIV, CMV, EBV, HSV, VZV), Schwangerschaftstest bei Frauen im gebärfähigen Alter',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Vor Therapiebeginn: HLA-Typisierung der Patientin bzw. des Patienten und der Geschwister im Hinblick auf eine allogene Stammzelltransplantation, Vitamin B12 und Folsäure zur Abgrenzung einer megaloblastären Panzytopenie, Ferritin und Retikulozyten',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Röntgen-Thorax (Mediastinaltumor bei T-ALL, Pneumonie als Infektfokus) und Sonographie des Abdomens (Hepatosplenomegalie, Lymphknoten, Nieren); CT von Thorax und Abdomen bei Mediastinaltumor oder unklarem Infektfokus; bei neurologischen Symptomen MRT des Schädels',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Echokardiographie und EKG vor kardiotoxischer Anthrazyklin-Therapie (Ausgangswert der linksventrikulären Funktion); Lungenfunktion vor Konditionierung zur Stammzelltransplantation; zahnärztliche Fokussuche vor der Chemotherapie',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat (Zytomorphologie, Zytochemie) und Stanzbiopsie (Histologie bei Punctio sicca) — diagnosesichernde Untersuchung: Diagnose ab 20 % Blasten; Durchführung nach Thrombozytensubstitution bei schwerer Thrombozytopenie, keine Sternalpunktion',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Immunphänotypisierung (Durchflusszytometrie) zur Unterscheidung von AML (CD13, CD33, CD117, MPO) und ALL (B-Linie: CD19, CD10, CD79a; T-Linie: CD3, CD7) sowie zur Definition des MRD-Phänotyps; Zytogenetik (Karyotyp, FISH) und Molekulargenetik (NPM1, FLT3-ITD/TKD, CEBPA, TP53, BCR::ABL1, PML::RARA, KMT2A) zur Risikostratifizierung und Therapiesteuerung — Ergebnisse teils innerhalb von 3–5 Tagen, FLT3 und PML::RARA als Schnelltests',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Liquorpunktion bei der ALL zum Ausschluss eines ZNS-Befalls, meist kombiniert mit der ersten intrathekalen Methotrexat-Gabe (erst nach Korrektur von Thrombozyten und Gerinnung, ohne zirkulierende Blasten wegen der Verschleppungsgefahr); bei der AML nur bei neurologischer Symptomatik oder monozytärer Form mit hoher Leukozytenzahl',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Fertilitätsberatung und -erhalt VOR Therapiebeginn (Kryokonservierung von Spermien bzw. Eizellen oder Ovarialgewebe, soweit die Dringlichkeit es zulässt); Anlage eines zentralvenösen Katheters für die Chemotherapie nach Gerinnungskorrektur',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Aplastische Anämie',
+          unterscheidung: 'Panzytopenie mit Retikulozytopenie, aber OHNE Blasten im Blut und im Knochenmark; im Knochenmark hypozelluläres, fettreiches Mark ohne Infiltration; keine Splenomegalie, keine Knochenschmerzen. Abgrenzung nur durch die Knochenmarkbiopsie.',
+        },
+        {
+          dd: 'Myelodysplastisches Syndrom (MDS)',
+          unterscheidung: 'Meist älterer Patient, langsamer Verlauf über Monate mit Zytopenien und dysplastischen Zellen (Ringsideroblasten, hypogranulierte Granulozyten); Blastenanteil unter 20 % — bei 20 % und mehr liegt definitionsgemäß eine AML vor. Das MDS geht in eine sekundäre AML über.',
+        },
+        {
+          dd: 'Vitamin-B12- oder Folsäuremangel (megaloblastäre Anämie)',
+          unterscheidung: 'Panzytopenie mit makrozytärer Anämie (MCV über 100 fl), hypersegmentierten Granulozyten, erhöhter LDH durch ineffektive Erythropoese, neurologischen Symptomen (funikuläre Myelose) und Hunter-Glossitis; Vitamin-B12- bzw. Folsäurespiegel erniedrigt, keine Blasten. Häufig nach Magenresektion, bei Vegetariern und bei chronischer Gastritis.',
+        },
+        {
+          dd: 'Immunthrombozytopenie (ITP)',
+          unterscheidung: 'Isolierte Thrombozytopenie bei sonst normalem Blutbild — Hämoglobin und Leukozyten normal, keine Blasten, keine B-Symptomatik, keine Splenomegalie. Im Knochenmark vermehrte Megakaryozyten. Ausschlussdiagnose.',
+        },
+        {
+          dd: 'Infektiöse Mononukleose (EBV)',
+          unterscheidung: 'Die klassische Verwechslung bei der ALL des jungen Patienten: Angina mit Fieber, generalisierte Lymphknotenschwellung, Splenomegalie, Hepatitis; im Blutbild Lymphozytose mit ATYPISCHEN Lymphozyten (Pfeiffer-Zellen, reaktiv, keine Blasten), meist keine Anämie und keine relevante Thrombozytopenie; EBV-Serologie (VCA-IgM) positiv, Monospot-Test.',
+        },
+        {
+          dd: 'Leukämoide Reaktion bei schwerer Infektion oder Sepsis',
+          unterscheidung: 'Leukozytose bis 50 000/µl mit kontinuierlicher Linksverschiebung (Stabkernige, Metamyelozyten, Myelozyten) — KEIN Hiatus leucaemicus, keine Blasten, Infektfokus nachweisbar, CRP und Procalcitonin stark erhöht, Rückbildung unter Behandlung der Infektion.',
+        },
+        {
+          dd: 'Chronische myeloische Leukämie (CML)',
+          unterscheidung: 'Schleichender Verlauf über Monate bis Jahre, ausgeprägte Splenomegalie, Leukozytose oft über 100 000/µl mit ALLEN Reifungsstufen (pathologische Linksverschiebung ohne Hiatus), Basophilie, Philadelphia-Chromosom mit BCR::ABL1; Anämie und Thrombozytopenie fehlen in der chronischen Phase. Cave: Blastenkrise der CML imitiert eine akute Leukämie.',
+        },
+        {
+          dd: 'Chronische lymphatische Leukämie (CLL)',
+          unterscheidung: 'Älterer Patient, meist Zufallsbefund, langsam progrediente Lymphozytose mit reifen, kleinen Lymphozyten und Gumprecht-Kernschatten, Lymphadenopathie; Immunphänotyp CD5/CD19/CD23 positiv; keine Blasten, keine Knochenmarkinsuffizienz in frühen Stadien.',
+        },
+        {
+          dd: 'Malignes Lymphom (Hodgkin- und Non-Hodgkin-Lymphom) mit Knochenmarkinfiltration',
+          unterscheidung: 'Führend sind schmerzlose, derbe Lymphknotenschwellungen über Wochen bis Monate und B-Symptomatik; Zytopenien erst spät durch Markinfiltration; Diagnose durch Lymphknotenexstirpation mit Histologie. Das lymphoblastische Lymphom ist die Lymphom-Variante der ALL (unter 20 % Blasten im Mark).',
+        },
+        {
+          dd: 'Multiples Myelom (Plasmozytom) und Knochenmarkkarzinose',
+          unterscheidung: 'Myelom: älterer Patient, Knochenschmerzen mit Osteolysen, Hyperkalzämie, Niereninsuffizienz, monoklonale Gammopathie (M-Gradient, freie Leichtketten), Plasmazellen im Mark. Knochenmarkkarzinose: bekannter Primärtumor (Mamma, Prostata, Bronchus), leukoerythroblastisches Blutbild mit Erythroblasten und Tränentropfenzellen.',
+        },
+        {
+          dd: 'Hypersplenismus bei Leberzirrhose und medikamentöse Knochenmarkschädigung',
+          unterscheidung: 'Hypersplenismus: Panzytopenie mit großer Milz, Zeichen der Leberzirrhose und portalen Hypertension, normozelluläres Mark. Medikamentös-toxisch (Metamizol, Clozapin, Thyreostatika, Methotrexat, Chloramphenicol, Zytostatika): zeitlicher Zusammenhang, Rückbildung nach Absetzen, keine Blasten.',
+        },
+        {
+          dd: 'Kollagenosen (SLE) und beim Kind juvenile idiopathische Arthritis oder Osteomyelitis',
+          unterscheidung: 'SLE: Zytopenien mit Arthritis, Schmetterlingserythem, Nephritis, ANA und Anti-dsDNA positiv. Beim Kind mit Knochenschmerzen und Fieber: JIA (Gelenkschwellung, Morgensteifigkeit) und Osteomyelitis (lokalisierter Knochenschmerz, MRT) — bei zusätzlicher Zytopenie immer an die ALL denken und das Blutbild mit Ausstrich anfordern, bevor Kortison gegeben wird.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Sofortmaßnahmen und supportive Therapie',
+          items: [
+            'Stationäre Aufnahme in ein hämatologisches Zentrum mit Einleitung der Therapie nach Studienprotokoll; Umkehrisolation im Einzelzimmer, strenge Händehygiene, keimarme Kost, Schleimhautpflege mit antiseptischen Mundspülungen, weiche Zahnbürste',
+            'Bei Fieber in der Neutropenie (Neutrophile unter 500/µl): sofortige Abnahme von mindestens zwei Blutkulturpaaren und Beginn einer empirischen Breitspektrumantibiose innerhalb von 60 Minuten — z. B. Piperacillin/Tazobactam 3 × 4,5 g i.v., bei Penicillinallergie Meropenem 3 × 1 g i.v. oder Cefepim; bei Kathetersepsis oder MRSA-Risiko zusätzlich Vancomycin; bei Persistenz des Fiebers über 72–96 Stunden antimykotische Therapie (Caspofungin, liposomales Amphotericin B) und CT-Thorax zur Aspergillus-Suche',
+            'Transfusion von Erythrozytenkonzentraten bei Hämoglobin unter 7–8 g/dl bzw. symptomatischer Anämie und von Thrombozytenkonzentraten prophylaktisch unter 10 000/µl, bei Fieber, Blutung oder vor Eingriffen unter 20 000/µl (vor Knochenmark- und Liquorpunktion sowie ZVK-Anlage über 50 000/µl); alle Präparate leukozytendepletiert und bei potenziellen Transplantationskandidaten bestrahlt (Vermeidung der transfusionsassoziierten Graft-versus-Host-Reaktion)',
+            'Prophylaxe des Tumorlysesyndroms: Hydratation mit 2–3 l/m² täglich unter Bilanzierung, Allopurinol 300 mg täglich oder bei hoher Tumorlast (Leukozyten über 50 000–100 000/µl, LDH stark erhöht) Rasburicase 0,2 mg/kg i.v.; engmaschige Kontrolle von Kalium, Phosphat, Kalzium, Harnsäure und Kreatinin, ggf. Dialyse',
+            'Behandlung der Gerinnungsstörung: bei disseminierter intravasaler Gerinnung Substitution von Fibrinogen (Ziel über 150 mg/dl), gefrorenem Frischplasma und Thrombozyten (Ziel über 30 000–50 000/µl bei APL); bei Verdacht auf Promyelozytenleukämie sofortiger Beginn mit All-trans-Retinsäure (ATRA) 45 mg/m² täglich, ohne die genetische Bestätigung abzuwarten',
+            'Bei Leukostase (Leukozyten über 100 000/µl mit Symptomen): rasche Zytoreduktion mit Hydroxyurea 2–3 × 1–2 g täglich und/oder Leukapherese, keine Erythrozytentransfusion vor Senkung der Leukozyten (Viskositätsanstieg)',
+            'Vermeidung intramuskulärer Injektionen, von Acetylsalicylsäure und NSAR (Thrombozytenfunktion, Blutungsgefahr) sowie rektaler Messungen und Einläufe in der Neutropenie; Analgesie mit Paracetamol oder Metamizol unter Blutbildkontrolle bzw. Opioiden',
+            'Antiinfektive Prophylaxe während der Aplasie: Posaconazol (Schimmelpilzprophylaxe bei AML-Induktion), Aciclovir (HSV/VZV), Cotrimoxazol gegen Pneumocystis jirovecii bei der ALL; Anlage eines zentralvenösen Katheters nach Gerinnungskorrektur; Fertilitätsberatung und Kryokonservierung vor der ersten Chemotherapie',
+          ],
+          akut: true,
+        },
+        {
+          label: 'Induktionschemotherapie zur Erreichung der Remission',
+          items: [
+            'Ziel ist die komplette Remission: unter 5 % Blasten im Knochenmark und Erholung der normalen Blutbildung (Neutrophile über 1 000/µl, Thrombozyten über 100 000/µl), möglichst MRD-negativ; die Induktion erzeugt eine 3–4-wöchige Aplasie mit hohem Infektions- und Blutungsrisiko und erfolgt stationär in einem hämatologischen Zentrum',
+            'AML (fitter Patient bis etwa 70–75 Jahre): intensive Kombinationschemotherapie nach dem „7+3“-Schema — Cytarabin 100–200 mg/m² als Dauerinfusion über 7 Tage plus ein Anthrazyklin (Daunorubicin 60 mg/m² oder Idarubicin 12 mg/m²) an 3 Tagen; bei FLT3-Mutation zusätzlich der FLT3-Inhibitor Midostaurin (bzw. Quizartinib bei FLT3-ITD), bei günstiger Genetik mit CD33-Expression Gemtuzumab-Ozogamicin; Remissionsrate 60–80 % bei jüngeren Patienten, ein zweiter Induktionszyklus bei unzureichendem Ansprechen',
+            'AML beim älteren oder gebrechlichen Patienten (nicht für eine intensive Therapie geeignet): weniger intensive Therapie mit einer hypomethylierenden Substanz (Azacitidin oder Decitabin) in Kombination mit dem BCL2-Inhibitor Venetoclax, ambulant fortführbar; bei IDH1/IDH2-Mutation Ivosidenib bzw. Enasidenib; palliative Zytoreduktion mit Hydroxyurea und beste supportive Therapie als Alternative',
+            'Sonderfall akute Promyelozytenleukämie (APL, FAB M3, t(15;17) PML::RARA): differenzierungsinduzierende Therapie mit All-trans-Retinsäure (ATRA) und Arsentrioxid (ATO), bei Niedrig- und Intermediärrisiko ohne klassische Chemotherapie, bei Hochrisiko (Leukozyten über 10 000/µl) zusätzlich Idarubicin; Heilungsrate über 85–90 % — die beste Prognose aller akuten Leukämien; Cave Differenzierungssyndrom (Fieber, Dyspnoe, Lungeninfiltrate, Ergüsse, Gewichtszunahme) unter ATRA/ATO → Dexamethason 2 × 10 mg',
+            'ALL (Erwachsene nach GMALL-Protokoll, pädiatrisch inspirierte Intensität bei jüngeren Patienten): Vorphase mit Dexamethason und Cyclophosphamid zur schonenden Zytoreduktion, dann mehrwöchige Induktion mit Vincristin, Dexamethason bzw. Prednisolon, einem Anthrazyklin (Daunorubicin) und PEG-Asparaginase, bei CD20-positiver B-ALL zusätzlich Rituximab; obligate ZNS-Prophylaxe mit intrathekalem Methotrexat (ggf. Triple-Therapie mit Cytarabin und Dexamethason) und hochdosiertem systemischem Methotrexat, da die ALL sonst in bis zu einem Drittel der Fälle im ZNS rezidiviert',
+            'Zielgerichtete und immunologische Substanzen bei der ALL: Tyrosinkinaseinhibitoren (Imatinib, Dasatinib, Ponatinib) bei Philadelphia-positiver ALL von Beginn an, kombiniert mit reduzierter Chemotherapie; das bispezifische CD19-Antikörperkonstrukt Blinatumomab bei MRD-Persistenz oder Rezidiv sowie zunehmend in der Konsolidierung, das CD22-Antikörper-Wirkstoff-Konjugat Inotuzumab-Ozogamicin, CAR-T-Zell-Therapie (Tisagenlecleucel, Brexucabtagen) beim refraktären oder rezidivierten Verlauf',
+            'Beurteilung des Ansprechens durch Knochenmarkpunktion nach Regeneration des Blutbilds (Tag 21–28) mit Bestimmung der messbaren Resterkrankung (MRD) per Durchflusszytometrie oder PCR — steuert die weitere Therapieintensität',
+          ],
+        },
+        {
+          label: 'Konsolidierung, Erhaltung und allogene Stammzelltransplantation nach Risiko',
+          items: [
+            'Konsolidierung nach Erreichen der Remission zur Beseitigung der Resterkrankung: bei der AML 2–4 Zyklen hochdosiertes Cytarabin (HiDAC, z. B. 3 g/m² alle 12 Stunden an den Tagen 1, 3 und 5; dosisreduziert beim älteren Patienten), bei FLT3-Mutation weiter Midostaurin; bei der ALL alternierende Konsolidierungsblöcke mit hochdosiertem Methotrexat, Cytarabin, Asparaginase und Cyclophosphamid über mehrere Monate',
+            'Erhaltungstherapie: bei der ALL orale Erhaltung mit 6-Mercaptopurin täglich und Methotrexat wöchentlich über etwa 2 Jahre (Gesamttherapiedauer etwa 2,5 Jahre), bei Ph-positiver ALL Tyrosinkinaseinhibitor über Jahre; bei der AML nach intensiver Therapie orales Azacitidin bei Patienten ohne Transplantation, bei FLT3-Mutation Erhaltung mit einem FLT3-Inhibitor',
+            'Allogene Stammzelltransplantation in erster Remission bei intermediärem und ungünstigem Risiko (AML nach ELN), bei Hochrisiko-ALL und MRD-Persistenz, bei ungenügendem Ansprechen auf die Induktion oder im Rezidiv nach erneuter Remissionsinduktion; Spender: HLA-identisches Geschwister (Wahrscheinlichkeit 25 % pro Geschwister), HLA-kompatibler Fremdspender aus den Registern oder haploidentischer Familienspender; Altersgrenze je nach Fitness bis etwa 70–75 Jahre mit dosisreduzierter Konditionierung',
+            'Ablauf der Transplantation: Konditionierung mit Hochdosischemotherapie (z. B. Busulfan/Cyclophosphamid, Fludarabin-basiert) ggf. mit Ganzkörperbestrahlung, Infusion der Spenderstammzellen, Aplasiephase von 2–4 Wochen, anschließend Immunsuppression (Ciclosporin, Tacrolimus, Methotrexat, Mycophenolat) über Monate; Wirkprinzip zusätzlich der Graft-versus-Leukemia-Effekt',
+            'Risiken der allogenen Transplantation, die in die Aufklärung gehören: therapieassoziierte Mortalität 10–25 %, akute und chronische Transplantat-gegen-Wirt-Reaktion (Haut, Leber, Darm; chronisch Sklerodermie-ähnlich, Sicca-Syndrom, Bronchiolitis obliterans), schwere Infektionen (CMV-Reaktivierung, Aspergillose), Transplantatversagen, Sterilität, Zweitmalignome; die autologe Transplantation spielt bei der akuten Leukämie nur eine untergeordnete Rolle',
+            'Verlaufskontrolle der messbaren Resterkrankung (MRD) in Blut und Knochenmark während und nach der Therapie; ein MRD-Anstieg kündigt das Rezidiv an und erlaubt eine frühe Intervention (Blinatumomab, TKI-Wechsel, Spenderlymphozyteninfusion nach Transplantation); im Rezidiv erneute Induktion (z. B. FLAG-Ida bei AML) mit Ziel der Transplantation, bei fehlender Option palliative Therapie',
+          ],
+        },
+        {
+          label: 'Nachsorge, Begleitung und Aufklärung',
+          items: [
+            'Langfristige Nachsorge mit Blutbildkontrollen (im ersten Jahr monatlich, dann alle 3 Monate, ab dem dritten Jahr halbjährlich bis jährlich) und MRD-Bestimmungen; die meisten Rezidive treten in den ersten 2–3 Jahren auf',
+            'Überwachung der Spätfolgen der Therapie: Anthrazyklin-Kardiomyopathie (Echokardiographie), Zweitmalignome (therapieassoziiertes MDS/AML, solide Tumoren nach Bestrahlung), Unfruchtbarkeit und vorzeitige Ovarialinsuffizienz, endokrine Störungen (Hypothyreose, Wachstum und Pubertät beim Kind), Osteoporose und Hüftkopfnekrosen nach Kortison und Asparaginase, Polyneuropathie nach Vincristin, neurokognitive Folgen nach ZNS-Therapie, chronische GvHD nach Transplantation',
+            'Impfungen nach Therapieende: Totimpfstoffe (Pneumokokken, Influenza, COVID-19, Haemophilus, Meningokokken, Tetanus/Diphtherie/Pertussis) ab etwa 3–6 Monaten nach Chemotherapieende, komplette Neuimpfung nach allogener Transplantation; Lebendimpfstoffe (MMR, Varizellen) frühestens 6 Monate nach Chemotherapieende und 2 Jahre nach Transplantation ohne GvHD und Immunsuppression',
+            'Rehabilitation (Anschlussheilbehandlung), psychoonkologische Betreuung, Sozialberatung (Schwerbehindertenausweis, Erwerbsminderung, Krankengeld, Haushaltshilfe), Selbsthilfegruppen (Deutsche Leukämie- und Lymphom-Hilfe), Ernährungsberatung und Bewegungstherapie schon während der Behandlung',
+            'Ruhige, ehrliche und schrittweise Aufklärung über Diagnose, Behandlungsplan und Prognose in verständlicher Sprache (Leukämie = Blutkrebs; Blasten = unreife, funktionslose weiße Blutkörperchen, die das Knochenmark verstopfen), mit Angehörigen, Rückfragen und Bedenkzeit; Aufklärung über Chemotherapie (Haarausfall, Übelkeit, Schleimhautentzündung, Infektionen, Blutungen, Sterilität), Transfusionen, Knochenmarkpunktion, ZVK und Transplantation',
+            'Prognose individuell erläutern — abhängig von Alter, Genetik, Leukozytenzahl bei Diagnose und Ansprechen (MRD); bei Kindern mit ALL heute Heilungsraten über 90 %, bei der APL über 85–90 %; Fertilitätserhalt anbieten; Patientenverfügung und Vorsorgevollmacht als Angebot, frühzeitige Einbindung der Palliativmedizin bei ungünstigem Verlauf',
+          ],
+        },
+      ],
+      prognose: 'Ohne Behandlung verläuft die akute Leukämie innerhalb weniger Wochen bis Monate tödlich. AML: Bei Patienten unter 60 Jahren wird mit intensiver Therapie in 60–80 % eine komplette Remission erreicht, das Langzeitüberleben nach 5 Jahren liegt bei 30–50 % (günstige Genetik bis über 60 %, ungünstige unter 20 %); bei über 60-Jährigen liegt die 5-Jahres-Überlebensrate nur bei etwa 10–20 %, unter Azacitidin/Venetoclax beträgt das mediane Überleben etwa 15 Monate. Die akute Promyelozytenleukämie ist mit ATRA und Arsentrioxid in über 85–90 % heilbar, die frühe Blutungsmortalität ist ihr Hauptrisiko. ALL: Kinder werden heute in über 90 % geheilt; bei Erwachsenen liegt das Langzeitüberleben je nach Alter und Risiko bei 40–60 %, mit pädiatrisch inspirierten Protokollen, Tyrosinkinaseinhibitoren bei Ph-positiver ALL und Immuntherapien steigend, über 60-Jährige unter 20–30 %. Prognostisch entscheidend sind Alter, Genetik, Leukozytenzahl bei Diagnose, Ansprechen auf die Induktion und die MRD-Negativität; Rezidive treten meist in den ersten 2–3 Jahren auf.',
+      pruefungsfallen: [
+        'Die Leukozytenzahl kann bei der akuten Leukämie NORMAL oder ERNIEDRIGT sein (aleukämische bzw. subleukämische Verlaufsform) — nicht „Leukämie = Leukozytose“ sagen. Entscheidend sind das Differenzialblutbild mit Blasten, die absolute Neutrophilenzahl und die begleitende Anämie und Thrombozytopenie.',
+        'Fieber bei Neutropenie ist ein NOTFALL: Blutkulturen abnehmen und innerhalb einer Stunde Breitspektrumantibiotika geben — nicht auf das Ergebnis der Blutkulturen, des Differenzialblutbilds oder der Knochenmarkpunktion warten. Prüfer wollen die Reihenfolge und den Zeitrahmen hören.',
+        'Das Tempo ist das Unterscheidungsmerkmal: Tage bis wenige Wochen bei der akuten Leukämie, Monate bis Jahre bei CML, CLL und Lymphomen. Wer die Beschwerdedauer nicht erfragt, kann die Differenzialdiagnose nicht begründen.',
+        'Den Hiatus leucaemicus erklären können: Blasten und reife Granulozyten ohne die mittleren Reifungsstufen (Promyelozyten, Myelozyten, Metamyelozyten) — im Gegensatz zur kontinuierlichen Linksverschiebung bei CML und leukämoider Reaktion.',
+        'Die akute Promyelozytenleukämie (M3) ist ein eigener Notfall wegen der disseminierten intravasalen Gerinnung: Fibrinogen und D-Dimere bestimmen und bei Verdacht sofort All-trans-Retinsäure beginnen, noch bevor die Genetik (t(15;17), PML::RARA) vorliegt. Diese Frage wird sehr häufig gestellt.',
+        'Die Knochenmarkpunktion ist die diagnosesichernde Untersuchung (ab 20 % Blasten), aber sie steht NICHT am Anfang: erst Blutbild, Differenzialblutbild und Ausstrich, dann die Punktion — am Beckenkamm, nicht am Sternum, und nach Thrombozytensubstitution.',
+        'AML und ALL nicht verwechseln: AML = Erwachsener, Alter steigend, Auer-Stäbchen, Cytarabin plus Anthrazyklin; ALL = häufigster Krebs des Kindes, Lymphknoten, Mediastinaltumor, ZNS-Befall, Vincristin/Kortison/Anthrazyklin/Asparaginase plus intrathekale ZNS-Prophylaxe. Die Unterscheidung erfolgt durch die Immunphänotypisierung, nicht durch die Klinik.',
+        'Das Tumorlysesyndrom als Komplikation des THERAPIEBEGINNS kennen: Hyperkaliämie, Hyperurikämie, Hyperphosphatämie, Hypokalzämie, akutes Nierenversagen — Prophylaxe mit Hydratation und Allopurinol oder Rasburicase VOR der ersten Chemotherapie.',
+        'Infektiöse Mononukleose als klassische Verwechslung bei jungen Patienten mit Angina, Lymphknoten und Splenomegalie — atypische Lymphozyten sind keine Blasten; bei Zweifel Ausstrich durch den Hämatologen und EBV-Serologie, und kein Ampicillin (Exanthem).',
+        'Bei Thrombozytopenie keine intramuskulären Injektionen, keine Acetylsalicylsäure, keine NSAR — der Patient nimmt häufig Ibuprofen gegen Knochenschmerzen und Fieber; dies aktiv erfragen und absetzen.',
+        'Bei einem Kind mit Knochenschmerzen, Hinken oder Gelenkbeschwerden und Blässe oder Fieber vor jeder Kortisongabe ein Blutbild mit Ausstrich anfordern — Kortison verschleiert eine ALL und verschlechtert die Prognose.',
+        'Vor Therapiebeginn an die Fertilitätsberatung, die HLA-Typisierung (Patient und Geschwister) und die Echokardiographie vor Anthrazyklinen denken — diese drei Punkte werden im Arzt-Arzt-Gespräch gerne abgefragt.',
+        'Fachbegriffe patientengerecht übersetzen: Leukämie = Blutkrebs, Blasten = unreife Blutzellen, Panzytopenie = Mangel an allen drei Blutzellreihen, Petechien = punktförmige Hauteinblutungen, Neutropenie = Mangel an Abwehrzellen, Knochenmarkpunktion = Entnahme von Knochenmark aus dem Beckenkamm, Remission = Rückbildung der Erkrankung.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Was erwarten Sie vom Labor? (in Karlsruhe bei hämatologischen und infektiologischen Fällen regelmäßig gestellt)',
+          antwort: 'Im Blutbild eine Anämie und eine Thrombozytopenie; die Leukozyten können erhöht, normal oder erniedrigt sein — entscheidend sind das Differenzialblutbild mit Blasten und die absolute Neutrophilenzahl. Im Ausstrich Blasten, ggf. Auer-Stäbchen und der Hiatus leucaemicus. Dazu erhöhte LDH und Harnsäure als Umsatzmarker, CRP und Procalcitonin bei Infekt, Gerinnung mit Fibrinogen und D-Dimeren zum Ausschluss einer DIC, Elektrolyte und Nierenwerte für das Tumorlyserisiko, Blutgruppe und Blutkulturen bei Fieber.',
+        },
+        {
+          frage: 'Welche Differenzialdiagnosen kommen bei B-Symptomatik und Zytopenie in Betracht? (Freiburg 26.11.2024, Lymphom-Fall mit Leukämie als DD)',
+          antwort: 'Neben der akuten Leukämie ein Hodgkin- oder Non-Hodgkin-Lymphom mit Knochenmarkinfiltration, eine CML oder CLL, ein myelodysplastisches Syndrom, eine aplastische Anämie, eine megaloblastäre Anämie, eine infektiöse Mononukleose oder andere Infektionen wie Tuberkulose und HIV, eine Sepsis mit Verbrauchskoagulopathie, eine Kollagenose sowie eine medikamentös-toxische Knochenmarkschädigung. Das Tempo, der Lymphknotenstatus und das Differenzialblutbild trennen.',
+        },
+        {
+          frage: 'Wie gehen Sie diagnostisch vor — vom Blutbild bis zur Sicherung? (übertragen aus der Freiburger Stufendiagnostik Blutbild → Punktion → Exzision beim Knoten)',
+          antwort: 'Zuerst Blutbild mit Differenzialblutbild und Blutausstrich, Gerinnung, LDH, Harnsäure, Elektrolyte, Nierenwerte, Entzündungsparameter und Blutgruppe; bei Fieber Blutkulturen vor der Antibiose. Dann die Knochenmarkpunktion am Beckenkamm mit Aspirat und Stanzbiopsie — Diagnose ab 20 % Blasten — mit Immunphänotypisierung zur Unterscheidung von AML und ALL sowie Zytogenetik und Molekulargenetik zur Risikostratifizierung. Ergänzend Röntgen-Thorax, Abdomensonographie, Echokardiographie vor Anthrazyklinen, HLA-Typisierung und bei der ALL eine Liquorpunktion.',
+        },
+        {
+          frage: 'Wie erklären Sie der Patientin die Verdachtsdiagnose auf Deutsch? (Freiburg: Leukämie, Anämie und Thrombozytopenie als Fachbegriffe abgefragt)',
+          antwort: 'Leukämie heißt Blutkrebs: Im Knochenmark, wo das Blut gebildet wird, vermehren sich unreife Zellen, die Blasten, und verdrängen die gesunde Blutbildung. Deshalb fehlen rote Blutkörperchen — das ist die Blutarmut, die Anämie, mit Müdigkeit und Luftnot —, Blutplättchen — die Thrombozytopenie, deshalb die blauen Flecken und das Zahnfleischbluten — und Abwehrzellen, deshalb die wiederkehrenden Infekte und das Fieber.',
+        },
+        {
+          frage: 'Warum muss die Patientin heute stationär bleiben und was ist die Sofortmaßnahme? (Karlsruhe/Reutlingen: Notfallmaßnahmen werden regelmäßig abgefragt)',
+          antwort: 'Weil Fieber bei fehlenden Abwehrzellen eine febrile Neutropenie ist — ein Notfall mit hoher Sterblichkeit bei Verzögerung. Nach Abnahme von zwei Blutkulturpaaren beginne ich innerhalb einer Stunde eine Breitspektrumantibiose, zum Beispiel Piperacillin/Tazobactam oder bei Penicillinallergie Meropenem, isoliere die Patientin, stelle Thrombozyten- und Erythrozytenkonzentrate bereit, setze NSAR ab, beginne die Hydratation mit Allopurinol und hole das hämatologische Konsil.',
+        },
+        {
+          frage: 'Was ist die akute Promyelozytenleukämie, und warum ist sie ein Sonderfall?',
+          antwort: 'Eine Untergruppe der AML (FAB M3) mit der Translokation t(15;17) und dem Fusionsgen PML::RARA. Die Promyelozyten lösen eine disseminierte intravasale Gerinnung mit lebensbedrohlichen Blutungen aus, deshalb ist sie ein Notfall. Bei Verdacht wird sofort All-trans-Retinsäure gegeben, ohne die Genetik abzuwarten; zusammen mit Arsentrioxid ist sie in über 85–90 % heilbar — die beste Prognose aller akuten Leukämien.',
+        },
+        {
+          frage: 'Wie unterscheiden Sie AML und ALL, und wie behandeln Sie sie?',
+          antwort: 'Die Unterscheidung erfolgt durch die Immunphänotypisierung des Knochenmarks: myeloische Marker CD13, CD33, CD117, Myeloperoxidase gegenüber lymphatischen Markern CD19, CD10, CD79a oder CD3, CD7. AML: Induktion mit Cytarabin und einem Anthrazyklin (7+3), ggf. Midostaurin bei FLT3-Mutation, Konsolidierung mit hochdosiertem Cytarabin, allogene Stammzelltransplantation bei intermediärem oder ungünstigem Risiko; beim älteren Patienten Azacitidin plus Venetoclax. ALL: mehrwöchige Induktion mit Vincristin, Kortison, Anthrazyklin und Asparaginase, ZNS-Prophylaxe mit intrathekalem Methotrexat, Tyrosinkinaseinhibitor bei Philadelphia-positiver ALL, Blinatumomab, Konsolidierung und Erhaltung über etwa zwei Jahre.',
+        },
+        {
+          frage: 'Welche Komplikationen der Therapie und welche Notfälle müssen Sie kennen?',
+          antwort: 'Die neutropene Sepsis, die Blutung einschließlich der intrakraniellen bei Thrombozyten unter 10 000–20 000/µl, die Leukostase bei Leukozyten über 100 000/µl, das Tumorlysesyndrom zu Therapiebeginn mit Hyperkaliämie, Hyperurikämie, Hyperphosphatämie und Nierenversagen sowie die disseminierte intravasale Gerinnung bei der Promyelozytenleukämie. Langfristig Kardiotoxizität der Anthrazykline, Sterilität, Zweitmalignome und nach Transplantation die Transplantat-gegen-Wirt-Reaktion.',
+        },
+      ],
+      merksatz: 'Müde, blutend und immer wieder krank — innerhalb von Wochen: Anämie, Thrombozytopenie, Neutropenie durch Blastenverdrängung im Mark. Blutbild mit Differenzialblutbild zuerst, Knochenmarkpunktion beweist (ab 20 % Blasten). Fieber in der Neutropenie = Blutkulturen und Antibiotika innerhalb einer Stunde; Blutungsneigung mit Fibrinogenabfall = an die Promyelozytenleukämie denken und sofort ATRA.',
+      linkedCaseIds: [
+        'case-akute-leukaemie',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-bluttransfusion',
+        'auf-sonographie',
+        'auf-roentgen-thorax',
+      ],
+    },
+    {
+      id: 'fw-endometriose',
+      pathology: 'Endometriose',
+      specialty: 'Gynäkologie',
+      definition: 'Die Endometriose ist eine chronische, östrogenabhängige, gutartige Erkrankung, bei der gebärmutterschleimhautähnliches Gewebe (Endometrium-ähnliche Drüsen und Stroma) AUSSERHALB der Gebärmutterhöhle vorkommt — an den Eierstöcken (Endometriome, „Schokoladenzysten“), am Bauchfell, am Bandapparat (Sakrouterinligamente), im Douglas-Raum, an Darm und Blase, seltener am Ureter, am Zwerchfell oder in Narben. Liegt das Gewebe in der Muskelschicht der Gebärmutter selbst, spricht man von Adenomyose. Die Herde folgen dem Zyklus, bluten zyklisch, unterhalten eine chronische Entzündung und führen zu Fibrose und Verwachsungen. Betroffen ist etwa jede zehnte Frau im gebärfähigen Alter. Die durchschnittliche Diagnoseverzögerung beträgt sieben bis zehn Jahre, weil Regelschmerzen von den Patientinnen, ihrem Umfeld und oft auch von Ärzten als „normal“ bagatellisiert werden.',
+      aetiologie: 'Die Ursache ist nicht abschließend geklärt; es handelt sich um ein multifaktorielles Geschehen. Die wichtigste Hypothese ist die retrograde Menstruation nach Sampson (Verschleppung von Endometriumzellen über die Tuben in die Bauchhöhle mit Implantation), ergänzt durch die Metaplasietheorie (Umwandlung von Zölomepithel), die Theorie der lymphogenen und hämatogenen Streuung (erklärt Fernherde in Lunge oder Nabel) sowie eine gestörte Immunabwehr, die die Beseitigung ektoper Zellen verhindert. Die Herde sind östrogenabhängig, exprimieren Aromatase und zeigen eine Progesteronresistenz; sie unterhalten eine chronische Entzündung mit Prostaglandin- und Zytokinfreisetzung, die Schmerz, Fibrose, Verwachsungen und Subfertilität erklärt. Eine genetische Komponente ist gesichert: Verwandte ersten Grades haben ein etwa sechs- bis siebenfach erhöhtes Risiko.',
+      risikofaktoren: [
+        'Positive Familienanamnese (Mutter oder Schwester mit Endometriose — Risiko etwa sechs- bis siebenfach erhöht)',
+        'Frühe Menarche (vor dem 12. Lebensjahr) und späte Menopause (lange Östrogenexposition)',
+        'Kurze Zyklen (unter 27 Tagen) und lange, starke Regelblutungen (vermehrte retrograde Menstruation)',
+        'Nulliparität bzw. späte erste Schwangerschaft; Schwangerschaften und Stillzeiten wirken protektiv',
+        'Uterine Abflusshindernisse und Fehlbildungen (Hymenalatresie, Zervixstenose, Uterusanomalien)',
+        'Niedriger Body-Mass-Index, große Körperlänge',
+        'Voroperationen an der Gebärmutter (Sectio, Kürettage) für die Narben- und Adenomyoseform',
+      ],
+      klinik: [
+        {
+          text: 'Dysmenorrhoe: starke, krampfartige Regelschmerzen, die oft schon ein bis zwei Tage VOR der Blutung beginnen, sich über die Jahre verschlimmern, Bettruhe und Arbeitsunfähigkeit erzwingen und auf übliche Schmerzmittel unzureichend ansprechen — das erste der „vier D“',
+        },
+        {
+          text: 'Dyspareunie: tiefer Schmerz beim Geschlechtsverkehr, besonders bei Befall des Douglas-Raums und der Sakrouterinligamente, häufig mit Vermeidungsverhalten und Belastung der Partnerschaft',
+        },
+        {
+          text: 'Dyschezie: zyklische Schmerzen beim Stuhlgang, bei Darmbefall auch Blähungen, Durchfall oder Verstopfung während der Regel, selten Blut im Stuhl (Hämatochezie)',
+        },
+        {
+          text: 'Dysurie: zyklische Beschwerden beim Wasserlassen, bei Blasenbefall Hämaturie während der Menstruation',
+        },
+        {
+          text: 'Zyklusabhängigkeit als diagnostischer Schlüssel: die Beschwerden treten zumindest anfangs zyklisch auf und verstärken sich perimenstruell — diese Frage muss explizit gestellt werden',
+        },
+        {
+          text: 'Chronische Unterbauch- und Rückenschmerzen (Kreuzschmerz) zunehmend auch außerhalb der Menstruation, Ausstrahlung in Leisten, Oberschenkel und Rektum',
+        },
+        {
+          text: 'Unerfüllter Kinderwunsch: die Endometriose ist eine der häufigsten Ursachen weiblicher Sterilität (etwa 30 bis 50 % der betroffenen Frauen) durch Verwachsungen, Tubenschädigung, Entzündung und gestörte Eizellqualität',
+        },
+        {
+          text: 'Zyklusstörungen: verstärkte oder verlängerte Blutungen (Hypermenorrhoe, Menorrhagie), prä- und postmenstruelle Schmierblutungen, vor allem bei Adenomyose',
+        },
+        {
+          text: 'Allgemeinsymptome: chronische Müdigkeit, Erschöpfung, reduzierte Lebensqualität, depressive Verstimmung, Übelkeit während der Regel',
+        },
+        {
+          text: 'Besserung der Beschwerden unter früherer Pilleneinnahme und Wiederauftreten nach dem Absetzen — ein typischer anamnestischer Hinweis',
+        },
+        {
+          text: 'Zyklische Hämoptysen oder Pneumothorax bei Zwerchfell- oder Lungenendometriose, zyklische Nabel- oder Narbenschmerzen mit blutender Schwellung',
+          atypisch: true,
+        },
+        {
+          text: 'Stumme Ureterendometriose mit Harnstau und schleichendem Nierenfunktionsverlust ohne Schmerzen',
+          atypisch: true,
+        },
+        {
+          text: 'Völlig beschwerdefreie Endometriose als Zufallsbefund bei Laparoskopie oder allein durch Sterilität auffällig',
+          atypisch: true,
+        },
+      ],
+      klassifikation: [
+        {
+          name: 'rASRM-Klassifikation (revised American Society for Reproductive Medicine)',
+          inhalt: 'Punktesystem nach Lage, Größe und Tiefe der Herde an Peritoneum und Ovar sowie nach Ausmaß der Adhäsionen und Obliteration des Douglas-Raums, erhoben bei der Laparoskopie. Stadium I minimal (1–5 Punkte), Stadium II mild (6–15 Punkte), Stadium III moderat (16–40 Punkte), Stadium IV schwer (über 40 Punkte). Cave: Das Stadium korreliert NICHT mit der Schmerzstärke — eine Patientin mit Stadium I kann unerträgliche Schmerzen haben.',
+        },
+        {
+          name: '#Enzian-Klassifikation (tief infiltrierende Endometriose und Adenomyose)',
+          inhalt: 'Ergänzt die rASRM-Einteilung um die tief infiltrierende Endometriose. Kompartimente: A = Vagina/Septum rectovaginale, B = Sakrouterinligamente/Beckenwand, C = Rektum; O = Ovar, T = Tube, P = Peritoneum; F = Fernbefall mit FA = Adenomyose, FB = Blase, FU = Ureter, FI = Darm oberhalb des Rektosigmoids, FO = andere Lokalisationen. Jeweils mit Größenangabe 1 (< 1 cm), 2 (1–3 cm), 3 (> 3 cm). Kann auch sonographisch oder im MRT erhoben werden.',
+        },
+        {
+          name: 'Endometriosis Fertility Index (EFI)',
+          inhalt: 'Punktwert von 0 bis 10 aus Alter, Dauer der Sterilität, vorherigen Schwangerschaften, rASRM-Befund und Funktionsscore der Tuben und Ovarien („least function score“) — schätzt die Chance auf eine spontane Schwangerschaft nach operativer Sanierung und steuert die Entscheidung zwischen Abwarten und assistierter Reproduktion.',
+        },
+        {
+          name: 'Klinische Formen nach Lokalisation',
+          inhalt: 'Peritoneale (oberflächliche) Endometriose; ovarielle Endometriose mit Endometriomen („Schokoladenzysten“); tief infiltrierende Endometriose (Infiltration > 5 mm unter das Peritoneum: Septum rectovaginale, Darm, Blase, Ureter); Adenomyosis uteri (Herde im Myometrium); extragenitale Endometriose (Zwerchfell, Lunge, Nabel, Narben).',
+        },
+      ],
+      redFlags: [
+        'Akuter, plötzlich einsetzender Unterbauchschmerz mit Peritonismus → rupturiertes Endometriom, Ovarialtorsion oder Extrauteringravidität: sofort β-HCG und transvaginale Sonographie, ggf. Notfall-Laparoskopie',
+        'Flankenschmerz oder sonographischer Harnstau → Ureterendometriose mit Gefahr des stummen Nierenverlusts: Nierensonographie, Kreatinin, urologische Mitbeurteilung',
+        'Subileus- oder Ileussymptomatik, Stuhlkaliberänderung, Hämatochezie → stenosierende Darmendometriose, Koloskopie und MRT zum Ausschluss eines Karzinoms',
+        'Fieber, Schüttelfrost, eitriger Fluor → Adnexitis bzw. Tuboovarialabszess statt oder zusätzlich zur Endometriose',
+        'Positiver Schwangerschaftstest mit Unterbauchschmerz → Extrauteringravidität ausschließen, bevor irgendeine hormonelle Therapie begonnen wird',
+        'Rasch wachsende Adnexzyste, solide Anteile, Aszites oder erhöhtes CA 125 nach der Menopause → endometrioseassoziiertes Ovarialkarzinom bedenken',
+      ],
+      diagnostik: [
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gezielte Schmerzanamnese mit Zykluskalender und Schmerztagebuch: Beginn, Verlauf über Jahre, Zyklusbezug, die vier D (Dysmenorrhoe, Dyspareunie, Dyschezie, Dysurie), Schmerzmittelbedarf, Fehltage in Arbeit oder Schule, Besserung unter früherer Pilleneinnahme',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Anamnese: Menarche, Zykluslänge, Blutungsstärke und -dauer, Zwischenblutungen, Verhütung, Schwangerschaften, Kinderwunsch und dessen Dauer, frühere Operationen, Familienanamnese (familiäre Häufung)',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Gynäkologische Untersuchung möglichst zur Zeit der Menstruation: Spekulumeinstellung mit Suche nach bläulich-livide Herden im hinteren Scheidengewölbe; bimanuelle und rektovaginale Palpation mit Druckschmerz und Knoten im Douglas-Raum und an den Sakrouterinligamenten, fixiertem, retrovertiertem Uterus, vergrößerten, druckdolenten Adnexen',
+        },
+        {
+          stufe: 'Anamnese/Klinik',
+          text: 'Abdominelle Untersuchung und Vitalparameter zum Ausschluss eines akuten Abdomens (Appendizitis, Torsion, Ruptur); Erhebung von Größe, Gewicht und BMI',
+        },
+        {
+          stufe: 'Labor',
+          text: 'β-HCG im Urin oder Serum bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz — Ausschluss einer (Extrauterin-)Gravidität vor jeder Bildgebung, Operation und hormonellen Therapie',
+        },
+        {
+          stufe: 'Labor',
+          text: 'Blutbild (Anämie bei Hypermenorrhoe), CRP und Leukozyten (Abgrenzung einer Adnexitis oder Appendizitis), Urinstatus und Urinkultur (Harnwegsinfekt, Hämaturie), Kreatinin bei Verdacht auf Ureterbefall',
+        },
+        {
+          stufe: 'Labor',
+          text: 'CA 125 ist unspezifisch, bei Endometriose häufig leicht erhöht und dient NICHT der Diagnose oder dem Ausschluss; allenfalls zur Verlaufsbeurteilung großer Endometriome. Bei Kinderwunsch ergänzend Hormonstatus (AMH, FSH, TSH, Prolaktin) und Spermiogramm des Partners',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'Transvaginale Sonographie als bildgebende Methode der Wahl: Endometriome als homogen echoarme, glatt begrenzte Zysten mit „Milchglas“-Binnenecho („Schokoladenzysten“), Adenomyose (asymmetrisch verdicktes, inhomogenes Myometrium, Myometriumzysten), tief infiltrierende Knoten im Septum rectovaginale, an Darm oder Blase, Sliding-Zeichen bei Douglas-Obliteration. Cave: Ein unauffälliger Ultraschall schließt die peritoneale Endometriose NICHT aus',
+        },
+        {
+          stufe: 'Apparativ & Bildgebung',
+          text: 'MRT des Beckens bei Verdacht auf tief infiltrierende Endometriose mit Darm-, Blasen- oder Ureterbeteiligung und zur Operationsplanung; Nierensonographie zum Ausschluss eines Harnstaus bei Ureterbefall',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Zystoskopie bei zyklischer Hämaturie oder Blasensymptomatik, Rektoskopie bzw. Koloskopie bei Hämatochezie oder Stenosesymptomen — jeweils möglichst perimenstruell',
+        },
+        {
+          stufe: 'Invasiv & Speziell',
+          text: 'Laparoskopie mit Histologie als Goldstandard: Sicherung der Diagnose (typische rote, schwarz-braune „Pulverschmauch“-Herde, weiße narbige Herde, Endometriome, Verwachsungen), Stadieneinteilung nach rASRM und #Enzian und gleichzeitige operative Behandlung. Heutiger Grundsatz: Bei typischer Klinik darf eine empirische Therapie OHNE vorherige Laparoskopie begonnen werden, um die Diagnoseverzögerung nicht zu verlängern',
+        },
+      ],
+      differenzialdiagnosen: [
+        {
+          dd: 'Primäre Dysmenorrhoe (ohne organische Ursache)',
+          unterscheidung: 'Beginnt kurz nach der Menarche mit Einsetzen ovulatorischer Zyklen, bleibt über die Jahre gleich oder bessert sich, tritt nur an den ersten Blutungstagen auf, spricht gut auf NSAR und die Pille an; keine Dyspareunie, keine Dyschezie, kein Befund bei der Untersuchung. Die Endometriose beginnt oft später, wird progredient und ist therapierefraktär.',
+        },
+        {
+          dd: 'Adenomyosis uteri',
+          unterscheidung: 'Eigene Form der Endometriose im Myometrium: Hypermenorrhoe und Dysmenorrhoe bei meist multiparen Frauen über 35, diffus vergrößerter, weicher, druckschmerzhafter Uterus; sonographisch asymmetrisch verdicktes Myometrium. Häufig gemeinsam mit peritonealer Endometriose.',
+        },
+        {
+          dd: 'Uterus myomatosus',
+          unterscheidung: 'Hypermenorrhoe, Druck- und Fremdkörpergefühl, vergrößerter, knotiger Uterus; sonographisch gut abgrenzbare echoarme Knoten im Myometrium; Schmerzen meist weniger zyklisch, keine Dyspareunie im Douglas-Raum.',
+        },
+        {
+          dd: 'Chronische Adnexitis / pelvic inflammatory disease',
+          unterscheidung: 'Fieber, eitriger Fluor, Portioschiebeschmerz, erhöhte Entzündungsparameter, Erregernachweis (Chlamydien, Gonokokken); Beschwerden nicht streng zyklusgebunden. Von Prüfern bei Unterbauchschmerz der Frau regelmäßig erwartet.',
+        },
+        {
+          dd: 'Ovarialzyste (funktionell), Ovarialtorsion, Ovarialtumor',
+          unterscheidung: 'Funktionelle Zysten sind einseitig, echoleer und bilden sich innerhalb von ein bis zwei Zyklen zurück; die Torsion verursacht einen plötzlichen, vernichtenden Schmerz mit Erbrechen; Tumoren zeigen solide Anteile, Septen, Aszites. Endometriome sind homogen echoarm und persistieren.',
+        },
+        {
+          dd: 'Extrauteringravidität',
+          unterscheidung: 'Sekundäre Amenorrhoe, positives β-HCG, Schmierblutung, akuter einseitiger Schmerz bis zum hämorrhagischen Schock — bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz zuerst ausschließen.',
+        },
+        {
+          dd: 'Reizdarmsyndrom und chronisch-entzündliche Darmerkrankung',
+          unterscheidung: 'Beschwerden über den ganzen Zyklus mit Stuhlgangsbezug, Blähungen, Wechsel von Durchfall und Verstopfung; bei CED Gewichtsverlust, Blut im Stuhl, erhöhtes Calprotectin, Befund in der Koloskopie. Bei der Endometriose sind Dyschezie und Darmsymptome zyklisch. Cave: beide Erkrankungen kommen häufig gemeinsam vor.',
+        },
+        {
+          dd: 'Interstitielle Zystitis und rezidivierende Harnwegsinfekte',
+          unterscheidung: 'Pollakisurie, Drangsymptomatik und Blasenschmerz unabhängig vom Zyklus; positive Urinkultur beim Infekt, typischer Zystoskopiebefund bei der interstitiellen Zystitis. Bei Blasenendometriose ist die Hämaturie zyklisch und die Urinkultur steril.',
+        },
+        {
+          dd: 'Appendizitis und Divertikulitis',
+          unterscheidung: 'Akuter, progredienter Schmerz mit Abwehrspannung, Fieber, Leukozytose, CRP-Anstieg, sonographischer bzw. CT-Befund; keine Zyklusabhängigkeit, keine jahrelange Vorgeschichte.',
+        },
+        {
+          dd: 'Verwachsungen nach Voroperationen',
+          unterscheidung: 'Vorgeschichte mit abdominellen oder gynäkologischen Eingriffen, lage- und bewegungsabhängige, nicht zyklische Schmerzen, ggf. Subileus; sonographisch unauffällig, Diagnose oft erst laparoskopisch.',
+        },
+        {
+          dd: 'Beckenbodendysfunktion und myofasziales Schmerzsyndrom',
+          unterscheidung: 'Druckschmerzhafte Triggerpunkte der Beckenbodenmuskulatur, Schmerz bei der Palpation der Levatoren, keine Herde, keine Zyklusbindung; häufig als sekundäre Schmerzverstärkung bei langjähriger Endometriose.',
+        },
+        {
+          dd: 'Chronisches Beckenschmerzsyndrom und somatoforme Schmerzstörung',
+          unterscheidung: 'Ausschlussdiagnosen! Sie dürfen erst nach vollständiger organischer Abklärung einschließlich Laparoskopie gestellt werden. Die Endometriose wurde jahrzehntelang genau so verkannt und psychosomatisiert — der Kandidat darf den Schmerz nicht relativieren.',
+        },
+      ],
+      therapie: [
+        {
+          label: 'Aufklärung und Schmerztherapie als Grundlage',
+          items: [
+            'Ausführliche Aufklärung: chronische, gutartige, aber ernst zu nehmende Erkrankung mit Verlauf bis zur Menopause; den Schmerz ausdrücklich anerkennen und nicht relativieren; Therapieziele Schmerzfreiheit, Erhalt der Fertilität und Lebensqualität',
+            'NSAR frühzeitig und in ausreichender Dosis, bereits bei Beginn der Beschwerden bzw. ein bis zwei Tage vor der erwarteten Blutung: Ibuprofen 400–600 mg bis 3 × täglich oder Naproxen 2 × 500 mg, unter Magenschutz; bei unzureichender Wirkung Kombination mit Metamizol 500–1000 mg bis 4 × täglich; Spasmolytika (Butylscopolamin) ergänzend',
+            'Nicht-medikamentöse Maßnahmen: Wärme (Wärmflasche, Bäder), regelmäßige Bewegung und Sport, Entspannungsverfahren, Physiotherapie und Osteopathie des Beckenbodens, Akupunktur, Ernährungsberatung (entzündungsarme Kost)',
+            'Psychosoziale Unterstützung: multimodale Schmerzbewältigung, psychotherapeutische Begleitung bei Chronifizierung, Selbsthilfegruppen (Endometriose-Vereinigung Deutschland), Aufklärung des Arbeitgebers bzw. Schwerbehinderungsantrag bei schwerem Verlauf',
+            'Einbeziehung des Partners in die Aufklärung, insbesondere bei Dyspareunie und Kinderwunsch',
+          ],
+        },
+        {
+          label: 'Hormonelle Therapie zur Unterdrückung des Zyklus und der Herde',
+          items: [
+            'Gestagene als Mittel der ersten Wahl, allen voran Dienogest 2 mg täglich kontinuierlich ohne Pause (zugelassen zur Endometriosetherapie): Unterdrückung der Ovulation, Dezidualisierung und Atrophie der Herde, antiproliferativ und antiinflammatorisch; Nebenwirkungen Schmierblutungen, Stimmungsschwankungen, Libidoverlust',
+            'Levonorgestrel-Intrauterinsystem (Hormonspirale) als Alternative, besonders bei Adenomyose und Hypermenorrhoe, ohne Kinderwunsch; Wirkdauer bis zu acht Jahre',
+            'Kombinierte orale Kontrazeptiva im Langzyklus ohne Pause als zweite Option (Off-Label), bevorzugt gestagenbetont; kontraindiziert bei Migräne mit Aura, Thromboseneigung, Rauchen über 35 Jahren',
+            'GnRH-Analoga (z. B. Leuprorelin, Goserelin) oder GnRH-Antagonisten (Relugolix, Elagolix) bei schweren, therapierefraktären Formen und zur Vorbereitung großer Operationen: pharmakologische „künstliche Menopause“, zeitlich begrenzt auf etwa sechs Monate, immer mit „Add-back“-Therapie durch Östrogen/Gestagen zur Vermeidung von Wechseljahresbeschwerden und Knochenverlust',
+            'Grundsatz: Alle hormonellen Verfahren wirken nur während der Einnahme, unterdrücken die Ovulation und sind mit einem aktuellen Kinderwunsch NICHT vereinbar — deshalb bei Kinderwunsch keine hormonelle Dauertherapie, sondern Operation und Kinderwunschbehandlung',
+          ],
+        },
+        {
+          label: 'Operative Therapie mit klarer Indikation',
+          items: [
+            'Laparoskopie mit vollständiger Entfernung (Exzision) oder Zerstörung (Koagulation, Vaporisation) aller sichtbaren Herde, Histologiegewinnung, Lösung von Verwachsungen (Adhäsiolyse) und Wiederherstellung der Anatomie',
+            'Entfernung von Endometriomen als Zystektomie unter maximaler Schonung des Ovarialgewebes (Erhalt der ovariellen Reserve), keine bloße Drainage oder Koagulation der Zystenwand (hohe Rezidivrate)',
+            'Resektion tief infiltrierender Herde an Darm (Shaving, Diskoide oder Segmentresektion), Blase (Blasenteilresektion) und Ureter (Ureterolyse, ggf. Resektion mit Neueinpflanzung) in einem zertifizierten Endometriosezentrum mit interdisziplinärem Team (Gynäkologie, Viszeralchirurgie, Urologie)',
+            'Indikationen: Therapieversagen oder Unverträglichkeit der hormonellen Therapie, Endometriome über 3–4 cm oder unklarer Dignität, tief infiltrierende Endometriose mit Organbeteiligung, Harnstau, Darmstenose sowie der Kinderwunsch, weil die operative Sanierung die Fertilität verbessern kann',
+            'Hysterektomie mit oder ohne beidseitige Adnexektomie nur als letzte Option nach abgeschlossener Familienplanung, vor allem bei Adenomyose — mit dem Hinweis, dass auch sie nicht immer heilt, da peritoneale Herde bestehen bleiben können; bei Adnexektomie vor der Menopause Hormonersatz erwägen',
+            'Postoperative hormonelle Rezidivprophylaxe (Dienogest oder Hormonspirale), sofern kein unmittelbarer Kinderwunsch besteht, weil Rezidive häufig sind (bis zu 50 % innerhalb von fünf Jahren)',
+          ],
+        },
+        {
+          label: 'Kinderwunschbehandlung, Verlauf und Langzeitbetreuung',
+          items: [
+            'Bei unerfülltem Kinderwunsch operative Sanierung und anschließend zeitnaher Konzeptionsversuch im „Zeitfenster“ der ersten sechs bis zwölf Monate nach der Operation, orientierend am Endometriosis Fertility Index; keine hormonelle Suppression in dieser Phase',
+            'Bei ausbleibender Schwangerschaft, höherem Alter, Tubenschaden oder eingeschränkter ovarieller Reserve Kinderwunschbehandlung: ovarielle Stimulation mit Insemination bei leichten Formen, In-vitro-Fertilisation (IVF/ICSI) bei fortgeschrittenen Stadien oder Tubenverschluss; Fertilitätsberatung und Aufklärung über das Zeitfenster, ggf. Fertilitätsprotektion (Kryokonservierung von Eizellen) vor ausgedehnten Ovarialoperationen',
+            'Regelmäßige Verlaufskontrollen mit Anamnese und transvaginaler Sonographie, Rezidivüberwachung, bei Ureterbefall Kontrolle von Nierenfunktion und Harnwegen (Nierensonographie, Kreatinin)',
+            'Anpassung der Therapie an Lebensphase und Kinderwunsch: hormonelle Therapie bis zum Kinderwunsch, Pause zur Konzeption, Wiederaufnahme nach Abschluss der Familienplanung bis zur Menopause',
+            'Aufklärung, dass die Beschwerden mit der Menopause meist nachlassen, sowie über das leicht erhöhte Risiko bestimmter Ovarialkarzinome (endometrioides und klarzelliges Karzinom); Betreuung in einem zertifizierten Endometriosezentrum bei komplexen Verläufen',
+          ],
+        },
+      ],
+      prognose: 'Die Endometriose ist eine chronische Erkrankung mit hoher Rezidivneigung: Nach hormoneller Therapie kehren die Beschwerden nach dem Absetzen meist zurück, nach operativer Sanierung liegt die Rezidivrate ohne Nachbehandlung bei 20 bis 50 % innerhalb von fünf Jahren. Unter konsequenter, an die Lebensphase angepasster Therapie erreichen die meisten Patientinnen eine gute Schmerzkontrolle und Lebensqualität. Die Fertilität ist eingeschränkt, aber nicht aufgehoben: Nach laparoskopischer Sanierung werden je nach Stadium etwa 30 bis 60 % der Frauen spontan schwanger, mit Kinderwunschbehandlung entsprechend mehr; eine Schwangerschaft bessert die Beschwerden meist vorübergehend. Mit der Menopause klingen die Beschwerden in der Regel ab. Eine maligne Entartung ist selten; das Lebenszeitrisiko für ein endometrioides oder klarzelliges Ovarialkarzinom ist leicht erhöht (etwa 1,5 % gegenüber 1,3 % in der Allgemeinbevölkerung). Prognostisch entscheidend sind die frühe Diagnose — die Diagnoseverzögerung von sieben bis zehn Jahren ist der Hauptgrund für Chronifizierung, Organschäden und Sterilität — sowie eine kontinuierliche Betreuung.',
+      pruefungsfallen: [
+        'Den Schmerz der Patientin nicht relativieren: Formulierungen wie „Regelschmerzen sind normal“ oder „das haben viele Frauen“ sind genau die Bagatellisierung, die die Diagnoseverzögerung von sieben bis zehn Jahren verursacht. Der Kandidat muss zeigen, dass er das Leiden ernst nimmt.',
+        'Die Zyklusabhängigkeit explizit erfragen („Hängen die Schmerzen mit Ihrer Regel zusammen? Beginnen sie vor der Blutung?“) und die vier D strukturiert abfragen — Dyspareunie und Dyschezie werden von der Patientin NICHT spontan erwähnt.',
+        'β-HCG vor allem anderen: Bei jeder Frau im gebärfähigen Alter mit Unterbauchschmerz muss die (Extrauterin-)Schwangerschaft ausgeschlossen werden — in Karlsruhe und Freiburg regelmäßig gefragt („Kann die Patientin schwanger sein? Was machen Sie dann?“).',
+        'Ein unauffälliger Ultraschall schließt die Endometriose NICHT aus — die peritoneale Form ist sonographisch nicht sichtbar. „Beim Frauenarzt wurde nichts gefunden“ ist kein Ausschluss.',
+        'CA 125 ist KEIN Diagnosemarker der Endometriose (unspezifisch, auch bei Menstruation, Adnexitis, Myomen erhöht) — nicht als Diagnostikum anbieten.',
+        'Hormonelle Therapie und Kinderwunsch schließen sich aus: Wer einer Patientin mit aktuellem Kinderwunsch Dienogest oder die Pille verordnet, hat die Therapielogik nicht verstanden. Bei Kinderwunsch: Operation und Kinderwunschbehandlung.',
+        'Kombinierte Pille bei Migräne mit Aura ist kontraindiziert (Schlaganfallrisiko) — Gestagen-Monotherapie (Dienogest) ist dann die richtige Wahl.',
+        'GnRH-Analoga nie ohne Add-back-Therapie und nie unbegrenzt (Knochenverlust, Wechseljahresbeschwerden), maximal etwa sechs Monate.',
+        'Die Laparoskopie ist Goldstandard, aber KEINE Voraussetzung für den Therapiebeginn: Bei typischer Klinik darf empirisch behandelt werden.',
+        '„Somatoforme Schmerzstörung“ oder „chronisches Beckenschmerzsyndrom“ dürfen nur als Ausschlussdiagnose genannt werden — nie als Erstverdacht bei einer jungen Frau mit zyklischen Schmerzen.',
+        'Die Hysterektomie ist keine sichere Heilung, da peritoneale Herde bleiben; sie ist die letzte Option nach abgeschlossener Familienplanung.',
+        'Patientengerechte Sprache: „Endometriose“ erklären als „Gebärmutterschleimhaut, die außerhalb der Gebärmutter wächst und bei jeder Regel mitblutet“; „Endometriom“ = „Schokoladenzyste am Eierstock“; „Laparoskopie“ = „Bauchspiegelung“; „Dyspareunie“ = „Schmerzen beim Geschlechtsverkehr“.',
+      ],
+      askedInExam: [
+        {
+          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
+          antwort: 'Eine Endometriose. Dafür sprechen die über Jahre progrediente, zyklusabhängige Dysmenorrhoe, die schon vor der Blutung beginnt und auf NSAR unzureichend anspricht, die tiefe Dyspareunie, die zyklische Dyschezie, die Besserung unter der früheren Pilleneinnahme mit Wiederauftreten nach dem Absetzen, der unerfüllte Kinderwunsch und die positive Familienanamnese.',
+        },
+        {
+          frage: 'Kann die Patientin schwanger sein? Was machen Sie dann?',
+          antwort: 'Grundsätzlich ja — sie hat Kinderwunsch und verhütet nicht. Deshalb bestimme ich zuerst das β-HCG. Ist es positiv, muss ich mit der transvaginalen Sonographie eine intrauterine Schwangerschaft nachweisen und eine Extrauteringravidität ausschließen; jede hormonelle Therapie, jede Röntgenuntersuchung und jede Operation wird bis dahin zurückgestellt.',
+        },
+        {
+          frage: 'Sie ist eine Frau mit Unterbauchschmerzen — was könnte es auch sein?',
+          antwort: 'Gynäkologisch eine Adnexitis, eine Extrauteringravidität, eine Ovarialzyste oder -torsion, ein Uterus myomatosus, eine Adenomyose oder der Mittelschmerz zur Ovulation; nicht-gynäkologisch eine Appendizitis, ein Reizdarmsyndrom, eine chronisch-entzündliche Darmerkrankung, ein Harnwegsinfekt oder eine interstitielle Zystitis. Gegen die akuten Ursachen sprechen die jahrelange Vorgeschichte, das Fehlen von Fieber und die Zyklusbindung.',
+        },
+        {
+          frage: 'Was können Sie in der Sonographie sehen, und was sehen Sie nicht?',
+          antwort: 'Transvaginal sehe ich Endometriome als homogen echoarme Zysten mit Milchglasmuster, eine Adenomyose als asymmetrisch verdicktes Myometrium, tief infiltrierende Knoten im Septum rectovaginale oder an der Blase, freie Flüssigkeit und ein aufgehobenes Sliding-Zeichen bei Douglas-Obliteration. Nicht sehen kann ich die oberflächliche peritoneale Endometriose — ein unauffälliger Ultraschall schließt die Erkrankung also nicht aus.',
+        },
+        {
+          frage: 'Was ist der Goldstandard der Diagnose, und müssen Sie ihn vor der Therapie durchführen?',
+          antwort: 'Die Laparoskopie mit histologischer Sicherung; sie erlaubt zugleich die Stadieneinteilung und die operative Behandlung. Nach heutigem Grundsatz darf bei typischer Klinik jedoch eine empirische hormonelle Therapie ohne vorherige Laparoskopie begonnen werden, um die Diagnoseverzögerung nicht zu verlängern.',
+        },
+        {
+          frage: 'Warum dauert es im Durchschnitt sieben bis zehn Jahre bis zur Diagnose?',
+          antwort: 'Weil Regelschmerzen gesellschaftlich als normal gelten und von der Patientin, ihrem Umfeld und oft auch von Ärzten bagatellisiert werden; weil die Symptome unspezifisch sind und Fachgrenzen überschreiten (Gastroenterologie, Urologie, Schmerzmedizin); und weil der Ultraschall bei der peritonealen Form unauffällig ist. Die Konsequenz ist, dass ich zyklische Schmerzen einer jungen Frau ernst nehme und gezielt nachfrage.',
+        },
+        {
+          frage: 'Wie behandeln Sie — und wovon hängt die Therapie ab?',
+          antwort: 'Von drei Faktoren: der Schmerzstärke, dem Kinderwunsch und dem Alter. Grundlage sind Aufklärung und Schmerztherapie mit NSAR. Ohne Kinderwunsch ist die hormonelle Therapie mit Dienogest das Mittel der ersten Wahl, alternativ die Hormonspirale oder die Pille im Langzyklus, bei schweren Formen zeitlich begrenzt GnRH-Analoga mit Add-back. Bei Kinderwunsch, Therapieversagen, großen Endometriomen oder Organbeteiligung die laparoskopische Sanierung, gefolgt von Konzeptionsversuch oder Kinderwunschbehandlung.',
+        },
+        {
+          frage: 'Die Patientin hat Kinderwunsch — dürfen Sie ihr die Pille oder Dienogest geben?',
+          antwort: 'Nein. Alle hormonellen Verfahren unterdrücken die Ovulation und wirken kontrazeptiv, sie sind mit einem aktuellen Kinderwunsch nicht vereinbar. Bei Kinderwunsch empfehle ich die laparoskopische Sanierung und anschließend einen zeitnahen Konzeptionsversuch, gegebenenfalls eine Kinderwunschbehandlung mit Insemination oder In-vitro-Fertilisation.',
+        },
+        {
+          frage: 'Was ist eine Add-back-Therapie, und warum braucht man sie?',
+          antwort: 'Die gleichzeitige niedrig dosierte Gabe von Östrogen und Gestagen unter einer GnRH-Analoga-Therapie. GnRH-Analoga erzeugen eine künstliche Menopause mit Hitzewallungen, Schlafstörungen, Scheidentrockenheit und vor allem einem Knochendichteverlust; das Add-back verhindert diese Nebenwirkungen, ohne die Wirkung auf die Herde aufzuheben. Die Therapie bleibt auf etwa sechs Monate begrenzt.',
+        },
+        {
+          frage: 'Erklären Sie der Patientin in einfachen Worten, was Endometriose ist.',
+          antwort: '„Bei der Endometriose wächst Gewebe, das der Gebärmutterschleimhaut ähnelt, außerhalb der Gebärmutter — zum Beispiel an den Eierstöcken oder am Bauchfell. Dieses Gewebe reagiert auf Ihre Hormone und blutet bei jeder Regel mit, kann aber nicht abfließen. Dadurch entstehen Entzündungen, Schmerzen und Verwachsungen. Die Erkrankung ist gutartig, aber chronisch, und sie erklärt Ihre Beschwerden und möglicherweise auch, warum Sie bisher nicht schwanger geworden sind. Sie ist gut behandelbar.“',
+        },
+        {
+          frage: 'Welche Komplikationen der Endometriose kennen Sie?',
+          antwort: 'Sterilität durch Verwachsungen und Tubenschaden, Ruptur oder Torsion eines Endometrioms, Douglas-Obliteration, Darmstenose bis zum Ileus bei Darmbefall, Harnstau mit stummem Nierenverlust bei Ureterbefall, chronische Schmerzkrankheit mit Depression, Anämie bei Hypermenorrhoe und — selten — ein endometrioseassoziiertes Ovarialkarzinom.',
+        },
+      ],
+      merksatz: 'Zyklische Schmerzen, die über Jahre schlimmer werden, plus die vier D (Dysmenorrhoe, Dyspareunie, Dyschezie, Dysurie) und Kinderwunsch = Endometriose, bis das Gegenteil bewiesen ist — sieben bis zehn Jahre Verzögerung entstehen nur, weil niemand fragt. β-HCG zuerst, Vaginalsonographie als Methode der Wahl (unauffällig schließt nichts aus), Laparoskopie als Goldstandard; Therapie nach Schmerz, Kinderwunsch und Alter — Dienogest ohne Kinderwunsch, Operation mit Kinderwunsch, niemals beides zugleich.',
+      linkedCaseIds: [
+        'case-endometriose',
+      ],
+      keyFachbegriffeIds: [],
+      linkedAufklaerungIds: [
+        'auf-sonographie',
+        'auf-laparoskopie',
+        'auf-mrt',
+      ],
+    },
   ];
 }
