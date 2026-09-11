@@ -1240,7 +1240,7 @@ export function seedFachwissen(): Fachwissen[] {
       pathology: 'Ambulant erworbene Pneumonie (CAP)',
       specialty: 'Pneumologie',
       definition: 'Ambulant erworbene Pneumonie (CAP, community-acquired pneumonia): akute Infektion des Lungenparenchyms (Alveolen und/oder Interstitium), die außerhalb des Krankenhauses bzw. innerhalb der ersten 48 Stunden nach stationärer Aufnahme bei einem nicht schwer immunsupprimierten Patienten erworben wird. Abzugrenzen von der nosokomialen Pneumonie (Erwerb ≥ 48 h nach Aufnahme) und der Pneumonie bei ausgeprägter Immunsuppression, da sich Erregerspektrum und kalkulierte Antibiose unterscheiden.',
-      aetiologie: 'Häufigster Erreger ist Streptococcus pneumoniae (Pneumokokken). Weitere typische Erreger: Haemophilus influenzae, Moraxella catarrhalis, Staphylococcus aureus. Atypische Erreger (v. a. bei jüngeren Patienten): Mycoplasma pneumoniae, Chlamydophila pneumoniae, Legionella pneumophila. Virale Genese (Influenza, RSV, SARS-CoV-2), oft mit bakterieller Superinfektion. Bei älteren, komorbiden oder immunsupprimierten Patienten (hier: Diabetes mellitus und Z. n. Strahlentherapie/Zytostatika) auch gramnegative Enterobakterien und opportunistische Erreger.',
+      aetiologie: 'Häufigster Erreger ist Streptococcus pneumoniae (Pneumokokken). Weitere typische Erreger: Haemophilus influenzae, Moraxella catarrhalis, Staphylococcus aureus. Atypische Erreger (v. a. bei jüngeren Patienten): Mycoplasma pneumoniae, Chlamydophila pneumoniae, Legionella pneumophila. Virale Genese (Influenza, RSV, SARS-CoV-2), oft mit bakterieller Superinfektion. Bei älteren, komorbiden oder immunsupprimierten Patienten (hier: Diabetes mellitus und Z. n. Zytostatikatherapie) auch gramnegative Enterobakterien und opportunistische Erreger.',
       risikofaktoren: [
         'Höheres Lebensalter',
         'Diabetes mellitus (Immunschwäche, hier vorbekannt)',
@@ -1352,25 +1352,21 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Allgemeinmaßnahmen',
           items: [
             'Allgemeinmaßnahmen: körperliche Schonung, ausreichende Flüssigkeitszufuhr, Antipyrese/Analgesie (bevorzugt Paracetamol; NSAR mit Vorsicht bei RAAS-Hemmer/Diuretikum oder Exsikkose), Sauerstoffgabe bei SpO2 < 92 %, Sekretolyse und Atemtherapie/Mobilisation, Thromboseprophylaxe bei stationärer Aufnahme',
-            'Kalkulierte (empirische) Antibiose je nach Schweregrad — leichte ambulante CAP: Amoxicillin; bei Penicillinallergie Makrolid (Clarithromycin/Azithromycin) oder Doxycyclin',
-            'Mittelschwere/schwere, stationäre CAP: Aminopenicillin + β-Laktamase-Inhibitor (Ampicillin/Sulbactam) oder Cephalosporin (Ceftriaxon/Cefotaxim), kombiniert mit einem Makrolid',
-            'Bei Penicillinallergie (wie hier): stationär ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) als Monotherapie der Wahl — ein Makrolid allein genügt nur ambulant bei leichter CAP',
-            'Deeskalation der Antibiose nach Sputum-/Blutkultur und Antibiogramm; Therapiedauer meist 5–7 Tage',
             'Prophylaxe: Pneumokokken- und jährliche Influenzaimpfung; gute Diabeteseinstellung',
           ],
         },
         {
           label: 'Antibiotische Therapie',
           items: [
-            'Diagnostische und ggf. therapeutische Pleurapunktion, bei Empyem Anlage einer Thoraxdrainage',
-            'Bronchoskopische Sekretabsaugung und BAL zur Erregersicherung bei Sekretretention oder Immunsuppression',
-            'Intensivmedizinische Betreuung mit nicht-invasiver (NIV) oder invasiver Beatmung bei respiratorischer Insuffizienz oder Sepsis',
+            'Kalkulierte (empirische) Antibiose je nach Schweregrad — leichte ambulante CAP: Amoxicillin; bei Penicillinallergie Makrolid (Clarithromycin/Azithromycin) oder Doxycyclin',
+            'Mittelschwere/schwere, stationäre CAP: Aminopenicillin + β-Laktamase-Inhibitor (Ampicillin/Sulbactam) oder Cephalosporin (Ceftriaxon/Cefotaxim), kombiniert mit einem Makrolid',
+            'Bei Penicillinallergie (wie hier): stationär ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) als Monotherapie der Wahl — ein Makrolid allein genügt nur ambulant bei leichter CAP; Deeskalation der Antibiose nach Sputum-/Blutkultur und Antibiogramm, Therapiedauer meist 5–7 Tage',
           ],
         },
         {
           label: 'Bei Komplikationen',
           items: [
-            'Operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
+            'Diagnostische und ggf. therapeutische Pleurapunktion, bei Empyem Anlage einer Thoraxdrainage; bronchoskopische Sekretabsaugung und BAL zur Erregersicherung bei Sekretretention oder Immunsuppression; intensivmedizinische Betreuung mit nicht-invasiver (NIV) oder invasiver Beatmung bei respiratorischer Insuffizienz oder Sepsis; operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
             'Operative Ausräumung eines konservativ/interventionell nicht beherrschbaren Lungenabszesses',
           ],
         },
@@ -1397,7 +1393,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Risikofaktoren für eine Pneumonie hat der Patient?',
-          antwort: 'Vor allem der Diabetes mellitus und die Immunsuppression durch die Strahlentherapie beziehungsweise die Zytostatika; beide schwächen die Immunabwehr und begünstigen eine Pneumonie. Hinzu kommen das Alter und die weiteren Vorerkrankungen.',
+          antwort: 'Vor allem der Diabetes mellitus und die Immunsuppression durch die Zytostatikatherapie; beide schwächen die Immunabwehr und begünstigen eine Pneumonie. Hinzu kommen das Alter und die weiteren Vorerkrankungen.',
         },
         {
           frage: 'Was erwarten Sie in der körperlichen Untersuchung?',
@@ -42722,7 +42718,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Gezielte Antibiotikatherapie nur bei begründetem Verdacht auf bakterielle Rhinosinusitis',
           items: [
-            'Indikation NUR bei Kriterien der bakteriellen Form: Beschwerden über zehn Tage ohne Besserung, zweigipfliger Verlauf mit erneuter Verschlechterung, hohes Fieber über 39 °C mit eitrigem Sekret über mindestens drei Tage, starke einseitige Schmerzen, deutlich erhöhtes CRP — oder bei Risikopatienten (Immunsuppression, schwere Grunderkrankungen, drohende Komplikationen). Selbst dann heilt die Mehrheit ohne Antibiotikum; ein abwartendes Vorgehen über weitere zwei bis drei Tage ist bei mildem Verlauf vertretbar',
+            'Indikation NUR bei Kriterien der bakteriellen Form: Beschwerden über zehn Tage ohne Besserung, zweigipfliger Verlauf mit erneuter Verschlechterung, Fieber über 38 °C mit eitrigem Sekret, starke einseitige Schmerzen, deutlich erhöhtes CRP — oder bei Risikopatienten (Immunsuppression, schwere Grunderkrankungen, drohende Komplikationen). Selbst dann heilt die Mehrheit ohne Antibiotikum; ein abwartendes Vorgehen über weitere zwei bis drei Tage ist bei mildem Verlauf vertretbar',
             'Mittel der Wahl: Amoxicillin 3 × 500–1 000 mg täglich über fünf bis sieben Tage (kurze Therapiedauer ist gleichwertig und nebenwirkungsärmer)',
             'Amoxicillin-Clavulansäure 2–3 × 875/125 mg bei Risikofaktoren für Betalaktamase-Bildner oder Therapieversagen: Antibiose in den letzten vier Wochen, Alter über 65, Immunsuppression, dentogene Sinusitis, schwere Verlaufsform',
             'Bei Penicillinallergie: Doxycyclin 200 mg am ersten Tag, danach 100–200 mg täglich (Cave Photosensibilisierung, nicht in Schwangerschaft und bei Kindern unter acht Jahren) oder ein Makrolid (Clarithromycin 2 × 500 mg, Azithromycin 500 mg über drei Tage; Cave QT-Verlängerung, hohe Pneumokokkenresistenz); alternativ Cefuroxim bei nicht-anaphylaktischer Penicillinreaktion',
@@ -42758,7 +42754,7 @@ export function seedFachwissen(): Fachwissen[] {
       pruefungsfallen: [
         'Die Diagnose der unkomplizierten akuten Rhinosinusitis ist KLINISCH — wer reflexartig „Röntgen der Nasennebenhöhlen“ oder „Blutbild und CRP“ als Standard anordnet, verrät ein veraltetes Vorgehen. Röntgen-NNH ist obsolet; CT nur bei Komplikationsverdacht, Therapieversagen oder vor Operation.',
         'Über 90 % der Fälle sind viral — die Standardtherapie ist symptomatisch. Die Prüfer wollen hören, dass Sie dem Patienten das Antibiotikum begründet VERWEIGERN und das Gespräch darüber führen können.',
-        'Die fünf Kriterien der bakteriellen Form müssen sicher aufgezählt werden: Dauer über zehn Tage, zweigipfliger Verlauf („double sickening“), Fieber über 39 °C mit eitrigem Sekret über drei Tage, starke einseitige Schmerzen, erhöhtes CRP. „Gelbgrünes Sekret“ allein ist KEIN Beweis für Bakterien.',
+        'Die fünf Kriterien der bakteriellen Form müssen sicher aufgezählt werden: Dauer über zehn Tage, zweigipfliger Verlauf („double sickening“), Fieber über 38 °C mit eitrigem Sekret, starke einseitige Schmerzen, erhöhtes CRP. „Gelbgrünes Sekret“ allein ist KEIN Beweis für Bakterien.',
         'Xylometazolin nur fünf bis sieben Tage — die Rhinitis medicamentosa aktiv erfragen („Welches Nasenspray, seit wann, wie oft?“); der Patient nennt das Spray meist nicht bei den Medikamenten.',
         'Bei der Antibiotikawahl zuerst nach der Penicillinallergie fragen: Amoxicillin ist Mittel der Wahl, bei Allergie Doxycyclin oder Makrolid. Fluorchinolone sind Reserve — wer sie als Erstlinie nennt, erntet Widerspruch.',
         'Die Warnzeichen der Komplikationen gehören in JEDE Antwort zur Therapie: Lidschwellung, Doppelbilder, Sehverschlechterung, Meningismus, Bewusstseinsstörung, Stirnschwellung — diese Patienten werden stationär aufgenommen, nicht mit einem Rezept nach Hause geschickt.',
@@ -42774,7 +42770,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Woran erkennen Sie, dass die Rhinosinusitis bakteriell ist?',
-          antwort: 'An den fünf Kriterien: Beschwerden über zehn Tage ohne Besserung, zweigipfliger Verlauf mit erneuter Verschlechterung nach anfänglicher Besserung, Fieber über 39 Grad mit eitrigem Sekret über mindestens drei Tage, starke einseitige Gesichtsschmerzen und ein erhöhtes CRP. Mindestens drei davon sollten vorliegen — die Sekretfarbe allein reicht nicht.',
+          antwort: 'An den fünf Kriterien: Beschwerden über zehn Tage ohne Besserung, zweigipfliger Verlauf mit erneuter Verschlechterung nach anfänglicher Besserung, Fieber über 38 Grad mit eitrigem Sekret, starke einseitige Gesichtsschmerzen und ein erhöhtes CRP. Mindestens drei davon sollten vorliegen — die Sekretfarbe allein reicht nicht.',
         },
         {
           frage: 'Was würden Sie beim Nachweis beziehungsweise Verdacht auf eine bakterielle Infektion machen?',
@@ -42813,7 +42809,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Bei Komplikationen, bei Immunsuppression, bei fehlender Besserung 48 bis 72 Stunden nach Beginn der Antibiose, bei rezidivierendem Verlauf mit mehr als vier Episoden pro Jahr, bei chronischer Rhinosinusitis, bei einseitiger blutiger oder therapieresistenter Symptomatik und bei anhaltendem Riechverlust — zur Nasenendoskopie, zum Abstrich aus dem mittleren Nasengang und gegebenenfalls zur Operationsplanung.',
         },
       ],
-      merksatz: 'Über 90 % viral, Diagnose klinisch, kein Röntgen, kein Antibiotikum — außer bei mehr als zehn Tagen, Zweigipfligkeit, Fieber über 39 °C mit Eiter, einseitigem Schmerz oder erhöhtem CRP: dann Amoxicillin, bei Allergie Doxycyclin. Nasenspray maximal sieben Tage. Lidschwellung, Doppelbilder oder Nackensteife = stationär, CT, i.v. Antibiose, OP.',
+      merksatz: 'Über 90 % viral, Diagnose klinisch, kein Röntgen, kein Antibiotikum — außer bei mehr als zehn Tagen, Zweigipfligkeit, Fieber über 38 °C mit Eiter, einseitigem Schmerz oder erhöhtem CRP: dann Amoxicillin, bei Allergie Doxycyclin. Nasenspray maximal sieben Tage. Lidschwellung, Doppelbilder oder Nackensteife = stationär, CT, i.v. Antibiose, OP.',
       linkedCaseIds: [
         'case-sinusitis',
       ],

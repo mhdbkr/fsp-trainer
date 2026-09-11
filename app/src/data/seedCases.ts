@@ -3346,8 +3346,7 @@ export function seedCases(): Case[] {
           {
             label: 'Allgemeinmaßnahmen',
             items: [
-            'Stationäre Aufnahme — Behandlungsort anhand des CURB-65-Scores, zusätzlich gesenkte Schwelle durch das Risikoprofil (Alter, Diabetes, Z. n. Zytostatikatherapie); bei Instabilität intensivmedizinisch',
-            'Kalkulierte Antibiotikatherapie; wegen der Penicillinallergie beim stationären Patienten ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) — ein Makrolid allein genügt stationär nicht (unsichere Pneumokokkenwirksamkeit) und ist nur ambulant bei leichter CAP eine Option; Cephalosporine nur bei gesicherter Verträglichkeit (mögliche Kreuzallergie)',
+            'Stationäre Aufnahme — Behandlungsort anhand des CURB-65-Scores, zusätzlich gesenkte Schwelle durch das Risikoprofil (Diabetes, Z. n. Zytostatikatherapie); bei Instabilität intensivmedizinisch',
             'Sauerstoffgabe bei Hypoxie, ausreichende Flüssigkeitszufuhr, körperliche Schonung',
             'Antipyretische/analgetische Therapie mit Paracetamol — NSAR unter ACE-Hemmer + Diuretikum vermeiden (Nephrotoxizität bei fieberhafter Exsikkose); nachts ggf. Antitussivum, Sekretolyse',
             'Thromboseprophylaxe, konsequente Blutzuckereinstellung',
@@ -3356,13 +3355,13 @@ export function seedCases(): Case[] {
           {
             label: 'Antibiotische Therapie',
             items: [
-            'Pleurapunktion bei relevantem Pleuraerguss oder Empyem',
+            'Kalkulierte Antibiotikatherapie; wegen der Penicillinallergie beim stationären Patienten ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin) — ein Makrolid allein genügt stationär nicht (unsichere Pneumokokkenwirksamkeit) und ist nur ambulant bei leichter CAP eine Option; Cephalosporine nur bei gesicherter Verträglichkeit (mögliche Kreuzallergie)',
             ],
           },
           {
             label: 'Bei Komplikationen',
             items: [
-              'Operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
+              'Pleurapunktion bei relevantem Pleuraerguss oder Empyem, bei Empyem Anlage einer Thoraxdrainage; operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
               'Operative Ausräumung eines konservativ/interventionell nicht beherrschbaren Lungenabszesses',
             ],
         },
@@ -3404,7 +3403,7 @@ export function seedCases(): Case[] {
       ],
       pruefungsfallen: [
         'Cave Penicillinallergie: kein Penicillin/Aminopenicillin — stationär kalkuliert ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin); ein Makrolid allein genügt nur ambulant bei leichter CAP. Cephalosporine nur bei gesicherter Verträglichkeit (Kreuzallergie beachten).',
-        'Behandlungsort mit dem CURB-65-Score begründen; das Risikoprofil (Alter, Diabetes mellitus, Z. n. Zytostatika-/Strahlentherapie) senkt die Schwelle zur stationären Aufnahme zusätzlich — nicht ambulant führen.',
+        'Behandlungsort mit dem CURB-65-Score begründen; das Risikoprofil (Diabetes mellitus, Z. n. Zytostatikatherapie) senkt die Schwelle zur stationären Aufnahme zusätzlich — nicht ambulant führen.',
         'CURB-65/CRB-65 aktiv nennen und den Behandlungsort damit begründen.',
         'Lungenembolie nicht übersehen (atemabhängiger Schmerz + Dyspnoe) — bei Verdacht D-Dimere und CT-Angiographie.',
         'Blutkulturen und Sputum immer VOR der ersten Antibiotikagabe abnehmen.',
@@ -3424,7 +3423,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Was ist bei diesem Patienten besonders?',
-              reaktion: 'das erhöhte Risikoprofil durch den Diabetes mellitus und den Zustand nach Zytostatika-/Strahlentherapie — daher eine niedrigere Schwelle zur stationären Aufnahme.',
+              reaktion: 'das erhöhte Risikoprofil durch den Diabetes mellitus und den Zustand nach Zytostatikatherapie — daher eine niedrigere Schwelle zur stationären Aufnahme.',
             },
           ],
         },
@@ -3433,7 +3432,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Welche Risikofaktoren hat der Patient?',
-              reaktion: 'höheres Lebensalter, Diabetes mellitus, Zustand nach Zytostatikatherapie sowie die arterielle Hypertonie als kardiale Komorbidität.',
+              reaktion: 'Diabetes mellitus, Zustand nach Zytostatikatherapie sowie die arterielle Hypertonie als kardiale Komorbidität.',
             },
             {
               frage: 'Ist der HbA1c wichtig? Warum?',
@@ -8847,7 +8846,7 @@ export function seedCases(): Case[] {
           'fach-pneumo-husten': 'Husten habe ich seit vielen Jahren, jeden Morgen gleich nach dem Aufstehen, und dabei kommt Schleim hoch. Seit drei Tagen huste ich deutlich mehr als sonst.',
           'fach-pneumo-auswurf': 'Sonst ist der Schleim weiß und glasig, ungefähr ein Esslöffel am Morgen. Jetzt ist es mehr geworden, er ist zäher und eher gelblich. Blut war nie dabei.',
           'fach-pneumo-atemnot': 'Ja. Früher schaffte ich zwei Stockwerke am Stück, jetzt muss ich schon im ersten Stock stehenbleiben. Seit drei Tagen merke ich es sogar, wenn ich mich nur anziehe.',
-          'fach-pneumo-orthopnoe': 'Ein Kissen reicht mir, flach liegen kann ich. Nachts wache ich manchmal auf, weil ich abhusten muss — aber nicht, weil ich nach Luft ringe. Von Atemaussetzern hat meine Frau nichts gesagt, sie sagt nur, ich schnarche seit Jahren.',
+          'fach-pneumo-orthopnoe': 'Früher hat mir ein Kissen gereicht, aber seit ein paar Wochen brauche ich drei Kissen — flach liegen geht nicht mehr, dann bekomme ich keine Luft. Nachts wache ich auf, weil ich schlecht Luft bekomme und abhusten muss. Von lautem Schnarchen oder Atemaussetzern hat meine Frau nichts gesagt.',
           'fach-pneumo-schmerz': 'Nein, beim Atmen und beim Husten tut nichts weh.',
           'fach-pneumo-fieber': 'Nein, Fieber und Schüttelfrost habe ich nicht.',
           'fach-pneumo-giemen': 'Ja, beim Ausatmen pfeift es. Meine Frau hört das nachts auch.',
@@ -8897,7 +8896,7 @@ export function seedCases(): Case[] {
         persona: 'Homme de 66 ans, chauffeur de bus, parle bas et par phrases courtes, doit reprendre son souffle. Il banalise : sa toux matinale et ses crachats sont « normaux depuis des années », seule l\'aggravation de trois jours l\'inquiète — ne donne cette distinction que si on interroge précisément la chronologie. Il minimise d\'abord le tabac (« pas tant que ça ») et ne donne le vrai chiffre (un paquet/jour depuis 16 ans) que sur relance bienveillante. Il s\'agace si on lui repose deux fois la même question sans reformuler. Les œdèmes des jambes, la nycturie, les trois oreillers et les 5 kg perdus ne sortent que si on les demande. Sur le sevrage, il devient triste et résigné : trois échecs, un cours payé par la caisse.  Glisse une fois « ma sœur prend les mêmes comprimés » — piège de compréhension : elle est diabétique, il ne prend pas ses médicaments à elle.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Akute Exazerbation einer bekannten COPD (AECOPD) bei fortgesetztem Nikotinabusus von 50 Packungsjahren — mit allen drei Anthonisen-Kriterien (Zunahme der Dyspnoe, der Sputummenge und der Sputumpurulenz), also einer Exazerbation vom Typ I nach Anthonisen — die am besten belegte Indikation für eine antibiotische Therapie. Die beidseitigen Beinödeme, die Nykturie und die Orthopnoe sprechen für ein beginnendes Cor pulmonale mit Rechtsherzinsuffizienz als Komplikation der COPD. Wegen der ungewollten Gewichtsabnahme von 5 kg in sechs Monaten bei 50 Packungsjahren muss ein Bronchialkarzinom aktiv ausgeschlossen werden.',
+        verdachtsdiagnose: 'Akute Exazerbation einer bekannten COPD (AECOPD) bei fortgesetztem Nikotinabusus von 50 Packungsjahren — mit allen drei Anthonisen-Kriterien (Zunahme der Dyspnoe, der Sputummenge und der Sputumpurulenz), also einer Exazerbation vom Typ I nach Anthonisen — die am besten belegte Indikation für eine antibiotische Therapie. Die beidseitigen Beinödeme mit Stauungsdermatose und die Nykturie sprechen für ein beginnendes Cor pulmonale mit Rechtsherzinsuffizienz als Komplikation der COPD; die Orthopnoe verlangt zusätzlich den Ausschluss einer Linksherzinsuffizienz (NT-proBNP, Echokardiographie). Wegen der ungewollten Gewichtsabnahme von 5 kg in sechs Monaten bei 50 Packungsjahren muss ein Bronchialkarzinom aktiv ausgeschlossen werden.',
         differenzialdiagnosen: [
           {
             dd: 'Bronchialkarzinom',
@@ -9020,7 +9019,7 @@ export function seedCases(): Case[] {
             items: [
               'Grundprinzip: Die Dauertherapie richtet sich nach der Symptomlast (mMRC, CAT) und der Exazerbationsrate — also nach den Gruppen A, B und E —, NICHT allein nach dem GOLD-Stadium des FEV1',
               'Bedarfstherapie für alle Patienten: kurzwirksame Bronchodilatatoren, SABA (Salbutamol, Fenoterol) und/oder SAMA (Ipratropiumbromid)',
-              'Gruppe A (wenig Symptome, höchstens eine leichte Exazerbation): ein langwirksamer Bronchodilatator, LAMA (Tiotropium, Glycopyrronium) oder LABA (Formoterol, Salmeterol, Indacaterol)',
+              'Gruppe A (wenig Symptome, höchstens eine mittelschwere Exazerbation ohne Hospitalisierung): ein langwirksamer Bronchodilatator, LAMA (Tiotropium, Glycopyrronium) oder LABA (Formoterol, Salmeterol, Indacaterol)',
               'Gruppe B (mMRC ≥ 2 oder CAT ≥ 10, wenige Exazerbationen): duale Bronchodilatation LAMA + LABA in fixer Kombination',
               'Gruppe E (≥ 2 mittelschwere Exazerbationen oder ≥ 1 mit Hospitalisierung pro Jahr): LAMA + LABA; bei Bluteosinophilen ≥ 300/µl zusätzlich ein inhalatives Kortikosteroid als Dreifachtherapie',
               'Inhalative Kortikosteroide NUR bei Exazerbationen und Eosinophilie oder bei Asthma-COPD-Overlap — niemals als Monotherapie; bei Eosinophilen < 100/µl ist ein ICS wenig wirksam und erhöht das Pneumonierisiko, dann Deeskalation erwägen',
@@ -10680,7 +10679,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Invasiv & Speziell',
-            text: 'Pricktest (Intrakutantest der Haut) mit den relevanten Inhalationsallergenen, gegebenenfalls ergänzt durch eine spezifische inhalative Allergenprovokation bei unklarer klinischer Relevanz einer Sensibilisierung — Grundlage der Indikationsstellung zur spezifischen Immuntherapie.',
+            text: 'Pricktest (Hauttest) mit den relevanten Inhalationsallergenen, gegebenenfalls ergänzt durch eine spezifische inhalative Allergenprovokation bei unklarer klinischer Relevanz einer Sensibilisierung — Grundlage der Indikationsstellung zur spezifischen Immuntherapie.',
           },
           {
             stufe: 'Invasiv & Speziell',
@@ -16018,7 +16017,7 @@ export function seedCases(): Case[] {
           'fach-pneumo-husten': 'Der Husten hat heute Morgen zusammen mit der Luftnot angefangen, vorher hatte ich keinen. Es ist ein trockener, kurzer Husten, der beim Husten wehtut.',
           'fach-pneumo-auswurf': 'Ganz wenig Schleim, und da waren rote Fäden drin — Blut. Gelb oder grün war nichts dabei. Das ist mir zum ersten Mal passiert.',
           'fach-pneumo-atemnot': 'Die Luftnot kam vor zwei Stunden schlagartig beim Treppensteigen. Jetzt habe ich sie auch in Ruhe, ich muss beim Sprechen Pausen machen. Flach liegen kann ich, das macht es nicht schlechter — vorher, in den letzten Monaten, hatte ich überhaupt keine Atemnot, auch nicht beim Gehen.',
-          'fach-pneumo-orthopnoe': 'Kissen brauche ich nur eines, flach liegen war nie ein Problem und ist es auch jetzt nicht. Nachts bin ich noch nie mit Luftnot aufgewacht, und Schnarchen oder Atemaussetzer hat mein Mann nie bemerkt. Das hier ist heute zum ersten Mal.',
+          'fach-pneumo-orthopnoe': 'Kissen brauche ich nur eines, flach liegen war nie ein Problem und ist es auch jetzt nicht. Nachts bin ich noch nie mit Luftnot aufgewacht, und Schnarchen oder Atemaussetzer hat meine Frau nie bemerkt. Das hier ist heute zum ersten Mal.',
           'fach-pneumo-schmerz': 'Ja, es sticht rechts unten an der Seite, genau beim Einatmen. Wenn ich flach atme, ist es erträglich. Beim Husten ist es am schlimmsten.',
           'fach-pneumo-fieber': 'Nein, kein Fieber, 37,2 heute Morgen. Kein Schüttelfrost, kein Nachtschweiß, keine Gliederschmerzen.',
           'fach-pneumo-giemen': 'Nein, Pfeifen oder Brummen höre ich beim Atmen nicht. Ich atme nur schnell und flach.',
@@ -47627,7 +47626,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie lange bleibt der Patient zu Hause?',
-              reaktion: 'Bis 5 Tage nach Beginn des Antibiotikums ist er ansteckend und vom Arbeitsplatz ausgeschlossen; danach Krankschreibung nach Erschöpfungsgrad. Ohne Antibiotikum wären es 3 Wochen ab Beginn der Hustenanfälle — bei ihm also ohnehin fast abgelaufen, was die Indikation nicht aufhebt.',
+              reaktion: 'Bis 5 Tage nach Beginn des Antibiotikums ist er ansteckend und vom Arbeitsplatz ausgeschlossen; danach Krankschreibung nach Erschöpfungsgrad. Ohne Antibiotikum wären es 3 Wochen ab Beginn der Hustenanfälle — bei ihm also rechnerisch bereits abgelaufen, was die Indikation nicht aufhebt.',
             },
           ],
         },
@@ -61564,7 +61563,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Was unterscheidet die bakterielle von der viralen Form? Welche Kriterien kennen Sie?',
-              reaktion: 'Fünf Kriterien: Dauer über zehn Tage ohne Besserung, zweigipfliger Verlauf, Fieber über 38 bis 39 °C mit eitrigem Sekret über mindestens drei Tage, starke einseitige Schmerzen, erhöhtes CRP. Mindestens drei sollten vorliegen. Bei diesem Patienten sind vier erfüllt, das CRP steht aus. Die Sekretfarbe allein beweist keine Bakterien — auch virales Sekret wird gelbgrün.',
+              reaktion: 'Fünf Kriterien: Dauer über zehn Tage ohne Besserung, zweigipfliger Verlauf, Fieber über 38 °C mit eitrigem Sekret, starke einseitige Schmerzen, erhöhtes CRP. Mindestens drei sollten vorliegen. Bei diesem Patienten sind vier erfüllt, das CRP steht aus. Die Sekretfarbe allein beweist keine Bakterien — auch virales Sekret wird gelbgrün.',
             },
             {
               frage: 'Wie erklären Sie dem Patienten „Sinusitis maxillaris“ und „Rhinorrhoe“?',
