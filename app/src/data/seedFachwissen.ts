@@ -90,7 +90,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
       ],
       prognose:
-        'Abhängig von Child-Pugh-/MELD-Score und Compliance (v. a. Alkoholabstinenz). Kompensiert deutlich besser als dekompensiert. Es gibt keine kausale Therapie außer Transplantation.',
+        'Abhängig von Child-Pugh-/MELD-Score und Compliance (v. a. Alkoholabstinenz). Kompensiert deutlich besser als dekompensiert. Die Zirrhose selbst ist irreversibel — kurativ nur die Lebertransplantation; die Behandlung der Grundkrankheit (Alkoholabstinenz) hält das Fortschreiten auf.',
       pruefungsfallen: [
         'Bei Verdacht auf Varizenblutung: NOTFALL — erst stabilisieren, OA rufen, dann Anamnese fortsetzen.',
         'Immer nach Alkohol fragen und Empathie zeigen (kein Vorwurf) — die Schauspieler reagieren oft emotional.',
@@ -101,7 +101,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Welche Komplikationen der Leberzirrhose kennen Sie?', antwort: 'Aszites, Ösophagusvarizenblutung, hepatische Enzephalopathie, spontan bakterielle Peritonitis, hepatorenales Syndrom und hepatozelluläres Karzinom.' },
         { frage: 'Was ist eine hepatische Enzephalopathie und wie behandeln Sie sie?', antwort: 'Eine durch Ammoniak bedingte Hirnfunktionsstörung. Therapie: Lactulose und ggf. Rifaximin, plus Behandlung des Auslösers.' },
         { frage: 'Wie gehen Sie bei einer akuten Ösophagusvarizenblutung vor?', antwort: 'Kreislaufstabilisierung, endoskopische Varizenligatur, vasoaktive Medikamente (Terlipressin) und Antibiotikaprophylaxe.' },
-        { frage: 'Hat sich der Patient schon einer Entwöhnungstherapie unterzogen?', antwort: 'Anamnestisch zu erfragen; entscheidend, da die absolute Alkoholabstinenz die einzige kausale Maßnahme ist.' },
+        { frage: 'Hat sich der Patient schon einer Entwöhnungstherapie unterzogen?', antwort: 'Anamnestisch zu erfragen; entscheidend, da die absolute Alkoholabstinenz die einzige ätiologische Maßnahme und Voraussetzung für eine Transplantation ist.' },
         { frage: 'Was bedeutet der Child-Pugh-Score?', antwort: 'Er schätzt Leberfunktion und Prognose anhand von Bilirubin, Albumin, INR, Aszites und Enzephalopathie (Stadien A–C).' },
       ],
       klassifikation: [
@@ -114,7 +114,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Fieber und Bauchschmerz bei Aszites → spontan bakterielle Peritonitis (Punktion!)',
         'Oligurie und Kreatininanstieg → hepatorenales Syndrom',
       ],
-      merksatz: 'Jede dekompensierte Zirrhose mit Fieber = SBP ausschließen (diagnostische Aszitespunktion); Alkoholkarenz ist die einzige kausale Therapie.',
+      merksatz: 'Jede dekompensierte Zirrhose mit Fieber = SBP ausschließen (diagnostische Aszitespunktion); Alkoholkarenz ist die einzige ätiologische Maßnahme — kurativ nur die Transplantation.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: ['auf-gastroskopie', 'auf-aszitespunktion'],
@@ -138,7 +138,7 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       diagnostik: [
         { stufe: 'Anamnese/Klinik', text: 'Anamnese + Risikofaktoren, körperliche Untersuchung' },
-        { stufe: 'Labor', text: 'Ruhe-EKG (oft unauffällig bei stabiler AP)' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Ruhe-EKG (oft unauffällig bei stabiler AP)' },
         { stufe: 'Labor', text: 'Labor: Troponin (Ausschluss Infarkt), Lipide, HbA1c' },
         { stufe: 'Apparativ & Bildgebung', text: 'Belastungs-EKG (Ergometrie), Stressechokardiographie' },
         { stufe: 'Apparativ & Bildgebung', text: 'Myokardperfusionsszintigraphie, Kardio-CT/-MRT' },
@@ -295,7 +295,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was sind die zwei häufigsten Ursachen der akuten Pankreatitis?', antwort: 'Gallensteine (biliär) und Alkohol.' },
         { frage: 'Welcher Laborwert ist am wichtigsten?', antwort: 'Die Lipase (mindestens dreifach über der Norm); spezifischer als die Amylase.' },
         { frage: 'Wie sieht der Schmerz typischerweise aus?', antwort: 'Heftiger Oberbauchschmerz mit gürtelförmiger Ausstrahlung in den Rücken, oft nach fettigem Essen.' },
-        { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumentherapie, Analgesie und früher Kostaufbau; bei Obstruktion ERCP mit Papillotomie und Cholezystektomie im Intervall.' },
+        { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumentherapie, Analgesie und früher Kostaufbau; bei Obstruktion oder Cholangitis ERCP mit Papillotomie; Cholezystektomie bei mildem Verlauf noch im selben Aufenthalt, bei nekrotisierendem Verlauf im Intervall.' },
       ],
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
@@ -1158,8 +1158,6 @@ export function seedFachwissen(): Fachwissen[] {
           items: [
             'Tragfähige therapeutische Beziehung, Psychoedukation und Aufklärung über Krankheitsbild und Verlauf',
             'Psychotherapie (kognitive Verhaltenstherapie, interpersonelle Therapie) — bei leichter Episode als alleinige Maßnahme möglich',
-            'Pharmakotherapie: SSRI als Mittel der 1. Wahl (z. B. Citalopram, Sertralin); Alternativen SNRI (Venlafaxin, Duloxetin), Mirtazapin (günstig bei Schlafstörung und Appetitverlust), trizyklische Antidepressiva als Reserve',
-            'Wirklatenz von 2–3 Wochen aufklären; Cave erhöhtes Suizidrisiko in der frühen Antriebssteigerungsphase',
             'Kombination aus Psychotherapie und Pharmakotherapie bei mittelschwerer bis schwerer Episode',
             'Begleitend Tagesstrukturierung, Schlafhygiene, körperliche Aktivierung und Einbindung des sozialen Umfelds',
             'Psychiatrisches Konsil veranlassen; nach Remission Erhaltungstherapie über mindestens 6 Monate (Rezidivprophylaxe länger)',
@@ -1168,7 +1166,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Pharmakotherapie',
           items: [
-            'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach PsychKG/BW',
+            'Pharmakotherapie: SSRI als Mittel der 1. Wahl (z. B. Citalopram, Sertralin); Alternativen SNRI (Venlafaxin, Duloxetin), Mirtazapin (günstig bei Schlafstörung und Appetitverlust), trizyklische Antidepressiva als Reserve; Wirklatenz von 2–3 Wochen aufklären, Cave erhöhtes Suizidrisiko in der frühen Antriebssteigerungsphase',
             'Elektrokonvulsionstherapie (EKT) bei therapieresistenter oder schwerer wahnhafter Depression und beim depressiven Stupor',
             'Ergänzend Lichttherapie (saisonale Depression), Wachtherapie (Schlafentzug) und repetitive transkranielle Magnetstimulation (rTMS)',
           ],
@@ -1176,7 +1174,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Bei Therapieresistenz / Krise',
           items: [
-            'Keine chirurgische Standardtherapie; die tiefe Hirnstimulation bleibt experimentellen Fällen therapierefraktärer Depression im Studienrahmen vorbehalten.',
+            'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach dem PsychKHG Baden-Württemberg; bei Therapieresistenz Augmentation (z. B. Lithium) oder Kombinationstherapie nach fachpsychiatrischer Beurteilung',
           ],
         },
       ],
@@ -1962,7 +1960,7 @@ export function seedFachwissen(): Fachwissen[] {
           items: [
             'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 x 100 mg/d p.o. für 10–21 Tage (üblich 14 Tage). Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
             'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p.o. (alternativ Cefuroximaxetil) für 14 Tage.',
-            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist auch die orale Doxycyclin-Alternative, nach der Prüfer häufig fragen.',
+            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist die intravenöse Alternative zu Doxycyclin, nach der Prüfer häufig fragen.',
             'Lyme-Arthritis (Spätstadium): Doxycyclin p.o. über 28 Tage oder Ceftriaxon i.v.',
             'Symptomatisch: Analgetika und Antipyretika (z. B. Ibuprofen/Paracetamol) gegen Schmerzen und Fieber.',
             'Keine Isolation erforderlich, da keine Übertragung von Mensch zu Mensch. Nach reinem Zeckenstich ohne Symptome KEINE routinemäßige Antibiotikaprophylaxe — nur Beobachtung der Stichstelle (Rötung? → Wiedervorstellung).',
@@ -2117,7 +2115,7 @@ export function seedFachwissen(): Fachwissen[] {
       diagnostik: [
         { stufe: 'Anamnese/Klinik', text: 'Klinische Untersuchung: Inspektion (Schwellung, Hämatom, Fehlstellung, offene Wunde), gezielte Palpation beider Malleolen UND der proximalen Fibula (Maisonneuve)' },
         { stufe: 'Anamnese/Klinik', text: 'DMS-Prüfung obligat: Durchblutung (A. dorsalis pedis, A. tibialis posterior), Motorik und Sensibilität distal — vor und nach jeder Reposition/Ruhigstellung dokumentieren' },
-        { stufe: 'Labor', text: 'Anamnese: Unfallmechanismus (Umknicken, Richtung), Belastbarkeit, Vorverletzungen; gezielt nach Antikoagulation, Gerinnungsstörung und früherer Thrombose fragen' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Unfallmechanismus (Umknicken, Richtung), Belastbarkeit, Vorverletzungen; gezielt nach Antikoagulation, Gerinnungsstörung und früherer Thrombose fragen' },
         { stufe: 'Labor', text: 'Labor bei geplanter Operation: Blutbild, Gerinnung (Quick/INR, PTT), Entzündungsparameter, Elektrolyte, Kreatinin' },
         { stufe: 'Apparativ & Bildgebung', text: 'Anwendung der Ottawa Ankle Rules zur Indikationsstellung der Bildgebung' },
         { stufe: 'Apparativ & Bildgebung', text: 'Röntgen des OSG in zwei Ebenen (a.-p. mit 20° Innenrotation/Mortise-Aufnahme und seitlich); bei Verdacht auf Maisonneuve zusätzlich Unterschenkel/Knie' },
@@ -2206,7 +2204,7 @@ export function seedFachwissen(): Fachwissen[] {
         'DMS immer prüfen und dokumentieren (Durchblutung, Motorik, Sensibilität) — vor UND nach Reposition/Gips; im Protokoll ausdrücklich als „pdms/PDMS überprüfen“ genannt.',
         'Röntgen des OSG in ZWEI Ebenen ist die Standardaussage; auf die Prüferfrage „Und wenn wir nichts finden?“ folgt CT bei unklarem Befund oder zur OP-Planung.',
         'Weber-Klassifikation (A/B/C nach Höhe der Fibulafraktur zur Syndesmose) parat haben — ein Prüfer sagte zwar „nicht nötig, es geht um die Sprache“, gefragt wird sie trotzdem gern.',
-        'Gerinnungsstörung aktiv erfragen: Ein Patient mit Faktor-V-Leiden muss bei Immobilisation heparinisiert werden; nach früherer Thrombose fragen (im Protokoll als „sehr wichtig“ moniert).',
+        'Gerinnungsstörung aktiv erfragen: Ein Patient mit Faktor-V-Leiden braucht bei Immobilisation eine konsequente Thromboseprophylaxe — bei bereits laufender therapeutischer Antikoagulation (hier Rivaroxaban) ist sie abgedeckt, zusätzliches niedermolekulares Heparin nur im perioperativen Pausierungsfenster; nach früherer Thrombose fragen (im Protokoll als „sehr wichtig“ moniert).',
         '„Sind Sie Orthopäde/Chirurg?“ — richtige Antwort: orthopädisch-unfallchirurgisches Konsil veranlassen oder verlegen, nicht selbst operieren.',
         'Beim Schmerzmittel konkret bleiben (Metamizol oder Ibuprofen) und die Frage nach dem Wirkstoff erwarten.',
         'Ottawa Ankle Rules kennen, um die Röntgenindikation zu begründen; proximale Fibula mituntersuchen (Maisonneuve nicht übersehen).',
@@ -2230,7 +2228,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welches Schmerzmittel geben Sie?',
-          antwort: 'Zum Beispiel Metamizol oder Ibuprofen; bei Kontraindikationen Paracetamol. Wichtig ist eine ausreichende Analgesie, da der Patient starke Schmerzen hat.',
+          antwort: 'Zum Beispiel Metamizol oder Paracetamol; Ibuprofen ist bei diesem Patienten unter laufender Antikoagulation mit Rivaroxaban wegen des additiven Blutungsrisikos zu meiden. Wichtig ist eine ausreichende Analgesie, da der Patient starke Schmerzen hat.',
         },
         {
           frage: 'Erklären Sie die Weber-Klassifikation.',
@@ -2242,7 +2240,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum ist die Gerinnungsanamnese hier so wichtig?',
-          antwort: 'Weil der Patient bei einer Ruhigstellung immobilisiert ist und ein hohes Thromboserisiko hat. Bei einer Gerinnungsstörung wie dem Faktor-V-Leiden muss konsequent eine Thromboseprophylaxe mit Heparin erfolgen, und ich frage gezielt nach einer früheren Thrombose.',
+          antwort: 'Weil der Patient bei einer Ruhigstellung immobilisiert ist und ein hohes Thromboserisiko hat. Bei einer Gerinnungsstörung wie dem Faktor-V-Leiden muss die Thromboseprophylaxe konsequent gesichert sein — bei diesem Patienten ist sie durch das therapeutisch dosierte Rivaroxaban bereits abgedeckt, niedermolekulares Heparin nur im perioperativen Pausierungsfenster, und ich frage gezielt nach einer früheren Thrombose.',
         },
       ],
       merksatz: 'Merke: Nach jedem Umknicktrauma DMS prüfen und dokumentieren, Ottawa Ankle Rules anwenden und Röntgen OSG in zwei Ebenen — Weber A meist konservativ (Gips/Orthese), Weber B/C operativ (Osteosynthese ± Syndesmose); bei Immobilisation immer an die Thromboseprophylaxe denken.',
@@ -2285,7 +2283,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Sensibilitätsstörungen im betroffenen Dermatom: Hypästhesie, Kribbelparästhesien und Taubheitsgefühl',
         },
         {
-          text: 'Positives Lasègue-Zeichen (Dehnungsschmerz des N. ischiadicus beim passiven Anheben des gestreckten Beins) beim tiefen lumbalen Vorfall L5/S1',
+          text: 'Positives Lasègue-Zeichen (Dehnungsschmerz des N. ischiadicus beim passiven Anheben des gestreckten Beins) bei Reizung der Wurzeln L5 und S1, also bei den tiefen lumbalen Vorfällen L4/L5 und L5/S1',
         },
         {
           text: 'Wurzel L5: Schwäche der Großzehen- und Fußhebung (M. extensor hallucis longus, Fußheberschwäche), Dermatom über lateralem Unterschenkel, Fußrücken und Großzehe; typischerweise kein Reflexausfall',
@@ -2499,7 +2497,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Selbstlimitierender Verlauf: auch unbehandelt Abklingen innerhalb von 1–2 Wochen, danach beschwerdefreie interkritische Phase',
         },
         {
-          text: 'Gonagra (Knie), Chiragra (Daumengrundgelenk) oder Befall von Sprung-, Hand- und Fingergelenken als weniger typische Lokalisation',
+          text: 'Gonagra (Knie), Chiragra (Hand- und Fingergelenke) oder Befall von Sprung-, Hand- und Fingergelenken als weniger typische Lokalisation',
           atypisch: true,
         },
         {
@@ -2676,7 +2674,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Harnsäuresenkende Dauertherapie mit Anfallsprophylaxe',
           items: [
-            'Indikation: rezidivierende Anfälle (ab dem zweiten Anfall pro Jahr), Tophi, Gichtarthropathie, Uratnephropathie oder Harnsäuresteine, Harnsäure dauerhaft über 9 mg/dl sowie sekundäre Hyperurikämie bei Tumortherapie. Die asymptomatische Hyperurikämie allein wird nicht medikamentös behandelt',
+            'Indikation: rezidivierende Anfälle (ab dem zweiten Anfall pro Jahr), Tophi, Gichtarthropathie, Uratnephropathie oder Harnsäuresteine, sowie sekundäre Hyperurikämie bei Tumortherapie. Die asymptomatische Hyperurikämie allein — auch bei Werten über 9 mg/dl — wird nicht medikamentös behandelt',
             'Beginn 2–4 Wochen NACH Abklingen des akuten Anfalls; Zielwert der Serumharnsäure unter 6 mg/dl, bei Tophi unter 5 mg/dl („treat to target“)',
             'Urikostatikum der ersten Wahl: Allopurinol (Xanthinoxidase-Hemmer), einschleichend mit 100 mg täglich, Steigerung alle 2–4 Wochen bis meist 300 mg 1-0-0 (maximal 800 mg); Dosisanpassung bei Niereninsuffizienz. Nebenwirkungen: Exanthem, selten DRESS/Stevens-Johnson-Syndrom',
             'Alternative Urikostatika: Febuxostat (potenter, auch bei mäßiger Niereninsuffizienz einsetzbar; Cave kardiovaskuläre Vorerkrankungen); Rasburicase (Urikase) beim Tumorlyse-Syndrom',
@@ -2694,7 +2692,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Die septische Arthritis muss immer ausgeschlossen werden — sie ist klinisch nicht sicher von der Gicht zu unterscheiden und beide können gleichzeitig vorliegen. Die Gelenkpunktion mit Zellzahl, Gramfärbung und Kultur gehört zwingend in die Antwort.',
         'Bei der Akuttherapie ausdrücklich die KORTIKOSTEROIDE nennen — Prüfer bestehen darauf; NSAR und Colchicin allein reichen als Antwort oft nicht.',
         '„Sollte der Patient abnehmen?“ ist eine Fangfrage: ja, aber langsam. Fasten, Nulldiät und rasche Gewichtsabnahme verschlechtern die Symptome und lösen über Ketose und Laktat neue Anfälle aus.',
-        'Vor dem Patienten „Harnsäure“ statt nur „Urat“ sagen und „Arthritis urica“ übersetzen: Gicht bzw. Gichtanfall; Podagra = Befall des Großzehengrundgelenks, Gonagra = Knie, Chiragra = Daumengrundgelenk.',
+        'Vor dem Patienten „Harnsäure“ statt nur „Urat“ sagen und „Arthritis urica“ übersetzen: Gicht bzw. Gichtanfall; Podagra = Befall des Großzehengrundgelenks, Gonagra = Knie, Chiragra = Hand-/Fingergelenke.',
         'Eine laufende Allopurinol-Therapie wird im akuten Anfall NICHT abgesetzt; eine neue wird klassischerweise erst nach Abklingen begonnen — und dann immer einschleichend und unter Anfallsprophylaxe.',
         'Die asymptomatische Hyperurikämie ist allein keine Indikation für Allopurinol — nur Lebensstilmaßnahmen und Kontrollen.',
         'Allopurinol darf nicht mit Azathioprin oder 6-Mercaptopurin kombiniert werden (Knochenmarkdepression durch Hemmung des Abbaus).',
@@ -2710,7 +2708,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie nennen Sie „Arthritis urica“ dem Patienten gegenüber auf Deutsch?',
-          antwort: 'Gicht beziehungsweise Gichtanfall — eine Gelenkentzündung durch Harnsäurekristalle. Podagra heißt sie, weil das Großzehengrundgelenk befallen ist; beim Knie spricht man von Gonagra, beim Daumengrundgelenk von Chiragra.',
+          antwort: 'Gicht beziehungsweise Gichtanfall — eine Gelenkentzündung durch Harnsäurekristalle. Podagra heißt sie, weil das Großzehengrundgelenk befallen ist; beim Knie spricht man von Gonagra, bei den Hand- und Fingergelenken von Chiragra.',
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen in Betracht, und warum sind sie unwahrscheinlich?',
@@ -4181,7 +4179,7 @@ export function seedFachwissen(): Fachwissen[] {
           unterscheidung: 'Jüngere, meist schlanke Patienten, rascher Beginn über Wochen, starker Gewichtsverlust, Ketoseneigung bis zur Ketoazidose als Erstmanifestation, C-Peptid erniedrigt, Autoantikörper positiv, HLA-Assoziation (DR3/DR4), von Beginn an insulinpflichtig.',
         },
         {
-          dd: 'LADA (late-onset autoimmune diabetes in adults)',
+          dd: 'LADA (latent autoimmune diabetes in adults)',
           unterscheidung: 'Autoimmuner Diabetes des Erwachsenen mit langsamer Progression — wird häufig als Typ 2 fehlgedeutet. Verdacht bei normalgewichtigen Patienten über 30 Jahren, raschem Versagen oraler Antidiabetika und anderen Autoimmunerkrankungen; entscheidend sind Anti-GAD-Antikörper und ein niedriges C-Peptid.',
         },
         {
@@ -4420,7 +4418,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Haarausfall, feine brüchige Nägel (Onycholyse), warme rosige Haut',
         },
         {
-          text: 'Sinkender Insulinbedarf mit Hypoglykämieneigung oder umgekehrt Entgleisung eines vorbestehenden Diabetes mellitus; erniedrigte Cholesterinwerte',
+          text: 'Entgleisung eines vorbestehenden Diabetes mellitus mit steigendem Insulinbedarf (Insulinresistenz, gesteigerte Glukoneogenese, beschleunigter Insulinabbau); erniedrigte Cholesterinwerte',
           atypisch: true,
         },
         {
@@ -4609,7 +4607,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           dd: 'Diabetes mellitus mit Entgleisung bzw. Erstmanifestation',
-          unterscheidung: 'Gewichtsverlust bei Polyurie, Polydipsie und Hyperglykämie; bei der Hyperthyreose sinkt der Insulinbedarf hingegen häufig. Die beiden Erkrankungen treten als Autoimmunerkrankungen jedoch gehäuft gemeinsam auf.',
+          unterscheidung: 'Gewichtsverlust bei Polyurie, Polydipsie und Hyperglykämie; bei der Hyperthyreose steigt der Insulinbedarf hingegen meist an, und ein vorbestehender Diabetes entgleist. Die beiden Erkrankungen treten als Autoimmunerkrankungen jedoch gehäuft gemeinsam auf.',
         },
         {
           dd: 'Sekundäre Hyperthyreose bei TSH-produzierendem Hypophysenadenom (TSHom)',
@@ -4646,7 +4644,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Verlaufskontrolle: In der Frühphase wird nach fT3 und fT4 gesteuert (alle 4 Wochen), da das TSH noch monatelang supprimiert bleibt und NICHT zur Steuerung taugt; später TSH-Kontrollen alle 3 Monate. Eine iatrogene Hypothyreose ist zu vermeiden, da sie eine Orbitopathie verschlechtern kann',
             'Management der endokrinen Orbitopathie: ophthalmologische Mitbetreuung mit Verlaufsdokumentation, künstliche Tränenflüssigkeit und Nachtsalbe, Schlafen mit erhöhtem Kopfteil, getönte Brille, Prismengläser bei Doppelbildern; Selen bei milder aktiver Form; bei moderat bis schwerer aktiver Form intravenöse Glukokortikoid-Stoßtherapie (Methylprednisolon), alternativ Tocilizumab, Rituximab oder Teprotumumab; Orbitabestrahlung und operative Dekompression bei visusbedrohendem Verlauf, rehabilitative Lid- und Schieloperationen erst im inaktiven Stadium',
             'STRIKTER RAUCHSTOPP als eigenständige Therapiemaßnahme: Rauchen vervielfacht Risiko und Schweregrad der endokrinen Orbitopathie, verschlechtert das Ansprechen auf Steroide und Radiojod und erhöht die Rezidivrate — strukturierte Raucherentwöhnung anbieten',
-            'Besonderheiten bei Begleiterkrankungen: bei Diabetes mellitus engmaschige Blutzuckerkontrolle und ärztlich gesteuerte Insulinanpassung (der Bedarf steigt mit Erreichen der Euthyreose wieder an); Osteoporoseprophylaxe mit Kalzium und Vitamin D bei langbestehender Hyperthyreose; bei Vorhofflimmern Frequenzkontrolle und Prüfung der Antikoagulationsindikation',
+            'Besonderheiten bei Begleiterkrankungen: bei Diabetes mellitus engmaschige Blutzuckerkontrolle und ärztlich gesteuerte Insulinanpassung (der unter der Hyperthyreose erhöhte Bedarf sinkt mit Erreichen der Euthyreose wieder — dann droht eine Hypoglykämie, wenn die Dosis nicht rechtzeitig reduziert wird); Osteoporoseprophylaxe mit Kalzium und Vitamin D bei langbestehender Hyperthyreose; bei Vorhofflimmern Frequenzkontrolle und Prüfung der Antikoagulationsindikation',
             'Schwangerschaft und Kinderwunsch: Thiamazol im ersten Trimenon meiden (Aplasia cutis, Choanal- und Ösophagusatresie), niedrigstmögliche Dosis, TRAK-Bestimmung im dritten Trimenon wegen der diaplazentaren Übertragung und der Gefahr einer fetalen bzw. neonatalen Hyperthyreose',
             'Screening auf assoziierte Autoimmunerkrankungen (Zöliakie, Typ-1-Diabetes, Nebenniereninsuffizienz, perniziöse Anämie) und Aufklärung über den chronisch-rezidivierenden Charakter der Erkrankung',
           ],
@@ -4731,7 +4729,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Muss das Insulin eines Diabetikers reduziert werden, weil er abgenommen hat?',
-          antwort: 'Nicht eigenmächtig. Die Hyperthyreose steigert den Stoffwechsel und verändert den Insulinbedarf; angepasst wird ärztlich anhand des Blutzuckertagesprofils. Mit Erreichen der Euthyreose steigt der Bedarf in der Regel wieder an. Zusätzlich ist zu bedenken, dass ein Betablocker die Warnzeichen einer Unterzuckerung verschleiert.',
+          antwort: 'Nicht eigenmächtig. Die Hyperthyreose steigert den Stoffwechsel und verändert den Insulinbedarf; angepasst wird ärztlich anhand des Blutzuckertagesprofils. Unter der Hyperthyreose ist der Bedarf meist erhöht; mit Erreichen der Euthyreose sinkt er wieder, sodass die Dosis dann reduziert werden muss, um Hypoglykämien zu vermeiden. Zusätzlich ist zu bedenken, dass ein Betablocker die Warnzeichen einer Unterzuckerung verschleiert.',
         },
         {
           frage: 'Was ist eine thyreotoxische Krise und wie behandeln Sie sie?',
@@ -7546,7 +7544,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           name: 'WHO-Definition und Schweregrade der Anämie',
-          inhalt: 'Anämie ab einem Hämoglobin unter 13 g/dl beim Mann, unter 12 g/dl bei der nicht schwangeren Frau und unter 11 g/dl in der Schwangerschaft. Schweregrade: mild bis etwa 10 g/dl, mäßig 8 bis 10 g/dl, schwer unter 8 g/dl. Cave: Bei Exsikkose wird das Hämoglobin durch Hämokonzentration falsch hoch, bei Hypervolämie falsch niedrig gemessen.',
+          inhalt: 'Anämie ab einem Hämoglobin unter 13 g/dl beim Mann, unter 12 g/dl bei der nicht schwangeren Frau und unter 11 g/dl in der Schwangerschaft. Schweregrade nach WHO: leicht 11,0–11,9 g/dl (Frauen) bzw. 11,0–12,9 g/dl (Männer), mäßig 8,0–10,9 g/dl, schwer unter 8,0 g/dl. Cave: Bei Exsikkose wird das Hämoglobin durch Hämokonzentration falsch hoch, bei Hypervolämie falsch niedrig gemessen.',
         },
         {
           name: 'Stadien des Eisenmangels',
@@ -8583,7 +8581,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Heiserkeit und tiefere, raue Stimme durch Myxödem der Stimmbänder; verwaschene, langsame Sprache und Makroglossie',
         },
         {
-          text: 'Prätibiales und periorbitales Myxödem: teigige, NICHT eindrückbare Schwellung, verquollene Lider und Gesichtszüge',
+          text: 'Generalisiertes Myxödem (Unterschenkel, Lider, Gesicht): teigige, NICHT eindrückbare Schwellung, verquollene Lider und Gesichtszüge — nicht mit dem „prätibialen Myxödem“ des Morbus Basedow verwechseln',
         },
         {
           text: 'Bradykardie, leise Herztöne, diastolische Hypertonie, verminderte körperliche Belastbarkeit',
@@ -8667,7 +8665,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           stufe: 'Anamnese/Klinik',
-          text: 'Körperliche Untersuchung mit Inspektion, PALPATION und Auskultation der Schilddrüse (Größe, Konsistenz, Knoten, Druckschmerz, Schluckverschieblichkeit), Vitalparametern (Bradykardie, diastolische Hypertonie, Hypothermie), Haut- und Haarstatus, Prüfung des nicht eindrückbaren prätibialen Myxödems, Muskeleigenreflexe mit verzögerter Erschlaffung, BMI',
+          text: 'Körperliche Untersuchung mit Inspektion, PALPATION und Auskultation der Schilddrüse (Größe, Konsistenz, Knoten, Druckschmerz, Schluckverschieblichkeit), Vitalparametern (Bradykardie, diastolische Hypertonie, Hypothermie), Haut- und Haarstatus, Prüfung der nicht eindrückbaren Myxödemschwellung der Unterschenkel, Muskeleigenreflexe mit verzögerter Erschlaffung, BMI',
         },
         {
           stufe: 'Anamnese/Klinik',
@@ -8719,7 +8717,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           stufe: 'Invasiv & Speziell',
-          text: 'Neugeborenenscreening aus Fersenblut am dritten bis fünften Lebenstag zur Erfassung der konnatalen Hypothyreose',
+          text: 'Neugeborenenscreening aus Fersenblut zwischen der 36. und 72. Lebensstunde zur Erfassung der konnatalen Hypothyreose',
         },
       ],
       differenzialdiagnosen: [
@@ -8832,7 +8830,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Die TSH-Kontrolle erfolgt erst nach sechs bis acht Wochen, danach jährlich; eine frühere Kontrolle führt zu falschen Dosisanpassungen.',
         'In der Schwangerschaft steigt der Bedarf um etwa 25 bis 50 % — diese Zahl wird gern abgefragt, ebenso die Begründung (kindliche Hirnentwicklung, Abort- und Frühgeburtsrisiko).',
         'Vor Beginn der Substitution an eine begleitende Nebenniereninsuffizienz denken, besonders bei Vitiligo, Typ-1-Diabetes oder perniziöser Anämie: Zuerst Hydrocortison, sonst Addison-Krise. Dasselbe gilt im Myxödemkoma.',
-        'Nicht jede erhöhte TSH-Konstellation ist eine Hypothyreose: Beim Euthyroid-Sick-Syndrom des Schwerkranken wird NICHT substituiert, und bei akut Kranken sollte gar keine Schilddrüsendiagnostik erfolgen.',
+        'Nicht jede auffällige Schilddrüsenkonstellation ist eine Hypothyreose: Beim Euthyroid-Sick-Syndrom des Schwerkranken wird NICHT substituiert, und bei akut Kranken sollte gar keine Schilddrüsendiagnostik erfolgen.',
         'Eine Szintigraphie gehört NICHT zur Diagnostik der Hypothyreose; sie ist Knoten und Struma vorbehalten — und wird dort immer VOR einer Punktion durchgeführt.',
         'Die asymptomatische latente Hypothyreose mit TSH unter 10 mU/l wird nicht automatisch behandelt; die Indikation muss begründet werden.',
         'Fachbegriffe patientengerecht übersetzen: Hypothyreose = Schilddrüsenunterfunktion, Struma = Kropf, Myxödem = teigige Hautschwellung bei Schilddrüsenunterfunktion, Thyreoidektomie = operative Entfernung der Schilddrüse.',
@@ -10944,7 +10942,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Standardisierte Lymphadenektomie, intraoperativer Schnellschnitt der Resektionsränder; die Operation gehört an ein Zentrum mit hoher Fallzahl, da die Letalität dort deutlich niedriger liegt',
             'Grenzwertig resektabler Befund: neoadjuvante Chemotherapie (FOLFIRINOX) beziehungsweise Radiochemotherapie mit anschließendem Re-Staging und Resektion bei Ansprechen',
             'Adjuvante Chemotherapie nach R0-Resektion für sechs Monate — modifiziertes FOLFIRINOX bei gutem Allgemeinzustand, sonst Gemcitabin, gegebenenfalls mit Capecitabin; Beginn innerhalb von zwölf Wochen postoperativ',
-            'Perioperativ: Ernährungsoptimierung, Thromboseprophylaxe, Pneumocystis- beziehungsweise Impfprophylaxe nach Splenektomie (Pneumokokken, Meningokokken, Haemophilus influenzae Typ b); postoperativ Überwachung auf Pankreasfistel, Nachblutung, verzögerte Magenentleerung und Anastomoseninsuffizienz',
+            'Perioperativ: Ernährungsoptimierung, Thromboseprophylaxe, Impfprophylaxe nach Splenektomie gegen bekapselte Erreger (Pneumokokken, Meningokokken, Haemophilus influenzae Typ b); postoperativ Überwachung auf Pankreasfistel, Nachblutung, verzögerte Magenentleerung und Anastomoseninsuffizienz',
             'Strukturierte Nachsorge über fünf Jahre mit Klinik, CA 19-9 und CT, dazu Enzymsubstitution und Einstellung eines postoperativen Diabetes',
           ],
         },
@@ -11171,7 +11169,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
       ],
       redFlags: [
-        'Bläschen an Stirn, Augenlid oder Nasenspitze (Hutchinson-Zeichen), rotes oder schmerzhaftes Auge, Sehstörung — Verdacht auf Zoster ophthalmicus, sofortige augenärztliche Vorstellung',
+        'Bläschen an Stirn oder Augenlid, insbesondere an der Nasenspitze (Hutchinson-Zeichen), rotes oder schmerzhaftes Auge, Sehstörung — Verdacht auf Zoster ophthalmicus, sofortige augenärztliche Vorstellung',
         'Ohrenschmerz mit Bläschen im Gehörgang, Fazialisparese, Hörminderung, Tinnitus oder Schwindel — Ramsay-Hunt-Syndrom, sofortige HNO-ärztliche Vorstellung',
         'Streubefall über mehr als zwei Dermatome oder generalisierte Aussaat — disseminierter Zoster, Hinweis auf schwere Immunsuppression, stationäre intravenöse Therapie',
         'Kopfschmerz, Nackensteifigkeit, Lichtscheu, Verwirrtheit oder fokale neurologische Ausfälle — Zoster-Meningitis oder -Enzephalitis',
@@ -11403,7 +11401,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Vorangegangene Fragilitätsfraktur nach Bagatelltrauma — der stärkste Einzelprädiktor für eine weitere Fraktur',
         'Positive Familienanamnese, insbesondere eine Schenkelhalsfraktur bei einem Elternteil',
         'Untergewicht mit einem BMI unter 20, Anorexia nervosa',
-        'Langfristige Glukokortikoidtherapie (bereits ab etwa 7,5 mg Prednisolonäquivalent täglich über drei Monate) — die häufigste sekundäre Form',
+        'Langfristige Glukokortikoidtherapie (Risikoanstieg bereits ab etwa 2,5 mg Prednisolonäquivalent täglich über mehr als drei Monate, deutlich ab 7,5 mg) — die häufigste sekundäre Form',
         'Nikotinabusus und regelmäßiger Alkoholkonsum',
         'Immobilität, Bewegungsmangel, langes Sitzen, Bettlägerigkeit',
         'Kalzium- und Vitamin-D-Mangel, eiweißarme Ernährung, fehlende Sonnenlichtexposition',
@@ -11971,8 +11969,8 @@ export function seedFachwissen(): Fachwissen[] {
           items: [
             'Stationäre Aufnahme, Nahrungskarenz, intravenöse Flüssigkeits- und Elektrolytsubstitution, Thromboseprophylaxe mit niedermolekularem Heparin, Analgesie',
             'Kalkulierte intravenöse Antibiose gegen gramnegative Keime und Anaerobier: Ceftriaxon 1 × 2 g plus Metronidazol 3 × 500 mg oder Ampicillin/Sulbactam 3 × 3 g; bei schwerem Verlauf und Sepsis Piperacillin/Tazobactam 3 × 4,5 g oder ein Carbapenem; Deeskalation nach Kultur und Resistogramm, Gesamtdauer meist 7–14 Tage',
-            'Mikroabszess bis etwa 3 cm (CDD Typ 2a): alleinige antibiotische Therapie unter klinischer und sonographischer Verlaufskontrolle',
-            'Makroabszess über 3–5 cm (CDD Typ 2b): zusätzlich CT- oder sonographisch gesteuerte perkutane Drainage mit Materialgewinnung — dadurch lässt sich die Notfalloperation häufig in eine geplante Operation im Intervall überführen',
+            'Abszess bis etwa 3 cm (CDD Typ 2a bzw. kleiner Makroabszess Typ 2b): alleinige antibiotische Therapie unter klinischer und sonographischer Verlaufskontrolle',
+            'Makroabszess über 3 cm (CDD Typ 2b): zusätzlich CT- oder sonographisch gesteuerte perkutane Drainage mit Materialgewinnung — dadurch lässt sich die Notfalloperation häufig in eine geplante Operation im Intervall überführen',
             'Freie Perforation mit generalisierter Peritonitis (CDD Typ 2c, Hinchey III/IV): NOTFALLOPERATION nach kurzer Stabilisierung — Sigmaresektion mit Peritoneallavage; beim septischen, instabilen Patienten Diskontinuitätsresektion nach Hartmann mit endständigem Deszendostoma und Blindverschluss des Rektumstumpfes, Rückverlagerung nach etwa 3–6 Monaten',
             'Beim stabilen Patienten und günstigen lokalen Verhältnissen alternativ Resektion mit primärer Anastomose, gegebenenfalls durch ein protektives Ileostoma geschützt; die alleinige laparoskopische Lavage ohne Resektion bleibt Einzelfällen der eitrigen Peritonitis vorbehalten',
             'Perioperativ Sepsisbündel, Intensivüberwachung und, falls erforderlich, Katecholamintherapie',
@@ -12348,7 +12346,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Adjuvante Chemotherapie im UICC-Stadium III obligat: FOLFOX (5-Fluorouracil, Folinsäure, Oxaliplatin) oder CAPOX über 3–6 Monate, Beginn innerhalb von 4–8 Wochen nach der Operation',
             'UICC-Stadium II nur bei Risikofaktoren (T4, Tumorperforation, Ileus, weniger als 12 untersuchte Lymphknoten, G3, Gefäßinvasion) und dann meist als Fluoropyrimidin-Monotherapie; Tumoren mit Mikrosatelliteninstabilität im Stadium II profitieren nicht',
             'Stadium IV: palliative Systemtherapie als FOLFOX, FOLFIRI oder FOLFOXIRI, kombiniert nach Molekularpathologie — EGFR-Antikörper (Cetuximab, Panitumumab) nur bei RAS-Wildtyp und linksseitigem Primarius, sonst der VEGF-Antikörper Bevacizumab; bei MSI-hoher Erkrankung Immuncheckpoint-Inhibitoren (Pembrolizumab, Nivolumab/Ipilimumab)',
-            'Oligometastasierung ist nicht gleichbedeutend mit Palliation: resektable Leber- oder Lungenmetastasen werden nach Konversionschemotherapie kurativ intendiert reseziert (Fünf-Jahres-Überleben bis 40–50 %), ergänzend Radiofrequenzablation oder stereotaktische Bestrahlung; bei begrenzter Peritonealkarzinose an spezialisierten Zentren zytoreduktive Chirurgie mit HIPEC',
+            'Oligometastasierung ist nicht gleichbedeutend mit Palliation: resektable Leber- oder Lungenmetastasen werden kurativ intendiert reseziert (ggf. mit perioperativer Chemotherapie), primär nicht resektable nach erfolgreicher Konversionschemotherapie (Fünf-Jahres-Überleben bis 40–50 %), ergänzend Radiofrequenzablation oder stereotaktische Bestrahlung; bei begrenzter Peritonealkarzinose an spezialisierten Zentren zytoreduktive Chirurgie mit HIPEC',
             'Supportive Begleittherapie und Nebenwirkungsmanagement: antiemetische Prophylaxe, Neutropenie- und Mukositisprophylaxe, Aufklärung über die kumulative Polyneuropathie unter Oxaliplatin und das Hand-Fuß-Syndrom unter Capecitabin, DPD-Testung vor Fluoropyrimidinen; jede Entscheidung fällt im interdisziplinären Tumorboard',
           ],
         },
@@ -14453,7 +14451,7 @@ export function seedFachwissen(): Fachwissen[] {
       klassifikation: [
         {
           name: 'Schweregradeinteilung nach dem MMST (Mini-Mental-Status-Test, maximal 30 Punkte)',
-          inhalt: '26–30 Punkte unauffällig beziehungsweise allenfalls leichte kognitive Störung; 20–25 Punkte leichtgradige Demenz; 10–19 Punkte mittelgradige Demenz; unter 10 Punkte schwergradige Demenz. Als Auffälligkeitsgrenze im Screening wird üblicherweise ein Wert unter 24 von 30 Punkten genannt. Der MMST erfasst leichte Störungen unzuverlässig — hier sind DemTect und MoCA sensibler.',
+          inhalt: '24–30 Punkte unauffällig beziehungsweise allenfalls leichte kognitive Störung; 18–23 Punkte leichtgradige Demenz; 10–17 Punkte mittelgradige Demenz; unter 10 Punkte schwergradige Demenz. Als Auffälligkeitsgrenze im Screening wird üblicherweise ein Wert unter 24 von 30 Punkten genannt. Der MMST erfasst leichte Störungen unzuverlässig — hier sind DemTect und MoCA sensibler.',
         },
         {
           name: 'ICD-10',
@@ -14715,7 +14713,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Testverfahren kennen Sie, und ab welchem Punktwert ist der MMST auffällig?',
-          antwort: 'Den Mini-Mental-Status-Test mit maximal 30 Punkten — Werte unter 24 gelten als auffällig; 20 bis 25 Punkte entsprechen einer leichtgradigen, 10 bis 19 einer mittelgradigen und unter 10 Punkte einer schwergradigen Demenz. Dazu den Uhrentest, der visuell-räumliche und exekutive Funktionen prüft, und den DemTect. Bei leichten Störungen ist der MoCA sensibler. Zur Abgrenzung einer Depression ergänze ich die Geriatrische Depressionsskala.',
+          antwort: 'Den Mini-Mental-Status-Test mit maximal 30 Punkten — Werte unter 24 gelten als auffällig; 18 bis 23 Punkte entsprechen einer leichtgradigen, 10 bis 17 einer mittelgradigen und unter 10 Punkte einer schwergradigen Demenz. Dazu den Uhrentest, der visuell-räumliche und exekutive Funktionen prüft, und den DemTect. Bei leichten Störungen ist der MoCA sensibler. Zur Abgrenzung einer Depression ergänze ich die Geriatrische Depressionsskala.',
         },
         {
           frage: 'Welche behandelbaren Ursachen einer Demenz kennen Sie?',
@@ -14731,7 +14729,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist ein Normaldruckhydrozephalus, und warum dürfen Sie ihn nicht übersehen?',
-          antwort: 'Ein Hydrozephalus mit erweiterten inneren Liquorräumen bei normalem Liquordruck. Er zeigt die Trias aus breitbeinig-kleinschrittiger Gangstörung, kognitiver Verlangsamung und Harninkontinenz. Ich darf ihn nicht übersehen, weil er als einzige Demenzform kausal behandelbar ist: Bessert sich der Gang nach einem Liquorablassversuch, ist ein ventrikuloperitonealer Shunt indiziert.',
+          antwort: 'Ein Hydrozephalus mit erweiterten inneren Liquorräumen bei normalem Liquordruck. Er zeigt die Trias aus breitbeinig-kleinschrittiger Gangstörung, kognitiver Verlangsamung und Harninkontinenz. Ich darf ihn nicht übersehen, weil er als einzige Demenzform durch einen Shunt kausal behandelbar ist: Bessert sich der Gang nach einem Liquorablassversuch, ist ein ventrikuloperitonealer Shunt indiziert.',
         },
         {
           frage: 'Was raten Sie zu Vorsorgevollmacht, Patientenverfügung und Betreuung?',
@@ -15051,7 +15049,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Systemtherapie beim fortgeschrittenen NSCLC und beim kleinzelligen Karzinom',
           items: [
-            'Fortgeschrittenes NSCLC mit nachgewiesener Treibermutation: zielgerichtete orale Therapie als Erstlinie — Osimertinib bei EGFR, Alectinib oder Brigatinib bei ALK, Crizotinib oder Entrectinib bei ROS1, Dabrafenib mit Trametinib bei BRAF V600E, Sotorasib bei KRAS G12C',
+            'Fortgeschrittenes NSCLC mit nachgewiesener Treibermutation: zielgerichtete orale Therapie als Erstlinie — Osimertinib bei EGFR, Alectinib oder Brigatinib bei ALK, Crizotinib oder Entrectinib bei ROS1, Dabrafenib mit Trametinib bei BRAF V600E; Sotorasib bei KRAS G12C erst in der Zweitlinie nach Vortherapie',
             'Fortgeschrittenes NSCLC ohne Treibermutation: Immuntherapie mit Checkpoint-Inhibitoren (Pembrolizumab, Atezolizumab, Nivolumab mit Ipilimumab) als Monotherapie bei hohem PD-L1-Score oder in Kombination mit einer platinhaltigen Chemotherapie',
             'Klassische Chemotherapie mit Cisplatin oder Carboplatin kombiniert mit Pemetrexed (nicht-plattenepithelial) beziehungsweise Gemcitabin, Paclitaxel oder Vinorelbin (Plattenepithelkarzinom)',
             'Kleinzelliges Karzinom, limited disease: kurativ intendierte simultane Radiochemotherapie mit Cisplatin und Etoposid; eine Operation kommt nur ausnahmsweise bei sehr kleinen Tumoren ohne Lymphknotenbefall in Betracht',
@@ -16194,7 +16192,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum sollten wir einen Test auf okkultes Blut im Stuhl veranlassen, und wie funktioniert er?',
-          antwort: 'Weil zu klären ist, ob eine Blutungsquelle im Darm vorliegt oder das Blut lediglich von einer Wunde am After, etwa einer Fissur, stammt. Der immunologische Test weist mit Antikörpern menschliches Hämoglobin im Stuhl nach; üblich sind drei Stuhlproben von verschiedenen Tagen. Ein positives Ergebnis erfordert immer eine Koloskopie.',
+          antwort: 'Weil zu klären ist, ob eine Blutungsquelle im Darm vorliegt oder das Blut lediglich von einer Wunde am After, etwa einer Fissur, stammt. Der immunologische Test weist mit Antikörpern menschliches Hämoglobin im Stuhl nach; üblich ist heute eine einzige Stuhlprobe ohne Diätvorschrift. Ein positives Ergebnis erfordert immer eine Koloskopie.',
         },
         {
           frage: 'Welche diagnostischen Maßnahmen leiten Sie ein?',
@@ -16745,7 +16743,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           stufe: 'Apparativ & Bildgebung',
-          text: 'Schilddrüsensonographie bei erhöhtem TSH-Befund oder tastbarer Struma; Lungenfunktionsprüfung nur bei anamnestischem Verdacht auf Asthma bronchiale; CT-Angiographie der Pulmonalarterien ausschließlich bei begründetem Verdacht auf eine Lungenembolie',
+          text: 'Schilddrüsensonographie bei auffälligem (supprimiertem) TSH-Befund oder tastbarer Struma; Lungenfunktionsprüfung nur bei anamnestischem Verdacht auf Asthma bronchiale; CT-Angiographie der Pulmonalarterien ausschließlich bei begründetem Verdacht auf eine Lungenembolie',
         },
         {
           stufe: 'Apparativ & Bildgebung',
@@ -17488,7 +17486,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           dd: 'Prähepatischer Ikterus (Hämolyse, Morbus Meulengracht)',
-          unterscheidung: 'Erhöhung des INDIREKTEN Bilirubins bei normalen Transaminasen; der Stuhl ist normal oder dunkel und der Urin hell, weil das unkonjugierte Bilirubin nicht nierengängig ist. Bei Hämolyse zusätzlich Anämie, LDH erhöht, Haptoglobin erniedrigt; beim Morbus Meulengracht Anstieg bei Fasten und Stress ohne Krankheitswert.',
+          unterscheidung: 'Erhöhung des INDIREKTEN Bilirubins bei normalen Transaminasen; der Stuhl ist normal oder dunkel und der Urin bilirubinfrei und normal gefärbt (allenfalls durch Urobilinogen dunkler), weil das unkonjugierte Bilirubin nicht nierengängig ist. Bei Hämolyse zusätzlich Anämie, LDH erhöht, Haptoglobin erniedrigt; beim Morbus Meulengracht Anstieg bei Fasten und Stress ohne Krankheitswert.',
         },
       ],
       therapie: [
@@ -17547,7 +17545,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Der prognostisch entscheidende Laborwert ist der QUICK-Wert bzw. INR (Syntheseleistung), nicht die Höhe der Transaminasen. Fallende Transaminasen bei steigendem Bilirubin und schrumpfender Leber sind ein Alarmzeichen, kein Zeichen der Besserung.',
         'Bei der Virushepatitis ist die GPT/ALT höher als die GOT/AST (De-Ritis-Quotient unter 1); ein Quotient über 2 spricht für eine alkoholische Hepatitis. Diese Unterscheidung wird regelmäßig verlangt.',
         'Der Ikterus ist zuerst an den SKLEREN sichtbar (ab etwa 2 mg/dl Gesamtbilirubin), an der Haut erst ab etwa 3 mg/dl. Patienten bemerken ihn oft selbst nicht — aktiv nach Haut- und Augenfarbe, Urin- und Stuhlfarbe fragen.',
-        'Dunkler Urin UND heller Stuhl beweisen einen intra- oder posthepatischen Ikterus. Beim prähepatischen Ikterus (Hämolyse) ist der Urin hell, weil das indirekte Bilirubin nicht nierengängig ist.',
+        'Dunkler Urin UND heller Stuhl beweisen einen intra- oder posthepatischen Ikterus. Beim prähepatischen Ikterus (Hämolyse) ist der Urin bilirubinfrei und normal gefärbt, der Stuhl normal bis dunkel, weil das indirekte Bilirubin nicht nierengängig ist.',
         'Die Meldepflicht nach § 6 Infektionsschutzgesetz nennen — Verdacht, Erkrankung und Tod, namentlich, innerhalb von 24 Stunden an das Gesundheitsamt. In Freiburg wurde nach dem Umgang mit ansteckenden Infektionen gefragt und der Kandidat konnte nicht antworten.',
         'Bei Hepatitis B und C ist KEINE Isolierung erforderlich, es genügen Standardhygienemaßnahmen; nur bei Hepatitis A und E wird kontaktisoliert und nur dort gilt das Tätigkeitsverbot nach § 42 IfSG für Lebensmittelberufe.',
         'Die Fachbegriffe müssen patientengerecht übersetzt werden: Hepatitis = Leberentzündung, Ikterus = Gelbsucht bzw. Gelbfärbung der Haut durch Ablagerung von Gallenfarbstoff, Cholestase = Gallestauung, Cholangitis = Entzündung der Gallenwege.',
@@ -18292,7 +18290,7 @@ export function seedFachwissen(): Fachwissen[] {
             'GEWICHTSREDUKTION als Maßnahme mit dem größten Effekt bei Übergewicht: Sie senkt Schmerz und Funktionsverlust nachweislich, weil das Kniegelenk beim Gehen ein Mehrfaches des Körpergewichts trägt; realistische Zielvereinbarung, Ernährungsberatung',
             'Regelmäßige, gelenkschonende Bewegung: Radfahren, Schwimmen, Aquagymnastik, Nordic Walking; Bewegung ernährt den Knorpel und ist ausdrücklich KEIN Verschleiß — Schonung verschlechtert den Verlauf',
             'Physiotherapie mit gezieltem Aufbau des M. quadriceps femoris (besonders des M. vastus medialis), Dehnung der ischiokruralen Muskulatur, Koordinations- und Gangschulung',
-            'Hilfsmittel: Pufferabsätze und weiche Sohlen, laterale oder mediale Schuhaußenranderhöhung bei Achsfehlstellung, Knieorthese; GEHSTOCK auf der GEGENSEITE des betroffenen Beins getragen — er entlastet das erkrankte Gelenk am wirksamsten',
+            'Hilfsmittel: Pufferabsätze und weiche Sohlen, Schuhaußenranderhöhung bei Varus- beziehungsweise Schuhinnenranderhöhung bei Valgusfehlstellung, Knieorthese; GEHSTOCK auf der GEGENSEITE des betroffenen Beins getragen — er entlastet das erkrankte Gelenk am wirksamsten',
             'Physikalische Therapie: Wärme bei nicht aktivierter Arthrose, KÄLTE bei aktivierter Arthrose mit Erguss; Elektrotherapie (TENS), Ultraschall, Balneo- und manuelle Therapie',
             'Patientenschulung: Erklärung von Verlauf und Prognose, Vermeidung von tiefer Hocke, Knien, Springen und Treppenlast, Gelenkschutz im Alltag, Anpassung von Wohnraum und Arbeitsplatz',
           ],
@@ -25988,7 +25986,7 @@ export function seedFachwissen(): Fachwissen[] {
           ],
         },
       ],
-      prognose: 'Unter adäquater Behandlung ist die Prognose gut: Ballondilatation, Heller-Myotomie und POEM erreichen Ansprechraten von etwa 80 bis 90 % nach zwei Jahren, wobei der Typ II am besten und der Typ I am schlechtesten anspricht. Eine Heilung gibt es nicht — die Peristaltik kehrt nie zurück, und im Langzeitverlauf kommt es bei einem relevanten Teil der Patienten zu Rezidiven, die eine erneute Intervention erfordern. Häufigste Langzeitfolge ist der gastroösophageale Reflux nach der Intervention, besonders nach POEM. Unbehandelt drohen Mangelernährung, rezidivierende Aspirationspneumonien und der sigmoidale Megaösophagus. Langfristig besteht ein erhöhtes Risiko für ein Plattenepithelkarzinom des Ösophagus, absolut jedoch auf niedrigem Niveau. Die Lebenserwartung ist bei behandelten Patienten nahezu normal.',
+      prognose: 'Unter adäquater Behandlung ist die Prognose gut: Ballondilatation, Heller-Myotomie und POEM erreichen Ansprechraten von etwa 80 bis 90 % nach zwei Jahren, wobei der Typ II am besten und der spastische Typ III am schlechtesten anspricht. Eine Heilung gibt es nicht — die Peristaltik kehrt nie zurück, und im Langzeitverlauf kommt es bei einem relevanten Teil der Patienten zu Rezidiven, die eine erneute Intervention erfordern. Häufigste Langzeitfolge ist der gastroösophageale Reflux nach der Intervention, besonders nach POEM. Unbehandelt drohen Mangelernährung, rezidivierende Aspirationspneumonien und der sigmoidale Megaösophagus. Langfristig besteht ein erhöhtes Risiko für ein Plattenepithelkarzinom des Ösophagus, absolut jedoch auf niedrigem Niveau. Die Lebenserwartung ist bei behandelten Patienten nahezu normal.',
       pruefungsfallen: [
         'Der CHARAKTER der Dysphagie ist die Kernfrage: bei der Achalasie für FESTE UND FLÜSSIGE Speisen gleichermaßen, oft stärker für Flüssigkeiten, über Monate bis Jahre langsam progredient und wechselnd; beim Karzinom zuerst nur für feste Speisen und RASCH zunehmend. Wer das nicht sagt, verliert den Fall.',
         'Die ÖGD wird ZUERST und OBLIGAT durchgeführt — und die Begründung muss mitgeliefert werden: nicht um die Achalasie zu beweisen, sondern um ein Karzinom und eine Pseudoachalasie auszuschließen.',
@@ -26848,7 +26846,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'C6-Syndrom: Schmerz und Gefühlsstörung über die radiale Seite des Unterarms zum DAUMEN, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex',
         },
         {
-          text: 'C7-Syndrom: Ausstrahlung zum MITTELFINGER, Schwäche der Ellenbogenstreckung (Trizeps) und der Fingerbeuger, abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens',
+          text: 'C7-Syndrom: Ausstrahlung zum MITTELFINGER, Schwäche der Ellenbogenstreckung (Trizeps) und der Handgelenkbeugung (M. flexor carpi radialis, M. pronator teres), abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens',
         },
         {
           text: 'C8-Syndrom: Ausstrahlung zum KLEINFINGER, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex',
@@ -26884,7 +26882,7 @@ export function seedFachwissen(): Fachwissen[] {
       klassifikation: [
         {
           name: 'Zervikale Wurzelsyndrome (Dermatom – Kennmuskel – Reflex)',
-          inhalt: 'C5 (Segment C4/C5): Schulter außen, Deltoideus, Bizepssehnenreflex. C6 (Segment C5/C6): radialer Unterarm bis Daumen, Bizeps und Handgelenkstrecker, Bizepssehnenreflex und Radiusperiostreflex. C7 (Segment C6/C7): Mittelfinger, Trizeps und Fingerbeuger, Trizepssehnenreflex, gelegentlich Thenaratrophie. C8 (Segment C7/Th1): Kleinfinger und ulnare Handkante, Fingerspreizung und kleine Handmuskeln, Trömner-Reflex. Merke: Am häufigsten sind C6/C7 und C5/C6; der laterale Vorfall trifft die untere, gleichnamige Wurzel.',
+          inhalt: 'C5 (Segment C4/C5): Schulter außen, Deltoideus, Bizepssehnenreflex. C6 (Segment C5/C6): radialer Unterarm bis Daumen, Bizeps und Handgelenkstrecker, Bizepssehnenreflex und Radiusperiostreflex. C7 (Segment C6/C7): Mittelfinger, Trizeps, Pronator teres und Handgelenkbeuger, Trizepssehnenreflex, gelegentlich Thenaratrophie. C8 (Segment C7/Th1): Kleinfinger und ulnare Handkante, Fingerspreizung und kleine Handmuskeln, Trömner-Reflex. Merke: Am häufigsten sind C6/C7 und C5/C6; der laterale Vorfall trifft die untere, gleichnamige Wurzel.',
         },
         {
           name: 'Einteilung nach dem morphologischen Ausmaß',
@@ -27139,7 +27137,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Nennen Sie die zervikalen Wurzelsyndrome mit Dermatom, Kennmuskel und Reflex.',
-          antwort: 'C6: radiale Seite des Unterarms bis zum Daumen, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex. C7: Mittelfinger, Schwäche der Ellenbogenstreckung durch den Trizeps und der Fingerbeuger, abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens. C8: Kleinfinger und ulnare Handkante, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex.',
+          antwort: 'C6: radiale Seite des Unterarms bis zum Daumen, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex. C7: Mittelfinger, Schwäche der Ellenbogenstreckung durch den Trizeps und der Handgelenkbeugung (M. flexor carpi radialis, M. pronator teres), abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens. C8: Kleinfinger und ulnare Handkante, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex.',
         },
         {
           frage: 'Was ist die Ursache dieser Erkrankung, und welche Risikofaktoren gibt es?',
@@ -28093,7 +28091,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           stufe: 'Apparativ & Bildgebung',
-          text: 'Augenärztliche Untersuchung des Augenhintergrunds in Mydriasis als Ausgangsbefund, danach Screening in ein- bis zweijährigen Intervallen; bei Erstmanifestation Refraktionsbestimmung erst nach Stoffwechselstabilisierung',
+          text: 'Augenärztliche Untersuchung des Augenhintergrunds in Mydriasis: beim Typ 1 erstes Screening fünf Jahre nach Manifestation (bzw. ab dem 11. Lebensjahr), danach in ein- bis zweijährigen Intervallen; bei Erstmanifestation Refraktionsbestimmung erst nach Stoffwechselstabilisierung',
         },
         {
           stufe: 'Apparativ & Bildgebung',
@@ -28208,7 +28206,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Prävention und Kontrolle der Folgeschäden',
           items: [
-            'Regelmäßige augenärztliche Kontrolle des AUGENHINTERGRUNDS: Ausgangsuntersuchung nach Stoffwechselstabilisierung, danach in ein- bis zweijährigen Intervallen, engmaschiger bei bestehender Retinopathie oder in der Schwangerschaft',
+            'Regelmäßige augenärztliche Kontrolle des AUGENHINTERGRUNDS: beim Typ 1 erstes Screening fünf Jahre nach Diagnosestellung (bzw. ab dem 11. Lebensjahr) — anders als beim Typ 2, wo sofort untersucht wird —, danach in ein- bis zweijährigen Intervallen, engmaschiger bei bestehender Retinopathie oder in der Schwangerschaft',
             'Nierenwerte und ALBUMINAUSSCHEIDUNG: jährlicher Albumin-Kreatinin-Quotient im Spontanurin sowie Kreatinin und eGFR, beim Typ 1 ab dem fünften Jahr nach Diagnosestellung beziehungsweise ab der Pubertät; bei persistierender Albuminurie ACE-Hemmer oder Sartan und konsequente Blutdruckeinstellung',
             'FUSSINSPEKTION bei jedem Arztkontakt und mindestens jährliche Untersuchung auf Polyneuropathie (Stimmgabel, Monofilament, Reflexe) und periphere Durchblutung; strukturierte Fußschulung, geeignetes Schuhwerk, podologische Behandlung, konsequente Behandlung von Mykosen und kleinsten Läsionen',
             'Kardiovaskuläre Prävention: Blutdruckziel meist unter 140/90 mmHg (individuell tiefer), Lipidkontrolle mit Statinindikation nach Risiko, konsequenter Nikotinverzicht, Bewegung und Gewichtsstabilität',
@@ -29193,7 +29191,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           name: 'Indikationsgruppen der Ständigen Impfkommission für die saisonale Influenzaimpfung',
-          inhalt: 'Alle Personen ab 60 Jahren (Hochdosis- bzw. adjuvantierter Impfstoff); Schwangere ab dem zweiten Trimenon, bei Grunderkrankung bereits ab dem ersten; Kinder, Jugendliche und Erwachsene mit chronischen Erkrankungen der Atemwege, des Herz-Kreislauf-Systems, der Leber und der Nieren, mit Diabetes mellitus und anderen Stoffwechselerkrankungen, mit neurologischen Grunderkrankungen sowie mit angeborener oder erworbener Immundefizienz einschließlich HIV; Bewohnerinnen und Bewohner von Alten- und Pflegeheimen; medizinisches und pflegerisches Personal; Personen mit erhöhter Gefährdung durch starken Publikumsverkehr; Haushaltskontakte von Risikopatienten, die selbst nicht geimpft werden können; Personen mit beruflichem Kontakt zu Geflügel und Wildvögeln. Bester Zeitpunkt: Oktober und November, jährliche Wiederholung wegen Antigendrift; Totimpfstoff, meist tetravalent.',
+          inhalt: 'Alle Personen ab 60 Jahren (Hochdosis- bzw. adjuvantierter Impfstoff); Schwangere ab dem zweiten Trimenon, bei Grunderkrankung bereits ab dem ersten; Kinder, Jugendliche und Erwachsene mit chronischen Erkrankungen der Atemwege, des Herz-Kreislauf-Systems, der Leber und der Nieren, mit Diabetes mellitus und anderen Stoffwechselerkrankungen, mit neurologischen Grunderkrankungen sowie mit angeborener oder erworbener Immundefizienz einschließlich HIV; Bewohnerinnen und Bewohner von Alten- und Pflegeheimen; medizinisches und pflegerisches Personal; Personen mit erhöhter Gefährdung durch starken Publikumsverkehr; Haushaltskontakte von Risikopatienten, die selbst nicht geimpft werden können; Personen mit beruflichem Kontakt zu Geflügel und Wildvögeln. Bester Zeitpunkt: Oktober und November, jährliche Wiederholung wegen Antigendrift; Totimpfstoff, seit der Saison 2024/25 trivalent (die B/Yamagata-Linie zirkuliert nicht mehr).',
         },
         {
           name: 'Verlaufsformen und Komplikationen',
@@ -31736,7 +31734,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Prävention, Beratung und Meldung',
           items: [
-            'MELDEPFLICHT nach § 7 Infektionsschutzgesetz: der direkte oder indirekte Erregernachweis von Plasmodien wird vom Labor an das Gesundheitsamt gemeldet (nicht namentlich); Meldung von Todesfällen. Die Malaria ist NICHT von Mensch zu Mensch übertragbar — keine Isolierung, keine Ansteckungsgefahr für Mitpatienten oder Angehörige',
+            'MELDEPFLICHT nach § 7 Absatz 3 Infektionsschutzgesetz: der direkte oder indirekte Erregernachweis von Plasmodien wird vom Labor NICHTNAMENTLICH direkt an das Robert Koch-Institut gemeldet (nicht an das Gesundheitsamt); Meldung von Todesfällen. Die Malaria ist NICHT von Mensch zu Mensch übertragbar — keine Isolierung, keine Ansteckungsgefahr für Mitpatienten oder Angehörige',
             'Reisemedizinische Beratung VOR der nächsten Reise: Expositionsprophylaxe — imprägniertes Moskitonetz, lange helle Kleidung, Repellents mit DEET oder Icaridin, Aufenthalt in geschlossenen, klimatisierten oder mückengeschützten Räumen in der Dämmerung und nachts, weil die Anopheles NACHTS sticht',
             'Chemoprophylaxe je nach Region: Atovaquon-Proguanil (täglich, 1–2 Tage vor Einreise bis 7 Tage nach Ausreise), Doxycyclin (täglich, bis 4 Wochen nach Ausreise) oder Mefloquin (wöchentlich, bis 4 Wochen nach Ausreise); Aufklärung, dass die Prophylaxe KONSEQUENT und auch NACH der Rückkehr weitergenommen werden muss — die meisten Malariafälle bei Reisenden entstehen durch fehlende oder abgebrochene Prophylaxe; alternativ Stand-by-Notfallmedikation für Gebiete mit geringem Risiko',
             'Aufklärung, dass jedes Fieber in den Monaten nach einer Tropenreise sofort ärztlich abgeklärt werden muss, mit ausdrücklichem Hinweis auf den Tropenaufenthalt beim ersten Arztkontakt; bei P. vivax/ovale auch nach Jahren an einen Rückfall denken',
@@ -31807,7 +31805,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Trifft man die Entscheidung über die Therapie alleine? Wen müssen Sie hinzuziehen?',
-          antwort: 'Nein. Ich ziehe den Infektiologen beziehungsweise Tropenmediziner hinzu, bei komplizierter Malaria den Intensivmediziner, und nehme Rücksprache mit einem tropenmedizinischen Zentrum, zum Beispiel dem Bernhard-Nocht-Institut in Hamburg oder der Tropenmedizin in Tübingen oder München; zudem wird der Erregernachweis nach dem Infektionsschutzgesetz an das Gesundheitsamt gemeldet.',
+          antwort: 'Nein. Ich ziehe den Infektiologen beziehungsweise Tropenmediziner hinzu, bei komplizierter Malaria den Intensivmediziner, und nehme Rücksprache mit einem tropenmedizinischen Zentrum, zum Beispiel dem Bernhard-Nocht-Institut in Hamburg oder der Tropenmedizin in Tübingen oder München; zudem wird der Erregernachweis nach § 7 Absatz 3 Infektionsschutzgesetz nichtnamentlich direkt an das Robert Koch-Institut gemeldet.',
         },
         {
           frage: 'Gibt es ein bestimmtes Krankenhaus in der Nähe für solche Infektionen?',
@@ -32100,7 +32098,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Bei Penicillinallergie die Alternative kennen: Vancomycin plus Gentamicin (bei Prothese plus Rifampicin) — und die Kreuzallergie gegen Cephalosporine ansprechen. Isoniazid (ein Tuberkulostatikum) gehört NICHT dazu; ein Kandidat ist mit dieser Antwort durchgefallen.',
         'Das Hauptsymptom benennen können, das der Patient in Laiensprache schildert: „rote Knötchen auf den Fingerkuppen“ = Osler-Knötchen, „Splitter unter den Nägeln“ = Splinter-Hämorrhagien, „rote Flecken an den Handflächen“ = Janeway-Läsionen. Osler = schmerzhaft, immunologisch; Janeway = schmerzlos, embolisch.',
         'Die schmerzlose Hämaturie ist kein Harnwegsinfekt, sondern der Hinweis auf eine Immunkomplex-Glomerulonephritis (Nebenkriterium) — Urinsediment mit dysmorphen Erythrozyten, nicht nur ein Urinstreifentest.',
-        'Nach dem Auskultationsbefund und der Klappenvorgeschichte aktiv fragen — das neue oder veränderte Herzgeräusch ist das Schlüsselzeichen; die Prädisposition (Klappeninsuffizienz, rheumatisches Fieber, Prothese) und die Eintrittspforte (Zahnbehandlung vor drei bis sechs Wochen) müssen in der Anamnese aktiv erfragt werden, sie fallen dem Patienten nicht von selbst ein.',
+        'Nach dem Auskultationsbefund und der Klappenvorgeschichte aktiv fragen — das neue oder veränderte Herzgeräusch ist das Schlüsselzeichen; die Prädisposition (Klappeninsuffizienz, rheumatisches Fieber, Prothese) und die Eintrittspforte (Zahnbehandlung in den letzten Wochen, meist ein bis zwei Wochen vor Symptombeginn) müssen in der Anamnese aktiv erfragt werden, sie fallen dem Patienten nicht von selbst ein.',
         'Der qSOFA-Score wird abgefragt, sobald ein Kandidat „septisch“ sagt: Atemfrequenz ≥ 22/min, systolischer Blutdruck ≤ 100 mmHg, veränderte Vigilanz — ab 2 Punkten Hochrisiko. Die Zahlen müssen sitzen.',
         'Die Duke-Kriterien wenigstens in der Struktur können: zwei Hauptkriterien (positive Blutkulturen mit typischem Erreger, Echobefund) und die fünf Nebenkriterien (Prädisposition, Fieber, vaskuläre Phänomene, immunologische Phänomene, mikrobiologischer Hinweis); gesichert bei 2 Haupt-, 1 Haupt- + 3 Neben- oder 5 Nebenkriterien.',
         'Endokarditisprophylaxe nicht mehr für alle Klappenvitien: Nur Hochrisikopatienten (Prothese, durchgemachte Endokarditis, bestimmte angeborene Vitien) erhalten Amoxicillin 2 g vor zahnärztlichen Eingriffen — dies wurde gegenüber früheren Empfehlungen eingeschränkt und wird gern gefragt. Nach einer durchgemachten Endokarditis wird jeder Patient zum Hochrisikopatienten.',
@@ -32898,7 +32896,7 @@ export function seedFachwissen(): Fachwissen[] {
           atypisch: true,
         },
         {
-          text: 'Poststreptokokken-reaktive Arthritis: kurze Latenz von etwa 7–14 Tagen nach Angina, häufig wandernder oder additiver Befall auch der oberen Extremität (Ellenbogen, Handgelenk), schlechteres Ansprechen auf NSAR als beim rheumatischen Fieber, Fieber häufig',
+          text: 'Poststreptokokken-reaktive Arthritis: kurze Latenz von etwa 7–14 Tagen nach Angina, typischerweise additiver, nicht wandernder Befall, auch der oberen Extremität (Ellenbogen, Handgelenk), schlechteres Ansprechen auf NSAR als beim rheumatischen Fieber, Fieber häufig',
           atypisch: true,
         },
         {
@@ -34850,7 +34848,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           name: 'ELN-Risikostratifizierung der AML (2022)',
-          inhalt: 'Günstig: t(8;21), inv(16)/t(16;16), NPM1-Mutation ohne FLT3-ITD, biallelische CEBPA-bZIP-Mutation. Intermediär: NPM1-Mutation mit FLT3-ITD, FLT3-ITD ohne NPM1-Mutation, t(9;11), zytogenetisch normale AML ohne günstige oder ungünstige Marker. Ungünstig: komplexer oder monosomaler Karyotyp, −5/del(5q), −7, −17/abn(17p), TP53-Mutation, KMT2A-Rearrangements außer t(9;11), t(9;22), inv(3), myelodysplasie-assoziierte Mutationen (ASXL1, RUNX1, SRSF2 u. a.). Die Risikogruppe entscheidet über die allogene Stammzelltransplantation in erster Remission.',
+          inhalt: 'Günstig: t(8;21), inv(16)/t(16;16), NPM1-Mutation ohne FLT3-ITD, CEBPA-Mutation in der bZIP-Region (in-frame, mono- oder biallelisch). Intermediär: NPM1-Mutation mit FLT3-ITD, FLT3-ITD ohne NPM1-Mutation, t(9;11), zytogenetisch normale AML ohne günstige oder ungünstige Marker. Ungünstig: komplexer oder monosomaler Karyotyp, −5/del(5q), −7, −17/abn(17p), TP53-Mutation, KMT2A-Rearrangements außer t(9;11), t(9;22), inv(3), myelodysplasie-assoziierte Mutationen (ASXL1, RUNX1, SRSF2 u. a.). Die Risikogruppe entscheidet über die allogene Stammzelltransplantation in erster Remission.',
         },
         {
           name: 'Risikogruppen der ALL des Erwachsenen (GMALL)',
@@ -34909,7 +34907,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           stufe: 'Invasiv & Speziell',
-          text: 'Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat (Zytomorphologie, Zytochemie) und Stanzbiopsie (Histologie bei Punctio sicca) — diagnosesichernde Untersuchung: Diagnose ab 20 % Blasten; Durchführung nach Thrombozytensubstitution bei schwerer Thrombozytopenie, keine Sternalpunktion',
+          text: 'Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat (Zytomorphologie, Zytochemie) und Stanzbiopsie (Histologie bei Punctio sicca) — diagnosesichernde Untersuchung: Diagnose ab 20 % Blasten; Durchführung auch bei schwerer Thrombozytopenie ohne prophylaktische Thrombozytensubstitution möglich (komprimierbare Punktionsstelle), keine Sternalpunktion',
         },
         {
           stufe: 'Invasiv & Speziell',
@@ -34980,7 +34978,7 @@ export function seedFachwissen(): Fachwissen[] {
           items: [
             'Stationäre Aufnahme in ein hämatologisches Zentrum mit Einleitung der Therapie nach Studienprotokoll; Umkehrisolation im Einzelzimmer, strenge Händehygiene, keimarme Kost, Schleimhautpflege mit antiseptischen Mundspülungen, weiche Zahnbürste',
             'Bei Fieber in der Neutropenie (Neutrophile unter 500/µl): sofortige Abnahme von mindestens zwei Blutkulturpaaren und Beginn einer empirischen Breitspektrumantibiose innerhalb von 60 Minuten — z. B. Piperacillin/Tazobactam 3 × 4,5 g i.v., bei Penicillinallergie Meropenem 3 × 1 g i.v. oder Cefepim; bei Kathetersepsis oder MRSA-Risiko zusätzlich Vancomycin; bei Persistenz des Fiebers über 72–96 Stunden antimykotische Therapie (Caspofungin, liposomales Amphotericin B) und CT-Thorax zur Aspergillus-Suche',
-            'Transfusion von Erythrozytenkonzentraten bei Hämoglobin unter 7–8 g/dl bzw. symptomatischer Anämie und von Thrombozytenkonzentraten prophylaktisch unter 10 000/µl, bei Fieber, Blutung oder vor Eingriffen unter 20 000/µl (vor Knochenmark- und Liquorpunktion sowie ZVK-Anlage über 50 000/µl); alle Präparate leukozytendepletiert und bei potenziellen Transplantationskandidaten bestrahlt (Vermeidung der transfusionsassoziierten Graft-versus-Host-Reaktion)',
+            'Transfusion von Erythrozytenkonzentraten bei Hämoglobin unter 7–8 g/dl bzw. symptomatischer Anämie und von Thrombozytenkonzentraten prophylaktisch unter 10 000/µl, bei Fieber, Blutung oder vor Eingriffen unter 20 000/µl (vor Liquorpunktion und ZVK-Anlage über 50 000/µl; die Knochenmarkpunktion erfordert keine prophylaktische Thrombozytengabe); alle Präparate leukozytendepletiert und bei potenziellen Transplantationskandidaten bestrahlt (Vermeidung der transfusionsassoziierten Graft-versus-Host-Reaktion)',
             'Prophylaxe des Tumorlysesyndroms: Hydratation mit 2–3 l/m² täglich unter Bilanzierung, Allopurinol 300 mg täglich oder bei hoher Tumorlast (Leukozyten über 50 000–100 000/µl, LDH stark erhöht) Rasburicase 0,2 mg/kg i.v.; engmaschige Kontrolle von Kalium, Phosphat, Kalzium, Harnsäure und Kreatinin, ggf. Dialyse',
             'Behandlung der Gerinnungsstörung: bei disseminierter intravasaler Gerinnung Substitution von Fibrinogen (Ziel über 150 mg/dl), gefrorenem Frischplasma und Thrombozyten (Ziel über 30 000–50 000/µl bei APL); bei Verdacht auf Promyelozytenleukämie sofortiger Beginn mit All-trans-Retinsäure (ATRA) 45 mg/m² täglich, ohne die genetische Bestätigung abzuwarten',
             'Bei Leukostase (Leukozyten über 100 000/µl mit Symptomen): rasche Zytoreduktion mit Hydroxyurea 2–3 × 1–2 g täglich und/oder Leukapherese, keine Erythrozytentransfusion vor Senkung der Leukozyten (Viskositätsanstieg)',
@@ -35031,7 +35029,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Das Tempo ist das Unterscheidungsmerkmal: Tage bis wenige Wochen bei der akuten Leukämie, Monate bis Jahre bei CML, CLL und Lymphomen. Wer die Beschwerdedauer nicht erfragt, kann die Differenzialdiagnose nicht begründen.',
         'Den Hiatus leucaemicus erklären können: Blasten und reife Granulozyten ohne die mittleren Reifungsstufen (Promyelozyten, Myelozyten, Metamyelozyten) — im Gegensatz zur kontinuierlichen Linksverschiebung bei CML und leukämoider Reaktion.',
         'Die akute Promyelozytenleukämie (M3) ist ein eigener Notfall wegen der disseminierten intravasalen Gerinnung: Fibrinogen und D-Dimere bestimmen und bei Verdacht sofort All-trans-Retinsäure beginnen, noch bevor die Genetik (t(15;17), PML::RARA) vorliegt. Diese Frage wird sehr häufig gestellt.',
-        'Die Knochenmarkpunktion ist die diagnosesichernde Untersuchung (ab 20 % Blasten), aber sie steht NICHT am Anfang: erst Blutbild, Differenzialblutbild und Ausstrich, dann die Punktion — am Beckenkamm, nicht am Sternum, und nach Thrombozytensubstitution.',
+        'Die Knochenmarkpunktion ist die diagnosesichernde Untersuchung (ab 20 % Blasten), aber sie steht NICHT am Anfang: erst Blutbild, Differenzialblutbild und Ausstrich, dann die Punktion — am Beckenkamm, nicht am Sternum — und ohne dass vorher Thrombozyten substituiert werden müssen.',
         'AML und ALL nicht verwechseln: AML = Erwachsener, Alter steigend, Auer-Stäbchen, Cytarabin plus Anthrazyklin; ALL = häufigster Krebs des Kindes, Lymphknoten, Mediastinaltumor, ZNS-Befall, Vincristin/Kortison/Anthrazyklin/Asparaginase plus intrathekale ZNS-Prophylaxe. Die Unterscheidung erfolgt durch die Immunphänotypisierung, nicht durch die Klinik.',
         'Das Tumorlysesyndrom als Komplikation des THERAPIEBEGINNS kennen: Hyperkaliämie, Hyperurikämie, Hyperphosphatämie, Hypokalzämie, akutes Nierenversagen — Prophylaxe mit Hydratation und Allopurinol oder Rasburicase VOR der ersten Chemotherapie.',
         'Infektiöse Mononukleose als klassische Verwechslung bei jungen Patienten mit Angina, Lymphknoten und Splenomegalie — atypische Lymphozyten sind keine Blasten; bei Zweifel Ausstrich durch den Hämatologen und EBV-Serologie, und kein Ampicillin (Exanthem).',
@@ -36302,7 +36300,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie behandeln Sie den Patienten — abhängig vom Stadium?',
-          antwort: 'Zuerst die Ursache: Kortison in Absprache mit dem Gastroenterologen reduzieren oder auf eine kortisonsparende Therapie umstellen, Alkohol- und Nikotinkarenz. Im Frühstadium vor dem Einbruch: Entlastung an Unterarmgehstützen mit Thromboseprophylaxe, NSAR unter Magenschutz, Physiotherapie und die gelenkerhaltende Anbohrung des Hüftkopfes, gegebenenfalls mit Knochenmarkkonzentrat. Nach dem Einbruch mit sekundärer Arthrose: die Hüfttotalendoprothese. Dazu MRT-Kontrollen der Gegenseite.',
+          antwort: 'Zuerst die Ursache: Kortison in Absprache mit dem Gastroenterologen reduzieren oder auf eine kortisonsparende Therapie umstellen, Alkohol- und Nikotinkarenz. Im Frühstadium vor dem Einbruch: Entlastung an Unterarmgehstützen mit Thromboseprophylaxe, Analgesie mit Metamizol statt NSAR (Colitis ulcerosa, ACE-Hemmer), Physiotherapie und die gelenkerhaltende Anbohrung des Hüftkopfes, gegebenenfalls mit Knochenmarkkonzentrat. Nach dem Einbruch mit sekundärer Arthrose: die Hüfttotalendoprothese. Dazu MRT-Kontrollen der Gegenseite.',
         },
         {
           frage: 'Was ist eine Core Decompression, und wann ist sie sinnvoll?',
@@ -36550,7 +36548,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Bei postinfektiöser Glomerulonephritis PENICILLIN V (bei Allergie Makrolid oder Clindamycin) über 10 Tage zur Eradikation der Streptokokken und Verhinderung der Weiterverbreitung — Cave: das Antibiotikum ändert den Verlauf der Nephritis selbst NICHT mehr; Untersuchung und ggf. Behandlung der Kontaktpersonen (Familie, Partner), Sanierung von Hautinfektionen',
             'Behandlung einer zugrunde liegenden Endokarditis (Antibiose nach Blutkultur, ggf. Klappenoperation), Hepatitis B oder C (antivirale Therapie) oder HIV-Infektion (antiretrovirale Therapie); Abszess- und Shuntsanierung',
             'Bei IgA-Nephropathie langfristige RAAS-BLOCKADE mit ACE-Hemmer oder Sartan in maximal verträglicher Dosis zur Senkung von Proteinurie und Progression, Blutdruckziel unter 130/80 mmHg (unter 125/75 mmHg bei Proteinurie über 1 g/Tag)',
-            'Bei IgA-Nephropathie zusätzlich SGLT2-Hemmer (Dapagliflozin, Empagliflozin) zur Nephroprotektion; bei hohem Risiko mit anhaltender Proteinurie über 1 g/Tag trotz sechsmonatiger optimierter Basistherapie systemische Glukokortikoide über 6 Monate (nur bei GFR über 30 ml/min, Infektionsrisiko!) oder neuere Substanzen wie zielgerichtet freigesetztes Budesonid und Endothelinrezeptor-Antagonisten (Sparsentan)',
+            'Bei IgA-Nephropathie zusätzlich SGLT2-Hemmer (Dapagliflozin, Empagliflozin) zur Nephroprotektion; bei hohem Risiko mit anhaltender Proteinurie über 1 g/Tag trotz mindestens dreimonatiger optimierter Basistherapie systemische Glukokortikoide über 6 Monate (nur bei GFR über 30 ml/min, Infektionsrisiko!) oder neuere Substanzen wie zielgerichtet freigesetztes Budesonid und Endothelinrezeptor-Antagonisten (Sparsentan)',
             'Tonsillektomie bei IgA-Nephropathie mit rezidivierenden Tonsillitiden umstritten, in Europa keine Routineempfehlung; bei Lupusnephritis Hydroxychloroquin als Basistherapie',
           ],
         },
@@ -37047,7 +37045,7 @@ export function seedFachwissen(): Fachwissen[] {
       klassifikation: [
         {
           name: 'Drei Phasen des natürlichen Verlaufs (WHO/ELN)',
-          inhalt: 'Chronische Phase (etwa 90–95 % der Erstdiagnosen): Blasten < 10 % in Blut und Knochenmark, meist über Jahre stabil, gut behandelbar. Akzelerierte Phase: Blasten 10–19 %, Basophile ≥ 20 %, therapierefraktäre Leukozytose, Thrombozytopenie < 100 G/l oder Thrombozytose > 1000 G/l trotz Therapie, zunehmende Splenomegalie, zusätzliche Chromosomenaberrationen (klonale Evolution). Blastenkrise: Blasten ≥ 20 % (nach ELN; WHO 2022 verwendet ebenfalls ≥ 20 %) oder extramedulläre Blastenherde — Bild einer akuten Leukämie, in etwa zwei Dritteln myeloisch, in einem Drittel lymphatisch, mit schlechter Prognose. Die Therapie zielt darauf, den Übergang aus der chronischen Phase zu verhindern.',
+          inhalt: 'Chronische Phase (etwa 90–95 % der Erstdiagnosen): Blasten < 10 % in Blut und Knochenmark, meist über Jahre stabil, gut behandelbar. Akzelerierte Phase: Blasten 10–19 %, Basophile ≥ 20 %, therapierefraktäre Leukozytose, Thrombozytopenie < 100 G/l oder Thrombozytose > 1000 G/l trotz Therapie, zunehmende Splenomegalie, zusätzliche Chromosomenaberrationen (klonale Evolution). Blastenkrise: Blasten ≥ 20 % (nach WHO/ICC; die ELN verwendet ≥ 30 %) oder extramedulläre Blastenherde — Bild einer akuten Leukämie, in etwa zwei Dritteln myeloisch, in einem Drittel lymphatisch, mit schlechter Prognose. Die Therapie zielt darauf, den Übergang aus der chronischen Phase zu verhindern.',
         },
         {
           name: 'Risikoscores bei Diagnose: Sokal, Hasford (Euro) und ELTS',
@@ -38455,7 +38453,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Operative Verfahren nur in Ausnahmefällen: bei ausgeprägter symptomatischer Rektozele (Rektozelenkorrektur, STARR-Operation) oder bei therapierefraktärer, funktionsdiagnostisch gesicherter Slow-Transit-Obstipation (subtotale Kolektomie mit ileorektaler Anastomose); sakrale Nervenstimulation als Option',
             'Obstipation beim alten und pflegebedürftigen Patienten: Mobilisation, ausreichende Trinkmenge, Toilettenstuhl statt Steckbecken, Medikamentenliste durchforsten, fester Laxanzienplan (Macrogol als Basis, rektale Maßnahmen bei Bedarf)',
             'Regelmäßige Verlaufskontrolle von Wirkung, Dosis, Stuhltagebuch und neu aufgetretenen Red Flags; Dosis anpassen statt Präparate stapeln',
-            'Teilnahme an der Darmkrebsvorsorge ab dem 50. Lebensjahr unabhängig von der Obstipation: Vorsorgekoloskopie (Männer ab 50, Frauen ab 55) bzw. jährlicher iFOBT ab 50',
+            'Teilnahme an der Darmkrebsvorsorge ab dem 50. Lebensjahr unabhängig von der Obstipation: Vorsorgekoloskopie (Männer ab 50, Frauen ab 55) bzw. iFOBT ab 50 (jährlich bis 54, danach alle zwei Jahre)',
             'Psychosomatische Mitbehandlung bei Depression, Essstörung oder Missbrauchsanamnese',
           ],
         },
@@ -39682,7 +39680,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           stufe: 'Invasiv & Speziell',
-          text: 'Transösophageale Echokardiographie (TEE) am Bett beim instabilen, nicht transportfähigen Patienten oder im Operationssaal: Intimaflap, Entry, Aortenklappe, Perikard und Koronarabgänge in einer Untersuchung (Sensitivität etwa 98 %); Blindstelle im distalen Aortenbogen durch die Trachea',
+          text: 'Transösophageale Echokardiographie (TEE) am Bett beim instabilen, nicht transportfähigen Patienten oder im Operationssaal: Intimaflap, Entry, Aortenklappe, Perikard und Koronarabgänge in einer Untersuchung (Sensitivität etwa 98 %); Blindstelle in der distalen Aorta ascendens und im proximalen Aortenbogen durch Trachea und linken Hauptbronchus',
         },
         {
           stufe: 'Invasiv & Speziell',
@@ -41060,7 +41058,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Indikation: lokal fortgeschrittenes Basaliom, das nicht oder nur entstellend operabel und nicht bestrahlbar ist, sowie das — extrem seltene — metastasierte Basaliom; Entscheidung immer im interdisziplinären Hauttumorboard',
             'Hedgehog-Inhibitoren als Erstlinie: Vismodegib 150 mg oder Sonidegib 200 mg einmal täglich oral — Hemmung von SMO im überaktivierten Hedgehog-Signalweg; Ansprechraten etwa 40–60 %, auch neoadjuvant zur Tumorverkleinerung vor Operation möglich',
             'Typische Nebenwirkungen, die zum Therapieabbruch führen: Muskelkrämpfe, Geschmacksverlust (Dysgeusie) mit Gewichtsabnahme, Haarausfall, Müdigkeit; Kreatinkinase und Leberwerte kontrollieren',
-            'Strenge Kontrazeption wegen Teratogenität (Hedgehog-Weg steuert die Embryonalentwicklung): sichere Verhütung bei Frauen bis 24 Monate, bei Männern Kondom bis 3 Monate nach Therapieende, keine Blutspende, keine Samenspende',
+            'Strenge Kontrazeption wegen Teratogenität (Hedgehog-Weg steuert die Embryonalentwicklung): sichere Verhütung bei Frauen bis 24 Monate, bei Männern Kondom bis 2 Monate (Vismodegib) bzw. 6 Monate (Sonidegib) nach Therapieende, keine Blutspende, keine Samenspende',
             'Zweitlinie: Immuncheckpoint-Inhibitor (PD-1-Antikörper Cemiplimab) bei Progress oder Unverträglichkeit unter Hedgehog-Inhibitoren; palliative Radiotherapie und bestmögliche Wundversorgung bei exulzerierenden Tumoren',
           ],
         },
@@ -43417,7 +43415,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Vorhofflimmern plus Stent: Triple-Therapie (DOAK + ASS + Clopidogrel) nur für 1 Woche bis 1 Monat, dann DOAK plus Clopidogrel bis 12 Monate, danach DOAK allein; Ticagrelor und Prasugrel nicht in der Triple-Therapie',
             'pAVK: ASS 100 mg oder Clopidogrel 75 mg lebenslang, nach Revaskularisation DAPT für 1–6 Monate; bei hohem ischämischem Risiko Rivaroxaban 2 × 2,5 mg plus ASS (COMPASS-Schema); Statin, Gehtraining, Rauchstopp; bei Wunde zusätzlich Wundversorgung und Revaskularisation',
             'Immer Magenschutz mit PPI unter DAPT oder Kombination mit Antikoagulation, Ulkus- und Blutungsanamnese; NSAR meiden (heben die ASS-Wirkung auf und erhöhen das Blutungsrisiko)',
-            'Perioperativ: ASS in der Sekundärprophylaxe möglichst fortführen (Ausnahme intrakranielle, spinale, hintere Augenkammer- und transurethrale Prostataeingriffe), P2Y12-Hemmer vor großen Eingriffen pausieren — Clopidogrel und Ticagrelor 5 Tage, Prasugrel 7 Tage; elektive Eingriffe nicht innerhalb der DAPT-Phase nach Stent planen (mindestens 1 Monat nach elektivem Stent, 6 Monate nach ACS), bei zwingender Operation Kardiologie einbinden',
+            'Perioperativ: ASS in der Sekundärprophylaxe möglichst fortführen (Ausnahme intrakranielle, spinale, hintere Augenkammer- und transurethrale Prostataeingriffe), P2Y12-Hemmer vor großen Eingriffen pausieren — Clopidogrel 5 Tage, Ticagrelor 3–5 Tage, Prasugrel 7 Tage; elektive Eingriffe nicht innerhalb der DAPT-Phase nach Stent planen (mindestens 1 Monat nach elektivem Stent, 6 Monate nach ACS), bei zwingender Operation Kardiologie einbinden',
           ],
         },
         {
@@ -43504,7 +43502,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was würden Sie beim akuten Koronarsyndrom zuerst erledigen, PTCA oder Belastungs-EKG?',
-          antwort: 'Die PTCA. Beim akuten Koronarsyndrom ist das Belastungs-EKG kontraindiziert, weil es einen Infarkt provozieren kann. Der Patient erhält ASS 250–500 mg i.v., einen P2Y12-Hemmer als Aufsättigung, unfraktioniertes Heparin 70–100 IE/kg und wird zur Koronarangiographie gebracht — beim STEMI innerhalb von 120 Minuten, beim NSTEMI je nach Risiko innerhalb von 24–72 Stunden. Das Belastungs-EKG gehört in die Abklärung der stabilen Angina pectoris.',
+          antwort: 'Die PTCA. Beim akuten Koronarsyndrom ist das Belastungs-EKG kontraindiziert, weil es einen Infarkt provozieren kann. Der Patient erhält ASS 150–300 mg oral bzw. 75–250 mg i.v., einen P2Y12-Hemmer als Aufsättigung, unfraktioniertes Heparin 70–100 IE/kg und wird zur Koronarangiographie gebracht — beim STEMI innerhalb von 120 Minuten, beim NSTEMI je nach Risiko innerhalb von 24–72 Stunden. Das Belastungs-EKG gehört in die Abklärung der stabilen Angina pectoris.',
         },
         {
           frage: 'Welche therapeutischen Maßnahmen ordnen Sie bei einer tiefen Venenthrombose an?',
@@ -43832,7 +43830,7 @@ export function seedFachwissen(): Fachwissen[] {
           items: [
             'Bei Kalium unter 2,5 mmol/l, EKG-Veränderungen, Rhythmusstörungen, Paresen, Digitalistherapie oder fehlender oraler Möglichkeit: intravenöse Substitution unter Monitorüberwachung mit Kaliumchlorid in NaCl 0,9 % — peripher maximal 40 mmol pro Liter und maximal 10 mmol pro Stunde; über zentralen Venenkatheter bis 20 mmol pro Stunde unter Intensivüberwachung (nur im Notfall, z. B. Torsade); niemals unverdünnt oder als Bolus (Asystolie), keine Glukoselösung als Träger (Insulinausschüttung verschiebt Kalium nach intrazellulär)',
             'Kaliumkontrolle alle 2–4 Stunden während der i.v.-Gabe; Faustregel: 1 mmol/l Serumabfall entspricht 200–400 mmol Gesamtdefizit, also Substitution über Tage, nicht Stunden',
-            'Leichte bis mittelschwere Hypokaliämie (3,0–3,4 mmol/l, asymptomatisch): oral Kaliumchlorid 40–100 mmol pro Tag in 2–3 Einzeldosen (z. B. Kaliumcitrat/-chlorid-Brausetabletten à 40 mmol), kaliumreiche Kost (Bananen, Trockenobst, Kartoffeln, Nüsse); Kontrolle nach 2–3 Tagen',
+            'Leichte bis mittelschwere Hypokaliämie (2,5–3,4 mmol/l, asymptomatisch): oral Kaliumchlorid 40–100 mmol pro Tag in 2–3 Einzeldosen (z. B. Kaliumcitrat/-chlorid-Brausetabletten à 40 mmol), kaliumreiche Kost (Bananen, Trockenobst, Kartoffeln, Nüsse); Kontrolle nach 2–3 Tagen',
             'Magnesium IMMER mitbestimmen und mitsubstituieren (Magnesiumsulfat 1–2 g = 4–8 mmol i.v. oder 300 mg oral täglich): ohne Magnesiumausgleich bleibt die Hypokaliämie therapierefraktär, weil Magnesiummangel den renalen Kaliumverlust unterhält',
             'Ursache beheben: Diuretikum reduzieren oder auf kaliumsparendes Diuretikum (Spironolacton, Amilorid) bzw. Kombination umstellen; Laxanzien absetzen, Erbrechen und Diarrhoe behandeln (Alkalose mit NaCl und Kalium korrigieren, Chlorid ist der Schlüssel); Conn-Syndrom mit Spironolacton oder Adrenalektomie; Lakritz meiden',
             'Besonderheit diabetische Ketoazidose: Gesamtkörperdefizit trotz normalem oder hohem Serumkalium — Kalium ab einem Wert unter 5,3 mmol/l bereits mit der Insulintherapie substituieren (20–30 mmol pro Liter Infusion), Insulin erst starten, wenn das Kalium über 3,3 mmol/l liegt',
@@ -44113,7 +44111,7 @@ export function seedFachwissen(): Fachwissen[] {
         'qSOFA ≥ 2 (Atemfrequenz ≥ 22/min, systolischer RR ≤ 100 mmHg, Bewusstseinsänderung) bei Infektverdacht → sofort Laktat, Blutkulturen, Antibiose innerhalb einer Stunde',
         'Systolischer Blutdruck < 90 mmHg oder MAP < 65 mmHg, der auf 30 ml/kg Kristalloide nicht anspricht → septischer Schock, Noradrenalin, Intensivstation',
         'Laktat ≥ 4 mmol/l — auch bei normalem Blutdruck (kryptischer Schock)',
-        'Oligurie < 0,5 ml/kg/h über 2 Stunden oder Kreatininanstieg ≥ 0,3 mg/dl in 48 Stunden → akutes Nierenversagen',
+        'Oligurie < 0,5 ml/kg/h über 6 Stunden oder Kreatininanstieg ≥ 0,3 mg/dl in 48 Stunden → akutes Nierenversagen (KDIGO)',
         'Neu aufgetretene Verwirrtheit, Somnolenz oder Delir beim alten Patienten OHNE Fieber',
         'Hypothermie < 36 °C, marmorierte Haut, Rekapillarisierungszeit > 2 Sekunden',
         'Petechien, Purpura, Blutungen aus Einstichstellen → Meningokokkensepsis bzw. disseminierte intravasale Gerinnung',

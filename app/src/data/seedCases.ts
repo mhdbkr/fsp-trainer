@@ -34,7 +34,7 @@ export function seedCases(): Case[] {
           'Gewichtszunahme ca. 5 kg in 3 Monaten (Wasser, Hosen zu eng)',
           'Appetit deutlich vermindert',
           'Schlaf gestört, wacht nachts oft auf',
-          'heller (entfärbter) Stuhl seit einigen Wochen',
+          'etwas hellerer Stuhl seit einigen Wochen',
         ],
         negativeFindings: [
           'kein Fieber, kein Schüttelfrost, kein Nachtschweiß',
@@ -83,7 +83,7 @@ export function seedCases(): Case[] {
           'veg-fieber': 'Nein, Fieber habe ich nicht gemessen und keins bemerkt; im Ausland war ich nicht.',
           'veg-schuettelfrost': 'Nein, weder Schüttelfrost noch Nachtschweiß.',
           'veg-uebelkeit': 'Übel ist mir manchmal, aber erbrochen habe ich nicht — also auch kein Blut.',
-          'veg-ausscheidung': 'Beim Wasserlassen ist alles normal; der Stuhl ist heller als früher, fast entfärbt.',
+          'veg-ausscheidung': 'Beim Wasserlassen ist alles normal; der Stuhl ist etwas heller als früher.',
           'veg-gewicht': 'Ich habe zugenommen, etwa 5 Kilo in 3 Monaten — aber ich glaube, das ist das Wasser im Bauch.',
           'veg-appetit': 'Der Appetit ist deutlich schlechter geworden.',
           'veg-schlaf': 'Ich schlafe schlecht und wache nachts oft auf; tagsüber bin ich müde und kraftlos.',
@@ -100,7 +100,7 @@ export function seedCases(): Case[] {
           'all-unvertraeglich': 'Nein, ich vertrage eigentlich alles.',
           // Noxen
           'nox-rauchen': 'Nein, ich habe nie geraucht.',
-          'nox-alkohol': '(zögernd) Naja … früher schon einiges, so 10 Flaschen Bier und ein paar Schnäpse am Tag, seit über 20 Jahren. Wegen der Schmerzen jetzt nur noch 3 Bier.',
+          'nox-alkohol': '(zögernd) Naja … früher schon einiges, so 10 Flaschen Bier und dazu drei Flaschen Schnaps am Tag, seit über 20 Jahren. Wegen der Schmerzen jetzt nur noch 3 Bier.',
           'nox-drogen': 'Nein, niemals.',
           // Familie & Soziales
           'fam-familie': 'Nein, in der Familie ist nichts Ernstes bekannt — keine Lebererkrankung, kein Krebs.',
@@ -114,7 +114,7 @@ export function seedCases(): Case[] {
           'fach-gastro-sodbrennen': 'Nein, Sodbrennen oder saures Aufstoßen habe ich nicht.',
           'fach-gastro-voelle': 'Ja, der Bauch ist gespannt und ich bin schnell satt, richtig aufgebläht.',
           'fach-gastro-speisen': 'Einen Zusammenhang mit bestimmten Speisen merke ich nicht; viel esse ich zurzeit sowieso nicht.',
-          'fach-gastro-stuhl': 'Durchfall oder Verstopfung habe ich nicht; nur die Farbe ist heller, fast entfärbt — schwarz oder blutig war er nie.',
+          'fach-gastro-stuhl': 'Durchfall oder Verstopfung habe ich nicht; nur die Farbe ist etwas heller — schwarz oder blutig war er nie.',
           'fach-gastro-tenesmen': 'Nein, so ein Gefühl habe ich nicht.',
           'fach-gastro-spiegelung': 'So eine Magen- oder Darmspiegelung hatte ich noch nie.',
         },
@@ -142,7 +142,7 @@ export function seedCases(): Case[] {
           {
             label: 'Kausale Therapie und Basismaßnahmen (Alkoholabstinenz, Ernährung, Noxenkarenz)',
             items: [
-              'Absolute und dauerhafte Alkoholabstinenz — bei diesem Patienten die einzige kausale Therapie und Voraussetzung für alle weiteren Schritte',
+              'Absolute und dauerhafte Alkoholabstinenz — bei diesem Patienten die einzige ätiologische (krankheitsmodifizierende) Maßnahme und Voraussetzung für alle weiteren Schritte; die Zirrhose selbst ist irreversibel, kurativ nur die Transplantation',
               'Qualifizierter Entzug unter stationären Bedingungen, anschließend Suchtberatung, Selbsthilfegruppe und psychotherapeutische Entwöhnungsbehandlung',
               'Hochkalorische, eiweißreiche Kost (1,2–1,5 g/kg KG) mit Spätmahlzeit zur Nacht; ausdrücklich keine Eiweißrestriktion',
               'Substitution von Thiamin, Folsäure und Zink, Kontrolle von Vitamin D',
@@ -154,7 +154,7 @@ export function seedCases(): Case[] {
             label: 'Aszitestherapie im Stufenschema (Kochsalzrestriktion, Diuretika, Parazentese, TIPS)',
             items: [
               'Kochsalzarme Kost (maximal 5 g/Tag), tägliches Wiegen, Bilanzierung und Messung des Bauchumfangs',
-              'Spironolacton 100 mg 1-0-0, bei unzureichendem Ansprechen Steigerung und Kombination mit Furosemid 40 mg; Ziel maximal 500 g Gewichtsabnahme pro Tag',
+              'Spironolacton 100 mg 1-0-0, bei unzureichendem Ansprechen Steigerung und Kombination mit Furosemid 40 mg; Ziel maximal 500 g Gewichtsabnahme pro Tag ohne, bis 1 kg mit peripheren Ödemen (wie hier)',
               'Engmaschige Kontrolle von Kalium, Natrium und Kreatinin unter der Diuretikatherapie',
               'Diagnostische Aszitespunktion mit Zellzahl, Eiweiß und Kultur zum Ausschluss einer spontan bakteriellen Peritonitis',
               'Bei gespanntem Aszites zugleich therapeutische Entlastungspunktion mit Albumingabe 6–8 g pro entferntem Liter ab 5 Litern',
@@ -226,7 +226,7 @@ export function seedCases(): Case[] {
           interactions: [
             { frage: 'Wie behandeln Sie diesen Patienten?', reaktion: 'abstinence alcoolique (kausal), diurétiques + restriction sodée pour l’ascite, prophylaxie des varices (bêtabloquant), Psychotherapie/Entwöhnung.' },
             { frage: 'Nennen Sie drei Komplikationen der Leberzirrhose.', reaktion: 'Mindestens 3 nennen: Varizenblutung, hepatische Enzephalopathie, spontane bakterielle Peritonitis, hepatorenales Syndrom, HCC.' },
-            { frage: 'Gibt es eine kausale Therapie?', reaktion: 'non, sauf transplantation hépatique.' },
+            { frage: 'Gibt es eine kausale Therapie?', reaktion: 'La cirrhose elle-même est irréversible : seule la transplantation est curative ; l\'abstinence est la seule mesure étiologique qui stoppe la progression — nommer les deux.' },
           ],
         },
         {
@@ -239,7 +239,7 @@ export function seedCases(): Case[] {
       pruefungsfallen: [
         'Empathie beim Alkoholthema — kein Vorwurf.',
         'Bei Varizenblutung an Notfall denken.',
-        '"Keine kausale Therapie außer Transplantation."',
+        '"Kurativ nur die Lebertransplantation — die Alkoholabstinenz ist die entscheidende ätiologische Maßnahme, macht die Zirrhose aber nicht rückgängig."',
       ],
       status: 'À faire', confidence: 0,
       sourceDates: ['2024-11-20', '2024-09-18', '2024-04-23'],
@@ -613,7 +613,7 @@ export function seedCases(): Case[] {
           { frage: 'Welche Differenzialdiagnosen ziehen Sie in Betracht?', reaktion: 'Cholezystitis (rechtsseitig, Murphy+), perforiertes Ulkus (brettharter Bauch, freie Luft), Hinterwandinfarkt (EKG, Troponin).' },
         ] },
         { title: 'Therapie', interactions: [
-          { frage: 'Wie behandeln Sie die biliäre Genese?', reaktion: 'Volumen, Analgesie, frühe enterale Ernährung; bei Obstruktion ERCP mit Papillotomie; Cholezystektomie im Intervall.' },
+          { frage: 'Wie behandeln Sie die biliäre Genese?', reaktion: 'Volumen, Analgesie, frühe enterale Ernährung; bei Obstruktion ERCP mit Papillotomie; bei mildem Verlauf Cholezystektomie noch im selben Aufenthalt, bei nekrotisierendem Verlauf im Intervall nach etwa 6 Wochen.' },
         ] },
       ],
       status: 'À faire', confidence: 0,
@@ -634,7 +634,7 @@ export function seedCases(): Case[] {
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
         begleitsymptome: ['Schwindel, Schwäche', 'Blässe', 'Oberbauchschmerzen seit Wochen'],
-        schmerz: { ort: 'Oberbauch', charakter: 'brennend', intensitaet: 4, beginn: 'seit Wochen', verstaerker: 'nüchtern' },
+        schmerz: { ort: 'Oberbauch', charakter: 'brennend', intensitaet: 4, beginn: 'seit Wochen', verstaerker: 'kurz nach dem Essen' },
         vegetativeAnamnese: ['Schwindel beim Aufstehen', 'Schwäche, Blässe', 'Appetit vermindert seit Wochen'],
         negativeFindings: [
           'kein hellrotes Bluterbrechen (nur kaffeesatzartig)',
@@ -668,9 +668,9 @@ export function seedCases(): Case[] {
           'akt-charakter': 'Im Bauch brennt es; ansonsten bin ich vor allem schwach und schwindelig.',
           'akt-intensitaet': 'Die Bauchschmerzen so 4 von 10; schlimmer ist der Schwindel.',
           'akt-ausstrahlung': 'Nein, es strahlt nicht aus.',
-          'akt-verlauf': 'Das Brennen kommt eher nüchtern; der schwarze Stuhl war heute zweimal, erbrochen habe ich einmal.',
+          'akt-verlauf': 'Das Brennen kommt vor allem kurz nach dem Essen; der schwarze Stuhl war heute zweimal, erbrochen habe ich einmal.',
           'akt-ausloeser': 'Einen richtigen Auslöser wüsste ich nicht.',
-          'akt-einfluss': 'Nüchtern wird das Brennen schlimmer; wenn ich etwas esse, ist es kurz besser.',
+          'akt-einfluss': 'Kurz nach dem Essen wird das Brennen schlimmer; richtig besser wird es durch nichts.',
           'akt-frueher': 'So schwarzen Stuhl hatte ich noch nie; das Brennen im Magen aber schon länger.',
           'akt-begleit': 'Mir ist schwindelig und ich bin sehr schwach und blass.',
           // Vegetative Anamnese
@@ -705,9 +705,9 @@ export function seedCases(): Case[] {
           'fam-haustiere': 'Nein, keine Haustiere.',
           // Fachanamnese Gastroenterologie
           'fach-gastro-uebelkeit': 'Einmal habe ich erbrochen, es sah aus wie Kaffeesatz, dunkelbraun — kein hellrotes Blut.',
-          'fach-gastro-sodbrennen': 'Saures Aufstoßen ab und zu; im Magen brennt es oft, wenn ich nüchtern bin.',
+          'fach-gastro-sodbrennen': 'Saures Aufstoßen ab und zu; im Magen brennt es vor allem nach dem Essen.',
           'fach-gastro-voelle': 'Ein bisschen Völlegefühl, aber nichts Starkes.',
-          'fach-gastro-speisen': 'Wenn ich etwas esse, wird das Brennen kurz besser; nüchtern ist es schlimmer.',
+          'fach-gastro-speisen': 'Wenn ich etwas esse, wird das Brennen kurz danach schlimmer; ich esse deshalb weniger.',
           'fach-gastro-stuhl': 'Der Stuhl war heute ganz schwarz und klebrig, wie Teer, und riecht streng — hellrotes Blut war nicht dabei.',
           'fach-gastro-tenesmen': 'Nein, so ein Gefühl habe ich nicht.',
           'fach-gastro-spiegelung': 'Eine Magenspiegelung hatte ich noch nie.',
@@ -907,7 +907,7 @@ export function seedCases(): Case[] {
             label: 'Konservative Therapie der unkomplizierten Divertikulitis (CDD Typ 1)',
             items: [
               'Körperliche Schonung und leichte, ballaststoffarme Kost, solange die Beschwerden bestehen; Nahrungskarenz mit intravenöser Flüssigkeitsgabe nur bei Übelkeit oder Erbrechen',
-              'Antibiotische Therapie nur bei Risikokonstellation — hier zu prüfen: Immunsuppression, Diabetes, Niereninsuffizienz, arterielle Hypertonie, deutlich erhöhtes CRP. Liegt eine davon vor: Ciprofloxacin 2 × 500 mg plus Metronidazol 3 × 400 mg oral über 7–10 Tage, alternativ Amoxicillin/Clavulansäure 3 × 875/125 mg',
+              'Antibiotische Therapie nur bei Risikokonstellation — hier zu prüfen: Immunsuppression, Diabetes, Niereninsuffizienz, arterielle Hypertonie, deutlich erhöhtes CRP. Liegt eine davon vor: Ciprofloxacin 2 × 500 mg plus Metronidazol 3 × 400 mg oral über 7–10 Tage, alternativ Amoxicillin/Clavulansäure 3 × 875/125 mg — bei dieser Patientin wegen der Penicillinallergie kontraindiziert',
               'Analgesie mit Metamizol 3–4 × 500–1000 mg, alternativ Paracetamol; NSAR und Opioide meide ich, bei krampfartigem Schmerz gebe ich Butylscopolamin',
               'Nach Beschwerdefreiheit langsamer Kostaufbau, anschließend dauerhaft ballaststoffreiche Ernährung mit mindestens 30 g täglich, reichliche Trinkmenge, Bewegung, Gewichtsreduktion und Nikotinkarenz',
               'Dem Patienten erkläre ich ausdrücklich, dass Nüsse und Körner nicht gemieden werden müssen',
@@ -919,7 +919,7 @@ export function seedCases(): Case[] {
             akut: true,
             items: [
               'Zeigt das CT einen Abszess oder freie Luft: stationäre Aufnahme, Nahrungskarenz, intravenöse Flüssigkeits- und Elektrolytsubstitution, Thromboseprophylaxe mit niedermolekularem Heparin',
-              'Kalkulierte intravenöse Antibiose mit Ceftriaxon 1 × 2 g plus Metronidazol 3 × 500 mg, bei schwerem Verlauf Piperacillin/Tazobactam 3 × 4,5 g; Anpassung nach Kultur und Resistogramm',
+              'Kalkulierte intravenöse Antibiose mit Ceftriaxon 1 × 2 g plus Metronidazol 3 × 500 mg, bei schwerem Verlauf Piperacillin/Tazobactam 3 × 4,5 g — bei dieser Patientin wegen der Penicillinallergie stattdessen Meropenem 3 × 1 g oder Ciprofloxacin plus Metronidazol i. v.; Anpassung nach Kultur und Resistogramm',
               'Perikolischer Abszess bis etwa 3 cm: alleinige Antibiose mit sonographischer Verlaufskontrolle',
               'Abszess über 3–5 cm: zusätzlich CT- oder sonographisch gesteuerte perkutane Drainage mit Materialgewinnung, um die Operation in ein entzündungsfreies Intervall zu verlegen',
               'Bei freier Perforation mit Peritonitis oder Sepsis: sofortige Vorstellung in der Chirurgie und Notfalloperation — beim instabilen Patienten Sigmaresektion nach Hartmann mit endständigem Kolostoma und Lavage, beim stabilen Patienten Resektion mit primärer Anastomose, gegebenenfalls mit protektivem Ileostoma',
@@ -940,7 +940,7 @@ export function seedCases(): Case[] {
         ],
         erstmassnahmen: ['Stationäre Aufnahme bei Fieber/Komplikation'],
       },
-      linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-gastroskopie'],
+      linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koloskopie'],
       caseSpecificQuestions: ['Wo genau sind die Schmerzen?', 'Haben Sie Blut im Stuhl bemerkt?', 'Bekannte Divertikel?'],
       examinerQuestions: ['Warum keine Koloskopie im akuten Schub?', 'Wann operieren?'],
       examinerSheet: [
@@ -950,7 +950,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Diagnostik & Cave', interactions: [
           { frage: 'Warum keine Koloskopie im akuten Schub?', reaktion: 'Perforationsgefahr — Koloskopie erst im entzündungsfreien Intervall; akut Labor (CRP, BB) und CT-Abdomen.' },
-          { frage: 'Wann operieren Sie?', reaktion: 'bei Komplikationen (Perforation, Abszess, Stenose) oder rezidivierenden Schüben — Sigmaresektion.' },
+          { frage: 'Wann operieren Sie?', reaktion: 'notfallmäßig bei freier Perforation/Peritonitis; elektiv im entzündungsfreien Intervall bei Stenose, Fistel, nach Abszess oder bei Immunsuppression — individuell, nicht nach der Zahl der Schübe; Verfahren: laparoskopische Sigmaresektion.' },
         ] },
       ],
       pruefungsfallen: ['Cave: Koloskopie im akuten Schub kontraindiziert (Perforationsgefahr).'],
@@ -977,7 +977,7 @@ export function seedCases(): Case[] {
           'kein Druck- oder Engegefühl hinter dem Brustbein, keine Ausstrahlung in linken Arm, Hals oder Kiefer, keine Kaltschweißigkeit oder Todesangst, keine bekannte Herzerkrankung, kein bekannter Bluthochdruck oder Diabetes (gegen Hinterwandinfarkt)',
         ],
         vorerkrankungen: ['Gallensteine bekannt'], voroperationen: ['keine'],
-        medikamente: ['keine'], allergien: ['keine bekannt'],
+        medikamente: ['orales Kontrazeptivum (Pille)'], allergien: ['keine bekannt'],
         noxen: { tabak: 'Nichtraucherin', alkohol: 'gelegentlich ein Glas Wein', drogen: 'keine' },
         familienanamnese: ['Mutter hatte Gallensteine'], sozialanamnese: ['verheiratet, 2 Kinder', 'arbeitet als Köchin'],
         antworten: {
@@ -1012,7 +1012,7 @@ export function seedCases(): Case[] {
           'vor-op': 'Nein, am Bauch bin ich noch nie operiert worden.',
           'vor-krankenhaus': 'Nein, im Krankenhaus war ich zuletzt nicht.',
           // Medikamente
-          'med-regelmaessig': 'Nein, regelmäßig nehme ich nichts.',
+          'med-regelmaessig': 'Nur die Pille zur Verhütung; sonst nehme ich regelmäßig nichts.',
           'med-blutverduenner': 'Nein, keinen Blutverdünner, kein Kortison.',
           'med-otc': 'Nein, auch nichts aus der Apotheke.',
           // Allergien
@@ -1119,7 +1119,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Diagnostik & Therapie', interactions: [
           { frage: 'Welche Diagnostik ordnen Sie an?', reaktion: 'Abdomen-Sonographie (Wandverdickung, Steine, Murphy), Labor (CRP, BB, Cholestase-/Leberwerte, Lipase zum Ausschluss Pankreatitis).' },
-          { frage: 'Wann operieren Sie?', reaktion: 'frühe laparoskopische Cholezystektomie (innerhalb 24–72 h); vorab Nüchternheit, Analgesie, Antibiotika.' },
+          { frage: 'Wann operieren Sie?', reaktion: 'frühe laparoskopische Cholezystektomie möglichst innerhalb von 24 Stunden nach Aufnahme, in jedem Fall im selben stationären Aufenthalt; vorab Nüchternheit, Analgesie, Antibiotika.' },
         ] },
       ],
       status: 'À faire', confidence: 0, sourceDates: ['2025-02-05'],
@@ -1250,7 +1250,7 @@ export function seedCases(): Case[] {
               'Handelt es sich um ein Kolonkarzinom, wird primär operiert — eine Vorbestrahlung ist hier nicht indiziert',
               'Ergibt die endgültige Histologie Lymphknotenmetastasen (UICC-Stadium III), ist bei ihm die adjuvante Chemotherapie mit FOLFOX oder CAPOX über 3–6 Monate obligat, Beginn 4–8 Wochen nach der Operation',
               'Im Stadium II ohne Risikofaktoren würde auf eine adjuvante Therapie verzichtet; Risikokonstellationen wie T4, Tumorperforation, Ileus, G3, Gefäßinvasion oder weniger als 12 untersuchte Lymphknoten begründen eine Fluoropyrimidin-Monotherapie',
-              'Sollten sich im Staging-CT Lebermetastasen zeigen, wird deren Resektabilität geprüft: bei resektabler Oligometastasierung kurativ intendiertes Konzept mit Konversionschemotherapie und Metastasenresektion, sonst palliative Systemtherapie nach RAS-, BRAF- und MSI-Status — Bevacizumab beziehungsweise bei RAS-Wildtyp und linksseitigem Primarius Cetuximab oder Panitumumab, bei MSI-hoher Erkrankung Immuncheckpoint-Inhibitoren',
+              'Sollten sich im Staging-CT Lebermetastasen zeigen, wird deren Resektabilität geprüft: bei resektabler Oligometastasierung kurativ intendiertes Konzept mit Metastasenresektion (ggf. perioperative Chemotherapie), bei primär nicht resektablen Metastasen Konversionschemotherapie mit dem Ziel der sekundären Resektion, sonst palliative Systemtherapie nach RAS-, BRAF- und MSI-Status — Bevacizumab beziehungsweise bei RAS-Wildtyp und linksseitigem Primarius Cetuximab oder Panitumumab, bei MSI-hoher Erkrankung Immuncheckpoint-Inhibitoren',
               'Vor Beginn einer Fluoropyrimidin-Therapie DPD-Testung; Aufklärung über Polyneuropathie unter Oxaliplatin, Hand-Fuß-Syndrom unter Capecitabin, Übelkeit, Mukositis und Infektrisiko bei Neutropenie, dazu antiemetische Prophylaxe',
             ],
           },
@@ -1269,7 +1269,7 @@ export function seedCases(): Case[] {
         ],
         erstmassnahmen: ['Ambulante/stationäre Abklärung', 'Koloskopie anmelden'],
       },
-      linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-gastroskopie'],
+      linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koloskopie'],
       caseSpecificQuestions: ['Blut im Stuhl? Farbe?', 'Änderung der Stuhlgewohnheiten?', 'Gewichtsverlust?', 'Familienanamnese Darmkrebs?'],
       examinerQuestions: ['Screening-Empfehlung Koloskopie?', 'Was ist CEA?', 'Wie stagen Sie?'],
       examinerSheet: [
@@ -1278,7 +1278,7 @@ export function seedCases(): Case[] {
           { frage: 'Was ist CEA?', reaktion: 'carcinoembryonales Antigen — Tumormarker; nicht zum Screening, aber zur Verlaufs- und Rezidivkontrolle.' },
         ] },
         { title: 'Screening & Staging', interactions: [
-          { frage: 'Screening-Empfehlung Koloskopie?', reaktion: 'ab 50 Jahren, früher bei positiver Familienanamnese; Goldstandard mit Biopsie.' },
+          { frage: 'Screening-Empfehlung Koloskopie?', reaktion: 'Vorsorgekoloskopie Männer ab 50, Frauen ab 55 Jahren (Wiederholung nach 10 Jahren), alternativ iFOBT ab 50; erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, spätestens ab 40–45 Jahren; Goldstandard mit Biopsie.' },
           { frage: 'Wie stagen Sie den Tumor?', reaktion: 'Koloskopie mit Biopsie, CT-Thorax/Abdomen, bei Rektum-Ca MRT-Becken; TNM-Klassifikation.' },
         ] },
       ],
@@ -1305,7 +1305,7 @@ export function seedCases(): Case[] {
           'keine nüchternen oder nächtlichen Oberbauchschmerzen, keine Besserung der Beschwerden nach dem Essen, kein umschriebener Druckschmerz im Oberbauch, keine Einnahme von Schmerzmitteln (NSAR/ASS) (gegen Ulcus)',
           'keine Schluckbeschwerden für feste oder flüssige Kost, kein Steckenbleiben von Speisen hinter dem Brustbein, kein ungewollter Gewichtsverlust, keine Heiserkeit (gegen Ösophaguskarzinom)',
         ],
-        vorerkrankungen: ['Adipositas'], voroperationen: ['keine'],
+        vorerkrankungen: ['Übergewicht (BMI 29)'], voroperationen: ['keine'],
         medikamente: ['gelegentlich Antazida (rezeptfrei)'], allergien: ['keine bekannt'],
         noxen: { tabak: '10 py', alkohol: 'Wein am Wochenende', drogen: 'keine' },
         familienanamnese: ['unauffällig'], sozialanamnese: ['ledig', 'arbeitet als Bürokauffrau'],
@@ -1517,7 +1517,7 @@ export function seedCases(): Case[] {
           'all-allergie': 'Nein, keine Allergien bekannt.',
           'all-unvertraeglich': 'Nein, keine.',
           // Noxen
-          'nox-rauchen': 'Ja, viel — seit über 30 Jahren eine Schachtel am Tag, etwa 40 Packungsjahre.',
+          'nox-rauchen': 'Ja, viel — seit etwa 40 Jahren eine Schachtel am Tag, das sind etwa 40 Packungsjahre.',
           'nox-alkohol': 'Nur gelegentlich mal ein Bier.',
           'nox-drogen': 'Nein, nie.',
           // Familie & Soziales
@@ -1597,7 +1597,7 @@ export function seedCases(): Case[] {
             items: [
               'Hochdosiertes Statin bereits während des stationären Aufenthalts beginnen: Atorvastatin 80 mg täglich unabhängig vom Ausgangs-LDL, Zielwert unter 55 mg/dl; Lipidkontrolle nach 4 bis 6 Wochen, bei Nichterreichen Ergänzung um Ezetimib und gegebenenfalls einen PCSK9-Inhibitor. Ausgangswerte für Transaminasen und CK bestimmen und den Patienten über mögliche Muskelschmerzen aufklären',
               'Betablocker (Bisoprolol oder Metoprolol) und ACE-Hemmer (Ramipril), einschleichend unter Kontrolle von Blutdruck, Herzfrequenz, Kreatinin und Kalium; bei ACE-Hemmer-Husten Umstellung auf ein Sartan. Bei einer Ejektionsfraktion unter 40 % zusätzlich Eplerenon, ergänzend ein SGLT2-Inhibitor',
-              'Konsequente Einstellung der bei diesem Patienten erhobenen Risikofaktoren: Blutdruckziel unter 130/80 mmHg, Diabeteseinstellung mit kardioprotektiven Substanzen, Gewichtsreduktion, Abklärung eines Schlafapnoe-Syndroms',
+              'Konsequente Einstellung der bei diesem Patienten erhobenen Risikofaktoren: Blutdruckziel unter 130/80 mmHg, Optimierung der Lipidtherapie, Gewichtsreduktion bei Übergewicht (88 kg bei 1,80 m, BMI etwa 27) sowie Ausschluss eines bislang unbekannten Diabetes mellitus über HbA1c',
               'Nachdrückliche Beratung zur absoluten Nikotinkarenz mit konkretem Angebot einer strukturierten Raucherentwöhnung (Beratung, Verhaltenstherapie, Nikotinersatz) — die wirksamste Einzelmaßnahme nach dem Infarkt',
               'Mediterrane Ernährung, Alkoholreduktion und schrittweiser Wiederaufbau körperlicher Aktivität bis mindestens 150 Minuten moderates Ausdauertraining pro Woche',
               'Beantragung einer kardiologischen Anschlussheilbehandlung mit überwachtem Training, Patientenschulung, psychologischer Betreuung und beruflicher Wiedereingliederung',
@@ -1608,7 +1608,7 @@ export function seedCases(): Case[] {
         ],
         erstmassnahmen: ['NOTFALL: EKG, OA/Kardiologie sofort, Reanimationsbereitschaft'], notfall: true,
       },
-      linkedFachwissenId: 'fw-khk', linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koronarangiographie'],
+      linkedFachwissenId: 'fw-myokardinfarkt', linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koronarangiographie'],
       caseSpecificQuestions: ['Seit wann genau? In Ruhe?', 'Hilft Nitro?'],
       examinerQuestions: ['STEMI vs. NSTEMI?', 'Zeitfenster der PCI?', 'Akuttherapie?'],
       examinerSheet: [
@@ -1701,7 +1701,7 @@ export function seedCases(): Case[] {
           'fach-gastro-uebelkeit': 'Richtig übel ist mir nicht; es kommen aber manchmal Speisereste hoch, kein Blut, kein Kaffeesatz.',
           'fach-gastro-sodbrennen': 'Früher oft, ja — Sodbrennen und saures Aufstoßen seit Jahren.',
           'fach-gastro-voelle': 'Ich bin schnell satt, weil kaum etwas runtergeht.',
-          'fach-gastro-speisen': 'Feste Sachen bleiben stecken, weiche und flüssige gehen noch; deshalb esse ich fast nur noch Suppe.',
+          'fach-gastro-speisen': 'Feste Sachen bleiben stecken, inzwischen auch Weiches; nur Flüssiges und Suppe gehen noch.',
           'fach-gastro-stuhl': 'Der Stuhl ist normal, nicht schwarz, kein Blut.',
           'fach-gastro-tenesmen': 'Nein, so ein Gefühl habe ich nicht.',
           'fach-gastro-spiegelung': 'Eine Magenspiegelung hatte ich noch nie.',
@@ -1797,7 +1797,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Diagnostik & Therapie', interactions: [
           { frage: 'Diagnostik und Staging?', reaktion: 'ÖGD mit Biopsie, Endosonographie + CT (Staging); Labor (Anämie, Ernährungsstatus).' },
-          { frage: 'Welche palliativen Optionen?', reaktion: 'Stent zur Passage, Ernährungssicherung (PEG), Radiochemotherapie; kurativ Ösophagektomie.' },
+          { frage: 'Welche palliativen Optionen?', reaktion: 'Stent zur Passage, Ernährungssicherung über Trinknahrung, ggf. Feinnadelkatheterjejunostomie — keine PEG, solange der Magen für einen Hochzug gebraucht wird; palliative Radiochemotherapie/Systemtherapie; kurativ Ösophagektomie.' },
         ] },
       ],
       pruefungsfallen: ['Dysphagie + Gewichtsverlust + Noxen = Alarmkonstellation.'],
@@ -1997,7 +1997,7 @@ export function seedCases(): Case[] {
           {
             label: 'Ausschaltung der Ulkusnoxen (NSAR/ASS, Nikotin, Alkohol)',
             items: [
-              'Sämtliche NSAR und ASS in der Selbstmedikation absetzen und die Bedarfsanalgesie auf Paracetamol oder Metamizol umstellen',
+              'Sämtliche NSAR und ASS in der Selbstmedikation meiden und die Bedarfsanalgesie auf Paracetamol beschränken — Metamizol ist bei diesem Patienten wegen der bekannten Allergie (Exanthem, Atemnot) kontraindiziert',
               'Nikotin- und Alkoholkarenz bis zur gesicherten Abheilung, dazu Beratung zur dauerhaften Karenz',
               'Regelmäßige kleine Mahlzeiten, Verzicht auf stark gewürzte und individuell unverträgliche Speisen, Stressreduktion',
             ],
@@ -2071,7 +2071,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Warum?',
-              reaktion: 'postprandiale, drückend-brennende Epigastralgien seit einem Jahr, Sodbrennen und Völlegefühl, beruflicher Stress, Nikotin- und Alkoholkonsum und vor allem keine Besserung trotz einjähriger PPI-Einnahme.',
+              reaktion: 'postprandiale, drückend-brennende Epigastralgien seit einem Jahr, Sodbrennen und Völlegefühl, beruflicher Stress, Nikotin- und Alkoholkonsum und vor allem der Wirkverlust des seit einem Jahr eingenommenen Pantoprazols seit sechs bis acht Wochen.',
             },
           ],
         },
@@ -2329,7 +2329,7 @@ export function seedCases(): Case[] {
             label: 'Endoskopisch / palliativ',
             items: [
             'endoskopische Resektion (EMR/ESD) bei auf die Mukosa begrenztem Frühkarzinom',
-            'palliative Stenteinlage bzw. PEG-Anlage zur Ernährungssicherung',
+            'palliative Stenteinlage bzw. Gastroenterostomie bei Magenausgangsstenose; zur Ernährungssicherung Feinnadelkatheterjejunostomie — keine PEG durch den tumortragenden Magen',
             ],
           },
           {
@@ -2435,7 +2435,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie behandeln Sie das gesicherte Magenkarzinom?',
-              reaktion: 'Stadienabhängig: endoskopische Resektion beim Mukosakarzinom, sonst Gastrektomie mit D2-Lymphadenektomie und perioperativer Chemotherapie (FLOT); palliativ Chemotherapie, Stent/PEG und psychoonkologische Betreuung.',
+              reaktion: 'Stadienabhängig: endoskopische Resektion beim Mukosakarzinom, sonst Gastrektomie mit D2-Lymphadenektomie und perioperativer Chemotherapie (FLOT); palliativ Chemotherapie, Stent bzw. Gastroenterostomie bei Stenose, Ernährung über Jejunostomie und psychoonkologische Betreuung.',
             },
             {
               frage: 'Der Patient fragt direkt, ob er Krebs hat. Was antworten Sie?',
@@ -2640,7 +2640,7 @@ export function seedCases(): Case[] {
           { stufe: 'Labor', text: 'Labor: Blutbild (Leukozytose, Linksverschiebung), CRP; Urinstatus zum Ausschluss eines Harnwegsinfekts oder Steins; bei Frauen zusätzlich β-HCG' },
           { stufe: 'Apparativ & Bildgebung', text: 'Abdomensonographie (nicht komprimierbare, aufgetriebene Appendix, Kokarde, freie Flüssigkeit)' },
           { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen bei unklarem sonographischem Befund' },
-          { stufe: 'Invasiv & Speziell', text: 'Körperliche Untersuchung mit Appendizitiszeichen (McBurney- und Lanz-Punkt, Blumberg-, Rovsing- und Psoas-Zeichen) sowie digital-rektaler Untersuchung (Douglas-Schmerz)' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung mit Appendizitiszeichen (McBurney- und Lanz-Punkt, Blumberg-, Rovsing- und Psoas-Zeichen) sowie digital-rektaler Untersuchung (Douglas-Schmerz)' },
           { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie (invasiv, zugleich therapeutisch)' },
         ],
         therapie: [
@@ -2966,7 +2966,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Anpassungsstörung / Trauerreaktion',
-            unterscheidung: 'Zeitlicher Bezug zum Verlust; gegen eine normale Trauer sprechen Dauer ≥ 2 Wochen, durchgängige Anhedonie, ausgeprägte Wertlosigkeits-/Schuldgefühle und Suizidalität.',
+            unterscheidung: 'Zeitlicher Bezug zum Verlust; gegen eine normale Trauer sprechen die fehlende Aufhellbarkeit der Stimmung (keine tageweise Besserung durch Zuspruch oder Ablenkung), durchgängige Anhedonie, ausgeprägte Wertlosigkeits-/Schuldgefühle und Suizidalität.',
           },
           {
             dd: 'Burnout / Erschöpfungssyndrom',
@@ -3046,7 +3046,7 @@ export function seedCases(): Case[] {
         'Suizidalität MUSS aktiv und direkt angesprochen werden — wer nicht danach fragt, riskiert das Nichtbestehen. Das direkte Ansprechen erhöht das Risiko nicht, sondern entlastet.',
         'Immer organische/sekundäre Ursachen ausschließen: v. a. Hypothyreose (TSH), Anämie (Blutbild), Vitamin-B12-Mangel — der Patient selbst vermutet oft eine Schilddrüsenunterfunktion.',
         'Vor Einleitung eines Antidepressivums nach früheren manischen/hypomanen Phasen fragen (bipolare Störung), sonst droht ein Umschlagen in eine Manie (Switch).',
-        'Depression vs. Trauerreaktion: Dauer ≥ 2 Wochen, durchgängige Anhedonie, Wertlosigkeits-/Schuldgefühle und Suizidalität sprechen für eine Episode, nicht für normale Trauer.',
+        'Depression vs. Trauerreaktion: fehlende Aufhellbarkeit der Stimmung, durchgängige Anhedonie, Wertlosigkeits-/Schuldgefühle und Suizidalität sprechen für eine Episode, nicht für normale Trauer.',
         'Benzodiazepine (Adumbran/Oxazepam) sind keine Dauertherapie — Abhängigkeits-, Sturz- und Sedierungsgefahr; Mittel der Wahl ist ein SSRI.',
         'Cave Kombination Hydrochlorothiazid + SSRI: erhöhtes Hyponatriämie-/SIADH-Risiko — Natrium vor und nach Therapiebeginn kontrollieren.',
         'Die ICD-10-Kriterien parat haben: drei Hauptsymptome plus Zusatzsymptome, Dauer ≥ 2 Wochen; Schweregradeinteilung leicht/mittelgradig/schwer.',
@@ -3103,7 +3103,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie grenzen Sie die Episode von einer normalen Trauer ab?',
-              reaktion: 'über die Dauer von mehr als zwei Wochen, die durchgängige Anhedonie, ausgeprägte Wertlosigkeits- und Schuldgefühle und vor allem die Suizidalität, die über eine normale Trauerreaktion hinausgehen.',
+              reaktion: 'über die fehlende Aufhellbarkeit der Stimmung durch positive Ereignisse, die durchgängige Anhedonie, ausgeprägte Wertlosigkeits- und Schuldgefühle und vor allem die Suizidalität, die über eine normale Trauerreaktion hinausgehen.',
             },
           ],
         },
@@ -4376,7 +4376,7 @@ export function seedCases(): Case[] {
             akut: true,
           },
           {
-            label: 'Alternativen (KI / Schwangerschaft)',
+            label: 'Neuroborreliose / schwerer Verlauf',
             items: [
             'Bei Neuroborreliose (Stadium II): Ceftriaxon 2 g i.v. 1 × täglich über 14-21 Tage (bei isolierter Fazialisparese/früher Neuroborreliose ist auch orales Doxycyclin möglich)',
             'Bei Lyme-Karditis mit höhergradigem AV-Block: Monitorüberwachung, i.v.-Antibiose, ggf. passagerer Schrittmacher',
@@ -4430,7 +4430,7 @@ export function seedCases(): Case[] {
         'Ein Zeckenstich wird häufig nicht bemerkt — eine fehlende Stichanamnese schließt eine Borreliose nicht aus.',
         'Doxycyclin ist kontraindiziert in Schwangerschaft/Stillzeit und bei Kindern unter 9 Jahren (Zahnverfärbung, Knocheneinlagerung) — dann Amoxicillin oder Cefuroxim.',
         'Fallspezifische Falle: Doxycyclin nicht zusammen mit dem Eisenpräparat (oder Milch/Kalzium) einnehmen — Chelatbildung mindert die Wirkung; außerdem Photosensibilisierung (Sonnenschutz).',
-        'Neuroborreliose wird mit Ceftriaxon i.v. behandelt, nicht mit oralem Standard-Doxycyclin bei jeder Form.',
+        'Neuroborreliose wird in der Regel mit Ceftriaxon i.v. behandelt; nur bei früher Neuroborreliose (z. B. isolierte Fazialisparese) ist orales Doxycyclin gleichwertig.',
         'Keine Isolation und keine stationäre Aufnahme im unkomplizierten Stadium I — es besteht keine Mensch-zu-Mensch-Übertragung.',
       ],
       status: 'À faire',
@@ -4608,7 +4608,7 @@ export function seedCases(): Case[] {
         ],
         vorerkrankungen: [
           'heterozygote Faktor-V-Leiden-Mutation (angeborene Thromboseneigung)',
-          'Z. n. tiefer Beinvenenthrombose links vor 3 Jahren (nach einem Langstreckenflug)',
+          'Z. n. tiefer Beinvenenthrombose links vor 3 Jahren (ohne erkennbaren Auslöser)',
         ],
         voroperationen: [
           'keine',
@@ -4757,7 +4757,7 @@ export function seedCases(): Case[] {
               'Bei der hier wahrscheinlichen Weber-B-Fraktur mit Instabilität oder Dislokation: offene Reposition und interne Fixation mit Zugschraube und Drittelrohrplatte am Außenknöchel, bei Beteiligung des Innenknöchels zusätzlich Zugschrauben',
               'Bei Syndesmoseninstabilität, insbesondere bei Weber C oder Maisonneuve-Fraktur, Stellschraube oder Syndesmosennaht',
               'Operationszeitpunkt entweder sofort vor Einsetzen der Schwellung oder nach Abschwellen in etwa fünf bis zehn Tagen',
-              'Perioperatives Gerinnungsmanagement: Rivaroxaban als direktes orales Antikoagulans rechtzeitig pausieren — KEIN Bridging wie bei Vitamin-K-Antagonisten; im Pausierungsfenster niedermolekulares Heparin, Wiederbeginn nach Rücksprache mit dem Operateur',
+              'Perioperatives Gerinnungsmanagement: Rivaroxaban als direktes orales Antikoagulans rechtzeitig pausieren — KEIN Bridging wie bei Vitamin-K-Antagonisten; im Pausierungsfenster lediglich prophylaktisch dosiertes niedermolekulares Heparin (keine therapeutische Überbrückung), Wiederbeginn nach Rücksprache mit dem Operateur',
             ],
             akut: false,
           },
@@ -5510,7 +5510,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie nennen Sie „Arthritis urica“ dem Patienten gegenüber auf Deutsch?',
-              reaktion: 'Gicht beziehungsweise Gichtanfall — eine Gelenkentzündung durch Harnsäurekristalle. Podagra heißt sie deshalb, weil das Großzehengrundgelenk befallen ist; ist das Knie befallen, spricht man von Gonagra, beim Daumengrundgelenk von Chiragra.',
+              reaktion: 'Gicht beziehungsweise Gichtanfall — eine Gelenkentzündung durch Harnsäurekristalle. Podagra heißt sie deshalb, weil das Großzehengrundgelenk befallen ist; ist das Knie befallen, spricht man von Gonagra, bei den Hand- und Fingergelenken von Chiragra.',
             },
             {
               frage: 'Warum tritt der Schmerz gerade nachts auf?',
@@ -5792,7 +5792,7 @@ export function seedCases(): Case[] {
         persona: 'Femme de 34 ans, informaticienne célibataire, articulée et coopérante : au tout début tu racontes spontanément presque toute l\'histoire actuelle d\'un trait, lentement et clairement (ne répète pas si le médecin n\'a pas noté). Tu es anxieuse et tu dors mal parce que tu rumines ; ta mère est en traitement pour un cancer du sein, donc tu as peur d\'avoir quelque chose de grave. Tu insistes : tu n\'as AUCUNE douleur. Tu ne parles de l\'épisode visuel d\'il y a trois ans, du phénomène de chaleur et de la décharge électrique dans le dos QUE si on te pose des questions ciblées. Tu demandes spontanément si la pilule est en cause, tu demandes ce que veut dire « Doppelbilder » si le médecin l\'emploie, et à la fin tu exiges qu\'on te promette une guérison complète parce que tu as lu des choses sur Internet.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Multiple Sklerose (Erstmanifestation) — schubförmig-remittierender Verlauf; aktueller Schub mit spastisch-sensibler Hemisymptomatik des linken Beins bei anamnestisch vorausgegangener Retrobulbärneuritis rechts vor drei Jahren (Dissemination in Ort und Zeit)',
+        verdachtsdiagnose: 'Multiple Sklerose (Erstdiagnose beim zweiten Schub) — schubförmig-remittierender Verlauf; aktueller Schub mit spastisch-sensibler Monosymptomatik des linken Beins bei anamnestisch vorausgegangener Retrobulbärneuritis rechts vor drei Jahren (Dissemination in Ort und Zeit)',
         differenzialdiagnosen: [
           {
             dd: 'Spinalkanalstenose (Claudicatio spinalis)',
@@ -6718,7 +6718,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Herr Arnd Kartmann, 79 ans, retraité (ancien menuisier), calme et un peu inquiet. Aujourd\'hui ton bras gauche est faible, ta bouche penche à gauche et tu parles pâteux — et cette fois ça ne passe pas. Depuis deux semaines tu as des « attaques » répétées qui duraient environ 20 minutes et empiraient de jour en jour. Tu prends de l\'Aspirine 100 le matin sans trop savoir pourquoi (à faire deviner : c\'est à cause de ton arythmie / fibrillation). Tu ne mentionnes ta chute dans l\'escalier de la cave (genoux touchés, pas la tête) que si on te le demande. Tu as peur d\'avoir une tumeur au cerveau ou une attaque.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Ischämischer Schlaganfall im Versorgungsgebiet der A. cerebri media rechts, am ehesten kardioembolisch bei Vorhofflimmern, mit vorausgegangenen transitorischen ischämischen Attacken (Crescendo-TIA)',
+        verdachtsdiagnose: 'Ischämischer Schlaganfall im Versorgungsgebiet der A. cerebri media rechts, am ehesten kardioembolisch bei Vorhofflimmern, mit vorausgegangenen transitorischen ischämischen Attacken (Crescendo-TIA) in wechselnden Stromgebieten — die Amaurosis fugax des linken Auges und die Wortfindungsstörungen weisen zusätzlich auf Embolien in das linke Karotisstromgebiet hin, was die kardiale Emboliequelle stützt',
         differenzialdiagnosen: [
           {
             dd: 'Intrazerebrale Blutung',
@@ -6836,7 +6836,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Wie lautet Ihre Verdachtsdiagnose?',
-              reaktion: 'ein ischämischer Schlaganfall im Mediastromgebiet rechts, am ehesten kardioembolisch bei Vorhofflimmern.',
+              reaktion: 'ein ischämischer Schlaganfall im Mediastromgebiet rechts, am ehesten kardioembolisch bei Vorhofflimmern — die vorausgegangenen Attacken betrafen wechselnde Stromgebiete (Amaurosis fugax links und Wortfindungsstörungen: linkes Karotisstromgebiet; linksseitige Hemisymptomatik: rechtes), was die kardiale Emboliequelle stützt.',
             },
             {
               frage: 'Warum?',
@@ -6948,7 +6948,7 @@ export function seedCases(): Case[] {
           intensitaet: 8,
           ausstrahlung: 'rechte Schulter und Rücken',
           beginn: 'gestern Abend nach einem Schweinebraten',
-          verlauf: 'kommt in Wellen, dazwischen etwas besser',
+          verlauf: 'in Attacken von ein bis zwei Stunden, dazwischen weitgehend beschwerdefrei; erste Attacke gestern Abend, erneute Attacke heute früh',
           verstaerker: 'fettreiches Essen',
           linderer: 'nichts hilft richtig',
         },
@@ -7016,7 +7016,7 @@ export function seedCases(): Case[] {
           'akt-charakter': 'Das kommt in Wellen, so krampfartig, wie zusammengezogen.',
           'akt-intensitaet': 'Auf einer Skala? Bestimmt eine 8 von 10, wenn nicht mehr.',
           'akt-ausstrahlung': 'Ja, es zieht bis in die rechte Schulter und in den Rücken.',
-          'akt-verlauf': 'Mal ist es ganz schlimm, dann lässt es kurz nach und kommt wieder.',
+          'akt-verlauf': 'Gestern Abend kam es in Wellen, vielleicht zwei Stunden lang, dann war Ruhe und ich konnte etwas schlafen; heute früh ging es wieder los — mal ganz schlimm, dann lässt es fast ganz nach und kommt wieder.',
           'akt-ausloeser': 'Immer nach fettigem Essen. Gestern war es der Schweinebraten.',
           'akt-einfluss': 'Besser wird es durch nichts. Heute Morgen hab ich zwei Ibuprofen genommen, das hat kaum was gebracht.',
           'akt-frueher': 'So was hatte ich in den letzten drei Jahren schon öfter, immer nach fettem Essen, aber nie so schlimm.',
@@ -7437,7 +7437,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Invasiv & Speziell',
-            text: 'Thrombophilie-Diagnostik (Faktor-V-Leiden) wegen jungen Alters und positiver Familienanamnese; Tumorsuche nur bei unklarer/unprovozierter Genese',
+            text: 'Thrombophilie-Diagnostik (u. a. Faktor-V-Leiden) wegen der positiven Familienanamnese (Vater mit Gerinnungsstörung und rezidivierenden Thrombosen); Tumorsuche nur bei unklarer/unprovozierter Genese',
           },
         ],
         therapie: [
@@ -7503,7 +7503,7 @@ export function seedCases(): Case[] {
       pruefungsfallen: [
         'Frage nach einer früheren Thrombose vergessen — ein Prüfer hat genau das ausdrücklich als \'sehr wichtig\' bemängelt.',
         'Auslöser (12-Stunden-Flug aus Bangkok) und Östrogenpille nicht als zentrale Risikofaktoren herausgearbeitet.',
-        'Familiäre Gerinnungsstörung des Vaters (Faktor-V-Leiden) nicht erfragt.',
+        'Familiäre Gerinnungsstörung des Vaters (Verdacht auf hereditäre Thrombophilie, z. B. Faktor-V-Leiden) nicht erfragt.',
         'Lungenembolie nicht aktiv abgefragt (Luftnot, Thoraxschmerz, Herzrasen, Hämoptyse).',
         'pAVK nicht durch Pulstasten abgegrenzt.',
         'Nierenwerte vor Antikoagulation nicht bedacht (Typ-1-Diabetes → mögliche Nephropathie).',
@@ -7748,7 +7748,7 @@ export function seedCases(): Case[] {
         verdachtsdiagnose: 'Erstdiagnose eines Diabetes mellitus Typ 2 im Rahmen eines metabolischen Syndroms — klassische osmotische Symptomatik (Polyurie, Polydipsie, Nykturie) mit Leistungsknick, Pruritus, rezidivierenden Harnwegsinfekten, verzögerter Wundheilung und passagerer Sehstörung bei Adipositas Grad I (BMI ca. 30,9), arterieller Hypertonie, Hyperlipidämie und positiver Familienanamnese',
         differenzialdiagnosen: [
           {
-            dd: 'Diabetes mellitus Typ 1 bzw. LADA (late-onset autoimmune diabetes in adults)',
+            dd: 'Diabetes mellitus Typ 1 bzw. LADA (latent autoimmune diabetes in adults)',
             unterscheidung: 'Typ 1: jüngeres Alter, schlanker Habitus, rasche Symptomentwicklung über Wochen, ausgeprägter Gewichtsverlust, Ketoseneigung bis zur Ketoazidose, C-Peptid niedrig, Autoantikörper (Anti-GAD, Anti-IA2, Anti-Insulin, ZnT8) positiv. Hier: 50 Jahre, adipös, schleichender Verlauf über ein Jahr, kein Azeton, kein reduzierter Allgemeinzustand. CAVE: Der Vater hat einen Typ-1-Diabetes und ein LADA kann sich genau in diesem Alter als vermeintlicher Typ 2 manifestieren — deshalb C-Peptid und Autoantikörper bestimmen.',
           },
           {
@@ -7952,7 +7952,7 @@ export function seedCases(): Case[] {
       pruefungsfallen: [
         'Die Diagnosekriterien mit ZAHLEN parat haben: Nüchternglukose ≥ 126 mg/dl (7,0 mmol/l), HbA1c ≥ 6,5 % (48 mmol/mol), oGTT-2-Stunden-Wert ≥ 200 mg/dl (11,1 mmol/l), Gelegenheitsglukose ≥ 200 mg/dl PLUS klassische Symptomatik. Ohne eindeutige Symptomatik ist eine Bestätigung an einem zweiten Tag nötig — diese Frage wurde in Karlsruhe wörtlich gestellt.',
         'Bei bereits eindeutig erhöhten Werten mit typischer Symptomatik ist der oGTT überflüssig und wegen der Belastung sogar kontraindiziert — ihn trotzdem zu nennen, gilt als Fehler.',
-        'Nicht vergessen zu fragen, SEIT WANN der Diabetes besteht und WIE er behandelt und kontrolliert wird. Mehrere Kandidaten (Reutlingen 20.06.2018, Karlsruhe) haben sich genau diesen Fehler notiert: \'ich habe nicht gefragt, seit wann er Diabetes hat\'.',
+        'Bei bekanntem Diabetes nicht vergessen zu fragen, SEIT WANN er besteht und WIE er behandelt und kontrolliert wird — bei dieser Erstdiagnose entsprechend fragen, ob und wann jemals ein Blutzucker bestimmt wurde. Mehrere Kandidaten (Reutlingen 20.06.2018, Karlsruhe) haben sich genau diesen Fehler notiert: \'ich habe nicht gefragt, seit wann er Diabetes hat\'.',
         'Der Patient bringt die Beschwerden nicht von selbst zusammen: Müdigkeit, Durst, nächtliches Wasserlassen, Juckreiz, wiederkehrende Blasenentzündungen und verschwommenes Sehen erscheinen ihm als getrennte Probleme. Sie müssen aktiv erfragt und zu EINEM Syndrom verbunden werden.',
         'Falle \'Depression\': Bei Müdigkeit, Antriebslosigkeit und Schlafstörung eines übergewichtigen Patienten mittleren Alters wurde in Stuttgart (09.03.2024) eine Depression diagnostiziert — richtig war das metabolische Syndrom. Erst den Blutzucker bestimmen, dann psychiatrisch etikettieren.',
         'Die rezidivierenden Harnwegsinfekte sind FOLGE der Glukosurie, nicht Ursache der Müdigkeit. Wer bei den drei Blasenentzündungen stehen bleibt, verfehlt die Diagnose.',
@@ -8149,7 +8149,7 @@ export function seedCases(): Case[] {
           beruf: 'Verkäuferin in einem Modegeschäft',
           hausarzt: 'Dr. Ludwig',
           familienstand: 'verheiratet',
-          wohnsituation: 'mit Ehemann in einer Wohnung im 3. Stock ohne Aufzug; die drei Kinder sind bereits ausgezogen',
+          wohnsituation: 'mit Ehemann und dem jüngsten Sohn (17) in einer Wohnung im 3. Stock ohne Aufzug; die beiden älteren Kinder sind bereits ausgezogen',
         },
         leitsymptome: [
           'Seit etwa zwei Monaten anfallsartiges Herzrasen mit Herzklopfen bis in den Hals und eine ungewollte Gewichtsabnahme von 4 kg (von 62 auf 58 kg), obwohl sie eher mehr isst als früher',
@@ -8202,7 +8202,7 @@ export function seedCases(): Case[] {
         vorerkrankungen: [
           'Diabetes mellitus Typ 1, diagnostiziert im Alter von 11 Jahren, Therapie im Basis-Bolus-Schema, letzter HbA1c nach eigener Angabe \'um die 7\'',
           'Hypercholesterinämie, seit etwa fünf Jahren bekannt, unter Simvastatin',
-          'in den letzten Wochen auffallend niedrigere Blutzuckerwerte am Nachmittag, weshalb sie eigenmächtig weniger Insulin gespritzt hat',
+          'in den letzten Wochen auffallend höhere und schwankende Blutzuckerwerte trotz unveränderter Ernährung; wegen der Gewichtsabnahme hat sie das Mahlzeiteninsulin dennoch eigenmächtig reduziert',
         ],
         voroperationen: [
           'Cholezystektomie vor 19 Jahren, laparoskopisch, ohne Komplikationen',
@@ -8231,7 +8231,7 @@ export function seedCases(): Case[] {
           'keine bekannten Krebserkrankungen und keine Schilddrüsenoperationen in der Familie',
         ],
         sozialanamnese: [
-          'verheiratet, drei erwachsene, gesunde Kinder (24, 21 und 17 Jahre), das jüngste Kind wohnt noch zu Hause',
+          'verheiratet, drei gesunde Kinder (24, 21 und 17 Jahre), die beiden älteren sind ausgezogen, das jüngste Kind wohnt noch zu Hause',
           'Verkäuferin in einem Modegeschäft, überwiegend stehende Tätigkeit, seit der Umstrukturierung des Ladens viel Stress und Zeitdruck',
           'wohnt mit dem Ehemann in einer Wohnung im 3. Stock ohne Aufzug',
           'kein Sport, aber täglich zu Fuß zur Arbeit',
@@ -8261,10 +8261,10 @@ export function seedCases(): Case[] {
           'veg-gewicht': 'Ja, und das macht mir am meisten Sorgen: 4 Kilo in zwei Monaten, von 62 auf 58. Dabei habe ich nichts umgestellt, im Gegenteil.',
           'veg-appetit': 'Mein Appetit ist sogar besser als früher. Ich esse mehr und zwischendurch auch noch etwas — und trotzdem nehme ich ab. Das passt doch nicht zusammen, oder?',
           'veg-schlaf': 'Schlecht. Ich liege abends lange wach, weil ich innerlich so aufgedreht bin, und nachts wache ich mehrmals auf, oft schweißgebadet oder mit Herzklopfen.',
-          'vor-erkrank': 'Ich habe Zucker, Typ 1, seit ich elf bin — ich spritze Insulin, morgens und abends und zu den Mahlzeiten. Und erhöhte Blutfette, seit ungefähr fünf Jahren, dafür nehme ich abends eine Tablette. Sonst war ich eigentlich nie krank.',
+          'vor-erkrank': 'Ich habe Zucker, Typ 1, seit ich elf bin — ich spritze Insulin, abends das langwirksame und zu den Mahlzeiten das kurze. Und erhöhte Blutfette, seit ungefähr fünf Jahren, dafür nehme ich abends eine Tablette. Sonst war ich eigentlich nie krank.',
           'vor-op': 'Ja, die Gallenblase wurde mir vor 19 Jahren entfernt, mit der Bauchspiegelung. Das ist gut verlaufen, es gab keine Komplikationen.',
           'vor-krankenhaus': 'In letzter Zeit nicht. Das letzte Mal war eben diese Gallenblasenoperation vor 19 Jahren.',
-          'med-regelmaessig': 'Insulin: abends 18 Einheiten von dem langwirksamen, und zu den Mahlzeiten das kurzwirksame nach Broteinheiten. Und Simvastatin 40 Milligramm, eine Tablette abends. (etwas leiser) Ich muss zugeben, ich habe das Mahlzeiten-Insulin in den letzten Wochen von mir aus reduziert, weil der Zucker nachmittags immer so niedrig war.',
+          'med-regelmaessig': 'Insulin: abends 18 Einheiten von dem langwirksamen, und zu den Mahlzeiten das kurzwirksame nach Broteinheiten. Und Simvastatin 40 Milligramm, eine Tablette abends. (etwas leiser) Ich muss zugeben, ich habe das Mahlzeiten-Insulin in den letzten Wochen von mir aus reduziert, weil ich dachte, bei weniger Gewicht brauche ich auch weniger — dabei sind die Werte in letzter Zeit eher zu hoch.',
           'med-blutverduenner': 'Nein, Blutverdünner nehme ich keine, und Kortison auch nicht.',
           'med-otc': 'Nein, weder Schmerzmittel noch pflanzliche Mittel oder Vitamine. Abnehmtabletten oder Schilddrüsentabletten habe ich nie genommen — auch keine Hormone von meiner Schwester, falls Sie das meinen.',
           'all-allergie': 'Nein, allergisch bin ich gegen nichts, weder gegen Medikamente noch gegen Lebensmittel. Auch Kontrastmittel habe ich schon einmal vertragen.',
@@ -8285,7 +8285,7 @@ export function seedCases(): Case[] {
           'fach-endo-hals': 'Jetzt, wo Sie es sagen: Der Kragen meiner Blusen ist enger geworden, und ich habe manchmal so ein Engegefühl vorne am Hals. Eine richtige Schwellung sehe ich nicht. Schlucken kann ich normal, heiser bin ich nicht.',
           'fach-endo-augen': 'Ja, meine Augen fühlen sich anders an — wie ein Fremdkörper drin, ein Druckgefühl, und sie tränen mehr. Mein Mann sagt, ich schaue so starr und meine Augen stünden weiter vor. Doppelt sehe ich nicht und schlechter sehen tue ich auch nicht.',
           'fach-endo-haut-haare': 'Meine Haare gehen aus, beim Kämmen bleibt richtig viel in der Bürste, seit ungefähr sechs Wochen. Meine Haut ist oft warm und feucht. Kleine Wunden heilen normal — trotz des Zuckers hatte ich damit nie Probleme.',
-          'fach-endo-unterzucker': 'Ja, das ist mir aufgefallen: Nachmittags war der Zucker in letzter Zeit mehrmals zu niedrig, so um 60, mit Zittern und Schwitzen. Nach dem Essen ging es wieder. Deshalb habe ich das Insulin zu den Mahlzeiten von mir aus etwas reduziert.',
+          'fach-endo-unterzucker': 'Nein, Unterzuckerungen hatte ich in letzter Zeit keine — kein Zittern, kein Schwitzen mit Heißhunger. Im Gegenteil: Der Zucker war in den letzten Wochen oft zu hoch, so um 250, obwohl ich nicht anders esse. Ich habe das Insulin zu den Mahlzeiten trotzdem von mir aus etwas reduziert, weil ich dachte, bei weniger Gewicht brauche ich weniger.',
           'fach-endo-folgeschaeden': 'Nein. Kribbeln oder Taubheit in den Füßen habe ich nicht, ich sehe unverändert gut, und die Nieren waren beim letzten Check in Ordnung. Zum Augenarzt gehe ich einmal im Jahr, zuletzt vor einem halben Jahr, da war alles unauffällig.',
           'fach-endo-familie-therapie': 'Ja: Meine Schwester hat eine Schilddrüsenüberfunktion und nimmt Tabletten, meine Mutter hat eine Unterfunktion und nimmt L-Thyroxin. Zucker gibt es sonst niemanden in der Familie. Wegen der Schilddrüse bin ich selbst noch nie untersucht oder behandelt worden.',
           'frau-periode': 'Meine Regel war immer regelmäßig, aber in den letzten Monaten ist sie schwächer geworden und einmal ganz ausgeblieben. Die letzte war vor etwa fünf Wochen.',
@@ -8305,7 +8305,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Jessica Suess, 49 ans, vendeuse dans une boutique de mode, mariée, trois grands enfants. Tu es vive, tu parles vite et tu bouges beaucoup sur ta chaise : tu es visiblement agitée, tu joues avec tes mains (elles tremblent légèrement), tu t\'évente avec la main et tu demandes si on peut ouvrir la fenêtre. Tu es inquiète : tu perds du poids sans le vouloir et tu penses secrètement à un cancer, mais tu ne le dis que si le médecin te demande ce qui te fait peur. Tu ramènes souvent la conversation à ton diabète (« mein Zucker ») et au stress du magasin, et tu proposes toi-même le stress comme explication. Tu avoues seulement sur relance que tu as réduit ton insuline de ta propre initiative. Tu ne mentionnes le cou serré et les yeux QUE si on te pose la question — pour toi ce ne sont pas des symptômes. Tu es fumeuse et un peu sur la défensive si on l\'aborde trop tôt. Si le médecin t\'explique calmement et te rassure, tu te détends nettement et tu le remercies.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Manifeste Hyperthyreose, am ehesten im Rahmen einer Immunhyperthyreose vom Typ Morbus Basedow — begründet durch die klassische Symptomtrias aus Tachykardie, Gewichtsverlust trotz gesteigertem Appetit und Hyperhidrose mit Wärmeintoleranz, ergänzt durch Tremor, innere Unruhe, Diarrhoe, proximale Muskelschwäche, Zyklusstörung, das Halsengegefühl (diskrete Struma) sowie die okulären Beschwerden als Hinweis auf eine endokrine Orbitopathie; zusätzlich positive Familienanamnese (Schwester mit Hyperthyreose, Mutter mit Hashimoto-Hypothyreose) und bestehender Diabetes mellitus Typ 1 als weitere Autoimmunerkrankung (polyglanduläre Autoimmunität). Der rezidivierende nachmittägliche Insulinbedarfsabfall ist Ausdruck des gesteigerten Stoffwechsels bzw. des veränderten Ernährungszustands und ein wichtiger Hinweis.',
+        verdachtsdiagnose: 'Manifeste Hyperthyreose, am ehesten im Rahmen einer Immunhyperthyreose vom Typ Morbus Basedow — begründet durch die klassische Symptomtrias aus Tachykardie, Gewichtsverlust trotz gesteigertem Appetit und Hyperhidrose mit Wärmeintoleranz, ergänzt durch Tremor, innere Unruhe, Diarrhoe, proximale Muskelschwäche, Zyklusstörung, das Halsengegefühl (diskrete Struma) sowie die okulären Beschwerden als Hinweis auf eine endokrine Orbitopathie; zusätzlich positive Familienanamnese (Schwester mit Hyperthyreose, Mutter mit Hashimoto-Hypothyreose) und bestehender Diabetes mellitus Typ 1 als weitere Autoimmunerkrankung (polyglanduläre Autoimmunität). Der in den letzten Wochen gestiegene Insulinbedarf mit Hyperglykämien trotz unveränderter Ernährung ist Ausdruck der hyperthyreoten Insulinresistenz und gesteigerten Glukoneogenese und ein wichtiger Hinweis.',
         differenzialdiagnosen: [
           {
             dd: 'Funktionelle Schilddrüsenautonomie (unifokal = heißer Knoten, multifokal, disseminiert)',
@@ -8341,7 +8341,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Entgleisung bzw. Fehldosierung des Diabetes mellitus Typ 1, Zöliakie',
-            unterscheidung: 'Gewichtsverlust bei Insulinmangel ginge mit Polyurie, Polydipsie und hohen Blutzuckerwerten einher — hier besteht das Gegenteil, nämlich ein sinkender Insulinbedarf mit Hypoglykämien. Eine Zöliakie (assoziierte Autoimmunerkrankung) erklärt Diarrhoe und Gewichtsverlust, nicht aber Tachykardie und Wärmeintoleranz; Transglutaminase-Antikörper bei unklarem Verlauf.',
+            unterscheidung: 'Gewichtsverlust bei Insulinmangel ginge mit Polyurie, Polydipsie und hohen Blutzuckerwerten einher — hier fehlen Polyurie und Polydipsie, und die Hyperglykämien erklären weder Tachykardie, Tremor, Wärmeintoleranz noch die Augensymptomatik — der gestiegene Insulinbedarf ist Folge der Hyperthyreose, nicht Ursache der Beschwerden. Eine Zöliakie (assoziierte Autoimmunerkrankung) erklärt Diarrhoe und Gewichtsverlust, nicht aber Tachykardie und Wärmeintoleranz; Transglutaminase-Antikörper bei unklarem Verlauf.',
           },
           {
             dd: 'Tachykarde Herzrhythmusstörung, insbesondere Vorhofflimmern, bzw. Myokardinfarkt',
@@ -8442,7 +8442,7 @@ export function seedCases(): Case[] {
               'Verlaufskontrollen: fT3 und fT4 anfangs alle 4 Wochen — das TSH bleibt noch monatelang supprimiert und eignet sich in der Frühphase NICHT zur Steuerung; später TSH-Kontrollen alle 3 Monate; Vermeidung einer iatrogenen Hypothyreose',
               'Management der endokrinen Orbitopathie: ophthalmologische Mitbetreuung, künstliche Tränenflüssigkeit und Nachtsalbe, Schlafen mit erhöhtem Kopfteil, Prismengläser bei Doppelbildern; bei aktiver mittelschwerer bis schwerer Form intravenöse Glukokortikoid-Stoßtherapie, Selen bei milder Form, in schweren Fällen Orbitabestrahlung oder Dekompressionsoperation',
               'STRIKTER RAUCHSTOPP — der wichtigste beeinflussbare Faktor: Rauchen erhöht das Risiko und die Schwere der endokrinen Orbitopathie um ein Vielfaches, verschlechtert das Ansprechen auf die Therapie und erhöht die Rezidivrate. Bei dieser Patientin mit 30 Packungsjahren Angebot einer strukturierten Raucherentwöhnung',
-              'Anpassung der Begleitmedikation bei dieser Patientin: engmaschige Blutzuckerselbstkontrolle und ärztlich gesteuerte Anpassung der Insulindosis statt eigenmächtiger Reduktion — mit erreichter Euthyreose steigt der Insulinbedarf in der Regel wieder an; Kontrolle des Lipidstatus, da das Cholesterin unter Hyperthyreose falsch niedrig erscheint',
+              'Anpassung der Begleitmedikation bei dieser Patientin: engmaschige Blutzuckerselbstkontrolle und ärztlich gesteuerte Anpassung der Insulindosis statt eigenmächtiger Reduktion — mit erreichter Euthyreose sinkt der unter der Hyperthyreose erhöhte Insulinbedarf in der Regel wieder, sodass die Dosis rechtzeitig reduziert werden muss, um Hypoglykämien zu vermeiden; Kontrolle des Lipidstatus, da das Cholesterin unter Hyperthyreose falsch niedrig erscheint',
               'Screening auf assoziierte Autoimmunerkrankungen bei bestehendem Diabetes mellitus Typ 1 (Zöliakie, Nebenniereninsuffizienz, perniziöse Anämie); Aufklärung über die Prognose und Anbindung an den Endokrinologen',
             ],
           },
@@ -8519,7 +8519,7 @@ export function seedCases(): Case[] {
         '\'Hat das Jodsalz etwas damit zu tun?\' ist eine Fangfrage: Normales jodiertes Speisesalz löst keinen Morbus Basedow aus und muss nicht gemieden werden; relevant ist die hochdosierte Jodexposition durch Kontrastmittel, Amiodaron oder Jodpräparate — sie kann eine Autonomie dekompensieren lassen und eine thyreotoxische Krise auslösen.',
         'Die endokrine Orbitopathie kommt beim Morbus Basedow vor, NICHT bei der funktionellen Autonomie — sie ist damit ein klinisches Unterscheidungsmerkmal. Beweisend für den Basedow sind die TRAK.',
         'Die Agranulozytose unter Thiamazol muss aktiv genannt werden: Blutbildkontrollen und die Anweisung an die Patientin, bei Fieber, Halsschmerzen oder Aphthen sofort das Medikament abzusetzen und sich vorzustellen. Wer nur \'Thyreostatikum\' sagt, verschenkt Punkte.',
-        'Bei dieser Patientin mit Diabetes mellitus Typ 1: Der Betablocker verschleiert die Warnsymptome einer Unterzuckerung — das muss erwähnt werden. Und auf ihre Frage \'Muss mein Insulin reduziert werden, weil ich abgenommen habe?\' lautet die Antwort NICHT einfach ja: die Dosis wird ärztlich gesteuert angepasst, und mit erreichter Euthyreose steigt der Bedarf meist wieder an.',
+        'Bei dieser Patientin mit Diabetes mellitus Typ 1: Der Betablocker verschleiert die Warnsymptome einer Unterzuckerung — das muss erwähnt werden. Und auf ihre Frage \'Muss mein Insulin reduziert werden, weil ich abgenommen habe?\' lautet die Antwort NICHT einfach ja: die Dosis wird ärztlich gesteuert angepasst, unter der Hyperthyreose ist der Bedarf meist erhöht, und mit erreichter Euthyreose sinkt er wieder — dann muss die Dosis reduziert werden, sonst drohen Hypoglykämien.',
         'Der Flush wird von der Patientin ausdrücklich verneint — das ist das entscheidende Argument gegen das Karzinoid, das in Freiburg als DD genannt und dann hinterfragt wurde (\'Warum denken Sie an ein Karzinoid? Wo sitzt es am häufigsten?\' — Antwort: Appendix/Wurmfortsatz; heute spricht man von neuroendokrinen Tumoren, NET).',
         'Frage aus Stuttgart 13.11.2023: \'Können denn nur Frauen an einer Schilddrüsenüberfunktion erkranken?\' — Nein: Frauen sind etwa fünfmal häufiger betroffen, Männer erkranken aber ebenfalls und oft mit schwererem Verlauf. Patientengerecht und ohne Fachjargon antworten.',
         'In der Frühphase der Therapie darf NICHT nach dem TSH gesteuert werden — es bleibt noch Wochen bis Monate supprimiert. Gesteuert wird nach fT3 und fT4.',
@@ -8645,7 +8645,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: '(als Patientin) Muss mein Insulin reduziert werden, weil ich abgenommen habe?',
-              reaktion: 'Erwartet wird eine differenzierte, patientengerechte Antwort: Die Dosis darf nicht eigenmächtig verändert werden. Die Überfunktion verändert den Stoffwechsel, deshalb schwankt der Insulinbedarf; wir passen die Dosis gemeinsam anhand des Blutzuckertagesprofils an. Sobald die Schilddrüse wieder normal arbeitet, steigt der Bedarf meist wieder an — die Werte müssen also engmaschig kontrolliert werden. Wichtig ist zusätzlich der Hinweis, dass der Betablocker die Warnzeichen einer Unterzuckerung verschleiern kann.',
+              reaktion: 'Erwartet wird eine differenzierte, patientengerechte Antwort: Die Dosis darf nicht eigenmächtig verändert werden. Die Überfunktion verändert den Stoffwechsel, deshalb schwankt der Insulinbedarf; wir passen die Dosis gemeinsam anhand des Blutzuckertagesprofils an. Solange die Schilddrüse auf Hochtouren läuft, brauchen Sie eher mehr Insulin; sobald sie wieder normal arbeitet, sinkt der Bedarf wieder, und dann müssen wir die Dosis rechtzeitig senken, damit es keine Unterzuckerungen gibt — die Werte müssen also engmaschig kontrolliert werden. Wichtig ist zusätzlich der Hinweis, dass der Betablocker die Warnzeichen einer Unterzuckerung verschleiern kann.',
             },
             {
               frage: '(als Patientin) Können denn nur Frauen eine Schilddrüsenüberfunktion bekommen?',
@@ -9977,7 +9977,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Sinus- und Hirnvenenthrombose',
-            unterscheidung: 'besonders zu bedenken wegen der Thromboseanamnese: subakut über Tage zunehmender Kopfschmerz, Stauungspapille, Krampfanfall, wechselnde fokale Defizite, Risikofaktoren Kontrazeptiva, Wochenbett, Thrombophilie; hier keine Antikoagulation nötig gewesen, keine Pille, kein progredienter Verlauf. Ausschluss durch MR- oder CT-Venographie und D-Dimere.',
+            unterscheidung: 'besonders zu bedenken wegen der Thromboseanamnese: subakut über Tage zunehmender Kopfschmerz, Stauungspapille, Krampfanfall, wechselnde fokale Defizite, Risikofaktoren Kontrazeptiva, Wochenbett, Thrombophilie; hier aktuell keine Antikoagulation mehr (nur ein Jahr Phenprocoumon nach der Beinvenenthrombose vor neun Jahren), keine Pille, kein progredienter Verlauf. Ausschluss durch MR- oder CT-Venographie und D-Dimere.',
           },
           {
             dd: 'Transitorische ischämische Attacke oder Hirninfarkt (migränöser Infarkt)',
@@ -10307,7 +10307,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Was könnten die Auslöser für ihre Migräne sein?',
-              reaktion: 'Beruflicher Stress und vor allem der Stressabfall am Wochenende, Schlafmangel unter der Woche mit langem Ausschlafen am Wochenende, ausgelassene Mahlzeiten, Rotwein am Abend, wechselnder Koffeinkonsum mit Entzug am Wochenende, Wetterwechsel. Hormonelle Trigger entfallen seit der Hysterektomie.',
+              reaktion: 'Beruflicher Stress und vor allem der Stressabfall am Wochenende, Schlafmangel unter der Woche mit langem Ausschlafen am Wochenende, ausgelassene Mahlzeiten, Rotwein am Abend, wechselnder Koffeinkonsum mit Entzug am Wochenende, Wetterwechsel. Hormonelle Schwankungen bestehen trotz Hysterektomie fort, da die Ovarien belassen wurden — ein zyklischer Trigger ist ohne Regelblutung lediglich schwerer zu erkennen.',
             },
             {
               frage: 'Warum hatte die Patientin eine Hysterektomie?',
@@ -11111,7 +11111,7 @@ export function seedCases(): Case[] {
           '"Mein Vater ist mit 68 am Herzen gestorben, meine Mutter auch. Wie lange habe ich denn noch?"',
           '(leiser) "Ich schaffe die Treppe nicht mehr. Ich frage mich manchmal, ob wir überhaupt in der Wohnung bleiben können."',
         ],
-        persona: 'Tu es Werner Krause, 72 ans, retraité, ancien routier. Tu es essoufflé : tu parles par phrases courtes, tu fais une pause pour respirer au milieu d\'une phrase longue, et tu t\'assieds bien droit, jamais adossé. Tu es poli, un peu fataliste, et tu minimises au début (« ein bisschen kurzatmig », « die Beine sind halt dick im Alter »). Point clé : tu n\'avoues avoir arrêté toi-même la « Wassertablette » (Torasemid) que si le médecin te demande précisément si tu prends tous tes médicaments comme prescrit — et tu te justifies alors sur un ton défensif à cause des levers nocturnes. Même chose pour l\'Ibuprofène : tu ne le cites pas comme médicament, seulement si on te demande ce que tu prends en plus, sans ordonnance, contre la douleur. Tu donnes tes chiffres volontiers si on te les demande (3 oreillers, 3 à 4 fois par nuit aux toilettes, 6 kilos en 3 semaines, moins d\'un étage) mais tu ne les donnes jamais spontanément. Si le médecin te demande combien d\'étages ou combien d\'oreillers, tu es content qu\'on te comprenne. Si on parle de tes parents morts du cœur, tu deviens plus grave et tu demandes ce qui t\'attend.',
+        persona: 'Tu es Werner Krause, 72 ans, retraité, ancien routier. Au repos tu n\'es pas essoufflé et tu parles normalement, mais tu t\'assieds bien droit, jamais adossé ; l\'essoufflement n\'apparaît qu\'à l\'effort (escaliers, marche). Tu es poli, un peu fataliste, et tu minimises au début (« ein bisschen kurzatmig », « die Beine sind halt dick im Alter »). Point clé : tu n\'avoues avoir arrêté toi-même la « Wassertablette » (Torasemid) que si le médecin te demande précisément si tu prends tous tes médicaments comme prescrit — et tu te justifies alors sur un ton défensif à cause des levers nocturnes. Même chose pour l\'Ibuprofène : tu ne le cites pas comme médicament, seulement si on te demande ce que tu prends en plus, sans ordonnance, contre la douleur. Tu donnes tes chiffres volontiers si on te les demande (3 oreillers, 3 à 4 fois par nuit aux toilettes, 6 kilos en 3 semaines, moins d\'un étage) mais tu ne les donnes jamais spontanément. Si le médecin te demande combien d\'étages ou combien d\'oreillers, tu es content qu\'on te comprenne. Si on parle de tes parents morts du cœur, tu deviens plus grave et tu demandes ce qui t\'attend.',
       },
       medicalView: {
         verdachtsdiagnose: 'Akut dekompensierte chronische Herzinsuffizienz im Sinne einer Globalinsuffizienz, NYHA III, bei koronarer Herzkrankheit mit Zustand nach Hinterwandinfarkt und langjähriger arterieller Hypertonie sowie permanentem Vorhofflimmern; angesichts der ischämischen Genese am ehesten HFrEF — die endgültige Einteilung nach der Ejektionsfraktion erfolgt echokardiographisch. Auslöser der Dekompensation sind das eigenmächtige Absetzen des Torasemids vor drei Wochen, die kochsalzreiche Ernährung bei einer Familienfeier und die fast tägliche NSAR-Einnahme der letzten zwei Wochen.',
@@ -11232,7 +11232,7 @@ export function seedCases(): Case[] {
               'Sauerstoffgabe nur bei einer Sättigung unter 90 %; bei persistierender Hypoxie oder Lungenödem nicht-invasive Beatmung mit CPAP',
               'Furosemid intravenös als wichtigste Sofortmassnahme; da der Patient bis vor drei Wochen Torasemid 10 mg oral erhielt, initial 40 mg Furosemid intravenös mit Kontrolle der Urinausscheidung nach zwei Stunden und Dosisanpassung',
               'SOFORTIGES Absetzen des Ibuprofens; als Alternative gegen die Knieschmerzen Paracetamol oder Metamizol sowie lokale Massnahmen und Physiotherapie',
-              'Wiederansetzen und Anpassen der Basismedikation: Ramipril und Bisoprolol werden fortgeführt, das Torasemid wird ersetzt bzw. nach Rekompensation wieder oral angesetzt; Apixaban wird unverändert weitergegeben',
+              'Wiederansetzen und Anpassen der Basismedikation: Ramipril und Bisoprolol werden fortgeführt, das Torasemid wird ersetzt bzw. nach Rekompensation wieder oral angesetzt; Apixaban wird unverändert weitergegeben; Metformin wird während der akuten Dekompensation (Laktatazidoserisiko bei Hypoxie, eGFR 52 ml/min, eventuelle Kontrastmittelgabe) pausiert und nach Rekompensation überprüft',
               'Strenge Bilanzierung: tägliches Wiegen morgens, Ein- und Ausfuhrprotokoll, Zielgewichtsabnahme 0,5 bis 1 kg pro Tag bis zum Trockengewicht von etwa 82 kg; Flüssigkeitsrestriktion auf 1,5 Liter und Kochsalzrestriktion',
               'Engmaschige Kontrolle von Kalium, Natrium und Kreatinin bei vorbestehender Niereninsuffizienz G3a',
               'Frequenzkontrolle des Vorhofflimmerns mit dem Betablocker, Ziel unter 110/min in Ruhe; EKG- und Troponinverlauf zum Ausschluss einer Ischämie als Auslöser',
@@ -11806,7 +11806,7 @@ export function seedCases(): Case[] {
               'Kalkulierte intravenöse Antibiose innerhalb einer Stunde, zum Beispiel Ceftriaxon 2 g täglich oder Piperacillin/Tazobactam je nach lokaler Resistenzlage; Deeskalation nach Antibiogramm, Gesamtdauer sieben bis vierzehn Tage',
               'Umgehende urologische Vorstellung zur ENTLASTUNG der gestauten Niere: retrograde Einlage einer Doppel-J-Schiene über die Zystoskopie oder perkutane Nephrostomie in Lokalanästhesie unter Ultraschallsicht; bei septischem Bild ist die Nephrostomie zu bevorzugen und erlaubt die Gewinnung von Nierenbeckenurin',
               'Der Stein wird in dieser Sitzung ausdrücklich NICHT angetastet — jede Manipulation schwemmt Bakterien und Endotoxine in die Blutbahn und kann eine Urosepsis auslösen',
-              'Bei Sepsiszeichen Volumentherapie, Laktat- und Ausscheidungskontrolle sowie Verlegung auf die Intermediate-Care- oder Intensivstation',
+              'Bei Sepsiszeichen Volumentherapie, Laktat- und Ausscheidungskontrolle sowie Verlegung auf die Intermediate-Care- oder Intensivstation; Metformin wegen Fieber, Exsikkose und Harnstau pausieren (Laktatazidose-Risiko), Blutzucker engmaschig kontrollieren und übergangsweise Insulin nach Bedarf',
               'Aufklärung des Patienten über Zystoskopie beziehungsweise Nephrostomie und über die Computertomographie; seine Angst vor der „Röhre“ ernst nehmen, den kurzen Untersuchungsablauf erklären, gegebenenfalls ein Anxiolytikum anbieten',
               'Klärung der häuslichen Situation als Voraussetzung für seine Zustimmung zur Aufnahme: die Tochter informieren, damit der Kater versorgt wird',
             ],
@@ -11986,7 +11986,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Der Patient nimmt Metformin. Spielt das eine Rolle?',
-              reaktion: 'Erwartet: Für das native CT nicht, da kein Kontrastmittel gegeben wird. Relevant wird Metformin, wenn doch eine kontrastmittelgestützte Untersuchung nötig würde oder bei eingeschränkter Nierenfunktion beziehungsweise drohendem akutem Nierenversagen durch die Obstruktion — dann muss Metformin pausiert werden (Gefahr der Laktatazidose). Deshalb sind Kreatinin und eGFR hier besonders wichtig.',
+              reaktion: 'Erwartet: Für das native CT nicht, da kein Kontrastmittel gegeben wird. Trotzdem wird Metformin bei diesem Patienten sofort pausiert: Fieber mit drohender Urosepsis, Erbrechen mit Exsikkose und ein Harnstau mit möglichem akutem Nierenversagen sind akute Zustände mit Laktatazidose-Risiko — übergangsweise engmaschige Blutzuckerkontrolle und Insulin nach Bedarf. Zusätzlich relevant wäre Metformin, falls doch eine kontrastmittelgestützte Untersuchung nötig würde. Deshalb sind Kreatinin und eGFR hier besonders wichtig.',
             },
           ],
         },
@@ -12563,7 +12563,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Klären Sie den Patienten bitte in zwei Minuten über Diagnose und Vorgehen auf.',
-              reaktion: 'Erwartet wird: Diagnose in Alltagssprache mitteilen — „Sie haben eine Mandelentzündung, also eine Entzündung der Rachenmandeln“ —, erklären, dass die meisten dieser Entzündungen durch Viren verursacht werden und dass Husten und Schnupfen genau dafür sprechen; den Abstrichtest ankündigen und die Konsequenz erklären; wirksame Schmerz- und Fiebermittel, Trinkmenge und Schonung besprechen; die Krankschreibung anbieten; das Rauchen ansprechen; Warnzeichen für eine sofortige Wiedervorstellung nennen und mit einer Rückfrage abschließen. Wichtig: die Verdachtsdiagnose wird sofort mitgeteilt und nicht auf „nach der Untersuchung“ verschoben.',
+              reaktion: 'Erwartet wird: Diagnose in Alltagssprache mitteilen — „Sie haben eine Mandelentzündung, also eine Entzündung der Gaumenmandeln“ —, erklären, dass die meisten dieser Entzündungen durch Viren verursacht werden und dass Husten und Schnupfen genau dafür sprechen; den Abstrichtest ankündigen und die Konsequenz erklären; wirksame Schmerz- und Fiebermittel, Trinkmenge und Schonung besprechen; die Krankschreibung anbieten; das Rauchen ansprechen; Warnzeichen für eine sofortige Wiedervorstellung nennen und mit einer Rückfrage abschließen. Wichtig: die Verdachtsdiagnose wird sofort mitgeteilt und nicht auf „nach der Untersuchung“ verschoben.',
             },
           ],
         },
@@ -13064,7 +13064,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Warum bestimmen Sie bei dieser Patientin auch Vitamin B12 und TSH?',
-              reaktion: 'Vitamin B12 und Folsäure, weil ein kombinierter Mangel das MCV normalisieren und die Diagnose verschleiern kann — unter zweijähriger Protonenpumpenhemmer-Therapie ist ein B12-Mangel zusätzlich plausibel. TSH, weil die Schwester eine Hashimoto-Thyreoiditis hat und die Hypothyreose die gleichen Leitsymptome verursacht; gegen sie sprechen hier allerdings der Gewichtsverlust und das Fehlen von Kälteintoleranz und Obstipation.',
+              reaktion: 'Vitamin B12 und Folsäure, weil ein kombinierter Mangel das MCV normalisieren und die Diagnose verschleiern kann — unter zweijähriger Protonenpumpenhemmer-Therapie ist ein B12-Mangel zusätzlich plausibel. TSH, weil die Schwester eine Hashimoto-Thyreoiditis hat und die Hypothyreose die gleichen Leitsymptome verursacht; gegen sie sprechen hier allerdings der Gewichtsverlust bei vermindertem Appetit und das Fehlen von Gewichtszunahme, trockener teigiger Haut, Heiserkeit und Bradykardie.',
             },
           ],
         },
@@ -14346,7 +14346,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Beate Lindner, 45 ans, institutrice, mariée, deux enfants. Tu es épuisée : tu parles lentement, avec une voix rauque et grave, tu fais des pauses, tu cherches parfois tes mots et tu t\'excuses de « ne plus avoir la tête à ça ». Tu es enveloppée dans un gilet même s\'il fait chaud dans le cabinet. Tu es blessée et un peu sur la défensive parce que ton médecin traitant a parlé de dépression : si le médecin évoque la psychiatrie trop vite, tu te fermes et tu dis « je ne suis pas déprimée, je suis épuisée et je gèle ». Point clé : tu tiens à raconter que ta mère prend un comprimé pour la thyroïde depuis toujours et que ta sœur est diabétique de type 1 — mais tu ne le dis spontanément que si on t\'interroge sur la famille. Tu mentionnes tes comprimés de fer et ton calcium comme une banalité (« ce ne sont pas des médicaments, juste du fer »), il faut te relancer. Tu ne parles de tes règles abondantes que si on pose la question. Si le médecin t\'écoute et prend tes symptômes au sérieux, tu te détends visiblement et tu dis merci.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Manifeste primäre Hypothyreose bei Hashimoto-Thyreoiditis (Autoimmunthyreoiditis) — nahegelegt durch Müdigkeit, Verlangsamung, Kälteintoleranz, Gewichtszunahme bei unverändertem Appetit, Obstipation, trockene Haut, Haarausfall, Heiserkeit, prätibiales Myxödem, Bradykardie und Menorrhagien bei zusätzlich vorliegender Vitiligo und positiver Familienanamnese für Autoimmunerkrankungen (Mutter mit Schilddrüsenunterfunktion, Schwester mit Typ-1-Diabetes)',
+        verdachtsdiagnose: 'Manifeste primäre Hypothyreose bei Hashimoto-Thyreoiditis (Autoimmunthyreoiditis) — nahegelegt durch Müdigkeit, Verlangsamung, Kälteintoleranz, Gewichtszunahme bei unverändertem Appetit, Obstipation, trockene Haut, Haarausfall, Heiserkeit, Myxödem der Unterschenkel (teigige, nicht eindrückbare Schwellung), Bradykardie und Menorrhagien bei zusätzlich vorliegender Vitiligo und positiver Familienanamnese für Autoimmunerkrankungen (Mutter mit Schilddrüsenunterfunktion, Schwester mit Typ-1-Diabetes)',
         differenzialdiagnosen: [
           {
             dd: 'Depressive Episode',
@@ -14917,7 +14917,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Nephrotisches Syndrom',
-            unterscheidung: 'Schäumender Urin und Ödeme passen, jedoch fehlen die typische Anasarka und eine periorbitale Schwellung im Tagesverlauf. Klärung durch Quantifizierung der Proteinurie (über 3,5 g pro Tag) sowie Serumalbumin und Lipidstatus.',
+            unterscheidung: 'Schäumender Urin und Ödeme passen, jedoch fehlen die typische Anasarka und die Gewichtszunahme — der Patient hat trotz Ödemen 4 kg abgenommen, und Anämie, Nykturie und urämische Symptome sprechen für eine fortgeschrittene Niereninsuffizienz. Klärung durch Quantifizierung der Proteinurie (über 3,5 g pro Tag) sowie Serumalbumin und Lipidstatus.',
           },
           {
             dd: 'Leberzirrhose mit Ödemen',
@@ -16575,7 +16575,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Akute Appendizitis',
-            unterscheidung: 'Der wichtigste nicht-gynäkologische Differenzialdiagnose: klassisch Schmerzwanderung vom periumbilikalen Bereich in den rechten Unterbauch, Appetitlosigkeit, Übelkeit und Erbrechen NACH Schmerzbeginn, subfebrile bis febrile Temperatur mit axillo-rektaler Differenz über 0,8 °C, McBurney-/Lanz-Druckschmerz, Loslass-, Psoas- und Rovsing-Zeichen, Leukozytose und CRP-Anstieg. Hier: keine Schmerzwanderung, kein Fieber, kein Erbrechen, Übelkeit bereits eine Woche vorher und morgens betont, dazu Amenorrhoe und Blutung.',
+            unterscheidung: 'Der wichtigste nicht-gynäkologische Differenzialdiagnose: klassisch Schmerzwanderung vom periumbilikalen Bereich in den rechten Unterbauch, Appetitlosigkeit, Übelkeit und Erbrechen NACH Schmerzbeginn, subfebrile bis febrile Temperatur mit axillo-rektaler Differenz über 1 °C, McBurney-/Lanz-Druckschmerz, Loslass-, Psoas- und Rovsing-Zeichen, Leukozytose und CRP-Anstieg. Hier: keine Schmerzwanderung, kein Fieber, kein Erbrechen, Übelkeit bereits eine Woche vorher und morgens betont, dazu Amenorrhoe und Blutung.',
           },
           {
             dd: 'Akute Adnexitis / Salpingitis (Pelvic inflammatory disease)',
@@ -17410,7 +17410,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie beraten Sie den Patienten zur Impfprävention?',
-              reaktion: 'Nach Genesung Pneumokokkenimpfung sowie Meningokokkenimpfung ACWY und B, Überprüfung und Vervollständigung des Impfpasses. Der Patient ist bislang nur gegen Tetanus und Influenza geimpft. Ergänzend konsequente Behandlung künftiger Mittelohrentzündungen, regelmäßige HNO-Kontrolle und Nikotinkarenz.',
+              reaktion: 'Nach Genesung Pneumokokkenimpfung sowie Meningokokkenimpfung ACWY und B, Überprüfung und Vervollständigung des Impfpasses. Der Patient hat zuletzt nur Tetanus- und Influenza-Impfungen erhalten; die Kinderimpfungen sind ohne Impfpass nicht dokumentiert. Ergänzend konsequente Behandlung künftiger Mittelohrentzündungen, regelmäßige HNO-Kontrolle und Nikotinkarenz.',
             },
             {
               frage: 'Klären Sie den Patienten in zwei Minuten über die Diagnose und die Lumbalpunktion auf.',
@@ -17472,7 +17472,7 @@ export function seedCases(): Case[] {
           'ausgedehnte Kratzspuren an Unterarmen, Unterschenkeln und Rücken',
           'Appetitlosigkeit und frühes Sättigungsgefühl seit etwa vier Wochen, ausgeprägte Abneigung gegen fettes Essen',
           'Ein- und Durchschlafstörung seit drei Nächten wegen des Juckreizes',
-          'deutliche Leistungsminderung: Radfahren und Gartenarbeit sind nicht mehr möglich, nach dem Treppensteigen im Haus muss sie sich hinsetzen',
+          'deutliche Leistungsminderung: Radfahren und Gartenarbeit sind nicht mehr möglich, schon nach wenigen Schritten im Haus muss sie sich hinsetzen',
         ],
         vegetativeAnamnese: [
           'Appetitlosigkeit seit etwa vier Wochen mit ungewolltem Gewichtsverlust von etwa 10 kg in vier Wochen',
@@ -17484,7 +17484,7 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'keinerlei Schmerzen: kein Oberbauchschmerz, keine Kolik, kein gürtelförmiger Rückenschmerz, auch nicht nachts — der Ikterus ist ausdrücklich schmerzlos',
           'keine kolikartigen Schmerzattacken im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, keine Beschwerden nach fettreicher Mahlzeit, nie Gallensteine festgestellt, die Intensität der Gelbfärbung schwankt nicht (gegen eine Choledocholithiasis)',
-          'kein Fieber (mehrfach 36,8 °C gemessen), kein Schüttelfrost, keine Verwirrtheit, kein Kreislaufproblem — die Charcot-Trias fehlt vollständig (gegen eine akute Cholangitis)',
+          'kein Fieber (mehrfach 36,8 °C gemessen), kein Schüttelfrost, keine Verwirrtheit, kein Kreislaufproblem — die Charcot-Trias ist nicht erfüllt, es besteht allein der Ikterus (gegen eine akute Cholangitis)',
           'keine bekannte primär sklerosierende Cholangitis, keine chronisch-entzündliche Darmerkrankung, keine blutigen oder schleimigen Durchfälle, keine Leberegel- oder Tropenexposition (gegen ein Cholangiokarzinom)',
           'kein schwarzer Teerstuhl, kein silbrig glänzender Stuhl, kein Schwindel und keine Belastungsluftnot im Sinne einer Anämie, kein intermittierender, in seiner Stärke wechselnder Ikterus (gegen ein Papillenkarzinom)',
           'kein Alkoholkonsum, nie wiederkehrende gürtelförmige Oberbauchschmerzattacken in den vergangenen Jahren, nie eine Bauchspeicheldrüsenentzündung in der Vorgeschichte (gegen eine chronische Pankreatitis)',
@@ -17615,7 +17615,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Akute (eitrige) Cholangitis',
-            unterscheidung: 'Charcot-Trias aus Fieber mit Schüttelfrost, rechtsseitigem Oberbauchschmerz und Ikterus, bei der Reynolds-Pentade zusätzlich Verwirrtheit und Kreislaufinstabilität; CRP, Leukozyten und Procalcitonin deutlich erhöht. Hier fehlt die Trias vollständig — die Patientin ist fieberfrei, schmerzfrei und kreislaufstabil. Muss dennoch als Komplikation des Verschlusses jederzeit mitbedacht werden.',
+            unterscheidung: 'Charcot-Trias aus Fieber mit Schüttelfrost, rechtsseitigem Oberbauchschmerz und Ikterus, bei der Reynolds-Pentade zusätzlich Verwirrtheit und Kreislaufinstabilität; CRP, Leukozyten und Procalcitonin deutlich erhöht. Hier ist die Trias nicht erfüllt — außer dem Ikterus fehlen ihre Bestandteile: die Patientin ist fieberfrei, schmerzfrei und kreislaufstabil. Muss dennoch als Komplikation des Verschlusses jederzeit mitbedacht werden.',
           },
           {
             dd: 'Cholangiokarzinom (distales Gallengangskarzinom, Klatskin-Tumor)',
@@ -17888,7 +17888,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Differenzialdiagnosen kommen in Betracht, und warum sind sie hier weniger wahrscheinlich?',
-              reaktion: 'Choledocholithiasis (hier keine Kolik, keine Steine bekannt, Ikterus schwankt nicht), akute Cholangitis (Charcot-Trias fehlt vollständig), Cholangiokarzinom (keine PSC, keine CED — bildgebend abzugrenzen), Papillenkarzinom (kein intermittierender Ikterus, keine okkulte Blutung), chronische Pankreatitis (kein Alkohol, keine früheren Schmerzattacken), akute Virushepatitis (kein Fieber, keine Prodromi, vollständig geimpft), Leberzirrhose (kein Alkohol, keine Leberhautzeichen, kein Aszites), medikamentös-toxische Cholestase (keine neuen Medikamente), Lebermetastasen eines anderen Primärtumors (unauffällige Koloskopie und Mammographie, keine Blutungszeichen) und die Autoimmunpankreatitis (keine Sicca-Symptomatik — IgG4 dennoch bestimmen).',
+              reaktion: 'Choledocholithiasis (hier keine Kolik, keine Steine bekannt, Ikterus schwankt nicht), akute Cholangitis (Charcot-Trias nicht erfüllt — kein Fieber, kein Schmerz), Cholangiokarzinom (keine PSC, keine CED — bildgebend abzugrenzen), Papillenkarzinom (kein intermittierender Ikterus, keine okkulte Blutung), chronische Pankreatitis (kein Alkohol, keine früheren Schmerzattacken), akute Virushepatitis (kein Fieber, keine Prodromi, vollständig geimpft), Leberzirrhose (kein Alkohol, keine Leberhautzeichen, kein Aszites), medikamentös-toxische Cholestase (keine neuen Medikamente), Lebermetastasen eines anderen Primärtumors (unauffällige Koloskopie und Mammographie, keine Blutungszeichen) und die Autoimmunpankreatitis (keine Sicca-Symptomatik — IgG4 dennoch bestimmen).',
             },
             {
               frage: 'Die Patientin war vor acht Wochen in Italien und hat dort Meeresfrüchte gegessen. Wie gehen Sie damit um?',
@@ -18159,7 +18159,7 @@ export function seedCases(): Case[] {
           '"Habe ich meine Tochter angesteckt? Sie ist schwanger und war am Sonntag hier."',
           '"Ins Krankenhaus kann ich auf keinen Fall. Wer soll denn dann meinen Mann versorgen?"',
           '(leiser, wenn nach der Belastung gefragt wird) "Ich kann einfach nicht mehr. Aber es muss ja weitergehen."',
-          '"Der Hausarzt hat vorgestern gesagt, es sei nichts. Warum hat er das nicht gleich gesehen?"',
+          '"Der Hausarzt hat vor drei Tagen gesagt, es sei nichts. Warum hat er das nicht gleich gesehen?"',
           '(auf den Vorschlag einer Impfung) "Noch eine Impfung? Ich nehme doch schon so viele Tabletten."',
         ],
         persona: 'Tu es Brigitte Ostermann, 63 ans, employée de bureau à mi-temps. Tu es une femme discrète, polie, organisée, qui ne se plaint jamais — mais là, tu es visiblement épuisée et tu as très mal : tu évites de bouger le bras gauche, tu tiens ton chemisier écarté de la peau. Tu réponds clairement et dans l\'ordre, tu as même noté tes médicaments sur un papier. Tu minimises ta fatigue au début (« das geht schon ») et tu ne parles de ton épuisement que si le médecin s\'arrête, te regarde et te demande vraiment comment TU vas : alors tu racontes l\'AVC de ton mari il y a un an, la toilette, les nuits coupées, le fait que tu n\'as plus une minute à toi, et tu peux avoir les larmes aux yeux. Point clé : dès qu\'on parle de contagion — ou spontanément vers la fin —, tu deviens anxieuse et tu demandes si tu as mis en danger ta fille enceinte de 24 semaines, qui était chez vous dimanche ; c\'est ta vraie inquiétude, plus que ta propre maladie. Tu es aussi vexée qu\'on ne t\'ait « rien trouvé » chez le médecin traitant il y a trois jours. Tu refuses d\'emblée toute hospitalisation à cause de ton mari.',
@@ -18258,7 +18258,7 @@ export function seedCases(): Case[] {
               'Beginn noch heute, da die Bläschen erst seit 48 Stunden bestehen; Indikation bei dieser Patientin klar gegeben durch Alter über 50 Jahre und die Glukokortikoid-Dauertherapie',
               'Valaciclovir 3 × 1000 mg täglich über sieben Tage oral, alternativ Aciclovir 5 × 800 mg täglich über sieben Tage',
               'Vor Therapiebeginn Kreatinin und eGFR; bei eingeschränkter Nierenfunktion Dosisanpassung, dazu ausreichende Trinkmenge von mindestens zwei Litern täglich',
-              'Brivudin kommt grundsätzlich in Frage, da die Patientin immunkompetent ist und kein 5-Fluorouracil oder Capecitabin einnimmt — die Medikamentenanamnese muss dazu ausdrücklich abgefragt werden',
+              'Brivudin (1 × 125 mg über sieben Tage) ist nur für Immunkompetente zugelassen — bei der Glukokortikoid-Dauertherapie dieser Patientin daher nur mit Vorbehalt (Prednisolon 5 mg gilt nicht als relevante Immunsuppression) und niemals bei gleichzeitiger Einnahme von 5-Fluorouracil oder Capecitabin; die Medikamentenanamnese muss dazu ausdrücklich abgefragt werden',
               'Prednisolon 5 mg wird als Dauertherapie der Polymyalgia rheumatica nicht eigenmächtig abgesetzt; Rücksprache mit dem behandelnden Rheumatologen über eine mögliche vorübergehende Dosisanpassung',
             ],
           },
@@ -18280,7 +18280,7 @@ export function seedCases(): Case[] {
               'Bläschen nicht öffnen, nicht kratzen, Krusten nicht abtragen; Läsionen locker abdecken, weite Kleidung tragen, Händedesinfektion nach jedem Kontakt',
               'Aufklärung der Patientin: Der Bläscheninhalt ist ansteckend, bis alle Läsionen verkrustet sind, und löst bei nicht immunen Personen WINDPOCKEN aus, keine Gürtelrose',
               'Konkret für diese Patientin: bis zur vollständigen Verkrustung kein Kontakt zur schwangeren Tochter in der 24. Schwangerschaftswoche — deren Varizellen-Immunität sollte über die Frauenärztin geklärt werden; der Kontakt am Sonntag bestand noch in der Prodromalphase ohne Bläschen und damit ohne Ansteckungsgefahr',
-              'Der Ehemann hat als Erwachsener mit durchgemachten Windpocken keine Ansteckungsgefahr zu befürchten; die Pflege kann fortgeführt werden, die Läsionen bleiben dabei abgedeckt',
+              'Beim Ehemann die Varizellen-Anamnese erfragen — als Erwachsener mit durchgemachten Windpocken (in Deutschland über 95 %) besteht für ihn keine Ansteckungsgefahr; die Pflege kann fortgeführt werden, die Läsionen bleiben dabei abgedeckt',
               'Arbeitsunfähigkeitsbescheinigung und Anbindung an den Hausarzt Dr. Neumann',
             ],
           },
@@ -18402,7 +18402,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Warum untersuchen Sie Gesicht und Ohr, obwohl der Befund thorakal ist?',
-              reaktion: 'Um die gefährlichen Sonderformen nicht zu übersehen. Bläschen an Stirn, Augenlid oder Nasenspitze sind das Hutchinson-Zeichen und sprechen für einen Zoster ophthalmicus mit Beteiligung des Auges und Erblindungsgefahr — das erfordert eine sofortige augenärztliche Vorstellung mit Spaltlampe. Bläschen im Gehörgang mit Fazialisparese, Hörminderung und Schwindel bedeuten einen Zoster oticus mit Ramsay-Hunt-Syndrom. Außerdem suche ich nach Streubefall als Hinweis auf einen disseminierten Zoster.',
+              reaktion: 'Um die gefährlichen Sonderformen nicht zu übersehen. Bläschen an Stirn oder Augenlid sprechen für einen Zoster ophthalmicus; Bläschen an der Nasenspitze sind das Hutchinson-Zeichen (Befall des N. nasociliaris) und zeigen eine Beteiligung des Auges an mit Beteiligung des Auges und Erblindungsgefahr — das erfordert eine sofortige augenärztliche Vorstellung mit Spaltlampe. Bläschen im Gehörgang mit Fazialisparese, Hörminderung und Schwindel bedeuten einen Zoster oticus mit Ramsay-Hunt-Syndrom. Außerdem suche ich nach Streubefall als Hinweis auf einen disseminierten Zoster.',
             },
           ],
         },
@@ -19328,7 +19328,7 @@ export function seedCases(): Case[] {
             label: 'Medikamentöse Therapie nach Beschwerdebild und Prostatavolumen',
             items: [
               'Mittel der ersten Wahl bei mittelgradiger Symptomatik: ein Alpha-1-Rezeptorenblocker, zum Beispiel Tamsulosin 0,4 mg 0-0-1 — Wirkung auf die Symptome bereits innerhalb weniger Tage über die Senkung des Muskeltonus von Blasenhals und Prostata; die Drüse wird dadurch nicht kleiner',
-              'Cave bei diesem Patienten: Er nimmt bereits Bisoprolol gegen den Bluthochdruck und wohnt im ersten Stock ohne Aufzug — Gefahr von orthostatischem Schwindel und Sturz. Deshalb einschleichend dosieren, abends einnehmen, Blutdruck kontrollieren und langsames Aufstehen empfehlen',
+              'Cave bei diesem Patienten: Er nimmt bereits Bisoprolol gegen den Bluthochdruck und wohnt im ersten Stock ohne Aufzug — Gefahr von orthostatischem Schwindel und Sturz. Deshalb bewusst das uroselektive Tamsulosin (feste Dosis 0,4 mg, kein Einschleichen nötig) statt eines unselektiven Alpha-Blockers wie Doxazosin oder Terazosin wählen, abends einnehmen, Blutdruck kontrollieren und langsames Aufstehen empfehlen',
               'Aufklärung über die retrograde Ejakulation als häufige Nebenwirkung und ausdrücklicher Hinweis, vor einer Katarakt-Operation den Augenarzt über die Einnahme zu informieren (intraoperatives Floppy-Iris-Syndrom)',
               'Bei einem in der transrektalen Sonographie gemessenen Prostatavolumen über etwa 30 bis 40 ml zusätzlich ein 5-Alpha-Reduktase-Hemmer (Finasterid 5 mg 1-0-0): Er verkleinert die Drüse um etwa 20 bis 30 % und senkt das Risiko von Harnverhalt und Operation, wirkt jedoch erst nach drei bis sechs Monaten',
               'Cave 5-Alpha-Reduktase-Hemmer: Der PSA-Wert wird nach sechs bis zwölf Monaten halbiert — der gemessene Wert ist zur Beurteilung zu verdoppeln; daher unbedingt den Ausgangswert VOR Therapiebeginn dokumentieren. Weitere Nebenwirkungen: Libidoverlust, erektile Dysfunktion, Gynäkomastie',
@@ -19425,7 +19425,7 @@ export function seedCases(): Case[] {
         'Das PSA als karzinomspezifisch darstellen: Es steigt auch bei der Hyperplasie selbst, bei Prostatitis, Harnverhalt, nach Katheter, Zystoskopie, Ejakulation und Radfahren — und der Patient muss vor der Bestimmung darüber aufgeklärt werden.',
         '5-Alpha-Reduktase-Hemmer halbieren den PSA-Wert; wer den gemessenen Wert nicht verdoppelt, übersieht ein Karzinom.',
         'Alpha-1-Blocker mit 5-Alpha-Reduktase-Hemmern verwechseln: Erstere wirken binnen Tagen nur auf den Muskeltonus, Letztere verkleinern die Drüse erst über Monate.',
-        'Die Sturzgefahr übersehen: Der Patient nimmt bereits Bisoprolol und wohnt im ersten Stock ohne Aufzug — Alpha-1-Blocker einschleichend und abends dosieren. Ebenso den Augenarzt-Hinweis wegen des Floppy-Iris-Syndroms nicht vergessen.',
+        'Die Sturzgefahr übersehen: Der Patient nimmt bereits Bisoprolol und wohnt im ersten Stock ohne Aufzug — uroselektives Tamsulosin in fester Dosis abends geben, unselektive Alpha-Blocker nur einschleichend. Ebenso den Augenarzt-Hinweis wegen des Floppy-Iris-Syndroms nicht vergessen.',
         'Restharnbestimmung, Kreatinin und Nierensonographie vergessen — damit übersieht man das Dekompensationsstadium mit Harnstauung und postrenalem Nierenversagen.',
         'Den akuten Harnverhalt nicht als Notfall behandeln oder die Blase unkontrolliert entleeren (Entlastungsblutung, postobstruktive Polyurie).',
         'Das TUR-Syndrom als Komplikation der TUR-P nicht benennen können; die Prüfer in Freiburg fragten ausdrücklich nach „möglicher operativer Behandlung und Komplikationen“ und legten dem Kandidaten den Begriff „Desobstruktion“ nahe.',
@@ -19531,7 +19531,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Nebenwirkungen der Alpha-1-Blocker sind bei diesem Patienten besonders relevant?',
-              reaktion: 'Der Blutdruckabfall mit Schwindel und Sturzgefahr: Er nimmt bereits Bisoprolol und wohnt im ersten Stock ohne Aufzug. Deshalb einschleichend dosieren, abends einnehmen und langsames Aufstehen empfehlen. Außerdem die retrograde Ejakulation und das intraoperative Floppy-Iris-Syndrom — vor einer Kataraktoperation muss der Augenarzt über die Einnahme informiert werden.',
+              reaktion: 'Der Blutdruckabfall mit Schwindel und Sturzgefahr: Er nimmt bereits Bisoprolol und wohnt im ersten Stock ohne Aufzug. Deshalb das uroselektive Tamsulosin in fester Dosis von 0,4 mg einem unselektiven, titrationspflichtigen Alpha-Blocker vorziehen, abends einnehmen und langsames Aufstehen empfehlen. Außerdem die retrograde Ejakulation und das intraoperative Floppy-Iris-Syndrom — vor einer Kataraktoperation muss der Augenarzt über die Einnahme informiert werden.',
             },
             {
               frage: 'Wann würden Sie operieren, und welches Verfahren wählen Sie?',
@@ -20103,7 +20103,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Testverfahren führen Sie durch, und ab wann ist der MMST auffällig?',
-              reaktion: 'MMST mit maximal 30 Punkten — unter 24 Punkte gelten als auffällig; 20 bis 25 Punkte entsprechen einer leichtgradigen, 10 bis 19 einer mittelgradigen und unter 10 einer schwergradigen Demenz. Dazu Uhrentest und DemTect, bei nur leichten Defiziten der sensiblere MoCA, und zur Abgrenzung der Depression die Geriatrische Depressionsskala. Wichtig ist der Hinweis, dass die Testung mit eingesetztem Hörgerät und ohne Zeitdruck erfolgt, sonst sind die Werte nicht verwertbar.',
+              reaktion: 'MMST mit maximal 30 Punkten — unter 24 Punkte gelten als auffällig; 18 bis 23 Punkte entsprechen einer leichtgradigen, 10 bis 17 einer mittelgradigen und unter 10 einer schwergradigen Demenz. Dazu Uhrentest und DemTect, bei nur leichten Defiziten der sensiblere MoCA, und zur Abgrenzung der Depression die Geriatrische Depressionsskala. Wichtig ist der Hinweis, dass die Testung mit eingesetztem Hörgerät und ohne Zeitdruck erfolgt, sonst sind die Werte nicht verwertbar.',
             },
             {
               frage: 'Wann punktieren Sie den Liquor?',
@@ -20247,7 +20247,7 @@ export function seedCases(): Case[] {
           'der ACE-Hemmer Ramipril wird seit acht Jahren unverändert und bis dahin beschwerdefrei eingenommen, und der Husten ist nicht ein trockener Kitzelhusten, sondern von Blutfäden, Gewichtsverlust und Heiserkeit begleitet (gegen einen ACE-Hemmer-induzierten Reizhusten)',
           'kein plötzlicher Beginn aus voller Ruhe, keine einseitige Waden- oder Beinschwellung, kein Wadendruckschmerz, keine längere Immobilisation, keine lange Flug- oder Busreise, keine Synkope, kein Herzrasen (gegen eine Lungenembolie mit Infarktpneumonie)',
           'keine Orthopnoe — er schläft unverändert flach mit einem Kissen —, keine anfallsartige nächtliche Luftnot, keine Beinödeme, keine Gewichtszunahme, kein bekannter Herzinfarkt und keine Herzerkrankung (gegen eine Linksherzinsuffizienz)',
-          'kein seit Jahren bekannter, größenkonstanter Rundherd auf Voraufnahmen: das Röntgenbild vor drei Monaten war der erste auffällige Befund, und die Beschwerden sind neu und von B-Symptomatik begleitet (gegen einen benignen Rundherd, ein Hamartom oder ein altes Tuberkulom)',
+          'kein seit Jahren bekannter, größenkonstanter Rundherd auf Voraufnahmen: das Röntgenbild vor drei Monaten war der erste auffällige Befund, und die Beschwerden sind neu und von Gewichtsverlust und Nachtschweiß begleitet (gegen einen benignen Rundherd, ein Hamartom oder ein altes Tuberkulom)',
           'kein Blut im Stuhl, kein schwarzer Stuhl, kein Blut im Urin, unauffällige Vorsorgekoloskopie mit 60 Jahren, jährlich unauffällige urologische Kontrolle, keine tastbaren Knoten, keine neuen oder wachsenden Leberflecke (gegen Lungenmetastasen eines extrathorakalen Primärtumors)',
           'keine Gelenkschmerzen, keine schmerzhaften rötlichen Knoten an den Unterschenkeln, keine Augenrötung und keine Sehstörung (gegen eine Sarkoidose)',
           'keine tastbaren, schmerzlosen Lymphknotenschwellungen am Hals, in den Achselhöhlen oder in den Leisten, kein Juckreiz, kein Lymphknotenschmerz nach Alkoholgenuss (gegen ein mediastinales malignes Lymphom)',
@@ -20385,7 +20385,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Benigner Lungenrundherd (Hamartom, altes Tuberkulom, Granulom)',
-            unterscheidung: 'Wäre klinisch stumm und im CT glatt berandet, popcornartig oder zentral verkalkt und über mehr als zwei Jahre größenkonstant. Hier existieren keine Voraufnahmen mit einem bekannten, unveränderten Rundherd; der Befund ist neu, mit B-Symptomatik verbunden und daher bis zum histologischen Beweis als maligne zu behandeln.',
+            unterscheidung: 'Wäre klinisch stumm und im CT glatt berandet, popcornartig oder zentral verkalkt und über mehr als zwei Jahre größenkonstant. Hier existieren keine Voraufnahmen mit einem bekannten, unveränderten Rundherd; der Befund ist neu, von Gewichtsverlust und Nachtschweiß begleitet und daher bis zum histologischen Beweis als maligne zu behandeln.',
           },
           {
             dd: 'Lungenmetastasen eines extrathorakalen Primärtumors',
@@ -20510,7 +20510,7 @@ export function seedCases(): Case[] {
           {
             label: 'Systemtherapie beim fortgeschrittenen NSCLC und beim kleinzelligen Karzinom',
             items: [
-              'Fortgeschrittenes NSCLC mit Treibermutation: zielgerichtete orale Erstlinientherapie — Osimertinib bei EGFR, Alectinib bei ALK, Entrectinib oder Crizotinib bei ROS1, Sotorasib bei KRAS G12C',
+              'Fortgeschrittenes NSCLC mit Treibermutation: zielgerichtete orale Erstlinientherapie — Osimertinib bei EGFR, Alectinib bei ALK, Entrectinib oder Crizotinib bei ROS1; Sotorasib bei KRAS G12C erst nach Vortherapie in der Zweitlinie',
               'Fortgeschrittenes NSCLC ohne Treibermutation: Immuntherapie mit einem Checkpoint-Inhibitor je nach PD-L1-Score, allein oder kombiniert mit platinhaltiger Chemotherapie (Cisplatin oder Carboplatin mit Pemetrexed beziehungsweise Gemcitabin oder Paclitaxel)',
               'Kleinzelliges Karzinom, limited disease: kurativ intendierte simultane Radiochemotherapie mit Cisplatin und Etoposid — eine Operation kommt beim SCLC in der Regel nicht in Betracht',
               'Kleinzelliges Karzinom, extensive disease: Platin und Etoposid kombiniert mit einem Checkpoint-Inhibitor; nach gutem Ansprechen prophylaktische Schädelbestrahlung oder engmaschige MRT-Überwachung',
@@ -20926,7 +20926,7 @@ export function seedCases(): Case[] {
           'nox-rauchen': 'Ich habe von meinem zwanzigsten bis zu meinem dreißigsten Lebensjahr geraucht, etwa zehn Zigaretten am Tag. Seit 24 Jahren rauche ich nicht mehr.',
           'nox-alkohol': 'Fast jeden Abend ein Glas Rotwein zum Essen, so 0,2 Liter. Am Wochenende auch mal zwei. (zögert) Ist das schlimm? Hat das etwas damit zu tun?',
           'nox-drogen': 'Nein, Drogen habe ich nie genommen.',
-          'fam-familie': 'Meine Mutter ist an Brustkrebs gestorben. (Stimme wird leiser) Mit 62 wurde es festgestellt, mit 65 war sie tot. Ich war damals 34. Eine Tante von ihr — also mütterlicherseits — hatte Eierstockkrebs. Deshalb bin ich ja so in Panik. Geschwister habe ich keine.',
+          'fam-familie': 'Meine Mutter ist an Brustkrebs gestorben. (Stimme wird leiser) Mit 62 wurde es festgestellt, mit 65 war sie tot. Ich war damals 34. Eine Tante mütterlicherseits — also eine Schwester meiner Mutter — hatte Eierstockkrebs. Deshalb bin ich ja so in Panik. Geschwister habe ich keine.',
           'fam-eltern': 'Meine Mutter ist mit 65 an Brustkrebs verstorben. Mein Vater lebt noch, er ist 82, hat hohen Blutdruck und eine Arthrose in den Hüften.',
           'fam-stand': 'Ich bin seit 25 Jahren verheiratet. Wir haben eine Tochter, sie ist 18 und macht gerade Abitur. Sie weiß noch nichts von dem Knoten.',
           'fam-beruf': 'Buchhalterin, wie gesagt, im Büro. Manchmal stressig, aber körperlich nicht anstrengend. Krankgeschrieben bin ich im Moment nicht.',
@@ -21237,7 +21237,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Welche Risikofaktoren liegen bei dieser Patientin konkret vor?',
-              reaktion: 'Weibliches Geschlecht und ein Alter von 54 Jahren als wichtigste Faktoren; positive Familienanamnese mit Mammakarzinom der Mutter (Erkrankung mit 62, Tod mit 65 Jahren) und Ovarialkarzinom einer Tante mütterlicherseits; lange Östrogenexposition durch frühe Menarche im 11. Lebensjahr, späte Erstgeburt mit 36 Jahren und fehlende Stillzeit; Menopause erst mit 52 Jahren; seit zwei Jahren laufende Hormonersatztherapie; postmenopausales Übergewicht mit einem BMI von etwa 26,9; täglicher Alkoholkonsum von etwa 0,2 Litern Wein. Nicht vorliegen: eigene Brustkrebserkrankung, Thoraxbestrahlung in der Jugend.',
+              reaktion: 'Weibliches Geschlecht und ein Alter von 54 Jahren als wichtigste Faktoren; positive Familienanamnese mit Mammakarzinom der Mutter (Erkrankung mit 62, Tod mit 65 Jahren) und Ovarialkarzinom einer Tante mütterlicherseits; lange Östrogenexposition durch frühe Menarche im 11. Lebensjahr, späte Erstgeburt mit 36 Jahren und fehlende Stillzeit; seit zwei Jahren laufende Hormonersatztherapie (die Menopause mit 52 Jahren liegt im Normalbereich — als spät gilt erst eine Menopause nach dem 55. Lebensjahr); postmenopausales Übergewicht mit einem BMI von etwa 26,9; täglicher Alkoholkonsum von etwa 0,2 Litern Wein. Nicht vorliegen: eigene Brustkrebserkrankung, Thoraxbestrahlung in der Jugend.',
             },
             {
               frage: 'Wie ist das Mammographie-Screening in Deutschland organisiert?',
@@ -21447,7 +21447,7 @@ export function seedCases(): Case[] {
           'akt-ausloeser': 'Nein, da war nichts. Kein Sturz, keine Überlastung, keine Verletzung. Auch keine Erkältung oder Halsentzündung vorher, und einen Zeckenstich hatte ich nicht.',
           'akt-einfluss': 'Schlimmer wird es, wenn ich lange sitze — nach einer Autofahrt bekomme ich die Hände kaum auf. Kaltes Wasser mag ich gar nicht. Besser wird es, wenn ich die Hände warm halte und bewege; nach einer halben Stunde Bewegung geht es deutlich besser. Aspirin habe ich fast täglich genommen, das hat nur ein bisschen geholfen.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Ich war eigentlich immer sportlich und hatte nie Gelenkprobleme.',
-          'akt-begleit': 'Die Gelenke sind geschwollen — richtig weich und teigig, nicht knochig — und warm. Meinen Ehering bekomme ich nicht mehr ab. Der Faustschluss ist kraftlos, mir fällt der Kaffeebecher aus der Hand, Knöpfe und Flaschendeckel sind ein Kampf. Beim Laufen ist es, als würde ich auf Kieselsteinen gehen. Und ich bin dauernd müde und k. o., das kenne ich so gar nicht von mir.',
+          'akt-begleit': 'Die Gelenke sind geschwollen — richtig weich und teigig, nicht knochig — und warm. Meinen Ring bekomme ich nicht mehr ab. Der Faustschluss ist kraftlos, mir fällt der Kaffeebecher aus der Hand, Knöpfe und Flaschendeckel sind ein Kampf. Beim Laufen ist es, als würde ich auf Kieselsteinen gehen. Und ich bin dauernd müde und k. o., das kenne ich so gar nicht von mir.',
           'veg-fieber': 'Richtiges Fieber nicht. Ich habe aber mehrmals gemessen, da waren es 37,4 oder 37,5 Grad. Über 38 war es nie. Im Ausland war ich auch nicht.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost hatte ich nicht, und Nachtschweiß auch nicht.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht, erbrochen habe ich nicht.',
@@ -22046,7 +22046,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Zöliakie',
-            unterscheidung: 'Voluminöse, teils fettglänzende Stühle, Meteorismus, Gewichtsverlust und Eisenmangel — hier keine Fettstühle und keine Besserung unter glutenfreier Kost. Abklärung durch Transglutaminase-IgA-Antikörper mit Gesamt-IgA und Duodenalbiopsien im Rahmen der Endoskopie.',
+            unterscheidung: 'Voluminöse, teils fettglänzende Stühle, Meteorismus, Gewichtsverlust und Eisenmangel — hier keine Fettstühle und kein Zusammenhang der Beschwerden mit Brot oder Nudeln. Abklärung durch Transglutaminase-IgA-Antikörper mit Gesamt-IgA und Duodenalbiopsien im Rahmen der Endoskopie.',
           },
           {
             dd: 'Laktoseintoleranz',
@@ -22305,7 +22305,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Warum sollten wir einen Test auf okkultes Blut im Stuhl veranlassen?',
-              reaktion: 'Erwartet: Weil zu klären ist, ob eine Blutung aus dem Darminneren vorliegt oder das Blut lediglich von einer Wunde am After stammt — der Patient sieht Blut nur am Toilettenpapier. Der Test weist mit Antikörpern menschliches Hämoglobin im Stuhl nach; drei Stuhlproben von verschiedenen Tagen, Ergebnis positiv oder negativ, ein positives Ergebnis erfordert immer die Koloskopie.',
+              reaktion: 'Erwartet: Weil zu klären ist, ob eine Blutung aus dem Darminneren vorliegt oder das Blut lediglich von einer Wunde am After stammt — der Patient sieht Blut nur am Toilettenpapier. Der Test weist mit Antikörpern menschliches Hämoglobin im Stuhl nach; eine einzige, zu Hause entnommene Stuhlprobe genügt und eine Diät ist nicht nötig; das Ergebnis ist positiv oder negativ, ein positives Ergebnis erfordert immer die Koloskopie.',
             },
             {
               frage: 'Was ist der Goldstandard, und was sehen Sie dort?',
@@ -23104,7 +23104,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Karin Hartmann, 38 ans, femme au foyer, mère de deux enfants. Tu es nerveuse, agitée, tu parles vite et tu enchaînes plusieurs informations dans la même phrase ; tu tripotes ton poignet pour prendre ton pouls sans t\'en rendre compte. Tu es profondément convaincue d\'avoir quelque chose au cœur et tu es vexée qu\'on ait pu te renvoyer trois fois des urgences en te disant que tout allait bien. Point clé : tu décris spontanément les crises, mais tu ne parles de l\'évitement (bus, supermarché, ascenseur, sorties seule, tennis et vélo abandonnés) et du retrait social QUE si le médecin te demande ce que tu as changé dans ta vie quotidienne. Tu minimises le verre de vin du soir et tu ne l\'avoues qu\'à voix basse, avec gêne, si on insiste sans juger. Tu ne mentionnes le Johanniskraut et le Baldrian que si on te pose la question des médicaments en vente libre. Si le médecin prononce le mot « psychique » trop vite ou sans avoir d\'abord reconnu que tes symptômes sont réels, tu te braques. Si au contraire il t\'explique calmement le cercle vicieux de l\'angoisse, tu te détends visiblement et tu dis « also bin ich nicht verrückt ». Sur la question des violences conjugales, tu réponds simplement non, sans drame. Sur la question du suicide, tu sursautes et tu réponds clairement non : tu veux justement vivre.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Panikstörung mit Agoraphobie (ICD-10 F40.01 bzw. F41.0), mittelgradige Ausprägung — wiederkehrende, unerwartete Panikattacken seit sechs Monaten mit Erwartungsangst, ausgeprägtem agoraphobem Vermeidungsverhalten und sozialem Rückzug bei erheblicher psychosozialer Dauerbelastung (zwei kleine Kinder, Pflege der Schwiegermutter, abwesender Ehemann) und deutlich überhöhtem Koffeinkonsum; bereits dreimalige unauffällige kardiologische Abklärung in der Notaufnahme',
+        verdachtsdiagnose: 'Panikstörung mit Agoraphobie (ICD-10 F40.01), mittelgradige Ausprägung — wiederkehrende, unerwartete Panikattacken seit sechs Monaten mit Erwartungsangst, ausgeprägtem agoraphobem Vermeidungsverhalten und sozialem Rückzug bei erheblicher psychosozialer Dauerbelastung (zwei kleine Kinder, Pflege der Schwiegermutter, abwesender Ehemann) und deutlich überhöhtem Koffeinkonsum; bereits dreimalige unauffällige kardiologische Abklärung in der Notaufnahme',
         differenzialdiagnosen: [
           {
             dd: 'Hyperthyreose',
@@ -23274,7 +23274,7 @@ export function seedCases(): Case[] {
         ],
         erstmassnahmen: [
           'Patientin in einen ruhigen Raum bringen, Vitalparameter erheben (Blutdruck, Puls, Atemfrequenz, Sauerstoffsättigung, Temperatur, Blutzucker)',
-          '12-Kanal-EKG schreiben und Blut abnehmen: Blutbild, Elektrolyte mit Kalzium, Blutzucker, Nierenwerte, CRP, TSH sowie hochsensitives Troponin und D-Dimere, dazu Drogenscreening im Urin',
+          '12-Kanal-EKG schreiben und Blut abnehmen: Blutbild, Elektrolyte mit Kalzium, Blutzucker, Nierenwerte, CRP und TSH, dazu Drogenscreening im Urin; hochsensitives Troponin und D-Dimere nur bei verändertem Beschwerdebild, da bereits dreimal unauffällig',
           'Ruhige Zuwendung und angeleitete Atemtechnik; die Beschwerden ausdrücklich als real anerkennen und die Untersuchungsschritte laufend erklären',
           'Kein Benzodiazepin, solange die Patientin im Gespräch führbar ist',
           'Nach Vorliegen der unauffälligen Befunde unmittelbar die Psychoedukation beginnen, den Teufelskreis der Angst erklären und einen konkreten Weiterbehandlungstermin sowie die Anbindung an eine Verhaltenstherapie vereinbaren',
@@ -23668,8 +23668,8 @@ export function seedCases(): Case[] {
             unterscheidung: 'Die wichtigste Abgrenzung und beim Patienten bereits bekannt. Die BPH entsteht in der TRANSITIONALZONE unmittelbar um die Harnröhre und macht deshalb FRÜH obstruktive Beschwerden; in der DRU ist die Drüse prall-elastisch, glatt, symmetrisch vergrößert, der Sulcus erhalten und die Rektumschleimhaut verschieblich. Das Karzinom entsteht in der PERIPHEREN Zone, wird deshalb spät obstruktiv, ist aber rektal tastbar: derb bis knochenhart, höckerig, asymmetrisch, unverschieblich. Gegen eine rein benigne Ursache sprechen hier: Progredienz trotz Tamsulosin, Hämatospermie, Gewichtsverlust und Knochenschmerz.',
           },
           {
-            dd: 'Chronische bakterielle bzw. abakterielle Prostatitis',
-            unterscheidung: 'Schmerzen im Damm-, Perineal- und Unterbauchbereich, Dysurie, in der DRU druckschmerzhafte, teigig-weiche Prostata, oft Fieber und deutlich erhöhtes CRP. Der PSA ist ebenfalls erhöht — deshalb Harnwegsinfekt und Prostatitis vor der PSA-Interpretation ausschließen. Hier kein Fieber, keine Dysurie, kein Druckschmerz erwartet.',
+            dd: 'Akute bzw. chronische (bakterielle oder abakterielle) Prostatitis',
+            unterscheidung: 'Schmerzen im Damm-, Perineal- und Unterbauchbereich, Dysurie, in der DRU druckschmerzhafte, teigig-weiche Prostata; bei der akuten bakteriellen Form zusätzlich Fieber, Schüttelfrost und deutlich erhöhtes CRP. Der PSA ist ebenfalls erhöht — deshalb Harnwegsinfekt und Prostatitis vor der PSA-Interpretation ausschließen. Hier kein Fieber, keine Dysurie, kein Druckschmerz erwartet.',
           },
           {
             dd: 'Harnwegsinfekt/Zystitis, ggf. Pyelonephritis',
@@ -24217,7 +24217,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Medikamentös-toxische Hepatitis',
-            unterscheidung: 'Der Patient nahm etwa eine Woche lang 1,5 bis 2 g Paracetamol täglich — das liegt deutlich unter der toxischen Schwelle von 4 g pro Tag, und der zeitliche Verlauf passt nicht, da die Beschwerden vor der Einnahme begannen. Relevanter sind die seit zwei Monaten eingenommenen Grüntee-Extrakt-Kapseln aus dem Internet, ein bekanntes Hepatotoxin. Beide Substanzen werden abgesetzt; die Serologie entscheidet.',
+            unterscheidung: 'Der Patient nahm etwa eine Woche lang 1,5 bis 2 g Paracetamol täglich — das liegt deutlich unter der Tageshöchstdosis von 4 g pro Tag, und der zeitliche Verlauf passt nicht, da die Beschwerden vor der Einnahme begannen. Relevanter sind die seit zwei Monaten eingenommenen Grüntee-Extrakt-Kapseln aus dem Internet, ein bekanntes Hepatotoxin. Beide Substanzen werden abgesetzt; die Serologie entscheidet.',
           },
           {
             dd: 'Alkoholische Hepatitis',
@@ -24479,7 +24479,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Warum hat der Patient dunklen Urin und hellen Stuhl?',
-              reaktion: 'Weil die Leberzellen zerstört und die kleinen Gallenwege entzündlich verlegt sind: Das bereits konjugierte, wasserlösliche Bilirubin gelangt ins Blut und wird über die Niere ausgeschieden — daher der colafarbene Urin. Gleichzeitig gelangt weniger Gallenfarbstoff in den Darm, weshalb der Stuhl entfärbt ist. Beim prähepatischen Ikterus wäre der Urin hell.',
+              reaktion: 'Weil die Leberzellen zerstört und die kleinen Gallenwege entzündlich verlegt sind: Das bereits konjugierte, wasserlösliche Bilirubin gelangt ins Blut und wird über die Niere ausgeschieden — daher der colafarbene Urin. Gleichzeitig gelangt weniger Gallenfarbstoff in den Darm, weshalb der Stuhl entfärbt ist. Beim prähepatischen Ikterus wäre der Urin dagegen bilirubinfrei und normal gefärbt, da das unkonjugierte Bilirubin nicht nierengängig ist.',
             },
             {
               frage: 'Welche apparative Diagnostik ordnen Sie an, und was erwarten Sie?',
@@ -32802,12 +32802,12 @@ export function seedCases(): Case[] {
           'vor-erkrank': 'Ich habe seit zwanzig Jahren Zucker, dafür nehme ich Tabletten, und in den Beinen kribbelt es davon. Dann hoher Blutdruck seit gut fünfzehn Jahren. Eine kaputte Lunge von den Zigaretten, COPD sagt der Arzt. Die Prostata ist zu groß, deswegen muss ich nachts raus. Und beide Knie sind verschlissen, die tun beim Gehen weh. Ach ja — und die Nierenwerte seien grenzwertig, hat Dr. Seibold vor einem Jahr gesagt.',
           'vor-op': 'Der Blinddarm als junger Mann, ein Leistenbruch rechts vor etwa zwölf Jahren, und vor vier Jahren beide Augen wegen dem grauen Star. Komplikationen gab es nie.',
           'vor-krankenhaus': 'Nein, im Krankenhaus war ich zuletzt vor zwölf Jahren wegen dem Leistenbruch. Seitdem nicht mehr.',
-          'med-regelmaessig': 'Ich nehme morgens die Blutdrucktablette, da ist die Entwässerungstablette gleich mit drin — Ramipril mit Hydrochlorothiazid, 5 und 25. Dann zweimal am Tag Metformin 1000 für den Zucker. Abends eine Tablette für die Prostata, Tamsulosin. Und morgens das Spray für die Lunge.',
+          'med-regelmaessig': 'Ich nehme morgens die Blutdrucktablette, da ist die Entwässerungstablette gleich mit drin — wie die genau heißt, müsste ich auf der Packung nachsehen, Ramipril irgendwas. Dann zweimal am Tag Metformin 1000 für den Zucker. Abends eine Tablette für die Prostata, Tamsulosin. Und morgens das Spray für die Lunge.',
           'med-blutverduenner': 'Nein, Blutverdünner nehme ich nicht, und Kortison auch nicht.',
           'med-otc': '(überlegt) Doch, jetzt wo Sie fragen: Ibuprofen 600, drei Stück am Tag, seit ungefähr zehn Tagen — wegen der Knie. Das ist doch rezeptfrei, das habe ich gar nicht als Medikament gerechnet. Und weil mir davon der Magen drückte, hat mir der Apotheker noch Pantoprazol 20 dazugegeben, seit einer Woche. Seit gestern noch eine Tablette gegen Übelkeit. Pflanzliche Mittel oder Vitamine nehme ich keine.',
           'all-allergie': 'Nein, allergisch bin ich gegen nichts, weder gegen Medikamente noch gegen Lebensmittel. Heuschnupfen hatte ich auch nie.',
           'all-unvertraeglich': 'Nein, ich vertrage alles. Milch, Brot, Käse — damit hatte ich nie Probleme.',
-          'nox-rauchen': 'Geraucht habe ich sechzig Jahre lang, eine Schachtel am Tag, also zwanzig Zigaretten. Vor zwei Jahren habe ich aufgehört, als meine Frau gestorben ist.',
+          'nox-rauchen': 'Geraucht habe ich sechzig Jahre lang, eine Schachtel am Tag, also zwanzig Zigaretten. Vor zwei Jahren habe ich aufgehört, ein Jahr nach dem Tod meiner Frau.',
           'nox-alkohol': 'Ein Glas Rotwein zum Abendessen, so zwei Fingerbreit, ungefähr ein Viertel. Jeden Abend, seit Jahren. In den letzten Tagen habe ich gar nichts getrunken, mir war ja so schlecht.',
           'nox-drogen': 'Nein, um Gottes willen. Drogen habe ich nie genommen, auch kein Cannabis.',
           'fam-familie': 'Meine Mutter hatte Zucker, meine Schwester hat auch Zucker. Nierenkrank war bei uns nie jemand — Zystennieren oder Dialyse, davon habe ich in der Familie noch nie gehört.',
@@ -36095,7 +36095,7 @@ export function seedCases(): Case[] {
             unterscheidung: 'Häufiger Harndrang mit kleinen Portionen und Einnässen sind typisch für eine Überlaufblase; Oxybutynin und Oxycodon begünstigen den Harnverhalt, das Opioid zusätzlich die Obstipation seit vier Tagen. Sofort durch sonographische Restharnbestimmung und Abdomenpalpation zu klären und in Minuten behebbar.',
           },
           {
-            dd: 'Chronisch subdurales Hämatom nach dem Sturz',
+            dd: 'Subdurales Hämatom nach dem Sturz',
             unterscheidung: 'Muss zwingend ausgeschlossen werden: Sturz vor zehn Tagen unter Acetylsalicylsäure 100 mg, hohes Alter. Zwar keine fokalen Defizite und kein erneuter Kopfanprall, doch die zerebrale Symptomatik kann isoliert auftreten — kraniale Computertomographie obligat.',
           },
           {
@@ -36178,7 +36178,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Apparativ & Bildgebung',
-            text: 'kraniale COMPUTERTOMOGRAPHIE — hier zwingend indiziert wegen des Sturzes vor zehn Tagen unter Acetylsalicylsäure: Frage nach chronisch subduralem Hämatom, Blutung, Infarkt oder Raumforderung',
+            text: 'kraniale COMPUTERTOMOGRAPHIE — hier zwingend indiziert wegen des Sturzes vor zehn Tagen unter Acetylsalicylsäure: Frage nach subduralem Hämatom, Blutung, Infarkt oder Raumforderung',
           },
           {
             stufe: 'Invasiv & Speziell',
@@ -36309,7 +36309,7 @@ export function seedCases(): Case[] {
         'Benzodiazepine: beim gewöhnlichen Delir kontraindiziert, beim Alkohol- und Benzodiazepinentzugsdelir Mittel der Wahl. Diese Umkehrung wird gern geprüft; Thiamin immer VOR der Glukose.',
         'Der HARNVERHALT wird regelmäßig vergessen: Häufiger Harndrang mit kleinen Portionen und Einnässen ist eine Überlaufblase — Restharnbestimmung nennen.',
         'Blutzucker sofort messen. Unter Zeitdruck fällt der einfachste und schnellste Test aus der Aufzählung.',
-        'Der Sturz vor zehn Tagen unter Acetylsalicylsäure macht die kraniale Computertomographie obligat (chronisch subdurales Hämatom) — auch ohne fokales Defizit.',
+        'Der Sturz vor zehn Tagen unter Acetylsalicylsäure macht die kraniale Computertomographie obligat (subdurales Hämatom) — auch ohne fokales Defizit.',
         'Die PENICILLINALLERGIE bei der Antibiotikawahl für den Harnwegsinfekt berücksichtigen; sie wird beim Aufzählen der Therapie oft überlesen.',
         'Brille und Hörgerät gehören in die Therapieantwort. Sie klingen banal, sind aber evidenzbasierte Delirmaßnahmen — und das Hörgerät ist hier verloren gegangen.',
         'Fixierung ist keine Therapie: Sie verstärkt das Delir und ist rechtlich nur als letztes Mittel mit richterlicher Genehmigung zulässig. Die Frage der Tochter danach ist eine Falle.',
@@ -36352,7 +36352,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Woran müssen Sie bei diesem Patienten wegen des Sturzes denken?',
-              reaktion: 'An ein chronisch subdurales Hämatom. Er ist 81 Jahre alt, vor zehn Tagen gestürzt und nimmt Acetylsalicylsäure 100 mg. Auch ohne fokales Defizit ist die kraniale Computertomographie zwingend.',
+              reaktion: 'An ein subdurales Hämatom. Er ist 81 Jahre alt, vor zehn Tagen gestürzt und nimmt Acetylsalicylsäure 100 mg. Auch ohne fokales Defizit ist die kraniale Computertomographie zwingend.',
             },
             {
               frage: 'Könnte es ein Alkoholentzugsdelir sein?',
@@ -38196,7 +38196,7 @@ export function seedCases(): Case[] {
           'vor-krankenhaus': 'Zuletzt vor sechs Jahren wegen der Gallenblase, drei Tage. Seitdem war ich nicht mehr im Krankenhaus.',
           'med-regelmaessig': 'Morgens einen Hub Spiriva, das ist Tiotropium 18 Mikrogramm, für die Lunge. Und abends Atorvastatin 20 Milligramm fürs Cholesterin.',
           'med-blutverduenner': 'Nein, Blutverdünner nehme ich nicht, auch kein Aspirin und kein Kortison.',
-          'med-otc': 'Ibuprofen 600 Milligramm, dreimal am Tag, seit etwa zehn Tagen — das habe ich mir selbst in der Apotheke geholt. (auf Nachfrage) Nein, eine Magenschutztablette nehme ich nicht dazu, davon hat mir niemand etwas gesagt. Ist das schlimm? Bei Heuschnupfen nehme ich noch Loratadin 10 Milligramm bei Bedarf. Pflanzliche Mittel oder Vitamine nehme ich keine.',
+          'med-otc': 'Ibuprofen 600 Milligramm, dreimal am Tag, seit etwa zehn Tagen — die Tabletten hatte ich noch von einem alten Rezept zu Hause. (auf Nachfrage) Nein, eine Magenschutztablette nehme ich nicht dazu, davon hat mir niemand etwas gesagt. Ist das schlimm? Bei Heuschnupfen nehme ich noch Loratadin 10 Milligramm bei Bedarf. Pflanzliche Mittel oder Vitamine nehme ich keine.',
           'all-allergie': 'Ja, ich bin allergisch gegen Hausstaub, genauer gegen die Hausstaubmilben, und gegen Pollen. Dann läuft die Nase und die Augen tränen. Gegen Medikamente ist mir nichts bekannt.',
           'all-unvertraeglich': 'Nein, ich vertrage alles — Milch, Brot, da habe ich keine Probleme. Kontrastmittel habe ich früher mehrfach bekommen, das war immer in Ordnung.',
           'nox-rauchen': 'Ja, leider. Eine Schachtel am Tag, also zwanzig Zigaretten, und das seit fünfundvierzig Jahren. Aufhören wollte ich schon oft.',
@@ -38488,7 +38488,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Nennen Sie mir bitte die drei wichtigen Wurzelsyndrome mit Dermatom, Kennmuskel und Reflex.',
-              reaktion: 'C6: Schmerz und Gefühlsstörung über die radiale Seite des Unterarms bis zum Daumen, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex. C7: Ausstrahlung zum Mittelfinger, Schwäche der Ellenbogenstreckung durch den Trizeps und der Fingerbeuger, abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens. C8: Ausstrahlung zum Kleinfinger, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex.',
+              reaktion: 'C6: Schmerz und Gefühlsstörung über die radiale Seite des Unterarms bis zum Daumen, Schwäche der Ellenbogenbeugung und der Handgelenkstreckung, abgeschwächter Bizepssehnenreflex und Radiusperiostreflex. C7: Ausstrahlung zum Mittelfinger, Schwäche der Ellenbogenstreckung durch den Trizeps und der Handgelenkbeugung (M. flexor carpi radialis, M. pronator teres), abgeschwächter Trizepssehnenreflex, gelegentlich Atrophie des Daumenballens. C8: Ausstrahlung zum Kleinfinger, Schwäche der Fingerspreizung und der kleinen Handmuskeln, Trömner-Reflex.',
             },
           ],
         },
@@ -39412,7 +39412,7 @@ export function seedCases(): Case[] {
             items: [
               'Die Weichenstellung nach der ÄTIOLOGIE ist der Kern der Therapie — hier liegt bei kardioembolischer Genese die entscheidende Fehlerquelle des Kandidaten',
               'Bei diesem Patienten kardioembolische TIA bei Vorhofflimmern: ORALE ANTIKOAGULATION statt Plättchenhemmung, in der Regel mit einem direkten oralen Antikoagulans (Apixaban, Rivaroxaban, Edoxaban oder Dabigatran), Dosis nach Alter, Körpergewicht und Nierenfunktion; Vitamin-K-Antagonist nur bei mechanischer Klappe oder mittel- bis hochgradiger Mitralstenose',
-              'Die bisherige Acetylsalicylsäure 100 mg wird dabei ABGESETZT und nicht mit der Antikoagulation kombiniert — die Kombination erhöht das Blutungsrisiko, ohne den Embolieschutz zu verbessern; CHA2DS2-VASc-Score hier 5 Punkte, damit klare Indikation',
+              'Die bisherige Acetylsalicylsäure 100 mg wird dabei ABGESETZT und nicht mit der Antikoagulation kombiniert — die Kombination erhöht das Blutungsrisiko, ohne den Embolieschutz zu verbessern; CHA2DS2-VASc-Score hier 6 Punkte (Hypertonie 1, Alter ≥ 75 Jahre 2, Diabetes 1, TIA 2), damit klare Indikation',
               'Beginn nach Ausschluss einer Blutung in der Bildgebung; nach einer TIA ohne Infarktnachweis kann sofort begonnen werden, nach manifestem Infarkt gestaffelt nach Infarktgröße',
               'Bei ARTERIOSKLEROTISCHER Genese hingegen Thrombozytenaggregationshemmung mit Acetylsalicylsäure 100 mg täglich, bei hohem Risiko vorübergehend dual mit Clopidogrel über wenige Wochen, danach Monotherapie — bei Unverträglichkeit Clopidogrel 75 mg als Alternative',
               'Diese beiden Wege niemals verwechseln: Plättchenhemmung bei arteriosklerotischer, Antikoagulation bei kardioembolischer Ursache',
@@ -39580,7 +39580,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Welche Therapie geben Sie gegen das Vorhofflimmern?',
-              reaktion: 'Erwartet wird: eine ORALE ANTIKOAGULATION, in der Regel mit einem direkten oralen Antikoagulans wie Apixaban, Rivaroxaban, Edoxaban oder Dabigatran, dosiert nach Alter, Gewicht und Nierenfunktion; ein Vitamin-K-Antagonist nur bei mechanischer Klappe oder mittel- bis hochgradiger Mitralstenose. Der CHA2DS2-VASc-Score beträgt hier 5 Punkte. In der Akutphase ist eine therapeutische Heparinisierung möglich, wird aber nach reiner TIA meist nicht benötigt, da direkt oral antikoaguliert werden kann. Voraussetzung ist immer der vorherige Blutungsausschluss in der Bildgebung.',
+              reaktion: 'Erwartet wird: eine ORALE ANTIKOAGULATION, in der Regel mit einem direkten oralen Antikoagulans wie Apixaban, Rivaroxaban, Edoxaban oder Dabigatran, dosiert nach Alter, Gewicht und Nierenfunktion; ein Vitamin-K-Antagonist nur bei mechanischer Klappe oder mittel- bis hochgradiger Mitralstenose. Der CHA2DS2-VASc-Score beträgt hier 6 Punkte (Hypertonie 1, Alter ≥ 75 Jahre 2, Diabetes 1, TIA 2). In der Akutphase ist eine therapeutische Heparinisierung möglich, wird aber nach reiner TIA meist nicht benötigt, da direkt oral antikoaguliert werden kann. Voraussetzung ist immer der vorherige Blutungsausschluss in der Bildgebung.',
             },
             {
               frage: 'Der Patient nimmt bereits Acetylsalicylsäure 100 mg. Reicht das aus?',
@@ -39678,7 +39678,7 @@ export function seedCases(): Case[] {
           'kein Brennen beim Wasserlassen, kein Flankenschmerz, keine Hämaturie (gegen Zystitis und Pyelonephritis, obwohl Pollakisurie besteht)',
           'keine Kälteintoleranz, keine Gewichtszunahme, keine Obstipation, keine trockenen brüchigen Haare, keine Bradykardie (gegen Hypothyreose)',
           'kein Herzrasen, kein Fingertremor, keine innere Unruhe, keine Wärmeintoleranz, kein vermehrtes Schwitzen, keine Struma, keine Exophthalmie (gegen Hyperthyreose)',
-          'keine Blässe, keine Belastungsdyspnoe in Ruhe, kein Schwindel, keine Mundwinkelrhagaden, keine Blutungszeichen (gegen Anämie)',
+          'keine Blässe, keine Ruhedyspnoe, kein Schwindel, keine Mundwinkelrhagaden, keine Blutungszeichen (gegen Anämie)',
           'kein Interessenverlust, keine Freudlosigkeit über Wochen, keine Suizidgedanken, kein Appetitverlust — die gedrückte Stimmung sei erst mit der Erschöpfung entstanden (gegen eine primäre depressive Episode)',
           'kein Kribbeln, kein Taubheitsgefühl an Füßen oder Händen, keine Fußwunden (noch keine Polyneuropathie)',
           'keine Episoden mit Zittern, Schwitzen, Heißhunger oder Verwirrtheit, die sich nach dem Essen bessern (keine Hypoglykämien)',
@@ -39944,7 +39944,7 @@ export function seedCases(): Case[] {
           {
             label: 'Prävention und Kontrolle der Folgeschäden',
             items: [
-              'Regelmäßige augenärztliche Kontrolle des Augenhintergrunds mit einer Ausgangsuntersuchung nach Stoffwechselstabilisierung und anschließend ein- bis zweijährlichen Intervallen (diabetische Retinopathie)',
+              'Augenärztliche Kontrolle des Augenhintergrunds: beim Typ 1 — anders als beim Typ 2 — erstes Screening fünf Jahre nach Diagnosestellung (bzw. ab dem 11. Lebensjahr), anschließend in ein- bis zweijährlichen Intervallen (diabetische Retinopathie)',
               'Jährliche Kontrolle von Kreatinin, eGFR und Albumin-Kreatinin-Quotient im Urin ab dem fünften Jahr nach Diagnosestellung (diabetische Nephropathie); frühzeitige Blutdruckeinstellung mit ACE-Hemmer oder Sartan bei Albuminurie',
               'FUSSINSPEKTION bei jedem Kontakt, jährliche Untersuchung auf Polyneuropathie mit Stimmgabel und Monofilament, Fußschulung und podologische Betreuung; hier zusätzlich Behandlung der bestehenden Interdigitalmykose und der Balanitis (topisches Antimykotikum)',
               'Kontrolle von Blutdruck und Blutfetten sowie Beratung zu Nikotinverzicht — bei positiver Familienanamnese für einen Myokardinfarkt (Vater mit 65 Jahren verstorben) besonders wichtig',
@@ -40378,7 +40378,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Hyperthyreose',
-            unterscheidung: 'Ebenfalls mit Gewichtsverlust trotz Appetit, häufigem Stuhlgang, Tachykardie, Wärmeintoleranz, Tremor und Nervosität. Hier fehlen diese Symptome; die Tachykardie erklärt sich durch das Volumendefizit. Klärung über TSH.',
+            unterscheidung: 'Ebenfalls mit Gewichtsverlust trotz Appetit, häufigem Stuhlgang, Tachykardie, Wärmeintoleranz, Tremor und Nervosität. Hier fehlen diese Symptome; eine Tachykardie wäre durch das Volumendefizit erklärbar, ist unter dem Betablocker aber ohnehin maskiert. Klärung über TSH.',
           },
         ],
         diagnostik: [
@@ -41659,7 +41659,7 @@ export function seedCases(): Case[] {
           {
             label: 'Prävention, Impfung und Hygiene',
             items: [
-              'jährliche INFLUENZAIMPFUNG nach den Empfehlungen der Ständigen Impfkommission — bei dieser Patientin wegen des chronischen Asthma bronchiale klar indiziert, ebenso wegen des Haushaltskontakts zu ihrem Vater im Pflegeheim; bester Zeitpunkt Oktober und November, eine Impfung ist aber solange sinnvoll, wie Influenzaviren zirkulieren',
+              'jährliche INFLUENZAIMPFUNG nach den Empfehlungen der Ständigen Impfkommission — bei dieser Patientin wegen des chronischen Asthma bronchiale klar indiziert, ebenso als Kontaktperson ihres pflegebedürftigen Vaters im Pflegeheim; bester Zeitpunkt Oktober und November, eine Impfung ist aber solange sinnvoll, wie Influenzaviren zirkulieren',
               'das typische Vorurteil ruhig und ohne Belehrung widerlegen: Der saisonale Influenzaimpfstoff ist ein TOTIMPFSTOFF und kann keine Grippe auslösen; Abgeschlagenheit, Muskelschmerz oder leichtes Fieber nach der Impfung sind eine normale Immunreaktion für ein bis zwei Tage, und eine gleichzeitig aufgeschnappte Erkältung wird der Impfung fälschlich zugeschrieben',
               'die aktuelle Impfung wird erst nach vollständiger Genesung nachgeholt; eine durchgemachte Influenza schützt nicht vor anderen zirkulierenden Subtypen',
               'Pneumokokkenimpfung mitdenken und bei chronischer Atemwegserkrankung anbieten; COVID-19-Impfstatus überprüfen, Tetanusauffrischung im Blick behalten',
@@ -43405,7 +43405,7 @@ export function seedCases(): Case[] {
             items: [
               'Leberzielgerichtete Verfahren bei überwiegend hepatischer Metastasierung: transarterielle Embolisation oder Chemoembolisation, alternativ selektive interne Radiotherapie',
               'Peptidradiorezeptortherapie mit Lutetium-177-DOTATATE bei somatostatinrezeptorpositivem, progredientem Befund — Voraussetzung ist der positive Rezeptornachweis im DOTATATE-PET/CT',
-              'Zielgerichtete Substanzen: Everolimus als mTOR-Inhibitor, Sunitinib als Tyrosinkinase-Inhibitor; Interferon alfa als weitere Option',
+              'Zielgerichtete Substanzen: Everolimus als mTOR-Inhibitor (beim Dünndarm-NET zugelassen); Sunitinib als Tyrosinkinase-Inhibitor nur beim Pankreas-NET; Interferon alfa als weitere Option',
               'Chemotherapie bei hoher Proliferationsrate oder schlecht differenziertem Tumor: platinbasiert mit Etoposid beim neuroendokrinen Karzinom, alternativ Capecitabin mit Temozolomid',
               'Die Auswahl richtet sich strikt nach Ki-67-Graduierung, Rezeptorstatus, Tumorlast und Wachstumsdynamik und wird im Tumorboard festgelegt — bei einem G1-Tumor wird zunächst allein mit Somatostatinanaloga behandelt und beobachtet',
             ],
@@ -43603,7 +43603,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: '(als Patientin) Was habe ich denn? Meine Schwester hatte Darmkrebs — habe ich das jetzt auch?',
-              reaktion: 'Erwartet wird eine patientengerechte, ehrliche und beruhigende Antwort: Der Verdacht besteht auf einen langsam wachsenden Tumor der hormonbildenden Zellen des Darms, der die Rötung und den Durchfall erklärt. Es ist nicht der Darmkrebs der Schwester. Man müsse das jetzt mit Blut, Urin, Ultraschall, einer Schichtaufnahme und einer Darmspiegelung genau abklären. Wichtig ist die Einordnung: Diese Tumoren wachsen langsam, und selbst wenn bereits Absiedlungen in der Leber vorliegen, leben viele Patientinnen viele Jahre gut damit. Rückfragen zulassen, Sicherheit geben, nächsten Schritt konkret benennen.',
+              reaktion: 'Erwartet wird eine patientengerechte, ehrliche und beruhigende Antwort: Der Verdacht besteht auf einen langsam wachsenden Tumor der hormonbildenden Zellen des Darms, der die Rötung und den Durchfall erklärt. Ob ein Darmkrebs wie bei der Schwester vorliegt, wird die Darmspiegelung klären — die Beschwerden passen allerdings deutlich besser zu dem hormonbildenden Tumor. Man müsse das jetzt mit Blut, Urin, Ultraschall, einer Schichtaufnahme und einer Darmspiegelung genau abklären. Wichtig ist die Einordnung: Diese Tumoren wachsen langsam, und selbst wenn bereits Absiedlungen in der Leber vorliegen, leben viele Patientinnen viele Jahre gut damit. Rückfragen zulassen, Sicherheit geben, nächsten Schritt konkret benennen.',
             },
             {
               frage: 'Klären Sie die Patientin bitte über die geplante Darmspiegelung auf.',
@@ -43916,7 +43916,7 @@ export function seedCases(): Case[] {
             items: [
               'ausreichende ANALGESIE: Metamizol oder Ibuprofen als Basis, bei Bedarf ergänzend ein schwaches Opioid; bei diesem Patienten ist Paracetamol bereits wirkungslos geblieben — und eine weitere intramuskuläre Spritze ist strikt zu vermeiden, orale Gabe ist vorzuziehen',
               'ANTIBIOTIKA nur ergänzend, niemals als Ersatz für die Inzision: die Indikation ist hier klar gegeben durch Fieber von 39,0 °C mit Schüttelfrost, die begleitende Weichteilinfektion und den Diabetes mellitus',
-              'kalkuliert staphylokokkenwirksam; wegen der PENICILLINALLERGIE kommen Cephalosporine der ersten oder zweiten Generation (Cefazolin, Cefuroxim — bei nicht anaphylaktischer Reaktion vertretbar) und vor allem CLINDAMYCIN in Betracht, alternativ ein Makrolid wie Clarithromycin; bei MRSA-Verdacht Vancomycin oder Linezolid',
+              'kalkuliert staphylokokkenwirksam; wegen der PENICILLINALLERGIE kein Betalaktam — Mittel der Wahl ist CLINDAMYCIN, alternativ ein Makrolid wie Clarithromycin; bei MRSA-Verdacht Vancomycin oder Linezolid (Cephalosporine wie Cefazolin oder Cefuroxim kämen allenfalls nach allergologischer Bestätigung einer nicht anaphylaktischen Reaktion in Betracht)',
               'Anpassung der Antibiose nach Erregernachweis und Antibiogramm, Deeskalation sobald möglich',
               'Überprüfung und Auffrischung des TETANUSSCHUTZES',
               'perioperative Blutzuckerkontrolle und bedarfsgerechte Insulingabe; Thromboseprophylaxe mit niedermolekularem Heparin bei stationärer Immobilisation',
@@ -44226,7 +44226,7 @@ export function seedCases(): Case[] {
           'Appendektomie im Alter von zwölf Jahren, komplikationslos',
         ],
         medikamente: [
-          'Laxaberal (Bisacodyl) 2 bis 3 Tabletten mehrmals wöchentlich, seit etwa zwei Jahren in Selbstmedikation',
+          'Laxoberal (Natriumpicosulfat) 2 bis 3 Tabletten mehrmals wöchentlich, seit etwa zwei Jahren in Selbstmedikation',
           'pflanzliches Abführmittel aus der Apotheke, nach eigener Aussage ohne großen Effekt',
           'keine weitere Dauermedikation, keine Antibabypille',
         ],
@@ -44400,7 +44400,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Anamnese/Klinik',
-            text: 'Kompensatorisches Verhalten behutsam und gezielt erfragen: täglicher Sport von eineinhalb bis zwei Stunden ab fünf Uhr, selbst induziertes Erbrechen zwei- bis dreimal wöchentlich, Bisacodyl und pflanzliche Laxanzien; Diuretika, Appetitzügler und Schilddrüsenhormone ausdrücklich verneint',
+            text: 'Kompensatorisches Verhalten behutsam und gezielt erfragen: täglicher Sport von eineinhalb bis zwei Stunden ab fünf Uhr, selbst induziertes Erbrechen zwei- bis dreimal wöchentlich, Natriumpicosulfat und pflanzliche Laxanzien; Diuretika, Appetitzügler und Schilddrüsenhormone ausdrücklich verneint',
           },
           {
             stufe: 'Anamnese/Klinik',
@@ -44482,7 +44482,7 @@ export function seedCases(): Case[] {
               'Beurteilung der Behandlungsdringlichkeit bei dieser Patientin anhand von BMI 17,0 kg/m², Gewichtsdynamik von 10 kg in zwölf Monaten, Herzfrequenz um 45 pro Minute, Blutdruck 90/60 mmHg mit Orthostase, Körpertemperatur, Kalium, Phosphat, Blutzucker und EKG mit QTc-Zeit',
               'Stationäre oder tagesklinische Aufnahme bei Kalium unter 3,0 mmol/l, QTc-Verlängerung, Herzfrequenz unter 40 pro Minute, weiterem Gewichtsverlust oder Verschlechterung der Suizidalität; bei aktuell stabiler Lage zunächst engmaschige ambulante Anbindung mit festen Kontrollterminen und schriftlich vereinbarten Gewichtsgrenzen',
               'Behandlung einer Hypokaliämie mit oraler, bei schwerer Entgleisung intravenöser Kaliumsubstitution unter EKG-Monitoring; vorsichtiger Ausgleich der Dehydratation wegen der Gefahr von Ödemen und Herzinsuffizienz',
-              'Absetzen von Bisacodyl und dem pflanzlichen Abführmittel unter Aufklärung darüber, dass es danach vorübergehend zu Ödemen und verstärkter Obstipation kommt; Obstipation stattdessen mit Macrogol, Ballaststoffen und ausreichender Trinkmenge behandeln',
+              'Absetzen von Natriumpicosulfat und dem pflanzlichen Abführmittel unter Aufklärung darüber, dass es danach vorübergehend zu Ödemen und verstärkter Obstipation kommt; Obstipation stattdessen mit Macrogol, Ballaststoffen und ausreichender Trinkmenge behandeln',
               'Reduktion und ärztliche Begleitung des Laufpensums, Absage des für den Herbst geplanten Marathons — dies wird als medizinische Notwendigkeit erklärt, nicht als Strafe',
               'Einbeziehung der Mutter mit Einverständnis der Patientin; bei akuter vitaler Gefährdung und fehlender Einwilligungsfähigkeit Prüfung der rechtlichen Grundlagen als Ultima Ratio',
             ],
@@ -45037,7 +45037,7 @@ export function seedCases(): Case[] {
           {
             label: 'Prävention, Beratung und Meldung',
             items: [
-              'Meldung des Erregernachweises nach § 7 Infektionsschutzgesetz an das Gesundheitsamt (durch das Labor, nicht namentlich); Aufklärung, dass die Malaria NICHT von Mensch zu Mensch übertragbar ist — die Tochter kann sich nicht anstecken, keine Isolierung nötig',
+              'nichtnamentliche Meldung des Erregernachweises nach § 7 Absatz 3 Infektionsschutzgesetz durch das Labor direkt an das Robert Koch-Institut (nicht an das Gesundheitsamt); Aufklärung, dass die Malaria NICHT von Mensch zu Mensch übertragbar ist — die Tochter kann sich nicht anstecken, keine Isolierung nötig',
               'Da Tochter und Ehemann ebenfalls in Malawi waren: Hinweis, dass jedes Fieber bei den Angehörigen in den nächsten Monaten sofort abgeklärt werden muss; die Tochter, die Durchfall hatte, bei Fieber ebenfalls auf Malaria testen lassen',
               'Reisemedizinische Beratung vor der nächsten Reise — die Patientin wird beruflich wieder nach Malawi reisen: Expositionsprophylaxe (imprägniertes Moskitonetz jede Nacht, lange helle Kleidung, DEET- oder Icaridin-Repellent, abends in geschützten Räumen, weil die Anopheles nachts sticht) und Chemoprophylaxe, bei Langzeitaufenthalt z. B. Atovaquon-Proguanil oder Doxycyclin, konsequent und auch nach der Rückkehr (7 Tage bzw. 4 Wochen) weiternehmen; Stand-by-Medikation als Mindestlösung erklären',
               'Splenektomie: Aufklärung über das lebenslang erhöhte Infektionsrisiko, Ausstellung eines Asplenie-Ausweises, Nachholen der Pneumokokken-, Meningokokken- (ACWY und B) und Hib-Impfung sowie jährliche Influenza-Impfung nach der Genesung; Notfallantibiotikum (Amoxicillin-Clavulansäure) für Fieber im Ausland besprechen; Reisen in Hochrisikogebiete nur mit lückenloser Prophylaxe',
@@ -45195,7 +45195,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Trifft man die Entscheidung über die Therapie alleine? Wen ziehen Sie hinzu?',
-              reaktion: 'Nein: Infektiologe/Tropenmediziner, bei komplizierter Malaria Intensivmediziner, Rücksprache mit einem tropenmedizinischen Zentrum (Tübingen, Freiburg, Bernhard-Nocht-Institut Hamburg); der Erregernachweis wird nach § 7 Infektionsschutzgesetz an das Gesundheitsamt gemeldet.',
+              reaktion: 'Nein: Infektiologe/Tropenmediziner, bei komplizierter Malaria Intensivmediziner, Rücksprache mit einem tropenmedizinischen Zentrum (Tübingen, Freiburg, Bernhard-Nocht-Institut Hamburg); der Erregernachweis wird nach § 7 Absatz 3 Infektionsschutzgesetz nichtnamentlich direkt an das Robert Koch-Institut gemeldet.',
             },
             {
               frage: 'Gibt es ein bestimmtes Krankenhaus in der Nähe für solche Infektionen?',
@@ -45462,7 +45462,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Invasiv & Speziell',
-            text: 'Bei negativen Blutkulturen (mögliche Folge des Clarithromycins): Serologien auf Coxiella burnetii, Bartonella und Brucella, eubakterielle 16S-rRNA-PCR; bei Operation Kultur, Histologie und PCR der Klappe; Duke-Kriterien-Bilanz: hier bereits Prädisposition, Fieber, immunologische Phänomene (Osler, Glomerulonephritis) und vaskuläre Phänomene (Splinter) als Nebenkriterien — mit positiven Blutkulturen und Vegetation gesicherte Endokarditis',
+            text: 'Bei negativen Blutkulturen (mögliche Folge des Clarithromycins): Serologien auf Coxiella burnetii, Bartonella und Brucella, eubakterielle 16S-rRNA-PCR; bei Operation Kultur, Histologie und PCR der Klappe; Duke-Kriterien-Bilanz: hier bereits Prädisposition, Fieber, immunologische Phänomene (Osler, Glomerulonephritis) und Splinter-Hämorrhagien als klinischer Hinweis, jedoch kein Duke-Nebenkriterium — mit positiven Blutkulturen und Vegetation gesicherte Endokarditis',
           },
         ],
         therapie: [
@@ -45598,7 +45598,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Operationen und Eingriffe wurden bei ihm durchgeführt, und warum ist das wichtig?',
-              reaktion: 'Keine Operationen im engeren Sinn, aber eine Zahnextraktion mit Wurzelrest vor vier Wochen ohne Antibiotikaprophylaxe — die Eintrittspforte für Viridans-Streptokokken der Mundflora auf die vorgeschädigte Mitralklappe; das typische Intervall bis zu den Symptomen beträgt zwei bis sechs Wochen. Zusätzlich das rheumatische Fieber im Kindesalter als Ursache der Klappenschädigung.',
+              reaktion: 'Keine Operationen im engeren Sinn, aber eine Zahnextraktion mit Wurzelrest vor vier Wochen ohne Antibiotikaprophylaxe — die Eintrittspforte für Viridans-Streptokokken der Mundflora auf die vorgeschädigte Mitralklappe; das Intervall bis zu den ersten Symptomen beträgt meist unter zwei Wochen, kann aber mehrere Wochen betragen — hier begann die Abgeschlagenheit etwa eine Woche nach der Extraktion. Zusätzlich das rheumatische Fieber im Kindesalter als Ursache der Klappenschädigung.',
             },
           ],
         },
@@ -45661,7 +45661,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Was sind die Duke-Kriterien, und welche erfüllt der Patient bereits?',
-              reaktion: 'Hauptkriterien: positive Blutkulturen mit typischem Erreger in zwei getrennten Kulturen und ein positiver Echobefund. Nebenkriterien: Prädisposition, Fieber über 38 °C, vaskuläre Phänomene, immunologische Phänomene, mikrobiologischer Hinweis. Bereits erfüllt sind vier Nebenkriterien — Prädisposition (Mitralinsuffizienz), Fieber, vaskuläre Phänomene (Splinter-Hämorrhagien) und immunologische Phänomene (Osler-Knötchen, Glomerulonephritis) — also schon eine „mögliche“ Endokarditis; mit einer positiven Blutkultur oder einer Vegetation im Echo wird sie gesichert.',
+              reaktion: 'Hauptkriterien: positive Blutkulturen mit typischem Erreger in zwei getrennten Kulturen und ein positiver Echobefund. Nebenkriterien: Prädisposition, Fieber über 38 °C, vaskuläre Phänomene, immunologische Phänomene, mikrobiologischer Hinweis. Bereits erfüllt sind drei Nebenkriterien — Prädisposition (Mitralinsuffizienz), Fieber und immunologische Phänomene (Osler-Knötchen, Glomerulonephritis); die Splinter-Hämorrhagien sind klinisch wegweisend, zählen aber nicht zu den vaskulären Duke-Phänomenen (Embolien, mykotisches Aneurysma, konjunktivale Blutung, Janeway-Läsionen) — also schon eine „mögliche“ Endokarditis; mit einer positiven Blutkultur oder einer Vegetation im Echo wird sie gesichert.',
             },
           ],
         },
@@ -46146,7 +46146,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Impfungen sind bei dieser Patientin relevant?',
-              reaktion: 'COVID-19: zwei Impfungen 2021 ohne Auffrischung — unvollständiger Impfschutz als Risikofaktor; nach Genesung Auffrischung nach STIKO. Influenza- und Pneumokokken-Impfung wegen des Alters und zur Vermeidung von Superinfektionen. Tetanus ist vor sechs Jahren aufgefrischt worden (Schnittverletzungen als Floristin).',
+              reaktion: 'COVID-19: zwei Impfungen 2021 ohne Auffrischung — unvollständiger Impfschutz als Risikofaktor; nach Genesung Auffrischung nach STIKO. Influenza- und Pneumokokken-Impfung sind nach STIKO Standardimpfungen erst ab 60 Jahren; bei dieser 56-Jährigen ohne Indikationsgrunderkrankung nach der Pneumonie individuell zu besprechen, um Superinfektionen zu vermeiden. Tetanus ist vor sechs Jahren aufgefrischt worden (Schnittverletzungen als Floristin).',
             },
           ],
         },
@@ -46370,7 +46370,7 @@ export function seedCases(): Case[] {
           '„Wie kann ich mich in Zukunft schützen? Ich kann doch nicht meinen Laden zumachen, nur weil draußen Bienen sind.“',
           '„Kriege ich jetzt eine Kortisonspritze? Das hat mir 2022 geholfen.“',
         ],
-        persona: 'Tu es Sabine Schäuberle, 53 ans, fleuriste indépendante, énergique et bavarde d\'ordinaire — mais là tu es en pleine réaction allergique grave, dix minutes après une piqûre d\'abeille : tu parles par phrases courtes, tu reprends ton souffle, tu es assise penchée en avant, tu te grattes les paumes et le cuir chevelu, tes lèvres sont gonflées et ta voix est enrouée. Tu es terrorisée (« ich ersticke ») et tu poses sans arrêt « Was habe ich ? » et « Was machen Sie jetzt ? ». Tu donnes d\'abord la piqûre et l\'essoufflement ; la réaction à l\'aspirine de 2022 et la grosse réaction locale à la guêpe d\'il y a trois ans ne sortent que si le médecin demande des réactions antérieures. Tu n\'as jamais eu d\'auto-injecteur et tu ne sais pas ce qu\'est un EpiPen — tu le demandes. Si le médecin te propose d\'abord « Kortison », tu acceptes avec soulagement (piège : c\'est à lui de savoir que l\'adrénaline vient d\'abord). Si le médecin te laisse t\'allonger brusquement ou te lever, tu dis que tout devient noir. Tu penses à ton père hospitalisé à l\'étage et tu veux « seulement vite à lui ». Tu te calmes nettement dès que le médecin explique calmement ce qu\'il fait, t\'installe correctement et te dit que le médicament agit en quelques minutes.',
+        persona: 'Tu es Sabine Schäuberle, 53 ans, fleuriste indépendante, énergique et bavarde d\'ordinaire — mais là tu es en pleine réaction allergique grave, vingt minutes après une piqûre d\'abeille : tu parles par phrases courtes, tu reprends ton souffle, tu es assise penchée en avant, tu te grattes les paumes et le cuir chevelu, tes lèvres sont gonflées et ta voix est enrouée. Tu es terrorisée (« ich ersticke ») et tu poses sans arrêt « Was habe ich ? » et « Was machen Sie jetzt ? ». Tu donnes d\'abord la piqûre et l\'essoufflement ; la réaction à l\'aspirine de 2022 et la grosse réaction locale à la guêpe d\'il y a trois ans ne sortent que si le médecin demande des réactions antérieures. Tu n\'as jamais eu d\'auto-injecteur et tu ne sais pas ce qu\'est un EpiPen — tu le demandes. Si le médecin te propose d\'abord « Kortison », tu acceptes avec soulagement (piège : c\'est à lui de savoir que l\'adrénaline vient d\'abord). Si le médecin te laisse t\'allonger brusquement ou te lever, tu dis que tout devient noir. Tu penses à ton père hospitalisé à l\'étage et tu veux « seulement vite à lui ». Tu te calmes nettement dès que le médecin explique calmement ce qu\'il fait, t\'installe correctement et te dit que le médicament agit en quelques minutes.',
       },
       medicalView: {
         verdachtsdiagnose: 'Anaphylaxie Grad II bis III nach Ring und Meßmer (beginnender anaphylaktischer Schock) nach Bienenstich an der linken Flanke – Haut (generalisierte Urtikaria, Angioödem von Lippen, Zunge und Lidern), Atemwege (Bronchospasmus, Heiserkeit, Kloßgefühl), Kreislauf (Tachykardie 118/min, Blutdruck 90/55 mmHg, Schwindel) und Magen-Darm-Trakt (Übelkeit) betroffen; Risikokonstellation aus Asthma bronchiale, Atopie, früherer schwerer ASS-Reaktion und gesteigerter Lokalreaktion nach Wespenstich; Kofaktor körperliche Anstrengung (Radfahren)',
@@ -46666,7 +46666,7 @@ export function seedCases(): Case[] {
           wohnsituation: 'mit Ehemann im Reihenhaus, Schlafzimmer im 1. Stock, ohne Aufzug',
         },
         leitsymptome: [
-          'Seit vier Tagen plötzlich, über Nacht aufgetretene, von Gelenk zu Gelenk wechselnde Gelenkschmerzen mit Schwellung — zuerst rechtes Knie, dann linkes oberes Sprunggelenk, seit gestern rechter Ellenbogen (Intensität 7–8/10), mit Fieber bis 39,0 °C und ausgeprägter Abgeschlagenheit',
+          'Seit vier Tagen plötzlich, über Nacht aufgetretene, von Gelenk zu Gelenk fortschreitende, additive Gelenkschmerzen mit Schwellung — zuerst rechtes Knie, dann linkes oberes Sprunggelenk, seit gestern rechter Ellenbogen (Intensität 7–8/10), mit Fieber bis 39,0 °C und ausgeprägter Abgeschlagenheit',
         ],
         begleitsymptome: [
           'rechtes Knie deutlich geschwollen, gerötet und überwärmt, Beugung schmerzhaft eingeschränkt; linkes oberes Sprunggelenk geschwollen und warm; rechter Ellenbogen nicht voll streckbar',
@@ -47068,7 +47068,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie unterscheiden Sie eine Poststreptokokken-reaktive Arthritis von einem akuten rheumatischen Fieber?',
-              reaktion: 'Über die Jones-Kriterien: Das rheumatische Fieber hat eine Latenz von zwei bis drei Wochen, eine wandernde Polyarthritis, Karditis, Erythema marginatum, Chorea oder subkutane Knötchen und spricht prompt auf NSAR an. Die Poststreptokokken-Arthritis beginnt früher (7–14 Tage), verläuft additiv und protrahiert, spricht schlecht auf NSAR an und erfüllt die Jones-Kriterien nicht. Bei dieser Patientin sind wandernder Befall und Fieber verdächtig — deshalb EKG und Echokardiographie.',
+              reaktion: 'Über die Jones-Kriterien: Das rheumatische Fieber hat eine Latenz von zwei bis drei Wochen, eine wandernde Polyarthritis, Karditis, Erythema marginatum, Chorea oder subkutane Knötchen und spricht prompt auf NSAR an. Die Poststreptokokken-Arthritis beginnt früher (7–14 Tage), verläuft additiv und protrahiert, spricht schlecht auf NSAR an und erfüllt die Jones-Kriterien nicht. Bei dieser Patientin sind der rasche Befall mehrerer großer Gelenke und das Fieber bis 39 °C verdächtig — deshalb EKG und Echokardiographie.',
             },
             {
               frage: 'Sie haben vergessen, den Urin zu analysieren — ist das wichtig?',
@@ -47926,7 +47926,7 @@ export function seedCases(): Case[] {
             label: 'Remissionserhaltende und immunsuppressive Therapie',
             items: [
               'Nach Erreichen der Remission Mesalazin als Dauertherapie (oral 2 g täglich, bei überwiegend distalem Befall zusätzlich rektal) zum Remissionserhalt und zur Senkung des Karzinomrisikos; Nierenwerte unter 5-ASA kontrollieren',
-              'Bei steroidabhängigem Verlauf oder frühem Rezidiv Azathioprin 2–2,5 mg/kg täglich (bei 87 kg etwa 175–200 mg) nach TPMT-Bestimmung, Blutbild- und Leberwertkontrollen, Wirkeintritt erst nach zwei bis drei Monaten',
+              'Bei steroidabhängigem Verlauf oder frühem Rezidiv Azathioprin 2–2,5 mg/kg täglich (bei 87 kg etwa 175–220 mg) nach TPMT-Bestimmung, Blutbild- und Leberwertkontrollen, Wirkeintritt erst nach zwei bis drei Monaten',
               'Bei steroidrefraktärem oder therapierefraktärem Verlauf Biologika (Infliximab, Adalimumab, Golimumab, Vedolizumab, Ustekinumab) oder JAK-Inhibitoren; vorher Tuberkulose- und Hepatitis-B-Screening, Impfstatus vervollständigen; Aufklärung über das Infektionsrisiko — bei dieser Patientin mit Zoster-Anamnese besonders die Zoster-Impfung vor JAK-Inhibitoren',
               'Nikotin bleibt trotz der protektiven Wirkung tabu — der Patientin den Rauchstopp nicht ausreden, sondern die Colitis medikamentös kontrollieren',
             ],
@@ -49157,7 +49157,7 @@ export function seedCases(): Case[] {
           wohnsituation: 'mit Ehefrau in einem Reihenhaus (Erdgeschoss und erster Stock)',
         },
         leitsymptome: [
-          'Seit etwa vier Wochen zunehmende Schwellung beider Beine, zunächst nur abends an den Knöcheln, inzwischen bis über die Knie, und morgens verquollene Augenlider; Gewichtszunahme von 7 kg in vier Wochen (von 85 auf 92 kg)',
+          'Seit etwa vier Wochen morgens verquollene Augenlider und seit etwa drei Wochen zunehmende Schwellung beider Beine, zunächst nur abends an den Knöcheln, inzwischen bis über die Knie; Gewichtszunahme von 7 kg in vier Wochen (von 85 auf 92 kg)',
         ],
         begleitsymptome: [
           'schäumender, hellgelber Urin seit einigen Wochen (wird nur auf gezielte Nachfrage berichtet), Urinmenge gefühlt etwas geringer',
@@ -49857,7 +49857,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Invasiv & Speziell',
-            text: 'Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat und Stanzbiopsie nach Thrombozytensubstitution — diagnosesichernd ab 20 % Blasten: Zytomorphologie, Zytochemie (Myeloperoxidase), Immunphänotypisierung zur Unterscheidung von AML und ALL, Zytogenetik (Karyotyp, FISH) und Molekulargenetik (NPM1, FLT3-ITD/TKD, CEBPA, TP53, PML::RARA, BCR::ABL1) zur Risikostratifizierung nach ELN und Therapiesteuerung',
+            text: 'Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat und Stanzbiopsie — auch bei schwerer Thrombozytopenie ohne vorherige Thrombozytensubstitution möglich (gut komprimierbare Punktionsstelle) — diagnosesichernd ab 20 % Blasten: Zytomorphologie, Zytochemie (Myeloperoxidase), Immunphänotypisierung zur Unterscheidung von AML und ALL, Zytogenetik (Karyotyp, FISH) und Molekulargenetik (NPM1, FLT3-ITD/TKD, CEBPA, TP53, PML::RARA, BCR::ABL1) zur Risikostratifizierung nach ELN und Therapiesteuerung',
           },
           {
             stufe: 'Invasiv & Speziell',
@@ -49870,7 +49870,7 @@ export function seedCases(): Case[] {
             items: [
               'Sofortige stationäre Aufnahme auf eine hämatologisch-onkologische Station bzw. Verlegung in ein hämatologisches Zentrum; Umkehrisolation im Einzelzimmer, Händehygiene, keimarme Kost, Mundpflege mit antiseptischen Spülungen und weicher Zahnbürste',
               'Febrile Neutropenie (38,6 °C, Schüttelfrost, zu erwartende Neutrophile unter 500/µl): nach Abnahme von zwei Blutkulturpaaren Beginn einer empirischen Breitspektrumantibiose innerhalb von 60 Minuten — wegen der Penicillinallergie (Exanthem) Meropenem 3 × 1 g i.v. (alternativ Cefepim 3 × 2 g i.v.) statt Piperacillin/Tazobactam; bei anhaltendem Fieber nach 72–96 Stunden antimykotische Therapie und CT-Thorax',
-              'Transfusion: Erythrozytenkonzentrate bei Hämoglobin unter 7–8 g/dl bzw. symptomatischer Anämie (Belastungsdyspnoe, Tachykardie, Schwindel), Thrombozytenkonzentrate bei Fieber und Blutungszeichen bereits unter 20 000/µl, vor Knochenmarkpunktion und ZVK-Anlage über 50 000/µl; alle Präparate leukozytendepletiert und bestrahlt (potenzielle Transplantationskandidatin); bei Menorrhagie hormonelle Blutungsunterdrückung (Gestagen) und Tranexamsäure erwägen',
+              'Transfusion: Erythrozytenkonzentrate bei Hämoglobin unter 7–8 g/dl bzw. symptomatischer Anämie (Belastungsdyspnoe, Tachykardie, Schwindel), Thrombozytenkonzentrate bei Fieber und Blutungszeichen bereits unter 20 000/µl, vor ZVK-Anlage und Liquorpunktion über 50 000/µl (die Knochenmarkpunktion selbst erfordert keine prophylaktische Thrombozytengabe); alle Präparate leukozytendepletiert und bestrahlt (potenzielle Transplantationskandidatin); bei Menorrhagie hormonelle Blutungsunterdrückung (Gestagen) und Tranexamsäure erwägen',
               'Prophylaxe des Tumorlysesyndroms vor Therapiebeginn: Hydratation mit 2–3 l/m² täglich unter Bilanzierung, Allopurinol 300 mg täglich, bei hoher Tumorlast (Leukozyten über 50 000–100 000/µl, LDH stark erhöht) Rasburicase; Kontrolle von Kalium, Phosphat, Kalzium, Harnsäure und Kreatinin zweimal täglich',
               'Gerinnung: bei Fibrinogenabfall und D-Dimer-Anstieg Substitution von Fibrinogen und gefrorenem Frischplasma; bei Verdacht auf Promyelozytenleukämie im Ausstrich sofortiger Beginn mit All-trans-Retinsäure 45 mg/m² täglich, ohne die Genetik abzuwarten',
               'Bei Leukostase-Symptomen (Luftnot, Sehstörungen, neurologische Ausfälle bei Leukozyten über 100 000/µl): Hydroxyurea und/oder Leukapherese, keine Erythrozytentransfusion vor Zytoreduktion',
@@ -49972,7 +49972,7 @@ export function seedCases(): Case[] {
         'Die Penicillinallergie (Exanthem) steht in der Anamnese — wer Piperacillin/Tazobactam als Standard nennt, ohne die Allergie zu berücksichtigen, verliert Punkte; Meropenem oder Cefepim sind die Alternativen.',
         'Ibuprofen in Selbstmedikation wird beiläufig erwähnt: bei Thrombozytopenie absetzen und erklären, warum (Thrombozytenfunktionshemmung, verstärkte Blutung, zusätzlich Nierenrisiko vor Tumorlyse). Ebenso keine intramuskulären Injektionen.',
         'Die Menorrhagie (neun Tage, mit Koageln) wird nur auf Nachfrage genannt — sie gehört zur Blutungsanamnese der Thrombozytopenie und in die Frauenanamnese; Schwangerschaftstest vor Chemotherapie trotz Vasektomie des Partners.',
-        'Die Knochenmarkpunktion nennen, aber richtig einordnen: am Beckenkamm (nicht am Sternum), nach Thrombozytensubstitution, mit Immunphänotypisierung, Zytogenetik und Molekulargenetik — die Frage „Wie unterscheiden Sie AML und ALL?“ wird mit der Immunphänotypisierung beantwortet, nicht mit der Klinik.',
+        'Die Knochenmarkpunktion nennen, aber richtig einordnen: am Beckenkamm (nicht am Sternum), auch bei niedrigen Thrombozyten ohne vorherige Substitution durchführbar, mit Immunphänotypisierung, Zytogenetik und Molekulargenetik — die Frage „Wie unterscheiden Sie AML und ALL?“ wird mit der Immunphänotypisierung beantwortet, nicht mit der Klinik.',
         'Die Promyelozytenleukämie als Sonderfall kennen: Fibrinogen und D-Dimere abnehmen, bei Verdacht sofort ATRA — dies ist die am häufigsten abgefragte Detailfrage zur akuten Leukämie.',
         'Die berufliche Exposition (Lacke, Lösungsmittel, Nitroverdünnung, Holzstaub ohne Maske) und das Rauchen als Risikofaktoren aktiv benennen — die Patientin liefert sie beim Beruf, nicht bei den Vorerkrankungen.',
         'Die Angst der Patientin („Ist das Blutkrebs?“) nicht abwürgen und nicht mit einer Diagnose beantworten, die noch nicht gesichert ist: ehrlich den Verdacht benennen, die Untersuchungen erklären, die Notwendigkeit der stationären Aufnahme begründen — und die Schuldfrage entlasten.',
@@ -50057,7 +50057,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Untersuchung sichert die Diagnose?',
-              reaktion: 'Die Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat und Stanzbiopsie — Diagnose ab 20 % Blasten. Aus dem Material erfolgen Zytomorphologie und Zytochemie, die Immunphänotypisierung zur Unterscheidung von AML und ALL, die Zytogenetik und die Molekulargenetik (NPM1, FLT3, CEBPA, TP53, PML::RARA, BCR::ABL1) zur Risikostratifizierung. Vorher Thrombozyten substituieren; keine Sternalpunktion.',
+              reaktion: 'Die Knochenmarkpunktion am hinteren Beckenkamm mit Aspirat und Stanzbiopsie — Diagnose ab 20 % Blasten. Aus dem Material erfolgen Zytomorphologie und Zytochemie, die Immunphänotypisierung zur Unterscheidung von AML und ALL, die Zytogenetik und die Molekulargenetik (NPM1, FLT3, CEBPA, TP53, PML::RARA, BCR::ABL1) zur Risikostratifizierung. Eine vorherige Thrombozytensubstitution ist für die Beckenkammpunktion nicht erforderlich; keine Sternalpunktion.',
             },
             {
               frage: 'Wie unterscheiden Sie AML und ALL?',
@@ -50078,7 +50078,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wann transfundieren Sie, und warum bestrahlt und leukozytendepletiert?',
-              reaktion: 'Erythrozyten bei Hämoglobin unter 7–8 g/dl oder Symptomen; Thrombozyten prophylaktisch unter 10 000/µl, bei Fieber oder Blutung unter 20 000/µl, vor Punktionen und ZVK über 50 000/µl. Leukozytendepletion verringert Immunisierung und CMV-Übertragung; Bestrahlung verhindert die transfusionsassoziierte Graft-versus-Host-Reaktion bei potenziellen Transplantationskandidaten.',
+              reaktion: 'Erythrozyten bei Hämoglobin unter 7–8 g/dl oder Symptomen; Thrombozyten prophylaktisch unter 10 000/µl, bei Fieber oder Blutung unter 20 000/µl, vor Liquorpunktion und ZVK-Anlage über 50 000/µl (nicht nötig vor der Knochenmarkpunktion). Leukozytendepletion verringert Immunisierung und CMV-Übertragung; Bestrahlung verhindert die transfusionsassoziierte Graft-versus-Host-Reaktion bei potenziellen Transplantationskandidaten.',
             },
             {
               frage: 'Wann ist die allogene Transplantation indiziert, und welche Risiken hat sie?',
@@ -51153,7 +51153,7 @@ export function seedCases(): Case[] {
         vorerkrankungen: [
           'Gastritis unter Ibuprofen-Dauereinnahme vor etwa zwei Jahren (Magenspiegelung: erosive Gastritis, seither Pantoprazol)',
           'Chronische Schmerzen seit etwa fünf Jahren mit umfangreicher, unauffälliger Abklärung: dreimal MRT der Lendenwirbelsäule (zuletzt vor vier Monaten: kleine Bandscheibenvorwölbung L4/L5 ohne Nervenwurzelkontakt, altersentsprechend), MRT der Halswirbelsäule, MRT des Schädels vor vier Jahren, zweimal Röntgen beider Knie, Kniesonographie, rheumatologische Abklärung (Rheumafaktor, Anti-CCP, ANA negativ, CRP normal), neurologische Abklärung mit Elektroneurographie und EMG ohne Befund, augenärztliche und HNO-ärztliche Untersuchung unauffällig',
-          'Laufendes Verfahren auf Erwerbsminderungsrente: Antrag vor acht Monaten abgelehnt, Widerspruch eingelegt',
+          'Laufendes Verfahren auf Erwerbsminderungsrente: Antrag vor acht Monaten gestellt, vor wenigen Wochen abgelehnt, Widerspruch eingelegt',
           'Kinderkrankheiten, keine weiteren chronischen Erkrankungen, kein Bluthochdruck, kein Diabetes',
         ],
         voroperationen: [
@@ -51186,7 +51186,7 @@ export function seedCases(): Case[] {
         sozialanamnese: [
           'ledig, seit der Trennung vor fünf Jahren keine feste Partnerschaft; wohnt allein in einer Zweizimmerwohnung im 3. Stock ohne Aufzug',
           'gelernter Fachlagerist; vor fünf Jahren neuer Vorgesetzter mit ständiger Kritik und Schikanen (Mobbing), zunehmende Krankschreibungen, vor drei Jahren Kündigung; seither arbeitslos, Bürgergeld',
-          'Antrag auf Erwerbsminderungsrente vor acht Monaten abgelehnt, Widerspruch läuft',
+          'Antrag auf Erwerbsminderungsrente vor acht Monaten gestellt, vor wenigen Wochen abgelehnt, Widerspruch läuft',
           'sozialer Rückzug: früher Fußballverein und Kino mit Freunden, heute kaum noch Kontakte; Bruder ruft manchmal an',
           'kein Sport, verbringt den Tag überwiegend liegend auf dem Sofa und im Internet auf der Suche nach Erklärungen für seine Schmerzen',
           'keine Haustiere',
@@ -51739,7 +51739,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Markus Lindner, 42 ans, mécanicien automobile, costaud, pragmatique, un peu bourru. Tu es frustré : tu as mal depuis trois mois, ton médecin de famille a fait une radio « normale », t\'a donné de l\'ibuprofène et de la kiné, et ça empire — maintenant tu as mal la nuit et tu boites. Tu parles de la hanche et du genou ; tu ne fais AUCUN lien entre ta cortisone (prise pour ta colite ulcéreuse) et ta hanche, et tu ne mentionnes la cortisone que si l\'on te demande précisément tes médicaments actuels ET passés ou « Kortison » — tu réponds alors avec la dose et la durée, un peu étonné (« das hat doch mit der Hüfte nichts zu tun, oder? »). Tu minimises la bière au début (« ein paar Bier ») et tu ne donnes les trois bouteilles quotidiennes que si le médecin insiste sans te juger. La légère douleur à la hanche GAUCHE, tu ne la mentionnes qu\'en passant, comme un détail, si l\'on te demande d\'autres symptômes ou l\'autre côté. Tu as peur de perdre ton travail et de devoir marcher avec des béquilles ; l\'idée d\'une prothèse à 42 ans te choque.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Aseptische Hüftkopfnekrose rechts (avaskuläre Femurkopfnekrose), am ehesten ARCO-Stadium I–II mit Verdacht auf beginnenden Kopfeinbruch (Schmerzsprung in der letzten Woche), bei wiederholten Prednisolon-Stoßtherapien wegen Colitis ulcerosa und chronischem Alkoholkonsum; Verdacht auf beginnende Beteiligung der linken Hüfte',
+        verdachtsdiagnose: 'Aseptische Hüftkopfnekrose rechts (avaskuläre Femurkopfnekrose), am ehesten ARCO-Stadium I–II, bei Schmerzsprung in der letzten Woche Verdacht auf Übergang in Stadium III (beginnender Kopfeinbruch), bei wiederholten Prednisolon-Stoßtherapien wegen Colitis ulcerosa und chronischem Alkoholkonsum; Verdacht auf beginnende Beteiligung der linken Hüfte',
         differenzialdiagnosen: [
           {
             dd: 'Coxarthrose',
@@ -52333,7 +52333,7 @@ export function seedCases(): Case[] {
             items: [
               'Penicillin V 1,5 Mio. I.E. 1-1-1 über 10 Tage zur Eradikation der Streptokokken (die Erstbehandlung wurde nach vier Tagen abgebrochen) — dem Patienten ehrlich erklären, dass das Antibiotikum die bereits eingetretene Nephritis nicht mehr beeinflusst, aber Rezidive und Weiterverbreitung verhindert; bei Penicillin-Allergie Clarithromycin oder Clindamycin',
               'Rachenabstrich bei der Freundin als enger Kontaktperson und Behandlung bei Streptokokkennachweis; Hinweis auf die Werkstattkollegen bei Halsschmerzen',
-              'Bei negativer Streptokokken-Serologie und normalem C3 Umdenken in Richtung IgA-Nephropathie: dann nach Abklingen der Akutphase langfristige RAAS-Blockade mit Ramipril oder Candesartan in maximal verträglicher Dosis (Ziel Proteinurie unter 0,5–1 g/Tag, Blutdruck unter 130/80 mmHg) und SGLT2-Hemmer (Dapagliflozin 10 mg); Glukokortikoide nur bei anhaltender Proteinurie über 1 g/Tag trotz 6 Monaten optimierter Basistherapie',
+              'Bei negativer Streptokokken-Serologie und normalem C3 Umdenken in Richtung IgA-Nephropathie: dann nach Abklingen der Akutphase langfristige RAAS-Blockade mit Ramipril oder Candesartan in maximal verträglicher Dosis (Ziel Proteinurie unter 0,5–1 g/Tag, Blutdruck unter 130/80 mmHg) und SGLT2-Hemmer (Dapagliflozin 10 mg); Glukokortikoide nur bei anhaltender Proteinurie über 1 g/Tag trotz mindestens 3 Monaten optimierter Basistherapie',
               'Bei rezidivierenden Tonsillitiden HNO-ärztliche Vorstellung zur Beurteilung einer Tonsillektomie (nach Ausheilung, nicht in der Akutphase); Behandlung einer eventuellen Endokarditis, Hepatitis oder HIV-Infektion nach Serologie',
             ],
           },
@@ -55052,7 +55052,7 @@ export function seedCases(): Case[] {
           'vor-krankenhaus': 'Nur damals wegen der Galle, ein paar Tage. Sonst war ich nie im Krankenhaus.',
           'med-regelmaessig': 'Für den Blutdruck nehme ich morgens Amlodipin 5 Milligramm und Ramipril 5 Milligramm. Und abends seit drei Monaten Amitriptylin 25 Milligramm, zum Schlafen und für die Stimmung.',
           'med-blutverduenner': 'Nein, Blutverdünner nehme ich nicht, und Kortison auch nicht.',
-          'med-otc': 'Gegen die Knie nehme ich Ibuprofen 400, so zwei-, dreimal die Woche. Und die Dulcolax-Dragees, fast jeden zweiten Abend seit einem Monat — ohne die geht nichts. Seit zwei Wochen nehme ich morgens noch Flohsamenschalen, einen Esslöffel, das hat meine Tochter empfohlen. Viel geholfen hat es nicht. Eisentabletten oder Kalzium nehme ich nicht.',
+          'med-otc': 'Gegen die Knie nehme ich Ibuprofen 400, so zwei-, dreimal die Woche. Und die Dulcolax-Dragees, fast jeden zweiten Abend seit einem Monat, zuletzt vorgestern Abend — ohne die geht nichts. Seit zwei Wochen nehme ich morgens noch Flohsamenschalen, einen Esslöffel, das hat meine Tochter empfohlen. Viel geholfen hat es nicht. Eisentabletten oder Kalzium nehme ich nicht.',
           'all-allergie': 'Nein, Allergien habe ich keine, auch nicht gegen Medikamente.',
           'all-unvertraeglich': 'Nein, ich vertrage alles. Milch, Brot — kein Problem.',
           'nox-rauchen': 'Ich habe geraucht, ja, 30 Jahre lang, so eine Schachtel am Tag. Vor 20 Jahren habe ich aufgehört, meiner Frau zuliebe.',
@@ -56679,7 +56679,7 @@ export function seedCases(): Case[] {
             items: [
               'Indikation wäre auch ohne Symptome gegeben, sobald der Durchmesser 5,5 cm erreicht oder das Wachstum mehr als 1 cm pro Jahr beträgt — bei ihm ist die Indikation durch die Symptomatik jetzt dringlich, unabhängig vom gemessenen Durchmesser',
               'Verfahrenswahl nach CT-Anatomie, Alter (71) und Begleiterkrankungen (KHK nach Infarkt, Hypertonie): bei geeignetem infrarenalem Hals und geeigneten Beckenarterien bevorzugt EVAR über beide Leistenarterien — schonender für das vorgeschädigte Herz, kürzere Erholung, aber lebenslange Bildkontrollen wegen Endoleaks; bei ungeeigneter Anatomie offene Operation mit Rohr- oder Y-Prothese als dauerhafte Lösung mit höherem perioperativem Risiko',
-              'Aufklärung des Patienten in Alltagssprache über beide Verfahren und ihre Risiken: Blutung und Transfusion, Nierenversagen, Darmischämie, Herzinfarkt (bei ihm erhöhtes Risiko), Beinischämie, Paraplegie (selten), Protheseninfektion, Endoleak und Reintervention nach EVAR; Antwort auf die Frage nach der Mutter: Bei elektiver oder rechtzeitiger Versorgung liegt die Sterblichkeit bei wenigen Prozent — anders als bei der freien Ruptur',
+              'Aufklärung des Patienten in Alltagssprache über beide Verfahren und ihre Risiken: Blutung und Transfusion, Nierenversagen, Darmischämie, Herzinfarkt (bei ihm erhöhtes Risiko), Beinischämie, Paraplegie (selten), Protheseninfektion, Endoleak und Reintervention nach EVAR; Antwort auf die Frage nach der Mutter: Beim elektiven Eingriff liegt die Sterblichkeit bei wenigen Prozent, beim symptomatischen, noch nicht frei rupturierten Aneurysma bei etwa 5–10 % — weit unter den über 80 % der freien Ruptur',
               'Präoperativ, soweit die Dringlichkeit es erlaubt: EKG, Echokardiographie, Nierenfunktion mit Nephroprotektion vor Kontrastmittel, Fortführung von Betablocker, Statin und ASS, Bereitstellung von Blutkonserven',
             ],
           },
@@ -57519,7 +57519,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Jonas Hartmann, 34 ans, développeur informatique, calme, précis et un peu anxieux : ton grand-père est mort d\'un infarctus et tu as peur que ce soit ton cœur. Tu es assis penché en avant sur le bord du brancard, tu respires superficiellement et tu grimaces dès qu\'on te demande d\'inspirer profondément ou de t\'allonger — tu refuses poliment de t\'allonger pour l\'examen (« kann ich sitzen bleiben ? »). Tu décris tes symptômes de façon structurée, presque technique, et tu donnes spontanément le lien avec ton refroidissement d\'il y a dix jours seulement si on te demande ce qui s\'est passé avant. Tu minimises un peu le tabac (« nur fünf am Tag ») sans t\'en cacher. Tu insistes sur le fait que l\'ibuprofène t\'a soulagé et tu demandes si tu peux rentrer chez toi. Tu es soulagé et coopératif dès que le médecin te dit clairement ce qu\'il soupçonne et qu\'il ne s\'agit probablement pas d\'un infarctus.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Akute, am ehesten virale (postinfektiöse) Perikarditis bei einem 34-jährigen Patienten etwa zehn Tage nach einem fieberhaften grippalen Infekt — stechender, atem- und lageabhängiger retrosternaler Schmerz mit Ausstrahlung in den linken Trapeziusrand, subfebrile Temperatur, gutes Ansprechen auf Ibuprofen; Frage nach Perikarderguss und Myokardbeteiligung (Perimyokarditis) offen bis zu Echokardiographie und Troponin',
+        verdachtsdiagnose: 'Akute, am ehesten virale (postinfektiöse) Perikarditis bei einem 34-jährigen Patienten etwa zehn Tage nach einem fieberhaften grippalen Infekt — stechender, atem- und lageabhängiger retrosternaler Schmerz mit Ausstrahlung in den linken Trapeziusrand, leichtes Fieber (38,1 °C), gutes Ansprechen auf Ibuprofen; Frage nach Perikarderguss und Myokardbeteiligung (Perimyokarditis) offen bis zu Echokardiographie und Troponin',
         differenzialdiagnosen: [
           {
             dd: 'Akutes Koronarsyndrom (STEMI / NSTEMI)',
@@ -57581,7 +57581,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Labor',
-            text: 'Keine breite Ursachensuche (Virusserologien, Autoantikörper, Tumormarker, Tuberkulosetests) bei diesem jungen Patienten mit typischem Bild und ohne Hochrisikokriterien — sie würde die Therapie nicht ändern; Erweiterung nur bei fehlendem Ansprechen, Rezidiv oder großem Erguss',
+            text: 'Keine breite Ursachensuche (Virusserologien, Autoantikörper, Tumormarker, Tuberkulosetests) bei diesem jungen Patienten mit typischem Bild — das grenzwertige Fieber von 38,1 °C ist das einzige Hochrisikokriterium und begründet die Überwachung, nicht aber eine breite Serologie — sie würde die Therapie nicht ändern; Erweiterung nur bei fehlendem Ansprechen, Rezidiv oder großem Erguss',
           },
           {
             stufe: 'Apparativ & Bildgebung',
@@ -57790,7 +57790,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Muss der Patient stationär aufgenommen werden?',
-              reaktion: 'Nur bei einem Hochrisikokriterium: Fieber über 38 °C, subakuter Beginn, Erguss über 20 mm, Tamponade, NSAR-Versagen, Myokardbeteiligung, Immunsuppression, Trauma oder Antikoagulation. Bei normalem Troponin, kleinem oder fehlendem Erguss und Ansprechen auf NSAR kann er ambulant behandelt und nach einer Woche kontrolliert werden.',
+              reaktion: 'Ja. Stationär aufgenommen wird bei jedem Hochrisikokriterium: Fieber über 38 °C, subakuter Beginn, Erguss über 20 mm, Tamponade, NSAR-Versagen, Myokardbeteiligung, Immunsuppression, Trauma oder Antikoagulation. Dieser Patient erfüllt mit 38,1 °C bereits das Fieberkriterium und wird daher zur Überwachung aufgenommen, bis Troponin und Echokardiographie vorliegen; bei normalem Troponin, kleinem oder fehlendem Erguss und Ansprechen auf NSAR kann er nach kurzer Überwachung entlassen und nach einer Woche kontrolliert werden.',
             },
           ],
         },
@@ -57875,7 +57875,7 @@ export function seedCases(): Case[] {
           linderer: 'Ruhe; noch keine Schmerzmittel genommen',
         },
         vegetativeAnamnese: [
-          'Schlafentzug: die letzten beiden Nächte (Freitag und Samstag) jeweils nur etwa vier Stunden Schlaf wegen einer Geburtstagsfeier und einer Nachtschicht-Montage am Freitag',
+          'Schlafentzug: in den Nächten von Freitag (Nachtschicht-Montage) und Samstag (Geburtstagsfeier bis drei Uhr) jeweils nur etwa vier Stunden Schlaf, in der Nacht zum Montag wegen des Katers unruhiger Schlaf',
           'Urinabgang während des Anfalls',
           'ausgeprägte Müdigkeit seit dem Ereignis',
           'sonst vegetative Anamnese unauffällig',
@@ -58123,7 +58123,7 @@ export function seedCases(): Case[] {
               'Auslöser konsequent meiden — bei der juvenilen myoklonischen Epilepsie entscheidend: regelmäßiger Schlaf von sieben bis acht Stunden, keine Nachtschichten, keine durchgemachten Nächte, Alkohol höchstens in kleinen Mengen, keine Drogen, Vorsicht bei Flackerlicht (Diskothek, Videospiele) bei nachgewiesener Fotosensibilität; Raucherentwöhnung anbieten',
               'Sicherheit im Alltag: Duschen statt Baden, Schwimmen nur mit der Freundin oder unter Aufsicht (Vereinsfußball ist möglich), kein Alleinbergsteigen, Herdsicherung; die Freundin Lena in Erster Hilfe schulen (schützen, nicht festhalten, nichts in den Mund, Zeit messen, Seitenlage, Notruf ab fünf Minuten); Notfallausweis und Anfallskalender',
               'ADHÄRENZ betonen: Das Weglassen der Tabletten ist der häufigste Grund eines Rezidivs — Tablettenbox, Erinnerung am Handy, nie abrupt absetzen; Hausarzt und Apotheke über die Epilepsie informieren (anfallsfördernde Medikamente wie Tramadol, Bupropion, Chinolone meiden)',
-              'Familienplanung frühzeitig thematisieren: Valproat ist beim Mann unproblematisch für die Zeugung nach aktueller Datenlage nur mit geringen Einschränkungen zu diskutieren; sollte die Partnerin eine Schwangerschaft planen, bestehen für sie keine medikamentösen Vorgaben — bei einer Patientin wäre die Umstellung vor der Konzeption mit Folsäure 5 mg Pflicht',
+              'Familienplanung frühzeitig thematisieren: Valproat beim Mann: nach den EMA-Vorsichtsmaßnahmen von 2024 besteht ein mögliches Risiko für Entwicklungsstörungen bei Kindern, die in den drei Monaten vor der Zeugung unter väterlicher Valproat-Therapie gezeugt wurden — bei Kinderwunsch Umstellung (z. B. auf Levetiracetam) oder sichere Verhütung und Beratung durch den Neurologen besprechen — bei einer Patientin wäre die Umstellung vor der Konzeption mit Folsäure 5 mg Pflicht',
               'SUDEP behutsam ansprechen: das Risiko ist bei generalisierten tonisch-klonischen Anfällen und nächtlichen Anfällen erhöht (etwa 1 pro 1 000 Patienten und Jahr), die beste Vorbeugung sind Anfallskontrolle, Adhärenz und Schlafhygiene; die Freundin darf davon wissen',
               'Nachsorge: Vorstellung in der neurologischen beziehungsweise Epilepsie-Ambulanz innerhalb von zwei Wochen mit EEG-Befund und MRT-Termin; Kontrollen mit EEG, Blutbild, Leberwerten und Lipase unter Valproat; Selbsthilfe (Deutsche Epilepsievereinigung) und sozialmedizinische Beratung zu Beruf und Fahrerlaubnis',
             ],
@@ -58919,7 +58919,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Gerhard Sonntag, 71 ans, ancien arboriculteur (pommes, cerises), veuf depuis trois ans. Un homme du terroir, calme, courtois, un peu bourru, qui parle lentement, avec des phrases courtes et concrètes ; tu montres volontiers la lésion du doigt. Tu minimises : pour toi c\'est « un bouton qui ne guérit pas », tu n\'as pas mal, tu es venu surtout parce que ta fille a insisté. Tu réponds sans détour à toutes les questions, y compris sur le soleil (« toute ma vie dehors, jamais de chapeau, jamais de crème ») et tu racontes tes coups de soleil de jeunesse sans y voir de mal. Point clé émotionnel : ta femme est morte d\'un cancer du sein il y a trois ans, tu l\'as accompagnée jusqu\'au bout, et dès que le médecin prononce « Krebs » ou « Hautkrebs », tu te crispes, tu deviens silencieux, puis tu demandes à voix basse si « c\'est la fin » et s\'il faut une chimio « comme ma femme ». Si le médecin explique calmement qu\'il s\'agit du « weißer Hautkrebs », qui ne se propage pratiquement jamais et qui guérit par une petite intervention, tu te détends visiblement — et tu bascules alors dans l\'excès inverse : « alors ça peut attendre la fin de la récolte ». Le candidat doit tenir les deux bouts : rassurer sans banaliser. Tu demandes aussi, inquiet, si tu dois arrêter ton ASS avant l\'opération, et tu préfèrerais « une pommade » à une intervention au visage.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Basalzellkarzinom (noduläres Basaliom, beginnend ulzeriert) am rechten Nasenflügel bei chronischer UV-Schädigung mit hellem Hauttyp II und multiplen aktinischen Keratosen an Stirn und Kapillitium — Hochrisiko-Lokalisation in der H-Zone des Gesichts',
+        verdachtsdiagnose: 'Basalzellkarzinom (noduläres Basaliom, beginnend ulzeriert) am rechten Nasenflügel bei chronischer UV-Schädigung mit hellem Hauttyp I–II und multiplen aktinischen Keratosen an Stirn und Kapillitium — Hochrisiko-Lokalisation in der H-Zone des Gesichts',
         differenzialdiagnosen: [
           {
             dd: 'Plattenepithelkarzinom der Haut (Spinaliom)',
@@ -58961,7 +58961,7 @@ export function seedCases(): Case[] {
         diagnostik: [
           {
             stufe: 'Anamnese/Klinik',
-            text: 'Gezielte Anamnese — hier bereits wegweisend: acht Monate langsames Wachstum, schmerz- und juckfreies glänzendes Knötchen mit Äderchen, rezidivierende Blutung beim Rasieren, Krustenbildung, fehlendes Ansprechen auf Wundsalbe und Kortison; 45 Jahre berufliche UV-Exposition ohne Hut und Sonnencreme, Sonnenbrände mit Blasen in der Jugend, heller Hauttyp II, raue Stellen an Stirn und Glatze, Vater mit entfernten „Stellen im Gesicht“; keine Immunsuppression, keine Bestrahlung, kein Solarium, kein früherer Hautkrebs',
+            text: 'Gezielte Anamnese — hier bereits wegweisend: acht Monate langsames Wachstum, schmerz- und juckfreies glänzendes Knötchen mit Äderchen, rezidivierende Blutung beim Rasieren, Krustenbildung, fehlendes Ansprechen auf Wundsalbe und Kortison; 45 Jahre berufliche UV-Exposition ohne Hut und Sonnencreme, Sonnenbrände mit Blasen in der Jugend, heller Hauttyp I–II, raue Stellen an Stirn und Glatze, Vater mit entfernten „Stellen im Gesicht“; keine Immunsuppression, keine Bestrahlung, kein Solarium, kein früherer Hautkrebs',
           },
           {
             stufe: 'Anamnese/Klinik',
@@ -59101,7 +59101,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
-              reaktion: 'Erwartet wird: Basalzellkarzinom, ein noduläres Basaliom am rechten Nasenflügel. Begründung: seit acht Monaten langsam wachsendes, schmerz- und juckfreies, perlmuttartig glänzendes Knötchen mit Teleangiektasien und zentraler Einsenkung, das beim Rasieren blutet und Krusten bildet, nicht auf Wundsalbe und Kortison anspricht; dazu heller Hauttyp II, 45 Jahre berufliche UV-Exposition ohne Schutz, Sonnenbrände in der Jugend, aktinische Keratosen an Stirn und Glatze und ein Vater mit entfernten Gesichtsläsionen.',
+              reaktion: 'Erwartet wird: Basalzellkarzinom, ein noduläres Basaliom am rechten Nasenflügel. Begründung: seit acht Monaten langsam wachsendes, schmerz- und juckfreies, perlmuttartig glänzendes Knötchen mit Teleangiektasien und zentraler Einsenkung, das beim Rasieren blutet und Krusten bildet, nicht auf Wundsalbe und Kortison anspricht; dazu heller Hauttyp I–II, 45 Jahre berufliche UV-Exposition ohne Schutz, Sonnenbrände in der Jugend, aktinische Keratosen an Stirn und Glatze und ein Vater mit entfernten Gesichtsläsionen.',
             },
             {
               frage: 'Wie erklären Sie dem Patienten den Begriff „Basaliom“?',
@@ -59113,7 +59113,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Risikofaktoren bestehen bei diesem Patienten konkret?',
-              reaktion: 'Alter 71 Jahre, männliches Geschlecht, heller Hauttyp II (hellhäutig, blaue Augen, früher rotblond, Sonnenbrandneigung), über 45 Jahre kumulative berufliche UV-Exposition als Obstbauer ohne Hut und Sonnencreme, Sonnenbrände mit Blasen in der Jugend, bereits bestehende Lichtschäden mit multiplen aktinischen Keratosen und eine mögliche familiäre Belastung (Vater mit entfernten Gesichtsläsionen, heller Hauttyp). Nicht vorhanden: Immunsuppression, Strahlentherapie, Arsen, Solarium, früherer Hautkrebs.',
+              reaktion: 'Alter 71 Jahre, männliches Geschlecht, heller Hauttyp I–II (hellhäutig, blaue Augen, früher rotblond, Sonnenbrandneigung), über 45 Jahre kumulative berufliche UV-Exposition als Obstbauer ohne Hut und Sonnencreme, Sonnenbrände mit Blasen in der Jugend, bereits bestehende Lichtschäden mit multiplen aktinischen Keratosen und eine mögliche familiäre Belastung (Vater mit entfernten Gesichtsläsionen, heller Hauttyp). Nicht vorhanden: Immunsuppression, Strahlentherapie, Arsen, Solarium, früherer Hautkrebs.',
             },
           ],
         },
@@ -60741,7 +60741,7 @@ export function seedCases(): Case[] {
         medikamente: [
           'Oxycodon retard 40 mg 1-0-1 (verordnet vom Hausarzt; Rezept zuletzt vor fünf Tagen verweigert, letzte Tablette gestern Morgen um 8 Uhr)',
           'Oxycodon 10 mg schnell wirksam bei Bedarf, tatsächlich bis zu viermal täglich, zeitweise vom Orthopäden und vom ärztlichen Bereitschaftsdienst zusätzlich verordnet',
-          'Zopiclon 7,5 mg zur Nacht, etwa drei- bis viermal pro Woche seit zwei Monaten, aus dem Vorrat der Ehefrau',
+          'Zopiclon 7,5 mg zur Nacht, etwa drei- bis viermal pro Woche seit etwa sechs Monaten, aus dem Vorrat der Ehefrau',
           'Macrogol bei Bedarf gegen die Verstopfung',
           'Ibuprofen 400 mg heute früh einmalig ohne Wirkung',
         ],
@@ -60847,7 +60847,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Benzodiazepin-/Z-Substanz- oder Alkoholentzug',
-            unterscheidung: 'Zopiclon drei- bis viermal wöchentlich über zwei Monate und 20–40 g Alkohol täglich — ein relevanter Beikonsum, der überwacht werden muss (Krampfanfälle, Delir). Aktuell keine Verwirrtheit, keine Halluzinationen, kein Krampfanfall; Gähnen, Nasenlaufen, Gänsehaut und weite Pupillen sind opioidtypisch.',
+            unterscheidung: 'Zopiclon drei- bis viermal wöchentlich über etwa sechs Monate und 20–40 g Alkohol täglich — ein relevanter Beikonsum, der überwacht werden muss (Krampfanfälle, Delir). Aktuell keine Verwirrtheit, keine Halluzinationen, kein Krampfanfall; Gähnen, Nasenlaufen, Gänsehaut und weite Pupillen sind opioidtypisch.',
           },
           {
             dd: 'Infektiöse Gastroenteritis',
