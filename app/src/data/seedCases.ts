@@ -3007,6 +3007,12 @@ export function seedCases(): Case[] {
             ],
             akut: true,
           },
+          {
+            label: 'Bei Therapieresistenz / Krise',
+            items: [
+              'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach dem PsychKHG Baden-Württemberg; bei Therapieresistenz Augmentation (z. B. Lithium) oder Kombinationstherapie nach fachpsychiatrischer Beurteilung',
+            ],
+        },
         ],
         erstmassnahmen: [
           'Aktive, direkte und einfühlsame Einschätzung der Suizidalität (Gedanken, Plan, Absicht, Vorbereitungen, Absprachefähigkeit)',
@@ -3353,6 +3359,13 @@ export function seedCases(): Case[] {
             'Pleurapunktion bei relevantem Pleuraerguss oder Empyem',
             ],
           },
+          {
+            label: 'Bei Komplikationen',
+            items: [
+              'Operative Sanierung (Dekortikation, videoassistierte Thorakoskopie/VATS) bei gekammertem, chronischem Pleuraempyem',
+              'Operative Ausräumung eines konservativ/interventionell nicht beherrschbaren Lungenabszesses',
+            ],
+        },
         ],
         erstmassnahmen: [
           'Sauerstoffgabe',
@@ -4375,6 +4388,13 @@ export function seedCases(): Case[] {
             ],
             akut: true,
           },
+          {
+            label: 'Alternativen (KI / Schwangerschaft)',
+            items: [
+              'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis die Reizleitungsstörung unter Antibiose reversibel ist.',
+              'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
+            ],
+        },
           {
             label: 'Neuroborreliose / schwerer Verlauf',
             items: [
@@ -10092,7 +10112,7 @@ export function seedCases(): Case[] {
             ],
           },
           {
-            label: 'Medikamentöse Anfallsprophylaxe',
+            label: 'Medikamentöse Prophylaxe',
             items: [
               'Indikation ist bei dieser Patientin klar gegeben: drei bis vier Attacken pro Monat, hoher Leidensdruck mit beruflicher und familiärer Beeinträchtigung, unzureichendes Ansprechen der Akutmedikation und eine grenzwertige Einnahmefrequenz von acht bis zehn Tagen pro Monat',
               'Mittel der ersten Wahl: Betablocker Metoprololsuccinat 50 bis 200 mg täglich oder Propranolol 40 bis 240 mg täglich, einschleichend dosiert — bei ihr gut geeignet, da weder Asthma noch Bradykardie noch Hypotonie vorliegen',
@@ -14473,7 +14493,7 @@ export function seedCases(): Case[] {
             ],
           },
           {
-            label: 'Sonderfälle, Begleitbehandlung und Beratung',
+            label: 'Sonderfälle, assoziierte Erkrankungen und Beratung',
             items: [
               'SCHWANGERSCHAFT: Der Levothyroxinbedarf steigt um etwa 25 bis 50 %; die Dosis wird bei bestätigter Schwangerschaft sofort erhöht und das TSH alle vier bis sechs Wochen kontrolliert, da die kindliche Hirnentwicklung im ersten Trimenon vollständig vom mütterlichen Thyroxin abhängt. Die Patientin ist ausdrücklich aufzufordern, sich bei Kinderwunsch oder Schwangerschaft sofort vorzustellen',
               'LATENTE (subklinische) Hypothyreose: Behandlungsindikation abwägen — behandelt wird bei TSH über 10 mU/l, bei Beschwerden, bei positiven TPO-Antikörpern mit Progressionsrisiko, bei Kinderwunsch, in der Schwangerschaft und bei kardiovaskulärem Risiko; sonst genügen Kontrollen alle sechs bis zwölf Monate',
@@ -18252,7 +18272,7 @@ export function seedCases(): Case[] {
         ],
         therapie: [
           {
-            label: 'Sofortiger Beginn der antiviralen Therapie im 72-Stunden-Zeitfenster',
+            label: 'Antivirale Therapie und ihr Zeitfenster',
             akut: true,
             items: [
               'Beginn noch heute, da die Bläschen erst seit 48 Stunden bestehen; Indikation bei dieser Patientin klar gegeben durch Alter über 50 Jahre und die Glukokortikoid-Dauertherapie',
@@ -18285,7 +18305,7 @@ export function seedCases(): Case[] {
             ],
           },
           {
-            label: 'Sonderfälle, Versorgung und Prävention',
+            label: 'Sonderfälle, stationäre Indikation und Prävention',
             items: [
               'Sofortige augenärztliche Vorstellung, falls Bläschen im Gesicht, an der Nasenspitze oder am Auge auftreten (Hutchinson-Zeichen, Zoster ophthalmicus), sofortige HNO-Vorstellung bei Ohrbeteiligung oder Gesichtslähmung',
               'Stationäre Aufnahme mit intravenösem Aciclovir wäre bei Streubefall, ZNS-Symptomen, nicht beherrschbaren Schmerzen oder ausgeprägter Immunsuppression erforderlich — derzeit nicht gegeben, ambulante Behandlung möglich',
@@ -18779,7 +18799,7 @@ export function seedCases(): Case[] {
         ],
         therapie: [
           {
-            label: 'Akutversorgung der frischen Wirbelkörperfraktur',
+            label: 'Akutbehandlung der frischen Wirbelkörperfraktur',
             akut: true,
             items: [
               'ausreichende, feste Analgesie nach dem WHO-Stufenschema: Metamizol als Basis, NSAR nur zurückhaltend und zeitlich begrenzt — bei diesem Patienten Cave Nierenfunktion und Magen wegen der Glukokortikoiddauertherapie, deshalb obligat ein Protonenpumpenhemmer; bei stärksten Schmerzen kurzfristig ein niederpotentes Opioid wie Tilidin/Naloxon',
@@ -18792,7 +18812,7 @@ export function seedCases(): Case[] {
             ],
           },
           {
-            label: 'Basistherapie für jeden Osteoporosepatienten',
+            label: 'Basistherapie für jeden Patienten',
             items: [
               'Kalziumzufuhr von insgesamt etwa 1000 mg täglich, vorrangig über die Ernährung (Milchprodukte, kalziumreiches Mineralwasser, grünes Gemüse); nur bei unzureichender Zufuhr — wie bei diesem Patienten, der kaum Milchprodukte isst — als Supplement',
               'Vitamin D 800 bis 1000 Internationale Einheiten täglich, dazu regelmäßige Sonnenlichtexposition',
@@ -22141,7 +22161,7 @@ export function seedCases(): Case[] {
             akut: true,
           },
           {
-            label: 'Remissionserhaltung — ausdrücklich OHNE Kortikosteroide',
+            label: 'Remissionserhaltung — Kortikosteroide gehören ausdrücklich NICHT dazu',
             items: [
               'Glukokortikoide sind zur Remissionserhaltung NICHT geeignet und ausdrücklich nicht indiziert — sie verhindern keine Rezidive und verursachen Osteoporose, Diabetes, Katarakt und Infektionen',
               'Thiopurine: Azathioprin 2 bis 2,5 mg pro Kilogramm Körpergewicht täglich oder 6-Mercaptopurin; Wirkungseintritt erst nach acht bis zwölf Wochen, daher überlappender Beginn — vorher Thiopurin-Methyltransferase-Status bestimmen, regelmäßige Kontrolle von Blutbild und Leberwerten (Myelosuppression, Pankreatitis, Lymphomrisiko)',
@@ -24306,7 +24326,7 @@ export function seedCases(): Case[] {
             akut: true,
           },
           {
-            label: 'Antivirale Therapie im Verlauf und bei Chronifizierung',
+            label: 'Antivirale Therapie der chronischen Verlaufsformen',
             items: [
               'Eine antivirale Therapie der akuten Hepatitis B ist nur bei schwerem oder fulminantem Verlauf indiziert — dann Entecavir oder Tenofovir',
               'Kontrolle des HBsAg nach sechs Monaten: Verschwindet es und tritt Anti-HBs auf, ist die Infektion ausgeheilt; persistiert es über sechs Monate, liegt eine chronische Hepatitis B vor',
