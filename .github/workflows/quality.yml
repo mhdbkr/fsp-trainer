@@ -46,6 +46,8 @@ jobs:
         run: node scripts/checkGuideCoverage.mjs
       - name: Sections thérapeutiques identiques fiche ↔ cas
         run: node scripts/checkTherapieLabels.mjs
+      - name: Conflits allergie ↔ thérapie
+        run: node scripts/checkAllergyConflicts.mjs
 
       # Informatifs : ils signalent des faiblesses de contenu (DD non
       # neutralisées, recouvrements de sondes) sans bloquer la livraison.
