@@ -784,7 +784,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die psychoonkologische bzw. psychologische Unterstützung des Patienten, eine einfühlsame Aufklärung sowie eine begleitende Ernährungsberatung.',
         },
       ],
-      merksatz: 'Merke: Jede neu aufgetretene Dyspepsie mit Alarmsymptomen — Gewichtsverlust, Dysphagie, Anämie/Meläna, Fleischabneigung — ab dem 45. Lebensjahr gehört zur ÖGD mit Biopsie; sie ist der Goldstandard zur Sicherung des Magenkarzinoms.',
+      merksatz: 'Neue Dyspepsie mit Alarmsymptomen (Gewichtsverlust, Dysphagie, Anämie/Meläna) ab dem 45. Lebensjahr: ÖGD mit Biopsie — der Goldstandard zur Sicherung des Magenkarzinoms.',
       linkedCaseIds: [
         'case-magenkarzinom',
       ],
@@ -1004,7 +1004,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Durch die Bildgebung – Sonographie und gegebenenfalls CT –, die die entzündeten Darmwandabschnitte lokalisiert; die Divertikulitis betrifft meist das linksseitige Sigma.',
         },
       ],
-      merksatz: 'Merke: Wandernder Schmerz von periumbilikal in den rechten Unterbauch mit McBurney-Druckschmerz und Loslassschmerz = Appendizitis bis zum Beweis des Gegenteils – bei Frauen immer β-hCG, und die plötzliche Schmerzlinderung ist keine Besserung, sondern das Perforationszeichen.',
+      merksatz: 'Wandernder Schmerz in den rechten Unterbauch mit McBurney- und Loslassschmerz = Appendizitis; bei Frauen immer β-hCG — plötzliche Schmerzlinderung ist das Perforationszeichen.',
       linkedCaseIds: [
         'case-appendizitis',
       ],
@@ -1436,7 +1436,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein schlecht eingestellter Diabetes schwächt die Immunabwehr; ein erhöhter HbA1c erklärt die Infektanfälligkeit und die erhöhte Komplikationsneigung der Pneumonie.',
         },
       ],
-      merksatz: 'Merke: Bei der CAP immer den Typ begründen ("ambulant erworben, keine Hospitalisierung") und den Schweregrad mit CURB-65 abschätzen; Blut- und Sputumkultur vor der kalkulierten Antibiose abnehmen — bei Penicillinallergie ambulant ein Makrolid, stationär ein respiratorisches Fluorchinolon wählen.',
+      merksatz: 'CAP: Schweregrad mit CURB-65, Blut- und Sputumkultur VOR der kalkulierten Antibiose. Bei Penicillinallergie ambulant Makrolid, stationär respiratorisches Fluorchinolon.',
       linkedCaseIds: [
         'case-pneumonie',
       ],
@@ -1631,7 +1631,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Analgesie mit Paracetamol oder Metamizol — hier CAVE Metamizolallergie (Novalgin), daher Paracetamol — und als Spasmolytikum Butylscopolamin (Buscopan).',
         },
       ],
-      merksatz: 'Fieber + Flankenschmerz + klopfschmerzhaftes Nierenlager = obere Harnwegsinfektion (Pyelonephritis): IMMER Mittelstrahl-Urinkultur VOR der ersten Antibiotikagabe, dann kalkuliert Ceftriaxon oder Ciprofloxacin — und bei Harnstau mit Fieber sofort entlasten.',
+      merksatz: 'Fieber + Flankenschmerz + klopfschmerzhaftes Nierenlager = Pyelonephritis: Urinkultur VOR der ersten Antibiotikagabe, dann Ceftriaxon oder Ciprofloxacin — Harnstau mit Fieber sofort entlasten.',
       linkedCaseIds: [
         'case-pyelonephritis',
       ],
@@ -1848,7 +1848,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein chronischer Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias aus beidseitiger (gluteal-/oberschenkelbetonter) Claudicatio, fehlenden Leistenpulsen und erektiler Dysfunktion.',
         },
       ],
-      merksatz: 'Merke: Claudicatio intermittens + kühles, pulsloses Bein = pAVK — der ABI (< 0,9) sichert die Diagnose. Rauchstopp und Gehtraining sind die Basis; die pAVK ist ein Warnzeichen für Herzinfarkt und Schlaganfall, daher immer ASS und Statin.',
+      merksatz: 'Claudicatio + kühles, pulsloses Bein = pAVK, ABI < 0,9 sichert die Diagnose. Basis: Rauchstopp und Gehtraining — und immer ASS und Statin, denn die pAVK warnt vor Herzinfarkt und Schlaganfall.',
       linkedCaseIds: [
         'case-pavk',
       ],
@@ -2039,7 +2039,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich entferne die Zecke mechanisch mit einer Pinzette hautnah, ohne sie zu quetschen. Nach einem reinen Zeckenstich ohne Symptome gebe ich keine routinemäßige Antibiotikaprophylaxe, sondern beobachte die Stichstelle — bei Auftreten einer Rötung soll sich die Patientin wieder vorstellen.',
         },
       ],
-      merksatz: 'Merke: Erythema migrans nach Zeckenstich ist eine Blickdiagnose — im Stadium I klinisch mit Doxycyclin behandeln (keine Serologie nötig); bei Neuroborreliose Lumbalpunktion und Ceftriaxon i.v. FSME = Virus + Impfung, Lyme = Bakterium + Antibiotikum. Serologie immer zweistufig: ELISA, dann Immunoblot.',
+      merksatz: 'Erythema migrans ist eine Blickdiagnose: Stadium I ohne Serologie mit Doxycyclin; Neuroborreliose = Lumbalpunktion + Ceftriaxon i.v. Serologie immer zweistufig: ELISA, dann Immunoblot.',
       linkedCaseIds: [
         'case-lyme',
       ],
@@ -2239,7 +2239,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil der Patient bei einer Ruhigstellung immobilisiert ist und ein hohes Thromboserisiko hat. Bei einer Gerinnungsstörung wie dem Faktor-V-Leiden muss die Thromboseprophylaxe konsequent gesichert sein — bei diesem Patienten ist sie durch das therapeutisch dosierte Rivaroxaban bereits abgedeckt, niedermolekulares Heparin nur im perioperativen Pausierungsfenster, und ich frage gezielt nach einer früheren Thrombose.',
         },
       ],
-      merksatz: 'Merke: Nach jedem Umknicktrauma DMS prüfen und dokumentieren, Ottawa Ankle Rules anwenden und Röntgen OSG in zwei Ebenen — Weber A meist konservativ (Gips/Orthese), Weber B/C operativ (Osteosynthese ± Syndesmose); bei Immobilisation immer an die Thromboseprophylaxe denken.',
+      merksatz: 'Nach Umknicktrauma DMS dokumentieren, Ottawa Ankle Rules, Röntgen OSG in zwei Ebenen: Weber A konservativ, Weber B/C operativ — bei Immobilisation Thromboseprophylaxe.',
       linkedCaseIds: [
         'case-osg-fraktur',
       ],
@@ -2759,7 +2759,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Nachts sinken die Temperatur im peripheren Gewebe und der Flüssigkeitsgehalt des Gelenks. Dadurch nimmt die Löslichkeit der Harnsäure ab und Natriumuratkristalle fallen aus — deshalb ist das kühle, periphere Großzehengrundgelenk der klassische Erstmanifestationsort.',
         },
       ],
-      merksatz: 'Podagra nachts nach Bier und Braten = Gicht — aber eine normale Harnsäure schließt sie NIE aus, und ohne Gelenkpunktion ist die septische Arthritis nicht ausgeschlossen. Im Anfall NSAR, Colchicin oder Kortikosteroide; Allopurinol erst zwei Wochen später, einschleichend und unter Colchicin-Schutz.',
+      merksatz: 'Podagra = Gicht, aber normale Harnsäure schließt sie NIE aus; ohne Gelenkpunktion ist die septische Arthritis nicht ausgeschlossen. Allopurinol erst zwei Wochen nach dem Anfall.',
       linkedCaseIds: [
         'case-gicht',
       ],
@@ -3047,7 +3047,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Sehr variabel. Günstig sind weibliches Geschlecht, junges Alter, sensible oder Optikusneuritis-Erstmanifestation und vollständige Remission des ersten Schubes; ungünstig sind motorische oder zerebelläre Erstsymptome, hohe frühe Schubrate und ein primär progredienter Verlauf. Die Lebenserwartung ist nur wenig verkürzt.',
         },
       ],
-      merksatz: 'Multiple Sklerose = Dissemination in ORT und ZEIT: Bei jedem jungen Erwachsenen mit neurologischem Defizit aktiv nach früheren, spontan abgeklungenen Episoden fragen (Sehstörung!). Merke: Uhthoff bei Wärme = Pseudoschub (kein Kortison), Lhermitte beim Kopfbeugen = zervikale Läsion.',
+      merksatz: 'MS = Dissemination in ORT und ZEIT: beim jungen Erwachsenen nach früheren, abgeklungenen Episoden fragen (Sehstörung!). Uhthoff bei Wärme = Pseudoschub, kein Kortison.',
       linkedCaseIds: [
         'case-multiple-sklerose',
       ],
@@ -4349,7 +4349,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil die alleinige Blutzuckersenkung vor allem die Mikroangiopathie verhindert, die Patienten aber überwiegend an der Makroangiopathie versterben. Erst die gleichzeitige Behandlung von Blutdruck, Lipiden, Gewicht und Nikotin senkt die kardiovaskuläre Ereignisrate deutlich — die Steno-2-Studie zeigte für dieses multifaktorielle Vorgehen etwa eine Halbierung der Ereignisse.',
         },
       ],
-      merksatz: 'Polyurie, Polydipsie und Müdigkeit beim übergewichtigen Patienten mittleren Alters — aber viel häufiger ist der Zufallsbefund: einmal Zucker messen kostet nichts. Diagnose mit Zahlen (Nüchtern ≥ 126, HbA1c ≥ 6,5 %, oGTT ≥ 200, Gelegenheit ≥ 200 plus Symptome), bei Erstdiagnose SOFORT Augen, Nieren und Füße screenen, und behandelt wird nicht der Zucker allein, sondern Lebensstil, Zucker, Blutdruck, Lipide und Nikotin gemeinsam.',
+      merksatz: 'Diabetes mit Zahlen: Nüchtern ≥ 126, HbA1c ≥ 6,5 %, oGTT ≥ 200, Gelegenheit ≥ 200 plus Symptome — bei Erstdiagnose SOFORT Augen, Nieren und Füße screenen.',
       linkedCaseIds: [
         'case-diabetes',
       ],
@@ -4736,7 +4736,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die Agranulozytose. Deshalb Blutbild vor Therapiebeginn und in den ersten Wochen sowie die klare Anweisung an den Patienten, bei Fieber, Halsschmerzen oder Mundgeschwüren das Medikament sofort abzusetzen und sich umgehend vorzustellen. Daneben sind Leberwerterhöhungen, Exanthem und Geschmacksstörungen zu beachten.',
         },
       ],
-      merksatz: 'Merke: TSH zuerst — supprimiertes TSH plus erhöhtes fT3/fT4 ist die Hyperthyreose, TRAK positiv plus Merseburger Trias (Struma, Tachykardie, Exophthalmus) ist der Basedow. Der Patient nimmt AB, obwohl er MEHR isst; die Szintigraphie kommt VOR der Punktion (heiß = harmlos, kalt = klärungsbedürftig); und unter Thiamazol gilt: Fieber und Halsschmerzen bedeuten Blutbild — Agranulozytose.',
+      merksatz: 'TSH zuerst: supprimiert plus fT3/fT4 erhöht = Hyperthyreose, TRAK positiv plus Merseburger Trias = Basedow. Unter Thiamazol: Fieber und Halsschmerzen = Blutbild, Agranulozytose!',
       linkedCaseIds: [
         'case-hyperthyreose',
       ],
@@ -5128,7 +5128,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Das muss man aktiv erfragen. Husten und Auswurf können seit Jahren unverändert bestehen; erst wenn Dyspnoe, Sputummenge oder Sputumpurulenz akut zunehmen, also die Anthonisen-Kriterien erfüllt sind, liegt eine Exazerbation vor. Unveränderte chronische Symptome bedeuten keine akute Verschlechterung.',
         },
       ],
-      merksatz: 'COPD = AHA (Auswurf, Husten, Atemnot) beim Raucher, bewiesen durch FEV1/FVC < 0,7 NACH Bronchospasmolyse — nur teilreversibel, das trennt sie vom Asthma. Sauerstoff nur bis 88–92 % Sättigung, ICS nur bei Exazerbationen mit Eosinophilie, und lebensverlängernd sind allein Rauchstopp, Langzeit-Sauerstoff und NIV.',
+      merksatz: 'COPD = AHA beim Raucher, bewiesen durch FEV1/FVC < 0,7 NACH Bronchospasmolyse — nur teilreversibel. Sauerstoff nur bis 88–92 %; lebensverlängernd sind allein Rauchstopp, Langzeit-Sauerstoff und NIV.',
       linkedCaseIds: [
         'case-copd',
       ],
@@ -5470,7 +5470,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Zuerst Verhaltensmaßnahmen: viel trinken, nach dem Geschlechtsverkehr Wasser lassen, keine Spermizide, keine Scheidenspülungen. Dann nichtantibiotische Prophylaxe mit D-Mannose oder Immunstimulation, postmenopausal lokale Östrogene; eine antibiotische Langzeitprophylaxe erst als letzte Option. Außerdem urologische Abklärung und Ausschluss eines Diabetes mellitus.',
         },
       ],
-      merksatz: 'Brennen, häufig, wenig — aber kein Fieber und keine Flanke: das ist die Zystitis. Bei der jungen, nicht schwangeren Frau reichen Anamnese und Urinstix, die Urinkultur bleibt dem komplizierten Infekt vorbehalten, und behandelt wird kurz: Fosfomycin einmalig oder Nitrofurantoin fünf Tage — niemals primär ein Fluorchinolon.',
+      merksatz: 'Zystitis = Brennen ohne Fieber und Flanke: bei der jungen, nicht schwangeren Frau reichen Anamnese und Urinstix. Fosfomycin einmalig oder Nitrofurantoin fünf Tage — nie primär ein Fluorchinolon.',
       linkedCaseIds: [
         'case-zystitis',
       ],
@@ -5909,7 +5909,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich benenne die Angst zuerst und nehme sie ernst, statt sie mit einer Floskel abzutun. Dann begründe ich sachlich: Die Untersuchung des Nervensystems und des Augenhintergrunds ist unauffällig, die Beschwerden bestehen seit Jahren in unverändertem Muster und dazwischen ist der Patient völlig beschwerdefrei — beides wäre bei einem Tumor untypisch, denn dort nehmen die Schmerzen stetig zu, wecken nachts auf und gehen mit weiteren Ausfällen einher. Anschließend erkläre ich das weitere Vorgehen und wann eine Bildgebung doch notwendig würde.',
         },
       ],
-      merksatz: 'Migräne = anfallsartig 4 bis 72 Stunden, einseitig, pulsierend, bewegungsverstärkt, mit Übelkeit oder Licht- UND Lärmscheu, dazwischen völlig beschwerdefrei und neurologisch UNAUFFÄLLIG — die Diagnose stellt man am Bett, nicht im MRT. Bildgebung nur bei SNOOP-Red-Flags. Akut: Metoclopramid zuerst, dann NSAR oder Triptan (nie in der Aura). Ab drei Attacken pro Monat Prophylaxe mit Betablocker, Amitriptylin oder Topiramat — und immer der Kopfschmerzkalender mit der 10-/15-Tage-Regel.',
+      merksatz: 'Migräne: 4–72 Stunden, einseitig, dazwischen neurologisch UNAUFFÄLLIG — Diagnose am Bett, Bildgebung nur bei SNOOP-Red-Flags. Akut Metoclopramid, dann NSAR oder Triptan (nie in der Aura).',
       linkedCaseIds: [
         'case-migraene',
       ],
@@ -6309,7 +6309,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die jährliche Influenzaimpfung, die Pneumokokkenimpfung und die COVID-19-Impfung, da Atemwegsinfekte der häufigste Auslöser von Exazerbationen sind; ergänzend die Auffrischung gegen Pertussis.',
         },
       ],
-      merksatz: 'Merke: Asthma ist die VARIABLE und REVERSIBLE Obstruktion — anfallsweise Luftnot mit exspiratorischem Giemen, nachts und nach Trigger, dazwischen beschwerdefrei; bewiesen durch FEV1 + ≥ 12 % UND ≥ 200 ml nach Bronchodilatator (COPD: FEV1/FVC bleibt < 0,7). Und therapeutisch gilt: KEIN Asthma ohne inhalatives Kortison — die reine SABA-Bedarfstherapie ist obsolet.',
+      merksatz: 'Asthma = VARIABLE, REVERSIBLE Obstruktion: FEV1 + ≥ 12 % UND ≥ 200 ml nach Bronchodilatator (COPD: FEV1/FVC bleibt < 0,7). KEIN Asthma ohne inhalatives Kortison — reine SABA-Therapie ist obsolet.',
       linkedCaseIds: [
         'case-asthma',
       ],
@@ -6708,7 +6708,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ernst: Die 5-Jahres-Mortalität der symptomatischen Herzinsuffizienz liegt bei etwa 50 %, im Stadium NYHA IV liegt die 1-Jahres-Mortalität bei bis zu 50 %. Häufigste Todesursachen sind das Pumpversagen und der plötzliche Herztod. Unter konsequenter Vierfachtherapie mit Auftitrierung, guter Therapietreue und Behandlung der Grunderkrankung lässt sich die Sterblichkeit jedoch deutlich senken.',
         },
       ],
-      merksatz: 'Treppe, Kissen, Nykturie, Waage — vier Fragen, die die Herzinsuffizienz entlarven. Echokardiographie sichert die Diagnose, das NT-proBNP schliesst sie aus. Behandelt wird auf vier Säulen: ACE-Hemmer bzw. ARNI, Betablocker, MRA und SGLT2-Inhibitor — das Diuretikum nimmt das Wasser, aber es verlängert kein Leben.',
+      merksatz: 'Echokardiographie sichert die Herzinsuffizienz, NT-proBNP schliesst sie aus. Vier Säulen: ACE-Hemmer/ARNI, Betablocker, MRA, SGLT2-Inhibitor — das Diuretikum verlängert kein Leben.',
       linkedCaseIds: [
         'case-herzinsuffizienz',
       ],
@@ -7082,7 +7082,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Der Bewegungsdrang ist typisch für die Kolik: die Dehnung des Hohlorgans lässt sich durch keine Körperhaltung lindern, deshalb wälzt sich der Patient und läuft umher. Bei einer Peritonitis ist es genau umgekehrt — dort liegen die Patienten völlig still mit angezogenen Beinen, weil jede Erschütterung schmerzt. Dieser Gegensatz ist ein sehr verlässliches klinisches Unterscheidungsmerkmal.',
         },
       ],
-      merksatz: 'Wellenförmiger Flankenschmerz mit Ausstrahlung in die Leiste und BEWEGUNGSDRANG — der Kolikpatient wälzt sich, der Peritonitispatient liegt still. Erst Sonographie, dann natives Low-Dose-CT ohne Kontrastmittel, denn Harnsäuresteine sind röntgennegativ. Und die goldene Regel: Fieber plus Harnstau ist keine Kolik mehr, sondern eine drohende Urosepsis — sofort ableiten mit DJ oder Nephrostomie, den Stein erst danach.',
+      merksatz: 'Kolikpatient wälzt sich, Peritonitispatient liegt still. Erst Sono, dann natives Low-Dose-CT. Fieber plus Harnstau ist keine Kolik, sondern drohende Urosepsis — sofort DJ oder Nephrostomie.',
       linkedCaseIds: [
         'case-nierenkolik',
       ],
@@ -7442,7 +7442,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In der Regel nicht — die unkomplizierte Tonsillitis wird ambulant behandelt. Stationär aufgenommen wird bei Peritonsillarabszess oder tiefer Halsinfektion, bei Trinkunfähigkeit mit Exsikkose, bei Sepsiszeichen, bei Atemwegsgefährdung, bei Verdacht auf Diphtherie oder Agranulozytose sowie bei relevanter Immunsuppression.',
         },
       ],
-      merksatz: 'Sieben bis acht von zehn Anginen sind viral — erst der Score, dann der Test, dann erst das Antibiotikum: Centor = Fieber über 38 °C, FEHLEN von Husten, druckschmerzhafte vordere Halslymphknoten, Tonsillenexsudat; McIsaac zusätzlich mit Alterskorrektur. Penicillin V ist Mittel der Wahl, bei Allergie ein Makrolid — und NIEMALS ein Aminopenicillin, solange eine Mononukleose möglich ist. Einseitig plus Kieferklemme plus Uvula-Deviation heißt Peritonsillarabszess und damit HNO-Notfall.',
+      merksatz: 'Erst Centor/McIsaac, dann Test, dann Antibiotikum: Penicillin V, bei Allergie Makrolid, NIE Aminopenicillin bei möglicher Mononukleose. Einseitig + Kieferklemme = Peritonsillarabszess.',
       linkedCaseIds: [
         'case-tonsillitis',
       ],
@@ -7813,7 +7813,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil man damit nur das Symptom behandelt. Ein niedriges Ferritin bedeutet, dass Eisen verloren geht oder fehlt — bei einem älteren Patienten meist durch eine chronische Blutung. Wer nur substituiert, normalisiert das Blutbild und übersieht möglicherweise über Monate ein kolorektales Karzinom.',
         },
       ],
-      merksatz: 'Eine Eisenmangelanämie ist kein Endpunkt, sondern eine Frage: WOHER kommt das Blut? Mikrozytär, hypochrom, Ferritin niedrig, Transferrin hoch — und bei Mann oder postmenopausaler Frau heißt das Gastroskopie UND Koloskopie, bevor die erste Eisentablette verordnet wird.',
+      merksatz: 'Eisenmangelanämie ist eine Frage: WOHER kommt das Blut? Bei Mann oder postmenopausaler Frau Gastroskopie UND Koloskopie, bevor die erste Eisentablette verordnet wird.',
       linkedCaseIds: [
         'case-anaemie',
       ],
@@ -8177,7 +8177,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Flecainid und Propafenon, also die Klasse-I-C-Antiarrhythmika; sie sind bei struktureller Herzerkrankung, koronarer Herzkrankheit und Herzinsuffizienz kontraindiziert. Dort wird Amiodaron eingesetzt — unter Kontrolle von Schilddrüse, Leber, Lunge und Augen.',
         },
       ],
-      merksatz: 'Kein P, unregelmäßig, Pulsdefizit — das ist Vorhofflimmern. Gefährlich ist nicht der Takt, sondern das Gerinnsel im linken Vorhofohr: erst antikoagulieren nach CHA2DS2-VASc (ASS zählt nicht!), dann Frequenz oder Rhythmus, dann die Ursache — TSH nicht vergessen, und über 48 Stunden nie ohne TEE kardiovertieren.',
+      merksatz: 'Vorhofflimmern: erst antikoagulieren nach CHA2DS2-VASc (ASS zählt nicht!), dann Frequenz oder Rhythmus, dann Ursache (TSH) — über 48 Stunden nie ohne TEE kardiovertieren.',
       linkedCaseIds: [
         'case-vorhofflimmern',
       ],
@@ -8521,7 +8521,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Abszedierung, Phlegmone, Nekrosen, Sepsis, chronisches Lymphödem bis zur Elephantiasis nostras, eine Poststreptokokken-Glomerulonephritis und beim Gesichtserysipel eine Sinus-cavernosus-Thrombose. Die schwerste Komplikation ist der Übergang in eine nekrotisierende Weichgewebeinfektion.',
         },
       ],
-      merksatz: 'Scharf begrenzt, flammend rot, zungenförmig und heiß, dazu Fieber mit Schüttelfrost — das ist die Wundrose. Erst die tiefe Beinvenenthrombose und die nekrotisierende Fasziitis ausschließen, dann Penicillin (bei Allergie Clindamycin), Bein hoch und Rand markieren — und immer zwischen die Zehen schauen: ohne Sanierung des Fußpilzes kommt das Rezidiv.',
+      merksatz: 'Scharf begrenzt, flammend rot, heiß, mit Fieber = Wundrose. Erst Beinvenenthrombose und nekrotisierende Fasziitis ausschließen, dann Penicillin; ohne Sanierung des Fußpilzes kommt das Rezidiv.',
       linkedCaseIds: [
         'case-erysipel',
       ],
@@ -8899,7 +8899,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Hypothyreose ist die Schilddrüsenunterfunktion: Die Schilddrüse bildet zu wenig Hormon, deshalb läuft der Stoffwechsel im ganzen Körper langsamer. Struma ist der Kropf, also eine vergrößerte Schilddrüse. Myxödem bezeichnet die teigige Hautschwellung bei einer Schilddrüsenunterfunktion, die sich im Gegensatz zu anderen Ödemen nicht eindrücken lässt.',
         },
       ],
-      merksatz: 'Müde, frierend, verstopft, heiser und langsam — das ist keine Depression, sondern erst einmal ein TSH. TSH hoch bei normalem fT4 = latent, TSH hoch bei niedrigem fT4 = manifest; TPO-Antikörper und die echoarme, inhomogene Schilddrüse sichern die Hashimoto-Thyreoiditis. Substituiert wird mit Levothyroxin nüchtern 30 Minuten vor dem Frühstück, mit Abstand zu Kalzium, Eisen und Protonenpumpenhemmern — bei Herzkranken einschleichend, Kontrolle nach sechs bis acht Wochen, in der Schwangerschaft 25 bis 50 % mehr.',
+      merksatz: 'Müde, frierend, verstopft = erst ein TSH. TSH hoch bei normalem fT4 = latent, bei niedrigem fT4 = manifest. Levothyroxin nüchtern 30 Minuten vor dem Frühstück, Kontrolle nach sechs bis acht Wochen.',
       linkedCaseIds: [
         'case-hypothyreose',
       ],
@@ -9287,7 +9287,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Der Shunt, meist eine Cimino-Fistel am Unterarm, wird drei bis sechs Monate vor dem erwarteten Dialysebeginn angelegt und muss ausreifen. Ab diesem Zeitpunkt gilt: am Shuntarm keine Blutentnahmen, keine Venenverweilkanülen und keine Blutdruckmessung. Außerdem wird frühzeitig gegen Hepatitis B geimpft, weil die Impfantwort mit fallender Nierenfunktion abnimmt.',
         },
       ],
-      merksatz: 'Nierenschaden oder GFR unter 60 — länger als DREI MONATE. Zwei Drittel sind Diabetes und Hypertonie. Lange stumm: erst Nykturie, schäumender Urin und Blässe, spät die Urämie. Albumin-Kreatinin-Quotient vor dem Kreatinin, kleine Nieren im Ultraschall beweisen chronisch. Therapie: Blutdruck, RAAS-Blockade, SGLT2-Hemmer — und die Patienten sterben am Herzen, nicht an der Niere.',
+      merksatz: 'GFR unter 60 länger als DREI MONATE: Albumin-Kreatinin-Quotient vor dem Kreatinin, kleine Nieren im Ultraschall beweisen chronisch — die Patienten sterben am Herzen, nicht an der Niere.',
       linkedCaseIds: [
         'case-niereninsuffizienz',
       ],
@@ -9671,7 +9671,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein Lymphom ist eine Erkrankung der Lymphknoten — das sind die kleinen Filterstationen unseres Abwehrsystems, die überall im Körper verteilt sind. Maligne heißt bösartig: Bestimmte Abwehrzellen vermehren sich unkontrolliert, dadurch schwellen die Lymphknoten an. Wichtig ist, dass gerade diese Erkrankung in den allermeisten Fällen heilbar ist.',
         },
       ],
-      merksatz: 'Schmerzlos, derb, nicht verschieblich und über Wochen wachsend — dazu B-Symptomatik (über 10 % Gewichtsverlust in sechs Monaten, Fieber über 38 °C ohne Fokus, Nachtschweiß mit Wäschewechsel), Juckreiz und Alkoholschmerz: das ist Hodgkin bis zum Beweis des Gegenteils. Beweis nur durch EXSTIRPATION des ganzen Lymphknotens (Sternberg-Reed-Zellen, CD30+/CD15+) — Feinnadelpunktion reicht nicht, Kortison vorher verboten. Stadium nach Ann Arbor, Therapie stadienadaptiert mit ABVD oder BEACOPP plus Involved-Site-Bestrahlung — und vor dem ersten Zyklus immer Echokardiographie, Lungenfunktion und Fertilitätsberatung.',
+      merksatz: 'Schmerzlos, derb plus B-Symptomatik = Hodgkin bis zum Beweis des Gegenteils. Beweis nur durch EXSTIRPATION des ganzen Lymphknotens — Feinnadelpunktion reicht nicht, Kortison vorher verboten.',
       linkedCaseIds: [
         'case-lymphom',
       ],
@@ -10035,7 +10035,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: '„In einer tiefen Vene Ihres Beins hat sich ein Blutgerinnsel gebildet. Ein Teil davon hat sich gelöst und ist mit dem Blut über das Herz in die Lunge gewandert, wo er jetzt ein Blutgefäß verstopft. Deshalb bekommen Sie schlecht Luft und es sticht beim Atmen. Wir geben Ihnen sofort ein Medikament, das das Blut verdünnt, damit sich das Gerinnsel nicht vergrößert und kein weiteres nachkommt.“',
         },
       ],
-      merksatz: 'Plötzliche Luftnot plus atemabhängiger Stichschmerz plus dicke Wade = Lungenembolie bis zum Beweis des Gegenteils. Erst den Wells-Score rechnen, dann entscheiden: niedrige Wahrscheinlichkeit — D-Dimer; hohe Wahrscheinlichkeit — sofort antikoagulieren und direkt ins CT. Lysiert wird nur der instabile Patient.',
+      merksatz: 'Plötzliche Luftnot + Stichschmerz + dicke Wade = Lungenembolie. Wells-Score: niedrig — D-Dimer; hoch — sofort antikoagulieren und direkt ins CT. Lysiert wird nur der instabile Patient.',
       linkedCaseIds: [
         'case-lungenembolie',
       ],
@@ -10358,7 +10358,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Etwa 10 bis 15 %. Deshalb beim nächsten positiven Schwangerschaftstest sehr früh eine transvaginale Sonographie zur Lagebestimmung, dazu konsequente Nikotinkarenz, Behandlung und Partnerbehandlung genitaler Infektionen sowie ein Chlamydienscreening. Nach Methotrexat ist mindestens drei Monate sicher zu verhüten.',
         },
       ],
-      merksatz: 'Amenorrhoe + einseitiger Unterbauchschmerz + Schmierblutung = Extrauteringravidität bis zum Beweis des Gegenteils — bei JEDER Frau im gebärfähigen Alter zuerst der Schwangerschaftstest. Leeres Cavum uteri bei β-hCG über der Diskriminationszone von 1500 bis 2000 IE/l beweist sie praktisch; Schulterschmerz und Schock heißen Ruptur und sofortige Laparoskopie. Rhesusfaktor bestimmen und Anti-D nicht vergessen.',
+      merksatz: 'Amenorrhoe + einseitiger Unterbauchschmerz + Schmierblutung = EUG: bei JEDER Frau im gebärfähigen Alter zuerst Schwangerschaftstest. Leeres Cavum bei β-hCG über 1500–2000 IE/l beweist sie praktisch.',
       linkedCaseIds: [
         'case-eug',
       ],
@@ -10701,7 +10701,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ja. Bei alten, immunsupprimierten und antibiotisch anbehandelten Patienten fehlen beide Zeichen häufig, und die Erkrankung zeigt sich nur als Verwirrtheit, Somnolenz oder Sturz. Beim Säugling fehlt der Meningismus regelhaft, stattdessen fallen Trinkschwäche, schrilles Schreien und eine gespannte Fontanelle auf.',
         },
       ],
-      merksatz: 'Fieber + Kopfschmerz + Meningismus = bakterielle Meningitis bis zum Beweis des Gegenteils: Blutkulturen abnehmen, dann Dexamethason und Antibiotikum innerhalb der ersten Stunde — die Lumbalpunktion folgt so schnell wie möglich, darf die Therapie aber nie verzögern.',
+      merksatz: 'Fieber + Kopfschmerz + Meningismus = bakterielle Meningitis: Blutkulturen, dann Dexamethason und Antibiotikum innerhalb der ersten Stunde — die Lumbalpunktion darf die Therapie nie verzögern.',
       linkedCaseIds: [
         'case-meningitis',
       ],
@@ -11060,7 +11060,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Über das erhöhte Serum-IgG4, das typische diffus wurstförmig vergrößerte Pankreas mit Halo im CT, weitere IgG4-assoziierte Manifestationen wie Sialadenitis oder Retroperitonealfibrose sowie das prompte Ansprechen auf Glukokortikoide. Sie ist der wichtigste benigne Imitator, darf aber die onkologische Abklärung nicht verzögern — im Zweifel wird histologisch gesichert oder reseziert.',
         },
       ],
-      merksatz: 'Schmerzloser Ikterus plus dunkler Urin, heller Stuhl und Juckreiz beim älteren Patienten = Pankreaskopfkarzinom bis zum Beweis des Gegenteils — Courvoisier positiv spricht gegen Steine; CA 19-9 nur zur Verlaufskontrolle, Sonographie zuerst, CT nach Pankreasprotokoll entscheidet über die Resektabilität, und vor jeder Intervention Quick und Vitamin K prüfen.',
+      merksatz: 'Schmerzloser Ikterus = Pankreaskopfkarzinom bis zum Beweis des Gegenteils; Courvoisier positiv spricht gegen Steine, CA 19-9 nur zur Verlaufskontrolle, CT entscheidet über die Resektabilität.',
       linkedCaseIds: [
         'case-pankreaskarzinom',
       ],
@@ -11376,7 +11376,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Im typischen Fall nicht, die Diagnose ist klinisch. Bei unklarem oder atypischem Befund mache ich eine VZV-PCR aus dem Bläschenabstrich. Vor der virostatischen Therapie bestimme ich Kreatinin und eGFR, bei Verdacht auf Superinfektion Blutbild und CRP.',
         },
       ],
-      merksatz: 'Einseitig, ein Dermatom, niemals über die Mittellinie — und der Schmerz kommt Tage vor dem Ausschlag. Virostatikum innerhalb von 72 Stunden plus konsequente Analgesie, sonst droht die postzosterische Neuralgie; der Bläscheninhalt macht bei Ungeschützten Windpocken, keine Gürtelrose.',
+      merksatz: 'Ein Dermatom, einseitig, nie über die Mittellinie — der Schmerz kommt Tage vor dem Ausschlag. Virostatikum innerhalb von 72 Stunden plus Analgesie, sonst droht die postzosterische Neuralgie.',
       linkedCaseIds: [
         'case-zoster',
       ],
@@ -11716,7 +11716,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: '„Ihre Knochen sind durch den Knochenschwund porös und brüchig geworden. Deshalb ist bei einer ganz alltäglichen Bewegung einer Ihrer Rückenwirbel in sich zusammengesackt — man nennt das einen Wirbelkörperbruch. Das Rückenmark ist dabei nicht betroffen, und der Bruch heilt in der Regel ohne Operation. Wichtig ist jetzt, dass wir die Schmerzen gut behandeln, damit Sie sich früh wieder bewegen können, und dass wir die Knochen mit Kalzium, Vitamin D, Bewegung und einem Medikament wieder stabiler machen.“',
         },
       ],
-      merksatz: 'Rückenschmerz nach Bagatelltrauma OHNE Sensibilitäts- oder Motorikstörung, dazu Größenverlust, Rundrücken und Tannenbaumphänomen — T-Wert ab −2,5 heißt Osteoporose, mit Fraktur manifest; behandelt wird mit Analgesie und FRÜHER Mobilisation, Kalzium, Vitamin D, Bewegung und Bisphosphonaten, und beim Mann wird immer eine sekundäre Ursache gesucht.',
+      merksatz: 'Rückenschmerz nach Bagatelltrauma mit Größenverlust: T-Wert ab −2,5 heißt Osteoporose, mit Fraktur manifest. Analgesie und FRÜHE Mobilisation — beim Mann immer sekundäre Ursache suchen.',
       linkedCaseIds: [
         'case-osteoporose',
       ],
@@ -12066,7 +12066,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'An eine kolovesikale Fistel als chronische Komplikation der Divertikulitis. Typisch sind Pneumaturie, Fäkalurie und rezidivierende Harnwegsinfekte mit Mischkeimen. Ich sichere den Befund mit einer CT des Abdomens und einer Zystoskopie; die Therapie ist die elektive operative Sanierung mit Resektion des betroffenen Darmabschnitts und Übernähung der Blase.',
         },
       ],
-      merksatz: 'Divertikulitis = „Linksappendizitis“: Schmerz im linken Unterbauch, Fieber, CRP hoch, walzenförmige Resistenz. Diagnostik akut per Sonographie und CT — die Koloskopie NIE im Schub, sondern erst nach 4–6 Wochen zum Karzinomausschluss. Unkompliziert wird konservativ behandelt (Antibiotikum nur bei Risikofaktoren), operiert wird notfallmäßig bei freier Perforation und elektiv bei Abszess, Stenose, Fistel oder Immunsuppression — nicht mehr stur ab dem zweiten Schub.',
+      merksatz: '„Linksappendizitis“: Diagnostik akut per Sonographie und CT — Koloskopie NIE im Schub, sondern erst nach 4–6 Wochen zum Karzinomausschluss. Notfall-OP nur bei freier Perforation.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -12437,7 +12437,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich würde in Ruhe und ohne Fachbegriffe sagen: „Bei der Darmspiegelung haben wir eine Geschwulst im Dickdarm gefunden und eine Gewebeprobe entnommen. Die Untersuchung hat gezeigt, dass es sich um eine bösartige Veränderung handelt, also um Dickdarmkrebs.“ Danach kläre ich über die weiteren Untersuchungen zur Ausbreitung auf, erkläre die geplante Operation und dass gegebenenfalls vorübergehend oder dauerhaft ein künstlicher Darmausgang nötig sein kann, und betone, dass die Behandlung im interdisziplinären Team geplant wird. Ich lasse Raum für Fragen und biete psychoonkologische Unterstützung an.',
         },
       ],
-      merksatz: 'Blut im Stuhl, veränderte Stuhlgewohnheiten und Gewichtsverlust jenseits des 50. Lebensjahres sind bis zum Beweis des Gegenteils ein Dickdarmkrebs — erst der Finger, dann die komplette Koloskopie mit Biopsie, dann das CT zum Staging. CEA nur als Verlaufsmarker. Rektum wird vorbestrahlt, Kolon wird operiert und im Stadium III adjuvant chemotherapiert. Und weil der Krebs aus dem Polypen entsteht, ist er der einzige Tumor, den man wegspiegeln kann, bevor er entsteht.',
+      merksatz: 'Blut im Stuhl, veränderte Stuhlgewohnheiten und Gewichtsverlust nach dem 50. Lebensjahr sind Dickdarmkrebs bis zum Beweis des Gegenteils — erst der Finger, dann die komplette Koloskopie mit Biopsie.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -12821,7 +12821,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich würde sagen: Der Muskelring am Übergang zwischen Speiseröhre und Magen schließt nicht mehr richtig, deshalb fließt saurer Magensaft zurück in die Speiseröhre und reizt dort die Schleimhaut. Das erklärt Ihr Sodbrennen und das saure Aufstoßen, besonders im Liegen und nach schweren Mahlzeiten. Die Erkrankung ist gutartig, kehrt aber ohne Änderung der Lebensgewohnheiten häufig zurück. Zur Untersuchung schlage ich eine Magenspiegelung vor, bei der wir mit einem dünnen, biegsamen Schlauch die Speiseröhre und den Magen von innen ansehen und kleine Gewebeproben entnehmen können.',
         },
       ],
-      merksatz: 'Sodbrennen und saures Aufstoßen, schlimmer im Liegen und nach spätem, fettem Essen = GERD — aber erst EKG und Troponin, damit kein Infarkt übersehen wird. Ohne Alarmsymptome genügen Lebensstil und ein PPI 30–60 Minuten vor dem Frühstück; mit Alarmsymptomen, nach dem 45. Lebensjahr oder bei Therapieversagen sofort die Magenspiegelung. Der Reflux wird durch die pH-Metrie bewiesen, die Endoskopie zeigt Los-Angeles-Grad und Barrett — und der Barrett ist die Präkanzerose des Adenokarzinoms.',
+      merksatz: 'Sodbrennen = GERD, aber erst EKG und Troponin. Ohne Alarmsymptome PPI 30–60 Minuten vor dem Frühstück; mit Alarmsymptomen, nach dem 45. Lebensjahr oder bei Therapieversagen sofort ÖGD.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -13219,7 +13219,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Dann behandele ich zunächst konservativ mit Antibiose, Volumentherapie und Analgesie und entlaste die Gallenblase durch eine perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle. Nach Stabilisierung des Patienten kann die Cholezystektomie elektiv nachgeholt werden; der Drainagekatheter wird frühestens nach etwa drei Wochen entfernt, wenn der Punktionskanal ausgereift ist.',
         },
       ],
-      merksatz: 'Dauerschmerz über 6 Stunden im rechten Oberbauch plus Fieber, CRP-Anstieg und positives Murphy-Zeichen — das ist keine Kolik mehr, sondern eine Cholezystitis. Sonographie ist die Methode der Wahl (nur 15 % der Steine sind röntgendicht), EKG und Lipase gehören trotzdem dazu. Therapie: Nahrungskarenz, Analgesie, Antibiose — und die frühe laparoskopische Cholezystektomie innerhalb von 24 Stunden. Bei Ikterus zuerst ERCP, dann Operation: therapeutisches Splitting.',
+      merksatz: 'Dauerschmerz über 6 Stunden rechts oben plus Fieber, CRP und Murphy = Cholezystitis, keine Kolik mehr. Laparoskopische Cholezystektomie innerhalb von 24 Stunden; bei Ikterus erst ERCP, dann OP.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -13605,7 +13605,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein Myokardinfarkt ohne den typischen Brustschmerz. Er tritt vor allem bei Diabetikern mit autonomer Neuropathie auf, außerdem bei sehr alten Patienten, bei Niereninsuffizienz und häufiger bei Frauen. Statt Schmerz zeigen sich dann nur Dyspnoe, Übelkeit, Schwäche, Synkope oder Verwirrtheit. Deshalb muss man bei diesen Patientengruppen großzügig ein EKG schreiben und das Troponin bestimmen.',
         },
       ],
-      merksatz: 'Anhaltender Vernichtungsschmerz über 20 Minuten mit Kaltschweiß und Todesangst = Infarkt bis zum Beweis des Gegenteils: EKG in 10 Minuten, Monitor, Oberarzt — beim STEMI sofort ins Katheterlabor, ohne auf das Troponin zu warten (Ziel: Ballon in unter 90 Minuten, Reperfusion innerhalb von 12 Stunden). Zeit ist Muskel. MONA-B, aber Sauerstoff nur unter 90 % Sättigung und kein Nitrat beim Hinterwand- und Rechtsherzinfarkt — und vor jeder Lyse an beiden Armen messen, um die Aortendissektion auszuschließen.',
+      merksatz: 'Vernichtungsschmerz über 20 Minuten = Infarkt: EKG in 10 Minuten, beim STEMI sofort ins Katheterlabor ohne auf das Troponin zu warten. Kein Nitrat beim Hinterwand- und Rechtsherzinfarkt.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -14006,7 +14006,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich würde ihr in einfachen Worten sagen: „Frau Sichel, Ihre Beschwerden beim Schlucken und die starke Gewichtsabnahme müssen wir dringend abklären. Dafür machen wir eine Magenspiegelung — dabei schauen wir mit einem dünnen, biegsamen Schlauch in die Speiseröhre und entnehmen kleine Gewebeproben. Wir haben den Verdacht auf eine Veränderung der Speiseröhrenschleimhaut; ob sie gutartig oder bösartig ist, kann uns erst die Gewebeuntersuchung sagen. Ich verspreche Ihnen, dass wir Sie schnell abklären und dass wir jedes Ergebnis in Ruhe mit Ihnen besprechen.“ Die Diagnose Krebs stelle ich nicht in den Raum, bevor die Histologie vorliegt, nehme ihre Angst aber ernst und biete psychoonkologische Unterstützung an.',
         },
       ],
-      merksatz: 'Progrediente Dysphagie fest → flüssig + ungewollter Gewichtsverlust + Rauchen und Alkohol = Ösophaguskarzinom bis zum Beweis des Gegenteils — sofort ÖGD MIT BIOPSIE, kein Breischluck, keine blinde Bougierung. Oben und mittig plus Tabak/Alkohol = Plattenepithel; unten plus Reflux/Barrett = Adeno. Heiserkeit heißt Rekurrens und damit fortgeschritten; und keine PEG, wenn der Magen noch als Speiseröhrenersatz gebraucht wird.',
+      merksatz: 'Progrediente Dysphagie fest → flüssig plus Gewichtsverlust = Ösophaguskarzinom bis zum Beweis des Gegenteils — sofort ÖGD MIT BIOPSIE, kein Breischluck, keine blinde Bougierung.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -14355,7 +14355,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Vorsteherdrüse. Die gutartige Vergrößerung der Vorsteherdrüse beziehungsweise das Prostataadenom; das Prostatakarzinom heißt umgangssprachlich Prostatakrebs.',
         },
       ],
-      merksatz: 'Beschwerden trennen: obstruktiv (Startverzögerung, schwacher Strahl, Nachträufeln) und irritativ (Pollakisurie, Drang, Nykturie) — objektivieren mit IPSS, tasten mit der DRU, aber PSA IMMER VOR der DRU abnehmen. Größe und Beschwerden korrelieren nicht, und die Symptome unterscheiden Adenom und Karzinom nicht: Alpha-Blocker wirken in Tagen, 5-Alpha-Reduktase-Hemmer in Monaten und halbieren das PSA; bei absoluter Indikation TUR-P — Cave TUR-Syndrom.',
+      merksatz: 'PSA IMMER VOR der DRU abnehmen. Größe und Beschwerden korrelieren nicht, die Symptome unterscheiden Adenom und Karzinom nicht — Alpha-Blocker wirken in Tagen, 5-Alpha-Reduktase-Hemmer in Monaten.',
       linkedCaseIds: [
         'case-bph',
       ],
@@ -14748,7 +14748,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil die pflegenden Angehörigen selbst mitbetroffen sind: Sie tragen die Hauptlast, sind überdurchschnittlich häufig von Erschöpfung, Depression und eigenen Erkrankungen betroffen. Ich kläre sie über den Verlauf auf, schule sie im Umgang mit dem Erkrankten, biete Entlastung durch Tages- und Kurzzeitpflege an und vermittle Selbsthilfegruppen und die Deutsche Alzheimer Gesellschaft. Eine tragfähige Angehörigenbetreuung ist der stärkste Faktor dafür, dass der Patient länger zu Hause bleiben kann.',
         },
       ],
-      merksatz: 'Merke: Demenz = schleichend bei KLAREM Bewusstsein — Delir = akut mit GETRÜBTEM, fluktuierendem Bewusstsein — Depression = der Patient klagt SELBST über sein Gedächtnis, beim Dementen tut es der Angehörige. Und vor jedem Antidementivum: Fremdanamnese, TSH, Vitamin B12, Folsäure und ein Bild vom Kopf.',
+      merksatz: 'Demenz = schleichend bei KLAREM Bewusstsein, Delir = akut mit GETRÜBTEM Bewusstsein, Depression = der Patient klagt SELBST. Vor jedem Antidementivum: TSH, B12, Folsäure und Bildgebung.',
       linkedCaseIds: [
         'case-demenz',
       ],
@@ -15504,7 +15504,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Über zehn Jahre strukturiert: Anamnese und klinische Untersuchung zunächst vierteljährlich, ab dem vierten Jahr halbjährlich bis jährlich, dazu die jährliche Mammographie. Ein apparatives Staging erfolgt nur bei Symptomen. Ergänzend Lymphödemprophylaxe, Osteoporose- und Nebenwirkungsmanagement, psychoonkologische Betreuung sowie Beratung zu Bewegung, Gewichtsreduktion und Alkoholkarenz.',
         },
       ],
-      merksatz: 'Ein derber, unverschieblicher und vor allem SCHMERZLOSER Knoten mit Hauteinziehung oder neuer Mamillenretraktion ist Brustkrebs, bis die Histologie das Gegenteil beweist — Diagnose nur durch die Triple-Diagnostik aus Klinik, Bildgebung und STANZBIOPSIE (nie Feinnadelaspiration), Therapie gesteuert durch Rezeptorstatus, HER2 und Ki-67; brusterhaltend heißt immer plus Bestrahlung, und der Sentinel-Lymphknoten erspart die Axilladissektion.',
+      merksatz: 'Derber, unverschieblicher, SCHMERZLOSER Knoten ist Brustkrebs, bis die Histologie das Gegenteil beweist — Diagnose nur per Triple-Diagnostik mit STANZBIOPSIE, nie Feinnadelaspiration.',
       linkedCaseIds: [
         'case-mammakarzinom',
       ],
@@ -15864,7 +15864,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Unbehandelt entwickeln bis zu 70 % der Patienten innerhalb von zwei Jahren Erosionen. Unter früher, konsequenter Basistherapie erreicht heute etwa die Hälfte eine Remission oder niedrige Krankheitsaktivität. Ungünstig sind hohe Anti-CCP- und Rheumafaktor-Titer, frühe Erosionen, hohe Aktivität und fortgesetztes Rauchen. Die Lebenserwartung ist vor allem kardiovaskulär um etwa drei bis zehn Jahre verkürzt.',
         },
       ],
-      merksatz: 'Symmetrisch, klein, Endgelenke frei und über eine Stunde morgens steif — das ist die rheumatoide Arthritis; Anti-CCP statt Rheumafaktor, Ultraschall statt Röntgen, und die Basistherapie sofort im „window of opportunity“: Methotrexat EINMAL pro Woche, Folsäure am Tag danach, Kortison nur als Brücke.',
+      merksatz: 'Symmetrisch, klein, Endgelenke frei, über eine Stunde Morgensteifigkeit = RA. Anti-CCP statt Rheumafaktor; Methotrexat EINMAL pro Woche, Folsäure am Tag danach, Kortison nur als Brücke.',
       linkedCaseIds: [
         'case-rheumatoide-arthritis',
       ],
@@ -16239,7 +16239,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Es gibt keine allgemeingültige Crohn-Diät. Empfohlen werden eine ausgewogene, hochkalorische und individuell verträgliche Kost, im Schub ballaststoffarme Schonkost, bei Stenosen faserarme Ernährung, ausreichende Flüssigkeitszufuhr sowie die gezielte Substitution von Eisen, Vitamin B12, Vitamin D, Folsäure und Zink. Bei Kindern und Jugendlichen ist die exklusive enterale Ernährungstherapie zur Schubbehandlung den Steroiden gleichwertig.',
         },
       ],
-      merksatz: 'Crohn = diskontinuierlich, transmural, vom Mund bis zum Anus, am liebsten terminales Ileum — daher Fisteln, Abszesse und Stenosen; Colitis ulcerosa = kontinuierlich vom Rektum, nur Mukosa, blutig-schleimig. Calprotectin trennt Entzündung vom Reizdarm, die Ileokoloskopie mit Stufenbiopsien beweist die Diagnose. Im Schub Budesonid oder Steroide — zur Remissionserhaltung NIEMALS Steroide, sondern Azathioprin, Methotrexat oder Biologika. Und immer: Rauchen aufhören, Vitamin B12 denken, impfen VOR der Immunsuppression, operieren heilt nicht.',
+      merksatz: 'Crohn = diskontinuierlich, transmural, Mund bis Anus; Colitis ulcerosa = kontinuierlich vom Rektum, nur Mukosa. Zur Remissionserhaltung NIEMALS Steroide, und impfen VOR der Immunsuppression.',
       linkedCaseIds: [
         'case-morbus-crohn',
       ],
@@ -16573,7 +16573,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil der Kleinfinger und die ulnare Hälfte des Ringfingers vom Nervus ulnaris versorgt werden, der nicht durch den Karpaltunnel, sondern durch die Guyon-Loge verläuft. Eine Beteiligung des Kleinfingers spricht deshalb gegen ein Karpaltunnelsyndrom und für ein Sulcus-ulnaris-Syndrom, eine untere Plexusläsion oder eine Polyneuropathie.',
         },
       ],
-      merksatz: 'Nachts einschlafende Hand, die den Patienten weckt und beim Ausschütteln besser wird, Daumen bis halber Ringfinger — Kleinfinger FREI: Karpaltunnelsyndrom. Diagnose klinisch mit Phalen, Hoffmann-Tinel und Durkan, bestätigt durch die Elektroneurographie; erst die nächtliche Schiene, bei Thenaratrophie sofort die Spaltung des Retinaculum flexorum. Und immer nach der sekundären Ursache fragen: Schwangerschaft, Schilddrüse, Zucker.',
+      merksatz: 'Nachts einschlafende Hand, Daumen bis halber Ringfinger, Kleinfinger FREI = Karpaltunnelsyndrom. Erst die nächtliche Schiene, bei Thenaratrophie sofort die Spaltung des Retinaculum flexorum.',
       linkedCaseIds: [
         'case-karpaltunnel',
       ],
@@ -16943,7 +16943,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In der Regel nicht. Die Panikstörung wird ambulant behandelt. Eine stationäre oder teilstationäre Behandlung ist indiziert bei akuter Suizidalität, bei schwerer komorbider Depression, bei so ausgeprägter agoraphober Einengung, dass der Patient das Haus nicht mehr verlässt und eine ambulante Therapie nicht durchführbar ist, sowie bei einem behandlungsbedürftigen Entzug.',
         },
       ],
-      merksatz: 'Attacke in Minuten am Gipfel, Todesangst, dann spontan vorbei — und dazwischen die Angst vor der Angst: Das ist eine Panikstörung. Erst EINMAL sauber ausschließen (EKG, Troponin, TSH, Blutzucker, Drogenscreening), dann NICHT mehr wiederholen. Therapie: Teufelskreis erklären und Exposition, SSRI langsam eindosieren, Benzodiazepine so gut wie nie.',
+      merksatz: 'Attacke in Minuten am Gipfel, spontan vorbei, dazwischen Angst vor der Angst = Panikstörung. Erst EINMAL ausschließen (EKG, Troponin, TSH, Blutzucker), dann NICHT wiederholen; Benzodiazepine so gut wie nie.',
       linkedCaseIds: [
         'case-panikstoerung',
       ],
@@ -17271,7 +17271,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ehrlich, aber ohne Vorwegnahme: Die Beschwerden können von einer gutartigen Vergrößerung kommen; es gibt jedoch Befunde, die abgeklärt werden müssen. Sicherheit gibt erst die Gewebeuntersuchung. Ich erkläre die nächsten Schritte, nehme die Angst und die Familiengeschichte ernst, biete einen zeitnahen Folgetermin und die Anwesenheit einer Vertrauensperson an.',
         },
       ],
-      merksatz: 'Peripherie tastbar, Transitionalzone obstruktiv: Wer Symptome hat, ist meist schon fortgeschritten — PSA IMMER vor der rektalen Untersuchung, mpMRT vor der Biopsie, Gleason und ISUP aus der Histologie; Therapie risikoadaptiert von Active Surveillance über Prostatektomie oder Bestrahlung bis zur Androgendeprivation, und Knochenschmerz plus Beinschwäche heißt Rückenmarkkompression — Notfall.',
+      merksatz: 'PSA IMMER vor der rektalen Untersuchung, mpMRT vor der Biopsie, Gleason aus der Histologie. Knochenschmerz plus Beinschwäche heißt Rückenmarkkompression — Notfall.',
       linkedCaseIds: [
         'case-prostatakarzinom',
       ],
@@ -17615,7 +17615,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Hepatitis ist eine Leberentzündung. Ikterus ist die Gelbsucht, also eine Gelbfärbung von Haut und Augen durch die Ablagerung von Gallenfarbstoff. Cholestase bedeutet Gallestauung, und eine Cholangitis ist eine Entzündung der Gallenwege.',
         },
       ],
-      merksatz: 'Gelbe Skleren, dunkler Urin, heller Stuhl — und bei Rauchern der plötzliche Widerwille gegen Zigaretten: das ist die akute Virushepatitis. A und E fäkal-oral, B, C und D über Blut, Sex und Geburt; Impfung gegen A und B, keine gegen C. HBsAg = Infektion, Anti-HBs = Immunität, Anti-HBc = Kontakt, HBeAg und HBV-DNA = Ansteckungsgefahr. Über die Prognose entscheidet nicht die Höhe der Transaminasen, sondern der Quick-Wert.',
+      merksatz: 'HBsAg = Infektion, Anti-HBs = Immunität, Anti-HBc = Kontakt, HBeAg und HBV-DNA = Ansteckungsgefahr. Über die Prognose entscheidet nicht die Höhe der Transaminasen, sondern der Quick-Wert.',
       linkedCaseIds: [
         'case-hepatitis-b',
       ],
@@ -18017,7 +18017,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Metoclopramid ist ein Dopaminrezeptorantagonist und passiert die Blut-Hirn-Schranke; es verschlechtert die Motorik und kann selbst ein Parkinson-Syndrom auslösen. Gegen Übelkeit unter dopaminerger Therapie gebe ich stattdessen Domperidon, das die Blut-Hirn-Schranke praktisch nicht überwindet.',
         },
       ],
-      merksatz: 'Bradykinese ist Pflicht, dazu Rigor mit Zahnrad ODER ein 4–6-Hz-Ruhetremor, der bei Zielbewegung besser wird — und immer EINSEITIG betont. Posturale Instabilität kommt spät; früh sind Hyposmie, Traumausagieren, Obstipation und Depression. Immer nach Neuroleptika und Metoclopramid fragen, L-Dopa niemals abrupt absetzen, und bei Psychose nur Quetiapin oder Clozapin.',
+      merksatz: 'Bradykinese ist Pflicht, dazu Rigor ODER 4–6-Hz-Ruhetremor, immer EINSEITIG betont. Immer nach Neuroleptika und Metoclopramid fragen, L-Dopa niemals abrupt absetzen, bei Psychose nur Quetiapin oder Clozapin.',
       linkedCaseIds: [
         'case-parkinson',
       ],
@@ -18416,7 +18416,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Zuerst endgradig die Flexion, im fortgeschrittenen Stadium auch die Extension mit Streckdefizit. Bei der Untersuchung achte ich auf Beinachse und Gangbild, Schwellung, Erguss mit tanzender Patella, Überwärmung, Gelenkspaltdruckschmerz, Krepitation, retropatellaren Verschiebeschmerz, Meniskuszeichen, Bandstabilität im Varus- und Valgusstress, die Baker-Zyste in der Kniekehle sowie Durchblutung, Motorik und Sensibilität — und ich untersuche immer auch die Hüfte.',
         },
       ],
-      merksatz: 'Anlaufschmerz, Morgensteifigkeit UNTER 30 Minuten und treppab schlimmer als treppauf = Gonarthrose. Röntgen in zwei Ebenen UNTER BELASTUNG mit den vier Zeichen Gelenkspaltverschmälerung, subchondraler Sklerose, Osteophyten und Geröllzysten; das Labor ist normal und dient nur der Differenzialdiagnose. Wirksamste Therapie sind Gewichtsreduktion und Bewegung — und die Prothese wird nach dem Leidensdruck indiziert, nicht nach dem Röntgenbild.',
+      merksatz: 'Anlaufschmerz, Morgensteifigkeit UNTER 30 Minuten, treppab schlimmer als treppauf = Gonarthrose. Röntgen UNTER BELASTUNG; die Prothese wird nach dem Leidensdruck indiziert, nicht nach dem Röntgenbild.',
       linkedCaseIds: [
         'case-gonarthrose',
       ],
@@ -18754,7 +18754,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Klinisch auf eine Nachblutung mit rasch zunehmender Halsschwellung und Atemnot, auf Heiserkeit als Hinweis auf eine Rekurrensparese und auf Zeichen der Hypokalzämie wie periorale Parästhesien, Muskelkrämpfe, positives Chvostek- und Trousseau-Zeichen. Laborchemisch kontrolliere ich Kalzium und Parathormon am ersten und zweiten postoperativen Tag und das TSH 6 bis 8 Wochen nach Beginn der Levothyroxin-Substitution; zusätzlich erfolgt eine laryngoskopische Kontrolle der Stimmbänder.',
         },
       ],
-      merksatz: 'Struma heißt nur GROSS, nicht über- oder unterfunktionierend — deshalb erst TSH, dann Sonographie, bei Knoten über 1 cm die Szintigraphie, und erst der KALTE Knoten wird punktiert. Alarmzeichen sind Heiserkeit, ein derber fixierter Knoten und Halslymphknoten; nach der Operation immer an Rekurrensparese und Hypoparathyreoidismus denken.',
+      merksatz: 'Struma heißt nur GROSS: erst TSH, dann Sonographie, bei Knoten über 1 cm Szintigraphie — nur der KALTE Knoten wird punktiert. Nach der OP an Rekurrensparese und Hypoparathyreoidismus denken.',
       linkedCaseIds: [
         'case-struma',
       ],
@@ -19114,7 +19114,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'An ein Nasopharynxkarzinom. Der einseitige, persistierende Paukenerguss des Erwachsenen ist so lange verdächtig, bis das Gegenteil bewiesen ist; deshalb muss eine Endoskopie des Nasenrachens mit Biopsie erfolgen, ergänzt durch eine Magnetresonanztomographie und die Palpation der Halslymphknoten.',
         },
       ],
-      merksatz: 'Nach dem Schnupfen pulsierender Ohrenschmerz mit Fieber und dumpfem Hören: Otoskopie zeigt das gerötete, VORGEWÖLBTE Trommelfell, Weber geht ins KRANKE Ohr und Rinne ist dort NEGATIV. Wichtigste Therapie ist der Schmerz — Ibuprofen und abschwellende Nasentropfen, Amoxicillin nur bei klarer Indikation. Läuft es plötzlich schmerzfrei aus dem Ohr, ist das Trommelfell perforiert; steht die Ohrmuschel ab und ist es hinter dem Ohr rot, ist es eine Mastoiditis.',
+      merksatz: 'Gerötetes, VORGEWÖLBTES Trommelfell, Weber ins KRANKE Ohr, Rinne dort NEGATIV = Otitis media. Wichtigste Therapie ist der Schmerz; Amoxicillin nur bei klarer Indikation. Abstehende Ohrmuschel = Mastoiditis.',
       linkedCaseIds: [
         'case-otitis-media',
       ],
@@ -19491,7 +19491,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Dass Verwachsungen nach jeder Bauchoperation neu entstehen können und dass ein erneuter Darmverschluss möglich ist. Ich erkläre die Warnzeichen — krampfartige Bauchschmerzen, Erbrechen und ausbleibender Wind- und Stuhlabgang — und bitte sie, sich dann sofort wieder vorzustellen.',
         },
       ],
-      merksatz: 'Kolik + Erbrechen + STUHL- UND WINDVERHALT + geblähter Bauch = Ileus. Hochgestellte, klingende Darmgeräusche sprechen für den mechanischen, Totenstille für den paralytischen Ileus. Immer nach VOROPERATIONEN fragen (Briden!) und die BRUCHPFORTEN untersuchen. Magensonde, Volumen, Elektrolyte, Laktat und CT — und sofort operieren bei Dauerschmerz, Peritonismus, Fieber, Laktatanstieg oder freier Luft.',
+      merksatz: 'Kolik + Erbrechen + STUHL- UND WINDVERHALT = Ileus: klingende Darmgeräusche mechanisch, Totenstille paralytisch. Immer nach VOROPERATIONEN fragen und BRUCHPFORTEN untersuchen; sofort OP bei Peritonismus oder freier Luft.',
       linkedCaseIds: [
         'case-ileus',
       ],
@@ -19850,7 +19850,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil er zu Stürzen führt. Beim älteren Patienten kann er sich als isolierte Stand- und Gangunsicherheit ohne klar berichteten Drehschwindel äußern und zu Schenkelhals- oder Radiusfrakturen führen. Deshalb gehören zur Behandlung immer eine Sturzprophylaxe, die Überprüfung sturzbegünstigender Medikamente und bei Osteoporose die Kontrolle von Vitamin D und Kalzium. Bei jedem Sturz des älteren Patienten ist umgekehrt nach Schwindel und nach einer kurzen Bewusstlosigkeit zu fragen.',
         },
       ],
-      merksatz: 'Sekunden statt Stunden, Lagewechsel statt Ruhe, kein Ohrsymptom und kein neurologischer Ausfall — das ist der benigne Lagerungsschwindel. Dix-Hallpike stellt die Diagnose (Latenz, rotierend-geotrop, erschöpflich), Epley heilt sie. Kein CT, keine Bettruhe, Antivertiginosa höchstens wenige Tage.',
+      merksatz: 'Sekunden statt Stunden, Lagewechsel statt Ruhe, kein Ohrsymptom, kein neurologischer Ausfall = benigner Lagerungsschwindel. Dix-Hallpike stellt die Diagnose, Epley heilt sie — kein CT, keine Bettruhe.',
       linkedCaseIds: [
         'case-lagerungsschwindel',
       ],
@@ -20614,7 +20614,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Klinisch über Beschwerdefreiheit und Gewichtszunahme, laborchemisch über den Abfall der Transglutaminase-IgA-Antikörper, die sich unter strikter Diät meist innerhalb von sechs bis zwölf Monaten normalisieren und damit als objektiver Marker der Diätadhärenz dienen. Dazu Kontrollen von Blutbild, Ferritin, Vitamin B12, Folsäure, Vitamin D, Kalzium und Transaminasen sowie eine Kontrollbiopsie bei ausbleibender Besserung.',
         },
       ],
-      merksatz: 'Fettglänzender, voluminöser, stinkender Stuhl plus Gewichtsverlust nach Brot und Nudeln = Zöliakie — aber beim Erwachsenen ist die therapierefraktäre Eisenmangelanämie der häufigere Anlass. Anti-tTG-IgA NIE ohne Gesamt-IgA, Serologie und Biopsie NIE unter glutenfreier Kost, mindestens sechs Duodenalbiopsien, HLA nur zum Ausschluss — und die einzige Therapie heißt lebenslang strikt glutenfrei.',
+      merksatz: 'Beim Erwachsenen ist die therapierefraktäre Eisenmangelanämie der häufigste Anlass. Anti-tTG-IgA NIE ohne Gesamt-IgA, Serologie und Biopsie NIE unter glutenfreier Kost — Therapie lebenslang strikt glutenfrei.',
       linkedCaseIds: [
         'case-zoeliakie',
       ],
@@ -21002,7 +21002,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Nein. Acetylsalicylsäure 100 mg ist kein Grund zur Verzögerung; der Nutzen der frühen Versorgung überwiegt. Anders bei Vitamin-K-Antagonisten, die mit Vitamin K und PPSB antagonisiert werden müssen, und bei direkten oralen Antikoagulanzien, wo Einnahmezeitpunkt und Nierenfunktion den Operationszeitpunkt und die Möglichkeit einer rückenmarksnahen Anästhesie bestimmen.',
         },
       ],
-      merksatz: 'Verkürzt und außenrotiert, kein Stehen, kein Gehen — Schenkelhalsfraktur, Röntgen in zwei Ebenen, bei unauffälligem Bild MRT. Pauwels misst den Winkel, GARDEN entscheidet die Therapie: nicht disloziert und jung heißt Osteosynthese, disloziert und alt heißt Prothese — und immer innerhalb von 24 Stunden. Und die eigentliche Prüfungsfrage lautet nie „welche Fraktur?“, sondern „WARUM ist der Patient gestürzt?“ — plus Osteoporosetherapie, sonst folgt der nächste Bruch.',
+      merksatz: 'Verkürzt und außenrotiert = Schenkelhalsfraktur; GARDEN entscheidet: jung und nicht disloziert Osteosynthese, alt und disloziert Prothese, immer innerhalb von 24 Stunden. Prüfungsfrage: WARUM gestürzt?',
       linkedCaseIds: [
         'case-schenkelhalsfraktur',
       ],
@@ -21377,7 +21377,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In der Regel nicht — das unkomplizierte Ulcus cruris venosum wird ambulant in einer Wundsprechstunde behandelt. Eine stationäre Aufnahme ist indiziert bei Erysipel oder Phlegmone mit systemischer Beteiligung, bei Verdacht auf nekrotisierende Fasziitis oder Osteomyelitis, bei kritischer Ischämie, bei nicht beherrschbaren Schmerzen, für ein ausgedehntes chirurgisches Débridement oder eine Spalthauttransplantation sowie bei fehlender häuslicher Versorgung.',
         },
       ],
-      merksatz: 'Innenknöchel, flach und schmerzarm, besser beim Hochlagern — das ist venös; Zehen und Ferse, tief und sehr schmerzhaft, besser beim Herabhängen — das ist arteriell. Erst den Knöchel-Arm-Index, dann die Kompression: unter 0,9 arterielle Beteiligung, unter 0,5 verboten. Abstrich nur bei Infektzeichen, keine lokalen Antibiotika, Biopsie nach drei Monaten ohne Heilung — und die Kompression bleibt lebenslang.',
+      merksatz: 'Innenknöchel, schmerzarm, besser beim Hochlagern = venös; Zehen, sehr schmerzhaft, besser beim Herabhängen = arteriell. Erst Knöchel-Arm-Index: unter 0,9 arterielle Beteiligung, unter 0,5 Kompression verboten.',
       linkedCaseIds: [
         'case-ulcus-cruris',
       ],
@@ -21705,7 +21705,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Leichte Tätigkeiten sind sofort erlaubt, die frühe Mobilisation ist erwünscht. Schweres Heben über 10 kg sollte etwa zwei bis vier Wochen nach minimalinvasiver und vier bis sechs Wochen nach offener Versorgung vermieden werden. Bei körperlich schwer arbeitenden Patienten sind eine Arbeitsunfähigkeitsbescheinigung und gegebenenfalls eine stufenweise Wiedereingliederung erforderlich.',
         },
       ],
-      merksatz: 'Beule in der Leiste, die beim Stehen und Husten kommt und im Liegen geht — immer IM STEHEN untersuchen, Husten- und Pressversuch, und indirekt heißt lateral, direkt heißt medial der epigastrischen Gefäße. Wird die Beule hart, irreponibel und schmerzhaft, kommen Erbrechen und Stuhlverhalt dazu: Inkarzeration mit Ileus — sofort operieren, NIEMALS gewaltsam reponieren. Eine Hernie heilt nie von selbst, und ein Bruchband ist keine Therapie.',
+      merksatz: 'Immer IM STEHEN untersuchen; indirekt lateral, direkt medial der epigastrischen Gefäße. Hart, irreponibel, schmerzhaft plus Erbrechen = Inkarzeration: sofort operieren, NIEMALS gewaltsam reponieren.',
       linkedCaseIds: [
         'case-leistenhernie',
       ],
@@ -22100,7 +22100,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Dass die Entgiftung erst der Anfang ist: eine qualifizierte Entzugsbehandlung mit Motivationsarbeit, anschließend eine Entwöhnungstherapie, die Anbindung an eine Suchtberatungsstelle und an eine Selbsthilfegruppe, eine Psychotherapie mit Rückfallprophylaxe, gegebenenfalls Acamprosat oder Naltrexon und die Behandlung begleitender Erkrankungen wie einer Depression — ohne Moralisieren und mit Einbezug der Angehörigen.',
         },
       ],
-      merksatz: '6–12 Stunden Tremor und Schwitzen, 12–48 Stunden Krampfanfall, 48–72 Stunden Delirium tremens mit der Trias vegetative Entgleisung, Bewusstseinsstörung und optische Halluzinationen — unbehandelt bis 20 % letal. Benzodiazepine symptomgesteuert nach CIWA-Ar sind das Mittel der Wahl, Haloperidol nie allein (senkt die Krampfschwelle), und immer THIAMIN VOR GLUKOSE. Die Entgiftung ist nicht die Therapie der Abhängigkeit.',
+      merksatz: '6–12 h Tremor, 12–48 h Krampfanfall, 48–72 h Delirium tremens, unbehandelt bis 20 % letal. Benzodiazepine nach CIWA-Ar, Haloperidol nie allein — und immer THIAMIN VOR GLUKOSE.',
       linkedCaseIds: [
         'case-alkoholentzug',
       ],
@@ -22447,7 +22447,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Nach einem gestuften Return-to-play-Protokoll: erst vollständige Beschwerdefreiheit in Ruhe, dann schrittweise Steigerung über leichte Ausdauerbelastung, sportartspezifisches Training, Training ohne Körperkontakt und mit Körperkontakt bis zum Wettkampf, mit mindestens einer symptomfreien Phase pro Stufe. Am Unfalltag kein Wiedereinstieg — Cave Second-Impact-Syndrom.',
         },
       ],
-      merksatz: 'Commotio = GCS 13–15, Bewusstlosigkeit unter 30 Minuten, Amnesie unter 24 Stunden, Bildgebung ohne Läsion. Frage immer: „Was ist das Letzte, woran Sie sich erinnern?“ und „Warum sind Sie gestürzt?“ CT bei jedem Red Flag — Antikoagulation und Alter über 65 senken die Schwelle fast auf null. Therapie sind Überwachung, Paracetamol statt NSAR und die Aufklärung über die Warnzeichen; beim alten antikoagulierten Patienten Wochen später an das chronische Subduralhämatom denken.',
+      merksatz: 'Commotio = GCS 13–15, Bewusstlosigkeit unter 30 Minuten, Amnesie unter 24 Stunden, Bildgebung ohne Läsion. CT bei jedem Red Flag — Antikoagulation und Alter über 65 senken die Schwelle fast auf null.',
       linkedCaseIds: [
         'case-commotio',
       ],
@@ -23156,7 +23156,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil ab dem 35. Lebensjahr die Kombination aus Rauchen und einem kombinierten hormonellen Kontrazeptivum das thromboembolische und kardiovaskuläre Risiko erheblich erhöht und deshalb kontraindiziert ist. Alternativen sind reine Gestagene oder — bei nicht deformiertem Cavum uteri — das Levonorgestrel-Intrauterinsystem.',
         },
       ],
-      merksatz: 'Das Myom ist der häufigste gutartige Tumor der Frau, östrogenabhängig — es wächst in der Geschlechtsreife und bildet sich nach der Menopause zurück; wächst es DANACH, denke an das Leiomyosarkom. Die Klinik macht die LAGE: submukös blutet, subserös drückt. Immer die Blutung quantifizieren, Ferritin und β-hCG bestimmen, und die Therapie nach Symptomen, Kinderwunsch und Alter MIT der Patientin wählen — nicht nach der Myomgröße.',
+      merksatz: 'Das Myom ist östrogenabhängig und bildet sich nach der Menopause zurück — wächst es DANACH, denke an das Leiomyosarkom. Submukös blutet, subserös drückt; Therapie nach Symptomen, nicht nach Myomgröße.',
       linkedCaseIds: [
         'case-uterus-myomatosus',
       ],
@@ -23549,7 +23549,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil ein durchgemachtes akutes Nierenversagen ein unabhängiger Risikofaktor für eine spätere chronische Niereninsuffizienz, für kardiovaskuläre Ereignisse und für eine erhöhte Langzeitsterblichkeit ist. Deshalb werden Kreatinin, eGFR und Albuminurie nach etwa drei Monaten kontrolliert und der Patient nephrologisch angebunden.',
         },
       ],
-      merksatz: 'Bei jedem akuten Nierenversagen zuerst drei Dinge: KALIUM (die Hyperkaliämie tötet in Minuten), SONOGRAPHIE mit Blasenentleerung (ein Harnstau ist in Minuten behoben) und die MEDIKAMENTENLISTE inklusive rezeptfreier Mittel (NSAR + Diuretikum + ACE-Hemmer = Triple Whammy, und Metformin absetzen). Prärenal ist mit Abstand am häufigsten und voll reversibel; Schleifendiuretika verbessern die Prognose NICHT; dialysiert wird nach AEIOU — Azidose, Elektrolyte, Intoxikation, Overload, Urämie.',
+      merksatz: 'Beim akuten Nierenversagen zuerst Kalium, Sonographie mit Blasenentleerung und Medikamentenliste (Triple Whammy: NSAR + Diuretikum + ACE-Hemmer). Dialyse nach AEIOU.',
       linkedCaseIds: [
         'case-akutes-nierenversagen',
       ],
@@ -23915,7 +23915,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die Erkrankung ist chronisch, aber gutartig: keine Gelenkzerstörung, keine Behinderung, keine verkürzte Lebenserwartung. Eine vollständige Heilung ist selten, unter konsequenter Aktivierung und multimodaler Therapie sind Funktion, Schlaf und Lebensqualität jedoch deutlich zu verbessern. Ungünstig sind späte Diagnose, fortgesetzte Diagnostikspiralen, Schonverhalten und eine unbehandelte Depression.',
         },
       ],
-      merksatz: 'Schmerz überall + Müdigkeit + Fibro-Fog, seit über drei Monaten, bei völlig unauffälliger Untersuchung und normalem Basislabor = Fibromyalgiesyndrom — weder entzündlich noch degenerativ. Klinische Diagnose, kleines Labor, KEINE Bildgebungsspirale. Therapie: erst aufklären, dann bewegen, dann multimodal — und erst zuletzt, zurückhaltend, Amitriptylin oder Duloxetin. Keine Opioide, kein Kortison, NSAR wirken nicht.',
+      merksatz: 'Schmerz überall + Müdigkeit + Fibro-Fog über drei Monate bei unauffälliger Untersuchung und normalem Basislabor = Fibromyalgiesyndrom. Keine Bildgebungsspirale, keine Opioide, kein Kortison.',
       linkedCaseIds: [
         'case-fibromyalgie',
       ],
@@ -24280,7 +24280,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Bei rechtzeitiger Behandlung gut: Die Beschwerden bessern sich innerhalb weniger Tage, und die Lebenserwartung ist kaum eingeschränkt. Ein bereits eingetretener Sehverlust bleibt jedoch irreversibel. Rezidive betreffen etwa die Hälfte der Patienten, die Therapiedauer beträgt meist ein bis zwei Jahre, und die Morbidität wird wesentlich durch Kortisonnebenwirkungen sowie als Spätfolge durch Aortenaneurysmen bestimmt.',
         },
       ],
-      merksatz: 'Über 50, steife Schultern und Hüften mit über 45 Minuten Morgensteifigkeit bei Sturzsenkung, aber normaler CK und normalen Antikörpern = Polymyalgia rheumatica. IMMER nach Schläfenkopfschmerz, Kauclaudicatio und Sehstörung fragen: bei Verdacht auf Riesenzellarteriitis Kortison SOFORT — vor der Biopsie —, 15 bis 25 mg bei reiner PMR, 40 bis 60 mg bei RZA, hochdosiert intravenös bei Sehstörung; und nie die Osteoporoseprophylaxe vergessen.',
+      merksatz: 'Über 50, Schulter- und Hüftsteifigkeit über 45 Minuten bei Sturzsenkung und normaler CK = Polymyalgia rheumatica. Bei Verdacht auf Riesenzellarteriitis Kortison SOFORT, vor der Biopsie.',
       linkedCaseIds: [
         'case-polymyalgia',
       ],
@@ -24655,7 +24655,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Der Standard in der Erstdiagnostik ist der Röntgen-Thorax im Stehen in Inspiration; die Thoraxsonographie ist schneller und beim liegenden Patienten überlegen. Ein CT-Thorax ist der Goldstandard und indiziert bei unklarem Röntgenbefund, beim sekundären Pneumothorax, zur Darstellung von Blebs und Bullae vor einer Intervention sowie als CT-Angiographie zum gleichzeitigen Ausschluss einer Lungenembolie.',
         },
       ],
-      merksatz: 'Plötzlicher einseitiger Stich beim jungen, langen, dünnen Raucher plus abgeschwächtes Atemgeräusch und HYPERSONORER Klopfschall = Spontanpneumothorax. Klein und asymptomatisch: beobachten und Sauerstoff; groß oder sekundär: Drainage im vierten bis fünften Interkostalraum am OBERRAND der Rippe. Und beim Spannungspneumothorax gilt: erst punktieren, dann röntgen — niemals umgekehrt.',
+      merksatz: 'Junger, langer, dünner Raucher mit einseitigem Stich, abgeschwächtem Atemgeräusch und hypersonorem Klopfschall = Spontanpneumothorax. Spannungspneumothorax: erst punktieren, dann röntgen.',
       linkedCaseIds: [
         'case-pneumothorax',
       ],
@@ -25016,7 +25016,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein unbehandeltes obstruktives Schlafapnoe-Syndrom bedeutet ein erhöhtes Atemwegsrisiko: schwierige Maskenbeatmung und Intubation, erhöhte Empfindlichkeit gegenüber Opioiden, Benzodiazepinen und Muskelrelaxanzien sowie die Gefahr der postoperativen Atemdepression. Die Anästhesie muss informiert werden, der Patient bringt sein eigenes Gerät mit und wird verlängert überwacht.',
         },
       ],
-      merksatz: 'Müde am Tag trotz acht Stunden Schlaf, dicker Hals und ein Blutdruck, der trotz drei Tabletten nicht runtergeht — dann fragen Sie die Ehefrau: Schnarcht er unregelmäßig, setzt die Atmung aus? Diagnose per Polygraphie und Polysomnographie mit dem Apnoe-Hypopnoe-Index (leicht 5–15, mittel 15–30, schwer über 30). Therapie: abnehmen, abends kein Alkohol, keine Schlafmittel — und CPAP, die nur wirkt, wenn sie auch getragen wird. Und IMMER nach Sekundenschlaf am Steuer fragen.',
+      merksatz: 'Tagesmüdigkeit trotz acht Stunden Schlaf und resistenter Blutdruck: nach Atemaussetzern fragen. AHI leicht 5–15, mittel 15–30, schwer über 30. Immer nach Sekundenschlaf am Steuer fragen.',
       linkedCaseIds: [
         'case-schlafapnoe',
       ],
@@ -25401,7 +25401,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Eine doppelte: Cannabis ist ein gesicherter Risikofaktor für die Entwicklung einer Schizophrenie, besonders bei frühem Konsumbeginn, täglichem Gebrauch und hochpotenten Sorten, es kann eine Episode auslösen und die Rezidivrate deutlich erhöhen. Zugleich ist die cannabisinduzierte Psychose eine wichtige Differenzialdiagnose. Deshalb sind Konsumanamnese, Drogenscreening und konsequente Karenz Teil der Behandlung.',
         },
       ],
-      merksatz: 'Junger Erwachsener, monatelanger Rückzug und Leistungsknick, dann Wahn, kommentierende oder dialogisierende Stimmen und ICH-STÖRUNGEN bei klarem Bewusstsein — Schizophrenie. Klinische Diagnose, aber MRT, EEG, Labor und Drogenscreening schließen das Organische aus; Suizidalität, Fremdgefährdung und Cannabis immer aktiv erfragen; Wahn weder bestätigen noch widerlegen; Antipsychotikum der zweiten Generation einschleichend, EKG mit QTc VOR Beginn, Clozapin nur mit Blutbild — und die Erhaltungstherapie lange genug fortführen.',
+      merksatz: 'Rückzug, dann Wahn, kommentierende Stimmen und Ich-Störungen bei klarem Bewusstsein = Schizophrenie. Organisches ausschließen, Suizidalität erfragen, EKG mit QTc VOR dem Antipsychotikum.',
       linkedCaseIds: [
         'case-schizophrenie',
       ],
@@ -25750,7 +25750,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich erkläre, dass die Verwirrtheit Folge einer körperlichen Erkrankung und in aller Regel vorübergehend ist, dass die Besserung aber Wochen dauern kann und in Wellen verläuft. Ich bitte um ihre Mithilfe bei der Reorientierung und um Besuche, weise auf Brille und Hörgerät hin und spreche offen an, dass nach einem Delir das Risiko einer bleibenden kognitiven Verschlechterung erhöht ist.',
         },
       ],
-      merksatz: 'Akut, fluktuierend, abends schlimmer, Aufmerksamkeit weg — das ist ein Delir und damit ein NOTFALL: Suche die Ursache (Infekt, Medikamente, Exsikkose, Schmerz, Harnverhalt), sediere sie nicht. Erst Reorientierung, Brille und Hörgerät, dann allenfalls niedrig dosiertes Haloperidol — Benzodiazepine NUR beim Entzugsdelir, und Thiamin immer vor der Glukose.',
+      merksatz: 'Akut, fluktuierend, abends schlimmer, Aufmerksamkeit weg = Delir, ein Notfall: Ursache suchen, nicht sedieren. Benzodiazepine NUR beim Entzugsdelir, Thiamin immer vor der Glukose.',
       linkedCaseIds: [
         'case-delir',
       ],
@@ -26055,7 +26055,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In Alltagssprache: Die Speiseröhre transportiert das Essen nicht mehr richtig, weil der Muskelring am Übergang zum Magen sich beim Schlucken nicht öffnet und die Speiseröhre selbst ihre Bewegung verloren hat. Man kann die Erkrankung nicht heilen, aber man kann diesen Muskelring wirksam weiten oder einschneiden, sodass das Essen wieder durchläuft. Anschließend werden die Untersuchungen erklärt und Rückfragen zugelassen.',
         },
       ],
-      merksatz: 'Dysphagie für FESTES UND FLÜSSIGES über Jahre, nächtliche Regurgitation unverdauter, nicht saurer Speisen und Protonenpumpenhemmer ohne jede Wirkung = Achalasie. Erst ÖGD zum Ausschluss des Karzinoms, dann Manometrie als Goldstandard, im Breischluck das Sektglas. Heilung gibt es keine — Ballon, Heller-Myotomie oder POEM senken nur den Sphinkterdruck.',
+      merksatz: 'Dysphagie für Festes UND Flüssiges, nächtliche Regurgitation nicht saurer Speisen, Protonenpumpenhemmer ohne Wirkung = Achalasie. Erst ÖGD zum Karzinomausschluss, dann Manometrie.',
       linkedCaseIds: [
         'case-achalasie',
       ],
@@ -26446,7 +26446,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'An eine Gonokokkenarthritis. Typisch sind wandernde Polyarthralgien, eine Tenosynovitis der Handgelenke und pustulöse Hautläsionen. Ich nehme Abstriche von Urethra beziehungsweise Zervix, Rachen und Rektum ab, lasse eine Nukleinsäureamplifikation und eine Kultur auf Spezialnährboden durchführen, behandle mit Ceftriaxon, decke Chlamydien mit ab und behandle den Partner mit.',
         },
       ],
-      merksatz: 'Jedes akut geschwollene, überwärmte und in Ruhe schmerzhafte Gelenk ist bis zum Beweis des Gegenteils infiziert: erst PUNKTIEREN und Blutkulturen abnehmen, dann SOFORT kalkuliert antibiotisch behandeln — und noch am selben Tag arthroskopisch spülen. Fieber kann fehlen, das Röntgen ist anfangs normal, Kristalle schließen die Infektion nicht aus, und Kortison gehört bei Verdacht niemals in das Gelenk.',
+      merksatz: 'Jedes akut geschwollene, überwärmte, in Ruhe schmerzhafte Gelenk ist bis zum Beweis des Gegenteils infiziert: erst punktieren und Blutkulturen, dann sofort Antibiotikum, am selben Tag spülen.',
       linkedCaseIds: [
         'case-septische-arthritis',
       ],
@@ -26791,7 +26791,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Häufig einen erstaunlich unauffälligen Ruhebefund: normale Kraft, allenfalls abgeschwächter Achillessehnenreflex, negatives Lasègue-Zeichen, tastbare Fußpulse und warme Füße. Provozierbar sind die Beschwerden durch Reklination und durch einen Gehtest. Bei längerem Verlauf zeigen sich Muskelatrophie, Sensibilitätsstörungen und ein unsicheres Gangbild.',
         },
       ],
-      merksatz: 'Claudicatio spinalis heißt: Stehenbleiben genügt NICHT — der Patient muss sich SETZEN oder VORBEUGEN. Einkaufswagen und Fahrrad gehen problemlos, bergauf besser als bergab, die Gehstrecke schwankt und die Fußpulse sind TASTBAR — sonst denke an die pAVK. MRT ist die Untersuchung der Wahl, aber operiert wird der PATIENT und nicht das BILD; nur das Cauda-equina-Syndrom ist ein Notfall.',
+      merksatz: 'Claudicatio spinalis: Stehenbleiben genügt NICHT, der Patient muss sich setzen oder vorbeugen; Fußpulse tastbar, sonst pAVK. Operiert wird der Patient, nicht das Bild; Cauda equina ist ein Notfall.',
       linkedCaseIds: [
         'case-spinalkanalstenose',
       ],
@@ -27188,7 +27188,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein neurologisches Konsil zur Höhenlokalisation, zur elektrophysiologischen Abgrenzung peripherer Engpasssyndrome und zur Beurteilung von Myelopathiezeichen; bei Operationsindikation zusätzlich die Vorstellung in der Neurochirurgie beziehungsweise Wirbelsäulenchirurgie.',
         },
       ],
-      merksatz: 'Nackenschmerz plus Armschmerz im DERMATOM, verstärkt durch Husten, Niesen und Reklination, gebessert durch den Arm über dem Kopf — das ist die Wurzel: C6 Daumen, C7 Mittelfinger, C8 Kleinfinger. MRT erst nach vier bis sechs Wochen, aber SOFORT bei Parese oder Myelopathie; über 80 Prozent heilen konservativ in sechs bis zwölf Wochen, und beim Ibuprofen nie den Magenschutz vergessen.',
+      merksatz: 'Nackenschmerz plus Armschmerz im Dermatom, verstärkt durch Husten und Reklination: C6 Daumen, C7 Mittelfinger, C8 Kleinfinger. MRT erst nach vier bis sechs Wochen, SOFORT bei Parese oder Myelopathie.',
       linkedCaseIds: [
         'case-hws-diskusprolaps',
       ],
@@ -27555,7 +27555,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Sehr viel. Gereifter Hartkäse wie Emmentaler oder Parmesan enthält praktisch keinen Milchzucker mehr, Joghurt und Kefir werden wegen der lebenden Kulturen meist gut vertragen, Butter enthält nur Spuren, und es gibt ein vollständiges Sortiment laktosefreier Produkte. Kleine Mengen Milch, über den Tag verteilt und zusammen mit anderen Speisen, vertragen die meisten Betroffenen. Wichtig ist nur, auf versteckten Milchzucker in Wurst, Fertiggerichten und sogar in Tabletten zu achten — und die Kalziumversorgung sicherzustellen.',
         },
       ],
-      merksatz: 'Blähbauch und wässriger Durchfall 30 Minuten bis 2 Stunden nach Milch, dosisabhängig, Hartkäse und Joghurt gehen — das ist ein ENZYMMANGEL, keine Allergie. H2-Atemtest mit Symptomprotokoll sichert die Diagnose; behandelt wird mit individueller Restmenge statt Totalverzicht, plus Kalzium und Vitamin D gegen die Osteoporose. Und immer fragen: Alarmzeichen? Sekundäre Ursache? Denn Laktoseintoleranz erklärt nicht automatisch alles.',
+      merksatz: 'Blähbauch und wässriger Durchfall 30 Minuten bis 2 Stunden nach Milch, dosisabhängig = Enzymmangel, keine Allergie. H2-Atemtest sichert die Diagnose; Restmenge statt Totalverzicht, Kalzium, Vitamin D.',
       linkedCaseIds: [
         'case-laktoseintoleranz',
       ],
@@ -28298,7 +28298,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Das ist die Remissions- oder Honeymoon-Phase: Nach Beseitigung der Glukosetoxizität erholen sich die verbliebenen Betazellen vorübergehend und der Insulinbedarf sinkt für Wochen bis Monate. Es handelt sich nicht um eine Heilung; die Insulintherapie wird angepasst, aber niemals abgesetzt.',
         },
       ],
-      merksatz: 'Junger, schlanker Patient mit Polyurie, Polydipsie und Gewichtsverlust TROTZ gutem Appetit in wenigen Wochen = Typ 1 bis zum Beweis des Gegenteils. Zwei Sekundengriffe stellen die Diagnose und erkennen die Gefahr: Blutzucker UND Urinstreifen auf Ketone. Absoluter Insulinmangel heißt Insulin von Anfang an und lebenslang — orale Antidiabetika wirken nicht. Und bei der Ketoazidose gilt: erst Volumen, dann Insulin, immer das Kalium.',
+      merksatz: 'Junger, schlanker Patient mit Polyurie, Polydipsie und Gewichtsverlust trotz Appetit = Typ 1: Blutzucker UND Urinketone, Insulin von Anfang an. Ketoazidose: erst Volumen, dann Insulin, immer Kalium.',
       linkedCaseIds: [
         'case-diabetes-typ1',
       ],
@@ -28687,7 +28687,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Viral: kurze Inkubationszeit, führendes, oft explosionsartiges Erbrechen, wässriger Durchfall ohne Blut, kein oder nur mäßiges Fieber, hohe Ansteckungsfähigkeit, Häufung im Winter und in Gemeinschaftseinrichtungen, Dauer 24 bis 72 Stunden. Bakteriell-invasiv: hohes Fieber, stärkere Bauchschmerzen, Tenesmen, blutig-schleimige Durchfälle, deutlich erhöhte Entzündungsparameter und Calprotectin. Die toxinvermittelte Lebensmittelvergiftung hat eine Latenz von nur ein bis sechs Stunden mit führendem Erbrechen ohne Fieber.',
         },
       ],
-      merksatz: 'Bei jedem Durchfall drei Achsen abarbeiten: Erreger (viral, bakteriell-invasiv, Toxin, Antibiotika-assoziiert, parasitär nach Reise) — Dehydratation (das ist das eigentliche Problem, beim alten Menschen ist Verwirrtheit das führende Zeichen) — Red Flags (Blut, hohes Fieber, lokalisierter Schmerz, Dauer über eine Woche, Reise, Antibiotika). Therapie ist VOLUMEN, nicht Antibiotikum; Loperamid niemals bei Blut, Fieber, EHEC, Clostridioides difficile oder Kindern; und immer nach dem BERUF fragen — Meldepflicht und Tätigkeitsverbot nach dem Infektionsschutzgesetz.',
+      merksatz: 'Durchfall: Erreger, Dehydratation, Red Flags. Therapie ist Volumen, nicht Antibiotikum; Loperamid nie bei Blut, Fieber, EHEC, C. difficile oder Kindern; nach dem Beruf fragen (Infektionsschutzgesetz).',
       linkedCaseIds: [
         'case-gastroenteritis',
       ],
@@ -29090,7 +29090,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Etwa so: „Sie haben ein rheumatisches Fieber. Das ist eine Folgeerkrankung Ihrer Mandelentzündung von vor drei Wochen. Die Bakterien selbst sind längst weg, aber Ihre Abwehr hat Antikörper gebildet, die jetzt versehentlich Ihre eigenen Gelenke angreifen — und manchmal leider auch das Herz. Die Gelenke heilen vollständig aus, aber das Herz müssen wir untersuchen. Deshalb machen wir einen Herzultraschall und behandeln mit einem Antibiotikum und einem entzündungshemmenden Medikament.“',
         },
       ],
-      merksatz: 'Das rheumatische Fieber LECKT die Gelenke, aber BEISST das Herz: Die wandernde Polyarthritis der großen Gelenke heilt ohne Defekt aus, die Karditis hinterlässt Jahre später die Mitralstenose. Zwei bis vier Wochen nach einer unzureichend behandelten Streptokokkenangina, Diagnose nach den Jones-Kriterien, Beweis über den ANSTIEG des Antistreptolysin-O-Titers — der Rachenabstrich ist da längst negativ, das Penicillin wird trotzdem gegeben, und die Rezidivprophylaxe läuft über Jahre.',
+      merksatz: 'Das rheumatische Fieber leckt die Gelenke, aber beißt das Herz: Die Karditis hinterlässt die Mitralstenose. Jones-Kriterien, Beweis über den ANSTIEG des Antistreptolysin-O-Titers, Penicillin trotzdem.',
       linkedCaseIds: [
         'case-rheumatisches-fieber',
       ],
@@ -29508,7 +29508,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Nein. Jedes Fieber nach Tropenaufenthalt ist eine Malaria, bis das Gegenteil bewiesen ist — auch bei korrekt eingenommener Chemoprophylaxe, die das Risiko senkt, eine Malaria aber nicht ausschließt. Ich veranlasse notfallmäßig einen Dicken Tropfen mit Blutausstrich, wiederhole ihn bei negativem Ergebnis nach 12 bis 24 Stunden und denke zusätzlich an Typhus abdominalis und Dengue-Fieber.',
         },
       ],
-      merksatz: 'Der grippale Infekt schleicht, die Influenza schlägt zu: Der Patient nennt die Stunde, das Fieber steigt über 38,5 °C mit Schüttelfrost, und er liegt flach — Schnupfen fehlt. Beim Gesunden ist die Diagnose KLINISCH und die Therapie symptomatisch: kein Antibiotikum ohne zweigipfligen Verlauf, Oseltamivir nur für Risikopatienten und nur innerhalb von 48 Stunden, ASS bei Kindern nie (Reye), Sport verboten (Myokarditis). Und: Fieber nach Tropenaufenthalt ist Malaria, bis das Gegenteil bewiesen ist.',
+      merksatz: 'Influenza schlägt zu: Fieber über 38,5 °C mit Schüttelfrost, Schnupfen fehlt. Oseltamivir nur bei Risiko und binnen 48 Stunden, ASS bei Kindern nie (Reye), Sport verboten (Myokarditis).',
       linkedCaseIds: [
         'case-influenza',
       ],
@@ -29915,7 +29915,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: '„Ihr Hüftgelenk ist verschlissen. Der Knorpel, der wie ein Stoßdämpfer zwischen Hüftkopf und Pfanne liegt, ist dünn geworden, deshalb reiben die Knochen aufeinander und es tut weh — vor allem bei den ersten Schritten und beim Gehen. Dass es bis ins Knie zieht, ist typisch und bedeutet nicht, dass mit dem Knie etwas nicht stimmt.“',
         },
       ],
-      merksatz: 'Leistenschmerz, der bis zum Knie zieht — aber NIE darunter —, Anlaufschmerz, kürzere Gehstrecke und Morgensteifigkeit unter 30 Minuten: das ist die Coxarthrose. Zuerst geht die Innenrotation verloren, das Röntgen des Beckens in zwei Ebenen zeigt Gelenkspaltverschmälerung, Sklerose, Osteophyten und Geröllzysten, das Labor bleibt normal. Behandelt wird der Patient und nicht das Bild — der Gehstock gehört auf die Gegenseite, und über die Prothese entscheidet der Leidensdruck.',
+      merksatz: 'Leistenschmerz bis zum Knie, aber nie darunter, Anlaufschmerz, Morgensteifigkeit unter 30 Minuten = Coxarthrose; zuerst geht die Innenrotation verloren. Gehstock auf die Gegenseite.',
       linkedCaseIds: [
         'case-coxarthrose',
       ],
@@ -30289,7 +30289,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ja. Ich berechne dazu den Body-Mass-Index aus Gewicht und Körpergröße. Ab 25 kg/m² spricht man von Übergewicht beziehungsweise Präadipositas, ab 30 von Adipositas Grad I, ab 35 von Grad II und ab 40 von Grad III, also einer morbiden Adipositas. Auf Deutsch sagt man „morbid adipös“, nicht „morbid obes“. Zusätzlich messe ich den Bauchumfang, weil er die Fettverteilung erfasst.',
         },
       ],
-      merksatz: 'Merke: Der Patient kommt nie „wegen eines metabolischen Syndroms“ — er kommt müde, dick und niedergeschlagen, und die Diagnose entsteht erst aus Anamnese, Maßband und Labor. Obligat ist der Bauchumfang ab 94 cm beim Mann und ab 80 cm bei der Frau, dazu zwei von vier: Triglyzeride ab 150, HDL unter 40 bzw. 50, Blutdruck ab 130/85, Nüchternglukose ab 100. Zuerst TSH und Cushing ausschließen, dann Lebensstil vor Metformin vor Insulin — und niemals moralisieren.',
+      merksatz: 'Bauchumfang ab 94 cm (Mann) / 80 cm (Frau) plus zwei von vier: Triglyzeride ab 150, HDL unter 40 bzw. 50, Blutdruck ab 130/85, Nüchternglukose ab 100. Erst TSH und Cushing ausschließen.',
       linkedCaseIds: [
         'case-metabolisches-syndrom',
       ],
@@ -30676,7 +30676,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich würde ihr sagen, dass es sich um einen langsam wachsenden Tumor handelt und dass auch dann, wenn bereits Absiedlungen in der Leber vorliegen, viele Patienten über viele Jahre gut leben — die 5-Jahres-Überlebensrate liegt bei gut differenzierten Tumoren auch im metastasierten Stadium bei etwa 50 bis 70 %. Wichtig ist die Behandlung in einem spezialisierten Zentrum und die regelmäßige Nachsorge. Deutlich ungünstiger ist nur das schlecht differenzierte neuroendokrine Karzinom.',
         },
       ],
-      merksatz: 'Flush ohne Schwitzen + Durchfall, der nachts weckt + jahrelang „Reizdarm“ = neuroendokriner Tumor. Das Syndrom bedeutet Lebermetastasen; gesichert wird es mit Chromogranin A, 5-HIES im 24-Stunden-Urin und DOTATATE-PET/CT. Herz rechts anschauen (Hedinger), vor jedem Eingriff Octreotid geben — und dem Patienten sagen, dass metastasiert hier nicht schnell tödlich heißt.',
+      merksatz: 'Flush ohne Schwitzen + nächtlicher Durchfall + jahrelang „Reizdarm“ = neuroendokriner Tumor; Syndrom bedeutet Lebermetastasen. Chromogranin A, 5-HIES im 24-Stunden-Urin, Octreotid vor jedem Eingriff.',
       linkedCaseIds: [
         'case-karzinoid',
       ],
@@ -31049,7 +31049,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In Alltagssprache: Der Eiter liege in einer abgekapselten Kammer, in die Medikamente nicht ausreichend gelangten; deshalb werde die Stelle in örtlicher Betäubung oder kurzer Narkose eröffnet, der Eiter abgelassen, die Höhle ausgespült und ein Abstrich genommen. Risiken sind Blutung, Nachblutung, Infektion, Wundheilungsstörung, Narbe und ein mögliches Rezidiv. Wichtig ist der Hinweis, dass die Wunde absichtlich offen bleibt und von innen heilt, dass täglich verbunden wird und dass die Schmerzen unmittelbar nach der Entlastung deutlich nachlassen.',
         },
       ],
-      merksatz: 'Ubi pus, ibi evacua — der reife Abszess wird ERÖFFNET und drainiert, Antibiotika allein heilen ihn nie, weil sie die abgekapselte Höhle nicht erreichen. FLUKTUATION und SONOGRAPHIE entscheiden, ob geschnitten wird; die Wunde bleibt absichtlich offen; Blutzucker und HbA1c gehören immer dazu — und bei Schmerzen, die zum Hautbefund nicht passen, an die nekrotisierende Fasziitis denken.',
+      merksatz: 'Ubi pus, ibi evacua: Der reife Abszess wird eröffnet und drainiert, Antibiotika allein heilen ihn nie. Bei Schmerzen, die zum Hautbefund nicht passen, an die nekrotisierende Fasziitis denken.',
       linkedCaseIds: [
         'case-abszess',
       ],
@@ -31469,7 +31469,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Entscheidend ist das Gewicht: Bei der Anorexia nervosa besteht ein Untergewicht mit einem BMI unter 17,5 kg/m², bei der Bulimia nervosa sind die Patientinnen meist normalgewichtig oder leicht übergewichtig. Bei der Bulimie stehen wiederkehrende Essanfälle mit Kontrollverlust und anschließendes kompensatorisches Verhalten im Vordergrund; die Krankheitseinsicht und das Schamgefühl sind meist größer. Erbrechen und Laxanzienabusus können bei beiden vorkommen — bei der Anorexia nervosa spricht man dann vom Purging-Typ.',
         },
       ],
-      merksatz: 'Magersucht = selbst gemachtes Untergewicht mit BMI unter 17,5, Angst vor Gewichtszunahme, Körperschemastörung und Amenorrhoe — die psychische Erkrankung mit der HÖCHSTEN Sterblichkeit, durch Hypokaliämie UND Suizid. Immer nach Erbrechen, Laxanzien und Sport fragen, immer EKG und Kalium, langsam aufnähren wegen des Refeeding-Syndroms (Phosphat!) — und Psychotherapie ist die Therapie, kein Medikament heilt die Kernstörung.',
+      merksatz: 'Anorexie = BMI unter 17,5, Angst vor Gewichtszunahme, Körperschemastörung, Amenorrhoe — höchste Sterblichkeit (Hypokaliämie und Suizid). Immer EKG und Kalium, langsam aufnähren: Refeeding, Phosphat!',
       linkedCaseIds: [
         'case-anorexia-nervosa',
       ],
@@ -31820,7 +31820,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Frau Hüber, Sie haben nach Ihrer Rückkehr aus Malawi Fieber, und das müssen wir sehr ernst nehmen: Ich gehe von einer Malaria aus. Das ist eine Infektion mit winzigen Parasiten, die durch den Stich einer Mücke übertragen werden und sich in den roten Blutkörperchen vermehren — deshalb das Fieber, der Schüttelfrost und der dunkle Urin. Malaria ist gut behandelbar, aber nur, wenn wir schnell anfangen. Wir nehmen Ihnen jetzt Blut ab und suchen unter dem Mikroskop nach den Erregern; das Ergebnis haben wir in wenigen Stunden. Wenn es sich bestätigt, bleiben Sie bei uns im Krankenhaus und bekommen Tabletten, die die Parasiten abtöten, dazu Flüssigkeit und etwas gegen das Fieber. Wir kontrollieren Sie engmaschig, weil Ihre Milz fehlt und Ihr Körper die Infektion deshalb schlechter abwehren kann. Anstecken können Sie niemanden. Haben Sie dazu Fragen?',
         },
       ],
-      merksatz: 'Fieber nach Tropenaufenthalt = Malaria, bis das Gegenteil bewiesen ist: dicker Tropfen SOFORT und dreimal in 48 Stunden, Parasitämie in Prozent entscheidet — jede tropica stationär, kompliziert heißt Artesunat i.v. und Intensivstation, Primaquin nur bei vivax/ovale nach G6PD-Test.',
+      merksatz: 'Fieber nach Tropenaufenthalt = Malaria, bis das Gegenteil bewiesen ist: dicker Tropfen sofort und dreimal in 48 Stunden; jede tropica stationär, kompliziert heißt Artesunat i.v. und Intensivstation.',
       linkedCaseIds: [
         'case-malaria',
       ],
@@ -32165,7 +32165,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil sie die Eintrittspforte ist: Bei einer Extraktion oder Wurzelbehandlung gelangen Viridans-Streptokokken der Mundflora in die Blutbahn und siedeln sich auf der vorgeschädigten Mitralklappe an. Das typische Intervall bis zum Symptombeginn beträgt zwei bis sechs Wochen. Deshalb gehören ein zahnärztliches Konsil und die Sanierung des Fokus zur Therapie.',
         },
       ],
-      merksatz: 'Wochenlanges Fieber plus Klappe plus Zahnarzt = an die Endokarditis DENKEN und auskultieren. Zwei Säulen in dieser Reihenfolge: drei Blutkulturpaare VOR dem Antibiotikum, dann Echo — transthorakal zuerst, transösophageal weil sensitiver. Vier bis sechs Wochen i.v., Chirurgie früh im Endokarditis-Team prüfen, Prophylaxe nur noch für Hochrisikopatienten.',
+      merksatz: 'Wochenlanges Fieber plus Klappe plus Zahnarzt = Endokarditis: drei Blutkulturpaare VOR dem Antibiotikum, dann Echo (transösophageal sensitiver). Vier bis sechs Wochen i.v.',
       linkedCaseIds: [
         'case-endokarditis',
       ],
@@ -32521,7 +32521,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ja, nach dem Infektionsschutzgesetz: Der Arzt meldet Verdacht, Erkrankung und Tod namentlich nach § 6 an das Gesundheitsamt, das Labor den Erregernachweis nach § 7 — innerhalb von 24 Stunden.',
         },
       ],
-      merksatz: 'Zweite Woche, zweiter Blick: Wer sich Tag 7 bis 10 wieder verschlechtert, braucht das Pulsoxymeter, nicht nur die Frage nach Luftnot. Antivirale Therapie früh und nur bei Risiko, Dexamethason spät und nur bei Sauerstoff — und jeder stationäre Patient bekommt Heparin.',
+      merksatz: 'Zweite Woche, zweiter Blick: Verschlechterung Tag 7 bis 10 braucht das Pulsoxymeter. Antivirale Therapie früh und nur bei Risiko, Dexamethason spät und nur bei Sauerstoff, stationär immer Heparin.',
       linkedCaseIds: [
         'case-covid19',
       ],
@@ -32833,7 +32833,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Das ACE-Hemmer-Angioödem ist Bradykinin-vermittelt: kein Juckreiz, keine Urtikaria, kein Blutdruckabfall, langsame Entwicklung über Stunden, oft Monate bis Jahre nach Therapiebeginn – und es spricht nicht auf Adrenalin, Antihistaminika und Kortison an. Therapie: ACE-Hemmer absetzen, Atemweg sichern, C1-Inhibitor-Konzentrat oder Icatibant.',
         },
       ],
-      merksatz: 'Anaphylaxie = Minuten nach Kontakt mindestens zwei Organsysteme – zuerst und sofort ADRENALIN 0,5 mg i.m. in den Oberschenkel, dann Sauerstoff und Volumen, Kortison und Antihistaminikum erst danach; Betablocker → Glukagon; immer stationär überwachen (biphasisch!) und mit ZWEI Autoinjektoren, Allergiepass und Hyposensibilisierung entlassen.',
+      merksatz: 'Anaphylaxie = Minuten nach Kontakt mindestens zwei Organsysteme: zuerst Adrenalin 0,5 mg i.m. in den Oberschenkel, Kortison und Antihistaminikum erst danach; stationär überwachen (biphasisch!).',
       linkedCaseIds: [
         'case-anaphylaxie',
       ],
@@ -33165,7 +33165,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Beide folgen einer Streptokokken-Angina mit ASL- und Anti-DNase-B-Anstieg. Das rheumatische Fieber erfüllt die Jones-Kriterien: Latenz zwei bis drei Wochen, wandernde Polyarthritis, Karditis, Erythema marginatum, Chorea, prompte Besserung auf NSAR. Die Poststreptokokken-Arthritis hat eine kürzere Latenz von ein bis zwei Wochen, verläuft additiv und protrahiert, spricht schlecht auf NSAR an und erfüllt die Jones-Kriterien nicht — trotzdem mache ich EKG und Echokardiographie, um eine Karditis auszuschließen.',
         },
       ],
-      merksatz: 'Gelenk entzündet, Infekt vorbei: reaktive Arthritis heißt steriles Gelenk nach Durchfall, Urethritis oder Angina — das freie Intervall erfragen, die Sexualanamnese führen, punktieren zum Ausschluss der Sepsis, NSAR statt Antibiotikum (außer bei aktiven Chlamydien: Doxycyclin PLUS Partner) und jedes rote Auge sofort zum Augenarzt.',
+      merksatz: 'Steriles Gelenk nach Durchfall, Urethritis oder Angina = reaktive Arthritis: punktieren zum Sepsisausschluss, NSAR statt Antibiotikum (außer aktive Chlamydien: Doxycyclin PLUS Partner).',
       linkedCaseIds: [
         'case-reaktive-arthritis',
       ],
@@ -33465,7 +33465,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Sofortige Vorstellung mit Nasopharyngealabstrich und PCR, eine Chemoprophylaxe beziehungsweise Therapie mit Azithromycin — Cotrimoxazol ist im letzten Trimenon kontraindiziert —, Information der Frauenärztin und der Geburtsklinik sowie die Tdap-Impfung, die ohnehin in jeder Schwangerschaft ab der 28. Woche empfohlen ist, damit das Neugeborene über die mütterlichen Antikörper einen Nestschutz erhält.',
         },
       ],
-      merksatz: 'Wochenlanger Anfallshusten ohne Fieber, ohne Auskultationsbefund und mit Erbrechen danach = Pertussis, auch beim Erwachsenen. Drei Stadien, PCR aus der Nase in den ersten drei Wochen, Makrolid sofort — nicht für den Husten, sondern gegen die Ansteckung — Meldung ans Gesundheitsamt, und die dringlichste Frage lautet: Gibt es einen Säugling oder eine Schwangere im Umfeld?',
+      merksatz: 'Wochenlanger Anfallshusten ohne Fieber mit Erbrechen danach = Pertussis, auch beim Erwachsenen. Makrolid sofort gegen die Ansteckung, Meldung, und: Gibt es einen Säugling oder eine Schwangere?',
       linkedCaseIds: [
         'case-pertussis',
       ],
@@ -33785,7 +33785,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Nikotin verändert die Schleimschicht und die Immunantwort der Kolonmukosa; epidemiologisch erkranken Raucher seltener, und die Erstmanifestation tritt häufig kurz nach einem Rauchstopp auf. Beim Morbus Crohn ist es umgekehrt. Empfehlen darf man das Rauchen trotzdem niemals — die kardiovaskulären und onkologischen Risiken überwiegen bei Weitem; stattdessen wird die Colitis mit Mesalazin behandelt.',
         },
       ],
-      merksatz: 'Blutig-schleimige Durchfälle mit Tenesmen, auch nachts, vom Rektum kontinuierlich aufsteigend und auf die Mukosa des Kolons beschränkt = Colitis ulcerosa. Erst Erreger und Clostridioides ausschließen, dann Ileokoloskopie mit Stufenbiopsien; Mesalazin als Basis, Steroide nur im Schub, und die Proktokolektomie heilt — anders als beim Crohn.',
+      merksatz: 'Blutig-schleimige Durchfälle mit Tenesmen, vom Rektum kontinuierlich aufsteigend, auf die Mukosa beschränkt = Colitis ulcerosa. Erst Erreger und Clostridioides ausschließen; Proktokolektomie heilt.',
       linkedCaseIds: [
         'case-colitis-ulcerosa',
       ],
@@ -34109,7 +34109,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Alkohol in jeder Form — Bier, Wein und Schnaps —, fettreiche und große Mahlzeiten, insbesondere fettes Fleisch, Wurst und Frittiertes; günstig sind häufige kleine, kohlenhydrat- und eiweißreiche Mahlzeiten unter Enzymsubstitution.',
         },
       ],
-      merksatz: 'Gürtelförmiger Oberbauchschmerz nach Essen und Alkohol, Fettstühle und Gewichtsverlust bei einem Trinker, der raucht = chronische Pankreatitis — die Lipase darf dabei normal sein, die Elastase im Stuhl zeigt die Insuffizienz, das CT die Verkalkungen. Therapie: Alkohol und Nikotin weg, Enzyme zu jeder Mahlzeit in ausreichender Dosis, Vitamine ersetzen, Schmerz nach WHO, Insulin beim Typ-3c — und bei jeder Verschlechterung an das Karzinom denken.',
+      merksatz: 'Gürtelförmiger Schmerz nach Essen und Alkohol, Fettstühle, Gewichtsverlust beim rauchenden Trinker = chronische Pankreatitis; Lipase darf normal sein. Bei Verschlechterung an das Karzinom denken.',
       linkedCaseIds: [
         'case-chronische-pankreatitis',
       ],
@@ -34427,7 +34427,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Bei erhöhtem Troponin, jeder Rhythmusstörung, eingeschränkter Pumpfunktion, Herzinsuffizienzzeichen, Synkope oder hämodynamischer Instabilität — praktisch bei jeder klinisch vermuteten akuten Myokarditis, mindestens für die ersten Tage mit Monitorüberwachung, weil maligne Arrhythmien in der Akutphase am häufigsten sind.',
         },
       ],
-      merksatz: 'Junger Patient, Infekt, freies Intervall, dann Brustschmerz und Herzstolpern unter Belastung = Myokarditis, bis das Gegenteil bewiesen ist. Troponin plateauartig, EKG diffus, MRT subepikardial (Lake Louise), Biopsie nur bei schwerem Verlauf. Keine kausale Therapie, keine Routine-Steroide — Monitoring, Herzinsuffizienztherapie und absolutes Sportverbot über drei bis sechs Monate.',
+      merksatz: 'Junger Patient, Infekt, freies Intervall, dann Brustschmerz unter Belastung = Myokarditis, bis das Gegenteil bewiesen ist. Keine Routine-Steroide, absolutes Sportverbot über drei bis sechs Monate.',
       linkedCaseIds: [
         'case-myokarditis',
       ],
@@ -34757,7 +34757,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die Nieren arbeiten wie ein Filter, der das Eiweiß im Blut zurückhalten soll. Dieser Filter ist undicht geworden, deshalb geht viel Eiweiß mit dem Urin verloren — daher schäumt der Urin. Weil im Blut zu wenig Eiweiß ist, kann das Wasser nicht in den Gefäßen gehalten werden und lagert sich im Gewebe ein — daher die Schwellungen. Mit einer Gewebeprobe aus der Niere finden wir heraus, warum der Filter undicht ist, und richten die Behandlung danach.',
         },
       ],
-      merksatz: 'Proteinurie über 3,5 g, Albumin unter 30 g/l, Ödeme — plus Hyperlipidämie: das ist das nephrotische Syndrom, und es ist nur ein Symptom. Schäumenden Urin erfragen, Ursache biopsieren, Komplikationen spontan nennen (Thrombose, Infekt, Nierenversagen), Diuretika hoch dosieren, aber LANGSAM entwässern, ACE-Hemmer immer — und KEINE eiweißreiche Kost.',
+      merksatz: 'Proteinurie über 3,5 g, Albumin unter 30 g/l, Ödeme, Hyperlipidämie = nephrotisches Syndrom — nur ein Symptom: Ursache biopsieren, LANGSAM entwässern, ACE-Hemmer immer, KEINE eiweißreiche Kost.',
       linkedCaseIds: [
         'case-nephrotisches-syndrom',
       ],
@@ -35068,7 +35068,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die neutropene Sepsis, die Blutung einschließlich der intrakraniellen bei Thrombozyten unter 10 000–20 000/µl, die Leukostase bei Leukozyten über 100 000/µl, das Tumorlysesyndrom zu Therapiebeginn mit Hyperkaliämie, Hyperurikämie, Hyperphosphatämie und Nierenversagen sowie die disseminierte intravasale Gerinnung bei der Promyelozytenleukämie. Langfristig Kardiotoxizität der Anthrazykline, Sterilität, Zweitmalignome und nach Transplantation die Transplantat-gegen-Wirt-Reaktion.',
         },
       ],
-      merksatz: 'Müde, blutend und immer wieder krank — innerhalb von Wochen: Anämie, Thrombozytopenie, Neutropenie durch Blastenverdrängung im Mark. Blutbild mit Differenzialblutbild zuerst, Knochenmarkpunktion beweist (ab 20 % Blasten). Fieber in der Neutropenie = Blutkulturen und Antibiotika innerhalb einer Stunde; Blutungsneigung mit Fibrinogenabfall = an die Promyelozytenleukämie denken und sofort ATRA.',
+      merksatz: 'Anämie, Thrombozytopenie, Neutropenie innerhalb von Wochen = akute Leukämie, Knochenmarkpunktion beweist (ab 20 % Blasten). Fieber in der Neutropenie = Blutkulturen und Antibiotika in einer Stunde.',
       linkedCaseIds: [
         'case-akute-leukaemie',
       ],
@@ -35364,7 +35364,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Sterilität durch Verwachsungen und Tubenschaden, Ruptur oder Torsion eines Endometrioms, Douglas-Obliteration, Darmstenose bis zum Ileus bei Darmbefall, Harnstau mit stummem Nierenverlust bei Ureterbefall, chronische Schmerzkrankheit mit Depression, Anämie bei Hypermenorrhoe und — selten — ein endometrioseassoziiertes Ovarialkarzinom.',
         },
       ],
-      merksatz: 'Zyklische Schmerzen, die über Jahre schlimmer werden, plus die vier D (Dysmenorrhoe, Dyspareunie, Dyschezie, Dysurie) und Kinderwunsch = Endometriose, bis das Gegenteil bewiesen ist — sieben bis zehn Jahre Verzögerung entstehen nur, weil niemand fragt. β-HCG zuerst, Vaginalsonographie als Methode der Wahl (unauffällig schließt nichts aus), Laparoskopie als Goldstandard; Therapie nach Schmerz, Kinderwunsch und Alter — Dienogest ohne Kinderwunsch, Operation mit Kinderwunsch, niemals beides zugleich.',
+      merksatz: 'Vier D (Dysmenorrhoe, Dyspareunie, Dyschezie, Dysurie) plus Kinderwunsch = Endometriose, bis das Gegenteil bewiesen ist. Laparoskopie ist Goldstandard; Dienogest ohne, Operation mit Kinderwunsch.',
       linkedCaseIds: [
         'case-endometriose',
       ],
@@ -35684,7 +35684,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Unter traumafokussierter Psychotherapie bessert sich die Symptomatik bei der Mehrheit deutlich, bei einem einmaligen Unfalltrauma und stabilem Umfeld ist die Prognose gut. Ohne Behandlung chronifiziert die Störung bei etwa einem Drittel, mit Depression, Substanzabhängigkeit und Arbeitsunfähigkeit; der Alkoholkonsum und die Vermeidung sind hier die Risiken, die wir früh angehen müssen.',
         },
       ],
-      merksatz: 'Der PTBS-Patient kommt mit Kopfschmerz, Schlafstörung und Herzrasen, nicht mit dem Trauma — behutsam und mit Erlaubnis fragen, vier Cluster ordnen (Wiedererleben, Vermeidung, negative Stimmung und Denken, Übererregung), über einen Monat; Therapie = Stabilisierung, dann traumafokussierte Psychotherapie (tf-KVT/EMDR), SSRI nur als Ergänzung, NIEMALS Benzodiazepine.',
+      merksatz: 'Der PTBS-Patient kommt mit Kopfschmerz, Schlafstörung und Herzrasen, nicht mit dem Trauma. Therapie = Stabilisierung, dann traumafokussierte Psychotherapie (tf-KVT/EMDR), NIEMALS Benzodiazepine.',
       linkedCaseIds: [
         'case-ptbs',
       ],
@@ -35989,7 +35989,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein laufendes Renten- oder Begutachtungsverfahren fördert die Chronifizierung, weil es den Patienten an die Krankenrolle bindet und Besserung ungünstig erscheinen lässt. Ich spreche das offen an und empfehle stattdessen eine stufenweise Wiedereingliederung und Rehabilitation — Reha vor Rente.',
         },
       ],
-      merksatz: 'Schmerz seit über sechs Monaten, viele Ärzte, kein Befund, Beginn nach Belastung = somatoforme Schmerzstörung. Der Schmerz ist echt: Vorbefunde sichten statt MRT wiederholen, Basislabor, dann Diagnostik ausdrücklich abschließen. Therapie = Beziehung, Psychotherapie, Aktivierung, Amitriptylin oder Duloxetin — keine Opioide, Ziel ist Funktion statt Schmerzfreiheit.',
+      merksatz: 'Schmerz seit über sechs Monaten, viele Ärzte, kein Befund = somatoforme Schmerzstörung: Diagnostik ausdrücklich abschließen, keine Opioide, Ziel ist Funktion statt Schmerzfreiheit.',
       linkedCaseIds: [
         'case-somatoforme-schmerzstoerung',
       ],
@@ -36315,7 +36315,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Herr Lindner, wir vermuten, dass Ihr Hüftkopf — die Kugel des Hüftgelenks — nicht mehr richtig durchblutet wird und deshalb ein Teil des Knochens abstirbt; man nennt das Hüftkopfnekrose. Das Röntgenbild sieht so etwas am Anfang nicht, deshalb brauchen wir eine Kernspintomographie beider Hüften. Die wichtigsten Ursachen sind bei Ihnen das Kortison gegen die Darmentzündung und der Alkohol. Wenn wir früh dran sind, können wir den Knochen mit einer Entlastung an Gehstützen und einer kleinen Operation, einer Anbohrung, retten; ist der Kopf schon eingebrochen, hilft nur ein künstliches Gelenk. Haben Sie dazu Fragen?',
         },
       ],
-      merksatz: 'Junger Mann, Leistenschmerz bis zum Knie, Ruhe- und Nachtschmerz, Kortison oder Alkohol in der Anamnese und ein normales Röntgenbild = Hüftkopfnekrose bis zum Beweis des Gegenteils — MRT BEIDER Hüften (50–80 % beidseitig). Gelenkerhaltend nur VOR dem Einbruch (ARCO I–II: Entlastung, Anbohrung), danach TEP.',
+      merksatz: 'Junger Mann, Leistenschmerz, Kortison oder Alkohol, normales Röntgenbild = Hüftkopfnekrose: MRT BEIDER Hüften (50–80 % beidseitig). Gelenkerhaltend nur VOR dem Einbruch (ARCO I–II), danach TEP.',
       linkedCaseIds: [
         'case-hueftkopfnekrose',
       ],
@@ -36653,7 +36653,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Stationäre Aufnahme in die Nephrologie beziehungsweise Innere Medizin mit nephrologischem Konsil; bei steigendem Kreatinin, Anurie, Hyperkaliämie, Lungenödem oder hypertensiver Krise Verlegung auf die Überwachungs- oder Intensivstation eines Zentrums mit Dialyse- und Plasmapheresemöglichkeit.',
         },
       ],
-      merksatz: 'Colafarbener Urin, Lidödeme und neuer Bluthochdruck ein bis drei WOCHEN nach der Angina = postinfektiöse Glomerulonephritis (C3 niedrig, ASL hoch); brauner Urin schon WÄHREND des Infekts = IgA-Nephropathie (C3 normal). Das Sediment mit Akanthozyten und Erythrozytenzylindern beweist die glomeruläre Herkunft — und rasch steigendes Kreatinin heißt RPGN: biopsieren und sofort immunsupprimieren.',
+      merksatz: 'Colafarbener Urin WOCHEN nach der Angina = postinfektiöse Glomerulonephritis (C3 niedrig), brauner Urin WÄHREND des Infekts = IgA-Nephropathie (C3 normal); steigendes Kreatinin = RPGN: biopsieren.',
       linkedCaseIds: [
         'case-glomerulonephritis',
       ],
@@ -36972,7 +36972,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Sehr unterschiedlich: Das aggressive diffus großzellige B-Zell-Lymphom ist unter R-CHOP bei etwa 60 bis 70 Prozent der Patienten dauerhaft heilbar, abhängig vom IPI. Indolente Lymphome sind in fortgeschrittenen Stadien nicht heilbar, verlaufen aber chronisch mit medianen Überlebenszeiten von 15 bis 20 Jahren; Gefahr ist die Transformation in ein aggressives Lymphom.',
         },
       ],
-      merksatz: 'Schmerzloser, derber Lymphknoten, der über Wochen wächst, plus Nachtschweiß, Fieber und Gewichtsverlust = Lymphom, bis die Histologie des GANZEN Lymphknotens das Gegenteil beweist. Indolent: langsam, lange still, nicht heilbar — deshalb oft Watch and Wait. Aggressiv: schnell, macht krank, sofort R-CHOP — und dafür heilbar.',
+      merksatz: 'Schmerzloser, derber Lymphknoten plus Nachtschweiß, Fieber, Gewichtsverlust = Lymphom, bis die Histologie des GANZEN Lymphknotens das Gegenteil beweist. Indolent: Watch and Wait; aggressiv: R-CHOP.',
       linkedCaseIds: [
         'case-nhl',
       ],
@@ -37231,7 +37231,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Allen gemeinsam sind anfängliche Zytopenien, Übelkeit, Hautausschlag und Müdigkeit. Imatinib verursacht typischerweise Ödeme, besonders um die Augen, Muskelkrämpfe und Gewichtszunahme. Nilotinib erhöht Blutzucker und Blutfette, verlängert die QT-Zeit und steigert das Risiko arterieller Gefäßverschlüsse. Dasatinib führt zu Pleuraergüssen und selten zu pulmonaler Hypertonie. Bosutinib verursacht Durchfall und Leberwerterhöhungen. Ponatinib hat das höchste Risiko für Gefäßverschlüsse. Dazu kommen Wechselwirkungen über CYP3A4 und die Kontraindikation in der Schwangerschaft.',
         },
       ],
-      merksatz: 'Zufällig entdeckte Leukozytose über 100 G/l mit Basophilie, allen Reifungsstufen und großer Milz = CML bis zum Beweis des Gegenteils; der Beweis heißt BCR-ABL1 (Philadelphia-Chromosom t(9;22)). Therapie: ein Tyrosinkinaseinhibitor am Tag, PCR alle drei Monate — und der Patient, der seine Tablette nimmt, lebt fast so lange wie ein Gesunder.',
+      merksatz: 'Leukozytose über 100 G/l mit Basophilie, allen Reifungsstufen und großer Milz = CML; der Beweis heißt BCR-ABL1 (t(9;22)). Therapie: ein Tyrosinkinaseinhibitor am Tag, PCR alle drei Monate.',
       linkedCaseIds: [
         'case-cml',
       ],
@@ -37561,7 +37561,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil sie die Risikokonstellation aufdeckt — neue Partnerschaft, Verhütungsverhalten, Rauchen — und weil die Partnerbehandlung, die Sexualkarenz und die Compliance über 14 Tage nur gelingen, wenn ich die Lebenssituation kenne: Studium, Klausuren, Wohnsituation, Beziehung. Außerdem muss ich das Gespräch über den Partner sensibel führen.',
         },
       ],
-      merksatz: 'Junge Frau, Unterbauchschmerz nach der Periode, Fieber, Fluor, Portioschiebeschmerz = Adnexitis: ERST Schwangerschaftstest, DANN Abstriche, und SOFORT Ceftriaxon plus Doxycyclin plus Metronidazol über 14 Tage — Partner mitbehandeln, Kontrolle nach 48 bis 72 Stunden, sonst droht die Tubensterilität (10 %, 25 %, über 50 %).',
+      merksatz: 'Unterbauchschmerz nach der Periode, Fieber, Fluor, Portioschiebeschmerz = Adnexitis: ERST Schwangerschaftstest, DANN Abstriche, SOFORT Ceftriaxon plus Doxycyclin plus Metronidazol über 14 Tage.',
       linkedCaseIds: [
         'case-adnexitis',
       ],
@@ -37871,7 +37871,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Allergenkarenz und Nasenspülungen als Basis; medikamentös Cromoglicin-Augentropfen und -Nasenspray, bei Bedarf Loratadin oder Cetirizin und als nasales Glukokortikoid Budesonid, für die alle ausreichend Erfahrung vorliegt. Abschwellende Nasentropfen und sedierende Antihistaminika sollten gemieden werden; eine Immuntherapie wird in der Schwangerschaft nicht neu begonnen, eine gut vertragene Erhaltungstherapie kann fortgeführt werden.',
         },
       ],
-      merksatz: 'Niesen, klare Nase, Juckreiz, Augen — ohne Fieber, jedes Jahr zur gleichen Zeit: Aus dem Kalender das Allergen lesen, nach Husten und Giemen fragen (Etagenwechsel bei 20–40 %), Pricktest plus Klinik (Sensibilisierung ist nicht Allergie), Antihistaminikum und nasales Kortikoid — und die Immuntherapie als einzige kausale Behandlung, die den Weg zum Asthma versperrt.',
+      merksatz: 'Niesen, klare Nase, Juckreiz ohne Fieber, jedes Jahr zur gleichen Zeit: Pricktest plus Klinik (Sensibilisierung ist nicht Allergie) — die Immuntherapie ist die einzige kausale Behandlung.',
       linkedCaseIds: [
         'case-allergische-rhinitis',
       ],
@@ -38197,7 +38197,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil die Resistenzlage regional sehr unterschiedlich ist: In Südasien sind Fluorchinolone weitgehend unwirksam, und aus Pakistan werden extensiv resistente Stämme berichtet, die auch gegen Ceftriaxon resistent sind. Deshalb kalkuliert Ceftriaxon intravenös, Azithromycin als Alternative, Carbapeneme bei XDR, immer angepasst an das Antibiogramm.',
         },
       ],
-      merksatz: 'Fieber nach der Reise: erst Malaria ausschließen, dann Blutkulturen VOR dem Antibiotikum. Typhus = Treppenfieber, dann Kontinua mit zu langsamem Puls, Obstipation vor Erbsbrei, Leukopenie trotz Sepsis. Ceftriaxon statt Ciprofloxacin, Meldung schon bei Verdacht, und am Ende drei negative Stühle gegen den Dauerausscheider.',
+      merksatz: 'Fieber nach der Reise: erst Malaria ausschließen, dann Blutkulturen VOR dem Antibiotikum. Typhus: Ceftriaxon statt Ciprofloxacin, Meldung schon bei Verdacht, am Ende drei negative Stühle.',
       linkedCaseIds: [
         'case-typhus',
       ],
@@ -38528,7 +38528,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich erkläre, dass wir den Dickdarm mit einem biegsamen Schlauch mit Kamera über den After spiegeln, um die Ursache der Verstopfung und der Blutung zu finden und Polypen oder einen Tumor auszuschließen. Vorbereitung: am Vortag nur klare Flüssigkeit, abends und morgens eine Spüllösung trinken, bis der Stuhl klar ist; Blutverdünner nach Absprache pausieren. Die Untersuchung dauert 20 bis 30 Minuten, auf Wunsch mit einer Schlafspritze; dann 24 Stunden nicht Auto fahren. Risiken: Blähungen und Druckgefühl, selten Blutung nach Polypenabtragung, sehr selten Verletzung der Darmwand (Perforation) mit Operation, Kreislaufreaktion auf das Schlafmittel. Danach fragen, ob alles verstanden wurde, und die Einwilligung einholen.',
         },
       ],
-      merksatz: 'Obstipation heißt weniger als drei Stuhlgänge pro Woche, hart, mit Pressen — erst Medikamente und Red Flags prüfen, rektal untersuchen, ab 50 oder bei Blut koloskopieren; dann Ballaststoffe MIT Wasser, Bewegung, Macrogol als Dauertherapie, Bisacodyl als zweite Stufe, Biofeedback bei Beckenbodendyssynergie.',
+      merksatz: 'Obstipation = weniger als drei Stuhlgänge pro Woche: erst Medikamente und Red Flags prüfen, ab 50 oder bei Blut koloskopieren; Ballaststoffe MIT Wasser, Macrogol als Dauertherapie.',
       linkedCaseIds: [
         'case-obstipation',
       ],
@@ -38869,7 +38869,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In der Regel nicht. Bei Vorhofflimmern überwiegt der Schutz vor einem Schlaganfall das Blutungsrisiko durch Stürze deutlich — rechnerisch müsste ein Patient sehr häufig im Jahr stürzen, bevor das Blutungsrisiko den Nutzen aufwiegt. Richtig ist, die Sturzursachen zu behandeln, NSAR abzusetzen, die Dosis an Nierenfunktion und Alter anzupassen und nach jedem Kopfanprall großzügig ein CT zu machen.',
         },
       ],
-      merksatz: 'Ein Sturz im Alter ist kein Zufall, sondern ein Symptom: erst fragen, ob das Bewusstsein weg war (Synkope → Herz), dann Hergang, Liegezeit und Kopfanprall, dann die drei Ursachengruppen — intrinsisch, medikamentös, extrinsisch. Schellong, EKG, CT bei Kopfanprall unter Blutverdünner, Röntgen der Hüfte; Therapie = Medikationsreview, Kraft- und Gleichgewichtstraining, Wohnraumanpassung, Osteoporoseschutz — und die Antikoagulation bei Vorhofflimmern nicht reflexartig absetzen.',
+      merksatz: 'Ein Sturz im Alter ist ein Symptom: erst fragen, ob das Bewusstsein weg war (Synkope → Herz), CT bei Kopfanprall unter Blutverdünner — Antikoagulation bei Vorhofflimmern nicht reflexartig absetzen.',
       linkedCaseIds: [
         'case-sturz-im-alter',
       ],
@@ -39514,7 +39514,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Insgesamt über 80 %: Etwa die Hälfte der Patienten erreicht das Krankenhaus nicht lebend, und von den operierten Patienten stirbt nochmals ein Drittel bis die Hälfte. Beim elektiven Eingriff liegt die Sterblichkeit dagegen bei etwa 1–2 % nach EVAR und 3–5 % nach offener Operation — deshalb ist der richtige Zeitpunkt der Operation entscheidend.',
         },
       ],
-      merksatz: 'Bauchaorta über 3 cm = Aneurysma, über 90 % infrarenal, Raucher über 65 mit Familienanamnese: stumm schallen und ab 5,5 cm (Frau 5,0 cm) ausschalten — Schmerz, Hypotonie und pulsierender Tumor sind die Ruptur: Aortenalarm, Kreuzblut, permissive Hypotonie 80–100 mmHg, instabil ohne CT in den Saal.',
+      merksatz: 'Bauchaorta über 3 cm = Aneurysma: ab 5,5 cm (Frau 5,0 cm) ausschalten. Schmerz, Hypotonie, pulsierender Tumor = Ruptur: permissive Hypotonie 80–100 mmHg, instabil ohne CT in den Saal.',
       linkedCaseIds: [
         'case-bauchaortenaneurysma',
       ],
@@ -39838,7 +39838,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Herr Kessler, die innere Wandschicht Ihrer Hauptschlagader — der großen Ader, die vom Herzen wegführt — ist eingerissen. Das Blut drückt sich jetzt zwischen die Wandschichten und schiebt sie auseinander; das ist der reißende Schmerz, der auch in den Rücken gewandert ist. Das ist eine ernste, aber behandelbare Situation: Wir senken jetzt sofort Ihren Blutdruck und Ihren Puls, damit die Wand nicht weiter einreißt, und die Herzchirurgen bereiten eine Operation vor, bei der der eingerissene Abschnitt durch eine Gefäßprothese ersetzt wird.',
         },
       ],
-      merksatz: 'Reißend, sofort maximal, wandernd in den Rücken, Blutdruckdifferenz oder Pulsdefizit = Aortendissektion bis zum Beweis des Gegenteils: KEIN Heparin, KEIN ASS, KEINE Lyse — erst Betablocker (Frequenz 60, systolisch 100–120), dann CT-Angiographie; Typ A sofort in den OP, Typ B konservativ oder TEVAR.',
+      merksatz: 'Reißender Schmerz, Blutdruckdifferenz oder Pulsdefizit = Aortendissektion: KEIN Heparin, KEIN ASS, KEINE Lyse — erst Betablocker (Frequenz 60, systolisch 100–120), dann CT-Angiographie; Typ A OP.',
       linkedCaseIds: [
         'case-aortendissektion',
       ],
@@ -40176,7 +40176,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Erst nach Beschwerdefreiheit und Normalisierung von CRP, EKG und Echokardiographie, bei Freizeitsportlern meist nach vier bis sechs Wochen; bei Leistungssportlern und bei Myokardbeteiligung mindestens drei Monate, nach Perimyokarditis bis zu sechs Monate — jeweils erst nach ärztlicher Kontrolle und Freigabe.',
         },
       ],
-      merksatz: 'Stechend, atem- und lageabhängig, im Sitzen besser, in den Trapeziusrand — dazu Reiben, diffuse konkave ST-Hebungen mit PQ-Senkung und Erguss im Echo: zwei von vier Kriterien machen die Perikarditis. Therapie NSAR PLUS Colchicin drei Monate, Kortison nur zweite Wahl; bei Beck-Trias und Pulsus paradoxus sofort punktieren — Volumen ja, Diuretika und Nitrate nein.',
+      merksatz: 'Zwei von vier Kriterien (Schmerz, Reiben, ST-Hebungen mit PQ-Senkung, Erguss) = Perikarditis: NSAR PLUS Colchicin drei Monate; Beck-Trias und Pulsus paradoxus = sofort punktieren, keine Diuretika.',
       linkedCaseIds: [
         'case-perikarditis',
       ],
@@ -40527,7 +40527,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Keine Arbeiten in der Höhe, an ungesicherten Maschinen oder mit Waffen, den Betriebsarzt einbeziehen; zu Hause duschen statt baden, schwimmen nur begleitet, Herdsicherung; regelmäßiger Schlaf, kein Alkoholexzess, keine Drogen; die Partnerin in Erster Hilfe schulen, Notruf ab fünf Minuten; Notfallausweis und Anfallskalender; und die Familienplanung frühzeitig besprechen.',
         },
       ],
-      merksatz: 'Erster Anfall = drei Fragen: War es epileptisch (Fremdanamnese, lateraler Zungenbiss, Zyanose, postiktale Phase — EKG gegen die Synkope)? War er provoziert (Schlafentzug, Alkohol, Zucker, Natrium, Medikamente)? Gab es schon frühere? Zwei unprovozierte Anfälle = Epilepsie. Nichts in den Mund, nicht festhalten, ab fünf Minuten Benzodiazepin — und das Fahrverbot aussprechen und dokumentieren.',
+      merksatz: 'Erster Anfall = drei Fragen: epileptisch (lateraler Zungenbiss, postiktale Phase, EKG gegen die Synkope)? provoziert? frühere? Zwei unprovozierte Anfälle = Epilepsie; ab fünf Minuten Benzodiazepin.',
       linkedCaseIds: [
         'case-epilepsie',
       ],
@@ -40841,7 +40841,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Epididymitis und Epididymoorchitis, Hydatidentorsion beim Kind mit dem Blue-Dot-Zeichen, inkarzerierte Leistenhernie, Hodentrauma mit Hämatozele, Hodentumor mit Einblutung, Hydrozele und Varikozele, Mumpsorchitis, Fournier-Gangrän beim Diabetiker, Purpura Schönlein-Henoch, idiopathisches Skrotalödem, außerdem Nierenkolik und Appendizitis mit Ausstrahlung.',
         },
       ],
-      merksatz: 'Akutes Skrotum beim Jugendlichen = Hodentorsion, bis das Gegenteil bewiesen ist: erloschener Kremasterreflex, negatives Prehn-Zeichen, Hochstand — im Zweifel wird OPERIERT, nicht abgewartet, innerhalb von sechs Stunden, Doppler ohne Verzögerung, und IMMER die Gegenseite mit fixieren.',
+      merksatz: 'Akutes Skrotum beim Jugendlichen = Hodentorsion, bis das Gegenteil bewiesen ist: im Zweifel wird OPERIERT, innerhalb von sechs Stunden, und IMMER die Gegenseite mit fixieren.',
       linkedCaseIds: [
         'case-hodentorsion',
       ],
@@ -41150,7 +41150,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: '„Wir entfernen die Stelle in örtlicher Betäubung mit einem kleinen Sicherheitsrand und lassen das Gewebe unter dem Mikroskop untersuchen. Wenn der Rand noch nicht frei ist, schneiden wir gezielt nach, bis alles entfernt ist, und verschließen die Wunde erst dann — an der Nase manchmal mit einer kleinen Hautverschiebung oder einem Hauttransplantat. Es bleibt eine Narbe, die im Gesicht in der Regel gut verheilt. Die Fäden werden nach etwa einer Woche gezogen.“',
         },
       ],
-      merksatz: 'Glänzendes Knötchen mit Perlschnurrand und Äderchen im Gesicht eines Sonnenverbrannten, das seit Monaten blutet und nicht heilt = Basaliom: häufigster Krebs des Menschen, zerstört lokal, streut praktisch nie — Histologie immer, Exzision mit Schnittrandkontrolle, und danach die GANZE Haut lebenslang kontrollieren, weil jeder Dritte bis Zweite ein zweites bekommt.',
+      merksatz: 'Glänzendes Knötchen mit Perlschnurrand, das seit Monaten blutet und nicht heilt = Basaliom: zerstört lokal, streut praktisch nie — Exzision mit Schnittrandkontrolle, GANZE Haut lebenslang prüfen.',
       linkedCaseIds: [
         'case-basaliom',
       ],
@@ -41485,7 +41485,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Das metabolische Syndrom mit Übergewicht, Hypertonie, Diabetes und Fettleber, das erhöhte kardiovaskuläre Risiko, das bei ihm durch Nikotin und die familiäre Herzinfarktanamnese verstärkt wird, die Hyperurikämie mit Gichtrisiko, Depression und Alkoholmissbrauch durch die Stigmatisierung sowie Uveitis und chronisch-entzündliche Darmerkrankung.',
         },
       ],
-      merksatz: 'Silbrig schuppende Plaques an Streckseiten und Kopfhaut, Tüpfelnägel und Wurstfinger = Psoriasis mit Psoriasisarthritis — seronegativ, systemisch, nicht ansteckend, nicht heilbar, aber kontrollierbar: topisch Steroid plus Vitamin D, systemisch Methotrexat einmal wöchentlich oder Biologika, NIE systemisches Kortison.',
+      merksatz: 'Silbrig schuppende Plaques, Tüpfelnägel und Wurstfinger = Psoriasis mit Psoriasisarthritis: topisch Steroid plus Vitamin D, systemisch Methotrexat oder Biologika, NIE systemisches Kortison.',
       linkedCaseIds: [
         'case-psoriasis',
       ],
@@ -41836,7 +41836,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Es handelt sich nicht um eine echte Allergie gegen eine bestimmte Substanz, sondern um eine pseudoallergische Analgetika-Intoleranz: Alle klassischen NSAR hemmen die Cyclooxygenase-1, dadurch entstehen vermehrt Leukotriene und die Mastzellen werden ohne IgE aktiviert. Deshalb reagiert die Patientin auf ASS und auf Ibuprofen gleichermaßen — und würde auch auf Diclofenac oder Naproxen reagieren. Sie muss alle NSAR meiden; Paracetamol wird meist vertragen, selektive COX-2-Hemmer nach Verträglichkeitstestung.',
         },
       ],
-      merksatz: 'Quaddel wandert und ist in 24 Stunden weg — das ist Nesselsucht; Schwellung ohne Quaddel und ohne Juckreiz — an ACE-Hemmer und C1-Inhibitor denken, da wirkt kein Antihistaminikum. Bei akuter Urtikaria keine Allergiesuche, aber IMMER Atmung und Kreislauf prüfen: sonst ist es eine Anaphylaxie, und dann kommt Adrenalin zuerst. Therapie: Antihistaminikum der zweiten Generation, bis zum Vierfachen, Kortison nur kurz.',
+      merksatz: 'Quaddel wandert und ist in 24 Stunden weg = Nesselsucht; Schwellung ohne Quaddel = an ACE-Hemmer und C1-Inhibitor denken. IMMER Atmung und Kreislauf prüfen — bei Anaphylaxie kommt Adrenalin zuerst.',
       linkedCaseIds: [
         'case-urtikaria',
       ],
@@ -42156,7 +42156,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Andere Autoimmunerkrankungen: Hashimoto-Thyreoiditis und Morbus Basedow, Vitiligo, Diabetes mellitus Typ 1, Morbus Addison und Zöliakie — im Rahmen eines polyglandulären Autoimmunsyndroms. Daraus folgt ein Screening mit TSH und Schilddrüsenantikörpern, Nüchternglukose, gegebenenfalls Cortisol und Transglutaminase-Antikörpern sowie eine Untersuchung der Verwandten ersten Grades.',
         },
       ],
-      merksatz: 'Makrozytäre Anämie plus Kribbeln in den Füßen = B12-Mangel, bis das Gegenteil bewiesen ist. Erst Blut abnehmen, dann sofort B12 spritzen — lebenslang, niemals Folsäure allein, Kalium in der ersten Woche kontrollieren, und den Magen alle drei Jahre spiegeln.',
+      merksatz: 'Makrozytäre Anämie plus Kribbeln in den Füßen = B12-Mangel: erst Blut abnehmen, dann sofort B12 spritzen — lebenslang, niemals Folsäure allein, Kalium in der ersten Woche kontrollieren.',
       linkedCaseIds: [
         'case-perniziose-anaemie',
       ],
@@ -42494,7 +42494,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die Substitution ersetzt das unkontrolliert konsumierte Opioid durch ein ärztlich verordnetes, lang wirksames Opioid — Methadon, Levomethadon, Buprenorphin oder retardiertes Morphin — in stabiler Dosis unter Sicht, um Entzug und Craving zu unterdrücken und den Patienten sozial zu stabilisieren. Sie ist in der Betäubungsmittel-Verschreibungsverordnung geregelt und setzt eine suchtmedizinische Qualifikation, die Meldung an das Substitutionsregister und eine psychosoziale Begleitung voraus.',
         },
       ],
-      merksatz: 'Craving, Kontrollverlust, Entzug, Toleranz, Vernachlässigung, Konsum trotz Schaden — drei davon über zwölf Monate = Abhängigkeit, eine Erkrankung und keine Charakterschwäche. Entzug: weite Pupillen, qualvoll, aber nicht tödlich; Intoxikation: enge Pupillen, Atemdepression, Naloxon titriert. Nach dem Entzug ist die Toleranz weg und der Rückfall am gefährlichsten — deshalb Substitution als Behandlung der Wahl und Naloxon mit nach Hause.',
+      merksatz: 'Entzug: weite Pupillen, qualvoll, nicht tödlich; Intoxikation: enge Pupillen, Atemdepression, Naloxon titriert. Nach dem Entzug ist die Toleranz weg — Substitution als Behandlung der Wahl.',
       linkedCaseIds: [
         'case-opioidabhaengigkeit',
       ],
@@ -42809,7 +42809,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Bei Komplikationen, bei Immunsuppression, bei fehlender Besserung 48 bis 72 Stunden nach Beginn der Antibiose, bei rezidivierendem Verlauf mit mehr als vier Episoden pro Jahr, bei chronischer Rhinosinusitis, bei einseitiger blutiger oder therapieresistenter Symptomatik und bei anhaltendem Riechverlust — zur Nasenendoskopie, zum Abstrich aus dem mittleren Nasengang und gegebenenfalls zur Operationsplanung.',
         },
       ],
-      merksatz: 'Über 90 % viral, Diagnose klinisch, kein Röntgen, kein Antibiotikum — außer bei mehr als zehn Tagen, Zweigipfligkeit, Fieber über 38 °C mit Eiter, einseitigem Schmerz oder erhöhtem CRP: dann Amoxicillin, bei Allergie Doxycyclin. Nasenspray maximal sieben Tage. Lidschwellung, Doppelbilder oder Nackensteife = stationär, CT, i.v. Antibiose, OP.',
+      merksatz: 'Sinusitis: über 90 % viral, kein Röntgen, kein Antibiotikum — außer bei über zehn Tagen, Zweigipfligkeit oder Fieber über 38 °C mit Eiter: dann Amoxicillin. Lidschwellung, Doppelbilder = stationär.',
       linkedCaseIds: [
         'case-sinusitis',
       ],
@@ -43165,7 +43165,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil das obstruktive Schlafapnoe-Syndrom eine häufige und behandelbare Ursache der sekundären beziehungsweise therapieresistenten Hypertonie ist: nächtliche Sauerstoffabfälle aktivieren den Sympathikus, die Nachtabsenkung fehlt, morgens bestehen Kopfschmerzen. Bei Verdacht veranlasse ich eine Polygraphie, die Therapie ist die CPAP-Beatmung.',
         },
       ],
-      merksatz: 'Nicht der Messwert, der Organschaden entscheidet: Entgleisung = hoch ohne Organschaden → Ruhe, oral, langsam, ambulant; Notfall = Organschaden → Intensivstation, intravenös, maximal 25 Prozent in der ersten Stunde (außer Dissektion). Häufigste Ursache der Entgleisung: die nicht genommene Tablette.',
+      merksatz: 'Nicht der Messwert, der Organschaden entscheidet: Entgleisung → oral, langsam, ambulant; Notfall → Intensivstation, intravenös, maximal 25 Prozent in der ersten Stunde (außer Dissektion).',
       linkedCaseIds: [
         'case-arterielle-hypertonie',
       ],
@@ -43573,7 +43573,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Über Wirkung und Ziel — Blutverdünnung zum Schutz vor Gerinnseln, INR-Zielbereich 2–3 mit regelmäßigen Kontrollen und Marcumar-Ausweis —, über Blutungszeichen wie schwarzen Stuhl, Blut im Urin, große Blutergüsse oder anhaltendes Nasenbluten, über das Vorgehen nach Sturz auf den Kopf mit sofortiger ärztlicher Vorstellung, über Interaktionen: keine Selbstmedikation mit Ibuprofen oder Diclofenac, jedes neue Medikament, vor allem Antibiotika, mit dem Arzt besprechen, keine intramuskulären Spritzen, Vitamin-K-reiche Kost wie Kohl und Spinat nicht meiden, sondern gleichmäßig essen, Alkohol nur maßvoll. Weiter: vor jeder Operation, Endoskopie und Zahnbehandlung rechtzeitig Bescheid geben, Marcumar nie eigenmächtig absetzen, bei Kinderwunsch sofort melden, weil Marcumar in der Schwangerschaft schädlich ist.',
         },
       ],
-      merksatz: '„Nehmen Sie Blutverdünner?“ — dann Substanz, Indikation und Niere klären: Marcumar = INR 2–3, langsam, Vitamin K + PPSB; DOAK = feste Dosis nach Niere, 12 Stunden Halbwertszeit, kein Bridging, nie bei mechanischer Klappe; Heparin = aPTT, NMH = 1 mg/kg alle 12 h, Protamin; ASS ist KEIN Antikoagulans. Fraktur → NMH-Prophylaxe, Vorhofflimmern → CHA2DS2-VASc, Stent → DAPT, Blutung → absetzen, Antidot, Endoskopie.',
+      merksatz: 'Marcumar = INR 2–3, Vitamin K + PPSB; DOAK = feste Dosis nach Niere, kein Bridging, nie bei mechanischer Klappe; ASS ist KEIN Antikoagulans. Blutung → absetzen, Antidot, Endoskopie.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -43995,7 +43995,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Der Alkoholiker hat typischerweise eine Hypokaliämie durch Mangelernährung, Erbrechen und Diarrhoe, eine Hypomagnesiämie durch renalen Verlust und Malnutrition — die die Hypokaliämie und Hypokalzämie unterhält und Krampfanfälle und Rhythmusstörungen begünstigt —, eine Hypophosphatämie, eine Hyponatriämie durch Bier-Potomanie mit maximal verdünntem Urin unter 100 mOsm/kg bei geringer Salz- und Eiweißzufuhr sowie bei Zirrhose eine Verdünnungshyponatriämie. Dazu kommt ein Thiamin- und Folsäuremangel. Er ist ein Hochrisikopatient für die pontine Myelinolyse — Natrium maximal 8 mmol/l in 24 Stunden anheben — und für das Refeeding-Syndrom, deshalb vor Glukoseinfusion immer Thiamin 100 bis 300 mg i.v. geben.',
         },
       ],
-      merksatz: 'Kalium ≥ 6,5 oder EKG-Zeichen: erst Kalziumglukonat (schützt das Herz, senkt nichts), dann Insulin-Glukose und Salbutamol (verschieben), dann Diuretikum, Austauscher, Dialyse (eliminieren). Kalium i.v. nie über 10 mmol/h, nie ohne Magnesium. Natrium in beide Richtungen maximal 8–10 mmol/l pro 24 Stunden — zu schnell hoch: Myelinolyse, zu schnell runter: Hirnödem; SIADH bekommt Wasserrestriktion, nicht Kochsalz. Kalzium hoch: Volumen, dann Furosemid, dann Bisphosphonat und Calcitonin; Kalzium niedrig mit Tetanie: Kalziumglukonat i.v. — außer bei Hyperventilation.',
+      merksatz: 'Kalium ≥ 6,5 oder EKG-Zeichen: erst Kalziumglukonat, dann Insulin-Glukose, dann eliminieren. Natrium maximal 8–10 mmol/l pro 24 Stunden — zu schnell hoch: Myelinolyse, zu schnell runter: Hirnödem.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -44395,7 +44395,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Impfungen: Pneumokokken mit Konjugatimpfstoff, Meningokokken ACWY und B, Haemophilus influenzae Typ b, jährlich Influenza, COVID-19 — bei elektiver Splenektomie idealerweise 2 Wochen vor der Operation. Der Asplenie-Patient erhält einen Notfallausweis und ein Stand-by-Antibiotikum, Amoxicillin/Clavulansäure 3 × 875/125 mg, das er bei jedem Fieber sofort einnimmt und sich dann vorstellt, weil die OPSI innerhalb von Stunden tödlich verlaufen kann. Weitere Maßnahmen: Katheterindikation täglich prüfen und Katheter früh entfernen, Händedesinfektion und aseptische Technik, MRSA-Screening, Endokarditisprophylaxe mit Amoxicillin 2 g vor Zahneingriffen bei Klappenprothese, gute Diabeteseinstellung, Zahnsanierung, Patientenschulung über die Warnzeichen Fieber mit Schüttelfrost, Verwirrtheit, schnelle Atmung und Blutdruckabfall.',
         },
       ],
-      merksatz: 'Sepsis = Infektion + Organdysfunktion (SOFA ≥ 2), septischer Schock = Vasopressor für MAP ≥ 65 mmHg + Laktat > 2 mmol/l trotz Volumen. Am Bett qSOFA: Atmung ≥ 22, Druck ≤ 100, Kopf verwirrt — ab 2 von 3 läuft die Uhr. In der ersten Stunde: Laktat, Kulturen VOR Antibiose, Breitspektrum i.v., 30 ml/kg Kristalloide, Noradrenalin — und den Fokus sanieren, denn kein Antibiotikum heilt einen Abszess, einen Harnstau oder einen infizierten Katheter.',
+      merksatz: 'Sepsis = Infektion + Organdysfunktion (SOFA ≥ 2); qSOFA ab 2 von 3 läuft die Uhr. Erste Stunde: Laktat, Kulturen VOR Antibiose, Breitspektrum i.v., 30 ml/kg Kristalloide — und den Fokus sanieren.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -44785,7 +44785,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Analgetika sind Schmerzmittel, Antipyretika fiebersenkende Mittel — Paracetamol und Metamizol sind beides. Antiphlogistika sind entzündungshemmende Mittel wie Ibuprofen. Spasmolytika sind krampflösende Mittel, die die Muskulatur von Darm, Gallenwegen oder Harnleiter entspannen, zum Beispiel Buscopan. Sedativa sind Beruhigungsmittel, die müde machen, und Anxiolyse bedeutet Angstlösung, etwa vor einem Eingriff. Eine Lokalanästhesie ist eine örtliche Betäubung, bei der nur die betroffene Stelle mit einer Spritze unempfindlich gemacht wird, im Gegensatz zur Vollnarkose. Opioide sind starke, morphinartige Schmerzmittel, retardiert heißt „verzögert freisetzend“, und Applikation bedeutet schlicht die Art der Verabreichung — als Tablette, Spritze, Tropfen, Zäpfchen oder Pflaster.',
         },
       ],
-      merksatz: 'Erst Empathie und Allergiefrage, dann das Schmerzmittel: oral, nach der Uhr, stufenweise, individuell — Nicht-Opioid (Paracetamol max. 4 g, Metamizol max. 4 g als Kurzinfusion, NSAR nur mit PPI und gesunder Niere), dann schwaches, dann starkes Opioid als Retard plus 1/6 Bedarf plus Laxans vom ersten Tag; neuropathisch heißt Antikonvulsivum und Antidepressivum, Kolik heißt Metamizol plus Butylscopolamin, Fraktur heißt NSAR plus Heparin.',
+      merksatz: 'Oral, nach der Uhr, stufenweise: Paracetamol max. 4 g, Metamizol max. 4 g, NSAR nur mit PPI und gesunder Niere; starkes Opioid als Retard plus 1/6 Bedarf plus Laxans vom ersten Tag.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
