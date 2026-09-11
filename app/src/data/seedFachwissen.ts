@@ -544,7 +544,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Was ist der C13-Atemtest und wozu dient er?',
-          antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt mit 13C markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen. Der PPI muss vorher pausiert werden.',
+          antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen. Der PPI muss vorher pausiert werden.',
         },
         {
           frage: 'Wie behandeln Sie ein Ulcus ventriculi?',
@@ -760,8 +760,8 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die Ösophago-Gastro-Duodenoskopie ist eine endoskopische Untersuchung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Schlauch; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
         },
         {
-          frage: 'Der Patient hat einen Diabetes, ist aber untergewichtig — ist das wirklich ein Typ II?',
-          antwort: 'Der Diabetes Typ II war vorbekannt und mit Metformin eingestellt; der aktuelle Gewichtsverlust ist am ehesten tumorbedingt, also Ausdruck der konsumierenden Erkrankung, nicht des Diabetes.',
+          frage: 'Der Patient hat einen Diabetes, ist aber untergewichtig — ist das wirklich ein Typ 2?',
+          antwort: 'Der Diabetes Typ 2 war vorbekannt und mit Metformin eingestellt; der aktuelle Gewichtsverlust ist am ehesten tumorbedingt, also Ausdruck der konsumierenden Erkrankung, nicht des Diabetes.',
         },
         {
           frage: 'Er raucht viel — könnte es auch ein Bronchialkarzinom sein?',
@@ -1628,7 +1628,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Analgetika und Spasmolytika geben Sie?',
-          antwort: 'Analgesie mit Paracetamol oder Metamizol — hier CAVE Novalginallergie, daher Paracetamol — und als Spasmolytikum Butylscopolamin (Buscopan).',
+          antwort: 'Analgesie mit Paracetamol oder Metamizol — hier CAVE Metamizolallergie (Novalgin), daher Paracetamol — und als Spasmolytikum Butylscopolamin (Buscopan).',
         },
       ],
       merksatz: 'Fieber + Flankenschmerz + klopfschmerzhaftes Nierenlager = obere Harnwegsinfektion (Pyelonephritis): IMMER Mittelstrahl-Urinkultur VOR der ersten Antibiotikagabe, dann kalkuliert Ceftriaxon oder Ciprofloxacin — und bei Harnstau mit Fieber sofort entlasten.',
@@ -1996,7 +1996,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist der Auslöser der Erkrankung und wie wird sie übertragen?',
-          antwort: 'Erreger ist das Bakterium Borrelia burgdorferi, eine Spirochäte. Übertragen wird es durch den Stich einer Zecke, des Gemeinen Holzbocks. Nicht der Stich selbst ist gefährlich, sondern die Übertragung des Erregers über den Speichel der Zecke, deren Risiko mit der Saugdauer steigt.',
+          antwort: 'Erreger ist das Bakterium Borrelia burgdorferi, eine Spirochäte. Übertragen wird es durch den Stich einer Zecke, des Gemeinen Holzbocks. Nicht der Stich selbst ist gefährlich, sondern die Übertragung des Erregers über den Speichel der Zecke, wobei das Risiko mit der Saugdauer steigt.',
         },
         {
           frage: 'Wie heißt die Hautveränderung wissenschaftlich und wie sieht sie aus?',
@@ -2008,7 +2008,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche weiteren Differenzialdiagnosen kommen bei dieser Rötung in Betracht?',
-          antwort: 'Vor allem ein Erysipel, das aber flächig, schmerzhaft, überwärmt und mit hohen Entzündungswerten einhergeht. Bei einer Rötung am Bein außerdem eine tiefe Venenthrombose, eine pAVK oder ein diabetischer Fuß, sowie eine Tinea corporis.',
+          antwort: 'Vor allem ein Erysipel, das aber flächig, schmerzhaft, überwärmt und mit hohen Entzündungswerten einhergeht. Bei einer Rötung am Bein außerdem eine tiefe Venenthrombose, eine pAVK oder ein diabetischer Fuß sowie eine Tinea corporis.',
         },
         {
           frage: 'Wie sichern Sie die Diagnose — brauchen Sie eine Serologie?',
@@ -2409,7 +2409,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist das Lasègue-Zeichen?',
-          antwort: 'Ein Nervendehnungszeichen: Beim passiven Anheben des gestreckten Beins löst der gedehnte N. ischiadicus einen ins Bein einschießenden radikulären Schmerz aus. Ein positives Zeichen spricht für eine Wurzelreizung bei tiefem lumbalem Bandscheibenvorfall (L5/S1).',
+          antwort: 'Ein Nervendehnungszeichen: Beim passiven Anheben des gestreckten Beins löst der gedehnte Nervus ischiadicus einen ins Bein einschießenden radikulären Schmerz aus. Ein positives Zeichen spricht für eine Wurzelreizung bei tiefem lumbalem Bandscheibenvorfall (L5/S1).',
         },
         {
           frage: 'Wann ist ein Bandscheibenvorfall ein Notfall und muss operiert werden?',
@@ -2417,7 +2417,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie behandeln Sie den unkomplizierten Bandscheibenvorfall konservativ?',
-          antwort: 'Mit einer Analgesie nach Stufenschema (NSAR plus PPI, ggf. Metamizol oder kurzfristig schwache Opioide), früher Mobilisation statt Bettruhe, Physiotherapie und Rückenschule. Etwa 90 Prozent heilen so aus.',
+          antwort: 'Mit einer Analgesie nach Stufenschema (NSAR plus Protonenpumpenhemmer, gegebenenfalls Metamizol oder kurzfristig schwache Opioide), früher Mobilisation statt Bettruhe, Physiotherapie und Rückenschule. Etwa 90 Prozent heilen so aus.',
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
@@ -2712,7 +2712,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Kann der Harnsäurespiegel bei einem akuten Gichtanfall normal sein? Dürfen wir dann einen Gichtanfall ausschließen?',
-          antwort: 'Ja, er kann normal sein — in bis zu einem Drittel der Fälle, weil die Harnsäure gerade im Gelenk auskristallisiert. Ausschließen darf man die Gicht deshalb nicht. Sowohl ein plötzlicher Anstieg als auch ein plötzlicher Abfall der Harnsäure kann einen Anfall auslösen; der Wert wird 2–4 Wochen nach dem Anfall kontrolliert.',
+          antwort: 'Ja, er kann normal sein — in bis zu einem Drittel der Fälle, weil die Harnsäure gerade im Gelenk auskristallisiert. Ausschließen darf man die Gicht deshalb nicht. Sowohl ein plötzlicher Anstieg als auch ein plötzlicher Abfall der Harnsäure können einen Anfall auslösen; der Wert wird 2–4 Wochen nach dem Anfall kontrolliert.',
         },
         {
           frage: 'Welche Entzündungsparameter bestimmen Sie, und wozu das Procalcitonin?',
@@ -3023,7 +3023,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Visusprüfung, Farbsehen, Gesichtsfeld, Prüfung der relativen afferenten Pupillenstörung (Swinging-Flashlight-Test), Funduskopie — meist unauffällig, da retrobulbär — sowie VEP und OCT.',
         },
         {
-          frage: 'Benötigt die Patientin eine dringende Hospitalisierung?',
+          frage: 'Benötigt die Patientin eine dringende stationäre Aufnahme?',
           antwort: 'Nein, es handelt sich nicht um einen Notfall. Die Abklärung kann elektiv oder kurzstationär erfolgen. Dringlich wird es bei schwerem Schub mit Hirnstammbeteiligung, akuter Querschnittsymptomatik oder Blasen-Mastdarm-Störung.',
         },
         {
@@ -3948,7 +3948,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was bestimmen Sie im Labor und warum?',
-          antwort: 'Den D-Dimer wegen des hohen negativen prädiktiven Werts sowie die Gerinnung; bei jungem Alter und positiver Familienanamnese eine Thrombophilie-Diagnostik auf eine Faktor-V-Leiden-Mutation.',
+          antwort: 'Die D-Dimere wegen des hohen negativen prädiktiven Werts sowie die Gerinnung; bei jungem Alter und positiver Familienanamnese eine Thrombophilie-Diagnostik auf eine Faktor-V-Leiden-Mutation.',
         },
         {
           frage: 'Welche bildgebende Untersuchung ist der Goldstandard?',
@@ -4314,7 +4314,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum hat ein Diabetiker gehäuft Infektionen?',
-          antwort: 'Die Hyperglykämie beeinträchtigt Chemotaxis, Phagozytose und intrazelluläre Abtötung der Granulozyten und schwächt die zelluläre Immunantwort; zugleich bietet die Glukosurie in den Harnwegen und die zuckerreiche Gewebeflüssigkeit einen idealen Nährboden für Bakterien und Pilze. Hinzu kommen Mikroangiopathie mit schlechterer Gewebeperfusion und die Polyneuropathie mit unbemerkten Verletzungen. Umgekehrt lässt jeder Infekt den Insulinbedarf steigen und kann den Diabetes dekompensieren lassen.',
+          antwort: 'Die Hyperglykämie beeinträchtigt Chemotaxis, Phagozytose und intrazelluläre Abtötung der Granulozyten und schwächt die zelluläre Immunantwort; zugleich bieten die Glukosurie in den Harnwegen und die zuckerreiche Gewebeflüssigkeit einen idealen Nährboden für Bakterien und Pilze. Hinzu kommen Mikroangiopathie mit schlechterer Gewebeperfusion und die Polyneuropathie mit unbemerkten Verletzungen. Umgekehrt lässt jeder Infekt den Insulinbedarf steigen und kann den Diabetes dekompensieren lassen.',
         },
         {
           frage: 'Wie diagnostizieren und behandeln Sie eine diabetische Polyneuropathie?',
@@ -4677,7 +4677,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Was ist Ihre Verdachtsdiagnose, und warum denken Sie an eine Hyperthyreose, wenn die Patientin gar keinen Kropf hat?',
-          antwort: 'Verdacht auf eine manifeste Hyperthyreose, am ehesten Morbus Basedow. Eine Struma ist dafür nicht obligat: Tragend sind die Symptomkonstellation aus Tachykardie, Gewichtsverlust trotz gutem Appetit, Hyperhidrose mit Wärmeintoleranz, Tremor, innerer Unruhe und Diarrhoe sowie die Augenbeschwerden und die Familienanamnese. Gesichert wird die Diagnose laborchemisch über das supprimierte TSH mit erhöhten freien Hormonen und die TRAK, nicht über den Tastbefund am Hals.',
+          antwort: 'Verdacht auf eine manifeste Hyperthyreose, am ehesten Morbus Basedow. Eine Struma ist dafür nicht obligat: Tragend sind die Symptomkonstellation aus Tachykardie, Gewichtsverlust trotz guten Appetits, Hyperhidrose mit Wärmeintoleranz, Tremor, innerer Unruhe und Diarrhoe sowie die Augenbeschwerden und die Familienanamnese. Gesichert wird die Diagnose laborchemisch über das supprimierte TSH mit erhöhten freien Hormonen und die TRAK, nicht über den Tastbefund am Hals.',
         },
         {
           frage: 'Wie würden Sie die Hyperthyreose bestätigen?',
@@ -5085,7 +5085,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist Mehlstaub, und hat er mit der Entstehung einer COPD zu tun?',
-          antwort: 'Mehlstaub ist der feine, beim Sieben, Schütten und Kneten freigesetzte Getreidestaub, dem Bäcker und Müller ausgesetzt sind. Er kann eine allergische Bäckerasthma-Erkrankung auslösen und gehört als chronische inhalative Belastung zu den beruflichen Risikofaktoren für eine chronische Bronchitis und eine COPD; beides ist als Berufskrankheit anerkennungsfähig.',
+          antwort: 'Mehlstaub ist der feine, beim Sieben, Schütten und Kneten freigesetzte Getreidestaub, dem Bäcker und Müller ausgesetzt sind. Er kann ein allergisches Bäckerasthma auslösen und gehört als chronische inhalative Belastung zu den beruflichen Risikofaktoren für eine chronische Bronchitis und eine COPD; beides ist als Berufskrankheit anerkennungsfähig.',
         },
         {
           frage: 'Welche Röntgenzeichen erwarten Sie?',
@@ -6266,7 +6266,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was tun Sie, wenn die Lungenfunktion völlig normal ist?',
-          antwort: 'Ein Asthma ist damit nicht ausgeschlossen, weil der Patient zwischen den Anfällen lungengesund ist. Ich würde eine unspezifische bronchiale Provokation mit Metacholin durchführen — ein FEV1-Abfall um mindestens 20 % beweist die bronchiale Hyperreagibilität —, ein Peak-Flow-Protokoll anlegen und bei Sportlern zusätzlich eine Belastungsprovokation durchführen.',
+          antwort: 'Ein Asthma ist damit nicht ausgeschlossen, weil der Patient zwischen den Anfällen lungengesund ist. Ich würde eine unspezifische bronchiale Provokation mit Methacholin durchführen — ein FEV1-Abfall um mindestens 20 % beweist die bronchiale Hyperreagibilität —, ein Peak-Flow-Protokoll anlegen und bei Sportlern zusätzlich eine Belastungsprovokation durchführen.',
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen in Betracht?',
@@ -6641,7 +6641,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was erwarten Sie in der körperlichen Untersuchung bei einer Rechtsherzinsuffizienz?',
-          antwort: 'Gestaute Halsvenen mit positivem hepatojugulärem Reflux, eine periphere Zyanose, beidseitige eindrückbare Knöchel- und prätibiale Ödeme, eine vergrösserte und druckschmerzhafte Stauungsleber, gegebenenfalls Aszites und eine Gewichtszunahme. Bei der Linksherzinsuffizienz dagegen feuchte Rasselgeräusche über den basalen Lungenabschnitten, gedämpfter Klopfschall bei Pleuraerguss, Tachykardie und ein dritter Herzton.',
+          antwort: 'Gestaute Halsvenen mit positivem hepatojugulärem Reflux, eine periphere Zyanose, beidseitige eindrückbare Knöchel- und prätibiale Ödeme, eine vergrößerte und druckschmerzhafte Stauungsleber, gegebenenfalls Aszites und eine Gewichtszunahme. Bei der Linksherzinsuffizienz dagegen feuchte Rasselgeräusche über den basalen Lungenabschnitten, gedämpfter Klopfschall bei Pleuraerguss, Tachykardie und ein dritter Herzton.',
         },
         {
           frage: 'Warum hat der Patient Beinödeme? Gibt es Stauungszeichen?',
@@ -6653,7 +6653,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Klassifikationen kennen Sie?',
-          antwort: 'Funktionell die NYHA-Klassifikation von I bis IV: I ohne Einschränkung, II Beschwerden bei stärkerer Belastung, III bei geringer Belastung, IV in Ruhe. Nach der Ejektionsfraktion die HFrEF mit einer LVEF von 40 % oder weniger, die HFmrEF mit 41 bis 49 % und die HFpEF mit 50 % oder mehr. Ausserdem die Einteilung nach Lokalisation in Links-, Rechts- und Globalinsuffizienz sowie die ACC/AHA-Stadien A bis D.',
+          antwort: 'Funktionell die NYHA-Klassifikation von I bis IV: I ohne Einschränkung, II Beschwerden bei stärkerer Belastung, III bei geringer Belastung, IV in Ruhe. Nach der Ejektionsfraktion die HFrEF mit einer LVEF von 40 % oder weniger, die HFmrEF mit 41 bis 49 % und die HFpEF mit 50 % oder mehr. Außerdem die Einteilung nach Lokalisation in Links-, Rechts- und Globalinsuffizienz sowie die ACC/AHA-Stadien A bis D.',
         },
         {
           frage: 'Welche Diagnostik leiten Sie ein?',
@@ -6665,11 +6665,11 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was sehen Sie im Röntgen-Thorax?',
-          antwort: 'Eine Kardiomegalie mit einem Herz-Thorax-Quotienten über 0,5, Zeichen der pulmonalvenösen Stauung mit Gefässumverteilung in die Oberfelder, Kerley-B-Linien als Ausdruck des interstitiellen Ödems, eine perihiläre schmetterlingsförmige Verschattung beim alveolären Lungenödem sowie beidseitige Pleuraergüsse. Zugleich lässt sich ein pneumonisches Infiltrat abgrenzen.',
+          antwort: 'Eine Kardiomegalie mit einem Herz-Thorax-Quotienten über 0,5, Zeichen der pulmonalvenösen Stauung mit Gefäßumverteilung in die Oberfelder, Kerley-B-Linien als Ausdruck des interstitiellen Ödems, eine perihiläre schmetterlingsförmige Verschattung beim alveolären Lungenödem sowie beidseitige Pleuraergüsse. Zugleich lässt sich ein pneumonisches Infiltrat abgrenzen.',
         },
         {
           frage: 'Wie behandeln Sie die akute Dekompensation?',
-          antwort: 'Oberkörperhochlagerung mit tief hängenden Beinen, Sauerstoff bei einer Sättigung unter 90 %, Monitoring und venöser Zugang, dann Furosemid intravenös als wichtigste Massnahme, bei hypertensiver Entgleisung zusätzlich Nitrate, bei persistierender Hypoxie eine nicht-invasive Beatmung. Dazu Flüssigkeits- und Kochsalzrestriktion, tägliches Wiegen und Bilanzierung mit einem Ziel von 0,5 bis 1 kg Gewichtsabnahme pro Tag, Kontrolle von Kalium und Kreatinin sowie die konsequente Beseitigung des Auslösers.',
+          antwort: 'Oberkörperhochlagerung mit tief hängenden Beinen, Sauerstoff bei einer Sättigung unter 90 %, Monitoring und venöser Zugang, dann Furosemid intravenös als wichtigste Maßnahme, bei hypertensiver Entgleisung zusätzlich Nitrate, bei persistierender Hypoxie eine nicht-invasive Beatmung. Dazu Flüssigkeits- und Kochsalzrestriktion, tägliches Wiegen und Bilanzierung mit einem Ziel von 0,5 bis 1 kg Gewichtsabnahme pro Tag, Kontrolle von Kalium und Kreatinin sowie die konsequente Beseitigung des Auslösers.',
         },
         {
           frage: 'Wie sieht die medikamentöse Dauertherapie bei reduzierter Ejektionsfraktion aus?',
@@ -6680,8 +6680,8 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Schleifendiuretika wie Furosemid und Torasemid sind unverzichtbar zur Kontrolle der Stauung und damit der Symptome — sie beseitigen Ödeme und Dyspnoe und verbessern die Belastbarkeit. Sie verbessern jedoch die Prognose NICHT und gehören deshalb nicht zu den vier Säulen. Man verwendet die niedrigste wirksame Dosis und kontrolliert Kalium, Natrium und Kreatinin.',
         },
         {
-          frage: 'Welche nicht-medikamentösen Massnahmen empfehlen Sie?',
-          antwort: 'Vor allem die tägliche Gewichtskontrolle morgens nach dem Wasserlassen mit einer klaren Alarmgrenze — mehr als 2 kg in drei Tagen oder 2,5 kg in einer Woche bedeutet eine Wassereinlagerung und erfordert eine ärztliche Vorstellung. Ausserdem Kochsalzrestriktion auf 5 bis 6 Gramm täglich, eine Trinkmengenbegrenzung auf 1,5 bis 2 Liter bei fortgeschrittener Erkrankung, angepasstes Ausdauertraining und Herzsportgruppe, Nikotin- und Alkoholkarenz sowie die Impfungen gegen Influenza, Pneumokokken, COVID-19 und RSV.',
+          frage: 'Welche nicht-medikamentösen Maßnahmen empfehlen Sie?',
+          antwort: 'Vor allem die tägliche Gewichtskontrolle morgens nach dem Wasserlassen mit einer klaren Alarmgrenze — mehr als 2 kg in drei Tagen oder 2,5 kg in einer Woche bedeutet eine Wassereinlagerung und erfordert eine ärztliche Vorstellung. Außerdem Kochsalzrestriktion auf 5 bis 6 Gramm täglich, eine Trinkmengenbegrenzung auf 1,5 bis 2 Liter bei fortgeschrittener Erkrankung, angepasstes Ausdauertraining und Herzsportgruppe, Nikotin- und Alkoholkarenz sowie die Impfungen gegen Influenza, Pneumokokken, COVID-19 und RSV.',
         },
         {
           frage: 'Wann ist ein Defibrillator, wann eine Resynchronisationstherapie indiziert?',
@@ -6693,7 +6693,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Faktoren lösen eine Dekompensation aus?',
-          antwort: 'Am häufigsten die mangelnde Therapietreue, vor allem das eigenmächtige Absetzen des Diuretikums, ausserdem salz- und flüssigkeitsreiche Ernährung, NSAR und Kortikosteroide, neu aufgetretenes oder tachykardes Vorhofflimmern, Infekte wie eine Pneumonie, eine Myokardischämie, eine hypertensive Entgleisung, eine Anämie, eine Verschlechterung der Nierenfunktion und eine Hyperthyreose.',
+          antwort: 'Am häufigsten die mangelnde Therapietreue, vor allem das eigenmächtige Absetzen des Diuretikums, außerdem salz- und flüssigkeitsreiche Ernährung, NSAR und Kortikosteroide, neu aufgetretenes oder tachykardes Vorhofflimmern, Infekte wie eine Pneumonie, eine Myokardischämie, eine hypertensive Entgleisung, eine Anämie, eine Verschlechterung der Nierenfunktion und eine Hyperthyreose.',
         },
         {
           frage: 'Warum darf der Patient keine Schmerzmittel wie Ibuprofen oder Diclofenac einnehmen?',
@@ -7014,7 +7014,7 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       askedInExam: [
         {
-          frage: 'An was denken Sie? Wie lautet Ihre Verdachtsdiagnose?',
+          frage: 'Woran denken Sie? Wie lautet Ihre Verdachtsdiagnose?',
           antwort: 'An eine Nierenkolik bei einem Harnleiterstein mit Harnstau. Dafür sprechen der akut einsetzende, wellenförmig kolikartige Flankenschmerz mit Ausstrahlung entlang des Harnleiters in die Leiste und den Hoden, der ausgeprägte Bewegungsdrang, die vegetative Begleitsymptomatik mit Übelkeit und Erbrechen sowie die Makrohämaturie. Da zusätzlich Fieber und Schüttelfrost bestehen, muss ich von einem infizierten Harnstau mit drohender Urosepsis ausgehen — das ist ein urologischer Notfall.',
         },
         {
@@ -7427,7 +7427,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum ist es so wichtig, dass der Patient das Antibiotikum vollständig einnimmt?',
-          antwort: 'Weil eine unvollständige Eradikation der Streptokokken das rheumatische Fieber und die Poststreptokokken-Glomerulonephritis begünstigt. Zahlreiche Prüfungsprotokolle beschreiben genau diesen Verlauf: Penicillin nur drei Tage eingenommen, zwei bis drei Wochen später wandernde Gelenkschmerzen mit Fieber.',
+          antwort: 'Weil eine unvollständige Eradikation der Streptokokken das rheumatische Fieber und die Poststreptokokken-Glomerulonephritis begünstigt. Ein typischer Verlauf wäre: Penicillin nur drei Tage eingenommen, zwei bis drei Wochen später wandernde Gelenkschmerzen mit Fieber.',
         },
         {
           frage: 'Wann besteht eine Indikation zur Tonsillektomie?',
@@ -9652,11 +9652,11 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wofür stehen die Abkürzungen ABVD und BEACOPP?',
-          antwort: 'ABVD steht für Adriamycin, also Doxorubicin, Bleomycin, Vinblastin und Dacarbazin. BEACOPP steht für Bleomycin, Etoposid, Adriamycin, Cyclophosphamid, Oncovin also Vincristin, Procarbazin und Prednison.',
+          antwort: 'ABVD steht für Adriamycin, also Doxorubicin, Bleomycin, Vinblastin und Dacarbazin. BEACOPP steht für Bleomycin, Etoposid, Adriamycin, Cyclophosphamid, Oncovin, also Vincristin, Procarbazin und Prednison.',
         },
         {
           frage: 'Wozu dient das PET-CT, und was ist der Deauville-Score?',
-          antwort: 'Das FDG-PET-CT dient dem initialen Staging, dem Interim-Staging nach zwei Zyklen und der Beurteilung des Therapieansprechens. Der Deauville-Score vergleicht den Uptake der Läsion mit Mediastinum und Leber: Score 1 kein Uptake, Score 2 höchstens wie Mediastinum, Score 3 stärker als Mediastinum aber höchstens wie Leber, Score 4 mäßig stärker als Leber, Score 5 deutlich stärker oder neue Läsionen. Die Scores 1 bis 3 gelten als negativ, 4 und 5 als positiv.',
+          antwort: 'Das FDG-PET-CT dient dem initialen Staging, dem Interim-Staging nach zwei Zyklen und der Beurteilung des Therapieansprechens. Der Deauville-Score vergleicht den Uptake der Läsion mit Mediastinum und Leber: Score 1 kein Uptake, Score 2 höchstens wie Mediastinum, Score 3 stärker als Mediastinum, aber höchstens wie Leber, Score 4 mäßig stärker als Leber, Score 5 deutlich stärker oder neue Läsionen. Die Scores 1 bis 3 gelten als negativ, 4 und 5 als positiv.',
         },
         {
           frage: 'Welche Langzeitfolgen der Therapie kennen Sie?',
@@ -9667,7 +9667,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Sehr gut. In frühen Stadien werden über 90 Prozent der Patienten geheilt, in fortgeschrittenen Stadien immer noch 80 bis 90 Prozent. Rezidive treten meist in den ersten drei Jahren auf und sind mit Hochdosistherapie und autologer Stammzelltransplantation häufig noch kurativ behandelbar. Die Langzeitmortalität wird heute weniger von der Erkrankung selbst als von den Therapiefolgen bestimmt.',
         },
         {
-          frage: 'Wie erklären Sie einem Patienten den Begriff „malignes Lymphom"?',
+          frage: 'Wie erklären Sie einem Patienten den Begriff „malignes Lymphom“?',
           antwort: 'Ein Lymphom ist eine Erkrankung der Lymphknoten — das sind die kleinen Filterstationen unseres Abwehrsystems, die überall im Körper verteilt sind. Maligne heißt bösartig: Bestimmte Abwehrzellen vermehren sich unkontrolliert, dadurch schwellen die Lymphknoten an. Wichtig ist, dass gerade diese Erkrankung in den allermeisten Fällen heilbar ist.',
         },
       ],
@@ -10299,7 +10299,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Könnte die Möglichkeit einer Extrauteringravidität bestehen, und wie klären Sie das ab?',
-          antwort: 'Ja, bei jeder Frau im gebärfähigen Alter. Abklärung durch gynäkologische Untersuchung, Schwangerschaftstest beziehungsweise Bestimmung des Beta-humanen Choriongonadotropins und transvaginale Sonographie.',
+          antwort: 'Ja, bei jeder Frau im gebärfähigen Alter. Abklärung durch gynäkologische Untersuchung, Schwangerschaftstest beziehungsweise quantitative Bestimmung des humanen Choriongonadotropins (β-hCG) im Serum und transvaginale Sonographie.',
         },
         {
           frage: 'Wäre das hCG bei einer Extrauteringravidität erhöht oder erniedrigt?',
@@ -10335,11 +10335,11 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie behandeln Sie eine Extrauteringravidität?',
-          antwort: 'Abhängig von Kreislauf, β-hCG und Sonographie: Bei Instabilität oder Rupturzeichen sofortige Schockbekämpfung und Notfalllaparoskopie, meist Salpingektomie. Bei stabiler Patientin ist Methotrexat als Einmalgabe intramuskulär möglich, wenn das β-hCG niedrig ist, keine Herzaktion vorliegt, die Raumforderung klein ist, keine freie Flüssigkeit besteht und die Nachkontrolle gesichert ist. Andernfalls die Laparoskopie mit tubuserhaltender Salpingotomie oder Salpingektomie. Ein rein abwartendes Vorgehen nur bei niedrigem, spontan fallendem β-hCG.',
+          antwort: 'Abhängig von Kreislauf, β-hCG und Sonographie: Bei Instabilität oder Rupturzeichen sofortige Schockbekämpfung und Notfalllaparoskopie, meist Salpingektomie. Bei stabiler Patientin ist Methotrexat als Einmalgabe intramuskulär möglich, wenn das β-hCG niedrig ist, keine Herzaktion vorliegt, die Raumforderung klein ist, keine freie Flüssigkeit besteht und die Nachkontrolle gesichert ist. Andernfalls die Laparoskopie mit tubenerhaltender Salpingotomie oder Salpingektomie. Ein rein abwartendes Vorgehen nur bei niedrigem, spontan fallendem β-hCG.',
         },
         {
           frage: 'Wann Salpingotomie und wann Salpingektomie?',
-          antwort: 'Die tubuserhaltende Salpingotomie bei Kinderwunsch, intakter Tube und insbesondere bei geschädigter oder fehlender Gegentube — dann ist die β-hCG-Kontrolle bis zur Negativierung obligat, da in etwa 5 bis 10 % ein persistierender Trophoblast zurückbleibt. Die Salpingektomie bei Ruptur, stark zerstörter Tube, unstillbarer Blutung, Rezidiv in derselben Tube oder abgeschlossener Familienplanung.',
+          antwort: 'Die tubenerhaltende Salpingotomie bei Kinderwunsch, intakter Tube und insbesondere bei geschädigter oder fehlender Gegentube — dann ist die β-hCG-Kontrolle bis zur Negativierung obligat, da in etwa 5 bis 10 % ein persistierender Trophoblast zurückbleibt. Die Salpingektomie bei Ruptur, stark zerstörter Tube, unstillbarer Blutung, Rezidiv in derselben Tube oder abgeschlossener Familienplanung.',
         },
         {
           frage: 'Warum ist eine Nahrungskarenz erforderlich?',
@@ -10355,7 +10355,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie hoch ist das Rezidivrisiko, und was raten Sie für die nächste Schwangerschaft?',
-          antwort: 'Etwa 10 bis 15 %. Deshalb bei der nächsten positiven Schwangerschaftsprüfung sehr früh eine transvaginale Sonographie zur Lagebestimmung, dazu konsequente Nikotinkarenz, Behandlung und Partnerbehandlung genitaler Infektionen sowie ein Chlamydienscreening. Nach Methotrexat ist mindestens drei Monate sicher zu verhüten.',
+          antwort: 'Etwa 10 bis 15 %. Deshalb beim nächsten positiven Schwangerschaftstest sehr früh eine transvaginale Sonographie zur Lagebestimmung, dazu konsequente Nikotinkarenz, Behandlung und Partnerbehandlung genitaler Infektionen sowie ein Chlamydienscreening. Nach Methotrexat ist mindestens drei Monate sicher zu verhüten.',
         },
       ],
       merksatz: 'Amenorrhoe + einseitiger Unterbauchschmerz + Schmierblutung = Extrauteringravidität bis zum Beweis des Gegenteils — bei JEDER Frau im gebärfähigen Alter zuerst der Schwangerschaftstest. Leeres Cavum uteri bei β-hCG über der Diskriminationszone von 1500 bis 2000 IE/l beweist sie praktisch; Schulterschmerz und Schock heißen Ruptur und sofortige Laparoskopie. Rhesusfaktor bestimmen und Anti-D nicht vergessen.',
@@ -11017,7 +11017,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wovon hängt die Therapie ab, und welche Operation führen Sie durch?',
-          antwort: 'Alles hängt an der Resektabilität. Bei resektablem Pankreaskopfkarzinom wird die partielle Duodenopankreatektomie nach Kausch-Whipple beziehungsweise die pyloruserhaltende Variante durchgeführt, bei Korpus- und Schwanztumoren die Pankreaslinksresektion mit Splenektomie; anschließend folgt eine adjuvante Chemotherapie über sechs Monate. Grenzwertig resektable Befunde werden neoadjuvant behandelt, irresektable und metastasierte Befunde rein palliativ.',
+          antwort: 'Alles hängt von der Resektabilität ab. Bei resektablem Pankreaskopfkarzinom wird die partielle Duodenopankreatektomie nach Kausch-Whipple beziehungsweise die pyloruserhaltende Variante durchgeführt, bei Korpus- und Schwanztumoren die Pankreaslinksresektion mit Splenektomie; anschließend folgt eine adjuvante Chemotherapie über sechs Monate. Grenzwertig resektable Befunde werden neoadjuvant behandelt, irresektable und metastasierte Befunde rein palliativ.',
         },
         {
           frage: 'Wie behandeln Sie den Patienten palliativ?',
@@ -12750,7 +12750,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
-          antwort: 'Eine gastroösophageale Refluxkrankheit, also eine Refluxösophagitis beziehungsweise Refluxkrankheit. Dafür sprechen das retrosternale Brennen, das vom Oberbauch aufsteigt, das saure Aufstoßen, die Verstärkung im Liegen, beim Bücken und nach üppigen, späten oder fettreichen Mahlzeiten, die Besserung im Sitzen und nach Antazida sowie die typischen Risikofaktoren Übergewicht, Nikotin, Alkohol, Kaffee und späte Mahlzeiten.',
+          antwort: 'Eine gastroösophageale Refluxkrankheit, gegebenenfalls mit Refluxösophagitis. Dafür sprechen das retrosternale Brennen, das vom Oberbauch aufsteigt, das saure Aufstoßen, die Verstärkung im Liegen, beim Bücken und nach üppigen, späten oder fettreichen Mahlzeiten, die Besserung im Sitzen und nach Antazida sowie die typischen Risikofaktoren Übergewicht, Nikotin, Alkohol, Kaffee und späte Mahlzeiten.',
         },
         {
           frage: 'Wann ist bei Sodbrennen eine ÖGD indiziert?',
@@ -12765,7 +12765,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'An erster Stelle die Angina pectoris beziehungsweise ein akutes Koronarsyndrom — dort ist der Schmerz belastungsabhängig, strahlt in den Arm, Hals oder Kiefer aus und geht mit Dyspnoe und Kaltschweißigkeit einher; ich schließe sie mit EKG und Troponin aus. Weiter das Ulcus ventriculi oder duodeni mit epigastrischem Nüchtern- oder Nachtschmerz, das Ösophaguskarzinom mit Dysphagie und Gewichtsverlust, die Achalasie mit Dysphagie auch für Flüssigkeiten, die eosinophile und die infektiöse Ösophagitis mit Odynophagie sowie biliäre und pankreatische Ursachen und die funktionelle Dyspepsie.',
         },
         {
-          frage: 'Warum müssen Sie bei diesem Patienten zuerst an das Herz denken?',
+          frage: 'Warum müssen Sie bei dieser Patientin zuerst an das Herz denken?',
           antwort: 'Weil ein retrosternaler Schmerz bis zum Beweis des Gegenteils kardial ist und ein Myokardinfarkt unmittelbar lebensbedrohlich wäre, während die Refluxkrankheit gutartig ist. Deshalb schreibe ich ein 12-Kanal-EKG, bestimme das hochsensitive Troponin im Verlauf und frage gezielt nach Belastungsabhängigkeit, Ausstrahlung, Dyspnoe und kardiovaskulären Risikofaktoren. Erst danach behandle ich den Reflux.',
         },
         {
@@ -12797,7 +12797,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Hypomagnesiämie, Vitamin-B12- und Eisenmangel, ein erhöhtes Risiko für Clostridioides-difficile-Infektionen und ambulant erworbene Pneumonien, Osteoporose mit erhöhtem Frakturrisiko sowie selten eine interstitielle Nephritis. Deshalb überprüfe ich die Indikation regelmäßig, gebe die niedrigste wirksame Dosis und setze ausschleichend ab, weil es sonst zu einer Rebound-Hypersekretion kommt.',
         },
         {
-          frage: 'Der Patient nimmt seit acht Wochen einen PPI und hat weiterhin Beschwerden — wie gehen Sie vor?',
+          frage: 'Die Patientin nimmt seit acht Wochen einen PPI und hat weiterhin Beschwerden — wie gehen Sie vor?',
           antwort: 'Ich prüfe zuerst Adhärenz und Einnahmezeitpunkt sowie fortbestehende Auslöser wie Nikotin, Alkohol, späte Mahlzeiten und auslösende Medikamente. Bleibt es dabei, führe ich eine ÖGD mit Biopsien durch, um eine eosinophile oder infektiöse Ösophagitis, ein Ulkus oder ein Karzinom auszuschließen, und ergänze eine pH-Impedanz-Messung. Häufig findet sich dann ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus, die auf PPI nicht ansprechen.',
         },
         {
@@ -12810,7 +12810,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was muss vor einer Fundoplikatio zwingend abgeklärt sein, und welche Komplikationen kennen Sie?',
-          antwort: 'Vor der Operation braucht es die ÖGD, die 24-Stunden-pH-Impedanz-Messung als Refluxnachweis und die hochauflösende Manometrie, um eine Achalasie oder eine schwere Motilitätsstörung auszuschließen — sonst droht eine hochgradige postoperative Dysphagie. Typische Komplikationen sind das Gas-bloat-Syndrom mit Unfähigkeit zu Aufstoßen und Erbrechen, eine passagere Dysphagie, Blähungen, Diarrhoe sowie ein Rezidiv, das erneut PPI erforderlich macht.',
+          antwort: 'Vor der Operation braucht es die ÖGD, die 24-Stunden-pH-Impedanz-Messung als Refluxnachweis und die hochauflösende Manometrie, um eine Achalasie oder eine schwere Motilitätsstörung auszuschließen — sonst droht eine hochgradige postoperative Dysphagie. Typische Komplikationen sind das Gas-bloat-Syndrom mit Unfähigkeit zum Aufstoßen und Erbrechen, eine passagere Dysphagie, Blähungen, Diarrhoe sowie ein Rezidiv, das erneut PPI erforderlich macht.',
         },
         {
           frage: 'Welche Komplikationen der Refluxkrankheit kennen Sie?',
@@ -13971,7 +13971,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie behandeln Sie ein Ösophaguskarzinom in kurativer Situation?',
-          antwort: 'Das hängt vom Stadium ab. Ein auf die Mukosa begrenztes Karzinom, also T1a, wird endoskopisch reseziert, per Mukosaresektion oder Submukosadissektion, mit anschließender Ablation des Restbarrett. Beim lokal fortgeschrittenen Tumor ab T2 oder mit Lymphknotenbefall behandeln wir multimodal: beim Plattenepithelkarzinom neoadjuvante Radiochemotherapie nach dem CROSS-Schema mit Carboplatin, Paclitaxel und 41,4 Gy, beim Adenokarzinom perioperative Chemotherapie nach FLOT. Danach folgt die subtotale Ösophagektomie mit Lymphadenektomie und Rekonstruktion durch einen Magenhochzug. Beim zervikalen Plattenepithelkarzinom ist die definitive Radiochemotherapie die Therapie der Wahl.',
+          antwort: 'Das hängt vom Stadium ab. Ein auf die Mukosa begrenztes Karzinom, also T1a, wird endoskopisch reseziert, per Mukosaresektion oder Submukosadissektion, mit anschließender Ablation des verbliebenen Barrett-Epithels. Beim lokal fortgeschrittenen Tumor ab T2 oder mit Lymphknotenbefall behandeln wir multimodal: beim Plattenepithelkarzinom neoadjuvante Radiochemotherapie nach dem CROSS-Schema mit Carboplatin, Paclitaxel und 41,4 Gy, beim Adenokarzinom perioperative Chemotherapie nach FLOT. Danach folgt die subtotale Ösophagektomie mit Lymphadenektomie und Rekonstruktion durch einen Magenhochzug. Beim zervikalen Plattenepithelkarzinom ist die definitive Radiochemotherapie die Therapie der Wahl.',
         },
         {
           frage: 'Welche palliativen Optionen haben Sie?',
@@ -13979,7 +13979,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Die Patientin kann kaum noch essen — würden Sie eine PEG anlegen?',
-          antwort: 'Nein, nicht solange eine Operation mit Magenhochzug in Betracht kommt: Der Magen wird als Ersatzorgan für die Speiseröhre gebraucht und darf nicht durch eine PEG geschädigt werden. Stattdessen sichere ich die Ernährung durch hochkalorische Trinknahrung, eine über die Stenose gelegte nasojejunale Sonde oder eine Feinnadelkatheterjejunostomie. Bei ausgeprägter Mangelernährung baue ich die Ernährung langsam auf und kontrolliere Phosphat, Kalium und Magnesium wegen des Refeeding-Syndroms.',
+          antwort: 'Nein, nicht, solange eine Operation mit Magenhochzug in Betracht kommt: Der Magen wird als Ersatzorgan für die Speiseröhre gebraucht und darf nicht durch eine PEG geschädigt werden. Stattdessen sichere ich die Ernährung durch hochkalorische Trinknahrung, eine über die Stenose gelegte nasojejunale Sonde oder eine Feinnadelkatheterjejunostomie. Bei ausgeprägter Mangelernährung baue ich die Ernährung langsam auf und kontrolliere Phosphat, Kalium und Magnesium wegen des Refeeding-Syndroms.',
         },
         {
           frage: 'Würden Sie die Stenose bougieren?',
@@ -14347,12 +14347,12 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Das ist ein urologischer Notfall. Ich entlaste die Blase sofort über einen transurethralen Dauerkatheter, bei Misserfolg über eine suprapubische Blasenfistel. Der Urin wird kontrolliert abgelassen wegen der Gefahr einer Entlastungsblutung und einer postobstruktiven Polyurie; ich bilanziere, kontrolliere Kreatinin und Elektrolyte, beginne einen Alpha-1-Blocker und plane nach drei bis sieben Tagen einen Auslassversuch. Misslingt dieser, besteht eine absolute Operationsindikation.',
         },
         {
-          frage: 'Warum wird das reserzierte Gewebe untersucht?',
+          frage: 'Warum wird das resezierte Gewebe untersucht?',
           antwort: 'Weil sich in einem relevanten Anteil der Präparate ein zufällig entdecktes, inzidentelles Prostatakarzinom findet. Jedes entfernte Prostatagewebe wird deshalb histologisch aufgearbeitet.',
         },
         {
           frage: 'Wie nennen Sie die Prostata gegenüber dem Patienten?',
-          antwort: 'Vorsteherdrüse. Die gutartige Vergrößerung der Vorsteherdrüse beziehungsweise das Prostataadenom; das Prostatakarzinom heißt umgangssprachlich Vorsteherdrüsenkrebs.',
+          antwort: 'Vorsteherdrüse. Die gutartige Vergrößerung der Vorsteherdrüse beziehungsweise das Prostataadenom; das Prostatakarzinom heißt umgangssprachlich Prostatakrebs.',
         },
       ],
       merksatz: 'Beschwerden trennen: obstruktiv (Startverzögerung, schwacher Strahl, Nachträufeln) und irritativ (Pollakisurie, Drang, Nykturie) — objektivieren mit IPSS, tasten mit der DRU, aber PSA IMMER VOR der DRU abnehmen. Größe und Beschwerden korrelieren nicht, und die Symptome unterscheiden Adenom und Karzinom nicht: Alpha-Blocker wirken in Tagen, 5-Alpha-Reduktase-Hemmer in Monaten und halbieren das PSA; bei absoluter Indikation TUR-P — Cave TUR-Syndrom.',
@@ -14729,7 +14729,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was raten Sie zu Vorsorgevollmacht, Patientenverfügung und Betreuung?',
-          antwort: 'Beides sollte so früh wie möglich erstellt werden, SOLANGE der Patient noch einwilligungsfähig ist — das ist im leichten Stadium der Fall. Mit der Vorsorgevollmacht bestimmt der Patient selbst, wer später für ihn entscheidet; die Patientenverfügung legt fest, welche Maßnahmen er wünscht. Ist die Einwilligungsfähigkeit bereits verloren, bleibt nur die Einrichtung einer rechtlichen Betreuung über das Betreuungsgericht.',
+          antwort: 'Beide Dokumente sollten so früh wie möglich erstellt werden, solange der Patient noch einwilligungsfähig ist — das ist im leichten Stadium der Fall. Mit der Vorsorgevollmacht bestimmt der Patient selbst, wer später für ihn entscheidet; die Patientenverfügung legt fest, welche Maßnahmen er wünscht. Ist die Einwilligungsfähigkeit bereits verloren, bleibt nur die Einrichtung einer rechtlichen Betreuung über das Betreuungsgericht.',
         },
         {
           frage: 'Darf ein Demenzpatient noch Auto fahren?',
@@ -15091,7 +15091,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Formen des Bronchialkarzinoms unterscheiden Sie, und warum ist diese Einteilung so wichtig?',
-          antwort: 'Das kleinzellige Karzinom (SCLC, etwa 15 %) und das nicht-kleinzellige Karzinom (NSCLC, etwa 85 % mit Adenokarzinom, Plattenepithelkarzinom und großzelligem Karzinom). Die Einteilung entscheidet über die gesamte Therapie: das SCLC wächst sehr rasch, metastasiert früh, ist primär chemo- und strahlensensibel und wird in der Regel nicht operiert, eingeteilt in limited und extensive disease. Das NSCLC wird nach TNM in UICC-Stadien eingeteilt und ist im Frühstadium operativ heilbar; EGFR, ALK, ROS1 und der PD-L1-Score steuern die Systemtherapie.',
+          antwort: 'Das kleinzellige Karzinom (SCLC, etwa 15 %) und das nicht-kleinzellige Karzinom (NSCLC, etwa 85 % mit Adenokarzinom, Plattenepithelkarzinom und großzelligem Karzinom). Die Einteilung entscheidet über die gesamte Therapie: Das SCLC wächst sehr rasch, metastasiert früh, ist primär chemo- und strahlensensibel und wird in der Regel nicht operiert, eingeteilt in limited und extensive disease. Das NSCLC wird nach TNM in UICC-Stadien eingeteilt und ist im Frühstadium operativ heilbar; EGFR, ALK, ROS1 und der PD-L1-Score steuern die Systemtherapie.',
         },
         {
           frage: 'Welche paraneoplastischen Syndrome kennen Sie beim Bronchialkarzinom?',
@@ -15127,11 +15127,11 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum wird das Bronchialkarzinom so oft erst spät entdeckt?',
-          antwort: 'Weil es keine Frühsymptome gibt: das Lungengewebe selbst ist nicht schmerzempfindlich, und der Tumor wächst lange stumm. Die ersten Beschwerden — Husten, Auswurf, Luftnot, Müdigkeit — sind banal und werden beim Raucher der COPD oder dem Rauchen zugeschrieben. Erst Kompression, Infiltration, Metastasen oder Paraneoplasien machen Beschwerden. Deshalb muss man aktiv nach den Alarmsignalen fragen: verändertem Husten, Hämoptysen, Gewichtsverlust, Heiserkeit und nicht ausheilender Pneumonie.',
+          antwort: 'Weil es keine Frühsymptome gibt: Das Lungengewebe selbst ist nicht schmerzempfindlich, und der Tumor wächst lange stumm. Die ersten Beschwerden — Husten, Auswurf, Luftnot, Müdigkeit — sind banal und werden beim Raucher der COPD oder dem Rauchen zugeschrieben. Erst Kompression, Infiltration, Metastasen oder Paraneoplasien machen Beschwerden. Deshalb muss man aktiv nach den Alarmsignalen fragen: verändertem Husten, Hämoptysen, Gewichtsverlust, Heiserkeit und nicht ausheilender Pneumonie.',
         },
         {
           frage: 'Was bedeutet es, wenn eine Pneumonie an derselben Stelle nicht ausheilt?',
-          antwort: 'Das ist ein klassisches Alarmzeichen: hinter einer Bronchusstenose durch einen Tumor entsteht eine poststenotische Pneumonie, die unter Antibiose zwar klinisch bessert, aber radiologisch nicht vollständig verschwindet und an derselben Stelle rezidiviert. Deshalb ist eine radiologische Kontrolle vier bis sechs Wochen nach jeder Pneumonie beim Raucher obligat; bleibt ein Restbefund, folgen CT und Bronchoskopie.',
+          antwort: 'Das ist ein klassisches Alarmzeichen: Hinter einer Bronchusstenose durch einen Tumor entsteht eine poststenotische Pneumonie, die sich unter Antibiose zwar klinisch bessert, aber radiologisch nicht vollständig verschwindet und an derselben Stelle rezidiviert. Deshalb ist eine radiologische Kontrolle vier bis sechs Wochen nach jeder Pneumonie beim Raucher obligat; bleibt ein Restbefund, folgen CT und Bronchoskopie.',
         },
         {
           frage: 'Wie ist die Prognose?',
@@ -15493,7 +15493,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie erklären Sie der Patientin die Begriffe Mammakarzinom, Mastektomie, Biopsie, Metastase und Carcinoma in situ?',
-          antwort: 'Mammakarzinom = Brustkrebs, eine bösartige Geschwulst der Brustdrüse. Mastektomie = die vollständige operative Entfernung der Brust. Biopsie = die Entnahme einer kleinen Gewebeprobe zur Untersuchung unter dem Mikroskop. Metastase = eine Tochtergeschwulst, also eine Absiedlung in einem anderen Organ. Carcinoma in situ = der Tumor hat die Basalmembran noch nicht durchbrochen und ist auf seinen Ursprungsort begrenzt.',
+          antwort: 'Mammakarzinom = Brustkrebs, eine bösartige Geschwulst der Brustdrüse. Mastektomie = die vollständige operative Entfernung der Brust. Biopsie = die Entnahme einer kleinen Gewebeprobe zur Untersuchung unter dem Mikroskop. Metastase = eine Tochtergeschwulst, also eine Absiedlung in einem anderen Organ. Carcinoma in situ = eine Krebsvorstufe, bei der die veränderten Zellen noch an ihrem Ursprungsort bleiben und nicht in das umliegende Gewebe eingewachsen sind.',
         },
         {
           frage: 'Die Patientin fragt direkt, ob sie Krebs hat und ob sie sterben muss. Was antworten Sie?',
@@ -15833,7 +15833,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was bedeutet das „window of opportunity“?',
-          antwort: 'Das Zeitfenster der ersten Wochen bis wenigen Monate, in dem eine Basistherapie den Verlauf noch grundlegend beeinflussen kann. Da die Erosionen irreversibel sind, muss die krankheitsmodifizierende Therapie sofort nach Diagnosestellung beginnen; Ziel ist die Remission nach dem Prinzip „treat to target“ mit regelmäßiger DAS28-Kontrolle.',
+          antwort: 'Das Zeitfenster der ersten Wochen bis wenigen Monaten, in dem eine Basistherapie den Verlauf noch grundlegend beeinflussen kann. Da die Erosionen irreversibel sind, muss die krankheitsmodifizierende Therapie sofort nach Diagnosestellung beginnen; Ziel ist die Remission nach dem Prinzip „treat to target“ mit regelmäßiger DAS28-Kontrolle.',
         },
         {
           frage: 'Wie dosieren Sie Methotrexat und was gehört zwingend dazu?',
@@ -16172,7 +16172,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Was spricht für eine Colitis ulcerosa und gegen einen Morbus Crohn?',
-          antwort: 'Für die Colitis ulcerosa sprechen blutig-schleimige Durchfälle mit Tenesmen, ein kontinuierlicher, vom Rektum nach proximal aufsteigender Befall, die Beschränkung auf die Mukosa, Kryptenabszesse in der Histologie und das Fehlen von Fisteln. Für den Morbus Crohn sprechen der Schmerz im rechten Unterbauch, Durchfall meist ohne Blut, der diskontinuierliche transmurale Befall mit Skip lesions vom Mund bis zum Anus, das Pflastersteinrelief, nicht verkäsende Epitheloidzellgranulome sowie perianale Fisteln und Fissuren.',
+          antwort: 'Für die Colitis ulcerosa sprechen blutig-schleimige Durchfälle mit Tenesmen, ein kontinuierlicher, vom Rektum nach proximal aufsteigender Befall, die Beschränkung auf die Mukosa, Kryptenabszesse in der Histologie und das Fehlen von Fisteln. Für den Morbus Crohn sprechen der Schmerz im rechten Unterbauch, Durchfall meist ohne Blut, der diskontinuierliche transmurale Befall mit Skip-Läsionen vom Mund bis zum Anus, das Pflastersteinrelief, nicht verkäsende Epitheloidzellgranulome sowie perianale Fisteln und Fissuren.',
         },
         {
           frage: 'Warum denken Sie nicht an einen Morbus Crohn?',
@@ -16180,7 +16180,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wo befindet sich der Morbus Crohn am häufigsten?',
-          antwort: 'Im terminalen Ileum und in der Ileozökalregion. Grundsätzlich kann jedoch der gesamte Verdauungstrakt vom Mund bis zum Anus befallen sein, und zwar diskontinuierlich mit Skip lesions.',
+          antwort: 'Im terminalen Ileum und in der Ileozökalregion. Grundsätzlich kann jedoch der gesamte Verdauungstrakt vom Mund bis zum Anus befallen sein, und zwar diskontinuierlich mit Skip-Läsionen.',
         },
         {
           frage: 'Wie können Sie eine chronisch-entzündliche Darmerkrankung ausschließen?',
@@ -16200,7 +16200,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was sehen Sie in der Koloskopie und in der Histologie?',
-          antwort: 'Endoskopisch einen diskontinuierlichen Befall mit Skip lesions, aphthöse und längsgestellte Ulzera, ein Pflastersteinrelief und Stenosen bei häufig ausgespartem Rektum. Histologisch eine transmurale Entzündung mit nicht verkäsenden Epitheloidzellgranulomen und mehrkernigen Riesenzellen, die allerdings nur in etwa 30 bis 40 Prozent der Biopsien nachweisbar sind.',
+          antwort: 'Endoskopisch einen diskontinuierlichen Befall mit Skip-Läsionen, aphthöse und längsgestellte Ulzera, ein Pflastersteinrelief und Stenosen bei häufig ausgespartem Rektum. Histologisch eine transmurale Entzündung mit nicht verkäsenden Epitheloidzellgranulomen und mehrkernigen Riesenzellen, die allerdings nur in etwa 30 bis 40 Prozent der Biopsien nachweisbar sind.',
         },
         {
           frage: 'Welche extraintestinalen Manifestationen kennen Sie?',
@@ -16566,7 +16566,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche sekundären Ursachen eines Karpaltunnelsyndroms kennen Sie?',
-          antwort: 'Schwangerschaft, Hypothyreose, Diabetes mellitus, rheumatoide Arthritis mit Tenosynovitis, Langzeitdialyse und Amyloidose, Akromegalie, Adipositas, raumfordernde Prozesse wie Ganglien oder Lipome sowie ein in Fehlstellung verheilter distaler Radiusbruch. Deshalb gehören TSH und HbA1c ins Labor und die Frage nach einer Schwangerschaft in die Anamnese.',
+          antwort: 'Schwangerschaft, Hypothyreose, Diabetes mellitus, rheumatoide Arthritis mit Tenosynovitis, Langzeitdialyse und Amyloidose, Akromegalie, Adipositas, raumfordernde Prozesse wie Ganglien oder Lipome sowie eine in Fehlstellung verheilte distale Radiusfraktur. Deshalb gehören TSH und HbA1c ins Labor und die Frage nach einer Schwangerschaft in die Anamnese.',
         },
         {
           frage: 'Warum ist der Kleinfinger nicht betroffen?',
@@ -17216,7 +17216,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Was ist wichtig, bevor man die rektale Untersuchung macht?',
-          antwort: 'Die Blutentnahme für den PSA-Wert erfolgt vor der Palpation, außerdem die Aufklärung des Patienten und seine Einwilligung. Der PSA sollte auch nicht innerhalb von 48 Stunden nach Ejakulation, Radfahren oder Katheterisierung und nicht bei akuter Prostatitis bestimmt werden.',
+          antwort: 'Die Blutentnahme für den PSA-Wert erfolgt vor der Palpation, außerdem die Aufklärung des Patienten und seine Einwilligung. Der PSA-Wert sollte auch nicht innerhalb von 48 Stunden nach Ejakulation, Radfahren oder Katheterisierung und nicht bei akuter Prostatitis bestimmt werden.',
         },
         {
           frage: 'Was suchen Sie bei der digital-rektalen Untersuchung?',
@@ -17232,7 +17232,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Beweist ein erhöhter PSA-Wert ein Karzinom?',
-          antwort: 'Nein. Der PSA ist organspezifisch, aber nicht karzinomspezifisch. Er ist auch bei benigner Hyperplasie, Prostatitis, Harnwegsinfekt, nach digital-rektaler Untersuchung, Ejakulation, Radfahren oder Katheterisierung erhöht. Jeder auffällige Wert wird kontrolliert und zusammen mit Tastbefund, PSA-Verlauf, Quotient aus freiem und Gesamt-PSA, PSA-Dichte und MRT bewertet.',
+          antwort: 'Nein. Das PSA ist organspezifisch, aber nicht karzinomspezifisch. Er ist auch bei benigner Hyperplasie, Prostatitis, Harnwegsinfekt, nach digital-rektaler Untersuchung, Ejakulation, Radfahren oder Katheterisierung erhöht. Jeder auffällige Wert wird kontrolliert und zusammen mit Tastbefund, PSA-Verlauf, Quotient aus freiem und Gesamt-PSA, PSA-Dichte und MRT bewertet.',
         },
         {
           frage: 'Welche Untersuchungen leiten Sie ein? Was kann man im Ultraschall sehen?',
@@ -17576,7 +17576,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welcher Laborwert ist prognostisch entscheidend, und warum?',
-          antwort: 'Der Quick-Wert beziehungsweise der INR, weil er die Syntheseleistung der Leber abbildet — die Gerinnungsfaktoren werden in der Leber gebildet und haben eine kurze Halbwertszeit. Ein Quick unter 50 Prozent oder ein INR über 1,5 zeigt ein drohendes Leberversagen an. Die Höhe der Transaminasen sagt dagegen nichts über die Prognose aus.',
+          antwort: 'Der Quick-Wert beziehungsweise der INR, weil er die Syntheseleistung der Leber abbildet — die Gerinnungsfaktoren werden in der Leber gebildet und haben eine kurze Halbwertszeit. Ein Quick unter 50 Prozent oder eine INR über 1,5 zeigt ein drohendes Leberversagen an. Die Höhe der Transaminasen sagt dagegen nichts über die Prognose aus.',
         },
         {
           frage: 'Wie unterscheiden Sie im Labor eine Virushepatitis von einer alkoholischen Hepatitis?',
@@ -17941,8 +17941,8 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       askedInExam: [
         {
-          frage: 'Wie erklären Sie dem Patienten den Begriff „Parkinson" auf Deutsch?',
-          antwort: 'Auf Deutsch heißt die Erkrankung Schüttellähmung oder Zitterlähmung. Dem Patienten gegenüber würde ich sagen: Es handelt sich um eine Erkrankung des Gehirns, bei der bestimmte Nervenzellen langsam zugrunde gehen, die einen Botenstoff namens Dopamin herstellen. Dadurch werden die Bewegungen langsamer und die Muskeln steifer, und es kommt zu einem Zittern in Ruhe. Das Wort „Lähmung" würde ich ausdrücklich erklären: gelähmt ist nichts, die Kraft bleibt erhalten — die Bewegungen werden nur langsamer und steifer.',
+          frage: 'Wie erklären Sie dem Patienten den Begriff „Parkinson“ auf Deutsch?',
+          antwort: 'Auf Deutsch heißt die Erkrankung Schüttellähmung oder Zitterlähmung. Dem Patienten gegenüber würde ich sagen: Es handelt sich um eine Erkrankung des Gehirns, bei der bestimmte Nervenzellen langsam zugrunde gehen, die einen Botenstoff namens Dopamin herstellen. Dadurch werden die Bewegungen langsamer und die Muskeln steifer, und es kommt zu einem Zittern in Ruhe. Das Wort „Lähmung“ würde ich ausdrücklich erklären: gelähmt ist nichts, die Kraft bleibt erhalten — die Bewegungen werden nur langsamer und steifer.',
         },
         {
           frage: 'Wie lautet Ihre Verdachtsdiagnose, und welche Kardinalsymptome müssen erfüllt sein?',
@@ -18715,7 +18715,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie unterscheidet man in der Szintigraphie einen bösartigen Knoten von einem anderen? Ist das eine sichere Unterscheidung?',
-          antwort: 'Über die Speicherung: der kalte Knoten speichert vermindert und ist malignitätsverdächtig, der heiße Knoten speichert vermehrt und ist praktisch nie maligne. Diese Unterscheidung ist aber nur teilweise aussagekräftig — nur etwa 5 % der kalten Knoten sind tatsächlich maligne. Die Szintigraphie beurteilt die FUNKTION, nicht die Dignität; diese ergibt sich aus den sonographischen Malignitätskriterien und letztlich aus der Zytologie der Feinnadelpunktion.',
+          antwort: 'Über die Speicherung: Der kalte Knoten speichert vermindert und ist malignitätsverdächtig, der heiße Knoten speichert vermehrt und ist praktisch nie maligne. Diese Unterscheidung ist aber nur teilweise aussagekräftig — nur etwa 5 % der kalten Knoten sind tatsächlich maligne. Die Szintigraphie beurteilt die FUNKTION, nicht die Dignität; diese ergibt sich aus den sonographischen Malignitätskriterien und letztlich aus der Zytologie der Feinnadelpunktion.',
         },
         {
           frage: 'Welche sonographischen Kriterien sprechen für Bösartigkeit?',
@@ -18739,11 +18739,11 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Komplikationen hat die Thyreoidektomie? Was ist eine Rekurrensparese?',
-          antwort: 'Die Rekurrensparese ist eine Lähmung des Nervus laryngeus recurrens, der die Stimmbandmuskulatur versorgt. Einseitig führt sie zu Heiserkeit, beidseitig zu Atemnot mit Stridor bis hin zur Notwendigkeit einer Tracheotomie; sie tritt vorübergehend in 3–5 % und dauerhaft in 1–2 % der Fälle auf. Weitere Komplikationen sind der Hypoparathyreoidismus durch Schädigung der Nebenschilddrüsen mit Hypokalzämie, periöralen Parästhesien und Tetanie (dauerhaft 1–3 %), die Nachblutung mit Halsschwellung und Atemwegsverlegung sowie die postoperative Hypothyreose.',
+          antwort: 'Die Rekurrensparese ist eine Lähmung des Nervus laryngeus recurrens, der die Stimmbandmuskulatur versorgt. Einseitig führt sie zu Heiserkeit, beidseitig zu Atemnot mit Stridor bis hin zur Notwendigkeit einer Tracheotomie; sie tritt vorübergehend in 3–5 % und dauerhaft in 1–2 % der Fälle auf. Weitere Komplikationen sind der Hypoparathyreoidismus durch Schädigung der Nebenschilddrüsen mit Hypokalzämie, perioralen Parästhesien und Tetanie (dauerhaft 1–3 %), die Nachblutung mit Halsschwellung und Atemwegsverlegung sowie die postoperative Hypothyreose.',
         },
         {
           frage: 'Wozu bestimmen Sie das Calcitonin?',
-          antwort: 'Zum Ausschluss eines medullären Schilddrüsenkarzinoms, das von den parafollikulären C-Zellen ausgeht. Ist das Calcitonin erhöht, folgen ein Stimulationstest und die genetische Abklärung eines MEN-2-Syndroms mit RET-Mutation; vor einer Operation muss dann ein Phäochromozytom ausgeschlossen werden. Wichtig: das medulläre Karzinom speichert kein Jod, eine Radiojodtherapie ist unwirksam — es wird operiert.',
+          antwort: 'Zum Ausschluss eines medullären Schilddrüsenkarzinoms, das von den parafollikulären C-Zellen ausgeht. Ist das Calcitonin erhöht, folgen ein Stimulationstest und die genetische Abklärung eines MEN-2-Syndroms mit RET-Mutation; vor einer Operation muss dann ein Phäochromozytom ausgeschlossen werden. Wichtig: Das medulläre Karzinom speichert kein Jod, eine Radiojodtherapie ist unwirksam — es wird operiert.',
         },
         {
           frage: 'Wie behandeln Sie eine funktionelle Autonomie, und was ist bei der Radiojodtherapie zu beachten?',
@@ -19795,7 +19795,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie erklären Sie dem Patienten den Begriff auf Deutsch? Was heißt Nystagmus, was Tinnitus?',
-          antwort: '„Gutartiger anfallsartiger Lagerungsschwindel": kleine Kalkkristalle, sogenannte Ohrsteinchen, haben sich im Gleichgewichtsorgan gelöst und schwimmen in einem der Bogengänge; bei jeder Lageänderung bewegen sie sich mit und lösen für Sekunden ein Drehgefühl aus. Nystagmus heißt Augenzittern, ein unwillkürliches rhythmisches Zucken der Augen. Tinnitus heißt Ohrensausen, ein Klingeln oder Pfeifen in den Ohren.',
+          antwort: '„Gutartiger anfallsartiger Lagerungsschwindel“: kleine Kalkkristalle, sogenannte Ohrsteinchen, haben sich im Gleichgewichtsorgan gelöst und schwimmen in einem der Bogengänge; bei jeder Lageänderung bewegen sie sich mit und lösen für Sekunden ein Drehgefühl aus. Nystagmus heißt Augenzittern, ein unwillkürliches rhythmisches Zucken der Augen. Tinnitus heißt Ohrensausen, ein Klingeln oder Pfeifen in den Ohren.',
         },
         {
           frage: 'Wie ordnen Sie einen Schwindel systematisch ein?',
@@ -19847,7 +19847,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum ist der Lagerungsschwindel beim älteren Patienten gefährlich, obwohl er benigne heißt?',
-          antwort: 'Weil er stürzen lässt. Beim älteren Patienten kann er sich als isolierte Stand- und Gangunsicherheit ohne klar berichteten Drehschwindel äußern und zu Schenkelhals- oder Radiusfrakturen führen. Deshalb gehören zur Behandlung immer eine Sturzprophylaxe, die Überprüfung sturzbegünstigender Medikamente und bei Osteoporose die Kontrolle von Vitamin D und Kalzium. Bei jedem Sturz des älteren Patienten ist umgekehrt nach Schwindel und nach einer kurzen Bewusstlosigkeit zu fragen.',
+          antwort: 'Weil er zu Stürzen führt. Beim älteren Patienten kann er sich als isolierte Stand- und Gangunsicherheit ohne klar berichteten Drehschwindel äußern und zu Schenkelhals- oder Radiusfrakturen führen. Deshalb gehören zur Behandlung immer eine Sturzprophylaxe, die Überprüfung sturzbegünstigender Medikamente und bei Osteoporose die Kontrolle von Vitamin D und Kalzium. Bei jedem Sturz des älteren Patienten ist umgekehrt nach Schwindel und nach einer kurzen Bewusstlosigkeit zu fragen.',
         },
       ],
       merksatz: 'Sekunden statt Stunden, Lagewechsel statt Ruhe, kein Ohrsymptom und kein neurologischer Ausfall — das ist der benigne Lagerungsschwindel. Dix-Hallpike stellt die Diagnose (Latenz, rotierend-geotrop, erschöpflich), Epley heilt sie. Kein CT, keine Bettruhe, Antivertiginosa höchstens wenige Tage.',
@@ -20587,7 +20587,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wieso führen Sie ein Kolonkarzinom als Differenzialdiagnose auf?',
-          antwort: 'Wegen des ungewollten Gewichtsverlusts — das ist ein rotes Flag und macht bei geänderten Stuhlgewohnheiten eine Karzinomabklärung mit Koloskopie und fäkalem okkultem Bluttest erforderlich, auch wenn die übrige Konstellation eindeutig für eine Malabsorption spricht.',
+          antwort: 'Wegen des ungewollten Gewichtsverlusts — das ist ein Alarmsymptom und macht bei geänderten Stuhlgewohnheiten eine Karzinomabklärung mit Koloskopie und fäkalem okkultem Bluttest erforderlich, auch wenn die übrige Konstellation eindeutig für eine Malabsorption spricht.',
         },
         {
           frage: 'Warum denken Sie nicht an einen Morbus Crohn?',
@@ -20595,7 +20595,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Erkrankungen sind mit der Zöliakie assoziiert?',
-          antwort: 'Typ-1-Diabetes-mellitus, Hashimoto-Thyreoiditis und Morbus Basedow, selektiver IgA-Mangel, Autoimmunhepatitis und primär biliäre Cholangitis, Dermatitis herpetiformis Duhring, IgA-Nephropathie, Sjögren-Syndrom sowie Trisomie 21 und Ullrich-Turner-Syndrom.',
+          antwort: 'Typ-1-Diabetes mellitus, Hashimoto-Thyreoiditis und Morbus Basedow, selektiver IgA-Mangel, Autoimmunhepatitis und primär biliäre Cholangitis, Dermatitis herpetiformis Duhring, IgA-Nephropathie, Sjögren-Syndrom sowie Trisomie 21 und Ullrich-Turner-Syndrom.',
         },
         {
           frage: 'Welche Komplikationen drohen bei unbehandelter Zöliakie?',
@@ -20978,7 +20978,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Spinalanästhesie und Allgemeinanästhesie sind bezüglich Letalität und Delir weitgehend gleichwertig; die Wahl richtet sich nach Begleiterkrankungen, Gerinnung und Patientenwunsch. Bei chronischer Lungenerkrankung ist die Spinalanästhesie oft günstiger. Voraussetzung ist eine intakte Gerinnung mit Karenzzeiten bei Antikoagulanzien — Acetylsalicylsäure 100 mg ist keine Kontraindikation. Zu beachten sind außerdem Nüchternheit, ASA-Einstufung und das Knochenzement-Implantationssyndrom bei zementierter Prothese.',
         },
         {
-          frage: 'Wie behandeln Sie die Schmerzen bei einem 90-jährigen Patienten?',
+          frage: 'Wie behandeln Sie die Schmerzen bei einer 90-jährigen Patientin?',
           antwort: 'Früh und ausreichend: Paracetamol oder Metamizol intravenös als Basis, dazu ein titriertes Opioid in reduzierter Dosis. NSAR vermeide ich wegen Nieren-, Ulkus- und Herzinsuffizienzrisiko. Sehr wirksam und delirsparend ist die ultraschallgesteuerte Fascia-iliaca- oder N.-femoralis-Blockade. Wichtig ist auch die schonende Lagerung auf einer Schaumstoffschiene.',
         },
         {
@@ -20995,10 +20995,10 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum kann eine Schenkelhalsfraktur zur Hüftkopfnekrose führen?',
-          antwort: 'Weil der Hüftkopf beim Erwachsenen überwiegend retrograd über die Retinakulumgefäße aus der A. circumflexa femoris medialis versorgt wird und die Arterie des Lig. capitis femoris kaum beiträgt. Verläuft die Fraktur intrakapsulär und disloziert, reißen diese Gefäße ab oder werden durch den intrakapsulären Erguss komprimiert — daher steigt das Nekroserisiko mit dem Dislokationsgrad auf bis zu etwa 30 Prozent.',
+          antwort: 'Weil der Hüftkopf beim Erwachsenen überwiegend retrograd über die Retinakulumgefäße aus der A. circumflexa femoris medialis versorgt wird und die Arterie des Ligamentum capitis femoris kaum beiträgt. Verläuft die Fraktur intrakapsulär und disloziert, reißen diese Gefäße ab oder werden durch den intrakapsulären Erguss komprimiert — daher steigt das Nekroserisiko mit dem Dislokationsgrad auf bis zu etwa 30 Prozent.',
         },
         {
-          frage: 'Der Patient nimmt Acetylsalicylsäure. Verschieben Sie die Operation?',
+          frage: 'Die Patientin nimmt Acetylsalicylsäure. Verschieben Sie die Operation?',
           antwort: 'Nein. Acetylsalicylsäure 100 mg ist kein Grund zur Verzögerung; der Nutzen der frühen Versorgung überwiegt. Anders bei Vitamin-K-Antagonisten, die mit Vitamin K und PPSB antagonisiert werden müssen, und bei direkten oralen Antikoagulanzien, wo Einnahmezeitpunkt und Nierenfunktion den Operationszeitpunkt und die Möglichkeit einer rückenmarksnahen Anästhesie bestimmen.',
         },
       ],
@@ -21645,7 +21645,7 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       askedInExam: [
         {
-          frage: 'Wie wurde die Hernie behandelt?',
+          frage: 'Der Patient gibt eine frühere Hernienoperation an — wonach fragen Sie gezielt, und warum?',
           antwort: 'Ich frage den Patienten gezielt nach der Seite (rechts, links oder beidseits), nach dem Alter zum Zeitpunkt der Operation, nach dem Verfahren (offen mit Netz nach Lichtenstein oder minimalinvasiv als TAPP beziehungsweise TEP, seltener Nahtverfahren nach Shouldice), nach dem Verlauf („komplikationslos“ oder mit Wundinfektion beziehungsweise Nachblutung) und nach einem Rezidiv. Diese Angaben sind relevant, weil eine Voroperation im Unterbauch die Wahl des Zugangswegs bei einer erneuten Operation bestimmt.',
         },
         {
@@ -21662,7 +21662,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie untersuchen Sie den Patienten? Warum genügt die Untersuchung im Liegen nicht?',
-          antwort: 'Ich untersuche entkleidet IM STEHEN UND IM LIEGEN im Seitenvergleich: Inspektion beider Leisten und des Skrotums, Palpation der Vorwölbung mit Husten- und Pressversuch, Austasten des äußeren Leistenrings über die skrotale Haut mit Prüfung des Anstoßimpulses, Prüfung der Reponibilität, Bestimmung der Lage ober- oder unterhalb des Leistenbands sowie Untersuchung der Gegenseite und des Skrotalinhalts. Im Liegen kann sich die Hernie vollständig zurückbilden und dadurch übersehen werden — deshalb ist die Untersuchung im Stehen obligat.',
+          antwort: 'Ich untersuche den entkleideten Patienten im Stehen und im Liegen im Seitenvergleich: Inspektion beider Leisten und des Skrotums, Palpation der Vorwölbung mit Husten- und Pressversuch, Austasten des äußeren Leistenrings über die skrotale Haut mit Prüfung des Anstoßimpulses, Prüfung der Reponibilität, Bestimmung der Lage ober- oder unterhalb des Leistenbands sowie Untersuchung der Gegenseite und des Skrotalinhalts. Im Liegen kann sich die Hernie vollständig zurückbilden und dadurch übersehen werden — deshalb ist die Untersuchung im Stehen obligat.',
         },
         {
           frage: 'Woran erkennen Sie eine Inkarzeration, und welche Rolle spielt der Ileus?',
@@ -22093,7 +22093,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Der Patient ist gestürzt — was müssen Sie deswegen ausschließen?',
-          antwort: 'Ein Schädel-Hirn-Trauma, insbesondere ein chronisch subdurales Hämatom. Alkoholkranke stürzen häufig, haben eine Hirnatrophie und eine Gerinnungsstörung; das Hämatom kann sich nach einem freien Intervall von Wochen mit Kopfschmerzen, Wesensänderung und fokalen Defiziten zeigen. Deshalb bei jeder Bewusstseinsstörung, jedem fokalen Defizit und jeder Sturzanamnese ein craniales CT.',
+          antwort: 'Ein Schädel-Hirn-Trauma, insbesondere ein chronisch subdurales Hämatom. Alkoholkranke stürzen häufig, haben eine Hirnatrophie und eine Gerinnungsstörung; das Hämatom kann sich nach einem freien Intervall von Wochen mit Kopfschmerzen, Wesensänderung und fokalen Defiziten zeigen. Deshalb bei jeder Bewusstseinsstörung, jedem fokalen Defizit und jeder Sturzanamnese ein kraniales CT.',
         },
         {
           frage: 'Was raten Sie dem Patienten nach dem Entzug?',
@@ -23112,7 +23112,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Das lässt sich nur mit einem Test klären. Bei jeder Frau im gebärfähigen Alter bestimmen wir β-hCG und führen eine Sonographie durch, hier eine transvaginale Sonographie, um eine intakte Schwangerschaft und eine Extrauteringravidität auszuschließen. Erst danach folgen Bildgebung mit Strahlenbelastung, Hormontherapie oder ein operativer Eingriff.',
         },
         {
-          frage: 'Was können wir bei der Sonographie schauen?',
+          frage: 'Was können wir in der Sonographie sehen?',
           antwort: 'Bei der Frau ist die transvaginale Sonographie die Untersuchung der Wahl: Sie zeigt Zahl, Größe und Lage der Myome mit Einordnung nach der FIGO-Klassifikation 0 bis 8, die Endometriumdicke sowie die Adnexe. Abdominell beurteilen wir zusätzlich einen großen Uterus, freie Flüssigkeit und die Nieren zum Ausschluss eines Harnstaus. Zur gynäkologischen Basisabklärung gehören immer die gynäkologische Untersuchung und der Schwangerschaftstest.',
         },
         {
@@ -23501,7 +23501,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Prärenal ist der Urin konzentriert: Urin-Natrium unter 20 mmol/l, fraktionelle Natriumexkretion unter 1 %, Urinosmolalität über 500 mosmol/kg und ein blandes Sediment. Bei der akuten Tubulusnekrose liegt das Urin-Natrium über 40 mmol/l, die fraktionelle Natriumexkretion über 2 %, die Urinosmolalität unter 350 mosmol/kg und es finden sich granulierte braune Zylinder. Unter Diuretika ist die fraktionelle Natriumexkretion nicht verwertbar, dann verwende ich die fraktionelle Harnstoffexkretion mit einem Grenzwert von 35 %.',
         },
         {
-          frage: 'Was ist die «Triple Whammy»?',
+          frage: 'Was ist die „Triple Whammy“?',
           antwort: 'Die Kombination aus einem NSAR, einem Diuretikum und einem ACE-Hemmer oder Sartan. Das NSAR verengt über die Prostaglandinhemmung das Vas afferens, der RAAS-Blocker weitet das Vas efferens und das Diuretikum entzieht Volumen — dadurch bricht die glomeruläre Autoregulation zusammen. Beim älteren, exsikkierten Patienten ist dies eine der häufigsten Ursachen eines prärenalen Nierenversagens.',
         },
         {
@@ -23856,7 +23856,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum ist es kein Rheuma? Wie können wir eine rheumatoide Arthritis ausschließen?',
-          antwort: 'Bei der rheumatoiden Arthritis besteht eine objektivierbare symmetrische Schwellung der Fingergrund- und -mittelgelenke, eine Morgensteifigkeit über 60 Minuten und eine laborchemische Entzündung mit erhöhtem CRP und erhöhter BSG sowie positivem Rheumafaktor und Anti-CCP; im Röntgen und in der Sonographie finden sich Erosionen. Beim Fibromyalgiesyndrom fehlt all das: keine Schwellung, kurze Morgensteifigkeit, normale Entzündungswerte.',
+          antwort: 'Bei der rheumatoiden Arthritis bestehen eine objektivierbare symmetrische Schwellung der Fingergrund- und -mittelgelenke, eine Morgensteifigkeit über 60 Minuten und eine laborchemische Entzündung mit erhöhtem CRP und erhöhter BSG sowie positivem Rheumafaktor und Anti-CCP; im Röntgen und in der Sonographie finden sich Erosionen. Beim Fibromyalgiesyndrom fehlt all das: keine Schwellung, kurze Morgensteifigkeit, normale Entzündungswerte.',
         },
         {
           frage: 'Was sehen wir im Blut bei der rheumatoiden Arthritis?',
@@ -24217,7 +24217,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie erklären Sie einem Patienten die Begriffe Polymyalgia rheumatica und Arteriitis temporalis?',
-          antwort: 'Polymyalgia rheumatica heißt wörtlich "Schmerz in vielen Muskeln" — eine entzündliche Erkrankung, die vor allem die Muskeln um Schultern und Hüften betrifft. Die Arteriitis temporalis oder Riesenzellarteriitis ist eine Entzündung der Schlagaderwand, besonders der Schläfenschlagader; ihren Namen hat sie von den großen, mehrkernigen Entzündungszellen im Gewebe. Beide gehören zum selben Krankheitsbild.',
+          antwort: 'Polymyalgia rheumatica heißt wörtlich „Schmerz in vielen Muskeln“ — eine entzündliche Erkrankung, die vor allem die Muskeln um Schultern und Hüften betrifft. Die Arteriitis temporalis oder Riesenzellarteriitis ist eine Entzündung der Schlagaderwand, besonders der Schläfenschlagader; ihren Namen hat sie von den großen, mehrkernigen Entzündungszellen im Gewebe. Beide gehören zum selben Krankheitsbild.',
         },
         {
           frage: 'Warum ist das Alter für die Diagnose entscheidend?',
@@ -26443,7 +26443,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Woran denken Sie bei einem jungen, sexuell aktiven Patienten mit akuter Arthritis?',
-          antwort: 'An eine Gonokokkenarthritis. Typisch sind wandernde Polyarthralgien, eine Tenosynovitis der Handgelenke und pustulöse Hautläsionen. Ich nehme Abstriche von Urethra beziehungsweise Zervix, Rachen und Rektum ab, lasse eine Nukleinsäureamplifikation und eine Kultur auf Spezialnährboden durchführen, behandle mit Ceftriaxon und behandle Chlamydien sowie den Partner mit.',
+          antwort: 'An eine Gonokokkenarthritis. Typisch sind wandernde Polyarthralgien, eine Tenosynovitis der Handgelenke und pustulöse Hautläsionen. Ich nehme Abstriche von Urethra beziehungsweise Zervix, Rachen und Rektum ab, lasse eine Nukleinsäureamplifikation und eine Kultur auf Spezialnährboden durchführen, behandle mit Ceftriaxon, decke Chlamydien mit ab und behandle den Partner mit.',
         },
       ],
       merksatz: 'Jedes akut geschwollene, überwärmte und in Ruhe schmerzhafte Gelenk ist bis zum Beweis des Gegenteils infiziert: erst PUNKTIEREN und Blutkulturen abnehmen, dann SOFORT kalkuliert antibiotisch behandeln — und noch am selben Tag arthroskopisch spülen. Fieber kann fehlen, das Röntgen ist anfangs normal, Kristalle schließen die Infektion nicht aus, und Kortison gehört bei Verdacht niemals in das Gelenk.',
@@ -27500,7 +27500,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie können Sie die Diagnose bestätigen?',
-          antwort: 'Mit dem H2-Atemtest nach Laktosebelastung als Standarduntersuchung: 25 bis 50 g Laktose nach zwölf Stunden Nüchternheit, Messung des Wasserstoffs in der Ausatemluft alle 30 Minuten über zwei bis drei Stunden; ein Anstieg um mindestens 20 ppm über den Ausgangswert zusammen mit dem Auftreten der typischen Beschwerden ist beweisend. Alternativ der Laktose-Toleranztest mit dem Blutzuckerverlauf, ein Anstieg unter 20 mg/dl ist pathologisch. Sehr überzeugend ist außerdem die diagnostische Elimination über zwei bis vier Wochen mit Reexposition. Die Genotypisierung des Laktase-Gens bleibt Einzelfällen vorbehalten.',
+          antwort: 'Mit dem H2-Atemtest nach Laktosebelastung als Standarduntersuchung: 25 bis 50 g Laktose nach zwölf Stunden Nüchternheit, Messung des Wasserstoffs in der Ausatemluft alle 30 Minuten über zwei bis drei Stunden; ein Anstieg um mindestens 20 ppm über den Ausgangswert zusammen mit dem Auftreten der typischen Beschwerden ist beweisend. Alternativ der Laktose-Toleranztest mit dem Blutzuckerverlauf; ein Anstieg unter 20 mg/dl ist pathologisch. Sehr überzeugend ist außerdem die diagnostische Elimination über zwei bis vier Wochen mit Reexposition. Die Genotypisierung des Laktase-Gens bleibt Einzelfällen vorbehalten.',
         },
         {
           frage: 'Was ist der Unterschied zwischen einer Laktoseintoleranz und einer Kuhmilchallergie?',
@@ -27516,7 +27516,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist der Unterschied zwischen primärer und sekundärer Laktoseintoleranz, und warum ist er wichtig?',
-          antwort: 'Die primäre Form ist der genetisch bedingte, nach dem Abstillen physiologische Rückgang der Laktaseaktivität — weltweit bei etwa 65 bis 70 % der Erwachsenen, in Nord- und Westeuropa deutlich seltener; sie bleibt lebenslang bestehen. Die sekundäre Form entsteht durch Schädigung der Dünndarmschleimhaut, etwa nach Gastroenteritis, bei Zöliakie, Morbus Crohn oder nach Antibiotikatherapie, und ist nach Behandlung der Grunderkrankung häufig reversibel. Der Unterschied ist wichtig, weil man bei der sekundären Form die Ursache suchen und behandeln muss statt sich mit einer Diät zu begnügen.',
+          antwort: 'Die primäre Form ist der genetisch bedingte, nach dem Abstillen physiologische Rückgang der Laktaseaktivität — weltweit bei etwa 65 bis 70 % der Erwachsenen, in Nord- und Westeuropa deutlich seltener; sie bleibt lebenslang bestehen. Die sekundäre Form entsteht durch Schädigung der Dünndarmschleimhaut, etwa nach Gastroenteritis, bei Zöliakie, Morbus Crohn oder nach Antibiotikatherapie, und ist nach Behandlung der Grunderkrankung häufig reversibel. Der Unterschied ist wichtig, weil man bei der sekundären Form die Ursache suchen und behandeln muss, statt sich mit einer Diät zu begnügen.',
         },
         {
           frage: 'Warum bekommt der Patient die Beschwerden erst als Erwachsener?',
@@ -27872,7 +27872,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist die FAST-Regel?',
-          antwort: 'Ein Merkinstrument zur Erkennung eines Schlaganfalls: Face — hängender Mundwinkel beim Lächeln; Arms — Absinken eines Armes beim Armhalteversuch; Speech — undeutliche oder stockende Sprache beim Nachsprechen eines Satzes; Time — sofort den Notruf 112 wählen, denn „time is brain".',
+          antwort: 'Ein Merkinstrument zur Erkennung eines Schlaganfalls: Face — hängender Mundwinkel beim Lächeln; Arms — Absinken eines Armes beim Armhalteversuch; Speech — undeutliche oder stockende Sprache beim Nachsprechen eines Satzes; Time — sofort den Notruf 112 wählen, denn „time is brain“.',
         },
         {
           frage: 'Was ist der ABCD2-Score?',
@@ -27884,7 +27884,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie unterscheiden Sie eine TIA von einer Migräne mit Aura?',
-          antwort: 'Über die Ausbreitungsdynamik und die Art der Symptome. Die Migräneaura zeigt POSITIVsymptome — Flimmerskotom, Zickzacklinien, Kribbeln —, die langsam über 5 bis 20 Minuten wandern und meist von Kopfschmerz gefolgt werden, typischerweise beim jüngeren Patienten mit bekannter Migräne. Die TIA setzt schlagartig ein, ist von Anfang an maximal, besteht aus NEGATIVsymptomen und wandert nicht.',
+          antwort: 'Über die Ausbreitungsdynamik und die Art der Symptome. Die Migräneaura zeigt Positivsymptome — Flimmerskotom, Zickzacklinien, Kribbeln —, die langsam über 5 bis 20 Minuten wandern und meist von Kopfschmerz gefolgt werden, typischerweise beim jüngeren Patienten mit bekannter Migräne. Die TIA setzt schlagartig ein, ist von Anfang an maximal, besteht aus Negativsymptomen und wandert nicht.',
         },
         {
           frage: 'Warum ist die TIA ein Notfall, obwohl der Patient beschwerdefrei ist?',
@@ -28235,7 +28235,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Wie lautet Ihre Verdachtsdiagnose, und warum entscheiden Sie sich für einen Typ 1?',
-          antwort: 'Eine Erstmanifestation eines Diabetes mellitus Typ 1. Dafür sprechen das junge Alter, der schlanke Habitus, die kurze Anamnese von wenigen Wochen bis Monaten und die klassische Trias aus Polyurie mit Nykturie, Polydipsie und Gewichtsverlust trotz gutem Appetit, ergänzt durch Müdigkeit, Sehstörungen, Pruritus und rezidivierende Genitalinfekte. Gesichert wird die Zuordnung über die Autoantikörper und ein erniedrigtes C-Peptid.',
+          antwort: 'Eine Erstmanifestation eines Diabetes mellitus Typ 1. Dafür sprechen das junge Alter, der schlanke Habitus, die kurze Anamnese von wenigen Wochen bis Monaten und die klassische Trias aus Polyurie mit Nykturie, Polydipsie und Gewichtsverlust trotz guten Appetits, ergänzt durch Müdigkeit, Sehstörungen, Pruritus und rezidivierende Genitalinfekte. Gesichert wird die Zuordnung über die Autoantikörper und ein erniedrigtes C-Peptid.',
         },
         {
           frage: 'Was ist der Unterschied zwischen Diabetes mellitus Typ 1 und Typ 2?',
@@ -29011,7 +29011,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Erklären Sie die Pathophysiologie.',
-          antwort: 'Molekulare Mimikry: Das M-Protein der Streptokokken ähnelt körpereigenen Strukturen. Die gebildeten Antikörper und aktivierten T-Zellen reagieren kreuz mit Myosin und Laminin des Herzens, mit den Basalganglien, mit Gelenkknorpel und Synovia sowie mit der Haut — eine Typ-II-Immunreaktion mit zellulärer Komponente. Das freie Intervall von zwei bis vier Wochen entspricht dem Aufbau dieser Immunantwort; deshalb ist der Erreger bei Krankheitsbeginn meist schon eliminiert. Histologisches Korrelat am Herzen sind die Aschoff-Knötchen mit Anitschkow-Zellen.',
+          antwort: 'Molekulare Mimikry: Das M-Protein der Streptokokken ähnelt körpereigenen Strukturen. Die gebildeten Antikörper und aktivierten T-Zellen zeigen eine Kreuzreaktion mit Myosin und Laminin des Herzens, mit den Basalganglien, mit Gelenkknorpel und Synovia sowie mit der Haut — eine Typ-II-Immunreaktion mit zellulärer Komponente. Das freie Intervall von zwei bis vier Wochen entspricht dem Aufbau dieser Immunantwort; deshalb ist der Erreger bei Krankheitsbeginn meist schon eliminiert. Histologisches Korrelat am Herzen sind die Aschoff-Knötchen mit Anitschkow-Zellen.',
         },
         {
           frage: 'Wie heißen die diagnostischen Kriterien, und wie lauten sie?',
@@ -29071,7 +29071,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie sieht die Rezidivprophylaxe aus, und wie lange führen Sie sie durch?',
-          antwort: 'Benzathin-Benzylpenicillin G 1,2 Mio. IE intramuskulär alle drei bis vier Wochen oder Penicillin V 2 × 250 mg täglich oral, bei Penicillinallergie ein Makrolid oder Sulfadiazin. Die Dauer richtet sich nach der Herzbeteiligung: ohne Karditis fünf Jahre beziehungsweise bis zum 21. Lebensjahr, mit Karditis ohne Klappenschaden zehn Jahre beziehungsweise bis zum 21. Lebensjahr, mit Karditis und bleibendem Klappenschaden zehn Jahre beziehungsweise bis zum 40. Lebensjahr — jeweils der längere Zeitraum, bei Erwachsenen mit Klappenschaden faktisch lebenslang.',
+          antwort: 'Benzathin-Benzylpenicillin G 1,2 Millionen Einheiten intramuskulär alle drei bis vier Wochen oder Penicillin V zweimal 250 mg täglich oral, bei Penicillinallergie ein Makrolid oder Sulfadiazin. Die Dauer richtet sich nach der Herzbeteiligung: ohne Karditis fünf Jahre beziehungsweise bis zum 21. Lebensjahr, mit Karditis ohne Klappenschaden zehn Jahre beziehungsweise bis zum 21. Lebensjahr, mit Karditis und bleibendem Klappenschaden zehn Jahre beziehungsweise bis zum 40. Lebensjahr — jeweils der längere Zeitraum, bei Erwachsenen mit Klappenschaden faktisch lebenslang.',
         },
         {
           frage: 'Ist die Rezidivprophylaxe dasselbe wie die Endokarditisprophylaxe?',
@@ -30238,11 +30238,11 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was werden Sie bei diesem Patienten außerdem untersuchen wollen — und wie?',
-          antwort: 'Ich würde gezielt nach einem metabolischen Syndrom suchen, weil Übergewicht und Bluthochdruck bestehen. Konkret: Lipidstatus, Nüchternglukose, HbA1c und die Messung des Abdomenumfangs. Ergänzend Leberwerte mit Gamma-GT, Harnsäure, Kreatinin mit eGFR, Albumin im Urin und TSH, dazu eine Abdomensonographie, ein EKG und eine augenärztliche Vorstellung.',
+          antwort: 'Ich würde gezielt nach einem metabolischen Syndrom suchen, weil Übergewicht und eine arterielle Hypertonie bestehen. Konkret: Lipidstatus, Nüchternglukose, HbA1c und die Messung des Abdomenumfangs. Ergänzend Leberwerte mit Gamma-GT, Harnsäure, Kreatinin mit eGFR, Albumin im Urin und TSH, dazu eine Abdomensonographie, ein EKG und eine augenärztliche Vorstellung.',
         },
         {
           frage: 'Welche Laborwerte bestimmen Sie zur Beurteilung des Zuckers — und was ist der Normalwert?',
-          antwort: 'Zunächst die Nüchternglukose und vor allem den HbA1c, den Langzeitzuckerwert, der die Stoffwechsellage der letzten acht bis zwölf Wochen abbildet. Der Normbereich liegt unter 5,7 Prozent, ein Prädiabetes bei 5,7 bis 6,4 Prozent und ein Diabetes ab 6,5 Prozent. Bei nicht eindeutigen Werten schließt sich ein oraler Glukosetoleranztest an.',
+          antwort: 'Zunächst die Nüchternglukose und vor allem das HbA1c, den Langzeitzuckerwert, der die Stoffwechsellage der letzten acht bis zwölf Wochen abbildet. Der Normbereich liegt unter 5,7 Prozent, ein Prädiabetes bei 5,7 bis 6,4 Prozent und ein Diabetes ab 6,5 Prozent. Bei nicht eindeutigen Werten schließt sich ein oraler Glukosetoleranztest an.',
         },
         {
           frage: 'Welche Komplikationen kann der Patient an den Gefäßen bekommen?',
@@ -30613,7 +30613,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Sie haben den Verdacht auf ein Karzinoid. Heutzutage hat es einen anderen Namen — können Sie mir bitte erklären, wieso Sie an ein Karzinoid denken?',
-          antwort: 'Der moderne Begriff lautet neuroendokriner Tumor, kurz NET; „Karzinoid“ beziehungsweise Karzinoid-Syndrom bezeichnet heute nur noch das klinische Bild des funktionell aktiven Tumors. Ich denke daran, weil die Patientin eine typische Kombination bietet: anfallsartige Rötung von Gesicht und Hals mit Hitzegefühl, aber ohne Schwitzen, ausgelöst durch Rotwein, Käse und Stress; wässrige Durchfälle mit imperativem Drang, die sie auch nachts wecken; krampfartige, anfallsartige Bauchschmerzen; Herzrasen; sowie ein ungewollter Gewichtsverlust. Diese Kombination erklärt keine der einzelnen Differenzialdiagnosen.',
+          antwort: 'Der moderne Begriff lautet neuroendokriner Tumor, kurz NET; „Karzinoid“ beziehungsweise Karzinoid-Syndrom bezeichnet heute nur noch das klinische Bild des funktionell aktiven Tumors. Ich denke daran, weil die Patientin eine typische Kombination bietet: anfallsartige Rötung von Gesicht und Hals mit Hitzegefühl, aber ohne Schwitzen, ausgelöst durch Rotwein, Käse und Stress; wässrige Durchfälle mit imperativem Drang, die sie auch nachts wecken; krampfartige, anfallsartige Bauchschmerzen; Herzrasen; sowie ein ungewollter Gewichtsverlust. Keine der einzelnen Differenzialdiagnosen erklärt diese Kombination.',
         },
         {
           frage: 'Wo im Körper befindet sich das Karzinoid am häufigsten?',
@@ -30637,7 +30637,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was verstehen Sie unter dem Hedinger-Syndrom?',
-          antwort: 'Die karzinoide Herzerkrankung: ein fibrotischer Umbau der Herzklappen durch das dauerhaft erhöhte Serotonin. Betroffen sind die RECHTSSEITIGEN Klappen mit Trikuspidalinsuffizienz und Pulmonalstenose, weil das Serotonin in der Lungenstrombahn abgebaut wird und die linksseitigen Klappen deshalb meist verschont bleiben. Klinisch zeigen sich Rechtsherzinsuffizienz mit gestauten Halsvenen, Beinödemen, Hepatomegalie und Aszites. Deshalb gehört die Echokardiographie obligat zur Diagnostik und in die Nachsorge.',
+          antwort: 'Die karzinoide Herzerkrankung: ein fibrotischer Umbau der Herzklappen durch das dauerhaft erhöhte Serotonin. Betroffen sind die RECHTSSEITIGEN Klappen mit Trikuspidalinsuffizienz und Pulmonalstenose, weil das Serotonin in der Lungenstrombahn abgebaut wird und die linksseitigen Klappen deshalb meist verschont bleiben. Klinisch zeigt sich eine Rechtsherzinsuffizienz mit gestauten Halsvenen, Beinödemen, Hepatomegalie und Aszites. Deshalb gehört die Echokardiographie obligat zur Diagnostik und in die Nachsorge.',
         },
         {
           frage: 'Worauf muss die Patientin vor dem 24-Stunden-Sammelurin achten?',
@@ -31026,7 +31026,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was kann im schlimmsten Fall passieren?',
-          antwort: 'Eine Sepsis mit Organversagen, eine Ausbreitung in die Tiefe mit Pyomyositis, Osteomyelitis oder Gelenkbeteiligung, eine hämatogene Streuung mit Endokarditis — und vor allem eine nekrotisierende Fasziitis, ein chirurgischer Notfall mit einer Letalität von 20 bis 30 %, der ein sofortiges radikales Debridement erfordert.',
+          antwort: 'Eine Sepsis mit Organversagen, eine Ausbreitung in die Tiefe mit Pyomyositis, Osteomyelitis oder Gelenkbeteiligung, eine hämatogene Streuung mit Endokarditis — und vor allem eine nekrotisierende Fasziitis, ein chirurgischer Notfall mit einer Letalität von 20 bis 30 %, der ein sofortiges radikales Débridement erfordert.',
         },
         {
           frage: 'Woran erkennen Sie eine nekrotisierende Fasziitis?',
@@ -32122,7 +32122,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wann nehmen Sie die Blutkulturen ab, und wie viele?',
-          antwort: 'Mindestens drei Paare, jeweils aerob und anaerob, aus drei verschiedenen Punktionsstellen im Abstand von etwa 30 Minuten — und zwingend VOR der ersten Antibiotikagabe, unabhängig vom Fieberverlauf, weil die Bakteriämie bei der Endokarditis kontinuierlich ist. Wenn der Patient bereits ein Antibiotikum bekommen hat und stabil ist, warte ich nach einer Antibiotikapause mit wiederholten Abnahmen.',
+          antwort: 'Mindestens drei Paare, jeweils aerob und anaerob, aus drei verschiedenen Punktionsstellen im Abstand von etwa 30 Minuten — und zwingend VOR der ersten Antibiotikagabe, unabhängig vom Fieberverlauf, weil die Bakteriämie bei der Endokarditis kontinuierlich ist. Wenn der Patient bereits ein Antibiotikum bekommen hat und stabil ist, lege ich eine Antibiotikapause ein und wiederhole danach die Abnahmen.',
         },
         {
           frage: 'Wie behandeln Sie, wenn der Patient eine Penicillinallergie hat?',
@@ -32473,7 +32473,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die COVID-19-Impfung: Sie hat 2021 zwei Impfungen erhalten, aber keine Auffrischung — der Impfschutz ist also unvollständig, ein Risikofaktor für den schwereren Verlauf. Zusätzlich sind Influenza- und Pneumokokken-Impfung zu erfragen, weil sie das Risiko von Superinfektionen senken, und Tetanus, weil sie als Floristin häufig Schnittverletzungen hat — Tetanus ist vor sechs Jahren aufgefrischt worden.',
         },
         {
-          frage: 'Wie war Farbe und Konsistenz des Sputums?',
+          frage: 'Wie waren Farbe und Konsistenz des Sputums?',
           antwort: 'Der Husten ist trocken und unproduktiv; wenn überhaupt, hustet die Patientin morgens wenig glasig-weißen Schleim ab. Eitriges, gelb-grünes oder rostbraunes Sputum wäre ein Hinweis auf eine bakterielle Superinfektion oder eine Pneumokokkenpneumonie, blutiges Sputum auf Lungenembolie oder Tuberkulose.',
         },
         {
@@ -32506,7 +32506,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum bekommt jeder stationäre COVID-Patient Heparin?',
-          antwort: 'Weil SARS-CoV-2 über die Endothelschädigung und die Hyperinflammation eine ausgeprägte Hyperkoagulabilität auslöst; thromboembolische Ereignisse betreffen bis zu 20 % der stationären Patienten. Deshalb erhält jeder stationäre Patient eine Thromboseprophylaxe mit niedermolekularem Heparin, zum Beispiel Enoxaparin 40 mg s.c. täglich, und bei nachgewiesener Lungenembolie eine therapeutische Antikoagulation.',
+          antwort: 'Weil SARS-CoV-2 über die Endothelschädigung und die Hyperinflammation eine ausgeprägte Hyperkoagulabilität auslöst; thromboembolische Ereignisse betreffen bis zu 20 % der stationären Patienten. Deshalb erhält jeder stationäre Patient eine Thromboseprophylaxe mit niedermolekularem Heparin, zum Beispiel Enoxaparin 40 mg subkutan täglich, und bei nachgewiesener Lungenembolie eine therapeutische Antikoagulation.',
         },
         {
           frage: 'Wie erklären Sie der Patientin die Begriffe Anosmie und Ageusie?',
@@ -33122,7 +33122,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum haben Sie mich nach Reisen gefragt? (Patientenfrage, Freiburg 08.07.2020)',
-          antwort: 'Weil eine Gelenkentzündung einige Wochen nach einer Durchfallerkrankung auftreten kann, wie man sie sich auf Reisen durch verunreinigte Lebensmittel oder Wasser holt — Salmonellen, Campylobacter, Shigellen oder Yersinien. Und in manchen Regionen gibt es Zecken- oder Mückenübertragene Infektionen, die ebenfalls Gelenke befallen.',
+          antwort: 'Weil eine Gelenkentzündung einige Wochen nach einer Durchfallerkrankung auftreten kann, wie man sie sich auf Reisen durch verunreinigte Lebensmittel oder Wasser holt — Salmonellen, Campylobacter, Shigellen oder Yersinien. Und in manchen Regionen gibt es zecken- oder mückenübertragene Infektionen, die ebenfalls Gelenke befallen.',
         },
         {
           frage: 'Wie gehen Sie vor — womit beginnen Sie die Diagnostik? (Freiburg 08.07.2020)',
@@ -33778,7 +33778,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist ein toxisches Megakolon, und wie gehen Sie vor?',
-          antwort: 'Eine akute Dilatation des Kolons auf über sechs Zentimeter mit systemischen Entzündungszeichen: Fieber über 38,5 °C, Tachykardie, Leukozytose, aufgetriebenes und druckschmerzhaftes Abdomen; die Stuhlfrequenz kann trügerisch abnehmen. Vorgehen: keine Koloskopie, Röntgen-Abdomen oder CT, Nahrungskarenz, Flüssigkeit und Elektrolyte, intravenöse Steroide und Breitspektrumantibiotika, Loperamid und Opioide absetzen, engmaschige Kontrolle und frühe chirurgische Vorstellung — bei fehlender Besserung binnen 24 bis 72 Stunden oder Perforation subtotale Kolektomie.',
+          antwort: 'Eine akute Dilatation des Kolons auf über sechs Zentimeter mit systemischen Entzündungszeichen: Fieber über 38,5 °C, Tachykardie, Leukozytose, aufgetriebenes und druckschmerzhaftes Abdomen; die Stuhlfrequenz kann trügerisch abnehmen. Vorgehen: keine Koloskopie; Röntgen-Abdomen oder CT, Nahrungskarenz, Flüssigkeit und Elektrolyte, intravenöse Steroide und Breitspektrumantibiotika, Loperamid und Opioide absetzen, engmaschige Kontrolle und frühe chirurgische Vorstellung — bei fehlender Besserung binnen 24 bis 72 Stunden oder Perforation subtotale Kolektomie.',
         },
         {
           frage: 'Warum wirkt Rauchen bei der Colitis ulcerosa schützend, und empfehlen Sie es?',
@@ -34053,7 +34053,7 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       askedInExam: [
         {
-          frage: 'Welche Art von Pankreatitis erwarten Sie bei diesem Patienten?',
+          frage: 'Welche Art von Pankreatitis erwarten Sie bei dieser Patientin?',
           antwort: 'Eine alkoholtoxische chronische Pankreatitis — Alkohol ist in Deutschland die häufigste Ursache (70–80 %), Rauchen beschleunigt die Progression. Nach der TIGAR-O-Klassifikation gehört sie zu den toxisch-metabolischen Formen; weitere Ursachen sind idiopathisch, genetisch, autoimmun, rezidivierend akut und obstruktiv.',
         },
         {
@@ -34085,7 +34085,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Pseudozysten mit Schmerz, Kompression, Infektion oder Blutung; Gangstenosen und Pankreassteine; Stenose des Ductus choledochus mit Ikterus und Cholangitis; Duodenalstenose; Milzvenenthrombose mit Fundusvarizen; pankreatogener Aszites und Pleuraerguss; exokrine und endokrine Insuffizienz mit Osteoporose und Diabetes Typ 3c; sowie das deutlich erhöhte Risiko für ein Pankreaskarzinom.',
         },
         {
-          frage: 'Der Patient ist alkoholabhängig — wie behandeln Sie ihn, und warum darf man Alkohol nicht plötzlich absetzen?',
+          frage: 'Die Patientin ist alkoholabhängig — wie behandeln Sie sie, und warum darf man Alkohol nicht plötzlich absetzen?',
           antwort: 'Absolute Alkoholkarenz ist die wirksamste Einzelmaßnahme, aber bei Abhängigkeit unter ärztlicher Überwachung: qualifizierter Entzug mit Benzodiazepinen oder Clomethiazol, Thiamin, Elektrolyt- und Vitalzeichenkontrolle, danach Suchtberatung, Entwöhnungstherapie und Rückfallprophylaxe mit Naltrexon oder Acamprosat. Abruptes Absetzen ohne Überwachung kann ein lebensbedrohliches Entzugsdelir mit Krampfanfällen, Tachykardie, Hypertonie, Halluzinationen und Desorientiertheit auslösen.',
         },
         {
@@ -34094,14 +34094,14 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist das Besondere am Diabetes bei chronischer Pankreatitis?',
-          antwort: 'Es ist ein pankreopriver Diabetes Typ 3c: Neben dem Insulin fehlt auch das Glukagon als Gegenspieler, daher drohen schwere, schwer beherrschbare Hypoglykämien — verstärkt durch Alkohol und unregelmäßiges Essen. Behandlung mit Insulin von Anfang an, moderaten HbA1c-Zielen, intensiver Schulung, Metformin nur ergänzend; keine Sulfonylharnstoffe.',
+          antwort: 'Es ist ein pankreopriver Diabetes Typ 3c: Neben dem Insulin fehlt auch das Glukagon als Gegenspieler, daher drohen schwere, kaum beherrschbare Hypoglykämien — verstärkt durch Alkohol und unregelmäßiges Essen. Behandlung mit Insulin von Anfang an, moderaten HbA1c-Zielen, intensiver Schulung, Metformin nur ergänzend; keine Sulfonylharnstoffe.',
         },
         {
           frage: 'Welche Prognose hat die Erkrankung, und was verbessert sie?',
           antwort: 'Sie ist nicht heilbar, aber beeinflussbar: 10-Jahres-Überleben etwa 70 %, 20-Jahres-Überleben etwa 45 %. Alkohol- und Nikotinkarenz verlangsamen die Progression und senken das Karzinomrisiko entscheidend; Enzymsubstitution und Vitaminausgleich stabilisieren Gewicht und Lebensqualität.',
         },
         {
-          frage: 'Würden Sie den Patienten stationär behandeln?',
+          frage: 'Würden Sie die Patientin stationär behandeln?',
           antwort: 'Bei einem akuten Schub, Erbrechen mit Unfähigkeit zur oralen Ernährung, Ikterus oder Cholangitis, Blutung, Verdacht auf Entzugssyndrom oder schwerer Mangelernährung ja — zur Analgesie, Flüssigkeits- und Ernährungstherapie, überwachtem Alkoholentzug und Abklärung. Die stabile chronische Pankreatitis wird ambulant geführt.',
         },
         {
@@ -34408,7 +34408,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie lange darf der Patient keinen Sport treiben, und warum?',
-          antwort: 'Mindestens drei bis sechs Monate, auch beim leichten Verlauf. Belastung fördert Virusreplikation und Entzündung und löst ventrikuläre Rhythmusstörungen aus — die Myokarditis ist eine der führenden Ursachen des plötzlichen Herztods bei jungen Sportlern. Die Freigabe erfolgt erst nach Normalisierung von Pumpfunktion, Biomarkern sowie unauffälligem Belastungs- und Langzeit-EKG, bei Leistungssportlern mit Kontroll-MRT.',
+          antwort: 'Mindestens drei bis sechs Monate, auch beim leichten Verlauf. Belastung fördert Virusreplikation und Entzündung und löst ventrikuläre Rhythmusstörungen aus — die Myokarditis ist eine der führenden Ursachen des plötzlichen Herztods bei jungen Sportlern. Die Freigabe erfolgt erst nach Normalisierung von Pumpfunktion und Biomarkern sowie bei unauffälligem Belastungs- und Langzeit-EKG, bei Leistungssportlern mit Kontroll-MRT.',
         },
         {
           frage: 'Welche Komplikationen fürchten Sie?',
@@ -34710,7 +34710,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was erwarten Sie im Labor und im Urin?',
-          antwort: 'Im Urin eine starke Proteinurie im Teststreifen, im Sediment Fettzylinder und ovale Fettkörperchen, keine oder nur geringe Hämaturie; quantifiziert über den Protein-Kreatinin-Quotienten oder den 24-Stunden-Sammelurin mit über 3,5 g. Im Blut Hypalbuminämie unter 30 g/l, Hypoproteinämie, Hyperlipidämie mit erhöhtem Cholesterin und Triglyzeriden, erniedrigtes Antithrombin III, erhöhte D-Dimere, ggf. erniedrigtes IgG, erhöhtes TSH und erniedrigtes Vitamin D; Kreatinin und eGFR anfangs meist normal.',
+          antwort: 'Im Urin eine starke Proteinurie im Teststreifen, im Sediment Fettzylinder und ovale Fettkörperchen, keine oder nur geringe Hämaturie; quantifiziert über den Protein-Kreatinin-Quotienten oder den 24-Stunden-Sammelurin mit über 3,5 g. Im Blut Hypalbuminämie unter 30 g/l, Hypoproteinämie, Hyperlipidämie mit erhöhtem Cholesterin und Triglyzeriden, erniedrigtes Antithrombin III, erhöhte D-Dimere, gegebenenfalls erniedrigtes IgG, erhöhtes TSH und erniedrigtes Vitamin D; Kreatinin und eGFR anfangs meist normal.',
         },
         {
           frage: 'Welche Ursachen kommen beim Erwachsenen in Frage, und welche beim Kind?',
@@ -34722,7 +34722,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Komplikationen müssen Sie kennen?',
-          antwort: 'Thromboembolien durch den renalen Verlust von Antithrombin III — insbesondere die Nierenvenenthrombose mit Flankenschmerz und Hämaturie, tiefe Beinvenenthrombosen und Lungenembolien; eine erhöhte Infektanfälligkeit durch den Verlust von Immunglobulinen, beim Kind die Pneumokokkenperitonitis; die Hyperlipidämie mit erhöhtem kardiovaskulären Risiko; ein akutes Nierenversagen bei Hypovolämie unter Diuretika; Eiweißmangel mit Muskelschwund; Vitamin-D-Mangel und Hypothyreose durch Verlust der Bindungsproteine sowie eine Eisenmangelanämie durch Transferrinverlust.',
+          antwort: 'Thromboembolien durch den renalen Verlust von Antithrombin III — insbesondere die Nierenvenenthrombose mit Flankenschmerz und Hämaturie, tiefe Beinvenenthrombosen und Lungenembolien; eine erhöhte Infektanfälligkeit durch den Verlust von Immunglobulinen, beim Kind die Pneumokokkenperitonitis; die Hyperlipidämie mit erhöhtem kardiovaskulärem Risiko; ein akutes Nierenversagen bei Hypovolämie unter Diuretika; Eiweißmangel mit Muskelschwund; Vitamin-D-Mangel und Hypothyreose durch Verlust der Bindungsproteine sowie eine Eisenmangelanämie durch Transferrinverlust.',
         },
         {
           frage: 'Welche Diuretika geben Sie, und was müssen Sie dabei beachten?',
@@ -35037,7 +35037,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Was erwarten Sie vom Labor? (in Karlsruhe bei hämatologischen und infektiologischen Fällen regelmäßig gestellt)',
-          antwort: 'Im Blutbild eine Anämie und eine Thrombozytopenie; die Leukozyten können erhöht, normal oder erniedrigt sein — entscheidend sind das Differenzialblutbild mit Blasten und die absolute Neutrophilenzahl. Im Ausstrich Blasten, ggf. Auer-Stäbchen und der Hiatus leucaemicus. Dazu erhöhte LDH und Harnsäure als Umsatzmarker, CRP und Procalcitonin bei Infekt, Gerinnung mit Fibrinogen und D-Dimeren zum Ausschluss einer DIC, Elektrolyte und Nierenwerte für das Tumorlyserisiko, Blutgruppe und Blutkulturen bei Fieber.',
+          antwort: 'Im Blutbild eine Anämie und eine Thrombozytopenie; die Leukozyten können erhöht, normal oder erniedrigt sein — entscheidend sind das Differenzialblutbild mit Blasten und die absolute Neutrophilenzahl. Im Ausstrich Blasten, gegebenenfalls Auer-Stäbchen und der Hiatus leucaemicus. Dazu erhöhte LDH und Harnsäure als Umsatzmarker, CRP und Procalcitonin bei Infekt, Gerinnung mit Fibrinogen und D-Dimeren zum Ausschluss einer DIC, Elektrolyte und Nierenwerte für das Tumorlyserisiko, Blutgruppe und Blutkulturen bei Fieber.',
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen bei B-Symptomatik und Zytopenie in Betracht? (Freiburg 26.11.2024, Lymphom-Fall mit Leukämie als DD)',
@@ -35061,7 +35061,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie unterscheiden Sie AML und ALL, und wie behandeln Sie sie?',
-          antwort: 'Die Unterscheidung erfolgt durch die Immunphänotypisierung des Knochenmarks: myeloische Marker CD13, CD33, CD117, Myeloperoxidase gegenüber lymphatischen Markern CD19, CD10, CD79a oder CD3, CD7. AML: Induktion mit Cytarabin und einem Anthrazyklin (7+3), ggf. Midostaurin bei FLT3-Mutation, Konsolidierung mit hochdosiertem Cytarabin, allogene Stammzelltransplantation bei intermediärem oder ungünstigem Risiko; beim älteren Patienten Azacitidin plus Venetoclax. ALL: mehrwöchige Induktion mit Vincristin, Kortison, Anthrazyklin und Asparaginase, ZNS-Prophylaxe mit intrathekalem Methotrexat, Tyrosinkinaseinhibitor bei Philadelphia-positiver ALL, Blinatumomab, Konsolidierung und Erhaltung über etwa zwei Jahre.',
+          antwort: 'Die Unterscheidung erfolgt durch die Immunphänotypisierung des Knochenmarks: myeloische Marker CD13, CD33, CD117, Myeloperoxidase gegenüber lymphatischen Markern CD19, CD10, CD79a oder CD3, CD7. AML: Induktion mit Cytarabin und einem Anthrazyklin (7+3), gegebenenfalls Midostaurin bei FLT3-Mutation, Konsolidierung mit hochdosiertem Cytarabin, allogene Stammzelltransplantation bei intermediärem oder ungünstigem Risiko; beim älteren Patienten Azacitidin plus Venetoclax. ALL: mehrwöchige Induktion mit Vincristin, Kortison, Anthrazyklin und Asparaginase, ZNS-Prophylaxe mit intrathekalem Methotrexat, Tyrosinkinaseinhibitor bei Philadelphia-positiver ALL, Blinatumomab, Konsolidierung und Erhaltung über etwa zwei Jahre.',
         },
         {
           frage: 'Welche Komplikationen der Therapie und welche Notfälle müssen Sie kennen?',
@@ -35325,7 +35325,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Kann die Patientin schwanger sein? Was machen Sie dann?',
-          antwort: 'Grundsätzlich ja — sie hat Kinderwunsch und verhütet nicht. Deshalb bestimme ich zuerst das β-HCG. Ist es positiv, muss ich mit der transvaginalen Sonographie eine intrauterine Schwangerschaft nachweisen und eine Extrauteringravidität ausschließen; jede hormonelle Therapie, jede Röntgenuntersuchung und jede Operation wird bis dahin zurückgestellt.',
+          antwort: 'Grundsätzlich ja — sie hat Kinderwunsch und verhütet nicht. Deshalb bestimme ich zuerst das β-hCG. Ist es positiv, muss ich mit der transvaginalen Sonographie eine intrauterine Schwangerschaft nachweisen und eine Extrauteringravidität ausschließen; jede hormonelle Therapie, jede Röntgenuntersuchung und jede Operation wird bis dahin zurückgestellt.',
         },
         {
           frage: 'Sie ist eine Frau mit Unterbauchschmerzen — was könnte es auch sein?',
@@ -35946,7 +35946,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Haben Sie an einen Hirntumor gedacht? Welche organischen Ursachen müssen ausgeschlossen werden?',
-          antwort: 'Ja. Bei Kopfschmerz gehören eine Raumforderung, bei Rücken- und Gelenkschmerz eine Spondyloarthritis, eine rheumatoide Arthritis, eine Polymyalgia rheumatica, eine Hypothyreose, ein Vitamin-D-Mangel, eine Polyneuropathie, eine Borreliose und ein Malignom zum Ausschluss. In diesem Fall liegen bereits unauffällige MRT-Befunde von Schädel und Wirbelsäule sowie unauffällige Rheuma- und Neurologiebefunde vor; ich ergänze nur ein Basislabor und wiederhole die Bildgebung nicht, solange keine neuen Symptome oder Red Flags auftreten.',
+          antwort: 'Ja. Bei Kopfschmerz muss eine Raumforderung, bei Rücken- und Gelenkschmerz müssen eine Spondyloarthritis, eine rheumatoide Arthritis, eine Polymyalgia rheumatica, eine Hypothyreose, ein Vitamin-D-Mangel, eine Polyneuropathie, eine Borreliose und ein Malignom ausgeschlossen werden. In diesem Fall liegen bereits unauffällige MRT-Befunde von Schädel und Wirbelsäule sowie unauffällige Rheuma- und Neurologiebefunde vor; ich ergänze nur ein Basislabor und wiederhole die Bildgebung nicht, solange keine neuen Symptome oder Red Flags auftreten.',
         },
         {
           frage: 'Welche Schilddrüsenwerte bestimmen Sie?',
@@ -36300,7 +36300,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist eine Core Decompression, und wann ist sie sinnvoll?',
-          antwort: 'Die Anbohrung des Hüftkopfes: Über einen Bohrkanal vom Trochanter aus wird die Nekrosezone entlastet, der intraossäre Druck gesenkt und die Revaskularisierung angeregt, ggf. mit Einbringen von Knochenmarkkonzentrat oder Spongiosa. Sie ist in den ARCO-Stadien I und II vor dem Einbruch sinnvoll, bei kleinen und mittelgroßen Nekrosen mit Erfolgsraten von etwa 70 bis 80 %.',
+          antwort: 'Die Anbohrung des Hüftkopfes: Über einen Bohrkanal vom Trochanter aus wird die Nekrosezone entlastet, der intraossäre Druck gesenkt und die Revaskularisierung angeregt, gegebenenfalls mit Einbringen von Knochenmarkkonzentrat oder Spongiosa. Sie ist in den ARCO-Stadien I und II vor dem Einbruch sinnvoll, bei kleinen und mittelgroßen Nekrosen mit Erfolgsraten von etwa 70 bis 80 %.',
         },
         {
           frage: 'Der Patient ist 42 Jahre alt — würden Sie ihm eine Prothese einsetzen?',
@@ -36921,7 +36921,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen bei einer Lymphknotenschwellung in Betracht?',
-          antwort: 'Reaktive Lymphadenitis bei Infekt, infektiöse Mononukleose, HIV, Toxoplasmose, Katzenkratzkrankheit, Tuberkulose, Sarkoidose, Hodgkin-Lymphom, Leukämien, Lymphknotenmetastasen eines Karzinoms oder Melanoms, Kollagenosen, medikamentöse Lymphadenopathie und nicht-lymphatische Raumforderungen wie Leistenhernie, Lipom, Atherom oder Abszess. Bei Gewichtsverlust und Schwitzen zusätzlich die Hyperthyreose.',
+          antwort: 'Reaktive Lymphadenitis bei Infekt, infektiöse Mononukleose, HIV, Toxoplasmose, Katzenkratzkrankheit, Tuberkulose, Sarkoidose, Hodgkin-Lymphom, Leukämien, Lymphknotenmetastasen eines Karzinoms oder Melanoms, Kollagenosen, medikamentöse Lymphadenopathie und nichtlymphatische Raumforderungen wie Leistenhernie, Lipom, Atherom oder Abszess. Bei Gewichtsverlust und Schwitzen zusätzlich die Hyperthyreose.',
         },
         {
           frage: 'Wie unterscheiden Sie klinisch einen entzündlichen von einem malignen Lymphknoten?',
@@ -37502,7 +37502,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
-          antwort: 'Eine akute Adnexitis, also eine Entzündung der Eileiter und Eierstöcke, am ehesten durch Chlamydien oder Gonokokken. Dafür sprechen beidseitige Unterbauchschmerzen mit Beginn kurz nach der Periode, Fieber, vermehrter übelriechender Ausfluss, Schmerzen beim Geschlechtsverkehr, eine Kontaktblutung sowie die Risikokonstellation: junge, sexuell aktive Frau, neuer Partner, kein Kondomgebrauch.',
+          antwort: 'Eine akute Adnexitis, also eine Entzündung der Eileiter und Eierstöcke, am ehesten durch Chlamydien oder Gonokokken. Dafür sprechen beidseitige Unterbauchschmerzen mit Beginn kurz nach der Periode, Fieber, vermehrter übelriechender Fluor vaginalis, Dyspareunie, eine Kontaktblutung sowie die Risikokonstellation: junge, sexuell aktive Frau, neuer Partner, kein Kondomgebrauch.',
         },
         {
           frage: 'Kann die Patientin schwanger sein? Was machen Sie dann?',
@@ -38190,7 +38190,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Ist der Typhus meldepflichtig?',
-          antwort: 'Ja, nach § 6 IfSG bereits bei Verdacht, ebenso Erkrankung und Tod, namentlich innerhalb von 24 Stunden an das Gesundheitsamt; das Labor meldet den Erregernachweis nach § 7.',
+          antwort: 'Ja, nach Paragraf 6 Infektionsschutzgesetz bereits bei Verdacht, ebenso Erkrankung und Tod, namentlich innerhalb von 24 Stunden an das Gesundheitsamt; das Labor meldet den Erregernachweis nach § 7.',
         },
         {
           frage: 'Warum ist die Wahl des Antibiotikums schwierig?',
@@ -38473,7 +38473,7 @@ export function seedFachwissen(): Fachwissen[] {
       askedInExam: [
         {
           frage: 'Der Patient hat drei Mal pro Woche Stuhlgang und der letzte war vor drei Tagen — ist das eine Obstipation?',
-          antwort: 'Nach der Definition liegt eine Obstipation bei weniger als drei Stuhlentleerungen pro Woche vor; drei Stuhlgänge pro Woche sind objektiv gerade noch normal. Entscheidend sind aber auch die anderen ROM-IV-Kriterien: harter Stuhl, starkes Pressen, das Gefühl der unvollständigen Entleerung oder der Blockade. Subjektiv empfindet der Patient es als Verstopfung, deshalb frage ich konkret nach Konsistenz und Mühe, nicht nur nach der Häufigkeit.',
+          antwort: 'Nach der Definition liegt eine Obstipation bei weniger als drei Stuhlentleerungen pro Woche vor; drei Stuhlgänge pro Woche sind objektiv gerade noch normal. Entscheidend sind aber auch die anderen Rom-IV-Kriterien: harter Stuhl, starkes Pressen, das Gefühl der unvollständigen Entleerung oder der Blockade. Subjektiv empfindet der Patient es als Verstopfung, deshalb frage ich konkret nach Konsistenz und Mühe, nicht nur nach der Häufigkeit.',
         },
         {
           frage: 'Welche Warnzeichen sprechen bei einer Obstipation für ein Kolonkarzinom?',
@@ -38834,7 +38834,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist Ihre Verdachtsdiagnose?',
-          antwort: 'Ein Sturz im Alter im Sinne eines geriatrischen Sturzsyndroms mit rezidivierenden Stürzen, am ehesten multifaktoriell bei orthostatischer Hypotonie unter antihypertensiver Mehrfachtherapie und Tamsulosin, Z-Substanz zur Nacht, Katarakt und Nykturie; als Verletzungsfolge eine Hüftprellung links mit auszuschließender Schenkelhalsfraktur, sowie ein Kopfanprall unter Apixaban mit auszuschließender intrakranieller Blutung.',
+          antwort: 'Ein Sturz im Alter im Sinne eines geriatrischen Sturzsyndroms mit rezidivierenden Stürzen, am ehesten multifaktoriell bei orthostatischer Hypotonie unter antihypertensiver Mehrfachtherapie und Tamsulosin, Z-Substanz zur Nacht, Katarakt und Nykturie; als Verletzungsfolge eine Hüftprellung links mit auszuschließender Schenkelhalsfraktur sowie ein Kopfanprall unter Apixaban mit auszuschließender intrakranieller Blutung.',
         },
         {
           frage: 'Warum haben Sie EKG und Herzenzyme angefordert?',
@@ -39205,7 +39205,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Erklären Sie dem Patienten seine Diagnose in einfachen Worten.',
-          antwort: '„Herr Feldmann, Sie haben einen Hexenschuss — die Muskeln und Gelenke im unteren Rücken sind durch das Heben und Drehen überlastet und verkrampft. Ihr Rücken ist nicht kaputt, die Nerven sind nicht eingeklemmt, das haben wir gerade untersucht. So etwas heilt in den allermeisten Fällen innerhalb von wenigen Wochen von selbst. Das Wichtigste ist, dass Sie in Bewegung bleiben; die Schmerzmittel helfen Ihnen dabei. Eine Aufnahme brauchen wir im Moment nicht. Sollten Sie eine Lähmung, ein taubes Gefühl im Genitalbereich oder Probleme mit Blase oder Darm bemerken, kommen Sie sofort wieder.“',
+          antwort: '„Herr Feldmann, Sie haben einen Hexenschuss — die Muskeln und Gelenke im unteren Rücken sind durch das Heben und Drehen überlastet und verkrampft. Ihr Rücken ist nicht kaputt, die Nerven sind nicht eingeklemmt, das haben wir gerade untersucht. So etwas heilt in den allermeisten Fällen innerhalb von wenigen Wochen von selbst. Das Wichtigste ist, dass Sie in Bewegung bleiben; die Schmerzmittel helfen Ihnen dabei. Eine Röntgen- oder Kernspinaufnahme brauchen wir im Moment nicht. Sollten Sie eine Lähmung, ein taubes Gefühl im Genitalbereich oder Probleme mit Blase oder Darm bemerken, kommen Sie sofort wieder.“',
         },
       ],
       merksatz: 'Kreuzschmerz ohne Red Flags = keine Bildgebung, kein Labor, keine Bettruhe: aufklären („Ihr Rücken ist nicht kaputt“), aktiv bleiben, kurz NSAR — und die Yellow Flags entscheiden über die Chronifizierung, nicht das MRT.',
@@ -40798,7 +40798,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Untersuchung bestätigt die Diagnose?',
-          antwort: 'Die Farbdoppler-Sonographie des Skrotums zeigt eine fehlende oder verminderte Durchblutung des Hodens und den verdrehten Samenstrang, das sogenannte whirlpool sign. Die endgültige Bestätigung ist aber die operative Freilegung. Wichtig: Die Sonographie darf die Operation nicht verzögern, und ein unauffälliger Doppler schließt die Torsion bei typischer Klinik nicht aus.',
+          antwort: 'Die Farbdoppler-Sonographie des Skrotums zeigt eine fehlende oder verminderte Durchblutung des Hodens und den verdrehten Samenstrang, das sogenannte Whirlpool-Zeichen (Whirlpool-Sign). Die endgültige Bestätigung ist aber die operative Freilegung. Wichtig: Die Sonographie darf die Operation nicht verzögern, und ein unauffälliger Doppler schließt die Torsion bei typischer Klinik nicht aus.',
         },
         {
           frage: 'Was ist das Prehn-Zeichen, und was der Kremasterreflex?',
@@ -40818,7 +40818,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Warum wird auch der gesunde Hoden operiert?',
-          antwort: 'Weil die anatomische Ursache — der fehlend fixierte „Glockenklöppel“-Hoden — in der Regel beidseitig besteht. Ohne Fixierung droht die Torsion der Gegenseite, und nach einer Orchiektomie wäre das der Verlust des letzten Hodens.',
+          antwort: 'Weil die anatomische Ursache — der nicht fixierte „Glockenklöppel“-Hoden — in der Regel beidseitig besteht. Ohne Fixierung droht die Torsion der Gegenseite, und nach einer Orchiektomie wäre das der Verlust des letzten Hodens.',
         },
         {
           frage: 'Was ist mit der manuellen Detorsion?',
@@ -40838,7 +40838,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Differenzialdiagnosen des akuten Skrotums kennen Sie?',
-          antwort: 'Epididymitis und Epididymoorchitis, Hydatidentorsion beim Kind mit dem blue dot sign, inkarzerierte Leistenhernie, Hodentrauma mit Hämatozele, Hodentumor mit Einblutung, Hydrozele und Varikozele, Mumpsorchitis, Fournier-Gangrän beim Diabetiker, Purpura Schönlein-Henoch, idiopathisches Skrotalödem, außerdem Nierenkolik und Appendizitis mit Ausstrahlung.',
+          antwort: 'Epididymitis und Epididymoorchitis, Hydatidentorsion beim Kind mit dem Blue-Dot-Zeichen, inkarzerierte Leistenhernie, Hodentrauma mit Hämatozele, Hodentumor mit Einblutung, Hydrozele und Varikozele, Mumpsorchitis, Fournier-Gangrän beim Diabetiker, Purpura Schönlein-Henoch, idiopathisches Skrotalödem, außerdem Nierenkolik und Appendizitis mit Ausstrahlung.',
         },
       ],
       merksatz: 'Akutes Skrotum beim Jugendlichen = Hodentorsion, bis das Gegenteil bewiesen ist: erloschener Kremasterreflex, negatives Prehn-Zeichen, Hochstand — im Zweifel wird OPERIERT, nicht abgewartet, innerhalb von sechs Stunden, Doppler ohne Verzögerung, und IMMER die Gegenseite mit fixieren.',
@@ -42064,7 +42064,7 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Überwachung des Ansprechens und der Komplikationen der Substitution',
           items: [
             'Retikulozytenkrise nach etwa fünf bis sieben Tagen (Retikulozyten steigen auf über 5–10 %) als Beleg des Ansprechens und zugleich als therapeutischer Diagnosetest — bleibt sie aus, Diagnose überdenken (Folsäuremangel, myelodysplastisches Syndrom, kombinierter Eisenmangel)',
-            'Hämoglobinanstieg um etwa 1 g/dl pro Woche, Normalisierung des Blutbilds über sechs bis acht Wochen; das LDH fällt innerhalb weniger Tage, das MCV normalisiert sich in etwa acht Wochen',
+            'Hämoglobinanstieg um etwa 1 g/dl pro Woche, Normalisierung des Blutbilds über sechs bis acht Wochen; die LDH fällt innerhalb weniger Tage, das MCV normalisiert sich in etwa acht Wochen',
             'Engmaschige KALIUMKONTROLLE in den ersten Tagen (täglich in der ersten Woche): die einsetzende Blutbildung verbraucht Kalium für die neuen Zellen und kann eine Hypokaliämie mit Herzrhythmusstörungen bis zum plötzlichen Herztod auslösen — Kalium substituieren',
             'Kontrolle und Ergänzung von Eisen und Folsäure, die durch die gesteigerte Erythropoese verbraucht werden: bei erschöpften Eisenspeichern orale Eisengabe, Folsäure jetzt bedenkenlos zusätzlich möglich',
             'Thrombozyten steigen rasch an — vorübergehend erhöhtes Thromboserisiko beachten, Thromboseprophylaxe bei Immobilität',
@@ -42137,7 +42137,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Woran erkennen Sie, dass die Therapie anspricht — und worauf müssen Sie in der ersten Woche achten?',
-          antwort: 'An der Retikulozytenkrise nach fünf bis sieben Tagen; das LDH fällt innerhalb weniger Tage, das Hämoglobin steigt um etwa 1 g/dl pro Woche und ist nach sechs bis acht Wochen normal. In der ersten Woche muss ich das Kalium täglich kontrollieren, weil die einsetzende Blutbildung Kalium verbraucht und eine Hypokaliämie mit Herzrhythmusstörungen auslösen kann. Außerdem können Eisen und Folsäure durch den Verbrauch knapp werden.',
+          antwort: 'An der Retikulozytenkrise nach fünf bis sieben Tagen; die LDH fällt innerhalb weniger Tage, das Hämoglobin steigt um etwa 1 g/dl pro Woche und ist nach sechs bis acht Wochen normal. In der ersten Woche muss ich das Kalium täglich kontrollieren, weil die einsetzende Blutbildung Kalium verbraucht und eine Hypokaliämie mit Herzrhythmusstörungen auslösen kann. Außerdem können Eisen und Folsäure durch den Verbrauch knapp werden.',
         },
         {
           frage: 'Werden die neurologischen Symptome wieder verschwinden?',
@@ -43502,7 +43502,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche therapeutischen Maßnahmen ordnen Sie bei einer tiefen Venenthrombose an?',
-          antwort: 'Sofortige therapeutische Antikoagulation, bereits bei hoher klinischer Wahrscheinlichkeit vor der Duplexsonographie: niedermolekulares Heparin gewichtsadaptiert, z. B. Enoxaparin 1 mg/kg s.c. alle 12 Stunden, bei Kreatinin-Clearance unter 30 ml/min 1 mg/kg einmal täglich; alternativ Vollheparinisierung mit unfraktioniertem Heparin i.v. unter aPTT-Kontrolle mit Ziel dem 1,5- bis 2,5-Fachen bei Niereninsuffizienz. Heute gleichwertig ein DOAK direkt oral: Rivaroxaban 2 × 15 mg für 3 Wochen, dann 20 mg, oder Apixaban 2 × 10 mg für 7 Tage, dann 2 × 5 mg. Dazu Kompressionstherapie, Mobilisation, Analgesie und das Absetzen auslösender Faktoren wie der Östrogenpille.',
+          antwort: 'Sofortige therapeutische Antikoagulation, bereits bei hoher klinischer Wahrscheinlichkeit vor der Duplexsonographie: niedermolekulares Heparin gewichtsadaptiert, z. B. Enoxaparin 1 mg/kg s.c. alle 12 Stunden, bei Kreatinin-Clearance unter 30 ml/min 1 mg/kg einmal täglich; alternativ Vollheparinisierung mit unfraktioniertem Heparin i.v. unter aPTT-Kontrolle mit einer Ziel-aPTT vom 1,5- bis 2,5-Fachen des Ausgangswerts, vor allem bei Niereninsuffizienz. Heute gleichwertig ein DOAK direkt oral: Rivaroxaban 2 × 15 mg für 3 Wochen, dann 20 mg, oder Apixaban 2 × 10 mg für 7 Tage, dann 2 × 5 mg. Dazu Kompressionstherapie, Mobilisation, Analgesie und das Absetzen auslösender Faktoren wie der Östrogenpille.',
         },
         {
           frage: 'Was können wir machen, um die Patientin mit TVT auf die Entlassung vorzubereiten?',
@@ -43529,8 +43529,8 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Neben der Analgesie nach WHO-Stufenschema — Metamizol oder Ibuprofen unter Magenschutz, bei starken Schmerzen Piritramid — ist die entscheidende Antwort das Heparin: Thromboseprophylaxe mit niedermolekularem Heparin s.c. einmal täglich, z. B. Enoxaparin 40 mg, für die gesamte Dauer der Immobilisation im Gips oder in der Orthese, auch ambulant. Dazu ggf. Antibiotikaprophylaxe bei offener Fraktur oder Osteosynthese, Tetanusschutz prüfen, Abschwellung durch Hochlagerung und Kühlung. Bei bekannter Gerinnungsstörung mit Thromboseneigung Rücksprache mit der Hämostaseologie und ggf. Fondaparinux.',
         },
         {
-          frage: 'Welche ist die Ursache für eine TIA, welche Therapie gegen Vorhofflimmern, und was machen wir jetzt?',
-          antwort: 'Die häufigste kardiale Ursache ist das Vorhofflimmern mit kardioembolischem Thrombus aus dem linken Vorhohr, daneben Karotisstenose, Arteriosklerose der Hirngefäße und Mikroangiopathie. Jetzt: neurologische Untersuchung, CCT oder MRT zum Blutungsausschluss, 12-Kanal- und Langzeit-EKG, Echokardiographie, Duplex der Karotiden, Labor mit Gerinnung, Blutzucker und Lipiden; ASS 100 mg bis zur Klärung. Bei nachgewiesenem Vorhofflimmern orale Antikoagulation zur Schlaganfallprophylaxe nach CHA2DS2-VASc — bevorzugt ein DOAK wie Apixaban 2 × 5 mg oder Rivaroxaban 20 mg, nach TIA ab Tag 1, nach Infarkt nach der 1-3-6-12-Regel; Marcumar mit INR 2–3 bei mechanischer Klappe oder Mitralstenose. Eine therapeutische Heparinisierung ist nicht mehr Standard, wird im Gespräch aber häufig als Antwort akzeptiert.',
+          frage: 'Was ist die Ursache einer TIA, welche Therapie gegen Vorhofflimmern, und was machen wir jetzt?',
+          antwort: 'Die häufigste kardiale Ursache ist das Vorhofflimmern mit kardioembolischem Thrombus aus dem linken Vorhof, daneben Karotisstenose, Arteriosklerose der Hirngefäße und Mikroangiopathie. Jetzt: neurologische Untersuchung, CCT oder MRT zum Blutungsausschluss, 12-Kanal- und Langzeit-EKG, Echokardiographie, Duplex der Karotiden, Labor mit Gerinnung, Blutzucker und Lipiden; ASS 100 mg bis zur Klärung. Bei nachgewiesenem Vorhofflimmern orale Antikoagulation zur Schlaganfallprophylaxe nach CHA2DS2-VASc — bevorzugt ein DOAK wie Apixaban 2 × 5 mg oder Rivaroxaban 20 mg, nach TIA ab Tag 1, nach Infarkt nach der 1-3-6-12-Regel; Marcumar mit INR 2–3 bei mechanischer Klappe oder Mitralstenose. Eine therapeutische Heparinisierung ist nicht mehr Standard, wird im Gespräch aber häufig als Antwort akzeptiert.',
         },
         {
           frage: 'Was ist der Unterschied zwischen Marcumar und Xarelto?',
@@ -43972,7 +43972,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist eine Hyperventilationstetanie, und wie behandeln Sie sie?',
-          antwort: 'Eine Hyperventilationstetanie entsteht, wenn ein Patient — meist jung, unter Angst oder Schmerz — zu schnell und zu tief atmet: Das Kohlendioxid wird abgeatmet, es entsteht eine respiratorische Alkalose, und bei steigendem pH bindet Albumin mehr Kalzium, sodass das ionisierte Kalzium sinkt, obwohl das Gesamtkalzium normal ist. Die Folge sind periorale und akrale Parästhesien, Pfötchenstellung der Hände, Karpopedalspasmen, Schwindel und Engegefühl. Die Blutgasanalyse zeigt einen niedrigen pCO2 und einen hohen pH. Die Therapie ist Beruhigung, ruhiges Anleiten zu langsamer Atmung und Rückatmung in eine Tüte, ausnahmsweise ein niedrig dosiertes Benzodiazepin — Kalzium ist nicht indiziert. Vor dem Patienten sage ich: „Muskelkrämpfe durch zu schnelles Atmen.“',
+          antwort: 'Eine Hyperventilationstetanie entsteht, wenn ein Patient — meist jung, unter Angst oder Schmerz — zu schnell und zu tief atmet: Das Kohlendioxid wird abgeatmet, es entsteht eine respiratorische Alkalose, und bei steigendem pH bindet Albumin mehr Kalzium, sodass das ionisierte Kalzium sinkt, obwohl das Gesamtkalzium normal ist. Die Folge sind periorale und akrale Parästhesien, Pfötchenstellung der Hände, Karpopedalspasmen, Schwindel und Engegefühl. Die Blutgasanalyse zeigt einen niedrigen pCO2 und einen hohen pH. Die Therapie ist Beruhigung, ruhiges Anleiten zu langsamer Atmung und Rückatmung in eine Tüte, ausnahmsweise ein niedrig dosiertes Benzodiazepin — Kalzium ist nicht indiziert. Dem Patienten sage ich: „Muskelkrämpfe durch zu schnelles Atmen.“',
         },
         {
           frage: 'Warum verlieren Patienten nach einer Darmresektion Kalzium und Vitamin D, und wie erklären Sie das dem Patienten?',
@@ -44335,7 +44335,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'In etwa 75–80 % Escherichia coli, außerdem Klebsiellen, Proteus mirabilis, Enterokokken und bei Katheterträgern Pseudomonas. Ambulant bei leichter Pyelonephritis Ciprofloxacin 2 × 500 mg oder Cefpodoxim 2 × 200 mg oral über 7–10 Tage. Stationär — also bei Erbrechen, Diabetes, Schwangerschaft, Harnstau oder Sepsiszeichen — intravenös ein Betalaktam-Antibiotikum: Ceftriaxon 1 × 2 g oder Piperacillin/Tazobactam 3 × 4,5 g, alternativ Ciprofloxacin 2 × 400 mg i.v.; bei ESBL-Verdacht Meropenem 3 × 1 g. Anschließend nach Antibiogramm deeskalieren und auf oral umstellen. Als Spasmolytikum bei kolikartigen Beschwerden Butylscopolamin 20 mg i.v., dazu Metamizol 1 g oder Paracetamol 1 g.',
         },
         {
-          frage: 'Schicken Sie den Patienten mit einem Rezept nach Hause? Erklären Sie das bitte gegenüber der Krankenversicherung. (Karlsruhe, 18.08.2022 — Diabetiker mit Pyelonephritis; ähnlich 30.01.2025 beim Abszess)',
+          frage: 'Schicken Sie den Patienten mit einem Rezept nach Hause? Begründen Sie das bitte gegenüber der Krankenkasse. (Karlsruhe, 18.08.2022 — Diabetiker mit Pyelonephritis; ähnlich 30.01.2025 beim Abszess)',
           antwort: 'Nein. Der Patient hat einen Diabetes mellitus und damit ein deutlich erhöhtes Risiko für einen komplizierten Verlauf: Urosepsis, Nierenabszess, emphysematöse Pyelonephritis, akutes Nierenversagen und eine Entgleisung des Blutzuckers durch die Infektion. Zusätzlich sprechen Fieber mit Schüttelfrost, Erbrechen mit unsicherer oraler Antibiotikaaufnahme, ein Harnstau in der Sonographie und ein reduzierter Allgemeinzustand für die stationäre Aufnahme. Stationär kann ich intravenös antibiotisch behandeln, Vitalparameter, Kreatinin und Blutzucker engmaschig überwachen, die Urinkultur abwarten und bei Verschlechterung sofort eskalieren — das ist medizinisch notwendig und deshalb auch gegenüber der Krankenkasse begründet.',
         },
         {
@@ -44356,7 +44356,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Der Pneumoniepatient hat eine Penicillinallergie — welche Antibiotika geben Sie? Gibt es andere? (Karlsruhe, Pneumonie)',
-          antwort: 'Zunächst kläre ich die Allergie: Handelte es sich um eine Anaphylaxie oder nur um ein Exanthem? Bei nicht-schwerer Reaktion kann ich Ceftriaxon 1 × 2 g i.v. geben, die Kreuzreaktion liegt unter 1–2 %. Bei schwerer Sofortreaktion ein Makrolid, zum Beispiel Clarithromycin 2 × 500 mg, oder ein Fluorchinolon der Gruppe IV wie Moxifloxacin 1 × 400 mg, das Pneumokokken und atypische Erreger abdeckt. Bei schwerer Pneumonie mit Sepsiszeichen kombiniere ich ein Betalaktam — bei Allergie das Cephalosporin oder Moxifloxacin — mit einem Makrolid und lege Blutkulturen sowie Legionellen- und Pneumokokken-Antigen im Urin an.',
+          antwort: 'Zunächst kläre ich die Allergie: Handelte es sich um eine Anaphylaxie oder nur um ein Exanthem? Bei einer leichten Reaktion kann ich Ceftriaxon 1 × 2 g i.v. geben, die Kreuzreaktion liegt unter 1–2 %. Bei schwerer Sofortreaktion ein Makrolid, zum Beispiel Clarithromycin 2 × 500 mg, oder ein Fluorchinolon der Gruppe IV wie Moxifloxacin 1 × 400 mg, das Pneumokokken und atypische Erreger abdeckt. Bei schwerer Pneumonie mit Sepsiszeichen kombiniere ich ein Betalaktam — bei Allergie das Cephalosporin oder Moxifloxacin — mit einem Makrolid und lege Blutkulturen an und bestimme Legionellen- und Pneumokokken-Antigen im Urin.',
         },
         {
           frage: 'Muss der Patient mit dem Gesäßabszess im Krankenhaus bleiben? (Karlsruhe, 30.01.2025 — Diabetiker)',
@@ -44738,10 +44738,10 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Der Patient fragt: „Können mir Opioid-Tropfen helfen?“ (Gastroenteritis, Reutlingen)',
-          antwort: 'Patientengerecht verneinen und begründen: „Opioide wie Tramadol-Tropfen sind bei Ihren Bauchkrämpfen nicht das richtige Mittel — sie machen müde und übel, sie verstopfen den Darm, was bei einer Darminfektion die Erregerausscheidung verzögert, und bei längerer Einnahme kann man sich daran gewöhnen. Außerdem könnten sie Warnzeichen verschleiern, falls sich doch etwas Ernstes entwickelt.“ Alternative anbieten: Metamizol 500–1 000 mg bis viermal täglich oder ein Spasmolytikum wie Butylscopolamin 10–20 mg, Wärme, ausreichend trinken, orale Rehydratation. Im Arzt-Arzt-Gespräch ergänzen, dass bei viszeralem Schmerz die Stufe 1 mit Spasmolytikum die Erstlinie ist und Opioide dem starken Schmerz nach Ausschluss eines akuten Abdomens vorbehalten bleiben.',
+          antwort: 'Patientengerecht verneinen und begründen: „Opioide wie Tramadol-Tropfen sind bei Ihren Bauchkrämpfen nicht das richtige Mittel — sie machen müde und übel, sie verstopfen den Darm, was bei einer Darminfektion die Ausscheidung der Krankheitserreger verzögert, und bei längerer Einnahme kann man sich daran gewöhnen. Außerdem könnten sie Warnzeichen verschleiern, falls sich doch etwas Ernstes entwickelt.“ Alternative anbieten: Metamizol 500–1 000 mg bis viermal täglich oder ein Spasmolytikum wie Butylscopolamin 10–20 mg, Wärme, ausreichend trinken, orale Rehydratation. Im Arzt-Arzt-Gespräch ergänzen, dass bei viszeralem Schmerz die Stufe 1 mit Spasmolytikum die Erstlinie ist und Opioide dem starken Schmerz nach Ausschluss eines akuten Abdomens vorbehalten bleiben.',
         },
         {
-          frage: 'Der Patient fragt: „Habe ich ein großes Risiko für ein Magengeschwür wegen Ibuprofen?“ (Gonarthrose, Stuttgart)',
+          frage: 'Der Patient fragt: „Habe ich ein hohes Risiko für ein Magengeschwür wegen Ibuprofen?“ (Gonarthrose, Stuttgart)',
           antwort: 'Erklären: Ibuprofen hemmt die Bildung schützender Prostaglandine in der Magenschleimhaut; das Risiko für ein Ulkus oder eine Blutung ist etwa um das Drei- bis Vierfache erhöht und steigt mit Alter über 65, früheren Magengeschwüren, Cortison, Blutverdünnern, Rauchen, Alkohol, hoher Dosis und langer Einnahme. Dann Schutz anbieten: einen Protonenpumpenhemmer wie Pantoprazol 20–40 mg morgens, Einnahme zu den Mahlzeiten, niedrigste wirksame Dosis, so kurz wie möglich, keine Kombination mit anderen NSAR oder ASS. Warnzeichen nennen: schwarzer Stuhl, Bluterbrechen, anhaltende Magenschmerzen. Bei Gonarthrose zusätzlich topisches Diclofenac-Gel, Physiotherapie, Gewichtsreduktion und bei Bedarf Metamizol oder ein schwaches Opioid als Alternative.',
         },
         {
@@ -44769,7 +44769,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Paracetamol ist in allen Trimestern Mittel der ersten Wahl, in der üblichen Dosis bis 4 g täglich und so kurz wie möglich. Ibuprofen kann bis zur 28. Schwangerschaftswoche in niedriger Dosis gegeben werden; ab dem dritten Trimenon sind alle NSAR streng kontraindiziert, weil sie den vorzeitigen Verschluss des Ductus arteriosus Botalli, ein Oligohydramnion und eine fetale Nierenschädigung verursachen und die Wehen hemmen. Metamizol ist im dritten Trimenon kontraindiziert und davor nur bei strenger Indikation vertretbar. Bei starken Schmerzen sind Opioide wie Tramadol oder Morphin kurzfristig möglich, in Geburtsnähe droht die Atemdepression des Neugeborenen, bei Dauereinnahme ein neonatales Entzugssyndrom. Sumatriptan ist bei Migräne vertretbar. In der Stillzeit sind Paracetamol und Ibuprofen unbedenklich, Codein und Tramadol werden gemieden.',
         },
         {
-          frage: 'Macht der Patient sich mit Opioiden abhängig? Und darf er damit Auto fahren?',
+          frage: 'Wird der Patient von Opioiden abhängig? Und darf er damit Auto fahren?',
           antwort: 'Man muss drei Begriffe trennen: Toleranz — die Wirkung lässt bei gleicher Dosis nach —, körperliche Gewöhnung — beim abrupten Absetzen treten Entzugssymptome wie Schwitzen, Unruhe, Durchfall und Gähnen auf — und die Sucht, also der zwanghafte Konsum trotz Schaden mit Kontrollverlust. Die ersten beiden sind pharmakologisch erwartbar und durch Ausschleichen um 10–25 % alle 1–2 Wochen beherrschbar; sie sind keine Sucht. Das Suchtrisiko ist bei leitliniengerechter Tumorschmerztherapie gering und beim chronischen Nicht-Tumorschmerz mit etwa 3–10 % relevant, vor allem bei Suchtanamnese, psychiatrischer Komorbidität und schnell freisetzenden Präparaten — deshalb Retardpräparate, klare Ziele, Reevaluation alle 3 Monate. Zur Fahrtauglichkeit: In der Einstellungsphase und nach jeder Dosisänderung darf der Patient etwa 1–2 Wochen nicht fahren; unter stabiler Dauertherapie ohne Sedierung ist das Fahren grundsätzlich möglich, ich kläre darüber auf und dokumentiere das Gespräch; die Kombination mit Alkohol oder Benzodiazepinen schließt das Fahren aus.',
         },
         {

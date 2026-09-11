@@ -11,9 +11,9 @@ import type { AufklaerungItem } from '@/db/types';
 const STANDARD_RISIKEN = [
   'Allergien/Unverträglichkeiten (Kontrastmittel, Betäubungs-, Desinfektionsmittel, Latex).',
   'Verletzung/Durchstoßung von Blutgefäßen — meist nur ein blauer Fleck (Hämatom).',
-  'Nachblutung (selten); bei starker Blutung ggf. Bluttransfusion mit minimalem Restrisiko einer HIV-/HBV-/HCV-Infektion.',
+  'Nachblutung (selten); bei starker Blutung ggf. Bluttransfusion mit minimalem Restrisiko einer Infektion mit HIV oder Hepatitis B/C.',
   'Infektion und Wundheilungsstörung an der Einstichstelle.',
-  'Bei Kontrastmittel: Schilddrüsenüberfunktion (vorher TSH-Test) und vorübergehende Nierenfunktionsstörung.',
+  'Bei Kontrastmittel: Schilddrüsenüberfunktion (vorher prüfen wir Ihren Schilddrüsenwert im Blut) und vorübergehende Nierenfunktionsstörung.',
 ];
 
 const META = 'Ich versuche, Sie über alles aufzuklären. Wenn ich zu schnell spreche oder Sie etwas nicht verstehen, sagen Sie mir bitte jederzeit Bescheid, einverstanden?';
@@ -73,7 +73,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         spezifischeRisiken: [
           'Herzrhythmusstörungen während der Untersuchung.',
           'Sehr selten: Auslösung eines Herzinfarkts oder Schlaganfalls.',
-          'Gefäßverletzung an der Punktionsstelle (Nachblutung, Aneurysma, Gefäßverschluss).',
+          'Gefäßverletzung an der Punktionsstelle (Nachblutung, Aussackung des Gefäßes (Aneurysma), Gefäßverschluss).',
           'Kontrastmittelbedingte Nierenfunktionsstörung.',
           'Bei Stentimplantation: Notwendigkeit einer dauerhaften Blutverdünnung.',
         ],
@@ -108,7 +108,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         abschluss: ABSCHLUSS,
       },
       patientQuestions: [
-        { frage: 'Kommt das Wasser wieder?', antwort: 'Ja, das kann sein, weil wir nur die Flüssigkeit ablassen, nicht die Ursache. Deshalb behandeln wir zusätzlich die Grunderkrankung und mit Medikamenten und Ernährung.' },
+        { frage: 'Kommt das Wasser wieder?', antwort: 'Ja, das kann sein, weil wir nur die Flüssigkeit ablassen, nicht die Ursache. Deshalb behandeln wir zusätzlich die Grunderkrankung — mit Medikamenten und über die Ernährung.' },
         { frage: 'Tut die Nadel weh?', antwort: 'Wir betäuben die Stelle örtlich. Sie spüren höchstens einen kurzen Piks und ein Druckgefühl.' },
       ],
       linkedCaseIds: [],
@@ -149,7 +149,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         metakommunikation: META,
         warum: 'Damit erstellen wir genaue Schnittbilder des Körpers und können Organe, Gefäße, Entzündungen, Blutungen oder Tumoren sehr detailliert beurteilen. Für manche Fragen geben wir dazu ein Kontrastmittel über die Vene.',
         ablauf: 'Sie liegen auf einer Liege, die durch einen ringförmigen Scanner fährt. Die Untersuchung dauert nur wenige Minuten. Bei Bedarf spritzen wir Kontrastmittel; dabei kann ein kurzes Wärmegefühl auftreten.',
-        vorbereitung: 'Vor Kontrastmittel prüfen wir Nieren- und Schilddrüsenwerte und fragen nach Allergien. Metformin und eine mögliche Schwangerschaft besprechen wir vorher. Für Bauchaufnahmen sind Sie ggf. nüchtern.',
+        vorbereitung: 'Vor Kontrastmittel prüfen wir Nieren- und Schilddrüsenwerte und fragen nach Allergien. Metformin und eine mögliche Schwangerschaft besprechen wir vorher. Für Aufnahmen des Bauches müssen Sie unter Umständen nüchtern sein — das sagen wir Ihnen vorher.',
         standardRisiken: STANDARD_RISIKEN,
         spezifischeRisiken: [
           'Höhere Strahlenbelastung als beim normalen Röntgen.',
@@ -199,7 +199,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         metakommunikation: META,
         warum: 'Damit beurteilen wir Organe wie Leber, Galle, Nieren, Bauchspeicheldrüse oder Gefäße in Echtzeit — zum Beispiel auf Steine, Stauungen, Flüssigkeit oder Verengungen. Die Methode ist völlig strahlungsfrei.',
         ablauf: 'Wir tragen ein Gel auf die Haut auf und fahren mit einem Schallkopf über die Körperregion. Das ist schmerzfrei und dauert nur wenige Minuten.',
-        vorbereitung: 'Für den Oberbauch sollten Sie einige Stunden nüchtern sein; für die Blase/Nieren manchmal mit voller Blase kommen. Sonst keine besondere Vorbereitung.',
+        vorbereitung: 'Für den Oberbauch sollten Sie einige Stunden nüchtern sein; für Blase und Nieren sollten Sie manchmal mit voller Blase kommen. Sonst keine besondere Vorbereitung.',
         standardRisiken: [],
         spezifischeRisiken: [
           'Praktisch keine Risiken — die Untersuchung ist schmerz- und strahlungsfrei.',
@@ -249,7 +249,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         einleitung: 'Guten Tag Herr/Frau X, bei Ihnen ist eine Darmspiegelung (Koloskopie) nötig.',
         metakommunikation: META,
         warum: 'Damit schauen wir den gesamten Dickdarm von innen an — auf Blutungsquellen, Entzündungen, Divertikel oder Polypen und Tumoren. Polypen können wir dabei gleich abtragen und Gewebeproben entnehmen.',
-        ablauf: 'Sie bekommen auf Wunsch ein Schlafmittel über die Vene. Dann führen wir einen biegsamen Schlauch mit Kamera über den After ein und schauen den Darm ein. Die Untersuchung dauert etwa 20 bis 30 Minuten.',
+        ablauf: 'Sie bekommen auf Wunsch ein Schlafmittel über die Vene. Dann führen wir einen biegsamen Schlauch mit Kamera über den After ein und sehen uns den Darm von innen an. Die Untersuchung dauert etwa 20 bis 30 Minuten.',
         vorbereitung: 'Wichtig ist die Darmreinigung: Am Vortag nur klare Flüssigkeit und eine Spüllösung trinken, bis der Darm sauber ist. Blutverdünner besprechen wir vorher. Nach einer Sedierung dürfen Sie 24 Stunden nicht Auto fahren.',
         standardRisiken: STANDARD_RISIKEN,
         spezifischeRisiken: [
@@ -300,7 +300,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
       blocks: {
         einleitung: 'Guten Tag Herr/Frau X, bei Ihnen möchten wir eine Lungenspiegelung (Bronchoskopie) durchführen.',
         metakommunikation: META,
-        warum: 'Damit schauen wir die Atemwege von innen an, um die Ursache von Husten, Bluthusten oder einer auffälligen Röntgenveränderung zu klären. Wir können dabei Sekret absaugen und Gewebeproben oder eine Spülung (Lavage) entnehmen.',
+        warum: 'Damit schauen wir die Atemwege von innen an, um die Ursache von Husten, Bluthusten oder einer auffälligen Röntgenveränderung zu klären. Wir können dabei Sekret absaugen und Gewebeproben oder eine Spülung (Lavage) durchführen.',
         ablauf: 'Wir betäuben den Rachen und geben auf Wunsch ein Beruhigungsmittel. Dann führen wir einen dünnen, biegsamen Schlauch mit Kamera über Mund oder Nase in die Atemwege. Die Untersuchung dauert meist 10 bis 20 Minuten.',
         vorbereitung: 'Sie müssen nüchtern sein. Blutverdünner und Gerinnungswerte besprechen wir vorher. Nach einer Sedierung dürfen Sie 24 Stunden nicht Auto fahren.',
         standardRisiken: STANDARD_RISIKEN,
@@ -340,7 +340,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         abschluss: ABSCHLUSS,
       },
       patientQuestions: [
-        { frage: 'Trefft ihr das Rückenmark?', antwort: 'Nein. Wir stechen bewusst unterhalb des Rückenmarks, dort schwimmen nur einzelne Nervenfäden, denen die Nadel ausweicht.' },
+        { frage: 'Treffen Sie da das Rückenmark?', antwort: 'Nein. Wir stechen bewusst unterhalb des Rückenmarks, dort schwimmen nur einzelne Nervenfäden, denen die Nadel ausweicht.' },
         { frage: 'Werde ich danach gelähmt?', antwort: 'Nein, eine Lähmung ist nicht zu erwarten. Am häufigsten sind vorübergehende Kopfschmerzen.' },
       ],
       linkedCaseIds: [],
@@ -360,7 +360,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         spezifischeRisiken: [
           'Blutung oder Bluterguss an der Einstichstelle.',
           'Infektion (selten).',
-          'Je nach Lage: Verletzung von Nachbarorganen; bei der Lunge ein Pneumothorax.',
+          'Je nach Lage: Verletzung von Nachbarorganen; bei der Lunge ein Pneumothorax (Luft im Rippenfellspalt).',
           'Gelegentlich reicht die Probe nicht aus und muss wiederholt werden.',
         ],
         abschluss: ABSCHLUSS,
@@ -393,7 +393,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         abschluss: ABSCHLUSS,
       },
       patientQuestions: [
-        { frage: 'Warum kann man nicht sicher sagen, ob es Schlüsselloch bleibt?', antwort: 'Manchmal zeigt sich erst während der OP, dass ein offener Schnitt sicherer ist — Ihre Sicherheit hat dann Vorrang.' },
+        { frage: 'Warum kann man nicht sicher sagen, ob es bei der Schlüssellochtechnik bleibt?', antwort: 'Manchmal zeigt sich erst während der OP, dass ein offener Schnitt sicherer ist — Ihre Sicherheit hat dann Vorrang.' },
         { frage: 'Wie groß sind die Narben?', antwort: 'Meist nur wenige kleine Schnitte von etwa einem Zentimeter, die gut verheilen.' },
       ],
       linkedCaseIds: [],
@@ -429,7 +429,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
       shortName: 'Bluttransfusion',
       category: 'Therapie',
       blocks: {
-        einleitung: 'Guten Tag Herr/Frau X, wegen Ihres niedrigen Blutwertes ist eine Bluttransfusion nötig oder möglich.',
+        einleitung: 'Guten Tag Herr/Frau X, wegen Ihres niedrigen Blutwertes ist eine Bluttransfusion nötig.',
         metakommunikation: META,
         warum: 'Ihr Körper hat zu wenig rote Blutkörperchen, die den Sauerstoff transportieren. Mit einer Bluttransfusion füllen wir das auf, damit Herz und Organe wieder ausreichend versorgt werden.',
         ablauf: 'Wir bestimmen zuerst Ihre Blutgruppe und machen einen Verträglichkeitstest (Kreuzprobe). Dann geben wir das passende Spenderblut über einen venösen Zugang. Während der Übertragung überwachen wir Sie engmaschig.',
@@ -465,7 +465,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
           'Wundinfektion an den kleinen Schnitten (häufig, gut behandelbar).',
           'Eiteransammlung (Abszess) im Bauch, vor allem bei bereits durchgebrochenem Wurmfortsatz (selten) — dann ist eine Drainage oder ein weiterer Eingriff nötig.',
           'Umstieg auf eine offene Operation, wenn es die Situation erfordert.',
-          'Verletzung von Darm oder Blase und Undichtigkeit des Blinddarmstumpfs (Stumpfinsuffizienz) (selten).',
+          'Verletzung von Darm oder Blase und Undichtigkeit des Blinddarmstumpfs (Stumpfinsuffizienz) — selten.',
           'Verwachsungen im Bauch, die später Beschwerden oder einen Darmverschluss verursachen können (selten).',
           'Narbenbruch an einer Einstichstelle im späteren Verlauf (sehr selten).',
         ],
@@ -499,14 +499,14 @@ export function seedAufklaerungen(): AufklaerungItem[] {
       blocks: {
         einleitung: 'Guten Tag Herr/Frau X, wir möchten bei Ihnen eine Ultraschalluntersuchung des Herzens durchführen (Echokardiographie) — zunächst von außen über den Brustkorb, bei Bedarf zusätzlich über die Speiseröhre (Schluckecho).',
         metakommunikation: META,
-        warum: 'Mit dem Ultraschall sehen wir, wie kräftig das Herz pumpt und ob die Herzklappen dicht sind und richtig öffnen. Wir erkennen auch Flüssigkeit im Herzbeutel (Perikarderguss). Beim Schluckecho liegt die Sonde direkt hinter dem Herzen — so sehen wir sehr genau, ob sich Ablagerungen auf den Klappen (bei einer Herzklappenentzündung) oder ein Blutgerinnsel im Vorhof gebildet haben, zum Beispiel bevor wir einen Herzrhythmus wieder in Takt bringen (Kardioversion).',
+        warum: 'Mit dem Ultraschall sehen wir, wie kräftig das Herz pumpt und ob die Herzklappen dicht sind und richtig öffnen. Wir erkennen auch Flüssigkeit im Herzbeutel (Perikarderguss). Beim Schluckecho liegt die Sonde direkt hinter dem Herzen — so sehen wir sehr genau, ob sich Ablagerungen auf den Klappen (bei einer Herzklappenentzündung) oder ein Blutgerinnsel im Vorhof gebildet haben, zum Beispiel bevor wir das Herz wieder in den richtigen Takt bringen (Kardioversion).',
         ablauf: 'Bei der Untersuchung von außen liegen Sie auf der linken Seite, wir tragen Gel auf die Brust auf und setzen den Schallkopf an — das ist völlig harmlos und dauert 20 bis 30 Minuten. Beim Schluckecho betäuben wir den Rachen mit einem Spray und geben Ihnen auf Wunsch ein leichtes Beruhigungsmittel über die Vene. Dann schlucken Sie einen dünnen, biegsamen Schlauch mit einer kleinen Ultraschallsonde an der Spitze; die Untersuchung selbst dauert etwa 10 bis 15 Minuten.',
         vorbereitung: 'Für die Untersuchung von außen ist keine Vorbereitung nötig. Für das Schluckecho müssen Sie 6 Stunden nüchtern sein und eine herausnehmbare Zahnprothese vorher entfernen. Blutverdünner müssen Sie dafür nicht absetzen. Danach dürfen Sie 2 Stunden nichts essen und trinken, bis die Rachenbetäubung nachlässt, und nach dem Beruhigungsmittel 24 Stunden nicht Auto fahren.',
         standardRisiken: STANDARD_RISIKEN,
         spezifischeRisiken: [
           'Häufig: Würgereiz und Halsschmerzen oder ein Fremdkörpergefühl nach dem Schluckecho, das nach ein bis zwei Tagen vergeht.',
           'Selten: Beschädigung von Zähnen oder Zahnersatz durch den Beißring.',
-          'Selten: Vorübergehender Abfall von Sauerstoff, Blutdruck oder Herzrhythmusstörungen durch das Beruhigungsmittel — wir überwachen Sie die ganze Zeit.',
+          'Selten: Vorübergehender Abfall von Sauerstoff oder Blutdruck sowie Herzrhythmusstörungen durch das Beruhigungsmittel — wir überwachen Sie die ganze Zeit.',
           'Sehr selten: Verletzung oder Blutung der Speiseröhre oder des Magens.',
           'Extrem selten: Durchstoßung (Perforation) der Speiseröhre, die operiert werden müsste.',
         ],
@@ -573,7 +573,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
       blocks: {
         einleitung: 'Guten Tag Herr/Frau X, wir möchten bei Ihnen Knochenmark aus dem Beckenknochen entnehmen (Knochenmarkpunktion).',
         metakommunikation: META,
-        warum: 'Das Knochenmark ist die Fabrik für unsere Blutzellen. Wenn im Blut zu wenige oder auffällige Zellen sind, schauen wir dort nach, wo sie entstehen. So können wir eine Blutkrebserkrankung (Leukämie), eine Erkrankung der Lymphdrüsen (Lymphom), ein Plasmozytom oder die Ursache einer unklaren Blutarmut erkennen — oder ausschließen.',
+        warum: 'Das Knochenmark ist die Fabrik für unsere Blutzellen. Wenn im Blut zu wenige oder auffällige Zellen sind, schauen wir dort nach, wo sie entstehen. So können wir eine Blutkrebserkrankung (Leukämie), eine Erkrankung der Lymphdrüsen (Lymphom), eine Erkrankung bestimmter Blutzellen (Plasmozytom) oder die Ursache einer unklaren Blutarmut erkennen — oder ausschließen.',
         ablauf: 'Sie liegen auf der Seite oder auf dem Bauch. Wir desinfizieren die Haut über dem hinteren Beckenkamm und betäuben die Stelle örtlich bis zur Knochenhaut. Dann führen wir eine Nadel in den Knochen ein und ziehen zuerst etwas flüssiges Mark an — dieses Ansaugen tut für zwei bis drei Sekunden ziehend weh, wir sagen Ihnen vorher Bescheid. Danach entnehmen wir mit derselben Nadel einen kleinen Knochenzylinder (Stanzbiopsie). Insgesamt dauert das etwa 15 bis 20 Minuten.',
         vorbereitung: 'Sie müssen nicht nüchtern sein. Wir prüfen vorher die Gerinnung und das Blutbild; Blutverdünner besprechen wir vorher und setzen sie eventuell ab. Danach bekommen Sie einen Druckverband und liegen 30 Minuten auf dem Rücken auf der Einstichstelle. Wir empfehlen, dass Sie nicht selbst fahren, falls Sie ein Beruhigungsmittel wünschen.',
         standardRisiken: [],
@@ -615,7 +615,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
         vorbereitung: 'Wir prüfen vorher die Gerinnung, das Blutbild und die Blutgruppe. Der Blutdruck muss gut eingestellt sein. Blutverdünner und ASS (Aspirin) müssen vorher pausiert werden — das besprechen wir genau mit Ihnen. Sie sollten 4 bis 6 Stunden nüchtern sein. Danach liegen Sie 24 Stunden im Bett, wir kontrollieren Blutdruck, Blutbild und Urin, und Sie sollten 2 Wochen keinen Sport treiben und nichts Schweres heben.',
         standardRisiken: STANDARD_RISIKEN,
         spezifischeRisiken: [
-          'Häufig: Blut im Urin (Hämaturie) in den ersten Tagen — meist harmlos und hört von selbst auf.',
+          'Häufig: Blut im Urin (Hämaturie) in den ersten Tagen — das ist meist harmlos und hört von selbst auf.',
           'Häufig: Ein Bluterguss um die Niere (perirenales Hämatom), der meist keine Beschwerden macht und von selbst verschwindet.',
           'Selten: Stärkere Blutung, die eine Bluttransfusion oder einen Verschluss des blutenden Gefäßes über einen Katheter (Embolisation) nötig macht.',
           'Selten: Infektion oder eine Kurzschlussverbindung zwischen Arterie und Vene in der Niere (arteriovenöse Fistel).',
@@ -694,7 +694,7 @@ export function seedAufklaerungen(): AufklaerungItem[] {
           'Brennen beim Wasserlassen und leichte Blutbeimengung im Urin für ein bis zwei Tage (häufig, normal).',
           'Harnwegsinfekt mit Fieber (selten) — viel trinken hilft, bei Fieber bitte melden.',
           'Verletzung der Harnröhre oder der Blasenwand (selten).',
-          'Vorübergehender Harnverhalt, so dass kurz ein Katheter nötig wird (selten).',
+          'Vorübergehend kann das Wasserlassen nicht mehr möglich sein (Harnverhalt), so dass kurz ein Katheter nötig wird (selten).',
           'Narbige Verengung der Harnröhre (Striktur) im späteren Verlauf (sehr selten).',
         ],
         abschluss: ABSCHLUSS,
