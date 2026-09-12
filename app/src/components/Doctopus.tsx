@@ -53,7 +53,13 @@ export function Doctopus() {
   const ask = async () => {
     if (!q.trim()) return;
     setLoading(true); setError(''); setAnswer('');
-    try { setAnswer(await askOnline(q)); }
+    try {
+      // onToken (OpenRouter uniquement) affiche la réponse au fil du stream ;
+      // les autres fournisseurs l'ignorent et renvoient tout d'un coup via la
+      // valeur de retour, posée ici en repli pour rester cohérente dans tous les cas.
+      const full = await askOnline(q, (delta) => setAnswer((prev) => prev + delta));
+      setAnswer(full);
+    }
     catch (e) { setError((e as Error).message); }
     finally { setLoading(false); }
   };

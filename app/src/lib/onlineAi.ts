@@ -1,3 +1,4 @@
+import { OpenRouter } from '@openrouter/sdk';
 import { buildLlmPrompt, buildBriefPrompt } from './dictionary';
 
 // ============================================================================
@@ -8,7 +9,9 @@ import { buildLlmPrompt, buildBriefPrompt } from './dictionary';
 // qu'au fournisseur choisi.
 //
 // Pour changer de fournisseur, il suffit d'un endpoint OpenAI-compatible et
-// d'un modèle (ex. OpenRouter, Together, etc.).
+// d'un modèle (ex. Together, etc.) — sauf OpenRouter, qui passe par son SDK
+// officiel (@openrouter/sdk) en streaming plutôt que par le fetch générique,
+// pour l'affichage token-par-token et l'accès aux jetons de raisonnement.
 // ============================================================================
 
 export interface AiProvider {
@@ -37,12 +40,48 @@ export function getProvider(): AiProvider {
 export function setProvider(id: string) { localStorage.setItem(PROVIDER_LS, id); }
 export function hasKey(): boolean { return getKey().length > 8; }
 
-// Appel générique à l'IA en ligne (OpenAI-compatible).
-async function chat(system: string, user: string, maxTokens: number): Promise<string> {
-  const key = getKey();
-  const provider = getProvider();
-  if (!key) throw new Error('Aucune clé configurée.');
+/** Jetons de raisonnement de la dernière réponse OpenRouter (undefined si le modèle n'en émet pas). */
+let lastReasoningTokens: number | undefined;
+export function getLastReasoningTokens(): number | undefined { return lastReasoningTokens; }
 
+// Forme minimale d'un chunk de stream de chat OpenRouter — le SDK ne réexporte
+// pas son type interne `ChatStreamChunk` depuis la racine du paquet, donc on
+// type ici exactement ce qu'on consomme plutôt que d'importer un chemin privé.
+interface ChatStreamChunk {
+  choices?: Array<{ delta?: { content?: string } }>;
+  usage?: { completionTokensDetails?: { reasoningTokens?: number } };
+}
+
+// Appel via le SDK officiel OpenRouter, en streaming — permet d'afficher la
+// réponse au fil de l'eau (onToken) et expose les jetons de raisonnement.
+async function chatOpenRouter(system: string, user: string, maxTokens: number, key: string, model: string, onToken?: (delta: string) => void): Promise<string> {
+  const openrouter = new OpenRouter({ apiKey: key });
+  let response = '';
+  lastReasoningTokens = undefined;
+  try {
+    const result = await openrouter.chat.send({
+      chatRequest: {
+        model,
+        messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
+        temperature: 0.3,
+        maxTokens,
+        stream: true,
+      },
+    });
+    const stream = result as AsyncIterable<ChatStreamChunk>;
+    for await (const chunk of stream) {
+      const delta = chunk.choices?.[0]?.delta?.content;
+      if (delta) { response += delta; onToken?.(delta); }
+      if (chunk.usage) lastReasoningTokens = chunk.usage.completionTokensDetails?.reasoningTokens;
+    }
+  } catch (e) {
+    throw new Error(`Erreur OpenRouter : ${(e as Error).message}`);
+  }
+  return response || '(réponse vide)';
+}
+
+// Appel générique aux autres fournisseurs OpenAI-compatibles (Groq…).
+async function chatGeneric(system: string, user: string, maxTokens: number, key: string, provider: AiProvider): Promise<string> {
   const res = await fetch(provider.endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
@@ -61,10 +100,19 @@ async function chat(system: string, user: string, maxTokens: number): Promise<st
   return data?.choices?.[0]?.message?.content ?? '(réponse vide)';
 }
 
-/** Réponse complète de Doctopus (allemand puis français). */
-export async function askOnline(query: string): Promise<string> {
+async function chat(system: string, user: string, maxTokens: number, onToken?: (delta: string) => void): Promise<string> {
+  const key = getKey();
+  const provider = getProvider();
+  if (!key) throw new Error('Aucune clé configurée.');
+  return provider.id === 'openrouter'
+    ? chatOpenRouter(system, user, maxTokens, key, provider.model, onToken)
+    : chatGeneric(system, user, maxTokens, key, provider);
+}
+
+/** Réponse complète de Doctopus (allemand puis français). onToken (optionnel, OpenRouter uniquement) reçoit chaque fragment au fil du stream. */
+export async function askOnline(query: string, onToken?: (delta: string) => void): Promise<string> {
   const { system, user } = buildLlmPrompt(query);
-  return chat(system, user, 800);
+  return chat(system, user, 800, onToken);
 }
 
 /** Glose ultra-brève pour le quick-search (bulle sur sélection). */
