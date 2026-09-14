@@ -1,5 +1,5 @@
 import { OpenRouter } from '@openrouter/sdk';
-import { buildLlmPrompt, buildBriefPrompt } from './dictionary';
+import { DOCTOPUS_SYSTEM, buildBriefPrompt } from './dictionary';
 
 // ============================================================================
 // Doctopus — cerveau IA EN LIGNE, ultra-rapide, léger, gratuit (clé requise).
@@ -12,6 +12,12 @@ import { buildLlmPrompt, buildBriefPrompt } from './dictionary';
 // d'un modèle (ex. Together, etc.) — sauf OpenRouter, qui passe par son SDK
 // officiel (@openrouter/sdk) en streaming plutôt que par le fetch générique,
 // pour l'affichage token-par-token et l'accès aux jetons de raisonnement.
+//
+// CONVERSATION MULTI-TOUR : Doctopus garde l'historique des tours. Avec un
+// modèle de raisonnement (Nemotron 3 Ultra), le tour assistant conserve ses
+// `reasoningDetails` et les RENVOIE TELS QUELS au tour suivant — c'est ainsi
+// que le modèle reprend son raisonnement là où il l'avait laissé au lieu de
+// repartir de zéro (contrat OpenRouter : « pass back unmodified »).
 // ============================================================================
 
 export interface AiProvider {
@@ -40,6 +46,15 @@ export function getProvider(): AiProvider {
 export function setProvider(id: string) { localStorage.setItem(PROVIDER_LS, id); }
 export function hasKey(): boolean { return getKey().length > 8; }
 
+/** Un tour de conversation. `reasoningDetails` n'existe que sur les tours
+ *  assistant produits par un modèle de raisonnement via OpenRouter ; il est
+ *  opaque pour nous et doit être renvoyé sans modification. */
+export interface ChatTurn {
+  role: 'user' | 'assistant';
+  content: string;
+  reasoningDetails?: unknown[];
+}
+
 /** Jetons de raisonnement de la dernière réponse OpenRouter (undefined si le modèle n'en émet pas). */
 let lastReasoningTokens: number | undefined;
 export function getLastReasoningTokens(): number | undefined { return lastReasoningTokens; }
@@ -48,21 +63,31 @@ export function getLastReasoningTokens(): number | undefined { return lastReason
 // pas son type interne `ChatStreamChunk` depuis la racine du paquet, donc on
 // type ici exactement ce qu'on consomme plutôt que d'importer un chemin privé.
 interface ChatStreamChunk {
-  choices?: Array<{ delta?: { content?: string } }>;
+  choices?: Array<{ delta?: { content?: string | null; reasoningDetails?: unknown[] } }>;
   usage?: { completionTokensDetails?: { reasoningTokens?: number } };
 }
 
 // Appel via le SDK officiel OpenRouter, en streaming — permet d'afficher la
-// réponse au fil de l'eau (onToken) et expose les jetons de raisonnement.
-async function chatOpenRouter(system: string, user: string, maxTokens: number, key: string, model: string, onToken?: (delta: string) => void): Promise<string> {
+// réponse au fil de l'eau (onToken), expose les jetons de raisonnement et
+// collecte les reasoningDetails pour la continuation multi-tour.
+async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: number, key: string, model: string, onToken?: (delta: string) => void): Promise<ChatTurn> {
   const openrouter = new OpenRouter({ apiKey: key });
-  let response = '';
+  const messages = [
+    { role: 'system' as const, content: system },
+    ...turns.map((t) => (t.role === 'assistant'
+      ? { role: 'assistant' as const, content: t.content, reasoningDetails: t.reasoningDetails }
+      : { role: 'user' as const, content: t.content })),
+  ];
+  let content = '';
+  const reasoningDetails: unknown[] = [];
   lastReasoningTokens = undefined;
   try {
     const result = await openrouter.chat.send({
       chatRequest: {
         model,
-        messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
+        // Type dérivé de la signature du SDK plutôt qu'importé d'un chemin
+        // interne : `reasoningDetails` est opaque de notre côté.
+        messages: messages as Parameters<typeof openrouter.chat.send>[0]['chatRequest']['messages'],
         temperature: 0.3,
         maxTokens,
         stream: true,
@@ -74,24 +99,29 @@ async function chatOpenRouter(system: string, user: string, maxTokens: number, k
     });
     const stream = result as AsyncIterable<ChatStreamChunk>;
     for await (const chunk of stream) {
-      const delta = chunk.choices?.[0]?.delta?.content;
-      if (delta) { response += delta; onToken?.(delta); }
+      const delta = chunk.choices?.[0]?.delta;
+      if (delta?.content) { content += delta.content; onToken?.(delta.content); }
+      // En streaming, les reasoning_details arrivent en fragments : on les
+      // concatène dans l'ordre et on renverra la liste complète, intacte.
+      if (delta?.reasoningDetails?.length) reasoningDetails.push(...delta.reasoningDetails);
       if (chunk.usage) lastReasoningTokens = chunk.usage.completionTokensDetails?.reasoningTokens;
     }
   } catch (e) {
     throw new Error(`Erreur OpenRouter : ${(e as Error).message}`);
   }
-  return response || '(réponse vide)';
+  return { role: 'assistant', content: content || '(réponse vide)', reasoningDetails: reasoningDetails.length ? reasoningDetails : undefined };
 }
 
-// Appel générique aux autres fournisseurs OpenAI-compatibles (Groq…).
-async function chatGeneric(system: string, user: string, maxTokens: number, key: string, provider: AiProvider): Promise<string> {
+// Appel générique aux autres fournisseurs OpenAI-compatibles (Groq…). Pas de
+// streaming ni de raisonnement : les reasoningDetails éventuels ne sont pas
+// transmis (ces fournisseurs ne les connaissent pas).
+async function chatGeneric(system: string, turns: ChatTurn[], maxTokens: number, key: string, provider: AiProvider): Promise<ChatTurn> {
   const res = await fetch(provider.endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
     body: JSON.stringify({
       model: provider.model,
-      messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
+      messages: [{ role: 'system', content: system }, ...turns.map((t) => ({ role: t.role, content: t.content }))],
       temperature: 0.3,
       max_tokens: maxTokens,
     }),
@@ -101,26 +131,34 @@ async function chatGeneric(system: string, user: string, maxTokens: number, key:
     throw new Error(`Erreur ${res.status} : ${t.slice(0, 140) || res.statusText}`);
   }
   const data = await res.json();
-  return data?.choices?.[0]?.message?.content ?? '(réponse vide)';
+  return { role: 'assistant', content: data?.choices?.[0]?.message?.content ?? '(réponse vide)' };
 }
 
-async function chat(system: string, user: string, maxTokens: number, onToken?: (delta: string) => void): Promise<string> {
+async function chat(system: string, turns: ChatTurn[], maxTokens: number, onToken?: (delta: string) => void): Promise<ChatTurn> {
   const key = getKey();
   const provider = getProvider();
   if (!key) throw new Error('Aucune clé configurée.');
   return provider.id === 'openrouter'
-    ? chatOpenRouter(system, user, maxTokens, key, provider.model, onToken)
-    : chatGeneric(system, user, maxTokens, key, provider);
+    ? chatOpenRouter(system, turns, maxTokens, key, provider.model, onToken)
+    : chatGeneric(system, turns, maxTokens, key, provider);
 }
 
-/** Réponse complète de Doctopus (allemand puis français). onToken (optionnel, OpenRouter uniquement) reçoit chaque fragment au fil du stream. */
+/** Tour suivant d'une conversation Doctopus : envoie tout l'historique (le
+ *  dernier tour doit être un tour utilisateur) et renvoie le tour assistant,
+ *  à AJOUTER à l'historique tel quel — ses reasoningDetails servent au tour
+ *  d'après. onToken (OpenRouter uniquement) reçoit chaque fragment du stream. */
+export async function askConversation(turns: ChatTurn[], onToken?: (delta: string) => void): Promise<ChatTurn> {
+  return chat(DOCTOPUS_SYSTEM, turns, 800, onToken);
+}
+
+/** Réponse à une question isolée (un seul tour). Conservé pour les appels
+ *  sans historique. */
 export async function askOnline(query: string, onToken?: (delta: string) => void): Promise<string> {
-  const { system, user } = buildLlmPrompt(query);
-  return chat(system, user, 800, onToken);
+  return (await askConversation([{ role: 'user', content: query }], onToken)).content;
 }
 
 /** Glose ultra-brève pour le quick-search (bulle sur sélection). */
 export async function askBrief(term: string): Promise<string> {
   const { system, user } = buildBriefPrompt(term);
-  return (await chat(system, user, 60)).trim();
+  return (await chat(system, [{ role: 'user', content: user }], 60)).content.trim();
 }

@@ -3,7 +3,7 @@ import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { localLookup, deepLinks } from '@/lib/dictionary';
-import { askOnline, getKey, setKey, getProvider, setProvider, hasKey, PROVIDERS } from '@/lib/onlineAi';
+import { askConversation, getKey, setKey, getProvider, setProvider, hasKey, PROVIDERS, type ChatTurn } from '@/lib/onlineAi';
 
 // ============================================================================
 // Doctopus — assistant IA flottant. Bouton minimal glassmorphique (mark seul)
@@ -36,7 +36,10 @@ export function Doctopus() {
   const openDoctopus = useUi((s) => s.openDoctopus);
   const closeDoctopus = useUi((s) => s.closeDoctopus);
   const [q, setQ] = useState('');
-  const [answer, setAnswer] = useState('');
+  // Conversation multi-tour : l'historique complet est renvoyé à chaque tour,
+  // reasoningDetails compris, pour que le modèle poursuive son raisonnement.
+  const [turns, setTurns] = useState<ChatTurn[]>([]);
+  const [streaming, setStreaming] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showSettings, setShowSettings] = useState(!hasKey());
@@ -51,18 +54,20 @@ export function Doctopus() {
   const isWord = q.trim().split(/\s+/).length <= 2 && !/[?.!]/.test(q);
 
   const ask = async () => {
-    if (!q.trim()) return;
-    setLoading(true); setError(''); setAnswer('');
+    const question = q.trim();
+    if (!question) return;
+    const history: ChatTurn[] = [...turns, { role: 'user', content: question }];
+    setTurns(history); setQ(''); setStreaming(''); setLoading(true); setError('');
     try {
       // onToken (OpenRouter uniquement) affiche la réponse au fil du stream ;
-      // les autres fournisseurs l'ignorent et renvoient tout d'un coup via la
-      // valeur de retour, posée ici en repli pour rester cohérente dans tous les cas.
-      const full = await askOnline(q, (delta) => setAnswer((prev) => prev + delta));
-      setAnswer(full);
+      // les autres fournisseurs l'ignorent et renvoient le tour complet d'un coup.
+      const reply = await askConversation(history, (delta) => setStreaming((prev) => prev + delta));
+      setTurns([...history, reply]);
     }
     catch (e) { setError((e as Error).message); }
-    finally { setLoading(false); }
+    finally { setLoading(false); setStreaming(''); }
   };
+  const reset = () => { setTurns([]); setStreaming(''); setError(''); };
 
   return (
     <>
@@ -106,23 +111,37 @@ export function Doctopus() {
                 onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) ask(); }}
                 placeholder="Une question, ou un terme à traduire… (⌘/Ctrl+↵)"
                 className="w-full resize-none rounded-xl border border-slate-300/80 bg-white/70 px-3 py-2 text-sm outline-none transition-colors focus:border-brand-400 dark:border-white/10 dark:bg-white/5" />
-              <button onClick={ask} disabled={!q.trim() || loading || !hasKey()} className="btn-primary mt-2 w-full justify-center gap-1.5 text-sm disabled:opacity-40">
-                {loading ? 'Doctopus réfléchit…' : <><Icon name="spark" className="h-4 w-4" />Demander</>}
-              </button>
+              <div className="mt-2 flex gap-2">
+                <button onClick={ask} disabled={!q.trim() || loading || !hasKey()} className="btn-primary flex-1 justify-center gap-1.5 text-sm disabled:opacity-40">
+                  {loading ? 'Doctopus réfléchit…' : <><Icon name="spark" className="h-4 w-4" />{turns.length ? 'Poursuivre' : 'Demander'}</>}
+                </button>
+                {turns.length > 0 && (
+                  <button onClick={reset} disabled={loading} title="Nouvelle conversation" aria-label="Nouvelle conversation"
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-slate-300/80 text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 disabled:opacity-40 dark:border-white/10 dark:hover:text-brand-300">↺</button>
+                )}
+              </div>
               {!hasKey() && <p className="mt-1.5 text-[11px] text-amber-600 dark:text-amber-400">Ajoute ta clé (gratuite) dans <Icon name="gear" className="inline-block h-3 w-3 align-[-1px]" /> pour activer l'IA en ligne.</p>}
             </div>
 
             {/* Réponses / suggestions */}
             <div className="flex-1 space-y-4 overflow-y-auto p-4">
-              {answer && (
+              {turns.map((t, i) => t.role === 'user' ? (
+                <div key={i} className="ml-6 rounded-2xl bg-brand-50/80 px-3 py-2 text-[13px] leading-relaxed dark:bg-brand-900/30">{t.content}</div>
+              ) : (
+                <div key={i} className="rounded-2xl border border-slate-200/70 bg-white/60 p-3 dark:border-white/10 dark:bg-white/5">
+                  <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-brand-600 dark:text-brand-300"><Icon name="doctopus" className="h-4 w-4" /> Doctopus</div>
+                  <div className="whitespace-pre-wrap text-[13px] leading-relaxed">{t.content}</div>
+                </div>
+              ))}
+              {loading && (
                 <div className="rounded-2xl border border-slate-200/70 bg-white/60 p-3 dark:border-white/10 dark:bg-white/5">
                   <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-brand-600 dark:text-brand-300"><Icon name="doctopus" className="h-4 w-4" /> Doctopus</div>
-                  <div className="whitespace-pre-wrap text-[13px] leading-relaxed">{answer}</div>
+                  <div className="whitespace-pre-wrap text-[13px] leading-relaxed">{streaming || <span className="text-slate-400">…</span>}</div>
                 </div>
               )}
               {error && <p className="rounded-xl bg-rose-50 px-3 py-2 text-xs text-rose-600 dark:bg-rose-900/20 dark:text-rose-300">{error}</p>}
 
-              {!q.trim() && !answer && (
+              {!q.trim() && turns.length === 0 && (
                 <div className="space-y-1.5">
                   <div className="label">Exemples — clique pour essayer</div>
                   {EXAMPLES.map((ex) => (
