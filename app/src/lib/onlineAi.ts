@@ -25,7 +25,7 @@ export interface AiProvider {
 export const PROVIDERS: AiProvider[] = [
   { id: 'groq', label: 'Groq (rapide, gratuit)', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
   { id: 'groq-70b', label: 'Groq 70B (meilleure qualité)', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.3-70b-versatile', keyUrl: 'https://console.groq.com/keys' },
-  { id: 'openrouter', label: 'OpenRouter (free models)', endpoint: 'https://openrouter.ai/api/v1/chat/completions', model: 'meta-llama/llama-3.1-8b-instruct:free', keyUrl: 'https://openrouter.ai/keys' },
+  { id: 'openrouter', label: 'OpenRouter — Nemotron 3 Ultra (gratuit, raisonnement)', endpoint: 'https://openrouter.ai/api/v1/chat/completions', model: 'nvidia/nemotron-3-ultra-550b-a55b:free', keyUrl: 'https://openrouter.ai/keys' },
 ];
 
 const KEY_LS = 'doctopus-key';
@@ -66,6 +66,10 @@ async function chatOpenRouter(system: string, user: string, maxTokens: number, k
         temperature: 0.3,
         maxTokens,
         stream: true,
+        // Active le raisonnement — Nemotron 3 Ultra en a besoin explicitement
+        // pour émettre des jetons de raisonnement (le champ typé du SDK est
+        // « effort », équivalent à reasoning.enabled côté API REST).
+        reasoningEffort: 'medium',
       },
     });
     const stream = result as AsyncIterable<ChatStreamChunk>;
