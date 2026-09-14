@@ -67,6 +67,35 @@ interface ChatStreamChunk {
   usage?: { completionTokensDetails?: { reasoningTokens?: number } };
 }
 
+// Modèles gratuits de repli : les modèles ":free" d'OpenRouter tournent sur
+// une capacité partagée et échouent transitoirement (« Provider returned
+// error », 502/503). Plutôt que de changer de modèle par défaut à chaque
+// panne, on donne à OpenRouter une LISTE : il essaie le premier, et bascule
+// lui-même sur le suivant si le fournisseur amont échoue — c'est son routage
+// natif (`models`), pas une boucle de retry codée ici.
+const OPENROUTER_FALLBACKS = [
+  'liquid/lfm-2.5-2.6b:free',
+  'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free',
+  'meta-llama/llama-3.1-8b-instruct:free',
+];
+
+// Extrait le message d'erreur le plus informatif possible d'une erreur du SDK
+// OpenRouter : ses classes exposent `.body` (JSON brut du fournisseur, avec
+// souvent la vraie cause derrière un libellé générique comme « Provider
+// returned error ») en plus de `.message`. On tente `.body`, sinon `.message`.
+function describeOpenRouterError(e: unknown): string {
+  const err = e as { message?: string; body?: string; statusCode?: number };
+  let detail = err?.message || String(e);
+  if (err?.body) {
+    try {
+      const parsed = JSON.parse(err.body);
+      const inner = parsed?.error?.message || parsed?.error?.metadata?.raw || parsed?.error;
+      if (inner) detail = typeof inner === 'string' ? inner : JSON.stringify(inner);
+    } catch { /* body non-JSON : on garde .message */ }
+  }
+  return err?.statusCode ? `${detail} (HTTP ${err.statusCode})` : detail;
+}
+
 // Appel via le SDK officiel OpenRouter, en streaming — permet d'afficher la
 // réponse au fil de l'eau (onToken), expose les jetons de raisonnement et
 // collecte les reasoningDetails pour la continuation multi-tour.
@@ -85,6 +114,9 @@ async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: numb
     const result = await openrouter.chat.send({
       chatRequest: {
         model,
+        // Liste de repli : le modèle choisi d'abord, puis les autres gratuits
+        // vérifiés, sans doublon. OpenRouter bascule seul en cas de panne amont.
+        models: [model, ...OPENROUTER_FALLBACKS.filter((m) => m !== model)],
         // Type dérivé de la signature du SDK plutôt qu'importé d'un chemin
         // interne : `reasoningDetails` est opaque de notre côté.
         messages: messages as Parameters<typeof openrouter.chat.send>[0]['chatRequest']['messages'],
@@ -107,7 +139,7 @@ async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: numb
       if (chunk.usage) lastReasoningTokens = chunk.usage.completionTokensDetails?.reasoningTokens;
     }
   } catch (e) {
-    throw new Error(`Erreur OpenRouter : ${(e as Error).message}`);
+    throw new Error(`Erreur OpenRouter : ${describeOpenRouterError(e)}`);
   }
   return { role: 'assistant', content: content || '(réponse vide)', reasoningDetails: reasoningDetails.length ? reasoningDetails : undefined };
 }
