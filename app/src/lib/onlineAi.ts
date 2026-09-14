@@ -31,7 +31,7 @@ export interface AiProvider {
 export const PROVIDERS: AiProvider[] = [
   { id: 'groq', label: 'Groq (rapide, gratuit)', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
   { id: 'groq-70b', label: 'Groq 70B (meilleure qualité)', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.3-70b-versatile', keyUrl: 'https://console.groq.com/keys' },
-  { id: 'openrouter', label: 'OpenRouter — Gemma 4 26B (gratuit)', endpoint: 'https://openrouter.ai/api/v1/chat/completions', model: 'google/gemma-4-26b-a4b-it:free', keyUrl: 'https://openrouter.ai/keys' },
+  { id: 'openrouter', label: 'OpenRouter — LFM 2.5 (gratuit, ultra-léger)', endpoint: 'https://openrouter.ai/api/v1/chat/completions', model: 'liquid/lfm-2.5-2.6b:free', keyUrl: 'https://openrouter.ai/keys' },
 ];
 
 const KEY_LS = 'doctopus-key';
