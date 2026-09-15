@@ -2687,3 +2687,17 @@ git commit -m "docs(contracts): schema.sql généré, openapi, entitlements, pro
 | `docs/contracts/` à jour | `schema.sql` (généré, 10 tables), `openapi.yaml` (8 routes), `entitlements.md`, `sync-protocol.md` |
 
 Défauts trouvés PAR le parcours et corrigés : publication Realtime absente (aucune table publiée) ; JWT non poussé sur le socket avant abonnement ; resync au changement de plan avec delta vide (→ `sync({ full: true })`).
+
+## Suivi post-revue finale (non bloquant, à traiter avant la bêta fermée)
+
+| # | Point | Où |
+|---|---|---|
+| S1 | Garde d'ordre sur les webhooks : ignorer un `subscription.updated` plus ancien (`event.created`) que l'état en base | `stripe-webhook/index.ts` |
+| S2 | Grâce `past_due` calculée sur `updated_at`, que chaque webhook réinitialise → prolongation à chaque relance Stripe ; utiliser une colonne `past_due_since` | `effective_plan`, migration |
+| S3 | `returnUrl` de checkout/portal à valider contre une liste d'origines | `checkout`, `portal` |
+| S4 | Deux sources pour le grant mensuel (`plans.monthly_credits` et `entitlements.credits.monthly`) : n'en garder qu'une | seed, webhook |
+| S5 | `charge.refunded` débite le montant du plan courant, pas celui de la charge remboursée | `stripe-webhook` |
+| S6 | Stripe Tax : renseigner le siège dans le dashboard puis `STRIPE_AUTOMATIC_TAX=1` | config prod |
+| S7 | Tests « migrations up/down » et « OpenAPI ↔ réponses réelles » (spec §10) non écrits | `supabase/tests` |
+| S8 | `content_since()` SQL mort (la fonction lit la table) ; `cors()` helper inutilisé ; types `Profile`/`profileId` morts | nettoyage |
+| S9 | Refresh de la vue matérialisée par écriture de ledger : O(users), à revoir avant charge | `credits.sql` |
