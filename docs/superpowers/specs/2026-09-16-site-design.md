@@ -1,6 +1,6 @@
 # Doctopus — Site marketing + légal minimal · spec de design
 
-**Date** : 2026-09-16 · **Statut** : brouillon sous réserve de G1, en attente de G2
+**Date** : 2026-09-16 · **Statut** : validé G2 (direction, 2026-09-16)
 **Sous-projet** : #8 (epic #9) · **Pôle pilote** : Croissance · **Auteur** : spec-site
 **Intention (G1)** : `docs/superpowers/specs/2026-09-16-site-intent.md`
 
@@ -20,7 +20,7 @@ TTI < 3 s en 4G simulée, validateurs lexical et structurel verts en CI.
 
 **Hors périmètre** : migration `app/` → `apps/app` (tâche finale distincte,
 accord `main`) ; marketing autonome (#10) ; page institutions ; formulaire de
-contact avec backend ; multi-Land hors Bade-Wurtemberg (#12) ; analytics ;
+contact avec backend ; multi-Land hors Bade-Wurtemberg (#12) ; langues autres que DE ;
 rédaction du blog au-delà d'un article de démonstration ; toute modification
 de `app/src/`.
 
@@ -45,10 +45,10 @@ Brainstorming — trois approches comparées :
 | D7 | **Pricing dérivé des contrats** : `apps/site/src/data/pricing.json` porte les lignes de la matrice ; `check-pricing-parity.mjs` vérifie que chaque feature affichée existe dans `docs/contracts/entitlements.md` avec le même plan minimal. Montants en placeholders `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}`, `{{BILLING_PERIOD}}`. | Texte libre (dérive avec la matrice) ; lecture de `seed.sql` (couplage au serveur) |
 | D8 | **« Ce qui tombe vraiment » = JSON généré** par `scripts/build-frequencies.mjs` depuis `ANALYSE.md` §3.1–3.4 (racine du dépôt), validé par schéma ; la page ne contient aucun chiffre en dur. | Saisir les chiffres à la main ; interroger Supabase (le site n'a pas de backend) |
 | D9 | **Validateur lexical anti-promesse** `check-no-promise.mjs` sur le HTML construit (DE/FR/EN) ; échec = build rouge. Lexique = `docs/brand/voice.md` §6 « Interdits — liste opposable » **en entier** (C5), chargé par le script depuis ce fichier ; s'y ajoutent « Kündigung mit einem Klick » et « ein Klick » (C2). | Relecture humaine seule |
-| D10 | **CTA constant** : bouton « Mit {freeCases} kostenlosen Fällen starten · Ohne Kreditkarte » (C6, `freeCases` = 12 lu du contrat) dans l'en-tête sticky (desktop) et une barre basse sticky (mobile ≤ 768 px), cible `{{APP_URL}}/signup` ou `mailto:{{SUPPORT_EMAIL}}?subject=Warteliste` selon `SITE_LAUNCH_MODE` (`checkout` \| `waitlist`). | CTA seulement dans le hero ; pop-up |
-| D11 | **Aucun cookie, aucune analytics, fonts auto-hébergées** (`@fontsource` identiques à l'app), pas de bandeau de consentement. | Google Fonts (transfert hors UE), GA |
+| D10 | **CTA constant** : bouton « Mit {freeCases} kostenlosen Fällen starten · Ohne Kreditkarte » (C6, `freeCases` = 12 lu du contrat) dans l'en-tête sticky (desktop) et une barre basse sticky (mobile ≤ 768 px), cible `{{APP_URL}}/signup` ; le pricing renvoie vers `{{APP_URL}}/pricing` (Stripe Checkout, fondations #1). Verrou ROADMAP §1.1 levé par la direction : pas de liste d'attente. | CTA seulement dans le hero ; pop-up ; liste d'attente (écartée par la direction) |
+| D11 | **Aucun cookie, analytics Plausible/Umami hébergée en UE sans cookie** (endpoint `{{ANALYTICS_ENDPOINT}}`, script ≤ 1 Ko, mentionnée dans Datenschutz), fonts auto-hébergées (`@fontsource` identiques à l'app), pas de bandeau de consentement. | Google Fonts (transfert hors UE), GA |
 | D12 | **Statut v1 statique** : `src/data/status.json` (composants + incidents datés, édité à la main) ; pas de sonde. | Fournisseur externe (question Q-direction) ; cron GitHub Actions |
-| D13 | **i18n prête, allemand seul en v1** : routes sous `/de/`, redirection `/` → `/de/`, `hreflang` uniquement `de`. Chaînes UI dans `src/i18n/de.json`. | Sans structure (coût de rattrapage) ; trois langues v1 (contenu triplé) |
+| D13 | **Allemand seul en v1, i18n prête** (décision direction Q1 ; aucune autre langue en V1) : routes sous `/de/`, redirection `/` → `/de/`, `hreflang` uniquement `de`. Chaînes UI dans `src/i18n/de.json`. | Sans structure (coût de rattrapage) ; trois langues v1 (contenu triplé) |
 | D14 | **Hébergement Vercel** pour le site (skills `vercel-*`, previews par PR) ; l'app reste sur son hébergement actuel. | GitHub Pages (pas de headers `noindex`, pas de previews) |
 
 ## 3. Architecture
@@ -203,9 +203,13 @@ fichiers, ce front-matter. Sans eux, `check-legal.mjs` échoue.
 
 ### 4.6 `src/data/site.json` (réglages)
 
-`{"domain":"{{SITE_DOMAIN}}","appUrl":"{{APP_URL}}","supportEmail":"{{SUPPORT_EMAIL}}","launchMode":"waitlist","public":false}`
-— `launchMode` et `public` sont surchargeables par variables d'environnement
-`SITE_LAUNCH_MODE`, `SITE_PUBLIC` au build.
+`{"domain":"{{SITE_DOMAIN}}","appUrl":"{{APP_URL}}","supportEmail":"{{SUPPORT_EMAIL}}","brandName":"Doctopus","productName":"FSP Trainer","tagline":"Die Generalprobe.","analyticsEndpoint":"{{ANALYTICS_ENDPOINT}}","public":false}`
+— `public` est surchargeable par la variable d'environnement `SITE_PUBLIC` au
+build. Domaine décidé : `doctopus.co` (le placeholder `{{SITE_DOMAIN}}`
+reste la valeur de build jusqu'à la mise en ligne) ; canonical sur
+`https://doctopus.co`, redirections `www.` → apex et `/` → `/de/`. Marque
+**Doctopus**, produit **FSP Trainer** : le site présente Doctopus qui édite
+FSP Trainer.
 
 ## 5. Composants et pages
 
@@ -259,8 +263,6 @@ de page (`transition:animate` sur le hero), désactivées sous
   `backdrop-filter` animé ; vérifié par `check-cta` (émulation du media).
 - JS désactivé : toutes les pages lisibles, CTA fonctionnels, filtre de
   centre replié en `<details>`.
-- `SITE_LAUNCH_MODE=waitlist` : le CTA pricing devient « Auf die Warteliste »
-  et aucun lien ne pointe vers `/signup`.
 - Blog vide : la route `/de/blog/` affiche un état vide honnête, pas une 404.
 
 ## 8. Sécurité et conformité
@@ -269,7 +271,7 @@ de page (`transition:animate` sur le hero), désactivées sous
   Vercel : `Content-Security-Policy` sans `unsafe-inline` hors `style` des
   îlots hachés, `X-Content-Type-Options`, `Referrer-Policy: strict-origin-when-cross-origin`,
   `Permissions-Policy` minimal.
-- Aucun transfert hors UE (fonts locales, pas de CDN tiers, pas d'analytics).
+- Aucun transfert hors UE (fonts locales, pas de CDN tiers, analytics UE sans cookie).
 - Pages légales : brouillons de `compliance-site`, jamais présentées comme
   validées sans `validated_by`.
 - Le site ne cite aucun nom de patient ni contenu de cas (ROADMAP §1.1) ; les
@@ -303,7 +305,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 | AC7 | `/de/was-drankommt/` ne contient aucun chiffre en dur : tous proviennent de `frequencies.json`, régénéré depuis `ANALYSE.md` ; `totalProtocols: 580` et `nByCenterSum: 593` cités tels quels ; chaque valeur affichée existe dans `ANALYSE.md` ; note de méthode `[data-methodology]` présente ; aucun champ `partial`. | test Vitest sur le script + grep négatif en CI (`grep -c "Depression" src/pages` = 0) |
 | AC8 | `/de/preise/` affiche Free/Pro/Premium avec `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}` (mode preview) ; `check-pricing-parity.mjs` sort 0 ; une feature ajoutée hors matrice fait sortir 1. | test + CI |
 | AC9 | Liquid glass : `backdrop-filter` n'apparaît que dans les styles de `Hero` et des transitions (grep CSS de `dist/`) ; sous `prefers-reduced-motion: reduce`, `document.getAnimations()` est vide sur `/de/`. | `check-cta.mjs` (émulation) + grep |
-| AC10 | Aucun cookie posé, aucune requête vers un domaine tiers pendant la navigation des 15 routes. | Playwright : `context.cookies()` vide, `request` listener |
+| AC10 | Aucun cookie posé ; la seule requête vers un domaine tiers pendant la navigation des 15 routes est l'endpoint analytics configuré (`{{ANALYTICS_ENDPOINT}}`). | Playwright : `context.cookies()` vide, `request` listener filtré sur l'hôte analytics |
 | AC11 | `check-parity.mjs` sort 0 ; la modification d'une couleur dans `tokens.json` sans mise à jour de l'app fait sortir 1. | test |
 | AC12 | `SITE_PUBLIC=false` → chaque page porte `<meta name="robots" content="noindex">` et l'en-tête `X-Robots-Tag: noindex` (config Vercel). | Playwright sur preview |
 | AC13 | `app/src/` est **inchangé** sur la branche (diff vide). | `git diff --stat main -- app/src` |
@@ -321,7 +323,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 - **`CONTEXT.md`** (section « Site » à créer, proposition) : *Ce qui tombe
   vraiment* (page de fréquences par centre), *Centre* (Freiburg, Karlsruhe,
   Reutlingen, Stuttgart — lieu de passage, pas Land), *Mode de lancement*
-  (`checkout` / `waitlist`), *Avertissement outil de langue*, *Bannière
+  (supprimé — checkout réel décidé), *Avertissement outil de langue*, *Bannière
   brouillon légal*.
 - **Migration `app/` → `apps/app`** : préparée par D2/D3, exécutée comme
   tâche finale distincte après accord `main`.
@@ -341,13 +343,12 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 | « Datenschutz sans analytics est simple, mais l'app, elle, collecte. » | Le Datenschutz couvre site **et** app ; c'est le périmètre de compliance-site ; le spec exige seulement que la page existe et soit signalée brouillon. **Fermé** (renvoi). |
 | « Playwright “visible à chaque scroll-stop” est non déterministe. » | Scroll par pas de 80 % de la hauteur du viewport, attente `networkidle`, vérification par `boundingClientRect` intersecté au viewport. Déterministe sur contenu statique. **Fermé.** |
 | « Le blog vide tue le SEO. » | 1 article de démonstration exigé ; le reste appartient à #10. **Reporté** explicitement. |
-| « L'app affiche “FSP-Cockpit”, le site dit “Doctopus”. » | Question Q4 à la direction ; le site est prêt pour les deux (`site.json.brandName`). |
+| « L'app affiche “FSP-Cockpit”, le site dit “Doctopus”. » | Tranché par la direction : Doctopus = marque, FSP Trainer = produit (`site.json.brandName` / `productName`). |
 
 ## 13. Reporté (explicite)
 
 - Résiliation réellement « en un clic » = proposition de contrat aux fondations (bouton « Kündigen » dans l'app → `cancel_at_period_end`), pas un texte de site (C2) ;
-- Îlot WebGL liquid glass (~180 Ko) — promotion ultérieure, conditionnée à la réponse de la direction et à une mesure AC2 verte avec l'îlot ; fournisseur de statut externe ; analytics
-  privacy-first (Q6) ; FR/EN ; page institutions ; formulaire de contact ;
+- Îlot WebGL liquid glass (~180 Ko) — promotion ultérieure, conditionnée à la réponse de la direction et à une mesure AC2 verte avec l'îlot ; fournisseur de statut externe ; FR/EN (aucune autre langue en V1) ; page institutions ; formulaire de contact ;
   intégration du check de parité des tokens dans `quality.yml` (à la
   migration) ; multi-Land dans « Ce qui tombe vraiment » (#12) ; rédaction
   du blog (#10).
@@ -356,7 +357,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 
 - Placeholders : tous nommés et bloqués en mode public (`{{SITE_DOMAIN}}`,
   `{{APP_URL}}`, `{{SUPPORT_EMAIL}}`, `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}`,
-  `{{BILLING_PERIOD}}`, `{{PROTOCOLS_PERIOD}}`, `{{LEGAL_*}}`).
+  `{{BILLING_PERIOD}}`, `{{PROTOCOLS_PERIOD}}`, `{{ANALYTICS_ENDPOINT}}`, `{{LEGAL_*}}`).
 - Contradictions : le brief lead-site parle de « 4G simulée » et Lighthouse
   applique par défaut un « slow 4G » — le spec fixe les valeurs (§9) pour lever
   l'ambiguïté. Le brief mentionne « pricing réel » comme dépendance de #1 :
@@ -368,7 +369,18 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 - Ambiguïtés restantes : Q1–Q7 de l'intention ; la période des protocoles
   (`{{PROTOCOLS_PERIOD}}`) est inconnue de tous les documents lus.
 
-## 15. Divergences avec les artefacts parallèles (à arbitrer par la direction)
+## 16. Décisions de la direction (G1 + G2 validés le 2026-09-16 sur `93ea334`)
+
+- Q1 : DE seul, i18n prête, aucune autre langue V1 (D13).
+- Q2 : domaine `doctopus.co` ; `{{SITE_DOMAIN}}` reste le placeholder de build ; canonical + redirections (§4.6).
+- Q3 : inchangé — `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}` ; mensuel + 3 mois sans reconduction tacite (C7).
+- Q4 : « Doctopus » = marque, « FSP Trainer » = produit.
+- Q5 : verrou ROADMAP §1.1 levé → checkout réel via l'app (`/pricing` → Stripe Checkout, #1) ; liste d'attente supprimée (D10).
+- Q6 : analytics Plausible/Umami UE sans cookie (D11, AC10).
+- Q7 : `{{LEGAL_*}}` restent des placeholders bloqués en mode public.
+- Tagline « Die Generalprobe. » ; D4 glass CSS ≤ 8 Ko ; job CI `site` autorisé (diff `docs/contracts/site.md` §8) ; D2 sans workspaces.
+
+## 15. Divergences avec les artefacts parallèles (tranchées par la direction, §16)
 
 - **Langue** : `docs/brand/naming-and-domain.md` (brand-site) recommande FR + DE
   dès la v1 (option 3) ; ce spec recommande DE d'abord avec i18n prête (D13,
@@ -380,5 +392,5 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
   `de` + `fr`.
 - **Tokens** : `docs/contracts/tokens.md` (arch-site) fixe les formats de
   sortie ; ce spec s'y aligne (D3). Aucune divergence restante.
-- **Tagline** : la marque recommande « Die Generalprobe. » ; le hero l'adopte
-  sous réserve de G1.
+- **Tagline** : la marque recommande « Die Generalprobe. » ; adoptée (G1).
+- **Langue** : tranchée — DE seul (Q1).
