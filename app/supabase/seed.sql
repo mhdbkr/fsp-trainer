@@ -1,8 +1,8 @@
 -- seed.sql
 insert into public.plans (id, stripe_price_id, monthly_credits) values
   ('free',    null,              0),
-  ('pro',     'price_PRO_TODO',  200),
-  ('premium', 'price_PREM_TODO', 1000)
+  ('pro',     'price_1UG2MyRuBvu9xf7xtkETwNWI',  200),
+  ('premium', 'price_1UG2NERuBvu9xf7xJIDIK0We', 1000)
 on conflict (id) do update set monthly_credits = excluded.monthly_credits;
 
 insert into public.entitlements (plan_id, feature, limit_value) values
