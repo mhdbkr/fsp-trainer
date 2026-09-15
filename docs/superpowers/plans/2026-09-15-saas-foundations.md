@@ -771,9 +771,11 @@ export async function loadEntitlements(): Promise<void> {
     const uid = useSession.getState().user?.id;
     let plan: PlanId = 'free', credits = 0;
     if (uid) {
+      // Wrappers sans argument : agissent uniquement sur auth.uid() (les
+      // fonctions paramétrées sont révoquées côté client — revue Tasks 2-3).
       const [{ data: p }, { data: c }] = await Promise.all([
-        supabase.rpc('effective_plan', { uid }),
-        supabase.rpc('credit_balance', { uid }),
+        supabase.rpc('my_plan'),
+        supabase.rpc('my_credits'),
       ]);
       plan = (p as PlanId) ?? 'free'; credits = (c as number) ?? 0;
     }
