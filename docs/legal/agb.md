@@ -17,13 +17,19 @@ de renonciation au droit de rétractation (voir `widerruf.md`) qui doit être
 cohérente avec cet AGB (case à cocher de renonciation expresse au moment de
 l'achat).
 
+Décisions direction (2026-09-16, via `lead-site`) intégrées ci-dessous :
+checkout réel via Stripe ; durées mensuelle et 3 mois, **sans reconduction
+tacite silencieuse** ; résiliation « jederzeit im Konto, ohne Begründung,
+wirksam zum Periodenende » — **jamais présentée comme « en un clic »**.
+Placeholders d'identité harmonisés sous `{{LEGAL_*}}`.
+
 ---
 
 ## Allgemeine Geschäftsbedingungen (AGB)
 
 ### § 1 Geltungsbereich
 
-Diese AGB gelten für alle Verträge zwischen {{RAISON_SOCIALE}}
+Diese AGB gelten für alle Verträge zwischen {{LEGAL_NAME}}
 ("Doctopus", "wir") und Nutzerinnen und Nutzern ("Sie") über die Nutzung
 der Lernplattform Doctopus (Website und zugehörige Anwendung).
 
@@ -52,30 +58,40 @@ Community (eingereichtes Protokoll, gewonnene Liga) erworben werden können.
 ### § 3 Preise und Zahlung
 
 Die jeweils gültigen Preise werden auf der Preisseite ausgewiesen.
-{{PREISE_PLATZHALTER}}. Die Zahlung erfolgt über unseren Zahlungs-
-dienstleister Stripe. Abonnements verlängern sich automatisch um die
-gebuchte Laufzeit, sofern nicht rechtzeitig gekündigt wird (siehe § 5).
+{{LEGAL_SUBSCRIPTION_PRICES}}. Die Zahlung erfolgt über unseren Zahlungs-
+dienstleister Stripe (Checkout, Customer Portal).
 
 ### § 4 Vertragsschluss
 
-Der Vertrag kommt durch Ihre Bestellung (Klick auf "kostenpflichtig
-bestellen" o. ä.) und unsere Bestätigung (Zugangsfreischaltung bzw.
-Bestätigungs-E-Mail) zustande.
+Der Vertrag kommt durch Ihre Bestellung im Stripe-Checkout und unsere
+Bestätigung (Zugangsfreischaltung bzw. Bestätigungs-E-Mail) zustande.
 
 ### § 5 Laufzeit und Kündigung
 
-{{LAUFZEIT_UND_KUENDIGUNGSFRIST}} — {{"à préciser par la direction :
-mensuel sans engagement / annuel ? Kündigungsfrist à définir."}} Die
-Kündigung kann über das Kundenkonto (Stripe Customer Portal) oder per
-E-Mail erfolgen.
+Sie können zwischen einer monatlichen Laufzeit und einer Laufzeit von drei
+Monaten wählen. Es findet **keine stillschweigende Verlängerung** über die
+gewählte Laufzeit hinaus statt {{"à confirmer par un juriste : si Doctopus
+souhaite malgré tout un renouvellement automatique par période équivalente
+(usage courant pour un abonnement), la clause doit le dire explicitement et
+respecter le droit de résiliation facile (§ 309 Nr. 9 BGB, loi allemande
+sur la résiliation en ligne depuis 2022) — la décision direction du
+2026-09-16 exclut la reconduction tacite silencieuse, pas nécessairement
+tout renouvellement automatique annoncé"}}.
+
+Sie können Ihr Abonnement **jederzeit in Ihrem Kundenkonto, ohne Angabe von
+Gründen** kündigen. Die Kündigung wird **zum Ende der laufenden
+Abrechnungsperiode** wirksam ; bereits bezahlte, noch nicht verbrauchte
+Laufzeit wird nicht anteilig erstattet, sofern in § 6 nichts anderes
+geregelt ist. Die Kündigung erfolgt über das Kundenkonto (Stripe Customer
+Portal) oder per E-Mail an {{LEGAL_EMAIL}}.
 
 ### § 6 Doctopus Credits
 
 Credits sind eine plattforminterne Verrechnungseinheit ohne Bargeldwert
-außerhalb der Plattform, nicht übertragbar auf Dritte, {{VERFALLSREGEL}}
+außerhalb der Plattform, nicht übertragbar auf Dritte, {{LEGAL_CREDITS_EXPIRY_RULE}}
 {{"à préciser: les crédits expirent-ils ? à la fin du mois, de
 l'abonnement, jamais ? — point produit non tranché dans les contrats lus"}}.
-Nicht verbrauchte Credits werden bei Kündigung {{RUECKERSTATTUNGSREGEL}}
+Nicht verbrauchte Credits werden bei Kündigung {{LEGAL_CREDITS_REFUND_RULE}}
 {{"à préciser: remboursés au prorata ou perdus ?"}}.
 
 ### § 7 Digitale Inhalte — besondere Hinweise
@@ -101,14 +117,14 @@ können weiterentwickelt werden.
 ### § 10 Haftung
 
 Es gelten die Hinweise in `disclaimer.md`. Im Übrigen haften wir nach den
-gesetzlichen Bestimmungen, {{HAFTUNGSBESCHRAENKUNG_KLAUSEL}} {{"clause de
+gesetzlichen Bestimmungen, {{LEGAL_LIABILITY_CLAUSE}} {{"clause de
 limitation de responsabilité standard à rédiger/valider par un juriste
 selon le droit applicable (probablement droit allemand pour les
 consommateurs allemands, art. 6 Rom I)"}}.
 
 ### § 11 Anwendbares Recht und Gerichtsstand
 
-{{ANWENDBARES_RECHT}} {{"à trancher par un juriste: le choix du droit
+{{LEGAL_GOVERNING_LAW}} {{"à trancher par un juriste: le choix du droit
 français comme droit du prestataire ne prive pas le consommateur allemand
 de la protection impérative de son droit national (Rom I, art. 6) — la
 clause doit être rédigée en conséquence, pas devinée ici."}}
@@ -130,3 +146,9 @@ der übrigen Bestimmungen unberührt.
    impérative du droit du consommateur, art. 6 Rom I).
 3. Cohérence entre § 6/§ 7 et `widerruf.md` (renonciation expresse au
    droit de rétractation pour le contenu numérique consommé immédiatement).
+4. La clause de non-reconduction tacite au § 5 : vérifier qu'elle respecte
+   à la fois la volonté de la direction (pas de reconduction silencieuse)
+   et le droit allemand de la résiliation en ligne (§ 312k BGB — bouton de
+   résiliation, confirmation, etc., applicable au site/compte, hors
+   périmètre d'écriture de ce brouillon mais à vérifier « branché » par
+   `site-implementer`).
