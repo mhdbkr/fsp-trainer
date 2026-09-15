@@ -25,16 +25,23 @@ ADR-0005, ADR-0011, `app/docs/PRODUCT-VISION.md` §4–5) :
   (ADR-0011 mentionne une démo statique pré-générée sans LLM en temps réel
   pour l'instant ; le chantier #13 patient IA vocal temps réel n'est pas
   livré). Placeholder à compléter dès que le fournisseur est choisi.
-- **Hébergement du site** : présumé Vercel par le brief de handoff — à
-  confirmer par `arch-site` / `lead-site` ; si confirmé, transfert de
-  données hors UE (États-Unis) à documenter avec les garanties (clauses
-  contractuelles types, Data Privacy Framework le cas échéant).
-- **Cookies/analytics** : aucune décision produit lue n'impose un traceur ;
-  recommandation de ce brouillon : **aucun cookie non essentiel au
-  lancement**, pour éviter tout bandeau de consentement et simplifier la
-  conformité. À confirmer par la direction (marketing autonome, ADR §7,
-  pourrait vouloir des pixels publicitaires plus tard — dans ce cas un
-  bandeau de consentement CMP devient nécessaire).
+- **Hébergement du site** : **Vercel, confirmé par la direction le
+  2026-09-16** (root `apps/site`, previews en `noindex`). Transfert de
+  données hors UE (Vercel Inc., États-Unis) à documenter avec les garanties
+  (clauses contractuelles types / Data Privacy Framework) — reste à faire
+  valider par un juriste, mais le choix du fournisseur n'est plus ouvert.
+- **Analytics** : décision direction — Plausible ou Umami, **hébergé UE,
+  sans cookie, sans donnée personnelle**. Fournisseur exact en placeholder
+  `{{ANALYTICS_PROVIDER}}` (le nom définitif entre Plausible et Umami n'est
+  pas encore arrêté). Pas de bandeau de consentement nécessaire tant que
+  l'outil ne dépose aucun cookie et ne traite aucune donnée à caractère
+  personnel — **à faire confirmer par un juriste** sur la base de la
+  configuration réellement déployée (ce brouillon ne peut pas vérifier la
+  configuration technique).
+- **Cookies** : recommandation maintenue — **aucun cookie non essentiel au
+  lancement**. Si le marketing autonome (ADR §7 de `PRODUCT-VISION.md`)
+  introduit des pixels publicitaires plus tard, un bandeau de consentement
+  CMP redevient nécessaire et cette section devra être réécrite.
 
 ---
 
@@ -42,9 +49,9 @@ ADR-0005, ADR-0011, `app/docs/PRODUCT-VISION.md` §4–5) :
 
 ### 1. Verantwortlicher
 
-{{RAISON_SOCIALE}}
-{{ADRESSE_COMPLETE}}
-{{KONTAKT_EMAIL}}
+{{LEGAL_NAME}}
+{{LEGAL_ADDRESS_STREET}}, {{LEGAL_ADDRESS_CITY}}
+{{LEGAL_EMAIL}}
 
 (siehe Impressum für vollständige Angaben)
 
@@ -85,8 +92,8 @@ https://stripe.com/de/privacy. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
 Für bestimmte Funktionen (Korrektur des Arztbriefs durch KI, gesprächsbasierter
 KI-Patient) werden Ihre Eingaben an einen KI-Dienstleister übermittelt.
 
-{{ANBIETER_NAME_UND_SITZ}} — {{"placeholder: fournisseur IA/voix non
-encore choisi au moment de ce brouillon (voir note FR ci-dessus)"}}
+{{LEGAL_AI_PROVIDER_NAME_AND_SEAT}} — {{"placeholder: fournisseur IA/voix
+non encore choisi au moment de ce brouillon (voir note FR ci-dessus)"}}
 
 Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Erfüllung der gebuchten
 Funktion). Bei Übermittlung in Drittländer (z. B. USA) werden geeignete
@@ -99,25 +106,39 @@ le fournisseur choisi"}}.
 (Frankfurt). Die Daten werden innerhalb der Europäischen Union gespeichert
 und verarbeitet.
 
-**Website (Frontend)**: {{HOSTING_ANBIETER}} — {{"si Vercel confirmé :
-Vercel Inc., siège aux États-Unis ; noter le transfert de données hors UE
-et les garanties (clauses contractuelles types / Data Privacy Framework) —
-à faire vérifier et compléter par un juriste dès confirmation du choix
-d'hébergement"}}.
+**Website (Frontend)**: Vercel Inc., mit Sitz in den USA. Die
+Auslieferung der Website (nicht der Nutzerdaten aus der Anwendung, die bei
+Supabase in der EU verbleiben) kann eine Übermittlung technischer Daten
+(z. B. IP-Adresse, Server-Logs) in die USA einschließen. Es gelten
+geeignete Garantien (Standardvertragsklauseln / Data Privacy Framework,
+sofern anwendbar) — {{"formulation exacte et référence au mécanisme de
+transfert retenu à compléter et faire valider par un juriste"}}. Vorschau-
+Umgebungen (Preview-Deployments) sind per `noindex` von der Indexierung
+durch Suchmaschinen ausgeschlossen.
 
-### 8. Cookies und Analyse-Tools
+### 8. Analyse-Tools und Cookies
 
-Wir setzen derzeit **keine nicht notwendigen Cookies** und keine
-Analyse-/Tracking-Tools ein. Sollte sich dies ändern (z. B. durch
-Marketing-Pixel), werden wir vorab eine Einwilligung über ein
+Wir setzen ein datenschutzfreundliches, in der EU gehostetes Analyse-Tool
+ein ({{ANALYTICS_PROVIDER}} — Plausible oder Umami, endgültige Wahl noch
+offen), das **ohne Cookies** arbeitet und **keine personenbezogenen Daten**
+verarbeitet (keine IP-Speicherung, keine Wiedererkennung einzelner
+Nutzer:innen über Sitzungen hinweg). Rechtsgrundlage, sofern personenbezogene
+Daten überhaupt betroffen sind: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+Interesse an anonymer Reichweitenmessung) — {{"à confirmer par un juriste
+sur la base de la configuration technique réellement déployée ; si l'outil
+s'avère traiter des données personnelles, un bandeau de consentement
+devient nécessaire"}}.
+
+Darüber hinaus setzen wir **keine nicht notwendigen Cookies** und keine
+Tracking-Tools ein. Sollte sich dies ändern (z. B. durch Marketing-Pixel,
+`PRODUCT-VISION.md` §7), werden wir vorab eine Einwilligung über ein
 Consent-Management-Tool einholen und diese Erklärung aktualisieren.
-{{"Décision produit à confirmer par la direction — voir note FR."}}
 
 ### 9. Speicherdauer
 
 - Kontodaten: bis zur Löschung des Kontos durch die Nutzerin/den Nutzer.
 - Zahlungsbezogene Daten: gemäß gesetzlicher Aufbewahrungsfristen
-  ({{AUFBEWAHRUNGSFRIST_STEUERRECHT}}, i. d. R. 10 Jahre für
+  ({{LEGAL_TAX_RETENTION_PERIOD}}, i. d. R. 10 Jahre für
   steuerrelevante Unterlagen — je nach anwendbarem Recht FR/DE).
 - Fortschritts- und Profildaten: bis zur Löschung des Kontos oder auf
   Widerspruch, soweit keine gesetzliche Pflicht zur längeren Speicherung
@@ -134,9 +155,9 @@ bei einer Datenschutzaufsichtsbehörde beschweren.
 **Ausübung Ihrer Rechte in der Anwendung**: {{"lien vers export/suppression
 de compte dans les paramètres — à confirmer branché, voir
 docs/legal/README.md, case « export/suppression »"}}. Andernfalls per
-E-Mail an {{KONTAKT_EMAIL}}.
+E-Mail an {{LEGAL_EMAIL}}.
 
 ### 11. Kontakt Datenschutz
 
-{{DATENSCHUTZ_KONTAKT_EMAIL}} {{"si pas de DPO désigné (probable pour une
+{{LEGAL_PRIVACY_EMAIL}} {{"si pas de DPO désigné (probable pour une
 micro-entreprise), indiquer le contact général"}}
