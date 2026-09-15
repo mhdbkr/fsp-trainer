@@ -26,7 +26,10 @@ export async function loadEntitlements(): Promise<void> {
       plan = (p as PlanId) ?? 'free'; credits = (c as number) ?? 0;
     }
     const next = { plan, matrix, credits, loaded: true };
+    const prevPlan = store.getState().plan;
     store.setState(next);
+    // Changement de plan (paiement, résiliation) → le contenu autorisé change : resync.
+    if (next.plan !== prevPlan) { const { contentLoader } = await import('@/lib/content/loader'); void contentLoader.sync(); }
     await setMeta('entitlements', next);
   } catch { /* hors ligne : on garde le cache */ }
 }

@@ -24,9 +24,11 @@ describe('RLS — isolation entre utilisateurs', () => {
     const { data: b } = await serviceClient().from('profiles').select('display_name').eq('id', B.id).single();
     expect(b?.display_name).toBe('Bob');
   });
-  it('A ne voit pas le ledger de B', async () => {
-    const { data } = await A.client.from('credit_ledger').select('*');
-    expect(data).toEqual([]);
+  it('A ne voit pas le ledger de B (aucune ligne d\'un autre user_id)', async () => {
+    const { data } = await A.client.from('credit_ledger').select('user_id');
+    // A peut avoir ses propres lignes (bloc « crédits » ci-dessous) ; aucune ne doit être à B.
+    expect(data!.every((r) => r.user_id === A.id)).toBe(true);
+    expect(data!.some((r) => r.user_id === B.id)).toBe(false);
   });
   it('A ne peut pas écrire dans le ledger', async () => {
     const { error } = await A.client.from('credit_ledger').insert({ user_id: A.id, delta: 999, reason: 'purchase', ref: 'x' });
