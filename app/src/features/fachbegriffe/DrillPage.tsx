@@ -95,7 +95,7 @@ export function DrillPage() {
   const grade = async (g: Grade) => {
     const newSrs = reviewSrs(card.srs, g);
     await db.fachbegriffe.update(card.id, { srs: newSrs });
-    await syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs });
+    syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
     if (g < 3) {
       // remet la carte en fin de file pour la revoir dans la session
