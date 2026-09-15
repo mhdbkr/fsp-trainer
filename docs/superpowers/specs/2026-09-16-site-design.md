@@ -44,8 +44,8 @@ Brainstorming — trois approches comparées :
 | D6 | **Déploiement preview `noindex`** (`X-Robots-Tag` + `<meta name="robots">`) tant que `SITE_PUBLIC=false` ; le passage en public est une décision de `main` après validation de l'Impressum. | Mettre en ligne dès la PR (illégal sans Impressum valide) |
 | D7 | **Pricing dérivé des contrats** : `apps/site/src/data/pricing.json` porte les lignes de la matrice ; `check-pricing-parity.mjs` vérifie que chaque feature affichée existe dans `docs/contracts/entitlements.md` avec le même plan minimal. Montants en placeholders `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}`, `{{BILLING_PERIOD}}`. | Texte libre (dérive avec la matrice) ; lecture de `seed.sql` (couplage au serveur) |
 | D8 | **« Ce qui tombe vraiment » = JSON généré** par `scripts/build-frequencies.mjs` depuis `ANALYSE.md` §3.1–3.4 (racine du dépôt), validé par schéma ; la page ne contient aucun chiffre en dur. | Saisir les chiffres à la main ; interroger Supabase (le site n'a pas de backend) |
-| D9 | **Validateur lexical anti-promesse** `check-no-promise.mjs` sur le HTML construit (DE/FR/EN) ; échec = build rouge. Liste dans `apps/site/scripts/no-promise.lexicon.json`. | Relecture humaine seule |
-| D10 | **CTA constant** : bouton « Kostenlos starten » dans l'en-tête sticky (desktop) et une barre basse sticky (mobile ≤ 768 px), cible `{{APP_URL}}/signup` ou `mailto:{{SUPPORT_EMAIL}}?subject=Warteliste` selon `SITE_LAUNCH_MODE` (`checkout` \| `waitlist`). | CTA seulement dans le hero ; pop-up |
+| D9 | **Validateur lexical anti-promesse** `check-no-promise.mjs` sur le HTML construit (DE/FR/EN) ; échec = build rouge. Lexique = `docs/brand/voice.md` §6 « Interdits — liste opposable » **en entier** (C5), chargé par le script depuis ce fichier ; s'y ajoutent « Kündigung mit einem Klick » et « ein Klick » (C2). | Relecture humaine seule |
+| D10 | **CTA constant** : bouton « Mit {freeCases} kostenlosen Fällen starten · Ohne Kreditkarte » (C6, `freeCases` = 12 lu du contrat) dans l'en-tête sticky (desktop) et une barre basse sticky (mobile ≤ 768 px), cible `{{APP_URL}}/signup` ou `mailto:{{SUPPORT_EMAIL}}?subject=Warteliste` selon `SITE_LAUNCH_MODE` (`checkout` \| `waitlist`). | CTA seulement dans le hero ; pop-up |
 | D11 | **Aucun cookie, aucune analytics, fonts auto-hébergées** (`@fontsource` identiques à l'app), pas de bandeau de consentement. | Google Fonts (transfert hors UE), GA |
 | D12 | **Statut v1 statique** : `src/data/status.json` (composants + incidents datés, édité à la main) ; pas de sonde. | Fournisseur externe (question Q-direction) ; cron GitHub Actions |
 | D13 | **i18n prête, allemand seul en v1** : routes sous `/de/`, redirection `/` → `/de/`, `hreflang` uniquement `de`. Chaînes UI dans `src/i18n/de.json`. | Sans structure (coût de rattrapage) ; trois langues v1 (contenu triplé) |
@@ -143,19 +143,45 @@ Le §3.2 (fréquences 8→4) est parsé en lignes `total` sans `byCenter`.
 
 ```json
 {
-  "billingPeriod": "{{BILLING_PERIOD}}",
+  "billingPeriods": ["monthly", "3-months"],
+  "freeCases": 12,
   "plans": [
-    {"id":"free","price":"0","features":["content.tier:1"]},
-    {"id":"pro","price":"{{PRICE_PRO}}","features":["content.tier:2","sim.online","league","ai.arztbrief","credits.monthly:200"]},
-    {"id":"premium","price":"{{PRICE_PREMIUM}}","features":["content.tier:3","sim.online","league","ai.arztbrief","ai.voice","credits.monthly:1000"]}
+    {"id":"free","price":"0","features":[{"id":"content.tier:1","status":"live","dir":"cases"}]},
+    {"id":"pro","price":"{{PRICE_PRO}}","features":[
+      {"id":"content.tier:2","status":"live","dir":"cases"},
+      {"id":"sim.online","status":"bald"}, {"id":"league","status":"bald"},
+      {"id":"ai.arztbrief","status":"bald"}, {"id":"credits.monthly:200","status":"bald"}]},
+    {"id":"premium","price":"{{PRICE_PREMIUM}}","features":[
+      {"id":"credits.monthly:1000","status":"bald"}, {"id":"ai.voice","status":"bald"},
+      {"id":"priority","status":"bald"}]}
   ],
   "labels": { "content.tier:1": "12 vollständige Fälle …", "…": "…" }
 }
 ```
-`check-pricing-parity.mjs` : chaque `feature` listée pour un plan doit
+Conditions du pédagogue (ADR-0008, `reports/pedagogy-site.md`, verdict OK
+avec conditions) intégrées :
+- **C1** — chaque feature porte `status: live | bald`. `sim.online`, `league`,
+  `ai.arztbrief`, `ai.voice`, `credits.monthly` n'ont pas de dossier dans
+  `app/src/features/` (relevé 2026-09-16 : account, aufklaerung, cases,
+  fachbegriffe, fachwissen, guides, home, pricing, program, simulation, stats)
+  → `bald`, rendus groupés sous « Bald verfügbar ». Une feature `live` doit
+  déclarer `dir` et ce dossier doit exister.
+- **C3** — Premium ne vend pas « plus de contenu » : aucun cas `tier: 3`
+  (`grep -c "tier: 3" seedCases.ts` = 0) → pas de `content.tier:3` affiché ;
+  Premium = crédits + priorité.
+- **C4** — les crédits sont décrits par ce qu'ils achètent aujourd'hui ; tant
+  que rien n'est livré, le bloc crédits est `bald`.
+- **C6** — `freeCases` est lu depuis `entitlements.md` (« 12 cas Free ») par
+  `check-pricing-parity` ; le CTA affiche cette valeur, jamais un littéral.
+- **C7** — cadences : mensuel et 3 mois, **sans reconduction tacite**, pas
+  d'annuel ; FAQ « Bestanden? » : après la réussite, arrêt sans frais.
+
+`check-pricing-parity.mjs` : chaque `feature.id` listée pour un plan doit
 apparaître dans la matrice `entitlements.md` avec une valeur non « — » pour ce
 plan ; un plan ne peut pas afficher une feature qu'il n'a pas ; les
-`credits.monthly` affichés égalent la matrice.
+`credits.monthly` affichés égalent la matrice ; `freeCases` égale la valeur
+du contrat ; **toute feature `live` sans dossier `app/src/features/<dir>`
+⇒ exit 1** (lecture seule de `app/`).
 
 ### 4.4 `docs/legal/*.md` — front-matter attendu
 
@@ -194,7 +220,7 @@ liens légaux).
 | `/de/produkt/` présentation | Les trois parties de l'examen et les modules (cas, simulation locale/binôme, Fachbegriffe, Fachwissen, Arztbrief), captures | `FeatureSection` × n |
 | `/de/quick-guide/` | La FSP en 5 minutes : 60 points, ≥ 60 % par partie, langue uniquement, déroulé ; indexé par Land (BW seul en v1, mention explicite) | `ExamFacts` (données dans `src/data/exam-bw.json`, valeurs de `fsp-official-grading`) |
 | `/de/was-drankommt/` « Ce qui tombe vraiment » | Tableau trié, filtre par centre (îlot léger ou `<details>` sans JS), n et période, méthodologie, CTA | `FreqTable`, `Methodology` |
-| `/de/preise/` | Trois colonnes, résiliation en un clic, crédits expliqués sans compteur anxiogène, FAQ pricing ; relu par pédagogue et avocat utilisateur (ADR-0008) | `PricingTable`, `CreditsExplainer` |
+| `/de/preise/` | Trois colonnes ; features `bald` groupées « Bald verfügbar » (C1) ; résiliation formulée « Kündigung jederzeit im Konto, ohne Begründung, wirksam zum Periodenende » (C2 — jamais « mit einem Klick ») ; Premium = crédits + priorité (C3) ; crédits expliqués par ce qu'ils achètent, sans compteur anxiogène (C4) ; cadence mensuel / 3 mois sans reconduction tacite (C7) ; FAQ pricing dont « Bestanden? » ; relu par pédagogue et avocat utilisateur (ADR-0008) | `PricingTable`, `CreditsExplainer` |
 | `/de/faq/` | Collection `faq` (md, front-matter `category`) | `FaqList` |
 | `/de/blog/`, `/de/blog/[slug]/` | Collection `blog` ; 1 article de démonstration (« Was in Stuttgart wirklich drankommt ») ; RSS ; sitemap | `PostLayout` |
 | `/de/ueber/` à propos | Origine (un médecin candidat, ~580 protocoles), équipe, principe de symbiose | statique |
@@ -282,6 +308,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 | AC12 | `SITE_PUBLIC=false` → chaque page porte `<meta name="robots" content="noindex">` et l'en-tête `X-Robots-Tag: noindex` (config Vercel). | Playwright sur preview |
 | AC13 | `app/src/` est **inchangé** sur la branche (diff vide). | `git diff --stat main -- app/src` |
 | AC14 | Le pédagogue et l'avocat utilisateur ont relu `/de/preise/` (ADR-0008). | rapports dans `reports/` |
+| AC15 | `check-pricing-parity.mjs` sort 1 si une feature `live` n'a pas de dossier dans `app/src/features/` ; sort 0 sur le `pricing.json` du §4.3. | test Vitest (fixture avec `live` + `dir` inexistant) + CI |
 
 ## 11. Impacts
 
@@ -318,6 +345,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 
 ## 13. Reporté (explicite)
 
+- Résiliation réellement « en un clic » = proposition de contrat aux fondations (bouton « Kündigen » dans l'app → `cancel_at_period_end`), pas un texte de site (C2) ;
 - Îlot WebGL liquid glass (~180 Ko) — promotion ultérieure, conditionnée à la réponse de la direction et à une mesure AC2 verte avec l'îlot ; fournisseur de statut externe ; analytics
   privacy-first (Q6) ; FR/EN ; page institutions ; formulaire de contact ;
   intégration du check de parité des tokens dans `quality.yml` (à la
