@@ -424,8 +424,10 @@ l'`anchor` (sinon le `<details>` reste à l'emplacement habituel, §3.1).
 - `Timeline`, `SyndromeMap`, `CompareTable` : DOM sémantique (`<ol>`, `<ul>`,
   `<table>` avec `<th scope>`), pas de SVG pour le texte ; réponse au clic,
   jamais au survol seul (spec D9).
-- Couleur jamais seule porteuse de sens : chaque `tone` a un marqueur textuel
-  ou une icône SVG (`components/icons.tsx`).
+- Tons décoratifs vs porteurs de sens : `neutral` et `accent` sont
+  décoratifs (structure) — la couleur seule est autorisée ; `signal` et `warn`
+  portent un sens clinique — libellé textuel ou icône SVG
+  (`components/icons.tsx`) obligatoire, jamais la couleur seule.
 - `prefers-reduced-motion: reduce` : aucune transition (`motion-safe:` sur
   toute transition Tailwind) ; sinon ≤ 200 ms, non essentielle.
 - Contraste ≥ 4.5:1 clair et sombre ; aucun `<img>` ; aucun
@@ -439,6 +441,9 @@ l'`anchor` (sinon le `<details>` reste à l'emplacement habituel, §3.1).
 | `accent` | `bg-brand-50 border-brand-200 dark:bg-brand-900/25` | `text-brand-700 dark:text-brand-300` | pétrole, structure |
 | `signal` | `bg-signal-50 border-signal-200` (coral) | `text-signal-600 dark:text-signal-300` | le point de bascule, un par bloc |
 | `warn` | `bg-amber-50 border-amber-200` | `text-amber-700 dark:text-amber-300` | atypique, Vorsicht |
+
+Sémantique : `neutral`/`accent` = décoratifs (couleur seule autorisée) ;
+`signal`/`warn` = porteurs de sens (texte ou icône obligatoire).
 
 Fond « papier millimétré » 8 px (`Grid`, opacité 0,08 clair / 0,05 sombre) ;
 nœud = rectangle `rounded-lg`, trait 1,5 px, bord gauche pétrole 3 px pour une
@@ -491,3 +496,4 @@ question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
 | 2026-09-16 | arch-fachwissen-visuals | création (brouillon, sous réserve G2) | epic #8 |
 | 2026-09-16 | arch-fachwissen-visuals | alignement sur le spec (repli par entrée `replaces: SectionRef[]`, `source` obligatoire + `reviewed.ts`, `anchor` remplace `placement`, dégradé D7 + `ErrorBoundary`, validateur esbuild, signal sur l'axe de `timeline`, `data` de chaque kind selon spec §4.3) ; régions `eyes` et `legs` ajoutées (pilote Leberzirrhose) ; invariant de couverture par sous-chaîne supprimé | spec fe22692 gagne (règle du contrat) |
 | 2026-09-16 | arch-fachwissen-visuals | §6 : `VisualBlockFrame` nommé, `<h3>` explicite, slot `after` pour le `<details>` | demande lead (alignement sur le code, AC-16) |
+| 2026-09-16 | arch-fachwissen-visuals | §6 : `neutral`/`accent` décoratifs (couleur seule OK), `signal`/`warn` porteurs de sens (texte ou icône obligatoire) | demande lead, a11y |
