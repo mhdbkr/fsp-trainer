@@ -9,13 +9,14 @@ const backoffMs = (attempts: number) => Math.min(300_000, 1000 * 2 ** attempts);
 
 interface SyncState { pending: number; online: boolean; lastError: string | null }
 export const useSyncStatus = create<SyncState>(() => ({ pending: 0, online: typeof navigator === 'undefined' ? true : navigator.onLine, lastError: null }));
-const refreshPending = async () => useSyncStatus.setState({ pending: await db.outbox.where('attempts').aboveOrEqual(0).count() });
+const refreshPending = async () => useSyncStatus.setState({ pending: await db.outbox.count() });
 
 const uid = () => useSession.getState().user?.id ?? 'local';
 const auth = async () => { const t = await getAccessToken(); return t ? { Authorization: `Bearer ${t}`, 'content-type': 'application/json' } : null; };
 
 let inFlight: Promise<{ acked: number; rejected: number }> | null = null;
 let nextAllowed = 0;
+let moreToDrain = false;   // une page pleine vient d'être acquittée : il en reste
 
 export const syncQueue = {
   /** Écrit localement (l'UI se met à jour) et enfile. Ne bloque jamais sur le réseau. */
@@ -39,20 +40,32 @@ export const syncQueue = {
     if (!headers) return { acked: 0, rejected: 0 };          // anonyme : rien ne part
     const run = doFlush(headers);
     inFlight = run;
-    try { return await run; } finally { if (inFlight === run) inFlight = null; await refreshPending(); }
+    try { return await run; }
+    finally {
+      if (inFlight === run) inFlight = null;
+      await refreshPending();
+      // Relance APRÈS la levée du verrou : lancée depuis doFlush, elle serait
+      // avalée par le garde single-flight et le backlog attendrait le timer.
+      if (moreToDrain) { moreToDrain = false; setTimeout(() => { void syncQueue.flush(); }, 0); }
+    }
   },
 
   /** Rapatrie les événements des autres appareils (idempotent). */
   async pull(since?: string): Promise<number> {
     const headers = await auth();
     if (!headers) return 0;
-    const last = since ?? (await db.progress_events.orderBy('occurred_at').reverse().first())?.occurred_at ?? '1970-01-01T00:00:00Z';
+    // Curseur = received_at SERVEUR, jamais occurred_at (horloge client) : un
+    // événement d'un autre appareil poussé en retard porte un occurred_at
+    // ancien et ne serait jamais rapatrié. Nos propres événements pas encore
+    // rapatriés n'ont pas de received_at : ils reviennent une fois, dédupliqués par id.
+    const last = since ?? (await db.progress_events.filter((e) => !!e.received_at).toArray())
+      .reduce<string>((m, e) => (e.received_at! > m ? e.received_at! : m), '1970-01-01T00:00:00Z');
     let res: Response;
     try { res = await fetch(`${FN}?since=${encodeURIComponent(last)}`, { headers }); } catch { return 0; }
     if (!res || !res.ok) return 0;
     const { events } = (await res.json()) as { events: ProgressEvent[] };
-    const fresh = [] as ProgressEvent[];
-    for (const e of events) if (!(await db.progress_events.get(e.id))) fresh.push(e);
+    const known = await db.progress_events.bulkGet(events.map((e) => e.id));
+    const fresh = events.filter((_, i) => !known[i]);
     if (fresh.length) await db.progress_events.bulkPut(fresh);
     return fresh.length;
   },
@@ -60,7 +73,7 @@ export const syncQueue = {
 
 async function doFlush(headers: Record<string, string>): Promise<{ acked: number; rejected: number }> {
   let acked = 0, rejected = 0;
-  const rows = await db.outbox.filter((r) => !r.rejected).limit(BATCH).toArray();
+  const rows = await db.outbox.limit(BATCH).toArray();
   if (!rows.length) return { acked, rejected };
   const events = await db.progress_events.bulkGet(rows.map((r) => r.id));
   const body = events.filter(Boolean).map((e) => ({ ...e!, user_id: undefined }));
@@ -75,14 +88,16 @@ async function doFlush(headers: Record<string, string>): Promise<{ acked: number
   await reject(out.rejected.map((r) => r.id), out.rejected.map((r) => r.reason).join('; ')); rejected += out.rejected.length;
   nextAllowed = 0;
   useSyncStatus.setState({ lastError: null });
-  if (rows.length === BATCH) void syncQueue.flush();
+  moreToDrain = rows.length === BATCH;
   return { acked, rejected };
 }
 
 async function bump(rows: { id: string; attempts: number }[], err: string) {
-  const attempts = (rows[0]?.attempts ?? 0) + 1;
-  await db.outbox.bulkPut(rows.map((r) => ({ ...r, attempts, lastError: err })));
-  nextAllowed = Date.now() + backoffMs(attempts);
+  // Par ligne : un lot mélange des événements neufs et d'autres déjà retentés ;
+  // écraser tout le monde avec rows[0].attempts fausserait le compte.
+  await db.outbox.bulkPut(rows.map((r) => ({ ...r, attempts: r.attempts + 1, lastError: err })));
+  const worst = Math.max(...rows.map((r) => r.attempts + 1));
+  nextAllowed = Date.now() + backoffMs(worst);
   useSyncStatus.setState({ lastError: err });
 }
 async function reject(ids: string[], reason: string) {

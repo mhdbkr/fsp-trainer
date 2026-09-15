@@ -39,9 +39,44 @@ describe('syncQueue', () => {
     expect(await db.outbox.count()).toBe(0);
   });
   it('pull insère les événements distants sans doublon', async () => {
-    post.mockResolvedValue({ ok: true, status: 200, json: async () => ({ events: [{ id: 'r1', user_id: 'u1', type: 'plan.done', subject_id: 'x', payload: {}, occurred_at: '2026-01-01T00:00:00Z' }] }) });
+    post.mockResolvedValue({ ok: true, status: 200, json: async () => ({ events: [{ id: 'r1', user_id: 'u1', type: 'plan.done', subject_id: 'x', payload: {}, occurred_at: '2026-01-01T00:00:00Z', received_at: '2026-01-01T00:00:05Z' }] }) });
     expect(await syncQueue.pull()).toBe(1);
     expect(await syncQueue.pull()).toBe(0);
     expect(await db.progress_events.count()).toBe(1);
+  });
+  it('pull utilise received_at (serveur) comme curseur, pas occurred_at (client)', async () => {
+    await db.progress_events.put({ id: 'loc1', user_id: 'u1', type: 'plan.done', subject_id: 'x', payload: {}, occurred_at: '2026-06-01T00:00:00Z', received_at: '2026-01-10T00:00:00Z' });
+    await db.progress_events.put({ id: 'loc2', user_id: 'u1', type: 'plan.done', subject_id: 'y', payload: {}, occurred_at: '2026-07-01T00:00:00Z' });   // pas encore rapatrié : ignoré pour le curseur
+    post.mockResolvedValue({ ok: true, status: 200, json: async () => ({ events: [] }) });
+    await syncQueue.pull();
+    const url = String(post.mock.calls[0][0]);
+    expect(decodeURIComponent(url)).toContain('since=2026-01-10T00:00:00Z');
+  });
+
+  it('flush draine un backlog > 100 en plusieurs pages sans attendre le timer', async () => {
+    post.mockImplementation(async (_url: string, init?: { body?: string }) => {
+      const ids = (JSON.parse(init!.body!).events as { id: string }[]).map((e) => e.id);
+      return { ok: true, status: 200, json: async () => ({ acked: ids, rejected: [] }) };
+    });
+    // 150 événements en outbox, sans déclencher flush à chaque push
+    const evs = Array.from({ length: 150 }, (_, i) => ({ id: `e${i}`, user_id: 'u1', type: 'plan.done' as const, subject_id: `p${i}`, payload: {}, occurred_at: '2026-01-01T00:00:00Z' }));
+    await db.progress_events.bulkPut(evs);
+    await db.outbox.bulkPut(evs.map((e) => ({ id: e.id, attempts: 0 })));
+    await syncQueue.flush();
+    await new Promise((r) => setTimeout(r, 20));   // laisse partir la relance planifiée
+    expect(post).toHaveBeenCalledTimes(2);
+    expect(await db.outbox.count()).toBe(0);
+  });
+
+  it('bump incrémente attempts PAR LIGNE (un lot mélange neufs et déjà retentés)', async () => {
+    await db.progress_events.bulkPut([
+      { id: 'a', user_id: 'u1', type: 'plan.done', subject_id: 'a', payload: {}, occurred_at: '2026-01-01T00:00:00Z' },
+      { id: 'b', user_id: 'u1', type: 'plan.done', subject_id: 'b', payload: {}, occurred_at: '2026-01-01T00:00:00Z' },
+    ]);
+    await db.outbox.bulkPut([{ id: 'a', attempts: 3 }, { id: 'b', attempts: 0 }]);
+    post.mockResolvedValue({ ok: false, status: 503, json: async () => ({}) });
+    await syncQueue.flush();
+    expect((await db.outbox.get('a'))!.attempts).toBe(4);
+    expect((await db.outbox.get('b'))!.attempts).toBe(1);
   });
 });

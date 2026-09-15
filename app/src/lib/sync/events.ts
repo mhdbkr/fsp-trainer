@@ -8,6 +8,6 @@ export interface ProgressEvent {
   occurred_at: string;   // ISO
   received_at?: string;  // posé par le serveur
 }
-export interface OutboxRow { id: string; attempts: number; lastError?: string; rejected?: boolean }
+export interface OutboxRow { id: string; attempts: number; lastError?: string }
 export type NewEvent = Pick<ProgressEvent, 'type' | 'subject_id' | 'payload'> & { occurred_at?: string };
 export const newId = () => crypto.randomUUID();

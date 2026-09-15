@@ -1756,7 +1756,9 @@ Deno.serve(handle(async (req) => {
 
   if (req.method === 'GET') {
     const since = new URL(req.url).searchParams.get('since') ?? '1970-01-01T00:00:00Z';
-    const { data, error } = await sb.from('progress_events').select('*').gt('occurred_at', since).order('occurred_at').limit(1000);
+    // Curseur sur received_at (horloge SERVEUR) — cf. fix Task 12 : occurred_at est
+    // l'horloge client et ferait rater les événements poussés en retard.
+    const { data, error } = await sb.from('progress_events').select('*').gt('received_at', since).order('received_at').limit(1000);
     if (error) throw error;
     return json({ events: data });
   }
@@ -2627,7 +2629,7 @@ Le client lit cette table pour afficher ; le serveur la lit pour autoriser. **Au
 - 5xx / réseau : conservé ; backoff 1 s × 2^n, plafond 5 min.
 Déclencheurs : après chaque push, `online`, intervalle 2 min si outbox non vide.
 
-**Pull** : `GET /events?since=<dernier occurred_at local>` au démarrage et après chaque flush ; insertion des ids inconnus ; puis `rebuildProjections()`.
+**Pull** : `GET /events?since=<max received_at local>` (horloge SERVEUR, jamais `occurred_at` client) au démarrage et après chaque flush ; insertion des ids inconnus ; puis `rebuildProjections()`.
 
 **Conflits** : aucun par construction (additif). Seule mutation logique : SRS d'un terme → last-write-wins par `occurred_at`.
 **Horloge** : `occurred_at` client (ordre d'affichage) ; `received_at` serveur (quotas, ligue).
