@@ -6,6 +6,7 @@ import { NAV } from './nav';
 import { ProfileSwitcher } from './ProfileSwitcher';
 import { Portal } from './Portal';
 import { useSession } from '@/lib/auth/session';
+import { SyncBadge } from './SyncBadge';
 
 // Import PARESSEUX délibéré : three.js + @react-three/fiber + drei pèsent à
 // eux seuls ~900 Ko gzippés. En import statique, ce poids rejoint le bundle
@@ -137,7 +138,7 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
         <AccountLink />
         <div className="hidden items-center gap-2 px-2 pt-0.5 md:flex">
           <span className="h-1.5 w-1.5 animate-pulse-line rounded-full bg-brand-500" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">Offline · Local</span>
+          <SyncBadge />
         </div>
         {/* Essai FluidGlass — visuel uniquement, sans impact sur la nav réelle
             au-dessus (jamais démontée). Voir FluidGlassBar.tsx pour le détail

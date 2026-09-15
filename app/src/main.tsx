@@ -33,6 +33,7 @@ import { OnboardingPage } from '@/features/account/OnboardingPage';
 import { AuthCallback } from '@/features/account/AuthCallback';
 import { initSession } from '@/lib/auth/session';
 import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
+import { startSyncLoop } from '@/lib/sync/queue';
 
 // Hash router → fonctionne aussi bien en dev qu'en ouverture file:// (Tauri).
 const router = createHashRouter([
@@ -91,6 +92,7 @@ initSession()
         <RouterProvider router={router} />
       </React.StrictMode>,
     );
+    startSyncLoop();
   })
   .catch((e) => {
     if (e instanceof FirstLoadRequired) { renderFirstLoadScreen(); return; }

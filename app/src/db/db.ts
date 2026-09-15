@@ -2,6 +2,7 @@ import Dexie, { type Table } from 'dexie';
 import type {
   Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, PlanEntry, Meta,
 } from './types';
+import type { ProgressEvent, OutboxRow } from '@/lib/sync/events';
 
 // ============================================================================
 // IndexedDB via Dexie. Tout est local, aucune requête réseau à l'exécution.
@@ -17,6 +18,8 @@ export class FspDatabase extends Dexie {
   simulations!: Table<Simulation, string>;
   plan!: Table<PlanEntry, string>;
   meta!: Table<Meta, string>;
+  progress_events!: Table<ProgressEvent, string>;
+  outbox!: Table<OutboxRow, string>;
 
   constructor() {
     super('fsp-cockpit');
@@ -29,6 +32,10 @@ export class FspDatabase extends Dexie {
       simulations: 'id, caseId, date, role',
       plan: 'id, date, caseId, done',
       meta: 'key',
+    });
+    this.version(2).stores({
+      progress_events: 'id, user_id, type, subject_id, occurred_at, [user_id+type+subject_id]',
+      outbox: 'id, attempts',
     });
   }
 }
