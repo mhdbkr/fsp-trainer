@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { NAV } from './nav';
-import { ProfileSwitcher } from './ProfileSwitcher';
 import { Portal } from './Portal';
+import { useSession } from '@/lib/auth/session';
+import { SyncBadge } from './SyncBadge';
 
 // Import PARESSEUX délibéré : three.js + @react-three/fiber + drei pèsent à
 // eux seuls ~900 Ko gzippés. En import statique, ce poids rejoint le bundle
@@ -53,6 +54,29 @@ function BrandMark({ size = 'h-9 w-9', icon = 'h-[22px] w-[22px]', ring = 'ring-
   );
 }
 
+// Entrée « Compte » / « Se connecter ».
+function AccountLink({ dock = false }: { dock?: boolean }) {
+  const status = useSession((s) => s.status);
+  const authed = status === 'authenticated';
+  const to = authed ? '/account' : '/signin';
+  const label = authed ? 'Compte' : 'Se connecter';
+  if (dock) {
+    return (
+      <NavLink to={to} title={label}
+        className="group relative grid h-11 w-11 place-items-center rounded-2xl text-slate-500 transition-colors duration-100 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white">
+        <Icon name="user" className="h-[19px] w-[19px]" />
+        <span className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-ink-600">{label}</span>
+      </NavLink>
+    );
+  }
+  return (
+    <NavLink to={to} className="btn-ghost w-full justify-center md:justify-start">
+      <Icon name="user" className="h-[18px] w-[18px]" title={label} />
+      <span className="hidden md:inline">{label}</span>
+    </NavLink>
+  );
+}
+
 // ── Mode déployé ────────────────────────────────────────────────────────────
 function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
   const { theme, toggleTheme, targetCenter, setTargetCenter } = useUi();
@@ -97,7 +121,6 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
       </nav>
 
       <div className="space-y-2 border-t border-slate-100 p-2 dark:border-ink-600">
-        <div className="hidden md:block"><ProfileSwitcher variant="full" /></div>
         <div className="hidden md:block">
           <label className="label px-1">Centre visé</label>
           <select value={targetCenter} onChange={(e) => setTargetCenter(e.target.value as never)} className="input mt-1 py-1.5 text-xs">
@@ -109,9 +132,10 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
           <Icon name={theme === 'dark' ? 'nav-sun' : 'nav-moon'} className="h-[18px] w-[18px]" title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'} />
           <span className="hidden md:inline">{theme === 'dark' ? 'Mode clair' : 'Mode sombre'}</span>
         </button>
+        <AccountLink />
         <div className="hidden items-center gap-2 px-2 pt-0.5 md:flex">
           <span className="h-1.5 w-1.5 animate-pulse-line rounded-full bg-brand-500" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">Offline · Local</span>
+          <SyncBadge />
         </div>
         {/* Essai FluidGlass — visuel uniquement, sans impact sur la nav réelle
             au-dessus (jamais démontée). Voir FluidGlassBar.tsx pour le détail
@@ -190,7 +214,7 @@ function DockRail({ onExpand }: { onExpand: () => void }) {
           <BrandMark size="h-11 w-11" icon="h-6 w-6" ring="ring-white/70 dark:ring-ink-800" />
         </button>
 
-        <ProfileSwitcher variant="dock" />
+        <AccountLink dock />
 
         <div className="my-1 h-px w-8 shrink-0 bg-slate-200/70 dark:bg-white/10" />
 

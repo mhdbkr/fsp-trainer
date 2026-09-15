@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider, createHashRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter, Link } from 'react-router-dom';
 // Polices de marque auto-hébergées (offline-first) — identité typographique :
 // Bricolage Grotesque (display), IBM Plex Sans (corps), IBM Plex Mono (signature).
 import '@fontsource-variable/bricolage-grotesque/wght.css';
@@ -10,8 +10,8 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
 import { Shell } from '@/components/Shell';
-import { useProfiles } from '@/store/profile';
-import { ensureSeeded } from '@/data/seed';
+import { ensureDemoData } from '@/data/seed';
+import { contentLoader, FirstLoadRequired } from '@/lib/content/loader';
 import { HomePage } from '@/features/home/HomePage';
 import { CasesPage } from '@/features/cases/CasesPage';
 import { CaseDetailPage } from '@/features/cases/CaseDetailPage';
@@ -27,6 +27,24 @@ import { DrillPage } from '@/features/fachbegriffe/DrillPage';
 import { StatsPage } from '@/features/stats/StatsPage';
 import { PatientScreen } from '@/features/simulation/PatientScreen';
 import { ProgramPage } from '@/features/program/ProgramPage';
+import { SignInPage } from '@/features/account/SignInPage';
+import { OnboardingPage } from '@/features/account/OnboardingPage';
+import { AuthCallback } from '@/features/account/AuthCallback';
+import { AccountPage } from '@/features/account/AccountPage';
+import { PricingPage } from '@/features/pricing/PricingPage';
+import { initSession } from '@/lib/auth/session';
+import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
+import { startSyncLoop } from '@/lib/sync/queue';
+
+function MerciPage() {
+  return (
+    <div className="mx-auto max-w-xl space-y-4 py-16 text-center">
+      <h1 className="text-2xl font-bold">Merci !</h1>
+      <p>Ton accès se débloque dans quelques secondes.</p>
+      <Link to="/" className="btn-primary justify-center">Retour à l'accueil</Link>
+    </div>
+  );
+}
 
 // Hash router → fonctionne aussi bien en dev qu'en ouverture file:// (Tauri).
 const router = createHashRouter([
@@ -48,18 +66,48 @@ const router = createHashRouter([
       { path: 'fachbegriffe', element: <FachbegriffePage /> },
       { path: 'fachbegriffe/drill', element: <DrillPage /> },
       { path: 'stats', element: <StatsPage /> },
+      { path: 'signin', element: <SignInPage /> },
+      { path: 'onboarding', element: <OnboardingPage /> },
+      { path: 'auth/callback', element: <AuthCallback /> },
+      { path: 'pricing', element: <PricingPage /> },
+      { path: 'account', element: <AccountPage /> },
+      { path: 'merci', element: <MerciPage /> },
     ],
   },
   // Route 2ᵉ écran « rôle patient » — standalone (hors Shell), responsive mobile.
   { path: '/patient/:caseId', element: <PatientScreen /> },
 ]);
 
-ensureSeeded()
-  .then(() => useProfiles.getState().load())
+function renderFirstLoadScreen() {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <div style={{ display: 'grid', placeItems: 'center', minHeight: '100vh', padding: 24 }}>
+        <div className="card" style={{ maxWidth: 420, textAlign: 'center' }}>
+          <p>Doctopus a besoin d&apos;une connexion pour le premier chargement</p>
+          <button type="button" className="btn-primary" onClick={() => location.reload()}>Réessayer</button>
+        </div>
+      </div>
+    </React.StrictMode>,
+  );
+}
+
+// La session d'abord : un `?code=` de lien magique doit être échangé AVANT
+// que le router ne touche à l'URL. Les entitlements ensuite (le tier doit
+// être connu avant de synchroniser le contenu, qui purge selon le tier).
+initSession()
+  .then(() => loadEntitlements())
+  .then(() => { watchEntitlements(); })
+  .then(() => contentLoader.sync())
+  .then(() => ensureDemoData())
   .then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(
       <React.StrictMode>
         <RouterProvider router={router} />
       </React.StrictMode>,
     );
+    startSyncLoop();
+  })
+  .catch((e) => {
+    if (e instanceof FirstLoadRequired) { renderFirstLoadScreen(); return; }
+    throw e;
   });

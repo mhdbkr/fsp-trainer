@@ -771,9 +771,11 @@ export async function loadEntitlements(): Promise<void> {
     const uid = useSession.getState().user?.id;
     let plan: PlanId = 'free', credits = 0;
     if (uid) {
+      // Wrappers sans argument : agissent uniquement sur auth.uid() (les
+      // fonctions paramétrées sont révoquées côté client — revue Tasks 2-3).
       const [{ data: p }, { data: c }] = await Promise.all([
-        supabase.rpc('effective_plan', { uid }),
-        supabase.rpc('credit_balance', { uid }),
+        supabase.rpc('my_plan'),
+        supabase.rpc('my_credits'),
       ]);
       plan = (p as PlanId) ?? 'free'; credits = (c as number) ?? 0;
     }
@@ -1328,7 +1330,7 @@ Dans `types.ts`, interface `Case` : ajouter `tier?: 1 | 2 | 3; // 1 = Free ; dé
 ```js
 // app/scripts/publishContent.mjs — publie le contenu validé par la CI vers content_items
 import { createClient } from '@supabase/supabase-js';
-import { loadCases } from './loadCases.mjs';
+import { loadAll } from './loadCases.mjs';   // rend { cases, fachwissen, muster }
 import { readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
@@ -1339,12 +1341,12 @@ if (!dry && (!url || !key)) { console.error('SUPABASE_URL / SUPABASE_SERVICE_ROL
 // Les seeds sont du TS : on les transpile à la volée avec esbuild (déjà dépendance de Vite).
 const load = (rel) => { const out = execSync(`npx esbuild src/data/${rel} --bundle --format=esm --platform=node --outfile=/dev/stdout --log-level=silent`, { encoding: 'utf8', maxBuffer: 64e6 }); return import(`data:text/javascript;base64,${Buffer.from(out).toString('base64')}`); };
 
-const cases = await loadCases();
-const fw = (await load('seedFachwissen.ts')).seedFachwissen();
+const { cases, fachwissen: fw, muster } = await loadAll();
 const auf = (await load('seedAufklaerungen.ts')).seedAufklaerungen();
 const guides = (await load('seedGuides.ts')).seedGuides();
-const muster = (await load('caseMuster.ts')).CASE_MUSTER;
-const fb = JSON.parse(readFileSync('src/data/fachbegriffe.json', 'utf8'));
+const fbRaw = JSON.parse(readFileSync('src/data/fachbegriffe.json', 'utf8'));
+// Même mapping que seedFachbegriffe() — le payload doit être l'objet Fachbegriff, pas la ligne compacte.
+const fb = fbRaw.map((r) => ({ id: r.id, term: r.t, translationSimple: r.s, definitionDetailed: r.def, pronunciation: r.p, specialty: r.sp, pathologyTags: r.tags ?? [], centers: r.c, linkedCaseIds: [], sp: r.sp }));
 
 // Tier des contenus DÉRIVÉS : le Free est un échantillon COMPLET (12 cas avec
 // leur fiche, leurs termes, leurs Aufklärungen), pas un catalogue de fiches
@@ -1353,18 +1355,19 @@ const fb = JSON.parse(readFileSync('src/data/fachbegriffe.json', 'utf8'));
 const freeCases = cases.filter((c) => c.tier === 1);
 const freePathologies = new Set(freeCases.map((c) => c.pathology));
 const freeAuf = new Set(freeCases.flatMap((c) => c.probableAufklaerungIds ?? []));
-const freeFbTags = freePathologies;                      // fachbegriff.pathologyTags ↔ case.pathology (même clé que wireLinks)
+const freeSpecialties = new Set(freeCases.map((c) => c.specialty));
 const tierFw  = (f) => (freePathologies.has(f.pathology) ? 1 : 2);
 const tierAuf = (a) => (freeAuf.has(a.id) ? 1 : 2);
-const tierFb  = (b) => ((b.pathologyTags ?? []).some((t) => freeFbTags.has(t)) || (b.pathologyTags ?? []).length === 0 ? 1 : 2);
-//   ↑ les termes SANS pathologie (Allgemein / Grundwortschatz) restent Free : vocabulaire de base, pas de contenu de cas.
+// Fachbegriffe : Free = 'Allgemein' (vocabulaire de base, 1 204 termes) ; les
+// termes de spécialité sont Pro (« spécialité ayant un cas Free » ouvrait 91 %).
+const tierFb  = (b) => (b.sp === 'Allgemein' ? 1 : 2);
 
 const items = [
   ...cases.map((c) => ({ id: c.id, kind: 'case', tier: c.tier ?? 2, payload: c })),
   ...fw.map((f) => ({ id: f.id, kind: 'fachwissen', tier: tierFw(f), payload: f })),
   ...auf.map((a) => ({ id: a.id, kind: 'aufklaerung', tier: tierAuf(a), payload: a })),
   ...guides.map((g) => ({ id: g.id, kind: 'guide', tier: 1, payload: g })),
-  ...fb.map((b) => ({ id: b.id, kind: 'fachbegriff', tier: tierFb(b), payload: b })),
+  ...fb.map(({ sp, ...b }) => ({ id: b.id, kind: 'fachbegriff', tier: tierFb({ sp }), payload: b })),
   ...Object.entries(muster).map(([caseId, m]) => ({ id: `muster-${caseId}`, kind: 'muster', tier: (cases.find((c) => c.id === caseId)?.tier ?? 2), payload: m })),
 ];
 const byKind = items.reduce((a, i) => ((a[i.kind] = (a[i.kind] ?? 0) + 1), a), {});
@@ -1682,7 +1685,7 @@ git commit -m "feat(saas): syncQueue — outbox Dexie, flush par lots avec backo
 - Create: `app/supabase/functions/events/index.ts`
 
 **Interfaces:**
-- Produces: table `progress_events` (spec §4.5) ; `POST /events {events[]}` → `{ acked: string[], rejected: {id,reason}[] }` ; `GET /events?since=ISO` → `{ events[] }` ; `rateLimit(key, max, windowSec)`.
+- Produces: table `progress_events` (spec §4.5) ; `POST /events {events[]}` → `{ acked: string[], received: Record<id, received_at>, rejected: {id,reason}[] }` ; `GET /events?since=ISO` → `{ events[] }` ; `rateLimit(key, max, windowSec)`.
 
 - [ ] **Step 1: Migration**
 
@@ -1753,19 +1756,29 @@ Deno.serve(handle(async (req) => {
 
   if (req.method === 'GET') {
     const since = new URL(req.url).searchParams.get('since') ?? '1970-01-01T00:00:00Z';
-    const { data, error } = await sb.from('progress_events').select('*').gt('occurred_at', since).order('occurred_at').limit(1000);
+    // Curseur sur received_at (horloge SERVEUR) — cf. fix Task 12 : occurred_at est
+    // l'horloge client et ferait rater les événements poussés en retard.
+    const { data, error } = await sb.from('progress_events').select('*').gt('received_at', since).order('received_at').limit(1000);
     if (error) throw error;
     return json({ events: data });
   }
 
   const { events } = parse(Body, await req.json());
   const acked: string[] = []; const rejected: { id: string; reason: string }[] = [];
+  const received: Record<string, string> = {};
   // insertion une à une : un événement invalide ne doit pas faire échouer le lot
   for (const e of events) {
     const { error } = await sb.from('progress_events').upsert({ ...e, user_id: user.id }, { onConflict: 'id', ignoreDuplicates: true });
-    if (error) rejected.push({ id: e.id, reason: error.message }); else acked.push(e.id);
+    if (error) { rejected.push({ id: e.id, reason: error.message }); continue; }
+    acked.push(e.id);
   }
-  return json({ acked, rejected });
+  // received_at par événement acquitté (y compris ceux déjà présents — rejeu) :
+  // le client le rétro-remplit pour faire avancer son curseur de pull.
+  if (acked.length) {
+    const { data } = await sb.from('progress_events').select('id, received_at').in('id', acked);
+    for (const r of data ?? []) received[r.id] = r.received_at;
+  }
+  return json({ acked, received, rejected });
 }));
 ```
 
@@ -2619,12 +2632,12 @@ Le client lit cette table pour afficher ; le serveur la lit pour autoriser. **Au
 **Ce qui reste local** : Bogen en cours, session en pause, préférences d'affichage.
 
 **Push** : `syncQueue.push` écrit `progress_events` (Dexie) + `outbox`, puis `flush()` — `POST /events` par lots de 100.
-- 2xx : `acked` retirés de l'outbox ; `rejected` retirés et journalisés (pas de rejeu).
+- 2xx : `acked` retirés de l'outbox et `received_at` rétro-rempli localement (fait avancer le curseur de pull) ; `rejected` retirés et journalisés (pas de rejeu).
 - 4xx (lot) : tout le lot rejeté.
 - 5xx / réseau : conservé ; backoff 1 s × 2^n, plafond 5 min.
 Déclencheurs : après chaque push, `online`, intervalle 2 min si outbox non vide.
 
-**Pull** : `GET /events?since=<dernier occurred_at local>` au démarrage et après chaque flush ; insertion des ids inconnus ; puis `rebuildProjections()`.
+**Pull** : `GET /events?since=<max received_at local>` (horloge SERVEUR, jamais `occurred_at` client) au démarrage et après chaque flush ; insertion des ids inconnus ; puis `rebuildProjections()`.
 
 **Conflits** : aucun par construction (additif). Seule mutation logique : SRS d'un terme → last-write-wins par `occurred_at`.
 **Horloge** : `occurred_at` client (ordre d'affichage) ; `received_at` serveur (quotas, ligue).
@@ -2656,3 +2669,35 @@ git commit -m "docs(contracts): schema.sql généré, openapi, entitlements, pro
 **Cohérence des types** — `ProgressEvent` (Task 12) est utilisé tel quel en 13 (Zod miroir), 15, 16, 22. `getEntitlements().limit('content.tier')` (Task 6) consommé en Task 10. `useSession`/`getAccessToken` (Task 5) consommés en 6, 10, 12. `callFn` (Task 18) défini avant usage. `URL` exporté par `helpers.ts` (Task 4) utilisé en 14, 20.
 
 **Placeholders** — les `price_*_TODO` du seed sont remplacés en Task 17 (action explicite) ; les prix « — €/mois » de la page Tarifs sont volontairement non fixés (décision produit hors plan) et le texte le dit à l'utilisateur.
+
+
+---
+
+## Vérification — critères d'acceptation (spec §11), preuves du parcours pré-release (2026-09-15)
+
+| Critère | Preuve |
+|---|---|
+| Invité joue hors ligne après premier chargement | Contexte neuf → 12 cas depuis l'API ; API coupée + cache → app complète ; API coupée sans cache → écran « premier chargement » + Réessayer |
+| Compte par lien magique, profil 4 champs, progression sur un second appareil | Lien Mailpit → PKCE → `#/onboarding` → `BY\|C1\|fsp_planned` en base ; appareil C neuf reçoit la simulation jouée sur A sans intervention |
+| Événement hors ligne → en base une seule fois à la reconnexion | outbox 1 hors ligne → 0 après `online` ; `sim-offline-1` = 1 ligne ; rejeu idempotent (tests intégration) |
+| Contenu tier 2 jamais dans le bundle ni dans le cache Free | bundle 13 → 3,1 Mo, `grep "Elke Kovermann" dist/` vide ; invité = 12/12/9/1204 ; résiliation → purge (130 → 12 cas) |
+| Paiement débloque Pro sans rechargement ; résiliation le retire | webhook signé `subscription.updated active` → écran Compte « Pro », 130 cas, en ~10 s ; `deleted` période échue → « Free », 12 cas |
+| Crédits = somme du ledger ; double `(reason, ref)` refusée | test intégration `consume_credits` : 5 → 2, rejeu même ref → 2, 409 si insuffisant |
+| RLS prouvée entre deux utilisateurs | 7 tests RLS + isolation events (18/18 intégration) |
+| `docs/contracts/` à jour | `schema.sql` (généré, 10 tables), `openapi.yaml` (8 routes), `entitlements.md`, `sync-protocol.md` |
+
+Défauts trouvés PAR le parcours et corrigés : publication Realtime absente (aucune table publiée) ; JWT non poussé sur le socket avant abonnement ; resync au changement de plan avec delta vide (→ `sync({ full: true })`).
+
+## Suivi post-revue finale (non bloquant, à traiter avant la bêta fermée)
+
+| # | Point | Où |
+|---|---|---|
+| S1 | Garde d'ordre sur les webhooks : ignorer un `subscription.updated` plus ancien (`event.created`) que l'état en base | `stripe-webhook/index.ts` |
+| S2 | Grâce `past_due` calculée sur `updated_at`, que chaque webhook réinitialise → prolongation à chaque relance Stripe ; utiliser une colonne `past_due_since` | `effective_plan`, migration |
+| S3 | `returnUrl` de checkout/portal à valider contre une liste d'origines | `checkout`, `portal` |
+| S4 | Deux sources pour le grant mensuel (`plans.monthly_credits` et `entitlements.credits.monthly`) : n'en garder qu'une | seed, webhook |
+| S5 | `charge.refunded` débite le montant du plan courant, pas celui de la charge remboursée | `stripe-webhook` |
+| S6 | Stripe Tax : renseigner le siège dans le dashboard puis `STRIPE_AUTOMATIC_TAX=1` | config prod |
+| S7 | Tests « migrations up/down » et « OpenAPI ↔ réponses réelles » (spec §10) non écrits | `supabase/tests` |
+| S8 | `content_since()` SQL mort (la fonction lit la table) ; `cors()` helper inutilisé ; types `Profile`/`profileId` morts | nettoyage |
+| S9 | Refresh de la vue matérialisée par écriture de ledger : O(users), à revoir avant charge | `credits.sql` |

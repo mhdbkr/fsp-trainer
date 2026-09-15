@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: app/package-lock.json
       - run: npm ci
@@ -66,9 +66,44 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: app/package-lock.json
       - run: npm ci
       - run: npm run typecheck
       - run: npm run build
+
+  rls:
+    name: RLS & intégration Supabase
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - run: npm ci
+      - run: supabase start
+      # Les tests d'intégration appellent les Edge Functions : on les sert en arrière-plan.
+      - run: supabase functions serve --env-file supabase/.env.ci > /tmp/fn.log 2>&1 &
+      - run: sleep 5
+      - run: node scripts/testRls.mjs
+      - if: always()
+        run: supabase stop
+
+  publish:
+    name: Publier le contenu
+    needs: [contrats, build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: app } }
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
+      - run: npm ci
+      - run: node scripts/publishContent.mjs

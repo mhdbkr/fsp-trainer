@@ -5,6 +5,7 @@ import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import type { Fachbegriff } from '@/db/types';
 import { reviewSrs, isDue, type Grade } from '@/lib/srs';
+import { syncQueue } from '@/lib/sync/queue';
 
 // Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie
 // du cas travaillé, puis progression libre (couverture inclusive).
@@ -94,6 +95,7 @@ export function DrillPage() {
   const grade = async (g: Grade) => {
     const newSrs = reviewSrs(card.srs, g);
     await db.fachbegriffe.update(card.id, { srs: newSrs });
+    syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
     if (g < 3) {
       // remet la carte en fin de file pour la revoir dans la session

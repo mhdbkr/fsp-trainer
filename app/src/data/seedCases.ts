@@ -257,6 +257,7 @@ export function seedCases(): Case[] {
     // ---------------------------------------------------------- ANGINA PECTORIS
     {
       id: 'case-angina-pectoris',
+      tier: 1,
       name: 'Stabile Angina pectoris (KHK)',
       pathology: 'Angina pectoris / KHK',
       specialty: 'Kardiologie',
@@ -624,6 +625,7 @@ export function seedCases(): Case[] {
     // ----------------------------------------------------------- OBERE GI-BLUTUNG
     {
       id: 'case-gib',
+      tier: 1,
       name: 'Obere GI-Blutung bei Ulcus ventriculi',
       pathology: 'Obere GI-Blutung',
       specialty: 'Gastroenterologie',
@@ -2802,6 +2804,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-depression',
+      tier: 1,
       name: 'Depressive Episode',
       pathology: 'Depression (depressive Episode)',
       specialty: 'Psychiatrie',
@@ -3151,6 +3154,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-pneumonie',
+      tier: 1,
       name: 'Ambulant erworbene Pneumonie (CAP)',
       pathology: 'Ambulant erworbene Pneumonie (CAP)',
       specialty: 'Pneumologie',
@@ -3503,6 +3507,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-pyelonephritis',
+      tier: 1,
       name: 'Akute Pyelonephritis',
       pathology: 'Akute Pyelonephritis',
       specialty: 'Urologie',
@@ -4567,6 +4572,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-osg-fraktur',
+      tier: 1,
       name: 'Sprunggelenkfraktur nach Umknicktrauma',
       pathology: 'Sprunggelenkfraktur (OSG-Fraktur)',
       specialty: 'Orthopädie',
@@ -6590,6 +6596,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-schlaganfall',
+      tier: 1,
       name: 'Plötzliche Halbseitenschwäche',
       pathology: 'Ischämischer Schlaganfall (Hirninfarkt)',
       specialty: 'Neurologie',
@@ -7595,6 +7602,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-diabetes',
+      tier: 1,
       name: 'Ständiger Durst und Müdigkeit',
       pathology: 'Diabetes mellitus Typ 2 (Erstdiagnose)',
       specialty: 'Endokrinologie',
@@ -8699,6 +8707,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-copd',
+      tier: 1,
       name: 'Zunehmende Atemnot und Morgenhusten',
       pathology: 'Chronisch obstruktive Lungenerkrankung (COPD)',
       specialty: 'Pneumologie',
@@ -9258,6 +9267,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-zystitis',
+      tier: 1,
       name: 'Brennen beim Wasserlassen',
       pathology: 'Akute Zystitis (untere Harnwegsinfektion)',
       specialty: 'Urologie',
@@ -9781,6 +9791,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-migraene',
+      tier: 1,
       name: 'Pochende Kopfschmerzen mit Übelkeit',
       pathology: 'Migräne',
       specialty: 'Neurologie',
@@ -11516,6 +11527,7 @@ export function seedCases(): Case[] {
     },
     {
       id: 'case-nierenkolik',
+      tier: 1,
       name: 'Heftige Flankenschmerzen mit Fieber',
       pathology: 'Nephrolithiasis mit Nierenkolik',
       specialty: 'Urologie',

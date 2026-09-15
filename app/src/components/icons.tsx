@@ -84,6 +84,8 @@ const P: Record<string, React.ReactNode> = {
   copy: <><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h9" /></>,
   // Diagnostics différentiels : ramification (arbre de décision).
   branch: <><circle cx="6.5" cy="6.5" r="2.3" /><circle cx="6.5" cy="17.5" r="2.3" /><circle cx="17.5" cy="6.5" r="2.3" /><path d="M6.5 8.8v6.4" /><path d="M17.5 8.8c0 4.6-11 2.4-11 6.4" /></>,
+  // Google « G » — glyphe monochrome (currentColor), pour le bouton OAuth.
+  google: <path d="M12 10.9v2.6h4.4c-.2 1.2-1.6 3.5-4.4 3.5-2.7 0-4.8-2.2-4.8-5s2.1-5 4.8-5c1.5 0 2.5.6 3.1 1.2l2.1-2C15.9 4.9 14.1 4 12 4 7.6 4 4 7.6 4 12s3.6 8 8 8c4.6 0 7.7-3.2 7.7-7.7 0-.5-.1-1-.1-1.4H12z" />,
   // ── Doctopus — marque monoline : manteau en arche, yeux-feuilles, tentacules
   // en éventail terminés par des ventouses-nœuds (pieuvre + « A » + circuit). ──
   doctopus: <>
