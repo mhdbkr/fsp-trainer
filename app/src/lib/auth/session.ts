@@ -19,12 +19,30 @@ export const __resetSessionForTests = () => { started = false; };
 export async function initSession(): Promise<void> {
   if (started) return;
   started = true;
+  // Retour d'un lien magique / OAuth (PKCE) : `?code=` est dans la query. On
+  // l'échange EXPLICITEMENT et tout de suite — si on laissait supabase-js le
+  // détecter passivement, le hash router aurait le temps de réécrire l'URL
+  // (`/?code=…` → `/#/`) et le code serait perdu. Le code est à usage unique.
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  if (code) {
+    // Route de callback posée AVANT l'échange, et par `location.hash` (pas
+    // `replaceState`) : le hash router est créé au chargement du module et
+    // n'écoute que `hashchange` — un replaceState silencieux le laisserait sur `/`.
+    window.history.replaceState(null, '', window.location.pathname);   // retire ?code=
+    window.location.hash = '#/auth/callback';
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) console.warn('[auth] échange du code refusé :', error.message);
+  }
   const { data } = await supabase.auth.getSession();
   apply(data.session?.user ?? null);
   supabase.auth.onAuthStateChange((_event, session) => apply(session?.user ?? null));
 }
 
-const redirect = () => `${window.location.origin}${import.meta.env.BASE_URL ?? '/'}#/auth/callback`;
+// Sans fragment : GoTrue ajoute `?code=` à cette URL ; supabase-js l'échange
+// au chargement, puis onAuthStateChange émet SIGNED_IN. La route de callback
+// est posée dans le hash APRÈS, par initSession (voir plus bas).
+const redirect = () => `${window.location.origin}${import.meta.env.BASE_URL ?? '/'}`;
 
 export const signInWithMagicLink = (email: string) =>
   supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: redirect() } }).then(({ error }) => { if (error) throw error; });

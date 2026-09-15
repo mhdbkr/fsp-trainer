@@ -13,6 +13,15 @@ export async function saveProfile(uid: string, f: ProfileFields): Promise<void> 
   if (error) throw error;
 }
 
+// Hors du composant : défini à l'intérieur, React le recréerait à chaque rendu
+// (démontage/remontage des boutons, focus perdu, état périmé).
+function Seg<T extends string>({ value, options, onChange }: { value: T; options: readonly (readonly [T, string])[]; onChange: (v: T) => void }) {
+  return (
+    <div className="flex flex-wrap gap-2">{options.map(([v, l]) => (
+      <button type="button" key={v} onClick={() => onChange(v)} className={`seg ${value === v ? 'seg-on' : ''}`}>{l}</button>))}</div>
+  );
+}
+
 export function OnboardingPage() {
   const nav = useNavigate();
   const uid = useSession((s) => s.user?.id)!;
@@ -23,25 +32,21 @@ export function OnboardingPage() {
     await saveProfile(uid, { ...f, exam_date: noDate ? null : f.exam_date });
     nav('/', { replace: true });
   };
-  const Seg = <T extends string>({ value, options, onChange }: { value: T; options: readonly (readonly [T, string])[]; onChange: (v: T) => void }) => (
-    <div className="flex flex-wrap gap-2">{options.map(([v, l]) => (
-      <button type="button" key={v} onClick={() => onChange(v)} className={`seg ${value === v ? 'seg-on' : ''}`}>{l}</button>))}</div>
-  );
   return (
     <form onSubmit={submit} className="mx-auto max-w-lg space-y-6 py-10">
       <div><div className="label">Bienvenue</div><h1 className="text-2xl font-bold">Quatre questions, et Doctopus s'adapte à toi.</h1></div>
       <div className="card space-y-5 p-5">
         <label className="block space-y-1.5"><span className="label">Land où tu passes la FSP</span>
-          <select value={f.target_land} onChange={(e) => setF({ ...f, target_land: e.target.value })} className="input w-full">{LAENDER.map(([c, n]) => <option key={c} value={c}>{n}</option>)}</select></label>
+          <select value={f.target_land} onChange={(e) => setF((p) => ({ ...p, target_land: e.target.value }))} className="input w-full">{LAENDER.map(([c, n]) => <option key={c} value={c}>{n}</option>)}</select></label>
         <div className="space-y-1.5"><span className="label">Date d'examen</span>
           <div className="flex items-center gap-3">
-            <input type="date" disabled={noDate} value={f.exam_date ?? ''} onChange={(e) => setF({ ...f, exam_date: e.target.value })} className="input" />
+            <input type="date" disabled={noDate} value={f.exam_date ?? ''} onChange={(e) => setF((p) => ({ ...p, exam_date: e.target.value }))} className="input" />
             <label className="flex items-center gap-1.5 text-sm"><input type="checkbox" checked={noDate} onChange={(e) => setNoDate(e.target.checked)} />Pas encore</label>
           </div></div>
         <div className="space-y-1.5"><span className="label">Niveau d'allemand actuel</span>
-          <Seg value={f.language_level} options={[['B2','B2'],['C1','C1'],['C1+','Au-delà de C1']] as const} onChange={(v) => setF({ ...f, language_level: v })} /></div>
+          <Seg value={f.language_level} options={[['B2','B2'],['C1','C1'],['C1+','Au-delà de C1']] as const} onChange={(v) => setF((p) => ({ ...p, language_level: v }))} /></div>
         <div className="space-y-1.5"><span className="label">Où en es-tu dans la procédure ?</span>
-          <Seg value={f.procedure_stage} options={STAGES} onChange={(v) => setF({ ...f, procedure_stage: v })} /></div>
+          <Seg value={f.procedure_stage} options={STAGES} onChange={(v) => setF((p) => ({ ...p, procedure_stage: v }))} /></div>
       </div>
       <button type="submit" className="btn-primary w-full justify-center py-3 text-base">Commencer</button>
     </form>

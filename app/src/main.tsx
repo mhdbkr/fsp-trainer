@@ -62,8 +62,10 @@ const router = createHashRouter([
   { path: '/patient/:caseId', element: <PatientScreen /> },
 ]);
 
-ensureSeeded()
-  .then(() => initSession())
+// La session d'abord : un `?code=` de lien magique doit être échangé AVANT
+// que le router ne touche à l'URL et avant le seed (long).
+initSession()
+  .then(() => ensureSeeded())
   .then(() => loadEntitlements())
   .then(() => { watchEntitlements(); })
   .then(() => useProfiles.getState().load())

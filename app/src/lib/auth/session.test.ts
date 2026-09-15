@@ -30,9 +30,9 @@ describe('session', () => {
     expect(useSession.getState().user?.id).toBe('u1');
   });
 
-  it('signInWithMagicLink envoie un OTP e-mail avec redirection', async () => {
+  it('signInWithMagicLink envoie un OTP e-mail avec redirection SANS fragment (PKCE)', async () => {
     const { supabase } = await import('@/lib/supabase');
     await signInWithMagicLink('x@y.z');
-    expect(supabase.auth.signInWithOtp).toHaveBeenCalledWith({ email: 'x@y.z', options: { emailRedirectTo: expect.stringContaining('/auth/callback') } });
+    expect(supabase.auth.signInWithOtp).toHaveBeenCalledWith({ email: 'x@y.z', options: { emailRedirectTo: expect.stringMatching(/^https?:\/\/[^#]+\/$/) } });
   });
 });
