@@ -21,6 +21,10 @@ prestataire établi en France servant un public allemand — est un point à
 faire trancher par un juriste**, idéalement bilingue droit des médias
 allemand + droit français, avant toute mise en ligne.
 
+Décision direction (2026-09-16, via `lead-site`) : marque « Doctopus »,
+produit « FSP Trainer ». Placeholders d'identité harmonisés sous le
+préfixe `{{LEGAL_*}}` — liste complète dans `docs/legal/README.md` §3.
+
 ---
 
 ## Impressum
@@ -29,39 +33,39 @@ Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG, vormals § 5 TMG)
 
 **Diensteanbieter**
 
-{{RAISON_SOCIALE}}
-{{FORME_JURIDIQUE}} — {{PAYS_ETABLISSEMENT}} {{"(z. B. Frankreich, Einzelunternehmen / micro-entreprise)"}}
-{{ADRESSE_RUE_NUMMER}}
-{{PLZ_ORT}}
-{{PAYS}}
+{{LEGAL_NAME}}
+{{LEGAL_FORM}} — {{LEGAL_COUNTRY}} {{"(z. B. Frankreich, Einzelunternehmen / micro-entreprise)"}}
+{{LEGAL_ADDRESS_STREET}}
+{{LEGAL_ADDRESS_CITY}}
+{{LEGAL_COUNTRY}}
 
 **Vertreten durch**
 
-{{VOR_UND_NACHNAME}}
+{{LEGAL_REPRESENTATIVE}}
 
 **Kontakt**
 
-Telefon: {{TELEFON}}
-E-Mail: {{KONTAKT_EMAIL}}
+Telefon: {{LEGAL_PHONE}}
+E-Mail: {{LEGAL_EMAIL}}
 
 **Registereintrag**
 
 {{"Eintrag im Handelsregister (falls zutreffend) — bei micro-entreprise: SIRET-Nummer"}}
-{{REGISTER_ODER_SIRET_NUMMER}}
+{{LEGAL_REGISTER_OR_SIRET}}
 
 **Umsatzsteuer-Identifikationsnummer**
 
 {{"Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz bzw. innergemeinschaftliche USt-IdNr."}}
-{{USTID_ODER_TVA_INTRACOM}}
+{{LEGAL_VAT_ID}}
 
 **Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV**
 
-{{VOR_UND_NACHNAME}}
-{{ADRESSE_WIE_OBEN}}
+{{LEGAL_REPRESENTATIVE}}
+{{LEGAL_ADDRESS_STREET}}, {{LEGAL_ADDRESS_CITY}}
 
 **Redaktionell verantwortlich für journalistisch-redaktionelle Inhalte (Blog)**
 
-{{VOR_UND_NACHNAME}} {{"(falls Blog-Artikel als journalistisch-redaktionell einzustufen sind — mit Jurist zu klären, siehe README)"}}
+{{LEGAL_REPRESENTATIVE}} {{"(falls Blog-Artikel als journalistisch-redaktionell einzustufen sind — mit Jurist zu klären, siehe README)"}}
 
 **Streitschlichtung**
 
