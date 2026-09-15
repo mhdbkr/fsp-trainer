@@ -1,365 +1,334 @@
-# Doctopus — organisation agentique, de la bêta locale au SaaS en ligne
+# Doctopus — organisation agentique v2 · pôles, rôles, méthode, backlog
 
-> Ce document remplace la vision « outil local » de `ROADMAP-PRODUCTION.md` par
-> la vision **Doctopus** : un SaaS freemium + abonnements, avec simulation
-> vocale et patient IA en features premium. Il est écrit pour être exécuté :
-> chaque département correspond à des fichiers réels dans `.claude/agents/`,
-> chaque phase a un gate mécanique, chaque case à cocher a un propriétaire.
+> **Version 2** — remplace la v1 (six départements) après la discussion
+> stratégique de septembre 2026 et la livraison des Fondations SaaS (PR #2).
+> Ce document est **exécutable** : chaque rôle est un fichier
+> `.claude/agents/<pôle>-<rôle>.md`, chaque pôle a un skill de standards dans
+> `.claude/skills/dept-*/`, chaque décision est un ADR dans `docs/adr/`,
+> chaque sous-projet est une issue GitHub `epic`.
 >
-> `AGENTIC-TEAM.md` (les 5 relecteurs) reste valable : il devient le
-> département **Qualité contenu** de cette organisation.
+> Documents liés : `PRODUCT-VISION.md` (innovations, trajectoire, modèle),
+> `ROADMAP-PRODUCTION.md` (verrous, phases), `AGENTIC-TEAM.md` (les 5
+> relecteurs de contenu), `docs/superpowers/specs/*` (specs validés).
 
 ---
 
-## 0. Trois vérités d'ingénierie avant l'organigramme
+## 0. Les trois vérités qui gouvernent tout (inchangées, prouvées)
 
-Une organisation d'agents ne vaut que si elle repose sur ce que les agents
-**font réellement**. Trois points à poser d'emblée, pour ne pas construire sur
-une fiction.
+1. **Les sous-agents ne se parlent pas.** Ils lisent des **contrats écrits**
+   (`docs/contracts/`, `CONTEXT.md`, ADRs) et rendent un livrable au
+   coordinateur, seul point de fusion. C'est plus robuste qu'un chat : un
+   contrat est versionné, diffable, testable.
+2. **« Entraîné pour son rôle » = brief dense + outils restreints + exemples
+   du projet + gate qui refuse la déviation.** Pas un modèle fine-tuné.
+3. **On ne paie jamais un agent pour ce qu'un script fait gratuitement.**
+   Couche mécanique (CI, validateurs, tests, evals) d'abord ; agents de
+   jugement ensuite ; décision humaine enfin.
 
-**1 · Les sous-agents ne se parlent pas — et c'est une bonne chose.**
-Un agent est lancé, travaille isolément, rend un livrable. Ce qui fait
-travailler un département avec un autre, ce n'est pas une conversation, c'est
-un **contrat écrit** que les deux lisent : un schéma OpenAPI, un schéma de base,
-une matrice d'entitlements, un fichier de types. C'est exactement comme ça que
-des équipes humaines distribuées tiennent — et c'est plus robuste qu'un chat,
-parce que le contrat est versionné, diffable et testable. Le **coordinateur**
-est le seul point où tous les livrables convergent.
-
-**2 · « Entraîné pour son rôle » signifie : un brief dense, des outils
-restreints, des exemples du projet, et un gate qui refuse son travail s'il
-dévie.** Pas un modèle fine-tuné. Un agent `.md` avec un périmètre exclusif, les
-fichiers de référence à lire, les pièges déjà rencontrés sur ce projet, et un
-livrable vérifiable. C'est ce qui a marché pour la pipeline de cas ; c'est ce
-qui marchera ici.
-
-**3 · On ne paie jamais un agent pour ce qu'un script fait gratuitement.**
-Chaque département a d'abord une **couche mécanique** (tests, lint, contrats,
-évaluations automatisées) et ensuite seulement des agents de jugement. Le
-freemium ajoute un backend, donc des surfaces d'erreur nouvelles (auth,
-paiement, données personnelles) : là, la couche mécanique n'est pas une
-économie, c'est une obligation.
+Preuve sur les Fondations SaaS : les revues et les parcours réels ont trouvé
+~30 défauts dans le plan initial, dont 9 auraient été des incidents de
+production silencieux. Aucun n'était visible par un test unitaire seul.
 
 ---
 
-## 1. Ce qui change avec Doctopus
-
-| | Bêta locale (aujourd'hui) | Doctopus (cible) |
-|---|---|---|
-| Données | 100 % IndexedDB, rien ne sort | Compte utilisateur, progression synchronisée, **hors-ligne conservé** |
-| Contenu | Embarqué dans le bundle | Servi selon l'abonnement, mis en cache localement |
-| Accès | Libre | Freemium → Pro → Premium |
-| Simulation | Texte, second écran humain | + **patient IA** (LLM ancré sur la fiche) + **voix** (TTS par patient) |
-| Responsabilité | Personnelle | Impressum, AGB, DSGVO, Stripe, support |
-| Dépôt | Public | Code et contenu **séparés** ; contenu privé |
-
-Ce n'est pas une évolution de l'app : **c'est un second produit autour de la
-même app**. L'organisation ci-dessous est dimensionnée pour ça.
-
----
-
-## 2. L'organigramme
+## 1. Organigramme — trois pôles, un coordinateur, une direction
 
 ```
-                              ┌─────────────────────────────┐
-                              │   DIRECTION — Mehdi          │
-                              │   produit · prix · légal ·   │
-                              │   go/no-go de chaque phase   │
-                              └──────────────┬──────────────┘
-                                             │
-                              ┌──────────────▼──────────────┐
-                              │   COORDINATION               │
-                              │   orchestrateur (session     │
-                              │   principale) + workflows +  │
-                              │   release-manager            │
-                              └──────────────┬──────────────┘
-                                             │  contrats écrits (docs/contracts/)
-        ┌──────────────┬──────────────┬──────┴───────┬──────────────┬──────────────┐
-        ▼              ▼              ▼              ▼              ▼              ▼
-  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐
-  │ PRODUIT & │ │ CONTENU   │ │ PLATEFORME│ │ FRONTEND  │ │ VOIX & IA │ │ QUALITÉ,  │
-  │ PÉDAGOGIE │ │ CLINIQUE  │ │ (backend) │ │           │ │           │ │ SÉCU, OPS │
-  └───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘
-   spec, parcours  cas, fiches,  schéma, API,  écrans,       patient LLM,  QA e2e,
-   gamification    langue,       auth, Stripe, paywall,      TTS, evals    sécurité,
-                   validateurs   sync          sync UI                     CI/CD, obs.
+                              DIRECTION — Mehdi
+               produit · prix · légal · go/no-go de chaque phase
+                                     │
+                    COORDINATION — orchestrateur (session principale)
+                    + coord-release-manager + coord-issue-triager
+                                     │  contrats écrits
+     ┌───────────────────────────────┼───────────────────────────────┐
+     ▼                               ▼                               ▼
+PÔLE PRODUIT                 PÔLE CROISSANCE                 PÔLE FONDATIONS
+« ce qui se joue »           « ce qui se vend »              « ce qui tient »
+─────────────────            ─────────────────               ─────────────────
+Produit & Pédagogie          Marque & Site                   Plateforme
+Expérience (UX, avocat       Marketing & Growth              Sécurité & Conformité
+  utilisateur, mouvement)    Marché & Pricing                Ops & Scaling
+Contenu clinique             Communauté & Support            Finance & Unit economics
+Simulation (3 modes)                                         R&D / Innovation
+Voix & IA (préparé)                                          Qualité
 ```
 
-Six départements, un coordinateur, une direction. **Dix-huit agents** au total,
-dont cinq existent déjà. Chacun est soit **implémenteur** (écrit dans un
-périmètre de fichiers précis), soit **relecteur** (lecture seule). Jamais les
-deux : celui qui écrit ne se relit pas.
+**Règle d'or** : chaque agent est **implémenteur** (écrit dans un périmètre de
+fichiers précis) **ou relecteur** (lecture seule). Jamais les deux. Celui qui
+écrit ne se relit pas.
 
 ---
 
-## 3. Les départements, agent par agent
+## 2. La méthode — fusion Superpowers × Matt Pocock × Agent Skills
 
-Convention de nommage : `<dept>-<rôle>.md` dans `.claude/agents/`.
-Colonne « Écrit dans » = le seul périmètre où l'agent a le droit de modifier.
+Trois bibliothèques, une seule chaîne. Chaque étape nomme **le skill à
+invoquer** ; le coordinateur ne l'improvise pas.
 
-### 3.1 · Coordination
-
-| Agent | Question unique | Écrit dans | Livrable |
+| Étape | Skill(s) | Livrable | Gate |
 |---|---|---|---|
-| **orchestrateur** (session principale, pas un fichier) | Quelle est la prochaine étape, qui la fait, quel gate la valide ? | partout, par fusion des livrables | Commits, arbitrages, tableau de bord des phases |
-| `coord-release-manager` | Cette version est-elle livrable ? | `CHANGELOG.md`, tags | Note de version, checklist de gate cochée avec preuves, go/no-go motivé |
+| **0 · Comprendre** | `interview-me` (ce que l'utilisateur veut vraiment) → `idea-refine` (divergence/convergence) → `mattpocock:grilling` (les questions qui fâchent) | Intention claire, hypothèses surfacées | Direction valide l'intention |
+| **1 · Concevoir** | `superpowers:brainstorming` (une question à la fois, décomposition si > 1 sous-système, 2–3 approches, design par sections) | `docs/superpowers/specs/YYYY-MM-DD-<sujet>-design.md` | Self-review du spec (placeholders, contradictions, périmètre) puis relecture Mehdi |
+| **1b · Modéliser le domaine** | `mattpocock:domain-modeling` (termes → `CONTEXT.md`), `documentation-and-adrs` (décisions → `docs/adr/`) | Glossaire à jour, ADR par décision | Aucun terme inventé hors glossaire |
+| **2 · Spécifier** | `spec-driven-development` / `mattpocock:to-spec` (critères d'acceptation **testables**) ; `constraint-driven-development` si la barre de qualité n'est pas écrite | Critères §11 du spec | Chaque critère a une preuve possible |
+| **3 · Planifier** | `superpowers:writing-plans` + `planning-and-task-breakdown` ; `mattpocock:to-tickets` → issues GitHub | `docs/superpowers/plans/…md` (tâches 2–5 min, code inclus, TDD) + issues | Self-review : couverture du spec, placeholders, cohérence des types |
+| **4 · Construire** | `superpowers:subagent-driven-development` (un implémenteur frais par tâche, revue par tâche) · `incremental-implementation` · `test-driven-development` (`mattpocock:tdd`) · `source-driven-development` (API externes : Supabase, Stripe, Rive) · `doubt-driven-development` (paiement, RLS, sync, irréversible) · `context-engineering` | Commits atomiques, ledger `.superpowers/sdd/progress.md` | Tests + tsc + validateurs par **code de sortie** ; vérification navigateur |
+| **5 · Revoir** | Revue par tâche (spec + qualité) ; `code-review-and-quality` (5 axes) ; `security-review` / `security-and-hardening` sur auth/paiement/données ; `code-simplification` ; revue finale de branche sur **Opus** (`requesting-code-review`) ; `receiving-code-review` pour appliquer | Constats au format `_FORMAT.md` | Aucun Critical/Important ouvert |
+| **6 · Livrer** | `superpowers:finishing-a-development-branch` → PR → CI verte → `git-workflow-and-versioning` ; `shipping-and-launch` (checklist, rollback) ; `observability-and-instrumentation` | PR mergée, release taguée | `superpowers:verification-before-completion` : preuve, pas impression |
+| **7 · Diagnostiquer** (quand ça casse) | `superpowers:systematic-debugging` / `debugging-and-error-recovery` / `mattpocock:diagnosing-bugs` : reproduire → localiser → corriger → verrouiller par un test | Test de non-régression | Le bug a son test |
 
-Le coordinateur ne produit pas de code : il découpe, lance en éventail, fusionne,
-arbitre les conflits entre rapports, applique. Ses procédures sont des
-**skills** (`/phase-plan`, `/release-check`) et des **scripts `Workflow`** pour
-les rituels répétitifs (revue de lot, audit pré-release).
+**Comportements non négociables** (Agent Skills) : surfacer ses hypothèses
+avant d'agir ; s'arrêter sur une contradiction plutôt que deviner ; pousser
+en retour quand une approche a un défaut concret ; simplicité ; périmètre
+chirurgical ; vérifier, ne jamais supposer.
 
-### 3.2 · Produit & Pédagogie
+**Règles apprises sur ce projet** (dans `CLAUDE.md`, opposables à tout agent) :
+vérifier par code de sortie ; mesurer depuis le DOM de l'app, jamais depuis un
+module importé par une sonde ; paginer tout ce qui touche PostgREST ; un
+writer par worktree ; stager par fichier ; ne jamais `db reset` sur une base
+qui porte du contenu publié ; jamais le contexte Stripe live.
 
-| Agent | Question unique | Écrit dans | Livrable |
-|---|---|---|---|
-| `product-spec-writer` | Que construit-on exactement, pour qui, et comment saura-t-on que c'est réussi ? | `docs/specs/` | PRD par feature : problème, utilisateur, critères d'acceptation **testables**, hors-périmètre explicite |
-| `product-pedagogy-designer` | La progression apprend-elle vraiment, ou occupe-t-elle ? | `docs/specs/pedagogy/` | Parcours d'apprentissage, règles de couches/SRS, **gamification ancrée sur des comportements utiles** (une simulation complète vaut plus qu'un login quotidien) |
+---
 
-Ce département écrit **avant** que quiconque code. Une feature sans PRD n'entre
-pas en développement — c'est ce qui a manqué au mode focus, qu'on a dû
-retravailler quatre fois.
+## 3. Routage des modèles
 
-### 3.3 · Contenu clinique
-
-Les cinq relecteurs de `AGENTIC-TEAM.md`, plus l'auteur de la pipeline v3.
-
-| Agent | Rôle | Écrit dans |
+| Tier | Modèle | Rôles |
 |---|---|---|
-| `content-case-author` | Authore un cas complet depuis un protocole réel (pipeline v3 : recherche mutualisée → rédaction par lot) | `app/scratchpad/lot*/` (JSON), intégré par `lotAssembler.py` |
-| `fsp-clinical-reviewer` · `fsp-language-reviewer` · `fsp-concision-editor` | existants — lecture seule | — |
-| `content-anonymizer` | Aucun nom réel ne subsiste-t-il dans le corpus ? | `app/src/data/seedCases.ts` (noms uniquement) | Table de pseudonymisation + validateur `checkNoRealNames.mjs` qui refuse tout nom hors table |
+| **Jugement** | Opus | orchestrateur, architectes (plateforme, produit), relecteur clinique, avocat de l'utilisateur, pédagogue, auditeur sécurité, relecteur final de branche, analyste marché/pricing |
+| **Exécution** | Sonnet | implémenteurs (front, plateforme, site), auteur de cas, rédacteurs marketing, relecteurs par tâche sur diffs simples, testeur QA, designer de mouvement |
+| **Masse** | Haiku | classification, extraction, transformations mécaniques, tri d'issues, rapports de métriques |
 
-**Gate mécanique** : les 6 validateurs existants + `checkNoRealNames`.
-Prérequis absolu à toute diffusion : ce département est le seul qui touche à un
-risque juridique direct.
-
-### 3.4 · Plateforme (backend)
-
-Le département qui n'existe pas encore et qui porte le plus de risque.
-
-| Agent | Question unique | Écrit dans | Livrable |
-|---|---|---|---|
-| `platform-architect` | Quel schéma, quelle API, quel modèle de sync tiennent le hors-ligne ET le multi-appareil ? | `docs/contracts/` | **Les contrats** : `schema.sql`, `openapi.yaml`, `entitlements.md`, `sync-protocol.md`. Lecture seule sur le code. |
-| `platform-implementer` | Le backend respecte-t-il le contrat, ligne à ligne ? | `server/` (ou `supabase/`) | Migrations, RLS, fonctions edge, **tests de contrat** qui échouent si l'API dévie d'`openapi.yaml` |
-| `platform-billing-engineer` | Le paiement est-il juste, idempotent, et l'entitlement suit-il l'état Stripe en toute circonstance ? | `server/billing/` | Webhooks Stripe idempotents, matrice état-abonnement → droits, tests sur chaque transition (essai, échec de paiement, résiliation, remboursement) |
-| `platform-sync-engineer` | La progression survit-elle à tout : hors-ligne long, deux appareils, conflit, réinstallation ? | `app/src/sync/`, `server/sync/` | Couche de sync Dexie ↔ Postgres, résolution de conflits **documentée**, tests de scénarios |
-
-**Gate mécanique** : tests de contrat, tests d'intégration sur base éphémère,
-migration up/down testée, `stripe-cli` en replay de webhooks.
-
-### 3.5 · Frontend
-
-| Agent | Question unique | Écrit dans | Livrable |
-|---|---|---|---|
-| `front-implementer` | L'écran fait-il ce que le PRD dit, avec les composants qui existent déjà ? | `app/src/` | Écrans compte / paywall / onboarding / paramètres de sync ; réutilise `PhraseControls`, `SidePanel`, `TimeCapsule` avant de créer |
-| `front-design-keeper` | La charte « instrument clinique » tient-elle ? Un composant nouveau était-il nécessaire ? | lecture seule | Rapport : écarts de tokens, doublons de composants, régressions de mouvement (`ease-fluid`, reduced-motion) |
-| `fsp-ux-auditor` | existant — a11y, responsive, thèmes | lecture seule | — |
-
-**Gate mécanique** : `typecheck`, `build`, tests de composants (à introduire :
-Vitest + Testing Library sur les contrôles interactifs), Lighthouse CI
-(performance, a11y ≥ 95).
-
-### 3.6 · Voix & IA
-
-Le département premium. Deux briques, deux risques différents.
-
-| Agent | Question unique | Écrit dans | Livrable |
-|---|---|---|---|
-| `ai-patient-engineer` | Le patient IA reste-t-il **dans sa fiche** — ne dit jamais ce que `patientSheet` ne contient pas ? | `app/src/lib/simulationStep.ts` (le hook prévu), `server/ai/` | Prompt système généré depuis la fiche, réponses ancrées sur `antworten`, refus élégant hors-fiche, registre patient (jamais de Fachbegriff) |
-| `ai-voice-engineer` | Chaque patient a-t-il une voix stable, crédible, et le coût par simulation est-il borné ? | `server/voice/`, `app/src/voice/` | Profil vocal par cas (voix + prosodie + âge), **pré-génération et cache** des répliques fixes du `Rollenskript`, streaming pour le dynamique uniquement |
-| `ai-eval-engineer` | Comment prouve-t-on que le patient IA ne dérive pas ? | `evals/` | Jeu d'évaluation par cas : fidélité à la fiche, registre, niveau de langue, refus hors-fiche ; **seuil bloquant en CI** |
-
-**Une clarification sur « TTS entraînés par patient »** : avec les fournisseurs
-actuels (ElevenLabs, Azure, OpenAI), on ne réentraîne pas un modèle par cas ; on
-**conçoit** une voix (voice design ou clone d'acteur consentant) qui devient un
-identifiant stable, puis on la paramètre (âge, débit, émotion) par personnage.
-Le résultat perçu est le même — Frau Kovermann n'a pas la voix de Herr Kartmann —
-pour une fraction du coût.
-
-**Le levier économique décisif** : le moteur `rolePlay.ts` produit déjà des
-répliques **déterministes** par sonde. Elles se pré-génèrent une fois, se
-stockent, et se servent gratuitement à chaque simulation. Seules les réponses
-libres du patient IA passent en TTS temps réel. Le coût marginal d'une
-simulation vocale devient faible et prévisible — condition pour que le premium
-soit rentable.
-
-**Gate mécanique** : `evals/` en CI avec seuil ; budget de tokens et de
-caractères TTS par simulation mesuré et plafonné côté serveur.
-
-### 3.7 · Qualité, sécurité, opérations
-
-| Agent | Question unique | Écrit dans | Livrable |
-|---|---|---|---|
-| `fsp-qa-tester` | existant — parcours de bout en bout | lecture seule | Étendu : parcours inscription → paiement (mode test) → accès → sync → résiliation |
-| `ops-security-auditor` | Où un utilisateur peut-il lire ou écrire ce qui n'est pas à lui ? | lecture seule | Revue RLS ligne à ligne, OWASP top 10, secrets hors du client, rate-limiting sur l'IA/voix, **preuve par requête tentée et refusée** |
-| `ops-devops-engineer` | Peut-on déployer, revenir en arrière et observer sans intervention manuelle ? | `.github/workflows/`, `infra/` | Environnements preview/staging/prod, migrations automatisées, rollback testé, alertes |
-| `ops-compliance-checker` | Ce qui doit être écrit pour opérer en Allemagne est-il écrit et **branché** ? | `docs/legal/`, pages légales | Impressum, Datenschutzerklärung, AGB, avertissement « outil de langue, pas dispositif médical », registre des traitements. **Brouillons à faire valider par un juriste** — l'agent prépare, il ne certifie pas. |
-
-**Gate mécanique** : scan de dépendances, scan de secrets, tests RLS
-automatisés (un utilisateur A tente de lire B → 0 ligne), Lighthouse,
-disponibilité mesurée.
+Un modèle omis hérite du plus cher : **toujours** l'écrire dans le dispatch.
 
 ---
 
-## 4. Ce qui fait tenir l'ensemble : les contrats
+## 4. Les pôles, rôle par rôle
 
-Le répertoire `docs/contracts/` est **la seule source de vérité partagée**.
-Chaque agent le lit ; seul `platform-architect` y écrit, sur validation du
-coordinateur. Quatre fichiers :
+Colonne « Écrit dans » = seul périmètre modifiable. « Skills » = ce que le
+fichier d'agent lui impose d'invoquer. Modèle entre crochets.
+
+### 4.1 Coordination
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| **orchestrateur** (session, pas un fichier) [Opus] | Quelle est la prochaine étape, qui la fait, quel gate la valide ? | fusion des livrables | `using-agent-skills`, `superpowers:*`, `workflow-authoring`, `mattpocock:wizard` |
+| `coord-release-manager` [Sonnet] | Cette version est-elle livrable ? | `CHANGELOG.md`, tags | `shipping-and-launch`, `git-workflow-and-versioning`, `engineering:deploy-checklist` |
+| `coord-issue-triager` [Haiku] | Cette issue/retour va à quel pôle, avec quelle priorité ? | labels GitHub | `mattpocock:triage`-like, `small-business:lead-triage` (pattern) |
+
+### 4.2 Pôle Produit
+
+**Produit & Pédagogie**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `product-spec-writer` [Opus] | Que construit-on, pour qui, et comment saura-t-on que c'est réussi ? | `docs/superpowers/specs/` | `interview-me`, `idea-refine`, `spec-driven-development`, `product-management:write-spec`, `mattpocock:to-spec` |
+| `product-pedagogy-designer` [Opus] — **droit de veto** sur toute mécanique de rétention ; relit chaque page de pricing | La progression apprend-elle vraiment, ou occupe-t-elle ? | `docs/specs/pedagogy/` | `design:user-research`, `design:research-synthesis`, `fsp-simulation`, `fsp-trainer` |
+| `product-exam-fidelity-analyst` [Opus] | Ce que l'app dit de l'examen est-il vrai **dans ce Land** ? | `docs/exam/<land>.md`, `CONTEXT.md` (examen) | `fsp-simulation`, `mattpocock:research`, `mattpocock:domain-modeling` |
+
+**Expérience**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `ux-user-advocate` [Opus] — rapport direct au coordinateur, priorité produit | Où la machine impose-t-elle sa logique à l'humain ? (personas : candidat à 3 semaines, binôme à distance, non-natif mobile) | lecture seule | `playwright-cli`, `design:design-critique`, `design:accessibility-review`, `design-audit` |
+| `ux-motion-designer` [Sonnet] | Le mouvement est-il « apple-like » : fluide, interruptible, sans clignotement ? | `app/src/styles/`, composants animés | `animate`, `apple-design`, `emil-design-eng`, `find-animation-opportunities`, `improve-animations`, `animation-vocabulary` |
+| `front-implementer` [Sonnet] | L'écran fait-il ce que le PRD dit, avec les composants qui existent ? | `app/src/` | `frontend-ui-engineering`, `frontend-design`, `ui-ux-pro-max`, `web-design-guidelines`, `vercel-react-best-practices`, `incremental-implementation`, `test-driven-development` |
+| `front-design-keeper` [Sonnet] | La charte « instrument clinique » tient-elle ? Un composant nouveau était-il nécessaire ? | lecture seule | `design:design-system`, `typography`, `design-audit`, `impeccable` |
+| `fsp-ux-auditor` (existant) [Sonnet] | a11y, responsive, thèmes | lecture seule | `playwright-cli`, `design:accessibility-review` |
+
+**Contenu clinique** — les 5 relecteurs de `AGENTIC-TEAM.md` + :
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `content-case-author` [Sonnet] | Ce cas est-il fidèle au protocole, complet sur toutes les sondes, dans le registre ? | `app/scratchpad/lot*/` → `lotAssembler.py` | `fsp-simulation`, `writing-guidelines`, pipeline v3 |
+| `content-anonymizer` [Haiku] | Un nom réel subsiste-t-il ? | `seedCases.ts` (noms) | validateur `checkNoRealNames` |
+| `content-fachwissen-visualizer` [Sonnet] | Que faut-il montrer plutôt qu'écrire sur cette fiche ? | `app/src/data/fachwissenVisuals/*.json` (spec par pathologie) | `dataviz`, `artifact-diagramming` (méthode), `fsp-trainer` |
+| `content-protocol-ingester` [Sonnet] | Ce protocole communautaire est-il exploitable, et que change-t-il aux fréquences ? | `data/protocols/` | `mattpocock:research`, `data:validate-data` |
+
+**Simulation (3 modes)**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `sim-engine-engineer` [Sonnet] | Le moteur (rolePlay, simulationStep, sync patient) reste-t-il un seul code pour les trois modes ? | `app/src/lib/rolePlay.ts`, `simulationStep.ts`, `features/simulation/` | `api-and-interface-design`, `test-driven-development`, `fsp-simulation` |
+| `sim-online-engineer` [Sonnet] | Le binôme à distance voit-il exactement ce que le QR local voyait, rôles inversables ? | `app/src/features/simulation/online/`, `supabase/functions/session-*` | `source-driven-development` (Supabase Realtime), `api-and-interface-design` |
+| `sim-character-engineer` [Sonnet] | Le patient/Oberarzt croqué réagit-il à la bonne question (posture, zone, émotion) ? | `app/src/characters/` (Rive) | `animate`, `apple-design`, `source-driven-development` (Rive) |
+
+**Voix & IA** (préparé ; démo statique d'abord)
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `ai-patient-engineer` [Opus] | Le patient IA reste-t-il **dans sa fiche** ? | `simulationStep.ts` hooks, `supabase/functions/ai-*` | `claude-api`, `source-driven-development`, `doubt-driven-development` |
+| `ai-voice-engineer` [Sonnet] | Chaque patient a-t-il une voix stable, et le coût par simulation est-il borné ? | `supabase/functions/voice-*`, `app/src/voice/` | `source-driven-development` (fournisseur), pré-génération du `Rollenskript` |
+| `ai-eval-engineer` [Opus] | Comment prouve-t-on que l'IA ne dérive pas ? | `evals/` | `gsd-core:ai-integration-phase` (eval-planner), `claude-api` |
+
+### 4.3 Pôle Croissance
+
+**Marque & Site**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `brand-strategist` [Opus] | Doctopus, c'est quoi en une phrase, pour qui, contre quoi ? | `docs/brand/` | `brand-building-skills:brand-strategy/positioning/story/messaging/voice/guidelines`, `brand-voice:generate-guidelines` |
+| `site-implementer` [Sonnet] | La page convertit-elle sur mobile en < 3 s, avec la même identité que l'app ? | `apps/site/` | `frontend-design`, `ui-ux-pro-max`, `vercel-*`, `deploy-to-vercel`, `web-design-guidelines`, `seo` (`small-business:seo-ai-visibility`, `marketing:seo-audit`) |
+| `brand-creative-director` [Sonnet] | Ce visuel/vidéo est-il reconnaissable sans logo ? | briefs Higgsfield/Canva | `canva:*`, `ui-ux-pro-max:banner-design`, `brand-voice:enforce-voice` |
+
+**Marketing & Growth** — *machine à politiques* : Mehdi fixe budget max, audiences, ton ; approbation avant toute créa publiée et tout dépassement.
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `growth-campaign-manager` [Sonnet] | Quelle campagne, quel budget, quel résultat attendu, quelle preuve ? | `docs/marketing/campaigns/` ; comptes ads via MCP sous seuils | `marketing:campaign-plan/performance-report`, `brand-building-skills:meta-ads/google-ads`, `small-business:ad-manager` |
+| `growth-content-engine` [Sonnet] | Que publie-t-on cette semaine, dans la voix Doctopus ? | calendrier, posts, `postiz` | `small-business:social-content-engine`, `marketing:content-creation/draft-content/email-sequence`, `brand-building-skills:ugc-strategy/influencer-marketing/email-marketing` |
+| `growth-analyst` [Haiku→Sonnet] | Ça marche ? Où va l'argent ? | rapports | `small-business:growth-pulse/marketing-monday`, `data:analyze`, `product-management:metrics-review` |
+
+**Marché & Pricing**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `market-analyst` [Opus] | Combien de candidats, où, prêts à payer quoi, contre qui ? | `docs/market/` | `product-management:competitive-brief`, `brand-building-skills:target-audience/competitor-branding`, `sales:competitive-intelligence`, `mattpocock:research` |
+| `pricing-designer` [Opus] — **relu par le pédagogue et l'avocat utilisateur** | L'offre est-elle claire, honnête, alignée sur le cycle d'examen ? | `docs/contracts/entitlements.md` (proposition), `docs/pricing/` | `brand-building-skills:brand-measurement`, `small-business:price-check`, `data:statistical-analysis` |
+
+**Communauté & Support**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `community-protocol-curator` [Sonnet] | Ce protocole soumis mérite-t-il ses crédits, et qu'apporte-t-il au corpus ? | `data/protocols/`, ledger via fonction | `data:validate-data`, `fsp-simulation` |
+| `support-triager` [Haiku] | Bug, contenu faux, question, ou demande de feature ? Vers qui ? | labels/issues | `small-business:ticket-deflector` (pattern), `small-business:handle-complaint` |
+
+### 4.4 Pôle Fondations
+
+**Plateforme**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `platform-architect` [Opus] | Quel schéma, quelle API, quel modèle de sync tiennent hors-ligne ET multi-appareils ? | `docs/contracts/` (seul) | `api-and-interface-design`, `engineering:system-design`, `engineering:architecture`, `mattpocock:codebase-design`, `documentation-and-adrs` |
+| `platform-implementer` [Sonnet] | Le backend respecte-t-il le contrat, ligne à ligne ? | `app/supabase/` | `source-driven-development`, `test-driven-development`, `sparc:supabase-admin` |
+| `platform-billing-engineer` [Sonnet] | Le paiement est-il juste, idempotent, et l'entitlement suit-il Stripe en toute circonstance ? | `supabase/functions/{checkout,portal,stripe-webhook,credits-*}` | `source-driven-development` (Stripe), `doubt-driven-development`, `test-driven-development` |
+| `platform-sync-engineer` [Sonnet] | La progression survit-elle à tout : hors-ligne long, deux appareils, conflit, réinstallation ? | `app/src/lib/sync/`, `supabase/functions/events` | `api-and-interface-design`, `test-driven-development`, `doubt-driven-development` |
+
+**Sécurité & Conformité**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `security-auditor` [Opus] | Où un utilisateur peut-il lire ou écrire ce qui n'est pas à lui ? | lecture seule | `security-and-hardening`, `security-review`, `penetration-testing-with-strix`, `ci-security-scanning-with-strix`, `agent-skills:security-auditor` |
+| `compliance-checker` [Sonnet] | Ce qui doit être écrit pour opérer est-il écrit et **branché** ? (Impressum, Datenschutz, AGB, Widerruf, avertissement « outil de langue ») | `docs/legal/`, pages légales | `legal:compliance-check/legal-risk-assessment`, `small-business:contract-review` — **brouillons ; un juriste valide** |
+
+**Ops & Scaling**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `ops-devops-engineer` [Sonnet] | Peut-on déployer, revenir en arrière et observer sans intervention manuelle ? | `.github/workflows/`, `infra/` | `ci-cd-and-automation`, `deploy-to-vercel`, `vercel-cli-with-tokens`, `shipping-and-launch`, `engineering:incident-response` |
+| `ops-observability-engineer` [Sonnet] | Saura-t-on qu'un utilisateur souffre avant qu'il ne l'écrive ? Le coût IA/voix dérive-t-il ? | Sentry, logs, tableau de coûts | `observability-and-instrumentation`, `performance-optimization`, `anthropic-skills:scalability-advisor`, `vercel-optimize` |
+
+**Finance & Unit economics**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `finance-unit-economist` [Sonnet] | Une simulation vocale, un abonné, un mois : combien ça coûte, combien ça rapporte ? | `docs/finance/` | `small-business:margin-analyzer/cash-flow-snapshot/quarterly-review`, `finance:variance-analysis`, `data:analyze` |
+| `finance-admin-guide` [Sonnet] | Quelles démarches, dans quel ordre, pour opérer légalement depuis la France puis l'Allemagne ? | `docs/finance/admin.md` | `small-business:tax-prep/tax-season-organizer` — **orientation, pas conseil ; un comptable valide** |
+
+**R&D / Innovation**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `rd-spike-runner` [Sonnet] | En un temps borné, cette idée tient-elle techniquement ? | `spikes/` (jetable) | `mattpocock:prototype`, `gsd-core:spike`, `mattpocock:research`, `idea-refine` |
+| `rd-innovation-scout` [Opus] | Qu'est-ce qui, dans le marché ou la technique, changerait la donne pour un candidat ? | `docs/rd/` | `mattpocock:research`, `product-management:product-brainstorming`, `doubt-driven-development` |
+
+**Qualité**
+
+| Agent | Question unique | Écrit dans | Skills |
+|---|---|---|---|
+| `fsp-qa-tester` (existant, étendu) [Sonnet] | Est-ce que ça marche vraiment, de bout en bout — y compris inscription → paiement → sync → résiliation ? | lecture seule | `playwright-cli`, `browser-testing-with-devtools`, `agent-skills:test-engineer` |
+| `quality-task-reviewer` [Sonnet] | Cette tâche fait-elle ce que le brief dit, ni plus ni moins, et est-elle bien construite ? | lecture seule | `code-review-and-quality`, `mattpocock:code-review` |
+| `quality-branch-reviewer` [Opus] | Cette branche est-elle prête à merger ? Sécurité, correctness inter-modules, critères prouvés ? | lecture seule | `requesting-code-review`, `security-review`, `code-simplification`, `agent-skills:web-performance-auditor` |
+
+---
+
+## 5. Contrats — ce qui fait tenir l'ensemble
+
+`docs/contracts/` est la seule vérité partagée ; seul `platform-architect` y
+écrit, sur validation du coordinateur.
 
 | Contrat | Contenu | Consommé par |
 |---|---|---|
-| `schema.sql` | Tables, RLS, index. Ce qui existe en base, rien d'autre. | platform-*, sync, security |
-| `openapi.yaml` | Chaque endpoint, ses entrées, ses sorties, ses erreurs | platform-implementer, front-implementer, qa |
-| `entitlements.md` | Matrice plan × feature × quota. Free / Pro / Premium, en une table. | billing, front (paywall), ai-* (quotas), product |
-| `sync-protocol.md` | Ce qui se synchronise, quand, et comment un conflit se résout | sync-engineer, front, qa |
+| `schema.sql` (généré) | tables, RLS, index | plateforme, sécurité |
+| `openapi.yaml` | chaque fonction, entrées/sorties/erreurs | plateforme, front, QA |
+| `entitlements.md` | plan × feature × quota ; règles de tier | billing, front, IA, pricing |
+| `sync-protocol.md` | ce qui se synchronise, comment, conflits | sync, front, QA |
+| `characters.md` (à créer, #6) | machine à états des personnages Rive : `posture`, `douleur:zone`, `émotion` | simulation, voix, site |
+| `fachwissen-visuals.md` (à créer, #7) | schéma JSON des specs visuelles par pathologie | contenu, front |
+| `session-protocol.md` (à créer, #5) | messages du binôme en ligne (`active-case`, `guide-chapter`, `guide-probe`, `swap-roles`) | simulation, QA |
 
-Un agent qui a besoin de « parler » à un autre département **propose un
-changement de contrat** au coordinateur. Le contrat change, les deux
-implémenteurs relisent. C'est plus lent qu'un message — et c'est pour ça que ça
-marche : chaque interface est explicite, versionnée, et testée.
-
----
-
-## 5. Recommandation de pile technique
-
-Tu n'as pas demandé la pile, mais l'organisation en dépend : les briefs d'agents
-du département Plateforme ne s'écrivent pas de la même façon selon qu'on
-choisit un BaaS ou un serveur maison.
-
-| Brique | Recommandation | Pourquoi |
-|---|---|---|
-| Frontend | **garder** React + Vite + Dexie | Le hors-ligne est un avantage produit ; on ajoute, on ne remplace pas |
-| Backend | **Supabase, région Francfort** (Postgres + Auth + RLS + Storage + Edge Functions) | Un fondateur seul : zéro serveur à administrer, RLS = sécurité déclarative auditable, données en UE pour la DSGVO. Alternative si souveraineté stricte : Hetzner + Postgres autogéré, mais c'est un poste d'ops à temps partiel. |
-| Paiement | **Stripe** (Checkout + Customer Portal + webhooks) | Standard, TVA UE gérée, portail client sans code |
-| Patient IA | **Claude** côté serveur (Edge Function), fiche patient en contexte | Ancrage strict sur `patientSheet` ; la clé ne touche jamais le client |
-| Voix | ElevenLabs ou Azure Speech, via fonction serveur, **cache des répliques fixes** dans Storage | Coût borné par la pré-génération ; changement de fournisseur sans toucher au client |
-| Hébergement front | Cloudflare Pages ou Vercel, domaine `doctopus.*` | Preview par PR, rollback instantané |
-| Observabilité | Sentry (erreurs) + logs Supabase + un tableau de coûts IA/voix | Le poste de coût variable doit être visible dès le premier jour |
-
-**Le principe directeur** : tout ce qui est secret, payant ou juridiquement
-sensible passe par le serveur ; tout ce qui est expérience reste local et
-hors-ligne. La sync ne fait que réconcilier.
+Un agent qui a besoin de « parler » à un autre pôle **propose un changement de
+contrat** au coordinateur.
 
 ---
 
-## 6. La feuille de route — phases, propriétaires, gates
+## 6. Backlog des sous-projets — ordre, dépendances, pôle pilote
 
-Chaque phase se termine par un **gate** : mécanique d'abord, agents de jugement
-ensuite, go/no-go de la direction enfin. On n'ouvre pas la phase suivante sur un
-gate rouge.
+Chaque ligne est une issue GitHub `epic`. Chacune suit la chaîne §2 en entier
+(brainstorming → spec → plan → subagent-driven → revue → PR).
 
-### Phase 0 — Décisions & fondations · *Direction + Coordination*
+| # | Sous-projet | Dépend de | Pôle pilote | Innovation portée |
+|---|---|---|---|---|
+| 1 | **Fondations SaaS** | — | Fondations | ✅ livré (PR #2) |
+| 2 | **Prüfungstag-Simulator + Bereitschaftsindex** | 1 | Produit | mode « jour d'examen » 60 min sans assistance ; indice « es-tu prêt ? » — feature de conversion n° 1 |
+| 3 | **Fachbegriffe rafraîchi** | 1 | Produit | favoris (étoile + « expliquer »), decks perso, bouton Fachbegriffe du cas dans la barre de simulation, drill post-simulation ancré sur le cas puis la spécialité, tri alphabétique à curseur vertical (zoom au survol), étiquettes par statut SRS, favoris dans le programme, **explication en contexte**, **registre double** (technique / patient) |
+| 4 | **Correction d'Arztbrief** | 1 (crédits) | Voix & IA | comparaison au Muster sur les axes de l'examen (Konjunktiv I, formule orale, Fachbegriff manquant) — première feature IA |
+| 5 | **Binôme en ligne** | 1 (Realtime) | Simulation | session par lien, fiche simulant qui suit, **rôles inversables**, protocole hérité du sync local |
+| 6 | **Personnages Rive + Prüfungsakademie + démo vocale statique** | — | Simulation/Expérience | patient croqué (posture, zone douloureuse, émotion), Oberarzt caricaturé, académie animée (salle, jury, barème 60 pts, minutage, enregistrements exemplaires), démo voix sur 1 cas / 5–6 questions **pré-générée, zéro coût** |
+| 7 | **Fachwissen visuel** | — | Contenu | bibliothèque de composants pilotés par les données (silhouette anatomique, arbre décisionnel, mindmap, frise, tableau, toggles thérapie), spec JSON par pathologie, style reconnaissable sans logo |
+| 8 | **Site marketing + légal minimal** | 1 (pricing) | Croissance | monorepo `apps/site` + `packages/tokens` ; accueil, présentation, quick guide, pricing, FAQ, blog (SEO), à propos, support, statut, Impressum/Datenschutz/AGB/Widerruf ; liquid glass **en signature du hero**, pas en matière de page ; page « ce qui tombe vraiment » (fréquences par ville) |
+| 9 | **Ligue** | 1, 2 | Produit | opt-in, pseudonyme, **points validés serveur**, récompense les actions qui font réussir (simulation Autonome, couche validée), code promo mensuel |
+| 10 | **Marketing autonome** | 8 | Croissance | machine à politiques Meta/Google (MCP), seuils d'approbation, créas Higgsfield, calendrier social |
+| 11 | **Boucle de protocoles communautaires** | 1, 9 | Communauté | formulaire post-examen → crédits → pipeline v3 → corpus rafraîchi à chaque session — **le fossé défensif** |
+| 12 | **Carte de fidélité par Landesärztekammer** | 2 | Produit | Land → Bogen, minutage, jury, questions typiques ; prérequis de l'expansion bundesweit |
+| 13 | **Patient IA vocal complet** | 1, 4, 6 | Voix & IA | chantier à part : architecture immersion/coût, crédits, evals bloquantes |
 
-- [ ] **Trancher l'origine du corpus** (voir `ROADMAP-PRODUCTION.md` §1.1). Non délégable. Conditionne la monétisation, pas la construction — on construit en parallèle.
-- [ ] **Séparer code et contenu** : dépôt `doctopus-app` (code, peut rester public) / dépôt ou bucket `doctopus-content` (privé). Le seed devient un chargement authentifié.
-- [ ] Choisir la pile (§5) — ou l'amender. Les briefs Plateforme en dépendent.
-- [ ] Créer `docs/contracts/`, `docs/specs/`, `evals/`.
-- [ ] Scaffolder les 13 nouveaux agents dans `.claude/agents/` avec leurs briefs.
-- [ ] **Gate** : décisions écrites et datées dans `docs/DECISIONS.md`.
+Deux colonnes parallélisables dès maintenant : **plateforme** (2 → 3 → 4 → 5)
+et **identité** (6, 7), qui ne se touchent pas.
 
-### Phase 1 — Spécification & architecture · *Produit + Plateforme (architecte)*
-
-- [ ] PRD : compte & onboarding · paywall & plans · sync · patient IA · voix. Critères d'acceptation testables.
-- [ ] Parcours pédagogique et gamification écrits **avant** tout écran.
-- [ ] `entitlements.md` — la matrice Free / Pro / Premium (les prix sont ta décision ; la structure est la nôtre).
-- [ ] `schema.sql` avec RLS · `openapi.yaml` · `sync-protocol.md`.
-- [ ] **Gate** : relecture croisée — `ops-security-auditor` sur le schéma, `front-design-keeper` sur les PRD d'écrans, `fsp-qa-tester` sur la testabilité des critères. Validation direction.
-
-### Phase 2 — Durcir la bêta · *Contenu + Frontend*
-
-Ce qui doit être vrai **avant** qu'un inconnu utilise l'app, indépendamment du SaaS.
-
-- [ ] Pseudonymisation complète + `checkNoRealNames.mjs` en CI.
-- [ ] Export / import de la progression (filet avant la sync).
-- [ ] Migrations de schéma Dexie versionnées et testées.
-- [ ] Onboarding 3 écrans.
-- [ ] PWA : manifest + service worker (hors-ligne réel).
-- [ ] Tests de composants sur les contrôles interactifs (Vitest).
-- [ ] Passe complète des 5 relecteurs sur le corpus, correctifs appliqués.
-- [ ] **Gate** : CI verte (contrats + tests + Lighthouse a11y ≥ 95), rapports des 5 relecteurs sans BLOQUANT.
-
-### Phase 3 — Plateforme · *Plateforme + Sécurité*
-
-- [ ] Projet Supabase EU, migrations depuis `schema.sql`, RLS activée sur **toutes** les tables.
-- [ ] Auth (e-mail + magic link ; OAuth optionnel).
-- [ ] Livraison du contenu selon entitlement, mise en cache Dexie.
-- [ ] Sync de la progression (SRS, simulations, programme) selon `sync-protocol.md`.
-- [ ] Stripe : Checkout, portail, webhooks idempotents, matrice de transitions testée.
-- [ ] **Gate** : tests de contrat verts, tests RLS (A ne lit pas B : prouvé), replay de tous les webhooks Stripe, revue `ops-security-auditor` sans BLOQUANT.
-
-### Phase 4 — Frontend SaaS · *Frontend + QA*
-
-- [ ] Écrans compte, connexion, paywall contextuel (au moment où la feature manque, pas à l'entrée), paramètres de sync.
-- [ ] Indicateur d'état hors-ligne / synchronisé, discret, charte respectée.
-- [ ] Mode invité conservé : l'app reste utilisable sans compte sur le périmètre Free.
-- [ ] **Gate** : `fsp-qa-tester` sur le parcours complet inscription → paiement test → accès → résiliation ; `fsp-ux-auditor` + `front-design-keeper` sans MAJEUR.
-
-### Phase 5 — Voix & patient IA · *Voix & IA + Évaluation*
-
-- [ ] Patient IA derrière un drapeau, ancré sur `patientSheet`, via `simulationStep.ts`.
-- [ ] `evals/` : par cas, fidélité à la fiche · registre patient · niveau de langue · refus hors-fiche. Seuil bloquant.
-- [ ] Profils vocaux par cas ; pré-génération du `Rollenskript` ; streaming des réponses libres.
-- [ ] Plafonds par utilisateur et par plan (tokens, caractères), mesurés côté serveur.
-- [ ] **Gate** : evals au-dessus du seuil sur les 52 cas ; coût moyen par simulation vocale mesuré et **inférieur au seuil de rentabilité** que tu fixeras d'après le prix Premium.
-
-### Phase 6 — Conformité & lancement · *Compliance + Ops + Direction*
-
-- [ ] Impressum, Datenschutzerklärung, AGB, avertissement médical — brouillons agents, **validation juriste**.
-- [ ] Registre des traitements, DPA Supabase/Stripe/fournisseur voix signés.
-- [ ] Domaine, environnements preview/staging/prod, rollback testé, alertes.
-- [ ] Page d'accueil publique ; boucle de signalement d'un contenu faux.
-- [ ] **Bêta fermée** : 20 à 50 candidats, un mois, retours structurés.
-- [ ] **Gate** : `coord-release-manager` assemble la checklist avec preuves ; go/no-go direction.
-
-### Phase 7 — Exploitation · *tous, en rituels*
-
-- [ ] Cadence de contenu : un lot par session d'examen, pipeline v3 + relecteurs.
-- [ ] Revue trimestrielle des 5 relecteurs sur tout le corpus.
-- [ ] Tableau de coûts IA/voix hebdomadaire ; alerte si le coût par simulation dérive.
-- [ ] Support : file de retours triée par le coordinateur, bugs vers QA, contenu vers Contenu.
+Trajectoire au-delà : FSP bundesweit (#12) → **Kenntnisprüfung** (produit de
+connaissances, réutilise les cas ; concomitant avec la KP de Mehdi) →
+**automatisation des candidatures** (Hospitationen, Stellen ; base
+d'hôpitaux, CRM — troisième ligne de produit) → **EVC France**. Le fil : le
+profil = parcours de procédure.
 
 ---
 
-## 7. Les rituels — qui tourne quand
+## 7. Rituels — qui tourne quand
 
 | Déclencheur | Mécanique | Agents |
 |---|---|---|
-| Chaque push | CI complète (contrats, tests, RLS, evals, Lighthouse) | aucun |
-| Nouvelle feature | — | `product-spec-writer` → PRD → coordinateur découpe |
-| Changement de contrat | tests de contrat | `platform-architect` propose, les implémenteurs concernés relisent |
-| Lot de contenu | 7 validateurs | `content-case-author` → 3 relecteurs contenu |
-| Modification d'écran | typecheck, build, tests composants | `fsp-ux-auditor` + `front-design-keeper` |
-| Modification backend | tests de contrat + RLS | `ops-security-auditor` |
-| Modification IA/voix | `evals/` avec seuil | `ai-eval-engineer` |
-| Pré-release | tout | les relecteurs de tous les départements → `coord-release-manager` |
+| Chaque push | CI (contrats, tests, RLS, build ; evals IA quand #4/#13) | aucun |
+| Nouvelle idée | — | `product-spec-writer` (interview → brainstorming) |
+| Spec validé | — | orchestrateur : `writing-plans`, `to-tickets` |
+| Tâche | tests/tsc/validateurs | implémenteur du pôle + `quality-task-reviewer` |
+| Changement de contrat | tests de contrat | `platform-architect` propose ; implémenteurs concernés relisent |
+| Lot de contenu | 8 validateurs | `content-case-author` → 3 relecteurs contenu |
+| Écran modifié | typecheck/build/tests composants | `fsp-ux-auditor`, `front-design-keeper`, `ux-motion-designer` si mouvement |
+| Backend/paiement/sync modifié | tests de contrat + RLS | `security-auditor` |
+| Fin de branche | CI verte | `quality-branch-reviewer` (Opus) → `coord-release-manager` |
+| Hebdo (lundi) | — | `growth-analyst` (marketing-monday), `support-triager`, `ux-user-advocate` (une journée d'usage) |
+| Mensuel | — | `finance-unit-economist`, `pricing-designer` (revue), `rd-innovation-scout` |
+| Session d'examen (2×/an) | pipeline v3 | `content-protocol-ingester`, `product-exam-fidelity-analyst`, 5 relecteurs |
 
 ---
 
-## 8. Ce que cette organisation ne fera pas
+## 8. Ce que l'organisation ne fait pas
 
-- **Elle ne décide ni le prix, ni les plans, ni la date de lancement.** Elle
-  fournit la structure et les mesures ; les nombres sont les tiens.
-- **Elle ne certifie pas la conformité juridique.** Elle rédige des brouillons
-  solides ; un juriste allemand valide. Sur l'Impressum, les AGB et la DSGVO,
-  c'est non négociable pour un produit payant.
-- **Elle ne rend pas le contenu inviolable.** Un abonné peut extraire ce que son
-  navigateur affiche. La protection, c'est la licence et la valeur du service
-  (sync, voix, IA, mises à jour), pas un DRM.
-- **Elle ne tourne pas en continu.** Chaque agent lancé coûte ; les rituels
-  sont un plafond.
+- Ne décide ni le prix, ni les plans, ni la date de lancement.
+- Ne certifie pas la conformité juridique ni ne donne de conseil fiscal
+  (brouillons et orientation ; juriste et comptable valident).
+- N'ouvre pas de compte publicitaire, ne signe rien, ne dépense pas au-delà
+  des seuils fixés par Mehdi.
+- Ne rend pas le contenu inviolable (la protection, c'est la licence et la
+  valeur du service).
+- Ne tourne pas en continu : les rituels sont un plafond.
 
 ---
 
-## 9. Prochaine étape concrète
+## 9. Faire évoluer l'organisation
 
-Trois décisions à valider pour que je scaffolde les 13 agents avec des briefs
-justes (ils changent selon la réponse) :
+1. Le défaut est mécanique → **écrire un validateur**.
+2. Il relève d'un périmètre existant → **enrichir l'agent**.
+3. Il est vraiment nouveau → **créer un agent** avec périmètre exclusif,
+   modèle explicite, skills nommés, livrable vérifiable.
 
-1. **Pile** : Supabase EU, ou serveur autogéré ?
-2. **Séparation** : code public + contenu privé, ou tout privé ?
-3. **Fournisseur voix** : ElevenLabs (qualité, voice design) ou Azure (coût, conformité UE native) ?
-
-Une fois tranché, la phase 0 se fait en une session : contrats vides, agents
-scaffoldés, CI étendue, `DECISIONS.md` ouvert.
+Un agent dont le brief dépasse ~120 lignes fait probablement deux métiers.
