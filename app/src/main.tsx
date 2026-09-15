@@ -11,7 +11,8 @@ import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
 import { Shell } from '@/components/Shell';
 import { useProfiles } from '@/store/profile';
-import { ensureSeeded } from '@/data/seed';
+import { ensureDemoData } from '@/data/seed';
+import { contentLoader, FirstLoadRequired } from '@/lib/content/loader';
 import { HomePage } from '@/features/home/HomePage';
 import { CasesPage } from '@/features/cases/CasesPage';
 import { CaseDetailPage } from '@/features/cases/CaseDetailPage';
@@ -62,12 +63,27 @@ const router = createHashRouter([
   { path: '/patient/:caseId', element: <PatientScreen /> },
 ]);
 
+function renderFirstLoadScreen() {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <div style={{ display: 'grid', placeItems: 'center', minHeight: '100vh', padding: 24 }}>
+        <div className="card" style={{ maxWidth: 420, textAlign: 'center' }}>
+          <p>Doctopus a besoin d&apos;une connexion pour le premier chargement</p>
+          <button type="button" className="btn-primary" onClick={() => location.reload()}>Réessayer</button>
+        </div>
+      </div>
+    </React.StrictMode>,
+  );
+}
+
 // La session d'abord : un `?code=` de lien magique doit être échangé AVANT
-// que le router ne touche à l'URL et avant le seed (long).
+// que le router ne touche à l'URL. Les entitlements ensuite (le tier doit
+// être connu avant de synchroniser le contenu, qui purge selon le tier).
 initSession()
-  .then(() => ensureSeeded())
   .then(() => loadEntitlements())
   .then(() => { watchEntitlements(); })
+  .then(() => contentLoader.sync())
+  .then(() => ensureDemoData())
   .then(() => useProfiles.getState().load())
   .then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -75,4 +91,8 @@ initSession()
         <RouterProvider router={router} />
       </React.StrictMode>,
     );
+  })
+  .catch((e) => {
+    if (e instanceof FirstLoadRequired) { renderFirstLoadScreen(); return; }
+    throw e;
   });

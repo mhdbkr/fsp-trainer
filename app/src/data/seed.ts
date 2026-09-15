@@ -1,26 +1,20 @@
 import { format, subDays } from 'date-fns';
-import { db, getMeta, setMeta } from '@/db/db';
-import type { Case, Fachbegriff, Simulation, PlanEntry, PartResult, ChecklistItem } from '@/db/types';
-import { seedFachbegriffe } from './seedFachbegriffe';
-import { seedAufklaerungen } from './seedAufklaerungen';
-import { seedFachwissen } from './seedFachwissen';
-import { seedCases } from './seedCases';
-import { CASE_MUSTER } from './caseMuster';
-import { seedGuides } from './seedGuides';
+import { db } from '@/db/db';
+import type { Case, Fachbegriff, Fachwissen, AufklaerungItem, Simulation, PlanEntry, PartResult, ChecklistItem } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
 import { checklistPct, languagePct, emptyLanguageGrid } from '@/lib/scoring';
-
-const SEED_VERSION = 59;
 
 // ----------------------------------------------------------------------------
 // Linkage automatique : relie cas ↔ Fachbegriffe ↔ Fachwissen ↔ Aufklärungen
 // de façon bidirectionnelle, sans avoir à maintenir les IDs à la main.
+// Utilisé par contentLoader (src/lib/content/loader.ts) après application
+// d'un delta de contenu — remplace l'ancien wiring fait dans ensureSeeded.
 // ----------------------------------------------------------------------------
-function wireLinks(
+export function wireLinks(
   cases: Case[],
   fachbegriffe: Fachbegriff[],
-  fachwissen: ReturnType<typeof seedFachwissen>,
-  aufklaerungen: ReturnType<typeof seedAufklaerungen>,
+  fachwissen: Fachwissen[],
+  aufklaerungen: AufklaerungItem[],
 ) {
   // 1) Fachbegriff → cas : par correspondance pathologyTag ↔ case.pathology
   const casesByPathology = new Map<string, Case[]>();
@@ -129,40 +123,15 @@ function demoPlan(): PlanEntry[] {
   ];
 }
 
-/** Charge le seed si la base est vide (ou si la version a changé). */
-export async function ensureSeeded(force = false): Promise<void> {
-  const current = await getMeta<number>('seedVersion', 0);
-  if (!force && current === SEED_VERSION) return;
-
-  const fachbegriffe = seedFachbegriffe();
-  const aufklaerungen = seedAufklaerungen();
-  const fachwissen = seedFachwissen();
-  const cases = seedCases().map((c) => (CASE_MUSTER[c.id] ? { ...c, musterSaetze: CASE_MUSTER[c.id] } : c));
-  const guides = seedGuides();
-
-  wireLinks(cases, fachbegriffe, fachwissen, aufklaerungen);
-
-  await db.transaction('rw', [db.cases, db.fachbegriffe, db.fachwissen, db.aufklaerungen, db.guides, db.simulations, db.plan, db.meta], async () => {
-    // On ne réécrase pas les données utilisateur (simulations réelles, SRS) au
-    // simple bump de version : seules les tables de contenu sont resemées.
-    await db.cases.clear(); await db.cases.bulkPut(cases);
-    await db.fachwissen.clear(); await db.fachwissen.bulkPut(fachwissen);
-    await db.aufklaerungen.clear(); await db.aufklaerungen.bulkPut(aufklaerungen);
-    await db.guides.clear(); await db.guides.bulkPut(guides);
-
-    // Fachbegriffe : préserver le SRS existant si déjà présent.
-    const existing = await db.fachbegriffe.toArray();
-    const srsById = new Map(existing.map((f) => [f.id, f.srs]));
-    for (const fb of fachbegriffe) {
-      const s = srsById.get(fb.id);
-      if (s) fb.srs = s;
-    }
-    await db.fachbegriffe.clear(); await db.fachbegriffe.bulkPut(fachbegriffe);
-
-    // Simulations & plan : seeder seulement si vide.
+/**
+ * Seed des données de démo (simulations/plan) uniquement — le contenu
+ * (cas, Fachwissen, Aufklärungen, guides, Fachbegriffe) est désormais géré
+ * par contentLoader.sync() (src/lib/content/loader.ts), qui remplace
+ * l'ancien ensureSeeded. Ne touche jamais aux tables de contenu.
+ */
+export async function ensureDemoData(): Promise<void> {
+  await db.transaction('rw', [db.simulations, db.plan], async () => {
     if ((await db.simulations.count()) === 0) await db.simulations.bulkPut(demoSimulations());
     if ((await db.plan.count()) === 0) await db.plan.bulkPut(demoPlan());
-
-    await setMeta('seedVersion', SEED_VERSION);
   });
 }
