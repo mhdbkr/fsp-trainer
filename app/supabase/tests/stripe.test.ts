@@ -49,9 +49,12 @@ describe('stripe-webhook', () => {
     await send(evt('customer.subscription.deleted', sub({ status: 'canceled', current_period_end: Math.floor(Date.now() / 1000) - day })));
     expect(await plan()).toBe('free');
   });
-  it('invoice.paid sur un abonnement Stripe inconnu → 200 sans crash, aucun grant', async () => {
+  it('invoice.paid sur un abonnement Stripe inconnu → aucun grant ; 404 Stripe ignoré (200), toute autre erreur Stripe → 500 pour que Stripe rejoue', async () => {
     const r = await send(evt('invoice.paid', { id: `in_${randomUUID()}`, object: 'invoice', subscription: 'sub_does_not_exist' }));
-    expect(r.status).toBe(200);
+    // Vraie clé sandbox (local) : Stripe répond 404 → ignoré → 200.
+    // Clé factice (CI, .env.ci) : Stripe répond 401 → au-moins-une-fois → 500 (et l'event est libéré).
+    expect([200, 500]).toContain(r.status);
+    if (r.status === 500) expect(r.body.error).toBe('processing_failed');
     expect((await serviceClient().from('credit_ledger').select('*').eq('user_id', A.id).eq('reason', 'monthly_grant')).data).toEqual([]);
   });
 });
