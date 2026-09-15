@@ -4,7 +4,16 @@
 > Dérivé de `positioning.md` (preuves §4) et `voice.md` (interdits §6). Tout texte ci-dessous est
 > utilisable tel quel par `site-implementer` ; les mentions « [À] » désignent une feature non livrée
 > et ne doivent apparaître qu'avec « bientôt ».
-> Langue de rédaction : FR (recommandation `naming-and-domain.md` §3) ; DE fourni pour le hero et le CTA.
+> v0.2 — décisions de la direction (2026-09-16) : **site DE seul en V1** ; **Doctopus** = marque, **FSP Trainer** = produit
+> (le site présente Doctopus qui édite FSP Trainer) ; tagline **« Die Generalprobe. »** ; checkout réel (pas de waitlist).
+> Les textes DE ci-dessous sont les textes du site ; le FR reste la langue de travail de ce document.
+
+## 0. Architecture de marque sur le site
+
+- **Doctopus** (marque) signe : wordmark, nav, footer, Impressum, à propos, crédits, mascotte, blog.
+- **FSP Trainer** (produit) nomme : l'app, ses captures, la page présentation, le pricing (« FSP Trainer Pro »), les boutons qui ouvrent l'app.
+- Formule canonique : *FSP Trainer — von Doctopus.* Titre de page : `FSP Trainer – Die Generalprobe für deine Fachsprachprüfung | Doctopus`.
+- Sur une page, la première mention est « FSP Trainer », la marque vient en signature. Jamais « Doctopus Trainer ».
 
 ## 1. Message central
 
@@ -16,14 +25,12 @@ Doctopus est un simulateur de Fachsprachprüfung. Il reproduit les trois parties
 
 ## 3. Hiérarchie de messages
 
-**Niveau 1 — Titre (hero)**
-FR : *La répétition générale de ta Fachsprachprüfung.*
-DE : *Die Generalprobe für deine Fachsprachprüfung.*
-EN : *The dress rehearsal for your Fachsprachprüfung.*
+**Niveau 0 — Tagline (validée)** : *Die Generalprobe.*
 
-**Niveau 2 — Sous-titre**
-FR : *130 cas construits à partir de ce qui tombe vraiment. Le Bogen de ton centre, le barème de l'examen, à toute heure.*
-DE : *130 Fälle, gebaut aus dem, was wirklich drankommt. Der Bogen deiner Kammer, die Bewertung der Prüfung — jederzeit.*
+**Niveau 1 — Titre (hero, DE)** : *Die Generalprobe für deine Fachsprachprüfung.*
+(FR de travail : *La répétition générale de ta Fachsprachprüfung.* — non publié en V1.)
+
+**Niveau 2 — Sous-titre (DE)** : *FSP Trainer: 130 Fälle, gebaut aus dem, was wirklich drankommt. Der Bogen deiner Kammer, die Bewertung der Prüfung — jederzeit.*
 
 **Niveau 3 — Piliers (4)**
 
@@ -70,29 +77,33 @@ DE : *130 Fälle, gebaut aus dem, was wirklich drankommt. Der Bogen deiner Kamme
 
 | Page | Rôle | Titre | Message clé | Preuve affichée |
 |---|---|---|---|---|
-| Accueil | convertir vers Free | *La répétition générale de ta Fachsprachprüfung.* | Ce qui tombe vraiment + structuré comme l'épreuve + disponible à toute heure | 130 cas · ~580 comptes rendus · 4 centres · 12 cas gratuits |
-| Présentation | expliquer le produit | *Trois parties, un Bogen, un barème. Comme le jour J.* | Parcours d'une simulation : pré-simulation → Anamnese → Arztbrief → Fallvorstellung → évaluation | captures réelles de l'app, barème |
-| Quick guide | rassurer et onboarder | *Ta première simulation en 10 minutes.* | 4 étapes : compte, Land + date, choisir un cas Free, lancer avec ou sans binôme | 12 cas Free |
-| Pricing | décider sans piège | *Le cœur est illimité. L'IA se compte.* | Free = échantillon complet ; Pro = tout le corpus + crédits inclus ; Premium = plus de crédits. Résiliation en un clic. **Prix : direction.** | ADR-0005/0006 ; pas de prix tant que non fixés |
-| Ce qui tombe vraiment | preuve d'autorité + SEO | *Ce qui tombe vraiment à [Stuttgart].* | Tableau des fréquences par pathologie, par centre, avec le nombre de comptes rendus et la période | `ANALYSE.md` §3.4 (chiffres exacts, méthode expliquée) |
-| À propos | confiance | *Construit par un candidat, pour les suivants.* | Origine (protocoles collectés), méthode (relecture), ce qu'on n'est pas (§7 positioning), disclaimer ROADMAP §1.3 | équipe, méthode, cadre légal |
-| FAQ | lever objections | — | « Est-ce que je vais réussir ? » → « Personne ne peut le garantir. Doctopus mesure et entraîne. » | — |
+| Accueil | convertir vers Free | *Die Generalprobe für deine Fachsprachprüfung.* | Ce qui tombe vraiment + structuré comme l'épreuve + disponible à toute heure | 130 cas · ~580 comptes rendus · 4 centres · 12 cas gratuits |
+| Présentation (FSP Trainer) | expliquer le produit | *Drei Teile, ein Bogen, eine Bewertung. Wie am Prüfungstag.* | Parcours d'une simulation : pré-simulation → Anamnese → Arztbrief → Fallvorstellung → évaluation | captures réelles de l'app, barème |
+| Quick guide | rassurer et onboarder | *Deine erste Simulation in 10 Minuten.* | 4 étapes : compte, Land + date, choisir un cas Free, lancer avec ou sans binôme | 12 cas Free |
+| Pricing | décider sans piège, **checkout réel** | *Der Kern ist unbegrenzt. Die KI wird gezählt.* | Free = échantillon complet ; FSP Trainer Pro = tout le corpus + crédits inclus ; Premium = plus de crédits. « Kündigung mit einem Klick ». Prix affichés = ceux de la direction, via Stripe ; jamais de waitlist. | ADR-0005/0006 ; prix fixés par la direction, checkout Stripe |
+| Was wirklich drankommt | preuve d'autorité + SEO | *Was in [Stuttgart] wirklich drankommt.* | Tableau des fréquences par pathologie, par centre, avec le nombre de comptes rendus et la période | `ANALYSE.md` §3.4 (chiffres exacts, méthode expliquée) |
+| Über Doctopus | confiance | *Von einem Kandidaten gebaut, für die nächsten.* | Origine (protocoles collectés), méthode (relecture), ce qu'on n'est pas (§7 positioning), disclaimer ROADMAP §1.3 | équipe, méthode, cadre légal |
+| FAQ | lever objections | — | « Bestehe ich damit? » → « Das kann niemand garantieren. FSP Trainer misst und trainiert. » | — |
 
-**Bandeau de responsabilité** (toutes pages, pied) — FR : *Doctopus est un outil pédagogique de préparation à un examen de langue. Il n'est ni un dispositif médical ni une aide à la décision clinique, et ne garantit aucun résultat à l'examen.* DE : *Doctopus ist ein Lernwerkzeug zur Vorbereitung auf eine Sprachprüfung. Es ist weder ein Medizinprodukt noch eine klinische Entscheidungshilfe und garantiert kein Prüfungsergebnis.*
+**Footer** (toutes pages) — ligne 1 : *FSP Trainer — von Doctopus.* · ligne 2 : liens Impressum · Datenschutz · AGB · Widerruf · Status · Support · ligne 3 : bandeau de responsabilité ci-dessous (DE seul en V1) · signature : *© Doctopus*.
+
+**Bandeau de responsabilité** — FR (travail) : *Doctopus est un outil pédagogique de préparation à un examen de langue. Il n'est ni un dispositif médical ni une aide à la décision clinique, et ne garantit aucun résultat à l'examen.* DE : *Doctopus ist ein Lernwerkzeug zur Vorbereitung auf eine Sprachprüfung. Es ist weder ein Medizinprodukt noch eine klinische Entscheidungshilfe und garantiert kein Prüfungsergebnis.*
 
 ## 6. CTA constant
 
 Un seul CTA primaire sur tout le site, même libellé, même position (hero + fin de chaque page + nav).
 
-| Langue | Libellé | Secondaire |
-|---|---|---|
-| FR | **Commencer avec 12 cas gratuits** | *Voir ce qui tombe à Stuttgart* |
-| DE | **Mit 12 kostenlosen Fällen starten** | *Was in Stuttgart drankommt* |
-| EN | **Start with 12 free cases** | *See what comes up in Stuttgart* |
+| Langue | Libellé primaire | Secondaire | Pricing (checkout réel) |
+|---|---|---|---|
+| **DE (V1)** | **Mit 12 kostenlosen Fällen starten** | *Was in Stuttgart drankommt* | **FSP Trainer Pro wählen** (ouvre Stripe Checkout) |
+| FR (futur) | Commencer avec 12 cas gratuits | Voir ce qui tombe à Stuttgart | Choisir FSP Trainer Pro |
+| EN (futur) | Start with 12 free cases | See what comes up in Stuttgart | Choose FSP Trainer Pro |
+
+Le CTA primaire ouvre l'inscription à FSP Trainer (Free) ; sur le pricing, le CTA de plan mène au checkout Stripe — libellé « wählen », jamais « kaufen », « jetzt sichern » ou « Warteliste ».
 
 Règles : pas de « Essai gratuit » (implique une carte), pas de « S'inscrire » (abstrait), pas de « Réussir » (interdit). Le chiffre 12 vient de `entitlements.md` L19 ; si le Free change, le CTA change. « Sans carte bancaire » ajouté en micro-copie **si** pricing le confirme.
 
-## 7. Taglines (options, non décidées)
+## 7. Taglines — validée : « Die Generalprobe. » (options conservées pour mémoire)
 
 | Tagline | Style | Pourquoi |
 |---|---|---|
