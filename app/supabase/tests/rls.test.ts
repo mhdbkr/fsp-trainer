@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { createTestUser, serviceClient } from './helpers';
+import { createTestUser, serviceClient, URL } from './helpers';
 
 let A: Awaited<ReturnType<typeof createTestUser>>;
 let B: Awaited<ReturnType<typeof createTestUser>>;
@@ -45,5 +45,17 @@ describe('RLS — isolation entre utilisateurs', () => {
     expect(tierOfError).not.toBeNull();
     const { error: myTierError } = await A.client.rpc('my_tier');
     expect(myTierError).toBeNull();
+  });
+});
+
+describe('crédits', () => {
+  it('débit atomique, 409 si insuffisant, idempotent par ref', async () => {
+    const admin = serviceClient();
+    await admin.from('credit_ledger').insert({ user_id: A.id, delta: 5, reason: 'demo_grant', ref: 'credits-test' });
+    const tok = (await A.client.auth.getSession()).data.session!.access_token;
+    const call = (body: unknown) => fetch(`${URL}/functions/v1/credits-consume`, { method: 'POST', headers: { Authorization: `Bearer ${tok}`, 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    expect((await (await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-1' })).json()).balance).toBe(2);
+    expect((await (await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-1' })).json()).balance).toBe(2);   // même ref : pas de double débit
+    expect((await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-2' })).status).toBe(409);
   });
 });
