@@ -29,20 +29,35 @@ export async function loadEntitlements(): Promise<void> {
     const prevPlan = store.getState().plan;
     store.setState(next);
     // Changement de plan (paiement, résiliation) → le contenu autorisé change : resync.
-    if (next.plan !== prevPlan) { const { contentLoader } = await import('@/lib/content/loader'); void contentLoader.sync(); }
+    if (next.plan !== prevPlan) { const { contentLoader } = await import('@/lib/content/loader'); void contentLoader.sync({ full: true }); }
     await setMeta('entitlements', next);
   } catch { /* hors ligne : on garde le cache */ }
 }
 
-/** Realtime : se rafraîchit quand l'abonnement ou le ledger de l'utilisateur change. */
+/** Realtime : se rafraîchit quand l'abonnement ou le ledger de l'utilisateur change.
+ *  Le JWT est poussé explicitement sur le socket AVANT de s'abonner : appelé
+ *  juste après la connexion, le canal partirait sinon en anonyme et la RLS ne
+ *  livrerait jamais les lignes de l'utilisateur — silencieusement. On se
+ *  réabonne à chaque changement de session (connexion, déconnexion, refresh). */
 export function watchEntitlements(): () => void {
-  const uid = useSession.getState().user?.id;
-  if (!uid) return () => {};
-  const ch = supabase.channel(`ent-${uid}`)
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'subscriptions', filter: `user_id=eq.${uid}` }, () => loadEntitlements())
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'credit_ledger', filter: `user_id=eq.${uid}` }, () => loadEntitlements())
-    .subscribe();
-  return () => { supabase.removeChannel(ch); };
+  let channel: ReturnType<typeof supabase.channel> | null = null;
+  const stop = () => { if (channel) { supabase.removeChannel(channel); channel = null; } };
+  const start = async () => {
+    stop();
+    const { data: { session } } = await supabase.auth.getSession();
+    const uid = session?.user.id;
+    if (!uid) return;
+    await supabase.realtime.setAuth(session.access_token);
+    channel = supabase.channel(`ent-${uid}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'subscriptions', filter: `user_id=eq.${uid}` }, () => loadEntitlements())
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'credit_ledger', filter: `user_id=eq.${uid}` }, () => loadEntitlements())
+      .subscribe((status) => { if (import.meta.env.DEV) console.info('[entitlements] realtime', status); });
+  };
+  void start();
+  const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'SIGNED_OUT') void start();
+  });
+  return () => { stop(); sub.subscription.unsubscribe(); };
 }
 
 export function useEntitlements() {

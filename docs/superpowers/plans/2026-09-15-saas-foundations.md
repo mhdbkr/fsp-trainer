@@ -2669,3 +2669,21 @@ git commit -m "docs(contracts): schema.sql généré, openapi, entitlements, pro
 **Cohérence des types** — `ProgressEvent` (Task 12) est utilisé tel quel en 13 (Zod miroir), 15, 16, 22. `getEntitlements().limit('content.tier')` (Task 6) consommé en Task 10. `useSession`/`getAccessToken` (Task 5) consommés en 6, 10, 12. `callFn` (Task 18) défini avant usage. `URL` exporté par `helpers.ts` (Task 4) utilisé en 14, 20.
 
 **Placeholders** — les `price_*_TODO` du seed sont remplacés en Task 17 (action explicite) ; les prix « — €/mois » de la page Tarifs sont volontairement non fixés (décision produit hors plan) et le texte le dit à l'utilisateur.
+
+
+---
+
+## Vérification — critères d'acceptation (spec §11), preuves du parcours pré-release (2026-09-15)
+
+| Critère | Preuve |
+|---|---|
+| Invité joue hors ligne après premier chargement | Contexte neuf → 12 cas depuis l'API ; API coupée + cache → app complète ; API coupée sans cache → écran « premier chargement » + Réessayer |
+| Compte par lien magique, profil 4 champs, progression sur un second appareil | Lien Mailpit → PKCE → `#/onboarding` → `BY\|C1\|fsp_planned` en base ; appareil C neuf reçoit la simulation jouée sur A sans intervention |
+| Événement hors ligne → en base une seule fois à la reconnexion | outbox 1 hors ligne → 0 après `online` ; `sim-offline-1` = 1 ligne ; rejeu idempotent (tests intégration) |
+| Contenu tier 2 jamais dans le bundle ni dans le cache Free | bundle 13 → 3,1 Mo, `grep "Elke Kovermann" dist/` vide ; invité = 12/12/9/1204 ; résiliation → purge (130 → 12 cas) |
+| Paiement débloque Pro sans rechargement ; résiliation le retire | webhook signé `subscription.updated active` → écran Compte « Pro », 130 cas, en ~10 s ; `deleted` période échue → « Free », 12 cas |
+| Crédits = somme du ledger ; double `(reason, ref)` refusée | test intégration `consume_credits` : 5 → 2, rejeu même ref → 2, 409 si insuffisant |
+| RLS prouvée entre deux utilisateurs | 7 tests RLS + isolation events (18/18 intégration) |
+| `docs/contracts/` à jour | `schema.sql` (généré, 10 tables), `openapi.yaml` (8 routes), `entitlements.md`, `sync-protocol.md` |
+
+Défauts trouvés PAR le parcours et corrigés : publication Realtime absente (aucune table publiée) ; JWT non poussé sur le socket avant abonnement ; resync au changement de plan avec delta vide (→ `sync({ full: true })`).
