@@ -7,10 +7,10 @@ Deno.serve(handle(async (req) => {
   const url = new URL(req.url);
   const { since } = parse(Query, Object.fromEntries(url.searchParams));
   const sb = userClient(req);
-  const [{ data: v }, { data: items, error }] = await Promise.all([
+  const [{ data: v, error: ve }, { data: items, error }] = await Promise.all([
     sb.from('content_versions').select('version').order('version', { ascending: false }).limit(1).single(),
     sb.rpc('content_since', { since }),
   ]);
-  if (error) throw error;
+  if (ve || error) throw ve ?? error;
   return json({ version: v?.version ?? 0, items: items ?? [] });
 }));
