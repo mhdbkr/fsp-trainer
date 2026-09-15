@@ -431,6 +431,22 @@ export interface Simulation {
   /** PHASE 2b (optionnel) — journal de conversation (continuité IA + analytics). */
   conversation?: ConversationTurn[];
   mode?: SimulationMode;   // rendu utilisé (défaut 'texte')
+  // --- Prüfungstag (sous réserve G2 ; optionnels, rétrocompat, non indexés → pas de bump Dexie) ---
+  /** `undefined` ⇔ `'training'`. `'pruefungstag'` : poids 3 dans le Bereitschaftsindex si `withSimulant`. */
+  context?: SimulationContext;
+  /** Prüfungstag joué avec un simulant connecté (lève le plafond 79) ou solo (poids 2, ne le lève pas). */
+  withSimulant?: boolean;
+  /** Chrono horloge murale du Prüfungstag (epoch ms) ; `partTimes` = début de chaque partie. */
+  examDay?: ExamDayMeta;
+}
+
+export type SimulationContext = 'training' | 'pruefungstag';
+export type SimulationPart = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
+export interface ExamDayMeta {
+  startedAt: number;
+  endedAt: number;
+  land: 'BW';
+  partTimes: Partial<Record<SimulationPart, number>>;
 }
 
 /** Notes structurées par rubrique (mêmes cases que le Arztbrief) →
