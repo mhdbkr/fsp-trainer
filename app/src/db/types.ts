@@ -231,6 +231,7 @@ export interface Case {
   musterSaetze?: CaseMuster;
   /** PHASE 2b (optionnel) — profil patient IA vocal. null/absent = sim texte. */
   patientAIProfile?: PatientAIProfile | null;
+  tier?: 1 | 2 | 3; // 1 = Free ; défaut 2
 }
 
 /** Phrases-modèles par chapitre, pour les deux modules rédigés/parlés. */
