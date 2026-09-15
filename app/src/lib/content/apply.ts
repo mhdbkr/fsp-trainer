@@ -26,7 +26,9 @@ export async function applyContent(db: FspDatabase, items: ContentItem[], allowe
       const c = await db.cases.get(caseId.replace(/^muster-/, ''));
       if (c) { await db.cases.put({ ...c, musterSaetze: muster as never }); }
     }
-    // Purge : tout ce dont le tier dépasse le droit courant
+    // Purge : tout ce dont le tier dépasse le droit courant (perte de droits).
+    // Le serveur ne renvoie JAMAIS d'item au-dessus du tier de l'appelant
+    // (RLS) : la purge ne vise donc que le cache hérité, pas le delta reçu.
     for (const t of [db.cases, db.fachwissen, db.fachbegriffe, db.aufklaerungen, db.guides]) {
       const over = await t.filter((r: unknown) => ((r as { _tier?: number })._tier ?? 1) > allowedTier).primaryKeys();
       if (over.length) { await t.bulkDelete(over); removed += over.length; }
