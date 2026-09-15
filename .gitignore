@@ -16,3 +16,10 @@ Fachbegriffe_FSP.csv
 
 # Fichiers de travail temporaires (batches Phase 2)
 app/scratchpad/
+.superpowers/
+
+# Artefacts Supabase locaux
+app/supabase/.branches
+app/supabase/.temp
+app/.env
+app/.env.local
