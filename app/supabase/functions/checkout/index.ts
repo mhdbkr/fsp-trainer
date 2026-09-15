@@ -14,12 +14,20 @@ Deno.serve(handle(async (req) => {
   if (!p?.stripe_price_id) return json({ error: 'plan_not_purchasable' }, 400);
   // un customer Stripe par utilisateur, réutilisé
   const { data: sub } = await admin.from('subscriptions').select('stripe_customer_id').eq('user_id', user.id).maybeSingle();
-  const customer = sub?.stripe_customer_id ?? (await stripe.customers.create({ email: user.email, metadata: { user_id: user.id } })).id;
+  // Un customer par utilisateur : d'abord la ligne subscriptions, sinon on
+  // cherche chez Stripe par metadata.user_id (un Checkout abandonné a pu en
+  // créer un sans abonnement), sinon on crée.
+  const customer = sub?.stripe_customer_id
+    ?? (await stripe.customers.search({ query: `metadata['user_id']:'${user.id}'`, limit: 1 })).data[0]?.id
+    ?? (await stripe.customers.create({ email: user.email, metadata: { user_id: user.id } })).id;
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription', customer, line_items: [{ price: p.stripe_price_id, quantity: 1 }],
     success_url: `${returnUrl}#/merci`, cancel_url: `${returnUrl}#/pricing`,
     metadata: { user_id: user.id, plan }, subscription_data: { metadata: { user_id: user.id, plan } },
-    automatic_tax: { enabled: true }, customer_update: { address: 'auto' },
+    // TVA UE automatique (Stripe Tax) : exige une adresse de siège dans le
+    // dashboard (Settings → Tax). Activée par STRIPE_AUTOMATIC_TAX=1 une fois
+    // le compte configuré ; désactivée par défaut pour que le sandbox tourne.
+    ...(Deno.env.get('STRIPE_AUTOMATIC_TAX') === '1' ? { automatic_tax: { enabled: true }, customer_update: { address: 'auto' } } : {}),
   });
   return json({ url: session.url });
 }));
