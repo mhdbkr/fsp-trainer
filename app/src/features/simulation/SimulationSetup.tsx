@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { Layer } from '@/db/types';
 import { useUi } from '@/store/ui';
-import { useProfiles, PROFILE_COLORS, initials } from '@/store/profile';
 import { Icon } from '@/components/icons';
 import { MusterModelPicker } from '@/components/MusterModelPicker';
 import { useCase, useSimulations } from '@/hooks/useData';
@@ -97,48 +96,14 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
 }
 
 function RolesCard({ caseId }: { caseId: string }) {
-  const { profiles, activeId, setActive, create } = useProfiles();
   const [showQr, setShowQr] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [adding, setAdding] = useState(false);
-  const [name, setName] = useState('');
   const url = patientUrl(caseId);
   const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
-  const addProfile = async () => { const id = await create(name); setName(''); setAdding(false); await setActive(id); };
   return (
     <div className="card p-4">
       <div className="label mb-2">Répartition des rôles</div>
       <div className="grid gap-3 sm:grid-cols-2">
-        {/* Le médecin = PROFIL qui s'entraîne (stats + programme le suivent) */}
-        <div className="rounded-xl border border-brand-200 bg-brand-50/50 p-3 dark:border-brand-900/40 dark:bg-brand-900/10">
-          <div className="flex items-center gap-2 font-semibold text-brand-700 dark:text-brand-300">
-            <Icon name="stethoscope" className="h-5 w-5" /> Le médecin
-          </div>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Quel profil s'entraîne&nbsp;? Ses stats, son streak et son programme suivront ce choix.</p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {profiles.map((p) => {
-              const col = PROFILE_COLORS[p.color] ?? PROFILE_COLORS.petrol;
-              const on = p.id === activeId;
-              return (
-                <button key={p.id} onClick={() => setActive(p.id)}
-                  className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors ${on ? `${col.soft} ${col.text} border-transparent ring-1 ${col.ring}` : 'border-slate-300 text-slate-500 hover:border-brand-300 dark:border-slate-700'}`}>
-                  <span className={`grid h-4 w-4 place-items-center rounded-full text-[8px] font-bold text-white ${col.dot}`}>{initials(p.name)}</span>
-                  {p.name}
-                </button>
-              );
-            })}
-            {adding ? (
-              <input autoFocus value={name} onChange={(e) => setName(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') addProfile(); if (e.key === 'Escape') { setAdding(false); setName(''); } }}
-                onBlur={() => { if (!name.trim()) setAdding(false); }} placeholder="Nom du profil…"
-                className="input h-[30px] w-28 py-0 text-xs" />
-            ) : (
-              <button onClick={() => setAdding(true)} className="flex items-center gap-1 rounded-lg border border-dashed border-slate-300 px-2.5 py-1.5 text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-slate-700">
-                <span className="text-sm leading-none">+</span> Profil
-              </button>
-            )}
-          </div>
-        </div>
         {/* Rôle simulant (patient + médecin senior) */}
         <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 dark:border-amber-900/40 dark:bg-amber-900/10">
           <div className="flex items-center gap-2 font-semibold text-amber-700 dark:text-amber-300">

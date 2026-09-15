@@ -1,9 +1,8 @@
 import { db } from '@/db/db';
 import type { ExtraTask, ProgramAdjust, ProgramConfig } from '@/db/types';
-import { useProfiles, programKey } from '@/store/profile';
 
-// Clé meta du programme du profil actif (le programme est par profil).
-const key = () => programKey(useProfiles.getState().activeId);
+// Clé meta unique du programme (un compte = une personne : D1).
+const key = () => 'program';
 
 // ============================================================================
 // Actions manuelles sur le programme de révision. Elles écrivent dans

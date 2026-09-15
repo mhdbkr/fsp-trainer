@@ -10,7 +10,6 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
 import { Shell } from '@/components/Shell';
-import { useProfiles } from '@/store/profile';
 import { ensureDemoData } from '@/data/seed';
 import { contentLoader, FirstLoadRequired } from '@/lib/content/loader';
 import { HomePage } from '@/features/home/HomePage';
@@ -85,7 +84,6 @@ initSession()
   .then(() => { watchEntitlements(); })
   .then(() => contentLoader.sync())
   .then(() => ensureDemoData())
-  .then(() => useProfiles.getState().load())
   .then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(
       <React.StrictMode>

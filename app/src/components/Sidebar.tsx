@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { NAV } from './nav';
-import { ProfileSwitcher } from './ProfileSwitcher';
 import { Portal } from './Portal';
 import { useSession } from '@/lib/auth/session';
 import { SyncBadge } from './SyncBadge';
@@ -123,7 +122,6 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
       </nav>
 
       <div className="space-y-2 border-t border-slate-100 p-2 dark:border-ink-600">
-        <div className="hidden md:block"><ProfileSwitcher variant="full" /></div>
         <div className="hidden md:block">
           <label className="label px-1">Centre visé</label>
           <select value={targetCenter} onChange={(e) => setTargetCenter(e.target.value as never)} className="input mt-1 py-1.5 text-xs">
@@ -217,7 +215,6 @@ function DockRail({ onExpand }: { onExpand: () => void }) {
           <BrandMark size="h-11 w-11" icon="h-6 w-6" ring="ring-white/70 dark:ring-ink-800" />
         </button>
 
-        <ProfileSwitcher variant="dock" />
         <AccountLink dock />
 
         <div className="my-1 h-px w-8 shrink-0 bg-slate-200/70 dark:bg-white/10" />

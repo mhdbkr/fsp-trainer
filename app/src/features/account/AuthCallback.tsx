@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSession } from '@/lib/auth/session';
 import { supabase } from '@/lib/supabase';
 import { loadEntitlements } from '@/lib/entitlements';
+import { db, getMeta } from '@/db/db';
+import { migrateLocalProgress } from '@/lib/sync/migrateLocal';
 
 /** Cible du lien magique / OAuth : attend la session, puis route vers l'onboarding si le profil est incomplet. */
 export function AuthCallback() {
@@ -13,6 +15,7 @@ export function AuthCallback() {
     if (status !== 'authenticated' || !uid) return;
     (async () => {
       await loadEntitlements();
+      if (!(await getMeta('migratedLocal', false)) && (await db.simulations.count()) > 0) await migrateLocalProgress(uid);
       const { data } = await supabase.from('profiles').select('target_land, language_level, procedure_stage').eq('id', uid).single();
       const complete = !!(data?.target_land && data?.language_level && data?.procedure_stage);
       nav(complete ? '/' : '/onboarding', { replace: true });

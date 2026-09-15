@@ -3,6 +3,7 @@ import { db } from '@/db/db';
 import type { Case, Fachbegriff, Fachwissen, AufklaerungItem, Simulation, PlanEntry, PartResult, ChecklistItem } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
 import { checklistPct, languagePct, emptyLanguageGrid } from '@/lib/scoring';
+import { useSession } from '@/lib/auth/session';
 
 // ----------------------------------------------------------------------------
 // Linkage automatique : relie cas ↔ Fachbegriffe ↔ Fachwissen ↔ Aufklärungen
@@ -128,8 +129,15 @@ function demoPlan(): PlanEntry[] {
  * (cas, Fachwissen, Aufklärungen, guides, Fachbegriffe) est désormais géré
  * par contentLoader.sync() (src/lib/content/loader.ts), qui remplace
  * l'ancien ensureSeeded. Ne touche jamais aux tables de contenu.
+ *
+ * Un compte = une personne (D1) : la démo n'a de sens que pour un visiteur
+ * qui n'a encore ni compte ni progression réelle (journal `progress_events`
+ * vide). Dès qu'un événement existe ou qu'un compte est actif, on ne seed
+ * plus jamais — la démo écraserait sinon une vraie progression rapatriée.
  */
 export async function ensureDemoData(): Promise<void> {
+  if (useSession.getState().status !== 'anonymous') return;
+  if ((await db.progress_events.count()) > 0) return;
   await db.transaction('rw', [db.simulations, db.plan], async () => {
     if ((await db.simulations.count()) === 0) await db.simulations.bulkPut(demoSimulations());
     if ((await db.plan.count()) === 0) await db.plan.bulkPut(demoPlan());

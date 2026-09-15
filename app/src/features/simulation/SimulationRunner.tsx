@@ -4,7 +4,6 @@ import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase, useAufklaerungen } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
-import { useProfiles } from '@/store/profile';
 import { syncQueue } from '@/lib/sync/queue';
 import { useSimSession } from '@/store/simSession';
 import { useTimer } from './useTimer';
@@ -35,7 +34,6 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
 export function SimulationRunner() {
   const { caseId } = useParams();
   const c = useCase(caseId);
-  const activeProfile = useProfiles((s) => s.active());
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
   const muster = useUi((s) => s.muster);
@@ -174,7 +172,6 @@ export function SimulationRunner() {
       id: `sim-${Date.now()}`,
       caseId: c.id,
       date: Date.now(),
-      profileId: useProfiles.getState().activeId,
       parts,
       notes,
       bogen,
@@ -249,9 +246,8 @@ export function SimulationRunner() {
                   <div className={`absolute left-4 origin-left truncate pr-4 text-sm font-bold transition-[top,transform] duration-[440ms] ease-fluid ${merged ? 'top-[16px] scale-[1.14]' : 'top-[10px] scale-100'}`}
                     style={{ maxWidth: 'calc(60% - 1rem)' }}>{c.name}</div>
 
-                  {/* Ligne profil */}
+                  {/* Ligne mode / couche */}
                   <div className={`pointer-events-none absolute left-4 top-[30px] flex items-center gap-1.5 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
-                    <span className="whitespace-nowrap">Médecin : {activeProfile?.name ?? '—'}</span>
                     <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
                       {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
                     </span>
