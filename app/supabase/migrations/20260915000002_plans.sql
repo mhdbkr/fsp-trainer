@@ -22,17 +22,21 @@ create table public.subscriptions (
 create trigger subscriptions_touch before update on public.subscriptions
   for each row execute function public.touch_updated_at();
 
--- Plan effectif : active/trialing → plan ; past_due → plan pendant 7 jours de grâce ; sinon free.
+-- Plan effectif : active/trialing → plan ; past_due → plan pendant 7 jours de grâce ;
+-- canceled → plan jusqu'à la fin de la période déjà payée ; sinon free.
 create or replace function public.effective_plan(uid uuid) returns text
 language sql stable security definer set search_path = public as $$
   select coalesce((
     select case
       when s.status in ('active','trialing') then s.plan_id
       when s.status = 'past_due' and s.updated_at > now() - interval '7 days' then s.plan_id
+      when s.status = 'canceled' and s.current_period_end is not null
+        and s.current_period_end > now() then s.plan_id
       else 'free' end
     from public.subscriptions s where s.user_id = uid
   ), 'free')
 $$;
+revoke execute on function public.effective_plan(uuid) from public, anon, authenticated;
 
 create or replace function public.tier_of(uid uuid) returns int
 language sql stable security definer set search_path = public as $$
@@ -41,6 +45,20 @@ language sql stable security definer set search_path = public as $$
     where e.plan_id = public.effective_plan(uid) and e.feature = 'content.tier'
   ), 1)
 $$;
+revoke execute on function public.tier_of(uuid) from public, anon, authenticated;
+
+-- Wrappers client-safe : n'agissent jamais que sur l'appelant courant (auth.uid()).
+create or replace function public.my_plan() returns text
+language sql stable security definer set search_path = public as $$
+  select public.effective_plan(auth.uid())
+$$;
+grant execute on function public.my_plan() to anon, authenticated;
+
+create or replace function public.my_tier() returns int
+language sql stable security definer set search_path = public as $$
+  select public.tier_of(auth.uid())
+$$;
+grant execute on function public.my_tier() to anon, authenticated;
 
 alter table public.plans          enable row level security;
 alter table public.entitlements   enable row level security;

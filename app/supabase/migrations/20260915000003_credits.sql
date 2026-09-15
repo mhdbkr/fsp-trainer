@@ -16,7 +16,7 @@ create materialized view public.credit_balances as
 create unique index on public.credit_balances (user_id);
 
 create or replace function public.refresh_credit_balances() returns trigger
-language plpgsql security definer as $$
+language plpgsql security definer set search_path = public as $$
 begin
   refresh materialized view concurrently public.credit_balances;
   return null;
@@ -28,6 +28,13 @@ create or replace function public.credit_balance(uid uuid) returns int
 language sql stable security definer set search_path = public as $$
   select coalesce((select balance from public.credit_balances where user_id = uid), 0)
 $$;
+revoke execute on function public.credit_balance(uuid) from public, anon, authenticated;
+
+create or replace function public.my_credits() returns int
+language sql stable security definer set search_path = public as $$
+  select public.credit_balance(auth.uid())
+$$;
+grant execute on function public.my_credits() to anon, authenticated;
 
 alter table public.credit_ledger enable row level security;
 create policy "ledger: own read" on public.credit_ledger for select using (user_id = auth.uid());
