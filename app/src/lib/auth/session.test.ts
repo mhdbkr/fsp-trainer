@@ -12,10 +12,10 @@ vi.mock('@/lib/supabase', () => ({
   },
 }));
 
-import { useSession, signInWithMagicLink, initSession } from './session';
+import { useSession, signInWithMagicLink, initSession, __resetSessionForTests } from './session';
 
 describe('session', () => {
-  beforeEach(() => { listeners.length = 0; useSession.setState({ user: null, status: 'loading' }); });
+  beforeEach(() => { listeners.length = 0; useSession.setState({ user: null, status: 'loading' }); __resetSessionForTests(); });
 
   it('démarre en loading puis passe anonymous sans session', async () => {
     expect(useSession.getState().status).toBe('loading');

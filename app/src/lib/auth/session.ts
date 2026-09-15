@@ -10,8 +10,15 @@ export const useSession = create<SessionState>(() => ({ user: null, status: 'loa
 
 const apply = (user: User | null) => useSession.setState({ user, status: user ? 'authenticated' : 'anonymous' });
 
-/** À appeler une fois au démarrage. */
+let started = false;
+
+/** Test-only : réinitialise le garde d'idempotence entre les cas de test. */
+export const __resetSessionForTests = () => { started = false; };
+
+/** À appeler une fois au démarrage (idempotent : la souscription ne doit jamais être enregistrée deux fois). */
 export async function initSession(): Promise<void> {
+  if (started) return;
+  started = true;
   const { data } = await supabase.auth.getSession();
   apply(data.session?.user ?? null);
   supabase.auth.onAuthStateChange((_event, session) => apply(session?.user ?? null));

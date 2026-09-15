@@ -27,6 +27,11 @@ import { DrillPage } from '@/features/fachbegriffe/DrillPage';
 import { StatsPage } from '@/features/stats/StatsPage';
 import { PatientScreen } from '@/features/simulation/PatientScreen';
 import { ProgramPage } from '@/features/program/ProgramPage';
+import { SignInPage } from '@/features/account/SignInPage';
+import { OnboardingPage } from '@/features/account/OnboardingPage';
+import { AuthCallback } from '@/features/account/AuthCallback';
+import { initSession } from '@/lib/auth/session';
+import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
 
 // Hash router → fonctionne aussi bien en dev qu'en ouverture file:// (Tauri).
 const router = createHashRouter([
@@ -48,6 +53,9 @@ const router = createHashRouter([
       { path: 'fachbegriffe', element: <FachbegriffePage /> },
       { path: 'fachbegriffe/drill', element: <DrillPage /> },
       { path: 'stats', element: <StatsPage /> },
+      { path: 'signin', element: <SignInPage /> },
+      { path: 'onboarding', element: <OnboardingPage /> },
+      { path: 'auth/callback', element: <AuthCallback /> },
     ],
   },
   // Route 2ᵉ écran « rôle patient » — standalone (hors Shell), responsive mobile.
@@ -55,6 +63,9 @@ const router = createHashRouter([
 ]);
 
 ensureSeeded()
+  .then(() => initSession())
+  .then(() => loadEntitlements())
+  .then(() => { watchEntitlements(); })
   .then(() => useProfiles.getState().load())
   .then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(

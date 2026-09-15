@@ -5,6 +5,7 @@ import { Icon } from './icons';
 import { NAV } from './nav';
 import { ProfileSwitcher } from './ProfileSwitcher';
 import { Portal } from './Portal';
+import { useSession } from '@/lib/auth/session';
 
 // Import PARESSEUX délibéré : three.js + @react-three/fiber + drei pèsent à
 // eux seuls ~900 Ko gzippés. En import statique, ce poids rejoint le bundle
@@ -50,6 +51,30 @@ function BrandMark({ size = 'h-9 w-9', icon = 'h-[22px] w-[22px]', ring = 'ring-
       <Icon name="doctopus" className={`relative ${icon}`} />
       <span className={`absolute -right-0.5 -top-0.5 h-2 w-2 animate-pulse-line rounded-full bg-signal-400 ring-2 ${ring}`} />
     </span>
+  );
+}
+
+// Entrée « Compte » / « Se connecter » — lien vers /onboarding tant que /account
+// n'existe pas (Task 18).
+function AccountLink({ dock = false }: { dock?: boolean }) {
+  const status = useSession((s) => s.status);
+  const authed = status === 'authenticated';
+  const to = authed ? '/onboarding' : '/signin';
+  const label = authed ? 'Compte' : 'Se connecter';
+  if (dock) {
+    return (
+      <NavLink to={to} title={label}
+        className="group relative grid h-11 w-11 place-items-center rounded-2xl text-slate-500 transition-colors duration-100 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white">
+        <Icon name="user" className="h-[19px] w-[19px]" />
+        <span className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-ink-600">{label}</span>
+      </NavLink>
+    );
+  }
+  return (
+    <NavLink to={to} className="btn-ghost w-full justify-center md:justify-start">
+      <Icon name="user" className="h-[18px] w-[18px]" title={label} />
+      <span className="hidden md:inline">{label}</span>
+    </NavLink>
   );
 }
 
@@ -109,6 +134,7 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
           <Icon name={theme === 'dark' ? 'nav-sun' : 'nav-moon'} className="h-[18px] w-[18px]" title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'} />
           <span className="hidden md:inline">{theme === 'dark' ? 'Mode clair' : 'Mode sombre'}</span>
         </button>
+        <AccountLink />
         <div className="hidden items-center gap-2 px-2 pt-0.5 md:flex">
           <span className="h-1.5 w-1.5 animate-pulse-line rounded-full bg-brand-500" />
           <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">Offline · Local</span>
@@ -191,6 +217,7 @@ function DockRail({ onExpand }: { onExpand: () => void }) {
         </button>
 
         <ProfileSwitcher variant="dock" />
+        <AccountLink dock />
 
         <div className="my-1 h-px w-8 shrink-0 bg-slate-200/70 dark:bg-white/10" />
 
