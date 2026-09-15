@@ -7,6 +7,14 @@ Rédigé par `compliance-checker` (pôle Fondations), 2026-09-16, en réponse au
 handoff `lead-site → compliance-site` (étape 2, sous réserve de G1).
 Périmètre d'écriture : `docs/legal/` uniquement.
 
+**Mise à jour 2026-09-16** (message de `lead-site`) : hébergeur du site =
+Vercel ; analytics = Plausible ou Umami, UE, sans cookie, sans donnée
+personnelle ; checkout réel via Stripe, durées mensuel/3 mois sans
+reconduction tacite, résiliation « jederzeit im Konto, ohne Begründung,
+wirksam zum Periodenende », jamais « en un clic » ; marque « Doctopus »,
+produit « FSP Trainer » ; placeholders d'identité harmonisés `{{LEGAL_*}}`.
+Intégré dans les cinq fichiers concernés (voir commits datés du même jour).
+
 ## 1. Fichiers
 
 | Fichier | Contenu | Statut |
@@ -25,17 +33,22 @@ Périmètre d'écriture : `docs/legal/` uniquement.
    contenu « journalistisch-redaktionell », clause de non-participation à
    la médiation des litiges de consommation.
 2. **Datenschutz** : base légale précise pour l'usage agrégé du profil
-   (page « ce qui tombe vraiment », `PRODUCT-VISION.md` §5), garanties de
-   transfert hors UE si l'hébergement du site est confirmé hors UE (Vercel
-   présumé, non confirmé par un contrat lu), sous-traitant IA/voix non
-   encore choisi à documenter dès sélection, durées de conservation
-   fiscales exactes selon droit applicable (FR et/ou DE).
+   (page « ce qui tombe vraiment », `PRODUCT-VISION.md` §5), formulation
+   exacte des garanties de transfert hors UE vers Vercel (hébergeur
+   confirmé par la direction le 2026-09-16, clauses contractuelles types /
+   Data Privacy Framework à préciser), confirmation que l'outil analytics
+   retenu (Plausible ou Umami, `{{ANALYTICS_PROVIDER}}`) ne traite
+   effectivement aucune donnée personnelle sur la configuration déployée,
+   sous-traitant IA/voix non encore choisi à documenter dès sélection,
+   durées de conservation fiscales exactes selon droit applicable (FR
+   et/ou DE).
 3. **AGB** : clause de droit applicable / juridiction (protection
    impérative du consommateur allemand, art. 6 Rom I, quel que soit le
    droit choisi pour le contrat), règle de péremption et de remboursement
    des crédits (décision produit non tranchée — à faire trancher par la
    direction avant rédaction juridique finale), clause de limitation de
-   responsabilité.
+   responsabilité, et la clause de non-reconduction tacite au § 5 au
+   regard du droit allemand de la résiliation en ligne (§ 312k BGB).
 4. **Widerruf** : formulation et emplacement de la case de renonciation
    expresse au droit de rétractation (§ 356 Abs. 5 BGB) — condition de
    validité, non vérifiable dans un document ; calcul du remboursement
@@ -49,16 +62,30 @@ Périmètre d'écriture : `docs/legal/` uniquement.
 
 ## 3. Placeholders à remplir par la direction
 
-`{{RAISON_SOCIALE}}`, `{{FORME_JURIDIQUE}}`, `{{PAYS_ETABLISSEMENT}}`,
-`{{ADRESSE_RUE_NUMMER}}` / `{{ADRESSE_COMPLETE}}`, `{{PLZ_ORT}}`,
-`{{PAYS}}`, `{{VOR_UND_NACHNAME}}`, `{{TELEFON}}`, `{{KONTAKT_EMAIL}}`,
-`{{DATENSCHUTZ_KONTAKT_EMAIL}}`, `{{REGISTER_ODER_SIRET_NUMMER}}`,
-`{{USTID_ODER_TVA_INTRACOM}}`, `{{HOSTING_ANBIETER}}`,
-`{{ANBIETER_NAME_UND_SITZ}}` (fournisseur IA/voix), `{{PREISE_PLATZHALTER}}`,
-`{{ANZAHL_CREDITS_PRO}}`, `{{ANZAHL_CREDITS_PREMIUM}}`,
-`{{LAUFZEIT_UND_KUENDIGUNGSFRIST}}`, `{{VERFALLSREGEL}}`,
-`{{RUECKERSTATTUNGSREGEL}}`, `{{ANWENDBARES_RECHT}}`,
-`{{HAFTUNGSBESCHRAENKUNG_KLAUSEL}}`, `{{AUFBEWAHRUNGSFRIST_STEUERRECHT}}`.
+Depuis 2026-09-16, tous les placeholders d'identité de l'exploitant sont
+harmonisés sous le préfixe `{{LEGAL_*}}` (décision `lead-site`).
+
+**Identité de l'exploitant** (répétés à l'identique dans chaque fichier) :
+`{{LEGAL_NAME}}` (raison sociale), `{{LEGAL_FORM}}` (forme juridique),
+`{{LEGAL_COUNTRY}}` (pays d'établissement), `{{LEGAL_ADDRESS_STREET}}`,
+`{{LEGAL_ADDRESS_CITY}}` (PLZ/Ort), `{{LEGAL_REPRESENTATIVE}}` (nom du
+représentant), `{{LEGAL_PHONE}}`, `{{LEGAL_EMAIL}}` (contact général),
+`{{LEGAL_PRIVACY_EMAIL}}` (contact protection des données, peut être
+identique à `{{LEGAL_EMAIL}}`), `{{LEGAL_REGISTER_OR_SIRET}}`,
+`{{LEGAL_VAT_ID}}`.
+
+**Autres placeholders, par fichier** :
+- `datenschutz.md` : `{{ANALYTICS_PROVIDER}}` (Plausible ou Umami, choix
+  final non arrêté), `{{LEGAL_AI_PROVIDER_NAME_AND_SEAT}}` (fournisseur
+  IA/voix, non choisi), `{{LEGAL_TAX_RETENTION_PERIOD}}`.
+- `agb.md` : `{{LEGAL_SUBSCRIPTION_PRICES}}`, `{{LEGAL_CREDITS_EXPIRY_RULE}}`,
+  `{{LEGAL_CREDITS_REFUND_RULE}}`, `{{LEGAL_GOVERNING_LAW}}`,
+  `{{LEGAL_LIABILITY_CLAUSE}}`, `{{BESCHREIBUNG_PRO}}`,
+  `{{BESCHREIBUNG_PREMIUM}}`, `{{ANZAHL_CREDITS_PRO}}`,
+  `{{ANZAHL_CREDITS_PREMIUM}}`.
+
+Marque et produit (tranchés, pas des placeholders) : marque « Doctopus »,
+produit « FSP Trainer ».
 
 ## 4. Check-list de ce qui doit être BRANCHÉ dans le produit (pas seulement écrit)
 
@@ -93,9 +120,15 @@ Cette section documente ce qui manque, elle ne certifie rien. Statut
       confirmer que la suppression Supabase Auth entraîne bien la
       suppression/anonymisation des lignes liées par `user_id`
       (`docs/contracts/schema.sql`).
-- [ ] Cookie banner : uniquement si des cookies non essentiels sont
-      introduits (recommandation de ce brouillon : aucun au lancement) —
-      NON VÉRIFIÉ.
+- [ ] Cookie banner : non nécessaire tant que l'analytics UE
+      (`{{ANALYTICS_PROVIDER}}`) reste sans cookie et sans donnée
+      personnelle et qu'aucun autre traceur n'est ajouté — NON VÉRIFIÉ, à
+      confirmer sur la configuration technique réellement déployée.
+- [ ] Bouton/flux de résiliation dans le compte conforme à § 312k BGB
+      (résiliation facile, en ligne, confirmation) — décrit dans `agb.md`
+      § 5 comme « jederzeit im Konto, ohne Begründung, wirksam zum
+      Periodenende », jamais présenté comme « en un clic » — NON VÉRIFIÉ.
+- [ ] Previews de déploiement (Vercel) en `noindex` — NON VÉRIFIÉ.
 - [ ] Cohérence entre le disclaimer du site et celui de l'app (hors
       périmètre d'écriture ici, transmis au pôle app via le coordinateur).
 
@@ -109,7 +142,8 @@ Cette section documente ce qui manque, elle ne certifie rien. Statut
 | Crédits | grand livre (montant, raison, référence) | Art. 6(1)(b) | Supabase (EU) | conservation comptable à confirmer |
 | Paiement | abonnement, moyens de paiement (non stockés par Doctopus) | Art. 6(1)(b) | Stripe | selon obligations fiscales |
 | IA Arztbrief / patient vocal | texte/audio soumis pour correction ou dialogue | Art. 6(1)(b) | fournisseur IA/voix — **non choisi**, placeholder | à définir avec le fournisseur |
-| Hébergement site | logs techniques standard | Art. 6(1)(f) | hébergeur du site — **non confirmé** (Vercel présumé) | à définir |
+| Hébergement site | logs techniques standard | Art. 6(1)(f) | **Vercel** (confirmé 2026-09-16), siège US — garanties de transfert à préciser | à définir |
+| Analytics site | mesure d'audience, sans cookie visé | Art. 6(1)(f) (si donnée personnelle) | **Plausible ou Umami** (UE, choix final ouvert), placeholder `{{ANALYTICS_PROVIDER}}` | à définir |
 
 ## 6. Points ouverts explicitement non tranchés ici
 
@@ -119,7 +153,9 @@ Cette section documente ce qui manque, elle ne certifie rien. Statut
   distincte. Non traité, non deviné.
 - Fournisseur IA/voix définitif (ADR-0011 : démo statique pré-générée pour
   l'instant, aucun LLM temps réel en production au moment de ce brouillon).
-- Hébergeur du site définitif (Vercel mentionné dans le brief de handoff,
-  non retrouvé dans un ADR ou contrat lu par ce pôle).
+- Choix final entre Plausible et Umami pour l'analytics (hébergeur du site
+  Vercel et principe « UE, sans cookie, sans donnée personnelle » tranchés
+  par la direction le 2026-09-16 ; le fournisseur analytics précis ne
+  l'est pas encore).
 - Prix, quotas de crédits, règle de péremption/remboursement — décisions
   produit de la direction, pas de conformité.
