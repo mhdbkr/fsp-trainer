@@ -36,9 +36,9 @@ Brainstorming — trois approches comparées :
 
 | # | Décision | Alternatives écartées |
 |---|---|---|
-| D1 | **Astro** (sortie `static`), Tailwind via le preset de `packages/tokens`, un seul îlot interactif (hero). | B, C ci-dessus |
+| D1 | **Astro** (sortie `static`), Tailwind alimenté par `@doctopus/tokens`, un seul îlot interactif (hero). | B, C ci-dessus |
 | D2 | **Monorepo npm workspaces** à la racine : `apps/site`, `packages/tokens` ; `app/` reste hors workspace jusqu'à la migration finale. | pnpm/turbo (ajout d'outillage sans besoin) ; migrer l'app maintenant (interdit par le protocole V1) |
-| D3 | **`packages/tokens` = source de vérité** : `tokens.json` → génère `tokens.css` (custom properties) et `tailwind.preset.js`. Script `check-tokens-parity.mjs` compare avec `app/tailwind.config.js` en lecture seule et échoue sur divergence. | Copier la charte dans le site (dérive garantie) ; faire consommer le preset par l'app dès maintenant (touche `app/`) |
+| D3 | **`packages/tokens` = source de vérité** : `tokens.json` → `dist/tokens.css` (custom properties `--dt-…`), `dist/tokens.js` (objet typé alimentant `theme.extend` de Tailwind). Script `scripts/check-parity.mjs` compare avec `app/tailwind.config.js` + `index.css` en lecture seule et échoue sur divergence. Formats et règles : `docs/contracts/tokens.md` (arch-site, prime sur ce spec). | Copier la charte dans le site (dérive garantie) ; faire consommer le preset par l'app dès maintenant (touche `app/`) |
 | D4 | **Liquid glass en CSS seul** : `backdrop-filter`, dégradés coniques animés, `transform` 3D léger sur le hero, transitions de page via View Transitions API. Aucun WebGL, aucune bibliothèque 3D. Tout est neutralisé sous `prefers-reduced-motion: reduce`. | Three.js / shader (≥ 150 Ko, TTI mobile menacé) ; vidéo de fond |
 | D5 | **Pages légales rendues depuis `docs/legal/*.md`** (périmètre de compliance-site) via une collection Astro pointée hors de `src/`. Bannière « Entwurf — juristische Prüfung ausstehend » tant que le front-matter `validated_by` est vide. | Dupliquer le texte dans le site ; bloquer le build sans validation |
 | D6 | **Déploiement preview `noindex`** (`X-Robots-Tag` + `<meta name="robots">`) tant que `SITE_PUBLIC=false` ; le passage en public est une décision de `main` après validation de l'Impressum. | Mettre en ligne dès la PR (illégal sans Impressum valide) |
@@ -59,7 +59,7 @@ Brainstorming — trois approches comparées :
 ├── apps/
 │   └── site/                 ← Astro
 │       ├── astro.config.mjs  (site: https://{{SITE_DOMAIN}}, output: 'static')
-│       ├── tailwind.config.js (presets: [tokensPreset])
+│       ├── tailwind.config.js (theme.extend depuis `tokens` de @doctopus/tokens)
 │       ├── src/
 │       │   ├── layouts/Base.astro       (head SEO, header, CTA, footer, avertissement)
 │       │   ├── components/              (Hero.astro + hero.island.ts, Cta, Pricing, FreqTable, LegalBanner…)
@@ -67,7 +67,7 @@ Brainstorming — trois approches comparées :
 │       │   ├── content/                 (blog/, faq/ — collections Astro)
 │       │   ├── data/                    (pricing.json, frequencies.json [généré], status.json, site.json)
 │       │   ├── i18n/de.json
-│       │   └── styles/site.css          (@import "@doctopus/tokens/tokens.css")
+│       │   └── styles/site.css          (@import "@doctopus/tokens/tokens.css" (dist))
 │       ├── scripts/
 │       │   ├── build-frequencies.mjs    (ANALYSE.md §3 → data/frequencies.json)
 │       │   ├── check-lighthouse.mjs     (lighthouse CLI, mobile, seuils)
@@ -80,10 +80,10 @@ Brainstorming — trois approches comparées :
 ├── packages/
 │   └── tokens/
 │       ├── tokens.json                  (source unique : couleurs, polices, rayons, durées, easing)
-│       ├── build.mjs                    (→ tokens.css, tailwind.preset.js)
-│       ├── tokens.css                   (généré, committé)
-│       ├── tailwind.preset.js           (généré, committé)
-│       └── scripts/check-tokens-parity.mjs (↔ app/tailwind.config.js, lecture seule)
+│       ├── build.mjs                    (→ dist/)
+│       ├── dist/tokens.css, dist/tokens.js, dist/tokens.d.ts (générés)
+│       ├── scripts/check-parity.mjs      (↔ app/tailwind.config.js + index.css, lecture seule)
+│       └── test/tokens.test.mjs         (node --test)
 ├── docs/legal/                          (compliance-site : impressum.md, datenschutz.md, agb.md, widerruf.md)
 ├── docs/brand/                          (brand-site : positionnement, voix)
 └── .github/workflows/site.yml           (build + les 6 check-* + lighthouse ; exit code tranche)
@@ -209,7 +209,7 @@ de page (`transition:animate` sur le hero), désactivées sous
 1. **Build** : `npm run build -w packages/tokens` → `npm run build -w apps/site`
    (exécute `build-frequencies.mjs` en `prebuild`) → `dist/`.
 2. **Vérification** (CI `site.yml`, dans l'ordre, chaque étape par code de
-   sortie) : `check-tokens-parity` → build → `check-placeholders` (mode
+   sortie) : `check-parity` → build → `check-placeholders` (mode
    `public` seulement) → `check-no-promise` → `check-legal` →
    `check-pricing-parity` → `check-cta` (Playwright, serveur `astro preview`)
    → `check-lighthouse` (mobile, 4G simulée, 3 passes, médiane).
@@ -252,7 +252,7 @@ de page (`transition:animate` sur le hero), désactivées sous
 | Type | Outil | Ce qui est vérifié |
 |---|---|---|
 | Unitaire | Vitest dans `apps/site` | parsing `build-frequencies` (fixture d'un extrait d'ANALYSE §3), lexique `check-no-promise` (faux positifs : « keine Garantie » doit passer), parité pricing |
-| Contrat | `check-tokens-parity` | `tokens.json` ⊆ valeurs de `app/tailwind.config.js` + `index.css` |
+| Contrat | `check-parity` | `tokens.json` ⊆ valeurs de `app/tailwind.config.js` + `index.css` |
 | Structure | `check-legal`, `check-placeholders` | présence, bannière, placeholders |
 | Navigateur | Playwright (`check-cta`) sur `astro preview`, viewports 360×640, 768×1024, 1280×800 | à chaque scroll-stop (pas de 100 vh), un élément `[data-cta]` est visible dans le viewport ; sous reduced-motion, aucune animation active (`getAnimations().length === 0`) |
 | Performance | `lighthouse` CLI, preset mobile, throttling 4G (`--throttling.rttMs=150 --throttling.throughputKbps=1600`), médiane de 3 | perf ≥ 95, a11y ≥ 95, SEO ≥ 95, `interactive` < 3000 ms, sur `/de/`, `/de/preise/`, `/de/was-drankommt/` |
@@ -274,7 +274,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 | AC8 | `/de/preise/` affiche Free/Pro/Premium avec `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}` (mode preview) ; `check-pricing-parity.mjs` sort 0 ; une feature ajoutée hors matrice fait sortir 1. | test + CI |
 | AC9 | Liquid glass : `backdrop-filter` n'apparaît que dans les styles de `Hero` et des transitions (grep CSS de `dist/`) ; sous `prefers-reduced-motion: reduce`, `document.getAnimations()` est vide sur `/de/`. | `check-cta.mjs` (émulation) + grep |
 | AC10 | Aucun cookie posé, aucune requête vers un domaine tiers pendant la navigation des 15 routes. | Playwright : `context.cookies()` vide, `request` listener |
-| AC11 | `check-tokens-parity.mjs` sort 0 ; la modification d'une couleur dans `tokens.json` sans mise à jour de l'app fait sortir 1. | test |
+| AC11 | `check-parity.mjs` sort 0 ; la modification d'une couleur dans `tokens.json` sans mise à jour de l'app fait sortir 1. | test |
 | AC12 | `SITE_PUBLIC=false` → chaque page porte `<meta name="robots" content="noindex">` et l'en-tête `X-Robots-Tag: noindex` (config Vercel). | Playwright sur preview |
 | AC13 | `app/src/` est **inchangé** sur la branche (diff vide). | `git diff --stat main -- app/src` |
 | AC14 | Le pédagogue et l'avocat utilisateur ont relu `/de/preise/` (ADR-0008). | rapports dans `reports/` |
@@ -336,3 +336,18 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
   `docs/brand/` appartiennent à compliance-site et brand-site.
 - Ambiguïtés restantes : Q1–Q7 de l'intention ; la période des protocoles
   (`{{PROTOCOLS_PERIOD}}`) est inconnue de tous les documents lus.
+
+## 15. Divergences avec les artefacts parallèles (à arbitrer par la direction)
+
+- **Langue** : `docs/brand/naming-and-domain.md` (brand-site) recommande FR + DE
+  dès la v1 (option 3) ; ce spec recommande DE d'abord avec i18n prête (D13,
+  Q1-c). Les deux sont compatibles techniquement (D13 prévoit `/fr/`) ; la
+  différence est le volume de contenu v1. **Question Q1 enrichie** : (c') DE +
+  FR pour hero, présentation, quick guide, pricing, FAQ, à propos ; DE seul
+  pour « Ce qui tombe vraiment », blog et légal — c'est la proposition de la
+  marque. Si la direction retient (c'), AC1 passe à ~21 routes et `hreflang`
+  `de` + `fr`.
+- **Tokens** : `docs/contracts/tokens.md` (arch-site) fixe les formats de
+  sortie ; ce spec s'y aligne (D3). Aucune divergence restante.
+- **Tagline** : la marque recommande « Die Generalprobe. » ; le hero l'adopte
+  sous réserve de G1.
