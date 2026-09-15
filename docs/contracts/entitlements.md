@@ -7,6 +7,7 @@
 | `league` | — | ∞ | ∞ | ligue |
 | `ai.arztbrief` | — | ∞ | ∞ | accès à la feature (coût en crédits) |
 | `ai.voice` | — | — | ∞ | accès (coût en crédits) |
+| `readiness.plan` | — | ∞ | ∞ | plan d'actions chiffré, historique et projection du Bereitschaftsindex (**sous réserve G2**, pipeline `pruefungstag`) |
 | `credits.monthly` | 0 | 200 | 1000 | grant à chaque `invoice.paid` (`plans.monthly_credits`) |
 
 **Règles**
@@ -16,7 +17,7 @@
 - Aucun `plan === 'pro'` dans le code : `useEntitlements().has(feature)` / `limit(feature)` seulement.
 
 **Tiers de contenu** (attribués par `app/scripts/publishContent.mjs`)
-- Cas : `tier` dans `seedCases.ts`, défaut 2 ; 12 cas Free (un par spécialité majeure).
+- Cas : `tier` dans `seedCases.ts`, défaut 2 ; **12 cas Free couvrant 8 spécialités sur 16** (Kardiologie, Gastroenterologie, Psychiatrie, Pneumologie ×2, Urologie ×3, Orthopädie, Neurologie ×2, Endokrinologie — fait vérifié `seedCases.ts`, `tier: 1` ; l'ancienne formule « un par spécialité majeure » était inexacte).
 - Fiche Fachwissen / Aufklärung / Muster : tier minimal des cas qui les référencent (échantillon **complet** pour le Free).
 - Fachbegriffe : Free = spécialité `Allgemein` (1 204 termes) ; termes de spécialité = Pro.
 - Guides : Free.
