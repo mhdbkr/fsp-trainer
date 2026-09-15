@@ -2,6 +2,7 @@
 
 > Pôle Croissance · `brand-strategist` · v0.1 (2026-09-16, sous réserve de G1).
 > Lu par `site-implementer`, `growth-content-engine`, `brand-creative-director`.
+> v0.2 : marque **Doctopus**, produit **FSP Trainer** (le site présente Doctopus qui édite FSP Trainer) ; site DE seul en V1 ; tagline « Die Generalprobe. » — décisions de la direction via lead-site, 2026-09-16.
 > Sources : `app/docs/PRODUCT-VISION.md` §1–3, `ANALYSE.md` §3.4, `ROADMAP-PRODUCTION.md` §1.3,
 > `docs/contracts/entitlements.md`, `CONTEXT.md`. Toute preuve chiffrée ci-dessous cite sa source.
 
@@ -11,7 +12,7 @@
 |---|---|---|
 | H1 | Le corpus (580 comptes rendus) provient de **4 centres, tous en Bade-Wurtemberg** (Freiburg 91 · Karlsruhe 169 · Reutlingen 151 · Stuttgart 182 — `ANALYSE.md` L110). | Si d'autres Länder sont couverts, la §4 s'élargit. Tant que non : **on ne dit jamais « toute l'Allemagne »** comme preuve, seulement comme ambition. |
 | H2 | L'app est en français (`app/index.html` `lang="fr"`, titres UI FR). Le public initial est donc francophone (France, Maghreb, Afrique francophone) → voir `naming-and-domain.md` §3. | Si l'app est internationalisée avant le site, la langue principale du site se rediscute. |
-| H3 | Les prix ne sont pas fixés (`PRODUCT-VISION.md` §4 : « décision de la direction »). | Aucun message ne cite un prix. |
+| H3 | Les prix sont fixés par la direction ; le checkout est réel dès V1 (décision lead-site 2026-09-16). | `docs/brand/` ne fixe aucun prix ; les pages les affichent tels que Stripe les porte. |
 | H4 | Le Bereitschaftsindex, la correction d'Arztbrief et le patient IA vocal ne sont **pas livrés** (backlog V1–V4). | On en parle au futur ou « bientôt », jamais comme preuve. |
 
 ## 1. Catégorie
@@ -66,11 +67,11 @@ Chaque preuve est **mesurée** (M), **estimée** (E) ou **à venir** (À). Seule
 
 ## 5. Énoncé de positionnement
 
-**Stratégique (interne)** — Pour les médecins non germanophones qui préparent la Fachsprachprüfung, Doctopus est le simulateur d'examen qui les entraîne sur les cas qui tombent vraiment dans leur centre, parce qu'il est construit depuis ~580 comptes rendus de vrais candidats et structuré exactement comme l'épreuve (trois parties, Bogen, barème).
+**Stratégique (interne)** — Pour les médecins non germanophones qui préparent la Fachsprachprüfung, Doctopus édite FSP Trainer, le simulateur d'examen qui les entraîne sur les cas qui tombent vraiment dans leur centre, parce qu'il est construit depuis ~580 comptes rendus de vrais candidats et structuré exactement comme l'épreuve (trois parties, Bogen, barème).
 
 **Public (site, FR)** — Doctopus, c'est la répétition générale de ta Fachsprachprüfung : les cas qui tombent vraiment, le Bogen de ton centre, le barème de l'examen — à toute heure, autant de fois qu'il faut.
 
-**Public (site, DE)** — Doctopus ist die Generalprobe für deine Fachsprachprüfung: die Fälle, die wirklich drankommen, der Bogen deiner Kammer, die Bewertung der Prüfung — jederzeit, so oft du willst.
+**Public (site, DE — V1)** — FSP Trainer von Doctopus ist die Generalprobe für deine Fachsprachprüfung: die Fälle, die wirklich drankommen, der Bogen deiner Kammer, die Bewertung der Prüfung — jederzeit, so oft du willst.
 
 **Public (site, EN)** — Doctopus is the dress rehearsal for your Fachsprachprüfung: the cases that actually come up, your centre's Bogen, the real marking scheme — any time, as often as you need.
 
