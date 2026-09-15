@@ -397,10 +397,13 @@ export interface VisualBlockProps<B extends VisualBlock = VisualBlock> {
 }
 ```
 
-Le cadre commun (`VisualBlock.tsx`) rend : eyebrow mono « Visuell · <forme en
-allemand> » (« Anatomie », « Entscheidungsbaum », « Syndrom », « Verlauf »,
-« Vergleich », « Therapie », « Score ») ; `<h3>` = `title` ; `merke` en
-citation mono si présent ; le composant sous `ErrorBoundary`.
+Le cadre commun `VisualBlockFrame` (dans `VisualBlock.tsx`) rend : eyebrow
+mono « Visuell · <forme en allemand> » (« Anatomie », « Entscheidungsbaum »,
+« Syndrom », « Verlauf », « Vergleich », « Therapie », « Score ») ; `<h3>` =
+`title` (jamais `<h2>`, AC-16) ; `merke` en citation mono si présent ; le
+composant sous `ErrorBoundary` ; un slot `after?: ReactNode` où la page peut
+placer le `<details>` du repli lorsque la section repliée est celle de
+l'`anchor` (sinon le `<details>` reste à l'emplacement habituel, §3.1).
 
 **Accessibilité (opposable en revue)**
 
@@ -487,3 +490,4 @@ question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
 |---|---|---|---|
 | 2026-09-16 | arch-fachwissen-visuals | création (brouillon, sous réserve G2) | epic #8 |
 | 2026-09-16 | arch-fachwissen-visuals | alignement sur le spec (repli par entrée `replaces: SectionRef[]`, `source` obligatoire + `reviewed.ts`, `anchor` remplace `placement`, dégradé D7 + `ErrorBoundary`, validateur esbuild, signal sur l'axe de `timeline`, `data` de chaque kind selon spec §4.3) ; régions `eyes` et `legs` ajoutées (pilote Leberzirrhose) ; invariant de couverture par sous-chaîne supprimé | spec fe22692 gagne (règle du contrat) |
+| 2026-09-16 | arch-fachwissen-visuals | §6 : `VisualBlockFrame` nommé, `<h3>` explicite, slot `after` pour le `<details>` | demande lead (alignement sur le code, AC-16) |
