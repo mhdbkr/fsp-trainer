@@ -5,8 +5,12 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 
 ## Examen
 
-- **FSP** (Fachsprachprüfung) — examen de *langue* médicale, 60 points, ≥ 60 %
-  par partie, niveau C1. Pas un examen de connaissances.
+- **FSP** (Fachsprachprüfung) — examen de *langue* médicale, 60 min, langue
+  seule (le savoir médical n'est pas noté), résultat immédiat, évaluation
+  « nach einheitlichem, strukturiertem Schema » (LÄK BW). **Le barème
+  « 60 points / 60 % par partie » n'est PAS sourcé** dans un document officiel :
+  c'est la grille INTERNE d'entraînement de l'app, à présenter comme telle,
+  jamais comme le barème officiel. Source de vérité par Land : `docs/exam/<land>.md`.
 - **Les trois parties** — *Anamnese* (20 min), *Dokumentation / Arztbrief*
   (20 min), *Fallvorstellung / Arzt-Arzt-Gespräch* (20 min). *Aufklärung* =
   acte d'information au patient, demandé à la volée.

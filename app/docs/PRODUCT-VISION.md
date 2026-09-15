@@ -54,7 +54,8 @@ Par ordre d'impact. Les quatre premières sont bâties sur ce qui existe déjà.
    site. **Rive**, pas 3D : vectoriel, 40 Ko, machine à états `posture` ·
    `douleur:zone` · `émotion`.
 6. **Prüfungsakademie** — parcours animé : la salle, les trois personnes, le
-   minutage, le barème (60 points, 60 % par partie, langue uniquement), les
+   minutage, ce qui est officiel (langue seule, 3 × ~20 min, résultat immédiat — le
+   barème interne de l'app est un outil d'entraînement, pas le barème officiel), les
    questions du jury, enregistrements exemplaires d'anamnèse et de Vorstellung.
    Le candidat qui a vu la salle a déjà gagné dix points de stress.
 7. **Carte de fidélité par Landesärztekammer** — choisis ton Land → Bogen,
