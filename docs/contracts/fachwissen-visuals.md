@@ -333,7 +333,7 @@ app/src/data/fachwissenVisuals/
   types.ts            ← §1
   index.ts            ← export const VISUAL_SPECS: Record<string, FachwissenVisualSpec>
                         + export function getVisualSpec(id: string) { return VISUAL_SPECS[id]; }
-  reviewed.ts         ← export const REVIEWED: { fachwissenId: string; blockId: string; text: string }[]
+  reviewed.ts         ← export const REVIEWED_ERGAENZT: { fachwissenId: string; blockId: string; text: string }[]
   fw-khk.ts · fw-leberzirrhose.ts · fw-depression.ts   ← export const spec
 app/src/components/visuals/
   VisualBlock.tsx (dispatch + ErrorBoundary) · resolve.ts · primitives.tsx · registry.ts
@@ -359,7 +359,7 @@ app/src/features/fachwissen/useVisualSpec.ts
 
 **Chargement tranché** : esbuild (déjà présent via vite), même pattern que
 `app/scripts/loadCases.mjs` — entrée temporaire qui ré-exporte
-`seedFachwissen`, `VISUAL_SPECS`, `REVIEWED` ; `bundle: true`, plugin
+`seedFachwissen`, `VISUAL_SPECS`, `REVIEWED_ERGAENZT` ; `bundle: true`, plugin
 `stub-alias` sur `@/`. Pas de `zod`, pas de `tsx`, aucune dépendance ajoutée.
 Sortie : `process.exit(1)` au **premier** manquement (message préfixé
 `[visuals]`, avec fiche + bloc + champ) ; sinon résumé
@@ -374,7 +374,7 @@ Sortie : `process.exit(1)` au **premier** manquement (message préfixé
 | 5 | `kind`, `tone`, `anchor`, `axis`, `figure` dans leurs enums ; `order` unique par anchor | `enum invalide: <champ>=<valeur>` |
 | 6 | **refs résolues** contre la fiche réelle : chaque élément de `replaces`, chaque `source` ≠ `'ergänzt'`, chaque `ref` | `ref introuvable (<bloc>): <refKey>` |
 | 7 | **unicité du repli** : aucun `refKey` dans deux `replaces` de la même spec | `double repli: <refKey> (<bloc-a>, <bloc-b>)` |
-| 8 | **`ergänzt`** : chaque champ `'ergänzt'` a une ligne `{ fachwissenId, blockId, text }` exacte dans `REVIEWED` ; une ligne de `REVIEWED` sans champ correspondant est aussi une erreur (liste morte) | `ergänzt non relu: <bloc> "<text>"` |
+| 8 | **`ergänzt`** : chaque champ `'ergänzt'` a une ligne `{ fachwissenId, blockId, text }` exacte dans `REVIEWED_ERGAENZT` ; une ligne de `REVIEWED_ERGAENZT` sans champ correspondant est aussi une erreur (liste morte) | `ergänzt non relu: <bloc> "<text>"` |
 | 9 | forme par kind : anatomy ≥ 2 hotspots, régions ∈ enum, ∈ figure, uniques ; tree ≥ 2 branches par question, profondeur ≤ 4, ≤ 12 nœuds ; syndrome 3–6 rayons, 1–5 items ; timeline 3–8 points, aucun `tone: 'signal'` sur un point ; table 2–3 colonnes, 2–8 lignes, `cells.length === columns.length`, `emphasis` dans les bornes ; toggles 2–5 options, `default` dans les bornes, ≤ 1 `akut` ; gauge `points` croissants, `choices` de même longueur, bandes contiguës couvrant exactement `[Σ min, Σ max]` | `data invalide (<kind>/<bloc>): <détail>` |
 | 10 | **signal** : au plus un `tone: 'signal'` par bloc (feuille, hotspot, rayon, bande, colonne) ; sur `timeline` seul `axisTone` peut le porter ; `akut` compte comme le signal du bloc | `signal multiple: <bloc>` |
 | 11 | aucun texte affiché vide ; aucun emoji (`\p{Extended_Pictographic}`) ; pas de français détectable (mots entiers : « le », « la », « les », « avec », « chez », « et », « pour ») | `texte vide / non allemand / emoji` |
@@ -442,9 +442,6 @@ l'`anchor` (sinon le `<details>` reste à l'emplacement habituel, §3.1).
 | `signal` | `bg-signal-50 border-signal-200` (coral) | `text-signal-600 dark:text-signal-300` | le point de bascule, un par bloc |
 | `warn` | `bg-amber-50 border-amber-200` | `text-amber-700 dark:text-amber-300` | atypique, Vorsicht |
 
-Sémantique : `neutral`/`accent` = décoratifs (couleur seule autorisée) ;
-`signal`/`warn` = porteurs de sens (texte ou icône obligatoire).
-
 Fond « papier millimétré » 8 px (`Grid`, opacité 0,08 clair / 0,05 sombre) ;
 nœud = rectangle `rounded-lg`, trait 1,5 px, bord gauche pétrole 3 px pour une
 question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
@@ -465,7 +462,7 @@ question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
 - **Tests de contrat à écrire** (plan, étape 3) :
   1. Validateur, exit ≠ 0 sur une fixture : (a) `replaces` avec `text` erroné
      d'un caractère → `ref introuvable` ; (b) `source: 'ergänzt'` absent de
-     `REVIEWED` → `ergänzt non relu` ; (c) même `refKey` dans deux blocs →
+     `REVIEWED_ERGAENZT` → `ergänzt non relu` ; (c) même `refKey` dans deux blocs →
      `double repli` ; (d) région hors figure ; (e) bande de score trouée ;
      (f) deux `tone: 'signal'` dans un bloc ; (g) `tone: 'signal'` sur un point
      de timeline. Exit 0 sur les trois pilotes.
@@ -497,3 +494,4 @@ question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
 | 2026-09-16 | arch-fachwissen-visuals | alignement sur le spec (repli par entrée `replaces: SectionRef[]`, `source` obligatoire + `reviewed.ts`, `anchor` remplace `placement`, dégradé D7 + `ErrorBoundary`, validateur esbuild, signal sur l'axe de `timeline`, `data` de chaque kind selon spec §4.3) ; régions `eyes` et `legs` ajoutées (pilote Leberzirrhose) ; invariant de couverture par sous-chaîne supprimé | spec fe22692 gagne (règle du contrat) |
 | 2026-09-16 | arch-fachwissen-visuals | §6 : `VisualBlockFrame` nommé, `<h3>` explicite, slot `after` pour le `<details>` | demande lead (alignement sur le code, AC-16) |
 | 2026-09-16 | arch-fachwissen-visuals | §6 : `neutral`/`accent` décoratifs (couleur seule OK), `signal`/`warn` porteurs de sens (texte ou icône obligatoire) | demande lead, a11y |
+| 2026-09-16 | arch-fachwissen-visuals | `REVIEWED` → `REVIEWED_ERGAENZT` (nom implémenté dans `reviewed.ts`) | décision direction |
