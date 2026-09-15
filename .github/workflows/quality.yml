@@ -72,3 +72,19 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run build
+
+  rls:
+    name: RLS & intégration Supabase
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm, cache-dependency-path: app/package-lock.json }
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - run: npm ci
+      - run: supabase start
+      - run: node scripts/testRls.mjs
+      - if: always()
+        run: supabase stop
