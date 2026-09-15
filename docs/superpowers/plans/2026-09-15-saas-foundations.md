@@ -1685,7 +1685,7 @@ git commit -m "feat(saas): syncQueue — outbox Dexie, flush par lots avec backo
 - Create: `app/supabase/functions/events/index.ts`
 
 **Interfaces:**
-- Produces: table `progress_events` (spec §4.5) ; `POST /events {events[]}` → `{ acked: string[], rejected: {id,reason}[] }` ; `GET /events?since=ISO` → `{ events[] }` ; `rateLimit(key, max, windowSec)`.
+- Produces: table `progress_events` (spec §4.5) ; `POST /events {events[]}` → `{ acked: string[], received: Record<id, received_at>, rejected: {id,reason}[] }` ; `GET /events?since=ISO` → `{ events[] }` ; `rateLimit(key, max, windowSec)`.
 
 - [ ] **Step 1: Migration**
 
@@ -1765,12 +1765,20 @@ Deno.serve(handle(async (req) => {
 
   const { events } = parse(Body, await req.json());
   const acked: string[] = []; const rejected: { id: string; reason: string }[] = [];
+  const received: Record<string, string> = {};
   // insertion une à une : un événement invalide ne doit pas faire échouer le lot
   for (const e of events) {
     const { error } = await sb.from('progress_events').upsert({ ...e, user_id: user.id }, { onConflict: 'id', ignoreDuplicates: true });
-    if (error) rejected.push({ id: e.id, reason: error.message }); else acked.push(e.id);
+    if (error) { rejected.push({ id: e.id, reason: error.message }); continue; }
+    acked.push(e.id);
   }
-  return json({ acked, rejected });
+  // received_at par événement acquitté (y compris ceux déjà présents — rejeu) :
+  // le client le rétro-remplit pour faire avancer son curseur de pull.
+  if (acked.length) {
+    const { data } = await sb.from('progress_events').select('id, received_at').in('id', acked);
+    for (const r of data ?? []) received[r.id] = r.received_at;
+  }
+  return json({ acked, received, rejected });
 }));
 ```
 
@@ -2624,7 +2632,7 @@ Le client lit cette table pour afficher ; le serveur la lit pour autoriser. **Au
 **Ce qui reste local** : Bogen en cours, session en pause, préférences d'affichage.
 
 **Push** : `syncQueue.push` écrit `progress_events` (Dexie) + `outbox`, puis `flush()` — `POST /events` par lots de 100.
-- 2xx : `acked` retirés de l'outbox ; `rejected` retirés et journalisés (pas de rejeu).
+- 2xx : `acked` retirés de l'outbox et `received_at` rétro-rempli localement (fait avancer le curseur de pull) ; `rejected` retirés et journalisés (pas de rejeu).
 - 4xx (lot) : tout le lot rejeté.
 - 5xx / réseau : conservé ; backoff 1 s × 2^n, plafond 5 min.
 Déclencheurs : après chaque push, `online`, intervalle 2 min si outbox non vide.

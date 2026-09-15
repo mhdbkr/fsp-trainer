@@ -56,8 +56,9 @@ export const syncQueue = {
     if (!headers) return 0;
     // Curseur = received_at SERVEUR, jamais occurred_at (horloge client) : un
     // événement d'un autre appareil poussé en retard porte un occurred_at
-    // ancien et ne serait jamais rapatrié. Nos propres événements pas encore
-    // rapatriés n'ont pas de received_at : ils reviennent une fois, dédupliqués par id.
+    // ancien et ne serait jamais rapatrié. Nos propres événements obtiennent
+    // leur received_at à l'ack (flush) — le curseur avance donc aussi sur un
+    // appareil qui ne fait qu'émettre.
     const last = since ?? (await db.progress_events.filter((e) => !!e.received_at).toArray())
       .reduce<string>((m, e) => (e.received_at! > m ? e.received_at! : m), '1970-01-01T00:00:00Z');
     let res: Response;
@@ -83,8 +84,16 @@ async function doFlush(headers: Record<string, string>): Promise<{ acked: number
   if (!res || typeof res.status !== 'number') { return { acked, rejected }; }
   if (res.status >= 500) { await bump(rows, `HTTP ${res.status}`); return { acked, rejected }; }
   if (res.status >= 400) { await reject(rows.map((r) => r.id), `HTTP ${res.status}`); rejected += rows.length; return { acked, rejected }; }
-  const out = (await res.json()) as { acked: string[]; rejected: { id: string; reason: string }[] };
+  const out = (await res.json()) as { acked: string[]; received: Record<string, string>; rejected: { id: string; reason: string }[] };
   await db.outbox.bulkDelete(out.acked); acked += out.acked.length;
+  // Rétro-remplir received_at (serveur) sur nos propres événements : sans ça,
+  // un appareil qui ne fait qu'émettre garderait un curseur de pull à l'époque,
+  // et au-delà de 1 000 événements le pull rejouerait toujours la même page.
+  if (out.received) {
+    await db.transaction('rw', db.progress_events, async () => {
+      for (const [id, received_at] of Object.entries(out.received)) await db.progress_events.update(id, { received_at });
+    });
+  }
   await reject(out.rejected.map((r) => r.id), out.rejected.map((r) => r.reason).join('; ')); rejected += out.rejected.length;
   nextAllowed = 0;
   useSyncStatus.setState({ lastError: null });

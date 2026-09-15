@@ -18,10 +18,12 @@ describe('syncQueue', () => {
   it('flush envoie par lot et vide l\'outbox sur ack', async () => {
     await syncQueue.push({ type: 'plan.done', subject_id: 'p1', payload: {} });
     const ev = await db.progress_events.toCollection().first();
-    post.mockResolvedValue({ ok: true, status: 200, json: async () => ({ acked: [ev!.id], rejected: [] }) });
+    post.mockResolvedValue({ ok: true, status: 200, json: async () => ({ acked: [ev!.id], received: { [ev!.id]: '2026-03-01T00:00:00Z' }, rejected: [] }) });
     const r = await syncQueue.flush();
     expect(r.acked).toBe(1);
     expect(await db.outbox.count()).toBe(0);
+    // l'ack rétro-remplit received_at → le curseur de pull avancera sur cet appareil
+    expect((await db.progress_events.get(ev!.id))!.received_at).toBe('2026-03-01T00:00:00Z');
   });
   it('flush garde en outbox sur 5xx et incrémente attempts', async () => {
     await syncQueue.push({ type: 'plan.done', subject_id: 'p1', payload: {} });
