@@ -7,7 +7,9 @@ Deno.serve(handle(async (req) => {
   const url = new URL(req.url);
   const { since } = parse(Query, Object.fromEntries(url.searchParams));
   const sb = userClient(req);
-  const { data: v, error: ve } = await sb.from('content_versions').select('version').order('version', { ascending: false }).limit(1).single();
+  // maybeSingle : une base sans version publiée (fraîche, ou après db reset)
+  // doit répondre { version: 0, items: [] }, pas 500 — sinon aucun contexte neuf ne boote.
+  const { data: v, error: ve } = await sb.from('content_versions').select('version').order('version', { ascending: false }).limit(1).maybeSingle();
   if (ve) throw ve;
   // PostgREST plafonne à 1 000 lignes par requête : on pagine côté fonction
   // (par id, index PK) et on renvoie l'ensemble — le client n'a pas à boucler.

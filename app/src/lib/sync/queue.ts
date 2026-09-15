@@ -126,5 +126,9 @@ export function startSyncLoop(): () => void {
   window.addEventListener('online', onOnline); window.addEventListener('offline', onOffline);
   const timer = window.setInterval(() => { if (useSyncStatus.getState().pending > 0) void syncQueue.flush(); }, 120_000);
   void refreshPending();
+  // Au démarrage : vider ce qui attend, puis rapatrier ce que les autres
+  // appareils ont produit (sinon un contexte neuf ne voit rien avant le
+  // prochain « online » ou le prochain flush).
+  if (useSyncStatus.getState().online) void syncQueue.flush().then(() => syncQueue.pull());
   return () => { window.removeEventListener('online', onOnline); window.removeEventListener('offline', onOffline); window.clearInterval(timer); };
 }
