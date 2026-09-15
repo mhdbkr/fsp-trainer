@@ -166,7 +166,10 @@ par la CI, attribue le `tier` et pousse un nouveau `version`. Règle de tier :
   minimal des cas qui les référencent — le Free est un *échantillon complet*
   (12 cas avec leur fiche, leurs termes, leurs Aufklärungen), pas un catalogue
   de fiches offert. Sans cas Free → 2 ;
-- **guides** et **termes sans pathologie** (vocabulaire de base) : 1. La CI reste
+- **Fachbegriffe** : Free = spécialité `Allgemein` (vocabulaire de base, ~1 200
+  termes) ; les termes de spécialité sont Pro — le JSON n'a pas de lien
+  terme ↔ cas, et « spécialité ayant un cas Free » ouvrirait 91 % du glossaire ;
+- **guides** : 1. La CI reste
 la porte de qualité ; la base est un miroir.
 
 ### 4.5 Progression

@@ -31,7 +31,11 @@ const tierAuf = (a) => (freeAuf.has(a.id) ? 1 : 2);
 // Fachbegriffe : le JSON n'a PAS de pathologyTags (vérifié : 0/2266) ; la
 // liaison réelle est la SPÉCIALITÉ (`sp`). Free = 'Allgemein' (vocabulaire de
 // base, 1 204 termes) + spécialités ayant au moins un cas Free ; sinon Pro.
-const tierFb  = (b) => (b.sp === 'Allgemein' || freeSpecialties.has(b.sp) ? 1 : 2);
+// Fachbegriffe : Free = 'Allgemein' (vocabulaire de base, ~1 200 termes) ; les
+// termes de SPÉCIALITÉ suivent le Pro. Une règle « spécialité ayant un cas
+// Free » ouvrait 91 % du glossaire (12 cas couvrent 11 spécialités) — pas
+// l'esprit de l'échantillon complet, qui porte sur les CAS et leur fiche.
+const tierFb  = (b) => (b.sp === 'Allgemein' ? 1 : 2);
 
 const items = [
   ...cases.map((c) => ({ id: c.id, kind: 'case', tier: c.tier ?? 2, payload: c })),
