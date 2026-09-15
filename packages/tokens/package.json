@@ -1,0 +1,25 @@
+{
+  "name": "@doctopus/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tokens de design Doctopus — source de vérité unique de la charte « instrument clinique » (pétrole, coral, papier, encre ; Bricolage, Plex, Plex Mono).",
+  "type": "module",
+  "main": "./dist/tokens.js",
+  "types": "./dist/tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./tokens.json"
+  },
+  "files": ["tokens.json", "dist"],
+  "scripts": {
+    "build": "node build.mjs",
+    "check:parity": "node scripts/check-parity.mjs",
+    "test": "node build.mjs && node --test",
+    "prepare": "node build.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
