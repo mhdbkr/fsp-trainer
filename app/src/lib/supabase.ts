@@ -9,3 +9,8 @@ export const supabase = createClient(url, anon, {
   // écraserait la route du hash router (#/auth/callback) — collision réelle.
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, flowType: 'pkce' },
 });
+
+export async function callFn<T>(name: string, body: unknown): Promise<T> {
+  const { data, error } = await supabase.functions.invoke<T>(name, { body: body as Record<string, unknown> });
+  if (error) throw error; return data as T;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider, createHashRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter, Link } from 'react-router-dom';
 // Polices de marque auto-hébergées (offline-first) — identité typographique :
 // Bricolage Grotesque (display), IBM Plex Sans (corps), IBM Plex Mono (signature).
 import '@fontsource-variable/bricolage-grotesque/wght.css';
@@ -30,9 +30,21 @@ import { ProgramPage } from '@/features/program/ProgramPage';
 import { SignInPage } from '@/features/account/SignInPage';
 import { OnboardingPage } from '@/features/account/OnboardingPage';
 import { AuthCallback } from '@/features/account/AuthCallback';
+import { AccountPage } from '@/features/account/AccountPage';
+import { PricingPage } from '@/features/pricing/PricingPage';
 import { initSession } from '@/lib/auth/session';
 import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
 import { startSyncLoop } from '@/lib/sync/queue';
+
+function MerciPage() {
+  return (
+    <div className="mx-auto max-w-xl space-y-4 py-16 text-center">
+      <h1 className="text-2xl font-bold">Merci !</h1>
+      <p>Ton accès se débloque dans quelques secondes.</p>
+      <Link to="/" className="btn-primary justify-center">Retour à l'accueil</Link>
+    </div>
+  );
+}
 
 // Hash router → fonctionne aussi bien en dev qu'en ouverture file:// (Tauri).
 const router = createHashRouter([
@@ -57,6 +69,9 @@ const router = createHashRouter([
       { path: 'signin', element: <SignInPage /> },
       { path: 'onboarding', element: <OnboardingPage /> },
       { path: 'auth/callback', element: <AuthCallback /> },
+      { path: 'pricing', element: <PricingPage /> },
+      { path: 'account', element: <AccountPage /> },
+      { path: 'merci', element: <MerciPage /> },
     ],
   },
   // Route 2ᵉ écran « rôle patient » — standalone (hors Shell), responsive mobile.

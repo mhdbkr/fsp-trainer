@@ -54,12 +54,11 @@ function BrandMark({ size = 'h-9 w-9', icon = 'h-[22px] w-[22px]', ring = 'ring-
   );
 }
 
-// Entrée « Compte » / « Se connecter » — lien vers /onboarding tant que /account
-// n'existe pas (Task 18).
+// Entrée « Compte » / « Se connecter ».
 function AccountLink({ dock = false }: { dock?: boolean }) {
   const status = useSession((s) => s.status);
   const authed = status === 'authenticated';
-  const to = authed ? '/onboarding' : '/signin';
+  const to = authed ? '/account' : '/signin';
   const label = authed ? 'Compte' : 'Se connecter';
   if (dock) {
     return (
