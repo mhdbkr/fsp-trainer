@@ -16,6 +16,13 @@ brouillon (voir `README.md`, case « branché »). Sans cette case, le
 consommateur garde son droit de rétractation même après consommation, ce
 qui expose à des remboursements a posteriori.
 
+Décision direction (2026-09-16, via `lead-site`) : le checkout est réel,
+via Stripe. La case de renonciation expresse (§ 356 Abs. 5 BGB) doit donc
+être intégrée dans le flux Stripe Checkout (ou juste avant, côté site,
+avant redirection) — **hors périmètre d'écriture de ce brouillon**, à
+vérifier « branché » par `site-implementer`. Placeholders d'identité
+harmonisés sous `{{LEGAL_*}}`.
+
 ---
 
 ## Widerrufsbelehrung
@@ -29,9 +36,9 @@ Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
 
 Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
 
-{{RAISON_SOCIALE}}
-{{ADRESSE_COMPLETE}}
-{{KONTAKT_EMAIL}}
+{{LEGAL_NAME}}
+{{LEGAL_ADDRESS_STREET}}, {{LEGAL_ADDRESS_CITY}}
+{{LEGAL_EMAIL}}
 
 mittels einer eindeutigen Erklärung (z. B. per Post oder E-Mail) über Ihren
 Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das
@@ -75,9 +82,9 @@ aus und senden Sie es zurück.)
 
 An:
 
-{{RAISON_SOCIALE}}
-{{ADRESSE_COMPLETE}}
-{{KONTAKT_EMAIL}}
+{{LEGAL_NAME}}
+{{LEGAL_ADDRESS_STREET}}, {{LEGAL_ADDRESS_CITY}}
+{{LEGAL_EMAIL}}
 
 — Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über
 die Erbringung der folgenden Dienstleistung: Doctopus-Abonnement / Credits
