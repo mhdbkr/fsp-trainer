@@ -21,4 +21,11 @@ describe('migrateLocalProgress', () => {
     await migrateLocalProgress('u1'); await migrateLocalProgress('u1');
     expect(await db.progress_events.count()).toBe(1);
   });
+  it('ignore les simulations de démo (sim-demo-*)', async () => {
+    await db.simulations.put({ id: 'sim-demo-1', caseId: 'c1', date: 1, parts: {}, notes: {}, prioritizedCorrections: [] } as never);
+    await db.simulations.put({ id: 'real-1', caseId: 'c1', date: 2, parts: {}, notes: {}, prioritizedCorrections: [] } as never);
+    const r = await migrateLocalProgress('u1');
+    expect(r.events).toBe(1);
+    expect((await db.progress_events.toArray()).map((e) => (e.payload as { id: string }).id)).toEqual(['real-1']);
+  });
 });

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db, getMeta } from '@/db/db';
 import { useSession } from '@/lib/auth/session';
-import { migrateLocalProgress } from '@/lib/sync/migrateLocal';
+import { migrateLocalProgress, isDemoSimulation } from '@/lib/sync/migrateLocal';
 
 /** Au premier lancement après mise à jour : propose de reprendre la progression locale dans le compte. */
 export function MigrationPrompt() {
@@ -11,7 +11,8 @@ export function MigrationPrompt() {
   const [show, setShow] = useState(false); const [count, setCount] = useState(0);
   useEffect(() => { (async () => {
     if (await getMeta('migratedLocal', false) || await getMeta('migrationDismissed', false)) return;
-    const n = await db.simulations.count(); setCount(n); setShow(n > 0);
+    // Seules les VRAIES simulations comptent — un invité neuf n'a que les démos et n'a rien à reprendre.
+    const n = (await db.simulations.toArray()).filter((x) => !isDemoSimulation(x.id)).length; setCount(n); setShow(n > 0);
   })(); }, []);
   if (!show) return null;
   const accept = async () => { if (status === 'authenticated' && uid) { await migrateLocalProgress(uid); setShow(false); } else nav('/signin'); };
