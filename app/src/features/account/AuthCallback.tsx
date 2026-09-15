@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSession } from '@/lib/auth/session';
 import { supabase } from '@/lib/supabase';
 import { loadEntitlements } from '@/lib/entitlements';
@@ -18,5 +18,20 @@ export function AuthCallback() {
       nav(complete ? '/' : '/onboarding', { replace: true });
     })();
   }, [status, uid, nav]);
+
+  // Échange refusé (lien expiré — ils valent une heure et servent une fois —,
+  // lien ouvert dans un autre navigateur que celui qui l'a demandé, réseau) :
+  // la session est retombée en `anonymous`. Sans cette branche l'utilisateur
+  // resterait sur « Connexion… » sans issue.
+  if (status === 'anonymous') {
+    return (
+      <div className="mx-auto max-w-md space-y-4 py-12 text-center">
+        <div className="label">Connexion</div>
+        <h1 className="text-xl font-bold">Ce lien n'est plus valable</h1>
+        <p className="text-sm text-slate-500">Un lien de connexion sert une seule fois et expire après une heure. Il doit aussi être ouvert dans le navigateur qui l'a demandé.</p>
+        <Link to="/signin" className="btn-primary inline-flex justify-center">Recevoir un nouveau lien</Link>
+      </div>
+    );
+  }
   return <div className="py-12 text-center text-slate-400">Connexion…</div>;
 }

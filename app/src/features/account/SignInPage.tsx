@@ -27,7 +27,8 @@ export function SignInPage() {
           {error && <p className="text-xs text-signal-600">{error}</p>}
         </form>
       )}
-      <button onClick={() => signInWithGoogle()} className="btn-outline w-full justify-center gap-2"><Icon name="google" className="h-4 w-4" />Continuer avec Google</button>
+      <button onClick={() => signInWithGoogle().catch((err) => setError((err as Error).message))} className="btn-outline w-full justify-center gap-2"><Icon name="google" className="h-4 w-4" />Continuer avec Google</button>
+      {error && !sent ? null : error ? <p className="text-center text-xs text-signal-600">{error}</p> : null}
     </div>
   );
 }
