@@ -85,6 +85,9 @@ jobs:
         with: { version: latest }
       - run: npm ci
       - run: supabase start
+      # Les tests d'intégration appellent les Edge Functions : on les sert en arrière-plan.
+      - run: supabase functions serve --no-verify-jwt > /tmp/fn.log 2>&1 &
+      - run: sleep 5
       - run: node scripts/testRls.mjs
       - if: always()
         run: supabase stop
