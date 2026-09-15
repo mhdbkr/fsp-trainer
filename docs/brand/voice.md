@@ -88,6 +88,7 @@ Le terme officiel est allemand ; il **ne se traduit pas**, il se glose. Colonne 
 | Drill | drill | drill | **Jamais « quiz »**. |
 | Simulant / binôme | partenaire qui joue le patient | role-play partner | **Jamais « patient IA » pour un humain**. |
 | Candidat | candidat | candidate | Notre lecteur. Jamais « utilisateur », « élève », « apprenant » sur le site. |
+| Doctopus / FSP Trainer | Doctopus = marque et projet ; FSP Trainer = le produit (l'app) | idem | Voir `naming-and-domain.md` §1. « Doctopus » sans article ; « der FSP Trainer » (masculin) en DE. |
 
 Mots-clés SEO DE à employer nus : *Fachsprachprüfung Vorbereitung*, *FSP Simulation*, *Fachsprachprüfung Stuttgart/Karlsruhe/Freiburg/Reutlingen*, *Anamnese üben*, *Arztbrief schreiben*, *Fallvorstellung üben*, *Ärztekammer Baden-Württemberg FSP*.
 
@@ -140,7 +141,7 @@ Un validateur peut refuser tout texte public contenant l'une de ces chaînes (ca
 | streak perdu, tu nous manques | Streak verloren, du fehlst uns | streak lost, we miss you |
 | annuler à tout moment* | jederzeit kündbar* | cancel anytime* |
 
-\* *Autorisé uniquement si c'est vrai et en un clic* : « résiliation en un clic, sans justification ».
+\* *Autorisé uniquement si c'est vrai et en un clic* : FR « résiliation en un clic, sans justification » · DE « Kündigung mit einem Klick, ohne Begründung » · EN « cancel in one click, no questions asked ».
 
 ### 6.5 Vocabulaire produit interdit (CONTEXT.md)
 
