@@ -37,9 +37,9 @@ Brainstorming — trois approches comparées :
 | # | Décision | Alternatives écartées |
 |---|---|---|
 | D1 | **Astro** (sortie `static`), Tailwind alimenté par `@doctopus/tokens`, un seul îlot interactif (hero). | B, C ci-dessus |
-| D2 | **Monorepo npm workspaces** à la racine : `apps/site`, `packages/tokens` ; `app/` reste hors workspace jusqu'à la migration finale. | pnpm/turbo (ajout d'outillage sans besoin) ; migrer l'app maintenant (interdit par le protocole V1) |
+| D2 | **Pas de workspaces racine pendant la vague** : `apps/site` référence `@doctopus/tokens` via `"file:../../packages/tokens"` (`docs/contracts/site.md`, arch-site). Les workspaces npm arrivent avec la migration `apps/app` (étape finale). | Workspaces racine maintenant (touche la racine pendant V1) ; pnpm/turbo ; migrer l'app maintenant (interdit par le protocole V1) |
 | D3 | **`packages/tokens` = source de vérité** : `tokens.json` → `dist/tokens.css` (custom properties `--dt-…`), `dist/tokens.js` (objet typé alimentant `theme.extend` de Tailwind). Script `scripts/check-parity.mjs` compare avec `app/tailwind.config.js` + `index.css` en lecture seule et échoue sur divergence. Formats et règles : `docs/contracts/tokens.md` (arch-site, prime sur ce spec). | Copier la charte dans le site (dérive garantie) ; faire consommer le preset par l'app dès maintenant (touche `app/`) |
-| D4 | **Liquid glass en CSS seul** : `backdrop-filter`, dégradés coniques animés, `transform` 3D léger sur le hero, transitions de page via View Transitions API. Aucun WebGL, aucune bibliothèque 3D. Tout est neutralisé sous `prefers-reduced-motion: reduce`. | Three.js / shader (≥ 150 Ko, TTI mobile menacé) ; vidéo de fond |
+| D4 | **Liquid glass v1 en CSS seul, plafond 8 Ko** (CSS + JS du hero, gz — `docs/contracts/site.md`) : `backdrop-filter`, dégradés coniques animés, `transform` 3D léger sur le hero, transitions de page via View Transitions API. Aucun WebGL, aucune bibliothèque 3D. Tout est neutralisé sous `prefers-reduced-motion: reduce`. L'îlot WebGL (~180 Ko) est une promotion ultérieure conditionnée à la réponse de la direction (§13). | Three.js / shader (≥ 150 Ko, TTI mobile menacé) ; vidéo de fond |
 | D5 | **Pages légales rendues depuis `docs/legal/*.md`** (périmètre de compliance-site) via une collection Astro pointée hors de `src/`. Bannière « Entwurf — juristische Prüfung ausstehend » tant que le front-matter `validated_by` est vide. | Dupliquer le texte dans le site ; bloquer le build sans validation |
 | D6 | **Déploiement preview `noindex`** (`X-Robots-Tag` + `<meta name="robots">`) tant que `SITE_PUBLIC=false` ; le passage en public est une décision de `main` après validation de l'Impressum. | Mettre en ligne dès la PR (illégal sans Impressum valide) |
 | D7 | **Pricing dérivé des contrats** : `apps/site/src/data/pricing.json` porte les lignes de la matrice ; `check-pricing-parity.mjs` vérifie que chaque feature affichée existe dans `docs/contracts/entitlements.md` avec le même plan minimal. Montants en placeholders `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}`, `{{BILLING_PERIOD}}`. | Texte libre (dérive avec la matrice) ; lecture de `seed.sql` (couplage au serveur) |
@@ -55,9 +55,9 @@ Brainstorming — trois approches comparées :
 
 ```
 <racine du dépôt>
-├── package.json              ← workspaces: ["apps/*", "packages/*"]  (nouveau)
 ├── apps/
 │   └── site/                 ← Astro
+│       ├── package.json      (dependencies: "@doctopus/tokens": "file:../../packages/tokens")
 │       ├── astro.config.mjs  (site: https://{{SITE_DOMAIN}}, output: 'static')
 │       ├── tailwind.config.js (theme.extend depuis `tokens` de @doctopus/tokens)
 │       ├── src/
@@ -120,7 +120,8 @@ pas supposée.
   "source": "ANALYSE.md §3 — ~580 comptes rendus, 4 centres BW",
   "generatedAt": "2026-09-16",
   "period": "{{PROTOCOLS_PERIOD}}",
-  "n": 580,
+  "totalProtocols": 580,
+  "nByCenterSum": 593,
   "centers": [{"code":"Fr","name":"Freiburg","n":91}, {"code":"Ka","name":"Karlsruhe","n":169},
               {"code":"Re","name":"Reutlingen","n":151}, {"code":"St","name":"Stuttgart","n":182}],
   "pathologies": [
@@ -130,9 +131,12 @@ pas supposée.
   "trends": [{"center":"Re","summary":"…"}]
 }
 ```
-Schéma vérifié par `build-frequencies.mjs` : `total === Σ byCenter` pour
-chaque ligne (l'écart tolère les cas où ANALYSE ne détaille pas un centre :
-alors `byCenter` est marqué `partial: true`) ; `Σ centers.n === n`.
+`totalProtocols: 580` et `nByCenterSum: 593` (91 + 169 + 151 + 182) sont
+cités **tels quels** depuis `ANALYSE.md` l. 110 — un compte rendu peut compter
+dans deux centres. `build-frequencies.mjs` vérifie que **chaque valeur
+affichée est présente dans `ANALYSE.md`** (chaîne exacte) ; jamais de champ
+`partial`, jamais d'arrondi, jamais de somme recalculée. L'écart 580 / 593
+est documenté dans une note de méthode (`Methodology`) visible sur la page.
 Le §3.2 (fréquences 8→4) est parsé en lignes `total` sans `byCenter`.
 
 ### 4.3 `apps/site/src/data/pricing.json`
@@ -270,7 +274,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 | AC4 | L'avertissement « outil de langue » est présent dans `<main>` de `/de/` et dans le `<footer>` de chaque page (`[data-notice="language-tool"]`). | `check-legal.mjs` |
 | AC5 | Les 4 pages légales existent, rendues depuis `docs/legal/`, avec bannière `[data-legal-status="draft"]` quand `validated_by` est vide. | `check-legal.mjs` |
 | AC6 | Un `[data-cta]` est visible à chaque scroll-stop sur les 3 viewports, toutes pages. | `check-cta.mjs` |
-| AC7 | `/de/was-drankommt/` ne contient aucun chiffre en dur : tous proviennent de `frequencies.json`, régénéré depuis `ANALYSE.md` ; `Σ centers.n === 580`. | test Vitest sur le script + grep négatif en CI (`grep -c "Depression" src/pages` = 0) |
+| AC7 | `/de/was-drankommt/` ne contient aucun chiffre en dur : tous proviennent de `frequencies.json`, régénéré depuis `ANALYSE.md` ; `totalProtocols: 580` et `nByCenterSum: 593` cités tels quels ; chaque valeur affichée existe dans `ANALYSE.md` ; note de méthode `[data-methodology]` présente ; aucun champ `partial`. | test Vitest sur le script + grep négatif en CI (`grep -c "Depression" src/pages` = 0) |
 | AC8 | `/de/preise/` affiche Free/Pro/Premium avec `{{PRICE_PRO}}`, `{{PRICE_PREMIUM}}` (mode preview) ; `check-pricing-parity.mjs` sort 0 ; une feature ajoutée hors matrice fait sortir 1. | test + CI |
 | AC9 | Liquid glass : `backdrop-filter` n'apparaît que dans les styles de `Hero` et des transitions (grep CSS de `dist/`) ; sous `prefers-reduced-motion: reduce`, `document.getAnimations()` est vide sur `/de/`. | `check-cta.mjs` (émulation) + grep |
 | AC10 | Aucun cookie posé, aucune requête vers un domaine tiers pendant la navigation des 15 routes. | Playwright : `context.cookies()` vide, `request` listener |
@@ -281,10 +285,9 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 
 ## 11. Impacts
 
-- **Racine du dépôt** : nouveau `package.json` de workspaces (fichier nouveau,
-  ne modifie pas `app/package.json`) ; `.github/workflows/site.yml` nouveau.
-  Proposition de contrat à `main` : la CI existante `quality.yml` n'est pas
-  modifiée.
+- **Racine du dépôt** : aucun `package.json` racine (D2) ; seul
+  `.github/workflows/site.yml` est nouveau. Proposition de contrat à `main` :
+  la CI existante `quality.yml` n'est pas modifiée.
 - **`docs/contracts/`** : aucun contrat modifié. Proposition à `arch-site` :
   documenter dans `docs/contracts/site.md` (a) le front-matter légal §4.4, (b)
   le schéma `frequencies.json`, (c) la règle de parité pricing.
@@ -315,7 +318,7 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
 
 ## 13. Reporté (explicite)
 
-- WebGL/shader pour le hero ; fournisseur de statut externe ; analytics
+- Îlot WebGL liquid glass (~180 Ko) — promotion ultérieure, conditionnée à la réponse de la direction et à une mesure AC2 verte avec l'îlot ; fournisseur de statut externe ; analytics
   privacy-first (Q6) ; FR/EN ; page institutions ; formulaire de contact ;
   intégration du check de parité des tokens dans `quality.yml` (à la
   migration) ; multi-Land dans « Ce qui tombe vraiment » (#12) ; rédaction
@@ -330,9 +333,9 @@ Toutes les vérifications tranchent par **code de sortie** (ADR-0001).
   applique par défaut un « slow 4G » — le spec fixe les valeurs (§9) pour lever
   l'ambiguïté. Le brief mentionne « pricing réel » comme dépendance de #1 :
   la matrice est réelle, les montants restent une décision de direction (Q3).
-- Périmètre : seuls `apps/site/`, `packages/tokens/`, racine (`package.json`
-  workspaces, `.github/workflows/site.yml`) sont écrits ; les deux derniers
-  sont signalés comme propositions à `main` (§11). `docs/legal/` et
+- Périmètre : seuls `apps/site/`, `packages/tokens/` et
+  `.github/workflows/site.yml` sont écrits ; ce dernier est signalé comme
+  proposition à `main` (§11). Aucun `package.json` racine (D2). `docs/legal/` et
   `docs/brand/` appartiennent à compliance-site et brand-site.
 - Ambiguïtés restantes : Q1–Q7 de l'intention ; la période des protocoles
   (`{{PROTOCOLS_PERIOD}}`) est inconnue de tous les documents lus.
