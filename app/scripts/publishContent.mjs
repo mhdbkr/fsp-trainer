@@ -51,19 +51,39 @@ console.log('items :', byKind, '| Free → cas', free('case'), '· fiches', free
 if (dry) process.exit(0);
 
 const sb = createClient(url, key, { auth: { persistSession: false } });
+import { createHash } from 'node:crypto';
+// Hash CANONIQUE : jsonb réordonne les clés et normalise les nombres — un
+// JSON.stringify brut différerait toujours entre ce qu'on envoie et ce qu'on relit.
+const canon = (v) => Array.isArray(v) ? v.map(canon)
+  : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])]))
+  : typeof v === 'number' ? Number(v) : v;
+const hash = (o) => createHash('sha256').update(JSON.stringify(canon(o))).digest('hex').slice(0, 16);
+
+// Lecture PAGINÉE de l'existant (PostgREST plafonne à 1 000) : id, tier et hash du payload.
+const existing = new Map();
+for (let from = 0; ; from += 1000) {
+  const { data, error } = await sb.from('content_items').select('id, tier, deleted, payload').range(from, from + 999);
+  if (error) throw error;
+  for (const r of data ?? []) existing.set(r.id, { tier: r.tier, deleted: r.deleted, hash: hash(r.payload) });
+  if (!data || data.length < 1000) break;
+}
+// Seuls les items NOUVEAUX ou MODIFIÉS (payload, tier) prennent la nouvelle version :
+// republier tout forcerait chaque client à retélécharger le catalogue à chaque push.
+const changed = items.filter((it) => { const e = existing.get(it.id); return !e || e.deleted || e.tier !== it.tier || e.hash !== hash(it.payload); });
+const ids = new Set(items.map((i) => i.id));
+const gone = [...existing.entries()].filter(([id, e]) => !ids.has(id) && !e.deleted).map(([id]) => id);
+if (!changed.length && !gone.length) { console.log('rien à publier — contenu identique'); process.exit(0); }
+
 const { data: last } = await sb.from('content_versions').select('version').order('version', { ascending: false }).limit(1).maybeSingle();
 const version = (last?.version ?? 0) + 1;
 const { error: ve } = await sb.from('content_versions').insert({ version, notes: process.env.GITHUB_SHA ?? 'local' });
 if (ve) throw ve;
-// upsert par lots ; les items disparus sont marqués deleted
-const ids = new Set(items.map((i) => i.id));
-// kind/payload sont NOT NULL en base : on les reporte tels quels pour les lignes
-// qu'on marque seulement `deleted` (l'upsert ne doit pas violer le schéma).
-const { data: existing } = await sb.from('content_items').select('id, kind, payload').eq('deleted', false);
-const gone = (existing ?? []).filter((e) => !ids.has(e.id)).map((e) => ({ id: e.id, kind: e.kind, payload: e.payload, deleted: true, version }));
-for (let i = 0; i < items.length; i += 200) {
-  const { error } = await sb.from('content_items').upsert(items.slice(i, i + 200).map((it) => ({ ...it, version, deleted: false })));
+for (let i = 0; i < changed.length; i += 200) {
+  const { error } = await sb.from('content_items').upsert(changed.slice(i, i + 200).map((it) => ({ ...it, version, deleted: false })));
   if (error) throw error;
 }
-if (gone.length) { const { error } = await sb.from('content_items').upsert(gone); if (error) throw error; }
-console.log(`✅ version ${version} publiée — ${items.length} items, ${gone.length} supprimés`);
+if (gone.length) {
+  const { error } = await sb.from('content_items').update({ deleted: true, version }).in('id', gone);
+  if (error) throw error;
+}
+console.log(`✅ version ${version} publiée — ${changed.length} modifiés/nouveaux, ${gone.length} supprimés (${items.length} au total)`);
