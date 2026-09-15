@@ -67,7 +67,11 @@ export const syncQueue = {
     const { events } = (await res.json()) as { events: ProgressEvent[] };
     const known = await db.progress_events.bulkGet(events.map((e) => e.id));
     const fresh = events.filter((_, i) => !known[i]);
-    if (fresh.length) await db.progress_events.bulkPut(fresh);
+    if (fresh.length) {
+      await db.progress_events.bulkPut(fresh);
+      const { rebuildProjections } = await import('./projections');
+      await rebuildProjections();
+    }
     return fresh.length;
   },
 };

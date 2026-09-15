@@ -5,6 +5,7 @@ import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNo
 import { useCase, useAufklaerungen } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { useProfiles } from '@/store/profile';
+import { syncQueue } from '@/lib/sync/queue';
 import { useSimSession } from '@/store/simSession';
 import { useTimer } from './useTimer';
 import { computeAmbiance } from './timeAmbiance';
@@ -183,12 +184,14 @@ export function SimulationRunner() {
       assistance, layer, muster,
     };
     await db.simulations.put(sim);
+    await syncQueue.push({ type: 'simulation.completed', subject_id: c.id, payload: sim });
     // met à jour confiance + statut du cas — confiance pondérée (assistance × couche)
     const done = Object.values(parts).filter((p): p is PartResult => !!p?.done);
     if (done.length) {
       const conf = Math.round(done.reduce((s, p) => s + weightedPartScore(p, { assistance, layer }), 0) / done.length);
       const status = conf >= 80 ? 'Maîtrisé' : conf >= 40 ? 'En cours' : 'À faire';
       await db.cases.update(c.id, { confidence: conf, status, lastSimulationId: sim.id, layerProgress: layer });
+      await syncQueue.push({ type: 'case.layer_reached', subject_id: c.id, payload: { layer } });
     }
     useSimSession.getState().end(); // session terminée → efface le brouillon persistant
     setFinished(sim);

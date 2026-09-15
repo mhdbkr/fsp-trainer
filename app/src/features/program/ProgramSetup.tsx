@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
+import { syncQueue } from '@/lib/sync/queue';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
@@ -51,6 +52,7 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
       adjust: initial?.adjust,
     };
     await setMeta(programKey(useProfiles.getState().activeId), config);
+    await syncQueue.push({ type: 'program.configured', subject_id: null, payload: config });
     onDone();
   };
 
