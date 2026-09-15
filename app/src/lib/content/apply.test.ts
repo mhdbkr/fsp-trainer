@@ -6,7 +6,7 @@ const item = (id: string, kind: ContentItem['kind'], tier: number, deleted = fal
   ({ id, kind, tier, version: 1, deleted, payload: { id, name: id, specialty: 'Kardiologie', pathology: id } });
 
 describe('applyContent', () => {
-  beforeEach(async () => { await db.cases.clear(); await db.fachwissen.clear(); await db.meta.clear(); });
+  beforeEach(async () => { await db.cases.clear(); await db.fachbegriffe.clear(); await db.fachwissen.clear(); await db.meta.clear(); });
 
   it('upsert les items dans la table de leur kind', async () => {
     const r = await applyContent(db, [item('case-a', 'case', 1), item('fw-a', 'fachwissen', 1)], 1);
@@ -26,5 +26,15 @@ describe('applyContent', () => {
     expect(r.removed).toBe(1);
     expect(await db.cases.get('case-pro')).toBeUndefined();
     expect(await db.cases.get('case-free')).toBeTruthy();
+  });
+  it('un fachbegriff publié sans srs en reçoit un neuf ; un srs local existant est conservé', async () => {
+    await applyContent(db, [{ ...item('fb-a', 'fachbegriff', 1), payload: { id: 'fb-a', term: 'x' } }], 1);
+    const fresh = await db.fachbegriffe.get('fb-a');
+    expect(fresh?.srs?.state).toBe('Neu');
+    await db.fachbegriffe.update('fb-a', { srs: { ...fresh!.srs, state: 'Gelernt', interval: 6 } });
+    await applyContent(db, [{ ...item('fb-a', 'fachbegriff', 1), payload: { id: 'fb-a', term: 'x2' } }], 1);
+    const kept = await db.fachbegriffe.get('fb-a');
+    expect(kept?.srs?.state).toBe('Gelernt');
+    expect((kept as { term?: string })?.term).toBe('x2');
   });
 });

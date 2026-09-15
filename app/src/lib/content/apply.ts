@@ -1,4 +1,5 @@
 import type { FspDatabase } from '@/db/db';
+import { freshSrs } from '@/lib/srs';
 
 export interface ContentItem { id: string; kind: 'case'|'fachwissen'|'fachbegriff'|'aufklaerung'|'guide'|'muster'; tier: number; version: number; payload: unknown; deleted: boolean }
 
@@ -17,7 +18,11 @@ export async function applyContent(db: FspDatabase, items: ContentItem[], allowe
       if (it.deleted) { await table.delete(it.id); removed++; continue; }
       // Fachbegriffe : préserver le SRS local (il vit dans l'objet)
       const prev = it.kind === 'fachbegriff' ? await table.get(it.id) : undefined;
-      const stored = { ...(it.payload as object), id: it.id, ...(prev?.srs ? { srs: prev.srs } : {}), _tier: it.tier } as (object & { _tier: number });
+      // Fachbegriff : le payload publié ne porte PAS de srs (état d'apprentissage,
+      // propre à l'utilisateur). On garde le srs local s'il existe, sinon on en
+      // crée un neuf — sans ça, tout écran qui lit `srs.dueDate` explose.
+      const srs = it.kind === 'fachbegriff' ? { srs: prev?.srs ?? freshSrs() } : {};
+      const stored: Record<string, unknown> = { ...(it.payload as Record<string, unknown>), id: it.id, ...srs, _tier: it.tier };
       await table.put(stored);
       upserted++;
     }
