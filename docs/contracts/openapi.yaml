@@ -24,7 +24,7 @@ components:
       required: [id, type, subject_id, payload, occurred_at]
       properties:
         id: { type: string, format: uuid, description: "Généré CLIENT — idempotence" }
-        type: { type: string, enum: [simulation.completed, srs.reviewed, plan.done, case.layer_reached, program.configured] }
+        type: { type: string, enum: [simulation.completed, srs.reviewed, plan.done, case.layer_reached, program.configured, exam_day.completed] }
         subject_id: { type: [string, "null"], maxLength: 200 }
         payload: { type: object }
         occurred_at: { type: string, format: date-time, description: "Horloge CLIENT — ordre d'affichage seulement" }
