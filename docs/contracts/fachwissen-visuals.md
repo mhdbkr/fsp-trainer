@@ -1,9 +1,9 @@
 # Contrat — Fachwissen visuel (sous-projet #7, epic #8)
 
-> **BROUILLON — sous réserve du gate G2.** Rédigé en parallèle du spec
-> `docs/superpowers/specs/2026-09-16-fachwissen-visuals-design.md` (absent au
-> moment de l'écriture). Si le spec validé diverge, le spec gagne et ce contrat
-> est amendé par `arch-fachwissen-visuals` avant l'étape 4.
+> **v1 — aligné sur le spec, sous réserve du gate G2.** Source :
+> `docs/superpowers/specs/2026-09-16-fachwissen-visuals-design.md` (fe22692).
+> En cas de divergence, le spec gagne et ce contrat est amendé par
+> `arch-fachwissen-visuals` (tableau « Amendements » en fin de fichier).
 >
 > Vérité partagée entre `spec`, `plan`, `build` et `review`. Un implémenteur qui
 > a besoin d'autre chose propose un amendement ici, il ne contourne pas.
@@ -12,54 +12,83 @@
 
 - **Un système, pas des illustrations** (PRODUCT-VISION §innovation 10) : sept
   composants génériques pilotés par une spec typée par pathologie. Aucune
-  donnée clinique dans le code des composants ; tout vient de la spec.
-- **Le texte se décharge, il n'est pas supprimé** : un visuel *replie* la
-  section textuelle qu'il couvre ; `seedFachwissen.ts` n'est jamais modifié par
-  ce pipeline.
+  donnée clinique dans le code des composants ; tout vient de la spec ou de la
+  fiche (résolution des refs).
+- **Le texte se décharge, il n'est pas supprimé** : un bloc *replie* les entrées
+  de fiche qu'il déclare dans `replaces` ; `seedFachwissen.ts` n'est jamais
+  modifié par ce pipeline (une coupe = proposition de diff à `main`).
+- **Aucune donnée clinique inventée** (spec D8) : chaque libellé porté par un
+  visuel cite sa provenance (`source`) ; un ajout est `'ergänzt'` et bloque la
+  CI tant qu'un relecteur `content-*` ne l'a pas inscrit dans `reviewed.ts`.
 - **Hors-ligne d'abord, simple** : import statique, pas de table, pas de RLS,
-  pas de sync. Le tier d'un visuel est celui de sa fiche (rien à publier).
+  pas de sync, aucun crédit IA. Le tier d'un visuel est celui de sa fiche.
 - **Spec absente = page inchangée.** Les 131 fiches sans spec se rendent
   exactement comme aujourd'hui.
-- Tout texte affiché à l'apprenant est en **allemand** (titres de blocs,
-  libellés, hotspots). Les identifiants et commentaires sont en anglais/français.
+- Tout texte affiché à l'apprenant est en **allemand** ; identifiants et
+  commentaires en anglais/français ; jamais d'emoji.
 
 ## 1. Schéma — `FachwissenVisualSpec`
 
 Fichier de types : `app/src/data/fachwissenVisuals/types.ts` (source de vérité
-TypeScript ; le validateur `.mjs` en est la copie mécanique, voir §5).
+TypeScript ; le validateur `.mjs` charge les vrais objets, §5). `types.ts`
+n'importe depuis `@/db/types` que des **types** (`import type`) : le chargeur
+esbuild neutralise l'alias `@/` (§5), toute valeur importée par `@/` serait
+`undefined` au validateur.
+
+### 1.1 Références vers la fiche (spec §4.1)
+
+```ts
+import type { DiagnostikStufe } from '@/db/types';
+
+export type SectionKey =
+  | 'klinik' | 'diagnostik' | 'therapie' | 'klassifikation'
+  | 'differenzialdiagnosen' | 'redFlags' | 'risikofaktoren' | 'prognose' | 'aetiologie';
+
+/** Pointeur stable vers une entrée de fiche — par clé, jamais par index. */
+export type SectionRef =
+  | { section: 'therapie'; label: string }                  // TherapieSektion.label exact
+  | { section: 'klassifikation'; name: string }              // klassifikation[].name exact
+  | { section: 'diagnostik'; stufe: DiagnostikStufe }        // toutes les entrées de la stufe
+  | { section: 'differenzialdiagnosen'; dd: string }         // differenzialdiagnosen[].dd exact
+  | { section: 'klinik' | 'redFlags' | 'risikofaktoren'; text: string }  // texte exact
+  | { section: 'prognose' | 'aetiologie' };                  // champ entier
+
+/** Provenance d'un libellé porté par un visuel. */
+export type Source = SectionRef | 'ergänzt';
+```
+
+Clé canonique d'une ref (`refKey`, utilisée par le validateur et
+`useVisualSpec`) : `section` + `':'` + valeur (`label`/`name`/`stufe`/`dd`/
+`text`, vide pour `prognose`/`aetiologie`). Comparaison **exacte** (pas de
+normalisation) : une faute de frappe est une ref cassée, donc CI rouge.
+
+### 1.2 Spec et bloc (spec §4.2)
 
 ```ts
 export const VISUAL_SCHEMA_VERSION = 1 as const;
 
 export type Tone = 'neutral' | 'accent' | 'signal' | 'warn';
-// neutral = ink/slate · accent = pétrole (brand) · signal = coral (rare, un
-// point de bascule) · warn = ambre (atypique, Vorsicht). Pas de cinquième tone.
-
-export type FachwissenSectionRef =
-  | 'klinik' | 'diagnostik' | 'therapie' | 'klassifikation'
-  | 'differenzialdiagnosen' | 'redFlags' | 'aetiologie'
-  | 'risikofaktoren' | 'prognose';
+// neutral = ink/slate · accent = pétrole (structure) · signal = coral (le point
+// de bascule, un seul par bloc, §6) · warn = ambre (atypique). Pas de cinquième.
 
 export type VisualKind =
   | 'anatomy-map' | 'decision-tree' | 'syndrome-map' | 'timeline'
   | 'compare-table' | 'therapy-toggles' | 'score-gauge';
 
-export interface Placement {
-  /** Ordre croissant dans la colonne ; deux blocs ne partagent pas un ordre. */
-  order: number;
-  /** 'main' = colonne 2/3 (sections) ; 'side' = colonne latérale (red flags…). */
-  column: 'main' | 'side';
-}
-
 interface BlockBase<K extends VisualKind, D> {
   /** Unique dans la spec ; kebab-case ; préfixé par le kind (ex. `tree-ap`). */
   id: string;
   kind: K;
-  /** Titre affiché (allemand). */
+  /** Titre affiché (allemand), ≤ 60 caractères. */
   title: string;
-  /** Section textuelle repliée par ce bloc (§3). Absent = le bloc s'ajoute. */
-  replaces?: FachwissenSectionRef;
-  placement: Placement;
+  /** Entrées de fiche DÉCHARGÉES par ce bloc (repliées, §3). Peut être vide. */
+  replaces: SectionRef[];
+  /** Section avant laquelle le bloc s'insère, colonne principale (§3.3). */
+  anchor: SectionKey;
+  /** Départage plusieurs blocs sur le même anchor ; défaut = index dans `blocks`. */
+  order?: number;
+  /** Une phrase à réciter, lue par le bloc pour l'oral. */
+  merke?: string;
   data: D;
 }
 
@@ -73,151 +102,165 @@ export type VisualBlock =
   | BlockBase<'score-gauge', ScoreGaugeData>;
 
 export interface FachwissenVisualSpec {
-  fachwissenId: string;          // doit exister dans seedFachwissen.ts
+  fachwissenId: string;          // = Fachwissen.id ; le fichier porte ce nom
   version: typeof VISUAL_SCHEMA_VERSION;
-  blocks: VisualBlock[];         // ≥ 1
+  blocks: VisualBlock[];         // 1 à 4
 }
 ```
 
-### 1.1 `anatomy-map` — silhouette cliquable
+**Règle `source`** : tout libellé clinique porté par un visuel (hotspot, nœud,
+item de rayon, point, ligne, option, critère, bande) porte `source: Source`
+obligatoire. Exemptés, car rubriques structurelles et non clinicales : `title`,
+`merke`, `center`, `spokes[].label`, `columns[]`, `branches[].label` (arête
+« ja »/« nein »), `points[].at`. Un `'ergänzt'` n'est accepté que s'il figure
+dans `reviewed.ts` (§4).
+
+### 1.3 `anatomy-map` — silhouette cliquable
 
 ```ts
 export const ANATOMY_REGIONS = [
-  'head', 'neck', 'jaw', 'chest', 'retrosternal', 'left-arm', 'right-arm',
+  'head', 'eyes', 'neck', 'jaw', 'chest', 'retrosternal', 'left-arm', 'right-arm',
   'epigastrium', 'right-upper-quadrant', 'left-upper-quadrant', 'periumbilical',
   'right-lower-quadrant', 'left-lower-quadrant', 'flank-left', 'flank-right',
-  'back', 'lumbar', 'pelvis', 'left-leg', 'right-leg', 'hands', 'feet', 'skin',
+  'back', 'lumbar', 'pelvis', 'left-leg', 'right-leg', 'legs', 'hands', 'feet', 'skin',
 ] as const;
 export type AnatomyRegion = (typeof ANATOMY_REGIONS)[number];
+export type AnatomyFigure = 'body' | 'torso' | 'abdomen';
 
 export interface AnatomyHotspot {
   region: AnatomyRegion;
-  label: string;   // court, allemand (« Ausstrahlung linker Arm »)
-  text: string;    // phrase clinique complète (allemand)
-  tone?: Tone;     // défaut 'accent'
+  label: string;     // court, allemand (« Ikterus (Sklera) »)
+  source: Source;    // entrée klinik/redFlags citée (plusieurs hotspots peuvent citer la même)
+  tone?: Tone;       // défaut 'accent' ; 'signal' = red flag
 }
 export interface AnatomyMapData {
-  view: 'front' | 'back';
-  hotspots: AnatomyHotspot[];  // ≥ 1 ; une région au plus une fois par vue
+  figure: AnatomyFigure;
+  hotspots: AnatomyHotspot[];  // ≥ 2 ; une région au plus une fois
 }
 ```
 
-L'enum de régions est **fermé** : ajouter une région = amendement de ce contrat
-+ nouveau path SVG dans le composant. Une région inconnue fait échouer le
-validateur (§5), elle n'est pas ignorée silencieusement.
+Régions par figure (le validateur refuse une région hors de sa figure) :
+`abdomen` = `epigastrium … flank-right` ; `torso` = `abdomen` + `neck`, `jaw`,
+`chest`, `retrosternal`, `left-arm`, `right-arm`, `back`, `lumbar`, `pelvis` ;
+`body` = toutes. `skin` est valide sur les trois figures (marqueur hors
+silhouette). L'enum est **fermé** : ajouter une région = amendement daté +
+nouveau path SVG. Couverture vérifiée sur les pilotes du spec §10 : Sklera →
+`eyes`, Thorax → `chest`, Hände → `hands`, Abdomen → `periumbilical`,
+Unterschenkel → `legs`.
 
-### 1.2 `decision-tree` — arbre décisionnel
+### 1.4 `decision-tree` — arbre décisionnel
 
 ```ts
-export interface DecisionNode {
-  id: string;                 // unique dans le bloc
-  question: string;           // allemand ; vide interdit
-  answers: DecisionEdge[];    // ≥ 2
-}
-export interface DecisionEdge {
-  label: string;              // « ja », « nein », « Troponin↑ »
-  /** Exactement l'un des deux. */
-  next?: string;              // id d'un DecisionNode
-  leaf?: DecisionLeaf;
-}
-export interface DecisionLeaf {
-  label: string;              // conclusion (« ACS → Notfall »)
-  text?: string;              // justification / conduite
-  tone?: Tone;                // défaut 'neutral'
-}
+export type TreeNode =
+  | { question: string; source: Source; branches: { label: string; child: TreeNode }[] } // ≥ 2 branches
+  | { answer: string; source: Source; text?: string; tone?: Tone };                        // feuille
 export interface DecisionTreeData {
-  root: string;               // id du nœud racine
-  nodes: DecisionNode[];      // graphe acyclique, tous atteignables depuis root
+  root: TreeNode;   // profondeur ≤ 4 (racine = 1) ; ≤ 12 nœuds au total
 }
 ```
 
-### 1.3 `syndrome-map` — mindmap de syndrome
+La forme est récursive (spec §4.3), donc acyclique par construction ; le
+validateur compte les nœuds et la profondeur. Une feuille `tone: 'signal'` est
+l'issue d'urgence — au plus une par arbre.
+
+### 1.5 `syndrome-map` — carte de syndrome
 
 ```ts
-export interface SyndromeLeaf { label: string; text?: string; tone?: Tone }
-export interface SyndromeBranch {
-  label: string;              // « Leberhautzeichen », « Portale Hypertension »
+export interface SyndromeSpoke {
+  label: string;                                     // rubrique (« Hauptsymptome »)
   tone?: Tone;
-  leaves: SyndromeLeaf[];     // ≥ 1
+  items: { text: string; source: Source }[];         // 1 à 5
 }
 export interface SyndromeMapData {
-  center: { label: string; text?: string };
-  branches: SyndromeBranch[]; // 2 à 8
+  center: string;               // « Depressive Episode ≥ 2 Wochen »
+  spokes: SyndromeSpoke[];      // 3 à 6
 }
 ```
 
-### 1.4 `timeline` — frise
+### 1.6 `timeline` — frise
 
 ```ts
-export interface TimelineStep {
-  at: string;                 // libellé de position, libre : « 0–10 min », « Woche 2 »
+export interface TimelinePoint {
+  at: string;                   // position libre : « 0–10 min », « Stadium C »
   label: string;
-  text?: string;
-  tone?: Tone;
+  detail?: string;
+  source: Source;
+  tone?: Exclude<Tone, 'signal'>;   // le coral n'est jamais porté par un point (R3)
 }
 export interface TimelineData {
-  orientation?: 'horizontal' | 'vertical';  // défaut 'horizontal', vertical < 640 px
-  steps: TimelineStep[];      // ≥ 2, ordre = ordre du tableau
+  axis: 'zeit' | 'stadium' | 'schritt';
+  axisTone?: 'neutral' | 'signal';  // 'signal' = toute la bande est un point de bascule
+  points: TimelinePoint[];      // 3 à 8, ordre = ordre du tableau
 }
 ```
 
-### 1.5 `compare-table` — tableau comparatif
+### 1.7 `compare-table` — tableau comparatif
 
 ```ts
 export interface CompareTableData {
-  /** Première colonne = critère (en-tête de ligne). */
-  columns: { key: string; label: string; tone?: Tone }[];   // ≥ 2
+  columns: string[];            // 2 à 3 en-têtes (« KHK », « DD »)
   rows: {
     criterion: string;
-    cells: Record<string, string>;   // clé = columns[].key ; toutes les clés présentes
-    emphasis?: string;               // key de la colonne à mettre en avant
-  }[];                                // ≥ 1
+    cells: string[];            // cells.length === columns.length
+    source: Source;
+    emphasis?: number;          // index de colonne mise en avant, au plus une par ligne
+  }[];                          // 2 à 8
 }
 ```
 
-### 1.6 `therapy-toggles` — sections de thérapie commutables
+### 1.8 `therapy-toggles` — sections de thérapie commutables
 
 ```ts
 export interface TherapyOption {
-  key: string;
-  label: string;              // même vocabulaire que TherapieSektion.label
-  items: string[];            // ≥ 1
-  akut?: boolean;             // rendu tone 'signal' + icône alerte, comme la fiche
+  label: string;                                  // onglet (peut abréger le label de la fiche)
+  ref: { section: 'therapie'; label: string };    // items LUS depuis la fiche, jamais recopiés
+  akut?: boolean;                                 // teinte 'signal' ; au plus une option
 }
 export interface TherapyTogglesData {
-  options: TherapyOption[];   // 2 à 6
-  defaultKey?: string;        // défaut : première option ; l'option akut si présente
+  options: TherapyOption[];     // 2 à 5
+  default: number;              // index dans options
 }
 ```
 
-### 1.7 `score-gauge` — jauge de score
+`ref` vaut `source` : aucun texte clinique n'est recopié dans ce kind.
+
+### 1.9 `score-gauge` — jauge de score
 
 ```ts
-export interface ScoreBand { from: number; to: number; label: string; tone: Tone }
+export interface ScoreCriterion {
+  label: string;                // « Bilirubin (mg/dl) »
+  points: number[];             // valeurs sélectionnables, croissantes (ex. [1, 2, 3])
+  choices?: string[];           // libellé par valeur (« < 2 », « 2–3 », « > 3 »), même longueur
+  source: Source;               // seuils absents de `inhalt` → 'ergänzt' (spec R2)
+}
+export interface ScoreBand { label: string; min: number; max: number; tone: Tone; source: Source }
 export interface ScoreGaugeData {
-  name: string;               // « CURB-65 », « Child-Pugh »
-  min: number;
-  max: number;                // > min
-  bands: ScoreBand[];         // couvrent [min, max] sans trou ni chevauchement
-  items?: { label: string; points: number; text?: string }[];  // critères
-  unit?: string;              // « Punkte » par défaut
+  score: { name: string; ref: { section: 'klassifikation'; name: string } };
+  criteria: ScoreCriterion[];   // peut être vide → jauge statique des bandes
+  bands: ScoreBand[];           // contiguës, couvrent [Σ min(points), Σ max(points)] sans trou
+  interactive: boolean;
+  unit?: string;                // « Punkte » par défaut
 }
 ```
 
-### 1.8 Exemple minimal (fw-khk, extrait)
+### 1.10 Exemple minimal (`fw-leberzirrhose`, extrait)
 
 ```ts
 import type { FachwissenVisualSpec } from './types';
 export const spec: FachwissenVisualSpec = {
-  fachwissenId: 'fw-khk', version: 1,
+  fachwissenId: 'fw-leberzirrhose', version: 1,
   blocks: [{
-    id: 'anatomy-ap', kind: 'anatomy-map', title: 'Schmerzlokalisation und Ausstrahlung',
-    replaces: 'klinik', placement: { order: 10, column: 'main' },
-    data: { view: 'front', hotspots: [
-      { region: 'retrosternal', label: 'Retrosternales Druck-/Engegefühl',
-        text: 'Retrosternales Druck-/Engegefühl, belastungsabhängig, Besserung in Ruhe/auf Nitro' },
-      { region: 'left-arm', label: 'Ausstrahlung linker Arm',
-        text: 'Ausstrahlung in linken Arm, Hals, Unterkiefer, Epigastrium' },
+    id: 'anatomy-leberhautzeichen', kind: 'anatomy-map', title: 'Leberhautzeichen & Stauung',
+    anchor: 'klinik',
+    replaces: [
+      { section: 'klinik', text: 'Ikterus (Gelbfärbung), Juckreiz' },
+      { section: 'klinik', text: 'Leberhautzeichen: Spider naevi, Palmarerythem, Caput medusae' },
+    ],
+    data: { figure: 'body', hotspots: [
+      { region: 'eyes', label: 'Ikterus (Sklera)',
+        source: { section: 'klinik', text: 'Ikterus (Gelbfärbung), Juckreiz' } },
+      { region: 'chest', label: 'Spider naevi',
+        source: { section: 'klinik', text: 'Leberhautzeichen: Spider naevi, Palmarerythem, Caput medusae' } },
     ] },
   }],
 };
@@ -225,49 +268,63 @@ export const spec: FachwissenVisualSpec = {
 
 ## 2. Contrat de rendu
 
-- **Registre** `app/src/components/visuals/registry.ts` :
-  `Record<VisualKind, React.ComponentType<VisualBlockProps>>`. La page ne
-  connaît que le registre ; ajouter un kind = une entrée + un type `data`.
-- **Bloc inconnu** (kind absent du registre, spec plus récente que le client) :
-  ignoré au rendu, `console.warn('[visuals] unknown kind', kind, blockId)` en
-  dev uniquement (`import.meta.env.DEV`). Jamais d'erreur bloquante.
+- **Résolution** (`app/src/components/visuals/resolve.ts`) :
+  `resolve(ref: SectionRef, fw: Fachwissen): ResolvedRef | undefined`. Une ref
+  est résolue si l'entrée existe **exactement** dans la fiche chargée (Dexie),
+  pas dans le bundle. `resolveBlock(block, fw)` renvoie `{ ok: true, block }`
+  si toutes les refs de `replaces` et tous les `source` (hors `'ergänzt'`) et
+  `ref` résolvent ; sinon `{ ok: false, reason }`.
+- **Dégradé sans exception** (spec D7) : bloc non résolu → **absent** du DOM ;
+  ses `replaces` ne replient rien (la section reste dépliée) ;
+  `console.warn('[visuals]', fachwissenId, blockId, reason)` uniquement si
+  `import.meta.env.DEV`. Jamais de bloc partiel.
+- **`ErrorBoundary` par bloc** : une exception de rendu retire ce bloc seul ;
+  ses `replaces` sont traités comme non résolus (section dépliée) ; `warn` dev.
+- **Bloc de kind inconnu** (spec plus récente que le client) : ignoré,
+  `warn` dev, aucune exception.
 - **Spec absente** : `getVisualSpec(id)` renvoie `undefined`, la page rend
-  exactement le DOM actuel. Test de contrat : snapshot de `fw-pankreatitis`
-  (sans spec) identique avant/après.
-- **Validation d'exécution** : aucune. La validation est mécanique en CI (§5)
-  ; le rendu fait confiance à la spec. Un `data` malformé qui a passé la CI est
-  un bug du validateur, pas du composant.
+  exactement le DOM actuel (AC-6/AC-13 du spec).
+- **Validation d'exécution** : aucune au-delà de la résolution des refs. Un
+  `data` malformé qui a passé la CI est un bug du validateur, pas du composant.
 - **Aucune donnée clinique dans les composants** : pas de chaîne allemande
   codée en dur hors libellés d'interface génériques (« Text anzeigen »,
-  « Text ausblenden », « ja »/« nein » ne sont PAS génériques : ils viennent de
-  la spec).
-- **Liens glossaire** : les textes des blocs passent par `<AutoLink>` comme les
-  sections existantes ; `onOpenGlossary` est fourni par la page.
+  « Text ausblenden », « Alles aufklappen », « Zurücksetzen »).
+- **Liens glossaire** : `<AutoLink>` sur les panneaux HTML (détail, cellules,
+  items), jamais dans `<text>` SVG (spec R8).
+- Attributs de contrat sur le cadre : `data-visual="<kind>"`,
+  `data-block="<id>"`, `role="region"`, `aria-label={title}`, `<h3>` visible.
 
 ## 3. Déchargement du texte — règles
 
-1. Un bloc avec `replaces: S` **replie** la section `S` de la fiche : la
-   section est rendue dans un `<details>` fermé (`open` = false par défaut),
-   sommaire « Text anzeigen » (ouvert : « Text ausblenden »), placée
-   immédiatement sous le bloc visuel. L'état ouvert/fermé n'est pas persisté.
-2. Une section repliée reste dans le DOM (recherche, AutoLink, lecteurs
+1. **Repli par entrée.** La page calcule `collapsed = Set<refKey>` = union des
+   `replaces` des blocs **résolus**. Une section dont toutes les entrées sont
+   dans `collapsed` est rendue dans un `<details>` fermé (`open` absent),
+   résumé « Text anzeigen · N Punkte » (ouvert : « Text ausblenden »), placé à
+   l'emplacement habituel de la section. Une section partiellement repliée garde
+   ses entrées non couvertes dépliées et replie les autres dans le même
+   `<details>`. L'état ouvert/fermé n'est pas persisté.
+2. Une entrée repliée reste dans le DOM (recherche, AutoLink, lecteurs
    d'écran) ; rien n'est retiré de `seedFachwissen.ts`.
-3. Au plus **un** bloc par `FachwissenSectionRef` dans une spec.
-4. **Invariant de couverture** : chaque item textuel de la section repliée doit
-   être couvert par le bloc. Un item est couvert si sa forme normalisée
-   (minuscules, accents et ponctuation retirés, espaces réduits) partage avec au
-   moins un texte du bloc (`label`, `text`, `question`, `answers[].label`,
-   cellules, `items`, `bands[].label`) une sous-chaîne commune d'au moins
-   `COVERAGE_MIN_CHARS` caractères (défaut **24**, configurable en tête du
-   validateur). Sinon le bloc **ne peut pas** déclarer `replaces` : le
-   validateur échoue en nommant l'item manquant.
-5. Items par section : `klinik[].text`, `diagnostik[].text`,
-   `therapie[].items[]` (tous les items de toutes les sections),
-   `klassifikation[].inhalt`, `differenzialdiagnosen[].dd + unterscheidung`,
-   `redFlags[]`, `risikofaktoren[]`, `aetiologie` et `prognose` (une phrase =
-   un item, découpage sur `. `).
-6. Les sections `pruefungsfallen`, `askedInExam`, `merksatz`, `definition` ne
-   sont **pas** repliables (elles sont l'examen lui-même, pas le savoir).
+3. **Insertion** : un bloc s'insère juste **avant** la `Section` nommée par
+   `anchor`, colonne principale, dans une `Section` au même gabarit
+   (`card card-accent`, eyebrow mono « Visuell »). Plusieurs blocs sur le même
+   anchor : `order` croissant, défaut = index dans `blocks`.
+   `anchor: 'redFlags'` : le bloc s'insère avant Klassifikation (ou avant
+   Differenzialdiagnosen si la fiche n'a pas de `klassifikation`) et l'encart
+   latéral Red Flags devient lui-même le `<details>` (spec §9, R4). Un `anchor`
+   dont la section est absente de la fiche (ex. `klassifikation` sur `fw-khk`)
+   suit la même règle : section suivante dans l'ordre de la page.
+4. **Unicité** : deux blocs d'une même spec ne replient jamais la même entrée
+   (`refKey` unique sur l'union des `replaces`). `source` n'est pas soumis à
+   cette règle : plusieurs libellés peuvent citer la même entrée.
+5. **Couverture déclarative** : `replaces` est vérifié par existence exacte de
+   chaque ref dans la fiche (CI, §5) — plus aucune heuristique de sous-chaîne.
+   Le jugement « le bloc couvre bien ce qu'il replie » revient au relecteur
+   `content-*` (étape 5), pas au validateur.
+6. Les champs `pruefungsfallen`, `askedInExam`, `merksatz`, `definition` ne
+   sont **pas** repliables ni référençables par `SectionRef` (ils sont l'examen
+   lui-même). Un `decision-tree` peut s'en inspirer, sans `source` possible :
+   c'est un `'ergänzt'` à relire.
 
 ## 4. Emplacement et chargement
 
@@ -276,53 +333,57 @@ app/src/data/fachwissenVisuals/
   types.ts            ← §1
   index.ts            ← export const VISUAL_SPECS: Record<string, FachwissenVisualSpec>
                         + export function getVisualSpec(id: string) { return VISUAL_SPECS[id]; }
-  fw-khk.ts           ← export const spec: FachwissenVisualSpec
-  fw-leberzirrhose.ts
-  fw-depression.ts
+  reviewed.ts         ← export const REVIEWED: { fachwissenId: string; blockId: string; text: string }[]
+  fw-khk.ts · fw-leberzirrhose.ts · fw-depression.ts   ← export const spec
 app/src/components/visuals/
-  registry.ts · AnatomyMap.tsx · DecisionTree.tsx · SyndromeMap.tsx · Timeline.tsx
-  CompareTable.tsx · TherapyToggles.tsx · ScoreGauge.tsx · VisualBlockFrame.tsx
+  VisualBlock.tsx (dispatch + ErrorBoundary) · resolve.ts · primitives.tsx · registry.ts
+  AnatomyMap.tsx · DecisionTree.tsx · SyndromeMap.tsx · Timeline.tsx
+  CompareTable.tsx · TherapyToggles.tsx · ScoreGauge.tsx
+app/src/features/fachwissen/useVisualSpec.ts
 ```
 
-- Import **statique** pour cette phase (3 pilotes, quelques Ko). La page fait
-  `getVisualSpec(fw.id)` — pas de Dexie, pas de réseau.
+- `reviewed.ts` : liste blanche des `'ergänzt'` acceptés ; `text` = le libellé
+  exact (`label`, `answer`, `criterion`, …) porté par le champ marqué
+  `'ergänzt'`. Écrit **uniquement** par un relecteur `content-*` ; le visualizer
+  ne s'y inscrit jamais lui-même.
+- Import **statique** (3 pilotes, quelques Ko). Les specs importent leurs types
+  par chemin relatif (`./types`), jamais par `@/`.
 - Tier : hérité de la fiche. `publishContent.mjs` n'est pas modifié.
-- **Évolution notée, hors périmètre** : au-delà de ~20 specs, passer à
-  `import()` par id (index = `Record<string, () => Promise<…>>`) ; publication
-  Supabase `content_items.kind = 'fachwissen_visual'` — exige une migration du
-  CHECK `content_items_kind_check` (`docs/contracts/schema.sql` l.61), un ADR et
-  un `payload` = ce schéma tel quel (le `version` porte la compatibilité, §7).
+- **Évolution notée, hors périmètre** (spec T4) : au-delà de ~50 specs,
+  `import()` par id ; publication Supabase `content_items.kind =
+  'fachwissen_visual'` — exige une migration du CHECK
+  `content_items_kind_check` (`docs/contracts/schema.sql` l.61), un ADR et un
+  `payload` = ce schéma tel quel (`version` porte la compatibilité, §7).
 
 ## 5. Validation mécanique — `app/scripts/checkFachwissenVisuals.mjs`
 
-Validation **manuelle** (pas de `zod` : absent de `app/package.json`, aucune
-dépendance ajoutée pour un validateur de 200 lignes). Suit le style de
-`checkTherapieLabels.mjs` : lecture des sources par regex/parse, sortie
-`process.exit(1)` sur toute violation, résumé `OK n specs / m blocs` sinon.
+**Chargement tranché** : esbuild (déjà présent via vite), même pattern que
+`app/scripts/loadCases.mjs` — entrée temporaire qui ré-exporte
+`seedFachwissen`, `VISUAL_SPECS`, `REVIEWED` ; `bundle: true`, plugin
+`stub-alias` sur `@/`. Pas de `zod`, pas de `tsx`, aucune dépendance ajoutée.
+Sortie : `process.exit(1)` au **premier** manquement (message préfixé
+`[visuals]`, avec fiche + bloc + champ) ; sinon résumé
+`OK n specs / m blocs / k ergänzt relus` et exit 0.
 
-Vérifie, dans l'ordre :
-
-| # | Règle | Message d'échec (préfixe `[visuals]`) |
+| # | Règle | Message d'échec |
 |---|---|---|
-| 1 | chaque `fw-*.ts` du dossier est référencé dans `index.ts` et réciproquement | `index désynchronisé: <id>` |
-| 2 | `fachwissenId` existe dans `seedFachwissen.ts` (`id: '<id>'`) et égale le nom de fichier | `fiche inconnue: <id>` |
+| 1 | chaque `fw-*.ts` du dossier est dans `index.ts` et réciproquement ; `fachwissenId` = nom de fichier | `index désynchronisé: <id>` |
+| 2 | `fachwissenId` existe dans `seedFachwissen` | `fiche inconnue: <id>` |
 | 3 | `version === 1` | `version non supportée` |
-| 4 | `blocks.length ≥ 1`, `id` uniques, kebab-case, préfixés par le kind | `id de bloc invalide/dupliqué` |
-| 5 | `kind` dans l'enum ; `tone` dans l'enum ; `replaces` dans l'enum ; `placement.order` unique par colonne | `enum invalide: <champ>=<valeur>` |
-| 6 | `data` conforme au kind : régions dans `ANATOMY_REGIONS` et uniques par vue ; arbre : `root` existe, `next` résolus, exactement `next` xor `leaf`, acyclique, tous atteignables ; table : toutes les clés de colonne dans chaque ligne ; gauge : bandes contiguës couvrant `[min,max]` ; toggles : 2–6 options, `defaultKey` résolu ; timeline ≥ 2 étapes ; syndrome 2–8 branches | `data invalide (<kind>/<bloc>): <détail>` |
-| 7 | au plus un `replaces` par section ; couverture §3.4 pour chaque bloc `replaces` | `couverture insuffisante (<bloc> → <section>): "<item>"` |
-| 8 | aucun texte affiché vide ; aucun texte contenant du français détectable (liste courte : « le », « la », « les », « avec », « chez » comme mots entiers) | `texte vide / non allemand` |
+| 4 | 1 à 4 blocs ; `id` uniques, kebab-case, préfixés par le kind ; `title` ≤ 60 | `bloc invalide: <détail>` |
+| 5 | `kind`, `tone`, `anchor`, `axis`, `figure` dans leurs enums ; `order` unique par anchor | `enum invalide: <champ>=<valeur>` |
+| 6 | **refs résolues** contre la fiche réelle : chaque élément de `replaces`, chaque `source` ≠ `'ergänzt'`, chaque `ref` | `ref introuvable (<bloc>): <refKey>` |
+| 7 | **unicité du repli** : aucun `refKey` dans deux `replaces` de la même spec | `double repli: <refKey> (<bloc-a>, <bloc-b>)` |
+| 8 | **`ergänzt`** : chaque champ `'ergänzt'` a une ligne `{ fachwissenId, blockId, text }` exacte dans `REVIEWED` ; une ligne de `REVIEWED` sans champ correspondant est aussi une erreur (liste morte) | `ergänzt non relu: <bloc> "<text>"` |
+| 9 | forme par kind : anatomy ≥ 2 hotspots, régions ∈ enum, ∈ figure, uniques ; tree ≥ 2 branches par question, profondeur ≤ 4, ≤ 12 nœuds ; syndrome 3–6 rayons, 1–5 items ; timeline 3–8 points, aucun `tone: 'signal'` sur un point ; table 2–3 colonnes, 2–8 lignes, `cells.length === columns.length`, `emphasis` dans les bornes ; toggles 2–5 options, `default` dans les bornes, ≤ 1 `akut` ; gauge `points` croissants, `choices` de même longueur, bandes contiguës couvrant exactement `[Σ min, Σ max]` | `data invalide (<kind>/<bloc>): <détail>` |
+| 10 | **signal** : au plus un `tone: 'signal'` par bloc (feuille, hotspot, rayon, bande, colonne) ; sur `timeline` seul `axisTone` peut le porter ; `akut` compte comme le signal du bloc | `signal multiple: <bloc>` |
+| 11 | aucun texte affiché vide ; aucun emoji (`\p{Extended_Pictographic}`) ; pas de français détectable (mots entiers : « le », « la », « les », « avec », « chez », « et », « pour ») | `texte vide / non allemand / emoji` |
 
-Lecture des specs : le script importe les `.ts` via `tsx`/`node --import`
-si disponible dans `devDependencies`, sinon parse un export JSON équivalent —
-**choix laissé au plan**, à trancher avant la tâche « validateur » ; le contrat
-impose seulement le comportement et le code de sortie.
-
-**CI** (ligne à ajouter par `build`, dans `.github/workflows/quality.yml` après
-`checkAllergyConflicts.mjs`, bloc bloquant, pas `|| true`) :
+**CI** (proposition à `main`, `.github/workflows/quality.yml` après
+`checkTherapieLabels.mjs`, bloc bloquant, pas `|| true`) :
 
 ```yaml
-      - name: Fachwissen visuals — schéma, couverture, ids
+      - name: Fachwissen visuals — schéma, refs, ergänzt
         run: node scripts/checkFachwissenVisuals.mjs
 ```
 
@@ -331,77 +392,98 @@ impose seulement le comportement et le code de sortie.
 ```ts
 export interface VisualBlockProps<B extends VisualBlock = VisualBlock> {
   block: B;
+  fw: Fachwissen;                            // pour lire les items (toggles) et légendes (gauge)
   onOpenGlossary?: (term: string) => void;   // délégué à AutoLink
 }
 ```
 
-`VisualBlockFrame` (cadre commun) rend : `.eyebrow` = kind lisible en allemand
-(« Anatomie », « Entscheidungsbaum », « Syndrom », « Verlauf », « Vergleich »,
-« Therapie », « Score ») ; `<h2>` = `block.title` ; le composant ; puis, si
-`replaces`, le `<details>` de §3.
+Le cadre commun (`VisualBlock.tsx`) rend : eyebrow mono « Visuell · <forme en
+allemand> » (« Anatomie », « Entscheidungsbaum », « Syndrom », « Verlauf »,
+« Vergleich », « Therapie », « Score ») ; `<h3>` = `title` ; `merke` en
+citation mono si présent ; le composant sous `ErrorBoundary`.
 
 **Accessibilité (opposable en revue)**
 
 - `AnatomyMap` : SVG `role="img"` avec `<title>` ; chaque hotspot est un
-  `<button>` (pas un `<path onClick>`), `aria-pressed`, focusable, navigable
-  Tab/Shift-Tab, activable Entrée/Espace ; le texte du hotspot sélectionné est
-  rendu dans un `<p aria-live="polite">` hors du SVG. Liste textuelle des
-  hotspots toujours rendue (`<ul>` visuellement sous la silhouette).
-- `DecisionTree` : arbre rendu comme liste imbriquée (`<ul role="tree">`,
-  `role="treeitem"`, `aria-expanded`) ; flèches haut/bas/gauche/droite ; les
-  feuilles `tone: 'signal'` portent `aria-label` incluant le mot « Notfall »
-  s'il figure dans le label.
-- `TherapyToggles` : `role="tablist"` / `role="tab"` / `role="tabpanel"`,
-  flèches gauche/droite, `aria-selected`.
-- `ScoreGauge` : `role="meter"`, `aria-valuemin/max/now` ; bandes listées en
-  texte (`<ol>`).
+  `<button>` (pas un `<path onClick>`), `aria-pressed`, `aria-label`, focusable,
+  flèches gauche/droite entre hotspots, Entrée/Espace ouvre le panneau ; le
+  panneau (`<p aria-live="polite">`, hors SVG) montre libellé + citation
+  source. Liste textuelle des hotspots toujours rendue (`<ul>`).
+- `DecisionTree` : `<ul role="tree">`, `role="treeitem"`, `aria-expanded` ;
+  niveau 1 visible au chargement, Entrée déplie, Échap replie, bouton
+  « Alles aufklappen » ; feuille `signal` = bord coral + icône, `aria-label`
+  incluant « Notfall » s'il figure dans `answer`.
+- `TherapyToggles` : `role="tablist"` / `tab` / `tabpanel`, flèches
+  gauche/droite, `aria-selected` ; onglet `akut` porte la classe `signal`.
+- `ScoreGauge` : `role="meter"`, `aria-valuemin/max/now` ; total en `font-mono`
+  ; critères = groupes `role="radiogroup"` ; bande active `data-active="true"`
+  ; bouton « Zurücksetzen » ; bandes listées en `<ol>`.
 - `Timeline`, `SyndromeMap`, `CompareTable` : DOM sémantique (`<ol>`, `<ul>`,
-  `<table>` avec `<th scope>`), pas de SVG pour le texte.
+  `<table>` avec `<th scope>`), pas de SVG pour le texte ; réponse au clic,
+  jamais au survol seul (spec D9).
 - Couleur jamais seule porteuse de sens : chaque `tone` a un marqueur textuel
-  ou une icône (`Icon name="alert"` pour `warn`/`signal`).
-- `prefers-reduced-motion: reduce` : aucune transition/animation (les
-  transitions Tailwind sont conditionnées par `motion-safe:`). Toute animation
-  est ≤ 200 ms et non essentielle.
-- Contraste ≥ 4.5:1 en clair et sombre pour tout texte.
+  ou une icône SVG (`components/icons.tsx`).
+- `prefers-reduced-motion: reduce` : aucune transition (`motion-safe:` sur
+  toute transition Tailwind) ; sinon ≤ 200 ms, non essentielle.
+- Contraste ≥ 4.5:1 clair et sombre ; aucun `<img>` ; aucun
+  `dangerouslySetInnerHTML` ; largeur 390 px sans scroll horizontal.
 
-**Tokens de style** (Tailwind `app/tailwind.config.js`, `app/src/styles/index.css`)
+**Tokens de style** (`app/tailwind.config.js`, `app/src/styles/index.css`)
 
 | Tone | Fond / bordure | Texte | Usage |
 |---|---|---|---|
 | `neutral` | `border-slate-200 dark:border-slate-800` | `text-slate-600 dark:text-slate-300` | défaut |
 | `accent` | `bg-brand-50 border-brand-200 dark:bg-brand-900/25` | `text-brand-700 dark:text-brand-300` | pétrole, structure |
-| `signal` | `bg-signal-50 border-signal-200` (coral) | `text-signal-600 dark:text-signal-300` | un point de bascule par bloc au plus |
+| `signal` | `bg-signal-50 border-signal-200` (coral) | `text-signal-600 dark:text-signal-300` | le point de bascule, un par bloc |
 | `warn` | `bg-amber-50 border-amber-200` | `text-amber-700 dark:text-amber-300` | atypique, Vorsicht |
 
-Réutiliser `.card card-accent`, `.eyebrow`, `.mono-tag`, `.label`, `chip` ;
-valeurs numériques et noms de scores en `font-mono` (Plex Mono, signature
-« readout »). Aucune couleur hexadécimale nouvelle dans les composants.
+Fond « papier millimétré » 8 px (`Grid`, opacité 0,08 clair / 0,05 sombre) ;
+nœud = rectangle `rounded-lg`, trait 1,5 px, bord gauche pétrole 3 px pour une
+question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
+10 px + anneau au focus ; chiffres, scores, stades, unités en `font-mono`
+(`Readout`). Aucune couleur hexadécimale nouvelle dans les composants.
 
-## 7. Versionnement et compatibilité
+## 7. Versionnement, compatibilité, tests de contrat
 
 - `version` est un entier ; ce contrat définit **1**. Un changement additif
-  (champ optionnel, nouveau kind, nouvelle région) reste en version 1 et
-  s'accompagne d'un amendement daté ci-dessous. Un changement de forme
-  (renommage, champ obligatoire) incrémente la version ; le client garde un
-  adaptateur `v(n-1) → v(n)` pendant une release, puis les specs sont migrées.
+  (champ optionnel, nouveau kind, nouvelle région) reste en version 1 avec un
+  amendement daté. Un changement de forme (renommage, champ obligatoire)
+  incrémente la version ; le client garde un adaptateur `v(n-1) → v(n)` pendant
+  une release, puis les specs sont migrées.
 - **Client existant** : aucune API, table ou route touchée ; `Fachwissen`
   (`app/src/db/types.ts`) n'est pas modifié ; les fiches sans spec ne changent
-  pas. Compatibilité totale par construction.
+  pas. Compatibilité totale par construction. `checkTherapieLabels.mjs` lit le
+  fichier, pas le DOM : le repli est sans effet sur lui (spec R7).
 - **Tests de contrat à écrire** (plan, étape 3) :
-  1. `checkFachwissenVisuals.mjs` échoue (exit ≠ 0) sur une fixture avec région
-     inconnue, un `next` non résolu, une bande de score trouée, une couverture
-     `replaces` insuffisante ; réussit sur les trois pilotes.
-  2. Rendu : `fw-pankreatitis` (sans spec) — DOM identique avant/après.
+  1. Validateur, exit ≠ 0 sur une fixture : (a) `replaces` avec `text` erroné
+     d'un caractère → `ref introuvable` ; (b) `source: 'ergänzt'` absent de
+     `REVIEWED` → `ergänzt non relu` ; (c) même `refKey` dans deux blocs →
+     `double repli` ; (d) région hors figure ; (e) bande de score trouée ;
+     (f) deux `tone: 'signal'` dans un bloc ; (g) `tone: 'signal'` sur un point
+     de timeline. Exit 0 sur les trois pilotes.
+  2. Rendu : `fw-pankreatitis` (sans spec) — `innerHTML` de la colonne
+     principale identique avant/après, aucun `[data-visual]`, aucun `<details>`.
   3. Rendu : un bloc `kind: 'unknown'` injecté → non rendu, `console.warn` en
      dev, aucune exception.
-  4. Rendu : bloc `replaces: 'klinik'` → la section Klinik est dans un
-     `<details>` fermé ; « Text anzeigen » l'ouvre ; son contenu textuel est
-     identique à la version sans spec.
-  5. a11y : `axe` sans violation sur les trois pilotes ; parcours clavier des
-     hotspots et des toggles (Playwright, mesuré depuis le DOM de l'app).
+  4. Rendu dégradé (AC-7) : fiche où un `therapie[].label` visé par un
+     `therapy-toggles` est renommé → bloc absent, section Therapie dépliée,
+     aucune exception ; même chose si le composant lève (`ErrorBoundary`).
+  5. Rendu repli : `fw-khk`, Therapie dans un `<details>` fermé, résumé
+     « Text anzeigen » ; après clic, les 4 labels identiques mot pour mot à
+     `therapie[].label`. Repli partiel : une entrée `klinik` non couverte reste
+     dépliée hors du `<details>`.
+  6. Rendu `anchor: 'redFlags'` (`fw-leberzirrhose`) : `[data-visual="timeline"]`
+     est avant la `Section` Klassifikation en colonne principale ; l'encart
+     latéral Red Flags est un `<details>` fermé.
+  7. Typage : `// @ts-expect-error` sur un `kind` inconnu et sur un `replaces`
+     par index (AC-2).
+  8. a11y : `axe` sans violation sur les trois pilotes ; parcours clavier
+     hotspots / toggles / arbre ; `prefers-reduced-motion` ; 390 px ; sombre
+     (Playwright, mesuré depuis le DOM de l'app, jamais via `import("/src/…")`).
 
 ## Amendements
 
 | Date | Auteur | Changement | Motivation |
 |---|---|---|---|
 | 2026-09-16 | arch-fachwissen-visuals | création (brouillon, sous réserve G2) | epic #8 |
+| 2026-09-16 | arch-fachwissen-visuals | alignement sur le spec (repli par entrée `replaces: SectionRef[]`, `source` obligatoire + `reviewed.ts`, `anchor` remplace `placement`, dégradé D7 + `ErrorBoundary`, validateur esbuild, signal sur l'axe de `timeline`, `data` de chaque kind selon spec §4.3) ; régions `eyes` et `legs` ajoutées (pilote Leberzirrhose) ; invariant de couverture par sous-chaîne supprimé | spec fe22692 gagne (règle du contrat) |
