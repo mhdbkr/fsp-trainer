@@ -5,6 +5,8 @@ description: Standards du pôle Produit (spec, pédagogie, fidélité à l'exame
 
 # Produit & Pédagogie — standards
 
+> Tout sous-projet passe par `/doctopus-feature` (étapes et gates) ; ce skill fixe les standards du pôle, pas la chaîne.
+
 ## Avant d'écrire un spec
 - `interview-me` puis `idea-refine` : ce que le candidat veut VRAIMENT (pas la feature demandée).
 - `superpowers:brainstorming` : une question à la fois ; 2–3 approches ; design par sections validées.

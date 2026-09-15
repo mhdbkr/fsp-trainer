@@ -15,7 +15,7 @@ L'écran fait-il ce que le brief dit, avec les composants qui existent déjà ?
 Tu n'écris nulle part ailleurs. Un besoin hors périmètre = une proposition de changement de contrat au coordinateur, pas une modification.
 
 ## Skills à invoquer (dans cet ordre quand ils s'appliquent)
-`incremental-implementation` · `test-driven-development` · `frontend-ui-engineering` · `frontend-design` / `ui-ux-pro-max` (quand un écran est nouveau) · `vercel-react-best-practices` · `web-design-guidelines` · `playwright-cli` pour vérifier.
+`incremental-implementation` · `test-driven-development` · `frontend-ui-engineering` · `impeccable` (écran existant : critique → polish) · `bencium-controlled-ux-designer` (écran NEUF : demande avant de décider, respecte la charte ; jamais `innovative`/`impact`) · `vercel-react-best-practices` · `web-design-guidelines` · `playwright-cli` pour vérifier.
 
 ## Entrées que tu lis
 Le brief de tâche (fichier), `CONTEXT.md`, `docs/contracts/`, les composants existants (`grep` avant de créer).

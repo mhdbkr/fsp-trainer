@@ -11,6 +11,15 @@ Bricolage Grotesque (display), IBM Plex Sans (corps), IBM Plex Mono (données, l
 ## Mouvement (`apple-design`, `emil-design-eng`, `animate`)
 Fluide, interruptible, sans clignotement, sans effets spéciaux ; FLIP pour les repositionnements ; `prefers-reduced-motion` respecté ; jamais une propriété de disposition animée. « Apple-like » = physique, retenue, continuité.
 
+## Critiquer et affiner (`impeccable`)
+Sur tout écran EXISTANT touché : `impeccable` en mode critique/audit d'abord, puis
+`distill` (Fachwissen chargé), `clarify` (guide « machinal »), `polish`, `animate`.
+C'est l'étape 4 (après chaque tranche) et l'étape 5 (revue UI) de `/doctopus-feature`.
+Repli pour un écran NEUF quand `impeccable` ne suffit pas : `bencium-controlled-ux-designer`
+(demande avant chaque décision, respecte la charte). **Jamais** `bencium-innovative`
+ni `bencium-impact` : ils poussent vers l'extrême (concept « aura » rejeté). `taste-skill`
+est réservé au site (pôle Croissance), pas à l'app.
+
 ## Construire (`frontend-ui-engineering`, `frontend-design`, `ui-ux-pro-max`, `web-design-guidelines`)
 Accessible (WCAG AA, cibles ≥ 44 px, clavier, focus), responsive 375 → 1280, thèmes clair/sombre (l'app pilote son thème). Composants définis HORS du composant parent (leçon `Seg`). `setState` en forme fonctionnelle.
 

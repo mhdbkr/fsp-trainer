@@ -5,6 +5,8 @@ description: Standards du pôle Contenu clinique (cas, fiches, glossaire, visuel
 
 # Contenu clinique — standards
 
+> Tout sous-projet passe par `/doctopus-feature` (étapes et gates) ; ce skill fixe les standards du pôle, pas la chaîne.
+
 ## Pipeline v3 (fsp-phase2)
 Recherche mutualisée → rédaction par lot → JSON validé par schéma → `lotAssembler.py` (style hand-authored, virgules de fin, whitelist des champs, dates valides) → 8 validateurs par CODE DE SORTIE → tsc/build → bump `SEED_VERSION` → `publishContent.mjs` (delta par hash).
 Référence de style : `app/scripts/STYLE_SAMPLE.ts` (75 Ko), jamais les seeds complets (1,5–6 Mo).

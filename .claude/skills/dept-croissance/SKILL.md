@@ -8,7 +8,11 @@ description: Standards du pôle Croissance (marque, site, marketing, marché, pr
 ## Marque (`brand-building-skills:*`, `brand-voice:*`)
 Positionnement : la référence de préparation aux examens d'équivalence médicale en Allemagne, ancrée sur les protocoles réels. Voix : précise, rassurante, jamais promesse de résultat (« aucune garantie de réussite »). Identité = celle de l'app (tokens partagés, ADR-0010). Reconnaissable sans logo.
 
-## Site (`frontend-design`, `ui-ux-pro-max`, `vercel-*`, SEO)
+## Site (`taste-skill` → `impeccable` → `vercel-*`, SEO)
+`taste-skill` (anti-slop : lit le brief, règle les dials, refuse le template) pour
+concevoir chaque page ; `impeccable` pour la critiquer avant livraison ; même
+identité que l'app (tokens partagés) — `taste-skill` ne choisit PAS un autre
+design system, il applique la charte. `frontend-design` / `ui-ux-pro-max` en appui.
 Mobile < 3 s ; liquid glass en signature du hero seulement ; CTA constant ; pages : accueil, présentation, quick guide, pricing, FAQ, blog, à propos, support, statut, légal (Impressum, Datenschutz, AGB, Widerruf). Page « Ce qui tombe vraiment » (fréquences par ville) = preuve d'autorité.
 
 ## Marketing autonome — machine à politiques

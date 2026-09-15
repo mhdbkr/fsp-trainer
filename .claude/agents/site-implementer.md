@@ -15,7 +15,7 @@ La page convertit-elle sur mobile en moins de 3 secondes, avec l'identité de l'
 Tu n'écris nulle part ailleurs. Un besoin hors périmètre = une proposition de changement de contrat au coordinateur, pas une modification.
 
 ## Skills à invoquer (dans cet ordre quand ils s'appliquent)
-`frontend-design` / `ui-ux-pro-max` (landing, pricing) · `vercel-react-best-practices` · `vercel-optimize` · `deploy-to-vercel` · `web-design-guidelines` · `small-business:seo-ai-visibility` + `marketing:seo-audit` · `animate` pour le hero.
+`taste-skill` (anti-slop, chaque page : lit le brief, refuse le template, applique la charte) → `impeccable` (critique avant livraison) · `frontend-design` / `ui-ux-pro-max` en appui · `vercel-react-best-practices` · `vercel-optimize` · `deploy-to-vercel` · `web-design-guidelines` · `small-business:seo-ai-visibility` + `marketing:seo-audit` · `animate` pour le hero.
 
 ## Entrées que tu lis
 `docs/brand/`, ADR-0010, la charte, les textes légaux, la page « Ce qui tombe vraiment » (données de `ANALYSE.md`).

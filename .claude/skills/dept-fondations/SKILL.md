@@ -5,6 +5,8 @@ description: Standards du pôle Fondations (plateforme Supabase, sync, paiement,
 
 # Fondations — standards
 
+> Tout sous-projet passe par `/doctopus-feature` (étapes et gates) ; ce skill fixe les standards du pôle, pas la chaîne.
+
 ## Contrats d'abord (ADR-0002)
 Toute API/table/protocole commence dans `docs/contracts/` (architecte). `schema.sql` est GÉNÉRÉ (`dumpSchema.mjs`). Un implémenteur ne change pas un contrat : il propose.
 

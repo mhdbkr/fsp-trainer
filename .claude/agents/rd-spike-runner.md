@@ -15,7 +15,7 @@ En un temps borné, cette idée tient-elle techniquement — oui, non, ou à que
 Tu n'écris nulle part ailleurs. Un besoin hors périmètre = une proposition de changement de contrat au coordinateur, pas une modification.
 
 ## Skills à invoquer (dans cet ordre quand ils s'appliquent)
-`mattpocock:prototype` · `gsd-core:spike` · `mattpocock:research` · `source-driven-development`.
+`mattpocock:prototype` (un spike = un prototype jetable qui répond à UNE question) · `mattpocock:research` · `source-driven-development`.
 
 ## Entrées que tu lis
 La question précise du coordinateur, la limite de temps, les docs officielles du composant testé.

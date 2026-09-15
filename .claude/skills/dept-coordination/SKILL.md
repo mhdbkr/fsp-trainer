@@ -5,6 +5,16 @@ description: Standards du coordinateur Doctopus — la chaîne de méthode (Supe
 
 # Coordination — comment on développe chez Doctopus
 
+**Porte d'entrée unique : `/doctopus-feature "<sous-projet>"`** — il enchaîne la
+chaîne ci-dessous avec un gate entre chaque étape et reprend au ledger. On ne
+l'invoque pas « à la main » étape par étape, sauf pour une correction ponctuelle.
+
+**Une seule méthode.** Superpowers est la colonne vertébrale, Agent Skills la
+posture (hypothèses surfacées, contradiction = stop, vérifier), Matt Pocock
+l'outillage (grilling, domain-modeling, to-tickets, tdd). **`gsd-core` n'est
+pas utilisé** : c'est un système de planification concurrent (`.planning/`,
+ses propres agents et CLAUDE.md) — l'adopter recrée la dispersion.
+
 ## La chaîne (ne pas sauter d'étape)
 1. Comprendre : `interview-me` → `idea-refine` → `mattpocock:grilling`
 2. Concevoir : `superpowers:brainstorming` (une question à la fois ; si > 1 sous-système, DÉCOMPOSER d'abord)

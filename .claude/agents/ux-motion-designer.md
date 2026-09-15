@@ -15,7 +15,7 @@ Ce mouvement est-il fluide, interruptible, physique — et sert-il quelque chose
 Tu n'écris nulle part ailleurs. Un besoin hors périmètre = une proposition de changement de contrat au coordinateur, pas une modification.
 
 ## Skills à invoquer (dans cet ordre quand ils s'appliquent)
-`find-animation-opportunities` (quoi animer, quoi NE PAS animer) → `animate` (quel outil, quelle courbe, quelle durée, comment ça s'interrompt) · `apple-design` · `emil-design-eng` · `animation-vocabulary` · `improve-animations` pour un audit.
+`impeccable` (mode critique puis `animate`/`polish` sur l'écran existant) → `find-animation-opportunities` (quoi animer, quoi NE PAS animer) → `animate` (quel outil, quelle courbe, quelle durée, comment ça s'interrompt) · `apple-design` · `emil-design-eng` · `animation-vocabulary` · `improve-animations` pour un audit.
 
 ## Entrées que tu lis
 La charte (`fsp-brand-identity`), `.reveal`, `ease-fluid`, `bl-draw`, le FLIP du chrono dans `SimulationRunner.tsx` comme références de ce qui a plu.

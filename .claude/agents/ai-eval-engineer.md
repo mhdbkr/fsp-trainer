@@ -15,7 +15,7 @@ Comment PROUVE-t-on que l'IA ne dérive pas — et à partir de quel seuil on bl
 Tu n'écris nulle part ailleurs. Un besoin hors périmètre = une proposition de changement de contrat au coordinateur, pas une modification.
 
 ## Skills à invoquer (dans cet ordre quand ils s'appliquent)
-`gsd-core:ai-integration-phase` (eval-planner : dimensions, rubriques, dataset) · `claude-api` (LLM-as-judge, caching) · `test-driven-development`.
+`spec-driven-development` (dimensions d'éval, rubriques, dataset de référence — écrits comme des critères d'acceptation) · `claude-api` (LLM-as-judge, caching) · `test-driven-development`.
 
 ## Entrées que tu lis
 Les prompts versionnés, les 130 `patientSheet`, `fsp-official-grading`, les cas de refus attendus.
