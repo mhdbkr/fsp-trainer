@@ -18,7 +18,7 @@
 - Le client n'écrit jamais dans `subscriptions`, `credit_ledger`, `content_items`, `stripe_events` (spec §9.3).
 - `progress_events` : insert-only, `id` généré client, `on conflict do nothing` (spec §4.5).
 - Grâce `past_due` : **7 jours**, constante serveur `PAST_DUE_GRACE_DAYS = 7` (spec §8).
-- Free = tier 1 ; défaut d'un cas = tier 2 ; ~12 cas marqués `tier: 1` (spec §4.4).
+- Free = tier 1 ; défaut d'un cas = tier 2 ; ~12 cas marqués `tier: 1` (spec §4.4). **Contenus dérivés** (fiche, Aufklärung, terme) : tier minimal des cas qui les référencent ; guides et termes sans pathologie = 1.
 - Tous les validateurs `app/scripts/check*.mjs` et la CI restent verts ; vérifier par **code de sortie**.
 - Commits stagés fichier par fichier (Mehdi édite en parallèle) ; pas de `git add -A`.
 - Chemins relatifs à `app/` sauf mention contraire ; `supabase/` vit à `app/supabase/`.
@@ -1346,16 +1346,30 @@ const guides = (await load('seedGuides.ts')).seedGuides();
 const muster = (await load('caseMuster.ts')).CASE_MUSTER;
 const fb = JSON.parse(readFileSync('src/data/fachbegriffe.json', 'utf8'));
 
+// Tier des contenus DÉRIVÉS : le Free est un échantillon COMPLET (12 cas avec
+// leur fiche, leurs termes, leurs Aufklärungen), pas un catalogue de fiches
+// offert. Règle : tier minimal des cas qui référencent l'item ; aucun cas Free
+// → Pro. Les guides restent Free : questions génériques, sans contenu clinique.
+const freeCases = cases.filter((c) => c.tier === 1);
+const freePathologies = new Set(freeCases.map((c) => c.pathology));
+const freeAuf = new Set(freeCases.flatMap((c) => c.probableAufklaerungIds ?? []));
+const freeFbTags = freePathologies;                      // fachbegriff.pathologyTags ↔ case.pathology (même clé que wireLinks)
+const tierFw  = (f) => (freePathologies.has(f.pathology) ? 1 : 2);
+const tierAuf = (a) => (freeAuf.has(a.id) ? 1 : 2);
+const tierFb  = (b) => ((b.pathologyTags ?? []).some((t) => freeFbTags.has(t)) || (b.pathologyTags ?? []).length === 0 ? 1 : 2);
+//   ↑ les termes SANS pathologie (Allgemein / Grundwortschatz) restent Free : vocabulaire de base, pas de contenu de cas.
+
 const items = [
   ...cases.map((c) => ({ id: c.id, kind: 'case', tier: c.tier ?? 2, payload: c })),
-  ...fw.map((f) => ({ id: f.id, kind: 'fachwissen', tier: 1, payload: f })),        // fiches : lisibles par tous (SEO/valeur perçue) — décision D-content-1
-  ...auf.map((a) => ({ id: a.id, kind: 'aufklaerung', tier: 1, payload: a })),
+  ...fw.map((f) => ({ id: f.id, kind: 'fachwissen', tier: tierFw(f), payload: f })),
+  ...auf.map((a) => ({ id: a.id, kind: 'aufklaerung', tier: tierAuf(a), payload: a })),
   ...guides.map((g) => ({ id: g.id, kind: 'guide', tier: 1, payload: g })),
-  ...fb.map((b) => ({ id: b.id, kind: 'fachbegriff', tier: 1, payload: b })),
+  ...fb.map((b) => ({ id: b.id, kind: 'fachbegriff', tier: tierFb(b), payload: b })),
   ...Object.entries(muster).map(([caseId, m]) => ({ id: `muster-${caseId}`, kind: 'muster', tier: (cases.find((c) => c.id === caseId)?.tier ?? 2), payload: m })),
 ];
 const byKind = items.reduce((a, i) => ((a[i.kind] = (a[i.kind] ?? 0) + 1), a), {});
-console.log('items :', byKind, '| tier 1 cas :', items.filter((i) => i.kind === 'case' && i.tier === 1).length);
+const free = (k) => items.filter((i) => i.kind === k && i.tier === 1).length;
+console.log('items :', byKind, '| Free → cas', free('case'), '· fiches', free('fachwissen'), '· Aufklärungen', free('aufklaerung'), '· termes', free('fachbegriff'));
 if (dry) process.exit(0);
 
 const sb = createClient(url, key, { auth: { persistSession: false } });
@@ -1380,7 +1394,7 @@ console.log(`✅ version ${version} publiée — ${items.length} items, ${gone.l
 ```bash
 cd app && node scripts/publishContent.mjs --dry; echo "exit=$?"
 ```
-Expected: compte par kind, `tier 1 cas : 12`, `exit=0`.
+Expected: compte par kind, `Free → cas 12 · fiches 12 · Aufklärungen ≤ 23 · termes ≈ (Allgemein + 12 pathologies)`, `exit=0`. Vérifier que le nombre de fiches Free est **exactement** égal au nombre de cas Free dont la pathologie a une fiche.
 ```bash
 cd app && eval "$(npx supabase status -o env | sed 's/^/export /')" && SUPABASE_URL=$API_URL node scripts/publishContent.mjs && npx supabase db query "select kind, tier, count(*) from public.content_items group by 1,2 order by 1,2;"
 ```
@@ -2637,7 +2651,7 @@ git commit -m "docs(contracts): schema.sql généré, openapi, entitlements, pro
 
 **Couverture du spec** — D1→Task 16 · D2→Tasks 8–11 · D3→Tasks 12–15 · D4→Task 7 · D5→Tasks 3, 6, 18 · D6→Task 5, 7 · D7→Tasks 3, 20 · D8→Task 11 (payload = objet TS) · §4.8 RLS→Tasks 2, 3, 4, 8, 13 · §5 quatre modules→Tasks 5, 6, 10, 12 · §6 sept fonctions→Tasks 9, 13, 18, 19, 20, 21 · §7 flux→Tasks 15, 19, 16 · §8 cas limites→Tasks 10 (FirstLoadRequired, purge), 12 (rejet/backoff), 3 (past_due), 19 (webhook dupliqué, refund), 20 (409), 15 (LWW), 21 (suppression) · §9 sécurité→Tasks 4, 9 (Zod), 13 (rate limit) · §10 tests→Tasks 4, 5, 6, 10, 12, 14, 15, 16, 19, 20, 22 · §11 critères→Task 22 · §12 impacts→Tasks 10, 15, 16.
 
-**Trou comblé** : le spec §4.4 ne disait pas quel tier pour fiches/glossaire/Aufklärung — Task 11 fixe **tier 1** (valeur perçue et SEO), documenté comme décision `D-content-1` dans le script ; à confirmer par Mehdi, changeable en une ligne.
+**Trou comblé (décision Mehdi, 2026-09-15)** : le spec §4.4 ne disait pas quel tier pour fiches/glossaire/Aufklärung. Décision : le Free est un **échantillon complet** — les contenus dérivés prennent le tier minimal des cas qui les référencent (fiche ↔ `pathology`, Aufklärung ↔ `probableAufklaerungIds`, terme ↔ `pathologyTags`) ; sans cas Free → Pro. Exceptions Free : guides (génériques) et termes sans pathologie (vocabulaire de base). Implémenté en Task 11.
 
 **Cohérence des types** — `ProgressEvent` (Task 12) est utilisé tel quel en 13 (Zod miroir), 15, 16, 22. `getEntitlements().limit('content.tier')` (Task 6) consommé en Task 10. `useSession`/`getAccessToken` (Task 5) consommés en 6, 10, 12. `callFn` (Task 18) défini avant usage. `URL` exporté par `helpers.ts` (Task 4) utilisé en 14, 20.
 

@@ -159,9 +159,14 @@ create index on content_items (version);
 ```
 
 Publication : `app/scripts/publishContent.mjs` lit les fichiers TS validés
-par la CI, attribue le `tier` (règle : par cas, dans `seedCases.ts`, champ
-`tier` optionnel, défaut 2 ; une sélection d'environ 12 cas — un par
-spécialité majeure — marqués 1), et pousse un nouveau `version`. La CI reste
+par la CI, attribue le `tier` et pousse un nouveau `version`. Règle de tier :
+- **cas** : champ `tier` optionnel dans `seedCases.ts`, défaut 2 ; ~12 cas
+  (un par spécialité majeure) marqués 1 ;
+- **contenus dérivés** (fiche Fachwissen, Aufklärung, Fachbegriff) : tier
+  minimal des cas qui les référencent — le Free est un *échantillon complet*
+  (12 cas avec leur fiche, leurs termes, leurs Aufklärungen), pas un catalogue
+  de fiches offert. Sans cas Free → 2 ;
+- **guides** et **termes sans pathologie** (vocabulaire de base) : 1. La CI reste
 la porte de qualité ; la base est un miroir.
 
 ### 4.5 Progression
