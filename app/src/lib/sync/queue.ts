@@ -61,18 +61,28 @@ export const syncQueue = {
     // appareil qui ne fait qu'émettre.
     const last = since ?? (await db.progress_events.filter((e) => !!e.received_at).toArray())
       .reduce<string>((m, e) => (e.received_at! > m ? e.received_at! : m), '1970-01-01T00:00:00Z');
-    let res: Response;
-    try { res = await fetch(`${FN}?since=${encodeURIComponent(last)}`, { headers }); } catch { return 0; }
-    if (!res || !res.ok) return 0;
-    const { events } = (await res.json()) as { events: ProgressEvent[] };
-    const known = await db.progress_events.bulkGet(events.map((e) => e.id));
-    const fresh = events.filter((_, i) => !known[i]);
-    if (fresh.length) {
-      await db.progress_events.bulkPut(fresh);
+    // Le serveur renvoie 1 000 événements max par page : on boucle sur le
+    // curseur received_at jusqu'à une page courte, sinon un appareil neuf ne
+    // verrait qu'une partie de la progression jusqu'au N-ième démarrage.
+    let cursor = last; let total = 0; let fresh: ProgressEvent[] = [];
+    for (;;) {
+      let res: Response;
+      try { res = await fetch(`${FN}?since=${encodeURIComponent(cursor)}`, { headers }); } catch { break; }
+      if (!res || !res.ok) break;
+      const { events } = (await res.json()) as { events: ProgressEvent[] };
+      if (!events.length) break;
+      const known = await db.progress_events.bulkGet(events.map((e) => e.id));
+      fresh = events.filter((_, i) => !known[i]);
+      if (fresh.length) await db.progress_events.bulkPut(fresh);
+      total += fresh.length;
+      cursor = events[events.length - 1].received_at ?? cursor;
+      if (events.length < 1000) break;
+    }
+    if (total) {
       const { rebuildProjections } = await import('./projections');
       await rebuildProjections();
     }
-    return fresh.length;
+    return total;
   },
 };
 

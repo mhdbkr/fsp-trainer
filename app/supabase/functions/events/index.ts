@@ -18,7 +18,7 @@ Deno.serve(handle(async (req) => {
   try { await rateLimit(serviceClient(), `events:${user.id}`, 600, 60); } catch (e) { if (e instanceof TooMany) return json({ error: 'rate_limited' }, 429); throw e; }
 
   if (req.method === 'GET') {
-    const since = new URL(req.url).searchParams.get('since') ?? '1970-01-01T00:00:00Z';
+    const { since } = parse(z.object({ since: z.string().datetime({ offset: true }).default('1970-01-01T00:00:00Z') }), Object.fromEntries(new URL(req.url).searchParams));
     // Curseur sur received_at (horloge SERVEUR) — cf. fix Task 12 : occurred_at est
     // l'horloge client et ferait rater les événements poussés en retard.
     const { data, error } = await sb.from('progress_events').select('*').gt('received_at', since).order('received_at').limit(1000);

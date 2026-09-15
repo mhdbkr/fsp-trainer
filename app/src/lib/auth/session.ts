@@ -50,6 +50,23 @@ export const signInWithMagicLink = (email: string) =>
 export const signInWithGoogle = () =>
   supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: redirect() } }).then(({ error }) => { if (error) throw error; });
 
-export const signOut = () => supabase.auth.signOut().then(({ error }) => { if (error) throw error; });
+/** Déconnexion : la progression locale part avec la session. Sur un appareil
+ *  partagé, la laisser ferait fusionner les événements de A dans le compte de
+ *  B (pull), et pousser l'outbox de A sous le jeton de B. */
+export async function clearLocalProgress(): Promise<void> {
+  const { db } = await import('@/db/db');
+  await db.transaction('rw', [db.progress_events, db.outbox, db.simulations, db.plan, db.meta], async () => {
+    await db.progress_events.clear(); await db.outbox.clear(); await db.simulations.clear(); await db.plan.clear();
+    await db.meta.bulkDelete(['migratedLocal', 'migrationDismissed', 'program', 'entitlements']);
+  });
+  // SRS et couches : remis à neuf (ils appartiennent au compte, pas à l'appareil)
+  await db.fachbegriffe.toCollection().modify((fb: { srs?: unknown }) => { fb.srs = undefined; });
+  await db.cases.toCollection().modify((c: { layerProgress?: unknown; confidence?: unknown; status?: unknown }) => { c.layerProgress = undefined; c.confidence = undefined; c.status = undefined; });
+}
+export const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+  await clearLocalProgress();
+};
 
 export const getAccessToken = async (): Promise<string | null> => (await supabase.auth.getSession()).data.session?.access_token ?? null;

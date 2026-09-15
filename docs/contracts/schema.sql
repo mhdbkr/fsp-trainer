@@ -28,19 +28,17 @@ CREATE OR REPLACE FUNCTION "public"."consume_credits"("uid" "uuid", "amount" int
     LANGUAGE "plpgsql" SECURITY DEFINER
     SET "search_path" TO 'public'
     AS $$
-#variable_conflict use_column
-declare
-  bal int;
-  v_reason text := reason;   -- évite l'ambiguïté PL/pgSQL entre le paramètre et la colonne credit_ledger.reason
-  v_ref text := ref;         -- idem pour ref
+declare bal int;
 begin
   if amount <= 0 then raise exception 'invalid_amount'; end if;
-  -- verrou par utilisateur : deux débits concurrents ne peuvent pas passer sous zéro
   perform pg_advisory_xact_lock(hashtext(uid::text));
+  -- déjà débité pour cette ref → idempotent, on renvoie simplement le solde
+  if exists (select 1 from public.credit_ledger l where l.user_id = uid and l.reason = consume_credits.reason and l.ref = consume_credits.ref) then
+    select coalesce(sum(delta), 0) into bal from public.credit_ledger where user_id = uid; return bal;
+  end if;
   select coalesce(sum(delta), 0) into bal from public.credit_ledger where user_id = uid;
   if bal < amount then raise exception 'insufficient_credits' using detail = bal::text; end if;
-  insert into public.credit_ledger (user_id, delta, reason, ref) values (uid, -amount, v_reason, v_ref)
-    on conflict (user_id, reason, ref) do nothing;   -- même ref = déjà débité, pas de double débit
+  insert into public.credit_ledger (user_id, delta, reason, ref) values (uid, -amount, reason, ref);
   select coalesce(sum(delta), 0) into bal from public.credit_ledger where user_id = uid;
   return bal;
 end $$;
@@ -182,6 +180,26 @@ $$;
 
 
 ALTER FUNCTION "public"."profile_completed"("p" "public"."profiles") OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."profiles_guard"() RETURNS "trigger"
+    LANGUAGE "plpgsql"
+    AS $$
+begin
+  new.id := old.id; new.created_at := old.created_at;
+  return new;
+end $$;
+
+
+ALTER FUNCTION "public"."profiles_guard"() OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."progress_events_stamp"() RETURNS "trigger"
+    LANGUAGE "plpgsql"
+    AS $$ begin new.received_at := now(); return new; end $$;
+
+
+ALTER FUNCTION "public"."progress_events_stamp"() OWNER TO "postgres";
 
 
 CREATE OR REPLACE FUNCTION "public"."rate_hit"("k" "text", "max_hits" integer, "window_sec" integer) RETURNS boolean
@@ -427,7 +445,15 @@ CREATE OR REPLACE TRIGGER "credit_ledger_refresh" AFTER INSERT OR DELETE ON "pub
 
 
 
+CREATE OR REPLACE TRIGGER "profiles_guard" BEFORE UPDATE ON "public"."profiles" FOR EACH ROW EXECUTE FUNCTION "public"."profiles_guard"();
+
+
+
 CREATE OR REPLACE TRIGGER "profiles_touch" BEFORE UPDATE ON "public"."profiles" FOR EACH ROW EXECUTE FUNCTION "public"."touch_updated_at"();
+
+
+
+CREATE OR REPLACE TRIGGER "progress_events_stamp" BEFORE INSERT ON "public"."progress_events" FOR EACH ROW EXECUTE FUNCTION "public"."progress_events_stamp"();
 
 
 
@@ -523,6 +549,9 @@ CREATE POLICY "profiles: own update" ON "public"."profiles" FOR UPDATE USING (("
 ALTER TABLE "public"."progress_events" ENABLE ROW LEVEL SECURITY;
 
 
+ALTER TABLE "public"."rate_limits" ENABLE ROW LEVEL SECURITY;
+
+
 ALTER TABLE "public"."stripe_events" ENABLE ROW LEVEL SECURITY;
 
 
@@ -544,6 +573,7 @@ GRANT USAGE ON SCHEMA "public" TO "service_role";
 
 
 
+REVOKE ALL ON FUNCTION "public"."consume_credits"("uid" "uuid", "amount" integer, "reason" "text", "ref" "text") FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."consume_credits"("uid" "uuid", "amount" integer, "reason" "text", "ref" "text") TO "service_role";
 
 
@@ -606,8 +636,19 @@ GRANT ALL ON FUNCTION "public"."profile_completed"("p" "public"."profiles") TO "
 
 
 
-GRANT ALL ON FUNCTION "public"."rate_hit"("k" "text", "max_hits" integer, "window_sec" integer) TO "anon";
-GRANT ALL ON FUNCTION "public"."rate_hit"("k" "text", "max_hits" integer, "window_sec" integer) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."profiles_guard"() TO "anon";
+GRANT ALL ON FUNCTION "public"."profiles_guard"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."profiles_guard"() TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."progress_events_stamp"() TO "anon";
+GRANT ALL ON FUNCTION "public"."progress_events_stamp"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."progress_events_stamp"() TO "service_role";
+
+
+
+REVOKE ALL ON FUNCTION "public"."rate_hit"("k" "text", "max_hits" integer, "window_sec" integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."rate_hit"("k" "text", "max_hits" integer, "window_sec" integer) TO "service_role";
 
 
@@ -663,8 +704,6 @@ GRANT ALL ON TABLE "public"."progress_events" TO "service_role";
 
 
 
-GRANT ALL ON TABLE "public"."rate_limits" TO "anon";
-GRANT ALL ON TABLE "public"."rate_limits" TO "authenticated";
 GRANT ALL ON TABLE "public"."rate_limits" TO "service_role";
 
 

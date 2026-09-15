@@ -27,7 +27,15 @@ async function ledger(admin: Admin, row: { user_id: string; delta: number; reaso
 
 /** Appel Stripe tolérant : un objet introuvable (sandbox, rejeu ancien) se journalise, ne fait pas 500. */
 async function safe<T>(label: string, fn: () => Promise<T>): Promise<T | null> {
-  try { return await fn(); } catch (e) { console.warn(`[stripe] ${label} :`, (e as Error).message); return null; }
+  try { return await fn(); }
+  catch (e) {
+    // 404 = objet inexistant (sandbox, rejeu ancien) : on ignore. Tout autre
+    // échec (réseau, 5xx Stripe) doit faire ÉCHOUER le webhook pour que
+    // Stripe rejoue — sinon un grant mensuel serait perdu pour toujours.
+    const err = e as { statusCode?: number; message: string };
+    if (err.statusCode === 404) { console.warn(`[stripe] ${label} : introuvable`); return null; }
+    throw e;
+  }
 }
 
 Deno.serve(async (req) => {
@@ -37,10 +45,11 @@ Deno.serve(async (req) => {
   catch { return json({ error: 'bad_signature' }, 400); }
 
   const admin = serviceClient();
-  // Idempotence : un événement Stripe n'est traité qu'une fois (insert-or-ignore AVANT tout).
+  // Idempotence : un événement Stripe n'est traité qu'une fois — réservé AVANT,
+  // libéré en cas d'échec (au-moins-une-fois : Stripe rejouera).
   const { error: dup } = await admin.from('stripe_events').insert({ event_id: event.id, type: event.type });
   if (dup) return json({ received: true, duplicate: true });
-
+  try {
   switch (event.type) {
     case 'checkout.session.completed': {
       const s = event.data.object as Stripe.Checkout.Session;
@@ -75,6 +84,11 @@ Deno.serve(async (req) => {
       if (plan?.monthly_credits) await ledger(admin, { user_id, delta: -plan.monthly_credits, reason: 'refund', ref: ch.id });
       break;
     }
+  }
+  } catch (e) {
+    await admin.from('stripe_events').delete().eq('event_id', event.id);
+    console.error('[stripe] traitement échoué, event libéré pour rejeu :', event.id, (e as Error).message);
+    return json({ error: 'processing_failed' }, 500);
   }
   return json({ received: true });
 });

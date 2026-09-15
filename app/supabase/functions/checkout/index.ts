@@ -13,7 +13,10 @@ Deno.serve(handle(async (req) => {
   const { data: p } = await admin.from('plans').select('stripe_price_id').eq('id', plan).single();
   if (!p?.stripe_price_id) return json({ error: 'plan_not_purchasable' }, 400);
   // un customer Stripe par utilisateur, réutilisé
-  const { data: sub } = await admin.from('subscriptions').select('stripe_customer_id').eq('user_id', user.id).maybeSingle();
+  const { data: sub } = await admin.from('subscriptions').select('stripe_customer_id, status').eq('user_id', user.id).maybeSingle();
+  // Un abonnement en cours → pas de second Checkout (double facturation) : le
+  // changement de plan passe par le Customer Portal.
+  if (sub && ['active', 'trialing', 'past_due'].includes(sub.status)) return json({ error: 'already_subscribed', portal: true }, 409);
   // Un customer par utilisateur : d'abord la ligne subscriptions, sinon on
   // cherche chez Stripe par metadata.user_id (un Checkout abandonné a pu en
   // créer un sans abonnement), sinon on crée.

@@ -57,7 +57,21 @@ describe('crédits', () => {
     const tok = (await A.client.auth.getSession()).data.session!.access_token;
     const call = (body: unknown) => fetch(`${URL}/functions/v1/credits-consume`, { method: 'POST', headers: { Authorization: `Bearer ${tok}`, 'content-type': 'application/json' }, body: JSON.stringify(body) });
     expect((await (await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-1' })).json()).balance).toBe(2);
-    expect((await (await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-1' })).json()).balance).toBe(2);   // même ref : pas de double débit
+    const replay = await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-1' });
+    expect(replay.status).toBe(200);                                             // rejeu = idempotent, PAS 409
+    expect((await replay.json()).balance).toBe(2);                               // même ref : pas de double débit
     expect((await call({ amount: 3, reason: 'ai.arztbrief', ref: 'job-2' })).status).toBe(409);
+  });
+});
+
+describe('rate_limits — service role uniquement', () => {
+  it('anon/authenticated ne lisent ni n\'écrivent rate_limits, ni n\'appellent rate_hit', async () => {
+    const { data, error } = await A.client.from('rate_limits').select('*');
+    expect(data === null || data.length === 0).toBe(true);           // RLS sans policy → 0 ligne (ou erreur de grant)
+    const { error: w } = await A.client.from('rate_limits').insert({ key: 'x', window_start: new Date().toISOString(), count: 0 });
+    expect(w).not.toBeNull();
+    const { error: f } = await A.client.rpc('rate_hit', { k: 'events:someone', max_hits: 1, window_sec: 60 });
+    expect(f).not.toBeNull();
+    void error;
   });
 });

@@ -28,7 +28,11 @@ export const contentLoader = {
     // ne peut pas savoir que ce client n'a jamais reçu les items du nouveau tier.
     // applyContent est idempotent : recharger tout est sûr.
     const local = opts.full ? 0 : await getMeta<number>('contentVersion', 0);
-    const tier = getEntitlements().limit('content.tier') ?? 3;
+    // Tier autorisé pour la PURGE. Matrice non chargée (entitlements en échec,
+    // pas de cache) → limit() rend 0 et tout le cache serait effacé : on ne
+    // purge rien tant qu'on ne SAIT pas (Infinity = aucune purge).
+    const ent = getEntitlements();
+    const tier = ent.loaded && Object.keys(ent.matrix).length ? (ent.limit('content.tier') ?? 3) : Infinity;
     let res: Response;
     try {
       const token = await getAccessToken();

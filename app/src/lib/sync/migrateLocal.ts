@@ -14,7 +14,7 @@ export async function migrateLocalProgress(uid: string): Promise<{ events: numbe
   // Les simulations de DÉMO (peuplent les stats au premier lancement) ne sont
   // jamais migrées : elles fausseraient les stats et l'indice de préparation.
   for (const s of (await db.simulations.toArray()).filter((x) => !isDemoSimulation(x.id))) toPush.push({ type: 'simulation.completed', subject_id: s.caseId, payload: s, occurred_at: new Date(s.date).toISOString() });
-  for (const fb of await db.fachbegriffe.toArray()) if (fb.srs && fb.srs.state !== 'Neu') toPush.push({ type: 'srs.reviewed', subject_id: fb.id, payload: fb.srs, occurred_at: new Date(fb.srs.dueDate || Date.now()).toISOString() });
+  for (const fb of await db.fachbegriffe.toArray()) if (fb.srs && fb.srs.state !== 'Neu') toPush.push({ type: 'srs.reviewed', subject_id: fb.id, payload: fb.srs, occurred_at: new Date().toISOString() });   // PAS dueDate (futur) : le LWW préférerait l'état migré à toute révision réelle
   for (const c of await db.cases.toArray()) if (c.layerProgress) toPush.push({ type: 'case.layer_reached', subject_id: c.id, payload: { layer: c.layerProgress } });
   const metaKeys = (await db.meta.toCollection().primaryKeys()).map(String);
   for (const key of metaKeys.filter((k) => k.startsWith('program:'))) toPush.push({ type: 'program.configured', subject_id: null, payload: await getMeta(key, null) });
