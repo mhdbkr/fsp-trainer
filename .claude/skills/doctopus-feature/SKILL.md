@@ -42,14 +42,21 @@ Puis `mattpocock:domain-modeling` → termes nouveaux dans `CONTEXT.md` ;
 Si le sous-projet touche données ou serveur : dispatcher `platform-architect`
 (Opus) pour les contrats **avant** le plan ; s'il touche la pédagogie, la
 gamification ou les prix : `product-pedagogy-designer` (veto, ADR-0008).
-**Gate** : spec committé, relu par Mehdi, critères d'acceptation testables.
+Puis `agentops:red-team` sur le spec : hypothèses non dites, trous, affirmations
+non prouvées — chaque trou est fermé dans le spec ou reporté explicitement.
+**Gate** : spec committé, red-team sans trou ouvert, relu par Mehdi, critères
+d'acceptation testables.
 
 ## 3 · Planifier — gate : plan self-reviewed, issues créées
 
 `superpowers:writing-plans` : tâches de 2–5 min, code inclus, TDD, fichiers
 exacts, interfaces entre tâches ; self-review (couverture du spec, placeholders,
 cohérence des types). `mattpocock:to-tickets` → une issue par tranche, liée à
-l'epic. **Gate** : chaque exigence du spec pointe vers une tâche.
+l'epic. Puis `agentops:pre-mortem` sur le plan, AVANT le premier dispatch :
+« le sous-projet a échoué — pourquoi ? » ; chaque mode d'échec plausible reçoit
+une parade dans le plan (tâche, test, contrainte globale) ou est accepté par
+écrit. **Gate** : chaque exigence du spec pointe vers une tâche ; chaque mode
+d'échec du pre-mortem a sa parade.
 
 ## 4 · Construire — gate : ledger complet, CI verte à chaque tranche
 
@@ -70,7 +77,11 @@ Revue finale de branche : `quality-branch-reviewer` (Opus) avec le package
 `review-package <base> HEAD` ; `security-auditor` si auth / paiement / données ;
 `ux-user-advocate` si un écran a changé ; `code-simplification` sur les hotspots.
 Appliquer avec `receiving-code-review` : un seul fixeur pour toute la liste.
-**Gate** : tout Critical/Important fermé avec test ; mineurs consignés en fin de plan.
+Toute décision **irréversible** rencontrée en route (fork d'architecture,
+fournisseur, migration destructive, ADR) passe par `agentops:council` : juges
+indépendants, verdict consigné dans l'ADR.
+**Gate** : tout Critical/Important fermé avec test ; mineurs consignés en fin de
+plan ; council en accord sur l'irréversible.
 
 ## 6 · Livrer — gate : PR mergeable, CI verte, preuves consignées
 
@@ -78,6 +89,10 @@ Appliquer avec `receiving-code-review` : un seul fixeur pour toute la liste.
 chaque critère d'acceptation → section « Vérification » en fin de plan) →
 `superpowers:finishing-a-development-branch` → PR (`gh pr create`) → CI verte
 → `coord-release-manager` pour le go/no-go → merge par Mehdi.
+Après le merge : `agentops:post-mortem` sur l'arc entier — ce qui a surpris, ce
+que la revue a attrapé que le plan aurait dû prévoir, ce qui a coûté. Les
+apprentissages vont dans `CLAUDE.md` (règles opposables) ou le skill `dept-*`
+concerné, jamais seulement dans la mémoire de session.
 Mémoire projet mise à jour (`~/.claude/.../memory/`) : pièges, décisions, suivis.
 
 ## 7 · Quand ça casse (à n'importe quelle étape)

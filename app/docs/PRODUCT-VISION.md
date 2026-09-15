@@ -152,3 +152,4 @@ au départ ; comptable et déclaration si le marché se confirme.
 | 0009 | Routage des modèles : Opus juge, Sonnet exécute, Haiku trie |
 | 0010 | Monorepo app + site + tokens partagés |
 | 0011 | Voix : démo statique pré-générée d'abord ; chantier complet à part |
+| 0012 | AgentOps : quatre skills aux gates (red-team, pre-mortem, council, post-mortem), pas le système |

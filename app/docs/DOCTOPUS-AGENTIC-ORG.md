@@ -67,14 +67,24 @@ invoquer** ; le coordinateur ne l'improvise pas.
 | Étape | Skill(s) | Livrable | Gate |
 |---|---|---|---|
 | **0 · Comprendre** | `interview-me` (ce que l'utilisateur veut vraiment) → `idea-refine` (divergence/convergence) → `mattpocock:grilling` (les questions qui fâchent) | Intention claire, hypothèses surfacées | Direction valide l'intention |
-| **1 · Concevoir** | `superpowers:brainstorming` (une question à la fois, décomposition si > 1 sous-système, 2–3 approches, design par sections) | `docs/superpowers/specs/YYYY-MM-DD-<sujet>-design.md` | Self-review du spec (placeholders, contradictions, périmètre) puis relecture Mehdi |
+| **1 · Concevoir** | `superpowers:brainstorming` (une question à la fois, décomposition si > 1 sous-système, 2–3 approches, design par sections) → **`agentops:red-team`** sur le spec (hypothèses non dites, trous) | `docs/superpowers/specs/YYYY-MM-DD-<sujet>-design.md` | Self-review du spec, red-team sans trou ouvert, puis relecture Mehdi |
 | **1b · Modéliser le domaine** | `mattpocock:domain-modeling` (termes → `CONTEXT.md`), `documentation-and-adrs` (décisions → `docs/adr/`) | Glossaire à jour, ADR par décision | Aucun terme inventé hors glossaire |
 | **2 · Spécifier** | `spec-driven-development` / `mattpocock:to-spec` (critères d'acceptation **testables**) ; `constraint-driven-development` si la barre de qualité n'est pas écrite | Critères §11 du spec | Chaque critère a une preuve possible |
-| **3 · Planifier** | `superpowers:writing-plans` + `planning-and-task-breakdown` ; `mattpocock:to-tickets` → issues GitHub | `docs/superpowers/plans/…md` (tâches 2–5 min, code inclus, TDD) + issues | Self-review : couverture du spec, placeholders, cohérence des types |
+| **3 · Planifier** | `superpowers:writing-plans` + `planning-and-task-breakdown` ; `mattpocock:to-tickets` → issues GitHub ; **`agentops:pre-mortem`** sur le plan (modes d'échec avant le premier dispatch) | `docs/superpowers/plans/…md` (tâches 2–5 min, code inclus, TDD) + issues | Self-review : couverture du spec, placeholders, cohérence des types ; pre-mortem : chaque mode d'échec a une parade dans le plan |
 | **4 · Construire** | `superpowers:subagent-driven-development` (un implémenteur frais par tâche, revue par tâche) · `incremental-implementation` · `test-driven-development` (`mattpocock:tdd`) · `source-driven-development` (API externes : Supabase, Stripe, Rive) · `doubt-driven-development` (paiement, RLS, sync, irréversible) · `context-engineering` | Commits atomiques, ledger `.superpowers/sdd/progress.md` | Tests + tsc + validateurs par **code de sortie** ; vérification navigateur |
-| **5 · Revoir** | Revue par tâche (spec + qualité) ; `code-review-and-quality` (5 axes) ; `security-review` / `security-and-hardening` sur auth/paiement/données ; `code-simplification` ; revue finale de branche sur **Opus** (`requesting-code-review`) ; `receiving-code-review` pour appliquer | Constats au format `_FORMAT.md` | Aucun Critical/Important ouvert |
-| **6 · Livrer** | `superpowers:finishing-a-development-branch` → PR → CI verte → `git-workflow-and-versioning` ; `shipping-and-launch` (checklist, rollback) ; `observability-and-instrumentation` | PR mergée, release taguée | `superpowers:verification-before-completion` : preuve, pas impression |
+| **5 · Revoir** | Revue par tâche (spec + qualité) ; `code-review-and-quality` (5 axes) ; `security-review` / `security-and-hardening` sur auth/paiement/données ; `code-simplification` ; revue finale de branche sur **Opus** (`requesting-code-review`) ; `receiving-code-review` pour appliquer ; **`agentops:council`** (juges indépendants) pour toute décision irréversible ou ADR | Constats au format `_FORMAT.md` | Aucun Critical/Important ouvert ; council en accord sur l'irréversible |
+| **6 · Livrer** | `superpowers:finishing-a-development-branch` → PR → CI verte → `git-workflow-and-versioning` ; `shipping-and-launch` (checklist, rollback) ; `observability-and-instrumentation` ; **`agentops:post-mortem`** en fin de sous-projet → apprentissages dans `CLAUDE.md` / `dept-*` | PR mergée, release taguée, post-mortem consigné | `superpowers:verification-before-completion` : preuve, pas impression |
 | **7 · Diagnostiquer** (quand ça casse) | `superpowers:systematic-debugging` / `debugging-and-error-recovery` / `mattpocock:diagnosing-bugs` : reproduire → localiser → corriger → verrouiller par un test | Test de non-régression | Le bug a son test |
+
+**AgentOps — quatre skills, pas le système.** Le plugin agentops (67 skills)
+est un système d'exploitation complet qui suppose son écosystème (`ao`, `beads`,
+`ntm`, `cass`, `rch`) et referait notre coordination avec un second tracker.
+On n'en adopte que ce qui est autonome et qui comble un trou réel — la
+vérification **du plan et du spec** avant exécution, et l'apprentissage après :
+`red-team` (spec), `pre-mortem` (plan), `council` (irréversible), `post-mortem`
+(fin de sous-projet). `rpi`, `crank`, `converge`, `evolve`, `swarm`, `beads-*`,
+`ntm`, `cass`, `rch`, `dcg`, `using-atm` sont **hors périmètre par décision**
+(ADR-0012) — ne pas rediscuter.
 
 **Comportements non négociables** (Agent Skills) : surfacer ses hypothèses
 avant d'agir ; s'arrêter sur une contradiction plutôt que deviner ; pousser

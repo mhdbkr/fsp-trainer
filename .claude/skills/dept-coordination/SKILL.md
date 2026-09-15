@@ -17,13 +17,15 @@ ses propres agents et CLAUDE.md) — l'adopter recrée la dispersion.
 
 ## La chaîne (ne pas sauter d'étape)
 1. Comprendre : `interview-me` → `idea-refine` → `mattpocock:grilling`
-2. Concevoir : `superpowers:brainstorming` (une question à la fois ; si > 1 sous-système, DÉCOMPOSER d'abord)
+2. Concevoir : `superpowers:brainstorming` (une question à la fois ; si > 1 sous-système, DÉCOMPOSER d'abord) → `agentops:red-team` sur le spec
 3. Modéliser : `mattpocock:domain-modeling` (→ `CONTEXT.md`), `documentation-and-adrs` (→ `docs/adr/`)
 4. Spécifier : critères d'acceptation testables (`spec-driven-development`, `mattpocock:to-spec`)
-5. Planifier : `superpowers:writing-plans` → tâches 2–5 min avec code ; `mattpocock:to-tickets` → issues GitHub
+5. Planifier : `superpowers:writing-plans` → tâches 2–5 min avec code ; `mattpocock:to-tickets` → issues GitHub ; `agentops:pre-mortem` sur le plan AVANT le premier dispatch
 6. Construire : `superpowers:subagent-driven-development` — un implémenteur frais par tâche, revue par tâche, ledger `.superpowers/sdd/progress.md`
-7. Revoir : revue finale de branche sur Opus ; `security-review` si auth/paiement/données
-8. Livrer : `superpowers:finishing-a-development-branch` → PR → CI verte
+7. Revoir : revue finale de branche sur Opus ; `security-review` si auth/paiement/données ; `agentops:council` pour toute décision irréversible / ADR
+8. Livrer : `superpowers:finishing-a-development-branch` → PR → CI verte → `agentops:post-mortem` (apprentissages → CLAUDE.md / dept-*)
+
+AgentOps : SEULS ces quatre skills (ADR-0012). `rpi`/`crank`/`beads`/`ntm`/`cass` sont hors périmètre.
 
 ## Routage (ADR-0009) — TOUJOURS explicite dans le dispatch
 Opus = jugement (architecte, relecteur clinique, avocat utilisateur, pédagogue, sécurité, revue finale). Sonnet = exécution. Haiku = tri/masse.
