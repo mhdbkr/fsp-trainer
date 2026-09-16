@@ -56,7 +56,7 @@ interface KnownAccount {
 - À chaque `TOKEN_REFRESHED` / `SIGNED_IN`, le jeton du compte courant est
   réécrit dans le registre (rotation Supabase : seul le dernier est valide, et
   un jeton non utilisé reste valide).
-- Basculer vers B : `supabase.auth.setSession({ refresh_token })`. Succès →
+- Basculer vers B : `supabase.auth.refreshSession({ refresh_token })` (`setSession` exigerait un access_token). Succès →
   `fsp.activeUserId = B` → `location.reload()`. Échec (jeton révoqué/expiré)
   → `refreshToken = null` → invite « mot de passe de B » (un champ), jamais
   d'e-mail.
@@ -99,7 +99,7 @@ En mode `public`, rien ne change par rapport à aujourd'hui (l'anonyme reste un
 | AC-2 | Deux comptes créés sur un appareil : basculer A→B→A sans saisir de mot de passe ; chaque bascule < 3 s | navigateur |
 | AC-3 | Une simulation faite par A n'apparaît ni dans l'historique, ni les stats, ni le programme de B ; le SRS d'un terme révisé par A est neuf chez B | navigateur + test Dexie (noms de bases distincts) |
 | AC-4 | Compte A ouvert sur un 2ᵉ appareil avec e-mail + mot de passe : ses simulations et son programme sont là après la sync | navigateur, 2 contextes |
-| AC-5 | Jeton de B révoqué côté serveur → la bascule demande le mot de passe de B, un champ, et réussit | test unitaire (setSession rejeté) + navigateur |
+| AC-5 | Jeton de B révoqué côté serveur → la bascule demande le mot de passe de B, un champ, et réussit | test unitaire (refreshSession rejeté, AuthApiError) + navigateur |
 | AC-6 | « Oublier ce compte » supprime la base locale de ce compte seulement ; les autres bases sont intactes | test Dexie |
 | AC-7 | `grantFounder.mjs <email>` → `my_plan()` renvoie `premium` pour ce compte ; le contenu Pro se charge | script + RLS test |
 | AC-8 | Mode `public` : aucun changement de comportement (tests existants verts) | vitest, testRls |
