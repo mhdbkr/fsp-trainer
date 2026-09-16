@@ -71,6 +71,9 @@ jobs:
           cache-dependency-path: app/package-lock.json
       - run: npm ci
       - run: npm run typecheck
+      # Tests unitaires (Vitest, jsdom + fake-indexeddb) : sans cette ligne, aucun
+      # critère d'acceptation client n'était gaté mécaniquement (constat pre-mortem V1).
+      - run: npx vitest run --dir src
       - run: npm run build
 
   rls:
