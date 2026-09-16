@@ -1,3 +1,10 @@
+---
+title: Widerrufsbelehrung
+slug: widerruf
+validated_by: ""
+validated_at: ""
+placeholders: ["LEGAL_NAME", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_EMAIL"]
+---
 > **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
 > Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 

@@ -1,3 +1,10 @@
+---
+title: Impressum
+slug: impressum
+validated_by: ""
+validated_at: ""
+placeholders: ["LEGAL_NAME", "LEGAL_FORM", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_COUNTRY", "LEGAL_REPRESENTATIVE", "LEGAL_PHONE", "LEGAL_EMAIL", "LEGAL_REGISTER_OR_SIRET", "LEGAL_VAT_ID"]
+---
 > **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
 > Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 

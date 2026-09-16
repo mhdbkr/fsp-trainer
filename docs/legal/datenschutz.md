@@ -1,3 +1,10 @@
+---
+title: Datenschutzerklärung
+slug: datenschutz
+validated_by: ""
+validated_at: ""
+placeholders: ["LEGAL_NAME", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_EMAIL", "LEGAL_PRIVACY_EMAIL", "ANALYTICS_PROVIDER", "LEGAL_AI_PROVIDER_NAME_AND_SEAT", "LEGAL_TAX_RETENTION_PERIOD"]
+---
 > **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
 > Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 

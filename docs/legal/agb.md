@@ -1,3 +1,10 @@
+---
+title: AGB
+slug: agb
+validated_by: ""
+validated_at: ""
+placeholders: ["LEGAL_NAME", "LEGAL_EMAIL", "LEGAL_SUBSCRIPTION_PRICES", "ANZAHL_CREDITS_PRO", "ANZAHL_CREDITS_PREMIUM", "BESCHREIBUNG_PRO", "BESCHREIBUNG_PREMIUM", "LEGAL_CREDITS_EXPIRY_RULE", "LEGAL_CREDITS_REFUND_RULE", "LEGAL_GOVERNING_LAW", "LEGAL_LIABILITY_CLAUSE"]
+---
 > **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
 > Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 
