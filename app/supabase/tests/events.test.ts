@@ -41,6 +41,17 @@ describe('events', () => {
     expect(r.events.every((e: { user_id: string }) => e.user_id === B.id)).toBe(true);
   });
 
+  it('accepte exam_day.completed dans un lot mixte', async () => {
+    const a = crypto.randomUUID(), b = crypto.randomUUID();
+    const r = await post(A, [ev(a), { id: b, type: 'exam_day.completed', subject_id: 'sim-x', payload: { v: 1 }, occurred_at: '2026-09-16T10:00:00Z' }]);
+    expect(r.acked.sort()).toEqual([a, b].sort());
+  });
+
+  it('rejette un type inconnu (lot entier)', async () => {
+    const res = await fetch(FN, { method: 'POST', headers: { Authorization: `Bearer ${await tok(A)}`, 'content-type': 'application/json' }, body: JSON.stringify({ events: [{ ...ev(crypto.randomUUID()), type: 'bogus' }] }) });
+    expect(res.status).toBe(400);
+  });
+
   it('un type inconnu est refusé en 400', async () => {
     const r = await fetch(FN, { method: 'POST', headers: { Authorization: `Bearer ${await tok(A)}`, 'content-type': 'application/json' }, body: JSON.stringify({ events: [{ ...ev(crypto.randomUUID()), type: 'hack' }] }) });
     expect(r.status).toBe(400);
