@@ -348,7 +348,7 @@ const auth = {
   onAuthStateChange: vi.fn((cb) => { listeners.push(cb); return { data: { subscription: { unsubscribe() {} } } }; }),
   signInWithOtp: vi.fn().mockResolvedValue({ error: null }),
   signOut: vi.fn().mockResolvedValue({ error: null }),
-  signUp: vi.fn(), signInWithPassword: vi.fn(), setSession: vi.fn(),
+  signUp: vi.fn(), signInWithPassword: vi.fn(), refreshSession: vi.fn(),
 };
 const from = vi.fn(() => ({ update: vi.fn(() => ({ eq: vi.fn().mockResolvedValue({ error: null }) })) }));
 vi.mock('@/lib/supabase', () => ({ supabase: { auth, from } }));
@@ -392,9 +392,9 @@ Ajouter dans `beforeEach` : `localStorage.clear(); vi.clearAllMocks();` (garder 
 
     it('switchAccount : jeton valide → setSession, actif changé, "switched"', async () => {
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'r2' });
-      auth.setSession.mockResolvedValue({ data: { session: { refresh_token: 'r2b', user: { id: 'u2' } } }, error: null });
+      auth.refreshSession.mockResolvedValue({ data: { session: { refresh_token: 'r2b', user: { id: 'u2' } } }, error: null });
       await expect(switchAccount('u2')).resolves.toBe('switched');
-      expect(auth.setSession).toHaveBeenCalledWith({ access_token: '', refresh_token: 'r2' });
+      expect(auth.refreshSession).toHaveBeenCalledWith({ refresh_token: 'r2' });
       expect(getActiveUserId()).toBe('u2');
       expect(listAccounts()[0].refreshToken).toBe('r2b');
     });
@@ -402,7 +402,7 @@ Ajouter dans `beforeEach` : `localStorage.clear(); vi.clearAllMocks();` (garder 
     it('switchAccount : jeton refusé → jeton=null, actif inchangé, "password-required"', async () => {
       setActiveUserId('u1');
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'dead' });
-      auth.setSession.mockResolvedValue({ data: { session: null }, error: { message: 'Invalid Refresh Token' } });
+      auth.refreshSession.mockResolvedValue({ data: { session: null }, error: new AuthApiError('Invalid Refresh Token', 400, 'refresh_token_not_found') });
       await expect(switchAccount('u2')).resolves.toBe('password-required');
       expect(getActiveUserId()).toBe('u1');
       expect(listAccounts().find((x) => x.userId === 'u2')?.refreshToken).toBeNull();
@@ -411,7 +411,7 @@ Ajouter dans `beforeEach` : `localStorage.clear(); vi.clearAllMocks();` (garder 
     it('switchAccount : pas de jeton → "password-required" sans appel réseau', async () => {
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: null });
       await expect(switchAccount('u2')).resolves.toBe('password-required');
-      expect(auth.setSession).not.toHaveBeenCalled();
+      expect(auth.refreshSession).not.toHaveBeenCalled();
     });
 
     it('signOut (founder) : scope local, jeton=null, compte gardé, actif=null', async () => {
@@ -445,6 +445,7 @@ interface ImportMeta { readonly env: ImportMetaEnv }
 Dans `session.ts`, après l'import de `supabase`, ajouter :
 
 ```ts
+import { isAuthApiError } from '@supabase/supabase-js';
 import { upsertAccount, setRefreshToken, setActiveUserId, getActiveUserId, listAccounts } from './accounts';
 
 /** founder : comptes immédiats + bascule locale (ADR-0015). public : comportement SaaS. */
@@ -494,8 +495,13 @@ export async function signInWithPassword(p: { email: string; password: string })
 export async function switchAccount(userId: string): Promise<'switched' | 'password-required'> {
   const a = listAccounts().find((x) => x.userId === userId);
   if (!a?.refreshToken) return 'password-required';
-  const { data, error } = await supabase.auth.setSession({ access_token: '', refresh_token: a.refreshToken });
-  if (error || !data.session) { setRefreshToken(userId, null); return 'password-required'; }
+  // refreshSession n'exige que le refresh_token (setSession exigerait un access_token — vérifié dans auth-js 2.116).
+  const { data, error } = await supabase.auth.refreshSession({ refresh_token: a.refreshToken });
+  if (error || !data.session) {
+    // Jeton refusé par le serveur → mot de passe. Erreur transitoire (hors-ligne) → on garde le jeton.
+    if (error && isAuthApiError(error)) setRefreshToken(userId, null);
+    return 'password-required';
+  }
   setRefreshToken(userId, data.session.refresh_token);
   setActiveUserId(userId);
   return 'switched';
@@ -541,6 +547,8 @@ git commit -m "feat(fondateur): session par mot de passe, capture des jetons, ba
 - Create: `app/src/features/auth/FounderGate.tsx`
 - Test: `app/src/features/auth/FounderGate.test.tsx`
 - Modify: `app/src/main.tsx:95-110` (séquence de boot)
+
+> Correctif après revue Opus (2026-09-17) : `switchAccount` utilise `refreshSession`, pas `setSession` ; le jeton n'est effacé que sur `AuthApiError` ; `AccountPage.remove()` oublie le compte local en mode founder. Voir e979612.
 
 **Interfaces:**
 - Consumes: Task 3 (`AUTH_MODE`, `signUpWithPassword`, `signInWithPassword`, `switchAccount`), Task 1 (`listAccounts`, `initials`)
