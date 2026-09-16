@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { upsertAccount, setRefreshToken, setActiveUserId, getActiveUserId, listAccounts } from './accounts';
+
+/** founder : comptes immédiats + bascule locale (ADR-0015). public : comportement SaaS. */
+export const AUTH_MODE: 'founder' | 'public' = import.meta.env.VITE_AUTH_MODE === 'founder' ? 'founder' : 'public';
 
 export type SessionStatus = 'loading' | 'anonymous' | 'authenticated';
 interface SessionState { user: User | null; status: SessionStatus }
@@ -36,7 +40,13 @@ export async function initSession(): Promise<void> {
   }
   const { data } = await supabase.auth.getSession();
   apply(data.session?.user ?? null);
-  supabase.auth.onAuthStateChange((_event, session) => apply(session?.user ?? null));
+  supabase.auth.onAuthStateChange((event, session) => {
+    apply(session?.user ?? null);
+    // Rotation des jetons : seul le dernier est valide → on le garde pour ce compte.
+    if (AUTH_MODE === 'founder' && session?.user && session.refresh_token && (event === 'TOKEN_REFRESHED' || event === 'SIGNED_IN')) {
+      setRefreshToken(session.user.id, session.refresh_token);
+    }
+  });
 }
 
 // Sans fragment : GoTrue ajoute `?code=` à cette URL ; supabase-js l'échange
@@ -49,6 +59,41 @@ export const signInWithMagicLink = (email: string) =>
 
 export const signInWithGoogle = () =>
   supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: redirect() } }).then(({ error }) => { if (error) throw error; });
+
+// ── Mode fondateur : mot de passe, sans lien magique ────────────────────────
+type SessionLike = { refresh_token: string; user: { id: string; email?: string; user_metadata?: Record<string, unknown> } };
+
+const remember = (s: SessionLike, displayName: string) => {
+  upsertAccount({ userId: s.user.id, email: s.user.email ?? '', displayName, refreshToken: s.refresh_token });
+  setActiveUserId(s.user.id);
+};
+
+export async function signUpWithPassword(p: { email: string; password: string; displayName: string }): Promise<void> {
+  const { data, error } = await supabase.auth.signUp({ email: p.email, password: p.password, options: { data: { display_name: p.displayName } } });
+  if (error) throw error;
+  if (!data.session) throw new Error('Le serveur exige une confirmation par e-mail : désactiver « Confirm email » dans Supabase Auth (spec §4).');
+  await supabase.from('profiles').update({ display_name: p.displayName }).eq('id', data.session.user.id);
+  remember(data.session as SessionLike, p.displayName);
+}
+
+export async function signInWithPassword(p: { email: string; password: string }): Promise<void> {
+  const { data, error } = await supabase.auth.signInWithPassword({ email: p.email, password: p.password });
+  if (error) throw error;
+  const s = data.session as SessionLike;
+  const name = (s.user.user_metadata?.display_name as string | undefined) ?? s.user.email?.split('@')[0] ?? 'Moi';
+  remember(s, name);
+}
+
+/** Bascule sans mot de passe. L'appelant recharge la page après 'switched'. */
+export async function switchAccount(userId: string): Promise<'switched' | 'password-required'> {
+  const a = listAccounts().find((x) => x.userId === userId);
+  if (!a?.refreshToken) return 'password-required';
+  const { data, error } = await supabase.auth.setSession({ access_token: '', refresh_token: a.refreshToken });
+  if (error || !data.session) { setRefreshToken(userId, null); return 'password-required'; }
+  setRefreshToken(userId, data.session.refresh_token);
+  setActiveUserId(userId);
+  return 'switched';
+}
 
 /** Déconnexion : la progression locale part avec la session. Sur un appareil
  *  partagé, la laisser ferait fusionner les événements de A dans le compte de
@@ -64,6 +109,15 @@ export async function clearLocalProgress(): Promise<void> {
   await db.cases.toCollection().modify((c: { layerProgress?: unknown; confidence?: unknown; status?: unknown }) => { c.layerProgress = undefined; c.confidence = undefined; c.status = undefined; });
 }
 export const signOut = async () => {
+  if (AUTH_MODE === 'founder') {
+    // La base locale est celle du compte : rien à purger. On invalide juste le jeton local.
+    const id = getActiveUserId();
+    const { error } = await supabase.auth.signOut({ scope: 'local' });
+    if (error) throw error;
+    if (id) setRefreshToken(id, null);
+    setActiveUserId(null);
+    return;
+  }
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
   await clearLocalProgress();
