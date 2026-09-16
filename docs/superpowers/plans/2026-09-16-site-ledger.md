@@ -12,5 +12,6 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T0.5 | impl-t05 | 1db9f1c | review-t05 | APPROVED_WITH_MINORS (I1 garde refresh, I2 validated_by) | lead-site 5cfc5bf |
 | T1.1 | impl-t11 | e029412 | review-t11 | APPROVED_WITH_MINORS (10/10 pathologies fidèles, Σ=593 ; ** dans summary → T2.3) | — |
 | T1.2 | impl-t12 | c000f8d | review-t12 | APPROVED_WITH_MINORS | — |
-| T1.3 | impl-t13 | dce7bdf | review-t13 | APPROVED_WITH_MINORS (I1 omissions non détectées → fix en T1.5 ; M4 lexique « jederzeit kündbar » → T1.5) | — |
+| T1.3 | impl-t13 | dce7bdf | review-t13 | APPROVED_WITH_MINORS (I1 omissions non détectées → fix en T1.5 ; M4 lexique « jederzeit kündbar » → T1.5) | c6704c6 |
 | T1.4 | impl-t14 | 3b1a5bf | — | — | — |
+| T1.5 | impl-t15 | 1b9e440 | — | — | — |
