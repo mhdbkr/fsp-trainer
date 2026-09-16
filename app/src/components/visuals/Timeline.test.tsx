@@ -71,12 +71,15 @@ describe('Timeline', () => {
     root.unmount();
   });
 
-  it('axisTone signal marque l’axe, pas les points (aucun ToneMark signal sur un point)', () => {
+  it('axisTone signal marque l’axe par un libellé textuel visible, pas seulement par la couleur', () => {
     const html = renderToStaticMarkup(<Timeline block={makeBlock(threePoints, 'signal')} fw={fw} />);
     expect(html).toContain('signal');
-    // Aucun point n'a tone 'signal' dans les données (contrainte de type) —
-    // vérifie qu'aucun sr-only "Notfall" n'apparaît (réservé aux points, absent ici).
-    expect(html).not.toContain('Notfall');
+    expect(html).toContain('Notfallverlauf');
+  });
+
+  it('sans axisTone signal, aucun libellé « Notfallverlauf » n’apparaît', () => {
+    const html = renderToStaticMarkup(<Timeline block={makeBlock(threePoints)} fw={fw} />);
+    expect(html).not.toContain('Notfallverlauf');
   });
 
   it('aucun emoji dans le rendu', () => {
