@@ -1,0 +1,40 @@
+@import '@doctopus/tokens/tokens.css';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/ibm-plex-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { color-scheme: light dark; }
+  body { @apply bg-paper text-ink font-sans antialiased; }
+  h1, h2, h3 { @apply font-display tracking-tightish; font-weight: 600; }
+  :focus-visible { outline: 2px solid var(--dt-color-focus-light); outline-offset: 2px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: var(--dt-color-ink-800); color: var(--dt-color-paper); }
+    :focus-visible { outline-color: var(--dt-color-focus-dark); }
+  }
+}
+
+@layer components {
+  /* Verre : navigation seulement (contrat §6). La matière de page reste opaque. */
+  .glass {
+    background: var(--dt-glass-light-background);
+    border: 1px solid var(--dt-glass-light-border);
+    box-shadow: var(--dt-glass-light-shadow);
+    -webkit-backdrop-filter: blur(var(--dt-glass-blur)) saturate(var(--dt-glass-saturate));
+    backdrop-filter: blur(var(--dt-glass-blur)) saturate(var(--dt-glass-saturate));
+  }
+  @media (prefers-color-scheme: dark) {
+    .glass { background: var(--dt-glass-dark-background); border-color: var(--dt-glass-dark-border); box-shadow: var(--dt-glass-dark-shadow); }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass { background: var(--dt-glass-light-fallback); }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--dt-glass-light-fallback); }
+  }
+}
