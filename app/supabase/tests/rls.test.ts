@@ -81,10 +81,13 @@ describe('fondateur', () => {
   it('grantFounder.mjs pose un abonnement premium actif sans Stripe → my_plan() = premium', async () => {
     const email = `founder-${Date.now()}@test.local`;
     const { id, client } = await createTestUser(email);
-    execFileSync('node', ['scripts/grantFounder.mjs', email], { env: process.env, stdio: 'pipe' });
-    const { data: plan, error } = await client.rpc('my_plan');
-    expect(error).toBeNull();
-    expect(plan).toBe('premium');
-    await serviceClient().auth.admin.deleteUser(id);
+    try {
+      execFileSync('node', ['scripts/grantFounder.mjs', email], { env: process.env, stdio: 'pipe' });
+      const { data: plan, error } = await client.rpc('my_plan');
+      expect(error).toBeNull();
+      expect(plan).toBe('premium');
+    } finally {
+      await serviceClient().auth.admin.deleteUser(id);
+    }
   });
 });
