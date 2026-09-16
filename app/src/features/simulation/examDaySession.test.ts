@@ -166,4 +166,20 @@ describe('useExamDaySession (store persist)', () => {
     useExamDaySession.getState().saveResult('anamnese', mkResult());
     expect(useExamDaySession.getState().state?.results.anamnese).toBeDefined();
   });
+
+  it('markResultPersisted pose le flag sans effacer le reste du state', () => {
+    useExamDaySession.getState().start({ caseId: 'c1', caseName: 'Cas 1', withSimulant: true }, 0);
+    useExamDaySession.getState().toResult();
+    expect(useExamDaySession.getState().state?.resultPersisted).toBeUndefined();
+
+    useExamDaySession.getState().markResultPersisted();
+    expect(useExamDaySession.getState().state?.resultPersisted).toBe(true);
+    expect(useExamDaySession.getState().state?.phase).toBe('result');
+    expect(useExamDaySession.getState().state?.caseId).toBe('c1');
+  });
+
+  it('markResultPersisted ne fait rien si state est null', () => {
+    useExamDaySession.getState().markResultPersisted();
+    expect(useExamDaySession.getState().state).toBeNull();
+  });
 });
