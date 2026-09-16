@@ -22,13 +22,15 @@ export function useExamDayClock(
   alertsSec: number[] = [],
   nowFn: () => number = Date.now,
 ): ExamDayClock {
-  const calc = () => (startedAt === null ? targetSec : remainingSec(startedAt, targetSec, nowFn()));
-  const [remaining, setRemaining] = useState(calc);
+  // Le reste est DÉRIVÉ à chaque rendu (jamais mis en cache dans un état) :
+  // un changement de partie ou de cible ne peut donc pas montrer, même un
+  // rendu durant, le reste périmé de la partie précédente — ce qui ferait
+  // enchaîner deux transitions d'un coup. L'intervalle ne sert qu'à re-rendre.
+  const [, setTick] = useState(0);
 
   useEffect(() => {
     if (startedAt === null) return;
-    const tick = () => setRemaining(calc());
-    tick();
+    const tick = () => setTick((t) => t + 1);
     const id = setInterval(tick, 500);
     document.addEventListener('visibilitychange', tick);
     window.addEventListener('focus', tick);
@@ -37,9 +39,9 @@ export function useExamDayClock(
       document.removeEventListener('visibilitychange', tick);
       window.removeEventListener('focus', tick);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startedAt, targetSec]);
 
+  const remaining = startedAt === null ? targetSec : remainingSec(startedAt, targetSec, nowFn());
   const expired = startedAt !== null && remaining === 0;
   const alert = alertsSec.find((a) => remaining <= a && remaining > a - 60) ?? null;
 
