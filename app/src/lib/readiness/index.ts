@@ -71,3 +71,4 @@ export function computeReadiness(sims: Simulation[], cases: Case[], begriffe: Fa
 }
 
 export * from './bereitschaft';
+export { computeActions } from './actions';
