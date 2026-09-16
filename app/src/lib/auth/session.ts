@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { User } from '@supabase/supabase-js';
+import { isAuthApiError } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { upsertAccount, setRefreshToken, setActiveUserId, getActiveUserId, listAccounts } from './accounts';
 
@@ -80,7 +81,7 @@ export async function signInWithPassword(p: { email: string; password: string })
   const { data, error } = await supabase.auth.signInWithPassword({ email: p.email, password: p.password });
   if (error) throw error;
   const s = data.session as SessionLike;
-  const name = (s.user.user_metadata?.display_name as string | undefined) ?? s.user.email?.split('@')[0] ?? 'Moi';
+  const name = (s.user.user_metadata?.display_name as string | undefined) || s.user.email?.split('@')[0] || 'Moi';
   remember(s, name);
 }
 
@@ -88,8 +89,14 @@ export async function signInWithPassword(p: { email: string; password: string })
 export async function switchAccount(userId: string): Promise<'switched' | 'password-required'> {
   const a = listAccounts().find((x) => x.userId === userId);
   if (!a?.refreshToken) return 'password-required';
-  const { data, error } = await supabase.auth.setSession({ access_token: '', refresh_token: a.refreshToken });
-  if (error || !data.session) { setRefreshToken(userId, null); return 'password-required'; }
+  const { data, error } = await supabase.auth.refreshSession({ refresh_token: a.refreshToken });
+  if (error || !data.session) {
+    // Le jeton n'est nullifié que si le serveur l'a explicitement refusé
+    // (400/401/403). Une erreur réseau/transitoire (offline-first) laisse le
+    // jeton et le compte actif intacts — l'utilisateur pourra réessayer.
+    if (isAuthApiError(error)) setRefreshToken(userId, null);
+    return 'password-required';
+  }
   setRefreshToken(userId, data.session.refresh_token);
   setActiveUserId(userId);
   return 'switched';

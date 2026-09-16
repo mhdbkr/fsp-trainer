@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { callFn } from '@/lib/supabase';
-import { useSession, signOut } from '@/lib/auth/session';
+import { useSession, signOut, AUTH_MODE } from '@/lib/auth/session';
 import { useEntitlements } from '@/lib/entitlements';
-import { db } from '@/db/db';
+import { forgetAccount } from '@/lib/auth/accounts';
+import { db, deleteAccountDb } from '@/db/db';
 
 export function AccountPage() {
   const user = useSession((s) => s.user); const { plan, credits } = useEntitlements();
@@ -14,7 +15,15 @@ export function AccountPage() {
   };
   const remove = async () => {
     if (!confirm('Supprimer définitivement ton compte et ta progression ? Exporte d\'abord si tu veux garder une copie.')) return;
-    await callFn('delete-account', { confirm: true }); await signOut(); window.location.hash = '#/';
+    const id = user?.id;
+    await callFn('delete-account', { confirm: true });
+    await signOut();
+    if (AUTH_MODE === 'founder' && id) {
+      forgetAccount(id);
+      await deleteAccountDb(id);
+    }
+    window.location.hash = '#/';
+    location.reload();
   };
   return (
     <div className="mx-auto max-w-xl space-y-6 py-8">

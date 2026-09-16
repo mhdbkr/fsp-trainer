@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { AuthApiError } from '@supabase/supabase-js';
 
 vi.stubEnv('VITE_AUTH_MODE', 'founder');
 
@@ -12,7 +13,7 @@ const { listeners, auth, from } = vi.hoisted(() => {
     onAuthStateChange: vi.fn((cb: (ev: string, s: unknown) => void) => { listeners.push(cb); return { data: { subscription: { unsubscribe() {} } } }; }),
     signInWithOtp: vi.fn().mockResolvedValue({ error: null }),
     signOut: vi.fn().mockResolvedValue({ error: null }),
-    signUp: vi.fn(), signInWithPassword: vi.fn(), setSession: vi.fn(),
+    signUp: vi.fn(), signInWithPassword: vi.fn(), refreshSession: vi.fn(),
   };
   const from = vi.fn(() => ({ update: vi.fn(() => ({ eq: vi.fn().mockResolvedValue({ error: null }) })) }));
   return { listeners, auth, from };
@@ -75,28 +76,37 @@ describe('session', () => {
       expect(byId).toEqual({ u1: 'new1', u2: 'old2' });
     });
 
-    it('switchAccount : jeton valide → setSession, actif changé, "switched"', async () => {
+    it('switchAccount : jeton valide → refreshSession, actif changé, "switched"', async () => {
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'r2' });
-      auth.setSession.mockResolvedValue({ data: { session: { refresh_token: 'r2b', user: { id: 'u2' } } }, error: null });
+      auth.refreshSession.mockResolvedValue({ data: { session: { refresh_token: 'r2b', user: { id: 'u2' } } }, error: null });
       await expect(switchAccount('u2')).resolves.toBe('switched');
-      expect(auth.setSession).toHaveBeenCalledWith({ access_token: '', refresh_token: 'r2' });
+      expect(auth.refreshSession).toHaveBeenCalledWith({ refresh_token: 'r2' });
       expect(getActiveUserId()).toBe('u2');
       expect(listAccounts()[0].refreshToken).toBe('r2b');
     });
 
-    it('switchAccount : jeton refusé → jeton=null, actif inchangé, "password-required"', async () => {
+    it('switchAccount : jeton refusé (AuthApiError) → jeton=null, actif inchangé, "password-required"', async () => {
       setActiveUserId('u1');
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'dead' });
-      auth.setSession.mockResolvedValue({ data: { session: null }, error: { message: 'Invalid Refresh Token' } });
+      auth.refreshSession.mockResolvedValue({ data: { session: null }, error: new AuthApiError('Invalid Refresh Token', 400, 'refresh_token_not_found') });
       await expect(switchAccount('u2')).resolves.toBe('password-required');
       expect(getActiveUserId()).toBe('u1');
       expect(listAccounts().find((x) => x.userId === 'u2')?.refreshToken).toBeNull();
     });
 
+    it('switchAccount : erreur transitoire (réseau) → jeton conservé, actif inchangé, "password-required"', async () => {
+      setActiveUserId('u1');
+      upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'dead-or-valid' });
+      auth.refreshSession.mockResolvedValue({ data: { session: null }, error: new Error('fetch failed') });
+      await expect(switchAccount('u2')).resolves.toBe('password-required');
+      expect(getActiveUserId()).toBe('u1');
+      expect(listAccounts().find((x) => x.userId === 'u2')?.refreshToken).toBe('dead-or-valid');
+    });
+
     it('switchAccount : pas de jeton → "password-required" sans appel réseau', async () => {
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: null });
       await expect(switchAccount('u2')).resolves.toBe('password-required');
-      expect(auth.setSession).not.toHaveBeenCalled();
+      expect(auth.refreshSession).not.toHaveBeenCalled();
     });
 
     it('signOut (founder) : scope local, jeton=null, compte gardé, actif=null', async () => {
