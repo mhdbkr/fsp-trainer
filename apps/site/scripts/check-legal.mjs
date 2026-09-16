@@ -20,9 +20,9 @@ export function checkLegal({ dist, legalDir, sitePublic }) {
   for (const l of LEGAL) if (!existsSync(join(dist, 'de', l, 'index.html'))) errs.push(`page légale absente : /de/${l}/`);
   for (const file of listHtml(dist)) {
     const html = readFileSync(file, 'utf8');
-    if (/<meta http-equiv="refresh"/i.test(html)) continue; // stub de redirection Astro (ex. / → /de/), pas une page de contenu
-    const footer = (html.match(/<footer[\s\S]*?<\/footer>/i) || [''])[0];
     const rel = file.slice(dist.length);
+    if (rel === '/index.html' && /<meta http-equiv="refresh"/i.test(html)) continue; // stub de redirection Astro / → /de/ uniquement
+    const footer = (html.match(/<footer[\s\S]*?<\/footer>/i) || [''])[0];
     if (!textOf(footer).includes(notice)) errs.push(`${rel}: avertissement outil de langue absent du footer`);
     if (!/data-notice="language-tool"/.test(footer)) errs.push(`${rel}: [data-notice="language-tool"] absent du footer`);
     for (const l of LEGAL) if (!new RegExp(`href="/de/${l}/"`).test(footer)) errs.push(`${rel}: lien /de/${l}/ absent du footer`);
@@ -40,7 +40,7 @@ export function checkLegal({ dist, legalDir, sitePublic }) {
     const { data } = parseFrontmatter(readFileSync(join(legalDir, `${l}.md`), 'utf8'));
     if (!data) { errs.push(`docs/legal/${l}.md: front-matter absent`); continue; }
     const page = existsSync(join(dist, 'de', l, 'index.html')) ? readFileSync(join(dist, 'de', l, 'index.html'), 'utf8') : '';
-    const draft = data.validated_by === '';
+    const draft = !data.validated_by;
     if (draft && !/data-legal-status="draft"/.test(page)) errs.push(`/de/${l}/: bannière Entwurf attendue (validated_by vide)`);
     if (!draft && /data-legal-status="draft"/.test(page)) errs.push(`/de/${l}/: bannière Entwurf présente alors que validated_by est renseigné`);
     if (sitePublic && l === 'impressum' && draft) errs.push('SITE_PUBLIC=true exige validated_by non vide sur impressum.md');
