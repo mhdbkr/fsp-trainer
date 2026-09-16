@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { Case, PartResult, Simulation } from '@/db/types';
 import { weightedPartScore } from '@/lib/scoring';
-import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS, computeC, computeL } from './bereitschaft';
+import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS, computeC, computeL, computeBereitschaftsindex, DAY } from './bereitschaft';
+import type { ReadinessInput } from './bereitschaft';
 
 const caseOf = (id: string, specialty: Case['specialty'], frequency: number): Case =>
   ({ id, specialty, frequency } as unknown as Case);
@@ -207,5 +208,169 @@ describe('computeL', () => {
     const sim: Simulation = { ...base, date: 0, parts: { dokumentation: part(80, 80) } };
     const l = computeL([sim]);
     expect(l.samples).toBe(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// computeBereitschaftsindex — T6 (spec §6.1–6.2, ADR-0013)
+// ---------------------------------------------------------------------------
+
+/** Partie orale (grille langue présente) : partScore = 0,55·content + 0,30·official + 0,15·feeling. */
+const oral = (contentPct: number, officialPct: number): PartResult => ({
+  done: true,
+  durationSec: 600,
+  checklist: [],
+  feeling: 50,
+  contentPct,
+  officialPct,
+  languageGrid: {} as PartResult['languageGrid'],
+});
+/** Dokumentation (pas de grille → officialPct ignoré) : partScore = 0,8·content + 0,2·feeling. */
+const doku = (contentPct: number): PartResult => ({ done: true, durationSec: 600, checklist: [], feeling: 50, contentPct, officialPct: 0 });
+
+describe('computeBereitschaftsindex', () => {
+  const NOW = Date.UTC(2026, 8, 16, 12); // 2026-09-16 12:00 UTC
+  const kardio = caseOf('k1', 'Kardiologie', 10);
+  const neuro = caseOf('n1', 'Neurologie', 30);
+  const cases = [kardio, neuro];
+
+  /** Jeu de référence calculé à la main (chaque ligne commentée). */
+  const reference = (): ReadinessInput => {
+    // sim A — autonome, couche 2 (×1,0), il y a 5 j → sourceWeight 2 × recency 1 = 2
+    //   anamnese : content 94, official 70, feeling 50 → partScore = round(51,7 + 21 + 7,5) = 80 ; ×1,0 → 80
+    //   dokumentation : content 63, feeling 50 → partScore = round(50,4 + 10) = 60 ; ×1,0 → 60
+    //   réussie : chaque partie tentée ≥ 60 (80, 60) → couvre Kardiologie (f = 10)
+    const simA: Simulation = {
+      ...base, id: 'sim-a', caseId: 'k1', assistance: 'autonome', layer: 2, date: NOW - 5 * DAY,
+      parts: { anamnese: oral(94, 70), dokumentation: doku(63) },
+    };
+    // sim B — assistée, couche 1 (×0,8075), il y a 40 j → sourceWeight 1 × recency 0,5 = 0,5
+    //   fallvorstellung : content 50, official 50, feeling 50 → partScore = round(27,5 + 15 + 7,5) = 50 ; ×0,8075 = 40,4 → 40
+    //   non réussie (50 < 60) et assistée → ne couvre rien
+    const simB: Simulation = {
+      ...base, id: 'sim-b', caseId: 'n1', assistance: 'assiste', layer: 1, date: NOW - 40 * DAY,
+      parts: { fallvorstellung: oral(50, 50) },
+    };
+    return { sims: [simA, simB], cases, visibleCases: cases };
+  };
+
+  it('jeu de référence à l’unité près', () => {
+    const bi = computeBereitschaftsindex(reference(), NOW);
+    // S : Anamnese 80 (sim A seule) · Dokumentation 60 (sim A seule) · Fallvorstellung 40 (sim B seule) → (80+60+40)/3 = 60
+    expect(bi.s.value).toBe(60);
+    expect(bi.s.byAxis.map((a) => a.score)).toEqual([80, 60, 40]);
+    // C : Kardiologie couverte (f 10) sur un plan Kardiologie 10 + Neurologie 30 = 40 → 100·10/40 = 25
+    expect(bi.c.value).toBe(25);
+    // L : 2 parties orales (official 70, 50) → base 60 ; samples 2 < 3 → plafonné à 30
+    expect(bi.l).toEqual({ value: 30, base: 60, trend: 0, samples: 2 });
+    // raw = round(0,5·60 + 0,25·25 + 0,25·30) = round(30 + 6,25 + 7,5) = round(43,75) = 44
+    expect(bi.value).toBe(44);
+    expect(bi.verdict).toBe('En route'); // 40 ≤ 44 < 65
+    // aucun Prüfungstag avec simulant → plafonné (sans effet ici, 44 < 79), pas de date d’expiration
+    expect(bi.capped).toBe('no_recent_exam_day');
+    expect(bi.capExpiresAt).toBeNull();
+    // levier : s 0,5·(100−60) = 20 · c 0,25·(100−25) = 18,75 · l 0,25·(100−30) = 17,5 → 's'
+    expect(bi.leverage).toBe('s');
+    expect(bi.actions).toEqual([]);
+  });
+
+  /** Sim complète (4 parties) à partScore 80 partout, autonome couche 2 (×1,0) sur Kardiologie :
+   *  S = 80 (Anamnese : anamnese w + aufklaerung w/2, toutes à 80) · C = 100 (seul cas visible) ·
+   *  L = 80 (3 orales à 80, trend 0) → raw = round(40 + 25 + 20) = 85. */
+  const strong = (overrides: Partial<Simulation>): ReadinessInput => ({
+    sims: [{
+      ...base, id: 'sim-strong', caseId: 'k1', assistance: 'autonome', layer: 2, date: NOW - 10 * DAY,
+      parts: { anamnese: oral(88, 80), aufklaerung: oral(88, 80), fallvorstellung: oral(88, 80), dokumentation: doku(88) },
+      ...overrides,
+    }],
+    cases: [kardio],
+    visibleCases: [kardio],
+  });
+
+  it('(a) raw 85 sans Prüfungstag → plafonné à 79', () => {
+    const bi = computeBereitschaftsindex(strong({}), NOW);
+    expect(bi.s.value).toBe(80);
+    expect(bi.c.value).toBe(100);
+    expect(bi.l.value).toBe(80);
+    expect(bi.value).toBe(79);
+    expect(bi.verdict).toBe('Presque prêt');
+    expect(bi.capped).toBe('no_recent_exam_day');
+    expect(bi.capExpiresAt).toBeNull();
+    expect(bi.explain[3]).toBe('Ohne bestandenen Prüfungstag mit Simulant in den letzten 30 Tagen: höchstens 79.');
+  });
+
+  it('(b) Prüfungstag solo réussi il y a 10 j → toujours 79', () => {
+    const bi = computeBereitschaftsindex(strong({ context: 'pruefungstag', withSimulant: false }), NOW);
+    expect(bi.value).toBe(79);
+    expect(bi.capped).toBe('no_recent_exam_day');
+    expect(bi.capExpiresAt).toBeNull();
+  });
+
+  it('(c) Prüfungstag avec simulant réussi il y a 10 j → 85, capExpiresAt = date + 30 j', () => {
+    const date = NOW - 10 * DAY;
+    const bi = computeBereitschaftsindex(strong({ context: 'pruefungstag', withSimulant: true, date }), NOW);
+    expect(bi.value).toBe(85);
+    expect(bi.verdict).toBe('Prêt');
+    expect(bi.capped).toBe('none');
+    expect(bi.capExpiresAt).toBe(date + 30 * DAY);
+    const d = new Date(date + 30 * DAY);
+    const dd = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.`;
+    expect(bi.explain[3]).toBe(`Deckel aufgehoben bis ${dd}`);
+  });
+
+  it('(d) Prüfungstag avec simulant il y a 31 j → plafonné', () => {
+    const bi = computeBereitschaftsindex(strong({ context: 'pruefungstag', withSimulant: true, date: NOW - 31 * DAY }), NOW);
+    expect(bi.value).toBe(79);
+    expect(bi.capped).toBe('no_recent_exam_day');
+    expect(bi.capExpiresAt).toBeNull();
+  });
+
+  it('(e) sim-demo-* ignorée', () => {
+    const input = strong({});
+    const demo: Simulation = { ...input.sims[0], id: 'sim-demo-x', context: 'pruefungstag', withSimulant: true };
+    const withDemo = { ...input, sims: [...input.sims, demo] };
+    expect(computeBereitschaftsindex(withDemo, NOW)).toEqual(computeBereitschaftsindex(input, NOW));
+    expect(computeBereitschaftsindex({ ...input, sims: [demo] }, NOW).value).toBe(0);
+  });
+
+  it('(f) idempotent : deux appels toEqual', () => {
+    expect(computeBereitschaftsindex(reference(), NOW)).toEqual(computeBereitschaftsindex(reference(), NOW));
+  });
+
+  it('(g) explain : 4 entrées, « nicht getestet » pour un axe vide', () => {
+    const bi = computeBereitschaftsindex(reference(), NOW);
+    expect(bi.explain).toHaveLength(4);
+    expect(bi.explain[0]).toBe(
+      'Simulationen 60 — Anamnese 80 % · Dokumentation 60 % · Fallvorstellung 40 %. Gewichtung: Prüfungstag 3 · Autonom 2 · Assistiert 1; ×1 < 30 Tage, ×0,5 30–90, ×0,25 danach.',
+    );
+    expect(bi.explain[1]).toBe('Abdeckung 25 — 1 von 2 Fachrichtungen deines Plans (die Protokolle zählen 16).');
+    expect(bi.explain[2]).toBe('Sprachkurve 30 — Ø 60 % über 2 mündliche Teile (unter 3 Teilen: höchstens 30).');
+    const empty = computeBereitschaftsindex({ sims: [], cases, visibleCases: cases }, NOW);
+    expect(empty.value).toBe(0);
+    expect(empty.verdict).toBe('Pas encore');
+    expect(empty.explain[0]).toContain('Anamnese — nicht getestet (zählt 0)');
+    expect(empty.explain[0]).not.toMatch(/0 %/);
+    expect(empty.leverage).toBe('s'); // égalité impossible ici (50 > 25 > 25) ; c avant l à marge égale
+  });
+
+  it('levier : égalité s/c → s (ordre s, c, l)', () => {
+    // S = (100 + 50 + 0)/3 = 50 → marge 0,5·50 = 25 ; C = 0 (plan = Neurologie seule, sim sur Kardiologie) → marge 25 ;
+    // L : 1 partie orale → plafonné 30 → marge 17,5. Égalité s/c → 's'.
+    const sim: Simulation = {
+      ...base, id: 'sim-tie', caseId: 'k1', assistance: 'autonome', layer: 2, date: NOW - DAY,
+      parts: { anamnese: { ...oral(100, 100), feeling: 100 }, dokumentation: doku(50) },
+    };
+    const bi = computeBereitschaftsindex({ sims: [sim], cases, visibleCases: [neuro] }, NOW);
+    expect(bi.s.value).toBe(50);
+    expect(bi.c.value).toBe(0);
+    expect(bi.l.value).toBe(30);
+    expect(bi.leverage).toBe('s');
+    // avec L à 0 (aucune orale) et S à 50 : s 25 · c 25 · l 25 → 's' ; S à 100 → 'c' (égalité c/l)
+    const noOral: Simulation = { ...sim, parts: { anamnese: { ...oral(100, 100), feeling: 100, languageGrid: undefined }, dokumentation: doku(50) } };
+    expect(computeBereitschaftsindex({ sims: [noOral], cases, visibleCases: [neuro] }, NOW).leverage).toBe('s');
+  });
+
+  it('opts.withActions=false → actions []', () => {
+    expect(computeBereitschaftsindex(reference(), NOW, { withActions: false }).actions).toEqual([]);
   });
 });
