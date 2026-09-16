@@ -1,0 +1,85 @@
+---
+import Base from '@/layouts/Base.astro';
+import FeatureSection from '@/components/FeatureSection.astro';
+import exam from '@/data/exam-bw.json' with { type: 'json' };
+
+const modules = [
+  {
+    kicker: 'Fälle',
+    title: '130 vollständige Fälle',
+    proof: 'Gebaut aus echten Prüfungsprotokollen von Kandidaten in Freiburg, Karlsruhe, Reutlingen und Stuttgart — je Fall mit Simulantenkarte, medizinischer Sicht, Prüferbogen und Musterformulierungen.',
+    status: 'live' as const,
+  },
+  {
+    kicker: 'Simulation',
+    title: 'Zu zweit oder allein',
+    proof: 'Mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom — jederzeit verfügbar.',
+    status: 'live' as const,
+  },
+  {
+    kicker: 'Fachbegriffe',
+    title: '2 249 Fachbegriffe',
+    proof: 'Davon 1 204 Allgemein kostenlos zugänglich, zum gezielten Üben.',
+    status: 'live' as const,
+  },
+  {
+    kicker: 'Fachwissen & Aufklärungen',
+    title: '134 Fachwissen-Karten, 23 Aufklärungen',
+    proof: 'Nachschlagen und wiederholen, passend zu den drei Prüfungsteilen.',
+    status: 'live' as const,
+  },
+  {
+    kicker: 'Korrektur',
+    title: 'Arztbrief-Korrektur',
+    status: 'bald' as const,
+  },
+  {
+    kicker: 'Simulation',
+    title: 'Online-Partner',
+    status: 'bald' as const,
+  },
+];
+---
+<Base
+  title="Produkt | FSP Trainer"
+  description="Drei Prüfungsteile, ein Trainer: Fälle, Simulation, Fachbegriffe, Fachwissen — aus echten Prüfungsprotokollen in Baden-Württemberg."
+  path="/de/produkt/"
+>
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">Produkt</h1>
+    <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
+      FSP Trainer bereitet auf die Sprachprüfung vor, Teil für Teil, genau wie die Prüfung selbst abläuft.
+    </p>
+
+    <ol class="mt-8 grid gap-8 md:grid-cols-3">
+      {exam.parts.map((p, i) => (
+        <li>
+          <span class="font-mono text-sm text-brand-700 dark:text-brand-300">{i + 1}</span>
+          <h2 class="mt-1 text-lg text-ink dark:text-paper">{p.label}</h2>
+          <p class="mt-1 text-sm text-ink-700 dark:text-paper/90">{p.minutes} Minuten</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="bg-paper px-4 py-16 dark:bg-ink-800">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Module</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {modules.map((m) => (
+          <FeatureSection title={m.title} kicker={m.kicker} proof={m.proof} status={m.status} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-4 pb-16">
+    <a
+      data-cta
+      href="/de/preise/"
+      class="inline-flex flex-col items-center rounded-control bg-brand-600 px-5 py-3 text-paper font-medium hover:bg-brand-700 transition-colors duration-fast"
+    >
+      <span>Preise ansehen</span>
+    </a>
+  </div>
+</Base>
