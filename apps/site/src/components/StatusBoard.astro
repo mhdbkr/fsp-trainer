@@ -1,6 +1,13 @@
 ---
 import status from '@/data/status.json' with { type: 'json' };
 
+type Incident = { date: string; description: string };
+const incidents: Incident[] = status.incidents;
+
+const updatedAtLabel = new Intl.DateTimeFormat('de-DE', { dateStyle: 'short' }).format(
+  new Date(status.updatedAt),
+);
+
 const STATE_LABELS: Record<string, string> = {
   operational: 'Funktioniert',
   degraded: 'Eingeschränkt',
@@ -26,7 +33,9 @@ function dotFor(state: string): string {
 
 <div class="rounded-control border border-ink-600/15 dark:border-paper/20">
   <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ink-600/15 px-4 py-3 dark:border-paper/20">
-    <p class="text-sm text-ink-700 dark:text-paper/90">Manuell gepflegt — Stand {status.updatedAt}.</p>
+    <p class="text-sm text-ink-700 dark:text-paper/90">
+      Manuell gepflegt — Stand <time datetime={status.updatedAt}>{updatedAtLabel}</time>.
+    </p>
   </div>
 
   <ul class="divide-y divide-ink-600/15 dark:divide-paper/20">
@@ -43,11 +52,11 @@ function dotFor(state: string): string {
 
   <div class="border-t border-ink-600/15 px-4 py-4 dark:border-paper/20">
     <h2 class="text-sm font-medium text-ink dark:text-paper">Vorfälle</h2>
-    {status.incidents.length === 0 ? (
+    {incidents.length === 0 ? (
       <p class="mt-1 text-sm text-ink-700 dark:text-paper/90">Keine Vorfälle.</p>
     ) : (
       <ul class="mt-2 space-y-2">
-        {status.incidents.map((i) => (
+        {incidents.map((i) => (
           <li class="text-sm text-ink-700 dark:text-paper/90">{i.date} — {i.description}</li>
         ))}
       </ul>

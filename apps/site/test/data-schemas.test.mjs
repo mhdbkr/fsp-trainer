@@ -19,6 +19,10 @@ test('status.json: updatedAt is ISO date, every component has a valid state', ()
     assert.ok(VALID_STATES.has(c.state), `unexpected state "${c.state}" for ${c.id}`);
   }
   assert.ok(Array.isArray(status.incidents));
+  for (const i of status.incidents) {
+    assert.match(i.date, ISO_DATE, `incident date "${i.date}" is not ISO`);
+    assert.ok(typeof i.description === 'string' && i.description.length > 0, 'incident description is empty');
+  }
 });
 
 test('exam-bw.json: totalPoints/minPercentPerPart, three 20-minute parts, not asserted as officially sourced', () => {
