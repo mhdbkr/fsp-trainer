@@ -5,4 +5,4 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 
 | Tâche | Implémenteur | Commit(s) | Revue | Verdict | Fix |
 |---|---|---|---|---|---|
-| T0.1 | impl-t01b | 6e49ab6 | — | — | — |
+| T0.1 | impl-t01b | 00cdd0c | — | — | — |
