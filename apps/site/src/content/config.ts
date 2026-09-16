@@ -12,4 +12,13 @@ const legal = defineCollection({
   }),
 });
 
-export const collections = { legal };
+const faq = defineCollection({
+  loader: glob({ base: './src/content/faq', pattern: '*.md' }),
+  schema: z.object({
+    question: z.string(),
+    category: z.enum(['pruefung', 'produkt', 'preise', 'konto']),
+    order: z.number(),
+  }),
+});
+
+export const collections = { legal, faq };
