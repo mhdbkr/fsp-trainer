@@ -2,18 +2,18 @@
 const steps = [
   { n: '1', title: 'Fall wählen', copy: 'Aus 130 Fällen, gebaut aus echten Prüfungsprotokollen — oder aus den 12 kostenlosen Fällen starten.' },
   { n: '2', title: 'Simulieren (zu zweit oder allein)', copy: 'Mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom.' },
-  { n: '3', title: 'Bewertung nach dem Bogen', copy: 'Jede vollständige Simulation wird nach dem Bogen deiner Kammer bewertet, Teil für Teil.' },
+  { n: '3', title: 'Bewertung nach dem Bogen', copy: 'Jede vollständige Simulation wird nach einer internen Übungsskala bewertet, angelehnt an den Bogen deiner Kammer (Freiburg, Karlsruhe, Reutlingen, Stuttgart), Teil für Teil.' },
 ];
 ---
 
 <section class="bg-paper px-4 py-16 dark:bg-ink-800">
   <div class="mx-auto max-w-6xl">
-    <h2 class="text-2xl md:text-3xl text-ink-900 dark:text-paper">So läuft eine Simulation ab</h2>
+    <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">So läuft eine Simulation ab</h2>
     <ol class="mt-8 grid gap-8 md:grid-cols-3">
       {steps.map((s) => (
         <li>
           <span class="font-mono text-sm text-brand-700 dark:text-brand-300">{s.n}</span>
-          <h3 class="mt-1 text-lg text-ink-900 dark:text-paper">{s.title}</h3>
+          <h3 class="mt-1 text-lg text-ink dark:text-paper">{s.title}</h3>
           <p class="mt-1 text-sm text-ink-700 dark:text-paper/90">{s.copy}</p>
         </li>
       ))}
