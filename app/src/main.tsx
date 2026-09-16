@@ -32,9 +32,11 @@ import { OnboardingPage } from '@/features/account/OnboardingPage';
 import { AuthCallback } from '@/features/account/AuthCallback';
 import { AccountPage } from '@/features/account/AccountPage';
 import { PricingPage } from '@/features/pricing/PricingPage';
-import { initSession } from '@/lib/auth/session';
+import { initSession, AUTH_MODE, useSession } from '@/lib/auth/session';
 import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
 import { startSyncLoop } from '@/lib/sync/queue';
+import { FounderGate } from '@/features/auth/FounderGate';
+import { getActiveUserId, setActiveUserId } from '@/lib/auth/accounts';
 
 function MerciPage() {
   return (
@@ -91,23 +93,46 @@ function renderFirstLoadScreen() {
   );
 }
 
-// La session d'abord : un `?code=` de lien magique doit être échangé AVANT
-// que le router ne touche à l'URL. Les entitlements ensuite (le tier doit
-// être connu avant de synchroniser le contenu, qui purge selon le tier).
-initSession()
-  .then(() => loadEntitlements())
-  .then(() => { watchEntitlements(); })
-  .then(() => contentLoader.sync())
-  .then(() => ensureDemoData())
-  .then(() => {
-    ReactDOM.createRoot(document.getElementById('root')!).render(
-      <React.StrictMode>
-        <RouterProvider router={router} />
-      </React.StrictMode>,
-    );
-    startSyncLoop();
-  })
-  .catch((e) => {
-    if (e instanceof FirstLoadRequired) { renderFirstLoadScreen(); return; }
-    throw e;
-  });
+function renderFounderGate() {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode><FounderGate onDone={() => location.reload()} /></React.StrictMode>,
+  );
+}
+
+// Mode fondateur : pas de compte actif sur cet appareil → écran d'entrée, rien
+// d'autre ne démarre (ni sync, ni contenu). Un compte actif → séquence normale.
+if (AUTH_MODE === 'founder' && !getActiveUserId()) {
+  renderFounderGate();
+} else {
+  // La session d'abord : un `?code=` de lien magique doit être échangé AVANT
+  // que le router ne touche à l'URL. Les entitlements ensuite (le tier doit
+  // être connu avant de synchroniser le contenu, qui purge selon le tier).
+  initSession()
+    .then(() => {
+      // Garde-fou : un compte actif dont la session est morte au boot (jeton
+      // révoqué hors app) renvoie à l'écran d'entrée au lieu d'ouvrir l'app
+      // en anonyme sous l'identité Dexie d'un autre compte.
+      if (AUTH_MODE === 'founder' && useSession.getState().status !== 'authenticated') {
+        setActiveUserId(null);
+        location.reload();
+        throw new Error('halt');
+      }
+    })
+    .then(() => loadEntitlements())
+    .then(() => { watchEntitlements(); })
+    .then(() => contentLoader.sync())
+    .then(() => ensureDemoData())
+    .then(() => {
+      ReactDOM.createRoot(document.getElementById('root')!).render(
+        <React.StrictMode>
+          <RouterProvider router={router} />
+        </React.StrictMode>,
+      );
+      startSyncLoop();
+    })
+    .catch((e) => {
+      if ((e as Error).message === 'halt') return;
+      if (e instanceof FirstLoadRequired) { renderFirstLoadScreen(); return; }
+      throw e;
+    });
+}
