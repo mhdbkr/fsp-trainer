@@ -1,0 +1,20 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import LegalBanner from '@/components/LegalBanner.astro';
+
+interface Props {
+  id: 'impressum' | 'datenschutz' | 'agb' | 'widerruf';
+}
+
+const { id } = Astro.props;
+const entry = await getEntry('legal', id);
+if (!entry) throw new Error(`Entrée légale introuvable : ${id}`);
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} description={entry.data.title} path={`/de/${entry.data.slug}/`}>
+  <div class="mx-auto max-w-2xl px-4 py-12">
+    <LegalBanner validatedBy={entry.data.validated_by} validatedAt={entry.data.validated_at} />
+    <article class="prose"><Content /></article>
+  </div>
+</Base>

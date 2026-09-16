@@ -43,4 +43,20 @@
       .glass { background: var(--dt-glass-dark-fallback); }
     }
   }
+
+  /* Corps de texte légal (docs/legal/*.md rendu en Markdown). Pas de plugin
+     typography : styles minimaux, cohérents avec la charte. */
+  .prose { @apply max-w-none; }
+  .prose :is(h1, h2, h3) { @apply mt-8 mb-3; }
+  .prose h1 { @apply text-2xl; }
+  .prose h2 { @apply text-xl; }
+  .prose h3 { @apply text-lg; }
+  .prose p, .prose ul, .prose ol, .prose blockquote, .prose table { @apply mb-4 leading-relaxed; }
+  .prose ul, .prose ol { @apply pl-6; }
+  .prose ul { @apply list-disc; }
+  .prose ol { @apply list-decimal; }
+  .prose blockquote { @apply border-l-4 border-ink-600 pl-4 italic; }
+  .prose a { @apply underline text-brand-700; }
+  .prose table { @apply w-full border-collapse; }
+  .prose th, .prose td { @apply border border-ink-600 px-2 py-1 text-left; }
 }
