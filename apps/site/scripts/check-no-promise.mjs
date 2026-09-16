@@ -29,7 +29,9 @@ function escapeRegex(s) {
 
 function termPattern(term) {
   const words = normalize(term).trim().split(/\s+/);
-  return words.map((w) => (w === 'x' ? '\\d+' : escapeRegex(w))).join('\\s+');
+  // \s* (pas \s+) : « 100% » sans espace doit matcher au même titre que « 100 % »
+  // (revue T1.6 I1 — un token vide entre chiffre et % ne doit pas échapper au filtre).
+  return words.map((w) => (w === 'x' ? '\\d+' : escapeRegex(w))).join('\\s*');
 }
 
 function precedingWord(text, index) {

@@ -48,6 +48,10 @@ test('voice:allow exception is listed via findViolations term match but exempted
   assert.ok(findViolations('Du wirst garantiert bestehen.', lex).length > 0);
 });
 
+test('100% sans espace est bloquant au même titre que 100 % (revue T1.6 I1)', () => {
+  assert.ok(findViolations('100% Erfolg garantiert nach diesem Kurs.', lex).some((v) => v.term === '100 %'));
+});
+
 test('non-negated occurrence far from negation word still blocks', () => {
   // "keine" n'est pas le mot immédiatement précédent (> 1 mot) -> reste bloquant
   assert.ok(findViolations('keine Ahnung, aber garantiert bestehen wirst du.', lex).some((v) => v.term === 'garantiert'));
