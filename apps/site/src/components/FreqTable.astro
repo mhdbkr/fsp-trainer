@@ -1,0 +1,68 @@
+---
+import frequencies from '@/data/frequencies.json' with { type: 'json' };
+
+interface Props {
+  center?: 'Fr' | 'Ka' | 'Re' | 'St';
+  limit?: number;
+  tiers?: ('top' | 'frequent' | 'rare')[];
+}
+
+const { center, limit, tiers = ['top', 'frequent', 'rare'] } = Astro.props;
+
+const centerMeta = center ? frequencies.centers.find((c) => c.code === center) : undefined;
+
+// Avec `center` : seules les lignes `tier: 'top'` portent une répartition
+// par centre (byCenter) — frequent/rare l'ont à null (contrat §5).
+const effectiveTiers = center ? ['top'] : tiers;
+
+let rows = frequencies.pathologies.filter((p) => effectiveTiers.includes(p.tier));
+
+rows = center
+  ? rows
+      .filter((p) => p.byCenter && typeof p.byCenter[center] === 'number')
+      .sort((a, b) => (b.byCenter![center]!) - (a.byCenter![center]!))
+  : rows.sort((a, b) => (b.total ?? 0) - (a.total ?? 0));
+
+if (limit) rows = rows.slice(0, limit);
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full min-w-[32rem] border-collapse text-left text-sm">
+    <thead>
+      <tr class="border-b border-ink-600/20 text-ink-600 dark:border-paper/20 dark:text-paper/80">
+        <th class="py-2 pr-4 font-medium">Pathologie</th>
+        {center ? (
+          <th class="py-2 font-medium">Berichte in {centerMeta?.name ?? center}</th>
+        ) : (
+          <>
+            <th class="py-2 pr-4 font-medium">Fachgebiet</th>
+            <th class="py-2 pr-4 font-medium">Gesamt</th>
+            <th class="py-2 pr-4 font-medium">Fr</th>
+            <th class="py-2 pr-4 font-medium">Ka</th>
+            <th class="py-2 pr-4 font-medium">Re</th>
+            <th class="py-2 font-medium">St</th>
+          </>
+        )}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((p) => (
+        <tr class="border-b border-ink-600/10 dark:border-paper/10">
+          <td class="py-2 pr-4 text-ink-800 dark:text-paper">{p.name}</td>
+          {center ? (
+            <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{p.byCenter![center]}</td>
+          ) : (
+            <>
+              <td class="py-2 pr-4 text-ink-700 dark:text-paper/90">{p.specialty ?? '—'}</td>
+              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.total ?? '—'}</td>
+              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.Fr ?? '—'}</td>
+              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.Ka ?? '—'}</td>
+              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.Re ?? '—'}</td>
+              <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.St ?? '—'}</td>
+            </>
+          )}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
