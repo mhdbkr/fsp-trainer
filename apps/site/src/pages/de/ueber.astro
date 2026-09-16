@@ -1,0 +1,53 @@
+---
+import Base from '@/layouts/Base.astro';
+import LanguageToolNotice from '@/components/LanguageToolNotice.astro';
+import { readSite } from '@/lib/site.ts';
+
+const site = readSite();
+
+const refusals = [
+  'Doctopus ist keine Schule: kein Versprechen einer menschlichen Betreuung, kein „Coach". Der Tandempartner ist ein Übungspartner, kein Trainer.',
+  'Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote. Wir messen und trainieren.',
+  'Doctopus ist kein Medizinprodukt und keine klinische Entscheidungshilfe: die Inhalte dienen einer Sprachprüfung.',
+  'Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler — belohnt wird die vollständige Simulation, nicht der Login.',
+  'Doctopus verkauft sich nicht als „KI-App": KI ist ein Dienst auf Credits-Basis, nicht die Identität.',
+];
+---
+
+<Base
+  title="Über uns | FSP Trainer"
+  description="Gebaut von einem Kandidaten, für die nächsten — Herkunft und Methode von FSP Trainer."
+  path="/de/ueber/"
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">
+      Gebaut von einem Kandidaten, für die nächsten.
+    </h1>
+    <p class="mt-4 text-ink-700 dark:text-paper/90">
+      {site.productName} ist aus den Prüfungsberichten von rund 580 Kandidatinnen und Kandidaten
+      an vier Standorten entstanden — Freiburg, Karlsruhe, Reutlingen und Stuttgart. Aus diesen
+      Berichten wurden 130 vollständige Fälle gebaut: mit Simulantenkarte, medizinischer Sicht,
+      Prüferbogen und Musterformulierungen.
+    </p>
+    <p class="mt-4 text-ink-700 dark:text-paper/90">
+      Jeder Fall wurde dreifach gegengelesen, bevor er veröffentlicht wurde. Und jeder neue
+      Prüfungsbericht, den Kandidatinnen und Kandidaten nach ihrer Prüfung einreichen, lässt den
+      Fundus weiterwachsen — Prüfung für Prüfung.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-16">
+    <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Was {site.brandName} nicht ist</h2>
+    <ul class="mt-6 space-y-4">
+      {refusals.map((text) => (
+        <li class="flex gap-3 text-ink-700 dark:text-paper/90">
+          <span aria-hidden="true" class="text-brand-600">—</span>
+          <span>{text}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-8">
+      <LanguageToolNotice />
+    </div>
+  </section>
+</Base>

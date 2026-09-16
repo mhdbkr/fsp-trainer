@@ -1,0 +1,22 @@
+---
+import Base from '@/layouts/Base.astro';
+import StatusBoard from '@/components/StatusBoard.astro';
+---
+
+<Base
+  title="Status | FSP Trainer"
+  description="Betriebsstatus von FSP Trainer — manuell gepflegt, mit Datum und Vorfällen."
+  path="/de/status/"
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-16">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">Status</h1>
+    <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
+      Diese Seite wird manuell gepflegt, nicht automatisch überwacht. Bei einer Störung
+      erfährst du es hier — mit etwas Verzögerung.
+    </p>
+
+    <div class="mt-8">
+      <StatusBoard />
+    </div>
+  </section>
+</Base>
