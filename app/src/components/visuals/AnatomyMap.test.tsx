@@ -127,4 +127,15 @@ describe('AnatomyMap', () => {
     });
     expect(buttons[2].getAttribute('aria-pressed')).toBe('true');
   });
+
+  it('chaque numéro SVG porte une pastille de fond ink derrière le texte blanc (I3, contraste ≥ 4,5:1)', () => {
+    mount(DATA);
+    const texts = container.querySelectorAll('svg text');
+    expect(texts.length).toBe(DATA.hotspots.length);
+    texts.forEach((text) => {
+      expect(text.getAttribute('class')).toContain('fill-white');
+    });
+    const badgeCircles = container.querySelectorAll('svg g[aria-hidden="true"] circle.fill-ink');
+    expect(badgeCircles.length).toBe(DATA.hotspots.length);
+  });
 });

@@ -69,7 +69,7 @@ export default function TherapyToggles({ block, fw }: TherapyTogglesProps) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => setActiveIdx(i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
-              className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium motion-safe:transition-colors ${
+              className={`flex min-h-11 items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium motion-safe:transition-colors sm:min-h-0 ${
                 isActive
                   ? akut
                     ? `${toneClasses('signal').box} ${toneClasses('signal').text}`

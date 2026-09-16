@@ -97,11 +97,15 @@ export function AnatomyMap({ block }: { block: { data: AnatomyMapData } }) {
                   />
                 ) : null}
                 <circle cx={anchor.x} cy={anchor.y} r={5} className={toneClasses(tone).text} fill="currentColor" />
+                {/* Contraste ≥ 4,5:1 (I3) : pastille pleine ink derrière le chiffre paper,
+                    plutôt qu'un texte de 8 px directement sur le fond. Rayon ≈ 11 px équivalent viewBox. */}
+                <circle cx={anchor.x} cy={anchor.y - 12} r={7} className="fill-ink" />
                 <text
                   x={anchor.x}
                   y={anchor.y - 12}
                   textAnchor="middle"
-                  className="fill-current font-mono text-[8px]"
+                  dominantBaseline="central"
+                  className="fill-white font-mono text-[9px] font-semibold"
                 >
                   {String(i + 1).padStart(2, '0')}
                 </text>
@@ -128,7 +132,7 @@ export function AnatomyMap({ block }: { block: { data: AnatomyMapData } }) {
                   aria-label={label}
                   onClick={() => setSelected(i)}
                   onKeyDown={onKeyDown}
-                  className={`flex w-full items-center gap-2 rounded-md border px-2 py-1 text-left text-sm motion-safe:transition-colors ${
+                  className={`flex min-h-11 w-full items-center gap-2 rounded-md border px-2 py-1 text-left text-sm motion-safe:transition-colors sm:min-h-0 ${
                     isSelected ? toneClasses(hotspot.tone ?? 'accent').box : 'border-transparent'
                   }`}
                 >

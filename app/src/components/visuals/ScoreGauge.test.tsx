@@ -131,6 +131,43 @@ describe('ScoreGauge', () => {
     root.unmount();
   });
 
+  it('ArrowRight déplace la sélection ET le focus clavier (I2)', () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    act(() => {
+      root.render(<ScoreGauge block={makeBlock(true)} fw={fw} />);
+    });
+
+    const radios = Array.from(container.querySelectorAll('[role="radio"]')) as HTMLButtonElement[];
+    const firstGroup = radios.slice(0, 3);
+    firstGroup[0].focus();
+    expect(document.activeElement).toBe(firstGroup[0]);
+
+    act(() => {
+      firstGroup[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    });
+
+    expect(document.activeElement).toBe(firstGroup[1]);
+    expect(firstGroup[1].getAttribute('aria-checked')).toBe('true');
+
+    root.unmount();
+  });
+
+  it('le total porte aria-live="polite"', () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    act(() => {
+      root.render(<ScoreGauge block={makeBlock(true)} fw={fw} />);
+    });
+
+    const total = container.querySelector('[data-testid="score-total"]');
+    expect(total?.getAttribute('aria-live')).toBe('polite');
+
+    root.unmount();
+  });
+
   it('criteria vide → jauge statique des bandes', () => {
     const block = makeBlock(false);
     block.data.criteria = [];

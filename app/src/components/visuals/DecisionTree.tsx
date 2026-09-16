@@ -161,14 +161,14 @@ export default function DecisionTree({ block }: DecisionTreeProps) {
       <div className="mb-2 flex gap-3 font-mono text-[11px] uppercase tracking-wider">
         <button
           type="button"
-          className="motion-safe:transition-colors text-brand-600 hover:underline dark:text-brand-300"
+          className="motion-safe:transition-colors flex min-h-11 items-center text-brand-600 hover:underline sm:min-h-0 dark:text-brand-300"
           onClick={expandAll}
         >
           Alles aufklappen
         </button>
         <button
           type="button"
-          className="motion-safe:transition-colors text-slate-500 hover:underline dark:text-slate-400"
+          className="motion-safe:transition-colors flex min-h-11 items-center text-slate-500 hover:underline sm:min-h-0 dark:text-slate-400"
           onClick={collapseAll}
         >
           Alles zuklappen
