@@ -10,6 +10,7 @@ if (!email) { console.error('usage: grantFounder.mjs <email>'); process.exit(2);
 if (!url || !key) { console.error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY requis'); process.exit(2); }
 
 const admin = createClient(url, key, { auth: { persistSession: false } });
+// Première page seulement (≤ 1000 comptes) : suffisant pour des fondateurs, jamais pour la prod.
 const { data: users, error: e1 } = await admin.auth.admin.listUsers({ perPage: 1000 });
 if (e1) { console.error(e1.message); process.exit(1); }
 const user = users.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
