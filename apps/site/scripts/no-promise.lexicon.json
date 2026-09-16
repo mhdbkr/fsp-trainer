@@ -1,0 +1,727 @@
+{
+  "generatedFrom": "docs/brand/voice.md §6",
+  "blocking": [
+    {
+      "term": "garantie",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "garanti",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "garantir",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "Garantie",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "garantiert",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "guarantee",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "réussite assurée",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "réussite garantie",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "Erfolg garantiert",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "sicher bestehen",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "guaranteed pass",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "pass guaranteed",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "100 %",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "100 %",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "100 %",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "passe ton examen",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "réussis ton examen",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "besteh deine Prüfung",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "pass your exam",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "tu vas réussir",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "vous allez réussir",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "du wirst bestehen",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "you will pass",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "taux de réussite",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "Erfolgsquote",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "Bestehensquote",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "pass rate",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "success rate",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "du premier coup",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "beim ersten Versuch",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "first time",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "first try",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "sans échec",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "zéro échec",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "ohne Durchfallen",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "no fail",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "never fail",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "certifié",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "agréé",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "officiel",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "zertifiziert",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "anerkannt",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "offiziell",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "certified",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "accredited",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "official",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "partenaire de la Kammer / de l'Ärztekammer",
+      "lang": "fr",
+      "section": "6.1"
+    },
+    {
+      "term": "Partner der Ärztekammer",
+      "lang": "de",
+      "section": "6.1"
+    },
+    {
+      "term": "partner of the chamber",
+      "lang": "en",
+      "section": "6.1"
+    },
+    {
+      "term": "dernière chance",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "offre limitée",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "plus que X heures",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "letzte Chance",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "nur noch X Stunden",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "limitiertes Angebot",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "last chance",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "only X hours left",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "limited offer",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "ne rate pas",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "tu vas le regretter",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "verpass nicht",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "du wirst es bereuen",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "don't miss out",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "you'll regret",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "streak perdu",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "tu nous manques",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "Streak verloren",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "du fehlst uns",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "streak lost",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "we miss you",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "annuler à tout moment",
+      "lang": "fr",
+      "section": "6.4"
+    },
+    {
+      "term": "jederzeit kündbar",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "cancel anytime",
+      "lang": "en",
+      "section": "6.4"
+    },
+    {
+      "term": "Kündigung mit einem Klick",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "ein Klick",
+      "lang": "de",
+      "section": "6.4"
+    },
+    {
+      "term": "mit einem Klick",
+      "lang": "de",
+      "section": "6.4"
+    }
+  ],
+  "informative": [
+    {
+      "term": "révolutionnaire",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "ultime",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "meilleur",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "n° 1",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "leader",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "revolutionär",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "ultimativ",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "der/die/das beste",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "Nr. 1",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "Marktführer",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "revolutionary",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "ultimate",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "the best",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "leading",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "boostez",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "propulsez",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "maximisez",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "boosten",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "pushen",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "boost",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "supercharge",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "unlock",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "immersif",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "immersiv",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "immersive",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "propulsé par l'IA",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "IA de pointe",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "KI-gestützt",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "modernste KI",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "AI-powered",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "cutting-edge AI",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "magique",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "sans effort",
+      "lang": "fr",
+      "section": "6.2"
+    },
+    {
+      "term": "magisch",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "mühelos",
+      "lang": "de",
+      "section": "6.2"
+    },
+    {
+      "term": "magic",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "effortless",
+      "lang": "en",
+      "section": "6.2"
+    },
+    {
+      "term": "toute l'Allemagne",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "tous les Länder",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "toutes les Kammern",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "ganz Deutschland",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "alle Länder",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "alle Kammern",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "all of Germany",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "every state",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "apprends la médecine",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "deviens un meilleur médecin",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "lerne Medizin",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "werde ein besserer Arzt",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "learn medicine",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "become a better doctor",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "diagnostic",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "traitement",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "Diagnose",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "Therapie",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "diagnosis",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "treatment",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "conseil juridique",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "conseil fiscal",
+      "lang": "fr",
+      "section": "6.3"
+    },
+    {
+      "term": "Rechtsberatung",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "Steuerberatung",
+      "lang": "de",
+      "section": "6.3"
+    },
+    {
+      "term": "legal advice",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "tax advice",
+      "lang": "en",
+      "section": "6.3"
+    },
+    {
+      "term": "test",
+      "lang": "fr",
+      "section": "6.5"
+    },
+    {
+      "term": "quiz",
+      "lang": "fr",
+      "section": "6.5"
+    },
+    {
+      "term": "patient IA",
+      "lang": "fr",
+      "section": "6.5"
+    },
+    {
+      "term": "utilisateur / élève / apprenant",
+      "lang": "fr",
+      "section": "6.5"
+    },
+    {
+      "term": "région",
+      "lang": "fr",
+      "section": "6.5"
+    }
+  ]
+}
