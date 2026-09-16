@@ -148,3 +148,11 @@ par tous les worktrees. Règles :
 5. Envoie le HANDOFF au suivant — ou `BLOCKED` à `main` avec les options.
 
 Un agent qui ne trouve pas `state.md` ne devine pas : il demande à `main`.
+
+## Worktrees — fichiers ignorés à copier
+
+`git worktree add` ne copie PAS les fichiers ignorés : `app/.env` (clés Supabase
+locales) et `app/supabase/.env` (Stripe sandbox) manquent dans tout nouveau
+worktree. Sans `app/.env`, la chaîne de boot rend une page VIDE sans erreur —
+sonde trompeuse. `/doctopus-run` les copie à la création ; un lead qui trouve
+`body` vide vérifie d'abord ces deux fichiers.
