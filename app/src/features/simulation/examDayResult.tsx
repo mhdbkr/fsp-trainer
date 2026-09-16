@@ -55,12 +55,18 @@ export function ExamDayResult() {
     const sim = buildExamDaySimulation(state, c, now);
     const after = computeBereitschaftsindex({ sims: [...sims, sim], cases, visibleCases: cases });
     setOutcome({ sim, before, after });
-    void persistExamDay(sim, buildExamDayPayload(sim, c, before, after, APP_VERSION), c).then(() => {
-      useExamDaySession.getState().abandon();
-      useSimSession.getState().end();
-    });
+    void persistExamDay(sim, buildExamDayPayload(sim, c, before, after, APP_VERSION), c);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, sims, cases, c]);
+
+  // L'utilisateur quitte l'écran de résultat (CTA final ou action gratuite) :
+  // c'est seulement à ce moment que la session exam-day est abandonnée. Tant
+  // que cet écran est affiché, `state.phase` reste `'result'` (sinon
+  // `ExamDayRunner` se démonte et l'utilisateur ne voit jamais son résultat).
+  const leave = () => {
+    useExamDaySession.getState().abandon();
+    useSimSession.getState().end();
+  };
 
   if (!outcome) return null;
   const { sim, before, after } = outcome;
@@ -110,7 +116,7 @@ export function ExamDayResult() {
       </section>
 
       <section data-section="next" className="card">
-        <Link to={`/simulation/${sim.caseId}/pre`} className="btn-primary">
+        <Link to={`/simulation/${sim.caseId}/pre`} className="btn-primary" onClick={leave}>
           Diesen Fall autonom wiederholen
         </Link>
       </section>
@@ -126,8 +132,8 @@ export function ExamDayResult() {
       </section>
 
       <section data-section="cta">
-        <Gate feature="readiness.plan" fallback={<Link to="/bereitschaft" className="btn-primary">Meinen Bereitschaftsindex ansehen</Link>}>
-          <Link to="/bereitschaft" className="btn-primary">Meinen Plan ansehen</Link>
+        <Gate feature="readiness.plan" fallback={<Link to="/bereitschaft" className="btn-primary" onClick={leave}>Meinen Bereitschaftsindex ansehen</Link>}>
+          <Link to="/bereitschaft" className="btn-primary" onClick={leave}>Meinen Plan ansehen</Link>
         </Gate>
       </section>
     </div>
