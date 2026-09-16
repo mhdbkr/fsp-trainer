@@ -112,7 +112,8 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
       // Garde-fou : un compte actif dont la session est morte au boot (jeton
       // révoqué hors app) renvoie à l'écran d'entrée au lieu d'ouvrir l'app
       // en anonyme sous l'identité Dexie d'un autre compte.
-      if (AUTH_MODE === 'founder' && useSession.getState().status !== 'authenticated') {
+      // offline → on continue avec la base locale du compte ; le rafraîchissement reprend au retour du réseau.
+      if (AUTH_MODE === 'founder' && useSession.getState().status !== 'authenticated' && navigator.onLine) {
         setActiveUserId(null);
         location.reload();
         throw new Error('halt');
@@ -131,7 +132,7 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
       startSyncLoop();
     })
     .catch((e) => {
-      if ((e as Error).message === 'halt') return;
+      if (e instanceof Error && e.message === 'halt') return;
       if (e instanceof FirstLoadRequired) { renderFirstLoadScreen(); return; }
       throw e;
     });

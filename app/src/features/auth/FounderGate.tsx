@@ -35,11 +35,17 @@ export function FounderGate({ onDone }: { onDone: () => void }) {
   };
 
   const resume = async (userId: string, accountEmail: string) => {
-    setError(null);
-    const r = await switchAccount(userId);
-    if (r === 'switched') { onDone(); return; }
-    setMode('signin'); setEmail(accountEmail);
-    setError('Reconnexion nécessaire pour ce compte : saisis son mot de passe.');
+    setError(null); setBusy(true);
+    try {
+      const r = await switchAccount(userId);
+      if (r === 'switched') { onDone(); return; }
+      setMode('signin'); setEmail(accountEmail);
+      setError('Reconnexion nécessaire pour ce compte : saisis son mot de passe.');
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -74,7 +80,7 @@ export function FounderGate({ onDone }: { onDone: () => void }) {
           <label className="block text-sm"><span className="label">Mot de passe</span>
             <input aria-label="Mot de passe" type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="input w-full" /></label>
           <button type="submit" disabled={busy} className="btn-primary w-full justify-center">{mode === 'create' ? 'Créer et commencer' : 'Se connecter'}</button>
-          {error && <p className="text-xs text-signal-600">{error}</p>}
+          {error && <p role="alert" className="text-xs text-signal-600">{error}</p>}
         </form>
 
         <button type="button" onClick={() => { setMode(mode === 'create' ? 'signin' : 'create'); setError(null); }} className="w-full text-center text-sm text-slate-500 hover:underline">

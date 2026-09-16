@@ -71,6 +71,20 @@ describe('FounderGate', () => {
     await waitFor(() => expect(session.signInWithPassword).toHaveBeenCalledWith({ email: 'a@x.de', password: 'secret123' }));
   });
 
+  it('double clic rapide sur un compte : un seul appel à switchAccount', async () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r1' });
+    let resolveSwitch: (v: string) => void = () => {};
+    session.switchAccount.mockReturnValueOnce(new Promise((resolve) => { resolveSwitch = resolve; }));
+    const onDone = vi.fn();
+    render(<FounderGate onDone={onDone} />);
+    const tile = screen.getByRole('button', { name: /anna/i });
+    fireEvent.click(tile);
+    fireEvent.click(tile);
+    expect(session.switchAccount).toHaveBeenCalledTimes(1);
+    resolveSwitch('switched');
+    await waitFor(() => expect(onDone).toHaveBeenCalled());
+  });
+
   it('erreur serveur affichée', async () => {
     session.signUpWithPassword.mockRejectedValue(new Error('User already registered'));
     render(<FounderGate onDone={vi.fn()} />);
