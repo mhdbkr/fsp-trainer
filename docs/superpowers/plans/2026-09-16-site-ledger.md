@@ -10,6 +10,6 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T0.3 | impl-t03 | 5dfba82 | review-t03 | APPROVED_WITH_MINORS (mode sombre illisible header/footer/notice + border-ink-100 → fix en T2.2) | — |
 | T0.4 | impl-t04 | 6d106e6, 489afe8 | review-t04 | APPROVED_WITH_MINORS (.prose manuel accepté) | — |
 | T0.5 | impl-t05 | 1db9f1c | review-t05 | APPROVED_WITH_MINORS (I1 garde refresh, I2 validated_by) | lead-site 5cfc5bf |
-| T1.1 | impl-t11 | e029412 | — | — | — |
-| T1.2 | impl-t12 | c000f8d | — | — | — |
+| T1.1 | impl-t11 | e029412 | review-t11 | APPROVED_WITH_MINORS (10/10 pathologies fidèles, Σ=593 ; ** dans summary → T2.3) | — |
+| T1.2 | impl-t12 | c000f8d | review-t12 | APPROVED_WITH_MINORS | — |
 | T1.3 | impl-t13 | dce7bdf | — | — | — |
