@@ -15,7 +15,7 @@ export function SimulationHub() {
   return (
     <div className="space-y-6">
       <header>
-        <div className="eyebrow">Entraînement</div>
+        <div className="eyebrow flex items-center justify-between gap-3">Entraînement<Link to="/simulation/pruefungstag" className="btn-ghost text-xs">Prüfungstag</Link></div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Simulation</h1>
         <p className="text-slate-500 dark:text-slate-400">Choisis un cas à simuler en conditions réelles (chrono, notes, guide, scoring).</p>
       </header>
