@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AuthApiError } from '@supabase/supabase-js';
 
-vi.stubEnv('VITE_AUTH_MODE', 'founder');
+vi.hoisted(() => { vi.stubEnv('VITE_AUTH_MODE', 'founder'); }); // hoisté : l'import ES de ./session est évalué avant toute instruction, .env absent en CI
 
 // vi.mock factories are hoisted above top-level const declarations, so the
 // mock state must itself be created inside vi.hoisted() — otherwise `auth`/
