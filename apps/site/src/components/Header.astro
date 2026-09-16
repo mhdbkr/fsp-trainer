@@ -17,7 +17,7 @@ const navItems: [string, string][] = [
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
     <a href="/de/" class="font-display text-lg font-semibold text-brand-700">{site.brandName}</a>
 
-    <nav class="hidden md:flex items-center gap-6 text-sm text-ink-700" aria-label="Hauptnavigation">
+    <nav class="hidden md:flex items-center gap-6 text-sm text-ink-700 dark:text-paper" aria-label="Hauptnavigation">
       {navItems.map(([label, href]) => (
         <a href={href} class="hover:text-brand-700 transition-colors duration-fast">{label}</a>
       ))}
@@ -26,10 +26,10 @@ const navItems: [string, string][] = [
     <CtaButton class="hidden md:inline-flex" />
 
     <details class="md:hidden">
-      <summary class="list-none cursor-pointer rounded-control px-3 py-2 text-ink-700" aria-label="Menü öffnen">
+      <summary class="list-none cursor-pointer rounded-control px-3 py-2 text-ink-700 dark:text-paper" aria-label="Menü öffnen">
         ☰
       </summary>
-      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 bg-paper p-4 shadow-lg" aria-label="Mobile Navigation">
+      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 bg-paper p-4 text-ink-700 shadow-lg" aria-label="Mobile Navigation">
         {navItems.map(([label, href]) => (
           <a href={href} class="rounded-control px-3 py-2 hover:bg-brand-50">{label}</a>
         ))}
