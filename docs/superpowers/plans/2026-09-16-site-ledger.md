@@ -5,6 +5,6 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 
 | Tâche | Implémenteur | Commit(s) | Revue | Verdict | Fix |
 |---|---|---|---|---|---|
-| T0.1 | impl-t01b | 00cdd0c | — | — | — |
-| T0.2 | impl-t02 | 9981252 | — | — | — |
+| T0.1 | impl-t01b | 00cdd0c | review-t01 | APPROVED_WITH_MINORS (glass dark fallback → corrigé T0.3 ; darkMode media → T0.3) | — |
+| T0.2 | impl-t02 | 9981252 | review-t02 | APPROVED_WITH_MINORS (« Erfolgsgarantie » → reformuler en T1.6 sans radical §6.1 ; strip-types → T3.4) | — |
 | T0.3 | impl-t03 | 5dfba82 | — | — | — |
