@@ -90,6 +90,9 @@ En mode `public`, rien ne change par rapport à aujourd'hui (l'anonyme reste un
 - Auth → Providers → Email : **Confirm email = off** ; Password minimum 8.
 - Auth → Rate limits : laisser par défaut.
 - GitHub → Settings → Secrets : `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`.
+- Avant la première ouverture en mode founder sur un appareil existant :
+  attendre que la sync soit au repos ; l'ancienne base `fsp-cockpit` devient
+  orpheline (les données sont sur le serveur).
 
 ## 5. Critères d'acceptation
 
