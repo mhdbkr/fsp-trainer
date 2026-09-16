@@ -7,3 +7,4 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 |---|---|---|---|---|---|
 | T0.1 | impl-t01b | 00cdd0c | — | — | — |
 | T0.2 | impl-t02 | 9981252 | — | — | — |
+| T0.3 | impl-t03 | 5dfba82 | — | — | — |
