@@ -4,9 +4,9 @@ import { weightedPartScore, simulationPassed } from '@/lib/scoring';
 
 // ============================================================================
 // Bereitschaftsindex v2 (spec §6) = 0,5·S + 0,25·C + 0,25·L.
-// Ce module pose les types du domaine et les deux poids élémentaires
-// (source de la simulation, ancienneté). Le calcul complet (S/C/L, verdict,
-// plafond, actions) arrive dans une tâche suivante du pipeline `pruefungstag`.
+// Types du domaine, poids élémentaires (source, ancienneté), composantes
+// S/C/L et assemblage `computeBereitschaftsindex` (verdict, plafond 79,
+// levier, explications). `actions` = T7 (`computeActions`).
 // ============================================================================
 
 export const DAY = 86_400_000;
@@ -183,4 +183,78 @@ export function computeL(sims: Simulation[]): Bereitschaft['l'] {
   let value = Math.max(0, Math.min(100, base + trend));
   if (last.length < 3) value = Math.min(value, 30);
   return { value, base, trend, samples: last.length };
+}
+
+/** Verdicts (inchangés depuis `computeReadiness`) : ≥ 80 Prêt · ≥ 65 Presque prêt · ≥ 40 En route. */
+export function verdictFor(value: number): Readiness['verdict'] {
+  return value >= 80 ? 'Prêt' : value >= 65 ? 'Presque prêt' : value >= 40 ? 'En route' : 'Pas encore';
+}
+
+const ddmm = (ts: number) => {
+  const d = new Date(ts);
+  return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.`;
+};
+
+/** Les 4 phrases de §6.1, avec les valeurs du candidat (allemand, ton instrument). */
+function explainBereitschaft(
+  s: Bereitschaft['s'],
+  c: Bereitschaft['c'],
+  l: Bereitschaft['l'],
+  capped: Bereitschaft['capped'],
+  capExpiresAt: number | null,
+): string[] {
+  const ax = (i: number) => (s.byAxis[i].tested ? `${s.byAxis[i].score} %` : '— nicht getestet (zählt 0)');
+  const trend = l.trend > 0 ? ', Tendenz steigend +5' : l.trend < 0 ? ', Tendenz fallend −5' : '';
+  const few = l.samples < 3 ? ' (unter 3 Teilen: höchstens 30)' : '';
+  return [
+    `Simulationen ${s.value} — Anamnese ${ax(0)} · Dokumentation ${ax(1)} · Fallvorstellung ${ax(2)}. Gewichtung: Prüfungstag 3 · Autonom 2 · Assistiert 1; ×1 < 30 Tage, ×0,5 30–90, ×0,25 danach.`,
+    `Abdeckung ${c.value} — ${c.covered.length} von ${c.denominator} Fachrichtungen deines Plans (die Protokolle zählen ${c.corpusTotal}).`,
+    `Sprachkurve ${l.value} — Ø ${l.base} % über ${l.samples} mündliche Teile${trend}${few}.`,
+    capped === 'none' && capExpiresAt !== null
+      ? `Deckel aufgehoben bis ${ddmm(capExpiresAt)}`
+      : 'Ohne bestandenen Prüfungstag mit Simulant in den letzten 30 Tagen: höchstens 79.',
+  ];
+}
+
+/** Bereitschaftsindex (spec §6.1) : `round(0,5·S + 0,25·C + 0,25·L)` — un seul
+ *  arrondi final sur les `value` déjà arrondies des composantes (recalculable à
+ *  la main). Plafond 79 sans Prüfungstag **avec simulant** réussi < 30 j ;
+ *  `capExpiresAt` = date du qualifiant le plus récent + 30 j. `leverage` =
+ *  composante à plus grande marge pondérée (égalité → s, c, l). Les
+ *  `sim-demo-*` sont exclues. `actions` = T7 (`computeActions`) ; tant qu'elle
+ *  n'existe pas, `[]`. `opts.withActions=false` = garde anti-récursion. */
+export function computeBereitschaftsindex(
+  input: ReadinessInput,
+  now = Date.now(),
+  opts: { withActions?: boolean } = {},
+): Bereitschaft {
+  const sims = input.sims.filter((x) => !isDemoSim(x));
+  const s = computeS(sims, now);
+  const c = computeC(sims, input.cases, input.visibleCases);
+  const l = computeL(sims);
+  const raw = Math.round(0.5 * s.value + 0.25 * c.value + 0.25 * l.value);
+  const qualifying = sims.filter(
+    (x) => x.context === 'pruefungstag' && x.withSimulant === true && simulationPassed(x) && now - x.date < 30 * DAY,
+  );
+  const capped: Bereitschaft['capped'] = qualifying.length ? 'none' : 'no_recent_exam_day';
+  const capExpiresAt = qualifying.length ? Math.max(...qualifying.map((x) => x.date)) + 30 * DAY : null;
+  const value = capped === 'none' ? raw : Math.min(raw, 79);
+  const margins = { s: 0.5 * (100 - s.value), c: 0.25 * (100 - c.value), l: 0.25 * (100 - l.value) };
+  const leverage = (['s', 'c', 'l'] as const).reduce((a, b) => (margins[b] > margins[a] ? b : a));
+  // T7 : `const actions = opts.withActions === false ? [] : computeActions(input, now)`.
+  // Stub explicite tant que `computeActions` n'existe pas.
+  const withActions = opts.withActions !== false;
+  const actions: ReadinessAction[] = withActions ? [] : [];
+  return {
+    value,
+    verdict: verdictFor(value),
+    capped,
+    capExpiresAt,
+    leverage,
+    s,
+    c,
+    l,
+    explain: explainBereitschaft(s, c, l, capped, capExpiresAt),
+    actions,
+  };
 }
