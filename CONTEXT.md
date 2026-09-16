@@ -54,6 +54,9 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Avocat de l'utilisateur** — agent qui joue l'app avec des personas et
   rapporte les ruptures de symbiose (ce que la machine impose vs ce que
   l'humain attendait).
+- **Compte connu** : compte Supabase réel déjà ouvert sur cet appareil, inscrit au registre local (`fsp.accounts`) avec son dernier jeton.
+- **Compte actif** : celui dont la base Dexie (`fsp-cockpit-<userId>`) est ouverte ; un seul à la fois ; changer = recharger.
+- **Mode founder / public** : `VITE_AUTH_MODE` — comptes immédiats et bascule locale / parcours SaaS (lien magique, Stripe).
 
 ## Termes à éviter
 
