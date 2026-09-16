@@ -1,0 +1,16 @@
+---
+import { readSite } from '@/lib/site.ts';
+import { ctaFor } from '@/lib/cta.ts';
+import pricing from '@/data/pricing.json' with { type: 'json' };
+
+const cta = ctaFor(readSite(), pricing.freeCases);
+const { class: cls = '' } = Astro.props;
+---
+<a
+  data-cta
+  href={cta.href}
+  class={`inline-flex flex-col items-center rounded-control bg-brand-600 px-5 py-3 text-paper font-medium hover:bg-brand-700 transition-colors duration-fast ${cls}`}
+>
+  <span>{cta.label}</span>
+  {cta.micro && <span class="text-xs opacity-80">{cta.micro}</span>}
+</a>

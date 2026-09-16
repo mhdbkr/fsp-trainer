@@ -33,8 +33,14 @@
   }
   @supports not (backdrop-filter: blur(1px)) {
     .glass { background: var(--dt-glass-light-fallback); }
+    @media (prefers-color-scheme: dark) {
+      .glass { background: var(--dt-glass-dark-fallback); }
+    }
   }
   @media (prefers-reduced-transparency: reduce) {
     .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--dt-glass-light-fallback); }
+    @media (prefers-color-scheme: dark) {
+      .glass { background: var(--dt-glass-dark-fallback); }
+    }
   }
 }
