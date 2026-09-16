@@ -1,6 +1,7 @@
 import type { Case, Simulation, Specialty } from '@/db/types';
 import type { Readiness } from './index';
 import { weightedPartScore, simulationPassed } from '@/lib/scoring';
+import { computeActions } from './actions';
 
 // ============================================================================
 // Bereitschaftsindex v2 (spec §6) = 0,5·S + 0,25·C + 0,25·L.
@@ -221,8 +222,8 @@ function explainBereitschaft(
  *  la main). Plafond 79 sans Prüfungstag **avec simulant** réussi < 30 j ;
  *  `capExpiresAt` = date du qualifiant le plus récent + 30 j. `leverage` =
  *  composante à plus grande marge pondérée (égalité → s, c, l). Les
- *  `sim-demo-*` sont exclues. `actions` = T7 (`computeActions`) ; tant qu'elle
- *  n'existe pas, `[]`. `opts.withActions=false` = garde anti-récursion. */
+ *  `sim-demo-*` sont exclues. `actions` = T7 (`computeActions`, spec §6.3).
+ *  `opts.withActions=false` = garde anti-récursion. */
 export function computeBereitschaftsindex(
   input: ReadinessInput,
   now = Date.now(),
@@ -241,10 +242,7 @@ export function computeBereitschaftsindex(
   const value = capped === 'none' ? raw : Math.min(raw, 79);
   const margins = { s: 0.5 * (100 - s.value), c: 0.25 * (100 - c.value), l: 0.25 * (100 - l.value) };
   const leverage = (['s', 'c', 'l'] as const).reduce((a, b) => (margins[b] > margins[a] ? b : a));
-  // T7 : `const actions = opts.withActions === false ? [] : computeActions(input, now)`.
-  // Stub explicite tant que `computeActions` n'existe pas.
-  const withActions = opts.withActions !== false;
-  const actions: ReadinessAction[] = withActions ? [] : [];
+  const actions: ReadinessAction[] = opts.withActions === false ? [] : computeActions(input, now);
   return {
     value,
     verdict: verdictFor(value),
