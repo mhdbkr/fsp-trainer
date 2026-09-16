@@ -4,7 +4,7 @@ import { rateLimit, TooMany } from '../_shared/ratelimit.ts';
 
 const Event = z.object({
   id: z.string().uuid(),
-  type: z.enum(['simulation.completed','srs.reviewed','plan.done','case.layer_reached','program.configured']),
+  type: z.enum(['simulation.completed','srs.reviewed','plan.done','case.layer_reached','program.configured','exam_day.completed']),
   subject_id: z.string().max(200).nullable(),
   payload: z.record(z.unknown()),
   occurred_at: z.string().datetime(),
