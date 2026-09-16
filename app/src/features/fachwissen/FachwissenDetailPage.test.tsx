@@ -190,5 +190,7 @@ describe('FachwissenDetailPage — visuels', () => {
     if (original) registerVisual('decision-tree', original);
     warn.mockRestore();
     dev.mockRestore();
-  });
+    // Rendu complet de la page (Dexie) + remontée d'erreur + re-rendu déplié :
+    // > 5 s sous contention de la suite complète. Timeout ciblé, test bloquant.
+  }, 15_000);
 });
