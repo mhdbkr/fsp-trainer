@@ -1,9 +1,10 @@
-import { describe, it, expect, afterEach, beforeEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { db } from '@/db/db';
 import type { Fachwissen } from '@/db/types';
+import { getVisual, registerVisual } from '@/components/visuals/registry';
 import { FachwissenDetailPage } from './FachwissenDetailPage';
 
 // Fiches minimales mais fidèles aux refs citées par les pilotes visuels
@@ -145,5 +146,49 @@ describe('FachwissenDetailPage — visuels', () => {
   it('fiche sans spec (fw-pankreatitis) : aucun [data-visual]', async () => {
     await renderPage('fw-pankreatitis');
     expect(container.querySelectorAll('[data-visual]').length).toBe(0);
+  });
+
+  it('fw-khk : Therapie repliée rend un <details> fermé avec « Text anzeigen · N Punkte », ouverture → « Text ausblenden » (AC-5)', async () => {
+    await renderPage('fw-khk');
+    const therapieDetails = Array.from(container.querySelectorAll('details')).find(
+      (d) => d.getAttribute('data-section') === 'Therapie',
+    );
+    expect(therapieDetails).toBeDefined();
+    expect(therapieDetails?.hasAttribute('open')).toBe(false);
+    expect(therapieDetails?.textContent).toContain('Text anzeigen · 4 Punkte');
+
+    await act(async () => {
+      therapieDetails!.setAttribute('open', '');
+    });
+    expect(therapieDetails?.hasAttribute('open')).toBe(true);
+    expect(therapieDetails?.textContent).toContain('Text ausblenden');
+  });
+
+  it('un bloc dont le composant throw disparaît sans cadre vide et déplie le texte qu’il remplaçait (D7, I-2)', async () => {
+    const original = getVisual('decision-tree');
+    const warn = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const dev = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    registerVisual(
+      'decision-tree',
+      function Boom(): never {
+        throw new Error('boom');
+      } as never,
+    );
+
+    await renderPage('fw-khk');
+
+    expect(container.querySelector('[data-visual="decision-tree"]')).toBeNull();
+    // `diagnostik:Labor` était le seul `replaces` du bloc decision-tree :
+    // sans lui, la section Diagnostisches Vorgehen ne doit plus être repliée.
+    const diagnostikSection = Array.from(container.querySelectorAll('[data-section]')).find(
+      (el) => el.getAttribute('data-section') === 'Diagnostisches Vorgehen',
+    );
+    expect(diagnostikSection).toBeDefined();
+    expect(diagnostikSection?.tagName.toLowerCase()).not.toBe('details');
+    expect(diagnostikSection?.textContent).toContain('Troponin');
+
+    if (original) registerVisual('decision-tree', original);
+    warn.mockRestore();
+    dev.mockRestore();
   });
 });

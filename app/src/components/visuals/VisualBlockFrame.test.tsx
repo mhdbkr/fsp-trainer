@@ -1,18 +1,21 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
-import { act } from 'react';
-import { createRoot } from 'react-dom/client';
+import { describe, it, expect, afterEach } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { VisualBlockFrame } from './VisualBlockFrame';
 
 const EMOJI_RE = /\p{Extended_Pictographic}/u;
 
-function Boom(): never {
-  throw new Error('boom');
-}
-
 describe('VisualBlockFrame', () => {
   afterEach(() => {
     document.body.innerHTML = '';
+  });
+
+  it('rend data-block avec l’id du bloc (contrat §2)', () => {
+    const html = renderToStaticMarkup(
+      <VisualBlockFrame id="gauge-child-pugh" kind="score-gauge" title="Child-Pugh">
+        <p>contenu</p>
+      </VisualBlockFrame>,
+    );
+    expect(html).toContain('data-block="gauge-child-pugh"');
   });
 
   it('rend data-visual, role=region, aria-label et le titre', () => {
@@ -55,26 +58,6 @@ describe('VisualBlockFrame', () => {
       </VisualBlockFrame>,
     );
     expect(html).toContain('Text anzeigen');
-  });
-
-  it('ErrorBoundary avale une erreur enfant sans throw et rend null', () => {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    const root = createRoot(container);
-    const warn = vi.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => {
-      act(() => {
-        root.render(
-          <VisualBlockFrame kind="anatomy-map" title="Lokalisation">
-            <Boom />
-          </VisualBlockFrame>,
-        );
-      });
-    }).not.toThrow();
-    warn.mockRestore();
-    // Le bloc lui-même reste rendu (cadre + eyebrow), seul l'enfant fautif disparaît.
-    expect(container.textContent).toContain('Lokalisation');
-    root.unmount();
   });
 
   it('aucun emoji dans le markup rendu', () => {

@@ -104,4 +104,50 @@ describe('VisualBlock', () => {
     expect(container.textContent).toContain('Text anzeigen');
     unmount();
   });
+
+  it('composant qui throw → aucun cadre (D7), pas de cadre vide', () => {
+    registerVisual('timeline' as never, function Boom(): never {
+      throw new Error('boom');
+    } as never);
+    const block = {
+      id: 'timeline-boom',
+      kind: 'timeline',
+      title: 'Verlauf',
+      anchor: 'diagnostik',
+      replaces: [],
+      data: {},
+    } as unknown as VisualBlockSpec;
+
+    const warn = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const dev = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { container, unmount } = render(<VisualBlock block={block} fw={fw} />);
+    expect(container.querySelector('[data-visual]')).toBeNull();
+    expect(container.textContent).toBe('');
+    unmount();
+    warn.mockRestore();
+    dev.mockRestore();
+  });
+
+  it('composant qui throw → onError(blockId) remonté à l’appelant', () => {
+    registerVisual('score-gauge' as never, function Boom(): never {
+      throw new Error('boom');
+    } as never);
+    const block = {
+      id: 'gauge-boom',
+      kind: 'score-gauge',
+      title: 'Score',
+      anchor: 'klassifikation',
+      replaces: [],
+      data: {},
+    } as unknown as VisualBlockSpec;
+
+    const warn = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const dev = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const onError = vi.fn();
+    const { unmount } = render(<VisualBlock block={block} fw={fw} onError={onError} />);
+    expect(onError).toHaveBeenCalledWith('gauge-boom');
+    unmount();
+    warn.mockRestore();
+    dev.mockRestore();
+  });
 });

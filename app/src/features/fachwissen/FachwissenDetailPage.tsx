@@ -1,3 +1,4 @@
+import { useCallback, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFachwissen, useCases, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -5,6 +6,7 @@ import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import type { SectionKey } from '@/data/fachwissenVisuals/types';
+import { refKey } from '@/data/fachwissenVisuals/resolve';
 import { STUFE_META } from './stufeMeta';
 import { DDTable } from '@/components/DDTable';
 import { VisualBlock } from '@/components/visuals';
@@ -32,6 +34,24 @@ export function FachwissenDetailPage() {
   const begriffe = useFachbegriffe();
   const openGlossary = useUi((s) => s.openGlossary);
   const { blocksByAnchor, collapsed } = useVisualSpec(fw ?? ({ id: '__none__' } as never));
+  // Un bloc dont le composant throw (D7) ne doit jamais figer le texte
+  // replié : son id est retenu ici et ses `replaces` sortent de `collapsed`.
+  const [erroredBlockIds, setErroredBlockIds] = useState<Set<string>>(new Set());
+  const handleVisualError = useCallback((blockId: string) => {
+    setErroredBlockIds((prev) => (prev.has(blockId) ? prev : new Set(prev).add(blockId)));
+  }, []);
+  const effectiveCollapsed = useMemo(() => {
+    if (erroredBlockIds.size === 0) return collapsed;
+    const next = new Set(collapsed);
+    for (const blocks of blocksByAnchor.values()) {
+      for (const block of blocks) {
+        if (erroredBlockIds.has(block.id)) {
+          for (const ref of block.replaces) next.delete(refKey(ref));
+        }
+      }
+    }
+    return next;
+  }, [collapsed, blocksByAnchor, erroredBlockIds]);
 
   if (!fw) return <div className="text-slate-400">Chargement…</div>;
   const linkedCases = (cases ?? []).filter((c) => fw.linkedCaseIds.includes(c.id));
@@ -64,30 +84,32 @@ export function FachwissenDetailPage() {
   const bySlot = new Map<SectionKey, JSX.Element[]>();
   for (const [anchor, blocks] of blocksByAnchor) {
     const slot = resolveSlot(anchor);
-    const rendered = blocks.map((block) => <VisualBlock key={block.id} block={block} fw={fw} />);
+    const rendered = blocks.map((block) => (
+      <VisualBlock key={block.id} block={block} fw={fw} onError={handleVisualError} />
+    ));
     bySlot.set(slot, [...(bySlot.get(slot) ?? []), ...rendered]);
   }
   const visuals = (slot: SectionKey) => bySlot.get(slot) ?? null;
 
   // Klinik : repli par entrée `{ section: 'klinik', text }`.
-  const klinikSplit = splitByCollapse(fw.klinik, (k) => ({ section: 'klinik', text: k.text }), collapsed);
+  const klinikSplit = splitByCollapse(fw.klinik, (k) => ({ section: 'klinik', text: k.text }), effectiveCollapsed);
   // Risikofaktoren : liste de chaînes.
   const risikoItems = fw.risikofaktoren ?? [];
-  const risikoSplit = splitByCollapse(risikoItems, (t) => ({ section: 'risikofaktoren', text: t }), collapsed);
+  const risikoSplit = splitByCollapse(risikoItems, (t) => ({ section: 'risikofaktoren', text: t }), effectiveCollapsed);
   // Klassifikation : cartes nommées.
   const klassItems = fw.klassifikation ?? [];
-  const klassSplit = splitByCollapse(klassItems, (k) => ({ section: 'klassifikation', name: k.name }), collapsed);
+  const klassSplit = splitByCollapse(klassItems, (k) => ({ section: 'klassifikation', name: k.name }), effectiveCollapsed);
   // Differenzialdiagnosen : lignes de tableau.
   const ddSplit = splitByCollapse(
     fw.differenzialdiagnosen,
     (d) => ({ section: 'differenzialdiagnosen', dd: d.dd }),
-    collapsed,
+    effectiveCollapsed,
   );
   // Therapie : cartes par label.
-  const therapieSplit = splitByCollapse(fw.therapie, (s) => ({ section: 'therapie', label: s.label }), collapsed);
+  const therapieSplit = splitByCollapse(fw.therapie, (s) => ({ section: 'therapie', label: s.label }), effectiveCollapsed);
   // Diagnostik : repli par STUFE entière (une ref couvre tout le groupe).
   const stufenHidden = new Set(
-    DIAGNOSTIK_STUFEN.filter((stufe) => isFieldCollapsed({ section: 'diagnostik', stufe }, collapsed)),
+    DIAGNOSTIK_STUFEN.filter((stufe) => isFieldCollapsed({ section: 'diagnostik', stufe }, effectiveCollapsed)),
   );
   const diagnostikVisibleStufen = DIAGNOSTIK_STUFEN.filter(
     (stufe) => fw.diagnostik.some((d) => d.stufe === stufe) && !stufenHidden.has(stufe),
@@ -97,11 +119,11 @@ export function FachwissenDetailPage() {
   );
   const diagnostikAllHidden = diagnostikVisibleStufen.length === 0 && diagnostikHiddenStufen.length > 0;
   // Aetiologie / Prognose : champ scalaire, tout ou rien.
-  const aetiologieHidden = fw.aetiologie ? isFieldCollapsed({ section: 'aetiologie' }, collapsed) : false;
-  const prognoseHidden = fw.prognose ? isFieldCollapsed({ section: 'prognose' }, collapsed) : false;
+  const aetiologieHidden = fw.aetiologie ? isFieldCollapsed({ section: 'aetiologie' }, effectiveCollapsed) : false;
+  const prognoseHidden = fw.prognose ? isFieldCollapsed({ section: 'prognose' }, effectiveCollapsed) : false;
   // Red Flags (colonne latérale) : mêmes règles de repli par entrée (§3.3, R4).
   const redFlagsItems = fw.redFlags ?? [];
-  const redFlagsSplit = splitByCollapse(redFlagsItems, (t) => ({ section: 'redFlags', text: t }), collapsed);
+  const redFlagsSplit = splitByCollapse(redFlagsItems, (t) => ({ section: 'redFlags', text: t }), effectiveCollapsed);
 
   return (
     <div className="space-y-5">
