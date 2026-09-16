@@ -1,6 +1,6 @@
 import type { Axis, Case, Fachbegriff, Simulation } from '@/db/types';
 import { AXES } from '@/db/types';
-import { partToAxis, weightedPartScore } from './scoring';
+import { partToAxis, weightedPartScore } from '../scoring';
 
 // ============================================================================
 // Indicateur « Suis-je prêt à réussir la FSP ? » (Module 3).
