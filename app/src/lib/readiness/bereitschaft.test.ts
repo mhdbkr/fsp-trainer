@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Case, PartResult, Simulation } from '@/db/types';
 import { weightedPartScore } from '@/lib/scoring';
-import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS, computeC } from './bereitschaft';
+import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS, computeC, computeL } from './bereitschaft';
 
 const caseOf = (id: string, specialty: Case['specialty'], frequency: number): Case =>
   ({ id, specialty, frequency } as unknown as Case);
@@ -144,5 +144,68 @@ describe('computeC', () => {
     // c1 n'est pas dans visibleCases → F ne le contient pas, mais le lookup fonctionne quand même
     expect(c.covered).toEqual([]);
     expect(c.denominator).toBe(1);
+  });
+});
+
+const oralPart = (officialPct: number): PartResult => ({
+  done: true,
+  durationSec: 600,
+  checklist: [],
+  feeling: 50,
+  contentPct: officialPct,
+  officialPct,
+  languageGrid: {} as PartResult['languageGrid'],
+});
+
+const simWithOral = (date: number, key: 'anamnese' | 'aufklaerung' | 'fallvorstellung', officialPct: number): Simulation =>
+  ({ ...base, id: `sim-${date}-${Math.random()}`, date, parts: { [key]: oralPart(officialPct) } } as Simulation);
+
+describe('computeL', () => {
+  it('0 partie', () => {
+    expect(computeL([])).toEqual({ value: 0, base: 0, trend: 0, samples: 0 });
+  });
+
+  it('2 parties à 90 → value plafonnée à 30', () => {
+    const sims = [simWithOral(0, 'anamnese', 90), simWithOral(1, 'fallvorstellung', 90)];
+    const l = computeL(sims);
+    expect(l.samples).toBe(2);
+    expect(l.value).toBe(30);
+  });
+
+  it('3 à 70 → 70, trend 0', () => {
+    const sims = [0, 1, 2].map((i) => simWithOral(i, 'anamnese', 70));
+    const l = computeL(sims);
+    expect(l.value).toBe(70);
+    expect(l.trend).toBe(0);
+  });
+
+  it('5 montantes → base 63, trend +5, value 68', () => {
+    const pcts = [50, 55, 60, 70, 80];
+    const sims = pcts.map((p, i) => simWithOral(i, 'anamnese', p));
+    const l = computeL(sims);
+    expect(l.base).toBe(63);
+    expect(l.trend).toBe(5);
+    expect(l.value).toBe(68);
+  });
+
+  it('5 descendantes → trend -5', () => {
+    const pcts = [80, 70, 60, 55, 50];
+    const sims = pcts.map((p, i) => simWithOral(i, 'anamnese', p));
+    const l = computeL(sims);
+    expect(l.trend).toBe(-5);
+  });
+
+  it('6 → samples 5, la plus ancienne ignorée', () => {
+    const pcts = [10, 50, 55, 60, 70, 80];
+    const sims = pcts.map((p, i) => simWithOral(i, 'anamnese', p));
+    const l = computeL(sims);
+    expect(l.samples).toBe(5);
+    expect(l.base).toBe(63);
+  });
+
+  it('partie sans languageGrid (dokumentation) ignorée', () => {
+    const sim: Simulation = { ...base, date: 0, parts: { dokumentation: part(80, 80) } };
+    const l = computeL([sim]);
+    expect(l.samples).toBe(0);
   });
 });
