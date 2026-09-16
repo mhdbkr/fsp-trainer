@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { latestSrs, simulationsFrom } from './projections';
+import { latestSrs, simulationsFrom, rebuildProjections } from './projections';
+import { db } from '@/db/db';
 import type { ProgressEvent } from './events';
 
 const e = (type: ProgressEvent['type'], subject_id: string, payload: unknown, occurred_at: string): ProgressEvent => ({ id: crypto.randomUUID(), user_id: 'u', type, subject_id, payload, occurred_at });
@@ -18,5 +19,23 @@ describe('projections', () => {
     const sim = { id: 's1', caseId: 'c1', date: 1, parts: {}, notes: {}, prioritizedCorrections: [] };
     const out = simulationsFrom([e('simulation.completed', 'c1', sim, '2026-01-01T00:00:00Z'), e('plan.done', 'p', {}, '2026-01-01T00:00:00Z')]);
     expect(out).toEqual([sim]);
+  });
+});
+
+describe('exam_day.completed', () => {
+  it('journal avec exam_day.completed : pas d\'erreur, aucune ligne dérivée, sim restituée avec context/withSimulant/examDay', async () => {
+    const sim = {
+      id: 'sim-exam-1', caseId: 'c1', date: 1, parts: {}, notes: {}, prioritizedCorrections: [],
+      context: 'pruefungstag', withSimulant: true,
+      examDay: { startedAt: 1, endedAt: 2, land: 'BW', partTimes: {} },
+    };
+    await db.progress_events.bulkPut([
+      e('simulation.completed', 'c1', sim, '2026-01-01T00:00:00Z'),
+      e('exam_day.completed', 'sim-exam-1', { v: 1, simulationId: 'sim-exam-1' }, '2026-01-01T00:00:01Z'),
+    ]);
+    await expect(rebuildProjections()).resolves.not.toThrow();
+    const got = await db.simulations.get('sim-exam-1');
+    expect(got).toMatchObject({ context: 'pruefungstag', withSimulant: true, examDay: { land: 'BW' } });
+    expect(await db.simulations.count()).toBe(1);
   });
 });
