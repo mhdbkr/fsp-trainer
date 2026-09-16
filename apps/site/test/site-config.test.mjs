@@ -26,9 +26,11 @@ test('global cta points to signup and names freeCases', () => {
   assert.equal(c.label, 'Mit 12 kostenlosen Fällen starten');
   assert.equal(c.micro, 'Ohne Kreditkarte');
 });
-test('pricing cta: free = signup, pro/premium = app pricing with plan', () => {
-  assert.equal(pricingCtaFor(readSite({}), 'free').href, '{{APP_URL}}/signup');
-  const c = pricingCtaFor(readSite({}), 'pro');
+test('pricing cta: free = signup with named freeCases (C6), pro/premium = app pricing with plan', () => {
+  const free = pricingCtaFor(readSite({}), 'free', 12);
+  assert.equal(free.href, '{{APP_URL}}/signup');
+  assert.equal(free.label, 'Mit 12 kostenlosen Fällen starten');
+  const c = pricingCtaFor(readSite({}), 'pro', 12);
   assert.equal(c.href, '{{APP_URL}}/pricing?plan=pro');
   assert.equal(c.label, 'Pro wählen');
 });

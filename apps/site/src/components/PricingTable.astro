@@ -5,7 +5,9 @@ import { pricingCtaFor } from '@/lib/cta.ts';
 
 const site = readSite();
 
-const label = (id: string) => pricing.labels[id] ?? id;
+// review T2.4 C-1 : `pricing.core` porte son texte dans `label`, jamais dans
+// `pricing.labels` — retomber sur l'id affichait l'id brut.
+const label = (f: { id: string; label?: string }) => pricing.labels[f.id] ?? f.label ?? f.id;
 const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
 
 const columns = pricing.plans.map((plan) => {
@@ -18,7 +20,7 @@ const columns = pricing.plans.map((plan) => {
     live,
     bald,
     included,
-    cta: pricingCtaFor(site, plan.id),
+    cta: pricingCtaFor(site, plan.id, pricing.freeCases),
   };
 });
 ---
@@ -28,7 +30,7 @@ const columns = pricing.plans.map((plan) => {
     <h2 class="text-lg text-ink dark:text-paper">In jedem Plan enthalten</h2>
     <ul class="mt-3 grid gap-2 sm:grid-cols-2">
       {pricing.core.map((f) => (
-        <li class="text-sm text-ink-700 dark:text-paper/90">{label(f.id)}</li>
+        <li class="text-sm text-ink-700 dark:text-paper/90">{label(f)}</li>
       ))}
     </ul>
   </div>
@@ -39,7 +41,7 @@ const columns = pricing.plans.map((plan) => {
         <h3 class="text-lg text-ink dark:text-paper">{col.name}</h3>
         <p class="mt-1 font-mono text-xl text-ink dark:text-paper">
           {col.price === '0' ? (
-            'Kostenlos'
+            col.displayPrice
           ) : (
             <>
               {col.displayPrice} <span class="text-sm font-sans font-normal text-ink-700 dark:text-paper/90">pro {'{{BILLING_PERIOD}}'}, inkl. MwSt.</span>
@@ -57,7 +59,7 @@ const columns = pricing.plans.map((plan) => {
             <li class="font-medium text-ink dark:text-paper">Alles aus {col.included.name}</li>
           )}
           {col.live.map((f) => (
-            <li>{label(f.id)}</li>
+            <li>{label(f)}</li>
           ))}
         </ul>
 
@@ -67,7 +69,7 @@ const columns = pricing.plans.map((plan) => {
             <ul class="mt-2 space-y-2 text-sm text-ink-700 dark:text-paper/90">
               {col.bald.map((f) => (
                 <li>
-                  {label(f.id)}
+                  {label(f)}
                   <span class="ml-1 rounded-control bg-brand-50 px-1.5 py-0.5 text-xs text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">bald</span>
                 </li>
               ))}
@@ -92,6 +94,6 @@ const columns = pricing.plans.map((plan) => {
     {pricing.cancellation}
   </p>
   <p class="mt-2 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
-    <a href="/de/agb/" class="text-brand-700 underline hover:text-brand-800">AGB</a>
+    <a href="/de/agb/" class="text-brand-700 underline hover:text-brand-800 dark:text-brand-300">AGB</a>
   </p>
 </section>

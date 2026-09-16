@@ -30,7 +30,14 @@ export function checkPricing({ pricing, entitlementsMd, featuresDir, seedCasesTs
     if (f.status === 'live' && f.dir && !existsSync(join(featuresDir, f.dir))) e.push(`${where} ${f.id}: dossier app/src/features/${f.dir} absent`);
     if (!['live', 'bald'].includes(f.status)) e.push(`${where} ${f.id}: status inconnu`);
   };
-  for (const c of pricing.core) checkLive(c, 'core');
+  for (const c of pricing.core) {
+    checkLive(c, 'core');
+    // review T2.4 C-1 : `core` porte son texte dans `label`, jamais dans
+    // `pricing.labels` — refuser tout libellé rendu égal à son id (test de
+    // mutation : le composant retombait sur l'id brut si le champ manquait).
+    const resolved = pricing.labels[c.id] ?? c.label ?? c.id;
+    if (resolved === c.id) e.push(`core ${c.id}: libellé résolu égal à l'id (aucun texte lisible)`);
+  }
   for (const plan of pricing.plans) for (const f of plan.features) {
     checkLive(f, plan.id);
     const [feat, val] = f.id.split(':');

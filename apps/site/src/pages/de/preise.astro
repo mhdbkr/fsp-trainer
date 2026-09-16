@@ -10,7 +10,7 @@ const faq = [
   },
   {
     q: 'Widerruf?',
-    a: 'Du hast ein 14-tägiges Widerrufsrecht.',
+    a: 'Du hast ein 14-tägiges',
     href: '/de/widerruf/',
     linkLabel: 'Widerrufsrecht',
   },
@@ -43,7 +43,7 @@ const faq = [
           <div class="border-t border-ink-600/15 px-4 py-4 text-ink-700 dark:border-paper/20 dark:text-paper/90">
             {item.href ? (
               <p>
-                Du hast ein 14-tägiges <a href={item.href} class="text-brand-700 underline hover:text-brand-800">{item.linkLabel}</a>.
+                {item.a} <a href={item.href} class="text-brand-700 underline hover:text-brand-800 dark:text-brand-300">{item.linkLabel}</a>.
               </p>
             ) : (
               <p>{item.a}</p>
