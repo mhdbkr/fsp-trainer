@@ -14,8 +14,8 @@ const subtitle2 = `${site.productName}: 130 Fälle, gebaut aus dem, was wirklich
   <div class="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 py-16 md:flex-row md:items-center md:py-24">
     <div class="hero-glass glass flex-1 rounded-control p-6 md:p-10" transition:name="hero">
       <h1 class="text-3xl md:text-5xl text-ink-900">{site.tagline}</h1>
-      <p class="mt-3 text-lg md:text-xl text-ink-800">{subtitle1}</p>
-      <p class="mt-2 text-sm md:text-base text-ink-700">{subtitle2}</p>
+      <p class="mt-3 text-lg md:text-xl text-ink-800 dark:text-paper/90">{subtitle1}</p>
+      <p class="mt-2 text-sm md:text-base text-ink-700 dark:text-paper/80">{subtitle2}</p>
       <div class="mt-6">
         <CtaButton />
       </div>
@@ -26,7 +26,7 @@ const subtitle2 = `${site.productName}: 130 Fälle, gebaut aus dem, was wirklich
         <source srcset="/hero-static.avif" type="image/avif" />
         <img
           src="/hero-static.webp"
-          alt="Oberfläche von FSP Trainer: Simulationsansicht mit anonymisiertem Free-Fall"
+          alt=""
           width="720"
           height="540"
           fetchpriority="high"
@@ -83,8 +83,7 @@ const subtitle2 = `${site.productName}: 130 Fälle, gebaut aus dem, was wirklich
     to { transform: rotate(360deg); }
   }
   .hero-glass {
-    perspective: 1200px;
-    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     transition: transform 200ms var(--dt-motion-ease-out);
   }
   @media (prefers-reduced-motion: reduce) {
