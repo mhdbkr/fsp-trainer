@@ -4,7 +4,7 @@
 
 **Goal:** Sur `main`, permettre à 2–quelques personnes de créer un compte immédiatement (e-mail + mot de passe, sans lien magique), de partager un appareil avec bascule instantanée sans re-login, chacune avec une base locale entièrement séparée.
 
-**Architecture:** Un registre local (`localStorage`) des comptes connus sur l'appareil garde le dernier jeton de rafraîchissement de chaque compte ; basculer = `setSession` + reload. Le nom de la base Dexie est résolu au chargement du module depuis le compte actif (`fsp-cockpit-<userId>`). Un mode `VITE_AUTH_MODE=founder|public` pilote l'écran d'entrée ; en `public`, rien ne change.
+**Architecture:** Un registre local (`localStorage`) des comptes connus sur l'appareil garde le dernier jeton de rafraîchissement de chaque compte ; basculer = `refreshSession` + reload. Le nom de la base Dexie est résolu au chargement du module depuis le compte actif (`fsp-cockpit-<userId>`). Un mode `VITE_AUTH_MODE=founder|public` pilote l'écran d'entrée ; en `public`, rien ne change.
 
 **Tech Stack:** React 18, Vite 7, Zustand, Dexie, @supabase/supabase-js (auth password), Vitest (jsdom + fake-indexeddb), playwright-cli.
 
@@ -390,7 +390,7 @@ Ajouter dans `beforeEach` : `localStorage.clear(); vi.clearAllMocks();` (garder 
       expect(byId).toEqual({ u1: 'new1', u2: 'old2' });
     });
 
-    it('switchAccount : jeton valide → setSession, actif changé, "switched"', async () => {
+    it('switchAccount : jeton valide → refreshSession, actif changé, "switched"', async () => {
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'r2' });
       auth.refreshSession.mockResolvedValue({ data: { session: { refresh_token: 'r2b', user: { id: 'u2' } } }, error: null });
       await expect(switchAccount('u2')).resolves.toBe('switched');
@@ -1220,6 +1220,6 @@ git commit -m "test(fondateur): preuve navigateur AC-1/2/3/5/6/10 (playwright-cl
 ### Task 10 : Fin de branche
 
 - [ ] `npm run typecheck && npx vitest run --dir src && npm run build` → exit 0 ; `node scripts/testRls.mjs` → exit 0.
-- [ ] `quality-branch-reviewer` (Opus) sur `main..HEAD` ; `security-auditor` (jetons en localStorage, `setSession`, script service-role) ; `ux-user-advocate` sur la porte et la bascule. Un seul fixeur, re-revue.
+- [ ] `quality-branch-reviewer` (Opus) sur `main..HEAD` ; `security-auditor` (jetons en localStorage, `refreshSession`, script service-role) ; `ux-user-advocate` sur la porte et la bascule. Un seul fixeur, re-revue.
 - [ ] `gh pr create --base main --title "feat(fondateur): comptes immédiats et bascule sans login (ADR-0015)"`, CI verte, merge par la direction.
 - [ ] Après merge : rappeler à la direction les deux réglages hors code (Supabase « Confirm email = off » sur le projet EU ; secrets GitHub) et `npm run founder:grant <email>` pour chaque personne.
