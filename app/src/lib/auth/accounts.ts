@@ -17,6 +17,14 @@ export interface KnownAccount {
 
 export const ACCOUNT_COLORS = ['petrol', 'coral', 'indigo', 'amber', 'rose', 'emerald', 'sky', 'violet'] as const;
 
+// Couleur → classe Tailwind du point d'avatar. Partagée par AccountSwitcher
+// (menu de bascule) et RolesCard (carte « Le médecin ») pour éviter la
+// duplication de cette table.
+export const ACCOUNT_DOT: Record<string, string> = {
+  petrol: 'bg-brand-500', coral: 'bg-signal-500', indigo: 'bg-indigo-500', amber: 'bg-amber-500',
+  rose: 'bg-rose-500', emerald: 'bg-emerald-500', sky: 'bg-sky-500', violet: 'bg-violet-500',
+};
+
 const KEY_ACCOUNTS = 'fsp.accounts';
 const KEY_ACTIVE = 'fsp.activeUserId';
 

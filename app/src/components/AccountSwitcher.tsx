@@ -1,17 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { listAccounts, getActiveUserId, forgetAccount, initials, setActiveUserId } from '@/lib/auth/accounts';
+import { listAccounts, getActiveUserId, forgetAccount, initials, setActiveUserId, ACCOUNT_DOT as DOT } from '@/lib/auth/accounts';
 import { switchAccount, signOut } from '@/lib/auth/session';
 import { deleteAccountDb } from '@/db/db';
 import { Icon } from '@/components/icons';
 
 // Bascule de compte sans login (mode fondateur). Basculer recharge l'app :
 // la base Dexie et tous les stores repartent propres pour l'autre personne.
-
-const DOT: Record<string, string> = {
-  petrol: 'bg-brand-500', coral: 'bg-signal-500', indigo: 'bg-indigo-500', amber: 'bg-amber-500',
-  rose: 'bg-rose-500', emerald: 'bg-emerald-500', sky: 'bg-sky-500', violet: 'bg-violet-500',
-};
 
 const toGate = () => { setActiveUserId(null); location.reload(); };
 
