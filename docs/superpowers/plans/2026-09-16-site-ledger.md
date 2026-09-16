@@ -27,3 +27,4 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T2.7 | impl-t27 | 8b04e3a | review-t27 | APPROVED_WITH_MINORS (I1 faq/credits.md présent → « bald » ; M9 Widerruf fragment ; M10 Hero « Bewertung der Prüfung » → fix en T2.9) ; fixes T2.3/T2.4/T2.6 APPROVED | fix-t29 d67062c (I1 credits.md « bald », M9 Widerruf phrase complète, M10 Hero « interne Übungsskala ») |
 | T2.8 | impl-t28 | f149d2f | review-t28 | CHANGES_REQUIRED (4 Important éditoriaux : Kardio/Psychiatrie vs données, « je nach Kammer », Kommission non sourcée, témoignage non sourcé) | fix-t28 188f869 |
 | T2.9 | impl-t29 | eac4ae2 | review-t29 | APPROVED_WITH_MINORS (I1 ueber « boucle communautaire » au présent ; M1 Kandidaten vs Berichte ; M2 « in der Regel » ; M5 guillemets) ; fixes T2.7 APPROVED | fix-t29 4886c22 |
+| T3.1 | impl-t31 | 98fd7d5 | — | — | — |
