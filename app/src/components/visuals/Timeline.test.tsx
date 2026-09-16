@@ -50,7 +50,14 @@ describe('Timeline', () => {
     expect(html).toContain('flex-col');
   });
 
-  it('clic sur un point déplie le detail', () => {
+  it('les détails de tous les points sont visibles sans clic', () => {
+    const html = renderToStaticMarkup(<Timeline block={makeBlock(threePoints)} fw={fw} />);
+    expect(html).toContain('Anamnese und EKG');
+    expect(html).toContain('Troponin, Bildgebung');
+    expect(html).toContain('Reperfusion');
+  });
+
+  it('clic sur un point le met en évidence (data-active) sans masquer les autres', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
     const root = createRoot(container);
@@ -58,15 +65,17 @@ describe('Timeline', () => {
       root.render(<Timeline block={makeBlock(threePoints)} fw={fw} />);
     });
 
-    expect(container.textContent).not.toContain('Anamnese und EKG');
+    expect(container.textContent).toContain('Anamnese und EKG');
 
     const buttons = Array.from(container.querySelectorAll('button')) as HTMLButtonElement[];
     act(() => {
       buttons[0].click();
     });
 
+    expect(buttons[0].getAttribute('data-active')).toBe('true');
+    expect(buttons[1].getAttribute('data-active')).toBeNull();
     expect(container.textContent).toContain('Anamnese und EKG');
-    expect(buttons[0].getAttribute('aria-expanded')).toBe('true');
+    expect(container.textContent).toContain('Troponin, Bildgebung');
 
     root.unmount();
   });
