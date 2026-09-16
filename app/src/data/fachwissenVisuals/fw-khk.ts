@@ -34,7 +34,7 @@ export const spec: FachwissenVisualSpec = {
                   {
                     label: 'ja',
                     child: {
-                      question: 'Troponin erhöht oder EKG-Veränderungen?',
+                      question: 'Troponin erhöht oder EKG-Veränderungen? (zusätzlich Lipide, HbA1c erheben)',
                       source: { section: 'diagnostik', stufe: 'Labor' },
                       branches: [
                         {

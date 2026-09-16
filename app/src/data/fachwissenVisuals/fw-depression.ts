@@ -9,7 +9,7 @@ export const spec: FachwissenVisualSpec = {
     {
       id: 'syndrome-depression',
       kind: 'syndrome-map',
-      title: 'Depressive Episode — Symptome & Schweregrad',
+      title: 'Depressive Episode — ICD-10-Kriterien & Schweregrad',
       anchor: 'klinik',
       replaces: [
         {
@@ -28,6 +28,10 @@ export const spec: FachwissenVisualSpec = {
           text: 'Somatisches Syndrom: Früherwachen, Morgentief (Morgenpessimum), psychomotorische Hemmung, Appetit- und Gewichtsverlust, Libidoverlust',
         },
         { section: 'klassifikation', name: 'ICD-10 F32 — Schweregrad' },
+        {
+          section: 'klinik',
+          text: 'Suizidgedanken oder -handlungen ("Mir ist egal, ob ich lebe oder nicht")',
+        },
         {
           section: 'redFlags',
           text: 'Akute Suizidalität mit konkreten Plänen, Vorbereitungen oder Ankündigungen (z. B. Sprungabsicht) → sofortige Sicherung, Patient nicht allein lassen',
@@ -106,6 +110,13 @@ export const spec: FachwissenVisualSpec = {
             label: 'Red Flags',
             tone: 'signal',
             items: [
+              {
+                text: 'Suizidgedanken oder -handlungen erfragen',
+                source: {
+                  section: 'klinik',
+                  text: 'Suizidgedanken oder -handlungen ("Mir ist egal, ob ich lebe oder nicht")',
+                },
+              },
               {
                 text: 'Akute Suizidalität mit konkreten Plänen oder Vorbereitungen',
                 source: {

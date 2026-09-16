@@ -62,8 +62,7 @@ export const spec: FachwissenVisualSpec = {
       kind: 'timeline',
       title: 'Dekompensation der Leberzirrhose',
       anchor: 'redFlags',
-      merke:
-        'Jede dekompensierte Zirrhose mit Fieber = SBP ausschließen (diagnostische Aszitespunktion); Alkoholkarenz ist die einzige ätiologische Maßnahme — kurativ nur die Transplantation.',
+      merke: 'Fieber bei Aszites = SBP ausschließen (Punktion).',
       replaces: [
         {
           section: 'redFlags',
