@@ -13,6 +13,13 @@ const DOT: Record<string, string> = {
 };
 type Mode = 'create' | 'signin';
 
+/** Erreur Supabase « User already registered » (422) → message français +
+ *  passage à la connexion, e-mail conservé. Les autres erreurs restent telles quelles. */
+const isAlreadyRegistered = (e: unknown): boolean => {
+  const err = e as { message?: string; status?: number };
+  return /already registered/i.test(err?.message ?? '') || (err?.status === 422 && /already/i.test(err?.message ?? ''));
+};
+
 export function FounderGate({ onDone }: { onDone: () => void }) {
   const known = listAccounts();
   const [mode, setMode] = useState<Mode>('create');
@@ -20,12 +27,20 @@ export function FounderGate({ onDone }: { onDone: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [emailTaken, setEmailTaken] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const run = async (fn: () => Promise<void>) => {
-    setError(null); setBusy(true);
-    try { await fn(); onDone(); } catch (e) { setError((e as Error).message); } finally { setBusy(false); }
+    setError(null); setEmailTaken(false); setBusy(true);
+    try { await fn(); onDone(); }
+    catch (e) { if (isAlreadyRegistered(e)) setEmailTaken(true); else setError((e as Error).message); }
+    finally { setBusy(false); }
   };
+  const toSignin = () => { setMode('signin'); setEmailTaken(false); setError(null); };
+
+  // Titre : sans compte connu → création ; avec comptes → « Qui s'entraîne ? »
+  // (la liste d'abord, le formulaire de création dessous) ; connexion → « Se connecter ».
+  const title = mode === 'signin' ? 'Se connecter' : known.length > 0 ? "Qui s'entraîne ?" : 'Créer mon compte';
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +68,7 @@ export function FounderGate({ onDone }: { onDone: () => void }) {
       <div className="w-full max-w-sm space-y-6">
         <div>
           <div className="label">Doctopus · FSP Trainer</div>
-          <h1 className="text-2xl font-bold">{mode === 'create' ? 'Créer mon compte' : 'Se connecter'}</h1>
+          <h1 className="text-2xl font-bold">{title}</h1>
           <p className="text-sm text-slate-500">Chaque personne a son compte : sa progression, ses simulations, son programme. Rien n'est partagé.</p>
         </div>
 
@@ -71,19 +86,23 @@ export function FounderGate({ onDone }: { onDone: () => void }) {
         )}
 
         <form onSubmit={submit} className="card space-y-3 p-4">
+          {mode === 'create' && known.length > 0 && <h2 className="label">Nouveau compte</h2>}
           {mode === 'create' && (
             <label className="block text-sm"><span className="label">Prénom</span>
-              <input aria-label="Prénom" required value={name} onChange={(e) => setName(e.target.value)} className="input w-full" autoFocus /></label>
+              <input aria-label="Prénom" required autoComplete="given-name" value={name} onChange={(e) => setName(e.target.value)} className="input w-full" autoFocus={known.length === 0} /></label>
           )}
           <label className="block text-sm"><span className="label">E-mail</span>
-            <input aria-label="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="input w-full" /></label>
+            <input aria-label="E-mail" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input w-full" /></label>
           <label className="block text-sm"><span className="label">Mot de passe</span>
-            <input aria-label="Mot de passe" type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="input w-full" /></label>
+            <input aria-label="Mot de passe" type="password" required minLength={8} autoComplete={mode === 'create' ? 'new-password' : 'current-password'} value={password} onChange={(e) => setPassword(e.target.value)} className="input w-full" /></label>
           <button type="submit" disabled={busy} className="btn-primary w-full justify-center">{mode === 'create' ? 'Créer et commencer' : 'Se connecter'}</button>
           {error && <p role="alert" className="text-xs text-signal-600">{error}</p>}
+          {emailTaken && (
+            <p role="alert" className="text-xs text-signal-600">Cet e-mail a déjà un compte — <button type="button" onClick={toSignin} className="font-semibold underline">Se connecter</button></p>
+          )}
         </form>
 
-        <button type="button" onClick={() => { setMode(mode === 'create' ? 'signin' : 'create'); setError(null); }} className="w-full text-center text-sm text-slate-500 hover:underline">
+        <button type="button" onClick={() => { setMode(mode === 'create' ? 'signin' : 'create'); setError(null); setEmailTaken(false); }} className="w-full text-center text-sm text-slate-500 hover:underline">
           {mode === 'create' ? "J'ai déjà un compte" : 'Créer un nouveau compte'}
         </button>
       </div>

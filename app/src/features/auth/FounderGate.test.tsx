@@ -86,12 +86,47 @@ describe('FounderGate', () => {
   });
 
   it('erreur serveur affichée', async () => {
-    session.signUpWithPassword.mockRejectedValue(new Error('User already registered'));
+    session.signUpWithPassword.mockRejectedValue(new Error('Database error saving new user'));
     render(<FounderGate onDone={vi.fn()} />);
     fireEvent.change(screen.getByLabelText(/prénom/i), { target: { value: 'A' } });
     fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'a@x.de' } });
     fireEvent.change(screen.getByLabelText(/mot de passe/i), { target: { value: 'secret123' } });
     fireEvent.click(screen.getByRole('button', { name: /créer/i }));
-    await waitFor(() => expect(screen.getByText(/already registered/i)).toBeTruthy());
+    await waitFor(() => expect(screen.getByText(/database error/i)).toBeTruthy());
+  });
+
+  it('« User already registered » → message français + bouton « Se connecter » qui garde l\'e-mail', async () => {
+    session.signUpWithPassword.mockRejectedValue(Object.assign(new Error('User already registered'), { status: 422 }));
+    session.signInWithPassword.mockResolvedValue(undefined);
+    render(<FounderGate onDone={vi.fn()} />);
+    fireEvent.change(screen.getByLabelText(/prénom/i), { target: { value: 'A' } });
+    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'a@x.de' } });
+    fireEvent.change(screen.getByLabelText(/mot de passe/i), { target: { value: 'secret123' } });
+    fireEvent.click(screen.getByRole('button', { name: /créer/i }));
+    await waitFor(() => expect(screen.getByRole('alert').textContent).toMatch(/cet e-mail a déjà un compte/i));
+    expect(screen.queryByText(/already registered/i)).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /se connecter/i }));
+    expect(screen.getByRole('heading', { name: /se connecter/i })).toBeTruthy();
+    expect((screen.getByLabelText(/e-mail/i) as HTMLInputElement).value).toBe('a@x.de');
+    expect(screen.getByLabelText(/mot de passe/i).getAttribute('autocomplete')).toBe('current-password');
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
+
+  it('avec des comptes connus : titre « Qui s\'entraîne ? », liste d\'abord, création sous « Nouveau compte »', () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r1' });
+    render(<FounderGate onDone={vi.fn()} />);
+    expect(screen.getByRole('heading', { name: /qui s'entraîne/i })).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: /créer mon compte/i })).toBeNull();
+    const list = screen.getByRole('button', { name: /anna/i });
+    const sub = screen.getByRole('heading', { name: /nouveau compte/i });
+    expect(list.compareDocumentPosition(sub) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.getByLabelText(/mot de passe/i).getAttribute('autocomplete')).toBe('new-password');
+    expect(screen.getByLabelText(/e-mail/i).getAttribute('autocomplete')).toBe('email');
+  });
+
+  it('sans compte connu : titre « Créer mon compte », pas de sous-titre « Nouveau compte »', () => {
+    render(<FounderGate onDone={vi.fn()} />);
+    expect(screen.getByRole('heading', { name: /créer mon compte/i })).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: /nouveau compte/i })).toBeNull();
   });
 });
