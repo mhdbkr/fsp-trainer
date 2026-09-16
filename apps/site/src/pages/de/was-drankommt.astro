@@ -13,7 +13,7 @@ import frequencies from '@/data/frequencies.json' with { type: 'json' };
   path="/de/was-drankommt/"
 >
   <section class="mx-auto max-w-6xl px-4 py-16">
-    <h1 class="text-3xl md:text-4xl text-ink-900 dark:text-paper">Was wirklich drankommt</h1>
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">Was wirklich drankommt</h1>
     <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
       Ausgewertet aus {frequencies.n} Prüfungsprotokollen, {frequencies.centers.length} Zentren
       in Baden-Württemberg, Stand {frequencies.period}. Nach Zentrum filtern:
@@ -21,7 +21,7 @@ import frequencies from '@/data/frequencies.json' with { type: 'json' };
 
     <div class="mt-6 space-y-2">
       <details name="center" open class="group rounded-control border border-ink-600/15 dark:border-paper/20">
-        <summary class="cursor-pointer select-none px-4 py-3 text-ink-900 dark:text-paper">
+        <summary class="cursor-pointer select-none px-4 py-3 text-ink dark:text-paper">
           Alle Zentren
         </summary>
         <div class="border-t border-ink-600/15 px-4 py-4 dark:border-paper/20">
@@ -31,7 +31,7 @@ import frequencies from '@/data/frequencies.json' with { type: 'json' };
 
       {frequencies.centers.map((c) => (
         <details name="center" class="group rounded-control border border-ink-600/15 dark:border-paper/20">
-          <summary class="cursor-pointer select-none px-4 py-3 text-ink-900 dark:text-paper">
+          <summary class="cursor-pointer select-none px-4 py-3 text-ink dark:text-paper">
             {c.name}
           </summary>
           <div class="border-t border-ink-600/15 px-4 py-4 dark:border-paper/20">
