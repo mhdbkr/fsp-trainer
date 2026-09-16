@@ -1,0 +1,1 @@
+{ "domain": "{{SITE_DOMAIN}}", "appUrl": "{{APP_URL}}", "supportEmail": "{{SUPPORT_EMAIL}}", "brandName": "Doctopus", "productName": "FSP Trainer", "tagline": "Die Generalprobe.", "analyticsEndpoint": "{{ANALYTICS_ENDPOINT}}", "analyticsProvider": "plausible", "public": false }
