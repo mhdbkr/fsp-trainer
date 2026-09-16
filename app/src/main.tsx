@@ -16,6 +16,7 @@ import { HomePage } from '@/features/home/HomePage';
 import { CasesPage } from '@/features/cases/CasesPage';
 import { CaseDetailPage } from '@/features/cases/CaseDetailPage';
 import { SimulationHub } from '@/features/simulation/SimulationHub';
+import { ExamDaySetup } from '@/features/simulation/examDaySetup';
 import { SimulationRunner } from '@/features/simulation/SimulationRunner';
 import { PreSimulationPage } from '@/features/simulation/PreSimulationPage';
 import { FachwissenPage } from '@/features/fachwissen/FachwissenPage';
@@ -57,6 +58,7 @@ const router = createHashRouter([
       { path: 'cas', element: <CasesPage /> },
       { path: 'cas/:id', element: <CaseDetailPage /> },
       { path: 'simulation', element: <SimulationHub /> },
+      { path: 'simulation/pruefungstag', element: <ExamDaySetup /> },
       { path: 'simulation/:caseId/pre', element: <PreSimulationPage /> },
       { path: 'simulation/:caseId/run', element: <SimulationRunner /> },
       { path: 'fachwissen', element: <FachwissenPage /> },
