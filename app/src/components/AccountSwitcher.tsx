@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { listAccounts, getActiveUserId, forgetAccount, initials, setActiveUserId } from '@/lib/auth/accounts';
 import { switchAccount, signOut } from '@/lib/auth/session';
@@ -25,11 +25,30 @@ export async function forgetAccountOnDevice(userId: string): Promise<void> {
 
 export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
   const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const accounts = listAccounts();
   const activeId = getActiveUserId();
   const active = accounts.find((a) => a.userId === activeId);
-  if (!active) return null;
   const others = accounts.filter((a) => a.userId !== activeId);
+
+  useEffect(() => {
+    if (!open) return;
+    const onMouseDown = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { setOpen(false); triggerRef.current?.focus(); }
+    };
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
+
+  if (!active) return null;
 
   const go = async (userId: string) => {
     const r = await switchAccount(userId);
@@ -40,8 +59,8 @@ export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
   const avatar = <span className={`grid h-8 w-8 place-items-center rounded-full text-xs font-bold text-white ${DOT[active.color] ?? 'bg-brand-500'}`}>{initials(active.displayName)}</span>;
 
   return (
-    <div className="relative">
-      <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}
+    <div className="relative" ref={rootRef}>
+      <button ref={triggerRef} type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}
         className={dock ? 'grid h-11 w-11 place-items-center rounded-2xl hover:bg-slate-100 dark:hover:bg-white/10' : 'btn-ghost w-full justify-center gap-2 md:justify-start'}>
         {avatar}{!dock && <span className="hidden md:inline">{active.displayName}</span>}
       </button>

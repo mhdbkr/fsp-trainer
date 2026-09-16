@@ -33,6 +33,28 @@ describe('AccountSwitcher', () => {
     await waitFor(() => expect(session.switchAccount).toHaveBeenCalledWith('u2'));
   });
 
+  it('clic en dehors du menu → le menu se ferme', () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
+    upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
+    setActiveUserId('u1');
+    render(<MemoryRouter><AccountSwitcher /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /anna/i }));
+    expect(screen.getByRole('menu')).toBeTruthy();
+    fireEvent.mouseDown(document.body);
+    expect(screen.queryByRole('menu')).toBeNull();
+  });
+
+  it('touche Échap → le menu se ferme', () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
+    upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
+    setActiveUserId('u1');
+    render(<MemoryRouter><AccountSwitcher /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /anna/i }));
+    expect(screen.getByRole('menu')).toBeTruthy();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('menu')).toBeNull();
+  });
+
   it('forgetAccountOnDevice retire du registre et supprime la base de ce compte seulement', async () => {
     upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'A', refreshToken: 'r' });
     upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'r' });
