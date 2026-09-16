@@ -5,7 +5,9 @@ import Dexie from 'dexie';
 
 const session = vi.hoisted(() => ({ switchAccount: vi.fn(), signOut: vi.fn() }));
 vi.mock('@/lib/auth/session', () => ({ ...session, AUTH_MODE: 'founder' }));
-import { upsertAccount, setActiveUserId, listAccounts } from '@/lib/auth/accounts';
+const restart = vi.hoisted(() => ({ restartApp: vi.fn() }));
+vi.mock('@/lib/auth/restart', () => restart);
+import { upsertAccount, setActiveUserId, listAccounts, getActiveUserId } from '@/lib/auth/accounts';
 import { AccountSwitcher, forgetAccountOnDevice } from './AccountSwitcher';
 
 describe('AccountSwitcher', () => {
@@ -60,8 +62,21 @@ describe('AccountSwitcher', () => {
     upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'r' });
     for (const id of ['u1', 'u2']) { const d = new Dexie(`fsp-cockpit-${id}`); d.version(1).stores({ t: 'id' }); await d.open(); d.close(); }
     await forgetAccountOnDevice('u1');
+    expect(session.signOut).not.toHaveBeenCalled();          // pas le compte actif : session intacte
+    expect(restart.restartApp).not.toHaveBeenCalled();
     expect(listAccounts().map((x) => x.userId)).toEqual(['u2']);
     expect(await Dexie.exists('fsp-cockpit-u1')).toBe(false);
     expect(await Dexie.exists('fsp-cockpit-u2')).toBe(true);
+  });
+
+  it('forgetAccountOnDevice du compte actif : signOut local, registre, base, puis redémarrage', async () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'A', refreshToken: 'r' });
+    setActiveUserId('u1');
+    session.signOut.mockResolvedValue(undefined);
+    await forgetAccountOnDevice('u1');
+    expect(session.signOut).toHaveBeenCalledTimes(1);
+    expect(listAccounts()).toEqual([]);
+    expect(getActiveUserId()).toBeNull();
+    expect(restart.restartApp).toHaveBeenCalledTimes(1);
   });
 });

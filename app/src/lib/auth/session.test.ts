@@ -19,8 +19,10 @@ const { listeners, auth, from } = vi.hoisted(() => {
   return { listeners, auth, from };
 });
 vi.mock('@/lib/supabase', () => ({ supabase: { auth, from } }));
+const restart = vi.hoisted(() => ({ restartApp: vi.fn() }));
+vi.mock('./restart', () => restart);
 
-import { useSession, signInWithMagicLink, initSession, __resetSessionForTests, signUpWithPassword, signInWithPassword, switchAccount, signOut } from './session';
+import { useSession, signInWithMagicLink, initSession, __resetSessionForTests, signUpWithPassword, signInWithPassword, switchAccount, signOut, getAccessToken } from './session';
 import { listAccounts, getActiveUserId, upsertAccount, setActiveUserId } from './accounts';
 
 describe('session', () => {
@@ -107,6 +109,44 @@ describe('session', () => {
       upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: null });
       await expect(switchAccount('u2')).resolves.toBe('password-required');
       expect(auth.refreshSession).not.toHaveBeenCalled();
+    });
+
+    it('isolation inter-onglets : session d\'un autre compte reçue → restartApp, session non appliquée', async () => {
+      setActiveUserId('u1');
+      await initSession();
+      listeners[0]('SIGNED_IN', { user: { id: 'u2' } });
+      expect(restart.restartApp).toHaveBeenCalledTimes(1);
+      expect(useSession.getState().user?.id).not.toBe('u2');
+      listeners[0]('TOKEN_REFRESHED', { user: { id: 'u1' }, refresh_token: 'x' });   // même compte : appliqué
+      expect(useSession.getState().user?.id).toBe('u1');
+      expect(restart.restartApp).toHaveBeenCalledTimes(1);
+    });
+
+    it('isolation inter-onglets : SIGNED_OUT reçu alors qu\'un compte est lié → restartApp', async () => {
+      setActiveUserId('u1');
+      await initSession();
+      listeners[0]('SIGNED_OUT', null);
+      expect(restart.restartApp).toHaveBeenCalledTimes(1);
+    });
+
+    it('getAccessToken : null si la session partagée appartient à un autre compte que celui du tab', async () => {
+      setActiveUserId('u1');
+      await initSession();
+      auth.getSession.mockResolvedValue({ data: { session: { access_token: 'tok', user: { id: 'u2' } } } });
+      await expect(getAccessToken()).resolves.toBeNull();
+      auth.getSession.mockResolvedValue({ data: { session: { access_token: 'tok', user: { id: 'u1' } } } });
+      await expect(getAccessToken()).resolves.toBe('tok');
+      auth.getSession.mockResolvedValue({ data: { session: null } });
+    });
+
+    it('switchAccount : le compte actif est posé AVANT refreshSession, restauré en cas d\'échec', async () => {
+      setActiveUserId('u1');
+      upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'B', refreshToken: 'r2' });
+      let activeDuringCall: string | null = null;
+      auth.refreshSession.mockImplementation(async () => { activeDuringCall = getActiveUserId(); return { data: { session: null }, error: new Error('fetch failed') }; });
+      await expect(switchAccount('u2')).resolves.toBe('password-required');
+      expect(activeDuringCall).toBe('u2');
+      expect(getActiveUserId()).toBe('u1');
     });
 
     it('signOut (founder) : scope local, jeton=null, compte gardé, actif=null', async () => {

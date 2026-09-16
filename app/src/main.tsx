@@ -36,7 +36,8 @@ import { initSession, AUTH_MODE, useSession } from '@/lib/auth/session';
 import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
 import { startSyncLoop } from '@/lib/sync/queue';
 import { FounderGate } from '@/features/auth/FounderGate';
-import { getActiveUserId, setActiveUserId } from '@/lib/auth/accounts';
+import { getActiveUserId, setActiveUserId, listAccounts } from '@/lib/auth/accounts';
+import { restartApp } from '@/lib/auth/restart';
 
 function MerciPage() {
   return (
@@ -95,7 +96,7 @@ function renderFirstLoadScreen() {
 
 function renderFounderGate() {
   ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode><FounderGate onDone={() => location.reload()} /></React.StrictMode>,
+    <React.StrictMode><FounderGate onDone={() => restartApp()} /></React.StrictMode>,
   );
 }
 
@@ -109,14 +110,19 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
   // être connu avant de synchroniser le contenu, qui purge selon le tier).
   initSession()
     .then(() => {
-      // Garde-fou : un compte actif dont la session est morte au boot (jeton
-      // révoqué hors app) renvoie à l'écran d'entrée au lieu d'ouvrir l'app
-      // en anonyme sous l'identité Dexie d'un autre compte.
+      // Garde-fou : la session (partagée entre onglets) doit être celle du
+      // compte actif de ce tab. Session morte au boot (jeton révoqué hors app)
+      // → écran d'entrée, au lieu d'ouvrir l'app en anonyme sous l'identité
+      // Dexie d'un autre compte. Session d'un autre compte connu (bascule
+      // faite dans un autre onglet) → on redémarre sur ce compte.
       // offline → on continue avec la base locale du compte ; le rafraîchissement reprend au retour du réseau.
-      if (AUTH_MODE === 'founder' && useSession.getState().status !== 'authenticated' && navigator.onLine) {
-        setActiveUserId(null);
-        location.reload();
-        throw new Error('halt');
+      if (AUTH_MODE === 'founder' && navigator.onLine) {
+        const uid = useSession.getState().user?.id ?? null;
+        if (uid !== getActiveUserId()) {
+          setActiveUserId(uid && listAccounts().some((a) => a.userId === uid) ? uid : null);
+          restartApp();
+          throw new Error('halt');
+        }
       }
     })
     .then(() => loadEntitlements())

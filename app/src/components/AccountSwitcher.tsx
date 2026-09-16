@@ -3,19 +3,23 @@ import { NavLink } from 'react-router-dom';
 import { listAccounts, getActiveUserId, forgetAccount, initials, setActiveUserId, ACCOUNT_DOT as DOT } from '@/lib/auth/accounts';
 import { switchAccount, signOut } from '@/lib/auth/session';
 import { deleteAccountDb } from '@/db/db';
+import { restartApp } from '@/lib/auth/restart';
 import { Icon } from '@/components/icons';
 
 // Bascule de compte sans login (mode fondateur). Basculer recharge l'app :
 // la base Dexie et tous les stores repartent propres pour l'autre personne.
 
-const toGate = () => { setActiveUserId(null); location.reload(); };
+const toGate = () => { setActiveUserId(null); restartApp(); };
 
-/** Oublier sur cet appareil : registre + base locale. Les données restent sur le serveur. */
+/** Oublier sur cet appareil : session locale fermée si c'était le compte
+ *  actif (sinon `sb-*-auth-token` resterait valide), registre, base locale.
+ *  Les données restent sur le serveur. */
 export async function forgetAccountOnDevice(userId: string): Promise<void> {
   const wasActive = getActiveUserId() === userId;
+  if (wasActive) await signOut();                            // founder : signOut({ scope: 'local' })
   forgetAccount(userId);
   await deleteAccountDb(userId);
-  if (wasActive) location.reload();
+  if (wasActive) restartApp();
 }
 
 export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
@@ -47,9 +51,9 @@ export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
 
   const go = async (userId: string) => {
     const r = await switchAccount(userId);
-    if (r === 'switched') location.reload(); else toGate();   // la porte demandera le mot de passe
+    if (r === 'switched') restartApp(); else toGate();   // la porte demandera le mot de passe
   };
-  const out = async () => { await signOut(); location.reload(); };
+  const out = async () => { await signOut(); restartApp(); };
 
   const avatar = <span className={`grid h-8 w-8 place-items-center rounded-full text-xs font-bold text-white ${DOT[active.color] ?? 'bg-brand-500'}`}>{initials(active.displayName)}</span>;
 

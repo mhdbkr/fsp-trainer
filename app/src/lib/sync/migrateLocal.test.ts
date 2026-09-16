@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
-vi.mock('@/lib/auth/session', () => ({ getAccessToken: vi.fn().mockResolvedValue(null), useSession: { getState: () => ({ user: { id: 'u1' } }) } }));
+vi.mock('@/lib/auth/session', () => ({ AUTH_MODE: 'public', getAccessToken: vi.fn().mockResolvedValue(null), useSession: { getState: () => ({ user: { id: 'u1' } }) } }));
 import { migrateLocalProgress } from './migrateLocal';
 
 describe('migrateLocalProgress', () => {

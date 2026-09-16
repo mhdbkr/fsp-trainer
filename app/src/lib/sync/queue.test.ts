@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
 
 const post = vi.fn();
-vi.mock('@/lib/auth/session', () => ({ getAccessToken: vi.fn().mockResolvedValue('tok'), useSession: { getState: () => ({ user: { id: 'u1' } }) } }));
+vi.mock('@/lib/auth/session', () => ({ AUTH_MODE: 'public', getAccessToken: vi.fn().mockResolvedValue('tok'), useSession: { getState: () => ({ user: { id: 'u1' } }) } }));
 vi.stubGlobal('fetch', post);
 
 import { syncQueue } from './queue';

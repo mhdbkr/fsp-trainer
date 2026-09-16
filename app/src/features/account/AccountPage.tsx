@@ -5,6 +5,7 @@ import { useEntitlements } from '@/lib/entitlements';
 import { forgetAccount } from '@/lib/auth/accounts';
 import { db, deleteAccountDb } from '@/db/db';
 import { forgetAccountOnDevice } from '@/components/AccountSwitcher';
+import { restartApp } from '@/lib/auth/restart';
 
 export function AccountPage() {
   const user = useSession((s) => s.user); const { plan, credits } = useEntitlements();
@@ -23,9 +24,9 @@ export function AccountPage() {
       forgetAccount(id);
       await deleteAccountDb(id);
     }
-    window.location.hash = '#/';
-    location.reload();
+    restartApp();
   };
+  const out = async () => { await signOut(); restartApp(); };
   return (
     <div className="mx-auto max-w-xl space-y-6 py-8">
       <div><div className="label">Compte</div><h1 className="text-2xl font-bold">{user?.email}</h1></div>
@@ -38,7 +39,7 @@ export function AccountPage() {
       )}
       <div className="card space-y-3 p-5">
         <button onClick={exportJson} className="btn-outline w-full justify-center">Exporter ma progression (JSON)</button>
-        <button onClick={() => signOut()} className="btn-outline w-full justify-center">Se déconnecter</button>
+        <button onClick={out} className="btn-outline w-full justify-center">Se déconnecter</button>
         <button onClick={remove} className="w-full text-xs text-signal-600 hover:underline">Supprimer mon compte</button>
         {AUTH_MODE === 'founder' && user && (
           <button onClick={() => { if (confirm('Oublier ce compte sur cet appareil ? Ta progression reste sur le serveur.')) void forgetAccountOnDevice(user.id); }}
