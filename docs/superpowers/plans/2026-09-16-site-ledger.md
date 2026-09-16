@@ -17,5 +17,6 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T1.5 | impl-t15 | 1b9e440 | review-t15 | APPROVED_WITH_MINORS (I1 héritage includesPlan sans valeur → fix en T1.7) | aae0623 |
 | T1.6 | impl-t16 | 99714a2 | review-t16 | APPROVED_WITH_MINORS (I1 « 100%» sans espace → fix en T1.8 ; I2 composés DE = limite du brief, proposition brand/arch ; « keine Erfolgsgarantie » = texte légal §7.3 négé, conforme) | a3912bd |
 | T1.7 | impl-t17 | 18d871d, 1a06414 | review-t17 | APPROVED_WITH_MINORS (I1 visibilité CTA géométrique seulement → fix en T3.3) | — |
-| T1.8 | impl-t18 | bffba5c | review-t18 | APPROVED_WITH_MINORS (I1 forcer color-scheme ; I2 --strict routes absentes → T3.3 ; a11y 94 = contraste footer sombre → T2.2) | — |
+| T1.8 | impl-t18 | bffba5c | review-t18 | APPROVED_WITH_MINORS (I1 forcer color-scheme ; I2 --strict routes absentes → T3.3 ; a11y 94 = contraste footer sombre → T2.2) | 6173207 |
 | T2.1 | impl-t21 | e38192c | — | — | — |
+| T2.2 | impl-t22 | 20c49e4 | — | — | — |
