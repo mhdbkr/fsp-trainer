@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { latestSrs, simulationsFrom, rebuildProjections } from './projections';
 import { db } from '@/db/db';
-import type { ProgressEvent } from './events';
+import type { ProgressEvent, ExamDayCompletedPayload } from './events';
 
 const e = (type: ProgressEvent['type'], subject_id: string, payload: unknown, occurred_at: string): ProgressEvent => ({ id: crypto.randomUUID(), user_id: 'u', type, subject_id, payload, occurred_at });
 
@@ -29,9 +29,25 @@ describe('exam_day.completed', () => {
       context: 'pruefungstag', withSimulant: true,
       examDay: { startedAt: 1, endedAt: 2, land: 'BW', partTimes: {} },
     };
+    const part = { score: 71, contentPct: 68, officialPct: 76, durationSec: 1200, passed: true };
+    const payload: ExamDayCompletedPayload = {
+      v: 1,
+      simulationId: 'sim-exam-1',
+      caseId: 'c1',
+      specialty: 'Kardiologie',
+      land: 'BW',
+      withSimulant: true,
+      weightClass: 'pruefungstag',
+      startedAt: '2026-01-01T00:00:00.000Z',
+      endedAt: '2026-01-01T01:00:00.000Z',
+      parts: { anamnese: part, dokumentation: part, fallvorstellung: part, aufklaerung: null },
+      passed: true,
+      bereitschaft: { before: 61, after: 64, capped: 'no_recent_exam_day' },
+      appVersion: '1.4.0',
+    };
     await db.progress_events.bulkPut([
       e('simulation.completed', 'c1', sim, '2026-01-01T00:00:00Z'),
-      e('exam_day.completed', 'sim-exam-1', { v: 1, simulationId: 'sim-exam-1' }, '2026-01-01T00:00:01Z'),
+      e('exam_day.completed', 'sim-exam-1', payload, '2026-01-01T00:00:01Z'),
     ]);
     await expect(rebuildProjections()).resolves.not.toThrow();
     const got = await db.simulations.get('sim-exam-1');
