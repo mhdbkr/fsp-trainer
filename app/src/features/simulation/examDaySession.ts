@@ -23,6 +23,11 @@ export interface ExamDayState {
   arztbriefText: string;
   aufklaerungOpened: boolean;
   results: Partial<Record<SimulationPart, PartResult>>;
+  // Persistant (survit à un reload/back tant que la session vit) : marque que
+  // `persistExamDay` a déjà été exécuté pour cette session, pour ne jamais le
+  // rejouer si `ExamDayResult` est remonté (le `useRef` du composant ne suffit
+  // pas — il est local au montage, pas au store `persist`).
+  resultPersisted?: boolean;
 }
 
 export const reduceStart = (
@@ -72,6 +77,8 @@ export const reduceSetArztbrief = (s: ExamDayState, arztbriefText: string): Exam
 
 export const reduceOpenAufklaerung = (s: ExamDayState): ExamDayState => ({ ...s, aufklaerungOpened: true });
 
+export const reduceMarkResultPersisted = (s: ExamDayState): ExamDayState => ({ ...s, resultPersisted: true });
+
 export const isStale = (s: ExamDayState | null, now: number, land: ExamLand = 'BW'): boolean =>
   !!s && now - s.startedAt > EXAM_DAY_PLAN[land].purgeAfterMs;
 
@@ -89,6 +96,7 @@ interface ExamDaySessionStore {
   setBogen: (bogen: BogenNotes) => void;
   setArztbrief: (text: string) => void;
   openAufklaerung: () => void;
+  markResultPersisted: () => void;
   abandon: () => void;
   purgeIfStale: (now: number) => void;
 }
@@ -129,6 +137,10 @@ export const useExamDaySession = create<ExamDaySessionStore>()(
       openAufklaerung: () => {
         const s = get().state;
         if (s) set({ state: reduceOpenAufklaerung(s) });
+      },
+      markResultPersisted: () => {
+        const s = get().state;
+        if (s) set({ state: reduceMarkResultPersisted(s) });
       },
       abandon: () => set({ state: null }),
       purgeIfStale: (now) => {
