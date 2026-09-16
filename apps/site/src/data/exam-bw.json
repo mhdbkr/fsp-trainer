@@ -1,0 +1,16 @@
+{
+  "land": "Baden-Württemberg",
+  "kammer": "Landesärztekammer Baden-Württemberg",
+  "centers": ["Freiburg", "Karlsruhe", "Reutlingen", "Stuttgart"],
+  "totalPoints": 60,
+  "minPercentPerPart": 60,
+  "pointsSource": "intern",
+  "level": "C1",
+  "assesses": "Sprache, nicht Medizin",
+  "parts": [
+    { "id": "anamnese", "label": "Anamnesegespräch", "minutes": 20 },
+    { "id": "doku", "label": "Dokumentation", "minutes": 20 },
+    { "id": "vorstellung", "label": "Arzt-Arzt-Gespräch", "minutes": 20 }
+  ],
+  "onlyLandNote": "Diese Angaben gelten für Baden-Württemberg. Andere Kammern folgen."
+}
