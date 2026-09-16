@@ -11,7 +11,6 @@ import type { Simulation } from '@/db/types';
 import { LANGUAGE_CRITERIA, PASS_THRESHOLD, partScore } from '@/lib/scoring';
 import { computeBereitschaftsindex, type Bereitschaft } from '@/lib/readiness';
 import { useExamDaySession } from './examDaySession';
-import { useSimSession } from '@/store/simSession';
 import { buildExamDaySimulation, buildExamDayPayload, persistExamDay } from './examDayFinish';
 
 // Non source (aucun define de build) : gabarit du payload `exam_day.completed`.
@@ -55,7 +54,15 @@ export function ExamDayResult() {
     const sim = buildExamDaySimulation(state, c, now);
     const after = computeBereitschaftsindex({ sims: [...sims, sim], cases, visibleCases: cases });
     setOutcome({ sim, before, after });
-    void persistExamDay(sim, buildExamDayPayload(sim, c, before, after, APP_VERSION), c);
+    // Le `useRef` protège du double-effet StrictMode (même montage) mais pas
+    // d'un remontage réel (reload/back) : le store `persist` reste en phase
+    // `result`, donc `resultPersisted` (persistant, lui) est la seule garde
+    // fiable contre un doublon de `persistExamDay` (2 `syncQueue.push` dans
+    // l'outbox, jamais dédupliqués).
+    if (state.resultPersisted) return;
+    void persistExamDay(sim, buildExamDayPayload(sim, c, before, after, APP_VERSION), c).then(() => {
+      useExamDaySession.getState().markResultPersisted();
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, sims, cases, c]);
 
@@ -63,9 +70,10 @@ export function ExamDayResult() {
   // c'est seulement à ce moment que la session exam-day est abandonnée. Tant
   // que cet écran est affiché, `state.phase` reste `'result'` (sinon
   // `ExamDayRunner` se démonte et l'utilisateur ne voit jamais son résultat).
+  // `useSimSession.end()` est déjà appelé par `ExamDayRunner` (phase result) —
+  // pas de double appel ici.
   const leave = () => {
     useExamDaySession.getState().abandon();
-    useSimSession.getState().end();
   };
 
   if (!outcome) return null;
