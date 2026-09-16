@@ -159,3 +159,28 @@ export function computeC(sims: Simulation[], cases: Case[], visibleCases: Case[]
     corpusTotal: CORPUS_SPECIALTIES.length,
   };
 }
+
+/** L (spec §6.2) : tendance de la grille langue officielle sur les 5
+ *  dernières parties orales (`anamnese`, `aufklaerung`, `fallvorstellung`
+ *  avec `languageGrid`). `base = mean(officialPct)` ; tendance = moyenne des
+ *  3 dernières − moyenne des 3 premières (± 5 si écart > 5) ; `value` plafonné
+ *  à 30 si `samples < 3`. */
+export function computeL(sims: Simulation[]): Bereitschaft['l'] {
+  const oral: { date: number; pct: number }[] = [];
+  for (const sim of [...sims].sort((a, b) => a.date - b.date))
+    for (const k of ['anamnese', 'aufklaerung', 'fallvorstellung'] as const) {
+      const p = sim.parts[k];
+      if (p?.done && p.languageGrid) oral.push({ date: sim.date, pct: p.officialPct });
+    }
+  const last = oral.slice(-5).map((o) => o.pct);
+  const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
+  const base = Math.round(mean(last));
+  let trend: -5 | 0 | 5 = 0;
+  if (last.length === 5) {
+    const d = mean(last.slice(2)) - mean(last.slice(0, 3));
+    trend = d > 5 ? 5 : d < -5 ? -5 : 0;
+  }
+  let value = Math.max(0, Math.min(100, base + trend));
+  if (last.length < 3) value = Math.min(value, 30);
+  return { value, base, trend, samples: last.length };
+}
