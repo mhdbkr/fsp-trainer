@@ -3,6 +3,7 @@ import type { Case, PartResult, Simulation } from '@/db/types';
 import { weightedPartScore } from '@/lib/scoring';
 import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS, computeC, computeL, computeBereitschaftsindex, DAY } from './bereitschaft';
 import type { ReadinessInput } from './bereitschaft';
+import { computeActions } from './actions';
 
 const caseOf = (id: string, specialty: Case['specialty'], frequency: number): Case =>
   ({ id, specialty, frequency } as unknown as Case);
@@ -271,7 +272,7 @@ describe('computeBereitschaftsindex', () => {
     expect(bi.capExpiresAt).toBeNull();
     // levier : s 0,5·(100−60) = 20 · c 0,25·(100−25) = 18,75 · l 0,25·(100−30) = 17,5 → 's'
     expect(bi.leverage).toBe('s');
-    expect(bi.actions).toEqual([]);
+    expect(bi.actions.length).toBeGreaterThanOrEqual(3);
   });
 
   /** Sim complète (4 parties) à partScore 80 partout, autonome couche 2 (×1,0) sur Kardiologie :
@@ -372,5 +373,53 @@ describe('computeBereitschaftsindex', () => {
 
   it('opts.withActions=false → actions []', () => {
     expect(computeBereitschaftsindex(reference(), NOW, { withActions: false }).actions).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// computeActions — T7 (spec §6.3, plan d'actions chiffré, Pro)
+// ---------------------------------------------------------------------------
+
+describe('computeActions', () => {
+  const NOW = Date.UTC(2026, 8, 16, 12);
+  const kardio = caseOf('k1', 'Kardiologie', 10);
+  const neuro = caseOf('n1', 'Neurologie', 30);
+  const cases = [kardio, neuro];
+
+  /** Même jeu de référence que T6 : plafonné (pas de Prüfungstag avec simulant). */
+  const reference = (): ReadinessInput => {
+    const simA: Simulation = {
+      ...base, id: 'sim-a', caseId: 'k1', assistance: 'autonome', layer: 2, date: NOW - 5 * DAY,
+      parts: { anamnese: oral(94, 70), dokumentation: doku(63) },
+    };
+    const simB: Simulation = {
+      ...base, id: 'sim-b', caseId: 'n1', assistance: 'assiste', layer: 1, date: NOW - 40 * DAY,
+      parts: { fallvorstellung: oral(50, 50) },
+    };
+    return { sims: [simA, simB], cases, visibleCases: cases };
+  };
+
+  it('3 à 5 actions, gains ≥ 0, triées desc, exam_day présent (plafonné), aucune mutation', () => {
+    const input = reference();
+    const clone = structuredClone(input);
+    const actions = computeActions(input, NOW);
+    expect(actions.length).toBeGreaterThanOrEqual(3);
+    expect(actions.length).toBeLessThanOrEqual(5);
+    expect(actions.every((a) => a.gain >= 0)).toBe(true);
+    const sorted = [...actions].sort((a, b) => b.gain - a.gain);
+    expect(actions).toEqual(sorted);
+    expect(actions.some((a) => a.kind === 'exam_day')).toBe(true);
+    expect(input).toEqual(clone);
+  });
+
+  it('sans spécialité manquante (une seule couverte) → pas de cover_specialty', () => {
+    const strongSim: Simulation = {
+      ...base, id: 'sim-strong', caseId: 'k1', assistance: 'autonome', layer: 3, date: NOW - 5 * DAY, passed: true,
+      parts: { anamnese: oral(88, 80), dokumentation: doku(88), fallvorstellung: oral(88, 80) },
+    };
+    const input: ReadinessInput = { sims: [strongSim], cases: [kardio], visibleCases: [kardio] };
+    const actions = computeActions(input, NOW);
+    expect(actions.some((a) => a.kind === 'cover_specialty')).toBe(false);
+    expect(actions.length).toBeGreaterThanOrEqual(3);
   });
 });
