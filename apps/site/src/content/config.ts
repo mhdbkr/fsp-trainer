@@ -21,4 +21,15 @@ const faq = defineCollection({
   }),
 });
 
-export const collections = { legal, faq };
+const blog = defineCollection({
+  loader: glob({ base: './src/content/blog', pattern: '*.mdx' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    center: z.enum(['Fr', 'Ka', 'Re', 'St']).optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { legal, faq, blog };

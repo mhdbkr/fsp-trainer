@@ -1,0 +1,39 @@
+---
+import Base from '@/layouts/Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  pubDate: Date;
+}
+
+const { title, description, path, pubDate } = Astro.props;
+const canonical = new URL(path, Astro.site).href;
+const pageTitle = `${title} | FSP Trainer`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: pubDate.toISOString(),
+    mainEntityOfPage: canonical,
+    author: { '@type': 'Organization', name: 'Doctopus' },
+  },
+];
+---
+
+<Base title={pageTitle} description={description} path={path} jsonLd={jsonLd}>
+  <article class="mx-auto max-w-3xl px-4 pt-16 pb-16">
+    <p class="text-sm text-ink-600 dark:text-paper/70">
+      <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+      · Doctopus
+    </p>
+    <h1 class="mt-2 text-3xl md:text-4xl text-ink dark:text-paper">{title}</h1>
+    <div class="prose prose-sm mt-8 max-w-none text-ink-700 dark:text-paper/90">
+      <slot />
+    </div>
+  </article>
+</Base>
