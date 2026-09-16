@@ -1,0 +1,44 @@
+---
+import frequencies from '@/data/frequencies.json' with { type: 'json' };
+
+// Top 5 fondé sur les fréquences observées (total desc), hors diagnostics
+// psychiatriques nominatifs : pas de nom sensible sur la page d'accueil
+// (marketing) — le tableau complet reste sur /de/was-drankommt/.
+const SENSITIVE_IDS = new Set(['depression']);
+const top5 = frequencies.pathologies
+  .filter((p) => p.tier === 'top' && !SENSITIVE_IDS.has(p.id))
+  .sort((a, b) => (b.total ?? 0) - (a.total ?? 0))
+  .slice(0, 5);
+---
+
+<section id="produkt" class="mx-auto max-w-6xl px-4 py-16">
+  <h2 class="text-2xl md:text-3xl text-ink-900 dark:text-paper">Was wirklich drankommt, zentrumsweise</h2>
+  <p class="mt-2 max-w-2xl text-ink-700 dark:text-paper/90">
+    Unsere Fälle stammen aus rund {frequencies.n} Prüfungsprotokollen von Kandidaten
+    in {frequencies.centers.length} Zentren in Baden-Württemberg. Hier die fünf am
+    häufigsten protokollierten Themen.
+  </p>
+
+  <table class="mt-6 w-full max-w-xl border-collapse text-left">
+    <thead>
+      <tr class="border-b border-ink-600/20 text-sm text-ink-600 dark:border-paper/20 dark:text-paper/80">
+        <th class="py-2 pr-4 font-medium">Thema</th>
+        <th class="py-2 font-medium">Berichte</th>
+      </tr>
+    </thead>
+    <tbody>
+      {top5.map((p) => (
+        <tr class="border-b border-ink-600/10 dark:border-paper/10">
+          <td class="py-2 pr-4 text-ink-800 dark:text-paper">{p.name}</td>
+          <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{p.total}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="mt-4 max-w-xl text-sm text-ink-600 dark:text-paper/80">{frequencies.disclaimer}</p>
+
+  <a href="/de/was-drankommt/" class="mt-4 inline-block text-brand-700 underline hover:text-brand-800">
+    Alle Häufigkeiten ansehen
+  </a>
+</section>

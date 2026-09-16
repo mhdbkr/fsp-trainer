@@ -1,0 +1,38 @@
+---
+import { readSite } from '@/lib/site.ts';
+import frequencies from '@/data/frequencies.json' with { type: 'json' };
+
+const site = readSite();
+
+const faq = [
+  {
+    q: 'Werde ich bestehen?',
+    a: `Das kann niemand garantieren. ${site.productName} misst und trainiert.`,
+  },
+  {
+    q: 'Wie aktuell sind die Fälle?',
+    a: `Die Fälle basieren auf rund ${frequencies.n} Prüfungsprotokollen aus ${frequencies.centers.length} Zentren in Baden-Württemberg, Stand ${frequencies.period}.`,
+  },
+  {
+    q: 'Brauche ich einen Partner für die Simulation?',
+    a: 'Nein. Simulation mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom.',
+  },
+];
+---
+
+<section class="bg-paper px-4 py-16 dark:bg-ink-800">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-2xl md:text-3xl text-ink-900 dark:text-paper">Häufige Fragen</h2>
+    <dl class="mt-8 space-y-6">
+      {faq.map((item) => (
+        <div>
+          <dt class="text-lg text-ink-900 dark:text-paper">{item.q}</dt>
+          <dd class="mt-1 text-ink-700 dark:text-paper/90">{item.a}</dd>
+        </div>
+      ))}
+    </dl>
+    <a href="/de/faq/" class="mt-6 inline-block text-brand-700 underline hover:text-brand-800">
+      Alle Fragen ansehen
+    </a>
+  </div>
+</section>

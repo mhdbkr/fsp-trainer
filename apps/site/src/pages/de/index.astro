@@ -1,13 +1,49 @@
 ---
 import Base from '@/layouts/Base.astro';
 import Hero from '@/components/Hero.astro';
+import Proof from '@/components/Proof.astro';
+import Steps from '@/components/Steps.astro';
+import PricingSummary from '@/components/PricingSummary.astro';
+import FaqShort from '@/components/FaqShort.astro';
 import LanguageToolNotice from '@/components/LanguageToolNotice.astro';
 import { readSite } from '@/lib/site.ts';
 
 const site = readSite();
+
+const pillars = [
+  {
+    title: 'Was wirklich drankommt, zentrumsweise',
+    copy: 'Unsere Fälle stammen aus Prüfungsprotokollen von Kandidaten, datiert und nach Stadt sortiert. Du siehst, was in Stuttgart drankam, bevor du hinfährst.',
+  },
+  {
+    title: 'Strukturiert wie die Prüfung, bewertet wie die Prüfung',
+    copy: 'Drei Teile zu 20 Minuten, 60 Punkte, 60 % pro Teil. Der Bogen unterscheidet sich je Kammer — deiner ist da.',
+  },
+  {
+    title: 'Dein Simulant ist um 23 Uhr verfügbar',
+    copy: 'Simulation mit Partner (QR-Code auf dem Smartphone) oder allein im Modus Autonom. Simulation online: bald.',
+  },
+];
 ---
 <Base title={`${site.brandName} — ${site.tagline}`} description="Doctopus bereitet auf die Fachsprachprüfung Medizin vor." path="/de/">
   <Hero />
+
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <ul class="grid gap-8 md:grid-cols-3">
+      {pillars.map((p) => (
+        <li>
+          <h2 class="text-lg text-ink-900 dark:text-paper">{p.title}</h2>
+          <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">{p.copy}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <Proof />
+  <Steps />
+  <PricingSummary />
+  <FaqShort />
+
   <div class="px-8 pb-8">
     <LanguageToolNotice />
   </div>
