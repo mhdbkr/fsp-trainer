@@ -96,6 +96,14 @@ test('(k) ai.voice retirée de Premium → omission détectée (revue T1.3 I1)',
   assert.ok(errs.some((e) => e.includes('premium: ai.voice de la matrice absent du plan (omission)')));
 });
 
+test('(l) credits.monthly:1000 retirée de Premium → hérite 200 de Pro sans être détecté silencieusement (revue T1.5 I1)', () => {
+  const p = clone();
+  const premium = p.plans.find((pl) => pl.id === 'premium');
+  premium.features = premium.features.filter((f) => !f.id.startsWith('credits.monthly'));
+  const errs = checkPricing({ pricing: p, entitlementsMd: realEntitlementsMd, featuresDir, seedCasesTs });
+  assert.ok(errs.some((e) => e.includes('premium: credits.monthly hérite 200 ≠ matrice 1000 (omission de valeur)')));
+});
+
 test('readMatrix : freeCases lu depuis la fixture', () => {
   const { freeCases } = readMatrix(entitlementsMd);
   assert.equal(freeCases, 12);
