@@ -70,7 +70,7 @@ export function ExamDaySetup() {
         <div className="text-sm font-semibold uppercase tracking-wide text-brand-500">Simulation</div>
         <h1 className="text-2xl font-bold">Prüfungstag (BW)</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          {PLAN.parts.map((p) => Math.round(p.targetSec / 60)).join(' · ')} min — keine Hilfen, keine Pause. Une fois lancé, la session ne peut pas être mise en pause.
+          {PLAN.parts.map((p) => Math.round(p.targetSec / 60)).join(' · ')} min — keine Hilfen, keine Pause. Einmal gestartet, kann die Sitzung nicht pausiert werden.
         </p>
         <p className="mt-1 text-xs text-slate-400">{PLAN.p3Note}</p>
       </header>
@@ -78,8 +78,8 @@ export function ExamDaySetup() {
       <div className="card flex items-start gap-2 border-amber-200 bg-amber-50/50 p-3.5 text-xs text-amber-800 dark:border-amber-900/40 dark:bg-amber-900/10 dark:text-amber-200">
         <Icon name="bulb" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
         <span>
-          Conseil : au plus un Prüfungstag par semaine, après ≥ 3 simulations autonomes ; le dernier 3–5 jours avant l'examen.
-          Désactive le verrouillage automatique de l'écran.
+          Tipp: höchstens ein Prüfungstag pro Woche, nach ≥ 3 autonomen Simulationen ; der letzte 3–5 Tage vor der Prüfung.
+          Bildschirmsperre deaktivieren.
         </span>
       </div>
 
