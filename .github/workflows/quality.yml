@@ -46,6 +46,8 @@ jobs:
         run: node scripts/checkGuideCoverage.mjs
       - name: Sections thérapeutiques identiques fiche ↔ cas
         run: node scripts/checkTherapieLabels.mjs
+      - name: Fachwissen visuals — schéma, refs, ergänzt
+        run: node scripts/checkFachwissenVisuals.mjs
       - name: Conflits allergie ↔ thérapie
         run: node scripts/checkAllergyConflicts.mjs
 
