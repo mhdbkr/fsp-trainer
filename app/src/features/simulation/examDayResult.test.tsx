@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import { useExamDaySession, reduceStart, reduceBeginPart } from './examDaySession';
@@ -141,5 +141,40 @@ describe('ExamDayResult', () => {
     render(<MemoryRouter><ExamDayResult /></MemoryRouter>);
     await waitFor(() => expect(persistExamDay).toHaveBeenCalledTimes(1));
     expect(screen.queryByText(/Ohne Simulant/)).toBeNull();
+  });
+
+  it('reste en phase result après persistance — ne s’auto-abandonne pas', async () => {
+    useExamDaySession.setState({ state: resultState(true) });
+    render(<MemoryRouter><ExamDayResult /></MemoryRouter>);
+    await waitFor(() => expect(persistExamDay).toHaveBeenCalledTimes(1));
+    expect(useExamDaySession.getState().state).not.toBeNull();
+    expect(useExamDaySession.getState().state?.phase).toBe('result');
+  });
+
+  it('abandonne la session au clic sur le CTA final', async () => {
+    hasMock.mockReturnValue(false);
+    useExamDaySession.setState({ state: resultState(true) });
+    render(<MemoryRouter><ExamDayResult /></MemoryRouter>);
+    await waitFor(() => expect(persistExamDay).toHaveBeenCalledTimes(1));
+    expect(useExamDaySession.getState().state).not.toBeNull();
+    fireEvent.click(screen.getByText('Meinen Bereitschaftsindex ansehen'));
+    expect(useExamDaySession.getState().state).toBeNull();
+  });
+
+  it('abandonne la session au clic sur l’action gratuite (rejouer en autonome)', async () => {
+    useExamDaySession.setState({ state: resultState(true) });
+    render(<MemoryRouter><ExamDayResult /></MemoryRouter>);
+    await waitFor(() => expect(persistExamDay).toHaveBeenCalledTimes(1));
+    expect(useExamDaySession.getState().state).not.toBeNull();
+    fireEvent.click(screen.getByText('Diesen Fall autonom wiederholen'));
+    expect(useExamDaySession.getState().state).toBeNull();
+  });
+
+  it('la persistance reste appelée une seule fois même après un clic de sortie', async () => {
+    useExamDaySession.setState({ state: resultState(true) });
+    render(<MemoryRouter><ExamDayResult /></MemoryRouter>);
+    await waitFor(() => expect(persistExamDay).toHaveBeenCalledTimes(1));
+    fireEvent.click(screen.getByText('Diesen Fall autonom wiederholen'));
+    expect(persistExamDay).toHaveBeenCalledTimes(1);
   });
 });
