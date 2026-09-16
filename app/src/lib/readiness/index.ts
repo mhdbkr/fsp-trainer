@@ -69,3 +69,5 @@ export function computeReadiness(sims: Simulation[], cases: Case[], begriffe: Fa
 
   return { global, verdict, byAxis, weakest, recommendations: recommendations.slice(0, 4) };
 }
+
+export * from './bereitschaft';
