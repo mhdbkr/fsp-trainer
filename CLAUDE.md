@@ -11,6 +11,7 @@ la racine du dépôt.
 - `app/docs/DOCTOPUS-AGENTIC-ORG.md` — organisation v2 : 3 pôles, 48 agents, méthode, backlog des sous-projets
 - `app/docs/ROADMAP-PRODUCTION.md` — verrous et phases de mise en production
 - `app/docs/BACKLOG-FEEDBACK.md` — retours d'usage réel, étalon d'une « rupture de symbiose »
+- `app/docs/DIRECTION-STYLE.md` — ce que la direction attend et comment elle juge ; gardien `direction-keeper`, à passer avant tout « fait » visible
 - `app/docs/AGENTIC-TEAM.md` — les 5 relecteurs de contenu
 - `docs/contracts/` — seule vérité partagée entre pôles (schéma, OpenAPI, entitlements, sync)
 - `docs/adr/` — une décision par fichier ; `CONTEXT.md` — le vocabulaire
