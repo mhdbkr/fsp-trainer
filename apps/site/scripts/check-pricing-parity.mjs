@@ -42,6 +42,27 @@ export function checkPricing({ pricing, entitlementsMd, featuresDir, seedCasesTs
     if (feat === 'content.tier' && Number(val) >= 3 && tier3 === 0) e.push(`${plan.id} ${f.id}: aucun contenu tier 3 publié (C3)`);
     if (!pricing.labels[f.id]) e.push(`label manquant : ${f.id}`);
   }
+  // Omissions (revue T1.3 I1) : toute feature de la matrice avec has(cell) pour un plan
+  // doit apparaître dans les features propres du plan ou de son includesPlan (récursif),
+  // sauf content.tier ≥ 3 tant qu'aucun contenu tier 3 n'est publié (C3).
+  const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
+  const effectiveFeatureIds = (planId, seen = new Set()) => {
+    if (seen.has(planId)) return new Set();
+    seen.add(planId);
+    const plan = planById[planId];
+    if (!plan) return new Set();
+    const ids = new Set(plan.features.map((f) => f.id.split(':')[0]));
+    if (plan.includesPlan) for (const id of effectiveFeatureIds(plan.includesPlan, seen)) ids.add(id);
+    return ids;
+  };
+  for (const [feat, cells] of Object.entries(rows)) {
+    for (const planId of Object.keys(planById)) {
+      const cell = cells[planId];
+      if (cell === undefined || !has(cell)) continue;
+      if (feat === 'content.tier' && Number(cell) >= 3 && tier3 === 0) continue;
+      if (!effectiveFeatureIds(planId).has(feat)) e.push(`${planId}: ${feat} de la matrice absent du plan (omission)`);
+    }
+  }
   return e;
 }
 
