@@ -24,5 +24,6 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T2.4 | impl-t24b | 5c63f93, 507cada | review-t24 | CHANGES_REQUIRED (C-1 ids bruts core, I-1 liens sombre, I-2 C6 pédagogue > brief : libellé « Mit N kostenlosen Fällen starten ») | fix-t23-24 28aea73 |
 | T2.5 | impl-t25 | b701b7e | review-t25 | APPROVED_WITH_MINORS | — |
 | T2.6 | impl-t25 | f895eb7 | review-t25 | CHANGES_REQUIRED (I1 test de rendu « interne Übungsskala » ; I2 retirer « angelehnt an den Bogen deiner Kammer ») — incident : relecteur a fait stash/checkout dans le worktree partagé (état final intact) | fix-t27 b91de93 |
-| T2.7 | impl-t27 | 8b04e3a | review-t27 | APPROVED_WITH_MINORS (I1 faq/credits.md présent → « bald » ; M9 Widerruf fragment ; M10 Hero « Bewertung der Prüfung » → fix en T2.9) ; fixes T2.3/T2.4/T2.6 APPROVED | — |
+| T2.7 | impl-t27 | 8b04e3a | review-t27 | APPROVED_WITH_MINORS (I1 faq/credits.md présent → « bald » ; M9 Widerruf fragment ; M10 Hero « Bewertung der Prüfung » → fix en T2.9) ; fixes T2.3/T2.4/T2.6 APPROVED | fix-t29 d67062c (I1 credits.md « bald », M9 Widerruf phrase complète, M10 Hero « interne Übungsskala ») |
 | T2.8 | impl-t28 | f149d2f | — | — | — |
+| T2.9 | impl-t29 | eac4ae2 | — | — | — |
