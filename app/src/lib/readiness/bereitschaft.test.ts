@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import type { PartResult, Simulation } from '@/db/types';
+import type { Case, PartResult, Simulation } from '@/db/types';
 import { weightedPartScore } from '@/lib/scoring';
-import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS } from './bereitschaft';
+import { sourceWeight, recencyWeight, isDemoSim, CORPUS_SPECIALTIES, computeS, computeC } from './bereitschaft';
+
+const caseOf = (id: string, specialty: Case['specialty'], frequency: number): Case =>
+  ({ id, specialty, frequency } as unknown as Case);
+
+const simOn = (caseId: string, overrides: Partial<Simulation> = {}): Simulation =>
+  ({ ...base, id: `sim-${caseId}-${Math.random()}`, caseId, parts: { anamnese: part(80, 0) }, ...overrides } as Simulation);
 
 const base = { id: 's1', caseId: 'c', date: 0, parts: {}, notes: {}, prioritizedCorrections: [] } as unknown as Simulation;
 
@@ -88,5 +94,55 @@ describe('computeS', () => {
     expect(s.weights).toEqual({ pruefungstag: 3, autonome: 2, assiste: 1 });
     expect(s.value).toBe(0);
     expect(s.byAxis.every((a) => a.tested === false)).toBe(true);
+  });
+});
+
+describe('computeC', () => {
+  const c1 = caseOf('c1', 'Kardiologie', 10);
+  const c2 = caseOf('c2', 'Neurologie', 30);
+  const visibleCases = [c1, c2];
+
+  it('sim autonome réussie sur c1 couvre Kardiologie', () => {
+    const sim = simOn('c1', { assistance: 'autonome' });
+    const c = computeC([sim], visibleCases, visibleCases);
+    expect(c.value).toBe(25);
+    expect(c.covered).toEqual(['Kardiologie']);
+    expect(c.missing).toEqual([{ specialty: 'Neurologie', share: 0.75 }]);
+    expect(c.denominator).toBe(2);
+    expect(c.outsidePlan).toHaveLength(14);
+    expect(c.corpusTotal).toBe(16);
+  });
+
+  it('assistance assiste ne couvre pas', () => {
+    const sim = simOn('c1', { assistance: 'assiste' });
+    const c = computeC([sim], visibleCases, visibleCases);
+    expect(c.value).toBe(0);
+  });
+
+  it('sim autonome non réussie ne couvre pas', () => {
+    const sim = simOn('c1', { assistance: 'autonome', parts: { anamnese: part(30, 0) } });
+    const c = computeC([sim], visibleCases, visibleCases);
+    expect(c.value).toBe(0);
+  });
+
+  it('sim context pruefungstag solo réussie couvre', () => {
+    const sim = simOn('c1', { context: 'pruefungstag', withSimulant: false });
+    const c = computeC([sim], visibleCases, visibleCases);
+    expect(c.value).toBe(25);
+    expect(c.covered).toEqual(['Kardiologie']);
+  });
+
+  it('visibleCases vide → value 0, pas de NaN', () => {
+    const c = computeC([], [], []);
+    expect(c.value).toBe(0);
+    expect(Number.isNaN(c.value)).toBe(false);
+  });
+
+  it('lookup de spécialité via cases (union avec visibleCases)', () => {
+    const sim = simOn('c1', { assistance: 'autonome' });
+    const c = computeC([sim], [c1], [c2]);
+    // c1 n'est pas dans visibleCases → F ne le contient pas, mais le lookup fonctionne quand même
+    expect(c.covered).toEqual([]);
+    expect(c.denominator).toBe(1);
   });
 });
