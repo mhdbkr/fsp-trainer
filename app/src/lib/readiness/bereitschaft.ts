@@ -1,5 +1,6 @@
 import type { Case, Simulation, Specialty } from '@/db/types';
 import type { Readiness } from './index';
+import { weightedPartScore } from '@/lib/scoring';
 
 // ============================================================================
 // Bereitschaftsindex v2 (spec §6) = 0,5·S + 0,25·C + 0,25·L.
@@ -89,3 +90,39 @@ export function recencyWeight(simDate: number, now: number): 1 | 0.5 | 0.25 {
 
 /** Simulations de démonstration (seed) — exclues des calculs réels. */
 export const isDemoSim = (s: Simulation) => s.id.startsWith('sim-demo-');
+
+/** S (spec §6.2) : par axe `Anamnese | Dokumentation | Fallvorstellung`,
+ *  `axis = Σ(w·score)/Σw` ou `0` (non testé). Le pool Anamnese cumule
+ *  `parts.anamnese` (poids `w`) et `parts.aufklaerung` (poids `w × 0,5`).
+ *  `value` = moyenne des 3 axes sur les scores non arrondis, arrondie. */
+export function computeS(sims: Simulation[], now: number): Bereitschaft['s'] {
+  const acc: Record<ExamAxis, { num: number; den: number }> = {
+    Anamnese: { num: 0, den: 0 },
+    Dokumentation: { num: 0, den: 0 },
+    Fallvorstellung: { num: 0, den: 0 },
+  };
+  const add = (axis: ExamAxis, w: number, score: number) => {
+    acc[axis].num += w * score;
+    acc[axis].den += w;
+  };
+  for (const sim of sims) {
+    const w = sourceWeight(sim) * recencyWeight(sim.date, now);
+    const ctx = { assistance: sim.assistance ?? 'assiste', layer: sim.layer ?? 1 } as const;
+    const p = sim.parts;
+    if (p.anamnese?.done) add('Anamnese', w, weightedPartScore(p.anamnese, ctx));
+    if (p.aufklaerung?.done) add('Anamnese', w * 0.5, weightedPartScore(p.aufklaerung, ctx));
+    if (p.dokumentation?.done) add('Dokumentation', w, weightedPartScore(p.dokumentation, ctx));
+    if (p.fallvorstellung?.done) add('Fallvorstellung', w, weightedPartScore(p.fallvorstellung, ctx));
+  }
+  const byAxis = (['Anamnese', 'Dokumentation', 'Fallvorstellung'] as ExamAxis[]).map((axis) => {
+    const a = acc[axis];
+    const tested = a.den > 0;
+    return { axis, score: tested ? a.num / a.den : 0, tested };
+  });
+  const value = Math.round(byAxis.reduce((s, a) => s + a.score, 0) / 3);
+  return {
+    value,
+    byAxis: byAxis.map((a) => ({ ...a, score: Math.round(a.score) })),
+    weights: { pruefungstag: 3, autonome: 2, assiste: 1 },
+  };
+}
