@@ -21,3 +21,4 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T2.1 | impl-t21 | e38192c | review-t21 | APPROVED_WITH_MINORS (856 o gz ; I1 sous-titres sombre, I2 perspective, I3 alt placeholder → fix en T2.3 ; asset hero réel = issue avant G6) | 5692f0f |
 | T2.2 | impl-t22 | 20c49e4 | review-t22 | CHANGES_REQUIRED (I1 filtre depression ment sur top 5 ; I2 « 60 Punkte / 60 % » non officiel ; I3 text-ink-900 mort) | fix-t22 a2b45aa |
 | T2.3 | impl-t23 | 9d15e6f | — | — | — |
+| T2.4 | impl-t24b | 5c63f93, 507cada | — | — | — |
