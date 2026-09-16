@@ -64,10 +64,18 @@ function isTestFile(path) {
 }
 
 function collectTargetFiles() {
+  // Règle 1 (imports) et règle 4 (Land) : restreintes aux fichiers `examDay*`
+  // de `features/simulation/` — voir checkFileForImports/checkFileForLand.
+  // Règles 2 (durées) et 3 (relances) : « dans les deux dossiers » — tout
+  // `features/readiness/**` (hors *.test.*), quel que soit le nom du
+  // fichier, en plus des `examDay*` de simulation.
   const simDir = join(SRC, 'features', 'simulation');
   const readinessDir = join(SRC, 'features', 'readiness');
-  const files = [...walk(simDir), ...walk(readinessDir)];
-  return files.filter((f) => /\.(ts|tsx)$/.test(f) && isExamDayFile(f));
+  const simFiles = walk(simDir).filter((f) => /\.(ts|tsx)$/.test(f) && isExamDayFile(f));
+  const readinessFiles = walk(readinessDir).filter(
+    (f) => /\.(ts|tsx)$/.test(f) && !isTestFile(f),
+  );
+  return [...new Set([...simFiles, ...readinessFiles])];
 }
 
 function checkFileForImports(path, content) {
@@ -129,7 +137,7 @@ function checkFiles(files, readFn) {
     if (isExamDayFile(path)) {
       problems.push(...checkFileForImports(path, content));
     }
-    if (isExamDayFile(path)) problems.push(...checkFileForDurations(path, content));
+    problems.push(...checkFileForDurations(path, content));
     problems.push(...checkFileForRelances(path, content));
     problems.push(...checkFileForLand(path, content));
   }
@@ -177,15 +185,41 @@ function runSelfTest() {
     writeFileSync(soundPath, soundContent, 'utf8');
     const soundProblems = checkFiles([soundPath], () => soundContent);
 
+    // Règles 2/3 dans `features/readiness/**` : nom de fichier quelconque
+    // (pas de préfixe `examDay`), pour couvrir le périmètre élargi.
+    const readinessFaultyPath = join(dir, 'reminders.ts');
+    const readinessFaultyContent = [
+      'export function scheduleReminder() {',
+      '  const duration = 12 * 60;',
+      '  new Notification("rappel de session");',
+      '  return duration;',
+      '}',
+    ].join('\n');
+    writeFileSync(readinessFaultyPath, readinessFaultyContent, 'utf8');
+    const readinessFaultyProblems = checkFiles([readinessFaultyPath], () => readinessFaultyContent);
+
+    const readinessSoundPath = join(dir, 'streak.ts');
+    const readinessSoundContent = [
+      'export function computeStreak(days) {',
+      '  return days.length;',
+      '}',
+    ].join('\n');
+    writeFileSync(readinessSoundPath, readinessSoundContent, 'utf8');
+    const readinessSoundProblems = checkFiles([readinessSoundPath], () => readinessSoundContent);
+
     const faultyFails = faultyProblems.length > 0;
     const soundPasses = soundProblems.length === 0;
-    if (faultyFails && soundPasses) {
+    const readinessFaultyFails = readinessFaultyProblems.length > 0;
+    const readinessSoundPasses = readinessSoundProblems.length === 0;
+    if (faultyFails && soundPasses && readinessFaultyFails && readinessSoundPasses) {
       console.log('✅ self-test OK.');
       process.exit(0);
     }
     console.log('❌ self-test échoué.');
-    console.log('  fautif :', faultyProblems);
-    console.log('  sain   :', soundProblems);
+    console.log('  fautif (examDay) :', faultyProblems);
+    console.log('  sain (examDay)   :', soundProblems);
+    console.log('  fautif (readiness) :', readinessFaultyProblems);
+    console.log('  sain (readiness)   :', readinessSoundProblems);
     process.exit(1);
   } finally {
     rmSync(dir, { recursive: true, force: true });
