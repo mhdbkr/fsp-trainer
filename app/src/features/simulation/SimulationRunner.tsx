@@ -23,6 +23,7 @@ import { Icon } from '@/components/icons';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
 import { CAT_META } from '@/features/aufklaerung/AufklaerungPage';
+import { ExamDayRunner } from './examDayRunner'; import { useExamDaySession } from './examDaySession'; import { useSearchParams } from 'react-router-dom';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
@@ -31,7 +32,9 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
   { key: 'fallvorstellung', label: 'Fallvorstellung', target: 12 * 60, icon: 'stethoscope' },
 ];
 
-export function SimulationRunner() {
+export function SimulationRunner() { const { caseId } = useParams(); const [sp] = useSearchParams(); const exam = useExamDaySession((s) => s.state);
+  return sp.get('modus') === 'pruefungstag' || exam?.caseId === caseId ? <ExamDayRunner caseId={caseId!} /> : <TrainingRunner />; }
+function TrainingRunner() {
   const { caseId } = useParams();
   const c = useCase(caseId);
   const assistance = useUi((s) => s.assistance);
