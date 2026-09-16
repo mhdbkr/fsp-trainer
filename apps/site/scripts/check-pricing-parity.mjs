@@ -43,24 +43,31 @@ export function checkPricing({ pricing, entitlementsMd, featuresDir, seedCasesTs
     if (!pricing.labels[f.id]) e.push(`label manquant : ${f.id}`);
   }
   // Omissions (revue T1.3 I1) : toute feature de la matrice avec has(cell) pour un plan
-  // doit apparaître dans les features propres du plan ou de son includesPlan (récursif),
-  // sauf content.tier ≥ 3 tant qu'aucun contenu tier 3 n'est publié (C3).
+  // doit apparaître, avec la même valeur, dans les features propres du plan ou de son
+  // includesPlan (récursif), sauf content.tier ≥ 3 tant qu'aucun contenu tier 3 n'est
+  // publié (C3). Comparer id ET valeur (revue T1.5 I1) : un héritage qui ne porte que
+  // l'id (ex. credits.monthly hérité sans sa valeur 1000) doit être détecté.
   const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
-  const effectiveFeatureIds = (planId, seen = new Set()) => {
-    if (seen.has(planId)) return new Set();
+  const effectiveFeatureValues = (planId, seen = new Set()) => {
+    if (seen.has(planId)) return new Map();
     seen.add(planId);
     const plan = planById[planId];
-    if (!plan) return new Set();
-    const ids = new Set(plan.features.map((f) => f.id.split(':')[0]));
-    if (plan.includesPlan) for (const id of effectiveFeatureIds(plan.includesPlan, seen)) ids.add(id);
-    return ids;
+    if (!plan) return new Map();
+    const values = plan.includesPlan ? effectiveFeatureValues(plan.includesPlan, seen) : new Map();
+    for (const f of plan.features) {
+      const [feat, val] = f.id.split(':');
+      values.set(feat, val);
+    }
+    return values;
   };
   for (const [feat, cells] of Object.entries(rows)) {
     for (const planId of Object.keys(planById)) {
       const cell = cells[planId];
       if (cell === undefined || !has(cell)) continue;
       if (feat === 'content.tier' && Number(cell) >= 3 && tier3 === 0) continue;
-      if (!effectiveFeatureIds(planId).has(feat)) e.push(`${planId}: ${feat} de la matrice absent du plan (omission)`);
+      const values = effectiveFeatureValues(planId);
+      if (!values.has(feat)) e.push(`${planId}: ${feat} de la matrice absent du plan (omission)`);
+      else if (values.get(feat) !== undefined && values.get(feat) !== cell) e.push(`${planId}: ${feat} hérite ${values.get(feat)} ≠ matrice ${cell} (omission de valeur)`);
     }
   }
   return e;
