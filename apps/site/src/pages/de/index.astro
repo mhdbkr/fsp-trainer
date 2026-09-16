@@ -17,7 +17,7 @@ const pillars = [
   },
   {
     title: 'Strukturiert wie die Prüfung, bewertet wie die Prüfung',
-    copy: 'Drei Teile zu 20 Minuten, 60 Punkte, 60 % pro Teil. Der Bogen unterscheidet sich je Kammer — deiner ist da.',
+    copy: 'Drei Teile zu 20 Minuten, nach einer internen Übungsskala bewertet, angelehnt an den Prüfungsablauf. Verfügbare Bögen: Freiburg, Karlsruhe, Reutlingen, Stuttgart.',
   },
   {
     title: 'Dein Simulant ist um 23 Uhr verfügbar',
@@ -32,7 +32,7 @@ const pillars = [
     <ul class="grid gap-8 md:grid-cols-3">
       {pillars.map((p) => (
         <li>
-          <h2 class="text-lg text-ink-900 dark:text-paper">{p.title}</h2>
+          <h2 class="text-lg text-ink dark:text-paper">{p.title}</h2>
           <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">{p.copy}</p>
         </li>
       ))}
