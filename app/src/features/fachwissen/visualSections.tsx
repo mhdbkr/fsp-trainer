@@ -4,6 +4,11 @@ import { AutoLink } from '@/components/AutoLink';
 import type { SectionRef } from '@/data/fachwissenVisuals/types';
 import { refKey } from '@/data/fachwissenVisuals/resolve';
 
+/** Accord singulier/pluriel allemand : « 1 Punkt » vs « N Punkte ». */
+function punkteLabel(count: number): string {
+  return count === 1 ? '1 Punkt' : `${count} Punkte`;
+}
+
 // ============================================================================
 // Déchargement du texte (contrat §3.1) : primitives partagées par
 // FachwissenDetailPage — extraites ici pour garder la page < 500 lignes.
@@ -41,7 +46,7 @@ export function Repli({ count, children }: { count: number; children: ReactNode 
   return (
     <details className="group mt-2 rounded-lg border border-slate-200 dark:border-slate-800">
       <summary className="cursor-pointer list-none px-3 py-2 text-[13px] font-medium text-slate-500 marker:content-none hover:text-brand-600 dark:text-slate-400">
-        <span className="group-open:hidden">Text anzeigen · {count} Punkte</span>
+        <span className="group-open:hidden">Text anzeigen · {punkteLabel(count)}</span>
         <span className="hidden group-open:inline">Text ausblenden</span>
       </summary>
       <div className="border-t border-slate-100 px-3 py-2 dark:border-slate-800">{children}</div>
@@ -89,10 +94,10 @@ export function CollapsedSection({
               <Icon name={icon} className="h-4 w-4" />
             </span>
           )}
-          <span className="font-display text-[17px] font-semibold tracking-tightish">{title}</span>
+          <h2 className="font-display text-[17px] font-semibold tracking-tightish">{title}</h2>
         </span>
         <span className="font-mono text-[11px] uppercase tracking-wider text-brand-600 group-open:hidden dark:text-brand-300">
-          Text anzeigen · {count} Punkte
+          Text anzeigen · {punkteLabel(count)}
         </span>
         <span className="hidden font-mono text-[11px] uppercase tracking-wider text-brand-600 group-open:inline dark:text-brand-300">
           Text ausblenden
