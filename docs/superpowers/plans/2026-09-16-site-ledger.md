@@ -19,5 +19,5 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T1.7 | impl-t17 | 18d871d, 1a06414 | review-t17 | APPROVED_WITH_MINORS (I1 visibilité CTA géométrique seulement → fix en T3.3) | — |
 | T1.8 | impl-t18 | bffba5c | review-t18 | APPROVED_WITH_MINORS (I1 forcer color-scheme ; I2 --strict routes absentes → T3.3 ; a11y 94 = contraste footer sombre → T2.2) | 6173207 |
 | T2.1 | impl-t21 | e38192c | review-t21 | APPROVED_WITH_MINORS (856 o gz ; I1 sous-titres sombre, I2 perspective, I3 alt placeholder → fix en T2.3 ; asset hero réel = issue avant G6) | 5692f0f |
-| T2.2 | impl-t22 | 20c49e4 | review-t22 | CHANGES_REQUIRED (I1 filtre depression ment sur top 5 ; I2 « 60 Punkte / 60 % » non officiel ; I3 text-ink-900 mort) | fix-t22 |
+| T2.2 | impl-t22 | 20c49e4 | review-t22 | CHANGES_REQUIRED (I1 filtre depression ment sur top 5 ; I2 « 60 Punkte / 60 % » non officiel ; I3 text-ink-900 mort) | fix-t22 a2b45aa |
 | T2.3 | impl-t23 | 9d15e6f | — | — | — |
