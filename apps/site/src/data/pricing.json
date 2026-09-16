@@ -5,7 +5,7 @@
   "cancellation": "Kündigung jederzeit im Konto, ohne Begründung, wirksam zum Periodenende.",
   "core": [
     { "id": "sim.local", "label": "Simulation zu zweit (QR-Code) oder allein im Modus Autonom", "status": "live", "dir": "simulation" },
-    { "id": "eval", "label": "Bewertung jeder vollständigen Simulation nach dem Bogen deiner Kammer", "status": "live", "dir": "stats" },
+    { "id": "eval", "label": "Bewertung jeder vollständigen Simulation nach dem Bogen aus Baden-Württemberg", "status": "live", "dir": "stats" },
     { "id": "fachbegriffe.allgemein", "label": "1 204 Fachbegriffe (Allgemein) zum Üben", "status": "live", "dir": "fachbegriffe" },
     { "id": "guides", "label": "Leitfäden zu allen drei Prüfungsteilen", "status": "live", "dir": "guides" }
   ],

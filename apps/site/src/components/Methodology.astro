@@ -21,7 +21,10 @@ const centerName = (code: string) => frequencies.centers.find((c) => c.code === 
   <dl class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
     <div class="flex gap-2">
       <dt class="font-medium text-ink-800 dark:text-paper">Quelle</dt>
-      <dd>{frequencies.source}</dd>
+      {/* review T2.3 I1 : jamais la référence interne `frequencies.source`
+          (nom de fichier, FR) sur une page publique — libellé DE en dur,
+          la provenance reste consultable dans le titre HTML. */}
+      <dd title={frequencies.source}>Aggregierte Auswertung von Prüfungsberichten (n = {frequencies.n})</dd>
     </div>
     <div class="flex gap-2">
       <dt class="font-medium text-ink-800 dark:text-paper">Umfang</dt>

@@ -2,7 +2,10 @@
 import frequencies from '@/data/frequencies.json' with { type: 'json' };
 
 // Top 5 réel des fréquences observées (total desc).
-const top5 = frequencies.pathologies
+// review T2.3 I2 : copie avant tri — `pathologies` est un module JSON partagé
+// (FreqTable.astro le relit ailleurs dans le même build), `sort` en place
+// rendait l'ordre des ex æquo dépendant de l'ordre de rendu des pages.
+const top5 = [...frequencies.pathologies]
   .sort((a, b) => (b.total ?? 0) - (a.total ?? 0))
   .slice(0, 5);
 ---
