@@ -20,7 +20,9 @@ const jsonLd = [
     description,
     datePublished: pubDate.toISOString(),
     mainEntityOfPage: canonical,
+    inLanguage: 'de',
     author: { '@type': 'Organization', name: 'Doctopus' },
+    publisher: { '@type': 'Organization', name: 'Doctopus' },
   },
 ];
 ---
@@ -32,7 +34,7 @@ const jsonLd = [
       · Doctopus
     </p>
     <h1 class="mt-2 text-3xl md:text-4xl text-ink dark:text-paper">{title}</h1>
-    <div class="prose prose-sm mt-8 max-w-none text-ink-700 dark:text-paper/90">
+    <div class="prose mt-8 max-w-none text-ink-700 dark:text-paper/90">
       <slot />
     </div>
   </article>
