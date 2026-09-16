@@ -13,7 +13,7 @@ Critères pondérés : (a) JS embarqué par défaut, (b) SEO/blog Markdown natif
 
 | | **Astro 5 (statique + îlots)** | Next.js 15 (App Router) | Vite + React SSG (vite-ssg / vike) |
 |---|---|---|---|
-| (a) JS par défaut | **0 Ko** hors îlots ; seul l'îlot hero charge du JS | ~85–90 Ko de runtime React/RSC sur chaque page, même statique | runtime React sur toutes les pages (~45 Ko) + hydratation complète |
+| (a) JS par défaut | **0 Ko** hors îlots ; v1 : seul le script vanilla du hero (≤ 8 Ko gz) | ~85–90 Ko de runtime React/RSC sur chaque page, même statique | runtime React sur toutes les pages (~45 Ko) + hydratation complète |
 | (b) Blog Markdown | **Content Collections** typées (Zod), MDX, RSS, sitemap officiels | possible (MDX + `generateStaticParams`), à assembler | plugin tiers, sitemap/RSS à écrire |
 | (c) Îlot 3D isolé | `client:visible` / `client:idle` + `import()` : **natif** | `dynamic(() => …, { ssr:false })` : bien, mais la page porte déjà le runtime | `React.lazy` : bien |
 | (d) Vercel | adaptateur officiel ; statique pur = CDN, zéro fonction | **natif** | statique pur |
@@ -22,7 +22,7 @@ Critères pondérés : (a) JS embarqué par défaut, (b) SEO/blog Markdown natif
 | (g) Simplicité | un seul modèle mental : HTML statique, îlots explicites | RSC/Client boundaries, cache, deux runtimes : **surface d'erreur inutile** pour un site vitrine | tout est à câbler ; moins d'outillage |
 | Lighthouse ≥ 95 mobile | atteignable **par défaut** | atteignable avec discipline (fonts, images, RSC) | atteignable avec discipline |
 
-**Recommandation : Astro 5, sortie statique (`output: 'static'`), Tailwind 3 (même version majeure que l'app pour que le `theme.extend` issu des tokens soit identique), îlot React uniquement pour le hero et les rares widgets interactifs.** Le spec (`docs/superpowers/specs/2026-09-16-site-design.md` D1, D4) retient la même stack et choisit un **liquid glass en CSS seul** (aucun WebGL) : ce contrat le permet et fixe le plafond si la direction demandait un jour du WebGL (§6). Next est la bonne réponse à une question que le site ne pose pas (rendu serveur dynamique) ; Vite+SSG refait à la main ce qu'Astro fournit testé.
+**Recommandation : Astro 5, sortie statique (`output: 'static'`), Tailwind 3 (même version majeure que l'app pour que le `theme.extend` issu des tokens soit identique), aucun îlot React en v1 — le hero est un `<script>` vanilla dans `Hero.astro` (H1, plan 35352b0) ; `components/islands/` reste vide jusqu'à un besoin réel.** Le spec (`docs/superpowers/specs/2026-09-16-site-design.md` D1, D4) retient la même stack et choisit un **liquid glass en CSS seul** (aucun WebGL) : ce contrat le permet et fixe le plafond si la direction demandait un jour du WebGL (§6). Next est la bonne réponse à une question que le site ne pose pas (rendu serveur dynamique) ; Vite+SSG refait à la main ce qu'Astro fournit testé.
 
 Corollaire : **aucune donnée dynamique côté serveur** dans la v1. Pricing = données statiques dérivées du contrat `entitlements.md` (le vrai catalogue Stripe est lu par l'app, pas par le site) ; statut = page statique + lien vers la page de statut Supabase/Vercel, ou îlot qui lit un JSON public. Le jour où un formulaire (support, institutions) exige un serveur, ce sera une Edge Function Supabase existante — pas un runtime Node dans le site.
 
@@ -37,8 +37,9 @@ apps/site/
   src/
     styles/global.css     # @import '@doctopus/tokens/tokens.css'; @tailwind …; fontes (fontsource, mêmes paquets que l'app)
     layouts/Base.astro    # <head> SEO, bandeau légal, nav verre, footer
-    components/           # .astro par défaut ; React seulement dans components/islands/
-      islands/Hero.tsx        # ≤ 8 Ko gz, client:idle ; le HTML du hero est complet sans JS (D4)
+    components/           # .astro par défaut ; React seulement dans components/islands/ (VIDE en v1)
+      Hero.astro              # hero liquid glass CSS + <script> vanilla ≤ 8 Ko gz ; HTML complet sans JS (D4, H1)
+      islands/                # vide jusqu'à besoin réel ; tout fichier ajouté = justification en en-tête
     content/
       config.ts           # collections zod : blog, faq, legal
       blog/*.md  faq/*.md
@@ -106,7 +107,7 @@ Invariants (chacun = un test, exit 1) :
 4. Pour chaque centre `c` : Σ `byCenter[c]` ≤ `centers[c].n`.
 5. `n === 580` **et** `centers` = `[91, 169, 151, 182]` littéralement (les deux sont des citations d'ANALYSE.md). **Pas** de `Σ centers.n === n` : la somme fait 593 (vérifié) — l'AC7 du spec est infalsifiable telle quelle ; proposition à spec-site : remplacer par « `n` et `centers.n` égaux aux valeurs citées » et afficher la note d'écart dans la méthodologie.
 6. Σ `total` (non null) ≤ `nByCenterSum`.
-7. Codes centres ⊆ `Fr Ka Re St` ; `trends[].center` ∈ codes.
+7. Codes centres ⊆ `Fr Ka Re St` ; `trends[].center` ∈ codes ∪ `'all'` (`'all'` = pathologies transversales, §3.4 « tous centres » ; H2).
 
 La page n'affiche **que** des faits (« Stuttgart : Ösophaguskarzinom 12 sur 182 comptes rendus ») — aucune phrase prédictive ; `check-no-promise` s'applique. Les tendances (§3.4) sont reprises **textuellement** dans `trends` (donnée), pas réécrites.
 
@@ -119,7 +120,7 @@ La page n'affiche **que** des faits (« Stuttgart : Ösophaguskarzinom 12 sur 18
 | INP | ≤ 200 ms | toutes pages |
 | CLS | ≤ 0,05 | toutes pages |
 | JS initial (compressé, hors îlots) | **≤ 25 Ko** | toutes pages |
-| Îlot hero — **v1 (spec D4, CSS seul)** | **≤ 8 Ko** gz, `client:idle` ; le HTML du hero est complet sans JS | `/de/` |
+| Script du hero — **v1 (spec D4, CSS seul, vanilla dans `Hero.astro`)** | **≤ 8 Ko** gz, `<script>` différé ; le HTML du hero est complet sans JS | `/de/` |
 | Îlot hero — **plafond si WebGL un jour** (three + R3F) | ≤ 180 Ko gz, `client:visible`, jamais avant LCP, repli `<picture>` ; exige une décision de `main` | `/de/` |
 | CSS | ≤ 40 Ko compressé | toutes |
 | Fontes | 3 fichiers max (Bricolage var, Plex Sans var, Plex Mono 400/500 subset latin), `font-display: swap`, préchargement du display | toutes |
