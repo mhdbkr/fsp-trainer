@@ -55,6 +55,22 @@ export interface ChatTurn {
   reasoningDetails?: unknown[];
 }
 
+/** Effort de raisonnement demandé au modèle. `none` pour une question
+ *  directe : sur un modèle de raisonnement, les jetons de réflexion sont
+ *  décomptés du budget de réponse — avec un petit maxTokens, le modèle
+ *  réfléchit et n'a plus rien pour répondre (« (réponse vide) »). */
+export type ReasoningEffort = 'none' | 'low' | 'medium';
+
+/** Une question est « directe » si elle est courte, sans historique : une
+ *  définition, un terme, une tournure. Là, le raisonnement coûte du temps et
+ *  du budget sans rien apporter. Les échanges longs ou suivis gardent un
+ *  raisonnement léger. */
+export function pickReasoning(turns: ChatTurn[]): ReasoningEffort {
+  const last = turns[turns.length - 1];
+  const direct = turns.length === 1 && (last?.content.trim().length ?? 0) <= 160;
+  return direct ? 'none' : 'low';
+}
+
 /** Jetons de raisonnement de la dernière réponse OpenRouter (undefined si le modèle n'en émet pas). */
 let lastReasoningTokens: number | undefined;
 export function getLastReasoningTokens(): number | undefined { return lastReasoningTokens; }
@@ -99,7 +115,7 @@ function describeOpenRouterError(e: unknown): string {
 // Appel via le SDK officiel OpenRouter, en streaming — permet d'afficher la
 // réponse au fil de l'eau (onToken), expose les jetons de raisonnement et
 // collecte les reasoningDetails pour la continuation multi-tour.
-async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: number, key: string, model: string, onToken?: (delta: string) => void): Promise<ChatTurn> {
+async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: number, key: string, model: string, reasoning: ReasoningEffort, onToken?: (delta: string) => void): Promise<ChatTurn> {
   const openrouter = new OpenRouter({ apiKey: key });
   const messages = [
     { role: 'system' as const, content: system },
@@ -123,10 +139,10 @@ async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: numb
         temperature: 0.3,
         maxTokens,
         stream: true,
-        // Active le raisonnement — Nemotron 3 Ultra en a besoin explicitement
-        // pour émettre des jetons de raisonnement (le champ typé du SDK est
-        // « effort », équivalent à reasoning.enabled côté API REST).
-        reasoningEffort: 'medium',
+        // `none` coupe le raisonnement (question directe) ; sinon effort
+        // léger. Le champ typé du SDK est « effort », équivalent REST de
+        // reasoning.enabled / reasoning.effort.
+        reasoningEffort: reasoning,
       },
     });
     const stream = result as AsyncIterable<ChatStreamChunk>;
@@ -166,12 +182,12 @@ async function chatGeneric(system: string, turns: ChatTurn[], maxTokens: number,
   return { role: 'assistant', content: data?.choices?.[0]?.message?.content ?? '(réponse vide)' };
 }
 
-async function chat(system: string, turns: ChatTurn[], maxTokens: number, onToken?: (delta: string) => void): Promise<ChatTurn> {
+async function chat(system: string, turns: ChatTurn[], maxTokens: number, reasoning: ReasoningEffort, onToken?: (delta: string) => void): Promise<ChatTurn> {
   const key = getKey();
   const provider = getProvider();
   if (!key) throw new Error('Aucune clé configurée.');
   return provider.id === 'openrouter'
-    ? chatOpenRouter(system, turns, maxTokens, key, provider.model, onToken)
+    ? chatOpenRouter(system, turns, maxTokens, key, provider.model, reasoning, onToken)
     : chatGeneric(system, turns, maxTokens, key, provider);
 }
 
@@ -180,7 +196,7 @@ async function chat(system: string, turns: ChatTurn[], maxTokens: number, onToke
  *  à AJOUTER à l'historique tel quel — ses reasoningDetails servent au tour
  *  d'après. onToken (OpenRouter uniquement) reçoit chaque fragment du stream. */
 export async function askConversation(turns: ChatTurn[], onToken?: (delta: string) => void): Promise<ChatTurn> {
-  return chat(DOCTOPUS_SYSTEM, turns, 800, onToken);
+  return chat(DOCTOPUS_SYSTEM, turns, 800, pickReasoning(turns), onToken);
 }
 
 /** Réponse à une question isolée (un seul tour). Conservé pour les appels
@@ -189,8 +205,10 @@ export async function askOnline(query: string, onToken?: (delta: string) => void
   return (await askConversation([{ role: 'user', content: query }], onToken)).content;
 }
 
-/** Glose ultra-brève pour le quick-search (bulle sur sélection). */
+/** Glose ultra-brève pour le quick-search (bulle sur sélection). Jamais de
+ *  raisonnement : c'est LA question directe par excellence, et un budget de
+ *  60 jetons ne survivait pas à une phase de réflexion. */
 export async function askBrief(term: string): Promise<string> {
   const { system, user } = buildBriefPrompt(term);
-  return (await chat(system, [{ role: 'user', content: user }], 60)).content.trim();
+  return (await chat(system, [{ role: 'user', content: user }], 120, 'none')).content.trim();
 }
