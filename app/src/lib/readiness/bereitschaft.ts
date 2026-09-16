@@ -1,6 +1,6 @@
 import type { Case, Simulation, Specialty } from '@/db/types';
 import type { Readiness } from './index';
-import { weightedPartScore } from '@/lib/scoring';
+import { weightedPartScore, simulationPassed } from '@/lib/scoring';
 
 // ============================================================================
 // Bereitschaftsindex v2 (spec §6) = 0,5·S + 0,25·C + 0,25·L.
@@ -124,5 +124,38 @@ export function computeS(sims: Simulation[], now: number): Bereitschaft['s'] {
     value,
     byAxis: byAxis.map((a) => ({ ...a, score: Math.round(a.score) })),
     weights: { pruefungstag: 3, autonome: 2, assiste: 1 },
+  };
+}
+
+/** C (spec §6.2) : couverture pondérée par fréquence des spécialités du plan
+ *  (`visibleCases` — corpus non accessible en Free). Spécialité couverte si
+ *  une sim `pruefungstag` ou `autonome` réussie porte sur un de ses cas.
+ *  `outsidePlan` = spécialités du corpus (16) hors du plan de l'appareil. */
+export function computeC(sims: Simulation[], cases: Case[], visibleCases: Case[]): Bereitschaft['c'] {
+  const specOf = new Map<string, Specialty>();
+  for (const c of [...cases, ...visibleCases]) specOf.set(c.id, c.specialty);
+  const F = new Map<Specialty, number>();
+  for (const c of visibleCases) F.set(c.specialty, (F.get(c.specialty) ?? 0) + Math.max(c.frequency, 1));
+  const total = [...F.values()].reduce((a, b) => a + b, 0);
+  const covered = new Set<Specialty>();
+  for (const sim of sims) {
+    if (!(sim.context === 'pruefungstag' || sim.assistance === 'autonome')) continue;
+    if (!simulationPassed(sim)) continue;
+    const s = specOf.get(sim.caseId);
+    if (s && F.has(s)) covered.add(s);
+  }
+  const coveredF = [...covered].reduce((a, s) => a + (F.get(s) ?? 0), 0);
+  const missing = [...F]
+    .filter(([s]) => !covered.has(s))
+    .map(([specialty, f]) => ({ specialty, share: total ? f / total : 0 }))
+    .sort((a, b) => b.share - a.share);
+  const planSpecs = new Set(F.keys());
+  return {
+    value: total ? Math.round((100 * coveredF) / total) : 0,
+    covered: [...covered],
+    missing,
+    outsidePlan: CORPUS_SPECIALTIES.filter((s) => !planSpecs.has(s)),
+    denominator: F.size,
+    corpusTotal: CORPUS_SPECIALTIES.length,
   };
 }
