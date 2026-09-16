@@ -6,9 +6,13 @@ import { fileURLToPath } from 'node:url';
 const distFile = fileURLToPath(new URL('../dist/de/faq/index.html', import.meta.url));
 
 function extractJsonLd(html) {
-  const m = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-  assert.ok(m, 'bloc application/ld+json introuvable');
-  return JSON.parse(m[1]);
+  // Base.astro (T3.1) injecte Organization + WebSite avant les jsonLd de page :
+  // cibler le bloc FAQPage explicitement plutôt que le premier bloc ld+json.
+  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    const parsed = JSON.parse(m[1]);
+    if (parsed['@type'] === 'FAQPage') return parsed;
+  }
+  assert.fail('bloc application/ld+json FAQPage introuvable');
 }
 
 test('faq dist : JSON-LD FAQPage unique, valide, généré depuis la collection', { skip: !existsSync(distFile) && 'npm run build requis avant ce test' }, () => {

@@ -5,6 +5,7 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
 import { readSite } from '@/lib/site.ts';
+import { jsonLdOrganization, jsonLdWebSite } from '@/lib/seo.ts';
 
 interface Props {
   title: string;
@@ -14,9 +15,11 @@ interface Props {
   noHeroCta?: boolean;
 }
 
-const { title, description, path, jsonLd = [] } = Astro.props;
+const { title, description, path, jsonLd: pageJsonLd = [] } = Astro.props;
 const site = readSite();
 const canonical = new URL(path, Astro.site).href;
+const siteUrl = Astro.site!.href;
+const jsonLd = [jsonLdOrganization(site, siteUrl), jsonLdWebSite(site, siteUrl), ...pageJsonLd];
 
 if (title.length > 60) throw new Error(`title > 60 : ${path}`);
 if (description.length > 155) throw new Error(`description > 155 : ${path}`);
@@ -39,6 +42,9 @@ if (description.length > 155) throw new Error(`description > 155 : ${path}`);
   <meta property="og:locale" content="de_DE" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   {jsonLd.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+  {site.analyticsProvider === 'umami'
+    ? <script defer src="/analytics.js" data-website-id={site.domain} data-host-url={site.analyticsEndpoint} />
+    : <script defer src="/analytics.js" data-domain={site.domain} data-api={site.analyticsEndpoint} />}
   <ClientRouter />
 </head>
 <body class="min-h-dvh flex flex-col">
