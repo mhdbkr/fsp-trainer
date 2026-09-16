@@ -11,3 +11,4 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T0.4 | impl-t04 | 6d106e6, 489afe8 | review-t04 | APPROVED_WITH_MINORS (.prose manuel accepté) | — |
 | T0.5 | impl-t05 | 1db9f1c | review-t05 | APPROVED_WITH_MINORS (I1 garde refresh, I2 validated_by) | lead-site 5cfc5bf |
 | T1.1 | impl-t11 | e029412 | — | — | — |
+| T1.2 | impl-t12 | c000f8d | — | — | — |
