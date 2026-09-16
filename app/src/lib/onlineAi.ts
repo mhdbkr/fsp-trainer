@@ -1,5 +1,7 @@
 import { OpenRouter } from '@openrouter/sdk';
 import { DOCTOPUS_SYSTEM, buildBriefPrompt } from './dictionary';
+import { AUTH_MODE } from '@/lib/auth/session';
+import { getActiveUserId } from '@/lib/auth/accounts';
 
 // ============================================================================
 // Doctopus — cerveau IA EN LIGNE, ultra-rapide, léger, gratuit (clé requise).
@@ -37,8 +39,23 @@ export const PROVIDERS: AiProvider[] = [
 const KEY_LS = 'doctopus-key';
 const PROVIDER_LS = 'doctopus-provider';
 
-export function getKey(): string { return localStorage.getItem(KEY_LS) ?? ''; }
-export function setKey(k: string) { localStorage.setItem(KEY_LS, k.trim()); }
+// Mode fondateur : la clé appartient au compte actif (sinon B dépenserait la
+// clé de A sur un appareil partagé). Mode public : clé unique, inchangée.
+const keyName = (): string => (AUTH_MODE === 'founder' ? `${KEY_LS}:${getActiveUserId() ?? 'anon'}` : KEY_LS);
+
+export function getKey(): string {
+  const name = keyName();
+  const v = localStorage.getItem(name);
+  if (v !== null || name === KEY_LS) return v ?? '';
+  // Première lecture après la mise à jour : l'ancienne clé (non namespacée)
+  // migre vers le compte actif — copie, puis retrait de l'ancienne entrée.
+  const legacy = localStorage.getItem(KEY_LS);
+  if (legacy === null) return '';
+  localStorage.setItem(name, legacy);
+  localStorage.removeItem(KEY_LS);
+  return legacy;
+}
+export function setKey(k: string) { localStorage.setItem(keyName(), k.trim()); }
 export function getProvider(): AiProvider {
   const id = localStorage.getItem(PROVIDER_LS);
   return PROVIDERS.find((p) => p.id === id) ?? PROVIDERS[0];
