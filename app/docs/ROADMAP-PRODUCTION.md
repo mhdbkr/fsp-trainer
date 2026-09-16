@@ -83,6 +83,8 @@ diffusion :
 - **Mentions légales** — obligatoires en Allemagne (Impressum) dès qu'un site
   est régulièrement accessible, a fortiori s'il est payant.
 
+> **Mode de déploiement** : Le mode `public` est le chemin de production ; `founder` ne doit jamais être déployé sur le domaine commercial.
+
 ---
 
 ## 2. Phase A — durcir avant d'ouvrir

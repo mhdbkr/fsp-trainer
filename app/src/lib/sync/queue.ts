@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { db } from '@/db/db';
-import { getAccessToken, useSession } from '@/lib/auth/session';
+import { getAccessToken, useSession, AUTH_MODE } from '@/lib/auth/session';
+import { getActiveUserId } from '@/lib/auth/accounts';
 import { newId, type NewEvent, type ProgressEvent } from './events';
 
 const FN = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/events`;
@@ -15,6 +16,15 @@ const uid = () => useSession.getState().user?.id ?? 'local';
 const auth = async () => { const t = await getAccessToken(); return t ? { Authorization: `Bearer ${t}`, 'content-type': 'application/json' } : null; };
 
 let inFlight: Promise<{ acked: number; rejected: number }> | null = null;
+let warnedMismatch = false;
+/** Mode fondateur : la session (partagée entre onglets) doit être celle du
+ *  compte actif de ce tab, sinon l'outbox de A partirait sous le jeton de B. */
+const sessionMatchesActive = (): boolean => {
+  if (AUTH_MODE !== 'founder') return true;
+  const ok = (useSession.getState().user?.id ?? null) === getActiveUserId();
+  if (!ok && !warnedMismatch) { warnedMismatch = true; console.warn('[sync] session ≠ compte actif : flush ignoré jusqu\'au redémarrage'); }
+  return ok;
+};
 let nextAllowed = 0;
 let moreToDrain = false;   // une page pleine vient d'être acquittée : il en reste
 
@@ -36,6 +46,7 @@ export const syncQueue = {
   async flush(): Promise<{ acked: number; rejected: number }> {
     if (inFlight) return inFlight;                           // un flush est déjà en cours : son résultat répond aussi à cet appel
     if (Date.now() < nextAllowed) return { acked: 0, rejected: 0 };
+    if (!sessionMatchesActive()) return { acked: 0, rejected: 0 };
     const headers = await auth();
     if (!headers) return { acked: 0, rejected: 0 };          // anonyme : rien ne part
     const run = doFlush(headers);

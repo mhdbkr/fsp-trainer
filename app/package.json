@@ -14,7 +14,8 @@
     "db:reset": "supabase db reset",
     "db:test": "vitest run --dir supabase/tests",
     "test": "vitest run --dir src",
-    "test:watch": "vitest --dir src"
+    "test:watch": "vitest --dir src",
+    "founder:grant": "node scripts/grantFounder.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.2.10",
@@ -38,6 +39,7 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

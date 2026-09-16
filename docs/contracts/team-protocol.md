@@ -126,7 +126,7 @@ par tous les worktrees. Règles :
   sérialise.
 - **Comptes de test** : e-mails préfixés par le slug (`pruefungstag-a@test.dev`).
 - **`.env`** : copié depuis le worktree principal (`app/supabase/.env`,
-  `app/.env`) — jamais committé, jamais dans un message.
+  `app/.env`) ; variables : `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_AUTH_MODE` — jamais committé, jamais dans un message.
 - **Fonctions Edge** : un seul `functions serve` (celui du worktree principal).
   Un pipeline qui ajoute une fonction demande à `main` un redémarrage.
 

@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeAll } from 'vitest';
+import { execFileSync } from 'node:child_process';
 import { createTestUser, serviceClient, URL } from './helpers';
 
 let A: Awaited<ReturnType<typeof createTestUser>>;
@@ -73,5 +74,20 @@ describe('rate_limits — service role uniquement', () => {
     const { error: f } = await A.client.rpc('rate_hit', { k: 'events:someone', max_hits: 1, window_sec: 60 });
     expect(f).not.toBeNull();
     void error;
+  });
+});
+
+describe('fondateur', () => {
+  it('grantFounder.mjs pose un abonnement premium actif sans Stripe → my_plan() = premium', async () => {
+    const email = `founder-${Date.now()}@test.local`;
+    const { id, client } = await createTestUser(email);
+    try {
+      execFileSync('node', ['scripts/grantFounder.mjs', email], { env: process.env, stdio: 'pipe' });
+      const { data: plan, error } = await client.rpc('my_plan');
+      expect(error).toBeNull();
+      expect(plan).toBe('premium');
+    } finally {
+      await serviceClient().auth.admin.deleteUser(id);
+    }
   });
 });

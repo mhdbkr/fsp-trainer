@@ -7,6 +7,9 @@ import { useCase, useSimulations } from '@/hooks/useData';
 import { computeLayerAdvice } from '@/lib/layerAdvice';
 import { QrCode } from '@/components/QrCode';
 import { patientUrl, localPatientUrl } from './usePatientSync';
+import { listAccounts, getActiveUserId, setActiveUserId, initials, ACCOUNT_DOT as DOT } from '@/lib/auth/accounts';
+import { switchAccount, AUTH_MODE } from '@/lib/auth/session';
+import { restartApp } from '@/lib/auth/restart';
 
 // Réglage de simulation illustré : Mode (Assisté/Autonome) · Couche (1-3) ·
 // Muster-Bogen (5 villes) · Rôles + fiche du simulant (QR). Alimente le store.
@@ -95,7 +98,7 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
   );
 }
 
-function RolesCard({ caseId }: { caseId: string }) {
+export function RolesCard({ caseId }: { caseId: string }) {
   const [showQr, setShowQr] = useState(false);
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId);
@@ -104,6 +107,8 @@ function RolesCard({ caseId }: { caseId: string }) {
     <div className="card p-4">
       <div className="label mb-2">Répartition des rôles</div>
       <div className="grid gap-3 sm:grid-cols-2">
+        {/* Rôle médecin = le compte qui s'entraîne (mode fondateur) */}
+        {AUTH_MODE === 'founder' && <DoctorCard />}
         {/* Rôle simulant (patient + médecin senior) */}
         <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 dark:border-amber-900/40 dark:bg-amber-900/10">
           <div className="flex items-center gap-2 font-semibold text-amber-700 dark:text-amber-300">
@@ -156,5 +161,33 @@ function ModeCard({ active, onClick, icon, title, tag, desc, tone }: {
         <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{desc}</p>
       </div>
     </button>
+  );
+}
+
+function DoctorCard() {
+  const accounts = listAccounts();
+  const activeId = getActiveUserId();
+  const choose = async (userId: string) => {
+    if (userId === activeId) return;
+    const r = await switchAccount(userId);
+    // La page de pré-simulation est la même pour le nouveau compte : on garde la route.
+    if (r === 'switched') restartApp({ keepRoute: true });
+    else { setActiveUserId(null); restartApp(); }   // la porte demandera le mot de passe
+  };
+  return (
+    <div className="rounded-xl border border-brand-200 bg-brand-50/50 p-3 dark:border-brand-900/40 dark:bg-brand-900/10">
+      <div className="flex items-center gap-2 font-semibold text-brand-700 dark:text-brand-300">
+        <Icon name="user" className="h-4 w-4" />Le médecin
+      </div>
+      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Qui s'entraîne ? La simulation, l'évaluation et le programme vont à ce compte.</p>
+      <div role="radiogroup" className="mt-2 flex flex-wrap gap-1.5">
+        {accounts.map((a) => (
+          <label key={a.userId} className={`flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1 text-xs ${a.userId === activeId ? 'border-brand-400 bg-white dark:bg-slate-900' : 'border-transparent hover:border-slate-300'}`}>
+            <input type="radio" name="doctor" aria-label={a.displayName} checked={a.userId === activeId} onChange={() => choose(a.userId)} className="sr-only" />
+            <span className={`grid h-5 w-5 place-items-center rounded-full text-[10px] font-bold text-white ${DOT[a.color] ?? 'bg-brand-500'}`}>{initials(a.displayName)}</span>{a.displayName}
+          </label>
+        ))}
+      </div>
+    </div>
   );
 }

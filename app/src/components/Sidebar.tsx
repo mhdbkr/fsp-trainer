@@ -4,7 +4,8 @@ import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { NAV } from './nav';
 import { Portal } from './Portal';
-import { useSession } from '@/lib/auth/session';
+import { useSession, AUTH_MODE } from '@/lib/auth/session';
+import { AccountSwitcher } from '@/components/AccountSwitcher';
 import { SyncBadge } from './SyncBadge';
 
 // Import PARESSEUX délibéré : three.js + @react-three/fiber + drei pèsent à
@@ -56,6 +57,7 @@ function BrandMark({ size = 'h-9 w-9', icon = 'h-[22px] w-[22px]', ring = 'ring-
 
 // Entrée « Compte » / « Se connecter ».
 function AccountLink({ dock = false }: { dock?: boolean }) {
+  if (AUTH_MODE === 'founder') return <AccountSwitcher dock={dock} />;
   const status = useSession((s) => s.status);
   const authed = status === 'authenticated';
   const to = authed ? '/account' : '/signin';
