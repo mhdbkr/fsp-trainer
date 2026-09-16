@@ -20,7 +20,7 @@ Arbitrages lead-site sur H1–H11 (2026-09-16) : H1 hero en script vanilla (pas 
 | T1.8 | impl-t18 | bffba5c | review-t18 | APPROVED_WITH_MINORS (I1 forcer color-scheme ; I2 --strict routes absentes → T3.3 ; a11y 94 = contraste footer sombre → T2.2) | 6173207 |
 | T2.1 | impl-t21 | e38192c | review-t21 | APPROVED_WITH_MINORS (856 o gz ; I1 sous-titres sombre, I2 perspective, I3 alt placeholder → fix en T2.3 ; asset hero réel = issue avant G6) | 5692f0f |
 | T2.2 | impl-t22 | 20c49e4 | review-t22 | CHANGES_REQUIRED (I1 filtre depression ment sur top 5 ; I2 « 60 Punkte / 60 % » non officiel ; I3 text-ink-900 mort) | fix-t22 a2b45aa |
-| T2.3 | impl-t23 | 9d15e6f | review-t23b | APPROVED_WITH_MINORS (I1 « Quelle » interne, I2 sort in place, I3 « Bogen deiner Kammer » Hero/pricing.json → qualifier BW) | fix-t23-24 |
-| T2.4 | impl-t24b | 5c63f93, 507cada | review-t24 | CHANGES_REQUIRED (C-1 ids bruts core, I-1 liens sombre, I-2 C6 pédagogue > brief : libellé « Mit N kostenlosen Fällen starten ») | fix-t23-24 |
+| T2.3 | impl-t23 | 9d15e6f | review-t23b | APPROVED_WITH_MINORS (I1 « Quelle » interne, I2 sort in place, I3 « Bogen deiner Kammer » Hero/pricing.json → qualifier BW) | fix-t23-24 a116b20 |
+| T2.4 | impl-t24b | 5c63f93, 507cada | review-t24 | CHANGES_REQUIRED (C-1 ids bruts core, I-1 liens sombre, I-2 C6 pédagogue > brief : libellé « Mit N kostenlosen Fällen starten ») | fix-t23-24 28aea73 |
 | T2.5 | impl-t25 | b701b7e | — | — | — |
 | T2.6 | impl-t25 | f895eb7 | — | — | — |
