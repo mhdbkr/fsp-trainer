@@ -1,24 +1,24 @@
 import { useState } from 'react';
-import type { CSSProperties } from 'react';
 import type { SyndromeMapData } from '@/data/fachwissenVisuals/types';
 import { NodeBox, ToneMark, toneClasses } from './primitives';
 import { AutoLinkList } from '@/components/AutoLink';
 
 // ============================================================================
 // syndrome-map — centre + rayons. Contrat §1.5, §6 : ≥ 768 px, disposition en
-// étoile via grille CSS (pas de SVG pour le texte) ; en dessous, liste
-// accordéon toujours rendue ; clic sur un rayon = `data-active`, grise les
-// autres (`motion-safe:transition`).
+// étoile via grille CSS (pas de SVG pour le texte) ; les items de chaque rayon
+// sont visibles par défaut (desktop ET mobile, dans un `<ul>` sémantique) ;
+// clic sur un rayon = mise en évidence (`data-active`), grise les autres
+// (`motion-safe:transition`).
 // ============================================================================
 
 /** Positions grille 3x3 autour du centre (colonne 2, ligne 2), 6 rayons max. */
-const SPOKE_POSITIONS: CSSProperties[] = [
-  { gridColumn: 2, gridRow: 1 },
-  { gridColumn: 3, gridRow: 2 },
-  { gridColumn: 2, gridRow: 3 },
-  { gridColumn: 1, gridRow: 2 },
-  { gridColumn: 1, gridRow: 1 },
-  { gridColumn: 3, gridRow: 1 },
+const SPOKE_POSITION_CLASSES = [
+  'md:col-start-2 md:row-start-1',
+  'md:col-start-3 md:row-start-2',
+  'md:col-start-2 md:row-start-3',
+  'md:col-start-1 md:row-start-2',
+  'md:col-start-1 md:row-start-1',
+  'md:col-start-3 md:row-start-1',
 ];
 
 export function SyndromeMap({ block }: { block: { data: SyndromeMapData } }) {
@@ -30,53 +30,40 @@ export function SyndromeMap({ block }: { block: { data: SyndromeMapData } }) {
 
   return (
     <div>
-      <div
-        className="hidden gap-2 md:grid"
-        style={{ gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gridTemplateRows: 'repeat(3, auto)' }}
-      >
-        <div style={{ gridColumn: 2, gridRow: 2 }}>
+      <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:grid-rows-3">
+        <div className="hidden md:col-start-2 md:row-start-2 md:block">
           <NodeBox variant="question" className="text-center text-sm font-medium">
             {center}
           </NodeBox>
         </div>
         {spokes.map((spoke, i) => {
-          const pos = SPOKE_POSITIONS[i % SPOKE_POSITIONS.length];
+          const posClass = SPOKE_POSITION_CLASSES[i % SPOKE_POSITION_CLASSES.length];
           const isActive = active === i;
           return (
-            <button
+            <div
               key={spoke.label}
-              type="button"
               data-active={isActive || undefined}
-              style={pos}
-              onClick={() => setActive((prev) => (prev === i ? null : i))}
-              className={`rounded-lg border p-2 text-left text-sm motion-safe:transition-opacity ${
+              className={`rounded-lg border p-2 text-sm motion-safe:transition-opacity ${posClass} ${
                 toneClasses(spoke.tone).box
               } ${active !== null && !isActive ? 'opacity-40' : 'opacity-100'}`}
             >
-              <span className="flex items-center gap-1.5 font-medium">
+              <button
+                type="button"
+                data-active={isActive || undefined}
+                onClick={() => setActive((prev) => (prev === i ? null : i))}
+                className="flex w-full items-center gap-1.5 text-left font-medium"
+              >
                 {spoke.tone === 'signal' || spoke.tone === 'warn' ? <ToneMark tone={spoke.tone} /> : null}
                 {spoke.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      <ul className="mt-3 space-y-1.5">
-        {spokes.map((spoke, i) => (
-          <li key={spoke.label}>
-            <details open={active === i}>
-              <summary className="flex cursor-pointer items-center gap-1.5 text-sm font-medium">
-                {spoke.tone === 'signal' || spoke.tone === 'warn' ? <ToneMark tone={spoke.tone} /> : null}
-                {spoke.label}
-              </summary>
+              </button>
               <AutoLinkList
                 items={spoke.items.map((item) => item.text)}
                 className="mt-1 space-y-1 pl-4 text-sm"
               />
-            </details>
-          </li>
-        ))}
-      </ul>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

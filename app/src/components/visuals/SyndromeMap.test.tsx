@@ -48,13 +48,16 @@ describe('SyndromeMap', () => {
     expect(html).toBe('');
   });
 
-  it('rend le centre et une liste accordéon toujours présente', () => {
+  it('rend le centre et les items de chaque rayon visibles sans clic', () => {
     const html = renderToStaticMarkup(<SyndromeMap block={{ data: DATA }} />);
     expect(html).toContain('Depressive Episode');
     expect(html).toContain('<ul');
-    expect(html).toContain('<details');
+    expect(html).not.toContain('<details');
     expect(html).toContain('Hauptsymptome');
     expect(html).toContain('Red Flags');
+    expect(html).toContain('Gedrückte Stimmung');
+    expect(html).toContain('Schlafstörungen');
+    expect(html).toContain('Suizidalität');
     expect(EMOJI_RE.test(html)).toBe(false);
   });
 
@@ -74,21 +77,27 @@ describe('SyndromeMap', () => {
     expect(html).toContain('sr-only');
   });
 
-  it('clic sur un rayon (grille étoile) pose data-active et grise les autres', () => {
+  it('clic sur un rayon pose data-active et grise les autres', () => {
     mount(DATA);
-    const spokeButtons = container.querySelectorAll('.hidden.md\\:grid button');
+    const spokeButtons = container.querySelectorAll('button');
     expect(spokeButtons.length).toBe(3);
     act(() => {
       spokeButtons[0].dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(spokeButtons[0].getAttribute('data-active')).toBe('true');
     expect(spokeButtons[1].getAttribute('data-active')).toBeNull();
-    expect(spokeButtons[1].className).toContain('opacity-40');
+    const spokeCards = container.querySelectorAll('[data-active]');
+    // le conteneur du rayon 2 (index 1) doit être grisé
+    const dimmedCard = Array.from(container.querySelectorAll('div')).find((el) =>
+      el.className.includes('opacity-40'),
+    );
+    expect(dimmedCard).toBeTruthy();
+    expect(spokeCards.length).toBeGreaterThan(0);
   });
 
   it('un second clic sur le même rayon désactive (toggle)', () => {
     mount(DATA);
-    const spokeButtons = container.querySelectorAll('.hidden.md\\:grid button');
+    const spokeButtons = container.querySelectorAll('button');
     act(() => {
       spokeButtons[0].dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
@@ -96,5 +105,12 @@ describe('SyndromeMap', () => {
       spokeButtons[0].dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(spokeButtons[0].getAttribute('data-active')).toBeNull();
+  });
+
+  it('les items du rayon restent visibles avant tout clic', () => {
+    mount(DATA);
+    expect(container.textContent).toContain('Gedrückte Stimmung');
+    expect(container.textContent).toContain('Schlafstörungen');
+    expect(container.textContent).toContain('Suizidalität');
   });
 });
