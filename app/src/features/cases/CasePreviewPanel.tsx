@@ -47,7 +47,7 @@ export function CasePreviewPanel() {
             <span className={`absolute inset-y-0 left-0 w-1 ${SEC.verdacht.edge}`} />
             <SectionHead sec="verdacht" className="mb-2" />
             <p className="font-display text-base font-bold leading-snug text-brand-800 dark:text-brand-200"><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></p>
-            {c.medicalView.notfall && <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose-500 px-2.5 py-0.5 text-[11px] font-bold uppercase text-white"><Icon name="alert" className="h-3 w-3" />Notfall</span>}
+            {c.medicalView.notfall && <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose-500 px-2.5 py-0.5 text-[11px] font-bold text-white"><Icon name="alert" className="h-3 w-3" />Notfall</span>}
           </section>
 
           <section className="relative overflow-hidden rounded-xl border border-slate-200 p-3 pl-4 dark:border-slate-800">

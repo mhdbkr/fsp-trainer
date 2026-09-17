@@ -100,7 +100,7 @@ export function SelectionExplainer() {
           ) : (
             <>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-[9px] font-bold uppercase tracking-wide text-slate-400">« {anchor.text} »</span>
+                <span className="text-[10px] font-bold text-slate-400">« {anchor.text} »</span>
                 <span className="chip py-0 text-[9px] text-slate-400">{bubble.source}</span>
               </div>
               <div className="leading-snug text-slate-700 dark:text-slate-200">{bubble.text}</div>

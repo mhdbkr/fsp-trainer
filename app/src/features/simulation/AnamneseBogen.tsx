@@ -21,7 +21,7 @@ export function AnamneseBogen({ muster, notes, onChange, assistance }: {
       {/* En-tête « officiel » */}
       <div className="mb-3 flex items-center justify-between border-b-2 border-slate-800 pb-2 dark:border-slate-300">
         <div>
-          <div className="text-sm font-bold uppercase tracking-wide">{spec.title}</div>
+          <div className="text-sm font-bold">{spec.title}</div>
           <div className="text-[11px] text-slate-400">{spec.instruction}</div>
         </div>
         <span className={`chip ${spec.style === 'ganze-saetze' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-800'}`}>

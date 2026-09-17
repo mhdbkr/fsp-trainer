@@ -6,7 +6,7 @@ description: Standards du pôle Expérience (UX, mouvement, charte « instrument
 # Expérience — standards
 
 ## Charte (fsp-brand-identity)
-Bricolage Grotesque (display), IBM Plex Sans (corps), IBM Plex Mono (données, libellés en capitales espacées). Pétrole `brand` porteur ; coral `signal` réservé aux bascules, avec parcimonie. Verre : beaucoup de flou, peu d'opacité. Réutiliser `PhraseControls`, `SidePanel`, `TimeCapsule`, `Seg`, `.reveal`, `ease-fluid` avant de créer.
+Bricolage Grotesque (display), IBM Plex Sans (corps ET libellés d'interface : `.label`, `.eyebrow`, casse normale, jamais `uppercase` — ADR-0016), IBM Plex Mono réservé aux DONNÉES (chiffres, chronos, codes). Pétrole `brand` porteur ; coral `signal` réservé aux bascules, avec parcimonie. Verre : beaucoup de flou, peu d'opacité. Réutiliser `PhraseControls`, `SidePanel`, `TimeCapsule`, `Seg`, `.reveal`, `ease-fluid` avant de créer.
 
 ## Mouvement (`apple-design`, `emil-design-eng`, `animate`)
 Fluide, interruptible, sans clignotement, sans effets spéciaux ; FLIP pour les repositionnements ; `prefers-reduced-motion` respecté ; jamais une propriété de disposition animée. « Apple-like » = physique, retenue, continuité.

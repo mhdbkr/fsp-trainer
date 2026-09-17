@@ -150,11 +150,11 @@ sans allonger à l'infini.
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
 | **FB2-J1** | P0 | `aktuell` applique le même modèle OPQRST/douleur à tous les cas : questions de Schmerzen posées à un cas sans douleur, **Skala** (une échelle de douleur par nature) posée pour des Beschwerden non douloureuses. | Le chapitre `aktuell` existe en **variantes par nature du motif** (au minimum : douleur · dyspnée/essoufflement · fièvre/infection · neurologique (vertige, déficit, céphalée = douleur) · digestif (nausée/vomissement/diarrhée/ictère) · saignement · psychique/fatigue · dermato/tuméfaction · trauma/chute) ; chaque cas déclare sa nature (`leitsymptomKategorie` ou dérivé) ; le guide affiche la variante du cas. Aucune Skala hors douleur ; chaque variante a ses propres axes pertinents (dyspnée : effort/repos, orthopnée, œdèmes ; fièvre : frissons, courbe, voyages…). Validateur : chaque cas résout vers une variante existante, et chaque question de la variante a une réponse dans `patientSheet`. |
-| **FB2-J2** | P0 | Le **métier** est demandé 2 fois (`pers-beruf` dans `personalia`, `fam-beruf` dans `familie-sozial`), 3 fois avec une Fachanamnese qui l'inclut (`fach-pneumo-noxen`). | Le métier n'est demandé **qu'une fois** par trame, à l'endroit choisi (Sozialanamnese) ; les autres chapitres n'en gardent que la **sous-question spécifique** (« exposition professionnelle à … ? ») conditionnée à ce que le métier a déjà été demandé. `checkGuideDuplicates` (à créer ou étendre) échoue sur toute paraphrase d'une même sonde dans deux chapitres. Revu sur les 130 cas. |
-| **FB2-J3** | P1 | La question sur les parents propose deux options de **même sens** : « Verstorben » et « Nein » (contrôle `kind: 'ja'` avec label « verstorben » → `[Verstorben, Nein]`). | Contrôle `kind: 'wahl'` avec options **« Leben noch » / « Verstorben »** ; « Verstorben » ouvre « Woran, und wann ? » avec la formule d'empathie. Aucun toggle de l'app ne propose deux libellés synonymes (revue de tous les `kind: 'ja'` dont le label n'est pas une réponse « oui »). |
-| **FB2-J4** | P1 | Les **« Questions d'anamnèse à ne pas oublier »** (`caseSpecificQuestions`, affichées en pré-simulation) ne sont pas dans le guide pendant la simulation. | Chaque question du cas est **insérée dans son sous-chapitre** (chaque `caseSpecificQuestion` porte un `kapitel`), avec un **traitement visuel distinct** (pas une couleur criarde : un marqueur sobre, ex. liseré pétrole + libellé « Für diesen Fall » en petit, animation d'apparition) qui signale « importante pour ce cas ». Migration des 130 cas : attribution du chapitre, script de vérification que 100 % en ont un. |
-| **FB2-J5** | P1 | **Wechseljahre** est posée systématiquement dans toute `frauenanamnese`, y compris à une patiente de 25 ans. | La question n'apparaît que si `patientSheet.alter ≥ 45` (seuil à trancher avec le relecteur clinique ; périménopause ~45–55) ; en dessous, la question est absente — pas grisée. Même principe pour la **grossesse/contraception** : absente au-delà d'un âge plafond (~55). Règle documentée dans le guide (« pourquoi cette question est là »). |
-| **FB2-J6** | P1 | Dans `personalia`, la dernière question « Nur zur Sicherheit wiederhole ich kurz Ihre Daten… » a une boîte **« nächster Teil »** qui ne sert à rien et répète ce qui vient d'être posé. | La boîte est **supprimée** ; la question de récapitulation reste (elle est pédagogiquement utile) mais ne déclenche aucun contrôle. Revue de chaque `control` du guide : un contrôle qui n'ouvre rien ou répète est retiré. |
+| **FB2-J2** ✅ | P0 | Le **métier** est demandé 2 fois (`pers-beruf` dans `personalia`, `fam-beruf` dans `familie-sozial`), 3 fois avec une Fachanamnese qui l'inclut (`fach-pneumo-noxen`). | Le métier n'est demandé **qu'une fois** par trame, à l'endroit choisi (Sozialanamnese) ; les autres chapitres n'en gardent que la **sous-question spécifique** (« exposition professionnelle à … ? ») conditionnée à ce que le métier a déjà été demandé. `checkGuideDuplicates` (à créer ou étendre) échoue sur toute paraphrase d'une même sonde dans deux chapitres. Revu sur les 130 cas. |
+| **FB2-J3** ✅ | P1 | La question sur les parents propose deux options de **même sens** : « Verstorben » et « Nein » (contrôle `kind: 'ja'` avec label « verstorben » → `[Verstorben, Nein]`). | Contrôle `kind: 'wahl'` avec options **« Leben noch » / « Verstorben »** ; « Verstorben » ouvre « Woran, und wann ? » avec la formule d'empathie. Aucun toggle de l'app ne propose deux libellés synonymes (revue de tous les `kind: 'ja'` dont le label n'est pas une réponse « oui »). |
+| **FB2-J4** ✅ | P1 | Les **« Questions d'anamnèse à ne pas oublier »** (`caseSpecificQuestions`, affichées en pré-simulation) ne sont pas dans le guide pendant la simulation. | Chaque question du cas est **insérée dans son sous-chapitre** (chaque `caseSpecificQuestion` porte un `kapitel`), avec un **traitement visuel distinct** (pas une couleur criarde : un marqueur sobre, ex. liseré pétrole + libellé « Für diesen Fall » en petit, animation d'apparition) qui signale « importante pour ce cas ». Migration des 130 cas : attribution du chapitre, script de vérification que 100 % en ont un. |
+| **FB2-J5** ✅ | P1 | **Wechseljahre** est posée systématiquement dans toute `frauenanamnese`, y compris à une patiente de 25 ans. | La question n'apparaît que si `patientSheet.alter ≥ 45` (seuil à trancher avec le relecteur clinique ; périménopause ~45–55) ; en dessous, la question est absente — pas grisée. Même principe pour la **grossesse/contraception** : absente au-delà d'un âge plafond (~55). Règle documentée dans le guide (« pourquoi cette question est là »). |
+| **FB2-J6** ✅ | P1 | Dans `personalia`, la dernière question « Nur zur Sicherheit wiederhole ich kurz Ihre Daten… » a une boîte **« nächster Teil »** qui ne sert à rien et répète ce qui vient d'être posé. | La boîte est **supprimée** ; la question de récapitulation reste (elle est pédagogiquement utile) mais ne déclenche aucun contrôle. Revue de chaque `control` du guide : un contrôle qui n'ouvre rien ou répète est retiré. |
 | **FB2-J7** | P1 | `abschluss` est trop mince pour entraîner à **conclure** un entretien. | Le chapitre est enrichi avec des **tournures standardisées** déclinées par cas : (1) résumer et annoncer la **Verdachtsdiagnose** en langage patient, (2) annoncer les **examens** prévus (tirés de `medicalView.diagnostik` du cas, formulés patient), (3) esquisser la **thérapie** en une phrase, (4) rassurer et vérifier la compréhension, (5) clore. Chaque bloc a une alt. Validateur : pour chaque cas, les examens cités existent dans sa `medicalView`. Pas de mur de texte : 5 blocs max. |
 
 ## K · Fachanamnese vasculaire
@@ -210,9 +210,9 @@ Zone : `components/Doctopus.tsx`, `components/SelectionExplainer.tsx`,
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB2-M1** | P1 | Impossible de **scroller la page** quand Doctopus est ouvert. | Le popover ne capture pas le scroll de `<main>` ; la page défile normalement derrière ; le popover garde son propre scroll interne. Vérifié en navigateur (playwright, wheel sur la page avec le popover ouvert → `scrollTop` change). |
-| **FB2-M2** | P1 | « Expliquer » ne s'active que sur **un seul mot** ; une phrase sélectionnée ne déclenche rien. | Toute sélection de 1 à ~200 caractères déclenche le bouton ; au-delà d'un mot, le prompt devient « explique cette tournure / cette phrase » (pas une définition de terme) ; réponse bornée (2–3 phrases). |
-| **FB2-M3** | P0 | Le mode **hover** attribue la sélection à un **autre mot** du glossaire qui *ressemble* (correspondance floue), puis répond « (réponse vide) ». | (a) Résolution glossaire **exacte** (forme de base, insensible à la casse) ou rien — jamais de fuzzy qui invente ; si pas d'entrée exacte → IA directement. (b) « (réponse vide) » n'est plus jamais affiché : réponse vide → message honnête « Pas de réponse du modèle, réessayer » + retry automatique une fois. La cause principale (raisonnement mangeant le budget) est corrigée (`pickReasoning`, 17 sept.). |
+| **FB2-M1** ✅ | P1 | Impossible de **scroller la page** quand Doctopus est ouvert. | Le popover ne capture pas le scroll de `<main>` ; la page défile normalement derrière ; le popover garde son propre scroll interne. Vérifié en navigateur (playwright, wheel sur la page avec le popover ouvert → `scrollTop` change). |
+| **FB2-M2** ✅ | P1 | « Expliquer » ne s'active que sur **un seul mot** ; une phrase sélectionnée ne déclenche rien. | Toute sélection de 1 à ~200 caractères déclenche le bouton ; au-delà d'un mot, le prompt devient « explique cette tournure / cette phrase » (pas une définition de terme) ; réponse bornée (2–3 phrases). |
+| **FB2-M3** ✅ | P0 | Le mode **hover** attribue la sélection à un **autre mot** du glossaire qui *ressemble* (correspondance floue), puis répond « (réponse vide) ». | (a) Résolution glossaire **exacte** (forme de base, insensible à la casse) ou rien — jamais de fuzzy qui invente ; si pas d'entrée exacte → IA directement. (b) « (réponse vide) » n'est plus jamais affiché : réponse vide → message honnête « Pas de réponse du modèle, réessayer » + retry automatique une fois. La cause principale (raisonnement mangeant le budget) est corrigée (`pickReasoning`, 17 sept.). |
 | **FB2-M4** | P1 | Les réponses de Doctopus sont **médiocres** — pas plus longues, mais meilleures, au niveau de l'app. | `DOCTOPUS_SYSTEM` réécrit : rôle (tuteur FSP, C1, jury), registre (patient vs Fachbegriff explicité), format (réponse d'abord, exemple de phrase prêt à dire, 1 nuance max), interdits (pas de disclaimer, pas de liste à puces réflexe, pas de paraphrase de la question), langue de réponse = celle de la question. Jeu de 20 questions de référence évalué avant/après (`ai-eval-engineer`). |
 
 ## N · Glossaire auto-lié
@@ -222,7 +222,7 @@ simulation, Aufklärung).
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB2-N1** | P0 | Les termes du glossaire sont soulignés **à l'intérieur d'autres mots** : « sonde » dans « be**sonde**ren ». Partout dans l'app. | Correspondance sur **mots entiers** uniquement (frontières Unicode, umlauts/ß compris), insensible à la casse pour l'initiale seulement ; un terme n'est lié qu'une fois par paragraphe ; test unitaire avec « besonderen / Sonde », « Magen / Magenspiegelung » (composé ≠ mot), « Herz / Herzinfarkt ». Vérifié sur toutes les surfaces qui utilisent `AutoLink`. |
+| **FB2-N1** ✅ | P0 | Les termes du glossaire sont soulignés **à l'intérieur d'autres mots** : « sonde » dans « be**sonde**ren ». Partout dans l'app. | Correspondance sur **mots entiers** uniquement (frontières Unicode, umlauts/ß compris), insensible à la casse pour l'initiale seulement ; un terme n'est lié qu'une fois par paragraphe ; test unitaire avec « besonderen / Sonde », « Magen / Magenspiegelung » (composé ≠ mot), « Herz / Herzinfarkt ». Vérifié sur toutes les surfaces qui utilisent `AutoLink`. |
 
 ## O · Design — éradiquer l'AI slop
 
@@ -233,12 +233,12 @@ libellé « Antwort des Patienten » l.126), flèche orange des suggestions,
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB2-O1** | P1 | Les **variantes d'expression** : boutons et case déroulante « génériques, AI slop, imposants, trop visibles », hors du design premium. | Redessiné avec `taste-skill` + `impeccable` : contrôle **discret au repos** (affordance fine, pas un bloc), révélation en place sans saut, hiérarchie : la phrase reste la vedette. Validé par `front-design-keeper` avec capture avant/après. |
-| **FB2-O2** | P2 | L'option **« Standard »** est répétée dans la liste alors que la phrase standard est déjà affichée au-dessus. | Supprimée de la liste ; revenir à la standard = re-cliquer la variante active (ou un « ↺ » discret). |
-| **FB2-O3** | P1 | La variante choisie n'est **pas mémorisée**. | La variante choisie pour une phrase (clé stable = id de phrase) est **enregistrée dans les préférences du profil** et devient l'affichage par défaut dans toutes les simulations suivantes — touche de personnalisation. Remise à zéro possible depuis les réglages. |
-| **FB2-O4** | P2 | « **Antwort des Patienten** » en texte sous les toggles ja/nein. | Remplacé par une **icône premium** (glyphe patient/bulle, trait fin, cohérente avec le set `Icon`), tooltip pour l'accessibilité. |
-| **FB2-O5** | P1 | La **flèche orange** des suggestions de questions : « très AI slop et cheap ». | Remplacée par un marqueur élaboré, homogène avec l'identité (ex. tiret pétrole animé au reveal, ou chevron fin en `signal` avec parcimonie) — décidé par `ux-motion-designer` + `front-design-keeper`, capture avant/après. |
-| **FB2-O6** | P1 | La **police « robotique, générique »** des libellés (« Recherche », « Centre », « Statut », « Tri », « Méthode », « Le parcours », « CONSENTEMENT ÉCLAIRÉ ») — c'est **IBM Plex Mono en capitales espacées**, le « mono readout » que la charte appelait signature. Mehdi la rejette pour l'UI. | **Décision de charte** : le mono n'est plus utilisé pour les libellés d'interface. Les `.label` passent en **Plex Sans** (petites capitales ou graisse medium, tracking modéré) ; le mono reste réservé aux **données** (chiffres, chronos, codes, terminologie affichée comme donnée). `fsp-brand-identity` et `dept-experience` mis à jour ; ADR courte. Aucune surface oubliée (grep `font-mono` + `.label`). |
+| **FB2-O1** ✅ | P1 | Les **variantes d'expression** : boutons et case déroulante « génériques, AI slop, imposants, trop visibles », hors du design premium. | Redessiné avec `taste-skill` + `impeccable` : contrôle **discret au repos** (affordance fine, pas un bloc), révélation en place sans saut, hiérarchie : la phrase reste la vedette. Validé par `front-design-keeper` avec capture avant/après. |
+| **FB2-O2** ✅ | P2 | L'option **« Standard »** est répétée dans la liste alors que la phrase standard est déjà affichée au-dessus. | Supprimée de la liste ; revenir à la standard = re-cliquer la variante active (ou un « ↺ » discret). |
+| **FB2-O3** ✅ | P1 | La variante choisie n'est **pas mémorisée**. | La variante choisie pour une phrase (clé stable = id de phrase) est **enregistrée dans les préférences du profil** et devient l'affichage par défaut dans toutes les simulations suivantes — touche de personnalisation. Remise à zéro possible depuis les réglages. |
+| **FB2-O4** ✅ | P2 | « **Antwort des Patienten** » en texte sous les toggles ja/nein. | Remplacé par une **icône premium** (glyphe patient/bulle, trait fin, cohérente avec le set `Icon`), tooltip pour l'accessibilité. |
+| **FB2-O5** ✅ | P1 | La **flèche orange** des suggestions de questions : « très AI slop et cheap ». | Remplacée par un marqueur élaboré, homogène avec l'identité (ex. tiret pétrole animé au reveal, ou chevron fin en `signal` avec parcimonie) — décidé par `ux-motion-designer` + `front-design-keeper`, capture avant/après. |
+| **FB2-O6** ✅ | P1 | La **police « robotique, générique »** des libellés (« Recherche », « Centre », « Statut », « Tri », « Méthode », « Le parcours », « CONSENTEMENT ÉCLAIRÉ ») — c'est **IBM Plex Mono en capitales espacées**, le « mono readout » que la charte appelait signature. Mehdi la rejette pour l'UI. | **Décision de charte** : le mono n'est plus utilisé pour les libellés d'interface. Les `.label` passent en **Plex Sans** (petites capitales ou graisse medium, tracking modéré) ; le mono reste réservé aux **données** (chiffres, chronos, codes, terminologie affichée comme donnée). `fsp-brand-identity` et `dept-experience` mis à jour ; ADR courte. Aucune surface oubliée (grep `font-mono` + `.label`). |
 
 ## P · Simulation par Teil  — *game changer n° 1*
 
@@ -263,6 +263,25 @@ Zone : nouveau module `features/notes/*`, store Dexie, `Shell.tsx`
 
 ---
 
+## Suivi (17 sept. 2026)
+
+Livrés et vérifiés en prod : lots 1 (N1, M1, M2, M3), 2 (J2, J3, J6 + porte
+`checkGuideDuplicates`), 3 (O1–O6 + porte `checkUiTells`, ADR-0016) et 4
+(J5, J4 + porte `checkCaseQuestionChapters`). Rapports du gardien dans
+`app/docs/reports/`. Découvert en chemin, à traiter :
+
+- **FB2-J8** (P1) — les questions du cas n'ont pas de **réponse dédiée** dans
+  `patientSheet.antworten` (pas de sonde) : le simulant improvise depuis la
+  fiche. Critère : chaque question du cas porte une clé de réponse (ou une
+  sonde générée `cas-<id>-<n>`) ; `checkGuideCoverage` l'exige.
+- **FB2-O7** (P2) — remise à zéro des formulations retenues depuis un
+  réglage (`clearPreferredVariants` existe, non branché — pas de page
+  Réglages aujourd'hui).
+- **FB2-J1 ↔ PAINLESS_TEXT** — l'adaptation « sans douleur » actuelle
+  (`anamneseChapters.ts`) est exactement le « Schmerzen → Beschwerden » que
+  la direction rejette (point 13) : à remplacer par les variantes par nature
+  du motif, pas à retoucher.
+
 ## Ordre de traitement proposé (série 2)
 
 1. **FB2-M3, FB2-N1, FB2-M1** — correctifs nets, zéro migration : glossaire mots entiers, résolution exacte, scroll. *(M3-cause principale déjà corrigée le 17 sept.)*
@@ -274,3 +293,4 @@ Zone : nouveau module `features/notes/*`, store Dexie, `Shell.tsx`
 7. **FB2-P1, FB2-P2** — simulation par Teil : spec → plan → build.
 8. **FB2-L1** — évaluation objective : brainstorming sur les 6 pistes, puis spec.
 9. **FB2-Q1** — notes personnelles : interview d'abord.
+10. **FB2-J8** — réponses dédiées aux questions du cas (dernier lot, décision de la direction du 17 sept.) : 1 466 réponses patient à authorer ou dériver, contrat étendu, relecture langue + clinique.

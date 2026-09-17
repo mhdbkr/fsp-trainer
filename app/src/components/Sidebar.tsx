@@ -92,7 +92,7 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
       <div className="flex h-16 items-center gap-2.5 px-4">
         <BrandMark />
         <div className="hidden leading-none md:block">
-          <div className="font-mono text-[8.5px] uppercase tracking-[0.22em] text-signal-500 dark:text-signal-400">Doctopus</div>
+          <div className="text-[10px] font-semibold text-signal-500 dark:text-signal-400">Doctopus</div>
           <div className="mt-1 font-display text-[15px] font-bold tracking-tightish text-slate-900 dark:text-white">FSP<span className="text-brand-600 dark:text-brand-300">·Cockpit</span></div>
         </div>
         {/* Réduire → mode immersif (dock). Discret, à droite du wordmark. */}

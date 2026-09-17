@@ -46,6 +46,10 @@ jobs:
         run: node scripts/checkGuideCoverage.mjs
       - name: Doublons du guide d'anamnèse (thème, question, toggle synonyme)
         run: node scripts/checkGuideDuplicates.mjs
+      - name: Tells d'interface (capitales, mono en libellé, classes cassées, ambre sur contrôles)
+        run: node scripts/checkUiTells.mjs
+      - name: Questions propres au cas rangées par sous-chapitre
+        run: node scripts/checkCaseQuestionChapters.mjs
       - name: Sections thérapeutiques identiques fiche ↔ cas
         run: node scripts/checkTherapieLabels.mjs
       - name: Fachwissen visuals — schéma, refs, ergänzt

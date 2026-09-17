@@ -17,8 +17,8 @@ export function MusterCard({ text, keywords, tone = 'brand' }: {
     <div className={`mt-2.5 overflow-hidden rounded-xl border bg-gradient-to-br to-transparent ${c.border} ${c.grad}`}>
       <div className={`flex items-center gap-1.5 border-b px-3 py-1.5 ${c.head}`}>
         <Icon name="doctopus" className={`h-3.5 w-3.5 ${c.icon}`} />
-        <span className={`font-mono text-[9px] font-bold uppercase tracking-[0.16em] ${c.label}`}>Pour ce cas</span>
-        <span className={`ml-auto font-mono text-[9px] uppercase tracking-wider ${c.sub}`}>Muster</span>
+        <span className={`text-[10px] font-semibold ${c.label}`}>Pour ce cas</span>
+        <span className={`ml-auto text-[10px] font-semibold ${c.sub}`}>Muster</span>
       </div>
       <p className={`px-3 py-2 text-[13px] leading-relaxed ${c.body}`}><GuidedText text={text} keywords={keywords ?? []} /></p>
     </div>

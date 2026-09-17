@@ -185,7 +185,7 @@ function SerenityBanner({ stats, readiness, hasExam, onFocusToday }: {
       <div className="flex items-center gap-4">
         <div className="text-center">
           <div className="text-lg font-bold tabular-nums">{readiness}%</div>
-          <div className="text-[10px] uppercase tracking-wide text-slate-400">prêt·e</div>
+          <div className="text-[10px] text-slate-400">Prêt·e</div>
         </div>
         <button onClick={onFocusToday} className="btn-primary shrink-0 px-4 py-2 text-sm">Séance du jour →</button>
       </div>
@@ -354,7 +354,7 @@ export function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: s
       <div className="flex items-center gap-3 px-3 py-2.5">
         <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${meta.badge}`}><Icon name={meta.icon} className="h-5 w-5" /></span>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-medium">{b.label}{b.manual && <span className="ml-1 rounded bg-brand-100 px-1 text-[9px] font-bold uppercase text-brand-600 dark:bg-brand-900/40 dark:text-brand-300">ajouté</span>}</div>
+          <div className="truncate text-sm font-medium">{b.label}{b.manual && <span className="ml-1 rounded bg-brand-100 px-1 text-[10px] font-bold text-brand-600 dark:bg-brand-900/40 dark:text-brand-300">Ajouté</span>}</div>
           {/* Micro-raison — transparence : pourquoi cette tâche, aujourd'hui */}
           {b.reason && <div className="truncate text-[11px] text-slate-400">{b.reason}</div>}
           <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400">
@@ -537,7 +537,7 @@ function MonthView({ anchor, byDate, selected, onZoom, end }: { anchor: Date; by
   const examISO = format(end, 'yyyy-MM-dd');
   return (
     <div>
-      <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[10px] font-medium uppercase text-slate-400">
+      <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[10px] font-medium text-slate-400">
         {['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'].map((d) => <div key={d}>{d}</div>)}
       </div>
       <div className="grid grid-cols-7 gap-1">
@@ -567,7 +567,7 @@ function MonthView({ anchor, byDate, selected, onZoom, end }: { anchor: Date; by
                   <LoadBar day={d} target={d?.targetMin ?? 120} height="h-1" />
                   <div className="flex items-center gap-0.5">
                     {kinds.slice(0, 3).map((kk) => <span key={kk} className={`h-1.5 w-1.5 rounded-full ${BLOCK_META[kk].bar}`} title={BLOCK_META[kk].label} />)}
-                    <span className="ml-auto text-[9px] font-medium text-slate-400">{count}</span>
+                    <span className="ml-auto text-[10px] font-medium text-slate-400">{count}</span>
                   </div>
                 </div>
               ) : null}

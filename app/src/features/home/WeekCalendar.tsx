@@ -63,7 +63,7 @@ export function WeekCalendar({ config, cases, sims, begriffe }: {
         <h3 className="flex items-center gap-2 font-semibold"><Icon name="nav-calendar" className="h-[18px] w-[18px] text-brand-500" />Semaine</h3>
         <div className="flex items-center gap-1">
           <button onClick={() => shift(-7)} className="btn-ghost px-2 text-sm" title="Semaine précédente">◀</button>
-          <span className="min-w-[8.5rem] text-center font-mono text-[11px] uppercase tracking-wider text-slate-400">
+          <span className="min-w-[8.5rem] text-center text-[11px] font-semibold text-slate-400">
             {format(weekStart, 'd MMM', { locale: fr })} – {format(addDays(weekStart, 6), 'd MMM', { locale: fr })}
           </span>
           <button onClick={() => shift(7)} className="btn-ghost px-2 text-sm" title="Semaine suivante">▶</button>
@@ -82,7 +82,7 @@ export function WeekCalendar({ config, cases, sims, begriffe }: {
           return (
             <button key={k} onClick={() => { setSelected(k); setAdding(false); }}
               className={`rounded-xl border p-1.5 text-center transition-all hover:-translate-y-0.5 hover:border-brand-400 ${isSel ? 'border-brand-500 ring-1 ring-brand-400' : today ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : 'border-slate-200 dark:border-ink-600'}`}>
-              <div className="text-[9px] font-medium uppercase text-slate-400">{format(d, 'EEE', { locale: fr })}</div>
+              <div className="text-[10px] font-medium text-slate-400">{format(d, 'EEE', { locale: fr })}</div>
               <div className={`font-mono text-sm font-bold tnum ${today ? 'text-brand-600 dark:text-brand-300' : ''}`}>{format(d, 'd')}</div>
               {day?.isOff ? (
                 <div className="mt-1 text-[9px] text-slate-400">off</div>
@@ -101,7 +101,7 @@ export function WeekCalendar({ config, cases, sims, begriffe }: {
       <div key={selected} className="reveal mt-3 rounded-xl border border-slate-200 p-3 dark:border-ink-600">
         <div className="mb-2 flex items-center justify-between gap-2">
           <div className="text-sm font-semibold capitalize">{format(parseISO(selected), 'EEEE d MMMM', { locale: fr })}</div>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+          <span className="text-[10px] font-semibold text-slate-400">
             {sel?.isOff ? 'Jour off' : `${selBlocks.length} tâche${selBlocks.length > 1 ? 's' : ''} · ~${selBlocks.reduce((s, b) => s + b.estMin, 0)} min`}
           </span>
         </div>

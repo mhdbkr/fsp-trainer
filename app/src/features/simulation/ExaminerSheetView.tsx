@@ -1,3 +1,5 @@
+import { cqText } from '@/lib/caseQuestions';
+import type { CaseQuestion } from '@/db/types';
 import type { ExaminerSheetSection } from '@/db/types';
 import { Icon } from '@/components/icons';
 
@@ -8,7 +10,7 @@ import { Icon } from '@/components/icons';
 // Enrichi au cas par cas (sections frage + réaction attendue).
 // ============================================================================
 export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuestions = [] }: {
-  sheet?: ExaminerSheetSection[]; fallback: string[]; caseName: string; caseSpecificQuestions?: string[];
+  sheet?: ExaminerSheetSection[]; fallback: string[]; caseName: string; caseSpecificQuestions?: CaseQuestion[];
 }) {
   const sections: ExaminerSheetSection[] = sheet ?? (fallback.length ? [{ title: 'Fragen der Prüfer', interactions: fallback.map((f) => ({ frage: f })) }] : []);
 
@@ -21,14 +23,14 @@ export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuest
       {/* Checklist : les questions que le candidat AURAIT dû poser pendant l'anamnèse */}
       {caseSpecificQuestions.length > 0 && (
         <div className="card p-4">
-          <div className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-500">
+          <div className="mb-2 flex items-center gap-1.5 text-xs font-bold text-slate-500">
             <Icon name="question" className="h-4 w-4" /> Hat der Kandidat danach gefragt?
           </div>
           <ul className="space-y-1.5">
             {caseSpecificQuestions.map((q, i) => (
               <li key={i} className="flex items-start gap-2 text-sm">
                 <span className="mt-0.5 shrink-0 rounded border border-slate-300 px-1 text-[10px] text-slate-400 dark:border-slate-600">☐</span>
-                <span>{q}</span>
+                <span>{cqText(q)}</span>
               </li>
             ))}
           </ul>

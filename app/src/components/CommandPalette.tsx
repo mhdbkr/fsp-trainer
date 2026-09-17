@@ -108,7 +108,7 @@ export function CommandPalette() {
             );
           })}
         </div>
-        <div className="flex items-center gap-3 border-t border-slate-100 px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:border-ink-600">
+        <div className="flex items-center gap-3 border-t border-slate-100 px-4 py-2 text-[10px] font-semibold text-slate-400 dark:border-ink-600">
           <span className="flex items-center gap-1"><span className="kbd">↑↓</span> naviguer</span>
           <span className="flex items-center gap-1"><span className="kbd">↵</span> ouvrir</span>
           <span className="ml-auto">FSP·Cockpit</span>

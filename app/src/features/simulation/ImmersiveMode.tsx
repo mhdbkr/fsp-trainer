@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { BogenNotes, Case, MusterCity } from '@/db/types';
-import { adaptChaptersForCase, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
+import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
-import { phraseAlts, phraseFollowUp, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
+import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { DoctopusMascot } from '@/components/DoctopusMascot';
@@ -11,6 +11,7 @@ import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
 import { MUSTER_BOGEN } from '@/data/guides/musterBogen';
 import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
+import { getPreferredVariant, setPreferredVariant } from '@/lib/variantPrefs';
 
 // ============================================================================
 // Mode focus / immersif — concentre l'attention sur UN chapitre et UNE
@@ -57,7 +58,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
         // Fachanamnese juste APRÈS « Aktuelle Beschwerden » (comme dans le guide),
         // pas à la fin : ces questions ciblées se posent tôt dans l'entretien.
         const idx = base.findIndex((ch) => ch.id === 'aktuell');
-        const fachCh = { id: fach.chapter.id, title: `Fachanamnese · ${c.specialty}`, icon: fach.icon, items: fach.chapter.questions, tip: fach.chapter.tip };
+        const fachCh = { id: fach.chapter.id, title: `Fachanamnese · ${c.specialty}`, icon: fach.icon, items: [...fach.chapter.questions, ...caseQuestionsForFach(c)], tip: fach.chapter.tip };
         base.splice(idx >= 0 ? idx + 1 : base.length, 0, fachCh);
       }
       return base;
@@ -88,8 +89,17 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   const [showTip, setShowTip] = useState(tipDefault);
   // Variante choisie pour l'item courant (-1 = standard). Réinitialisée à
   // chaque changement d'item : une variante est un choix local à la phrase.
-  const [vIdx, setVIdx] = useState(-1);
-  useEffect(() => { setVIdx(-1); }, [ci, ii]);
+  // Variante affichée : la formulation RETENUE par le candidat pour cette
+  // phrase (FB2-O3), standard sinon ; tout changement est mémorisé.
+  const [vIdx, setVIdxState] = useState(-1);
+  useEffect(() => {
+    const item = ii >= 0 ? chapters[ci]?.items[ii] : undefined;
+    setVIdxState(item ? getPreferredVariant(phraseText(item), phraseAlts(item).length) : -1);
+  }, [ci, ii, chapters]);
+  const setVIdx = (next: number | ((i: number) => number)) => {
+    const item = chapters[ci]?.items[ii];
+    setVIdxState((i) => { const v = typeof next === 'function' ? next(i) : next; if (item) setPreferredVariant(phraseText(item), v); return v; });
+  };
   // Suivi live par SONDE : la question affichée en focus est, par définition,
   // celle que le candidat pose → le simulant voit sa réplique s'allumer.
   useEffect(() => {
@@ -205,7 +215,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-brand-500/20 text-brand-300">
                 <Icon name={chapter.icon} className="h-10 w-10" />
               </div>
-              <div className="mt-4 text-xs uppercase tracking-[0.3em] text-slate-500">Chapitre {ci + 1} / {chapters.length}</div>
+              <div className="mt-4 text-xs text-slate-500">Chapitre {ci + 1} / {chapters.length}</div>
               <h2 className="mt-2 text-4xl font-bold">{chapter.title}</h2>
               <p className="mt-3 text-slate-400">{totalItems} {part === 'anamnese' ? 'questions' : 'formulations'} à parcourir.</p>
               {chapter.tip && (
@@ -219,8 +229,13 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
                 <Icon name={chapter.icon} className="h-4 w-4" /> {chapter.title}
               </div>
               <div className="mt-1 text-xs text-slate-600">{ii + 1} / {totalItems}</div>
+              {phraseIsCaseSpecific(chapter.items[ii]) && (
+                <span className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand-300">
+                  <span className="h-2 w-2 rounded-full bg-brand-400 ring-2 ring-brand-900" />Für diesen Fall
+                </span>
+              )}
               {phraseLabel(chapter.items[ii]) && (
-                <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-300">
+                <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-brand-300">
                   {phraseLabel(chapter.items[ii])}
                 </span>
               )}

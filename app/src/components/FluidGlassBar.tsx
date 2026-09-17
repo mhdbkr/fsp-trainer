@@ -42,7 +42,7 @@ export function FluidGlassBar({ items, onExit }: { items: NavItem[]; onExit: () 
       </FluidGlassErrorBoundary>
       <button
         onClick={onExit}
-        className="glass absolute right-3 top-2 z-50 rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 shadow-sm transition-colors hover:text-brand-600 dark:text-slate-300"
+        className="glass absolute right-3 top-2 z-50 rounded-full px-2.5 py-1 text-[10px] font-semibold text-slate-500 shadow-sm transition-colors hover:text-brand-600 dark:text-slate-300"
       >
         ✕ Quitter l'essai
       </button>

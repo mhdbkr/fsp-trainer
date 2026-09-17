@@ -66,7 +66,7 @@ function TopBar() {
         <button onClick={() => navigate(-1)} title="Page précédente" className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-brand-400 hover:text-brand-600 active:scale-95 dark:border-ink-600 dark:text-slate-300">← Retour</button>
         <button onClick={() => navigate(1)} title="Page suivante" className="rounded-lg border border-slate-200 px-2 py-1.5 text-xs text-slate-500 transition-colors hover:border-brand-400 active:scale-95 dark:border-ink-600">→</button>
         <button onClick={() => navigate('/')} title="Accueil" className="flex items-center rounded-lg border border-slate-200 px-2 py-1.5 text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 active:scale-95 dark:border-ink-600"><Icon name="nav-home" className="h-4 w-4" title="Accueil" /></button>
-        {SECTION_LABELS[section] && <span className="ml-1 font-mono text-[11px] uppercase tracking-wider text-slate-400">{SECTION_LABELS[section]}</span>}
+        {SECTION_LABELS[section] && <span className="ml-1 text-[11px] font-semibold text-slate-400">{SECTION_LABELS[section]}</span>}
         <button onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
           title="Palette de commandes (⌘K)"
           className="ml-auto flex items-center gap-1.5 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 active:scale-95 dark:border-ink-600">

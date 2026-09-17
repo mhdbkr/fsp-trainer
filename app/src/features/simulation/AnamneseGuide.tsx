@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { AssistanceMode, Case } from '@/db/types';
-import { adaptChaptersForCase, fachChapterForSimulation, type AnamneseChapter } from '@/data/guides/anamneseChapters';
+import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForSimulation, type AnamneseChapter } from '@/data/guides/anamneseChapters';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
 import { phraseProbes } from '@/data/guides/phrases';
@@ -18,7 +18,12 @@ import { useSimSession } from '@/store/simSession';
 // ============================================================================
 
 export function AnamneseGuide({ c, assistance }: { c: Case; assistance: AssistanceMode }) {
-  const fach = fachChapterForSimulation(c.specialty);
+  // Fachanamnese jouée + les questions « fach » propres au cas (FB2-J4).
+  const fach = useMemo(() => {
+    const f = fachChapterForSimulation(c.specialty);
+    const extra = caseQuestionsForFach(c);
+    return f && extra.length ? { ...f, chapter: { ...f.chapter, questions: [...f.chapter.questions, ...extra] } } : f;
+  }, [c]);
   // Chapitres ADAPTÉS au patient : pas de Frauenanamnese pour un homme, et
   // analyse des symptômes reformulée quand le cas n'a pas de douleur.
   const chapters = useMemo(() => adaptChaptersForCase(c), [c]);
@@ -94,7 +99,7 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
               ciblées se posent tôt, dans le prolongement du motif de consultation. */}
           {fach && ch.id === 'aktuell' && (
             <div className="rounded-xl border-2 border-dashed border-violet-300 p-1 dark:border-violet-900/50">
-              <div className="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-wide text-violet-500">
+              <div className="px-3 pb-1 pt-2 text-[11px] font-bold text-violet-500">
                 Fachanamnese · {c.specialty}
               </div>
               <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}

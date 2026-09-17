@@ -1,6 +1,7 @@
 import type { Case, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
-import { phraseProbes } from './phrases';
+import { phraseProbes, type PhraseVariant } from './phrases';
+import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
 
 // ============================================================================
@@ -258,7 +259,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
         probe: 'fam-beruf',
-        alts: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
+        followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
       },
       { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf' },
       { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },
@@ -1117,15 +1118,58 @@ const PAINLESS_TEXT: Record<string, string> = {
 /** Le cas comporte-t-il une douleur à analyser ? */
 export const caseHasPain = (c: Case): boolean => !!c.patientSheet.schmerz;
 
+// ── Frauenanamnese selon l'ÂGE (FB2-J5) ──────────────────────────────────────
+// Les Wechseljahre ne se demandent pas à une patiente de 25 ans, ni la
+// grossesse/contraception à une patiente de 70. Seuils : périménopause à
+// partir de 45 ans ; au-delà de 55 ans, la fertilité n'est plus une question.
+const MENOPAUSE_FROM = 45;
+const FERTILE_UNTIL = 55;
+
+function frauenQuestionsForAge(questions: Phrase[], age: number): Phrase[] {
+  return questions.flatMap((q) => {
+    const probe = typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined;
+    if (probe === 'frau-wechseljahre') {
+      if (age < MENOPAUSE_FROM) return [];
+      // Plus de « Falls … » : à cet âge la question se pose directement.
+      const text = age > FERTILE_UNTIL
+        ? 'Wann hatten Sie Ihre letzte Regelblutung? Gehen Sie regelmäßig zum Frauenarzt?'
+        : 'Sind Sie schon in den Wechseljahren? Wann hatten Sie Ihre letzte Periode? Gehen Sie regelmäßig zum Frauenarzt?';
+      return [typeof q === 'string' ? text : { ...q, text }];
+    }
+    if ((probe === 'frau-periode' || probe === 'frau-schwanger' || probe === 'frau-verhuetung') && age > FERTILE_UNTIL) return [];
+    return [q];
+  });
+}
+
+/** Questions propres au cas, rangées par sous-chapitre (FB2-J4). */
+function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
+  const out: Record<string, PhraseVariant[]> = {};
+  for (const q of c.caseSpecificQuestions ?? []) {
+    const k = cqKapitel(q);
+    (out[k] ??= []).push({ text: cqText(q), caseSpecific: true });
+  }
+  return out;
+}
+
+/** Questions « fach » du cas, à ajouter à la Fachanamnese jouée. */
+export function caseQuestionsForFach(c: Case): PhraseVariant[] { return caseQuestionsByKapitel(c).fach ?? []; }
+
 /** Chapitres de l'Allgemeine Anamnese ADAPTÉS au cas joué. */
 export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
   const weiblich = c.patientSheet.personalia.geschlecht === 'w';
+  const age = c.patientSheet.personalia.age;
   const pain = caseHasPain(c);
+  const byKapitel = caseQuestionsByKapitel(c);
+  // Les questions du cas se posent APRÈS les questions standard du chapitre :
+  // la trame apprise d'abord, puis ce qui est propre à ce patient.
+  const withCase = (ch: AnamneseChapter, questions: Phrase[]): AnamneseChapter =>
+    ({ ...ch, questions: [...questions, ...(byKapitel[ch.id] ?? [])] });
   return ALLGEMEINE_ANAMNESE
     // Frauenanamnese : uniquement pour une patiente (elle est `optional`).
     .filter((ch) => !(ch.id === 'frauenanamnese' && !weiblich))
     .map((ch) => {
-      if (pain || ch.id !== 'aktuell') return ch;
+      if (ch.id === 'frauenanamnese') return withCase(ch, frauenQuestionsForAge(ch.questions, age));
+      if (pain || ch.id !== 'aktuell') return withCase(ch, ch.questions);
       return {
         ...ch,
         subtitle: 'Motif + analyse des symptômes',
@@ -1137,7 +1181,7 @@ export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
           // lieu d'être : on ne garde que celles qui ne parlent pas de douleur.
           const followUp = q.followUp?.filter((f) => !/schmerz/i.test(f));
           return { ...q, ...(rewritten ? { text: rewritten } : {}), ...(followUp ? { followUp } : {}) };
-        }),
+        }).concat(byKapitel[ch.id] ?? []),
       };
     });
 }

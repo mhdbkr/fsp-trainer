@@ -17,7 +17,11 @@ export type FollowUpControl =
   | { kind: 'immer'; question: string }
   | { kind: 'ja'; label: string; question: string }          // label = « ja » ou la situation (« aufgehört »)
   | { kind: 'skala'; threshold: number; question: string }    // douleur 0-10, relance si ≥ threshold
-  | { kind: 'wahl'; options: [string, string]; match: string; question: string };
+  | { kind: 'wahl'; options: [string, string]; match: string; question: string }
+  // Plusieurs branches sur UN contrôle : « Rauchen Sie ? » → ja / aufgehört / nie,
+  // chaque réponse ouvrant ses propres relances (au lieu de deux toggles
+  // empilés « Ja / Nein » puis « Aufgehört / Nein », FB2-O1).
+  | { kind: 'zweig'; options: string[]; branches: Record<string, string[]> };
 
 const RE = /^Falls\s+([^:]{2,40}):\s*(.+)$/s;
 
@@ -34,6 +38,8 @@ export function parseFollowUp(raw: string): FollowUpControl {
   // noch » et « verstorben » — pas « verstorben / nein », deux libellés de même
   // sens qui troublaient à chaque simulation (FB2-J3).
   if (/verstorben/.test(c)) return { kind: 'wahl', options: ['leben noch', 'verstorben'], match: 'verstorben', question };
+  if (/in rente/.test(c)) return { kind: 'wahl', options: ['berufstätig', 'in Rente'], match: 'in rente', question };
+  if (/periode.*aufgehört/.test(c)) return { kind: 'wahl', options: ['noch regelmäßig', 'aufgehört'], match: 'aufgehört', question };
   // Situationnel : la condition elle-même devient le libellé du toggle
   // (« aufgehört », « in Rente », « Auswurf »…).
   return { kind: 'ja', label: cond, question };
@@ -50,10 +56,24 @@ export function groupFollowUps(raws: string[]): FollowUpGroup[] {
     c.kind === 'ja' ? `ja:${c.label.toLowerCase()}` : c.kind === 'wahl' ? `wahl:${c.match}` : c.kind;
   for (const raw of raws) {
     const c = parseFollowUp(raw);
+    if (c.kind === 'zweig') continue; // jamais produit par le parseur
     const k = key(c);
     const g = groups.find((x) => key(x.control) === k);
     if (g) g.questions.push(c.question);
     else groups.push({ control: c, questions: [c.question] });
   }
-  return groups;
+  return mergeBranches(groups);
+}
+
+// « Falls ja » + « Falls aufgehört » sur la même question = trois états
+// exclusifs du patient (fume / a arrêté / n'a jamais fumé) → un seul contrôle.
+function mergeBranches(groups: FollowUpGroup[]): FollowUpGroup[] {
+  const ja = groups.find((g) => g.control.kind === 'ja' && g.control.label === 'ja');
+  const stopped = groups.find((g) => g.control.kind === 'ja' && g.control.label.toLowerCase() === 'aufgehört');
+  if (!ja || !stopped) return groups;
+  const merged: FollowUpGroup = {
+    control: { kind: 'zweig', options: ['ja', 'aufgehört', 'nie'], branches: { ja: ja.questions, aufgehört: stopped.questions, nie: [] } },
+    questions: [...ja.questions, ...stopped.questions],
+  };
+  return groups.map((g) => (g === ja ? merged : g)).filter((g) => g !== stopped);
 }

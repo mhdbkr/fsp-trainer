@@ -107,7 +107,7 @@ export function Doctopus() {
                 <MarkBadge />
                 <div className="leading-none">
                   <div className="font-display text-sm font-bold tracking-tightish">Doctopus</div>
-                  <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">Assistant · IA</div>
+                  <div className="mt-1 text-[10px] font-semibold text-slate-400">Assistant IA</div>
                 </div>
               </div>
               <div className="flex items-center gap-0.5">

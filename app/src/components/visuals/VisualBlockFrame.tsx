@@ -33,7 +33,7 @@ export function VisualBlockFrame({ id, kind, title, merke, children, after }: Vi
         <h3 className="mb-3 font-display text-[17px] font-semibold tracking-tightish">{title}</h3>
         {children}
         {merke && (
-          <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-brand-600 dark:text-brand-300">
+          <p className="mt-3 text-[11px] font-semibold text-brand-600 dark:text-brand-300">
             Merke · <span className="normal-case tracking-normal">{merke}</span>
           </p>
         )}
