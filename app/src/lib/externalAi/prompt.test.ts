@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildExternalPrompt, PROMPT_MAX, PREFILL_MAX } from './prompt';
+import { buildExternalPrompt, buildExternalPromptDetailed, PROMPT_MAX, PREFILL_MAX } from './prompt';
 import type { Case } from '@/db/types';
 
 const c = {
@@ -9,6 +9,8 @@ const c = {
     leitsymptome: ['Schmerzen im Oberbauch seit 3 Wochen'], begleitsymptome: ['Übelkeit'],
     antworten: { 'akt-motiv': 'Ich habe seit drei Wochen Schmerzen im Oberbauch.', 'akt-beginn': 'Das hat langsam angefangen.' },
     negativeFindings: ['Fieber'], vegetativeAnamnese: [],
+    vorerkrankungen: [], voroperationen: [], medikamente: [], allergien: [], unvertraeglichkeiten: [],
+    noxen: {}, familienanamnese: [], sozialanamnese: [],
     schwierigeReaktionen: ['Wird ungeduldig, wenn Fachwörter benutzt werden'],
     persona: 'Tu minimises tes douleurs ; tu ne parles du sang dans les selles que si on te le demande.',
   },
@@ -28,19 +30,20 @@ describe('buildExternalPrompt', () => {
   it('ne divulgue jamais la fiche médicale AVANT la section Oberarzt (Teil 3) — toléré après, le senior connaît le diagnostic', () => {
     for (const scope of ['anamnese', 'exam', 'exam+feedback'] as const) {
       const p = buildExternalPrompt({ ...base, scope });
-      const [beforeTeil3] = p.split('## Teil 3');
+      const [beforeTeil3] = p.split('# Teil 3 – Oberarzt/Oberärztin');
       expect(beforeTeil3).not.toContain('Ulcus ventriculi');            // verdachtsdiagnose
       expect(beforeTeil3).not.toContain('ein Geschwür im Magen');        // medicalView.patientWorte
     }
   });
   it('exam : section Oberarzt avec les questions dans l\'ordre, attendus entre parenthèses, puis examinerQuestions, marqueur exact, note diagnostic', () => {
     const p = buildExternalPrompt({ ...base, scope: 'exam' });
-    expect(p).toContain('## Teil 3 – Oberarzt/Oberärztin');
-    expect(p).toContain('Hinweis: Als Patient/Patientin kennst du diese Diagnose nicht');
+    expect(p).toContain('# Teil 3 – Oberarzt/Oberärztin');
+    expect(p).toContain('Alles in diesem Teil weiß nur die Oberärztin/der Oberarzt.');
     const i1 = p.indexOf('Welche Differenzialdiagnosen'); const i2 = p.indexOf('Wie gehen Sie weiter vor?');
     expect(i1).toBeGreaterThan(0); expect(i2).toBeGreaterThan(i1);
     expect(p).toContain('(erwartet: Gastritis, Pankreatitis)');
-    expect(p).toContain('„Fallvorstellung“'); expect(p).not.toContain('„Feedback“');
+    expect(p).toContain('„Fallvorstellung“');
+    expect(p).not.toContain('# Feedback'); // pas de grille de feedback hors scope exam+feedback
   });
   it('exam+feedback : grille avec les termes attendus, langue du feedback', () => {
     const fr = buildExternalPrompt({ ...base, scope: 'exam+feedback' });
@@ -48,8 +51,10 @@ describe('buildExternalPrompt', () => {
     const de = buildExternalPrompt({ ...base, scope: 'exam+feedback', feedbackLang: 'de' });
     expect(de).toContain('auf Deutsch'); expect(de).not.toContain('auf Französisch');
   });
-  it('taille bornée par PROMPT_MAX sur ce cas (petit cas : loin sous la borne)', () => {
-    expect(buildExternalPrompt({ ...base, scope: 'exam+feedback' }).length).toBeLessThanOrEqual(PROMPT_MAX);
+  it('taille bornée par PROMPT_MAX sur ce cas (petit cas : loin sous la borne), niveau full', () => {
+    const d = buildExternalPromptDetailed({ ...base, scope: 'exam+feedback' });
+    expect(d.text.length).toBeLessThanOrEqual(PROMPT_MAX);
+    expect(d.level).toBe('full');
   });
   it('PREFILL_MAX < PROMPT_MAX (le premier est une limite d\'URL, le second une borne dure du prompt)', () => {
     expect(PREFILL_MAX).toBeLessThan(PROMPT_MAX);
@@ -59,8 +64,9 @@ describe('buildExternalPrompt', () => {
 // ----------------------------------------------------------------------------
 // Cascade de compaction NON DESTRUCTIVE (D7) — cas artificiels. Aucune phrase
 // n'est jamais coupée : on retire seulement des éléments redondants, dans
-// l'ordre (a) erwartet Oberarzt, (b) Fakten dupliquées, (c) répliques des
-// chapitres secondaires (personalia/vegetativ/familie-sozial) → résumé Fakten.
+// l'ordre (a) erwartet Oberarzt, (c) répliques des chapitres secondaires
+// (personalia/vegetativ/familie-sozial) → résumé Fakten. Niveaux exposés par
+// buildExternalPromptDetailed : 'full' | 'a' | 'ac'.
 // ----------------------------------------------------------------------------
 describe('cascade de compaction non destructive (cas artificiels)', () => {
   const bigCase = (overrides: Record<string, unknown>) => ({
@@ -70,6 +76,8 @@ describe('cascade de compaction non destructive (cas artificiels)', () => {
       leitsymptome: ['Testmotiv'], begleitsymptome: [],
       antworten: { 'akt-motiv': 'Ich bin seit einer Woche krank.' },
       vegetativeAnamnese: ['Kein Fieber'],
+      vorerkrankungen: [], voroperationen: [], medikamente: [], allergien: [], unvertraeglichkeiten: [],
+      noxen: {},
       familienanamnese: ['Mutter: Diabetes'], sozialanamnese: ['Nichtraucher'],
       ...overrides,
     },
@@ -79,39 +87,41 @@ describe('cascade de compaction non destructive (cas artificiels)', () => {
   } as unknown as Case);
 
   it('niveau (a) suffit : des « erwartet » très longs font dépasser PROMPT_MAX, les retirer suffit — rien d\'autre n\'est perdu', () => {
-    const longReaktion = 'Erwartete Antwort im Detail. '.repeat(300); // ~8 700 chars
+    const longReaktion = 'Erwartete Antwort im Detail. '.repeat(600); // ~17 400 chars
     const c1 = bigCase({});
     (c1 as unknown as { examinerSheet: unknown }).examinerSheet = Array.from({ length: 12 }, (_, k) => ({
       title: `Thema ${k}`,
       interactions: [{ frage: `Frage Nummer ${k} ?`, reaktion: longReaktion }],
-    })); // ≈ 12 × 8 700 ≈ 104 000 chars bruts, largement > PROMPT_MAX
-    const p = buildExternalPrompt({ c: c1, scope: 'exam', feedbackLang: 'fr', topTerms: [] });
-    expect(p.length).toBeLessThanOrEqual(PROMPT_MAX);
-    expect(p).not.toContain('(erwartet:');
-    expect(p).not.toContain('…'); // jamais de troncature
-    for (let k = 0; k < 12; k++) expect(p).toContain(`Frage Nummer ${k} ?`); // les questions restent intégrales
+    })); // ≈ 12 × 17 400 ≈ 208 800 chars bruts, largement > PROMPT_MAX
+    const d = buildExternalPromptDetailed({ c: c1, scope: 'exam', feedbackLang: 'fr', topTerms: [] });
+    expect(d.text.length).toBeLessThanOrEqual(PROMPT_MAX);
+    expect(d.level).toBe('a');
+    expect(d.text).not.toContain('(erwartet:');
+    expect(d.text).not.toContain('…'); // jamais de troncature
+    for (let k = 0; k < 12; k++) expect(d.text).toContain(`Frage Nummer ${k} ?`); // les questions restent intégrales
   });
 
-  it('niveau (c) nécessaire : de longues répliques dans les chapitres secondaires forcent le repli en Fakten, mais aktuell/fach restent intégraux', () => {
-    const longAntwort = (n: number) => `Réponse détaillée numéro ${n}, avec beaucoup de contexte redondant pour occuper de la place et faire dépasser la borne. `.repeat(8);
+  it('niveau (ac) nécessaire : de longues répliques dans les chapitres secondaires forcent le repli en Fakten, mais aktuell/fach restent intégraux', () => {
+    const longAntwort = (n: number) => `Réponse détaillée numéro ${n}, avec beaucoup de contexte redondant pour occuper de la place et faire dépasser la borne. `.repeat(40);
     const c2 = bigCase({
       antworten: { 'akt-motiv': 'Ich bin seit einer Woche krank und habe starke Bauchschmerzen, die immer schlimmer werden.' },
       frageAntworten: [
         ...Array.from({ length: 60 }, (_, k) => ({ frage: `Vegetativ-Frage ${k}`, antwort: longAntwort(k), kapitel: 'vegetativ' as const })),
         ...Array.from({ length: 60 }, (_, k) => ({ frage: `Sozial-Frage ${k}`, antwort: longAntwort(100 + k), kapitel: 'familie-sozial' as const })),
-      ], // ≈ 120 × ~1 000 chars ≈ 120 000 chars bruts, largement > PROMPT_MAX même après (a)+(b)
+      ], // ≈ 120 × ~5 000 chars ≈ 600 000 chars bruts, largement > PROMPT_MAX même après (a)
       vegetativeAnamnese: ['Kein Fieber'],
       familienanamnese: ['Mutter: Diabetes'], sozialanamnese: ['Nichtraucher'],
     });
-    const p = buildExternalPrompt({ c: c2, scope: 'anamnese', feedbackLang: 'fr', topTerms: [] });
-    expect(p.length).toBeLessThanOrEqual(PROMPT_MAX);
-    expect(p).not.toContain('…'); // jamais de troncature, même au dernier niveau
+    const d = buildExternalPromptDetailed({ c: c2, scope: 'anamnese', feedbackLang: 'fr', topTerms: [] });
+    expect(d.text.length).toBeLessThanOrEqual(PROMPT_MAX);
+    expect(d.level).toBe('ac');
+    expect(d.text).not.toContain('…'); // jamais de troncature, même au dernier niveau
     // Fidélité : la réplique du motif principal (chapitre non secondaire) reste intégrale.
-    expect(p).toContain('Ich bin seit einer Woche krank und habe starke Bauchschmerzen, die immer schlimmer werden.');
+    expect(d.text).toContain('Ich bin seit einer Woche krank und habe starke Bauchschmerzen, die immer schlimmer werden.');
     // Compaction : les longues répliques secondaires ont été remplacées par leur résumé Fakten.
-    expect(p).not.toContain('Vegetativ-Frage 0');
-    expect(p).not.toContain('Sozial-Frage 0');
-    expect(p).toContain('Fakten: Kein Fieber');
-    expect(p).toContain('Mutter: Diabetes');
+    expect(d.text).not.toContain('Vegetativ-Frage 0');
+    expect(d.text).not.toContain('Sozial-Frage 0');
+    expect(d.text).toContain('Fakten: Kein Fieber');
+    expect(d.text).toContain('Mutter: Diabetes');
   });
 });
