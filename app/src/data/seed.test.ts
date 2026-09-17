@@ -1,4 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
+// seed.ts importe la session (→ client Supabase) : en CI il n'y a pas de .env,
+// et wireLinks est pur — on mocke le module session pour ne rien charger.
+vi.mock('@/lib/auth/session', () => ({ useSession: { getState: () => ({ user: null, status: 'anonymous' }) }, AUTH_MODE: 'public' }));
 import { wireLinks } from './seed';
 import type { Case, Fachbegriff } from '@/db/types';
 import { freshSrs } from '@/lib/srs';
