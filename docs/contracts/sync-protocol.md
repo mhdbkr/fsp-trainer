@@ -12,7 +12,7 @@
 - Page pleine (100) → relance après levée du verrou : un backlog draine sans attendre le timer.
 Déclencheurs : après chaque push, `online`, **au démarrage**, intervalle 2 min si outbox non vide.
 
-**Pull** — `GET /events?since=<max received_at LOCAL>` (horloge **serveur** ; jamais `occurred_at` client, qui ferait rater les événements poussés en retard par un autre appareil). Insertion des ids inconnus (bulkGet), puis `rebuildProjections()` si nouveautés : `simulations`, `fachbegriffe.srs` (dernier `srs.reviewed` par terme, par `occurred_at`), `cases.layerProgress` (max). Déclencheurs : démarrage, après chaque flush, `online`.
+**Pull** — `GET /events?since=<max received_at LOCAL>` (horloge **serveur** ; jamais `occurred_at` client, qui ferait rater les événements poussés en retard par un autre appareil). Insertion des ids inconnus (bulkGet), puis `rebuildProjections()` si nouveautés : `simulations`, `fachbegriffe.srs` (dernier `srs.reviewed` par terme, par `occurred_at`), `cases.layerProgress` (max), `decks` / `deck_terms` / `favorites` (projection des événements de collections). Déclencheurs : démarrage, après chaque flush, `online`.
 
 **Conflits** — aucun par construction (additif). Seule mutation logique : SRS d'un terme → last-write-wins par `occurred_at`.
 **Horloges** — `occurred_at` client (affichage) ; `received_at` serveur (curseur, quotas, ligue).

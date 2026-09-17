@@ -1,12 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // La clé IA est stockée par compte en mode fondateur (audit I4) ; en mode
-// public elle reste unique. Le module session est mocké : seul AUTH_MODE compte.
+// public elle reste unique. Le module session est mocké via un handle hoisté
+// (vi.hoisted) pour éviter la fragilité de vi.doMock + import dynamique sous
+// charge (flake #33 constaté en CI parallèle) : chaque test règle mode.value
+// puis vi.resetModules() + réimporte ./onlineAi, sans redéclarer le mock.
+const mode = vi.hoisted(() => ({ value: 'founder' as 'founder' | 'public' }));
+
+vi.mock('@/lib/auth/session', () => ({
+  get AUTH_MODE() { return mode.value; },
+}));
+
 describe('onlineAi — clé par compte', () => {
   beforeEach(() => { localStorage.clear(); vi.resetModules(); });
 
   it('founder : la clé est namespacée par compte actif, deux comptes ne se voient pas', async () => {
-    vi.doMock('@/lib/auth/session', () => ({ AUTH_MODE: 'founder' }));
+    mode.value = 'founder';
     const { setActiveUserId } = await import('@/lib/auth/accounts');
     const { getKey, setKey, hasKey } = await import('./onlineAi');
     setActiveUserId('u1'); setKey('sk-aaaaaaaaaaaa');
@@ -19,7 +28,7 @@ describe('onlineAi — clé par compte', () => {
   });
 
   it('founder : l\'ancienne clé non namespacée migre vers le compte actif à la première lecture', async () => {
-    vi.doMock('@/lib/auth/session', () => ({ AUTH_MODE: 'founder' }));
+    mode.value = 'founder';
     localStorage.setItem('doctopus-key', 'sk-legacy');
     const { setActiveUserId } = await import('@/lib/auth/accounts');
     const { getKey } = await import('./onlineAi');
@@ -32,7 +41,7 @@ describe('onlineAi — clé par compte', () => {
   });
 
   it('public : clé unique, inchangée', async () => {
-    vi.doMock('@/lib/auth/session', () => ({ AUTH_MODE: 'public' }));
+    mode.value = 'public';
     const { getKey, setKey } = await import('./onlineAi');
     setKey('sk-public-key');
     expect(localStorage.getItem('doctopus-key')).toBe('sk-public-key');
