@@ -27,6 +27,10 @@ describe('collections mutations', () => {
     await toggleFavorite('fb-9', { caseId: 'c1' });
     const events = await db.progress_events.toArray();
     expect(events[events.length - 1]?.payload).toEqual({ caseId: 'c1' });
+    await toggleFavorite('fb-9', { caseId: 'c1' });   // retrait : jamais de caseId sur term.unfavorited
+    const after = await db.progress_events.toArray();
+    expect(after[after.length - 1]?.type).toBe('term.unfavorited');
+    expect(after[after.length - 1]?.payload).toEqual({});
   });
 
   it('cycle de vie d\'un deck manuel', async () => {
