@@ -32,7 +32,7 @@ export function DeckSheet({ mode, deck, initialQuery, specialties, centers, onCl
   return (
     <>
       <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={() => onClose()} />
-      <form onSubmit={submit} role="dialog" aria-label={mode === 'create' ? 'Nouveau deck' : 'Gérer le deck'} className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
+      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label={mode === 'create' ? 'Nouveau deck' : 'Gérer le deck'} className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
         <div className="label">{mode === 'create' ? 'Nouveau deck' : 'Deck'}</div>
         <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className="input w-full" autoFocus /></label>
         {mode === 'create' && (

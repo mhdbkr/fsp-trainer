@@ -43,4 +43,28 @@ describe('GlossaryDrawer collections', () => {
       expect(await db.deck_terms.get([deck!.id, 'fb-a'])).toBeTruthy();
     });
   });
+
+  // Régression BLOQUANT UX (ux-review) : après sélection d'un deck (existant
+  // ou juste créé), le menu « Ajouter à un deck… » restait ouvert et
+  // bloquait les clics sur la liste en dessous. Le menu doit se fermer et
+  // seul le fond du tiroir (`.fixed.inset-0`) doit rester monté.
+  it('choisir un deck existant ferme le menu ; seul le fond du tiroir reste monté', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    render(<MemoryRouter><GlossaryDrawer /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /ajouter à un deck/i }));
+    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /kardio/i }));
+    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    expect(document.querySelectorAll('.fixed.inset-0').length).toBe(1);
+  });
+
+  it('créer un deck inline ferme le menu ; seul le fond du tiroir reste monté', async () => {
+    render(<MemoryRouter><GlossaryDrawer /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /ajouter à un deck/i }));
+    fireEvent.click(await screen.findByRole('menuitem', { name: /nouveau deck/i }));
+    fireEvent.change(await screen.findByLabelText(/nom du nouveau deck/i), { target: { value: 'Uro' } });
+    fireEvent.click(await screen.findByRole('button', { name: /^créer$/i }));
+    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    expect(document.querySelectorAll('.fixed.inset-0').length).toBe(1);
+  });
 });

@@ -58,7 +58,7 @@ export const TermList = forwardRef<TermListHandle, Props>(function TermList({ te
                 <span role="img" className={`chip shrink-0 ${tone.chip}`} title={t.srs.state} aria-label={t.srs.state}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
                 {onRemove && <button type="button" aria-label={`Retirer ${t.term} du deck`} onClick={() => onRemove(t)} className="btn-ghost h-11 w-11 shrink-0 justify-center text-slate-400">−</button>}
                 <button type="button" aria-label={fav ? `Retirer ${t.term} des favoris` : `Ajouter ${t.term} aux favoris`} aria-pressed={fav} onClick={() => onToggleFavorite(t)}
-                  className={`h-11 w-11 shrink-0 text-lg ${fav ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400 dark:text-slate-600'}`}>{fav ? '★' : '☆'}</button>
+                  className={`h-11 w-11 shrink-0 text-lg ${fav ? 'text-signal-600' : 'text-slate-300 hover:text-signal-400 dark:text-slate-600'}`}>{fav ? '★' : '☆'}</button>
               </div>
             );
           })}

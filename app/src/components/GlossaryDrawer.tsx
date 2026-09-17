@@ -18,6 +18,7 @@ export function GlossaryDrawer() {
   const [menu, setMenu] = useState(false);
   const [creating, setCreating] = useState(false);
   const [newDeckName, setNewDeckName] = useState('');
+  const [createError, setCreateError] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
 
@@ -47,11 +48,16 @@ export function GlossaryDrawer() {
   const submitNewDeck = async () => {
     const name = newDeckName.trim();
     if (!name) return;
-    const id = await createDeck(name, 'manual');
-    await addToDeck(id, fb.id);
-    setNewDeckName('');
-    setCreating(false);
-    setMenu(false);
+    try {
+      const id = await createDeck(name, 'manual');
+      await addToDeck(id, fb.id);
+      setNewDeckName('');
+      setCreateError(null);
+      setCreating(false);
+      setMenu(false);
+    } catch (err) {
+      setCreateError(err instanceof Error && err.message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : 'Impossible de créer le deck.');
+    }
   };
 
   return (
@@ -66,28 +72,32 @@ export function GlossaryDrawer() {
           </div>
           <div className="flex items-center gap-1">
             <button type="button" aria-label={fav ? `Retirer des favoris : ${fb.term}` : `Ajouter aux favoris : ${fb.term}`} aria-pressed={fav} onClick={() => { void toggleFavorite(fb.id); }}
-              className={`h-11 w-11 text-xl ${fav ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400 dark:text-slate-600'}`}>{fav ? '★' : '☆'}</button>
+              className={`h-11 w-11 text-xl ${fav ? 'text-signal-600' : 'text-slate-300 hover:text-signal-400 dark:text-slate-600'}`}>{fav ? '★' : '☆'}</button>
             <div className="relative" ref={menuRef}>
               <button ref={menuTriggerRef} type="button" aria-haspopup="menu" aria-expanded={menu} onClick={() => setMenu((m) => !m)} className="btn-ghost h-11 px-2 text-sm">Ajouter à un deck…</button>
               {menu && (
                 <div role="menu" className="absolute right-0 z-10 mt-1 w-56 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900">
                   {manual.length === 0 && <p className="px-2 py-1.5 text-xs text-slate-500">Aucune liste. Crée-en une :</p>}
                   {manual.map((d) => (
-                    <button key={d.id} role="menuitemcheckbox" aria-checked={inDeck(d.id)} onClick={() => { void (inDeck(d.id) ? removeFromDeck(d.id, fb.id) : addToDeck(d.id, fb.id)); }}
+                    <button key={d.id} role="menuitemcheckbox" aria-checked={inDeck(d.id)} onClick={() => { void (inDeck(d.id) ? removeFromDeck(d.id, fb.id) : addToDeck(d.id, fb.id)); setMenu(false); setCreating(false); }}
                       className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-sm hover:bg-slate-100 dark:hover:bg-white/10">{d.name}<span>{inDeck(d.id) ? '✓' : ''}</span></button>
                   ))}
                   {creating ? (
-                    <div className="mt-1 flex items-center gap-1 border-t border-slate-100 p-1 dark:border-slate-800">
-                      <input
-                        type="text"
-                        aria-label="Nom du nouveau deck"
-                        value={newDeckName}
-                        onChange={(e) => setNewDeckName(e.target.value)}
-                        onKeyDown={(e) => { if (e.key === 'Enter') { void submitNewDeck(); } }}
-                        autoFocus
-                        className="h-11 flex-1 rounded-lg border border-slate-200 bg-transparent px-2 text-sm dark:border-slate-700"
-                      />
-                      <button type="button" onClick={() => { void submitNewDeck(); }} className="btn-outline h-11 px-3 text-sm">Créer</button>
+                    <div className="mt-1 border-t border-slate-100 p-1 dark:border-slate-800">
+                      <div className="flex items-center gap-1">
+                        <input
+                          type="text"
+                          aria-label="Nom du nouveau deck"
+                          value={newDeckName}
+                          onChange={(e) => setNewDeckName(e.target.value)}
+                          onKeyDown={(e) => { if (e.key === 'Enter') { void submitNewDeck(); } }}
+                          autoFocus
+                          maxLength={40}
+                          className="h-11 flex-1 rounded-lg border border-slate-200 bg-transparent px-2 text-sm dark:border-slate-700"
+                        />
+                        <button type="button" onClick={() => { void submitNewDeck(); }} className="btn-outline h-11 px-3 text-sm">Créer</button>
+                      </div>
+                      {createError && <p role="alert" className="mt-1 px-1 text-xs text-red-600 dark:text-red-400">{createError}</p>}
                     </div>
                   ) : (
                     <button type="button" role="menuitem" onClick={() => setCreating(true)}
