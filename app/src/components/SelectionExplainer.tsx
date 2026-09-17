@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
-import { localLookup } from '@/lib/dictionary';
+import { exactLookup } from '@/lib/dictionary';
 import { askBrief, hasKey } from '@/lib/onlineAi';
 
 // ============================================================================
-// Quick-search : quand l'utilisateur SÉLECTIONNE un mot/terme, une pastille 🔍
-// apparaît près de la sélection. Au clic, une petite bulle donne une glose très
-// brève en allemand + français. Cerveau HYBRIDE : réponse instantanée si le
-// terme est dans le glossaire de l'app ; sinon appel bref à Doctopus (IA, clé).
+// Quick-search : quand l'utilisateur SÉLECTIONNE un mot, un terme OU une
+// phrase (FB2-M2), une pastille apparaît près de la sélection. Au clic, une
+// bulle donne une glose brève. Cerveau HYBRIDE : réponse instantanée si la
+// sélection est EXACTEMENT un terme du glossaire (FB2-M3 : jamais de
+// correspondance floue — « Sonde » n'est pas « Sondenernährung ») ; sinon
+// appel bref à Doctopus (IA, clé).
 // « Voir plus → » ouvre Doctopus complet avec le terme pré-rempli.
 // ============================================================================
 
@@ -31,11 +33,9 @@ export function SelectionExplainer() {
       setTimeout(() => {
         const seldom = window.getSelection();
         const text = seldom?.toString().trim() ?? '';
-        const words = text.split(/\s+/).filter(Boolean);
-        // Un « terme » : 1 à 4 mots, longueur raisonnable, pas une phrase entière.
-        if (!text || text.length < 2 || text.length > 60 || words.length > 4 || /[.!?]/.test(text)) {
-          return;
-        }
+        // D'un mot à une phrase : on borne seulement la longueur (un paragraphe
+        // entier n'est pas une question, c'est Doctopus complet qu'il faut).
+        if (!text || text.length < 2 || text.length > 220) return;
         // Ignorer les sélections dans un champ de saisie.
         const node = seldom?.anchorNode?.parentElement;
         if (node?.closest('input, textarea, [contenteditable="true"]')) return;
@@ -67,11 +67,10 @@ export function SelectionExplainer() {
   const explain = async () => {
     if (!anchor) return;
     const term = anchor.text;
-    // 1) Glossaire local (instantané).
-    const hits = localLookup(term, begriffe);
-    if (hits.length) {
-      const h = hits[0];
-      setBubble({ loading: false, source: 'glossaire', text: `${h.term} — ${h.translation}` });
+    // 1) Glossaire local, correspondance EXACTE seulement (instantané).
+    const h = exactLookup(term, begriffe);
+    if (h) {
+      setBubble({ loading: false, source: 'glossaire', text: `${h.term} — ${h.translationSimple}` });
       return;
     }
     // 2) IA brève (si clé configurée).

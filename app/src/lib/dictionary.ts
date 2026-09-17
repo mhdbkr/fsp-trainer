@@ -46,6 +46,17 @@ export function localLookup(query: string, begriffe: Fachbegriff[]): LocalHit[] 
   return hits;
 }
 
+/** Résolution EXACTE d'un terme sélectionné (FB2-M3) : le terme du glossaire
+ *  doit être égal à la sélection (casse ignorée, ponctuation de bord retirée).
+ *  Pas de startsWith/includes ici : « Sonde » ne doit pas renvoyer
+ *  « Sondenernährung », ni un terme dont la traduction contient le mot. Le
+ *  flou reste réservé à la recherche (`localLookup`). */
+export function exactLookup(selection: string, begriffe: Fachbegriff[]): Fachbegriff | null {
+  const q = selection.trim().replace(/^[\s„“"'«»(\[]+|[\s“”"'«»)\].,;:!?]+$/g, '').toLowerCase();
+  if (!q) return null;
+  return begriffe.find((b) => b.term.trim().toLowerCase() === q) ?? null;
+}
+
 // --- Voie 2 : deep-links gratuits sans clé (option B) -----------------------
 export interface DeepLink { label: string; url: string; note?: string }
 
@@ -87,7 +98,25 @@ export function buildLlmPrompt(query: string): { system: string; user: string } 
 
 /** Prompt ULTRA-BREF pour le quick-search (bulle sur sélection) : une glose
  *  télégraphique DE + FR, quelques mots seulement. */
-export function buildBriefPrompt(term: string): { system: string; user: string } {
+export type BriefKind = 'term' | 'phrase';
+
+/** Une sélection est une « phrase » (pas un terme) dès qu'elle porte une
+ *  ponctuation de phrase ou plus de 4 mots — FB2-M2. */
+export function briefKind(selection: string): BriefKind {
+  const words = selection.trim().split(/\s+/).filter(Boolean);
+  return words.length > 4 || /[.!?;:]/.test(selection) ? 'phrase' : 'term';
+}
+
+export function buildBriefPrompt(term: string, kind: BriefKind = 'term'): { system: string; user: string } {
+  if (kind === 'phrase') {
+    return {
+      system:
+        'Du bist Doctopus, Tutor für die Fachsprachprüfung Medizin (C1). Der Kandidat hat einen Satz oder eine Formulierung markiert, die er nicht versteht. ' +
+        'Erkläre in HÖCHSTENS zwei kurzen deutschen Sätzen, was sie bedeutet und in welcher Situation man sie sagt (Patient vs. Arzt/Jury), ' +
+        'dann « · 🇫🇷 » eine französische Kurzübersetzung in einem Satz. Keine Einleitung, keine Aufzählung, keine Wiederholung des Satzes.',
+      user: `Erkläre diese Formulierung: „${term}“`,
+    };
+  }
   return {
     system:
       "Du bist ein medizinisches Mini-Wörterbuch für die FSP. Antworte in HÖCHSTENS einer Zeile und SEHR knapp: " +

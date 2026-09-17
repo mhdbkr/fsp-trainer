@@ -1,5 +1,5 @@
 import { OpenRouter } from '@openrouter/sdk';
-import { DOCTOPUS_SYSTEM, buildBriefPrompt } from './dictionary';
+import { DOCTOPUS_SYSTEM, buildBriefPrompt, briefKind } from './dictionary';
 import { AUTH_MODE } from '@/lib/auth/session';
 import { getActiveUserId } from '@/lib/auth/accounts';
 
@@ -174,7 +174,7 @@ async function chatOpenRouter(system: string, turns: ChatTurn[], maxTokens: numb
   } catch (e) {
     throw new Error(`Erreur OpenRouter : ${describeOpenRouterError(e)}`);
   }
-  return { role: 'assistant', content: content || '(réponse vide)', reasoningDetails: reasoningDetails.length ? reasoningDetails : undefined };
+  return { role: 'assistant', content, reasoningDetails: reasoningDetails.length ? reasoningDetails : undefined };
 }
 
 // Appel générique aux autres fournisseurs OpenAI-compatibles (Groq…). Pas de
@@ -196,16 +196,23 @@ async function chatGeneric(system: string, turns: ChatTurn[], maxTokens: number,
     throw new Error(`Erreur ${res.status} : ${t.slice(0, 140) || res.statusText}`);
   }
   const data = await res.json();
-  return { role: 'assistant', content: data?.choices?.[0]?.message?.content ?? '(réponse vide)' };
+  return { role: 'assistant', content: data?.choices?.[0]?.message?.content ?? '' };
 }
 
+// Une réponse VIDE n'est jamais affichée telle quelle (FB2-M3) : les modèles
+// gratuits en rendent parfois une sous charge. On réessaie une fois, puis on
+// dit honnêtement ce qui s'est passé.
 async function chat(system: string, turns: ChatTurn[], maxTokens: number, reasoning: ReasoningEffort, onToken?: (delta: string) => void): Promise<ChatTurn> {
   const key = getKey();
   const provider = getProvider();
   if (!key) throw new Error('Aucune clé configurée.');
-  return provider.id === 'openrouter'
+  const once = () => (provider.id === 'openrouter'
     ? chatOpenRouter(system, turns, maxTokens, key, provider.model, reasoning, onToken)
-    : chatGeneric(system, turns, maxTokens, key, provider);
+    : chatGeneric(system, turns, maxTokens, key, provider));
+  let reply = await once();
+  if (!reply.content.trim()) reply = await once();
+  if (!reply.content.trim()) throw new Error('Le modèle n’a rien répondu (capacité gratuite saturée ?). Réessaie dans un instant.');
+  return reply;
 }
 
 /** Tour suivant d'une conversation Doctopus : envoie tout l'historique (le
@@ -222,10 +229,12 @@ export async function askOnline(query: string, onToken?: (delta: string) => void
   return (await askConversation([{ role: 'user', content: query }], onToken)).content;
 }
 
-/** Glose ultra-brève pour le quick-search (bulle sur sélection). Jamais de
- *  raisonnement : c'est LA question directe par excellence, et un budget de
- *  60 jetons ne survivait pas à une phase de réflexion. */
-export async function askBrief(term: string): Promise<string> {
-  const { system, user } = buildBriefPrompt(term);
-  return (await chat(system, [{ role: 'user', content: user }], 120, 'none')).content.trim();
+/** Glose brève pour le quick-search (bulle sur sélection). Jamais de
+ *  raisonnement : c'est LA question directe par excellence, et un petit budget
+ *  ne survit pas à une phase de réflexion. Un terme → une ligne ; une phrase
+ *  (FB2-M2) → deux phrases, budget plus large. */
+export async function askBrief(selection: string): Promise<string> {
+  const kind = briefKind(selection);
+  const { system, user } = buildBriefPrompt(selection, kind);
+  return (await chat(system, [{ role: 'user', content: user }], kind === 'phrase' ? 220 : 120, 'none')).content.trim();
 }
