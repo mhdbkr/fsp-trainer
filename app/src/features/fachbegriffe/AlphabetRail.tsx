@@ -34,7 +34,7 @@ export function AlphabetRail({ available, onJump }: { available: Set<string>; on
   return (
     <div ref={ref} role="group" aria-label="Aller à la lettre"
       className="sticky top-20 flex h-[min(70vh,520px)] w-11 touch-none select-none flex-col items-center justify-between py-1 text-[11px] font-semibold text-slate-400"
-      onMouseLeave={() => setHot(null)} onTouchStart={onTouch} onTouchMove={onTouch} onTouchEnd={() => setHot(null)}>
+      onMouseLeave={() => setHot(null)} onTouchStart={onTouch} onTouchMove={onTouch} onTouchEnd={() => { setHot(null); setTimeout(() => { touchedRef.current = false; }, 400); }} onTouchCancel={() => { setHot(null); touchedRef.current = false; }}>
       {LETTERS.map((l, i) => {
         const on = available.has(l);
         return (
