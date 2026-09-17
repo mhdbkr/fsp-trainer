@@ -300,6 +300,12 @@ référence 20 questions, `scripts/evalDoctopus.mjs` — run réel avec
 `OPENROUTER_API_KEY`), P1/P2 (simulation par Teil, spec
 `docs/superpowers/specs/2026-09-17-simulation-par-teil-design.md`).
 
+Retour direction sur P (17 sept.) : glissement d'icônes rejeté → carte
+retournable + verso en verre + boîte de mode dédiée en pré-simulation, icônes
+par Teil ; stratégie inversée : maîtrise au prorata des trois parties, courbe
+d'apprentissage `teil-first` / `full` dans le programme, plan recalculé à
+chaque session (`8e59f58`).
+
 ## Ordre de traitement proposé (série 2)
 
 1. **FB2-M3, FB2-N1, FB2-M1** — correctifs nets, zéro migration : glossaire mots entiers, résolution exacte, scroll. *(M3-cause principale déjà corrigée le 17 sept.)*

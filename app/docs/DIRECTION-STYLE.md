@@ -78,6 +78,7 @@ retient de la personne ?
 | **Il distingue ce qu'il tranche maintenant de ce dont il veut discuter.** « Enregistre ça, on en discutera en détail. » | Enregistrer sans implémenter ; préparer les questions ouvertes ; **ne pas coder une feature qu'il a mise en attente**. |
 | **Il nomme les outils qu'il veut voir utilisés.** « Check taste skill pour arranger ça. » | Invoquer le skill nommé, dire qu'on l'a fait, montrer le résultat. |
 | **Il vérifie en production, pas dans le terminal.** « Tu es sûr d'avoir tout déployé ? », « on dirait qu'il utilise toujours llama ». | « Fait » = **déployé et vérifié là où il teste** (bundle live, navigateur). `tsc` vert n'est pas une preuve. |
+| **Il tranche la stratégie produit, et en profondeur.** Sur le Teil : « toute simulation, quel que soit le mode, influence l'avancement et les stats ; le programme doit être vivant et adaptatif ». | Une règle pédagogique que j'avais posée seul (« un Teil ne compte pas pour la maîtrise ») a été renversée : quand une règle touche la progression de l'utilisateur, la lui soumettre AVANT de coder, avec l'alternative. |
 | **Il veut un effort maximal sur ce qu'il désigne comme game changer.** | Y mettre les meilleurs agents (Opus), spec complète, animations soignées, pas un MVP honteux. |
 | **Il tolère mal la répétition d'une erreur déjà signalée.** La série 2 rouvre des thèmes de la série 1 (adaptation, doublons) marqués ✅. | Un ✅ est une **hypothèse jusqu'à ce qu'il rejoue**. Prévoir le validateur mécanique qui empêche le retour du défaut, pas seulement la correction ponctuelle. |
 | **Il écrit vite, en français oral, sans ponctuation.** | Ne jamais confondre style d'écriture et niveau d'exigence : l'exigence est celle d'un praticien qui va passer cet examen. |
@@ -113,6 +114,14 @@ retient de la personne ?
   sans avoir rejoué des cas de natures différentes.
 - Proposer une flèche orange, un bouton générique, un libellé texte là où
   une icône fine suffit.
+- Des icônes qui « glissent depuis le bord » d'un bouton (jugé cheap, pas
+  ergonomique) ; ce qui a été validé à la place : **retourner la carte
+  entière**, verso en verre, la complète d'un bloc au-dessus et les trois
+  parties **nées d'une division** en dessous — le dessin dit ce que fait
+  l'action (« purpose engineering »). Des icônes génériques pour des actions
+  précises (une partie de l'examen mérite son propre glyphe).
+- Des pastilles de choix rangées dans la boîte d'action principale : un
+  choix qui change la nature de l'action a sa propre boîte, au-dessus.
 
 ## 6. Mise à jour de ce guide
 
