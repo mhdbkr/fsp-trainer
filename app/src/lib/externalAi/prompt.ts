@@ -1,9 +1,14 @@
 // ============================================================================
 // Personnage prêt à jouer pour une IA externe (ChatGPT, Claude, Gemini…).
 // Source unique : le Rollenskript du simulant humain — ce que le partenaire
-// lit, l'IA le joue. JAMAIS la fiche médicale (le patient ignore son
-// diagnostic). Gabarit allemand, déterministe, testé par snapshot et sur le
-// corpus (≤ PROMPT_MAX). Spec : 2026-09-17-external-ai-simulation-design.md
+// lit, l'IA le joue. Gabarit allemand, déterministe, testé sur le corpus.
+// FIDÉLITÉ AVANT CONCISION (ADR/D7) : aucune troncature de texte — persona,
+// réactions difficiles, chaque réplique et chaque question de l'Oberarzt
+// restent intégrales. La seule compaction possible est non destructive
+// (retirer un doublon, jamais couper une phrase) et n'intervient que si le
+// prompt dépasse PROMPT_MAX. Le diagnostic (medicalView) peut apparaître
+// dans la fiche Oberarzt (Teil 3) — le senior le connaît — mais jamais avant.
+// Spec : 2026-09-17-external-ai-simulation-design.md (amendée D7).
 // ============================================================================
 import type { Case, PatientSheet } from '@/db/types';
 import { buildRollenskript } from '@/lib/rolePlay';
@@ -11,15 +16,22 @@ import { buildRollenskript } from '@/lib/rolePlay';
 export type Scope = 'anamnese' | 'exam' | 'exam+feedback';
 export type FeedbackLang = 'fr' | 'de';
 export interface PromptInput { c: Case; scope: Scope; feedbackLang: FeedbackLang; topTerms: string[] }
-export const PROMPT_MAX = 6000;
+/** Limite pratique pour un pré-remplissage par URL (utilisée par targets.ts). */
+export const PREFILL_MAX = 6000;
+/** Borne dure du prompt lui-même — jamais dépassée, jamais augmentée pour
+ *  faire rentrer un cas : on compacte plutôt (voir buildExternalPrompt). Le
+ *  corpus réel tient sans cascade sous cette borne ; la cascade (a)(b)(c)
+ *  reste un filet de sécurité, testé sur des cas artificiels forcés. */
+export const PROMPT_MAX = 32000;
 export const SCOPE_LABELS: Record<Scope, string> = { anamnese: 'Anamnèse seule', exam: 'Examen complet', 'exam+feedback': 'Examen + feedback' };
 
-const GLANCE_MAX = 4;       // repli ultra-compact : borne le nb de Fakten par chapitre
-const ITEM_CHARS_MAX = 40;  // repli ultra-compact : borne la longueur d'un Fakt / d'une réplique isolée
-const LIST_CHARS_MAX = 120; // repli ultra-compact : borne un champ texte libre (persona, motifs…)
+// Chapitres secondaires du Rollenskript (lib/rolePlay.ts CHAPTER_META) : leur
+// détail réplique par réplique aide moins la simulation que celui d'aktuell/
+// fach ; seuls ceux-ci basculent en résumé « Fakten » au dernier niveau de
+// compaction (règle D7-3c).
+const SECONDARY_CHAPTERS = new Set(['personalia', 'vegetativ', 'familie-sozial']);
 
 const join = (parts: (string | null)[], sep = '\n') => parts.filter((p): p is string => !!p).join(sep);
-const trunc = (s: string, max: number) => (s.length > max ? `${s.slice(0, max - 1)}…` : s);
 
 function personalia(s: PatientSheet): string {
   const p = s.personalia;
@@ -53,39 +65,39 @@ function normalizeSheet(s: PatientSheet): PatientSheet {
   };
 }
 
-function knowledge(s: PatientSheet, compact: boolean, ultraCompact: boolean): string {
+/** Rendu du Rollenskript. `dedupFakten` : n'affiche « Fakten » que si le
+ *  chapitre n'a pas déjà ses répliques (évite le doublon Fakten+répliques).
+ *  `secondaryToFakten` : pour les chapitres secondaires SEULEMENT, remplace
+ *  les répliques par leur résumé « Fakten » (dernier niveau de compaction). */
+function knowledge(s: PatientSheet, dedupFakten: boolean, secondaryToFakten: boolean): string {
   const chapters = buildRollenskript(normalizeSheet(s));
   return chapters.map((ch) => {
-    const glanceItems = ultraCompact ? ch.glance.slice(0, GLANCE_MAX).map((g) => trunc(g, ITEM_CHARS_MAX)) : ch.glance;
-    const facts = glanceItems.length ? `  Fakten: ${glanceItems.join(' · ')}` : null;
-    const lines = compact ? [] : ch.lines.map((l) => l.negativ ? `  - Nein: ${l.antwort}` : `  - ${l.frage ? `Wenn gefragt „${l.frage}“ → ` : ''}${l.antwort}`);
+    const hasLines = ch.lines.length > 0;
+    const collapse = secondaryToFakten && SECONDARY_CHAPTERS.has(ch.id) && hasLines;
+    const showFakten = ch.glance.length > 0 && (collapse || !hasLines || !dedupFakten);
+    const showLines = hasLines && !collapse;
+    const facts = showFakten ? `  Fakten: ${ch.glance.join(' · ')}` : null;
+    const lines = showLines ? ch.lines.map((l) => l.negativ ? `  - Nein: ${l.antwort}` : `  - ${l.frage ? `Wenn gefragt „${l.frage}“ → ` : ''}${l.antwort}`) : [];
     return join([`### ${ch.title}`, facts, ...lines]);
   }).join('\n');
 }
 
-const OBERARZT_SECTIONS_MAX = 2;     // repli : borne le nb de thèmes Oberarzt
-const OBERARZT_QUESTIONS_MAX = 2;    // repli : borne les questions Arzt-Arzt hors thèmes
+const DIAGNOSIS_NOTE = 'Hinweis: Als Patient/Patientin kennst du diese Diagnose nicht – sie gehört nur zur Oberarzt-Rolle.';
 
-// D3 (non négociable) : même dans la fiche de l'Oberarzt — qui, elle,
-// connaît le diagnostic — le nom de la verdachtsdiagnose ne doit jamais
-// apparaître littéralement dans le prompt, sinon l'IA externe le révèle en
-// jouant le patient. Les questions du senior restent posables sans le nom.
-function redactDiagnosis(text: string, vd?: string): string {
-  if (!vd || vd.length <= 6) return text;
-  return text.split(vd).join('[Diagnose]');
-}
-
-function oberarzt(c: Case, trim: boolean): string {
-  const vd = c.medicalView?.verdachtsdiagnose;
-  const shorten = (t: string) => (trim ? trunc(redactDiagnosis(t, vd), ITEM_CHARS_MAX) : redactDiagnosis(t, vd));
-  const allSections = c.examinerSheet ?? [];
-  const sections = (trim ? allSections.slice(0, OBERARZT_SECTIONS_MAX) : allSections)
-    .map((sec) => join([`- ${shorten(sec.title)}:`, ...sec.interactions.map((i) => `  - ${shorten(i.frage)}${!trim && i.reaktion ? ` (erwartet: ${redactDiagnosis(i.reaktion, vd)})` : ''}`)]));
-  const allExtra = c.examinerQuestions ?? [];
-  const extra = (trim ? allExtra.slice(0, OBERARZT_QUESTIONS_MAX) : allExtra).map((q) => `  - ${shorten(q)}`);
+/** Fiche Oberarzt (Teil 3) — intégrale par défaut, y compris les réactions
+ *  attendues (qui peuvent nommer le diagnostic : le senior le connaît). Le
+ *  seul repli possible ici est non destructif : retirer les « (erwartet: …) »,
+ *  jamais les thèmes ni les questions elles-mêmes. */
+function oberarzt(c: Case, dropErwartet: boolean): string {
+  const sections = (c.examinerSheet ?? []).map((sec) => join([
+    `- ${sec.title}:`,
+    ...sec.interactions.map((i) => `  - ${i.frage}${!dropErwartet && i.reaktion ? ` (erwartet: ${i.reaktion})` : ''}`),
+  ]));
+  const extra = (c.examinerQuestions ?? []).map((q) => `  - ${q}`);
   return join([
     '## Teil 3 – Oberarzt/Oberärztin',
     'Wenn die Ärztin/der Arzt „Fallvorstellung“ sagt, wechselst du die Rolle: Du bist jetzt die Oberärztin/der Oberarzt. Hör die Fallvorstellung vollständig an, dann stelle diese Fragen in dieser Reihenfolge – fordernd, aber wohlwollend. Keine ungefragte Hilfe. Bleib in dieser Rolle, bis erneut ein Rollenwechsel oder „Ende“ angesagt wird.',
+    DIAGNOSIS_NOTE,
     ...sections,
     extra.length ? join(['- Weitere Prüferfragen:', ...extra]) : null,
   ]);
@@ -106,42 +118,39 @@ function feedback(lang: FeedbackLang, topTerms: string[]): string {
 
 export function buildExternalPrompt(i: PromptInput): string {
   const s = i.c.patientSheet;
-  const withRole = (compact: boolean, ultraCompact: boolean) => {
-    const cap = (t: string) => (ultraCompact ? trunc(t, LIST_CHARS_MAX) : t);
-    return join([
-      '# Rolle',
-      'Du spielst eine Patientin / einen Patienten in einer Simulation der Fachsprachprüfung Medizin (Deutschland). Die Ärztin/der Arzt führt das Anamnesegespräch. Regeln:',
-      '- Antworte NUR auf das, was gefragt wird. Ein bis zwei Sätze. Auf Deutsch.',
-      '- Sprich wie ein Patient: keine Fachbegriffe von dir aus, Umgangssprache, Gefühle.',
-      '- Nenne nie eine Diagnose – du weißt nicht, was du hast. Erfinde keine neuen Fakten; wenn etwas nicht unten steht, sag „Das weiß ich nicht“ oder bleib vage.',
-      '- Bleib in der Rolle, auch wenn die Ärztin/der Arzt aus dem Rahmen fällt.',
-      '',
-      '# Wer du bist',
-      personalia(s),
-      s.persona ? `- Regieanweisung (nicht vorlesen): ${cap(s.persona)}` : null,
-      s.leitsymptome?.length ? `- Warum du hier bist (in deinen Worten): ${cap(s.leitsymptome.join('; '))}` : null,
-      s.begleitsymptome?.length ? `- Außerdem: ${cap(s.begleitsymptome.join('; '))}` : null,
-      '',
-      '# Was du weißt (antworte nur, wenn danach gefragt wird)',
-      knowledge(s, compact, ultraCompact),
-      s.schwierigeReaktionen?.length ? join(['', '## Schwierige Momente', ...(ultraCompact ? s.schwierigeReaktionen.slice(0, 2) : s.schwierigeReaktionen).map((r) => `- ${cap(r)}`)]) : null,
-      i.scope !== 'anamnese' ? join(['', oberarzt(i.c, ultraCompact)]) : null,
-      i.scope === 'exam+feedback' ? join(['', feedback(i.feedbackLang, i.topTerms)]) : null,
-      '',
-      '# Start',
-      'Stell dich mit einem Satz vor, sobald die Ärztin/der Arzt dich begrüßt. Nenne nie eine Diagnose. Sprachmodus empfohlen.',
-    ]);
-  };
-  // Repli en cascade — jamais d'augmentation de PROMPT_MAX, jamais de perte du
-  // rôle ou de la règle D3 : on réduit le VOLUME (répliques déjà connues,
-  // détail Oberarzt, longueur des champs libres), jamais le PÉRIMÈTRE (aucune
-  // fiche médicale ajoutée). Garde-fou ultime en toute dernière ligne : même
-  // un cas imprévu ne peut jamais dépasser PROMPT_MAX.
-  const full = withRole(false, false);
+  const withRole = (dropErwartet: boolean, dedupFakten: boolean, secondaryToFakten: boolean) => join([
+    '# Rolle',
+    'Du spielst eine Patientin / einen Patienten in einer Simulation der Fachsprachprüfung Medizin (Deutschland). Die Ärztin/der Arzt führt das Anamnesegespräch. Regeln:',
+    '- Antworte NUR auf das, was gefragt wird. Ein bis zwei Sätze. Auf Deutsch.',
+    '- Sprich wie ein Patient: keine Fachbegriffe von dir aus, Umgangssprache, Gefühle.',
+    '- Nenne nie eine Diagnose – du weißt nicht, was du hast. Erfinde keine neuen Fakten; wenn etwas nicht unten steht, sag „Das weiß ich nicht“ oder bleib vage.',
+    '- Bleib in der Rolle, auch wenn die Ärztin/der Arzt aus dem Rahmen fällt.',
+    '',
+    '# Wer du bist',
+    personalia(s),
+    s.persona ? `- Regieanweisung (nicht vorlesen): ${s.persona}` : null,
+    s.leitsymptome?.length ? `- Warum du hier bist (in deinen Worten): ${s.leitsymptome.join('; ')}` : null,
+    s.begleitsymptome?.length ? `- Außerdem: ${s.begleitsymptome.join('; ')}` : null,
+    '',
+    '# Was du weißt (antworte nur, wenn danach gefragt wird)',
+    knowledge(s, dedupFakten, secondaryToFakten),
+    s.schwierigeReaktionen?.length ? join(['', '## Schwierige Momente', ...s.schwierigeReaktionen.map((r) => `- ${r}`)]) : null,
+    i.scope !== 'anamnese' ? join(['', oberarzt(i.c, dropErwartet)]) : null,
+    i.scope === 'exam+feedback' ? join(['', feedback(i.feedbackLang, i.topTerms)]) : null,
+    '',
+    '# Start',
+    'Stell dich mit einem Satz vor, sobald die Ärztin/der Arzt dich begrüßt. Nenne nie eine Diagnose. Sprachmodus empfohlen.',
+  ]);
+  // Cascade de compaction NON DESTRUCTIVE (D7) — aucune phrase n'est jamais
+  // coupée ; on retire seulement des éléments redondants, dans l'ordre :
+  // (a) les « (erwartet: …) » de l'Oberarzt ; (b) les « Fakten » d'un chapitre
+  // qui a déjà ses répliques ; (c) pour les chapitres secondaires seulement,
+  // les répliques elles-mêmes (remplacées par leur résumé « Fakten »).
+  const full = withRole(false, false, false);
   if (full.length <= PROMPT_MAX) return full;
-  const compact = withRole(true, false);   // chapitres en « Fakten » seulement, Oberarzt inchangé
-  if (compact.length <= PROMPT_MAX) return compact;
-  const compactTrimmed = withRole(true, true); // + Fakten ≤ GLANCE_MAX/chapitre, champs libres et Oberarzt condensés
-  if (compactTrimmed.length <= PROMPT_MAX) return compactTrimmed;
-  return compactTrimmed.slice(0, PROMPT_MAX);
+  const a = withRole(true, false, false);
+  if (a.length <= PROMPT_MAX) return a;
+  const ab = withRole(true, true, false);
+  if (ab.length <= PROMPT_MAX) return ab;
+  return withRole(true, true, true); // (a)+(b)+(c) — dernier niveau, toujours du texte intégral
 }
