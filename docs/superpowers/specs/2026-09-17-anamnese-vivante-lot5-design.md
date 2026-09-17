@@ -1,6 +1,6 @@
 # Spec — Anamnèse vivante, lot 5 (FB2-J1/13, FB2-J7, FB2-K1)
 
-**Statut** : à valider par la direction avant tout code · **Date** : 2026-09-17
+**Statut** : validé par la direction (« ok », 17 sept.), livré ; amendé après revue du gardien : 10 natures (`ausscheidung`, `nerven` ajoutées), règle « un seul endroit par trame » (`FACH_COVERS`), `aktuellSkip`, `FACH_RULES` sexe/âge · **Date** : 2026-09-17
 **Source** : `BACKLOG-FEEDBACK.md` série 2, points 1, 13, 14, 5 ; `DIRECTION-STYLE.md` §2.1.
 
 ## Constat

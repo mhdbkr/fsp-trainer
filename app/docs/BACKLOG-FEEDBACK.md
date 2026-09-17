@@ -290,6 +290,10 @@ urologie sans Erektion/Prostata chez une femme, passe éditoriale sur les
 questions du cas (1 466 → 906 : doublons de trame, lignes multi-infos,
 formulations télégraphiques, notes révélant la réponse, signes d'examen).
 Spec : `docs/superpowers/specs/2026-09-17-anamnese-vivante-lot5-design.md`.
+Après revue du gardien (lot 5) : dix natures au lieu de huit (`ausscheidung`,
+`nerven`), règle « un seul endroit par trame » (`FACH_COVERS`), `aktuellSkip`
+par cas, règles de Fach par sexe/âge (`FACH_RULES`), porte `checkPlayedTrame`
+sur le montage réel. Rapports : `app/docs/reports/direction-keeper-serie2-lot5.md`.
 
 ## Ordre de traitement proposé (série 2)
 
