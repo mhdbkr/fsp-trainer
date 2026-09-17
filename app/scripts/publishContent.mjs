@@ -2,14 +2,19 @@
 import { createClient } from '@supabase/supabase-js';
 import { loadAll } from './loadCases.mjs';   // rend { cases, fachwissen, muster }
 import { readFileSync } from 'node:fs';
-import { execSync } from 'node:child_process';
+import { build } from 'esbuild';
 
 const dry = process.argv.includes('--dry');
 const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!dry && (!url || !key)) { console.error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY requis'); process.exit(2); }
 
-// Les seeds sont du TS : on les transpile à la volée avec esbuild (déjà dépendance de Vite).
-const load = (rel) => { const out = execSync(`npx esbuild src/data/${rel} --bundle --format=esm --platform=node --outfile=/dev/stdout --log-level=silent`, { encoding: 'utf8', maxBuffer: 64e6 }); return import(`data:text/javascript;base64,${Buffer.from(out).toString('base64')}`); };
+// Les seeds sont du TS : on les transpile à la volée avec esbuild (déjà dépendance
+// de Vite), par son API — pas par `npx … --outfile=/dev/stdout`, qui passait en
+// local mais échouait muettement sur le runner Linux de la CI.
+const load = async (rel) => {
+  const r = await build({ entryPoints: [`src/data/${rel}`], bundle: true, format: 'esm', platform: 'node', write: false, logLevel: 'error' });
+  return import(`data:text/javascript;base64,${Buffer.from(r.outputFiles[0].text).toString('base64')}`);
+};
 
 const { cases, fachwissen: fw, muster } = await loadAll();
 const auf = (await load('seedAufklaerungen.ts')).seedAufklaerungen();
