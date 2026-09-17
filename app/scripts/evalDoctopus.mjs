@@ -62,19 +62,32 @@ if (dry) {
 }
 const key = process.env.OPENROUTER_API_KEY;
 if (!key) { console.error('OPENROUTER_API_KEY requis (ou --dry).'); process.exit(2); }
-let pass = 0; const rows = [];
+let pass = 0; let empty = 0; const rows = [];
+const FALLBACKS = ['nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free', 'google/gemma-4-26b-a4b-it:free'];
 for (const it of set) {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
-    body: JSON.stringify({ model, messages: [{ role: 'system', content: DOCTOPUS_SYSTEM }, { role: 'user', content: it.q }], temperature: 0.3, max_tokens: 700, reasoning: { effort: 'none' } }),
+    // Même liste de repli que l'app (models[]) : si le modèle gratuit est saturé, OpenRouter bascule.
+    body: JSON.stringify({ model, models: [model, ...FALLBACKS.filter((m) => m !== model)], messages: [{ role: 'system', content: DOCTOPUS_SYSTEM }, { role: 'user', content: it.q }], temperature: 0.3, max_tokens: 700 }),
   });
-  const data = await res.json();
-  const text = data?.choices?.[0]?.message?.content ?? '';
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || data.error) {
+    console.log(`! ${it.id.padEnd(12)} ERREUR API ${res.status} : ${data?.error?.message ?? JSON.stringify(data).slice(0, 160)}`);
+    rows.push({ id: it.id, ok: false, fails: ['erreur API'] }); continue;
+  }
+  const msg = data?.choices?.[0]?.message ?? {};
+  const text = (msg.content ?? '').trim();
+  if (!text) {
+    empty++;
+    console.log(`! ${it.id.padEnd(12)} RÉPONSE VIDE (finish=${data?.choices?.[0]?.finish_reason ?? '?'}, modèle=${data?.model ?? '?'}, reasoning=${msg.reasoning ? 'oui' : 'non'})`);
+    rows.push({ id: it.id, ok: false, fails: ['réponse vide'] }); continue;
+  }
   const fails = grade(it, text);
   if (!fails.length) pass++;
   rows.push({ id: it.id, ok: !fails.length, fails, text });
-  console.log(`${fails.length ? '✗' : '✓'} ${it.id.padEnd(12)} ${fails.join(' · ') || 'passe'}`);
+  console.log(`${fails.length ? '✗' : '✓'} ${it.id.padEnd(12)} ${fails.join(' · ') || 'passe'}  [${data?.model ?? model}]`);
   if (args.includes('--verbose')) console.log('   ' + text.replace(/\n/g, '\n   ') + '\n');
 }
+if (empty === set.length) console.log('\nToutes les réponses sont vides : ce n\'est pas le prompt qui est évalué. Vérifie la clé, le crédit, ou passe --model.');
 console.log(`\n${pass >= 16 ? '✅' : '❌'} ${pass}/${set.length} (seuil 16) — modèle ${model}`);
 process.exit(pass >= 16 ? 0 : 1);
