@@ -124,7 +124,7 @@ function ActiveChapter({ ch, isAssiste, c, onHint, onPrev, onNext }: {
       <div className="px-4 py-3">
         {revealed ? (
           <>
-            <div className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400">Formulations possibles — dis-en une à voix haute</div>
+            <div className="mb-1 text-[11px] font-semibold text-slate-400">Formulations possibles — dis-en une à voix haute</div>
             <ul className="space-y-2 rounded-lg bg-slate-50 px-3 py-2 text-sm dark:bg-slate-800/50">
               {ch.redewendungen.map((r, i) => (
                 <PhraseLine key={i} phrase={r} keywords={isAssiste ? ch.keywords : []} />

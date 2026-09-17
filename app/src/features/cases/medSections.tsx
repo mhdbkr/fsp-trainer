@@ -30,7 +30,7 @@ export function SectionHead({ sec, sub, className = '' }: { sec: SecKey; sub?: s
       </span>
       <div className="leading-none">
         <div className="font-display text-[15px] font-bold tracking-tightish">{s.de}</div>
-        <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-400">{sub ?? s.fr}</div>
+        <div className="mt-1 text-[10px] font-semibold text-slate-400">{sub ?? s.fr}</div>
       </div>
     </div>
   );

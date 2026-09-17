@@ -153,11 +153,16 @@ h1, h2, h3 {
   }
   .dark .input { background: rgb(18 33 30 / 0.45); }
 
-  /* ── Signature « readout d'instrument » ─────────────────────────────────── */
-  /* Label structurel = mono, capitales espacées (lecture d'appareil). */
-  .label { @apply font-mono text-[11px] font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400; }
-  /* Eyebrow = annotation clinique : filet + mono capitales (le liant de la marque). */
-  .eyebrow { @apply inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-brand-600 dark:text-brand-300; }
+  /* ── Libellés d'interface ───────────────────────────────────────────────── */
+  /* Décision de charte du 17 sept. 2026 (FB2-O6) : le mono en capitales
+     espacées, ancien « readout d'instrument », est retiré des libellés d'UI —
+     jugé robotique et générique à l'usage. Les libellés passent en Plex Sans,
+     casse normale, graisse semi-bold, gris retenu : ils structurent sans se
+     faire remarquer. Le mono reste réservé aux DONNÉES (chiffres, chronos,
+     codes, terminologie affichée comme donnée) via `.mono-tag` et `font-mono`. */
+  .label { @apply text-[11.5px] font-semibold tracking-[0.01em] text-slate-500 dark:text-slate-400; }
+  /* Eyebrow = annotation clinique : filet + libellé pétrole (le liant de la marque). */
+  .eyebrow { @apply inline-flex items-center gap-2 text-[11.5px] font-semibold tracking-[0.01em] text-brand-600 dark:text-brand-300; }
   .eyebrow::before { content: ''; @apply h-px w-6 shrink-0 bg-brand-400/60; }
   /* Tag mono pour terminologie / données. */
   .mono-tag { @apply inline-flex items-center rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] text-slate-600 dark:bg-ink-700 dark:text-slate-300; }

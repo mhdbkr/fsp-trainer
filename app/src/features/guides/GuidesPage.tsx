@@ -78,7 +78,7 @@ export function GuidesPage() {
           <SectionIntro text="Trame d'entretien d'admission (registre patient). Chaque question expose ses variantes équivalentes (⇄) et ses relances (↳)." />
           {/* Fachanamnese mise en avant : questions ciblées à poser tôt, selon le motif. */}
           <FachanamneseSection />
-          <div className="flex items-center gap-2 pt-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+          <div className="flex items-center gap-2 pt-1 text-[11px] font-semibold text-slate-400">
             <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />Allgemeine Anamnese — étape par étape<span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
           </div>
           {ANAMNESE_CH.map((ch, i) => <ChapterCard key={ch.id} ch={ch} step={i + 1} defaultOpen={ch.id === openId} />)}

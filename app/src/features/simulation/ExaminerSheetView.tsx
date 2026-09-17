@@ -21,7 +21,7 @@ export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuest
       {/* Checklist : les questions que le candidat AURAIT dû poser pendant l'anamnèse */}
       {caseSpecificQuestions.length > 0 && (
         <div className="card p-4">
-          <div className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-500">
+          <div className="mb-2 flex items-center gap-1.5 text-xs font-bold text-slate-500">
             <Icon name="question" className="h-4 w-4" /> Hat der Kandidat danach gefragt?
           </div>
           <ul className="space-y-1.5">

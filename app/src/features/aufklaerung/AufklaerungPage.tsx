@@ -210,7 +210,7 @@ function AufkCard({ item, defaultOpen }: { item: AufklaerungItem; defaultOpen?: 
           {/* Questions du patient — bulles de dialogue */}
           {item.patientQuestions.length > 0 && (
             <div className="mt-5">
-              <div className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400"><Icon name="question" className="h-4 w-4" /> Questions probables du patient</div>
+              <div className="mb-2 flex items-center gap-1.5 text-xs font-bold text-slate-400"><Icon name="question" className="h-4 w-4" /> Questions probables du patient</div>
               <div className="space-y-2.5">
                 {item.patientQuestions.map((q, i) => (
                   <div key={i} className="space-y-1">
@@ -242,7 +242,7 @@ function RiskBox({ tone, title, items }: { tone: 'brand' | 'rose'; title: string
   const head = tone === 'rose' ? 'text-rose-500' : 'text-brand-500';
   return (
     <div className={`rounded-xl border p-2.5 ${cls}`}>
-      <div className={`mb-1 text-[10px] font-bold uppercase tracking-wide ${head}`}>{title}</div>
+      <div className={`mb-1 text-[10px] font-bold ${head}`}>{title}</div>
       <ul className="space-y-0.5">
         {items.map((r, i) => <li key={i} className="flex gap-1.5 text-[12px]"><span className={dot}>•</span><span><AutoLink>{r}</AutoLink></span></li>)}
       </ul>

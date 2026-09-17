@@ -136,7 +136,7 @@ export function FachwissenDetailPage() {
       {fw.merksatz && (
         <div className="flex items-start gap-2.5 rounded-xl border border-brand-200 bg-gradient-to-br from-brand-50 to-transparent px-4 py-3 dark:border-brand-900/40 dark:from-brand-900/20">
           <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-brand-500 text-white"><Icon name="bulb" className="h-3.5 w-3.5" /></span>
-          <p className="text-sm font-medium leading-relaxed text-brand-900 dark:text-brand-100"><span className="font-mono text-[10px] uppercase tracking-[0.16em] text-brand-500">Merke&nbsp;·&nbsp;</span><AutoLink>{fw.merksatz}</AutoLink></p>
+          <p className="text-sm font-medium leading-relaxed text-brand-900 dark:text-brand-100"><span className="text-[10px] font-semibold text-brand-500">Merke&nbsp;·&nbsp;</span><AutoLink>{fw.merksatz}</AutoLink></p>
         </div>
       )}
 
@@ -280,8 +280,8 @@ export function FachwissenDetailPage() {
                 <span className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-rose-500" />
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-2.5 px-4 py-3 pl-5 marker:content-none">
                   <span className="label flex items-center gap-1.5 text-rose-700 dark:text-rose-300"><Icon name="alert" className="h-3.5 w-3.5" />Red Flags — Alarmzeichen</span>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-rose-600 group-open:hidden dark:text-rose-300">Text anzeigen · {redFlagsSplit.hidden.length} Punkte</span>
-                  <span className="hidden font-mono text-[11px] uppercase tracking-wider text-rose-600 group-open:inline dark:text-rose-300">Text ausblenden</span>
+                  <span className="text-[11px] font-semibold text-rose-600 group-open:hidden dark:text-rose-300">Text anzeigen · {redFlagsSplit.hidden.length} Punkte</span>
+                  <span className="hidden text-[11px] font-semibold text-rose-600 group-open:inline dark:text-rose-300">Text ausblenden</span>
                 </summary>
                 <div className="px-4 pb-4 pl-5"><AutoLinkList items={redFlagsItems} /></div>
               </details>
@@ -407,7 +407,7 @@ function KlassifikationList({ items }: { items: { name: string; inhalt: string }
     <div className="space-y-2.5">
       {items.map((k, i) => (
         <div key={i} className="rounded-lg border border-slate-200 p-2.5 dark:border-slate-800">
-          <div className="font-mono text-[11px] font-bold uppercase tracking-wide text-brand-600 dark:text-brand-300">{k.name}</div>
+          <div className="text-[11px] font-semibold text-brand-600 dark:text-brand-300">{k.name}</div>
           <p className="mt-1 text-[13px] text-slate-600 dark:text-slate-300"><AutoLink>{k.inhalt}</AutoLink></p>
         </div>
       ))}

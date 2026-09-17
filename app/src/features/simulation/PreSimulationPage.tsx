@@ -20,7 +20,7 @@ export function PreSimulationPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-5">
       <header className="text-center">
-        <div className="text-sm font-semibold uppercase tracking-wide text-brand-500">Échauffement</div>
+        <div className="text-sm font-semibold text-brand-500">Échauffement</div>
         <h1 className="text-2xl font-bold">{c.name}</h1>
         <p className="text-slate-500 dark:text-slate-400">Révise 2 minutes, respire, puis entre en simulation.</p>
       </header>

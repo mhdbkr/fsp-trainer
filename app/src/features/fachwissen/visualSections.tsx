@@ -96,10 +96,10 @@ export function CollapsedSection({
           )}
           <h2 className="font-display text-[17px] font-semibold tracking-tightish">{title}</h2>
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-wider text-brand-600 group-open:hidden dark:text-brand-300">
+        <span className="text-[11px] font-semibold text-brand-600 group-open:hidden dark:text-brand-300">
           Text anzeigen · {punkteLabel(count)}
         </span>
-        <span className="hidden font-mono text-[11px] uppercase tracking-wider text-brand-600 group-open:inline dark:text-brand-300">
+        <span className="hidden text-[11px] font-semibold text-brand-600 group-open:inline dark:text-brand-300">
           Text ausblenden
         </span>
       </summary>

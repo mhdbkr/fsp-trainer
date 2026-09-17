@@ -89,7 +89,7 @@ export function RolePlayView({ sheet, followChapterId, followProbeId }: {
 
       {showReactions && reactions.length > 0 && (
         <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 dark:border-rose-900/40 dark:bg-rose-950/40">
-          <div className="mb-1.5 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-rose-500"><Icon name="mask" className="h-3 w-3" />À lâcher quand tu veux corser</div>
+          <div className="mb-1.5 flex items-center gap-1.5 text-[10px] font-bold text-rose-500"><Icon name="mask" className="h-3 w-3" />À lâcher quand tu veux corser</div>
           <div className="space-y-1.5">
             {reactions.map((r, i) => (
               <div key={i} className="rounded-lg bg-white px-3 py-1.5 text-[13px] leading-snug text-rose-800 ring-1 ring-rose-100 dark:bg-rose-900/30 dark:text-rose-100 dark:ring-rose-900/50">{r}</div>
@@ -104,7 +104,7 @@ export function RolePlayView({ sheet, followChapterId, followProbeId }: {
           {searchHits.length === 0 && <p className="py-6 text-center text-sm text-slate-400">Rien dans la fiche — réponds « Nein » ou improvise sobrement.</p>}
           {searchHits.map((h, i) => (
             <div key={i}>
-              <div className="mb-1 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-400"><Icon name={h.ch.icon} className="h-3 w-3" />{h.ch.title}</div>
+              <div className="mb-1 flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><Icon name={h.ch.icon} className="h-3 w-3" />{h.ch.title}</div>
               <Bubble line={h.line} />
             </div>
           ))}
@@ -134,7 +134,7 @@ export function RolePlayView({ sheet, followChapterId, followProbeId }: {
 
             {opener && (
               <div className="rounded-xl border border-brand-200 bg-brand-50/70 px-3 py-2 dark:border-brand-900/40 dark:bg-brand-900/15">
-                <div className="text-[10px] font-bold uppercase tracking-wide text-brand-500">Tu ouvres spontanément par</div>
+                <div className="text-[10px] font-bold text-brand-500">Tu ouvres spontanément par</div>
                 <p className="mt-0.5 text-sm font-medium text-brand-900 dark:text-brand-100">« {opener} »</p>
               </div>
             )}
@@ -149,7 +149,7 @@ export function RolePlayView({ sheet, followChapterId, followProbeId }: {
 
             {negs.length > 0 && (
               <div>
-                <div className="mb-1 text-[10px] font-bold uppercase tracking-wide text-slate-400">Réponds « non » si on demande</div>
+                <div className="mb-1 text-[10px] font-bold text-slate-400">Réponds « non » si on demande</div>
                 <div className="flex flex-wrap gap-1.5">
                   {negs.map((n, i) => <span key={i} className="rounded-full bg-rose-50 px-2 py-0.5 text-[11px] text-rose-600 dark:bg-rose-900/20 dark:text-rose-300">✗ {stripKein(n.antwort)}</span>)}
                 </div>

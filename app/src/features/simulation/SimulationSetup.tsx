@@ -61,7 +61,7 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
                 className={`relative flex-1 rounded-lg border py-2 text-sm font-semibold transition-colors ${layer === l ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-500 hover:border-brand-300 dark:border-slate-700'}`}>
                 Couche {l}
                 {recommended && (
-                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-white">conseillée</span>
+                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-1.5 py-px text-[10px] font-bold text-white">conseillée</span>
                 )}
               </button>
             );

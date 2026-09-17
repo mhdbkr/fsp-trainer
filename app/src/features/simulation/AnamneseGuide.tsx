@@ -94,7 +94,7 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
               ciblées se posent tôt, dans le prolongement du motif de consultation. */}
           {fach && ch.id === 'aktuell' && (
             <div className="rounded-xl border-2 border-dashed border-violet-300 p-1 dark:border-violet-900/50">
-              <div className="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-wide text-violet-500">
+              <div className="px-3 pb-1 pt-2 text-[11px] font-bold text-violet-500">
                 Fachanamnese · {c.specialty}
               </div>
               <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}

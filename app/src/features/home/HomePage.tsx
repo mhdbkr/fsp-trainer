@@ -67,7 +67,7 @@ export function HomePage() {
           <Icon name="flame" className="h-6 w-6 text-signal-500" />
           <div>
             <div className="text-xl font-bold leading-none tnum text-signal-600 dark:text-signal-300">{streak}</div>
-            <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-signal-500/80">jours de suite</div>
+            <div className="mt-0.5 text-[10px] font-semibold text-signal-500/80">jours de suite</div>
           </div>
         </div>
       </header>
@@ -80,7 +80,7 @@ export function HomePage() {
         </svg>
         <div className="relative flex flex-col gap-4 bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white md:flex-row md:items-center md:justify-between">
           <div className="min-w-0">
-            <div className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-brand-100">
+            <div className="flex items-center gap-2 text-[11px] font-semibold text-brand-100">
               <span className="h-px w-6 bg-signal-400" />Session du jour
             </div>
             <h2 className="mt-1.5 text-xl font-bold tracking-tightish md:text-2xl">{session ? session.name : 'Aucun cas disponible'}</h2>

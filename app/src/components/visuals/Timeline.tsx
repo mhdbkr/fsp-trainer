@@ -22,7 +22,7 @@ export function Timeline({ block, fw: _fw }: TimelineProps) {
   return (
     <>
       {axisIsSignal && (
-        <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-signal-600 dark:text-signal-300">
+        <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold text-signal-600 dark:text-signal-300">
           <Icon name="alert" className="h-3 w-3" aria-hidden="true" />
           Notfallverlauf
         </p>

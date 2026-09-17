@@ -158,7 +158,7 @@ export default function DecisionTree({ block }: DecisionTreeProps) {
 
   return (
     <div>
-      <div className="mb-2 flex gap-3 font-mono text-[11px] uppercase tracking-wider">
+      <div className="mb-2 flex gap-3 text-[11px] font-semibold">
         <button
           type="button"
           className="motion-safe:transition-colors flex min-h-11 items-center text-brand-600 hover:underline sm:min-h-0 dark:text-brand-300"

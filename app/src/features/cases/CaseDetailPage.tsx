@@ -74,13 +74,13 @@ export function CaseDetailPage() {
               <span className={`absolute inset-y-0 left-0 w-1.5 ${SEC.verdacht.edge}`} />
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <div className="mb-1 font-mono text-[9px] uppercase tracking-[0.16em] text-brand-500 dark:text-brand-300">Verdachtsdiagnose · Diagnostic suspecté</div>
+                  <div className="mb-1 text-[10px] font-semibold text-brand-500 dark:text-brand-300">Verdachtsdiagnose · Diagnostic suspecté</div>
                   <p className="font-display text-xl font-bold leading-tight text-brand-800 dark:text-brand-200"><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></p>
                 </div>
                 <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-white shadow-sm ${SEC.verdacht.badge}`}><Icon name="target" className="h-6 w-6" /></span>
               </div>
               {c.medicalView.notfall && (
-                <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-rose-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+                <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-rose-500 px-3 py-1 text-xs font-bold text-white shadow-sm">
                   <Icon name="alert" className="h-3.5 w-3.5" />Notfall
                 </span>
               )}
@@ -129,7 +129,7 @@ export function CaseDetailPage() {
                   <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg text-white shadow-sm ${SEC.cave.badge}`}><Icon name="alert" className="h-[18px] w-[18px]" /></span>
                   <div className="leading-none">
                     <div className="font-display text-[15px] font-bold tracking-tightish text-rose-700 dark:text-rose-300">Cave-Radar</div>
-                    <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-rose-400">Pièges de ce cas</div>
+                    <div className="mt-1 text-[10px] font-semibold text-rose-400">Pièges de ce cas</div>
                   </div>
                 </div>
                 <AutoLinkList items={c.pruefungsfallen} />
