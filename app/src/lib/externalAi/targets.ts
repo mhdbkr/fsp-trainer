@@ -23,18 +23,23 @@ export const AI_TARGETS: AiTarget[] = [
   { id: 'grok', label: 'Grok', base: 'https://grok.com/', prefill: q('https://grok.com/?q='), submits: false, voiceHint: 'Colle le prompt (déjà copié), envoie, puis active la voix.' },
 ];
 
+/** PREFILL_MAX s'applique à l'URL ENCODÉE (« » et retours à la ligne triplent la taille), pas au texte brut. */
 export function buildLaunchUrl(t: AiTarget, prompt: string): { url: string; prefilled: boolean } {
-  if (!t.prefill || prompt.length > PREFILL_MAX) return { url: t.base, prefilled: false };
-  return { url: t.prefill(prompt), prefilled: true };
+  if (!t.prefill) return { url: t.base, prefilled: false };
+  const url = t.prefill(prompt);
+  if (url.length > PREFILL_MAX) return { url: t.base, prefilled: false };
+  return { url, prefilled: true };
 }
 
 export async function launch(t: AiTarget, prompt: string, deps: { open?: (url: string) => void; copy?: (text: string) => Promise<void> } = {}): Promise<{ opened: boolean; copied: boolean; prefilled: boolean }> {
   const copy = deps.copy ?? ((text: string) => navigator.clipboard.writeText(text));
   const open = deps.open ?? ((url: string) => { window.open(url, '_blank', 'noopener'); });
-  let copied = false;
-  try { await copy(prompt); copied = true; } catch { copied = false; }
+  // Ouvrir D'ABORD, de façon synchrone dans le geste utilisateur : Safari/iOS
+  // bloque un window.open qui suit un `await`. Le presse-papiers suit.
   const { url, prefilled } = buildLaunchUrl(t, prompt);
   open(url);
+  let copied = false;
+  try { await copy(prompt); copied = true; } catch { copied = false; }
   return { opened: true, copied, prefilled };
 }
 

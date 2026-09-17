@@ -15,7 +15,8 @@ describe('cibles', () => {
     expect(T.chatgpt.submits).toBe(true); expect(T.claude.submits).toBe(false);
   });
   it('au-delà de PREFILL_MAX → URL de base sans ?q=', () => {
-    const long = 'a'.repeat(PREFILL_MAX + 1);
+    const long = 'a'.repeat(PREFILL_MAX + 1);   // brut > max → base
+    expect(buildLaunchUrl(T.chatgpt, '„'.repeat(2500)).prefilled).toBe(false);   // 2 500 car. bruts mais ~22 500 encodés → base
     expect(buildLaunchUrl(T.chatgpt, long)).toEqual({ url: 'https://chatgpt.com/', prefilled: false });
   });
   it('launch : copie puis ouvre ; copie échouée → copied false mais ouvre quand même', async () => {
