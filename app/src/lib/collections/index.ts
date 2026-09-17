@@ -33,7 +33,7 @@ export async function createDeck(name: string, kind: 'manual' | 'smart', query?:
   await emit('deck.created', id, { name: normalizeDeckName(name), kind, ...(kind === 'smart' ? { query: query ?? {} } : {}) });
   return id;
 }
-export const renameDeck = (deckId: string, name: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); return emit('deck.renamed', deckId, { name: normalizeDeckName(name) }); };
+export const renameDeck = async (deckId: string, name: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.renamed', deckId, { name: normalizeDeckName(name) }); };
 export const setDeckQuery = (deckId: string, query: DeckQuery) => emit('deck.query_changed', deckId, { query });
 export const deleteDeck = async (deckId: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.deleted', deckId, {}); };
 export const addToDeck = (deckId: string, termId: string) => emit('deck.term_added', deckId, { termId });

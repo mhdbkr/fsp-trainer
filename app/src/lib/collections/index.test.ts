@@ -40,6 +40,7 @@ describe('collections mutations', () => {
     await setDeckQuery(id, { specialty: 'Gastroenterologie' as never, state: 'Zu wiederholen' });
     expect((await db.decks.get(id))?.query).toEqual({ specialty: 'Gastroenterologie', state: 'Zu wiederholen' });
     await expect(deleteDeck(FAVORITES_DECK_ID)).rejects.toThrow();
+    await expect(renameDeck(FAVORITES_DECK_ID, 'x')).rejects.toThrow();   // rejet asynchrone, comme toute mutation
   });
 
   it('normalizeDeckName : bornes', () => {
