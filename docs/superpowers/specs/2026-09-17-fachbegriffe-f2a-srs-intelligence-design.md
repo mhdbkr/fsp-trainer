@@ -19,7 +19,7 @@ F2a corrige ces deux fondations ; F2b construira l'expérience en simulation des
 | # | Décision | Pourquoi |
 |---|---|---|
 | D1 | `Neu` n'est **jamais dû**. Dû = `state !== 'Neu'` et `dueDate ≤ maintenant` (un terme raté, `Zu wiederholen`, reste dû) | le SRS ne réclame que ce qu'il a déjà présenté |
-| D2 | **Quota adaptatif** de nouveaux termes par jour, calculé depuis la date d'examen et la rétention ; 10 sans date ; borné 5–30 | évite le mur des 2 266 sans réglage manuel |
+| D2 | **Quota adaptatif** de nouveaux termes par jour, calculé depuis la date d'examen et la rétention ; 10 sans date ; borné 5–30 ; **taper** : dans les 7 derniers jours ouvrés, plafond 2 × jours restants, 0 le jour J (un terme introduit à J-3 ne peut plus être appris avant l'épreuve) | évite le mur des 2 266 sans réglage manuel ; relecture pédagogique |
 | D3 | **Priorité par pertinence** dans le quota : ★ récente, deck récent, cas simulé récent, cas du programme du jour, spécialité du jour | les termes rencontrés en cas passent devant (choix « C » de la direction) |
 | D4 | Liaison cas↔termes **par occurrence dans les textes**, calculée par la **pipeline de contenu** (script + validateur CI), stockée dans `linkedFachbegriffeIds` | déterministe, hors-ligne, relu ; zéro coût client |
 | D5 | « Termes du cas » = liés ∪ termes marqués (★ / deck) **pendant une session sur ce cas** ; les événements `term.favorited` / `deck.term_added` portent un `caseId` optionnel | mémoire de ce qu'on a appris *dans* ce cas (F2b s'en sert) |
@@ -43,7 +43,7 @@ export function counts(begriffe: Fachbegriff[], now = Date.now()): { due: number
 export interface BudgetInput { freshRemaining: number; workingDaysToExam: number | null; retention7d: number | null /* 0..1, taux de Gut/Sehr gut sur 7 j, null si < 10 notes */ }
 export function newBudget(i: BudgetInput): number
 ```
-Règle : base = `workingDaysToExam` null → 10 ; sinon `ceil(freshRemaining / max(1, workingDaysToExam))`. Facteur rétention : `< 0.6 → 0.7`, `> 0.85 → 1.2`, sinon 1. Résultat borné **[5, 30]**. Introductions du jour comptées dans `meta['srs.newIntroduced:<YYYY-MM-DD>']` (base du compte) ; `remainingToday = budget − introduced`. Un terme est « introduit » à sa première note.
+Règle : base = `workingDaysToExam` null → 10 ; sinon `ceil(freshRemaining / max(1, workingDaysToExam))`. Facteur rétention : `< 0.6 → 0.7`, `> 0.85 → 1.2`, sinon 1. Résultat borné **[5, 30]** ; si `workingDaysToExam ≤ 7` : plafonné à `2 × workingDaysToExam` (borne basse 0 dans cette fenêtre). Introductions du jour comptées dans `meta['srs.newIntroduced:<YYYY-MM-DD>']` (base du compte) ; `remainingToday = budget − introduced`. Un terme est « introduit » à sa première note.
 
 ### 3.3 Pertinence (`lib/collections/relevance.ts`)
 
@@ -58,11 +58,11 @@ Points (cumulables) : ★ < 48 h **+100** · deck < 48 h **+80** · lié à un c
 ```ts
 export function buildDrillQueue(pool: Fachbegriff[], opts: { prioritySpecialty?; priorityPathology?; now?; limit?; newLimit: number; relevance?: RelevanceContext }): Fachbegriff[]
 ```
-Dus (ordre F1 : pathologie > spécialité > date) puis nouveaux du pool triés par `relevanceScore`, au plus `newLimit` (= `remainingToday`). `limit` (20) borne le total. Le drill global et le drill de deck passent `newLimit` ; l'écran d'accueil du drill dit « k dus · n nouveaux (budget du jour : b) ».
+Dus (ordre F1 : pathologie > spécialité > date) puis nouveaux du pool triés par `relevanceScore`, au plus `newLimit` (= `remainingToday`). `limit` (20) borne le total ; **jusqu'à 3 places sont réservées aux nouveaux les plus pertinents** même quand les dus dépassent la limite (apprendre pendant le cas ne doit pas être bloqué par un backlog). Le drill global et le drill de deck passent `newLimit` ; l'écran d'accueil du drill dit « k dus · n nouveaux (budget du jour : b) ».
 
 ### 3.5 Liaison par texte (pipeline)
 
-- `scripts/linkCaseTerms.mjs` : charge cas + termes (comme `publishContent.mjs`), construit l'index de l'autolink (`buildLinkIndex`, bornes Unicode, insensible à la casse, formes fléchies simples `-e/-en/-s/-n`), scanne pour chaque cas : `antworten` (valeurs), questions du cas, Muster (Doku + Vorstellung), `medicalView` (texte aplati), `examinerSheet`, `guide` s'il est propre au cas, fiche Fachwissen liée. `linkedFachbegriffeIds` = occurrences ∪ tags de pathologie ∪ réciproques (comportement actuel conservé). Écrit le résultat dans `src/data/caseTermLinks.json` (`{ caseId: termId[] }`) que `seed.ts` applique (au lieu du calcul par tags seul) ; `SEED_VERSION` bumpé ; le publish republie.
+- `scripts/linkCaseTerms.mjs` : charge cas + termes (comme `publishContent.mjs`), construit l'index de l'autolink (`buildLinkIndex`, bornes Unicode, insensible à la casse, formes fléchies simples `-e/-en/-s/-n`), scanne pour chaque cas : `antworten` (valeurs), questions du cas, Muster (Doku + Vorstellung), `medicalView` (texte aplati), `examinerSheet`, `guide` s'il est propre au cas, fiche Fachwissen liée. `linkedFachbegriffeIds` = occurrences ∪ tags de pathologie ∪ réciproques (comportement actuel conservé). **Ordre** dans le JSON : (1) termes du diagnostic (`verdachtsdiagnose`, nom, pathologie), (2) autres termes des textes *cœur* (fiche médicale, Muster, questions, Fachwissen, anamnèse actuelle) par rareté croissante, (3) termes trouvés seulement dans les *antécédents* (`vorerkrankungen`, `voroperationen`, `familienanamnese`, `sozialanamnese`, médicaments, allergies, noxen) en dernier. Les consommateurs prennent les N premiers. Écrit le résultat dans `src/data/caseTermLinks.json` (`{ caseId: termId[] }`) que `seed.ts` applique (au lieu du calcul par tags seul) ; `SEED_VERSION` bumpé ; le publish republie.
 - `scripts/checkCaseTermLinks.mjs` (CI, bloquant) : chaque cas ≥ **8** termes ; aucun id orphelin ; JSON à jour (le script de liaison relancé ne change rien : `--check`). Informatif : cas < 15 termes.
 
 ### 3.6 « Termes du cas » (`lib/collections/caseTerms.ts`)
@@ -89,7 +89,7 @@ Le bloc quotidien « Drill Fachbegriffe » est libellé « Drill · k dus + n no
 |---|---|---|
 | AC-1 | Installation neuve : page « 0 dus · 10 nouveaux proposés », pas 2 266 ; badge/programme cohérents | test `counts` + navigateur |
 | AC-2 | Terme noté « Gut » → dû exactement à sa `dueDate`, pas avant ; terme raté → dû (state Zu wiederholen) | tests `isDue` |
-| AC-3 | Budget : sans examen 10 ; 600 Neu et 30 j ouvrés → 20 ; rétention 0,5 → ×0,7 ; borné 5–30 ; `remainingToday` décroît à chaque première note | tests `srsBudget` |
+| AC-3 | Budget : sans examen 10 ; 600 Neu et 30 j ouvrés → 20 ; rétention 0,5 → ×0,7 ; borné 5–30 ; taper : 7 j → ≤ 14, 2 j → ≤ 4, jour J → 0 ; `remainingToday` décroît à chaque première note | tests `srsBudget` |
 | AC-4 | ★ posée sur un terme Neu → premier des nouveaux du prochain drill (global et deck) | test `relevance` + `drillQueue` |
 | AC-5 | Cas simulé hier → ses termes Neu précèdent les autres ; cas du programme du jour → +40 | tests `relevance` |
 | AC-6 | Pipeline : 130/130 cas ≥ 8 termes ; `checkCaseTermLinks --check` exit 0 en CI ; cas Ulcus ventriculi lie « Hämatemesis » ; aucun orphelin | script + CI |

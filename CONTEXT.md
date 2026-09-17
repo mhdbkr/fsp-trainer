@@ -38,7 +38,7 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   lentille sur le même SRS, jamais un second planning.
 - **Dû** — Fachbegriff déjà présenté (`state ≠ Neu`) dont l'échéance SM-2 est
   passée. Un **nouveau** (`Neu`) n'est jamais dû : il entre au drill dans le
-  **budget du jour** (5–30, adaptatif : date d'examen + rétention), par ordre de
+  **budget du jour** (5–30, adaptatif : date d'examen + rétention ; 0 le jour de l'examen), par ordre de
   pertinence (★, deck, cas récents, programme du jour).
 - **Termes du cas** — termes liés au cas par occurrence dans ses textes
   (pipeline `linkCaseTerms`, triés du plus spécifique au plus transversal) ∪
