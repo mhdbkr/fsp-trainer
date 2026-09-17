@@ -5,3 +5,6 @@ dist
 
 # TypeScript build cache
 *.tsbuildinfo
+
+# playwright-cli probe artifacts
+.playwright-cli/
