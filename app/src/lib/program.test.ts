@@ -3,6 +3,12 @@ import { workingDaysUntilExam, generateProgram } from './program';
 import { freshSrs, reviewSrs } from '@/lib/srs';
 import type { Fachbegriff, Case, ProgramConfig } from '@/db/types';
 
+const mkCase = (id: string): Case => ({
+  id, name: id, pathology: 'p', specialty: 'Kardiologie', centers: [], frequency: 5, difficulty: 'mittel',
+  linkedFachbegriffeIds: [], probableAufklaerungIds: [], caseSpecificQuestions: [], examinerQuestions: [], status: 'À faire',
+  patientSheet: { personalia: { name: id, age: 40 } }, medicalView: {},
+} as unknown as Case);
+
 const config: ProgramConfig = { startDate: '2026-09-01', intensity: 'mittel', hoursPerSession: 2, offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0, strategy: 'teil-first' } as ProgramConfig;
 
 describe('workingDaysUntilExam', () => {
@@ -57,5 +63,16 @@ describe('bloc drill (F2a 3.7)', () => {
   it('absent partout quand il n\'y a vraiment rien (0 dus, 0 Neu)', () => {
     const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe: [], drillBudget: 5, drillBudgetFull: 5 }, 7, now);
     expect(days.flatMap((d) => d.blocks).some((b) => b.kind === 'drill')).toBe(false);
+  });
+  it('le bloc drill du jour porte caseId du bloc simulation du même jour', () => {
+    const begriffe = [fb('c', freshSrs(now.getTime()))];
+    const c1 = mkCase('c1');
+    const days = generateProgram(
+      { ...drillConfig, strategy: 'full' },
+      { cases: [c1], sims: [], begriffe, drillBudget: 1, drillBudgetFull: 3 },
+      7, now,
+    );
+    expect(days[0].blocks.find((b) => b.kind === 'simulation')?.caseId).toBe('c1');
+    expect(drillOf(days, 0)!.caseId).toBe('c1');
   });
 });

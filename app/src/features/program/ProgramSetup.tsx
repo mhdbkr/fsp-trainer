@@ -5,6 +5,7 @@ import { syncQueue } from '@/lib/sync/queue';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
+import { SrsSettingsSheet } from '@/features/fachbegriffe/SrsSettingsSheet';
 
 // ============================================================================
 // Onboarding du Programme de révision — dialogue illustré collectant les
@@ -100,6 +101,12 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
                 </button>
               ))}
             </div>
+          </Field>
+
+          {/* Répétitions Fachbegriffe (spec F2b 3.7) — même feuille que la page
+              Fachbegriffe, inline ici pour ajuster sans sortir du programme. */}
+          <Field label="Fachbegriffe">
+            <SrsSettingsSheet inline onClose={() => {}} />
           </Field>
 
           {/* Courbe d'apprentissage (FB2-P) : par parties d'abord, ou directement en complète.

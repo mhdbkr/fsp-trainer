@@ -16,6 +16,7 @@ import { TermList, type TermListHandle } from './TermList';
 import { AlphabetRail } from './AlphabetRail';
 import { DeckTabs } from './DeckTabs';
 import { DeckSheet } from './DeckSheet';
+import { SrsSettingsSheet } from './SrsSettingsSheet';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
@@ -29,7 +30,9 @@ export function FachbegriffePage() {
   const listRef = useRef<TermListHandle>(null);
   const pendingIdRef = useRef<string | null>(null);
   const [remaining, setRemaining] = useState(0);
-  useEffect(() => { loadDrillContext().then((ctx) => setRemaining(ctx.remaining)); }, []);
+  const [srsSheet, setSrsSheet] = useState(false);
+  const reloadCtx = () => { loadDrillContext().then((ctx) => setRemaining(ctx.remaining)); };
+  useEffect(reloadCtx, []);
 
   const activeDeck = activeId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === activeId);
   const isSmart = activeDeck?.kind === 'smart' && activeDeck.id !== FAVORITES_DECK_ID;
@@ -90,6 +93,7 @@ export function FachbegriffePage() {
         </div>
         <div className="flex items-center gap-2">
           {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
+          <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="gear" className="h-4 w-4" />Répétitions</button>
           <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
           {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
         </div>
@@ -118,6 +122,7 @@ export function FachbegriffePage() {
 
       {sheet && <DeckSheet mode={sheet.mode} deck={sheet.mode === 'edit' ? (activeDeck as never) : undefined} initialQuery={filters} specialties={specialties} centers={centers}
         onClose={(createdId, opts) => { setSheet(null); if (createdId) { pendingIdRef.current = createdId; select(createdId); } else if (opts?.deleted) select(null); }} />}
+      {srsSheet && <SrsSettingsSheet onClose={() => { setSrsSheet(false); reloadCtx(); }} />}
     </div>
   );
 }

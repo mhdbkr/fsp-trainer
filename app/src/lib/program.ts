@@ -235,7 +235,7 @@ function schedule(
     if (total === 0) continue;
     const simOfDay = (map.get(dk) ?? []).find((b) => b.kind === 'simulation');
     const estMin = Math.ceil(total * 0.4);
-    add(d, { kind: 'drill', label: `Drill · ${c.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
+    add(d, { kind: 'drill', label: `Drill · ${c.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, caseId: simOfDay?.caseId, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
   }
 
   // --------------------------------------------------------------------------
