@@ -1,12 +1,16 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useLiveQuery } from 'dexie-react-hooks';
 import { TEILE, isTeil, caseMastery } from '@/lib/simScope';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
-import { useCase, useAufklaerungen } from '@/hooks/useData';
+import { useCase, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { syncQueue } from '@/lib/sync/queue';
 import { useSimSession } from '@/store/simSession';
+import { CaseTermsPanel } from '@/features/fachbegriffe/CaseTermsPanel';
+import { CaseContext } from '@/features/fachbegriffe/CaseContext';
+import { termsOfCase } from '@/lib/collections/caseTerms';
 import { useTimer } from './useTimer';
 import { computeAmbiance } from './timeAmbiance';
 import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
@@ -34,6 +38,7 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
 
 export function SimulationRunner() {
   const { caseId } = useParams();
+  const navigate = useNavigate();
   const [params] = useSearchParams();
   // Mode (FB2-P) : ?teil=anamnese|dokumentation|fallvorstellung → un seul Teil ;
   // sinon la simulation complète. Le fil des parties se restreint au mode.
@@ -60,6 +65,14 @@ export function SimulationRunner() {
   const [elapsed, setElapsed] = useState<Partial<Record<Part, number>>>(restore?.elapsed ?? {});
   const [finished, setFinished] = useState<Simulation | null>(null);
   const [showQr, setShowQr] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+
+  // Compte réel des termes du cas (liés ∪ marqués pendant la session) pour le
+  // chip — une approximation via linkedFachbegriffeIds seul sous-compterait
+  // les termes ajoutés en cours de route.
+  const begriffe = useFachbegriffe();
+  const termEvents = useLiveQuery(() => db.progress_events.where('type').anyOf(['term.favorited', 'deck.term_added']).toArray(), []);
+  const termCount = c && begriffe ? termsOfCase(c.id, begriffe, c, termEvents ?? []).length : 0;
 
   // Fusion des deux étiquettes au défilement. Ce n'est PAS la fenêtre qui défile mais le
   // <main class="overflow-y-auto"> du layout : écouter `window` ne déclencherait
@@ -219,6 +232,7 @@ export function SimulationRunner() {
     // --panel-offset : hauteur réelle de l'en-tête collant, publiée en variable
     // CSS pour que les panneaux latéraux (Muster-Bogen, notes, guide) s'y
     // alignent au lieu de passer dessous. Une seule source de vérité.
+    <CaseContext.Provider value={c.id}>
     <div style={{ '--panel-offset': `calc(3.5rem + ${headerH || 148}px + 0.75rem)` } as React.CSSProperties}>
       <SimTimer
         key={partKey}
@@ -277,6 +291,11 @@ export function SimulationRunner() {
                       className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
                       title="Le jury peut demander une Aufklärung à tout moment">
                       <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
+                    </button>
+                    <button onClick={() => setTermsOpen(true)}
+                      className="chip shrink-0 bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300"
+                      title="Termes du cas — référence libre">
+                      <Icon name="nav-abc" className="h-3.5 w-3.5" />Fachbegriffe ({termCount})
                     </button>
                   </div>
 
@@ -403,7 +422,24 @@ export function SimulationRunner() {
         </div>
       )}
 
+      {/* Termes du cas — référence libre (F2a D6), tiroir. Pause explicite de
+          la session avant de quitter : le sync miroir tourne déjà sur chaque
+          changement, mais on force un dernier appel pour être certain que
+          l'instantané est à jour au moment précis où l'on minimise. */}
+      {termsOpen && (
+        <CaseTermsPanel
+          caseId={c.id}
+          mode="drawer"
+          onClose={() => setTermsOpen(false)}
+          onDrill={() => {
+            useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed, teil });
+            useSimSession.getState().minimize();
+            navigate(`/fachbegriffe/drill?case=${c.id}`);
+          }}
+        />
+      )}
     </div>
+    </CaseContext.Provider>
   );
 }
 
@@ -541,7 +577,7 @@ function AufklaerungArea({ c }: { c: Case }) {
 }
 
 // --------------------------------------------------------------- Bilan final
-function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
+export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
   const parts = Object.entries(sim.parts).filter(([, p]) => p?.done) as [Part, PartResult][];
   const avg = parts.length ? Math.round(parts.reduce((s, [, p]) => s + partScore(p), 0) / parts.length) : 0;
   const passed = sim.passed;
@@ -578,7 +614,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       )}
 
       <div className="flex flex-wrap justify-center gap-2">
-        <Link to="/fachbegriffe/drill" className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
+        <Link to={`/fachbegriffe/drill?case=${c.id}`} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
         <Link to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
         <Link to="/" className="btn-ghost">Accueil</Link>
       </div>
