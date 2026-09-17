@@ -123,7 +123,9 @@ function FollowUpGroupView({ g, keywords, theme, size }: { g: FollowUpGroup; key
     control = <Scale value={answer as number | null} onChange={setAnswer} threshold={c.threshold} theme={theme} size={size} />;
   }
 
-  const hint = c.kind === 'skala' ? `Schmerzskala · ab ${c.threshold} → Rückfrage` : c.kind === 'ja' ? 'Antwort des Patienten' : 'Charakter';
+  // « Charakter » ne décrit que le choix anfallsartig/dauerhaft ; tout autre
+  // choix (leben noch / verstorben…) est une réponse du patient.
+  const hint = c.kind === 'skala' ? `Schmerzskala · ab ${c.threshold} → Rückfrage` : c.kind === 'wahl' && c.match === 'anfallsartig' ? 'Charakter' : 'Antwort des Patienten';
 
   return (
     <div className={`${xl ? 'rounded-2xl border p-4' : 'rounded-lg border p-2'} ${focus ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200/80 bg-slate-50/60 dark:border-ink-600 dark:bg-ink-700/40'}`}>

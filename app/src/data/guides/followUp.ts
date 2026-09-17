@@ -30,8 +30,12 @@ export function parseFollowUp(raw: string): FollowUpControl {
   if (c === 'ja' || c === 'bejaht') return { kind: 'ja', label: 'ja', question };
   if (/sehr stark/.test(c)) return { kind: 'skala', threshold: 7, question };
   if (/anfallsartig/.test(c)) return { kind: 'wahl', options: ['anfallsartig', 'dauerhaft'], match: 'anfallsartig', question };
+  // « Leben Ihre Eltern noch ? » : les deux réponses possibles sont « leben
+  // noch » et « verstorben » — pas « verstorben / nein », deux libellés de même
+  // sens qui troublaient à chaque simulation (FB2-J3).
+  if (/verstorben/.test(c)) return { kind: 'wahl', options: ['leben noch', 'verstorben'], match: 'verstorben', question };
   // Situationnel : la condition elle-même devient le libellé du toggle
-  // (« aufgehört », « in Rente », « verstorben », « Auswurf »…).
+  // (« aufgehört », « in Rente », « Auswurf »…).
   return { kind: 'ja', label: cond, question };
 }
 
