@@ -26,7 +26,7 @@ describe('ExternalAiSheet', () => {
     expect(launchMod.launch.mock.calls[0][1]).not.toContain('Fallvorstellung');
     await waitFor(async () => expect((await db.meta.get('externalAi.target'))?.value).toBe('claude'));
     expect((await db.meta.get('externalAi.pending'))?.value).toMatchObject({ caseId: 'c1', targetId: 'claude', scope: 'anamnese' });
-    expect(await screen.findByText(/prompt copié/i)).toBeTruthy();
+    expect(await screen.findByText(/pré-rempli.*Entrée/i)).toBeTruthy();
   });
   it('« Copier le prompt » n\'ouvre rien', async () => {
     const write = vi.fn().mockResolvedValue(undefined); Object.assign(navigator, { clipboard: { writeText: write } });
@@ -34,6 +34,32 @@ describe('ExternalAiSheet', () => {
     fireEvent.click(await screen.findByRole('button', { name: /copier le prompt/i }));
     await waitFor(() => expect(write).toHaveBeenCalled());
     expect(launchMod.launch).not.toHaveBeenCalled();
+  });
+  it('copie échouée : pas de « prompt copié », aperçu ouvert', async () => {
+    launchMod.launch.mockResolvedValueOnce({ opened: true, copied: false, prefilled: false });
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /ouvrir dans/i }));
+    await waitFor(() => expect(launchMod.launch).toHaveBeenCalled());
+    expect(await screen.findByText(/Copie impossible/i)).toBeTruthy();
+    expect(screen.queryByText(/prompt copié/i)).toBeNull();
+    expect(screen.getByText(/Karl/)).toBeTruthy();
+  });
+  it('pré-rempli sans envoi auto (Claude) : message « appuie sur Entrée », pas de « part tout seul »', async () => {
+    launchMod.launch.mockResolvedValueOnce({ opened: true, copied: true, prefilled: true });
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('radio', { name: /claude/i }));
+    fireEvent.click(screen.getByRole('button', { name: /ouvrir dans claude/i }));
+    await waitFor(() => expect(launchMod.launch).toHaveBeenCalled());
+    const status = await screen.findByRole('status');
+    expect(status.textContent).toMatch(/appuie sur Entrée pour l'envoyer/i);
+    expect(status.textContent).not.toMatch(/part tout seul/i);
+  });
+  it('pré-rempli avec envoi auto (ChatGPT) : « le prompt part tout seul »', async () => {
+    launchMod.launch.mockResolvedValueOnce({ opened: true, copied: true, prefilled: true });
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /ouvrir dans chatgpt/i }));
+    await waitFor(() => expect(launchMod.launch).toHaveBeenCalled());
+    expect(await screen.findByText(/part tout seul/i)).toBeTruthy();
   });
   it('Échap ferme', async () => {
     render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
