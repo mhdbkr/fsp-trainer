@@ -1,5 +1,5 @@
 import type { Case, DeckTerm, Fachbegriff, Favorite, Specialty } from '@/db/types';
-import { sortDe } from '@/features/fachbegriffe/letters';
+import { sortDe } from '@/lib/sortDe';
 
 const H48 = 48 * 3600_000;
 const D7 = 7 * 24 * 3600_000;
@@ -11,7 +11,8 @@ export interface RelevanceContext {
   recentSimulations: { caseId: string; date: number }[];
   todayCaseIds: string[];
   todaySpecialty?: Specialty;
-  cases: Pick<Case, 'id' | 'linkedFachbegriffeIds'>[];
+  /** `name` sert à l'écran d'accueil du drill (« Ancré sur ton cas récent »). */
+  cases: (Pick<Case, 'id' | 'linkedFachbegriffeIds'> & { name?: string })[];
 }
 
 /** Index terme → ids de cas qui le lient (construit une fois pour toute la file, cf. `sortByRelevance`). */
@@ -53,3 +54,21 @@ export function sortByRelevance(terms: Fachbegriff[], ctx: RelevanceContext): Fa
   const score = new Map(terms.map((t) => [t.id, relevanceScore(t, ctx, casesByTerm)]));
   return [...terms].sort((a, b) => score.get(b.id)! - score.get(a.id)! || sortDe(a, b));
 }
+
+/** Cas simulé récemment (< 7 j) qui lie au moins un Neu de la file — pour dire à
+ *  l'écran d'accueil du drill « Ancré sur ton cas récent : … » (revue UX F2a). */
+export function recentCaseAnchor(queue: Fachbegriff[], ctx: RelevanceContext): { caseId: string; name: string } | null {
+  const casesByTerm = buildCasesByTerm(ctx.cases);
+  const news = queue.filter((t) => t.srs.state === 'Neu');
+  const sims = [...ctx.recentSimulations].filter((s) => ctx.now - s.date >= 0 && ctx.now - s.date < D7).sort((a, b) => b.date - a.date);
+  for (const sim of sims) {
+    if (news.some((t) => (casesByTerm.get(t.id) ?? []).includes(sim.caseId))) {
+      const c = ctx.cases.find((x) => x.id === sim.caseId);
+      return { caseId: sim.caseId, name: c?.name ?? sim.caseId };
+    }
+  }
+  return null;
+}
+
+/** Durée estimée d'une session (même règle que le bloc drill du programme : 0,4 min / carte). */
+export const drillMinutes = (cards: number) => Math.ceil(cards * 0.4);

@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/ui';
 import { applyQuery, termsOfDeck } from '@/lib/collections/query';
 import { toggleFavorite, removeFromDeck, setDeckQuery } from '@/lib/collections';
 import { loadDrillContext } from '@/lib/collections/drillContext';
+import { drillMinutes } from '@/lib/collections/relevance';
 import { sortDe, letterOf } from './letters';
 import { TermList, type TermListHandle } from './TermList';
 import { AlphabetRail } from './AlphabetRail';
@@ -90,6 +91,7 @@ export function FachbegriffePage() {
         <div className="flex items-center gap-2">
           {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
           <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
+          {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
         </div>
       </header>
 
