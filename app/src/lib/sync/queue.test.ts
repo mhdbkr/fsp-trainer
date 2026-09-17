@@ -56,18 +56,32 @@ describe('syncQueue', () => {
   });
 
   it('flush draine un backlog > 100 en plusieurs pages sans attendre le timer', async () => {
+    let secondPostSeen!: () => void;
+    const secondPost = new Promise<void>((resolve) => { secondPostSeen = resolve; });
+    let posts = 0;
     post.mockImplementation(async (_url: string, init?: { body?: string }) => {
       const ids = (JSON.parse(init!.body!).events as { id: string }[]).map((e) => e.id);
+      if (++posts === 2) secondPostSeen();
       return { ok: true, status: 200, json: async () => ({ acked: ids, rejected: [] }) };
     });
     // 150 événements en outbox, sans déclencher flush à chaque push
     const evs = Array.from({ length: 150 }, (_, i) => ({ id: `e${i}`, user_id: 'u1', type: 'plan.done' as const, subject_id: `p${i}`, payload: {}, occurred_at: '2026-01-01T00:00:00Z' }));
     await db.progress_events.bulkPut(evs);
     await db.outbox.bulkPut(evs.map((e) => ({ id: e.id, attempts: 0 })));
-    await syncQueue.flush();
-    await new Promise((r) => setTimeout(r, 20));   // laisse partir la relance planifiée
-    expect(post).toHaveBeenCalledTimes(2);
-    expect(await db.outbox.count()).toBe(0);
+
+    // La page suivante est relancée par flush() en setTimeout(0). On attend SA
+    // promesse — pas un délai réel, qui sous charge expire avant la fin des
+    // écritures IndexedDB et rend ce test intermittent.
+    const flushes = vi.spyOn(syncQueue, 'flush');
+    try {
+      await syncQueue.flush();
+      await secondPost;                                        // la relance a bien démarré
+      for (let pending = flushes.mock.results.splice(0); pending.length; pending = flushes.mock.results.splice(0)) {
+        await Promise.all(pending.map((r) => r.value));         // ... et elle est terminée
+      }
+      expect(post).toHaveBeenCalledTimes(2);
+      expect(await db.outbox.count()).toBe(0);
+    } finally { flushes.mockRestore(); }
   });
 
   it('bump incrémente attempts PAR LIGNE (un lot mélange neufs et déjà retentés)', async () => {
