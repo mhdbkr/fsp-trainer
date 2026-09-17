@@ -46,6 +46,18 @@ describe('events', () => {
     expect(r.status).toBe(400);
   });
 
+  it('accepte les événements de collections (favoris, decks)', async () => {
+    const deckId = crypto.randomUUID();
+    const r = await post(A, [
+      { id: crypto.randomUUID(), type: 'term.favorited', subject_id: 'fb-abdominal', payload: {}, occurred_at: '2026-09-17T10:00:00Z' },
+      { id: crypto.randomUUID(), type: 'deck.created', subject_id: deckId, payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2026-09-17T10:00:01Z' },
+      { id: crypto.randomUUID(), type: 'deck.term_added', subject_id: deckId, payload: { termId: 'fb-abdominal' }, occurred_at: '2026-09-17T10:00:02Z' },
+      { id: crypto.randomUUID(), type: 'deck.query_changed', subject_id: deckId, payload: { query: { specialty: 'Kardiologie' } }, occurred_at: '2026-09-17T10:00:03Z' },
+    ]);
+    expect(r.rejected).toEqual([]);
+    expect(r.acked).toHaveLength(4);
+  });
+
   it('sans token → 401', async () => {
     const r = await fetch(FN, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ events: [ev(crypto.randomUUID())] }) });
     expect(r.status).toBe(401);

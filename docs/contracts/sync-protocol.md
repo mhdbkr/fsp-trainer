@@ -2,7 +2,7 @@
 
 **Modèle** — journal d'événements additifs, serveur autoritaire, `id` uuid v4 généré client. Tables : `progress_events` (serveur ET Dexie), `outbox` (Dexie, non acquittés).
 
-**Synchronisé** : `simulation.completed`, `srs.reviewed`, `plan.done`, `case.layer_reached`, `program.configured`.
+**Synchronisé** : `simulation.completed`, `srs.reviewed`, `plan.done`, `case.layer_reached`, `program.configured`, et les collections Fachbegriffe (F1) : `term.favorited` / `term.unfavorited` (subject = termId, payload `{}`), `deck.created` (subject = deckId, `{ name, kind: 'manual'|'smart', query? }`), `deck.renamed` (`{ name }`), `deck.query_changed` (`{ query }`), `deck.deleted` (`{}`), `deck.term_added` / `deck.term_removed` (`{ termId }`). `deck-favorites` est un id réservé (jamais créé/supprimé/renommé). Projection : ordre `occurred_at`, puis `received_at` (absent = dernier), puis `id` ; dernier événement gagne par (deck), par (deck, terme), par (terme) — un `term_added` postérieur à `deck.deleted` est ignoré.
 **Local uniquement** : Bogen en cours, session en pause, préférences d'affichage, simulations de **démo** (`sim-demo-*`, jamais migrées).
 
 **Push** — `syncQueue.push(ev)` : écrit `progress_events` + `outbox` en une transaction, puis `flush()` sans bloquer l'appelant (les écrans ne dépendent jamais du réseau).
