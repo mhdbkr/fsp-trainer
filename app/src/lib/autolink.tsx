@@ -1,5 +1,6 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import type { Fachbegriff } from '@/db/types';
+import { focusStar } from '@/components/hoverStarRef';
 
 // ============================================================================
 // Auto-linking terme → glossaire. C'EST DU CODE, PAS DU BALISAGE MANUEL.
@@ -54,6 +55,8 @@ interface AutoLinkTextProps {
   onLeave?: () => void;
   /** Tap sur `pointer: coarse` (mobile/tablette) : ouvre la hover-card au lieu du tiroir. */
   onTap?: (fb: Fachbegriff, anchor: DOMRect) => void;
+  /** Vrai si la hover-card est actuellement ouverte (I1 : Tab→Enter→Enter). */
+  hoverOpen?: boolean;
 }
 
 export interface AutoLinkPart { t: string; fb: Fachbegriff | null }
@@ -89,9 +92,13 @@ export function splitAutoLink(text: string, index: LinkIndex): AutoLinkPart[] {
 /** Rend un texte avec les Fachbegriffe cliquables. Survol/focus → hover-card
  *  (`onHover`, délai 150 ms géré ici) ; tap sur `pointer: coarse` → `onTap` au
  *  lieu du tiroir (`onOpen`). */
-export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap }: AutoLinkTextProps) {
+export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap, hoverOpen }: AutoLinkTextProps) {
   const parts = useMemo(() => splitAutoLink(text, index), [text, index]);
   const enterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // M1 : un démontage (navigation, changement de texte) pendant les 150 ms
+  // d'attente d'un survol ne doit pas déclencher `onHover` sur un lien disparu.
+  useEffect(() => () => { if (enterTimer.current) clearTimeout(enterTimer.current); }, []);
 
   return (
     <>
@@ -108,7 +115,22 @@ export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap }: A
                 onOpen(p.fb!);
               }
             }}
+            onKeyDown={(e) => {
+              // I1 : le premier Enter/Espace sur un lien déjà focus (la carte
+              // s'est ouverte via onFocus) déplace le focus vers ★ au lieu
+              // d'activer le lien — Tab→Enter→Enter favorise le terme.
+              if (e.key !== 'Enter' && e.key !== ' ') return;
+              const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+              if (coarse || !hoverOpen) return;
+              e.preventDefault();
+              focusStar();
+            }}
             onMouseEnter={(e) => {
+              // M5 : sur `pointer: coarse`, il n'y a pas de survol réel — ne
+              // pas armer un minuteur qui ne sera jamais désarmé par un vrai
+              // mouseleave (le tap gère déjà l'ouverture via `onTap`).
+              const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+              if (coarse) return;
               const r = e.currentTarget.getBoundingClientRect();
               if (enterTimer.current) clearTimeout(enterTimer.current);
               enterTimer.current = setTimeout(() => onHover?.(p.fb!, r), 150);

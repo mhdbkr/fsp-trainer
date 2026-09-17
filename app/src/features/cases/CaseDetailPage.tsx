@@ -26,6 +26,7 @@ export function CaseDetailPage() {
   const linkedAufk = (aufk ?? []).filter((a) => c.probableAufklaerungIds.includes(a.id));
 
   return (
+    <CaseContext.Provider value={c.id}>
     <div className="space-y-5">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -157,9 +158,7 @@ export function CaseDetailPage() {
               </div>
             )}
 
-            <CaseContext.Provider value={c.id}>
-              <CaseTermsPanel caseId={c.id} mode="inline" onDrill={() => navigate(`/fachbegriffe/drill?case=${c.id}`)} />
-            </CaseContext.Provider>
+            <CaseTermsPanel caseId={c.id} mode="inline" onDrill={() => navigate(`/fachbegriffe/drill?case=${c.id}`)} />
 
             {c.examinerQuestions.length > 0 && (
               <Toggle title="Fragen der Prüfer (déjà posées)">
@@ -170,6 +169,7 @@ export function CaseDetailPage() {
         </div>
       )}
     </div>
+    </CaseContext.Provider>
   );
 }
 

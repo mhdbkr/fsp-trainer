@@ -15,8 +15,11 @@ interface UiState {
   closeGlossary: () => void;
 
   // Hover-card ★ sur un terme auto-lié (survol desktop, tap mobile — F2b D2/D3).
-  hoverTerm: { fb: Fachbegriff; anchor: DOMRect } | null;
-  openHover: (fb: Fachbegriff, anchor: DOMRect) => void;
+  // `caseId` transite par le store : la carte est montée dans Shell, hors de
+  // tout CaseContext.Provider (qui n'entoure que le contenu de page) — sans
+  // ça, ★ ne porte jamais le caseId du cas où le terme a été survolé.
+  hoverTerm: { fb: Fachbegriff; anchor: DOMRect; caseId: string | null } | null;
+  openHover: (fb: Fachbegriff, anchor: DOMRect, caseId?: string | null) => void;
   closeHover: () => void;
 
   // Panneau aperçu de cas (page Cas cliniques — sans quitter la liste).
@@ -80,7 +83,7 @@ export const useUi = create<UiState>((set, get) => ({
   closeGlossary: () => set({ glossaryTerm: null }),
 
   hoverTerm: null,
-  openHover: (fb, anchor) => set({ hoverTerm: { fb, anchor } }),
+  openHover: (fb, anchor, caseId) => set({ hoverTerm: { fb, anchor, caseId: caseId ?? null } }),
   closeHover: () => set({ hoverTerm: null }),
 
   previewCaseId: null,

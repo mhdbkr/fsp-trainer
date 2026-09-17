@@ -1,47 +1,62 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useUi } from '@/store/ui';
 import { useFavorites, useDecks, useDeckTerms } from '@/hooks/useData';
 import { toggleFavorite, addToDeck, removeFromDeck, createDeck } from '@/lib/collections';
-import { useCaseId } from '@/features/fachbegriffe/CaseContext';
 import { SRS_TONE } from '@/lib/srsTone';
 import { armClose, disarmClose } from './hoverTimer';
+import { starRef } from './hoverStarRef';
 
 // Hover-card ★ (spec F2b D2/D3) : une seule carte, ancrée sur le terme survolé
 // ou tapé ; ★ = favori immédiat (+caseId en contexte de cas) puis extension
 // (deck, fiche). Mouvement : opacity/transform ≤ 150 ms, reduced-motion respecté.
 // Le minuteur de fermeture est partagé avec AutoLinkText via `hoverTimer` — la
-// souris qui passe du lien à la carte ne referme pas la carte.
+// souris qui passe du lien à la carte ne referme pas la carte. `caseId` vient
+// du store (voir ui.ts) : cette carte est montée dans Shell, hors de tout
+// CaseContext.Provider.
 const W = 280;
 
 export function TermHoverCard() {
   const hover = useUi((s) => s.hoverTerm);
   const close = useUi((s) => s.closeHover);
   const openGlossary = useUi((s) => s.openGlossary);
-  const caseId = useCaseId();
   const favorites = useFavorites();
   const decks = useDecks();
   const deckTerms = useDeckTerms();
   const [expanded, setExpanded] = useState(false);
   const [newName, setNewName] = useState('');
+  const [measuredH, setMeasuredH] = useState(160);
   const ref = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { setExpanded(false); setNewName(''); }, [hover?.fb.id]);
 
+  // M3 : le repli au-dessus est calculé sur la hauteur réellement rendue de la
+  // carte (deck ouvert ≠ carte repliée), pas une constante approximative.
+  useLayoutEffect(() => {
+    if (!hover || !ref.current) return;
+    const h = ref.current.getBoundingClientRect().height;
+    if (h) setMeasuredH(h);
+  }, [hover?.fb.id, expanded]);
+
   useEffect(() => {
     if (!hover) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
     const onDown = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) close(); };
+    // M2 : un scroll de la page (liste, panneau) doit refermer la carte —
+    // son ancrage (DOMRect figé au moment de l'ouverture) devient obsolète.
+    const onScroll = () => close();
     document.addEventListener('keydown', onKey);
     document.addEventListener('mousedown', onDown);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
     return () => {
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('scroll', onScroll, { capture: true });
     };
   }, [hover, close]);
 
   if (!hover) return null;
-  const { fb, anchor } = hover;
+  const { fb, anchor, caseId } = hover;
   const fav = !!favorites?.some((f) => f.termId === fb.id);
   const manual = (decks ?? []).filter((d) => d.kind === 'manual');
   const inDeck = (id: string) => !!deckTerms?.some((t) => t.deckId === id && t.termId === fb.id);
@@ -49,14 +64,11 @@ export function TermHoverCard() {
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1024;
   const vh = typeof window !== 'undefined' ? window.innerHeight : 768;
   const left = Math.max(8, Math.min(anchor.left, vw - W - 8));
-  const below = anchor.bottom + 8 + 160 < vh;
-  const style: React.CSSProperties = {
-    position: 'fixed',
-    left,
-    width: W,
-    ...(below ? { top: anchor.bottom + 8 } : { bottom: vh - anchor.top + 8 }),
-    zIndex: 60,
-  };
+  const belowTop = anchor.bottom + 8;
+  const fitsBelow = belowTop + measuredH + 8 <= vh;
+  const rawTop = fitsBelow ? belowTop : anchor.top - 8 - measuredH;
+  const top = Math.max(8, rawTop);
+  const style: React.CSSProperties = { position: 'fixed', left, width: W, top, zIndex: 60 };
 
   const star = async () => {
     await toggleFavorite(fb.id, caseId ? { caseId } : undefined);
@@ -69,8 +81,15 @@ export function TermHoverCard() {
       role="dialog"
       aria-label={fb.term}
       style={style}
+      tabIndex={-1}
       onMouseEnter={disarmClose}
       onMouseLeave={() => armClose(close, 300)}
+      onFocus={disarmClose}
+      onBlur={(e) => {
+        // I1 : la fermeture ne se réarme que si le focus quitte VRAIMENT la
+        // carte (pas un simple passage d'un bouton à l'autre à l'intérieur).
+        if (!ref.current?.contains(e.relatedTarget as Node)) armClose(close, 300);
+      }}
       className="glass rounded-xl border border-slate-200 p-3 text-sm shadow-lg motion-safe:animate-fade-in dark:border-slate-700"
     >
       <div className="flex items-start justify-between gap-2">
@@ -81,6 +100,7 @@ export function TermHoverCard() {
         </div>
         <button
           type="button"
+          ref={(el) => { starRef.current = el; }}
           aria-pressed={fav}
           aria-label={fav ? `Retirer des favoris : ${fb.term}` : `Ajouter aux favoris : ${fb.term}`}
           onClick={() => { void star(); }}
@@ -92,18 +112,20 @@ export function TermHoverCard() {
       {(expanded || fav) && (
         <div className="mt-2 space-y-1 border-t border-slate-100 pt-2 dark:border-slate-800">
           <button type="button" aria-label="Ajouter à un deck" onClick={() => nameRef.current?.focus()} className="label block min-h-11 w-full text-left">Ajouter à un deck…</button>
-          {manual.map((d) => (
-            <button
-              key={d.id}
-              type="button"
-              role="menuitemcheckbox"
-              aria-checked={inDeck(d.id)}
-              onClick={() => { void (inDeck(d.id) ? removeFromDeck(d.id, fb.id) : addToDeck(d.id, fb.id, caseId ? { caseId } : undefined)); }}
-              className="flex min-h-11 w-full items-center justify-between rounded-lg px-2 text-left hover:bg-slate-100 dark:hover:bg-white/10"
-            >
-              {d.name}<span>{inDeck(d.id) ? '✓' : ''}</span>
-            </button>
-          ))}
+          <div role="menu">
+            {manual.map((d) => (
+              <button
+                key={d.id}
+                type="button"
+                role="menuitemcheckbox"
+                aria-checked={inDeck(d.id)}
+                onClick={() => { void (inDeck(d.id) ? removeFromDeck(d.id, fb.id) : addToDeck(d.id, fb.id, caseId ? { caseId } : undefined)); }}
+                className="flex min-h-11 w-full items-center justify-between rounded-lg px-2 text-left hover:bg-slate-100 dark:hover:bg-white/10"
+              >
+                {d.name}<span>{inDeck(d.id) ? '✓' : ''}</span>
+              </button>
+            ))}
+          </div>
           <div className="flex gap-1">
             <input
               ref={nameRef}
