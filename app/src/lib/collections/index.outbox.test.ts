@@ -6,6 +6,12 @@ import { toggleFavorite } from './index';
 // VRAI syncQueue pour vérifier que toggleFavorite écrit bien dans l'outbox
 // et émet l'événement term.favorited — le réseau est neutralisé en amont
 // (getAccessToken → null) pour que flush() soit un no-op sans appel réseau.
+// Le client Supabase exige VITE_SUPABASE_URL/ANON_KEY au chargement : absent en
+// CI (pas de .env), donc mocké — rien ici ne doit toucher le réseau.
+vi.mock('@/lib/supabase', () => ({
+  supabase: { auth: { getSession: vi.fn(async () => ({ data: { session: null } })), onAuthStateChange: vi.fn(() => ({ data: { subscription: { unsubscribe() {} } } })) }, functions: { invoke: vi.fn() } },
+  callFn: vi.fn(),
+}));
 vi.mock('@/lib/auth/session', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/auth/session')>();
   return { ...actual, getAccessToken: vi.fn(async () => null) };
