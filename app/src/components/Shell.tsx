@@ -3,6 +3,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { GlossaryDrawer } from './GlossaryDrawer';
+import { ExternalAiSheet } from '@/features/simulation/ExternalAiSheet';
 import { Doctopus } from './Doctopus';
 import { ResumeSessionBar } from './ResumeSessionBar';
 import { SelectionExplainer } from './SelectionExplainer';
@@ -39,6 +40,8 @@ export function Shell() {
       <CommandPalette />
       {/* Panneau glossaire global */}
       <GlossaryDrawer />
+      {/* Feuille « Simuler avec ton IA » — 4 points d'entrée */}
+      <ExternalAiSheet />
       {/* Doctopus — assistant IA (flottant, partout) */}
       <Doctopus />
       {/* Quick-search : bulle d'explication sur sélection de texte */}

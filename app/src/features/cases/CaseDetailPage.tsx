@@ -19,6 +19,7 @@ export function CaseDetailPage() {
   const aufk = useAufklaerungen();
   const begriffe = useFachbegriffe();
   const openGlossary = useUi((s) => s.openGlossary);
+  const openExternalAi = useUi((s) => s.openExternalAi);
   const [view, setView] = useState<'clinique' | 'rolle'>('clinique');
   const [role, setRole] = useState<'patient' | 'pruefer'>('patient');
 
@@ -41,7 +42,10 @@ export function CaseDetailPage() {
             {c.centers.map((ct) => <CenterBadge key={ct} center={ct} />)}
           </div>
         </div>
-        <Link to={`/simulation/${c.id}/pre`} className="btn-primary gap-1.5"><Icon name="play" className="h-4 w-4" />Simuler ce cas</Link>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => openExternalAi(c.id)} className="btn-outline gap-1.5"><Icon name="spark" className="h-4 w-4" />Simuler avec ton IA</button>
+          <Link to={`/simulation/${c.id}/pre`} className="btn-primary gap-1.5"><Icon name="play" className="h-4 w-4" />Simuler ce cas</Link>
+        </div>
       </header>
 
       {/* Vue principale = la fiche clinique. Le JEU DE RÔLE (simulant) est à part. */}

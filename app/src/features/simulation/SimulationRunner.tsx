@@ -46,6 +46,7 @@ export function SimulationRunner() {
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
   const muster = useUi((s) => s.muster);
+  const openExternalAi = useUi((s) => s.openExternalAi);
   const session = useSimSession();
 
   // Restaure une session en pause pour ce cas (sinon départ à zéro).
@@ -277,6 +278,9 @@ export function SimulationRunner() {
                       className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
                       title="Le jury peut demander une Aufklärung à tout moment">
                       <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
+                    </button>
+                    <button onClick={() => openExternalAi(c.id)} className="chip shrink-0" title="Continuer ou rejouer ce cas avec ton IA">
+                      <Icon name="spark" className="h-3.5 w-3.5" />IA
                     </button>
                   </div>
 
@@ -542,6 +546,7 @@ function AufklaerungArea({ c }: { c: Case }) {
 
 // --------------------------------------------------------------- Bilan final
 function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
+  const openExternalAi = useUi((s) => s.openExternalAi);
   const parts = Object.entries(sim.parts).filter(([, p]) => p?.done) as [Part, PartResult][];
   const avg = parts.length ? Math.round(parts.reduce((s, [, p]) => s + partScore(p), 0) / parts.length) : 0;
   const passed = sim.passed;
@@ -580,6 +585,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       <div className="flex flex-wrap justify-center gap-2">
         <Link to="/fachbegriffe/drill" className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
         <Link to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
+        <button onClick={() => openExternalAi(c.id)} className="btn-outline gap-1.5"><Icon name="spark" className="h-4 w-4" />Rejouer avec ton IA</button>
         <Link to="/" className="btn-ghost">Accueil</Link>
       </div>
     </div>
