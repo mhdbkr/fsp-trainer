@@ -34,8 +34,8 @@ la racine du dépôt.
   via un pipe.
 - Les fichiers de contenu (`app/src/data/seed*.ts`, `caseMuster.ts`) font
   plus d'un mégaoctet : cibler avec `grep -n` puis lire la plage utile.
-- Bump `SEED_VERSION` dans `app/src/data/seed.ts` à chaque modification de
-  contenu.
+- Le contenu n'a plus de `SEED_VERSION` : chaque push sur `main` le publie
+  via `scripts/publishContent.mjs` (delta par hash vers `content_items`).
 - Mehdi édite des fichiers en parallèle : **stager les commits fichier par
   fichier**, jamais `git add -A`.
 - Vérification navigateur : `playwright-cli` headless (le panneau intégré ne

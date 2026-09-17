@@ -41,7 +41,6 @@ export const BASE_PROBES: AnamneseProbe[] = [
   { id: 'pers-name', kapitel: 'personalia', frage: 'Wie heißen Sie mit vollständigem Namen? Können Sie ihn buchstabieren?' },
   { id: 'pers-alter', kapitel: 'personalia', frage: 'Wie alt sind Sie? Wann sind Sie geboren?' },
   { id: 'pers-groesse', kapitel: 'personalia', frage: 'Wie groß sind Sie und wie viel wiegen Sie?' },
-  { id: 'pers-beruf', kapitel: 'personalia', frage: 'Was sind Sie von Beruf? Arbeiten Sie mit besonderen Stoffen (Staub, Chemikalien)?' },
   { id: 'pers-hausarzt', kapitel: 'personalia', frage: 'Haben Sie einen Hausarzt?' },
 
   // Aktuelle Beschwerden (OPQRST)
@@ -90,6 +89,8 @@ export const BASE_PROBES: AnamneseProbe[] = [
   { id: 'fam-eltern', kapitel: 'familie-sozial', frage: 'Leben Ihre Eltern noch? (Falls verstorben: woran und wann?)' },
   { id: 'fam-stand', kapitel: 'familie-sozial', frage: 'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?' },
   { id: 'fam-beruf', kapitel: 'familie-sozial', frage: 'Was sind Sie von Beruf? Haben Sie Stress bei der Arbeit? (Oder: in Rente?)' },
+  // id historique conservé (130 fiches y répondent) ; la sonde a rejoint la Sozialanamnese, juste après le métier (FB2-J2).
+  { id: 'pers-beruf', kapitel: 'familie-sozial', frage: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?' },
   { id: 'fam-wohnen', kapitel: 'familie-sozial', frage: 'Wohnen Sie allein oder mit jemandem? Wohnung oder Haus, welches Stockwerk, mit Aufzug?' },
   { id: 'fam-haustiere', kapitel: 'familie-sozial', frage: 'Haben Sie Haustiere, um die sich jemand kümmern muss?' },
 ];
@@ -163,7 +164,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-pneumo-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?', deepens: 'veg-schuettelfrost' },
     { id: 'fach-pneumo-giemen', kapitel: 'fach', frage: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?' },
     { id: 'fach-pneumo-infekt', kapitel: 'fach', frage: 'Hatten Sie kürzlich einen Atemwegsinfekt, Kontakt zu Kranken oder eine Reise?' },
-    { id: 'fach-pneumo-noxen', kapitel: 'fach', frage: 'Rauchen Sie? Waren Sie beruflich Stäuben, Asbest oder Vögeln ausgesetzt?' },
+    { id: 'fach-pneumo-noxen', kapitel: 'fach', frage: 'Und speziell für die Lunge: Hatten Sie je mit Asbest, Vogelhaltung, Schimmel oder Mehlstaub zu tun?' },
     { id: 'fach-pneumo-allergie', kapitel: 'fach', frage: 'Haben Sie Allergien oder ein bekanntes Asthma?', deepens: 'all-allergie' },
   ],
   Infektiologie: [

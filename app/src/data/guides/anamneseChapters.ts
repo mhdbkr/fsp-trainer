@@ -40,7 +40,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
   },
   {
     id: 'personalia', title: 'Persönliche Daten', subtitle: 'Identité et données de base',
-    icon: 'id', keywords: ['buchstabieren', 'Beruf', 'Hausarzt'],
+    icon: 'id', keywords: ['buchstabieren', 'Hausarzt'],
     questions: [
       {
         text: 'Wie heißen Sie mit vollständigem Namen?',
@@ -54,11 +54,13 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       },
       { text: 'Wie alt sind Sie? Wann sind Sie geboren?', probe: 'pers-alter' },
       { text: 'Wie groß sind Sie und wie viel wiegen Sie derzeit?', probe: 'pers-groesse' },
-      { text: 'Was sind Sie von Beruf? Arbeiten Sie mit besonderen Stoffen (Staub, Chemikalien)?', probe: 'pers-beruf' },
       { text: 'Haben Sie einen Hausarzt? Wie heißt er / sie?', probe: 'pers-hausarzt' },
+      // Récapitulation : pas de sonde — elle ne pose rien de nouveau. Lui
+      // attacher les trois sondes en faisait une « question progressive » avec
+      // un bouton « Nächster Teil » qui ne faisait que répéter ce qui venait
+      // d'être posé (FB2-J6).
       {
         text: 'Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?',
-        probe: ['pers-name', 'pers-alter', 'pers-groesse'],
         label: 'Technique pro',
       },
     ],
@@ -249,11 +251,16 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         followUp: ['Falls verstorben: Woran, und wann? (Avec empathie : „Mein herzliches Beileid.“)'],
       },
       { text: 'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?', probe: 'fam-stand' },
+      // Le métier est demandé ICI et une seule fois par trame (FB2-J2) : il
+      // l'était aussi dans Persönliche Daten, et une troisième fois dans la
+      // Fachanamnese pneumo. L'exposition professionnelle suit, en question
+      // séparée, parce que c'est une autre information.
       {
         text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
         probe: 'fam-beruf',
         alts: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
       },
+      { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf' },
       { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },
       { text: 'Haben Sie Haustiere, um die sich jemand kümmern muss?', probe: 'fam-haustiere' },
     ],
@@ -380,8 +387,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       { text: 'Haben Sie Fieber oder Schüttelfrost?', probe: 'fach-pneumo-fieber' },
       { text: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?', probe: 'fach-pneumo-giemen' },
       { text: 'Hatten Sie kürzlich einen Atemwegsinfekt, Kontakt zu Kranken oder eine Reise?', probe: 'fach-pneumo-infekt' },
+      // « Rauchen Sie ? » est déjà posé dans Noxen, l'exposition générale dans
+      // la Sozialanamnese ; ici on APPROFONDIT avec les expositions propres au
+      // poumon — formulé comme une suite, pas comme une redite (FB2-J2).
       {
-        text: 'Rauchen Sie? Waren Sie beruflich Stäuben, Asbest oder Vögeln ausgesetzt?',
+        text: 'Und speziell für die Lunge: Hatten Sie je mit Asbest, Vogelhaltung, Schimmel oder Mehlstaub zu tun?',
         probe: 'fach-pneumo-noxen',
         label: 'Exposition',
       },

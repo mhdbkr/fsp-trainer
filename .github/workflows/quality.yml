@@ -44,6 +44,8 @@ jobs:
         run: node scripts/checkCaseCoherence.mjs
       - name: Contrat guide ↔ fiche patient
         run: node scripts/checkGuideCoverage.mjs
+      - name: Doublons du guide d'anamnèse (thème, question, toggle synonyme)
+        run: node scripts/checkGuideDuplicates.mjs
       - name: Sections thérapeutiques identiques fiche ↔ cas
         run: node scripts/checkTherapieLabels.mjs
       - name: Fachwissen visuals — schéma, refs, ergänzt
