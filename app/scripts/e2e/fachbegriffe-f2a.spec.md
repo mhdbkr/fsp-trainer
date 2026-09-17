@@ -24,36 +24,44 @@ Republication locale : `publishContent.mjs` → version 8, 130 modifiés, 2688 i
 4. Retour sur `/#/fachbegriffe` : sous-titre DOM exact **« 0 dus · 9 nouveaux proposés · 1 appris »**,
    bouton **« Drill (9) »**. Conforme au critère (1 appris, 9 nouveaux au prochain drill).
 
-## AC-7 — BLOCKED (bug produit, hors périmètre de cette tâche de vérification)
+## AC-7 — PASS (après correctif RLS `20260917000011_content_policy_initplan.sql`)
 
-Deux chemins testés pour ouvrir le tiroir « Erscheint in Fällen » d'un terme lié à un cas :
+Cause du blocage initial (voir historique de ce fichier) : la policy RLS `content: read by tier`
+évaluait `my_tier()` par ligne (~500 ms/page) au lieu d'un InitPlan, ce qui faisait dépasser le budget
+CPU/temps de l'edge function `content` après le passage à 2 688 items (`57014 canceling statement due
+to statement timeout`). Corrigé par le coordinateur (migration `20260917000011`, `my_tier()` en
+sous-requête InitPlan). Procédure de reprise :
 
-1. **Recherche dans le glossaire `/#/fachbegriffe`** : le filtre « Spécialité » ne propose que
-   `Toutes` / `Allgemein` — aucune des spécialités réelles (`Gastroenterologie`, etc.) n'apparaît dans
-   le sélecteur, et la recherche texte de `Peritonitis` (terme confirmé en base, lié à `case-ulcus`,
-   `specialty: "Gastroenterologie"`) renvoie **« Aucun terme »**. Recherche SQL directe : aucun terme de
-   specialty `Allgemein` n'a de `linkedCaseIds` non vide dans ce jeu de données — le deck « Tous »
-   affiché sur cette page ne contient donc structurellement aucun terme lié à un cas testable par ce
-   chemin.
-2. **Page de cas `/#/cas/case-ulcus`** : reste bloquée sur **« Chargement… »** de façon reproductible
-   (3 tentatives, jusqu'à 6 s d'attente). Réseau : `GET /functions/v1/content?since=0` répond **200**
-   au premier appel puis **500** au second appel (rechargement de page). Logs
-   `supabase_edge_runtime_app` :
-   ```
-   serving the request with supabase/functions/content
-   [Error] { code: "57014", message: "canceling statement due to statement timeout" }
-   ```
-   accompagné de plusieurs `CPU time soft/hard limit reached` sur l'isolate `content`. Cause probable :
-   la fonction `content` ne pagine pas sa lecture PostgREST (limite 1000 lignes, cf. règle du projet)
-   et le payload complet est passé de ~2 558 à **2 688 items** (version 8) après republication F2a,
-   ce qui fait dépasser le budget CPU/temps de l'edge function locale et provoque un timeout côté
-   Postgres.
+1. Dev server relancé (`npm run dev -- --port 5186 --strictPort`).
+2. Reconnexion avec le compte `f2a-1789657875@test.local` (session déjà active, plan `premium`).
+3. `/#/cas/case-ulcus` restait sur « Chargement… » avec la session encore basée sur l'ancien état
+   IndexedDB (cursor `since=8` déjà atteint côté local mais payload historique incomplet). Correctif :
+   IndexedDB du compte vidée (`indexedDB.deleteDatabase(...)`) + rechargement complet de la page (pas
+   un simple changement de hash) → resynchronisation complète, page de cas chargée normalement ensuite.
 
-Cette panne empêche toute vérification DOM du tiroir « Erscheint in Fällen » et de l'indicateur
-« n Fachbegriffe » sur la page de cas. **Aucune correction de code n'a été tentée** (hors périmètre —
-tâche de vérification uniquement). Recommandation pour un correctif ultérieur : paginer `content`
-(function Supabase) comme le font déjà `pull`/`publish`, ou augmenter le budget CPU de l'edge runtime
-local pour les tests.
+Preuves DOM :
+
+- **(a) Tiroir d'un terme lié** : recherche « Pyrosis » dans `/#/fachbegriffe`, onglet **Tous** (pas
+  besoin du filtre spécialité). Le filtre Spécialité liste maintenant bien toutes les spécialités
+  (`Allgemein, Anatomie, Endokrinologie, Gastroenterologie, Hämatologie, Infektiologie, Kardiologie,
+  Neurologie, Orthopädie, Pneumologie, Psychiatrie, Urologie`) — confirmant la remarque du coordinateur :
+  l'absence antérieure de ces spécialités dans le sélecteur était bien un effet du contenu non
+  synchronisé (tier), pas un bug de filtre. Clic sur la ligne « Pyrosis » → tiroir ouvert :
+  ```
+  Fachbegriff
+  Pyrosis
+  /Gastroenterologie/
+  Bedeutung (patientengerecht) : Sodbrennen
+  Definition : Brennendes Gefühl hinter dem Brustbein durch Rückfluss von Magensäure.
+  Erscheint in Fällen
+  Gastroösophageale Refluxkrankheit
+  ```
+  → **« Erscheint in Fällen » liste 1 cas** (≥ 1 attendu). PASS.
+
+- **(b) Indicateur sur la page de cas** : `/#/cas/case-ulcus` se charge intégralement (fiche clinique,
+  DD, diagnostic, thérapie, Cave-Radar) et affiche **« Fachbegriffe (78) »** juste avant la liste des
+  78 termes (Abdomen, ätiologisch, …, Verdachtsdiagnose) — cohérent avec
+  `jsonb_array_length(linkedFachbegriffeIds) = 78` vérifié en base. **PASS** (indicateur > 0).
 
 ## AC-8 — PASS
 
@@ -79,5 +87,5 @@ jour affiche le texte DOM exact :
 | AC | Statut |
 |----|--------|
 | AC-1 | PASS |
-| AC-7 | BLOCKED — bug `content` edge function (timeout Postgres 57014) sur `/cas/:id` après republication F2a, + deck « Tous » du glossaire sans terme lié à un cas pour la specialty `Allgemein` |
+| AC-7 | PASS (après correctif RLS `20260917000011` + resynchronisation IndexedDB complète) |
 | AC-8 | PASS |
