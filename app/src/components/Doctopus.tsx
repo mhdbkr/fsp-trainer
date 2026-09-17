@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -49,6 +49,21 @@ export function Doctopus() {
   // Quick-search : la sélection d'un mot pré-remplit la question à l'ouverture.
   useEffect(() => { if (open && prefill) setQ(prefill); }, [open, prefill]);
 
+  // Fermeture au clic extérieur par écouteur document, PAS par un voile
+  // plein écran : un voile capturait aussi la molette et la page ne pouvait
+  // plus défiler derrière le popover (FB2-M1). Ici la page reste vivante.
+  const panelRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (panelRef.current?.contains(t)) return;
+      closeDoctopus();
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [open, closeDoctopus]);
+
   const hits = useMemo(() => (q.trim() ? localLookup(q, begriffe).slice(0, 4) : []), [q, begriffe]);
   const links = useMemo(() => (q.trim() ? deepLinks(q) : []), [q]);
   const isWord = q.trim().split(/\s+/).length <= 2 && !/[?.!]/.test(q);
@@ -85,9 +100,7 @@ export function Doctopus() {
 
       {open && (
         <>
-          {/* Capteur de clic extérieur — sans voile (popover, pas modale) */}
-          <button aria-hidden tabIndex={-1} onClick={() => closeDoctopus()} className="fixed inset-0 z-[60] cursor-default" />
-          <aside className="glass glass-edge fixed bottom-[5.75rem] right-6 z-[70] flex max-h-[74vh] w-[min(384px,calc(100vw-2rem))] origin-bottom-right animate-pop flex-col overflow-hidden rounded-3xl">
+          <aside ref={panelRef} className="glass glass-edge fixed bottom-[5.75rem] right-6 z-[70] flex max-h-[74vh] w-[min(384px,calc(100vw-2rem))] origin-bottom-right animate-pop flex-col overflow-hidden rounded-3xl">
             {/* En-tête */}
             <div className="flex items-center justify-between gap-2 border-b border-slate-200/70 px-4 py-3 dark:border-white/10">
               <div className="flex items-center gap-2.5">
