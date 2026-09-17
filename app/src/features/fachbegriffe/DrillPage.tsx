@@ -10,6 +10,8 @@ import { syncQueue } from '@/lib/sync/queue';
 import { termsOfDeck } from '@/lib/collections/query';
 import { buildDrillQueue, nextDueAt } from '@/lib/collections/drillQueue';
 
+const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
+
 // Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie
 // du cas travaillé, puis progression libre (couverture inclusive).
 // Un deck (ou les favoris) borne la file : jamais un terme hors du deck.
@@ -22,7 +24,7 @@ export function DrillPage() {
   const prioritySpecialty = params.get('specialty');
   const priorityPathology = params.get('pathology');
   const deckId = params.get('deck');
-  const deck = deckId === FAVORITES_DECK_ID ? { id: FAVORITES_DECK_ID, name: 'Favoris' } : decks?.find((d) => d.id === deckId);
+  const deck = deckId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === deckId);
 
   const [queue, setQueue] = useState<Fachbegriff[]>([]);
   const [started, setStarted] = useState(false);
@@ -32,7 +34,7 @@ export function DrillPage() {
   const [stats, setStats] = useState({ done: 0, again: 0 });
 
   // Pool borné au deck (ou tout le glossaire hors deck) ; la file de drill ne sort jamais de ce pool.
-  const pool = useMemo(() => (!begriffe ? [] : deck ? termsOfDeck(deck as never, begriffe, deckTerms ?? [], favorites ?? []) : begriffe), [begriffe, deck, deckTerms, favorites]);
+  const pool = useMemo(() => (!begriffe ? [] : deck ? termsOfDeck(deck, begriffe, deckTerms ?? [], favorites ?? []) : begriffe), [begriffe, deck, deckTerms, favorites]);
   const buildQueue = useCallback(() => buildDrillQueue(pool, { prioritySpecialty, priorityPathology }), [pool, prioritySpecialty, priorityPathology]);
 
   useEffect(() => {
