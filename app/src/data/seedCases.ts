@@ -19,6 +19,7 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Karl Aupperle', age: 58, geschlecht: 'm', groesseCm: 178, gewichtKg: 82,
           beruf: 'Maschinenarbeiter', hausarzt: 'Dr. Kiis',
@@ -71,6 +72,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Mein Hausarzt Dr. Kiis hat mir geraten, ins Krankenhaus zu gehen — wegen des dicken Bauchs und der Schmerzen.',
           'akt-ort': 'Überall im Bauch, ich kann es nicht genau zeigen.',
           'akt-beginn': 'Seit etwa drei Monaten, es hat ganz langsam angefangen und wird eher mehr.',
+          'akt-allgemein-art': 'Vor allem Kraftlosigkeit, ich hab überhaupt keine Power mehr. Schwindel ist es nicht, das nicht.',
+          'akt-allgemein-alltag': 'Na ja, die schweren Sachen auf der Arbeit gehen nicht mehr so wie früher. Hinlegen tu ich mich nicht extra, aber am Abend bin ich fix und fertig.',
+          'akt-allgemein-tageszeit': 'Morgens geht\'s noch, im Laufe vom Tag wird\'s schlimmer. Nach Ruhe wird\'s a bisschen besser, aber nie richtig weg.',
+          'akt-allgemein-gewicht': 'Zugenommen hab ich, so an die fünf Kilo in den letzten drei Monaten — aber das ist Wasser, meine Hosen passen nimmer. Essen mag ich nicht mehr viel. Durst ist normal.',
+          'akt-allgemein-schwellung': 'Die Beine sind dick geworden, geschwollen, und der Bauch ist dicker, das hab ich ja schon gesagt. Im Gesicht seh ich nix. Mit dem Wasserlassen selber ist nix Besonderes, das kommt normal.',
           'akt-charakter': 'Dumpf, wie ein ständiger Druck, nicht stechend.',
           'akt-intensitaet': 'So etwa 5 von 10.',
           'akt-ausstrahlung': 'Nein, er bleibt im Bauch.',
@@ -127,6 +133,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Leberzirrhose bei Alkoholabhängigkeit (dekompensiert, mit Aszites)',
+        patientWorte: { verdacht: 'bei Ihnen die Leber schon stark vernarbt ist, am ehesten durch den langjährigen Alkoholkonsum, und dass sich Wasser im Bauch angesammelt hat', diagnostik: 'nehmen wir Ihnen Blut ab, machen einen Ultraschall vom Bauch und punktieren vorsichtig die Bauchwasseransammlung', therapie: 'müssen Sie vollständig auf Alkohol verzichten, bekommen entwässernde Medikamente, und wir untersuchen mit einer Magenspiegelung die Blutgefäße in der Speiseröhre' },
         differenzialdiagnosen: [
           { dd: 'Hepatozelluläres Karzinom', unterscheidung: 'Fokale Läsion, AFP↑ — auf Zirrhoseboden.' },
           { dd: 'Pankreaskarzinom', unterscheidung: 'schmerzloser Ikterus, Gewichtsverlust, Rückenschmerz.' },
@@ -189,10 +196,10 @@ export function seedCases(): Case[] {
       probableAufklaerungIds: ['auf-gastroskopie', 'auf-aszitespunktion'],
       caseSpecificQuestions: [
         { frage: 'Ist Ihr Bauch dicker geworden? Passen die Hosen noch?', kapitel: 'aktuell' },
-        { frage: 'Bekommen Sie leicht blaue Flecke?', kapitel: 'aktuell' },
-        { frage: 'Hat sich die Farbe von Stuhl oder Urin verändert?', kapitel: 'vegetativ' },
-        { frage: 'Wie viel und was genau trinken Sie an Alkohol? Seit wann?', kapitel: 'noxen' },
-        { frage: 'Waren Sie schon einmal in einer Entwöhnung?', kapitel: 'noxen' },
+        { frage: 'Bekommen Sie in letzter Zeit leicht blaue Flecken, auch ohne sich zu stoßen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie eine Veränderung der Farbe von Ihrem Stuhl oder Urin bemerkt — zum Beispiel einen helleren Stuhl oder einen dunkleren Urin?', kapitel: 'vegetativ' },
+        { frage: 'Seit wie vielen Jahren trinken Sie in etwa so viel Alkohol wie jetzt?', kapitel: 'noxen' },
+        { frage: 'Haben Sie schon einmal versucht, mit dem Trinken aufzuhören, zum Beispiel in einer Entzugsklinik?', kapitel: 'noxen' },
       ],
       examinerQuestions: [
         'Welche Komplikationen der Leberzirrhose kennen Sie?',
@@ -358,6 +365,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Stabile Angina pectoris bei koronarer Herzkrankheit',
+        patientWorte: { verdacht: 'es sich um eine Verengung der Herzkranzgefäße handelt, die bei Belastung zu wenig Durchblutung des Herzens erlaubt', diagnostik: 'schreiben wir ein Herzstromkurve, machen einen Belastungstest und bei Bedarf eine Herzkatheteruntersuchung', therapie: 'bekommen Sie Medikamente, die das Herz entlasten, und möglicherweise wird ein verengtes Gefäß mit einem kleinen Ballon oder Stent geweitet' },
         differenzialdiagnosen: [
           { dd: 'Akutes Koronarsyndrom', unterscheidung: 'Ruheschmerz >20 min, Troponin↑.' },
           { dd: 'Refluxkrankheit', unterscheidung: 'nahrungsabhängig, brennend, PPI-Ansprechen.' },
@@ -417,9 +425,10 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-koronarangiographie'],
       caseSpecificQuestions: [
-        { frage: 'Treten die Schmerzen nur bei Belastung oder auch in Ruhe auf?', kapitel: 'aktuell' },
-        { frage: 'Wie viele Treppen schaffen Sie ohne Pause?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein Nitrospray benutzt? Hat es geholfen?', kapitel: 'fach' },
+        { frage: 'Treten die Beschwerden auch bei Aufregung oder seelischer Belastung auf, unabhängig von körperlicher Anstrengung?', kapitel: 'aktuell' },
+        { frage: 'Wie oft in der Woche treten die Schmerzen ungefähr auf, und sind es in letzter Zeit mehr geworden?', kapitel: 'aktuell' },
+        { frage: 'Wurde bei Ihnen schon einmal ein Herzkatheter durchgeführt, und wurde dabei ein Stent gesetzt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Gab es in Ihrer Familie einen Herzinfarkt vor dem 60. Lebensjahr, zum Beispiel bei Ihren Eltern oder Geschwistern?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Nennen Sie die kardiovaskulären Risikofaktoren.',
@@ -545,6 +554,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute biliäre Pankreatitis',
+        patientWorte: { verdacht: 'sich Ihre Bauchspeicheldrüse entzündet hat, am ehesten weil ein Gallenstein den Ausführungsgang verstopft', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall sowie eine Computertomographie vom Bauch', therapie: 'bekommen Sie über die Vene Flüssigkeit und Schmerzmittel, und ein verstopfter Gallengang wird mit einer Spiegelung wieder frei gemacht' },
         differenzialdiagnosen: [
           { dd: 'Akute Cholezystitis', unterscheidung: 'rechtsseitig, Murphy positiv.' },
           { dd: 'Perforiertes Ulkus', unterscheidung: 'brettharter Bauch, freie Luft.' },
@@ -603,9 +613,9 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Strahlen die Schmerzen in den Rücken aus?', kapitel: 'aktuell' },
-        { frage: 'Was haben Sie zuletzt gegessen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie bekannte Gallensteine?', kapitel: 'vorerkrankungen' },
+        { frage: 'Strahlen die Schmerzen gürtelförmig, also wie ein Band um den Bauch herum, in den Rücken aus?', kapitel: 'aktuell' },
+        { frage: 'Kam der Schmerz innerhalb weniger Stunden nach einer fettreichen Mahlzeit oder nach Alkohol?', kapitel: 'aktuell' },
+        { frage: 'Ist bei Ihnen bekannt, dass Sie Gallensteine haben?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: ['Zwei häufigste Ursachen?', 'Wichtigster Laborwert?', 'Wie behandeln Sie die biliäre Genese?'],
       examinerSheet: [
@@ -637,6 +647,7 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
         begleitsymptome: ['Schwindel, Schwäche', 'Blässe', 'Oberbauchschmerzen seit Wochen'],
@@ -671,6 +682,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich hatte heute Morgen ganz schwarzen Stuhl und musste einmal braun erbrechen.',
           'akt-ort': 'Die Schmerzen sind oben im Bauch, in der Magengegend.',
           'akt-beginn': 'Der schwarze Stuhl war heute Morgen; das Brennen im Bauch habe ich aber schon seit Wochen.',
+          'akt-veraend-was': 'Mir ist vor allem der schwarze Stuhl aufgefallen, ganz klebrig-schwarz, und dann hab ich einmal so braunes Zeug erbrochen, wie Kaffeesatz.',
+          'akt-veraend-entwicklung': 'Der Stuhl war heute schon zweimal so schwarz, das Erbrechen nur das eine Mal. Es ist eigentlich seitdem gleich geblieben, nicht schlimmer.',
+          'akt-veraend-blutung': 'Wehtun oder jucken tut da nichts. Aber Blut ist eben dabei — im Stuhl, schwarz halt, und beim Erbrechen war\'s wie Kaffeesatz, nicht hellrot. Im Urin oder beim Husten ist mir nichts aufgefallen.',
           'akt-charakter': 'Im Bauch brennt es; ansonsten bin ich vor allem schwach und schwindelig.',
           'akt-intensitaet': 'Die Bauchschmerzen so 4 von 10; schlimmer ist der Schwindel.',
           'akt-ausstrahlung': 'Nein, es strahlt nicht aus.',
@@ -723,6 +737,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Obere GI-Blutung bei NSAR-induziertem Ulcus ventriculi',
+        patientWorte: { verdacht: 'ein Magengeschwür blutet, möglicherweise ausgelöst durch die schmerzstillenden Tabletten, die Sie eingenommen haben', diagnostik: 'überwachen wir Ihren Kreislauf, nehmen Blut ab und machen umgehend eine Magenspiegelung', therapie: 'wird die Blutungsquelle noch während der Spiegelung gestillt, und Sie bekommen Infusionen sowie ein Medikament gegen die Magensäure' },
         differenzialdiagnosen: [
           { dd: 'Ösophagusvarizenblutung', unterscheidung: 'Leberzirrhose-Anamnese, Hämatemesis hellrot.' },
           { dd: 'Mallory-Weiss-Läsion', unterscheidung: 'nach heftigem Erbrechen.' },
@@ -775,9 +790,9 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Welche Farbe hatte das Blut?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Schmerzmittel oder Blutverdünner?', kapitel: 'medikamente' },
-        { frage: 'Ist Ihnen schwindelig?', kapitel: 'aktuell' },
+        { frage: 'Welche Farbe hatte das Blut, das Sie erbrochen haben — eher hellrot, dunkelrot oder wie Kaffeesatz?', kapitel: 'aktuell' },
+        { frage: 'Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen oder Diclofenac ein, und wie oft?', kapitel: 'medikamente' },
+        { frage: 'Wird Ihnen schwindelig, vor allem wenn Sie aufstehen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Was ist Meläna?', 'Häufigste Ursachen?', 'Vorgehen beim kreislaufinstabilen Patienten?'],
       examinerSheet: [
@@ -889,6 +904,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Divertikulitis (Sigma)',
+        patientWorte: { verdacht: 'sich eine Ausstülpung im Dickdarm entzündet hat, eine sogenannte Divertikulitis im linken Unterbauch', diagnostik: 'nehmen wir Ihnen Blut ab und machen eine Computertomographie vom Bauch', therapie: 'behandeln wir Sie mit Nahrungspause, Infusionen und eventuell einem Antibiotikum, in schweren Fällen auch operativ' },
         differenzialdiagnosen: [
           { dd: 'Kolorektales Karzinom', unterscheidung: 'chronisch, Gewichtsverlust, Blut im Stuhl.' },
           { dd: 'Reizdarmsyndrom', unterscheidung: 'kein Fieber, keine Entzündungszeichen.' },
@@ -952,9 +968,10 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koloskopie'],
       caseSpecificQuestions: [
-        { frage: 'Wo genau sind die Schmerzen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Blut im Stuhl bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Bekannte Divertikel?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind die Schmerzen eher im linken oder im rechten Unterbauch stärker?', kapitel: 'aktuell' },
+        { frage: 'Ist bei Ihnen bekannt, dass Sie Divertikel im Darm haben?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie schon einmal eine ähnliche Entzündung der Divertikel oder wurden deswegen behandelt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Haben Sie beim Wasserlassen Luft oder Stuhlbeimengungen im Urin bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Warum keine Koloskopie im akuten Schub?', 'Wann operieren?'],
       examinerSheet: [
@@ -1062,6 +1079,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Cholezystitis bei Cholezystolithiasis',
+        patientWorte: { verdacht: 'sich Ihre Gallenblase entzündet hat, am ehesten weil ein Gallenstein den Ausgang verstopft', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall vom Bauch', therapie: 'bekommen Sie eine Nahrungspause und ein Antibiotikum über die Vene, und die Gallenblase wird meist zeitnah operativ entfernt' },
         differenzialdiagnosen: [
           { dd: 'Akute Pankreatitis', unterscheidung: 'gürtelförmig, Lipase↑.' },
           { dd: 'Ulcus', unterscheidung: 'epigastrisch, nüchtern.' },
@@ -1125,9 +1143,10 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Strahlt der Schmerz in die Schulter?', kapitel: 'aktuell' },
-        { frage: 'Nach fettigem Essen schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Murphy-Zeichen?', kapitel: 'fach' },
+        { frage: 'Strahlt der Schmerz in die rechte Schulter oder das rechte Schulterblatt aus?', kapitel: 'aktuell' },
+        { frage: 'Werden die Schmerzen nach fettigem oder üppigem Essen schlimmer?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie schon einmal ähnliche Schmerzattacken, die von selbst wieder aufgehört haben?', kapitel: 'vorerkrankungen' },
+        { frage: 'Haben Sie eine Gelbfärbung der Haut oder der Augen bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Was ist das Murphy-Zeichen?', 'Wann operieren?'],
       examinerSheet: [
@@ -1148,6 +1167,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
         begleitsymptome: ['ungewollter Gewichtsverlust 6 kg', 'Müdigkeit (Anämie)', 'Bleistiftstühle'],
@@ -1173,11 +1193,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, den habe ich.',
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Seit Wochen ist mein Stuhlgang unregelmäßig und ich habe Blut gesehen.',
-          'akt-ort': 'Ein genauer Ort ist schwer zu sagen; ab und zu ein leichtes Ziehen im Unterbauch.',
           'akt-beginn': 'So seit zwei, drei Monaten, ganz langsam.',
-          'akt-charakter': 'Richtige Schmerzen habe ich kaum, nur ab und zu ein leichtes Ziehen.',
-          'akt-intensitaet': 'Wenn überhaupt, dann 2 von 10 — es tut kaum weh.',
-          'akt-ausstrahlung': 'Nein, es strahlt nicht aus.',
+          'akt-veraend-was': 'Also... es ist eigentlich mein Stuhlgang. Der ist unregelmäßig geworden, mal dünn, mal wie ein Bleistift, und ich habe ein paarmal Blut gesehen. Das ist mir schon unangenehm, das zu erzählen.',
+          'akt-veraend-entwicklung': 'Ja, es ist eher mehr geworden mit der Zeit. Am Anfang war es nur hin und wieder, jetzt ist der Stuhlgang fast ständig komisch und das Blut kommt öfter.',
+          'akt-veraend-blutung': 'Wehtun tut es eigentlich nicht, nur das leichte Ziehen, das ich schon erzählt habe. Aber es blutet, ja — im Stuhl, mal hellrot, mal dunkler. Sonst blute ich nirgends, kein Husten, keine Nase.',
           'akt-verlauf': 'Das Ziehen kommt und geht; der unregelmäßige Stuhlgang ist die ganze Zeit da.',
           'akt-ausloeser': 'Einen Auslöser wüsste ich nicht.',
           'akt-einfluss': 'Ich merke keinen klaren Zusammenhang mit Essen oder Bewegung.',
@@ -1227,6 +1246,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Kolorektales Karzinom',
+        patientWorte: { verdacht: 'sich in Ihrem Dickdarm eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'nehmen wir Ihnen Blut ab und machen eine Darmspiegelung mit Gewebeprobe sowie eine Computertomographie', therapie: 'besprechen wir die Behandlung im Team aus mehreren Fachärzten, meist mit einer Operation und manchmal zusätzlich einer Chemotherapie' },
         differenzialdiagnosen: [
           { dd: 'Hämorrhoiden', unterscheidung: 'frisches Blut, kein Gewichtsverlust.' },
           { dd: 'CED', unterscheidung: 'jünger, Schübe, Schleim/Blut.' },
@@ -1289,10 +1309,9 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koloskopie'],
       caseSpecificQuestions: [
-        { frage: 'Blut im Stuhl? Farbe?', kapitel: 'aktuell' },
-        { frage: 'Änderung der Stuhlgewohnheiten?', kapitel: 'aktuell' },
-        { frage: 'Gewichtsverlust?', kapitel: 'vegetativ' },
-        { frage: 'Familienanamnese Darmkrebs?', kapitel: 'familie-sozial' },
+        { frage: 'Ist Ihr Stuhlgang in letzter Zeit dünner geworden, wie ein Bleistift?', kapitel: 'aktuell' },
+        { frage: 'Gibt es in Ihrer Familie, zum Beispiel bei Ihren Eltern oder Geschwistern, Darmkrebs oder Darmpolypen?', kapitel: 'familie-sozial' },
+        { frage: 'Fühlen Sie sich in letzter Zeit besonders müde oder abgeschlagen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Screening-Empfehlung Koloskopie?', 'Was ist CEA?', 'Wie stagen Sie?'],
       examinerSheet: [
@@ -1400,6 +1419,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Gastroösophageale Refluxkrankheit (GERD)',
+        patientWorte: { verdacht: 'magensäure in die Speiseröhre zurückfließt und dort die Reizung verursacht, die Sie spüren', diagnostik: 'versuchen wir zunächst ein säurehemmendes Medikament, bei Bedarf ergänzt durch eine Magenspiegelung', therapie: 'reichen oft Ernährungsumstellung und ein säurehemmendes Medikament aus, um Ihre Beschwerden deutlich zu lindern' },
         differenzialdiagnosen: [
           { dd: 'Angina pectoris', unterscheidung: 'belastungsabhängig, Ausstrahlung Arm.' },
           { dd: 'Ulcus', unterscheidung: 'epigastrisch, nüchtern.' },
@@ -1464,8 +1484,10 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Sodbrennen wann schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Schluckbeschwerden? Gewichtsverlust? (Alarmzeichen)', kapitel: 'vegetativ' },
+        { frage: 'Wann sind die Beschwerden am schlimmsten — nach dem Essen, im Liegen oder nachts?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schluckbeschwerden bemerkt, zum Beispiel dass Essen stecken bleibt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Verschlimmern sich die Beschwerden nach Kaffee, Alkohol oder fettigem Essen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Wann ÖGD indiziert?', 'Nennen Sie Alarmsymptome.'],
       examinerSheet: [
@@ -1570,6 +1592,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akuter ST-Hebungsinfarkt (STEMI)',
+        patientWorte: { verdacht: 'ein Herzkranzgefäß verschlossen ist und Ihr Herzmuskel deshalb nicht mehr ausreichend durchblutet wird', diagnostik: 'schreiben wir sofort ein Herzstromkurve, bestimmen Herzwerte im Blut und bringen Sie umgehend zur Herzkatheteruntersuchung', therapie: 'wird das verschlossene Gefäß im Herzkatheter sofort wieder eröffnet, das muss jetzt zügig geschehen, damit möglichst wenig Herzmuskel geschädigt wird' },
         differenzialdiagnosen: [
           { dd: 'Lungenembolie', unterscheidung: 'Dyspnoe, atemabhängig, D-Dimere.' },
           { dd: 'Aortendissektion', unterscheidung: 'Rücken, RR-Differenz.' },
@@ -1636,8 +1659,11 @@ export function seedCases(): Case[] {
       },
       linkedFachwissenId: 'fw-myokardinfarkt', linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koronarangiographie'],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau? In Ruhe?', kapitel: 'aktuell' },
-        { frage: 'Hilft Nitro?', kapitel: 'fach' },
+        { frage: 'Um wie viel Uhr genau haben die Schmerzen begonnen?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie dabei kaltschweißig, und war Ihnen übel?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie dabei ein Gefühl von Angst oder sogar Todesangst?', kapitel: 'aktuell' },
+        { frage: 'Wurde bei Ihnen schon einmal ein Herzkatheter durchgeführt oder ein Stent gesetzt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Gab es in Ihrer Familie einen Herzinfarkt vor dem 60. Lebensjahr?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: ['STEMI vs. NSTEMI?', 'Zeitfenster der PCI?', 'Akuttherapie?'],
       examinerSheet: [
@@ -1659,6 +1685,7 @@ export function seedCases(): Case[] {
       name: 'Ösophaguskarzinom', pathology: 'Ösophaguskarzinom', specialty: 'Gastroenterologie',
       centers: ['Stuttgart', 'Karlsruhe'], frequency: 22, difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Anna Sichel', age: 53, geschlecht: 'w', groesseCm: 168, gewichtKg: 58, beruf: 'Schneiderin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 4 Wochen zunehmende Schluckbeschwerden, erst bei fester, jetzt bei weicher Kost'],
         begleitsymptome: ['Gewichtsverlust 15 kg im letzten Jahr', 'Heiserkeit', 'Schmerzen beim Schlucken'],
@@ -1686,11 +1713,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, den habe ich.',
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Seit etwa 4 Wochen bekomme ich das Essen immer schlechter runter.',
-          'akt-ort': 'Hinter dem Brustbein, da wo das Essen stecken bleibt.',
           'akt-beginn': 'Langsam, über die letzten vier Wochen, und es wird von Woche zu Woche schlimmer.',
-          'akt-charakter': 'Wie wenn das Essen stecken bleibt — mehr ein Druck als ein Schmerz.',
-          'akt-intensitaet': 'Der Druck beim Schlucken so 4 von 10, aber es macht mir große Angst.',
-          'akt-ausstrahlung': 'Nein, es strahlt nicht aus, es sitzt hinter dem Brustbein.',
+          'akt-veraend-was': 'Es ist das Schlucken. Am Anfang ist festes Essen stecken geblieben, jetzt geht es auch bei weichem Essen kaum noch.',
+          'akt-veraend-entwicklung': 'Es ist schlimmer geworden, jede Woche ein bisschen mehr. Zuerst nur bei festen Sachen, jetzt auch bei Brei fast.',
+          'akt-veraend-blutung': 'Blut habe ich keins gesehen, ich musste nur manchmal Essensreste hochwürgen. Aber es tut weh beim Schlucken, so ein Druck, und meine Stimme ist auch heiser geworden.',
           'akt-verlauf': 'Es ist bei jedem Essen da und wird stetig schlimmer.',
           'akt-ausloeser': 'Einen Auslöser gab es nicht, es kam schleichend.',
           'akt-einfluss': 'Feste Sachen bleiben stecken; mit Flüssigem geht es noch am besten.',
@@ -1745,6 +1771,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Ösophaguskarzinom',
+        patientWorte: { verdacht: 'sich in Ihrer Speiseröhre eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeprobe sowie eine Ultraschall- und Computertomographie-Untersuchung zur genauen Einordnung', therapie: 'entscheidet ein Team aus mehreren Fachärzten über die beste Behandlung, meist eine Kombination aus Operation, Bestrahlung und Chemotherapie' },
         differenzialdiagnosen: [
           { dd: 'Achalasie', unterscheidung: 'jünger, langsam, keine B-Symptomatik.' },
           { dd: 'Peptische Stenose', unterscheidung: 'Reflux-Anamnese, gutartig.' },
@@ -1818,10 +1845,10 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Feste oder auch flüssige Kost betroffen?', kapitel: 'aktuell' },
-        { frage: 'Gewichtsverlust?', kapitel: 'vegetativ' },
-        { frage: 'Heiserkeit?', kapitel: 'aktuell' },
-        { frage: 'Alkohol/Nikotin?', kapitel: 'noxen' },
+        { frage: 'Bleiben eher feste Speisen stecken, oder mittlerweile auch Flüssigkeiten?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihre Stimme in letzter Zeit heiser geworden?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell' },
+        { frage: 'Kommt es vor, dass unverdaute Nahrung wieder hochkommt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Risikofaktoren des Ösophaguskarzinoms?', 'Adeno- vs. Plattenepithelkarzinom?', 'Palliative Optionen?'],
       examinerSheet: [
@@ -1993,6 +2020,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Ulcus ventriculi (am ehesten Helicobacter-pylori-assoziiert)',
+        patientWorte: { verdacht: 'Sie ein Magengeschwür haben, möglicherweise verursacht durch ein Bakterium namens Helicobacter', diagnostik: 'machen wir eine Magenspiegelung, testen auf das Bakterium und nehmen Ihnen Blut ab', therapie: 'bekommen Sie ein säurehemmendes Medikament und, falls das Bakterium nachgewiesen wird, zusätzlich eine einwöchige Antibiotika-Kur' },
         differenzialdiagnosen: [
           {
             dd: 'Ulcus duodeni',
@@ -2073,11 +2101,10 @@ export function seedCases(): Case[] {
         'auf-gastroskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Werden die Schmerzen nach dem Essen besser oder schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Aspirin?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie schwarzen Stuhl oder Bluterbrechen bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt abgenommen?', kapitel: 'vegetativ' },
-        { frage: 'Hat das Pantoprazol Ihre Beschwerden gebessert?', kapitel: 'aktuell' },
+        { frage: 'Werden die Schmerzen nach dem Essen eher besser oder schlimmer?', kapitel: 'aktuell' },
+        { frage: 'Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen oder Aspirin ein?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie beim Erbrechen Blut bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben sich Ihre Beschwerden gebessert, seit Sie das Pantoprazol nehmen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und warum?',
@@ -2177,6 +2204,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Julian Brückner',
           age: 61,
@@ -2274,6 +2302,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich habe in den letzten vier Monaten ungewollt 12 Kilo abgenommen und habe ständig so ein Druckgefühl im Oberbauch.',
           'akt-ort': 'In der Mitte des Oberbauchs, in der Magengegend.',
           'akt-beginn': 'Ganz langsam, so vor etwa vier Monaten, und es ist immer schlimmer geworden.',
+          'akt-allgemein-art': 'Vor allem Kraftlosigkeit und diese ständige Erschöpfung, Herr Doktor — ich hab überhaupt keine Energie mehr, und mir ist oft übel dazu. Schwindel eigentlich nicht so.',
+          'akt-allgemein-alltag': 'Ich schaff im Haushalt nicht mehr so viel wie früher, ich muss mich öfter zwischendurch hinsetzen. Hinlegen tagsüber, na ja, manchmal schon, wenn\'s mir zu viel wird.',
+          'akt-allgemein-tageszeit': 'Das ist eigentlich den ganzen Tag da, aber nach dem Essen wird\'s schlimmer, das Völlegefühl. Morgens ist es noch am erträglichsten.',
+          'akt-allgemein-gewicht': 'Ja, zwölf Kilo hab ich abgenommen in vier Monaten, ungewollt, das macht mir richtig Angst. Essen mag ich kaum noch, ich bin schon nach ein paar Bissen satt. Durst ist eigentlich normal.',
+          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, weder die Beine noch das Gesicht oder der Bauch. Und beim Wasserlassen ist auch alles wie immer.',
           'akt-charakter': 'Weniger ein Schmerz, mehr ein Druck- und Völlegefühl; ich bin schon nach ein paar Bissen satt.',
           'akt-intensitaet': 'Als Schmerz kaum, vielleicht 3 von 10 — es ist eher ein ständiger Druck.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus.',
@@ -2323,6 +2356,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Magenkarzinom (Adenokarzinom des Magens)',
+        patientWorte: { verdacht: 'sich in Ihrem Magen eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeprobe, nehmen Blut ab und machen einen Ultraschall vom Bauch', therapie: 'planen mehrere Fachärzte gemeinsam die Behandlung, meist mit einer Operation und ergänzender Chemotherapie vor und nach dem Eingriff' },
         differenzialdiagnosen: [
           {
             dd: 'Ulcus ventriculi',
@@ -2384,14 +2418,10 @@ export function seedCases(): Case[] {
         'auf-gastroskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Ungewollter Gewichtsverlust — wie viel, in welchem Zeitraum?', kapitel: 'vegetativ' },
-        { frage: 'Abneigung gegen Fleisch und Wurst neu aufgetreten?', kapitel: 'aktuell' },
-        { frage: 'Teerstuhl / dunkler Stuhl bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Schluckbeschwerden (Dysphagie)?', kapitel: 'aktuell' },
-        { frage: 'Frühes Sättigungsgefühl / Völlegefühl?', kapitel: 'aktuell' },
-        { frage: 'Familienanamnese Magenkarzinom (Vater)?', kapitel: 'familie-sozial' },
-        { frage: 'Frühere ÖGD oder bekannte Magenprobleme?', kapitel: 'vorerkrankungen' },
-        { frage: 'Nikotin- und Alkoholkonsum?', kapitel: 'noxen' },
+        { frage: 'Haben Sie in letzter Zeit eine Abneigung gegen Fleisch bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schluckbeschwerden bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Gibt es in Ihrer Familie, zum Beispiel bei Ihren Eltern oder Geschwistern, Magenkrebs?', kapitel: 'familie-sozial' },
+        { frage: 'Ist bei Ihnen eine chronische Magenschleimhautentzündung oder eine Helicobacter-Infektion bekannt?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Was ist Ihre Verdachtsdiagnose und welche Differenzialdiagnosen stellen Sie (z. B. Gallenwegs-, Gallenblasen-, Pankreaskarzinom, Ulcus ventriculi)?',
@@ -2651,6 +2681,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Appendizitis',
+        patientWorte: { verdacht: 'es sich um eine Entzündung des Blinddarms handelt, die die Schmerzen in Ihrem rechten Unterbauch erklärt', diagnostik: 'nehmen wir Ihnen Blut ab, machen einen Urintest und einen Ultraschall vom Bauch', therapie: 'müsste der Blinddarm noch heute operativ entfernt werden, das ist ein Routineeingriff mit guter Heilungsaussicht' },
         differenzialdiagnosen: [
           {
             dd: 'Gastroenteritis',
@@ -2732,12 +2763,10 @@ export function seedCases(): Case[] {
         'auf-appendektomie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wo genau sind die Schmerzen — können Sie mit einem Finger darauf zeigen?', kapitel: 'aktuell' },
-        { frage: 'Haben die Schmerzen zunächst um den Nabel begonnen und sind dann nach rechts unten gewandert?', kapitel: 'aktuell' },
-        { frage: 'Wird der Schmerz beim Auftreten, Hüpfen oder bei Erschütterungen stärker?', kapitel: 'aktuell' },
-        { frage: 'Wann haben Sie zuletzt gegessen und getrunken — im Hinblick auf eine mögliche Operation?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber, und wurde es rektal beziehungsweise axillär gemessen?', kapitel: 'vegetativ' },
-        { frage: 'Wurden Sie schon einmal am Bauch operiert, oder haben Sie einen bekannten Leistenbruch?', kapitel: 'vorerkrankungen' },
+        { frage: 'Haben Sie die Schmerzen zuerst um den Bauchnabel gespürt, und sind sie dann in den rechten Unterbauch gewandert?', kapitel: 'aktuell' },
+        { frage: 'Werden die Schmerzen stärker, wenn Sie laufen, hüpfen oder auf einer holprigen Straße fahren?', kapitel: 'aktuell' },
+        { frage: 'Kam die Übelkeit oder das Erbrechen erst, nachdem die Schmerzen begonnen hatten?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie seit Beginn der Schmerzen komplett die Lust auf Essen verloren?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Erzählen Sie, wen Sie gesehen haben und welche Beschwerden er hat.',
@@ -2849,6 +2878,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Thomas Heidenreich',
           age: 55,
@@ -2932,11 +2962,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Metallstaub und Schneidöl, ja, das gehört in der Schlosserei dazu. Wir haben Absaugung und Handschuhe, aber sauber ist es nie.',
           'pers-hausarzt': 'Ja, einen Hausarzt habe ich. Er hat mich hierhergeschickt.',
           'akt-motiv': 'Es geht mir seit Monaten sehr schlecht. Ich bin ständig niedergeschlagen, zu nichts mehr in der Lage und habe an nichts mehr Freude.',
-          'akt-ort': 'Einen bestimmten Ort kann ich nicht zeigen — es sitzt eher innerlich, in der Brust und im Kopf, wie eine Schwere und eine Leere.',
           'akt-beginn': 'Angefangen hat es vor etwa drei Monaten, ganz langsam, und seitdem ist es immer schlimmer geworden.',
-          'akt-charakter': 'Es ist kein richtiger Schmerz. Es fühlt sich an wie eine bleierne Müdigkeit und eine innere Leere, ich bin zu nichts mehr zu bewegen.',
-          'akt-intensitaet': 'Wenn ich die Belastung einordnen soll, dann ist sie fast durchgehend sehr stark, so acht von zehn.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus.',
+          'akt-psych-stimmung': 'Schlecht … eigentlich die ganze Zeit. Morgens ist es am schlimmsten, ganz unten. Abends geht es mir ein kleines bisschen besser, aber wirklich gut fühlt es sich nie an.',
+          'akt-psych-antrieb': 'Ja, sehr schwer. Ich liege oft lange da, bevor ich überhaupt aufstehen kann. Freude … das kenne ich im Moment gar nicht mehr, auch nicht bei Sachen, die mir früher wichtig waren.',
+          'akt-psych-schlaf': 'Ich schlafe schlecht, wache meistens schon gegen vier Uhr auf und komme dann nicht mehr zur Ruhe. Und konzentrieren kann ich mich auch kaum noch, ich verliere schnell den Faden.',
+          'akt-psych-sicherheit': '(nach einer langen Pause, leise) Ja … manchmal denke ich, es wäre mir egal, ob ich noch da bin. Aber mir etwas antun — nein, das würde ich nicht. Einen Plan habe ich nicht.',
           'akt-verlauf': 'Es ist eigentlich den ganzen Tag da. Morgens ist es am schlimmsten, zum Abend hin wird es ein wenig erträglicher.',
           'akt-ausloeser': 'Angefangen hat es, nachdem meine Schwester vor drei Monaten an Leukämie gestorben ist. Wir standen uns sehr nah. Seitdem geht es nur bergab.',
           'akt-einfluss': 'Nichts bessert es wirklich. Ablenkung hilft kaum. Abends nehme ich manchmal eine Schlaftablette und trinke ein paar Bier, damit ich überhaupt zur Ruhe komme.',
@@ -2986,6 +3016,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Mittelgradige bis schwere depressive Episode (ICD-10 F32) mit somatischem Syndrom und passiven Suizidgedanken (Erstmanifestation, ausgelöst durch den Tod der Schwester)',
+        patientWorte: { verdacht: 'bei Ihnen eine ausgeprägte depressive Episode vorliegt, ausgelöst durch den schweren Verlust Ihrer Schwester', diagnostik: 'führe ich ein ausführliches Gespräch mit Ihnen, prüfe Ihre Blutwerte und schließe körperliche Ursachen aus', therapie: 'helfen Ihnen eine Gesprächstherapie und, wenn nötig, ein stimmungsaufhellendes Medikament, und wir begleiten Sie in dieser Zeit engmaschig' },
         differenzialdiagnosen: [
           {
             dd: 'Organisch bedingte (sekundäre) Depression, v. a. bei Hypothyreose',
@@ -3061,14 +3092,9 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Wie ist Ihre Stimmung in letzter Zeit — fühlen Sie sich niedergeschlagen, traurig oder innerlich leer?', kapitel: 'fach' },
-        { frage: 'Haben Sie noch Freude oder Interesse an Dingen, die Ihnen früher wichtig waren?', kapitel: 'aktuell' },
-        { frage: 'Wie ist Ihr Antrieb und Ihre Energie im Alltag — fällt Ihnen schon Aufstehen und Anziehen schwer?', kapitel: 'aktuell' },
-        { frage: 'Wachen Sie morgens sehr früh auf, und ist es morgens schlimmer als abends (Morgentief)?', kapitel: 'aktuell' },
-        { frage: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist, oder haben Sie Gedanken, sich etwas anzutun? Gibt es einen konkreten Plan?', kapitel: 'fach' },
-        { frage: 'Gab es ein belastendes Ereignis, einen Verlust, eine Trennung oder Stress bei der Arbeit?', kapitel: 'familie-sozial' },
-        { frage: 'Gab es früher Phasen, in denen Sie umgekehrt sehr euphorisch, überaktiv waren und wenig Schlaf brauchten?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sind Sie oft kälteempfindlich, sehr müde, haben Sie trockene Haut? (Hinweis auf eine Schilddrüsenunterfunktion)', kapitel: 'vegetativ' },
+        { frage: 'Fällt es Ihnen inzwischen schwer, sich morgens anzuziehen oder aus dem Bett aufzustehen?', kapitel: 'aktuell' },
+        { frage: 'Gab es früher Phasen, in denen Sie umgekehrt sehr euphorisch oder überaktiv waren und kaum Schlaf brauchten?', kapitel: 'vorerkrankungen' },
+        { frage: 'Frieren Sie in letzter Zeit leichter als sonst, und ist Ihre Haut trockener geworden?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und wie begründen Sie sie?',
@@ -3199,6 +3225,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Bernd Mais',
           age: 56,
@@ -3291,6 +3318,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich habe seit drei Tagen hohes Fieber und einen schlimmen Husten, und ich bekomme immer schlechter Luft.',
           'akt-ort': 'Wenn Sie den Schmerz meinen — der sitzt hier rechts in der Brust, vor allem beim Atmen.',
           'akt-beginn': 'Das Fieber kam vor drei Tagen ganz plötzlich; seitdem ist alles nur schlimmer geworden.',
+          'akt-infekt-fieber': 'Ja, gemessen — bis 40 Grad. Am höchsten abends. Und Schüttelfrost hatte ich auch, richtig schlimm.',
+          'akt-infekt-kontakt': 'Nein, im Ausland war ich nicht. Kranke kenn ich auch keine, mit denen ich zu tun hatte. Und Tiere — nein, nichts Besonderes gegessen.',
+          'akt-infekt-herd': 'Husten hab ich, mit gelbem, zähem Schleim. Halsschmerzen keine. Beim Wasserlassen brennt nichts, kein Durchfall, kein Ausschlag, keine Wunde.',
           'akt-charakter': 'Das Fieber schüttelt mich richtig; der Schmerz in der Brust ist stechend, besonders beim Einatmen und Husten.',
           'akt-intensitaet': 'Das Fieber ging bis 40 Grad; den Brustschmerz würde ich mit etwa 6 von 10 angeben.',
           'akt-ausstrahlung': 'Nein, der Schmerz strahlt nicht aus, er bleibt in der Brust.',
@@ -3342,6 +3372,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Ambulant erworbene Pneumonie (CAP), am ehesten rechtsbasal, bei erhöhtem Risikoprofil (Diabetes mellitus, Z. n. Prostatakarzinom mit Zytostatikatherapie)',
+        patientWorte: { verdacht: 'Sie eine Lungenentzündung haben, die durch Ihre Vorerkrankungen etwas riskanter verläuft', diagnostik: 'hören wir Ihre Lunge ab, machen ein Röntgenbild und nehmen Ihnen Blut ab', therapie: 'werden Sie stationär aufgenommen und bekommen Sauerstoff sowie ein Antibiotikum über die Vene' },
         differenzialdiagnosen: [
           {
             dd: 'Akute Bronchitis',
@@ -3413,12 +3444,9 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?', kapitel: 'fach' },
-        { frage: 'Ist der Brustschmerz atemabhängig?', kapitel: 'aktuell' },
-        { frage: 'Wie hoch ist das Fieber, und haben Sie Schüttelfrost?', kapitel: 'vegetativ' },
-        { frage: 'Sind Sie gegen Pneumokokken oder Influenza geimpft?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wurden Sie mit Zytostatika oder einer Strahlentherapie behandelt (Immunsuppression)?', kapitel: 'medikamente' },
-        { frage: 'Hatten Sie kürzlich Kontakt zu Kranken oder eine Reise?', kapitel: 'familie-sozial' },
+        { frage: 'Sind Sie gegen die Grippe oder gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wurden Sie wegen Ihrer Krebserkrankung mit einer Chemotherapie oder Bestrahlung behandelt?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie in den letzten Wochen ein Antibiotikum eingenommen?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Welche Verdachtsdiagnose haben Sie?',
@@ -3703,6 +3731,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Pyelonephritis rechts bei Diabetes mellitus (komplizierte Harnwegsinfektion des oberen Harntrakts)',
+        patientWorte: { verdacht: 'sich Ihr Nierenbecken entzündet hat, eine sogenannte Nierenbeckenentzündung auf der rechten Seite', diagnostik: 'untersuchen wir Ihren Urin, legen eine Urinkultur an und nehmen Ihnen Blut ab', therapie: 'werden Sie stationär aufgenommen und bekommen ein Antibiotikum über die Vene sowie ausreichend Flüssigkeit' },
         differenzialdiagnosen: [
           {
             dd: 'Untere Harnwegsinfektion (Zystitis)',
@@ -3777,13 +3806,10 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?', kapitel: 'vegetativ' },
-        { frage: 'Müssen Sie häufiger Wasser lassen, auch nachts, und kommt dabei nur wenig?', kapitel: 'vegetativ' },
-        { frage: 'Wie sieht der Urin aus — trüb, blutig, riecht er auffällig?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Schmerzen oder ein Klopfen in der Flanke, strahlen sie in die Leiste aus?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen, dazu Schüttelfrost?', kapitel: 'vegetativ' },
-        { frage: 'Hatten Sie in letzter Zeit schon einmal eine Blasenentzündung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sind bei Ihnen Nierensteine oder Harnwegsinfekte bekannt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wie oft hatten Sie in den letzten Jahren schon eine Blasen- oder Nierenbeckenentzündung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wie gut ist Ihr Blutzucker eingestellt, und wann wurde er zuletzt kontrolliert?', kapitel: 'vorerkrankungen' },
+        { frage: 'Ist Ihnen aufgefallen, dass Sie in den letzten Tagen verwirrter waren als sonst?', kapitel: 'aktuell' },
+        { frage: 'Wurde bei Ihnen kürzlich ein Blasenkatheter gelegt oder eine Untersuchung der Harnwege durchgeführt?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose?',
@@ -4033,6 +4059,14 @@ export function seedCases(): Case[] {
           'fach-kardio-oedeme': 'Nein, die Beine sind nicht geschwollen; ich schlafe mit einem Kissen.',
           'fach-kardio-nykturie': 'Nein, nachts muss ich normalerweise nicht raus.',
           'fach-kardio-synkope': 'Nein, schwarz vor Augen oder ohnmächtig war ich nie.',
+          'fach-gefaess-gehstrecke': 'Nach ungefähr hundert Metern muss ich wegen der Wade stehen bleiben, das zieht richtig krampfartig. Wenn ich dann kurz stehen bleibe, ein, zwei Minuten, wird es besser und ich kann weitergehen. Bergauf ist es noch schlimmer, da reicht schon weniger.',
+          'fach-gefaess-ruheschmerz': 'Nein, in Ruhe oder nachts im Bett habe ich keine Schmerzen. Das kommt wirklich nur, wenn ich laufe.',
+          'fach-gefaess-schwellung': 'Geschwollen oder rot ist da nichts, aber manchmal kommt mir das rechte Bein blasser und kühler vor als das linke. Spannen tut die Wade eigentlich nicht, nur der Schmerz beim Gehen.',
+          'fach-gefaess-immobilisation': 'Nein, ich war nicht länger ruhiggestellt, keine lange Reise, kein Gips, keine Operation in letzter Zeit.',
+          'fach-gefaess-hormone': 'Nein, so etwas nehme ich nicht, das ist doch eher was für Frauen, oder?',
+          'fach-gefaess-thrombose': 'Nein, eine Thrombose oder eine Lungenembolie hatte ich noch nie, und in der Familie ist mir davon auch nichts bekannt.',
+          'fach-gefaess-wunde': 'Nein, schlecht heilende Wunden habe ich keine. Aber wie gesagt, der Fuß fühlt sich manchmal etwas kühler und blasser an als der linke.',
+          'fach-gefaess-vorgeschichte': 'Krampfadern habe ich keine. Meine Gefäße wurden noch nie untersucht oder operiert, kein Stent, kein Bypass. Ach, und falls das noch nicht gefragt wurde: Gegen Penizillin bin ich allergisch, falls das wichtig ist.',
         },
         schwierigeReaktionen: [
           '(zum Rauchen) "Aber mit dem Bein hat das Rauchen doch nichts zu tun, oder?"',
@@ -4043,6 +4077,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Periphere arterielle Verschlusskrankheit (pAVK) des rechten Beins, Fontaine-Stadium IIb (am ehesten femoropoplitealer Oberschenkeltyp)',
+        patientWorte: { verdacht: 'ein Gefäß in Ihrem rechten Bein verengt ist und deshalb beim Gehen zu wenig Blut ankommt', diagnostik: 'tasten wir die Fußpulse, messen den Blutdruck an Arm und Bein und lassen Sie auf dem Laufband gehen', therapie: 'helfen Ihnen Nikotinverzicht, Gehtraining und gefäßschützende Medikamente, bei stärkerer Verengung auch eine Gefäßaufdehnung oder Operation' },
         differenzialdiagnosen: [
           {
             dd: 'Claudicatio spinalis (Spinalkanalstenose)',
@@ -4124,10 +4159,11 @@ export function seedCases(): Case[] {
       probableAufklaerungIds: [
         'auf-angiographie',
       ],
+      fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
-        { frage: 'Nach welcher Gehstrecke treten die Schmerzen auf, und bessern sie sich schon beim Stehenbleiben?', kapitel: 'fach' },
-        { frage: 'Ist das betroffene Bein kühler oder blasser als das andere?', kapitel: 'aktuell' },
-        { frage: 'Verschlimmern sich die Schmerzen bergauf oder bei schnellerem Gehen?', kapitel: 'aktuell' },
+        { frage: 'Nach welcher Gehstrecke bekommen Sie die Schmerzen im Bein, und werden sie besser, wenn Sie stehen bleiben?', kapitel: 'aktuell' },
+        { frage: 'Fühlt sich das Bein kühler oder blasser an als das andere?', kapitel: 'aktuell' },
+        { frage: 'Werden die Schmerzen schlimmer, wenn Sie bergauf gehen oder schneller laufen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie schlecht heilende Wunden oder Schmerzen in Ruhe, besonders nachts?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -4225,6 +4261,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Nadine Brückner',
           age: 44,
@@ -4325,6 +4362,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich fühle mich seit vier Tagen grippig — Kopf- und Gliederschmerzen, müde, leicht erhöhte Temperatur. Und seit zwei Tagen habe ich am rechten Oberschenkel eine rote Stelle, die immer größer wird.',
           'akt-ort': 'Die Rötung ist außen am rechten Oberschenkel. Ansonsten tut mir eigentlich alles weh, so ein Gliederschmerz am ganzen Körper.',
           'akt-beginn': 'Das grippige Gefühl habe ich seit vier Tagen; die Rötung ist etwa zwei Tage später dazugekommen. Es hat langsam angefangen.',
+          'akt-infekt-fieber': 'Gemessen hab ich, ja — bis 37,9, also nur leicht erhöht. Schüttelfrost hatte ich keinen.',
+          'akt-infekt-kontakt': 'Im Ausland war ich nicht, aber ich war drei Wochen mit meinem Partner im Wanderurlaub, in einer Waldgegend an der Schweizer Grenze. Mit kranken Leuten hatte ich keinen Kontakt, Tiere auch nicht — und einen Zeckenstich hab ich nicht bemerkt.',
+          'akt-infekt-herd': 'Schnupfen hab ich, ja. Halsschmerzen nicht, beim Wasserlassen brennt nichts, kein Durchfall. Einen Ausschlag — na, außer der roten Stelle am Oberschenkel, die ich ja schon erwähnt hab.',
           'akt-charakter': 'Die Stelle juckt leicht und ist bei Berührung ein bisschen empfindlich. Richtig weh tut sie nicht. Die Glieder fühlen sich dumpf und schwer an.',
           'akt-intensitaet': 'Der Ausschlag selbst so 2 von 10. Das grippige Krankheitsgefühl belastet mich mehr.',
           'akt-ausstrahlung': 'Nein, die Rötung strahlt nicht aus, sie breitet sich nur langsam ringförmig nach außen aus.',
@@ -4379,6 +4419,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Lyme-Borreliose im Stadium I (früh-lokalisiert) mit Erythema migrans am rechten Oberschenkel nach Aufenthalt in einem Endemiegebiet (Wanderurlaub im Wald)',
+        patientWorte: { verdacht: 'Sie sich durch den Zeckenbiss eine Infektion mit Bakterien zugezogen haben, eine sogenannte Borreliose, erkennbar an der wandernden Hautrötung', diagnostik: 'untersuche ich die Hautrötung genau und schließe mit Ihrer Reise- und Zeckenanamnese andere Ursachen aus', therapie: 'bekommen Sie zwei Wochen lang ein Antibiotikum zum Einnehmen, das die Erkrankung in diesem frühen Stadium gut heilt' },
         differenzialdiagnosen: [
           {
             dd: 'Frühsommer-Meningoenzephalitis (FSME)',
@@ -4453,14 +4494,10 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie einen Zeckenstich oder Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht die Hautrötung aus — breitet sie sich ringförmig aus, mit hellerer Mitte und rotem Rand?', kapitel: 'aktuell' },
-        { frage: 'Seit wann besteht die Rötung, und wird sie größer?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Kopfschmerzen, Nackensteifigkeit, ein Kribbeln, Taubheitsgefühle oder eine Gesichtslähmung bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Gelenkschmerzen oder geschwollene Gelenke, wandern die Schmerzen von Gelenk zu Gelenk?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Herzstolpern, Herzrasen, Schwindel oder waren Sie ohnmächtig?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie kürzlich verreist, und wie ist Ihr Impfstatus gegen FSME und Tetanus?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie weitere solche Rötungen an anderen Körperstellen?', kapitel: 'aktuell' },
+        { frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell' },
+        { frage: 'Seit wann haben Sie diese Rötung bemerkt, und wird sie größer?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Herzstolpern, Herzrasen oder Schwindel bemerkt, oder waren Sie schon einmal ohnmächtig?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie ähnliche Rötungen auch an anderen Stellen des Körpers bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose und warum?',
@@ -4756,6 +4793,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Sprunggelenkfraktur rechts (Außenknöchelfraktur / Malleolus-lateralis-Fraktur), am ehesten vom Typ Weber B, nach Supinations-/Umknicktrauma',
+        patientWorte: { verdacht: 'Sie sich beim Umknicken den Außenknöchel Ihres rechten Sprunggelenks gebrochen haben', diagnostik: 'prüfen wir Durchblutung und Gefühl im Fuß und machen ein Röntgenbild des Sprunggelenks', therapie: 'wird das Gelenk zunächst geschient und gekühlt, und je nach Bruchform ist eine Operation zur Stabilisierung nötig' },
         differenzialdiagnosen: [
           {
             dd: 'Distorsion des oberen Sprunggelenks mit Außenbandruptur (Supinationstrauma)',
@@ -4845,12 +4883,9 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie genau ist der Unfall passiert — sind Sie nach innen oder nach außen umgeknickt?', kapitel: 'aktuell' },
-        { frage: 'Konnten Sie danach noch auftreten oder ein paar Schritte gehen?', kapitel: 'aktuell' },
-        { frage: 'Ist der Knöchel geschwollen oder blau verfärbt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein Taubheitsgefühl, ein Kribbeln oder Kraftlosigkeit im Fuß, oder fühlt sich der Fuß kalt an?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Blutverdünner ein?', kapitel: 'medikamente' },
-        { frage: 'Hatten Sie schon einmal eine Thrombose, und haben Sie eine bekannte Gerinnungsstörung in der Familie?', kapitel: 'familie-sozial' },
+        { frage: 'Sind Sie mit dem Fuß nach innen oder nach außen umgeknickt?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie selbst schon einmal eine Thrombose oder eine Lungenembolie?', kapitel: 'vorerkrankungen' },
+        { frage: 'Ist in Ihrer Familie eine Gerinnungsstörung bekannt?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und wie begründen Sie sie?',
@@ -5082,6 +5117,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Lumbaler Bandscheibenvorfall L4/L5 mit Wurzelreizsyndrom (Radikulopathie) L5 rechts',
+        patientWorte: { verdacht: 'eine Bandscheibe in Ihrem unteren Rücken auf einen Nerv drückt und dadurch die Schmerzen ins Bein auslöst', diagnostik: 'prüfe ich Kraft, Reflexe und Gefühl in Ihrem Bein und veranlasse bei Bedarf eine Kernspintomographie', therapie: 'reichen meist Schmerzmittel, Krankengymnastik und Bewegung aus, nur selten ist eine Operation notwendig' },
         differenzialdiagnosen: [
           {
             dd: 'Spinalkanalstenose (Claudicatio spinalis)',
@@ -5148,9 +5184,9 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie noch normal Wasser lassen und Stuhlgang haben, und ist der Bereich zwischen den Beinen (Sattelbereich) taub?', kapitel: 'aktuell' },
-        { frage: 'Ist das Bein schwächer geworden — können Sie noch gut auf den Zehen und den Fersen stehen?', kapitel: 'aktuell' },
-        { frage: 'Wird der Schmerz beim Husten oder Niesen stärker und schießt dann ins Bein?', kapitel: 'aktuell' },
+        { frage: 'Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen?', kapitel: 'aktuell' },
+        { frage: 'Werden die Schmerzen beim Husten, Niesen oder Pressen stärker und schießen dann ins Bein?', kapitel: 'aktuell' },
+        { frage: 'Strahlt der Schmerz bis in den Fuß oder die große Zehe aus?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und welche Nervenwurzel ist am ehesten betroffen?',
@@ -5385,6 +5421,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akuter Gichtanfall (Arthritis urica) des Großzehengrundgelenks links — Podagra bei Hyperurikämie, ausgelöst durch eine purin- und alkoholreiche Mahlzeit sowie durch das seit drei Monaten eingenommene Thiaziddiuretikum',
+        patientWorte: { verdacht: 'es sich um einen akuten Gichtanfall in Ihrem linken Großzehengrundgelenk handelt', diagnostik: 'nehmen wir Ihnen Blut ab und untersuchen bei Bedarf Gelenkflüssigkeit aus dem betroffenen Gelenk', therapie: 'bekommen Sie entzündungshemmende Schmerzmittel, und wir passen langfristig Ihre Ernährung sowie Ihre Medikamente an, um weitere Anfälle zu vermeiden' },
         differenzialdiagnosen: [
           {
             dd: 'Septische (bakterielle) Arthritis',
@@ -5517,15 +5554,10 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was haben Sie am Abend vor den Beschwerden gegessen und getrunken — gab es eine Feier mit viel Fleisch, Bier oder Schnaps?', kapitel: 'noxen' },
-        { frage: 'Kam der Schmerz aus dem Schlaf heraus, und war das Gelenk am Morgen bereits rot und geschwollen?', kapitel: 'aktuell' },
-        { frage: 'Können Sie das Gelenk überhaupt noch berühren — halten Sie die Bettdecke oder einen Schuh darauf aus?', kapitel: 'aktuell' },
-        { frage: 'Ist außer der Großzehe noch ein anderes Gelenk betroffen, oder wandern die Beschwerden von Gelenk zu Gelenk?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen? Gibt es eine Verletzung, einen Insektenstich oder eine offene Stelle am Fuß?', kapitel: 'vegetativ' },
-        { frage: 'Hatten Sie so eine Episode schon einmal, und ist sie damals von allein wieder verschwunden?', kapitel: 'aktuell' },
-        { frage: 'Wurde bei Ihnen in letzter Zeit eine neue Tablette angesetzt, insbesondere eine Wassertablette?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie in der letzten Zeit gefastet, eine Diät gemacht oder rasch Gewicht verloren?', kapitel: 'vegetativ' },
-        { frage: 'Sind bei Ihnen jemals Nierensteine aufgetreten, und gibt es in der Familie Gicht oder Nierensteine?', kapitel: 'familie-sozial' },
+        { frage: 'Sind die Schmerzen nachts aus dem Schlaf heraus aufgetreten?', kapitel: 'aktuell' },
+        { frage: 'Gibt es am betroffenen Fuß eine offene Stelle, eine Verletzung oder einen Insektenstich?', kapitel: 'aktuell' },
+        { frage: 'Wie oft im Jahr haben Sie ungefähr solche Anfälle?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie selbst schon einmal Nierensteine?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
@@ -5700,6 +5732,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Gabriela Hubert',
           age: 34,
@@ -5790,11 +5823,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit gefährlichen Stoffen habe ich beruflich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Herr Dr. Maiser, er hat mich zu Ihnen geschickt.',
           'akt-motiv': 'Seit etwa drei Monaten kribbelt mein linkes Bein, und es ist schwächer geworden. Beim Gehen und vor allem beim Treppensteigen tue ich mich sehr schwer.',
-          'akt-ort': 'Das Kribbeln ist im ganzen linken Bein, vom Oberschenkel bis zum Fuß. (streicht über das linke Bein) Die Haut fühlt sich dort auch pelzig an.',
           'akt-beginn': 'Vor ungefähr drei Monaten. Es hat ganz langsam angefangen, zuerst nur im Fuß, und ist dann immer mehr geworden.',
-          'akt-charakter': 'Es kribbelt wie Ameisen, und das Bein fühlt sich taub und pelzig an. Weh tut es überhaupt nicht.',
-          'akt-intensitaet': 'Schmerzen habe ich gar keine, deswegen kann ich Ihnen keine Schmerzstärke nennen. Aber wenn ich sagen soll, wie sehr mich das Ganze belastet: etwa 7 von 10.',
-          'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus. Es bleibt im linken Bein — das rechte Bein ist bis jetzt in Ordnung.',
+          'akt-neuro-ausfall': 'Es ist mein linkes Bein — da ist es taub und pelzig und auch schwächer geworden, ich tue mich schwer beim Gehen und vor allem beim Treppensteigen. Sprechen und Schlucken sind bei mir in Ordnung, und im Moment sehe ich auch normal.',
+          'akt-neuro-dauer': 'Das ist jetzt schon seit etwa drei Monaten so, und es ist nicht wieder weggegangen — im Gegenteil, es ist langsam schlimmer geworden. Im Moment ist es also noch da.',
+          'akt-neuro-lage': 'Schwindel im Sinne von Drehen habe ich nicht, aber ich bin unsicher auf den Beinen und schwanke manchmal, vor allem wenn es dunkel ist. Und wenn ich den Kopf nach vorne beuge, spüre ich manchmal so ein elektrisches Gefühl, das den Rücken hinunterzieht.',
           'akt-verlauf': 'Es ist eigentlich ständig da und langsam schlimmer geworden. Am Anfang war es nur das Kribbeln, jetzt ist das Bein auch richtig schwach.',
           'akt-ausloeser': 'Einen richtigen Auslöser gibt es nicht. Mir ist nur aufgefallen: wenn ich heiß dusche oder in der Sauna war, wird es für eine Weile deutlich schlimmer.',
           'akt-einfluss': 'Bei Wärme und bei Anstrengung wird es schlechter, in Ruhe und wenn ich mich abkühle, wird es wieder besser. Medikamente habe ich dagegen keine genommen.',
@@ -5850,6 +5882,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Multiple Sklerose (Erstdiagnose beim zweiten Schub) — schubförmig-remittierender Verlauf; aktueller Schub mit spastisch-sensibler Monosymptomatik des linken Beins bei anamnestisch vorausgegangener Retrobulbärneuritis rechts vor drei Jahren (Dissemination in Ort und Zeit)',
+        patientWorte: { verdacht: 'eine entzündliche Erkrankung des Nervensystems vorliegt, die als multiple Sklerose bezeichnet wird', diagnostik: 'machen wir eine Kernspintomographie des Kopfes und Rückenmarks sowie eine Untersuchung des Nervenwassers', therapie: 'behandeln wir den akuten Schub mit hochdosiertem Kortison über die Vene, und danach besprechen wir eine langfristige Basistherapie' },
         differenzialdiagnosen: [
           {
             dd: 'Spinalkanalstenose (Claudicatio spinalis)',
@@ -5988,11 +6021,9 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie früher schon einmal ähnliche Beschwerden, die von selbst wieder verschwunden sind — zum Beispiel eine Sehstörung, Doppelbilder oder ein Taubheitsgefühl an einer anderen Körperstelle?', kapitel: 'vorerkrankungen' },
         { frage: 'Werden die Beschwerden schlimmer, wenn Sie heiß duschen, in die Sauna gehen oder wenn es draußen sehr warm ist?', kapitel: 'aktuell' },
         { frage: 'Spüren Sie beim Vorbeugen des Kopfes ein elektrisierendes Gefühl, das den Rücken hinunterzieht?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie beim Sehen Schmerzen bei Augenbewegungen, oder haben Farben blasser gewirkt?', kapitel: 'aktuell' },
-        { frage: 'Können Sie den Urin und den Stuhl halten, haben Sie plötzlichen Harndrang oder ein Taubheitsgefühl im Sattelbereich?', kapitel: 'aktuell' },
-        { frage: 'Sind die Beschwerden ganz ohne Schmerzen aufgetreten, und gibt es einen Zusammenhang mit Heben, Husten oder Niesen?', kapitel: 'aktuell' },
-        { frage: 'Wurden Sie von einer Zecke gestochen oder hatten Sie einen ringförmigen Hautausschlag?', kapitel: 'aktuell' },
-        { frage: 'Wie kommen Sie im Alltag zurecht — in welchem Stockwerk wohnen Sie, gibt es einen Aufzug, und wie schaffen Sie die Treppen?', kapitel: 'familie-sozial' },
+        { frage: 'Haben Sie bemerkt, dass Farben, zum Beispiel Rot, blasser oder weniger kräftig wirken als sonst?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie ein Taubheitsgefühl im Bereich zwischen den Beinen bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Wurden Sie von einer Zecke gestochen, oder hatten Sie einen ringförmigen Hautausschlag?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und welche Differenzialdiagnosen kommen in Betracht? (Spinalkanalstenose, Bandscheibenvorfall, Polyneuropathie, pAVK, Wirbelsäulenfraktur, Migräne, Hypothyreose, Vitamin-B12-Mangel)',
@@ -6314,6 +6345,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Reizdarmsyndrom (Colon irritabile), Mischtyp mit Obstipationsprädominanz (RDS-M) — Ausschlussdiagnose nach den Rom-IV-Kriterien',
+        patientWorte: { verdacht: 'es sich am ehesten um einen Reizdarm handelt, also eine gutartige Störung im Zusammenspiel von Darm und Nerven', diagnostik: 'nehmen wir Ihnen Blut ab, untersuchen eine Stuhlprobe und lassen Sie einige Wochen lang ein Ernährungs- und Stuhltagebuch führen', therapie: 'passen wir gemeinsam Ihre Ernährung an und besprechen Medikamente gegen die Krämpfe, eine Heilung braucht aber vor allem Geduld' },
         differenzialdiagnosen: [
           {
             dd: 'Chronisch-entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)',
@@ -6462,16 +6494,12 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Werden die Schmerzen nach dem Stuhlgang besser oder schlechter?', kapitel: 'aktuell' },
-        { frage: 'Hat sich die Häufigkeit oder die Form Ihres Stuhls verändert, seit die Schmerzen begonnen haben?', kapitel: 'aktuell' },
-        { frage: 'Wachen Sie nachts wegen der Schmerzen auf?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt abgenommen?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Blut oder schwarzen Stuhl bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie einen Zusammenhang mit bestimmten Speisen bemerkt, zum Beispiel mit Milchprodukten oder Brot?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Familie Darmkrebs oder eine chronische Darmentzündung?', kapitel: 'familie-sozial' },
-        { frage: 'Waren Sie in den letzten Monaten im Ausland oder haben Sie Antibiotika eingenommen?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Stress haben Sie zurzeit bei der Arbeit?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie Gelenkschmerzen, Augenentzündungen oder Hautveränderungen bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Werden Ihre Bauchschmerzen besser, wenn Sie Stuhlgang haben, oder ändert sich dadurch nichts?', kapitel: 'aktuell' },
+        { frage: 'Hat sich seit Beginn der Schmerzen verändert, wie oft Sie zur Toilette müssen oder wie der Stuhl aussieht?', kapitel: 'aktuell' },
+        { frage: 'Wachen Sie nachts wegen der Bauchschmerzen auf?', kapitel: 'aktuell' },
+        { frage: 'Gibt es in Ihrer Familie Darmkrebs oder eine chronische Darmentzündung wie Morbus Crohn oder Colitis ulcerosa?', kapitel: 'familie-sozial' },
+        { frage: 'Wie sehr belastet Sie Stress zurzeit, zum Beispiel bei der Arbeit?', kapitel: 'familie-sozial' },
+        { frage: 'Haben Sie Gelenkschmerzen, Augenprobleme oder Hautveränderungen bemerkt, die zusammen mit den Bauchbeschwerden aufgetreten sind?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose?',
@@ -6639,6 +6667,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
           age: 79,
@@ -6725,11 +6754,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Holzstaub, ja — vierzig Jahre lang, und Lacke und Beize. Schutzmaske haben wir früher kaum getragen.',
           'pers-hausarzt': 'Ja, ich habe einen Hausarzt, aber wegen der Sache heute bin ich gleich hierher gekommen.',
           'akt-motiv': 'Seit heute Vormittag hängt mein linker Mundwinkel, mein linker Arm ist schwach und ich spreche verwaschen. Solche Anfälle habe ich seit etwa zwei Wochen immer wieder, aber diesmal geht es nicht mehr weg.',
-          'akt-ort': 'Es betrifft die linke Seite — das Gesicht und den linken Arm; die linke Gesichtshälfte und die Hand fühlen sich pelzig an.',
           'akt-beginn': 'Das Ganze geht seit etwa zwei Wochen; die einzelnen Anfälle kamen mehrmals am Tag. Der jetzige hat heute Vormittag angefangen und hört nicht mehr auf.',
-          'akt-charakter': 'Weh tut nichts. Es ist eher eine Schwäche und ein taubes, pelziges Gefühl, dazu die undeutliche Sprache.',
-          'akt-intensitaet': 'Schmerzen habe ich keine. Aber den linken Arm kann ich kaum heben, und das macht mir große Angst.',
-          'akt-ausstrahlung': 'Nein, ausstrahlen tut nichts — es sind eben die Schwäche und die Taubheit auf der linken Seite.',
+          'akt-neuro-ausfall': 'Heute ist es mein linker Arm, der schwach ist, und mein Mund hängt links herunter — meine Frau hat es gleich gesehen. Auch meine Sprache ist verwaschen, und Gesicht und Arm links fühlen sich pelzig an.',
+          'akt-neuro-dauer': 'Die früheren Anfälle waren immer nach ungefähr zwanzig Minuten wieder vorbei. Aber der von heute Vormittag ist jetzt schon seit Stunden da und will einfach nicht weggehen.',
+          'akt-neuro-lage': 'Ob ich liege, sitze oder aufstehe, das macht keinen Unterschied, es bleibt gleich. Richtiges Drehschwindel habe ich nicht, aber bei den Anfällen war mir manchmal schwindelig und ich bin unsicher auf den Beinen gewesen.',
           'akt-verlauf': 'Bisher waren die Anfälle nach etwa zwanzig Minuten wieder vorbei, aber sie wurden von Tag zu Tag heftiger. Der von heute ist jetzt schon seit Stunden da und bildet sich nicht zurück.',
           'akt-ausloeser': 'Einen richtigen Auslöser sehe ich nicht. In letzter Zeit habe ich viel Stress, weil ich wegen der geschlossenen Schulen oft auf die Enkel aufpasse.',
           'akt-einfluss': 'Ob ich mich hinlege oder bewege, ändert nichts. Bei einem Anfall habe ich sogar das Gleichgewicht verloren und bin die Kellertreppe hinuntergestürzt — dabei habe ich mir nur die Knie aufgeschlagen, den Kopf nicht.',
@@ -6777,6 +6805,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Ischämischer Schlaganfall im Versorgungsgebiet der A. cerebri media rechts, am ehesten kardioembolisch bei Vorhofflimmern, mit vorausgegangenen transitorischen ischämischen Attacken (Crescendo-TIA) in wechselnden Stromgebieten — die Amaurosis fugax des linken Auges und die Wortfindungsstörungen weisen zusätzlich auf Embolien in das linke Karotisstromgebiet hin, was die kardiale Emboliequelle stützt',
+        patientWorte: { verdacht: 'Sie einen Schlaganfall erlitten haben, weil ein Blutgerinnsel die Durchblutung in einem Teil Ihres Gehirns gestört hat', diagnostik: 'machen wir sofort eine Computertomographie vom Kopf, ein Herz-EKG und einen Ultraschall der Halsschlagadern', therapie: 'müsste das Gerinnsel möglichst schnell mit Medikamenten aufgelöst oder mit einem Katheter entfernt werden, deshalb handeln wir jetzt zügig' },
         differenzialdiagnosen: [
           {
             dd: 'Intrazerebrale Blutung',
@@ -6862,11 +6891,10 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Bilden sich die Beschwerden vollständig zurück oder bleiben sie bestehen?', kapitel: 'aktuell' },
-        { frage: 'Wann genau waren Sie zuletzt beschwerdefrei (Zeitfenster)?', kapitel: 'aktuell' },
-        { frage: 'Warum nehmen Sie Aspirin ein?', kapitel: 'medikamente' },
-        { frage: 'Ist Ihnen ein unregelmäßiger Herzschlag bzw. Vorhofflimmern bekannt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hatten Sie einen kurzzeitigen Sehverlust auf einem Auge?', kapitel: 'aktuell' },
+        { frage: 'Wann genau waren Sie zuletzt völlig beschwerdefrei — wissen Sie die genaue Uhrzeit?', kapitel: 'aktuell' },
+        { frage: 'Wissen Sie, weshalb Ihnen das Aspirin verschrieben wurde?', kapitel: 'medikamente' },
+        { frage: 'Ist Ihnen ein unregelmäßiger Herzschlag bekannt, zum Beispiel Vorhofflimmern?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie schon einmal einen kurzzeitigen Sehverlust auf einem Auge?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -7120,6 +7148,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Gallenkolik bei symptomatischer Cholezystolithiasis',
+        patientWorte: { verdacht: 'ein Gallenstein Ihre Beschwerden auslöst, der die Galle beim Abfließen behindert', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall vom Bauch, um die Gallenblase anzuschauen', therapie: 'lindern wir zunächst die Schmerzen, und die Gallenblase müsste in den nächsten Tagen in einer Routineoperation entfernt werden' },
         differenzialdiagnosen: [
           {
             dd: 'Akute Cholezystitis',
@@ -7194,12 +7223,9 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Traten die Schmerzen nach fettreichem Essen auf?', kapitel: 'aktuell' },
-        { frage: 'Strahlen die Schmerzen in die rechte Schulter oder den Rücken aus?', kapitel: 'aktuell' },
-        { frage: 'Kommen die Schmerzen in Wellen (kolikartig) oder sind sie dauerhaft?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie Fieber oder Schüttelfrost?', kapitel: 'aktuell' },
+        { frage: 'Sind die Schmerzen nach einer fettreichen Mahlzeit aufgetreten?', kapitel: 'aktuell' },
         { frage: 'Haben Sie eine Gelbfärbung der Augen, dunklen Urin oder hellen Stuhl bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihnen Gallensteine bekannt und seit wann?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Ihnen Gallensteine bekannt, und seit wann?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Was bedeutet es, wenn ein Wort auf -itis endet?',
@@ -7303,6 +7329,7 @@ export function seedCases(): Case[] {
       frequency: 25,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Anna Müller',
           age: 52,
@@ -7394,6 +7421,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Mein rechtes Bein ist seit drei Tagen dick geschwollen und tut weh, es fühlt sich heiß und gespannt an.',
           'akt-ort': 'Hier, die rechte Wade. (zeigt auf den rechten Unterschenkel)',
           'akt-beginn': 'Seit ungefähr drei Tagen. Angefangen hat es ein paar Tage, nachdem ich aus Bangkok zurückgeflogen bin.',
+          'akt-veraend-was': 'Aufgefallen ist mir vor allem, dass die Wade dick geschwollen ist, rot-bläulich verfärbt und warm — kein Knoten, keine blauen Flecken, kein Ausschlag.',
+          'akt-veraend-entwicklung': 'Es ist von Tag zu Tag schlimmer geworden, seit drei Tagen jetzt. Die Farbe ist gleich geblieben, so rötlich-bläulich, nur eben mehr davon.',
+          'akt-veraend-blutung': 'Wehtun tut\'s schon, dieses Ziehen halt. Jucken nicht. Bluten — nein, gar nicht, weder im Stuhl noch im Urin noch sonst wo.',
           'akt-charakter': 'Ein ziehender, spannender Schmerz, das ganze Bein fühlt sich schwer an.',
           'akt-intensitaet': 'So etwa 6 von 10.',
           'akt-ausstrahlung': 'Nein, eigentlich nicht, manchmal zieht es bis in die Kniekehle.',
@@ -7440,6 +7470,14 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, schwanger bin ich nicht.',
           'frau-verhuetung': 'Ich nehme die Pille.',
           'frau-wechseljahre': 'In den Wechseljahren bin ich noch nicht; zum Frauenarzt gehe ich zur Vorsorge.',
+          'fach-gefaess-gehstrecke': 'Gehen tut mir schon länger weh, aber ich muss deswegen nicht extra stehen bleiben — es tut eigentlich die ganze Zeit weh, beim Stehen genauso wie beim Gehen. Wenn ich das Bein hochlege, wird es besser, aber eine kurze Pause im Stehen bringt nichts.',
+          'fach-gefaess-ruheschmerz': 'Ja, es tut auch weh, wenn ich still sitze oder liege, sogar nachts. Das Bein hängen lassen hilft nicht, im Gegenteil — hochlegen ist das Einzige, was ein bisschen hilft.',
+          'fach-gefaess-schwellung': 'Ja, das rechte Bein ist deutlich dicker als das linke, und es fühlt sich wärmer an, fast heiß. Die Haut ist auch etwas rötlich-bläulich verfärbt, und die Wade spannt richtig.',
+          'fach-gefaess-immobilisation': 'Ja, ich bin vor ein paar Tagen von einem zwölfstündigen Flug aus Bangkok zurückgekommen, geschäftlich. Sonst war ich nicht extra ruhiggestellt, kein Gips, keine Operation.',
+          'fach-gefaess-hormone': 'Ja, ich nehme die Pille, schon seit Jahren. Schwanger bin ich nicht und auch nicht kürzlich entbunden. Aber ich glaube nicht, dass das damit zu tun hat.',
+          'fach-gefaess-thrombose': 'Selbst hatte ich noch nie eine Thrombose oder eine Lungenembolie. In der Familie... mein Vater hatte das, glaube ich, öfter, eine Gerinnungsstörung mit Thrombosen. Ich habe da nie genau nachgefragt.',
+          'fach-gefaess-wunde': 'Nein, schlecht heilende Wunden habe ich nicht. Und kalt, blass oder bläulich ist der Fuß auch nicht, nur das Bein mit der Rötung, wie ich schon gesagt habe.',
+          'fach-gefaess-vorgeschichte': 'Krampfadern habe ich am rechten Bein, schon länger. Untersucht oder operiert wurden meine Gefäße aber noch nie, kein Stent, kein Bypass.',
         },
         schwierigeReaktionen: [
           '(zum Rauchen und zur Pille) "Das nehme ich doch schon ewig, das kann doch jetzt nicht plötzlich schuld sein, oder?"',
@@ -7450,6 +7488,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Tiefe Beinvenenthrombose (TVT) des rechten Beins, ausgelöst durch Immobilisation (Langstreckenflug) und Östrogeneinnahme',
+        patientWorte: { verdacht: 'sich in einer tiefen Vene Ihres rechten Beins ein Blutgerinnsel gebildet hat', diagnostik: 'bestimmen wir einen bestimmten Blutwert und machen einen Ultraschall der Beinvenen', therapie: 'müssten Sie sofort einen Blutverdünner bekommen, um zu verhindern, dass sich das Gerinnsel weiter ausbreitet oder in die Lunge wandert' },
         differenzialdiagnosen: [
           {
             dd: 'Erysipel / Zellulitis',
@@ -7541,11 +7580,11 @@ export function seedCases(): Case[] {
       probableAufklaerungIds: [
         'auf-sonographie',
       ],
+      fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
         { frage: 'Wann genau haben die Beschwerden im Verhältnis zu Ihrem Flug begonnen, und wie lange hat der Flug gedauert?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie früher schon einmal eine Thrombose oder eine Lungenembolie?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gibt es in Ihrer Familie Blutgerinnungsstörungen oder Thrombosen?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie die Pille oder andere Hormonpräparate ein?', kapitel: 'medikamente' },
+        { frage: 'Sind in Ihrer Familie Blutgerinnungsstörungen oder Thrombosen bekannt?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie Luftnot, Herzrasen oder Schmerzen beim Atmen bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -7647,6 +7686,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Thomas Rosnier',
           age: 50,
@@ -7747,11 +7787,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien habe ich nichts zu tun, aber natürlich viel Mehlstaub.',
           'pers-hausarzt': 'Ja, Dr. Bühler. Bei dem war ich dieses Jahr schon dreimal, immer wegen einer Blasenentzündung.',
           'akt-motiv': 'Herr Doktor, ich bin einfach nur noch müde. Seit ungefähr einem Jahr. Ich schlafe, aber ich komme nicht mehr auf die Beine — und dazu dieser Durst, ich trinke den ganzen Tag und der Durst geht trotzdem nicht weg.',
-          'akt-ort': 'Schmerzen habe ich eigentlich gar keine. Es ist der ganze Körper — ich bin schlapp, kraftlos, wie ausgelaugt. Zeigen kann ich da nichts.',
           'akt-beginn': 'So seit etwa einem Jahr. Das kam ganz langsam, schleichend. Zuerst dachte ich, das ist die Nachtschicht, aber es ist immer schlimmer geworden — in den letzten drei, vier Monaten deutlich.',
-          'akt-charakter': 'Wie soll ich sagen … bleiern. Als hätte man mir den Stecker gezogen. Kein Schmerz, eher eine Schwere in den Beinen und im Kopf.',
-          'akt-intensitaet': 'Wenn ich das so sagen soll: die Müdigkeit ist bei 7 von 10. Schmerzen habe ich keine, also da wäre es 0.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin. Es ist einfach überall, der ganze Körper.',
+          'akt-allgemein-art': 'Müdigkeit und Kraftlosigkeit, würde ich sagen. Schwindel habe ich keinen, mir dreht sich nichts. Es ist einfach, dass ich keine Kraft mehr habe, schwer in den Beinen.',
+          'akt-allgemein-alltag': 'Ich schaffe die Backstube kaum noch, das ist ja mein Beruf seit dreißig Jahren. Hinlegen tagsüber, nein, das mache ich nicht — dazu bin ich nicht der Typ. Aber am Nachmittag muss ich richtig kämpfen.',
+          'akt-allgemein-tageszeit': 'Morgens geht es noch einigermaßen, im Laufe des Tages wird es schlimmer, am Nachmittag ist es am ärgsten. Nach einer Pause geht es kurz besser, aber richtig weg ist es nie.',
+          'akt-allgemein-gewicht': 'Abgenommen habe ich schon, so vier Kilo in einem halben Jahr — ehrlich gesagt, das hat mich nicht gestört, das war eher angenehm. Der Appetit war eigentlich unverändert, eher noch etwas mehr. Und Durst habe ich viel, ich trinke am Tag vier, fünf Liter, meistens Wasser und Apfelschorle.',
+          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, weder die Beine noch das Gesicht noch der Bauch. Aber beim Wasserlassen hat sich schon was verändert — ich muss ständig, auch nachts drei-, viermal, und es ist immer viel.',
           'akt-verlauf': 'Das ist dauerhaft da, jeden Tag. Am Nachmittag ist es am schlimmsten, da könnte ich im Stehen einschlafen. Anfallsartig ist es nicht.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht. Ich habe erst gedacht, es liegt an der Arbeit — ich stehe ja seit dreißig Jahren nachts auf. Aber früher habe ich das gut weggesteckt.',
           'akt-einfluss': 'Besser wird es kurz, wenn ich etwas Süßes esse oder einen Kaffee trinke — aber nur für eine halbe Stunde. Schlimmer wird es nach dem Essen und am Nachmittag. Genommen habe ich nichts dagegen, nur Vitamintabletten aus dem Supermarkt, die haben nichts gebracht.',
@@ -7805,6 +7846,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erstdiagnose eines Diabetes mellitus Typ 2 im Rahmen eines metabolischen Syndroms — klassische osmotische Symptomatik (Polyurie, Polydipsie, Nykturie) mit Leistungsknick, Pruritus, rezidivierenden Harnwegsinfekten, verzögerter Wundheilung und passagerer Sehstörung bei Adipositas Grad I (BMI ca. 30,9), arterieller Hypertonie, Hyperlipidämie und positiver Familienanamnese',
+        patientWorte: { verdacht: 'bei Ihnen erstmals eine Zuckerkrankheit aufgetreten ist, weil Ihr Körper den Blutzucker nicht mehr richtig regeln kann', diagnostik: 'messen wir jetzt sofort Ihren Blutzucker aus dem Finger und testen Ihren Urin auf Zucker und auf sogenannte Ketonkörper', therapie: 'besprechen wir eine Ernährungsumstellung, Bewegung und möglicherweise Tabletten oder Insulin, dazu bekommen Sie eine ausführliche Schulung zur Erkrankung' },
         differenzialdiagnosen: [
           {
             dd: 'Diabetes mellitus Typ 1 bzw. LADA (latent autoimmune diabetes in adults)',
@@ -7971,15 +8013,12 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie viel trinken Sie am Tag, und was genau trinken Sie — auch zuckerhaltige Getränke wie Cola oder Apfelschorle?', kapitel: 'vegetativ' },
-        { frage: 'Wie oft müssen Sie Wasser lassen, und wie oft stehen Sie nachts dafür auf? Wie sieht der Urin aus, und kommt jedes Mal viel?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie ungewollt an Gewicht verloren? Wie viele Kilo in welchem Zeitraum, und wie war dabei Ihr Appetit?', kapitel: 'vegetativ' },
-        { frage: 'Juckt Ihre Haut, und ist sie trockener geworden? Haben Sie Juckreiz oder Pilzbefall im Genitalbereich oder im Mund?', kapitel: 'aktuell' },
+        { frage: 'Trinken Sie oft zuckerhaltige Getränke wie Cola oder Apfelschorle?', kapitel: 'vegetativ' },
+        { frage: 'Haben Sie Juckreiz oder einen Pilzbefall im Intimbereich oder im Mund bemerkt?', kapitel: 'aktuell' },
         { frage: 'Wie viele Harnwegsinfekte hatten Sie im letzten Jahr, und wurde dabei jemals Ihr Blutzucker bestimmt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Heilen kleine Wunden schlechter als früher? Haben Sie eine Stelle, die seit Wochen nicht zugeht?', kapitel: 'aktuell' },
         { frage: 'Sehen Sie zwischendurch verschwommen? Waren Sie deswegen schon beim Augenarzt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Kribbeln, Brennen oder ein Taubheitsgefühl an den Füßen bemerkt, besonders nachts?', kapitel: 'aktuell' },
-        { frage: 'Ist in Ihrer Familie eine Zuckerkrankheit bekannt — bei wem, welcher Typ, und wie wird sie behandelt?', kapitel: 'familie-sozial' },
+        { frage: 'Ist in Ihrer Familie eine Zuckerkrankheit bekannt?', kapitel: 'familie-sozial' },
         { frage: 'Wie sieht Ihr Arbeitstag als Bäcker aus — wann essen Sie, was essen Sie nebenbei, und wie viel bewegen Sie sich außerhalb der Arbeit?', kapitel: 'familie-sozial' },
         { frage: 'Nehmen Sie Kortison ein, und hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'medikamente' },
       ],
@@ -8199,6 +8238,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Jessica Suess',
           age: 49,
@@ -8303,11 +8343,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien oder Staub habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Ludwig, bei ihm bin ich schon lange wegen meines Diabetes in Behandlung.',
           'akt-motiv': 'Frau Doktor, mein Herz rast dauernd, und ich habe abgenommen, obwohl ich mehr esse als früher. Das geht jetzt seit ungefähr zwei Monaten so, und langsam macht mir das Angst.',
-          'akt-ort': 'Das Herzrasen spüre ich hier, mitten in der Brust, und ich merke es bis hoch in den Hals. (legt die flache Hand aufs Brustbein) Weh tut es nicht, es klopft nur ganz schnell und kräftig.',
           'akt-beginn': 'Seit etwa zwei Monaten. Das kam nicht von einem Tag auf den anderen, das hat sich langsam eingeschlichen und ist immer mehr geworden.',
-          'akt-charakter': 'Schmerzen habe ich keine. Es fühlt sich an wie ein schnelles, hartes Klopfen, manchmal auch wie ein Stolpern — als ob ich gerade eine Treppe hochgerannt wäre, dabei sitze ich nur da.',
-          'akt-intensitaet': 'Schmerzen habe ich wirklich keine, also kann ich das schlecht mit einer Zahl sagen. Wenn ich bewerten soll, wie sehr mich das Ganze belastet: 7 von 10.',
-          'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus. Nicht in den Arm, nicht in den Kiefer, nicht in den Rücken.',
+          'akt-allgemein-art': 'Kraftlosigkeit, würde ich sagen, vor allem in den Beinen, die Treppe schafft mich fast. Schwindel eigentlich nicht. Aber ich bin auch so unruhig und zittrig, das kommt ja noch dazu.',
+          'akt-allgemein-alltag': 'Die Treppe zu Hause, in den dritten Stock, das schaffe ich kaum noch, ich muss stehen bleiben. Hinlegen tagsüber, nein, dafür bin ich viel zu unruhig — ich sitze ja nicht mal richtig still.',
+          'akt-allgemein-tageszeit': 'Das ist eigentlich den ganzen Tag da, ich könnte nicht sagen, morgens oder abends ist es schlimmer. Ruhe hilft nicht wirklich, eher wird es schlimmer, wenn ich mich aufrege oder wenn es warm ist.',
+          'akt-allgemein-gewicht': 'Ja, ich habe vier Kilo abgenommen, von 62 auf 58, obwohl ich eher mehr esse als früher. Das macht mir Angst, ehrlich gesagt — ich habe schon daran gedacht, ob das was Schlimmes ist. Durst habe ich nicht groß mehr als sonst.',
+          'akt-allgemein-schwellung': 'Geschwollen sind bei mir weder die Beine noch der Bauch. Das Gesicht... eigentlich auch nicht. Beim Wasserlassen hat sich nichts verändert.',
           'akt-verlauf': 'Es kommt anfallsartig, mehrmals am Tag, und hält dann zehn bis zwanzig Minuten an. Manchmal wache ich auch nachts davon auf. Dazwischen habe ich trotzdem immer das Gefühl, dass mein Herz zu schnell geht.',
           'akt-ausloeser': 'Einen richtigen Auslöser kann ich nicht nennen. Bei Stress im Laden wird es schlimmer, aber es kommt auch, wenn ich ganz ruhig auf dem Sofa sitze. Kaffee trinke ich zwei Tassen am Tag, das war früher auch schon so.',
           'akt-einfluss': 'Besser wird es, wenn ich mich hinsetze und tief durchatme. Schlimmer bei Aufregung, bei Hektik und in warmen Räumen. Genommen habe ich nichts dagegen, ich wollte erst wissen, was es ist.',
@@ -8365,6 +8406,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Manifeste Hyperthyreose, am ehesten im Rahmen einer Immunhyperthyreose vom Typ Morbus Basedow — begründet durch die klassische Symptomtrias aus Tachykardie, Gewichtsverlust trotz gesteigertem Appetit und Hyperhidrose mit Wärmeintoleranz, ergänzt durch Tremor, innere Unruhe, Diarrhoe, proximale Muskelschwäche, Zyklusstörung, das Halsengegefühl (diskrete Struma) sowie die okulären Beschwerden als Hinweis auf eine endokrine Orbitopathie; zusätzlich positive Familienanamnese (Schwester mit Hyperthyreose, Mutter mit Hashimoto-Hypothyreose) und bestehender Diabetes mellitus Typ 1 als weitere Autoimmunerkrankung (polyglanduläre Autoimmunität). Der in den letzten Wochen gestiegene Insulinbedarf mit Hyperglykämien trotz unveränderter Ernährung ist Ausdruck der hyperthyreoten Insulinresistenz und gesteigerten Glukoneogenese und ein wichtiger Hinweis.',
+        patientWorte: { verdacht: 'Ihre Schilddrüse zu viel Hormon produziert und dadurch Ihren Stoffwechsel zu stark antreibt', diagnostik: 'nehmen wir Ihnen Blut ab, um die Schilddrüsenwerte zu bestimmen, und tasten Ihre Schilddrüse am Hals ab', therapie: 'bekämen Sie Tabletten, die die Schilddrüse bremsen, und wir müssen Ihre Insulindosis wegen der Wechselwirkung engmaschig anpassen' },
         differenzialdiagnosen: [
           {
             dd: 'Funktionelle Schilddrüsenautonomie (unifokal = heißer Knoten, multifokal, disseminiert)',
@@ -8533,15 +8575,8 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Haben Sie abgenommen, obwohl Sie normal oder sogar mehr essen? Wie viele Kilo in welchem Zeitraum?', kapitel: 'vegetativ' },
-        { frage: 'Vertragen Sie Wärme schlechter als früher, und schwitzen Sie mehr als andere in demselben Raum?', kapitel: 'vegetativ' },
-        { frage: 'Zittern Ihre Hände, zum Beispiel beim Einschenken oder beim Schreiben?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen aufgefallen, dass der Kragen enger wird oder dass am Hals vorne etwas geschwollen ist? Haben Sie Schluckbeschwerden oder ist Ihre Stimme verändert?', kapitel: 'aktuell' },
-        { frage: 'Haben sich Ihre Augen verändert — treten sie hervor, tränen sie, haben Sie ein Druck- oder Fremdkörpergefühl oder Doppelbilder?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie anfallsartige Gesichtsrötungen, also einen Flush? (wichtig zur Abgrenzung eines Karzinoids)', kapitel: 'aktuell' },
-        { frage: 'Wie oft haben Sie Stuhlgang, und wie sieht er aus? Ist das anders als früher?', kapitel: 'vegetativ' },
-        { frage: 'Kommen Sie noch gut die Treppe hoch oder aus der Hocke hoch? (proximale Muskelschwäche)', kapitel: 'aktuell' },
+        { frage: 'Kommen Sie noch gut die Treppe hoch, oder haben Sie es schwerer, aus der Hocke wieder hochzukommen?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Regelblutung schwächer oder unregelmäßiger geworden?', kapitel: 'frauenanamnese' },
-        { frage: 'Sind in Ihrer Familie Schilddrüsenerkrankungen bekannt — bei Ihrer Schwester, Ihrer Mutter?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel gehabt oder jodhaltige Medikamente eingenommen?', kapitel: 'medikamente' },
         { frage: 'Nehmen Sie Schilddrüsenhormone, Abnehmpräparate oder Tabletten von Angehörigen ein?', kapitel: 'medikamente' },
         { frage: 'Hat sich Ihr Insulinbedarf verändert? Hatten Sie in letzter Zeit häufiger Unterzuckerungen?', kapitel: 'medikamente' },
@@ -8750,6 +8785,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Michael Witzinger',
           age: 66,
@@ -8850,11 +8886,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Davor war ich fast dreißig Jahre Lastwagenfahrer — da war ich viel Abgasen ausgesetzt, mit Staub oder Chemikalien hatte ich kaum zu tun.',
           'pers-hausarzt': 'Ja, ich habe einen Hausarzt, bei dem bin ich schon seit Jahren.',
           'akt-motiv': 'Ich bekomme seit drei Tagen viel schlechter Luft als sonst — schon wenn ich nur die Treppe hochgehe.',
-          'akt-ort': 'Weh tut mir nichts. Es sitzt hier in der Brust; ich kriege die Luft einfach nicht mehr richtig raus.',
           'akt-beginn': 'Die Luftnot ist seit genau drei Tagen deutlich schlimmer geworden, ziemlich plötzlich. Den Husten und den Schleim habe ich dagegen schon seit Jahren, jeden Morgen — das ist für mich nichts Neues.',
-          'akt-charakter': 'Wie wenn die Brust eng wäre und ich durch einen Strohhalm atmen müsste. Beim Ausatmen pfeift es.',
-          'akt-intensitaet': 'Schmerzen habe ich keine. Die Luftnot würde ich mit 7 von 10 angeben — vor drei Tagen war sie höchstens 3.',
-          'akt-ausstrahlung': 'Nein, da strahlt nichts aus; ich habe ja keine Schmerzen.',
+          'akt-atemnot-belastung': 'Nur bei Anstrengung, ganz still sitzen geht noch. Aber es braucht nicht mehr viel — beim Ankleiden komm ich schon außer Puste, und die paar Stufen bei uns im Treppenhaus schaffe ich nicht mehr ohne stehen zu bleiben.',
+          'akt-atemnot-nachts': 'Ja, ich schlafe schon seit Wochen mit drei Kissen im Rücken, flach geht gar nicht mehr. Und ja, manchmal wache ich auf, weil mir die Luft fehlt.',
+          'akt-atemnot-husten': 'Husten habe ich schon seit Jahren, jeden Morgen, mit ein bisschen Schleim — das ist bei mir normal. Aber seit drei Tagen ist es viel mehr, zäher, und der Schleim ist gelblich statt glasig-weiß. Blut war da nie drin.',
+          'akt-atemnot-geraeusch': 'Ja, beim Ausatmen pfeift es. Meine Frau hat es nachts auch schon gehört.',
           'akt-verlauf': 'Die Luftnot ist eigentlich dauernd da und wird bei jeder Anstrengung schlimmer. Nachts liege ich mit drei Kissen, sonst bekomme ich keine Luft.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht. Vor etwa einer Woche hatte ich einen leichten Schnupfen, aber Fieber hatte ich nicht.',
           'akt-einfluss': 'Beim Treppensteigen und beim Bücken wird es schlimmer; im Sitzen, wenn ich mich nach vorne stütze, wird es besser. Ich habe mein Spray öfter genommen als sonst, aber es hilft nicht mehr richtig.',
@@ -8938,6 +8974,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Exazerbation einer bekannten COPD (AECOPD) bei fortgesetztem Nikotinabusus von 50 Packungsjahren — mit allen drei Anthonisen-Kriterien (Zunahme der Dyspnoe, der Sputummenge und der Sputumpurulenz), also einer Exazerbation vom Typ I nach Anthonisen — die am besten belegte Indikation für eine antibiotische Therapie. Die beidseitigen Beinödeme mit Stauungsdermatose und die Nykturie sprechen für ein beginnendes Cor pulmonale mit Rechtsherzinsuffizienz als Komplikation der COPD; die Orthopnoe verlangt zusätzlich den Ausschluss einer Linksherzinsuffizienz (NT-proBNP, Echokardiographie). Wegen der ungewollten Gewichtsabnahme von 5 kg in sechs Monaten bei 50 Packungsjahren muss ein Bronchialkarzinom aktiv ausgeschlossen werden.',
+        patientWorte: { verdacht: 'sich Ihre chronische Lungenerkrankung gerade akut verschlechtert hat, wahrscheinlich durch einen zusätzlichen Infekt der Atemwege', diagnostik: 'messen wir Ihren Sauerstoffgehalt im Blut, hören Ihre Lunge ab und machen ein Röntgenbild vom Brustkorb', therapie: 'bekommen Sie inhalierbare Medikamente zum Weiten der Atemwege, Kortison und eventuell ein Antibiotikum, damit sich Ihre Atmung wieder bessert' },
         differenzialdiagnosen: [
           {
             dd: 'Bronchialkarzinom',
@@ -9113,17 +9150,13 @@ export function seedCases(): Case[] {
         'auf-bronchoskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau husten Sie — jeden Morgen seit Jahren, oder erst seit ein paar Tagen? Husten Sie eher morgens oder abends?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht der Auswurf normalerweise aus, und was hat sich in den letzten Tagen verändert (Farbe, Menge, Zähigkeit)? War jemals Blut dabei?', kapitel: 'aktuell' },
-        { frage: 'Wie viele Stockwerke schaffen Sie ohne Pause — früher und heute? Bekommen Sie auch in Ruhe schlecht Luft?', kapitel: 'aktuell' },
+        { frage: 'Husten Sie schon seit Jahren, fast jeden Morgen, oder ist der Husten neu aufgetreten?', kapitel: 'aktuell' },
+        { frage: 'Was hat sich am Auswurf in den letzten Tagen verändert — Farbe, Menge oder Zähigkeit? War Blut dabei?', kapitel: 'aktuell' },
+        { frage: 'Wie viele Stockwerke schaffen Sie heute ohne Pause, und wie war das früher?', kapitel: 'aktuell' },
         { frage: 'Wie oft hatten Sie im letzten Jahr eine solche Verschlechterung? Haben Sie dafür Kortisontabletten oder ein Antibiotikum bekommen, und waren Sie deswegen im Krankenhaus?', kapitel: 'vorerkrankungen' },
-        { frage: 'Rauchen Sie? Seit wann, wie viel am Tag, und welche Marke? (Bei „ich rauche nicht“: Seit wann genau rauchen Sie nicht mehr, und wie viel war es vorher?)', kapitel: 'noxen' },
-        { frage: 'Haben Sie schon einmal versucht aufzuhören? Wer hat Sie dabei unterstützt, und woran ist es gescheitert?', kapitel: 'noxen' },
         { frage: 'Sind Sie gegen Grippe und gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen' },
         { frage: 'Sind Ihre Beine geschwollen? Müssen Sie nachts Wasser lassen, und mit wie vielen Kissen schlafen Sie?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt abgenommen — wie viele Kilo in welchem Zeitraum? Haben Sie Blut gehustet?', kapitel: 'vegetativ' },
         { frage: 'Was heißt bei Ihnen „das Spray bei Bedarf nehmen“ — wie oft nehmen Sie es tatsächlich, und wie wenden Sie es an?', kapitel: 'medikamente' },
-        { frage: 'Waren Sie zuletzt auf Corona getestet, und wie wurde der Test durchgeführt?', kapitel: 'aktuell' },
         { frage: 'Waren Sie beruflich Stäuben, Abgasen, Asbest oder Vögeln ausgesetzt? Wird bei Ihnen zu Hause geraucht?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -9311,6 +9344,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Lena Hartmann',
           age: 26,
@@ -9425,6 +9459,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Seit vorgestern Abend brennt es fürchterlich, wenn ich Wasser lasse, und ich muss dauernd auf die Toilette, aber es kommt jedes Mal fast nichts.',
           'akt-ort': 'Das Brennen ist ganz vorne, in der Harnröhre. Und hier unten, über dem Schambein, habe ich so einen Druck.',
           'akt-beginn': 'Vorgestern Abend hat es angefangen, erst ganz leicht, und über ein paar Stunden ist es immer schlimmer geworden.',
+          'akt-veraend-was': 'Aufgefallen ist mir das Brennen beim Wasserlassen und dass ich alle naselang aufs Klo muss. Kein Knoten, kein Ausschlag, nichts an der Haut.',
+          'akt-veraend-entwicklung': 'Seit vorgestern ist es eigentlich gleich schlimm geblieben, vielleicht sogar ein bisschen mehr. Kommt immer in Schüben, wenn ich muss.',
+          'akt-veraend-blutung': 'Wehtun tut\'s beim Wasserlassen, das brennt richtig. Jucken tut\'s nicht. Und ja — gestern war ganz am Ende ein kleines bisschen Blut dabei, im Urin. Sonst nirgends.',
           'akt-charakter': 'Beim Wasserlassen ist es brennend und stechend, danach bleibt so ein dumpfes, krampfartiges Ziehen im Unterbauch.',
           'akt-intensitaet': 'Insgesamt so 5 von 10, aber im Moment des Wasserlassens geht es kurz bis 7.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus. Nicht in den Rücken, nicht in die Seite und nicht in die Leiste.',
@@ -9483,6 +9520,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute unkomplizierte Zystitis (untere Harnwegsinfektion) bei einer 26-jährigen, nicht schwangeren, sexuell aktiven Patientin — kein Hinweis auf eine Beteiligung des oberen Harntrakts',
+        patientWorte: { verdacht: 'eine Blasenentzündung Ihre Beschwerden beim Wasserlassen verursacht', diagnostik: 'untersuchen wir eine Urinprobe von Ihnen mit einem Teststreifen und machen zur Sicherheit einen Schwangerschaftstest', therapie: 'bekommen Sie ein Antibiotikum für wenige Tage, und die Beschwerden sollten dann rasch abklingen' },
         differenzialdiagnosen: [
           {
             dd: 'Akute Pyelonephritis (obere Harnwegsinfektion)',
@@ -9623,22 +9661,12 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Brennt es beim Wasserlassen, und wo genau spüren Sie das Brennen — vorne in der Harnröhre oder mehr außen?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie am Tag Wasser lassen, und kommt dabei jedes Mal nur wenig?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts raus, und wie oft?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie plötzlichen, nicht aufschiebbaren Harndrang? Können Sie den Urin noch halten?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Druck oder Schmerzen im Unterbauch, oberhalb des Schambeins?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht der Urin aus — trüb, riecht er auffällig? Haben Sie Blut gesehen, und war das am Anfang, während oder am Ende des Wasserlassens?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Darf ich Ihnen einmal auf die Nierengegend klopfen?', kapitel: 'aktuell' },
+        { frage: 'Wie sieht Ihr Urin aus — trüb, ungewöhnlicher Geruch? Falls Blut dabei war: am Anfang, während oder am Ende des Wasserlassens?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Ausfluss aus der Scheide oder Juckreiz im Intimbereich?', kapitel: 'frauenanamnese' },
-        { frage: 'Wann hatten Sie zuletzt Ihre Regel? Könnten Sie schwanger sein?', kapitel: 'frauenanamnese' },
-        { frage: 'Verhüten Sie, und wenn ja womit — Pille, Kondom, Diaphragma oder Zäpfchen?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie in den letzten Tagen Geschlechtsverkehr? Gibt es einen neuen Partner?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie schon einmal eine Blasenentzündung, und wie oft im letzten Jahr?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie schon öfter eine Blasenentzündung — wie oft im letzten Jahr?', kapitel: 'vorerkrankungen' },
         { frage: 'Wie viel trinken Sie am Tag, und können Sie bei der Arbeit zur Toilette gehen, wenn Sie müssen?', kapitel: 'familie-sozial' },
-        { frage: 'Wie ist der Harnstrahl — normal, abgeschwächt? Müssen Sie pressen oder tropft es nach?', kapitel: 'aktuell' },
-        { frage: 'Ist bei Ihnen ein Diabetes, eine Nierenerkrankung oder ein Nierenstein bekannt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Ist bei Ihnen ein Diabetes bekannt?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose?',
@@ -10016,6 +10044,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Migräne mit visueller Aura (ICHD-3 1.2) bei seit etwa fünfzehn Jahren bekannter, bisher nie prophylaktisch behandelter Migräne; aktuell prolongierte Attacke im dritten Tag mit Erbrechen und Versagen der Selbstmedikation. Auslöserkonstellation: beruflicher Stress mit anschließendem Stressabfall, Schlafmangel, ausgelassene Mahlzeiten, Rotwein und wechselnder Koffeinkonsum. Der neurologische Untersuchungsbefund ist erwartungsgemäß unauffällig, Red Flags bestehen nicht.',
+        patientWorte: { verdacht: 'eine Migräneattacke mit einer sogenannten Aura Ihre Kopfschmerzen und die Sehstörung verursacht', diagnostik: 'untersuchen wir Ihr Nervensystem gründlich und nehmen Ihnen Blut ab, um andere Ursachen auszuschließen', therapie: 'bekommen Sie ein Medikament gegen die Übelkeit und ein starkes Schmerzmittel über die Vene, damit die Attacke rasch nachlässt' },
         differenzialdiagnosen: [
           {
             dd: 'Spannungskopfschmerz',
@@ -10201,18 +10230,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie lange dauert eine solche Attacke normalerweise bei Ihnen — und wie lange dauert diese jetzt schon?', kapitel: 'aktuell' },
-        { frage: 'Sehen Sie vor dem Kopfschmerz etwas Ungewöhnliches — Flimmern, Zickzacklinien, blinde Flecken? Auf welcher Seite, wie lange, und geht es vollständig wieder weg?', kapitel: 'aktuell' },
         { frage: 'Wird der Schmerz schlimmer, wenn Sie Treppen steigen, sich bücken oder husten?', kapitel: 'aktuell' },
         { frage: 'Was tun Sie während einer Attacke — legen Sie sich in ein dunkles, ruhiges Zimmer, oder laufen Sie unruhig umher?', kapitel: 'aktuell' },
         { frage: 'An wie vielen Tagen im Monat nehmen Sie Schmerzmittel ein, und welche genau?', kapitel: 'medikamente' },
         { frage: 'Ist Ihnen aufgefallen, wann die Attacken kommen — mitten im Stress oder eher danach, am Wochenende?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Kaffee trinken Sie unter der Woche und wie viel am Wochenende?', kapitel: 'aktuell' },
-        { frage: 'Kam der Schmerz jemals schlagartig, wie ein Donnerschlag, innerhalb von Sekunden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie zwischen den Anfällen völlig beschwerdefreie Zeiten, oder ist immer etwas da?', kapitel: 'aktuell' },
-        { frage: 'Wo genau war die Thrombose damals, wie wurde sie behandelt und wie lange haben Sie Blutverdünner genommen?', kapitel: 'vorerkrankungen' },
-        { frage: 'Warum wurde Ihnen vor drei Jahren die Gebärmutter entfernt, und haben Sie seither noch eine Regelblutung?', kapitel: 'frauenanamnese' },
-        { frage: 'Woran ist Ihre Mutter genau erkrankt, wie alt war sie, und was macht Ihnen daran am meisten Angst?', kapitel: 'familie-sozial' },
-        { frage: 'Gibt es in Ihrer Familie noch jemanden mit ähnlichen Kopfschmerzen?', kapitel: 'familie-sozial' },
+        { frage: 'Kam der Schmerz jemals ganz plötzlich, wie ein Schlag, von einer Sekunde auf die andere?', kapitel: 'aktuell' },
+        { frage: 'Wo genau war die Thrombose damals, wie wurde sie behandelt, und wie lange haben Sie Blutverdünner genommen?', kapitel: 'vorerkrankungen' },
+        { frage: 'Gibt es in Ihrer Familie auch jemanden mit ähnlichen Kopfschmerzen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose?',
@@ -10399,6 +10423,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Maximilian Volk',
           age: 27,
@@ -10509,11 +10534,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Stäuben oder Chemikalien habe ich beruflich nichts zu tun.',
           'pers-hausarzt': 'Ja, ich habe einen Hausarzt hier im Ort. Bei dem war ich allerdings schon zwei Jahre nicht mehr.',
           'akt-motiv': 'Ich bekomme seit etwa einem halben Jahr immer wieder anfallsweise schlecht Luft, besonders beim Ausatmen, und dabei pfeift es in der Brust.',
-          'akt-ort': 'Weh tut mir nichts. Es sitzt hier mitten in der Brust — als ob ein Gürtel eng gezogen würde.',
           'akt-beginn': 'Das erste Mal war Mitte April, ziemlich plötzlich, nach einer Radtour. Seitdem kommt es immer wieder, und in den letzten Wochen ist es häufiger und stärker geworden.',
-          'akt-charakter': 'Wie durch einen Strohhalm atmen. Die Luft geht rein, aber ich bekomme sie nicht mehr richtig heraus, und beim Ausatmen pfeift und brummt es.',
-          'akt-intensitaet': 'Schmerzen habe ich keine. Die Luftnot im Anfall würde ich mit 7 von 10 angeben, einmal war es sogar 8. Zwischen den Anfällen habe ich überhaupt nichts — dann bin ich völlig beschwerdefrei.',
-          'akt-ausstrahlung': 'Nein, da strahlt nichts aus, weder in den Arm noch in den Rücken. Ich habe ja keine Schmerzen.',
+          'akt-atemnot-belastung': 'In Ruhe habe ich gar nichts, wirklich gar nichts. Treppen an sich sind kein Problem, da schaffe ich mehrere Stockwerke ohne Pause — es kommt eher nach dem Laufen draußen, so fünf bis fünfzehn Minuten danach, dann wird es plötzlich eng.',
+          'akt-atemnot-nachts': 'Erhöht schlafen muss ich nicht, ein Kissen reicht mir normalerweise. Aber zwei-, dreimal die Woche wache ich gegen vier, fünf Uhr morgens auf, weil ich husten muss und schlecht Luft bekomme — dann setze ich mich hin, bis es besser wird.',
+          'akt-atemnot-husten': 'Ja, ein trockener Reizhusten, der kommt eigentlich immer mit den Anfällen. Auswurf gibt es kaum, höchstens ganz am Ende ein bisschen zäher, glasig-klarer Schleim. Blut war da nie dabei.',
+          'akt-atemnot-geraeusch': 'Ja, im Anfall pfeift und brummt es beim Ausatmen richtig hörbar — meine Frau hört das sogar im Nebenzimmer, sie nennt es immer meine komischen Geräusche.',
           'akt-verlauf': 'Es kommt in Anfällen, zehn Minuten bis eine halbe Stunde, dann geht es von selbst weg. Aber es ist häufiger geworden: erst ein-, zweimal im Monat, jetzt fast jeden zweiten Tag, auch nachts mit Husten.',
           'akt-ausloeser': 'Meistens beim Laufen draußen in der kalten Luft, oft erst kurz danach. In der Gräserzeit war es besonders schlimm. Und seit der Erkältung vor zwei Wochen ist es wieder häufiger.',
           'akt-einfluss': 'Wenn ich aufhöre, mich hinsetze und ruhig atme, wird es nach ein paar Minuten besser. Schlimmer wird es durch kalte Luft, Zigarettenrauch in der Kneipe und starkes Parfüm. Ein Medikament habe ich dagegen nie bekommen.',
@@ -10597,6 +10622,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Asthma bronchiale, am ehesten ein allergisches (extrinsisches) Asthma bei Gräserpollensensibilisierung mit ausgeprägter Anstrengungskomponente (Belastungsasthma), bisher unbehandelt und aktuell unkontrolliert. Für die Diagnose sprechen die ANFALLSARTIGE und VARIABLE, vorwiegend exspiratorische Atemnot mit Giemen, Engegefühl und trockenem Reizhusten, die vollständige Beschwerdefreiheit zwischen den Anfällen, die nächtliche und frühmorgendliche Symptomatik gegen 4–5 Uhr, die klare Triggerbindung an Gräserpollen, körperliche Anstrengung, Kaltluft und einen vorangegangenen Atemwegsinfekt, die atopische Diathese mit allergischer Rhinokonjunktivitis und Neurodermitis, die positive Familienanamnese (Bruder seit fünf Jahren Asthmatiker) sowie die prompte Besserung nach zwei Hüben aus dem Betamimetikum-Spray des Bruders. Der Patient ist lebenslanger Nichtraucher, was gegen eine COPD spricht. Die Sicherung erfolgt spirometrisch über den Nachweis einer REVERSIBLEN Obstruktion im Bronchospasmolysetest.',
+        patientWorte: { verdacht: 'bei Ihnen ein Asthma vorliegt, also eine Erkrankung, bei der sich die Atemwege phasenweise verengen', diagnostik: 'hören wir Ihre Lunge ab und lassen Sie in eine Lungenfunktionsmessung pusten, auch mit einem erweiternden Spray', therapie: 'bekommen Sie ein tägliches Kortisonspray zum Inhalieren und ein Spray für akute Beschwerden, damit die Atemwege dauerhaft ruhig bleiben' },
         differenzialdiagnosen: [
           {
             dd: 'COPD',
@@ -10794,19 +10820,13 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Kommt die Luftnot anfallsweise oder ist sie ständig da? Wie fühlen Sie sich ZWISCHEN den Anfällen — sind Sie dann völlig beschwerdefrei?', kapitel: 'aktuell' },
-        { frage: 'Wie lange dauert ein solcher Anfall, und wie oft kommt er — hat sich das in den sechs Monaten verändert?', kapitel: 'aktuell' },
-        { frage: 'Zu welcher Tageszeit tritt es auf? Wachen Sie nachts oder in den frühen Morgenstunden davon auf, und müssen Sie sich dann aufsetzen?', kapitel: 'aktuell' },
-        { frage: 'Beim Atmen — ist es das Einatmen oder das Ausatmen, das schwerfällt? Und wo sitzt die Enge: im Hals oder in der Brust?', kapitel: 'aktuell' },
-        { frage: 'Was löst es aus: Sport, kalte Luft, Pollen, Staub, Tierkontakt, Rauch, Parfüm, Aufregung oder ein Infekt? Gibt es eine Jahreszeit, in der es schlimmer ist?', kapitel: 'aktuell' },
-        { frage: 'Beim Sport — kommt die Luftnot während der Belastung oder erst einige Minuten NACH dem Ende? Macht es einen Unterschied, ob Sie draußen laufen oder in der Halle schwimmen?', kapitel: 'aktuell' },
+        { frage: 'Sind Sie zwischen den Anfällen völlig beschwerdefrei?', kapitel: 'aktuell' },
+        { frage: 'Werden die Beschwerden bei Pollen, Tierkontakt oder zu bestimmten Jahreszeiten schlimmer?', kapitel: 'aktuell' },
+        { frage: 'Beim Sport — kommt die Luftnot während der Belastung oder erst einige Minuten danach? Macht es einen Unterschied, ob Sie draußen laufen oder in der Halle schwimmen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Heuschnupfen, hatten Sie als Kind Neurodermitis oder eine Nahrungsmittelallergie? Wurden Sie jemals hyposensibilisiert?', kapitel: 'allergien' },
-        { frage: 'Gibt es in Ihrer Familie Asthma, Heuschnupfen oder Neurodermitis — bei Eltern oder Geschwistern?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie Asthma, Heuschnupfen oder Neurodermitis?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie jemals ein Spray für die Lunge benutzt — auch das eines Angehörigen? Hat es geholfen, und wie schnell?', kapitel: 'medikamente' },
         { frage: 'Vertragen Sie Schmerzmittel wie Aspirin oder Ibuprofen? Haben Sie Nasenpolypen oder wurden Sie an den Nebenhöhlen operiert?', kapitel: 'allergien' },
-        { frage: 'Nehmen Sie Betablocker, auch als Augentropfen, oder ein Blutdruckmittel gegen Bluthochdruck? (Frage nach ACE-Hemmern als Hustenursache)', kapitel: 'medikamente' },
-        { frage: 'Wie sieht es zu Hause aus: Teppichboden, Federbett, Schimmel, Haustiere, Vögel? Und beruflich — Mehl, Stäube, Chemikalien, Tiere? Ist es am Wochenende oder im Urlaub besser?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie in den letzten Wochen einen Infekt gehabt, und hat sich seitdem etwas verändert?', kapitel: 'aktuell' },
         { frage: 'Wie sehr schränkt es Sie im Alltag und im Sportunterricht ein? Wie oft mussten Sie deswegen etwas absagen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -11006,6 +11026,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Werner Krause',
           age: 72,
@@ -11123,6 +11144,10 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich bekomme keine Luft mehr. Und meine Beine sind dick wie Baumstämme, ich komme in keinen Schuh mehr rein.',
           'akt-ort': 'Die Luftnot sitzt hier vorne in der Brust, als läge ein Gewicht darauf. Das Wasser ist in beiden Beinen, von den Knöcheln bis fast zum Knie. Und hier rechts oben im Bauch drückt es, unter den Rippen.',
           'akt-beginn': 'Die Luftnot habe ich schleichend seit ungefähr einem halben Jahr. Aber in den letzten drei Wochen ist es viel schlimmer geworden. Die dicken Beine habe ich auch seit etwa drei Wochen.',
+          'akt-atemnot-belastung': 'Nur bei Anstrengung, in Ruhe hab ich keine. Ein ganzes Stockwerk Treppen schaff ich nicht mehr ohne Pause, ich muss zwischendurch stehen bleiben. In der Ebene sind\'s vielleicht fünfzig Meter, dann muss ich auch anhalten.',
+          'akt-atemnot-nachts': 'Ja, ich schlaf mit drei Kissen, sonst krieg ich keine Luft. Und zwei-, dreimal die Woche wach ich nachts auf, weil mir die Luft wegbleibt, dann muss ich mich ans offene Fenster setzen.',
+          'akt-atemnot-husten': 'Husten hab ich, trocken, ohne Auswurf. Vor allem wenn ich liege, nachts wird\'s schlimmer. Blut ist keins dabei.',
+          'akt-atemnot-geraeusch': 'Pfeifen oder Brummen hör ich beim Atmen nicht, nein.',
           'akt-charakter': 'Das ist kein Schmerz. Es ist ein Druck auf der Brust und das Gefühl, dass die Luft nicht tief genug hineingeht. Im Bauch rechts oben ist es ein dumpfes Spannen.',
           'akt-intensitaet': 'Die Luftnot würde ich bei Anstrengung mit 7 von 10 angeben, in Ruhe habe ich sie nicht. Das Drücken im Bauch ist etwa 3 von 10.',
           'akt-ausstrahlung': 'Nein, da strahlt nichts aus — weder in den Arm noch in den Hals, den Kiefer oder den Rücken.',
@@ -11177,6 +11202,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akut dekompensierte chronische Herzinsuffizienz im Sinne einer Globalinsuffizienz, NYHA III, bei koronarer Herzkrankheit mit Zustand nach Hinterwandinfarkt und langjähriger arterieller Hypertonie sowie permanentem Vorhofflimmern; angesichts der ischämischen Genese am ehesten HFrEF — die endgültige Einteilung nach der Ejektionsfraktion erfolgt echokardiographisch. Auslöser der Dekompensation sind das eigenmächtige Absetzen des Torasemids vor drei Wochen, die kochsalzreiche Ernährung bei einer Familienfeier und die fast tägliche NSAR-Einnahme der letzten zwei Wochen.',
+        patientWorte: { verdacht: 'Ihr Herz gerade nicht mehr kräftig genug pumpt und sich deshalb Wasser in Ihrem Körper staut', diagnostik: 'nehmen wir Ihnen Blut ab, machen ein Herz-EKG und einen Ultraschall vom Herzen', therapie: 'bekommen Sie ein entwässerndes Medikament über die Vene, damit sich die überschüssige Flüssigkeit rasch wieder ausschwemmt' },
         differenzialdiagnosen: [
           {
             dd: 'COPD oder Asthma bronchiale',
@@ -11365,16 +11391,13 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie viele Stockwerke oder wie viele Meter schaffen Sie ohne Pause — und wie war das vor einem halben Jahr?', kapitel: 'aktuell' },
-        { frage: 'Mit wie vielen Kopfkissen schlafen Sie? Wie viele waren es früher?', kapitel: 'aktuell' },
-        { frage: 'Wachen Sie nachts auf, weil Sie keine Luft bekommen? Müssen Sie sich dann aufsetzen oder ans Fenster gehen?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts Wasser lassen, und seit wann ist das so?', kapitel: 'vegetativ' },
+        { frage: 'Wie viele Stockwerke schaffen Sie heute ohne Pause, und wie war das vor einem halben Jahr?', kapitel: 'aktuell' },
+        { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich gewogen? Wie viele Kilogramm haben Sie in welchem Zeitraum zugenommen?', kapitel: 'vegetativ' },
-        { frage: 'Sind beide Beine gleichmässig geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger darauf drücken? Sind die Beine abends dicker als morgens?', kapitel: 'aktuell' },
+        { frage: 'Sind beide Beine gleich stark geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger daraufdrücken?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie alle Ihre Tabletten so ein, wie sie verschrieben wurden — haben Sie eine davon weggelassen, zum Beispiel die Entwässerungstablette?', kapitel: 'medikamente' },
-        { frage: 'Nehmen Sie zusätzlich Schmerzmittel ein, die Sie ohne Rezept in der Apotheke kaufen, etwa Ibuprofen oder Diclofenac? Wie oft in den letzten Wochen?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie in den letzten Wochen Schmerzmittel wie Ibuprofen oder Diclofenac genommen — wie oft?', kapitel: 'medikamente' },
         { frage: 'Wie salzig essen Sie? Gab es in den letzten Wochen eine Feier mit Wurst, Käse oder Salzgebäck?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber, Husten mit Auswurf oder Brustschmerzen gehabt — etwas, das die Verschlechterung erklären könnte?', kapitel: 'aktuell' },
         { frage: 'Wie kommen Sie zu Hause zurecht? Sie wohnen im dritten Stock ohne Aufzug — schaffen Sie die Treppe noch?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -11742,6 +11765,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Linksseitige Nierenkolik bei Ureterolithiasis mit konsekutiver Harnstauungsniere — bei gleichzeitigem Fieber bis 39,0 °C mit Schüttelfrost, Dysurie und Makrohämaturie dringender Verdacht auf einen INFIZIERTEN HARNSTAU (Pyonephrose) mit drohender Urosepsis. Urologischer Notfall mit Indikation zur sofortigen Harnableitung.',
+        patientWorte: { verdacht: 'ein Nierenstein den Harnabfluss aus Ihrer linken Niere blockiert und zusätzlich eine Infektion dazugekommen ist', diagnostik: 'nehmen wir Ihnen Blut und Urin ab und machen eine Bildgebung, um den Stein und den Rückstau zu sehen', therapie: 'müsste der Urin über einen kleinen Schlauch dringend abgeleitet werden, weil eine Infektion hinter dem Stau gefährlich werden kann' },
         differenzialdiagnosen: [
           {
             dd: 'Akute Pyelonephritis links ohne Steinnachweis',
@@ -11919,18 +11943,11 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Kommt der Schmerz in Wellen, die an- und abschwellen, oder ist er die ganze Zeit gleich stark da?', kapitel: 'aktuell' },
-        { frage: 'Können Sie irgendeine Position finden, in der es besser wird — oder müssen Sie sich hin und her bewegen und umherlaufen?', kapitel: 'aktuell' },
-        { frage: 'Wohin genau strahlt der Schmerz aus: nach vorne in die Leiste, in den Hoden oder in den Rücken?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen? Wie hoch, seit wann — und hatten Sie richtigen Schüttelfrost?', kapitel: 'aktuell' },
-        { frage: 'Welche Farbe hat Ihr Urin? Ist er rötlich, trüb, riecht er anders als sonst?', kapitel: 'aktuell' },
-        { frage: 'Brennt es beim Wasserlassen, müssen Sie häufiger und kommt dabei jeweils nur wenig?', kapitel: 'aktuell' },
+        { frage: 'Finden Sie eine Position, in der es besser wird, oder müssen Sie sich ständig bewegen?', kapitel: 'aktuell' },
+        { frage: 'Strahlt der Schmerz aus — zum Beispiel in die Leiste, den Hoden oder den Rücken?', kapitel: 'aktuell' },
         { frage: 'Wie viel trinken Sie am Tag? Und haben Sie in den letzten Wochen viel geschwitzt, zum Beispiel bei der Arbeit im Garten oder in der Hitze?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie schon einmal einen Nierenstein gehabt, oder gibt es in Ihrer Familie jemanden mit Nierensteinen?', kapitel: 'familie-sozial' },
-        { frage: 'Wie ist Ihr Harnstrahl — abgeschwächt, müssen Sie pressen, tropft es nach? Waren Sie deswegen schon einmal beim Urologen?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie ein Ziehen oder eine Schwellung im Hodensack bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie einen Hautausschlag oder Bläschen an der schmerzenden Seite bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie außer Ihren verordneten Tabletten noch etwas ein — Schmerzmittel aus der Apotheke, Tees oder pflanzliche Mittel?', kapitel: 'medikamente' },
         { frage: 'Lassen Sie noch normal Wasser, oder ist seit gestern deutlich weniger gekommen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -12301,6 +12318,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Tonsillopharyngitis (Angina tonsillaris) beidseits, betont links, bei einem 65-jährigen Patienten — Centor-Score 3 von 4 Punkten (Fieber über 38 °C, druckschmerzhafte vordere Halslymphknoten, Tonsillenexsudat; das Kriterium „Fehlen von Husten“ ist NICHT erfüllt, da der Patient hustet), nach McIsaac wegen des Alters über 45 Jahren ein Punkt Abzug, also 2 Punkte. Die Begleitsymptome Husten, Schnupfen und Abgeschlagenheit sprechen für eine virale Genese; die Antibiotikaentscheidung wird über den Streptokokken-Schnelltest getroffen',
+        patientWorte: { verdacht: 'eine Mandelentzündung Ihre Halsschmerzen und das Fieber verursacht', diagnostik: 'schauen wir in Ihren Rachen, tasten die Lymphknoten am Hals ab und machen einen Schnelltest auf Bakterien', therapie: 'reichen meist schmerzlindernde Mittel und viel Trinken, nur bei bestimmten Bakterien bräuchten Sie zusätzlich ein Antibiotikum' },
         differenzialdiagnosen: [
           {
             dd: 'Virale Pharyngitis/Tonsillitis (Adeno-, Rhino-, Influenza-, Parainfluenza-, Coronaviren)',
@@ -12462,18 +12480,14 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Haben Sie zusätzlich zu den Halsschmerzen Husten, Schnupfen oder Heiserkeit? (Diese Symptome sprechen gegen eine Streptokokken-Angina und senken den Centor-Score.)', kapitel: 'aktuell' },
-        { frage: 'Wie hoch war das Fieber genau, wo und womit haben Sie gemessen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie zusätzlich zu den Halsschmerzen Husten, Schnupfen oder Heiserkeit?', kapitel: 'aktuell' },
         { frage: 'Haben Sie selbst in den Rachen geschaut — sind die Mandeln gerötet, geschwollen, sehen Sie weiße Punkte oder Beläge?', kapitel: 'aktuell' },
-        { frage: 'Sind die Schmerzen auf beiden Seiten gleich, oder ist eine Seite deutlich schlimmer geworden, seit die Beschwerden begonnen haben?', kapitel: 'aktuell' },
+        { frage: 'Sind die Schmerzen auf beiden Seiten gleich stark, oder ist eine Seite schlimmer geworden?', kapitel: 'aktuell' },
         { frage: 'Können Sie den Mund normal weit öffnen, oder geht das nicht mehr richtig auf? Läuft Ihnen der Speichel aus dem Mund?', kapitel: 'aktuell' },
-        { frage: 'Wie viel können Sie noch trinken und essen? Bekommen Sie Flüssigkeit überhaupt hinunter?', kapitel: 'aktuell' },
         { frage: 'Haben Sie tastbare, druckschmerzhafte Knoten am Hals bemerkt — und auch in den Achseln oder Leisten?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie in den letzten Wochen einen Hautausschlag, und wie sieht Ihre Zunge aus?', kapitel: 'aktuell' },
         { frage: 'Wurden Ihre Mandeln jemals herausgenommen, und wie oft hatten Sie in den letzten zwölf Monaten eine Mandelentzündung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Nehmen Sie ein Schmerzmittel wie Metamizol, ein Schilddrüsenmedikament oder ein Medikament für die Psyche ein? (Frage nach einer medikamentösen Agranulozytose.)', kapitel: 'medikamente' },
+        { frage: 'Nehmen Sie ein Schmerzmittel wie Metamizol, ein Schilddrüsenmedikament oder ein Medikament für die Psyche ein?', kapitel: 'medikamente' },
         { frage: 'Wie steht es um Ihren Impfschutz, insbesondere gegen Diphtherie und Tetanus — haben Sie Ihren Impfpass dabei?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wer hat Ihnen das Zylorik verordnet, und aus welchem Anlass genau?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -12656,6 +12670,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Bergmann',
           age: 58,
@@ -12764,11 +12779,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien oder Staub habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, meine Hausärztin ist Frau Dr. Neumann.',
           'akt-motiv': 'Frau Doktor, ich bin einfach ständig müde. Seit ungefähr vier Monaten bin ich zu nichts mehr zu gebrauchen, und meine Tochter sagt seit Wochen, ich sähe so blass aus.',
-          'akt-ort': 'Das ist nicht an einer bestimmten Stelle — das ist der ganze Körper. Eine Schwere in den Armen und Beinen, als hätte ich die ganze Nacht durchgearbeitet.',
           'akt-beginn': 'Seit etwa vier Monaten. Es kam ganz langsam, schleichend. Zuerst dachte ich, es liegt am Schuljahresende und am Stress.',
-          'akt-charakter': 'Wie eine bleierne Erschöpfung. Ich schlafe eigentlich normal, aber ich wache morgens auf, als hätte ich gar nicht geschlafen.',
-          'akt-intensitaet': 'Wenn ich das von 1 bis 10 bewerten soll: etwa 7. Am Nachmittag eher 8 — da muss ich mich manchmal hinlegen.',
-          'akt-ausstrahlung': 'Nein, ausstrahlen tut nichts. Es ist einfach überall gleichzeitig.',
+          'akt-allgemein-art': 'Kraftlosigkeit und Müdigkeit, in den Armen und Beinen. Schwindel habe ich auch, vor allem wenn ich schnell aufstehe, dann wird mir kurz schwarz vor Augen.',
+          'akt-allgemein-alltag': 'Im Unterricht falle ich manchmal ab, ich kann mich schwer konzentrieren. Am Nachmittag muss ich mich schon hinlegen, das kannte ich früher gar nicht.',
+          'akt-allgemein-tageszeit': 'Morgens geht es noch, aber im Laufe des Tages wird es schlimmer, am Nachmittag am schlimmsten. Wenn ich mich kurz hinlege, geht es etwas besser, aber nie ganz weg.',
+          'akt-allgemein-gewicht': 'Abgenommen habe ich auch, vier Kilo in drei Monaten, aber das habe ich nicht so ernst genommen, ich esse halt kleinere Portionen im Moment. Durst habe ich keinen besonderen.',
+          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, weder Beine noch Gesicht noch Bauch. Und beim Wasserlassen ist auch alles wie immer.',
           'akt-verlauf': 'Es ist die ganze Zeit da, jeden Tag. Morgens ist es etwas besser, im Laufe des Tages wird es immer schlimmer. Und es ist über die Monate schleichend mehr geworden.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht. Keinen Unfall, keine schwere Erkältung, keine Reise. Es hat sich einfach eingeschlichen.',
           'akt-einfluss': 'Besser wird es kurz, wenn ich mich hinlege oder am Wochenende ausschlafe — aber richtig weg geht es nie. Schlimmer wird es bei Anstrengung: Beim Treppensteigen zu Hause bekomme ich Luftnot und das Herz klopft. Genommen habe ich nur Magnesium, das hat nichts gebracht.',
@@ -12824,6 +12840,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Mikrozytäre, hypochrome Anämie bei Eisenmangel — bei dieser seit sieben Jahren postmenopausalen 58-jährigen Patientin am ehesten durch einen chronischen okkulten gastrointestinalen Blutverlust. Vorrangig auszuschließen sind ein kolorektales Karzinom (Vater mit Darmkrebs, nie eine Vorsorgekoloskopie, Änderung der Stuhlgewohnheiten, Kaliberänderung, Gewichtsverlust) und eine NSAR-assoziierte Ulkus- oder Erosionsblutung bei fast täglicher Ibuprofen-Einnahme; begünstigend wirken die Dauertherapie mit einem Protonenpumpenhemmer und der Kaffee- und Teekonsum zu den Mahlzeiten.',
+        patientWorte: { verdacht: 'Ihnen durch einen kleinen, bisher unbemerkten Blutverlust im Verdauungstrakt Eisen fehlt und deshalb eine Blutarmut entstanden ist', diagnostik: 'nehmen wir Ihnen Blut ab und spiegeln Magen und Darm, um die Blutungsquelle zu finden', therapie: 'müsste die gefundene Ursache behandelt werden, und erst danach bekommen Sie Eisen, damit sich Ihr Blutbild wieder erholt' },
         differenzialdiagnosen: [
           {
             dd: 'Kolorektales Karzinom als Ursache des Eisenmangels',
@@ -12997,20 +13014,14 @@ export function seedCases(): Case[] {
         'auf-bluttransfusion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hat man Ihnen gesagt, dass Sie blass aussehen — und seit wann?', kapitel: 'aktuell' },
-        { frage: 'Bekommen Sie beim Treppensteigen schneller Luftnot oder Herzklopfen als früher?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie schwarzen, klebrigen oder blutigen Stuhlgang bemerkt? Wie oft und wann zuletzt?', kapitel: 'aktuell' },
-        { frage: 'Hat sich Ihr Stuhlgang verändert — Häufigkeit, Konsistenz oder die Form, zum Beispiel dünner als früher?', kapitel: 'aktuell' },
+        { frage: 'Hat sich Ihr Stuhlgang verändert — Häufigkeit, Konsistenz oder Form, zum Beispiel dünner als früher?', kapitel: 'aktuell' },
         { frage: 'Wann hatten Sie Ihre letzte Regelblutung, und hatten Sie seit den Wechseljahren jemals wieder eine Blutung?', kapitel: 'frauenanamnese' },
-        { frage: 'Nehmen Sie Schmerzmittel aus der Apotheke ein — zum Beispiel Ibuprofen, Diclofenac oder Aspirin? Wie oft und seit wann?', kapitel: 'medikamente' },
+        { frage: 'Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen, Diclofenac oder Aspirin ein — wie oft und seit wann?', kapitel: 'medikamente' },
         { frage: 'Wurde bei Ihnen schon einmal eine Darmspiegelung zur Vorsorge durchgeführt?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmpolypen?', kapitel: 'familie-sozial' },
-        { frage: 'Wie ernähren Sie sich — essen Sie Fleisch, oder leben Sie vegetarisch oder vegan? Trinken Sie Kaffee oder schwarzen Tee zu den Mahlzeiten?', kapitel: 'aktuell' },
         { frage: 'Sind Ihnen eingerissene Mundwinkel, eine brennende Zunge, brüchige Nägel oder vermehrter Haarausfall aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie manchmal Lust, ungewöhnliche Dinge zu essen — zum Beispiel Eiswürfel oder Erde?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihre Beine abends unruhig, sodass Sie schlecht einschlafen können?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie Durchfall oder einen Blähbauch nach Brot, Nudeln oder Kuchen?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie ungewollt Gewicht verloren — wie viele Kilo in welchem Zeitraum?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Bitte stellen Sie uns die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -13185,6 +13196,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Reinhard Kessler',
           age: 68,
@@ -13280,11 +13292,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Holzstaub, mein Leben lang, und Lacke — in der Werkstatt hilft man ja auch jetzt nicht ohne Staub.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neumann, bei dem bin ich seit vielen Jahren.',
           'akt-motiv': 'Herr Doktor, mein Herz stolpert seit vier Tagen ununterbrochen. Es schlägt völlig durcheinander, und ich bekomme dabei schlechter Luft als sonst.',
-          'akt-ort': 'Hier, mitten in der Brust, hinter dem Brustbein. (legt die flache Hand auf das Brustbein) Weh tut es nicht — es klopft und stolpert nur.',
           'akt-beginn': 'Vor vier Tagen, in der Nacht nach unserem Vereinsfest. Ich bin aufgewacht, und das Herz raste. Seitdem hört es nicht mehr auf.',
-          'akt-charakter': 'Wie wenn das Herz stolpert und dann wieder losrennt — völlig ohne Takt. Manchmal setzt es kurz aus, dann schlägt es wieder ganz schnell hintereinander.',
-          'akt-intensitaet': 'Schmerzen habe ich keine. Wenn ich sagen soll, wie sehr es mich belastet: so 6 von 10. Es macht mir vor allem Angst.',
-          'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus — nicht in den Arm, nicht in den Kiefer, nicht in den Rücken.',
+          'akt-anfall-ablauf': 'Wie es angefangen hat, weiß ich genau: ich bin nachts aufgewacht, und das Herz ist schon losgerannt. Aufgehört hat es bisher nicht — es ist seitdem einfach durchgehend da, mal schneller, mal ruhiger. Während dem spüre ich dieses Stolpern und Rasen, und dass mir schneller die Luft ausgeht.',
+          'akt-anfall-dauer': 'Das ist diesmal kein kurzer Anfall, das geht jetzt seit vier Tagen ohne Unterbrechung. So etwas Langes hatte ich noch nie — vorher wusste ich ja gar nicht, dass mit meinem Herz überhaupt was nicht stimmt, außer was der Hausarzt letztes Jahr im EKG gesehen hat.',
+          'akt-anfall-bewusstsein': 'Bewusstlos war ich nicht. Aber mehrmals, wenn ich schnell aufgestanden bin, wurde es mir kurz schwarz vor Augen. Hingefallen oder verletzt habe ich mich zum Glück nicht.',
           'akt-verlauf': 'Es ist seit vier Tagen durchgehend da, Tag und Nacht, mal schneller, mal etwas ruhiger, aber ganz weg ist es nie. Von allein aufgehört hat es bisher nicht.',
           'akt-ausloeser': 'Am Abend davor war unser Vereinsfest. Da habe ich ordentlich gefeiert — acht, neun Bier und ein paar Schnäpse, und es wurde spät. In der Nacht ging es dann los. Gestürzt bin ich nicht, und erkältet war ich auch nicht.',
           'akt-einfluss': 'Schlimmer wird es bei jeder Anstrengung — Treppensteigen oder mit dem Hund den Berg hoch. Wenn ich mich hinsetze und ruhig bleibe, wird es etwas erträglicher, aber es hört nicht auf. Eingenommen habe ich nichts dagegen.',
@@ -13336,6 +13347,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Tachyarrhythmia absoluta bei Vorhofflimmern (absolute Arrhythmie), aktuell seit vier Tagen und damit länger als 48 Stunden anhaltend — am ehesten Rezidiv eines bereits vor einem Jahr im hausärztlichen EKG dokumentierten Vorhofflimmerns, ausgelöst durch einen Alkoholexzess im Sinne eines Holiday-Heart-Syndroms. Begünstigend: arterielle Hypertonie, Diabetes mellitus Typ 2, Adipositas Grad I (96 kg bei 178 cm, BMI etwa 30,3) und Verdacht auf ein obstruktives Schlafapnoe-Syndrom. Symptomlast EHRA III. CHA2DS2-VASc 3 Punkte (arterielle Hypertonie 1, Diabetes mellitus 1, Alter 68 Jahre 1) bei bislang FEHLENDER oraler Antikoagulation — der Patient nimmt lediglich Acetylsalicylsäure 100 mg. Die endgültige Zuordnung als paroxysmales oder persistierendes Vorhofflimmern ist erst im Verlauf möglich: Endet die Episode spontan innerhalb von sieben Tagen, ist sie paroxysmal; hält sie länger an oder muss kardiovertiert werden, ist sie persistierend.',
+        patientWorte: { verdacht: 'Ihr Herz aus dem Takt geraten ist und unregelmäßig zu schnell schlägt, was man Vorhofflimmern nennt', diagnostik: 'schreiben wir ein Herz-EKG, nehmen Ihnen Blut ab und machen einen Ultraschall vom Herzen', therapie: 'bekommen Sie einen Blutverdünner, um einen Schlaganfall zu verhindern, und Medikamente, die den Herzschlag wieder beruhigen' },
         differenzialdiagnosen: [
           {
             dd: 'Vorhofflattern',
@@ -13507,18 +13519,14 @@ export function seedCases(): Case[] {
         'auf-koronarangiographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau stolpert Ihr Herz — können Sie mir den Tag und möglichst die Uhrzeit sagen?', kapitel: 'aktuell' },
-        { frage: 'Ist das Herzstolpern seit vier Tagen ununterbrochen da, oder hört es zwischendurch von allein auf?', kapitel: 'aktuell' },
+        { frage: 'Seit wann genau stolpert Ihr Herz, und ist es seitdem ununterbrochen da oder kommt und geht es?', kapitel: 'aktuell' },
         { frage: 'Was haben Sie an dem Abend vor Beginn der Beschwerden gegessen und getrunken — und wie viel genau?', kapitel: 'aktuell' },
         { frage: 'Wann und wie wurde Ihre Herzrhythmusstörung festgestellt, und wissen Sie, wie sie genau heißt?', kapitel: 'vorerkrankungen' },
         { frage: 'Welches Medikament nehmen Sie dagegen ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie jemals eine kurze Sprach-, Seh- oder Gefühlsstörung oder eine Schwäche einer Körperhälfte, auch wenn sie nach Minuten wieder verschwunden war?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie ungewollt Gewicht verloren, schwitzen Sie vermehrt, zittern Ihre Hände oder vertragen Sie Wärme schlechter?', kapitel: 'vegetativ' },
         { frage: 'Schnarchen Sie, und hat Ihre Frau Atempausen im Schlaf beobachtet? Sind Sie tagsüber ungewöhnlich müde?', kapitel: 'vegetativ' },
-        { frage: 'Bekommen Sie im Liegen schlechter Luft, wachen Sie nachts mit Atemnot auf, sind Ihre Beine abends geschwollen?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals eine Blutung — schwarzen Stuhl, Blut im Urin, häufiges Nasenbluten — oder ein Magengeschwür?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wie oft nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac ein?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Kaffee oder Energydrinks trinken Sie, und nehmen Sie Nahrungsergänzungsmittel oder Schilddrüsentabletten?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -13712,6 +13720,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Bernd Kowalski',
           age: 58,
@@ -13830,6 +13839,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, mein rechtes Bein ist seit vorgestern knallrot und dick, und es brennt richtig. Und gestern Abend kam hohes Fieber dazu — ich habe so geschüttelt, dass das ganze Bett gewackelt hat.',
           'akt-ort': 'Hier, am rechten Unterschenkel, vorne und an der Innenseite, vom Knöchel bis fast unters Knie. (zeigt vorsichtig, ohne hinzufassen) Das linke Bein ist völlig in Ordnung.',
           'akt-beginn': 'Vorgestern früh. Da war erst ein roter Fleck über dem Innenknöchel, ungefähr handtellergroß. Seitdem ist er jeden Tag größer geworden. Das Fieber kam erst gestern Abend, ganz plötzlich.',
+          'akt-veraend-was': 'Aufgefallen ist mir, dass das rechte Bein knallrot geworden ist und dick, glänzend richtig. Ein Knoten oder blaue Flecken — nein, das nicht.',
+          'akt-veraend-entwicklung': 'Ja, das ist eindeutig größer geworden, jeden Tag ein Stück mehr. Gestern war die Rötung noch kleiner als heute.',
+          'akt-veraend-blutung': 'Wehtun tut\'s schon, brennt und spannt richtig doll. Jucken — nein, das nicht. Bluten tut da nichts, weder am Bein noch sonst irgendwo.',
           'akt-charakter': 'Es brennt und spannt, als wäre das Bein zu voll. Und wenn man draufdrückt, tut es richtig weh.',
           'akt-intensitaet': 'So sechs von zehn. Wenn ich stehe oder das Bein herunterhängen lasse, wird es schlimmer, dann eher acht.',
           'akt-ausstrahlung': 'Richtig ausstrahlen tut es nicht. Aber gestern habe ich einen roten Streifen bemerkt, der von der Stelle nach oben Richtung Kniekehle zieht. Und in der rechten Leiste habe ich dicke Knoten, die wehtun, wenn ich draufdrücke.',
@@ -13884,6 +13896,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erysipel (Wundrose) des rechten Unterschenkels, am ehesten durch beta-hämolysierende Streptokokken der Gruppe A, mit begleitender Lymphangitis und schmerzhafter regionaler Lymphadenitis inguinal rechts. Als Eintrittspforte findet sich eine rhagadiforme Interdigitalmykose des rechten Fußes. Es handelt sich um ein Rezidiv nach einem Erysipel desselben Beines vor zwei Jahren, begünstigt durch die chronisch-venöse Insuffizienz mit Varikosis und Zustand nach Varizenstripping, den Diabetes mellitus Typ 2 (HbA1c 7,8 %) und die Adipositas Grad I (102 kg bei 1,78 m, BMI 32,2 kg/m²).',
+        patientWorte: { verdacht: 'bakterien über eine kleine Hautverletzung eingedrungen sind und eine Wundrose an Ihrem Unterschenkel verursachen', diagnostik: 'nehmen wir Ihnen Blut ab, entnehmen Blutkulturen und markieren den Rand der Rötung, um den Verlauf zu beobachten', therapie: 'bekommen Sie ein Antibiotikum über die Vene, und das Bein sollte hochgelagert und ruhiggestellt werden, bis die Rötung zurückgeht' },
         differenzialdiagnosen: [
           {
             dd: 'Tiefe Beinvenenthrombose des rechten Beines',
@@ -14042,17 +14055,12 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Können Sie mir die Stelle genau beschreiben — ist die Rötung scharf begrenzt, und sieht man deutlich, wo sie aufhört?', kapitel: 'aktuell' },
-        { frage: 'Ist die Rötung heute größer als gestern? Haben Sie den Rand irgendwie markiert oder verglichen?', kapitel: 'aktuell' },
-        { frage: 'Juckt die Stelle, oder tut sie eher weh und brennt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen — wie hoch, und hatten Sie dabei Schüttelfrost?', kapitel: 'aktuell' },
         { frage: 'Gibt es an dem Bein oder am Fuß eine kleine Verletzung, eine offene oder eingerissene Stelle, ein Ekzem oder ein offenes Bein?', kapitel: 'aktuell' },
         { frage: 'Wie sieht es zwischen Ihren Zehen aus — haben Sie Fußpilz, juckt oder schuppt es dort, ist die Haut eingerissen? Darf ich mir das ansehen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie einen roten Streifen bemerkt, der von der Stelle nach oben zieht? Sind die Lymphknoten in der Leiste geschwollen und schmerzhaft?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so eine Rötung schon einmal? Wurden Sie damals mit Antibiotika behandelt oder sogar stationär aufgenommen?', kapitel: 'vorerkrankungen' },
         { frage: 'Sind Ihre Beine abends geschwollen, haben Sie Krampfadern, und tragen Sie Kompressionsstrümpfe?', kapitel: 'vorerkrankungen' },
-        { frage: 'Waren Sie zuletzt lange unbeweglich, im Gips, auf einer langen Reise oder wurden Sie operiert? Nehmen Sie Blutverdünner?', kapitel: 'medikamente' },
-        { frage: 'Ist der Schmerz stärker, als die Stelle aussieht? Hat sich die Farbe ins Bläuliche verändert, sind Blasen oder schwarze Stellen entstanden, knistert die Haut?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie im Wald oder auf einer Wiese, gab es einen Zeckenstich, einen Insektenstich oder einen Kratzer von einem Tier?', kapitel: 'aktuell' },
+        { frage: 'Sind die Schmerzen stärker, als die Rötung vermuten lässt? Hat sich die Farbe bläulich verändert, oder sind Blasen oder schwarze Stellen entstanden?', kapitel: 'aktuell' },
         { frage: 'Wie ist Ihr Blutzucker zuletzt eingestellt gewesen — wissen Sie Ihren Langzeitwert?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -14249,6 +14257,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Beate Lindner',
           age: 45,
@@ -14350,11 +14359,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Nein, in der Schule gibt es Kreidestaub und sonst nichts.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Bergmann.',
           'akt-motiv': 'Frau Doktor, ich bin einfach nur noch müde. Seit Monaten. Ich schleppe mich durch den Tag, mir ist ständig kalt, und ich habe zugenommen, obwohl ich nicht mehr esse. Mein Hausarzt meint, das sei eine Depression — aber ich glaube das nicht.',
-          'akt-ort': 'Das ist nichts, was an einer Stelle sitzt. Die Müdigkeit ist im ganzen Körper, wie Blei in den Armen und Beinen. Weh tut mir eigentlich nichts, nur die Oberschenkel sind schwach und nachts habe ich manchmal Wadenkrämpfe.',
           'akt-beginn': 'So richtig sagen kann ich das nicht — es hat sich ganz langsam entwickelt, seit ungefähr acht Monaten. Es gab keinen Tag, an dem es angefangen hätte.',
-          'akt-charakter': 'Eine bleierne, schwere Müdigkeit. Auch wenn ich zehn Stunden schlafe, wache ich wie gerädert auf. Und im Kopf ist alles langsam und wie in Watte.',
-          'akt-intensitaet': 'Wenn ich das von 0 bis 10 bewerten soll, wie sehr mich das beeinträchtigt: 7 von 10. An schlechten Tagen 8.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Es ist eben überall und nirgends.',
+          'akt-allgemein-art': 'Müdigkeit und Kraftlosigkeit, vor allem in den Oberschenkeln — beim Treppensteigen und beim Aufstehen aus der Hocke wird das richtig schwach. Schwindel habe ich nicht.',
+          'akt-allgemein-alltag': 'Im Alltag schaffe ich kaum noch etwas nach der Schule. Abends schlafe ich schon auf dem Sofa ein, bevor ich überhaupt ins Bett komme. Tagsüber lege ich mich nicht extra hin, aber ich müsste eigentlich.',
+          'akt-allgemein-tageszeit': 'Das ist eigentlich den ganzen Tag gleich, morgens nicht besser und abends nicht schlechter. Auch nach dem Schlafen wird es nicht wirklich besser — ich schlafe ja zehn Stunden und bin trotzdem wie gerädert.',
+          'akt-allgemein-gewicht': 'Zugenommen habe ich, sechs Kilo in ungefähr einem halben Jahr, obwohl ich nicht mehr esse als sonst — das verstehe ich selbst nicht. Durst habe ich keinen besonderen, eher weniger als früher.',
+          'akt-allgemein-schwellung': 'Ja, die Beine sind abends geschwollen, so teigig, und morgens habe ich dicke Augenlider. Der Bauch ist nicht geschwollen. Beim Wasserlassen ist mir nichts aufgefallen, das ist wie immer.',
           'akt-verlauf': 'Es ist jeden Tag da und es ist über die Monate langsam schlimmer geworden. Morgens ist es nicht schlechter als abends — eigentlich den ganzen Tag gleich.',
           'akt-ausloeser': 'Nein, da war nichts. Kein Stress zu Hause, keine schlimme Nachricht, kein Infekt davor. Genau deshalb verstehe ich das ja nicht.',
           'akt-einfluss': 'Besser wird es durch nichts, auch Urlaub hat nichts gebracht. Schlimmer wird es, wenn es kalt ist — im Winter war es fast nicht auszuhalten.',
@@ -14410,6 +14420,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Manifeste primäre Hypothyreose bei Hashimoto-Thyreoiditis (Autoimmunthyreoiditis) — nahegelegt durch Müdigkeit, Verlangsamung, Kälteintoleranz, Gewichtszunahme bei unverändertem Appetit, Obstipation, trockene Haut, Haarausfall, Heiserkeit, Myxödem der Unterschenkel (teigige, nicht eindrückbare Schwellung), Bradykardie und Menorrhagien bei zusätzlich vorliegender Vitiligo und positiver Familienanamnese für Autoimmunerkrankungen (Mutter mit Schilddrüsenunterfunktion, Schwester mit Typ-1-Diabetes)',
+        patientWorte: { verdacht: 'Ihre Schilddrüse zu wenig Hormon produziert, wahrscheinlich weil das eigene Immunsystem sie angreift', diagnostik: 'nehmen wir Ihnen Blut ab, um die Schilddrüsenwerte und bestimmte Antikörper zu messen', therapie: 'bekommen Sie täglich eine Tablette mit dem fehlenden Schilddrüsenhormon, die Ihre Beschwerden nach und nach bessern sollte' },
         differenzialdiagnosen: [
           {
             dd: 'Depressive Episode',
@@ -14577,17 +14588,13 @@ export function seedCases(): Case[] {
         'auf-feinnadelpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Frieren Sie im Vergleich zu anderen Menschen — brauchen Sie mehr Kleidung oder eine höhere Raumtemperatur als Ihre Familie?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie zugenommen, obwohl Sie nicht mehr essen als früher? Wie viele Kilo in welchem Zeitraum?', kapitel: 'vegetativ' },
-        { frage: 'Wie oft haben Sie Stuhlgang, und hat sich das in den letzten Monaten verändert?', kapitel: 'vegetativ' },
-        { frage: 'Ist Ihnen aufgefallen, dass Ihre Stimme heiser oder tiefer geworden ist? Hat jemand Sie am Telefon nicht erkannt?', kapitel: 'aktuell' },
-        { frage: 'Verlieren Sie vermehrt Haare, und ist Ihre Haut trockener geworden? Sind Ihre Augenbrauen außen dünner geworden?', kapitel: 'aktuell' },
+        { frage: 'Verlieren Sie vermehrt Haare, und sind Ihre Augenbrauen außen dünner geworden?', kapitel: 'aktuell' },
         { frage: 'Wenn Sie auf die geschwollenen Unterschenkel drücken — bleibt eine Delle stehen oder nicht?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Regelblutung stärker oder länger geworden?', kapitel: 'frauenanamnese' },
-        { frage: 'Spüren Sie etwas am Hals: ein Kloßgefühl, Druck, Schluckbeschwerden oder eine Schwellung? Hatten Sie jemals eine Schilddrüsenoperation, eine Radiojodtherapie oder eine Bestrahlung am Hals?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie jemals eine Schilddrüsenoperation, eine Radiojodtherapie oder eine Bestrahlung am Hals?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Amiodaron, Lithium oder Interferon ein, und hatten Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel?', kapitel: 'medikamente' },
-        { frage: 'Gibt es in Ihrer Familie Schilddrüsenerkrankungen oder andere Autoimmunerkrankungen wie Typ-1-Diabetes, Vitiligo oder eine Blutarmut durch Vitamin-B12-Mangel?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie Freude an Dingen, die Ihnen früher Freude gemacht haben, oder ist Ihnen alles gleichgültig geworden? Denken Sie manchmal daran, nicht mehr leben zu wollen?', kapitel: 'aktuell' },
+        { frage: 'Sind in Ihrer Familie Schilddrüsenerkrankungen oder andere Autoimmunerkrankungen wie Typ-1-Diabetes, Vitiligo oder eine Blutarmut durch Vitamin-B12-Mangel bekannt?', kapitel: 'familie-sozial' },
+        { frage: 'Haben Sie noch Freude an Dingen, die Ihnen früher Freude gemacht haben, oder ist Ihnen alles gleichgültiger geworden?', kapitel: 'aktuell' },
         { frage: 'Waren Sie nach einer Ihrer Entbindungen über längere Zeit ungewöhnlich erschöpft?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -14802,6 +14809,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Kolbe',
           age: 68,
@@ -14910,11 +14918,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien hatte ich nichts zu tun, aber viel Staub und Zement, und ich habe immer schwer gehoben und viel gekniet — daher kommen ja die Knie.',
           'pers-hausarzt': 'Ja, Dr. Brenner. Ich war allerdings schon über ein Jahr nicht mehr bei ihm.',
           'akt-motiv': 'Meine Frau hat mich hergeschickt. Ich bin seit drei Monaten so müde, dass ich zu nichts mehr komme, und abends sind meine Beine dick.',
-          'akt-ort': 'Weh tut mir eigentlich nichts. Das Dicke ist hier unten, an den Unterschenkeln und den Knöcheln, an beiden Beinen gleich. Und morgens sind die Augenlider geschwollen. (zeigt auf beide Unterschenkel)',
           'akt-beginn': 'Die Müdigkeit hat vor ungefähr drei Monaten angefangen, ganz langsam, schleichend — ich kann keinen Tag nennen. Die dicken Beine sind mir seit etwa sechs Wochen aufgefallen.',
-          'akt-charakter': 'Schmerzen habe ich keine. Es ist eher ein Spannungsgefühl in den Waden, als wäre die Haut zu eng, und die Beine sind schwer wie Blei.',
-          'akt-intensitaet': 'Schmerzen: null von zehn. Aber die Müdigkeit — wenn ich das mit einer Zahl sagen soll, dann 7 von 10. Ich schlafe mittags im Sessel ein, und das kannte ich früher überhaupt nicht.',
-          'akt-ausstrahlung': 'Nein, da strahlt nichts aus. Es bleibt in beiden Unterschenkeln.',
+          'akt-allgemein-art': 'Kraftlosigkeit, würde ich sagen. Schwindel habe ich nicht, es ist einfach, dass ich keine Kraft mehr in den Beinen habe.',
+          'akt-allgemein-alltag': 'Im Garten und beim Einkaufen komme ich kaum noch hinterher. Mittags nicke ich im Sessel ein, das kannte ich früher nicht. Extra hinlegen tue ich mich nicht, aber ich müsste eigentlich.',
+          'akt-allgemein-tageszeit': 'Die Müdigkeit ist eigentlich den ganzen Tag gleich da. Die Beine sind morgens noch fast normal und werden im Laufe des Tages dicker, abends am schlimmsten. Nach dem Hochlegen wird es besser.',
+          'akt-allgemein-gewicht': 'Abgenommen habe ich, vier Kilo in drei Monaten, obwohl die Beine dicker werden — komisch, nicht wahr. Der Appetit ist auch weg, ich mag im Moment kein Fleisch mehr, und im Mund habe ich so einen metallischen Geschmack. Durst habe ich keinen besonderen.',
+          'akt-allgemein-schwellung': 'Ja, die Beine sind geschwollen, beide gleich, bis zu den Knöcheln rauf, und morgens die Augenlider. Der Bauch ist nicht dick. Beim Wasserlassen — ich muss nachts drei-, viermal raus, und der Urin schäumt, der Schaum bleibt in der Toilette stehen.',
           'akt-verlauf': 'Es ist dauernd da und wird eher langsam schlimmer. Die Beine sind morgens fast normal und werden im Lauf des Tages dicker, abends am schlimmsten.',
           'akt-ausloeser': 'Nein, einen richtigen Auslöser gab es nicht. Kein Sturz, keine neue Tablette, keine Untersuchung, keine Reise. Es hat sich einfach eingeschlichen.',
           'akt-einfluss': 'Wenn ich die Beine abends hochlege, wird es etwas besser, über Nacht geht es fast ganz weg. Schlimmer wird es, wenn ich lange stehe. Stützstrümpfe habe ich versucht, die bekomme ich aber nicht an. Gegen die Müdigkeit hilft gar nichts, ich habe es sogar mit Magnesium probiert.',
@@ -14965,6 +14974,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Chronische Niereninsuffizienz im fortgeschrittenen Stadium — bei seit über einem Jahr bekannten erhöhten Retentionswerten, renaler Anämie mit Blässe und Belastungsdyspnoe, Ödemen, Nykturie, Proteinurie (schäumender Urin) und beginnender urämischer Symptomatik klinisch am ehesten KDIGO-Stadium G4 mit Albuminurie A3 — auf dem Boden einer diabetischen Nephropathie (Diabetes mellitus Typ 2 seit 18 Jahren mit Retinopathie und Polyneuropathie) und einer hypertensiven Nephropathie (arterielle Hypertonie seit 20 Jahren, unzureichend eingestellt), zusätzlich unterhalten durch eine analgetikabedingte Komponente bei täglicher Ibuprofeneinnahme seit sechs Jahren',
+        patientWorte: { verdacht: 'Ihre Nierenfunktion durch den langjährigen Diabetes und den Bluthochdruck bereits deutlich eingeschränkt ist', diagnostik: 'nehmen wir Ihnen Blut und Urin ab, um Ihre Nierenwerte und die Eiweißausscheidung zu bestimmen', therapie: 'müssen wir bestimmte Schmerzmittel absetzen, Ihren Blutdruck besser einstellen und Ihre Nierenwerte regelmäßig kontrollieren, um das Fortschreiten zu bremsen' },
         differenzialdiagnosen: [
           {
             dd: 'Akutes Nierenversagen beziehungsweise akut-auf-chronisches Nierenversagen',
@@ -15153,18 +15163,11 @@ export function seedCases(): Case[] {
         'auf-feinnadelpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Müssen Sie nachts aufstehen, um Wasser zu lassen — und wie oft? War das früher auch schon so?', kapitel: 'vegetativ' },
-        { frage: 'Schäumt Ihr Urin in der Toilette, und bleibt der Schaum stehen?', kapitel: 'vegetativ' },
-        { frage: 'Sind Ihre Augenlider morgens geschwollen, und werden die Beine im Lauf des Tages dicker?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Schmerzmittel aus der Apotheke — Ibuprofen oder Diclofenac? Wie viele Tabletten am Tag, und seit wann?', kapitel: 'medikamente' },
+        { frage: 'Seit wann nehmen Sie Schmerzmittel wie Ibuprofen ein, und wie oft am Tag?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel, etwa eine Computertomographie oder eine Herzkatheteruntersuchung?', kapitel: 'vorerkrankungen' },
         { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt? Wann war Ihre letzte Blutabnahme, und was hat Ihr Hausarzt dazu gesagt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Juckt es Sie am ganzen Körper, besonders nachts — und sehen Sie dabei einen Ausschlag?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie einen metallischen Geschmack im Mund, und schmeckt Ihnen Fleisch noch?', kapitel: 'aktuell' },
-        { frage: 'Wie ist Ihr Blutdruck zu Hause eingestellt, und wie viele Tabletten nehmen Sie dafür?', kapitel: 'medikamente' },
         { frage: 'Seit wann besteht Ihr Diabetes, und waren Sie in augenärztlicher Kontrolle?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihr Harnstrahl abgeschwächt, tröpfelt es nach, oder haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Familie Nierenerkrankungen — Zystennieren oder jemanden an der Dialyse?', kapitel: 'familie-sozial' },
         { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell' },
         { frage: 'Hat sich Ihr Insulin- oder Tablettenbedarf für den Zucker in letzter Zeit verändert?', kapitel: 'medikamente' },
       ],
@@ -15360,6 +15363,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
           age: 47,
@@ -15473,6 +15477,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich habe hier am Hals einen Knoten. Der ist vor ungefähr sechs Wochen aufgefallen und er wird immer größer. Weh tut er überhaupt nicht — und genau das macht mir Sorgen, ehrlich gesagt.',
           'akt-ort': 'Hier, auf der linken Seite, unten am Hals, direkt über dem Schlüsselbein. (tastet ihn selbst) Sie können ihn gut fühlen, er ist ziemlich hart. Und seit zwei Wochen habe ich noch so etwas in der linken Leiste, das habe ich beim Duschen gemerkt.',
           'akt-beginn': 'Seit etwa sechs Wochen. Ganz langsam, schleichend — zuerst war es wie eine Erbse, jetzt ist es fast so groß wie eine Walnuss. Der in der Leiste ist erst seit ungefähr zwei Wochen da.',
+          'akt-veraend-was': 'Ja, das hab ich Ihnen ja schon erzählt — der Knoten am Hals, und seit zwei Wochen der zweite in der Leiste. Sonst ist mir nichts aufgefallen, keine Hautveränderung, keine blauen Flecken, mit dem Stuhl oder so ist alles normal.',
+          'akt-veraend-entwicklung': 'Größer wird er schon, ja, langsam aber stetig, von der Erbse zur Walnuss sozusagen. Die Farbe hat sich nicht verändert, er ist einfach nur gewachsen.',
+          'akt-veraend-blutung': 'Wehtun tut der Knoten selber nicht, das ist ja gerade das Sonderbare dran. Jucken tut aber mein ganzer Körper, das hab ich ja auch schon gesagt. Bluten tut da nichts, weder am Knoten noch sonst wo.',
           'akt-charakter': 'Er tut gar nicht weh, das ist ja das Merkwürdige. Er fühlt sich hart an, fast wie ein Stein, und er lässt sich nicht verschieben. Er ist auch nicht rot und nicht warm.',
           'akt-intensitaet': 'Schmerzen im eigentlichen Sinn habe ich keine, also null von zehn. Nur dieses kurze Ziehen manchmal, das wäre vielleicht drei von zehn.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Weder in die Schulter noch in den Arm oder in den Kiefer.',
@@ -15532,6 +15539,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Malignes Lymphom, am ehesten ein Hodgkin-Lymphom mit zervikal-supraklavikulärem Befall links, klinischem Verdacht auf Mediastinalbefall und inguinalem Befall links — klinisch mindestens Ann-Arbor-Stadium III B (Befall beidseits des Zwerchfells bei vorhandener B-Symptomatik); die endgültige Stadieneinteilung erfolgt nach Histologie und PET-CT. Für die Diagnose sprechen die seit sechs Wochen schmerzlos wachsende, derbe, nicht verschiebliche Lymphknotenschwellung, die vollständige B-Symptomatik, der generalisierte Pruritus, der Leistungsknick und der nahezu pathognomonische Alkoholschmerz.',
+        patientWorte: { verdacht: 'eine Erkrankung des Lymphsystems die geschwollenen Lymphknoten, das Fieber und den Gewichtsverlust erklärt, das muss aber erst gesichert werden', diagnostik: 'nehmen wir Ihnen Blut ab, machen eine Bildgebung des ganzen Körpers und entnehmen eine kleine Gewebeprobe aus einem Lymphknoten', therapie: 'der Gewebeprobe würde sich eine Chemotherapie über mehrere Monate anschließen, diese Erkrankung ist auch in fortgeschrittenem Stadium gut behandelbar' },
         differenzialdiagnosen: [
           {
             dd: 'Non-Hodgkin-Lymphom',
@@ -15743,16 +15751,11 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Tut der Knoten weh, ist er gerötet oder überwärmt — und lässt er sich unter der Haut verschieben?', kapitel: 'aktuell' },
-        { frage: 'Ist der Knoten seit dem ersten Bemerken gewachsen, oder war er zwischendurch auch schon einmal kleiner?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie VOR dieser Zeit gewogen, und über welchen Zeitraum haben Sie abgenommen?', kapitel: 'vegetativ' },
-        { frage: 'Müssen Sie wegen des nächtlichen Schwitzens Ihr Nachthemd oder sogar die Bettwäsche wechseln?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie das Fieber gemessen? Wie hoch war es, und hatten Sie dabei Halsschmerzen, Husten mit Auswurf oder Brennen beim Wasserlassen?', kapitel: 'vegetativ' },
+        { frage: 'Ist der Knoten seitdem immer größer geworden, oder war er zwischendurch auch schon einmal kleiner?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie zusätzlich zum Fieber Halsschmerzen, Husten oder Brennen beim Wasserlassen — also Hinweise auf einen Infekt?', kapitel: 'vegetativ' },
         { frage: 'Verspüren Sie kurz nach dem Trinken von Alkohol einen Schmerz genau in diesem Knoten?', kapitel: 'aktuell' },
         { frage: 'Juckt Sie die Haut am ganzen Körper, ohne dass ein Ausschlag zu sehen ist?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den Wochen davor eine Halsentzündung, eine Zahnentzündung, einen Katzenkratzer oder einen Zeckenstich?', kapitel: 'familie-sozial' },
-        { frage: 'Ist Ihnen ein neuer oder veränderter Leberfleck aufgefallen, oder haben Sie eine Wunde, die nicht abheilt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Herzrasen, Zittern, Wärmeintoleranz oder Schluckbeschwerden bemerkt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen aufgefallen, dass Ihr Gesicht morgens gedunsen ist oder die Halsvenen hervortreten?', kapitel: 'aktuell' },
         { frage: 'Haben Sie an anderen Stellen ebenfalls Knoten getastet — in den Achseln, in den Leisten oder in der Brust?', kapitel: 'aktuell' },
       ],
@@ -15921,6 +15924,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Manfred Thaler',
           age: 58,
@@ -16026,6 +16030,10 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor … (atmet schwer, kurze Sätze) … ich bekomme keine Luft. Das kam vor zwei Stunden ganz plötzlich, als ich die Treppe hochgegangen bin. Und beim Atmen sticht es hier rechts.',
           'akt-ort': 'Hier, rechts unten an der Seite, unter der Achsel. (zeigt flächig auf die rechte untere Thoraxseite) Es ist nicht in der Mitte, nicht hinter dem Brustbein.',
           'akt-beginn': 'Vor ungefähr zwei Stunden. Ganz plötzlich, von einer Sekunde auf die andere, als ich die Treppe in den ersten Stock hochgestiegen bin. Vorher war überhaupt nichts.',
+          'akt-atemnot-belastung': 'Auch in Ruhe … jetzt gerade auch. Vorhin, beim Treppensteigen, ist es losgegangen … da war ich noch nicht mal oben.',
+          'akt-atemnot-nachts': 'Mit erhöhtem Oberkörper schlafen … nein, das nicht, das ist ja heute erst passiert. Aber die letzten Nächte hab ich schlecht geschlafen … wegen dem Ziehen in der linken Wade.',
+          'akt-atemnot-husten': 'Husten hab ich, seit heute Morgen … mit ein bisschen Blut drin, so rote Fäden im Schleim … das hat mir Angst gemacht.',
+          'akt-atemnot-geraeusch': 'Pfeifen oder Brummen … nein, das hör ich nicht.',
           'akt-charakter': 'Es sticht. Wie ein Messer, wenn ich tief einatme. Kein Druck, kein Brennen — es ist ein spitzer, stechender Schmerz.',
           'akt-intensitaet': 'Wenn ich tief einatme, 7 von 10. Wenn ich ganz flach atme und stillsitze, vielleicht 4.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus. Nicht in den Arm, nicht in den Kiefer, nicht in den Rücken. Es bleibt genau hier rechts.',
@@ -16068,6 +16076,14 @@ export function seedCases(): Case[] {
           'fach-pneumo-infekt': 'Nein, eine Erkältung oder Grippe hatte ich in den letzten Wochen nicht. Kontakt zu Kranken auch nicht, ich bin ja seit drei Wochen zu Hause.',
           'fach-pneumo-noxen': 'Beruflich habe ich mit Staub, Asbest oder Chemikalien nichts zu tun, ich fahre Bus. Vögel halten wir keine.',
           'fach-pneumo-allergie': 'Gegen Penizillin bin ich allergisch, das hat mir mal einen Ausschlag gemacht. Heuschnupfen oder eine Tierhaarallergie habe ich nicht, und Asthma auch nicht.',
+          'fach-gefaess-gehstrecke': 'Ich bin... seit der Knie-OP kaum gelaufen. Wegen der Wade weiß ich nicht genau, wie weit ich könnte. Das hab ich nicht probiert.',
+          'fach-gefaess-ruheschmerz': 'Ja... die linke Wade tut auch in Ruhe weh, die ganze Zeit eigentlich. Hängen lassen hab ich nicht probiert, ich lieg sowieso meistens.',
+          'fach-gefaess-schwellung': 'Ja... das linke Bein. Die Wade ist dicker als rechts, und warm. Seit vier Tagen ungefähr. Ich dachte, das kommt von der Knie-OP.',
+          'fach-gefaess-immobilisation': 'Ja... vor drei Wochen war ich am Knie operiert, seitdem krankgeschrieben, viel gesessen und gelegen. Am Anfang mit Gehstützen.',
+          'fach-gefaess-hormone': 'Nein, so etwas nehme ich nicht.',
+          'fach-gefaess-thrombose': 'Selbst hatte ich noch nie eine Thrombose oder eine Embolie. Aber... meine Mutter ist an einer Lungenembolie gestorben. Deshalb hab ich jetzt auch solche Angst.',
+          'fach-gefaess-wunde': 'Nein, offene Wunden habe ich keine. Der Fuß ist auch nicht kalt oder blass, nur die Wade ist geschwollen, wie gesagt.',
+          'fach-gefaess-vorgeschichte': 'Krampfadern hab ich an beiden Unterschenkeln, schon lange. Kompressionsstrümpfe hab ich bekommen, aber ich trag die nur selten, die sind mir zu eng und zu warm. Operiert an den Gefäßen wurde ich nie, nur am Knie.',
         },
         schwierigeReaktionen: [
           '(atemlos, unterbricht) „Herr Doktor, ich kriege wirklich keine Luft — muss ich jetzt sterben?“',
@@ -16080,6 +16096,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Lungenembolie rechts bei tiefer Beinvenenthrombose links — Wells-Score 10 Punkte, damit hohe klinische Wahrscheinlichkeit; ausgelöst durch Immobilisation nach arthroskopischer Knieoperation vor drei Wochen bei vorzeitig beendeter Thromboseprophylaxe, zusätzlich Varikose, Adipositas Grad I, Nikotinabusus, sitzende Tätigkeit und positive Familienanamnese',
+        patientWorte: { verdacht: 'sich ein Blutgerinnsel aus Ihrem Bein gelöst hat und in die Lunge gewandert ist und dort ein Gefäß verstopft', diagnostik: 'nehmen wir sofort Blut ab, schreiben ein Herz-EKG und machen eine Computertomographie der Lungengefäße', therapie: 'bekommen Sie umgehend einen Blutverdünner über die Vene, damit sich das Gerinnsel auflöst und keine weiteren Gerinnsel entstehen' },
         differenzialdiagnosen: [
           {
             dd: 'Akutes Koronarsyndrom / Myokardinfarkt',
@@ -16248,18 +16265,16 @@ export function seedCases(): Case[] {
         'auf-ct',
         'auf-sonographie',
       ],
+      fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
         { frage: 'Wann genau hat die Luftnot begonnen, und was haben Sie in diesem Moment gemacht — kam sie schlagartig oder hat sie sich über Stunden entwickelt?', kapitel: 'aktuell' },
-        { frage: 'Wird der Schmerz beim tiefen Einatmen und beim Husten stärker, oder ist es eher ein Druck hinter dem Brustbein?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Blut abgehustet oder war der Auswurf rötlich verfärbt?', kapitel: 'aktuell' },
+        { frage: 'Wird der Schmerz beim tiefen Einatmen oder Husten stärker, oder spüren Sie eher einen Druck hinter dem Brustbein?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen an den Beinen etwas aufgefallen — ist ein Bein dicker, wärmer oder schmerzhafter als das andere?', kapitel: 'aktuell' },
         { frage: 'Waren Sie in den letzten Wochen operiert, längere Zeit bettlägerig, im Gips oder auf einer langen Reise ohne Aufstehen?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie nach der Operation Spritzen gegen Thrombose bekommen, und wie lange haben Sie diese genommen?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie schon einmal eine Thrombose oder eine Lungenembolie, und gibt es in Ihrer Familie Thrombosen, Lungenembolien oder eine bekannte Gerinnungsstörung?', kapitel: 'familie-sozial' },
-        { frage: 'Ist Ihnen kurz schwarz vor Augen geworden oder sind Sie ohnmächtig geworden?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihnen kurz schwarz vor Augen geworden, oder sind Sie ohnmächtig geworden?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Blutverdünner ein, und hatten Sie in letzter Zeit eine Blutung, eine Kopfverletzung oder einen Schlaganfall?', kapitel: 'medikamente' },
-        { frage: 'Tragen Sie die verordneten Kompressionsstrümpfe regelmäßig?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen, und war der Auswurf gelb oder grün?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
@@ -16627,6 +16642,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Extrauteringravidität, am ehesten eine noch nicht rupturierte Tubargravidität rechts, bei sekundärer Amenorrhoe von etwa sieben Wochen, einseitigem rechtsseitigem Unterbauchschmerz und vaginaler Schmierblutung — Risikokonstellation: Zustand nach Adnexitis bei Chlamydieninfektion, Nikotinkonsum, aktiver Kinderwunsch ohne Kontrazeption',
+        patientWorte: { verdacht: 'sich Ihre Schwangerschaft außerhalb der Gebärmutter im Eileiter eingenistet hat, das kann gefährlich werden und muss rasch geklärt werden', diagnostik: 'machen wir einen Schwangerschaftstest, einen Ultraschall über die Scheide und bestimmen einen Schwangerschaftshormonwert im Blut', therapie: 'reicht manchmal ein Medikament, häufig ist jedoch eine kleine Bauchspiegelung nötig, um den Eileiter operativ zu versorgen' },
         differenzialdiagnosen: [
           {
             dd: 'Intakte intrauterine Frühschwangerschaft',
@@ -16788,18 +16804,14 @@ export function seedCases(): Case[] {
         'auf-laparoskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann hatten Sie Ihre letzte normale Regelblutung, und war sie so wie sonst?', kapitel: 'frauenanamnese' },
-        { frage: 'Könnten Sie schwanger sein? Verhüten Sie zurzeit, und haben Sie schon einen Schwangerschaftstest gemacht?', kapitel: 'frauenanamnese' },
-        { frage: 'Wie stark ist die Blutung — wie viele Binden oder Slipeinlagen brauchen Sie, und welche Farbe hat das Blut im Vergleich zu Ihrer Regel?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie bereits einen Schwangerschaftstest gemacht?', kapitel: 'frauenanamnese' },
         { frage: 'Ist Ihnen dabei Gewebe oder sind Ihnen Klümpchen abgegangen?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie schon einmal eine Unterleibsentzündung, eine Chlamydieninfektion oder eine Operation an den Eileitern?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal eine Schwangerschaft außerhalb der Gebärmutter?', kapitel: 'vorerkrankungen' },
-        { frage: 'Tragen Sie eine Spirale, oder sind Sie in einer Kinderwunschbehandlung?', kapitel: 'medikamente' },
         { frage: 'Ist Ihnen schwindelig oder schwarz vor Augen geworden — sind Sie schon einmal ohnmächtig geworden?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen in der Schulter oder unter dem Rippenbogen bemerkt, besonders im Liegen oder beim Einatmen?', kapitel: 'aktuell' },
         { frage: 'Ist der Schmerz gewandert, oder war er von Anfang an rechts unten? Haben Sie Fieber gemessen?', kapitel: 'aktuell' },
         { frage: 'Wissen Sie Ihre Blutgruppe und Ihren Rhesusfaktor?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr bemerkt, und haben Sie ungewöhnlichen Ausfluss?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -17150,6 +17162,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute bakterielle (eitrige) Meningitis, am ehesten otogen fortgeleitet bei rezidivierender und unzureichend behandelter Otitis media links — als Erreger am wahrscheinlichsten Streptococcus pneumoniae; eine Meningokokkenmeningitis muss bis zum Erregernachweis angenommen werden. Absoluter Notfall.',
+        patientWorte: { verdacht: 'eine bakterielle Hirnhautentzündung Ihre starken Kopfschmerzen, das Fieber und die Nackensteife verursacht, das ist ernst und eilig', diagnostik: 'nehmen wir Blutkulturen ab und entnehmen mit einer dünnen Nadel etwas Nervenwasser aus dem Rücken', therapie: 'bekommen Sie ohne Zeitverlust ein Antibiotikum und ein entzündungshemmendes Medikament über die Vene, weil jede Stunde zählt' },
         differenzialdiagnosen: [
           {
             dd: 'Virale (aseptische) Meningitis',
@@ -17316,20 +17329,14 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Kam der Kopfschmerz schlagartig wie ein Schlag auf den Kopf, oder hat er über Stunden zugenommen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen — wie hoch, und hatten Sie Schüttelfrost?', kapitel: 'aktuell' },
         { frage: 'Können Sie das Kinn auf die Brust legen? Können Sie den Kopf zur Seite drehen und in den Nacken legen?', kapitel: 'aktuell' },
         { frage: 'Stört Sie helles Licht oder Lärm mehr als sonst?', kapitel: 'aktuell' },
         { frage: 'Haben Sie erbrochen — kam das Erbrechen im Schwall, ohne dass Ihnen vorher übel war?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie in den letzten Wochen eine Ohrenentzündung, eine Nasennebenhöhlenentzündung oder Zahnschmerzen? Wurde das mit einem Antibiotikum behandelt?', kapitel: 'aktuell' },
-        { frage: 'Läuft aus Ihrem Ohr oder Ihrer Nase eine Flüssigkeit heraus?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie in den letzten Wochen eine Ohren- oder Nasennebenhöhlenentzündung, die mit einem Antibiotikum behandelt wurde — und ist Flüssigkeit aus Ohr oder Nase gelaufen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie kleine rote Punkte oder blaue Flecken auf der Haut bemerkt, die sich nicht wegdrücken lassen?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie einen Krampfanfall, eine Lähmung, Doppelbilder oder eine Sprachstörung?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie einen Sturz oder eine Kopfverletzung, oder sind Sie am Kopf operiert worden?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Immunsystem unterdrücken? Wurde Ihnen die Milz entfernt?', kapitel: 'medikamente' },
-        { frage: 'Wie ist Ihr Impfstatus — sind Sie gegen Hirnhautentzündung, Pneumokokken oder FSME geimpft?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gibt es in Ihrem Umfeld — in Ihrer Klasse, in der Kita Ihrer Tochter, in Ihrer Familie — jemanden mit einer Hirnhautentzündung?', kapitel: 'familie-sozial' },
-        { frage: 'Wer lebt mit Ihnen im Haushalt, und mit wem hatten Sie in den letzten Tagen engen Kontakt?', kapitel: 'familie-sozial' },
+        { frage: 'Gab es in Ihrem Umfeld — Familie, Arbeit, Kita Ihrer Tochter — in letzter Zeit jemanden mit einer Hirnhautentzündung, oder hatten Sie engen Kontakt zu einer kranken Person?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -17512,6 +17519,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Ilsi Bachmann',
           age: 63,
@@ -17611,11 +17619,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit gefährlichen Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neuhaus, hier im Ort. Er hat mich heute sofort in die Klinik geschickt, als er mich gesehen hat.',
           'akt-motiv': 'Herr Doktor, ich bin ganz gelb geworden. Seit drei Tagen sind meine Augen und meine Haut gelb, und dazu juckt es am ganzen Körper so, dass ich es kaum aushalte. Weh tut mir aber nichts.',
-          'akt-ort': 'Die Gelbfärbung ist überall. Zuerst waren es die Augen, das hat mein Mann gesehen, jetzt ist die ganze Haut gelb, auch die Arme und der Bauch. Der Juckreiz ist ebenfalls am ganzen Körper, am schlimmsten an den Unterarmen, den Unterschenkeln und am Rücken.',
           'akt-beginn': 'Die Gelbfärbung und der Juckreiz sind seit drei Tagen da. Müde und schlapp bin ich aber schon seit ungefähr sechs Wochen, und der Urin ist seit etwa drei Wochen dunkel.',
-          'akt-charakter': 'Der Juckreiz ist ein tiefes Brennen und Kribbeln unter der Haut, das nicht weggeht, egal wie sehr ich kratze. Schmerzen habe ich wirklich keine — kein Ziehen, kein Drücken, gar nichts.',
-          'akt-intensitaet': 'Wenn ich den Juckreiz von null bis zehn einschätzen soll: tagsüber ungefähr sieben, nachts ist er noch schlimmer. Schmerzen habe ich, wie gesagt, keine — die wären null.',
-          'akt-ausstrahlung': 'Das strahlt nirgendwohin aus, es tut ja nirgends weh. Der Juckreiz ist einfach überall am Körper gleichzeitig, nicht an einer bestimmten Stelle.',
+          'akt-veraend-was': 'Aufgefallen ist mir die Gelbfärbung, zuerst an den Augen, das hat mein Mann bemerkt, dann an der ganzen Haut. Wenn Sie danach fragen: mein Urin ist seit drei Wochen dunkel wie Bier, und mein Stuhl ist ganz hell geworden, fast wie Lehm.',
+          'akt-veraend-entwicklung': 'Ja, es ist schnell schlimmer geworden. Erst nur die Augen, dann in wenigen Tagen die ganze Haut, und der Juckreiz ist auch stärker geworden. Die Farbe ändert sich seither nicht mehr, sie bleibt gleich gelb.',
+          'akt-veraend-blutung': 'Wehtun tut es nirgends, das kann ich klar sagen. Es juckt aber furchtbar, am ganzen Körper. Blut habe ich keins bemerkt, weder im Stuhl noch im Urin, nur eben diese Farben.',
           'akt-verlauf': 'Es ist von Tag zu Tag schlimmer geworden. Erst die Müdigkeit, dann der dunkle Urin, dann der helle Stuhl, und ganz zum Schluss sehr schnell die Gelbfärbung und der Juckreiz. Beschwerdefreie Phasen gibt es nicht, es ist durchgehend da und wird nicht besser.',
           'akt-ausloeser': 'Nein, einen Auslöser kann ich nicht nennen. Ich habe nichts Besonderes gegessen, keinen Unfall gehabt, kein neues Medikament bekommen. Wir waren vor acht Wochen in Italien im Urlaub, am Gardasee, da habe ich auch Meeresfrüchte gegessen — kann das etwas damit zu tun haben?',
           'akt-einfluss': 'Nachts im warmen Bett wird das Jucken viel schlimmer, kühl duschen hilft ein bisschen. Fenistil-Tropfen haben gar nichts gebracht. An der Gelbfärbung ändert sich durch nichts etwas.',
@@ -17671,6 +17678,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Posthepatischer Verschlussikterus bei Verdacht auf ein Pankreaskopfkarzinom — schmerzloser, progredienter Ikterus mit dunklem Urin, acholischem Stuhl und quälendem Pruritus bei einer 63-jährigen Patientin mit ungewolltem Gewichtsverlust von etwa 10 kg in vier Wochen, Leistungsknick und einem vor einem Jahr neu aufgetretenen Diabetes mellitus bei schlankem Habitus',
+        patientWorte: { verdacht: 'eine Ursache in der Bauchspeicheldrüse den Gallenabfluss blockiert und deshalb die Gelbfärbung und der Juckreiz entstehen', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall vom Bauch, eventuell auch eine Computertomographie', therapie: 'könnte eine Operation an der Bauchspeicheldrüse nötig sein, worüber wir Sie dann in Ruhe ausführlich aufklären' },
         differenzialdiagnosen: [
           {
             dd: 'Choledocholithiasis mit Verschlussikterus',
@@ -17849,14 +17857,9 @@ export function seedCases(): Case[] {
         { frage: 'Seit wann sind Ihre Augen und Ihre Haut gelb, und hat jemand aus Ihrem Umfeld das zuerst bemerkt?', kapitel: 'aktuell' },
         { frage: 'Hat sich die Farbe Ihres Urins verändert — ist er dunkler geworden?', kapitel: 'aktuell' },
         { frage: 'Und wie sieht Ihr Stuhlgang aus? Ist er heller geworden, vielleicht fast weiß oder lehmfarben, und lässt er sich schlecht abspülen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie irgendwo Schmerzen — im Oberbauch, gürtelförmig in den Rücken ausstrahlend, vielleicht nachts oder nach dem Essen? Wird es besser, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell' },
         { frage: 'Juckt Ihre Haut? Seit wann, wo genau, und hilft irgendetwas dagegen?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und haben Sie dabei absichtlich weniger gegessen?', kapitel: 'vegetativ' },
-        { frage: 'Wurde bei Ihnen in der letzten Zeit ein Diabetes neu festgestellt oder ein bestehender Zucker plötzlich schlechter?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hatten Sie jemals eine Bauchspeicheldrüsenentzündung, eine Gelbsucht oder Gallensteine?', kapitel: 'vorerkrankungen' },
-        { frage: 'Waren Sie in letzter Zeit verreist, hatten Sie Kontakt zu Gelbsuchtkranken, und sind Sie gegen Hepatitis geimpft?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie in den letzten Monaten ein neues Medikament, Antibiotika, pflanzliche Mittel oder Nahrungsergänzungsmittel eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Rauchen Sie oder haben Sie geraucht, und wie viel Alkohol trinken Sie?', kapitel: 'noxen' },
+        { frage: 'Wurde bei Ihnen in der letzten Zeit ein Diabetes neu festgestellt, oder ist ein bestehender Zucker plötzlich schlechter geworden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Bauchspeicheldrüsen-, Darm-, Brust- oder Eierstockkrebs?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie jemals eine Venenentzündung oder eine Thrombose, auch wandernd an Armen oder Beinen?', kapitel: 'vorerkrankungen' },
       ],
@@ -18229,6 +18232,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Herpes zoster (Gürtelrose) im Dermatom Th5/Th6 links, seit fünf Tagen mit Prodromalschmerz und seit 48 Stunden mit segmentalem Bläschenausschlag — Reaktivierung des Varizella-Zoster-Virus bei Lebensalter über 50 Jahren, seit zwei Jahren bestehender Glukokortikoid-Dauertherapie mit Prednisolon 5 mg und ausgeprägter Erschöpfung durch die häusliche Pflege des Ehemanns. Die Bläschen bestehen erst seit 48 Stunden, das 72-Stunden-Zeitfenster für die virostatische Therapie ist somit noch offen.',
+        patientWorte: { verdacht: 'es sich um eine Gürtelrose handelt, also eine Reaktivierung von Windpocken-Viren in einem Hautnerv', diagnostik: 'schauen wir uns den Hautausschlag genau an, das reicht meistens schon für die Diagnose', therapie: 'Je nach Befund bekommen Sie Tabletten gegen das Virus und gegen die Schmerzen, damit alles gut ausheilt' },
         differenzialdiagnosen: [
           {
             dd: 'Herpes simplex',
@@ -18373,16 +18377,14 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann genau sind die ersten Bläschen aufgetreten — auf welchen Tag und welche Tageszeit?', kapitel: 'aktuell' },
+        { frage: 'Seit wann genau haben Sie die Bläschen bemerkt — an welchem Tag hat es angefangen?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie Schmerzen, bevor der Ausschlag zu sehen war, und wie lange?', kapitel: 'aktuell' },
-        { frage: 'Hört der Ausschlag genau in der Mitte auf, oder geht er auch auf die andere Körperseite über?', kapitel: 'aktuell' },
+        { frage: 'Bleibt der Ausschlag auf einer Körperseite, oder geht er auch auf die andere Seite über?', kapitel: 'aktuell' },
         { frage: 'Haben Sie als Kind Windpocken gehabt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie Bläschen im Gesicht, an der Nasenspitze, am Auge oder im Ohr bemerkt? Ist Ihr Auge gerötet, sehen Sie unscharf, hören Sie schlechter oder ist Ihnen schwindelig?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Bläschen an der Nasenspitze oder am Auge bemerkt, ist Ihr Auge gerötet, oder sehen Sie unscharf?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Bläschen im Ohr bemerkt, hören Sie schlechter, oder ist Ihnen schwindelig?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Kortison, Medikamente gegen Rheuma oder andere Mittel, die das Immunsystem unterdrücken?', kapitel: 'medikamente' },
-        { frage: 'Ist die Haut so empfindlich, dass schon Kleidung oder die Bettdecke wehtun?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie in den letzten Wochen etwas Neues auf die Haut aufgetragen — eine Creme, ein Pflaster, ein neues Waschmittel oder neuen Schmuck?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Kontakt zu Schwangeren, zu Neugeborenen oder zu Menschen mit geschwächtem Immunsystem?', kapitel: 'familie-sozial' },
-        { frage: 'Wie stark ist Ihre Belastung zu Hause — schlafen Sie ausreichend, haben Sie Unterstützung bei der Pflege Ihres Mannes?', kapitel: 'familie-sozial' },
+        { frage: 'Ist Ihre Haut so empfindlich, dass schon die Kleidung oder die Bettdecke wehtun?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -18720,6 +18722,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Frische osteoporotische Wirbelkörperfraktur (Sinterungsfraktur) der mittleren Brustwirbelsäule nach Bagatelltrauma bei manifester, unzureichend behandelter Osteoporose — am ehesten sekundäre, glukokortikoidinduzierte Osteoporose bei mehrjähriger Prednisolon-Dauertherapie wegen COPD, verstärkt durch Nikotinabusus, Bewegungsmangel, kalzium- und vitamin-D-arme Ernährung und positive Familienanamnese; Zustand nach Oberschenkelhalsfraktur nach Bagatelltrauma vor drei Jahren und eigenmächtig abgesetzter Bisphosphonattherapie',
+        patientWorte: { verdacht: 'ein Wirbel in Ihrem Rücken durch poröse Knochen eingebrochen ist und deshalb die starken Schmerzen verursacht', diagnostik: 'machen wir ein Röntgenbild der Wirbelsäule und messen später zusätzlich die Knochendichte', therapie: 'bekommen Sie starke Schmerzmittel und ein Medikament, das Ihre Knochen wieder stärker macht' },
         differenzialdiagnosen: [
           {
             dd: 'Pathologische Wirbelkörperfraktur bei multiplem Myelom (Plasmozytom)',
@@ -18904,20 +18907,14 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir mit einem Finger genau zeigen, wo der Schmerz sitzt — ist es der Brustkorb vorne oder der Rücken?', kapitel: 'aktuell' },
-        { frage: 'Was genau haben Sie getan, als der Schmerz einsetzte? War es ein Sturz, ein Unfall, oder nur eine alltägliche Bewegung wie Heben, Niesen oder Bücken?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz irgendwohin aus — in den Arm, in den Kiefer, gürtelförmig um den Brustkorb oder in ein Bein?', kapitel: 'aktuell' },
+        { frage: 'War es ein Sturz, oder reichte schon eine leichte Bewegung wie Husten, Niesen oder Bücken, um den Schmerz auszulösen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie irgendwo ein Kribbeln, ein Taubheitsgefühl oder eine Kraftminderung? Können Sie Wasser und Stuhl normal halten?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie kleiner geworden? Wissen Sie noch, wie groß Sie früher waren — und was steht in Ihrem Personalausweis?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Sie kleiner geworden, oder hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist bei Ihnen eine Osteoporose bekannt, und wurde jemals eine Knochendichtemessung durchgeführt? Kennen Sie Ihren Wert?', kapitel: 'vorerkrankungen' },
-        { frage: 'Welche Behandlung haben Sie gegen die Osteoporose bekommen — und nehmen Sie diese Medikamente heute noch ein?', kapitel: 'medikamente' },
         { frage: 'Nehmen Sie Kortison ein, und wenn ja, seit wann und in welcher Dosis? Hatten Sie Kortison-Stoßtherapien?', kapitel: 'medikamente' },
-        { frage: 'Nehmen Sie Kalzium oder Vitamin D ein? Wie viele Milchprodukte essen Sie am Tag?', kapitel: 'medikamente' },
-        { frage: 'Wie viel bewegen Sie sich im Alltag, und treiben Sie Sport?', kapitel: 'familie-sozial' },
+        { frage: 'Welche Behandlung haben Sie gegen die Osteoporose bekommen, und nehmen Sie diese Medikamente heute noch ein?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie eine Osteoporose oder Knochenbrüche im Alter, insbesondere bei Mutter oder Vater?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie Fieber, Nachtschweiß oder ungewollt Gewicht verloren? Haben Sie schon einmal Blut gehustet?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was hat Sie darauf geführt?',
@@ -19100,6 +19097,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Oliver Müller',
           age: 73,
@@ -19206,6 +19204,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, es geht ums Wasserlassen. Ich muss nachts dreimal raus und komme überhaupt nicht mehr zum Schlafen. Und tagsüber dauert es ewig, bis überhaupt etwas kommt.',
           'akt-ort': 'Beschwerden habe ich beim Wasserlassen selbst, und dazu so ein Druckgefühl hier unten im Bauch, über dem Schambein, wenn die Blase voll ist. (zeigt auf den Unterbauch)',
           'akt-beginn': 'Angefangen hat das ganz langsam, vor ungefähr acht Monaten. Erst dachte ich, das gehört zum Älterwerden. In den letzten drei Monaten ist es aber deutlich schlimmer geworden.',
+          'akt-veraend-was': 'Wie ich schon sagte, es geht ums Wasserlassen — das ist mir aufgefallen. Knoten oder was an der Haut, blaue Flecken, das hab ich nicht bemerkt. Und mit dem Stuhlgang ist alles in Ordnung.',
+          'akt-veraend-entwicklung': 'Schlimmer ist es geworden, ja, langsam über die Monate, nie auf einen Schlag. Die Farbe vom Urin hat sich nicht verändert.',
+          'akt-veraend-blutung': 'Wehtun tut das Wasserlassen selber nicht, nur dieses Druckgefühl vorher, das hatte ich ja schon gesagt. Jucken tut nichts. Und Blut war nie dabei, im Urin nicht und sonst auch nicht.',
           'akt-charakter': 'Der Strahl ist dünn und schwach geworden, wie bei einem tropfenden Wasserhahn, und er wird zwischendurch unterbrochen. Der Druck im Bauch ist dumpf, wie ein Völlegefühl — es brennt nicht, und es sind auch keine Koliken.',
           'akt-intensitaet': 'Das Druckgefühl selbst ist nicht schlimm, vielleicht 3 von 10. Aber die Belastung insgesamt ist groß: Wenn ich sagen soll, wie zufrieden ich mit meinem jetzigen Zustand wäre, dann bin ich überwiegend unzufrieden.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus. Nicht in den Rücken, nicht in die Flanken, auch nicht nach unten in den Damm oder in die Hoden.',
@@ -19262,6 +19263,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Benignes Prostatasyndrom (BPS) bei benigner Prostatahyperplasie mit mittelgradiger Symptomatik (IPSS 19 Punkte, Lebensqualitätsindex 4) und gemischt obstruktiv-irritativem Beschwerdebild bei einem 73-jährigen Patienten; klinisch am ehesten Stadium II nach Alken, was durch die sonographische Restharnbestimmung zu bestätigen ist. Ein begleitendes Prostatakarzinom ist anhand der Symptome ausdrücklich NICHT ausgeschlossen und muss durch digital-rektale Untersuchung und PSA-Bestimmung aktiv abgeklärt werden.',
+        patientWorte: { verdacht: 'eine gutartige Vergrößerung der Prostata Ihre Probleme beim Wasserlassen verursacht', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall der Blase und der Prostata', therapie: 'reichen oft Tabletten, die den Harnfluss verbessern, eine Operation ist meist nicht sofort nötig' },
         differenzialdiagnosen: [
           {
             dd: 'Prostatakarzinom',
@@ -19440,18 +19442,9 @@ export function seedCases(): Case[] {
         'auf-feinnadelpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Müssen Sie warten, bis der Urin kommt, und müssen Sie mit dem Bauch nachpressen?', kapitel: 'aktuell' },
-        { frage: 'Wie ist Ihr Harnstrahl — kräftig oder schwach und dünn, und wird er zwischendurch unterbrochen?', kapitel: 'aktuell' },
-        { frage: 'Tröpfelt es nach dem Wasserlassen noch nach, und haben Sie das Gefühl, dass die Blase danach wirklich leer ist?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts aufstehen, um Wasser zu lassen, und wie stark stört Sie das im Schlaf?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie tagsüber zur Toilette, und kommen dabei große oder nur kleine Mengen?', kapitel: 'aktuell' },
-        { frage: 'Kommt der Harndrang plötzlich und so stark, dass Sie ihn kaum aufschieben können — ist dabei schon einmal Urin abgegangen?', kapitel: 'aktuell' },
-        { frage: 'Ist es schon einmal vorgekommen, dass Sie überhaupt kein Wasser mehr lassen konnten und die Blase prall und schmerzhaft war?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie jemals Blut im Urin bemerkt, oder war der Urin trüb und übelriechend?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hatten Sie schon einmal einen Blasenkatheter, eine Blasenspiegelung, eine Verletzung im Beckenbereich oder eine Geschlechtskrankheit?', kapitel: 'vorerkrankungen' },
         { frage: 'Wie viel trinken Sie am Tag, und wie viel davon am Abend? Nehmen Sie eine Wassertablette?', kapitel: 'aktuell' },
         { frage: 'Haben Sie geschwollene Beine oder bekommen Sie beim Treppensteigen schlecht Luft?', kapitel: 'aktuell' },
-        { frage: 'Verspüren Sie ein Kribbeln oder Taubheitsgefühl an den Füßen, ein Zittern der Hände oder eine Gefühlsstörung im Reithosenbereich?', kapitel: 'aktuell' },
+        { frage: 'Ist es schon einmal vorgekommen, dass Sie überhaupt kein Wasser mehr lassen konnten und die Blase prall und schmerzhaft war?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Nasentropfen, Erkältungsmittel, Mittel gegen Allergie oder Beruhigungsmittel ein?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie eine Prostataerkrankung — wurde bei Vater oder Bruder ein Prostatakrebs festgestellt?', kapitel: 'familie-sozial' },
         { frage: 'Ich müsste bei Ihnen eine Untersuchung des Enddarms durchführen, um die Vorsteherdrüse zu tasten. Wären Sie damit einverstanden?', kapitel: 'aktuell' },
@@ -19660,6 +19653,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Klaus Benzler',
           age: 83,
@@ -19769,11 +19763,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit gefährlichen Stoffen oder Staub hatte ich nie zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist der Doktor Sommer. Zu dem gehe ich schon lange. (Pause) Ich war … in der letzten Zeit nicht mehr dort, glaube ich.',
           'akt-motiv': 'Ehrlich gesagt bin ich nur hier, weil meine Nachbarin gesagt hat, ich soll kommen. Ich vergesse eben mal etwas — in meinem Alter ist das doch normal.',
-          'akt-ort': 'Weh tut mir nichts. Es ist … hier oben. (tippt sich langsam an die Stirn) Der Kopf. Das Gedächtnis.',
           'akt-beginn': 'Das kann ich Ihnen nicht sagen. Schon länger. (Nachbarin: Mir fällt es seit ungefähr zwei Jahren auf, ganz langsam. Zuerst nur Namen und Termine. Seit drei, vier Monaten geht es deutlich bergab.)',
-          'akt-charakter': 'Was gerade eben war, das ist weg. Sie sagt, ich frage dasselbe zweimal. Aber früher — meine Zeit bei der Post, unsere Hochzeit, das weiß ich alles noch genau. Und manchmal fehlt mir ein Wort, dann sage ich eben „das Ding, mit dem man das Wasser heiß macht“.',
-          'akt-intensitaet': 'Schmerzen habe ich keine, also null. Und wie schlimm das mit dem Kopf ist — ich finde: nicht so schlimm. (Nachbarin schüttelt den Kopf) Sie sieht das anders.',
-          'akt-ausstrahlung': 'Ausstrahlen? Nein, ich habe ja keine Schmerzen. Es ist nur der Kopf, das Gedächtnis. In Arme oder Beine strahlt da nichts.',
+          'akt-psych-stimmung': 'Ach, meine Stimmung geht schon. Ein bisschen müde bin ich öfter, das schon. (Nachbarin: Er wirkt in letzter Zeit oft niedergeschlagen und macht sich aus nichts mehr etwas.)',
+          'akt-psych-antrieb': 'Den Tag anfangen, das geht schon, ich bin ja ein ordentlicher Mensch. Freude … na ja, zum Kegeln gehe ich schon lange nicht mehr, das hat sich irgendwie so ergeben.',
+          'akt-psych-schlaf': 'Nachts liege ich oft lange wach, und tagsüber nicke ich dann im Sessel ein. Ob ich mich noch gut konzentrieren kann, weiß ich nicht so genau — das müssten Sie eher meine Nachbarin fragen.',
+          'akt-psych-sicherheit': 'Nein, so etwas käme mir nicht in den Sinn. Ich habe doch noch meine Enkel und mein Zuhause — warum sollte ich mir etwas antun wollen?',
           'akt-verlauf': 'Es ist eigentlich immer gleich, würde ich sagen. Nicht mal so, mal so. (Nachbarin: Es ist stetig schlechter geworden, langsam über Monate — nicht plötzlich und nicht in Schüben. Verwirrt oder benommen war er nie, er ist immer klar und wach.)',
           'akt-ausloeser': 'Nein, es ist nichts passiert. Kein Sturz, kein Schlag auf den Kopf, keine Operation, keine Narkose. Ich hatte auch keine Grippe und kein Fieber. Es ist einfach so gekommen.',
           'akt-einfluss': 'Wenn ich meine Ruhe habe und alles seinen gewohnten Gang geht, komme ich zurecht. Schlimmer wird es, wenn viel auf einmal kommt oder etwas Neues ist — dann komme ich durcheinander. Abends bin ich unruhiger als tagsüber. Aufgeschrieben habe ich mir noch nichts.',
@@ -19828,6 +19822,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Verdacht auf eine Demenz vom Alzheimer-Typ mit spätem Beginn (F00.1 / G30.1), derzeit leicht- bis mittelgradig ausgeprägt, bei einem allein lebenden 83-jährigen Patienten mit deutlich gefährdeter Alltagskompetenz (unbeaufsichtigter Herd, unbezahlte Rechnungen, unzuverlässige Medikamenteneinnahme, weiterhin aktive Teilnahme am Straßenverkehr) und sekundärer depressiver Verstimmung. Für die Diagnose sprechen der schleichende Verlauf über etwa zwei Jahre mit Verschlechterung in den letzten drei bis vier Monaten, die führende Kurzzeitgedächtnisstörung bei erhaltenem Altgedächtnis, Wortfindungsstörungen, die zeitliche und beginnende örtliche Desorientierung, die Anosognosie und das klare Bewusstsein bei erhaltener Aufmerksamkeit. Die Diagnose ist erst nach Ausschluss behandelbarer (sekundärer) Ursachen durch Labor und zerebrale Bildgebung zu stellen.',
+        patientWorte: { verdacht: 'eine beginnende Gedächtniserkrankung, eine sogenannte Demenz, Ihre Vergesslichkeit erklärt', diagnostik: 'machen wir Gedächtnistests, nehmen Blut ab und veranlassen eine Bildaufnahme vom Gehirn', therapie: 'besprechen wir gemeinsam mit Ihrer Familie, wie wir den Alltag sicherer gestalten und ob Medikamente helfen können' },
         differenzialdiagnosen: [
           {
             dd: 'Delir (akuter Verwirrtheitszustand)',
@@ -20040,19 +20035,13 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Sind Sie einverstanden, wenn ich Ihre Nachbarin mit ins Gespräch nehme? Ich möchte gern auch ihre Beobachtungen hören.', kapitel: 'aktuell' },
         { frage: 'Seit wann fällt Ihnen die Vergesslichkeit auf, und ist sie langsam schlechter geworden oder plötzlich?', kapitel: 'aktuell' },
         { frage: 'Vergessen Sie eher Dinge von früher oder das, was gerade eben war?', kapitel: 'aktuell' },
         { frage: 'Kochen Sie noch selbst? Ist der Herd schon einmal angeblieben oder etwas angebrannt?', kapitel: 'aktuell' },
-        { frage: 'Wer regelt Ihre Bankgeschäfte und Rechnungen? Sind Mahnungen gekommen?', kapitel: 'aktuell' },
+        { frage: 'Wer regelt Ihre Bankgeschäfte und Rechnungen? Sind schon Mahnungen gekommen?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Ihre Tabletten regelmäßig ein — wer richtet sie Ihnen, und wie kontrollieren Sie das?', kapitel: 'medikamente' },
         { frage: 'Haben Sie sich schon einmal auf einem gewohnten Weg verlaufen oder den Rückweg nicht gefunden?', kapitel: 'aktuell' },
         { frage: 'Wissen Sie, welcher Wochentag heute ist und welches Datum wir haben?', kapitel: 'aktuell' },
-        { frage: 'Fahren Sie noch Auto? Gab es kleine Unfälle, Beulen am Auto oder Parkschäden?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie in den letzten Monaten gestürzt oder haben Sie sich den Kopf angestoßen?', kapitel: 'aktuell' },
-        { frage: 'Sehen oder hören Sie manchmal Dinge, die andere nicht wahrnehmen? Kommt Ihnen die Umgebung zeitweise fremd vor?', kapitel: 'aktuell' },
-        { frage: 'Wie ist Ihre Stimmung — und was war zuerst da: die Vergesslichkeit oder die gedrückte Stimmung?', kapitel: 'aktuell' },
-        { frage: 'Verstehen Sie mich gut, oder soll ich langsamer sprechen? Tragen Sie Ihr Hörgerät jeden Tag?', kapitel: 'aktuell' },
         { frage: 'Wer kümmert sich um Sie? Gibt es einen Pflegegrad, eine Vorsorgevollmacht oder eine Patientenverfügung?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -20261,6 +20250,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Michael Witzinger',
           age: 66,
@@ -20373,6 +20363,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich huste seit ungefähr zwei Monaten ganz anders als sonst — und vor zehn Tagen war auf einmal Blut im Auswurf. Meine Frau hat mich hergeschickt, sie lässt nicht mehr locker.',
           'akt-ort': 'Der Husten sitzt tief in der Brust. Und hier rechts, unter der Achsel, zieht es, vor allem wenn ich tief einatme. (zeigt auf die rechte seitliche Brustwand)',
           'akt-beginn': 'Gehustet habe ich als Raucher immer, morgens, seit Jahren. Aber seit ungefähr acht Wochen ist es ein anderer Husten: trockener, bellender, den ganzen Tag, und er hört einfach nicht mehr auf. Das Blut kam vor zehn Tagen zum ersten Mal.',
+          'akt-veraend-was': 'Na ja, wie gesagt, das Blut beim Husten, das kam vor zehn Tagen auf einmal dazu. Knoten oder so was habe ich an mir nicht gefunden, und mit dem Schlucken oder dem Stuhlgang ist auch nichts. Gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Es war jetzt dreimal, immer nur so Fäden im Auswurf, hellrot. Größer oder mehr geworden ist es eigentlich nicht, aber dass es überhaupt wiederkommt, das macht mir schon zu schaffen.',
+          'akt-veraend-blutung': 'Weh tut das Bluten selbst nicht, es kommt einfach beim Husten. Blut im Stuhl oder im Urin habe ich nicht bemerkt, aus der Nase blutet auch nichts. Jucken tut da auch nichts.',
           'akt-charakter': 'Der Husten ist trocken und quälend, richtig bellend. Der Schmerz in der rechten Brustseite ist dumpf und ziehend, nicht stechend und nicht brennend.',
           'akt-intensitaet': 'Der Schmerz ist 4 von 10, beim tiefen Luftholen vielleicht 5. Der Husten selbst tut nicht weh, der zermürbt mich nur.',
           'akt-ausstrahlung': 'Nein, der Schmerz bleibt in der rechten Brustseite. In die Schulter, in den Arm oder in den Rücken strahlt nichts aus, und die Hände sind auch normal kräftig.',
@@ -20429,6 +20422,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Dringender Verdacht auf ein Bronchialkarzinom der rechten Lunge bei 66-jährigem Patienten mit 50 Packungsjahren — begründet durch den seit acht Wochen veränderten Husten, dreimalige Hämoptysen, den ungewollten Gewichtsverlust von 8 kg in sechs Monaten mit Nachtschweiß, die neu aufgetretene Heiserkeit als Hinweis auf eine Rekurrensparese sowie die vor drei Monaten nicht vollständig ausgeheilte rechtsseitige Pneumonie im Sinne einer poststenotischen Pneumonie',
+        patientWorte: { verdacht: 'ein bösartiger Tumor in der rechten Lunge Ihren Husten und den Blutauswurf erklärt', diagnostik: 'nehmen wir Ihnen Blut ab und machen eine Computertomographie der Lunge sowie eine Gewebeprobe', therapie: 'besprechen wir die weitere Behandlung in einem Ärzteteam, möglich sind Operation, Bestrahlung oder Chemotherapie' },
         differenzialdiagnosen: [
           {
             dd: 'Exazerbation der bekannten COPD',
@@ -20614,18 +20608,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hat sich Ihr Husten verändert — klingt er anders als Ihr gewohnter Raucherhusten, und seit wann genau?', kapitel: 'aktuell' },
-        { frage: 'War Blut im Auswurf? Wie oft, wie viel etwa, und war es hellrot oder dunkel?', kapitel: 'aktuell' },
-        { frage: 'Wie viele Zigaretten rauchen Sie am Tag, und seit welchem Lebensjahr? Haben Sie schon einmal versucht aufzuhören?', kapitel: 'noxen' },
-        { frage: 'Haben Sie ungewollt abgenommen — wie viele Kilo in welchem Zeitraum, und ohne dass Sie eine Diät gemacht haben?', kapitel: 'vegetativ' },
-        { frage: 'Schwitzen Sie nachts so stark, dass Sie das T-Shirt oder die Bettwäsche wechseln müssen?', kapitel: 'vegetativ' },
-        { frage: 'Wie weit können Sie gehen, bevor Sie stehen bleiben müssen — und wie war das vor einem halben Jahr?', kapitel: 'aktuell' },
+        { frage: 'War Blut in Ihrem Auswurf? Wie oft, wie viel etwa, und war es hellrot oder dunkel?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten Monaten eine Lungenentzündung? Wurde danach ein Kontrollröntgen gemacht, und war es wieder vollständig unauffällig?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Stimme heiser geworden? Seit wann, und ging eine Erkältung voraus?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen morgens ein geschwollenes Gesicht, ein Engegefühl am Hals oder eine Schwellung der Arme aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie beruflich mit Asbest, Eternitplatten, Quarzstaub, Chromaten oder Dieselabgasen zu tun gehabt — und wie lange?', kapitel: 'familie-sozial' },
         { frage: 'Gibt es in Ihrer Familie Krebserkrankungen, insbesondere Lungenkrebs?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie neue Rücken- oder Knochenschmerzen, Kopfschmerzen, Sehstörungen oder einen Krampfanfall bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Blutverdünner oder Aspirin ein? Das ist wichtig, weil wir eine Gewebeprobe aus der Lunge planen.', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Was sind Ihre Verdachtsdiagnose und Ihre Differenzialdiagnosen?',
@@ -20869,6 +20858,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Birgit Kellermann',
           age: 54,
@@ -20961,11 +20951,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien oder Strahlen habe ich beruflich nie zu tun gehabt.',
           'pers-hausarzt': 'Ja, meine Hausärztin ist Frau Dr. Neumann. Meine Frauenärztin habe ich auch, dort gehe ich einmal im Jahr zum Abstrich.',
           'akt-motiv': 'Frau Doktor, ich habe vor drei Wochen beim Duschen einen Knoten in meiner rechten Brust getastet. Er tut überhaupt nicht weh, aber er geht nicht weg — und ich habe furchtbare Angst, weil meine Mutter an Brustkrebs gestorben ist.',
-          'akt-ort': 'Hier, in der rechten Brust, oben außen, Richtung Achselhöhle. (zeigt vorsichtig auf den oberen äußeren Quadranten) Und hier in der rechten Achsel ist auch etwas, das ich vorher nie gespürt habe.',
           'akt-beginn': 'Vor etwa drei Wochen, beim Duschen, ganz zufällig. Vorher war da nichts, da bin ich mir ziemlich sicher — ich taste eigentlich nie ab.',
-          'akt-charakter': 'Es ist ein harter Knoten, ungefähr wie eine kleine Kastanie. Er fühlt sich nicht glatt an, eher knotig, und er lässt sich nicht verschieben — als ob er festgewachsen wäre.',
-          'akt-intensitaet': 'Schmerzen habe ich gar keine, also null von zehn. Genau das hat mich am Anfang beruhigt — bis eine Freundin sagte, das müsse gar nichts heißen.',
-          'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin aus. Ich habe auch keine Schmerzen im Arm, in der Schulter oder im Rücken.',
+          'akt-veraend-was': 'Ich habe vor drei Wochen beim Duschen einen Knoten in der rechten Brust getastet, oben außen. Dazu ist jetzt auch die Brustwarze eingezogen.',
+          'akt-veraend-entwicklung': 'Der Knoten ist eher größer geworden, kleiner jedenfalls nicht. Und die Delle in der Haut, wenn ich den Arm hebe, ist erst vor ein paar Tagen dazugekommen.',
+          'akt-veraend-blutung': 'Weh tut er gar nicht, das betone ich immer wieder. Es juckt auch nicht, und es blutet nichts, keine Absonderung aus der Brustwarze.',
           'akt-verlauf': 'Der Knoten ist immer da, Tag und Nacht, unverändert vorhanden. Mir kommt er in den drei Wochen eher etwas größer vor; kleiner ist er jedenfalls nicht geworden.',
           'akt-ausloeser': 'Nein, ich bin nirgends dagegen gestoßen, ich bin nicht gestürzt, und an der Brust wurde ich nie operiert und nie bestrahlt. Der Knoten war einfach da.',
           'akt-einfluss': 'Weder besser noch schlechter, egal was ich mache. Mit dem Zyklus hat es nichts zu tun, ich habe seit zwei Jahren keine Regel mehr. Aber wenn ich den Arm hebe, sehe ich eine Delle in der Haut über dem Knoten — das ist mir vor ein paar Tagen aufgefallen.',
@@ -21022,6 +21011,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Dringender Verdacht auf ein Mammakarzinom der rechten Brust im oberen äußeren Quadranten mit Verdacht auf axilläre Lymphknotenmetastasierung — derber, unverschieblicher, schmerzloser Knoten mit Hauteinziehung, Plateauphänomen und neu aufgetretener Mamillenretraktion bei postmenopausaler Patientin mit positiver Familienanamnese und laufender Hormonersatztherapie',
+        patientWorte: { verdacht: 'es sich bei dem Knoten in Ihrer Brust um einen bösartigen Tumor handelt', diagnostik: 'machen wir eine Röntgenaufnahme und einen Ultraschall der Brust sowie eine Gewebeprobe', therapie: 'legt ein Ärzteteam gemeinsam mit Ihnen die beste Behandlung fest, meist eine Operation und eventuell weitere Therapien' },
         differenzialdiagnosen: [
           {
             dd: 'Fibroadenom',
@@ -21179,17 +21169,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wann und wie haben Sie den Knoten bemerkt — haben Sie ihn selbst getastet, und ist er seither größer geworden?', kapitel: 'aktuell' },
-        { frage: 'Tut der Knoten weh, und verändert er sich mit dem Zyklus? (Bei Schmerzlosigkeit ausdrücklich nachfragen und die Patientin nicht in falscher Sicherheit lassen)', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen eine Einziehung der Haut oder der Brustwarze aufgefallen — auch wenn Sie die Arme über den Kopf heben?', kapitel: 'aktuell' },
-        { frage: 'Kommt aus der Brustwarze Flüssigkeit, insbesondere Blut oder eine klare Absonderung? Nässt oder schuppt die Brustwarze?', kapitel: 'aktuell' },
         { frage: 'Ist die Brust irgendwo gerötet, überwärmt oder wie eine Orangenhaut verändert? Hatten Sie Fieber?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Knoten in der Achselhöhle, am Schlüsselbein oder am Hals getastet?', kapitel: 'aktuell' },
         { frage: 'Sind Sie an der Brust gestürzt, gestoßen, operiert oder bestrahlt worden?', kapitel: 'vorerkrankungen' },
         { frage: 'Wann hatten Sie Ihre erste und Ihre letzte Regel, wie viele Kinder haben Sie geboren, in welchem Alter, und haben Sie gestillt?', kapitel: 'frauenanamnese' },
         { frage: 'Nehmen Sie Hormone — eine Hormonersatztherapie gegen Wechseljahresbeschwerden oder früher die Pille?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie Brustkrebs oder Eierstockkrebs? In welchem Alter sind die Angehörigen erkrankt, und war jemand beidseits betroffen?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie regelmäßig am Mammographie-Screening teil, und wann war die letzte Untersuchung?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Knochenschmerzen, Husten, Gewichtsverlust oder Nachtschweiß bemerkt?', kapitel: 'vegetativ' },
+        { frage: 'Haben Sie Knochenschmerzen oder Husten bemerkt, die neu aufgetreten sind?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Herr Kollege, Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose und worauf stützen Sie sich?',
@@ -21555,6 +21541,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Rheumatoide Arthritis (chronische Polyarthritis) als Erstmanifestation — symmetrische Polyarthritis der Fingergrund- und Fingermittelgelenke sowie der Zehengrundgelenke unter Aussparung der Fingerendgelenke, mit zweistündiger Morgensteifigkeit, Besserung durch Bewegung, schleichendem Beginn über acht Wochen und Allgemeinsymptomen; wichtigster Risikofaktor ist der Nikotinkonsum von rund 23 Packungsjahren',
+        patientWorte: { verdacht: 'eine entzündliche Gelenkerkrankung, eine sogenannte rheumatoide Arthritis, Ihre Gelenkschmerzen verursacht', diagnostik: 'nehmen wir Ihnen Blut ab und machen Röntgenbilder Ihrer Hände und Füße', therapie: 'beginnen wir möglichst bald mit einem Medikament, das die Entzündung dauerhaft bremst und die Gelenke schützt' },
         differenzialdiagnosen: [
           {
             dd: 'Aktivierte Fingerpolyarthrose (Heberden-/Bouchard-Arthrose)',
@@ -21724,17 +21711,13 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie lange dauert die Steifigkeit der Hände am Morgen genau — Minuten oder Stunden?', kapitel: 'aktuell' },
         { frage: 'Werden die Beschwerden durch Bewegung besser oder schlechter? Und was passiert nach längerem Sitzen?', kapitel: 'aktuell' },
-        { frage: 'Welche Gelenke genau sind betroffen — sind beide Hände gleichmäßig befallen, und sind die Gelenke direkt am Nagel dabei?', kapitel: 'aktuell' },
-        { frage: 'Ist die Schwellung weich und teigig oder hart und knotig? Sind die Gelenke überwärmt?', kapitel: 'aktuell' },
+        { frage: 'Sind auch die Gelenke direkt am Nagel, also die Fingerendgelenke, betroffen, oder bleiben die ausgespart?', kapitel: 'aktuell' },
+        { frage: 'Ist die Schwellung eher weich und teigig oder hart und knotig? Sind die Gelenke überwärmt?', kapitel: 'aktuell' },
         { frage: 'Können Sie noch eine Faust machen, einen Flaschendeckel öffnen oder einen Knopf schließen?', kapitel: 'aktuell' },
-        { frage: 'Hat sich das über Wochen entwickelt oder ist es über Nacht wie ein Anfall gekommen?', kapitel: 'aktuell' },
         { frage: 'Sie haben eine Schuppenflechte — sind auch die Nägel verändert, oder war jemals ein ganzer Finger wie eine Wurst geschwollen?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie in den Wochen vorher eine Halsentzündung, einen Durchfall, einen Hautausschlag oder einen Zeckenstich?', kapitel: 'aktuell' },
         { frage: 'Fühlen Sie sich müde und weniger leistungsfähig, und haben Sie erhöhte Temperaturen gemessen?', kapitel: 'vegetativ' },
-        { frage: 'Gibt es in Ihrer Familie Gelenkerkrankungen — hat jemand „Rheuma“ oder verformte Hände?', kapitel: 'familie-sozial' },
-        { frage: 'Wie viel rauchen Sie, und seit wann?', kapitel: 'noxen' },
       ],
       examinerQuestions: [
         'Herr Kollege, wie lautet Ihre Verdachtsdiagnose?',
@@ -22086,6 +22069,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erstmanifestation eines Morbus Crohn mit ileozökalem Befall und perianaler Beteiligung (Analfissur) im akuten Schub — Montreal A2 L1 B1p, klinisch mäßige Aktivität (Harvey-Bradshaw-Index etwa 11 Punkte), begleitend Eisenmangelanämie sowie extraintestinale Manifestationen (aphthöse Stomatitis, abgeheiltes Erythema nodosum, entzündlicher Kreuzschmerz im Sinne einer Sakroiliitis)',
+        patientWorte: { verdacht: 'eine chronisch-entzündliche Darmerkrankung, ein sogenannter Morbus Crohn, Ihre Beschwerden verursacht', diagnostik: 'nehmen wir Ihnen Blut ab, untersuchen den Stuhl und machen eine Darmspiegelung mit Gewebeproben', therapie: 'bekommen Sie Medikamente, die die Entzündung im Darm beruhigen und den akuten Schub zum Abklingen bringen' },
         differenzialdiagnosen: [
           {
             dd: 'Colitis ulcerosa',
@@ -22256,19 +22240,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Haben Sie Blut IM Stuhl gesehen, oder nur AM Toilettenpapier beim Abputzen? Brennt es dabei?', kapitel: 'aktuell' },
-        { frage: 'Wie oft haben Sie Stuhlgang, und müssen Sie auch nachts deswegen aufstehen?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht der Stuhl genau aus — Farbe, Konsistenz, Schleim, glänzend oder fettig, schwer abspülbar?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und essen Sie absichtlich weniger?', kapitel: 'vegetativ' },
+        { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihr Stuhl fettig-glänzend und schwer abzuspülen?', kapitel: 'aktuell' },
         { frage: 'Waren Sie in den letzten Monaten im Ausland? Wo genau, wie lange, und hatten Sie dort Durchfall?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente' },
         { frage: 'Haben Sie schmerzhafte Stellen im Mund, Hautveränderungen an den Schienbeinen, gerötete oder schmerzende Augen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie morgens Rückenschmerzen mit Steifigkeit, die sich durch Bewegung bessern?', kapitel: 'aktuell' },
         { frage: 'Haben Sie neben dem After eine Schwellung, eine nässende Öffnung oder einen Ausfluss bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen beim Wasserlassen Luft oder Stuhl aufgefallen? Wie oft hatten Sie Blasenentzündungen?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen, und nehmen Sie Mittel gegen Durchfall wie Imodium?', kapitel: 'medikamente' },
-        { frage: 'Gibt es in Ihrer Familie chronische Darmentzündungen, Darmkrebs oder Zöliakie?', kapitel: 'familie-sozial' },
-        { frage: 'Rauchen Sie? Wie viele Zigaretten seit wie vielen Jahren?', kapitel: 'noxen' },
-        { frage: 'Verschlechtern sich die Beschwerden nach Milch oder nach fettigem Essen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und wie begründen Sie sie?',
@@ -22440,6 +22418,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Karla Mäyerle-Schäubele',
           age: 52,
@@ -22559,6 +22538,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Meine Hände, Frau Doktor. Sie schlafen mir nachts ein und tun weh — ich wache jede Nacht mehrmals davon auf. Und heute Morgen ist mir die Kaffeetasse einfach aus der Hand gefallen. Das hat mir richtig Angst gemacht.',
           'akt-ort': 'Hier, in beiden Händen, rechts viel schlimmer als links. (zeigt) Vor allem im Daumen, im Zeigefinger und im Mittelfinger, und beim Ringfinger nur diese Hälfte hier, die zum Daumen zeigt. Der kleine Finger ist überhaupt nicht dabei, der ist ganz normal.',
           'akt-beginn': 'Angefangen hat es vor ungefähr fünfeinhalb Monaten, so Mitte Juli. Ganz schleichend, erst nur ab und zu nachts. In den letzten drei Wochen ist es deutlich schlimmer geworden.',
+          'akt-neuro-ausfall': 'Also, es ist beides: Die Hände schlafen mir ein, taub und kribbelig, und dazu ist die rechte Hand schwach geworden — die Tasse ist mir ja runtergefallen. Rechts ist es viel schlimmer als links. Mit dem Sprechen, mit den Augen oder beim Gehen ist bei mir nichts, das betrifft nur die Hände.',
+          'akt-neuro-dauer': 'Ganz weg ist es nicht mehr, das ist ja das Problem — seit fünfeinhalb Monaten immer wieder, und in den letzten drei Wochen ist es eigentlich fast dauernd da, auch tagsüber. Nachts wird es besser, wenn ich die Hand ausschüttle, aber es kommt immer wieder.',
+          'akt-neuro-lage': 'Nein, mit dem Kopfdrehen oder Aufstehen hat das nichts zu tun, und schwindelig oder schwankend bin ich auch nicht. Schlimmer wird es, wenn das Handgelenk lange abgeknickt ist, nachts im Bett zum Beispiel.',
           'akt-charakter': 'Nachts ist es ein Kribbeln, wie Ameisenlaufen, und die Hand fühlt sich pelzig und eingeschlafen an. Der Schmerz selbst ist brennend, und manchmal fährt es wie ein Stromschlag den Arm hoch.',
           'akt-intensitaet': 'Tagsüber so 5 bis 6 von 10. Nachts 8, manchmal auch 9.',
           'akt-ausstrahlung': 'Ja, vom Handgelenk aus geht es hoch in den Unterarm, manchmal bis zum Ellenbogen. In die Schulter oder in den Nacken strahlt nichts.',
@@ -22617,6 +22599,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Karpaltunnelsyndrom beidseits mit rechtsseitiger Betonung, klinisch bereits im motorischen Stadium mit Thenaratrophie rechts — begünstigt durch die stark repetitive Handbelastung als Töpferin, den Zustand nach distaler Radiusfraktur rechts, die Postmenopause und einen erhöhten Nüchternblutzucker',
+        patientWorte: { verdacht: 'ein eingeklemmter Nerv am Handgelenk, ein sogenanntes Karpaltunnelsyndrom, das Kribbeln in Ihren Fingern verursacht', diagnostik: 'prüfen wir die Nervenleitung in einer speziellen Messung und untersuchen beide Hände genau', therapie: 'helfen zunächst eine Schiene und Spritzen, bei stärkerem Befund ist eine kleine Operation sinnvoll' },
         differenzialdiagnosen: [
           {
             dd: 'Zervikale Radikulopathie C6/C7',
@@ -22778,21 +22761,14 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Welche Finger genau schlafen Ihnen ein — ist der KLEINE FINGER auch betroffen oder bleibt er frei?', kapitel: 'aktuell' },
+        { frage: 'Welche Finger genau schlafen Ihnen ein — ist der kleine Finger auch betroffen, oder bleibt er frei?', kapitel: 'aktuell' },
         { frage: 'Wachen Sie nachts von den Beschwerden auf? Wie oft in einer Nacht, und um welche Uhrzeit?', kapitel: 'aktuell' },
         { frage: 'Wird es besser, wenn Sie die Hand ausschütteln oder herunterhängen lassen?', kapitel: 'aktuell' },
         { frage: 'Welche Hand ist stärker betroffen — rechts oder links? Und welche ist Ihre Schreibhand?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen schon einmal etwas aus der Hand gefallen, eine Tasse oder ein Glas? Wann zuletzt?', kapitel: 'aktuell' },
         { frage: 'Fällt Ihnen im Vergleich beider Hände auf, dass der Muskel am Daumenballen dünner geworden ist?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Nackenschmerzen, oder werden die Beschwerden schlimmer, wenn Sie den Kopf drehen, husten oder niesen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie auch an den Füßen ein Kribbeln oder Taubheitsgefühl?', kapitel: 'aktuell' },
-        { frage: 'Bei welchen Tätigkeiten kommen die Beschwerden tagsüber — beim Radfahren, Telefonieren oder Zeitunglesen?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stunden am Tag arbeiten Sie an der Drehscheibe und kneten Sie Ton? Hat sich die Belastung in den letzten Monaten verändert?', kapitel: 'familie-sozial' },
         { frage: 'Ist bei Ihnen eine Schilddrüsenerkrankung oder eine Zuckerkrankheit bekannt? Was hat Ihr Hausarzt zuletzt zum Blutzucker gesagt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hatten Sie in der Schwangerschaft schon einmal ähnliche Beschwerden oder geschwollene Hände?', kapitel: 'vorerkrankungen' },
         { frage: 'Sie hatten vor acht Jahren einen Bruch des rechten Handgelenks — wie war die Hand direkt nach dem Bruch?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sie haben von der Erkrankung Ihrer Mutter erzählt — machen Sie sich Sorgen, dasselbe zu haben?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie Sehstörungen, Doppelbilder, Gangunsicherheit oder Probleme beim Wasserlassen bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und warum?',
@@ -22999,6 +22975,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Karin Hartmann',
           age: 38,
@@ -23109,6 +23086,9 @@ export function seedCases(): Case[] {
           'akt-motiv': '(spricht schnell) Herr Doktor, ich bekomme immer wieder diese Anfälle. Das Herz rast, ich kriege keine Luft, ich denke, ich sterbe. Dreimal in der Notaufnahme, angeblich alles in Ordnung.',
           'akt-ort': 'Hier, mitten auf der Brust, hinter dem Brustbein. (legt die flache Hand aufs Sternum) Und hier im Hals, als ob mir jemand die Kehle zudrückt.',
           'akt-beginn': 'Seit etwa sechs Monaten. Der erste Anfall kam ganz plötzlich, an der Supermarktkasse, ich stand in einer langen Schlange. Von einer Sekunde auf die andere. Vorher war überhaupt nichts.',
+          'akt-anfall-ablauf': 'Es fängt einfach plötzlich an, aus heiterem Himmel, ohne Vorwarnung. Das Herz rast, ich kriege kaum Luft, die Brust schnürt sich zu, und ich habe furchtbare Angst zu sterben. Aufhören tut es meistens von allein, schneller wenn ich rausgehe oder mein Mann bei mir ist.',
+          'akt-anfall-dauer': 'Zehn bis zwanzig Minuten dauert so ein Anfall. Am Anfang war es einmal im Monat, jetzt seit zwei Monaten zwei- bis dreimal die Woche.',
+          'akt-anfall-bewusstsein': 'Nein, bewusstlos war ich nie, und schwarz vor Augen auch nicht — nur schwindelig und wie neben mir. Verletzt habe ich mich dabei nie.',
           'akt-charakter': 'Es drückt und schnürt zu, wie ein enger Reifen um den Brustkorb. Und das Herz rast, als wollte es herausspringen.',
           'akt-intensitaet': 'Wenn es losgeht, 8 von 10. In den schlimmsten Momenten 10 — da denke ich wirklich, das war\'s jetzt.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin. Nicht in den Arm, nicht in den Kiefer, nicht in den Rücken. Es bleibt in der Brust und im Hals.',
@@ -23168,6 +23148,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Panikstörung mit Agoraphobie (ICD-10 F40.01), mittelgradige Ausprägung — wiederkehrende, unerwartete Panikattacken seit sechs Monaten mit Erwartungsangst, ausgeprägtem agoraphobem Vermeidungsverhalten und sozialem Rückzug bei erheblicher psychosozialer Dauerbelastung (zwei kleine Kinder, Pflege der Schwiegermutter, abwesender Ehemann) und deutlich überhöhtem Koffeinkonsum; bereits dreimalige unauffällige kardiologische Abklärung in der Notaufnahme',
+        patientWorte: { verdacht: 'es sich um eine Panikstörung handelt, also plötzliche Angstattacken ohne körperliche Ursache', diagnostik: 'nehmen wir Ihnen Blut ab und schreiben ein Herz-EKG, um andere Ursachen sicher auszuschließen', therapie: 'helfen Ihnen ein Gespräch mit einem Therapeuten und bei Bedarf Medikamente, um die Attacken in den Griff zu bekommen' },
         differenzialdiagnosen: [
           {
             dd: 'Hyperthyreose',
@@ -23352,18 +23333,13 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie schnell erreichen die Beschwerden ihren Höhepunkt, und wie lange dauert ein Anfall genau — Minuten oder Stunden?', kapitel: 'aktuell' },
+        { frage: 'Wie schnell erreichen Ihre Beschwerden den Höhepunkt, und wie lange dauert ein Anfall genau — Minuten oder Stunden?', kapitel: 'aktuell' },
         { frage: 'Kommen die Anfälle völlig unerwartet, oder immer in bestimmten Situationen? Sind Sie schon einmal nachts aus dem Schlaf heraus davon aufgewacht?', kapitel: 'aktuell' },
         { frage: 'Was denken Sie in dem Moment, wenn es losgeht — wovor haben Sie in diesem Augenblick am meisten Angst?', kapitel: 'aktuell' },
         { frage: 'Haben Sie zwischen den Anfällen Angst davor, dass wieder einer kommt? Kontrollieren Sie zwischendurch Ihren Puls?', kapitel: 'aktuell' },
         { frage: 'Was machen Sie seitdem nicht mehr — fahren Sie noch Bus oder Straßenbahn, gehen Sie noch allein einkaufen, nehmen Sie den Aufzug?', kapitel: 'aktuell' },
-        { frage: 'Gibt es Orte oder Situationen, die Sie inzwischen ganz meiden? Gehen Sie noch allein aus dem Haus?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Hobbys oder Freundschaften aufgegeben, seit die Beschwerden bestehen?', kapitel: 'aktuell' },
         { frage: 'Wie viel Kaffee, schwarzen Tee, Cola oder Energydrinks trinken Sie am Tag?', kapitel: 'aktuell' },
-        { frage: 'Trinken Sie abends etwas, um zur Ruhe zu kommen? Und nehmen Sie Beruhigungsmittel oder pflanzliche Präparate aus der Apotheke?', kapitel: 'medikamente' },
         { frage: 'Wie sieht Ihr Alltag aus — wer betreut die Kinder, gibt es jemanden, den Sie pflegen, und wann hat die Belastung begonnen?', kapitel: 'familie-sozial' },
-        { frage: 'Fühlen Sie sich zu Hause sicher? Gab es körperliche Auseinandersetzungen in Ihrer Partnerschaft?', kapitel: 'familie-sozial' },
-        { frage: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist, oder haben Sie Gedanken, sich etwas anzutun?', kapitel: 'fach' },
         { frage: 'Waren Sie deswegen schon in der Notaufnahme oder beim Kardiologen? Was hat man dort gefunden, und was hat man Ihnen gesagt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -23555,6 +23531,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Hermann Kastner',
           age: 73,
@@ -23670,6 +23647,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, das Wasserlassen wird bei mir seit Monaten immer schlechter, obwohl ich doch die Tabletten für die Prostata nehme. Und seit ungefähr zehn Wochen tut mir dazu noch das Kreuz weh, auch nachts.',
           'akt-ort': 'Zwei Sachen: unten beim Wasserlassen — der Strahl kommt kaum noch. Und der Schmerz sitzt hier unten im Kreuz und rechts am Becken. (zeigt auf die untere Lendenwirbelsäule und die rechte Beckenschaufel)',
           'akt-beginn': 'Das mit dem Wasserlassen geht seit ungefähr acht Monaten wieder los, ganz schleichend. Die Rückenschmerzen sind vor etwa zehn Wochen dazugekommen, auch langsam, ohne dass ich gestürzt wäre oder etwas Schweres gehoben hätte.',
+          'akt-veraend-was': '(zögert, leiser) Na ja... vor ungefähr zwei Monaten war einmal Blut im Samenerguss. Das war\'s eigentlich. Knoten oder so was habe ich nicht gefunden, an der Haut auch nichts, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Das mit dem Blut war nur dieses eine Mal, das ist seitdem nicht wiedergekommen. Aber das Wasserlassen wird die ganze Zeit schlechter.',
+          'akt-veraend-blutung': 'Weh getan hat das nicht, und jucken tut da auch nichts. Blut im Urin oder im Stuhl habe ich nicht bemerkt, aus der Nase blutet auch nichts.',
           'akt-charakter': 'Der Rückenschmerz ist dumpf und bohrend, tief drinnen. Beim Wasserlassen tut nichts weh, es kommt nur einfach kaum noch etwas — und ich muss pressen.',
           'akt-intensitaet': 'Der Rücken: tagsüber 6 von 10, nachts eher 7. Das Wasserlassen tut nicht weh, es ist eher lästig — aber viermal in der Nacht aufstehen, das zermürbt.',
           'akt-ausstrahlung': 'Manchmal zieht es in die rechte Pobacke. Bis ins Bein oder in den Fuß geht es nicht, und es schießt auch nicht ein.',
@@ -23725,6 +23705,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Dringender Verdacht auf ein fortgeschrittenes Prostatakarzinom mit Verdacht auf ossäre Metastasierung der Lendenwirbelsäule und des Beckens — bei seit acht Monaten progredienter Blasenentleerungsstörung trotz Alpha-Blocker, einmaliger Hämatospermie, erektiler Dysfunktion, B-Symptomatik mit 5 kg Gewichtsverlust, nächtlichem Ruheschmerz im Kreuz sowie hoch belastender Familienanamnese (Vater und Bruder mit Prostatakarzinom, Schwester mit Mammakarzinom) und vor drei Jahren nicht nachverfolgtem PSA-Anstieg',
+        patientWorte: { verdacht: 'ein bösartiger Tumor der Prostata vorliegt, der sich möglicherweise bereits in die Knochen ausgebreitet hat', diagnostik: 'nehmen wir Ihnen Blut ab, tasten die Prostata und machen weitere Bilduntersuchungen von Becken und Wirbelsäule', therapie: 'legt ein Ärzteteam gemeinsam mit Ihnen die passende Behandlung fest, etwa eine Operation, Bestrahlung oder eine Hormontherapie' },
         differenzialdiagnosen: [
           {
             dd: 'Benigne Prostatahyperplasie (BPH)',
@@ -23897,17 +23878,12 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie ist Ihr Harnstrahl — müssen Sie warten, bis er kommt, müssen Sie pressen, und tröpfelt es hinterher nach?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts zur Toilette, und seit wann ist das schlimmer geworden?', kapitel: 'aktuell' },
-        { frage: 'Sie nehmen seit Jahren Tamsulosin: Hat es zu Beginn geholfen, und seit wann wirkt es nicht mehr?', kapitel: 'aktuell' },
+        { frage: 'Sie nehmen seit Jahren Tamsulosin: Ist es in letzter Zeit schlimmer geworden, obwohl Sie die Tabletten nehmen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie jemals Blut im Urin oder im Samenerguss bemerkt?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie schon einmal bei einem Urologen, und ist bei Ihnen jemals der PSA-Wert bestimmt worden?', kapitel: 'vorerkrankungen' },
         { frage: 'Ihre Rückenschmerzen: Kamen sie nach einer Belastung oder einem Sturz, und sind sie auch nachts und in Ruhe vorhanden?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche in den Beinen bemerkt? Können Sie Urin und Stuhl halten?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt abgenommen — wie viele Kilogramm in welchem Zeitraum?', kapitel: 'vegetativ' },
         { frage: 'Gibt es in Ihrer Familie Prostatakrebs, Brustkrebs oder Eierstockkrebs, und in welchem Alter sind die Angehörigen erkrankt?', kapitel: 'familie-sozial' },
-        { frage: 'Hat sich Ihr Sexualleben verändert — haben Sie Schwierigkeiten mit der Erektion?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie jemals Fieber, Schüttelfrost oder Brennen beim Wasserlassen?', kapitel: 'vorerkrankungen' },
         { frage: 'Konnten Sie schon einmal überhaupt kein Wasser mehr lassen, und wurde Ihnen jemals ein Blasenkatheter gelegt?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -24106,6 +24082,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Tobias Lindner',
           age: 34,
@@ -24215,6 +24192,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Meine Freundin hat vor vier Tagen gesagt, meine Augen seien ganz gelb. Ich selbst hatte das gar nicht gemerkt. Und mein Urin ist seit ein paar Tagen dunkel wie Cola. Ehrlich gesagt macht mir das Angst.',
           'akt-ort': 'Also das Gelbe sieht man an den Augen und inzwischen auch an der Haut. Und hier, rechts oben unter den Rippen, habe ich so ein Druckgefühl. (zeigt flächig auf den rechten Oberbauch) Genau einen Punkt kann ich nicht zeigen.',
           'akt-beginn': 'Vor zweieinhalb Wochen, aber ganz anders: müde, kein Appetit, Gelenkschmerzen wie bei Grippe. Dunkler Urin seit fünf Tagen, gelbe Augen seit vier, heller Stuhl seit drei.',
+          'akt-veraend-was': 'Das Auffälligste ist die Gelbfärbung an den Augen und der Haut. Und mein Stuhl ist seit drei Tagen ganz hell, fast weiß. Knoten oder blaue Flecken habe ich keine, und mit dem Schlucken ist auch nichts.',
+          'akt-veraend-entwicklung': 'Ja, das ist schlimmer geworden. Erst war es nur an den Augen, jetzt sieht man es auch an der Haut, meine Freundin sagt, es wird eher noch gelber.',
+          'akt-veraend-blutung': 'Weh tut es nicht, aber es juckt fürchterlich, am ganzen Körper, nachts am schlimmsten. Geblutet hat da nichts, weder im Stuhl noch im Urin noch aus der Nase.',
           'akt-charakter': 'Der Druck rechts oben ist dumpf und spannend, so als wäre da etwas zu voll. Es ist kein Krampf und kein Stechen, und es kommt nicht in Wellen.',
           'akt-intensitaet': 'Der Druck ist vielleicht 3 von 10. Viel schlimmer ist der Juckreiz und dass ich zu nichts mehr Kraft habe.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Weder in die Schulter noch in den Rücken.',
@@ -24269,6 +24249,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Virushepatitis B mit klassischem zweiphasigem Verlauf (serumkrankheitsähnliche Prodromalphase mit Arthralgien und flüchtiger Urtikaria, anschließend ikterische Phase) bei einem 34-jährigen Patienten ohne Impfschutz — Infektion am ehesten durch die Tätowierung und den ungeschützten Geschlechtsverkehr während der Thailandreise vor etwa elf Wochen, passend zu einer Inkubationszeit von rund 60 Tagen',
+        patientWorte: { verdacht: 'eine akute Leberentzündung durch ein Virus, das man Hepatitis B nennt, Ihre Gelbfärbung und die Beschwerden erklärt', diagnostik: 'nehmen wir Ihnen Blut ab und prüfen die Leberwerte sowie spezielle Virus-Marker', therapie: 'heilt die Leberentzündung meist von selbst aus, wir kontrollieren Ihre Werte engmaschig und schonen die Leber' },
         differenzialdiagnosen: [
           {
             dd: 'Akute Hepatitis A',
@@ -24413,20 +24394,14 @@ export function seedCases(): Case[] {
         'auf-feinnadelpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wer hat die Gelbfärbung zuerst bemerkt — Sie selbst oder jemand aus Ihrem Umfeld? Und seit wann genau?', kapitel: 'aktuell' },
         { frage: 'Welche Farbe hat Ihr Urin, und welche Farbe hat Ihr Stuhl? Ist der Stuhl heller geworden?', kapitel: 'aktuell' },
-        { frage: 'Wie ging es Ihnen in den zwei Wochen VOR der Gelbfärbung — hatten Sie Gliederschmerzen, Übelkeit oder leichtes Fieber wie bei einer Grippe?', kapitel: 'aktuell' },
-        { frage: 'Hat sich Ihr Geschmack verändert? Schmecken Ihnen bestimmte Speisen nicht mehr — und schmecken Ihnen Zigaretten noch?', kapitel: 'aktuell' },
+        { frage: 'Wie ging es Ihnen in den zwei Wochen vor der Gelbfärbung — hatten Sie Gliederschmerzen, Übelkeit oder leichtes Fieber wie bei einer Grippe?', kapitel: 'aktuell' },
         { frage: 'Waren Sie in den letzten sechs Monaten im Ausland? Wo, wie lange, und was haben Sie dort gegessen und getrunken?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie sich tätowieren oder piercen lassen? Wann und wo, und wissen Sie, ob die Nadel steril war?', kapitel: 'familie-sozial' },
         { frage: 'Ich muss Sie einige persönliche Fragen stellen, die für die Ursache wichtig sind: Hatten Sie ungeschützten Geschlechtsverkehr, gegebenenfalls mit einem neuen Partner?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie jemals Drogen konsumiert — auch geschnupft, mit einem gemeinsam benutzten Röhrchen?', kapitel: 'noxen' },
-        { frage: 'Haben Sie jemals eine Bluttransfusion erhalten, wurden Sie dialysiert oder hatten Sie eine Nadelstichverletzung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Nehmen Sie Nahrungsergänzungsmittel, Abnehmpräparate oder pflanzliche Mittel aus dem Internet ein? Und wie viel Paracetamol haben Sie genommen?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Alkohol trinken Sie genau — an wie vielen Tagen pro Woche und wie viel jeweils?', kapitel: 'noxen' },
         { frage: 'Sind Sie gegen Hepatitis A oder B geimpft? Haben Sie Ihren Impfpass dabei?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihnen aufgefallen, dass Sie verwirrt sind, den Tag-Nacht-Rhythmus verwechseln oder die Hände zittern? Haben Sie vermehrt blaue Flecken oder Nasenbluten?', kapitel: 'aktuell' },
-        { frage: 'Lebt jemand mit Ihnen zusammen, und gibt es in Ihrem Umfeld Schwangere oder Kleinkinder?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
@@ -24617,6 +24592,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Gerhard Vollmer',
           age: 68,
@@ -24741,6 +24717,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, meine rechte Hand zittert. Das geht jetzt schon fast ein Jahr so, und es wird nicht besser. (leiser) Und ehrlich gesagt — meine Frau sagt, ich sei insgesamt langsamer geworden.',
           'akt-ort': 'Hier, die rechte Hand. (zeigt sie) Vor allem der Daumen und der Zeigefinger, das reibt so aneinander. Manchmal zittert auch der rechte Unterarm ein bisschen mit.',
           'akt-beginn': 'Seit etwa zehn Monaten. Das kam ganz schleichend — erst nur ab und zu, wenn ich abends im Sessel saß. Inzwischen ist es fast jeden Tag da. Die Schulter zieht sogar schon etwas länger, ungefähr ein Jahr.',
+          'akt-neuro-ausfall': 'Schwach oder taub ist da nichts, das ist eher ein Zittern und eine Steifheit, vor allem rechts. Seit ein paar Monaten fällt mir auch die linke Hand etwas langsamer auf. Mit dem Sprechen — meine Frau sagt, ich rede zu leise, aber ich merke das selbst kaum. Sehen oder Gehen — na ja, ich schlurfe wohl ein bisschen, sagt meine Frau.',
+          'akt-neuro-dauer': 'Das geht ja nicht weg, das ist die ganze Zeit da und wird eher mehr. Beim Zugreifen wird es zwar besser, aber ganz weg ist es nie.',
+          'akt-neuro-lage': 'Nein, mit dem Kopfdrehen oder Aufstehen hat das nichts zu tun. Schwindelig oder schwankend bin ich auch nicht, gestürzt bin ich noch nie.',
           'akt-charakter': 'Es zittert regelmäßig, so wie wenn man eine Pille zwischen den Fingern dreht. Und die Schulter, die zieht dumpf, wie eine Verspannung. Weh tut das Zittern selbst nicht.',
           'akt-intensitaet': 'Weh tut eigentlich nur die Schulter, das ist so 3 von 10. Aber wenn Sie fragen, wie sehr mich das Ganze belastet — 7 von 10. Ich schäme mich, wenn ich im Verein die Karten halte.',
           'akt-ausstrahlung': 'Der Schulterschmerz zieht in den rechten Oberarm, bis kurz über den Ellenbogen. In die Hand geht er nicht. Das Zittern bleibt in der rechten Hand, links ist es nicht.',
@@ -24798,6 +24777,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Idiopathisches Parkinson-Syndrom (Morbus Parkinson) vom Äquivalenz-Typ mit asymmetrischem, rechtsbetontem Beginn: obligate Bradykinese plus Rigor und typischer Ruhetremor der rechten Hand, seit etwa zwei Monaten auch geringe Symptomatik links, ohne posturale Instabilität — Hoehn und Yahr Stadium 2. Klassische nicht-motorische Prodromalsymptome seit Jahren: Hyposmie, REM-Schlaf-Verhaltensstörung, Obstipation und depressive Verstimmung',
+        patientWorte: { verdacht: 'eine Erkrankung des Nervensystems, die Parkinson-Krankheit, Ihr Zittern und die Steifigkeit verursacht', diagnostik: 'untersuchen wir Ihre Bewegungen genau und sprechen mit Ihrer Frau über die Beobachtungen im Alltag', therapie: 'bekommen Sie Medikamente, die den Botenstoff im Gehirn ausgleichen und Ihre Beweglichkeit deutlich verbessern können' },
         differenzialdiagnosen: [
           {
             dd: 'Essenzieller Tremor',
@@ -24980,21 +24960,14 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Zittert die Hand vor allem, wenn sie ruhig auf dem Bein liegt — und wird das Zittern besser oder schlechter, wenn Sie nach einer Tasse greifen?', kapitel: 'aktuell' },
-        { frage: 'Zittert es auch, wenn Sie einen Arm ausgestreckt halten oder wenn Sie schreiben? Und zittert der Kopf oder die Stimme mit?', kapitel: 'aktuell' },
+        { frage: 'Zittert die Hand vor allem, wenn sie ruhig auf dem Bein liegt, und wird das Zittern besser oder schlechter, wenn Sie nach einer Tasse greifen? Zittert es auch, wenn Sie den Arm ausgestreckt halten oder schreiben?', kapitel: 'aktuell' },
         { frage: 'Ändert sich das Zittern nach einem Glas Wein oder Bier?', kapitel: 'aktuell' },
         { frage: 'Schauen Sie sich bitte Ihre eigene Handschrift an: Wird die Schrift zum Ende der Zeile hin kleiner?', kapitel: 'aktuell' },
-        { frage: 'Hat Ihnen jemand gesagt, dass Sie kleiner schrittig gehen, schlurfen oder dass ein Arm beim Gehen nicht mehr mitschwingt?', kapitel: 'aktuell' },
-        { frage: 'Bleiben Sie beim Losgehen oder beim Umdrehen manchmal wie festgeklebt stehen? Sind Sie schon einmal gestürzt — und wenn ja, wann zum ersten Mal?', kapitel: 'aktuell' },
+        { frage: 'Hat Ihnen jemand gesagt, dass Sie kleinschrittiger gehen, schlurfen, oder dass ein Arm beim Gehen nicht mehr mitschwingt? Bleiben Sie beim Losgehen oder Umdrehen manchmal wie festgeklebt stehen, und sind Sie schon gestürzt?', kapitel: 'aktuell' },
         { frage: 'Riechen Sie noch normal? Haben Sie schon einmal etwas Angebranntes nicht gerochen?', kapitel: 'aktuell' },
         { frage: 'Was sagt Ihre Frau über Ihre Nächte — reden, schreien oder schlagen Sie im Schlaf um sich, als würden Sie Ihre Träume ausleben?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie regelmäßig Stuhlgang, und seit wann besteht die Verstopfung?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie jemals Medikamente gegen Übelkeit, Schwindel oder Nervosität eingenommen — zum Beispiel MCP-Tropfen oder Tabletten vom Nervenarzt? Auch nur kurz?', kapitel: 'medikamente' },
-        { frage: 'Wird Ihnen beim Aufstehen schwarz vor Augen, und haben Sie Probleme, den Urin zu halten?', kapitel: 'vegetativ' },
-        { frage: 'Können Sie problemlos nach unten auf die Treppenstufen schauen? Sehen Sie manchmal doppelt?', kapitel: 'aktuell' },
-        { frage: 'Wie ist Ihre Stimmung in den letzten Monaten — haben Sie Hobbys aufgegeben, die Ihnen früher Freude gemacht haben?', kapitel: 'aktuell' },
-        { frage: 'Verschlucken Sie sich beim Trinken oder Essen? Müssen Sie dabei husten?', kapitel: 'aktuell' },
-        { frage: 'Fahren Sie noch selbst Auto, und wie sicher fühlen Sie sich dabei?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -25351,6 +25324,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Aktivierte Gonarthrose beidseits, rechts betont, mit Gelenkerguss seit etwa sechs Wochen — rechts am ehesten sekundäre Genese bei Zustand nach konservativ behandelter vorderer Kreuzbandruptur vor 20 Jahren, begünstigt durch Lebensalter und Übergewicht (BMI 27,3 kg/m²)',
+        patientWorte: { verdacht: 'ein Verschleiß des Kniegelenks, eine sogenannte Arthrose, mit einem Gelenkerguss Ihre Schmerzen verursacht', diagnostik: 'machen wir Röntgenbilder von beiden Kniegelenken im Stehen', therapie: 'helfen zunächst Bewegung, Physiotherapie und Schmerzmittel, eine Operation kommt erst bei anhaltenden Beschwerden infrage' },
         differenzialdiagnosen: [
           {
             dd: 'Rheumatoide Arthritis',
@@ -25527,18 +25501,14 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann genau tun die Knie am meisten weh — beim Losgehen nach längerem Sitzen, beim längeren Gehen oder in Ruhe?', kapitel: 'aktuell' },
-        { frage: 'Ist das Treppabgehen schlimmer als das Treppaufgehen?', kapitel: 'aktuell' },
-        { frage: 'Wie LANGE sind Ihre Knie morgens steif — ein paar Minuten oder länger als eine halbe Stunde?', kapitel: 'aktuell' },
-        { frage: 'Wie weit können Sie noch am Stück gehen, und was hindert Sie zuerst — der Schmerz im Gelenk oder ein Ziehen in der Wade?', kapitel: 'aktuell' },
+        { frage: 'Wann genau tun Ihre Knie am meisten weh — beim Losgehen nach längerem Sitzen, beim längeren Gehen oder in Ruhe?', kapitel: 'aktuell' },
+        { frage: 'Ist das Treppabgehen für Sie schlimmer als das Treppaufgehen?', kapitel: 'aktuell' },
+        { frage: 'Wie lange sind Ihre Knie morgens steif — ein paar Minuten oder länger als eine halbe Stunde?', kapitel: 'aktuell' },
         { frage: 'Sind Ihre Knie geschwollen, gerötet oder überwärmt, und seit wann?', kapitel: 'aktuell' },
+        { frage: 'Knirscht oder reibt es in Ihrem Knie, blockiert das Gelenk manchmal, oder knickt es plötzlich weg?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals einen Unfall, eine Verdrehung, einen Meniskus- oder Kreuzbandriss oder eine Operation am Knie?', kapitel: 'vorerkrankungen' },
-        { frage: 'Knirscht oder reibt es im Knie, blockiert das Gelenk manchmal, oder knickt es plötzlich weg?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie auch Beschwerden in der Leiste oder im Gesäß, und können Sie sich Schuhe und Socken problemlos anziehen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen oder Schwellungen in anderen Gelenken, besonders in den Fingern, und sind die Beschwerden seitengleich?', kapitel: 'aktuell' },
-        { frage: 'Wie oft und in welcher Dosis nehmen Sie das Ibuprofen, und wie gut hilft es Ihnen?', kapitel: 'medikamente' },
         { frage: 'Haben Sie Fieber gemessen, und wurde Ihnen jemals eine Spritze ins Kniegelenk gegeben?', kapitel: 'vorerkrankungen' },
-        { frage: 'Was können Sie wegen der Knie im Alltag nicht mehr tun, was Ihnen früher wichtig war?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen oder Schwellungen in anderen Gelenken, besonders in den Fingern, und sind die Beschwerden seitengleich?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Was hat der Patient gesagt? Stellen Sie uns bitte den Patienten vor.',
@@ -25746,6 +25716,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Brunner',
           age: 54,
@@ -25837,11 +25808,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Stäuben oder Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neumann. Er hat mich zu Ihnen geschickt.',
           'akt-motiv': 'Frau Doktor, mein Hals ist dicker geworden. Erst dachte ich, ich bilde mir das ein, aber inzwischen sehen es auch andere — und ich habe ständig so ein Engegefühl, als ob mir etwas den Hals zudrückt.',
-          'akt-ort': 'Hier, vorne am Hals, unterhalb vom Kehlkopf. (legt die flache Hand auf den vorderen Hals) Rechts kann ich sogar so einen Knubbel tasten, ungefähr so groß wie eine Kirsche. Wenn ich schlucke, geht der mit hoch und wieder runter.',
           'akt-beginn': 'Ganz langsam, über Monate. Vor etwa acht Monaten ist es mir richtig aufgefallen, weil der Kragen meiner Bluse plötzlich zu eng war. Vorher war da vielleicht schon länger etwas, aber nichts, was mich gestört hätte.',
-          'akt-charakter': 'Weh tut es überhaupt nicht. Es ist ein Druck- und Engegefühl, wie ein Kloß im Hals, der nicht weggeht — auch wenn ich schlucke.',
-          'akt-intensitaet': 'Schmerzen habe ich keine, gar keine. Das Druck- und Engegefühl würde ich mit ungefähr 4 von 10 angeben — es ist nicht schlimm, aber es ist eben immer da.',
-          'akt-ausstrahlung': 'Nein, das bleibt am Hals. Es strahlt nicht ins Ohr, nicht in den Kiefer und nicht in die Schultern.',
+          'akt-veraend-was': 'Aufgefallen ist mir, dass mein Hals dicker geworden ist, und rechts kann ich einen Knubbel tasten, der beim Schlucken mitgeht.',
+          'akt-veraend-entwicklung': 'Ja, langsam über die Monate ist es mehr geworden. Der Kragen ist mir zu eng geworden, das war eigentlich der erste Hinweis für mich.',
+          'akt-veraend-blutung': 'Wehtun tut mir gar nichts, das sage ich gleich dazu. Es blutet auch nicht und juckt nicht, es ist einfach dieses Engegefühl und der Knubbel.',
           'akt-verlauf': 'Das ist dauerhaft da, den ganzen Tag. Es kommt nicht in Anfällen. Und es ist über die Monate langsam mehr geworden, nicht plötzlich.',
           'akt-ausloeser': 'Nein, einen Auslöser gab es nicht. Kein Sturz, kein Schlag auf den Hals, keine Erkältung vorher. Es ist einfach so gekommen.',
           'akt-einfluss': 'Schlimmer wird es, wenn ich flach liege — deshalb schlafe ich seit ein paar Wochen mit einem zweiten Kissen. Und wenn ich einen Rollkragen anziehe, halte ich das gar nicht aus. Besser wird es eigentlich durch nichts. Ich habe auch nichts dagegen eingenommen.',
@@ -25897,6 +25867,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Euthyreote Struma nodosa (Knotenstruma) WHO Grad II mit mechanischer Symptomatik — Enge- und Globusgefühl, Dysphagie für feste Speisen und Beschwerden im Liegen — am ehesten auf dem Boden eines langjährigen alimentären Jodmangels bei Herkunft aus einem ehemaligen Jodmangelgebiet, fehlender Jodsalzverwendung, positiver Familienanamnese und Nikotinkonsum. Der tastbare, etwa 2,5 cm große Knoten im rechten Lappen bedarf der stufenweisen Abklärung (Sonographie, Szintigraphie, Feinnadelpunktion) zum Ausschluss eines Schilddrüsenkarzinoms; klinisch bestehen keine Malignitätshinweise, insbesondere keine Heiserkeit und keine Lymphknotenschwellung.',
+        patientWorte: { verdacht: 'eine vergrößerte Schilddrüse mit Knoten das Engegefühl in Ihrem Hals verursacht', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall der Schilddrüse', therapie: 'reicht meist eine regelmäßige Kontrolle, bei stärkeren Beschwerden käme eine Jodgabe oder eine Operation infrage' },
         differenzialdiagnosen: [
           {
             dd: 'Schilddrüsenkarzinom',
@@ -26061,17 +26032,14 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann besteht die Schwellung am Hals, und ist sie in den letzten Wochen oder Monaten größer geworden?', kapitel: 'aktuell' },
+        { frage: 'Seit wann besteht die Schwellung an Ihrem Hals, und ist sie in den letzten Wochen oder Monaten größer geworden?', kapitel: 'aktuell' },
         { frage: 'Bewegt sich die Schwellung mit, wenn Sie schlucken? Können Sie mir das einmal zeigen?', kapitel: 'aktuell' },
-        { frage: 'Hat sich Ihre Stimme verändert — sind Sie heiser geworden oder klingt Ihre Stimme anders als früher?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein Enge- oder Druckgefühl am Hals, Schluckbeschwerden oder Luftnot, besonders wenn Sie flach liegen?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen der Hemdkragen oder eine Halskette in letzter Zeit zu eng geworden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Herzrasen, Zittern der Hände, vermehrtes Schwitzen oder ungewollt Gewicht verloren? Oder umgekehrt: Frieren Sie leicht, sind Sie müde und haben Sie zugenommen?', kapitel: 'vegetativ' },
+        { frage: 'Bekommen Sie schlecht Luft, besonders wenn Sie flach liegen?', kapitel: 'aktuell' },
         { frage: 'Verwenden Sie zu Hause jodiertes Speisesalz, und wie oft essen Sie Seefisch?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Jodtabletten oder Amiodaron ein, oder wurde bei Ihnen in den letzten Monaten eine Untersuchung mit Kontrastmittel durchgeführt?', kapitel: 'medikamente' },
         { frage: 'Wurden Sie als Kind im Hals- oder Kopfbereich bestrahlt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gibt es in Ihrer Familie Schilddrüsenerkrankungen, einen Kropf oder Schilddrüsenkrebs? Wurde jemand deswegen operiert?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie am Hals geschwollene Lymphknoten getastet? Hatten Sie Fieber, Nachtschweiß oder ungewollten Gewichtsverlust?', kapitel: 'vegetativ' },
+        { frage: 'Wurde in Ihrer Familie schon einmal ein Schilddrüsenkrebs festgestellt, und wurde deswegen jemand operiert?', kapitel: 'familie-sozial' },
+        { frage: 'Haben Sie am Hals geschwollene Lymphknoten getastet?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose? Was bedeutet der Begriff Struma eigentlich — hat er etwas mit der Schilddrüsenfunktion zu tun?',
@@ -26434,6 +26402,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Otitis media rechts (akute Mittelohrentzündung) bei Tubenventilationsstörung im Rahmen eines viralen Infektes der oberen Atemwege — unkomplizierter Verlauf ohne Komplikationszeichen bei einer 34-jährigen Erzieherin mit rezidivierenden Otitiden in der Kindheit und allergischer Rhinitis',
+        patientWorte: { verdacht: 'eine akute Mittelohrentzündung Ihre Ohrenschmerzen und das Fieber verursacht', diagnostik: 'schauen wir mit einem kleinen Gerät in Ihr Ohr und prüfen das Trommelfell', therapie: 'bekommen Sie zunächst Schmerzmittel und abschwellende Nasentropfen, die Entzündung heilt meist von selbst aus' },
         differenzialdiagnosen: [
           {
             dd: 'Otitis externa',
@@ -26599,17 +26568,13 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie in den Tagen oder Wochen vor den Ohrenschmerzen einen Schnupfen, Husten oder Halsschmerzen — und bekommen Sie durch die Nase noch Luft?', kapitel: 'aktuell' },
-        { frage: 'Ist der Schmerz im Ohr pulsierend, also im Takt des Herzschlags, und wird er im Liegen schlimmer?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie durch die Nase noch Luft, oder ist sie im Rahmen Ihrer Erkältung verstopft?', kapitel: 'aktuell' },
+        { frage: 'Ist der Schmerz im Ohr pulsierend, also im Takt des Herzschlags, und wird er schlimmer, wenn Sie liegen?', kapitel: 'aktuell' },
         { frage: 'Ist Flüssigkeit oder Eiter aus dem Ohr gelaufen? Und hat der Schmerz dabei plötzlich schlagartig nachgelassen?', kapitel: 'aktuell' },
         { frage: 'Hören Sie auf dem betroffenen Ohr schlechter, klingt Ihre eigene Stimme darin anders, und haben Sie ein Rauschen im Ohr?', kapitel: 'aktuell' },
-        { frage: 'Tut es weh, wenn ich an Ihrer Ohrmuschel ziehe oder vorne auf den kleinen Knorpel vor dem Gehörgang drücke?', kapitel: 'aktuell' },
-        { frage: 'Ist es hinter dem Ohr rot, geschwollen oder druckschmerzhaft, und steht die Ohrmuschel weiter ab als sonst?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schwindel, Erbrechen oder eine Gangunsicherheit bemerkt, und können Sie das Gesicht auf beiden Seiten gleich gut bewegen?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihnen Bläschen an der Ohrmuschel, im Gehörgang oder am Gaumen aufgefallen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie schwimmen oder tauchen, sind Sie geflogen, oder haben Sie mit einem Wattestäbchen im Ohr gereinigt?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie so etwas früher schon einmal — als Kind oder als Erwachsene? Wurden Sie jemals am Ohr operiert oder hatten Sie Paukenröhrchen?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie Zahnschmerzen, waren Sie kürzlich beim Zahnarzt, oder knackt und schmerzt Ihr Kiefergelenk beim Kauen?', kapitel: 'aktuell' },
+        { frage: 'Ist die Haut hinter Ihrem Ohr gerötet oder geschwollen, tut es dort besonders weh, und steht Ihr Ohr weiter ab als sonst?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schwindel, Erbrechen oder eine Gangunsicherheit bemerkt, und können Sie Ihr Gesicht auf beiden Seiten gleich gut bewegen?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie so etwas früher schon einmal — als Kind oder als Erwachsene? Wurden Sie jemals am Ohr operiert, oder hatten Sie Paukenröhrchen?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie ein abschwellendes Nasenspray, und wenn ja, seit wie vielen Tagen?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
@@ -26966,6 +26931,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Mechanischer Dünndarmileus, am ehesten Bridenileus bei Zustand nach drei offenen Bauchoperationen (Appendektomie, Cholezystektomie mit Wundheilungsstörung, Hysterektomie) — kolikartig-wellenförmige periumbilikale Schmerzen seit etwa 30 Stunden, wiederholtes, zuletzt galliges Erbrechen, kompletter Stuhl- und Windverhalt seit etwa 24 Stunden und geblähtes Abdomen; bislang keine Zeichen von Strangulation oder Peritonitis',
+        patientWorte: { verdacht: 'ein Darmverschluss durch Verwachsungen nach Ihren früheren Bauchoperationen Ihre Schmerzen und das Erbrechen verursacht', diagnostik: 'nehmen wir Ihnen Blut ab und machen eine Computertomographie vom Bauch', therapie: 'müssen Sie erst einmal nüchtern bleiben und bekommen Infusionen, eventuell wird eine Operation nötig sein' },
         differenzialdiagnosen: [
           {
             dd: 'Paralytischer Ileus',
@@ -27155,18 +27121,14 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann hatten Sie zuletzt Stuhlgang, und — ganz wichtig — gehen bei Ihnen noch Winde ab?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Bauch aufgebläht? Ist Ihnen aufgefallen, dass die Kleidung enger geworden ist?', kapitel: 'aktuell' },
         { frage: 'Wie sah das Erbrochene aus? War es zuletzt grünlich, oder hat es unangenehm, fast wie Stuhl gerochen?', kapitel: 'aktuell' },
-        { frage: 'Wurden Sie schon einmal am Bauch operiert? Welche Eingriffe, wann, und gab es Komplikationen bei der Wundheilung?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen Darmverschluss oder ähnliche Beschwerden, die von allein wieder verschwunden sind?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihnen jemals eine Vorwölbung oder Beule in der Leiste, am Nabel oder an einer Narbe aufgefallen, besonders beim Husten oder Pressen?', kapitel: 'vorerkrankungen' },
         { frage: 'Kommt der Schmerz in Wellen mit ruhigen Pausen, oder ist er inzwischen gleichbleibend und dauerhaft geworden?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Blut oder schwarzen, teerartigen Stuhl bemerkt, und hat sich Ihre Stuhlgewohnheit in den letzten Monaten verändert?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt abgenommen, und gibt es in Ihrer Familie Darmkrebs oder Darmverschlüsse?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmverschlüsse?', kapitel: 'familie-sozial' },
         { frage: 'Ist bei Ihnen ein Herzstolpern oder Vorhofflimmern bekannt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie in Eigenregie Abführmittel, Schmerzmittel oder krampflösende Mittel genommen — und haben sie gewirkt?', kapitel: 'medikamente' },
-        { frage: 'Wann haben Sie zuletzt etwas gegessen und getrunken, und konnten Sie es bei sich behalten?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Bitte stellen Sie uns die Patientin vor. Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
@@ -27380,6 +27342,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Renate Bittner',
           age: 58,
@@ -27474,11 +27437,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Staub oder Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, meine Hausärztin ist Frau Dr. Weber.',
           'akt-motiv': 'Mir ist seit vier Tagen immer wieder ganz schrecklich schwindelig. Es kommt plötzlich, und mir wird richtig übel dabei. Ich habe furchtbare Angst, dass das ein Schlaganfall ist — mein Vater ist an einem Schlaganfall gestorben.',
-          'akt-ort': 'Zeigen kann ich das schlecht, das ist ja kein Schmerz. Es ist im Kopf — alles dreht sich. (fasst sich vorsichtig an den Kopf) Weh tut mir nichts.',
           'akt-beginn': 'Seit vier Tagen. Es fing ganz plötzlich an: Ich habe mich morgens im Bett nach rechts umgedreht, und auf einmal drehte sich das ganze Zimmer.',
-          'akt-charakter': '(auf die Nachfrage, was für ein Schwindel es genau sei) Es dreht sich alles, wie ein Karussell. Es wird mir nicht schwarz vor Augen, und ich schwanke auch nicht wie auf einem Schiff — es dreht sich richtig.',
-          'akt-intensitaet': 'Während einer Attacke ist es eine 8 von 10, das ist schrecklich. Aber dazwischen ist es eine Null, dann merke ich überhaupt nichts.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Es ist nur dieses Drehen im Kopf.',
+          'akt-neuro-ausfall': 'Schwäche oder Taubheit habe ich gar keine, das ist es ja nicht. Sprechen und Sehen sind auch in Ordnung. Nur beim Gehen bin ich unsicher, weil ich Angst vor dem nächsten Schwindelanfall habe, und fast wäre ich einmal beim Aufstehen gestürzt.',
+          'akt-neuro-dauer': 'Ein Anfall dauert wirklich nur ein paar Sekunden, höchstens eine halbe Minute, dann ist er komplett vorbei. Dazwischen habe ich gar nichts mehr, ich bin dann völlig beschwerdefrei.',
+          'akt-neuro-lage': 'Ja, genau dann wird es schlimmer — beim Umdrehen im Bett, beim Aufstehen, beim Hinlegen, wenn ich den Kopf in den Nacken lege oder mich bücke. Und es dreht sich wirklich, wie ein Karussell, nicht so ein Schwanken.',
           'akt-verlauf': 'Es ist nicht die ganze Zeit da, es kommt anfallsweise. So eine Attacke dauert nur ein paar Sekunden, höchstens eine halbe Minute, dann ist sie vorbei. Am Tag habe ich das fünf- bis zehnmal. Zwischendurch bin ich völlig beschwerdefrei.',
           'akt-ausloeser': 'Immer wenn ich die Lage ändere: im Bett umdrehen, vor allem nach rechts, aufstehen, hinlegen, Kopf in den Nacken, bücken. Gestürzt bin ich nicht.',
           'akt-einfluss': 'Besser wird es, wenn ich ganz still liege und den Kopf nicht bewege. Schlimmer wird es bei jedem Lagewechsel. Ich habe mir in der Apotheke Vomex geholt, Dimenhydrinat, und nehme das seit drei Tagen — der Schwindel ist davon nicht weggegangen, ich bin nur müde und wie benebelt.',
@@ -27537,6 +27499,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Benigner paroxysmaler Lagerungsschwindel (BPPV) des rechten hinteren Bogengangs — Canalolithiasis; entscheidend sind die Attackendauer von Sekunden bis maximal einer Minute, die Auslösung ausschließlich durch Lagewechsel, die vollständige Beschwerdefreiheit zwischen den Attacken sowie das Fehlen von Hörminderung, Tinnitus und neurologischen Ausfällen',
+        patientWorte: { verdacht: 'kleine Kristalle im Gleichgewichtsorgan des Ohrs Ihren kurzen Drehschwindel bei Lagewechsel verursachen', diagnostik: 'lagern wir Ihren Kopf in einer bestimmten Position und beobachten dabei Ihre Augenbewegungen', therapie: 'können wir die Kristalle mit einem einfachen Lagerungsmanöver noch heute wieder an ihren Platz bringen' },
         differenzialdiagnosen: [
           {
             dd: 'Morbus Menière',
@@ -27695,16 +27658,11 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Dreht sich alles wie ein Karussell, schwanken Sie wie auf einem Schiff, oder wird Ihnen eher schwarz vor Augen?', kapitel: 'aktuell' },
-        { frage: 'Wie lange dauert eine einzelne Attacke — Sekunden, Minuten, Stunden oder Tage? Wie oft am Tag kommt sie?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie zwischen den Attacken völlig beschwerdefrei, oder bleibt eine Unsicherheit zurück?', kapitel: 'aktuell' },
-        { frage: 'Wodurch wird der Schwindel ausgelöst — Umdrehen im Bett, Aufstehen, Hinlegen, Kopf-in-den-Nacken-Legen, Bücken? Und zu welcher Seite ist es am schlimmsten?', kapitel: 'aktuell' },
+        { frage: 'Dreht sich bei Ihnen alles wie ein Karussell, schwanken Sie wie auf einem Schiff, oder wird Ihnen eher schwarz vor Augen?', kapitel: 'aktuell' },
+        { frage: 'Ist der Schwindel zu einer bestimmten Seite hin schlimmer, zum Beispiel beim Drehen im Bett?', kapitel: 'aktuell' },
         { frage: 'Hören Sie auf einem Ohr schlechter? Haben Sie ein Pfeifen, Rauschen oder ein Druckgefühl im Ohr?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie dabei Doppelbilder, eine Sprech- oder Schluckstörung, ein Taubheitsgefühl oder eine Schwäche in Arm oder Bein?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie neu aufgetretene, ungewohnte Kopfschmerzen oder Nackenschmerzen?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie gestürzt oder beinahe gestürzt? Waren Sie dabei kurz bewusstlos, oder erinnern Sie sich an alles?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie dabei einen neuartigen, ungewohnten Kopfschmerz oder starke Nackenschmerzen, die Sie vorher nicht kannten?', kapitel: 'aktuell' },
         { frage: 'Gab es in den letzten Wochen einen Sturz auf den Kopf, einen Unfall, eine Behandlung an der Halswirbelsäule oder eine längere Bettlägerigkeit?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie schon etwas dagegen eingenommen — auch etwas aus der Apotheke ohne Rezept?', kapitel: 'medikamente' },
         { frage: 'Fahren Sie Auto? Arbeiten Sie auf Leitern oder Gerüsten, oder mit Absturzgefahr?', kapitel: 'familie-sozial' },
         { frage: 'Wie kommen Sie zu Hause zurecht — gibt es Treppen, ein Geländer, nachts Licht?', kapitel: 'familie-sozial' },
       ],
@@ -27874,6 +27832,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Ottmar Reichenbach',
           age: 68,
@@ -27986,6 +27945,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ehrlich gesagt bin ich nur hier, weil meine Frau nicht lockergelassen hat. Ich bin gestern Vormittag auf der Treppe einfach umgekippt. Weg war ich, und dann lag ich unten.',
           'akt-ort': 'Zu Hause, auf unserer Treppe ins Obergeschoss. Ich hatte zwei Getränkekisten in der Hand und war schon fast oben. Wehgetan hat mir hinterher die Stirn und die linke Schulter — hier. (zeigt auf die versorgte Platzwunde)',
           'akt-beginn': 'Gestern Vormittag, so gegen elf. Vorher war überhaupt nichts, ich habe mich ganz normal gefühlt.',
+          'akt-anfall-ablauf': 'Das kann ich Ihnen gar nicht sagen — ich war ja weg, ich habe nichts gespürt und weiß auch nicht, wie es angefangen hat. Auf einmal war ich wieder da, unten auf dem Boden.',
+          'akt-anfall-dauer': 'Meine Frau sagt, zwanzig bis dreißig Sekunden war ich weg. Passiert ist das erst einmal, gestern. Vor zwei Monaten wurde mir beim Radfahren bergauf kurz schwarz vor Augen, aber da bin ich nicht umgefallen.',
+          'akt-anfall-bewusstsein': 'Ja, bewusstlos war ich wohl, meine Frau hat mich nicht wachbekommen. Verletzt habe ich mich beim Sturz — die Stirn ist aufgeplatzt und die linke Schulter ist geprellt, die Brille ist kaputtgegangen.',
           'akt-charakter': 'Ich kann Ihnen dazu gar nichts sagen — ich habe nichts gemerkt. Es war wie ein Filmriss. Meine Frau sagt, ich sei grau im Gesicht gewesen und wie ein Sack umgefallen, ohne mich abzustützen. Die Brille ist dabei kaputtgegangen.',
           'akt-intensitaet': 'Während der Ohnmacht hatte ich überhaupt keine Schmerzen. Was mir Sorgen macht: Wenn ich die Treppe hochgehe oder etwas trage, habe ich seit ein paar Monaten so einen Druck auf der Brust, das ist etwa 5 von 10. Die Stirn und die Schulter tun vom Sturz nur leicht weh, wenn ich sie bewege.',
           'akt-ausstrahlung': 'Der Druck auf der Brust zieht manchmal hoch in den Hals und in den Unterkiefer. In den Arm oder in den Rücken strahlt nichts aus.',
@@ -28041,6 +28003,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Kardiale Synkope bei dringendem Verdacht auf eine hochgradige Aortenklappenstenose — Belastungssynkope ohne Prodromi bei einem 68-jährigen Patienten mit der vollständigen klassischen Symptomtrias aus Angina pectoris, Belastungsdyspnoe und Synkope sowie anamnestisch vorbeschriebenem, nie abgeklärtem Herzgeräusch; Hochrisikosituation mit Indikation zur stationären Aufnahme und Monitorüberwachung',
+        patientWorte: { verdacht: 'eine Verengung einer Herzklappe die Ursache für Ihre Bewusstlosigkeit bei Anstrengung ist', diagnostik: 'schreiben wir ein Herz-EKG, nehmen Blut ab und machen einen Ultraschall des Herzens', therapie: 'bleiben Sie zur Überwachung im Krankenhaus, und bei einer schweren Verengung wird oft die Herzklappe ersetzt' },
         differenzialdiagnosen: [
           {
             dd: 'Rhythmogene Synkope (AV-Block II./III. Grades, Sick-Sinus-Syndrom, ventrikuläre Tachykardie)',
@@ -28210,20 +28173,14 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was ist die letzte Sache, an die Sie sich vor dem Ereignis erinnern — und was ist das Erste danach?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Frau dabei gewesen? Dürfte ich sie kurz dazu bitten? Was genau hat sie gesehen?', kapitel: 'aktuell' },
         { frage: 'Wie lange waren Sie nach Angabe Ihrer Frau nicht ansprechbar, und wie schnell waren Sie danach wieder ganz bei sich — sofort oder erst nach einigen Minuten?', kapitel: 'aktuell' },
-        { frage: 'Hat sich der Anfall angekündigt — ist Ihnen schwindelig, übel oder schwarz vor Augen geworden, haben Sie geschwitzt oder ein Ohrensausen bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Hat sich der Anfall angekündigt, oder kam er völlig ohne Vorwarnung?', kapitel: 'aktuell' },
         { frage: 'Was haben Sie in dem Moment gemacht: Sind Sie aufgestanden, haben Sie lange gestanden, oder haben Sie sich angestrengt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie unmittelbar vorher ein Herzrasen oder Herzstolpern gespürt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie sich beim Sturz noch abfangen können, oder sind Sie ungebremst gefallen? Was haben Sie sich dabei verletzt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie sich auf die Zunge gebissen — und wenn ja, seitlich oder vorne? Ist Urin abgegangen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie seit einigen Monaten beim Treppensteigen oder Bergaufgehen einen Druck auf der Brust oder mehr Luftnot als früher?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie sich beim Sturz noch abfangen können, oder sind Sie ungebremst gefallen?', kapitel: 'aktuell' },
         { frage: 'Hat Ihnen schon einmal ein Arzt gesagt, dass Sie ein Herzgeräusch oder eine Herzklappenerkrankung haben?', kapitel: 'vorerkrankungen' },
         { frage: 'Gab es schon früher einmal eine Ohnmacht oder ein Beinahe-Umkippen, auch ohne Sturz?', kapitel: 'vorerkrankungen' },
-        { frage: 'Welche Medikamente sind in den letzten Monaten neu dazugekommen oder in der Dosis verändert worden?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie jemanden, der jung und plötzlich ungeklärt gestorben ist, vor dem 40. Lebensjahr?', kapitel: 'familie-sozial' },
-        { frage: 'Fahren Sie Auto, arbeiten Sie auf Leitern oder Gerüsten, schwimmen Sie allein?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie definieren Sie eine Synkope? Nennen Sie bitte alle Merkmale der Definition.',
@@ -28572,6 +28529,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Zöliakie (glutensensitive Enteropathie, einheimische Sprue) — Malabsorptionssyndrom mit Steatorrhoe, Meteorismus und Gewichtsverlust bei streng nahrungsabhängiger, an Weizenmehlspeisen gebundener Symptomatik',
+        patientWorte: { verdacht: 'eine Unverträglichkeit gegen das Klebereiweiß Gluten, eine sogenannte Zöliakie, Ihre Beschwerden verursacht', diagnostik: 'nehmen wir Ihnen Blut ab und machen eine Magenspiegelung mit einer kleinen Gewebeprobe aus dem Dünndarm', therapie: 'müssen Sie dauerhaft auf glutenhaltige Lebensmittel wie Weizen und Roggen verzichten, dann bessern sich die Beschwerden deutlich' },
         differenzialdiagnosen: [
           {
             dd: 'Kolorektales Karzinom',
@@ -28762,20 +28720,14 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir Ihren Stuhlgang genau beschreiben — Häufigkeit, Menge, Farbe, Konsistenz, Geruch? Glänzt er fettig, schwimmt er oben oder klebt er in der Toilette?', kapitel: 'aktuell' },
-        { frage: 'Gibt es bestimmte Lebensmittel, nach denen die Beschwerden auftreten, und wie viel Zeit liegt zwischen dem Essen und den Schmerzen?', kapitel: 'aktuell' },
-        { frage: 'Reagieren Sie eher auf Brot, Nudeln und Kuchen oder eher auf Milch und Milchprodukte?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihr Stuhl fettig-glänzend, schwimmt er oben, oder klebt er in der Toilette?', kapitel: 'aktuell' },
+        { frage: 'Reagieren Sie eher auf Brot, Nudeln und Kuchen, oder eher auf Milch und Milchprodukte?', kapitel: 'aktuell' },
         { frage: 'Haben Sie von sich aus bereits begonnen, bestimmte Lebensmittel wegzulassen — zum Beispiel Brot oder Mehlprodukte?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen, und hat sich Ihr Appetit dabei verändert?', kapitel: 'vegetativ' },
-        { frage: 'Ist Blut oder Schleim im Stuhl, oder war der Stuhl jemals schwarz?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie im Ausland, haben Sie Wasser aus Bächen oder Brunnen getrunken oder Rohmilch konsumiert?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente' },
         { frage: 'Haben Sie stark juckende Bläschen oder Hautausschläge, besonders an Ellenbogen, Knien oder am Gesäß?', kapitel: 'aktuell' },
         { frage: 'Leiden Sie an wiederkehrenden Aphthen im Mund, an brüchigen Nägeln oder an Knochenschmerzen?', kapitel: 'aktuell' },
         { frage: 'Sind bei Ihnen Blutarmut oder Eisenmangel bekannt, und hat eine Eisentablette jemals nicht angeschlagen?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Schilddrüsenerkrankungen, Typ-1-Diabetes, Darmkrebs oder eine bekannte Glutenunverträglichkeit?', kapitel: 'familie-sozial' },
-        { frage: 'Ist Ihr Diabetes mit Tabletten oder mit Insulin behandelt, und seit wann nehmen Sie das Metformin unverändert ein?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Herr Kollege, wie lautet Ihre Verdachtsdiagnose?',
@@ -29174,6 +29126,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Mediale Schenkelhalsfraktur rechts, klinisch disloziert (verkürztes und außenrotiertes Bein, Steh- und Gehunfähigkeit), nach häuslichem Sturz aus dem Stand — also nach einem Bagatelltrauma bei hochwahrscheinlich zugrunde liegender Osteoporose. Die endgültige Einteilung nach Pauwels und Garden erfolgt nach dem Röntgen in zwei Ebenen. Als Sturzursache steht eine orthostatische Dysregulation im Vordergrund (rasches Aufstehen, Schwindel und Schwarzwerden vor den Augen), begünstigt durch Exsikkose bei geringer Trinkmenge, die antihypertensive Medikation mit Ramipril, die eingeschränkte Sehfähigkeit bei Glaukom und häusliche Stolperfallen. Es handelt sich um einen geriatrischen Notfall mit dringlicher Operationsindikation innerhalb von 24 Stunden.',
+        patientWorte: { verdacht: 'Ihr Oberschenkelhals durch den Sturz gebrochen ist, deshalb können Sie nicht mehr auftreten', diagnostik: 'machen wir ein Röntgenbild der Hüfte in zwei Ebenen', therapie: 'wird der Bruch bald operiert, meist mit einem künstlichen Hüftgelenk, damit Sie rasch wieder laufen können' },
         differenzialdiagnosen: [
           {
             dd: 'Pertrochantäre Femurfraktur (extrakapsulär)',
@@ -29360,19 +29313,14 @@ export function seedCases(): Case[] {
         'auf-bluttransfusion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie genau ist der Sturz passiert — sind Sie gestolpert, ausgerutscht, oder ist Ihnen vorher schwindelig oder schwarz vor Augen geworden?', kapitel: 'aktuell' },
+        { frage: 'War Ihnen vor dem Sturz schwindelig oder schwarz vor Augen, oder sind Sie einfach gestolpert?', kapitel: 'aktuell' },
         { frage: 'Waren Sie kurz bewusstlos? Haben Sie sich auf die Zunge gebissen oder Urin verloren? Erinnern Sie sich an alles?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie vor dem Sturz Herzrasen, Herzstolpern, Brustschmerzen oder Luftnot?', kapitel: 'aktuell' },
         { frage: 'Sind Sie mit dem Kopf aufgeschlagen? Hatten Sie danach Kopfschmerzen, Erbrechen oder Sehstörungen?', kapitel: 'aktuell' },
         { frage: 'Wie viel haben Sie an diesem Tag getrunken und gegessen? Nehmen Sie Wassertabletten oder Blutdruckmittel?', kapitel: 'medikamente' },
-        { frage: 'Nehmen Sie Blutverdünner — Marcumar, eine der neuen Tabletten, Clopidogrel oder Spritzen? Wann haben Sie zuletzt gegessen und getrunken?', kapitel: 'medikamente' },
+        { frage: 'Nehmen Sie Blutverdünner — Marcumar, eine der neuen Tabletten, Clopidogrel oder Spritzen?', kapitel: 'medikamente' },
         { frage: 'Konnten Sie nach dem Sturz noch aufstehen oder auftreten? Wie lange haben Sie am Boden gelegen, und wer hat Ihnen geholfen?', kapitel: 'aktuell' },
         { frage: 'Sehen Sie gut, besonders in der Dämmerung? Liegen bei Ihnen zu Hause Teppiche, gibt es Haltegriffe im Bad und Licht im Flur?', kapitel: 'familie-sozial' },
-        { frage: 'Wie sind Sie vor dem Sturz gelaufen — frei, am Rollator, mit Hilfe? Wie weit kommen Sie ohne Pause?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich schon einmal einen Knochen gebrochen, zum Beispiel am Handgelenk oder an der Wirbelsäule, und wie ist das damals passiert?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wurde bei Ihnen jemals eine Knochendichtemessung gemacht, und nehmen Sie Kalzium, Vitamin D oder ein Osteoporosemedikament?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie ungewollt abgenommen, und hatten Sie vor dem Sturz nachts Schmerzen in der Hüfte, die Sie aufgeweckt haben?', kapitel: 'vegetativ' },
-        { frage: 'Wer versorgt zu Hause Ihren Mann, wenn Sie jetzt im Krankenhaus bleiben müssen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, wie ist der hämodynamische Zustand der Patientin? Ist sie ansprechbar und orientiert?',
@@ -29567,6 +29515,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Bergmann',
           age: 68,
@@ -29684,6 +29633,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, ich habe da eine offene Stelle am rechten Bein, innen am Knöchel. Die ist jetzt seit vier Monaten da und geht einfach nicht zu — im Gegenteil, sie wird größer.',
           'akt-ort': 'Hier, am rechten Bein, innen oberhalb vom Knöchel. (zeigt auf die Innenseite des rechten Unterschenkels) Genau an der Stelle, sonst nirgends.',
           'akt-beginn': 'Vor ungefähr vier Monaten. Das kam langsam — erst war die Haut da dünn und juckte, dann ging sie auf. Ich weiß gar nicht genau, wie es angefangen hat, gestoßen habe ich mich nicht.',
+          'akt-veraend-was': 'Aufgefallen ist mir die offene Stelle am Knöchel, die einfach nicht zugeht. Die Haut drumherum ist bräunlich verfärbt, das ist schon länger so. Knoten oder blaue Flecken habe ich keine, und mit Gelbfärbung oder Schlucken ist auch nichts.',
+          'akt-veraend-entwicklung': 'Ja, größer ist sie geworden, in den letzten Wochen ziemlich. Der Rand ist unregelmäßig und der Grund sieht gelblich aus.',
+          'akt-veraend-blutung': 'Weh tut sie eigentlich nur beim Verbandwechsel, dann brennt es. Aber es juckt drumherum ziemlich, seit ich die Salbe draufmache. Geblutet hat sie nicht, sie nässt nur und riecht unangenehm.',
           'akt-charakter': 'Das Bein fühlt sich dumpf und schwer an, wie ein Sack, und es zieht und spannt. Die Wunde selbst brennt eigentlich nur, wenn ich den Verband wechsle.',
           'akt-intensitaet': 'Ach, so schlimm ist es nicht — vielleicht 3 von 10. Abends wird es stärker, morgens ist es fast weg.',
           'akt-ausstrahlung': 'Nein, das bleibt am Unterschenkel. In den Fuß oder in die Hüfte zieht es nicht.',
@@ -29729,6 +29681,14 @@ export function seedCases(): Case[] {
           'fach-derma-vorgeschichte': 'Neurodermitis oder Schuppenflechte hatte ich nie. In der Familie gibt es keine Hautkrankheiten — aber meine Mutter hatte genau wie ich Krampfadern und am Ende ein offenes Bein.',
           'fach-derma-muttermal': 'Nein, an meinen Muttermalen hat sich nichts verändert, keins ist gewachsen, hat die Farbe gewechselt, juckt oder blutet. Ich achte darauf, weil ich früher viel in der Sonne war.',
           'fach-derma-vorbehandlung': 'Ich habe es mit Zinksalbe, einer Wund- und Heilsalbe und normalen Pflastern versucht, jeden Tag. Geholfen hat nichts, es ist eher schlimmer geworden. Kompressionsstrümpfe habe ich zu Hause, aber ich trage sie fast nie — sie sind mir zu eng und zu warm, und allein bekomme ich sie kaum an.',
+          'fach-gefaess-gehstrecke': 'Nein, wegen der Beine muss ich beim Gehen nicht stehen bleiben. Das Problem ist eher, dass die Beine abends schwer und dick werden, nicht dass ich beim Laufen Schmerzen kriege.',
+          'fach-gefaess-ruheschmerz': 'Schmerzen im Liegen in der Nacht habe ich eigentlich kaum, da ist es fast weg. Bein hängen lassen hilft aber nicht, im Gegenteil, hochlegen ist das, was hilft.',
+          'fach-gefaess-schwellung': 'Ja, beide Unterschenkel schwellen an, im Laufe vom Tag mehr, rechts stärker als links. Warm oder rot ist da nichts, aber abends sieht man richtig die Abdrücke von den Söckchen.',
+          'fach-gefaess-immobilisation': 'Nein, extra ruhiggestellt war ich in letzter Zeit nicht, kein Gips, keine Reise, keine Operation. Nur mit dem Gehen tue ich mich wegen der Knie schon schwerer.',
+          'fach-gefaess-hormone': 'Nein, die Pille oder Hormone nehme ich nicht mehr, dafür bin ich ja schon zu alt. Schwanger bin ich natürlich auch nicht.',
+          'fach-gefaess-thrombose': 'Ja, vor etwa zwölf Jahren hatte ich mal eine Thrombose im rechten Bein, nach einer Kniespiegelung. Eine Lungenembolie hatte ich nicht. In der Familie, meine Mutter hatte auch Krampfadern und am Ende auch so ein offenes Bein wie ich.',
+          'fach-gefaess-wunde': 'Ja... die Wunde am rechten Knöchel, die schon seit vier Monaten nicht zuheilen will, das ist ja, weswegen ich hier bin. Aber kalt oder blau ist der Fuß nicht, die Füße sind eigentlich warm.',
+          'fach-gefaess-vorgeschichte': 'Krampfadern habe ich an beiden Beinen, schon seit fünfundzwanzig Jahren. Untersucht wurden die Gefäße schon mal, aber operiert nie, kein Stent oder so etwas. Die Kompressionsstrümpfe hab ich zu Hause, aber ehrlich gesagt trage ich sie fast nie, die sind mir zu eng und zu warm, und allein bekomme ich sie kaum an.',
         },
         schwierigeReaktionen: [
           '"Ist das jetzt was Bösartiges? Meine Nachbarin sagt, so etwas kann Krebs werden."',
@@ -29741,6 +29701,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Ulcus cruris venosum am rechten Innenknöchel (Bisgaard-Kulisse) bei chronisch-venöser Insuffizienz im Stadium C6 nach CEAP, am ehesten im Rahmen eines postthrombotischen Syndroms nach tiefer Beinvenenthrombose rechts vor 12 Jahren und bei ausgeprägter Varikose; begleitend Verdacht auf ein Kontaktekzem der Wundumgebung unter selbst aufgetragener Wund- und Heilsalbe bei bekannter Duftstoff- und Perubalsam-Allergie',
+        patientWorte: { verdacht: 'es sich um ein offenes Bein durch eine chronische Venenschwäche handelt, möglicherweise mit einer zusätzlichen Hautreizung durch die Salbe', diagnostik: 'schauen wir uns die Wunde und beide Beine genau an, tasten die Fußpulse und messen den Blutdruck in den Beingefäßen', therapie: 'müssten Sie einen Kompressionsverband und speziell angepasste Kompressionsstrümpfe tragen, und die Wunde wird regelmäßig fachgerecht versorgt' },
         differenzialdiagnosen: [
           {
             dd: 'Ulcus cruris arteriosum bei peripherer arterieller Verschlusskrankheit (pAVK)',
@@ -29908,19 +29869,16 @@ export function seedCases(): Case[] {
         'auf-sonographie',
         'auf-operation',
       ],
+      fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
-        { frage: 'Wird der Schmerz im Bein besser, wenn Sie es hochlegen — oder besser, wenn Sie es herunterhängen lassen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie beim Gehen Schmerzen in der Wade, die Sie zum Stehenbleiben zwingen? Nach wie vielen Metern?', kapitel: 'aktuell' },
+        { frage: 'Wird der Schmerz im Bein besser, wenn Sie es hochlegen — oder eher schlimmer, wenn Sie es herunterhängen lassen?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie beim Gehen Schmerzen in der Wade, die Sie zum Stehenbleiben zwingen? Nach wie vielen Metern?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie schon einmal eine Thrombose in einem Bein oder eine Lungenembolie? Wann, in welchem Bein, und wie wurde sie behandelt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sind bei Ihnen Krampfadern bekannt, und wurden Sie schon einmal an den Venen operiert?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wurden Ihnen Kompressionsstrümpfe verordnet — und tragen Sie sie regelmäßig? Falls nicht, woran liegt es?', kapitel: 'aktuell' },
-        { frage: 'Wie ist die Wunde entstanden — gab es eine Verletzung, einen Stoß, einen Insektenstich, oder ging die Haut von allein auf?', kapitel: 'aktuell' },
-        { frage: 'Schwellen die Beine im Lauf des Tages an und sind sie morgens wieder schlanker?', kapitel: 'aktuell' },
+        { frage: 'Schwellen Ihre Beine im Lauf des Tages an und sind sie morgens wieder schlanker?', kapitel: 'aktuell' },
+        { frage: 'Wissen Sie noch, wie die Wunde entstanden ist — gab es eine Verletzung, oder ist die Haut von selbst aufgegangen?', kapitel: 'aktuell' },
         { frage: 'Womit haben Sie die Wunde bisher behandelt, und hat sich die Haut rings um die Wunde verändert, seit Sie diese Salbe benutzen?', kapitel: 'aktuell' },
+        { frage: 'Wurden Ihnen Kompressionsstrümpfe verordnet — und tragen Sie sie regelmäßig? Falls nicht, woran liegt es?', kapitel: 'aktuell' },
         { frage: 'Ist bei Ihnen ein Diabetes bekannt, oder haben Sie ein Kribbeln, ein Taubheitsgefühl oder eine schmerzlose Stelle an den Fußsohlen?', kapitel: 'vorerkrankungen' },
-        { frage: 'Waren Sie in Ihrem Beruf viel im Stehen tätig, und wie viele Schwangerschaften hatten Sie?', kapitel: 'familie-sozial' },
-        { frage: 'Gibt es in Ihrer Familie Krampfadern, offene Beine oder Thrombosen?', kapitel: 'familie-sozial' },
-        { frage: 'Wann wurde Ihr Tetanusschutz zuletzt aufgefrischt?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Herr Kollege, Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
@@ -30109,6 +30067,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Gerhard Wenzel',
           age: 58,
@@ -30215,6 +30174,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich habe seit einem halben Jahr so eine Beule in der rechten Leiste. Die wird immer größer — und vor drei Tagen ist etwas passiert, das hat mir Angst gemacht.',
           'akt-ort': 'Hier, rechts unten in der Leiste, gleich oberhalb der Falte. (zeigt auf die rechte Leiste) Und wenn es schlimm ist, zieht es von dort nach unten in den Hodensack.',
           'akt-beginn': 'Vor ungefähr sechs Monaten. Ganz langsam, erst nur klein wie eine Kirsche, und seitdem ist sie immer größer geworden — jetzt etwa so groß wie ein Hühnerei.',
+          'akt-veraend-was': 'Aufgefallen ist mir eben diese Beule in der Leiste. Hautveränderungen oder blaue Flecken habe ich da keine, und mit Schlucken, Stuhlgang oder Gelbfärbung hat das nichts zu tun.',
+          'akt-veraend-entwicklung': 'Größer geworden ist sie auf jeden Fall, von kirschgroß auf jetzt fast hühnereigroß. Die Farbe hat sich nicht verändert, nur eben die Größe.',
+          'akt-veraend-blutung': 'Weh tut sie, wie gesagt, vor allem beim Heben und abends, und vor drei Tagen war es richtig schlimm. Jucken tut sie nicht, und geblutet hat da nie etwas.',
           'akt-charakter': 'Es ist kein stechender Schmerz. Eher ein Ziehen und ein Druck, wie ein Fremdkörper, der da nicht hingehört.',
           'akt-intensitaet': 'In Ruhe 3 von 10, abends nach der Arbeit eher 4. Wenn ich schwer hebe, geht es auf 6. Vor drei Tagen war es ganz kurz eine 8 — so schlimm war es noch nie.',
           'akt-ausstrahlung': 'Ja, es zieht manchmal nach unten in den rechten Hodensack. In den Rücken oder ins Bein strahlt nichts aus.',
@@ -30266,6 +30228,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Symptomatische, aktuell reponible Leistenhernie rechts — klinisch am ehesten eine indirekte (laterale) Hernie mit Ausstrahlung ins Skrotum; die sichere Zuordnung indirekt versus direkt gelingt erst intraoperativ. Ursächlich eine chronische intraabdominelle Druckerhöhung durch Raucherhusten, chronische Obstipation, Pressen beim Wasserlassen bei benigner Prostatahyperplasie und schweres Heben im Beruf, bei zusätzlich positiver Familienanamnese. Anamnestisch Episode einer vorübergehenden Inkarzeration vor drei Tagen — daraus ergibt sich eine dringliche, nicht aufschiebbare Operationsindikation.',
+        patientWorte: { verdacht: 'es sich um einen Leistenbruch rechts handelt, bei dem sich Gewebe aus dem Bauch nach außen wölbt', diagnostik: 'untersuchen wir die Leiste im Stehen und im Liegen und lassen Sie kurz husten, um den Bruch sicher zu ertasten', therapie: 'müsste der Bruch in einer geplanten Operation verschlossen werden, das ist ein häufiger und gut beherrschbarer Eingriff' },
         differenzialdiagnosen: [
           {
             dd: 'Femoralhernie (Schenkelhernie)',
@@ -30416,13 +30379,10 @@ export function seedCases(): Case[] {
         { frage: 'Können Sie die Schwellung mit der Hand zurückschieben? Geht das immer, oder ging es schon einmal nicht mehr?', kapitel: 'aktuell' },
         { frage: 'War die Beule irgendwann einmal hart, sehr schmerzhaft und ließ sich nicht mehr zurückdrücken? Wie lange ging das, und war Ihnen dabei übel?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in dieser Zeit Erbrechen, Stuhlverhalt oder gingen keine Winde mehr ab? War der Bauch aufgebläht?', kapitel: 'vegetativ' },
-        { frage: 'Zieht der Schmerz in den Hodensack hinunter?', kapitel: 'aktuell' },
+        { frage: 'Zieht der Schmerz bei Ihnen bis in den Hodensack hinunter?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie beim Stuhlgang oder beim Wasserlassen stark pressen? Wie oft haben Sie Stuhlgang?', kapitel: 'vegetativ' },
         { frage: 'Husten Sie chronisch? Seit wann, und wie viel rauchen Sie?', kapitel: 'noxen' },
         { frage: 'Wie schwer heben Sie bei der Arbeit, und wie oft am Tag?', kapitel: 'familie-sozial' },
-        { frage: 'Ist bei Ihnen früher schon einmal ein Bruch festgestellt oder operiert worden — auf welcher Seite, in welchem Alter, mit welchem Verfahren, und gab es dabei Komplikationen oder einen Rückfall?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gibt es in Ihrer Familie Leistenbrüche oder Bindegewebserkrankungen?', kapitel: 'familie-sozial' },
-        { frage: 'Ist Ihr Bauchumfang in letzter Zeit zugenommen, und haben Sie Blut im Stuhl bemerkt?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -30590,6 +30550,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Max Freudenberg',
           age: 45,
@@ -30689,11 +30650,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit gefährlichen Chemikalien habe ich nichts zu tun, aber ich stehe an großen Maschinen.',
           'pers-hausarzt': 'Ja, Dr. Sommer. Bei ihm war ich aber schon lange nicht mehr.',
           'akt-motiv': 'Herr Doktor, meine Hände zittern seit vier Tagen so stark, dass ich nicht mal mehr eine Kaffeetasse halten kann. Und dazu diese Unruhe — ich halte es nirgends aus.',
-          'akt-ort': 'Das Zittern ist in beiden Händen, vor allem wenn ich sie ausstrecke. (streckt die Hände aus, sie zittern deutlich) Die Unruhe sitzt eher hier, im Brustkorb und im ganzen Körper — als ob innerlich alles vibriert.',
           'akt-beginn': 'Richtig schlimm seit vier Tagen. Aber ehrlich gesagt geht das seit etwa zwei Wochen los, mal mehr, mal weniger. Es kam nicht auf einen Schlag, es ist von Tag zu Tag schlimmer geworden.',
-          'akt-charakter': 'Zittern eben, ein feines, schnelles Zittern. Und innerlich so ein Flattern, ein Kribbeln — Nervosität. Schmerzen habe ich eigentlich keine, nur einen dumpfen Druck im Kopf.',
-          'akt-intensitaet': 'Schmerzen habe ich fast keine, den Kopfdruck vielleicht 1 von 10. Aber wenn ich die Unruhe und das Zittern bewerten soll: 7 von 10. Morgens eher 8.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Es ist einfach überall gleichzeitig.',
+          'akt-psych-stimmung': 'Meine Stimmung? (zuckt mit den Schultern) Angespannt, nervös, die ganze Zeit. Besser wird es eigentlich nur kurz, wenn ich einen Schnaps trinke.',
+          'akt-psych-antrieb': 'Den Tag anfangen ist schwer, ich bin morgens am schlimmsten dran. Freude an irgendwas — im Moment eigentlich nicht, ich kann ja nicht mal zehn Minuten still sitzen bleiben.',
+          'akt-psych-schlaf': 'Ich schlafe schlecht ein und wache oft auf, mit so unruhigen, angstvollen Träumen. Konzentrieren kann ich mich im Moment kaum, ich bin viel zu zittrig und durcheinander im Kopf.',
+          'akt-psych-sicherheit': '(schweigt kurz) Ehrlich … es gibt Abende, da erscheint mir alles sinnlos. Aber mir etwas antun, einen Plan — nein, das nicht. Meine Kinder halten mich davon ab.',
           'akt-verlauf': 'Es kommt in Wellen, aber ein Muster gibt es schon: morgens auf nüchternen Magen ist es am schlimmsten, und im Laufe des Tages wird es besser. Nachts wache ich schweißgebadet auf.',
           'akt-ausloeser': 'Vor vier Tagen war eine Arbeitsfeier, da habe ich richtig viel getrunken, über vier Gläser Schnaps. Seitdem versuche ich, deutlich weniger zu trinken. Und genau seitdem zittere ich so.',
           'akt-einfluss': '(zögert) Ehrlich? Ein Schnaps am Morgen, und das Zittern ist nach zehn Minuten weg. Schlimmer wird es, wenn ich lange nichts im Magen habe oder mich aufrege. Baldrian bringt gar nichts.',
@@ -30747,6 +30708,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Mittelschweres Alkoholentzugssyndrom (Prädelir) bei chronischer Alkoholabhängigkeit (ICD-10 F10.2), aktuell etwa 14 Stunden nach dem letzten Konsum, mit hohem Delirrisiko wegen eines anamnestisch bereits durchgemachten Entzugsdelirs vor zwei Jahren; klinisch geschätzter CIWA-Ar von etwa 15 Punkten',
+        patientWorte: { verdacht: 'Sie sich gerade in einem beginnenden Alkoholentzug befinden, der ohne Behandlung schwerer werden könnte', diagnostik: 'kontrollieren wir regelmäßig Ihren Blutdruck, Puls und Ihre Beschwerden und nehmen Ihnen Blut ab, um andere Ursachen auszuschließen', therapie: 'bekommen Sie Medikamente, die die Entzugsbeschwerden lindern und einen schweren Verlauf mit Krampfanfall oder Verwirrtheit verhindern sollen' },
         differenzialdiagnosen: [
           {
             dd: 'Delir anderer Ursache (Infekt, Exsikkose, Hypoxie, Medikamente, postoperativ)',
@@ -30934,11 +30896,7 @@ export function seedCases(): Case[] {
         { frage: 'Wann genau haben Sie zuletzt Alkohol getrunken — Tag und Uhrzeit?', kapitel: 'noxen' },
         { frage: 'Was trinken Sie genau, wie viele Gläser oder Flaschen am Tag, und wie groß sind die Gläser?', kapitel: 'noxen' },
         { frage: 'Trinken Sie schon morgens etwas, und werden die Beschwerden dadurch besser?', kapitel: 'aktuell' },
-        { frage: 'Seit wann trinken Sie regelmäßig, und seit wann in dieser Menge?', kapitel: 'noxen' },
-        { frage: 'Haben Sie schon einmal versucht, weniger zu trinken oder ganz aufzuhören? Was ist dabei passiert?', kapitel: 'noxen' },
         { frage: 'Hatten Sie schon einmal einen Krampfanfall oder eine Phase, in der Sie verwirrt waren oder Dinge gesehen haben, die nicht da waren?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Angehörige oder Kollegen Sie schon einmal auf Ihren Alkoholkonsum angesprochen, und hat Sie das geärgert? Haben Sie deswegen ein schlechtes Gewissen?', kapitel: 'noxen' },
-        { frage: 'Warum sind Sie vor zwei Jahren die Treppe hinuntergestürzt — hatten Sie damals getrunken?', kapitel: 'noxen' },
         { frage: 'Haben Sie Blut erbrochen oder schwarzen Stuhlgang bemerkt?', kapitel: 'vegetativ' },
         { frage: 'Sehen Sie manchmal Doppelbilder, oder sind Sie beim Gehen unsicher geworden?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Schlaf- oder Beruhigungsmittel, und haben Sie ein solches Medikament abgesetzt?', kapitel: 'medikamente' },
@@ -31144,6 +31102,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Enga Schäuberle',
           age: 49,
@@ -31251,6 +31210,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich bin heute Nachmittag mit dem Fahrrad gestürzt. Jetzt tut mir der Kopf weh, mir ist übel — und das Schlimmste: Ich weiß nicht mehr, wie ich auf den Boden gekommen bin. Das macht mir Angst.',
           'akt-ort': 'Der Kopfschmerz ist im ganzen Kopf, am meisten aber hier links oben. (zeigt vorsichtig auf die linke Scheitelregion) Da ist auch eine Beule. Und die linke Schulter tut weh.',
           'akt-beginn': 'Seit dem Sturz, das war heute gegen halb vier, also vor ungefähr einer Stunde. Ganz plötzlich. Vorher hatte ich überhaupt nichts.',
+          'akt-neuro-ausfall': 'Schwach oder taub bin ich nirgends, das nicht. Aber ich bin langsamer im Kopf, ich muss oft nachfragen und kann mich schlecht konzentrieren. Mit dem Sprechen, Sehen oder Gehen ist sonst nichts, ich laufe normal.',
+          'akt-neuro-dauer': 'Die Erinnerungslücke war so um die zehn Minuten, sagt man mir. Bewusstlos war ich wohl auch kurz, etwa eine Minute. Die Kopfschmerzen und die Übelkeit sind immer noch da, das ist noch nicht weg.',
+          'akt-neuro-lage': 'Beim Aufstehen wird mir schwindelig und ich schwanke ein bisschen, das ist aber kein Drehschwindel, eher so ein benommenes Gefühl. Beim Hinlegen und in Ruhe ist es eigentlich am erträglichsten.',
           'akt-charakter': 'Dumpf und drückend, wie ein Reifen um den Kopf. An der Beule ist es eher stechend, wenn ich sie berühre.',
           'akt-intensitaet': 'Ungefähr 5 von 10. Wenn es hell und laut ist, kommt es mir schlimmer vor.',
           'akt-ausstrahlung': 'In den Nacken zieht es ein bisschen. Sonst strahlt nichts aus, in die Arme oder Beine gar nicht.',
@@ -31311,6 +31273,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Commotio cerebri (leichtes Schädel-Hirn-Trauma, GCS 15) nach Sturz vom Fahrrad mit Aufprall der linken Kopfseite bei zerbrochenem Helm — mit kurzer Bewusstlosigkeit von etwa einer Minute (unter 30 Minuten) und retro-/anterograder Amnesie über etwa zehn Minuten (unter 24 Stunden); begleitend Prellung der linken Schulter und der linken Thoraxwand. Bei Diabetes mellitus Typ 1 mit Insulinpumpe ist eine Hypoglykämie als eigentliche Sturzursache aktiv auszuschließen.',
+        patientWorte: { verdacht: 'es sich um eine leichte Gehirnerschütterung nach dem Sturz handelt, ohne Anzeichen für eine schwerere Verletzung', diagnostik: 'prüfen wir Ihr Bewusstsein, Ihre Pupillen und Ihre Nerven genau und beobachten Sie eine Weile, um eine Blutung im Kopf sicher auszuschließen', therapie: 'sollten Sie sich einige Tage körperlich und geistig schonen, mit langsamer Rückkehr zu Sport und Bildschirmarbeit' },
         differenzialdiagnosen: [
           {
             dd: 'Contusio cerebri (Hirnprellung)',
@@ -31478,8 +31441,6 @@ export function seedCases(): Case[] {
         { frage: 'Wann haben Sie zuletzt gegessen, und was hat Ihr Glukosesensor kurz vor dem Unfall angezeigt?', kapitel: 'aktuell' },
         { frage: 'Mussten Sie sich übergeben — einmal oder mehrfach? Wird der Kopfschmerz stärker?', kapitel: 'aktuell' },
         { frage: 'Läuft aus Nase oder Ohr Blut oder klare Flüssigkeit? Sehen Sie Doppelbilder?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Blutverdünner oder Kortison, und ist bei Ihnen eine Gerinnungsstörung bekannt?', kapitel: 'medikamente' },
-        { frage: 'Hatten Sie früher schon einmal eine Kopfverletzung oder eine Gehirnerschütterung?', kapitel: 'vorerkrankungen' },
         { frage: 'Wer ist heute Nacht bei Ihnen zu Hause und könnte Sie überwachen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -31661,6 +31622,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katrin Vollmer',
           age: 34,
@@ -31753,11 +31715,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, meine Hausärztin ist Frau Dr. Brandt. Sie hat mich hierher geschickt.',
           'akt-motiv': 'Frau Doktor, ich habe seit ungefähr zehn Tagen überall an den Unterschenkeln so kleine rote Punkte, die gehen nicht weg. Und meine Hausärztin hat gestern angerufen — die Blutplättchen seien viel zu niedrig, ich soll sofort ins Krankenhaus. Ich habe wirklich Angst.',
-          'akt-ort': 'Vor allem an beiden Unterschenkeln, unten über den Knöcheln und da, wo der Sockenbund sitzt. Blaue Flecken habe ich auch an den Armen und an den Oberschenkeln. (zeigt die Unterschenkel)',
           'akt-beginn': 'Die Punkte sind mir vor etwa zehn Tagen zum ersten Mal aufgefallen, beim Eincremen nach dem Duschen. Das Zahnfleischbluten kam vor ungefähr einer Woche dazu.',
-          'akt-charakter': 'Weh tut das gar nicht, das ist ja das Merkwürdige. Es juckt auch nicht. Es sind einfach ganz kleine rote Punkte, so groß wie ein Stecknadelkopf, und wenn ich mit dem Finger draufdrücke, werden sie nicht weiß — sie bleiben rot.',
-          'akt-intensitaet': 'Schmerzen habe ich keine, also 0 von 10. Aber wenn Sie mich nach der Belastung fragen: Die Angst, dass etwas Schlimmes dahintersteckt, liegt bei 8 von 10. Ich habe die letzten zwei Nächte kaum geschlafen.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin, es tut ja gar nicht weh. Die Punkte sind einfach an den Unterschenkeln, und die blauen Flecken an Armen und Oberschenkeln.',
+          'akt-veraend-was': 'Es sind diese kleinen roten Punkte an beiden Unterschenkeln und blaue Flecken an Armen und Oberschenkeln, ohne dass ich mich irgendwo gestoßen habe.',
+          'akt-veraend-entwicklung': 'Es ist eher mehr geworden, nicht weniger. Am Anfang waren es ein paar Punkte, jetzt sind es viel mehr, und ständig kommen neue blaue Flecken dazu.',
+          'akt-veraend-blutung': 'Wehtun tut es nicht und jucken auch nicht. Aber es blutet schon: das Zahnfleisch jeden Morgen, letzte Woche zweimal die Nase, und meine Regel war viel stärker als sonst.',
           'akt-verlauf': 'Es wird eher mehr. Am Anfang waren es ein paar Punkte, jetzt sind es viel mehr, und es kommen ständig neue blaue Flecken dazu, ohne dass ich mich irgendwo anstoße.',
           'akt-ausloeser': 'Ich wüsste nicht, was das ausgelöst haben soll. Gestürzt oder gestoßen habe ich mich nicht, das ist ja das Komische. Vor vier Wochen hatte ich eine normale Erkältung, mehr nicht.',
           'akt-einfluss': 'Besser wird es von nichts. Schlimmer wird es an Stellen, wo etwas drückt — unter dem Sockenbund und da, wo der Hosenbund sitzt, sind besonders viele Punkte. Beim Zähneputzen blutet das Zahnfleisch jedes Mal.',
@@ -31831,6 +31792,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Primäre Immunthrombozytopenie (ITP) mit schwerer Thrombozytopenie von 11.000/µl und mukokutaner Blutungsneigung — Petechien an beiden Unterschenkeln, Hämatome nach Bagatelltrauma, Zahnfleischbluten, Epistaxis und Menorrhagie —, am ehesten postinfektiös nach einem viralen Atemwegsinfekt vor vier Wochen. Die Diagnose ist eine Ausschlussdiagnose: Es gibt keinen Test, der sie beweist.',
+        patientWorte: { verdacht: 'der Grund Ihrer blauen Flecken und Blutungen ein Mangel an Blutplättchen ist, möglicherweise nach der letzten Erkältung', diagnostik: 'nehmen wir Ihnen mehrfach Blut ab, um die Blutplättchen zu zählen und andere Ursachen der Blutungsneigung auszuschließen', therapie: 'beobachten wir die Werte zunächst engmaschig, und nur bei stärkeren Blutungen würde eine Behandlung mit Kortison begonnen' },
         differenzialdiagnosen: [
           {
             dd: 'Pseudothrombozytopenie durch EDTA-induzierte Thrombozytenagglutination',
@@ -32014,19 +31976,12 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Lassen sich die roten Punkte an den Beinen wegdrücken, wenn Sie mit dem Finger oder einem Glas darauf drücken?', kapitel: 'aktuell' },
-        { frage: 'Sitzen die Punkte besonders dort, wo etwas drückt — am Sockenbund oder am Hosenbund?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie blaue Flecken, ohne dass Sie sich angestoßen haben?', kapitel: 'aktuell' },
         { frage: 'Blutet Ihr Zahnfleisch beim Zähneputzen, und hatten Sie Nasenbluten?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre letzte Regelblutung stärker oder länger gewesen als sonst? Wie viele Binden oder Tampons haben Sie gebraucht?', kapitel: 'frauenanamnese' },
-        { frage: 'Hatten Sie schon einmal eine Blutung in einen Muskel oder in ein Gelenk, mit Schwellung und Schmerzen?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wie war es, als Ihnen die Weisheitszähne gezogen wurden und als Sie entbunden haben — hat es damals lange nachgeblutet?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie in den letzten Monaten Spritzen in den Bauch bekommen, zum Beispiel Thrombosespritzen nach einer Operation?', kapitel: 'medikamente' },
-        { frage: 'Nehmen Sie Medikamente ohne Rezept ein — Schmerzmittel, Aspirin, Ibuprofen, pflanzliche Mittel?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Blut im Urin oder schwarzen Stuhlgang bemerkt?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie Fieber, Nachtschweiß oder ungewollt Gewicht verloren? Haben Sie Knoten am Hals, in den Achseln oder in der Leiste getastet?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Knochen- oder Rückenschmerzen, die auch nachts und in Ruhe auftreten?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Familie eine Blutungsneigung, eine Bluterkrankheit oder eine Blutkrankheit?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie Kopfschmerzen, Erbrechen, Sehstörungen oder Schwindel bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -32226,6 +32181,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Nadine Brückner',
           age: 44,
@@ -32330,6 +32286,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, meine Regelblutung ist im letzten Jahr immer stärker geworden. Inzwischen blute ich neun Tage lang und so heftig, dass ich mich an den ersten Tagen kaum aus dem Haus traue. Und ich bin dauernd müde.',
           'akt-ort': 'Die Schmerzen sitzen tief im Unterbauch, in der Mitte, gleich oberhalb vom Schambein. Dazu habe ich dort ständig ein Druckgefühl, als läge ein Stein darin.',
           'akt-beginn': 'Angefangen hat es vor etwa einem Jahr, ganz langsam. In den letzten drei, vier Monaten ist es deutlich schlimmer geworden.',
+          'akt-veraend-was': 'Aufgefallen ist mir vor allem die Blutung — die ist viel stärker und länger geworden, mit Klumpen dabei. Knoten oder Hautveränderungen habe ich nicht bemerkt, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Ja, es ist schlimmer geworden, vor allem in den letzten drei, vier Monaten. Und der Bauch ist dicker geworden, obwohl mein Gewicht gleich geblieben ist.',
+          'akt-veraend-blutung': 'Weh tut es während der Blutung schon, richtig krampfartig. Jucken tut da nichts. Blut im Stuhl, im Urin oder aus der Nase habe ich noch nie gehabt, nur eben die starke Regelblutung.',
           'akt-charakter': 'Während der Blutung ist es krampfartig, wie Wehen — das kommt und geht. Zwischen den Blutungen ist es eher ein dumpfer, ziehender Druck.',
           'akt-intensitaet': 'Während der Periode 7 von 10; früher waren es höchstens 3. Der Druck zwischendurch ist etwa 3 von 10.',
           'akt-ausstrahlung': 'Ja, die Krämpfe ziehen ins Kreuz und manchmal in beide Oberschenkel. In die Schulter strahlt nichts aus.',
@@ -32387,6 +32346,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Uterus myomatosus mit sekundärer Eisenmangelanämie — mehrere Myome, davon ein submuköses Myom als Ursache der Hypermenorrhoe und Menorrhagie mit Koagelabgang (Hb 9,2 g/dl, Ferritin 6 µg/l) sowie ein größeres subseröses Myom als Ursache der Drucksymptomatik mit Pollakisurie, Obstipation und zunehmendem Bauchumfang; begleitend Dysmenorrhoe und Dyspareunie bei prämenopausaler 44-jähriger Patientin mit abgeschlossener Familienplanung',
+        patientWorte: { verdacht: 'gutartige Muskelknoten in der Gebärmutter für Ihre starken Blutungen und die Blutarmut verantwortlich sind', diagnostik: 'machen wir einen Ultraschall der Gebärmutter, nehmen Blut ab und prüfen Ihren Eisenwert genau', therapie: 'besprechen wir je nach Ergebnis, ob eine Hormonbehandlung reicht oder ob die Knoten operativ entfernt werden sollten' },
         differenzialdiagnosen: [
           {
             dd: 'Adenomyosis uteri und Endometriose',
@@ -32564,20 +32524,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell' },
-        { frage: 'Gehen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
+        { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
         { frage: 'Wie lang ist Ihr Zyklus, und hat er sich verändert? Wann war Ihre letzte Regelblutung?', kapitel: 'frauenanamnese' },
         { frage: 'Haben Sie Blutungen zwischen den Perioden oder nach dem Geschlechtsverkehr?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen während der Blutung? Wie stark auf einer Skala von 1 bis 10, und war das früher auch schon so?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Hat sich Ihr Stuhlgang verändert — haben Sie Verstopfung oder Druck auf den Enddarm?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihr Bauchumfang größer geworden, obwohl Ihr Gewicht gleich geblieben ist?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr?', kapitel: 'aktuell' },
         { frage: 'Besteht ein Kinderwunsch, oder ist Ihre Familienplanung abgeschlossen? Wie viele Schwangerschaften und Geburten hatten Sie?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell' },
-        { frage: 'Wurde bei Ihnen schon einmal ein Ultraschall der Gebärmutter gemacht, und was hat man dabei gesehen?', kapitel: 'vorerkrankungen' },
-        { frage: 'Nehmen Sie Hormone, Blutverdünner oder Schmerzmittel ein — und wie oft?', kapitel: 'medikamente' },
-        { frage: 'Gibt es in Ihrer Familie Myome, Gebärmutter- oder Eierstockerkrankungen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -32749,6 +32702,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Hoffmann',
           age: 79,
@@ -32845,11 +32799,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit besonderen Chemikalien hatte ich nie zu tun, Asbest war bei uns kein Thema mehr.',
           'pers-hausarzt': 'Ja, Dr. Seibold, seit vielen Jahren.',
           'akt-motiv': 'Herr Doktor, ich mache fast kein Wasser mehr. Seit vorgestern kommt praktisch nichts, vielleicht ein kleines Glas am ganzen Tag. Und ich bin so schlapp, ich schaffe gar nichts mehr. Meine Tochter hat gesagt, ich muss jetzt endlich herkommen.',
-          'akt-ort': 'Weh tut mir eigentlich nichts. Ich kann Ihnen gar nichts zeigen. Es ist eher, dass nichts mehr kommt und dass ich so müde und flau bin — im Kopf und im Magen.',
           'akt-beginn': 'Angefangen hat alles vor fünf Tagen mit Erbrechen und Durchfall, nach dem Essen im Gasthaus. Das ist seit gestern besser. Aber seit vorgestern kommt beim Wasserlassen fast nichts mehr, und das wird von Tag zu Tag weniger. Das kam schleichend über zwei Tage.',
-          'akt-charakter': 'Schmerzen habe ich keine — weder stechend noch dumpf noch brennend. Es ist ein Schwächegefühl, wie ausgelaugt, und mir ist ständig ein bisschen übel.',
-          'akt-intensitaet': 'Schmerzen null von zehn, wirklich. Aber wenn ich sagen soll, wie schlapp ich bin: sieben von zehn. So schwach war ich noch nie.',
-          'akt-ausstrahlung': 'Nein, da strahlt nichts aus. Es tut ja nirgends weh, auch nicht in den Rücken oder in die Seite.',
+          'akt-allgemein-art': 'Kraftlosigkeit, ganz eindeutig. Schwindel habe ich auch ein bisschen, besonders beim Aufstehen.',
+          'akt-allgemein-alltag': 'Ich schaffe im Moment fast nichts mehr, nicht mal in der Küche. Ich nicke im Sessel immer wieder weg, tagsüber, das ist mir früher nie passiert.',
+          'akt-allgemein-tageszeit': 'Das ist die ganze Zeit da, ohne Pause, es wird eher schlechter, nicht besser. Im Liegen ist es ein bisschen erträglicher als im Stehen.',
+          'akt-allgemein-gewicht': 'Abgenommen habe ich, so drei Kilo in den letzten fünf Tagen, die Ringe sitzen schon locker. Appetit habe ich gar keinen mehr, seit drei Tagen esse ich fast nichts. Durst — komisch, eigentlich nicht, obwohl ich ja so wenig trinke.',
+          'akt-allgemein-schwellung': 'Geschwollen bin ich nirgends, weder an den Beinen noch im Gesicht. Aber beim Wasserlassen, das ist ja mein Problem — seit vorgestern kommt fast nichts mehr, vielleicht ein kleines Glas am ganzen Tag, und das Wenige ist ganz dunkel.',
           'akt-verlauf': 'Das ist die ganze Zeit da, ohne Pause, und es wird eher schlechter. Anfallsartig ist gar nichts.',
           'akt-ausloeser': 'Wir waren vor fünf Tagen zum Geburtstag meiner Tochter im Gasthaus, danach ging der Brechdurchfall los. Getrunken habe ich seitdem fast nichts, es blieb ja nichts drin. Gestürzt bin ich nicht und lange am Boden gelegen habe ich auch nicht.',
           'akt-einfluss': 'Besser wird es eigentlich nie. Beim Aufstehen wird mir schwindelig, einmal wäre ich fast gefallen — im Liegen ist es besser. Genommen habe ich meine üblichen Tabletten, und seit gestern zusätzlich eine Tablette gegen die Übelkeit aus der Apotheke, die hat nichts gebracht.',
@@ -32899,6 +32854,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akutes Nierenversagen, am ehesten prärenaler Genese (KDIGO-Stadium 3 nach dem Urinkriterium) bei Volumenmangel durch eine fünftägige Gastroenteritis mit Erbrechen und Durchfall, verstärkt durch die klassische «Triple-Whammy»-Kombination aus Ibuprofen, Hydrochlorothiazid und Ramipril — auf dem Boden einer vorbestehenden chronischen Niereninsuffizienz bei diabetischer Nephropathie, also ein akut-auf-chronisches Nierenversagen',
+        patientWorte: { verdacht: 'Ihre Nieren durch den starken Flüssigkeitsverlust bei Erbrechen und Durchfall vorübergehend schlechter arbeiten, zusammen mit einigen Ihrer Medikamente', diagnostik: 'nehmen wir Blut und Urin ab, um die Nierenwerte zu prüfen, und machen einen Ultraschall der Nieren', therapie: 'bekommen Sie Flüssigkeit über die Vene und müssen zwei Medikamente vorübergehend pausieren, damit sich die Nieren erholen können' },
         differenzialdiagnosen: [
           {
             dd: 'Postrenales Nierenversagen bei benigner Prostatahyperplasie (Harnverhalt, Überlaufblase, beidseitiger Harnstau)',
@@ -33087,11 +33043,7 @@ export function seedCases(): Case[] {
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen? Ist eine Entwässerungstablette darin enthalten?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie in den letzten Tagen oder Wochen eine Untersuchung mit Kontrastmittel, also ein Röntgen oder eine Computertomographie mit einer Spritze?', kapitel: 'vorerkrankungen' },
         { frage: 'Müssen Sie zur Toilette und es kommt nichts, oder verspüren Sie gar keinen Harndrang mehr? Haben Sie ein Druckgefühl im Unterbauch?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihr Harnstrahl schwächer geworden, tröpfelt es nach, und haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Juckt Ihre Haut, haben Sie einen metallischen Geschmack im Mund, und sagt Ihre Familie, dass Sie verwirrt oder ungewöhnlich müde sind?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihre Beine dicker geworden oder die Augenlider morgens geschwollen? Bekommen Sie im Liegen schlechter Luft?', kapitel: 'aktuell' },
         { frage: 'Wurden Ihnen früher einmal auffällige Nierenwerte mitgeteilt, und wissen Sie noch, wie hoch der Kreatininwert war?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wie versorgen Sie sich zu Hause, seit Ihre Frau gestorben ist — kochen Sie noch, und wie viel trinken Sie an einem normalen Tag?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. An was denken Sie?',
@@ -33466,6 +33418,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Fibromyalgiesyndrom — chronische, seit über zehn Jahren bestehende generalisierte Schmerzen in allen Körperregionen mit dem typischen Trias aus Schmerz, Müdigkeit mit nicht erholsamem Schlaf und kognitiven Störungen (Fibro-Fog), bei unauffälliger körperlicher Untersuchung ohne Synovitis und ohne Entzündungszeichen; komorbid depressive Symptomatik nach Trennungserlebnis, Reizdarmsyndrom und chronischer Kopfschmerz',
+        patientWorte: { verdacht: 'hinter Ihren langjährigen Schmerzen am ganzen Körper eine Störung der Schmerzverarbeitung steckt, das sogenannte Fibromyalgie-Syndrom', diagnostik: 'untersuchen wir Sie körperlich gründlich und nehmen Blut ab, um Entzündungen oder andere Erkrankungen auszuschließen', therapie: 'hilft eine Kombination aus Bewegung, Entspannungsverfahren und bei Bedarf einer Mitbehandlung der Stimmung, eher als starke Schmerzmittel' },
         differenzialdiagnosen: [
           {
             dd: 'Rheumatoide Arthritis',
@@ -33633,19 +33586,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?', kapitel: 'aktuell' },
-        { frage: 'Bestehen die Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es beschwerdefreie Phasen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?', kapitel: 'aktuell' },
         { frage: 'Wie ist Ihr Schlaf? Fühlen Sie sich morgens erholt, wenn Sie aufgewacht sind?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie Schwierigkeiten, sich zu konzentrieren oder auf Wörter zu kommen? Passiert Ihnen das auch im Unterricht?', kapitel: 'aktuell' },
         { frage: 'Wie lange sind Sie morgens steif — Minuten oder länger als eine Stunde? Bessert sich das durch Bewegung?', kapitel: 'aktuell' },
         { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell' },
-        { frage: 'Merken Sie eine Schwäche, wenn Sie Treppen steigen oder sich die Haare kämmen, oder ist es reiner Schmerz?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Cholesterinwerte oder haben Sie in letzter Zeit ein neues Medikament begonnen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie ungewollt Gewicht verloren, und in welchem Zeitraum? Haben Sie Fieber oder Nachtschweiß?', kapitel: 'vegetativ' },
-        { frage: 'Schnarchen Sie, oder hat Ihre Partnerin schon einmal Atemaussetzer im Schlaf bemerkt?', kapitel: 'vegetativ' },
         { frage: 'Wie geht es Ihnen seelisch? Fühlen Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos?', kapitel: 'aktuell' },
-        { frage: 'Was glauben Sie selbst, woher die Beschwerden kommen — und wovor haben Sie am meisten Angst?', kapitel: 'aktuell' },
-        { frage: 'Welche Untersuchungen wurden bei Ihnen schon gemacht, und was kam dabei heraus?', kapitel: 'aktuell' },
-        { frage: 'Was können Sie im Alltag und im Beruf wegen der Schmerzen nicht mehr tun, was Sie früher konnten?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und worauf stützen Sie sich?',
@@ -34046,6 +33993,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Polymyalgia rheumatica mit begleitender Riesenzellarteriitis (Arteriitis temporalis) bei einer 72-jährigen Patientin — kranielle Manifestation mit neu aufgetretenem rechtsseitigem Schläfenkopfschmerz, Skalpberührungsempfindlichkeit, Kauclaudicatio und einer Amaurosis fugax des rechten Auges vor zwei Tagen; damit akute Erblindungsgefahr und Indikation zum SOFORTIGEN Beginn der hochdosierten Glukokortikoidtherapie noch vor jeder Biopsie',
+        patientWorte: { verdacht: 'eine Gefäßentzündung im Kopfbereich für Ihre Kopfschmerzen und die Sehstörung verantwortlich sein könnte, zusätzlich zu einer rheumatischen Muskelerkrankung', diagnostik: 'nehmen wir sofort Blut ab, um die Entzündungswerte zu prüfen, und tasten die Schläfenarterien auf beiden Seiten', therapie: 'sollten Sie noch heute mit einer hochdosierten Kortisonbehandlung beginnen, um Ihr Augenlicht zu schützen, das eilt wirklich' },
         differenzialdiagnosen: [
           {
             dd: 'Rheumatoide Arthritis mit Beginn im höheren Lebensalter ("Late-onset rheumatoid arthritis")',
@@ -34228,15 +34176,12 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie lange brauchen Sie morgens, bis Sie wieder einigermaßen beweglich sind — und können Sie sich in dieser Zeit allein anziehen?', kapitel: 'aktuell' },
         { frage: 'Können Sie die Arme über den Kopf heben, um sich zu kämmen oder etwas aus dem Schrank zu holen? Kommen Sie ohne Hilfe der Hände aus dem Sessel hoch?', kapitel: 'aktuell' },
-        { frage: 'Sind es eher die Muskeln oder die Gelenke, die wehtun? Ist irgendein Gelenk geschwollen, gerötet oder überwärmt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in letzter Zeit NEUE Kopfschmerzen bekommen, die Sie so vorher nicht kannten — und wo genau sitzen sie?', kapitel: 'aktuell' },
         { frage: 'Tut Ihnen die Kopfhaut weh, wenn Sie sich kämmen oder wenn Sie mit dem Kopf auf dem Kissen liegen?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie beim Kauen — zum Beispiel von Brotkruste oder Fleisch — Schmerzen im Kiefer, sodass Sie eine Pause machen müssen? Und geht der Schmerz in der Pause wieder weg?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals eine Sehstörung: verschwommenes Sehen, Doppelbilder oder plötzlich einen Schatten oder Vorhang vor einem Auge? Wie lange hat das gedauert und war es schmerzhaft?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ungewollt Gewicht verloren, Fieber gemessen oder nachts stark geschwitzt?', kapitel: 'vegetativ' },
-        { frage: 'Fühlen Sie sich auch niedergeschlagen oder traurig, oder ärgert Sie hauptsächlich, dass Sie körperlich nicht mehr können?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Blutfette, ein sogenanntes Statin? Und haben Sie jemals Kortison eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Bekommen Sie beim Gehen Schmerzen in den Waden oder beim Arbeiten über Kopf Schmerzen in den Armen, die in der Pause wieder verschwinden?', kapitel: 'fach' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose und was hat Sie darauf geführt?',
@@ -34571,6 +34516,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Primärer Spontanpneumothorax links bei einem 23-jährigen, hochgewachsenen und schlanken Raucher (1,94 m, 71 kg, BMI 18,9; 4,5 Packungsjahre, zusätzlich gelegentlicher Cannabiskonsum) — schlagartiger Beginn in Ruhe nach einem Hustenstoß, streng einseitiger, stechender und atemabhängiger Thoraxschmerz mit Dyspnoe und trockenem Reizhusten; klinisch links abgeschwächtes Atemgeräusch, hypersonorer Klopfschall und verminderte Atemexkursion; im Röntgen-Thorax großer Pneumothorax mit einer Mantelbreite von etwa 3 cm auf Hilushöhe. Positive Familienanamnese (Bruder mit Pneumothorax im Alter von 19 Jahren) und wahrscheinlich stattgehabte, nicht abgeklärte Episode vor drei Jahren.',
+        patientWorte: { verdacht: 'sich zwischen Lunge und Brustwand Luft angesammelt hat, ein sogenannter Lungenkollaps, wahrscheinlich ohne erkennbare Ursache', diagnostik: 'machen wir ein Röntgenbild der Lunge und messen den Sauerstoffgehalt in Ihrem Blut', therapie: 'müsste je nach Größe entweder abgewartet oder ein dünner Schlauch gelegt werden, um die Luft aus dem Brustkorb abzulassen' },
         differenzialdiagnosen: [
           {
             dd: 'Lungenembolie',
@@ -34756,19 +34702,14 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Kam der Schmerz schlagartig, von einer Sekunde auf die andere, oder hat er sich über Stunden entwickelt?', kapitel: 'aktuell' },
+        { frage: 'Setzte Ihr Schmerz schlagartig ein, von einer Sekunde auf die andere, oder hat er sich über Stunden entwickelt?', kapitel: 'aktuell' },
         { frage: 'Was haben Sie genau gemacht, als es losging — waren Sie in Ruhe, haben Sie gehustet, gelacht oder etwas Schweres gehoben?', kapitel: 'aktuell' },
-        { frage: 'Ist der Schmerz nur auf einer Seite, und wird er beim tiefen Einatmen und beim Husten deutlich stärker?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz in den linken Arm, in die Schulter oder in den Unterkiefer aus?', kapitel: 'aktuell' },
+        { frage: 'Spüren Sie den Schmerz nur auf einer Seite, und wird er beim tiefen Einatmen und beim Husten deutlich stärker?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie schwer Luft — schon in Ruhe oder erst, wenn Sie ein paar Schritte gehen? Wie viele Stockwerke schaffen Sie sonst ohne Pause?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so ein Stechen schon einmal, auch wenn es damals schwächer war und von allein wieder verschwunden ist?', kapitel: 'aktuell' },
         { frage: 'Rauchen Sie? Seit wann und wie viel — und rauchen Sie auch gelegentlich Cannabis?', kapitel: 'noxen' },
         { frage: 'Gibt es in Ihrer Familie jemanden, bei dem schon einmal Luft in der Lunge war und der einen Schlauch in der Brust hatte?', kapitel: 'familie-sozial' },
-        { frage: 'Sind Sie in letzter Zeit geflogen oder getaucht, oder gab es eine Verletzung am Brustkorb?', kapitel: 'aktuell' },
         { frage: 'Ist bei Ihnen jemals eine Lungenerkrankung festgestellt worden — Asthma, eine chronische Bronchitis oder eine Lungenentzündung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie Fieber gemessen, husten Sie Schleim ab, und ist Blut dabei?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihnen ein geschwollenes Bein, Wadenschmerzen, eine längere Bettlägerigkeit oder eine lange Reise aufgefallen?', kapitel: 'familie-sozial' },
-        { frage: 'Wie sind Sie zu uns gekommen — selbstständig, mit dem Rettungsdienst oder von Ihrem Hausarzt eingewiesen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Was war der Vorstellungsgrund des Patienten? Stellen Sie ihn uns bitte kurz vor.',
@@ -34945,6 +34886,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Hans Müller',
           age: 61,
@@ -35050,6 +34992,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich bin seit ungefähr drei Monaten nur noch schlapp. Ich schlafe nachts acht Stunden und bin morgens trotzdem wie gerädert. Ehrlich gesagt schickt mich meine Frau — sie sagt, mit meinem Schlaf stimmt etwas nicht.',
           'akt-ort': 'Weh tut mir eigentlich nichts. Nur morgens habe ich Kopfschmerzen, hier vorne über der Stirn, auf beiden Seiten. Sonst ist es einfach diese Müdigkeit im ganzen Körper.',
           'akt-beginn': 'Die Müdigkeit ist mir vor etwa drei Monaten aufgefallen, und sie wird stetig schlimmer. Das Schnarchen habe ich schon seit Jahren — das sagt jedenfalls meine Frau, ich merke davon nichts.',
+          'akt-allgemein-art': 'Vor allem Müdigkeit, wie Blei in den Gliedern. Kraftlos bin ich nicht direkt, eher schläfrig — ich könnte überall einnicken. Schwindel habe ich eigentlich nicht.',
+          'akt-allgemein-alltag': 'Hinlegen kann ich tagsüber im Job ja nicht, aber am Steuer fallen mir die Augen zu, vor allem nach dem Mittagessen. Ich trinke deshalb fünf, sechs Tassen Kaffee am Tag, sonst schaffe ich die Tour nicht.',
+          'akt-allgemein-tageszeit': 'Morgens ist es am schlimmsten, ich komme kaum aus dem Bett. Der Kopfschmerz geht nach ein, zwei Stunden weg, aber müde bin ich den ganzen Tag. Auch wenn ich mich mal ausruhe, wird es nicht wirklich besser, nicht mal am Wochenende.',
+          'akt-allgemein-gewicht': 'Zwei Kilo habe ich in den letzten drei Monaten abgenommen, ohne dass ich das wollte. Das macht mir schon Sorgen, ehrlich gesagt. Appetit habe ich eigentlich normal, und Durst auch nicht mehr als sonst.',
+          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, weder Beine noch Gesicht noch Bauch. Aber ich muss nachts zwei-, dreimal raus zur Toilette, das kommt noch zu meiner Prostata dazu.',
           'akt-charakter': 'Die Kopfschmerzen morgens sind dumpf und drückend. Und die Müdigkeit ist wie Blei in den Gliedern; ich könnte überall einschlafen.',
           'akt-intensitaet': 'Die Müdigkeit würde ich mit 8 von 10 angeben, die Kopfschmerzen morgens mit etwa 4 von 10.',
           'akt-ausstrahlung': 'Nein, die Kopfschmerzen strahlen nirgendwohin aus, die sitzen nur vorne über der Stirn.',
@@ -35105,6 +35052,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Obstruktives Schlafapnoe-Syndrom (OSAS) bei Adipositas Grad I (108 kg bei 1,78 m, BMI 34,1 kg/m², Halsumfang 46 cm), begünstigt durch abendlichen Alkoholkonsum und Nikotinabusus — mit therapierefraktärer arterieller Hypertonie als kardiovaskulärer Folgeerkrankung und erhöhter Unfallgefahr durch Sekundenschlaf bei einem Berufskraftfahrer',
+        patientWorte: { verdacht: 'Ihre Atmung im Schlaf immer wieder kurz aussetzt, eine sogenannte Schlafapnoe, begünstigt durch das Übergewicht', diagnostik: 'veranlassen wir eine Schlafuntersuchung, die Ihre Atmung, den Sauerstoffgehalt und Ihren Schlaf über Nacht aufzeichnet', therapie: 'sollten Sie abnehmen, weniger Alkohol trinken, und je nach Ergebnis könnte nachts eine Atemmaske notwendig werden' },
         differenzialdiagnosen: [
           {
             dd: 'Zentrale Schlafapnoe (u. a. Cheyne-Stokes-Atmung bei Herzinsuffizienz)',
@@ -35292,16 +35240,10 @@ export function seedCases(): Case[] {
         { frage: 'Was sagt Ihre Ehefrau über Ihren Schlaf? Schnarchen Sie, und ist das Schnarchen gleichmäßig oder unregelmäßig?', kapitel: 'vegetativ' },
         { frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf für eine Zeit lang nicht atmen? Wie lange dauern diese Pausen etwa, und wie geht es danach weiter?', kapitel: 'aktuell' },
         { frage: 'Wachen Sie nachts manchmal mit einem Erstickungs- oder Würgegefühl auf, oder mit Herzrasen?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen? Schwitzen Sie nachts, und ist Ihr Mund morgens trocken?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie morgens Kopfschmerzen, und wie lange halten sie an?', kapitel: 'aktuell' },
-        { frage: 'Schlafen Sie tagsüber unwillkürlich ein — beim Fernsehen, beim Lesen, im Gespräch, im Wartezimmer? (Epworth Sleepiness Scale)', kapitel: 'vegetativ' },
-        { frage: 'Ganz wichtig für Sie und für andere: Sind Sie am Steuer schon einmal eingenickt? Ist Ihnen an einer Ampel oder auf der Autobahn etwas passiert, was gerade noch gut gegangen ist?', kapitel: 'aktuell' },
+        { frage: 'Schlafen Sie tagsüber unwillkürlich ein — beim Fernsehen, beim Lesen, im Gespräch, im Wartezimmer?', kapitel: 'vegetativ' },
+        { frage: 'Sind Sie am Steuer schon einmal eingenickt? Ist Ihnen an einer Ampel oder auf der Autobahn etwas passiert, was gerade noch gut gegangen ist?', kapitel: 'aktuell' },
         { frage: 'Trinken Sie abends Alkohol, und wie viel? Nehmen Sie Schlaf- oder Beruhigungsmittel?', kapitel: 'noxen' },
-        { frage: 'Auf welcher Seite schlafen Sie? Ist das Schnarchen in Rückenlage schlimmer?', kapitel: 'vegetativ' },
-        { frage: 'Wie ist es mit der Konzentration, dem Gedächtnis, der Stimmung und der Lust auf Sexualität?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Blutdruck trotz der Tabletten eingestellt, und wurden zuletzt neue Medikamente ergänzt?', kapitel: 'medikamente' },
-        { frage: 'Bekommen Sie durch die Nase gut Luft, oder ist die Nase häufig verstopft? Ist Ihnen ein Schnarchen seit einer Gewichtszunahme aufgefallen?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie ungewollt Gewicht verloren, und husten Sie anders als sonst? Haben Sie schon einmal Blut gehustet?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Was hat der Patient? Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -35442,6 +35384,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Jonas Wielandt',
           age: 23,
@@ -35531,11 +35474,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien oder Staub habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, Dr. Neuhaus. Da war ich aber lange nicht mehr.',
           'akt-motiv': '(schaut kurz zur Tür) Meine Mutter wollte, dass ich herkomme. Ich bin nicht krank. Aber es beobachtet mich jemand, seit Wochen — und ich schlafe fast nicht mehr.',
-          'akt-ort': 'Wo? … Weh tut mir nichts. Es ist überall, wo ich bin — auf der Straße, im Treppenhaus. Und im Kopf, da sind die Stimmen. Zu Hause ist es am schlimmsten, weil die Nachbarn gegenüber wohnen.',
           'akt-beginn': 'Richtig losgegangen ist es vor ungefähr zehn Wochen. Angefangen hat es aber schleichend, schon vor gut acht Monaten — da hatte ich zu allem keine Lust mehr und bin nicht mehr in die Uni. Seit zwei Wochen ist es kaum noch auszuhalten.',
-          'akt-charakter': 'Das sind keine Schmerzen. Das ist eine Anspannung, die ganze Zeit. Als ob ich unter Strom stehe und jemand mitliest.',
-          'akt-intensitaet': 'Die Angst? 8 von 10. Nachts eher 9.',
-          'akt-ausstrahlung': 'Ausstrahlen … ich weiß nicht, was Sie meinen. Ich habe ja keine Schmerzen.',
+          'akt-psych-stimmung': 'Stimmung? … Angespannt. Angst, die ganze Zeit, nachts noch mehr. Besser wird es nur, wenn ich allein bin, im dunklen Zimmer.',
+          'akt-psych-antrieb': 'Den Tag anfangen fällt mir schwer, ich habe zu fast nichts mehr Lust — deswegen bin ich auch schon lange nicht mehr in die Uni gegangen. Freude … ich weiß gar nicht mehr, wie sich das anfühlt.',
+          'akt-psych-schlaf': 'Ich schlafe kaum noch, in letzter Zeit nur zwei, drei Stunden, und eher tagsüber als nachts. Konzentrieren kann ich mich schon lange nicht mehr richtig.',
+          'akt-psych-sicherheit': '(schweigt lange, schaut zur Seite) … Ja, manchmal denke ich, dass es so keinen Sinn mehr hat. Aber einen Plan habe ich nicht, und wenn es wirklich so weit wäre, würde ich das jemandem sagen.',
           'akt-verlauf': 'Es ist eigentlich dauernd da, ohne Pause. Abends und nachts wird es schlimmer, dann reden die Stimmen mehr.',
           'akt-ausloeser': '(zögert) Nein. … Doch, im Frühjahr: zwei Prüfungen nicht bestanden, meine Freundin hat Schluss gemacht, dann musste ich zurück zu meinen Eltern. Und ich rauche viel Gras, das kommt sowieso raus.',
           'akt-einfluss': 'Besser wird es, wenn ich allein im abgedunkelten Zimmer bin und Musik höre. Schlimmer draußen, unter Leuten, und wenn das Radio läuft. Der Joint hilft eine Stunde, danach wird es eher schlimmer. Tabletten nehme ich keine, nur ab und zu Baldrian zum Schlafen.',
@@ -35588,6 +35531,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erstmanifestation einer paranoiden Schizophrenie (ICD-10 F20.0) bei einem 23-jährigen Patienten: seit etwa acht Monaten Prodromalphase mit sozialem Rückzug und Leistungsknick, seit etwa zehn Wochen — und damit deutlich länger als einen Monat — ausgeprägte Positivsymptomatik mit Verfolgungs-, Beziehungs- und Vergiftungswahn, kommentierenden und dialogisierenden akustischen Halluzinationen, Ich-Störungen (Gedankeneingebung, Gedankenentzug, Gedankenausbreitung, Fremdbeeinflussungserleben) und formaler Denkstörung, dazu ausgeprägte Negativsymptomatik; begleitend schädlicher Gebrauch von Cannabis (F12.1) als Risikofaktor und wichtigste Differenzialdiagnose. Aktuell keine akute Fremdgefährdung, passive Lebensüberdrussgedanken ohne Handlungsdruck bei erhaltener Absprachefähigkeit; keine Krankheitseinsicht.',
+        patientWorte: { verdacht: 'es sich um eine erste Episode einer Erkrankung handelt, bei der Wahrnehmung und Denken vorübergehend aus dem Gleichgewicht geraten sind', diagnostik: 'führen wir ein ausführliches Gespräch über Ihr Erleben und nehmen Blut ab, um körperliche Ursachen auszuschließen', therapie: 'sollten Sie für eine Weile stationär bleiben und Medikamente bekommen, die die Beschwerden lindern und Sie schützen' },
         differenzialdiagnosen: [
           {
             dd: 'Drogeninduzierte Psychose (Cannabis, Amphetamine, Kokain, Halluzinogene, „Legal Highs“)',
@@ -35775,12 +35719,8 @@ export function seedCases(): Case[] {
         { frage: 'Sagen Ihnen die Stimmen jemals, dass Sie etwas tun sollen — auch etwas, das Ihnen oder anderen schaden könnte?', kapitel: 'aktuell' },
         { frage: 'Haben Sie das Gefühl, dass Ihre Gedanken nicht mehr ganz Ihnen gehören — dass sie Ihnen eingegeben oder mitten im Satz entzogen werden, oder dass andere sie mitlesen können?', kapitel: 'aktuell' },
         { frage: 'Haben Sie den Eindruck, von außen gesteuert oder beeinflusst zu werden, zum Beispiel über Technik, Funk oder das WLAN?', kapitel: 'aktuell' },
-        { frage: 'Sehen, riechen oder schmecken Sie manchmal etwas, das andere nicht wahrnehmen? Trauen Sie Ihrem Essen?', kapitel: 'aktuell' },
         { frage: 'Wie viel Cannabis rauchen Sie am Tag, seit wann, und haben Sie schon einmal versucht aufzuhören — hat sich dabei etwas verändert?', kapitel: 'noxen' },
-        { frage: 'Wären Sie einverstanden, dass ich auch mit Ihrer Mutter spreche, die Sie begleitet hat? Ihre Sicht würde mir helfen.', kapitel: 'familie-sozial' },
-        { frage: 'Was hat sich in den letzten Monaten in Ihrem Alltag verändert — Studium, Freunde, Sport, Körperpflege?', kapitel: 'aktuell' },
         { frage: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie einen konkreten Plan gefasst oder etwas vorbereitet? Würden Sie sich melden, wenn es schlimmer wird?', kapitel: 'fach' },
-        { frage: 'Können Sie sich vorstellen, für einige Tage bei uns zu bleiben, damit Sie zur Ruhe kommen und wir Ihnen helfen können?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -35970,6 +35910,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Alfred Wirtz',
           age: 81,
@@ -36088,6 +36029,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Mir fehlt nichts, ich will nach Hause. (Die Tochter übernimmt: Herr Doktor, mein Vater ist seit zwei Tagen völlig verwirrt. Er ist nicht mehr er selbst. Vor der Hüftoperation hat er seinen Haushalt allein geführt — jetzt erkennt er mich zeitweise nicht und sieht Dinge, die nicht da sind.)',
           'akt-ort': 'Wo ich bin? Im Rathaus, oder? (Die Tochter: Er weiß nicht, wo er ist. Wenn Sie meinen, was ihm körperlich wehtut: die operierte Hüfte links, hier an der Narbe.) Der Patient: Ja, die Hüfte zieht.',
           'akt-beginn': '(Die Tochter: Ganz plötzlich, innerhalb eines Tages. Am letzten Tag im Krankenhaus war er schon etwas durcheinander, aber seit zwei Tagen, seit er zu Hause ist, ist es massiv. Die Operation war vor zehn Tagen, entlassen wurde er vor drei Tagen.)',
+          'akt-neuro-ausfall': 'Schwach? Nein, nein, meine Beine tragen mich noch, ich war doch immer... (verliert den Faden) (Die Tochter: Nein, eine Schwäche oder Taubheit auf einer Seite habe ich nicht gesehen, auch keine hängende Mundseite und keine Sprachstörung. Er redet nur wirres Zeug, aber die Wörter selbst kommen normal raus.)',
+          'akt-neuro-dauer': '(Die Tochter: So etwas hatte er ja gar nicht, deshalb kann ich Ihnen dazu nichts sagen. Aber die Verwirrtheit selbst ist immer noch da, sie kommt und geht in Wellen, seit zwei Tagen.)',
+          'akt-neuro-lage': 'Schwindel... (hält sich kurz am Bett fest) beim Aufstehen wackelt es schon manchmal, aber das kenne ich noch von der Hüfte. (Die Tochter: Ein richtiger Drehschwindel, dass sich alles dreht, ist es nicht. Er ist eher unsicher auf den Beinen wegen der Hüfte. Das ändert sich auch nicht, wenn er den Kopf dreht.)',
           'akt-charakter': 'Der Schmerz in der Hüfte ist so ein Ziehen und Brennen, wenn ich mich bewege. (Die Tochter: Und die Verwirrtheit — er ist unruhig, steht ständig auf, zupft an seiner Kleidung und redet wirres Zeug. Manchmal wird er richtig aggressiv, das kenne ich gar nicht von ihm.)',
           'akt-intensitaet': 'Die Hüfte? Vielleicht vier von zehn. Wenn ich aufstehe, mehr. (Die Tochter: Er klagt kaum, aber er verzieht das Gesicht, sobald man ihn bewegt — ich glaube, er hat mehr Schmerzen, als er sagt.)',
           'akt-ausstrahlung': 'Nein, das bleibt in der Hüfte. In die Beine strahlt nichts aus, taub oder kribbelig ist auch nichts.',
@@ -36144,6 +36088,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akutes Delir der hyperaktiven Form (ICD-10 F05.0) bei multifaktorieller Genese, zehn Tage nach Hüft-Totalendoprothese links — führend ein Harnwegsinfekt mit Verdacht auf Harnverhalt bei benigner Prostatahyperplasie, dazu Exsikkose, delirogene Medikation (Oxybutynin als Anticholinergikum, Lorazepam, Oxycodon), Schmerz, Obstipation, Schlafentzug sowie fehlende Brille und fehlendes Hörgerät bei vorbestehender leichter kognitiver Störung',
+        patientWorte: { verdacht: 'eine akute Verwirrtheit vorliegt, wahrscheinlich ausgelöst durch eine Harnwegsinfektion und mehrere Medikamente nach Ihrer Hüftoperation', diagnostik: 'nehmen wir Blut und Urin ab, prüfen Ihre Medikamente und testen kurz Ihre Aufmerksamkeit und Orientierung', therapie: 'wird die zugrunde liegende Infektion behandelt und einige Medikamente abgesetzt, damit die Verwirrtheit wieder abklingt' },
         differenzialdiagnosen: [
           {
             dd: 'Demenz (bislang nicht diagnostiziert)',
@@ -36327,19 +36272,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Seit wann genau ist Ihr Vater so — kam das über Stunden, über Tage oder über Monate?', kapitel: 'aktuell' },
-        { frage: 'Wie war er VOR der Operation: Hat er seinen Haushalt allein geführt, eingekauft, seine Bankgeschäfte selbst erledigt?', kapitel: 'familie-sozial' },
-        { frage: 'Schwankt der Zustand im Tagesverlauf? Gibt es Zeiten, in denen er wieder ganz klar ist — und ist es abends und nachts schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Sieht oder hört er Dinge, die nicht da sind? Was genau sieht er?', kapitel: 'aktuell' },
-        { frage: 'Welche Medikamente wurden zuletzt NEU angesetzt oder ABGESETZT — auch im Krankenhaus, auch Schlaf- und Beruhigungsmittel?', kapitel: 'medikamente' },
-        { frage: 'Hat er Fieber gemessen? Wie sieht der Urin aus, riecht er anders, brennt es beim Wasserlassen?', kapitel: 'aktuell' },
-        { frage: 'Kommt er noch normal zum Wasserlassen, oder kommen nur kleine Mengen? Wann hatte er zuletzt Stuhlgang?', kapitel: 'vegetativ' },
-        { frage: 'Wie viel trinkt und isst er am Tag, und hat er Gewicht verloren?', kapitel: 'vegetativ' },
-        { frage: 'Hat er Schmerzen — und sagt er es überhaupt, oder merkt man es nur am Gesicht?', kapitel: 'aktuell' },
-        { frage: 'Ist er in den letzten Wochen gestürzt oder hat er sich den Kopf angeschlagen? Nimmt er Blutverdünner?', kapitel: 'medikamente' },
-        { frage: 'Trinkt er regelmäßig Alkohol, und wann hat er zuletzt getrunken? Hatte er danach Zittern oder Schwitzen?', kapitel: 'noxen' },
-        { frage: 'Trägt er normalerweise eine Brille und ein Hörgerät — hat er beides jetzt bei sich?', kapitel: 'aktuell' },
+        { frage: 'Wie war er vor der Operation: Hat er seinen Haushalt allein geführt, eingekauft, seine Bankgeschäfte selbst erledigt?', kapitel: 'familie-sozial' },
+        { frage: 'Schwankt sein Zustand im Tagesverlauf? Gibt es Zeiten, in denen er wieder ganz klar ist — und ist es abends und nachts schlimmer?', kapitel: 'aktuell' },
+        { frage: 'Sieht oder hört er manchmal Dinge, die nicht da sind? Was genau sieht er dabei?', kapitel: 'aktuell' },
+        { frage: 'Welche Medikamente wurden bei ihm zuletzt neu angesetzt oder abgesetzt — auch im Krankenhaus, auch Schlaf- und Beruhigungsmittel?', kapitel: 'medikamente' },
+        { frage: 'Hat er Fieber, und wissen Sie, ob er Beschwerden beim Wasserlassen hat oder nur noch kleine Mengen Urin lässt?', kapitel: 'aktuell' },
+        { frage: 'Trägt er normalerweise eine Brille und ein Hörgerät — hat er beides jetzt bei sich im Krankenhaus?', kapitel: 'aktuell' },
         { frage: 'War er in den letzten Monaten schon vergesslich oder wortfindungsgestört, und wie schnell hat sich das entwickelt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wer versorgt ihn zu Hause, lebt er allein, gibt es einen Pflegegrad oder einen Pflegedienst?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -36539,6 +36478,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katharina Vogel',
           age: 38,
@@ -36639,6 +36579,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, das Essen bleibt mir im Hals stecken. Das geht schon seit ungefähr drei Jahren so, aber in den letzten Monaten ist es richtig schlimm geworden.',
           'akt-ort': 'Hier, hinter dem Brustbein. (zeigt mit der flachen Hand auf das mittlere und untere Brustbein) Da bleibt es stehen, ungefähr auf Höhe des unteren Brustbeins.',
           'akt-beginn': 'Angefangen hat es vor etwa drei Jahren, ganz langsam und schleichend. Erst nur ab und zu, inzwischen bei fast jeder Mahlzeit.',
+          'akt-veraend-was': 'Aufgefallen ist mir vor allem, dass ich beim Schlucken Probleme habe – wie gesagt, das Essen bleibt stecken. Einen Knoten oder Hautveränderungen habe ich keine bemerkt, blaue Flecken auch nicht, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Eine Farbe oder Form gibt es da ja nicht, aber häufiger und schlimmer geworden ist es auf jeden Fall – am Anfang nur ab und zu, inzwischen fast bei jeder Mahlzeit.',
+          'akt-veraend-blutung': 'Weh tut das Schlucken selbst nicht, eher dieser Druck und die Enge, die ich schon beschrieben habe. Jucken tut nichts. Und Blut habe ich nirgendwo bemerkt – nicht im Stuhl, nicht im Urin, auch nicht beim Husten oder aus der Nase.',
           'akt-charakter': 'Es fühlt sich an, als ob der Bissen stehen bleibt und sich davor alles staut. Dazu ein Druck und eine Enge hinter dem Brustbein, manchmal richtig krampfartig, wie ein Zusammenziehen.',
           'akt-intensitaet': 'Wenn es krampft, würde ich sagen 5 von 10. Das Steckenbleiben selbst tut nicht weh, es ist eher beängstigend.',
           'akt-ausstrahlung': 'Manchmal zieht der Druck in den Rücken, zwischen die Schulterblätter. In den linken Arm oder in den Kiefer strahlt nichts aus.',
@@ -36694,6 +36637,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Achalasie des Ösophagus — primäre Motilitätsstörung mit fehlender Erschlaffung des unteren Ösophagussphinkters und aufgehobener Peristaltik, bei seit drei Jahren langsam progredienter Dysphagie für feste und flüssige Speisen, nächtlicher Regurgitation unverdauter, nicht saurer Speisereste, fehlendem Ansprechen auf Protonenpumpenhemmer und rezidivierenden Aspirationspneumonien (Eckardt-Score 9 von 12 Punkten)',
+        patientWorte: { verdacht: 'der Schließmuskel Ihrer Speiseröhre sich nicht mehr richtig öffnet, sodass Speisen nur schwer in den Magen gelangen', diagnostik: 'machen wir eine Magenspiegelung, eine Röntgenuntersuchung mit Kontrastmittel beim Schlucken und eine Druckmessung der Speiseröhre', therapie: 'könnte je nach Ergebnis eine Aufdehnung oder ein kleiner Eingriff am Schließmuskel Ihr Schlucken deutlich erleichtern' },
         differenzialdiagnosen: [
           {
             dd: 'Pseudoachalasie bei Kardiakarzinom oder Tumorinfiltration',
@@ -36843,18 +36787,14 @@ export function seedCases(): Case[] {
         'auf-laparoskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Bleibt das Essen nur bei fester Nahrung stecken, oder haben Sie auch bei Getränken Schwierigkeiten — bei Wasser, Suppe, kalten Getränken?', kapitel: 'aktuell' },
-        { frage: 'Seit wann besteht die Schluckstörung genau, und hat sie über Wochen rasch zugenommen oder über Jahre langsam mit besseren und schlechteren Phasen?', kapitel: 'aktuell' },
+        { frage: 'Bleibt das Essen bei Ihnen nur bei fester Nahrung stecken, oder haben Sie auch bei Getränken Schwierigkeiten — bei Wasser, Suppe, kalten Getränken?', kapitel: 'aktuell' },
+        { frage: 'Wie hat sich die Schluckstörung bei Ihnen entwickelt — eher langsam über Jahre mit besseren und schlechteren Phasen, oder rasch über Wochen?', kapitel: 'aktuell' },
         { frage: 'Kommt Ihnen Essen wieder hoch? Ist es unverdaut oder sauer, und passiert das eher im Liegen und nachts?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Kopfkissen morgens manchmal nass? Husten Sie nachts, und hatten Sie in letzter Zeit eine Lungenentzündung?', kapitel: 'aktuell' },
         { frage: 'Sie nehmen Magenschutztabletten — haben diese Ihre Beschwerden gebessert oder gar nicht gewirkt?', kapitel: 'aktuell' },
-        { frage: 'Machen Sie etwas Bestimmtes, damit der Bissen durchrutscht — trinken Sie nach, stehen Sie auf, strecken Sie sich?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und ist Ihr Appetit dabei erhalten geblieben?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie Schmerzen beim Schlucken, Blut erbrochen oder schwarzen Stuhl bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Verschlucken Sie sich sofort beim Schluckbeginn, oder bleibt es erst später hinter dem Brustbein stehen?', kapitel: 'aktuell' },
+        { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und ist Ihr Appetit dabei erhalten geblieben?', kapitel: 'vegetativ' },
         { frage: 'Waren Sie jemals in Mittel- oder Südamerika?', kapitel: 'familie-sozial' },
-        { frage: 'Was hat die Magenspiegelung vor zwei Jahren genau ergeben, und wurden dabei Gewebeproben entnommen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Allergien, Heuschnupfen oder Asthma, und bleibt das Essen bei bestimmten Speisen häufiger stecken?', kapitel: 'allergien' },
       ],
       examinerQuestions: [
         'Welche Speiseröhrenerkrankungen gibt es? Nennen Sie auch eine motorische Ursache.',
@@ -37186,6 +37126,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Septische Arthritis (bakterielles Gelenkempyem) des rechten Kniegelenks, am ehesten durch direkte Inokulation nach intraartikulärer Kortisoninjektion vor sechs Tagen, bei erhöhtem Infektionsrisiko durch rheumatoide Arthritis, Immunsuppression mit Methotrexat und Prednisolon, Diabetes mellitus Typ 2 und chronische Niereninsuffizienz — ein NOTFALL mit sofortiger Punktions-, Antibiotika- und Operationsindikation',
+        patientWorte: { verdacht: 'sich Bakterien in das Kniegelenk eingenistet haben, vermutlich nach der letzten Kortisonspritze, und das Gelenk jetzt akut entzündet ist', diagnostik: 'punktieren wir das Kniegelenk, um die Gelenkflüssigkeit zu untersuchen, und nehmen zusätzlich Blut ab', therapie: 'müssen Sie noch heute Antibiotika über die Vene bekommen, und das Gelenk wird operativ gespült, das eilt' },
         differenzialdiagnosen: [
           {
             dd: 'Akuter Gichtanfall (Arthritis urica) des Kniegelenks — Gonagra',
@@ -37370,20 +37311,12 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wurde an diesem Knie in den letzten Wochen etwas gemacht — eine Spritze, eine Punktion, eine Spiegelung oder eine Operation? Wann genau und bei wem?', kapitel: 'aktuell' },
-        { frage: 'Wie viele Tage nach der Spritze haben die Beschwerden begonnen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen, und wie hoch war es? Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell' },
+        { frage: 'Wurde an diesem Knie in den letzten Wochen etwas gemacht — eine Spritze, eine Punktion oder eine Operation? Wann genau und bei wem?', kapitel: 'aktuell' },
+        { frage: 'Wie viele Tage nach der Spritze haben bei Ihnen die Beschwerden begonnen?', kapitel: 'aktuell' },
         { frage: 'Tut das Knie auch weh, wenn Sie ganz ruhig liegen und es überhaupt nicht bewegen?', kapitel: 'aktuell' },
-        { frage: 'Können Sie das Knie noch beugen und strecken, und halten Sie es aus, wenn jemand es anfasst oder bewegt?', kapitel: 'aktuell' },
-        { frage: 'Können Sie mit dem rechten Bein auftreten und gehen, oder gar nicht mehr?', kapitel: 'aktuell' },
-        { frage: 'Sind noch andere Gelenke betroffen, oder wandern die Beschwerden von Gelenk zu Gelenk?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein künstliches Gelenk, Schrauben oder Platten im Körper?', kapitel: 'aktuell' },
+        { frage: 'Können Sie mit dem rechten Bein noch auftreten und gehen, oder gar nicht mehr?', kapitel: 'aktuell' },
         { frage: 'Welche Medikamente nehmen Sie gegen das Rheuma — Kortison, Methotrexat oder ein Biologikum? Seit wann und in welcher Dosis?', kapitel: 'medikamente' },
-        { frage: 'Gibt es irgendwo eine offene Stelle, eine Wunde, einen Insektenstich, einen Katzenkratzer oder Fußpilz mit eingerissener Haut?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie in den letzten Wochen einen Infekt — Halsentzündung, Zahnschmerzen, Blasenentzündung, Durchfall oder eine Lungenentzündung?', kapitel: 'vegetativ' },
-        { frage: 'Sind Sie gestürzt, umgeknickt oder haben Sie sich das Knie verdreht?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie jemals einen Gichtanfall, Nierensteine oder ein plötzlich geschwollenes Großzehengelenk?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gab es einen Zeckenstich oder eine ringförmige Hautrötung nach einem Waldaufenthalt?', kapitel: 'aktuell' },
+        { frage: 'Gibt es an Ihrem Körper irgendwo eine offene Stelle, eine Wunde oder einen Insektenstich, durch die Keime eindringen konnten?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen schwindelig, sind Sie verwirrt, haben Sie Atemnot oder Herzrasen bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -37751,6 +37684,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Degenerative lumbale Spinalkanalstenose mit Claudicatio spinalis, am ehesten in Höhe L3/L4 und L4/L5 — belastungs- und haltungsabhängige beidseitige Beinbeschwerden mit auf 150 bis 200 Meter reduzierter, tagesabhängig schwankender Gehstrecke, prompter Besserung beim Vorneüberbeugen und im Sitzen, tastbaren Fußpulsen und Zustand nach Bandscheibenoperation L5/S1 vor 18 Jahren',
+        patientWorte: { verdacht: 'der Wirbelkanal im unteren Rücken verengt ist und dadurch die Nerven zu den Beinen beim Gehen gereizt werden', diagnostik: 'machen wir eine Kernspinuntersuchung der Wirbelsäule, um die Verengung und die betroffenen Nerven genau darzustellen', therapie: 'helfen zunächst Physiotherapie und Schmerzmittel, und nur wenn das nicht reicht, käme eine Operation zur Erweiterung des Kanals infrage' },
         differenzialdiagnosen: [
           {
             dd: 'Periphere arterielle Verschlusskrankheit (pAVK) mit Claudicatio intermittens',
@@ -37938,16 +37872,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie weit können Sie am Stück gehen, bevor Sie eine Pause machen müssen — und wie weit war es vor einem Jahr?', kapitel: 'aktuell' },
-        { frage: 'Ist diese Gehstrecke jeden Tag gleich, oder schwankt sie von Tag zu Tag?', kapitel: 'aktuell' },
         { frage: 'Reicht es, wenn Sie einfach stehen bleiben — oder müssen Sie sich hinsetzen oder vornüberbeugen, damit es besser wird? Wie lange dauert es dann?', kapitel: 'aktuell' },
         { frage: 'Wie ist es, wenn Sie im Supermarkt den Einkaufswagen vor sich herschieben? Und wie geht es Ihnen beim Fahrradfahren?', kapitel: 'aktuell' },
         { frage: 'Ist Bergaufgehen für Sie leichter oder schwerer als Bergabgehen?', kapitel: 'aktuell' },
-        { frage: 'Sind beide Beine betroffen oder nur eines? Bis wohin genau zieht es — auch bis in die Zehen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang, oder ein Taubheitsgefühl im Bereich zwischen den Beinen, wo man auf dem Sattel sitzt?', kapitel: 'vegetativ' },
         { frage: 'Sind Ihre Füße kalt, blass oder bläulich? Haben Sie Wunden am Fuß, die nicht heilen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie nachts oder in Ruhe Schmerzen — oder nur beim Gehen?', kapitel: 'aktuell' },
         { frage: 'Sie wurden am Rücken operiert: An welcher Stelle genau und in welcher Höhe war das? Wissen Sie noch, welche Beschwerden Sie damals hatten?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie ungewollt abgenommen, Fieber oder Nachtschweiß gehabt? Ist bei Ihnen jemals eine Krebserkrankung festgestellt worden?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose und was hat Sie darauf geführt?',
@@ -38293,6 +38224,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Zervikaler Bandscheibenvorfall im Segment C7/Th1 rechts mit Kompression der Wurzel C8 — akute Zervikobrachialgie mit sensiblem Ausfall im Dermatom C8 und beginnender motorischer Schwäche der kleinen Handmuskeln rechts, ausgelöst durch das Heben einer schweren Last über Kopf',
+        patientWorte: { verdacht: 'eine Bandscheibe in Ihrer Halswirbelsäule auf einen Nerv drückt, der zu Ihrem Arm zieht, wahrscheinlich durch das schwere Heben', diagnostik: 'machen wir eine Kernspinuntersuchung der Halswirbelsäule, um den Bandscheibenvorfall und den betroffenen Nerv genau zu sehen', therapie: 'helfen anfangs Schmerzmittel und Physiotherapie, und nur bei zunehmender Schwäche der Hand wäre eine Operation nötig' },
         differenzialdiagnosen: [
           {
             dd: 'Sulcus-ulnaris-Syndrom (Kubitaltunnelsyndrom)',
@@ -38474,17 +38406,13 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Bis wohin genau strahlt der Schmerz aus — in den Daumen, in den Mittelfinger oder in den kleinen Finger?', kapitel: 'aktuell' },
-        { frage: 'Werden die Schmerzen beim Husten, Niesen oder Pressen auf der Toilette stärker?', kapitel: 'aktuell' },
+        { frage: 'Bis wohin genau strahlt der Schmerz bei Ihnen aus — in den Daumen, in den Mittelfinger oder in den kleinen Finger?', kapitel: 'aktuell' },
+        { frage: 'Werden Ihre Schmerzen beim Husten, Niesen oder Pressen auf der Toilette stärker?', kapitel: 'aktuell' },
         { frage: 'Wird es schlimmer, wenn Sie den Kopf in den Nacken legen oder zur schmerzhaften Seite drehen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie bemerkt, dass es besser wird, wenn Sie den Arm über den Kopf legen? (Schulterabduktionszeichen)', kapitel: 'aktuell' },
+        { frage: 'Haben Sie bemerkt, dass es besser wird, wenn Sie den Arm über den Kopf legen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Kribbeln, ein pelziges Gefühl oder Kraftverlust in der Hand — rutschen Ihnen Gegenstände aus der Hand?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie beim Gehen unsicher geworden, oder haben Sie Schwierigkeiten beim Knöpfen und Schreiben? (Myelopathie)', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Probleme beim Wasserlassen oder ein Taubheitsgefühl im Reithosenbereich?', kapitel: 'vegetativ' },
-        { frage: 'Verspüren Sie beim Vorbeugen des Kopfes ein elektrisierendes Gefühl den Rücken hinunter? (Lhermitte-Zeichen)', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen in der Brust bei Anstrengung, Luftnot oder Kaltschweißigkeit? (Angina pectoris)', kapitel: 'aktuell' },
-        { frage: 'Wie genau ist es passiert — haben Sie etwas Schweres gehoben, und hat es dabei geknackst?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie zu dem Ibuprofen einen Magenschutz ein? Seit wann und in welcher Dosis nehmen Sie es?', kapitel: 'medikamente' },
+        { frage: 'Sind Sie beim Gehen unsicher geworden, oder haben Sie Schwierigkeiten beim Knöpfen und Schreiben bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Probleme beim Wasserlassen oder ein Taubheitsgefühl im Bereich zwischen den Beinen, wo man auf dem Sattel sitzt?', kapitel: 'vegetativ' },
         { frage: 'Hatten Sie Fieber, Nachtschweiß oder ungewollten Gewichtsverlust, und ist bei Ihnen jemals eine Tumorerkrankung festgestellt worden?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -38673,6 +38601,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Peter Novak',
           age: 29,
@@ -38777,6 +38706,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, mein Bauch macht mir zu schaffen: aufgebläht wie ein Ballon, Krämpfe, dann Durchfall. Das geht seit Jahren, wird aber immer schlimmer.',
           'akt-ort': '(zeigt mit der ganzen Hand kreisend um den Nabel) Hier, so um den Nabel herum und im ganzen Unterbauch. Auf einen Punkt kann ich das nicht zeigen, es ist überall.',
           'akt-beginn': 'Seit ungefähr drei Jahren. Das kam ganz langsam, am Anfang nur ab und zu. Seit etwa einem halben Jahr ist es fast jeden Tag.',
+          'akt-veraend-was': 'Aufgefallen ist mir eigentlich der Bauch – die Blähungen, die Krämpfe und der Durchfall, das hatte ich Ihnen ja schon erzählt. Einen Knoten oder blaue Flecken habe ich nirgendwo, die Haut ist auch unauffällig, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Häufiger geworden ist es auf jeden Fall, von hin und wieder zu fast jeden Tag in den letzten Monaten. Schlimmer eigentlich auch, aber eine Farbe oder Form – das kann ich schwer sagen, das ist ja kein Fleck oder so.',
+          'akt-veraend-blutung': 'Weh tut es während der Krämpfe schon, so 5 von 10, das hatte ich ja gesagt. Jucken tut nichts. Und Blut habe ich noch nie gesehen, weder im Stuhl noch im Urin, auch nicht beim Husten oder aus der Nase.',
           'akt-charakter': 'Krampfartig, wie Wellen. Es zieht zusammen und lässt wieder nach. Brennen oder Stechen ist es nicht.',
           'akt-intensitaet': 'Wenn es kommt, so 5 von 10. Nicht unerträglich, aber ich kann mich dann auf nichts mehr konzentrieren.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Nicht in den Rücken, nicht in die Schulter.',
@@ -38829,6 +38761,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Laktoseintoleranz bei Laktasemangel des Dünndarms, am ehesten die primäre, genetisch bedingte adulte Form. Dafür sprechen das typische zeitliche Muster (Beschwerden 30 Minuten bis 2 Stunden nach milchhaltigen Speisen), die klare Dosisabhängigkeit, die gute Verträglichkeit von gereiftem Hartkäse und Joghurt sowie die vollständige Beschwerdefreiheit in nüchternen und laktosefreien Phasen. Alarmzeichen bestehen derzeit nicht (kein Gewichtsverlust, kein Blut im Stuhl, kein Fieber, keine nächtlichen Beschwerden, Alter unter 50 Jahren). Eine sekundäre Ursache, insbesondere eine Zöliakie, sowie ein gleichzeitig bestehendes Reizdarmsyndrom sind noch auszuschließen.',
+        patientWorte: { verdacht: 'Ihr Körper den Milchzucker nicht richtig verdauen kann, eine sogenannte Milchzuckerunverträglichkeit', diagnostik: 'machen wir einen Atemtest nach dem Trinken einer Milchzuckerlösung, um die Verdauung des Milchzuckers zu prüfen', therapie: 'hilft es meist schon, milchzuckerreiche Lebensmittel zu reduzieren und bei Bedarf ein Enzympräparat einzunehmen' },
         differenzialdiagnosen: [
           {
             dd: 'Reizdarmsyndrom (Colon irritabile)',
@@ -39011,22 +38944,14 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie lange dauert es nach dem Essen, bis die Beschwerden anfangen — Minuten oder eher ein bis zwei Stunden?', kapitel: 'aktuell' },
+        { frage: 'Wie lange dauert es bei Ihnen nach dem Essen, bis die Beschwerden anfangen — Minuten oder eher ein bis zwei Stunden?', kapitel: 'aktuell' },
         { frage: 'Kommt es auf die Menge an? Vertragen Sie einen Schuss Milch im Kaffee, aber kein ganzes Glas Milch?', kapitel: 'aktuell' },
-        { frage: 'Wie ist es mit Joghurt und mit altem Hartkäse — vertragen Sie die besser als frische Milch?', kapitel: 'aktuell' },
-        { frage: 'Wo ist versteckte Milch enthalten: Essen Sie Fertiggerichte, Wurst, Soßen oder Backmischungen?', kapitel: 'aktuell' },
         { frage: 'Sind Sie beschwerdefrei, wenn Sie nüchtern sind oder mehrere Tage keine Milchprodukte essen — zum Beispiel im Urlaub?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie nach Milch auch Hautausschlag, Juckreiz, eine Schwellung an Lippen oder Zunge oder Luftnot?', kapitel: 'aktuell' },
-        { frage: 'Treten die Beschwerden auch nach Obst, Fruchtsaft, Honig oder zuckerfreien Kaugummis auf?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt Gewicht verloren? Wie viele Kilo in welchem Zeitraum?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Blut oder Schleim im Stuhl bemerkt, oder war der Stuhl schon einmal teerschwarz?', kapitel: 'aktuell' },
         { frage: 'Wachen Sie nachts wegen der Bauchschmerzen oder wegen Stuhldrangs auf?', kapitel: 'aktuell' },
-        { frage: 'Ist der Stuhl fettglänzend, übelriechend und schwimmt er auf dem Wasser?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihr Stuhl fettglänzend, übelriechend, und schwimmt er auf dem Wasser?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Blut oder Schleim im Stuhl bemerkt, oder war der Stuhl schon einmal teerschwarz?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten Monaten eine Magen-Darm-Infektion oder eine Antibiotikatherapie?', kapitel: 'medikamente' },
-        { frage: 'Waren Sie im Ausland, und haben Sie dort Bach- oder Brunnenwasser getrunken?', kapitel: 'familie-sozial' },
-        { frage: 'Gibt es in Ihrer Familie Darmkrebs, eine chronische Darmentzündung oder eine Glutenunverträglichkeit?', kapitel: 'familie-sozial' },
-        { frage: 'Die Beschwerden bestehen seit drei Jahren — warum kommen Sie gerade jetzt zu uns?', kapitel: 'aktuell' },
-        { frage: 'Welche Lebensmittel haben Sie inzwischen von sich aus weggelassen, und seit wann?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Bitte stellen Sie uns den Patienten vor. Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
@@ -39217,6 +39142,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
           age: 79,
@@ -39303,11 +39229,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien hatte ich außer Lacken und Beize nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Bühler, der kennt mich seit dreißig Jahren.',
           'akt-motiv': 'Meine Frau hat mich hergeschickt. Seit zwei Wochen finde ich mehrmals plötzlich die Wörter nicht mehr. Nach zwanzig Minuten ist alles wieder normal.',
-          'akt-ort': 'Es ist das Sprechen — die Wörter. Und dazu das linke Auge, der linke Arm und die linke Hand. Schmerzen habe ich keine, nur die Knie sind noch blau vom Sturz.',
           'akt-beginn': 'Vor genau zwei Wochen, das war ein Samstagvormittag. Ich saß am Frühstückstisch, ganz ruhig, und auf einmal kam kein Wort mehr heraus. Es fing von einer Sekunde auf die andere an.',
-          'akt-charakter': 'Es ist, als ob jemand einen Schalter umlegt. Die Wörter sind einfach weg. Ich verstehe alles, was man mir sagt, aber ich bringe die Sätze nicht heraus, ich stocke und rede abgehackt. Lallen tue ich nicht.',
-          'akt-intensitaet': 'Schmerzen habe ich gar keine. Wenn Sie fragen, wie schlimm die Anfälle sind: am Anfang waren sie eher harmlos, so drei von zehn, jetzt eher sieben von zehn. Sie werden deutlich stärker.',
-          'akt-ausstrahlung': 'Nein, das wandert nicht. Das pelzige Gefühl ist von der ersten Sekunde an im ganzen linken Unterarm und in der Hand und bleibt da, bis es wieder weggeht. Es kriecht nicht langsam weiter.',
+          'akt-neuro-ausfall': 'Vor allem die Wörter fehlen mir dann plötzlich, ich komme nicht mehr richtig zum Sprechen. Dazu wird mein linker Arm schwach und pelzig, auch im Gesicht, und auf dem linken Auge fällt manchmal für ein paar Minuten so ein grauer Vorhang herunter. Gehen fällt mir während der Anfälle auch schwerer, ich bin dann unsicher auf den Beinen.',
+          'akt-neuro-dauer': 'Jeder Anfall dauert weniger als zwanzig, höchstens dreißig Minuten, und danach ist wirklich alles wieder wie vorher, nichts bleibt zurück. Aber es kommt jetzt häufiger und die Anfälle werden auch heftiger.',
+          'akt-neuro-lage': 'Nein, das hängt nicht davon ab, ob ich den Kopf drehe oder mich hinlege oder aufstehe — es kommt einfach, egal in welcher Lage ich bin. Drehschwindel im eigentlichen Sinn habe ich nicht, aber während der Anfälle bin ich schwankend und unsicher auf den Beinen, einmal bin ich sogar gestürzt.',
           'akt-verlauf': 'Es kommt anfallsweise, mehrmals am Tag, manchmal vier- oder fünfmal. Jedes Mal weniger als zwanzig, höchstens dreißig Minuten, und dann ist es vollständig weg, als wäre nichts gewesen. Aber die Anfälle werden häufiger und heftiger.',
           'akt-ausloeser': 'Nein, einen Auslöser sehe ich nicht. Es kommt im Sitzen, im Gehen, einmal beim Aufstehen. Nicht bei Anstrengung, nicht bei Aufregung. Gestürzt oder gestoßen habe ich mich vorher nicht.',
           'akt-einfluss': 'Es hilft gar nichts. Hinlegen, trinken, warten — es geht von allein weg. Und schlimmer wird es auch durch nichts Bestimmtes.',
@@ -39361,6 +39286,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Rezidivierende transitorische ischämische Attacken (TIA) in wechselnden Stromgebieten bei kardioembolischer Genese — nicht antikoaguliertes Vorhofflimmern seit 2 Jahren unter alleiniger Acetylsalicylsäure. Crescendo-TIA mit zunehmender Frequenz und Intensität über 14 Tage, ABCD2-Score 6 von 7 Punkten: höchstes Schlaganfallrisiko in den nächsten 48 Stunden — NOTFALL.',
+        patientWorte: { verdacht: 'kurze Durchblutungsstörungen im Gehirn vorliegen, ausgelöst durch Ihr unregelmäßiges Herzflimmern, und das Schlaganfallrisiko jetzt hoch ist', diagnostik: 'machen wir sofort ein EKG, einen Herzultraschall und eine Bildgebung des Gehirns und der Halsgefäße', therapie: 'müssen Sie noch heute stationär aufgenommen und auf ein wirksames Blutverdünnungsmedikament eingestellt werden, um einen Schlaganfall zu verhindern' },
         differenzialdiagnosen: [
           {
             dd: 'Ischämischer Schlaganfall (Apoplex)',
@@ -39522,17 +39448,13 @@ export function seedCases(): Case[] {
         'auf-echokardiographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann genau hat die erste Attacke begonnen, und wie lange dauert eine einzelne Attacke — Minuten oder Stunden?', kapitel: 'aktuell' },
-        { frage: 'Waren die Beschwerden von der ersten Sekunde an am stärksten, oder haben sie sich langsam über Minuten ausgebreitet?', kapitel: 'aktuell' },
-        { frage: 'Haben sich die Beschwerden jedes Mal VOLLSTÄNDIG zurückgebildet, oder ist etwas zurückgeblieben?', kapitel: 'aktuell' },
-        { frage: 'Werden die Attacken häufiger oder heftiger als am Anfang?', kapitel: 'aktuell' },
+        { frage: 'Wann genau hat bei Ihnen die erste Attacke begonnen, und wie lange dauert eine einzelne Attacke — Minuten oder Stunden?', kapitel: 'aktuell' },
+        { frage: 'Waren die Beschwerden von der ersten Sekunde an am stärksten, oder haben sie sich bei Ihnen langsam über Minuten ausgebreitet?', kapitel: 'aktuell' },
+        { frage: 'Haben sich Ihre Beschwerden jedes Mal vollständig zurückgebildet, oder ist etwas zurückgeblieben?', kapitel: 'aktuell' },
+        { frage: 'Werden die Attacken bei Ihnen häufiger oder heftiger als am Anfang?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen? War es, als ob ein Vorhang herunterfällt, und wie lange hat das gedauert?', kapitel: 'aktuell' },
         { frage: 'Wissen Sie, ob bei Ihnen ein Vorhofflimmern bekannt ist, und welches Medikament Sie dagegen einnehmen?', kapitel: 'medikamente' },
-        { frage: 'Nehmen Sie einen Blutverdünner — Acetylsalicylsäure, Marcumar oder eines der neuen Medikamente? Nehmen Sie ihn regelmäßig ein?', kapitel: 'medikamente' },
-        { frage: 'Sind Sie während der Attacken gestürzt? Haben Sie sich dabei den Kopf angeschlagen?', kapitel: 'aktuell' },
         { frage: 'Waren Sie bei den Attacken bewusstlos, haben Sie sich auf die Zunge gebissen oder Wasser gelassen?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie Kopfschmerzen, Übelkeit oder ein Flimmern vor den Augen?', kapitel: 'aktuell' },
-        { frage: 'Ist bei Ihnen jemals ein Schlaganfall oder eine ähnliche Episode aufgetreten, und gibt es Schlaganfälle in Ihrer Familie?', kapitel: 'familie-sozial' },
         { frage: 'Fahren Sie noch selbst Auto?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -39704,6 +39626,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Franz Maier',
           age: 24,
@@ -39796,11 +39719,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Staub oder Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, Dr. Neumann. Der hat mich hierher geschickt, weil er sich das nicht erklären konnte.',
           'akt-motiv': 'Ich bin ständig müde, Frau Doktor. Seit ungefähr drei Monaten. Ich schlafe und schlafe und bin trotzdem wie erschlagen — im Studium komme ich gar nicht mehr mit.',
-          'akt-ort': 'Weh tut mir eigentlich nichts. Es ist eine Müdigkeit im ganzen Körper, so eine Schlappheit, vor allem in den Beinen. Zeigen kann ich da nichts.',
           'akt-beginn': 'Angefangen hat es vor etwa drei Monaten, ziemlich plötzlich — ich könnte fast die Woche sagen. Und seitdem ist es immer schlimmer geworden.',
-          'akt-charakter': 'Wie soll ich sagen … bleiern. Als ob mir jemand den Stecker gezogen hätte. Schmerzen sind es nicht, eher eine Schwäche, und ich kann mich überhaupt nicht mehr konzentrieren.',
-          'akt-intensitaet': 'Wenn 10 ganz schlimm ist: so 7 von 10. Für die Vorlesung reicht es noch, aber danach lege ich mich sofort hin.',
-          'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin aus. Es ist einfach überall — der ganze Körper ist schlapp.',
+          'akt-allgemein-art': 'Kraftlosigkeit und Müdigkeit, vor allem in den Beinen. Schwindel eigentlich nicht, ich kann mich nur so schlecht konzentrieren.',
+          'akt-allgemein-alltag': 'Ins Studium schaffe ich es kaum noch, in den Vorlesungen kann ich mich nicht konzentrieren. Danach lege ich mich sofort hin, das mache ich sonst nie.',
+          'akt-allgemein-tageszeit': 'Das ist eigentlich schon morgens da, gleich beim Aufstehen bin ich müde, obwohl ich die ganze Nacht geschlafen habe. Es bleibt den ganzen Tag ungefähr gleich.',
+          'akt-allgemein-gewicht': 'Ja, ich habe fünf Kilo abgenommen in drei Monaten, obwohl ich eigentlich normal esse, eher mehr. Und ich habe wahnsinnigen Durst, fünf, sechs Liter am Tag trinke ich.',
+          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, keine dicken Beine, kein dickes Gesicht. Aber ich muss ständig auf die Toilette, auch nachts drei-, viermal, und es ist immer viel.',
           'akt-verlauf': 'Das ist dauernd da, den ganzen Tag, nicht anfallsweise. Schon morgens beim Aufstehen bin ich müde, obwohl ich die ganze Nacht im Bett war.',
           'akt-ausloeser': 'Nein, da war nichts. Kein Infekt, keine Grippe, kein besonderer Stress. Es fing einfach an.',
           'akt-einfluss': 'Schlafen hilft nicht, das ist ja das Verrückte. Wenn ich trinke, geht es mir kurz besser, aber dann muss ich gleich wieder auf die Toilette. Medikamente habe ich dagegen keine genommen — höchstens Kaffee und mal einen Energydrink vor der Klausur, das bringt aber nichts.',
@@ -39857,6 +39781,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erstmanifestation eines Diabetes mellitus Typ 1 bei einem 24-jährigen, schlanken Patienten (178 cm, 65 kg, BMI etwa 20,5): klassische Trias aus Polyurie mit Nykturie, Polydipsie von 5 bis 6 Litern täglich und ungewolltem Gewichtsverlust von 5 kg in drei Monaten bei unverändert gutem Appetit, dazu Müdigkeit, Leistungsknick, intermittierende Sehstörungen durch osmotische Linsenquellung, Pruritus, Balanitis und Interdigitalmykose. Aktuell bestehen KEINE klinischen Hinweise auf eine diabetische Ketoazidose (keine Übelkeit, kein Erbrechen, keine Bauchschmerzen, keine Kussmaul-Atmung, kein Acetonfoetor, wacher und orientierter Patient) — sie muss jedoch sofort durch Blutzucker, Ketonnachweis und Blutgasanalyse ausgeschlossen werden.',
+        patientWorte: { verdacht: 'es sich um eine neu aufgetretene Zuckerkrankheit vom Typ 1 handelt, bei der die Bauchspeicheldrüse zu wenig Insulin bildet', diagnostik: 'nehmen wir Ihnen Blut und Urin ab, um den Blutzucker und weitere Werte genau zu bestimmen', therapie: 'müssen Sie ab jetzt Insulin spritzen, und wir zeigen Ihnen ausführlich, wie Sie Ihren Blutzucker selbst steuern können' },
         differenzialdiagnosen: [
           {
             dd: 'Diabetes mellitus Typ 2',
@@ -40035,14 +39960,11 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie viel trinken Sie am Tag, und seit wann? Haben Sie immer eine Flasche dabei?', kapitel: 'aktuell' },
         { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen? Haben Sie dafür etwas geändert, eine Diät gemacht oder Sport getrieben?', kapitel: 'vegetativ' },
-        { frage: 'Wie ist dabei Ihr Appetit — essen Sie weniger, gleich viel oder sogar mehr als früher?', kapitel: 'vegetativ' },
-        { frage: 'Ist Ihnen übel, mussten Sie erbrechen, oder haben Sie Bauchschmerzen? Fällt Ihnen das Atmen schwerer als sonst? (gezielter Ausschluss einer Ketoazidose)', kapitel: 'aktuell' },
-        { frage: 'Hat jemand einen ungewöhnlichen, obstartigen Geruch Ihrer Atemluft bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen, und wie ist dabei Ihr Appetit — essen Sie weniger, gleich viel oder sogar mehr als früher?', kapitel: 'vegetativ' },
+        { frage: 'Ist Ihnen übel, mussten Sie erbrechen, oder haben Sie Bauchschmerzen? Fällt Ihnen das Atmen schwerer als sonst?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen aufgefallen, dass Sie zeitweise verschwommen sehen — und geht das von selbst wieder weg?', kapitel: 'aktuell' },
         { frage: 'Juckt Ihre Haut? Haben Sie Pilzinfektionen, eine Rötung im Genitalbereich oder schlecht heilende Wunden bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie eine Zuckerkrankheit — und welchen Typ? Und gibt es Schilddrüsenerkrankungen, Vitiligo oder eine Zöliakie?', kapitel: 'familie-sozial' },
-        { frage: 'Ist bei Ihnen selbst jemals der Blutzucker gemessen worden, zum Beispiel bei einer Vorsorgeuntersuchung?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt, und nehmen Sie Kortison oder andere Medikamente ein?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
@@ -40240,6 +40162,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Michael Müller',
           age: 54,
@@ -40345,6 +40268,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich habe seit zwei Wochen ständig Durchfall und Bauchkrämpfe. Das hört einfach nicht auf, und ich habe schon fünf Kilo abgenommen.',
           'akt-ort': 'Hier, in der Mitte vom Bauch und unten drum herum. (zeigt mit der flachen Hand kreisend um den Nabel) Ich kann nicht auf einen Punkt zeigen, das ist überall im Bauch.',
           'akt-beginn': 'Vor zwei Wochen hat das angefangen. Nicht auf einen Schlag, eher über einen, zwei Tage schleichend. Wir waren vorher drei Wochen im Urlaub in Indonesien, auf Bali und Java, und eine Woche nach der Rückkehr ging es los.',
+          'akt-veraend-was': 'Aufgefallen ist mir der Stuhlgang – wässrig, hellgelb, das rieche ich schon von Weitem, und dazu eben die Krämpfe im Bauch. Blaue Flecken oder einen Knoten habe ich keine, die Haut ist normal, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'In der ersten Woche war es schlimmer, bis zu zehnmal am Tag, jetzt sind es drei bis fünf Mal – also eher etwas weniger geworden, aber weg ist es nicht. Die Farbe ist die ganze Zeit gleich geblieben, hellgelb und schaumig.',
+          'akt-veraend-blutung': 'Weh tut mir der Bauch, das hatte ich ja gesagt, aber Blut habe ich noch keins gesehen – weder im Stuhl noch im Urin, auch nicht beim Husten oder aus der Nase. Jucken tut auch nichts.',
           'akt-charakter': 'Krampfartig. Es zieht sich richtig zusammen, wie in Wellen, und dann lässt es wieder nach. Kolikartig würde ich sagen.',
           'akt-intensitaet': 'So 6 von 10. Wenn so eine Welle kommt, auch mal 7.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin. Nicht in den Rücken, nicht in die Schulter, nicht in die Leiste. Das bleibt im Bauch.',
@@ -40398,6 +40324,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Protrahierte infektiöse Gastroenteritis (Reisediarrhoe) nach dreiwöchigem Aufenthalt in Indonesien mit leichter bis mäßiger Dehydratation — bei einer Dauer von zwei Wochen, wässrig-schaumigen, hellen und auffallend fötiden Stühlen ohne Blut, ausgeprägtem Meteorismus, schwefligem Aufstoßen und Gewichtsverlust am ehesten parasitär im Sinne einer Lambliasis (Giardia duodenalis); differenzialdiagnostisch persistierende bakterielle Enteritis (ETEC, Campylobacter, Salmonellen) oder eine postinfektiöse Funktionsstörung',
+        patientWorte: { verdacht: 'ein anhaltender Darminfekt von Ihrer Reise die Ursache Ihrer Durchfälle ist, möglicherweise durch einen kleinen Parasiten', diagnostik: 'untersuchen wir eine Stuhlprobe auf Erreger und nehmen Blut ab, um einen Flüssigkeitsmangel zu erkennen', therapie: 'bekommen Sie ausreichend Flüssigkeit mit Elektrolyten, und je nach Erregernachweis ein passendes Medikament gegen den Parasiten' },
         differenzialdiagnosen: [
           {
             dd: 'Kolorektales Karzinom',
@@ -40587,19 +40514,12 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Waren Sie in den letzten Wochen oder Monaten im Ausland — und wenn ja, wo genau und wie lange?', kapitel: 'familie-sozial' },
         { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie vor der Reise eine Malariaprophylaxe eingenommen oder Reiseimpfungen erhalten?', kapitel: 'familie-sozial' },
-        { frage: 'Hat jemand aus Ihrer Familie oder Ihrem Umfeld zur gleichen Zeit ähnliche Beschwerden gehabt?', kapitel: 'familie-sozial' },
-        { frage: 'Wie sieht der Stuhl genau aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Blut oder Schleim im Stuhl gesehen?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie am Tag zur Toilette, und müssen Sie auch nachts dafür aufstehen?', kapitel: 'aktuell' },
-        { frage: 'Werden die Bauchschmerzen nach dem Essen schlimmer und nach dem Stuhlgang besser?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente' },
         { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial' },
-        { frage: 'Wie viel haben Sie ungewollt abgenommen, und in welchem Zeitraum?', kapitel: 'vegetativ' },
+        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Blut oder Schleim im Stuhl gesehen?', kapitel: 'aktuell' },
         { frage: 'Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?', kapitel: 'vegetativ' },
+        { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente' },
         { frage: 'Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Familie Darmkrebs oder chronische Darmerkrankungen?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie sich selbst etwas gegen den Durchfall gekauft, zum Beispiel Imodium?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Warum haben Sie einen Verdacht auf eine Gastroenteritis? Was spricht dafür und was dagegen?',
@@ -40946,6 +40866,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akutes rheumatisches Fieber — eine poststreptokokkale, immunologisch vermittelte Zweiterkrankung etwa drei Wochen nach einer nur drei statt zehn Tage antibiotisch behandelten Tonsillitis durch beta-hämolysierende Streptokokken der Gruppe A. Die Jones-Kriterien sind mit ZWEI Hauptkriterien erfüllt: wandernde, asymmetrische Polyarthritis der großen Gelenke (linker Ellenbogen, rechtes Knie, rechtes Sprunggelenk) und ein am Rumpf beschriebenes, nicht juckendes Erythema marginatum; hinzu kommen die Nebenkriterien Fieber bis 39,0 °C und zu erwartende erhöhte Entzündungsparameter. Der Nachweis der vorangegangenen Streptokokkeninfektion ist durch den hausärztlichen Rachenabstrich dokumentiert und wird durch den Antistreptolysin-O-Titer im Verlauf bestätigt. Eine Karditis — die prognosebestimmende Manifestation — ist klinisch bislang stumm und muss echokardiographisch aktiv ausgeschlossen werden.',
+        patientWorte: { verdacht: 'Ihr Körper nach der letzten Mandelentzündung eine überschießende Abwehrreaktion zeigt, die jetzt die Gelenke und das Herz betreffen kann', diagnostik: 'nehmen wir Blut ab, machen ein EKG und einen Herzultraschall, um eine Mitbeteiligung des Herzens zu erkennen', therapie: 'bekommen Sie ein Antibiotikum gegen die Streptokokken und entzündungshemmende Medikamente, um Herz und Gelenke zu schützen' },
         differenzialdiagnosen: [
           {
             dd: 'Septische (bakterielle) Arthritis bzw. Gelenkempyem',
@@ -41131,21 +41052,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten vier Wochen Halsschmerzen, eine Mandelentzündung oder eine Erkältung — auch wenn sie inzwischen längst wieder abgeklungen ist?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie deswegen beim Hausarzt? Wurde ein Abstrich vom Hals gemacht, und was kam dabei heraus?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein Antibiotikum bekommen? Welches, und wie lange haben Sie es TATSÄCHLICH eingenommen — bis zum Ende der Packung?', kapitel: 'medikamente' },
-        { frage: 'Wandern die Schmerzen von einem Gelenk zum anderen, und wird das zuerst betroffene Gelenk wieder besser, wenn das nächste anfängt?', kapitel: 'aktuell' },
-        { frage: 'Welche Gelenke sind betroffen — die großen wie Knie, Sprunggelenk, Ellenbogen und Schulter, oder die kleinen an Fingern und Zehen? Ist der Befall seitengleich?', kapitel: 'aktuell' },
-        { frage: 'Sind die Gelenke gerötet, geschwollen, überwärmt und in der Beweglichkeit eingeschränkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie ein Antibiotikum bekommen? Welches, und wie lange haben Sie es tatsächlich eingenommen — bis zum Ende der Packung?', kapitel: 'medikamente' },
+        { frage: 'Wandern die Schmerzen bei Ihnen von einem Gelenk zum anderen, und wird das zuerst betroffene Gelenk wieder besser, wenn das nächste anfängt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und hat ein fiebersenkendes Mittel geholfen?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen an der Haut etwas aufgefallen — blasse rötliche Ringe oder Flecken am Bauch oder Rücken, die nicht jucken und wieder verschwinden?', kapitel: 'aktuell' },
         { frage: 'Haben Sie kleine schmerzlose Knötchen unter der Haut bemerkt, zum Beispiel über den Ellenbogen, an den Knöcheln oder am Hinterkopf?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Herzklopfen, Herzstolpern, Schmerzen in der Brust oder Luftnot bemerkt, auch beim Treppensteigen oder nachts im Liegen?', kapitel: 'aktuell' },
         { frage: 'Sind Ihnen unwillkürliche Bewegungen aufgefallen, sind Sie ungeschickter geworden, hat sich Ihre Handschrift verändert, oder haben Ihre Angehörigen eine Stimmungsveränderung bemerkt?', kapitel: 'aktuell' },
-        { frage: 'War in Ihrer Familie oder in Ihrem Umfeld jemand mit Halsentzündung krank — Kinder, Kollegen, Mitbewohner?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie einen Zeckenstich, und haben Sie an der Einstichstelle einen sich ausbreitenden roten Ring gesehen?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie in den letzten Wochen Durchfall, Bauchschmerzen, Brennen beim Wasserlassen oder eine Bindehautentzündung?', kapitel: 'aktuell' },
-        { frage: 'Ist der Urin dunkel, schaumig oder rötlich, und haben Sie geschwollene Augenlider oder weniger Urin bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie schon einmal so eine Episode mit wandernden Gelenkschmerzen und Fieber, und ist bei Ihnen jemals ein rheumatisches Fieber festgestellt worden?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und warum?',
@@ -41382,6 +41295,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Susanne Kleinmeier',
           age: 45,
@@ -41492,6 +41406,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, mich hat es gestern von einer Minute auf die andere umgehauen. Ich habe hohes Fieber, Schüttelfrost und mir tut buchstäblich jeder Knochen weh. So schlecht ging es mir noch nie.',
           'akt-ort': 'Vor allem der Kopf — hier vorne an der Stirn und an den Schläfen, und hinter den Augen. Und dann die Arme, die Beine, der ganze Rücken. Und beim Schlucken brennt der Hals.',
           'akt-beginn': 'Seit gestern. Und ich kann Ihnen sogar die Uhrzeit sagen: Es war gegen zehn Uhr vormittags, ich saß in einer Besprechung. Innerhalb von ein paar Minuten wurde mir eiskalt, ich habe angefangen zu zittern, und dann kam das Fieber. Vorher war ich völlig gesund.',
+          'akt-infekt-fieber': 'Ja, ich habe gemessen: 39,0 Grad, unter dem Arm. Am höchsten war es gestern Abend. Und ja, Schüttelfrost hatte ich auch, gleich am Anfang, als es mich umgehauen hat – ich habe richtig gezittert.',
+          'akt-infekt-kontakt': 'Doch, ja – ich war vor drei Wochen für eine Woche in Gambia, dienstlich. Aber das ist erledigt, ich habe da brav meine Tabletten genommen. Kontakt zu Kranken: mein Sohn liegt seit vier Tagen mit Fieber und Husten im Bett, und zwei Kolleginnen sind diese Woche auch ausgefallen. Zu Tieren hatte ich keinen Kontakt, und gegessen habe ich nichts Ungewöhnliches.',
+          'akt-infekt-herd': 'Husten ja, trocken, der stört mich auch nachts. Halsschmerzen auch, das Schlucken brennt. Beim Wasserlassen brennt nichts. Durchfall hatte ich seit gestern Abend dreimal, wässrig. Ausschlag oder eine Wunde habe ich keine.',
           'akt-charakter': 'Der Kopf drückt und pocht, das ist dumpf. Die Arme und Beine ziehen und reißen — als hätte mich jemand verprügelt. Im Hals brennt es.',
           'akt-intensitaet': 'Die Kopf- und Gliederschmerzen: 7 von 10. Wenn das Fieber steigt, eher 8.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin. Es tut einfach überall gleichzeitig weh, am ganzen Körper.',
@@ -41548,6 +41465,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Influenza (echte Virusgrippe), am ehesten Influenza A, bei einer 45-jährigen Patientin mit Asthma bronchiale — also einer Risikopatientin — innerhalb der ersten 48 Stunden nach Symptombeginn: schlagartiger Beginn zu einer benennbaren Uhrzeit, Fieber 39,0 °C axillär mit Schüttelfrost, ausgeprägtes Krankheitsgefühl mit bettlägriger Abgeschlagenheit, starke Kopf- und Gliederschmerzen, trockener Reizhusten und Halsschmerzen bei typischer Saison und erkrankten Kontaktpersonen (Sohn, Schulklasse, zwei Kolleginnen). Solange die Malaria nach dem Gambia-Aufenthalt vor drei Wochen nicht durch Dicken Tropfen und Blutausstrich ausgeschlossen ist, bleibt die Diagnose vorläufig.',
+        patientWorte: { verdacht: 'es sich am ehesten um eine echte Virusgrippe handelt, denn die Beschwerden haben ganz plötzlich zu einer bestimmten Uhrzeit begonnen', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Rachenabstrich, um den Grippevirus nachzuweisen', therapie: 'sollten Sie sich schonen, viel trinken und fiebersenkende Mittel nehmen, bis das Fieber ganz abgeklungen ist' },
         differenzialdiagnosen: [
           {
             dd: 'Grippaler Infekt (banale Erkältung durch Rhino-, Corona-, Parainfluenza- oder RS-Viren)',
@@ -41753,21 +41671,13 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir sagen, wann genau es losging — können Sie die Stunde benennen, oder hat es sich über mehrere Tage aufgebaut?', kapitel: 'aktuell' },
+        { frage: 'Können Sie mir die genaue Uhrzeit nennen, zu der es losging, oder hat sich das über mehrere Tage aufgebaut?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie zuerst Schnupfen und Niesen, oder standen Fieber und Gliederschmerzen von Anfang an im Vordergrund?', kapitel: 'aktuell' },
-        { frage: 'Wie hoch war das Fieber, womit und wo haben Sie gemessen — unter dem Arm, im Ohr oder im Mund?', kapitel: 'aktuell' },
-        { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Test gemacht — nur vorne in der Nase oder tief im Rachen? An welchem Tag, und was für ein Test war das?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Umgebung Erkrankte — zu Hause, in der Schule Ihres Sohnes oder auf der Arbeit? Seit wann und mit welchen Beschwerden?', kapitel: 'familie-sozial' },
-        { frage: 'Waren Sie in den letzten Wochen im Ausland? Wo genau, wie lange, und haben Sie eine Malariaprophylaxe eingenommen — welche, und wie regelmäßig?', kapitel: 'familie-sozial' },
+        { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Abstrich gemacht — nur vorne in der Nase oder tief im Rachen? An welchem Tag, und was für ein Test war das?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie während Ihrer Auslandsreise in einem Malariagebiet, und haben Sie dort eine Malariaprophylaxe eingenommen — welche, und wie regelmäßig?', kapitel: 'familie-sozial' },
         { frage: 'Sind Sie gegen Grippe geimpft? Wann zuletzt, und wenn nicht — was hält Sie davon ab?', kapitel: 'vorerkrankungen' },
-        { frage: 'Ist Ihr Husten trocken, oder kommt etwas hoch? Welche Farbe hat der Auswurf?', kapitel: 'aktuell' },
-        { frage: 'Ging es Ihnen zwischendurch schon einmal besser und dann wieder schlechter, mit erneutem Fieberanstieg?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung? Brauchen Sie Ihr Notfallspray häufiger als sonst?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Herzrasen, Brustschmerzen oder das Gefühl, körperlich völlig eingebrochen zu sein?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Urin dunkler geworden, und sind die Muskelschmerzen so stark, dass Sie kaum aufstehen können?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie in den letzten 24 Stunden getrunken, und wie oft mussten Sie Wasser lassen?', kapitel: 'vegetativ' },
-        { frage: 'Können Sie den Kopf frei bewegen und das Kinn auf die Brust legen? Stört Sie helles Licht?', kapitel: 'aktuell' },
-        { frage: 'Besuchen Sie Ihren Vater im Pflegeheim, und wann waren Sie zuletzt dort?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -42122,6 +42032,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Fortgeschrittene primäre Coxarthrose links (Hüftgelenkarthrose) mit Anlauf-, Belastungs- und beginnendem Nachtschmerz, reduzierter Gehstrecke von 500 m und Kapselmuster; begünstigt durch Adipositas Grad I (110 kg bei 1,80 m, BMI ca. 34,0), schwere körperliche Arbeit mit Vibrationsbelastung als Baggerfahrer sowie chronischen Alkoholkonsum von etwa 100 g täglich',
+        patientWorte: { verdacht: 'es sich um einen fortgeschrittenen Verschleiß Ihres linken Hüftgelenks handelt, der die Beweglichkeit zunehmend einschränkt', diagnostik: 'untersuchen wir Ihre Hüfte gründlich und machen ein Röntgenbild, um das Ausmaß des Verschleißes zu sehen', therapie: 'sollten Sie abnehmen, Physiotherapie machen und Schmerzmittel nehmen, später kommt möglicherweise ein künstliches Hüftgelenk infrage' },
         differenzialdiagnosen: [
           {
             dd: 'Hüftkopfnekrose (aseptische Femurkopfnekrose)',
@@ -42309,21 +42220,12 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Zeigen Sie mir bitte mit einem Finger, wo genau der Schmerz sitzt — beginnt er wirklich am Knie oder fängt er weiter oben in der Leiste an?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz bis unter das Knie, in die Wade oder in den Fuß aus?', kapitel: 'aktuell' },
+        { frage: 'Beginnt der Schmerz wirklich im Knie, oder eigentlich weiter oben in der Leiste?', kapitel: 'aktuell' },
         { frage: 'Sind die ersten Schritte nach dem Aufstehen oder nach längerem Sitzen am schlimmsten, und wird es nach einigen Schritten besser?', kapitel: 'aktuell' },
         { frage: 'Wie lange ist Ihre Hüfte morgens steif — Minuten oder mehr als eine halbe Stunde?', kapitel: 'aktuell' },
-        { frage: 'Wie weit können Sie heute schmerzfrei gehen, und wie weit konnten Sie vor einem halben Jahr gehen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie inzwischen auch Schmerzen in Ruhe oder nachts, zum Beispiel beim Umdrehen im Bett?', kapitel: 'aktuell' },
-        { frage: 'Können Sie sich links noch die Socken und die Schuhe anziehen und die Fußnägel schneiden?', kapitel: 'aktuell' },
+        { frage: 'Wie hat sich Ihre Gehstrecke in den letzten sechs Monaten verändert — wie weit kamen Sie früher, wie weit heute?', kapitel: 'aktuell' },
         { frage: 'Fällt Ihnen das Ein- und Aussteigen ins Auto oder in Ihren Bagger schwer? Wie kommen Sie die Treppe in den zweiten Stock hoch?', kapitel: 'aktuell' },
-        { frage: 'Hinken Sie, und knirscht oder reibt es in der Hüfte?', kapitel: 'aktuell' },
-        { frage: 'Gab es einen Sturz, einen Unfall oder eine plötzliche Verschlechterung innerhalb weniger Tage?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie als Kind eine Hüfterkrankung, eine Spreizhose oder eine Schiene? Ist Ihnen jemals gesagt worden, dass Ihre Hüftpfanne nicht richtig angelegt ist?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie jemals über längere Zeit Kortison eingenommen oder gespritzt bekommen?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Alkohol trinken Sie an einem normalen Tag — und seit wann?', kapitel: 'noxen' },
-        { frage: 'Haben Sie Fieber, Nachtschweiß oder ungewollt Gewicht verloren? Ist bei Ihnen jemals eine Krebserkrankung festgestellt worden?', kapitel: 'vorerkrankungen' },
-        { frage: 'Kribbelt oder ist etwas taub am Bein, und können Sie Wasserlassen und Stuhlgang normal halten?', kapitel: 'aktuell' },
         { frage: 'Tut Ihnen beim Gehen die Wade weh, und geht das in Ruhe nach wenigen Minuten wieder weg?', kapitel: 'aktuell' },
         { frage: 'Wie viele Tabletten Voltaren nehmen Sie am Tag, und hat Ihnen jemand einen Magenschutz dazu verordnet?', kapitel: 'medikamente' },
       ],
@@ -42534,6 +42436,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Anton Kaiser',
           age: 53,
@@ -42632,11 +42535,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Ich habe in einer Änderungsschneiderei gearbeitet, den ganzen Tag sitzend an der Maschine — mit Staub oder Chemikalien hatte ich nichts zu tun.',
           'pers-hausarzt': 'Ja, Dr. Bergmann. Bei dem war ich gestern zum Blutabnehmen, der hat mich hierher geschickt.',
           'akt-motiv': 'Ehrlich gesagt schickt mich mein Hausarzt. Ich habe in den letzten zwei Jahren immer mehr zugenommen, ich bin ständig müde und zu nichts mehr zu gebrauchen. Und gestern kamen die Blutwerte — der Zucker sei bei knapp 150 gewesen und das Cholesterin zu hoch. Er hat irgendwas von einem Syndrom gesagt.',
-          'akt-ort': 'Weh tut mir eigentlich nichts Bestimmtes — außer den Knien, die tun beim Treppensteigen weh, beide. Die Müdigkeit, die ist ja überall, die kann ich Ihnen nicht zeigen.',
           'akt-beginn': 'Angefangen hat das vor etwa zwei Jahren, ganz langsam, schleichend. Genau in der Zeit, als ich meine Arbeit verloren habe und meine Frau ausgezogen ist.',
-          'akt-charakter': 'Müde und schlapp. Wie ein Sack. Ich bin morgens schon müde, obwohl ich acht, neun Stunden im Bett war, und alles ist mir zu viel.',
-          'akt-intensitaet': 'Wenn ich es mit einer Zahl sagen soll: die Müdigkeit ist so 7 von 10. Die Knieschmerzen beim Treppensteigen etwa 5 von 10.',
-          'akt-ausstrahlung': 'Nein, ausstrahlen tut nichts. Die Knie tun genau in den Knien weh, das zieht nicht ins Bein hinunter.',
+          'akt-allgemein-art': 'Müde und schlapp, wie ein Sack, das hatte ich schon gesagt. Schwindel habe ich keinen, es ist eher, dass ich zu nichts mehr Kraft habe.',
+          'akt-allgemein-alltag': 'Im Alltag schaffe ich kaum noch was — Einkaufen, Aufräumen, das schiebe ich vor mir her. Nachmittags nicke ich vorm Fernseher ein, das ist mir früher nicht passiert. Extra hinlegen, nein, das mache ich nicht, ich sitze dann einfach im Sessel.',
+          'akt-allgemein-tageszeit': 'Das ist eigentlich den ganzen Tag da. Am Nachmittag ist es am schlimmsten, da nicke ich weg. Besser wird es eigentlich nie, auch nicht durch Ruhe.',
+          'akt-allgemein-gewicht': 'Zugenommen habe ich, ja — so zehn Kilo in den letzten zwei Jahren. Der Appetit ist eher größer geworden, und Durst habe ich auch viel, ich trinke am Tag zwei, drei Liter Cola, dazu noch Wasser.',
+          'akt-allgemein-schwellung': 'Geschwollen bin ich nirgends besonders — außer dass ich insgesamt einfach dick bin. Beim Wasserlassen muss ich nachts zwei-, dreimal raus, das ist neu.',
           'akt-verlauf': 'Das ist dauernd da, jeden Tag, und es wird langsam schlimmer. Nachmittags nicke ich vor dem Fernseher ein — das ist mir früher nie passiert.',
           'akt-ausloeser': 'Angefangen hat es mit der Kündigung. Seitdem sitze ich zu Hause, ich koche nicht mehr richtig, es gibt Pizza oder was vom Imbiss, und Cola trinke ich literweise dazu. Bewegen tue ich mich praktisch gar nicht mehr.',
           'akt-einfluss': 'Besser wird es eigentlich nie. Schlimmer beim Treppensteigen, dritter Stock ohne Aufzug, da muss ich zweimal stehen bleiben. Genommen nur Diclofenac fürs Knie.',
@@ -42717,6 +42621,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Metabolisches Syndrom nach den Kriterien der International Diabetes Federation: obligate abdominale Adipositas mit einem Bauchumfang von 124 cm bei einem BMI von 39,8 kg/m² (Adipositas Grad II) sowie alle vier Nebenkriterien erfüllt — Nüchternglukose 148 mg/dl, Blutdruck 155/95 mmHg unter laufender antihypertensiver Therapie, Triglyzeride 310 mg/dl und HDL-Cholesterin 34 mg/dl. Zugrunde liegt ein bislang nicht diagnostizierter Typ-2-Diabetes (HbA1c 7,8 %) mit bereits bestehenden Folgeschäden: diabetische Retinopathie (augenärztlich vor sechs Monaten beschrieben) und beginnende sensible Polyneuropathie. Begleitend Verdacht auf ein obstruktives Schlafapnoe-Syndrom, Verdacht auf eine Fettleber gemischter (metabolischer und alkoholtoxischer) Genese bei etwa 80 g Alkohol täglich, Gonarthrose beidseits sowie eine reaktive depressive Symptomatik bei Arbeitslosigkeit und Trennung.',
+        patientWorte: { verdacht: 'bei Ihnen mehrere Stoffwechselprobleme gleichzeitig vorliegen, nämlich Übergewicht, hoher Blutdruck, erhöhter Zucker und erhöhte Blutfette', diagnostik: 'nehmen wir Ihnen Blut ab und messen Blutzucker, Blutfette und Blutdruck genauer', therapie: 'sollten Sie Ihre Ernährung umstellen, sich mehr bewegen und möglicherweise Medikamente gegen Zucker und Blutdruck nehmen' },
         differenzialdiagnosen: [
           {
             dd: 'Primäre depressive Störung',
@@ -42907,21 +42812,14 @@ export function seedCases(): Case[] {
         'auf-koloskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was essen und trinken Sie an einem ganz normalen Tag — vom Aufstehen bis zum Zubettgehen? Wie viel trinken Sie davon an gezuckerten Getränken?', kapitel: 'aktuell' },
+        { frage: 'Was essen und trinken Sie an einem ganz normalen Tag — vom Aufstehen bis zum Zubettgehen? Wie viel davon sind gezuckerte Getränke?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stunden am Tag sitzen Sie, und wie viel bewegen Sie sich im Alltag? Treiben Sie Sport?', kapitel: 'aktuell' },
         { frage: 'Wie hat sich Ihr Gewicht über die letzten Jahre entwickelt? Haben Sie schon einmal versucht abzunehmen, und was ist dabei herausgekommen?', kapitel: 'vorerkrankungen' },
         { frage: 'Schnarchen Sie? Hat Ihnen jemand gesagt, dass Sie im Schlaf Atempausen haben? Schlafen Sie tagsüber ungewollt ein — auch beim Autofahren?', kapitel: 'vegetativ' },
-        { frage: 'Müssen Sie nachts zum Wasserlassen aufstehen, und haben Sie vermehrt Durst?', kapitel: 'vegetativ' },
-        { frage: 'Wurde Ihnen schon einmal gesagt, dass Ihr Blutzucker oder Ihre Blutfette erhöht sind? Was genau hat Ihnen Ihr Hausarzt gestern gesagt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Was genau hat Ihnen Ihr Hausarzt gestern zu Ihrem Blutzucker und Ihren Blutfettwerten gesagt?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie in letzter Zeit beim Augenarzt? Was hat er zu Ihrer Netzhaut gesagt, und was hat er Ihnen empfohlen?', kapitel: 'aktuell' },
-        { frage: 'Kribbeln oder taub sind Ihre Füße manchmal, besonders nachts? Heilen kleine Wunden schlechter als früher?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihnen an der Haut im Nacken oder in den Achselhöhlen eine Veränderung aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Gewicht oder den Zucker beeinflussen können — Kortison, Tabletten gegen seelische Beschwerden, Wassertabletten oder Betablocker?', kapitel: 'medikamente' },
-        { frage: 'Wie oft nehmen Sie das Diclofenac tatsächlich ein — nur bei Bedarf oder inzwischen täglich?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Alkohol trinken Sie genau, an wie vielen Tagen in der Woche, und seit wann ist es mehr geworden?', kapitel: 'noxen' },
-        { frage: 'Gibt es in Ihrer Familie Zuckerkrankheit, Bluthochdruck oder frühe Herzinfarkte?', kapitel: 'familie-sozial' },
-        { frage: 'Wie geht es Ihnen seelisch, seit Sie nicht mehr arbeiten? Denken Sie manchmal daran, sich das Leben zu nehmen?', kapitel: 'familie-sozial' },
-        { frage: 'Was würden Sie selbst gern als Erstes ändern — und was hat bisher am meisten im Weg gestanden?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Ihr Patient ist ja depressiv — aber welches Hauptsymptom hat er?',
@@ -43297,6 +43195,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Karzinoid-Syndrom bei neuroendokrinem Tumor (NET), am ehesten des Dünndarms beziehungsweise terminalen Ileums, mit hoher Wahrscheinlichkeit bereits lebermetastasiert — denn erst die Umgehung des hepatischen First-Pass-Effekts erklärt Flush, sekretorische Diarrhö und Bronchospasmus',
+        patientWorte: { verdacht: 'ein seltener, langsam wachsender Tumor im Dünndarm Ihre Hautrötungen und den Durchfall verursacht', diagnostik: 'nehmen wir Ihnen Blut ab, sammeln Urin über einen ganzen Tag und machen Bilder von Ihrem Bauch', therapie: 'bekommen Sie ein Medikament, das die Beschwerden lindert, und der Tumor wird anschließend gezielt behandelt' },
         differenzialdiagnosen: [
           {
             dd: 'Reizdarmsyndrom (Colon irritabile)',
@@ -43506,17 +43405,12 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell' },
         { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst — Alkohol, scharfes Essen, Käse, Schokolade, Aufregung oder Anstrengung?', kapitel: 'aktuell' },
-        { frage: 'Wie oft haben Sie Stuhlgang, wie sieht er aus, und müssen Sie auch NACHTS deswegen aufstehen?', kapitel: 'aktuell' },
-        { frage: 'Hängt der Durchfall damit zusammen, ob und was Sie gegessen haben?', kapitel: 'aktuell' },
+        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell' },
         { frage: 'Und wie war es vor diesen sechs Wochen — hatten Sie schon früher Phasen mit Durchfall und Bauchschmerzen?', kapitel: 'aktuell' },
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie während dieser Anfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Gewicht haben Sie in welcher Zeit verloren, und haben Sie etwas dafür getan?', kapitel: 'vegetativ' },
+        { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie noch Ihre Regelblutung? Sind diese Hitzeanfälle anders als Hitzewallungen in den Wechseljahren?', kapitel: 'frauenanamnese' },
-        { frage: 'Wurde bei Ihnen jemals der Blutdruck während eines solchen Anfalls gemessen — war er dabei hoch oder niedrig?', kapitel: 'aktuell' },
-        { frage: 'Wurden Sie schon einmal am Blinddarm operiert?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie regelmäßig Paracetamol oder ein Mittel gegen Sodbrennen? Beides kann unsere Laborwerte verfälschen.', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -43856,6 +43750,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Eingeschmolzener Weichteilabszess der rechten Gesäßhälfte (Spritzenabszess/Injektionsabszess) drei Tage nach intramuskulärer Diclofenac-Injektion, mit begleitender Weichteilinfektion und systemischer Entzündungsreaktion (Fieber 39,0 °C, Schüttelfrost) bei bekanntem, vermutlich unzureichend eingestelltem Diabetes mellitus Typ 2',
+        patientWorte: { verdacht: 'sich unter der Haut an Ihrem Gesäß eine abgekapselte Eiteransammlung gebildet hat', diagnostik: 'untersuchen wir die Schwellung genau und nehmen Ihnen Blut ab, um die Entzündung zu messen', therapie: 'muss die Eiteransammlung noch heute chirurgisch geöffnet und entleert werden, das ist ein kleiner Routineeingriff' },
         differenzialdiagnosen: [
           {
             dd: 'Nekrotisierende Fasziitis',
@@ -44026,11 +43921,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Haben Sie in den letzten Tagen eine Spritze bekommen — und wenn ja, wo genau und weswegen?', kapitel: 'medikamente' },
         { frage: 'Wie viele Tage lagen zwischen der Spritze und den ersten Beschwerden?', kapitel: 'medikamente' },
-        { frage: 'Fühlt sich die Stelle in der Mitte weich an, so als wäre Flüssigkeit darunter, oder ist sie durchgehend hart?', kapitel: 'aktuell' },
-        { frage: 'Ist aus der Stelle schon einmal Eiter oder Flüssigkeit von allein herausgekommen?', kapitel: 'aktuell' },
         { frage: 'Breitet sich die Rötung von Stunde zu Stunde weiter aus, sind Blasen oder dunkle Stellen aufgetreten, oder knistert die Haut unter den Fingern?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen, und hatten Sie Schüttelfrost?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Beschwerden am After — Schmerzen beim Stuhlgang, Eiter, Blut oder Schleim im Stuhl?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie schon einmal ähnliche Eiterbeulen, besonders in den Achseln, in den Leisten oder in der Pofalte?', kapitel: 'aktuell' },
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente' },
@@ -44218,6 +44109,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Julia Springer',
           age: 19,
@@ -44329,6 +44221,10 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ehrlich gesagt bin ich nur hier, weil meine Mutter das wollte. Sie macht sich Sorgen, weil ich angeblich zu wenig esse und zu dünn bin. Mir selbst geht es gut, ich habe eigentlich keine Beschwerden.',
           'akt-ort': 'Weh tut mir eigentlich nichts. (auf Nachfrage) Naja … nach dem Essen habe ich manchmal so ein Druckgefühl hier oben im Bauch, unter dem Brustbein. Aber das sind keine richtigen Schmerzen.',
           'akt-beginn': 'Das Druckgefühl habe ich seit ungefähr einem Jahr, seit ich anders esse. Abgenommen habe ich auch in dem Jahr, von 58 auf 48 Kilo.',
+          'akt-psych-stimmung': 'Es geht schon. (kurze Pause) Vielleicht bin ich manchmal ein bisschen angespannt, wegen der Schule und dem Abitur. Besser ist es, wenn ich laufen war, oder wenn ich weiß, was ich am Tag esse – dann fühle ich mich irgendwie unter Kontrolle.',
+          'akt-psych-antrieb': 'Nein, ich stehe früh auf, um fünf, für den Lauf – das mache ich schon gerne. Freude... (überlegt) an manchen Dingen schon, an guten Noten zum Beispiel. Mit Freunden essen zu gehen, das meide ich eher, aber das ist ja normal, oder?',
+          'akt-psych-schlaf': 'Ich schlafe nicht so viel, so fünf, sechs Stunden, ich wache oft früh auf. Konzentrieren fällt mir in letzter Zeit schwerer, in der Schule bin ich manchmal neben mir, aber das schreibe ich dem Stress zu.',
+          'akt-psych-sicherheit': '(zögert, wird leiser) Nein, einen Plan oder sowas habe ich nicht, und ich würde mir nichts antun. Aber manchmal, wenn alles zu viel wird, denke ich schon, dass es einfacher wäre, morgens einfach nicht aufzuwachen. Das ist aber nicht oft, und ich würde nie etwas dafür tun.',
           'akt-charakter': 'Es fühlt sich an wie ein Druck, als wäre der Magen zu voll und würde sich nicht bewegen. Nicht stechend, nicht brennend.',
           'akt-intensitaet': 'So 3 von 10. Es ist wirklich nicht schlimm, eher unangenehm.',
           'akt-ausstrahlung': 'Nein, das bleibt genau da im Oberbauch. Es strahlt nirgendwohin aus.',
@@ -44390,6 +44286,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Dringender Verdacht auf eine Anorexia nervosa vom Purging-Typ (ICD-10 F50.0) bei einer 19-jährigen Schülerin: selbst herbeigeführtes Untergewicht mit einem BMI von 17,0 kg/m² (48 kg bei 168 cm) nach einem Gewichtsverlust von 10 kg in zwölf Monaten, ausgeprägte Angst vor Gewichtszunahme, Körperschemastörung, restriktives Essverhalten mit exzessivem Sport, selbst induziertem Erbrechen und Laxanzienabusus, sekundäre Amenorrhoe seit acht Monaten sowie Bradykardie und Hypotonie bei fehlender Krankheitseinsicht',
+        patientWorte: { verdacht: 'Ihr starkes Untergewicht mit einem sehr angespannten Verhältnis zum Essen und zu Ihrem Körper zusammenhängt', diagnostik: 'messen wir Ihre Blutwerte, schreiben ein Herz-EKG und sprechen ausführlich mit Ihnen über Ihren Alltag', therapie: 'brauchen Sie eine engmaschige Betreuung mit langsamem Ernährungsaufbau und Gesprächen, notfalls auch eine stationäre Behandlung' },
         differenzialdiagnosen: [
           {
             dd: 'Bulimia nervosa',
@@ -44605,23 +44502,14 @@ export function seedCases(): Case[] {
         'auf-gastroskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Sie sagen, Sie sind vor allem gekommen, weil Ihre Mutter sich Sorgen macht — was genau macht ihr denn Sorgen?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie früher gewogen, und wie hat sich Ihr Gewicht im letzten Jahr entwickelt?', kapitel: 'vegetativ' },
-        { frage: 'Wie sieht ein ganz normaler Tag bei Ihnen aus — vom Aufstehen bis zum Schlafengehen, auch was das Essen angeht?', kapitel: 'vegetativ' },
+        { frage: 'Wie sieht ein ganz normaler Tag bei Ihnen aus, auch was das Essen angeht?', kapitel: 'aktuell' },
         { frage: 'Gibt es Lebensmittel, die Sie bewusst weglassen? Was fällt Ihnen besonders schwer zu essen?', kapitel: 'aktuell' },
-        { frage: 'Sie haben von einem Druckgefühl nach dem Essen gesprochen — was hilft Ihnen dagegen, wird es von selbst besser?', kapitel: 'aktuell' },
         { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Abführmittel, Entwässerungstabletten, Appetitzügler oder Diätmittel ein? Auch pflanzliche Mittel oder etwas aus dem Internet?', kapitel: 'medikamente' },
+        { frage: 'Nehmen Sie Abführmittel, Entwässerungstabletten, Appetitzügler oder Diätmittel ein — auch pflanzliche Mittel oder etwas aus dem Internet?', kapitel: 'medikamente' },
         { frage: 'Wie viel bewegen Sie sich am Tag? Wie geht es Ihnen an einem Tag, an dem Sie nicht laufen können?', kapitel: 'aktuell' },
-        { frage: 'Wann hatten Sie zuletzt Ihre Regelblutung, und war der Zyklus vorher regelmäßig?', kapitel: 'frauenanamnese' },
         { frage: 'Haben Sie Angst davor, zuzunehmen? Was würde passieren, wenn die Waage zwei Kilo mehr anzeigen würde?', kapitel: 'aktuell' },
         { frage: 'Wenn Sie sich im Spiegel ansehen — was sehen Sie da?', kapitel: 'aktuell' },
-        { frage: 'Frieren Sie häufiger als andere? Ist Ihnen aufgefallen, dass die Haare ausgehen oder die Haut trockener geworden ist?', kapitel: 'aktuell' },
-        { frage: 'Wird Ihnen beim Aufstehen schwindelig, ist Ihnen schon einmal schwarz vor Augen geworden oder sind Sie umgekippt?', kapitel: 'aktuell' },
-        { frage: 'Wie ist Ihre Stimmung in den letzten Monaten gewesen, und wie ist es mit Konzentration und Schule?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in dieser Zeit manchmal daran gedacht, dass Sie nicht mehr leben möchten oder dass es einfacher wäre, nicht mehr da zu sein?', kapitel: 'aktuell' },
-        { frage: 'Wann hat das alles angefangen — gab es damals etwas Bestimmtes, was Sie belastet hat?', kapitel: 'aktuell' },
-        { frage: 'Wären Sie einverstanden, wenn ich mit Ihrer Mutter spreche, damit ich mir ein vollständigeres Bild machen kann?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -44818,6 +44706,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hanna Hüber',
           age: 44,
@@ -44922,6 +44811,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich habe seit zehn Tagen immer wieder hohes Fieber, bis 40 Grad, mit Schüttelfrost — und es geht einfach nicht weg. Ich dachte erst, das ist eine Grippe, aber jetzt ist auch mein Urin ganz dunkel geworden, und mir ist richtig schlecht.',
           'akt-ort': 'Der Kopf tut überall weh, wie ein Reifen um den ganzen Kopf. Und der Bauch — nicht an einer Stelle, eher überall so dumpf. (legt die flache Hand auf die Bauchmitte)',
           'akt-beginn': 'Vor zehn Tagen. Es kam nicht schlagartig, eher über einen Tag: erst Gliederschmerzen und ein Frösteln, abends dann das erste Mal richtig Fieber mit Schüttelfrost.',
+          'akt-infekt-fieber': 'Ja, ich habe gemessen, bis 40 Grad. Am höchsten ist es abends, aber ehrlich gesagt ohne festen Rhythmus – manchmal steigt es zweimal am Tag. Schüttelfrost hatte ich am Anfang jedes Mal, wenn das Fieber kam.',
+          'akt-infekt-kontakt': 'Ich war ja eineinhalb Jahre in Malawi, das hatte ich gesagt. Prophylaxe habe ich die ganze Zeit genommen, jeden Tag Tabletten – (etwas defensiv) das war nicht immer einfach, aber ich habe es gemacht. Mit dem Moskitonetz war ich, ehrlich gesagt, nicht immer so konsequent, gerade in der Regenzeit. Kontakt zu Kranken, außer etwas Durchfall bei Kollegen, hatte ich nicht, und zu Tieren auch nicht besonders.',
+          'akt-infekt-herd': 'Husten ja, trocken, ein bisschen. Halsschmerzen nicht. Beim Wasserlassen brennt nichts, aber der Urin ist eben dunkel, wie Cola, das macht mir am meisten Angst. Durchfall hatte ich einmal, vor vier Tagen. Ausschlag oder eine Wunde habe ich keine.',
           'akt-charakter': 'Die Kopfschmerzen sind drückend, dumpf. Die Muskeln und Gelenke ziehen, wie bei einer schweren Grippe. Der Bauch ist eher dumpf, nicht krampfartig.',
           'akt-intensitaet': 'Die Kopfschmerzen meistens 7 von 10, wenn das Fieber kommt bis 8, dazwischen vielleicht 5. Ganz weg sind sie nie.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin. Es ist einfach überall.',
@@ -44978,6 +44870,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Malaria tropica (Plasmodium falciparum) nach eineinhalbjährigem Aufenthalt in Malawi ohne Chemoprophylaxe — Fieberbeginn 11 Tage nach Rückkehr, unregelmäßiges Fieber mit Schüttelfrost, Kopf- und Gliederschmerzen, gastrointestinale Symptome und Hämolysezeichen (dunkler Urin); Hochrisikopatientin durch Splenektomie und fehlende Semi-Immunität',
+        patientWorte: { verdacht: 'Sie sich auf Ihrer Reise in Afrika mit einer ernsten Form der Malaria angesteckt haben', diagnostik: 'nehmen wir Ihnen sofort Blut ab und untersuchen es unter dem Mikroskop auf die Erreger', therapie: 'müssen Sie im Krankenhaus bleiben und sofort Medikamente gegen die Erreger über die Vene bekommen' },
         differenzialdiagnosen: [
           {
             dd: 'Influenza / grippaler Infekt',
@@ -45132,11 +45025,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie unter einem Moskitonetz geschlafen und Mückenschutzmittel benutzt? Waren Sie abends im Freien?', kapitel: 'familie-sozial' },
         { frage: 'Kommt das Fieber in einem regelmäßigen Rhythmus, zum Beispiel jeden zweiten oder dritten Tag, oder unregelmäßig?', kapitel: 'aktuell' },
         { frage: 'Wie sieht der Urin genau aus — dunkel wie Cola oder rötlich wie Blut? Ist der Stuhl hell? Sind Ihre Augen gelb?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie im Malawisee oder in anderen Flüssen und Seen geschwommen?', kapitel: 'familie-sozial' },
-        { frage: 'Hatte jemand in Ihrer Familie oder Ihrem Umfeld in Malawi Malaria oder eine andere fieberhafte Erkrankung?', kapitel: 'familie-sozial' },
         { frage: 'Sie haben keine Milz mehr — wurden Sie deswegen gegen Pneumokokken und Meningokokken geimpft, und tragen Sie einen Asplenie-Ausweis?', kapitel: 'vorerkrankungen' },
-        { frage: 'Welche Reiseimpfungen haben Sie vor der Ausreise erhalten — Hepatitis A und B, Typhus, Gelbfieber?', kapitel: 'vorerkrankungen' },
-        { frage: 'Besteht die Möglichkeit einer Schwangerschaft? Wann war Ihre letzte Regelblutung?', kapitel: 'frauenanamnese' },
         { frage: 'Haben Sie Verwirrtheit, Schläfrigkeit, Atemnot oder Blutungen bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -45300,6 +45189,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Gerhard Steinbach',
           age: 63,
@@ -45392,11 +45282,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Viel Schreibtisch, viel Gericht, viele Termine — mit Chemikalien oder so habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, Dr. Brenner. Bei dem war ich in den letzten zwei Wochen schon zweimal deswegen.',
           'akt-motiv': 'Seit gut einer Woche Fieberschübe mit Schüttelfrost, nachts klatschnass, ich bin fix und fertig. Das Antibiotikum vom Hausarzt hat nichts gebracht.',
-          'akt-ort': 'Wo? Das ist nicht an einer Stelle, das ist überall. Die Glieder, die Muskeln, der ganze Körper tut weh, wie bei einer schweren Grippe. Der Hals tut nicht weh, husten muss ich nicht, der Bauch ist ruhig, und das Wasserlassen brennt nicht.',
           'akt-beginn': 'Angefangen hat es schleichend, vor etwa drei Wochen — ich war einfach müde und schlapp, ich dachte, das ist der Stress in der Kanzlei. Seit gut einer Woche kommt dann das Fieber dazu, richtig mit Schüttelfrost.',
-          'akt-charakter': 'Das Fieber kommt in Schüben, wellenförmig. Nachmittags und abends steigt es, bis 39,4 habe ich gemessen, dann Schüttelfrost mit Zähneklappern, dann schwitze ich es nachts raus, und morgens ist es fast normal. Und am nächsten Tag geht es wieder los.',
-          'akt-intensitaet': 'Wenn Sie so fragen: Die Erschöpfung ist eine 8 von 10, ich schaffe kaum noch die Treppe in den ersten Stock. Die Gliederschmerzen vielleicht eine 4.',
-          'akt-ausstrahlung': 'Ausstrahlen — nein, das kann ich nicht sagen. Es ist kein Schmerz, der irgendwohin zieht, es ist überall gleich.',
+          'akt-infekt-fieber': 'Ja, gemessen habe ich, mit dem Fieberthermometer aus der Küche — bis 39,4. Am schlimmsten ist es nachmittags und abends, mit richtigem Schüttelfrost, dass mir die Zähne klappern. Morgens ist es fast normal, und dann geht das ganze Spiel am nächsten Tag von vorne los.',
+          'akt-infekt-kontakt': 'Im Ausland war ich schon über ein Jahr nicht mehr. Kranke kenne ich keine, mit denen ich zu tun hatte, Tiere habe ich keine, und gegessen habe ich nichts Ungewöhnliches — nur das ganz normale Essen aus der Kanzlei-Kantine.',
+          'akt-infekt-herd': 'Husten habe ich keinen, Halsschmerzen auch nicht, und beim Wasserlassen brennt nichts — nur dass der Urin zweimal rötlich-braun war, das hatte ich Ihnen ja schon gesagt. Der Stuhl ist seit einer Woche eher weich, zwei-, dreimal am Tag, aber ohne Blut. Einen Ausschlag oder eine offene Wunde habe ich nicht, ich hab doch nur eine Grippe, dachte ich.',
           'akt-verlauf': 'Es wird eher schlimmer. Zuerst nur müde, dann das Fieber, und die letzten Tage kommt die Luftnot beim Treppensteigen dazu. Nach dem Antibiotikum war es zwei Tage etwas besser, dann kam das Fieber genauso wieder.',
           'akt-ausloeser': 'Nein, eigentlich nicht. Nur — vor vier Wochen wurde mir beim Zahnarzt ein Backenzahn gezogen, hat ordentlich nachgeblutet. Antibiotikum gab es keins.',
           'akt-einfluss': 'Paracetamol drückt das Fieber für ein paar Stunden, dann kommt es wieder. Das Antibiotikum vom Hausarzt — Clarithromycin — habe ich fünf Tage genommen, kurz war es besser, danach wie vorher; seit drei Tagen nehme ich es nicht mehr. Ruhe hilft, jede Anstrengung macht die Luftnot schlimmer.',
@@ -45448,6 +45337,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Subakute infektiöse Endokarditis der nativen Mitralklappe bei vorbestehender rheumatischer Mitralklappeninsuffizienz, Eintrittspforte Zahnextraktion vor vier Wochen (am ehesten Viridans-Streptokokken), mit Osler-Knötchen, Splinter-Hämorrhagien, Immunkomplex-Glomerulonephritis (schmerzlose Hämaturie) und beginnender Linksherzinsuffizienz (NYHA II) — Blutkulturen durch die vorausgegangene Clarithromycin-Gabe möglicherweise beeinträchtigt',
+        patientWorte: { verdacht: 'sich eine bakterielle Entzündung an einer Ihrer Herzklappen entwickelt hat', diagnostik: 'nehmen wir Ihnen mehrmals Blut für Blutkulturen ab und machen eine Ultraschalluntersuchung Ihres Herzens', therapie: 'müssen Sie über mehrere Wochen im Krankenhaus bleiben und Antibiotika direkt über die Vene bekommen' },
         differenzialdiagnosen: [
           {
             dd: 'Sepsis anderer Genese — Pyelonephritis (wegen der Hämaturie), Pneumonie, Cholangitis',
@@ -45593,19 +45483,13 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie verläuft das Fieber über den Tag — kommt es in Schüben, und wie hoch haben Sie gemessen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schüttelfrost oder Nachtschweiß, sodass Sie das Bettzeug wechseln müssen?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie ungewollt abgenommen? Wie ist der Appetit?', kapitel: 'vegetativ' },
+        { frage: 'Wie verläuft das Fieber über die Tage — kommt es in Wellen, mit Phasen, in denen es Ihnen besser ging?', kapitel: 'aktuell' },
         { frage: 'Waren Sie in den letzten Wochen beim Zahnarzt — wurde ein Zahn gezogen oder eine Wurzel behandelt? Haben Sie davor ein Antibiotikum bekommen?', kapitel: 'medikamente' },
         { frage: 'Ist bei Ihnen eine Herzklappenerkrankung, ein Herzfehler oder eine künstliche Herzklappe bekannt? Hatten Sie als Kind rheumatisches Fieber?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hat Ihnen ein Arzt schon einmal ein Herzgeräusch beschrieben?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie Veränderungen an den Fingernägeln, an den Fingerkuppen oder an den Handflächen bemerkt — kleine Knötchen, Striche oder rote Flecken? Tun sie weh?', kapitel: 'aktuell' },
-        { frage: 'War der Urin verfärbt? Brennt es beim Wasserlassen, oder haben Sie Schmerzen in der Flanke?', kapitel: 'vegetativ' },
-        { frage: 'Bekommen Sie beim Treppensteigen schlechter Luft als früher? Wie viele Kissen brauchen Sie nachts? Sind die Beine geschwollen?', kapitel: 'aktuell' },
+        { frage: 'War der Urin verfärbt? Brennt es beim Wasserlassen, oder haben Sie Schmerzen in der Flanke?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie plötzliche Lähmungen, Sprach- oder Sehstörungen, starke Kopfschmerzen oder plötzliche Bauch- oder Flankenschmerzen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie in letzter Zeit ein Antibiotikum eingenommen — welches, wie lange, und hat es geholfen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie jemals Drogen gespritzt, tragen Sie Piercings, hatten Sie Hautinfektionen oder Katheter?', kapitel: 'noxen' },
-        { frage: 'Waren Sie in den letzten Monaten im Ausland? Hatten Sie Kontakt zu Erkrankten oder einen Zeckenstich?', kapitel: 'familie-sozial' },
+        { frage: 'Haben Sie jemals Drogen gespritzt, tragen Sie Piercings, hatten Sie Hautinfektionen oder einen Katheter?', kapitel: 'noxen' },
         { frage: 'Gegen welche Antibiotika sind Sie allergisch, und wie hat sich die Allergie geäußert?', kapitel: 'allergien' },
       ],
       examinerQuestions: [
@@ -45777,6 +45661,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Martha Bühreln',
           age: 56,
@@ -45869,11 +45754,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Blumenerde und Pollen, ja, und ab und zu Frischhaltemittel für die Schnittblumen — sonst nichts.',
           'pers-hausarzt': 'Mein Hausarzt ist Dr. Keller, aber der ist gerade im Urlaub — deshalb bin ich zu Ihnen gekommen.',
           'akt-motiv': 'Frau Doktor, ich habe seit gut einer Woche eine Erkältung, und ich dachte, es geht schon wieder bergauf. Aber seit gestern habe ich wieder hohes Fieber, der Husten ist viel schlimmer, und ich bin so schwach, dass ich die Treppe kaum hochkomme.',
-          'akt-ort': 'Der Husten sitzt tief in der Brust, und da ist so ein Engegefühl, als würde jemand einen Gurt drumlegen. (legt die flache Hand auf das Brustbein) Der Kopf tut auch weh, so dumpf über der Stirn.',
           'akt-beginn': 'Angefangen hat es vor acht Tagen mit Halskratzen und Schnupfen, am nächsten Tag kam der Husten dazu und Fieber, so 38,5. Und seit gestern Abend ist das Fieber wieder da, 39,2 habe ich gemessen.',
-          'akt-charakter': 'Der Husten ist trocken, ein Reizhusten, es kommt fast nichts hoch — höchstens morgens ein bisschen weißer Schleim. Die Enge in der Brust ist eher ein Druck, kein Stechen. Und der Kopfschmerz ist dumpf, drückend.',
-          'akt-intensitaet': 'Die Kopfschmerzen würde ich mit 5 von 10 angeben. Die Schwäche ist das Schlimmste — insgesamt geht es mir deutlich schlechter als am Anfang der Woche.',
-          'akt-ausstrahlung': 'Nein, der Druck bleibt in der Brust, das strahlt nicht in den Arm oder in den Hals. Der Kopfschmerz ist nur vorne, über der Stirn.',
+          'akt-infekt-fieber': 'Ja, gemessen habe ich. In den ersten Tagen war es so 38,5, dann zwei Tage gar kein Fieber mehr. Und gestern Abend war es dann 39,2, mit Schüttelfrost — richtig geschüttelt hat es mich.',
+          'akt-infekt-kontakt': 'Im Ausland war ich schon lange nicht mehr. Aber meine Angestellte im Laden war letzte Woche krank, mit Husten und Fieber, und sie hat mir gestern geschrieben, ihr Schnelltest war positiv. Tiere habe ich keine, und gegessen habe ich nichts Besonderes.',
+          'akt-infekt-herd': 'Husten habe ich, den trockenen, den hatte ich Ihnen ja schon beschrieben. Halsschmerzen waren am Anfang da, jetzt sind sie fast weg. Beim Wasserlassen brennt nichts. Durchfall hatte ich am zweiten, dritten Tag ein bisschen, weicher Stuhl, das ist inzwischen wieder normal. Einen Ausschlag oder eine Wunde habe ich nicht.',
           'akt-verlauf': 'Erst drei, vier Tage wie eine Erkältung mit Fieber, dann zwei Tage war das Fieber weg. Und seit gestern geht es von vorne los, nur schlimmer, mit Schüttelfrost.',
           'akt-ausloeser': 'Meine Angestellte im Laden war letzte Woche krank, mit Husten und Fieber — sie hat mir gestern geschrieben, dass ihr Corona-Schnelltest positiv war. Ich habe am dritten Tag selbst einen Test gemacht, der war negativ. Ich habe aber ehrlich gesagt nur kurz vorne in die Nase gewischt.',
           'akt-einfluss': 'Schlimmer wird es, wenn ich mich bewege — Treppe hoch, dann rast das Herz und ich schwitze. Im Sitzen geht es. Ibuprofen habe ich zweimal genommen, da ging das Fieber für ein paar Stunden runter, dann kam es wieder. Tee und Ruhe helfen ein bisschen.',
@@ -45928,6 +45812,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'COVID-19 (SARS-CoV-2-Infektion) am achten Krankheitstag mit zweiphasigem Verlauf und beginnender viraler Pneumonie mit stiller Hypoxämie (SpO2 92 % in Ruhe, 89 % nach Belastung) bei unvollständigem Impfschutz — Verdacht begründet durch Anosmie/Ageusie bei freier Nase, erneuten Fieberanstieg nach vorübergehender Besserung, positiven Kontakt (Angestellte) und einen technisch unzureichenden negativen Selbsttest',
+        patientWorte: { verdacht: 'Sie an einer Coronainfektion erkrankt sind, die jetzt auch auf die Lunge übergreift', diagnostik: 'messen wir den Sauerstoffgehalt in Ihrem Blut, machen einen Abstrich und ein Bild von Ihrer Lunge', therapie: 'müssen Sie zur Überwachung im Krankenhaus bleiben und bekommen zusätzlichen Sauerstoff, falls er nötig wird' },
         differenzialdiagnosen: [
           {
             dd: 'Influenza und andere virale Atemwegsinfekte (RSV)',
@@ -46075,16 +45960,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'An welchem Tag haben die Beschwerden angefangen, und wie hat sich das Fieber von Tag zu Tag verändert — gab es zwischendurch eine Besserung?', kapitel: 'aktuell' },
-        { frage: 'Riechen und schmecken Sie normal? Ist die Nase dabei verstopft oder frei?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie einen Corona-Test gemacht — wann, welchen, und wie genau haben Sie den Abstrich durchgeführt?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie Kontakt zu jemandem mit Husten, Fieber oder einem positiven Corona-Test — im Laden, in der Familie?', kapitel: 'familie-sozial' },
+        { frage: 'Riechen und schmecken Sie normal, obwohl die Nase frei ist?', kapitel: 'aktuell' },
         { frage: 'Wie sind Sie gegen Corona geimpft: wie viele Impfungen, wann die letzte, und hatten Sie schon einmal Corona?', kapitel: 'vorerkrankungen' },
         { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst? Rast dabei das Herz, schwitzen Sie?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen in der Brust beim Atmen, ein geschwollenes oder schmerzendes Bein?', kapitel: 'aktuell' },
-        { frage: 'Husten Sie Schleim ab — welche Farbe hat er, ist Blut dabei?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie in den letzten Wochen im Ausland? Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'medikamente' },
-        { frage: 'Wie war das mit dem Burnout — sind Sie noch in Behandlung, und kennen Sie dieses Herzrasen von früher?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell' },
+        { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'vorerkrankungen' },
+        { frage: 'Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
+        { frage: 'Wie war das mit dem Burnout — sind Sie noch in Behandlung, und kennen Sie dieses Herzrasen schon von früher?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -46276,6 +46158,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Sabine Schäuberle',
           age: 53,
@@ -46379,6 +46262,10 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, mich hat vor ungefähr zwanzig Minuten eine Biene gestochen, und jetzt juckt mein ganzer Körper, meine Lippen und die Zunge sind dick, und ich bekomme kaum Luft. Mir ist so schwindlig. Bitte helfen Sie mir – ich habe solche Angst, dass ich ersticke.',
           'akt-ort': 'Gestochen hat sie mich hier, links an der Seite, unter den Rippen. (zeigt auf die linke Flanke) Aber das Jucken ist überall – es hat an den Handflächen und auf der Kopfhaut angefangen, und jetzt habe ich überall diese Quaddeln. Und hier, der Hals, die Zunge, alles ist dick.',
           'akt-beginn': 'Vor etwa zwanzig Minuten. Ich war mit dem Rad auf dem Weg zu meinem Vater, der liegt hier im Haus. Ich habe den Stich gespürt, und nach vielleicht fünf Minuten hat es angefangen zu jucken, dann kam die Luftnot. Ein Mann hat angehalten und mich mit dem Auto hergebracht, es war zum Glück nicht weit.',
+          'akt-atemnot-belastung': 'Auch jetzt, wo ich sitze – es ist die ganze Zeit da, nicht nur bei Anstrengung. Treppen... das kann ich Ihnen gerade nicht sagen, ich war ja nur auf dem Fahrrad, und schon das ging kaum noch.',
+          'akt-atemnot-nachts': 'Nein, das ist doch neu, das hatte ich noch nie – sonst schlafe ich ganz normal. Das ist jetzt gerade, seit dem Stich.',
+          'akt-atemnot-husten': 'Husten eigentlich nicht, eher dieses Pfeifen und die Enge. Kein Auswurf, kein Blut.',
+          'akt-atemnot-geraeusch': 'Ja, genau, beim Ausatmen pfeift es, das habe ich vorhin auch schon gesagt. Es ist eng in der Brust.',
           'akt-charakter': 'Die Stichstelle brennt ein bisschen, das ist nicht das Problem. Das Schlimme ist die Luft: Es ist eng in der Brust, es pfeift beim Ausatmen, und im Hals ist ein Kloß, als ob mir jemand den Hals zudrückt. Ich bin ganz heiser.',
           'akt-intensitaet': 'Die Atemnot? 7 von 10, würde ich sagen. Und die Angst 10. Der Stich selbst tut kaum weh.',
           'akt-ausstrahlung': 'Nein, der Stich strahlt nirgendwo hin. Es ist einfach überall gleichzeitig – Haut, Hals, Brust.',
@@ -46437,6 +46324,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Anaphylaxie Grad II bis III nach Ring und Meßmer (beginnender anaphylaktischer Schock) nach Bienenstich an der linken Flanke – Haut (generalisierte Urtikaria, Angioödem von Lippen, Zunge und Lidern), Atemwege (Bronchospasmus, Heiserkeit, Kloßgefühl), Kreislauf (Tachykardie 118/min, Blutdruck 90/55 mmHg, Schwindel) und Magen-Darm-Trakt (Übelkeit) betroffen; Risikokonstellation aus Asthma bronchiale, Atopie, früherer schwerer ASS-Reaktion und gesteigerter Lokalreaktion nach Wespenstich; Kofaktor körperliche Anstrengung (Radfahren)',
+        patientWorte: { verdacht: 'der Bienenstich bei Ihnen eine schwere allergische Reaktion des ganzen Körpers ausgelöst hat', diagnostik: 'überwachen wir jetzt fortlaufend Ihr Herz, Ihren Kreislauf und Ihre Atmung mit Geräten', therapie: 'bekommen Sie sofort eine Spritze mit einem schnell wirkenden Notfallmedikament in den Oberschenkel' },
         differenzialdiagnosen: [
           {
             dd: 'Vasovagale Synkope nach dem Stich',
@@ -46571,14 +46459,9 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wann genau wurden Sie gestochen, und wie viele Minuten später haben die Beschwerden begonnen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie das Insekt gesehen – war es eine Biene oder eine Wespe? Steckte ein Stachel in der Haut, und wie haben Sie ihn entfernt?', kapitel: 'aktuell' },
-        { frage: 'Wo hat das Jucken angefangen – an den Handflächen, Fußsohlen oder auf der Kopfhaut?', kapitel: 'aktuell' },
         { frage: 'Sind Lippen, Zunge oder Augenlider geschwollen? Haben Sie einen Kloß im Hals, sind Sie heiser, fällt das Schlucken schwer?', kapitel: 'aktuell' },
         { frage: 'Pfeift es beim Atmen? Haben Sie Ihr Asthmaspray dabei und schon benutzt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen schwindlig oder schwarz vor Augen geworden, haben Sie Herzrasen? Sind Sie ohnmächtig geworden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Übelkeit, Bauchkrämpfe, Erbrechen oder Durchfall?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie schon einmal eine Reaktion auf einen Insektenstich – nur an der Stichstelle oder am ganzen Körper?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie früher eine ähnliche Reaktion auf ein Medikament oder ein Nahrungsmittel – wie genau ist die Aspirin-Reaktion 2022 verlaufen?', kapitel: 'allergien' },
-        { frage: 'Haben Sie sich vor dem Stich körperlich angestrengt, Alkohol getrunken oder ein Schmerzmittel genommen?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Betablocker, Blutdrucktabletten oder ACE-Hemmer ein?', kapitel: 'medikamente' },
         { frage: 'Besitzen Sie einen Adrenalin-Autoinjektor oder ein Notfallset, und haben Sie einen Allergiepass?', kapitel: 'allergien' },
         { frage: 'Gibt es in Ihrer Familie Schwellungen von Gesicht oder Hals ohne Juckreiz?', kapitel: 'familie-sozial' },
@@ -46899,6 +46782,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Poststreptokokken-reaktive Arthritis — akute, wandernd-additive Oligoarthritis (Knie rechts, oberes Sprunggelenk links, Ellenbogen rechts) mit Fieber bis 39,0 °C, etwa zwei Wochen nach einer Streptokokken-Tonsillopharyngitis mit unvollständig durchgeführter Penicillin-Therapie; DD akutes rheumatisches Fieber (Jones-Kriterien, Karditis ausschließen), septische Arthritis des Kniegelenks zwingend ausschließen',
+        patientWorte: { verdacht: 'Ihre Abwehr nach der Halsentzündung fälschlicherweise in den Gelenken weiterreagiert und dort die Schmerzen verursacht', diagnostik: 'untersuchen wir Ihre Gelenke, nehmen Blut ab und punktieren vorsichtshalber das geschwollene Kniegelenk', therapie: 'sollten Sie sich schonen und entzündungshemmende Mittel nehmen, die Beschwerden heilen meist innerhalb weniger Wochen aus' },
         differenzialdiagnosen: [
           {
             dd: 'Septische (bakterielle) Arthritis des rechten Kniegelenks',
@@ -47051,15 +46935,11 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie in den letzten sechs Wochen einen Infekt — Halsschmerzen, Fieber, Durchfall, eine Blasenentzündung oder Brennen beim Wasserlassen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in letzter Zeit ein Antibiotikum eingenommen? Wofür, wie lange, und haben Sie es bis zum Ende genommen?', kapitel: 'medikamente' },
         { frage: 'Wie viele Tage lagen zwischen dem Abklingen der Halsentzündung und den ersten Gelenkbeschwerden — waren Sie dazwischen ganz gesund?', kapitel: 'aktuell' },
-        { frage: 'Wechseln die Schmerzen von Gelenk zu Gelenk, oder kommen neue Gelenke hinzu, während die alten betroffen bleiben?', kapitel: 'aktuell' },
         { frage: 'Ich muss Ihnen jetzt einige persönliche Fragen stellen, die für die Ursache wichtig sind: Haben Sie einen festen Partner, gab es einen Partnerwechsel, Ausfluss oder Beschwerden im Intimbereich?', kapitel: 'familie-sozial' },
         { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich — anders als bei Ihrem Heuschnupfen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Herzstolpern, Luftnot, Brustschmerzen oder ein Herzrasen bemerkt, das nicht zum Fieber passt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie einen Ausschlag, Pusteln an Händen oder Füßen, Bläschen im Mund oder Knötchen unter der Haut bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie beim Wandern einen Zeckenstich oder eine kreisförmige Rötung an der Haut?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen an den Fersen oder im unteren Rücken, vor allem nachts oder morgens, die bei Bewegung besser werden?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Familie Schuppenflechte, Morbus Bechterew, chronische Darmentzündungen oder Rheuma?', kapitel: 'familie-sozial' },
-        { frage: 'Wie viel Bier trinken Sie wirklich an einem normalen Abend — und wie viele Abende pro Woche?', kapitel: 'noxen' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was hat Sie darauf gebracht?',
@@ -47231,6 +47111,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Markus Lindner',
           age: 42,
@@ -47332,6 +47213,10 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich huste seit sechs Wochen, und es wird nicht besser. Nachts diese Anfälle, dass ich denke, ich ersticke. Und jetzt tut auch noch die Rippe weh.',
           'akt-ort': 'Der Husten sitzt tief in der Brust, überall. Und die Schmerzen sind hier, rechts an den unteren Rippen, an der Seite. (zeigt auf die rechte seitliche Thoraxwand unten)',
           'akt-beginn': 'Angefangen hat es vor etwa sechs Wochen, Anfang August, wie eine ganz normale Erkältung: Schnupfen, Halskratzen, ein bisschen Husten. Nach ungefähr zehn Tagen war der Schnupfen weg, aber der Husten wurde immer schlimmer — seit gut vier Wochen kommt er in richtigen Anfällen.',
+          'akt-atemnot-belastung': 'Zwischen den Anfällen habe ich eigentlich keine Luftnot, auch nicht bei Anstrengung – nur wenn ein Hustenanfall kommt, dann kriege ich kurz keine Luft. Treppen schaffe ich sonst ganz normal, ohne Pause.',
+          'akt-atemnot-nachts': 'Nein, mit erhöhtem Oberkörper muss ich nicht schlafen. Aber ich wache nachts auf, wegen der Hustenanfälle – da denke ich manchmal, ich ersticke, bis der Schleim hochkommt. Das ist aber wegen des Hustens, nicht weil mir sonst die Luft fehlt.',
+          'akt-atemnot-husten': 'Ja, Husten habe ich, das ist ja mein Hauptproblem, das hatte ich Ihnen schon erzählt (hustet kurz) – entschuldigen Sie. Zäher, glasiger Schleim kommt am Ende raus, der ist klar bis weißlich, kein Blut, keine besondere Farbe.',
+          'akt-atemnot-geraeusch': 'Beim normalen Atmen pfeift oder brummt nichts. Nur beim Hustenanfall selbst, da mache ich so ein Geräusch beim Einatmen danach, wie ein Keuchen.',
           'akt-charakter': 'Das kommt wie ein Anfall: zehn, fünfzehn Hustenstöße ohne Luft holen, ich werde rot, die Tränen laufen. Am Ende kommt zäher Schleim hoch, und oft muss ich mich übergeben.',
           'akt-intensitaet': 'Die Anfälle sind heftig, ich würde sagen 8 von 10 — nachts habe ich wirklich Angst zu ersticken. Die Rippenschmerzen sind beim Husten etwa 6 von 10, in Ruhe eher 2.',
           'akt-ausstrahlung': 'Nein, der Rippenschmerz bleibt genau an der Stelle. Er strahlt nirgendwo hin.',
@@ -47398,6 +47283,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Pertussis (Keuchhusten) des Erwachsenen im Stadium convulsivum — subakuter anfallsartiger Husten seit sechs Wochen nach Erkältungsbeginn, posttussives Erbrechen, nächtliche Betonung, afebril, freies Intervall, Kindergartenexposition zwei Wochen vor Beginn und über 15 Jahre zurückliegende letzte Impfung; Komplikationen: Verdacht auf Rippenfraktur/-prellung rechts und Konjunktivalblutung; hochrelevante Kontaktpersonen: schwangere Ehefrau (31. SSW, symptomatisch) und fünf Monate alte Nichte',
+        patientWorte: { verdacht: 'Sie an Keuchhusten erkrankt sind, auch wenn der typische Husten schon seit Wochen anhält', diagnostik: 'nehmen wir einen Abstrich aus der Nase und untersuchen ihn im Labor auf die Erreger', therapie: 'bekommen Sie ein Antibiotikum, damit Sie andere nicht mehr anstecken, auch wenn der Husten selbst noch anhält' },
         differenzialdiagnosen: [
           {
             dd: 'Protrahierte virale Bronchitis / postinfektiöser Husten („verschleppte Bronchitis“)',
@@ -47531,18 +47417,14 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau husten Sie, und wie hat es angefangen — wie eine Erkältung?', kapitel: 'aktuell' },
+        { frage: 'Wie hat der Husten angefangen — wie bei einer Erkältung, bevor die Anfälle kamen?', kapitel: 'aktuell' },
         { frage: 'Kommt der Husten in Anfällen? Können Sie einen Anfall beschreiben — wie viele Hustenstöße hintereinander, bekommen Sie dazwischen Luft?', kapitel: 'aktuell' },
         { frage: 'Ziehen Sie am Ende des Anfalls hörbar die Luft ein, so ein Keuchen oder Juchzen?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie sich nach dem Husten übergeben? Würgen Sie Schleim hoch — wie sieht der aus?', kapitel: 'aktuell' },
-        { frage: 'Sind die Anfälle nachts schlimmer? Was löst sie aus — Anstrengung, kalte Luft, Lachen, Essen?', kapitel: 'aktuell' },
-        { frage: 'Wie geht es Ihnen zwischen den Anfällen — sind Sie dann beschwerdefrei? Haben Sie Fieber gemessen?', kapitel: 'aktuell' },
-        { frage: 'Gab es in den Wochen vor Beginn Kontakt zu hustenden Personen — Kinder, Kindergarten, Schule, Arbeitsplatz?', kapitel: 'familie-sozial' },
-        { frage: 'Wann wurden Sie zuletzt geimpft — steht im Impfpass eine Keuchhusten-Impfung als Erwachsener?', kapitel: 'vorerkrankungen' },
+        { frage: 'Müssen Sie sich nach dem Husten übergeben? Würgen Sie Schleim hoch?', kapitel: 'aktuell' },
+        { frage: 'Wie geht es Ihnen zwischen den Anfällen — sind Sie dann ganz beschwerdefrei?', kapitel: 'aktuell' },
+        { frage: 'Wann wurden Sie zuletzt geimpft — steht in Ihrem Impfpass eine Keuchhusten-Impfung als Erwachsener?', kapitel: 'vorerkrankungen' },
         { frage: 'Leben Säuglinge oder Schwangere in Ihrem Haushalt oder Umfeld? Hatten Sie in den letzten Wochen Kontakt zu einem Baby?', kapitel: 'familie-sozial' },
-        { frage: 'Hustet zu Hause noch jemand? Wie geht es Ihrer Frau?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie beim Husten Schmerzen an den Rippen bemerkt, Blutungen im Auge, eine Vorwölbung in der Leiste oder unwillkürlichen Urinabgang?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Blutdruckmedikamente, insbesondere einen ACE-Hemmer? Haben Sie Sodbrennen? Haben Sie Asthma?', kapitel: 'medikamente' },
+        { frage: 'Nehmen Sie Blutdruckmedikamente, insbesondere einen ACE-Hemmer?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Wie weisen wir eine Pertussis nach?',
@@ -47706,6 +47588,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Tanya Krüger',
           age: 54,
@@ -47813,6 +47696,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, ich habe seit Monaten Durchfall, es wird immer schlimmer, und seit ein paar Wochen ist auch Blut dabei. Und diese Krämpfe im Bauch — ich halte das nicht mehr aus.',
           'akt-ort': 'Die Krämpfe sind hier, links unten im Bauch. (legt die Hand auf den linken Unterbauch) Und ein brennender Druck im Enddarm, wenn ich auf die Toilette muss.',
           'akt-beginn': 'Angefangen hat es vor ungefähr vier Monaten, ganz schleichend, erst nur weicher Stuhl und ein bisschen Grummeln. Seit etwa zweieinhalb Wochen ist es richtig schlimm geworden.',
+          'akt-veraend-was': 'Aufgefallen ist mir vor allem der Stuhlgang – (zögert) er ist... na ja, am Toilettenpapier ist manchmal etwas Blut, ich dachte, das sind Hämorrhoiden. Einen Knoten oder blaue Flecken habe ich keine, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Häufiger und schlimmer geworden, ja, eindeutig. Am Anfang war es nur weicherer Stuhl, jetzt sind es acht-, zehnmal am Tag, und wie gesagt, seit ein paar Wochen kommt noch mehr dazu.',
+          'akt-veraend-blutung': '(zögert) Ja... es ist nicht nur am Papier. Es ist richtig mit im Stuhl drin, mit Schleim vermischt, hellrot. Und ich muss auch nachts raus, ein-, zweimal. Weh tut vor allem dieser Drang, dieses Brennen, wenn ich muss. Im Urin oder beim Husten oder aus der Nase habe ich kein Blut.',
           'akt-charakter': 'Krampfartig, wie Wellen. Es baut sich auf, dann muss ich sofort los, und nach dem Stuhlgang lässt es wieder nach.',
           'akt-intensitaet': 'So eine 5 von 10, würde ich sagen. Kurz vor dem Stuhlgang ist es am schlimmsten.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwohin, nicht in den Rücken und nicht in die Beine. Es zieht höchstens etwas nach unten zum Schambein.',
@@ -47887,6 +47773,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erstmanifestation einer Colitis ulcerosa, am ehesten als Linksseitenkolitis, im mittelschweren bis schweren Schub (Truelove-Witts: 8–10 blutige Stühle täglich, subfebrile Temperatur, Verdacht auf Anämie) — ausgelöst wahrscheinlich durch den Rauchstopp vor sechs Monaten, mit peripherer Arthritis als extraintestinaler Manifestation',
+        patientWorte: { verdacht: 'sich bei Ihnen erstmals eine chronische Entzündung des Dickdarms zeigt, die gut behandelbar ist', diagnostik: 'spiegeln wir Ihren Dickdarm, entnehmen kleine Gewebeproben und nehmen Ihnen Blut ab', therapie: 'bekommen Sie entzündungshemmende Medikamente, damit die Schleimhaut abheilt und die Beschwerden zurückgehen' },
         differenzialdiagnosen: [
           {
             dd: 'Morbus Crohn',
@@ -48021,17 +47908,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie oft müssen Sie am Tag zur Toilette — und müssen Sie auch nachts aufstehen?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht der Stuhl genau aus: wässrig oder breiig, große oder kleine Mengen, ist Schleim dabei?', kapitel: 'aktuell' },
-        { frage: 'Ist das Blut nur am Toilettenpapier oder im Stuhl vermischt? Welche Farbe hat es — hellrot oder schwarz?', kapitel: 'aktuell' },
+        { frage: 'Ist das Blut nur am Toilettenpapier oder mit dem Stuhl vermischt? Welche Farbe hat es — hellrot oder schwarz?', kapitel: 'aktuell' },
         { frage: 'Haben Sie einen plötzlichen, sehr dringenden Stuhldrang und danach das Gefühl, nicht fertig zu sein?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen? Haben Sie ungewollt abgenommen, und wie viel?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie in letzter Zeit mit dem Rauchen aufgehört?', kapitel: 'noxen' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika, Schmerzmittel wie Ibuprofen oder Diclofenac oder Magenschutztabletten eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Waren Sie im Ausland, haben Sie rohes Fleisch oder Rohmilch gegessen, ist jemand in Ihrem Umfeld erkrankt?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken, rote Knoten an den Schienbeinen, gerötete oder schmerzende Augen, Juckreiz oder eine Gelbfärbung der Haut?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken, rote Knoten an den Schienbeinen, gerötete oder schmerzende Augen oder eine Gelbfärbung der Haut bemerkt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Beschwerden am After — Knoten, Eiter, eine Fistel? Haben Sie wunde Stellen im Mund?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Darmentzündungen oder Darmkrebs? Hatten Sie schon einmal eine Darmspiegelung?', kapitel: 'familie-sozial' },
-        { frage: 'Wie kommen Sie zu Hause zurecht — wer betreut Ihren Sohn, falls Sie ins Krankenhaus müssten?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'War die Patientin schon bei ihrem Hausarzt? Warum nicht?',
@@ -48401,6 +48284,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Chronische Pankreatitis, am ehesten alkoholtoxisch (Nikotin als Kofaktor), mit exokriner Pankreasinsuffizienz (Steatorrhoe, Gewichtsverlust 7 kg in sechs Monaten) und Verdacht auf beginnende endokrine Insuffizienz (pankreopriver Diabetes Typ 3c: Polydipsie, Nykturie) bei Zustand nach akuter Pankreatitis vor zwölf Jahren; Verdacht auf Alkoholabhängigkeit mit Entzugssymptomen',
+        patientWorte: { verdacht: 'sich bei Ihnen eine chronische Entzündung der Bauchspeicheldrüse entwickelt hat, am ehesten durch den Alkohol', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall sowie weitere Bilder Ihrer Bauchspeicheldrüse', therapie: 'müssen Sie vollständig auf Alkohol verzichten und bekommen Enzyme, die Ihnen bei der Verdauung helfen' },
         differenzialdiagnosen: [
           {
             dd: 'Pankreaskarzinom',
@@ -48555,18 +48439,12 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Zieht der Schmerz wie ein Gürtel in den Rücken, und wird er nach dem Essen oder nach Alkohol schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Gibt es eine Körperhaltung, in der der Schmerz besser wird — zum Beispiel nach vorn gebeugtes Sitzen?', kapitel: 'aktuell' },
         { frage: 'Wie sieht Ihr Stuhlgang aus: ist er voluminös, hell, fettig-glänzend, übelriechend, und lässt er sich schwer wegspülen?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie ungewollt abgenommen, obwohl der Appetit erhalten ist? Wie viel in welcher Zeit?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie in letzter Zeit vermehrt Durst oder müssen Sie häufiger Wasser lassen, auch nachts?', kapitel: 'vegetativ' },
         { frage: 'Hatten Sie schon einmal eine Bauchspeicheldrüsenentzündung? Wann, und wie wurde sie behandelt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wie viel Alkohol trinken Sie genau — was, wie viel, wie oft, seit wann? Gab es Situationen, in denen es mehr wurde?', kapitel: 'noxen' },
+        { frage: 'Gab es Situationen oder Phasen, in denen es mit dem Alkohol mehr wurde? Seit wie vielen Jahren trinken Sie in dieser Menge?', kapitel: 'noxen' },
         { frage: 'Zittern Ihnen morgens die Hände, schwitzen Sie, oder schlafen Sie schlecht, wenn Sie abends nichts trinken? Haben Sie schon einmal versucht aufzuhören?', kapitel: 'noxen' },
-        { frage: 'Rauchen Sie? Wie viel und seit wann?', kapitel: 'noxen' },
-        { frage: 'Sind Ihnen eine Gelbfärbung der Augen, dunkler Urin oder Juckreiz aufgefallen?', kapitel: 'vegetativ' },
-        { frage: 'Sehen Sie in der Dämmerung schlechter, oder bekommen Sie leicht blaue Flecken?', kapitel: 'aktuell' },
+        { frage: 'Sind Ihnen eine Gelbfärbung der Augen, dunkler Urin oder Juckreiz aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Erkrankungen der Bauchspeicheldrüse, Bauchspeicheldrüsenkrebs oder Mukoviszidose?', kapitel: 'familie-sozial' },
-        { frage: 'Welche Schmerzmittel nehmen Sie, wie oft — und haben Sie schwarzen Stuhl bemerkt?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -48885,6 +48763,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute (Peri-)Myokarditis nach COVID-19-Infektion bei einem 28-jährigen Sportler ohne kardiovaskuläre Risikofaktoren — mit belastungsinduzierter Präsynkope als Warnzeichen einer relevanten Rhythmusstörung',
+        patientWorte: { verdacht: 'sich nach Ihrer Coronainfektion eine Entzündung des Herzmuskels entwickelt hat', diagnostik: 'schreiben wir ein Herz-EKG, nehmen Blut ab und machen eine Ultraschalluntersuchung Ihres Herzens', therapie: 'müssen Sie sich einige Tage im Krankenhaus überwachen lassen und dürfen vorerst keinen Sport treiben' },
         differenzialdiagnosen: [
           {
             dd: 'Akutes Koronarsyndrom / Myokardinfarkt',
@@ -49041,15 +48920,12 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt — eine Erkältung, eine Grippe, einen Magen-Darm-Infekt oder Corona? Wann genau, und wie lange waren Sie beschwerdefrei, bevor die Brustschmerzen anfingen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie während oder kurz nach dem Infekt wieder Sport getrieben? Wann sind Sie ins Training zurückgekehrt?', kapitel: 'aktuell' },
-        { frage: 'Verändert sich der Schmerz mit der Atmung oder der Körperlage — wird er im Liegen stärker und beim Sitzen und Vorbeugen besser?', kapitel: 'aktuell' },
+        { frage: 'Wird der Schmerz im Liegen stärker und beim Sitzen und Vorbeugen besser?', kapitel: 'aktuell' },
         { frage: 'Wie äußert sich das Herzstolpern genau — ein Aussetzer mit anschließend kräftigem Schlag, oder anhaltendes Herzrasen? Auch in Ruhe?', kapitel: 'aktuell' },
         { frage: 'Was ist gestern beim Training genau passiert: Wurde es Ihnen schwarz vor Augen, waren Sie bewusstlos, sind Sie gestürzt?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stockwerke schaffen Sie jetzt ohne Pause — und wie viele vor dem Infekt?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Kokain, Amphetamine, Anabolika oder Nahrungsergänzungsmittel? Ich frage das jeden Patienten mit Herzbeschwerden.', kapitel: 'noxen' },
-        { frage: 'Hatten Sie einen Zeckenstich oder eine Wanderröte? Waren Sie in den letzten Monaten im Ausland?', kapitel: 'familie-sozial' },
-        { frage: 'Wurden Sie in den letzten Wochen geimpft?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist in Ihrer Familie jemand jung und plötzlich am Herzen verstorben, oder gibt es eine Herzmuskelerkrankung?', kapitel: 'familie-sozial' },
-        { frage: 'Wurde bei Ihnen schon einmal ein EKG oder ein Herzultraschall gemacht, zum Beispiel für den Verein?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie darauf gebracht?',
@@ -49208,6 +49084,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Dietmar Rösch',
           age: 58,
@@ -49301,11 +49178,12 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit Chemikalien oder so habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Kellermann. Der hat mich auch hergeschickt, nachdem er die Beine gesehen hat.',
           'akt-motiv': 'Herr Doktor, meine Beine sind seit ein paar Wochen immer dicker geworden, inzwischen bis über die Knie. Und morgens sind meine Augen ganz verquollen. Ich habe sieben Kilo zugenommen, obwohl ich weniger esse als sonst.',
-          'akt-ort': 'Beide Beine, ganz gleichmäßig — angefangen hat es an den Knöcheln, jetzt ist es bis über die Knie. Und morgens die Augenlider, beide Seiten. Seit ein paar Tagen auch der Bauch, die Hose spannt.',
           'akt-beginn': 'Vor etwa vier Wochen. Zuerst waren es nur morgens die geschwollenen Augen, ich dachte, das ist der Heuschnupfen oder ich hätte schlecht geschlafen. Seit etwa drei Wochen sind dann die Beine dazugekommen, erst nur abends an den Knöcheln.',
-          'akt-charakter': 'Schmerzen sind es eigentlich nicht. Die Beine fühlen sich schwer und prall an, wie aufgepumpt. Wenn ich mit dem Finger draufdrücke, bleibt eine Delle, die erst nach einer Weile wieder weggeht.',
-          'akt-intensitaet': 'Wenn Sie es auf einer Skala wollen: das Spannungsgefühl vielleicht 3 von 10. Es tut nicht richtig weh — es ist eher unheimlich, wie schnell das mehr wird.',
-          'akt-ausstrahlung': 'Nein, es strahlt nirgendwo hin. Es ist nur so, dass die Schwellung tagsüber wandert: morgens sind die Augen dick und die Beine noch dünner, abends sind die Augen besser und die Beine dick.',
+          'akt-allgemein-art': 'Müde und schlapp, das schon. Schwindel oder sowas habe ich nicht, es ist eher diese Erschöpfung.',
+          'akt-allgemein-alltag': 'Im Büro schaffe ich meine Arbeit noch, aber ich bin am Ende des Tages völlig erledigt. Treppensteigen, schon der erste Stock, da komme ich außer Atem. Hinlegen tagsüber mache ich nicht, aber abends bin ich fix und fertig.',
+          'akt-allgemein-tageszeit': 'Das wird über die Wochen langsam, aber stetig schlimmer, von allein besser wird es nicht. Die Schwellung wandert allerdings: morgens sind die Augen dick, abends die Beine.',
+          'akt-allgemein-gewicht': 'Zugenommen habe ich, sieben Kilo in vier Wochen, obwohl ich eigentlich weniger esse als sonst, der Appetit ist mir vergangen. Durst habe ich keinen besonderen.',
+          'akt-allgemein-schwellung': 'Ja, beide Beine sind geschwollen, bis über die Knie, und morgens die Augenlider. Der Bauch spannt auch, seit ein paar Tagen. Und die Urinmenge — die ist wohl etwas weniger, und (zögert kurz) er schäumt auch, wie wenn man Bier eingießt.',
           'akt-verlauf': 'Es wird langsam, aber stetig mehr. Jede Woche ein Stück höher an den Beinen und ein, zwei Kilo mehr auf der Waage. Besser geworden ist es von allein nie.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht. Keine Reise, kein Unfall, keine Erkältung vorher. Das Einzige, was neu ist: Seit etwa drei Monaten nehme ich fast jeden Tag Ibuprofen wegen meines Knies.',
           'akt-einfluss': 'Wenn ich die Beine nachts hochlege, sind sie morgens schlanker — dafür sind dann die Augen dick. Im Büro, wenn ich den ganzen Tag sitze, werden sie abends am schlimmsten. Wärme, Kälte — das macht keinen Unterschied. Ich habe schon versucht, weniger zu trinken, das hat nichts gebracht.',
@@ -49355,6 +49233,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Nephrotisches Syndrom (generalisierte Ödeme mit Lidödemen, Gewichtszunahme von 7 kg, schäumender Urin, verminderter Appetit), am ehesten bei membranöser Glomerulonephritis des Erwachsenen — differenzialdiagnostisch sekundäre Form (NSAR-induziert unter täglichem Ibuprofen; paraneoplastisch bei Nikotinabusus mit 22,5 Packungsjahren) oder Minimal-Change-Erkrankung bzw. FSGS; die Ursache ist durch Nierenbiopsie zu sichern',
+        patientWorte: { verdacht: 'Ihre Nieren zu viel Eiweiß verlieren und deshalb Wasser im Körper einlagern, was die Schwellungen erklärt', diagnostik: 'nehmen wir Ihnen Blut und Urin ab und entnehmen vermutlich eine kleine Gewebeprobe aus der Niere', therapie: 'bekommen Sie ein entwässerndes Medikament und müssen Ihren Salzkonsum deutlich einschränken, damit die Schwellungen zurückgehen' },
         differenzialdiagnosen: [
           {
             dd: 'Rechtsherz- bzw. Globalinsuffizienz',
@@ -49499,18 +49378,11 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wo hat die Schwellung angefangen — an den Augen oder an den Beinen? Und wandert sie im Laufe des Tages?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht Ihr Urin aus — schäumt er, ist er dunkel oder rötlich? Wie viel Wasser lassen Sie im Vergleich zu früher?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie in den letzten Wochen zugenommen, und wie war Ihr Gewicht davor?', kapitel: 'vegetativ' },
         { frage: 'Passen Ihre Schuhe und Ihre Ringe noch? Spannt die Hose am Bauch?', kapitel: 'aktuell' },
-        { frage: 'Können Sie nachts flach liegen, oder müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts mit Luftnot auf?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac ein — wie oft und seit wann?', kapitel: 'medikamente' },
-        { frage: 'Hatten Sie in den Wochen vor den Schwellungen eine Halsentzündung, eine Hautinfektion oder einen Magen-Darm-Infekt?', kapitel: 'aktuell' },
         { frage: 'Ist bei Ihnen ein Diabetes bekannt, oder wurde jemals Eiweiß oder Zucker im Urin gefunden?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie Gelenkschmerzen, einen Hautausschlag oder eine Lichtempfindlichkeit bemerkt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Flankenschmerzen, eine einseitig dickere Wade oder Blut im Urin bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Husten, Auswurf, Blut im Stuhl, Nachtschweiß oder vor den Schwellungen ungewollt abgenommen?', kapitel: 'aktuell' },
-        { frage: 'Rauchen Sie, und wie viel? Wie viel Alkohol trinken Sie pro Woche?', kapitel: 'noxen' },
-        { frage: 'Gibt es in Ihrer Familie Nierenerkrankungen, Dialyse oder Zystennieren?', kapitel: 'familie-sozial' },
+        { frage: 'Haben Sie Husten, Blut im Stuhl oder Nachtschweiß, oder haben Sie schon vor den Schwellungen ungewollt abgenommen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und wie ist das nephrotische Syndrom definiert?',
@@ -49679,6 +49551,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Birgit Steinmann',
           age: 49,
@@ -49781,6 +49654,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, ich werde einfach nicht mehr gesund. Seit drei Wochen bin ich völlig kraftlos, seit vorgestern habe ich schon wieder Fieber mit Schüttelfrost — und jetzt habe ich überall blaue Flecken, ohne dass ich mich gestoßen hätte. Meine Tochter hat gesagt, ich soll sofort ins Krankenhaus.',
           'akt-ort': 'Die blauen Flecken sind vor allem an den Unterschenkeln und an den Armen, dazu lauter kleine rote Pünktchen an den Schienbeinen, wie mit einem Stift gemacht. Das Fieber und die Halsschmerzen — die sind eben überall. Und dieses dumpfe Ziehen habe ich im Brustbein und im Kreuz.',
           'akt-beginn': 'Die Müdigkeit hat vor etwa drei Wochen angefangen, kurz nach der Angina. Die blauen Flecken seit ungefähr zehn Tagen. Das Fieber ist vorgestern Abend gekommen.',
+          'akt-allgemein-art': 'Eigentlich alles zusammen – vor allem Kraftlosigkeit, wie der Akku leer, das hatte ich ja schon gesagt. Und Schwindel, wenn ich schnell aufstehe, wird mir schwarz vor Augen.',
+          'akt-allgemein-alltag': 'In der Werkstatt schaffe ich kaum noch was, ich muss mich zwischendurch hinsetzen, was ich sonst nie mache. Und ja, manchmal lege ich mich nachmittags hin, das kenne ich von mir gar nicht.',
+          'akt-allgemein-tageszeit': 'Morgens bin ich schon wie gerädert, wegen dem Schwitzen nachts. Über den Tag wird es eher schlimmer, je mehr ich mache. Nach Ruhe geht es etwas, aber richtig besser wird es nicht mehr.',
+          'akt-allgemein-gewicht': 'Ja, ich habe abgenommen, vier Kilo in drei Wochen, ohne dass ich das wollte. Appetit habe ich auch weniger, wegen der Bläschen im Mund tut Essen manchmal weh. Durst ist eigentlich normal.',
+          'akt-allgemein-schwellung': 'Nein, geschwollen ist nichts, weder die Beine noch das Gesicht oder der Bauch. Nur unter den Rippen links habe ich manchmal so ein Druckgefühl. Und beim Wasserlassen ist mir nichts aufgefallen, das ist normal.',
           'akt-charakter': 'Es ist keine normale Müdigkeit, es ist, als wäre der Akku leer — nach dem Duschen muss ich mich hinsetzen. Das Ziehen im Brustbein ist dumpf, wie ein Muskelkater, der nicht weggeht.',
           'akt-intensitaet': 'Die Schmerzen im Brustbein und im Kreuz so 4 von 10, das ist auszuhalten. Aber die Schwäche — die würde ich mit 8 von 10 bewerten, ich kann fast nichts mehr machen.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin. Das Ziehen bleibt im Brustbein und im Kreuz, in die Beine geht es nicht.',
@@ -49839,6 +49717,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Leukämie — bei einer 49-jährigen Patientin am ehesten akute myeloische Leukämie (AML) — mit Knochenmarkinsuffizienz: Anämie (Müdigkeit, Blässe, Belastungsdyspnoe, Tachykardie), Thrombozytopenie mit hämorrhagischer Diathese (Petechien, Hämatome, Zahnfleisch- und Nasenbluten, Menorrhagie) und Neutropenie mit rezidivierenden Infekten; aktuell Verdacht auf febrile Neutropenie (38,6 °C mit Schüttelfrost) als Notfall. Risikofaktoren: Rauchen (12,5 Packungsjahre) und langjährige Exposition gegenüber Lacken und Lösungsmitteln (Benzol) in der Schreinerei.',
+        patientWorte: { verdacht: 'Ihr Knochenmark erkrankt ist und deshalb zu wenig gesunde Blutzellen bildet, das erklärt Ihre Müdigkeit und die blauen Flecken', diagnostik: 'nehmen wir Ihnen Blut ab und entnehmen eine kleine Probe aus Ihrem Knochenmark', therapie: 'müssen Sie umgehend ins Krankenhaus, weil Sie wegen der Infektabwehr besondere Behandlung und Antibiotika brauchen' },
         differenzialdiagnosen: [
           {
             dd: 'Aplastische Anämie',
@@ -49992,17 +49871,11 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Seit wann genau fühlen Sie sich so schwach — waren es Tage, Wochen oder Monate? Ging es Ihnen vor einem Monat noch gut?', kapitel: 'aktuell' },
-        { frage: 'Wie viele Infekte hatten Sie in den letzten Wochen, und sind Sie zwischendurch überhaupt wieder gesund geworden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie blaue Flecken bekommen, ohne sich gestoßen zu haben? Haben Sie kleine rote Pünktchen an den Unterschenkeln bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Blutet Ihr Zahnfleisch beim Zähneputzen? Hatten Sie Nasenbluten, und wie lange hat es gedauert, bis es aufhörte?', kapitel: 'aktuell' },
-        { frage: 'War Ihre letzte Regelblutung stärker oder länger als sonst?', kapitel: 'frauenanamnese' },
-        { frage: 'Haben Sie Schmerzen in den Knochen — im Brustbein, im Rücken oder im Becken —, auch in Ruhe oder nachts?', kapitel: 'aktuell' },
-        { frage: 'Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen? Haben Sie ungewollt Gewicht verloren — wie viel und in welcher Zeit?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie ein Druck- oder Völlegefühl im linken Oberbauch bemerkt? Sind Ihnen Knoten am Hals, in den Achseln oder in der Leiste aufgefallen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie ein Druck- oder Völlegefühl im linken Oberbauch bemerkt?', kapitel: 'aktuell' },
         { frage: 'Womit arbeiten Sie in der Werkstatt — mit Lacken, Verdünnern oder Lösungsmitteln, und tragen Sie dabei einen Atemschutz?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie jemals eine Chemotherapie, eine Bestrahlung oder eine Blutkrankheit? Gibt es in der Familie Leukämie oder Blutkrankheiten?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Aspirin — wie oft in der letzten Woche?', kapitel: 'medikamente' },
+        { frage: 'Hatten Sie jemals eine Chemotherapie oder eine Bestrahlung? Gibt es in der Familie Leukämie oder andere Blutkrankheiten?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie Kopfschmerzen, Sehstörungen, Verwirrtheit oder Taubheitsgefühle bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Wie viele Infekte hatten Sie in den letzten Wochen, und sind Sie zwischendurch überhaupt wieder ganz gesund geworden?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und aus welchen drei Beschwerdegruppen leiten Sie sie ab?',
@@ -50362,6 +50235,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Endometriose (V. a. tief infiltrierende Endometriose des Douglas-Raums/Septum rectovaginale mit Darmbeteiligung) bei progredienter, zyklusabhängiger sekundärer Dysmenorrhoe, tiefer Dyspareunie, zyklischer Dyschezie, Hypermenorrhoe mit Eisenmangelanämie und primärer Sterilität seit eineinhalb Jahren; Diagnoseverzögerung von etwa acht Jahren',
+        patientWorte: { verdacht: 'Gebärmutterschleimhaut außerhalb der Gebärmutter wächst und dort während Ihrer Blutung die starken Schmerzen verursacht', diagnostik: 'untersuchen wir Sie gynäkologisch, machen einen Ultraschall und besprechen eine Bauchspiegelung zur Sicherung der Diagnose', therapie: 'bekommen Sie zunächst Schmerzmittel und hormonelle Behandlung, bei Bedarf hilft später ein kleiner operativer Eingriff' },
         differenzialdiagnosen: [
           {
             dd: 'Primäre Dysmenorrhoe',
@@ -50504,18 +50378,14 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hängen die Schmerzen mit Ihrer Regel zusammen — beginnen sie schon vor der Blutung, und wann sind sie am stärksten?', kapitel: 'aktuell' },
-        { frage: 'Sind die Regelschmerzen über die Jahre gleich geblieben oder stärker geworden?', kapitel: 'aktuell' },
+        { frage: 'Beginnen die Schmerzen schon vor der Blutung, und wann sind sie am stärksten?', kapitel: 'aktuell' },
+        { frage: 'Sind die Regelschmerzen über die Jahre gleich geblieben, oder sind sie stärker geworden?', kapitel: 'aktuell' },
         { frage: 'Wie viele Schmerztabletten brauchen Sie pro Regel, und wie viele Tage im Monat können Sie deswegen nicht arbeiten?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr — eher am Anfang oder tief im Inneren?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr — eher am Anfang, oder tief im Inneren?', kapitel: 'aktuell' },
         { frage: 'Haben Sie während der Regel Schmerzen beim Stuhlgang, Durchfall oder Blut im Stuhl?', kapitel: 'aktuell' },
         { frage: 'Haben Sie während der Regel Beschwerden beim Wasserlassen oder Blut im Urin?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie auch außerhalb der Regel Schmerzen im Unterbauch oder im Rücken?', kapitel: 'aktuell' },
-        { frage: 'Wie stark ist Ihre Blutung, gibt es Klumpen, und wie lange dauert sie?', kapitel: 'aktuell' },
         { frage: 'Haben Sie die Pille genommen — und wie waren die Schmerzen unter der Pille im Vergleich zu heute?', kapitel: 'medikamente' },
-        { frage: 'Seit wann besteht der Kinderwunsch, und verhüten Sie derzeit? Wann war Ihre letzte Regel?', kapitel: 'frauenanamnese' },
         { frage: 'Hat Ihre Mutter oder Ihre Schwester ähnliche Beschwerden oder eine Gebärmutteroperation gehabt?', kapitel: 'familie-sozial' },
-        { frage: 'Waren Sie deswegen schon beim Frauenarzt, und was wurde untersucht?', kapitel: 'frauenanamnese' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -50833,6 +50703,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Posttraumatische Belastungsstörung (PTBS) nach Motorradunfall vor sechs Monaten mit Präsentation über chronischen Spannungskopfschmerz, Schlaf- und Konzentrationsstörung — mit komorbider depressiver Symptomatik und schädlichem Alkoholkonsum als Selbstbehandlung; passive Todesgedanken ohne akute Suizidalität',
+        patientWorte: { verdacht: 'Ihre Kopfschmerzen und Schlafstörungen mit dem belastenden Motorradunfall vor einigen Monaten zusammenhängen', diagnostik: 'sprechen wir in Ruhe über Ihre Beschwerden und darüber, was Sie seit dem Unfall erlebt haben', therapie: 'hilft Ihnen vor allem ein Gespräch über das Erlebte, bei Bedarf ergänzt durch eine Psychotherapie' },
         differenzialdiagnosen: [
           {
             dd: 'Depressive Episode',
@@ -50982,20 +50853,13 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Manchmal stecken hinter solchen Beschwerden sehr belastende Erlebnisse — darf ich Sie fragen, ob Sie so etwas erlebt haben?', kapitel: 'aktuell' },
-        { frage: 'Sie müssen mir keine Einzelheiten erzählen. Darf ich nur fragen, wann das war und ob es ein einmaliges Ereignis war?', kapitel: 'aktuell' },
+        { frage: 'Manchmal stecken hinter solchen Beschwerden sehr belastende Erlebnisse — haben Sie so etwas erlebt, und war es ein einmaliges Ereignis?', kapitel: 'aktuell' },
         { frage: 'Kommen Ihnen Erinnerungen an das Ereignis ungewollt in den Sinn, oder träumen Sie davon?', kapitel: 'aktuell' },
-        { frage: 'Gibt es Momente, in denen es sich anfühlt, als würde es gerade wieder passieren — zum Beispiel bei bestimmten Geräuschen, Gerüchen oder Orten?', kapitel: 'aktuell' },
         { frage: 'Gibt es Orte, Tätigkeiten oder Gespräche, die Sie seitdem vermeiden? Sitzen Sie noch auf dem Motorrad?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schreckhafter als früher? Fühlen Sie sich ständig auf der Hut?', kapitel: 'aktuell' },
         { frage: 'Fühlen Sie sich seitdem anderen Menschen gegenüber fremd oder wie abgeschnitten von Ihren Gefühlen?', kapitel: 'aktuell' },
-        { frage: 'Machen Sie sich Vorwürfe wegen des Unfalls?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie beim Unfall das Bewusstsein verloren, oder gibt es eine Erinnerungslücke? Wurde Ihr Kopf untersucht?', kapitel: 'aktuell' },
-        { frage: 'Ist der Kopfschmerz morgens am stärksten, nimmt er im Liegen zu, oder mussten Sie sich nüchtern erbrechen?', kapitel: 'aktuell' },
-        { frage: 'An wie vielen Tagen im Monat nehmen Sie Schmerzmittel?', kapitel: 'medikamente' },
+        { frage: 'Ist der Kopfschmerz morgens am stärksten, nimmt er im Liegen zu, oder mussten Sie sich schon nüchtern erbrechen?', kapitel: 'aktuell' },
         { frage: 'Hat sich Ihr Alkohol- oder Zigarettenkonsum seit dem Unfall verändert? Nehmen Sie etwas zum Schlafen oder zur Beruhigung?', kapitel: 'noxen' },
-        { frage: 'Denken Sie manchmal, dass das Leben so nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?', kapitel: 'aktuell' },
-        { frage: 'Wer unterstützt Sie zu Hause? Weiß Ihr Mann, wie es Ihnen geht?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und warum PTBS?',
@@ -51320,6 +51184,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Anhaltende somatoforme Schmerzstörung (ICD-10 F45.40) mit multilokulären Schmerzen (Lendenwirbelsäule, Nacken/Kopf, beide Knie, Muskulatur) seit etwa fünf Jahren ohne erklärenden Organbefund nach umfangreicher Abklärung, im zeitlichen Zusammenhang mit Trennung und Mobbing entstanden, hochgradig chronifiziert (Arbeitsplatzverlust, Rentenverfahren, 13 Fachärzte, Opioid- und NSAR-Dauergebrauch) — mit komorbider mittelgradiger depressiver Episode (gedrückte Stimmung, Anhedonie, Antriebsminderung, Schlafstörung, Appetitverlust mit Gewichtsabnahme, passive Todeswünsche ohne Suizidalität)',
+        patientWorte: { verdacht: 'Ihre Schmerzen echt sind, aber ohne eine körperliche Ursache entstehen, weil Ihr Nervensystem überempfindlich geworden ist', diagnostik: 'sprechen wir ausführlich über Ihren Alltag und Ihre Belastungen, die bisherigen Befunde sind bereits vollständig', therapie: 'hilft Ihnen am meisten eine Kombination aus Bewegung, Schmerztherapie und begleitenden Gesprächen' },
         differenzialdiagnosen: [
           {
             dd: 'Depressive Episode mit Schmerz als Leitsymptom (larvierte Depression)',
@@ -51470,15 +51335,11 @@ export function seedCases(): Case[] {
         { frage: 'Was war in Ihrem Leben los, als die Schmerzen vor fünf Jahren angefangen haben — gab es Veränderungen in der Beziehung, in der Familie oder bei der Arbeit?', kapitel: 'familie-sozial' },
         { frage: 'Welche Untersuchungen wurden bereits gemacht, und haben Sie die Befunde dabei? Was haben Ihnen die Ärzte gesagt?', kapitel: 'aktuell' },
         { frage: 'Was glauben Sie selbst, woher die Schmerzen kommen? Und was erwarten Sie von uns heute?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht ein normaler Tag bei Ihnen aus — wie viel Zeit verbringen Sie liegend, und was können Sie noch tun?', kapitel: 'aktuell' },
-        { frage: 'Gibt es Tage, an denen die Schmerzen schwächer sind? Wovon hängt das ab — vom Wetter, vom Schlaf, von Ärger?', kapitel: 'aktuell' },
         { frage: 'Wie viele Tage im Monat nehmen Sie Schmerzmittel, und wie geht es Ihnen, wenn Sie das Tilidin einmal auslassen?', kapitel: 'medikamente' },
-        { frage: 'Wie war es in Ihrer Kindheit, wenn Sie krank waren oder traurig — wer hat sich gekümmert, und durfte man über Gefühle sprechen?', kapitel: 'aktuell' },
-        { frage: 'Wie geht es Ihnen mit dem laufenden Rentenverfahren, und was würde es für Sie bedeuten, wenn die Rente bewilligt oder abgelehnt wird?', kapitel: 'aktuell' },
+        { frage: 'Wie geht es Ihnen mit dem laufenden Rentenverfahren, und was würde es für Sie bedeuten, wenn die Rente bewilligt oder abgelehnt wird?', kapitel: 'familie-sozial' },
+        { frage: 'Ist ein Gelenk jemals geschwollen, rot oder heiß gewesen? Haben Sie morgens eine Steifigkeit, die länger als eine halbe Stunde dauert?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wachen Sie nachts wegen der Rückenschmerzen auf, und werden sie eher durch Bewegung besser oder schlechter?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich in letzter Zeit so schlecht gefühlt, dass Sie daran gedacht haben, nicht mehr leben zu wollen? Gibt es Gedanken, sich etwas anzutun?', kapitel: 'aktuell' },
-        { frage: 'Ist ein Gelenk jemals geschwollen, rot oder heiß gewesen? Haben Sie morgens Steifigkeit, die länger als eine halbe Stunde dauert?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wachen Sie nachts wegen der Rückenschmerzen auf, und werden sie durch Bewegung besser oder schlechter?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber, Nachtschweiß oder vergrößerte Lymphknoten bemerkt, seit Sie abgenommen haben?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -51803,6 +51664,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Aseptische Hüftkopfnekrose rechts (avaskuläre Femurkopfnekrose), am ehesten ARCO-Stadium I–II, bei Schmerzsprung in der letzten Woche Verdacht auf Übergang in Stadium III (beginnender Kopfeinbruch), bei wiederholten Prednisolon-Stoßtherapien wegen Colitis ulcerosa und chronischem Alkoholkonsum; Verdacht auf beginnende Beteiligung der linken Hüfte',
+        patientWorte: { verdacht: 'das Knochengewebe in Ihrem rechten Hüftkopf durch die Kortisonbehandlung und den Alkohol geschädigt ist', diagnostik: 'machen wir eine Kernspintomografie Ihrer Hüfte, um das Ausmaß des Schadens genau zu beurteilen', therapie: 'sollten Sie die Hüfte entlasten und auf Kortison sowie Alkohol verzichten, möglicherweise ist später eine Operation nötig' },
         differenzialdiagnosen: [
           {
             dd: 'Coxarthrose',
@@ -51952,17 +51814,14 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Tut es nur beim Gehen weh, oder auch, wenn Sie sitzen, liegen oder nachts schlafen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in den letzten Jahren Kortison bekommen — Tabletten, Infusionen oder Spritzen, zum Beispiel wegen des Darms, der Lunge oder der Gelenke? Wie viel und wie lange?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Alkohol trinken Sie an einem normalen Tag — und seit wie vielen Jahren?', kapitel: 'noxen' },
+        { frage: 'Seit wie vielen Jahren trinken Sie schon so viel Alkohol wie derzeit?', kapitel: 'noxen' },
         { frage: 'Zieht der Schmerz bis zum Knie? Haben Sie den Eindruck, das Knie selbst sei das Problem?', kapitel: 'aktuell' },
         { frage: 'Können Sie das rechte Bein noch nach innen drehen, Socken anziehen und die Beine überschlagen — und wie ist das links?', kapitel: 'aktuell' },
         { frage: 'Haben Sie auch in der linken Leiste oder in anderen Gelenken, etwa in der Schulter, Beschwerden bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gab es in der letzten Woche einen plötzlichen Sprung, ab dem es deutlich schlimmer wurde?', kapitel: 'aktuell' },
-        { frage: 'Wurde die Hüfte schon geröntgt, und was wurde Ihnen gesagt? Wurde eine Kernspintomographie gemacht?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals eine Thrombose, eine Blutkrankheit in der Familie, eine Chemotherapie, oder tauchen Sie?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie Fieber, Schüttelfrost, Gewichtsverlust oder Nachtschweiß?', kapitel: 'vegetativ' },
-        { frage: 'Wie geht es dem Darm im Moment — Durchfall, Blut im Stuhl, ein neuer Schub?', kapitel: 'vegetativ' },
+        { frage: 'Wie geht es Ihrem Darm im Moment — Durchfall, Blut im Stuhl, ein neuer Schub?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was spricht bei diesem Patienten dafür?',
@@ -52133,6 +51992,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Jonas Reinhardt',
           age: 26,
@@ -52232,6 +52092,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, mein Urin ist seit drei Tagen ganz dunkel, richtig braun, wie Cola. Und seit zwei Tagen wache ich morgens mit dicken, geschwollenen Augen auf. Seit gestern habe ich dazu Kopfschmerzen. Ich mache mir Sorgen, das hatte ich noch nie.',
           'akt-ort': 'Wehtun tut eigentlich wenig. Ein dumpfes Druckgefühl in beiden Flanken, hier hinten auf beiden Seiten (zeigt beidseits auf die Flanken). Und die Kopfschmerzen, hauptsächlich am Hinterkopf, auf beiden Seiten.',
           'akt-beginn': 'Der dunkle Urin ist mir vor drei Tagen aufgefallen, am Morgen. Die geschwollenen Augen seit zwei Tagen, das Druckgefühl in den Flanken auch seit etwa zwei Tagen. Die Kopfschmerzen sind gestern Morgen dazugekommen.',
+          'akt-veraend-was': 'Aufgefallen ist mir der Urin, wie gesagt, ganz dunkel, braun wie Cola. Und die geschwollenen Augen morgens. Blaue Flecken oder einen Knoten habe ich keine, und gelb bin ich auch nicht geworden.',
+          'akt-veraend-entwicklung': 'Der Urin wird eher noch dunkler, und es kommt insgesamt weniger. Die Augen sind morgens am schlimmsten, über den Tag geht es etwas weg, dafür sind jetzt seit gestern die Knöchel dick geworden.',
+          'akt-veraend-blutung': 'Weh tut eigentlich nichts direkt, höchstens dieses Druckgefühl in den Flanken, das hatte ich ja gesagt. Jucken tut nichts. Blut... (zögert) im Urin, meinen Sie? Der ist halt so dunkel, ob da Blut drin ist, weiß ich nicht genau, aber Blut im Stuhl oder beim Husten oder aus der Nase habe ich keins.',
           'akt-charakter': 'In den Flanken ist es dumpf und drückend, kein Stechen, keine Krämpfe. Der Kopfschmerz ist auch drückend, dumpf, manchmal spüre ich den Puls darin.',
           'akt-intensitaet': 'Die Flanken so 3 von 10, das ist eher ein Druck. Die Kopfschmerzen vielleicht 5 von 10.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwo hin, weder in die Leiste noch in den Rücken oder in die Beine.',
@@ -52285,6 +52148,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akutes nephritisches Syndrom bei Verdacht auf postinfektiöse (Poststreptokokken-)Glomerulonephritis — Makrohämaturie mit colafarbenem Urin, Oligurie, periorbitale und prätibiale Ödeme mit Gewichtszunahme von 3 kg sowie neu aufgetretene arterielle Hypertonie (168/102 mmHg) etwa 16 Tage nach einer eitrigen Streptokokken-Angina; Differenzialdiagnose IgA-Nephropathie, Ausschluss einer rasch progredienten Glomerulonephritis',
+        patientWorte: { verdacht: 'sich nach Ihrer Halsentzündung eine Entzündung der Nieren entwickelt hat, die den dunklen Urin erklärt', diagnostik: 'nehmen wir Ihnen Blut und Urin ab und messen regelmäßig Ihren Blutdruck', therapie: 'müssen Sie zur Überwachung im Krankenhaus bleiben und Ihren Salz- und Flüssigkeitskonsum vorübergehend einschränken' },
         differenzialdiagnosen: [
           {
             dd: 'IgA-Nephropathie',
@@ -52436,16 +52300,12 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie sieht der Urin genau aus — hellrot mit Klümpchen oder eher braun wie Cola oder Fleischwasser? Schäumt er?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie in den letzten Wochen eine Mandelentzündung, Halsschmerzen oder eine Hautinfektion — und wie viele Tage liegt das zurück?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie in den letzten Wochen eine Mandelentzündung, Halsschmerzen oder eine Hautinfektion — wie viele Tage liegt das genau zurück?', kapitel: 'aktuell' },
         { frage: 'Wurde Ihnen ein Antibiotikum verschrieben, und haben Sie es bis zum Ende eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Urin kommt noch — wie oft gehen Sie zur Toilette, und müssen Sie nachts raus?', kapitel: 'aktuell' },
-        { frage: 'Wo sind die Schwellungen zuerst aufgetreten — an den Augenlidern am Morgen oder an den Beinen am Abend? Hat sich Ihr Gewicht verändert?', kapitel: 'aktuell' },
-        { frage: 'Wurde bei Ihnen schon einmal ein erhöhter Blutdruck gemessen? Haben Sie Kopfschmerzen, Sehstörungen oder Luftnot?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzmittel wie Ibuprofen oder Diclofenac genommen — wie viel und wie lange?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Bluthusten, Hautausschlag, rote Punkte an den Beinen, Gelenkschmerzen, Nebenhöhlenprobleme oder eine Hörminderung bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Gibt es in Ihrer Familie Nierenerkrankungen, Dialyse, Blut im Urin oder Schwerhörigkeit in jungen Jahren?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie in den letzten Wochen Durchfall, waren Sie beim Zahnarzt oder haben Sie Rote Bete gegessen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Kopfschmerzen, Sehstörungen oder Luftnot bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Bluthusten oder rote Punkte an den Beinen bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Gibt es in Ihrer Familie Blut im Urin oder eine Schwerhörigkeit, die schon in jungen Jahren aufgetreten ist?', kapitel: 'familie-sozial' },
+        { frage: 'Hatten Sie in den letzten Wochen Durchfall, waren Sie beim Zahnarzt, oder haben Sie Rote Bete gegessen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
@@ -52621,6 +52481,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
           age: 47,
@@ -52727,6 +52588,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, ich habe seit zwei Wochen einen Knoten in der linken Leiste. Er tut nicht weh, aber er wird größer, und ich habe in letzter Zeit abgenommen. Das macht mir Angst.',
           'akt-ort': 'Hier, in der linken Leiste, ungefähr in der Mitte. (zeigt auf die linke Leistenbeuge) Man kann ihn gut tasten, er ist etwa so groß wie eine Walnuss, vielleicht vier Zentimeter. Er lässt sich verschieben und ist mittelfest, nicht steinhart.',
           'akt-beginn': 'Vor zwei Wochen, beim Duschen. Da war er plötzlich da. Vorher hatte ich da nie etwas bemerkt.',
+          'akt-veraend-was': 'Aufgefallen ist mir eigentlich nur dieser Knoten in der Leiste, sonst nichts. Ich habe keine neuen Flecken auf der Haut, keine blauen Flecken, und geblutet hat auch nichts. Schlucken geht ganz normal, und beim Stuhlgang oder mit der Haut – also gelb oder so – ist mir nichts aufgefallen.',
+          'akt-veraend-entwicklung': 'Größer geworden ist er auf jeden Fall, wie gesagt, von der Haselnuss zur Walnuss. Häufiger, also mehrere Knoten, sind es nicht geworden, es ist immer noch nur der eine. Die Haut darüber ist ganz normal gefärbt, keine Rötung, und die Form ist rund geblieben, nur eben größer.',
+          'akt-veraend-blutung': 'Weh tut er nicht, das hatte ich ja schon gesagt. Jucken tut er auch nicht, und geblutet hat er nie. Und sonst, im Stuhl, im Urin, beim Husten oder aus der Nase, da ist mir noch nie Blut aufgefallen.',
           'akt-charakter': 'Schmerzen habe ich gar keine. Er ist einfach da — fest, aber nicht hart, und er lässt sich hin und her schieben. Höchstens ein leichtes Druckgefühl, wenn ich sitze oder eine enge Hose trage.',
           'akt-intensitaet': 'Schmerzen: null von zehn. Es ist wirklich kein Schmerz, das ist ja das Merkwürdige.',
           'akt-ausstrahlung': 'Nein, nichts strahlt aus. Weder ins Bein noch in den Bauch.',
@@ -52786,6 +52650,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Verdacht auf ein malignes Lymphom, am ehesten Non-Hodgkin-Lymphom, bei seit zwei Wochen progredienter, schmerzloser, derb-elastischer und verschieblicher inguinaler Lymphadenopathie links (ca. 4 cm) ohne Infektzeichen, begleitet von B-Symptomatik (Nachtschweiß mit Wäschewechsel, abendliches Fiebergefühl, ungewollter Gewichtsverlust von 3 kg in vier Wochen) und Leistungsknick — klinisch vorläufig Ann-Arbor-Stadium I B, Staging ausstehend',
+        patientWorte: { verdacht: 'es sich um eine bösartige Erkrankung des Lymphsystems handeln könnte, bei der sich Lymphknoten dauerhaft vergrößern', diagnostik: 'entnehmen wir Ihnen Blut, machen eine Ultraschalluntersuchung des Bauches und entnehmen eine kleine Gewebeprobe aus dem Lymphknoten', therapie: 'müsste je nach Ergebnis der Gewebeprobe eine gezielte Behandlung des Lymphsystems geplant werden, die in den meisten Fällen gut wirkt' },
         differenzialdiagnosen: [
           {
             dd: 'Hodgkin-Lymphom',
@@ -52939,23 +52804,13 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau besteht der Knoten, und ist er seitdem größer geworden, gleich geblieben oder kleiner geworden?', kapitel: 'aktuell' },
-        { frage: 'Tut der Knoten weh, ist er gerötet oder überwärmt? Lässt er sich verschieben, oder ist er fest mit der Unterlage verwachsen?', kapitel: 'aktuell' },
-        { frage: 'Wird der Knoten beim Husten oder Pressen größer, und lässt er sich wegdrücken?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Fieber gemessen? Hatten Sie Temperaturen über 38 Grad ohne Erkältung?', kapitel: 'vegetativ' },
-        { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen — wie viel haben Sie vor einem Monat gewogen, und wollten Sie abnehmen?', kapitel: 'vegetativ' },
+        { frage: 'Seit wann haben Sie den Knoten in der Leiste bemerkt, und ist er seitdem größer, kleiner oder gleich geblieben?', kapitel: 'aktuell' },
+        { frage: 'Tut der Knoten weh, ist er gerötet oder fühlt er sich warm an? Lässt er sich mit den Fingern hin- und herbewegen, oder sitzt er fest?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen im Knoten, wenn Sie Alkohol trinken?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Juckreiz am ganzen Körper?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie noch weitere Knoten bemerkt — am Hals, hinter den Ohren, in den Achseln oder in der rechten Leiste?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie eine Verletzung, einen Insektenstich, eine Wunde oder ein neues oder verändertes Muttermal am linken Bein oder Fuß?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Beschwerden im Genital- oder Analbereich, Ausfluss oder Geschwüre? Gab es einen neuen Sexualpartner?', kapitel: 'familie-sozial' },
+        { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', kapitel: 'vegetativ' },
+        { frage: 'Haben Sie Juckreiz am ganzen Körper bemerkt?', kapitel: 'vegetativ' },
+        { frage: 'Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr linkes Bein geschwollen, gerötet oder schmerzhaft?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen? Sind Ihnen hervortretende Augen aufgefallen?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie Kontakt zu Katzen oder anderen Tieren, einen Zeckenstich oder eine Auslandsreise?', kapitel: 'familie-sozial' },
-        { frage: 'Womit arbeiten Sie genau — haben Sie Kontakt zu Holzstaub, Lacken, Lösungsmitteln oder Pestiziden, und tragen Sie Atemschutz?', kapitel: 'familie-sozial' },
-        { frage: 'Sind Sie in den letzten Monaten häufiger krank gewesen, haben Sie blaue Flecken oder Blutungen bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihre Regelblutung noch regelmäßig, und haben Sie auch tagsüber Hitzewallungen?', kapitel: 'frauenanamnese' },
       ],
       examinerQuestions: [
         'Fassen Sie bitte kurz zusammen, was die Patientin Ihnen erzählt hat — wie ist ihre familiäre und soziale Situation? Seit wann ist sie geschieden, hat sie Kontakt zu ihrem Sohn?',
@@ -53125,6 +52980,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',
           age: 56,
@@ -53229,6 +53085,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ehrlich gesagt weiß ich gar nicht, warum ich hier bin. Der Hausarzt hat angerufen, die weißen Blutkörperchen seien über 130.000, ich müsse sofort her. Ich fühl mich gar nicht so krank.',
           'akt-ort': 'Wenn überhaupt, dann hier, links oben im Bauch, unter den Rippen. Da habe ich so ein Druckgefühl, als ob da etwas drin wäre. (legt die Hand auf den linken Oberbauch)',
           'akt-beginn': 'Das ging schleichend los, so vor drei Monaten, im Frühsommer. Erst war es nur die Müdigkeit, dann kam das Druckgefühl im Bauch dazu. Es ist langsam mehr geworden.',
+          'akt-allgemein-art': 'Also am ehesten Müdigkeit, wirklich so ein Schlappsein, als hätte ich keine Energie mehr. Dass mir richtig die Kraft in den Armen oder Beinen fehlt, würde ich nicht sagen. Schwindel auch nicht, mir wird nicht schwarz vor Augen oder so. Es ist eher diese ständige Müdigkeit und dieses Druckgefühl im Bauch.',
+          'akt-allgemein-alltag': 'Im Büro schaffe ich meinen Job noch, aber abends bin ich fix und fertig, ich habe zu nichts mehr Lust. Hinlegen tagsüber, nein, das mache ich nicht, ich beiße mich da durch. Aber mein Fahrrad, mit dem ich sonst zur Arbeit fahre, das steht seit Wochen in der Garage, das schaffe ich im Moment nicht.',
+          'akt-allgemein-tageszeit': 'Morgens geht es eigentlich noch, da bin ich einigermaßen wach. Im Laufe des Tages werde ich dann immer schlapper, vor allem nachmittags. Nach einer ruhigen Nacht ist es nicht wirklich besser, ich wache eigentlich schon müde auf.',
+          'akt-allgemein-gewicht': 'Ja, vier Kilo habe ich abgenommen, ohne dass ich das wollte, das hatte ich ja schon erzählt. Appetit habe ich auch weniger, ich werde schnell satt. Durst, nein, da ist mir nichts Besonderes aufgefallen, ich trinke wie immer.',
+          'akt-allgemein-schwellung': 'Nein, geschwollen ist bei mir nichts, weder die Beine noch das Gesicht. Der Bauch ist links oben eben gedrückt, aber das ist nicht geschwollen, das fühlt sich anders an. Und beim Wasserlassen ist mir auch nichts Besonderes aufgefallen, das ist wie immer.',
           'akt-charakter': 'Kein richtiger Schmerz, eher dumpf, ein Druck- und Völlegefühl. Als hätte ich zu viel gegessen, auch wenn ich fast nichts gegessen habe.',
           'akt-intensitaet': 'Wenn ich eine Zahl sagen soll — 3 von 10. Es ist eher lästig als schlimm.',
           'akt-ausstrahlung': 'Nein, das bleibt links oben im Bauch. In die Schulter oder den Rücken zieht es nicht.',
@@ -53283,6 +53144,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Chronische myeloische Leukämie (CML) in chronischer Phase — Zufallsbefund einer massiven Leukozytose (132 G/l) mit mäßiger Anämie (Hb 11,4 g/dl) und Thrombozytose (560 G/l) bei Splenomegalie und B-Symptomatik (Nachtschweiß, 4 kg Gewichtsverlust) sowie sekundärer Hyperurikämie mit stattgehabtem Gichtanfall; Sicherung durch Nachweis des BCR-ABL1-Fusionsgens (Philadelphia-Chromosom) und Knochenmarkpunktion ausstehend',
+        patientWorte: { verdacht: 'es sich um eine chronische Form von Blutkrebs handelt, bei der zu viele weiße Blutkörperchen gebildet werden', diagnostik: 'nehmen wir Ihnen Blut ab und untersuchen später eine kleine Probe aus dem Knochenmark genauer', therapie: 'könnte die Erkrankung mit einer Tablette, die das kranke Enzym gezielt blockiert, sehr gut behandelt werden' },
         differenzialdiagnosen: [
           {
             dd: 'Leukämoide Reaktion (schwere Infektion, Sepsis, solider Tumor)',
@@ -53405,16 +53267,13 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Warum hat Ihr Hausarzt Blut abgenommen — hatten Sie Beschwerden, oder war es eine Routineuntersuchung? Wissen Sie, welche Werte auffällig waren?', kapitel: 'aktuell' },
+        { frage: 'Warum hat Ihr Hausarzt Blut abgenommen — hatten Sie Beschwerden, oder war es eine Routineuntersuchung?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ein Druck- oder Völlegefühl unter dem linken Rippenbogen, und werden Sie beim Essen schneller satt als früher?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie plötzlich sehr starke Schmerzen im linken Oberbauch, die in die linke Schulter ausstrahlen?', kapitel: 'aktuell' },
-        { frage: 'Schwitzen Sie nachts so stark, dass Sie den Schlafanzug oder die Bettwäsche wechseln müssen? Wie viel haben Sie in welcher Zeit abgenommen?', kapitel: 'vegetativ' },
-        { frage: 'Bekommen Sie blaue Flecken ohne Anlass, Nasen- oder Zahnfleischbluten?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Sehstörungen, Kopfschmerzen, Luftnot oder ungewöhnliche Dauererektionen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in letzter Zeit einen Gichtanfall oder Nierenkoliken?', kapitel: 'aktuell' },
-        { frage: 'Gab es frühere Blutbilder, in denen die weißen Blutkörperchen schon erhöht waren?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wurden Sie früher schon einmal auf ein erhöhtes Blutbild hingewiesen?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie jemals einer Strahlentherapie oder beruflich Chemikalien wie Benzol ausgesetzt?', kapitel: 'familie-sozial' },
-        { frage: 'Welche Leukämie hat Ihr Vater genau, und wie wird er behandelt?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was hat Sie dazu geführt?',
@@ -53738,6 +53597,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute beidseitige Adnexitis (Pelvic Inflammatory Disease) bei Verdacht auf aszendierende Chlamydien- oder Gonokokkeninfektion — Unterbauchschmerzen beidseits mit Beginn kurz nach der Menstruation, Fieber 38,4 °C, eitriger übelriechender Fluor, Dyspareunie und Kontaktblutung bei einer 23-jährigen Patientin mit neuem Partner ohne Kondomgebrauch',
+        patientWorte: { verdacht: 'es sich um eine Entzündung der Eileiter und Eierstöcke handelt, die von einer Infektion ausgelöst wurde', diagnostik: 'machen wir einen Schwangerschaftstest, nehmen Abstriche aus dem Muttermund und untersuchen Sie mit dem Ultraschall', therapie: 'müssten Sie für einige Tage Antibiotika einnehmen, damit die Entzündung vollständig ausheilt und keine Folgeschäden entstehen' },
         differenzialdiagnosen: [
           {
             dd: 'Extrauteringravidität (Tubargravidität)',
@@ -53885,18 +53745,12 @@ export function seedCases(): Case[] {
         'auf-laparoskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann war Ihre letzte Periode, und wann genau haben die Schmerzen im Verhältnis dazu begonnen?', kapitel: 'frauenanamnese' },
-        { frage: 'Haben Sie mehr Ausfluss als sonst bemerkt — wie sieht er aus, wie riecht er?', kapitel: 'frauenanamnese' },
-        { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr, und ist danach eine Blutung aufgetreten?', kapitel: 'aktuell' },
-        { frage: 'Ich stelle diese Fragen allen Patientinnen mit solchen Beschwerden, weil sie für die Behandlung wichtig sind: Haben Sie einen neuen Partner? Benutzen Sie Kondome? Hat Ihr Partner Beschwerden?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie schon einmal eine Geschlechtskrankheit oder eine Entzündung im Unterleib, und wurden Sie jemals darauf getestet?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wie verhüten Sie — und könnte es sein, dass Sie schwanger sind? Haben Sie die Pille zuletzt einmal vergessen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie eine Spirale, oder wurde in letzter Zeit ein Eingriff an der Gebärmutter durchgeführt?', kapitel: 'aktuell' },
-        { frage: 'Ist der Schmerz gewandert, zum Beispiel vom Nabel nach rechts unten? Ist er auf einer Seite stärker?', kapitel: 'aktuell' },
+        { frage: 'Haben die Unterbauchschmerzen kurz nach Ihrer letzten Periode begonnen?', kapitel: 'frauenanamnese' },
+        { frage: 'Ich stelle diese Fragen allen Patientinnen mit solchen Beschwerden, weil sie für die Behandlung wichtig sind: Haben Sie einen neuen Partner, benutzen Sie Kondome, und hat Ihr Partner Beschwerden?', kapitel: 'familie-sozial' },
+        { frage: 'Hatten Sie schon einmal eine Geschlechtskrankheit oder eine Entzündung im Unterleib?', kapitel: 'vorerkrankungen' },
+        { frage: 'Haben Sie eine Spirale, oder wurde in letzter Zeit ein Eingriff an der Gebärmutter durchgeführt?', kapitel: 'frauenanamnese' },
+        { frage: 'Ist der Schmerz vom Bauchnabel in den rechten Unterbauch gewandert?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen im rechten Oberbauch oder in der Schulter, vor allem beim Atmen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Brennen beim Wasserlassen, häufigen Harndrang, Blut im Urin oder Schmerzen in der Flanke?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie erbrochen, Durchfall oder Verstopfung?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Fieber gemessen — wie hoch, und hatten Sie Schüttelfrost?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und warum?',
@@ -54061,6 +53915,7 @@ export function seedCases(): Case[] {
       frequency: 25,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Tobias Reinhardt',
           age: 25,
@@ -54146,11 +54001,11 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Ich sitze den ganzen Tag am Bildschirm, in einem klimatisierten Großraumbüro — mit Staub oder Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Kessler. Der weiß nur, dass ich Heuschnupfen habe, mehr haben wir da nie gemacht.',
           'akt-motiv': 'Ich niese seit Wochen ununterbrochen, die Nase läuft und ist gleichzeitig zu, und die Augen jucken furchtbar. Ich habe jedes Frühjahr Heuschnupfen, aber dieses Jahr ist es viel schlimmer — und seit zwei Wochen huste ich auch noch, vor allem nachts.',
-          'akt-ort': 'Das betrifft die Nase, beide Seiten, und die Augen, auch beide. Und es juckt auch im Gaumen und in den Ohren, tief drin. Seit zwei Wochen ist auch die Brust dabei, so ein Engegefühl beim Laufen.',
           'akt-beginn': 'Angefangen hat es Anfang April, also vor ungefähr fünf Wochen — ziemlich genau, als es draußen warm wurde und alles zu blühen anfing. Das kenne ich, das geht bei mir jedes Jahr von Ende März bis in den Juli. Der Husten ist neu, den habe ich erst seit zwei Wochen.',
-          'akt-charakter': 'Ich niese in Salven, zehn-, fünfzehnmal hintereinander, vor allem morgens. Dann läuft die Nase wie ein Wasserhahn, ganz klar und wässrig, und trotzdem ist sie zu. Und alles juckt — Nase, Augen, Gaumen. Die Augen sind rot und tränen, als hätte ich geweint.',
-          'akt-intensitaet': 'Wenn ich das auf einer Skala sagen soll — eine 7 von 10. Es tut nicht weh, aber es macht mich fertig. Ich kann mich bei der Arbeit nicht konzentrieren, und nachts schlafe ich kaum.',
-          'akt-ausstrahlung': 'Ausstrahlen — nein, Schmerzen habe ich keine, die irgendwohin ziehen. Höchstens so ein leichtes Druckgefühl über den Wangen, aber das tut nicht richtig weh.',
+          'akt-atemnot-belastung': 'In Ruhe merke ich davon nichts, Treppen im Büro sind auch kein Problem. Es ist wirklich nur beim Joggen draußen — dann wird die Brust eng und ich krieg schlecht Luft, letzte Woche musste ich deshalb abbrechen. Ist wahrscheinlich einfach meine Kondition.',
+          'akt-atemnot-nachts': 'Nein, erhöht schlafen muss ich nicht, und wegen Luftnot wache ich auch nicht auf. Die Nase ist nachts halt komplett zu, dann atme ich durch den Mund, und der Husten weckt mich manchmal.',
+          'akt-atemnot-husten': 'Ja, seit zwei Wochen, aber nur trocken, da kommt nichts hoch, kein Schleim, kein Blut. Vor allem nachts hustet es mich an.',
+          'akt-atemnot-geraeusch': 'Manchmal, ja — beim Joggen pfeift es beim Ausatmen ein bisschen, dazu dieses Engegefühl in der Brust. Sonst höre ich da nichts.',
           'akt-verlauf': 'Es ist jeden Tag da, seit fünf Wochen. Morgens nach dem Aufstehen ist es am schlimmsten, tagsüber im Büro wird es etwas besser, und sobald ich draußen bin, geht es wieder los. Es wird eher schlimmer als besser — und der Husten und die Luftnot beim Laufen sind dazugekommen.',
           'akt-ausloeser': 'Draußen ist es am schlimmsten, an trockenen, windigen Tagen, beim Joggen im Park. Wenn der Nachbar Rasen mäht, ist es furchtbar. Bei Regen ist es fast weg, im Winter hab ich gar nichts.',
           'akt-einfluss': 'Besser bei Regen, drinnen mit geschlossenen Fenstern und mit dem Cetirizin, das hilft aber dieses Jahr nur halb. Schlimmer draußen, morgens und beim Sport.',
@@ -54202,6 +54057,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Saisonale allergische Rhinokonjunktivitis (Pollinosis) bei wahrscheinlicher Birken- und Gräserpollensensibilisierung mit oralem Allergiesyndrom (Apfel, Haselnuss) und Hinweisen auf einen beginnenden Etagenwechsel zum allergischen Asthma bronchiale (nächtlicher Reizhusten, Giemen, Belastungsdyspnoe); zusätzlich Verdacht auf beginnende Rhinitis medicamentosa durch dreiwöchigen täglichen Xylometazolin-Gebrauch',
+        patientWorte: { verdacht: 'es sich um eine Allergie gegen Pollen handelt, die möglicherweise schon auf die Bronchien übergreift', diagnostik: 'machen wir einen Allergietest, hören Ihre Lunge ab und messen, wie schnell Sie ausatmen können', therapie: 'müssten Sie die Pollen möglichst meiden und ein Nasenspray sowie bei Bedarf ein Spray für die Bronchien verwenden' },
         differenzialdiagnosen: [
           {
             dd: 'Infektiöse (virale) Rhinitis',
@@ -54337,16 +54193,14 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann im Jahr treten die Beschwerden auf, und seit wie vielen Jahren wiederholt sich das zur gleichen Zeit?', kapitel: 'aktuell' },
-        { frage: 'Ist es draußen oder drinnen schlimmer, bei welchem Wetter, tagsüber oder nachts — und wie war es im Winter und im letzten Urlaub?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht das Nasensekret aus — klar und wässrig oder gelb-grün? Hatten Sie Fieber, und ist jemand in Ihrem Umfeld erkältet?', kapitel: 'aktuell' },
-        { frage: 'Sind die Augen mitbetroffen — jucken, tränen, sind sie gerötet? Juckt es auch im Gaumen oder in den Ohren?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Husten, vor allem nachts, ein Pfeifen beim Ausatmen, ein Engegefühl in der Brust oder Luftnot beim Sport?', kapitel: 'aktuell' },
+        { frage: 'In welcher Jahreszeit treten die Beschwerden auf, und sind sie draußen schlimmer als drinnen — waren Sie im letzten Urlaub oder im Winter beschwerdefrei?', kapitel: 'aktuell' },
+        { frage: 'Welche Farbe hat das Nasensekret — klar und wässrig oder gelb-grün?', kapitel: 'aktuell' },
+        { frage: 'Jucken, tränen oder röten sich Ihre Augen dabei? Juckt es auch im Gaumen oder in den Ohren?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie vor allem nachts Husten oder ein Pfeifen beim Ausatmen?', kapitel: 'aktuell' },
         { frage: 'Kribbelt oder schwillt es Ihnen im Mund nach rohen Äpfeln, Nüssen, Karotten oder Steinobst?', kapitel: 'aktuell' },
-        { frage: 'Welche Nasensprays benutzen Sie, wie oft am Tag und seit wie vielen Tagen?', kapitel: 'medikamente' },
+        { frage: 'Welches Nasenspray benutzen Sie, seit wie vielen Tagen und wie oft am Tag?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie als Kind Neurodermitis oder Asthma, und gibt es Allergien, Asthma oder Neurodermitis in Ihrer Familie?', kapitel: 'allergien' },
         { frage: 'Haben Sie Haustiere oder Kontakt zu Tieren, wie ist Ihr Schlafzimmer ausgestattet, und was arbeiten Sie genau?', kapitel: 'familie-sozial' },
-        { frage: 'Wie stark beeinträchtigen die Beschwerden Ihren Schlaf und Ihre Arbeit, und was hat bisher geholfen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie äußert sich die Allergie bei diesem Patienten? Bitte beschreiben Sie das genau.',
@@ -54497,6 +54351,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Heinz Peter Kleinweber',
           age: 47,
@@ -54595,6 +54450,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich habe seit über einer Woche Fieber, und es geht einfach nicht weg. Seit zwei Tagen ist es konstant bei 39,4, egal wann ich messe. Meine Frau hat gesagt, so kennt sie mich nicht, ich sei ganz weggetreten.',
           'akt-ort': 'Der Bauch tut mir weh, so um den Nabel herum und ein bisschen rechts unten. Und der Kopf, dumpf, die ganze Zeit.',
           'akt-beginn': 'Angefangen hat es vor etwa acht Tagen, also vier Tage nachdem ich aus Südafrika zurück war. Erst dachte ich, das ist die Reise, der Jetlag.',
+          'akt-infekt-fieber': 'Ja, ich messe rektal, das mache ich immer genau. Am höchsten war es die letzten zwei Tage, 39,4, und das bleibt jetzt so, egal wann ich messe. Schüttelfrost — am Anfang, in der ersten Woche, da hatte ich das, richtig mit Zittern. Jetzt in den letzten Tagen nicht mehr, jetzt ist es eher dieses ständige Schwitzen.',
+          'akt-infekt-kontakt': 'Ja, ich war drei Monate in Südafrika, in Limpopo, auf einer Baustelle, Straßenbau. Zurück bin ich vor zwölf Tagen. Kontakt zu Kranken — ein einheimischer Arbeiter auf der Baustelle hatte vor drei Wochen auch Fieber und Durchfall, das fällt mir jetzt ein. Zu Tieren hatte ich keinen besonderen Kontakt. Gegessen haben wir oft an Straßenständen, und das Wasser kam mal aus dem Tank im Camp, mal aus einem Brunnen im Dorf — da habe ich mir ehrlich gesagt keine großen Gedanken gemacht.',
+          'akt-infekt-herd': 'Husten habe ich, trocken, ohne Auswurf, seit etwa einer Woche, das hatte ich schon gesagt. Halsschmerzen keine. Beim Wasserlassen brennt nichts. Durchfall — da muss ich nachdenken: am Anfang war ich eher verstopft, fünf Tage lang gar nichts, und erst seit gestern hatte ich zweimal etwas breiigen Stuhl, aber ohne Blut. Ausschlag habe ich keinen bemerkt, und eine Wunde auch nicht.',
           'akt-charakter': 'Das Fieber ist jeden Tag ein Stück höher geklettert, wie eine Treppe: 37,8, dann 38,3, dann 38,9 — und seit vorgestern steht es bei 39,4 und rührt sich nicht. Ich messe rektal, das ist zuverlässig. Der Bauchschmerz ist dumpf und drückend, eher ein Blähungsgefühl, nicht krampfartig.',
           'akt-intensitaet': 'Der Bauch, so 4 von 10. Was mich fertigmacht, sind das Fieber und diese Benommenheit.',
           'akt-ausstrahlung': 'Nein, der Schmerz strahlt nirgendwo hin, der bleibt im Bauch.',
@@ -54648,6 +54506,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Typhus abdominalis (Stadium fastigii, zweite Krankheitswoche) nach dreimonatigem Aufenthalt in Limpopo, Südafrika — treppenförmiger Fieberanstieg mit anschließender Kontinua 39,4 °C, relative Bradykardie (Puls etwa 62/min), Benommenheit, trockener Husten, initiale Obstipation, aufgetriebenes druckschmerzhaftes Abdomen; Impfschutz abgelaufen und unvollständig. Malaria muss vorrangig ausgeschlossen werden, da die Chloroquin-Proguanil-Prophylaxe in Südafrika unzureichend ist.',
+        patientWorte: { verdacht: 'es sich um eine bakterielle Infektion des Darms handelt, die Sie sich wahrscheinlich auf der Reise zugezogen haben', diagnostik: 'nehmen wir Ihnen Blut ab, legen eine Blutkultur an und schließen zuerst eine Malaria sicherheitshalber aus', therapie: 'müssten Sie für einige Tage im Krankenhaus bleiben und über die Vene ein wirksames Antibiotikum bekommen' },
         differenzialdiagnosen: [
           {
             dd: 'Malaria tropica',
@@ -54798,18 +54657,14 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wo genau waren Sie, wie lange, und wann sind Sie zurückgekommen?', kapitel: 'familie-sozial' },
-        { frage: 'Wie ist das Fieber gekommen — plötzlich oder Tag für Tag höher? Schwankt es, oder bleibt es konstant?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihr Fieber Tag für Tag höher geworden, oder kam es plötzlich? Bleibt es jetzt konstant hoch?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Ihren Puls beim Fieber gemessen? Ist Ihnen ein langsamer Puls aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Welche Malariaprophylaxe haben Sie genommen — welches Präparat, wie oft, ab wann und bis wann, ohne Auslassung?', kapitel: 'medikamente' },
-        { frage: 'Wogegen sind Sie geimpft, und wann war die Typhusimpfung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Sie gegen Typhus geimpft, und wann war das?', kapitel: 'vorerkrankungen' },
         { frage: 'Wie haben Sie sich vor Ort verpflegt: Leitungswasser, Eiswürfel, Straßenstände, rohe Salate?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie zuerst Verstopfung oder Durchfall? Wie sieht der Stuhl aus — Blut, Schleim, erbsbreiartig?', kapitel: 'aktuell' },
-        { frage: 'Fühlen Sie sich benommen, verwirrt, oder hat Ihre Frau Sie verändert erlebt?', kapitel: 'aktuell' },
+        { frage: 'Fühlen Sie sich benommen oder verwirrt, oder hat Ihre Frau Sie verändert erlebt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen ein Ausschlag am Bauch aufgefallen, blassrote Flecken?', kapitel: 'aktuell' },
-        { frage: 'Hatte jemand in Ihrer Umgebung — Kollegen, Familie — ebenfalls Fieber oder Durchfall?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie auf der Reise neue Sexualkontakte?', kapitel: 'familie-sozial' },
-        { frage: 'Arbeiten Sie oder Ihre Frau im Lebensmittelbereich oder in einer Gemeinschaftseinrichtung?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und wie kommen Sie dahin?',
@@ -54986,6 +54841,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Walter Schwarz',
           age: 73,
@@ -55095,6 +54951,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich habe seit Wochen kaum noch Stuhlgang. Verstopft war ich ja schon immer ein bisschen, aber jetzt geht fast gar nichts mehr — nur noch mit Abführmitteln. Und meine Tochter hat gesagt, ich soll das endlich untersuchen lassen.',
           'akt-ort': 'Es drückt hier links unten im Bauch, so ein Völlegefühl. (legt die flache Hand auf den linken Unterbauch) Richtig weh tut es nicht.',
           'akt-beginn': 'Verstopft bin ich eigentlich seit Jahren, ich würde sagen fünf Jahre, da hatte ich vielleicht alle drei Tage Stuhlgang. Aber seit ungefähr einem Monat ist es viel schlimmer geworden, jetzt nur noch etwa einmal in der Woche. Einmal waren es fünf Tage gar nichts.',
+          'akt-veraend-was': 'Aufgefallen ist mir vor allem, dass der Stuhlgang nicht mehr richtig kommt, das hatte ich ja schon gesagt. Knoten oder so habe ich an mir keine bemerkt, Hautveränderungen auch nicht, und gelb bin ich auch nicht geworden, soweit ich weiß. Beim Schlucken habe ich keine Probleme.',
+          'akt-veraend-entwicklung': 'Schlimmer ist es geworden, ja, das hatte ich ja erzählt, von alle drei Tage auf jetzt kaum noch einmal die Woche. Die Form vom Stuhl selbst ist hart, wie kleine Kugeln, das ist eigentlich schon länger so. Größer oder häufiger, im Sinne von mehreren Stellen, das verstehe ich jetzt nicht ganz, es ist ja der Stuhlgang, der weniger wird, nicht mehr.',
+          'akt-veraend-blutung': 'Weh tut es beim Pressen schon ein bisschen, aber sonst nicht. Jucken tut nichts. Und — das hatte ich ja schon gesagt — vor zwei Wochen war einmal hellrotes Blut am Papier, nach starkem Pressen. Das kommt sicher davon, dass ich so pressen musste. Im Urin, beim Husten oder aus der Nase habe ich nie Blut gesehen.',
           'akt-charakter': 'Ein Druck, ein Völlegefühl, als wäre alles voll da drin. Der Bauch ist abends aufgebläht. Krämpfe habe ich keine.',
           'akt-intensitaet': 'Wenn ich das auf Ihrer Skala sagen soll — vielleicht 3 von 10. Es ist eher lästig als schlimm.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin. Es bleibt da links unten.',
@@ -55146,6 +55005,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Chronische funktionelle Obstipation seit Jahren (ROM-IV-Kriterien erfüllt: weniger als drei Stuhlgänge pro Woche, harter Stuhl Bristol 1–2, starkes Pressen, Gefühl der unvollständigen Entleerung), aktuell medikamentös aggraviert durch Amitriptylin (trizyklisches Antidepressivum, seit drei Monaten) und Amlodipin sowie durch Bewegungsmangel, ballaststoffarme Ernährung und geringe Trinkmenge unter Flohsameneinnahme — mit einmaliger Hämatochezie, am ehesten hämorrhoidal nach Pressen. Bei Alter über 50 Jahren, Änderung der Stuhlgewohnheiten und Blutabgang ist die Koloskopie zum Ausschluss eines kolorektalen Karzinoms obligat, zumal nie eine Vorsorgekoloskopie erfolgt ist.',
+        patientWorte: { verdacht: 'es sich zunächst um eine hartnäckige Verstopfung handelt, die möglicherweise durch eines Ihrer Medikamente verstärkt wird', diagnostik: 'nehmen wir Ihnen Blut ab und machen eine Darmspiegelung, um andere Ursachen sicher auszuschließen', therapie: 'könnten wir Ihre Medikamente anpassen und Ihnen Abführmittel sowie mehr Ballaststoffe und Flüssigkeit empfehlen' },
         differenzialdiagnosen: [
           {
             dd: 'Kolorektales Karzinom (insbesondere Sigma- oder Rektumkarzinom)',
@@ -55295,18 +55155,12 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie oft haben Sie pro Woche Stuhlgang, und wie ist der Stuhl beschaffen — hart, in kleinen Klumpen, oder wurstförmig und weich?', kapitel: 'vegetativ' },
-        { frage: 'Müssen Sie stark pressen, und haben Sie danach das Gefühl, dass nicht alles herausgekommen ist?', kapitel: 'aktuell' },
-        { frage: 'Seit wann sind Sie verstopft, und wann genau ist es schlimmer geworden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie jemals Blut im oder auf dem Stuhl oder am Toilettenpapier gesehen? War es hellrot oder dunkel, und war der Stuhl jemals schwarz?', kapitel: 'aktuell' },
-        { frage: 'Ist der Stuhl dünner geworden, wie ein Bleistift? Wechseln sich Verstopfung und Durchfall ab?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ungewollt abgenommen? Bitte nennen Sie mir Ihr Gewicht vor einem Jahr.', kapitel: 'vegetativ' },
+        { frage: 'War das Blut hellrot und nur auf dem Toilettenpapier, oder war es mit dem Stuhl vermischt?', kapitel: 'aktuell' },
+        { frage: 'Ist der Stuhl dünner geworden, wie ein Bleistift?', kapitel: 'aktuell' },
         { frage: 'Wachen Sie nachts wegen Bauchschmerzen auf?', kapitel: 'aktuell' },
-        { frage: 'Welche Abführmittel nehmen Sie, wie oft, und wann haben Sie das letzte zuletzt genommen? Auch Tees, Zäpfchen, pflanzliche Mittel?', kapitel: 'medikamente' },
-        { frage: 'Wurde in den letzten Monaten ein neues Medikament angesetzt — insbesondere gegen Schmerzen, zum Schlafen oder für die Stimmung?', kapitel: 'medikamente' },
-        { frage: 'Wie viel trinken Sie am Tag, und was essen Sie an einem normalen Tag? Wie viel bewegen Sie sich?', kapitel: 'aktuell' },
+        { frage: 'Wurde bei Ihnen in letzter Zeit ein neues Medikament angesetzt — insbesondere gegen Schmerzen, zum Schlafen oder für die Stimmung?', kapitel: 'medikamente' },
+        { frage: 'Welche Abführmittel nehmen Sie, wie oft, und wann haben Sie das letzte zuletzt genommen?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmpolypen?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie schon einmal eine Darmspiegelung, zum Beispiel zur Vorsorge?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie Schmerzen oder Brennen am After beim Stuhlgang?', kapitel: 'aktuell' },
         { frage: 'Wie geht es Ihnen mit der Stimmung, seit Ihre Frau gestorben ist? Wie kommen Sie zu Hause zurecht?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -55482,6 +55336,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Michael Neumeister',
           age: 75,
@@ -55598,6 +55453,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ach, Herr Doktor, das ist mir richtig peinlich. Ich bin heute Nacht im Bad hingefallen und kam nicht mehr hoch. Jetzt tut die linke Hüfte weh. Ein blöder Ausrutscher, weiter nichts.',
           'akt-ort': 'Hier, links an der Hüfte, außen, da wo der Knochen ist. (legt die Hand seitlich auf die linke Hüfte) Und es zieht am Oberschenkel außen bis zum Knie runter.',
           'akt-beginn': 'Heute Nacht, so gegen drei. Ich bin aufgestanden, weil ich auf die Toilette musste — das muss ich nachts ja dauernd —, und im Bad ist es dann passiert.',
+          'akt-anfall-ablauf': 'Na ja, \'Anfall\' ist eigentlich übertrieben — es fängt so an, dass mir beim Aufstehen schwindelig wird und es dann schwarz vor den Augen wird, richtig schwarz, für ein paar Sekunden. Aufhören tut das von selbst, wenn ich mich wieder hinsetze oder festhalte. Während es passiert, spüre ich eigentlich nur dieses Schwindelgefühl, sonst nichts, kein Herzrasen oder so.',
+          'akt-anfall-dauer': 'Das dauert nur kurz, ein paar Sekunden, vielleicht bis zu einer halben Minute, dann wird es wieder normal. Wie oft — das passiert mir seit ungefähr drei Monaten, vor allem morgens und nachts, wenn ich aufstehe. Regelmäßig, würde ich sagen, aber nicht jeden Tag.',
+          'akt-anfall-bewusstsein': 'Bewusstlos war ich nicht, das weiß ich noch genau. Schwarz vor Augen schon, das war ja der Grund, warum ich gestürzt bin. Verletzt habe ich mich diesmal an der linken Hüfte, das tut jetzt richtig weh, und an der Schläfe habe ich mir eine kleine Beule geholt.',
           'akt-charakter': 'Wenn ich stillliege, ist es ein dumpfer Druck. Aber sobald ich mich bewege oder das Bein hebe, sticht es richtig rein.',
           'akt-intensitaet': 'Wenn ich liege, vielleicht 4 von 10. Wenn ich mich bewege oder versuche aufzustehen, 8. Beim Umlagern vorhin war es schlimm.',
           'akt-ausstrahlung': 'Ja, es zieht an der Außenseite vom linken Oberschenkel runter, ungefähr bis zum Knie. In den Rücken nicht, und in den Fuß auch nicht.',
@@ -55655,6 +55513,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Sturz im Alter (geriatrisches Sturzsyndrom) mit rezidivierenden Stürzen, multifaktoriell: orthostatische Hypotonie unter antihypertensiver Mehrfachtherapie (Ramipril/HCT, seit drei Monaten Amlodipin) und Tamsulosin, Z-Substanz zur Nacht (Zolpidem), Katarakt beidseits mit Gleitsichtbrille, Nykturie mit nächtlichen Toilettengängen im Dunkeln, beginnende Sarkopenie nach ungewolltem Gewichtsverlust, Alkohol und Umgebungsgefahren (Badvorleger, Läufer, einseitiges Treppengeländer, Katze); als Sturzfolgen Hüftprellung links mit auszuschließender Schenkelhalsfraktur, Kopfanprall unter Apixaban mit auszuschließender intrakranieller Blutung und zweistündige Liegezeit (Rhabdomyolyse, Hypothermie)',
+        patientWorte: { verdacht: 'Ihr Sturz mehrere Ursachen hat, zum Beispiel einen kurzen Blutdruckabfall beim Aufstehen und einige Ihrer Medikamente', diagnostik: 'machen wir Röntgenbilder von Hüfte und Kopf, messen Ihren Blutdruck im Liegen und Stehen und nehmen Blut ab', therapie: 'müssten wir vielleicht einige Medikamente ändern und mit Ihnen besprechen, wie Sie sicherer zu Hause zurechtkommen' },
         differenzialdiagnosen: [
           {
             dd: 'Synkope (orthostatisch, kardial bei Vorhofflimmern unter Betablocker, vasovagal)',
@@ -55807,18 +55666,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Erzählen Sie mir bitte ganz genau, was passiert ist: Was haben Sie gemacht, als Sie gestürzt sind — und wie sind Sie gefallen: gestolpert, weggeknickt, schwindelig, schwarz vor Augen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern? Haben Sie sich abgefangen?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern?', kapitel: 'aktuell' },
         { frage: 'Konnten Sie allein wieder aufstehen? Wie lange haben Sie auf dem Boden gelegen, und wer hat den Rettungsdienst gerufen?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie mit dem Kopf aufgeschlagen? Nehmen Sie einen Blutverdünner?', kapitel: 'medikamente' },
+        { frage: 'Sind Sie mit dem Kopf aufgeschlagen?', kapitel: 'aktuell' },
         { frage: 'Sind Sie in den letzten zwölf Monaten schon einmal gestürzt oder beinahe gestürzt — auch wenn nichts passiert ist?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wird Ihnen beim Aufstehen aus dem Bett oder vom Stuhl schwindelig oder schwarz vor den Augen? Seit wann?', kapitel: 'aktuell' },
+        { frage: 'Wird Ihnen beim Aufstehen aus dem Bett oder vom Stuhl schwindelig oder schwarz vor den Augen?', kapitel: 'aktuell' },
         { frage: 'Welche Medikamente nehmen Sie — auch Schlaf- oder Beruhigungsmittel, Wassertabletten, Prostatamittel und rezeptfreie Schmerzmittel? Wurde in den letzten Monaten etwas neu angesetzt oder erhöht?', kapitel: 'medikamente' },
-        { frage: 'Wie steht es um Ihre Augen — tragen Sie eine Gleitsichtbrille, wann waren Sie zuletzt beim Augenarzt?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts zur Toilette, und ist der Weg dorthin beleuchtet?', kapitel: 'aktuell' },
         { frage: 'Wie wohnen Sie: Treppe, Geländer, Teppiche, Badvorleger, Haustiere? Leben Sie allein, und wer könnte Ihnen helfen?', kapitel: 'familie-sozial' },
-        { frage: 'Benutzen Sie einen Stock oder Rollator — auch in der Wohnung? Fällt Ihnen das Aufstehen vom Stuhl schwer?', kapitel: 'familie-sozial' },
-        { frage: 'Haben Sie seit dem letzten Sturz Angst zu fallen und deshalb weniger unternommen?', kapitel: 'aktuell' },
-        { frage: 'Wie viel trinken Sie am Tag, und wie viel Alkohol am Abend? Wie ernähren Sie sich, seit Sie allein leben?', kapitel: 'noxen' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie sieht der hämodynamische Zustand aus — ist der Patient orientiert und ansprechbar?',
@@ -56129,6 +55983,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Lumboischialgie rechts im Sinne eines unspezifischen Kreuzschmerzes (Lumbago, „Hexenschuss“) mit pseudoradikulärer Ausstrahlung ins Gesäß und in die Oberschenkelrückseite, nach Heben und Drehen unter Last — ohne neurologisches Defizit und ohne Red Flags; Yellow Flags vorhanden (Angst vor Strukturschaden, Bildgebungswunsch, passive Behandlungserwartung, Unzufriedenheit am Arbeitsplatz)',
+        patientWorte: { verdacht: 'es sich um eine schmerzhafte Verspannung der Rückenmuskulatur handelt und Ihre Bandscheibe nicht beschädigt ist', diagnostik: 'haben wir Sie schon gründlich körperlich und neurologisch untersucht, eine weitere Bildgebung ist derzeit nicht nötig', therapie: 'sollten Sie sich weiter normal bewegen, denn die Beschwerden gehen in den meisten Fällen innerhalb weniger Wochen von selbst zurück' },
         differenzialdiagnosen: [
           {
             dd: 'Lumbaler Bandscheibenvorfall mit Radikulopathie (L5 oder S1)',
@@ -56282,15 +56137,11 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Was genau haben Sie gemacht, als der Schmerz eingeschossen ist — haben Sie gehoben, sich gebückt oder gedreht?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz ins Bein aus — und wenn ja, bis wohin genau: bis zum Gesäß, bis zum Knie, oder bis in den Fuß und in die Zehen?', kapitel: 'aktuell' },
-        { frage: 'Spüren Sie ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche im Bein oder Fuß? Können Sie auf den Zehenspitzen und auf den Fersen stehen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Probleme beim Wasserlassen oder beim Stuhlgang, oder ein taubes Gefühl im Genital- oder Gesäßbereich?', kapitel: 'aktuell' },
         { frage: 'Wird der Schmerz beim Husten, Niesen oder Pressen schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Wachen Sie nachts von selbst wegen der Schmerzen auf, oder nur wenn Sie sich umdrehen? Gibt es eine Lage, in der der Schmerz besser wird?', kapitel: 'aktuell' },
+        { frage: 'Wachen Sie nachts von selbst wegen der Schmerzen auf, auch ohne sich umzudrehen?', kapitel: 'aktuell' },
         { frage: 'Wie lange sind Sie morgens steif, und wird es mit Bewegung besser oder schlechter?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber, einen kürzlichen Infekt, ungewollt abgenommen, oder gab es bei Ihnen jemals eine Krebserkrankung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hatten Sie so etwas schon einmal — und wie wurde es damals behandelt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wie lange und wie oft nehmen Sie Ibuprofen ein, und nehmen Sie einen Magenschutz dazu? Haben Sie Sodbrennen oder Magenschmerzen?', kapitel: 'medikamente' },
+        { frage: 'Hatten Sie kürzlich Fieber oder einen Infekt, und gab es bei Ihnen jemals eine Krebserkrankung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wie lange und wie oft nehmen Sie Ibuprofen ein, und nehmen Sie einen Magenschutz dazu?', kapitel: 'medikamente' },
         { frage: 'Wie sieht Ihr Arbeitsalltag aus — wie viel heben Sie, wie lange sitzen Sie, wie zufrieden sind Sie an Ihrem Arbeitsplatz?', kapitel: 'familie-sozial' },
         { frage: 'Was befürchten Sie selbst, was hinter den Schmerzen steckt, und was erwarten Sie von uns heute?', kapitel: 'aktuell' },
       ],
@@ -56612,6 +56463,14 @@ export function seedCases(): Case[] {
           'fach-chir-op': 'Am Bauch bin ich nie operiert worden, da habe ich keine Narben. Nur die kleine Narbe im Kreuz von der Bandscheibe und die Einstichstelle in der rechten Leiste vom Herzkatheter.',
           'fach-chir-blutverduenner': 'Ja, ASS 100 jeden Morgen, seit dem Stent. Marcumar oder so etwas nicht.',
           'fach-chir-gallensteine': 'Gallensteine? Nein, beim Ultraschall damals hat der Hausarzt nichts von Steinen gesagt — nur das mit der weiten Hauptschlagader. Einen Leistenbruch habe ich auch nicht, da ist keine Beule.',
+          'fach-gefaess-gehstrecke': 'Weit gehen kann ich schon, das hat nichts mit den Beinen zu tun. Das ist doch meine Bandscheibe, das kenn ich, weh tut mir der Rücken, nicht die Waden.',
+          'fach-gefaess-ruheschmerz': 'Der Schmerz ist die ganze Zeit da, auch wenn ich still sitze oder liege, sogar nachts. Mit den Beinen hat das aber nichts zu tun, das Hängenlassen hilft da nicht, nur wenn ich mich auf die Seite lege mit angezogenen Beinen, ist es ein bisschen erträglicher.',
+          'fach-gefaess-schwellung': 'Nein, an den Beinen ist nichts dicker, wärmer oder röter, und die Wade spannt auch nicht. Das Problem ist mein Rücken und die linke Seite vom Bauch.',
+          'fach-gefaess-immobilisation': 'Nein, ich war nicht länger im Bett oder im Gips, auch keine Operation in letzter Zeit, nur die alte Bandscheiben-OP vor acht Jahren.',
+          'fach-gefaess-hormone': 'Nein, so etwas nehme ich nicht.',
+          'fach-gefaess-thrombose': 'Eine Thrombose oder Lungenembolie hatte ich nie, und davon ist mir in der Familie auch nichts bekannt. Bei uns in der Familie ist es eher das mit der Hauptschlagader, aber das ist ja etwas anderes, oder?',
+          'fach-gefaess-wunde': 'Nein, Wunden an den Beinen habe ich keine, und die Füße sind auch nicht kalt oder blass.',
+          'fach-gefaess-vorgeschichte': 'Krampfadern habe ich keine... Aber, na ja, vor zwei Jahren, beim Ultraschall vom Bauch wegen der Leberwerte, hat der Arzt gesagt, meine Hauptschlagader sei etwas weit, so vier Zentimeter. Kontrolle sollte ich machen, aber ich bin nicht mehr hingegangen, weil es ja nicht wehgetan hat. Operiert wurde ich da nie.',
         },
         frageAntworten: [],
         schwierigeReaktionen: [
@@ -56626,6 +56485,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Symptomatisches infrarenales Bauchaortenaneurysma mit Verdacht auf drohende beziehungsweise gedeckte retroperitoneale Ruptur — Notfall: bei einem 71-jährigen Ex-Raucher (50 Packungsjahre) mit arterieller Hypertonie, KHK, Hyperlipidämie und familiärer Belastung (Mutter an Aneurysmaruptur verstorben, Bruder mit Aneurysma) neu aufgetretener, seit zwei Tagen zunehmender, nicht bewegungsabhängiger tiefer Rücken-/Flankenschmerz links mit Ausstrahlung in die Leiste, seit Wochen bemerktes Pulsieren im Bauch, einmalige Präsynkope mit Schweißausbruch und ein vor zwei Jahren als Zufallsbefund erhobenes, nicht kontrolliertes Aneurysma von etwa 4 cm',
+        patientWorte: { verdacht: 'es sich um eine Aussackung der großen Bauchschlagader handelt, die möglicherweise droht, einzureißen', diagnostik: 'machen wir sofort eine Ultraschalluntersuchung und eine Computertomographie des Bauches, um die Gefäßwand genau zu beurteilen', therapie: 'müssten Sie umgehend von den Gefäßchirurgen operiert werden, weil die Aussackung ohne Behandlung reißen könnte' },
         differenzialdiagnosen: [
           {
             dd: 'Nierenkolik / Urolithiasis links',
@@ -56775,17 +56635,14 @@ export function seedCases(): Case[] {
         'auf-operation',
         'auf-bluttransfusion',
       ],
+      fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
-        { frage: 'Ist der Schmerz abhängig von Bewegung, Bücken oder Husten — oder bleibt er gleich, egal was Sie tun?', kapitel: 'aktuell' },
-        { frage: 'Kommt der Schmerz in Wellen wie ein Krampf, oder ist er die ganze Zeit gleichmäßig da?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Blut im Urin bemerkt, brennt es beim Wasserlassen, hatten Sie jemals Nierensteine?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen schwarz vor Augen geworden, sind Sie zusammengebrochen oder haben Sie plötzlich geschwitzt?', kapitel: 'aktuell' },
         { frage: 'Spüren Sie ein Klopfen oder Pulsieren im Bauch, zum Beispiel beim Liegen auf dem Rücken?', kapitel: 'aktuell' },
         { frage: 'Wurde bei Ihnen jemals eine Erweiterung der Hauptschlagader festgestellt — beim Ultraschall, beim CT oder beim Hausarzt? Wann war die letzte Kontrolle?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Erweiterungen der Hauptschlagader oder plötzliche Todesfälle durch eine geplatzte Ader?', kapitel: 'familie-sozial' },
-        { frage: 'Wie viel und wie lange haben Sie geraucht, und wann haben Sie aufgehört?', kapitel: 'noxen' },
-        { frage: 'Haben Sie Druck oder Schmerzen in der Brust, Luftnot — so wie damals beim Herzinfarkt?', kapitel: 'aktuell' },
-        { frage: 'Nehmen Sie Blutverdünner ein, und wann haben Sie zuletzt gegessen und getrunken?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie Druck oder Schmerzen in der Brust oder Luftnot?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ein Kribbeln, eine Taubheit oder eine Schwäche im Bein, oder Probleme beim Wasserlassen oder Stuhlgang?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen eine Vorwölbung in der Leiste oder ein blauer Fleck an der Flanke aufgefallen?', kapitel: 'aktuell' },
       ],
@@ -57100,6 +56957,14 @@ export function seedCases(): Case[] {
           'fach-kardio-oedeme': 'Nein, dicke Beine hatte ich nie. Die Schuhe passen immer.',
           'fach-kardio-nykturie': 'Einmal pro Nacht muss ich raus, das ist seit Jahren so. Nicht mehr geworden.',
           'fach-kardio-synkope': 'Direkt als es anfing, ist mir schwarz vor Augen geworden und schwindelig, ich musste mich auf den Boden setzen. Bewusstlos war ich nicht, meine Frau sagt, ich habe die ganze Zeit geredet. Vorher bin ich nie ohnmächtig geworden.',
+          'fach-gefaess-gehstrecke': 'Gehen... kann ich jetzt sowieso nicht, mir tut alles weh. Das mit der Wade beim Laufen, das kenn ich nicht, das war noch nie ein Problem.',
+          'fach-gefaess-ruheschmerz': 'Der Schmerz ist die ganze Zeit da, ob ich liege oder sitze, das ändert nichts. Mit dem Bein hängen lassen hat das nichts zu tun.',
+          'fach-gefaess-schwellung': 'Dicker oder röter ist nichts... aber mein linkes Bein fühlt sich seit einer halben Stunde kälter an, und es kribbelt. Das macht mir Angst.',
+          'fach-gefaess-immobilisation': 'Nein, ruhiggestellt war ich nicht, kein Gips, keine Reise, keine Operation. Das kam beim Heben von einem Zementsack im Garten.',
+          'fach-gefaess-hormone': 'Nein, so etwas nehme ich nicht.',
+          'fach-gefaess-thrombose': 'Eine Thrombose oder Embolie hatte ich selbst nie. In der Familie... meine Mutter, die ist an einem Riss in der Hauptschlagader gestorben, innerhalb von einer Stunde. Das ist doch was anderes als eine Thrombose, oder? Aber deshalb hab ich jetzt solche Angst.',
+          'fach-gefaess-wunde': 'Wunden an den Beinen habe ich keine. Aber wie gesagt, der linke Fuß fühlt sich kälter an als sonst, seit vorhin.',
+          'fach-gefaess-vorgeschichte': 'Krampfadern habe ich keine. Untersucht oder operiert an den Gefäßen wurde ich noch nie, das hab ich ja auch nie machen lassen.',
         },
         schwierigeReaktionen: [
           '"Ist das ein Herzinfarkt? Geben Sie mir doch endlich was gegen den Herzinfarkt — Heparin, oder noch eine Aspirin!"',
@@ -57112,6 +56977,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Aortendissektion Stanford Typ A (DeBakey Typ I) bei langjähriger, schlecht eingestellter arterieller Hypertonie — ausgelöst durch schwere isometrische Belastung, mit Ausdehnung bis in die linke Beckenarterie (beginnende Malperfusion des linken Beins)',
+        patientWorte: { verdacht: 'es sich um einen Einriss in der Wand Ihrer Hauptschlagader handelt, der sofort behandelt werden muss', diagnostik: 'machen wir sofort eine Herz-Ultraschalluntersuchung und eine Computertomographie der Schlagader, um den Einriss genau darzustellen', therapie: 'müssten Sie umgehend notoperiert werden, damit die Schlagader wieder sicher verschlossen und geschützt wird' },
         differenzialdiagnosen: [
           {
             dd: 'Akutes Koronarsyndrom / Myokardinfarkt',
@@ -57260,18 +57126,15 @@ export function seedCases(): Case[] {
         'auf-ct',
         'auf-echokardiographie',
       ],
+      fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
-        { frage: 'Kam der Schmerz von einer Sekunde auf die andere und war er sofort am stärksten — oder hat er sich über Minuten aufgebaut?', kapitel: 'aktuell' },
-        { frage: 'Wie würden Sie den Schmerz beschreiben: eher drückend und einengend oder eher reißend und stechend?', kapitel: 'aktuell' },
+        { frage: 'War der Schmerz von der ersten Sekunde an am stärksten, oder hat er sich über Minuten aufgebaut?', kapitel: 'aktuell' },
+        { frage: 'Ist der Schmerz eher reißend, so als würde innerlich etwas einreißen?', kapitel: 'aktuell' },
         { frage: 'Ist der Schmerz gewandert — vom Brustbein in den Rücken, zwischen die Schulterblätter oder in den Bauch?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz in den linken Arm, den Hals oder den Unterkiefer aus?', kapitel: 'aktuell' },
         { frage: 'Was haben Sie gemacht, als es losging — haben Sie etwas Schweres gehoben oder gepresst?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen schwarz vor Augen geworden oder waren Sie kurz bewusstlos?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Ausfälle bemerkt: Lähmung, Sprachstörung, Sehstörung, Taubheit — oder fühlt sich ein Bein kalt an?', kapitel: 'aktuell' },
         { frage: 'Wie hoch ist Ihr Blutdruck normalerweise, und nehmen Sie Ihre Blutdruckmedikamente jeden Tag?', kapitel: 'medikamente' },
         { frage: 'Ist bei Ihnen eine Erweiterung der Hauptschlagader bekannt, oder gibt es in der Familie eine Bindegewebserkrankung, ein Aneurysma oder einen plötzlichen Tod?', kapitel: 'familie-sozial' },
-        { frage: 'Wurde bei Ihnen jemals am Herzen operiert oder ein Herzkatheter durchgeführt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie heute schon Medikamente bekommen — Aspirin, eine Spritze gegen Gerinnsel, Nitrospray?', kapitel: 'medikamente' },
         { frage: 'Haben Sie jemals Kokain oder andere Drogen konsumiert?', kapitel: 'noxen' },
       ],
       examinerQuestions: [
@@ -57583,6 +57446,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute, am ehesten virale (postinfektiöse) Perikarditis bei einem 34-jährigen Patienten etwa zehn Tage nach einem fieberhaften grippalen Infekt — stechender, atem- und lageabhängiger retrosternaler Schmerz mit Ausstrahlung in den linken Trapeziusrand, leichtes Fieber (38,1 °C), gutes Ansprechen auf Ibuprofen; Frage nach Perikarderguss und Myokardbeteiligung (Perimyokarditis) offen bis zu Echokardiographie und Troponin',
+        patientWorte: { verdacht: 'es sich um eine Entzündung des Herzbeutels handelt, die wahrscheinlich von Ihrer letzten Erkältung ausgelöst wurde', diagnostik: 'schreiben wir ein Herz-EKG, hören Ihr Herz genau ab und machen eine Ultraschalluntersuchung des Herzens', therapie: 'sollten Sie ein entzündungshemmendes Medikament wie Ibuprofen einnehmen, worauf die Beschwerden meist innerhalb weniger Tage abklingen' },
         differenzialdiagnosen: [
           {
             dd: 'Akutes Koronarsyndrom (STEMI / NSTEMI)',
@@ -57729,18 +57593,13 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wird der Schmerz stärker, wenn Sie tief einatmen oder husten?', kapitel: 'aktuell' },
-        { frage: 'Wie ist es, wenn Sie sich flach hinlegen — und wird es besser, wenn Sie sich aufsetzen und nach vorne beugen?', kapitel: 'aktuell' },
-        { frage: 'Ist der Schmerz eher stechend oder eher drückend wie ein Gewicht auf der Brust?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz irgendwohin aus — in den Arm, den Kiefer, den Rücken oder eher in die Schulter-Nacken-Kante?', kapitel: 'aktuell' },
-        { frage: 'Kam der Schmerz schlagartig oder hat er sich über Stunden entwickelt? Waren Sie dabei in Ruhe oder unter Belastung?', kapitel: 'aktuell' },
+        { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell' },
+        { frage: 'Strahlt der Schmerz eher in die Schulter-Nacken-Kante aus als in den Arm?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Fieber gemessen? Frösteln Sie oder schwitzen Sie nachts?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie Luftnot, auch im Liegen, Schwindel oder das Gefühl, ohnmächtig zu werden? Sind die Beine geschwollen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Luftnot, auch im Liegen, oder das Gefühl, ohnmächtig zu werden? Sind die Beine geschwollen?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals einen Herzinfarkt, eine Herzoperation, eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie längere Zeit im Ausland, oder hatten Sie Kontakt zu jemandem mit Tuberkulose?', kapitel: 'familie-sozial' },
         { frage: 'Hat Ihnen das Ibuprofen geholfen, und wie lange hat die Wirkung angehalten?', kapitel: 'medikamente' },
-        { frage: 'Gibt es in Ihrer Familie Herzinfarkte in jungem Alter oder plötzliche Todesfälle?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Herr Kollege, wie lautet Ihre Verdachtsdiagnose, und was hat Sie dazu geführt?',
@@ -57905,6 +57764,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Lukas Brenner',
           age: 27,
@@ -58007,6 +57867,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ehrlich gesagt weiß ich gar nicht genau, warum ich hier bin. Meine Freundin sagt, ich bin heute Morgen beim Frühstück einfach vom Stuhl gekippt und habe am ganzen Körper gezuckt. Ich weiß davon nichts mehr. Der Rettungsdienst hat mich hergebracht.',
           'akt-ort': 'Ich habe jetzt Kopfschmerzen, so am ganzen Kopf, und die Zunge tut weh, hier links am Rand — ich habe mir wohl draufgebissen. Und alle Muskeln tun weh, Arme, Beine, Rücken, wie nach einem harten Training. Und hier an der Stirn bin ich aufgeschlagen. (zeigt auf eine Schürfwunde rechts)',
           'akt-beginn': 'Das war heute Morgen, so gegen halb acht. Wir haben in der Küche gefrühstückt. Das Letzte, woran ich mich erinnere, ist, dass ich den Kaffee eingeschenkt habe. Dann weiß ich nur noch, dass ich im Rettungswagen lag.',
+          'akt-anfall-ablauf': 'Wie es anfängt, weiß ich ehrlich nicht, ich war ja nicht bei Bewusstsein. Lena hat mir erzählt, ich hätte zuerst laut geschrien, dann bin ich steif geworden, und dann hat der ganze Körper gezuckt. Aufgehört hat es von allein, nach den zwei Minuten, sagt sie. Was ich selbst dabei spüre — nichts, ich habe keine Erinnerung daran, weder vorher noch währenddessen.',
+          'akt-anfall-dauer': 'Laut Lena waren es etwa zwei Minuten, das kam ihr ewig vor, sagt sie. Wie oft das vorkommt — heute war zum ersten Mal, dass ich richtig umgekippt bin und gezuckt habe, das hatte ich noch nie.',
+          'akt-anfall-bewusstsein': 'Bewusstlos war ich auf jeden Fall, ich weiß ja von nichts mehr, bis ich im Rettungswagen war. Schwarz vor Augen vorher — kann ich nicht sagen, ich hatte kein Vorgefühl oder so. Verletzt habe ich mich schon: die Zunge links gebissen, das tut jetzt beim Sprechen weh, und an der Stirn rechts eine Schürfwunde vom Sturz.',
           'akt-charakter': 'Der Kopfschmerz ist dumpf, drückend, so ein Druck überall. Die Zunge brennt und sticht beim Sprechen. Und die Muskeln — Muskelkater eben, überall.',
           'akt-intensitaet': 'Der Kopf so 4 von 10. Die Zunge tut beim Sprechen richtig weh, vielleicht 5. Sonst geht es, ich bin vor allem müde.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin.',
@@ -58064,6 +57927,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Erster beobachteter generalisierter tonisch-klonischer Anfall nach Schlafentzug und Alkoholexzess — bei anamnestischen Hinweisen auf frühere unerkannte Anfälle (morgendliche Myoklonien beider Arme seit einem Jahr, zwei nächtliche Ereignisse mit Zungenbiss, Muskelkater und Einnässen) und positiver Familienanamnese dringender Verdacht auf eine genetische generalisierte Epilepsie vom Typ der juvenilen myoklonischen Epilepsie; Differenzialdiagnose akut symptomatischer (provozierter) Anfall',
+        patientWorte: { verdacht: 'es sich um einen epileptischen Anfall handelt, möglicherweise im Rahmen einer angeborenen Form der Epilepsie', diagnostik: 'machen wir eine Blutuntersuchung, messen die elektrische Aktivität Ihres Gehirns und machen ein Bild von Ihrem Kopf', therapie: 'müssten Sie ausreichend schlafen, auf Alkohol verzichten und eventuell dauerhaft ein Medikament gegen Anfälle einnehmen' },
         differenzialdiagnosen: [
           {
             dd: 'Akut symptomatischer (provozierter) Anfall durch Schlafentzug und Alkohol',
@@ -58210,15 +58074,11 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was ist das Letzte, woran Sie sich vor dem Ereignis erinnern — und was das Erste danach?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie vorher ein Vorgefühl: ein aufsteigendes Gefühl im Bauch, ein Déjà-vu, einen Geruch, Angst — oder ein Schwarzwerden vor den Augen, Schwitzen, Herzklopfen?', kapitel: 'aktuell' },
-        { frage: 'Hat jemand den Anfall gesehen? Gibt es ein Handyvideo oder das Protokoll des Rettungsdienstes? Darf ich Ihre Freundin dazuholen?', kapitel: 'aktuell' },
-        { frage: 'Wie lange hat das Zucken gedauert — wurde die Zeit gestoppt? Waren die Augen offen oder geschlossen, die Lippen blau oder blass?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie sich auf die Zunge gebissen — an der Seite oder an der Spitze? Ist Urin abgegangen? Haben Sie sich verletzt?', kapitel: 'aktuell' },
         { frage: 'Wie lange waren Sie danach verwirrt, und sind Sie danach eingeschlafen? Haben Sie jetzt Muskelkater oder Kopfschmerzen?', kapitel: 'aktuell' },
         { frage: 'Sind Sie in den letzten Monaten schon einmal morgens mit einer angebissenen Zunge, Muskelkater, einem nassen Bett oder unerklärten blauen Flecken aufgewacht?', kapitel: 'aktuell' },
         { frage: 'Zucken Ihnen morgens manchmal die Arme, sodass Ihnen etwas aus der Hand fällt? Haben Sie kurze Aussetzer, in denen Sie nicht ansprechbar sind?', kapitel: 'aktuell' },
-        { frage: 'Wie viel haben Sie in den letzten Nächten geschlafen? Wie viel Alkohol haben Sie am Wochenende getrunken, und wann war das letzte Glas? Haben Sie Drogen genommen?', kapitel: 'noxen' },
+        { frage: 'Wie viel haben Sie in den letzten Nächten geschlafen? Wie viel Alkohol haben Sie am Wochenende getrunken, und haben Sie Drogen genommen?', kapitel: 'noxen' },
         { frage: 'Hatten Sie als Kind Fieberkrämpfe, eine Hirnhautentzündung oder eine Kopfverletzung mit Bewusstlosigkeit? Gibt es Epilepsie in der Familie?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie neue Medikamente oder haben Sie kürzlich Schlaf- oder Beruhigungsmittel abgesetzt?', kapitel: 'medikamente' },
         { frage: 'Fahren Sie beruflich Auto? Arbeiten Sie auf Leitern, an Maschinen oder allein?', kapitel: 'familie-sozial' },
@@ -58550,6 +58410,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Hodentorsion rechts (intravaginale Torsion bei mutmaßlicher „Glockenklöppel“-Anlage) mit Symptombeginn um 3:30 Uhr — bei Vorstellung um 7:30 Uhr rund vier Stunden Ischämiezeit; anamnestisch eine frühere selbstlimitierende Episode im Sinne einer intermittierenden Torsion',
+        patientWorte: { verdacht: 'es sich um eine Verdrehung des Hodens handelt, bei der die Durchblutung sofort unterbrochen ist', diagnostik: 'untersuchen wir Ihren Hoden gründlich und bringen Sie danach direkt zur Operation, ohne weitere Zeit zu verlieren', therapie: 'müssten Sie umgehend operiert werden, damit der Hoden zurückgedreht und wenn möglich gerettet werden kann' },
         differenzialdiagnosen: [
           {
             dd: 'Epididymitis / Epididymoorchitis rechts',
@@ -58677,18 +58538,11 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen „Schmerzen im Unterbauch“ — haben Sie auch Schmerzen im Hoden? Das ist eine ganz normale Frage, ich muss das wissen.', kapitel: 'aktuell' },
         { frage: 'Wann genau hat der Schmerz angefangen — können Sie mir die Uhrzeit sagen? Sind Sie davon aufgewacht?', kapitel: 'aktuell' },
-        { frage: 'Kam der Schmerz schlagartig oder hat er sich über Stunden aufgebaut?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz vom Hoden in die Leiste oder in den Bauch aus — oder umgekehrt vom Rücken nach unten?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen übel, haben Sie erbrochen? Haben Sie Fieber gemessen?', kapitel: 'vegetativ' },
-        { frage: 'Ist der Hoden geschwollen oder gerötet, steht er höher als der andere?', kapitel: 'aktuell' },
-        { frage: 'Wird der Schmerz besser, wenn Sie den Hoden anheben oder abstützen?', kapitel: 'aktuell' },
+        { frage: 'Strahlt der Schmerz vom Hoden in den Bauch aus?', kapitel: 'aktuell' },
+        { frage: 'Ist der Hoden geschwollen oder gerötet, und steht er höher als der andere?', kapitel: 'aktuell' },
         { frage: 'Gab es gestern beim Fußball einen Tritt, einen Ball oder einen Sturz — irgendeine Verletzung im Genitalbereich?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so einen Schmerz schon einmal, vielleicht kürzer, und ist er dann von allein wieder verschwunden?', kapitel: 'aktuell' },
-        { frage: 'Brennt es beim Wasserlassen, müssen Sie häufiger, haben Sie Ausfluss bemerkt?', kapitel: 'vegetativ' },
-        { frage: 'Darf ich Sie etwas zu Ihrer Partnerschaft fragen — haben Sie eine feste Freundin, wie verhüten Sie, hatten Sie je eine Geschlechtskrankheit?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie als Kind einen Hodenhochstand oder eine Operation an der Leiste? Sind Sie gegen Mumps geimpft?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie in der Leiste eine Beule bemerkt, die man wegdrücken kann?', kapitel: 'aktuell' },
-        { frage: 'Wann haben Sie zuletzt gegessen und getrunken?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
@@ -58839,6 +58693,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Gerhard Sonntag',
           age: 71,
@@ -58927,11 +58782,10 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Chemikalien? Pflanzenschutzmittel, früher, wie jeder Bauer. Sonst nichts Besonderes. Draußen war ich mein Leben lang, bei jedem Wetter.',
           'pers-hausarzt': 'Ja, Dr. Reinhardt im Dorf. Der kennt mich seit dreißig Jahren.',
           'akt-motiv': 'Herr Doktor, ich habe da eine Stelle an der Nase, die will einfach nicht heilen. Das geht jetzt schon seit Monaten so. Jedes Mal beim Rasieren blutet es wieder. Meine Tochter hat gesagt, ich soll das endlich anschauen lassen.',
-          'akt-ort': 'Hier, rechts am Nasenflügel, direkt am Übergang zur Wange. (zeigt auf die Stelle) So groß wie eine Erbse ungefähr.',
           'akt-beginn': 'Das ist schleichend gekommen. Angefangen hat es vor ungefähr acht Monaten, da war es nur ein kleiner Pickel, dachte ich. Weggegangen ist es aber nie.',
-          'akt-charakter': 'Es tut gar nicht weh. Es juckt auch nicht, es brennt nicht. Es ist einfach da und blutet. Das ist ja das Komische.',
-          'akt-intensitaet': 'Schmerzen? Null. Wenn Sie mich fragen, wie sehr es mich stört — vielleicht eine 3, wegen dem Blut auf dem Handtuch. Aber wehtun tut es nicht.',
-          'akt-ausstrahlung': 'Nein, es strahlt nirgendwo hin. Es ist nur genau diese eine Stelle.',
+          'akt-veraend-was': 'Das ist eine Stelle an der Nase, die nicht heilen will. Blutet immer wieder, vor allem beim Rasieren.',
+          'akt-veraend-entwicklung': 'Größer wird sie nur ganz langsam, über die Monate. Aber sie geht einfach nicht weg, das ist das Merkwürdige daran.',
+          'akt-veraend-blutung': 'Wehtun tut sie nicht, jucken auch nicht. Blutet aber schon, wenn ich mich rasiere oder abtrockne, dann reißt die Kruste auf.',
           'akt-verlauf': 'Die ist dauernd da. Es kommt nicht und geht nicht. Es wird nur ganz langsam ein bisschen größer. Mal ist eine Kruste drauf, dann reibe ich sie beim Abtrocknen ab, dann blutet es, dann bildet sich wieder eine Kruste. Immer dasselbe.',
           'akt-ausloeser': 'Nein, gestoßen habe ich mich nicht, gestochen hat mich auch nichts. Das ist einfach so gekommen. Wenn Sie mich nach der Sonne fragen — ich war mein ganzes Leben draußen, mit Hut eigentlich nie.',
           'akt-einfluss': 'Besser oder schlimmer — eigentlich nichts. Beim Rasieren und Abtrocknen reißt es auf, das ist alles. Ich habe monatelang Wundsalbe draufgeschmiert, die aus der Apotheke, und vor sechs Wochen habe ich mir eine Kortisoncreme geholt, zwei Wochen lang. Hat beides nichts gebracht.',
@@ -58983,6 +58837,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Basalzellkarzinom (noduläres Basaliom, beginnend ulzeriert) am rechten Nasenflügel bei chronischer UV-Schädigung mit hellem Hauttyp I–II und multiplen aktinischen Keratosen an Stirn und Kapillitium — Hochrisiko-Lokalisation in der H-Zone des Gesichts',
+        patientWorte: { verdacht: 'es sich um eine bösartige, aber meist ungefährliche Hautveränderung an Ihrer Nase handelt', diagnostik: 'betrachten wir die Stelle genau mit einem speziellen Vergrößerungsgerät und entnehmen später eine kleine Gewebeprobe', therapie: 'müsste die Veränderung operativ entfernt werden, was in aller Regel die Erkrankung vollständig heilt' },
         differenzialdiagnosen: [
           {
             dd: 'Plattenepithelkarzinom der Haut (Spinaliom)',
@@ -59109,19 +58964,14 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau besteht die Stelle an der Nase, und ist sie in dieser Zeit größer geworden — von welcher Größe zu welcher?', kapitel: 'aktuell' },
         { frage: 'Blutet die Stelle von selbst oder nur beim Rasieren und Abtrocknen? Bildet sich immer wieder eine Kruste, die dann aufbricht?', kapitel: 'aktuell' },
-        { frage: 'Tut die Stelle weh, juckt sie oder brennt sie — oder spüren Sie sie überhaupt nicht?', kapitel: 'aktuell' },
         { frage: 'Wie sieht die Stelle aus: glänzt sie, sehen Sie kleine rote Äderchen darauf, hat sie in der Mitte eine Delle? Ist sie braun oder schwarz?', kapitel: 'aktuell' },
-        { frage: 'Womit haben Sie die Stelle bisher behandelt — Wundsalbe, Kortisoncreme — und hat sich dadurch etwas geändert?', kapitel: 'medikamente' },
-        { frage: 'Wie viele Jahre haben Sie im Freien gearbeitet? Haben Sie einen Hut getragen oder Sonnencreme benutzt? Hatten Sie als Kind oder junger Mann Sonnenbrände mit Blasen?', kapitel: 'familie-sozial' },
-        { frage: 'Welchen Hauttyp haben Sie — werden Sie schnell rot, bräunen Sie kaum? Welche Haar- und Augenfarbe hatten Sie als junger Mann? Waren Sie jemals im Solarium?', kapitel: 'fach' },
-        { frage: 'Haben Sie noch andere raue, schuppende oder nicht heilende Stellen am Körper — Stirn, Glatze, Ohren, Rücken? Wurde Ihnen schon einmal etwas von der Haut entfernt oder vereist?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wie viele Jahre haben Sie im Freien gearbeitet, haben Sie einen Hut oder Sonnencreme benutzt, und hatten Sie als Kind oder junger Mann Sonnenbrände mit Blasen?', kapitel: 'familie-sozial' },
+        { frage: 'Wurde Ihnen schon einmal etwas von der Haut entfernt oder vereist?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie früher schon einmal Hautkrebs, wurden Sie jemals bestrahlt, nehmen Sie Medikamente, die das Immunsystem unterdrücken, oder hatten Sie eine Organtransplantation?', kapitel: 'vorerkrankungen' },
         { frage: 'Gab es in Ihrer Familie Hautkrebs — weißen oder schwarzen? Was genau hatte Ihr Vater im Gesicht?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie Blutverdünner wie ASS — und wer hat sie verordnet, wofür?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Knoten am Hals oder vor dem Ohr getastet? Haben Sie an Gewicht verloren?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie schon einmal am Hautkrebsscreening teilgenommen?', kapitel: 'vorerkrankungen' },
+        { frage: 'Nehmen Sie Blutverdünner wie ASS — und wer hat sie Ihnen verordnet, wofür?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie Knoten am Hals oder vor dem Ohr getastet?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
@@ -59302,6 +59152,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Clemens Wurster',
           age: 41,
@@ -59403,6 +59254,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Meine Schuppenflechte ist in den letzten drei Monaten richtig schlimm geworden, überall neue Stellen. Und seit acht Wochen habe ich Gelenkschmerzen — mein linker Mittelfinger ist dick wie eine Wurst, und die Zehen und das rechte Knie tun auch weh. Mein Hautarzt hat mich deshalb hierher überwiesen.',
           'akt-ort': 'Die Haut: Ellenbogen beidseits, beide Knie, die Kopfhaut bis über den Haaransatz und hinter den Ohren, und neu jetzt unten am Kreuz und im Bauchnabel. Die Gelenke: der linke Mittelfinger, die zweite und dritte Zehe rechts, das rechte Knie — und morgens die rechte Ferse, hinten an der Sehne.',
           'akt-beginn': 'Die Haut ist seit etwa drei Monaten schlechter, das ging kurz nach der Scheidung los. Die Gelenke seit acht Wochen — erst der Finger, dann kamen die Zehen, das Knie und die Ferse dazu.',
+          'akt-veraend-was': 'Aufgefallen sind mir vor allem die Hautstellen, die schlimmer geworden sind — rote, schuppende Flecken, das kenne ich ja schon von der Schuppenflechte. Knoten habe ich keine, blaue Flecken auch nicht, geblutet hat da nichts. Und an den Nägeln habe ich diese kleinen Grübchen und einen gelblichen Fleck unter einem Nagel bemerkt. Schlucken und Stuhlgang sind normal.',
+          'akt-veraend-entwicklung': 'Ja, es sind eindeutig mehr Stellen geworden und größere, an Ellenbogen, Knien, der Kopfhaut und jetzt neu auch am Kreuz und am Bauchnabel. Die Farbe ist so ein kräftiges Rot mit der weißen Schuppung obendrauf, das kenne ich, aber es ist schon ausgeprägter als sonst.',
+          'akt-veraend-blutung': 'Die Haut selbst tut nicht weh, aber sie juckt, vor allem abends, richtig stark. Geblutet hat sie nicht, außer wenn ich mal aufgekratzt habe, dann vielleicht ein bisschen. Blut im Stuhl oder Urin oder beim Husten habe ich keines bemerkt.',
           'akt-charakter': 'Der Finger und die Zehen brennen, so ein brennender, bohrender Schmerz. Im Knie ist es eher dumpf und drückend. Und die Haut juckt.',
           'akt-intensitaet': 'Die Gelenke so 6 von 10, morgens eher 7. Der Juckreiz ist abends am schlimmsten.',
           'akt-ausstrahlung': 'Nein, das strahlt nirgendwo hin. Es bleibt in den Gelenken.',
@@ -59456,6 +59310,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Schwerer Schub einer seit 17 Jahren bekannten Psoriasis vulgaris vom Plaque-Typ (Typ I, positive Familienanamnese) mit Nagelpsoriasis (Tüpfelnägel, Ölfleck) und Erstmanifestation einer Psoriasisarthritis — asymmetrische Oligoarthritis mit Daktylitis des linken Mittelfingers, Zehenbefall rechts, Gonarthritis rechts und Enthesitis der rechten Achillessehne, Morgensteifigkeit zwei Stunden — ausgelöst durch psychosozialen Stress (Scheidung), den vor fünf Monaten neu angesetzten Betablocker Metoprolol, Nikotinabusus (22 Packungsjahre) und ASS-Einnahme; nach der Rule of Tens mittelschwer bis schwer (Gelenkbeteiligung, Nagelbefall, erhebliche Einschränkung der Lebensqualität) mit Indikation zur Systemtherapie',
+        patientWorte: { verdacht: 'es sich um eine chronische Hauterkrankung namens Schuppenflechte handelt, die jetzt auch Ihre Gelenke betrifft', diagnostik: 'nehmen wir Ihnen Blut ab, machen Röntgenbilder Ihrer Gelenke und beurteilen Ihre Haut und Nägel genau', therapie: 'sollten Sie eine Creme sowie später möglicherweise eine Tablette oder Spritze bekommen, die das Immunsystem beruhigt' },
         differenzialdiagnosen: [
           {
             dd: 'Rheumatoide Arthritis (Erstmanifestation)',
@@ -59608,19 +59463,14 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann haben Sie die Schuppenflechte, und wo hat sie angefangen? Gibt es sie auch in Ihrer Familie?', kapitel: 'aktuell' },
-        { frage: 'Wie sehen die Stellen genau aus — scharf begrenzt, mit silbrigen Schuppen? Blutet es punktförmig, wenn Sie kratzen?', kapitel: 'aktuell' },
-        { frage: 'Sind neue Stellen dort entstanden, wo Sie sich gekratzt oder verletzt haben?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Veränderungen an den Nägeln bemerkt — Grübchen, gelbe Flecken, abgehobene Nägel?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Gelenkschmerzen oder Schwellungen? Ist ein ganzer Finger oder eine ganze Zehe dick wie eine Wurst?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihre Gelenke morgens steif, und wie lange dauert das? Wird es durch Bewegung besser oder schlechter?', kapitel: 'aktuell' },
+        { frage: 'Sind Ihre Gelenke morgens steif, und wie lange dauert das?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Fersenschmerzen bei den ersten Schritten am Morgen oder nächtliche Rückenschmerzen?', kapitel: 'aktuell' },
         { frage: 'Wurde in den letzten Monaten ein neues Medikament angesetzt — ein Blutdruckmittel, Lithium, ein Malariamittel, Kortisontabletten?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie kurz vor dem Schub eine Mandelentzündung oder Halsschmerzen?', kapitel: 'aktuell' },
         { frage: 'Gab es in letzter Zeit besonderen Stress oder belastende Ereignisse?', kapitel: 'familie-sozial' },
         { frage: 'Wie stark schränkt die Haut Ihren Alltag ein — Sport, Schwimmbad, Partnerschaft, Beruf? Wie geht es Ihnen seelisch damit?', kapitel: 'familie-sozial' },
-        { frage: 'Womit wurde die Schuppenflechte bisher behandelt — Salben, Lichttherapie, Tabletten, Spritzen — und was hat geholfen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Durchfall, Augenrötung oder Brennen beim Wasserlassen bemerkt?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie dazu geführt?',
@@ -59769,6 +59619,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Sabine Schaubele',
           age: 53,
@@ -59873,6 +59724,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, seit gestern Nachmittag habe ich am ganzen Körper diese roten Quaddeln, die furchtbar jucken — und heute Morgen bin ich mit einer dicken Lippe und geschwollenen Augen aufgewacht. Ich habe Angst, dass das wieder so eine Reaktion wird wie damals mit dem Aspirin.',
           'akt-ort': 'Überall — am Bauch, am Rücken, an den Armen und Oberschenkeln. Und die Schwellung ist an der Oberlippe und an beiden Augenlidern. (zeigt auf die Lippe) Sehen Sie, wie dick die ist?',
           'akt-beginn': 'Gestern Nachmittag, so gegen vier Uhr, fing es am Bauch und an den Oberarmen an. In der Nacht ist es dann richtig schlimm geworden, und die Lippe und die Augen waren heute früh gegen sechs Uhr plötzlich dick.',
+          'akt-veraend-was': 'Aufgefallen sind mir diese roten Quaddeln am ganzen Körper und die Schwellung an Lippe und Augen, das hatte ich ja schon erzählt. Knoten sind das keine, blaue Flecken auch nicht, und geblutet hat gar nichts. Schlucken geht bei mir problemlos, und beim Stuhlgang oder mit der Hautfarbe, also gelb oder so, ist mir nichts aufgefallen.',
+          'akt-veraend-entwicklung': 'In der Nacht ist es eindeutig mehr geworden, immer wieder neue Quaddeln an anderen Stellen. Die Farbe ist rot, richtig erhaben, wie Striemen. Die Schwellung an Lippe und Augen ist seit heute früh ungefähr gleich geblieben, nicht mehr größer geworden.',
+          'akt-veraend-blutung': 'Jucken tut es fürchterlich, das hatte ich ja gesagt, aber weh tut es nicht, außer die Lippe, die spannt ein bisschen. Geblutet hat gar nichts, und im Stuhl, im Urin oder beim Husten habe ich auch kein Blut gesehen.',
           'akt-charakter': 'Die Quaddeln jucken und brennen, wie nach Brennnesseln. Die Lippe juckt nicht, die spannt und drückt, so ein pralles Gefühl.',
           'akt-intensitaet': 'Der Juckreiz ist eine 8 von 10, ich könnte mich zerkratzen. Die Lippe tut kaum weh, vielleicht 2 von 10, sie spannt einfach.',
           'akt-ausstrahlung': 'Ausstrahlen tut nichts. Aber die Quaddeln wandern: Wo gestern Abend welche waren, ist heute nichts mehr, dafür sind sie jetzt woanders.',
@@ -59931,6 +59785,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute Urtikaria mit Angioödem von Oberlippe und Augenlidern (Anaphylaxie Grad I nach Ring und Messmer, keine systemische Beteiligung) — am ehesten pseudoallergisch durch Ibuprofen bei bekannter Analgetika-Intoleranz (Aspirin-Reaktion 2022, Kreuzreaktivität aller NSAR), begünstigt durch einen akuten viralen Atemwegsinfekt als Kofaktor',
+        patientWorte: { verdacht: 'es sich um eine allergieähnliche Reaktion Ihres Körpers handelt, wahrscheinlich ausgelöst durch das Schmerzmittel Ibuprofen', diagnostik: 'beobachten wir Sie einige Stunden genau und geben Ihnen ein Medikament gegen den Juckreiz und die Schwellung', therapie: 'sollten Sie künftig auf Ibuprofen und ähnliche Schmerzmittel verzichten, damit diese Reaktion nicht erneut auftritt' },
         differenzialdiagnosen: [
           {
             dd: 'Anaphylaxie (Grad II–IV nach Ring und Messmer)',
@@ -60059,17 +59914,13 @@ export function seedCases(): Case[] {
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
         { frage: 'Bleibt eine einzelne Quaddel länger als einen Tag an derselben Stelle, oder verschwindet sie nach Stunden und kommt woanders wieder?', kapitel: 'aktuell' },
-        { frage: 'Bleibt nach dem Abklingen ein Fleck, eine Verfärbung oder eine Schuppung zurück?', kapitel: 'aktuell' },
-        { frage: 'Juckt die Schwellung an der Lippe und an den Augen — oder spannt sie eher und tut weh?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Atemnot, ein Engegefühl im Hals, Heiserkeit, ein Pfeifen beim Atmen oder Schwierigkeiten beim Schlucken?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen schwindelig, haben Sie Herzrasen, waren Sie kurz weggetreten? Haben Sie Bauchkrämpfe, Übelkeit oder Durchfall?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in den letzten Tagen ein Schmerzmittel, ein Antibiotikum oder ein anderes neues Medikament genommen — auch aus der Apotheke ohne Rezept?', kapitel: 'medikamente' },
         { frage: 'Wie genau war die Reaktion 2022 auf Aspirin — was ist passiert, wie schnell, und wie wurde sie behandelt? Haben Sie einen Allergiepass?', kapitel: 'medikamente' },
         { frage: 'Nehmen Sie Blutdruckmedikamente, insbesondere einen ACE-Hemmer wie Ramipril oder Enalapril?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie etwas Ungewöhnliches gegessen, wurden Sie gestochen, gab es neue Pflanzen, Cremes oder Waschmittel? Tragen Sie im Geschäft Latexhandschuhe?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie früher schon einmal Schwellungen ohne Quaddeln, kolikartige Bauchschmerzen, oder gibt es solche Schwellungsattacken in Ihrer Familie?', kapitel: 'familie-sozial' },
         { frage: 'Wird es schlimmer bei Wärme, unter Druck, beim Kratzen, bei Kälte oder in der Sonne?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie eine Schilddrüsenerkrankung, Neurodermitis, Asthma oder Heuschnupfen?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
@@ -60220,6 +60071,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Hoffmeister',
           age: 66,
@@ -60330,6 +60182,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, ich bin seit Monaten so furchtbar müde. Und seit ein paar Wochen kribbeln beide Füße und ich gehe so unsicher. Mein Hausarzt hat eine Blutarmut gefunden, das Eisen sei aber in Ordnung.',
           'akt-ort': 'Das Kribbeln ist an beiden Füßen, rechts und links genau gleich. Von den Zehen bis über die Knöchel, so als hätte ich Socken an, die einschlafen. Seit ungefähr einer Woche spüre ich es ein bisschen auch in den Fingerspitzen.',
           'akt-beginn': 'Die Müdigkeit hat vor etwa vier Monaten angefangen, ganz schleichend. Das Kribbeln in den Füßen seit ungefähr acht Wochen. Und das Unsichere beim Gehen seit drei, vier Wochen — nachts auf dem Weg zur Toilette taste ich mich an der Wand entlang.',
+          'akt-allgemein-art': 'Am meisten spüre ich diese Müdigkeit, so eine Erschöpfung, wie ich sie noch nie hatte. Kraftlosigkeit auch, besonders beim Treppensteigen merke ich das. Schwindel — ja, beim schnellen Aufstehen wird mir manchmal schwindelig. Und dann noch dieses Kribbeln in den Füßen und das unsichere Gehen, das kommt ja noch dazu.',
+          'akt-allgemein-alltag': 'Meine Nordic-Walking-Gruppe, mit der ich früher jede Woche unterwegs war, das schaffe ich gar nicht mehr. Und im Haushalt muss ich öfter Pausen machen. Hinlegen tagsüber, ja, das mache ich inzwischen manchmal, wenn es zu viel wird.',
+          'akt-allgemein-tageszeit': 'Das ist eigentlich den ganzen Tag ziemlich gleich, ich wache schon müde auf und werde im Laufe des Tages nicht wirklich wacher. Nach dem Schlafen ist es auch nicht besser, obwohl ich lange schlafe, fühle ich mich nicht erholt.',
+          'akt-allgemein-gewicht': 'Ja, ich habe vier Kilo abgenommen in den letzten vier Monaten, ohne dass ich das wollte. Der Appetit ist auch schlechter geworden. Durst, das ist eigentlich normal, da ist mir nichts aufgefallen.',
+          'akt-allgemein-schwellung': 'Nein, geschwollen ist bei mir nichts, weder die Beine noch das Gesicht oder der Bauch. Und beim Wasserlassen ist auch alles wie immer, da hat sich nichts verändert.',
           'akt-charakter': 'Es ist ein Kribbeln und ein taubes Gefühl, wie eingeschlafene Füße, und beim Gehen fühlt es sich an, als würde ich auf Watte laufen. Ich spüre den Boden nicht richtig. Richtige Schmerzen sind das nicht.',
           'akt-intensitaet': 'Schmerzen habe ich keine, aber wenn ich die Müdigkeit bewerten soll: 7 von 10, so erschöpft war ich noch nie. Und die Zunge — das Brennen — vielleicht 4 von 10, beim Essen mehr.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwo hin. Es bleibt an den Füßen, und jetzt eben ein wenig an den Fingerspitzen. In den Rücken oder die Beine hinauf zieht nichts.',
@@ -60389,6 +60246,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Perniziöse Anämie — makrozytäre, hyperchrome Anämie (Hämoglobin 8,9 g/dl, MCV 112 fl) durch Vitamin-B12-Mangel bei autoimmuner Gastritis vom Typ A, mit beginnender funikulärer Myelose (symmetrische strumpfförmige Parästhesien, Pallhypästhesie, sensible Ataxie mit Gangunsicherheit im Dunkeln) und Hunter-Glossitis; Autoimmunkonstellation mit Hashimoto-Thyreoiditis, Vitiligo und positiver Familienanamnese (Mutter mit lebenslangen „Blutarmut-Spritzen“, Schwester mit Diabetes Typ 1); langjährige Protonenpumpenhemmer-Einnahme als zusätzlicher begünstigender Faktor',
+        patientWorte: { verdacht: 'es sich um einen Mangel an Vitamin B12 handelt, der Ihre Blutbildung und Ihre Nerven beeinträchtigt', diagnostik: 'nehmen wir Ihnen Blut ab, um den Vitamin-B12-Spiegel und mögliche Antikörper gegen Ihren Magen zu messen', therapie: 'müssten Sie regelmäßig Vitamin B12 spritzen bekommen, wodurch sich Ihr Blutbild und die Nerven deutlich erholen' },
         differenzialdiagnosen: [
           {
             dd: 'Folsäuremangel',
@@ -60550,19 +60408,14 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Kribbeln die Füße auf beiden Seiten gleich, und fühlt es sich an wie Strümpfe, die einschlafen?', kapitel: 'aktuell' },
+        { frage: 'Kribbeln Ihre Füße auf beiden Seiten gleich, so als würden Strümpfe einschlafen?', kapitel: 'aktuell' },
         { frage: 'Gehen Sie im Dunkeln unsicherer als am Tag — müssen Sie sich nachts an der Wand festhalten?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie gestürzt oder beinahe gestürzt?', kapitel: 'aktuell' },
         { frage: 'Brennt Ihre Zunge, ist sie glatt oder rot geworden? Können Sie scharfe oder saure Speisen essen?', kapitel: 'aktuell' },
         { frage: 'Hat Ihnen jemand gesagt, dass Sie blass oder gelblich aussehen?', kapitel: 'aktuell' },
-        { frage: 'Wie ernähren Sie sich — essen Sie Fleisch, Eier und Milchprodukte, oder leben Sie vegetarisch oder vegan?', kapitel: 'aktuell' },
+        { frage: 'Sind Sie in letzter Zeit vergesslicher, gereizter oder niedergeschlagener als sonst?', kapitel: 'aktuell' },
         { frage: 'Wurden Sie jemals am Magen oder am Darm operiert, oder haben Sie eine chronische Darmerkrankung?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie seit Jahren eine Magentablette gegen Sodbrennen oder ein Zuckermedikament wie Metformin?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie eine Schilddrüsenerkrankung, weiße Hautflecken oder eine andere Autoimmunerkrankung? Gibt es so etwas in der Familie?', kapitel: 'familie-sozial' },
-        { frage: 'Hatte jemand in Ihrer Familie eine Blutarmut, gegen die er regelmäßig Spritzen bekam?', kapitel: 'familie-sozial' },
-        { frage: 'Sind Sie in letzter Zeit vergesslicher, gereizter oder niedergeschlagener als sonst?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Sehstörungen, eine Schwäche in den Beinen oder Probleme mit der Blase?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie in den letzten Wochen irgendwo Blut verloren — schwarzer Stuhl, Blut im Stuhl oder Urin, Nasenbluten?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie eine Schilddrüsenerkrankung oder weiße Hautflecken, und hatte jemand in Ihrer Familie eine Blutarmut, gegen die er regelmäßig Spritzen bekam?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was hat Sie dazu geführt?',
@@ -60737,6 +60590,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Markus Lindner',
           age: 38,
@@ -60843,6 +60697,10 @@ export function seedCases(): Case[] {
           'akt-motiv': '(unruhig, wippt mit dem Bein) Mir geht es richtig schlecht seit gestern Abend. Ich schwitze, mir ist übel, alles tut weh. Meine Schmerztabletten sind alle — ich brauche eigentlich nur ein neues Rezept.',
           'akt-ort': 'Überall. Die Waden, die Oberschenkel, die Arme, der Rücken — es sitzt in den Knochen. Und der Bauch krampft, so um den Nabel herum.',
           'akt-beginn': 'Gestern Abend, so gegen acht. Die letzte Tablette hatte ich gestern Morgen um acht, das war die allerletzte. Zwölf Stunden später ging es los, erst nur Unruhe und Gähnen, in der Nacht dann alles andere.',
+          'akt-psych-stimmung': '(reibt sich die Arme) Beschissen, ehrlich gesagt. Gereizt bin ich, und irgendwie niedergeschlagen, schon länger, nicht erst seit heute. Besser ist es eigentlich nur kurz, wenn ich unter der heißen Dusche stehe oder wenn ich an die Tablette denke, die ich nehmen könnte — aber das hält ja nicht lange an.',
+          'akt-psych-antrieb': 'Ja, aufstehen fällt mir schon lange schwer, nicht nur heute. Und Freude, ehrlich, an nicht mehr viel. Früher bin ich gern angeln gegangen, das mache ich schon seit Monaten nicht mehr.',
+          'akt-psych-schlaf': 'Schlafen tue ich schlecht, seit zwei Nächten fast gar nicht, aber auch davor schon unruhig, ich nehme deswegen Zopiclon. Konzentrieren kann ich mich auch schlecht, im Moment denke ich sowieso nur an die Tabletten, an sonst was kann ich kaum denken.',
+          'akt-psych-sicherheit': '(schaut auf den Boden, zögert) ...Nein, umbringen würde ich mich nicht, ich hab auch keinen Plan oder so. Aber ganz ehrlich, es gab schon Momente in letzter Zeit, wo ich dachte, es wäre einfacher, einfach nicht mehr aufzuwachen. Das macht mir selbst Angst, wenn ich es so sage.',
           'akt-charakter': 'Ziehend, reißend, wie eine ganz schwere Grippe. Und im Bauch krampfartig, das kommt in Wellen.',
           'akt-intensitaet': '7 von 10. Aber die Unruhe ist schlimmer als der Schmerz, ehrlich gesagt.',
           'akt-ausstrahlung': 'Nein, es strahlt nirgendwohin. Es ist einfach überall gleichzeitig.',
@@ -60899,6 +60757,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Opioidabhängigkeit (ICD-10 F11.2) von ärztlich verordnetem Oxycodon nach LWK-1-Berstungsfraktur mit aktuellem mittelschwerem Opioidentzugssyndrom (F11.3) etwa 26 Stunden nach der letzten Einnahme — bei Beikonsum von Zopiclon und Alkohol, depressiver Episode mit passiven Todeswünschen und Zustand nach Überdosierung vor vier Monaten',
+        patientWorte: { verdacht: 'Sie abhängig von dem starken Schmerzmittel Oxycodon geworden sind und jetzt Entzugserscheinungen haben', diagnostik: 'sprechen wir ausführlich über Ihren Konsum und untersuchen Sie körperlich, um den Entzug richtig einzuschätzen', therapie: 'könnten wir Ihnen ein Ersatzmedikament geben, das die Entzugsbeschwerden lindert und Ihnen beim Ausstieg hilft' },
         differenzialdiagnosen: [
           {
             dd: 'Körperliche Abhängigkeit des Schmerzpatienten ohne Suchterkrankung',
@@ -61051,17 +60910,13 @@ export function seedCases(): Case[] {
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
         { frage: 'Wann genau haben Sie die letzte Tablette genommen, und wie viele Stunden danach haben die Beschwerden begonnen?', kapitel: 'medikamente' },
-        { frage: 'Wie viel Oxycodon nehmen Sie tatsächlich am Tag — retard und schnell wirksam zusammen — und wie hat sich die Dosis seit dem Unfall entwickelt?', kapitel: 'medikamente' },
+        { frage: 'Wie viel Oxycodon nehmen Sie tatsächlich am Tag — und wie hat sich die Dosis seit dem Unfall entwickelt?', kapitel: 'medikamente' },
         { frage: 'Haben Sie die Tabletten jemals anders eingenommen als vorgesehen — zerkaut, aufgelöst, geschnupft oder gespritzt?', kapitel: 'medikamente' },
-        { frage: 'Von wem bekommen Sie die Tabletten — nur vom Hausarzt, oder auch von anderen Ärzten, dem Bereitschaftsdienst oder aus dem Umfeld?', kapitel: 'medikamente' },
         { frage: 'Nehmen Sie zusätzlich Schlaf- oder Beruhigungsmittel oder trinken Sie Alkohol, wenn Sie die Tabletten nehmen?', kapitel: 'medikamente' },
         { frage: 'Gab es schon einmal eine Situation, in der Sie nach den Tabletten kaum wach zu bekommen waren oder jemand einen Rettungswagen rufen wollte?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie diese Beschwerden schon einmal, wenn die Tabletten ausgegangen sind — und sind sie nach der nächsten Tablette verschwunden?', kapitel: 'medikamente' },
         { frage: 'Denken Sie oft an die Tabletten, auch wenn Sie keine Schmerzen haben? Fällt es Ihnen schwer, bei der verordneten Menge zu bleiben?', kapitel: 'medikamente' },
         { frage: 'Wie hat sich Ihr Alltag verändert — Arbeit, Familie, Freunde, Hobbys? Was sagt Ihre Frau dazu?', kapitel: 'familie-sozial' },
-        { frage: 'Fahren Sie Auto, während Sie die Tabletten nehmen? Wo bewahren Sie die Tabletten auf — haben Ihre Kinder Zugang?', kapitel: 'medikamente' },
-        { frage: 'Denken Sie manchmal, dass das Leben so nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?', kapitel: 'fach' },
-        { frage: 'Was wünschen Sie sich heute von uns — und was wäre, wenn es einen Weg gäbe, ohne diese Tabletten und ohne diesen Entzug zu leben?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und welche Kriterien der Abhängigkeit erfüllt dieser Patient konkret?',
@@ -61254,6 +61109,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hans Salzbrenner',
           age: 58,
@@ -61360,6 +61216,9 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, ich habe seit fast zwei Wochen eine Erkältung, die nicht weggeht. Die Nase ist zu, vor allem rechts, und seit ein paar Tagen so ein Druck in Wange und Stirn — und jetzt Fieber.',
           'akt-ort': 'Hier, in der rechten Wange unter dem Auge, und hier über dem rechten Auge in der Stirn. (drückt mit dem Finger auf die Wange und zuckt zusammen) Und die oberen Backenzähne rechts tun auch weh.',
           'akt-beginn': 'Vor zwölf Tagen, ganz normal, Halskratzen und Schnupfen. Nach einer Woche war es fast weg. Und vor vier Tagen ging es richtig los: Nase zu, gelber Schleim, Druck im Gesicht. Seit vorgestern Fieber.',
+          'akt-infekt-fieber': 'Ja, gemessen habe ich, 38,4 war der höchste Wert, das war gestern Abend. Schüttelfrost mit richtigem Zittern hatte ich nicht, eher so ein Frösteln zwischendurch.',
+          'akt-infekt-kontakt': 'Im Ausland war ich nicht. Kontakt zu Kranken — mein Enkel hatte vor zwei Wochen auch Schnupfen, ich glaube, der hat mich angesteckt. Zu Tieren habe ich in der Gärtnerei schon Kontakt, aber nichts Ungewöhnliches, und beim Essen war auch nichts Besonderes dabei.',
+          'akt-infekt-herd': 'Husten habe ich morgens, mit etwas gelbem Auswurf, das hatte ich ja schon erzählt. Halsschmerzen keine. Beim Wasserlassen brennt nichts, und Durchfall habe ich auch nicht. Ausschlag oder eine Wunde, nein, da ist nichts.',
           'akt-charakter': 'Dumpf und drückend, als ob jemand von innen gegen die Wange drückt. Manchmal pocht es auch, im Takt vom Herzschlag.',
           'akt-intensitaet': 'So eine 6 von 10, würde ich sagen. Wenn ich mich bücke, geht es hoch auf eine 8 — dann sticht es richtig.',
           'akt-ausstrahlung': 'Es zieht in die oberen Backenzähne rechts und in die Stirn hoch. In den Nacken oder ins Auge selbst zieht es nicht.',
@@ -61414,6 +61273,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute bakterielle Rhinosinusitis rechts (Sinusitis maxillaris et frontalis) nach viralem Infekt der oberen Atemwege — Kriterien: Beschwerdedauer über zehn Tage, zweigipfliger Verlauf mit erneuter Verschlechterung seit vier Tagen, einseitiger Gesichtsschmerz mit Zahnbeteiligung, eitriges Sekret, Fieber 38,4 °C; zusätzlich beginnende Rhinitis medicamentosa bei zehntägigem Xylometazolin-Gebrauch; keine Hinweise auf orbitale oder intrakranielle Komplikationen',
+        patientWorte: { verdacht: 'es sich um eine bakterielle Entzündung Ihrer Nasennebenhöhlen handelt, die nach der Erkältung entstanden ist', diagnostik: 'untersuchen wir Ihre Nase, klopfen vorsichtig auf die Nebenhöhlen und prüfen, ob die Augen mitbetroffen sind', therapie: 'sollten Sie ein Antibiotikum sowie Nasenspülungen bekommen, wodurch die Beschwerden in wenigen Tagen abklingen sollten' },
         differenzialdiagnosen: [
           {
             dd: 'Akute virale bzw. postvirale Rhinosinusitis (verlängerter Erkältungsschnupfen)',
@@ -61553,18 +61413,14 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau ist die Nase zu — und gab es zwischendurch eine Phase, in der es schon besser war, bevor es wieder schlimmer wurde?', kapitel: 'aktuell' },
-        { frage: 'Ist die Nase auf beiden Seiten zu oder mehr auf einer Seite? Und der Schmerz — auf einer Seite oder beidseits?', kapitel: 'aktuell' },
+        { frage: 'Seit wann genau ist die Nase zu — gab es zwischendurch eine Phase, in der es schon besser war, bevor es wieder schlimmer wurde?', kapitel: 'aktuell' },
         { frage: 'Wird der Druck im Gesicht schlimmer, wenn Sie sich bücken oder die Schuhe zubinden?', kapitel: 'aktuell' },
         { frage: 'Welche Farbe hat der Schnupfen — klar und wässrig oder gelbgrün und zäh? Läuft er nach vorne heraus oder hinten den Hals hinunter?', kapitel: 'aktuell' },
         { frage: 'Tun Ihnen die oberen Backenzähne weh? Waren Sie in den letzten Monaten beim Zahnarzt, gab es eine Wurzelbehandlung oder ein Implantat?', kapitel: 'aktuell' },
         { frage: 'Können Sie noch normal riechen und schmecken?', kapitel: 'aktuell' },
-        { frage: 'Benutzen Sie ein Nasenspray aus der Apotheke? Welches, seit wann und wie oft am Tag?', kapitel: 'medikamente' },
+        { frage: 'Welches Nasenspray benutzen Sie, seit wann und wie oft am Tag?', kapitel: 'medikamente' },
         { frage: 'Ist das Auge geschwollen oder gerötet, sehen Sie doppelt oder verschwommen, tut das Bewegen des Auges weh?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Nackensteifigkeit, Lichtscheu, den schlimmsten Kopfschmerz Ihres Lebens, oder ist Ihnen schwindelig oder benommen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Heuschnupfen, juckende Augen oder Niesanfälle — gerade bei Ihrer Arbeit mit Pflanzen und Pollen?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie schon einmal eine Nebenhöhlenentzündung, und wie oft im Jahr sind Sie erkältet?', kapitel: 'vorerkrankungen' },
-        { frage: 'Welches Antibiotikum haben Sie damals nicht vertragen, und wie genau sah die Reaktion aus — Ausschlag, Atemnot, Schwellung?', kapitel: 'allergien' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -61697,6 +61553,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Markus Lindner',
           age: 45,
@@ -61797,6 +61654,11 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich war heute Morgen bei der Vorsorgeuntersuchung beim Betriebsarzt, und der hat den Blutdruck gemessen — zweihundert zu hundertzwanzig, zweimal hintereinander. Er hat gesagt, ich soll sofort ins Krankenhaus. Und ich habe seit drei Tagen jeden Morgen Kopfschmerzen, das gebe ich zu.',
           'akt-ort': 'Hier hinten, im Hinterkopf, auf beiden Seiten, und es zieht bis in den Nacken. (legt die Hand flach auf den Hinterkopf)',
           'akt-beginn': 'Seit drei Tagen. Es war jeden Morgen beim Aufwachen da, nicht plötzlich wie ein Schlag, eher so, dass ich mit dem Schmerz aufgewacht bin.',
+          'akt-allgemein-art': 'Also vor allem diese Kopfschmerzen morgens, das hatte ich ja erzählt. Müde bin ich schon auch, aber das schreibe ich eher der Arbeit zu. Schwindel — ja, morgens beim Aufstehen manchmal ein bisschen, so ein Schwanken. Kraftlos fühle ich mich eigentlich nicht.',
+          'akt-allgemein-alltag': 'Im Job schaffe ich eigentlich alles noch, ich bin ja sowieso den ganzen Tag am Telefon. Hinlegen tagsüber, nein, dafür habe ich gar keine Zeit, bei uns ist gerade Hochsaison.',
+          'akt-allgemein-tageszeit': 'Morgens ist es am schlimmsten, das hatte ich ja gesagt, und dann wird es im Laufe des Tages besser, nachmittags ist fast nichts mehr da. In Ruhe wird es auf jeden Fall besser.',
+          'akt-allgemein-gewicht': 'Zugenommen habe ich, ja, so vier Kilo im letzten Jahr, aber das ist eher, weil ich zu viel Kantine esse und mich zu wenig bewege, nicht ungewollt sozusagen. Appetit habe ich gut, eher zu gut. Durst ist normal.',
+          'akt-allgemein-schwellung': 'Nein, geschwollen ist nichts, weder Beine noch Gesicht. Beim Wasserlassen ist mir aufgefallen, dass ich nachts einmal raus muss, seit ein paar Monaten, aber die Menge an sich ist normal.',
           'akt-charakter': 'Drückend und dumpf, wie ein Helm, der zu eng ist. Nicht stechend, nicht pochend.',
           'akt-intensitaet': 'Morgens so 6 von 10. Am Nachmittag ist es fast weg, vielleicht 2.',
           'akt-ausstrahlung': 'In den Nacken zieht es. Nicht in die Augen und schon gar nicht in die Brust.',
@@ -61851,6 +61713,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Hypertensive Entgleisung (Blutdruck 200/120 mmHg beim Betriebsarzt, in der Notaufnahme 190/115 mmHg an beiden Armen nach fünf Minuten Ruhe) OHNE Hinweis auf akuten Endorganschaden bei bekannter, unzureichend eingestellter arterieller Hypertonie — ausgelöst durch das Absetzen des Ramipril seit vier Wochen, NSAR-Dauereinnahme und beruflichen Stress; Verdacht auf begleitendes obstruktives Schlafapnoe-Syndrom bei Präadipositas, Schnarchen, Atemaussetzern und Tagesmüdigkeit',
+        patientWorte: { verdacht: 'Ihr Blutdruck stark erhöht ist, vermutlich weil Sie Ihre Blutdrucktablette in letzter Zeit nicht genommen haben', diagnostik: 'messen wir Ihren Blutdruck mehrmals in Ruhe, schreiben ein Herz-EKG und nehmen Blut ab, um Organschäden auszuschließen', therapie: 'sollten Sie Ihre Blutdrucktablette wieder regelmäßig einnehmen, damit der Druck langsam und sicher sinkt' },
         differenzialdiagnosen: [
           {
             dd: 'Hypertensiver Notfall (mit akutem Endorganschaden)',
@@ -62027,16 +61890,14 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie hoch war der Blutdruck heute beim Betriebsarzt, und wurde er mehrmals gemessen? Kennen Sie Ihre üblichen Werte?', kapitel: 'aktuell' },
+        { frage: 'Wie hoch war der Blutdruck heute beim Betriebsarzt, und kennen Sie Ihre üblichen Werte?', kapitel: 'aktuell' },
         { frage: 'Wann haben Sie Ihre Blutdrucktablette zuletzt genommen, und wie oft vergessen Sie sie in einer normalen Woche?', kapitel: 'medikamente' },
-        { frage: 'Treten die Kopfschmerzen vor allem morgens auf, und wo genau — im Hinterkopf? Werden sie im Laufe des Tages besser?', kapitel: 'aktuell' },
+        { frage: 'Treten die Kopfschmerzen vor allem morgens im Hinterkopf auf, und werden sie im Laufe des Tages besser?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Sehstörungen, Flimmern vor den Augen, eine Lähmung, ein Taubheitsgefühl oder Schwierigkeiten beim Sprechen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen oder ein Engegefühl in der Brust, Luftnot beim Liegen oder geschwollene Beine?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac, ein Nasenspray, Kortison oder essen Sie viel Lakritz?', kapitel: 'medikamente' },
         { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe? Haben Sie ungewollt abgenommen oder vertragen Sie Wärme schlecht?', kapitel: 'vegetativ' },
         { frage: 'Schnarchen Sie? Hat Ihre Frau Atemaussetzer bemerkt, und sind Sie tagsüber müde?', kapitel: 'aktuell' },
-        { frage: 'Wie viel Salz und Alkohol nehmen Sie zu sich, wie viel bewegen Sie sich, und wie belastet fühlen Sie sich beruflich?', kapitel: 'noxen' },
-        { frage: 'Gibt es in Ihrer Familie Bluthochdruck, Schlaganfälle, Herzinfarkte oder Nierenerkrankungen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
