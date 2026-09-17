@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { projectCollections, sortEvents } from './project';
 import type { ProgressEvent } from '@/lib/sync/events';
+import { db } from '@/db/db';
+import { rebuildProjections } from '@/lib/sync/projections';
 
 const ev = (type: ProgressEvent['type'], subject_id: string, payload: unknown, t: number, id = `${type}-${subject_id}-${t}`): ProgressEvent =>
   ({ id, user_id: 'u', type, subject_id, payload, occurred_at: new Date(Date.UTC(2026, 8, 17, 10, 0, t)).toISOString() });
@@ -62,5 +64,53 @@ describe('projectCollections', () => {
     const b = { ...ev('plan.done', 'p', {}, 1, 'a') };
     const c = { ...ev('plan.done', 'p', {}, 1, 'c'), received_at: '2026-09-17T09:00:00Z' };
     expect(sortEvents([a, b, c]).map((e) => e.id)).toEqual(['c', 'b', 'a']);
+  });
+
+  it('deck : recréé après suppression, un nouveau terme est accepté', () => {
+    const d = 'd3';
+    const events = [
+      ev('deck.created', d, { name: 'Neuro', kind: 'manual' }, 1),
+      ev('deck.term_added', d, { termId: 'fb-1' }, 2),
+      ev('deck.deleted', d, {}, 3),
+      ev('deck.created', d, { name: 'Neuro II', kind: 'manual' }, 4),
+      ev('deck.term_added', d, { termId: 'fb-2' }, 5),
+    ];
+    const s = projectCollections(events);
+    expect(s.decks).toEqual([{ id: d, name: 'Neuro II', kind: 'manual', query: undefined, createdAt: events[3].occurred_at, updatedAt: events[4].occurred_at }]);
+    expect(s.deckTerms).toEqual([{ deckId: d, termId: 'fb-2', addedAt: events[4].occurred_at }]);
+  });
+
+  it('deck-favorites : deck.created/deck.renamed sont ignorés (aucun deck en sortie)', () => {
+    const s = projectCollections([
+      ev('deck.created', 'deck-favorites', { name: 'Favoris', kind: 'manual' }, 1),
+      ev('deck.renamed', 'deck-favorites', { name: 'Mes favoris' }, 2),
+    ]);
+    expect(s.decks).toEqual([]);
+  });
+
+  describe('rebuildProjections (intégration Dexie)', () => {
+    beforeEach(async () => {
+      await db.progress_events.clear();
+      await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear();
+    });
+
+    it('reconstruit decks/deck_terms/favorites depuis le journal', async () => {
+      const d = 'd-int';
+      const events: ProgressEvent[] = [
+        ev('deck.created', d, { name: 'Endoc', kind: 'manual' }, 1),
+        ev('deck.term_added', d, { termId: 'fb-1' }, 2),
+        ev('term.favorited', 'fb-1', {}, 3),
+      ];
+      await db.progress_events.bulkPut(events);
+      await rebuildProjections();
+
+      const decks = await db.decks.toArray();
+      const deckTerms = await db.deck_terms.toArray();
+      const favorites = await db.favorites.toArray();
+
+      expect(decks).toEqual([{ id: d, name: 'Endoc', kind: 'manual', query: undefined, createdAt: events[0].occurred_at, updatedAt: events[1].occurred_at }]);
+      expect(deckTerms).toEqual([{ deckId: d, termId: 'fb-1', addedAt: events[1].occurred_at }]);
+      expect(favorites).toEqual([{ termId: 'fb-1', since: events[2].occurred_at }]);
+    });
   });
 });

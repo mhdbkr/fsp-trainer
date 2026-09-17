@@ -92,5 +92,6 @@ export async function wipeDatabase() {
     db.cases.clear(), db.fachbegriffe.clear(), db.fachwissen.clear(),
     db.aufklaerungen.clear(), db.guides.clear(), db.simulations.clear(),
     db.plan.clear(), db.meta.clear(),
+    db.decks.clear(), db.deck_terms.clear(), db.favorites.clear(),
   ]);
 }
