@@ -18,6 +18,9 @@ export interface PhraseVariant {
    *  PLUSIEURS = question progressive (chaque sonde est une étape, avec sa
    *  question canonique et sa réponse déjà authorée dans la fiche patient). */
   probe?: string | string[];
+  /** Question propre au cas joué, insérée dans son sous-chapitre (FB2-J4) :
+   *  rendue avec le marqueur « Für diesen Fall ». */
+  caseSpecific?: boolean;
 }
 
 export type Phrase = string | PhraseVariant;
@@ -26,4 +29,5 @@ export const phraseText = (p: Phrase): string => (typeof p === 'string' ? p : p.
 export const phraseAlts = (p: Phrase): string[] => (typeof p === 'string' ? [] : p.alts ?? []);
 export const phraseFollowUp = (p: Phrase): string[] => (typeof p === 'string' ? [] : p.followUp ?? []);
 export const phraseLabel = (p: Phrase): string | undefined => (typeof p === 'string' ? undefined : p.label);
+export const phraseIsCaseSpecific = (p: Phrase): boolean => typeof p !== 'string' && !!p.caseSpecific;
 export const phraseProbes = (p: Phrase): string[] => (typeof p === 'string' || !p.probe ? [] : Array.isArray(p.probe) ? p.probe : [p.probe]);

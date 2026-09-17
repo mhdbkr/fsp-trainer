@@ -210,7 +210,10 @@ export interface Case {
   linkedFachwissenId?: string;
   linkedFachbegriffeIds: string[];
   probableAufklaerungIds: string[];
-  caseSpecificQuestions: string[];   // questions d'anamnèse propres au cas
+  /** Questions d'anamnèse propres au cas, chacune rangée dans SON sous-chapitre
+   *  du guide (FB2-J4) : elle y apparaît pendant la simulation avec un marqueur
+   *  « Für diesen Fall ». `string` seul = rétrocompatibilité (chapitre aktuell). */
+  caseSpecificQuestions: CaseQuestion[];
   examinerQuestions: string[];       // questions Arzt-Arzt réellement posées
   pruefungsfallen?: string[];        // pièges du cas (Cave-Radar)
   status: CaseStatus;
@@ -251,6 +254,11 @@ export interface Srs {
   lapses: number;
   state: 'Neu' | 'Gelernt' | 'Zu wiederholen';
 }
+
+export type CaseQuestionKapitel =
+  | 'aktuell' | 'vegetativ' | 'vorerkrankungen' | 'medikamente' | 'allergien'
+  | 'noxen' | 'familie-sozial' | 'frauenanamnese' | 'fach';
+export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel };
 
 export interface Fachbegriff {
   id: string;

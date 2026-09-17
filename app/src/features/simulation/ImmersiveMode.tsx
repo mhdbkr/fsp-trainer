@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { BogenNotes, Case, MusterCity } from '@/db/types';
-import { adaptChaptersForCase, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
+import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
-import { phraseAlts, phraseFollowUp, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
+import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { DoctopusMascot } from '@/components/DoctopusMascot';
@@ -58,7 +58,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
         // Fachanamnese juste APRÈS « Aktuelle Beschwerden » (comme dans le guide),
         // pas à la fin : ces questions ciblées se posent tôt dans l'entretien.
         const idx = base.findIndex((ch) => ch.id === 'aktuell');
-        const fachCh = { id: fach.chapter.id, title: `Fachanamnese · ${c.specialty}`, icon: fach.icon, items: fach.chapter.questions, tip: fach.chapter.tip };
+        const fachCh = { id: fach.chapter.id, title: `Fachanamnese · ${c.specialty}`, icon: fach.icon, items: [...fach.chapter.questions, ...caseQuestionsForFach(c)], tip: fach.chapter.tip };
         base.splice(idx >= 0 ? idx + 1 : base.length, 0, fachCh);
       }
       return base;
@@ -229,6 +229,11 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
                 <Icon name={chapter.icon} className="h-4 w-4" /> {chapter.title}
               </div>
               <div className="mt-1 text-xs text-slate-600">{ii + 1} / {totalItems}</div>
+              {phraseIsCaseSpecific(chapter.items[ii]) && (
+                <span className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand-300">
+                  <span className="h-2 w-2 rounded-full bg-brand-400 ring-2 ring-brand-900" />Für diesen Fall
+                </span>
+              )}
               {phraseLabel(chapter.items[ii]) && (
                 <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-brand-300">
                   {phraseLabel(chapter.items[ii])}

@@ -1,5 +1,5 @@
 import type { Phrase } from '@/data/guides/phrases';
-import { phraseFollowUp, phraseLabel, phraseProbes } from '@/data/guides/phrases';
+import { phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes } from '@/data/guides/phrases';
 import { PROBE_BY_ID } from '@/data/guides/anamneseProbes';
 import { GuidedText } from '@/components/GuidedText';
 import { FollowUpControls, ProgressiveSteps, VariantPicker, useVariant } from '@/components/PhraseControls';
@@ -25,7 +25,11 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
   const followUp = phraseFollowUp(phrase);
   const label = phraseLabel(phrase);
   const probes = phraseProbes(phrase);
-  const dot = tone === 'emerald' ? 'bg-emerald-400' : 'bg-brand-400';
+  // Question propre au cas (FB2-J4) : marqueur sobre — puce pétrole pleine un
+  // peu plus grande et libellé « Für diesen Fall », apparition en `reveal`.
+  // Pas de couleur criarde : c'est un signal de priorité, pas une alerte.
+  const caseSpecific = phraseIsCaseSpecific(phrase);
+  const dot = caseSpecific ? 'h-2 w-2 bg-brand-600 ring-2 ring-brand-200 dark:bg-brand-400 dark:ring-brand-900' : tone === 'emerald' ? 'bg-emerald-400' : 'bg-brand-400';
   const askable = !!onAsk && probes.length > 0;
   // Recouvrement avec l'anamnèse générale : le candidat a déjà posé la question
   // plus haut. On le DIT au lieu de le laisser répéter — « approfondit » quand
@@ -35,9 +39,14 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
   const covered = src?.deepens ? PROBE_BY_ID[src.deepens] : undefined;
 
   return (
-    <li className={`flex gap-2 rounded-lg transition-colors duration-300 ${active ? '-mx-2 bg-brand-50/70 px-2 py-1 ring-1 ring-brand-300/60 dark:bg-brand-900/20 dark:ring-brand-700/50' : ''}`}>
-      <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${active ? 'bg-brand-500 ring-2 ring-brand-200 dark:ring-brand-800' : dot}`} />
+    <li className={`flex gap-2 rounded-lg transition-colors duration-300 ${caseSpecific ? 'reveal' : ''} ${active ? '-mx-2 bg-brand-50/70 px-2 py-1 ring-1 ring-brand-300/60 dark:bg-brand-900/20 dark:ring-brand-700/50' : ''}`}>
+      <span className={`mt-1.5 shrink-0 rounded-full ${caseSpecific ? '' : 'h-1 w-1'} ${active ? 'h-1 w-1 bg-brand-500 ring-2 ring-brand-200 dark:ring-brand-800' : dot}`} />
       <div className="min-w-0 flex-1">
+        {caseSpecific && (
+          <span className="mb-0.5 mr-1.5 inline-block text-[10px] font-semibold text-brand-600 dark:text-brand-300" title="Question importante pour ce cas — à ne pas oublier">
+            Für diesen Fall
+          </span>
+        )}
         {label && (
           <span className="mb-0.5 mr-1.5 inline-block rounded bg-slate-100 px-1.5 py-px text-[10px] font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
             {label}

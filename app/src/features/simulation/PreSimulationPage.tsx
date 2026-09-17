@@ -1,3 +1,4 @@
+import { cqText } from '@/lib/caseQuestions';
 import { Link, useParams } from 'react-router-dom';
 import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -50,7 +51,7 @@ export function PreSimulationPage() {
 
         <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Questions d'anamnèse à ne pas oublier</div>
-          <AutoLinkList items={c.caseSpecificQuestions} />
+          <AutoLinkList items={c.caseSpecificQuestions.map(cqText)} />
         </div>
 
         <div className="card p-5">
