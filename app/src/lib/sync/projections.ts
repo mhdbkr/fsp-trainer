@@ -1,7 +1,8 @@
-import { db } from '@/db/db';
+import { db, setMeta } from '@/db/db';
 import type { Simulation, Srs, Layer } from '@/db/types';
 import type { ProgressEvent } from './events';
 import { projectCollections, writeCollections } from '@/lib/collections/project';
+import { projectSrsSettings } from '@/lib/srsSettings';
 
 export function latestSrs(events: ProgressEvent[], fachbegriffId: string): Srs | null {
   let best: ProgressEvent | null = null;
@@ -28,4 +29,6 @@ export async function rebuildProjections(): Promise<void> {
   await db.transaction('rw', db.cases, async () => { for (const [id, layer] of layerByCase) await db.cases.update(id, { layerProgress: layer }); });
   // Collections Fachbegriffe (F1) : favoris, decks, termes de decks
   await writeCollections(projectCollections(events));
+  // Réglages quotidiens du SRS (F2b)
+  await setMeta('srs.settings', projectSrsSettings(events));
 }
