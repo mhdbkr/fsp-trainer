@@ -23,6 +23,12 @@ describe('collections mutations', () => {
     expect(await db.favorites.get('fb-1')).toBeUndefined();
   });
 
+  it('toggleFavorite avec opts.caseId enrichit le payload (F2a)', async () => {
+    await toggleFavorite('fb-9', { caseId: 'c1' });
+    const events = await db.progress_events.toArray();
+    expect(events[events.length - 1]?.payload).toEqual({ caseId: 'c1' });
+  });
+
   it('cycle de vie d\'un deck manuel', async () => {
     const id = await createDeck('  Kardio   II ', 'manual');
     expect((await db.decks.get(id))?.name).toBe('Kardio II');

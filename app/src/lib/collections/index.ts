@@ -23,9 +23,9 @@ export function normalizeDeckName(raw: string): string {
   return name;
 }
 
-export async function toggleFavorite(termId: string): Promise<boolean> {
+export async function toggleFavorite(termId: string, opts: { caseId?: string } = {}): Promise<boolean> {
   const is = !!(await db.favorites.get(termId));
-  await emit(is ? 'term.unfavorited' : 'term.favorited', termId, {});
+  await emit(is ? 'term.unfavorited' : 'term.favorited', termId, opts.caseId ? { caseId: opts.caseId } : {});
   return !is;
 }
 export async function createDeck(name: string, kind: 'manual' | 'smart', query?: DeckQuery): Promise<string> {
@@ -36,5 +36,5 @@ export async function createDeck(name: string, kind: 'manual' | 'smart', query?:
 export const renameDeck = async (deckId: string, name: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.renamed', deckId, { name: normalizeDeckName(name) }); };
 export const setDeckQuery = (deckId: string, query: DeckQuery) => emit('deck.query_changed', deckId, { query });
 export const deleteDeck = async (deckId: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.deleted', deckId, {}); };
-export const addToDeck = (deckId: string, termId: string) => emit('deck.term_added', deckId, { termId });
+export const addToDeck = (deckId: string, termId: string, opts: { caseId?: string } = {}) => emit('deck.term_added', deckId, { termId, ...(opts.caseId ? { caseId: opts.caseId } : {}) });
 export const removeFromDeck = (deckId: string, termId: string) => emit('deck.term_removed', deckId, { termId });
