@@ -4,6 +4,7 @@ import type {
   Case, Fachbegriff, ProgramBlock, ProgramConfig, ProgramDay, Simulation, Layer, Specialty,
 } from '@/db/types';
 import { counts } from '@/lib/stats';
+import { INTENSITY_FACTOR } from '@/lib/intensity';
 
 // ============================================================================
 // Moteur du Programme de révision dynamique (Module 1) — VRAI planificateur.
@@ -19,7 +20,6 @@ import { counts } from '@/lib/stats';
 //  • Recalculé à chaque affichage → s'adapte aux performances et à l'assiduité.
 // ============================================================================
 
-const INTENSITY_FACTOR: Record<ProgramConfig['intensity'], number> = { leicht: 0.8, mittel: 1.0, intensiv: 1.3 };
 const SIM_MIN = 40;
 const TEIL_MIN: Record<'anamnese' | 'dokumentation' | 'fallvorstellung', number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
 const FACHWISSEN_MIN = 15;

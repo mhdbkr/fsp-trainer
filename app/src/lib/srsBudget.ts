@@ -31,6 +31,11 @@ export const introducedToday = (now = new Date()) => getMeta<number>(introducedK
 export async function markIntroduced(now = new Date()): Promise<void> { await setMeta(introducedKey(now), (await introducedToday(now)) + 1); }
 export async function remainingToday(budget: number, now = new Date()): Promise<number> { return Math.max(0, budget - (await introducedToday(now))); }
 
+// Compteur local par jour des dus REVUS (spec F2b D6, plafond de dus présentés).
+export const reviewedKey = (d: Date) => `srs.reviewedToday:${dayKey(d)}`;
+export const reviewedToday = (now = new Date()) => getMeta<number>(reviewedKey(now), 0);
+export async function markReviewed(now = new Date()): Promise<void> { await setMeta(reviewedKey(now), (await reviewedToday(now)) + 1); }
+
 /** Taux de réussite (note ≥ Schwer) sur les 7 derniers jours ; null si < 10 notes.
  *  Le payload est l'état SRS APRÈS la note : un échec remet `repetitions` à 0
  *  (`reviewSrs`), une réussite l'incrémente — `state` ne suffit pas, car un

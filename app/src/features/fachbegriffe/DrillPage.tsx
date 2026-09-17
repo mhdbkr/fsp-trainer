@@ -1,17 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import { Icon } from '@/components/icons';
-import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
+import { useFachbegriffe, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
 import type { Fachbegriff } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
-import { markIntroduced } from '@/lib/srsBudget';
+import { markIntroduced, markReviewed } from '@/lib/srsBudget';
 import { syncQueue } from '@/lib/sync/queue';
 import { termsOfDeck } from '@/lib/collections/query';
+import { termsOfCase } from '@/lib/collections/caseTerms';
 import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drillQueue';
 import { loadDrillContext, type DrillContext } from '@/lib/collections/drillContext';
 import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
+import { useSimSession } from '@/store/simSession';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
@@ -28,6 +31,9 @@ export function DrillPage() {
   const priorityPathology = params.get('pathology');
   const deckId = params.get('deck');
   const deck = deckId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === deckId);
+  const caseId = params.get('case');
+  const theCase = useCase(caseId ?? undefined);
+  const events = useLiveQuery(() => db.progress_events.toArray(), [], undefined);
 
   const [queue, setQueue] = useState<Fachbegriff[]>([]);
   const [started, setStarted] = useState(false);
@@ -40,9 +46,13 @@ export function DrillPage() {
   useEffect(() => { loadDrillContext().then(setCtx); }, []);
 
   // Pool borné au deck (ou tout le glossaire hors deck) ; la file de drill ne sort jamais de ce pool.
-  const pool = useMemo(() => (!begriffe ? [] : deck ? termsOfDeck(deck, begriffe, deckTerms ?? [], favorites ?? []) : begriffe), [begriffe, deck, deckTerms, favorites]);
+  // ?case prime sur ?deck : ancré sur les termes du cas (liés ∪ marqués pendant la session, F2a).
+  const pool = useMemo(
+    () => (!begriffe ? [] : caseId && theCase ? termsOfCase(caseId, begriffe, theCase, events ?? []) : deck ? termsOfDeck(deck, begriffe, deckTerms ?? [], favorites ?? []) : begriffe),
+    [begriffe, caseId, theCase, events, deck, deckTerms, favorites],
+  );
   const buildQueue = useCallback(
-    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, relevance: c?.relevance }),
+    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, maxReviews: c?.reviewsRemaining, relevance: c?.relevance }),
     [pool, prioritySpecialty, priorityPathology, ctx],
   );
 
@@ -51,7 +61,7 @@ export function DrillPage() {
   }, [begriffe, ctx, started, buildQueue]);
 
   const qc = useMemo(
-    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, relevance: ctx?.relevance }),
+    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, maxReviews: ctx?.reviewsRemaining, relevance: ctx?.relevance }),
     [pool, ctx, prioritySpecialty, priorityPathology],
   );
 
@@ -72,10 +82,21 @@ export function DrillPage() {
     setQueue(q); setStarted(true);
   };
 
+  // Sortie de la session en pause si elle porte sur CE cas (FB2 : reprendre le
+  // Runner là où on l'a laissé) ; sinon retour à la fiche du cas (mode ?case),
+  // au deck (mode ?deck), ou au glossaire.
+  const exitTo = () => {
+    if (caseId) {
+      const { snapshot, minimized } = useSimSession.getState();
+      return snapshot?.caseId === caseId && minimized ? `/simulation/${caseId}` : `/cas/${caseId}`;
+    }
+    return deckId ? `/fachbegriffe?deck=${deckId}` : '/fachbegriffe';
+  };
+
   if (!started) {
     return (
       <div className="mx-auto max-w-xl space-y-5 text-center">
-        <h1 className="text-2xl font-bold">Drill Fachbegriffe{deck ? ` · ${deck.name}` : ''}</h1>
+        <h1 className="text-2xl font-bold">Drill Fachbegriffe{caseId && theCase ? ` · Termes de ${theCase.name}` : deck ? ` · ${deck.name}` : ''}</h1>
         <div className="card p-6">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-abc" className="h-8 w-8" /></div>
           <p className="mt-2 text-slate-500 dark:text-slate-400">
@@ -91,7 +112,16 @@ export function DrillPage() {
             </div>
           </div>
           {qc.due + qc.fresh === 0 ? (
-            deck ? (
+            caseId && theCase ? (
+              <>
+                <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                  <Icon name="check" className="h-4 w-4" />
+                  Rien à réviser dans ce cas aujourd'hui.
+                </p>
+                <Link to={`/fachbegriffe/drill?specialty=${encodeURIComponent(theCase.specialty)}`} className="btn-primary mt-3">Réviser la spécialité {theCase.specialty}</Link>
+                <Link to="/fachbegriffe/drill" className="btn-outline mt-3 ml-2">Drill global</Link>
+              </>
+            ) : deck ? (
               <>
                 <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                   <Icon name="check" className="h-4 w-4" />
@@ -106,7 +136,7 @@ export function DrillPage() {
             <button onClick={start} className="btn-primary mt-5 gap-1.5 px-8 py-3 text-base"><Icon name="play" className="h-4 w-4" />Commencer</button>
           )}
         </div>
-        <Link to={deckId ? `/fachbegriffe?deck=${deckId}` : '/fachbegriffe'} className="btn-ghost">← Glossaire</Link>
+        <Link to={exitTo()} className="btn-ghost">← {caseId ? 'Retour au cas' : 'Glossaire'}</Link>
       </div>
     );
   }
@@ -137,6 +167,7 @@ export function DrillPage() {
     await db.fachbegriffe.update(card.id, { srs: newSrs });
     syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
     if (wasNew) void markIntroduced();
+    else void markReviewed();
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
     if (g < 3) {
       // remet la carte en fin de file pour la revoir dans la session
@@ -149,7 +180,7 @@ export function DrillPage() {
   return (
     <div className="mx-auto max-w-xl space-y-4">
       <div className="flex items-center justify-between text-sm text-slate-400">
-        <Link to={deckId ? `/fachbegriffe?deck=${deckId}` : '/fachbegriffe'} className="hover:text-brand-600">✕ Quitter</Link>
+        <Link to={exitTo()} className="hover:text-brand-600">✕ Quitter</Link>
         <span>{idx + 1} / {queue.length}</span>
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">

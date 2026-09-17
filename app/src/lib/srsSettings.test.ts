@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
-import { projectSrsSettings, getSrsSettings, setSrsSettings, DEFAULT_SRS_SETTINGS } from './srsSettings';
+import { projectSrsSettings, getSrsSettings, setSrsSettings, DEFAULT_SRS_SETTINGS, effectiveDaily } from './srsSettings';
 import type { ProgressEvent } from '@/lib/sync/events';
 
 vi.mock('@/lib/sync/queue', async () => {
@@ -16,6 +16,17 @@ describe('projectSrsSettings', () => {
     expect(s).toEqual({ mode: 'manual', newPerDay: 50, maxReviewsPerDay: 0 });
   });
   it('payload inconnu → défaut', () => expect(projectSrsSettings([ev({ mode: 'weird' }, 1)])).toEqual(DEFAULT_SRS_SETTINGS));
+});
+
+describe('effectiveDaily', () => {
+  it('auto = budget × intensité, arrondi, expliqué', () => {
+    expect(effectiveDaily({ mode: 'auto' }, { budget: 10, intensity: 'intensiv' })).toEqual({ newPerDay: 13, maxReviewsPerDay: 200, source: 'auto', explain: 'auto : 13/jour = 10 × intensif' });
+    expect(effectiveDaily({ mode: 'auto' }, { budget: 10, intensity: 'leicht' }).newPerDay).toBe(8);
+  });
+  it('manuel = valeurs stockées (défauts 10 / 200 si absentes)', () => {
+    expect(effectiveDaily({ mode: 'manual', newPerDay: 5, maxReviewsPerDay: 20 }, { budget: 30, intensity: 'mittel' })).toEqual({ newPerDay: 5, maxReviewsPerDay: 20, source: 'manual', explain: 'manuel' });
+    expect(effectiveDaily({ mode: 'manual' }, { budget: 30, intensity: 'mittel' })).toMatchObject({ newPerDay: 10, maxReviewsPerDay: 200 });
+  });
 });
 
 describe('get/setSrsSettings', () => {

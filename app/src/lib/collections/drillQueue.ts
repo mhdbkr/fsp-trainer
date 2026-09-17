@@ -11,6 +11,8 @@ export interface DrillOpts {
   newLimit?: number;
   /** Ordonne les Neu par pertinence (favoris, deck, cas simulé/du jour, spécialité). */
   relevance?: RelevanceContext;
+  /** Plafonne les dus PRÉSENTÉS (réglage F2b D6, `maxReviewsPerDay`). Non borné si absent. */
+  maxReviews?: number;
 }
 
 const RESERVED_NEW = 3;
@@ -20,6 +22,8 @@ export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fach
   const now = opts.now ?? Date.now();
   const priority = (b: Fachbegriff) => (opts.priorityPathology && b.pathologyTags.includes(opts.priorityPathology) ? 0 : opts.prioritySpecialty && b.specialty === opts.prioritySpecialty ? 1 : 2);
   const due = pool.filter((b) => isDue(b.srs, now)).sort((a, b) => priority(a) - priority(b) || a.srs.dueDate - b.srs.dueDate);
+  // Plafond de dus PRÉSENTÉS (spec F2b D6) : bornés en amont, avant la réserve aux Neu.
+  const dueShown = opts.maxReviews !== undefined ? due.slice(0, Math.max(0, opts.maxReviews)) : due;
   let news = pool.filter((b) => b.srs.state === 'Neu');
   news = opts.relevance ? sortByRelevance(news, opts.relevance) : news.sort((a, b) => priority(a) - priority(b));
   if (opts.newLimit !== undefined) news = news.slice(0, Math.max(0, opts.newLimit));
@@ -28,8 +32,8 @@ export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fach
   // dus saturent la file (veto pédagogie : « retrouver au drill suivant ce qu'on a
   // marqué pendant un cas »). Les dus priment sur le reste de la file.
   const reserved = Math.min(RESERVED_NEW, news.length);
-  const dueSlots = Math.min(due.length, Math.max(0, limit - reserved));
-  return [...due.slice(0, dueSlots), ...news].slice(0, limit);
+  const dueSlots = Math.min(dueShown.length, Math.max(0, limit - reserved));
+  return [...dueShown.slice(0, dueSlots), ...news].slice(0, limit);
 }
 
 /** Ce que la file contiendra (dus / nouveaux), sans la borne d'affichage `limit`. */

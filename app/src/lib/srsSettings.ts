@@ -5,7 +5,9 @@
 // ============================================================================
 import { getMeta, setMeta } from '@/db/db';
 import type { ProgressEvent } from '@/lib/sync/events';
+import type { Intensity } from '@/db/types';
 import { sortEvents } from '@/lib/collections/project';
+import { INTENSITY_FACTOR } from '@/lib/intensity';
 // Import paresseux : évite de tirer le module de synchronisation (et sa
 // dépendance à l'auth/aux variables d'env) dans les usages purs de projection
 // (rebuildProjections, tests sans .env) qui n'émettent jamais d'événement.
@@ -29,6 +31,22 @@ export function projectSrsSettings(events: ProgressEvent[]): SrsSettings {
   const last = changes[changes.length - 1];
   return last ? sanitize(last.payload) : DEFAULT_SRS_SETTINGS;
 }
+const INTENSITY_LABEL: Record<Intensity, string> = { leicht: 'léger', mittel: 'moyen', intensiv: 'intensif' };
+
+/** Réglages EFFECTIFS du jour (spec F2b D5/D6) : auto = budget (newBudget) ×
+ *  intensité du programme, borné par SRS_LIMITS ; manuel = valeurs stockées
+ *  (défauts 10 nouveaux/jour, 200 dus/jour si absentes). */
+export function effectiveDaily(
+  s: SrsSettings,
+  auto: { budget: number; intensity: Intensity },
+): { newPerDay: number; maxReviewsPerDay: number; source: 'auto' | 'manual'; explain: string } {
+  if (s.mode === 'manual') {
+    return { newPerDay: s.newPerDay ?? 10, maxReviewsPerDay: s.maxReviewsPerDay ?? 200, source: 'manual', explain: 'manuel' };
+  }
+  const newPerDay = Math.max(SRS_LIMITS.newPerDay[0], Math.min(SRS_LIMITS.newPerDay[1], Math.round(auto.budget * INTENSITY_FACTOR[auto.intensity])));
+  return { newPerDay, maxReviewsPerDay: 200, source: 'auto', explain: `auto : ${newPerDay}/jour = ${auto.budget} × ${INTENSITY_LABEL[auto.intensity]}` };
+}
+
 export const getSrsSettings = () => getMeta<SrsSettings>(SRS_SETTINGS_KEY, DEFAULT_SRS_SETTINGS);
 export async function setSrsSettings(s: SrsSettings): Promise<void> {
   const clean = sanitize(s);
