@@ -469,7 +469,13 @@ export interface Simulation {
   /** PHASE 2b (optionnel) — journal de conversation (continuité IA + analytics). */
   conversation?: ConversationTurn[];
   mode?: SimulationMode;   // rendu utilisé (défaut 'texte')
+  /** Portée de la session (FB2-P) : complète (3 Teile) ou un seul Teil.
+   *  Absent sur l'historique = complète. Un Teil nourrit les stats par axe
+   *  et le streak, pas la maîtrise du cas (lib/simScope.ts). */
+  scope?: 'full' | 'teil';
+  teil?: SimTeil;
 }
+export type SimTeil = 'anamnese' | 'dokumentation' | 'fallvorstellung';
 
 /** Notes structurées par rubrique (mêmes cases que le Arztbrief) →
  *  double sortie automatique (Arztbrief + Fallvorstellung). */

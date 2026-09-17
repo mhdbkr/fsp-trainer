@@ -1,3 +1,4 @@
+import { TEILE } from '@/lib/simScope';
 import { Link } from 'react-router-dom';
 import { useCases, useSimulations } from '@/hooks/useData';
 import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
@@ -31,7 +32,22 @@ export function SimulationHub() {
                 <FreqBadge n={c.frequency} />
                 {c.centers.slice(0, 2).map((ct) => <CenterBadge key={ct} center={ct} />)}
               </div>
-              <Link to={`/simulation/${c.id}/pre`} className="btn-primary mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</Link>
+              {/* « Commencer » = complète ; au survol ou au focus, trois icônes
+                  glissent depuis le bord droit du bouton — un Teil seul (FB2-P).
+                  Groupe = focus-within : accessible au clavier, chaque icône
+                  est un lien nommé. */}
+              <div className="group/start relative mt-3 flex items-stretch">
+                <Link to={`/simulation/${c.id}/pre`} className="btn-primary relative z-10 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</Link>
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-20 flex items-center gap-1 pr-1 opacity-0 transition-[opacity,transform] duration-300 ease-fluid [transform:translateX(12px)] group-hover/start:pointer-events-auto group-hover/start:opacity-100 group-hover/start:[transform:translateX(0)] group-focus-within/start:pointer-events-auto group-focus-within/start:opacity-100 group-focus-within/start:[transform:translateX(0)] motion-reduce:transition-none">
+                  {TEILE.map((t, i) => (
+                    <Link key={t.key} to={`/simulation/${c.id}/pre?teil=${t.key}`} title={`${t.label} seule`} aria-label={`${t.label} seule`}
+                      style={{ transitionDelay: `${i * 40}ms` }}
+                      className="z-20 grid h-7 w-7 place-items-center rounded-lg bg-white/90 text-brand-700 shadow-sm ring-1 ring-brand-200 transition-colors hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:bg-ink-700 dark:text-brand-200 dark:ring-brand-800">
+                      <Icon name={t.icon} className="h-3.5 w-3.5" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>

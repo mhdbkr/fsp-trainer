@@ -1,3 +1,4 @@
+import { isFullSimulation } from '@/lib/simScope';
 import { addDays, differenceInCalendarDays, format, getDay, parseISO, startOfDay } from 'date-fns';
 import type {
   Case, Fachbegriff, ProgramBlock, ProgramConfig, ProgramDay, Simulation, Layer, Specialty,
@@ -42,7 +43,8 @@ export interface ProgramStats {
 
 function lastScoreByCase(sims: Simulation[]): Map<string, number | null> {
   const m = new Map<string, number | null>();
-  for (const sim of [...sims].sort((a, b) => a.date - b.date)) {
+  // Un Teil seul n'évalue pas le cas : seules les sessions complètes comptent ici (FB2-P).
+  for (const sim of [...sims].filter(isFullSimulation).sort((a, b) => a.date - b.date)) {
     const parts = Object.values(sim.parts).filter((p) => p?.done);
     m.set(sim.caseId, parts.length ? Math.round(parts.reduce((s, p) => s + partScore(p!), 0) / parts.length) : null);
   }

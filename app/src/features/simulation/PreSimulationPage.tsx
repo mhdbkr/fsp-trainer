@@ -1,5 +1,6 @@
 import { cqText } from '@/lib/caseQuestions';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { TEILE, isTeil } from '@/lib/simScope';
 import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
@@ -10,6 +11,11 @@ import { SimulationSetup } from './SimulationSetup';
 // Fallvorstellung, Fachbegriffe du cas. Prépare mentalement à entrer en sim.
 export function PreSimulationPage() {
   const { caseId } = useParams();
+  // Mode (FB2-P) : complète, ou un seul Teil — pré-sélectionné par l'URL,
+  // modifiable ici, porté par le bouton d'entrée.
+  const [params, setParams] = useSearchParams();
+  const teil = isTeil(params.get('teil')) ? params.get('teil')! : null;
+  const setTeil = (t: string | null) => { const n = new URLSearchParams(params); if (t) n.set('teil', t); else n.delete('teil'); setParams(n, { replace: true }); };
   const c = useCase(caseId);
   const fw = useFachwissen(c?.linkedFachwissenId);
   const begriffe = useFachbegriffe();
@@ -29,7 +35,18 @@ export function PreSimulationPage() {
       {/* Barre d'action EN HAUT (n'interfère plus avec la barre flottante en bas) */}
       <div className="flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-brand-200 bg-brand-50/50 px-4 py-3 dark:border-brand-900/40 dark:bg-brand-900/10">
         <Link to={`/cas/${c.id}`} className="btn-outline">← Fiche du cas</Link>
-        <Link to={`/simulation/${c.id}/run`} className="btn-primary gap-1.5 px-8 py-3 text-base font-bold"><Icon name="play" className="h-4 w-4" />Entrer en simulation</Link>
+        <Link to={`/simulation/${c.id}/run${teil ? `?teil=${teil}` : ''}`} className="btn-primary gap-1.5 px-8 py-3 text-base font-bold"><Icon name="play" className="h-4 w-4" />{teil ? `Entrer — ${TEILE.find((t) => t.key === teil)?.label} seule` : 'Entrer en simulation'}</Link>
+        {/* Pastille de mode : complète, ou un seul Teil pour réviser ciblé */}
+        <div role="radiogroup" aria-label="Mode de simulation" className="flex w-full flex-wrap items-center justify-center gap-1.5 pt-1">
+          <button type="button" role="radio" aria-checked={!teil} onClick={() => setTeil(null)}
+            className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${!teil ? 'bg-brand-600 text-white' : 'bg-white/70 text-slate-600 hover:bg-white dark:bg-ink-700 dark:text-slate-300'}`}>Complète · 3 Teile</button>
+          {TEILE.map((t) => (
+            <button key={t.key} type="button" role="radio" aria-checked={teil === t.key} onClick={() => setTeil(t.key)}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${teil === t.key ? 'bg-brand-600 text-white' : 'bg-white/70 text-slate-600 hover:bg-white dark:bg-ink-700 dark:text-slate-300'}`}>
+              <Icon name={t.icon} className="h-3.5 w-3.5" />{t.label} seule
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Réglage de simulation (mode · couche · Muster · rôles + fiche simulant) */}

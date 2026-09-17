@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { TEILE, isTeil } from '@/lib/simScope';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase, useAufklaerungen } from '@/hooks/useData';
@@ -33,6 +34,12 @@ const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
 
 export function SimulationRunner() {
   const { caseId } = useParams();
+  const [params] = useSearchParams();
+  // Mode (FB2-P) : ?teil=anamnese|dokumentation|fallvorstellung → un seul Teil ;
+  // sinon la simulation complète. Le fil des parties se restreint au mode.
+  const teilParam = params.get('teil');
+  const teil = isTeil(teilParam) ? teilParam : null;
+  const flow = teil ? FLOW.filter((f) => f.key === teil) : FLOW;
   const c = useCase(caseId);
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
@@ -41,7 +48,7 @@ export function SimulationRunner() {
 
   // Restaure une session en pause pour ce cas (sinon départ à zéro).
   const restore = session.snapshot && session.snapshot.caseId === caseId ? session.snapshot : null;
-  const [active, setActive] = useState<Part>(restore?.active ?? 'anamnese');
+  const [active, setActive] = useState<Part>(restore?.active ?? teil ?? 'anamnese');
   const [phase, setPhase] = useState<'play' | 'eval'>(restore?.phase ?? 'play');
   const [notes] = useState<SketchNotes>({}); // legacy croquis (remplacé par le Bogen structuré)
   const [bogen, setBogen] = useState<BogenNotes>(restore?.bogen ?? {});
@@ -155,15 +162,15 @@ export function SimulationRunner() {
   if (!c) return <div className="text-slate-400">Chargement…</div>;
   if (finished) return <ResultScreen sim={finished} c={c} />;
 
-  const target = (aufklaerungOpen ? 5 * 60 : FLOW.find((f) => f.key === active)?.target) ?? 20 * 60;
+  const target = (aufklaerungOpen ? 5 * 60 : flow.find((f) => f.key === active)?.target) ?? 20 * 60;
 
   const savePart = async (part: Part, res: PartResult) => {
     setResults((r) => ({ ...r, [part]: res }));
     setPhase('play');
     if (part === 'aufklaerung') { setAufklaerungOpen(false); setActive('anamnese'); return; }
     // avance à la partie suivante
-    const idx = FLOW.findIndex((f) => f.key === part);
-    if (idx < FLOW.length - 1) setActive(FLOW[idx + 1].key);
+    const idx = flow.findIndex((f) => f.key === part);
+    if (idx < flow.length - 1) setActive(flow[idx + 1].key);
   };
 
   const finishSimulation = async () => {
@@ -179,6 +186,7 @@ export function SimulationRunner() {
       prioritizedCorrections: buildCorrections(parts),
       passed: Object.values(parts).filter((p) => p?.done).every((p) => partScore(p!) >= 60),
       assistance, layer, muster,
+      scope: teil ? 'teil' : 'full', teil: teil ?? undefined,
     };
     await db.simulations.put(sim);
     // La sync ne doit jamais bloquer la fin de simulation : la sauvegarde
@@ -186,7 +194,8 @@ export function SimulationRunner() {
     syncQueue.push({ type: 'simulation.completed', subject_id: c.id, payload: sim }).catch((e) => console.warn('[sync]', e));
     // met à jour confiance + statut du cas — confiance pondérée (assistance × couche)
     const done = Object.values(parts).filter((p): p is PartResult => !!p?.done);
-    if (done.length) {
+    // Un Teil seul n'évalue pas le cas : confiance/statut/couche ne bougent que sur une session complète (FB2-P).
+    if (done.length && !teil) {
       const conf = Math.round(done.reduce((s, p) => s + weightedPartScore(p, { assistance, layer }), 0) / done.length);
       const status = conf >= 80 ? 'Maîtrisé' : conf >= 40 ? 'En cours' : 'À faire';
       await db.cases.update(c.id, { confidence: conf, status, lastSimulationId: sim.id, layerProgress: layer });
@@ -214,7 +223,7 @@ export function SimulationRunner() {
       >
         {(timer) => {
           const amb = computeAmbiance(timer.elapsed, target);
-          const navIdx = Math.max(0, FLOW.findIndex((f) => f.key === active));
+          const navIdx = Math.max(0, flow.findIndex((f) => f.key === active));
           return (
             <TimeAmbianceProvider elapsed={timer.elapsed} target={target}>
               {/* Les DEUX étiquettes vivent dans le MÊME conteneur collant.
@@ -249,7 +258,7 @@ export function SimulationRunner() {
                   {/* Ligne mode / couche */}
                   <div className={`pointer-events-none absolute left-4 top-[30px] flex items-center gap-1.5 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
                     <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                      {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}
+                      {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}{teil ? ` · ${TEILE.find((t) => t.key === teil)?.label} seule` : ''}
                     </span>
                   </div>
 
@@ -269,14 +278,14 @@ export function SimulationRunner() {
                       axes) une fois fusionné. */}
                   <div className={`absolute inset-x-4 overflow-hidden transition-[top,height] duration-[440ms] ease-fluid ${merged ? 'top-[22px] h-[62px]' : 'top-[58px] h-[62px]'}`}>
                     <div className="grid h-full transition-transform duration-[440ms] ease-fluid"
-                      style={{ gridTemplateColumns: `repeat(${FLOW.length}, minmax(0, 1fr))`,
-                               transform: `translateX(${merged ? (1 - navIdx) * (100 / FLOW.length) : 0}%)` }}>
-                      {FLOW.map((f, i) => {
+                      style={{ gridTemplateColumns: `repeat(${flow.length}, minmax(0, 1fr))`,
+                               transform: `translateX(${merged ? (1 - navIdx) * (100 / flow.length) : 0}%)` }}>
+                      {flow.map((f, i) => {
                         const isActive = active === f.key && !aufklaerungOpen;
                         const isDone = !!results[f.key]?.done;
                         return (
                           <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
-                            {i < FLOW.length - 1 && (
+                            {i < flow.length - 1 && (
                               <span aria-hidden
                                 className={`absolute top-[19px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
                                 style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
@@ -384,7 +393,7 @@ export function SimulationRunner() {
       {/* Fin de simulation */}
       {phase === 'play' && doneCount > 0 && (
         <div className="mt-6 flex justify-center">
-          <button onClick={finishSimulation} className="btn-primary px-6">Terminer la simulation & voir le bilan →</button>
+          <button onClick={finishSimulation} className="btn-primary px-6">{teil ? `Terminer — ${TEILE.find((t) => t.key === teil)?.label} seule → bilan` : 'Terminer la simulation & voir le bilan →'}</button>
         </div>
       )}
 

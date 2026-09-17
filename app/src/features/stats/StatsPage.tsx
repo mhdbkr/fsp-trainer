@@ -1,3 +1,4 @@
+import { isFullSimulation } from '@/lib/simScope';
 import { Link } from 'react-router-dom';
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -40,7 +41,7 @@ export function StatsPage() {
       <header>
         <div className="eyebrow">Analyse</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Stats / Performances</h1>
-        <p className="text-slate-500 dark:text-slate-400">{sims.length} simulations · détection auto des points faibles.</p>
+        <p className="text-slate-500 dark:text-slate-400">{sims.filter(isFullSimulation).length} simulations complètes · {sims.filter((x) => !isFullSimulation(x)).length} par partie · détection auto des points faibles.</p>
       </header>
 
       {/* Indicateur de préparation global */}
