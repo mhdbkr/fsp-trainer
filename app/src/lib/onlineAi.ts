@@ -22,19 +22,9 @@ import { getActiveUserId } from '@/lib/auth/accounts';
 // repartir de zéro (contrat OpenRouter : « pass back unmodified »).
 // ============================================================================
 
-export interface AiProvider {
-  id: string;
-  label: string;
-  endpoint: string;
-  model: string;
-  keyUrl: string;   // page pour obtenir une clé gratuite
-}
+export { PROVIDERS, OPENROUTER_FALLBACKS, type AiProvider } from './aiModels';
+import { PROVIDERS, OPENROUTER_FALLBACKS, type AiProvider } from './aiModels';
 
-export const PROVIDERS: AiProvider[] = [
-  { id: 'groq', label: 'Groq (rapide, gratuit)', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
-  { id: 'groq-70b', label: 'Groq 70B (meilleure qualité)', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.3-70b-versatile', keyUrl: 'https://console.groq.com/keys' },
-  { id: 'openrouter', label: 'OpenRouter — LFM 2.5 (gratuit, ultra-léger)', endpoint: 'https://openrouter.ai/api/v1/chat/completions', model: 'liquid/lfm-2.5-2.6b:free', keyUrl: 'https://openrouter.ai/keys' },
-];
 
 const KEY_LS = 'doctopus-key';
 const PROVIDER_LS = 'doctopus-provider';
@@ -100,17 +90,7 @@ interface ChatStreamChunk {
   usage?: { completionTokensDetails?: { reasoningTokens?: number } };
 }
 
-// Modèles gratuits de repli : les modèles ":free" d'OpenRouter tournent sur
-// une capacité partagée et échouent transitoirement (« Provider returned
-// error », 502/503). Plutôt que de changer de modèle par défaut à chaque
-// panne, on donne à OpenRouter une LISTE : il essaie le premier, et bascule
-// lui-même sur le suivant si le fournisseur amont échoue — c'est son routage
-// natif (`models`), pas une boucle de retry codée ici.
-const OPENROUTER_FALLBACKS = [
-  'liquid/lfm-2.5-2.6b:free',
-  'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free',
-  'meta-llama/llama-3.1-8b-instruct:free',
-];
+
 
 // Extrait le message d'erreur le plus informatif possible d'une erreur du SDK
 // OpenRouter : ses classes exposent `.body` (JSON brut du fournisseur, avec

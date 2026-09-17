@@ -1,22 +1,216 @@
 [
-  { "id": "term-de-1", "q": "Was bedeutet Belastungsdyspnoe?", "lang": "de", "kind": "term", "expect": { "article": true, "maxLines": 4, "french": false } },
-  { "id": "term-fr-1", "q": "Que signifie « Belastungsdyspnoe » ?", "lang": "fr", "kind": "term", "expect": { "article": true, "maxLines": 4, "french": true } },
-  { "id": "term-de-2", "q": "Artikel und Plural von Aszites?", "lang": "de", "kind": "term", "expect": { "article": true, "maxLines": 3, "mustMatch": "der Aszites" } },
-  { "id": "reform-1", "q": "Reformule « Ödeme » pour un patient", "lang": "fr", "kind": "reform", "expect": { "sagEsSo": true, "noFach": ["Ödem", "ödem"], "maxLines": 6 } },
-  { "id": "reform-2", "q": "Wie erkläre ich einem Patienten « Appendektomie »?", "lang": "de", "kind": "reform", "expect": { "sagEsSo": true, "noFach": ["Appendektomie"], "maxLines": 6 } },
-  { "id": "reform-3", "q": "Sag « Verdacht auf Lungenembolie » in Patientensprache.", "lang": "de", "kind": "reform", "expect": { "sagEsSo": true, "noFach": ["Lungenembolie"], "maxLines": 5 } },
-  { "id": "concept-1", "q": "Physiopathologie de la cirrhose", "lang": "fr", "kind": "concept", "expect": { "maxLines": 8, "french": true } },
-  { "id": "concept-2", "q": "Unterschied zwischen Ikterus und Cholestase?", "lang": "de", "kind": "compare", "expect": { "maxLines": 10 } },
-  { "id": "exam-1", "q": "Comment se déroule la Fallvorstellung ?", "lang": "fr", "kind": "concept", "expect": { "maxLines": 10, "french": true } },
-  { "id": "exam-2", "q": "Wie fange ich das Anamnesegespräch an?", "lang": "de", "kind": "reform", "expect": { "sagEsSo": true, "maxLines": 6 } },
-  { "id": "brief-1", "q": "Konjunktiv I im Arztbrief: « Der Patient sagt, er hat Schmerzen » — richtig?", "lang": "de", "kind": "reform", "expect": { "sagEsSo": true, "mustMatch": "habe", "maxLines": 6 } },
-  { "id": "brief-2", "q": "Comment dire « le patient nie toute douleur thoracique » dans l'Arztbrief ?", "lang": "fr", "kind": "reform", "expect": { "sagEsSo": true, "mustMatch": "verneint", "maxLines": 6 } },
-  { "id": "register-1", "q": "Nykturie — wie sage ich das dem Patienten und wie im Arztbrief?", "lang": "de", "kind": "register", "expect": { "register": true, "maxLines": 7 } },
-  { "id": "register-2", "q": "Hämatemesis pour le patient et pour le jury ?", "lang": "fr", "kind": "register", "expect": { "register": true, "maxLines": 7 } },
-  { "id": "aufkl-1", "q": "Was muss in eine Aufklärung zur Gastroskopie?", "lang": "de", "kind": "concept", "expect": { "maxLines": 10 } },
-  { "id": "pron-1", "q": "Aussprache von « Chirurgie »?", "lang": "de", "kind": "term", "expect": { "maxLines": 3 } },
-  { "id": "pitfall-1", "q": "Ist « Ich habe Sie verstanden » höflich genug beim Patienten?", "lang": "de", "kind": "reform", "expect": { "maxLines": 6 } },
-  { "id": "offtopic-1", "q": "Kannst du mir ein Rezept für Kartoffelsalat geben?", "lang": "de", "kind": "offtopic", "expect": { "refuse": true, "maxLines": 2 } },
-  { "id": "unsure-1", "q": "Welche Dosis Metamizol gebe ich einem 8-jährigen Kind i.v.?", "lang": "de", "kind": "concept", "expect": { "maxLines": 6, "noDisclaimer": true } },
-  { "id": "greeting-1", "q": "Wie begrüße ich den Patienten und stelle mich vor?", "lang": "de", "kind": "reform", "expect": { "sagEsSo": true, "maxLines": 6 } }
+  {
+    "id": "term-de-1",
+    "q": "Was bedeutet Belastungsdyspnoe?",
+    "lang": "de",
+    "kind": "term",
+    "expect": {
+      "article": true,
+      "maxLines": 4,
+      "french": false
+    }
+  },
+  {
+    "id": "term-fr-1",
+    "q": "Que signifie « Belastungsdyspnoe » ?",
+    "lang": "fr",
+    "kind": "term",
+    "expect": {
+      "article": true,
+      "maxLines": 4,
+      "french": true
+    }
+  },
+  {
+    "id": "term-de-2",
+    "q": "Artikel und Plural von Aszites?",
+    "lang": "de",
+    "kind": "term",
+    "expect": {
+      "article": true,
+      "maxLines": 3,
+      "mustMatch": "der Aszites"
+    }
+  },
+  {
+    "id": "reform-1",
+    "q": "Reformule « Ödeme » pour un patient",
+    "lang": "fr",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "noFach": [
+        "Ödem",
+        "ödem"
+      ],
+      "maxLines": 6
+    }
+  },
+  {
+    "id": "reform-2",
+    "q": "Wie erkläre ich einem Patienten « Appendektomie »?",
+    "lang": "de",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "noFach": [
+        "Appendektomie"
+      ],
+      "maxLines": 6
+    }
+  },
+  {
+    "id": "reform-3",
+    "q": "Sag « Verdacht auf Lungenembolie » in Patientensprache.",
+    "lang": "de",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "noFach": [
+        "Lungenembolie"
+      ],
+      "maxLines": 5
+    }
+  },
+  {
+    "id": "concept-1",
+    "q": "Physiopathologie de la cirrhose",
+    "lang": "fr",
+    "kind": "concept",
+    "expect": {
+      "maxLines": 8,
+      "french": true
+    }
+  },
+  {
+    "id": "concept-2",
+    "q": "Unterschied zwischen Ikterus und Cholestase?",
+    "lang": "de",
+    "kind": "compare",
+    "expect": {
+      "maxLines": 10
+    }
+  },
+  {
+    "id": "exam-1",
+    "q": "Comment se déroule la Fallvorstellung ?",
+    "lang": "fr",
+    "kind": "concept",
+    "expect": {
+      "maxLines": 10,
+      "french": true
+    }
+  },
+  {
+    "id": "exam-2",
+    "q": "Wie fange ich das Anamnesegespräch an?",
+    "lang": "de",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "maxLines": 6
+    }
+  },
+  {
+    "id": "brief-1",
+    "q": "Konjunktiv I im Arztbrief: « Der Patient sagt, er hat Schmerzen » — richtig?",
+    "lang": "de",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "mustMatch": "habe",
+      "maxLines": 6
+    }
+  },
+  {
+    "id": "brief-2",
+    "q": "Comment dire « le patient nie toute douleur thoracique » dans l'Arztbrief ?",
+    "lang": "fr",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "mustMatch": "verneint",
+      "maxLines": 6
+    }
+  },
+  {
+    "id": "register-1",
+    "q": "Nykturie — wie sage ich das dem Patienten und wie im Arztbrief?",
+    "lang": "de",
+    "kind": "register",
+    "expect": {
+      "register": true,
+      "maxLines": 7
+    }
+  },
+  {
+    "id": "register-2",
+    "q": "Hämatemesis pour le patient et pour le jury ?",
+    "lang": "fr",
+    "kind": "register",
+    "expect": {
+      "register": true,
+      "maxLines": 7
+    }
+  },
+  {
+    "id": "aufkl-1",
+    "q": "Was muss in eine Aufklärung zur Gastroskopie?",
+    "lang": "de",
+    "kind": "concept",
+    "expect": {
+      "maxLines": 10
+    }
+  },
+  {
+    "id": "pron-1",
+    "q": "Aussprache von « Chirurgie »?",
+    "lang": "de",
+    "kind": "term",
+    "expect": {
+      "maxLines": 3
+    }
+  },
+  {
+    "id": "pitfall-1",
+    "q": "Ist « Ich habe Sie verstanden » höflich genug beim Patienten?",
+    "lang": "de",
+    "kind": "reform",
+    "expect": {
+      "maxLines": 6,
+      "mustNotMatch": "\\bdu\\b"
+    }
+  },
+  {
+    "id": "offtopic-1",
+    "q": "Kannst du mir ein Rezept für Kartoffelsalat geben?",
+    "lang": "de",
+    "kind": "offtopic",
+    "expect": {
+      "refuse": true,
+      "maxLines": 2
+    }
+  },
+  {
+    "id": "unsure-1",
+    "q": "Welche Dosis Metamizol gebe ich einem 8-jährigen Kind i.v.?",
+    "lang": "de",
+    "kind": "concept",
+    "expect": {
+      "maxLines": 6,
+      "noDisclaimer": true,
+      "hedge": true
+    }
+  },
+  {
+    "id": "greeting-1",
+    "q": "Wie begrüße ich den Patienten und stelle mich vor?",
+    "lang": "de",
+    "kind": "reform",
+    "expect": {
+      "sagEsSo": true,
+      "maxLines": 6,
+      "mustNotMatch": "\\bdu\\b|duzen"
+    }
+  }
 ]

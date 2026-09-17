@@ -1,4 +1,4 @@
-import { TEILE } from '@/lib/simScope';
+import { TEILE, scopeLabel } from '@/lib/simScope';
 import { Link } from 'react-router-dom';
 import { useCases, useSimulations } from '@/hooks/useData';
 import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
@@ -37,7 +37,7 @@ export function SimulationHub() {
                   Groupe = focus-within : accessible au clavier, chaque icône
                   est un lien nommé. */}
               <div className="group/start relative mt-3 flex items-stretch">
-                <Link to={`/simulation/${c.id}/pre`} className="btn-primary relative z-10 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</Link>
+                <Link to={`/simulation/${c.id}/pre`} className="btn-primary relative z-10 w-full justify-center gap-1.5 text-xs transition-[padding] duration-300 ease-fluid group-hover/start:pr-[6.5rem] group-focus-within/start:pr-[6.5rem]"><Icon name="play" className="h-3.5 w-3.5" />Commencer</Link>
                 <div className="pointer-events-none absolute inset-y-0 right-0 z-20 flex items-center gap-1 pr-1 opacity-0 transition-[opacity,transform] duration-300 ease-fluid [transform:translateX(12px)] group-hover/start:pointer-events-auto group-hover/start:opacity-100 group-hover/start:[transform:translateX(0)] group-focus-within/start:pointer-events-auto group-focus-within/start:opacity-100 group-focus-within/start:[transform:translateX(0)] motion-reduce:transition-none">
                   {TEILE.map((t, i) => (
                     <Link key={t.key} to={`/simulation/${c.id}/pre?teil=${t.key}`} title={`${t.label} seule`} aria-label={`${t.label} seule`}
@@ -71,7 +71,7 @@ export function SimulationHub() {
                   <div className="flex-1">
                     <div className="text-sm font-medium">{c?.name ?? sim.caseId}</div>
                     <div className="text-xs text-slate-400">
-                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {parts.map(([k]) => k).join(', ')}
+                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {scopeLabel(sim)}{sim.scope !== 'teil' && parts.length < 3 ? ` (${parts.map(([k]) => TEILE.find((t) => t.key === k)?.label ?? k).join(', ')})` : ''}
                     </div>
                   </div>
                   {c && <Link to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}

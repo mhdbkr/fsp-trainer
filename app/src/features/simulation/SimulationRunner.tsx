@@ -38,7 +38,9 @@ export function SimulationRunner() {
   // Mode (FB2-P) : ?teil=anamnese|dokumentation|fallvorstellung → un seul Teil ;
   // sinon la simulation complète. Le fil des parties se restreint au mode.
   const teilParam = params.get('teil');
-  const teil = isTeil(teilParam) ? teilParam : null;
+  const session0 = useSimSession.getState().snapshot;
+  // Reprise d'une session en pause : son mode fait foi si l'URL ne le porte pas.
+  const teil = isTeil(teilParam) ? teilParam : (session0 && session0.caseId === caseId && session0.teil) || null;
   const flow = teil ? FLOW.filter((f) => f.key === teil) : FLOW;
   const c = useCase(caseId);
   const assistance = useUi((s) => s.assistance);
@@ -156,7 +158,7 @@ export function SimulationRunner() {
   // Miroir de l'état local vers le store persistant (survit à la navigation).
   useEffect(() => {
     if (!c || finished) return;
-    useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed });
+    useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed, teil });
   }, [c, finished, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed]);
 
   if (!c) return <div className="text-slate-400">Chargement…</div>;
@@ -546,7 +548,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{passed ? 'Bestanden-Simulation !' : 'Encore un effort'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
-        <p className="mt-1 text-sm">{passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        <p className="mt-1 text-sm">{sim.scope === 'teil' ? (passed ? 'Cette partie ≥ 60 % (règle FSP). Elle nourrit tes stats par axe — la maîtrise du cas se joue en simulation complète.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">

@@ -50,7 +50,8 @@ export function PreSimulationPage() {
       </div>
 
       {/* Réglage de simulation (mode · couche · Muster · rôles + fiche simulant) */}
-      <SimulationSetup caseId={c.id} />
+      {/* Le Muster-Bogen ne sert que la Dokumentation : inutile en Anamnese ou Fallvorstellung seule. */}
+      {(!teil || teil === 'dokumentation') && <SimulationSetup caseId={c.id} />}
 
       <div className="grid gap-4 md:grid-cols-2">
         {fw && (
@@ -66,18 +67,18 @@ export function PreSimulationPage() {
           </div>
         )}
 
-        <div className="card p-5">
+        {(!teil || teil === 'anamnese') && <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Questions d'anamnèse à ne pas oublier</div>
           <AutoLinkList items={c.caseSpecificQuestions.map(cqText)} />
-        </div>
+        </div>}
 
-        <div className="card p-5">
+        {(!teil || teil === 'fallvorstellung') && <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="speech" className="h-3.5 w-3.5" />Phrases de Fallvorstellung</div>
           <p className="text-sm text-slate-600 dark:text-slate-300">
             « {c.patientSheet.personalia.name} ist ein/e {c.patientSheet.personalia.age}-jährige/r Patient/in, der/die sich mit <b><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></b>… vorstellte. »
           </p>
           <p className="mt-2 text-sm text-slate-500">Struktur : Allgemein- und Ernährungszustand → Anamnese (Konjunktiv I) → Verdachts- und Differenzialdiagnosen → Diagnostik → Therapie.</p>
-        </div>
+        </div>}
 
         <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="nav-abc" className="h-3.5 w-3.5" />Fachbegriffe du thème ({terms.length})</div>

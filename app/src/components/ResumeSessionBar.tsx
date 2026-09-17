@@ -22,7 +22,7 @@ export function ResumeSessionBar() {
   if (!snapshot || !minimized || inRunner) return null;
 
   const doneCount = Object.values(snapshot.results).filter((p) => p?.done).length;
-  const resumeSim = () => { resume(); navigate(`/simulation/${snapshot.caseId}/run`); };
+  const resumeSim = () => { resume(); navigate(`/simulation/${snapshot.caseId}/run${snapshot.teil ? `?teil=${snapshot.teil}` : ''}`); };
 
   // Centrage par marges auto (inset-x-0 + w-fit) : AUCUN translate-x en % →
   // la transition n'anime que l'axe Y, plus de décalage horizontal fugace.
@@ -32,7 +32,7 @@ export function ResumeSessionBar() {
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300"><Icon name="pause" className="h-4 w-4" /></span>
         <div className="min-w-0">
           <div className="truncate text-xs font-semibold">Simulation en pause · {snapshot.caseName}</div>
-          <div className="text-[11px] text-slate-400">{PART_LABEL[snapshot.active]} · {doneCount}/3 parties</div>
+          <div className="text-[11px] text-slate-400">{PART_LABEL[snapshot.active]} · {snapshot.teil ? `${PART_LABEL[snapshot.teil]} seule` : `${doneCount}/3 parties`}</div>
         </div>
         <button onClick={resumeSim} className="btn-primary shrink-0 gap-1.5 rounded-full px-4 py-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Reprendre</button>
         <button onClick={end} title="Abandonner la session" className="shrink-0 text-slate-400 hover:text-rose-500">✕</button>

@@ -19,6 +19,8 @@ export interface SessionSnapshot {
   aufklaerungOpen: boolean;
   /** Temps écoulé (sec) par partie — pour reprendre le chrono là où on l'a laissé. */
   elapsed: Partial<Record<Part, number>>;
+  /** Mode de la session (FB2-P) : un seul Teil, ou null = complète. Sans lui, reprendre ré-ouvrait les 3 parties. */
+  teil: 'anamnese' | 'dokumentation' | 'fallvorstellung' | null;
   startedAt: number;
 }
 

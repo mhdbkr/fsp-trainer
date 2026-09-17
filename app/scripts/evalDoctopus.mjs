@@ -21,35 +21,48 @@ import { pathToFileURL } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const dry = args.includes('--dry');
-const model = args.includes('--model') ? args[args.indexOf('--model') + 1] : 'liquid/lfm-2.5-2.6b:free';
+const model = args.includes('--model') ? args[args.indexOf('--model') + 1] : undefined;
 const set = JSON.parse(readFileSync(join(root, 'evals', 'doctopus.reference.json'), 'utf8'));
 
 // Le prompt système, chargé depuis la source (esbuild) — pas de copie.
 const dir = mkdtempSync(join(tmpdir(), 'fsp-eval-'));
-writeFileSync(join(dir, 'entry.ts'), `export { DOCTOPUS_SYSTEM } from ${JSON.stringify(join(root, 'src/lib/dictionary.ts'))};`);
+writeFileSync(join(dir, 'entry.ts'), `export { DOCTOPUS_SYSTEM } from ${JSON.stringify(join(root, 'src/lib/dictionary.ts'))};\nexport { PROVIDERS, OPENROUTER_FALLBACKS } from ${JSON.stringify(join(root, 'src/lib/aiModels.ts'))};`);
 await build({ entryPoints: [join(dir, 'entry.ts')], outfile: join(dir, 'b.mjs'), bundle: true, format: 'esm', platform: 'node', logLevel: 'silent',
   plugins: [{ name: 'alias', setup(b) { b.onResolve({ filter: /^@\// }, (a) => ({ path: join(root, 'src', a.path.slice(2)) + (a.path.endsWith('.ts') ? '' : '.ts') })); } }] });
-const { DOCTOPUS_SYSTEM } = await import(pathToFileURL(join(dir, 'b.mjs')).href);
+const { DOCTOPUS_SYSTEM, PROVIDERS, OPENROUTER_FALLBACKS } = await import(pathToFileURL(join(dir, 'b.mjs')).href);
+// Modèle et repli = ceux de l'app, sauf --model.
+const appModel = PROVIDERS.find((p) => p.id === 'openrouter')?.model;
 rmSync(dir, { recursive: true, force: true });
 
 const INTRO = /^(gerne|gern|natürlich|klar|gute frage|sehr gerne|avec plaisir|bien sûr|volontiers)\b/i;
 const DISCLAIMER = /kein arzt|keine medizinische beratung|konsultieren sie|wenden sie sich an|je ne suis pas médecin|consultez/i;
-const ARTICLE = /\b(der|die|das)\s+[A-ZÄÖÜ][a-zäöüß-]+/;
+const ARTICLE = /\b(der|die|das)\s+[A-ZÄÖÜ][a-zäöüß-]+/i;
+const tokensOf = (t) => new Set(t.toLowerCase().replace(/[^a-zäöüßàâçéèêëîïôûùüÿ ]/g, ' ').split(/\s+/).filter((w) => w.length > 3));
 function grade(item, text) {
   const e = item.expect; const fails = [];
   const lines = text.split('\n').filter((l) => l.trim()).length;
   if (e.maxLines && lines > e.maxLines) fails.push(`${lines} lignes > ${e.maxLines}`);
+  // Le point 16 : pas plus long. Un mur de mots sur une ligne ne passe pas : ~22 mots par ligne autorisée.
+  const words = text.split(/\s+/).length;
+  if (e.maxLines && words > e.maxLines * 22) fails.push(`${words} mots pour ${e.maxLines} lignes`);
   if (INTRO.test(text.trim())) fails.push('introduction');
-  if ((e.noDisclaimer || true) && DISCLAIMER.test(text)) fails.push('disclaimer');
+  if (DISCLAIMER.test(text)) fails.push('disclaimer');
   if (e.article && !ARTICLE.test(text)) fails.push('pas d’article');
-  if (e.french === true && !/🇫🇷|\b(le|la|les|un|une|des)\b/.test(text)) fails.push('pas de français attendu');
+  if (e.french === true && !/🇫🇷|\b(c’est|c'est|est|sont|dans|pour|avec|une|qui|que)\b.*\b(le|la|les|des|du)\b/.test(text)) fails.push('pas de français attendu');
   if (e.french === false && /🇫🇷/.test(text)) fails.push('🇫🇷 rituel sur question allemande');
-  if (e.sagEsSo && !/sag es so|dis-le ainsi|so sagst du|formulierung:|« .{10,} »/i.test(text)) fails.push('pas de phrase prête à dire');
+  if (e.sagEsSo) {
+    const m = text.match(/(?:sag es so|dis-le ainsi|so sagst du)[^«„"]*(?:«([^»]*)»|„([^“]*)“|"([^"]*)")/i);
+    const said = (m && (m[1] ?? m[2] ?? m[3]))?.trim();
+    if (!said) fails.push('pas de phrase prête à dire');
+    else if (tokensOf(said).size && [...tokensOf(said)].every((w) => tokensOf(item.q).has(w))) fails.push('la phrase à dire recopie la question');
+  }
   if (e.register && !/\[patient\]|\[arzt|patient(en)?sprache|fachsprache|für den patienten|für die jury|dem prüfer/i.test(text)) fails.push('registres non distingués');
   // La reformulation patient = la phrase citée après « Sag es so » (la nuance
   // qui suit a le droit de nommer le Fachbegriff pour l'expliquer).
-  if (e.noFach) { const m = text.match(/(?:sag es so|dis-le ainsi)[^«»]*«([^»]*)»/i); const body = m ? m[1] : text; for (const w of e.noFach) if (body.includes(w)) fails.push(`Fachbegriff « ${w} » dans la reformulation patient`); }
+  if (e.noFach) { const m = text.match(/(?:sag es so|dis-le ainsi)[^«„"]*(?:«([^»]*)»|„([^“]*)“|"([^"]*)")/i); const body = m ? (m[1] ?? m[2] ?? m[3]) : text; for (const w of e.noFach) if (body.includes(w)) fails.push(`Fachbegriff « ${w} » dans la reformulation patient`); }
   if (e.mustMatch && !new RegExp(e.mustMatch, 'i').test(text)) fails.push(`attendu « ${e.mustMatch} »`);
+  if (e.mustNotMatch && new RegExp(e.mustNotMatch, 'i').test(text)) fails.push(`interdit « ${e.mustNotMatch} »`);
+  if (e.hedge && !/unsicher|nachschlagen|nachlesen|fachinformation|nicht sicher|dosierungstabelle|kinderarzt|apotheke|je ne suis pas sûr|à vérifier/i.test(text)) fails.push('pas de réserve sur un point incertain');
   if (e.refuse && !/(nicht|kein|nur|hors|pas)\b.{0,60}(fsp|prüfung|medizin|thema|sujet)/i.test(text)) fails.push('hors sujet non refusé');
   return fails;
 }
@@ -63,12 +76,14 @@ if (dry) {
 const key = process.env.OPENROUTER_API_KEY;
 if (!key) { console.error('OPENROUTER_API_KEY requis (ou --dry).'); process.exit(2); }
 let pass = 0; let empty = 0; const rows = [];
-const FALLBACKS = ['nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free', 'google/gemma-4-26b-a4b-it:free'];
+const primary = model ?? appModel;
+const FALLBACKS = OPENROUTER_FALLBACKS;
 for (const it of set) {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
     // Même liste de repli que l'app (models[]) : si le modèle gratuit est saturé, OpenRouter bascule.
-    body: JSON.stringify({ model, models: [model, ...FALLBACKS.filter((m) => m !== model)], messages: [{ role: 'system', content: DOCTOPUS_SYSTEM }, { role: 'user', content: it.q }], temperature: 0.3, max_tokens: 700 }),
+    // Comme l'app : raisonnement coupé (question directe) — et EXCLU de la réponse, pour les modèles qui le déversent dans le contenu.
+    body: JSON.stringify({ model: primary, models: [primary, ...FALLBACKS.filter((m) => m !== primary)], messages: [{ role: 'system', content: DOCTOPUS_SYSTEM }, { role: 'user', content: it.q }], temperature: 0.3, max_tokens: 900, reasoning: { effort: 'none', exclude: true } }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok || data.error) {
@@ -85,9 +100,9 @@ for (const it of set) {
   const fails = grade(it, text);
   if (!fails.length) pass++;
   rows.push({ id: it.id, ok: !fails.length, fails, text });
-  console.log(`${fails.length ? '✗' : '✓'} ${it.id.padEnd(12)} ${fails.join(' · ') || 'passe'}  [${data?.model ?? model}]`);
+  console.log(`${fails.length ? '✗' : '✓'} ${it.id.padEnd(12)} ${fails.join(' · ') || 'passe'}  [${data?.model ?? primary}]`);
   if (args.includes('--verbose')) console.log('   ' + text.replace(/\n/g, '\n   ') + '\n');
 }
 if (empty === set.length) console.log('\nToutes les réponses sont vides : ce n\'est pas le prompt qui est évalué. Vérifie la clé, le crédit, ou passe --model.');
-console.log(`\n${pass >= 16 ? '✅' : '❌'} ${pass}/${set.length} (seuil 16) — modèle ${model}`);
+console.log(`\n${pass >= 16 ? '✅' : '❌'} ${pass}/${set.length} (seuil 16) — modèle ${primary}`);
 process.exit(pass >= 16 ? 0 : 1);
