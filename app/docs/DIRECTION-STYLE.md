@@ -122,6 +122,13 @@ retient de la personne ?
   précises (une partie de l'examen mérite son propre glyphe).
 - Des pastilles de choix rangées dans la boîte d'action principale : un
   choix qui change la nature de l'action a sa propre boîte, au-dessus.
+- Corriger un défaut **pour le cas joué** et non pour l'app : la règle « un
+  symptôme, une question » d'abord écrite dans un seul sens (vers l'arrière)
+  réglait la CAP et laissait la gastro-entérite répéter la fièvre. Toute
+  règle de trame se vérifie sur des cas de natures différentes ET dans les
+  deux sens ; la porte CI doit attraper ce que le cas joué n'a pas montré.
+- Passer un chantier à ✅ dans le backlog avant le commit, le run CI et le
+  contrôle du bundle en prod : ⏳ tant que ce n'est pas vu en ligne.
 
 ## 6. Mise à jour de ce guide
 
