@@ -97,7 +97,7 @@ export function GlossaryDrawer() {
                         />
                         <button type="button" onClick={() => { void submitNewDeck(); }} className="btn-outline h-11 px-3 text-sm">Créer</button>
                       </div>
-                      {createError && <p role="alert" className="mt-1 px-1 text-xs text-signal-600 dark:text-red-400">{createError}</p>}
+                      {createError && <p role="alert" className="mt-1 px-1 text-xs text-signal-600 dark:text-signal-400">{createError}</p>}
                     </div>
                   ) : (
                     <button type="button" role="menuitem" onClick={() => setCreating(true)}
