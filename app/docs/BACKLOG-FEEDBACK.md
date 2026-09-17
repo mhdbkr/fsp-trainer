@@ -293,3 +293,4 @@ Livrés et vérifiés en prod : lots 1 (N1, M1, M2, M3), 2 (J2, J3, J6 + porte
 7. **FB2-P1, FB2-P2** — simulation par Teil : spec → plan → build.
 8. **FB2-L1** — évaluation objective : brainstorming sur les 6 pistes, puis spec.
 9. **FB2-Q1** — notes personnelles : interview d'abord.
+10. **FB2-J8** — réponses dédiées aux questions du cas (dernier lot, décision de la direction du 17 sept.) : 1 466 réponses patient à authorer ou dériver, contrat étendu, relecture langue + clinique.
