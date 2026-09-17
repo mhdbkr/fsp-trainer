@@ -14,7 +14,7 @@ En attendant l'agent vocal Doctopus, **on prépare le personnage et on le pousse
 | D2 | Le prompt est un **gabarit + `Rollenskript`** (le même que lit le simulant humain), déterministe, testé par snapshot ; jamais de LLM à la génération | fidélité totale au cas, hors-ligne, zéro coût |
 | D3 | Le prompt **ne contient jamais** `medicalView`, `verdachtsdiagnose`, `linkedFachwissen` ; il contient les faits du patient, sa consigne de jeu (`persona`), ses réactions difficiles | le patient ne connaît pas son diagnostic ; l'IA ne doit pas « lire » la fiche médicale |
 | D4 | Bascule par **lien pré-rempli** quand la cible le supporte (`?q=`) **et que le prompt tient dans l'URL** (`PREFILL_MAX = 6000`) ; sinon ouverture + **presse-papiers** (toujours écrit) et message « colle-le » | vérifié : ChatGPT `?q=` envoie, Claude `/new?q=` pré-remplit, Perplexity/Grok `?q=`, Gemini rien |
-| D7 | **Fidélité avant concision** : le prompt garde toute la persona, toutes les répliques du Rollenskript, toutes les questions de l'Oberarzt ; borne dure `PROMPT_MAX = 16000` avec compaction *non destructive* seulement au-delà (retrait des attendus « (erwartet: …) », puis « Fakten » redondants, puis répliques → Fakten sur les chapitres secondaires). Jamais de troncature de texte. Le diagnostic apparaît **seulement** dans la section Oberarzt, avec la consigne « als Patient kennst du diese Diagnose nicht » — pas de caviardage | 109/130 cas dépassent 6 000 car. en version complète ; un patient tronqué n'est plus le cas |
+| D7 | **Fidélité avant concision** : le prompt garde toute la persona, toutes les répliques du Rollenskript, toutes les questions de l'Oberarzt ; borne dure `PROMPT_MAX = 32000` (corpus mesuré : 11,7–25,4 k, médiane 19 k ≈ 5–6 k tokens) avec compaction *non destructive* seulement au-delà (retrait des attendus « (erwartet: …) », puis « Fakten » redondants, puis répliques → Fakten sur les chapitres secondaires). Jamais de troncature de texte. Le diagnostic apparaît **seulement** dans la section Oberarzt, avec la consigne « als Patient kennst du diese Diagnose nicht » — pas de caviardage | 109/130 cas dépassent 6 000 car. en version complète ; un patient tronqué n'est plus le cas |
 | D5 | **Trace légère** au retour : carte « Tu as simulé <cas> avec <IA> » → auto-évaluation existante → `simulation.completed{ mode: 'external-ai' }` | programme, confiance et pertinence (F2a) reflètent les séances réelles |
 | D6 | IA préférée mémorisée **localement** (`meta`), pas d'événement | préférence d'appareil, pas de donnée d'apprentissage |
 
@@ -27,7 +27,7 @@ export type Scope = 'anamnese' | 'exam' | 'exam+feedback';
 export interface PromptInput { c: Case; scope: Scope; feedbackLang: 'fr' | 'de'; topTerms: string[] /* 8 premiers termes du cas, texte */ }
 export function buildExternalPrompt(i: PromptInput): string
 export const PREFILL_MAX = 6000;   // limite d'URL (?q=)
-export const PROMPT_MAX = 16000;   // borne dure du prompt (presse-papiers)
+export const PROMPT_MAX = 32000;   // borne dure du prompt (presse-papiers) — corpus : max 25,4 k
 ```
 
 Structure (allemand, sections titrées, phrases courtes ; le texte exact est le gabarit, relu par `fsp-language-reviewer`) :
@@ -39,7 +39,7 @@ Structure (allemand, sections titrées, phrases courtes ; le texte exact est le 
 5. **Feedback** (scope `exam+feedback`) — « Wenn die Ärztin/der Arzt „Feedback“ sagt » : grille Konjunktiv I, Register (mündlich/schriftlich), erwartete Fachbegriffe (`topTerms`), Struktur der Vorstellung, 3 Stärken / 3 Baustellen ; langue = `feedbackLang`.
 6. **Start** — « Stell dich mit einem Satz vor, sobald die Ärztin/der Arzt dich begrüßt. Sprachmodus empfohlen. »
 
-Invariants testés : contient chaque `antwort` du Rollenskript et toute la `persona` ; aucune chaîne de `medicalView` **avant** le marqueur « ## Teil 3 » (la verdachtsdiagnose peut apparaître dans les questions de l'Oberarzt, jamais dans les sections patient) ; `length ≤ PROMPT_MAX` pour les 130 cas ; scope `anamnese` ne contient pas « Fallvorstellung » ; le rapport de corpus donne la part des cas ≤ `PREFILL_MAX`.
+Invariants testés : contient chaque `antwort` du Rollenskript et toute la `persona` ; aucune chaîne de `medicalView` **avant** le marqueur « ## Teil 3 » (la verdachtsdiagnose peut apparaître dans les questions de l'Oberarzt, jamais dans les sections patient) ; `length ≤ PROMPT_MAX` pour les 130 cas ; scope `anamnese` ne contient pas « Fallvorstellung » ; part des cas ≤ `PREFILL_MAX` = 0 % (mesuré) : le chemin normal est **ouverture + presse-papiers**, le pré-remplissage reste un bonus si un prompt court apparaît.
 
 ### 3.2 Cibles et lancement — `lib/externalAi/targets.ts`
 
@@ -73,7 +73,7 @@ export async function launch(target: AiTarget, prompt: string): Promise<{ opened
 |---|---|---|
 | AC-1 | Prompt d'un cas : personalia, chaque `antwort` du Rollenskript, réactions difficiles, `persona` ; aucune chaîne de `medicalView`/`verdachtsdiagnose` | snapshot + assertions négatives |
 | AC-2 | `exam` : toutes les questions `examinerSheet` dans l'ordre + `examinerQuestions` ; `exam+feedback` : grille + 8 termes ; `anamnese` : ni Oberarzt ni feedback | tests |
-| AC-3 | 130/130 cas : `length ≤ 16000` sans troncature de persona/répliques/questions ; rapport : part des cas ≤ 6 000 (pré-remplissables) | test corpus |
+| AC-3 | 130/130 cas : `length ≤ 32000` sans troncature de persona/répliques/questions ; rapport : part des cas ≤ 6 000 (pré-remplissables) | test corpus |
 | AC-4 | `launch` : presse-papiers écrit, URL par cible exacte (ChatGPT/Claude/Perplexity/Grok `?q=` encodé ; Gemini base) ; > `PREFILL_MAX` → base + `prefilled=false` + message « colle-le » | tests (clipboard/open mockés) |
 | AC-5 | 4 points d'entrée ouvrent la même feuille ; préférences restaurées | tests composant + navigateur |
 | AC-6 | Retour : carte visible après lancement ; « Évaluer » → `simulation.completed{mode:'external-ai'}`, historique avec badge « IA externe », confiance du cas mise à jour | test Dexie + navigateur |
@@ -91,5 +91,5 @@ Agent vocal Doctopus (#13), appels d'API aux IA, coller le feedback de l'IA, par
 |---|---|
 | Les paramètres `?q=` changent chez un fournisseur | presse-papiers toujours ; table de cibles isolée ; test de fumée manuel documenté |
 | L'IA « casse » le rôle ou révèle | consignes en tête et en fin de prompt ; « Nenne nie eine Diagnose » répété dans la section Rolle et Oberarzt |
-| Prompt > 6 000 (cas riches — la majorité) | pré-remplissage seulement sous `PREFILL_MAX` ; au-delà, presse-papiers + « colle-le » (un geste de plus, aucune perte) ; compaction non destructive au-delà de 16 000 |
+| Prompt > 6 000 (tous les cas) | presse-papiers + « colle-le et envoie » est le flux normal (un geste de plus, aucune perte) ; la feuille l'annonce clairement ; compaction non destructive au-delà de 32 000 (aucun cas aujourd'hui) |
 | `window.open` bloqué (mobile) | ouverture dans le gestionnaire de clic, presse-papiers déjà écrit, message de repli |
