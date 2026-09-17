@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
 import * as drillQueueModule from '@/lib/collections/drillQueue';
 import { loadDrillContext } from '@/lib/collections/drillContext';
+import { useSimSession } from '@/store/simSession';
 import { DrillPage } from './DrillPage';
 
 vi.mock('@/lib/collections/drillContext', () => ({ loadDrillContext: vi.fn() }));
@@ -84,5 +85,23 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt('/fachbegriffe/drill?case=c2');
     const btn = await screen.findByRole('link', { name: /Réviser la spécialité Kardiologie/ });
     expect(btn.getAttribute('href')).toContain('specialty=Kardiologie');
+  });
+
+  it('Quitter (mode ?case) : route réelle du Runner si une session est minimisée sur ce cas, sinon la fiche du cas', async () => {
+    useSimSession.setState({ snapshot: null, minimized: false });
+    await db.cases.put({ id: 'c1', name: 'Ulcus ventriculi', specialty: 'Gastroenterologie', linkedFachbegriffeIds: ['fb-a'] } as never);
+    renderAt('/fachbegriffe/drill?case=c1');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    await waitFor(() => expect(screen.getByRole('link', { name: /quitter/i })).toBeTruthy());
+
+    // Sans session minimisée sur ce cas → retour à la fiche du cas.
+    expect(screen.getByRole('link', { name: /quitter/i }).getAttribute('href')).toBe('/cas/c1');
+
+    // Session minimisée sur CE cas, Teil « dokumentation » → route réelle du Runner (comme ResumeSessionBar).
+    useSimSession.setState({ snapshot: { caseId: 'c1', teil: 'dokumentation' } as never, minimized: true });
+    await waitFor(() => expect(screen.getByRole('link', { name: /quitter/i }).getAttribute('href')).toBe('/simulation/c1/run?teil=dokumentation'));
+
+    useSimSession.setState({ snapshot: null, minimized: false });
   });
 });

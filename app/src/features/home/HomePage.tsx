@@ -30,7 +30,7 @@ export function HomePage() {
   const navigate = useNavigate();
   // Un seul chargement du contexte drill pour la page ET le calendrier (props).
   const [drill, setDrill] = useState<DrillBudgets>({});
-  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.budget })).catch(() => {}); }, []);
+  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.daily.newPerDay })).catch(() => {}); }, []);
 
   if (!cases || !begriffe || !sims || programConfig === undefined) return <Loading />;
 

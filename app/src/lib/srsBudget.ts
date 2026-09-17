@@ -34,6 +34,9 @@ export async function remainingToday(budget: number, now = new Date()): Promise<
 // Compteur local par jour des dus REVUS (spec F2b D6, plafond de dus présentés).
 export const reviewedKey = (d: Date) => `srs.reviewedToday:${dayKey(d)}`;
 export const reviewedToday = (now = new Date()) => getMeta<number>(reviewedKey(now), 0);
+// Sémantique Anki : une carte ratée (« Wieder ») est remise en fin de file (DrillPage)
+// et recomptée à sa prochaine présentation dans la MÊME session — le compteur du jour
+// suit les présentations, pas les cartes distinctes.
 export async function markReviewed(now = new Date()): Promise<void> { await setMeta(reviewedKey(now), (await reviewedToday(now)) + 1); }
 
 /** Taux de réussite (note ≥ Schwer) sur les 7 derniers jours ; null si < 10 notes.

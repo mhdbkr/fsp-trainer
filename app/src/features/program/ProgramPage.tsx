@@ -32,7 +32,7 @@ export function ProgramPage() {
   const sims = useSimulations();
   const begriffe = useFachbegriffe();
   const [drill, setDrill] = useState<DrillBudgets>({});
-  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.budget })).catch(() => {}); }, []);
+  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.daily.newPerDay })).catch(() => {}); }, []);
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
   const [anchor, setAnchor] = useState<string>(todayISO());   // période affichée dans le calendrier

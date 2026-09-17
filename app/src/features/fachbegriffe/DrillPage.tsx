@@ -34,6 +34,8 @@ export function DrillPage() {
   const caseId = params.get('case');
   const theCase = useCase(caseId ?? undefined);
   const events = useLiveQuery(() => db.progress_events.toArray(), [], undefined);
+  const simSnapshot = useSimSession((s) => s.snapshot);
+  const simMinimized = useSimSession((s) => s.minimized);
 
   const [queue, setQueue] = useState<Fachbegriff[]>([]);
   const [started, setStarted] = useState(false);
@@ -83,12 +85,14 @@ export function DrillPage() {
   };
 
   // Sortie de la session en pause si elle porte sur CE cas (FB2 : reprendre le
-  // Runner là où on l'a laissé) ; sinon retour à la fiche du cas (mode ?case),
-  // au deck (mode ?deck), ou au glossaire.
+  // Runner là où on l'a laissé, même route que ResumeSessionBar) ; sinon retour
+  // à la fiche du cas (mode ?case), au deck (mode ?deck), ou au glossaire.
   const exitTo = () => {
     if (caseId) {
-      const { snapshot, minimized } = useSimSession.getState();
-      return snapshot?.caseId === caseId && minimized ? `/simulation/${caseId}` : `/cas/${caseId}`;
+      if (simSnapshot?.caseId === caseId && simMinimized) {
+        return `/simulation/${caseId}/run${simSnapshot.teil ? `?teil=${simSnapshot.teil}` : ''}`;
+      }
+      return `/cas/${caseId}`;
     }
     return deckId ? `/fachbegriffe?deck=${deckId}` : '/fachbegriffe';
   };
@@ -100,7 +104,7 @@ export function DrillPage() {
         <div className="card p-6">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-abc" className="h-8 w-8" /></div>
           <p className="mt-2 text-slate-500 dark:text-slate-400">
-            {qc.due} dus · {qc.fresh} nouveaux · budget du jour {ctx.budget}{prioritySpecialty ? ` · priorité ${prioritySpecialty}` : ''}{qc.due + qc.fresh > 0 ? ` · ≈ ${minutes} min` : ''}.
+            {qc.due} dus · {qc.fresh} nouveaux · budget du jour {ctx.daily.newPerDay}{prioritySpecialty ? ` · priorité ${prioritySpecialty}` : ''}{qc.due + qc.fresh > 0 ? ` · ≈ ${minutes} min` : ''}.
             Répétition espacée (SM-2), cartes bidirectionnelles.
           </p>
           {anchor && <p className="mt-1 text-sm text-brand-600 dark:text-brand-300">Ancré sur ton cas récent : {anchor.name}</p>}
@@ -130,7 +134,7 @@ export function DrillPage() {
                 <Link to="/fachbegriffe/drill" className="btn-outline mt-3">Drill global</Link>
               </>
             ) : (
-              <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser aujourd'hui — les nouveaux termes reviennent demain (budget {ctx.budget}/jour).</p>
+              <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser aujourd'hui — les nouveaux termes reviennent demain (budget {ctx.daily.newPerDay}/jour).</p>
             )
           ) : (
             <button onClick={start} className="btn-primary mt-5 gap-1.5 px-8 py-3 text-base"><Icon name="play" className="h-4 w-4" />Commencer</button>

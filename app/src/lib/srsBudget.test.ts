@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { newBudget, introducedToday, markIntroduced, remainingToday, introducedKey, retention7d } from './srsBudget';
+import { newBudget, introducedToday, markIntroduced, remainingToday, introducedKey, retention7d, reviewedToday, markReviewed } from './srsBudget';
 import { freshSrs, reviewSrs } from '@/lib/srs';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { db } from '@/db/db';
@@ -36,6 +36,12 @@ describe('compteur du jour', () => {
     expect(await remainingToday(1, d)).toBe(0);
     expect(await introducedToday(new Date(2026, 8, 18, 12))).toBe(0);
     expect(introducedKey(new Date(2026, 8, 17, 0, 30))).toBe('srs.newIntroduced:2026-09-17');   // 00 h 30 local = aujourd'hui
+  });
+  it('markReviewed × 3 → reviewedToday 3 ; le lendemain, compteur à 0 (M4)', async () => {
+    const d = new Date(2026, 8, 17, 12);
+    await markReviewed(d); await markReviewed(d); await markReviewed(d);
+    expect(await reviewedToday(d)).toBe(3);
+    expect(await reviewedToday(new Date(2026, 8, 18, 12))).toBe(0);
   });
 });
 
