@@ -8,6 +8,7 @@ import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { SimulationSetup } from './SimulationSetup';
+import { termsInOrder } from '@/lib/collections/caseTerms';
 
 // Échauffement avant le chrono : notions clés, questions d'anamnèse, phrases de
 // Fallvorstellung, Fachbegriffe du cas. Prépare mentalement à entrer en sim.
@@ -24,7 +25,7 @@ export function PreSimulationPage() {
   const openGlossary = useUi((s) => s.openGlossary);
 
   if (!c) return <div className="text-slate-400">Chargement…</div>;
-  const terms = (begriffe ?? []).filter((b) => c.linkedFachbegriffeIds.includes(b.id));
+  const terms = termsInOrder(c.linkedFachbegriffeIds, begriffe ?? []);   // ordre publié conservé (diagnostic d'abord)
 
   return (
     <div className="mx-auto max-w-4xl space-y-5">

@@ -3,7 +3,7 @@ import { addDays, differenceInCalendarDays, format, getDay, parseISO, startOfDay
 import type {
   Case, Fachbegriff, ProgramBlock, ProgramConfig, ProgramDay, Simulation, Layer, Specialty,
 } from '@/db/types';
-import { isDue } from './srs';
+import { counts } from '@/lib/stats';
 
 // ============================================================================
 // Moteur du Programme de révision dynamique (Module 1) — VRAI planificateur.
@@ -84,19 +84,41 @@ export function programEnd(config: ProgramConfig): Date {
   return addDays(parseISO(config.startDate), (config.weeks ?? 8) * 7);
 }
 
-function isWorkingDay(d: Date, config: ProgramConfig): boolean {
+export function isWorkingDay(d: Date, config: ProgramConfig): boolean {
   return !config.offDays.includes(getDay(d));
 }
-function nextWorkingDay(d: Date, config: ProgramConfig): Date {
+export function nextWorkingDay(d: Date, config: ProgramConfig): Date {
   let x = d;
   while (!isWorkingDay(x, config)) x = addDays(x, 1);
   return x;
 }
 
+// Config minimale utilisée quand l'utilisateur n'a pas encore configuré son programme
+// (weekend off par défaut) — seul `offDays` est lu par `isWorkingDay`.
+const DEFAULT_CONFIG = { offDays: [0, 6] } as ProgramConfig;
+
+/** Nombre de jours ouvrés strictement après `now` jusqu'à `examDateISO` inclus. */
+export function workingDaysUntilExam(examDateISO: string, now: Date, config?: ProgramConfig): number {
+  const cfg = config ?? DEFAULT_CONFIG;
+  const end = startOfDay(parseISO(examDateISO));
+  let d = startOfDay(addDays(now, 1));
+  let count = 0;
+  let guard = 0;
+  while (d <= end && guard < 10000) {
+    if (isWorkingDay(d, cfg)) count++;
+    d = addDays(d, 1);
+    guard++;
+  }
+  return count;
+}
+
 // ----------------------------------------------------------------------------
 // Planificateur : construit une Map<dateISO, ProgramBlock[]> sur tout l'horizon.
 // ----------------------------------------------------------------------------
-function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now: Date): Map<string, ProgramBlock[]> {
+function schedule(
+  config: ProgramConfig, cases: Case[], sims: Simulation[], now: Date,
+  begriffe: Fachbegriff[], drill: DrillBudgets = {},
+): Map<string, ProgramBlock[]> {
   const map = new Map<string, ProgramBlock[]>();
   const dailyBudget = Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]);
   const used = new Map<string, number>();
@@ -196,12 +218,24 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
     }
   }
 
-  // Drill quotidien sur chaque jour ouvré de l'horizon (sauf jours annulés).
+  // Drill quotidien : libellé sur les VRAIS compteurs (dus réels + nouveaux
+  // du budget). Jour J = ce qu'il RESTE du budget d'aujourd'hui ; jours
+  // suivants = budget plein. Le bloc n'est omis que LE jour où k + n = 0
+  // (spec F2a 3.7) — jamais sur tout l'horizon.
+  const c = counts(begriffe, now.getTime());
+  const budgetFull = drill.drillBudgetFull ?? drill.drillBudget ?? 10;
+  const budgetToday = drill.drillBudget ?? budgetFull;
+  const todayKey = key(start);
   for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
     if (!isWorkingDay(d, config)) continue;
     const dk = key(d);
     if (adj.skipDrillDates?.includes(dk)) continue;
-    add(d, { kind: 'drill', label: 'Drill Fachbegriffe', estMin: DRILL_MIN, axis: 'Fachbegriffe', id: `drill:${dk}`, reason: 'Rappel espacé (SM-2) des Fachbegriffe' });
+    const fresh = Math.min(c.fresh, dk === todayKey ? budgetToday : budgetFull);
+    const total = c.due + fresh;
+    if (total === 0) continue;
+    const simOfDay = (map.get(dk) ?? []).find((b) => b.kind === 'simulation');
+    const estMin = Math.ceil(total * 0.4);
+    add(d, { kind: 'drill', label: `Drill · ${c.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
   }
 
   // --------------------------------------------------------------------------
@@ -237,9 +271,14 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
 }
 
 /** Génère les jours de programme du `now` jusqu'à min(exam, now+horizon). */
+/** Budget de NOUVEAUX Fachbegriffe pour le bloc drill : `drillBudget` = ce qu'il
+ *  reste aujourd'hui (`ctx.remaining`), `drillBudgetFull` = budget plein des jours
+ *  suivants (`ctx.budget`). Absents → 10 (premier rendu, avant `loadDrillContext`). */
+export interface DrillBudgets { drillBudget?: number; drillBudgetFull?: number }
+
 export function generateProgram(
   config: ProgramConfig,
-  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[] },
+  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[] } & DrillBudgets,
   horizonDays = 21,
   now = new Date(),
 ): ProgramDay[] {
@@ -247,7 +286,7 @@ export function generateProgram(
   const end = startOfDay(programEnd(config));
   const lastOffset = Math.max(0, Math.min(horizonDays, differenceInCalendarDays(end, today)));
 
-  const map = schedule(config, data.cases, data.sims, today);
+  const map = schedule(config, data.cases, data.sims, today, data.begriffe, { drillBudget: data.drillBudget, drillBudgetFull: data.drillBudgetFull });
 
   // Activité réelle par jour.
   const spentByDay = new Map<string, number>();
@@ -258,16 +297,13 @@ export function generateProgram(
     spentByDay.set(k, (spentByDay.get(k) ?? 0) + Math.round(secs / 60));
     workedDays.add(k);
   }
-  const dueTotal = data.begriffe.filter((b) => isDue(b.srs, now.getTime())).length;
 
   const days: ProgramDay[] = [];
   for (let i = 0; i <= lastOffset; i++) {
     const date = addDays(today, i);
     const k = format(date, 'yyyy-MM-dd');
     const isOff = !isWorkingDay(date, config);
-    const blocks = (map.get(k) ?? []).map((b) =>
-      b.kind === 'drill' ? { ...b, label: `Drill Fachbegriffe (${Math.max(5, dueTotal - i * 3)} cartes)` } : b,
-    );
+    const blocks = map.get(k) ?? [];
     days.push({
       date: k, isOff,
       targetMin: Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]),

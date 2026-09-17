@@ -9,6 +9,9 @@ vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
   return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } };
 });
+vi.mock('@/lib/collections/drillContext', () => ({
+  loadDrillContext: async () => ({ relevance: { now: Date.now(), favorites: [], deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [] }, budget: 10, remaining: 10 }),
+}));
 // Virtualisation en jsdom : pas de layout → on force un viewport de mesure
 vi.mock('@tanstack/react-virtual', async (orig) => { const m = await orig<typeof import('@tanstack/react-virtual')>(); return { ...m, useVirtualizer: (o: Parameters<typeof m.useVirtualizer>[0]) => m.useVirtualizer({ ...o, initialRect: { width: 800, height: 600 } }) }; });
 // jsdom ne calcule aucun layout : le conteneur de scroll a une hauteur nulle

@@ -23,6 +23,16 @@ describe('collections mutations', () => {
     expect(await db.favorites.get('fb-1')).toBeUndefined();
   });
 
+  it('toggleFavorite avec opts.caseId enrichit le payload (F2a)', async () => {
+    // toArray() trie par clé primaire (uuid), pas par insertion : on cherche par type.
+    await toggleFavorite('fb-9', { caseId: 'c1' });
+    const fav = (await db.progress_events.toArray()).find((e) => e.type === 'term.favorited' && e.subject_id === 'fb-9');
+    expect(fav?.payload).toEqual({ caseId: 'c1' });
+    await toggleFavorite('fb-9', { caseId: 'c1' });   // retrait : jamais de caseId sur term.unfavorited
+    const unfav = (await db.progress_events.toArray()).find((e) => e.type === 'term.unfavorited' && e.subject_id === 'fb-9');
+    expect(unfav?.payload).toEqual({});
+  });
+
   it('cycle de vie d\'un deck manuel', async () => {
     const id = await createDeck('  Kardio   II ', 'manual');
     expect((await db.decks.get(id))?.name).toBe('Kardio II');

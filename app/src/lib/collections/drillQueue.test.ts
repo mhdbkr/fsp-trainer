@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { buildDrillQueue, nextDueAt } from './drillQueue';
+import { buildDrillQueue, nextDueAt, queueCounts } from './drillQueue';
+import type { RelevanceContext } from './relevance';
 import type { Fachbegriff } from '@/db/types';
 import { freshSrs, DAY_MS } from '@/lib/srs';
 
@@ -23,6 +24,28 @@ describe('buildDrillQueue', () => {
   it('ne sort jamais du pool', () => {
     const pool = [mk('only', 'Neu', 0)];
     expect(buildDrillQueue(pool, { now }).every((b) => b.id === 'only')).toBe(true);
+  });
+  it('newLimit borne les nouveaux ; relevance ordonne les nouveaux', () => {
+    const ctx: RelevanceContext = { now, favorites: [{ termId: 'n3', since: new Date(now).toISOString() }], deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [] };
+    const pool = [mk('n1', 'Neu', 0), mk('n2', 'Neu', 0), mk('n3', 'Neu', 0), mk('due', 'Gelernt', -1)];
+    expect(buildDrillQueue(pool, { now, newLimit: 2, relevance: ctx }).map((b) => b.id)).toEqual(['due', 'n3', 'n1']);
+    expect(buildDrillQueue(pool, { now, newLimit: 0 }).map((b) => b.id)).toEqual(['due']);
+  });
+  it('25 dus + 5 Neu (newLimit 10) → 20 cartes : 17 dus + 3 Neu réservés (pertinence en tête)', () => {
+    const pool = [...Array.from({ length: 25 }, (_, i) => mk(`d${i}`, 'Gelernt', -1 - i)), ...Array.from({ length: 5 }, (_, i) => mk(`n${i}`, 'Neu', 0))];
+    const ctx: RelevanceContext = { now, favorites: [{ termId: 'n4', since: new Date(now).toISOString() }], deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [] };
+    const q = buildDrillQueue(pool, { now, newLimit: 10, relevance: ctx });
+    expect(q).toHaveLength(20);
+    expect(q.filter((b) => b.srs.state !== 'Neu')).toHaveLength(17);
+    expect(q.slice(17).map((b) => b.id)).toEqual(['n4', 'n0', 'n1']);
+    expect(q.slice(0, 17).every((b) => b.srs.state !== 'Neu')).toBe(true);
+    // Sans Neu, les dus remplissent tout ; newLimit 0 → aucune réserve.
+    expect(buildDrillQueue(pool, { now, newLimit: 0 })).toHaveLength(20);
+    expect(buildDrillQueue(pool, { now, newLimit: 0 }).every((b) => b.srs.state !== 'Neu')).toBe(true);
+  });
+  it('queueCounts reflète la file', () => {
+    const pool = [mk('n1', 'Neu', 0), mk('n2', 'Neu', 0), mk('due', 'Gelernt', -1)];
+    expect(queueCounts(pool, { now, newLimit: 1 })).toEqual({ due: 1, fresh: 1 });
   });
 });
 

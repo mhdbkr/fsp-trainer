@@ -3,12 +3,14 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
 import { Icon } from '@/components/icons';
 import { useUi } from '@/store/ui';
-import { dueCount } from '@/lib/stats';
+import { counts as termCounts } from '@/lib/stats';
 import type { Specialty, Srs, Center, DeckQuery, Fachbegriff } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { EmptyState } from '@/components/ui';
 import { applyQuery, termsOfDeck } from '@/lib/collections/query';
 import { toggleFavorite, removeFromDeck, setDeckQuery } from '@/lib/collections';
+import { loadDrillContext } from '@/lib/collections/drillContext';
+import { drillMinutes } from '@/lib/collections/relevance';
 import { sortDe, letterOf } from './letters';
 import { TermList, type TermListHandle } from './TermList';
 import { AlphabetRail } from './AlphabetRail';
@@ -26,6 +28,8 @@ export function FachbegriffePage() {
   const [sheet, setSheet] = useState<null | { mode: 'create' } | { mode: 'edit' }>(null);
   const listRef = useRef<TermListHandle>(null);
   const pendingIdRef = useRef<string | null>(null);
+  const [remaining, setRemaining] = useState(0);
+  useEffect(() => { loadDrillContext().then((ctx) => setRemaining(ctx.remaining)); }, []);
 
   const activeDeck = activeId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === activeId);
   const isSmart = activeDeck?.kind === 'smart' && activeDeck.id !== FAVORITES_DECK_ID;
@@ -62,7 +66,9 @@ export function FachbegriffePage() {
   }, [decks, activeId]);
 
   if (!begriffe || !decks) return <div className="text-slate-400">Chargement…</div>;
-  const due = dueCount(activeDeck ? shown : begriffe);
+  const c = termCounts(activeDeck ? shown : begriffe);
+  const due = c.due;
+  const fresh = Math.min(c.fresh, remaining);
   const drillHref = activeId ? `/fachbegriffe/drill?deck=${activeId}` : '/fachbegriffe/drill';
   const set = (k: keyof DeckQuery, v: string) => setFilters((f) => ({ ...f, [k]: v || undefined }));
 
@@ -78,11 +84,14 @@ export function FachbegriffePage() {
         <div>
           <div className="eyebrow">Vocabulaire</div>
           <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Fachbegriffe</h1>
-          <p className="text-slate-500 dark:text-slate-400">{shown.length} termes · <b className="text-amber-600 dark:text-amber-400">{due}</b> dus aujourd'hui</p>
+          <p className="text-slate-500 dark:text-slate-400">
+            <b className="text-amber-600 dark:text-amber-400">{due} dus</b> · <b className="text-brand-600 dark:text-brand-400">{fresh} nouveaux proposés</b> · {c.learned} appris
+          </p>
         </div>
         <div className="flex items-center gap-2">
           {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
-          <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill{activeDeck ? ` · ${activeDeck.name}` : ''}{due > 0 ? ` (${due})` : ''}</Link>
+          <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
+          {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
         </div>
       </header>
 

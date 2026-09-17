@@ -6,9 +6,12 @@ import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/u
 import type { Fachbegriff } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
+import { markIntroduced } from '@/lib/srsBudget';
 import { syncQueue } from '@/lib/sync/queue';
 import { termsOfDeck } from '@/lib/collections/query';
-import { buildDrillQueue, nextDueAt } from '@/lib/collections/drillQueue';
+import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drillQueue';
+import { loadDrillContext, type DrillContext } from '@/lib/collections/drillContext';
+import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
@@ -32,19 +35,42 @@ export function DrillPage() {
   const [revealed, setRevealed] = useState(false);
   const [direction, setDirection] = useState<'term2simple' | 'simple2term'>('term2simple');
   const [stats, setStats] = useState({ done: 0, again: 0 });
+  const [ctx, setCtx] = useState<DrillContext | null>(null);
+
+  useEffect(() => { loadDrillContext().then(setCtx); }, []);
 
   // Pool borné au deck (ou tout le glossaire hors deck) ; la file de drill ne sort jamais de ce pool.
   const pool = useMemo(() => (!begriffe ? [] : deck ? termsOfDeck(deck, begriffe, deckTerms ?? [], favorites ?? []) : begriffe), [begriffe, deck, deckTerms, favorites]);
-  const buildQueue = useCallback(() => buildDrillQueue(pool, { prioritySpecialty, priorityPathology }), [pool, prioritySpecialty, priorityPathology]);
+  const buildQueue = useCallback(
+    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, relevance: c?.relevance }),
+    [pool, prioritySpecialty, priorityPathology, ctx],
+  );
 
   useEffect(() => {
-    if (begriffe && !started) setQueue(buildQueue());
-  }, [begriffe, started, buildQueue]);
+    if (begriffe && ctx && !started) setQueue(buildQueue());
+  }, [begriffe, ctx, started, buildQueue]);
 
-  if (!begriffe) return <div className="text-slate-400">Chargement…</div>;
+  const qc = useMemo(
+    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, relevance: ctx?.relevance }),
+    [pool, ctx, prioritySpecialty, priorityPathology],
+  );
+
+  if (!begriffe || !ctx) return <div className="text-slate-400">Chargement…</div>;
 
   const next = nextDueAt(pool);
-  const start = () => { setQueue(buildQueue()); setStarted(true); setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 }); };
+  const anchor = recentCaseAnchor(queue, ctx.relevance);
+  const minutes = drillMinutes(qc.due + qc.fresh);
+  // Recharge le contexte AVANT de rebâtir la file : « Nouvelle session » après une
+  // session ne doit pas ignorer le budget du jour que l'écran vient d'annoncer.
+  // S'il ne reste rien, on revient à l'accueil (« Rien à réviser… »).
+  const start = async () => {
+    const fresh = await loadDrillContext();
+    setCtx(fresh);
+    const q = buildQueue(fresh);
+    setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 });
+    if (q.length === 0) { setStarted(false); return; }
+    setQueue(q); setStarted(true);
+  };
 
   if (!started) {
     return (
@@ -53,9 +79,10 @@ export function DrillPage() {
         <div className="card p-6">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-abc" className="h-8 w-8" /></div>
           <p className="mt-2 text-slate-500 dark:text-slate-400">
-            {queue.length} cartes prêtes{prioritySpecialty ? ` · priorité ${prioritySpecialty}` : ''}.
+            {qc.due} dus · {qc.fresh} nouveaux · budget du jour {ctx.budget}{prioritySpecialty ? ` · priorité ${prioritySpecialty}` : ''}{qc.due + qc.fresh > 0 ? ` · ≈ ${minutes} min` : ''}.
             Répétition espacée (SM-2), cartes bidirectionnelles.
           </p>
+          {anchor && <p className="mt-1 text-sm text-brand-600 dark:text-brand-300">Ancré sur ton cas récent : {anchor.name}</p>}
           <div className="mt-4 flex items-center justify-center gap-2">
             <span className="text-sm">Sens :</span>
             <div className="flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-slate-800">
@@ -63,7 +90,7 @@ export function DrillPage() {
               <button onClick={() => setDirection('simple2term')} className={`rounded px-2 py-1 ${direction === 'simple2term' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Sens → terme</button>
             </div>
           </div>
-          {queue.length === 0 ? (
+          {qc.due + qc.fresh === 0 ? (
             deck ? (
               <>
                 <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">
@@ -73,7 +100,7 @@ export function DrillPage() {
                 <Link to="/fachbegriffe/drill" className="btn-outline mt-3">Drill global</Link>
               </>
             ) : (
-              <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser pour l'instant. Reviens plus tard !</p>
+              <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser aujourd'hui — les nouveaux termes reviennent demain (budget {ctx.budget}/jour).</p>
             )
           ) : (
             <button onClick={start} className="btn-primary mt-5 gap-1.5 px-8 py-3 text-base"><Icon name="play" className="h-4 w-4" />Commencer</button>
@@ -105,9 +132,11 @@ export function DrillPage() {
   const back = direction === 'term2simple' ? card.translationSimple : card.term;
 
   const grade = async (g: Grade) => {
+    const wasNew = card.srs.state === 'Neu';
     const newSrs = reviewSrs(card.srs, g);
     await db.fachbegriffe.update(card.id, { srs: newSrs });
     syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
+    if (wasNew) void markIntroduced();
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
     if (g < 3) {
       // remet la carte en fin de file pour la revoir dans la session

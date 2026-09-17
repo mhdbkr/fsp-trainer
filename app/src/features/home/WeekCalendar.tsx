@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { format, parseISO, startOfWeek, addDays, isSameDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Icon } from '@/components/icons';
-import { generateProgram } from '@/lib/program';
+import { generateProgram, type DrillBudgets } from '@/lib/program';
 import { addExtra } from '@/lib/programAdjust';
 import { BLOCK_META, BlockRow, AddRevision } from '@/features/program/ProgramPage';
 import type { Case, Fachbegriff, ProgramConfig, ProgramDay, Simulation } from '@/db/types';
@@ -18,9 +18,9 @@ import type { Case, Fachbegriff, ProgramConfig, ProgramDay, Simulation } from '@
 
 const iso = (d: Date) => format(d, 'yyyy-MM-dd');
 
-export function WeekCalendar({ config, cases, sims, begriffe }: {
+export function WeekCalendar({ config, cases, sims, begriffe, drillBudget, drillBudgetFull }: {
   config: ProgramConfig | null; cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[];
-}) {
+} & DrillBudgets) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [selected, setSelected] = useState<string>(iso(new Date()));
   const [adding, setAdding] = useState(false);
@@ -28,9 +28,9 @@ export function WeekCalendar({ config, cases, sims, begriffe }: {
 
   const byDate = useMemo(() => {
     if (!config) return new Map<string, ProgramDay>();
-    const days = generateProgram(config, { cases, sims, begriffe }, 42);
+    const days = generateProgram(config, { cases, sims, begriffe, drillBudget, drillBudgetFull }, 42);
     return new Map(days.map((d) => [d.date, d]));
-  }, [config, cases, sims, begriffe]);
+  }, [config, cases, sims, begriffe, drillBudget, drillBudgetFull]);
 
   if (!config) {
     return (

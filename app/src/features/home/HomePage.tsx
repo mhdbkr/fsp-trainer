@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -9,7 +10,8 @@ import { axisScoresFull, dueCount, computeStreak, weakCases, weakestAxis } from 
 import { scoreBand } from '@/lib/scoring';
 import { computeReadiness } from '@/lib/readiness';
 import { ReadinessGauge } from '@/components/ReadinessGauge';
-import { generateProgram } from '@/lib/program';
+import { generateProgram, type DrillBudgets } from '@/lib/program';
+import { loadDrillContext } from '@/lib/collections/drillContext';
 import { pickSessionCase } from '@/features/simulation/pickSession';
 import { WeekCalendar } from './WeekCalendar';
 import { FreqBadge, ConfidenceRing } from '@/components/ui';
@@ -26,12 +28,15 @@ export function HomePage() {
   const programConfig = useProgramConfig();
   const targetCenter = useUi((s) => s.targetCenter);
   const navigate = useNavigate();
+  // Un seul chargement du contexte drill pour la page ET le calendrier (props).
+  const [drill, setDrill] = useState<DrillBudgets>({});
+  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.budget })).catch(() => {}); }, []);
 
   if (!cases || !begriffe || !sims || programConfig === undefined) return <Loading />;
 
   // Programme du jour (si configuré) → pilote « À faire aujourd'hui ».
   const programToday = programConfig
-    ? generateProgram(programConfig, { cases, sims, begriffe }, 1)[0]
+    ? generateProgram(programConfig, { cases, sims, begriffe, ...drill }, 1)[0]
     : null;
 
   const streak = computeStreak(sims);
@@ -139,7 +144,7 @@ export function HomePage() {
             )}
           </section>
 
-          <WeekCalendar config={programConfig} cases={cases} sims={sims} begriffe={begriffe} />
+          <WeekCalendar config={programConfig} cases={cases} sims={sims} begriffe={begriffe} drillBudget={drill.drillBudget} drillBudgetFull={drill.drillBudgetFull} />
 
           {/* Heatmap système × axe */}
           <section className="card p-5">

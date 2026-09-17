@@ -496,7 +496,7 @@ ALTER TABLE ONLY "public"."subscriptions"
 
 
 
-CREATE POLICY "content: read by tier" ON "public"."content_items" FOR SELECT USING (("tier" <= "public"."my_tier"()));
+CREATE POLICY "content: read by tier" ON "public"."content_items" FOR SELECT USING (("tier" <= ( SELECT "public"."my_tier"() AS "my_tier")));
 
 
 

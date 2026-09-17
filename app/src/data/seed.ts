@@ -24,11 +24,22 @@ export function wireLinks(
     arr.push(c);
     casesByPathology.set(c.pathology, arr);
   }
+  //    + réciproque des liaisons par occurrence textuelle (spec F2a 3.5 : le
+  //    contenu publié porte `case.linkedFachbegriffeIds` ; sans ce report,
+  //    « Erscheint in Fällen » resterait vide pour tout terme non taggé).
+  const casesByTerm = new Map<string, string[]>();
+  for (const c of cases) {
+    for (const termId of c.linkedFachbegriffeIds ?? []) {
+      const arr = casesByTerm.get(termId);
+      if (arr) arr.push(c.id); else casesByTerm.set(termId, [c.id]);
+    }
+  }
   for (const fb of fachbegriffe) {
     const linked = new Set<string>();
     for (const tag of fb.pathologyTags) {
       for (const c of casesByPathology.get(tag) ?? []) linked.add(c.id);
     }
+    for (const cid of casesByTerm.get(fb.id) ?? []) linked.add(cid);
     fb.linkedCaseIds = [...linked];
   }
 
