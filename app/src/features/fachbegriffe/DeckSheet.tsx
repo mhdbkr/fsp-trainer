@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Deck, DeckQuery, Specialty, Srs, Center } from '@/db/types';
 import { createDeck, renameDeck, setDeckQuery, deleteDeck } from '@/lib/collections';
 
@@ -12,6 +12,12 @@ export function DeckSheet({ mode, deck, initialQuery, specialties, centers, onCl
   const [query, setQuery] = useState<DeckQuery>(deck?.query ?? initialQuery ?? {});
   const [error, setError] = useState<string | null>(null);
   const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault(); setError(null);

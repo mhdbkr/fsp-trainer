@@ -10,7 +10,7 @@ export function DeckTabs({ decks, activeId, counts, onSelect, onCreate }: Props)
     const on = activeId === id;
     return (
       <button role="tab" aria-selected={on} onClick={() => onSelect(id)}
-        className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${on ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}`}>
+        className={`min-h-11 shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${on ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'}`}>
         {label}{id !== null && counts[id] !== undefined ? <span className="ml-1.5 opacity-70">{counts[id]}</span> : null}
       </button>
     );
@@ -21,7 +21,7 @@ export function DeckTabs({ decks, activeId, counts, onSelect, onCreate }: Props)
       <Tab id={FAVORITES_DECK_ID} label="★ Favoris" />
       {manual.map((d) => <Tab key={d.id} id={d.id} label={d.name} />)}
       {smart.map((d) => <Tab key={d.id} id={d.id} label={`⚡ ${d.name}`} />)}
-      <button type="button" onClick={onCreate} aria-label="Nouveau deck" className="shrink-0 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-sm text-slate-500 hover:border-brand-400 hover:text-brand-600 dark:border-slate-700">+</button>
+      <button type="button" onClick={onCreate} aria-label="Nouveau deck" className="min-h-11 shrink-0 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-sm text-slate-500 hover:border-brand-400 hover:text-brand-600 dark:border-slate-700">+</button>
     </div>
   );
 }

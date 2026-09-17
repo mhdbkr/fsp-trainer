@@ -41,7 +41,7 @@ describe('FachbegriffePage', () => {
     expect(screen.queryByText('Kardiomyopathie')).toBeNull();
   });
 
-  it('créer un deck manuel depuis « + » puis y ajouter depuis la ligne (menu) ; onglet actif via URL', async () => {
+  it('créer un deck manuel depuis « + » ; onglet actif via URL ; état vide', async () => {
     renderAt();
     await screen.findByText('Abdomen');
     fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
@@ -63,7 +63,7 @@ describe('FachbegriffePage', () => {
     fireEvent.change(screen.getByLabelText(/^état$/i), { target: { value: 'Zu wiederholen' } });
     fireEvent.click(screen.getByRole('button', { name: /créer/i }));
     await screen.findByText('Kardiomyopathie');
-    await waitFor(() => expect(screen.queryByText('Abdomen')).toBeNull());
+    await waitFor(() => { expect(screen.queryByText('Abdomen')).toBeNull(); expect(screen.getByText('Kardiomyopathie')).toBeTruthy(); });
     await db.fachbegriffe.update('fb-k', { srs: { ...freshSrs(), state: 'Gelernt' } });
     await waitFor(() => expect(screen.queryByText('Kardiomyopathie')).toBeNull());
   });

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
 import { Icon } from '@/components/icons';
@@ -25,11 +25,12 @@ export function FachbegriffePage() {
   const [filters, setFilters] = useState<DeckQuery>({});
   const [sheet, setSheet] = useState<null | { mode: 'create' } | { mode: 'edit' }>(null);
   const listRef = useRef<TermListHandle>(null);
+  const pendingIdRef = useRef<string | null>(null);
 
   const activeDeck = activeId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === activeId);
   const isSmart = activeDeck?.kind === 'smart' && activeDeck.id !== FAVORITES_DECK_ID;
   // Sur un deck intelligent, la barre affiche la requête du deck ; ailleurs, les filtres locaux.
-  const effective: DeckQuery = isSmart ? { ...(activeDeck as { query?: DeckQuery }).query, ...filters } : filters;
+  const effective: DeckQuery = useMemo(() => (isSmart ? { ...(activeDeck as { query?: DeckQuery }).query, ...filters } : filters), [isSmart, activeDeck, filters]);
   const dirty = isSmart && JSON.stringify(effective) !== JSON.stringify((activeDeck as { query?: DeckQuery }).query ?? {});
 
   const specialties = useMemo(() => [...new Set((begriffe ?? []).map((b) => b.specialty))].sort() as Specialty[], [begriffe]);
@@ -48,10 +49,20 @@ export function FachbegriffePage() {
     return c;
   }, [begriffe, decks, deckTerms, favorites, favSet]);
   const available = useMemo(() => new Set(shown.map((b) => letterOf(b.term))), [shown]);
+  const select = (id: string | null) => { setFilters({}); setParams(id ? { deck: id } : {}); };
+  // Repli sur « Tous » si l'onglet actif ne correspond plus à aucun deck (supprimé / id inconnu
+  // dans l'URL) — sauf pendant la fenêtre transitoire juste après createDeck, où le deck vient
+  // d'être créé mais la live query n'a pas encore émis le nouveau tableau.
+  useEffect(() => {
+    if (!decks || !activeId || activeId === FAVORITES_DECK_ID) return;
+    if (decks.some((d) => d.id === activeId)) { if (pendingIdRef.current === activeId) pendingIdRef.current = null; return; }
+    if (pendingIdRef.current === activeId) return;
+    select(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [decks, activeId]);
 
   if (!begriffe || !decks) return <div className="text-slate-400">Chargement…</div>;
   const due = dueCount(shown);
-  const select = (id: string | null) => { setFilters({}); setParams(id ? { deck: id } : {}); };
   const drillHref = activeId ? `/fachbegriffe/drill?deck=${activeId}` : '/fachbegriffe/drill';
   const set = (k: keyof DeckQuery, v: string) => setFilters((f) => ({ ...f, [k]: v || undefined }));
 
@@ -70,7 +81,7 @@ export function FachbegriffePage() {
           <p className="text-slate-500 dark:text-slate-400">{shown.length} termes · <b className="text-amber-600 dark:text-amber-400">{due}</b> dus aujourd'hui</p>
         </div>
         <div className="flex items-center gap-2">
-          {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline" aria-label="Gérer le deck">⋯</button>}
+          {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
           <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill{activeDeck ? ` · ${activeDeck.name}` : ''}{due > 0 ? ` (${due})` : ''}</Link>
         </div>
       </header>
@@ -97,7 +108,7 @@ export function FachbegriffePage() {
       )}
 
       {sheet && <DeckSheet mode={sheet.mode} deck={sheet.mode === 'edit' ? (activeDeck as never) : undefined} initialQuery={filters} specialties={specialties} centers={centers}
-        onClose={(createdId, opts) => { setSheet(null); if (createdId) select(createdId); else if (opts?.deleted) select(null); }} />}
+        onClose={(createdId, opts) => { setSheet(null); if (createdId) { pendingIdRef.current = createdId; select(createdId); } else if (opts?.deleted) select(null); }} />}
     </div>
   );
 }
