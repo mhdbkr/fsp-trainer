@@ -14,6 +14,11 @@ interface UiState {
   openGlossary: (fb: Fachbegriff) => void;
   closeGlossary: () => void;
 
+  // Hover-card ★ sur un terme auto-lié (survol desktop, tap mobile — F2b D2/D3).
+  hoverTerm: { fb: Fachbegriff; anchor: DOMRect } | null;
+  openHover: (fb: Fachbegriff, anchor: DOMRect) => void;
+  closeHover: () => void;
+
   // Panneau aperçu de cas (page Cas cliniques — sans quitter la liste).
   previewCaseId: string | null;
   openCasePreview: (id: string) => void;
@@ -73,6 +78,10 @@ export const useUi = create<UiState>((set, get) => ({
   glossaryTerm: null,
   openGlossary: (fb) => set({ glossaryTerm: fb }),
   closeGlossary: () => set({ glossaryTerm: null }),
+
+  hoverTerm: null,
+  openHover: (fb, anchor) => set({ hoverTerm: { fb, anchor } }),
+  closeHover: () => set({ hoverTerm: null }),
 
   previewCaseId: null,
   openCasePreview: (id) => set({ previewCaseId: id }),

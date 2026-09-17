@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import type { Fachbegriff } from '@/db/types';
 
 // ============================================================================
@@ -48,6 +48,12 @@ interface AutoLinkTextProps {
   text: string;
   index: LinkIndex;
   onOpen: (fb: Fachbegriff) => void;
+  /** Survol/focus desktop : ouvre la hover-card ancrée sur le lien. */
+  onHover?: (fb: Fachbegriff, anchor: DOMRect) => void;
+  /** La souris quitte le lien : ferme la hover-card (après délai, géré par l'appelant). */
+  onLeave?: () => void;
+  /** Tap sur `pointer: coarse` (mobile/tablette) : ouvre la hover-card au lieu du tiroir. */
+  onTap?: (fb: Fachbegriff, anchor: DOMRect) => void;
 }
 
 export interface AutoLinkPart { t: string; fb: Fachbegriff | null }
@@ -80,9 +86,12 @@ export function splitAutoLink(text: string, index: LinkIndex): AutoLinkPart[] {
   return out;
 }
 
-/** Rend un texte avec les Fachbegriffe cliquables. */
-export function AutoLinkText({ text, index, onOpen }: AutoLinkTextProps) {
+/** Rend un texte avec les Fachbegriffe cliquables. Survol/focus → hover-card
+ *  (`onHover`, délai 150 ms géré ici) ; tap sur `pointer: coarse` → `onTap` au
+ *  lieu du tiroir (`onOpen`). */
+export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap }: AutoLinkTextProps) {
   const parts = useMemo(() => splitAutoLink(text, index), [text, index]);
+  const enterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   return (
     <>
@@ -90,8 +99,25 @@ export function AutoLinkText({ text, index, onOpen }: AutoLinkTextProps) {
         p.fb ? (
           <button
             key={i}
-            onClick={() => onOpen(p.fb!)}
-            title={p.fb.translationSimple}
+            onClick={(e) => {
+              const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+              if (coarse) {
+                e.preventDefault();
+                onTap?.(p.fb!, e.currentTarget.getBoundingClientRect());
+              } else {
+                onOpen(p.fb!);
+              }
+            }}
+            onMouseEnter={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              if (enterTimer.current) clearTimeout(enterTimer.current);
+              enterTimer.current = setTimeout(() => onHover?.(p.fb!, r), 150);
+            }}
+            onMouseLeave={() => {
+              if (enterTimer.current) clearTimeout(enterTimer.current);
+              onLeave?.();
+            }}
+            onFocus={(e) => onHover?.(p.fb!, e.currentTarget.getBoundingClientRect())}
             className="text-brand-600 dark:text-brand-300 underline decoration-dotted decoration-brand-400/60 underline-offset-2 hover:bg-brand-100 dark:hover:bg-brand-900/40 rounded px-0.5 -mx-0.5 transition-colors"
           >
             {p.t}
