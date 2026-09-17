@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { TEILE, isTeil } from '@/lib/simScope';
+import { TEILE, isTeil, caseMastery } from '@/lib/simScope';
 import { db } from '@/db/db';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase, useAufklaerungen } from '@/hooks/useData';
@@ -12,7 +12,7 @@ import { computeAmbiance } from './timeAmbiance';
 import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
 import { Portal } from '@/components/Portal';
 import { PartEvaluation } from './PartEvaluation';
-import { partScore, weightedPartScore } from '@/lib/scoring';
+import { partScore } from '@/lib/scoring';
 import { AnamneseGuide } from './AnamneseGuide';
 import { AnamneseBogen } from './AnamneseBogen';
 import { VorstellungGuide } from './VorstellungGuide';
@@ -196,9 +196,13 @@ export function SimulationRunner() {
     syncQueue.push({ type: 'simulation.completed', subject_id: c.id, payload: sim }).catch((e) => console.warn('[sync]', e));
     // met à jour confiance + statut du cas — confiance pondérée (assistance × couche)
     const done = Object.values(parts).filter((p): p is PartResult => !!p?.done);
-    // Un Teil seul n'évalue pas le cas : confiance/statut/couche ne bougent que sur une session complète (FB2-P).
-    if (done.length && !teil) {
-      const conf = Math.round(done.reduce((s, p) => s + weightedPartScore(p, { assistance, layer }), 0) / done.length);
+    // Toute session fait avancer le cas (FB2-P, retour direction) : la
+    // confiance est la maîtrise au prorata des trois parties, dernière
+    // session de chaque partie comprise — celle-ci incluse.
+    if (done.length) {
+      const prior = await db.simulations.where('caseId').equals(c.id).toArray();
+      const mastery = caseMastery(prior, c.id, sim).score ?? 0;
+      const conf = Math.round(mastery * (assistance === 'autonome' ? 1 : 0.9));
       const status = conf >= 80 ? 'Maîtrisé' : conf >= 40 ? 'En cours' : 'À faire';
       await db.cases.update(c.id, { confidence: conf, status, lastSimulationId: sim.id, layerProgress: layer });
       syncQueue.push({ type: 'case.layer_reached', subject_id: c.id, payload: { layer } }).catch((e) => console.warn('[sync]', e));
@@ -548,7 +552,7 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{passed ? 'Bestanden-Simulation !' : 'Encore un effort'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
-        <p className="mt-1 text-sm">{sim.scope === 'teil' ? (passed ? 'Cette partie ≥ 60 % (règle FSP). Elle nourrit tes stats par axe — la maîtrise du cas se joue en simulation complète.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        <p className="mt-1 text-sm">{sim.scope === 'teil' ? (passed ? 'Cette partie ≥ 60 % (règle FSP). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">

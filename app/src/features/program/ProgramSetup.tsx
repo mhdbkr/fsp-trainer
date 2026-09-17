@@ -29,6 +29,7 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
   const [examDate, setExamDate] = useState(initial?.examDate ?? '');
   const [weeks, setWeeks] = useState(initial?.weeks ?? 8);
   const [intensity, setIntensity] = useState<Intensity>(initial?.intensity ?? 'mittel');
+  const [strategy, setStrategy] = useState<NonNullable<ProgramConfig['strategy']>>(initial?.strategy ?? 'teil-first');
   const [hours, setHours] = useState(initial?.hoursPerSession ?? 2);
   const [offDays, setOffDays] = useState<number[]>(initial?.offDays ?? [0]);
   const [priority, setPriority] = useState<Specialty[]>(initial?.prioritySpecialties ?? []);
@@ -49,6 +50,7 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
       intensity, hoursPerSession: hours, offDays, prioritySpecialties: priority,
       selfLevel, createdAt: initial?.createdAt ?? Date.now(),
       adjust: initial?.adjust,
+      strategy,
     };
     await setMeta('program', config);
     await syncQueue.push({ type: 'program.configured', subject_id: null, payload: config });
@@ -98,6 +100,24 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
                 </button>
               ))}
             </div>
+          </Field>
+
+          {/* Courbe d'apprentissage (FB2-P) : par parties d'abord, ou directement en complète.
+              Le plan se recalcule à chaque session : ce choix fixe l'ordre, pas le rythme. */}
+          <Field label="Courbe d'apprentissage">
+            <div className="grid grid-cols-2 gap-1.5">
+              {([
+                { v: 'teil-first', l: 'Par parties, puis complète', d: 'Anamnese seule → Dokumentation seule → Fallvorstellung seule, puis les simulations complètes. Chaque partie acquise (≥ 60 %) fait passer à la suivante.', icon: 'branch' },
+                { v: 'full', l: 'Complète d’emblée', d: 'Simulations complètes dès la première couche ; les parties seules restent possibles à tout moment et comptent.', icon: 'play' },
+              ] as const).map((it) => (
+                <button key={it.v} type="button" onClick={() => setStrategy(it.v)} title={it.d} aria-pressed={strategy === it.v}
+                  className={`flex flex-col items-center gap-1 rounded-xl border px-2 py-2.5 text-center transition-colors ${strategy === it.v ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 hover:border-brand-300 dark:border-slate-700 dark:text-slate-300'}`}>
+                  <Icon name={it.icon} className="h-5 w-5" />
+                  <span className="text-xs font-semibold">{it.l}</span>
+                </button>
+              ))}
+            </div>
+            <p className="mt-1.5 text-[11px] text-slate-500">Toute session — complète ou par partie — fait avancer le cas au prorata de ses trois parties et remet le plan à jour.</p>
           </Field>
 
           {/* Volume */}

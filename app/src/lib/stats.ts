@@ -1,4 +1,4 @@
-import { isFullSimulation } from '@/lib/simScope';
+import { caseMastery } from '@/lib/simScope';
 import type { Axis, Case, Fachbegriff, Simulation, Specialty } from '@/db/types';
 import { AXES } from '@/db/types';
 import { partScore, partToAxis } from './scoring';
@@ -102,16 +102,8 @@ export function progressSeries(sims: Simulation[]): { date: string; score: numbe
 
 /** Cas les plus faibles (dernier score < 60 ou jamais faits mais fréquents). */
 export function weakCases(sims: Simulation[], cases: Case[], limit = 4): { c: Case; score: number | null }[] {
-  const lastByCase = new Map<string, Simulation>();
-  // Un Teil seul n'évalue pas le cas (FB2-P) : mêmes sessions que la maîtrise.
-  for (const sim of [...sims].filter(isFullSimulation).sort((a, b) => a.date - b.date)) lastByCase.set(sim.caseId, sim);
-  const scored = cases.map((c) => {
-    const sim = lastByCase.get(c.id);
-    if (!sim) return { c, score: null as number | null };
-    const parts = Object.values(sim.parts).filter((p) => p?.done);
-    const score = parts.length ? Math.round(parts.reduce((s, p) => s + partScore(p!), 0) / parts.length) : null;
-    return { c, score };
-  });
+  // Maîtrise au prorata des trois parties (FB2-P) — même règle que le programme et la fiche.
+  const scored = cases.map((c) => ({ c, score: caseMastery(sims, c.id).score }));
   // Priorité: score faible d'abord, puis jamais fait pondéré par fréquence.
   return scored
     .sort((a, b) => {

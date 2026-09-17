@@ -52,6 +52,11 @@ export default {
         pop: { '0%': { opacity: '0', transform: 'translateY(10px) scale(0.95)' }, '100%': { opacity: '1', transform: 'none' } },
         // Flottement doux du bouton assistant (présence vivante, discrète).
         float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-3px)' } },
+        // Division (FB2-P) : les trois Teile naissent d'une seule barre — ils
+        // partent du centre, collés, et s'écartent à leur place.
+        'split-l': { '0%': { opacity: '0', transform: 'translateX(110%) scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
+        'split-c': { '0%': { opacity: '0', transform: 'scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
+        'split-r': { '0%': { opacity: '0', transform: 'translateX(-110%) scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
       },
       animation: {
         'fade-in': 'fade-in 0.2s ease-out',
@@ -59,6 +64,9 @@ export default {
         'pulse-line': 'pulse-line 2.4s ease-in-out infinite',
         pop: 'pop 0.24s cubic-bezier(0.16,1,0.3,1)',
         float: 'float 3.6s ease-in-out infinite',
+        'split-l': 'split-l 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
+        'split-c': 'split-c 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
+        'split-r': 'split-r 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
       },
     },
   },

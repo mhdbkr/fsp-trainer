@@ -533,6 +533,11 @@ export interface ProgramConfig {
   createdAt: number;
   /** Ajustements manuels de l'utilisateur — le planificateur re-raisonne avec. */
   adjust?: ProgramAdjust;
+  /** Courbe d'apprentissage (FB2-P, retour direction) : « teil-first » entraîne
+   *  d'abord chaque partie seule (Anamnese, puis Dokumentation, puis
+   *  Fallvorstellung) avant les simulations complètes ; « full » commence
+   *  directement en complète. Le plan se recalcule à chaque session. */
+  strategy?: 'teil-first' | 'full';
 }
 
 /** Interventions manuelles sur le plan, prises en compte à chaque recalcul :
@@ -570,6 +575,7 @@ export interface ProgramBlock {
   manual?: boolean;               // tâche ajoutée à la main (retirable)
   reason?: string;                // micro-justification affichée (transparence du plan)
   phase?: 'discovery' | 'consolidation' | 'taper'; // phase du plan (bandeau calendrier)
+  teil?: SimTeil;                 // session d'une seule partie (courbe teil-first)
 }
 
 export interface ProgramDay {

@@ -1,9 +1,8 @@
-import { isFullSimulation } from '@/lib/simScope';
+import { caseMastery, TEILE } from '@/lib/simScope';
 import { addDays, differenceInCalendarDays, format, getDay, parseISO, startOfDay } from 'date-fns';
 import type {
   Case, Fachbegriff, ProgramBlock, ProgramConfig, ProgramDay, Simulation, Layer, Specialty,
 } from '@/db/types';
-import { partScore } from './scoring';
 import { isDue } from './srs';
 
 // ============================================================================
@@ -22,6 +21,7 @@ import { isDue } from './srs';
 
 const INTENSITY_FACTOR: Record<ProgramConfig['intensity'], number> = { leicht: 0.8, mittel: 1.0, intensiv: 1.3 };
 const SIM_MIN = 40;
+const TEIL_MIN: Record<'anamnese' | 'dokumentation' | 'fallvorstellung', number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
 const FACHWISSEN_MIN = 15;
 const DRILL_MIN = 15;
 const MOCK_MIN = 60;          // examen à blanc (simulation complète) en fin de parcours
@@ -43,11 +43,8 @@ export interface ProgramStats {
 
 function lastScoreByCase(sims: Simulation[]): Map<string, number | null> {
   const m = new Map<string, number | null>();
-  // Un Teil seul n'évalue pas le cas : seules les sessions complètes comptent ici (FB2-P).
-  for (const sim of [...sims].filter(isFullSimulation).sort((a, b) => a.date - b.date)) {
-    const parts = Object.values(sim.parts).filter((p) => p?.done);
-    m.set(sim.caseId, parts.length ? Math.round(parts.reduce((s, p) => s + partScore(p!), 0) / parts.length) : null);
-  }
+  // Maîtrise au PRORATA des trois parties : toute session compte (FB2-P).
+  for (const id of new Set(sims.map((s) => s.caseId))) m.set(id, caseMastery(sims, id).score);
   return m;
 }
 
@@ -154,6 +151,27 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
     // Report manuel : décale toute la suite des couches de ce cas.
     const postpone = adj.postpone?.[c.id] ?? 0;
     if (postpone) anchor = nextWorkingDay(addDays(anchor, postpone), config);
+
+    // Courbe « teil-first » : avant la première simulation complète, chaque
+    // partie s'entraîne seule, dans l'ordre de l'examen, tant qu'elle n'est pas
+    // acquise (≥ 60 %). Se recalcule à chaque session : dès qu'un Teil est
+    // acquis, le plan passe au suivant, puis à la complète.
+    if (config.strategy === 'teil-first' && doneLayers === 0) {
+      const mastery = caseMastery(sims, c.id).parts;
+      let teilDay = anchor;
+      for (const t of TEILE) {
+        if ((mastery[t.key] ?? 0) >= 60) continue;
+        const day = placeFrom(teilDay, TEIL_MIN[t.key]);
+        if (day > end) break;
+        add(day, {
+          kind: 'simulation', label: `${c.name} — ${t.label} seule`, estMin: TEIL_MIN[t.key], caseId: c.id, layer: 1,
+          assistance: 'assiste', specialty: c.specialty, id: `${c.id}:T:${t.key}`, teil: t.key,
+          reason: `Courbe par parties · ${t.label} d'abord — la complète vient quand chaque partie tient`, phase: 'discovery',
+        });
+        teilDay = nextWorkingDay(addDays(day, 1), config);
+      }
+      anchor = teilDay;
+    }
 
     for (let L = doneLayers + 1; L <= 3; L++) {
       const layer = L as Layer;

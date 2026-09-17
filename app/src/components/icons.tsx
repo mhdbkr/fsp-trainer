@@ -71,6 +71,10 @@ const P: Record<string, React.ReactNode> = {
   pause: <path d="M9 5v14M15 5v14" />,
   key: <><circle cx="8" cy="9" r="4.5" /><path d="M11.5 12L20 20.5M17 17.5l2-2M20 14.5l1.5 1.5" /></>,
   speech: <path d="M4.5 5h15v10.5H10l-4 4V5z" />,
+  // Les trois Teile de l'examen — chacune dit ce qu'on y fait (FB2-P, retour direction).
+  dialog: <><path d="M3.5 4.5h11v7.5H8.5l-3 2.5v-2.5h-2z" /><path d="M11 12.5v2.5h5l3 2.5v-2.5h1.5V9.5H16" /></>,
+  document: <><path d="M6 3.5h8l4 4v13H6z" /><path d="M14 3.5v4h4" /><path d="M8.5 11h7M8.5 14h7M8.5 17h4" /></>,
+  present: <><rect x="3" y="4" width="18" height="11" rx="1.5" /><path d="M7 10.5l3-3 3 2.5 4-4" /><path d="M12 15v2.5M8.5 20.5l3.5-3 3.5 3" /></>,
   flag: <path d="M6 3v18M6 4h11.5l-2.2 3.8L17.5 11.5H6" />,
   inbox: <><path d="M4 13.5 6.5 5h11L20 13.5" /><path d="M4 13.5V19h16v-5.5h-5.2a2.8 2.8 0 0 1-5.6 0H4z" /></>,
   globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18" /></>,

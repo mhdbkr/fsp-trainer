@@ -130,7 +130,7 @@ export function ProgramPage() {
               const meta = BLOCK_META[b.kind];
               const inDays = differenceInCalendarDays(parseISO(date), new Date());
               return (
-                <Link key={i} to={b.caseId ? `/simulation/${b.caseId}/pre` : '/cas'}
+                <Link key={i} to={b.caseId ? `/simulation/${b.caseId}/pre${b.teil ? `?teil=${b.teil}` : ''}` : '/cas'}
                   className="group flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2.5 transition-colors hover:border-brand-400 dark:border-slate-800">
                   <div className="w-14 shrink-0 text-center">
                     <div className="text-sm font-bold capitalize leading-tight">{format(parseISO(date), 'EEE', { locale: fr })}</div>

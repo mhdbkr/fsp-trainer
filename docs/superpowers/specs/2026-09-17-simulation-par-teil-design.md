@@ -11,13 +11,14 @@ Pouvoir jouer **un seul Teil** (Anamnese · Dokumentation · Fallvorstellung) ou
 ## Règles
 1. **Stats par axe** (Anamnese / Doku / Vorstellung) : toute partie faite compte, complète ou Teil — c'est l'axe qu'on entraîne.
 2. **Streak et activité** : une session de Teil compte comme une session.
-3. **Maîtrise d'un cas** (score du cas, couches, `confidence`/`status`) : seules les sessions **complètes** la font évoluer. Un Teil réussi ne « maîtrise » pas un cas — on ne valide pas une couche sur une partie. (Veto pédagogique possible : alternative = maîtrise au prorata des parties faites.)
+3. **Maîtrise d'un cas** (score, `confidence`/`status`, programme) : **au prorata des trois parties** — pour chaque Teil, la dernière session jouée compte, complète ou seule ; une partie jamais jouée vaut 0 (décision de la direction, 17 sept., qui remplace la règle initiale « complètes seulement »). Toute session fait avancer le cas et remet le plan à jour.
+3b. **Courbe d'apprentissage** (`ProgramConfig.strategy`) : `teil-first` (défaut) planifie chaque partie seule dans l'ordre de l'examen tant qu'elle n'est pas acquise (≥ 60 %), puis les complètes ; `full` commence en complète. Le plan est recalculé à chaque session depuis les résultats réels.
 4. **Tableaux de bord** : « n complètes · m par partie ».
 5. **Programme** : peut prescrire un Teil plus tard (hors périmètre ici).
 
 ## UI
-- Page Simulation : « Commencer » = complète ; au survol/focus, trois icônes glissent depuis le bord droit du bouton (fluide, interruptible, clavier : focus-within), chacune vers `/pre?teil=…`.
-- Pré-simulation : pastille de mode (Complète / Anamnese / Dokumentation / Fallvorstellung), pré-sélectionnée par l'URL ; « Entrer en simulation » porte le mode.
+- Page Simulation : « Commencer » **retourne la carte** ; le verso, en verre, propose la complète au-dessus et les trois Teile en dessous, nés d'une division (v2, retour direction : le glissement latéral était jugé cheap).
+- Pré-simulation : **boîte de mode dédiée** au-dessus de l'action, même dessin (complète / division en trois) ; « Entrer » porte le mode. Icônes qui disent le Teil : dialogue, document, présentation.
 - Runner : seules les parties du mode sont dans le fil ; en Teil, « Terminer la partie » mène au bilan ; l'en-tête nomme le mode.
 
 ## Critères d'acceptation
