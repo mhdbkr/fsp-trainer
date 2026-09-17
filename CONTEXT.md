@@ -43,6 +43,12 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Termes du cas** — termes liés au cas par occurrence dans ses textes
   (pipeline `linkCaseTerms`, triés du plus spécifique au plus transversal) ∪
   termes marqués pendant une session sur ce cas (`payload.caseId`).
+- **Réglages SRS** — par personne (`srs.settings_changed`) : **auto** (budget du
+  jour × intensité du programme) ou **manuel** (nouveaux/jour, dus présentés/jour).
+  Le plafond de dus ne perd rien : les dus au-delà restent dus demain.
+- **Hover-card** — carte ★ sur tout terme auto-lié (survol sur ordinateur, tap sur
+  mobile) ; ★ = favori immédiat avec le cas courant (`caseId`), puis deck / fiche.
+  Clavier : Entrée sur un lien focalisé → ★ ; Échap → ferme ; clic = tiroir.
 - **Guide** — questions affichées au candidat, liées aux sondes par `probe:`.
   Le chapitre Fach est **généré** depuis les sondes.
 
