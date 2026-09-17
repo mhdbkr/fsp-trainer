@@ -32,16 +32,30 @@ const drillConfig: ProgramConfig = {
 } as ProgramConfig;
 
 describe('bloc drill (F2a 3.7)', () => {
-  it('libellé sur les vrais compteurs, estMin = ceil((k+n)×0,4)', () => {
-    const due = reviewSrs(freshSrs(now.getTime() - 20 * 86400e3), 4, now.getTime() - 20 * 86400e3);
+  const due = reviewSrs(freshSrs(now.getTime() - 20 * 86400e3), 4, now.getTime() - 20 * 86400e3);
+  const drillOf = (days: ReturnType<typeof generateProgram>, i: number) => days[i].blocks.find((b) => b.kind === 'drill');
+
+  it('jour J : libellé sur le RESTE du budget ; jours suivants : budget plein ; estMin = ceil((k+n)×0,4)', () => {
     const begriffe = [fb('a', due), fb('b', due), fb('c', freshSrs(now.getTime())), fb('d', freshSrs(now.getTime()))];
-    const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe, drillBudget: 1 }, 7, now);
-    const drill = days.flatMap((d) => d.blocks).find((b) => b.kind === 'drill')!;
-    expect(drill.label).toBe('Drill · 2 dus + 1 nouveaux (≈ 2 min)');
-    expect(drill.estMin).toBe(2);
+    const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe, drillBudget: 1, drillBudgetFull: 3 }, 7, now);
+    expect(days[0].date).toBe('2026-09-17');
+    expect(drillOf(days, 0)!.label).toBe('Drill · 2 dus + 1 nouveaux (≈ 2 min)');
+    expect(drillOf(days, 0)!.estMin).toBe(2);
+    expect(drillOf(days, 1)!.label).toBe('Drill · 2 dus + 2 nouveaux (≈ 2 min)');   // vendredi : min(2 Neu, budget plein 3)
   });
-  it('absent quand rien à faire (0 dus, budget 0)', () => {
-    const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe: [fb('c', freshSrs(now.getTime()))], drillBudget: 0 }, 7, now);
+  it('sans drillBudgetFull, les jours suivants reprennent drillBudget (rétro-compatibilité)', () => {
+    const begriffe = [fb('c', freshSrs(now.getTime())), fb('d', freshSrs(now.getTime()))];
+    const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe, drillBudget: 1 }, 7, now);
+    expect(drillOf(days, 1)!.label).toBe('Drill · 0 dus + 1 nouveaux (≈ 1 min)');
+  });
+  it('absent SEULEMENT le jour où k + n = 0 (budget du jour épuisé), présent les jours suivants', () => {
+    const begriffe = [fb('c', freshSrs(now.getTime()))];
+    const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe, drillBudget: 0, drillBudgetFull: 5 }, 7, now);
+    expect(drillOf(days, 0)).toBeUndefined();
+    expect(drillOf(days, 1)!.label).toBe('Drill · 0 dus + 1 nouveaux (≈ 1 min)');
+  });
+  it('absent partout quand il n\'y a vraiment rien (0 dus, 0 Neu)', () => {
+    const days = generateProgram(drillConfig, { cases: [] as Case[], sims: [], begriffe: [], drillBudget: 5, drillBudgetFull: 5 }, 7, now);
     expect(days.flatMap((d) => d.blocks).some((b) => b.kind === 'drill')).toBe(false);
   });
 });

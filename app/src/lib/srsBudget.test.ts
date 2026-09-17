@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { newBudget, introducedToday, markIntroduced, remainingToday, introducedKey } from './srsBudget';
+import { newBudget, introducedToday, markIntroduced, remainingToday, introducedKey, retention7d } from './srsBudget';
+import { freshSrs, reviewSrs } from '@/lib/srs';
+import type { ProgressEvent } from '@/lib/sync/events';
 import { db } from '@/db/db';
 
 describe('newBudget (D2)', () => {
@@ -12,7 +14,7 @@ describe('newBudget (D2)', () => {
     expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 10, retention7d: 0.9 })).toBe(30);
     expect(newBudget({ freshRemaining: 0, workingDaysToExam: 10, retention7d: null })).toBe(5);
   });
-});
+;
 
 describe('compteur du jour', () => {
   beforeEach(() => db.meta.clear());
@@ -26,5 +28,24 @@ describe('compteur du jour', () => {
     expect(await remainingToday(1, d)).toBe(0);
     expect(await introducedToday(new Date(2026, 8, 18, 12))).toBe(0);
     expect(introducedKey(new Date(2026, 8, 17, 0, 30))).toBe('srs.newIntroduced:2026-09-17');   // 00 h 30 local = aujourd'hui
+  });
+});
+
+describe('retention7d (M4)', () => {
+  const now = Date.UTC(2026, 8, 17, 12);
+  const ev = (payload: unknown, ageH = 1): ProgressEvent =>
+    ({ id: String(Math.random()), user_id: 'local', type: 'srs.reviewed', subject_id: 'x', payload, occurred_at: new Date(now - ageH * 3600e3).toISOString() } as ProgressEvent);
+  it('10 premières notes « Gut » (état Zu wiederholen, repetitions 1) → rétention 1, pas 0', () => {
+    const gut = reviewSrs(freshSrs(now), 4, now);
+    expect(gut.state).toBe('Zu wiederholen');
+    expect(retention7d(Array.from({ length: 10 }, () => ev(gut)), now)).toBe(1);
+  });
+  it('échecs (« Wieder », repetitions 0) comptés comme échecs ; < 10 notes → null ; > 7 j ignorées', () => {
+    const gut = reviewSrs(freshSrs(now), 4, now);
+    const wieder = reviewSrs(freshSrs(now), 0, now);
+    const notes = [...Array.from({ length: 7 }, () => ev(gut)), ...Array.from({ length: 3 }, () => ev(wieder))];
+    expect(retention7d(notes, now)).toBeCloseTo(0.7);
+    expect(retention7d(notes.slice(0, 9), now)).toBeNull();
+    expect(retention7d([...notes.slice(0, 9), ev(wieder, 8 * 24)], now)).toBeNull();
   });
 });

@@ -6,7 +6,7 @@ import {
 } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useCases, useSimulations, useFachbegriffe, useProgramConfig } from '@/hooks/useData';
-import { generateProgram, programStats, programEnd, disciplineStats, type DisciplineStat } from '@/lib/program';
+import { generateProgram, programStats, programEnd, disciplineStats, type DisciplineStat, type DrillBudgets } from '@/lib/program';
 import { loadDrillContext } from '@/lib/collections/drillContext';
 import { markLayerDone, postponeCase, addExtra, removeExtra, toggleSkipDrill, setIntensity, resetAdjust } from '@/lib/programAdjust';
 import type { Case, Intensity, ProgramBlock, ProgramConfig, ProgramDay } from '@/db/types';
@@ -31,8 +31,8 @@ export function ProgramPage() {
   const cases = useCases();
   const sims = useSimulations();
   const begriffe = useFachbegriffe();
-  const [drillBudget, setDrillBudget] = useState<number | undefined>(undefined);
-  useEffect(() => { loadDrillContext().then((ctx) => setDrillBudget(ctx.remaining)).catch(() => {}); }, []);
+  const [drill, setDrill] = useState<DrillBudgets>({});
+  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.budget })).catch(() => {}); }, []);
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
   const [anchor, setAnchor] = useState<string>(todayISO());   // période affichée dans le calendrier
@@ -50,8 +50,8 @@ export function ProgramPage() {
 
   const days = useMemo(() => {
     if (!config || !cases || !sims || !begriffe) return [];
-    return generateProgram(config, { cases, sims, begriffe, drillBudget }, horizon);
-  }, [config, cases, sims, begriffe, horizon, drillBudget]);
+    return generateProgram(config, { cases, sims, begriffe, ...drill }, horizon);
+  }, [config, cases, sims, begriffe, horizon, drill]);
   const byDate = useMemo(() => new Map(days.map((d) => [d.date, d])), [days]);
   const stats = useMemo(() => (config && cases && sims && begriffe ? programStats(config, { cases, sims, begriffe }) : null), [config, cases, sims, begriffe]);
   const disciplines = useMemo(() => (config && cases && sims ? disciplineStats(config, cases, sims) : []), [config, cases, sims]);

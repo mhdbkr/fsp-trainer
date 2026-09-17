@@ -117,7 +117,7 @@ export function workingDaysUntilExam(examDateISO: string, now: Date, config?: Pr
 // ----------------------------------------------------------------------------
 function schedule(
   config: ProgramConfig, cases: Case[], sims: Simulation[], now: Date,
-  begriffe: Fachbegriff[], drillBudget?: number,
+  begriffe: Fachbegriff[], drill: DrillBudgets = {},
 ): Map<string, ProgramBlock[]> {
   const map = new Map<string, ProgramBlock[]>();
   const dailyBudget = Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]);
@@ -219,14 +219,20 @@ function schedule(
   }
 
   // Drill quotidien : libellé sur les VRAIS compteurs (dus réels + nouveaux
-  // dans le budget du jour) ; absent si rien à faire (spec F2a 3.7).
+  // du budget). Jour J = ce qu'il RESTE du budget d'aujourd'hui ; jours
+  // suivants = budget plein. Le bloc n'est omis que LE jour où k + n = 0
+  // (spec F2a 3.7) — jamais sur tout l'horizon.
   const c = counts(begriffe, now.getTime());
-  const fresh = Math.min(c.fresh, drillBudget ?? 10);
-  const total = c.due + fresh;
-  if (total > 0) for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
+  const budgetFull = drill.drillBudgetFull ?? drill.drillBudget ?? 10;
+  const budgetToday = drill.drillBudget ?? budgetFull;
+  const todayKey = key(start);
+  for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
     if (!isWorkingDay(d, config)) continue;
     const dk = key(d);
     if (adj.skipDrillDates?.includes(dk)) continue;
+    const fresh = Math.min(c.fresh, dk === todayKey ? budgetToday : budgetFull);
+    const total = c.due + fresh;
+    if (total === 0) continue;
     const simOfDay = (map.get(dk) ?? []).find((b) => b.kind === 'simulation');
     const estMin = Math.ceil(total * 0.4);
     add(d, { kind: 'drill', label: `Drill · ${c.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
@@ -265,9 +271,14 @@ function schedule(
 }
 
 /** Génère les jours de programme du `now` jusqu'à min(exam, now+horizon). */
+/** Budget de NOUVEAUX Fachbegriffe pour le bloc drill : `drillBudget` = ce qu'il
+ *  reste aujourd'hui (`ctx.remaining`), `drillBudgetFull` = budget plein des jours
+ *  suivants (`ctx.budget`). Absents → 10 (premier rendu, avant `loadDrillContext`). */
+export interface DrillBudgets { drillBudget?: number; drillBudgetFull?: number }
+
 export function generateProgram(
   config: ProgramConfig,
-  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[]; drillBudget?: number },
+  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[] } & DrillBudgets,
   horizonDays = 21,
   now = new Date(),
 ): ProgramDay[] {
@@ -275,7 +286,7 @@ export function generateProgram(
   const end = startOfDay(programEnd(config));
   const lastOffset = Math.max(0, Math.min(horizonDays, differenceInCalendarDays(end, today)));
 
-  const map = schedule(config, data.cases, data.sims, today, data.begriffe, data.drillBudget);
+  const map = schedule(config, data.cases, data.sims, today, data.begriffe, { drillBudget: data.drillBudget, drillBudgetFull: data.drillBudgetFull });
 
   // Activité réelle par jour.
   const spentByDay = new Map<string, number>();
