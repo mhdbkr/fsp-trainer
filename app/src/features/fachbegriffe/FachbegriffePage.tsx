@@ -62,13 +62,13 @@ export function FachbegriffePage() {
   }, [decks, activeId]);
 
   if (!begriffe || !decks) return <div className="text-slate-400">Chargement…</div>;
-  const due = dueCount(shown);
+  const due = dueCount(activeDeck ? shown : begriffe);
   const drillHref = activeId ? `/fachbegriffe/drill?deck=${activeId}` : '/fachbegriffe/drill';
   const set = (k: keyof DeckQuery, v: string) => setFilters((f) => ({ ...f, [k]: v || undefined }));
 
   const empty = shown.length === 0 && (
     activeId === FAVORITES_DECK_ID ? <EmptyState icon="nav-abc" title="Aucun favori" hint="Marque un terme d'une ★ pour le retrouver ici." />
-    : isSmart ? <EmptyState icon="nav-abc" title="Aucun terme ne correspond aujourd'hui" />
+    : isSmart ? <EmptyState icon="nav-abc" title="Aucun terme ne correspond aujourd'hui" hint="Ce deck suit ton SRS : les termes y entrent et en sortent tout seuls quand leur état change." />
     : activeDeck ? <EmptyState icon="nav-abc" title="Deck vide" hint="Ajoute des termes depuis une fiche ou avec ★." />
     : <EmptyState icon="nav-abc" title="Aucun terme" />);
 
