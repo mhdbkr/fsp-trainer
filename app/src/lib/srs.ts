@@ -44,6 +44,8 @@ export function reviewSrs(prev: Srs, grade: Grade, now = Date.now()): Srs {
   };
 }
 
+/** Dû = déjà présenté (state ≠ Neu) et échéance passée. Un Neu n'est jamais réclamé (spec F2a D1). */
 export function isDue(srs: Srs, now = Date.now()): boolean {
-  return srs.dueDate <= now;
+  return srs.state !== 'Neu' && srs.dueDate <= now;
 }
+export const isNew = (srs: Srs): boolean => srs.state === 'Neu';

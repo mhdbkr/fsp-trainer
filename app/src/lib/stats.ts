@@ -2,7 +2,7 @@ import { caseMastery } from '@/lib/simScope';
 import type { Axis, Case, Fachbegriff, Simulation, Specialty } from '@/db/types';
 import { AXES } from '@/db/types';
 import { partScore, partToAxis } from './scoring';
-import { isDue } from './srs';
+import { isDue, isNew } from './srs';
 
 // ============================================================================
 // Agrégations statistiques — la détection auto des points faibles pilote
@@ -70,10 +70,21 @@ export function specialtyScores(sims: Simulation[], cases: Case[]): { specialty:
     .sort((a, b) => a.score - b.score);
 }
 
-/** Nombre de Fachbegriffe dus aujourd'hui. */
-export function dueCount(begriffe: Fachbegriff[], now = Date.now()): number {
-  return begriffe.filter((b) => isDue(b.srs, now)).length;
+/** Sépare les Fachbegriffe en dus / nouveaux / appris (spec F2a D1 : un Neu n'est jamais dû). */
+export function counts(begriffe: Fachbegriff[], now = Date.now()): { due: number; fresh: number; learned: number } {
+  let due = 0, fresh = 0, learned = 0;
+  for (const b of begriffe) {
+    if (isNew(b.srs)) fresh++;
+    else {
+      learned++;
+      if (isDue(b.srs, now)) due++;
+    }
+  }
+  return { due, fresh, learned };
 }
+
+/** Nombre de Fachbegriffe dus aujourd'hui. */
+export const dueCount = (begriffe: Fachbegriff[], now = Date.now()): number => counts(begriffe, now).due;
 
 /** Streak (jours consécutifs avec ≥1 simulation), en partant d'aujourd'hui. */
 export function computeStreak(sims: Simulation[], now = new Date()): number {
