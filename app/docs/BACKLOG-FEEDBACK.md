@@ -157,6 +157,11 @@ sans allonger à l'infini.
 | **FB2-J6** ✅ | P1 | Dans `personalia`, la dernière question « Nur zur Sicherheit wiederhole ich kurz Ihre Daten… » a une boîte **« nächster Teil »** qui ne sert à rien et répète ce qui vient d'être posé. | La boîte est **supprimée** ; la question de récapitulation reste (elle est pédagogiquement utile) mais ne déclenche aucun contrôle. Revue de chaque `control` du guide : un contrôle qui n'ouvre rien ou répète est retiré. |
 | **FB2-J7** ✅ | P1 | `abschluss` est trop mince pour entraîner à **conclure** un entretien. | Le chapitre est enrichi avec des **tournures standardisées** déclinées par cas : (1) résumer et annoncer la **Verdachtsdiagnose** en langage patient, (2) annoncer les **examens** prévus (tirés de `medicalView.diagnostik` du cas, formulés patient), (3) esquisser la **thérapie** en une phrase, (4) rassurer et vérifier la compréhension, (5) clore. Chaque bloc a une alt. Validateur : pour chaque cas, les examens cités existent dans sa `medicalView`. Pas de mur de texte : 5 blocs max. |
 
+| **FB2-J10** ⏳ | P0 | Série 3 (17 sept., CAP joué) : la **fièvre demandée trois fois** entre `aktuell`, la Fachanamnese et `vegetativ` — et la même chose ailleurs (Schüttelfrost, voyage, poids, selles, sommeil…). Les questions du guide ne sont pas en cause : c'est la trame du cas qui ne se module pas. | **Un symptôme, une question** par trame jouée : carte explicite sonde → symptômes cherchés (`symptoms.ts`), parcours dans l'ordre de l'entretien ; une question dont tous les symptômes ont déjà été cherchés disparaît, une question partiellement couverte se réduit à ce qui reste (`parts`, rédigé à la main). Les questions du cas déclarent `sucht` (remplace la générale de son chapitre) ou `vertieft` (approfondit, relue). Porte `checkTrameSymptoms` : aucun symptôme cherché deux fois sur 130 cas, toute question du cas citant un symptôme déjà cherché est annotée. |
+| **FB2-J11** ⏳ | P1 | Plusieurs questions « Für diesen Fall » à la suite = le titre répété ligne après ligne. | Les questions du cas consécutives d'un chapitre sont **regroupées dans un cadre** (pointillé pétrole, un seul titre), comme la Fachanamnese en violet. |
+| **FB2-J12** ⏳ | P1 | Les dimensions d'`aktuell` (Beginn, Verlauf, Herd, Auslöser, Frühere Episoden…) sont noyées dans le texte de la question. | La dimension en tête de question (« Beginn — … ») est rendue comme une **étiquette de verre** (`.dim-tag`), au-dessus de la question, dans le guide et en focus ; le texte affiché est la question seule. |
+| **FB2-J13** ⏳ | P2 | « Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund? » pose la relance en même temps que la question. | « Haben Sie Kinder? » puis relance **Ja/Nein** « Wie viele, und sind sie gesund? ». |
+
 ## K · Fachanamnese vasculaire
 
 Zone : `data/guides/anamneseChapters.ts` (`F(...)` ; il n'existe que `kardio`
@@ -266,8 +271,10 @@ Zone : nouveau module `features/notes/*`, store Dexie, `Shell.tsx`
 ## Suivi (17 sept. 2026)
 
 Livrés et vérifiés en prod : lots 1 (N1, M1, M2, M3), 2 (J2, J3, J6 + porte
-`checkGuideDuplicates`), 3 (O1–O6 + porte `checkUiTells`, ADR-0016) et 4
-(J5, J4 + porte `checkCaseQuestionChapters`). Rapports du gardien dans
+`checkGuideDuplicates`), 3 (O1–O6 + porte `checkUiTells`, ADR-0016), 4
+(J5, J4 + porte `checkCaseQuestionChapters`). Série 3 du 17 sept. (J10–J13 +
+porte `checkTrameSymptoms`) : ⏳ en cours de livraison — ✅ après contrôle du
+bundle en prod. Rapports du gardien dans
 `app/docs/reports/`. Découvert en chemin, à traiter :
 
 - **FB2-J8** (P1) — les questions du cas n'ont pas de **réponse dédiée** dans

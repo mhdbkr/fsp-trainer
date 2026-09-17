@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { BogenNotes, Case, MusterCity } from '@/db/types';
 import { adaptChaptersForCase, fachChapterForCase } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
-import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
+import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, splitDimension, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { DoctopusMascot } from '@/components/DoctopusMascot';
@@ -242,8 +242,11 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
               {/* La formulation CHOISIE devient le titre ; la key fait glisser le
                   texte en place. Variantes et relances sont les mêmes contrôles
                   qu'en mode normal, en version XL sur fond sombre. */}
-              <p key={vIdx} className="reveal mt-6 text-2xl font-semibold leading-relaxed md:text-3xl">
-                {vIdx >= 0 ? phraseAlts(chapter.items[ii])[vIdx] : phraseText(chapter.items[ii])}
+              {splitDimension(phraseText(chapter.items[ii])).dim && (
+                <div className="mt-5"><span className="dim-tag dim-tag-xl dim-tag-focus">{splitDimension(phraseText(chapter.items[ii])).dim}</span></div>
+              )}
+              <p key={vIdx} className="reveal mt-4 text-2xl font-semibold leading-relaxed md:text-3xl">
+                {vIdx >= 0 ? phraseAlts(chapter.items[ii])[vIdx] : splitDimension(phraseText(chapter.items[ii])).body}
               </p>
               <VariantPicker alts={phraseAlts(chapter.items[ii])} idx={vIdx} onSelect={setVIdx} theme="focus" size="xl" />
               <ProgressiveSteps probes={phraseProbes(chapter.items[ii])} onStep={(p) => useSimSession.getState().setGuideProbe(p)} theme="focus" size="xl" />

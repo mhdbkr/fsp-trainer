@@ -54,6 +54,8 @@ jobs:
         run: node scripts/checkPatientWorte.mjs
       - name: "Trame jouée sans doublon (montage réel : variante, Fach adaptée, questions du cas)"
         run: node scripts/checkPlayedTrame.mjs
+      - name: "Un symptôme, une question — trame jouée modulée, questions du cas relues"
+        run: node scripts/checkTrameSymptoms.mjs
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Sections thérapeutiques identiques fiche ↔ cas

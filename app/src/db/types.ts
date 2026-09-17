@@ -278,7 +278,13 @@ export type LeitsymptomKategorie = 'schmerz' | 'atemnot' | 'allgemein' | 'psychi
 export type CaseQuestionKapitel =
   | 'aktuell' | 'vegetativ' | 'vorerkrankungen' | 'medikamente' | 'allergien'
   | 'noxen' | 'familie-sozial' | 'frauenanamnese' | 'fach';
-export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel };
+/** Une question du cas peut chercher un symptôme que le guide cherche aussi
+ *  (FB2-J10) : `sucht` = elle REMPLACE la question générale (celle de son
+ *  chapitre, et toute générale plus bas dans la trame) pour ces symptômes ;
+ *  `relu` = relue : elle approfondit ce qui a été demandé, ou ne cherche pas
+ *  vraiment ce symptôme (« rheumatisches Fieber »). Sans l'un des deux, la
+ *  porte `checkTrameSymptoms` refuse la collision. */
+export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: string[]; relu?: true };
 
 export interface Fachbegriff {
   id: string;
