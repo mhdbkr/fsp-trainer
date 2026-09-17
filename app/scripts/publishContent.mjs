@@ -17,6 +17,7 @@ const load = async (rel) => {
 };
 
 const { cases, fachwissen: fw, muster } = await loadAll();
+const caseTermLinks = JSON.parse(readFileSync('src/data/caseTermLinks.json', 'utf8'));
 const auf = (await load('seedAufklaerungen.ts')).seedAufklaerungen();
 const guides = (await load('seedGuides.ts')).seedGuides();
 const fbRaw = JSON.parse(readFileSync('src/data/fachbegriffe.json', 'utf8'));
@@ -43,7 +44,7 @@ const tierAuf = (a) => (freeAuf.has(a.id) ? 1 : 2);
 const tierFb  = (b) => (b.sp === 'Allgemein' ? 1 : 2);
 
 const items = [
-  ...cases.map((c) => ({ id: c.id, kind: 'case', tier: c.tier ?? 2, payload: c })),
+  ...cases.map((c) => ({ id: c.id, kind: 'case', tier: c.tier ?? 2, payload: { ...c, linkedFachbegriffeIds: [...new Set([...(c.linkedFachbegriffeIds ?? []), ...(caseTermLinks[c.id] ?? [])])] } })),
   ...fw.map((f) => ({ id: f.id, kind: 'fachwissen', tier: tierFw(f), payload: f })),
   ...auf.map((a) => ({ id: a.id, kind: 'aufklaerung', tier: tierAuf(a), payload: a })),
   ...guides.map((g) => ({ id: g.id, kind: 'guide', tier: 1, payload: g })),

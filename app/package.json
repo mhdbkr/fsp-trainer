@@ -15,7 +15,9 @@
     "db:test": "vitest run --dir supabase/tests",
     "test": "vitest run --dir src",
     "test:watch": "vitest --dir src",
-    "founder:grant": "node scripts/grantFounder.mjs"
+    "founder:grant": "node scripts/grantFounder.mjs",
+    "content:link": "node scripts/linkCaseTerms.mjs",
+    "check:caselinks": "node scripts/checkCaseTermLinks.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.2.10",
