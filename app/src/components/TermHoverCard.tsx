@@ -44,7 +44,10 @@ export function TermHoverCard() {
     const onDown = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) close(); };
     // M2 : un scroll de la page (liste, panneau) doit refermer la carte —
     // son ancrage (DOMRect figé au moment de l'ouverture) devient obsolète.
-    const onScroll = () => close();
+    // I2 : un focus clavier sur un lien hors viewport provoque un scrollIntoView
+    // à la frame suivante — on ignore les scrolls des 250 ms après l'ouverture.
+    const openedAt = performance.now();
+    const onScroll = () => { if (performance.now() - openedAt > 250) close(); };
     document.addEventListener('keydown', onKey);
     document.addEventListener('mousedown', onDown);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });

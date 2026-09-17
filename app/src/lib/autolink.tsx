@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { Fachbegriff } from '@/db/types';
 import { focusStar } from '@/components/hoverStarRef';
+import { useUi } from '@/store/ui';
 
 // ============================================================================
 // Auto-linking terme → glossaire. C'EST DU CODE, PAS DU BALISAGE MANUEL.
@@ -121,7 +122,8 @@ export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap, hov
               // d'activer le lien — Tab→Enter→Enter favorise le terme.
               if (e.key !== 'Enter' && e.key !== ' ') return;
               const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
-              if (coarse || !hoverOpen) return;
+              // M7 : n'agir que si la carte ouverte est celle DE CE lien.
+              if (coarse || !hoverOpen || useUi.getState().hoverTerm?.fb.id !== p.fb!.id) return;
               e.preventDefault();
               focusStar();
             }}
@@ -140,6 +142,7 @@ export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap, hov
               onLeave?.();
             }}
             onFocus={(e) => onHover?.(p.fb!, e.currentTarget.getBoundingClientRect())}
+            onBlur={() => onLeave?.()}   // I1-b : Tab hors du lien arme la fermeture (le focus sur la carte la désarme)
             className="text-brand-600 dark:text-brand-300 underline decoration-dotted decoration-brand-400/60 underline-offset-2 hover:bg-brand-100 dark:hover:bg-brand-900/40 rounded px-0.5 -mx-0.5 transition-colors"
           >
             {p.t}
