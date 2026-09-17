@@ -49,10 +49,14 @@ export function DrillPage() {
     if (begriffe && ctx && !started) setQueue(buildQueue());
   }, [begriffe, ctx, started, buildQueue]);
 
+  const qc = useMemo(
+    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, relevance: ctx?.relevance }),
+    [pool, ctx, prioritySpecialty, priorityPathology],
+  );
+
   if (!begriffe || !ctx) return <div className="text-slate-400">Chargement…</div>;
 
   const next = nextDueAt(pool);
-  const qc = queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx.remaining, relevance: ctx.relevance });
   const start = () => { setQueue(buildQueue()); setStarted(true); setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 }); };
 
   if (!started) {
@@ -72,7 +76,7 @@ export function DrillPage() {
               <button onClick={() => setDirection('simple2term')} className={`rounded px-2 py-1 ${direction === 'simple2term' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Sens → terme</button>
             </div>
           </div>
-          {queue.length === 0 ? (
+          {qc.due + qc.fresh === 0 ? (
             deck ? (
               <>
                 <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">

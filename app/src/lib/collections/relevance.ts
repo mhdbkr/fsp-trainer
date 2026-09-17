@@ -14,13 +14,27 @@ export interface RelevanceContext {
   cases: Pick<Case, 'id' | 'linkedFachbegriffeIds'>[];
 }
 
-/** Points de pertinence d'un terme NEU (spec F2a 3.3). Les dus ne passent pas par ici. */
-export function relevanceScore(term: Fachbegriff, ctx: RelevanceContext): number {
+/** Index terme → ids de cas qui le lient (construit une fois pour toute la file, cf. `sortByRelevance`). */
+function buildCasesByTerm(cases: RelevanceContext['cases']): Map<string, string[]> {
+  const m = new Map<string, string[]>();
+  for (const c of cases) {
+    for (const termId of c.linkedFachbegriffeIds) {
+      const arr = m.get(termId);
+      if (arr) arr.push(c.id); else m.set(termId, [c.id]);
+    }
+  }
+  return m;
+}
+
+/** Points de pertinence d'un terme NEU (spec F2a 3.3). Les dus ne passent pas par ici.
+ *  `casesByTerm` (terme → ids de cas) est optionnel : recalculé à la volée si absent,
+ *  mais `sortByRelevance` le précalcule une fois pour rester en O(n). */
+export function relevanceScore(term: Fachbegriff, ctx: RelevanceContext, casesByTerm?: Map<string, string[]>): number {
   let s = 0;
   const fav = ctx.favorites.find((f) => f.termId === term.id);
   if (fav && ctx.now - Date.parse(fav.since) < H48) s += 100;
   if (ctx.deckTerms.some((d) => d.termId === term.id && ctx.now - Date.parse(d.addedAt) < H48)) s += 80;
-  const casesOf = ctx.cases.filter((c) => c.linkedFachbegriffeIds.includes(term.id)).map((c) => c.id);
+  const casesOf = (casesByTerm ?? buildCasesByTerm(ctx.cases)).get(term.id) ?? [];
   let simBest = 0;
   for (const sim of ctx.recentSimulations) {
     if (casesOf.includes(sim.caseId)) {
@@ -35,6 +49,7 @@ export function relevanceScore(term: Fachbegriff, ctx: RelevanceContext): number
 }
 
 export function sortByRelevance(terms: Fachbegriff[], ctx: RelevanceContext): Fachbegriff[] {
-  const score = new Map(terms.map((t) => [t.id, relevanceScore(t, ctx)]));
+  const casesByTerm = buildCasesByTerm(ctx.cases);
+  const score = new Map(terms.map((t) => [t.id, relevanceScore(t, ctx, casesByTerm)]));
   return [...terms].sort((a, b) => score.get(b.id)! - score.get(a.id)! || sortDe(a, b));
 }

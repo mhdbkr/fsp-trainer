@@ -27,4 +27,15 @@ describe('relevanceScore (D3)', () => {
     const ctx = { ...base, favorites: [{ termId: 'zeta', since: new Date(now).toISOString() }] };
     expect(sortByRelevance([t('beta'), t('alpha'), t('zeta')], ctx).map((x) => x.id)).toEqual(['zeta', 'alpha', 'beta']);
   });
+  it('perf : 2 000 termes Neu × 130 cas × 25 ids reste sous 60 ms (index terme→cas en O(n))', () => {
+    const terms = Array.from({ length: 2000 }, (_, i) => t(`term-${i}`));
+    const cases = Array.from({ length: 130 }, (_, i) => ({
+      id: `case-${i}`,
+      linkedFachbegriffeIds: Array.from({ length: 25 }, (_, j) => `term-${(i * 25 + j) % 2000}`),
+    }));
+    const ctx: RelevanceContext = { ...base, cases };
+    const start = performance.now();
+    sortByRelevance(terms, ctx);
+    expect(performance.now() - start).toBeLessThan(60);
+  });
 });

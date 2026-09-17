@@ -1,12 +1,10 @@
 // Construit le contexte de pertinence et le budget du jour depuis la base du compte.
 import { db } from '@/db/db';
+import type { ProgramConfig } from '@/db/types';
 import type { RelevanceContext } from './relevance';
-import { newBudget, remainingToday, retention7d } from '@/lib/srsBudget';
+import { dayKey, newBudget, remainingToday, retention7d } from '@/lib/srsBudget';
 import { isNew } from '@/lib/srs';
 import { workingDaysUntilExam } from '@/lib/program';
-
-// Jour LOCAL (yyyy-MM-dd), cohérent avec PlanEntry.date et srsBudget.ts.
-const dayKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
 export async function loadDrillContext(now = new Date()): Promise<{ relevance: RelevanceContext; budget: number; remaining: number }> {
   const [favorites, deckTerms, sims, plan, cases, begriffe, events, config] = await Promise.all([
@@ -17,7 +15,7 @@ export async function loadDrillContext(now = new Date()): Promise<{ relevance: R
     db.cases.toArray(),
     db.fachbegriffe.toArray(),
     db.progress_events.toArray(),
-    db.meta.get('program').then((m) => m?.value as { examDate?: string } | undefined),
+    db.meta.get('program').then((m) => m?.value as ProgramConfig | undefined),
   ]);
 
   const key = dayKey(now);
@@ -37,7 +35,7 @@ export async function loadDrillContext(now = new Date()): Promise<{ relevance: R
 
   const budget = newBudget({
     freshRemaining: begriffe.filter((b) => isNew(b.srs)).length,
-    workingDaysToExam: config?.examDate ? workingDaysUntilExam(config.examDate, now) : null,
+    workingDaysToExam: config?.examDate ? workingDaysUntilExam(config.examDate, now, config) : null,
     retention7d: retention7d(events, now.getTime()),
   });
 
