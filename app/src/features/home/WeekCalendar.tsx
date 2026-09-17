@@ -1,9 +1,10 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO, startOfWeek, addDays, isSameDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Icon } from '@/components/icons';
 import { generateProgram } from '@/lib/program';
+import { loadDrillContext } from '@/lib/collections/drillContext';
 import { addExtra } from '@/lib/programAdjust';
 import { BLOCK_META, BlockRow, AddRevision } from '@/features/program/ProgramPage';
 import type { Case, Fachbegriff, ProgramConfig, ProgramDay, Simulation } from '@/db/types';
@@ -25,12 +26,14 @@ export function WeekCalendar({ config, cases, sims, begriffe }: {
   const [selected, setSelected] = useState<string>(iso(new Date()));
   const [adding, setAdding] = useState(false);
   const lastWheel = useRef(0);
+  const [drillBudget, setDrillBudget] = useState<number | undefined>(undefined);
+  useEffect(() => { loadDrillContext().then((ctx) => setDrillBudget(ctx.remaining)).catch(() => {}); }, []);
 
   const byDate = useMemo(() => {
     if (!config) return new Map<string, ProgramDay>();
-    const days = generateProgram(config, { cases, sims, begriffe }, 42);
+    const days = generateProgram(config, { cases, sims, begriffe, drillBudget }, 42);
     return new Map(days.map((d) => [d.date, d]));
-  }, [config, cases, sims, begriffe]);
+  }, [config, cases, sims, begriffe, drillBudget]);
 
   if (!config) {
     return (

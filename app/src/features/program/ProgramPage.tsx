@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   format, parseISO, isSameDay, startOfWeek, startOfMonth, endOfMonth, endOfWeek, eachDayOfInterval,
@@ -7,6 +7,7 @@ import {
 import { fr } from 'date-fns/locale';
 import { useCases, useSimulations, useFachbegriffe, useProgramConfig } from '@/hooks/useData';
 import { generateProgram, programStats, programEnd, disciplineStats, type DisciplineStat } from '@/lib/program';
+import { loadDrillContext } from '@/lib/collections/drillContext';
 import { markLayerDone, postponeCase, addExtra, removeExtra, toggleSkipDrill, setIntensity, resetAdjust } from '@/lib/programAdjust';
 import type { Case, Intensity, ProgramBlock, ProgramConfig, ProgramDay } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
@@ -30,6 +31,8 @@ export function ProgramPage() {
   const cases = useCases();
   const sims = useSimulations();
   const begriffe = useFachbegriffe();
+  const [drillBudget, setDrillBudget] = useState<number | undefined>(undefined);
+  useEffect(() => { loadDrillContext().then((ctx) => setDrillBudget(ctx.remaining)).catch(() => {}); }, []);
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
   const [anchor, setAnchor] = useState<string>(todayISO());   // période affichée dans le calendrier
@@ -47,8 +50,8 @@ export function ProgramPage() {
 
   const days = useMemo(() => {
     if (!config || !cases || !sims || !begriffe) return [];
-    return generateProgram(config, { cases, sims, begriffe }, horizon);
-  }, [config, cases, sims, begriffe, horizon]);
+    return generateProgram(config, { cases, sims, begriffe, drillBudget }, horizon);
+  }, [config, cases, sims, begriffe, horizon, drillBudget]);
   const byDate = useMemo(() => new Map(days.map((d) => [d.date, d])), [days]);
   const stats = useMemo(() => (config && cases && sims && begriffe ? programStats(config, { cases, sims, begriffe }) : null), [config, cases, sims, begriffe]);
   const disciplines = useMemo(() => (config && cases && sims ? disciplineStats(config, cases, sims) : []), [config, cases, sims]);
@@ -345,7 +348,11 @@ export function AddRevision({ cases, onAdd, onCancel }: { cases: Case[]; onAdd: 
 
 export function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: string; config: ProgramConfig; onPick: (d: string) => void }) {
   const meta = BLOCK_META[b.kind];
-  const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? '/fachbegriffe/drill' : b.caseId ? `/cas/${b.caseId}` : '/simulation';
+  const to = b.kind === 'simulation' && b.caseId
+    ? `/simulation/${b.caseId}/pre`
+    : b.kind === 'drill'
+      ? `/fachbegriffe/drill${b.specialty ? `?specialty=${encodeURIComponent(b.specialty)}` : ''}`
+      : b.caseId ? `/cas/${b.caseId}` : '/simulation';
   const cta = b.kind === 'simulation' ? 'Lancer' : b.kind === 'drill' ? 'Réviser' : 'Ouvrir';
   const doneNextDay = (days: number) => { if (b.caseId) postponeCase(config, b.caseId, days); onPick(format(addDays(parseISO(date), days), 'yyyy-MM-dd')); };
 

@@ -3,7 +3,7 @@ import { addDays, differenceInCalendarDays, format, getDay, parseISO, startOfDay
 import type {
   Case, Fachbegriff, ProgramBlock, ProgramConfig, ProgramDay, Simulation, Layer, Specialty,
 } from '@/db/types';
-import { isDue } from './srs';
+import { counts } from '@/lib/stats';
 
 // ============================================================================
 // Moteur du Programme de révision dynamique (Module 1) — VRAI planificateur.
@@ -115,7 +115,10 @@ export function workingDaysUntilExam(examDateISO: string, now: Date, config?: Pr
 // ----------------------------------------------------------------------------
 // Planificateur : construit une Map<dateISO, ProgramBlock[]> sur tout l'horizon.
 // ----------------------------------------------------------------------------
-function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now: Date): Map<string, ProgramBlock[]> {
+function schedule(
+  config: ProgramConfig, cases: Case[], sims: Simulation[], now: Date,
+  begriffe: Fachbegriff[], drillBudget?: number,
+): Map<string, ProgramBlock[]> {
   const map = new Map<string, ProgramBlock[]>();
   const dailyBudget = Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]);
   const used = new Map<string, number>();
@@ -215,12 +218,18 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
     }
   }
 
-  // Drill quotidien sur chaque jour ouvré de l'horizon (sauf jours annulés).
-  for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
+  // Drill quotidien : libellé sur les VRAIS compteurs (dus réels + nouveaux
+  // dans le budget du jour) ; absent si rien à faire (spec F2a 3.7).
+  const c = counts(begriffe, now.getTime());
+  const fresh = Math.min(c.fresh, drillBudget ?? 10);
+  const total = c.due + fresh;
+  if (total > 0) for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
     if (!isWorkingDay(d, config)) continue;
     const dk = key(d);
     if (adj.skipDrillDates?.includes(dk)) continue;
-    add(d, { kind: 'drill', label: 'Drill Fachbegriffe', estMin: DRILL_MIN, axis: 'Fachbegriffe', id: `drill:${dk}`, reason: 'Rappel espacé (SM-2) des Fachbegriffe' });
+    const simOfDay = (map.get(dk) ?? []).find((b) => b.kind === 'simulation');
+    const estMin = Math.ceil(total * 0.4);
+    add(d, { kind: 'drill', label: `Drill · ${c.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
   }
 
   // --------------------------------------------------------------------------
@@ -258,7 +267,7 @@ function schedule(config: ProgramConfig, cases: Case[], sims: Simulation[], now:
 /** Génère les jours de programme du `now` jusqu'à min(exam, now+horizon). */
 export function generateProgram(
   config: ProgramConfig,
-  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[] },
+  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[]; drillBudget?: number },
   horizonDays = 21,
   now = new Date(),
 ): ProgramDay[] {
@@ -266,7 +275,7 @@ export function generateProgram(
   const end = startOfDay(programEnd(config));
   const lastOffset = Math.max(0, Math.min(horizonDays, differenceInCalendarDays(end, today)));
 
-  const map = schedule(config, data.cases, data.sims, today);
+  const map = schedule(config, data.cases, data.sims, today, data.begriffe, data.drillBudget);
 
   // Activité réelle par jour.
   const spentByDay = new Map<string, number>();
@@ -277,16 +286,13 @@ export function generateProgram(
     spentByDay.set(k, (spentByDay.get(k) ?? 0) + Math.round(secs / 60));
     workedDays.add(k);
   }
-  const dueTotal = data.begriffe.filter((b) => isDue(b.srs, now.getTime())).length;
 
   const days: ProgramDay[] = [];
   for (let i = 0; i <= lastOffset; i++) {
     const date = addDays(today, i);
     const k = format(date, 'yyyy-MM-dd');
     const isOff = !isWorkingDay(date, config);
-    const blocks = (map.get(k) ?? []).map((b) =>
-      b.kind === 'drill' ? { ...b, label: `Drill Fachbegriffe (${Math.max(5, dueTotal - i * 3)} cartes)` } : b,
-    );
+    const blocks = map.get(k) ?? [];
     days.push({
       date: k, isOff,
       targetMin: Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]),
