@@ -230,7 +230,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
               </div>
               <div className="mt-1 text-xs text-slate-600">{ii + 1} / {totalItems}</div>
               {phraseLabel(chapter.items[ii]) && (
-                <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-boldst text-brand-300">
+                <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-brand-300">
                   {phraseLabel(chapter.items[ii])}
                 </span>
               )}

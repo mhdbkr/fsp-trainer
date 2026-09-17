@@ -57,7 +57,7 @@ export function VariantPicker({ alts, idx, onSelect, theme = 'light', size = 'md
           title="Formulations équivalentes — choisis celle qui te vient naturellement ; elle sera retenue"
           className={`inline-flex items-center gap-1 font-medium transition-colors ${quiet}`}>
           <Icon name="branch" className={`${xl ? 'h-3.5 w-3.5' : 'h-3 w-3'} opacity-70`} />
-          {idx >= 0 ? `Formulation ${idx + 1} sur ${alts.length + 1}` : `${alts.length} autre${alts.length > 1 ? 's' : ''} formulation${alts.length > 1 ? 's' : ''}`}
+          {idx >= 0 ? (alts.length === 1 ? 'Formulation choisie' : `Formulation ${idx + 1} de ${alts.length}`) : `${alts.length} autre${alts.length > 1 ? 's' : ''} formulation${alts.length > 1 ? 's' : ''}`}
         </button>
         {/* Revenir à la standard : l'option n'est pas répétée dans la liste (elle
             est déjà affichée au-dessus, FB2-O2) — un simple retour suffit. */}

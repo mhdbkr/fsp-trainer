@@ -67,7 +67,7 @@ export function HomePage() {
           <Icon name="flame" className="h-6 w-6 text-signal-500" />
           <div>
             <div className="text-xl font-bold leading-none tnum text-signal-600 dark:text-signal-300">{streak}</div>
-            <div className="mt-0.5 text-[10px] font-semibold text-signal-500/80">jours de suite</div>
+            <div className="mt-0.5 text-[10px] font-semibold text-signal-500/80">{streak === 1 ? 'jour de suite' : 'jours de suite'}</div>
           </div>
         </div>
       </header>

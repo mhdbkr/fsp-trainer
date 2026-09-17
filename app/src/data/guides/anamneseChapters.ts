@@ -258,7 +258,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
         probe: 'fam-beruf',
-        alts: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
+        followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
       },
       { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf' },
       { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },

@@ -75,7 +75,7 @@ export function GuidesPage() {
 
       {cat === 'anamnese' && (
         <div className="space-y-3">
-          <SectionIntro text="Trame d'entretien d'admission (registre patient). Chaque question expose ses variantes équivalentes (⇄) et ses relances (↳)." />
+          <SectionIntro text="Trame d'entretien d'admission (registre patient). Chaque question propose ses autres formulations et ses relances selon la réponse du patient." />
           {/* Fachanamnese mise en avant : questions ciblées à poser tôt, selon le motif. */}
           <FachanamneseSection />
           <div className="flex items-center gap-2 pt-1 text-[11px] font-semibold text-slate-400">

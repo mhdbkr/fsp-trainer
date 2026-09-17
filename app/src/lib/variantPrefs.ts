@@ -1,5 +1,8 @@
-import { AUTH_MODE } from '@/lib/auth/session';
 import { getActiveUserId } from '@/lib/auth/accounts';
+
+// Pas d'import de `@/lib/auth/session` ici : ce module initialise Supabase et
+// exige un .env — les tests de préférences n'en ont pas besoin.
+const FOUNDER = import.meta.env.VITE_AUTH_MODE === 'founder';
 
 // ============================================================================
 // Préférence de formulation (FB2-O3) : quand le candidat choisit une variante
@@ -11,7 +14,7 @@ import { getActiveUserId } from '@/lib/auth/accounts';
 // ============================================================================
 
 const KEY = 'doctopus-variants';
-const keyName = (): string => (AUTH_MODE === 'founder' ? `${KEY}:${getActiveUserId() ?? 'anon'}` : KEY);
+const keyName = (): string => (FOUNDER ? `${KEY}:${getActiveUserId() ?? 'anon'}` : KEY);
 
 type Prefs = Record<string, number>;
 
