@@ -38,6 +38,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt('/fachbegriffe/drill?deck=deck-favorites');
     await screen.findByText(/drill fachbegriffe/i);
     await new Promise((r) => setTimeout(r, 500));
+    expect(spy.mock.calls.length).toBeGreaterThanOrEqual(1);
     expect(spy.mock.calls.length).toBeLessThanOrEqual(3);
     spy.mockRestore();
   });
@@ -49,6 +50,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt(`/fachbegriffe/drill?deck=${deckId}`);
     await waitFor(() => expect(screen.getByText(/drill fachbegriffe/i)).toBeTruthy());
     await new Promise((r) => setTimeout(r, 500));
+    expect(spy.mock.calls.length).toBeGreaterThanOrEqual(1);
     expect(spy.mock.calls.length).toBeLessThanOrEqual(3);
     spy.mockRestore();
   });
