@@ -127,6 +127,7 @@ par tous les worktrees. Règles :
 - **Comptes de test** : e-mails préfixés par le slug (`pruefungstag-a@test.dev`).
 - **`.env`** : copié depuis le worktree principal (`app/supabase/.env`,
   `app/.env`) ; variables : `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_AUTH_MODE` — jamais committé, jamais dans un message.
+- **Avant toute PR, relancer la suite SANS `.env`** (`mv app/.env app/.env.bak && npx vitest run --dir src ; mv app/.env.bak app/.env`) : la CI n'en a pas, et un test qui importe `@/lib/supabase` par transitivité passe en local et rougit en CI (constaté sur F1 et F2a — mocker `@/lib/supabase` ou `@/lib/auth/session`).
 - **Fonctions Edge** : un seul `functions serve` (celui du worktree principal).
   Un pipeline qui ajoute une fonction demande à `main` un redémarrage.
 
