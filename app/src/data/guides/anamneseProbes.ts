@@ -1,4 +1,4 @@
-import type { RolePlayKapitel, Specialty } from '@/db/types';
+import type { LeitsymptomKategorie, RolePlayKapitel, Specialty } from '@/db/types';
 
 // ============================================================================
 // CHECKLIST CANONIQUE DES SONDES D'ANAMNÈSE — le « contrat de couverture ».
@@ -45,11 +45,7 @@ export const BASE_PROBES: AnamneseProbe[] = [
 
   // Aktuelle Beschwerden (OPQRST)
   { id: 'akt-motiv', kapitel: 'aktuell', frage: 'Was führt Sie heute zu uns?' },
-  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen?' },
   { id: 'akt-beginn', kapitel: 'aktuell', frage: 'Seit wann haben Sie das? Kam es plötzlich oder schleichend?' },
-  { id: 'akt-charakter', kapitel: 'aktuell', frage: 'Wie fühlt es sich an — dumpf, stechend, brennend, drückend, krampfartig?' },
-  { id: 'akt-intensitaet', kapitel: 'aktuell', frage: 'Wie stark sind die Beschwerden auf einer Skala von 1 bis 10?' },
-  { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden aus? Wohin?' },
   { id: 'akt-verlauf', kapitel: 'aktuell', frage: 'Sind sie dauerhaft da oder treten sie anfallsartig auf? Wie lange dauert eine Episode?' },
   { id: 'akt-ausloeser', kapitel: 'aktuell', frage: 'Gab es einen Auslöser? Was taten Sie, als es begann?' },
   { id: 'akt-einfluss', kapitel: 'aktuell', frage: 'Was bessert oder verschlimmert es (Essen, Bewegung, Atmung, Körperhaltung)? Haben Sie schon etwas dagegen genommen?' },
@@ -293,6 +289,16 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   // Le rein est longtemps muet : on interroge donc les signes indirects (urine
   // mousseuse, œdèmes, tension) et les néphrotoxiques, que le patient ne cite
   // jamais spontanément parce qu'ils sont en vente libre.
+  Angiologie: [
+    { id: 'fach-gefaess-gehstrecke', kapitel: 'fach', frage: 'Wie weit können Sie gehen, bevor Sie wegen Schmerzen in der Wade stehen bleiben müssen? Bessert eine Pause?' },
+    { id: 'fach-gefaess-ruheschmerz', kapitel: 'fach', frage: 'Haben Sie die Schmerzen auch in Ruhe, nachts im Liegen? Hilft es, das Bein hängen zu lassen?' },
+    { id: 'fach-gefaess-schwellung', kapitel: 'fach', frage: 'Ist ein Bein dicker, wärmer oder röter als das andere? Spannt die Wade?' },
+    { id: 'fach-gefaess-immobilisation', kapitel: 'fach', frage: 'Waren Sie in letzter Zeit länger unbeweglich — Reise, Bettruhe, Gips, Operation?' },
+    { id: 'fach-gefaess-hormone', kapitel: 'fach', frage: 'Nehmen Sie die Pille oder Hormone? Schwanger, kürzlich entbunden?' },
+    { id: 'fach-gefaess-thrombose', kapitel: 'fach', frage: 'Hatten Sie schon einmal eine Thrombose oder Lungenembolie? In der Familie?' },
+    { id: 'fach-gefaess-wunde', kapitel: 'fach', frage: 'Haben Sie schlecht heilende Wunden an den Beinen? Ist ein Fuß kalt, blass, bläulich?' },
+    { id: 'fach-gefaess-vorgeschichte', kapitel: 'fach', frage: 'Krampfadern? Wurden Ihre Gefäße schon untersucht oder operiert — Stent, Bypass?' },
+  ],
   Nephrologie: [
     { id: 'fach-nephro-menge', kapitel: 'fach', frage: 'Hat sich die Urinmenge verändert — deutlich weniger oder mehr? Müssen Sie nachts aufstehen?' },
     { id: 'fach-nephro-aussehen', kapitel: 'fach', frage: 'Wie sieht Ihr Urin aus — schaumig, trüb, rötlich oder cola-farben?' },
@@ -318,12 +324,66 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   ],
 };
 
+// --- Aktuelle Beschwerden : sondes PROPRES à chaque nature du motif ----------
+// (FB2-J1). Les sondes communes (akt-motiv, akt-beginn, akt-verlauf,
+// akt-ausloeser, akt-einfluss, akt-frueher, akt-begleit) restent dans
+// BASE_PROBES ; ici, seulement ce qui n'a de sens que pour une nature donnée.
+// Un cas répond aux sondes de SA catégorie (patientSheet.leitsymptomKategorie).
+export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[]> = {
+  schmerz: [
+  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen?' },
+  { id: 'akt-charakter', kapitel: 'aktuell', frage: 'Wie fühlt es sich an — dumpf, stechend, brennend, drückend, krampfartig?' },
+  { id: 'akt-intensitaet', kapitel: 'aktuell', frage: 'Wie stark sind die Beschwerden auf einer Skala von 1 bis 10?' },
+  { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden aus? Wohin?' },
+  ],
+  atemnot: [
+    { id: 'akt-atemnot-belastung', kapitel: 'aktuell', frage: 'Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe? Wie viele Treppenstufen schaffen Sie ohne Pause?' },
+    { id: 'akt-atemnot-nachts', kapitel: 'aktuell', frage: 'Müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?' },
+    { id: 'akt-atemnot-husten', kapitel: 'aktuell', frage: 'Haben Sie Husten? Trocken oder mit Auswurf — welche Farbe, ist Blut dabei?' },
+    { id: 'akt-atemnot-geraeusch', kapitel: 'aktuell', frage: 'Hören Sie beim Atmen ein Pfeifen oder Brummen?' },
+  ],
+  allgemein: [
+    { id: 'akt-allgemein-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: Müdigkeit, Kraftlosigkeit, Schwindel, etwas anderes?' },
+    { id: 'akt-allgemein-alltag', kapitel: 'aktuell', frage: 'Was schaffen Sie im Alltag nicht mehr? Müssen Sie sich tagsüber hinlegen?' },
+    { id: 'akt-allgemein-tageszeit', kapitel: 'aktuell', frage: 'Ist es morgens schlimmer oder im Laufe des Tages? Bessert es sich nach Ruhe?' },
+    { id: 'akt-allgemein-gewicht', kapitel: 'aktuell', frage: 'Hat sich Ihr Gewicht ungewollt verändert? Und Appetit, Durst?' },
+    { id: 'akt-allgemein-schwellung', kapitel: 'aktuell', frage: 'Sind Beine, Gesicht oder Bauch angeschwollen? Hat sich die Urinmenge verändert?' },
+  ],
+  psychisch: [
+    { id: 'akt-psych-stimmung', kapitel: 'aktuell', frage: 'Wie ist Ihre Stimmung im Moment? Gibt es Momente, in denen es besser ist?' },
+    { id: 'akt-psych-antrieb', kapitel: 'aktuell', frage: 'Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen?' },
+    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Wie schlafen Sie? Können Sie sich konzentrieren?' },
+    { id: 'akt-psych-sicherheit', kapitel: 'aktuell', frage: 'Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?' },
+  ],
+  neurologisch: [
+    { id: 'akt-neuro-ausfall', kapitel: 'aktuell', frage: 'Was genau war anders: Schwäche oder Taubheit — welche Seite? Sprechen, Sehen, Gehen?' },
+    { id: 'akt-neuro-dauer', kapitel: 'aktuell', frage: 'Wie lange hat es angehalten? Ist es ganz weg, teilweise, oder noch da?' },
+    { id: 'akt-neuro-lage', kapitel: 'aktuell', frage: 'Wird es schlimmer beim Kopfdrehen, Hinlegen, Aufstehen? Drehschwindel oder Schwanken?' },
+  ],
+  infekt: [
+    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Haben Sie gemessen — wie hoch? Wann am höchsten? Schüttelfrost?' },
+    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie im Ausland? Kontakt zu Kranken, zu Tieren, ungewöhnliches Essen?' },
+    { id: 'akt-infekt-herd', kapitel: 'aktuell', frage: 'Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, Ausschlag, Wunde?' },
+  ],
+  veraenderung: [
+    { id: 'akt-veraend-was', kapitel: 'aktuell', frage: 'Was genau ist Ihnen aufgefallen: Knoten, Hautveränderung, blaue Flecken, Blutung, Schlucken, Stuhl, Gelbfärbung?' },
+    { id: 'akt-veraend-entwicklung', kapitel: 'aktuell', frage: 'Ist es seitdem größer, häufiger oder schlimmer geworden? Farbe oder Form verändert?' },
+    { id: 'akt-veraend-blutung', kapitel: 'aktuell', frage: 'Tut es weh, juckt es, blutet es? Blut im Stuhl, im Urin, beim Husten, aus der Nase?' },
+  ],
+  anfall: [
+    { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an, wie hört er auf? Was spüren Sie währenddessen?' },
+    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall? Wie oft kommt das vor?' },
+    { id: 'akt-anfall-bewusstsein', kapitel: 'aktuell', frage: 'Waren Sie dabei bewusstlos, schwarz vor Augen? Haben Sie sich verletzt?' },
+  ],
+};
+
 // --- Index & helpers --------------------------------------------------------
 /** Toutes les sondes connues, indexées par id (résolution O(1) au rendu). */
 export const PROBE_BY_ID: Record<string, AnamneseProbe> = (() => {
   const map: Record<string, AnamneseProbe> = {};
   const all = [
     ...BASE_PROBES,
+    ...Object.values(AKTUELL_VARIANT_PROBES).flat(),
     ...FRAUEN_PROBES,
     ...Object.values(FACH_PROBES).flatMap((arr) => arr ?? []),
   ];
@@ -337,6 +397,7 @@ export const PROBE_ORDER: Record<string, number> = (() => {
   const order: Record<string, number> = {};
   let i = 0;
   for (const p of BASE_PROBES) order[p.id] = i++;
+  for (const arr of Object.values(AKTUELL_VARIANT_PROBES)) for (const p of arr) order[p.id] = i++;
   for (const p of FRAUEN_PROBES) order[p.id] = i++;
   for (const arr of Object.values(FACH_PROBES)) for (const p of arr ?? []) order[p.id] = i++;
   return order;

@@ -1,4 +1,4 @@
-import type { Case, Specialty } from '@/db/types';
+import type { Case, LeitsymptomKategorie, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
 import { phraseProbes, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
@@ -24,52 +24,41 @@ export interface AnamneseChapter {
 }
 
 /** Allgemeine Anamnese — chapitres cochables, dans l'ordre de l'entretien. */
-export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
-  {
-    id: 'eroeffnung', title: 'Gesprächseröffnung', subtitle: 'Accueil, présentation et consentement',
-    icon: 'handshake', keywords: ['Aufnahmegespräch', 'einverstanden'],
-    questions: [
-      'Guten Tag, mein Name ist … , ich bin der zuständige Arzt / die zuständige Ärztin für Sie.',
-      {
-        text: 'Ich würde gern das Aufnahmegespräch mit Ihnen führen: Ich stelle Ihnen Fragen zu Ihren Symptomen, Ihrer Vorgeschichte und Ihren Lebensgewohnheiten. Jede Ihrer Antworten trägt zur Diagnose und zur Behandlungsplanung bei. Sind Sie damit einverstanden?',
-        alts: ['Ich möchte gern das Aufnahmegespräch mit Ihnen führen. Sind Sie damit einverstanden?'],
-      },
-      'Zuerst möchte ich Ihnen einige persönliche Fragen stellen und anschließend detailliert auf Ihre Beschwerden eingehen.',
-      'Fühlen Sie sich wohl, oder brauchen Sie zuerst etwas?',
-    ],
-    tip: 'Ouvre toujours par une présentation claire et le consentement, puis ANNONCE le plan de l\'entretien (« zuerst …, anschließend … ») : cela montre que tu pilotes le dialogue.',
-  },
-  {
-    id: 'personalia', title: 'Persönliche Daten', subtitle: 'Identité et données de base',
-    icon: 'id', keywords: ['buchstabieren', 'Hausarzt'],
-    questions: [
-      {
-        text: 'Wie heißen Sie mit vollständigem Namen?',
-        probe: 'pers-name',
-        alts: ['Darf ich Ihren vollständigen Namen erfragen?', 'Darf ich Sie bitten, mir Ihren vollständigen Namen mitzuteilen?'],
-      },
-      {
-        text: 'Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?',
-        probe: 'pers-name',
-        alts: ['Um Sie korrekt anzusprechen: Buchstabieren Sie das bitte langsam.'],
-      },
-      { text: 'Wie alt sind Sie? Wann sind Sie geboren?', probe: 'pers-alter' },
-      { text: 'Wie groß sind Sie und wie viel wiegen Sie derzeit?', probe: 'pers-groesse' },
-      { text: 'Haben Sie einen Hausarzt? Wie heißt er / sie?', probe: 'pers-hausarzt' },
-      // Récapitulation : pas de sonde — elle ne pose rien de nouveau. Lui
-      // attacher les trois sondes en faisait une « question progressive » avec
-      // un bouton « Nächster Teil » qui ne faisait que répéter ce qui venait
-      // d'être posé (FB2-J6).
-      {
-        text: 'Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?',
-        label: 'Technique pro',
-      },
-    ],
-    tip: 'Répéter les données et faire valider (« Ist das korrekt notiert? ») est une technique d\'examen très appréciée : elle sécurise tes notes ET montre une écoute active.',
-  },
-  {
-    id: 'aktuell', title: 'Aktuelle Beschwerden', subtitle: 'Motif + analyse de la douleur (OPQRST)',
-    icon: 'pain', keywords: ['Ort', 'Beginn', 'Charakter', 'Intensität', 'Ausstrahlung', 'Verlauf', 'Auslöser', 'Einflussfaktoren', 'Begleitbeschwerden'],
+// ============================================================================
+// AKTUELLE BESCHWERDEN — un tronc commun, une DÉCLINAISON par nature du motif
+// (FB2-J1/13). Le modèle douleur (OPQRST) reste tel quel pour les cas dont le
+// motif est une douleur ; les autres natures ont leurs propres dimensions.
+// Les dimensions COMMUNES (Motiv, Beginn, Verlauf, Auslöser, Einflussfaktoren,
+// Frühere Episoden, Begleit) gardent leurs sondes `akt-*` — les réponses des
+// fiches sont réutilisées ; seules les dimensions PROPRES portent une sonde
+// `akt-<catégorie>-*`. Rien n'est un gabarit où l'on a remplacé un mot.
+// ============================================================================
+
+export type { LeitsymptomKategorie } from '@/db/types';
+export const LEITSYMPTOM_KATEGORIEN: LeitsymptomKategorie[] = ['schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'infekt', 'veraenderung', 'anfall'];
+export const LEITSYMPTOM_LABEL: Record<LeitsymptomKategorie, string> = {
+  schmerz: 'Douleur (OPQRST)', atemnot: 'Essoufflement', allgemein: 'Fatigue, faiblesse, poids', psychisch: 'Psychique',
+  neurologisch: 'Neurologique', infekt: 'Fièvre / infection', veraenderung: 'Changement remarqué (nodule, peau, saignement, fonction)', anfall: 'Épisodes (palpitations, malaise)',
+};
+
+const MOTIV: Phrase = {
+  text: 'Was führt Sie heute zu uns?',
+  probe: 'akt-motiv',
+  alts: ['Welche Beschwerden möchten Sie mir schildern?', 'Welche Symptome bringen Sie heute zu uns?'],
+};
+const FRUEHER = (was: string): Phrase => ({
+  text: `Frühere Episoden — Hatten Sie ${was} schon einmal?`,
+  probe: 'akt-frueher',
+  followUp: ['Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?'],
+});
+const BEGLEIT: Phrase = { text: 'Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?', probe: 'akt-begleit' };
+
+interface AktuellVariant { subtitle: string; keywords: string[]; questions: Phrase[]; tip: string }
+
+const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
+  schmerz: {
+    subtitle: 'Motif + analyse de la douleur (OPQRST)',
+    keywords: ['Ort', 'Beginn', 'Charakter', 'Intensität', 'Ausstrahlung', 'Verlauf', 'Auslöser', 'Einflussfaktoren', 'Begleitbeschwerden', 'Skala'],
     questions: [
       {
         text: 'Was führt Sie heute zu uns?',
@@ -127,6 +116,311 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     ],
     tip: 'C\'est le cœur de l\'interrogatoire : creuse chaque dimension (lieu, début, caractère, intensité, irradiation, évolution, déclencheurs, facteurs, épisodes antérieurs, symptômes associés). Merke : « Schmerzen in + Dativ », « Ausstrahlung in + Akkusativ ».',
   },
+  atemnot: {
+    subtitle: 'Motif + analyse de l’essoufflement',
+    keywords: ['Luftnot', 'Belastung', 'Ruhe', 'Treppen', 'Kissen', 'Husten', 'Auswurf', 'Pfeifen'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Seit wann bekommen Sie schlechter Luft? Kam das plötzlich oder hat es sich langsam entwickelt?', probe: 'akt-beginn' },
+      {
+        text: 'Belastung — Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe? Wie viele Treppenstufen schaffen Sie ohne Pause?',
+        probe: 'akt-atemnot-belastung',
+        alts: ['Wie weit können Sie gehen, bevor Sie stehen bleiben müssen?'],
+      },
+      {
+        text: 'Nachts — Müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?',
+        probe: 'akt-atemnot-nachts',
+        followUp: ['Falls ja: Mit wie vielen Kissen schlafen Sie?'],
+      },
+      {
+        text: 'Husten — Haben Sie Husten? Ist er trocken, oder husten Sie etwas ab — welche Farbe hat der Auswurf?',
+        probe: 'akt-atemnot-husten',
+        followUp: ['Falls Auswurf: Ist Blut dabei?'],
+      },
+      { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
+      { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Gab es etwas, das die Luftnot ausgelöst hat: ein Infekt, Anstrengung, Kälte, Staub, Aufregung?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Was hilft Ihnen, besser Luft zu bekommen — Sitzen, Ruhe, ein Spray? Was verschlimmert es?', probe: 'akt-einfluss' },
+      FRUEHER('solche Luftnot'),
+      BEGLEIT,
+    ],
+    tip: 'Pour un essoufflement, le jury attend la gradation à l’effort (étages, distance), l’orthopnée et la toux — pas une échelle de douleur. Note « Dyspnoe bei Belastung / in Ruhe », « Orthopnoe », « Auswurf ».',
+  },
+  allgemein: {
+    subtitle: 'Motif + analyse d’une fatigue, faiblesse ou prise/perte de poids',
+    keywords: ['Müdigkeit', 'Schwäche', 'Alltag', 'Gewicht', 'Appetit', 'Durst', 'Schwellung', 'Tageszeit'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Seit wann fühlen Sie sich so? Kam das schleichend, über Wochen, oder eher plötzlich?', probe: 'akt-beginn' },
+      {
+        text: 'Art — Was genau spüren Sie: eher Müdigkeit, Kraftlosigkeit, Schwindel, oder etwas anderes? Können Sie es beschreiben?',
+        probe: 'akt-allgemein-art',
+      },
+      {
+        text: 'Ausmaß — Was schaffen Sie im Alltag nicht mehr, was vorher ging? Müssen Sie sich tagsüber hinlegen?',
+        probe: 'akt-allgemein-alltag',
+        alts: ['Wie sehr schränkt Sie das im Alltag ein — bei der Arbeit, im Haushalt?'],
+      },
+      { text: 'Tageszeit — Ist es morgens schlimmer oder eher im Laufe des Tages? Bessert es sich nach Ruhe oder Schlaf?', probe: 'akt-allgemein-tageszeit' },
+      {
+        text: 'Gewicht und Appetit — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten? Und Ihr Appetit, Ihr Durst?',
+        probe: 'akt-allgemein-gewicht',
+        followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'],
+      },
+      { text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen? Hat sich die Urinmenge verändert?', probe: 'akt-allgemein-schwellung' },
+      { text: 'Verlauf — Ist es gleichbleibend, wird es schlimmer, oder gibt es gute und schlechte Tage?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Krankheit, eine Veränderung der Ernährung, Stress, ein neues Medikament?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?', probe: 'akt-einfluss' },
+      FRUEHER('solche Beschwerden'),
+      BEGLEIT,
+    ],
+    tip: 'Fatigue/faiblesse : le jury veut l’impact concret (ce qui ne va plus), la courbe de poids et d’appétit, la soif, les œdèmes — c’est là que se cachent anémie, thyroïde, diabète et rein.',
+  },
+  psychisch: {
+    subtitle: 'Motif + exploration psychique (avec tact)',
+    keywords: ['Stimmung', 'Antrieb', 'Interesse', 'Schlaf', 'Konzentration', 'Ereignis', 'Sicherheit'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Seit wann geht es Ihnen so? Kam das nach und nach oder gab es einen Moment, ab dem es anders war?', probe: 'akt-beginn' },
+      {
+        text: 'Stimmung — Wie ist Ihre Stimmung im Moment, wenn Sie sie beschreiben sollen? Gibt es Momente, in denen es besser ist?',
+        probe: 'akt-psych-stimmung',
+      },
+      {
+        text: 'Antrieb und Interesse — Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen, die Ihnen früher wichtig waren?',
+        probe: 'akt-psych-antrieb',
+      },
+      {
+        text: 'Schlaf und Konzentration — Wie schlafen Sie — Einschlafen, Durchschlafen, frühes Erwachen? Können Sie sich konzentrieren, zum Beispiel beim Lesen?',
+        probe: 'akt-psych-schlaf',
+      },
+      {
+        text: 'Ereignis — Ist in letzter Zeit etwas passiert, das Sie belastet — ein Verlust, eine Trennung, Probleme bei der Arbeit?',
+        probe: 'akt-ausloeser',
+      },
+      {
+        text: 'Sicherheit — Ich frage das jeden Patienten in Ihrer Situation: Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?',
+        probe: 'akt-psych-sicherheit',
+        label: 'Avec tact',
+        followUp: ['Falls ja: Haben Sie konkrete Pläne? Gibt es jemanden, der Sie unterstützt?'],
+      },
+      { text: 'Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage? Ist es morgens anders als abends?', probe: 'akt-verlauf' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das es erträglicher macht — Gesellschaft, Bewegung, Ruhe? Und was macht es schlimmer?', probe: 'akt-einfluss' },
+      FRUEHER('eine solche Phase'),
+      BEGLEIT,
+    ],
+    tip: 'Pas de « Skala », pas d’« Ausstrahlung ». Le jury évalue le tact : annonce la question de sécurité comme une question de routine, laisse du silence, ne juge pas. Note « Stimmung, Antrieb, Schlaf, Suizidalität ».',
+  },
+  neurologisch: {
+    subtitle: 'Motif + analyse d’un déficit, d’un vertige ou d’une crise',
+    keywords: ['Uhrzeit', 'Seite', 'Sprache', 'Sehen', 'Gleichgewicht', 'Dauer', 'rückläufig', 'Lagerung'],
+    questions: [
+      MOTIV,
+      {
+        text: 'Beginn — Wann genau hat es angefangen — um welche Uhrzeit? Was haben Sie in dem Moment gemacht?',
+        probe: 'akt-beginn',
+        alts: ['Wann waren Sie zuletzt sicher beschwerdefrei?'],
+        label: 'Uhrzeit!',
+      },
+      {
+        text: 'Art des Ausfalls — Was genau war anders: eine Schwäche oder Taubheit — auf welcher Seite? Probleme beim Sprechen, beim Sehen, beim Gehen?',
+        probe: 'akt-neuro-ausfall',
+      },
+      {
+        text: 'Dauer und Rückbildung — Wie lange hat es angehalten? Ist es vollständig weggegangen, teilweise, oder besteht es noch?',
+        probe: 'akt-neuro-dauer',
+      },
+      {
+        text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen? Dreht sich alles, oder ist es eher ein Schwanken?',
+        probe: 'akt-neuro-lage',
+      },
+      { text: 'Verlauf — Kam es einmal, oder in Schüben? Ist es zwischendurch ganz weg?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Gab es einen Auslöser — Anstrengung, Aufregung, Schlafmangel, Alkohol, ein neues Medikament?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?', probe: 'akt-einfluss' },
+      FRUEHER('so etwas'),
+      { text: 'Begleitbeschwerden — Hatten Sie dabei Kopfschmerzen, Übelkeit, Doppelbilder, Bewusstlosigkeit oder ein Zucken?', probe: 'akt-begleit' },
+    ],
+    tip: 'Neurologie : l’heure exacte du début (fenêtre de thrombolyse), le côté, la rückläufigkeit et les signes d’accompagnement décident de la prise en charge. Note « Symptombeginn um … Uhr ».',
+  },
+  infekt: {
+    subtitle: 'Motif + analyse d’une fièvre ou d’un tableau infectieux',
+    keywords: ['Fieber', 'Schüttelfrost', 'gemessen', 'Kontakt', 'Reise', 'Impfung'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Seit wann haben Sie Fieber oder fühlen sich krank? Kam es schlagartig oder langsam?', probe: 'akt-beginn' },
+      {
+        text: 'Fieber — Haben Sie gemessen — wie hoch? Zu welcher Tageszeit ist es am höchsten? Hatten Sie Schüttelfrost?',
+        probe: 'akt-infekt-fieber',
+      },
+      {
+        text: 'Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?',
+        probe: 'akt-verlauf',
+      },
+      {
+        text: 'Kontakt und Reise — Waren Sie in letzter Zeit im Ausland? Hatten Sie Kontakt zu Kranken, zu Tieren, oder haben Sie etwas Ungewöhnliches gegessen?',
+        probe: 'akt-infekt-kontakt',
+      },
+      {
+        text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
+        probe: 'akt-infekt-herd',
+      },
+      { text: 'Auslöser — Gab es davor eine Erkältung, einen Eingriff, einen Zahnarztbesuch oder eine neue Verletzung?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Haben Sie schon etwas dagegen genommen — Paracetamol, Ibuprofen? Hat es geholfen?', probe: 'akt-einfluss' },
+      FRUEHER('so ein Fieber'),
+      BEGLEIT,
+    ],
+    tip: 'Fièvre : la courbe (mesurée, frissons), le foyer (organe par organe) et l’exposition (voyage, contact, animal, geste récent) — c’est l’anamnèse qui oriente l’antibiotique. Le statut vaccinal se demande dans les antécédents.',
+  },
+  veraenderung: {
+    subtitle: 'Motif + analyse d’un changement remarqué (nodule, peau, saignement, déglutition, selles, teint)',
+    keywords: ['bemerkt', 'Größe', 'Blutung', 'Schlucken', 'Stuhl', 'Gelb', 'Knoten', 'Haut'],
+    questions: [
+      MOTIV,
+      {
+        text: 'Was genau — Was ist Ihnen aufgefallen: ein Knoten, eine Hautveränderung, blaue Flecken, eine Blutung, Probleme beim Schlucken, ein veränderter Stuhl, eine Gelbfärbung?',
+        probe: 'akt-veraend-was',
+      },
+      { text: 'Beginn — Seit wann haben Sie das bemerkt? Wie ist es Ihnen aufgefallen — zufällig, beim Duschen, durch jemand anderen?', probe: 'akt-beginn' },
+      {
+        text: 'Größe und Entwicklung — Ist es seitdem größer, häufiger oder schlimmer geworden? Hat es sich in Farbe oder Form verändert?',
+        probe: 'akt-veraend-entwicklung',
+      },
+      {
+        text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es? Haben Sie Blut im Stuhl, im Urin, beim Husten oder aus der Nase bemerkt?',
+        probe: 'akt-veraend-blutung',
+      },
+      { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?', probe: 'akt-einfluss' },
+      FRUEHER('so eine Veränderung'),
+      BEGLEIT,
+    ],
+    tip: 'Un changement remarqué : quoi, depuis quand, comment ça évolue, est-ce que ça saigne — puis les signes B (poids, sueurs, fièvre) dans l’anamnèse végétative. Ne demande pas « où ça fait mal » si rien ne fait mal.',
+  },
+  anfall: {
+    subtitle: 'Motif + analyse d’épisodes (palpitations, malaise, perte de connaissance)',
+    keywords: ['Dauer', 'Häufigkeit', 'Auslöser', 'plötzlich', 'Bewusstsein', 'Herzrasen', 'Schwindel'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Wann war der erste Anfall? Und der letzte?', probe: 'akt-beginn' },
+      {
+        text: 'Ablauf — Wie fängt so ein Anfall an — schlagartig oder langsam? Wie hört er auf? Was spüren Sie währenddessen genau?',
+        probe: 'akt-anfall-ablauf',
+      },
+      {
+        text: 'Dauer und Häufigkeit — Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden? Wie oft kommt das vor?',
+        probe: 'akt-anfall-dauer',
+      },
+      {
+        text: 'Bewusstsein — Waren Sie dabei einmal bewusstlos, oder ist Ihnen schwarz vor Augen geworden? Haben Sie sich verletzt?',
+        probe: 'akt-anfall-bewusstsein',
+        followUp: ['Falls ja: Hat jemand gesehen, was passiert ist? Haben Sie eingenässt oder sich auf die Zunge gebissen?'],
+      },
+      { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das den Anfall beendet oder verhindert — Hinsetzen, Ruhe, ein Medikament?', probe: 'akt-einfluss' },
+      FRUEHER('solche Anfälle'),
+      { text: 'Begleitbeschwerden — Hatten Sie dabei Luftnot, Brustschmerzen, Schwindel, Schwitzen oder Übelkeit?', probe: 'akt-begleit' },
+    ],
+    tip: 'Un épisode se décrit par son déroulé (début, fin, durée, fréquence) et par ce qui l’accompagne — pas par une localisation ni une échelle. Le témoin oculaire est une source : demande-le.',
+  },
+};
+
+/** Le chapitre « Aktuelle Beschwerden » pour une nature de motif donnée. */
+// ============================================================================
+// ABSCHLUSS — cinq blocs standardisés, PERSONNALISÉS par le cas (FB2-J7).
+// Tournures fixes à apprendre par cœur ; le contenu (soupçon, examens, suite)
+// vient de `medicalView.patientWorte`, en langage patient. Sans cas (page
+// Guides), les blancs restent visibles : c'est le gabarit qu'on mémorise.
+// ============================================================================
+export function abschlussChapterFor(c?: Case): AnamneseChapter {
+  const w = c?.medicalView?.patientWorte;
+  const verdacht = w?.verdacht ?? '…';
+  const diagnostik = w?.diagnostik ?? '…';
+  const therapie = w?.therapie ?? '…';
+  return {
+    id: 'abschluss', title: 'Abschluss & Verdachtsdiagnose', subtitle: 'Clôture : soupçon, examens, suite — en langage patient',
+    icon: 'stethoscope', keywords: ['Verdacht', 'abklären', 'Ergebnis', 'Oberarzt', 'Fragen'],
+    questions: [
+      {
+        text: 'Das waren meine Fragen. Möchten Sie noch etwas hinzufügen, das mir helfen könnte?',
+        alts: ['Ich habe nun alle meine Fragen gestellt. Gibt es etwas, das ich vergessen habe zu fragen?'],
+        label: 'Abschluss',
+      },
+      {
+        text: `Nach dem, was Sie mir geschildert haben, vermute ich, dass ${verdacht}. Sicher sagen kann ich das erst nach der Untersuchung.`,
+        alts: [`Ihre Beschwerden passen am ehesten dazu, dass ${verdacht} — das müssen wir aber noch bestätigen.`],
+        label: 'Verdacht',
+      },
+      {
+        text: `Um das abzuklären, ${diagnostik}. Zuerst werde ich Sie körperlich untersuchen.`,
+        alts: [`Als Nächstes untersuche ich Sie, und dann ${diagnostik}.`],
+        label: 'Diagnostik',
+      },
+      {
+        text: `Je nach Ergebnis ${therapie}. Ich bespreche alles mit meinem Oberarzt und erkläre Ihnen dann jeden Schritt.`,
+        alts: [`Wenn sich der Verdacht bestätigt, ${therapie}. Wir entscheiden das gemeinsam, Schritt für Schritt.`],
+        label: 'Therapie',
+      },
+      {
+        text: 'Ich weiß, das ist viel auf einmal. Haben Sie das so verstanden — oder soll ich etwas noch einmal erklären? Ich bin für Sie da.',
+        alts: ['Haben Sie noch Fragen? Ich stehe Ihnen gerne zur Verfügung.'],
+        label: 'Rassurer',
+      },
+    ],
+    tip: 'Cinq gestes, toujours dans cet ordre : clore, nommer le soupçon avec prudence (« vermute », « am ehesten »), annoncer les examens, esquisser la suite, vérifier la compréhension. En langage patient — le jury écoute si tu sais traduire ta médecine.',
+  };
+}
+
+export function aktuellChapterFor(kategorie: LeitsymptomKategorie): AnamneseChapter {
+  const v = AKTUELL_VARIANTS[kategorie];
+  return { id: 'aktuell', title: 'Aktuelle Beschwerden', subtitle: v.subtitle, icon: 'pain', keywords: v.keywords, questions: v.questions, tip: v.tip };
+}
+
+export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
+  {
+    id: 'eroeffnung', title: 'Gesprächseröffnung', subtitle: 'Accueil, présentation et consentement',
+    icon: 'handshake', keywords: ['Aufnahmegespräch', 'einverstanden'],
+    questions: [
+      'Guten Tag, mein Name ist … , ich bin der zuständige Arzt / die zuständige Ärztin für Sie.',
+      {
+        text: 'Ich würde gern das Aufnahmegespräch mit Ihnen führen: Ich stelle Ihnen Fragen zu Ihren Symptomen, Ihrer Vorgeschichte und Ihren Lebensgewohnheiten. Jede Ihrer Antworten trägt zur Diagnose und zur Behandlungsplanung bei. Sind Sie damit einverstanden?',
+        alts: ['Ich möchte gern das Aufnahmegespräch mit Ihnen führen. Sind Sie damit einverstanden?'],
+      },
+      'Zuerst möchte ich Ihnen einige persönliche Fragen stellen und anschließend detailliert auf Ihre Beschwerden eingehen.',
+      'Fühlen Sie sich wohl, oder brauchen Sie zuerst etwas?',
+    ],
+    tip: 'Ouvre toujours par une présentation claire et le consentement, puis ANNONCE le plan de l\'entretien (« zuerst …, anschließend … ») : cela montre que tu pilotes le dialogue.',
+  },
+  {
+    id: 'personalia', title: 'Persönliche Daten', subtitle: 'Identité et données de base',
+    icon: 'id', keywords: ['buchstabieren', 'Hausarzt'],
+    questions: [
+      {
+        text: 'Wie heißen Sie mit vollständigem Namen?',
+        probe: 'pers-name',
+        alts: ['Darf ich Ihren vollständigen Namen erfragen?', 'Darf ich Sie bitten, mir Ihren vollständigen Namen mitzuteilen?'],
+      },
+      {
+        text: 'Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?',
+        probe: 'pers-name',
+        alts: ['Um Sie korrekt anzusprechen: Buchstabieren Sie das bitte langsam.'],
+      },
+      { text: 'Wie alt sind Sie? Wann sind Sie geboren?', probe: 'pers-alter' },
+      { text: 'Wie groß sind Sie und wie viel wiegen Sie derzeit?', probe: 'pers-groesse' },
+      { text: 'Haben Sie einen Hausarzt? Wie heißt er / sie?', probe: 'pers-hausarzt' },
+      // Récapitulation : pas de sonde — elle ne pose rien de nouveau. Lui
+      // attacher les trois sondes en faisait une « question progressive » avec
+      // un bouton « Nächster Teil » qui ne faisait que répéter ce qui venait
+      // d'être posé (FB2-J6).
+      {
+        text: 'Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?',
+        label: 'Technique pro',
+      },
+    ],
+    tip: 'Répéter les données et faire valider (« Ist das korrekt notiert? ») est une technique d\'examen très appréciée : elle sécurise tes notes ET montre une écoute active.',
+  },
+  aktuellChapterFor('schmerz'),
   {
     id: 'vegetativ', title: 'Vegetative Anamnese', subtitle: 'Fonctions générales du corps',
     icon: 'pulse', keywords: ['Fieber', 'Schüttelfrost', 'Nachtschweiß', 'Gewicht', 'Appetit', 'Stuhlgang', 'Wasserlassen'],
@@ -281,20 +575,8 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     ],
     tip: 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.',
   },
-  {
-    id: 'abschluss', title: 'Abschluss & Verdachtsdiagnose', subtitle: 'Clôture et prochaines étapes',
-    icon: 'stethoscope', keywords: ['Verdacht', 'Oberarzt'],
-    questions: [
-      {
-        text: 'Das waren meine Fragen. Möchten Sie noch etwas hinzufügen, das mir helfen könnte?',
-        alts: ['Ich habe nun alle meine Fragen gestellt und fühle mich gut informiert.'],
-      },
-      'Als Nächstes werde ich Sie körperlich untersuchen und Blut abnehmen, um Laborwerte zu bestimmen.',
-      'Ich bespreche Ihre Beschwerden mit meinem Oberarzt. Danach komme ich zurück und erkläre Ihnen die weiteren Schritte — zum Beispiel apparative Untersuchungen wie Ultraschall.',
-      'Haben Sie noch Fragen? Ich stehe Ihnen gerne zur Verfügung.',
-    ],
-    tip: 'Termine en laissant le patient compléter, annonce les prochaines étapes en langage simple, et propose de répondre aux questions — cela structure et rassure.',
-  },
+  abschlussChapterFor(),
+
 ];
 
 // ---------------------------------------------------------------------------
@@ -438,6 +720,51 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
     ],
     'Le sang joue un rôle capital : vomissement « café moulu » et selles noires (méléna) = hémorragie haute ; sang rouge = basse. Précise toujours couleur ET consistance. Les faux besoins (Tenesmen) orientent vers le rectum.'),
+  // Angiologie (FB2-K1) : les cas vasculaires (TVT, pAVK, embolie, anévrisme,
+  // ulcère veineux) tombaient sur la Fachanamnese cardio. Ici : marche et
+  // claudication, douleur de repos, jambe gonflée, immobilisation, hormones,
+  // antécédents thrombotiques, plaies, extrémité froide. Pas de « Rauchen
+  // Sie ? » (Noxen le pose) — juste l'exposition qui compte pour les vaisseaux.
+  F('Angiologie', 'pulse', 'gefaess', 'Fachanamnese Angiologie',
+    ['Gehstrecke', 'Wade', 'Ruheschmerz', 'Schwellung', 'Thrombose', 'Pille', 'Wunde', 'kalt'],
+    [
+      {
+        text: 'Wie weit können Sie gehen, bevor Sie wegen Schmerzen in der Wade oder im Oberschenkel stehen bleiben müssen? Wird es nach einer Pause wieder besser?',
+        probe: 'fach-gefaess-gehstrecke',
+        alts: ['Müssen Sie beim Gehen immer wieder anhalten, so als würden Sie ein Schaufenster ansehen?'],
+      },
+      {
+        text: 'Haben Sie die Schmerzen auch in Ruhe, vor allem nachts im Liegen? Hilft es, das Bein aus dem Bett hängen zu lassen?',
+        probe: 'fach-gefaess-ruheschmerz',
+      },
+      {
+        text: 'Ist ein Bein dicker, wärmer oder röter als das andere? Spannt die Wade, wenn Sie auftreten?',
+        probe: 'fach-gefaess-schwellung',
+        followUp: ['Falls ja: Seit wann, und ist es plötzlich gekommen?'],
+      },
+      {
+        text: 'Waren Sie in letzter Zeit länger unbeweglich — eine lange Reise, Bettruhe, ein Gips, eine Operation?',
+        probe: 'fach-gefaess-immobilisation',
+      },
+      {
+        text: 'Nehmen Sie die Pille oder Hormone? Sind Sie schwanger, oder haben Sie kürzlich entbunden?',
+        probe: 'fach-gefaess-hormone',
+        label: 'Patientin',
+      },
+      {
+        text: 'Hatten Sie schon einmal eine Thrombose oder eine Lungenembolie? Gibt es das in Ihrer Familie?',
+        probe: 'fach-gefaess-thrombose',
+      },
+      {
+        text: 'Haben Sie an den Beinen oder Füßen Wunden, die schlecht heilen? Ist ein Fuß kalt, blass oder bläulich?',
+        probe: 'fach-gefaess-wunde',
+      },
+      {
+        text: 'Haben Sie Krampfadern, oder wurden Ihre Gefäße schon einmal untersucht oder operiert — ein Stent, ein Bypass?',
+        probe: 'fach-gefaess-vorgeschichte',
+      },
+    ],
+    'Vasculaire ≠ cardiaque : la distance de marche (claudication), la douleur de repos nocturne soulagée jambe pendante et l’asymétrie d’un membre (gonflé, chaud, rouge / froid, pâle) sont les questions qui décident. Le tabac se demande dans Noxen, pas deux fois.'),
   F('Nephrologie', 'kidney', 'nephro', 'Fachanamnese Néphrologie',
     ['Wasserlassen', 'Urin', 'Blut im Urin', 'Schwellungen', 'Juckreiz'],
     [
@@ -1089,34 +1416,10 @@ export function fachChapterForSimulation(specialty: Specialty): FachanamneseGuid
   };
 }
 
-// ============================================================================
-// ADAPTATION AU CAS — le guide doit refléter CE patient, pas un patient moyen.
-// Deux inadéquations relevées à l'usage :
-//   1. la Frauenanamnese était proposée aux patients masculins ;
-//   2. l'analyse de la douleur (OPQRST) se déroulait intégralement même quand
-//      le cas n'a AUCUNE douleur (diabète, hyperthyroïdie, COPD, anémie…) —
-//      demander « dumpf, stechend, brennend? » à un diabétique est exactement
-//      ce qui donne l'impression d'un guide récité.
-// On ne supprime pas les sondes (le contrat de couverture reste), on REFORMULE
-// en registre « Beschwerden » et on retire ce qui n'a pas de sens sans douleur.
-// ============================================================================
-
-/** Reformulations neutres des questions d'analyse de la douleur, pour un cas
- *  sans douleur. Clé = sonde ; valeur = texte de remplacement. */
-const PAINLESS_TEXT: Record<string, string> = {
-  'akt-ort': 'Ort — Wo genau spüren Sie die Beschwerden? Können Sie mir die Stelle zeigen?',
-  'akt-beginn': 'Beginn — Seit wann haben Sie die Beschwerden? Kamen sie plötzlich oder schleichend?',
-  'akt-charakter': 'Charakter — Wie würden Sie die Beschwerden beschreiben? Womit könnte man sie vergleichen?',
-  'akt-intensitaet': 'Ausmaß — Wie stark beeinträchtigen die Beschwerden Sie im Alltag? Auf einer Skala von 1 bis 10?',
-  'akt-ausstrahlung': 'Ausbreitung — Betreffen die Beschwerden nur eine Stelle, oder breiten sie sich aus?',
-  'akt-verlauf': 'Verlauf — Sind die Beschwerden dauerhaft da oder treten sie zeitweise auf?',
-  'akt-ausloeser': 'Auslöser — Gab es etwas Bestimmtes, das die Beschwerden ausgelöst hat?',
-  'akt-einfluss': 'Einflussfaktoren — Gibt es etwas, das die Beschwerden bessert oder verschlimmert?',
-  'akt-frueher': 'Frühere Episoden — Hatten Sie solche Beschwerden schon einmal?',
-};
-
-/** Le cas comporte-t-il une douleur à analyser ? */
-export const caseHasPain = (c: Case): boolean => !!c.patientSheet.schmerz;
+/** Nature du motif du cas : déclarée, sinon `schmerz` si un bloc douleur existe. */
+export function leitsymptomOf(c: Case): LeitsymptomKategorie {
+  return c.patientSheet.leitsymptomKategorie ?? (c.patientSheet.schmerz ? 'schmerz' : 'allgemein');
+}
 
 // ── Frauenanamnese selon l'ÂGE (FB2-J5) ──────────────────────────────────────
 // Les Wechseljahre ne se demandent pas à une patiente de 25 ans, ni la
@@ -1126,19 +1429,32 @@ const MENOPAUSE_FROM = 45;
 const FERTILE_UNTIL = 55;
 
 function frauenQuestionsForAge(questions: Phrase[], age: number): Phrase[] {
+  const probeOf = (q: Phrase) => (typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined);
+  const retext = (q: Phrase, text: string): Phrase => (typeof q === 'string' ? text : { ...q, text, alts: undefined });
   return questions.flatMap((q) => {
-    const probe = typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined;
+    const probe = probeOf(q);
+    if (age > FERTILE_UNTIL) {
+      // Après la ménopause, la question qui compte est le saignement
+      // post-ménopausique — on ADAPTE la question des règles, on ne la retire pas.
+      if (probe === 'frau-periode') return [retext(q, 'Wann hatten Sie Ihre letzte Regelblutung? Hatten Sie seitdem noch einmal eine Blutung?')];
+      if (probe === 'frau-schwanger' || probe === 'frau-verhuetung') return [];
+      if (probe === 'frau-wechseljahre') return [retext(q, 'Wie sind Sie durch die Wechseljahre gekommen — hatten Sie Beschwerden, haben Sie Hormone genommen? Gehen Sie regelmäßig zum Frauenarzt?')];
+      return [q];
+    }
     if (probe === 'frau-wechseljahre') {
       if (age < MENOPAUSE_FROM) return [];
-      // Plus de « Falls … » : à cet âge la question se pose directement.
-      const text = age > FERTILE_UNTIL
-        ? 'Wann hatten Sie Ihre letzte Regelblutung? Gehen Sie regelmäßig zum Frauenarzt?'
-        : 'Sind Sie schon in den Wechseljahren? Wann hatten Sie Ihre letzte Periode? Gehen Sie regelmäßig zum Frauenarzt?';
-      return [typeof q === 'string' ? text : { ...q, text }];
+      // La dernière règle est déjà demandée par frau-periode : pas de redite.
+      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen? Gehen Sie regelmäßig zum Frauenarzt?')];
     }
-    if ((probe === 'frau-periode' || probe === 'frau-schwanger' || probe === 'frau-verhuetung') && age > FERTILE_UNTIL) return [];
     return [q];
   });
+}
+
+/** Conseil du chapitre Frauenanamnese selon l'âge — pas de « en âge de procréer » à 76 ans. */
+function frauenTipForAge(age: number): string {
+  if (age > FERTILE_UNTIL) return 'Après la ménopause, la question décisive est le saignement post-ménopausique : toute Blutung « seitdem » est un signal d\'alarme (Endometriumkarzinom) à noter et à transmettre.';
+  if (age >= MENOPAUSE_FROM) return 'Périménopause : grossesse encore possible, ménopause qui commence — les deux se demandent, sans redemander la dernière règle deux fois.';
+  return 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.';
 }
 
 /** Questions propres au cas, rangées par sous-chapitre (FB2-J4). */
@@ -1151,6 +1467,32 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
   return out;
 }
 
+/** Une question de Fachanamnese formulée pour un homme ne se pose pas telle
+ *  quelle à une femme (Erektion, Prostata) — on l'adapte, on ne la laisse pas
+ *  passer (FB-A1 sur la Fachanamnese Urologie, relevé par le gardien). */
+const SEX_ADAPT: Array<{ probe: string; w: string }> = [
+  { probe: 'fach-uro-funktion', w: 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr?' },
+  { probe: 'fach-uro-vorgeschichte', w: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder eine Blasenentzündung, die immer wiederkam?' },
+];
+function sexAdapt(questions: Phrase[], geschlecht: 'm' | 'w' | undefined): Phrase[] {
+  if (geschlecht !== 'w') return questions;
+  return questions.map((q) => {
+    const probe = typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined;
+    const r = SEX_ADAPT.find((x) => x.probe === probe);
+    return r && typeof q !== 'string' ? { ...q, text: r.w } : q;
+  });
+}
+
+/** La Fachanamnese JOUÉE pour un cas : celle de la spécialité, adaptée au sexe,
+ *  + les questions « fach » propres au cas. Point d'entrée unique du guide et
+ *  du mode focus. */
+export function fachChapterForCase(c: Case): FachanamneseGuide | undefined {
+  const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
+  if (!f) return undefined;
+  const questions = [...sexAdapt(f.chapter.questions, c.patientSheet.personalia.geschlecht), ...caseQuestionsForFach(c)];
+  return { ...f, chapter: { ...f.chapter, questions } };
+}
+
 /** Questions « fach » du cas, à ajouter à la Fachanamnese jouée. */
 export function caseQuestionsForFach(c: Case): PhraseVariant[] { return caseQuestionsByKapitel(c).fach ?? []; }
 
@@ -1158,7 +1500,7 @@ export function caseQuestionsForFach(c: Case): PhraseVariant[] { return caseQues
 export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
   const weiblich = c.patientSheet.personalia.geschlecht === 'w';
   const age = c.patientSheet.personalia.age;
-  const pain = caseHasPain(c);
+  const kategorie = leitsymptomOf(c);
   const byKapitel = caseQuestionsByKapitel(c);
   // Les questions du cas se posent APRÈS les questions standard du chapitre :
   // la trame apprise d'abord, puis ce qui est propre à ce patient.
@@ -1168,20 +1510,11 @@ export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
     // Frauenanamnese : uniquement pour une patiente (elle est `optional`).
     .filter((ch) => !(ch.id === 'frauenanamnese' && !weiblich))
     .map((ch) => {
-      if (ch.id === 'frauenanamnese') return withCase(ch, frauenQuestionsForAge(ch.questions, age));
-      if (pain || ch.id !== 'aktuell') return withCase(ch, ch.questions);
-      return {
-        ...ch,
-        subtitle: 'Motif + analyse des symptômes',
-        questions: ch.questions.map((q) => {
-          if (typeof q === 'string') return q;
-          const probe = typeof q.probe === 'string' ? q.probe : undefined;
-          const rewritten = probe ? PAINLESS_TEXT[probe] : undefined;
-          // Sans douleur, les relances « sehr stark / Schmerzmittel » n'ont pas
-          // lieu d'être : on ne garde que celles qui ne parlent pas de douleur.
-          const followUp = q.followUp?.filter((f) => !/schmerz/i.test(f));
-          return { ...q, ...(rewritten ? { text: rewritten } : {}), ...(followUp ? { followUp } : {}) };
-        }).concat(byKapitel[ch.id] ?? []),
-      };
+      if (ch.id === 'frauenanamnese') return withCase({ ...ch, tip: frauenTipForAge(age) }, frauenQuestionsForAge(ch.questions, age));
+      // « Aktuelle Beschwerden » : la déclinaison de la nature du motif —
+      // jamais le modèle douleur avec un mot remplacé.
+      if (ch.id === 'aktuell') { const v = aktuellChapterFor(kategorie); return withCase(v, v.questions); }
+      if (ch.id === 'abschluss') { const v = abschlussChapterFor(c); return withCase(v, v.questions); }
+      return withCase(ch, ch.questions);
     });
 }

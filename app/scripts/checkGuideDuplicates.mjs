@@ -47,7 +47,15 @@ function mainQuestions(raw) {
   if (q) for (const m of q[1].matchAll(/^\s{6}'((?:[^'\\]|\\.)*)',?$/gm)) out.push(m[1]);
   return out;
 }
-const chapters = [...general, ...fach].map((c) => ({ id: c.id, questions: mainQuestions(c.raw) }));
+// Variantes d'« Aktuelle Beschwerden » (une par nature du motif) : chacune est
+// LE chapitre aktuell d'une trame ; deux variantes ne se rencontrent jamais.
+const va = src.indexOf('const AKTUELL_VARIANTS'); const vb = src.indexOf('export function aktuellChapterFor');
+const variants = [...src.slice(va, vb).matchAll(/\n  ([a-z]+): \{\n    subtitle:/g)].map((m, i, all) => {
+  const end = i + 1 < all.length ? all[i + 1].index : vb - va;
+  return { id: `aktuell:${m[1]}`, raw: src.slice(va + m.index, va + end) };
+});
+const chapters = [...general, ...variants, ...fach].map((c) => ({ id: c.id, questions: mainQuestions(c.raw) }));
+const isVariant = (id) => id.startsWith('aktuell:');
 
 // --- règle 1 : un thème = un chapitre ----------------------------------------
 const THEMES = [
@@ -61,11 +69,16 @@ const THEMES = [
 ];
 const problems = [];
 for (const t of THEMES) {
-  const where = chapters
+  const hits = chapters
     .filter((c) => (t.scope === 'general' ? !c.id.startsWith('fach:') : true))
     .filter((c) => c.questions.some((q) => t.re.test(q)))
     .map((c) => c.id);
-  if (where.length > 1) problems.push(`thème « ${t.name} » demandé dans ${where.length} chapitres : ${where.join(', ')}`);
+  // Une trame = chapitres généraux + UNE variante aktuell (+ une Fach) : on
+  // compte donc les variantes une à la fois.
+  const fixed = hits.filter((id) => !isVariant(id));
+  const variantHits = hits.filter(isVariant);
+  if (fixed.length > 1) problems.push(`thème « ${t.name} » demandé dans ${fixed.length} chapitres : ${fixed.join(', ')}`);
+  else if (fixed.length === 1 && variantHits.length) problems.push(`thème « ${t.name} » demandé dans ${fixed[0]} ET dans ${variantHits.join(', ')}`);
 }
 
 // --- règle 2 : texte identique entre chapitres d'une MÊME trame ---------------
@@ -77,8 +90,9 @@ const seen = new Map();
 for (const c of chapters) for (const q of c.questions) {
   const k = norm(q);
   const prev = seen.get(k);
-  if (prev && prev !== c.id && !(isFach(prev) && isFach(c.id))) problems.push(`question répétée dans ${prev} et ${c.id} : « ${q.slice(0, 70)} »`);
-  if (!prev || !isFach(c.id)) seen.set(k, c.id);
+  const exclusive = !!prev && ((isFach(prev) && isFach(c.id)) || (isVariant(prev) && isVariant(c.id)));
+  if (prev && prev !== c.id && !exclusive) problems.push(`question répétée dans ${prev} et ${c.id} : « ${q.slice(0, 70)} »`);
+  if (!prev || (!isFach(c.id) && !isVariant(c.id))) seen.set(k, c.id);
 }
 
 // --- règle 3 : toggles synonymes ----------------------------------------------

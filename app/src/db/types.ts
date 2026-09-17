@@ -11,6 +11,7 @@ export type Center = 'Freiburg' | 'Karlsruhe' | 'Reutlingen' | 'Stuttgart' | 'Co
 
 /** Spécialités (alignées sur les colonnes du CSV Fachbegriffe + ODAK). */
 export type Specialty =
+  | 'Angiologie'
   | 'Kardiologie'
   | 'Pneumologie'
   | 'Gastroenterologie'
@@ -78,6 +79,10 @@ export interface PatientSheet {
   };
   leitsymptome: string[];       // motif principal, formulé côté patient
   begleitsymptome: string[];
+  /** Nature du motif de consultation : pilote la déclinaison du chapitre
+   *  « Aktuelle Beschwerden » (FB2-J1). Absent = `schmerz` si un bloc
+   *  `schmerz` existe ; sinon la porte CI refuse le cas. */
+  leitsymptomKategorie?: LeitsymptomKategorie;
   schmerz?: {                   // Schmerzanalyse pré-remplie si douleur
     ort?: string; charakter?: string; intensitaet?: number;
     ausstrahlung?: string; beginn?: string; verlauf?: string;
@@ -188,6 +193,12 @@ export interface MedicalView {
   therapie: TherapieSektion[];
   erstmassnahmen?: string[]; // ce qu'on fait tout de suite (Zugang, O2…)
   notfall?: boolean;
+  /** La fin de l'entretien EN LANGAGE PATIENT (FB2-J7) : ce que le candidat dit
+   *  au patient en clôture — soupçon, examens, suite — sans Fachbegriff.
+   *  Compléments de « Ich vermute, dass … », « Um das abzuklären, … »,
+   *  « Je nach Ergebnis … ». Alimente aussi la phrase d'ouverture de la
+   *  Fallvorstellung. */
+  patientWorte?: { verdacht: string; diagnostik: string; therapie: string };
 }
 
 /** Fiche de rôle du médecin examinateur (Teil 3, Fallvorstellung) — permet au
@@ -214,6 +225,9 @@ export interface Case {
    *  du guide (FB2-J4) : elle y apparaît pendant la simulation avec un marqueur
    *  « Für diesen Fall ». `string` seul = rétrocompatibilité (chapitre aktuell). */
   caseSpecificQuestions: CaseQuestion[];
+  /** Fachanamnese jouée quand elle diffère de la spécialité du cas (FB2-K1) :
+   *  une TVT est classée « Kardiologie » mais s'interroge en angiologie. */
+  fachanamnese?: Specialty;
   examinerQuestions: string[];       // questions Arzt-Arzt réellement posées
   pruefungsfallen?: string[];        // pièges du cas (Cave-Radar)
   status: CaseStatus;
@@ -254,6 +268,8 @@ export interface Srs {
   lapses: number;
   state: 'Neu' | 'Gelernt' | 'Zu wiederholen';
 }
+
+export type LeitsymptomKategorie = 'schmerz' | 'atemnot' | 'allgemein' | 'psychisch' | 'neurologisch' | 'infekt' | 'veraenderung' | 'anfall';
 
 export type CaseQuestionKapitel =
   | 'aktuell' | 'vegetativ' | 'vorerkrankungen' | 'medikamente' | 'allergien'

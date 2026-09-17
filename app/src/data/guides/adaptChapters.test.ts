@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { adaptChaptersForCase, caseQuestionsForFach } from './anamneseChapters';
+import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForCase } from './anamneseChapters';
 import { phraseIsCaseSpecific, phraseProbes, phraseText } from './phrases';
 import type { Case } from '@/db/types';
 
@@ -17,10 +17,17 @@ describe('Frauenanamnese selon l’âge (FB2-J5)', () => {
     const p = probesOf(mk({ age: 50 }));
     expect(p).toContain('frau-wechseljahre');
     const q = frauen(mk({ age: 50 }))!.questions.find((x) => phraseProbes(x).includes('frau-wechseljahre'))!;
-    expect(phraseText(q)).toMatch(/^Sind Sie schon in den Wechseljahren/);
+    expect(phraseText(q)).toMatch(/^Haben die Wechseljahre bei Ihnen schon begonnen/);
   });
-  it('à 70 ans : ni grossesse ni contraception, seulement la dernière règle et le gynécologue', () => {
-    expect(probesOf(mk({ age: 70 }))).toEqual(['frau-wechseljahre']);
+  it('à 70 ans : ni grossesse ni contraception ; la question des règles devient celle du saignement post-ménopausique', () => {
+    const qs = frauen(mk({ age: 70 }))!.questions;
+    expect(qs.flatMap(phraseProbes)).toEqual(['frau-periode', 'frau-wechseljahre']);
+    expect(phraseText(qs[0])).toMatch(/seitdem noch einmal eine Blutung/);
+    expect(frauen(mk({ age: 70 }))!.tip).not.toMatch(/âge de procréer/);
+  });
+  it('à 50 ans : la dernière règle n’est pas demandée deux fois', () => {
+    const texts = frauen(mk({ age: 50 }))!.questions.map(phraseText);
+    expect(texts.filter((t) => /letzte (Regel|Periode)/i.test(t))).toHaveLength(1);
   });
   it('homme : pas de Frauenanamnese', () => {
     expect(frauen(mk({ age: 50, geschlecht: 'm' }))).toBeUndefined();
@@ -46,5 +53,41 @@ describe('Questions propres au cas dans leur sous-chapitre (FB2-J4)', () => {
   it('les questions « fach » vont à la Fachanamnese, pas aux chapitres généraux', () => {
     expect(caseQuestionsForFach(c).map((q) => q.text)).toEqual(['Nitrospray benutzt?']);
     expect(adaptChaptersForCase(c).flatMap((x) => x.questions).map(phraseText)).not.toContain('Nitrospray benutzt?');
+  });
+});
+
+describe('Fachanamnese jouée (fachChapterForCase)', () => {
+  const base = { patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'w' }, schmerz: {} }, caseSpecificQuestions: [] };
+  it('une TVT classée cardio joue l’angiologie via l’override (FB2-K1)', () => {
+    const c = { ...base, specialty: 'Kardiologie', fachanamnese: 'Angiologie' } as unknown as Case;
+    const f = fachChapterForCase(c)!;
+    expect(f.chapter.id).toBe('fach-gefaess');
+    expect(f.chapter.questions.flatMap(phraseProbes)).toContain('fach-gefaess-gehstrecke');
+  });
+  it('chez une femme, la Fachanamnese urologique ne parle ni d’érection ni de prostate', () => {
+    const c = { ...base, specialty: 'Urologie' } as unknown as Case;
+    const texts = fachChapterForCase(c)!.chapter.questions.map(phraseText).join(' ');
+    expect(texts).not.toMatch(/Erektion|Prostata/);
+    const m = { ...base, specialty: 'Urologie', patientSheet: { ...base.patientSheet, personalia: { ...base.patientSheet.personalia, geschlecht: 'm' } } } as unknown as Case;
+    expect(fachChapterForCase(m)!.chapter.questions.map(phraseText).join(' ')).toMatch(/Erektion/);
+  });
+});
+
+describe('Aktuelle Beschwerden par nature du motif (FB2-J1)', () => {
+  const mkKat = (k: string) => ({ patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, leitsymptomKategorie: k }, caseSpecificQuestions: [] } as unknown as Case);
+  const aktuell = (k: string) => adaptChaptersForCase(mkKat(k)).find((ch) => ch.id === 'aktuell')!;
+  it('un cas d’essoufflement n’a ni échelle de douleur ni irradiation', () => {
+    const probes = aktuell('atemnot').questions.flatMap(phraseProbes);
+    expect(probes).toContain('akt-atemnot-belastung');
+    expect(probes).not.toContain('akt-intensitaet');
+    expect(probes).not.toContain('akt-ausstrahlung');
+    expect(aktuell('atemnot').questions.map(phraseText).join(' ')).not.toMatch(/Skala/);
+  });
+  it('un cas de douleur garde OPQRST intact', () => {
+    expect(aktuell('schmerz').questions.flatMap(phraseProbes)).toEqual(expect.arrayContaining(['akt-ort', 'akt-charakter', 'akt-intensitaet', 'akt-ausstrahlung']));
+  });
+  it('sans catégorie : douleur si un bloc schmerz existe', () => {
+    const c = { patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, schmerz: {} }, caseSpecificQuestions: [] } as unknown as Case;
+    expect(adaptChaptersForCase(c).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes)).toContain('akt-ort');
   });
 });

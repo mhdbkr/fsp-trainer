@@ -5,7 +5,7 @@ import { AutoLink } from '@/components/AutoLink';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
 import { KommunikationGuide } from './KommunikationGuide';
-import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN } from '@/data/guides/anamneseChapters';
+import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, LEITSYMPTOM_LABEL, aktuellChapterFor, type LeitsymptomKategorie } from '@/data/guides/anamneseChapters';
 import { ARZTBRIEF_CHAPTERS } from '@/data/guides/arztbriefChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import type { Phrase } from '@/data/guides/phrases';
@@ -32,9 +32,11 @@ const CATEGORIES: { id: Category; label: string; icon: string; hint: string }[] 
 // Modèle normalisé de chapitre pour l'affichage.
 interface GChapter { id: string; title: string; subtitle?: string; icon: string; keywords: string[]; phrases: Phrase[]; tip?: string; badge?: string }
 
-const ANAMNESE_CH: GChapter[] = ALLGEMEINE_ANAMNESE.map((c) => ({
-  id: c.id, title: c.title, subtitle: c.subtitle, icon: c.icon, keywords: c.keywords, phrases: c.questions, tip: c.tip,
-}));
+const toG = (c: typeof ALLGEMEINE_ANAMNESE[number]): GChapter => ({ id: c.id, title: c.title, subtitle: c.subtitle, icon: c.icon, keywords: c.keywords, phrases: c.questions, tip: c.tip });
+// « Aktuelle Beschwerden » se décline par nature du motif (FB2-J1) : le
+// lecteur choisit la variante qu'il révise ; les autres chapitres sont fixes.
+const anamneseChapters = (kat: LeitsymptomKategorie): GChapter[] =>
+  ALLGEMEINE_ANAMNESE.map((c) => (c.id === 'aktuell' ? toG(aktuellChapterFor(kat)) : toG(c)));
 const ARZTBRIEF_CH: GChapter[] = ARZTBRIEF_CHAPTERS.map((c) => ({
   id: c.id, title: `${c.order}. ${c.title}`, subtitle: c.subtitle, icon: c.icon, keywords: c.keywords, phrases: c.redewendungen, tip: c.tip, badge: c.register,
 }));
@@ -47,6 +49,7 @@ export function GuidesPage() {
   const [params] = useSearchParams();
   const openId = params.get('open');
   const [cat, setCat] = useState<Category>('anamnese');
+  const [kat, setKat] = useState<LeitsymptomKategorie>('schmerz');
   if (!guides) return <div className="text-slate-400">Chargement…</div>;
 
   const grammatik = guides.filter((g) => g.type === 'grammatik');
@@ -81,7 +84,22 @@ export function GuidesPage() {
           <div className="flex items-center gap-2 pt-1 text-[11px] font-semibold text-slate-400">
             <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />Allgemeine Anamnese — étape par étape<span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
           </div>
-          {ANAMNESE_CH.map((ch, i) => <ChapterCard key={ch.id} ch={ch} step={i + 1} defaultOpen={ch.id === openId} />)}
+          {anamneseChapters(kat).map((ch, i) => (
+            <div key={ch.id}>
+              {ch.id === 'aktuell' && (
+                <div className="mb-2 flex flex-wrap items-center gap-1.5">
+                  <span className="label mr-1">Nature du motif</span>
+                  {LEITSYMPTOM_KATEGORIEN.map((k) => (
+                    <button key={k} type="button" onClick={() => setKat(k)} aria-pressed={kat === k}
+                      className={`rounded-full px-2.5 py-1 text-[11.5px] font-medium transition-colors ${kat === k ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-ink-700 dark:text-slate-300 dark:hover:bg-ink-600'}`}>
+                      {LEITSYMPTOM_LABEL[k]}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <ChapterCard ch={ch} step={i + 1} defaultOpen={ch.id === openId} />
+            </div>
+          ))}
         </div>
       )}
       {cat === 'arztbrief' && (

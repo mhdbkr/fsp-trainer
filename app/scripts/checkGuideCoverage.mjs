@@ -19,7 +19,7 @@ const casesSrc = readFileSync(join(root, 'src/data/seedCases.ts'), 'utf8');
 
 // --- sondes connues -----------------------------------------------------------
 const knownIds = new Set([...probesSrc.matchAll(/id:\s*'([a-z0-9-]+)'/g)].map((m) => m[1]));
-const FACH_PREFIX = { Gastroenterologie: 'fach-gastro-', Kardiologie: 'fach-kardio-', Chirurgie: 'fach-chir-', Psychiatrie: 'fach-psych-', Pneumologie: 'fach-pneumo-', Urologie: 'fach-uro-', Infektiologie: 'fach-infekt-', Orthopädie: 'fach-ortho-', Rheumatologie: 'fach-rheuma-', Neurologie: 'fach-neuro-', Endokrinologie: 'fach-endo-' };
+const FACH_PREFIX = { Angiologie: 'fach-gefaess-', Gastroenterologie: 'fach-gastro-', Kardiologie: 'fach-kardio-', Chirurgie: 'fach-chir-', Psychiatrie: 'fach-psych-', Pneumologie: 'fach-pneumo-', Urologie: 'fach-uro-', Infektiologie: 'fach-infekt-', Orthopädie: 'fach-ortho-', Rheumatologie: 'fach-rheuma-', Neurologie: 'fach-neuro-', Endokrinologie: 'fach-endo-' };
 const fachFor = (spec) => [...knownIds].filter((id) => FACH_PREFIX[spec] && id.startsWith(FACH_PREFIX[spec]));
 
 // --- questions liées du guide général, par chapitre --------------------------
@@ -35,8 +35,20 @@ const chapters = block.split(/\n  \{\n    id: '/).slice(1).map((raw) => {
   }
   return { id, probes };
 });
+
+// Sondes propres à chaque nature du motif (AKTUELL_VARIANT_PROBES) : un cas ne
+// répond qu'à celles de SA catégorie (patientSheet.leitsymptomKategorie ;
+// absent = schmerz si un bloc `schmerz` existe).
+const variantBlock = probesSrc.slice(probesSrc.indexOf('AKTUELL_VARIANT_PROBES'), probesSrc.indexOf('// --- Index & helpers'));
+const VARIANT = {};
+for (const m of variantBlock.matchAll(/\n  ([a-z]+): \[([\s\S]*?)\n  \]/g)) VARIANT[m[1]] = [...m[2].matchAll(/id:\s*'([a-z0-9-]+)'/g)].map((x) => x[1]);
+const VARIANT_IDS = new Set(Object.values(VARIANT).flat());
+const kategorieOf = (chunk) => (chunk.match(/leitsymptomKategorie:\s*'([a-z]+)'/) || [])[1] || (/\n\s+schmerz: \{/.test(chunk) ? 'schmerz' : null);
+// Le chapitre « aktuell » est construit par aktuellChapterFor() : ses sondes communes
+// sont celles de BASE_PROBES (akt-*), les propres celles de la variante du cas.
+const AKT_COMMON = [...probesSrc.slice(0, probesSrc.indexOf('AKTUELL_VARIANT_PROBES')).matchAll(/id:\s*'(akt-[a-z]+)'/g)].map((m) => m[1]);
 const unknown = chapters.flatMap((c) => c.probes.filter((p) => !knownIds.has(p)).map((p) => `${c.id}:${p}`));
-const generalProbes = (weiblich) => chapters.filter((c) => weiblich || c.id !== 'frauenanamnese').flatMap((c) => c.probes);
+const generalProbes = (weiblich, kat) => [...chapters.filter((c) => weiblich || c.id !== 'frauenanamnese').flatMap((c) => c.probes), ...AKT_COMMON, ...(VARIANT[kat] ?? [])];
 
 // --- cas ---------------------------------------------------------------------
 const chunks = casesSrc.split(/\n {4}\{\n {6}id: 'case-/).slice(1);
@@ -45,11 +57,14 @@ const rows = [];
 for (const raw of chunks) {
   const chunk = "id: 'case-" + raw;
   const id = 'case-' + raw.match(/^([a-z0-9-]+)'/)[1];
-  const specialty = (chunk.match(/specialty:\s*'([^']+)'/) || [])[1];
+  // Fachanamnese jouée : `fachanamnese` (override) sinon la spécialité.
+  const specialty = (chunk.match(/\bfachanamnese:\s*'([^']+)'/) || chunk.match(/specialty:\s*'([^']+)'/) || [])[1];
   const weiblich = /geschlecht:\s*'w'/.test(chunk);
   const antBlock = (chunk.match(/antworten:\s*\{([\s\S]*?)\n {8}\},/) || [])[1] || '';
   const answered = new Set([...antBlock.matchAll(/'([a-z0-9-]+)':\s*'(.*?)'/g)].filter((m) => m[2].trim()).map((m) => m[1]));
-  const displayed = [...new Set([...generalProbes(weiblich), ...fachFor(specialty)])];
+  const kat = kategorieOf(chunk);
+  if (!kat || !VARIANT[kat]) { failures++; rows.push({ id, specialty, weiblich, shown: 0, missing: [`leitsymptomKategorie manquante ou inconnue (${kat})`] }); continue; }
+  const displayed = [...new Set([...generalProbes(weiblich, kat), ...fachFor(specialty)])];
   const missing = displayed.filter((p) => !answered.has(p));
   if (missing.length) failures++;
   rows.push({ id, specialty, weiblich, shown: displayed.length, missing });

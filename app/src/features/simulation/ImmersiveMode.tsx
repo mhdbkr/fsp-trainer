@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { BogenNotes, Case, MusterCity } from '@/db/types';
-import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForSimulation } from '@/data/guides/anamneseChapters';
+import { adaptChaptersForCase, fachChapterForCase } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, type Phrase } from '@/data/guides/phrases';
 import { Icon } from '@/components/icons';
@@ -53,12 +53,12 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   const chapters = useMemo<FocusChapter[]>(() => {
     if (part === 'anamnese') {
       const base = adaptChaptersForCase(c).map((ch) => ({ id: ch.id, title: ch.title, icon: ch.icon, items: ch.questions, tip: ch.tip }));
-      const fach = fachChapterForSimulation(c.specialty);
+      const fach = fachChapterForCase(c);
       if (fach) {
         // Fachanamnese juste APRÈS « Aktuelle Beschwerden » (comme dans le guide),
         // pas à la fin : ces questions ciblées se posent tôt dans l'entretien.
         const idx = base.findIndex((ch) => ch.id === 'aktuell');
-        const fachCh = { id: fach.chapter.id, title: `Fachanamnese · ${c.specialty}`, icon: fach.icon, items: [...fach.chapter.questions, ...caseQuestionsForFach(c)], tip: fach.chapter.tip };
+        const fachCh = { id: fach.chapter.id, title: `Fachanamnese · ${c.specialty}`, icon: fach.icon, items: fach.chapter.questions, tip: fach.chapter.tip };
         base.splice(idx >= 0 ? idx + 1 : base.length, 0, fachCh);
       }
       return base;
