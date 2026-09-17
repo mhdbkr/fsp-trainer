@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useUi } from '@/store/ui';
 import { useCase, useFachbegriffe } from '@/hooks/useData';
 import { termsInOrder } from '@/lib/collections/caseTerms';
@@ -24,16 +24,28 @@ export function ExternalAiSheet() {
   const [lang, setLang] = useState<FeedbackLang>('fr');
   const [preview, setPreview] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  // Ordre des cibles fixé une fois (préférence sauvegardée d'abord) : une
+  // sélection ne doit pas faire sauter les puces sous le doigt.
+  const [order, setOrder] = useState<TargetId[]>(AI_TARGETS.map((x) => x.id));
+  const dialogRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { loadPrefs().then((p) => { setTarget(p.target); setScope(p.scope); setLang(p.feedbackLang); }); }, []);
+  useEffect(() => {
+    loadPrefs().then((p) => {
+      setTarget(p.target);
+      setScope(p.scope);
+      setLang(p.feedbackLang);
+      setOrder([p.target, ...AI_TARGETS.filter((x) => x.id !== p.target).map((x) => x.id)]);
+    });
+  }, []);
   useEffect(() => {
     if (!caseId) return;
     const h = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
     document.addEventListener('keydown', h);
     return () => document.removeEventListener('keydown', h);
   }, [caseId, close]);
-  // Chaque ouverture d'un nouveau cas repart sans toast résiduel.
-  useEffect(() => { setToast(null); }, [caseId]);
+  // Chaque ouverture d'un nouveau cas repart sans toast résiduel, et le focus
+  // va sur la boîte de dialogue (accessibilité).
+  useEffect(() => { setToast(null); if (caseId) dialogRef.current?.focus(); }, [caseId]);
 
   const topTerms = useMemo(
     () => (c && begriffe ? termsInOrder(c.linkedFachbegriffeIds, begriffe).slice(0, 8).map((t) => t.term) : []),
@@ -50,8 +62,19 @@ export function ExternalAiSheet() {
     // (Safari/mobile bloque un window.open qui suit un await) — appelé
     // directement, sans rien attendre avant lui.
     const result = await launch(t, prompt);
-    await Promise.all([savePrefs({ target, scope, feedbackLang: lang }), setPending({ caseId, targetId: target, scope, at: Date.now() })]);
-    setToast(result.prefilled ? `Prompt copié — le prompt part tout seul dans ${t.label}.` : `Prompt copié — colle-le dans ${t.label}.`);
+    let prefsFailed = false;
+    try {
+      await Promise.all([savePrefs({ target, scope, feedbackLang: lang }), setPending({ caseId, targetId: target, scope, at: Date.now() })]);
+    } catch { prefsFailed = true; }
+    const suffix = prefsFailed ? ' (préférences non enregistrées)' : '';
+    if (!result.copied) {
+      setToast(`Copie impossible — sélectionne le texte de l'aperçu ci-dessous.${suffix}`);
+      setPreview(true);
+      return;
+    }
+    if (result.prefilled && t.submits) setToast(`Prompt copié — le prompt part tout seul dans ${t.label}.${suffix}`);
+    else if (result.prefilled) setToast(`Prompt pré-rempli — appuie sur Entrée pour l'envoyer.${suffix}`);
+    else setToast(`Prompt copié — colle-le dans ${t.label}.${suffix}`);
   };
 
   const copyOnly = async () => {
@@ -62,8 +85,8 @@ export function ExternalAiSheet() {
   return (
     <>
       <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={close} />
-      <div role="dialog" aria-modal="true" aria-label="Simuler avec ton IA"
-        className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[92vh] max-w-lg space-y-4 overflow-y-auto rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-[8vh] sm:-translate-x-1/2 sm:rounded-2xl">
+      <div role="dialog" aria-modal="true" aria-label="Simuler avec ton IA" ref={dialogRef} tabIndex={-1}
+        className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[92vh] max-w-lg space-y-4 overflow-y-auto rounded-t-2xl p-4 outline-none sm:inset-auto sm:left-1/2 sm:top-[8vh] sm:-translate-x-1/2 sm:rounded-2xl">
         <div>
           <div className="label">Simuler avec ton IA</div>
           <h2 className="text-lg font-bold">{c.name}</h2>
@@ -73,8 +96,8 @@ export function ExternalAiSheet() {
         </div>
 
         <div role="radiogroup" aria-label="IA" className="flex flex-wrap gap-2">
-          {[t, ...AI_TARGETS.filter((x) => x.id !== target)].map((x) => (
-            <label key={x.id} className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-3 text-sm ${x.id === target ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 dark:border-slate-700'}`}>
+          {order.map((id) => AI_TARGETS.find((x) => x.id === id)!).map((x) => (
+            <label key={x.id} className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-3 text-sm [&:has(:focus-visible)]:ring-2 ring-brand-400 ${x.id === target ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 dark:border-slate-700'}`}>
               <input type="radio" name="ai" className="sr-only" aria-label={x.label} checked={x.id === target} onChange={() => setTarget(x.id)} />
               <span className="grid h-6 w-6 place-items-center rounded-full bg-ink text-[11px] font-bold text-white dark:bg-ink-600">{x.label[0]}</span>{x.label}
             </label>
@@ -83,7 +106,7 @@ export function ExternalAiSheet() {
 
         <div role="radiogroup" aria-label="Portée" className="grid grid-cols-3 gap-2 text-sm">
           {(Object.keys(SCOPE_LABELS) as Scope[]).map((s) => (
-            <label key={s} className={`flex min-h-11 cursor-pointer items-center justify-center rounded-xl border px-2 text-center ${s === scope ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30' : 'border-slate-200 dark:border-slate-700'}`}>
+            <label key={s} className={`flex min-h-11 cursor-pointer items-center justify-center rounded-xl border px-2 text-center [&:has(:focus-visible)]:ring-2 ring-brand-400 ${s === scope ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30' : 'border-slate-200 dark:border-slate-700'}`}>
               <input type="radio" name="scope" className="sr-only" aria-label={SCOPE_LABELS[s]} checked={s === scope} onChange={() => setScope(s)} />
               {SCOPE_LABELS[s]}
             </label>
@@ -109,16 +132,19 @@ export function ExternalAiSheet() {
           </li>
         </ol>
 
-        <button type="button" onClick={() => setPreview((p) => !p)} className="btn-ghost text-sm">
+        <button type="button" onClick={() => setPreview((p) => !p)} className="btn-ghost min-h-11 text-sm">
           {preview ? 'Masquer l\'aperçu' : 'Voir ce que ton IA recevra'} · ≈ {sizeK} k caractères
         </button>
         {preview && <pre className="max-h-[40vh] overflow-auto whitespace-pre-wrap rounded-xl bg-slate-50 p-3 text-xs dark:bg-slate-900">{prompt}</pre>}
 
         {toast && <p role="status" className="rounded-xl bg-emerald-50 p-3 text-sm text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200">{toast}</p>}
 
-        <div className="flex flex-wrap justify-end gap-2">
-          <button type="button" onClick={copyOnly} className="btn-outline">Copier le prompt</button>
-          <button type="button" onClick={go} className="btn-primary"><Icon name="spark" className="h-4 w-4" />Ouvrir dans {t.label}</button>
+        <div className="flex flex-wrap justify-between gap-2">
+          <button type="button" onClick={close} className="btn-outline min-h-11">Fermer</button>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={copyOnly} className="btn-outline">Copier le prompt</button>
+            <button type="button" onClick={go} className="btn-primary"><Icon name="spark" className="h-4 w-4" />Ouvrir dans {t.label}</button>
+          </div>
         </div>
       </div>
     </>
