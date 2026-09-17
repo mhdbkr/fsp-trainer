@@ -17,13 +17,14 @@ describe('newBudget (D2)', () => {
 describe('compteur du jour', () => {
   beforeEach(() => db.meta.clear());
   it('clé par jour ; remainingToday décroît à chaque markIntroduced', async () => {
-    const d = new Date(Date.UTC(2026, 8, 17, 12));
+    const d = new Date(2026, 8, 17, 12);   // heure locale
     expect(introducedKey(d)).toBe('srs.newIntroduced:2026-09-17');
     expect(await introducedToday(d)).toBe(0);
     await markIntroduced(d); await markIntroduced(d);
     expect(await introducedToday(d)).toBe(2);
     expect(await remainingToday(10, d)).toBe(8);
     expect(await remainingToday(1, d)).toBe(0);
-    expect(await introducedToday(new Date(Date.UTC(2026, 8, 18, 12)))).toBe(0);
+    expect(await introducedToday(new Date(2026, 8, 18, 12))).toBe(0);
+    expect(introducedKey(new Date(2026, 8, 17, 0, 30))).toBe('srs.newIntroduced:2026-09-17');   // 00 h 30 local = aujourd'hui
   });
 });

@@ -15,7 +15,8 @@ export function newBudget(i: BudgetInput): number {
   return Math.max(5, Math.min(30, Math.round(base * f)));
 }
 
-const dayKey = (d: Date) => d.toISOString().slice(0, 10);
+// Jour LOCAL (pas UTC) : réviser à 00 h 30 compte pour aujourd'hui, pas pour la veille.
+const dayKey = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 export const introducedKey = (d: Date) => `srs.newIntroduced:${dayKey(d)}`;
 export const introducedToday = (now = new Date()) => getMeta<number>(introducedKey(now), 0);
 export async function markIntroduced(now = new Date()): Promise<void> { await setMeta(introducedKey(now), (await introducedToday(now)) + 1); }
