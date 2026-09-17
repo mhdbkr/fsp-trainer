@@ -6,8 +6,8 @@ const BASE: Record<string, string> = { Ä: 'A', Ö: 'O', Ü: 'U', ẞ: 'S', ß: 
 /** Lettre de groupement (allemand) : Ä→A, Ö→O, Ü→U, ß→S ; hors alphabet → '#'. */
 export function letterOf(term: string): string {
   const raw = term.trim()[0] ?? '';
-  const base = BASE[raw];
-  const l = base ?? raw.toUpperCase();
+  const up = raw === 'ß' ? 'S' : raw.toUpperCase();
+  const l = BASE[up] ?? up;
   return /^[A-Z]$/.test(l) ? l : '#';
 }
 const collator = new Intl.Collator('de', { sensitivity: 'base' });
@@ -20,7 +20,7 @@ export function buildRows(terms: Fachbegriff[]): { rows: Row[]; firstIndexByLett
   let current = '';
   for (const term of terms) {
     const l = letterOf(term.term);
-    if (l !== current) { current = l; firstIndexByLetter.set(l, rows.length); rows.push({ kind: 'letter', letter: l }); }
+    if (l !== current) { current = l; if (!firstIndexByLetter.has(l)) firstIndexByLetter.set(l, rows.length); rows.push({ kind: 'letter', letter: l }); }
     rows.push({ kind: 'term', term });
   }
   return { rows, firstIndexByLetter };

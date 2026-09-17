@@ -8,9 +8,11 @@ const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(pre
 export function AlphabetRail({ available, onJump }: { available: Set<string>; onJump: (letter: string) => void }) {
   const [hot, setHot] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const touchedRef = useRef(false);
+  const rm = reduced();
 
   const scaleFor = (i: number) => {
-    if (hot === null || reduced()) return '';
+    if (hot === null || rm) return '';
     const d = Math.abs(i - hot);
     return d === 0 ? 'scale(1.6)' : d === 1 ? 'scale(1.25)' : '';
   };
@@ -20,20 +22,25 @@ export function AlphabetRail({ available, onJump }: { available: Set<string>; on
     return i >= 0 && i < LETTERS.length ? i : null;
   };
   const onTouch = (e: React.TouchEvent) => {
+    touchedRef.current = true;
     const i = letterAt(e.touches[0].clientY); setHot(i);
     if (i !== null && available.has(LETTERS[i])) onJump(LETTERS[i]);
+  };
+  const onLetterClick = (l: string, on: boolean) => {
+    if (touchedRef.current) { touchedRef.current = false; return; }
+    if (on) onJump(l);
   };
 
   return (
     <div ref={ref} role="group" aria-label="Aller à la lettre"
-      className="sticky top-20 flex h-[min(70vh,520px)] w-11 select-none flex-col items-center justify-between py-1 text-[11px] font-semibold text-slate-400"
+      className="sticky top-20 flex h-[min(70vh,520px)] w-11 touch-none select-none flex-col items-center justify-between py-1 text-[11px] font-semibold text-slate-400"
       onMouseLeave={() => setHot(null)} onTouchStart={onTouch} onTouchMove={onTouch} onTouchEnd={() => setHot(null)}>
       {LETTERS.map((l, i) => {
         const on = available.has(l);
         return (
           <button key={l} type="button" aria-label={l} aria-disabled={!on}
-            onMouseMove={() => setHot(i)} onClick={() => on && onJump(l)}
-            style={{ transform: scaleFor(i), transition: reduced() ? undefined : 'transform 120ms ease-out' }}
+            onMouseMove={() => setHot(i)} onFocus={() => setHot(i)} onBlur={() => setHot(null)} onClick={() => onLetterClick(l, on)}
+            style={{ transform: scaleFor(i), transition: rm ? undefined : 'transform 120ms ease-out' }}
             className={`grid h-4 w-8 place-items-center rounded leading-none ${on ? (hot === i ? 'text-brand-600 dark:text-brand-300' : 'text-slate-500 dark:text-slate-400') : 'text-slate-300 dark:text-slate-700'}`}>
             {l}
           </button>
