@@ -6,6 +6,7 @@ import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/u
 import type { Fachbegriff } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
+import { markIntroduced } from '@/lib/srsBudget';
 import { syncQueue } from '@/lib/sync/queue';
 import { termsOfDeck } from '@/lib/collections/query';
 import { buildDrillQueue, nextDueAt } from '@/lib/collections/drillQueue';
@@ -105,9 +106,11 @@ export function DrillPage() {
   const back = direction === 'term2simple' ? card.translationSimple : card.term;
 
   const grade = async (g: Grade) => {
+    const wasNew = card.srs.state === 'Neu';
     const newSrs = reviewSrs(card.srs, g);
     await db.fachbegriffe.update(card.id, { srs: newSrs });
     syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
+    if (wasNew) void markIntroduced();
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
     if (g < 3) {
       // remet la carte en fin de file pour la revoir dans la session
