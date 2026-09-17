@@ -52,6 +52,8 @@ jobs:
         run: node scripts/checkCaseQuestionChapters.mjs
       - name: patientWorte — la clôture en langage patient (130 cas)
         run: node scripts/checkPatientWorte.mjs
+      - name: Trame jouée sans doublon (montage réel : variante, Fach adaptée, questions du cas)
+        run: node scripts/checkPlayedTrame.mjs
       - name: Sections thérapeutiques identiques fiche ↔ cas
         run: node scripts/checkTherapieLabels.mjs
       - name: Fachwissen visuals — schéma, refs, ergänzt

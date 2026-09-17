@@ -83,6 +83,10 @@ export interface PatientSheet {
    *  « Aktuelle Beschwerden » (FB2-J1). Absent = `schmerz` si un bloc
    *  `schmerz` existe ; sinon la porte CI refuse le cas. */
   leitsymptomKategorie?: LeitsymptomKategorie;
+  /** Dimensions de la variante qui n'ont PAS de sens pour CE cas (ex.
+   *  l'orthopnée pour un rhume des foins) : sondes retirées du guide, réponse
+   *  non exigée. Explicite et relu, plutôt qu'un gabarit subi. */
+  aktuellSkip?: string[];
   schmerz?: {                   // Schmerzanalyse pré-remplie si douleur
     ort?: string; charakter?: string; intensitaet?: number;
     ausstrahlung?: string; beginn?: string; verlauf?: string;
@@ -269,7 +273,7 @@ export interface Srs {
   state: 'Neu' | 'Gelernt' | 'Zu wiederholen';
 }
 
-export type LeitsymptomKategorie = 'schmerz' | 'atemnot' | 'allgemein' | 'psychisch' | 'neurologisch' | 'infekt' | 'veraenderung' | 'anfall';
+export type LeitsymptomKategorie = 'schmerz' | 'atemnot' | 'allgemein' | 'psychisch' | 'neurologisch' | 'nerven' | 'infekt' | 'veraenderung' | 'ausscheidung' | 'anfall';
 
 export type CaseQuestionKapitel =
   | 'aktuell' | 'vegetativ' | 'vorerkrankungen' | 'medikamente' | 'allergien'

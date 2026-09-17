@@ -46,7 +46,9 @@ for (const raw of chunks) {
   const keys = new Set([...antBlock.matchAll(/'([a-z0-9-]+)':\s*'/g)].map((m) => m[1]));
   const kat = kategorieOf(chunk);
   if (!kat || !VARIANT[kat]) { failures++; rows.push({ id, specialty, weiblich, have: 0, need: 0, missing: [`leitsymptomKategorie manquante ou inconnue (${kat})`], unknown: [] }); continue; }
-  const applicable = [...BASE, ...VARIANT[kat], ...fachFor(specialty), ...(weiblich ? FRAUEN : [])];
+  // Dimensions exclues pour CE cas (aktuellSkip) : pas de réponse exigée.
+  const skip = new Set([...(chunk.match(/aktuellSkip:\s*\[([^\]]*)\]/) || ['', ''])[1].matchAll(/'([a-z0-9-]+)'/g)].map((x) => x[1]));
+  const applicable = [...BASE, ...VARIANT[kat].filter((id) => !skip.has(id)), ...fachFor(specialty), ...(weiblich ? FRAUEN : [])];
   const missing = applicable.filter((p) => !keys.has(p));
   const unknown = [...keys].filter((k) => !knownIds.has(k));
   if (missing.length || unknown.length) failures++;

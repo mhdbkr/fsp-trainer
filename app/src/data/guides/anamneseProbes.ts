@@ -178,7 +178,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-uro-frequenz', kapitel: 'fach', frage: 'Müssen Sie häufiger als sonst Wasser lassen, auch nachts? Kommt dabei nur wenig?' },
     { id: 'fach-uro-drang', kapitel: 'fach', frage: 'Haben Sie plötzlichen, starken Harndrang? Können Sie den Urin noch halten?' },
     { id: 'fach-uro-farbe', kapitel: 'fach', frage: 'Welche Farbe hat der Urin? Ist Blut dabei, oder riecht er auffällig?' },
-    { id: 'fach-uro-flanke', kapitel: 'fach', frage: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Strahlen sie in die Leiste aus?' },
+    { id: 'fach-uro-flanke', kapitel: 'fach', frage: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Strahlen sie in die Leiste aus?', deepens: 'akt-ausstrahlung' },
     { id: 'fach-uro-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber oder Schüttelfrost?', deepens: 'veg-schuettelfrost' },
     { id: 'fach-uro-strahl', kapitel: 'fach', frage: 'Wie ist der Harnstrahl — abgeschwächt? Müssen Sie pressen, oder tropft es nach?' },
     // Promues du guide rédigé (harmonisation) : l'anamnèse sexuelle fait partie
@@ -369,6 +369,16 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-veraend-was', kapitel: 'aktuell', frage: 'Was genau ist Ihnen aufgefallen: Knoten, Hautveränderung, blaue Flecken, Blutung, Schlucken, Stuhl, Gelbfärbung?' },
     { id: 'akt-veraend-entwicklung', kapitel: 'aktuell', frage: 'Ist es seitdem größer, häufiger oder schlimmer geworden? Farbe oder Form verändert?' },
     { id: 'akt-veraend-blutung', kapitel: 'aktuell', frage: 'Tut es weh, juckt es, blutet es? Blut im Stuhl, im Urin, beim Husten, aus der Nase?' },
+  ],
+  nerven: [
+    { id: 'akt-nerven-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: Zittern, Kribbeln, Taubheit, Schwäche, Steifigkeit? Wo, welche Seite?' },
+    { id: 'akt-nerven-alltag', kapitel: 'aktuell', frage: 'Was fällt dadurch schwer: Knöpfe, Schreiben, Tasse halten, Gehen, Treppen? Stürze?' },
+    { id: 'akt-nerven-tageszeit', kapitel: 'aktuell', frage: 'Nachts oder morgens schlimmer? Stärker bei Anstrengung, Wärme, Aufregung, bestimmten Haltungen?' },
+  ],
+  ausscheidung: [
+    { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Schlucken, Farbe von Haut/Augen/Urin/Stuhl?' },
+    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft am Tag, wie oft nachts? Mehr oder weniger? Plötzlicher Drang, tröpfchenweise?' },
+    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Wie sieht es aus: Farbe, Blut, Schleim, schaumig, Geruch? Bleibt Festes oder auch Flüssiges hängen?' },
   ],
   anfall: [
     { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an, wie hört er auf? Was spüren Sie währenddessen?' },

@@ -91,3 +91,33 @@ describe('Aktuelle Beschwerden par nature du motif (FB2-J1)', () => {
     expect(adaptChaptersForCase(c).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes)).toContain('akt-ort');
   });
 });
+
+describe('Un seul endroit par trame (FACH_COVERS, aktuellSkip, règles de Fach)', () => {
+  const mk = (over: Record<string, unknown>) => ({ caseSpecificQuestions: [], ...over } as unknown as Case);
+  it('la variante psychisch ne repose pas ce que la Fach Psychiatrie demande (Stimmung, sécurité)', () => {
+    const c = mk({ specialty: 'Psychiatrie', patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, leitsymptomKategorie: 'psychisch' } });
+    const akt = adaptChaptersForCase(c).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes);
+    expect(akt).not.toContain('akt-psych-stimmung');
+    expect(akt).not.toContain('akt-psych-sicherheit');
+    // Sans Fach psy, la variante les pose.
+    const d = mk({ specialty: 'Kardiologie', patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, leitsymptomKategorie: 'psychisch' } });
+    expect(adaptChaptersForCase(d).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes)).toContain('akt-psych-sicherheit');
+  });
+  it('aktuellSkip retire une dimension qui n’a pas de sens pour ce cas', () => {
+    const c = mk({ specialty: 'Dermatologie', patientSheet: { personalia: { name: 'X', age: 30, geschlecht: 'w' }, leitsymptomKategorie: 'atemnot', aktuellSkip: ['akt-atemnot-nachts'] } });
+    expect(adaptChaptersForCase(c).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes)).not.toContain('akt-atemnot-nachts');
+  });
+  it('la pilule ne se demande ni à un homme ni après 55 ans (Fach angiologie)', () => {
+    const m = mk({ specialty: 'Kardiologie', fachanamnese: 'Angiologie', patientSheet: { personalia: { name: 'X', age: 60, geschlecht: 'm' }, schmerz: {} } });
+    const w70 = mk({ specialty: 'Kardiologie', fachanamnese: 'Angiologie', patientSheet: { personalia: { name: 'X', age: 70, geschlecht: 'w' }, schmerz: {} } });
+    const w30 = mk({ specialty: 'Kardiologie', fachanamnese: 'Angiologie', patientSheet: { personalia: { name: 'X', age: 30, geschlecht: 'w' }, schmerz: {} } });
+    const probes = (c: Case) => fachChapterForCase(c)!.chapter.questions.flatMap(phraseProbes);
+    expect(probes(m)).not.toContain('fach-gefaess-hormone');
+    expect(probes(w70)).not.toContain('fach-gefaess-hormone');
+    expect(probes(w30)).toContain('fach-gefaess-hormone');
+  });
+  it('la Sexualanamnese urologique ne demande pas la contraception à 76 ans', () => {
+    const c = mk({ specialty: 'Urologie', patientSheet: { personalia: { name: 'X', age: 76, geschlecht: 'w' }, schmerz: {} } });
+    expect(fachChapterForCase(c)!.chapter.questions.map(phraseText).join(' ')).not.toMatch(/verhüten/);
+  });
+});

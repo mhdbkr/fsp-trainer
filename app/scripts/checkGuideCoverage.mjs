@@ -1,81 +1,46 @@
 // ============================================================================
-// Validateur du CONTRAT GUIDE ↔ FICHE PATIENT (FB-A3).
-// Toute question que le guide de simulation AFFICHE pour un cas doit avoir sa
-// réponse dans `patientSheet.antworten` — sinon le simulant patient est muet.
-//   questions affichées = Allgemeine Anamnese (questions liées à une sonde ;
-//   Frauenanamnese seulement si patiente) + Fachanamnese de la spécialité
-//   (générée depuis les sondes `fach-<préfixe>-*`).
-// Vérifie aussi que chaque `probe:` du guide désigne une sonde qui existe.
+// Validateur du CONTRAT GUIDE ↔ FICHE PATIENT (FB-A3), sur le montage RÉEL.
+// Toute question que le guide AFFICHE pour un cas doit avoir sa réponse dans
+// `patientSheet.antworten` — sinon le simulant patient est muet. On exécute
+// `adaptChaptersForCase` + `fachChapterForCase` (variante de la nature du
+// motif, adaptation sexe/âge, Fach couvrant la variante, aktuellSkip) plutôt
+// que de relire la source : ce qui est vérifié est ce qui est joué.
 // Usage : node scripts/checkGuideCoverage.mjs
 // ============================================================================
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { build } from 'esbuild';
+import { writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
+import { tmpdir } from 'node:os';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const chaptersSrc = readFileSync(join(root, 'src/data/guides/anamneseChapters.ts'), 'utf8');
-const probesSrc = readFileSync(join(root, 'src/data/guides/anamneseProbes.ts'), 'utf8');
-const casesSrc = readFileSync(join(root, 'src/data/seedCases.ts'), 'utf8');
-
-// --- sondes connues -----------------------------------------------------------
-const knownIds = new Set([...probesSrc.matchAll(/id:\s*'([a-z0-9-]+)'/g)].map((m) => m[1]));
-const FACH_PREFIX = { Angiologie: 'fach-gefaess-', Gastroenterologie: 'fach-gastro-', Kardiologie: 'fach-kardio-', Chirurgie: 'fach-chir-', Psychiatrie: 'fach-psych-', Pneumologie: 'fach-pneumo-', Urologie: 'fach-uro-', Infektiologie: 'fach-infekt-', Orthopädie: 'fach-ortho-', Rheumatologie: 'fach-rheuma-', Neurologie: 'fach-neuro-', Endokrinologie: 'fach-endo-' };
-const fachFor = (spec) => [...knownIds].filter((id) => FACH_PREFIX[spec] && id.startsWith(FACH_PREFIX[spec]));
-
-// --- questions liées du guide général, par chapitre --------------------------
-const a = chaptersSrc.indexOf('export const ALLGEMEINE_ANAMNESE');
-const b = chaptersSrc.indexOf('\n];', a);
-const block = chaptersSrc.slice(a, b);
-const chapters = block.split(/\n  \{\n    id: '/).slice(1).map((raw) => {
-  const id = raw.match(/^([a-z-]+)'/)[1];
-  const probes = [];
-  for (const m of raw.matchAll(/probe:\s*(?:'([a-z0-9-]+)'|\[([^\]]+)\])/g)) {
-    if (m[1]) probes.push(m[1]);
-    else probes.push(...[...m[2].matchAll(/'([a-z0-9-]+)'/g)].map((x) => x[1]));
-  }
-  return { id, probes };
+const dir = mkdtempSync(join(tmpdir(), 'fsp-cov-'));
+const entry = join(dir, 'entry.ts');
+writeFileSync(entry, `
+  export { seedCases } from ${JSON.stringify(join(root, 'src/data/seedCases.ts'))};
+  export { adaptChaptersForCase, fachChapterForCase } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
+  export { phraseProbes, phraseIsCaseSpecific } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
+  export { PROBE_BY_ID } from ${JSON.stringify(join(root, 'src/data/guides/anamneseProbes.ts'))};
+`);
+const out = join(dir, 'bundle.mjs');
+await build({
+  entryPoints: [entry], outfile: out, bundle: true, format: 'esm', platform: 'node', logLevel: 'silent',
+  plugins: [{ name: 'alias', setup(b) { b.onResolve({ filter: /^@\// }, (a) => ({ path: join(root, 'src', a.path.slice(2)) + (a.path.endsWith('.ts') ? '' : '.ts') })); } }],
 });
+const m = await import(pathToFileURL(out).href);
+rmSync(dir, { recursive: true, force: true });
 
-// Sondes propres à chaque nature du motif (AKTUELL_VARIANT_PROBES) : un cas ne
-// répond qu'à celles de SA catégorie (patientSheet.leitsymptomKategorie ;
-// absent = schmerz si un bloc `schmerz` existe).
-const variantBlock = probesSrc.slice(probesSrc.indexOf('AKTUELL_VARIANT_PROBES'), probesSrc.indexOf('// --- Index & helpers'));
-const VARIANT = {};
-for (const m of variantBlock.matchAll(/\n  ([a-z]+): \[([\s\S]*?)\n  \]/g)) VARIANT[m[1]] = [...m[2].matchAll(/id:\s*'([a-z0-9-]+)'/g)].map((x) => x[1]);
-const VARIANT_IDS = new Set(Object.values(VARIANT).flat());
-const kategorieOf = (chunk) => (chunk.match(/leitsymptomKategorie:\s*'([a-z]+)'/) || [])[1] || (/\n\s+schmerz: \{/.test(chunk) ? 'schmerz' : null);
-// Le chapitre « aktuell » est construit par aktuellChapterFor() : ses sondes communes
-// sont celles de BASE_PROBES (akt-*), les propres celles de la variante du cas.
-const AKT_COMMON = [...probesSrc.slice(0, probesSrc.indexOf('AKTUELL_VARIANT_PROBES')).matchAll(/id:\s*'(akt-[a-z]+)'/g)].map((m) => m[1]);
-const unknown = chapters.flatMap((c) => c.probes.filter((p) => !knownIds.has(p)).map((p) => `${c.id}:${p}`));
-const generalProbes = (weiblich, kat) => [...chapters.filter((c) => weiblich || c.id !== 'frauenanamnese').flatMap((c) => c.probes), ...AKT_COMMON, ...(VARIANT[kat] ?? [])];
-
-// --- cas ---------------------------------------------------------------------
-const chunks = casesSrc.split(/\n {4}\{\n {6}id: 'case-/).slice(1);
-let failures = 0;
-const rows = [];
-for (const raw of chunks) {
-  const chunk = "id: 'case-" + raw;
-  const id = 'case-' + raw.match(/^([a-z0-9-]+)'/)[1];
-  // Fachanamnese jouée : `fachanamnese` (override) sinon la spécialité.
-  const specialty = (chunk.match(/\bfachanamnese:\s*'([^']+)'/) || chunk.match(/specialty:\s*'([^']+)'/) || [])[1];
-  const weiblich = /geschlecht:\s*'w'/.test(chunk);
-  const antBlock = (chunk.match(/antworten:\s*\{([\s\S]*?)\n {8}\},/) || [])[1] || '';
-  const answered = new Set([...antBlock.matchAll(/'([a-z0-9-]+)':\s*'(.*?)'/g)].filter((m) => m[2].trim()).map((m) => m[1]));
-  const kat = kategorieOf(chunk);
-  if (!kat || !VARIANT[kat]) { failures++; rows.push({ id, specialty, weiblich, shown: 0, missing: [`leitsymptomKategorie manquante ou inconnue (${kat})`] }); continue; }
-  const displayed = [...new Set([...generalProbes(weiblich, kat), ...fachFor(specialty)])];
-  const missing = displayed.filter((p) => !answered.has(p));
-  if (missing.length) failures++;
-  rows.push({ id, specialty, weiblich, shown: displayed.length, missing });
+let failures = 0; let shownTotal = 0; const unknown = new Set();
+for (const c of m.seedCases()) {
+  const displayed = new Set();
+  const collect = (qs) => { for (const q of qs) if (!m.phraseIsCaseSpecific(q)) for (const p of m.phraseProbes(q)) { displayed.add(p); if (!m.PROBE_BY_ID[p]) unknown.add(p); } };
+  for (const ch of m.adaptChaptersForCase(c)) collect(ch.questions);
+  const f = m.fachChapterForCase(c); if (f) collect(f.chapter.questions);
+  const ant = c.patientSheet.antworten ?? {};
+  const missing = [...displayed].filter((p) => !(ant[p] && String(ant[p]).trim()));
+  shownTotal += displayed.size;
+  if (missing.length) { failures++; console.log(`❌ ${c.id.padEnd(26)} ${displayed.size} questions affichées — SANS RÉPONSE (${missing.length}) : ${missing.join(', ')}`); }
 }
-
-// --- rapport -------------------------------------------------------------------
-if (unknown.length) { console.log(`❌ sondes INCONNUES référencées par le guide : ${unknown.join(', ')}`); failures++; }
-const bound = chapters.reduce((s, c) => s + c.probes.length, 0);
-console.log(`Guide général : ${chapters.length} chapitres, ${bound} liaisons question→sonde.`);
-for (const r of rows) {
-  if (r.missing.length) console.log(`❌ ${r.id.padEnd(26)} [${r.specialty}${r.weiblich ? ', ♀' : ''}] ${r.shown} questions affichées — SANS RÉPONSE (${r.missing.length}) : ${r.missing.join(', ')}`);
-}
-console.log(`\n${failures === 0 ? '✅ CONTRAT GUIDE ↔ FICHE COMPLET' : `❌ ${failures} problème(s)`} — ${rows.length} cas : chaque question affichée a sa réponse patient.`);
+if (unknown.size) { failures++; console.log(`❌ sondes INCONNUES affichées : ${[...unknown].join(', ')}`); }
+console.log(`\n${failures === 0 ? '✅ CONTRAT GUIDE ↔ FICHE COMPLET' : `❌ ${failures} problème(s)`} — 130 cas, ${shownTotal} questions affichées : chaque question affichée a sa réponse patient.`);
 process.exit(failures === 0 ? 0 : 1);

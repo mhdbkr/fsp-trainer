@@ -35,10 +35,11 @@ export interface AnamneseChapter {
 // ============================================================================
 
 export type { LeitsymptomKategorie } from '@/db/types';
-export const LEITSYMPTOM_KATEGORIEN: LeitsymptomKategorie[] = ['schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'infekt', 'veraenderung', 'anfall'];
+export const LEITSYMPTOM_KATEGORIEN: LeitsymptomKategorie[] = ['schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'nerven', 'infekt', 'veraenderung', 'ausscheidung', 'anfall'];
 export const LEITSYMPTOM_LABEL: Record<LeitsymptomKategorie, string> = {
   schmerz: 'Douleur (OPQRST)', atemnot: 'Essoufflement', allgemein: 'Fatigue, faiblesse, poids', psychisch: 'Psychique',
-  neurologisch: 'Neurologique', infekt: 'Fièvre / infection', veraenderung: 'Changement remarqué (nodule, peau, saignement, fonction)', anfall: 'Épisodes (palpitations, malaise)',
+  neurologisch: 'Neurologique aigu (déficit, vertige, confusion)', nerven: 'Neurologique chronique (tremblement, fourmillements, faiblesse)', infekt: 'Fièvre / infection',
+  veraenderung: 'Changement remarqué (nodule, peau, saignement)', ausscheidung: 'Urines, selles, déglutition, teint', anfall: 'Épisodes (palpitations, malaise)',
 };
 
 const MOTIV: Phrase = {
@@ -217,10 +218,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
     questions: [
       MOTIV,
       {
-        text: 'Beginn — Wann genau hat es angefangen — um welche Uhrzeit? Was haben Sie in dem Moment gemacht?',
+        text: 'Beginn — Wann hat es angefangen, und wie: schlagartig, von einer Minute auf die andere, oder allmählich? Was haben Sie in dem Moment gemacht?',
         probe: 'akt-beginn',
-        alts: ['Wann waren Sie zuletzt sicher beschwerdefrei?'],
-        label: 'Uhrzeit!',
+        followUp: ['Falls schlagartig: Um welche Uhrzeit genau? Wann waren Sie zuletzt sicher beschwerdefrei?'],
       },
       {
         text: 'Art des Ausfalls — Was genau war anders: eine Schwäche oder Taubheit — auf welcher Seite? Probleme beim Sprechen, beim Sehen, beim Gehen?',
@@ -272,12 +272,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
     tip: 'Fièvre : la courbe (mesurée, frissons), le foyer (organe par organe) et l’exposition (voyage, contact, animal, geste récent) — c’est l’anamnèse qui oriente l’antibiotique. Le statut vaccinal se demande dans les antécédents.',
   },
   veraenderung: {
-    subtitle: 'Motif + analyse d’un changement remarqué (nodule, peau, saignement, déglutition, selles, teint)',
-    keywords: ['bemerkt', 'Größe', 'Blutung', 'Schlucken', 'Stuhl', 'Gelb', 'Knoten', 'Haut'],
+    subtitle: 'Motif + analyse d’un changement remarqué (nodule, peau, saignement)',
+    keywords: ['bemerkt', 'Größe', 'Blutung', 'Knoten', 'Schwellung', 'Haut'],
     questions: [
       MOTIV,
       {
-        text: 'Was genau — Was ist Ihnen aufgefallen: ein Knoten, eine Hautveränderung, blaue Flecken, eine Blutung, Probleme beim Schlucken, ein veränderter Stuhl, eine Gelbfärbung?',
+        text: 'Was genau — Was ist Ihnen aufgefallen: ein Knoten, eine Schwellung, eine Hautveränderung, blaue Flecken, eine Blutung?',
         probe: 'akt-veraend-was',
       },
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Wie ist es Ihnen aufgefallen — zufällig, beim Duschen, durch jemand anderen?', probe: 'akt-beginn' },
@@ -296,6 +296,58 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       BEGLEIT,
     ],
     tip: 'Un changement remarqué : quoi, depuis quand, comment ça évolue, est-ce que ça saigne — puis les signes B (poids, sueurs, fièvre) dans l’anamnèse végétative. Ne demande pas « où ça fait mal » si rien ne fait mal.',
+  },
+  nerven: {
+    subtitle: 'Motif + analyse d’un trouble neurologique chronique (tremblement, fourmillements, faiblesse)',
+    keywords: ['Zittern', 'Kribbeln', 'Taubheit', 'Schwäche', 'Seite', 'Feinmotorik', 'Gehen', 'Schübe'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Seit wann bemerken Sie das? Ist es langsam gekommen, oder in Schüben mit besseren Phasen dazwischen?', probe: 'akt-beginn' },
+      {
+        text: 'Art — Was genau spüren Sie: ein Zittern, ein Kribbeln, ein Taubheitsgefühl, eine Schwäche, eine Steifigkeit? Wo — und auf einer oder beiden Seiten?',
+        probe: 'akt-nerven-art',
+      },
+      {
+        text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten, gehen, Treppen? Sind Sie schon gestürzt?',
+        probe: 'akt-nerven-alltag',
+      },
+      {
+        text: 'Tageszeit und Auslöser — Ist es nachts oder morgens schlimmer? Wird es bei Anstrengung, Wärme, Aufregung oder in bestimmten Haltungen stärker?',
+        probe: 'akt-nerven-tageszeit',
+      },
+      { text: 'Verlauf — Ist es gleichbleibend, wird es langsam schlimmer, oder kommt es und geht wieder ganz weg?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament, eine neue Tätigkeit?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das es bessert — Ausschütteln der Hand, Ruhe, Bewegung, Kälte?', probe: 'akt-einfluss' },
+      FRUEHER('so etwas'),
+      { text: 'Begleitbeschwerden — Haben Sie dazu Sehstörungen, Schwindel, Probleme mit Blase oder Stuhlgang, oder Schmerzen?', probe: 'akt-begleit' },
+    ],
+    tip: 'Chronique ≠ aigu : ici, pas d’heure de début, mais la nature du trouble (tremblement/paresthésies/faiblesse), sa distribution (côté, distal/proximal), l’évolution (progressive ou par poussées) et l’impact fin (boutons, écriture, marche).',
+  },
+  ausscheidung: {
+    subtitle: 'Motif + analyse d’un trouble des urines, des selles, de la déglutition ou du teint',
+    keywords: ['Wasserlassen', 'Stuhlgang', 'Schlucken', 'Farbe', 'Blut', 'Häufigkeit', 'Gelb'],
+    questions: [
+      MOTIV,
+      { text: 'Beginn — Seit wann haben Sie das bemerkt? Kam es plötzlich oder hat es sich über Wochen entwickelt?', probe: 'akt-beginn' },
+      {
+        text: 'Was genau — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, beim Schlucken, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
+        probe: 'akt-ausscheid-was',
+      },
+      {
+        text: 'Häufigkeit und Menge — Wie oft am Tag, wie oft nachts? Mehr oder weniger als sonst? Müssen Sie plötzlich, oder kommt es nur tröpfchenweise?',
+        probe: 'akt-ausscheid-haeufigkeit',
+      },
+      {
+        text: 'Aussehen — Wie sieht es aus: Farbe, Blut, Schleim, schaumig, übel riechend? Bei Schluckbeschwerden: bleibt Festes hängen, oder auch Flüssiges?',
+        probe: 'akt-ausscheid-aussehen',
+      },
+      { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert — Essen, Trinken, Bewegung, Medikamente?', probe: 'akt-einfluss' },
+      FRUEHER('solche Beschwerden'),
+      BEGLEIT,
+    ],
+    tip: 'Urines, selles, déglutition, teint : quoi, depuis quand, combien, à quoi ça ressemble (couleur, sang, mousse), et ce qui déclenche. Les signes B (poids, fièvre, sueurs) suivent dans l’anamnèse végétative — ne les demande pas deux fois.',
   },
   anfall: {
     subtitle: 'Motif + analyse d’épisodes (palpitations, malaise, perte de connaissance)',
@@ -325,6 +377,55 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
     tip: 'Un épisode se décrit par son déroulé (début, fin, durée, fréquence) et par ce qui l’accompagne — pas par une localisation ni une échelle. Le témoin oculaire est une source : demande-le.',
   },
 };
+
+// ── Un seul endroit par trame ────────────────────────────────────────────────
+// Quand la Fachanamnese jouée porte déjà une dimension de la variante (la Fach
+// pneumo demande le Husten, la Fach psy la Stimmung et la question de
+// sécurité), la variante NE la pose PAS : la Fach est plus fine et vient trois
+// lignes plus bas. Carte explicite, relue — pas une similarité de mots.
+// Clé = sonde Fach ; valeurs = sondes de variante qu'elle rend inutiles.
+export const FACH_COVERS: Record<string, string[]> = {
+  // Pneumologie
+  'fach-pneumo-husten': ['akt-atemnot-husten'], 'fach-pneumo-auswurf': ['akt-atemnot-husten'],
+  'fach-pneumo-atemnot': ['akt-atemnot-belastung'], 'fach-pneumo-orthopnoe': ['akt-atemnot-nachts'],
+  'fach-pneumo-giemen': ['akt-atemnot-geraeusch'], 'fach-pneumo-fieber': ['akt-infekt-fieber'], 'fach-pneumo-infekt': ['akt-infekt-kontakt'],
+  // Kardiologie (insuffisance cardiaque = atemnot × Kardio)
+  'fach-kardio-luft': ['akt-atemnot-belastung'], 'fach-kardio-oedeme': ['akt-atemnot-nachts', 'akt-allgemein-schwellung'],
+  'fach-kardio-herzrasen': ['akt-anfall-ablauf'], 'fach-kardio-synkope': ['akt-anfall-bewusstsein'],
+  // Psychiatrie
+  'fach-psych-stimmung': ['akt-psych-stimmung'], 'fach-psych-interesse': ['akt-psych-antrieb'], 'fach-psych-antrieb': ['akt-psych-antrieb'],
+  'fach-psych-schlaf': ['akt-psych-schlaf'], 'fach-psych-konzentration': ['akt-psych-schlaf'], 'fach-psych-tagesverlauf': ['akt-verlauf'],
+  'fach-psych-suizid': ['akt-psych-sicherheit'], 'fach-psych-ausloeser': ['akt-ausloeser'], 'fach-psych-frueher': ['akt-frueher'],
+  // Endokrinologie / Hämatologie / Onkologie / Nephrologie (fatigue, poids, soif, œdèmes, saignement)
+  'fach-endo-durst': ['akt-allgemein-gewicht'], 'fach-endo-gewicht': ['akt-allgemein-gewicht'],
+  'fach-haem-leistung': ['akt-allgemein-alltag', 'akt-allgemein-art'], 'fach-haem-blutung': ['akt-veraend-blutung'], 'fach-haem-blutverlust': ['akt-veraend-blutung'],
+  'fach-haem-lymphknoten': ['akt-veraend-was'], 'fach-haem-bsymptomatik': ['akt-allgemein-gewicht'],
+  'fach-onko-leistung': ['akt-allgemein-alltag'], 'fach-onko-bsymptomatik': ['akt-allgemein-gewicht'], 'fach-onko-knoten': ['akt-veraend-was'],
+  'fach-onko-blutung': ['akt-veraend-blutung'], 'fach-onko-appetit': ['akt-ausscheid-was'],
+  'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
+  // Urologie / Gastroenterologie (ausscheidung)
+  'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit'], 'fach-uro-strahl': ['akt-ausscheid-haeufigkeit'],
+  'fach-uro-farbe': ['akt-ausscheid-aussehen'], 'fach-uro-fieber': ['akt-infekt-fieber'],
+  'fach-gastro-stuhl': ['akt-ausscheid-aussehen', 'akt-ausscheid-haeufigkeit'], 'fach-gastro-speisen': ['akt-ausloeser'],
+  // Infektiologie
+  'fach-infekt-fieber': ['akt-infekt-fieber'], 'fach-infekt-kontakt': ['akt-infekt-kontakt'], 'fach-infekt-reise': ['akt-infekt-kontakt'],
+  // Dermatologie
+  'fach-derma-muttermal': ['akt-veraend-entwicklung'], 'fach-derma-ausloeser': ['akt-ausloeser'], 'fach-derma-empfinden': ['akt-veraend-blutung'],
+  'fach-derma-aussehen': ['akt-veraend-was'], 'fach-derma-beginn-ort': ['akt-veraend-entwicklung'],
+  // Neurologie
+  'fach-neuro-sensibilitaet': ['akt-nerven-art'], 'fach-neuro-kraft': ['akt-nerven-alltag'], 'fach-neuro-koordination': ['akt-neuro-lage'],
+  'fach-neuro-sprache': ['akt-neuro-ausfall'], 'fach-neuro-verlauf': ['akt-verlauf'], 'fach-neuro-anfall': ['akt-anfall-bewusstsein'],
+  'fach-neuro-anfallzeichen': ['akt-anfall-bewusstsein'], 'fach-neuro-aura': ['akt-anfall-ablauf'],
+  // Angiologie / Gynäkologie
+  'fach-gefaess-schwellung': ['akt-veraend-was', 'akt-veraend-entwicklung'], 'fach-gyn-blutung': ['akt-veraend-blutung', 'akt-veraend-was'], 'fach-gyn-brust': ['akt-veraend-was'],
+};
+
+/** Sondes de variante rendues inutiles par une Fachanamnese donnée. */
+export function coveredByFach(fachQuestions: Phrase[]): Set<string> {
+  const out = new Set<string>();
+  for (const q of fachQuestions) for (const p of phraseProbes(q)) for (const v of FACH_COVERS[p] ?? []) out.add(v);
+  return out;
+}
 
 /** Le chapitre « Aktuelle Beschwerden » pour une nature de motif donnée. */
 // ============================================================================
@@ -1470,16 +1571,29 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
 /** Une question de Fachanamnese formulée pour un homme ne se pose pas telle
  *  quelle à une femme (Erektion, Prostata) — on l'adapte, on ne la laisse pas
  *  passer (FB-A1 sur la Fachanamnese Urologie, relevé par le gardien). */
-const SEX_ADAPT: Array<{ probe: string; w: string }> = [
-  { probe: 'fach-uro-funktion', w: 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr?' },
-  { probe: 'fach-uro-vorgeschichte', w: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder eine Blasenentzündung, die immer wiederkam?' },
+// Une question de Fach ne se pose pas à tout le monde : pilule/grossesse à un
+// homme ou après 55 ans, contraception à une patiente de 76 ans, Erektion à
+// une femme. Règles explicites par sonde — retirer ou reformuler, jamais
+// laisser passer (FB-A1 : « adapter, pas soustraire à l'aveugle »).
+type Who = { geschlecht?: 'm' | 'w'; age: number };
+const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (w: Who) => string | undefined }> = [
+  { probe: 'fach-gefaess-hormone', applies: (w) => w.geschlecht === 'w' && w.age <= FERTILE_UNTIL },
+  { probe: 'fach-uro-funktion', text: (w) => (w.geschlecht === 'w' ? 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr?' : undefined) },
+  { probe: 'fach-uro-vorgeschichte', text: (w) => (w.geschlecht === 'w' ? 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder eine Blasenentzündung, die immer wiederkam?' : undefined) },
+  // La contraception : la Frauenanamnese la demande déjà (patiente), et elle
+  // n'a plus de sens après 55 ans — il reste la protection contre les infections.
+  { probe: 'fach-uro-sexualanamnese', text: (w) => (w.geschlecht === 'w' || w.age > FERTILE_UNTIL
+    ? 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie schützen Sie sich vor Geschlechtskrankheiten?' : undefined) },
+  { probe: 'fach-gyn-kinderwunsch', applies: (w) => w.age <= FERTILE_UNTIL },
 ];
-function sexAdapt(questions: Phrase[], geschlecht: 'm' | 'w' | undefined): Phrase[] {
-  if (geschlecht !== 'w') return questions;
-  return questions.map((q) => {
+function adaptFach(questions: Phrase[], who: Who): Phrase[] {
+  return questions.flatMap((q) => {
     const probe = typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined;
-    const r = SEX_ADAPT.find((x) => x.probe === probe);
-    return r && typeof q !== 'string' ? { ...q, text: r.w } : q;
+    const r = FACH_RULES.find((x) => x.probe === probe);
+    if (!r) return [q];
+    if (r.applies && !r.applies(who)) return [];
+    const t = r.text?.(who);
+    return [t && typeof q !== 'string' ? { ...q, text: t } : q];
   });
 }
 
@@ -1489,7 +1603,8 @@ function sexAdapt(questions: Phrase[], geschlecht: 'm' | 'w' | undefined): Phras
 export function fachChapterForCase(c: Case): FachanamneseGuide | undefined {
   const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
   if (!f) return undefined;
-  const questions = [...sexAdapt(f.chapter.questions, c.patientSheet.personalia.geschlecht), ...caseQuestionsForFach(c)];
+  const who: Who = { geschlecht: c.patientSheet.personalia.geschlecht, age: c.patientSheet.personalia.age };
+  const questions = [...adaptFach(f.chapter.questions, who), ...caseQuestionsForFach(c)];
   return { ...f, chapter: { ...f.chapter, questions } };
 }
 
@@ -1513,7 +1628,16 @@ export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
       if (ch.id === 'frauenanamnese') return withCase({ ...ch, tip: frauenTipForAge(age) }, frauenQuestionsForAge(ch.questions, age));
       // « Aktuelle Beschwerden » : la déclinaison de la nature du motif —
       // jamais le modèle douleur avec un mot remplacé.
-      if (ch.id === 'aktuell') { const v = aktuellChapterFor(kategorie); return withCase(v, v.questions); }
+      if (ch.id === 'aktuell') {
+        const v = aktuellChapterFor(kategorie);
+        const fach = fachChapterForCase(c);
+        // Ce que la Fach jouée pose déjà (FACH_COVERS) et ce que le cas exclut
+        // (aktuellSkip) ne sont pas posés ici — un seul endroit par trame.
+        const skip = new Set(c.patientSheet.aktuellSkip ?? []);
+        const covered = fach ? coveredByFach(fach.chapter.questions) : new Set<string>();
+        const questions = v.questions.filter((q) => !phraseProbes(q).some((pr) => skip.has(pr) || covered.has(pr)));
+        return withCase(v, questions);
+      }
       if (ch.id === 'abschluss') { const v = abschlussChapterFor(c); return withCase(v, v.questions); }
       return withCase(ch, ch.questions);
     });
