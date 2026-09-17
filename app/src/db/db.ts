@@ -1,6 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import type {
   Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, PlanEntry, Meta,
+  Deck, DeckTerm, Favorite,
 } from './types';
 import type { ProgressEvent, OutboxRow } from '@/lib/sync/events';
 import { getActiveUserId } from '@/lib/auth/accounts';
@@ -37,6 +38,9 @@ export class FspDatabase extends Dexie {
   meta!: Table<Meta, string>;
   progress_events!: Table<ProgressEvent, string>;
   outbox!: Table<OutboxRow, string>;
+  decks!: Table<Deck, string>;
+  deck_terms!: Table<DeckTerm, [string, string]>;
+  favorites!: Table<Favorite, string>;
 
   constructor(name: string = dbNameFor(DB_USER_ID)) {
     super(name);
@@ -53,6 +57,11 @@ export class FspDatabase extends Dexie {
     this.version(2).stores({
       progress_events: 'id, user_id, type, subject_id, occurred_at, [user_id+type+subject_id]',
       outbox: 'id, attempts',
+    });
+    this.version(3).stores({
+      decks: 'id, kind, name',
+      deck_terms: '[deckId+termId], deckId, termId',
+      favorites: 'termId',
     });
   }
 }
