@@ -10,8 +10,7 @@ export function letterOf(term: string): string {
   const l = BASE[up] ?? up;
   return /^[A-Z]$/.test(l) ? l : '#';
 }
-const collator = new Intl.Collator('de', { sensitivity: 'base' });
-export const sortDe = (a: Fachbegriff, b: Fachbegriff) => collator.compare(a.term, b.term);
+export { sortDe } from '@/lib/sortDe';
 
 export type Row = { kind: 'letter'; letter: string } | { kind: 'term'; term: Fachbegriff };
 /** Lignes de la liste (en-tête de lettre + termes) et index de la première ligne de chaque lettre. `terms` doit déjà être trié. */

@@ -21,3 +21,10 @@ export function termsOfCase(caseId: string, all: Fachbegriff[], c: Pick<Case, 'l
   const byId = new Map(all.map((b) => [b.id, b]));
   return orderedIds.map((id) => byId.get(id)).filter((b): b is Fachbegriff => !!b);
 }
+
+/** Résout des ids en Fachbegriffe EN GARDANT l'ordre des ids (ordre publié : diagnostic →
+ *  spécifique → contextuel, cf. linkCaseTerms.mjs) — jamais l'ordre alphabétique du glossaire. */
+export function termsInOrder(ids: readonly string[], all: Fachbegriff[]): Fachbegriff[] {
+  const byId = new Map(all.map((b) => [b.id, b]));
+  return ids.map((id) => byId.get(id)).filter((b): b is Fachbegriff => !!b);
+}

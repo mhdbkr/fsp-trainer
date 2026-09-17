@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { termsOfCase } from './caseTerms';
+import { termsOfCase, termsInOrder } from './caseTerms';
 import type { Fachbegriff } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { freshSrs } from '@/lib/srs';
@@ -17,5 +17,12 @@ describe('termsOfCase (D5)', () => {
     const all = [t('a'), t('b'), t('c'), t('d')];
     const events = [ev('term.favorited', 'b', { caseId: 'c1' }), ev('term.favorited', 'a', { caseId: 'c1' })];
     expect(termsOfCase('c1', all, { linkedFachbegriffeIds: ['c', 'a'] }, events).map((x) => x.id)).toEqual(['c', 'a', 'b']);
+  });
+});
+
+describe('termsInOrder (m1)', () => {
+  it('garde l\'ordre des ids, ignore les ids inconnus', () => {
+    const all = [t('a'), t('b'), t('c')];
+    expect(termsInOrder(['c', 'zzz', 'a'], all).map((t) => t.id)).toEqual(['c', 'a']);
   });
 });

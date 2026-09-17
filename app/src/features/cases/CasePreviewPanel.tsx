@@ -5,6 +5,7 @@ import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { Icon } from '@/components/icons';
 import { CenterBadge, FreqBadge } from '@/components/ui';
 import { SEC, SectionHead } from './medSections';
+import { termsInOrder } from '@/lib/collections/caseTerms';
 
 // Aperçu latéral d'un cas SANS quitter la liste (interconnexion + horizontalité).
 export function CasePreviewPanel() {
@@ -16,7 +17,8 @@ export function CasePreviewPanel() {
   const c = (cases ?? []).find((x) => x.id === id);
   if (!c) return null;
 
-  const terms = (begriffe ?? []).filter((b) => c.linkedFachbegriffeIds.includes(b.id)).slice(0, 8);
+  // Ordre de `linkedFachbegriffeIds` conservé (diagnostic → spécifique → contextuel, cf. linkCaseTerms.mjs), pas de tri alphabétique.
+  const terms = termsInOrder(c.linkedFachbegriffeIds, begriffe ?? []).slice(0, 8);
 
   return (
     <>

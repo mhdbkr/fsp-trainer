@@ -11,6 +11,7 @@ import { SEC, SectionCard } from './medSections';
 import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import { STUFE_META } from '@/features/fachwissen/stufeMeta';
 import { DDTable } from '@/components/DDTable';
+import { termsInOrder } from '@/lib/collections/caseTerms';
 
 export function CaseDetailPage() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ export function CaseDetailPage() {
   if (!c) return <div className="text-slate-400">Chargement…</div>;
 
   const linkedAufk = (aufk ?? []).filter((a) => c.probableAufklaerungIds.includes(a.id));
-  const terms = (begriffe ?? []).filter((b) => c.linkedFachbegriffeIds.includes(b.id));
+  const terms = termsInOrder(c.linkedFachbegriffeIds, begriffe ?? []);   // ordre publié conservé (diagnostic d'abord)
 
   return (
     <div className="space-y-5">
