@@ -62,6 +62,10 @@ jobs:
         run: node scripts/checkFachwissenVisuals.mjs
       - name: Conflits allergie ↔ thérapie
         run: node scripts/checkAllergyConflicts.mjs
+      - name: Liaison cas ↔ Fachbegriffe (texte) — ≥ 8 termes par cas, JSON à jour
+        run: node scripts/checkCaseTermLinks.mjs
+      - name: Tests du script de liaison (node:test)
+        run: node --test scripts/linkCaseTerms.test.mjs
 
       # Informatifs : ils signalent des faiblesses de contenu (DD non
       # neutralisées, recouvrements de sondes) sans bloquer la livraison.
