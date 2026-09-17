@@ -13,7 +13,8 @@ En attendant l'agent vocal Doctopus, **on prépare le personnage et on le pousse
 | D1 | L'IA joue **patient → Oberarzt → feedback** (portée choisie avant la bascule : Anamnèse seule · Examen complet · + Feedback) | l'examen complet sans changer d'app ; le seul juge disponible à 23 h |
 | D2 | Le prompt est un **gabarit + `Rollenskript`** (le même que lit le simulant humain), déterministe, testé par snapshot ; jamais de LLM à la génération | fidélité totale au cas, hors-ligne, zéro coût |
 | D3 | Le prompt **ne contient jamais** `medicalView`, `verdachtsdiagnose`, `linkedFachwissen` ; il contient les faits du patient, sa consigne de jeu (`persona`), ses réactions difficiles | le patient ne connaît pas son diagnostic ; l'IA ne doit pas « lire » la fiche médicale |
-| D4 | Bascule par **lien pré-rempli** quand la cible le supporte (`?q=`), **presse-papiers toujours** en filet ; Gemini = presse-papiers + ouverture | vérifié : ChatGPT `?q=` envoie, Claude `/new?q=` pré-remplit, Perplexity/Grok `?q=`, Gemini rien |
+| D4 | Bascule par **lien pré-rempli** quand la cible le supporte (`?q=`) **et que le prompt tient dans l'URL** (`PREFILL_MAX = 6000`) ; sinon ouverture + **presse-papiers** (toujours écrit) et message « colle-le » | vérifié : ChatGPT `?q=` envoie, Claude `/new?q=` pré-remplit, Perplexity/Grok `?q=`, Gemini rien |
+| D7 | **Fidélité avant concision** : le prompt garde toute la persona, toutes les répliques du Rollenskript, toutes les questions de l'Oberarzt ; borne dure `PROMPT_MAX = 16000` avec compaction *non destructive* seulement au-delà (retrait des attendus « (erwartet: …) », puis « Fakten » redondants, puis répliques → Fakten sur les chapitres secondaires). Jamais de troncature de texte. Le diagnostic apparaît **seulement** dans la section Oberarzt, avec la consigne « als Patient kennst du diese Diagnose nicht » — pas de caviardage | 109/130 cas dépassent 6 000 car. en version complète ; un patient tronqué n'est plus le cas |
 | D5 | **Trace légère** au retour : carte « Tu as simulé <cas> avec <IA> » → auto-évaluation existante → `simulation.completed{ mode: 'external-ai' }` | programme, confiance et pertinence (F2a) reflètent les séances réelles |
 | D6 | IA préférée mémorisée **localement** (`meta`), pas d'événement | préférence d'appareil, pas de donnée d'apprentissage |
 
@@ -25,7 +26,8 @@ En attendant l'agent vocal Doctopus, **on prépare le personnage et on le pousse
 export type Scope = 'anamnese' | 'exam' | 'exam+feedback';
 export interface PromptInput { c: Case; scope: Scope; feedbackLang: 'fr' | 'de'; topTerms: string[] /* 8 premiers termes du cas, texte */ }
 export function buildExternalPrompt(i: PromptInput): string
-export const PROMPT_MAX = 6000;
+export const PREFILL_MAX = 6000;   // limite d'URL (?q=)
+export const PROMPT_MAX = 16000;   // borne dure du prompt (presse-papiers)
 ```
 
 Structure (allemand, sections titrées, phrases courtes ; le texte exact est le gabarit, relu par `fsp-language-reviewer`) :
@@ -37,7 +39,7 @@ Structure (allemand, sections titrées, phrases courtes ; le texte exact est le 
 5. **Feedback** (scope `exam+feedback`) — « Wenn die Ärztin/der Arzt „Feedback“ sagt » : grille Konjunktiv I, Register (mündlich/schriftlich), erwartete Fachbegriffe (`topTerms`), Struktur der Vorstellung, 3 Stärken / 3 Baustellen ; langue = `feedbackLang`.
 6. **Start** — « Stell dich mit einem Satz vor, sobald die Ärztin/der Arzt dich begrüßt. Sprachmodus empfohlen. »
 
-Invariants testés : contient chaque `antwort` du Rollenskript ; ne contient aucune chaîne de `medicalView` (aplatie) ; `length ≤ PROMPT_MAX` pour les 130 cas ; scope `anamnese` ne contient pas « Fallvorstellung ».
+Invariants testés : contient chaque `antwort` du Rollenskript et toute la `persona` ; aucune chaîne de `medicalView` **avant** le marqueur « ## Teil 3 » (la verdachtsdiagnose peut apparaître dans les questions de l'Oberarzt, jamais dans les sections patient) ; `length ≤ PROMPT_MAX` pour les 130 cas ; scope `anamnese` ne contient pas « Fallvorstellung » ; le rapport de corpus donne la part des cas ≤ `PREFILL_MAX`.
 
 ### 3.2 Cibles et lancement — `lib/externalAi/targets.ts`
 
@@ -46,7 +48,7 @@ export interface AiTarget { id: 'chatgpt' | 'claude' | 'gemini' | 'perplexity' |
 export const AI_TARGETS: AiTarget[];
 export async function launch(target: AiTarget, prompt: string): Promise<{ opened: boolean; copied: boolean; prefilled: boolean }>
 ```
-`launch` : `navigator.clipboard.writeText(prompt)` (copié = true si résolu), construit l'URL (`encodeURIComponent`), si `prompt.length > PROMPT_MAX` ou `url === null` → ouvre l'URL de base sans `?q=` et `prefilled = false` ; `window.open(url, '_blank', 'noopener')` **dans le gestionnaire du clic** (pas après un `await` long — le presse-papiers est écrit d'abord de façon synchrone-ish, l'ouverture suit immédiatement). Préférence : `meta['externalAi.target']`, `meta['externalAi.scope']`, `meta['externalAi.feedbackLang']`.
+`launch` : `navigator.clipboard.writeText(prompt)` (copié = true si résolu), construit l'URL (`encodeURIComponent`), si `prompt.length > PREFILL_MAX` ou `url === null` → ouvre l'URL de base sans `?q=` et `prefilled = false` ; `window.open(url, '_blank', 'noopener')` **dans le gestionnaire du clic** (pas après un `await` long — le presse-papiers est écrit d'abord de façon synchrone-ish, l'ouverture suit immédiatement). Préférence : `meta['externalAi.target']`, `meta['externalAi.scope']`, `meta['externalAi.feedbackLang']`.
 
 ### 3.3 Trace — `lib/externalAi/pending.ts`
 
@@ -71,8 +73,8 @@ export async function launch(target: AiTarget, prompt: string): Promise<{ opened
 |---|---|---|
 | AC-1 | Prompt d'un cas : personalia, chaque `antwort` du Rollenskript, réactions difficiles, `persona` ; aucune chaîne de `medicalView`/`verdachtsdiagnose` | snapshot + assertions négatives |
 | AC-2 | `exam` : toutes les questions `examinerSheet` dans l'ordre + `examinerQuestions` ; `exam+feedback` : grille + 8 termes ; `anamnese` : ni Oberarzt ni feedback | tests |
-| AC-3 | 130/130 cas : `length ≤ 6000` (scope `exam+feedback`) | test corpus |
-| AC-4 | `launch` : presse-papiers écrit, URL par cible exacte (ChatGPT/Claude/Perplexity/Grok `?q=` encodé ; Gemini base) ; > 6000 → base + `prefilled=false` | tests (clipboard/open mockés) |
+| AC-3 | 130/130 cas : `length ≤ 16000` sans troncature de persona/répliques/questions ; rapport : part des cas ≤ 6 000 (pré-remplissables) | test corpus |
+| AC-4 | `launch` : presse-papiers écrit, URL par cible exacte (ChatGPT/Claude/Perplexity/Grok `?q=` encodé ; Gemini base) ; > `PREFILL_MAX` → base + `prefilled=false` + message « colle-le » | tests (clipboard/open mockés) |
 | AC-5 | 4 points d'entrée ouvrent la même feuille ; préférences restaurées | tests composant + navigateur |
 | AC-6 | Retour : carte visible après lancement ; « Évaluer » → `simulation.completed{mode:'external-ai'}`, historique avec badge « IA externe », confiance du cas mise à jour | test Dexie + navigateur |
 | AC-7 | Mobile 390 px : feuille utilisable, `window.open` non bloqué (appel dans le gestionnaire de clic) | navigateur mobile émulé |
@@ -89,5 +91,5 @@ Agent vocal Doctopus (#13), appels d'API aux IA, coller le feedback de l'IA, par
 |---|---|
 | Les paramètres `?q=` changent chez un fournisseur | presse-papiers toujours ; table de cibles isolée ; test de fumée manuel documenté |
 | L'IA « casse » le rôle ou révèle | consignes en tête et en fin de prompt ; « Nenne nie eine Diagnose » répété dans la section Rolle et Oberarzt |
-| Prompt > 6 000 (cas riches) | `PROMPT_MAX` mesuré sur le corpus ; réduction : Rollenskript `glance` seulement pour les chapitres secondaires si dépassement (règle codée, testée) |
+| Prompt > 6 000 (cas riches — la majorité) | pré-remplissage seulement sous `PREFILL_MAX` ; au-delà, presse-papiers + « colle-le » (un geste de plus, aucune perte) ; compaction non destructive au-delà de 16 000 |
 | `window.open` bloqué (mobile) | ouverture dans le gestionnaire de clic, presse-papiers déjà écrit, message de repli |
