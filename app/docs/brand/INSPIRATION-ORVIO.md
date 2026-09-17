@@ -72,3 +72,60 @@ La charte actuelle (« instrument clinique » : Bricolage Grotesque / IBM Plex /
 - Rien de tout cela ne touche la **densité** de l'app de travail : lignes 44 px, readouts mono, contrastes ≥ 4,5:1 ; le style marque ne coule pas dans les écrans denses.
 - « Fait » = visible en prod sur au moins un écran de marque **et** un écran de travail, sans régression de vitesse (hero < 3 s mobile).
 - Aucune ressemblance littérale avec ORVIO (vert biotech, cercles percés en anneau, photos de bulles) : on prend la **méthode**, pas les formes.
+
+---
+
+## 6. Seconde référence : « Auros » (Refero) — la grammaire d'interface sombre
+
+Source : `DESIGN.md` (extraction Refero) — terminal fintech « abyssal », canvas teal presque noir, orbes de données bioluminescents.
+
+### 6.1 Ce qu'elle apporte de plus qu'ORVIO
+ORVIO donne l'**identité** (symbole, matière, escalier) ; Auros donne la **mécanique d'écran** :
+
+| Principe Auros | Pourquoi c'est juste |
+|---|---|
+| **Pile de surfaces dans une seule teinte** : abyss `#012624` (canvas) → deep `#011d1c` (creux) → kelp `#003734` (carte levée). **Aucune ombre portée.** | La hiérarchie se lit comme des profondeurs d'eau, pas comme du papier surélevé. Zéro bruit visuel. C'est la traduction en composants du « dégradé de luminosité seulement » d'ORVIO. |
+| **Couleur rationnée** : blancs/argents portent tout le contenu ; le chromatique est réservé à un dégradé de bouton signature et aux grands chiffres en rose-lavande. | Une seule zone brille par écran. |
+| **Une fonte, un seul poids d'affichage (500)** — pas de gras, pas de léger ; tracking négatif fort aux grandes tailles (−0,04 em à 61 px), positif aux étiquettes en capitales (0,08–0,15 em). | « Confiance mécanique » : la hiérarchie vient de la taille et de la casse, pas de la graisse. Même leçon qu'ORVIO. |
+| **Deux rayons seulement** : cartes 16 px, petits éléments 6 px. | Vocabulaire de forme fermé — pas de pilules molles. |
+| **Interlignage 1,0 au-dessus de 36 px, 1,4 pour le corps.** | Le contraste de rythme fait la typographie. |
+| **Étiquettes en capitales espacées** au-dessus des titres (« EXPLORE », « AUROS »). | Lisibilité d'instrument — identique aux micro-étiquettes ORVIO. |
+| **Chiffres géants** en accent pâle comme ponctuation lumineuse. | Le score, le Bereitschaftsindex, le compteur de dus : voilà où l'accent vit. |
+| Base 4 px, densité spacieuse, sections à 68 px, cartes 36–48 px de marge. | Rythme cinématographique — pour le **site**, pas pour l'app dense. |
+
+### 6.2 Ce qu'on ne prend pas
+- Le rose-lavande et le dégradé aurora : c'est leur signature ; la nôtre est le **corail**.
+- Le « pas de photo, pas de gens » absolu : Doctopus a des **personnages** (ADR-0013) — ils sont notre matière.
+- La sphère de particules 3D : notre moment « wow » est déjà arbitré (liquid glass sur le hero, une fois).
+- La densité spacieuse dans les écrans de travail (cas, drill, programme) : 44 px de ligne, readouts mono — non négociable.
+
+### 6.3 Synthèse : la direction Doctopus en une page
+
+**Identité (ORVIO)** — symbole construit sur grille avec quatre sens nommés ; titres en escalier ; hairlines de construction ; matière (verre teinté, sphères) localisée sur les surfaces de marque.
+
+**Grammaire d'écran (Auros)** — pile de surfaces pétrole sans ombre ; couleur rationnée ; un poids d'affichage ; deux rayons ; 1,0 / 1,4 ; étiquettes en capitales espacées ; grands chiffres en accent.
+
+**Ce qui reste Doctopus** — le **corail** comme unique signal (dû, erreur, ★, jour J) ; **Bricolage / Plex / Plex Mono** (Plex Mono = les readouts d'instrument que ni ORVIO ni Auros n'ont) ; les **personnages** ; la **densité** des écrans de travail.
+
+**Règle des deux registres**, désormais explicite :
+| Registre | Écrans | Canvas | Texte | Accent |
+|---|---|---|---|---|
+| **Marque (sombre)** | site, accueil, résultat de simulation, Akademie, Bereitschaftsindex | pile pétrole abyss → deep → kelp (à définir dans nos jetons : `petrol-950/900/800`) | papier `#F4F5F2` titres, gris-vert corps | corail pour les chiffres et le signal |
+| **Travail (clair)** | cas, drill, Fachbegriffe, programme, simulation | papier | encre | corail pour dû / erreur / ★ ; pétrole pour l'action |
+
+### 6.4 Jetons à ajouter (proposition pour `tailwind.config.js` — à valider par `front-design-keeper`)
+```
+petrol-950  #06201F   canvas de marque (abyss)
+petrol-900  #04191A   creux (deep)
+petrol-800  #0B3330   carte levée (kelp)
+petrol-200  #B9D6D1   verre teinté (ton intermédiaire ORVIO « Ash »)
+radius : cards 16 px · small 6 px (remplace toute valeur > 16 px sur les surfaces de marque)
+display : weight 500 uniquement ; tracking −0,04 em ≥ 48 px ; étiquettes 0,10 em capitales
+```
+(valeurs dérivées de la teinte pétrole existante ; les hex exacts sont à caler sur le `brand-500` actuel, pas copiés d'Auros.)
+
+### 6.5 Ordre de réalisation (chantier « identité », un seul à la fois, ADR-0015)
+1. Jetons + règle des deux registres (petit, mécanique, testable par `checkUiTells`).
+2. Symbole sur grille + quatre sens + favicon.
+3. Écran de **résultat de simulation** en registre marque (premier écran réel : grands chiffres corail, pile de surfaces, escalier) — c'est là que la direction juge.
+4. Site : hero (verre, une fois) + composants Auros.
