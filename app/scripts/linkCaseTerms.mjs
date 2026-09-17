@@ -5,6 +5,13 @@
 // Unicode que l'autolink de l'app, et écrit src/data/caseTermLinks.json.
 // Usage : node scripts/linkCaseTerms.mjs [--check]   (--check : exit 1 si le
 // fichier diffère du résultat régénéré — utilisé par checkCaseTermLinks.mjs)
+//
+// ORDRE : la liste de termes de chaque cas est triée par fréquence
+// documentaire (DF) ASCENDANTE puis par id — DF calculée sur l'ensemble
+// `result` une fois TOUS les cas liés. Les termes les plus spécifiques (DF
+// basse) arrivent donc en tête. C'est une convention pour les CONSOMMATEURS
+// de ce JSON : à eux de tronquer à N (`MAX_PER_CASE` est une préoccupation
+// consommateur, pas de ce script) — le JSON lui-même reste complet.
 // ============================================================================
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -18,11 +25,15 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** Index des termes → regex Unicode mot entier + formes fléchiées simples. */
 export function buildIndex(terms) {
-  const byKey = new Map(); const alts = [];
+  const byKey = new Map(); const alts = []; const dupes = new Map();
   for (const t of terms) {
     const key = t.term.trim(); if (key.length < 4 || EXCLUDE.has(key.toLowerCase())) continue;
-    const lower = key.toLowerCase(); if (byKey.has(lower)) continue;
+    const lower = key.toLowerCase();
+    if (byKey.has(lower)) { dupes.set(lower, (dupes.get(lower) ?? 1) + 1); continue; }
     byKey.set(lower, t.id); alts.push(key);
+  }
+  if (dupes.size) {
+    for (const [text, count] of dupes) console.error(`⚠ terme dupliqué ignoré : "${text}" (${count} occurrences)`);
   }
   alts.sort((a, b) => b.length - a.length);
   const re = new RegExp('(?<![\\p{L}\\p{N}])(' + alts.map(escapeRe).join('|') + ')(?:e|en|s|n)?(?![\\p{L}\\p{N}])', 'giu');
@@ -57,14 +68,25 @@ async function main() {
   const result = {};
   for (const c of cases) {
     const fw = fwByPath.get(c.pathology);
-    const fwFlat = fw ? flatten({ ...fw, id: undefined, linkedCaseIds: undefined }) : [];
+    const fwFlat = fw ? flatten({
+      ...fw,
+      id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined,
+      keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined,
+    }) : [];
     const texts = [...caseTexts(c, muster?.[c.id]), ...fwFlat];
     result[c.id] = linkTerms(texts, fb);
+  }
+  // Tri par fréquence documentaire (DF) ASCENDANTE puis id — DF calculée sur
+  // `result` complet, une fois tous les cas liés (cf. en-tête du fichier).
+  const df = new Map();
+  for (const ids of Object.values(result)) for (const id of ids) df.set(id, (df.get(id) ?? 0) + 1);
+  for (const caseId of Object.keys(result)) {
+    result[caseId] = result[caseId].slice().sort((a, b) => (df.get(a) - df.get(b)) || (a < b ? -1 : a > b ? 1 : 0));
   }
   const json = JSON.stringify(result, null, 0) + '\n';
   if (check) {
     let current = ''; try { current = readFileSync(OUT, 'utf8'); } catch { /* absent */ }
-    if (current !== json) { console.error('caseTermLinks.json est périmé : relancer `npm run content:link`'); process.exit(1); }
+    if (current.replace(/\r\n/g, '\n') !== json.replace(/\r\n/g, '\n')) { console.error('caseTermLinks.json est périmé : relancer `npm run content:link`'); process.exit(1); }
     console.log('caseTermLinks.json à jour'); return;
   }
   writeFileSync(OUT, json);
