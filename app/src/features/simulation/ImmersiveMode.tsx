@@ -11,6 +11,7 @@ import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
 import { MUSTER_BOGEN } from '@/data/guides/musterBogen';
 import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
+import { getPreferredVariant, setPreferredVariant } from '@/lib/variantPrefs';
 
 // ============================================================================
 // Mode focus / immersif — concentre l'attention sur UN chapitre et UNE
@@ -88,8 +89,17 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   const [showTip, setShowTip] = useState(tipDefault);
   // Variante choisie pour l'item courant (-1 = standard). Réinitialisée à
   // chaque changement d'item : une variante est un choix local à la phrase.
-  const [vIdx, setVIdx] = useState(-1);
-  useEffect(() => { setVIdx(-1); }, [ci, ii]);
+  // Variante affichée : la formulation RETENUE par le candidat pour cette
+  // phrase (FB2-O3), standard sinon ; tout changement est mémorisé.
+  const [vIdx, setVIdxState] = useState(-1);
+  useEffect(() => {
+    const item = ii >= 0 ? chapters[ci]?.items[ii] : undefined;
+    setVIdxState(item ? getPreferredVariant(phraseText(item), phraseAlts(item).length) : -1);
+  }, [ci, ii, chapters]);
+  const setVIdx = (next: number | ((i: number) => number)) => {
+    const item = chapters[ci]?.items[ii];
+    setVIdxState((i) => { const v = typeof next === 'function' ? next(i) : next; if (item) setPreferredVariant(phraseText(item), v); return v; });
+  };
   // Suivi live par SONDE : la question affichée en focus est, par définition,
   // celle que le candidat pose → le simulant voit sa réplique s'allumer.
   useEffect(() => {
@@ -205,7 +215,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-brand-500/20 text-brand-300">
                 <Icon name={chapter.icon} className="h-10 w-10" />
               </div>
-              <div className="mt-4 text-xs uppercase tracking-[0.3em] text-slate-500">Chapitre {ci + 1} / {chapters.length}</div>
+              <div className="mt-4 text-xs text-slate-500">Chapitre {ci + 1} / {chapters.length}</div>
               <h2 className="mt-2 text-4xl font-bold">{chapter.title}</h2>
               <p className="mt-3 text-slate-400">{totalItems} {part === 'anamnese' ? 'questions' : 'formulations'} à parcourir.</p>
               {chapter.tip && (
@@ -220,7 +230,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
               </div>
               <div className="mt-1 text-xs text-slate-600">{ii + 1} / {totalItems}</div>
               {phraseLabel(chapter.items[ii]) && (
-                <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-300">
+                <span className="mt-4 inline-block rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-boldst text-brand-300">
                   {phraseLabel(chapter.items[ii])}
                 </span>
               )}

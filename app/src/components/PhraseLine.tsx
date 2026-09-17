@@ -39,7 +39,7 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
       <span className={`mt-1.5 h-1 w-1 shrink-0 rounded-full ${active ? 'bg-brand-500 ring-2 ring-brand-200 dark:ring-brand-800' : dot}`} />
       <div className="min-w-0 flex-1">
         {label && (
-          <span className="mb-0.5 mr-1.5 inline-block rounded bg-slate-100 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+          <span className="mb-0.5 mr-1.5 inline-block rounded bg-slate-100 px-1.5 py-px text-[10px] font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
             {label}
           </span>
         )}
@@ -49,12 +49,12 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
           onClick={askable ? () => onAsk!(active ? null : probes[0]) : undefined}
           title={askable ? (active ? 'Question en cours — cliquer pour désélectionner' : 'Cliquer = « je pose cette question » (le simulant voit la réplique)') : undefined}>
           <GuidedText text={text} keywords={keywords} />
-          {idx >= 0 && <span className="ml-1.5 align-middle font-mono text-[9px] uppercase tracking-wider text-brand-500">variante {idx + 1}</span>}
+          {idx >= 0 && <span className="ml-1.5 align-middle text-[10px] font-medium text-slate-400" title="Ta formulation retenue">retenue</span>}
         </span>
 
         {covered && (
           <span title={`Anamnèse générale : « ${covered.frage} »`}
-            className={`ml-1.5 inline-flex items-center gap-1 rounded-full px-1.5 py-px align-middle text-[9.5px] font-semibold uppercase tracking-wide ${
+            className={`ml-1.5 inline-flex items-center gap-1 rounded-full px-1.5 py-px align-middle text-[10px] font-semibold ${
               src?.redundant
                 ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
                 : 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300'}`}>
