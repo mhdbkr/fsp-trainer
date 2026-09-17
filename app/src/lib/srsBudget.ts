@@ -9,10 +9,19 @@ import type { Srs } from '@/db/types';
 
 export interface BudgetInput { freshRemaining: number; workingDaysToExam: number | null; retention7d: number | null }
 
+/** Dernière ligne droite : à ≤ 7 jours ouvrés de l'examen, un terme Neu ne peut plus
+ *  atteindre « Gelernt » (deux réussites espacées J+1 puis J+6) — on consolide au
+ *  lieu d'ouvrir du nouveau. Plafond décroissant 2 × jours ouvrés (7 → 14 … 1 → 2, 0 → 0). */
+const TAPER_DAYS = 7;
+
 export function newBudget(i: BudgetInput): number {
   const base = i.workingDaysToExam === null ? 10 : Math.ceil(i.freshRemaining / Math.max(1, i.workingDaysToExam));
   const f = i.retention7d === null ? 1 : i.retention7d < 0.6 ? 0.7 : i.retention7d > 0.85 ? 1.2 : 1;
-  return Math.max(5, Math.min(30, Math.round(base * f)));
+  const raw = Math.round(base * f);
+  if (i.workingDaysToExam !== null && i.workingDaysToExam <= TAPER_DAYS) {
+    return Math.max(0, Math.min(i.workingDaysToExam * 2, raw));
+  }
+  return Math.max(5, Math.min(30, raw));
 }
 
 // Jour LOCAL (pas UTC) : réviser à 00 h 30 compte pour aujourd'hui, pas pour la veille.

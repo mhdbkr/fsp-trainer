@@ -14,7 +14,15 @@ describe('newBudget (D2)', () => {
     expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 10, retention7d: 0.9 })).toBe(30);
     expect(newBudget({ freshRemaining: 0, workingDaysToExam: 10, retention7d: null })).toBe(5);
   });
-;
+  it('taper ≤ 7 j ouvrés : plafond 2 × jours, plancher 0 (veto pédagogie)', () => {
+    expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 7, retention7d: 0.9 })).toBeLessThanOrEqual(14);
+    expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 7, retention7d: 0.9 })).toBe(14);
+    expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 2, retention7d: null })).toBeLessThanOrEqual(4);
+    expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 0, retention7d: null })).toBe(0);
+    expect(newBudget({ freshRemaining: 3, workingDaysToExam: 3, retention7d: null })).toBe(1);   // sous le plafond : ceil(3/3) = 1, pas de plancher 5
+    expect(newBudget({ freshRemaining: 2000, workingDaysToExam: 8, retention7d: 0.9 })).toBe(30); // hors fenêtre : bornes [5, 30]
+  });
+});
 
 describe('compteur du jour', () => {
   beforeEach(() => db.meta.clear());

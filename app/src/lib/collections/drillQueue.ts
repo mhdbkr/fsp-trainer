@@ -13,6 +13,8 @@ export interface DrillOpts {
   relevance?: RelevanceContext;
 }
 
+const RESERVED_NEW = 3;
+
 /** File de drill : dus (priorité pathologie > spécialité > reste, puis date) puis Neu (par pertinence si fournie, bornés par newLimit). Le pool borne tout — un deck n'ajoute jamais de terme. */
 export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fachbegriff[] {
   const now = opts.now ?? Date.now();
@@ -21,7 +23,13 @@ export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fach
   let news = pool.filter((b) => b.srs.state === 'Neu');
   news = opts.relevance ? sortByRelevance(news, opts.relevance) : news.sort((a, b) => priority(a) - priority(b));
   if (opts.newLimit !== undefined) news = news.slice(0, Math.max(0, opts.newLimit));
-  return [...due, ...news].slice(0, opts.limit ?? 20);
+  const limit = opts.limit ?? 20;
+  // Jusqu'à RESERVED_NEW places gardées aux Neu les plus pertinents même quand les
+  // dus saturent la file (veto pédagogie : « retrouver au drill suivant ce qu'on a
+  // marqué pendant un cas »). Les dus priment sur le reste de la file.
+  const reserved = Math.min(RESERVED_NEW, news.length);
+  const dueSlots = Math.min(due.length, Math.max(0, limit - reserved));
+  return [...due.slice(0, dueSlots), ...news].slice(0, limit);
 }
 
 /** Ce que la file contiendra (dus / nouveaux), sans la borne d'affichage `limit`. */

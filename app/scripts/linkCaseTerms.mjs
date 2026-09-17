@@ -6,12 +6,20 @@
 // Usage : node scripts/linkCaseTerms.mjs [--check]   (--check : exit 1 si le
 // fichier diffère du résultat régénéré — utilisé par checkCaseTermLinks.mjs)
 //
-// ORDRE : la liste de termes de chaque cas est triée par fréquence
-// documentaire (DF) ASCENDANTE puis par id — DF calculée sur l'ensemble
-// `result` une fois TOUS les cas liés. Les termes les plus spécifiques (DF
-// basse) arrivent donc en tête. C'est une convention pour les CONSOMMATEURS
-// de ce JSON : à eux de tronquer à N (`MAX_PER_CASE` est une préoccupation
-// consommateur, pas de ce script) — le JSON lui-même reste complet.
+// ORDRE (relecture pédagogique F2a) : rareté lexicale ≠ pertinence clinique.
+// Les textes d'un cas sont séparés en CORE (plainte, medicalView, Muster,
+// questions, fiche examinateur, Arztbrief, pièges, Fachwissen) et CONTEXTUEL
+// (antécédents, opérations, famille, social, médicaments, allergies, noxen —
+// vrais matchs texte, souvent hors sujet). Par cas :
+//   Les sections d'antécédents des Muster (musterSaetze, caseMuster) sont
+//   routées de la même façon (elles reprennent la fiche patient).
+//   (1) termes du diagnostic (verdachtsdiagnose, nom ou pathologie du cas),
+//   (2) autres termes CORE par fréquence documentaire (DF) ascendante puis id,
+//   (3) termes trouvés SEULEMENT en contexte, par DF ascendante puis id.
+// DF calculée sur l'ensemble `result` une fois TOUS les cas liés. L'ENSEMBLE
+// des termes liés est le même qu'avant ; seul l'ordre change. C'est une
+// convention pour les CONSOMMATEURS de ce JSON : à eux de tronquer à N
+// (`MAX_PER_CASE` est une préoccupation consommateur) — le JSON reste complet.
 // ============================================================================
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -40,23 +48,54 @@ export function buildIndex(terms) {
   return { re, byKey };
 }
 
-export function linkTerms(texts, terms) {
-  const { re, byKey } = buildIndex(terms);
+/** Ids des termes trouvés dans `texts`. `index` = tableau de termes (index
+ *  construit à la volée) ou résultat de `buildIndex` (construit UNE fois dans main). */
+export function linkTerms(texts, index) {
+  const { re, byKey } = Array.isArray(index) ? buildIndex(index) : index;
   const found = new Set();
   for (const text of texts) for (const m of String(text ?? '').matchAll(re)) { const id = byKey.get(m[1].toLowerCase()); if (id) found.add(id); }
   return [...found].sort();
 }
 
 const flatten = (v, out = []) => { if (v == null) return out; if (typeof v === 'string') out.push(v); else if (Array.isArray(v)) v.forEach((x) => flatten(x, out)); else if (typeof v === 'object') Object.values(v).forEach((x) => flatten(x, out)); return out; };
-/** Textes d'un cas où un terme peut apparaître. */
+/** Sections de la fiche patient qui relèvent du CONTEXTE (antécédents incidents), pas du cas. */
+export const CONTEXTUAL_SHEET_KEYS = ['vorerkrankungen', 'voroperationen', 'familienanamnese', 'sozialanamnese', 'medikamente', 'allergien', 'unvertraeglichkeiten', 'noxen'];
+/** Aplatit `v` en routant vers `contextual` tout sous-arbre dont la clé est une
+ *  section d'antécédents (fiche patient ET Muster de documentation, qui reprend
+ *  les mêmes sections : « Jochbeinfraktur » y figure sous `vorerkrankungen`). */
+const flattenSplit = (v, core, contextual, ctx = false) => {
+  if (v == null) return;
+  if (typeof v === 'string') (ctx ? contextual : core).push(v);
+  else if (Array.isArray(v)) v.forEach((x) => flattenSplit(x, core, contextual, ctx));
+  else if (typeof v === 'object') for (const [k, x] of Object.entries(v)) flattenSplit(x, core, contextual, ctx || CONTEXTUAL_SHEET_KEYS.includes(k));
+};
+/** Textes d'un cas où un terme peut apparaître, séparés en `core` / `contextual` (cf. en-tête). */
 export function caseTexts(c, muster) {
-  return [
-    ...flatten(c.patientSheet), ...flatten(c.medicalView),
+  const core = []; const contextual = [];
+  flattenSplit(c.patientSheet, core, contextual);
+  flattenSplit(c.musterSaetze, core, contextual);
+  flattenSplit(muster, core, contextual);
+  core.push(
+    ...flatten(c.medicalView),
     ...flatten(c.caseSpecificQuestions), ...flatten(c.examinerQuestions),
     ...flatten(c.examinerSheet), ...flatten(c.pruefungsfallen),
-    ...flatten(c.referenceArztbrief), ...flatten(c.musterSaetze),
-    ...flatten(muster),
-  ];
+    ...flatten(c.referenceArztbrief),
+  );
+  return { core, contextual };
+}
+/** Textes qui nomment le diagnostic du cas (rang 1). */
+export function diagnosisTexts(c) { return [c.medicalView?.verdachtsdiagnose, c.name, c.pathology]; }
+
+/** Ordre final d'un cas : diagnostic, puis CORE par DF asc + id, puis CONTEXTUEL seul par DF asc + id.
+ *  `df` : Map id → fréquence documentaire sur tout le corpus. L'ensemble = core ∪ contextual. */
+export function orderCaseTerms({ core, contextual, diagnosis }, df) {
+  const cmp = (a, b) => ((df.get(a) ?? 0) - (df.get(b) ?? 0)) || (a < b ? -1 : a > b ? 1 : 0);
+  const all = new Set([...core, ...contextual]);
+  const diag = new Set(diagnosis.filter((id) => all.has(id)));
+  const coreOnly = core.filter((id) => !diag.has(id));
+  const coreSet = new Set(core);
+  const ctxOnly = contextual.filter((id) => !diag.has(id) && !coreSet.has(id));
+  return [...[...diag].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
 }
 
 async function main() {
@@ -64,8 +103,9 @@ async function main() {
   const { loadAll } = await import('./loadCases.mjs');
   const { cases, fachwissen, muster } = await loadAll();
   const fb = JSON.parse(readFileSync(join(here, '../src/data/fachbegriffe.json'), 'utf8')).map((r) => ({ id: r.id, term: r.t }));
+  const index = buildIndex(fb);   // UNE fois : l'avertissement « doublon » n'est émis qu'une fois
   const fwByPath = new Map(fachwissen.map((f) => [f.pathology, f]));
-  const result = {};
+  const parts = {};
   for (const c of cases) {
     const fw = fwByPath.get(c.pathology);
     const fwFlat = fw ? flatten({
@@ -73,16 +113,18 @@ async function main() {
       id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined,
       keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined,
     }) : [];
-    const texts = [...caseTexts(c, muster?.[c.id]), ...fwFlat];
-    result[c.id] = linkTerms(texts, fb);
+    const { core, contextual } = caseTexts(c, muster?.[c.id]);
+    parts[c.id] = {
+      core: linkTerms([...core, ...fwFlat], index),
+      contextual: linkTerms(contextual, index),
+      diagnosis: linkTerms(diagnosisTexts(c), index),
+    };
   }
-  // Tri par fréquence documentaire (DF) ASCENDANTE puis id — DF calculée sur
-  // `result` complet, une fois tous les cas liés (cf. en-tête du fichier).
+  // DF sur l'ensemble complet (core ∪ contextuel) une fois tous les cas liés, puis ordre par cas.
   const df = new Map();
-  for (const ids of Object.values(result)) for (const id of ids) df.set(id, (df.get(id) ?? 0) + 1);
-  for (const caseId of Object.keys(result)) {
-    result[caseId] = result[caseId].slice().sort((a, b) => (df.get(a) - df.get(b)) || (a < b ? -1 : a > b ? 1 : 0));
-  }
+  for (const p of Object.values(parts)) for (const id of new Set([...p.core, ...p.contextual])) df.set(id, (df.get(id) ?? 0) + 1);
+  const result = {};
+  for (const c of cases) result[c.id] = orderCaseTerms(parts[c.id], df);
   const json = JSON.stringify(result, null, 0) + '\n';
   if (check) {
     let current = ''; try { current = readFileSync(OUT, 'utf8'); } catch { /* absent */ }
