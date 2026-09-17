@@ -84,13 +84,32 @@ export function programEnd(config: ProgramConfig): Date {
   return addDays(parseISO(config.startDate), (config.weeks ?? 8) * 7);
 }
 
-function isWorkingDay(d: Date, config: ProgramConfig): boolean {
+export function isWorkingDay(d: Date, config: ProgramConfig): boolean {
   return !config.offDays.includes(getDay(d));
 }
-function nextWorkingDay(d: Date, config: ProgramConfig): Date {
+export function nextWorkingDay(d: Date, config: ProgramConfig): Date {
   let x = d;
   while (!isWorkingDay(x, config)) x = addDays(x, 1);
   return x;
+}
+
+// Config minimale utilisée quand l'utilisateur n'a pas encore configuré son programme
+// (weekend off par défaut) — seul `offDays` est lu par `isWorkingDay`.
+const DEFAULT_CONFIG = { offDays: [0, 6] } as ProgramConfig;
+
+/** Nombre de jours ouvrés strictement après `now` jusqu'à `examDateISO` inclus. */
+export function workingDaysUntilExam(examDateISO: string, now: Date, config?: ProgramConfig): number {
+  const cfg = config ?? DEFAULT_CONFIG;
+  const end = startOfDay(parseISO(examDateISO));
+  let d = startOfDay(addDays(now, 1));
+  let count = 0;
+  let guard = 0;
+  while (d <= end && guard < 10000) {
+    if (isWorkingDay(d, cfg)) count++;
+    d = addDays(d, 1);
+    guard++;
+  }
+  return count;
 }
 
 // ----------------------------------------------------------------------------
