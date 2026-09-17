@@ -13,7 +13,6 @@ const TEIL3_MARKER = '# Teil 3 – Oberarzt/Oberärztin';
 // on impose ici level === 'full' pour les 130 cas, aucune cascade ne joue et
 // la fidélité intégrale vaut pour TOUS les chapitres.
 const SECONDARY_CHAPTERS = new Set(['personalia', 'vegetativ', 'familie-sozial']);
-void SECONDARY_CHAPTERS; // conservé pour documentation du contrat D7-3c
 
 // Termes réalistes (8 × ~20 caractères) — proches d'un vrai relevé de
 // Fachbegriffe attendus par cas, pour ne pas sous-tester la taille du prompt.

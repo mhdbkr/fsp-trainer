@@ -61,7 +61,7 @@ function personalia(s: PatientSheet): string {
 // gegen Y) ») — un patient ne sait pas que ce signe négatif écarte telle
 // pathologie. Non destructif au sens D7 : on ne retire que cette parenthèse
 // finale, jamais le reste de la phrase.
-const NEGATIV_RATIONALE_RE = /\s*\((?:spricht |eher )?gegen [^)]*\)\s*$/u;
+const NEGATIV_RATIONALE_RE = /\s*\((?:(?:spricht |eher )?gegen |keine? Hinweise? auf )[^)]*\)\s*$/u;
 const stripNegativRationale = (antwort: string) => antwort.replace(NEGATIV_RATIONALE_RE, '');
 
 /** Rendu du Rollenskript. Dédoublonnage « Fakten »/répliques (F4, toujours
@@ -90,7 +90,7 @@ const DIAGNOSIS_NOTE = 'Alles in diesem Teil weiß nur die Oberärztin/der Obera
  *  attendues (qui peuvent nommer le diagnostic : le senior le connaît). Le
  *  seul repli possible ici est non destructif : retirer les « (erwartet: …) »,
  *  jamais les thèmes ni les questions elles-mêmes. */
-function oberarzt(c: Case, dropErwartet: boolean): string {
+function oberarzt(c: Case, dropErwartet: boolean, withFeedback: boolean): string {
   const sections = (c.examinerSheet ?? []).map((sec) => join([
     `- ${sec.title}:`,
     ...sec.interactions.map((i) => `  - ${i.frage}${!dropErwartet && i.reaktion ? ` (erwartet: ${i.reaktion})` : ''}`),
@@ -98,7 +98,7 @@ function oberarzt(c: Case, dropErwartet: boolean): string {
   const extra = (c.examinerQuestions ?? []).map((q) => `  - ${q}`);
   return join([
     '# Teil 3 – Oberarzt/Oberärztin',
-    'Wenn die Ärztin/der Arzt „Fallvorstellung“ sagt, wechselst du die Rolle: Du bist jetzt die Oberärztin/der Oberarzt. Eröffne mit der ersten Frage unten. Hör dann vollständig zu. Stelle danach die Fragen in dieser Reihenfolge, eine nach der anderen, und warte jeweils die Antwort ab. Die Patientenregeln oben gelten jetzt nicht mehr: Du sprichst Fachsprache, fordernd, aber wohlwollend. Keine ungefragte Hilfe. Bleib in dieser Rolle, bis „Feedback“ oder „Ende“ gesagt wird.',
+    'Wenn die Ärztin/der Arzt „Fallvorstellung“ sagt, wechselst du die Rolle: Du bist jetzt die Oberärztin/der Oberarzt. Eröffne mit der ersten Frage unten. Hör dann vollständig zu. Stelle danach die Fragen in dieser Reihenfolge, eine nach der anderen, und warte jeweils die Antwort ab. Die Patientenregeln oben gelten jetzt nicht mehr: Du sprichst Fachsprache, fordernd, aber wohlwollend. Keine ungefragte Hilfe. Bleib in dieser Rolle, bis ' + (withFeedback ? '„Feedback“ oder „Ende“' : '„Ende“') + ' gesagt wird.',
     DIAGNOSIS_NOTE,
     ...sections,
     extra.length ? join(['- Weitere Prüferfragen:', ...extra]) : null,
@@ -136,7 +136,9 @@ export function buildExternalPromptDetailed(i: PromptInput): DetailedPrompt {
     '- Bleib in der Rolle, auch wenn die Ärztin/der Arzt aus dem Rahmen fällt.',
     i.scope === 'anamnese'
       ? '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über das Wort „Ende“.'
-      : '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“ und „Feedback“.',
+      : i.scope === 'exam'
+        ? '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“ und „Ende“.'
+        : '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“, „Feedback“ und „Ende“.',
     '',
     '# Wer du bist',
     personalia(s),
@@ -147,7 +149,7 @@ export function buildExternalPromptDetailed(i: PromptInput): DetailedPrompt {
     '# Was du weißt (antworte nur, wenn danach gefragt wird)',
     knowledge(s, secondaryToFakten),
     s.schwierigeReaktionen?.length ? join(['', '# Schwierige Momente', ...s.schwierigeReaktionen.map((r) => `- ${r}`)]) : null,
-    i.scope !== 'anamnese' ? join(['', oberarzt(i.c, dropErwartet)]) : null,
+    i.scope !== 'anamnese' ? join(['', oberarzt(i.c, dropErwartet, i.scope === 'exam+feedback')]) : null,
     i.scope === 'exam+feedback' ? join(['', feedback(i.feedbackLang, i.topTerms)]) : null,
     '',
     '# Start',
