@@ -25,7 +25,8 @@ export function normalizeDeckName(raw: string): string {
 
 export async function toggleFavorite(termId: string, opts: { caseId?: string } = {}): Promise<boolean> {
   const is = !!(await db.favorites.get(termId));
-  await emit(is ? 'term.unfavorited' : 'term.favorited', termId, opts.caseId ? { caseId: opts.caseId } : {});
+  // caseId n'a de sens qu'à l'ajout (« marqué pendant ce cas ») — jamais sur term.unfavorited (contrat).
+  await emit(is ? 'term.unfavorited' : 'term.favorited', termId, !is && opts.caseId ? { caseId: opts.caseId } : {});
   return !is;
 }
 export async function createDeck(name: string, kind: 'manual' | 'smart', query?: DeckQuery): Promise<string> {
