@@ -213,7 +213,7 @@ Zone : `components/Doctopus.tsx`, `components/SelectionExplainer.tsx`,
 | **FB2-M1** ✅ | P1 | Impossible de **scroller la page** quand Doctopus est ouvert. | Le popover ne capture pas le scroll de `<main>` ; la page défile normalement derrière ; le popover garde son propre scroll interne. Vérifié en navigateur (playwright, wheel sur la page avec le popover ouvert → `scrollTop` change). |
 | **FB2-M2** ✅ | P1 | « Expliquer » ne s'active que sur **un seul mot** ; une phrase sélectionnée ne déclenche rien. | Toute sélection de 1 à ~200 caractères déclenche le bouton ; au-delà d'un mot, le prompt devient « explique cette tournure / cette phrase » (pas une définition de terme) ; réponse bornée (2–3 phrases). |
 | **FB2-M3** ✅ | P0 | Le mode **hover** attribue la sélection à un **autre mot** du glossaire qui *ressemble* (correspondance floue), puis répond « (réponse vide) ». | (a) Résolution glossaire **exacte** (forme de base, insensible à la casse) ou rien — jamais de fuzzy qui invente ; si pas d'entrée exacte → IA directement. (b) « (réponse vide) » n'est plus jamais affiché : réponse vide → message honnête « Pas de réponse du modèle, réessayer » + retry automatique une fois. La cause principale (raisonnement mangeant le budget) est corrigée (`pickReasoning`, 17 sept.). |
-| **FB2-M4** | P1 | Les réponses de Doctopus sont **médiocres** — pas plus longues, mais meilleures, au niveau de l'app. | `DOCTOPUS_SYSTEM` réécrit : rôle (tuteur FSP, C1, jury), registre (patient vs Fachbegriff explicité), format (réponse d'abord, exemple de phrase prêt à dire, 1 nuance max), interdits (pas de disclaimer, pas de liste à puces réflexe, pas de paraphrase de la question), langue de réponse = celle de la question. Jeu de 20 questions de référence évalué avant/après (`ai-eval-engineer`). |
+| **FB2-M4** ✅ | P1 | Les réponses de Doctopus sont **médiocres** — pas plus longues, mais meilleures, au niveau de l'app. | `DOCTOPUS_SYSTEM` réécrit : rôle (tuteur FSP, C1, jury), registre (patient vs Fachbegriff explicité), format (réponse d'abord, exemple de phrase prêt à dire, 1 nuance max), interdits (pas de disclaimer, pas de liste à puces réflexe, pas de paraphrase de la question), langue de réponse = celle de la question. Jeu de 20 questions de référence évalué avant/après (`ai-eval-engineer`). |
 
 ## N · Glossaire auto-lié
 
@@ -249,8 +249,8 @@ programme).
 
 | id | P | Constat | Critère d'acceptation |
 |---|---|---|---|
-| **FB2-P1** | P0 | On ne peut jouer que la **simulation entière** (3 Teile). | On peut lancer **un seul Teil** (Anamnese · Aufklärung/Doku · Fallvorstellung) ou la simulation complète. Entrée 1 : au survol de « Commencer », **3 sous-boutons icône glissent depuis le bord droit du bouton** (animation fluide, interruptible, clavier accessible : focus révèle aussi). Entrée 2 : une **pastille de mode** en page pré-simulation. |
-| **FB2-P2** | P0 | Conséquences à raccorder : avancement, stats, profil. | Une session de Teil seul est **enregistrée comme telle** (`scope: 'teil' | 'full'`, `teil`) ; le score alimente les stats **de ce Teil** et la maîtrise du cas au prorata ; le streak compte une session de Teil ; le programme peut *prescrire* un Teil ; les tableaux de bord distinguent complet/partiel ; aucune régression sur les sessions complètes existantes (migration de schéma Dexie versionnée). Spec par `product-spec-writer`, veto pédagogique sur la pondération. |
+| **FB2-P1** ✅ | P0 | On ne peut jouer que la **simulation entière** (3 Teile). | On peut lancer **un seul Teil** (Anamnese · Aufklärung/Doku · Fallvorstellung) ou la simulation complète. Entrée 1 : au survol de « Commencer », **3 sous-boutons icône glissent depuis le bord droit du bouton** (animation fluide, interruptible, clavier accessible : focus révèle aussi). Entrée 2 : une **pastille de mode** en page pré-simulation. |
+| **FB2-P2** ✅ | P0 | Conséquences à raccorder : avancement, stats, profil. | Une session de Teil seul est **enregistrée comme telle** (`scope: 'teil' | 'full'`, `teil`) ; le score alimente les stats **de ce Teil** et la maîtrise du cas au prorata ; le streak compte une session de Teil ; le programme peut *prescrire* un Teil ; les tableaux de bord distinguent complet/partiel ; aucune régression sur les sessions complètes existantes (migration de schéma Dexie versionnée). Spec par `product-spec-writer`, veto pédagogique sur la pondération. |
 
 ## Q · Notes personnelles partout  — *game changer n° 2*
 
@@ -294,6 +294,11 @@ Après revue du gardien (lot 5) : dix natures au lieu de huit (`ausscheidung`,
 `nerven`), règle « un seul endroit par trame » (`FACH_COVERS`), `aktuellSkip`
 par cas, règles de Fach par sexe/âge (`FACH_RULES`), porte `checkPlayedTrame`
 sur le montage réel. Rapports : `app/docs/reports/direction-keeper-serie2-lot5.md`.
+
+Lots 6–7 (17 sept.) : M4 (prompt Doctopus au niveau d'un examinateur, jeu de
+référence 20 questions, `scripts/evalDoctopus.mjs` — run réel avec
+`OPENROUTER_API_KEY`), P1/P2 (simulation par Teil, spec
+`docs/superpowers/specs/2026-09-17-simulation-par-teil-design.md`).
 
 ## Ordre de traitement proposé (série 2)
 
