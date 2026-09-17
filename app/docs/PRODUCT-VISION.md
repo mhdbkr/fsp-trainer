@@ -70,7 +70,9 @@ Par ordre d'impact. Les quatre premières sont bâties sur ce qui existe déjà.
    curseur vertical avec zoom au survol, étiquettes par statut SRS, favoris
    dans le programme temps réel, **explication en contexte** (le mot dans sa
    phrase), **registre double** (terme technique / formulation patient, côte à
-   côte — la compétence exacte que l'examen note).
+   côte — la compétence exacte que l'examen note). — *F1 (favoris, decks,
+   page A→Z) livré ; F2 ancrage au cas et F3 explication en contexte
+   pré-générée à suivre.*
 10. **Fachwissen visuel** — un système, pas des illustrations : bibliothèque
     de composants (silhouette anatomique cliquable, arbre décisionnel, mindmap
     de syndrome, frise, tableau comparatif, toggles thérapie, jauge de score)

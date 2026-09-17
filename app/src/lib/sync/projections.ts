@@ -1,6 +1,7 @@
 import { db } from '@/db/db';
 import type { Simulation, Srs, Layer } from '@/db/types';
 import type { ProgressEvent } from './events';
+import { projectCollections, writeCollections } from '@/lib/collections/project';
 
 export function latestSrs(events: ProgressEvent[], fachbegriffId: string): Srs | null {
   let best: ProgressEvent | null = null;
@@ -25,4 +26,6 @@ export async function rebuildProjections(): Promise<void> {
   const layerByCase = new Map<string, Layer>();
   for (const e of events) if (e.type === 'case.layer_reached' && e.subject_id) layerByCase.set(e.subject_id, Math.max(layerByCase.get(e.subject_id) ?? 0, (e.payload as { layer: Layer }).layer) as Layer);
   await db.transaction('rw', db.cases, async () => { for (const [id, layer] of layerByCase) await db.cases.update(id, { layerProgress: layer }); });
+  // Collections Fachbegriffe (F1) : favoris, decks, termes de decks
+  await writeCollections(projectCollections(events));
 }

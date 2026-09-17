@@ -1,14 +1,24 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // La clé IA est stockée par compte en mode fondateur (audit I4) ; en mode
-// public elle reste unique. Le module session est mocké : seul AUTH_MODE compte.
+// public elle reste unique. Le module session est mocké via un handle hoisté
+// (getter : AUTH_MODE est lu à l'appel dans onlineAi.ts, sans état de module),
+// donc imports STATIQUES — un resetModules + import dynamique rechargeait le SDK
+// à chaque test et dépassait le timeout sous charge (flake constaté).
+const mode = vi.hoisted(() => ({ value: 'founder' as 'founder' | 'public' }));
+
+vi.mock('@/lib/auth/session', () => ({
+  get AUTH_MODE() { return mode.value; },
+}));
+
+import { setActiveUserId } from '@/lib/auth/accounts';
+import { getKey, setKey, hasKey } from './onlineAi';
+
 describe('onlineAi — clé par compte', () => {
-  beforeEach(() => { localStorage.clear(); vi.resetModules(); });
+  beforeEach(() => { localStorage.clear(); mode.value = 'founder'; });
 
   it('founder : la clé est namespacée par compte actif, deux comptes ne se voient pas', async () => {
-    vi.doMock('@/lib/auth/session', () => ({ AUTH_MODE: 'founder' }));
-    const { setActiveUserId } = await import('@/lib/auth/accounts');
-    const { getKey, setKey, hasKey } = await import('./onlineAi');
+    mode.value = 'founder';
     setActiveUserId('u1'); setKey('sk-aaaaaaaaaaaa');
     expect(localStorage.getItem('doctopus-key:u1')).toBe('sk-aaaaaaaaaaaa');
     expect(localStorage.getItem('doctopus-key')).toBeNull();
@@ -19,10 +29,8 @@ describe('onlineAi — clé par compte', () => {
   });
 
   it('founder : l\'ancienne clé non namespacée migre vers le compte actif à la première lecture', async () => {
-    vi.doMock('@/lib/auth/session', () => ({ AUTH_MODE: 'founder' }));
+    mode.value = 'founder';
     localStorage.setItem('doctopus-key', 'sk-legacy');
-    const { setActiveUserId } = await import('@/lib/auth/accounts');
-    const { getKey } = await import('./onlineAi');
     setActiveUserId('u1');
     expect(getKey()).toBe('sk-legacy');
     expect(localStorage.getItem('doctopus-key:u1')).toBe('sk-legacy');
@@ -32,8 +40,7 @@ describe('onlineAi — clé par compte', () => {
   });
 
   it('public : clé unique, inchangée', async () => {
-    vi.doMock('@/lib/auth/session', () => ({ AUTH_MODE: 'public' }));
-    const { getKey, setKey } = await import('./onlineAi');
+    mode.value = 'public';
     setKey('sk-public-key');
     expect(localStorage.getItem('doctopus-key')).toBe('sk-public-key');
     expect(getKey()).toBe('sk-public-key');

@@ -1,0 +1,73 @@
+// ============================================================================
+// Projection PURE des collections Fachbegriffe depuis le journal. Idempotente :
+// même ensemble d'événements, même état, quel que soit l'ordre d'arrivée
+// (tri occurred_at → received_at → id). L'UI n'écrit jamais decks/deck_terms/
+// favorites autrement que par writeCollections après une émission d'événement.
+// ============================================================================
+import { db } from '@/db/db';
+import type { Deck, DeckTerm, Favorite, DeckQuery } from '@/db/types';
+import { FAVORITES_DECK_ID } from '@/db/types';
+import type { ProgressEvent } from '@/lib/sync/events';
+
+export interface CollectionsState { decks: Deck[]; deckTerms: DeckTerm[]; favorites: Favorite[] }
+
+const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+export function sortEvents(events: ProgressEvent[]): ProgressEvent[] {
+  return [...events].sort((a, b) =>
+    cmp(a.occurred_at, b.occurred_at)
+    || cmp(a.received_at ?? '￿', b.received_at ?? '￿')
+    || cmp(a.id, b.id));
+}
+
+const COLLECTION_TYPES = new Set(['term.favorited', 'term.unfavorited', 'deck.created', 'deck.renamed', 'deck.query_changed', 'deck.deleted', 'deck.term_added', 'deck.term_removed']);
+
+export function projectCollections(events: ProgressEvent[]): CollectionsState {
+  const decks = new Map<string, Deck>();
+  const deleted = new Set<string>();
+  const terms = new Map<string, Map<string, DeckTerm>>();   // deckId -> termId -> DeckTerm
+  const favorites = new Map<string, Favorite>();
+  for (const e of sortEvents(events)) {
+    if (!COLLECTION_TYPES.has(e.type) || !e.subject_id) continue;
+    const id = e.subject_id; const p = (e.payload ?? {}) as Record<string, unknown>;
+    switch (e.type) {
+      case 'term.favorited': favorites.set(id, { termId: id, since: e.occurred_at }); break;
+      case 'term.unfavorited': favorites.delete(id); break;
+      case 'deck.created':
+        if (id === FAVORITES_DECK_ID) break;
+        deleted.delete(id);
+        decks.set(id, { id, name: String(p.name ?? ''), kind: p.kind === 'smart' ? 'smart' : 'manual', query: p.query as DeckQuery | undefined, createdAt: e.occurred_at, updatedAt: e.occurred_at });
+        break;
+      case 'deck.renamed': { const d = decks.get(id); if (d) { d.name = String(p.name ?? d.name); d.updatedAt = e.occurred_at; } break; }
+      case 'deck.query_changed': { const d = decks.get(id); if (d && d.kind === 'smart') { d.query = p.query as DeckQuery; d.updatedAt = e.occurred_at; } break; }
+      case 'deck.deleted':
+        if (id === FAVORITES_DECK_ID) break;
+        decks.delete(id); deleted.add(id);
+        terms.delete(id);
+        break;
+      case 'deck.term_added': {
+        if (deleted.has(id) || (id !== FAVORITES_DECK_ID && !decks.has(id))) break;
+        const termId = String(p.termId ?? ''); if (!termId) break;
+        let deckTerms = terms.get(id); if (!deckTerms) { deckTerms = new Map(); terms.set(id, deckTerms); }
+        deckTerms.set(termId, { deckId: id, termId, addedAt: e.occurred_at });
+        { const d = decks.get(id); if (d) d.updatedAt = e.occurred_at; }
+        break;
+      }
+      case 'deck.term_removed': {
+        const termId = String(p.termId ?? '');
+        terms.get(id)?.delete(termId);
+        { const d = decks.get(id); if (d) d.updatedAt = e.occurred_at; }
+        break;
+      }
+    }
+  }
+  const deckTerms = [...terms.values()].flatMap((m) => [...m.values()]);
+  return { decks: [...decks.values()], deckTerms, favorites: [...favorites.values()] };
+}
+
+/** Remplace les trois tables par l'état projeté (une transaction). */
+export async function writeCollections(state: CollectionsState): Promise<void> {
+  await db.transaction('rw', [db.decks, db.deck_terms, db.favorites], async () => {
+    await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear();
+    await db.decks.bulkPut(state.decks); await db.deck_terms.bulkPut(state.deckTerms); await db.favorites.bulkPut(state.favorites);
+  });
+}

@@ -1,19 +1,30 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '@/db/db';
 import { Icon } from '@/components/icons';
-import { useFachbegriffe } from '@/hooks/useData';
+import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
 import type { Fachbegriff } from '@/db/types';
-import { reviewSrs, isDue, type Grade } from '@/lib/srs';
+import { FAVORITES_DECK_ID } from '@/db/types';
+import { reviewSrs, type Grade } from '@/lib/srs';
 import { syncQueue } from '@/lib/sync/queue';
+import { termsOfDeck } from '@/lib/collections/query';
+import { buildDrillQueue, nextDueAt } from '@/lib/collections/drillQueue';
+
+const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
 // Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie
 // du cas travaillé, puis progression libre (couverture inclusive).
+// Un deck (ou les favoris) borne la file : jamais un terme hors du deck.
 export function DrillPage() {
   const begriffe = useFachbegriffe();
+  const decks = useDecks();
+  const deckTerms = useDeckTerms();
+  const favorites = useFavorites();
   const [params] = useSearchParams();
   const prioritySpecialty = params.get('specialty');
   const priorityPathology = params.get('pathology');
+  const deckId = params.get('deck');
+  const deck = deckId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === deckId);
 
   const [queue, setQueue] = useState<Fachbegriff[]>([]);
   const [started, setStarted] = useState(false);
@@ -22,32 +33,23 @@ export function DrillPage() {
   const [direction, setDirection] = useState<'term2simple' | 'simple2term'>('term2simple');
   const [stats, setStats] = useState({ done: 0, again: 0 });
 
-  // Construit la file : dus d'abord (priorité spécialité/pathologie), puis Neu.
-  const buildQueue = useMemo(() => (all: Fachbegriff[]) => {
-    const dueItems = all.filter((b) => isDue(b.srs));
-    const priority = (b: Fachbegriff) => {
-      if (priorityPathology && b.pathologyTags.includes(priorityPathology)) return 0;
-      if (prioritySpecialty && b.specialty === prioritySpecialty) return 1;
-      return 2;
-    };
-    const sorted = [...dueItems].sort((a, b) => priority(a) - priority(b) || a.srs.dueDate - b.srs.dueDate);
-    // complète avec des Neu jamais vus si peu de dus
-    const news = all.filter((b) => b.srs.state === 'Neu' && !dueItems.includes(b)).sort((a, b) => priority(a) - priority(b));
-    return [...sorted, ...news].slice(0, 20);
-  }, [prioritySpecialty, priorityPathology]);
+  // Pool borné au deck (ou tout le glossaire hors deck) ; la file de drill ne sort jamais de ce pool.
+  const pool = useMemo(() => (!begriffe ? [] : deck ? termsOfDeck(deck, begriffe, deckTerms ?? [], favorites ?? []) : begriffe), [begriffe, deck, deckTerms, favorites]);
+  const buildQueue = useCallback(() => buildDrillQueue(pool, { prioritySpecialty, priorityPathology }), [pool, prioritySpecialty, priorityPathology]);
 
   useEffect(() => {
-    if (begriffe && !started) setQueue(buildQueue(begriffe));
+    if (begriffe && !started) setQueue(buildQueue());
   }, [begriffe, started, buildQueue]);
 
   if (!begriffe) return <div className="text-slate-400">Chargement…</div>;
 
-  const start = () => { setQueue(buildQueue(begriffe)); setStarted(true); setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 }); };
+  const next = nextDueAt(pool);
+  const start = () => { setQueue(buildQueue()); setStarted(true); setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 }); };
 
   if (!started) {
     return (
       <div className="mx-auto max-w-xl space-y-5 text-center">
-        <h1 className="text-2xl font-bold">Drill Fachbegriffe</h1>
+        <h1 className="text-2xl font-bold">Drill Fachbegriffe{deck ? ` · ${deck.name}` : ''}</h1>
         <div className="card p-6">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-abc" className="h-8 w-8" /></div>
           <p className="mt-2 text-slate-500 dark:text-slate-400">
@@ -62,12 +64,22 @@ export function DrillPage() {
             </div>
           </div>
           {queue.length === 0 ? (
-            <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser pour l'instant. Reviens plus tard !</p>
+            deck ? (
+              <>
+                <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                  <Icon name="check" className="h-4 w-4" />
+                  Rien à réviser dans « {deck.name} » aujourd'hui.{next ? ` Prochain terme dû : ${new Date(next).toLocaleDateString('fr-FR')}.` : ''}
+                </p>
+                <Link to="/fachbegriffe/drill" className="btn-outline mt-3">Drill global</Link>
+              </>
+            ) : (
+              <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser pour l'instant. Reviens plus tard !</p>
+            )
           ) : (
             <button onClick={start} className="btn-primary mt-5 gap-1.5 px-8 py-3 text-base"><Icon name="play" className="h-4 w-4" />Commencer</button>
           )}
         </div>
-        <Link to="/fachbegriffe" className="btn-ghost">← Glossaire</Link>
+        <Link to={deckId ? `/fachbegriffe?deck=${deckId}` : '/fachbegriffe'} className="btn-ghost">← Glossaire</Link>
       </div>
     );
   }
@@ -108,7 +120,7 @@ export function DrillPage() {
   return (
     <div className="mx-auto max-w-xl space-y-4">
       <div className="flex items-center justify-between text-sm text-slate-400">
-        <Link to="/fachbegriffe" className="hover:text-brand-600">✕ Quitter</Link>
+        <Link to={deckId ? `/fachbegriffe?deck=${deckId}` : '/fachbegriffe'} className="hover:text-brand-600">✕ Quitter</Link>
         <span>{idx + 1} / {queue.length}</span>
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">

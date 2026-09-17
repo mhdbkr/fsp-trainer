@@ -315,7 +315,7 @@ CREATE TABLE IF NOT EXISTS "public"."progress_events" (
     "payload" "jsonb" NOT NULL,
     "occurred_at" timestamp with time zone NOT NULL,
     "received_at" timestamp with time zone DEFAULT "now"() NOT NULL,
-    CONSTRAINT "progress_events_type_check" CHECK (("type" = ANY (ARRAY['simulation.completed'::"text", 'srs.reviewed'::"text", 'plan.done'::"text", 'case.layer_reached'::"text", 'program.configured'::"text"])))
+    CONSTRAINT "progress_events_type_check" CHECK (("type" = ANY (ARRAY['simulation.completed'::"text", 'srs.reviewed'::"text", 'plan.done'::"text", 'case.layer_reached'::"text", 'program.configured'::"text", 'term.favorited'::"text", 'term.unfavorited'::"text", 'deck.created'::"text", 'deck.renamed'::"text", 'deck.query_changed'::"text", 'deck.deleted'::"text", 'deck.term_added'::"text", 'deck.term_removed'::"text"])))
 );
 
 

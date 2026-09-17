@@ -30,6 +30,12 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   (12 chapitres). Contrat de couverture par cas.
 - **Fachwissen** — fiche pathologie. **Fachbegriff** — terme du glossaire, avec
   SRS.
+- **Favori** — Fachbegriff marqué ★ par la personne ; événements `term.favorited` /
+  `term.unfavorited` ; deck réservé `deck-favorites`.
+- **Deck** — collection personnelle de Fachbegriffe : **liste manuelle** (termes
+  choisis, `deck.term_added`) ou **deck intelligent** (requête enregistrée
+  `DeckQuery` = les filtres de la page, évaluée à la lecture). Un deck est une
+  lentille sur le même SRS, jamais un second planning.
 - **Guide** — questions affichées au candidat, liées aux sondes par `probe:`.
   Le chapitre Fach est **généré** depuis les sondes.
 

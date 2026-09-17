@@ -294,6 +294,16 @@ export interface Fachbegriff {
 }
 
 // ----------------------------------------------------------------------------
+// Collections Fachbegriffe (F1) — projetées depuis le journal d'événements.
+// ----------------------------------------------------------------------------
+export interface DeckQuery { q?: string; specialty?: Specialty; state?: Srs['state']; center?: Center }
+export interface Deck { id: string; name: string; kind: 'manual' | 'smart'; query?: DeckQuery; createdAt: string; updatedAt: string }
+export interface DeckTerm { deckId: string; termId: string; addedAt: string }
+export interface Favorite { termId: string; since: string }
+/** Deck manuel réservé : jamais créé/renommé/supprimé par événement, fabriqué par l'UI. */
+export const FAVORITES_DECK_ID = 'deck-favorites';
+
+// ----------------------------------------------------------------------------
 // Fachwissen (fiche pathologie riche)
 // ----------------------------------------------------------------------------
 /** Étapes du raisonnement diagnostique, dans l'ordre où on les récite à l'oral. */
