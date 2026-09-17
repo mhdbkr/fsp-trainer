@@ -46,7 +46,7 @@ export function effectiveDaily(s: SrsSettings, auto: { budget: number; intensity
 
 ### 3.4 Session en pause pendant le drill
 
-`useSimSession.minimize()` (existant) fige le snapshot (partie, phase, Bogen, texte, chrono `elapsed`). Depuis le panneau du runner : `minimize()` puis `navigate('/fachbegriffe/drill?case=<id>')`. `ResumeSessionBar` (existant) reste visible sur le drill ; « Reprendre » → runner à l'état exact. « Quitter » du drill → `/simulation/<id>` (le runner restaure). Aucun événement `simulation.completed` n'est émis par le drill.
+`useSimSession.minimize()` (existant) fige le snapshot (partie, phase, Bogen, texte, chrono `elapsed`). Depuis le panneau du runner : `minimize()` puis `navigate('/fachbegriffe/drill?case=<id>')`. `ResumeSessionBar` (existant) reste visible sur le drill ; « Reprendre » → runner à l'état exact. « Quitter » du drill → `/simulation/<id>/run?teil=<teil>` (même cible que `ResumeSessionBar` ; le runner appelle `resume()`). Aucun événement `simulation.completed` n'est émis par le drill.
 
 ### 3.5 Termes du cas dans le runner (`CaseTermsPanel`)
 

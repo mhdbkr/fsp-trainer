@@ -281,7 +281,7 @@ export async function markReviewed(now = new Date()): Promise<void> { await setM
 - Titre : `Drill Fachbegriffe · Termes de ${theCase.name}` quand `caseId`.
 - État vide en mode cas : « Rien à réviser dans ce cas aujourd'hui. » + `<Link to={`/fachbegriffe/drill?specialty=${encodeURIComponent(theCase.specialty)}`} className="btn-primary">Réviser la spécialité {theCase.specialty}</Link>` + « Drill global ».
 - `grade()` : `if (!wasNew) void markReviewed();`.
-- « ✕ Quitter » en mode cas : `to={`/simulation/${caseId}`}` si une session est en pause pour ce cas (`useSimSession.getState().snapshot?.caseId === caseId && minimized`), sinon `/cas/${caseId}`.
+- « ✕ Quitter » en mode cas : `to={`/simulation/${caseId}/run${teil ? `?teil=${teil}` : ""}`}` (cible de `ResumeSessionBar`) si une session est en pause pour ce cas (`useSimSession.getState().snapshot?.caseId === caseId && minimized`), sinon `/cas/${caseId}`.
 
 - [ ] **Step 4 : lancer, vérifier**
 
