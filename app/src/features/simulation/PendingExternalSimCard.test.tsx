@@ -35,7 +35,6 @@ describe('PendingExternalSimCard', () => {
     await db.progress_events.clear();
     await db.cases.clear();
     await db.cases.put(c);
-    sessionStorage.clear();
   });
 
   it('absente sans trace ; présente avec trace ; « Ce n\'était pas une simulation » efface', async () => {
@@ -62,6 +61,30 @@ describe('PendingExternalSimCard', () => {
     expect(sim.scope).toBe('teil');
     expect(sim.teil).toBe('anamnese');
     await waitFor(async () => expect((await db.meta.get('externalAi.pending'))?.value ?? null).toBeNull());
+  });
+
+  it('chip « 30 min+ » + scope anamnese → PartResult.durationSec = 1800 (tout à l\'anamnese)', async () => {
+    await setPending({ caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    await screen.findByText(/tu as simulé/i);
+    fireEvent.click(screen.getByRole('radio', { name: /30 min/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i }));
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    expect(sim.parts.anamnese?.durationSec).toBe(1800);
+  });
+
+  it('chip par défaut « 20 min » + scope exam → 2/3 anamnese, 1/3 fallvorstellung (arrondi)', async () => {
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i })); // anamnese
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i })); // fallvorstellung
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    expect(sim.parts.anamnese?.durationSec).toBe(800); // round(1200 * 2/3)
+    expect(sim.parts.fallvorstellung?.durationSec).toBe(400); // reste
   });
 
   it('scope "exam" : anamnese → fallvorstellung → une seule simulation avec les deux parties', async () => {
@@ -93,12 +116,31 @@ describe('PendingExternalSimCard', () => {
     expect(completed.length).toBe(1);
   });
 
-  it('« Pas maintenant » : ferme la carte sans effacer la trace', async () => {
+  it('« Pas maintenant » : ferme la carte sans effacer la trace, pose snoozedUntil ≈ +1 h', async () => {
     await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /pas maintenant/i }));
     await waitFor(() => expect(screen.queryByText(/tu as simulé/i)).toBeNull());
-    expect((await db.meta.get('externalAi.pending'))?.value ?? null).not.toBeNull();
+    const stored = (await db.meta.get('externalAi.pending'))?.value ?? null;
+    expect(stored).not.toBeNull();
+    expect(stored.caseId).toBe('c1'); // les autres champs de la trace sont conservés
+    expect(stored.snoozedUntil).toBeGreaterThan(Date.now());
+    expect(stored.snoozedUntil).toBeLessThanOrEqual(Date.now() + 3600_000 + 1000);
+  });
+
+  it('« Pas maintenant » : la carte revient une fois snoozedUntil dépassé (après 1 h)', async () => {
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    const { rerender } = render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: /pas maintenant/i }));
+    await waitFor(() => expect(screen.queryByText(/tu as simulé/i)).toBeNull());
+    // useLiveQuery ne recalcule que sur écriture de la table observée, jamais
+    // sur simple écoulement du temps : on simule « 1 h plus tard » en
+    // ré-écrivant la trace avec un snoozedUntil déjà dépassé.
+    const stored = (await db.meta.get('externalAi.pending'))?.value;
+    await setPending({ ...stored, snoozedUntil: Date.now() - 1000 });
+    rerender(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
   });
 });

@@ -7,13 +7,12 @@ import { PartEvaluation } from './PartEvaluation';
 import { saveSimulation } from '@/lib/simulationSave';
 import type { Case, PartResult } from '@/db/types';
 
-// Clé sessionStorage de « Pas maintenant » : garde la trace, ferme la carte
-// pour cette session (tant que l'onglet reste ouvert) ; un nouveau chargement
-// (nouvelle session) la fait revenir tant que la trace a moins de 12 h.
-const snoozeKey = (caseId: string, at: number) => `externalAi.snoozed:${caseId}:${at}`;
-const isSnoozed = (caseId: string, at: number): boolean => {
-  try { return sessionStorage.getItem(snoozeKey(caseId, at)) === '1'; } catch { return false; }
-};
+const SNOOZE_MS = 3600_000; // 1 h — « Pas maintenant » persiste dans la trace (snoozedUntil), pas en sessionStorage
+// Les 3 durées proposées ; « 30 min+ » vaut 30 min comme les autres, le
+// « + » n'est qu'un signal visuel qu'il n'y a pas de plafond au-delà.
+const DURATIONS_MIN = [10, 20, 30] as const;
+type DurationMin = typeof DURATIONS_MIN[number];
+const DEFAULT_DURATION_MIN: DurationMin = 20;
 
 // Carte de retour après une simulation avec une IA externe : la séance ne
 // compte que si le candidat s'auto-évalue (même grille que le runner).
@@ -26,7 +25,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
   const [step, setStep] = useState<'idle' | 'anamnese' | 'fallvorstellung' | 'saving'>('idle');
   const [parts, setParts] = useState<Partial<Record<'anamnese' | 'fallvorstellung', PartResult>>>({});
   const [c, setC] = useState<Case | null>(null);
-  const [snoozed, setSnoozed] = useState(false);
+  const [durationMin, setDurationMin] = useState<DurationMin>(DEFAULT_DURATION_MIN);
   // Garde contre le double-submit : PartEvaluation peut rester montée le
   // temps d'un double-tap avant que `setStep('saving')` ne l'efface ; le ref
   // est synchrone (contrairement au state) et coupe court dès le second appel.
@@ -35,6 +34,9 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
   const p = useLiveQuery(async () => {
     const x = await getPending();
     if (!x || Date.now() - x.at > 12 * 3600_000 || (onlyCaseId && x.caseId !== onlyCaseId)) return null;
+    // Snooze persistant (« Pas maintenant ») : la trace reste posée (elle
+    // expire toujours à 12 h), mais la carte reste masquée jusqu'à snoozedUntil.
+    if (x.snoozedUntil && Date.now() < x.snoozedUntil) return null;
     return x;
   }, [onlyCaseId], null);
   const caseId = p?.caseId;
@@ -46,16 +48,11 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     return () => { alive = false; };
   }, [caseId]);
 
-  useEffect(() => { setSnoozed(p ? isSnoozed(p.caseId, p.at) : false); }, [p?.caseId, p?.at]);
-
   if (!p || !c) return null;
 
   const target = AI_TARGETS.find((t) => t.id === p.targetId)?.label ?? p.targetId;
   const dismiss = async () => { await setPending(null); };
-  const snooze = () => {
-    try { sessionStorage.setItem(snoozeKey(p.caseId, p.at), '1'); } catch { /* stockage indisponible : tant pis, pas bloquant */ }
-    setSnoozed(true);
-  };
+  const snooze = async () => { await setPending({ ...p, snoozedUntil: Date.now() + SNOOZE_MS }); };
   const finish = async (all: typeof parts) => {
     if (savingRef.current) return;
     savingRef.current = true;
@@ -75,11 +72,18 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     }
   };
 
+  // Durée choisie répartie sur les parties jouées : anamnese seule = tout ;
+  // exam (± feedback) = 2/3 anamnese, 1/3 fallvorstellung (arrondi), le
+  // reste va à fallvorstellung pour que la somme reste exacte.
+  const totalSec = durationMin * 60;
+  const anamneseSec = p.scope === 'anamnese' ? totalSec : Math.round((totalSec * 2) / 3);
+  const fallvorstellungSec = totalSec - anamneseSec;
+
   if (step === 'anamnese' || step === 'fallvorstellung') {
     return (
       <PartEvaluation
         part={step}
-        durationSec={0}
+        durationSec={step === 'anamnese' ? anamneseSec : fallvorstellungSec}
         onCancel={() => setStep('idle')}
         onSave={(r) => {
           if (savingRef.current) return; // double-tap : la première validation est déjà en cours
@@ -92,7 +96,6 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     );
   }
   if (step === 'saving') return null;
-  if (snoozed) return null;
 
   return (
     <section className="card flex flex-wrap items-center justify-between gap-3 p-4">
@@ -101,10 +104,18 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
         <p className="font-semibold">
           Tu as simulé <Link to={`/cas/${c.id}`} className="text-brand-600">{c.name}</Link> avec {target} — comment ça s'est passé ?
         </p>
+        <div role="radiogroup" aria-label="Durée" className="mt-2 flex gap-1.5">
+          {DURATIONS_MIN.map((m) => (
+            <button key={m} type="button" role="radio" aria-checked={m === durationMin} onClick={() => setDurationMin(m)}
+              className={`chip min-h-11 px-3 ${m === durationMin ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>
+              {m === 30 ? '30 min+' : `${m} min`}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="flex gap-2">
         <button type="button" onClick={() => setStep('anamnese')} className="btn-primary min-h-11">Évaluer</button>
-        <button type="button" onClick={snooze} className="btn-ghost min-h-11 text-sm">Pas maintenant</button>
+        <button type="button" onClick={() => { snooze().catch(() => {}); }} className="btn-ghost min-h-11 text-sm">Pas maintenant</button>
         <button type="button" onClick={dismiss} className="btn-ghost min-h-11 text-sm">Ce n'était pas une simulation</button>
       </div>
     </section>

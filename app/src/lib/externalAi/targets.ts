@@ -65,6 +65,6 @@ export async function savePrefs(p: ExternalAiPrefs): Promise<void> {
   ]);
 }
 
-export interface PendingExternalSim { caseId: string; targetId: TargetId; scope: Scope; at: number }
+export interface PendingExternalSim { caseId: string; targetId: TargetId; scope: Scope; at: number; snoozedUntil?: number }
 export const getPending = (): Promise<PendingExternalSim | null> => getMeta<PendingExternalSim | null>('externalAi.pending', null);
 export const setPending = (p: PendingExternalSim | null): Promise<void> => setMeta('externalAi.pending', p);
