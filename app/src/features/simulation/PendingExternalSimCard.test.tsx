@@ -32,8 +32,10 @@ describe('PendingExternalSimCard', () => {
   beforeEach(async () => {
     await db.meta.clear();
     await db.simulations.clear();
+    await db.progress_events.clear();
     await db.cases.clear();
     await db.cases.put(c);
+    sessionStorage.clear();
   });
 
   it('absente sans trace ; présente avec trace ; « Ce n\'était pas une simulation » efface', async () => {
@@ -56,5 +58,40 @@ describe('PendingExternalSimCard', () => {
     expect(sim.mode).toBe('external-ai');
     expect(sim.externalTarget).toBe('claude');
     await waitFor(async () => expect((await db.meta.get('externalAi.pending'))?.value ?? null).toBeNull());
+  });
+
+  it('scope "exam" : anamnese → fallvorstellung → une seule simulation avec les deux parties', async () => {
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i })); // anamnese
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i })); // fallvorstellung
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    expect(sim.mode).toBe('external-ai');
+    expect(Object.keys(sim.parts).sort()).toEqual(['anamnese', 'fallvorstellung']);
+    await waitFor(async () => expect((await db.meta.get('externalAi.pending'))?.value ?? null).toBeNull());
+  });
+
+  it('double clic sur « Valider » : une seule simulation et un seul événement simulation.completed', async () => {
+    await setPending({ caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    const validate = await screen.findByRole('button', { name: /valider/i });
+    fireEvent.click(validate);
+    fireEvent.click(validate); // double-tap avant que l'évaluation ne se démonte
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    expect(await db.simulations.count()).toBe(1);
+    const completed = (await db.progress_events.toArray()).filter((e) => e.type === 'simulation.completed');
+    expect(completed.length).toBe(1);
+  });
+
+  it('« Pas maintenant » : ferme la carte sans effacer la trace', async () => {
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: /pas maintenant/i }));
+    await waitFor(() => expect(screen.queryByText(/tu as simulé/i)).toBeNull());
+    expect((await db.meta.get('externalAi.pending'))?.value ?? null).not.toBeNull();
   });
 });

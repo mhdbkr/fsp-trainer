@@ -7,6 +7,7 @@ import { useCases, useSimulations } from '@/hooks/useData';
 import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
 import { Icon } from '@/components/icons';
 import { partScore } from '@/lib/scoring';
+import { AI_TARGETS } from '@/lib/externalAi/targets';
 
 export function SimulationHub() {
   const cases = useCases();
@@ -52,7 +53,7 @@ export function SimulationHub() {
                     <div className="flex items-center gap-1.5 text-sm font-medium">
                       {c?.name ?? sim.caseId}
                       {sim.mode === 'external-ai' && (
-                        <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">IA externe{sim.externalTarget ? ` · ${sim.externalTarget}` : ''}</span>
+                        <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">IA externe{sim.externalTarget ? ` · ${AI_TARGETS.find((t) => t.id === sim.externalTarget)?.label ?? sim.externalTarget}` : ''}</span>
                       )}
                     </div>
                     <div className="text-xs text-slate-400">
