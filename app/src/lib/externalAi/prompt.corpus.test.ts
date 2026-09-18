@@ -1,10 +1,19 @@
 import { describe, it, expect } from 'vitest';
-import { buildExternalPromptDetailed, PROMPT_MAX, PREFILL_MAX } from './prompt';
+import { buildExternalPromptDetailed, PROMPT_MAX, PREFILL_MAX, stripFrenchDirections } from './prompt';
 import { seedCases } from '@/data/seedCases';
 import { PROBE_BY_ID } from '@/data/guides/anamneseProbes';
 import { buildRollenskript } from '@/lib/rolePlay';
 
-const TEIL3_MARKER = '# Teil 3 – Oberarzt/Oberärztin';
+const TEIL3_MARKER = '# Teil 3 – Oberärztin/Oberarzt';
+
+// E — séquences de régie française qui ne doivent plus jamais survivre dans
+// la section Oberarzt du prompt, quel que soit le cas du corpus (comparaison
+// SENSIBLE À LA CASSE, comme demandé : on vérifie la forme exacte observée
+// dans les fiches, pas une variante). Match sur mot/limite de mot entier —
+// une simple sous-chaîne ferait faussement échouer sur « Teste » contenu
+// dans un nom allemand légitime comme « Testergebnis ».
+const FRENCH_DIRECTION_SEQUENCES = ['Le simulant', 'le candidat', 'Relance', 'Demande un', 'Teste'];
+const containsWholeWordSequence = (text: string, seq: string) => new RegExp(`\\b${seq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(text);
 
 // Mêmes ids que SECONDARY_CHAPTERS dans prompt.ts (non exporté à dessein — le
 // test vérifie le contrat, pas l'implémentation). Ces chapitres sont, par la
@@ -45,13 +54,29 @@ describe('prompt sur le corpus', () => {
     const cases = seedCases();
     expect(cases.length).toBeGreaterThanOrEqual(130);
     const tooLong: string[] = []; const notFull: string[] = []; const leaks: string[] = []; const lens: number[] = [];
+    const frenchDirectionSurvivors: string[] = [];
     let toleratedLeakHits = 0;
+    let reaktionFieldsTotal = 0; let reaktionFieldsTouchedByStrip = 0;
     for (const c of cases) {
+      // E — régie française : combien de champs reaktion sont modifiés par
+      // stripFrenchDirections sur ce cas (compromis compté, voir prompt.ts).
+      for (const sec of c.examinerSheet ?? []) {
+        for (const inter of sec.interactions) {
+          if (!inter.reaktion) continue;
+          reaktionFieldsTotal += 1;
+          if (stripFrenchDirections(inter.reaktion) !== inter.reaktion) reaktionFieldsTouchedByStrip += 1;
+        }
+      }
       const { text: p, level } = buildExternalPromptDetailed({ c, scope: 'exam+feedback', feedbackLang: 'fr', topTerms: REALISTIC_TOP_TERMS });
       lens.push(p.length);
       if (p.length > PROMPT_MAX) tooLong.push(`${c.id}:${p.length}`);
       if (level !== 'full') notFull.push(`${c.id}:${level}`);
-      const [beforeTeil3] = p.split(TEIL3_MARKER);
+      const [beforeTeil3, afterTeil3] = p.split(TEIL3_MARKER);
+      // E — aucune séquence de régie française ne doit survivre dans la
+      // section Oberarzt (après le marqueur Teil 3), quel que soit le cas.
+      for (const seq of FRENCH_DIRECTION_SEQUENCES) {
+        if (afterTeil3 && containsWholeWordSequence(afterTeil3, seq)) frenchDirectionSurvivors.push(`${c.id}:${seq}`);
+      }
       const vd = c.medicalView?.verdachtsdiagnose;
       if (vd && vd.length > 6 && beforeTeil3.includes(vd)) leaks.push(c.id);
       const verdacht = c.medicalView?.patientWorte?.verdacht;
@@ -96,10 +121,13 @@ describe('prompt sur le corpus', () => {
       `≤PROMPT_MAX(${PROMPT_MAX})=${underPromptMax}/${lens.length} (${Math.round((underPromptMax / lens.length) * 100)}%) ` +
       `fuites medicalView tolérées (présentes aussi dans patientSheet)=${toleratedLeakHits}`,
     );
+    // eslint-disable-next-line no-console
+    console.log(`[prompt corpus] régie française (E) : ${reaktionFieldsTouchedByStrip}/${reaktionFieldsTotal} champs reaktion modifiés par stripFrenchDirections`);
 
     expect(tooLong).toEqual([]);
     expect(notFull).toEqual([]);
     expect(leaks).toEqual([]);
+    expect(frenchDirectionSurvivors).toEqual([]);
   });
 
   it('3 cas riches : persona et chaque réplique des chapitres non secondaires intégraux, aucune troncature (« … »)', () => {
