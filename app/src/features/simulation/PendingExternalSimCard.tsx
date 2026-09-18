@@ -116,7 +116,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
       <div className="flex gap-2">
         <button type="button" onClick={() => setStep('anamnese')} className="btn-primary min-h-11">Évaluer</button>
         <button type="button" onClick={() => { snooze().catch(() => {}); }} className="btn-ghost min-h-11 text-sm">Pas maintenant</button>
-        <button type="button" onClick={dismiss} className="btn-ghost min-h-11 text-sm">Ce n'était pas une simulation</button>
+        <button type="button" onClick={() => { dismiss().catch(() => {}); }} className="btn-ghost min-h-11 text-sm">Ce n'était pas une simulation</button>
       </div>
     </section>
   );
