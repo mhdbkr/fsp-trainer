@@ -19,7 +19,7 @@ describe('cibles', () => {
     expect(buildLaunchUrl(T.chatgpt, '„'.repeat(2500)).prefilled).toBe(false);   // 2 500 car. bruts mais ~22 500 encodés → base
     expect(buildLaunchUrl(T.chatgpt, long)).toEqual({ url: 'https://chatgpt.com/', prefilled: false });
   });
-  it('launch : copie puis ouvre ; copie échouée → copied false mais ouvre quand même', async () => {
+  it('launch : ouvre puis copie ; copie échouée → copied false mais ouvre quand même', async () => {
     const open = vi.fn(); const copy = vi.fn().mockResolvedValue(undefined);
     expect(await launch(T.claude, 'p', { open, copy })).toEqual({ opened: true, copied: true, prefilled: true });
     expect(copy).toHaveBeenCalledWith('p'); expect(open).toHaveBeenCalledWith('https://claude.ai/new?q=p');

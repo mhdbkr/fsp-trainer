@@ -33,6 +33,8 @@ export function buildLaunchUrl(t: AiTarget, prompt: string): { url: string; pref
 
 export async function launch(t: AiTarget, prompt: string, deps: { open?: (url: string) => void; copy?: (text: string) => Promise<void> } = {}): Promise<{ opened: boolean; copied: boolean; prefilled: boolean }> {
   const copy = deps.copy ?? ((text: string) => navigator.clipboard.writeText(text));
+  // `noopener` fait TOUJOURS renvoyer `null` à window.open (ouverture réussie
+  // ou bloquée par le navigateur) : impossible de distinguer les deux cas ici.
   const open = deps.open ?? ((url: string) => { window.open(url, '_blank', 'noopener'); });
   // Ouvrir D'ABORD, de façon synchrone dans le geste utilisateur : Safari/iOS
   // bloque un window.open qui suit un `await`. Le presse-papiers suit.
@@ -40,6 +42,8 @@ export async function launch(t: AiTarget, prompt: string, deps: { open?: (url: s
   open(url);
   let copied = false;
   try { await copy(prompt); copied = true; } catch { copied = false; }
+  // `opened: true` est optimiste, pas mesuré : `noopener` renvoie `null` que
+  // l'ouverture réussisse ou qu'un popup blocker l'ait bloquée (voir ci-dessus).
   return { opened: true, copied, prefilled };
 }
 
