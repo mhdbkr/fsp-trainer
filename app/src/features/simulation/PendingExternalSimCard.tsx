@@ -62,8 +62,10 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     setStep('saving'); // synchrone, avant tout await : ferme l'évaluation immédiatement
     try {
       await saveSimulation({
-        c, parts: all, assistance: 'autonome', layer: (c.layerProgress ?? 1) as never,
-        mode: 'external-ai', externalTarget: p.targetId, scope: 'full',
+        c, parts: all, assistance: 'autonome', layer: c.layerProgress ?? 1,
+        mode: 'external-ai', externalTarget: p.targetId,
+        scope: p.scope === 'anamnese' ? 'teil' : 'full',
+        teil: p.scope === 'anamnese' ? 'anamnese' : undefined,
       });
       await setPending(null);
       setParts({});
@@ -101,9 +103,9 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
         </p>
       </div>
       <div className="flex gap-2">
-        <button type="button" onClick={() => setStep('anamnese')} className="btn-primary">Évaluer</button>
-        <button type="button" onClick={snooze} className="btn-ghost text-sm">Pas maintenant</button>
-        <button type="button" onClick={dismiss} className="btn-ghost text-sm">Ce n'était pas une simulation</button>
+        <button type="button" onClick={() => setStep('anamnese')} className="btn-primary min-h-11">Évaluer</button>
+        <button type="button" onClick={snooze} className="btn-ghost min-h-11 text-sm">Pas maintenant</button>
+        <button type="button" onClick={dismiss} className="btn-ghost min-h-11 text-sm">Ce n'était pas une simulation</button>
       </div>
     </section>
   );

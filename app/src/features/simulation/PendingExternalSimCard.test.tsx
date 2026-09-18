@@ -57,6 +57,10 @@ describe('PendingExternalSimCard', () => {
     const sim = (await db.simulations.toArray())[0];
     expect(sim.mode).toBe('external-ai');
     expect(sim.externalTarget).toBe('claude');
+    // I1 — scope "anamnese" côté trace → sim.scope 'teil'/sim.teil 'anamnese'
+    // (pas 'full' : cette simulation ne couvre que l'anamnèse).
+    expect(sim.scope).toBe('teil');
+    expect(sim.teil).toBe('anamnese');
     await waitFor(async () => expect((await db.meta.get('externalAi.pending'))?.value ?? null).toBeNull());
   });
 
@@ -70,6 +74,9 @@ describe('PendingExternalSimCard', () => {
     const sim = (await db.simulations.toArray())[0];
     expect(sim.mode).toBe('external-ai');
     expect(Object.keys(sim.parts).sort()).toEqual(['anamnese', 'fallvorstellung']);
+    // I1 — scope "exam" (pas "anamnese" seule) → sim.scope 'full', pas de teil.
+    expect(sim.scope).toBe('full');
+    expect(sim.teil).toBeUndefined();
     await waitFor(async () => expect((await db.meta.get('externalAi.pending'))?.value ?? null).toBeNull());
   });
 
