@@ -12,6 +12,7 @@ import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import { STUFE_META } from '@/features/fachwissen/stufeMeta';
 import { DDTable } from '@/components/DDTable';
 import { termsInOrder } from '@/lib/collections/caseTerms';
+import { PendingExternalSimCard } from '@/features/simulation/PendingExternalSimCard';
 
 export function CaseDetailPage() {
   const { id } = useParams();
@@ -30,6 +31,7 @@ export function CaseDetailPage() {
 
   return (
     <div className="space-y-5">
+      <PendingExternalSimCard onlyCaseId={c.id} />
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="eyebrow">Cas clinique</div>

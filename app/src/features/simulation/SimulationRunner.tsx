@@ -1,12 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { TEILE, isTeil, caseMastery } from '@/lib/simScope';
-import { db } from '@/db/db';
+import { TEILE, isTeil } from '@/lib/simScope';
 import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
 import { useCase, useAufklaerungen } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
-import { syncQueue } from '@/lib/sync/queue';
 import { useSimSession } from '@/store/simSession';
+import { saveSimulation } from '@/lib/simulationSave';
 import { useTimer } from './useTimer';
 import { computeAmbiance } from './timeAmbiance';
 import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
@@ -177,37 +176,10 @@ export function SimulationRunner() {
   };
 
   const finishSimulation = async () => {
-    const parts = { ...results };
-    const sim: Simulation = {
-      id: `sim-${Date.now()}`,
-      caseId: c.id,
-      date: Date.now(),
-      parts,
-      notes,
-      bogen,
-      arztbriefText,
-      prioritizedCorrections: buildCorrections(parts),
-      passed: Object.values(parts).filter((p) => p?.done).every((p) => partScore(p!) >= 60),
-      assistance, layer, muster,
+    const sim = await saveSimulation({
+      c, parts: results, notes, bogen, arztbriefText, assistance, layer, muster,
       scope: teil ? 'teil' : 'full', teil: teil ?? undefined,
-    };
-    await db.simulations.put(sim);
-    // La sync ne doit jamais bloquer la fin de simulation : la sauvegarde
-    // locale est faite, un échec d'enfilement se journalise sans casser l'écran.
-    syncQueue.push({ type: 'simulation.completed', subject_id: c.id, payload: sim }).catch((e) => console.warn('[sync]', e));
-    // met à jour confiance + statut du cas — confiance pondérée (assistance × couche)
-    const done = Object.values(parts).filter((p): p is PartResult => !!p?.done);
-    // Toute session fait avancer le cas (FB2-P, retour direction) : la
-    // confiance est la maîtrise au prorata des trois parties, dernière
-    // session de chaque partie comprise — celle-ci incluse.
-    if (done.length) {
-      const prior = await db.simulations.where('caseId').equals(c.id).toArray();
-      const mastery = caseMastery(prior, c.id, sim).score ?? 0;
-      const conf = Math.round(mastery * (assistance === 'autonome' ? 1 : 0.9));
-      const status = conf >= 80 ? 'Maîtrisé' : conf >= 40 ? 'En cours' : 'À faire';
-      await db.cases.update(c.id, { confidence: conf, status, lastSimulationId: sim.id, layerProgress: layer });
-      syncQueue.push({ type: 'case.layer_reached', subject_id: c.id, payload: { layer } }).catch((e) => console.warn('[sync]', e));
-    }
+    });
     useSimSession.getState().end(); // session terminée → efface le brouillon persistant
     setFinished(sim);
   };
@@ -590,19 +562,4 @@ function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       </div>
     </div>
   );
-}
-
-// Corrections prioritaires : dérivées des critères non cochés + langue faible.
-function buildCorrections(parts: Partial<Record<Part, PartResult>>): string[] {
-  const out: string[] = [];
-  for (const [part, res] of Object.entries(parts)) {
-    if (!res?.done) continue;
-    const missed = res.checklist.filter((it) => !it.checked).slice(0, 2);
-    for (const m of missed) out.push(`${part} — ${m.label}`);
-    if (res.languageGrid) {
-      const weak = Object.entries(res.languageGrid).filter(([, v]) => v <= 2);
-      for (const [k] of weak) out.push(`${part} — Sprache: ${k} verbessern`);
-    }
-  }
-  return out.slice(0, 6);
 }

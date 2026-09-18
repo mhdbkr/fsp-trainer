@@ -142,8 +142,9 @@ export type RolePlayKapitel =
 export type PatientEmotion =
   | 'neutral' | 'ruhig' | 'besorgt' | 'schmerzgeplagt' | 'ängstlich' | 'gereizt' | 'erleichtert';
 
-/** Mode de rendu de la simulation. 'texte' = MVP actuel ; 'tts'/'vocal' = 2b. */
-export type SimulationMode = 'texte' | 'tts' | 'vocal';
+/** Mode de rendu de la simulation. 'texte' = MVP actuel ; 'tts'/'vocal' = 2b ;
+ *  'external-ai' = auto-évaluation après une simulation dans une IA externe. */
+export type SimulationMode = 'texte' | 'tts' | 'vocal' | 'external-ai';
 
 /** État dynamique du patient (0..100), avancé à chaque tour. MVP : règles
  *  simples hardcodées (lib/simulationStep), remplaçables par un LLM orchestrateur. */
@@ -469,6 +470,8 @@ export interface Simulation {
   /** PHASE 2b (optionnel) — journal de conversation (continuité IA + analytics). */
   conversation?: ConversationTurn[];
   mode?: SimulationMode;   // rendu utilisé (défaut 'texte')
+  /** Cible IA externe utilisée quand mode === 'external-ai'. */
+  externalTarget?: 'chatgpt' | 'claude' | 'gemini' | 'perplexity' | 'grok';
   /** Portée de la session (FB2-P) : complète (3 Teile) ou un seul Teil.
    *  Absent sur l'historique = complète. Un Teil nourrit les stats par axe
    *  et le streak, pas la maîtrise du cas (lib/simScope.ts). */
