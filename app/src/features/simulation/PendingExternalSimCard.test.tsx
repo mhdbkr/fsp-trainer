@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
-import { setPending } from '@/lib/externalAi/targets';
+import { setPending, type PendingExternalSim } from '@/lib/externalAi/targets';
 import { PendingExternalSimCard } from './PendingExternalSimCard';
 
 vi.mock('@/lib/sync/queue', async () => {
@@ -122,11 +122,11 @@ describe('PendingExternalSimCard', () => {
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /pas maintenant/i }));
     await waitFor(() => expect(screen.queryByText(/tu as simulé/i)).toBeNull());
-    const stored = (await db.meta.get('externalAi.pending'))?.value ?? null;
+    const stored = ((await db.meta.get('externalAi.pending'))?.value ?? null) as PendingExternalSim | null;
     expect(stored).not.toBeNull();
-    expect(stored.caseId).toBe('c1'); // les autres champs de la trace sont conservés
-    expect(stored.snoozedUntil).toBeGreaterThan(Date.now());
-    expect(stored.snoozedUntil).toBeLessThanOrEqual(Date.now() + 3600_000 + 1000);
+    expect(stored?.caseId).toBe('c1'); // les autres champs de la trace sont conservés
+    expect(stored?.snoozedUntil).toBeGreaterThan(Date.now());
+    expect(stored?.snoozedUntil).toBeLessThanOrEqual(Date.now() + 3600_000 + 1000);
   });
 
   it('« Pas maintenant » : la carte revient une fois snoozedUntil dépassé (après 1 h)', async () => {
@@ -138,7 +138,7 @@ describe('PendingExternalSimCard', () => {
     // useLiveQuery ne recalcule que sur écriture de la table observée, jamais
     // sur simple écoulement du temps : on simule « 1 h plus tard » en
     // ré-écrivant la trace avec un snoozedUntil déjà dépassé.
-    const stored = (await db.meta.get('externalAi.pending'))?.value;
+    const stored = (await db.meta.get('externalAi.pending'))?.value as PendingExternalSim;
     await setPending({ ...stored, snoozedUntil: Date.now() - 1000 });
     rerender(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
