@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildExternalPrompt, buildExternalPromptDetailed, PROMPT_MAX, PREFILL_MAX } from './prompt';
+import { buildExternalPrompt, buildExternalPromptDetailed, PROMPT_MAX, PREFILL_MAX, stripFrenchDirections } from './prompt';
 import type { Case } from '@/db/types';
 
 const c = {
@@ -30,14 +30,14 @@ describe('buildExternalPrompt', () => {
   it('ne divulgue jamais la fiche médicale AVANT la section Oberarzt (Teil 3) — toléré après, le senior connaît le diagnostic', () => {
     for (const scope of ['anamnese', 'exam', 'exam+feedback'] as const) {
       const p = buildExternalPrompt({ ...base, scope });
-      const [beforeTeil3] = p.split('# Teil 3 – Oberarzt/Oberärztin');
+      const [beforeTeil3] = p.split('# Teil 3 – Oberärztin/Oberarzt');
       expect(beforeTeil3).not.toContain('Ulcus ventriculi');            // verdachtsdiagnose
       expect(beforeTeil3).not.toContain('ein Geschwür im Magen');        // medicalView.patientWorte
     }
   });
   it('exam : section Oberarzt avec les questions dans l\'ordre, attendus entre parenthèses, puis examinerQuestions, marqueur exact, note diagnostic', () => {
     const p = buildExternalPrompt({ ...base, scope: 'exam' });
-    expect(p).toContain('# Teil 3 – Oberarzt/Oberärztin');
+    expect(p).toContain('# Teil 3 – Oberärztin/Oberarzt');
     expect(p).toContain('Alles in diesem Teil weiß nur die Oberärztin/der Oberarzt.');
     const i1 = p.indexOf('Welche Differenzialdiagnosen'); const i2 = p.indexOf('Wie gehen Sie weiter vor?');
     expect(i1).toBeGreaterThan(0); expect(i2).toBeGreaterThan(i1);
@@ -123,5 +123,39 @@ describe('cascade de compaction non destructive (cas artificiels)', () => {
     expect(d.text).not.toContain('Sozial-Frage 0');
     expect(d.text).toContain('Fakten: Kein Fieber');
     expect(d.text).toContain('Mutter: Diabetes');
+  });
+});
+
+// ----------------------------------------------------------------------------
+// E — régie française résiduelle dans examinerSheet[].interactions[].reaktion
+// (relecture langue allemande). Les 3 exemples réels viennent du corpus.
+// ----------------------------------------------------------------------------
+describe('stripFrenchDirections', () => {
+  it('retire une phrase française portée par un mot fort (« Relance… »), garde la phrase allemande intacte', () => {
+    const input = 'ca. 10 Flaschen Bier + 3 Flaschen Schnaps pro Tag seit 20 Jahren. Relance si le candidat reste vague.';
+    expect(stripFrenchDirections(input)).toBe('ca. 10 Flaschen Bier + 3 Flaschen Schnaps pro Tag seit 20 Jahren.');
+  });
+
+  it('retire une phrase française portée par un mot fort (« Demande un… »), garde la phrase allemande intacte', () => {
+    const input = 'hepatozelluläres Karzinom, Pankreaskarzinom, Rechtsherzinsuffizienz. Demande un critère distinctif pour chacune.';
+    expect(stripFrenchDirections(input)).toBe('hepatozelluläres Karzinom, Pankreaskarzinom, Rechtsherzinsuffizienz.');
+  });
+
+  it('phrase mixte allemand+français sans ponctuation séparatrice (« sur les arguments — … ») : COMPROMIS documenté — la règle simple (≥2 mots-outils FR ou un mot fort ⇒ phrase entière retirée) retire aussi le fragment allemand adjacent plutôt que de découper sur « — ». Attendu minimal : aucune phrase française ne survit.', () => {
+    const input = 'Leberzirrhose (alkoholtoxisch) sur les arguments — Aszite, Ödeme, Hämatome, heller Stuhl, Alkoholanamnese. Le simulant hoche la tête si les arguments sont nommés.';
+    const out = stripFrenchDirections(input);
+    expect(out).not.toContain('sur les arguments');
+    expect(out).not.toContain('Le simulant');
+    expect(out).not.toContain('candidat');
+  });
+
+  it('un mot-outil FR isolé (faux ami allemand, ex. « des » génitif) ne suffit pas seul à déclencher le retrait', () => {
+    const input = 'Symptome des Patienten seit drei Wochen, keine Fieberschübe.';
+    expect(stripFrenchDirections(input)).toBe(input);
+  });
+
+  it('sans aucune régie française, le texte est rendu intact (trim seul)', () => {
+    const input = 'Gastritis, Pankreatitis';
+    expect(stripFrenchDirections(input)).toBe('Gastritis, Pankreatitis');
   });
 });
