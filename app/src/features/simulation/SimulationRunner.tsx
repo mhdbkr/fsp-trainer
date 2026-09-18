@@ -251,7 +251,7 @@ export function SimulationRunner() {
                       title="Le jury peut demander une Aufklärung à tout moment">
                       <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
                     </button>
-                    <button onClick={() => openExternalAi(c.id)} className="chip shrink-0" title="Continuer ou rejouer ce cas avec ton IA">
+                    <button onClick={() => openExternalAi(c.id)} className="chip shrink-0 bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" title="Continuer ou rejouer ce cas avec ton IA">
                       <Icon name="spark" className="h-3.5 w-3.5" />IA
                     </button>
                   </div>
