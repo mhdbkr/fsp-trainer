@@ -27,7 +27,12 @@ export function ExternalAiSheet() {
   // Ordre des cibles fixé une fois (préférence sauvegardée d'abord) : une
   // sélection ne doit pas faire sauter les puces sous le doigt.
   const [order, setOrder] = useState<TargetId[]>(AI_TARGETS.map((x) => x.id));
+  const [copied, setCopied] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  // Garde double-tap (comme savingRef dans PendingExternalSimCard) : `go`
+  // ouvre une fenêtre externe — un second appel avant la fin du premier ne
+  // doit pas ré-ouvrir/ré-copier.
+  const launchingRef = useRef(false);
 
   useEffect(() => {
     loadPrefs().then((p) => {
@@ -35,7 +40,7 @@ export function ExternalAiSheet() {
       setScope(p.scope);
       setLang(p.feedbackLang);
       setOrder([p.target, ...AI_TARGETS.filter((x) => x.id !== p.target).map((x) => x.id)]);
-    });
+    }).catch(() => {});
   }, []);
   useEffect(() => {
     if (!caseId) return;
@@ -45,7 +50,7 @@ export function ExternalAiSheet() {
   }, [caseId, close]);
   // Chaque ouverture d'un nouveau cas repart sans toast résiduel, et le focus
   // va sur la boîte de dialogue (accessibilité).
-  useEffect(() => { setToast(null); if (caseId) dialogRef.current?.focus(); }, [caseId]);
+  useEffect(() => { setToast(null); setCopied(false); if (caseId) dialogRef.current?.focus(); }, [caseId]);
 
   const topTerms = useMemo(
     () => (c && begriffe ? termsInOrder(c.linkedFachbegriffeIds, begriffe).slice(0, 8).map((t) => t.term) : []),
@@ -58,27 +63,34 @@ export function ExternalAiSheet() {
   const sizeK = Math.max(1, Math.round(prompt.length / 1000));
 
   const go = async () => {
-    // launch() ouvre D'ABORD, de façon synchrone dans ce gestionnaire de clic
-    // (Safari/mobile bloque un window.open qui suit un await) — appelé
-    // directement, sans rien attendre avant lui.
-    const result = await launch(t, prompt);
-    let prefsFailed = false;
+    if (launchingRef.current) return; // double-tap : le premier lancement est déjà en cours
+    launchingRef.current = true;
     try {
-      await Promise.all([savePrefs({ target, scope, feedbackLang: lang }), setPending({ caseId, targetId: target, scope, at: Date.now() })]);
-    } catch { prefsFailed = true; }
-    const suffix = prefsFailed ? ' (préférences non enregistrées)' : '';
-    if (!result.copied) {
-      setToast(`Copie impossible — sélectionne le texte de l'aperçu ci-dessous.${suffix}`);
-      setPreview(true);
-      return;
+      // launch() ouvre D'ABORD, de façon synchrone dans ce gestionnaire de clic
+      // (Safari/mobile bloque un window.open qui suit un await) — appelé
+      // directement, sans rien attendre avant lui.
+      const result = await launch(t, prompt);
+      let prefsFailed = false;
+      try {
+        await Promise.all([savePrefs({ target, scope, feedbackLang: lang }), setPending({ caseId, targetId: target, scope, at: Date.now() })]);
+      } catch { prefsFailed = true; }
+      const suffix = prefsFailed ? ' (préférences non enregistrées)' : '';
+      if (!result.copied) {
+        setToast(`Copie impossible — sélectionne le texte de l'aperçu ci-dessous.${suffix}`);
+        setPreview(true);
+        return;
+      }
+      setCopied(true);
+      if (result.prefilled && t.submits) setToast(`Prompt copié — le prompt part tout seul dans ${t.label}.${suffix}`);
+      else if (result.prefilled) setToast(`Prompt pré-rempli — appuie sur Entrée pour l'envoyer.${suffix}`);
+      else setToast(`Prompt copié — colle-le dans ${t.label}.${suffix}`);
+    } finally {
+      launchingRef.current = false;
     }
-    if (result.prefilled && t.submits) setToast(`Prompt copié — le prompt part tout seul dans ${t.label}.${suffix}`);
-    else if (result.prefilled) setToast(`Prompt pré-rempli — appuie sur Entrée pour l'envoyer.${suffix}`);
-    else setToast(`Prompt copié — colle-le dans ${t.label}.${suffix}`);
   };
 
   const copyOnly = async () => {
-    try { await navigator.clipboard.writeText(prompt); setToast('Prompt copié.'); }
+    try { await navigator.clipboard.writeText(prompt); setCopied(true); setToast('Prompt copié.'); }
     catch { setToast('Copie impossible — sélectionne le texte de l\'aperçu.'); setPreview(true); }
   };
 
@@ -91,15 +103,17 @@ export function ExternalAiSheet() {
           <div className="label">Simuler avec ton IA</div>
           <h2 className="text-lg font-bold">{c.name}</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Le personnage est prêt. Dis « Fallvorstellung » pour passer à l'Oberarzt{scope === 'exam+feedback' ? ', « Feedback » pour le bilan' : ''}.
+            {scope === 'anamnese'
+              ? 'Le personnage est prêt. Dis « Ende » pour terminer.'
+              : `Le personnage est prêt. Dis « Fallvorstellung » pour passer à l'Oberarzt${scope === 'exam+feedback' ? ', « Feedback » pour le bilan' : ''}.`}
           </p>
         </div>
 
         <div role="radiogroup" aria-label="IA" className="flex flex-wrap gap-2">
           {order.map((id) => AI_TARGETS.find((x) => x.id === id)!).map((x) => (
-            <label key={x.id} className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-3 text-sm [&:has(:focus-visible)]:ring-2 ring-brand-400 ${x.id === target ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 dark:border-slate-700'}`}>
+            <label key={x.id} className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-3 text-sm [&:has(:focus-visible)]:ring-2 ring-brand-400 ${x.id === target ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 dark:border-slate-700 dark:text-slate-300'}`}>
               <input type="radio" name="ai" className="sr-only" aria-label={x.label} checked={x.id === target} onChange={() => setTarget(x.id)} />
-              <span className="grid h-6 w-6 place-items-center rounded-full bg-ink text-[11px] font-bold text-white dark:bg-ink-600">{x.label[0]}</span>{x.label}
+              {x.label}
             </label>
           ))}
         </div>
@@ -124,13 +138,15 @@ export function ExternalAiSheet() {
           </div>
         )}
 
-        <ol className="space-y-1 rounded-xl border border-slate-200 p-3 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300">
-          <li><span className="font-semibold">1.</span> Colle le prompt (déjà copié)</li>
-          <li><span className="font-semibold">2.</span> Envoie</li>
-          <li><span className="font-semibold">3.</span> Active le mode vocal et salue le patient
-            <p className="text-[11.5px] text-slate-400">{t.voiceHint}</p>
-          </li>
-        </ol>
+        {copied && (
+          <ol className="space-y-1 rounded-xl border border-slate-200 p-3 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300">
+            <li><span className="font-semibold">1.</span> Colle le prompt</li>
+            <li><span className="font-semibold">2.</span> Envoie</li>
+            <li><span className="font-semibold">3.</span> Active le mode vocal et salue le patient
+              <p className="text-[11.5px] text-slate-400">{t.voiceHint}</p>
+            </li>
+          </ol>
+        )}
 
         <button type="button" onClick={() => setPreview((p) => !p)} className="btn-ghost min-h-11 text-sm">
           {preview ? 'Masquer l\'aperçu' : 'Voir ce que ton IA recevra'} · ≈ {sizeK} k caractères
@@ -142,8 +158,8 @@ export function ExternalAiSheet() {
         <div className="flex flex-wrap justify-between gap-2">
           <button type="button" onClick={close} className="btn-outline min-h-11">Fermer</button>
           <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={copyOnly} className="btn-outline">Copier le prompt</button>
-            <button type="button" onClick={go} className="btn-primary"><Icon name="spark" className="h-4 w-4" />Ouvrir dans {t.label}</button>
+            <button type="button" onClick={copyOnly} className="btn-outline min-h-11">Copier le prompt</button>
+            <button type="button" onClick={go} className="btn-primary min-h-11"><Icon name="spark" className="h-4 w-4" />Ouvrir dans {t.label}</button>
           </div>
         </div>
       </div>

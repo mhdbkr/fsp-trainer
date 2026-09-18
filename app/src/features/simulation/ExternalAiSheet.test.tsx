@@ -61,6 +61,21 @@ describe('ExternalAiSheet', () => {
     await waitFor(() => expect(launchMod.launch).toHaveBeenCalled());
     expect(await screen.findByText(/part tout seul/i)).toBeTruthy();
   });
+  it('I2 — portée "anamnèse seule" : dit que « Ende » termine, pas « Fallvorstellung »', async () => {
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    await screen.findByRole('dialog');
+    fireEvent.click(screen.getByRole('radio', { name: /anamnèse seule/i }));
+    expect(screen.queryByText(/Fallvorstellung/)).toBeNull();
+    expect(screen.getByText(/« Ende »/)).toBeTruthy();
+  });
+  it('direction — les 3 étapes numérotées n\'apparaissent qu\'après une copie réussie', async () => {
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    await screen.findByRole('dialog');
+    expect(screen.queryByText('Envoie')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /ouvrir dans/i }));
+    await waitFor(() => expect(launchMod.launch).toHaveBeenCalled());
+    expect(await screen.findByText('Envoie')).toBeTruthy();
+  });
   it('Échap ferme', async () => {
     render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
     await screen.findByRole('dialog'); fireEvent.keyDown(document, { key: 'Escape' });
