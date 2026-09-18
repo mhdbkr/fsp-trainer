@@ -112,7 +112,7 @@ const DIAGNOSIS_NOTE = 'Alles in diesem Teil weiß nur die Oberärztin/der Obera
 // simplicité de la règle. Voir prompt.test.ts pour l'exemple concerné.
 const FRENCH_ABBREVIATIONS = ['ca.', 'z. b.', 'bzw.', 'v. a.', 'evtl.', 'd.h.', 'u.a.', 'etc.', 'inkl.', 'ggf.', 'sog.'];
 // Expressions fortes : mots ou locutions sans ambiguïté avec l'allemand.
-const FRENCH_STRONG_PHRASES = ['le simulant', 'le candidat', 'si le', 'si la', 'sur les', 'relance', 'demande', 'teste', 'vérifie', 'insiste', 'accepte', 'peut', 'doit'];
+const FRENCH_STRONG_PHRASES = ['le simulant', 'le candidat', 'si le', 'si la', 'sur les', 'relance', 'demande', 'teste la', 'teste le', 'teste les', 'teste si', 'vérifie', 'insiste', 'accepte', 'peut', 'doit'];
 // Mots-outils : chacun isolé est ambigu, mais aucun n'est un mot allemand existant.
 const FRENCH_WEAK_WORDS = ['le', 'la', 'les', 'une', 'sur', 'pour', 'avec', 'sans', 'sont', 'laisse', 'réponse', 'question', 'critère'];
 const FRENCH_STRONG_RE = new RegExp(`\\b(${FRENCH_STRONG_PHRASES.map((p) => p.replace(/ /g, '\\s+')).join('|')})\\b`, 'giu');
