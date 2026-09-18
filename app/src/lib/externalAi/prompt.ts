@@ -197,7 +197,7 @@ export function buildExternalPromptDetailed(i: PromptInput): DetailedPrompt {
     '',
     '# Wer du bist',
     personalia(s),
-    s.persona ? `- Regieanweisung (nicht vorlesen): ${s.persona}` : null,
+    s.persona ? `- Regieanweisung (französischer Text, nur für dich – nie vorlesen, in deiner deutschen Rolle umsetzen): ${s.persona}` : null,
     s.leitsymptome?.length ? `- Warum du hier bist (in deinen Worten): ${s.leitsymptome.join('; ')}` : null,
     s.begleitsymptome?.length ? `- Außerdem: ${s.begleitsymptome.join('; ')}` : null,
     '',
