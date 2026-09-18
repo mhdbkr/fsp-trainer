@@ -3,7 +3,7 @@ import { useUi } from '@/store/ui';
 import { useCase, useFachbegriffe } from '@/hooks/useData';
 import { termsInOrder } from '@/lib/collections/caseTerms';
 import { buildExternalPrompt, SCOPE_LABELS, type Scope, type FeedbackLang } from '@/lib/externalAi/prompt';
-import { AI_TARGETS, launch, loadPrefs, savePrefs, setPending, type TargetId } from '@/lib/externalAi/targets';
+import { AI_TARGETS, buildLaunchUrl, launch, loadPrefs, savePrefs, setPending, type TargetId } from '@/lib/externalAi/targets';
 import { Icon } from '@/components/icons';
 
 // Feuille unique « Simuler avec ton IA » — montée une fois dans Shell, ouverte
@@ -11,9 +11,11 @@ import { Icon } from '@/components/icons';
 // cas et l'écran de résultat. Le prompt est construit ici, à la volée.
 //
 // Les prompts réels (12-44 k caractères) dépassent presque toujours
-// PREFILL_MAX : `launch()` renvoie donc le plus souvent `prefilled: false`.
-// Le chemin normal reste donc « ouvrir + coller », d'où les 3 étapes
-// numérotées affichées en permanence (pas seulement dans le toast).
+// PREFILL_MAX : `launch()` renvoie donc le plus souvent `prefilled: false`,
+// et le libellé du bouton (« Copier et ouvrir … ») l'annonce dès avant le
+// clic, via buildLaunchUrl(t, prompt). Le chemin normal reste donc
+// « ouvrir + coller », d'où les 4 étapes numérotées (dont les mots de
+// bascule) affichées après une copie réussie (pas seulement dans le toast).
 export function ExternalAiSheet() {
   const caseId = useUi((s) => s.externalAiCaseId);
   const close = useUi((s) => s.closeExternalAi);
@@ -61,6 +63,19 @@ export function ExternalAiSheet() {
   if (!caseId || !c) return null;
   const t = AI_TARGETS.find((x) => x.id === target)!;
   const sizeK = Math.max(1, Math.round(prompt.length / 1000));
+  // Mots de bascule réels acceptés par le prompt (prompt.ts, section Rolle),
+  // selon la portée — source unique pour l'en-tête ET les étapes numérotées.
+  const switchWords = scope === 'anamnese'
+    ? 'Dis « Ende » pour terminer.'
+    : scope === 'exam'
+      ? 'Dis « Fallvorstellung » pour passer à l\'Oberarzt, puis « Ende » pour terminer.'
+      : 'Dis « Fallvorstellung » pour passer à l\'Oberarzt, « Feedback » pour le bilan, puis « Ende » pour terminer.';
+  // Un prompt réel (12-44 k car.) dépasse presque toujours PREFILL_MAX : le
+  // libellé du bouton est calculé AVANT le clic (pas après le retour de
+  // launch()), pour ne jamais promettre une ouverture pré-remplie qui n'aura
+  // pas lieu.
+  const { prefilled: willPrefill } = buildLaunchUrl(t, prompt);
+  const goLabel = willPrefill ? `Ouvrir dans ${t.label}` : `Copier et ouvrir ${t.label}`;
 
   const go = async () => {
     if (launchingRef.current) return; // double-tap : le premier lancement est déjà en cours
@@ -103,9 +118,10 @@ export function ExternalAiSheet() {
           <div className="label">Simuler avec ton IA</div>
           <h2 className="text-lg font-bold">{c.name}</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            {scope === 'anamnese'
-              ? 'Le personnage est prêt. Dis « Ende » pour terminer.'
-              : `Le personnage est prêt. Dis « Fallvorstellung » pour passer à l'Oberarzt${scope === 'exam+feedback' ? ', « Feedback » pour le bilan' : ''}.`}
+            {/* Les mots de bascule ne sont dits qu'une fois, dans les étapes
+                numérotées une fois copié (pense-bête au bon moment) — avant
+                la copie, ils restent ici pour ne pas laisser l'en-tête vide. */}
+            Le personnage est prêt.{!copied ? ` ${switchWords}` : ''}
           </p>
         </div>
 
@@ -145,6 +161,7 @@ export function ExternalAiSheet() {
             <li><span className="font-semibold">3.</span> Active le mode vocal et salue le patient
               <p className="text-[11.5px] text-slate-400">{t.voiceHint}</p>
             </li>
+            <li><span className="font-semibold">4.</span> {switchWords}</li>
           </ol>
         )}
 
@@ -159,7 +176,7 @@ export function ExternalAiSheet() {
           <button type="button" onClick={close} className="btn-outline min-h-11">Fermer</button>
           <div className="flex flex-wrap gap-2">
             <button type="button" onClick={copyOnly} className="btn-outline min-h-11">Copier le prompt</button>
-            <button type="button" onClick={go} className="btn-primary min-h-11"><Icon name="spark" className="h-4 w-4" />Ouvrir dans {t.label}</button>
+            <button type="button" onClick={go} className="btn-primary min-h-11"><Icon name="spark" className="h-4 w-4" />{goLabel}</button>
           </div>
         </div>
       </div>

@@ -76,6 +76,20 @@ describe('ExternalAiSheet', () => {
     await waitFor(() => expect(launchMod.launch).toHaveBeenCalled());
     expect(await screen.findByText('Envoie')).toBeTruthy();
   });
+  it('libellé du bouton calculé AVANT le clic via buildLaunchUrl : prompt réel > PREFILL_MAX → « Copier et ouvrir ChatGPT »', async () => {
+    // Persona très long : le prompt réel (buildExternalPrompt) dépasse
+    // PREFILL_MAX une fois encodé, comme documenté pour les 130 cas du corpus.
+    const big = { ...c, patientSheet: { ...c.patientSheet, persona: 'x'.repeat(8000) } };
+    await db.cases.put(big as never);
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    await screen.findByRole('dialog');
+    expect(await screen.findByRole('button', { name: /copier et ouvrir chatgpt/i })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /ouvrir dans/i })).toBeNull();
+  });
+  it('libellé « Ouvrir dans … » quand le prompt tient dans PREFILL_MAX (cas court des tests)', async () => {
+    render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
+    expect(await screen.findByRole('button', { name: /ouvrir dans chatgpt/i })).toBeTruthy();
+  });
   it('Échap ferme', async () => {
     render(<MemoryRouter><ExternalAiSheet /></MemoryRouter>);
     await screen.findByRole('dialog'); fireEvent.keyDown(document, { key: 'Escape' });
