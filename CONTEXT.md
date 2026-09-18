@@ -57,6 +57,11 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   (`lib/rolePlay.ts`). Base de la pré-génération vocale.
 - **Sync patient** — canal `fsp-patient-sync` (`active-case`, `guide-chapter`,
   `guide-probe`) ; devient Supabase Realtime en mode en ligne.
+- **IA externe** — simulation jouée dans l'app d'IA du candidat (ChatGPT,
+  Claude, Gemini, Perplexity, Grok) avec un prompt généré depuis le
+  Rollenskript (`lib/externalAi/`). **Portée** : anamnèse seule / examen
+  complet / + feedback. La séance ne compte qu'après **auto-évaluation** au
+  retour (`Simulation.mode: 'external-ai'`, `externalTarget`).
 
 ## Doctopus (SaaS)
 
