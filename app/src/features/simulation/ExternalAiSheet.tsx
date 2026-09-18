@@ -53,6 +53,7 @@ export function ExternalAiSheet() {
   // Chaque ouverture d'un nouveau cas repart sans toast résiduel, et le focus
   // va sur la boîte de dialogue (accessibilité).
   useEffect(() => { setToast(null); setCopied(false); if (caseId) dialogRef.current?.focus(); }, [caseId]);
+  useEffect(() => { setCopied(false); }, [scope, lang, target]); // nouveau prompt → le presse-papiers ne l'a plus
 
   const topTerms = useMemo(
     () => (c && begriffe ? termsInOrder(c.linkedFachbegriffeIds, begriffe).slice(0, 8).map((t) => t.term) : []),
