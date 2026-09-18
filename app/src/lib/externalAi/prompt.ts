@@ -93,12 +93,16 @@ const DIAGNOSIS_NOTE = 'Alles in diesem Teil weiß nur die Oberärztin/der Obera
 // (D7 : non destructif au niveau phrase, jamais au niveau mot) : découpage en
 // phrases sur « . »/« ! »/« ? » en respectant quelques abréviations courantes
 // (ne pas couper après « ca. », « z. B. », « bzw. », « v. a. », « evtl. », …) ;
-// une phrase est retirée si elle contient un mot fort FR (relance, demande,
-// teste, vérifie, insiste, candidat, simulant) OU au moins 2 mots-outils FR
-// (le, la, les, des, du, une, sur, si, pour, avec, sans, est, sont, peut,
-// doit, accepte, note, laisse, reste, réponse, question, argument(s),
-// critère) — jamais un seul, pour ne pas confondre un faux ami allemand
-// isolé (« des » génitif, « si »-like) avec de la régie française.
+// une phrase est retirée si elle contient une expression forte FR (relance,
+// demande, teste, vérifie, insiste, accepte, peut, doit, « le simulant »,
+// « le candidat », « si le », « si la », « sur les ») OU au moins 2 mots-outils
+// FR DISTINCTS (le, la, les, une, sur, pour, avec, sans, sont, laisse,
+// réponse, question, critère) OU un caractère accentué français (é, è, ê, à,
+// ç, î, ô, û — jamais ä/ö/ü/ß, qui sont allemands) combiné à au moins 1
+// mot-outil. Les faux amis allemands (des, du, reste, note, argument(s), si,
+// est — tous des mots allemands existants) ont été retirés des mots-outils
+// pour ne jamais confondre une régie génitive allemande (« wegen des Alters »)
+// ou un mot allemand ordinaire avec de la régie française.
 // COMPROMIS documenté : une phrase MIXTE allemand+français (ex. diagnostic
 // suivi d'une consigne française sans ponctuation entre les deux, « X sur les
 // arguments — … ») est retirée EN ENTIER dès qu'elle franchit ce seuil — on ne
@@ -107,9 +111,14 @@ const DIAGNOSIS_NOTE = 'Alles in diesem Teil weiß nur die Oberärztin/der Obera
 // perte occasionnelle d'un fragment allemand adjacent est le prix de la
 // simplicité de la règle. Voir prompt.test.ts pour l'exemple concerné.
 const FRENCH_ABBREVIATIONS = ['ca.', 'z. b.', 'bzw.', 'v. a.', 'evtl.', 'd.h.', 'u.a.', 'etc.', 'inkl.', 'ggf.', 'sog.'];
-const FRENCH_STRONG_WORDS = ['relance', 'demande', 'teste', 'vérifie', 'insiste', 'candidat', 'simulant'];
-const FRENCH_WEAK_WORDS = ['le', 'la', 'les', 'des', 'du', 'une', 'sur', 'si', 'pour', 'avec', 'sans', 'est', 'sont', 'peut', 'doit', 'accepte', 'note', 'laisse', 'reste', 'réponse', 'question', 'argument', 'arguments', 'critère'];
-const FRENCH_WORD_RE = new RegExp(`\\b(${[...FRENCH_STRONG_WORDS, ...FRENCH_WEAK_WORDS].join('|')})\\b`, 'giu');
+// Expressions fortes : mots ou locutions sans ambiguïté avec l'allemand.
+const FRENCH_STRONG_PHRASES = ['le simulant', 'le candidat', 'si le', 'si la', 'sur les', 'relance', 'demande', 'teste', 'vérifie', 'insiste', 'accepte', 'peut', 'doit'];
+// Mots-outils : chacun isolé est ambigu, mais aucun n'est un mot allemand existant.
+const FRENCH_WEAK_WORDS = ['le', 'la', 'les', 'une', 'sur', 'pour', 'avec', 'sans', 'sont', 'laisse', 'réponse', 'question', 'critère'];
+const FRENCH_STRONG_RE = new RegExp(`\\b(${FRENCH_STRONG_PHRASES.map((p) => p.replace(/ /g, '\\s+')).join('|')})\\b`, 'giu');
+const FRENCH_WEAK_RE = new RegExp(`\\b(${FRENCH_WEAK_WORDS.join('|')})\\b`, 'giu');
+// Voyelles accentuées propres au français ; ä/ö/ü/ß sont allemands et donc exclues.
+const FRENCH_ACCENT_RE = /[éèêàçîôû]/giu;
 
 function splitIntoSentences(text: string): string[] {
   const rough = text.split(/(?<=[.!?])\s+/u);
@@ -126,10 +135,16 @@ function splitIntoSentences(text: string): string[] {
 }
 
 function isFrenchDirection(sentence: string): boolean {
-  const matches = [...sentence.matchAll(FRENCH_WORD_RE)].map((m) => m[1].toLowerCase());
-  if (matches.length === 0) return false;
-  if (matches.some((w) => FRENCH_STRONG_WORDS.includes(w))) return true;
-  return matches.length >= 2;
+  // Regex globales : reset de lastIndex avant chaque .test() (appelé en boucle
+  // sur toutes les phrases) pour ne jamais rater un match à cause d'un état
+  // résiduel entre deux appels.
+  FRENCH_STRONG_RE.lastIndex = 0;
+  if (FRENCH_STRONG_RE.test(sentence)) return true;
+  const weakMatches = new Set([...sentence.matchAll(FRENCH_WEAK_RE)].map((m) => m[1].toLowerCase()));
+  if (weakMatches.size >= 2) return true;
+  FRENCH_ACCENT_RE.lastIndex = 0;
+  if (weakMatches.size >= 1 && FRENCH_ACCENT_RE.test(sentence)) return true;
+  return false;
 }
 
 /** Retire les phrases de régie française d'un texte destiné au rôle Oberarzt

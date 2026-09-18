@@ -15,6 +15,15 @@ const TEIL3_MARKER = '# Teil 3 – Oberärztin/Oberarzt';
 const FRENCH_DIRECTION_SEQUENCES = ['Le simulant', 'le candidat', 'Relance', 'Demande un', 'Teste'];
 const containsWholeWordSequence = (text: string, seq: string) => new RegExp(`\\b${seq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(text);
 
+// B1 — marqueurs allemands sans ambiguïté : si une phrase RETIRÉE par
+// stripFrenchDirections en contient un, c'est un faux positif (régie
+// française confondue avec de l'allemand courant).
+const GERMAN_MARKER_RE = /\b(und|der|die|das|mit|wegen|ist|nicht|bei|auf)\b/iu;
+// B1 — borne haute documentée : ~8–15 champs reaktion modifiés attendus sur
+// le corpus de 130 cas ; on fixe une borne dure à 20 pour détecter une
+// régression (trop de faux positifs) sans figer le chiffre exact.
+const MAX_REAKTION_FIELDS_TOUCHED = 20;
+
 // Mêmes ids que SECONDARY_CHAPTERS dans prompt.ts (non exporté à dessein — le
 // test vérifie le contrat, pas l'implémentation). Ces chapitres sont, par la
 // règle D7-3c, les SEULS que la cascade peut réduire à leur résumé « Fakten » ;
@@ -57,14 +66,28 @@ describe('prompt sur le corpus', () => {
     const frenchDirectionSurvivors: string[] = [];
     let toleratedLeakHits = 0;
     let reaktionFieldsTotal = 0; let reaktionFieldsTouchedByStrip = 0;
+    const removedSentences: string[] = [];
+    const germanMarkerFalsePositives: string[] = [];
     for (const c of cases) {
-      // E — régie française : combien de champs reaktion sont modifiés par
+      // E/B1 — régie française : combien de champs reaktion sont modifiés par
       // stripFrenchDirections sur ce cas (compromis compté, voir prompt.ts).
       for (const sec of c.examinerSheet ?? []) {
         for (const inter of sec.interactions) {
           if (!inter.reaktion) continue;
           reaktionFieldsTotal += 1;
-          if (stripFrenchDirections(inter.reaktion) !== inter.reaktion) reaktionFieldsTouchedByStrip += 1;
+          const stripped = stripFrenchDirections(inter.reaktion);
+          if (stripped !== inter.reaktion) {
+            reaktionFieldsTouchedByStrip += 1;
+            // Diagnostic : sentences (découpage naïf, à titre de contrôle
+            // uniquement — la vraie règle est dans prompt.ts) présentes dans
+            // l'original mais absentes du résultat stripé = phrases retirées.
+            const roughSentences = inter.reaktion.split(/(?<=[.!?])\s+/u).filter((s) => s.trim().length > 0);
+            for (const sent of roughSentences) {
+              if (stripped.includes(sent.trim())) continue;
+              removedSentences.push(`${c.id}: ${sent.trim()}`);
+              if (GERMAN_MARKER_RE.test(sent)) germanMarkerFalsePositives.push(`${c.id}: ${sent.trim()}`);
+            }
+          }
         }
       }
       const { text: p, level } = buildExternalPromptDetailed({ c, scope: 'exam+feedback', feedbackLang: 'fr', topTerms: REALISTIC_TOP_TERMS });
@@ -123,11 +146,19 @@ describe('prompt sur le corpus', () => {
     );
     // eslint-disable-next-line no-console
     console.log(`[prompt corpus] régie française (E) : ${reaktionFieldsTouchedByStrip}/${reaktionFieldsTotal} champs reaktion modifiés par stripFrenchDirections`);
+    // eslint-disable-next-line no-console
+    console.log(`[prompt corpus] B1 — phrases retirées par stripFrenchDirections (contrôle) :\n${removedSentences.map((s) => `  - ${s}`).join('\n')}`);
 
     expect(tooLong).toEqual([]);
     expect(notFull).toEqual([]);
     expect(leaks).toEqual([]);
     expect(frenchDirectionSurvivors).toEqual([]);
+    // B1 — aucune phrase retirée ne doit contenir un marqueur allemand courant :
+    // signe que la règle confond de l'allemand avec de la régie française.
+    expect(germanMarkerFalsePositives).toEqual([]);
+    // B1 — borne haute documentée sur le nombre de champs reaktion modifiés
+    // (attendu ≈ 8–15 sur ce corpus ; ≤ 20 pour détecter une régression).
+    expect(reaktionFieldsTouchedByStrip).toBeLessThanOrEqual(MAX_REAKTION_FIELDS_TOUCHED);
   });
 
   it('3 cas riches : persona et chaque réplique des chapitres non secondaires intégraux, aucune troncature (« … »)', () => {
