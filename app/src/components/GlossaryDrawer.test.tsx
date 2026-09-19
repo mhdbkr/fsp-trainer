@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { useUi } from '@/store/ui';
 import { freshSrs } from '@/lib/srs';
@@ -66,5 +66,52 @@ describe('GlossaryDrawer collections', () => {
     fireEvent.click(await screen.findByRole('button', { name: /^créer$/i }));
     await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
     expect(document.querySelectorAll('.fixed.inset-0').length).toBe(1);
+  });
+
+  // Revue UX F2b (bloquant + important) : Échap doit fermer la carte elle-même,
+  // et la carte ne doit pas survivre à un changement de page (fond invisible
+  // qui interceptait les clics de la page suivante).
+  it('Échap ferme le panneau (pas seulement le sous-menu deck)', async () => {
+    render(<MemoryRouter><GlossaryDrawer /></MemoryRouter>);
+    await screen.findByText('Abdomen');
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());
+    expect(document.querySelectorAll('.fixed.inset-0').length).toBe(0);
+  });
+
+  it('Échap avec le menu deck ouvert ne ferme que le menu ; un second Échap ferme le panneau', async () => {
+    render(<MemoryRouter><GlossaryDrawer /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /ajouter à un deck/i }));
+    expect(screen.getByRole('menu')).toBeTruthy();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    expect(useUi.getState().glossaryTerm).toBeTruthy();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());
+  });
+
+  it('changer de route ferme le panneau et démonte son fond', async () => {
+    render(
+      <MemoryRouter initialEntries={['/cas/c1']}>
+        <GlossaryDrawer />
+        <Routes>
+          <Route path="/cas/c1" element={<Link to="/fachbegriffe">aller</Link>} />
+          <Route path="/fachbegriffe" element={<p>Fachbegriffe</p>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    await screen.findByText('Abdomen');
+    fireEvent.click(screen.getByText('aller'));
+    await screen.findByText('Fachbegriffe');
+    await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());
+    expect(document.querySelectorAll('.fixed.inset-0').length).toBe(0);
+  });
+
+  it('ouvrir le panneau ferme la hover-card ★', async () => {
+    useUi.setState({ glossaryTerm: null, hoverTerm: { fb, anchor: {} as DOMRect, caseId: null } });
+    render(<MemoryRouter><GlossaryDrawer /></MemoryRouter>);
+    useUi.getState().openGlossary(fb);
+    await screen.findByText('Abdomen');
+    await waitFor(() => expect(useUi.getState().hoverTerm).toBeNull());
   });
 });

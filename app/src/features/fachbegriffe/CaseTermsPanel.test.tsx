@@ -28,4 +28,20 @@ describe('CaseTermsPanel', () => {
     fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'blut' } });
     expect(screen.queryByText('Abdomen')).toBeNull(); expect(screen.getByText('Blutung')).toBeTruthy();
   });
+
+  // Revue de branche F2b (I2) : le tiroir du runner est un dialogue — Échap
+  // ferme, le focus entre puis revient au déclencheur.
+  it('mode drawer : role=dialog, focus dans le panneau, Échap → onClose, focus rendu au chip', async () => {
+    const chip = document.createElement('button'); chip.textContent = 'Fachbegriffe (2)'; document.body.appendChild(chip); chip.focus();
+    const onClose = vi.fn();
+    const { unmount } = render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="drawer" onClose={onClose} onDrill={() => {}} /></MemoryRouter>);
+    const dialog = await screen.findByRole('dialog', { name: 'Fachbegriffe du cas' });
+    expect(dialog.getAttribute('aria-modal')).toBe('true');
+    expect(document.activeElement).toBe(dialog);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(onClose).toHaveBeenCalledTimes(1);
+    unmount();
+    expect(document.activeElement).toBe(chip);
+    chip.remove();
+  });
 });

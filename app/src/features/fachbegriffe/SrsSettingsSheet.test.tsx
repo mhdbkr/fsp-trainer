@@ -16,4 +16,14 @@ describe('SrsSettingsSheet', () => {
     fireEvent.click(screen.getByRole('button', { name: /Enregistrer/ }));
     await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'srs.settings_changed')?.payload).toEqual({ mode: 'manual', newPerDay: 50, maxReviewsPerDay: 20 }));
   });
+
+  // Revue charte F2b : inline dans « Ajuster », le Field « Fachbegriffe » porte
+  // déjà le libellé — la feuille ne double pas son propre « Répétitions ».
+  it('inline : pas de second libellé « Répétitions »', async () => {
+    render(<SrsSettingsSheet inline onClose={() => {}} />);
+    await screen.findByLabelText(/Automatique/);
+    expect(screen.queryByText('Répétitions')).toBeNull();
+    render(<SrsSettingsSheet onClose={() => {}} />);
+    expect(await screen.findByText('Répétitions')).toBeTruthy();
+  });
 });

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import { useFachbegriffe, useFavorites } from '@/hooks/useData';
@@ -23,6 +23,20 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
   const shown = useMemo(() => { const n = q.trim().toLowerCase(); return n ? terms.filter((t) => `${t.term} ${t.translationSimple}`.toLowerCase().includes(n)) : terms; }, [terms, q]);
   const favSet = useMemo(() => new Set((favorites ?? []).map((f) => f.termId)), [favorites]);
   const c = counts(terms);
+  // Tiroir (runner) : vrai dialogue — Échap ferme, le focus entre dans le
+  // panneau à l'ouverture et revient au déclencheur (chip) à la fermeture.
+  const asideRef = useRef<HTMLElement>(null);
+  const onCloseRef = useRef(onClose); onCloseRef.current = onClose; // le runner se rend à 1 Hz : pas de re-focus à chaque tick
+  const drawer = mode === 'drawer';
+  useEffect(() => {
+    if (!drawer) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    asideRef.current?.focus();
+    // Une carte Fachbegriff ouverte par-dessus prend Échap en premier.
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape' && !useUi.getState().glossaryTerm) onCloseRef.current?.(); };
+    document.addEventListener('keydown', onKeyDown);
+    return () => { document.removeEventListener('keydown', onKeyDown); opener?.focus(); };
+  }, [drawer]);
   const body = (
     <>
       <div className="flex items-center justify-between gap-2 p-3">
@@ -47,6 +61,6 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
   if (mode === 'inline') return <div className="card flex max-h-[60vh] flex-col p-0">{body}</div>;
   return (<>
     <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={onClose} />
-    <aside className="glass glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm animate-slide-in flex-col">{body}</aside>
+    <aside ref={asideRef} role="dialog" aria-modal="true" aria-label="Fachbegriffe du cas" tabIndex={-1} className="glass glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm animate-slide-in flex-col outline-none">{body}</aside>
   </>);
 }

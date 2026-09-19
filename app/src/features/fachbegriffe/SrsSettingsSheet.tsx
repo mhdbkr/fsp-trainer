@@ -28,10 +28,11 @@ export function SrsSettingsSheet({ onClose, inline = false }: { onClose: () => v
   const num = (k: 'newPerDay' | 'maxReviewsPerDay', v: string) => setS((p) => ({ ...p, [k]: v === '' ? undefined : Number(v) }));
   const form = (
     <div className="space-y-3">
-      <div className="label">Répétitions</div>
-      <div role="radiogroup" className="flex gap-3 text-sm">
-        <label className="flex items-center gap-1.5"><input type="radio" name="srs-mode" aria-label="Automatique" checked={s.mode === 'auto'} onChange={() => setS({ mode: 'auto' })} />Automatique</label>
-        <label className="flex items-center gap-1.5"><input type="radio" name="srs-mode" aria-label="Manuel" checked={s.mode === 'manual'} onChange={() => setS((p) => ({ mode: 'manual', newPerDay: p.newPerDay ?? autoNew, maxReviewsPerDay: p.maxReviewsPerDay ?? 200 }))} />Manuel</label>
+      {/* Inline dans « Ajuster », le Field « Fachbegriffe » porte déjà le libellé. */}
+      {!inline && <div className="label">Répétitions</div>}
+      <div role="radiogroup" aria-label="Mode" className="flex gap-3 text-sm">
+        <label className="flex min-h-11 cursor-pointer items-center gap-2 pr-2"><input type="radio" name="srs-mode" aria-label="Automatique" checked={s.mode === 'auto'} onChange={() => setS({ mode: 'auto' })} />Automatique</label>
+        <label className="flex min-h-11 cursor-pointer items-center gap-2 pr-2"><input type="radio" name="srs-mode" aria-label="Manuel" checked={s.mode === 'manual'} onChange={() => setS((p) => ({ mode: 'manual', newPerDay: p.newPerDay ?? autoNew, maxReviewsPerDay: p.maxReviewsPerDay ?? 200 }))} />Manuel</label>
       </div>
       {s.mode === 'auto' ? <p className="text-xs text-slate-500">{explain || 'auto : selon la date d\'examen, la rétention et l\'intensité du programme'}</p> : (
         <div className="grid grid-cols-2 gap-2 text-sm">
