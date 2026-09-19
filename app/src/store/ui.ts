@@ -48,6 +48,12 @@ interface UiState {
   setMuster: (m: MusterCity) => void;
   layer: Layer;
   setLayer: (l: Layer) => void;
+
+  // Feuille « Simuler avec ton IA » — id du cas ouvert, ou null si fermée.
+  // Montée une fois dans Shell.tsx, ouverte depuis 4 points d'entrée.
+  externalAiCaseId: string | null;
+  openExternalAi: (caseId: string) => void;
+  closeExternalAi: () => void;
 }
 
 function initialTheme(): 'light' | 'dark' {
@@ -103,6 +109,10 @@ export const useUi = create<UiState>((set, get) => ({
   setMuster: (m) => { localStorage.setItem('fsp-muster', m); set({ muster: m }); },
   layer: (Number(localStorage.getItem('fsp-layer')) as Layer) || 1,
   setLayer: (l) => { localStorage.setItem('fsp-layer', String(l)); set({ layer: l }); },
+
+  externalAiCaseId: null,
+  openExternalAi: (caseId) => set({ externalAiCaseId: caseId }),
+  closeExternalAi: () => set({ externalAiCaseId: null }),
 }));
 
 // Applique le thème au chargement du module.

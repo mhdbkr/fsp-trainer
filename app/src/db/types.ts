@@ -4,6 +4,9 @@
 // l'interconnexion totale (cf. ANALYSE.md §5). Les IDs sont des slugs stables
 // (string) pour que le seed et les imports restent lisibles et référençables.
 // ============================================================================
+// `import type` est effacé à la compilation : pas de cycle runtime même si
+// targets.ts importe par ailleurs '@/db/db' (qui importe ces mêmes types).
+import type { TargetId } from '@/lib/externalAi/targets';
 
 /** Les 4 centres d'examen de la région Baden + un bucket "Complément" pour les
  *  cas classiques tombables ajoutés hors protocoles. */
@@ -142,8 +145,9 @@ export type RolePlayKapitel =
 export type PatientEmotion =
   | 'neutral' | 'ruhig' | 'besorgt' | 'schmerzgeplagt' | 'ängstlich' | 'gereizt' | 'erleichtert';
 
-/** Mode de rendu de la simulation. 'texte' = MVP actuel ; 'tts'/'vocal' = 2b. */
-export type SimulationMode = 'texte' | 'tts' | 'vocal';
+/** Mode de rendu de la simulation. 'texte' = MVP actuel ; 'tts'/'vocal' = 2b ;
+ *  'external-ai' = auto-évaluation après une simulation dans une IA externe. */
+export type SimulationMode = 'texte' | 'tts' | 'vocal' | 'external-ai';
 
 /** État dynamique du patient (0..100), avancé à chaque tour. MVP : règles
  *  simples hardcodées (lib/simulationStep), remplaçables par un LLM orchestrateur. */
@@ -475,6 +479,8 @@ export interface Simulation {
   /** PHASE 2b (optionnel) — journal de conversation (continuité IA + analytics). */
   conversation?: ConversationTurn[];
   mode?: SimulationMode;   // rendu utilisé (défaut 'texte')
+  /** Cible IA externe utilisée quand mode === 'external-ai'. */
+  externalTarget?: TargetId;
   /** Portée de la session (FB2-P) : complète (3 Teile) ou un seul Teil.
    *  Absent sur l'historique = complète. Un Teil nourrit les stats par axe
    *  et le streak, pas la maîtrise du cas (lib/simScope.ts). */

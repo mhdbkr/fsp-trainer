@@ -18,6 +18,7 @@ import { FreqBadge, ConfidenceRing } from '@/components/ui';
 import { Icon } from '@/components/icons';
 import { Tilt } from '@/components/Tilt';
 import { MigrationPrompt } from '@/features/account/MigrationPrompt';
+import { PendingExternalSimCard } from '@/features/simulation/PendingExternalSimCard';
 
 const SPECIALTIES_FOR_HEATMAP = ['Gastroenterologie', 'Kardiologie', 'Pneumologie', 'Neurologie', 'Orthopädie'] as const;
 
@@ -59,6 +60,7 @@ export function HomePage() {
   return (
     <div className="space-y-6">
       <MigrationPrompt />
+      <PendingExternalSimCard />
       {/* En-tête immersif — thèse de marque : eyebrow mono + display */}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>

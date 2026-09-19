@@ -12,6 +12,7 @@ import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import { STUFE_META } from '@/features/fachwissen/stufeMeta';
 import { DDTable } from '@/components/DDTable';
 import { termsInOrder } from '@/lib/collections/caseTerms';
+import { PendingExternalSimCard } from '@/features/simulation/PendingExternalSimCard';
 
 export function CaseDetailPage() {
   const { id } = useParams();
@@ -19,6 +20,7 @@ export function CaseDetailPage() {
   const aufk = useAufklaerungen();
   const begriffe = useFachbegriffe();
   const openGlossary = useUi((s) => s.openGlossary);
+  const openExternalAi = useUi((s) => s.openExternalAi);
   const [view, setView] = useState<'clinique' | 'rolle'>('clinique');
   const [role, setRole] = useState<'patient' | 'pruefer'>('patient');
 
@@ -29,6 +31,7 @@ export function CaseDetailPage() {
 
   return (
     <div className="space-y-5">
+      <PendingExternalSimCard onlyCaseId={c.id} />
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="eyebrow">Cas clinique</div>
@@ -41,7 +44,10 @@ export function CaseDetailPage() {
             {c.centers.map((ct) => <CenterBadge key={ct} center={ct} />)}
           </div>
         </div>
-        <Link to={`/simulation/${c.id}/pre`} className="btn-primary gap-1.5"><Icon name="play" className="h-4 w-4" />Simuler ce cas</Link>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => openExternalAi(c.id)} className="btn-outline gap-1.5"><Icon name="spark" className="h-4 w-4" />Simuler avec ton IA</button>
+          <Link to={`/simulation/${c.id}/pre`} className="btn-primary gap-1.5"><Icon name="play" className="h-4 w-4" />Simuler ce cas</Link>
+        </div>
       </header>
 
       {/* Vue principale = la fiche clinique. Le JEU DE RÔLE (simulant) est à part. */}
