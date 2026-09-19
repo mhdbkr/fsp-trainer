@@ -13,6 +13,9 @@ export interface DrillContext {
   remaining: number;
   settings: SrsSettings;
   daily: ReturnType<typeof effectiveDaily>;
+  /** Ce que donnerait le mode Automatique aujourd'hui, quel que soit le mode
+   *  enregistré — pour l'aperçu chiffré de la feuille de réglages. */
+  autoDaily: ReturnType<typeof effectiveDaily>;
   reviewsRemaining: number;
 }
 
@@ -60,10 +63,12 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     workingDaysToExam: config?.examDate ? workingDaysUntilExam(config.examDate, now, config) : null,
     retention7d: retention7d(events, now.getTime()),
   });
-  const daily = effectiveDaily(settings, { budget, intensity: config?.intensity ?? 'mittel' });
+  const intensity = config?.intensity ?? 'mittel';
+  const autoDaily = effectiveDaily({ mode: 'auto' }, { budget, intensity });
+  const daily = settings.mode === 'auto' ? autoDaily : effectiveDaily(settings, { budget, intensity });
 
   const [remaining, reviewed] = await Promise.all([remainingToday(daily.newPerDay, now), reviewedToday(now)]);
   const reviewsRemaining = Math.max(0, daily.maxReviewsPerDay - reviewed);
 
-  return { relevance, budget, remaining, settings, daily, reviewsRemaining };
+  return { relevance, budget, remaining, settings, daily, autoDaily, reviewsRemaining };
 }

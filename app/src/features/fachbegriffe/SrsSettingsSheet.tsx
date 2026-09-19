@@ -6,13 +6,14 @@ import { loadDrillContext } from '@/lib/collections/drillContext';
 // par la page Fachbegriffe (modale) et par « Ajuster » du programme (inline).
 export function SrsSettingsSheet({ onClose, inline = false }: { onClose: () => void; inline?: boolean }) {
   const [s, setS] = useState<SrsSettings>({ mode: 'auto' });
-  const [explain, setExplain] = useState('');
-  const [autoNew, setAutoNew] = useState(10);
+  // Aperçu chiffré du mode Automatique (null = contexte pas encore chargé).
+  const [auto, setAuto] = useState<{ newPerDay: number; explain: string } | null>(null);
+  const autoNew = auto?.newPerDay ?? 10;
   const [saved, setSaved] = useState(false);
   const savedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     getSrsSettings().then(setS);
-    loadDrillContext().then((c) => { setExplain(c.daily.source === 'auto' ? c.daily.explain : ''); setAutoNew(c.daily.newPerDay); });
+    loadDrillContext().then((c) => setAuto({ newPerDay: c.autoDaily.newPerDay, explain: c.autoDaily.explain }));
     return () => { if (savedTimer.current) clearTimeout(savedTimer.current); };
   }, []);
   const save = async () => {
@@ -34,7 +35,16 @@ export function SrsSettingsSheet({ onClose, inline = false }: { onClose: () => v
         <label className="flex min-h-11 cursor-pointer items-center gap-2 pr-2"><input type="radio" name="srs-mode" aria-label="Automatique" checked={s.mode === 'auto'} onChange={() => setS({ mode: 'auto' })} />Automatique</label>
         <label className="flex min-h-11 cursor-pointer items-center gap-2 pr-2"><input type="radio" name="srs-mode" aria-label="Manuel" checked={s.mode === 'manual'} onChange={() => setS((p) => ({ mode: 'manual', newPerDay: p.newPerDay ?? autoNew, maxReviewsPerDay: p.maxReviewsPerDay ?? 200 }))} />Manuel</label>
       </div>
-      {s.mode === 'auto' ? <p className="text-xs text-slate-500">{explain || 'auto : selon la date d\'examen, la rétention et l\'intensité du programme'}</p> : (
+      {s.mode === 'auto' ? (
+        // Toujours les chiffres calculés (revue UX F2b) : le candidat voit le
+        // budget du jour avant d'enregistrer, comme en Manuel.
+        auto ? (
+          <div>
+            <p className="text-sm">Aujourd'hui : <strong>{auto.newPerDay}</strong> nouveaux · dus présentés : illimités</p>
+            <p className="text-xs text-slate-500">{auto.explain}</p>
+          </div>
+        ) : <p aria-busy="true" className="text-sm text-slate-400">…</p>
+      ) : (
         <div className="grid grid-cols-2 gap-2 text-sm">
           <label><span className="label">Nouveaux termes par jour</span><input aria-label="Nouveaux termes par jour" type="number" min={SRS_LIMITS.newPerDay[0]} max={SRS_LIMITS.newPerDay[1]} value={s.newPerDay ?? ''} onChange={(e) => num('newPerDay', e.target.value)} className="input w-full" /></label>
           <label><span className="label">Dus présentés par jour</span><input aria-label="Dus présentés par jour" type="number" min={SRS_LIMITS.maxReviewsPerDay[0]} max={SRS_LIMITS.maxReviewsPerDay[1]} value={s.maxReviewsPerDay ?? ''} onChange={(e) => num('maxReviewsPerDay', e.target.value)} className="input w-full" /></label>
