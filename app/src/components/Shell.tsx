@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
@@ -13,16 +13,31 @@ import { SelectionExplainer } from './SelectionExplainer';
 import { Sidebar } from './Sidebar';
 import { CommandPalette } from './CommandPalette';
 
+/** Bas de page : seulement si la zone défile réellement, et à < 120 px du bas. */
+export function isAtBottom(el: { scrollHeight: number; scrollTop: number; clientHeight: number }): boolean {
+  return el.scrollHeight > el.clientHeight && el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+}
+
 export function Shell() {
   const setAtPageBottom = useUi((s) => s.setAtPageBottom);
   const { pathname } = useLocation();
   const mainRef = useRef<HTMLElement>(null);
   // Détecte l'arrivée en bas de page pour masquer les barres flottantes.
+  // Une page SANS défilement n'est jamais « en bas » (sinon la formule vaut
+  // vrai par construction et la barre « Reprendre » disparaît sur l'accueil du
+  // drill — revue de branche F2b, I1).
   const onMainScroll = () => {
     const el = mainRef.current;
     if (!el) return;
-    setAtPageBottom(el.scrollHeight - el.scrollTop - el.clientHeight < 120);
+    setAtPageBottom(isAtBottom(el));
   };
+  // Changement de page : l'état de défilement de la page précédente ne doit
+  // pas masquer la barre sur la nouvelle (recalcul après rendu).
+  useEffect(() => {
+    setAtPageBottom(false);
+    const el = mainRef.current;
+    if (el) setAtPageBottom(isAtBottom(el));
+  }, [pathname, setAtPageBottom]);
 
   return (
     <div className="flex h-full">
