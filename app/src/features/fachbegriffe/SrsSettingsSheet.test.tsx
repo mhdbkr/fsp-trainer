@@ -11,7 +11,7 @@ describe('SrsSettingsSheet', () => {
     render(<SrsSettingsSheet onClose={() => {}} />);
     expect(await screen.findByText(/auto : 13\/jour = 10 × intensif/)).toBeTruthy();
     // Mode auto : les chiffres du jour, pas une phrase générique (revue UX F2b).
-    expect(screen.getByText(/Aujourd'hui :/).textContent).toMatch(/13 nouveaux · dus présentés : illimités/);
+    expect(screen.getByText(/Aujourd'hui :/).textContent).toMatch(/13 nouveaux · dus présentés : 200 max/);
     fireEvent.click(screen.getByLabelText(/Manuel/));
     fireEvent.change(screen.getByLabelText(/Nouveaux termes par jour/), { target: { value: '99' } });
     fireEvent.change(screen.getByLabelText(/Dus présentés par jour/), { target: { value: '20' } });

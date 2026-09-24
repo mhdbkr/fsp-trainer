@@ -53,8 +53,9 @@ Fallvorstellung, cas `case-tvt`).
    (après ce délai), pas depuis `mouse.move` — il ne mesure donc que le rendu
    de la carte, et ne prouve pas le délai lui-même. Aucune nouvelle mesure
    bout-en-bout n'a été prise (revue de branche, M8). Le dialog apparaît, la
-   carte est unique : PASS sur l'apparition ; le délai de 150 ms est prouvé
-   par le code et le test `TermHoverCard`/`AutoLink`, pas par cette mesure.
+   carte est unique : PASS sur l'apparition ; le délai de 150 ms est établi
+   par lecture du code seulement (`lib/autolink.tsx`, `setTimeout(…, 150)`) — non testé
+   (aucun test à faux timers), non mesuré de bout en bout.
 2. Clic ★ → `aria-pressed` passe de `false` à `true`, section « Ajouter à un
    deck… » visible dans le dialog (texte relevé : *"Erysipel\nWundrose\nNeu\n★\nAjouter
    à un deck…\nCréer\nVoir la fiche →"*).

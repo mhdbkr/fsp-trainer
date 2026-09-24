@@ -7,13 +7,13 @@ import { loadDrillContext } from '@/lib/collections/drillContext';
 export function SrsSettingsSheet({ onClose, inline = false }: { onClose: () => void; inline?: boolean }) {
   const [s, setS] = useState<SrsSettings>({ mode: 'auto' });
   // Aperçu chiffré du mode Automatique (null = contexte pas encore chargé).
-  const [auto, setAuto] = useState<{ newPerDay: number; explain: string } | null>(null);
+  const [auto, setAuto] = useState<{ newPerDay: number; maxReviewsPerDay: number; explain: string } | null>(null);
   const autoNew = auto?.newPerDay ?? 10;
   const [saved, setSaved] = useState(false);
   const savedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     getSrsSettings().then(setS);
-    loadDrillContext().then((c) => setAuto({ newPerDay: c.autoDaily.newPerDay, explain: c.autoDaily.explain }));
+    loadDrillContext().then((c) => setAuto({ newPerDay: c.autoDaily.newPerDay, maxReviewsPerDay: c.autoDaily.maxReviewsPerDay, explain: c.autoDaily.explain }));
     return () => { if (savedTimer.current) clearTimeout(savedTimer.current); };
   }, []);
   const save = async () => {
@@ -40,7 +40,7 @@ export function SrsSettingsSheet({ onClose, inline = false }: { onClose: () => v
         // budget du jour avant d'enregistrer, comme en Manuel.
         auto ? (
           <div>
-            <p className="text-sm">Aujourd'hui : <strong>{auto.newPerDay}</strong> nouveaux · dus présentés : illimités</p>
+            <p className="text-sm">Aujourd'hui : <strong>{auto.newPerDay}</strong> nouveaux · dus présentés : <strong>{auto.maxReviewsPerDay}</strong> max</p>
             <p className="text-xs text-slate-500">{auto.explain}</p>
           </div>
         ) : <p aria-busy="true" className="text-sm text-slate-400">…</p>
