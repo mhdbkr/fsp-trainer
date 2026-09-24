@@ -3,6 +3,7 @@ import type { Phrase } from './phrases';
 import { phraseProbes, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
+import { dedupeBySymptom } from './symptoms';
 
 // ============================================================================
 // Guide d'anamnèse — Allgemeine Anamnese + Spezielle Anamnese par spécialité.
@@ -167,6 +168,10 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Gewicht und Appetit — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten? Und Ihr Appetit, Ihr Durst?',
         probe: 'akt-allgemein-gewicht',
         followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'],
+        parts: [
+          { sucht: ['gewicht'], text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?', followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'] },
+          { sucht: ['appetit'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
+        ],
       },
       { text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen? Hat sich die Urinmenge verändert?', probe: 'akt-allgemein-schwellung' },
       { text: 'Verlauf — Ist es gleichbleibend, wird es schlimmer, oder gibt es gute und schlechte Tage?', probe: 'akt-verlauf' },
@@ -277,7 +282,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
     questions: [
       MOTIV,
       {
-        text: 'Was genau — Was ist Ihnen aufgefallen: ein Knoten, eine Schwellung, eine Hautveränderung, blaue Flecken, eine Blutung?',
+        text: 'Befund — Was ist Ihnen aufgefallen: ein Knoten, eine Schwellung, eine Hautveränderung, blaue Flecken, eine Blutung?',
         probe: 'akt-veraend-was',
       },
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Wie ist es Ihnen aufgefallen — zufällig, beim Duschen, durch jemand anderen?', probe: 'akt-beginn' },
@@ -330,7 +335,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Kam es plötzlich oder hat es sich über Wochen entwickelt?', probe: 'akt-beginn' },
       {
-        text: 'Was genau — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, beim Schlucken, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
+        text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, beim Schlucken, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
         probe: 'akt-ausscheid-was',
       },
       {
@@ -384,11 +389,15 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
 // sécurité), la variante NE la pose PAS : la Fach est plus fine et vient trois
 // lignes plus bas. Carte explicite, relue — pas une similarité de mots.
 // Clé = sonde Fach ; valeurs = sondes de variante qu'elle rend inutiles.
+// La fièvre n'y figure pas : quand le motif EST la fièvre (variante infekt),
+// c'est « Aktuelle Beschwerden » qui la cherche en détail, et la règle « un
+// symptôme, une question » (symptoms.ts) efface ensuite la Fach et la
+// vegetative — dans tous les autres cas, la Fach la pose la première.
 export const FACH_COVERS: Record<string, string[]> = {
   // Pneumologie
   'fach-pneumo-husten': ['akt-atemnot-husten'], 'fach-pneumo-auswurf': ['akt-atemnot-husten'],
   'fach-pneumo-atemnot': ['akt-atemnot-belastung'], 'fach-pneumo-orthopnoe': ['akt-atemnot-nachts'],
-  'fach-pneumo-giemen': ['akt-atemnot-geraeusch'], 'fach-pneumo-fieber': ['akt-infekt-fieber'], 'fach-pneumo-infekt': ['akt-infekt-kontakt'],
+  'fach-pneumo-giemen': ['akt-atemnot-geraeusch'], 'fach-pneumo-infekt': ['akt-infekt-kontakt'],
   // Kardiologie (insuffisance cardiaque = atemnot × Kardio)
   'fach-kardio-luft': ['akt-atemnot-belastung'], 'fach-kardio-oedeme': ['akt-atemnot-nachts', 'akt-allgemein-schwellung'],
   'fach-kardio-herzrasen': ['akt-anfall-ablauf'], 'fach-kardio-synkope': ['akt-anfall-bewusstsein'],
@@ -405,10 +414,10 @@ export const FACH_COVERS: Record<string, string[]> = {
   'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
   // Urologie / Gastroenterologie (ausscheidung)
   'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit'], 'fach-uro-strahl': ['akt-ausscheid-haeufigkeit'],
-  'fach-uro-farbe': ['akt-ausscheid-aussehen'], 'fach-uro-fieber': ['akt-infekt-fieber'],
+  'fach-uro-farbe': ['akt-ausscheid-aussehen'],
   'fach-gastro-stuhl': ['akt-ausscheid-aussehen', 'akt-ausscheid-haeufigkeit'], 'fach-gastro-speisen': ['akt-ausloeser'],
   // Infektiologie
-  'fach-infekt-fieber': ['akt-infekt-fieber'], 'fach-infekt-kontakt': ['akt-infekt-kontakt'], 'fach-infekt-reise': ['akt-infekt-kontakt'],
+  'fach-infekt-kontakt': ['akt-infekt-kontakt'], 'fach-infekt-reise': ['akt-infekt-kontakt'],
   // Dermatologie
   'fach-derma-muttermal': ['akt-veraend-entwicklung'], 'fach-derma-ausloeser': ['akt-ausloeser'], 'fach-derma-empfinden': ['akt-veraend-blutung'],
   'fach-derma-aussehen': ['akt-veraend-was'], 'fach-derma-beginn-ort': ['akt-veraend-entwicklung'],
@@ -533,8 +542,22 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
           'Falls ja: Seit wann? Wie hoch war die Temperatur, und wo gemessen (z. B. im Mund)?',
           'Waren Sie kürzlich im Ausland? Sind Sie regelmäßig geimpft?',
         ],
+        // Trame du cas (FB2-J10) : si la fièvre a déjà été cherchée plus haut
+        // (Aktuelle Beschwerden, Fach), il ne reste que le voyage ; si c'est
+        // le voyage qui l'a été, il reste la fièvre.
+        parts: [
+          { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls ja: Seit wann? Wie hoch war die Temperatur, und wo gemessen (z. B. im Mund)?'] },
+          { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland? Sind Sie regelmäßig geimpft?' },
+        ],
       },
-      { text: 'Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?', probe: 'veg-schuettelfrost' },
+      {
+        text: 'Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?',
+        probe: 'veg-schuettelfrost',
+        parts: [
+          { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' },
+          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts stark, oder haben Sie starke Schweißausbrüche?' },
+        ],
+      },
       {
         text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
         probe: 'veg-uebelkeit',
@@ -544,6 +567,10 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?',
         probe: 'veg-ausscheidung',
         followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
+        parts: [
+          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Stuhls näher beschreiben?'] },
+          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?'] },
+        ],
       },
       {
         text: 'Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?',
@@ -646,7 +673,11 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'fam-eltern',
         followUp: ['Falls verstorben: Woran, und wann? (Avec empathie : „Mein herzliches Beileid.“)'],
       },
-      { text: 'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?', probe: 'fam-stand' },
+      {
+        text: 'Wie ist Ihr Familienstand? Haben Sie Kinder?',
+        probe: 'fam-stand',
+        followUp: ['Falls ja: Wie viele, und sind sie gesund?'],
+      },
       // Le métier est demandé ICI et une seule fois par trame (FB2-J2) : il
       // l'était aussi dans Persönliche Daten, et une troisième fois dans la
       // Fachanamnese pneumo. L'exposition professionnelle suit, en question
@@ -731,6 +762,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Sind Ihre Beine oder Knöchel geschwollen — eher morgens oder abends? Mit wie vielen Kissen schlafen Sie?',
         probe: 'fach-kardio-oedeme',
         label: 'Herzinsuffizienz',
+        parts: [
+          { sucht: ['oedeme'], text: 'Sind Ihre Beine oder Knöchel geschwollen — eher morgens oder abends?' },
+          { sucht: ['orthopnoe'], text: 'Mit wie vielen Kissen schlafen Sie?' },
+        ],
       },
       { text: 'Müssen Sie nachts Wasser lassen? Wie oft?', probe: 'fach-kardio-nykturie' },
       {
@@ -885,6 +920,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-nephro-oedeme',
         alts: ['Haben Sie Schwellungen im Gesicht, an den Augen oder an den Beinen bemerkt?'],
         label: 'Ödeme',
+        parts: [
+          { sucht: ['oedeme'], text: 'Sind Ihre Augenlider morgens geschwollen oder die Beine abends dick?' },
+          { sucht: ['gewicht'], text: 'Haben Sie rasch an Gewicht zugenommen?' },
+        ],
       },
       { text: 'Ist bei Ihnen ein hoher Blutdruck bekannt, und wie ist er eingestellt?', probe: 'fach-nephro-blutdruck' },
       {
@@ -1159,6 +1198,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'B-Symptomatik',
         alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'],
         followUp: ['Falls Gewichtsverlust: Wie viele Kilo, und in welchem Zeitraum?'],
+        parts: [
+          { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
+          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen?' },
+          { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren?', followUp: ['Falls ja: Wie viele Kilo, und in welchem Zeitraum?'] },
+        ],
       },
       {
         text: 'Haben Sie Schwellungen oder Knoten am Hals, in den Achseln oder in der Leiste getastet?',
@@ -1196,6 +1240,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-onko-bsymptomatik',
         label: 'B-Symptomatik',
         alts: ['Haben Sie ungewollt ab- oder zugenommen? Wie viel, und in welchem Zeitraum?'],
+        parts: [
+          { sucht: ['fieber'], text: 'Haben Sie Fieber, ohne dass ein Infekt dahintersteckt?' },
+          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen?' },
+          { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren — wie viel in welcher Zeit?' },
+        ],
       },
       {
         text: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?',
@@ -1563,7 +1612,8 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
   const out: Record<string, PhraseVariant[]> = {};
   for (const q of c.caseSpecificQuestions ?? []) {
     const k = cqKapitel(q);
-    (out[k] ??= []).push({ text: cqText(q), caseSpecific: true });
+    const sucht = typeof q === 'string' ? undefined : q.sucht;
+    (out[k] ??= []).push({ text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}) });
   }
   return out;
 }
@@ -1597,10 +1647,9 @@ function adaptFach(questions: Phrase[], who: Who): Phrase[] {
   });
 }
 
-/** La Fachanamnese JOUÉE pour un cas : celle de la spécialité, adaptée au sexe,
- *  + les questions « fach » propres au cas. Point d'entrée unique du guide et
- *  du mode focus. */
-export function fachChapterForCase(c: Case): FachanamneseGuide | undefined {
+/** La Fachanamnese du cas AVANT modulation par symptôme (sexe, âge, questions
+ *  « fach » du cas). */
+function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
   const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
   if (!f) return undefined;
   const who: Who = { geschlecht: c.patientSheet.personalia.geschlecht, age: c.patientSheet.personalia.age };
@@ -1608,11 +1657,46 @@ export function fachChapterForCase(c: Case): FachanamneseGuide | undefined {
   return { ...f, chapter: { ...f.chapter, questions } };
 }
 
+/** La Fachanamnese JOUÉE pour un cas : celle de la spécialité, adaptée au sexe,
+ *  + les questions « fach » propres au cas, moins ce que « Aktuelle
+ *  Beschwerden » a déjà cherché. Point d'entrée unique du guide et du focus. */
+export function fachChapterForCase(c: Case): FachanamneseGuide | undefined {
+  return playedTrame(c).fach;
+}
+
+// ── La trame jouée, dans l'ordre de l'entretien ──────────────────────────────
+// Personalia → Aktuelle Beschwerden → Fachanamnese → Vegetative → … : c'est
+// dans CET ordre que « un symptôme, une question » s'applique (FB2-J10). Les
+// deux consommateurs (guide, focus) lisent la même trame ; mémoïsée par cas.
+const TRAME = new WeakMap<Case, { chapters: AnamneseChapter[]; fach?: FachanamneseGuide }>();
+export function playedTrame(c: Case): { chapters: AnamneseChapter[]; fach?: FachanamneseGuide } {
+  const hit = TRAME.get(c);
+  if (hit) return hit;
+  const fachRaw = fachChapterRaw(c);
+  const general = adaptChaptersRaw(c, fachRaw);
+  const FACH_ID = '__fach__';
+  const ordered: AnamneseChapter[] = [];
+  for (const ch of general) { ordered.push(ch); if (fachRaw && ch.id === 'aktuell') ordered.push({ ...fachRaw.chapter, id: FACH_ID }); }
+  const deduped = dedupeBySymptom(ordered);
+  const fachCh = deduped.find((ch) => ch.id === FACH_ID);
+  const out = {
+    chapters: deduped.filter((ch) => ch.id !== FACH_ID),
+    fach: fachRaw && fachCh ? { ...fachRaw, chapter: { ...fachRaw.chapter, questions: fachCh.questions } } : undefined,
+  };
+  TRAME.set(c, out);
+  return out;
+}
+
 /** Questions « fach » du cas, à ajouter à la Fachanamnese jouée. */
 export function caseQuestionsForFach(c: Case): PhraseVariant[] { return caseQuestionsByKapitel(c).fach ?? []; }
 
-/** Chapitres de l'Allgemeine Anamnese ADAPTÉS au cas joué. */
+/** Chapitres de l'Allgemeine Anamnese ADAPTÉS au cas joué (sans la Fach, qui
+ *  s'insère après « Aktuelle Beschwerden » — voir `playedTrame`). */
 export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
+  return playedTrame(c).chapters;
+}
+
+function adaptChaptersRaw(c: Case, fach: FachanamneseGuide | undefined): AnamneseChapter[] {
   const weiblich = c.patientSheet.personalia.geschlecht === 'w';
   const age = c.patientSheet.personalia.age;
   const kategorie = leitsymptomOf(c);
@@ -1630,7 +1714,6 @@ export function adaptChaptersForCase(c: Case): AnamneseChapter[] {
       // jamais le modèle douleur avec un mot remplacé.
       if (ch.id === 'aktuell') {
         const v = aktuellChapterFor(kategorie);
-        const fach = fachChapterForCase(c);
         // Ce que la Fach jouée pose déjà (FACH_COVERS) et ce que le cas exclut
         // (aktuellSkip) ne sont pas posés ici — un seul endroit par trame.
         const skip = new Set(c.patientSheet.aktuellSkip ?? []);

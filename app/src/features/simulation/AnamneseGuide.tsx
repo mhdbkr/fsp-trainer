@@ -4,7 +4,7 @@ import type { AssistanceMode, Case } from '@/db/types';
 import { adaptChaptersForCase, fachChapterForCase, type AnamneseChapter } from '@/data/guides/anamneseChapters';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
-import { phraseProbes } from '@/data/guides/phrases';
+import { phraseIsCaseSpecific, phraseProbes, type Phrase } from '@/data/guides/phrases';
 import { useSimSession } from '@/store/simSession';
 
 // ============================================================================
@@ -145,10 +145,25 @@ function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId
           {revealed ? (
             <>
               <ul className="space-y-1.5 text-sm">
-                {ch.questions.map((q, i) => (
-                  <PhraseLine key={i} phrase={q} keywords={isAssiste ? ch.keywords : []}
+                {groupCaseQuestions(ch.questions).map((run, gi) => run.own && run.items.length > 1 ? (
+                  // Questions du cas regroupées dans UN cadre (FB2-J11) : un
+                  // seul titre « Für diesen Fall » au lieu d'un par ligne.
+                  <li key={`g${gi}`} className="reveal -mx-2 rounded-xl border border-dashed border-brand-300/80 bg-brand-50/40 px-2 pb-1.5 pt-1 dark:border-brand-700/60 dark:bg-brand-900/10">
+                    <div className="label mb-1 flex items-center gap-1.5 text-brand-600 dark:text-brand-300" title="Questions importantes pour ce cas — à ne pas oublier">
+                      <span className="h-2 w-2 rounded-full bg-brand-600 ring-2 ring-brand-200 dark:bg-brand-400 dark:ring-brand-900" />Für diesen Fall
+                    </div>
+                    <ul className="space-y-1.5">
+                      {run.items.map(({ q, i }) => (
+                        <PhraseLine key={i} phrase={q} keywords={isAssiste ? ch.keywords : []} caseLabel={false} overlapHints={false}
+                          active={!!asked && phraseProbes(q).includes(asked)} onAsk={onAsk} />
+                      ))}
+                    </ul>
+                  </li>
+                ) : run.items.map(({ q, i }) => (
+                  // Une seule question du cas : le libellé en ligne suffit, pas de cadre.
+                  <PhraseLine key={i} phrase={q} keywords={isAssiste ? ch.keywords : []} overlapHints={false}
                     active={!!asked && phraseProbes(q).includes(asked)} onAsk={onAsk} />
-                ))}
+                )))}
               </ul>
               {isAssiste && ch.tip && (
                 <p className="callout callout-warn mt-3 text-xs">
@@ -165,4 +180,17 @@ function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId
       )}
     </div>
   );
+}
+
+/** Découpe les questions d'un chapitre en séquences : les questions du cas
+ *  consécutives forment un groupe (rendu dans un cadre dès deux), le reste défile. */
+export function groupCaseQuestions(questions: Phrase[]): Array<{ own: boolean; items: Array<{ q: Phrase; i: number }> }> {
+  const out: Array<{ own: boolean; items: Array<{ q: Phrase; i: number }> }> = [];
+  questions.forEach((q, i) => {
+    const own = phraseIsCaseSpecific(q);
+    const last = out[out.length - 1];
+    if (last && last.own === own) last.items.push({ q, i });
+    else out.push({ own, items: [{ q, i }] });
+  });
+  return out;
 }

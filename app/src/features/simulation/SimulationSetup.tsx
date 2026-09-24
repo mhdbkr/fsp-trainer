@@ -14,7 +14,7 @@ import { restartApp } from '@/lib/auth/restart';
 // Réglage de simulation illustré : Mode (Assisté/Autonome) · Couche (1-3) ·
 // Muster-Bogen (5 villes) · Rôles + fiche du simulant (QR). Alimente le store.
 export function SimulationSetup({ caseId }: { caseId: string }) {
-  const { assistance, setAssistance, layer, setLayer, muster, setMuster } = useUi();
+  const { assistance, setAssistance, layer, setLayer, muster, setMuster, openExternalAi } = useUi();
   // Couche RECOMMANDÉE, calculée depuis l'historique de ce cas — l'utilisateur
   // n'a aucune raison de savoir tout seul s'il est prêt à monter.
   const c = useCase(caseId);
@@ -85,6 +85,16 @@ export function SimulationSetup({ caseId }: { caseId: string }) {
 
       {/* Rôles + fiche du simulant */}
       <RolesCard caseId={caseId} />
+
+      {/* Autre façon de simuler : partenaire = une IA vocale externe */}
+      <div className="card p-4">
+        <div className="eyebrow">Autre façon de simuler</div>
+        <div className="mb-1 flex items-center gap-2 font-semibold"><Icon name="spark" className="h-4 w-4" />Avec ton IA</div>
+        <p className="text-xs text-slate-500 dark:text-slate-400">ChatGPT, Claude, Gemini… en vocal — le patient et l'Oberarzt sont prêts.</p>
+        <button onClick={() => openExternalAi(caseId)} className="btn-outline mt-2 w-full justify-center gap-1.5 text-xs">
+          <Icon name="spark" className="h-4 w-4" />Simuler avec ton IA
+        </button>
+      </div>
 
       {/* Muster-Bogen par MODÈLE (forme), les villes en second plan */}
       <div className="card p-4">

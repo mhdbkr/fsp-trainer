@@ -4,6 +4,7 @@ import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { GlossaryDrawer } from './GlossaryDrawer';
 import { TermHoverCard } from './TermHoverCard';
+import { ExternalAiSheet } from '@/features/simulation/ExternalAiSheet';
 import { Doctopus } from './Doctopus';
 import { ResumeSessionBar } from './ResumeSessionBar';
 import { SelectionExplainer } from './SelectionExplainer';
@@ -57,6 +58,8 @@ export function Shell() {
       <GlossaryDrawer />
       {/* Hover-card ★ sur tout terme auto-lié (F2b) */}
       <TermHoverCard />
+      {/* Feuille « Simuler avec ton IA » — 4 points d'entrée */}
+      <ExternalAiSheet />
       {/* Doctopus — assistant IA (flottant, partout) */}
       <Doctopus />
       {/* Quick-search : bulle d'explication sur sélection de texte */}

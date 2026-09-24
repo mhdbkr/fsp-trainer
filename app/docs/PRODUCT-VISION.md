@@ -86,7 +86,9 @@ Par ordre d'impact. Les quatre premières sont bâties sur ce qui existe déjà.
     smartphone, existant), en ligne (binôme à distance), patient virtuel IA
     vocal — ce dernier **grisé « bientôt »** avec une **démo sur un cas fictif,
     5–6 questions, audio pré-généré et servi en statique** (zéro LLM, zéro
-    coût par écoute). Le chantier complet vient à part.
+    coût par écoute). Le chantier complet vient à part. En attendant, la
+    **bascule vers l'IA du candidat** (« Simuler avec ton IA », livrée) donne
+    déjà un patient et un Oberarzt à voix, sans coût pour Doctopus.
 
 ## 4. Le modèle — crédits hybrides
 
