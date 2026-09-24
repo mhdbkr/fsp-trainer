@@ -116,7 +116,9 @@ export function HomePage() {
               programToday && programToday.blocks.length > 0 ? (
                 <ul className="space-y-2">
                   {programToday.blocks.map((b, i) => {
-                    const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? '/fachbegriffe/drill' : b.caseId ? `/cas/${b.caseId}` : '/simulation';
+                    // Bloc drill ancré comme sur la page Programme (spec F2b 3.8) : cas du jour, sinon spécialité.
+                    const drillTo = `/fachbegriffe/drill${b.caseId ? `?case=${encodeURIComponent(b.caseId)}` : b.specialty ? `?specialty=${encodeURIComponent(b.specialty)}` : ''}`;
+                    const to = b.kind === 'simulation' && b.caseId ? `/simulation/${b.caseId}/pre` : b.kind === 'drill' ? drillTo : b.caseId ? `/cas/${b.caseId}` : '/simulation';
                     const meta = BLOCK_META[b.kind];
                     return (
                       <li key={i} className="flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-800">

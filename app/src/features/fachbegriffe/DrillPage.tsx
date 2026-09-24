@@ -33,7 +33,9 @@ export function DrillPage() {
   const deck = deckId === FAVORITES_DECK_ID ? FAV_DECK : decks?.find((d) => d.id === deckId);
   const caseId = params.get('case');
   const theCase = useCase(caseId ?? undefined);
-  const events = useLiveQuery(() => db.progress_events.toArray(), [], undefined);
+  // Seuls les événements qui définissent les termes d'un cas : sinon chaque
+  // `srs.reviewed` (même table) relançait la requête et recalculait le pool.
+  const events = useLiveQuery(() => db.progress_events.where('type').anyOf(['term.favorited', 'deck.term_added']).toArray(), [], undefined);
   const simSnapshot = useSimSession((s) => s.snapshot);
   const simMinimized = useSimSession((s) => s.minimized);
 

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { TEILE, isTeil, caseMastery } from '@/lib/simScope';
@@ -72,7 +72,8 @@ export function SimulationRunner() {
   // les termes ajoutés en cours de route.
   const begriffe = useFachbegriffe();
   const termEvents = useLiveQuery(() => db.progress_events.where('type').anyOf(['term.favorited', 'deck.term_added']).toArray(), []);
-  const termCount = c && begriffe ? termsOfCase(c.id, begriffe, c, termEvents ?? []).length : 0;
+  // Mémoïsé : le runner se rend à 1 Hz (chrono), termsOfCase parcourt tout le glossaire.
+  const termCount = useMemo(() => (c && begriffe ? termsOfCase(c.id, begriffe, c, termEvents ?? []).length : 0), [c, begriffe, termEvents]);
 
   // Fusion des deux étiquettes au défilement. Ce n'est PAS la fenêtre qui défile mais le
   // <main class="overflow-y-auto"> du layout : écouter `window` ne déclencherait

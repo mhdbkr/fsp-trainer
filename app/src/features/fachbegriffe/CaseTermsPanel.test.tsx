@@ -44,4 +44,12 @@ describe('CaseTermsPanel', () => {
     expect(document.activeElement).toBe(chip);
     chip.remove();
   });
+
+  // Revue de branche F2b (M3) : la page du cas ne montre pas « (0) · Drill » vers une file vide.
+  it('inline : rien de rendu quand le cas n\'a aucun terme', async () => {
+    await db.cases.put({ id: 'c0', name: 'Vide', specialty: 'G', linkedFachbegriffeIds: [] } as never);
+    const { container } = render(<MemoryRouter><CaseTermsPanel caseId="c0" mode="inline" onDrill={() => {}} /></MemoryRouter>);
+    await new Promise((r) => setTimeout(r, 50));
+    expect(container.innerHTML).toBe('');
+  });
 });

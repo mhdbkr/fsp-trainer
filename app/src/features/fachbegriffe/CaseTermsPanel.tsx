@@ -58,6 +58,8 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
       </ul>
     </>
   );
+  // Page du cas : section masquée tant que le cas n'a aucun terme (comme l'ancien bloc).
+  if (mode === 'inline' && terms.length === 0 && !q.trim()) return null;
   if (mode === 'inline') return <div className="card flex max-h-[60vh] flex-col p-0">{body}</div>;
   return (<>
     <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={onClose} />

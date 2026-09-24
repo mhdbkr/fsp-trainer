@@ -16,6 +16,7 @@ const defaultCtx = {
   remaining: 10,
   settings: { mode: 'auto' as const },
   daily: { newPerDay: 10, maxReviewsPerDay: 200, source: 'auto' as const, explain: 'auto' },
+  autoDaily: { newPerDay: 10, maxReviewsPerDay: 200, source: 'auto' as const, explain: 'auto' },
   reviewsRemaining: 200,
 };
 
