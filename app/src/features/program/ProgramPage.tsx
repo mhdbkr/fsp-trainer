@@ -32,7 +32,7 @@ export function ProgramPage() {
   const sims = useSimulations();
   const begriffe = useFachbegriffe();
   const [drill, setDrill] = useState<DrillBudgets>({});
-  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.budget })).catch(() => {}); }, []);
+  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.daily.newPerDay })).catch(() => {}); }, []);
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
   const [anchor, setAnchor] = useState<string>(todayISO());   // période affichée dans le calendrier
@@ -351,7 +351,7 @@ export function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: s
   const to = b.kind === 'simulation' && b.caseId
     ? `/simulation/${b.caseId}/pre`
     : b.kind === 'drill'
-      ? `/fachbegriffe/drill${b.specialty ? `?specialty=${encodeURIComponent(b.specialty)}` : ''}`
+      ? `/fachbegriffe/drill${b.caseId ? `?case=${encodeURIComponent(b.caseId)}` : b.specialty ? `?specialty=${encodeURIComponent(b.specialty)}` : ''}`
       : b.caseId ? `/cas/${b.caseId}` : '/simulation';
   const cta = b.kind === 'simulation' ? 'Lancer' : b.kind === 'drill' ? 'Réviser' : 'Ouvrir';
   const doneNextDay = (days: number) => { if (b.caseId) postponeCase(config, b.caseId, days); onPick(format(addDays(parseISO(date), days), 'yyyy-MM-dd')); };

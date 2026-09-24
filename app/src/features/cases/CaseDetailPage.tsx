@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useCase, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useCase, useAufklaerungen } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
 import { CenterBadge, FreqBadge, DifficultyDots, StatusBadge, Toggle } from '@/components/ui';
@@ -11,15 +11,15 @@ import { SEC, SectionCard } from './medSections';
 import { DIAGNOSTIK_STUFEN } from '@/db/types';
 import { STUFE_META } from '@/features/fachwissen/stufeMeta';
 import { DDTable } from '@/components/DDTable';
-import { termsInOrder } from '@/lib/collections/caseTerms';
+import { CaseTermsPanel } from '@/features/fachbegriffe/CaseTermsPanel';
+import { CaseContext } from '@/features/fachbegriffe/CaseContext';
 import { PendingExternalSimCard } from '@/features/simulation/PendingExternalSimCard';
 
 export function CaseDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const c = useCase(id);
   const aufk = useAufklaerungen();
-  const begriffe = useFachbegriffe();
-  const openGlossary = useUi((s) => s.openGlossary);
   const openExternalAi = useUi((s) => s.openExternalAi);
   const [view, setView] = useState<'clinique' | 'rolle'>('clinique');
   const [role, setRole] = useState<'patient' | 'pruefer'>('patient');
@@ -27,9 +27,9 @@ export function CaseDetailPage() {
   if (!c) return <div className="text-slate-400">Chargement…</div>;
 
   const linkedAufk = (aufk ?? []).filter((a) => c.probableAufklaerungIds.includes(a.id));
-  const terms = termsInOrder(c.linkedFachbegriffeIds, begriffe ?? []);   // ordre publié conservé (diagnostic d'abord)
 
   return (
+    <CaseContext.Provider value={c.id}>
     <div className="space-y-5">
       <PendingExternalSimCard onlyCaseId={c.id} />
       <header className="flex flex-wrap items-start justify-between gap-4">
@@ -165,17 +165,7 @@ export function CaseDetailPage() {
               </div>
             )}
 
-            {terms.length > 0 && (
-              <div className="card p-4">
-                <div className="label mb-2">Fachbegriffe ({terms.length})</div>
-                <div className="flex flex-wrap gap-1.5">
-                  {terms.map((t) => (
-                    <button key={t.id} onClick={() => openGlossary(t)} className="chip bg-brand-50 text-brand-700 hover:bg-brand-100 dark:bg-brand-900/30 dark:text-brand-300">{t.term}</button>
-                  ))}
-                </div>
-                <Link to="/fachbegriffe/drill" className="btn-outline mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas</Link>
-              </div>
-            )}
+            <CaseTermsPanel caseId={c.id} mode="inline" onDrill={() => navigate(`/fachbegriffe/drill?case=${c.id}`)} />
 
             {c.examinerQuestions.length > 0 && (
               <Toggle title="Fragen der Prüfer (déjà posées)">
@@ -186,6 +176,7 @@ export function CaseDetailPage() {
         </div>
       )}
     </div>
+    </CaseContext.Provider>
   );
 }
 

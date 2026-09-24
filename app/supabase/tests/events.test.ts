@@ -58,6 +58,11 @@ describe('events', () => {
     expect(r.acked).toHaveLength(4);
   });
 
+  it('accepte srs.settings_changed', async () => {
+    const r = await post(A, [{ id: crypto.randomUUID(), type: 'srs.settings_changed', subject_id: 'srs', payload: { mode: 'manual', newPerDay: 5 }, occurred_at: '2026-09-17T11:00:00Z' }]);
+    expect(r.rejected).toEqual([]); expect(r.acked).toHaveLength(1);
+  });
+
   it('sans token → 401', async () => {
     const r = await fetch(FN, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ events: [ev(crypto.randomUUID())] }) });
     expect(r.status).toBe(401);

@@ -1,10 +1,19 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import type { BogenNotes, PartResult } from '@/db/types';
 
 // ============================================================================
 // Session de simulation PERSISTANTE. Quand l'utilisateur quitte la simulation,
 // la session n'est pas perdue : elle est mise en pause (minimisée) et flotte
 // dans une barre « reprendre ». Le Runner reflète son état local ici via `sync`.
+//
+// `{ snapshot, minimized }` survivent aussi à un RECHARGEMENT de l'onglet
+// (sessionStorage, clé `fsp.simSession`) : un reload pendant le drill « Drill
+// ces termes » (F2b) ou n'importe où ailleurs ne perd plus la simulation en
+// pause. Au réveil, toute session présente est considérée EN PAUSE (même si le
+// reload a eu lieu dans le Runner) : la barre « Reprendre » l'offre, et le
+// Runner, s'il est remonté sur ce cas, la restaure puis appelle `resume()`.
+// Le chrono reste figé sur `elapsed` tel qu'enregistré. `end()` purge tout.
 // ============================================================================
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
@@ -47,7 +56,10 @@ interface SimSessionStore {
   setGuideProbe: (p: string | null) => void;         // question en cours (null = aucune)
 }
 
-export const useSimSession = create<SimSessionStore>((set, get) => ({
+export const SIM_SESSION_STORAGE_KEY = 'fsp.simSession';
+type Persisted = Pick<SimSessionStore, 'snapshot' | 'minimized'>;
+
+export const useSimSession = create<SimSessionStore>()(persist((set, get) => ({
   snapshot: null,
   minimized: false,
   focus: null,
@@ -61,7 +73,10 @@ export const useSimSession = create<SimSessionStore>((set, get) => ({
   },
   minimize: () => { if (get().snapshot) set({ minimized: true }); },
   resume: () => set({ minimized: false }),
-  end: () => set({ snapshot: null, minimized: false, focus: null, guideChapter: null, guideProbe: null }),
+  end: () => {
+    set({ snapshot: null, minimized: false, focus: null, guideChapter: null, guideProbe: null });
+    useSimSession.persist.clearStorage();
+  },
   setFocus: (f) => set({ focus: f }),
   setGuideProbe: (p) => set((s) => (s.guideProbe === p ? s : { guideProbe: p })),
   setGuideChapter: (g) => set((s) => {
@@ -69,4 +84,16 @@ export const useSimSession = create<SimSessionStore>((set, get) => ({
     if (s.guideChapter?.caseId === g?.caseId && s.guideChapter?.part === g?.part && s.guideChapter?.chapterId === g?.chapterId) return s;
     return { guideChapter: g };
   }),
+}), {
+  name: SIM_SESSION_STORAGE_KEY,
+  version: 1,
+  storage: createJSONStorage(() => sessionStorage),
+  partialize: (s): Persisted => ({ snapshot: s.snapshot, minimized: s.minimized }),
+  // Réhydratation : une session présente est TOUJOURS en pause (un reload dans
+  // le Runner l'aurait laissée `minimized: false` → session fantôme sans barre).
+  merge: (persisted, current) => {
+    const p = (persisted ?? {}) as Partial<Persisted>;
+    const snapshot = p.snapshot && typeof p.snapshot.caseId === 'string' ? p.snapshot : null;
+    return { ...current, snapshot, minimized: snapshot !== null };
+  },
 }));

@@ -2,11 +2,22 @@
 import { db } from '@/db/db';
 import type { Case, Fachbegriff, ProgramConfig, Simulation, Specialty } from '@/db/types';
 import type { RelevanceContext } from './relevance';
-import { newBudget, remainingToday, retention7d } from '@/lib/srsBudget';
+import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';
 import { isNew } from '@/lib/srs';
 import { generateProgram, workingDaysUntilExam } from '@/lib/program';
+import { getSrsSettings, effectiveDaily, type SrsSettings } from '@/lib/srsSettings';
 
-export interface DrillContext { relevance: RelevanceContext; budget: number; remaining: number }
+export interface DrillContext {
+  relevance: RelevanceContext;
+  budget: number;
+  remaining: number;
+  settings: SrsSettings;
+  daily: ReturnType<typeof effectiveDaily>;
+  /** Ce que donnerait le mode Automatique aujourd'hui, quel que soit le mode
+   *  enregistré — pour l'aperçu chiffré de la feuille de réglages. */
+  autoDaily: ReturnType<typeof effectiveDaily>;
+  reviewsRemaining: number;
+}
 
 /** Cas et spécialité du PROGRAMME du jour (spec F2a D3 : +40 / +20). Le programme
  *  réel est calculé à la volée par `generateProgram` (`db.plan` n'est qu'une table
@@ -23,7 +34,7 @@ export function todayProgramContext(
 }
 
 export async function loadDrillContext(now = new Date()): Promise<DrillContext> {
-  const [favorites, deckTerms, allSims, cases, begriffe, events, config] = await Promise.all([
+  const [favorites, deckTerms, allSims, cases, begriffe, events, config, settings] = await Promise.all([
     db.favorites.toArray(),
     db.deck_terms.toArray(),
     db.simulations.toArray(),
@@ -31,6 +42,7 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     db.fachbegriffe.toArray(),
     db.progress_events.toArray(),
     db.meta.get('program').then((m) => m?.value as ProgramConfig | undefined),
+    getSrsSettings(),
   ]);
 
   const sims = [...allSims].sort((a, b) => b.date - a.date).slice(0, 30);
@@ -51,6 +63,12 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     workingDaysToExam: config?.examDate ? workingDaysUntilExam(config.examDate, now, config) : null,
     retention7d: retention7d(events, now.getTime()),
   });
+  const intensity = config?.intensity ?? 'mittel';
+  const autoDaily = effectiveDaily({ mode: 'auto' }, { budget, intensity });
+  const daily = settings.mode === 'auto' ? autoDaily : effectiveDaily(settings, { budget, intensity });
 
-  return { relevance, budget, remaining: await remainingToday(budget, now) };
+  const [remaining, reviewed] = await Promise.all([remainingToday(daily.newPerDay, now), reviewedToday(now)]);
+  const reviewsRemaining = Math.max(0, daily.maxReviewsPerDay - reviewed);
+
+  return { relevance, budget, remaining, settings, daily, autoDaily, reviewsRemaining };
 }

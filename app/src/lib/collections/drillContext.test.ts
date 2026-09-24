@@ -53,4 +53,16 @@ describe('loadDrillContext (config injectée en base)', () => {
     expect(ctx.relevance.todaySpecialty).toBeUndefined();
     expect(ctx.budget).toBe(10);
   });
+
+  // Aperçu Automatique de la feuille de réglages : disponible même quand le
+  // mode enregistré est manuel (le candidat voit ce qu'il obtiendrait).
+  it('autoDaily = calcul auto même en mode manuel enregistré ; daily suit le mode', async () => {
+    await db.fachbegriffe.bulkPut([mkTerm('t1')]);
+    await db.meta.put({ key: 'srs.settings', value: { mode: 'manual', newPerDay: 3, maxReviewsPerDay: 7 } } as never);
+    const ctx = await loadDrillContext(now);
+    expect(ctx.daily).toMatchObject({ source: 'manual', newPerDay: 3, maxReviewsPerDay: 7 });
+    expect(ctx.autoDaily.source).toBe('auto');
+    expect(ctx.autoDaily.newPerDay).toBe(10);
+    expect(ctx.autoDaily.explain).toMatch(/^auto : 10\/jour = 10 × moyen$/);
+  });
 });

@@ -1,5 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import type { Fachbegriff } from '@/db/types';
+import { focusStar } from '@/components/hoverStarRef';
+import { useUi } from '@/store/ui';
 
 // ============================================================================
 // Auto-linking terme → glossaire. C'EST DU CODE, PAS DU BALISAGE MANUEL.
@@ -48,6 +50,14 @@ interface AutoLinkTextProps {
   text: string;
   index: LinkIndex;
   onOpen: (fb: Fachbegriff) => void;
+  /** Survol/focus desktop : ouvre la hover-card ancrée sur le lien. */
+  onHover?: (fb: Fachbegriff, anchor: DOMRect) => void;
+  /** La souris quitte le lien : ferme la hover-card (après délai, géré par l'appelant). */
+  onLeave?: () => void;
+  /** Tap sur `pointer: coarse` (mobile/tablette) : ouvre la hover-card au lieu du tiroir. */
+  onTap?: (fb: Fachbegriff, anchor: DOMRect) => void;
+  /** Vrai si la hover-card est actuellement ouverte (I1 : Tab→Enter→Enter). */
+  hoverOpen?: boolean;
 }
 
 export interface AutoLinkPart { t: string; fb: Fachbegriff | null }
@@ -80,9 +90,16 @@ export function splitAutoLink(text: string, index: LinkIndex): AutoLinkPart[] {
   return out;
 }
 
-/** Rend un texte avec les Fachbegriffe cliquables. */
-export function AutoLinkText({ text, index, onOpen }: AutoLinkTextProps) {
+/** Rend un texte avec les Fachbegriffe cliquables. Survol/focus → hover-card
+ *  (`onHover`, délai 150 ms géré ici) ; tap sur `pointer: coarse` → `onTap` au
+ *  lieu du tiroir (`onOpen`). */
+export function AutoLinkText({ text, index, onOpen, onHover, onLeave, onTap, hoverOpen }: AutoLinkTextProps) {
   const parts = useMemo(() => splitAutoLink(text, index), [text, index]);
+  const enterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // M1 : un démontage (navigation, changement de texte) pendant les 150 ms
+  // d'attente d'un survol ne doit pas déclencher `onHover` sur un lien disparu.
+  useEffect(() => () => { if (enterTimer.current) clearTimeout(enterTimer.current); }, []);
 
   return (
     <>
@@ -90,8 +107,42 @@ export function AutoLinkText({ text, index, onOpen }: AutoLinkTextProps) {
         p.fb ? (
           <button
             key={i}
-            onClick={() => onOpen(p.fb!)}
-            title={p.fb.translationSimple}
+            onClick={(e) => {
+              const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+              if (coarse) {
+                e.preventDefault();
+                onTap?.(p.fb!, e.currentTarget.getBoundingClientRect());
+              } else {
+                onOpen(p.fb!);
+              }
+            }}
+            onKeyDown={(e) => {
+              // I1 : le premier Enter/Espace sur un lien déjà focus (la carte
+              // s'est ouverte via onFocus) déplace le focus vers ★ au lieu
+              // d'activer le lien — Tab→Enter→Enter favorise le terme.
+              if (e.key !== 'Enter' && e.key !== ' ') return;
+              const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+              // M7 : n'agir que si la carte ouverte est celle DE CE lien.
+              if (coarse || !hoverOpen || useUi.getState().hoverTerm?.fb.id !== p.fb!.id) return;
+              e.preventDefault();
+              focusStar();
+            }}
+            onMouseEnter={(e) => {
+              // M5 : sur `pointer: coarse`, il n'y a pas de survol réel — ne
+              // pas armer un minuteur qui ne sera jamais désarmé par un vrai
+              // mouseleave (le tap gère déjà l'ouverture via `onTap`).
+              const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+              if (coarse) return;
+              const r = e.currentTarget.getBoundingClientRect();
+              if (enterTimer.current) clearTimeout(enterTimer.current);
+              enterTimer.current = setTimeout(() => onHover?.(p.fb!, r), 150);
+            }}
+            onMouseLeave={() => {
+              if (enterTimer.current) clearTimeout(enterTimer.current);
+              onLeave?.();
+            }}
+            onFocus={(e) => onHover?.(p.fb!, e.currentTarget.getBoundingClientRect())}
+            onBlur={() => onLeave?.()}   // I1-b : Tab hors du lien arme la fermeture (le focus sur la carte la désarme)
             className="text-brand-600 dark:text-brand-300 underline decoration-dotted decoration-brand-400/60 underline-offset-2 hover:bg-brand-100 dark:hover:bg-brand-900/40 rounded px-0.5 -mx-0.5 transition-colors"
           >
             {p.t}

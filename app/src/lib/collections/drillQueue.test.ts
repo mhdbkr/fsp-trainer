@@ -43,6 +43,17 @@ describe('buildDrillQueue', () => {
     expect(buildDrillQueue(pool, { now, newLimit: 0 })).toHaveLength(20);
     expect(buildDrillQueue(pool, { now, newLimit: 0 }).every((b) => b.srs.state !== 'Neu')).toBe(true);
   });
+  it('maxReviews plafonne les dus présentés ; les nouveaux restent possibles', () => {
+    const pool = [...Array.from({ length: 60 }, (_, i) => mk(`d${i}`, 'Gelernt', -1)), mk('n1', 'Neu', 0)];
+    const q = buildDrillQueue(pool, { now, newLimit: 1, maxReviews: 20, limit: 100 });
+    expect(q.filter((b) => b.srs.state !== 'Neu')).toHaveLength(20);
+    expect(q.some((b) => b.id === 'n1')).toBe(true);
+  });
+  it('maxReviews garde les dus les PLUS URGENTS (date d\'échéance la plus ancienne)', () => {
+    const pool = [mk('d-2', 'Gelernt', -2), mk('d-5', 'Gelernt', -5), mk('d-1', 'Gelernt', -1), mk('d-4', 'Gelernt', -4), mk('d-3', 'Gelernt', -3)];
+    const q = buildDrillQueue(pool, { now, newLimit: 0, maxReviews: 2, limit: 100 });
+    expect(q.map((b) => b.id)).toEqual(['d-5', 'd-4']);
+  });
   it('queueCounts reflète la file', () => {
     const pool = [mk('n1', 'Neu', 0), mk('n2', 'Neu', 0), mk('due', 'Gelernt', -1)];
     expect(queueCounts(pool, { now, newLimit: 1 })).toEqual({ due: 1, fresh: 1 });

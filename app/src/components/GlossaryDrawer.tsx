@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { useCases, useFavorites, useDecks, useDeckTerms } from '@/hooks/useData';
 import { toggleFavorite, addToDeck, removeFromDeck, createDeck } from '@/lib/collections';
@@ -11,6 +11,8 @@ import { SRS_TONE } from '@/lib/srsTone';
 export function GlossaryDrawer() {
   const fb = useUi((s) => s.glossaryTerm);
   const close = useUi((s) => s.closeGlossary);
+  const closeHover = useUi((s) => s.closeHover);
+  const { pathname } = useLocation();
   const cases = useCases();
   const favorites = useFavorites();
   const decks = useDecks();
@@ -37,6 +39,24 @@ export function GlossaryDrawer() {
       document.removeEventListener('keydown', onKeyDown);
     };
   }, [menu]);
+
+  // Ouverture : la hover-card ★ cède la place (une seule carte à l'écran).
+  // Échap ferme le panneau lui-même (pas seulement le sous-menu deck).
+  const open = !!fb;
+  useEffect(() => { if (open) closeHover(); }, [open, closeHover]);
+  useEffect(() => {
+    if (!open || menu) return; // menu ouvert : Échap ne ferme que le menu (effet ci-dessus)
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open, menu, close]);
+  // Changement de route : le panneau ne survit pas à la page où il a été ouvert
+  // (revue UX F2b : fond invisible qui avalait les clics de la page suivante).
+  const openedOn = useRef(pathname);
+  useEffect(() => {
+    if (pathname !== openedOn.current) close();
+    openedOn.current = pathname;
+  }, [pathname, close]);
 
   if (!fb) return null;
 
