@@ -47,8 +47,14 @@ Captures sous `app/.playwright-cli/` (non committées) : `ac1-panel-state.png`,
 Terme testé : « Erysipel » (bouton `button.underline` inline dans le texte
 Fallvorstellung, cas `case-tvt`).
 
-1. Survol → `[role="dialog"]` apparu en **36 ms** (mesuré avec
-   `Date.now()` entre `mouse.move` et l'apparition du dialog), ≤ 200 ms. PASS.
+1. Survol → `[role="dialog"]` apparu. La hover-card s'ouvre après le délai
+   d'intention de **150 ms** (`setTimeout(…, 150)` dans `lib/autolink.tsx`) ;
+   le « 36 ms » relevé initialement a été mesuré depuis le rappel du timer
+   (après ce délai), pas depuis `mouse.move` — il ne mesure donc que le rendu
+   de la carte, et ne prouve pas le délai lui-même. Aucune nouvelle mesure
+   bout-en-bout n'a été prise (revue de branche, M8). Le dialog apparaît, la
+   carte est unique : PASS sur l'apparition ; le délai de 150 ms est prouvé
+   par le code et le test `TermHoverCard`/`AutoLink`, pas par cette mesure.
 2. Clic ★ → `aria-pressed` passe de `false` à `true`, section « Ajouter à un
    deck… » visible dans le dialog (texte relevé : *"Erysipel\nWundrose\nNeu\n★\nAjouter
    à un deck…\nCréer\nVoir la fiche →"*).
