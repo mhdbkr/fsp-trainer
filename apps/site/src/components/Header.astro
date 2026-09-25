@@ -15,23 +15,25 @@ const navItems: [string, string][] = [
 ---
 <header data-glass class="glass sticky top-0 z-40">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-    <a href="/de/" class="font-display text-lg font-semibold text-brand-700">{site.brandName}</a>
+    <a href="/de/" class="font-display text-lg font-semibold text-brand-700 dark:text-brand-300">{site.brandName}</a>
 
     <nav class="hidden md:flex items-center gap-6 text-sm text-ink-700 dark:text-paper" aria-label="Hauptnavigation">
       {navItems.map(([label, href]) => (
-        <a href={href} class="hover:text-brand-700 transition-colors duration-fast">{label}</a>
+        <a href={href} class="hover:text-brand-700 dark:hover:text-brand-300 transition-colors duration-fast">{label}</a>
       ))}
     </nav>
 
     <CtaButton class="hidden md:inline-flex" />
 
-    <details class="md:hidden">
-      <summary class="list-none cursor-pointer rounded-control px-3 py-2 text-ink-700 dark:text-paper" aria-label="Menü öffnen">
-        ☰
+    <details class="group md:hidden">
+      <summary class="flex h-11 w-11 list-none cursor-pointer items-center justify-center rounded-control text-ink-700 dark:text-paper" aria-label="Menü öffnen">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
       </summary>
-      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 bg-paper p-4 text-ink-700 shadow-lg" aria-label="Mobile Navigation">
+      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 border-b border-ink-600/15 bg-paper p-4 text-ink-700 shadow-lg dark:border-paper/15 dark:bg-ink-800 dark:text-paper" aria-label="Mobile Navigation">
         {navItems.map(([label, href]) => (
-          <a href={href} class="rounded-control px-3 py-2 hover:bg-brand-50">{label}</a>
+          <a href={href} class="rounded-control px-3 py-2 hover:bg-brand-50 dark:hover:bg-brand-900/30">{label}</a>
         ))}
       </nav>
     </details>

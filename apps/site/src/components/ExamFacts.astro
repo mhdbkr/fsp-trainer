@@ -17,7 +17,7 @@ const isInternalScale = exam.pointsSource === 'intern';
 
   <ol class="mt-6 grid gap-6 md:grid-cols-3">
     {exam.parts.map((p, i) => (
-      <li class="rounded-card border border-ink-600/15 p-4 dark:border-paper/15">
+      <li class="card p-4">
         <span class="font-mono text-sm text-brand-700 dark:text-brand-300">{i + 1}</span>
         <h3 class="mt-1 text-lg text-ink dark:text-paper">{p.label}</h3>
         <p class="mt-1 text-sm text-ink-700 dark:text-paper/90">{p.minutes} Minuten</p>
@@ -25,7 +25,7 @@ const isInternalScale = exam.pointsSource === 'intern';
     ))}
   </ol>
 
-  <div class="mt-10 rounded-card border border-ink-600/15 p-6 dark:border-paper/15">
+  <div class="card mt-10">
     <h3 class="text-lg text-ink dark:text-paper">So bewerten wir im Trainer</h3>
     {isInternalScale ? (
       <p class="mt-2 max-w-2xl text-sm text-ink-700 dark:text-paper/90">

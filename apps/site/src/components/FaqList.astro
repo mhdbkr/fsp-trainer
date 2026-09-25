@@ -17,7 +17,7 @@ const CATEGORY_LABEL: Record<string, string> = {
   {rendered.map(({ entry, Content }) => (
     <details class="group rounded-control border border-ink-600/15 dark:border-paper/20">
       <summary class="cursor-pointer select-none px-4 py-3 text-ink dark:text-paper">
-        <span class="mr-2 text-xs uppercase tracking-wide text-ink-600 dark:text-paper/70">{CATEGORY_LABEL[entry.data.category]}</span>
+        <span class="eyebrow mr-2">{CATEGORY_LABEL[entry.data.category]}</span>
         {entry.data.question}
       </summary>
       <div class="prose prose-sm max-w-none border-t border-ink-600/15 px-4 py-4 text-ink-700 dark:border-paper/20 dark:text-paper/90">
