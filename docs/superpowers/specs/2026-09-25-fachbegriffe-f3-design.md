@@ -1,4 +1,4 @@
-# Fachbegriffe rafraîchi — F3 : ★ depuis « Expliquer », double registre, IA serveur
+# Fachbegriffe rafraîchi — F3 : ★ depuis « Expliquer », double registre, IA serveur gratuite
 
 Date : 2026-09-25 · Statut : red-team appliqué (12 constats), à valider par la direction · Epic : #4 (clôture) · Chantier ADR-0015 n° 2 (suite de F2b PR #43)
 
@@ -20,7 +20,7 @@ Ce que la direction veut **surtout** : mettre un mot en favori **depuis la bulle
 | D4 | Termes personnels = table Dexie séparée `personal_terms`, fusionnée à la lecture avec le glossaire publié ; jamais écrits dans `fachbegriffe` | la sync de contenu réécrit `fachbegriffe` ; un terme personnel ne doit jamais en dépendre |
 | D5 | Double registre pour les **1 354 termes liés à au moins un cas** : `register = { patient, vorstellung, anamnese }` dans `fachbegriffe.json`, pré-rédigé par lots, relu langue + clinique | la compétence notée à l'examen ; statique, hors-ligne (F1 D1) |
 | D6 | Les 912 autres termes gardent `translationSimple`, affichée comme « Reformulation » (pas comme registre patient) | honnêteté : une définition n'est pas une parole de patient |
-| D7 | IA **côté serveur** : Edge Function `ai` (Supabase EU) → API Anthropic ; clé = secret du projet ; Haiku 4.5 pour « Expliquer », Sonnet 5 pour Doctopus ; quota par personne (`rate_hit`) | modèles `:free` = capacité partagée instable ; clé par navigateur = à recoller partout |
+| D7 | IA **côté serveur et gratuite** : Edge Function `ai` (Supabase EU) → **chaîne de fournisseurs gratuits appelés en direct** (pas via le pool `:free` d'OpenRouter) : Groq (Llama 3.3 70B) puis Google AI Studio (Gemini Flash / Flash-Lite), bascule automatique sur erreur ou quota ; clés gratuites = secrets du projet ; **zéro dépense** (direction, 25 sept.) | les pannes viennent du pool partagé `:free` d'OpenRouter ; les niveaux gratuits en direct ont une capacité dédiée ; clé par navigateur = à recoller partout |
 | D8 | La clé navigateur (OpenRouter/Groq) reste un **repli** si la fonction échoue ou en mode public | ne pas casser le mode public ; filet si le serveur tombe |
 
 ## 3. Modèle
@@ -73,12 +73,14 @@ Pastille : `[★] [Expliquer]`. ★ plein si déjà favori. Après ★ : confirm
 `supabase/functions/ai/index.ts` — **pas un proxy ouvert** :
 - Entrée (zod) : `{ kind: 'brief', selection (≤ 220 car.) }` ou `{ kind: 'chat', turns: {role, text}[] }` (≤ 20 tours, ≤ 2 000 car./tour). Les prompts système (`DOCTOPUS_SYSTEM`, `buildBriefPrompt`) vivent **côté serveur** (module `_shared/prompts.ts`, source partagée avec `aiModels`/eval) ; le client n'envoie jamais de system prompt.
 - Accès : JWT vérifié (`[functions.ai] verify_jwt = true` déclaré explicitement dans `config.toml`) ; user id tiré du JWT, jamais du corps ; réservé aux comptes premium (`my_tier() = 3`, soit Mehdi et Lydia).
-- Quotas : `rate_hit` via le client service-role (`_shared`), clé `ai:<uid>` : 300 appels/jour ; `max_tokens` brief 300, chat 1 200 ; plafond de dépense mensuel côté console Anthropic (direction).
-- Transport : preflight OPTIONS ; CORS limité à l'origine Pages (`https://mhdbkr.github.io`) et `localhost` en dev ; flux SSE Anthropic relayé par `ReadableStream`, requête amont annulée si le client se déconnecte.
-- Modèles : IDs en **variables d'environnement** (`AI_MODEL_BRIEF`, `AI_MODEL_CHAT`), valeurs vérifiées contre la doc officielle et `GET /v1/models` avant merge (smoke test) ; cibles : Haiku 4.5 (brief), Sonnet 5 (chat).
+- Quotas : `rate_hit` via le client service-role (`_shared`), clé `ai:<uid>` : 300 appels/jour ; `max_tokens` brief 300, chat 1 200 ; aucun moyen de paiement enregistré chez les fournisseurs (gratuité garantie par construction).
+- Cache : réponse `brief` mise en cache par sélection normalisée (table `ai_cache`, 30 jours) — un mot déjà expliqué ne consomme plus de quota.
+- Transport : preflight OPTIONS ; CORS limité à l'origine Pages (`https://mhdbkr.github.io`) et `localhost` en dev ; flux SSE du fournisseur relayé par `ReadableStream`, requête amont annulée si le client se déconnecte.
+- Fournisseurs : liste ordonnée en **variables d'environnement** (`AI_CHAIN_BRIEF`, `AI_CHAIN_CHAT`, ex. `groq:llama-3.3-70b-versatile,gemini:gemini-flash-lite-latest`) ; noms de modèles et quotas gratuits vérifiés contre la doc officielle et la console de chaque fournisseur avant merge (smoke test `models`) ; les deux fournisseurs parlent l'API compatible OpenAI (un seul adaptateur).
+- Évaluation : le jeu de 20 questions de référence (`scripts/evalDoctopus.mjs`, FB2-M4) est rejoué sur la chaîne retenue ; seuil = pas pire que l'actuel Gemma 4 26B.
 - Historique : la conversation est **normalisée en texte simple** (`{role, text}`) ; les `reasoningDetails` OpenRouter ne sont ni envoyés au serveur ni rejoués d'un fournisseur à l'autre ; une conversation garde le fournisseur de son premier tour (le repli D8 ne s'applique qu'à une conversation nouvelle ou à `brief`).
 
-Client : `onlineAi.ts` garde son interface (`askBrief`, `askOnline`, `askConversation`) ; en mode fondateur connecté et premium → fonction `ai`, sinon clé navigateur. Secret `ANTHROPIC_API_KEY` posé par la direction (jamais par un agent). Réglages Doctopus : la section clé devient « Repli (optionnel) ». Implémentation vérifiée contre la doc officielle Anthropic (`source-driven-development`).
+Client : `onlineAi.ts` garde son interface (`askBrief`, `askOnline`, `askConversation`) ; en mode fondateur connecté et premium → fonction `ai`, sinon clé navigateur. Secrets `GROQ_API_KEY`, `GEMINI_API_KEY` (clés gratuites) posés par la direction (jamais par un agent). Réglages Doctopus : la section clé devient « Repli (optionnel) ». Implémentation vérifiée contre la doc officielle de chaque fournisseur (`source-driven-development`).
 
 ## 4. Critères d'acceptation
 
@@ -107,11 +109,12 @@ Client : `onlineAi.ts` garde son interface (`askBrief`, `askOnline`, `askConvers
 
 | Risque | Parade |
 |---|---|
-| Coût IA incontrôlé | plafond mensuel dans la console Anthropic (direction) + `rate_hit` 300/jour/personne + `max_tokens` bornés |
+| Quota gratuit épuisé / fournisseur en panne | chaîne à 2 fournisseurs + cache `brief` + repli clé navigateur (D8) + message honnête |
+| Données envoyées à un niveau gratuit (peut servir à l'entraînement) | seuls des mots et phrases de cas fictifs partent ; jamais de donnée personnelle |
 | Fonction détournée en proxy (JWT volé, usage hors FSP) | prompts système côté serveur, réservé premium, tours/longueurs plafonnés, quota, plafond console |
 | Registre « de dictionnaire » au lieu d'oral | validateur (la question n'emploie pas le terme) + `fsp-language-reviewer` par lot + revue direction après pilote |
 | Sélections parasites devenues cartes | création seulement sur ★ explicite ; suppression depuis la fiche (`term.personal_deleted`) |
-| Modèle ID erroné / API changée | vérification contre la doc officielle avant code (source-driven) |
+| Modèle ID ou quota gratuit changé | chaîne en configuration, smoke test avant merge (source-driven) |
 
 ## 7. Hors périmètre
 
