@@ -45,6 +45,8 @@ export default {
       },
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(4px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        // Variante courte (≤150 ms, charte) pour un contenu qui apparaît déjà en place (pastille, bulle).
+        'fade-in-fast': { '0%': { opacity: '0', transform: 'translateY(2px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         'slide-in': { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(0)' } },
         // Battement d'instrument — la « pulse » de marque.
         'pulse-line': { '0%,100%': { opacity: '0.35' }, '50%': { opacity: '1' } },
@@ -60,6 +62,7 @@ export default {
       },
       animation: {
         'fade-in': 'fade-in 0.2s ease-out',
+        'fade-in-fast': 'fade-in-fast 0.15s ease-out',
         'slide-in': 'slide-in 0.25s cubic-bezier(0.16,1,0.3,1)',
         'pulse-line': 'pulse-line 2.4s ease-in-out infinite',
         pop: 'pop 0.24s cubic-bezier(0.16,1,0.3,1)',
