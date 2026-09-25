@@ -1,6 +1,6 @@
 # Fachbegriffe rafraîchi — F3 : ★ depuis « Expliquer », double registre, IA serveur
 
-Date : 2026-09-25 · Statut : brouillon, à valider par la direction · Epic : #4 (clôture) · Chantier ADR-0015 n° 2 (suite de F2b PR #43)
+Date : 2026-09-25 · Statut : red-team appliqué (12 constats), à valider par la direction · Epic : #4 (clôture) · Chantier ADR-0015 n° 2 (suite de F2b PR #43)
 
 ## 1. Intention
 
@@ -29,18 +29,25 @@ Ce que la direction veut **surtout** : mettre un mot en favori **depuis la bulle
 
 ```ts
 interface PersonalTerm {
-  id: string;            // 'pt-<uuid>'
+  id: string;            // 'pt-' + hash stable (FNV-1a hex) du terme en minuscules : même mot → même id sur tous les appareils
   term: string;          // sélection nettoyée, 1–80 car.
-  context?: string;      // phrase source, ≤ 300 car.
-  explanation?: string;  // texte de la bulle si déjà expliqué, ≤ 600 car.
+  context?: string;      // phrase source, tronquée à 300 car.
+  explanation?: string;  // texte de la bulle si déjà expliqué, TRONQUÉ (pas rejeté) à 600 car.
   caseId?: string;
   createdAt: string;
+  srs: Srs;              // état de révision, comme un Fachbegriff publié
 }
 ```
 
-Événements : `term.personal_created` (subject = id, payload = champs ci-dessus sans `id`), `term.personal_deleted` (`{}`). Projection → table `personal_terms` (dernier événement gagne ; `deleted` postérieur retire). Le favori d'un terme personnel reste `term.favorited` (subject = `pt-…`). SRS : `srs.reviewed` avec subject `pt-…`, projeté comme pour un terme publié. SQL check + zod `events` + `ProgressEventType` étendus ; migration appliquée en EU et fonction `events` redéployée **avant merge**.
+Événements : `term.personal_created` (subject = id, payload = champs ci-dessus sans `id`/`srs`), `term.personal_deleted` (`{}`). Projection → table Dexie `personal_terms` (nouvelle version Dexie après v3) : par id, dernier événement par ordre `sortEvents` gagne ; **re-créer après suppression est autorisé** (même id déterministe, `srs` repart de `freshSrs`). Favori = `term.favorited` (subject `pt-…`). **SRS** : la projection `srs.reviewed` (`lib/sync/projections.ts`) écrit dans `personal_terms` quand l'id commence par `pt-`, sinon dans `fachbegriffe` (inchangé).
 
-Unicité : une sélection déjà présente (même `term` insensible à la casse) dans les termes personnels → ★ bascule son favori, ne crée pas de doublon.
+**Source unique** : `lib/collections/allTerms.ts` expose `type AnyTerm = Fachbegriff | PersonalTermView` (vue d'un terme personnel au format `Fachbegriff` : `specialty: 'Allgemein'`, `translationSimple = explanation ?? ''`, `personal: true`) ; `useFachbegriffe` (ou un hook dédié `useAllTerms`), `drillQueue`, `relevance`, la liste et les favoris lisent cette source ; la notation d'une carte appelle un `rateTerm` qui aiguille selon le préfixe.
+
+Unicité : l'id déterministe rend deux créations (même hors-ligne, sur deux appareils) idempotentes. ★ sur un mot déjà créé → bascule le favori.
+
+Cycle de vie local : la purge de contenu par tier (`content/apply.ts`) ne touche pas `personal_terms` ; la bascule de compte change de base (une base par compte, inchangé) ; `rebuildProjections` reconstruit `personal_terms` depuis le journal.
+
+SQL check + zod `events` + `ProgressEventType` étendus ; migration appliquée en EU et fonction `events` redéployée **avant merge**.
 
 ### 3.2 Double registre (contenu)
 
@@ -49,7 +56,7 @@ Unicité : une sélection déjà présente (même `term` insensible à la casse)
 - `vorstellung` : une phrase de Vorstellung/Doku qui contient le terme (« Sonographisch zeigte sich ein Aszites. »).
 - `anamnese` : une question au patient **sans** le terme technique, finissant par « ? ».
 
-Validateur `scripts/checkTermRegister.mjs` (CI) : tout terme présent dans `caseTermLinks.json` a `r` ; `pa` ≠ terme ; `vo` contient le terme (mot entier, formes fléchies) ; `an` ne contient pas le terme et finit par « ? » ; longueurs bornées. Publication : le delta par hash existant republie les termes modifiés.
+Validateur `scripts/checkTermRegister.mjs` (CI) : tout terme présent dans `caseTermLinks.json` a `r` ; `pa` ≠ terme ; `vo` contient le terme (mot entier, formes fléchies) ; `an` ne contient pas le terme et finit par « ? » ; longueurs bornées ; aucune chaîne de terme en double dans le glossaire (aujourd'hui « palliativ » ×2 → à dédoublonner). Publication : le delta par hash existant republie les termes modifiés.
 
 ### 3.3 Affichage du registre
 
@@ -57,11 +64,21 @@ Composant unique `TermRegister` (deux colonnes **Vorstellung** / **Anamnese**, u
 
 ### 3.4 Bulle « Expliquer »
 
+Déclenchement : `selectionchange` (anti-rebond 250 ms) + `pointerup` — souris **et** tactile (aujourd'hui `mouseup` seul : la bulle n'apparaît pas sur mobile). Résolution glossaire : `exactLookup` étendu en `lookupTerm` (exact, puis base sans suffixe `e/en/s/n`, jamais de flou — FB2-M3) ; termes dupliqués dans le glossaire interdits (validateur).
+
 Pastille : `[★] [Expliquer]`. ★ plein si déjà favori. Après ★ : confirmation courte (« Ajouté aux favoris » / « Carte créée ») + lien « Ajouter à un deck… » (même extension que la carte F2b). L'explication, si demandée ensuite, complète le terme personnel (`term.personal_created` n'est émis qu'une fois ; l'explication tardive n'est **pas** réécrite — hors périmètre). Glossaire : la bulle montre aussi `TermRegister`.
 
 ### 3.5 IA serveur
 
-`supabase/functions/ai/index.ts` : `POST { kind: 'brief' | 'chat', messages }` ; JWT requis ; zod ; `rate_hit('ai:'||uid, 300, 86400)` ; `max_tokens` borné (brief 300, chat 1 200) ; streaming SSE relayé. Modèles : `claude-haiku-4-5-20251001` (brief), `claude-sonnet-5` (chat). Prompts système inchangés (`DOCTOPUS_SYSTEM`, `buildBriefPrompt`) envoyés par le client, **plafonnés en taille** côté serveur. Client : `onlineAi.ts` garde son interface (`askBrief`, `askOnline`, `askConversation`) ; en mode fondateur connecté → fonction `ai`, sinon clé navigateur. Secret `ANTHROPIC_API_KEY` posé par la direction (jamais par un agent). Réglages Doctopus : la section clé devient « Repli (optionnel) ». Implémentation vérifiée contre la doc officielle Anthropic (`source-driven-development`).
+`supabase/functions/ai/index.ts` — **pas un proxy ouvert** :
+- Entrée (zod) : `{ kind: 'brief', selection (≤ 220 car.) }` ou `{ kind: 'chat', turns: {role, text}[] }` (≤ 20 tours, ≤ 2 000 car./tour). Les prompts système (`DOCTOPUS_SYSTEM`, `buildBriefPrompt`) vivent **côté serveur** (module `_shared/prompts.ts`, source partagée avec `aiModels`/eval) ; le client n'envoie jamais de system prompt.
+- Accès : JWT vérifié (`[functions.ai] verify_jwt = true` déclaré explicitement dans `config.toml`) ; user id tiré du JWT, jamais du corps ; réservé aux comptes premium (`my_tier() = 3`, soit Mehdi et Lydia).
+- Quotas : `rate_hit` via le client service-role (`_shared`), clé `ai:<uid>` : 300 appels/jour ; `max_tokens` brief 300, chat 1 200 ; plafond de dépense mensuel côté console Anthropic (direction).
+- Transport : preflight OPTIONS ; CORS limité à l'origine Pages (`https://mhdbkr.github.io`) et `localhost` en dev ; flux SSE Anthropic relayé par `ReadableStream`, requête amont annulée si le client se déconnecte.
+- Modèles : IDs en **variables d'environnement** (`AI_MODEL_BRIEF`, `AI_MODEL_CHAT`), valeurs vérifiées contre la doc officielle et `GET /v1/models` avant merge (smoke test) ; cibles : Haiku 4.5 (brief), Sonnet 5 (chat).
+- Historique : la conversation est **normalisée en texte simple** (`{role, text}`) ; les `reasoningDetails` OpenRouter ne sont ni envoyés au serveur ni rejoués d'un fournisseur à l'autre ; une conversation garde le fournisseur de son premier tour (le repli D8 ne s'applique qu'à une conversation nouvelle ou à `brief`).
+
+Client : `onlineAi.ts` garde son interface (`askBrief`, `askOnline`, `askConversation`) ; en mode fondateur connecté et premium → fonction `ai`, sinon clé navigateur. Secret `ANTHROPIC_API_KEY` posé par la direction (jamais par un agent). Réglages Doctopus : la section clé devient « Repli (optionnel) ». Implémentation vérifiée contre la doc officielle Anthropic (`source-driven-development`).
 
 ## 4. Critères d'acceptation
 
@@ -69,12 +86,14 @@ Pastille : `[★] [Expliquer]`. ★ plein si déjà favori. Après ★ : confirm
 |---|---|---|
 | AC-1 | Sélection « Aszites » → pastille ★ + Expliquer ; ★ → `term.favorited` ; le terme est dans Favoris | test composant + navigateur |
 | AC-2 | Sélection hors glossaire (« Belastungsdyspnoe ») → ★ → terme personnel créé + favori ; présent dans Favoris, drill, et sur un 2ᵉ appareil après sync | tests projection + navigateur 2 contextes |
-| AC-3 | ★ sur une sélection déjà créée → bascule du favori, aucun doublon | test |
+| AC-3 | ★ sur une sélection déjà créée → bascule du favori, aucun doublon ; même mot créé hors-ligne sur deux appareils → un seul terme après sync | test |
 | AC-4 | Contenu de `fachbegriffe`/sync de contenu ne supprime jamais un terme personnel | test |
+| AC-4b | Terme personnel noté au drill → intervalle conservé sur un 2ᵉ appareil après sync | test projection + navigateur |
+| AC-4c | Mobile 390 px tactile (`hasTouch`) : sélection → pastille ★ + Expliquer ; « Asziten » résout « Aszites » | navigateur + test `lookupTerm` |
 | AC-5 | 1 354 termes liés ont `register` ; validateur vert en CI ; relecture langue + clinique consignée | CI + rapports |
 | AC-6 | `TermRegister` affiché dans carte, fiche, liste, panneau du cas, dos du drill ; 390 px sans débordement | tests + navigateur |
-| AC-7 | « Expliquer » et Doctopus fonctionnent **sans clé navigateur** sur les deux comptes ; 401 sans JWT ; quota → message clair | tests fonction + navigateur prod |
-| AC-8 | Fonction en panne → repli sur la clé navigateur si présente, sinon message honnête | test |
+| AC-7 | « Expliquer » et Doctopus fonctionnent **sans clé navigateur** sur les deux comptes ; 401 sans JWT (avec en-têtes CORS) ; 403 hors premium ; corps avec `system` rejeté ; quota → message clair ; flux reçu en streaming ; smoke test `/v1/models` vert | tests fonction + navigateur prod |
+| AC-8 | Fonction en panne → repli sur la clé navigateur si présente (brief ou conversation nouvelle), sinon message honnête ; une conversation en cours ne change pas de fournisseur | test |
 | AC-9 | Mode public inchangé ; contrat + migration + fonctions `events` et `ai` appliqués en EU avant merge | CI + MCP |
 | AC-10 | Charte (cibles 44 px, tons, mouvement ≤ 150 ms, reduced-motion) | `front-design-keeper` |
 
@@ -89,7 +108,7 @@ Pastille : `[★] [Expliquer]`. ★ plein si déjà favori. Après ★ : confirm
 | Risque | Parade |
 |---|---|
 | Coût IA incontrôlé | plafond mensuel dans la console Anthropic (direction) + `rate_hit` 300/jour/personne + `max_tokens` bornés |
-| Prompt envoyé par le client détourné pour un autre usage | fonction réservée aux comptes connectés (2 personnes), taille plafonnée, quota |
+| Fonction détournée en proxy (JWT volé, usage hors FSP) | prompts système côté serveur, réservé premium, tours/longueurs plafonnés, quota, plafond console |
 | Registre « de dictionnaire » au lieu d'oral | validateur (la question n'emploie pas le terme) + `fsp-language-reviewer` par lot + revue direction après pilote |
 | Sélections parasites devenues cartes | création seulement sur ★ explicite ; suppression depuis la fiche (`term.personal_deleted`) |
 | Modèle ID erroné / API changée | vérification contre la doc officielle avant code (source-driven) |
