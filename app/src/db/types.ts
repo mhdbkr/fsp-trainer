@@ -313,6 +313,11 @@ export interface Favorite { termId: string; since: string }
 /** Deck manuel réservé : jamais créé/renommé/supprimé par événement, fabriqué par l'UI. */
 export const FAVORITES_DECK_ID = 'deck-favorites';
 
+/** Terme personnel (F3) : créé par ★ sur une sélection hors glossaire. Projeté
+ *  depuis le journal (term.personal_created / _deleted) — jamais écrit dans
+ *  `fachbegriffe`, que la sync de contenu réécrit. */
+export interface PersonalTerm { id: string; term: string; context?: string; explanation?: string; caseId?: string; createdAt: string; srs: Srs }
+
 // ----------------------------------------------------------------------------
 // Fachwissen (fiche pathologie riche)
 // ----------------------------------------------------------------------------

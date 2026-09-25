@@ -6,7 +6,7 @@ const item = (id: string, kind: ContentItem['kind'], tier: number, deleted = fal
   ({ id, kind, tier, version: 1, deleted, payload: { id, name: id, specialty: 'Kardiologie', pathology: id } });
 
 describe('applyContent', () => {
-  beforeEach(async () => { await db.cases.clear(); await db.fachbegriffe.clear(); await db.fachwissen.clear(); await db.meta.clear(); });
+  beforeEach(async () => { await db.cases.clear(); await db.fachbegriffe.clear(); await db.fachwissen.clear(); await db.meta.clear(); await db.personal_terms.clear(); });
 
   it('upsert les items dans la table de leur kind', async () => {
     const r = await applyContent(db, [item('case-a', 'case', 1), item('fw-a', 'fachwissen', 1)], 1);
@@ -36,5 +36,10 @@ describe('applyContent', () => {
     const kept = await db.fachbegriffe.get('fb-a');
     expect(kept?.srs?.state).toBe('Gelernt');
     expect((kept as { term?: string })?.term).toBe('x2');
+  });
+  it('ne touche jamais personal_terms, même en purge de tier (AC-4)', async () => {
+    await db.personal_terms.put({ id: 'pt-00000001', term: 'Wort', createdAt: '2026-09-25T10:00:00Z', srs: { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu' } });
+    await applyContent(db, [item('fb-x', 'fachbegriff', 3), item('fb-x', 'fachbegriff', 3, true)], 1);
+    expect(await db.personal_terms.get('pt-00000001')).toBeTruthy();
   });
 });

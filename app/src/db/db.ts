@@ -1,7 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import type {
   Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, PlanEntry, Meta,
-  Deck, DeckTerm, Favorite,
+  Deck, DeckTerm, Favorite, PersonalTerm,
 } from './types';
 import type { ProgressEvent, OutboxRow } from '@/lib/sync/events';
 import { getActiveUserId } from '@/lib/auth/accounts';
@@ -41,6 +41,7 @@ export class FspDatabase extends Dexie {
   decks!: Table<Deck, string>;
   deck_terms!: Table<DeckTerm, [string, string]>;
   favorites!: Table<Favorite, string>;
+  personal_terms!: Table<PersonalTerm, string>;
 
   constructor(name: string = dbNameFor(DB_USER_ID)) {
     super(name);
@@ -62,6 +63,9 @@ export class FspDatabase extends Dexie {
       decks: 'id, kind, name',
       deck_terms: '[deckId+termId], deckId, termId',
       favorites: 'termId',
+    });
+    this.version(4).stores({
+      personal_terms: 'id, term, srs.state, srs.dueDate',
     });
   }
 }
@@ -93,5 +97,6 @@ export async function wipeDatabase() {
     db.aufklaerungen.clear(), db.guides.clear(), db.simulations.clear(),
     db.plan.clear(), db.meta.clear(),
     db.decks.clear(), db.deck_terms.clear(), db.favorites.clear(),
+    db.personal_terms.clear(),
   ]);
 }
