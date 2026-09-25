@@ -14,7 +14,7 @@ Priorité des visiteurs, dans cet ordre (décision de la direction) :
 3. **C — celui qui a déjà échoué une fois.** La page Méthode est faite pour lui.
 4. Le reste.
 
-Atouts de vente à porter (direction) : **sérénité · tout-en-un, ne plus s'éparpiller entre dix ressources · flexibilité horaire · préparation personnalisée · protocoles riches (~580 comptes rendus réels) · contenu exemplaire.**
+Atouts de vente à porter (direction) : **sérénité · tout-en-un, ne plus s'éparpiller entre dix ressources · flexibilité horaire · préparation personnalisée · corpus vivant de cas réels, mis à jour en continu · contenu exemplaire.**
 
 ## 2. Décisions
 
@@ -94,7 +94,7 @@ Miroir anglais sous `/en/wissen/verfahren/…`.
 | 5 | Le **programme à rebours** de la date, qui se réajuste | Le plan s'adapte à toi. |
 | 6 | L'**indice de préparation** et ce qui reste pour le faire monter | Tu sais où tu en es. |
 | Bascule | Le registre passe au **clair** — tout cela au même endroit | Ne plus s'éparpiller. |
-| Preuve | 130 cas issus d'environ 580 comptes rendus réels ; fréquences par pathologie | Ce n'est pas une méthode inventée. |
+| Preuve | Plus de 130 cas cliniques — **déjà tombés ou susceptibles de tomber** — mis à jour en continu ; fréquences par pathologie | Ce n'est pas une méthode inventée. |
 | Signature | Le **symbole en verre 3D**, une seule fois | — |
 | Essai | Prix en une ligne · *Commencer gratuitement* · *Ma feuille de route* | — |
 
@@ -149,6 +149,7 @@ Pas typographiques **verrouillés** (famille + taille + graisse + interlignage +
 
 ## 8. Vérité du contenu
 
+- **Ne jamais citer le nombre de comptes rendus sources** (décision de direction du 25/09, cf. `app/docs/brand/POSITIONNEMENT.md` §08 bis). Formulation unique : « plus de 130 cas cliniques, déjà tombés ou susceptibles de tomber, mis à jour en continu ».
 - Toute affirmation sur la FSP, l'Approbation, la Gleichwertigkeit ou la KP passe par **`product-exam-fidelity-analyst`**, source à l'appui. Rien d'inventé sur une procédure administrative.
 - Les **8 validateurs existants** restent bloquants en CI : `check-no-promise` (aucune promesse de réussite), `check-legal` (pages légales présentes et signalées comme brouillons), `check-pricing-parity`, `check-cta`, `check-frequencies`, `check-lighthouse`, `build-lexicon`, `build-frequencies`.
 - **Pas de témoignage inventé** (D11), **pas de comparatif nominatif** (D12).
