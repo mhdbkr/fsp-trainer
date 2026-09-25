@@ -52,9 +52,38 @@ export function localLookup(query: string, begriffe: Fachbegriff[]): LocalHit[] 
  *  « Sondenernährung », ni un terme dont la traduction contient le mot. Le
  *  flou reste réservé à la recherche (`localLookup`). */
 export function exactLookup(selection: string, begriffe: Fachbegriff[]): Fachbegriff | null {
-  const q = selection.trim().replace(/^[\s„“"'«»(\[]+|[\s“”"'«»)\].,;:!?]+$/g, '').toLowerCase();
+  const q = norm(selection);
   if (!q) return null;
   return begriffe.find((b) => b.term.trim().toLowerCase() === q) ?? null;
+}
+
+const SUFFIXES = ['en', 'e', 's', 'n'];
+const norm = (s: string) => s.trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').toLowerCase();
+
+/** Bases candidates d'un mot : lui-même, puis sans suffixe e/en/s/n (base ≥ 4 lettres). */
+function stems(w: string): string[] {
+  const out = [w];
+  for (const s of SUFFIXES) if (w.endsWith(s) && w.length - s.length >= 4) out.push(w.slice(0, -s.length));
+  return out;
+}
+
+/** Résolution d'une sélection (F3 §3.4) : exact, puis formes fléchies simples
+ *  des DEUX côtés (« Asziten » ↔ « Aszites » par la base « aszite »). Jamais de
+ *  préfixe, d'inclusion ni de distance d'édition (FB2-M3). */
+export function lookupTerm(selection: string, begriffe: Fachbegriff[]): Fachbegriff | null {
+  const exact = exactLookup(selection, begriffe);
+  if (exact) return exact;
+  const q = norm(selection);
+  if (!q || /\s/.test(q)) return null;
+  const qstems = stems(q);
+  // Only match if the selection has an inflected form (derived stem from suffix removal)
+  if (qstems.length === 1) return null;
+  const want = new Set(qstems.slice(1));
+  for (const b of begriffe) {
+    const t = b.term.trim().toLowerCase();
+    if (stems(t).some((s) => want.has(s))) return b;
+  }
+  return null;
 }
 
 // --- Voie 2 : deep-links gratuits sans clé (option B) -----------------------
