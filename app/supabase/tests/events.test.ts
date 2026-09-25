@@ -63,6 +63,14 @@ describe('events', () => {
     expect(r.rejected).toEqual([]); expect(r.acked).toHaveLength(1);
   });
 
+  it('accepte term.personal_created et term.personal_deleted (F3)', async () => {
+    const r = await post(A, [
+      { id: crypto.randomUUID(), type: 'term.personal_created', subject_id: 'pt-0a1b2c3d', payload: { term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z' }, occurred_at: '2026-09-25T10:00:00Z' },
+      { id: crypto.randomUUID(), type: 'term.personal_deleted', subject_id: 'pt-0a1b2c3d', payload: {}, occurred_at: '2026-09-25T10:01:00Z' },
+    ]);
+    expect(r.rejected).toEqual([]); expect(r.acked).toHaveLength(2);
+  });
+
   it('sans token → 401', async () => {
     const r = await fetch(FN, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ events: [ev(crypto.randomUUID())] }) });
     expect(r.status).toBe(401);
