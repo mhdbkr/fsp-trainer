@@ -58,6 +58,29 @@ Ces validateurs sont de l'or : ils empêchent mécaniquement une promesse illég
 | **`review-animations`** ⭐ | **Relecture au niveau d'exigence d'Emil ; par défaut ça flague, l'approbation se mérite.** Le gate anti-« animation gratuite » |
 | `vercel-react-view-transitions` | View Transitions (Astro les supporte) — transitions de page sans SPA |
 
+### 2bis. Le pipeline visuel — les trois familles lues en entier (correction du 25/09)
+
+Première passe : j'avais listé `taste-skill`, `ui-ux-pro-max` et `bencium` **sans les ouvrir**. Lecture faite, ce ne sont pas des philosophies concurrentes : **chacune tient un moment différent**, et ensemble elles forment une chaîne « voir avant de construire » qui est exactement ce que demande « premium, attention maximale au détail ».
+
+| Moment | Skill | Ce qu'il fait vraiment |
+|---|---|---|
+| **Référence** | **`ui-ux-pro-max`** ⭐ | Base de données locale interrogeable : **84 styles, 192 palettes, 74 appariements de polices, 98 règles UX, 16 presets de mouvement GSAP, 25 types de graphiques — sur 22 stacks dont Astro**. Ce n'est pas un goût, c'est un dictionnaire. Aucun conflit avec quoi que ce soit |
+| **Jetons** | **`ui-ux-pro-max:design-system`** | Jetons à **trois couches** (primitive → sémantique → composant). C'est précisément ce qu'il faut pour la règle des deux registres et l'échelle pétrole du doc de marque |
+| **Direction visuelle** | **`imagegen-frontend-web`** ⭐ | Génère des **références de design premium, une image horizontale PAR SECTION** (8 sections = 8 images), orientées conversion. **On voit le site avant de l'écrire** |
+| **Mise en code** | **`image-to-code-skill`** | Génère l'image, l'analyse en profondeur, puis implémente pour y coller au plus près |
+| **Anti-slop** | **`taste-skill`** ⭐ (1 206 l) | Skill anti-slop **spécifiquement pour landing pages et refontes** : lit le brief, déduit la direction, livre des interfaces qui ne sentent pas le template. **Audit d'abord sur une refonte** — notre cas exact |
+| **Refonte d'existant** | **`redesign-skill`** ⭐ | Auditer un site existant, **repérer les motifs génériques d'IA**, monter en gamme sans casser. C'est littéralement notre situation avec `feat/site` |
+| **Le « cher »** | **`soft-skill`** | Les polices, espacements, ombres, structures de carte et animations exactes qui font qu'un site *coûte cher* — et **bloque les défauts qui font pauvre** |
+| **Contrat de style** | **`stitch-skill`** | Produit un **`DESIGN.md`** qui impose les standards anti-génériques. **C'est le format du fichier Refero que tu m'as donné** → on peut avoir le nôtre, lisible par tous les agents, site **et** app |
+| **Mouvement au scroll** | **`gpt-tasteskill`** | GSAP **ScrollTrigger** (pinning, stacking, scrubbing), structure AIDA, typographie éditoriale large. La partie « dynamique » |
+| **Planches de marque** | **`brandkit`** (798 l) | Boards de charte, systèmes de logo, decks d'identité — pour reconstruire le symbole et sortir les planches |
+| **Discipline de sortie** | **`output-skill`** | Interdit les placeholders et le code tronqué. À poser comme consigne permanente des implémenteurs |
+| **Typographie** | **`typography`** | **Mode ENFORCEMENT** : applique silencieusement les bonnes apostrophes, tirets, espacements et hiérarchies dans tout code UI généré. À laisser toujours actif |
+
+**Les trois designers bencium** (`impact` 988 l, `innovative` 718 l, `controlled` 738 l) sont, eux, de vraies **voix concurrentes** : même objet que `taste-skill` et `refero-design`. `impact` se présente comme dérivé du Frontend Designer d'Anthropic ; `controlled` a une particularité utile — **il demande avant chaque décision de design** au lieu de surprendre.
+
+**La seule vraie exclusivité à trancher est donc « la voix »** : une seule parmi `taste-skill` / `refero-design` / `bencium-impact`. Tout le reste du tableau ci-dessus se cumule sans risque.
+
 ---
 
 ## 3. Marque et message (avant le pixel)
@@ -144,7 +167,11 @@ Ces validateurs sont de l'or : ils empêchent mécaniquement une promesse illég
 - `hungarian-humanizer`, `write-swift`, `animate-expo`, `vercel-react-native-skills` : hors sujet.
 - `*-with-strix` (pentesting) : surdimensionné pour un site statique ; `security-and-hardening` suffit.
 - `ponytail-*`, `impeccable`, `vanity-engineering-review`, `insurgent-campaign`, `relationship-design` : hors périmètre ici.
-- **`bencium-innovative-ux-designer`** / **`bencium-impact-designer`** : exclus par `doctopus-method`. **Mais leur objet est précisément ce chantier** (« interfaces distinctives, production-grade, qui évitent l'esthétique IA générique »). → **décision à prendre** : lever l'exclusion pour le site uniquement, ou s'en tenir à `refero-design` + `emil-design-eng` (qui couvrent déjà le terrain). Recommandation : **s'en tenir à refero + emil**, et n'appeler bencium que si un écran patine — deux philosophies concurrentes sur le même écran produisent de la bouillie.
+- **`bencium-innovative-ux-designer`** / **`bencium-impact-designer`** : exclus par `doctopus-method`, **mais leur objet est précisément ce chantier**. Après lecture (§2bis), ce sont des *voix* — une seule peut parler. → tranché par la **question 5** du §8 (bake-off), pas par une exclusion de principe.
+- `brutalist-skill` : grilles rigides, terminal militaire, dégradation analogique — puissant, mais à l'opposé d'un instrument clinique calme.
+- `minimalist-skill` : proche de notre esprit, mais son « monochrome chaud » contredit le pétrole. À ignorer sauf panne d'inspiration sur un écran.
+- `imagegen-frontend-mobile`, `taste-skill-v1`, `gpt-tasteskill` (hors ScrollTrigger) : doublons ou hors cible.
+- `ui-ux-pro-max:banner-design`, `:slides`, `:brand` : utiles plus tard (créas sociales, deck investisseur), pas pour le site.
 
 ---
 
@@ -154,4 +181,6 @@ Ces validateurs sont de l'or : ils empêchent mécaniquement une promesse illég
 2. **Hébergement** : GitHub Pages (comme l'app, gratuit, statique) ou **Vercel** (previews par PR, edge, meilleure boîte à outils pour un site premium) ?
 3. **Langue** : la branche existante est en **DE** (ADR-0014). Confirmer DE d'abord, ou DE + EN dès le départ ?
 4. **Périmètre v1** : accueil, vision/projet, **équivalence en Allemagne**, méthode, preuve (« ce qui tombe vraiment »), prix, FAQ, blog, légal, statut. Tout ou sous-ensemble ?
-5. **Les trois skills « goût »** à retenir comme canon : `refero-design` + `emil-design-eng` + `apple-design` (mouvement) — d'accord ?
+5. **La voix du design** — une seule parmi `taste-skill` (anti-slop, spécialisé landing pages et refontes), `refero-design` (le défaut, source de ta référence Auros), `bencium-impact-designer` (dérivé du Frontend Designer d'Anthropic). **Proposition : un bake-off** — le même hero produit dans les trois voix avec `prototype`, tu regardes et tu tranches à l'œil. Le reste de la pile (§2bis) se cumule autour de la voix choisie.
+6. **Notre propre `DESIGN.md`** (via `stitch-skill`, au format de celui que tu m'as donné) comme contrat de style unique pour le site **et** l'app — on le produit ?
+7. **Voir avant de construire** : `imagegen-frontend-web` génère une référence par section avant toute ligne de code — on passe par là ?
