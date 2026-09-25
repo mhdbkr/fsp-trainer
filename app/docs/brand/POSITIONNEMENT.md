@@ -20,11 +20,13 @@ Entrées : vision produit §1–§3 · priorités de visiteurs B→A→C (direct
 
 **Catégorie réelle** (ce contre quoi le candidat compare au moment de décider) : *comment je me prépare à la FSP* — un cours, un livre, un groupe, un répétiteur. Tous ces formats ont un point commun : **ils transmettent**. On t'explique, on te corrige une fois, on te donne de la matière.
 
-**Catégorie d'opportunité — recommandée** : **l'entraînement, pas l'enseignement.**
-Un pilote n'apprend pas à voler dans un livre : il passe des heures au simulateur. Un médecin ne réussit pas la FSP parce qu'on lui a expliqué l'anamnèse — il la réussit parce qu'il l'a faite trente fois.
+**Catégorie d'opportunité — recommandée** : **l'entraînement des compétences linguistiques de la médecine, pas l'enseignement de l'allemand.**
+Un pilote n'apprend pas à voler dans un livre : il passe des heures au simulateur, et le simulateur lui dit *quoi* il a raté. Un médecin ne réussit pas la FSP parce qu'on lui a expliqué l'anamnèse — il la réussit quand sa prononciation, son vocabulaire, sa grammaire, sa fluidité et sa conduite du dialogue tiennent en même temps, sous pression.
+
+Répéter est le **moyen**. L'objet, c'est la **compétence en situation** — et le fait de savoir laquelle des cinq lâche.
 
 Ce glissement de catégorie est la décision de positionnement la plus forte disponible :
-- il est **vrai** du produit (trois modes de simulation, plus de 130 cas, l'examen entier enchaîné, la répétition espacée) ;
+- il est **vrai** du produit (évaluation sur les cinq axes de langue, programme à rebours à trois couches, trois modes de simulation, plus de 130 cas, correction d'Arztbrief par comparaison) ;
 - il est **inaccessible** aux alternatives (un livre ne simule pas, une école n'a pas trente créneaux par candidat, un groupe Telegram n'entraîne personne) ;
 - il **retourne le prix** : on ne compare plus 500 € à un abonnement, on compare huit semaines de cours à un entraînement illimité jusqu'au jour J.
 
@@ -39,35 +41,37 @@ Ce glissement de catégorie est la décision de positionnement la plus forte dis
 | **Livre** | transmission · souple | le fond, pas cher, disponible |
 | **Telegram** | matière brute · souple | **le réel et le gratuit** — c'est sa vraie force, il ne faut pas la sous-estimer |
 | **Prof privé** | entraînement · semi-rigide | la simulation avec un vrai humain, chère à l'heure, limitée par sa disponibilité |
-| **Doctopus** | **entraînement · totalement à ton rythme** | **quadrant vide** |
+| **Doctopus** | **entraînement diagnostique · totalement à ton rythme** | **quadrant vide** |
 
-Le quadrant « entraînement illimité, à toute heure » n'est occupé par personne. Le professeur privé s'en approche mais butte sur sa disponibilité et son coût horaire ; il ne peut pas offrir trente simulations.
+Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compétence a lâché » n'est occupé par personne. Le professeur privé s'en approche mais butte sur sa disponibilité et son coût horaire ; il ne peut offrir ni trente simulations ni une lecture par compétence tenue dans le temps.
 
 ## 03 — Territoire
 
-**L'espace** : la salle d'entraînement de la Fachsprachprüfung — l'endroit où on répète l'examen jusqu'à ce qu'il n'ait plus rien d'inconnu.
+**L'espace** : la salle d'entraînement de la langue de la médecine — l'endroit où les cinq compétences que le jury évalue se travaillent séparément, sur des cas réels, jusqu'à tenir ensemble sous pression.
 
 **L'audience possédée** : le médecin étranger qui a une date d'examen et qui ne peut pas caler sa vie sur un cours de huit semaines à heures fixes.
 
 **La douve** : trois choses qu'il faut réunir pour copier, et qu'on ne réunit pas par hasard.
 1. **Le corpus vivant** — plus de 130 cas cliniques, **déjà tombés ou susceptibles de tomber**, mis à jour et enrichis en continu. Un livre paru en 2019 est mort ; ce corpus grandit à chaque session d'examen. Un concurrent ne rattrape pas un contenu qui avance.
 2. **Le logiciel** — la répétition espacée, le programme à rebours, la correction d'Arztbrief, l'évaluation. Une école n'écrit pas de logiciel ; un éditeur de logiciel n'a pas le corpus.
-3. **La consolidation** — tout au même endroit. Chaque alternative ne couvre qu'un morceau ; les assembler est précisément le travail qu'on retire au candidat.
+3. **La consolidation** — tout au même endroit, et **relié** : le terme croisé dans un cas revient dans le drill, la fiche de savoir pend au cas qui l'exige. Chaque alternative ne couvre qu'un morceau ; les assembler est précisément le travail qu'on retire au candidat.
+4. **La stratégie** — le plan à rebours de la date, les trois couches espacées, les disciplines faibles qui remontent d'elles-mêmes. Une pile de contenu n'est pas une préparation ; c'est ce tri-là qu'un candidat seul n'arrive pas à faire.
 
 ## 04 — Énoncé de positionnement
 
 **Officiel**
-> Pour le médecin étranger qui prépare la Fachsprachprüfung, **Doctopus est la salle d'entraînement en ligne** qui lui fait répéter l'examen entier autant de fois qu'il le faut, à ses heures, **parce qu'on y répète des cas déjà tombés ou susceptibles de tomber, mis à jour en continu**.
+> Pour le médecin étranger qui prépare la Fachsprachprüfung, **Doctopus est la salle d'entraînement en ligne** qui entraîne les cinq compétences linguistiques que le jury évalue, sur un plan ajusté à sa date et à ses faiblesses, **parce qu'on s'y entraîne sur des cas déjà tombés ou susceptibles de tomber, mis à jour en continu**.
 
 **Version stratégique (interne)**
-> Doctopus déplace la préparation à la FSP de l'**enseignement** vers l'**entraînement**. Là où l'école transmet pendant huit semaines et s'arrête, Doctopus fait répéter jusqu'au jour J — sur un corpus de cas réels qui s'enrichit à chaque session d'examen.
+> Doctopus déplace la préparation à la FSP de l'**enseignement** vers l'**entraînement diagnostique**. Là où l'école transmet pendant huit semaines et s'arrête, Doctopus entraîne les cinq compétences séparément, dit laquelle lâche, et tient un plan jusqu'au jour J — sur un corpus de cas réels qui s'enrichit à chaque session d'examen.
 
 **Version humaine (publique)**
-> On ne prépare pas la FSP en écoutant. On la prépare en la passant — trente fois, chez soi, avant de la passer pour de vrai.
+> On ne prépare pas la FSP en écoutant. On la prépare en parlant — et en sachant, à chaque fois, ce qui n'a pas tenu.
 
 ## 05 — Preuves du positionnement
 
-1. **Plus de 130 cas cliniques complets** — des cas **déjà tombés ou susceptibles de tomber**, **mis à jour et enrichis en continu**.
+1. **Plus de 130 cas cliniques complets**, construits depuis des **protocoles réels** — des cas **déjà tombés ou susceptibles de tomber**, **mis à jour et enrichis en continu**.
+1 bis. **Une évaluation sur les cinq compétences** — Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — partie par partie, et non une note globale.
 2. **Les trois parties enchaînées** dans les conditions de l'examen — anamnèse, documentation, présentation — avec évaluation à la fin.
 3. **2 266 Fachbegriffe** en **registre double** (terme technique pour la présentation, formulation patient pour l'anamnèse), en répétition espacée qui s'adapte à ce que tu as croisé.
 4. **Un programme construit à rebours de ta date**, qui se réajuste quand tu avances ou quand tu décroches.
@@ -84,7 +88,7 @@ Le quadrant « entraînement illimité, à toute heure » n'est occupé par pers
 
 ## 07 — En une phrase
 
-> **Doctopus est la salle d'entraînement de la Fachsprachprüfung : le médecin étranger y répète l'examen entier, à ses heures, sur des cas déjà tombés ou susceptibles de tomber.**
+> **Doctopus est la salle d'entraînement de la langue de la médecine : le médecin étranger y entraîne les cinq compétences que le jury évalue, sur des cas réels, selon un plan ajusté à sa date.**
 
 ## 08 — Signaux d'alerte relevés
 
