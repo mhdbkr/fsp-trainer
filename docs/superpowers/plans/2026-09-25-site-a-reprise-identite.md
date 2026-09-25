@@ -131,7 +131,7 @@ La philosophie impose une pile de surfaces qui descend dans le noir pétrole, é
 
 - [ ] **Step 1: Écrire le test qui échoue**
 
-Ajouter à la fin de `packages/tokens/test/tokens.test.mjs` :
+Vérifier d'abord que `readFileSync` est importé en tête du fichier ; sinon ajouter `import { readFileSync } from 'node:fs';`. Puis ajouter à la fin de `packages/tokens/test/tokens.test.mjs` :
 
 ```javascript
 test('les jetons de profondeur existent et descendent en luminosité', async () => {
@@ -665,6 +665,7 @@ Créer `apps/site/src/components/DepthRail.astro` :
       stroke="currentColor"
       stroke-width="1"
       stroke-linecap="round"
+      pathLength="1"
     />
   </svg>
 </div>
@@ -692,7 +693,6 @@ Créer `apps/site/src/components/DepthRail.astro` :
 
   @supports (animation-timeline: scroll()) {
     .depth-rail path {
-      pathlength: 1;
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
       animation: rail-fill linear both;
