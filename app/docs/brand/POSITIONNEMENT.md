@@ -24,7 +24,7 @@ Entrées : vision produit §1–§3 · priorités de visiteurs B→A→C (direct
 Un pilote n'apprend pas à voler dans un livre : il passe des heures au simulateur. Un médecin ne réussit pas la FSP parce qu'on lui a expliqué l'anamnèse — il la réussit parce qu'il l'a faite trente fois.
 
 Ce glissement de catégorie est la décision de positionnement la plus forte disponible :
-- il est **vrai** du produit (trois modes de simulation, 130 cas, l'examen entier enchaîné, la répétition espacée) ;
+- il est **vrai** du produit (trois modes de simulation, plus de 130 cas, l'examen entier enchaîné, la répétition espacée) ;
 - il est **inaccessible** aux alternatives (un livre ne simule pas, une école n'a pas trente créneaux par candidat, un groupe Telegram n'entraîne personne) ;
 - il **retourne le prix** : on ne compare plus 500 € à un abonnement, on compare huit semaines de cours à un entraînement illimité jusqu'au jour J.
 
@@ -50,24 +50,24 @@ Le quadrant « entraînement illimité, à toute heure » n'est occupé par pers
 **L'audience possédée** : le médecin étranger qui a une date d'examen et qui ne peut pas caler sa vie sur un cours de huit semaines à heures fixes.
 
 **La douve** : trois choses qu'il faut réunir pour copier, et qu'on ne réunit pas par hasard.
-1. **Le corpus** — 130 cas construits à partir d'environ 580 comptes rendus d'examens réels. C'est des années de collecte ; un concurrent devrait la refaire.
+1. **Le corpus vivant** — plus de 130 cas cliniques, **déjà tombés ou susceptibles de tomber**, mis à jour et enrichis en continu. Un livre paru en 2019 est mort ; ce corpus grandit à chaque session d'examen. Un concurrent ne rattrape pas un contenu qui avance.
 2. **Le logiciel** — la répétition espacée, le programme à rebours, la correction d'Arztbrief, l'évaluation. Une école n'écrit pas de logiciel ; un éditeur de logiciel n'a pas le corpus.
 3. **La consolidation** — tout au même endroit. Chaque alternative ne couvre qu'un morceau ; les assembler est précisément le travail qu'on retire au candidat.
 
 ## 04 — Énoncé de positionnement
 
 **Officiel**
-> Pour le médecin étranger qui prépare la Fachsprachprüfung, **Doctopus est la salle d'entraînement en ligne** qui lui fait répéter l'examen entier autant de fois qu'il le faut, à ses heures, **parce qu'elle est construite sur environ 580 comptes rendus d'examens réels**.
+> Pour le médecin étranger qui prépare la Fachsprachprüfung, **Doctopus est la salle d'entraînement en ligne** qui lui fait répéter l'examen entier autant de fois qu'il le faut, à ses heures, **parce qu'on y répète des cas déjà tombés ou susceptibles de tomber, mis à jour en continu**.
 
 **Version stratégique (interne)**
-> Doctopus déplace la préparation à la FSP de l'**enseignement** vers l'**entraînement**. Là où l'école transmet pendant huit semaines et s'arrête, Doctopus fait répéter jusqu'au jour J — sur un corpus d'examens réels que personne d'autre n'a rassemblé.
+> Doctopus déplace la préparation à la FSP de l'**enseignement** vers l'**entraînement**. Là où l'école transmet pendant huit semaines et s'arrête, Doctopus fait répéter jusqu'au jour J — sur un corpus de cas réels qui s'enrichit à chaque session d'examen.
 
 **Version humaine (publique)**
 > On ne prépare pas la FSP en écoutant. On la prépare en la passant — trente fois, chez soi, avant de la passer pour de vrai.
 
 ## 05 — Preuves du positionnement
 
-1. **130 cas cliniques complets**, construits à partir d'environ **580 comptes rendus d'examens réels**.
+1. **Plus de 130 cas cliniques complets** — des cas **déjà tombés ou susceptibles de tomber**, **mis à jour et enrichis en continu**.
 2. **Les trois parties enchaînées** dans les conditions de l'examen — anamnèse, documentation, présentation — avec évaluation à la fin.
 3. **2 266 Fachbegriffe** en **registre double** (terme technique pour la présentation, formulation patient pour l'anamnèse), en répétition espacée qui s'adapte à ce que tu as croisé.
 4. **Un programme construit à rebours de ta date**, qui se réajuste quand tu avances ou quand tu décroches.
@@ -84,7 +84,7 @@ Le quadrant « entraînement illimité, à toute heure » n'est occupé par pers
 
 ## 07 — En une phrase
 
-> **Doctopus est la salle d'entraînement de la Fachsprachprüfung : le médecin étranger y répète l'examen entier, à ses heures, sur des cas tirés d'examens réels.**
+> **Doctopus est la salle d'entraînement de la Fachsprachprüfung : le médecin étranger y répète l'examen entier, à ses heures, sur des cas déjà tombés ou susceptibles de tomber.**
 
 ## 08 — Signaux d'alerte relevés
 
@@ -93,8 +93,18 @@ Le quadrant « entraînement illimité, à toute heure » n'est occupé par pers
 | Un positionnement qui vaudrait pour n'importe quel concurrent | **écarté** — aucune alternative ne peut offrir la répétition illimitée |
 | Une audience trop large pour être possédée | **écarté** — « médecin étranger avec une date de FSP » est précis |
 | Un différenciateur qui est un minimum vital | **écarté** — l'entraînement illimité n'est offert par personne |
-| Une promesse non prouvable | **à surveiller** — la mention « ~580 comptes rendus » est vraie mais tient à un corpus personnel. La pseudonymisation des noms de patients doit être faite avant diffusion élargie (roadmap, phase A). Formuler sans jamais laisser croire à un accès officiel |
+| Une promesse non prouvable | **traité** — décision de direction du 25/09 : **ne jamais citer le nombre de comptes rendus sources**. On dit « des cas déjà tombés ou susceptibles de tomber, mis à jour en continu ». La pseudonymisation des noms de patients reste à faire avant diffusion élargie (roadmap, phase A). Ne jamais laisser croire à un accès officiel ni à une fuite de sujets |
 | Tentation de se comparer au prix | **interdit** — voir §06 |
+
+## 08 bis — Règle de langage sur le contenu (décision de direction, 25/09)
+
+**Ne jamais mentionner le nombre de comptes rendus d'examens sources.** La formulation retenue, partout et dans toutes les langues :
+
+> **Plus de 130 cas cliniques — des cas déjà tombés ou susceptibles de tomber — mis à jour et enrichis en continu.**
+
+Variante prudente si l'on préfère arrondir : « plus de 100 cas cliniques ». *Recommandation : garder « plus de 130 » — la précision se lit comme de la crédibilité, et le chiffre est vrai.*
+
+Interdits qui découlent de cette règle : tout chiffre de corpus source · toute formulation laissant entendre un accès privilégié aux sujets · toute promesse que « ton cas sera dedans ».
 
 ## 09 — Hypothèses à confirmer par la direction
 
