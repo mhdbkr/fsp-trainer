@@ -18,6 +18,7 @@ import RAW from './fachbegriffe.json';
 type Raw = {
   id: string; t: string; s: string; sp: Specialty;
   p?: string; def?: string; c: Center[]; tags?: string[];
+  r?: { pa: string; vo: string; an: string };
 };
 
 export function seedFachbegriffe(): Fachbegriff[] {
@@ -32,5 +33,6 @@ export function seedFachbegriffe(): Fachbegriff[] {
     centers: r.c,
     linkedCaseIds: [],
     srs: freshSrs(),
+    ...(r.r ? { register: { patient: r.r.pa, vorstellung: r.r.vo, anamnese: r.r.an } } : {}),
   }));
 }

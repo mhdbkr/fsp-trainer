@@ -268,6 +268,9 @@ export interface CaseMuster {
 // ----------------------------------------------------------------------------
 // Fachbegriff + SRS (SM-2)
 // ----------------------------------------------------------------------------
+/** Double registre (F3 §3.2) : parole du patient, phrase de Vorstellung/Doku, question d'anamnèse sans le terme. */
+export interface TermRegisterData { patient: string; vorstellung: string; anamnese: string }
+
 export interface Srs {
   interval: number;      // jours
   easeFactor: number;    // 1.3..2.5+
@@ -301,6 +304,7 @@ export interface Fachbegriff {
   centers: Center[];
   linkedCaseIds: string[];
   srs: Srs;
+  register?: TermRegisterData;       // termes liés à ≥ 1 cas (F3)
 }
 
 // ----------------------------------------------------------------------------
