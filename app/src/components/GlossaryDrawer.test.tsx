@@ -4,6 +4,7 @@ import { MemoryRouter, Route, Routes, Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { useUi } from '@/store/ui';
 import { freshSrs } from '@/lib/srs';
+import { toView } from '@/lib/collections/allTerms';
 import { GlossaryDrawer } from './GlossaryDrawer';
 
 vi.mock('@/lib/sync/queue', async () => {
@@ -113,5 +114,31 @@ describe('GlossaryDrawer collections', () => {
     useUi.getState().openGlossary(fb);
     await screen.findByText('Abdomen');
     await waitFor(() => expect(useUi.getState().hoverTerm).toBeNull());
+  });
+});
+
+describe('GlossaryDrawer suppression (terme personnel, A6)', () => {
+  const renderDrawer = () => render(<MemoryRouter><GlossaryDrawer /></MemoryRouter>);
+  beforeEach(async () => {
+    await db.progress_events.clear(); await db.decks.clear(); await db.deck_terms.clear();
+    await db.favorites.clear(); await db.personal_terms.clear();
+    useUi.setState({ glossaryTerm: null });
+  });
+
+  it('terme personnel : « Supprimer ma carte » émet term.personal_deleted et ferme', async () => {
+    await db.personal_terms.put({ id: 'pt-0000abcd', term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) });
+    useUi.getState().openGlossary(toView((await db.personal_terms.get('pt-0000abcd'))!));
+    renderDrawer();
+    fireEvent.click(await screen.findByRole('button', { name: 'Supprimer ma carte' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Confirmer la suppression' }));
+    await waitFor(async () => expect(await db.personal_terms.get('pt-0000abcd')).toBeUndefined());
+    expect(useUi.getState().glossaryTerm).toBeNull();
+  });
+
+  it('terme du glossaire : pas de bouton de suppression', async () => {
+    useUi.getState().openGlossary(fb);
+    renderDrawer();
+    await screen.findByText('Abdomen');
+    expect(screen.queryByRole('button', { name: 'Supprimer ma carte' })).toBeNull();
   });
 });
