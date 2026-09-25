@@ -10,7 +10,7 @@ import { syncQueue } from '@/lib/sync/queue';
 import { freshSrs } from '@/lib/srs';
 import { lookupTerm } from '@/lib/dictionary';
 import { sortEvents } from './project';
-import { reprojectCollections, toggleFavorite } from './index';
+import { reprojectCollections, removeFromDeck, toggleFavorite } from './index';
 
 export const PERSONAL_PREFIX = 'pt-';
 export const isPersonalId = (id: string): boolean => id.startsWith(PERSONAL_PREFIX);
@@ -25,7 +25,7 @@ export const personalTermId = (term: string): string =>
   PERSONAL_PREFIX + fnv1a32(cleanSelection(term).toLowerCase()).toString(16).padStart(8, '0');
 
 export function cleanSelection(raw: string): string {
-  return raw.replace(/\s+/g, ' ').trim().replace(/^[\s„“"'«»(\[]+|[\s“”"'«»)\].,;:!?]+$/g, '');
+  return raw.normalize('NFC').replace(/\s+/g, ' ').trim().replace(/^[\s„“"'«»(\[]+|[\s“”"'«»)\].,;:!?]+$/g, '');
 }
 
 export interface PersonalTermInput { term: string; context?: string; explanation?: string; caseId?: string }
@@ -55,7 +55,8 @@ export function projectPersonalTerms(events: ProgressEvent[]): PersonalTerm[] {
   for (const [id, { ev, srs }] of live) {
     const p = sanitizePersonalTerm(ev.payload as PersonalTermInput);
     if (!p) continue;
-    const createdAt = (ev.payload as { createdAt?: string }).createdAt ?? ev.occurred_at;
+    const payloadCreatedAt = (ev.payload as { createdAt?: string }).createdAt;
+    const createdAt = payloadCreatedAt && !Number.isNaN(Date.parse(payloadCreatedAt)) ? payloadCreatedAt : ev.occurred_at;
     out.push({ id, ...p, createdAt, srs: srs ?? freshSrs(Date.parse(createdAt)) });
   }
   return out;
@@ -97,6 +98,8 @@ export async function isStarred(selection: string, begriffe: Fachbegriff[]): Pro
 export async function deletePersonalTerm(id: string): Promise<void> {
   if (!isPersonalId(id)) throw new Error('not_personal');
   if (await db.favorites.get(id)) await syncQueue.push({ type: 'term.unfavorited', subject_id: id, payload: {} });
+  const decks = await db.deck_terms.where('termId').equals(id).toArray();
+  for (const { deckId } of decks) await removeFromDeck(deckId, id);
   await syncQueue.push({ type: 'term.personal_deleted', subject_id: id, payload: {} });
   await reprojectPersonalTerms();
   await reprojectCollections();

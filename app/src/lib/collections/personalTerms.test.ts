@@ -26,6 +26,13 @@ describe('id et nettoyage', () => {
   it('cleanSelection retire guillemets/ponctuation de bord et normalise les espaces', () => {
     expect(cleanSelection('  „Belastungs  dyspnoe“, ')).toBe('Belastungs dyspnoe');
   });
+  it('cleanSelection normalise NFC : même id peu importe la forme Unicode saisie (NFC/NFD)', () => {
+    const nfc = 'Kälte'.normalize('NFC');
+    const nfd = 'Kälte'.normalize('NFD');
+    expect(nfc).not.toBe(nfd);
+    expect(cleanSelection(nfd)).toBe(cleanSelection(nfc));
+    expect(personalTermId(nfd)).toBe(personalTermId(nfc));
+  });
   it('sanitize : tronque context/explanation, rejette un terme vide ou trop long', () => {
     const s = sanitizePersonalTerm({ term: 'Wort', context: 'c'.repeat(400), explanation: 'e'.repeat(900) })!;
     expect(s.context!.length).toBe(PT_LIMITS.context);
@@ -56,10 +63,15 @@ describe('projectPersonalTerms', () => {
     const [t] = projectPersonalTerms([created(1), ev('srs.reviewed', id, { interval: 6, easeFactor: 2.5, dueDate: 9, repetitions: 2, lapses: 0, state: 'Gelernt' }, 2)]);
     expect(t.srs.interval).toBe(6);
   });
+  it('createdAt invalide dans le payload → repli sur occurred_at de l\'événement', () => {
+    const bad = ev('term.personal_created', id, { term: 'Belastungsdyspnoe', createdAt: 'not-a-date' }, 7);
+    const [t] = projectPersonalTerms([bad]);
+    expect(t.createdAt).toBe(at(7));
+  });
 });
 
 describe('create / delete / rebuild', () => {
-  beforeEach(async () => { await db.progress_events.clear(); await db.personal_terms.clear(); await db.favorites.clear(); await db.fachbegriffe.clear(); });
+  beforeEach(async () => { await db.progress_events.clear(); await db.personal_terms.clear(); await db.favorites.clear(); await db.fachbegriffe.clear(); await db.decks.clear(); await db.deck_terms.clear(); });
   it('createPersonalTerm est idempotent : un seul événement', async () => {
     const a = await createPersonalTerm({ term: 'Belastungsdyspnoe', context: 'Er hat Belastungsdyspnoe.' });
     const b = await createPersonalTerm({ term: 'belastungsdyspnoe' });
@@ -75,6 +87,15 @@ describe('create / delete / rebuild', () => {
     await deletePersonalTerm(id);
     expect(await db.personal_terms.get(id)).toBeUndefined();
     expect(await db.favorites.get(id)).toBeUndefined();
+  });
+  it('deletePersonalTerm retire le terme de tous les decks manuels qui le contiennent', async () => {
+    const { id } = await createPersonalTerm({ term: 'Wort' });
+    const { createDeck, addToDeck } = await import('./index');
+    const deckId = await createDeck('Kardio', 'manual');
+    await addToDeck(deckId, id);
+    expect(await db.deck_terms.get([deckId, id])).toBeTruthy();
+    await deletePersonalTerm(id);
+    expect(await db.deck_terms.get([deckId, id])).toBeUndefined();
   });
   it('rebuildProjections : srs.reviewed pt-… écrit dans personal_terms, jamais dans fachbegriffe', async () => {
     const { id } = await createPersonalTerm({ term: 'Wort' });
