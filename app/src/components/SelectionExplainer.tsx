@@ -5,7 +5,7 @@ import { useUi } from '@/store/ui';
 import { useCaseId } from '@/features/fachbegriffe/CaseContext';
 import { db } from '@/db/db';
 import { lookupTerm } from '@/lib/dictionary';
-import { askBrief, hasKey } from '@/lib/onlineAi';
+import { askBrief, canAskAi, honestAiError } from '@/lib/onlineAi';
 import { starSelection, cleanSelection, personalTermId, PT_LIMITS } from '@/lib/collections/personalTerms';
 import { toView } from '@/lib/collections/allTerms';
 
@@ -114,14 +114,14 @@ export function SelectionExplainer() {
       setBubble({ loading: false, source: 'glossaire', text: `${h.term} — ${h.translationSimple}` });
       return;
     }
-    // 2) IA brève (si clé configurée).
-    if (!hasKey()) {
-      setBubble({ loading: false, error: 'Ajoute ta clé IA (réglages Doctopus) pour expliquer les mots hors glossaire.' });
+    // 2) IA brève (serveur d'abord, clé navigateur en repli).
+    if (!canAskAi()) {
+      setBubble({ loading: false, error: 'IA indisponible : connecte-toi (compte premium) ou ajoute une clé de repli dans les réglages Doctopus.' });
       return;
     }
     setBubble({ loading: true });
     try { setBubble({ loading: false, source: 'IA', text: await askBrief(term) }); }
-    catch (e) { setBubble({ loading: false, error: (e as Error).message }); }
+    catch (e) { setBubble({ loading: false, error: honestAiError(e) }); }
   };
 
   if (!anchor) return null;

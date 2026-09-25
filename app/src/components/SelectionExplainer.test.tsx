@@ -9,7 +9,12 @@ vi.mock('@/lib/sync/queue', async () => {
   return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } };
 });
 
-vi.mock('@/lib/onlineAi', () => ({ hasKey: () => true, askBrief: vi.fn(async () => 'Essoufflement à l\'effort.') }));
+vi.mock('@/lib/onlineAi', () => ({
+  hasKey: () => true,
+  canAskAi: () => true,
+  honestAiError: (e: unknown) => (e as Error)?.message ?? String(e),
+  askBrief: vi.fn(async () => 'Essoufflement à l\'effort.'),
+}));
 
 function selectText(el: HTMLElement) {
   const range = document.createRange(); range.selectNodeContents(el);
@@ -96,6 +101,15 @@ describe('SelectionExplainer', () => {
     await screen.findByText(/Bauchwasser/);
     act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
     expect(screen.getByText(/Bauchwasser/)).toBeTruthy();
+  });
+  it('hors glossaire sans clé mais serveur dispo → explication IA (AC-7)', async () => {
+    const { askBrief } = await import('@/lib/onlineAi');
+    (askBrief as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce('die Dyspnoe = Atemnot');
+    render(<><p data-testid="t">Dyspnoe unter Belastung</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
+    fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
+    expect(await screen.findByText('die Dyspnoe = Atemnot')).toBeTruthy();
   });
   it('★ dans la bulle réponse (fond clair) n\'utilise pas la couleur blanche de la pastille (re-review)', async () => {
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
