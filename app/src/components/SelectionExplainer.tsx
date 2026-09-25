@@ -44,14 +44,18 @@ export function SelectionExplainer() {
       const node = seldom?.anchorNode?.parentElement;
       if (node?.closest('input, textarea, [contenteditable="true"]')) return;
       if (rootRef.current && node && rootRef.current.contains(node)) return;
-      // Même sélection qu'avant (ex. focus/tap sur un bouton relance selectionchange
-      // sans que l'utilisateur ait resélectionné) : ne pas effacer bulle/confirmation.
-      if (anchorRef.current?.text === text) return;
       try {
         const rect = seldom!.getRangeAt(0).getBoundingClientRect();
         if (!rect.width && !rect.height) return;
+        const x = Math.min(Math.max(rect.left + rect.width / 2, 110), window.innerWidth - 110);
+        const y = rect.top;
+        // Même sélection qu'avant, au même endroit (ex. focus/tap sur un bouton relance
+        // selectionchange sans que l'utilisateur ait resélectionné) : ne pas effacer
+        // bulle/confirmation. Texte identique mais rect différent (ex. re-sélection au
+        // clavier ailleurs dans la page) → nouvelle ancre, la bulle se déplace.
+        if (anchorRef.current?.text === text && anchorRef.current.x === x && anchorRef.current.y === y) return;
         const context = (node?.closest('p, li, td, blockquote, div')?.textContent ?? '').replace(/\s+/g, ' ').trim();
-        setAnchor({ text, context, x: Math.min(Math.max(rect.left + rect.width / 2, 110), window.innerWidth - 110), y: rect.top });
+        setAnchor({ text, context, x, y });
         setBubble(null); setDone(null);
       } catch { /* sélection vide */ }
     };
@@ -121,25 +125,30 @@ export function SelectionExplainer() {
   };
 
   if (!anchor) return null;
-  const starButton = (
+  // 'pill' : pastille pétrole pleine (fond bg-brand-600) — ☆ blanc, survol foncé.
+  // 'bubble' : carte claire (bg-white / dark:bg-slate-900) — le blanc de la pastille y
+  // serait invisible ou peu contrasté ; tons ardoise/signal lisibles sur les deux fonds.
+  const starButton = (variant: 'pill' | 'bubble') => (
     <button type="button" onClick={() => { void star(); }} disabled={!canStar}
       aria-pressed={starred} aria-label={starred ? `Retirer des favoris : ${clean}` : `Ajouter aux favoris : ${clean}`}
-      className={`grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg hover:bg-brand-700 disabled:opacity-40 ${starred ? 'text-signal-300' : 'text-white'}`}>{starred ? '★' : '☆'}</button>
+      className={`grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg disabled:opacity-40 ${
+        variant === 'pill'
+          ? `hover:bg-brand-700 ${starred ? 'text-signal-300' : 'text-white'}`
+          : `hover:bg-slate-100 dark:hover:bg-slate-800 ${starred ? 'text-signal-500 dark:text-signal-400' : 'text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400'}`
+      }`}>{starred ? '★' : '☆'}</button>
   );
   return (
     <div ref={rootRef} className="fixed z-[80]" style={{ left: anchor.x, top: Math.max(8, anchor.y - 8), transform: 'translate(-50%, -100%)' }}>
       {!bubble ? (
         <div className="flex items-center gap-1 rounded-full bg-brand-600 p-0.5 text-xs font-semibold text-white shadow-lg ring-1 ring-brand-700 motion-safe:animate-fade-in-fast">
-          {starButton}
+          {starButton('pill')}
           <button type="button" onClick={() => { void explain(); }} className="flex h-11 items-center gap-1 rounded-full px-3 hover:bg-brand-700">
             <Icon name="search" className="h-3.5 w-3.5" />Expliquer
           </button>
         </div>
       ) : (
         <div className="flex w-64 items-start gap-1.5 rounded-xl border border-slate-200 bg-white p-2.5 text-[13px] shadow-xl motion-safe:animate-fade-in-fast dark:border-slate-700 dark:bg-slate-900">
-          {!bubble.loading && !bubble.error && (
-            <div className={`-m-0.5 -mt-1 ${starred ? 'text-signal-500' : 'text-slate-300 hover:text-slate-400'}`}>{starButton}</div>
-          )}
+          {!bubble.loading && !bubble.error && <div className="-m-0.5 -mt-1">{starButton('bubble')}</div>}
           <div className="min-w-0 flex-1">
             {bubble.loading ? (
               <div className="flex items-center gap-2 text-slate-400"><span className="h-3 w-3 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" /> Doctopus cherche…</div>

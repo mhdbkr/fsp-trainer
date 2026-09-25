@@ -97,4 +97,13 @@ describe('SelectionExplainer', () => {
     act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
     expect(screen.getByText(/Bauchwasser/)).toBeTruthy();
   });
+  it('★ dans la bulle réponse (fond clair) n\'utilise pas la couleur blanche de la pastille (re-review)', async () => {
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
+    fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
+    const starInBubble = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    expect(starInBubble.className).not.toMatch(/text-white/);
+    expect(starInBubble.className).not.toMatch(/hover:bg-brand-700/);
+  });
 });
