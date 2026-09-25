@@ -52,13 +52,13 @@ export function localLookup(query: string, begriffe: Fachbegriff[]): LocalHit[] 
  *  « Sondenernährung », ni un terme dont la traduction contient le mot. Le
  *  flou reste réservé à la recherche (`localLookup`). */
 export function exactLookup(selection: string, begriffe: Fachbegriff[]): Fachbegriff | null {
-  const q = norm(selection);
+  const q = selection.trim().replace(/^[\s„“"'«»(\[]+|[\s“”"'«»)\].,;:!?]+$/g, '').toLowerCase();
   if (!q) return null;
   return begriffe.find((b) => b.term.trim().toLowerCase() === q) ?? null;
 }
 
 const SUFFIXES = ['en', 'e', 's', 'n'];
-const norm = (s: string) => s.trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').toLowerCase();
+const norm = (s: string) => s.trim().replace(/^[\s„""'«»(\[]+|[\s"""'«»)\].,;:!?]+$/g, '').toLowerCase();
 
 /** Bases candidates d'un mot : lui-même, puis sans suffixe e/en/s/n (base ≥ 4 lettres). */
 function stems(w: string): string[] {
@@ -85,7 +85,6 @@ export function lookupTerm(selection: string, begriffe: Fachbegriff[]): Fachbegr
   }
   return null;
 }
-
 // --- Voie 2 : deep-links gratuits sans clé (option B) -----------------------
 export interface DeepLink { label: string; url: string; note?: string }
 
