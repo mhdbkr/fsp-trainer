@@ -3,12 +3,12 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import { Icon } from '@/components/icons';
-import { useFachbegriffe, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
-import type { Fachbegriff } from '@/db/types';
+import { useAllTerms, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
+import type { AnyTerm } from '@/lib/collections/allTerms';
+import { rateTerm } from '@/lib/collections/allTerms';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
 import { markIntroduced, markReviewed } from '@/lib/srsBudget';
-import { syncQueue } from '@/lib/sync/queue';
 import { termsOfDeck } from '@/lib/collections/query';
 import { termsOfCase } from '@/lib/collections/caseTerms';
 import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drillQueue';
@@ -22,7 +22,7 @@ const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as con
 // du cas travaillé, puis progression libre (couverture inclusive).
 // Un deck (ou les favoris) borne la file : jamais un terme hors du deck.
 export function DrillPage() {
-  const begriffe = useFachbegriffe();
+  const begriffe = useAllTerms();
   const decks = useDecks();
   const deckTerms = useDeckTerms();
   const favorites = useFavorites();
@@ -39,7 +39,7 @@ export function DrillPage() {
   const simSnapshot = useSimSession((s) => s.snapshot);
   const simMinimized = useSimSession((s) => s.minimized);
 
-  const [queue, setQueue] = useState<Fachbegriff[]>([]);
+  const [queue, setQueue] = useState<AnyTerm[]>([]);
   const [started, setStarted] = useState(false);
   const [idx, setIdx] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -169,9 +169,8 @@ export function DrillPage() {
 
   const grade = async (g: Grade) => {
     const wasNew = card.srs.state === 'Neu';
+    await rateTerm(card, g);
     const newSrs = reviewSrs(card.srs, g);
-    await db.fachbegriffe.update(card.id, { srs: newSrs });
-    syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
     if (wasNew) void markIntroduced();
     else void markReviewed();
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));

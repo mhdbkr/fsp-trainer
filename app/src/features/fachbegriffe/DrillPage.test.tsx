@@ -43,7 +43,7 @@ const renderAt = (url: string) => render(<MemoryRouter initialEntries={[url]}><D
 describe('DrillPage — pas de boucle de rendu', () => {
   beforeEach(async () => {
     await db.fachbegriffe.clear(); await db.progress_events.clear();
-    await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await db.cases.clear();
+    await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await db.cases.clear(); await db.personal_terms.clear();
     vi.mocked(loadDrillContext).mockReset();
     vi.mocked(loadDrillContext).mockResolvedValue(defaultCtx);
     await seed();
@@ -86,6 +86,15 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt('/fachbegriffe/drill?case=c2');
     const btn = await screen.findByRole('link', { name: /Réviser la spécialité Kardiologie/ });
     expect(btn.getAttribute('href')).toContain('specialty=Kardiologie');
+  });
+
+  it('terme personnel dû : rejoint la file de drill (AC-2, source unique allTerms)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-0000abcd', term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
   });
 
   it('Quitter (mode ?case) : route réelle du Runner si une session est minimisée sur ce cas, sinon la fiche du cas', async () => {
