@@ -134,7 +134,7 @@ export function SelectionExplainer() {
       className={`grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg disabled:opacity-40 ${
         variant === 'pill'
           ? `hover:bg-brand-700 ${starred ? 'text-signal-300' : 'text-white'}`
-          : `hover:bg-slate-100 dark:hover:bg-slate-800 ${starred ? 'text-signal-500 dark:text-signal-400' : 'text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400'}`
+          : `hover:bg-slate-100 dark:hover:bg-slate-800 ${starred ? 'text-signal-500 dark:text-signal-400' : 'text-slate-500 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-400'}`
       }`}>{starred ? '★' : '☆'}</button>
   );
   return (
