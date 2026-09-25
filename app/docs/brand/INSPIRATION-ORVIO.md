@@ -1,7 +1,9 @@
 # Inspiration ORVIO — analyse profonde et transposition Doctopus
 
-Date : 2026-09-17 · Demandé par la direction · Sert de brief à `brand-strategist`, `brand-creative-director`, `front-design-keeper`, `site-implementer`.
+Date : 2026-09-17 (mis à jour 25/09) · Demandé par la direction · Sert de brief à `brand-strategist`, `brand-creative-director`, `front-design-keeper`, `site-implementer`.
 Source : 16 planches d'une identité fictive « ORVIO — biotech » (logo, palette, typographie, papeterie, pitch deck, social, packaging).
+
+**Seconde référence** : « Auros » (`auros.global`) — fiche de style, jetons W3C, CSS et Tailwind archivés dans **`references/auros/`**, analysés en §6 ci-dessous et dans `references/README.md` (ce que les jetons machine apprennent en plus de la fiche).
 
 ## 1. Ce qui fait tenir cette identité (les six décisions)
 
