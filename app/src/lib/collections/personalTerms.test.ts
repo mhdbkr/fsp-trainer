@@ -4,7 +4,7 @@ import type { ProgressEvent } from '@/lib/sync/events';
 import { rebuildProjections } from '@/lib/sync/projections';
 import {
   personalTermId, cleanSelection, sanitizePersonalTerm, projectPersonalTerms,
-  createPersonalTerm, deletePersonalTerm, isPersonalId, PT_LIMITS,
+  createPersonalTerm, deletePersonalTerm, isPersonalId, PT_LIMITS, starSelection,
 } from './personalTerms';
 
 vi.mock('@/lib/sync/queue', async () => {
@@ -82,5 +82,26 @@ describe('create / delete / rebuild', () => {
     await rebuildProjections();
     expect((await db.personal_terms.get(id))!.srs.state).toBe('Gelernt');
     expect(await db.fachbegriffe.count()).toBe(0);
+  });
+});
+
+describe('starSelection', () => {
+  beforeEach(async () => { await db.progress_events.clear(); await db.personal_terms.clear(); await db.favorites.clear(); });
+  const g = [{ id: 'fb-aszites', term: 'Aszites', translationSimple: 'x' } as never];
+  it('terme du glossaire (y compris fléchi) → term.favorited sur fb-… (AC-1)', async () => {
+    const r = await starSelection({ selection: 'Asziten', caseId: 'case-leberzirrhose' }, g);
+    expect(r).toEqual({ id: 'fb-aszites', kind: 'glossary', created: false, favorite: true });
+    expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')?.payload).toEqual({ caseId: 'case-leberzirrhose' });
+  });
+  it('hors glossaire → terme personnel + favori (AC-2)', async () => {
+    const r = await starSelection({ selection: 'Belastungsdyspnoe', context: 'Seit Wochen Belastungsdyspnoe.' }, g);
+    expect(r.kind).toBe('personal'); expect(r.created).toBe(true); expect(r.favorite).toBe(true);
+    expect(await db.favorites.get(r.id)).toBeTruthy();
+  });
+  it('★ à nouveau → bascule du favori, aucun doublon (AC-3)', async () => {
+    const a = await starSelection({ selection: 'Belastungsdyspnoe' }, g);
+    const b = await starSelection({ selection: 'belastungsdyspnoe' }, g);
+    expect(b).toEqual({ id: a.id, kind: 'personal', created: false, favorite: false });
+    expect(await db.personal_terms.count()).toBe(1);
   });
 });

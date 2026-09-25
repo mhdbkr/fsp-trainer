@@ -4,12 +4,13 @@
 // deux appareils, même hors ligne, converge vers un seul terme.
 // ============================================================================
 import { db } from '@/db/db';
-import type { PersonalTerm, Srs } from '@/db/types';
+import type { Fachbegriff, PersonalTerm, Srs } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { syncQueue } from '@/lib/sync/queue';
 import { freshSrs } from '@/lib/srs';
+import { lookupTerm } from '@/lib/dictionary';
 import { sortEvents } from './project';
-import { reprojectCollections } from './index';
+import { reprojectCollections, toggleFavorite } from './index';
 
 export const PERSONAL_PREFIX = 'pt-';
 export const isPersonalId = (id: string): boolean => id.startsWith(PERSONAL_PREFIX);
@@ -75,6 +76,22 @@ export async function createPersonalTerm(input: PersonalTermInput): Promise<{ id
   await syncQueue.push({ type: 'term.personal_created', subject_id: id, payload: { ...clean, createdAt: new Date().toISOString() } });
   await reprojectPersonalTerms();
   return { id, created: true };
+}
+
+export type StarResult = { id: string; kind: 'glossary' | 'personal'; created: boolean; favorite: boolean };
+/** ★ de la bulle (F3 D2/D3) : glossaire → favori du terme publié ; sinon terme
+ *  personnel (créé une seule fois) + favori. Un 2ᵉ ★ bascule le favori. */
+export async function starSelection(input: { selection: string; context?: string; explanation?: string; caseId?: string }, begriffe: Fachbegriff[]): Promise<StarResult> {
+  const opts = input.caseId ? { caseId: input.caseId } : {};
+  const hit = lookupTerm(input.selection, begriffe);
+  if (hit) return { id: hit.id, kind: 'glossary', created: false, favorite: await toggleFavorite(hit.id, opts) };
+  const { id, created } = await createPersonalTerm({ term: input.selection, context: input.context, explanation: input.explanation, caseId: input.caseId });
+  return { id, kind: 'personal', created, favorite: await toggleFavorite(id, opts) };
+}
+export async function isStarred(selection: string, begriffe: Fachbegriff[]): Promise<boolean> {
+  const hit = lookupTerm(selection, begriffe);
+  const id = hit ? hit.id : personalTermId(selection);
+  return !!(await db.favorites.get(id));
 }
 
 export async function deletePersonalTerm(id: string): Promise<void> {
