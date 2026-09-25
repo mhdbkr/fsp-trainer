@@ -3,6 +3,7 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import { createTestUser, grantPremium, serviceClient, URL } from './helpers';
+import { mockAllowed, usableChain, relay } from '../functions/ai/guards.ts';
 
 const FN = `${URL}/functions/v1/ai`;
 const ORIGIN = 'https://mhdbkr.github.io';
@@ -58,6 +59,17 @@ describe('ai', () => {
     const r3 = await call(P, { kind: 'chat', turns: [{ role: 'user', text: 'x'.repeat(2001) }] });
     expect(r3.status).toBe(400); await r3.body?.cancel();
   });
+  it('chat : plus de 12 000 car. cumulés → 400, tours assistant acceptés', async () => {
+    const big = Array.from({ length: 7 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', text: 'x'.repeat(2000) }));
+    const r = await call(P, { kind: 'chat', turns: big });
+    expect(r.status).toBe(400); await r.body?.cancel();
+    const ok = await call(P, { kind: 'chat', turns: big.slice(0, 6) }); // 12 000 pile
+    expect(ok.status).toBe(200); await ok.text();
+  });
+  it('Content-Length > 64 000 → 413 avant lecture du corps', async () => {
+    const r = await call(P, { kind: 'brief', selection: 'x', pad: 'y'.repeat(70_000) });
+    expect(r.status).toBe(413); await r.body?.cancel();
+  });
   it('chat premium → flux SSE (AC-7)', async () => {
     const r = await call(P, { kind: 'chat', turns: [{ role: 'user', text: 'Was ist Aszites?' }] });
     expect(r.status).toBe(200); expect(r.headers.get('content-type')).toContain('text/event-stream');
@@ -88,5 +100,38 @@ describe('ai', () => {
     const r = await call(P, { kind: 'chat', turns: [{ role: 'user', text: 'x' }] });
     expect(r.status).toBe(429); expect((await r.json()).error).toBe('quota');
     await serviceClient().from('rate_limits').delete().eq('key', `ai:${P.id}`);
+  });
+});
+
+// Garde-fous purs (module feuille ai/guards.ts, sans Deno).
+const sse = (...chunks: string[]) => new ReadableStream<Uint8Array>({ start(c) { const e = new TextEncoder(); for (const ch of chunks) c.enqueue(e.encode(ch)); c.close(); } });
+const delta = (t: string) => `data: ${JSON.stringify({ choices: [{ delta: { content: t } }] })}\n\n`;
+describe('ai/guards', () => {
+  it('mockAllowed : seulement AI_ALLOW_MOCK=1 ET SUPABASE_URL local', () => {
+    for (const u of ['http://127.0.0.1:54321', 'http://localhost:54321', 'http://kong:8000', 'http://host.docker.internal:54321']) expect(mockAllowed('1', u)).toBe(true);
+    expect(mockAllowed('1', 'https://hwpwoblpygvxwbztconc.supabase.co')).toBe(false);
+    expect(mockAllowed('1', 'http://kong.evil.com')).toBe(false);
+    expect(mockAllowed('1', undefined)).toBe(false);
+    expect(mockAllowed(undefined, 'http://127.0.0.1:54321')).toBe(false);
+  });
+  it('usableChain : sans clé ni mock autorisé → vide (503 avant le quota)', () => {
+    expect(usableChain('groq:m,gemini:n', {}, false)).toEqual([]);
+    expect(usableChain('mock:brief', {}, false)).toEqual([]);
+    expect(usableChain('groq:m,gemini:n', { GEMINI_API_KEY: 'k' }, false)).toEqual([{ provider: 'gemini', model: 'n' }]);
+    expect(usableChain('mock:brief', {}, true)).toEqual([{ provider: 'mock', model: 'brief' }]);
+  });
+  it('relay : cache écrit seulement si [DONE] a été vu', async () => {
+    const seen: string[] = [];
+    await new Response(relay(sse(delta('Aszi'), delta('tes')), (t) => { seen.push(t); }, () => {})).text();
+    expect(seen).toEqual([]);
+    const out = await new Response(relay(sse(delta('Aszi'), delta('tes'), 'data: [DONE]\n\n'), (t) => { seen.push(t); }, () => {})).text();
+    expect(seen).toEqual(['Aszites']);
+    expect(out).toContain('data: [DONE]');
+  });
+  it('relay : annulation côté client → amont annulé', async () => {
+    let aborted = false;
+    const s = relay(new ReadableStream<Uint8Array>({ pull() { /* amont muet */ } }), undefined, () => { aborted = true; });
+    await s.cancel();
+    expect(aborted).toBe(true);
   });
 });
