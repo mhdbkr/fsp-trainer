@@ -40,11 +40,21 @@ export async function serverStream(body: Body, onToken?: (d: string) => void, si
   const dec = new TextDecoder();
   let buf = '', text = '';
   for (;;) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buf += dec.decode(value, { stream: true });
+    let chunk: ReadableStreamReadResult<Uint8Array>;
+    try { chunk = await reader.read(); }
+    catch { throw new ServerAiError(0, 'network'); }
+    if (chunk.done) break;
+    buf += dec.decode(chunk.value, { stream: true });
     const r = sseDeltas(buf);
     buf = r.rest;
+    for (const d of r.deltas) { text += d; onToken?.(d); }
+  }
+  // Flux fermé : vider le décodeur (octets multi-octets en attente), puis
+  // traiter le dernier évènement même sans double saut de ligne final (le
+  // serveur ne termine pas toujours proprement sur `\n\n`).
+  buf += dec.decode();
+  if (buf.trim()) {
+    const r = sseDeltas(`${buf}\n\n`);
     for (const d of r.deltas) { text += d; onToken?.(d); }
   }
   if (!text.trim()) throw new ServerAiError(502, 'empty');

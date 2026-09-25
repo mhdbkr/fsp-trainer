@@ -75,12 +75,41 @@ export function canAskAi(): boolean { return serverAiAvailable() || hasKey(); }
 export function honestAiError(e: unknown): string {
   if (e instanceof ServerAiError) {
     if (e.status === 429) return 'Quota du jour atteint (300 questions). Réessaie demain, ou ajoute une clé de repli dans les réglages Doctopus.';
+    if (e.status === 400) return 'Requête invalide pour le serveur IA (format ou contenu rejeté).';
+    if (e.status === 413) return 'Message trop long pour le serveur IA (limite dépassée).';
     return 'IA serveur indisponible pour le moment. Réessaie dans un instant' + (hasKey() ? '.' : ', ou ajoute une clé de repli dans les réglages Doctopus.');
   }
   return (e as Error)?.message ?? String(e);
 }
 
-const toServerTurns = (turns: ChatTurn[]) => turns.map((t) => ({ role: t.role, text: t.content }));
+// Miroir des contraintes acceptées par la fonction serveur `ai` — jamais
+// importées (module Deno) : supabase/functions/ai/index.ts (schéma `Turn` :
+// 20 tours max, 2 000 car./tour) et supabase/functions/ai/guards.ts
+// (`MAX_CHAT_CHARS` = 12 000 car. cumulés). Un dépassement client-side ferait
+// échouer la requête en 400/413 sans nécessité : on ajuste avant d'envoyer.
+export const CHAT_LIMITS = { maxTurns: 20, maxTurnChars: 2000, maxTotalChars: 12000 } as const;
+
+type ServerTurn = { role: 'user' | 'assistant'; text: string };
+
+/** Ajuste l'historique aux contraintes serveur : tronque chaque tour, retire
+ *  les tours vides, garde les plus récents (≤ 20), puis retire les plus
+ *  anciens jusqu'à respecter le total cumulé ET un premier tour `user`
+ *  (contrainte de la fonction serveur : la conversation ne peut pas commencer
+ *  par un tour assistant orphelin). */
+function fitHistory(turns: ServerTurn[]): ServerTurn[] {
+  let kept = turns
+    .map((t) => ({ role: t.role, text: t.text.slice(0, CHAT_LIMITS.maxTurnChars) }))
+    .filter((t) => t.text.trim().length > 0)
+    .slice(-CHAT_LIMITS.maxTurns);
+  let total = kept.reduce((n, t) => n + t.text.length, 0);
+  while (kept.length && (total > CHAT_LIMITS.maxTotalChars || kept[0].role !== 'user')) {
+    total -= kept[0].text.length;
+    kept = kept.slice(1);
+  }
+  return kept;
+}
+
+const toServerTurns = (turns: ChatTurn[]) => fitHistory(turns.map((t) => ({ role: t.role, text: t.content })));
 const pinnedVia = (turns: ChatTurn[]): 'server' | 'key' | null => turns.find((t) => t.role === 'assistant' && t.via)?.via ?? null;
 
 /** Effort de raisonnement demandé au modèle. `none` pour une question
@@ -223,10 +252,15 @@ async function chat(system: string, turns: ChatTurn[], maxTokens: number, reason
 export async function askConversation(turns: ChatTurn[], onToken?: (delta: string) => void): Promise<ChatTurn> {
   const pin = pinnedVia(turns);
   if (pin !== 'key' && serverAiAvailable()) {
+    // Un texte déjà affiché ne doit jamais être suivi d'un second essai qui
+    // le redouble depuis le début : le repli clé n'est permis que si RIEN
+    // n'a encore été émis à onToken (panne franche, avant tout octet utile).
+    let emitted = false;
+    const track = (d: string) => { emitted = true; onToken?.(d); };
     try {
-      return { role: 'assistant', content: await serverStream({ kind: 'chat', turns: toServerTurns(turns) }, onToken), via: 'server' };
+      return { role: 'assistant', content: await serverStream({ kind: 'chat', turns: toServerTurns(turns) }, track), via: 'server' };
     } catch (e) {
-      if (pin === 'server' || !hasKey()) throw new Error(honestAiError(e));
+      if (emitted || pin === 'server' || !hasKey()) throw new Error(honestAiError(e));
     }
   } else if (pin === 'server') {
     throw new Error(honestAiError(new ServerAiError(0, 'unavailable')));
