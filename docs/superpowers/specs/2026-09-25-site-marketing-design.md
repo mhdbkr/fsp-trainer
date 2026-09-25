@@ -1,7 +1,7 @@
 # Site marketing Doctopus — conception
 
 Date : 2026-09-25 · Statut : validé par la direction (chat), à planifier
-Références : `app/docs/PRODUCT-VISION.md` §6 · `app/docs/brand/INSPIRATION-ORVIO.md` · `app/docs/brand/references/` · `app/docs/site/SKILLS-ET-AGENTS.md` · ADR-0014 (site DE, analytics EU, contenu = recueil personnel) · ADR-0015 (deux trajectoires)
+Références : **`app/docs/brand/PHILOSOPHIE.md` (au-dessus de tout — la métaphore fondatrice décide du visuel)** · `app/docs/brand/{POSITIONNEMENT,MESSAGES,VOIX,RECIT}.md` · `app/docs/PRODUCT-VISION.md` §6 · `app/docs/brand/INSPIRATION-ORVIO.md` · `app/docs/brand/references/` · `app/docs/site/SKILLS-ET-AGENTS.md` · ADR-0014 (site DE, analytics EU, contenu = recueil personnel) · ADR-0015 (deux trajectoires)
 
 ## 1. Intention
 
@@ -113,6 +113,18 @@ Six questions — pays de diplôme, Land visé, niveau d'allemand, étape de la 
 
 ### Deux registres
 **Sombre** = moments de marque (accueil, walkthrough, signature). **Clair** = travail et lecture (centre de ressources, prix, feuille de route). Profondeur par **pile de surfaces d'une seule teinte, sans ombre portée** ; dégradés de **luminosité**, jamais de teinte (leçon Auros/ORVIO).
+
+### La profondeur — ce que le visuel doit signifier
+
+Le vert pétrole abyssal, la transparence et le verre ne sont pas un goût : ce sont les **conséquences** de la métaphore fondatrice (`app/docs/brand/PHILOSOPHIE.md`). L'océan est la voie d'équivalence ; la côte est l'Approbation ; la FSP est le premier récif.
+
+Tout choix visuel se juge à une question : **est-ce que ça appartient à la profondeur ?**
+
+- **La lumière vient toujours d'en haut.** Le cap est connaissable ; l'obscurité n'est que ce qui n'a pas encore été éclairé.
+- **L'abysse est calme.** Sombre, silencieux, dense, sous pression — **jamais une tempête**. Pas d'écume, pas de surface agitée, pas de dramatisation : c'est le registre le plus cheap qui existe, et le visiteur est déjà stressé.
+- **Aucun sauvetage, aucune noyade, aucun nageur représenté.** Le nageur est le visiteur ; le montrer, c'est le mettre dehors. Une pieuvre qui tire un noyé illustre la seule lecture qu'on refuse.
+- **Pas de filage jusqu'à l'absurde** : ni bulles, ni poissons, ni coquillages, ni trésor. La profondeur, la lumière d'en haut, le verre. Rien d'autre.
+- **La métaphore ne s'écrit jamais.** Aucun texte du site ne dit « comme une pieuvre dans l'océan ». Elle se voit ou elle a raté.
 
 ### La pieuvre — gradation stricte
 - **Premier écran : rien.** Aucune évocation animale.
