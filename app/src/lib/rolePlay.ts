@@ -1,4 +1,5 @@
-import type { PatientSheet, RolePlayKapitel } from '@/db/types';
+import type { CaseQuestion, PatientSheet, RolePlayKapitel } from '@/db/types';
+import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { PROBE_BY_ID, PROBE_ORDER } from '@/data/guides/anamneseProbes';
 
 // ============================================================================
@@ -14,6 +15,7 @@ export interface RoleLine {
   antwort: string;     // réplique en Ich-Form, prête à dire
   negativ?: boolean;   // signe nié → chip « ✗ Nein »
   probeId?: string;    // sonde d'origine — permet au suivi live de viser LA ligne
+  improvise?: boolean; // question propre au cas : pas de réplique écrite, le simulant répond depuis la fiche
 }
 
 export interface RoleChapter {
@@ -84,7 +86,7 @@ function glanceFor(id: RolePlayKapitel, s: PatientSheet): string[] {
  *  reliée à sa sonde canonique (question + chapitre + ordre d'entretien), donc
  *  la couverture suit le guide sans dérive. `frageAntworten` (ad-hoc) et
  *  `negativeFindings` sont ajoutés ensuite pour rétrocompatibilité. */
-export function buildRollenskript(sheet: PatientSheet): RoleChapter[] {
+export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestion[] = []): RoleChapter[] {
   const byId = new Map<RolePlayKapitel, (RoleLine & { ord: number })[]>();
   for (const meta of CHAPTER_META) byId.set(meta.id, []);
 
@@ -104,6 +106,14 @@ export function buildRollenskript(sheet: PatientSheet): RoleChapter[] {
   for (const neg of sheet.negativeFindings ?? []) {
     const k = classifyLine(neg);
     byId.get(k)!.push({ antwort: neg, negativ: true, ord: 1001 });
+  }
+
+  // 4) Questions propres au cas (FB2-J8) : le candidat va les poser, le
+  //    simulant doit au moins les VOIR dans son chapitre. La réplique
+  //    s'improvise depuis le « coup d'œil » juste au-dessus.
+  for (const q of caseQuestions) {
+    const k = cqKapitel(q);
+    byId.get(k === 'fach' ? 'fach' : (k as RolePlayKapitel))?.push({ frage: cqText(q), antwort: '', improvise: true, ord: 1002 });
   }
 
   return CHAPTER_META
