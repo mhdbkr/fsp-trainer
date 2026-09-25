@@ -51,3 +51,34 @@ test('check-parity sort 1 quand l\'app dérive (couleur, easing, verre)', () => 
   assert.match(r.stderr, /glass\.blur\+saturate/);
   assert.match(r.stderr, /3 dérive/);
 });
+
+test('les jetons de profondeur existent et descendent en luminosité', async () => {
+  const tokens = JSON.parse(readFileSync(new URL('../tokens.json', import.meta.url), 'utf8'));
+  const depth = tokens.color.depth;
+  assert.ok(depth, 'color.depth absent');
+
+  // Cinq paliers, du plus clair (0) au plus profond (4).
+  const steps = ['0', '1', '2', '3', '4'].map((k) => depth[k]);
+  for (const [i, hex] of steps.entries()) {
+    assert.match(hex ?? '', /^#[0-9a-f]{6}$/, `color.depth.${i} manquant ou mal formé`);
+  }
+
+  // Luminance relative strictement décroissante : la pile descend, elle ne chatoie pas.
+  const lum = (hex) => {
+    const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  };
+  const lums = steps.map(lum);
+  for (let i = 1; i < lums.length; i++) {
+    assert.ok(lums[i] < lums[i - 1], `depth.${i} n'est pas plus profond que depth.${i - 1}`);
+  }
+
+  // Le texte « paper » doit rester lisible sur le palier le plus clair de la pile.
+  const contrast = (a, b) => {
+    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  assert.ok(contrast(tokens.color.paper.DEFAULT, depth['0']) >= 4.5,
+    'paper sur depth.0 sous 4,5:1');
+});
