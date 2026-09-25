@@ -5,6 +5,7 @@ import { toggleFavorite, addToDeck, removeFromDeck, createDeck } from '@/lib/col
 import { SRS_TONE } from '@/lib/srsTone';
 import { armClose, disarmClose } from './hoverTimer';
 import { starRef } from './hoverStarRef';
+import { TermRegister } from './TermRegister';
 
 // Hover-card ★ (spec F2b D2/D3) : une seule carte, ancrée sur le terme survolé
 // ou tapé ; ★ = favori immédiat (+caseId en contexte de cas) puis extension
@@ -98,7 +99,7 @@ export function TermHoverCard() {
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <div className="truncate font-semibold text-brand-700 dark:text-brand-300">{fb.term}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-300">{fb.translationSimple}</div>
+          <TermRegister term={fb} narrow />
           <span role="img" aria-label={fb.srs.state} className={`chip mt-1 ${SRS_TONE[fb.srs.state].chip}`}>{fb.srs.state}</span>
         </div>
         <button

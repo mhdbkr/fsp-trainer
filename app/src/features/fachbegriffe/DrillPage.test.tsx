@@ -114,4 +114,20 @@ describe('DrillPage — pas de boucle de rendu', () => {
 
     useSimSession.setState({ snapshot: null, minimized: false });
   });
+
+  it('carte avec register (term2simple, « Montrer » = Révéler) : le dos affiche parole patient + anamnèse (C2)', async () => {
+    await db.fachbegriffe.clear();
+    await db.fachbegriffe.put({
+      id: 'fb-asz', term: 'Aszites', translationSimple: 'Bauchwasser', specialty: 'Gastroenterologie',
+      pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs(0),
+      register: { patient: 'Wasser im Bauch', vorstellung: 'Sonographisch zeigte sich ein Aszites.', anamnese: 'Ist Ihr Bauch dicker geworden?' },
+    } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    fireEvent.click(revealBtn);
+    expect((await screen.findAllByText(/Wasser im Bauch/)).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText('Ist Ihr Bauch dicker geworden?')).length).toBeGreaterThan(0);
+  });
 });

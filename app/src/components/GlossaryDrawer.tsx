@@ -6,6 +6,7 @@ import { toggleFavorite, addToDeck, removeFromDeck, createDeck } from '@/lib/col
 import { deletePersonalTerm } from '@/lib/collections/personalTerms';
 import { isPersonalView, type PersonalTermView } from '@/lib/collections/allTerms';
 import { SRS_TONE } from '@/lib/srsTone';
+import { TermRegister } from './TermRegister';
 
 // Panneau latéral d'aperçu d'un Fachbegriff (ouvert au clic sur un terme
 // auto-linké). Montre traduction, prononciation, définition, et les cas liés
@@ -138,7 +139,7 @@ export function GlossaryDrawer() {
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           <div>
             <div className="label mb-1">Bedeutung (patientengerecht)</div>
-            <p className="text-slate-700 dark:text-slate-200">{fb.translationSimple}</p>
+            <TermRegister term={fb} />
           </div>
 
           {fb.definitionDetailed && (

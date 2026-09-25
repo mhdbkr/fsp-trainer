@@ -6,6 +6,7 @@ import { Icon } from '@/components/icons';
 import { useAllTerms, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
 import type { AnyTerm } from '@/lib/collections/allTerms';
 import { rateTerm } from '@/lib/collections/allTerms';
+import { registerLine } from '@/components/TermRegister';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
 import { markIntroduced, markReviewed } from '@/lib/srsBudget';
@@ -165,7 +166,7 @@ export function DrillPage() {
 
   const card = queue[idx];
   const front = direction === 'term2simple' ? card.term : card.translationSimple;
-  const back = direction === 'term2simple' ? card.translationSimple : card.term;
+  const back = direction === 'term2simple' ? registerLine(card) : card.term;
 
   const grade = async (g: Grade) => {
     const wasNew = card.srs.state === 'Neu';
@@ -207,6 +208,7 @@ export function DrillPage() {
           <div className="card absolute inset-0 flex flex-col items-center justify-center overflow-y-auto p-8 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
             <div className="label">{front}</div>
             <div className="mt-3 text-xl font-semibold text-brand-700 dark:text-brand-300">{back}</div>
+            {direction === 'term2simple' && card.register && <p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.register.anamnese}</p>}
             {card.definitionDetailed && <p className="mx-auto mt-3 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.definitionDetailed}</p>}
           </div>
         </div>

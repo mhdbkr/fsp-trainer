@@ -8,6 +8,8 @@ import { lookupTerm } from '@/lib/dictionary';
 import { askBrief, canAskAi, honestAiError } from '@/lib/onlineAi';
 import { starSelection, cleanSelection, personalTermId, PT_LIMITS } from '@/lib/collections/personalTerms';
 import { toView } from '@/lib/collections/allTerms';
+import { TermRegister } from '@/components/TermRegister';
+import type { Fachbegriff } from '@/db/types';
 
 // ============================================================================
 // Quick-search : quand l'utilisateur SÉLECTIONNE un mot, un terme OU une
@@ -20,7 +22,7 @@ import { toView } from '@/lib/collections/allTerms';
 // ============================================================================
 
 interface Anchor { text: string; context: string; x: number; y: number }
-type Bubble = { loading: boolean; text?: string; error?: string; source?: 'glossaire' | 'IA' };
+type Bubble = { loading: boolean; text?: string; error?: string; source?: 'glossaire' | 'IA'; fb?: Fachbegriff };
 
 export function SelectionExplainer() {
   const begriffe = useFachbegriffe() ?? [];
@@ -111,7 +113,7 @@ export function SelectionExplainer() {
     // 1) Glossaire local (correspondance exacte ou fléchie proche, jamais floue — FB2-M3).
     const h = lookupTerm(term, begriffe);
     if (h) {
-      setBubble({ loading: false, source: 'glossaire', text: `${h.term} — ${h.translationSimple}` });
+      setBubble({ loading: false, source: 'glossaire', text: h.term, fb: h });
       return;
     }
     // 2) IA brève (serveur d'abord, clé navigateur en repli).
@@ -161,6 +163,7 @@ export function SelectionExplainer() {
                   <span className="chip py-0 text-[9px] text-slate-400">{bubble.source}</span>
                 </div>
                 <div className="leading-snug text-slate-700 dark:text-slate-200">{bubble.text}</div>
+                {bubble.fb && <div className="mt-1.5"><TermRegister term={bubble.fb} narrow /></div>}
               </>
             )}
             <button onClick={() => { openDoctopus(anchor.text); setAnchor(null); setBubble(null); setDone(null); }}
