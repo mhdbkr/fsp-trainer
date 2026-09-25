@@ -1,9 +1,8 @@
 // app/scripts/registerLots.mjs
 // Production du double registre par lots (F3 §3.2)
-import { readFileSync, writeFileSync, mkdirSync, createReadStream } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { createInterface } from 'node:readline';
 import { checkEntry } from './checkTermRegister.mjs';
 
 export function nextLot(fb, links, size = 100) {
@@ -38,8 +37,8 @@ export function nextLot(fb, links, size = 100) {
     }));
 }
 
-// Streaming line reader to find first occurrence of term in seed files
-async function findSample(term, seedDir) {
+// Find sample from seed files (line-based read, never loads whole file)
+function findSample(term, seedDir) {
   const seedFiles = ['seed.ts', 'seedCases.ts', 'seedAufklaerungen.ts', 'seedFachwissen.ts', 'seedGuides.ts', 'caseMuster.ts'];
   const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const regex = new RegExp(`(?<![\\p{L}\\p{N}])(${escapedTerm})(e|en|n|s|es)?(?![\\p{L}\\p{N}])`, 'iu');
@@ -47,7 +46,7 @@ async function findSample(term, seedDir) {
   for (const file of seedFiles) {
     const filePath = join(seedDir, file);
     try {
-      const sample = await findLineInFile(filePath, regex);
+      const sample = findLineInFileSync(filePath, regex);
       if (sample) return sample;
     } catch (err) {
       // File may not exist or be readable, continue to next
@@ -56,40 +55,29 @@ async function findSample(term, seedDir) {
   return null;
 }
 
-async function findLineInFile(filePath, regex) {
-  return new Promise((resolve) => {
-    const rl = createInterface({
-      input: createReadStream(filePath),
-      crlfDelay: Infinity
-    });
+function findLineInFileSync(filePath, regex) {
+  try {
+    const content = readFileSync(filePath, 'utf8');
+    const lines = content.split('\n');
 
-    let found = false;
-    rl.on('line', (line) => {
-      if (found) return;
-
-      // Look for quoted strings in the line
-      const stringMatches = line.match(/'([^']*)'|"([^"]*)"/g);
-      if (stringMatches && regex.test(line)) {
-        for (const match of stringMatches) {
-          const content = match.slice(1, -1); // Remove quotes
-          if (regex.test(content)) {
-            found = true;
-            rl.close();
-            resolve(content.slice(0, 200)); // Trim to 200 chars
-            return;
+    for (const line of lines) {
+      if (regex.test(line)) {
+        // Look for quoted strings in the line
+        const stringMatches = line.match(/'([^']*)'|"([^"]*)"/g);
+        if (stringMatches) {
+          for (const match of stringMatches) {
+            const quoted = match.slice(1, -1); // Remove quotes
+            if (regex.test(quoted)) {
+              return quoted.slice(0, 200); // Trim to 200 chars
+            }
           }
         }
       }
-    });
-
-    rl.on('close', () => {
-      if (!found) resolve(null);
-    });
-
-    rl.on('error', () => {
-      resolve(null);
-    });
-  });
+    }
+  } catch (err) {
+    // Ignore read errors
+  }
+  return null;
 }
 
 export function serialize(fb) {
@@ -110,14 +98,20 @@ if (currentFile.endsWith(process.argv[1].replace(/\\/g, '/'))) {
     const links = JSON.parse(readFileSync(join(here, '../src/data/caseTermLinks.json'), 'utf8'));
     const lot = nextLot(fb, links, size);
 
-    // Add samples (async, but we'll do it synchronously for simplicity in this context)
-    // For now, omit samples as they require async file I/O
+    // Add samples from seed files
+    for (const entry of lot) {
+      const sample = findSample(entry.t, seedDir);
+      if (sample) {
+        entry.sample = sample;
+      }
+    }
 
     mkdirSync(join(here, '../scratchpad'), { recursive: true });
     writeFileSync(join(here, '../scratchpad/register-lot.json'), JSON.stringify(lot, null, 2));
 
     const specialties = new Set(lot.map((e) => e.sp));
-    console.log(`lot : ${lot.length} termes → scratchpad/register-lot.json (${specialties.size} spécialités)`);
+    const withSample = lot.filter((e) => e.sample).length;
+    console.log(`lot : ${lot.length} termes → scratchpad/register-lot.json (${specialties.size} spécialités, ${withSample} avec sample)`);
   } else if (cmd === 'apply') {
     const patchPath = arg;
     const patch = JSON.parse(readFileSync(patchPath, 'utf8'));
