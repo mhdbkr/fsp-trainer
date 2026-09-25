@@ -24,6 +24,7 @@ import { getActiveUserId } from '@/lib/auth/accounts';
 
 export { PROVIDERS, OPENROUTER_FALLBACKS, type AiProvider } from './aiModels';
 import { PROVIDERS, OPENROUTER_FALLBACKS, type AiProvider } from './aiModels';
+import { serverAiAvailable, serverStream, ServerAiError } from './serverAi';
 
 
 const KEY_LS = 'doctopus-key';
@@ -60,7 +61,27 @@ export interface ChatTurn {
   role: 'user' | 'assistant';
   content: string;
   reasoningDetails?: unknown[];
+  /** Fournisseur du tour assistant : 'server' (fonction ai) ou 'key' (clé
+   *  navigateur). Une conversation reste épinglée au fournisseur de son
+   *  premier tour assistant (F3 §3.5, AC-8). */
+  via?: 'server' | 'key';
 }
+
+/** Une question peut être posée maintenant : fonction serveur disponible ou
+ *  clé navigateur configurée. */
+export function canAskAi(): boolean { return serverAiAvailable() || hasKey(); }
+
+/** Message affichable, jamais technique (FB2-M3 : dire honnêtement). */
+export function honestAiError(e: unknown): string {
+  if (e instanceof ServerAiError) {
+    if (e.status === 429) return 'Quota du jour atteint (300 questions). Réessaie demain, ou ajoute une clé de repli dans les réglages Doctopus.';
+    return 'IA serveur indisponible pour le moment. Réessaie dans un instant' + (hasKey() ? '.' : ', ou ajoute une clé de repli dans les réglages Doctopus.');
+  }
+  return (e as Error)?.message ?? String(e);
+}
+
+const toServerTurns = (turns: ChatTurn[]) => turns.map((t) => ({ role: t.role, text: t.content }));
+const pinnedVia = (turns: ChatTurn[]): 'server' | 'key' | null => turns.find((t) => t.role === 'assistant' && t.via)?.via ?? null;
 
 /** Effort de raisonnement demandé au modèle. `none` pour une question
  *  directe : sur un modèle de raisonnement, les jetons de réflexion sont
@@ -200,7 +221,17 @@ async function chat(system: string, turns: ChatTurn[], maxTokens: number, reason
  *  à AJOUTER à l'historique tel quel — ses reasoningDetails servent au tour
  *  d'après. onToken (OpenRouter uniquement) reçoit chaque fragment du stream. */
 export async function askConversation(turns: ChatTurn[], onToken?: (delta: string) => void): Promise<ChatTurn> {
-  return chat(DOCTOPUS_SYSTEM, turns, 800, pickReasoning(turns), onToken);
+  const pin = pinnedVia(turns);
+  if (pin !== 'key' && serverAiAvailable()) {
+    try {
+      return { role: 'assistant', content: await serverStream({ kind: 'chat', turns: toServerTurns(turns) }, onToken), via: 'server' };
+    } catch (e) {
+      if (pin === 'server' || !hasKey()) throw new Error(honestAiError(e));
+    }
+  } else if (pin === 'server') {
+    throw new Error(honestAiError(new ServerAiError(0, 'unavailable')));
+  }
+  return { ...(await chat(DOCTOPUS_SYSTEM, turns, 800, pickReasoning(turns), onToken)), via: 'key' };
 }
 
 /** Réponse à une question isolée (un seul tour). Conservé pour les appels
@@ -212,8 +243,16 @@ export async function askOnline(query: string, onToken?: (delta: string) => void
 /** Glose brève pour le quick-search (bulle sur sélection). Jamais de
  *  raisonnement : c'est LA question directe par excellence, et un petit budget
  *  ne survit pas à une phase de réflexion. Un terme → une ligne ; une phrase
- *  (FB2-M2) → deux phrases, budget plus large. */
+ *  (FB2-M2) → deux phrases, budget plus large. Fonction serveur d'abord (F3
+ *  §3.5) ; repli clé navigateur si le serveur est indisponible. */
 export async function askBrief(selection: string): Promise<string> {
+  if (serverAiAvailable()) {
+    try {
+      return (await serverStream({ kind: 'brief', selection })).trim();
+    } catch (e) {
+      if (!hasKey()) throw new Error(honestAiError(e));
+    }
+  }
   const kind = briefKind(selection);
   const { system, user } = buildBriefPrompt(selection, kind);
   return (await chat(system, [{ role: 'user', content: user }], kind === 'phrase' ? 220 : 120, 'none')).content.trim();
