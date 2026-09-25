@@ -7,7 +7,9 @@
 // toutes leurs règles. Seuil : 16/20.
 //
 // Usage : OPENROUTER_API_KEY=sk-or-… node scripts/evalDoctopus.mjs [--model liquid/lfm-2.5-2.6b:free] [--dry]
+//         GROQ_API_KEY=… GEMINI_API_KEY=… node scripts/evalDoctopus.mjs --chain groq:llama-3.3-70b-versatile
 //   --dry : valide le jeu et la grille sans appel réseau (CI).
+//   --chain <spec> : rejoue le jeu sur la chaîne serveur (_shared/aiChain.ts), même grille, seuil 16/20.
 // La clé n'est jamais lue ailleurs que dans l'environnement.
 // ============================================================================
 import { readFileSync } from 'node:fs';
@@ -26,10 +28,10 @@ const set = JSON.parse(readFileSync(join(root, 'evals', 'doctopus.reference.json
 
 // Le prompt système, chargé depuis la source (esbuild) — pas de copie.
 const dir = mkdtempSync(join(tmpdir(), 'fsp-eval-'));
-writeFileSync(join(dir, 'entry.ts'), `export { DOCTOPUS_SYSTEM } from ${JSON.stringify(join(root, 'src/lib/dictionary.ts'))};\nexport { PROVIDERS, OPENROUTER_FALLBACKS } from ${JSON.stringify(join(root, 'src/lib/aiModels.ts'))};`);
+writeFileSync(join(dir, 'entry.ts'), `export { DOCTOPUS_SYSTEM } from ${JSON.stringify(join(root, 'src/lib/dictionary.ts'))};\nexport { PROVIDERS, OPENROUTER_FALLBACKS } from ${JSON.stringify(join(root, 'src/lib/aiModels.ts'))};\nexport { openStream, parseChain, sseDeltas } from ${JSON.stringify(join(root, 'supabase/functions/_shared/aiChain.ts'))};`);
 await build({ entryPoints: [join(dir, 'entry.ts')], outfile: join(dir, 'b.mjs'), bundle: true, format: 'esm', platform: 'node', logLevel: 'silent',
   plugins: [{ name: 'alias', setup(b) { b.onResolve({ filter: /^@\// }, (a) => ({ path: join(root, 'src', a.path.slice(2)) + (a.path.endsWith('.ts') ? '' : '.ts') })); } }] });
-const { DOCTOPUS_SYSTEM, PROVIDERS, OPENROUTER_FALLBACKS } = await import(pathToFileURL(join(dir, 'b.mjs')).href);
+const { DOCTOPUS_SYSTEM, PROVIDERS, OPENROUTER_FALLBACKS, openStream, parseChain, sseDeltas } = await import(pathToFileURL(join(dir, 'b.mjs')).href);
 // Modèle et repli = ceux de l'app, sauf --model.
 const appModel = PROVIDERS.find((p) => p.id === 'openrouter')?.model;
 rmSync(dir, { recursive: true, force: true });
@@ -73,6 +75,27 @@ if (dry) {
   console.log(`✅ Jeu de référence valide — ${set.length} questions ; grille OK (échantillon : ${sample.length ? sample.join(', ') : 'passe'}). Prompt : ${DOCTOPUS_SYSTEM.length} caractères.`);
   process.exit(0);
 }
+
+const chainSpec = args.includes('--chain') ? args[args.indexOf('--chain') + 1] : undefined;
+async function askChain(q) {
+  const { entry, body } = await openStream(parseChain(chainSpec), [{ role: 'system', content: DOCTOPUS_SYSTEM }, { role: 'user', content: q }], 1200, process.env);
+  const reader = body.getReader(); const dec = new TextDecoder(); let buf = '', text = '';
+  for (;;) { const { value, done } = await reader.read(); if (done) break; buf += dec.decode(value, { stream: true }); const r = sseDeltas(buf); buf = r.rest; text += r.deltas.join(''); }
+  return { text: text.trim(), model: `${entry.provider}:${entry.model}` };
+}
+if (chainSpec) {
+  let pass = 0;
+  for (const it of set) {
+    let r; try { r = await askChain(it.q); } catch (e) { console.log(`! ${it.id.padEnd(12)} ERREUR ${e.message}`); continue; }
+    const fails = r.text ? grade(it, r.text) : ['réponse vide'];
+    if (!fails.length) pass++;
+    console.log(`${fails.length ? '✗' : '✓'} ${it.id.padEnd(12)} ${fails.join(' · ') || 'passe'}  [${r.model}]`);
+    if (args.includes('--verbose')) console.log('   ' + r.text.replace(/\n/g, '\n   ') + '\n');
+  }
+  console.log(`\n${pass >= 16 ? '✅' : '❌'} ${pass}/${set.length} (seuil 16) — chaîne ${chainSpec}`);
+  process.exit(pass >= 16 ? 0 : 1);
+}
+
 const key = process.env.OPENROUTER_API_KEY;
 if (!key) { console.error('OPENROUTER_API_KEY requis (ou --dry).'); process.exit(2); }
 let pass = 0; let empty = 0; const rows = [];
