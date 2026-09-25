@@ -907,6 +907,70 @@ cd apps/site && node --test test/contrast.test.mjs; echo "exit=$?"
 ```
 Si `exit=1` : **ne pas baisser le seuil**. Corriger le jeton fautif dans `packages/tokens/tokens.json` (éclaircir `signal.300` ou le palier de fond), puis relancer la tâche 2 étape 4.
 
+- [ ] **Step 2 bis: Réparer la chaîne `verify`, qui ne peut pas passer aujourd'hui**
+
+Constat de la tâche 1 : `package.json` appelle `check:placeholders` et `check:budgets`, mais **ni `scripts/check-placeholders.mjs` ni `scripts/check-budgets.mjs` n'existent** — spécifiés en V1 (`docs/superpowers/specs/2026-09-16-site-design.md`), jamais écrits. `npm run verify` sort donc toujours en erreur. Une gate qui ne peut pas passer est pire que pas de gate.
+
+**`check-budgets`** (budgets de performance) appartient au Plan B, qui apporte React, GSAP et la 3D. Le retirer de `verify` :
+
+Dans `apps/site/package.json`, supprimer la ligne `"check:budgets": …` et retirer `&& npm run check:budgets` de `verify`. Ajouter au-dessus de `"check:cta"` :
+```json
+    "_note:budgets": "check-budgets arrive au Plan B, avec les premières dépendances JavaScript",
+```
+
+**`check-placeholders`** reste, lui, indispensable : c'est ce qui empêche une page d'être publiée avec `{{PRICE_PRO}}` alors que les prix ne sont pas tranchés. Créer `apps/site/scripts/check-placeholders.mjs` :
+
+```javascript
+#!/usr/bin/env node
+// Refuse tout gabarit non substitué dans le HTML construit quand le site est
+// destiné au public. Spécifié dans docs/superpowers/specs/2026-09-16-site-design.md
+// (« aucun {{…}} dans dist si SITE_PUBLIC=true »), jamais implémenté jusqu'ici.
+// Hors mode public, on avertit sans bloquer : un site en préparation a le droit
+// de porter des valeurs en attente.
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const PUBLIC = process.env.SITE_PUBLIC === 'true';
+const PLACEHOLDER = /\{\{\s*[A-Z0-9_]+\s*\}\}/g;
+
+function* htmlFiles(dir) {
+  for (const name of readdirSync(dir)) {
+    const p = join(dir, name);
+    if (statSync(p).isDirectory()) yield* htmlFiles(p);
+    else if (name.endsWith('.html')) yield p;
+  }
+}
+
+let found = 0;
+for (const file of htmlFiles(dist)) {
+  for (const m of readFileSync(file, 'utf8').matchAll(PLACEHOLDER)) {
+    console.error(`${PUBLIC ? '✗' : '·'} gabarit non substitué « ${m[0]} »  ${file.replace(dist, 'dist')}`);
+    found++;
+  }
+}
+if (!found) { console.log('check-placeholders : ok'); process.exit(0); }
+if (PUBLIC) {
+  console.error(`\ncheck-placeholders : ${found} gabarit(s) non substitué(s) en mode public.`);
+  process.exit(1);
+}
+console.log(`check-placeholders : ${found} gabarit(s) en attente ; toléré hors SITE_PUBLIC=true.`);
+```
+
+Vérifier :
+```bash
+cd apps/site && npm run build >/dev/null && npm run check:placeholders; echo "placeholders=$?"
+SITE_PUBLIC=true npm run build >/dev/null && SITE_PUBLIC=true npm run check:placeholders; echo "public=$?"
+```
+Attendu : `placeholders=0`. Pour `public`, `0` si aucun gabarit ne subsiste, `1` sinon — et dans ce second cas, **ne pas corriger ici** : noter les gabarits trouvés dans le rapport, ils relèvent de la décision sur les prix.
+
+Commit :
+```bash
+git add apps/site/scripts/check-placeholders.mjs apps/site/package.json
+git commit -m "fix(site): ecrire check-placeholders (specifie en V1, jamais implemente) et retirer check-budgets de verify"
+```
+
 - [ ] **Step 3: Brancher la voix dans la CI**
 
 Dans `.github/workflows/quality.yml`, dans le job du site, après l'étape qui lance `check:lexicon`, ajouter :
@@ -922,7 +986,7 @@ Dans `.github/workflows/quality.yml`, dans le job du site, après l'étape qui l
 ```bash
 cd apps/site && npm run verify; echo "verify=$?"
 ```
-Attendu : `verify=0`. C'est **la** preuve de fin de plan : tout le reste est indicatif.
+Attendu : `verify=0`. C'est **la** preuve de fin de plan : tout le reste est indicatif. (`check:lighthouse` peut demander un serveur ; s'il est le seul rouge, le noter et poursuivre — il est rejugé au Plan B.)
 
 - [ ] **Step 5: Vérifier dans un vrai navigateur**
 
