@@ -1,7 +1,17 @@
 #!/usr/bin/env node
-// Vérifie la voix de marque (app/docs/brand/VOIX.md §08, PHILOSOPHIE.md §08)
-// sur le HTML construit. Ne lit que le TEXTE VISIBLE : ni attributs, ni script, ni style
-// (réutilise textOf/listHtml de lib/dist.mjs, comme check-no-promise.mjs et check-legal.mjs).
+// Vérifie la voix de marque (app/docs/brand/VOIX.md §08, PHILOSOPHIE.md §08) sur le HTML
+// construit. Les briques (dépouillement, décodage d'entités, césure, bornes Unicode,
+// étendue du corpus, exception explicite) viennent de lib/dist.mjs — le même foyer que
+// check-no-promise.mjs, check-legal.mjs et check-cta.mjs.
+//
+// CORPUS (scope 'full' de htmlCorpus) : texte visible + <title> + meta description +
+// og:description + attributs lus par l'utilisateur (alt/title/aria-label) + chaînes des
+// blocs application/ld+json. La copie que Google affiche et que le lecteur d'écran lit
+// compte autant que le corps de la page.
+//
+// COMPARAISON : entités décodées (&uuml; / &#252; / &#xFC;), césure conditionnelle et
+// largeurs nulles retirées, NFC, minuscules. Les diacritiques sont CONSERVÉS — les
+// dépouiller casserait les motifs à umlaut du lexique.
 //
 // README des règles (voice.lexicon.json) :
 //  vouvoiement            VOIX.md §01/§08 — une seule personne grammaticale (tutoiement), jamais
@@ -12,74 +22,95 @@
 //  promesse               VOIX.md §08 — toute forme de promesse de réussite
 //  fuite                  confidentialité de l'examen : ne jamais laisser croire à un accès aux sujets
 //  jeu                    VOIX.md §08 — jargon de jeu en façade (les mécaniques existent, le discours n'en parle pas)
+//  urgence                VOIX.md §08 — l'urgence fabriquée ; le seul compte à rebours légitime est sa date d'examen
+//  comparaison            VOIX.md §08 — la comparaison nommée : on décrit ce que l'alternative ne peut pas faire
 //  metaphore_explicitee   PHILOSOPHIE.md §08 — la métaphore de la pieuvre ne s'explique jamais
 //  sauvetage              PHILOSOPHIE.md §08 — aucun sauvetage, aucune noyade, aucune tempête
 //  bareme                 confidentialité du barème exact (60 % / 60 points)
-//  exclamation            VOIX.md §05 — zéro point d'exclamation en allemand public
+//  exclamation            VOIX.md §05 — zéro point d'exclamation en allemand public (variantes Unicode incluses)
+//  emoji                  VOIX.md §08 — aucun émoji dans le corps d'un texte allemand
 //
-// Un contexte nié (« keine Erfolgsquote ») est exclu de toutes les règles, voir NEGATIONS
-// ci-dessous (arbitrage tâche 5, réserve n°2).
-import { readFileSync } from 'node:fs';
+// EXCEPTION : pas d'heuristique de négation (elle échouait des deux côtés : elle n'absorbait
+// pas « keine strafende Streak » et elle avalait « ohne im ersten Versuch zu scheitern »).
+// Une exception se pose à la main dans la source, en commentaire HTML :
+//     <!-- voice:allow "Streak" -->
+// Elle lève la correspondance de ce texte exact sur CETTE page seulement, pour toutes les
+// règles. Une exception écrite dans le texte se voit dans un diff ; une heuristique, non.
+// C'est aussi la seule sanction possible d'un mot volontairement coupé par une balise inline
+// (limite documentée dans lib/dist.mjs, textOf).
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { listHtml, textOf, report } from './lib/dist.mjs';
+import { listHtml, htmlCorpus, decodeEntities, stripInvisible, boundedRe, report } from './lib/dist.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const LEXICON = JSON.parse(readFileSync(join(here, 'voice.lexicon.json'), 'utf8'));
 
 // Arbitrage tâche 5, réserve n°1 (retenue) : le vouvoiement est l'usage juridique allemand, et
 // une Widerrufsbelehrung porte des formules statutaires qu'on ne réécrit pas au tutoiement.
-// Seule la règle `vouvoiement` est levée, et seulement sur ces 4 chemins — toutes les autres
-// règles (promesse, jeu, bareme, …) continuent de s'y appliquer pleinement.
+// Seule la règle `vouvoiement` est levée, et seulement sur ces 4 chemins EXACTS — une
+// comparaison en sous-chaîne offrirait l'exemption à /de/agb/anhang/ et à toute machine dont
+// le chemin de checkout contiendrait « de/agb ».
 const VOUVOIEMENT_EXEMPT_PATHS = ['/de/agb/', '/de/datenschutz/', '/de/widerruf/', '/de/impressum/'];
-const isVouvoiementExempt = (file) => VOUVOIEMENT_EXEMPT_PATHS.some((p) => file.includes(p));
+const isVouvoiementExempt = (file) => VOUVOIEMENT_EXEMPT_PATHS.includes(file.replace(/[^/]*$/, ''));
 
-// Arbitrage tâche 5, réserve n°2 (retenue) : même mécanisme de négation que
-// check-no-promise.mjs — mot immédiatement précédent (≤ 1 mot avant) dans cet ensemble de
-// négateurs. Dupliqué plutôt qu'importé : check-no-promise.mjs est hors périmètre pour cette
-// tâche (on ne le modifie pas) et n'exporte pas ces deux éléments ; garder le même
-// comportement plutôt qu'en inventer un autre.
-const NEGATIONS = new Set([
-  'kein', 'keine', 'keinen', 'keinem', 'keiner', 'ohne', 'nicht',
-  'aucun', 'aucune', 'sans', 'no', 'without', 'never',
-]);
-function precedingWord(text, index) {
-  const before = text.slice(0, index).trimEnd();
-  const m = before.match(/([\p{L}\p{N}]+)\s*$/u);
-  return m ? m[1] : '';
-}
+// Règles de caractère : un jeu de caractères, pas un motif de mot (les bornes de mot n'ont
+// pas de sens ici — « toll🎉 » doit déclencher autant que « toll 🎉 »).
+const CHAR_RULES = {
+  // « ！ » pleine largeur (U+FF01) et ses parents passaient : la règle testait '!' en ASCII.
+  exclamation: /[!！﹗ǃ‼⁉❕❗]/u,
+  // Emoji_Presentation + pictogramme suivi du sélecteur de variante : attrape 🐙 et ❤️
+  // sans attraper le © du pied de page (pictogramme sans présentation émoji).
+  emoji: /\p{Emoji_Presentation}|\p{Extended_Pictographic}️/u,
+};
+
+const normalizeVoice = (s) => stripInvisible(decodeEntities(s)).normalize('NFC').toLowerCase();
 
 /**
- * findViolations(file, html) -> { file, rule, match }[]
- * Une entrée par règle déclenchée (première correspondance non négée), plus 'exclamation'
- * si le texte visible contient un point d'exclamation. `vouvoiement` est ignorée sur les
- * 4 chemins légaux (VOUVOIEMENT_EXEMPT_PATHS).
+ * findViolations(file, html, lexicon) -> { file, rule, match }[]
+ * Une entrée par règle déclenchée (première correspondance non exemptée). `file` est le
+ * chemin RELATIF à dist/ (« /de/agb/index.html ») : les exemptions de chemin en dépendent.
+ * `lexicon` n'est surchargé que par les tests (motif capable de matcher le vide).
  */
-export function findViolations(file, html) {
-  const lower = textOf(html).toLowerCase();
+export function findViolations(file, html, lexicon = LEXICON) {
+  const { text, allow } = htmlCorpus(html, 'full');
+  const hay = normalizeVoice(text);
+  const allowed = new Set(allow.map(normalizeVoice));
   const out = [];
-  for (const [rule, patterns] of Object.entries(LEXICON)) {
+  for (const [rule, patterns] of Object.entries(lexicon)) {
     if (rule.startsWith('$')) continue;
     if (rule === 'vouvoiement' && isVouvoiementExempt(file)) continue;
     let match = null;
     for (const p of patterns) {
-      const re = new RegExp(p, 'g');
+      const re = boundedRe(p);
       let m;
-      while ((m = re.exec(lower))) {
-        if (!NEGATIONS.has(precedingWord(lower, m.index))) { match = m[0]; break; }
+      while ((m = re.exec(hay))) {
+        // Un motif capable de matcher le vide ferait tourner exec() à l'infini (la CI
+        // bloquerait) : on avance la tête de lecture à la main.
+        if (m[0].length === 0) { re.lastIndex += 1; continue; }
+        if (!allowed.has(normalizeVoice(m[0]))) { match = m[0]; break; }
       }
       if (match) break;
     }
     if (match) out.push({ file, rule, match });
   }
-  if (lower.includes('!')) out.push({ file, rule: 'exclamation', match: '!' });
+  for (const [rule, re] of Object.entries(CHAR_RULES)) {
+    const m = hay.match(re);
+    if (m && !allowed.has(normalizeVoice(m[0]))) out.push({ file, rule, match: m[0] });
+  }
   return out;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const dist = resolve(here, '../dist');
+  // argv[2] : racine du corpus (défaut ../dist). Sert à exercer la moitié exécutable —
+  // parcours, forme du chemin rapporté, code de sortie — sur un dist/ minimal.
+  const dist = process.argv[2] ? resolve(process.argv[2]) : resolve(here, '../dist');
+  const files = existsSync(dist) ? listHtml(dist) : [];
   const errs = [];
-  for (const file of listHtml(dist)) {
+  // Un dist/ présent mais sans HTML donnait un succès à vide, sortie 0 : une porte qui ne
+  // scanne rien n'est pas verte, elle est muette.
+  if (!files.length) errs.push(`corpus vide : aucun fichier HTML sous ${dist}`);
+  for (const file of files) {
     const rel = file.slice(dist.length);
     for (const v of findViolations(rel, readFileSync(file, 'utf8'))) {
       errs.push(`${v.rule}: « ${v.match} » — dist${rel} (voir app/docs/brand/VOIX.md §08)`);
