@@ -73,3 +73,45 @@
   /* Signature readout mono pour kickers/libellés en capitales espacées. */
   .eyebrow { @apply font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-600 dark:text-paper/70; }
 }
+
+/* ── Les deux registres (PHILOSOPHIE.md §04, spec §6) ──────────────────────
+   Sombre = moments de marque. Clair = travail et lecture.
+   La profondeur se fait par PILE DE SURFACES d'une seule teinte, jamais par
+   ombre portée. La lumière vient d'en haut : le filet supérieur est plus fort. */
+
+.register-deep {
+  --surface: var(--dt-color-depth-1);
+  --surface-raised: var(--dt-color-depth-0);
+  --on-surface: var(--dt-color-paper);
+  --on-surface-muted: rgb(244 245 242 / 0.72);
+  background-color: var(--dt-color-depth-2);
+  color: var(--on-surface);
+}
+
+.register-work {
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --on-surface: var(--dt-color-ink);
+  --on-surface-muted: var(--dt-color-ink-600);
+  background-color: var(--dt-color-paper);
+  color: var(--on-surface);
+}
+
+.surface {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border-radius: var(--dt-radius-card);
+  border: 1px solid var(--dt-color-depth-veil);
+  border-top-color: var(--dt-color-depth-lift);
+}
+
+.surface-raised {
+  background-color: var(--surface-raised);
+}
+
+/* Dans le registre clair, les filets pétrole translucides sont invisibles :
+   on redonne un trait d'encre très léger, même géométrie, même rôle. */
+.register-work .surface {
+  border-color: rgb(12 26 23 / 0.08);
+  border-top-color: rgb(12 26 23 / 0.12);
+}
