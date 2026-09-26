@@ -11,14 +11,16 @@ vi.mock('@/lib/sync/queue', async () => {
 
 vi.mock('@/lib/onlineAi', () => ({
   hasKey: () => true,
-  canAskAi: () => true,
+  canAskAi: vi.fn(() => true),
   honestAiError: (e: unknown) => (e as Error)?.message ?? String(e),
+  noAiMessage: vi.fn(() => 'IA indisponible : connecte-toi (compte premium) ou ajoute une clé de repli dans les réglages Doctopus.'),
   askBrief: vi.fn(async () => 'Essoufflement à l\'effort.'),
 }));
 
-function selectText(el: HTMLElement) {
+function selectText(el: HTMLElement, rect?: Partial<DOMRect>) {
   const range = document.createRange(); range.selectNodeContents(el);
-  range.getBoundingClientRect = () => ({ left: 10, top: 100, width: 60, height: 16, right: 70, bottom: 116, x: 10, y: 100, toJSON() {} }) as DOMRect;
+  const r = { left: 10, top: 100, width: 60, height: 16, right: 70, bottom: 116, x: 10, y: 100, toJSON() {}, ...rect };
+  range.getBoundingClientRect = () => r as DOMRect;
   const sel = window.getSelection()!; sel.removeAllRanges(); sel.addRange(range);
 }
 
@@ -119,6 +121,36 @@ describe('SelectionExplainer', () => {
     const starInBubble = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
     expect(starInBubble.className).not.toMatch(/text-white/);
     expect(starInBubble.className).not.toMatch(/hover:bg-brand-700/);
+  });
+  it('sélection près du haut du viewport → pastille bascule sous la sélection, jamais hors écran (B1)', async () => {
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'), { top: 20, height: 16, bottom: 36 });
+    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
+    await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    const box = document.querySelector('.fixed.z-\\[80\\]') as HTMLElement;
+    expect(box.style.transform).toBe('translate(-50%, 0)');
+    const top = parseFloat(box.style.top);
+    expect(top).toBeGreaterThanOrEqual(36); // sous la sélection (bottom), jamais négatif à l'écran
+  });
+  it('sélection près du bord droit → pastille reste dans le viewport (16 px de marge)', async () => {
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'), { left: window.innerWidth - 20, right: window.innerWidth - 10, width: 10 });
+    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
+    await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    const box = document.querySelector('.fixed.z-\\[80\\]') as HTMLElement;
+    const left = parseFloat(box.style.left);
+    expect(left).toBeLessThanOrEqual(window.innerWidth - 16);
+  });
+  it('IA indisponible en mode public → message honnête (ajouter une clé), jamais « compte premium » (FSP-B1)', async () => {
+    const { canAskAi, noAiMessage } = await import('@/lib/onlineAi');
+    (canAskAi as unknown as ReturnType<typeof vi.fn>).mockReturnValueOnce(false);
+    (noAiMessage as unknown as ReturnType<typeof vi.fn>).mockReturnValueOnce('IA indisponible : ajoute une clé dans les réglages Doctopus.');
+    render(<><p data-testid="t">Belastungsdyspnoe</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
+    fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
+    expect(await screen.findByText(/ajoute une clé dans les réglages Doctopus/)).toBeTruthy();
+    expect(screen.queryByText(/premium|connecte-toi/i)).toBeNull();
   });
   it('★ : promesse rejetée → message d\'erreur affiché, pas de rejet non intercepté (M-2)', async () => {
     const personalTerms = await import('@/lib/collections/personalTerms');

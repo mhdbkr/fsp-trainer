@@ -71,6 +71,14 @@ export interface ChatTurn {
  *  clé navigateur configurée. */
 export function canAskAi(): boolean { return serverAiAvailable() || hasKey(); }
 
+/** Message honnête quand aucune IA n'est disponible (FSP-B1) : en mode public
+ *  il n'y a jamais de compte serveur à connecter, seule la clé navigateur compte. */
+export function noAiMessage(): string {
+  return AUTH_MODE === 'founder'
+    ? 'IA indisponible : connecte-toi (compte premium) ou ajoute une clé de repli dans les réglages Doctopus.'
+    : 'IA indisponible : ajoute une clé dans les réglages Doctopus.';
+}
+
 /** Message affichable, jamais technique (FB2-M3 : dire honnêtement). */
 export function honestAiError(e: unknown): string {
   if (e instanceof ServerAiError) {
