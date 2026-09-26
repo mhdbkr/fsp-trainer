@@ -120,4 +120,16 @@ describe('SelectionExplainer', () => {
     expect(starInBubble.className).not.toMatch(/text-white/);
     expect(starInBubble.className).not.toMatch(/hover:bg-brand-700/);
   });
+  it('★ : promesse rejetée → message d\'erreur affiché, pas de rejet non intercepté (M-2)', async () => {
+    const personalTerms = await import('@/lib/collections/personalTerms');
+    const spy = vi.spyOn(personalTerms, 'starSelection').mockRejectedValueOnce(new Error('offline'));
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
+    const starButton = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    vi.useRealTimers();
+    fireEvent.click(starButton);
+    expect(await screen.findByText(/impossible d.enregistrer/i)).toBeTruthy();
+    spy.mockRestore();
+  });
 });

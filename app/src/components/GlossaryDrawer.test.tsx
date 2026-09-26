@@ -11,6 +11,10 @@ vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
   return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } };
 });
+vi.mock('@/lib/collections/personalTerms', async () => {
+  const actual = await vi.importActual<typeof import('@/lib/collections/personalTerms')>('@/lib/collections/personalTerms');
+  return { ...actual, deletePersonalTerm: vi.fn(actual.deletePersonalTerm) };
+});
 const fb = { id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'Gastroenterologie', pathologyTags: [], centers: ['Freiburg'], linkedCaseIds: [], srs: freshSrs() } as never;
 
 describe('GlossaryDrawer collections', () => {
@@ -140,5 +144,18 @@ describe('GlossaryDrawer suppression (terme personnel, A6)', () => {
     renderDrawer();
     await screen.findByText('Abdomen');
     expect(screen.queryByRole('button', { name: 'Supprimer ma carte' })).toBeNull();
+  });
+
+  it('suppression : promesse rejetée → message d\'erreur affiché, pas de rejet non intercepté (M-2)', async () => {
+    const { deletePersonalTerm } = await import('@/lib/collections/personalTerms');
+    const spy = vi.mocked(deletePersonalTerm).mockRejectedValueOnce(new Error('offline'));
+    await db.personal_terms.put({ id: 'pt-0000abcd', term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) });
+    useUi.getState().openGlossary(toView((await db.personal_terms.get('pt-0000abcd'))!));
+    renderDrawer();
+    fireEvent.click(await screen.findByRole('button', { name: 'Supprimer ma carte' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Confirmer la suppression' }));
+    expect(await screen.findByText(/impossible de supprimer/i)).toBeTruthy();
+    expect(useUi.getState().glossaryTerm).not.toBeNull();
+    spy.mockRestore();
   });
 });

@@ -33,6 +33,7 @@ export function SelectionExplainer() {
   const [anchor, setAnchor] = useState<Anchor | null>(null);
   const [bubble, setBubble] = useState<Bubble | null>(null);
   const [done, setDone] = useState<null | { label: string; id: string }>(null);
+  const [starError, setStarError] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<Anchor | null>(null);
   useEffect(() => { anchorRef.current = anchor; }, [anchor]);
@@ -58,7 +59,7 @@ export function SelectionExplainer() {
         if (anchorRef.current?.text === text && anchorRef.current.x === x && anchorRef.current.y === y) return;
         const context = (node?.closest('p, li, td, blockquote, div')?.textContent ?? '').replace(/\s+/g, ' ').trim();
         setAnchor({ text, context, x, y });
-        setBubble(null); setDone(null);
+        setBubble(null); setDone(null); setStarError(null);
       } catch { /* sélection vide */ }
     };
     // selectionchange : clavier, souris ET poignées tactiles (mobile) ; anti-rebond 250 ms.
@@ -67,7 +68,7 @@ export function SelectionExplainer() {
       if (rootRef.current && e.target instanceof Node && rootRef.current.contains(e.target)) return;
       clearTimeout(timer); timer = setTimeout(read, 10);
     };
-    const onScroll = () => { setAnchor(null); setBubble(null); setDone(null); };
+    const onScroll = () => { setAnchor(null); setBubble(null); setDone(null); setStarError(null); };
     document.addEventListener('selectionchange', onSelChange);
     document.addEventListener('pointerup', onPointerUp);
     window.addEventListener('scroll', onScroll, true);
@@ -79,7 +80,7 @@ export function SelectionExplainer() {
     if (!anchor) return;
     const onDown = (e: PointerEvent) => {
       if (rootRef.current && e.target instanceof Node && rootRef.current.contains(e.target)) return;
-      setAnchor(null); setBubble(null); setDone(null);
+      setAnchor(null); setBubble(null); setDone(null); setStarError(null);
     };
     document.addEventListener('pointerdown', onDown);
     return () => document.removeEventListener('pointerdown', onDown);
@@ -95,16 +96,18 @@ export function SelectionExplainer() {
   const star = async () => {
     if (!anchor || !canStar || starringRef.current) return;
     starringRef.current = true;
+    setStarError(null);
     try {
       const r = await starSelection({ selection: anchor.text, context: anchor.context, explanation: bubble?.source === 'IA' || bubble?.source === 'glossaire' ? bubble.text : undefined, caseId }, begriffe);
       setDone(r.favorite ? { label: r.created ? 'Carte créée' : 'Ajouté aux favoris', id: r.id } : { label: 'Retiré des favoris', id: r.id });
-    } finally { starringRef.current = false; }
+    } catch { setStarError('Impossible d\'enregistrer : réessaie.'); }
+    finally { starringRef.current = false; }
   };
   const openDeckPicker = async () => {
     if (!done) return;
     const target = hit ?? (await db.personal_terms.get(done.id).then((p) => (p ? toView(p) : null)));
     if (target) openGlossary(target); // le tiroir porte déjà « Ajouter à un deck… » (F1)
-    setAnchor(null); setBubble(null); setDone(null);
+    setAnchor(null); setBubble(null); setDone(null); setStarError(null);
   };
 
   const explain = async () => {
@@ -166,7 +169,7 @@ export function SelectionExplainer() {
                 {bubble.fb && <div className="mt-1.5"><TermRegister term={bubble.fb} narrow /></div>}
               </>
             )}
-            <button onClick={() => { openDoctopus(anchor.text); setAnchor(null); setBubble(null); setDone(null); }}
+            <button onClick={() => { openDoctopus(anchor.text); setAnchor(null); setBubble(null); setDone(null); setStarError(null); }}
               className="mt-1.5 w-full rounded-md bg-slate-100 py-1 text-[11px] font-medium text-brand-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-brand-300 dark:hover:bg-slate-700">
               Voir plus avec Doctopus →
             </button>
@@ -179,6 +182,11 @@ export function SelectionExplainer() {
           {done.label !== 'Retiré des favoris' && (
             <button type="button" onClick={() => { void openDeckPicker(); }} className="min-h-11 font-medium text-brand-600 dark:text-brand-300">Ajouter à un deck…</button>
           )}
+        </div>
+      )}
+      {starError && (
+        <div role="alert" className="mt-1 rounded-lg bg-white px-2 py-1 text-[12px] text-amber-600 shadow ring-1 ring-slate-200 dark:bg-slate-900 dark:text-amber-400 dark:ring-slate-700">
+          {starError}
         </div>
       )}
     </div>

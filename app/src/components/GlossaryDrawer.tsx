@@ -25,7 +25,8 @@ export function GlossaryDrawer() {
   const [newDeckName, setNewDeckName] = useState('');
   const [createError, setCreateError] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  useEffect(() => setConfirmDelete(false), [fb?.id]);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  useEffect(() => { setConfirmDelete(false); setDeleteError(null); }, [fb?.id]);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
 
@@ -174,10 +175,11 @@ export function GlossaryDrawer() {
                 <button type="button" onClick={() => setConfirmDelete(true)} className="min-h-11 text-sm text-rose-600 dark:text-rose-400">Supprimer ma carte</button>
               ) : (
                 <div className="flex gap-2">
-                  <button type="button" onClick={() => { void deletePersonalTerm(fb.id).then(close); }} className="btn-primary min-h-11 bg-rose-600">Confirmer la suppression</button>
+                  <button type="button" onClick={() => { deletePersonalTerm(fb.id).then(close).catch(() => setDeleteError('Impossible de supprimer : réessaie.')); }} className="btn-primary min-h-11 bg-rose-600">Confirmer la suppression</button>
                   <button type="button" onClick={() => setConfirmDelete(false)} className="btn-outline min-h-11">Annuler</button>
                 </div>
               )}
+              {deleteError && <p role="alert" className="mt-2 text-xs text-signal-600 dark:text-signal-400">{deleteError}</p>}
             </div>
           )}
         </div>
