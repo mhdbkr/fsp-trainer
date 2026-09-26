@@ -107,7 +107,13 @@ test('les paliers de color.depth partagent une seule teinte (jamais de dérive d
 
   const hues = keys.map((k) => hue(depth[k]));
   const known = hues.filter((h) => h !== null).sort((a, b) => a - b);
-  const median = known[Math.floor(known.length / 2)];
+
+  // Médiane vraie, correcte pour un nombre pair ou impair de paliers (moyenne
+  // des deux valeurs centrales si pair, valeur centrale si impair) — plutôt
+  // que known[floor(length/2)] qui ne donnait la vraie médiane que pour un
+  // compte impair et se serait tu si la pile changeait de taille.
+  const mid = Math.floor(known.length / 2);
+  const median = known.length % 2 === 0 ? (known[mid - 1] + known[mid]) / 2 : known[mid];
 
   // Seuil : sur les 5 hex actuels, la teinte mesure entre 170,0° (depth.3, depth.4)
   // et 172,5° (depth.2) — un écart d'environ 2,5°, dû à l'arrondi du pétrole très
@@ -118,7 +124,10 @@ test('les paliers de color.depth partagent une seule teinte (jamais de dérive d
   // s'écarte d'au moins plusieurs dizaines de degrés, jamais de quelques degrés.
   const TOLERANCE_DEG = 6;
   for (const [i, h] of hues.entries()) {
-    if (h === null) continue;
+    // Achromatique (r === g === b) n'est jamais une exception à sauter : un
+    // palier gris est exactement la dérive de teinte que ce test doit attraper.
+    assert.ok(h !== null,
+      `color.depth.${keys[i]} est achromatique (saturation nulle, teinte indéfinie) : un palier gris est une dérive, pas une exception`);
     const delta = Math.abs(h - median);
     assert.ok(delta <= TOLERANCE_DEG,
       `color.depth.${keys[i]} dérive en teinte : ${h.toFixed(1)}° (médiane des 5 paliers : ${median.toFixed(1)}°, écart ${delta.toFixed(1)}° > tolérance ${TOLERANCE_DEG}°)`);
