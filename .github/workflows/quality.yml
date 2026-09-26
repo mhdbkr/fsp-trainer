@@ -69,7 +69,7 @@ jobs:
       - name: Tests du script de liaison (node:test)
         run: node --test scripts/linkCaseTerms.test.mjs
       - name: Registre des Fachbegriffe (F3)
-        run: node scripts/checkTermRegister.mjs
+        run: node scripts/checkTermRegister.mjs --require-all
       - name: Tests du validateur de registre
         run: node --test scripts/checkTermRegister.test.mjs
 
