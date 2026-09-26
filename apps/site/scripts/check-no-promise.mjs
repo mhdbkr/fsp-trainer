@@ -5,7 +5,10 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { listHtml, textOf } from './lib/dist.mjs';
+// Les briques partagées (bornes Unicode, corpus d'une page, exception explicite,
+// aplatissement JSON) vivent dans lib/dist.mjs. Comportement inchangé : seule leur
+// provenance change, pour que check-voice.mjs consomme les mêmes.
+import { listHtml, boundedRe, collectAllow, htmlCorpus, jsonStrings } from './lib/dist.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -13,8 +16,6 @@ const NEGATIONS = new Set([
   'kein', 'keine', 'keinen', 'keinem', 'keiner', 'ohne', 'nicht',
   'aucun', 'aucune', 'sans', 'no', 'without', 'never',
 ]);
-
-const ALLOW_RE = /<!--\s*voice:allow\s*"([^"]*)"\s*-->/g;
 
 export function normalize(s) {
   return s
@@ -62,7 +63,7 @@ export function findViolations(text, lexicon) {
   for (const t of terms) {
     const pattern = termPattern(t.term);
     if (!pattern) continue;
-    const re = new RegExp(`(?<![\\p{L}\\p{N}])${pattern}(?![\\p{L}\\p{N}])`, 'gu');
+    const re = boundedRe(pattern);
     let m;
     while ((m = re.exec(norm))) {
       const prev = precedingWord(norm, m.index);
@@ -85,26 +86,6 @@ export function checkText(text, lexicon) {
     blocking: all.filter((v) => v.list === 'blocking'),
     informative: all.filter((v) => v.list === 'informative'),
   };
-}
-
-function collectAllow(raw) {
-  return [...raw.matchAll(ALLOW_RE)].map((m) => m[1]);
-}
-
-function jsonStrings(value, out = []) {
-  if (typeof value === 'string') out.push(value);
-  else if (Array.isArray(value)) for (const v of value) jsonStrings(v, out);
-  else if (value && typeof value === 'object') for (const v of Object.values(value)) jsonStrings(v, out);
-  return out;
-}
-
-function htmlCorpus(file) {
-  const html = readFileSync(file, 'utf8');
-  const title = (html.match(/<title>([\s\S]*?)<\/title>/i) || [, ''])[1];
-  const description = (html.match(/<meta[^>]+name="description"[^>]+content="([^"]*)"/i) || [, ''])[1];
-  const alts = [...html.matchAll(/<img[^>]+\balt="([^"]*)"/gi)].map((m) => m[1]);
-  const body = textOf(html);
-  return { text: [body, title, description, ...alts].join('\n'), allow: collectAllow(html) };
 }
 
 function jsonCorpus(file) {
@@ -141,7 +122,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (existsSync(distDir)) {
     for (const file of listHtml(distDir)) {
       const rel = file.slice(distDir.length);
-      if (scan(rel, htmlCorpus(file), lexicon, lines)) hasBlocking = true;
+      if (scan(rel, htmlCorpus(readFileSync(file, 'utf8')), lexicon, lines)) hasBlocking = true;
     }
   }
   if (existsSync(dataDir)) {
