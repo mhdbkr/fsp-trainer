@@ -146,6 +146,15 @@ describe('GlossaryDrawer suppression (terme personnel, A6)', () => {
     expect(screen.queryByRole('button', { name: 'Supprimer ma carte' })).toBeNull();
   });
 
+  it('terme personnel sans explication mais avec contexte : le contexte n\'apparaît qu\'une fois, jamais labellisé « Reformulation » (I-1 review)', async () => {
+    await db.personal_terms.put({ id: 'pt-ctxdup', term: 'Belastungsdyspnoe', context: 'Der Patient klagt über Belastungsdyspnoe.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) });
+    useUi.getState().openGlossary(toView((await db.personal_terms.get('pt-ctxdup'))!));
+    renderDrawer();
+    await screen.findByText('Belastungsdyspnoe');
+    expect(screen.queryByText('Reformulation')).toBeNull();
+    expect(screen.getAllByText(/klagt über/i).length).toBe(1);
+  });
+
   it('suppression : promesse rejetée → message d\'erreur affiché, pas de rejet non intercepté (M-2)', async () => {
     const { deletePersonalTerm } = await import('@/lib/collections/personalTerms');
     const spy = vi.mocked(deletePersonalTerm).mockRejectedValueOnce(new Error('offline'));

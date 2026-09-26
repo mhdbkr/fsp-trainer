@@ -5,7 +5,7 @@ import { db } from '@/db/db';
 import { Icon } from '@/components/icons';
 import { useAllTerms, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
 import type { AnyTerm } from '@/lib/collections/allTerms';
-import { rateTerm } from '@/lib/collections/allTerms';
+import { isPersonalView, rateTerm } from '@/lib/collections/allTerms';
 import { registerLine } from '@/components/TermRegister';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
@@ -18,6 +18,13 @@ import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
 import { useSimSession } from '@/store/simSession';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
+
+// ponytail: masquage naïf (occurrences du terme entier, insensible à la casse) — pas de
+// tokenizer linguistique ; suffisant pour un seul terme dans une phrase de contexte.
+function maskTerm(text: string, term: string): string {
+  const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`\\b${escaped}\\b`, 'gi'), '…');
+}
 
 // Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie
 // du cas travaillé, puis progression libre (couverture inclusive).
@@ -165,12 +172,27 @@ export function DrillPage() {
   }
 
   const card = queue[idx];
-  // Terme personnel étoilé avant explication (I-1) : jamais de face vide —
-  // recto = terme, verso = un hint honnête plutôt qu'un texte vide.
+  // Terme personnel étoilé avant explication (I-1, review) : jamais de face
+  // vide, et jamais la réponse offerte au recto. Sans explication : le
+  // contexte (s'il existe) va au dos labellisé « Contexte » (Terme → sens),
+  // ou masqué au recto (Sens → terme, ponytail : \b + regex simple, pas de
+  // tokenizer — suffit pour un seul terme masqué).
   const reformulation = registerLine(card);
   const hasReformulation = reformulation.length > 0;
-  const front = hasReformulation ? (direction === 'term2simple' ? card.term : card.translationSimple) : card.term;
-  const back = hasReformulation ? (direction === 'term2simple' ? reformulation : card.term) : 'Carte personnelle — pas encore d\'explication';
+  const context = isPersonalView(card) ? card.context : undefined;
+  let front: string;
+  let back: string;
+  let backLabel: string | null = null;
+  if (hasReformulation) {
+    front = direction === 'term2simple' ? card.term : card.translationSimple;
+    back = direction === 'term2simple' ? reformulation : card.term;
+  } else if (context) {
+    if (direction === 'term2simple') { front = card.term; back = context; backLabel = 'Contexte'; }
+    else { front = maskTerm(context, card.term); back = card.term; }
+  } else {
+    front = card.term;
+    back = 'Carte personnelle — pas encore d\'explication';
+  }
 
   const grade = async (g: Grade) => {
     const wasNew = card.srs.state === 'Neu';
@@ -211,6 +233,7 @@ export function DrillPage() {
           {/* Verso */}
           <div className="card absolute inset-0 flex flex-col items-center justify-center overflow-y-auto p-8 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
             <div className="label">{front}</div>
+            {backLabel && <div className="label">{backLabel}</div>}
             <div className="mt-3 text-xl font-semibold text-brand-700 dark:text-brand-300">{back}</div>
             {direction === 'term2simple' && card.register && <p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.register.anamnese}</p>}
             {card.definitionDetailed && <p className="mx-auto mt-3 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.definitionDetailed}</p>}
