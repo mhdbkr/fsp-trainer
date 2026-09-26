@@ -89,7 +89,11 @@
 }
 
 .register-work {
-  --surface: #ffffff;
+  /* Deux paliers réellement distincts, même règle que .register-deep :
+     base (papier) < surface < surface-raised, par luminosité croissante.
+     --surface reste sur l'axe du papier (#f4f5f2), juste éclairci vers le
+     blanc ; --surface-raised est le blanc franc, le palier le plus haut. */
+  --surface: #fbfcfa;
   --surface-raised: #ffffff;
   --on-surface: var(--dt-color-ink);
   --on-surface-muted: var(--dt-color-ink-600);
@@ -98,8 +102,12 @@
 }
 
 .surface {
-  background-color: var(--surface);
-  color: var(--on-surface);
+  /* Repli papier/encre si .surface est posée hors de tout registre : même
+     paire que le fond de page (body), donc toujours lisible, et neutre vis-
+     à-vis des deux registres puisqu'il ne joue que si --surface/--on-surface
+     ne sont pas déjà fournies par un .register-*. */
+  background-color: var(--surface, var(--dt-color-paper));
+  color: var(--on-surface, var(--dt-color-ink));
   border-radius: var(--dt-radius-card);
   border: 1px solid var(--dt-color-depth-veil);
   border-top-color: var(--dt-color-depth-lift);
