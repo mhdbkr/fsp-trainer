@@ -22,7 +22,7 @@ const auf = (await load('seedAufklaerungen.ts')).seedAufklaerungen();
 const guides = (await load('seedGuides.ts')).seedGuides();
 const fbRaw = JSON.parse(readFileSync('src/data/fachbegriffe.json', 'utf8'));
 // Même mapping que seedFachbegriffe() — le payload doit être l'objet Fachbegriff, pas la ligne compacte.
-const fb = fbRaw.map((r) => ({ id: r.id, term: r.t, translationSimple: r.s, definitionDetailed: r.def, pronunciation: r.p, specialty: r.sp, pathologyTags: r.tags ?? [], centers: r.c, linkedCaseIds: [], sp: r.sp }));
+const fb = fbRaw.map((r) => ({ id: r.id, term: r.t, translationSimple: r.s, definitionDetailed: r.def, pronunciation: r.p, specialty: r.sp, pathologyTags: r.tags ?? [], centers: r.c, linkedCaseIds: [], sp: r.sp, ...(r.r ? { register: { patient: r.r.pa, vorstellung: r.r.vo, anamnese: r.r.an } } : {}) }));
 
 // Tier des contenus DÉRIVÉS : le Free est un échantillon COMPLET (12 cas avec
 // leur fiche, leurs termes, leurs Aufklärungen), pas un catalogue de fiches

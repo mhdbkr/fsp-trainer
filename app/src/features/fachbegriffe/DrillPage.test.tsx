@@ -43,7 +43,7 @@ const renderAt = (url: string) => render(<MemoryRouter initialEntries={[url]}><D
 describe('DrillPage — pas de boucle de rendu', () => {
   beforeEach(async () => {
     await db.fachbegriffe.clear(); await db.progress_events.clear();
-    await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await db.cases.clear();
+    await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await db.cases.clear(); await db.personal_terms.clear();
     vi.mocked(loadDrillContext).mockReset();
     vi.mocked(loadDrillContext).mockResolvedValue(defaultCtx);
     await seed();
@@ -88,6 +88,15 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect(btn.getAttribute('href')).toContain('specialty=Kardiologie');
   });
 
+  it('terme personnel dû : rejoint la file de drill (AC-2, source unique allTerms)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-0000abcd', term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
+  });
+
   it('Quitter (mode ?case) : route réelle du Runner si une session est minimisée sur ce cas, sinon la fiche du cas', async () => {
     useSimSession.setState({ snapshot: null, minimized: false });
     await db.cases.put({ id: 'c1', name: 'Ulcus ventriculi', specialty: 'Gastroenterologie', linkedFachbegriffeIds: ['fb-a'] } as never);
@@ -104,5 +113,68 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await waitFor(() => expect(screen.getByRole('link', { name: /quitter/i }).getAttribute('href')).toBe('/simulation/c1/run?teil=dokumentation'));
 
     useSimSession.setState({ snapshot: null, minimized: false });
+  });
+
+  it('carte avec register (term2simple, « Montrer » = Révéler) : le dos affiche parole patient + anamnèse (C2)', async () => {
+    await db.fachbegriffe.clear();
+    await db.fachbegriffe.put({
+      id: 'fb-asz', term: 'Aszites', translationSimple: 'Bauchwasser', specialty: 'Gastroenterologie',
+      pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs(0),
+      register: { patient: 'Wasser im Bauch', vorstellung: 'Sonographisch zeigte sich ein Aszites.', anamnese: 'Ist Ihr Bauch dicker geworden?' },
+    } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    fireEvent.click(revealBtn);
+    expect((await screen.findAllByText(/Wasser im Bauch/)).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText('Ist Ihr Bauch dicker geworden?')).length).toBeGreaterThan(0);
+  });
+
+  it('terme personnel sans explication mais avec contexte (Terme → sens) : le recto ne montre jamais le contexte, le dos le montre labellisé « Contexte » (I-1 review)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-ctx01', term: 'Belastungsdyspnoe', context: 'Der Patient klagt über Belastungsdyspnoe seit zwei Wochen.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect(screen.queryByText(/klagt über/i)).toBeNull();
+    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    fireEvent.click(revealBtn);
+    expect(await screen.findByText('Contexte')).toBeTruthy();
+    expect((await screen.findAllByText(/klagt über/i)).length).toBeGreaterThan(0);
+  });
+
+  it('terme personnel sans explication mais avec contexte (Sens → terme) : le recto masque le terme dans le contexte, jamais la réponse en clair (I-1 review)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-ctx02', term: 'Belastungsdyspnoe', context: 'Der Patient klagt über Belastungsdyspnoe seit zwei Wochen.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect(screen.queryByText('Belastungsdyspnoe')).toBeNull();
+    expect((await screen.findAllByText(/klagt über … seit zwei Wochen/i)).length).toBeGreaterThan(0);
+  });
+
+  it('terme personnel avec contexte (Sens → terme), terme à umlaut/ß : le masquage est Unicode-aware (\\b est ASCII-only)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-ctx03', term: 'Übelkeit', context: 'Die Patientin berichtet über Übelkeit seit dem Frühstück.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect(screen.queryByText('Übelkeit')).toBeNull();
+    expect((await screen.findAllByText(/berichtet über … seit dem Frühstück/i)).length).toBeGreaterThan(0);
+  });
+
+  it('terme personnel sans explication ni contexte : aucune face vide, hint sur le verso (I-1)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-noexpl01', term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
+    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    fireEvent.click(revealBtn);
+    expect((await screen.findAllByText(/pas encore d.explication/i)).length).toBeGreaterThan(0);
   });
 });

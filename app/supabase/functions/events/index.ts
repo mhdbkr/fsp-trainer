@@ -6,7 +6,7 @@ const Event = z.object({
   id: z.string().uuid(),
   type: z.enum(['simulation.completed','srs.reviewed','plan.done','case.layer_reached','program.configured',
     'term.favorited','term.unfavorited','deck.created','deck.renamed','deck.query_changed','deck.deleted','deck.term_added','deck.term_removed',
-    'srs.settings_changed']),
+    'srs.settings_changed','term.personal_created','term.personal_deleted']),
   subject_id: z.string().max(200).nullable(),
   payload: z.record(z.unknown()),
   occurred_at: z.string().datetime(),

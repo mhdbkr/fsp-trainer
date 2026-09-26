@@ -268,6 +268,9 @@ export interface CaseMuster {
 // ----------------------------------------------------------------------------
 // Fachbegriff + SRS (SM-2)
 // ----------------------------------------------------------------------------
+/** Double registre (F3 §3.2) : parole du patient, phrase de Vorstellung/Doku, question d'anamnèse sans le terme. */
+export interface TermRegisterData { patient: string; vorstellung: string; anamnese: string }
+
 export interface Srs {
   interval: number;      // jours
   easeFactor: number;    // 1.3..2.5+
@@ -301,6 +304,7 @@ export interface Fachbegriff {
   centers: Center[];
   linkedCaseIds: string[];
   srs: Srs;
+  register?: TermRegisterData;       // termes liés à ≥ 1 cas (F3)
 }
 
 // ----------------------------------------------------------------------------
@@ -312,6 +316,11 @@ export interface DeckTerm { deckId: string; termId: string; addedAt: string }
 export interface Favorite { termId: string; since: string }
 /** Deck manuel réservé : jamais créé/renommé/supprimé par événement, fabriqué par l'UI. */
 export const FAVORITES_DECK_ID = 'deck-favorites';
+
+/** Terme personnel (F3) : créé par ★ sur une sélection hors glossaire. Projeté
+ *  depuis le journal (term.personal_created / _deleted) — jamais écrit dans
+ *  `fachbegriffe`, que la sync de contenu réécrit. */
+export interface PersonalTerm { id: string; term: string; context?: string; explanation?: string; caseId?: string; createdAt: string; srs: Srs }
 
 // ----------------------------------------------------------------------------
 // Fachwissen (fiche pathologie riche)

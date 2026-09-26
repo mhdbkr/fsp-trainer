@@ -35,7 +35,7 @@ describe('TermHoverCard', () => {
     act(() => useUi.getState().openHover(fb, anchor));
     rerender(<MemoryRouter><TermHoverCard /></MemoryRouter>);
     expect(await screen.findByRole('dialog')).toBeTruthy();
-    expect(screen.getByText('Abdomen')).toBeTruthy(); expect(screen.getByText('Bauch')).toBeTruthy();
+    expect(screen.getByText('Abdomen')).toBeTruthy(); expect(screen.getByText(/Bauch/)).toBeTruthy();
   });
   it('★ = favori immédiat avec caseId du store, puis extension deck ; second ★ retire', async () => {
     act(() => useUi.getState().openHover(fb, anchor, 'c9'));

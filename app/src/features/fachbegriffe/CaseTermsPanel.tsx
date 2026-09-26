@@ -8,6 +8,7 @@ import { toggleFavorite } from '@/lib/collections';
 import { counts } from '@/lib/stats';
 import { SRS_TONE } from '@/lib/srsTone';
 import { Icon } from '@/components/icons';
+import { registerLine } from '@/components/TermRegister';
 
 // Termes du cas (liés ∪ marqués pendant ce cas), ordre publié : diagnostic →
 // spécifiques → contextuels. Référence LIBRE (F2a D6) : n'écrit ni résultat ni
@@ -20,7 +21,7 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
   const openGlossary = useUi((s) => s.openGlossary);
   const [q, setQ] = useState('');
   const terms = useMemo(() => (begriffe && theCase ? termsOfCase(caseId, begriffe, theCase, events ?? []) : []), [begriffe, theCase, events, caseId]);
-  const shown = useMemo(() => { const n = q.trim().toLowerCase(); return n ? terms.filter((t) => `${t.term} ${t.translationSimple}`.toLowerCase().includes(n)) : terms; }, [terms, q]);
+  const shown = useMemo(() => { const n = q.trim().toLowerCase(); return n ? terms.filter((t) => `${t.term} ${registerLine(t)}`.toLowerCase().includes(n)) : terms; }, [terms, q]);
   const favSet = useMemo(() => new Set((favorites ?? []).map((f) => f.termId)), [favorites]);
   const c = counts(terms);
   // Tiroir (runner) : vrai dialogue — Échap ferme, le focus entre dans le
@@ -50,7 +51,7 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
       <ul className="flex-1 divide-y divide-slate-100 overflow-y-auto dark:divide-slate-800">
         {shown.map((t) => { const fav = favSet.has(t.id); const tone = SRS_TONE[t.srs.state]; return (
           <li key={t.id} className="flex min-h-11 items-center gap-2 px-2">
-            <button type="button" onClick={() => openGlossary(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left"><span className="truncate font-semibold text-brand-700 dark:text-brand-300">{t.term}</span><span className="truncate text-xs text-slate-500">{t.translationSimple}</span></button>
+            <button type="button" onClick={() => openGlossary(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left"><span className="truncate font-semibold text-brand-700 dark:text-brand-300">{t.term}</span><span className="truncate text-xs text-slate-500">{registerLine(t)}</span></button>
             <span role="img" aria-label={t.srs.state} className={`chip shrink-0 ${tone.chip}`}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
             <button type="button" aria-pressed={fav} aria-label={fav ? `Retirer des favoris : ${t.term}` : `Ajouter aux favoris : ${t.term}`} onClick={() => { void toggleFavorite(t.id, { caseId }); }} className={`h-11 w-11 shrink-0 text-lg ${fav ? 'text-signal-600' : 'text-slate-300 hover:text-signal-400 dark:text-slate-600'}`}>{fav ? '★' : '☆'}</button>
           </li>); })}

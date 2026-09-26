@@ -68,6 +68,10 @@ jobs:
         run: node scripts/checkCaseTermLinks.mjs
       - name: Tests du script de liaison (node:test)
         run: node --test scripts/linkCaseTerms.test.mjs
+      - name: Registre des Fachbegriffe (F3)
+        run: node scripts/checkTermRegister.mjs --require-all
+      - name: Tests du validateur de registre
+        run: node --test scripts/checkTermRegister.test.mjs
 
       # Informatifs : ils signalent des faiblesses de contenu (DD non
       # neutralisées, recouvrements de sondes) sans bloquer la livraison.

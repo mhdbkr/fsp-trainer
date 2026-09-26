@@ -17,3 +17,9 @@ export async function createTestUser(email: string): Promise<{ id: string; clien
   if (error) throw error;
   return { id, client };
 }
+
+/** Abonnement premium actif sans Stripe (tests uniquement — comme grantFounder.mjs). */
+export async function grantPremium(userId: string): Promise<void> {
+  const { error } = await serviceClient().from('subscriptions').upsert({ user_id: userId, plan_id: 'premium', status: 'active', stripe_customer_id: `test:${userId}`, stripe_subscription_id: null, current_period_end: null }, { onConflict: 'user_id' });
+  if (error) throw error;
+}

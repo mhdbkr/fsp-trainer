@@ -3,6 +3,7 @@ import type { Simulation, Srs, Layer } from '@/db/types';
 import type { ProgressEvent } from './events';
 import { projectCollections, writeCollections } from '@/lib/collections/project';
 import { projectSrsSettings } from '@/lib/srsSettings';
+import { isPersonalId, projectPersonalTerms, writePersonalTerms } from '@/lib/collections/personalTerms';
 
 export function latestSrs(events: ProgressEvent[], fachbegriffId: string): Srs | null {
   let best: ProgressEvent | null = null;
@@ -21,7 +22,10 @@ export async function rebuildProjections(): Promise<void> {
   const byTerm = new Map<string, ProgressEvent>();
   for (const e of events) if (e.type === 'srs.reviewed' && e.subject_id) { const p = byTerm.get(e.subject_id); if (!p || e.occurred_at > p.occurred_at) byTerm.set(e.subject_id, e); }
   await db.transaction('rw', db.fachbegriffe, async () => {
-    for (const [id, e] of byTerm) { const fb = await db.fachbegriffe.get(id); if (fb) await db.fachbegriffe.update(id, { srs: e.payload as Srs }); }
+    for (const [id, e] of byTerm) {
+      if (isPersonalId(id)) continue;                 // F3 : routé vers personal_terms (projection dédiée)
+      const fb = await db.fachbegriffe.get(id); if (fb) await db.fachbegriffe.update(id, { srs: e.payload as Srs });
+    }
   });
   // Couche atteinte par cas : max
   const layerByCase = new Map<string, Layer>();
@@ -29,6 +33,8 @@ export async function rebuildProjections(): Promise<void> {
   await db.transaction('rw', db.cases, async () => { for (const [id, layer] of layerByCase) await db.cases.update(id, { layerProgress: layer }); });
   // Collections Fachbegriffe (F1) : favoris, decks, termes de decks
   await writeCollections(projectCollections(events));
+  // Termes personnels (F3)
+  await writePersonalTerms(projectPersonalTerms(events));
   // Réglages quotidiens du SRS (F2b)
   await setMeta('srs.settings', projectSrsSettings(events));
 }

@@ -24,6 +24,7 @@ import { getActiveUserId } from '@/lib/auth/accounts';
 
 export { PROVIDERS, OPENROUTER_FALLBACKS, type AiProvider } from './aiModels';
 import { PROVIDERS, OPENROUTER_FALLBACKS, type AiProvider } from './aiModels';
+import { serverAiAvailable, serverStream, ServerAiError } from './serverAi';
 
 
 const KEY_LS = 'doctopus-key';
@@ -60,7 +61,64 @@ export interface ChatTurn {
   role: 'user' | 'assistant';
   content: string;
   reasoningDetails?: unknown[];
+  /** Fournisseur du tour assistant : 'server' (fonction ai) ou 'key' (clé
+   *  navigateur). Une conversation reste épinglée au fournisseur de son
+   *  premier tour assistant (F3 §3.5, AC-8). */
+  via?: 'server' | 'key';
 }
+
+/** Une question peut être posée maintenant : fonction serveur disponible ou
+ *  clé navigateur configurée. */
+export function canAskAi(): boolean { return serverAiAvailable() || hasKey(); }
+
+/** Message honnête quand aucune IA n'est disponible (FSP-B1) : en mode public
+ *  il n'y a jamais de compte serveur à connecter, seule la clé navigateur compte. */
+export function noAiMessage(): string {
+  return AUTH_MODE === 'founder'
+    ? 'IA indisponible : connecte-toi (compte premium) ou ajoute une clé de repli dans les réglages Doctopus.'
+    : 'IA indisponible : ajoute une clé dans les réglages Doctopus.';
+}
+
+/** Message affichable, jamais technique (FB2-M3 : dire honnêtement). */
+export function honestAiError(e: unknown): string {
+  if (e instanceof ServerAiError) {
+    if (e.status === 429) return 'Quota du jour atteint (300 questions). Réessaie demain, ou ajoute une clé de repli dans les réglages Doctopus.';
+    if (e.status === 400) return 'Requête invalide pour le serveur IA (format ou contenu rejeté).';
+    if (e.status === 413) return 'Message trop long pour le serveur IA (limite dépassée).';
+    return 'IA serveur indisponible pour le moment. Réessaie dans un instant' + (hasKey() ? '.' : ', ou ajoute une clé de repli dans les réglages Doctopus.');
+  }
+  return (e as Error)?.message ?? String(e);
+}
+
+// Miroir des contraintes acceptées par la fonction serveur `ai` — jamais
+// importées (module Deno) : supabase/functions/ai/index.ts (schéma `Turn` :
+// 20 tours max, 2 000 car./tour) et supabase/functions/ai/guards.ts
+// (`MAX_CHAT_CHARS` = 12 000 car. cumulés). Un dépassement client-side ferait
+// échouer la requête en 400/413 sans nécessité : on ajuste avant d'envoyer.
+export const CHAT_LIMITS = { maxTurns: 20, maxTurnChars: 2000, maxTotalChars: 12000 } as const;
+
+type ServerTurn = { role: 'user' | 'assistant'; text: string };
+
+/** Ajuste l'historique aux contraintes serveur : tronque chaque tour, retire
+ *  les tours vides, garde les plus récents (≤ 20), puis retire les plus
+ *  anciens jusqu'à respecter le total cumulé ET un premier tour `user`
+ *  (contrainte de la fonction serveur : la conversation ne peut pas commencer
+ *  par un tour assistant orphelin). */
+function fitHistory(turns: ServerTurn[]): ServerTurn[] {
+  let kept = turns
+    .map((t) => ({ role: t.role, text: t.text.slice(0, CHAT_LIMITS.maxTurnChars) }))
+    .filter((t) => t.text.trim().length > 0)
+    .slice(-CHAT_LIMITS.maxTurns);
+  let total = kept.reduce((n, t) => n + t.text.length, 0);
+  while (kept.length && (total > CHAT_LIMITS.maxTotalChars || kept[0].role !== 'user')) {
+    total -= kept[0].text.length;
+    kept = kept.slice(1);
+  }
+  return kept;
+}
+
+const toServerTurns = (turns: ChatTurn[]) => fitHistory(turns.map((t) => ({ role: t.role, text: t.content })));
+const pinnedVia = (turns: ChatTurn[]): 'server' | 'key' | null => turns.find((t) => t.role === 'assistant' && t.via)?.via ?? null;
 
 /** Effort de raisonnement demandé au modèle. `none` pour une question
  *  directe : sur un modèle de raisonnement, les jetons de réflexion sont
@@ -200,7 +258,22 @@ async function chat(system: string, turns: ChatTurn[], maxTokens: number, reason
  *  à AJOUTER à l'historique tel quel — ses reasoningDetails servent au tour
  *  d'après. onToken (OpenRouter uniquement) reçoit chaque fragment du stream. */
 export async function askConversation(turns: ChatTurn[], onToken?: (delta: string) => void): Promise<ChatTurn> {
-  return chat(DOCTOPUS_SYSTEM, turns, 800, pickReasoning(turns), onToken);
+  const pin = pinnedVia(turns);
+  if (pin !== 'key' && serverAiAvailable()) {
+    // Un texte déjà affiché ne doit jamais être suivi d'un second essai qui
+    // le redouble depuis le début : le repli clé n'est permis que si RIEN
+    // n'a encore été émis à onToken (panne franche, avant tout octet utile).
+    let emitted = false;
+    const track = (d: string) => { emitted = true; onToken?.(d); };
+    try {
+      return { role: 'assistant', content: await serverStream({ kind: 'chat', turns: toServerTurns(turns) }, track), via: 'server' };
+    } catch (e) {
+      if (emitted || pin === 'server' || !hasKey()) throw new Error(honestAiError(e));
+    }
+  } else if (pin === 'server') {
+    throw new Error(honestAiError(new ServerAiError(0, 'unavailable')));
+  }
+  return { ...(await chat(DOCTOPUS_SYSTEM, turns, 800, pickReasoning(turns), onToken)), via: 'key' };
 }
 
 /** Réponse à une question isolée (un seul tour). Conservé pour les appels
@@ -212,8 +285,16 @@ export async function askOnline(query: string, onToken?: (delta: string) => void
 /** Glose brève pour le quick-search (bulle sur sélection). Jamais de
  *  raisonnement : c'est LA question directe par excellence, et un petit budget
  *  ne survit pas à une phase de réflexion. Un terme → une ligne ; une phrase
- *  (FB2-M2) → deux phrases, budget plus large. */
+ *  (FB2-M2) → deux phrases, budget plus large. Fonction serveur d'abord (F3
+ *  §3.5) ; repli clé navigateur si le serveur est indisponible. */
 export async function askBrief(selection: string): Promise<string> {
+  if (serverAiAvailable()) {
+    try {
+      return (await serverStream({ kind: 'brief', selection })).trim();
+    } catch (e) {
+      if (!hasKey()) throw new Error(honestAiError(e));
+    }
+  }
   const kind = briefKind(selection);
   const { system, user } = buildBriefPrompt(selection, kind);
   return (await chat(system, [{ role: 'user', content: user }], kind === 'phrase' ? 220 : 120, 'none')).content.trim();
