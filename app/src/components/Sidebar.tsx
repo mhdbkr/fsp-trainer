@@ -1,19 +1,11 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { Icon } from './icons';
 import { NAV } from './nav';
-import { Portal } from './Portal';
 import { useSession, AUTH_MODE } from '@/lib/auth/session';
 import { AccountSwitcher } from '@/components/AccountSwitcher';
 import { SyncBadge } from './SyncBadge';
-
-// Import PARESSEUX délibéré : three.js + @react-three/fiber + drei pèsent à
-// eux seuls ~900 Ko gzippés. En import statique, ce poids rejoint le bundle
-// PRINCIPAL et se télécharge à CHAQUE ouverture de l'app — inacceptable pour
-// un outil local-first pensé pour tourner hors-ligne. En lazy(), ce chunk
-// n'est récupéré que si quelqu'un clique réellement sur l'essai.
-const FluidGlassBar = lazy(() => import('./FluidGlassBar').then((m) => ({ default: m.FluidGlassBar })));
 
 // ============================================================================
 // Barre latérale — deux modes (persistés dans le store UI) :
@@ -82,11 +74,6 @@ function AccountLink({ dock = false }: { dock?: boolean }) {
 // ── Mode déployé ────────────────────────────────────────────────────────────
 function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
   const { theme, toggleTheme, targetCenter, setTargetCenter } = useUi();
-  // Essai ISOLÉ et RÉVERSIBLE (composant React Bits « FluidGlass », mode
-  // « bar ») : état purement local, non persisté — s'éteint à chaque
-  // rechargement. La sidebar réelle (ci-dessous) reste toujours montée et
-  // fonctionnelle ; la barre de verre flotte simplement par-dessus.
-  const [fluidNavTrial, setFluidNavTrial] = useState(false);
   return (
     <aside className="glass glass-edge flex w-16 shrink-0 flex-col border-y-0 border-l-0 md:w-60">
       <div className="flex h-16 items-center gap-2.5 px-4">
@@ -139,30 +126,8 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
           <span className="h-1.5 w-1.5 animate-pulse-line rounded-full bg-brand-500" />
           <SyncBadge />
         </div>
-        {/* Essai FluidGlass — visuel uniquement, sans impact sur la nav réelle
-            au-dessus (jamais démontée). Voir FluidGlassBar.tsx pour le détail
-            des écarts assumés par rapport au composant React Bits source. */}
-        <button onClick={() => setFluidNavTrial((v) => !v)}
-          title="Essai visuel : barre de navigation en verre 3D (React Bits, adapté)"
-          className={`btn-ghost w-full justify-center text-[11px] md:justify-start ${fluidNavTrial ? 'text-brand-600 dark:text-brand-300' : ''}`}>
-          <Icon name="spark" className="h-[15px] w-[15px]" />
-          <span className="hidden md:inline">{fluidNavTrial ? 'Essai FluidGlass actif' : 'Essai FluidGlass (verre 3D)'}</span>
-        </button>
       </div>
 
-      {fluidNavTrial && (
-        // Portal indispensable : <aside> porte `.glass` (backdrop-filter), qui
-        // — comme `transform` — crée un containing block pour les descendants
-        // `position: fixed`. Sans lui, la barre se cale sur la largeur de la
-        // sidebar au lieu du viewport entier (constaté à l'écran : 175px au
-        // lieu de la pleine largeur). Voir Portal.tsx pour ce même piège déjà
-        // documenté ailleurs dans l'app.
-        <Portal>
-          <Suspense fallback={null}>
-            <FluidGlassBar items={NAV} onExit={() => setFluidNavTrial(false)} />
-          </Suspense>
-        </Portal>
-      )}
     </aside>
   );
 }

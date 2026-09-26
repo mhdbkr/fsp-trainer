@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { PatientSheet } from '@/db/types';
+import type { CaseQuestion, PatientSheet } from '@/db/types';
 import { buildRollenskript, type RoleChapter, type RoleLine } from '@/lib/rolePlay';
 import { Icon } from '@/components/icons';
 
@@ -17,10 +17,10 @@ import { Icon } from '@/components/icons';
 
 const stripKein = (s: string) => s.replace(/^kein(e|en|em|er)?\s+/i, '').replace(/,\s*kein(e|en|em|er)?\s+/gi, ', ');
 
-export function RolePlayView({ sheet, followChapterId, followProbeId }: {
-  sheet: PatientSheet; followChapterId?: string | null; followProbeId?: string | null;
+export function RolePlayView({ sheet, caseQuestions, followChapterId, followProbeId }: {
+  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null;
 }) {
-  const chapters = useMemo(() => buildRollenskript(sheet), [sheet]);
+  const chapters = useMemo(() => buildRollenskript(sheet, caseQuestions), [sheet, caseQuestions]);
   const [activeId, setActiveId] = useState<string>(chapters[0]?.id ?? '');
   const [query, setQuery] = useState('');
   const [showReactions, setShowReactions] = useState(false);
@@ -178,7 +178,9 @@ function Bubble({ line, live = false }: { line: RoleLine; live?: boolean }) {
   return (
     <div ref={ref} className={`rounded-xl px-3 py-2 transition-[box-shadow,background-color] duration-500 ${live ? 'bg-brand-50 ring-2 ring-brand-400/70 dark:bg-brand-900/25' : 'bg-slate-50 dark:bg-slate-800/50'}`}>
       {line.frage && <div className={`flex items-center gap-1.5 text-[11px] leading-tight ${live ? 'font-semibold text-brand-600 dark:text-brand-300' : 'text-slate-400'}`}>{live && <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />}{line.frage}</div>}
-      <div className="mt-0.5 text-sm font-medium leading-snug text-slate-800 dark:text-slate-100">{line.antwort}</div>
+      {line.improvise
+        ? <div className="mt-0.5 text-[12.5px] italic leading-snug text-slate-500 dark:text-slate-400">Antworte frei aus den Fakten oben — diese Frage gehört zu diesem Fall.</div>
+        : <div className="mt-0.5 text-sm font-medium leading-snug text-slate-800 dark:text-slate-100">{line.antwort}</div>}
     </div>
   );
 }

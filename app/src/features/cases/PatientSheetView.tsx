@@ -1,4 +1,4 @@
-import type { PatientSheet } from '@/db/types';
+import type { CaseQuestion, PatientSheet } from '@/db/types';
 import { RolePlayView } from '@/components/RolePlayView';
 
 // ============================================================================
@@ -6,8 +6,8 @@ import { RolePlayView } from '@/components/RolePlayView';
 // rôle PRÜFER (Fallspezifische Fragen, Fragen Teil 3) vivent dans la fiche
 // Prüfer (ExaminerSheetView), pas ici.
 // ============================================================================
-export function PatientSheetView({ sheet, followChapterId, followProbeId }: {
-  sheet: PatientSheet; followChapterId?: string | null; followProbeId?: string | null;
+export function PatientSheetView({ sheet, caseQuestions, followChapterId, followProbeId }: {
+  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null;
 }) {
-  return <RolePlayView sheet={sheet} followChapterId={followChapterId} followProbeId={followProbeId} />;
+  return <RolePlayView sheet={sheet} caseQuestions={caseQuestions} followChapterId={followChapterId} followProbeId={followProbeId} />;
 }

@@ -70,7 +70,7 @@ export function CaseDetailPage() {
             </div>
           </div>
           {role === 'patient'
-            ? <PatientSheetView sheet={c.patientSheet} />
+            ? <PatientSheetView sheet={c.patientSheet} caseQuestions={c.caseSpecificQuestions} />
             : <ExaminerSheetView sheet={c.examinerSheet} fallback={c.examinerQuestions} caseName={c.name} caseSpecificQuestions={c.caseSpecificQuestions} />}
         </div>
       ) : (

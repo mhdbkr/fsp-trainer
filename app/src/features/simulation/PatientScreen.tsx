@@ -52,7 +52,7 @@ export function PatientScreen() {
       <main className="mx-auto max-w-2xl p-4">
         {c ? (
           tab === 'patient'
-            ? <PatientSheetView sheet={c.patientSheet} followChapterId={followChapterId} followProbeId={follow ? liveProbe : null} />
+            ? <PatientSheetView sheet={c.patientSheet} caseQuestions={c.caseSpecificQuestions} followChapterId={followChapterId} followProbeId={follow ? liveProbe : null} />
             : <ExaminerSheetView sheet={c.examinerSheet} fallback={c.examinerQuestions} caseName={c.name} caseSpecificQuestions={c.caseSpecificQuestions} />
         ) : (
           <div className="flex h-64 items-center justify-center text-slate-400">Aucun cas actif. Scanne le QR depuis la simulation.</div>
