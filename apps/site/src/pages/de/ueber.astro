@@ -9,6 +9,8 @@ const refusals = [
   'Doctopus ist keine Schule: kein Versprechen einer menschlichen Betreuung, kein „Coach“. Der Tandempartner ist ein Übungspartner, kein Trainer.',
   'Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote. Wir messen und trainieren.',
   'Doctopus ist kein Medizinprodukt und keine klinische Entscheidungshilfe: die Inhalte dienen einer Sprachprüfung.',
+  // Contient « Streak » à dessein (le mot est nommé pour être refusé). L'exception de
+  // check-voice est posée en commentaire HTML dans le gabarit ci-dessous : voice:allow.
   'Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler — belohnt wird die vollständige Simulation, nicht der Login.',
   'Doctopus verkauft sich nicht als „KI-App“: KI ist ein Dienst auf Credits-Basis, nicht die Identität.',
 ];
@@ -37,6 +39,12 @@ const refusals = [
 
   <section class="mx-auto max-w-3xl px-4 pb-16">
     <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Was {site.brandName} nicht ist</h2>
+    <!-- Exception explicite de check-voice (règle jeu), posée à la main : la phrase
+         « Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler » dit
+         exactement ce que la marque veut dire. Le jargon de jeu y est cité pour être refusé,
+         pas employé en façade. Portée : ce texte exact, cette page seule. La forme du
+         commentaire suivant est imposée (lib/dist.mjs, collectAllow) : rien après le terme. -->
+    <!-- voice:allow "Streak" -->
     <ul class="mt-6 space-y-4">
       {refusals.map((text) => (
         <li class="flex gap-3 text-ink-700 dark:text-paper/90">
