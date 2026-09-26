@@ -21,4 +21,9 @@ describe('TermRegister (F3 §3.3)', () => {
     expect(registerLine(reg)).toBe('Wasser im Bauch');
     expect(registerLine({ translationSimple: 'x' })).toBe('x');
   });
+  it('sans register et sans texte : pas de ligne "Reformulation" vide (I-1)', () => {
+    const { container } = render(<TermRegister term={{ translationSimple: '' }} />);
+    expect(screen.queryByText('Reformulation')).toBeNull();
+    expect(container.textContent).toBe('');
+  });
 });

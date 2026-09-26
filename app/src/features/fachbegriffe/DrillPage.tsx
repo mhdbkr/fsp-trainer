@@ -165,8 +165,12 @@ export function DrillPage() {
   }
 
   const card = queue[idx];
-  const front = direction === 'term2simple' ? card.term : card.translationSimple;
-  const back = direction === 'term2simple' ? registerLine(card) : card.term;
+  // Terme personnel étoilé avant explication (I-1) : jamais de face vide —
+  // recto = terme, verso = un hint honnête plutôt qu'un texte vide.
+  const reformulation = registerLine(card);
+  const hasReformulation = reformulation.length > 0;
+  const front = hasReformulation ? (direction === 'term2simple' ? card.term : card.translationSimple) : card.term;
+  const back = hasReformulation ? (direction === 'term2simple' ? reformulation : card.term) : 'Carte personnelle — pas encore d\'explication';
 
   const grade = async (g: Grade) => {
     const wasNew = card.srs.state === 'Neu';

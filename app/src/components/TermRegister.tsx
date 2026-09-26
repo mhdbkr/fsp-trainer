@@ -12,6 +12,7 @@ export const registerLine = (t: T): string => t.register?.patient ?? t.translati
 export function TermRegister({ term, variant = 'full', narrow = false }: { term: T; variant?: 'full' | 'line'; narrow?: boolean }) {
   const r = term.register;
   if (!r) {
+    if (!term.translationSimple) return null;
     return (
       <p className="text-xs text-slate-600 dark:text-slate-300">
         <span className="label mr-1">Reformulation</span>· {term.translationSimple}

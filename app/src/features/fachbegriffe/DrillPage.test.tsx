@@ -130,4 +130,16 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect((await screen.findAllByText(/Wasser im Bauch/)).length).toBeGreaterThan(0);
     expect((await screen.findAllByText('Ist Ihr Bauch dicker geworden?')).length).toBeGreaterThan(0);
   });
+
+  it('terme personnel sans explication ni contexte : aucune face vide, hint sur le verso (I-1)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-noexpl01', term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
+    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    fireEvent.click(revealBtn);
+    expect((await screen.findAllByText(/pas encore d.explication/i)).length).toBeGreaterThan(0);
+  });
 });

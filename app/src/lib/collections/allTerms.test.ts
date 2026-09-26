@@ -18,6 +18,18 @@ describe('allTerms', () => {
     expect(v).toMatchObject({ id: pt.id, term: pt.term, translationSimple: 'Atemnot bei Belastung', specialty: 'Allgemein', personal: true });
     expect(isPersonalView(v)).toBe(true); expect(isPersonalView(fb)).toBe(false);
   });
+  it('toView : sans explication ni contexte → translationSimple vide (I-1)', () => {
+    const raw: PersonalTerm = { id: 'pt-1111aaaa', term: 'Dyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) };
+    expect(toView(raw).translationSimple).toBe('');
+  });
+  it('toView : sans explication, avec contexte → translationSimple = contexte (I-1)', () => {
+    const raw: PersonalTerm = { id: 'pt-2222bbbb', term: 'Dyspnoe', context: 'Patient hat Dyspnoe bei Belastung.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) };
+    expect(toView(raw).translationSimple).toBe('Patient hat Dyspnoe bei Belastung.');
+  });
+  it('toView : une explication tardive ne réécrit pas la carte (contrat inchangé)', () => {
+    const raw: PersonalTerm = { id: 'pt-3333cccc', term: 'Dyspnoe', context: 'ctx', explanation: 'Atemnot', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) };
+    expect(toView(raw).translationSimple).toBe('Atemnot');
+  });
   it('mergeTerms : glossaire + personnels ; le drill accepte les deux (AC-2)', () => {
     const all = mergeTerms([fb], [pt]);
     expect(all.map((t) => t.id)).toEqual(['fb-aszites', 'pt-0000abcd']);

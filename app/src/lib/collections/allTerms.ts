@@ -15,7 +15,7 @@ export const isPersonalView = (t: AnyTerm): t is PersonalTermView => (t as Perso
 
 export function toView(pt: PersonalTerm): PersonalTermView {
   return {
-    id: pt.id, term: pt.term, translationSimple: pt.explanation ?? '', specialty: 'Allgemein',
+    id: pt.id, term: pt.term, translationSimple: pt.explanation ?? pt.context ?? '', specialty: 'Allgemein',
     pathologyTags: [], centers: [], linkedCaseIds: [], srs: pt.srs, personal: true,
     ...(pt.context ? { context: pt.context } : {}), ...(pt.caseId ? { caseId: pt.caseId } : {}),
   };
