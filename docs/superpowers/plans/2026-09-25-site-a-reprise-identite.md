@@ -561,6 +561,15 @@ Règles de réécriture, dans l'ordre de fréquence attendue :
 | `bareme` | supprimer toute mention de 60 % ou 60 points. Remplacer par « Doctopus-Übungsskala » avec le renvoi existant de `disclaimer.ts` |
 | `metaphore_explicitee`, `sauvetage` | supprimer purement. Ces mots ne se remplacent pas |
 
+**Arbitrages rendus après le premier passage du validateur (tâche 4)** — ils lient la tâche 5 :
+
+| Cas | Décision |
+|---|---|
+| **`Sie` dans les pages légales** (AGB, Datenschutz, Widerruf) | **Exempté.** Le `Sie` est l'usage juridique allemand, et une Widerrufsbelehrung comporte des formules statutaires qu'on ne réécrit pas au tutoiement. Le validateur exclut `de/agb/`, `de/datenschutz/`, `de/widerruf/` et `de/impressum/` de la seule règle `vouvoiement` — les autres règles continuent de s'y appliquer |
+| **Une note interne en français rendue dans une page allemande publique** (`LegalPage.astro` restitue tout le corps Markdown, note de direction comprise) | **C'est une fuite de contenu, pas un défaut de voix.** À corriger : la note ne doit pas être rendue. Plus grave que ce qui l'a révélée |
+| **Contexte nié** : « keine Erfolgsquote », « keine strafende Streak » | **Faux positifs.** `check-no-promise.mjs` sait déjà traiter la négation — reprendre son mécanisme plutôt qu'en inventer un. La page dit l'inverse de ce qui est signalé |
+| **« 60 % » présenté comme le seuil officiel de la FSP** | **Le signalement est juste, le texte part.** Ce barème n'est pas sourcé (`app/docs/brand/POSITIONNEMENT.md`, commit 3f48b96) : le citer comme un fait officiel est précisément l'interdit. C'est la meilleure prise du validateur |
+
 **Interdit** : retirer un motif du lexique pour faire passer une page. Si un motif produit un faux positif légitime (ex. `Niveau` dans une citation officielle d'une Landesärztekammer), **l'entourer d'un commentaire et le signaler dans le commit** — la décision d'assouplir appartient à la revue, pas à l'implémenteur.
 
 - [ ] **Step 3: Remplacer la formulation du corpus**
