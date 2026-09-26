@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { findViolations } from '../scripts/check-voice.mjs';
 
 const SCRIPT = resolve(dirname(fileURLToPath(import.meta.url)), '../scripts/check-voice.mjs');
@@ -245,14 +245,88 @@ test('point 13 — « 60 % » et « 60 Punkte » restent signalés (barème non 
 });
 
 // ————————————————————————————————————————————————————————————————————————
+// Correction 2 — la famille `garantie` est de retour, exception de portée composant
+// (Footer.astro), seconde phrase légitime de ueber.astro levée.
+// ————————————————————————————————————————————————————————————————————————
+
+test('correction 2 — la famille garantie déclenche hors exception et sans négation', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Wir bieten dir eine echte Erfolgsgarantie.</p>')), ['promesse']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Eine Bestehensgarantie inklusive.</p>')), ['promesse']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Wir garantieren dir den Erfolg.</p>')), ['promesse']);
+});
+
+test('correction 2 — l\'exception du pied de page lève « Erfolgsgarantie » exact, rien d\'autre', () => {
+  const html = '<!-- voice:allow "Erfolgsgarantie" --><p>… keine Erfolgsgarantie.</p>';
+  assert.deepEqual(findViolations('a.html', html), []);
+  // Un autre texte de la même règle, mot différent, sur la même page : pas levé — la portée
+  // est le texte exact nommé, pas la règle entière.
+  assert.deepEqual(rules(findViolations('a.html', `${html} <p>Wir garantieren dir den Erfolg.</p>`)), ['promesse']);
+});
+
+test('correction 2 — l\'exception posée dans Footer.astro vaut sur chaque page où le composant est rendu', () => {
+  // Reproduit ce qu'Astro construit : le même commentaire, dans le HTML de deux pages
+  // distinctes, parce que le composant Footer est inclus dans les deux — pas une exception
+  // par page, une exception par composant.
+  const footer = '<!-- voice:allow "Erfolgsgarantie" --><p>… keine Erfolgsgarantie.</p>';
+  withDist({
+    'de/index.html': `<html><body>${footer}</body></html>`,
+    'de/preise/index.html': `<html><body>${footer}</body></html>`,
+  }, (r) => {
+    assert.equal(r.status, 0, r.out);
+  });
+});
+
+// Limite connue (réserve 5 du rapport de tâche 4, non retouchée ici) : l'exemption compare le
+// TEXTE EXACT du match (« erfolgsgarantie »), pas une position dans la page. Si une AUTRE
+// source, sur la MÊME page, porte elle aussi le mot exact « Erfolgsgarantie », l'exception du
+// pied de page (rendu sur cette page) la lève aussi, par construction — vérifié sur le site
+// réel : dist/de/faq/index.html porte « keine Erfolgsgarantie » depuis
+// apps/site/src/content/faq/bestehen.md, hors du pied de page, et n'est plus signalé une fois
+// le pied de page construit dans la même page (seul « garantieren » y reste signalé, un motif
+// différent de la même règle). Pinée pour que ce soit un choix documenté, pas une découverte
+// en prod.
+test('correction 2 — limite documentée : l\'exception du pied de page peut lever une autre occurrence du même mot sur la même page', () => {
+  const body = '<p>Wir bieten eine echte Erfolgsgarantie.</p>';
+  assert.deepEqual(rules(findViolations('a.html', body)), ['promesse']);
+  assert.deepEqual(findViolations('a.html', `<!-- voice:allow "Erfolgsgarantie" -->${body}`), []);
+});
+
+// ————————————————————————————————————————————————————————————————————————
 // Point 14 — un motif capable de matcher le vide ne bloque pas la CI
 // ————————————————————————————————————————————————————————————————————————
 
-test('point 14 — un motif matchant le vide ne fait pas tourner exec() à l\'infini', () => {
-  // Sans le garde-fou (`lastIndex += 1` sur une correspondance vide), cet appel ne rend
-  // jamais la main et la CI reste bloquée jusqu'au timeout.
+test('point 14 — un motif matchant le vide, mais pas exempté, ne devient pas une fausse alerte', () => {
   const v = findViolations('a.html', '<p>- x</p>', { probe: ['a*'] });
   assert.deepEqual(v, []);
+});
+
+// Le piège réel n'est pas « un match vide existe » (ci-dessus : un match vide qui n'est PAS
+// dans `allow` devient aussitôt le résultat et casse la boucle, sans le garde-fou). Le piège
+// réel est un match vide QUI EST dans `allow` : sans le garde-fou, `!allowed.has('')` est faux,
+// la boucle ne casse pas ET `re.lastIndex` ne bouge pas puisque le match fait 0 caractère —
+// `exec()` retrouve indéfiniment la même correspondance vide au même endroit. C'est un blocage
+// SYNCHRONE : aucun timeout de test ne peut l'interrompre dans le même processus (la boucle
+// d'événements ne tourne jamais pendant une boucle JS synchrone). D'où le sous-processus avec
+// timeout dur — la même méthode que la preuve manuelle du rapport de tâche 4, désormais dans
+// la suite plutôt qu'à côté (troisième paramètre `lexicon` de `findViolations`, déjà ouvert
+// pour rendre ce chemin testable).
+test('point 14 — un motif vide ET exempté ne fait pas tourner exec() à l\'infini (sous-processus, timeout dur)', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'voice-loop-'));
+  try {
+    const probe = join(dir, 'probe.mjs');
+    writeFileSync(probe, [
+      `import { findViolations } from ${JSON.stringify(pathToFileURL(SCRIPT).href)};`,
+      `findViolations('a.html', '<!-- voice:allow "" --><p>- x</p>', { probe: ['a*'] });`,
+      `process.stdout.write('ok');`,
+    ].join('\n'));
+    const r = spawnSync(process.execPath, [probe], { encoding: 'utf8', timeout: 3000 });
+    // Un garde-fou absent boucle indéfiniment : spawnSync tue le sous-processus (SIGTERM) au
+    // bout de 3 s au lieu de bloquer toute la suite. `signal` non nul = boucle infinie.
+    assert.equal(r.signal, null, `sous-processus tué après timeout — boucle infinie probable : ${r.stderr}`);
+    assert.equal(r.stdout, 'ok', r.stderr);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
 
 // ————————————————————————————————————————————————————————————————————————
