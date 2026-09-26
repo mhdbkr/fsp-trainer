@@ -21,9 +21,11 @@ const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as con
 
 // ponytail: masquage naïf (occurrences du terme entier, insensible à la casse) — pas de
 // tokenizer linguistique ; suffisant pour un seul terme dans une phrase de contexte.
+// \b est ASCII-only (même piège que l'autolink, cf. autolink.tsx) : un terme à
+// umlaut/ß (Übelkeit, Ödem…) en début/fin de mot ne serait pas masqué → lookarounds Unicode.
 function maskTerm(text: string, term: string): string {
   const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return text.replace(new RegExp(`\\b${escaped}\\b`, 'gi'), '…');
+  return text.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'giu'), '…');
 }
 
 // Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie

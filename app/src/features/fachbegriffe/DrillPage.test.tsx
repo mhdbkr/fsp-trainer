@@ -155,6 +155,17 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect((await screen.findAllByText(/klagt über … seit zwei Wochen/i)).length).toBeGreaterThan(0);
   });
 
+  it('terme personnel avec contexte (Sens → terme), terme à umlaut/ß : le masquage est Unicode-aware (\\b est ASCII-only)', async () => {
+    await db.fachbegriffe.clear();
+    await db.personal_terms.put({ id: 'pt-ctx03', term: 'Übelkeit', context: 'Die Patientin berichtet über Übelkeit seit dem Frühstück.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    const startBtn = await screen.findByRole('button', { name: /commencer/i });
+    fireEvent.click(startBtn);
+    expect(screen.queryByText('Übelkeit')).toBeNull();
+    expect((await screen.findAllByText(/berichtet über … seit dem Frühstück/i)).length).toBeGreaterThan(0);
+  });
+
   it('terme personnel sans explication ni contexte : aucune face vide, hint sur le verso (I-1)', async () => {
     await db.fachbegriffe.clear();
     await db.personal_terms.put({ id: 'pt-noexpl01', term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
