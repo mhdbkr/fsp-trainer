@@ -15,4 +15,5 @@ describe('lookupTerm (F3) — exact puis formes fléchies simples', () => {
   });
   it('inflected 4-letter base', () => expect(lookupTerm('Ödems', g)?.term).toBe('Ödem'));
   it('base less than 4 chars: no derivation', () => expect(lookupTerm('Tbcs', [fb('Tbc')])).toBeNull());
+  it('sélection entourée de guillemets courbes (M-1)', () => expect(lookupTerm('“Asziten”', g)?.term).toBe('Aszites'));
 });

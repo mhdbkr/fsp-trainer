@@ -58,7 +58,7 @@ export function exactLookup(selection: string, begriffe: Fachbegriff[]): Fachbeg
 }
 
 const SUFFIXES = ['en', 'e', 's', 'n'];
-const norm = (s: string) => s.trim().replace(/^[\s„""'«»(\[]+|[\s"""'«»)\].,;:!?]+$/g, '').toLowerCase();
+const norm = (s: string) => s.trim().replace(/^[\s„“"'«»(\[]+|[\s“”"'«»)\].,;:!?]+$/g, '').toLowerCase();
 
 /** Bases candidates d'un mot : lui-même, puis sans suffixe e/en/s/n (base ≥ 4 lettres). */
 function stems(w: string): string[] {
@@ -76,7 +76,6 @@ export function lookupTerm(selection: string, begriffe: Fachbegriff[]): Fachbegr
   const q = norm(selection);
   if (!q || /\s/.test(q)) return null;
   const qstems = stems(q);
-  // Only match if the selection has an inflected form (derived stem from suffix removal)
   if (qstems.length === 1) return null;
   const want = new Set(qstems.slice(1));
   for (const b of begriffe) {
