@@ -50,44 +50,64 @@ test('la profondeur ne se fait jamais par ombre portée, sous aucune forme', () 
   }
 });
 
+/** Blocs `.surface { … }` au sens strict : le sélecteur, seul sur sa ligne
+ * (indentation mise à part), doit être exactement `.surface`. Ancré en début
+ * de ligne pour ne PAS capturer un sélecteur composé comme
+ * `.register-work .surface { … }` (une redéfinition légitime par registre,
+ * qui n'a pas à respecter la même règle lift/veil) ni `.surface-raised { … }`.
+ * Avec `/g`, balaie TOUTES les occurrences du fichier (y compris sous un
+ * `@media`), pas seulement la première trouvée textuellement — en CSS c'est
+ * la dernière qui l'emporte en cascade. */
+function findSurfaceBlocks() {
+  return css.match(/^[ \t]*\.surface\s*\{[^}]*\}/gm) ?? [];
+}
+
 test('la lumière vient du haut : le bord supérieur porte lift, les autres portent veil', () => {
-  const block = css.match(/\.surface\s*\{[^}]*\}/)?.[0] ?? '';
-  assert.ok(block, 'bloc .surface introuvable');
-  const decls = parseDeclarations(block);
+  const blocks = findSurfaceBlocks();
+  assert.ok(blocks.length > 0, 'bloc .surface introuvable');
 
-  const topDecls = decls.filter(([p]) => p === 'border-top' || p === 'border-top-color');
-  const otherBorderDecls = decls.filter(([p]) =>
-    ['border', 'border-color', 'border-right', 'border-bottom', 'border-left',
-      'border-right-color', 'border-bottom-color', 'border-left-color'].includes(p),
-  );
+  blocks.forEach((block, index) => {
+    const decls = parseDeclarations(block);
 
-  assert.ok(topDecls.length > 0, 'aucune déclaration pour le bord supérieur (border-top / border-top-color)');
-  assert.ok(otherBorderDecls.length > 0, 'aucune déclaration pour les autres bords (border / border-color)');
+    const topDecls = decls.filter(([p]) => p === 'border-top' || p === 'border-top-color');
+    const otherBorderDecls = decls.filter(([p]) =>
+      ['border', 'border-color', 'border-right', 'border-bottom', 'border-left',
+        'border-right-color', 'border-bottom-color', 'border-left-color'].includes(p),
+    );
 
-  for (const [prop, value] of topDecls) {
-    assert.match(value, /--dt-color-depth-lift\b/,
-      `le bord supérieur ("${prop}: ${value}") doit porter --dt-color-depth-lift`);
-    assert.ok(!/--dt-color-depth-veil\b/.test(value),
-      `le bord supérieur ("${prop}: ${value}") ne doit pas porter --dt-color-depth-veil (lumière inversée)`);
-  }
-  for (const [prop, value] of otherBorderDecls) {
-    assert.match(value, /--dt-color-depth-veil\b/,
-      `le bord "${prop}: ${value}" doit porter --dt-color-depth-veil`);
-    assert.ok(!/--dt-color-depth-lift\b/.test(value),
-      `le bord "${prop}: ${value}" ne doit pas porter --dt-color-depth-lift (lumière inversée)`);
-  }
+    assert.ok(topDecls.length > 0,
+      `bloc .surface #${index} : aucune déclaration pour le bord supérieur (border-top / border-top-color)\n${block}`);
+    assert.ok(otherBorderDecls.length > 0,
+      `bloc .surface #${index} : aucune déclaration pour les autres bords (border / border-color)\n${block}`);
+
+    for (const [prop, value] of topDecls) {
+      assert.match(value, /--dt-color-depth-lift\b/,
+        `bloc .surface #${index} : le bord supérieur ("${prop}: ${value}") doit porter --dt-color-depth-lift\n${block}`);
+      assert.ok(!/--dt-color-depth-veil\b/.test(value),
+        `bloc .surface #${index} : le bord supérieur ("${prop}: ${value}") ne doit pas porter --dt-color-depth-veil (lumière inversée)\n${block}`);
+    }
+    for (const [prop, value] of otherBorderDecls) {
+      assert.match(value, /--dt-color-depth-veil\b/,
+        `bloc .surface #${index} : le bord "${prop}: ${value}" doit porter --dt-color-depth-veil\n${block}`);
+      assert.ok(!/--dt-color-depth-lift\b/.test(value),
+        `bloc .surface #${index} : le bord "${prop}: ${value}" ne doit pas porter --dt-color-depth-lift (lumière inversée)\n${block}`);
+    }
+  });
 });
 
 test('.surface garde un rendu lisible hors de tout registre (repli des variables)', () => {
-  const block = css.match(/\.surface\s*\{[^}]*\}/)?.[0] ?? '';
-  assert.ok(block, 'bloc .surface introuvable');
-  const decls = parseDeclarations(block);
-  const bg = decls.find(([p]) => p === 'background-color')?.[1] ?? '';
-  const fg = decls.find(([p]) => p === 'color')?.[1] ?? '';
-  assert.match(bg, /^var\(--surface\s*,\s*.+\)$/,
-    `background-color doit fournir un repli à --surface, sinon fond transparent hors registre : "${bg}"`);
-  assert.match(fg, /^var\(--on-surface\s*,\s*.+\)$/,
-    `color doit fournir un repli à --on-surface, sinon texte invisible hors registre : "${fg}"`);
+  const blocks = findSurfaceBlocks();
+  assert.ok(blocks.length > 0, 'bloc .surface introuvable');
+
+  blocks.forEach((block, index) => {
+    const decls = parseDeclarations(block);
+    const bg = decls.find(([p]) => p === 'background-color')?.[1] ?? '';
+    const fg = decls.find(([p]) => p === 'color')?.[1] ?? '';
+    assert.match(bg, /^var\(--surface\s*,\s*.+\)$/,
+      `bloc .surface #${index} : background-color doit fournir un repli à --surface, sinon fond transparent hors registre : "${bg}"\n${block}`);
+    assert.match(fg, /^var\(--on-surface\s*,\s*.+\)$/,
+      `bloc .surface #${index} : color doit fournir un repli à --on-surface, sinon texte invisible hors registre : "${fg}"\n${block}`);
+  });
 });
 
 test('le registre clair a deux paliers distincts, comme le registre sombre', () => {
