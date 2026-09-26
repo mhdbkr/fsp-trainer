@@ -1,12 +1,37 @@
 {
-  "$note": "Interdits de VOIX.md §08 et PHILOSOPHIE.md §08. Motifs en minuscules, comparés sur le texte visible en minuscules. Voir README de chaque règle dans check-voice.mjs.",
-  "vouvoiement": ["\\bsie können\\b", "\\bsie haben\\b", "\\bihre prüfung\\b", "\\bihr termin\\b"],
-  "scolaire": ["\\blernen\\b", "\\bgelernt\\b", "\\blernreise\\b", "\\bkurs\\b", "\\blektion\\b", "\\bschüler\\b", "\\bniveau\\b"],
-  "hype": ["\\brevolutionär\\b", "\\binnovativ\\b", "\\beinzigartig\\b", "\\bweltklasse\\b", "\\bganz einfach\\b", "\\bki-gestützt\\b"],
-  "promesse": ["\\bgarantiert\\b", "\\berfolgsquote\\b", "\\bim ersten versuch\\b", "\\bprüfungsreif\\b"],
-  "fuite": ["\\bprüfungsfragen\\b", "\\bdie themen\\b", "\\bdein fall ist dabei\\b"],
-  "jeu": ["\\bstreak\\b", "\\bxp\\b", "\\bendgegner\\b", "\\bliga\\b"],
-  "metaphore_explicitee": ["\\bwie ein oktopus\\b", "\\boktopus\\b", "\\bozean\\b", "\\babgrund\\b", "\\btintenfisch\\b"],
-  "sauvetage": ["\\brette\\b", "\\brettung\\b", "\\brettungsring\\b", "\\bertrinken\\b", "\\bsturm\\b"],
-  "bareme": ["60\\s*%", "60\\s*punkte"]
+  "$note": "Interdits de VOIX.md §08 et PHILOSOPHIE.md §08. Motifs en minuscules, comparés au corpus normalisé (entités décodées, césure retirée, NFC, minuscules). Les bornes de mot sont posées par le code (boundedRe, bornes Unicode) : ne PAS écrire \\b dans un motif — il est ASCII et matcherait à l'intérieur d'un composé allemand (« Kursübersicht » → kurs, « Bürette » → rette). Voir le README de chaque règle dans check-voice.mjs.",
+  "$decisions": [
+    "PAS de `bestehen` nu, malgré VOIX.md §08 : le verbe est légitime en emploi ordinaire (« die Prüfung besteht aus drei Teilen »). Les promesses de réussite sont couvertes nommément (garantiert, Erfolgsquote, im ersten Versuch, prüfungsreif). Décision écrite ici pour qu'on ne la re-tranche pas.",
+    "PAS de `Garantie` nu ni de `Erfolgsgarantie`/`Bestehensgarantie`/`garantieren` : ces formes n'apparaissent sur le site QUE dans les refus honnêtes de la marque (« keine Erfolgsgarantie » dans l'avertissement de pied de page, présent sur les 17 pages ; « das kann niemand garantieren » dans la FAQ). Sans heuristique de négation — supprimée à dessein — un tel motif convertit un avertissement obligatoire en 15 manquements bloquants qu'il faudrait lever un par un. À trancher par la direction si la copie change, pas par le validateur.",
+    "Composés et formes fléchies listés NOMMÉMENT, jamais par joker de préfixe : `\\p{L}*kurs` attraperait « Diskurs » et recréerait les faux positifs que les bornes Unicode viennent de fermer. La contrepartie est que la couverture des composés est énumérative : elle s'étend au fil de la copie.",
+    "`sprachniveau` est listé explicitement : la correction des bornes de mot supprimerait sinon un constat réel de la porte actuelle (dist/de/datenschutz/), qu'elle tenait par accident via `\\bniveau\\b` en ASCII. Le mécanisme change, le constat reste."
+  ],
+  "vouvoiement": ["sie können", "sie haben", "ihre prüfung", "ihr termin"],
+  "scolaire": [
+    "lern(?:e|en|st|t|te|ten)", "gelernt", "lernreise", "lernplan",
+    "kurs(?:e|en)?", "sprachkurs(?:e|en)?", "lektion(?:en)?",
+    "schüler(?:in|innen)?", "niveau(?:s)?", "sprachniveau(?:s)?"
+  ],
+  "hype": [
+    "revolutionär(?:e|er|es|en|em)?", "innovativ(?:e|er|es|en|em)?",
+    "einzigartig(?:e|er|es|en|em)?", "weltklasse", "ganz einfach",
+    "ki-gestützt(?:e|er|es|en|em)?", "intelligent(?:e|er|es|en|em)?"
+  ],
+  "promesse": [
+    "garantiert(?:e|er|es|en|em)?", "erfolgsquote(?:n)?",
+    "im ersten versuch", "prüfungsreif(?:e|er|es|en|em)?"
+  ],
+  "fuite": ["prüfungsfrage(?:n)?", "die themen", "dein fall ist dabei"],
+  "jeu": ["streak(?:s)?", "xp", "endgegner", "liga", "ligen", "level(?:s)?"],
+  "urgence": ["nur heute", "nur noch heute", "letzte chance"],
+  "comparaison": ["besser als"],
+  "metaphore_explicitee": [
+    "wie ein oktopus", "oktopus(?:se|sen)?", "ozean(?:e|en|s)?",
+    "abgrund", "abgründe", "tintenfisch(?:e|en)?"
+  ],
+  "sauvetage": [
+    "rette(?:n|t|st)?", "gerettet", "rettung(?:en)?", "rettungsring(?:e|en)?",
+    "ertrinken", "ertrinkt", "ertrunken", "sturm", "stürme"
+  ],
+  "bareme": ["60\\s*%", "60\\s*punkte(?:n)?", "sechzig\\s*prozent", "60\\s*prozent"]
 }
