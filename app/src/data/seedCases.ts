@@ -575,7 +575,7 @@ export function seedCases(): Case[] {
             ],
           },
           {
-            label: 'Kausale Therapie der biliären Genese (ERCP und Cholezystektomie)',
+            label: 'Kausale Therapie der biliären Genese: Cholezystektomie, ERCP nur bei Cholangitis oder Gallengangsobstruktion',
             items: [
               'Sicherung der biliären Genese durch Sonographie und Laborverlauf (Bilirubin, alkalische Phosphatase, γ-GT), ergänzend Endosonographie oder MRCP',
               'ERCP mit Papillotomie und Steinextraktion innerhalb von 24 Stunden, wenn eine Cholangitis oder ein persistierender Gallengangsaufstau vorliegt',
@@ -1114,7 +1114,7 @@ export function seedCases(): Case[] {
             items: [
               'Sollten Bilirubin, alkalische Phosphatase oder Gamma-GT erhöht sein oder der Ductus choledochus sonographisch über 7 mm weit sein, ergänze ich bei diesem Patienten eine MRCP beziehungsweise Endosonographie',
               'Bei nachgewiesenem Stein im Ductus choledochus zunächst ERCP mit endoskopischer Papillotomie und Steinextraktion (Dormia-Körbchen oder Ballon), erst danach die laparoskopische Cholezystektomie in derselben Behandlung — therapeutisches Splitting',
-              'Bei Fieber mit Schüttelfrost und Ikterus im Sinne einer Charcot-Trias gilt die Cholangitis als gesichert: dringliche ERCP innerhalb von 24 Stunden, parallel Volumentherapie und intravenöse Antibiose; bei Hypotonie und Bewusstseinstrübung Verlegung auf die Intensivstation',
+              'Bei Fieber mit Schüttelfrost, Ikterus und rechtsseitigem Oberbauchschmerz (Charcot-Trias) besteht der dringende Verdacht auf eine akute Cholangitis, die durch Entzündungswerte, Cholestaseparameter und den Gallengangsaufstau in der Bildgebung gesichert wird: dringliche ERCP innerhalb von 24 Stunden, parallel Volumentherapie und intravenöse Antibiose; bei Hypotonie und Bewusstseinstrübung Verlegung auf die Intensivstation',
               'Nach der ERCP Kontrolle von Lipase und Schmerzverlauf zum Ausschluss einer Post-ERCP-Pankreatitis, Beobachtung auf Nachblutung nach Papillotomie',
               'Bei erhöhter Lipase bereits bei Aufnahme muss zusätzlich eine biliäre Pankreatitis abgeklärt und die Cholezystektomie noch im selben Aufenthalt zur Rezidivprophylaxe geplant werden',
             ],

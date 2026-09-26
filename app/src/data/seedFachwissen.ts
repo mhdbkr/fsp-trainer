@@ -254,7 +254,7 @@ export function seedFachwissen(): Fachwissen[] {
           ],
         },
         {
-          label: 'Kausale Therapie der biliären Genese (ERCP und Cholezystektomie)',
+          label: 'Kausale Therapie der biliären Genese: Cholezystektomie, ERCP nur bei Cholangitis oder Gallengangsobstruktion',
           items: [
             'Notfall-ERCP mit Papillotomie und Steinextraktion innerhalb von 24 Stunden bei biliärer Pankreatitis mit begleitender Cholangitis oder persistierender Gallengangsobstruktion (steigendes Bilirubin, Gangaufstau in der Sonographie)',
             'Ohne Cholangitis und ohne Obstruktion besteht KEINE ERCP-Indikation — der Eingriff kann selbst eine Post-ERCP-Pankreatitis auslösen (Prophylaxe: Indometacin rektal, Pankreasgangstent)',

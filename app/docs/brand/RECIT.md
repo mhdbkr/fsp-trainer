@@ -1,101 +1,111 @@
 # Récit de marque Doctopus
 
-Date : 2026-09-25 · `brand-building-skills:brand-story`
-Sources : `POSITIONNEMENT.md` · `MESSAGES.md` · `VOIX.md` · `docs/adr/0015-two-trajectories-personal-first.md`
-Ton retenu : **fondateur à la première personne**, sobre, non complaisant — conforme à `VOIX.md` (« un confrère qui a déjà passé l'examen »).
+Date : 2026-09-25 (v2 — métaphore fondatrice intégrée, temps du récit tranché) · `brand-building-skills:brand-story`
+Sources : **`PHILOSOPHIE.md` (au-dessus de tout)** · `POSITIONNEMENT.md` · `MESSAGES.md` · `VOIX.md`
+Ton : **fondateur à la première personne**, au **passé** — la direction parle depuis l'après-examen.
 
-> ## Avertissement de méthode — à lire avant tout
-> Un récit d'origine est une **affirmation sur une personne réelle**. Je n'en invente aucun détail.
-> Ce document est donc écrit avec des **trous marqués `⟨…⟩`** : chacun est une question à Mehdi. Tant qu'ils ne sont pas remplis par ses mots, **rien ici ne se publie**.
-> Ce qui n'est pas entre `⟨…⟩` est déduit de faits vérifiables du dépôt (ADR-0015, le corpus bâti sur protocoles réels, l'app hors-ligne d'abord, les deux comptes en production) ou du paysage rapporté par la direction (§00 du positionnement).
+> **Méthode** : un récit d'origine affirme des choses sur une personne réelle. Je n'en invente aucune.
+> Ce qui vient de la direction est écrit tel quel ; ce qui manque encore est marqué `⟨…⟩`. **Quatre trous restent.** Tant qu'ils ne sont pas comblés par ses mots, la page ne se publie pas.
 
-## 00 — Les huit questions qui manquent
+## 00 — Les quatre questions qui restent
 
 | # | Question | Où ça sert |
 |---|---|---|
-| 1 | **Le moment exact.** Qu'est-ce que tu faisais, où, quand tu t'es dit « je vais me le construire » ? Pas la raison — la scène. | ouverture de V1 |
-| 2 | **Ce que tu as essayé avant.** École, livre, Telegram, prof : lequel, et qu'est-ce qui a lâché précisément ? | §« le problème » |
-| 3 | **Le détail qui t'a fait tiquer.** Une question absurde dans un modèle ? une correction qui n'est jamais venue ? un groupe où tu ne parlais jamais ? | c'est le cœur du récit |
-| 4 | **Ce que tu refuses d'accepter** et que le marché trouve normal. | §« la conviction » |
-| 5 | **Lydia.** Qu'est-ce que le fait de préparer à deux a changé dans l'outil ? | §« pour qui » |
-| 6 | **Le nom.** Doctopus est-il venu d'une intention ou d'un hasard qui s'est révélé juste ? | §« le nom » |
-| 7 | **Où tu en es.** Veux-tu dire publiquement que tu prépares encore l'examen, ou parler depuis l'après ? | change tout le temps grammatical |
+| 2 | **Ce que tu as essayé avant.** École, livre, Telegram, prof privé — lequel, et qu'est-ce qui a lâché exactement ? | §« le problème » |
+| 3 | **Le détail qui t'a fait tiquer.** Une question absurde dans un modèle, une correction jamais venue, une séance où tu n'as pas parlé. Un fait, pas un ressenti. | c'est la phrase que les lecteurs retiendront |
+| 5 | **Lydia.** Qu'est-ce que préparer à deux a changé dans l'outil ? | §« pour qui » |
 | 8 | **Le risque assumé.** Qu'est-ce que tu t'interdis, même si ça ferait vendre ? | §« l'engagement » |
 
-La question 7 est bloquante : **un outil écrit par quelqu'un qui passe l'examen** et **un outil écrit par quelqu'un qui l'a eu** ne sont pas le même récit, et l'un des deux est faux.
+**Tranchées :** le temps du récit (passé — tu parles depuis l'après) · le nom et l'inspiration (§01) · l'adversaire (§02).
 
-## 01 — Le méchant du récit
+## 01 — L'origine, dans les mots de la direction
 
-Chaque récit a un adversaire. Ici, ce n'est ni l'examen, ni les écoles, ni le jury.
+> La voie d'équivalence pour un médecin international est longue, vaste, inconnue, stressante — un grand océan dont on ignore la profondeur. Préparer l'examen demande une méthode : savoir dans quelle direction nager pour retrouver la terre.
+> La pieuvre connaît les profondeurs. Elle est habituée aux abysses, capable de s'adapter à tous les environnements et à toutes les difficultés. C'est cette compétence qu'on veut transmettre au candidat.
 
-> **L'adversaire, c'est l'obligation d'improviser sa propre méthode.**
+C'est **l'origine réelle de la marque** : pas une trouvaille de nom, une lecture de la situation. Tout le reste en découle — le vert pétrole abyssal, la transparence, le verre, la largeur de l'ambition. Développée et bornée dans **`PHILOSOPHIE.md`**.
 
-Personne ne donne au médecin étranger un plan. On lui donne des morceaux : un livre pour le fond, un groupe pour les protocoles, un cours pour la structure, un tandem pour parler. À lui de trier, d'assembler, de deviner ce qui compte — **en plus** de préparer l'examen, et dans une langue qui n'est pas la sienne. Ce travail d'assemblage n'est évalué par personne, n'apporte aucun point, et c'est pourtant là que part son énergie.
+**Deux corrections que la philosophie apporte au récit brut, et qui le rendent publiable :**
+- **« Se sauver » devient « trouver son cap ».** Une pieuvre qui sauve un noyé promet la survie. Le problème du nageur n'est pas sa force, c'est son relèvement — et ça, on peut le donner sans rien promettre.
+- **L'abysse est calme, pas hostile.** Sombre, silencieux, sous pression — jamais une tempête. Le lecteur est déjà stressé ; la marque est l'endroit où ça se calme.
 
-C'est un adversaire honnête : il ne désigne aucun concurrent (§06 du positionnement l'interdit), il est vrai, et chaque lecteur concerné le reconnaît immédiatement.
+## 02 — L'adversaire
 
-## 02 — Version longue (page « À propos »), armature
+> **L'obligation d'improviser sa propre méthode.**
 
-*Français, à valider puis à traduire en allemand — on ne traduit pas 800 mots qui vont changer.*
+Personne ne donne de plan au médecin étranger. On lui donne des morceaux : un livre pour le fond, un groupe pour les protocoles, un cours pour la structure, un tandem pour parler. À lui de trier, d'assembler, de deviner ce qui compte — **en plus** de préparer l'examen, dans une langue qui n'est pas la sienne. Ce travail d'assemblage n'est évalué par personne et n'apporte aucun point. C'est pourtant là que part son énergie.
 
-**Ouverture** — ⟨scène, question 1⟩. Pas de date de création, pas de « tout a commencé quand ». Une situation.
+C'est un adversaire honnête : il ne nomme aucun concurrent (§06 du positionnement l'interdit), il est vrai, et chaque lecteur concerné le reconnaît en une ligne.
+
+## 03 — Version longue (page « À propos »), armature
+
+*Français d'abord, à valider, puis traduire en allemand. On ne traduit pas 800 mots qui vont changer.*
+
+**Ouverture.** Personne ne m'a jamais dit combien de temps ça prendrait.
+C'est ça que je retiens de la voie d'équivalence : pas la difficulté — la médecine, je la connaissais — mais l'absence de fond. On entre dedans comme dans un océan dont on ignore la profondeur. On nage, et on ne sait pas vers où.
 
 **Le problème.** J'avais tout. C'était le problème.
-Un livre, des protocoles récupérés dans un groupe, ⟨question 2⟩. Chaque chose était utile séparément, et rien ne se parlait. Le carnet de vocabulaire ne savait pas quel cas j'avais travaillé la veille. Le protocole ne me disait pas quelles formulations on attendait. Et personne, jamais, ne relisait mon Arztbrief.
+Un livre, des protocoles récupérés dans un groupe, ⟨question 2⟩. Chaque chose était utile séparément, et rien ne se parlait. Le carnet de vocabulaire ne savait pas quel cas j'avais travaillé la veille. Le protocole ne me disait pas quelles formulations on attendait. Personne, jamais, ne relisait mon Arztbrief.
 
-À 500 ou 700 € pour huit semaines, l'école résolvait une partie du problème : elle donnait une structure. Mais elle imposait un horaire, elle avançait au rythme du groupe, on y parlait quelques minutes par séance — et au bout de huit semaines, elle s'arrêtait. Mon examen, lui, ne s'arrêtait pas.
+À 500 ou 700 € pour huit semaines, l'école réglait une partie du problème : elle donnait une structure. Mais elle imposait un horaire, elle avançait au rythme du groupe, on y parlait quelques minutes par séance — et au bout de huit semaines, elle s'arrêtait. Mon examen, lui, ne s'arrêtait pas.
 
-⟨question 3 — le détail précis qui a fait basculer. C'est la phrase que les lecteurs retiendront ; elle doit venir de toi, pas de moi.⟩
+⟨question 3 — le détail précis qui a fait basculer. Cette phrase doit venir de toi.⟩
 
 **Ce qui a cliqué.** On m'expliquait l'examen. Personne ne me le faisait passer.
-Or la Fachsprachprüfung n'évalue pas ce que je sais — elle évalue cinq choses que je fais en même temps, sous pression : ma prononciation, mon vocabulaire, ma grammaire, ma fluidité, et ma façon de conduire un dialogue avec quelqu'un qui a peur. Cinq compétences distinctes. On me rendait une impression globale.
+Or la Fachsprachprüfung n'évalue pas ce que je sais. Elle évalue cinq choses que je fais en même temps, sous pression : ma prononciation, mon vocabulaire, ma grammaire, ma fluidité, et ma façon de parler à quelqu'un qui a peur. Cinq compétences distinctes. On me rendait une impression globale.
 
-Je n'avais pas besoin qu'on m'explique mieux. J'avais besoin de **parler trente fois** et qu'on me dise, chaque fois, **laquelle des cinq avait lâché**.
+Je n'avais pas besoin de meilleures explications. J'avais besoin de **parler trente fois**, et qu'on me dise chaque fois **laquelle des cinq avait lâché**.
 
-**La décision.** Je ne suis pas parti construire un produit. J'ai construit **mon** outil de préparation, pour moi, hors ligne, sans compte, sur mon ordinateur. Puis Lydia a préparé le même examen — ⟨question 5⟩ — et il a fallu que l'outil tienne pour deux personnes qui n'ont ni le même niveau ni la même date.
+Et j'avais besoin d'un cap. Travailler beaucoup dans une direction qu'on ne peut pas vérifier, c'est nager fort en pleine mer : ça épuise sans rapprocher de rien.
 
-C'est resté longtemps comme ça : deux personnes, un outil qui marche. Aujourd'hui encore, l'application que nous utilisons chaque jour est la même que celle que nous faisons évoluer. Rien n'y entre qui n'ait d'abord servi à l'un de nous deux.
+**La décision.** Je ne suis pas parti construire un produit. J'ai construit **mon** outil, pour moi, hors ligne, sans compte, sur mon ordinateur. Puis Lydia a préparé le même examen — ⟨question 5⟩ — et il a fallu que ça tienne pour deux personnes qui n'avaient ni le même niveau ni la même date.
 
-**Ce qui en découle** *(différenciation racontée, pas listée)*
-Un outil qu'on construit pour soi ne triche pas sur les mêmes choses. Je n'ai pas besoin qu'il me flatte : je ne gagne rien à lire « bien joué » quand ma Fallvorstellung s'est effondrée. Je n'ai pas besoin qu'il gonfle ses chiffres : je sais exactement combien de cas il contient. Et je n'ai aucune raison d'y mettre un cas inventé, parce que c'est moi qui le travaillerais.
+C'est resté longtemps ainsi : deux personnes, un outil qui marche. Aujourd'hui encore, l'application que nous ouvrons chaque jour est celle que nous faisons évoluer. Rien n'y entre qui n'ait d'abord servi à l'un de nous deux.
 
-C'est pour ça que les cas viennent de protocoles réels, que la correction nomme le critère au lieu de donner une note, et que le programme se recalcule quand je décroche trois jours — parce que j'ai décroché trois jours.
+**Ce qui en découle** *(différenciation racontée, jamais listée)*
+Un outil qu'on construit pour soi ne triche pas sur les mêmes choses. Je ne gagne rien à lire « bien joué » quand ma Fallvorstellung s'est effondrée. Je n'ai aucune raison de gonfler un chiffre que je connais. Et aucune d'inventer un cas, puisque c'est moi qui le travaillerais.
 
-**Le nom.** ⟨question 6⟩ La lecture qui tient : une pieuvre a huit bras, et un candidat doit tenir huit choses à la fois — le cas, la langue, le temps, le vocabulaire, le regard de l'examinateur, la peur du patient, la date, et sa vie à côté. L'outil est là pour en tenir sept.
+C'est pour ça que les cas viennent de protocoles réels, que la correction nomme le critère au lieu de donner une note, et que le programme se recalcule quand on décroche trois jours — parce que j'ai décroché trois jours.
 
-**Pour qui.** Pour le médecin qui a une date et pas de méthode. Qui a déjà exercé, parfois des années, et se retrouve à devoir prouver qu'il sait parler à un patient dans une langue qu'il pratique depuis dix-huit mois. Qui n'a pas huit semaines libres à heures fixes. Et pour celui qui l'a déjà passé une fois et n'a jamais su, précisément, où ça avait lâché.
+**Le nom.** Doctopus n'est pas un jeu de mots sur *doctor*. C'est l'animal qui vit là où le candidat se retrouve.
+Une pieuvre connaît la profondeur. Elle n'a pas de squelette : elle passe partout, change de forme, s'adapte à chaque environnement — et chacun de ses bras a son propre système nerveux, si bien qu'ils travaillent séparément pendant que l'animal reste un. **Huit bras, un animal. Cinq compétences, un médecin.**
+Elle ne sort personne de l'eau. Elle connaît l'eau. C'est tout ce que je voulais avoir à côté de moi.
 
-**L'engagement.** Trois choses qui ne changeront pas : ⟨question 8⟩, et deux que je peux déjà écrire — **on ne promettra jamais la réussite**, parce qu'aucun outil ne contrôle un jury ; et **le corpus continuera d'être enrichi après chaque session d'examen**, parce qu'un contenu qui s'arrête de bouger est mort dans les deux ans.
+**Pour qui.** Pour le médecin qui a une date et pas de méthode. Qui a déjà exercé, parfois des années, et doit prouver qu'il sait parler à un patient dans une langue qu'il pratique depuis dix-huit mois. Qui n'a pas huit semaines libres à heures fixes. Et pour celui qui l'a déjà passé une fois sans jamais savoir, précisément, où ça avait lâché.
 
-## 03 — Version courte (accueil / pitch), ~180 mots
+**L'engagement.** La côte, ce n'est pas la FSP — c'est l'Approbation. La FSP est le premier récif, celui qui coule le plus de monde. Ce qui vient ensuite — la Kenntnisprüfung, les candidatures envoyées partout d'un seul geste — ce sont les bras suivants du même animal, pas une autre entreprise.
+Trois choses ne changeront pas : ⟨question 8⟩ ; **on ne promettra jamais la réussite**, parce qu'aucun outil ne contrôle un jury ; et **le corpus sera enrichi après chaque session d'examen**, parce qu'un contenu qui cesse de bouger est mort en deux ans.
 
-*Armature ; les `⟨…⟩` restent à combler.*
+**Clôture.** L'eau ne deviendra pas moins profonde. C'est toi qui deviendras plongeur.
 
-> J'ai préparé la Fachsprachprüfung avec un livre, des protocoles récupérés dans un groupe, et ⟨question 2⟩. Chaque chose était utile. Rien ne se parlait.
+## 04 — Version courte (accueil / pitch), ~190 mots
+
+> On entre dans la voie d'équivalence comme dans un océan dont on ignore la profondeur. Ce n'est pas la médecine qui est difficile — c'est de ne pas savoir vers où nager.
+>
+> J'ai préparé la Fachsprachprüfung avec un livre, des protocoles récupérés dans un groupe, et ⟨question 2⟩. Chaque chose était utile. Rien ne se parlait. Et personne ne relisait mon Arztbrief.
 >
 > Ce qui manquait n'était pas de l'explication — j'en avais trop. Il manquait de parler, et qu'on me dise ce qui n'avait pas tenu. Parce que cet examen n'évalue pas ce qu'on sait : il évalue cinq choses qu'on fait en même temps, sous pression. On me rendait une impression globale.
 >
-> Alors je me suis construit l'outil que je cherchais : les trois parties enchaînées, des cas venus de protocoles réels, une lecture par compétence à la fin, et un plan qui se refait quand je décroche. D'abord pour moi. Puis pour Lydia, qui préparait le même examen.
+> Alors je me suis construit l'outil que je cherchais : les trois parties enchaînées, des cas venus de protocoles réels, une lecture par compétence à la fin, un plan qui se refait quand on décroche. D'abord pour moi. Puis pour Lydia, qui préparait le même examen.
 >
-> C'est encore l'application qu'on ouvre tous les jours. Rien n'y entre qui ne nous ait d'abord servi.
+> C'est encore l'application qu'on ouvre tous les jours.
 >
-> Ce qu'elle ne fera jamais : te promettre que tu réussiras.
+> Elle ne te sortira pas de l'eau. Elle connaît l'eau.
 
-## 04 — L'origine en une phrase
+## 05 — L'origine en une phrase
 
-Trois candidates. La n° 1 ne dépend d'aucun trou et peut servir tout de suite.
+1. **« Doctopus est né parce que tout ce qui existait m'expliquait l'examen sans jamais me le faire passer — et parce que dans un océan dont on ignore la profondeur, ce qui manque n'est pas la force, c'est le cap. »** ← **recommandée**
+2. « Doctopus est né d'un refus : celui de devoir fabriquer moi-même ma méthode à partir d'un livre, d'un groupe et d'un cours qui ne se parlaient pas — en plus de préparer l'examen. »
+3. « Doctopus est né parce que la voie d'équivalence est un océan sans fond connu, et que j'avais besoin d'un animal qui sache y vivre plutôt que d'un professeur qui me la décrive. »
 
-1. **« Doctopus est né parce que tout ce qui existait m'expliquait l'examen, et que personne ne me le faisait passer — alors que cet examen n'évalue pas ce que je sais, mais cinq choses que je fais en même temps, sous pression. »**
-2. « Doctopus est né d'un refus : celui de devoir fabriquer moi-même ma méthode, à partir d'un livre, d'un groupe et d'un cours qui ne se parlaient pas, en plus de préparer l'examen. »
-3. « Doctopus est né le jour où ⟨question 1⟩ — et j'ai compris qu'il me manquait non pas des explications, mais des répétitions et un verdict précis. »
+La n° 1 nomme l'adversaire, porte les cinq compétences, contient la métaphore sans la gloser, et ne promet rien.
 
-**Recommandée : la n° 1.** Elle nomme l'adversaire, contient le glissement de catégorie (entraîner ≠ enseigner), porte les cinq compétences, ne promet rien, et sonne comme une phrase qu'on dit vraiment à quelqu'un.
+## 06 — Ce que le récit ne fera jamais
 
-## 05 — Ce que le récit ne fera pas
-
-- **Pas de héros.** Le héros est le lecteur. Doctopus est l'outil qu'il ouvre, jamais le sauveur.
-- **Pas de récit de réussite.** Aucune mention d'un résultat d'examen, ni du mien ni de celui de Lydia, tant que la question 7 n'est pas tranchée — et même alors, jamais présenté comme la preuve que l'outil marche. Un cas ne prouve rien, et l'afficher frôle le taux de réussite interdit.
-- **Pas de faux « nous ».** Si l'entreprise est une personne et demie, le récit dit « je » et nomme Lydia. Le « nous » corporate d'une équipe qui n'existe pas se voit à trois lignes.
-- **Aucun concurrent nommé.** L'adversaire est l'obligation d'improviser, pas une école.
-- **Aucun chiffre de corpus source.** Règle §08 bis du positionnement.
-- **Pas de startup lore.** Ni levée, ni « vision », ni pivot raconté comme une épopée. Le récit s'arrête là où les faits s'arrêtent.
+- **Le fondateur est un guide, pas un héros.** Le héros est le lecteur.
+- **« Je l'ai passée » est une qualification, jamais une preuve.** Le fait que la direction ait passé l'examen établit qu'elle sait de quoi elle parle. Il **ne sert jamais** à démontrer que l'outil fonctionne — c'est un cas, ça ne prouve rien, et l'afficher en preuve est un taux de réussite déguisé. **Aucun résultat d'examen, ni le sien ni celui de Lydia, ne figure sur une page publique.**
+- **Pas de faux « nous ».** Si l'entreprise est une personne et demie, le récit dit « je » et nomme Lydia.
+- **Aucun concurrent nommé.** L'adversaire est l'obligation d'improviser.
+- **Aucun chiffre de corpus source** (§08 bis du positionnement).
+- **Pas de startup lore** : ni levée, ni « vision », ni pivot raconté en épopée.
+- **La métaphore ne s'explique pas.** Jamais de « comme une pieuvre dans l'océan… ». Elle se voit, s'entend, et se tait — voir `PHILOSOPHIE.md` §08.
