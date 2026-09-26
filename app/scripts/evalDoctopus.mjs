@@ -85,7 +85,10 @@ async function askChain(q) {
 }
 if (chainSpec) {
   let pass = 0;
+  // --pace <ms> : espace les appels comme un usage réel (quotas gratuits par minute).
+  const pace = args.includes('--pace') ? Number(args[args.indexOf('--pace') + 1]) : 0;
   for (const it of set) {
+    if (pace && it !== set[0]) await new Promise((r) => setTimeout(r, pace));
     let r; try { r = await askChain(it.q); } catch (e) { console.log(`! ${it.id.padEnd(12)} ERREUR ${e.message}`); continue; }
     const fails = r.text ? grade(it, r.text) : ['réponse vide'];
     if (!fails.length) pass++;
