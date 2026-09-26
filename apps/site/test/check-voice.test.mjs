@@ -46,3 +46,36 @@ test('le nom de la marque ne déclenche pas la règle de métaphore', () => {
   const v = findViolations('a.html', '<h1>Doctopus</h1><p>Doctopus hilft dir bei der Fachsprachprüfung.</p>');
   assert.deepEqual(v, []);
 });
+
+// Arbitrage tâche 5, réserve n°1 (retenue) : la règle `vouvoiement` est levée UNIQUEMENT sur
+// les 4 pages légales (usage juridique allemand du Sie ; formules statutaires de la
+// Widerrufsbelehrung qu'on ne réécrit pas au tutoiement). Bornée à ces 4 chemins.
+test('la règle vouvoiement est exemptée sur les pages légales (arbitrage tâche 5)', () => {
+  const v = findViolations('/de/agb/index.html', '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>');
+  assert.deepEqual(v, []);
+});
+
+test('la règle vouvoiement reste active hors des pages légales', () => {
+  const v = findViolations('/de/ueber/index.html', '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>');
+  assert.deepEqual(v.map((x) => x.rule), ['vouvoiement']);
+});
+
+// Preuve que l'exemption est bornée à `vouvoiement` seul : une promesse de réussite dans les
+// AGB reste une faute — sans ce test, l'exemption serait une porte ouverte à toutes les règles.
+test('une règle non exemptée (promesse) déclenche toujours sur une page légale', () => {
+  const v = findViolations('/de/agb/index.html', '<p>Der Erfolg ist garantiert.</p>');
+  assert.ok(v.some((x) => x.rule === 'promesse'));
+});
+
+// Arbitrage tâche 5, réserve n°2 (retenue) : reprend le mécanisme de négation de
+// check-no-promise.mjs (mot immédiatement précédent dans l'ensemble de négateurs).
+// « keine Erfolgsquote » dit l'inverse de ce que la règle `promesse` signale.
+test('le contexte nié ne déclenche pas la règle promesse (keine Erfolgsquote)', () => {
+  const v = findViolations('a.html', '<p>Wir versprechen keine Erfolgsquote.</p>');
+  assert.deepEqual(v, []);
+});
+
+test('la même occurrence sans négation déclenche toujours la règle promesse', () => {
+  const v = findViolations('a.html', '<p>Wir bieten eine hohe Erfolgsquote.</p>');
+  assert.ok(v.some((x) => x.rule === 'promesse'));
+});
