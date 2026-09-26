@@ -1,6 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { findViolations } from '../scripts/check-voice.mjs';
+
+const SCRIPT = resolve(dirname(fileURLToPath(import.meta.url)), '../scripts/check-voice.mjs');
+const rules = (v) => v.map((x) => x.rule);
+
+// ————————————————————————————————————————————————————————————————————————
+// Règles de base (le lexique attrape ce qu'il prétend attraper)
+// ————————————————————————————————————————————————————————————————————————
 
 test('attrape le vouvoiement', () => {
   const v = findViolations('a.html', '<p>Sie können hier üben.</p>');
@@ -10,7 +22,7 @@ test('attrape le vouvoiement', () => {
 
 test('attrape le verbe scolaire', () => {
   const v = findViolations('a.html', '<h1>Medizinisches Deutsch lernen</h1>');
-  assert.deepEqual(v.map((x) => x.rule), ['scolaire']);
+  assert.deepEqual(rules(v), ['scolaire']);
 });
 
 test('attrape la métaphore explicitée', () => {
@@ -20,7 +32,7 @@ test('attrape la métaphore explicitée', () => {
 
 test('attrape le point d\'exclamation', () => {
   const v = findViolations('a.html', '<p>Jetzt starten!</p>');
-  assert.deepEqual(v.map((x) => x.rule), ['exclamation']);
+  assert.deepEqual(rules(v), ['exclamation']);
 });
 
 test('ignore ce qui est dans une balise script ou style', () => {
@@ -28,7 +40,7 @@ test('ignore ce qui est dans une balise script ou style', () => {
   assert.deepEqual(v, []);
 });
 
-test('ignore les attributs : seul le texte visible compte', () => {
+test('ignore les attributs techniques : href et data-* ne sont pas de la copie', () => {
   const v = findViolations('a.html', '<a href="/de/kurs/" data-x="lernen">Training</a>');
   assert.deepEqual(v, []);
 });
@@ -38,44 +50,274 @@ test('laisse passer une page propre', () => {
   assert.deepEqual(v, []);
 });
 
-// Le nom de la marque contient « ctopus », pas « ktopus » : \boktopus\b ne peut
-// matcher nulle part dans « doctopus » (pas seulement à cause de \b — la sous-chaîne
-// « oktopus » n'existe pas dans « doctopus »). On le prouve : c'est le faux positif
-// le plus coûteux imaginable (bloquer la marque elle-même), et rien d'autre ne le couvre.
-test('le nom de la marque ne déclenche pas la règle de métaphore', () => {
-  const v = findViolations('a.html', '<h1>Doctopus</h1><p>Doctopus hilft dir bei der Fachsprachprüfung.</p>');
+// Remplace l'ancien test « Doctopus » (qui prouvait une tautologie : la sous-chaîne
+// « oktopus » n'existe pas dans « doctopus »). Le test qui mérite sa place met les DEUX
+// dans la même page : le nom de la marque ne doit pas déclencher, la métaphore doit.
+test('le nom de la marque ne déclenche pas, la métaphore dans la même page déclenche', () => {
+  const html = '<h1>Doctopus</h1><p>Doctopus hilft dir. Ein Oktopus hat acht Arme.</p>';
+  const v = findViolations('a.html', html);
+  assert.deepEqual(rules(v), ['metaphore_explicitee']);
+  assert.equal(v[0].match, 'oktopus');
+  // Sans la métaphore, la même page passe : c'est bien « Oktopus » qui déclenche, pas « Doctopus ».
+  assert.deepEqual(findViolations('a.html', '<h1>Doctopus</h1><p>Doctopus hilft dir bei der Fachsprachprüfung.</p>'), []);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 1 — entités HTML décodées (nommées, décimales, hexadécimales)
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 1 — une entité d\'umlaut nommée ne contourne plus la règle', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Pr&uuml;fungsfragen im Angebot.</p>')), ['fuite']);
+});
+
+test('point 1 — entité numérique décimale et hexadécimale', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Pr&#252;fungsfragen im Angebot.</p>')), ['fuite']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Pr&#xFC;fungsfragen im Angebot.</p>')), ['fuite']);
+});
+
+test('point 1 — le point d\'exclamation en entité (&excl; &#33; &#x21;)', () => {
+  for (const e of ['&excl;', '&#33;', '&#x21;']) {
+    assert.deepEqual(rules(findViolations('a.html', `<p>Jetzt starten${e}</p>`)), ['exclamation'], e);
+  }
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 2 — césure conditionnelle et largeurs nulles
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 2 — le trait d\'union conditionnel (&shy; et U+00AD) ne contourne plus', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Pr&shy;üfungs&shy;fragen im Angebot.</p>')), ['fuite']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Pr­üfungs­fragen im Angebot.</p>')), ['fuite']);
+});
+
+test('point 2 — la largeur nulle (U+200B) ne contourne plus', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Prüfungs​fragen im Angebot.</p>')), ['fuite']);
+});
+
+// LIMITE CONNUE, pinée ici pour qu'elle reste un choix et non une surprise : un mot coupé
+// par une balise inline devient deux mots et échappe. Recoller les fragments souderait
+// « Wort</p><p>Wort ». La sanction d'une coupure volontaire est le mécanisme d'exception.
+test('point 2 — limite documentée : un mot coupé par une balise inline échappe', () => {
+  assert.deepEqual(findViolations('a.html', '<p><strong>lern</strong>en</p>'), []);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 3 — variantes Unicode du point d'exclamation
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 3 — le point d\'exclamation pleine largeur et ses parents déclenchent', () => {
+  for (const c of ['！', '﹗', 'ǃ', '‼', '⁉']) {
+    assert.deepEqual(rules(findViolations('a.html', `<p>Jetzt starten${c}</p>`)), ['exclamation'], JSON.stringify(c));
+  }
+  // ❗ est à la fois un point d'exclamation et un émoji : les deux règles portent.
+  assert.deepEqual(rules(findViolations('a.html', '<p>Jetzt starten❗</p>')), ['exclamation', 'emoji']);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 4 — la copie que Google affiche et que le lecteur d'écran lit
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 4 — meta description', () => {
+  const html = '<head><meta name="description" content="Erfolgsquote 98 %. Prüfungsfragen garantiert"></head><body><p>Hallo.</p></body>';
+  assert.deepEqual(rules(findViolations('a.html', html)).sort(), ['fuite', 'promesse']);
+});
+
+test('point 4 — title, og:description, alt, aria-label', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<title>Prüfungsfragen</title><p>Hallo.</p>')), ['fuite']);
+  assert.deepEqual(rules(findViolations('a.html', '<meta property="og:description" content="Erfolgsquote 98 %"><p>Hallo.</p>')), ['promesse']);
+  assert.deepEqual(rules(findViolations('a.html', '<img src="x.png" alt="Prüfungsfragen"><p>Hallo.</p>')), ['fuite']);
+  assert.deepEqual(rules(findViolations('a.html', '<button aria-label="Jetzt lernen">Los</button>')), ['scolaire']);
+  assert.deepEqual(rules(findViolations('a.html', '<span title="Deine Liga">x</span>')), ['jeu']);
+});
+
+test('point 4 — les blocs application/ld+json sont scannés (FAQ, blog)', () => {
+  const html = '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"acceptedAnswer":{"text":"Die Erfolgsquote liegt hoch."}}]}</script><p>Hallo.</p>';
+  assert.deepEqual(rules(findViolations('a.html', html)), ['promesse']);
+});
+
+test('point 4 — un ld+json illisible est scanné en texte brut plutôt qu\'ignoré', () => {
+  const html = '<script type="application/ld+json">{ pas du json : Erfolgsquote }</script><p>Hallo.</p>';
+  assert.deepEqual(rules(findViolations('a.html', html)), ['promesse']);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 5 — bornes Unicode (plus de correspondance au milieu d'un composé)
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 5 — « Bürette » ne déclenche plus sauvetage, « Kursübersicht » plus scolaire', () => {
+  assert.deepEqual(findViolations('a.html', '<p>Die Bürette steht im Labor.</p>'), []);
+  assert.deepEqual(findViolations('a.html', '<p>Die Kursübersicht ist offen.</p>'), []);
+});
+
+test('point 5 — les mêmes radicaux déclenchent toujours quand ils sont des mots', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Wir retten dich.</p>')), ['sauvetage']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Der Kurs beginnt.</p>')), ['scolaire']);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 6 — normalisation NFC (sans dépouiller les diacritiques)
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 6 — un texte en NFD ne contourne plus les motifs à umlaut', () => {
+  const nfd = '<p>Prüfungsfragen im Angebot.</p>'; // u + tréma combinant
+  assert.deepEqual(rules(findViolations('a.html', nfd)), ['fuite']);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 7 — exception explicite, l'heuristique de négation a disparu
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 7 — l\'heuristique n\'avale plus les vraies fautes qu\'elle avalait', () => {
+  // Une promesse de réussite, que « ohne » suffisait à faire passer.
+  assert.deepEqual(rules(findViolations('a.html', '<p>Du bestehst, ohne im ersten Versuch zu scheitern.</p>')), ['promesse']);
+  // Du jargon de jeu en façade, que « Kein » suffisait à faire passer.
+  assert.deepEqual(rules(findViolations('a.html', '<p>Kein Streak geht verloren, sammle weiter.</p>')), ['jeu']);
+});
+
+test('point 7 — un adjectif intercalé ne tenait pas en échec l\'exception explicite', () => {
+  const phrase = '<p>Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler.</p>';
+  assert.deepEqual(rules(findViolations('a.html', phrase)), ['jeu']);
+  assert.deepEqual(findViolations('a.html', `<!-- voice:allow "Streak" -->${phrase}`), []);
+});
+
+test('point 7 — l\'exception est bornée au texte exact qu\'elle nomme', () => {
+  const html = '<!-- voice:allow "Streak" --><p>Keine strafende Streak. Sammle XP.</p>';
+  assert.deepEqual(rules(findViolations('a.html', html)), ['jeu']);
+  assert.equal(findViolations('a.html', html)[0].match, 'xp');
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 8 — les puces du guide qui n'avaient aucune règle
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 8 — urgence fabriquée, comparaison nommée, émoji, Level, intelligent', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Nur heute verfügbar.</p>')), ['urgence']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Letzte Chance zum Einstieg.</p>')), ['urgence']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Besser als jede Schule.</p>')), ['comparaison']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Dein Level steigt.</p>')), ['jeu']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Eine intelligente Korrektur.</p>')), ['hype']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Du bist der Endgegner.</p>')), ['jeu']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Willkommen 🐙</p>')), ['emoji']);
+});
+
+test('point 8 — le © du pied de page n\'est pas un émoji', () => {
+  assert.deepEqual(findViolations('a.html', '<footer>© 2026 Doctopus — Impressum</footer>'), []);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 9 — formes fléchies et composés (plafond de couverture en allemand)
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 9 — les formes qui passaient toutes déclenchent', () => {
+  const cas = [
+    ['<p>Der garantierte Erfolg.</p>', 'promesse'],
+    ['<p>Unsere Erfolgsquoten sprechen.</p>', 'promesse'],
+    ['<p>Dein Lernplan steht.</p>', 'scolaire'],
+    ['<p>Ein Sprachkurs für Ärzte.</p>', 'scolaire'],
+    ['<p>Zwei Streaks in Folge.</p>', 'jeu'],
+    ['<p>Eine Prüfungsfrage pro Tag.</p>', 'fuite'],
+    ['<p>Du brauchst sechzig Prozent.</p>', 'bareme'],
+    ['<p>Du brauchst 60&#8239;%.</p>', 'bareme'],
+    ['<p>KI-gestützte Korrektur.</p>', 'hype'],
+  ];
+  for (const [html, rule] of cas) assert.deepEqual(rules(findViolations('a.html', html)), [rule], html);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 12 — un `>` dans une valeur d'attribut ne casse plus le dépouillement
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 12 — `data-x="a > lernen b"` ne déclenche plus à tort', () => {
+  assert.deepEqual(findViolations('a.html', '<p data-x="a > lernen b">Training</p>'), []);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 13 — la règle bareme est bornée
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 13 — « 160 % » et « 260 Punkte » ne déclenchent plus bareme', () => {
+  assert.deepEqual(findViolations('a.html', '<p>160 % Auslastung, 260 Punkte im Test.</p>'), []);
+});
+
+test('point 13 — « 60 % » et « 60 Punkte » restent signalés (barème non sourcé)', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Du brauchst 60 %.</p>')), ['bareme']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Du brauchst 60 Punkte.</p>')), ['bareme']);
+});
+
+// ————————————————————————————————————————————————————————————————————————
+// Point 14 — un motif capable de matcher le vide ne bloque pas la CI
+// ————————————————————————————————————————————————————————————————————————
+
+test('point 14 — un motif matchant le vide ne fait pas tourner exec() à l\'infini', () => {
+  // Sans le garde-fou (`lastIndex += 1` sur une correspondance vide), cet appel ne rend
+  // jamais la main et la CI reste bloquée jusqu'au timeout.
+  const v = findViolations('a.html', '<p>- x</p>', { probe: ['a*'] });
   assert.deepEqual(v, []);
 });
 
-// Arbitrage tâche 5, réserve n°1 (retenue) : la règle `vouvoiement` est levée UNIQUEMENT sur
-// les 4 pages légales (usage juridique allemand du Sie ; formules statutaires de la
-// Widerrufsbelehrung qu'on ne réécrit pas au tutoiement). Bornée à ces 4 chemins.
-test('la règle vouvoiement est exemptée sur les pages légales (arbitrage tâche 5)', () => {
-  const v = findViolations('/de/agb/index.html', '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>');
-  assert.deepEqual(v, []);
+// ————————————————————————————————————————————————————————————————————————
+// Points 10 et 11 — la moitié exécutable : parcours, forme du chemin, code de sortie
+// ————————————————————————————————————————————————————————————————————————
+
+function withDist(files, fn) {
+  const dir = mkdtempSync(join(tmpdir(), 'voice-dist-'));
+  try {
+    for (const [rel, body] of Object.entries(files)) {
+      const abs = join(dir, rel);
+      mkdirSync(dirname(abs), { recursive: true });
+      writeFileSync(abs, body);
+    }
+    const r = spawnSync(process.execPath, [SCRIPT, dir], { encoding: 'utf8' });
+    return fn({ ...r, out: `${r.stdout}${r.stderr}`, dir });
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+test('moitié exécutable — code de sortie 0 sur un corpus propre', () => {
+  withDist({ 'de/index.html': '<p>Du sprichst. Wir hören zu.</p>' }, (r) => {
+    assert.equal(r.status, 0, r.out);
+    assert.match(r.out, /✓ check-voice/);
+  });
 });
 
-test('la règle vouvoiement reste active hors des pages légales', () => {
-  const v = findViolations('/de/ueber/index.html', '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>');
-  assert.deepEqual(v.map((x) => x.rule), ['vouvoiement']);
+test('moitié exécutable — code de sortie 1 et chemin relatif à dist/ (pas absolu)', () => {
+  withDist({ 'de/ueber/index.html': '<p>Sie können hier üben.</p>' }, (r) => {
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /vouvoiement/);
+    // La forme du chemin rapporté est `dist/de/ueber/index.html` : c'est elle dont dépendent
+    // les exemptions. Un refactor passant le chemin absolu resterait invisible sans ceci.
+    assert.match(r.out, /— dist\/de\/ueber\/index\.html/);
+    assert.ok(!r.out.includes(r.dir), `le chemin absolu du corpus a fuité : ${r.out}`);
+  });
 });
 
-// Preuve que l'exemption est bornée à `vouvoiement` seul : une promesse de réussite dans les
-// AGB reste une faute — sans ce test, l'exemption serait une porte ouverte à toutes les règles.
-test('une règle non exemptée (promesse) déclenche toujours sur une page légale', () => {
+test('point 11 — l\'exemption de vouvoiement porte sur les 4 chemins EXACTS', () => {
+  withDist({
+    'de/agb/index.html': '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>',
+    'de/agb/anhang/index.html': '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>',
+  }, (r) => {
+    assert.equal(r.status, 1, r.out);
+    // /de/agb/ est exempté, /de/agb/anhang/ n'hérite pas de l'exemption.
+    assert.match(r.out, /vouvoiement.*dist\/de\/agb\/anhang\/index\.html/);
+    assert.ok(!/vouvoiement.*dist\/de\/agb\/index\.html/.test(r.out), r.out);
+  });
+});
+
+test('point 10 — un dist/ présent mais sans HTML échoue au lieu de réussir à vide', () => {
+  withDist({ 'robots.txt': 'User-agent: *' }, (r) => {
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /corpus vide/);
+  });
+});
+
+// L'exemption reste bornée à `vouvoiement` : une promesse dans les AGB reste une faute.
+test('une règle non exemptée déclenche toujours sur une page légale', () => {
   const v = findViolations('/de/agb/index.html', '<p>Der Erfolg ist garantiert.</p>');
   assert.ok(v.some((x) => x.rule === 'promesse'));
 });
 
-// Arbitrage tâche 5, réserve n°2 (retenue) : reprend le mécanisme de négation de
-// check-no-promise.mjs (mot immédiatement précédent dans l'ensemble de négateurs).
-// « keine Erfolgsquote » dit l'inverse de ce que la règle `promesse` signale.
-test('le contexte nié ne déclenche pas la règle promesse (keine Erfolgsquote)', () => {
-  const v = findViolations('a.html', '<p>Wir versprechen keine Erfolgsquote.</p>');
-  assert.deepEqual(v, []);
-});
-
-test('la même occurrence sans négation déclenche toujours la règle promesse', () => {
-  const v = findViolations('a.html', '<p>Wir bieten eine hohe Erfolgsquote.</p>');
-  assert.ok(v.some((x) => x.rule === 'promesse'));
+test('la règle vouvoiement reste active hors des pages légales', () => {
+  const v = findViolations('/de/ueber/index.html', '<p>Sie können Ihr Abonnement jederzeit kündigen.</p>');
+  assert.deepEqual(rules(v), ['vouvoiement']);
 });
