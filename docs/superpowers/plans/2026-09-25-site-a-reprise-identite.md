@@ -127,7 +127,7 @@ La philosophie impose une pile de surfaces qui descend dans le noir pétrole, é
 
 **Interfaces:**
 - Consumes: `flatten()` et `toCss()` de `packages/tokens/build.mjs` (déjà existants, inchangés).
-- Produces: les variables CSS `--dt-depth-0` … `--dt-depth-4`, `--dt-depth-veil`, `--dt-depth-lift`, consommées par la tâche 3.
+- Produces: les variables CSS `--dt-color-depth-0` … `--dt-color-depth-4`, `--dt-color-depth-veil`, `--dt-color-depth-lift`, consommées par la tâche 3. (Le préfixe est `--dt-color-` : `build.mjs` aplatit `color.depth.0` en `color-depth-0`.)
 
 - [ ] **Step 1: Écrire le test qui échoue**
 
