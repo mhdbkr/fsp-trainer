@@ -82,3 +82,68 @@ test('les jetons de profondeur existent et descendent en luminosité', async () 
   assert.ok(contrast(tokens.color.paper.DEFAULT, depth['0']) >= 4.5,
     'paper sur depth.0 sous 4,5:1');
 });
+
+test('les paliers de color.depth partagent une seule teinte (jamais de dérive de couleur)', () => {
+  const tokens = JSON.parse(readFileSync(new URL('../tokens.json', import.meta.url), 'utf8'));
+  const depth = tokens.color.depth;
+  const keys = ['0', '1', '2', '3', '4'];
+
+  // Teinte (hue HSL, en degrés) calculée à la main — paquet à zéro dépendance,
+  // pas de bibliothèque de conversion de couleur.
+  const hue = (hex) => {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    const d = max - min;
+    if (d === 0) return null; // gris pur : aucune teinte à comparer
+    let h;
+    if (max === r) h = ((g - b) / d) % 6;
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60;
+    return h < 0 ? h + 360 : h;
+  };
+
+  const hues = keys.map((k) => hue(depth[k]));
+  const known = hues.filter((h) => h !== null).sort((a, b) => a - b);
+  const median = known[Math.floor(known.length / 2)];
+
+  // Seuil : sur les 5 hex actuels, la teinte mesure entre 170,0° (depth.3, depth.4)
+  // et 172,5° (depth.2) — un écart d'environ 2,5°, dû à l'arrondi du pétrole très
+  // sombre sur 8 bits par canal (à cette luminosité, un seul pas de bleu ou de vert
+  // sur 255 déplace la teinte de plusieurs dixièmes de degré). 6° laisse une marge
+  // de ~2,4x sur cet écart réel tout en refusant une vraie dérive de teinte : une
+  // autre famille de couleur (vert franc, bleu, brun) tenue à la même luminance
+  // s'écarte d'au moins plusieurs dizaines de degrés, jamais de quelques degrés.
+  const TOLERANCE_DEG = 6;
+  for (const [i, h] of hues.entries()) {
+    if (h === null) continue;
+    const delta = Math.abs(h - median);
+    assert.ok(delta <= TOLERANCE_DEG,
+      `color.depth.${keys[i]} dérive en teinte : ${h.toFixed(1)}° (médiane des 5 paliers : ${median.toFixed(1)}°, écart ${delta.toFixed(1)}° > tolérance ${TOLERANCE_DEG}°)`);
+  }
+});
+
+test('veil et lift sont des filets de lumière translucides, jamais une ombre — lift au moins aussi marqué que veil', () => {
+  const tokens = JSON.parse(readFileSync(new URL('../tokens.json', import.meta.url), 'utf8'));
+  const depth = tokens.color.depth;
+  const shape = /^rgb\(\s*\d+\s+\d+\s+\d+\s*\/\s*([\d.]+)\s*\)$/;
+
+  const veilMatch = shape.exec(depth.veil);
+  const liftMatch = shape.exec(depth.lift);
+  assert.ok(veilMatch, `color.depth.veil n'est pas un voile rgb(r g b / a) : ${depth.veil}`);
+  assert.ok(liftMatch, `color.depth.lift n'est pas un voile rgb(r g b / a) : ${depth.lift}`);
+  assert.doesNotMatch(depth.veil, /shadow|inset|px/, 'veil ressemble à une ombre portée, pas à un voile de lumière');
+  assert.doesNotMatch(depth.lift, /shadow|inset|px/, 'lift ressemble à une ombre portée, pas à un voile de lumière');
+
+  const veilAlpha = parseFloat(veilMatch[1]);
+  const liftAlpha = parseFloat(liftMatch[1]);
+  assert.ok(veilAlpha > 0 && veilAlpha < 1, `alpha de veil hors plage (0,1) : ${veilAlpha}`);
+  assert.ok(liftAlpha > 0 && liftAlpha < 1, `alpha de lift hors plage (0,1) : ${liftAlpha}`);
+
+  // La lumière vient d'en haut (PHILOSOPHIE.md §04) : le filet supérieur (lift)
+  // doit être au moins aussi marqué que le voile général (veil).
+  assert.ok(liftAlpha >= veilAlpha,
+    `lift (${liftAlpha}) devrait être >= veil (${veilAlpha}) : la lumière vient d'en haut`);
+});
