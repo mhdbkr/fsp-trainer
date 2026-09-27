@@ -3,6 +3,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import type { Fachbegriff } from '@/db/types';
 import { SRS_TONE } from '@/lib/srsTone';
 import { buildRows } from './letters';
+import { registerLine } from '@/components/TermRegister';
 
 export interface TermListHandle { jumpTo: (letter: string) => void }
 interface Props { terms: Fachbegriff[]; favorites: Set<string>; onOpen: (t: Fachbegriff) => void; onToggleFavorite: (t: Fachbegriff) => void; onRemove?: (t: Fachbegriff) => void }
@@ -53,7 +54,7 @@ export const TermList = forwardRef<TermListHandle, Props>(function TermList({ te
               <div key={t.id} data-term-id={t.id} style={style} className="flex items-center gap-2 border-b border-slate-50 px-2 hover:bg-slate-50 dark:border-slate-900 dark:hover:bg-white/5">
                 <button type="button" onClick={() => onOpen(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left">
                   <span className="truncate font-semibold text-brand-700 dark:text-brand-300">{t.term}</span>
-                  <span className="truncate text-xs text-slate-500 dark:text-slate-400">{t.translationSimple}</span>
+                  <span className="truncate text-xs text-slate-500 dark:text-slate-400">{registerLine(t)}</span>
                 </button>
                 <span role="img" className={`chip shrink-0 ${tone.chip}`} title={t.srs.state} aria-label={t.srs.state}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
                 {onRemove && <button type="button" aria-label={`Retirer ${t.term} du deck`} onClick={() => onRemove(t)} className="btn-ghost h-11 w-11 shrink-0 justify-center text-slate-400">−</button>}

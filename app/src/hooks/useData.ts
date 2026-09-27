@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import { buildLinkIndex } from '@/lib/autolink';
+import { mergeTerms, type AnyTerm } from '@/lib/collections/allTerms';
 
 // Hooks de données réactifs (Dexie live queries). Tout re-render auto quand la
 // base change (ex. après une simulation, les stats se mettent à jour seules).
@@ -9,6 +10,12 @@ import { buildLinkIndex } from '@/lib/autolink';
 export const useCases = () => useLiveQuery(() => db.cases.toArray(), [], undefined);
 export const useCase = (id?: string) => useLiveQuery(() => (id ? db.cases.get(id) : undefined), [id], undefined);
 export const useFachbegriffe = () => useLiveQuery(() => db.fachbegriffe.toArray(), [], undefined);
+export const usePersonalTerms = () => useLiveQuery(() => db.personal_terms.toArray(), [], undefined);
+/** Glossaire publié + termes personnels (F3). undefined tant que l'une des deux sources charge. */
+export function useAllTerms(): AnyTerm[] | undefined {
+  const fb = useFachbegriffe(); const pts = usePersonalTerms();
+  return useMemo(() => (fb && pts ? mergeTerms(fb, pts) : undefined), [fb, pts]);
+}
 export const useDecks = () => useLiveQuery(() => db.decks.toArray(), [], undefined);
 export const useDeckTerms = () => useLiveQuery(() => db.deck_terms.toArray(), [], undefined);
 export const useFavorites = () => useLiveQuery(() => db.favorites.toArray(), [], undefined);

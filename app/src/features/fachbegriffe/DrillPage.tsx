@@ -3,12 +3,13 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import { Icon } from '@/components/icons';
-import { useFachbegriffe, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
-import type { Fachbegriff } from '@/db/types';
+import { useAllTerms, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
+import type { AnyTerm } from '@/lib/collections/allTerms';
+import { isPersonalView, rateTerm } from '@/lib/collections/allTerms';
+import { registerLine } from '@/components/TermRegister';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
 import { markIntroduced, markReviewed } from '@/lib/srsBudget';
-import { syncQueue } from '@/lib/sync/queue';
 import { termsOfDeck } from '@/lib/collections/query';
 import { termsOfCase } from '@/lib/collections/caseTerms';
 import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drillQueue';
@@ -18,11 +19,20 @@ import { useSimSession } from '@/store/simSession';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
+// ponytail: masquage naïf (occurrences du terme entier, insensible à la casse) — pas de
+// tokenizer linguistique ; suffisant pour un seul terme dans une phrase de contexte.
+// \b est ASCII-only (même piège que l'autolink, cf. autolink.tsx) : un terme à
+// umlaut/ß (Übelkeit, Ödem…) en début/fin de mot ne serait pas masqué → lookarounds Unicode.
+function maskTerm(text: string, term: string): string {
+  const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'giu'), '…');
+}
+
 // Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie
 // du cas travaillé, puis progression libre (couverture inclusive).
 // Un deck (ou les favoris) borne la file : jamais un terme hors du deck.
 export function DrillPage() {
-  const begriffe = useFachbegriffe();
+  const begriffe = useAllTerms();
   const decks = useDecks();
   const deckTerms = useDeckTerms();
   const favorites = useFavorites();
@@ -39,7 +49,7 @@ export function DrillPage() {
   const simSnapshot = useSimSession((s) => s.snapshot);
   const simMinimized = useSimSession((s) => s.minimized);
 
-  const [queue, setQueue] = useState<Fachbegriff[]>([]);
+  const [queue, setQueue] = useState<AnyTerm[]>([]);
   const [started, setStarted] = useState(false);
   const [idx, setIdx] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -164,14 +174,32 @@ export function DrillPage() {
   }
 
   const card = queue[idx];
-  const front = direction === 'term2simple' ? card.term : card.translationSimple;
-  const back = direction === 'term2simple' ? card.translationSimple : card.term;
+  // Terme personnel étoilé avant explication (I-1, review) : jamais de face
+  // vide, et jamais la réponse offerte au recto. Sans explication : le
+  // contexte (s'il existe) va au dos labellisé « Contexte » (Terme → sens),
+  // ou masqué au recto (Sens → terme, ponytail : \b + regex simple, pas de
+  // tokenizer — suffit pour un seul terme masqué).
+  const reformulation = registerLine(card);
+  const hasReformulation = reformulation.length > 0;
+  const context = isPersonalView(card) ? card.context : undefined;
+  let front: string;
+  let back: string;
+  let backLabel: string | null = null;
+  if (hasReformulation) {
+    front = direction === 'term2simple' ? card.term : card.translationSimple;
+    back = direction === 'term2simple' ? reformulation : card.term;
+  } else if (context) {
+    if (direction === 'term2simple') { front = card.term; back = context; backLabel = 'Contexte'; }
+    else { front = maskTerm(context, card.term); back = card.term; }
+  } else {
+    front = card.term;
+    back = 'Carte personnelle — pas encore d\'explication';
+  }
 
   const grade = async (g: Grade) => {
     const wasNew = card.srs.state === 'Neu';
+    await rateTerm(card, g);
     const newSrs = reviewSrs(card.srs, g);
-    await db.fachbegriffe.update(card.id, { srs: newSrs });
-    syncQueue.push({ type: 'srs.reviewed', subject_id: card.id, payload: newSrs }).catch((e) => console.warn('[sync]', e));
     if (wasNew) void markIntroduced();
     else void markReviewed();
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
@@ -207,7 +235,9 @@ export function DrillPage() {
           {/* Verso */}
           <div className="card absolute inset-0 flex flex-col items-center justify-center overflow-y-auto p-8 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
             <div className="label">{front}</div>
+            {backLabel && <div className="label">{backLabel}</div>}
             <div className="mt-3 text-xl font-semibold text-brand-700 dark:text-brand-300">{back}</div>
+            {direction === 'term2simple' && card.register && <p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.register.anamnese}</p>}
             {card.definitionDetailed && <p className="mx-auto mt-3 max-w-md text-sm text-slate-500 dark:text-slate-400">{card.definitionDetailed}</p>}
           </div>
         </div>

@@ -252,6 +252,17 @@ CREATE OR REPLACE FUNCTION "public"."touch_updated_at"() RETURNS "trigger"
 ALTER FUNCTION "public"."touch_updated_at"() OWNER TO "postgres";
 
 
+CREATE TABLE IF NOT EXISTS "public"."ai_cache" (
+    "key" "text" NOT NULL,
+    "text" "text" NOT NULL,
+    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
+    CONSTRAINT "ai_cache_text_check" CHECK (("char_length"("text") <= 4000))
+);
+
+
+ALTER TABLE "public"."ai_cache" OWNER TO "postgres";
+
+
 CREATE TABLE IF NOT EXISTS "public"."content_versions" (
     "version" integer NOT NULL,
     "published_at" timestamp with time zone DEFAULT "now"() NOT NULL,
@@ -315,7 +326,7 @@ CREATE TABLE IF NOT EXISTS "public"."progress_events" (
     "payload" "jsonb" NOT NULL,
     "occurred_at" timestamp with time zone NOT NULL,
     "received_at" timestamp with time zone DEFAULT "now"() NOT NULL,
-    CONSTRAINT "progress_events_type_check" CHECK (("type" = ANY (ARRAY['simulation.completed'::"text", 'srs.reviewed'::"text", 'plan.done'::"text", 'case.layer_reached'::"text", 'program.configured'::"text", 'term.favorited'::"text", 'term.unfavorited'::"text", 'deck.created'::"text", 'deck.renamed'::"text", 'deck.query_changed'::"text", 'deck.deleted'::"text", 'deck.term_added'::"text", 'deck.term_removed'::"text", 'srs.settings_changed'::"text"])))
+    CONSTRAINT "progress_events_type_check" CHECK (("type" = ANY (ARRAY['simulation.completed'::"text", 'srs.reviewed'::"text", 'plan.done'::"text", 'case.layer_reached'::"text", 'program.configured'::"text", 'term.favorited'::"text", 'term.unfavorited'::"text", 'deck.created'::"text", 'deck.renamed'::"text", 'deck.query_changed'::"text", 'deck.deleted'::"text", 'deck.term_added'::"text", 'deck.term_removed'::"text", 'srs.settings_changed'::"text", 'term.personal_created'::"text", 'term.personal_deleted'::"text"])))
 );
 
 
@@ -355,6 +366,11 @@ CREATE TABLE IF NOT EXISTS "public"."subscriptions" (
 
 
 ALTER TABLE "public"."subscriptions" OWNER TO "postgres";
+
+
+ALTER TABLE ONLY "public"."ai_cache"
+    ADD CONSTRAINT "ai_cache_pkey" PRIMARY KEY ("key");
+
 
 
 ALTER TABLE ONLY "public"."content_items"
@@ -414,6 +430,10 @@ ALTER TABLE ONLY "public"."subscriptions"
 
 ALTER TABLE ONLY "public"."subscriptions"
     ADD CONSTRAINT "subscriptions_stripe_subscription_id_key" UNIQUE ("stripe_subscription_id");
+
+
+
+CREATE INDEX "ai_cache_created_at" ON "public"."ai_cache" USING "btree" ("created_at");
 
 
 
@@ -494,6 +514,9 @@ ALTER TABLE ONLY "public"."subscriptions"
 ALTER TABLE ONLY "public"."subscriptions"
     ADD CONSTRAINT "subscriptions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."profiles"("id") ON DELETE CASCADE;
 
+
+
+ALTER TABLE "public"."ai_cache" ENABLE ROW LEVEL SECURITY;
 
 
 CREATE POLICY "content: read by tier" ON "public"."content_items" FOR SELECT USING (("tier" <= ( SELECT "public"."my_tier"() AS "my_tier")));
@@ -667,6 +690,10 @@ GRANT ALL ON FUNCTION "public"."tier_of"("uid" "uuid") TO "service_role";
 GRANT ALL ON FUNCTION "public"."touch_updated_at"() TO "anon";
 GRANT ALL ON FUNCTION "public"."touch_updated_at"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."touch_updated_at"() TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."ai_cache" TO "service_role";
 
 
 

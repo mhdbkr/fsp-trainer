@@ -45,6 +45,14 @@ describe('CaseTermsPanel', () => {
     chip.remove();
   });
 
+  it('un terme avec register affiche register.patient au lieu de translationSimple (C2)', async () => {
+    await db.fachbegriffe.put({ id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'G', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs(), register: { patient: 'Wasser im Bauch', vorstellung: 'v', anamnese: 'a?' } } as never);
+    render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="inline" onDrill={() => {}} /></MemoryRouter>);
+    await screen.findByText('Abdomen');
+    expect(screen.getByText('Wasser im Bauch')).toBeTruthy();
+    expect(screen.queryByText('Bauch')).toBeNull();
+  });
+
   // Revue de branche F2b (M3) : la page du cas ne montre pas « (0) · Drill » vers une file vide.
   it('inline : rien de rendu quand le cas n\'a aucun terme', async () => {
     await db.cases.put({ id: 'c0', name: 'Vide', specialty: 'G', linkedFachbegriffeIds: [] } as never);

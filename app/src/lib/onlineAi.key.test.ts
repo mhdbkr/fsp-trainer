@@ -12,7 +12,7 @@ vi.mock('@/lib/auth/session', () => ({
 }));
 
 import { setActiveUserId } from '@/lib/auth/accounts';
-import { getKey, setKey, hasKey } from './onlineAi';
+import { getKey, setKey, hasKey, noAiMessage } from './onlineAi';
 
 describe('onlineAi — clé par compte', () => {
   beforeEach(() => { localStorage.clear(); mode.value = 'founder'; });
@@ -44,5 +44,17 @@ describe('onlineAi — clé par compte', () => {
     setKey('sk-public-key');
     expect(localStorage.getItem('doctopus-key')).toBe('sk-public-key');
     expect(getKey()).toBe('sk-public-key');
+  });
+
+  it('public : message honnête = ajouter une clé, jamais « compte premium » (FSP-B1)', () => {
+    mode.value = 'public';
+    expect(noAiMessage()).not.toMatch(/premium|connecte-toi/i);
+    expect(noAiMessage()).toMatch(/clé/);
+  });
+
+  it('founder : message = compte premium ou clé de repli', () => {
+    mode.value = 'founder';
+    expect(noAiMessage()).toMatch(/premium/i);
+    expect(noAiMessage()).toMatch(/clé/);
   });
 });

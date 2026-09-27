@@ -3,7 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
 import { useCases, useFavorites, useDecks, useDeckTerms } from '@/hooks/useData';
 import { toggleFavorite, addToDeck, removeFromDeck, createDeck } from '@/lib/collections';
+import { deletePersonalTerm } from '@/lib/collections/personalTerms';
+import { isPersonalView, type PersonalTermView } from '@/lib/collections/allTerms';
 import { SRS_TONE } from '@/lib/srsTone';
+import { TermRegister } from './TermRegister';
 
 // Panneau latéral d'aperçu d'un Fachbegriff (ouvert au clic sur un terme
 // auto-linké). Montre traduction, prononciation, définition, et les cas liés
@@ -21,6 +24,9 @@ export function GlossaryDrawer() {
   const [creating, setCreating] = useState(false);
   const [newDeckName, setNewDeckName] = useState('');
   const [createError, setCreateError] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  useEffect(() => { setConfirmDelete(false); setDeleteError(null); }, [fb?.id]);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
 
@@ -63,6 +69,7 @@ export function GlossaryDrawer() {
   const linkedCases = (cases ?? []).filter((c) => fb.linkedCaseIds.includes(c.id));
   const fav = !!favorites?.some((f) => f.termId === fb.id);
   const manual = (decks ?? []).filter((d) => d.kind === 'manual');
+  const personal = isPersonalView(fb);
   const inDeck = (id: string) => !!deckTerms?.some((t) => t.deckId === id && t.termId === fb.id);
 
   const submitNewDeck = async () => {
@@ -133,7 +140,7 @@ export function GlossaryDrawer() {
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           <div>
             <div className="label mb-1">Bedeutung (patientengerecht)</div>
-            <p className="text-slate-700 dark:text-slate-200">{fb.translationSimple}</p>
+            <TermRegister term={fb} />
           </div>
 
           {fb.definitionDetailed && (
@@ -158,6 +165,21 @@ export function GlossaryDrawer() {
                   </Link>
                 ))}
               </div>
+            </div>
+          )}
+
+          {personal && (
+            <div className="mt-4 border-t border-slate-100 pt-3 dark:border-slate-800">
+              {(fb as PersonalTermView).context && <p className="mb-2 text-xs italic text-slate-500">« {(fb as PersonalTermView).context} »</p>}
+              {!confirmDelete ? (
+                <button type="button" onClick={() => setConfirmDelete(true)} className="min-h-11 text-sm text-rose-600 dark:text-rose-400">Supprimer ma carte</button>
+              ) : (
+                <div className="flex gap-2">
+                  <button type="button" onClick={() => { deletePersonalTerm(fb.id).then(close).catch(() => setDeleteError('Impossible de supprimer : réessaie.')); }} className="btn-primary min-h-11 bg-rose-600">Confirmer la suppression</button>
+                  <button type="button" onClick={() => setConfirmDelete(false)} className="btn-outline min-h-11">Annuler</button>
+                </div>
+              )}
+              {deleteError && <p role="alert" className="mt-2 text-xs text-signal-600 dark:text-signal-400">{deleteError}</p>}
             </div>
           )}
         </div>

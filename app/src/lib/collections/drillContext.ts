@@ -34,12 +34,13 @@ export function todayProgramContext(
 }
 
 export async function loadDrillContext(now = new Date()): Promise<DrillContext> {
-  const [favorites, deckTerms, allSims, cases, begriffe, events, config, settings] = await Promise.all([
+  const [favorites, deckTerms, allSims, cases, begriffe, personalTerms, events, config, settings] = await Promise.all([
     db.favorites.toArray(),
     db.deck_terms.toArray(),
     db.simulations.toArray(),
     db.cases.toArray(),
     db.fachbegriffe.toArray(),
+    db.personal_terms.toArray(),
     db.progress_events.toArray(),
     db.meta.get('program').then((m) => m?.value as ProgramConfig | undefined),
     getSrsSettings(),
@@ -59,7 +60,10 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
   };
 
   const budget = newBudget({
-    freshRemaining: begriffe.filter((b) => isNew(b.srs)).length,
+    // Source unique du drill (F3 §3.1) : un terme personnel neuf compte aussi
+    // dans le budget, sinon une carte fraîchement étoilée n'obtient jamais sa
+    // place du jour (affamée par un budget calculé sur le seul glossaire).
+    freshRemaining: begriffe.filter((b) => isNew(b.srs)).length + personalTerms.filter((p) => isNew(p.srs)).length,
     workingDaysToExam: config?.examDate ? workingDaysUntilExam(config.examDate, now, config) : null,
     retention7d: retention7d(events, now.getTime()),
   });

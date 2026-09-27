@@ -3,7 +3,8 @@ import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { localLookup, deepLinks } from '@/lib/dictionary';
-import { askConversation, getKey, setKey, getProvider, setProvider, hasKey, PROVIDERS, type ChatTurn } from '@/lib/onlineAi';
+import { askConversation, getKey, setKey, getProvider, setProvider, canAskAi, honestAiError, CHAT_LIMITS, PROVIDERS, type ChatTurn } from '@/lib/onlineAi';
+import { serverAiAvailable } from '@/lib/serverAi';
 
 // ============================================================================
 // Doctopus — assistant IA flottant. Bouton minimal glassmorphique (mark seul)
@@ -42,7 +43,7 @@ export function Doctopus() {
   const [streaming, setStreaming] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showSettings, setShowSettings] = useState(!hasKey());
+  const [showSettings, setShowSettings] = useState(!canAskAi());
   const begriffe = useFachbegriffe() ?? [];
   const openGlossary = useUi((s) => s.openGlossary);
 
@@ -73,13 +74,19 @@ export function Doctopus() {
     if (!question) return;
     const history: ChatTurn[] = [...turns, { role: 'user', content: question }];
     setTurns(history); setQ(''); setStreaming(''); setLoading(true); setError('');
+    let partial = '';
     try {
       // onToken (OpenRouter uniquement) affiche la réponse au fil du stream ;
       // les autres fournisseurs l'ignorent et renvoient le tour complet d'un coup.
-      const reply = await askConversation(history, (delta) => setStreaming((prev) => prev + delta));
+      const reply = await askConversation(history, (delta) => { partial += delta; setStreaming((prev) => prev + delta); });
       setTurns([...history, reply]);
     }
-    catch (e) { setError((e as Error).message); }
+    catch (e) {
+      // Un texte déjà affiché à l'écran ne doit jamais disparaître silencieusement
+      // ni se redoubler : on le fige dans l'historique, marqué comme interrompu.
+      if (partial.trim()) setTurns([...history, { role: 'assistant', content: `${partial}\n\n— réponse interrompue` }]);
+      setError(honestAiError(e));
+    }
     finally { setLoading(false); setStreaming(''); }
   };
   const reset = () => { setTurns([]); setStreaming(''); setError(''); };
@@ -120,12 +127,15 @@ export function Doctopus() {
 
             {/* Zone de saisie */}
             <div className="border-b border-slate-200/70 p-3 dark:border-white/10">
-              <textarea value={q} onChange={(e) => setQ(e.target.value)} rows={2} autoFocus
+              <textarea value={q} onChange={(e) => setQ(e.target.value)} rows={2} autoFocus maxLength={CHAT_LIMITS.maxTurnChars}
                 onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) ask(); }}
                 placeholder="Une question, ou un terme à traduire… (⌘/Ctrl+↵)"
                 className="w-full resize-none rounded-xl border border-slate-300/80 bg-white/70 px-3 py-2 text-sm outline-none transition-colors focus:border-brand-400 dark:border-white/10 dark:bg-white/5" />
+              {q.length > CHAT_LIMITS.maxTurnChars - 200 && (
+                <p className="mt-1 text-right text-[11px] text-slate-400">{q.length}/{CHAT_LIMITS.maxTurnChars}</p>
+              )}
               <div className="mt-2 flex gap-2">
-                <button onClick={ask} disabled={!q.trim() || loading || !hasKey()} className="btn-primary flex-1 justify-center gap-1.5 text-sm disabled:opacity-40">
+                <button onClick={ask} disabled={!q.trim() || loading || !canAskAi()} className="btn-primary flex-1 justify-center gap-1.5 text-sm disabled:opacity-40">
                   {loading ? 'Doctopus réfléchit…' : <><Icon name="spark" className="h-4 w-4" />{turns.length ? 'Poursuivre' : 'Demander'}</>}
                 </button>
                 {turns.length > 0 && (
@@ -133,7 +143,7 @@ export function Doctopus() {
                     className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-slate-300/80 text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 disabled:opacity-40 dark:border-white/10 dark:hover:text-brand-300">↺</button>
                 )}
               </div>
-              {!hasKey() && <p className="mt-1.5 text-[11px] text-amber-600 dark:text-amber-400">Ajoute ta clé (gratuite) dans <Icon name="gear" className="inline-block h-3 w-3 align-[-1px]" /> pour activer l'IA en ligne.</p>}
+              {!canAskAi() && <p className="mt-1.5 text-[11px] text-amber-600 dark:text-amber-400">Connecte-toi (premium) ou ajoute une clé de repli dans <Icon name="gear" className="inline-block h-3 w-3 align-[-1px]" /> pour activer l'IA.</p>}
             </div>
 
             {/* Réponses / suggestions */}
@@ -210,7 +220,8 @@ function Settings({ onClose }: { onClose: () => void }) {
   const save = () => { setKey(key); setProvider(prov); onClose(); };
   return (
     <div className="space-y-2 border-b border-slate-200/70 bg-slate-50/70 p-3 dark:border-white/10 dark:bg-white/5">
-      <div className="label">Réglages de l'IA</div>
+      <div className="label">Repli (optionnel)</div>
+      <p className="text-[11px] text-slate-500">{serverAiAvailable() ? 'Ton compte utilise l’IA Doctopus du serveur. Une clé ici ne sert qu’en cas de panne.' : 'Sans compte premium connecté, Doctopus utilise cette clé.'}</p>
       <select value={prov} onChange={(e) => setProv(e.target.value)} className="input text-sm">
         {PROVIDERS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
       </select>

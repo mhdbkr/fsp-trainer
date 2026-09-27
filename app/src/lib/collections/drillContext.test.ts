@@ -65,4 +65,17 @@ describe('loadDrillContext (config injectée en base)', () => {
     expect(ctx.autoDaily.newPerDay).toBe(10);
     expect(ctx.autoDaily.explain).toMatch(/^auto : 10\/jour = 10 × moyen$/);
   });
+
+  // I-4 (M-3 revue de branche) : un terme personnel neuf ne doit pas être
+  // affamé par un budget calculé sur le seul glossaire.
+  it('freshRemaining inclut les termes personnels neufs (pas seulement le glossaire)', async () => {
+    await db.personal_terms.clear();
+    const closeExam: ProgramConfig = { ...config, examDate: '2026-09-18' }; // 1 jour ouvré (vendredi)
+    await db.fachbegriffe.bulkPut([mkTerm('t1')]); // 1 seul terme neuf côté glossaire
+    await db.meta.put({ key: 'program', value: closeExam });
+    await db.personal_terms.put({ id: 'pt-aaaa1111', term: 'X', createdAt: now.toISOString(), srs: freshSrs(now.getTime()) } as never);
+    const ctx = await loadDrillContext(now);
+    expect(ctx.budget).toBe(2); // 1 (glossaire) + 1 (personnel) → budget 2, pas 1
+    await db.personal_terms.clear();
+  });
 });

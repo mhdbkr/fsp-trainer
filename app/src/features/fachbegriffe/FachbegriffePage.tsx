@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useFachbegriffe, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
+import { useAllTerms, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
 import { Icon } from '@/components/icons';
 import { useUi } from '@/store/ui';
 import { counts as termCounts } from '@/lib/stats';
@@ -21,7 +21,7 @@ import { SrsSettingsSheet } from './SrsSettingsSheet';
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
 export function FachbegriffePage() {
-  const begriffe = useFachbegriffe(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites();
+  const begriffe = useAllTerms(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites();
   const openGlossary = useUi((s) => s.openGlossary);
   const [params, setParams] = useSearchParams();
   const activeId = params.get('deck');
