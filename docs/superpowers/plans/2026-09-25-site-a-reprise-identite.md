@@ -745,9 +745,11 @@ puis, à l'intérieur de `<body>`, **avant** le contenu :
 - [ ] **Step 6: Vérifier qu'aucune page ne l'active encore**
 
 ```bash
-cd apps/site && npm run build >/dev/null && grep -rl "depth-rail" dist/ | wc -l
+cd apps/site && npm run build >/dev/null && grep -rl 'class="depth-rail"' dist/ | wc -l
 ```
 Attendu : `0`. La courbe existe, aucune page ne l'a demandée : c'est le Plan B qui l'activera sur l'accueil, après le premier écran.
+
+**Ne mesure pas `grep -rl "depth-rail" dist/`** : Astro regroupe le CSS de toutes les pages dans une feuille commune, donc le bloc `<style>` du composant s'y retrouve dès que `Base.astro` l'importe — même quand la condition `{rail && …}` est fausse. C'est le **balisage rendu** qui prouve l'inactivité, pas la présence de la règle CSS.
 
 - [ ] **Step 7: Commit**
 
