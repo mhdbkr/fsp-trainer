@@ -567,7 +567,7 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{passed ? 'Bestanden-Simulation !' : 'Encore un effort'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
-        <p className="mt-1 text-sm">{sim.scope === 'teil' ? (passed ? 'Cette partie ≥ 60 % (règle FSP). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        <p className="mt-1 text-sm">{sim.scope === 'teil' ? (passed ? 'Cette partie ≥ 60 % (repère Doctopus). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (repère Doctopus).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
