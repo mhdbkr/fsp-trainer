@@ -70,8 +70,9 @@
   /* Carte réutilisée (mêmes noms que app/src/styles/index.css .card). */
   .card { @apply rounded-card border border-ink-600/15 p-6 dark:border-paper/15; }
 
-  /* Signature readout mono pour kickers/libellés en capitales espacées. */
-  .eyebrow { @apply font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink-600 dark:text-paper/70; }
+  /* Petit libellé discret (kicker, catégorie), en casse normale et en sans : les mono
+     capitales espacées sont rejetées comme « robotiques » (DIRECTION-STYLE §2.3, VOIX §05). */
+  .eyebrow { @apply text-sm font-medium text-ink-600 dark:text-paper/70; }
 }
 
 /* ── Les deux registres (PHILOSOPHIE.md §04, spec §6) ──────────────────────
