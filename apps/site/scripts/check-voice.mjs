@@ -27,6 +27,16 @@
 //  metaphore_explicitee   PHILOSOPHIE.md §08 — la métaphore de la pieuvre ne s'explique jamais
 //  sauvetage              PHILOSOPHIE.md §08 — aucun sauvetage, aucune noyade, aucune tempête
 //  bareme                 confidentialité du barème exact (60 % / 60 points)
+//  autorite_evaluation    toute affirmation sur la FSP doit être sourcée, et l'évaluation affichée
+//                          est la grille d'ENTRAÎNEMENT de Doctopus, jamais le barème d'une chambre.
+//                          ATTRAPE : une action d'évaluation prêtée aux examinateurs (« die Prüfer
+//                          einzeln bewerten », « bewertet vom Prüfer ») et un barème qualifié
+//                          d'officiel ou attribué à la chambre (« offizielles Bewertungsraster »,
+//                          « den Bogen deiner Kammer »). LAISSE PASSER : « am Prüfungstag », « die
+//                          Prüfung besteht aus drei Teilen », « So bewerten wir im Trainer », et
+//                          « kein offizielles Prüfungsergebnis » (avertissement de ExamFacts.astro —
+//                          `Prüfungsergebnis` n'est pas dans la liste). Portée et non-portée écrites
+//                          en entier dans $decisions de voice.lexicon.json.
 //  exclamation            VOIX.md §05 — zéro point d'exclamation en allemand public (variantes Unicode incluses)
 //  emoji                  VOIX.md §08 — aucun émoji dans le corps d'un texte allemand
 //
