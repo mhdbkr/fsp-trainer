@@ -32,6 +32,11 @@ test('exam-bw.json: three 20-minute parts, internal scale, no numeric grading sc
   // morte tenue en vie par une assertion. La donnée part, et l'assertion garde l'inverse —
   // aucun barème chiffré ne revient dans exam-bw.json par distraction.
   assert.ok(!('totalPoints' in examBw) && !('minPercentPerPart' in examBw));
+  // Cette ligne est la porte de `pointsSource`, et la revue de la tâche 7b l'a cherchée sans
+  // la voir : elle dit CE qu'elle attend, pas POURQUOI. `ExamFacts.astro` choisit sa phrase
+  // sur `pointsSource === 'intern'` — la valeur seule décide si le site présente son
+  // évaluation comme SA grille d'entraînement ou comme un barème externe. Passer ce champ à
+  // autre chose doit casser ici, pas se découvrir en ligne.
   assert.equal(examBw.pointsSource, 'intern');
   assert.ok(Array.isArray(examBw.parts) && examBw.parts.length === 3);
   for (const p of examBw.parts) {
