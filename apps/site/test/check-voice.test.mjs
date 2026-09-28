@@ -245,6 +245,41 @@ test('point 13 — « 60 % » et « 60 Punkte » restent signalés (barème non 
 });
 
 // ————————————————————————————————————————————————————————————————————————
+// Tâche 7b — `autorite_evaluation` : l'évaluation affichée est la grille d'ENTRAÎNEMENT
+// de Doctopus, jamais le barème d'une chambre. Les deux côtés de la porte sont testés :
+// ce qui doit déclencher, et la copie légitime qui ne doit PAS déclencher — une règle
+// étroite se prouve autant par ses non-déclenchements que par ses prises.
+// ————————————————————————————————————————————————————————————————————————
+
+test('7b — une action d\'évaluation prêtée aux examinateurs déclenche', () => {
+  // Le défaut corrigé, mot pour mot (Hero.astro avant la tâche 7b).
+  assert.deepEqual(
+    rules(findViolations('a.html', '<p>Fünf Kompetenzen, die die Prüfer einzeln bewerten.</p>')),
+    ['autorite_evaluation'],
+  );
+  // Les deux ordres de mots allemands : verbe final et verbe en tête.
+  assert.deepEqual(rules(findViolations('a.html', '<p>Jeder Teil wird vom Prüfer bewertet.</p>')), ['autorite_evaluation']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Jeder Teil, bewertet vom Prüfer.</p>')), ['autorite_evaluation']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Die Prüferin benotet deine Aussprache.</p>')), ['autorite_evaluation']);
+});
+
+test('7b — un barème qualifié d\'officiel ou attribué à la chambre déclenche', () => {
+  assert.deepEqual(rules(findViolations('a.html', '<p>Ein offizielles Bewertungsraster liegt bei.</p>')), ['autorite_evaluation']);
+  // Le défaut corrigé de Steps.astro, mot pour mot.
+  assert.deepEqual(rules(findViolations('a.html', '<p>Angelehnt an den Bogen deiner Kammer.</p>')), ['autorite_evaluation']);
+});
+
+test('7b — la copie légitime ne déclenche pas : `Prüfer` et `offiziell` employés sans prêter de barème', () => {
+  // `Prüfer`/`Prüfung` sans verbe d'évaluation : ce que le site doit pouvoir écrire.
+  assert.deepEqual(findViolations('a.html', '<p>Am Prüfungstag besteht die Prüfung aus drei Teilen.</p>'), []);
+  assert.deepEqual(findViolations('a.html', '<p>Der Prüferbogen liegt jedem Fall bei.</p>'), []);
+  // Sujet = nous : l'affirmation sur Doctopus est exactement la forme autorisée.
+  assert.deepEqual(findViolations('a.html', '<p>So bewerten wir im Trainer: jeden Teil für sich.</p>'), []);
+  // L'avertissement obligatoire de ExamFacts.astro — il ne doit pas exiger d'exception.
+  assert.deepEqual(findViolations('a.html', '<p>Kein offizielles Prüfungsergebnis.</p>'), []);
+});
+
+// ————————————————————————————————————————————————————————————————————————
 // Correction 2 — la famille `garantie` est de retour, exception de portée composant
 // (Footer.astro), seconde phrase légitime de ueber.astro levée.
 // ————————————————————————————————————————————————————————————————————————
