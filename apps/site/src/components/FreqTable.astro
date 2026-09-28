@@ -101,9 +101,11 @@ if (limit) rows = rows.slice(0, limit);
 </div>
 
 {/* La légende voyage avec le tableau : la même donnée est rendue sur /de/was-drankommt/ et
-    dans deux billets. L'avertissement sur le double comptage est posé partout où des
-    colonnes par centre apparaissent — c'est là qu'un lecteur essaie de les additionner. */}
+    dans deux billets. « Getrennt gerankt » est posé partout où des colonnes par centre
+    apparaissent — c'est là qu'un lecteur essaie de les additionner. La règle de comptage
+    (l'unité du corpus et le double comptage entre centres) ne sort pas : elle révélerait
+    le sourcing (MESSAGES.md §00). */}
 <p class="mt-2 text-xs text-ink-600 dark:text-paper/80">
   Rang nach gemeldeter Häufigkeit. 1 ist der häufigste Fall.
-  {!center && ' Die Spalten je Zentrum sind getrennt gerankt: Ein Bericht kann in zwei Zentren zählen.'}
+  {!center && ' Die Spalten je Zentrum sind getrennt gerankt.'}
 </p>
