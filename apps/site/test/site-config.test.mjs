@@ -9,7 +9,10 @@ test('defaults: placeholders, not public, brand/product/tagline named', () => {
   assert.match(s.domain, /^\{\{SITE_DOMAIN\}\}$/);
   assert.equal(s.brandName, 'Doctopus');
   assert.equal(s.productName, 'FSP Trainer');
-  assert.equal(s.tagline, 'Die Generalprobe.');
+  // MESSAGES.md §03 : l'accroche sert le hero, le descripteur sert la balise <title>
+  // et les annuaires — il porte les mots qu'on tape dans un moteur de recherche.
+  assert.equal(s.tagline, 'Dein Trainingsraum für die Sprache der Medizin');
+  assert.equal(s.descriptor, 'Dein Trainingsraum für medizinisches Deutsch');
   assert.equal(s.analyticsProvider, 'plausible');
 });
 test('env overrides public and analytics endpoint', () => {

@@ -1,7 +1,7 @@
 import raw from '../data/site.json' with { type: 'json' };
 
 export type AnalyticsProvider = 'plausible' | 'umami';
-export interface SiteConfig { domain: string; appUrl: string; supportEmail: string; brandName: string; productName: string; tagline: string; analyticsEndpoint: string; analyticsProvider: AnalyticsProvider; public: boolean; }
+export interface SiteConfig { domain: string; appUrl: string; supportEmail: string; brandName: string; productName: string; tagline: string; descriptor: string; analyticsEndpoint: string; analyticsProvider: AnalyticsProvider; public: boolean; }
 
 export function readSite(env: Record<string, string | undefined> = process.env): SiteConfig {
   const provider = env.ANALYTICS_PROVIDER ?? raw.analyticsProvider;

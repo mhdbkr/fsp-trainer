@@ -42,7 +42,7 @@ test('exam-bw.json: three 20-minute parts, internal scale, no numeric grading sc
 test('site.json: exact expected keys', () => {
   const expected = [
     'domain', 'appUrl', 'supportEmail', 'brandName', 'productName',
-    'tagline', 'analyticsEndpoint', 'analyticsProvider', 'public',
+    'tagline', 'descriptor', 'analyticsEndpoint', 'analyticsProvider', 'public',
   ].sort();
   assert.deepEqual(Object.keys(site).sort(), expected);
 });
