@@ -24,7 +24,11 @@ Formulation unique du corpus, partout : **« Über 130 vollständige Fälle — 
 
 ## 01 — Message central
 
-> **Doctopus entraîne les cinq compétences linguistiques que le jury de la Fachsprachprüfung évalue réellement — prononciation, vocabulaire, grammaire, fluidité, communication avec le patient — sur des cas tirés de protocoles réels, selon un programme qui s'ajuste à tes faiblesses et à ta date.**
+> **Doctopus entraîne cinq compétences linguistiques séparément — prononciation, vocabulaire, grammaire, fluidité, communication avec le patient — sur des cas tirés de protocoles réels, et dit à chaque passage laquelle a lâché, selon un programme qui s'ajuste à tes faiblesses et à ta date.**
+> **Ce qui est sourcé et ce qui ne l'est pas** (tranché le 28/09, après le balayage du site).
+> Les cinq compétences sont **notre grille** : `app/src/lib/scoring.ts` les définit (`LANGUAGE_CRITERIA`) et l'app les note séparément. Rien dans le dépôt ne source l'affirmation que **les examinateurs** les évaluent séparément — sa provenance est le même commentaire « mémoire officielle » qui a produit le barème « 60 % » déjà banni, et `apps/site/src/data/exam-bw.json` porte lui-même `"pointsSource": "intern"`.
+> **Donc on n'affirme jamais ce que fait le jury.** On dit ce que **Doctopus** entraîne et note séparément — ce qui suffit, puisque c'est précisément le différenciateur. Le balayage du site a trouvé **huit** affirmations de cette classe, dont une offre qui vendait une « Bewertung nach dem Bogen aus Baden-Württemberg ». La porte `autorite_evaluation` de `check-voice` les attrape désormais.
+
 
 Ce n'est pas « faire répéter ». Répéter est le *moyen*. L'objet, c'est la **compétence linguistique en situation médicale** — et le fait qu'on sache laquelle de tes cinq compétences lâche.
 
@@ -58,8 +62,8 @@ Les quatre ne se concurrencent pas : une accroche, un descripteur, un manifeste,
 ### Niveau 3 — Les six piliers
 
 **A — « Fünf Kompetenzen. Nicht eine Note. »** *(Cinq compétences, pas une note)*
-Le jury n'évalue pas « ton allemand ». Il évalue cinq choses distinctes. Doctopus les sépare aussi : chaque partie d'examen ressort avec une lecture par compétence, pas un chiffre global.
-*Preuve* : la grille des cinq axes — Aussprache/Intonation, Wortschatz, Grammatik/Syntax, Redefluss, Kommunikation/Register — est celle sur laquelle chaque partie est évaluée.
+« Ton allemand » n'est pas une grandeur. Ce sont cinq choses distinctes, et un outil qui rend une note globale ne t'apprend rien. Doctopus les sépare : chaque partie ressort avec une lecture par compétence.
+*Preuve* : la grille des cinq axes — Aussprache/Intonation, Wortschatz, Grammatik/Syntax, Redefluss, Kommunikation/Register — est celle sur laquelle **Doctopus** note chaque partie (`LANGUAGE_CRITERIA`). On ne dit jamais que c'est celle du jury.
 
 **B — « Ein Plan, kein Stapel Material. »** *(Un plan, pas une pile de contenu)*
 Le plan se construit à rebours de ta date. Chaque cas se travaille en trois couches espacées — jamais deux le même jour. Les disciplines où tu es faible remontent d'elles-mêmes. Un examen à blanc tombe dans la dernière ligne droite.
