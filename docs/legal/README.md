@@ -163,9 +163,31 @@ Cette section documente ce qui manque, elle ne certifie rien. Statut
 ## 7. Notes de rédaction par fichier (hors des textes publiés)
 
 Ces notes étaient rendues telles quelles dans les pages publiques `/de/impressum/`,
-`/de/datenschutz/`, `/de/agb/` et `/de/widerruf/` : `LegalPage.astro` restitue tout le
+`/de/datenschutz/`, `/de/agb/` et `/de/widerruf/` : `LegalPage.astro` restituait tout le
 corps Markdown. Elles sont déplacées ici — langue de travail interne, destinataire la
 direction — sans une ligne de changée.
+
+### Comment écrire une note sans la publier
+
+`LegalPage.astro` ne rend plus **que** ce qui est hors note. Deux formes, toutes deux
+délimitées dans la source :
+
+- **en ligne**, dans une phrase juridique : `{{"… note …"}}` ;
+- **en bloc**, pour une remarque qui ne tient pas dans une phrase :
+
+  ```markdown
+  <!-- legal:internal -->
+  Ce qui est ici n'atteint jamais une page construite.
+  <!-- /legal:internal -->
+  ```
+
+  Le marqueur de fin est facultatif : un bloc ouvert court jusqu'à la fin du fichier.
+
+Une note écrite **hors** de ces deux formes part en production. La porte mécanique qui le
+refuse est `apps/site/scripts/check-legal.mjs` : elle échoue si un marqueur, un résidu
+`{{"` ou du français atteint une page construite. C'est le validateur qui tranche, pas
+cette section — les blocs « À valider par un juriste » qui vivaient en queue des quatre
+textes publiés ont été retirés, leur contenu étant déjà posé au §2 et au §6 ci-dessus.
 
 ### `impressum.md`
 

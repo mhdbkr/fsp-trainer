@@ -2,11 +2,43 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { listHtml, textOf, report } from './lib/dist.mjs';
+import { listHtml, textOf, boundedRe, report } from './lib/dist.mjs';
 import { parseFrontmatter } from './lib/frontmatter.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const LEGAL = ['impressum', 'datenschutz', 'agb', 'widerruf'];
+
+// ─── Correction de revue (C3) : la porte qui manquait ───
+// Le corps Markdown de docs/legal/*.md porte des notes de rédaction internes, en français.
+// `LegalPage.astro` ne les rend plus (bloc `<!-- legal:internal -->…`, forme en ligne
+// `{{"…"}}`), mais un gabarit sans porte n'est qu'une intention : la note suivante
+// repartirait en production sans que rien ne rougisse. Ces trois règles ferment la cause.
+//
+// MARQUEUR / RÉSIDU — sur le HTML BRUT : un marqueur ou un `{{"` qui survit signifie que
+// le retrait n'a pas eu lieu, même si le texte visible paraît propre.
+const NOTE_MARKER = /legal:internal/i;
+const NOTE_RESIDUE = /\{\{\s*[“”"]/;
+// Un nom de fichier interne rendu au lecteur est une note qui a survécu sous un autre
+// masque : `siehe disclaimer.md`, `PRODUCT-VISION.md §7`, `README.md`. Le lecteur d'une
+// Widerrufsbelehrung n'a pas de dépôt. Les pages légales nomment ce qu'il voit.
+const INTERNAL_REF = /(?<![\p{L}\p{N}])[\w.-]+\.(?:md|mjs|ts|astro|sql)(?![\p{L}\p{N}])|(?<![\p{L}\p{N}])(?:PRODUCT-VISION|ROADMAP-PRODUCTION|CONTEXT|ADR-\d+)(?![\p{L}\p{N}])/u;
+//
+// FRANÇAIS — sur le TEXTE VISIBLE (le HTML brut porte les commentaires FR volontaires des
+// composants, qui ne sont pas rendus au lecteur). Deux jeux, deux seuils :
+//  · le vocabulaire de note tranche seul — aucun de ces mots n'a de raison d'être publié ;
+//  · les mots-outils demandent DEUX formes distinctes, parce qu'une seule peut appartenir à
+//    un contenu légalement exigé (une forme juridique française dans l'Impressum :
+//    « Société à responsabilité limitée » porte « à » sans être une note).
+const FRENCH_NOTE = boundedRe('juriste|juristes|préciser|confirmer|trancher|biffer|valider|brouillon|placeholder');
+const FRENCH_WORDS = boundedRe('à|aux|avec|dans|doit|doivent|être|est|selon|sont|pour|qui|que|cette|toute|leur|nous|vous|peut|sans|sous|entre|les|une|français|française');
+const FRENCH_MIN_DISTINCT = 2;
+
+function frenchHits(text) {
+  const note = [...new Set([...text.matchAll(FRENCH_NOTE)].map((m) => m[0].toLowerCase()))];
+  const words = [...new Set([...text.matchAll(FRENCH_WORDS)].map((m) => m[0].toLowerCase()))];
+  if (note.length) return note.concat(words);
+  return words.length >= FRENCH_MIN_DISTINCT ? words : [];
+}
 
 function shortDisclaimer(legalDir) {
   const md = readFileSync(join(legalDir, 'disclaimer.md'), 'utf8');
@@ -26,6 +58,13 @@ export function checkLegal({ dist, legalDir, sitePublic }) {
     if (!textOf(footer).includes(notice)) errs.push(`${rel}: avertissement outil de langue absent du footer`);
     if (!/data-notice="language-tool"/.test(footer)) errs.push(`${rel}: [data-notice="language-tool"] absent du footer`);
     for (const l of LEGAL) if (!new RegExp(`href="/de/${l}/"`).test(footer)) errs.push(`${rel}: lien /de/${l}/ absent du footer`);
+    if (NOTE_MARKER.test(html)) errs.push(`${rel}: marqueur de note interne rendu (legal:internal)`);
+    if (NOTE_RESIDUE.test(html)) errs.push(`${rel}: note interne rendue (résidu {{"…"}})`);
+    const visible = textOf(html);
+    const fr = frenchHits(visible);
+    if (fr.length) errs.push(`${rel}: français rendu dans le texte visible — ${fr.slice(0, 6).join(', ')}`);
+    const ref = visible.match(INTERNAL_REF);
+    if (ref) errs.push(`${rel}: référence interne rendue au lecteur — ${ref[0]}`);
   }
   const home = readFileSync(join(dist, 'de', 'index.html'), 'utf8');
   const main = (home.match(/<main[\s\S]*?<\/main>/i) || [''])[0];

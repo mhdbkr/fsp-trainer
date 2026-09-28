@@ -19,7 +19,7 @@ der Lernplattform Doctopus (Website und zugehörige Anwendung).
 
 Doctopus ist ein digitales Sprachlern-Werkzeug zur Vorbereitung auf die
 Fachsprachprüfung Medizin. Es handelt sich um **kein Medizinprodukt** und
-**keine klinische Entscheidungshilfe** (siehe `disclaimer.md`).
+**keine klinische Entscheidungshilfe** (siehe den Hinweis im Seitenfuß).
 
 Es gibt drei Abonnementstufen:
 
@@ -81,9 +81,8 @@ Nicht verbrauchte Credits werden bei Kündigung {{LEGAL_CREDITS_REFUND_RULE}}
 
 Bei Abschluss eines Abonnements bzw. beim Erwerb von Credits handelt es
 sich um digitale Inhalte, die nicht auf einem körperlichen Datenträger
-bereitgestellt werden. Siehe `widerruf.md` für die
-Widerrufsbelehrung und die Bedingungen eines vorzeitigen Erlöschens des
-Widerrufsrechts.
+bereitgestellt werden. Die Bedingungen eines vorzeitigen Erlöschens des
+Widerrufsrechts stehen in der Widerrufsbelehrung.
 
 ### § 8 Nutzungsrechte
 
@@ -100,7 +99,7 @@ werden.
 
 ### § 10 Haftung
 
-Es gelten die Hinweise in `disclaimer.md`. Im Übrigen haften wir nach den
+Es gelten die Hinweise im Seitenfuß dieser Website. Im Übrigen haften wir nach den
 gesetzlichen Bestimmungen, {{LEGAL_LIABILITY_CLAUSE}} {{"clause de
 limitation de responsabilité standard à rédiger/valider par un juriste
 selon le droit applicable (probablement droit allemand pour les
@@ -117,22 +116,3 @@ clause doit être rédigée en conséquence, pas devinée ici."}}
 
 Sollte eine Bestimmung dieser AGB unwirksam sein, bleibt die Wirksamkeit
 der übrigen Bestimmungen unberührt.
-
----
-
-**À valider par un juriste**
-
-1. Modalités précises Pro/Premium (prix, quotas de crédits, règle de
-   péremption des crédits, remboursement au prorata) — décisions produit
-   à faire trancher par la direction avant rédaction juridique finale.
-2. Clause de droit applicable / juridiction compétente pour un
-   prestataire français servant des consommateurs allemands (protection
-   impérative du droit du consommateur, art. 6 Rom I).
-3. Cohérence entre § 6/§ 7 et `widerruf.md` (renonciation expresse au
-   droit de rétractation pour le contenu numérique consommé immédiatement).
-4. La clause de non-reconduction tacite au § 5 : vérifier qu'elle respecte
-   à la fois la volonté de la direction (pas de reconduction silencieuse)
-   et le droit allemand de la résiliation en ligne (§ 312k BGB — bouton de
-   résiliation, confirmation, etc., applicable au site/compte, hors
-   périmètre d'écriture de ce brouillon mais à vérifier « branché » par
-   `site-implementer`).

@@ -71,16 +71,3 @@ forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
 Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte
 wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch
 keine Gewähr übernehmen.
-
----
-
-**À valider par un juriste (voir aussi `docs/legal/README.md`)**
-
-1. Le régime exact applicable à un micro-entrepreneur français servant un
-   public résidant en Allemagne (contenu de l'Impressum, mentions
-   obligatoires côté français à ajouter en sus, ex. SIRET, RCS).
-2. Si le blog Doctopus tombe sous la qualification « journalistisch-
-   redaktionell » au sens du § 18 Abs. 2 Medienstaatsvertrag (obligerait une
-   mention distincte de responsable éditorial).
-3. La formule de non-participation à la médiation des litiges de
-   consommation (Streitschlichtung) selon le statut juridique retenu.

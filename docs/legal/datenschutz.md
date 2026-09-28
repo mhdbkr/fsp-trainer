@@ -94,8 +94,8 @@ s'avère traiter des données personnelles, un bandeau de consentement
 devient nécessaire"}}.
 
 Darüber hinaus setzen wir **keine nicht notwendigen Cookies** und keine
-Tracking-Tools ein. Sollte sich dies ändern (z. B. durch Marketing-Pixel,
-`PRODUCT-VISION.md` §7), werden wir vorab eine Einwilligung über ein
+Tracking-Tools ein. Sollte sich dies ändern (z. B. durch Marketing-Pixel),
+werden wir vorab eine Einwilligung über ein
 Consent-Management-Tool einholen und diese Erklärung aktualisieren.
 
 ### 9. Speicherdauer

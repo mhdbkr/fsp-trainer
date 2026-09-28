@@ -50,10 +50,14 @@ Vertrags begonnen haben, nachdem Sie
    Beginn der Ausführung des Vertrags Ihr Widerrufsrecht verlieren
    (§ 356 Abs. 5 BGB).
 
-**Produktseitig erforderlich**: eine gesonderte Checkbox beim Kauf-/
-Abo-Abschluss, die diese beiden Punkte ausdrücklich abfragt — getrennt von
-der Zustimmung zu den AGB. Ohne diese Checkbox bleibt das Widerrufsrecht
-bestehen. Status: **nicht als branché bestätigt**, siehe `README.md`.
+<!-- legal:internal -->
+
+Note produit, non publiée : l'extinction anticipée exige une case à cocher distincte de
+l'acceptation des AGB au moment du paiement, qui demande explicitement les deux points
+ci-dessus. Sans cette case, le droit de rétractation subsiste malgré ce texte. État : non
+vérifié comme branché — voir `README.md`, check-list §4.
+
+<!-- /legal:internal -->
 
 ---
 
@@ -78,16 +82,3 @@ die Erbringung der folgenden Dienstleistung: Doctopus-Abonnement / Credits
 — Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier):
   __________
 — Datum: __________
-
----
-
-**À valider par un juriste**
-
-1. La formulation exacte et l'emplacement de la case de renonciation
-   expresse (§ 356 Abs. 5 BGB) — condition de validité de l'extinction
-   anticipée du droit de rétractation.
-2. Le calcul du remboursement proportionnel en cas de rétractation après
-   consommation partielle (crédits déjà utilisés).
-3. Articulation avec un for/droit potentiellement français (voir `agb.md`
-   § 11) — le droit de rétractation allemand est d'ordre public pour un
-   consommateur allemand quel que soit le droit du contrat (Rom I, art. 6).
