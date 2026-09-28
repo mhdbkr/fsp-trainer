@@ -146,7 +146,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       FRUEHER('solche Luftnot'),
       BEGLEIT,
     ],
-    tip: 'Pour un essoufflement, le jury attend la gradation à l’effort (étages, distance), l’orthopnée et la toux — pas une échelle de douleur. Note « Dyspnoe bei Belastung / in Ruhe », « Orthopnoe », « Auswurf ».',
+    tip: 'Pour un essoufflement, demande la gradation à l’effort (étages, distance), l’orthopnée et la toux — pas une échelle de douleur. Note « Dyspnoe bei Belastung / in Ruhe », « Orthopnoe », « Auswurf ».',
   },
   allgemein: {
     subtitle: 'Motif + analyse d’une fatigue, faiblesse ou prise/perte de poids',
@@ -180,7 +180,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       FRUEHER('solche Beschwerden'),
       BEGLEIT,
     ],
-    tip: 'Fatigue/faiblesse : le jury veut l’impact concret (ce qui ne va plus), la courbe de poids et d’appétit, la soif, les œdèmes — c’est là que se cachent anémie, thyroïde, diabète et rein.',
+    tip: 'Fatigue/faiblesse : cherche l’impact concret (ce qui ne va plus), la courbe de poids et d’appétit, la soif, les œdèmes — c’est là que se cachent anémie, thyroïde, diabète et rein.',
   },
   psychisch: {
     subtitle: 'Motif + exploration psychique (avec tact)',
@@ -215,7 +215,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       FRUEHER('eine solche Phase'),
       BEGLEIT,
     ],
-    tip: 'Pas de « Skala », pas d’« Ausstrahlung ». Le jury évalue le tact : annonce la question de sécurité comme une question de routine, laisse du silence, ne juge pas. Note « Stimmung, Antrieb, Schlaf, Suizidalität ».',
+    tip: 'Pas de « Skala », pas d’« Ausstrahlung ». Le tact d’abord : annonce la question de sécurité comme une question de routine, laisse du silence, ne juge pas. Note « Stimmung, Antrieb, Schlaf, Suizidalität ».',
   },
   neurologisch: {
     subtitle: 'Motif + analyse d’un déficit, d’un vertige ou d’une crise',
@@ -478,7 +478,7 @@ export function abschlussChapterFor(c?: Case): AnamneseChapter {
         label: 'Rassurer',
       },
     ],
-    tip: 'Cinq gestes, toujours dans cet ordre : clore, nommer le soupçon avec prudence (« vermute », « am ehesten »), annoncer les examens, esquisser la suite, vérifier la compréhension. En langage patient — le jury écoute si tu sais traduire ta médecine.',
+    tip: 'Cinq gestes, toujours dans cet ordre : clore, nommer le soupçon avec prudence (« vermute », « am ehesten »), annoncer les examens, esquisser la suite, vérifier la compréhension. En langage patient : traduis ta médecine.',
   };
 }
 
@@ -1328,7 +1328,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-endo-familie-therapie',
       },
     ],
-    'Oppose systématiquement hyper- et hypofonction thyroïdienne (chaleur/froid, agitation/apathie, poids, transit) ; devant polyurie-polydipsie, pense diabète et déroule les complications (pieds, yeux, reins) — c\'est ce que l\'examinateur attend.'),
+    'Oppose systématiquement hyper- et hypofonction thyroïdienne (chaleur/froid, agitation/apathie, poids, transit) ; devant polyurie-polydipsie, pense diabète et déroule les complications (pieds, yeux, reins).'),
   F('Chirurgie', 'syringe', 'chirurgie', 'Fachanamnese Chirurgie / Akutes Abdomen',
     ['gegessen', 'Erbrechen', 'Stuhlgang', 'Winde', 'Narben', 'Blutverdünner'],
     [

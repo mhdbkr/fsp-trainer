@@ -156,7 +156,7 @@ export function seedGuides(): Guide[] {
       title: 'Kommunikative Strategien — schwieriger Patient',
       type: 'kommunikation',
       specialty: null,
-      intro: 'Parades pour les situations difficiles (Kap. 2.4). Le jury teste la gestion du dialogue.',
+      intro: 'Parades pour les situations difficiles (Kap. 2.4).',
       sections: [
         { id: 'k1', title: 'Patient verweigert Zusammenarbeit (will den OA)', items: [
           '"Wenn ich die Ausbildung nicht hätte, dürfte ich Sie gar nicht fragen. Meine Qualifikationen sind anerkannt."',
