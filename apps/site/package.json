@@ -14,11 +14,12 @@
     "check:lexicon": "node scripts/build-lexicon.mjs --check && node scripts/check-no-promise.mjs",
     "check:legal": "node scripts/check-legal.mjs",
     "check:placeholders": "node scripts/check-placeholders.mjs",
-    "check:budgets": "node scripts/check-budgets.mjs",
+    "_note:budgets": "check-budgets arrive au Plan B, avec les premières dépendances JavaScript",
     "check:cta": "node scripts/check-cta.mjs",
     "check:voice": "node scripts/check-voice.mjs",
     "check:lighthouse": "node scripts/check-lighthouse.mjs",
-    "verify": "npm test && npm run check:frequencies && npm run check:pricing && npm run build && npm run check:lexicon && npm run check:voice && npm run check:legal && npm run check:placeholders && npm run check:budgets && npm run check:cta && npm run check:lighthouse"
+    "_note:ordre": "build EN PREMIER : quatre tests lisent dist/ et échouent maintenant s'il manque, au lieu de se sauter en silence (test/seo-meta, faq-jsonld, quick-guide-render, pricing-summary-status-label)",
+    "verify": "npm run build && npm test && npm run check:frequencies && npm run check:pricing && npm run check:lexicon && npm run check:voice && npm run check:legal && npm run check:placeholders && npm run check:cta && npm run check:lighthouse"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
