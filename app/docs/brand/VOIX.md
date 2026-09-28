@@ -94,7 +94,7 @@ Ce sont les mots de l'examen. Les traduire serait dire au médecin qu'on ne conn
 | Règle | Décision |
 |---|---|
 | **Longueur de phrase** | Courte par défaut (8–14 mots). Une phrase longue est permise pour poser un raisonnement, jamais deux de suite. Les fragments sont autorisés en accroche : « Drei Teile. Ein Durchlauf. » |
-| **Ponctuation** | Le point est l'outil principal. Le tiret cadratin : au plus **un** par paragraphe. **Zéro point d'exclamation** en allemand public — en allemand il sonne injonctif, pas enthousiaste. Points de suspension bannis. Pas d'émoji dans le corps du texte |
+| **Ponctuation** | Le point est l'outil principal. Le tiret cadratin : au plus **une incise** par paragraphe — une incise encadrée compte pour un, pas pour deux (la formulation canonique du corpus en est une). **Zéro point d'exclamation** en allemand public — en allemand il sonne injonctif, pas enthousiaste. Points de suspension bannis. Pas d'émoji dans le corps du texte |
 | **Capitales** | Orthographe allemande standard. Titres en casse de phrase, **pas** en Title Case anglaise. **Aucun libellé en capitales**, ni en mono capitales — rejeté par la direction comme « robotique » (DIRECTION-STYLE §2.3) |
 | **Chiffres** | Chiffres arabes dès qu'il y a une quantité (`130 Fälle`, `3 Teile`, `12 Minuten`). Les chiffres sont des preuves : on ne les écrit pas en lettres. Format allemand : `2 266`, `500–700 €` |
 | **Contractions / élisions** | L'allemand oral courant est permis dans les micro-textes (`gibt's`, `hast du's`), jamais dans un titre ni sur la page tarifs |
