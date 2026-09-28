@@ -1,0 +1,43 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { requireBuilt } from '../scripts/lib/dist.mjs';
+
+const distFile = fileURLToPath(new URL('../dist/de/faq/index.html', import.meta.url));
+requireBuilt(distFile);
+
+function extractJsonLd(html) {
+  // Base.astro (T3.1) injecte Organization + WebSite avant les jsonLd de page :
+  // cibler le bloc FAQPage explicitement plutôt que le premier bloc ld+json.
+  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    const parsed = JSON.parse(m[1]);
+    if (parsed['@type'] === 'FAQPage') return parsed;
+  }
+  assert.fail('bloc application/ld+json FAQPage introuvable');
+}
+
+test('faq dist : JSON-LD FAQPage unique, valide, généré depuis la collection', () => {
+  const html = readFileSync(distFile, 'utf8');
+  assert.equal((html.match(/"@type":"FAQPage"/g) ?? []).length, 1);
+  const faqPage = extractJsonLd(html);
+  assert.equal(faqPage['@type'], 'FAQPage');
+  assert.ok(Array.isArray(faqPage.mainEntity));
+  assert.equal(faqPage.mainEntity.length, 8);
+  for (const q of faqPage.mainEntity) {
+    assert.equal(q['@type'], 'Question');
+    assert.ok(q.name.length > 0);
+    assert.equal(q.acceptedAnswer['@type'], 'Answer');
+    assert.ok(q.acceptedAnswer.text.length > 0);
+  }
+  const questions = faqPage.mainEntity.map((q) => q.name);
+  // sous-ensemble cohérent avec FaqShort (T2.2) : « Werde ich bestehen? » répond à la
+  // même question sur les deux surfaces, sans contradiction.
+  assert.ok(questions.includes('Werde ich bestehen?'));
+});
+
+test('faq dist : <details> natifs, aucune dépendance JS pour l\'accordéon', () => {
+  const html = readFileSync(distFile, 'utf8');
+  assert.match(html, /<details/);
+  assert.doesNotMatch(html, /addEventListener\(['"]click['"]/);
+});

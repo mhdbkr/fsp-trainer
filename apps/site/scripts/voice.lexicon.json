@@ -1,0 +1,49 @@
+{
+  "$note": "Interdits de VOIX.md §08 et PHILOSOPHIE.md §08. Motifs en minuscules, comparés au corpus normalisé (entités décodées, césure retirée, NFC, minuscules). Les bornes de mot sont posées par le code (boundedRe, bornes Unicode) : ne PAS écrire \\b dans un motif — il est ASCII et matcherait à l'intérieur d'un composé allemand (« Kursübersicht » → kurs, « Bürette » → rette). Voir le README de chaque règle dans check-voice.mjs.",
+  "$decisions": [
+    "PAS de `bestehen` nu, malgré VOIX.md §08 : le verbe est légitime en emploi ordinaire (« die Prüfung besteht aus drei Teilen »). Les promesses de réussite sont couvertes nommément (garantiert, Erfolgsquote, im ersten Versuch, prüfungsreif). Décision écrite ici pour qu'on ne la re-tranche pas.",
+    "Arbitrage tranché (correction 2) : `Erfolgsgarantie`/`Bestehensgarantie`/`garantieren` (+ flexions) sont de retour dans `promesse` — cette famille est exactement la promesse de réussite que la règle existe pour attraper, les retirer laissait un trou béant. Le coût réel identifié était le pied de page : l'avertissement légal obligatoire (`docs/legal/disclaimer.md`, « Version courte pour le footer (DE) », « keine Erfolgsgarantie ») est rendu par le composant `LanguageToolNotice.astro`, inclus dans le pied de page des 17 pages construites. I3 (revue finale) : l'exception posée sur le MOT « Erfolgsgarantie » levait aussi « Mit Erfolgsgarantie zur bestandenen Prüfung. » sur les 17 pages. Elle est désormais la PHRASE EXACTE de l'avertissement, émise par LanguageToolNotice.astro depuis la même source que le texte, et une exception ne lève qu'une correspondance tombant DANS une occurrence de son texte (lib/dist.mjs, allowCovers) — pour check-voice comme pour check-no-promise. `Garantie` nu reste hors lexique (non demandé, bruit potentiel non mesuré).",
+    "`Vorbereitungskurs`, `Lernziel`, `Punktestand`, `bring dich durch` (nommés dans VOIX.md §08) restent hors lexique : reste assumé de la passe précédente, pour ne pas ouvrir un second front de faux positifs dans la même correction.",
+    "« L'excuse en boucle » (`Entschuldigung` / `tut uns leid` RÉPÉTÉS, VOIX.md §08) n'a pas de règle : elle demande un comptage d'occurrences, pas une correspondance de motif — mécanisme différent de celui de ce validateur, hors périmètre.",
+    "Composés et formes fléchies listés NOMMÉMENT, jamais par joker de préfixe : `\\p{L}*kurs` attraperait « Diskurs » et recréerait les faux positifs que les bornes Unicode viennent de fermer. La contrepartie est que la couverture des composés est énumérative : elle s'étend au fil de la copie.",
+    "Correction de revue (I7) : `die themen` ne tenait que cette forme exacte — « Hier die fünf Themen » passait dès qu'on changeait le déterminant, et le singulier `Thema` (un en-tête de colonne) passait toujours. Le motif est élargi à `them(?:a|en)`, borné : la famille entière est tenue, « Thematik » et « Prüfungsthemen » restent hors portée (bornes Unicode + pas de joker de préfixe, décision ci-dessus). Un motif s'élargit, il ne se rétrécit pas.",
+    "Règle `autorite_evaluation` (tâche 7b) : toute affirmation sur la FSP doit être sourcée, et toute évaluation affichée est la grille d'ENTRAÎNEMENT de Doctopus, jamais le barème d'une chambre (`exam-bw.json` porte déjà `pointsSource: intern`). ATTRAPE deux tournures, et rien d'autre : (a) une action d'évaluation prêtée aux examinateurs — `prüfer…` suivi, à trois mots près, de `bewerten/bewertet`, `benoten/benotet`, `beurteilen/beurteilt` (le défaut corrigé : « fünf Kompetenzen, die die Prüfer einzeln bewerten »), plus la forme passive `bewertet vom Prüfer` ; (b) un barème qualifié d'officiel ou attribué à la chambre — `offizielle(s) Bewertung/Bewertungsraster/Bewertungsbogen/Bewertungsskala/Punkteskala`, et `Bogen|Prüferbogen|Bewertungsbogen|Bewertungsraster|Bewertungsskala|Punkteskala der/deiner/einer Kammer` (le défaut de `Steps.astro` : « angelehnt an den Bogen deiner Kammer »). LAISSE PASSER, volontairement : `Prüfer` employé légitimement sans verbe d'évaluation (« am Prüfungstag », « der Prüferbogen liegt bei »), `die Prüfung besteht aus drei Teilen`, `So bewerten wir im Trainer` (sujet = nous), et `kein offizielles Prüfungsergebnis` — l'avertissement obligatoire de `ExamFacts.astro` : `Prüfungsergebnis` n'est pas dans la liste (b), une exception `voice:allow` n'a donc pas à exister pour lui. (c) I6, revue finale — élargissement : l'EXAMEN lui-même ou son instance (`Fachsprachprüfung`, `Kenntnisprüfung`, `Prüfung`, `FSP`, `(Prüfungs)kommission`, `Jury`, `(Landesärzte)kammer`) pris comme sujet, à trois mots près, d'un verbe d'évaluation au singulier `bewertet/benotet/beurteilt` (le défaut corrigé : « Die Fachsprachprüfung bewertet, wie du … erklärst », billet BW ; la forme passive « In der Prüfung wird beurteilt » aussi). LAISSE PASSER : « Die Fachsprachprüfung besteht aus drei Teilen », « prüft Sprache, nicht Medizin » (`prüfen` n'est pas dans la liste : `exam-bw.json` source exactement cela), « Prüfungsteil » (autre mot, bornes Unicode), « Nach der Prüfung bewerten wir » (pluriel, sujet = nous). Non couvert, et assumé : `prüft` suivi d'un détail non sourcé (« prüft, wie verständlich du erklärst ») — le verbe porte aussi la phrase sourcée, l'attraper mordrait sur ExamFacts. Non couvert non plus, et assumé : la famille `eigener Bogen je Zentrum` (corrigée à la main dans les deux billets de blog) — elle ne prête ni action d'évaluation ni qualificatif officiel, l'attraper demanderait un motif large qui mordrait sur la copie légitime.",
+    "`sprachniveau` est listé explicitement : la correction des bornes de mot supprimerait sinon un constat réel de la porte actuelle (dist/de/datenschutz/), qu'elle tenait par accident via `\\bniveau\\b` en ASCII. Le mécanisme change, le constat reste."
+  ],
+  "vouvoiement": ["sie können", "sie haben", "ihre prüfung", "ihr termin"],
+  "scolaire": [
+    "lern(?:e|en|st|t|te|ten)", "gelernt", "lernreise", "lernplan",
+    "kurs(?:e|en)?", "sprachkurs(?:e|en)?", "lektion(?:en)?",
+    "schüler(?:in|innen)?", "niveau(?:s)?", "sprachniveau(?:s)?"
+  ],
+  "hype": [
+    "revolutionär(?:e|er|es|en|em)?", "innovativ(?:e|er|es|en|em)?",
+    "einzigartig(?:e|er|es|en|em)?", "weltklasse", "ganz einfach",
+    "ki-gestützt(?:e|er|es|en|em)?", "intelligent(?:e|er|es|en|em)?"
+  ],
+  "promesse": [
+    "garantiert(?:e|er|es|en|em)?", "garantier(?:e|en|st)?", "erfolgsquote(?:n)?",
+    "im ersten versuch", "prüfungsreif(?:e|er|es|en|em)?",
+    "erfolgsgarantie(?:n)?", "bestehensgarantie(?:n)?"
+  ],
+  "fuite": ["prüfungsfrage(?:n)?", "them(?:a|en)", "dein fall ist dabei"],
+  "jeu": ["streak(?:s)?", "xp", "endgegner", "liga", "ligen", "level(?:s)?"],
+  "urgence": ["nur heute", "nur noch heute", "letzte chance"],
+  "comparaison": ["besser als"],
+  "metaphore_explicitee": [
+    "wie ein oktopus", "oktopus(?:se|sen)?", "ozean(?:e|en|s)?",
+    "abgrund", "abgründe", "tintenfisch(?:e|en)?"
+  ],
+  "sauvetage": [
+    "rette(?:n|t|st)?", "gerettet", "rettung(?:en)?", "rettungsring(?:e|en)?",
+    "ertrinken", "ertrinkt", "ertrunken", "sturm", "stürme"
+  ],
+  "bareme": ["60\\s*%", "60\\s*punkte(?:n)?", "sechzig\\s*prozent", "60\\s*prozent"],
+  "autorite_evaluation": [
+    "prüfer(?:in|innen|n)?(?:\\s+\\p{L}+){0,3}\\s+(?:bewerte[nt]|benote[nt]|beurteile[nt])",
+    "(?:fachsprachprüfung|kenntnisprüfung|prüfung|fsp|prüfungskommission|kommission|jury|landesärztekammer|kammer)(?:\\s+\\p{L}+){0,3}\\s+(?:bewertet|benotet|beurteilt)",
+    "(?:bewertet|benotet|beurteilt)\\s+(?:vom|von\\s+(?:den|der|einem|einer))\\s+prüfer(?:in|innen|n)?",
+    "offiziell(?:e|es|er|en|em)?\\s+(?:bewertung(?:en)?|bewertungsraster|bewertungsbogen|bewertungsskala|punkteskala)",
+    "(?:bogen|prüferbogen|bewertungsbogen|bewertungsraster|bewertungsskala|punkteskala)\\s+(?:der|deiner|einer)\\s+(?:kammer|landesärztekammer)"
+  ]
+}

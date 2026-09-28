@@ -1,0 +1,100 @@
+---
+import pricing from '@/data/pricing.json' with { type: 'json' };
+import { readSite } from '@/lib/site.ts';
+import { pricingCtaFor } from '@/lib/cta.ts';
+
+const site = readSite();
+
+// review T2.4 C-1 : `pricing.core` porte son texte dans `label`, jamais dans
+// `pricing.labels` — retomber sur l'id affichait l'id brut.
+const label = (f: { id: string; label?: string }) => pricing.labels[f.id] ?? f.label ?? f.id;
+const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
+
+// Correction de revue (C2) : filtrer sur `status === 'live'` avait vidé la page tarifs —
+// Premium n'affichait plus que « Alles aus Pro » à un prix supérieur, et les quotas de
+// crédits mensuels n'étaient nommés nulle part, alors que l'AGB § 2 en fait un composant
+// du plan. Un plan qui se vend dit ce qu'il contient. La règle retenue est celle de
+// /de/status/ : la fonction est nommée AU PRÉSENT, avec son état, sans date — pas retirée.
+const columns = pricing.plans.map((plan) => {
+  const included = plan.includesPlan ? planById[plan.includesPlan] : null;
+  return {
+    ...plan,
+    displayPrice: plan.price === '0' ? 'Kostenlos' : plan.price,
+    features: plan.features.map((f) => ({ label: label(f), locked: f.status !== 'live' })),
+    included,
+    cta: pricingCtaFor(site, plan.id, pricing.freeCases),
+  };
+});
+const anyLocked = columns.some((c) => c.features.some((f) => f.locked));
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16">
+  <div class="card">
+    <h2 class="text-lg text-ink dark:text-paper">In jedem Plan enthalten</h2>
+    <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+      {pricing.core.map((f) => (
+        <li class="text-sm text-ink-700 dark:text-paper/90">{label(f)}</li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="mt-8 grid gap-6 md:grid-cols-3">
+    {columns.map((col) => (
+      <div class="card flex flex-col">
+        <h3 class="text-lg text-ink dark:text-paper">{col.name}</h3>
+        <p class="mt-1 font-mono text-xl text-ink dark:text-paper">
+          {col.price === '0' ? (
+            col.displayPrice
+          ) : (
+            <>
+              {col.displayPrice} <span class="text-sm font-sans font-normal text-ink-700 dark:text-paper/90">pro {'{{BILLING_PERIOD}}'}, inkl. MwSt.</span>
+            </>
+          )}
+        </p>
+        {col.price !== '0' && (
+          <p class="mt-1 text-xs text-ink-700 dark:text-paper/90">
+            monatlich oder 3 Monate — ohne automatische Verlängerung
+          </p>
+        )}
+
+        <ul class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
+          {col.included && (
+            <li class="font-medium text-ink dark:text-paper">Alles aus {col.included.name}</li>
+          )}
+          {col.features.map((f) => (
+            <li>
+              {f.label}
+              {f.locked && (
+                <span class="text-ink-600 dark:text-paper/70"> — noch nicht freigeschaltet</span>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          data-cta="pricing"
+          data-plan={col.id}
+          href={col.cta.href}
+          class="mt-6 inline-flex flex-col items-center rounded-control bg-brand-600 px-5 py-3 text-paper font-medium hover:bg-brand-700 transition-colors duration-fast"
+        >
+          <span>{col.cta.label}</span>
+          {col.cta.micro && <span class="text-xs opacity-80">{col.cta.micro}</span>}
+        </a>
+      </div>
+    ))}
+  </div>
+
+  {anyLocked && (
+    <p class="mt-8 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
+      Was noch nicht freigeschaltet ist, gehört zum Plan und läuft noch nicht — ohne Datum.
+      Was läuft, steht <a href="/de/status/" class="link">auf der Statusseite</a>.
+    </p>
+  )}
+
+  <p class="mt-4 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
+    {pricing.cancellation}
+  </p>
+  <p class="mt-2 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
+    <a href="/de/agb/" class="link">AGB</a>
+  </p>
+</section>

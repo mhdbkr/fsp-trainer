@@ -1,0 +1,6 @@
+{
+  "nav": { "produkt": "Produkt", "wasDrankommt": "Was wirklich drankommt", "preise": "Preise", "quickGuide": "Quick Guide", "faq": "FAQ", "blog": "Blog", "ueber": "Über uns", "support": "Support", "status": "Status" },
+  "footer": { "legal": "Rechtliches", "impressum": "Impressum", "datenschutz": "Datenschutz", "agb": "AGB", "widerruf": "Widerrufsbelehrung", "manualStatus": "manuell gepflegt" },
+  "legal": { "draftBanner": "Entwurf — juristische Prüfung ausstehend. Dieser Text ist nicht verbindlich." },
+  "cta": { "skipToContent": "Zum Inhalt" }
+}

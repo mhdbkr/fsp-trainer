@@ -1,0 +1,47 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import LegalBanner from '@/components/LegalBanner.astro';
+
+interface Props {
+  id: 'impressum' | 'datenschutz' | 'agb' | 'widerruf';
+}
+
+// Correction de revue (C3) — CAUSE RACINE. `<Content />` restituait TOUT le corps
+// Markdown de docs/legal/*.md : les notes de rédaction internes (langue de travail
+// française, destinataire la direction) partaient en production, et la prochaine note
+// ajoutée repartait avec. Retirer les occurrences une à une ne ferme rien.
+//
+// Le gabarit ne rend donc QUE ce qui est hors note. Deux formes de note, délimitées
+// dans la source, sont retirées avant rendu :
+//
+//   1. en ligne, dans une phrase juridique :  {{"… note …"}}
+//   2. en bloc, entre deux marqueurs :        <!-- legal:internal -->…<!-- /legal:internal -->
+//      (le marqueur de fin est facultatif : un bloc ouvert court jusqu'à la fin du document)
+//
+// La porte mécanique est dans scripts/check-legal.mjs : elle échoue si un marqueur, un
+// résidu `{{"` ou du français atteint une page construite. Le validateur tranche, pas ce
+// commentaire — et les questions juridiques ouvertes se posent dans docs/legal/README.md.
+const NOTE_BLOCK = /<!--\s*legal:internal\s*-->[\s\S]*?(?:<!--\s*\/legal:internal\s*-->|$)/g;
+// Guillemets courbes : Markdown (SmartyPants) rend `{{"…"}}` en `{{“…”}}`. Les deux formes
+// sont retirées — le motif ne doit pas dépendre de la typographie du moteur.
+const NOTE_INLINE = /\{\{\s*[“"][\s\S]*?[”"]\s*\}\}/g;
+const EMPTY_BLOCK = /<(p|li)>\s*<\/\1>/g;
+
+// Pas d'`export` : Astro hisse une fonction exportée hors de la portée du frontmatter,
+// où les trois motifs ci-dessus ne sont plus visibles (build rouge « NOTE_BLOCK is not defined »).
+const stripInternalNotes = (html: string): string =>
+  html.replace(NOTE_BLOCK, '').replace(NOTE_INLINE, '').replace(EMPTY_BLOCK, '');
+
+const { id } = Astro.props;
+const entry = await getEntry('legal', id);
+if (!entry) throw new Error(`Entrée légale introuvable : ${id}`);
+const body = stripInternalNotes(entry.rendered?.html ?? '');
+if (!body.trim()) throw new Error(`Corps légal vide après retrait des notes : ${id}`);
+---
+<Base title={entry.data.title} description={entry.data.title} path={`/de/${entry.data.slug}/`}>
+  <div class="mx-auto max-w-2xl px-4 py-12">
+    <LegalBanner validatedBy={entry.data.validated_by} validatedAt={entry.data.validated_at} />
+    <article class="prose" set:html={body} />
+  </div>
+</Base>

@@ -1,0 +1,803 @@
+{
+  "$version": 1,
+  "source": "ANALYSE.md §3 — comptes rendus de candidats, 4 centres BW",
+  "generatedAt": "2026-07-06",
+  "period": "{{PROTOCOLS_PERIOD}}",
+  "n": 580,
+  "nByCenterSum": 593,
+  "disclaimer": "Beobachtete Häufigkeiten in Prüfungsprotokollen, keine Vorhersage.",
+  "centers": [
+    {
+      "code": "Fr",
+      "name": "Freiburg",
+      "n": 91
+    },
+    {
+      "code": "Ka",
+      "name": "Karlsruhe",
+      "n": 169
+    },
+    {
+      "code": "Re",
+      "name": "Reutlingen",
+      "n": 151
+    },
+    {
+      "code": "St",
+      "name": "Stuttgart",
+      "n": 182
+    }
+  ],
+  "pathologies": [
+    {
+      "id": "depression",
+      "name": "Depression",
+      "specialty": "Psychiatrie",
+      "total": 30,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 11,
+        "Re": 7,
+        "St": 11
+      },
+      "tier": "top"
+    },
+    {
+      "id": "leberzirrhose",
+      "name": "Leberzirrhose",
+      "specialty": "Gastro/Hepato",
+      "total": 26,
+      "byCenter": {
+        "Fr": 8,
+        "Ka": 3,
+        "Re": 9,
+        "St": 6
+      },
+      "tier": "top"
+    },
+    {
+      "id": "oesophaguskarzinom",
+      "name": "Ösophaguskarzinom",
+      "specialty": "Gastro/Onko",
+      "total": 22,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 9,
+        "Re": 0,
+        "St": 12
+      },
+      "tier": "top"
+    },
+    {
+      "id": "obere-gi-blutung",
+      "name": "Obere GI-Blutung",
+      "specialty": "Gastro",
+      "total": 19,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 8,
+        "Re": 6,
+        "St": 4
+      },
+      "tier": "top"
+    },
+    {
+      "id": "pavk",
+      "name": "pAVK",
+      "specialty": "Gefäßmedizin",
+      "total": 18,
+      "byCenter": {
+        "Fr": 2,
+        "Ka": 5,
+        "Re": 7,
+        "St": 4
+      },
+      "tier": "top"
+    },
+    {
+      "id": "pneumonie",
+      "name": "Pneumonie",
+      "specialty": "Pneumo",
+      "total": 17,
+      "byCenter": {
+        "Fr": 6,
+        "Ka": 5,
+        "Re": 2,
+        "St": 4
+      },
+      "tier": "top"
+    },
+    {
+      "id": "lyme-borreliose",
+      "name": "Lyme-Borreliose",
+      "specialty": "Infektio",
+      "total": 16,
+      "byCenter": {
+        "Fr": 4,
+        "Ka": 3,
+        "Re": 4,
+        "St": 5
+      },
+      "tier": "top"
+    },
+    {
+      "id": "ulcus-gastritis",
+      "name": "Ulcus / Gastritis",
+      "specialty": "Gastro",
+      "total": 16,
+      "byCenter": {
+        "Fr": 0,
+        "Ka": 2,
+        "Re": 5,
+        "St": 9
+      },
+      "tier": "top"
+    },
+    {
+      "id": "kolorektales-karzinom",
+      "name": "Kolorektales Karzinom",
+      "specialty": "Gastro/Onko",
+      "total": 15,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 6,
+        "Re": 3,
+        "St": 5
+      },
+      "tier": "top"
+    },
+    {
+      "id": "gicht-gichtanfall",
+      "name": "Gicht / Gichtanfall",
+      "specialty": "Rheuma/Endokrino",
+      "total": 14,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 4,
+        "Re": 5,
+        "St": 4
+      },
+      "tier": "top"
+    },
+    {
+      "id": "bandscheibenvorfall-hws-lws",
+      "name": "Bandscheibenvorfall (HWS/LWS)",
+      "specialty": "Ortho/Neuro",
+      "total": 14,
+      "byCenter": {
+        "Fr": 2,
+        "Ka": 5,
+        "Re": 4,
+        "St": 3
+      },
+      "tier": "top"
+    },
+    {
+      "id": "akute-pankreatitis",
+      "name": "Akute Pankreatitis",
+      "specialty": "Gastro",
+      "total": 14,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 4,
+        "Re": 5,
+        "St": 4
+      },
+      "tier": "top"
+    },
+    {
+      "id": "appendizitis",
+      "name": "Appendizitis",
+      "specialty": "Chirurgie",
+      "total": 13,
+      "byCenter": {
+        "Fr": 2,
+        "Ka": 9,
+        "Re": 0,
+        "St": 2
+      },
+      "tier": "top"
+    },
+    {
+      "id": "pyelonephritis",
+      "name": "Pyelonephritis",
+      "specialty": "Uro/Nephro",
+      "total": 13,
+      "byCenter": {
+        "Fr": 0,
+        "Ka": 4,
+        "Re": 7,
+        "St": 2
+      },
+      "tier": "top"
+    },
+    {
+      "id": "magenkarzinom",
+      "name": "Magenkarzinom",
+      "specialty": "Gastro/Onko",
+      "total": 12,
+      "byCenter": {
+        "Fr": 4,
+        "Ka": 0,
+        "Re": 0,
+        "St": 8
+      },
+      "tier": "top"
+    },
+    {
+      "id": "divertikulitis",
+      "name": "Divertikulitis",
+      "specialty": "Gastro",
+      "total": 11,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 5,
+        "Re": 0,
+        "St": 5
+      },
+      "tier": "top"
+    },
+    {
+      "id": "angina-pectoris-khk",
+      "name": "Angina pectoris / KHK",
+      "specialty": "Kardio",
+      "total": 11,
+      "byCenter": {
+        "Fr": 0,
+        "Ka": 6,
+        "Re": 5,
+        "St": 0
+      },
+      "tier": "top"
+    },
+    {
+      "id": "multiple-sklerose",
+      "name": "Multiple Sklerose",
+      "specialty": "Neuro",
+      "total": 10,
+      "byCenter": {
+        "Fr": 1,
+        "Ka": 2,
+        "Re": 4,
+        "St": 3
+      },
+      "tier": "top"
+    },
+    {
+      "id": "reizdarm-funktionell",
+      "name": "Reizdarm / funktionell",
+      "specialty": "Gastro",
+      "total": 10,
+      "byCenter": {
+        "Fr": 3,
+        "Ka": 1,
+        "Re": 2,
+        "St": 4
+      },
+      "tier": "top"
+    },
+    {
+      "id": "osg-fraktur-distorsion",
+      "name": "OSG-Fraktur / Distorsion",
+      "specialty": "Ortho",
+      "total": 10,
+      "byCenter": {
+        "Fr": 0,
+        "Ka": 5,
+        "Re": 4,
+        "St": 1
+      },
+      "tier": "top"
+    },
+    {
+      "id": "osteoporose",
+      "name": "Osteoporose",
+      "specialty": null,
+      "total": 9,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "tvt",
+      "name": "TVT",
+      "specialty": null,
+      "total": 8,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "cholezystolithiasis",
+      "name": "Cholezystolithiasis",
+      "specialty": null,
+      "total": 8,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "koxarthrose",
+      "name": "Koxarthrose",
+      "specialty": null,
+      "total": 8,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "rheumatisches-fieber",
+      "name": "Rheumatisches Fieber",
+      "specialty": null,
+      "total": 8,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "fibromyalgie",
+      "name": "Fibromyalgie",
+      "specialty": null,
+      "total": 8,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "zoeliakie-sprue",
+      "name": "Zöliakie/Sprue",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "gerd",
+      "name": "GERD",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "benigne-prostatahyperplasie",
+      "name": "Benigne Prostatahyperplasie",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "myokardinfarkt",
+      "name": "Myokardinfarkt",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "laktoseintoleranz",
+      "name": "Laktoseintoleranz",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "femurfraktur",
+      "name": "Femurfraktur",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "gastroenteritis",
+      "name": "Gastroenteritis",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "karpaltunnelsyndrom",
+      "name": "Karpaltunnelsyndrom",
+      "specialty": null,
+      "total": 7,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "schilddruesenerkrankung",
+      "name": "Schilddrüsenerkrankung",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "asthma-bronchiale",
+      "name": "Asthma bronchiale",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "gonarthrose",
+      "name": "Gonarthrose",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "migraene",
+      "name": "Migräne",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "influenza",
+      "name": "Influenza",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "diabetes-mellitus",
+      "name": "Diabetes mellitus",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "metabolisches-syndrom",
+      "name": "Metabolisches Syndrom",
+      "specialty": null,
+      "total": 6,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "malaria",
+      "name": "Malaria",
+      "specialty": null,
+      "total": 5,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "panikattacke",
+      "name": "Panikattacke",
+      "specialty": null,
+      "total": 5,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "karzinoid",
+      "name": "Karzinoid",
+      "specialty": null,
+      "total": 5,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "ced",
+      "name": "CED",
+      "specialty": null,
+      "total": 5,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "abszess",
+      "name": "Abszess",
+      "specialty": null,
+      "total": 5,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "anorexia-nervosa",
+      "name": "Anorexia nervosa",
+      "specialty": null,
+      "total": 5,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "tia",
+      "name": "TIA",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "akute-cholezystitis",
+      "name": "Akute Cholezystitis",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "akutes-koronarsyndrom",
+      "name": "Akutes Koronarsyndrom",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "endokarditis",
+      "name": "Endokarditis",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "lungenembolie",
+      "name": "Lungenembolie",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "alkoholabhaengigkeit",
+      "name": "Alkoholabhängigkeit",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "copd",
+      "name": "COPD",
+      "specialty": null,
+      "total": 4,
+      "byCenter": null,
+      "tier": "frequent"
+    },
+    {
+      "id": "tonsillitis",
+      "name": "Tonsillitis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "reaktive-arthritis",
+      "name": "Reaktive Arthritis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "pankreaskarzinom",
+      "name": "Pankreaskarzinom",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "anaphylaktischer-schock",
+      "name": "Anaphylaktischer Schock",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "covid-19",
+      "name": "COVID-19",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "malignes-lymphom",
+      "name": "Malignes Lymphom",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "nephrolithiasis",
+      "name": "Nephrolithiasis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "hepatitis",
+      "name": "Hepatitis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "ptbs",
+      "name": "PTBS",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "pertussis",
+      "name": "Pertussis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "polymyalgia-rheumatica",
+      "name": "Polymyalgia rheumatica",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "alzheimer",
+      "name": "Alzheimer",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "akutes-abdomen",
+      "name": "Akutes Abdomen",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "rheumatoide-arthritis",
+      "name": "Rheumatoide Arthritis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "myokarditis",
+      "name": "Myokarditis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "extrauteringraviditaet",
+      "name": "Extrauteringravidität",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "schlafapnoe-syndrom",
+      "name": "Schlafapnoe-Syndrom",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "divertikulose",
+      "name": "Divertikulose",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "schulterluxation",
+      "name": "Schulterluxation",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "klavikula-rippenfraktur",
+      "name": "Klavikula-/Rippenfraktur",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "allergische-rhinitis",
+      "name": "Allergische Rhinitis",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "harnwegsinfekt",
+      "name": "Harnwegsinfekt",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "herzinsuffizienz",
+      "name": "Herzinsuffizienz",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "leistenhernie",
+      "name": "Leistenhernie",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "arterielle-hypertonie",
+      "name": "Arterielle Hypertonie",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "schlaganfall",
+      "name": "Schlaganfall",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    },
+    {
+      "id": "typhus",
+      "name": "Typhus",
+      "specialty": null,
+      "total": null,
+      "byCenter": null,
+      "tier": "rare"
+    }
+  ],
+  "trends": [
+    {
+      "center": "Re",
+      "summary": "nette dominante **rhumato/ortho-douleur** — Fibromyalgie (8, quasi exclusif), Karpaltunnelsyndrom (7, exclusif), Endokarditis (4), pAVK, Pankreatitis."
+    },
+    {
+      "center": "St",
+      "summary": "**onco-gastro** — Ösophagus- (12) et Magenkarzinom (8), Ulcus (9), Depression (11)."
+    },
+    {
+      "center": "Ka",
+      "summary": "volume élevé et large — Depression (11), Appendizitis (9), Ösophaguskarzinom (9), GI-Blutung (8)."
+    },
+    {
+      "center": "Fr",
+      "summary": "**hépato** — Leberzirrhose (8) + Pneumonie (6)."
+    },
+    {
+      "center": "all",
+      "summary": "Depression, Leberzirrhose, pAVK, GI-Blutung, Lyme-Borreliose, Kolorektales Ca, Bandscheibenvorfall, Akute Pankreatitis, Gicht, TVT, MS."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+---
+import { readSite } from '@/lib/site.ts';
+import CtaButton from '@/components/CtaButton.astro';
+
+const site = readSite();
+---
+
+{/* Premier écran = moment de marque : registre sombre (PHILOSOPHIE.md §04), aucune
+    évocation animale, aucune explication de la métaphore. `.register-deep` fournit
+    --surface / --on-surface / --on-surface-muted : le texte n'a pas à se colorer
+    lui-même, il hérite du registre (et suit donc toute retouche de la pile pétrole).
+
+    La formulation du corpus (« 130 … real gestellte und realistisch mögliche … laufend
+    aktualisiert ») n'est PAS ici : l'accueil la porte UNE fois, plus bas, au pilier 1 de
+    `de/index.astro`, où elle porte l'argument. `Steps.astro` (étape 1) et `FaqShort.astro`
+    disent autre chose. Zéro doublon passe avant l'uniformité (MESSAGES.md §00). Le hero
+    porte ce que lui seul peut porter : les cinq compétences.
+
+    VÉRITÉ — les cinq compétences sont une affirmation sur DOCTOPUS, jamais sur le jury.
+    Elles sont sourcées par le code : `LANGUAGE_CRITERIA` (app/src/lib/scoring.ts) les
+    définit et l'app note chacune séparément. Ce que le jury d'examen fait de son côté
+    n'est sourcé par rien — `exam-bw.json` porte d'ailleurs `"pointsSource": "intern"`.
+    La version précédente écrivait « fünf Kompetenzen, die die Prüfer einzeln bewerten » :
+    même provenance que le barème « 60 % » déjà banni du site (un commentaire de
+    scoring.ts invoquant une « mémoire officielle » jamais produite). L'argument survit
+    entier une fois le sujet remis à sa place — on s'entraîne sur cinq choses distinctes,
+    et après chaque passage on sait laquelle a lâché. Porte de non-retour : règle
+    `autorite_evaluation` de scripts/voice.lexicon.json. */}
+<section class="register-deep">
+  <div class="mx-auto max-w-5xl px-4 py-24 md:py-32">
+    <h1 class="text-4xl leading-[1.05] tracking-[-0.03em] md:text-6xl">{site.tagline}.</h1>
+
+    <p class="mt-6 max-w-2xl text-lg" style="color: var(--on-surface-muted)">
+      Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — fünf Kompetenzen,
+      die du einzeln trainierst und die wir einzeln bewerten. Nach jedem Durchgang
+      steht da, welche nachgegeben hat.
+    </p>
+    <p class="mt-3 max-w-2xl" style="color: var(--on-surface-muted)">
+      Dein Plan rechnet von deinem Termin zurück und setzt genau dort an.
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-6">
+      <CtaButton />
+      <a href="/de/produkt/" class="underline underline-offset-4 hover:no-underline">So funktioniert es</a>
+    </div>
+  </div>
+</section>

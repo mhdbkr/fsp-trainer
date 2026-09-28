@@ -1,0 +1,37 @@
+---
+import { readSite } from '@/lib/site.ts';
+
+const site = readSite();
+
+const faq = [
+  {
+    q: 'Werde ich bestehen?',
+    a: `Das weiß vorher niemand. ${site.productName} misst deinen Stand nach einer internen Übungsskala und trainiert die drei Prüfungsteile.`,
+  },
+  {
+    q: 'Für welche Kammer?',
+    a: 'Aktuell für Baden-Württemberg (Landesärztekammer Baden-Württemberg): Ablauf, Fälle und interne Übungsskala sind auf diesen Prüfungsraum ausgerichtet.',
+  },
+  {
+    q: 'Brauche ich einen Partner für die Simulation?',
+    a: 'Nein. Simulation mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom.',
+  },
+];
+---
+
+<section class="bg-paper px-4 py-16 dark:bg-ink-800">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Häufige Fragen</h2>
+    <dl class="mt-8 space-y-6">
+      {faq.map((item) => (
+        <div>
+          <dt class="text-lg text-ink dark:text-paper">{item.q}</dt>
+          <dd class="mt-1 text-ink-700 dark:text-paper/90">{item.a}</dd>
+        </div>
+      ))}
+    </dl>
+    <a href="/de/faq/" class="link mt-6 inline-block">
+      Alle Fragen ansehen
+    </a>
+  </div>
+</section>

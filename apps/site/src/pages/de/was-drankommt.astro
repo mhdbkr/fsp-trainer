@@ -1,0 +1,47 @@
+---
+import Base from '@/layouts/Base.astro';
+import FreqTable from '@/components/FreqTable.astro';
+import frequencies from '@/data/frequencies.json' with { type: 'json' };
+
+// Filtre par centre sans JavaScript : <details name="center"> natif,
+// un seul ouvert à la fois (attribut `name`), premier ouvert par défaut.
+---
+<Base
+  title="Was wirklich drankommt | FSP Trainer"
+  description="Welche Fälle in Baden-Württemberg am häufigsten gemeldet werden, je Zentrum: Freiburg, Karlsruhe, Reutlingen, Stuttgart."
+  path="/de/was-drankommt/"
+>
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">Was wirklich drankommt</h1>
+    <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
+      Welche Fälle in Baden-Württemberg am häufigsten gemeldet werden.
+    </p>
+    <p class="mt-3 max-w-2xl text-sm text-ink-600 dark:text-paper/80">
+      Beobachtete Häufigkeiten, keine Vorhersage. Was oft gemeldet wurde, kommt nicht sicher
+      wieder — und was nie gemeldet wurde, ist nicht ausgeschlossen.
+    </p>
+    <p class="mt-6 max-w-2xl text-ink-700 dark:text-paper/90">Nach Zentrum filtern:</p>
+
+    <div class="mt-6 space-y-2">
+      <details name="center" open class="group rounded-control border border-ink-600/15 dark:border-paper/20">
+        <summary class="cursor-pointer select-none px-4 py-3 text-ink dark:text-paper">
+          Alle Zentren
+        </summary>
+        <div class="border-t border-ink-600/15 px-4 py-4 dark:border-paper/20">
+          <FreqTable />
+        </div>
+      </details>
+
+      {frequencies.centers.map((c) => (
+        <details name="center" class="group rounded-control border border-ink-600/15 dark:border-paper/20">
+          <summary class="cursor-pointer select-none px-4 py-3 text-ink dark:text-paper">
+            {c.name}
+          </summary>
+          <div class="border-t border-ink-600/15 px-4 py-4 dark:border-paper/20">
+            <FreqTable center={c.code} />
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</Base>

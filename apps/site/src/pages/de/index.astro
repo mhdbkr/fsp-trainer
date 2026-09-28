@@ -1,0 +1,55 @@
+---
+import Base from '@/layouts/Base.astro';
+import Hero from '@/components/Hero.astro';
+import Proof from '@/components/Proof.astro';
+import Steps from '@/components/Steps.astro';
+import PricingSummary from '@/components/PricingSummary.astro';
+import FaqShort from '@/components/FaqShort.astro';
+import LanguageToolNotice from '@/components/LanguageToolNotice.astro';
+import { readSite } from '@/lib/site.ts';
+
+const site = readSite();
+
+const pillars = [
+  {
+    title: '130 vollständige Fälle',
+    copy: 'Real gestellte und realistisch mögliche, laufend aktualisiert. Je Fall eine Simulantenkarte, eine medizinische Sicht, der Prüferbogen und Musterformulierungen.',
+  },
+  {
+    // VÉRITÉ : la structure est sourcée (`exam-bw.json` : trois parties de 20 minutes,
+    // les quatre centres de Baden-Württemberg). L'ÉVALUATION ne l'est pas — d'où
+    // « bewertet wie die Prüfung » retiré (il prêtait notre échelle au jury) et
+    // « Verfügbare Bögen » remplacé par « Verfügbare Zentren » : `exam-bw.json` porte
+    // `centers`, pas un barème par centre, et rien ne source qu'il en existe un.
+    title: 'Strukturiert wie die Prüfung',
+    copy: 'Drei Teile zu 20 Minuten, angelehnt an den Prüfungsablauf. Jeden Teil bewerten wir für sich nach unserer internen Übungsskala. Verfügbare Zentren: Freiburg, Karlsruhe, Reutlingen, Stuttgart.',
+  },
+  {
+    title: 'Dein Simulant ist um 23 Uhr verfügbar',
+    copy: 'Simulation mit Partner (QR-Code auf dem Smartphone) oder allein im Modus Autonom.',
+  },
+];
+---
+<Base title={`${site.brandName} — ${site.descriptor}`} description="Doctopus bereitet auf die Fachsprachprüfung Medizin vor." path="/de/">
+  <Hero />
+
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <ul class="grid gap-8 md:grid-cols-3">
+      {pillars.map((p) => (
+        <li>
+          <h2 class="text-lg text-ink dark:text-paper">{p.title}</h2>
+          <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">{p.copy}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <Proof />
+  <Steps />
+  <PricingSummary />
+  <FaqShort />
+
+  <div class="px-8 pb-8">
+    <LanguageToolNotice />
+  </div>
+</Base>

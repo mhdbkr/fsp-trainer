@@ -1,0 +1,9 @@
+{
+  "updatedAt": "2026-09-16",
+  "components": [
+    { "id": "app", "label": "App", "state": "operational" },
+    { "id": "api", "label": "API (Supabase EU)", "state": "operational" },
+    { "id": "billing", "label": "Zahlung (Stripe)", "state": "operational" }
+  ],
+  "incidents": []
+}

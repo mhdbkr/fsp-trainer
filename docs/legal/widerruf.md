@@ -1,0 +1,84 @@
+---
+title: Widerrufsbelehrung
+slug: widerruf
+validated_by: ""
+validated_at: ""
+placeholders: ["LEGAL_NAME", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_EMAIL"]
+---
+
+
+## Widerrufsbelehrung
+
+### Widerrufsrecht
+
+Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen
+Vertrag zu widerrufen.
+
+Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
+
+Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
+
+{{LEGAL_NAME}}
+{{LEGAL_ADDRESS_STREET}}, {{LEGAL_ADDRESS_CITY}}
+{{LEGAL_EMAIL}}
+
+mittels einer eindeutigen Erklärung (z. B. per Post oder E-Mail) über Ihren
+Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das
+beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht
+vorgeschrieben ist.
+
+Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über
+die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
+
+### Folgen des Widerrufs
+
+Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir
+von Ihnen erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen
+ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses
+Vertrags bei uns eingegangen ist. {{"clause de déduction proportionnelle
+si l'exécution a déjà commencé avec accord exprès — cohérence à vérifier
+avec la clause d'extinction anticipée ci-dessous"}}
+
+### Vorzeitiges Erlöschen des Widerrufsrechts bei digitalen Inhalten
+
+Ihr Widerrufsrecht erlischt vorzeitig, wenn wir mit der Ausführung des
+Vertrags begonnen haben, nachdem Sie
+
+1. ausdrücklich zugestimmt haben, dass wir mit der Ausführung des Vertrags
+   vor Ablauf der Widerrufsfrist beginnen, und
+2. Ihre Kenntnis davon bestätigt haben, dass Sie durch Ihre Zustimmung mit
+   Beginn der Ausführung des Vertrags Ihr Widerrufsrecht verlieren
+   (§ 356 Abs. 5 BGB).
+
+<!-- legal:internal -->
+
+Note produit, non publiée : l'extinction anticipée exige une case à cocher distincte de
+l'acceptation des AGB au moment du paiement, qui demande explicitement les deux points
+ci-dessus. Sans cette case, le droit de rétractation subsiste malgré ce texte. État : non
+vérifié comme branché — voir `README.md`, check-list §4.
+
+<!-- /legal:internal -->
+
+---
+
+## Muster-Widerrufsformular
+
+(Wenn Sie den Vertrag widerrufen wollen, füllen Sie bitte dieses Formular
+aus und senden Sie es zurück.)
+
+An:
+
+{{LEGAL_NAME}}
+{{LEGAL_ADDRESS_STREET}}, {{LEGAL_ADDRESS_CITY}}
+{{LEGAL_EMAIL}}
+
+— Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über
+die Erbringung der folgenden Dienstleistung: Doctopus-Abonnement / Credits
+{{"biffer selon le cas"}}
+
+— Bestellt am: __________
+— Name des/der Verbraucher(s): __________
+— Anschrift des/der Verbraucher(s): __________
+— Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier):
+  __________
+— Datum: __________

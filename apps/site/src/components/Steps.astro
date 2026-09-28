@@ -1,0 +1,26 @@
+---
+const steps = [
+  { n: '1', title: 'Fall wählen', copy: 'Einen Fall aus der Bibliothek wählen oder mit den 12 kostenlosen Fällen starten.' },
+  { n: '2', title: 'Simulieren (zu zweit oder allein)', copy: 'Mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom.' },
+  // VÉRITÉ (étape 3) : « angelehnt an den Bogen deiner Kammer » prêtait notre échelle à la
+  // Landesärztekammer — rien ne le source, et les quatre villes sont les CENTRES d'examen
+  // (`exam-bw.json` : `centers`), pas des chambres. L'échelle est la nôtre ; ce qui reste
+  // sourcé, ce sont les trois parties et les quatre centres.
+  { n: '3', title: 'Bewertung Teil für Teil', copy: 'Jede vollständige Simulation bewerten wir nach unserer internen Übungsskala, für jeden Prüfungsteil getrennt — im Zentrum deiner Wahl: Freiburg, Karlsruhe, Reutlingen, Stuttgart.' },
+];
+---
+
+<section class="bg-paper px-4 py-16 dark:bg-ink-800">
+  <div class="mx-auto max-w-6xl">
+    <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">So läuft eine Simulation ab</h2>
+    <ol class="mt-8 grid gap-8 md:grid-cols-3">
+      {steps.map((s) => (
+        <li>
+          <span class="font-mono text-sm text-brand-700 dark:text-brand-300">{s.n}</span>
+          <h3 class="mt-1 text-lg text-ink dark:text-paper">{s.title}</h3>
+          <p class="mt-1 text-sm text-ink-700 dark:text-paper/90">{s.copy}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

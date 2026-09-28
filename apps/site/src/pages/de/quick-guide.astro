@@ -1,0 +1,26 @@
+---
+import Base from '@/layouts/Base.astro';
+import ExamFacts from '@/components/ExamFacts.astro';
+import CtaButton from '@/components/CtaButton.astro';
+import exam from '@/data/exam-bw.json' with { type: 'json' };
+---
+<Base
+  title={`Quick Guide FSP — ${exam.land} | FSP Trainer`}
+  description="Ablauf und Teile der Fachsprachprüfung in Baden-Württemberg, und wie wir im Trainer bewerten — auf einen Blick."
+  path="/de/quick-guide/"
+>
+  <section class="mx-auto max-w-6xl px-4 pt-16">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">
+      Quick Guide FSP — {exam.land}
+    </h1>
+    <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
+      {exam.assesses}. Alles Weitere hier, direkt aus den Prüfungsdaten für {exam.land}.
+    </p>
+  </section>
+
+  <ExamFacts />
+
+  <div class="mx-auto max-w-6xl px-4 pb-16">
+    <CtaButton />
+  </div>
+</Base>

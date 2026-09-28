@@ -1,0 +1,56 @@
+---
+import Base from '@/layouts/Base.astro';
+import StatusBoard from '@/components/StatusBoard.astro';
+import pricing from '@/data/pricing.json' with { type: 'json' };
+
+// Les fonctions non livrées se disent au présent et sans date. La liste vient de
+// pricing.json — pas d'une seconde source à tenir.
+// Correction de revue (mineur) : « 200 Credits » et « 1 000 Credits » se lisaient côte à
+// côte sans dire à quel plan chacun appartient. Chaque ligne porte désormais son plan.
+const locked = [
+  ...new Map(
+    pricing.plans.flatMap((p) =>
+      p.features
+        .filter((f) => f.status === 'bald')
+        .map((f) => [f.id, { plan: p.name, label: pricing.labels[f.id] ?? f.id }]),
+    ),
+  ).values(),
+];
+---
+
+<Base
+  title="Status | FSP Trainer"
+  description="Betriebsstatus von FSP Trainer — manuell gepflegt, mit Datum und Vorfällen."
+  path="/de/status/"
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-16">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">Status</h1>
+    <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
+      Diese Seite wird manuell gepflegt, nicht automatisch überwacht. Bei einer Störung
+      erfährst du es hier — mit etwas Verzögerung.
+    </p>
+
+    <div class="mt-8">
+      <StatusBoard />
+    </div>
+
+    {locked.length > 0 && (
+      <div class="mt-12">
+        <h2 class="text-xl text-ink dark:text-paper">Noch nicht freigeschaltet</h2>
+        <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">
+          Diese Funktionen gehören zu Pro und Premium, laufen aber noch nicht. Ohne Datum:
+          Du erfährst es hier, sobald eine davon läuft.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
+          {locked.map((f) => (
+            <li>
+              <span class="font-medium text-ink dark:text-paper">{f.plan}</span>
+              {' — '}
+              {f.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </section>
+</Base>

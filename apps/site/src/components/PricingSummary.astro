@@ -1,0 +1,39 @@
+---
+import pricing from '@/data/pricing.json' with { type: 'json' };
+
+// Contrairement à PricingTable (/de/preise/), qui nomme tout — servi et pas encore
+// servi, chacun avec son état — l'accueil vend ce qui marche : aucune étiquette
+// d'état en vitrine. Ce qui n'est pas encore servi vit sur /de/preise/ et /de/status/.
+const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
+
+const cards = pricing.plans.map((plan) => ({
+  ...plan,
+  displayPrice: plan.price === '0' ? 'Kostenlos' : `${plan.price} / {{BILLING_PERIOD}}`,
+  includes: plan.includesPlan ? planById[plan.includesPlan]?.name : null,
+  shown: plan.features
+    .filter((f) => f.status === 'live')
+    .slice(0, 2)
+    .map((f) => ({ label: pricing.labels[f.id] ?? f.id })),
+}));
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16">
+  <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Preise</h2>
+  <div class="mt-8 grid gap-6 md:grid-cols-3">
+    {cards.map((card) => (
+      <div class="card">
+        <h3 class="text-lg text-ink dark:text-paper">{card.name}</h3>
+        <p class="mt-1 font-mono text-xl text-ink dark:text-paper">{card.displayPrice}</p>
+        <ul class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
+          {card.includes && <li class="text-ink dark:text-paper">Alles aus {card.includes}</li>}
+          {card.shown.map((f) => (
+            <li>{f.label}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <a href="/de/preise/" class="link mt-6 inline-block">
+    Alle Preise ansehen
+  </a>
+</section>

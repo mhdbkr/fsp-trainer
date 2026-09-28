@@ -1,0 +1,78 @@
+---
+import Base from '@/layouts/Base.astro';
+import LanguageToolNotice from '@/components/LanguageToolNotice.astro';
+import { readSite } from '@/lib/site.ts';
+
+const site = readSite();
+
+const refusals = [
+  'Doctopus ist keine Schule: kein Versprechen einer menschlichen Betreuung, kein „Coach“. Der Tandempartner ist ein Übungspartner, kein Trainer.',
+  // Contient « Bestehensgarantie » et « Erfolgsquote » à dessein (les deux mots sont nommés
+  // pour être refusés, même table que « Streak » ci-dessous). Exception de check-voice sur
+  // cette phrase exacte, posée dans le gabarit ci-dessous : voice:allow.
+  'Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote. Wir messen und trainieren.',
+  'Doctopus ist kein Medizinprodukt und keine klinische Entscheidungshilfe: Die Inhalte dienen einer Sprachprüfung.',
+  // Contient « Streak » à dessein (le mot est nommé pour être refusé). Exception de
+  // check-voice sur cette phrase exacte, posée dans le gabarit ci-dessous : voice:allow.
+  'Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler — belohnt wird die vollständige Simulation, nicht der Login.',
+  'Doctopus verkauft sich nicht als „KI-App“: KI ist ein Dienst auf Credits-Basis, nicht die Identität.',
+];
+---
+
+<Base
+  title="Über uns | FSP Trainer"
+  description="Gebaut von einem Kandidaten, für die nächsten — Herkunft und Methode von FSP Trainer."
+  path="/de/ueber/"
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">
+      Gebaut von einem Kandidaten, für die nächsten.
+    </h1>
+    {/* Correction de revue (I5) : le titre promet une histoire ; la phrase supprimée pour
+        fuite de sourcing (« aus rund 580 Prüfungsberichten … an vier Standorten entstanden »)
+        portait AUSSI la genèse, et le corps était retombé sur un fait produit générique.
+        La genèse revient sans le sourcing : ni quantité, ni provenance, ni datation,
+        ni résultat d'examen. Une idée par bloc.
+        « Jeder trägt eine Simulantenkarte » était un calque du français — l'allemand dit
+        « Jeder Fall enthält », exactement ce qu'écrit le billet die-20. */}
+    <p class="mt-4 text-ink-700 dark:text-paper/90">
+      {site.productName} ist entstanden, weil die eigene Vorbereitung keinen Ort hatte, an dem
+      man laut spricht. Lehrbücher erklären die Sprache der Medizin, aber keines lässt dich
+      sie unter Prüfungsbedingungen sprechen. Also wurde gebaut, was fehlte.
+    </p>
+    <p class="mt-4 text-ink-700 dark:text-paper/90">
+      130 vollständige Fälle: real gestellte und realistisch mögliche, laufend
+      aktualisiert. Jeder Fall enthält eine Simulantenkarte, eine medizinische Sicht, den
+      Prüferbogen und Musterformulierungen.
+    </p>
+    <p class="mt-4 text-ink-700 dark:text-paper/90">
+      Jeder Fall wurde dreifach gegengelesen, bevor er veröffentlicht wurde. Und wer uns nach der
+      Prüfung seinen Bericht schickt, hilft: Jeder Hinweis fließt in die nächste Durchsicht ein.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-16">
+    <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Was {site.brandName} nicht ist</h2>
+    {/* Exceptions explicites de check-voice (règles jeu et promesse), posées à la main : les
+        deux phrases de refus ci-dessous disent exactement ce que la marque veut dire — le
+        jargon de jeu et la promesse y sont cités pour être refusés, pas employés en façade.
+        PORTÉE : ces deux phrases exactes, cette page seule — une correspondance n'est levée
+        que si elle tombe dans l'une d'elles (scripts/lib/dist.mjs, allowCovers). « Streak »,
+        « Bestehensgarantie » ou « Erfolgsquote » ailleurs sur la page restent bloqués. Seuls
+        les marqueurs nus partent dans le HTML ; la forme est imposée (collectAllow) : le
+        texte entre guillemets droits, rien après. */}
+    <!-- voice:allow "Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler" -->
+    <!-- voice:allow "Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote" -->
+    <ul class="mt-6 space-y-4">
+      {refusals.map((text) => (
+        <li class="flex gap-3 text-ink-700 dark:text-paper/90">
+          <span aria-hidden="true" class="text-brand-600 dark:text-brand-300">—</span>
+          <span>{text}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-8">
+      <LanguageToolNotice />
+    </div>
+  </section>
+</Base>

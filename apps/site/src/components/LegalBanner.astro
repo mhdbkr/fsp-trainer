@@ -1,0 +1,15 @@
+---
+interface Props {
+  validatedBy: string;
+  validatedAt: string;
+}
+
+const { validatedBy, validatedAt } = Astro.props;
+---
+{validatedBy === '' ? (
+  <div data-legal-status="draft" role="note" class="border-l-4 border-signal-500 bg-signal-50 p-4">
+    Entwurf — juristische Prüfung ausstehend. Dieser Text ist nicht rechtsverbindlich und darf nicht veröffentlicht werden.
+  </div>
+) : (
+  <p data-legal-status="validated">Geprüft von {validatedBy} am {validatedAt}</p>
+)}

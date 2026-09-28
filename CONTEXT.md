@@ -82,6 +82,22 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Compte actif** : celui dont la base Dexie (`fsp-cockpit-<userId>`) est ouverte ; un seul à la fois ; changer = recharger.
 - **Mode founder / public** : `VITE_AUTH_MODE` — comptes immédiats et bascule locale / parcours SaaS (lien magique, Stripe).
 
+## Site (`apps/site`)
+
+- **Ce qui tombe vraiment** (*Was wirklich drankommt*) — page publique de
+  fréquences pathologie × centre, générée depuis `ANALYSE.md` §3 ; jamais un
+  protocole ni un nom.
+- **Centre** — lieu de passage de l'examen (Freiburg, Karlsruhe, Reutlingen,
+  Stuttgart) ; distinct du Land (Landesärztekammer).
+- **Tokens** — `packages/tokens/tokens.json`, source de vérité de la charte
+  (couleurs, polices, motion, verre) partagée app + site (ADR-0010).
+- **Avertissement outil de langue** — mention obligatoire (accueil + footer) :
+  Doctopus prépare à une épreuve de langue, n'est pas un dispositif médical.
+- **Bannière brouillon légal** — signale une page légale dont le front-matter
+  `validated_by` est vide.
+- **Mode de lancement** — `checkout` (CTA vers l'inscription/paiement) ou
+  `waitlist` (CTA liste d'attente) ; réglage de build du site.
+
 ## Termes à éviter
 
 - « Test » pour une simulation ; « quiz » pour un drill ; « patient IA » pour

@@ -1,0 +1,61 @@
+---
+// La courbe de profondeur. Signature discrète de la marque (PHILOSOPHIE.md §06,
+// spec §6 « gradation stricte ») : jamais au premier écran, jamais un animal.
+// Elle indique l'avancée dans la page. Purement CSS : aucun JavaScript.
+---
+<div class="depth-rail" aria-hidden="true">
+  <svg viewBox="0 0 8 1000" preserveAspectRatio="none" focusable="false">
+    <path
+      d="M4 0 C 1 120, 7 240, 4 360 S 1 600, 4 720 S 7 880, 4 1000"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-linecap="round"
+      pathLength="1"
+    />
+  </svg>
+</div>
+
+<style>
+  .depth-rail {
+    position: fixed;
+    top: 12vh;
+    bottom: 12vh;
+    left: max(1rem, env(safe-area-inset-left));
+    width: 8px;
+    color: var(--dt-color-depth-veil);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .depth-rail svg { height: 100%; width: 100%; }
+
+  /* La portion parcourue s'éclaire — la lumière vient d'en haut.
+     `animation-timeline` n'est pas supporté partout : sans lui, le trait
+     reste entier et fixe, ce qui est un état final valide. */
+  .depth-rail path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .depth-rail path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: rail-fill linear both;
+      animation-timeline: scroll();
+    }
+    @keyframes rail-fill { to { stroke-dashoffset: 0; } }
+  }
+
+  /* Ordre de cascade : ce bloc doit rester APRÈS le @supports ci-dessus. Même
+     sélecteur (.depth-rail path), même spécificité — c'est l'ordre de source, pas
+     la spécificité, qui fait gagner reduced-motion. Inverser les deux blocs
+     réactiverait silencieusement l'animation sous ce réglage d'accessibilité,
+     sans qu'aucun test ne puisse le voir. */
+  @media (prefers-reduced-motion: reduce) {
+    .depth-rail path { animation: none; stroke-dashoffset: 0; }
+  }
+
+  /* Sous 900 px la colonne de texte occupe la largeur : la courbe s'efface. */
+  @media (max-width: 900px) { .depth-rail { display: none; } }
+</style>

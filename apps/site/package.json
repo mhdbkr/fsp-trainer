@@ -1,0 +1,40 @@
+{
+  "name": "@doctopus/site",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "astro dev --port 5180",
+    "prebuild": "node ../../packages/tokens/build.mjs && node scripts/build-frequencies.mjs && node scripts/build-lexicon.mjs",
+    "build": "astro build",
+    "preview": "astro preview --port 5181",
+    "test": "node --test",
+    "check:frequencies": "node scripts/build-frequencies.mjs --check && node scripts/check-frequencies.mjs",
+    "check:pricing": "node scripts/check-pricing-parity.mjs",
+    "check:lexicon": "node scripts/build-lexicon.mjs --check && node scripts/check-no-promise.mjs",
+    "check:legal": "node scripts/check-legal.mjs",
+    "check:placeholders": "node scripts/check-placeholders.mjs",
+    "_note:budgets": "check-budgets arrive au Plan B, avec les premières dépendances JavaScript",
+    "check:cta": "node scripts/check-cta.mjs",
+    "check:voice": "node scripts/check-voice.mjs",
+    "check:lighthouse": "node scripts/check-lighthouse.mjs",
+    "_note:ordre": "build EN PREMIER : quatre tests lisent dist/ et échouent maintenant s'il manque, au lieu de se sauter en silence (test/seo-meta, faq-jsonld, quick-guide-render, pricing-summary-status-label)",
+    "verify": "npm run build && npm test && npm run check:frequencies && npm run check:pricing && npm run check:lexicon && npm run check:voice && npm run check:legal && npm run check:placeholders && npm run check:cta && npm run check:lighthouse"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "@astrojs/tailwind": "^6.0.0",
+    "@doctopus/tokens": "file:../../packages/tokens",
+    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "astro": "^5.0.0",
+    "tailwindcss": "^3.4.13"
+  },
+  "devDependencies": {
+    "lighthouse": "^12.0.0",
+    "playwright": "^1.50.0"
+  }
+}

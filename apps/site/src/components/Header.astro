@@ -1,0 +1,43 @@
+---
+import { readSite } from '@/lib/site.ts';
+import CtaButton from '@/components/CtaButton.astro';
+import de from '@/i18n/de.json';
+
+const site = readSite();
+const navItems: [string, string][] = [
+  [de.nav.produkt, '/de/#produkt'],
+  [de.nav.wasDrankommt, '/de/was-drankommt/'],
+  [de.nav.preise, '/de/preise/'],
+  [de.nav.quickGuide, '/de/quick-guide/'],
+  [de.nav.faq, '/de/faq/'],
+  [de.nav.blog, '/de/blog/'],
+];
+---
+<header data-glass class="glass sticky top-0 z-40">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <a href="/de/" class="font-display text-lg font-semibold text-brand-700 dark:text-brand-300">{site.brandName}</a>
+
+    <nav class="hidden md:flex items-center gap-6 text-sm text-ink-700 dark:text-paper" aria-label="Hauptnavigation">
+      {navItems.map(([label, href]) => (
+        <a href={href} class="hover:text-brand-700 dark:hover:text-brand-300 transition-colors duration-fast">{label}</a>
+      ))}
+    </nav>
+
+    <CtaButton class="hidden md:inline-flex" />
+
+    <details class="group md:hidden">
+      <summary class="flex h-11 w-11 list-none cursor-pointer items-center justify-center rounded-control text-ink-700 dark:text-paper" aria-label="Menü öffnen">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </summary>
+      {/* Menu ouvert : il se détache du contenu par un filet supérieur plus marqué (la
+          lumière vient d'en haut, comme .surface), jamais par une ombre portée. */}
+      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 border-y border-ink-600/15 border-t-ink-600/25 bg-paper p-4 text-ink-700 dark:border-paper/15 dark:border-t-paper/25 dark:bg-ink-800 dark:text-paper" aria-label="Mobile Navigation">
+        {navItems.map(([label, href]) => (
+          <a href={href} class="rounded-control px-3 py-2 hover:bg-brand-50 dark:hover:bg-brand-900/30">{label}</a>
+        ))}
+      </nav>
+    </details>
+  </div>
+</header>
