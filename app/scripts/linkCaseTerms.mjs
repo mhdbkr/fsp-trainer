@@ -31,6 +31,68 @@ const OUT = join(here, '../src/data/caseTermLinks.json');
 const EXCLUDE = new Set(['in', 'vor', 'nach', 'bei', 'seit', 'ohne', 'mit', 'oder', 'und', 'aber', 'dann', 'noch', 'schon', 'sehr', 'gut', 'ganz']);
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+const ABBREVIATIONS = JSON.parse(readFileSync(join(here, '../src/data/sentenceAbbreviations.json'), 'utf8'));
+
+// --- Phrases ---------------------------------------------------------------
+// Même règle que src/lib/sentence.ts (l'app) : Intl.Segmenter + garde des
+// abréviations (lettre isolée suivie d'un point : « z. B. », « Z. n. », « V. a. » ;
+// liste partagée src/data/sentenceAbbreviations.json : « ca. », « bzw. »…).
+const SEG = new Intl.Segmenter('de', { granularity: 'sentence' });
+export const endsWithAbbreviation = (s) => {
+  const t = s.trimEnd();
+  if (/(?:^|[\s(])\p{L}\.$/u.test(t)) return true;
+  return ABBREVIATIONS.some((a) => t.endsWith(a) && (t.length === a.length || /[\s(]/.test(t[t.length - a.length - 1])));
+};
+export function sentences(text) {
+  const out = [];
+  for (const { segment } of SEG.segment(String(text ?? ''))) {
+    if (out.length && endsWithAbbreviation(out[out.length - 1])) out[out.length - 1] += segment;
+    else out.push(segment);
+  }
+  return out;
+}
+
+// --- Négation --------------------------------------------------------------
+// Règle PURE, testée sur des phrases réelles du corpus (negation.fixtures.mjs).
+// Portée = la PROPOSITION : la phrase est coupée aux « ; », « : », tirets
+// d'incise et conjonctions adversatives (aber, jedoch, sondern, allerdings,
+// dafür, während). Dans la proposition, un mot de négation — token entier,
+// jamais dans un composé (« nichtsteroidal », « Nicht-ST-Hebungsinfarkt ») — est
+//  - ANTÉPOSÉ (« ohne », ou suivi d'un nom avant la virgule suivante) : il nie
+//    jusqu'à cette virgule (« ohne Ausstrahlung », « kein Fieber, kein Husten ») ;
+//  - POSTPOSÉ sinon (« … wurden verneint », « Allergien seien keine bekannt ») :
+//    il nie toute l'énumération qui précède, depuis le début de la proposition
+//    ou de la subordonnée qui le porte (« , die … nicht ausstrahlen »).
+// « nicht nur » n'est pas une négation.
+// ponytail : heuristique de surface (majuscule = nom), pas d'analyse syntaxique —
+// suffit pour « le terme n'est cité QUE nié » ; un analyseur viendra si une
+// fixture réelle l'exige.
+const NEGATION = /(?<![\p{L}\p{N}-])(kein(?:e|en|em|er|es)?|ohne|nicht|verneint|negativ|unauffällig|ausgeschlossen)(?![\p{L}\p{N}-])/giu;
+const SUBORDINATE = /,\s+(?:die|der|das|den|dem|deren|dessen|welche[rsnm]?|dass|weil|wenn|da|sodass|nachdem|obwohl|wobei)(?![\p{L}])/giu;
+const CLAUSE_BREAK = /;|:|\s[—–]\s|,?\s+(?:aber|jedoch|sondern|allerdings|dafür|während)\s/giu;
+/** Vrai si l'occurrence qui commence à `at` dans `sentence` est niée. */
+export function isNegated(sentence, at) {
+  let start = 0; let end = sentence.length;
+  for (const m of sentence.matchAll(CLAUSE_BREAK)) {
+    if (m.index + m[0].length <= at) start = m.index + m[0].length;
+    else if (m.index >= at) { end = m.index; break; }
+  }
+  const clause = sentence.slice(start, end); const rel = at - start;
+  for (const n of clause.matchAll(NEGATION)) {
+    const word = n[1].toLowerCase(); const after = clause.slice(n.index + n[0].length);
+    if (word === 'nicht' && /^\s+nur(?![\p{L}])/iu.test(after)) continue;
+    const untilComma = after.split(',')[0];
+    if (word === 'ohne' || /(?<![\p{L}])\p{Lu}/u.test(untilComma)) {
+      if (rel > n.index && rel < n.index + n[0].length + untilComma.length) return true;
+    } else {
+      let from = 0;
+      for (const s of clause.slice(0, n.index).matchAll(SUBORDINATE)) from = s.index + s[0].length;
+      if (rel >= from && rel < n.index) return true;
+    }
+  }
+  return false;
+}
+
 /** Index des termes → regex Unicode mot entier + formes fléchiées simples. */
 export function buildIndex(terms) {
   const byKey = new Map(); const alts = []; const dupes = new Map();
@@ -48,12 +110,20 @@ export function buildIndex(terms) {
   return { re, byKey };
 }
 
-/** Ids des termes trouvés dans `texts`. `index` = tableau de termes (index
- *  construit à la volée) ou résultat de `buildIndex` (construit UNE fois dans main). */
-export function linkTerms(texts, index) {
+/** Ids des termes trouvés dans `texts`. `index` = tableau de termes ou résultat
+ *  de `buildIndex`. `negation: true` : texte découpé en phrases, occurrences
+ *  niées ignorées. */
+export function linkTerms(texts, index, { negation = false } = {}) {
   const { re, byKey } = Array.isArray(index) ? buildIndex(index) : index;
   const found = new Set();
-  for (const text of texts) for (const m of String(text ?? '').matchAll(re)) { const id = byKey.get(m[1].toLowerCase()); if (id) found.add(id); }
+  for (const text of texts) {
+    for (const s of negation ? sentences(text) : [String(text ?? '')]) {
+      for (const m of s.matchAll(re)) {
+        const id = byKey.get(m[1].toLowerCase());
+        if (id && !(negation && isNegated(s, m.index))) found.add(id);
+      }
+    }
+  }
   return [...found].sort();
 }
 

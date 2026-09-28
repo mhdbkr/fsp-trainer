@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { linkTerms, caseTexts, buildIndex, orderCaseTerms, diagnosisTexts } from './linkCaseTerms.mjs';
+import { linkTerms, caseTexts, buildIndex, orderCaseTerms, diagnosisTexts, isNegated, sentences } from './linkCaseTerms.mjs';
+import { NEGATION_FIXTURES } from './negation.fixtures.mjs';
 
 const terms = [{ id: 'fb-haematemesis', term: 'Hämatemesis' }, { id: 'fb-ulkus', term: 'Ulkus' }, { id: 'fb-magen', term: 'Magen' }, { id: 'fb-puls', term: 'Puls' }, { id: 'fb-in', term: 'in' }];
 
@@ -65,4 +66,25 @@ test('ordre : un terme trouvé SEULEMENT en contexte (antécédent) arrive en de
   const ordered = orderCaseTerms(parts, df);
   assert.deepEqual(ordered, ['fb-pyrosis', 'fb-fieber', 'fb-os-zygomaticum']);   // Fieber est aussi en core → reste core
   assert.deepEqual([...ordered].sort(), [...new Set([...parts.core, ...parts.contextual])].sort());
+});
+
+// --- F4a §3.1 : phrases, négation ---------------------------------------------
+test(`isNegated : ${NEGATION_FIXTURES.length} phrases (dont ≥ 20 réelles du corpus)`, () => {
+  assert.ok(new Set(NEGATION_FIXTURES.slice(0, -6).map(([s]) => s)).size >= 20, '≥ 20 phrases réelles distinctes');
+  for (const [s, word, negated] of NEGATION_FIXTURES) {
+    const at = s.indexOf(word);
+    assert.ok(at >= 0, `mot absent : ${word}`);
+    assert.equal(isNegated(s, at), negated, `${negated ? 'nié' : 'affirmé'} attendu : « ${word} » dans « ${s.slice(0, 80)}… »`);
+  }
+});
+test('sentences : abréviations du corpus gardées dans la phrase', () => {
+  assert.deepEqual(sentences('Z. n. Nagelosteosynthese am Bein. Danach gut.').map((s) => s.trim()), ['Z. n. Nagelosteosynthese am Bein.', 'Danach gut.']);
+  assert.deepEqual(sentences('Schmerzen, z. B. beim Gehen, bzw. Treppensteigen. V. a. Pneumonie bei Fieber.').map((s) => s.trim()), ['Schmerzen, z. B. beim Gehen, bzw. Treppensteigen.', 'V. a. Pneumonie bei Fieber.']);
+  assert.deepEqual(sentences('Gewichtszunahme von ca. 5 kg. Ikterus verneint.').map((s) => s.trim()), ['Gewichtszunahme von ca. 5 kg.', 'Ikterus verneint.']);
+});
+test('linkTerms { negation } : un terme cité seulement nié n\'est pas lié ; affirmé ailleurs, il l\'est', () => {
+  const t = [{ id: 'fb-fieber', term: 'Fieber' }, { id: 'fb-ikterus', term: 'Ikterus' }];
+  assert.deepEqual(linkTerms(['Kein Fieber. Ein Ikterus wurde verneint.'], t, { negation: true }), []);
+  assert.deepEqual(linkTerms(['Kein Fieber. Seit gestern Fieber.'], t, { negation: true }), ['fb-fieber']);
+  assert.deepEqual(linkTerms(['Kein Fieber.'], t), ['fb-fieber']);                 // sans l'option : comportement F2a
 });
