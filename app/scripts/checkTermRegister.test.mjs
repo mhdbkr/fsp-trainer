@@ -1,5 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, mkdirSync, copyFileSync, writeFileSync, rmSync, realpathSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { checkEntry, termForms } from './checkTermRegister.mjs';
 
 const ok = { t: 'Aszites', r: { pa: 'Wasser im Bauch', vo: 'Sonographisch zeigte sich ein Aszites.', an: 'Haben Sie bemerkt, dass Ihr Bauch dicker geworden ist?' } };
@@ -17,4 +22,30 @@ test('longueurs bornées', () => assert.ok(checkEntry({ ...ok, r: { ...ok.r, pa:
 test('termForms : mot entier seulement', () => {
   assert.ok(termForms('Sonde').test('eine Sonde legen')); assert.ok(termForms('Sonde').test('zwei Sonden'));
   assert.ok(!termForms('Sonde').test('Sondenernährung'));
+});
+
+// Régression : le garde d'entrée du script comparait `import.meta.url` (encodé,
+// espace → %20) à `file://${process.argv[1]}` (brut) — toujours faux dès que le
+// chemin contient un espace, donc `main()` ne tournait jamais (exit 0 silencieux).
+// Reproduit ici dans un répertoire temporaire dont le nom contient un espace,
+// indépendamment du chemin réel du dépôt.
+test('main() tourne quand le chemin du script contient un espace', () => {
+  // realpath : sur macOS, os.tmpdir() vit sous /var, symlink vers /private/var ;
+  // sans résolution, process.argv[1] (brut) et import.meta.url (résolu par Node)
+  // pointeraient vers deux chemins différents — un faux négatif sans rapport
+  // avec l'espace qu'on veut tester.
+  const root = realpathSync(mkdtempSync(join(tmpdir(), 'fsp check reg ')));
+  try {
+    const scriptsDir = join(root, 'app', 'scripts');
+    const dataDir = join(root, 'app', 'src', 'data');
+    mkdirSync(scriptsDir, { recursive: true });
+    mkdirSync(dataDir, { recursive: true });
+    copyFileSync(fileURLToPath(import.meta.resolve('./checkTermRegister.mjs')), join(scriptsDir, 'checkTermRegister.mjs'));
+    writeFileSync(join(dataDir, 'fachbegriffe.json'), JSON.stringify([{ id: 'fb-x', t: 'Beispiel' }]));
+    writeFileSync(join(dataDir, 'caseTermLinks.json'), JSON.stringify({}));
+    const out = execFileSync('node', [join(scriptsDir, 'checkTermRegister.mjs')], { encoding: 'utf8' });
+    assert.match(out, /registre :/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });
