@@ -64,10 +64,12 @@ jobs:
         run: node scripts/checkFachwissenVisuals.mjs
       - name: Conflits allergie ↔ thérapie
         run: node scripts/checkAllergyConflicts.mjs
-      - name: Liaison cas ↔ Fachbegriffe (texte) — ≥ 8 termes par cas, JSON à jour
+      - name: Liaison cas ↔ Fachbegriffe — ≥ 8 termes par cas, ≤ 10 termes > 20 %, diagnostic lié, aucun mot d'examen, JSON à jour
         run: node scripts/checkCaseTermLinks.mjs
       - name: Tests du script de liaison (node:test)
         run: node --test scripts/linkCaseTerms.test.mjs
+      - name: Tests du validateur de liaison (node:test)
+        run: node --test scripts/checkCaseTermLinks.test.mjs
       - name: Registre des Fachbegriffe (F3)
         run: node scripts/checkTermRegister.mjs --require-all
       - name: Tests du validateur de registre
