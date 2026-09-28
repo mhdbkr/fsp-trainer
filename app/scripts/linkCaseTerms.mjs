@@ -1,25 +1,23 @@
 // ============================================================================
-// Liaison cas ↔ Fachbegriffe PAR OCCURRENCE TEXTUELLE (spec F2a 3.5). La
-// liaison par tags de pathologie ne couvre que 38 termes sur 2 266 : ce script
-// scanne les textes réels de chaque cas avec la même règle de mot entier
-// Unicode que l'autolink de l'app, et écrit src/data/caseTermLinks.json.
+// Liaison cas ↔ Fachbegriffe PAR OCCURRENCE TEXTUELLE (spec F2a 3.5, resserrée
+// en F4a §3.1). Même règle de mot entier Unicode que l'autolink de l'app ;
+// écrit src/data/caseTermLinks.json.
 // Usage : node scripts/linkCaseTerms.mjs [--check]   (--check : exit 1 si le
 // fichier diffère du résultat régénéré — utilisé par checkCaseTermLinks.mjs)
 //
-// ORDRE (relecture pédagogique F2a) : rareté lexicale ≠ pertinence clinique.
-// Les textes d'un cas sont séparés en CORE (plainte, medicalView, Muster,
-// questions, fiche examinateur, Arztbrief, pièges, Fachwissen) et CONTEXTUEL
-// (antécédents, opérations, famille, social, médicaments, allergies, noxen —
-// vrais matchs texte, souvent hors sujet). Par cas :
-//   Les sections d'antécédents des Muster (musterSaetze, caseMuster) sont
-//   routées de la même façon (elles reprennent la fiche patient).
-//   (1) termes du diagnostic (verdachtsdiagnose, nom ou pathologie du cas),
-//   (2) autres termes CORE par fréquence documentaire (DF) ascendante puis id,
-//   (3) termes trouvés SEULEMENT en contexte, par DF ascendante puis id.
-// DF calculée sur l'ensemble `result` une fois TOUS les cas liés. L'ENSEMBLE
-// des termes liés est le même qu'avant ; seul l'ordre change. C'est une
-// convention pour les CONSOMMATEURS de ce JSON : à eux de tronquer à N
-// (`MAX_PER_CASE` est une préoccupation consommateur) — le JSON reste complet.
+// F4a — un terme n'est lié à un cas que s'il y est CENTRAL :
+//  - champs EXCLUS (le questionnaire standard et les signes niés, déjà
+//    structurés) : EXCLUDED_KEYS ;
+//  - champs CONTEXTUELS (anamnèse systématique, diagnostics différentiels) :
+//    CONTEXTUAL_SHEET_KEYS — ils ne lient rien à eux seuls ;
+//  - dans les champs centraux, une occurrence NIÉE ne compte pas (isNegated) ;
+//  - les mots d'examen (src/data/genericTerms.json) ne sont liés à aucun cas ;
+//  - un terme présent dans plus de SPECIFICITY_SHARE des cas n'est gardé que là
+//    où il figure dans le diagnostic ou les constats principaux (leitsymptome,
+//    begleitsymptome, schmerz de la fiche patient) ;
+//  - les termes du diagnostic sont toujours liés (sauf génériques).
+// ORDRE par cas (inchangé) : diagnostic, puis le reste par fréquence
+// documentaire (DF) ascendante puis id. Les consommateurs tronquent à N.
 // ============================================================================
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -27,11 +25,12 @@ import { dirname, join } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const OUT = join(here, '../src/data/caseTermLinks.json');
+const GENERIC = join(here, '../src/data/genericTerms.json');
+const ABBREVIATIONS = JSON.parse(readFileSync(join(here, '../src/data/sentenceAbbreviations.json'), 'utf8'));
+export const SPECIFICITY_SHARE = 0.2;
 /** Mots trop ambigus pour lier un cas (homographes du quotidien). */
 const EXCLUDE = new Set(['in', 'vor', 'nach', 'bei', 'seit', 'ohne', 'mit', 'oder', 'und', 'aber', 'dann', 'noch', 'schon', 'sehr', 'gut', 'ganz']);
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-const ABBREVIATIONS = JSON.parse(readFileSync(join(here, '../src/data/sentenceAbbreviations.json'), 'utf8'));
 
 // --- Phrases ---------------------------------------------------------------
 // Même règle que src/lib/sentence.ts (l'app) : Intl.Segmenter + garde des
@@ -93,6 +92,7 @@ export function isNegated(sentence, at) {
   return false;
 }
 
+// --- Index et occurrences ----------------------------------------------------
 /** Index des termes → regex Unicode mot entier + formes fléchiées simples. */
 export function buildIndex(terms) {
   const byKey = new Map(); const alts = []; const dupes = new Map();
@@ -127,31 +127,46 @@ export function linkTerms(texts, index, { negation = false } = {}) {
   return [...found].sort();
 }
 
+// --- Textes d'un cas ---------------------------------------------------------
 const flatten = (v, out = []) => { if (v == null) return out; if (typeof v === 'string') out.push(v); else if (Array.isArray(v)) v.forEach((x) => flatten(x, out)); else if (typeof v === 'object') Object.values(v).forEach((x) => flatten(x, out)); return out; };
-/** Sections de la fiche patient qui relèvent du CONTEXTE (antécédents incidents), pas du cas. */
-export const CONTEXTUAL_SHEET_KEYS = ['vorerkrankungen', 'voroperationen', 'familienanamnese', 'sozialanamnese', 'medikamente', 'allergien', 'unvertraeglichkeiten', 'noxen'];
-/** Aplatit `v` en routant vers `contextual` tout sous-arbre dont la clé est une
- *  section d'antécédents (fiche patient ET Muster de documentation, qui reprend
- *  les mêmes sections : « Jochbeinfraktur » y figure sous `vorerkrankungen`). */
+/** Questionnaire standard (réponses aux sondes) et signes niés : jamais lus. */
+export const EXCLUDED_KEYS = ['antworten', 'antwortenEmotional', 'frageAntworten', 'negativeFindings'];
+/** Anamnèse systématique (fiche, Muster, Arztbrief) et diagnostics différentiels :
+ *  contextuels — ils ne lient aucun terme à eux seuls. */
+export const CONTEXTUAL_SHEET_KEYS = [
+  'vorerkrankungen', 'voroperationen', 'familienanamnese', 'sozialanamnese', 'medikamente', 'allergien', 'unvertraeglichkeiten', 'noxen',
+  'vegetativeAnamnese', 'medikation', 'allergien-noxen', 'familie-sozial', 'rauchen', 'alkohol', 'drogen', 'frauenanamnese',
+  'differenzialdiagnosen',
+];
 const flattenSplit = (v, core, contextual, ctx = false) => {
   if (v == null) return;
   if (typeof v === 'string') (ctx ? contextual : core).push(v);
   else if (Array.isArray(v)) v.forEach((x) => flattenSplit(x, core, contextual, ctx));
-  else if (typeof v === 'object') for (const [k, x] of Object.entries(v)) flattenSplit(x, core, contextual, ctx || CONTEXTUAL_SHEET_KEYS.includes(k));
+  else if (typeof v === 'object') {
+    for (const [k, x] of Object.entries(v)) {
+      if (EXCLUDED_KEYS.includes(k)) continue;
+      flattenSplit(x, core, contextual, ctx || CONTEXTUAL_SHEET_KEYS.includes(k));
+    }
+  }
 };
-/** Textes d'un cas où un terme peut apparaître, séparés en `core` / `contextual` (cf. en-tête). */
-export function caseTexts(c, muster) {
+/** Textes d'un cas : `core` (lient), `contextual` (ne lient pas), `primary`
+ *  (constats principaux : leitsymptome, begleitsymptome, schmerz). `fw` = la
+ *  fiche Fachwissen de la pathologie (ses champs de liaison sont ignorés). */
+export function caseTexts(c, muster, fw) {
   const core = []; const contextual = [];
   flattenSplit(c.patientSheet, core, contextual);
   flattenSplit(c.musterSaetze, core, contextual);
   flattenSplit(muster, core, contextual);
+  flattenSplit(c.medicalView, core, contextual);
+  if (fw) flattenSplit({ ...fw, id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined, keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined }, core, contextual);
   core.push(
-    ...flatten(c.medicalView),
     ...flatten(c.caseSpecificQuestions), ...flatten(c.examinerQuestions),
     ...flatten(c.examinerSheet), ...flatten(c.pruefungsfallen),
     ...flatten(c.referenceArztbrief),
   );
-  return { core, contextual };
+  const ps = c.patientSheet ?? {};
+  const primary = [...flatten(ps.leitsymptome), ...flatten(ps.begleitsymptome), ...flatten(ps.schmerz)];
+  return { core, contextual, primary };
 }
 /** Textes qui nomment le diagnostic du cas (rang 1). */
 export function diagnosisTexts(c) { return [c.medicalView?.verdachtsdiagnose, c.name, c.pathology]; }
@@ -168,33 +183,47 @@ export function orderCaseTerms({ core, contextual, diagnosis }, df) {
   return [...[...diag].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
 }
 
+/** Parts d'un cas (ids) : `core` et `primary` filtrés par négation, `diagnosis` non filtré ; génériques retirés. */
+export function caseParts(c, { muster, fw, index, generic }) {
+  const { core, primary } = caseTexts(c, muster, fw);
+  const keep = (ids) => ids.filter((id) => !generic.has(id));
+  return {
+    core: keep(linkTerms(core, index, { negation: true })),
+    primary: keep(linkTerms(primary, index, { negation: true })),
+    diagnosis: keep(linkTerms(diagnosisTexts(c), index)),
+  };
+}
+
+/** Liaison du corpus (pure) : seuil de spécificité puis ordre. `parts` : caseId → { core, primary, diagnosis }. */
+export function linkCorpus(parts, share = SPECIFICITY_SHARE) {
+  const n = Object.keys(parts).length;
+  const coreDf = new Map();
+  for (const p of Object.values(parts)) for (const id of new Set(p.core)) coreDf.set(id, (coreDf.get(id) ?? 0) + 1);
+  const kept = {};
+  for (const [caseId, p] of Object.entries(parts)) {
+    const central = new Set([...p.primary, ...p.diagnosis]);
+    kept[caseId] = [...new Set([...p.diagnosis, ...p.core.filter((id) => coreDf.get(id) <= n * share || central.has(id))])];
+  }
+  const df = new Map();
+  for (const ids of Object.values(kept)) for (const id of ids) df.set(id, (df.get(id) ?? 0) + 1);
+  const out = {};
+  for (const [caseId, ids] of Object.entries(kept)) out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: parts[caseId].diagnosis }, df);
+  return out;
+}
+
+export const loadGeneric = () => new Set(JSON.parse(readFileSync(GENERIC, 'utf8')));
+
 async function main() {
   const check = process.argv.includes('--check');
   const { loadAll } = await import('./loadCases.mjs');
   const { cases, fachwissen, muster } = await loadAll();
   const fb = JSON.parse(readFileSync(join(here, '../src/data/fachbegriffe.json'), 'utf8')).map((r) => ({ id: r.id, term: r.t }));
   const index = buildIndex(fb);   // UNE fois : l'avertissement « doublon » n'est émis qu'une fois
+  const generic = loadGeneric();
   const fwByPath = new Map(fachwissen.map((f) => [f.pathology, f]));
   const parts = {};
-  for (const c of cases) {
-    const fw = fwByPath.get(c.pathology);
-    const fwFlat = fw ? flatten({
-      ...fw,
-      id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined,
-      keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined,
-    }) : [];
-    const { core, contextual } = caseTexts(c, muster?.[c.id]);
-    parts[c.id] = {
-      core: linkTerms([...core, ...fwFlat], index),
-      contextual: linkTerms(contextual, index),
-      diagnosis: linkTerms(diagnosisTexts(c), index),
-    };
-  }
-  // DF sur l'ensemble complet (core ∪ contextuel) une fois tous les cas liés, puis ordre par cas.
-  const df = new Map();
-  for (const p of Object.values(parts)) for (const id of new Set([...p.core, ...p.contextual])) df.set(id, (df.get(id) ?? 0) + 1);
-  const result = {};
-  for (const c of cases) result[c.id] = orderCaseTerms(parts[c.id], df);
+  for (const c of cases) parts[c.id] = caseParts(c, { muster: muster?.[c.id], fw: fwByPath.get(c.pathology), index, generic });
+  const result = linkCorpus(parts);
   const json = JSON.stringify(result, null, 0) + '\n';
   if (check) {
     let current = ''; try { current = readFileSync(OUT, 'utf8'); } catch { /* absent */ }
@@ -202,7 +231,9 @@ async function main() {
     console.log('caseTermLinks.json à jour'); return;
   }
   writeFileSync(OUT, json);
-  const sizes = Object.values(result).map((a) => a.length);
-  console.log(`${cases.length} cas liés · min ${Math.min(...sizes)} · médiane ${sizes.sort((a, b) => a - b)[Math.floor(sizes.length / 2)]} · max ${Math.max(...sizes)}`);
+  const sizes = Object.values(result).map((a) => a.length).sort((a, b) => a - b);
+  const byTerm = new Map(); for (const ids of Object.values(result)) for (const id of ids) byTerm.set(id, (byTerm.get(id) ?? 0) + 1);
+  const broad = [...byTerm].filter(([, k]) => k > cases.length * SPECIFICITY_SHARE).length;
+  console.log(`${cases.length} cas liés · ${sizes.reduce((a, b) => a + b, 0)} liens · min ${sizes[0]} · médiane ${sizes[Math.floor(sizes.length / 2)]} · max ${sizes[sizes.length - 1]} · ${broad} terme(s) > 20 %`);
 }
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) main().catch((e) => { console.error(e); process.exit(1); });
