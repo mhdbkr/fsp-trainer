@@ -4,6 +4,7 @@ import { ClientRouter } from 'astro:transitions';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import MobileCtaBar from '@/components/MobileCtaBar.astro';
+import DepthRail from '@/components/DepthRail.astro';
 import { readSite } from '@/lib/site.ts';
 import { jsonLdOrganization, jsonLdWebSite } from '@/lib/seo.ts';
 
@@ -13,9 +14,10 @@ interface Props {
   path: string;
   jsonLd?: object[];
   noHeroCta?: boolean;
+  rail?: boolean;
 }
 
-const { title, description, path, jsonLd: pageJsonLd = [] } = Astro.props;
+const { title, description, path, jsonLd: pageJsonLd = [], rail = false } = Astro.props;
 const site = readSite();
 const canonical = new URL(path, Astro.site).href;
 const siteUrl = Astro.site!.href;
@@ -49,6 +51,7 @@ if (description.length > 155) throw new Error(`description > 155 : ${path}`);
 </head>
 <body class="min-h-dvh flex flex-col">
   <a href="#main" class="sr-only focus:not-sr-only">Zum Inhalt</a>
+  {rail && <DepthRail />}
   <Header />
   <main id="main" class="flex-1 pb-24 md:pb-0"><slot /></main>
   <Footer />
