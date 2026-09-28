@@ -2,7 +2,11 @@
 const steps = [
   { n: '1', title: 'Fall wählen', copy: 'Aus 130 Fällen, real gestellten und realistisch möglichen — oder mit den 12 kostenlosen Fällen starten.' },
   { n: '2', title: 'Simulieren (zu zweit oder allein)', copy: 'Mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom.' },
-  { n: '3', title: 'Bewertung nach dem Bogen', copy: 'Jede vollständige Simulation wird nach einer internen Übungsskala bewertet, angelehnt an den Bogen deiner Kammer (Freiburg, Karlsruhe, Reutlingen, Stuttgart), Teil für Teil.' },
+  // VÉRITÉ (étape 3) : « angelehnt an den Bogen deiner Kammer » prêtait notre échelle à la
+  // Landesärztekammer — rien ne le source, et les quatre villes sont les CENTRES d'examen
+  // (`exam-bw.json` : `centers`), pas des chambres. L'échelle est la nôtre ; ce qui reste
+  // sourcé, ce sont les trois parties et les quatre centres.
+  { n: '3', title: 'Bewertung Teil für Teil', copy: 'Jede vollständige Simulation bewerten wir nach unserer internen Übungsskala, für jeden Prüfungsteil getrennt — im Zentrum deiner Wahl: Freiburg, Karlsruhe, Reutlingen, Stuttgart.' },
 ];
 ---
 
