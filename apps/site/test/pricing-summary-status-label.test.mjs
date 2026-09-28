@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { textOf } from '../scripts/lib/dist.mjs';
+import { requireBuilt, textOf } from '../scripts/lib/dist.mjs';
 
 // Revue (reprise 1, tâche 5b) : la tâche 5 a rendu à PricingTable (/de/preise/) le droit
 // de nommer chaque feature avec son état (« noch nicht freigeschaltet »). Mais PricingSummary
@@ -16,11 +16,10 @@ import { textOf } from '../scripts/lib/dist.mjs';
 // pas seulement la source des composants.
 const homeFile = fileURLToPath(new URL('../dist/de/index.html', import.meta.url));
 const pricingFile = fileURLToPath(new URL('../dist/de/preise/index.html', import.meta.url));
-const built = existsSync(homeFile) && existsSync(pricingFile);
+requireBuilt(homeFile, pricingFile);
 
 test(
   "accueil construit (dist/de/) : aucune étiquette d'état — PricingSummary ne vend que ce qui est servi",
-  { skip: !built && 'npm run build requis avant ce test' },
   () => {
     const text = textOf(readFileSync(homeFile, 'utf8'));
     assert.doesNotMatch(text, /noch nicht freigeschaltet/);
@@ -29,7 +28,6 @@ test(
 
 test(
   "page tarifs construite (dist/de/preise/) : les états restent affichés — PricingTable inchangé",
-  { skip: !built && 'npm run build requis avant ce test' },
   () => {
     const text = textOf(readFileSync(pricingFile, 'utf8'));
     assert.match(text, /noch nicht freigeschaltet/);

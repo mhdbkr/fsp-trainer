@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { textOf } from '../scripts/lib/dist.mjs';
+import { requireBuilt, textOf } from '../scripts/lib/dist.mjs';
 
 // Revue T2.6 (I1) : la grille interne ne doit jamais se lire comme un résultat
 // officiel — vérifie le rendu produit (dist), pas seulement les data sources.
@@ -21,13 +21,12 @@ import { textOf } from '../scripts/lib/dist.mjs';
 // n'ajoutait qu'un second endroit où maintenir la même vérité. `check:voice` porte seul
 // le barème, sur les 17 pages construites.
 //
-// RÉSERVE (signalée, non corrigée — hors périmètre) : ce test porte un `skip` si `dist/`
-// est absent, donc `npm test` seul peut le sauter en silence. Le contrat de vérification
-// du dépôt est `npm run verify`, qui construit avant de tester ; un test qui exige dist
-// devrait le dire par un échec, pas par un saut.
+// La réserve « ce test se saute en silence si dist/ manque » est levée (tâche 8) :
+// `requireBuilt` échoue avec la consigne, et `verify` construit avant de tester.
 const distFile = fileURLToPath(new URL('../dist/de/quick-guide/index.html', import.meta.url));
+requireBuilt(distFile);
 
-test('quick-guide dist rendu : grille interne annoncée, aucun résultat officiel', { skip: !existsSync(distFile) && 'npm run build requis avant ce test' }, () => {
+test('quick-guide dist rendu : grille interne annoncée, aucun résultat officiel', () => {
   const text = textOf(readFileSync(distFile, 'utf8'));
   assert.match(text, /interne[n]? Übungsskala/);
   assert.match(text, /kein offizielles Prüfungsergebnis/);

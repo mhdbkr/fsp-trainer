@@ -7,8 +7,19 @@
 //  3. étendue du corpus d'une page      -> htmlCorpus (scope 'basic' | 'full')
 // Deux implémentations divergentes de la même règle dans deux validateurs voisins est la
 // dette réelle : tout ajout de règle se fait ici, pas dans un validateur.
-import { readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+
+// Un test sauté se lit comme un test vert. Les quatre fichiers qui lisent `dist/` portaient
+// un `skip` si le build manquait : la suite annonçait « 0 skipped » quand dist existait et
+// sautait six assertions en silence quand il manquait. Ils appellent désormais ceci au
+// chargement — le fichier échoue avec la consigne, et `npm run verify` construit d'abord.
+export function requireBuilt(...files) {
+  const missing = files.filter((f) => !existsSync(f));
+  if (missing.length) {
+    throw new Error(`dist/ absent — lance « npm run build » avant « npm test » (npm run verify le fait dans cet ordre). Manque : ${missing.join(', ')}`);
+  }
+}
 
 export function listHtml(dir) {
   const out = [];

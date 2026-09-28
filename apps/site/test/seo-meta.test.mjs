@@ -2,11 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { listHtml } from '../scripts/lib/dist.mjs';
+import { listHtml, requireBuilt } from '../scripts/lib/dist.mjs';
 
 const distDir = fileURLToPath(new URL('../dist', import.meta.url));
 const sitemapIndex = fileURLToPath(new URL('../dist/sitemap-index.xml', import.meta.url));
-const built = existsSync(distDir);
+requireBuilt(distDir);
 
 // Pages légales (LegalPage.astro, hors périmètre T3.1) : le contenu Markdown de
 // docs/legal commence à h2 — aucun h1 de page. Concern remonté au lead-site plutôt
@@ -17,7 +17,7 @@ function pages() {
   return listHtml(distDir).filter((p) => p.includes(`${distDir}/de/`.replace(/\/+/g, '/')) || p.replace(distDir, '').startsWith('/de/'));
 }
 
-test('métadonnées de chaque page dist/de/**', { skip: !built && 'npm run build requis avant ce test' }, () => {
+test('métadonnées de chaque page dist/de/**', () => {
   const errs = [];
   for (const file of pages()) {
     const html = readFileSync(file, 'utf8');
@@ -50,7 +50,7 @@ test('métadonnées de chaque page dist/de/**', { skip: !built && 'npm run build
   assert.equal(errs.length, 0, errs.join('\n'));
 });
 
-test('sitemap-index.xml présent et référence sitemap-0.xml avec les 15 routes, sans /404/', { skip: !built && 'npm run build requis avant ce test' }, () => {
+test('sitemap-index.xml présent et référence sitemap-0.xml avec les 15 routes, sans /404/', () => {
   assert.ok(existsSync(sitemapIndex), 'dist/sitemap-index.xml absent');
   const index = readFileSync(sitemapIndex, 'utf8');
   assert.match(index, /sitemap-0\.xml/);
