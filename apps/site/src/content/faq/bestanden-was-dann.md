@@ -4,4 +4,4 @@ category: pruefung
 order: 6
 ---
 
-Herzlichen Glückwunsch! FSP Trainer begleitet dich bis zur Prüfung — danach brauchst du ihn nicht mehr für diesen Schritt. Du kannst dein Abo jederzeit im Konto kündigen, ohne Begründung, wirksam zum Periodenende. Wir freuen uns, wenn du uns dein Prüfungsprotokoll schickst — es hilft künftigen Kandidat:innen.
+Glückwunsch. FSP Trainer begleitet dich bis zur Prüfung — danach brauchst du ihn für diesen Schritt nicht mehr. Du kannst dein Abo jederzeit im Konto kündigen, ohne Begründung, wirksam zum Periodenende. Wenn du uns danach deinen Bericht schickst, fließt er in die nächste Durchsicht ein.
