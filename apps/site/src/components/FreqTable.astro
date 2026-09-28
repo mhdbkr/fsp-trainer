@@ -9,7 +9,39 @@ interface Props {
 
 const { center, limit, tiers = ['top', 'frequent', 'rare'] } = Astro.props;
 
+const CODES = ['Fr', 'Ka', 'Re', 'St'] as const;
 const centerMeta = center ? frequencies.centers.find((c) => c.code === center) : undefined;
+
+// Correction de revue (I7) : les décomptes absolus étaient une reconstitution du corpus.
+// La colonne `Gesamt` se sommait, et l'en-tête `Berichte in <Zentrum>` donnait l'effectif
+// du centre — la quantité de comptes rendus sources, qu'il est interdit de citer.
+// La page garde son analyse — l'ORDRE de ce qui tombe — et perd la reconstitution : chaque
+// cellule porte un RANG, jamais un effectif.
+// Le rang est calculé sur le corpus ENTIER, pas sur les lignes rendues : `tiers` et `limit`
+// changent ce qu'on montre, jamais ce qu'un rang veut dire (le blog affiche les mêmes
+// données avec d'autres bornes).
+// Ex æquo : même rang (rang de compétition, 1-2-2-4) — deux fréquences égales ne se
+// départagent pas par l'ordre de la source.
+function competitionRank(values: number[]) {
+  const desc = [...values].sort((a, b) => b - a);
+  return (v: number) => desc.indexOf(v) + 1;
+}
+
+const overallRank = competitionRank(
+  frequencies.pathologies.filter((p) => typeof p.total === 'number').map((p) => p.total as number),
+);
+
+// Un `0` n'est pas un rang : une pathologie jamais signalée dans un centre n'entre pas
+// dans le classement de ce centre, elle y porte « — ».
+const centerRank = Object.fromEntries(
+  CODES.map((c) => [
+    c,
+    competitionRank(frequencies.pathologies.filter((p) => p.byCenter?.[c]).map((p) => p.byCenter![c]!)),
+  ]),
+) as Record<(typeof CODES)[number], (v: number) => number>;
+
+const rankIn = (p: (typeof frequencies.pathologies)[number], c: (typeof CODES)[number]) =>
+  p.byCenter?.[c] ? centerRank[c](p.byCenter[c]!) : '—';
 
 // Avec `center` : seules les lignes `tier: 'top'` portent une répartition
 // par centre (byCenter) — frequent/rare l'ont à null (contrat §5).
@@ -19,7 +51,7 @@ let rows = frequencies.pathologies.filter((p) => effectiveTiers.includes(p.tier)
 
 rows = center
   ? rows
-      .filter((p) => p.byCenter && typeof p.byCenter[center] === 'number')
+      .filter((p) => p.byCenter && typeof p.byCenter[center] === 'number' && p.byCenter[center]! > 0)
       .sort((a, b) => (b.byCenter![center]!) - (a.byCenter![center]!))
   : rows.sort((a, b) => (b.total ?? 0) - (a.total ?? 0));
 
@@ -32,11 +64,11 @@ if (limit) rows = rows.slice(0, limit);
       <tr class="border-b border-ink-600/20 text-ink-600 dark:border-paper/20 dark:text-paper/80">
         <th class="py-2 pr-4 font-medium">Pathologie</th>
         {center ? (
-          <th class="py-2 font-medium">Berichte in {centerMeta?.name ?? center}</th>
+          <th class="py-2 font-medium">Rang in {centerMeta?.name ?? center}</th>
         ) : (
           <>
             <th class="py-2 pr-4 font-medium">Fachgebiet</th>
-            <th class="py-2 pr-4 font-medium">Gesamt</th>
+            <th class="py-2 pr-4 font-medium">Rang</th>
             <th class="py-2 pr-4 font-medium">Fr</th>
             <th class="py-2 pr-4 font-medium">Ka</th>
             <th class="py-2 pr-4 font-medium">Re</th>
@@ -50,15 +82,16 @@ if (limit) rows = rows.slice(0, limit);
         <tr class="border-b border-ink-600/10 dark:border-paper/10">
           <td class="py-2 pr-4 text-ink-800 dark:text-paper">{p.name}</td>
           {center ? (
-            <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{p.byCenter![center]}</td>
+            <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{rankIn(p, center)}</td>
           ) : (
             <>
               <td class="py-2 pr-4 text-ink-700 dark:text-paper/90">{p.specialty ?? '—'}</td>
-              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.total ?? '—'}</td>
-              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.Fr ?? '—'}</td>
-              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.Ka ?? '—'}</td>
-              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.Re ?? '—'}</td>
-              <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{p.byCenter?.St ?? '—'}</td>
+              <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">
+                {typeof p.total === 'number' ? overallRank(p.total) : '—'}
+              </td>
+              {CODES.map((c) => (
+                <td class="py-2 pr-4 font-mono text-ink-700 dark:text-paper/90">{rankIn(p, c)}</td>
+              ))}
             </>
           )}
         </tr>
@@ -66,3 +99,11 @@ if (limit) rows = rows.slice(0, limit);
     </tbody>
   </table>
 </div>
+
+{/* La légende voyage avec le tableau : la même donnée est rendue sur /de/was-drankommt/ et
+    dans deux billets. L'avertissement sur le double comptage est posé partout où des
+    colonnes par centre apparaissent — c'est là qu'un lecteur essaie de les additionner. */}
+<p class="mt-2 text-xs text-ink-600 dark:text-paper/80">
+  Rang nach gemeldeter Häufigkeit. 1 ist der häufigste Fall.
+  {!center && ' Die Spalten je Zentrum sind getrennt gerankt: Ein Bericht kann in zwei Zentren zählen.'}
+</p>
