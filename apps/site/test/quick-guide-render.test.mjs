@@ -12,12 +12,13 @@ test('quick-guide dist rendu : grille interne annoncée, aucun barème officiel'
   assert.match(html, /interne[n]? Übungsskala/);
   assert.match(html, /kein offizielles Prüfungsergebnis/);
   assert.doesNotMatch(html, /\bC1\b/);
-  // « 60 Punkte » : n'apparaît jamais hors de la phrase étiquetée « interne Übungsskala »
-  // (review-T2.5-T2.6.md I1/I2 — le chiffre reste, la promesse « angelehnt an den Bogen
-  // deiner Kammer » a été retirée séparément).
-  const pointsMatches = [...html.matchAll(/60 Punkte/g)];
-  assert.equal(pointsMatches.length, 1, 'la mention « 60 Punkte » doit rester unique');
-  const scaleIndex = html.indexOf('Übungsskala');
-  assert.ok(scaleIndex >= 0);
-  assert.ok(Math.abs(pointsMatches[0].index - scaleIndex) < 200, '« 60 Punkte » doit rester dans la phrase de la grille interne');
+  // Arbitrage tâche 5 (réserve n°1) : l'assertion d'origine exigeait que « 60 Punkte »
+  // RESTE sur la page, une fois, près de « interne Übungsskala » (review-T2.5-T2.6.md
+  // I1/I2 — « le chiffre reste »). Ce barème n'est pas sourcé : la tâche 5 tranche que
+  // le texte part, et `check-voice` (règle `bareme`) le refuse désormais. L'assertion est
+  // donc resserrée — aucun barème chiffré, ni en points ni en pourcentage — au lieu d'être
+  // levée : l'intention du test (la grille interne ne se lit jamais comme un résultat
+  // officiel) est conservée et renforcée.
+  assert.doesNotMatch(html, /60\s*(Punkte|%|Prozent)/);
+  assert.ok(html.indexOf('Übungsskala') >= 0);
 });
