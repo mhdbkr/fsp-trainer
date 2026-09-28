@@ -279,6 +279,27 @@ test('7b — la copie légitime ne déclenche pas : `Prüfer` et `offiziell` emp
   assert.deepEqual(findViolations('a.html', '<p>Kein offizielles Prüfungsergebnis.</p>'), []);
 });
 
+test('I6 — l\'examen lui-même pris comme sujet d\'un verbe d\'évaluation déclenche', () => {
+  // Le défaut corrigé, mot pour mot (billet Baden-Württemberg avant la revue finale).
+  assert.deepEqual(
+    rules(findViolations('a.html', '<p>Die Fachsprachprüfung bewertet, wie du auf Deutsch kommunizierst.</p>')),
+    ['autorite_evaluation'],
+  );
+  assert.deepEqual(rules(findViolations('a.html', '<p>In der Prüfung wird beurteilt, wie klar dein Arztbrief ist.</p>')), ['autorite_evaluation']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Die Kommission benotet deine Aussprache.</p>')), ['autorite_evaluation']);
+  assert.deepEqual(rules(findViolations('a.html', '<p>Die FSP bewertet vor allem den Redefluss.</p>')), ['autorite_evaluation']);
+});
+
+test('I6 — ce que `exam-bw.json` source, et ce que Doctopus fait, ne déclenche pas', () => {
+  assert.deepEqual(findViolations('a.html', '<p>Die Fachsprachprüfung besteht aus drei Teilen.</p>'), []);
+  // ExamFacts.astro, rendu : `prüfen` n'est pas un verbe de la liste, « Sprache, nicht Medizin » est sourcé.
+  assert.deepEqual(findViolations('a.html', '<p>Die Prüfung dauert insgesamt 60 Minuten und prüft Sprache, nicht Medizin.</p>'), []);
+  assert.deepEqual(findViolations('a.html', '<p>Geprüft wird Sprache auf C1, nicht Medizin.</p>'), []);
+  // Sujet = nous, pluriel : « Prüfungsteil » est un autre mot, et « bewerten wir » n'est pas l'examen.
+  assert.deepEqual(findViolations('a.html', '<p>Jede Simulation bewerten wir für jeden Prüfungsteil getrennt.</p>'), []);
+  assert.deepEqual(findViolations('a.html', '<p>Nach der Prüfung bewerten wir nichts mehr.</p>'), []);
+});
+
 // ————————————————————————————————————————————————————————————————————————
 // Correction 2 — la famille `garantie` est de retour. I3 — son exception est la phrase exacte
 // de l'avertissement légal (LanguageToolNotice.astro), plus le mot.

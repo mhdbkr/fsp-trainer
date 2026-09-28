@@ -30,7 +30,9 @@
 //  autorite_evaluation    toute affirmation sur la FSP doit être sourcée, et l'évaluation affichée
 //                          est la grille d'ENTRAÎNEMENT de Doctopus, jamais le barème d'une chambre.
 //                          ATTRAPE : une action d'évaluation prêtée aux examinateurs (« die Prüfer
-//                          einzeln bewerten », « bewertet vom Prüfer ») et un barème qualifié
+//                          einzeln bewerten », « bewertet vom Prüfer »), l'examen lui-même pris
+//                          comme sujet d'un verbe d'évaluation (« Die Fachsprachprüfung bewertet,
+//                          wie du … », revue finale I6) et un barème qualifié
 //                          d'officiel ou attribué à la chambre (« offizielles Bewertungsraster »,
 //                          « den Bogen deiner Kammer »). LAISSE PASSER : « am Prüfungstag », « die
 //                          Prüfung besteht aus drei Teilen », « So bewerten wir im Trainer », et
