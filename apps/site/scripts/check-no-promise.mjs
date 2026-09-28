@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 // Les briques partagées (bornes Unicode, corpus d'une page, exception explicite,
 // aplatissement JSON) vivent dans lib/dist.mjs. Comportement inchangé : seule leur
 // provenance change, pour que check-voice.mjs consomme les mêmes.
-import { listHtml, boundedRe, collectAllow, htmlCorpus, jsonStrings } from './lib/dist.mjs';
+import { listHtml, boundedRe, collectAllow, allowCovers, htmlCorpus, jsonStrings } from './lib/dist.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -72,6 +72,7 @@ export function findViolations(text, lexicon) {
         term: t.term,
         section: t.section,
         index: m.index,
+        end: m.index + m[0].length,
         context: contextAround(text, m.index, m.index + m[0].length),
         list: t.list,
       });
@@ -94,12 +95,16 @@ function jsonCorpus(file) {
   return { text: strings.join('\n'), allow: collectAllow(raw) };
 }
 
-function scan(rel, { text, allow }, lexicon, lines) {
-  const allowNorm = new Set(allow.map(normalize));
+// Exception : même portée que check-voice (lib/dist.mjs, allowCovers) — la correspondance
+// doit tomber DANS une occurrence du texte exact de l'exception. Positions dans normalize(text),
+// exactement le texte que parcourt findViolations.
+export function scan(rel, { text, allow }, lexicon, lines) {
+  const hay = normalize(text);
+  const allowNorm = allow.map(normalize);
   const { blocking, informative } = checkText(text, lexicon);
   let hasBlocking = false;
   for (const v of blocking) {
-    if (allowNorm.has(normalize(v.term))) {
+    if (allowCovers(hay, allowNorm, v.index, v.end)) {
       lines.push(`… ${rel}: « ${v.context} » (${v.term}, §${v.section}) — autorisé (voice:allow, listé)`);
     } else {
       lines.push(`✗ ${rel}: « ${v.context} » (${v.term}, §${v.section})`);

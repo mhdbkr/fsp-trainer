@@ -100,7 +100,7 @@ Un validateur peut refuser tout texte public contenant l'une de ces chaînes (ca
 
 | FR | DE | EN |
 |---|---|---|
-| garantie, garanti(e), garantir | Garantie, garantiert | guarantee(d) |
+| garantie, garanti(e), garantir | Garantie, garantiert, Erfolgsgarantie, Bestehensgarantie | guarantee(d) |
 | réussite assurée, réussite garantie | Erfolg garantiert, sicher bestehen | guaranteed pass, pass guaranteed |
 | 100 % (de réussite / des cas) | 100 % (Erfolg / bestehen) | 100 % (pass / success) |
 | passe ton examen, réussis ton examen (à l'impératif comme promesse) | besteh(e) deine Prüfung (als Versprechen) | pass your exam (as a promise) |

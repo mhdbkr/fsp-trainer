@@ -1,4 +1,21 @@
 ---
 import { shortDisclaimerDe } from '@/lib/disclaimer.ts';
+
+const notice = shortDisclaimerDe();
+// Le texte entre dans un commentaire HTML entre guillemets droits : un « " » tronquerait
+// l'exception, un « -- » casserait le commentaire. Le build échoue plutôt que de publier l'un
+// ou l'autre.
+if (/"|--/.test(notice)) throw new Error('disclaimer.md : l\'avertissement court ne peut contenir ni « \" » ni « -- » (marqueur voice:allow)');
 ---
-<p data-notice="language-tool" class="text-sm text-ink-600 dark:text-paper">{shortDisclaimerDe()}</p>
+{/* Exception explicite des portes check-voice et check-no-promise (règle promesse) : cet
+    avertissement légal obligatoire (docs/legal/disclaimer.md, « Version courte pour le footer
+    (DE) », formulation imposée par ROADMAP-PRODUCTION.md §1.3) NIE la garantie de réussite
+    (« keine Erfolgsgarantie ») — ce n'est pas la marque qui promet.
+    PORTÉE : la PHRASE EXACTE rendue juste en dessous, pas le mot. Une correspondance n'est
+    levée que si elle tombe dans une occurrence de cette phrase (scripts/lib/dist.mjs,
+    allowCovers) : « Mit Erfolgsgarantie zur bestandenen Prüfung. » ailleurs sur la même page
+    reste bloquée. Le marqueur est tiré de la même source que le texte : si l'avertissement
+    change, l'exception change avec lui. Seul le marqueur nu part dans le HTML ; cette
+    explication, en commentaire Astro, ne sort pas du build. */}
+<Fragment set:html={`<!-- voice:allow "${notice}" -->`} />
+<p data-notice="language-tool" class="text-sm text-ink-600 dark:text-paper">{notice}</p>

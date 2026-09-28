@@ -15,17 +15,8 @@ const legalLinks: [string, string][] = [
 ---
 <footer class="border-t border-ink-600/15 px-4 py-8 text-sm text-ink-600 dark:border-paper/15 dark:text-paper">
   <div class="mx-auto max-w-6xl space-y-4">
-    <!-- Exception explicite de check-voice (règle promesse), posée à la main, dans ce
-         COMPOSANT plutôt que dans chaque page : LanguageToolNotice rend l'avertissement
-         légal obligatoire (docs/legal/disclaimer.md, « Version courte pour le footer (DE) »),
-         qui NIE la garantie de réussite (« keine Erfolgsgarantie ») et dont la formulation
-         est imposée (verrou ROADMAP-PRODUCTION.md §1.3) — ce n'est pas la marque qui promet.
-         Le composant est inclus dans les 17 pages construites : une seule exception ici
-         couvre tout le site, sans 17 exceptions par page ni portée globale qui neutraliserait
-         la règle ailleurs. Portée : ce mot exact, chaque page où le composant est rendu. La
-         forme du commentaire suivant est imposée (lib/dist.mjs, collectAllow) : rien après le
-         terme. -->
-    <!-- voice:allow "Erfolgsgarantie" -->
+    {/* L'exception des portes de voix pour l'avertissement légal (« keine Erfolgsgarantie »)
+        voyage avec le texte qu'elle couvre : voir LanguageToolNotice. */}
     <LanguageToolNotice />
 
     <nav class="flex flex-wrap gap-x-4 gap-y-2" aria-label="Rechtliches">

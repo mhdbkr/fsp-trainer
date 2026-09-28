@@ -280,8 +280,8 @@ test('7b — la copie légitime ne déclenche pas : `Prüfer` et `offiziell` emp
 });
 
 // ————————————————————————————————————————————————————————————————————————
-// Correction 2 — la famille `garantie` est de retour, exception de portée composant
-// (Footer.astro), seconde phrase légitime de ueber.astro levée.
+// Correction 2 — la famille `garantie` est de retour. I3 — son exception est la phrase exacte
+// de l'avertissement légal (LanguageToolNotice.astro), plus le mot.
 // ————————————————————————————————————————————————————————————————————————
 
 test('correction 2 — la famille garantie déclenche hors exception et sans négation', () => {
@@ -290,40 +290,57 @@ test('correction 2 — la famille garantie déclenche hors exception et sans né
   assert.deepEqual(rules(findViolations('a.html', '<p>Wir garantieren dir den Erfolg.</p>')), ['promesse']);
 });
 
-test('correction 2 — l\'exception du pied de page lève « Erfolgsgarantie » exact, rien d\'autre', () => {
-  const html = '<!-- voice:allow "Erfolgsgarantie" --><p>… keine Erfolgsgarantie.</p>';
-  assert.deepEqual(findViolations('a.html', html), []);
-  // Un autre texte de la même règle, mot différent, sur la même page : pas levé — la portée
-  // est le texte exact nommé, pas la règle entière.
-  assert.deepEqual(rules(findViolations('a.html', `${html} <p>Wir garantieren dir den Erfolg.</p>`)), ['promesse']);
+// I3 (revue finale) — l'exception du pied de page levait le MOT « Erfolgsgarantie » sur toute
+// la page : « Mit Erfolgsgarantie zur bestandenen Prüfung. » passait les deux portes. Elle est
+// désormais la PHRASE EXACTE de l'avertissement (LanguageToolNotice.astro), et une exception ne
+// lève qu'une correspondance tombant DANS une occurrence de son texte (lib/dist.mjs, allowCovers).
+const NOTICE = 'Doctopus ist ein Sprachlernwerkzeug zur Vorbereitung auf die FSP — kein Medizinprodukt, keine klinische Entscheidungshilfe, keine Erfolgsgarantie.';
+const NOTICE_HTML = `<!-- voice:allow "${NOTICE}" --><p data-notice="language-tool">${NOTICE}</p>`;
+const PROMISE = '<p>Mit Erfolgsgarantie zur bestandenen Prüfung.</p>';
+
+test('I3 — l\'avertissement légal du pied de page passe sous son exception de phrase exacte', () => {
+  assert.deepEqual(rules(findViolations('a.html', `<p>${NOTICE}</p>`)), ['promesse']);
+  assert.deepEqual(findViolations('a.html', NOTICE_HTML), []);
 });
 
-test('correction 2 — l\'exception posée dans Footer.astro vaut sur chaque page où le composant est rendu', () => {
-  // Reproduit ce qu'Astro construit : le même commentaire, dans le HTML de deux pages
-  // distinctes, parce que le composant Footer est inclus dans les deux — pas une exception
-  // par page, une exception par composant.
-  const footer = '<!-- voice:allow "Erfolgsgarantie" --><p>… keine Erfolgsgarantie.</p>';
+test('I3 — l\'exception de l\'avertissement ne lève pas une promesse ailleurs sur la même page', () => {
+  const v = findViolations('a.html', `${PROMISE}${NOTICE_HTML}`);
+  assert.deepEqual(rules(v), ['promesse']);
+  assert.equal(v[0].match, 'erfolgsgarantie');
+  // Même ordre inverse : la promesse APRÈS l'avertissement, qui la précède dans le texte.
+  assert.deepEqual(rules(findViolations('a.html', `${NOTICE_HTML}${PROMISE}`)), ['promesse']);
+});
+
+test('I3 — une exception nomme une phrase : elle ne couvre que les mots qu\'elle contient', () => {
+  const refus = '<p>Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler.</p>';
+  const allow = '<!-- voice:allow "Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler" -->';
+  assert.deepEqual(findViolations('a.html', `${allow}${refus}`), []);
+  // Le même mot hors de la phrase, sur la même page : bloqué.
+  assert.deepEqual(rules(findViolations('a.html', `${allow}${refus}<p>Halte deine Streak.</p>`)), ['jeu']);
+  // Les blancs du marqueur (retour à la ligne dans la source) sont réduits comme ceux du texte.
+  const wrapped = '<!-- voice:allow "Doctopus zählt keine Häkchen:\n   keine strafende Streak, kein Angst-Zähler" -->';
+  assert.deepEqual(findViolations('a.html', `${wrapped}${refus}`), []);
+});
+
+test('I3 — l\'exception de phrase vaut sur chaque page où le composant est rendu (CLI)', () => {
   withDist({
-    'de/index.html': `<html><body>${footer}</body></html>`,
-    'de/preise/index.html': `<html><body>${footer}</body></html>`,
+    'de/index.html': `<html><body>${NOTICE_HTML}</body></html>`,
+    'de/preise/index.html': `<html><body>${NOTICE_HTML}</body></html>`,
   }, (r) => {
     assert.equal(r.status, 0, r.out);
   });
+  withDist({
+    'de/index.html': `<html><body>${NOTICE_HTML}</body></html>`,
+    'de/preise/index.html': `<html><body><main>${PROMISE}</main>${NOTICE_HTML}</body></html>`,
+  }, (r) => {
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /promesse: « erfolgsgarantie » — dist\/de\/preise\/index\.html/);
+  });
 });
 
-// Limite connue (réserve 5 du rapport de tâche 4, non retouchée ici) : l'exemption compare le
-// TEXTE EXACT du match (« erfolgsgarantie »), pas une position dans la page. Si une AUTRE
-// source, sur la MÊME page, porte elle aussi le mot exact « Erfolgsgarantie », l'exception du
-// pied de page (rendu sur cette page) la lève aussi, par construction — vérifié sur le site
-// réel : dist/de/faq/index.html porte « keine Erfolgsgarantie » depuis
-// apps/site/src/content/faq/bestehen.md, hors du pied de page, et n'est plus signalé une fois
-// le pied de page construit dans la même page (seul « garantieren » y reste signalé, un motif
-// différent de la même règle). Pinée pour que ce soit un choix documenté, pas une découverte
-// en prod.
-test('correction 2 — limite documentée : l\'exception du pied de page peut lever une autre occurrence du même mot sur la même page', () => {
-  const body = '<p>Wir bieten eine echte Erfolgsgarantie.</p>';
-  assert.deepEqual(rules(findViolations('a.html', body)), ['promesse']);
-  assert.deepEqual(findViolations('a.html', `<!-- voice:allow "Erfolgsgarantie" -->${body}`), []);
+test('I3 — règles de caractère : une exception qui couvre la première occurrence ne lève pas les suivantes', () => {
+  assert.deepEqual(findViolations('a.html', '<!-- voice:allow "Achtung!" --><p>Achtung!</p>'), []);
+  assert.deepEqual(rules(findViolations('a.html', '<!-- voice:allow "Achtung!" --><p>Achtung! Jetzt starten!</p>')), ['exclamation']);
 });
 
 // ————————————————————————————————————————————————————————————————————————

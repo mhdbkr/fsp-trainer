@@ -43,15 +43,16 @@
 // EXCEPTION : pas d'heuristique de négation (elle échouait des deux côtés : elle n'absorbait
 // pas « keine strafende Streak » et elle avalait « ohne im ersten Versuch zu scheitern »).
 // Une exception se pose à la main dans la source, en commentaire HTML :
-//     <!-- voice:allow "Streak" -->
-// Elle lève la correspondance de ce texte exact sur CETTE page seulement, pour toutes les
-// règles. Une exception écrite dans le texte se voit dans un diff ; une heuristique, non.
+//     <!-- voice:allow "keine strafende Streak" -->
+// Elle lève les correspondances qui tombent DANS une occurrence de ce texte exact, sur CETTE
+// page seulement, pour toutes les règles (portée : lib/dist.mjs, allowCovers). Qu'on y mette
+// la phrase entière, pas le mot : un mot nu couvre toutes ses occurrences de la page. Une exception écrite dans le texte se voit dans un diff ; une heuristique, non.
 // C'est aussi la seule sanction possible d'un mot volontairement coupé par une balise inline
 // (limite documentée dans lib/dist.mjs, textOf).
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { listHtml, htmlCorpus, decodeEntities, stripInvisible, boundedRe, report } from './lib/dist.mjs';
+import { listHtml, htmlCorpus, decodeEntities, stripInvisible, boundedRe, allowCovers, report } from './lib/dist.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const LEXICON = JSON.parse(readFileSync(join(here, 'voice.lexicon.json'), 'utf8'));
@@ -85,7 +86,7 @@ const normalizeVoice = (s) => stripInvisible(decodeEntities(s)).normalize('NFC')
 export function findViolations(file, html, lexicon = LEXICON) {
   const { text, allow } = htmlCorpus(html, 'full');
   const hay = normalizeVoice(text);
-  const allowed = new Set(allow.map(normalizeVoice));
+  const allowed = allow.map(normalizeVoice);
   const out = [];
   for (const [rule, patterns] of Object.entries(lexicon)) {
     if (rule.startsWith('$')) continue;
@@ -98,15 +99,18 @@ export function findViolations(file, html, lexicon = LEXICON) {
         // Un motif capable de matcher le vide ferait tourner exec() à l'infini (la CI
         // bloquerait) : on avance la tête de lecture à la main.
         if (m[0].length === 0) { re.lastIndex += 1; continue; }
-        if (!allowed.has(normalizeVoice(m[0]))) { match = m[0]; break; }
+        if (!allowCovers(hay, allowed, m.index, m.index + m[0].length)) { match = m[0]; break; }
       }
       if (match) break;
     }
     if (match) out.push({ file, rule, match });
   }
+  // Toutes les occurrences, pas la première : une exception qui couvre la première ne doit
+  // pas faire passer les suivantes.
   for (const [rule, re] of Object.entries(CHAR_RULES)) {
-    const m = hay.match(re);
-    if (m && !allowed.has(normalizeVoice(m[0]))) out.push({ file, rule, match: m[0] });
+    for (const m of hay.matchAll(new RegExp(re.source, 'gu'))) {
+      if (!allowCovers(hay, allowed, m.index, m.index + m[0].length)) { out.push({ file, rule, match: m[0] }); break; }
+    }
   }
   return out;
 }

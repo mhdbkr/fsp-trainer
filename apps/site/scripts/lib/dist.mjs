@@ -82,10 +82,29 @@ export function boundedRe(pattern, flags = 'gu') {
   return new RegExp(`(?<![\\p{L}\\p{N}])(?:${pattern})(?![\\p{L}\\p{N}])`, flags);
 }
 
-// Exception explicite, dans la source : `<!-- voice:allow "terme" -->`. Une exception
+// Exception explicite, dans la source : `<!-- voice:allow "texte exact" -->`. Une exception
 // écrite dans le texte se voit dans un diff ; une heuristique, non.
+// PORTÉE (tranchée ici pour les deux portes, check-voice et check-no-promise) : une
+// correspondance n'est levée que si elle tombe À L'INTÉRIEUR d'une occurrence de ce texte
+// exact sur la page. Un mot nu (« Streak ») ne couvre que ce mot ; une PHRASE ne couvre que
+// les mots qu'elle contient, là où elle apparaît. Avant, l'exception comparait le mot trouvé
+// au texte de l'exception : « Erfolgsgarantie », posé pour l'avertissement légal qui NIE la
+// garantie, levait aussi « Mit Erfolgsgarantie zur bestandenen Prüfung. » sur la même page.
+// Les blancs sont réduits à un espace, comme dans textOf.
 const ALLOW_RE = /<!--\s*voice:allow\s*"([^"]*)"\s*-->/g;
-export function collectAllow(raw) { return [...raw.matchAll(ALLOW_RE)].map((m) => m[1]); }
+export function collectAllow(raw) { return [...raw.matchAll(ALLOW_RE)].map((m) => m[1].replace(/\s+/g, ' ').trim()); }
+
+// `hay` et `phrases` sont normalisés par l'appelant, avec SA normalisation (chaque porte a la
+// sienne) : les positions [start, end) de la correspondance sont celles de `hay`.
+export function allowCovers(hay, phrases, start, end) {
+  for (const p of phrases) {
+    if (!p) continue;
+    for (let i = hay.indexOf(p); i !== -1 && i <= start; i = hay.indexOf(p, i + 1)) {
+      if (end <= i + p.length) return true;
+    }
+  }
+  return false;
+}
 
 export function htmlTitle(html) { return (html.match(/<title>([\s\S]*?)<\/title>/i) || [, ''])[1]; }
 

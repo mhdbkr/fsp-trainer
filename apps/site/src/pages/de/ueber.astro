@@ -8,12 +8,12 @@ const site = readSite();
 const refusals = [
   'Doctopus ist keine Schule: kein Versprechen einer menschlichen Betreuung, kein „Coach“. Der Tandempartner ist ein Übungspartner, kein Trainer.',
   // Contient « Bestehensgarantie » et « Erfolgsquote » à dessein (les deux mots sont nommés
-  // pour être refusés, même table que « Streak » ci-dessous). Exceptions de check-voice
-  // posées en commentaire HTML dans le gabarit ci-dessous : voice:allow.
+  // pour être refusés, même table que « Streak » ci-dessous). Exception de check-voice sur
+  // cette phrase exacte, posée dans le gabarit ci-dessous : voice:allow.
   'Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote. Wir messen und trainieren.',
   'Doctopus ist kein Medizinprodukt und keine klinische Entscheidungshilfe: Die Inhalte dienen einer Sprachprüfung.',
-  // Contient « Streak » à dessein (le mot est nommé pour être refusé). L'exception de
-  // check-voice est posée en commentaire HTML dans le gabarit ci-dessous : voice:allow.
+  // Contient « Streak » à dessein (le mot est nommé pour être refusé). Exception de
+  // check-voice sur cette phrase exacte, posée dans le gabarit ci-dessous : voice:allow.
   'Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler — belohnt wird die vollständige Simulation, nicht der Login.',
   'Doctopus verkauft sich nicht als „KI-App“: KI ist ein Dienst auf Credits-Basis, nicht die Identität.',
 ];
@@ -53,19 +53,16 @@ const refusals = [
 
   <section class="mx-auto max-w-3xl px-4 pb-16">
     <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Was {site.brandName} nicht ist</h2>
-    <!-- Exception explicite de check-voice (règle jeu), posée à la main : la phrase
-         « Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler » dit
-         exactement ce que la marque veut dire. Le jargon de jeu y est cité pour être refusé,
-         pas employé en façade. Portée : ce texte exact, cette page seule. La forme du
-         commentaire suivant est imposée (lib/dist.mjs, collectAllow) : rien après le terme. -->
-    <!-- voice:allow "Streak" -->
-    <!-- Exception explicite de check-voice (règle promesse), même table de refus : la phrase
-         « Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im
-         Voraus, keine Erfolgsquote » dit, elle aussi, exactement ce que la marque veut dire —
-         les deux mots sont cités pour être niés, pas promis. Portée : ces deux textes exacts,
-         cette page seule. -->
-    <!-- voice:allow "Bestehensgarantie" -->
-    <!-- voice:allow "Erfolgsquote" -->
+    {/* Exceptions explicites de check-voice (règles jeu et promesse), posées à la main : les
+        deux phrases de refus ci-dessous disent exactement ce que la marque veut dire — le
+        jargon de jeu et la promesse y sont cités pour être refusés, pas employés en façade.
+        PORTÉE : ces deux phrases exactes, cette page seule — une correspondance n'est levée
+        que si elle tombe dans l'une d'elles (scripts/lib/dist.mjs, allowCovers). « Streak »,
+        « Bestehensgarantie » ou « Erfolgsquote » ailleurs sur la page restent bloqués. Seuls
+        les marqueurs nus partent dans le HTML ; la forme est imposée (collectAllow) : le
+        texte entre guillemets droits, rien après. */}
+    <!-- voice:allow "Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler" -->
+    <!-- voice:allow "Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote" -->
     <ul class="mt-6 space-y-4">
       {refusals.map((text) => (
         <li class="flex gap-3 text-ink-700 dark:text-paper/90">
