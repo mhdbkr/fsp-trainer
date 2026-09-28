@@ -25,12 +25,13 @@ test('status.json: updatedAt is ISO date, every component has a valid state', ()
   }
 });
 
-test('exam-bw.json: totalPoints/minPercentPerPart, three 20-minute parts, not asserted as officially sourced', () => {
+test('exam-bw.json: three 20-minute parts, internal scale, no numeric grading scheme', () => {
   assert.equal(examBw.land, 'Baden-Württemberg');
-  assert.equal(examBw.totalPoints, 60);
-  assert.equal(examBw.minPercentPerPart, 60);
-  // Le barème 60 pts / 60 % n'est pas sourcé dans un document officiel (CONTEXT.md) :
-  // exam-bw.json doit le marquer comme grille interne, jamais comme barème officiel.
+  // Le barème 60 pts / 60 % n'est pas sourcé dans un document officiel (CONTEXT.md) et
+  // n'est plus rendu nulle part : `totalPoints` / `minPercentPerPart` étaient de la donnée
+  // morte tenue en vie par une assertion. La donnée part, et l'assertion garde l'inverse —
+  // aucun barème chiffré ne revient dans exam-bw.json par distraction.
+  assert.ok(!('totalPoints' in examBw) && !('minPercentPerPart' in examBw));
   assert.equal(examBw.pointsSource, 'intern');
   assert.ok(Array.isArray(examBw.parts) && examBw.parts.length === 3);
   for (const p of examBw.parts) {

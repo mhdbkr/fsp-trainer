@@ -2,8 +2,6 @@
   "land": "Baden-Württemberg",
   "kammer": "Landesärztekammer Baden-Württemberg",
   "centers": ["Freiburg", "Karlsruhe", "Reutlingen", "Stuttgart"],
-  "totalPoints": 60,
-  "minPercentPerPart": 60,
   "pointsSource": "intern",
   "level": "C1",
   "assesses": "Sprache, nicht Medizin",
