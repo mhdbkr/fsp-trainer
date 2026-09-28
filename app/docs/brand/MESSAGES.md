@@ -20,6 +20,8 @@ Positionnement source : `POSITIONNEMENT.md` · Alimente la vitrine, les annonces
 
 Formulation unique du corpus, partout : **« Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert. »**
 
+**Ce que « unique » veut dire** (tranché le 28/09, après le premier passage du validateur de voix) : c'est un **contrat de sens**, pas une chaîne littérale. Elle dit trois choses et trois seulement — plus de 130, cas réels **ou** réalistes, enrichi en continu — et elle ne dit jamais d'où ils viennent, combien de sources, ni sur quelle période. Elle **se décline** quand elle est enchâssée (« Aus 130 Fällen, real gestellt**en** und realistisch möglich**en** ») : une phrase canonique fausse grammaticalement est pire qu'une phrase adaptée. Et elle ne se répète pas mot pour mot deux fois sur la même page — zéro doublon passe avant l'uniformité.
+
 ## 01 — Message central
 
 > **Doctopus entraîne les cinq compétences linguistiques que le jury de la Fachsprachprüfung évalue réellement — prononciation, vocabulaire, grammaire, fluidité, communication avec le patient — sur des cas tirés de protocoles réels, selon un programme qui s'ajuste à tes faiblesses et à ta date.**
