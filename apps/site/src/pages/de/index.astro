@@ -16,8 +16,13 @@ const pillars = [
     copy: 'Real gestellte und realistisch mögliche, laufend aktualisiert. Je Fall eine Simulantenkarte, eine medizinische Sicht, der Prüferbogen und Musterformulierungen.',
   },
   {
-    title: 'Strukturiert wie die Prüfung, bewertet wie die Prüfung',
-    copy: 'Drei Teile zu 20 Minuten, nach einer internen Übungsskala bewertet, angelehnt an den Prüfungsablauf. Verfügbare Bögen: Freiburg, Karlsruhe, Reutlingen, Stuttgart.',
+    // VÉRITÉ : la structure est sourcée (`exam-bw.json` : trois parties de 20 minutes,
+    // les quatre centres de Baden-Württemberg). L'ÉVALUATION ne l'est pas — d'où
+    // « bewertet wie die Prüfung » retiré (il prêtait notre échelle au jury) et
+    // « Verfügbare Bögen » remplacé par « Verfügbare Zentren » : `exam-bw.json` porte
+    // `centers`, pas un barème par centre, et rien ne source qu'il en existe un.
+    title: 'Strukturiert wie die Prüfung',
+    copy: 'Drei Teile zu 20 Minuten, angelehnt an den Prüfungsablauf. Jeden Teil bewerten wir für sich nach unserer internen Übungsskala. Verfügbare Zentren: Freiburg, Karlsruhe, Reutlingen, Stuttgart.',
   },
   {
     title: 'Dein Simulant ist um 23 Uhr verfügbar',
