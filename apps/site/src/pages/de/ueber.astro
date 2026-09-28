@@ -11,7 +11,7 @@ const refusals = [
   // pour être refusés, même table que « Streak » ci-dessous). Exceptions de check-voice
   // posées en commentaire HTML dans le gabarit ci-dessous : voice:allow.
   'Doctopus verspricht kein Ergebnis: keine Bestehensgarantie, keine Punktzahl im Voraus, keine Erfolgsquote. Wir messen und trainieren.',
-  'Doctopus ist kein Medizinprodukt und keine klinische Entscheidungshilfe: die Inhalte dienen einer Sprachprüfung.',
+  'Doctopus ist kein Medizinprodukt und keine klinische Entscheidungshilfe: Die Inhalte dienen einer Sprachprüfung.',
   // Contient « Streak » à dessein (le mot est nommé pour être refusé). L'exception de
   // check-voice est posée en commentaire HTML dans le gabarit ci-dessous : voice:allow.
   'Doctopus zählt keine Häkchen: keine strafende Streak, kein Angst-Zähler — belohnt wird die vollständige Simulation, nicht der Login.',
@@ -28,9 +28,21 @@ const refusals = [
     <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">
       Gebaut von einem Kandidaten, für die nächsten.
     </h1>
+    {/* Correction de revue (I5) : le titre promet une histoire ; la phrase supprimée pour
+        fuite de sourcing (« aus rund 580 Prüfungsberichten … an vier Standorten entstanden »)
+        portait AUSSI la genèse, et le corps était retombé sur un fait produit générique.
+        La genèse revient sans le sourcing : ni quantité, ni provenance, ni datation,
+        ni résultat d'examen. Une idée par bloc.
+        « Jeder trägt eine Simulantenkarte » était un calque du français — l'allemand dit
+        « Jeder Fall enthält », exactement ce qu'écrit le billet die-20. */}
     <p class="mt-4 text-ink-700 dark:text-paper/90">
-      Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend
-      aktualisiert. Jeder trägt eine Simulantenkarte, eine medizinische Sicht, den
+      {site.productName} ist entstanden, weil die eigene Vorbereitung keinen Ort hatte, an dem
+      man laut spricht. Lehrbücher erklären die Sprache der Medizin, aber keines lässt dich
+      sie unter Prüfungsbedingungen sprechen. Also wurde gebaut, was fehlte.
+    </p>
+    <p class="mt-4 text-ink-700 dark:text-paper/90">
+      Über 130 vollständige Fälle: real gestellte und realistisch mögliche, laufend
+      aktualisiert. Jeder Fall enthält eine Simulantenkarte, eine medizinische Sicht, den
       Prüferbogen und Musterformulierungen.
     </p>
     <p class="mt-4 text-ink-700 dark:text-paper/90">
