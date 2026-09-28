@@ -1018,6 +1018,16 @@ git commit -m "ci(site): voix bloquante en CI, contraste AA teste sur la pile de
 
 ---
 
+## Bilan honnête à la clôture (28/09, revue finale sur Opus)
+
+**Ce que le plan A a livré** : la voix (validateur `check-voice` durci, 9 règles, 155 tests), la vérité (huit affirmations non sourcées sur l'examen retirées, un chiffre de corpus faux corrigé en « 130 », les notes internes françaises sorties du HTML public), les portes (`verify` passe pour la première fois, un job CI du site qui n'avait jamais existé), et le **système** de profondeur (jetons, registres, surfaces, courbe).
+
+**Ce qu'il n'a pas livré, et que ce document annonçait** : la pile de profondeur **appliquée**. `.surface`, `.surface-raised` et `.register-work` ne sont rendus sur aucune page ; seul `.register-deep` l'est, une fois, sur le hero ; 1 618 classes `dark:` et l'ancienne palette encre subsistent. La tâche 3 annonçait « on remplace `dark:` par deux registres » : **aucune étape ne le faisait**. C'est un défaut de découpage du plan, pas des implémenteurs.
+
+**Décision** : l'application de la pile devient la **première tâche du plan B**, après l'arbitrage de direction artistique sur le hero — l'appliquer avant ferait le travail visuel deux fois. Le plan B porte le critère « `.surface` et `.register-work` rendus au moins une fois, et zéro `dark:bg-ink-*` hors registre » comme porte mécanique.
+
+**Le site est donc sous la nouvelle voix, pas encore sous la nouvelle profondeur.** À ne pas annoncer autrement.
+
 ## Ce que ce plan ne fait pas
 
 Volontairement hors périmètre — chacun a son plan :
