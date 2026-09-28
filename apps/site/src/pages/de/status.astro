@@ -3,15 +3,17 @@ import Base from '@/layouts/Base.astro';
 import StatusBoard from '@/components/StatusBoard.astro';
 import pricing from '@/data/pricing.json' with { type: 'json' };
 
-// Tâche 5, étape 4 : les fonctions non livrées ne s'annoncent plus en vitrine
-// (accueil, produit, tarifs). Elles se disent ici, une seule fois, au présent et
-// sans date. La liste vient de pricing.json — pas d'une seconde source à tenir.
+// Les fonctions non livrées se disent au présent et sans date. La liste vient de
+// pricing.json — pas d'une seconde source à tenir.
+// Correction de revue (mineur) : « 200 Credits » et « 1 000 Credits » se lisaient côte à
+// côte sans dire à quel plan chacun appartient. Chaque ligne porte désormais son plan.
 const locked = [
   ...new Map(
-    pricing.plans
-      .flatMap((p) => p.features)
-      .filter((f) => f.status === 'bald')
-      .map((f) => [f.id, pricing.labels[f.id] ?? f.id]),
+    pricing.plans.flatMap((p) =>
+      p.features
+        .filter((f) => f.status === 'bald')
+        .map((f) => [f.id, { plan: p.name, label: pricing.labels[f.id] ?? f.id }]),
+    ),
   ).values(),
 ];
 ---
@@ -37,11 +39,15 @@ const locked = [
         <h2 class="text-xl text-ink dark:text-paper">Noch nicht freigeschaltet</h2>
         <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">
           Diese Funktionen gehören zu Pro und Premium, laufen aber noch nicht. Ohne Datum:
-          du erfährst es hier, sobald eine davon läuft.
+          Du erfährst es hier, sobald eine davon läuft.
         </p>
         <ul class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
-          {locked.map((label) => (
-            <li>{label}</li>
+          {locked.map((f) => (
+            <li>
+              <span class="font-medium text-ink dark:text-paper">{f.plan}</span>
+              {' — '}
+              {f.label}
+            </li>
           ))}
         </ul>
       </div>

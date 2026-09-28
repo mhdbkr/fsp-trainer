@@ -1,9 +1,9 @@
 ---
 import pricing from '@/data/pricing.json' with { type: 'json' };
 
-// Même règle que PricingTable (tâche 5, étape 4) : seules les features `live`
-// sont montrées. Un plan dont les features propres sont toutes verrouillées
-// (Premium) n'affiche que ce dont il hérite — sans quoi sa carte serait vide.
+// Même règle que PricingTable (correction de revue C2) : un plan nomme ce qu'il contient,
+// et ce qui n'est pas encore servi porte son état — sans date, sans promesse. Filtrer sur
+// `live` laissait la carte Premium avec le seul héritage de Pro, à un prix supérieur.
 const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
 
 const cards = pricing.plans.map((plan) => ({
@@ -11,9 +11,8 @@ const cards = pricing.plans.map((plan) => ({
   displayPrice: plan.price === '0' ? 'Kostenlos' : `${plan.price} / {{BILLING_PERIOD}}`,
   includes: plan.includesPlan ? planById[plan.includesPlan]?.name : null,
   shown: plan.features
-    .filter((f) => f.status === 'live')
     .slice(0, 2)
-    .map((f) => pricing.labels[f.id] ?? f.id),
+    .map((f) => ({ label: pricing.labels[f.id] ?? f.id, locked: f.status !== 'live' })),
 }));
 ---
 
@@ -26,8 +25,13 @@ const cards = pricing.plans.map((plan) => ({
         <p class="mt-1 font-mono text-xl text-ink dark:text-paper">{card.displayPrice}</p>
         <ul class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
           {card.includes && <li class="text-ink dark:text-paper">Alles aus {card.includes}</li>}
-          {card.shown.map((label) => (
-            <li>{label}</li>
+          {card.shown.map((f) => (
+            <li>
+              {f.label}
+              {f.locked && (
+                <span class="text-ink-600 dark:text-paper/70"> — noch nicht freigeschaltet</span>
+              )}
+            </li>
           ))}
         </ul>
       </div>

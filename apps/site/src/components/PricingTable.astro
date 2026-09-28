@@ -10,21 +10,22 @@ const site = readSite();
 const label = (f: { id: string; label?: string }) => pricing.labels[f.id] ?? f.label ?? f.id;
 const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
 
-// Une vitrine ne liste pas ce qui n'existe pas (tâche 5, étape 4) : seules les
-// features `live` sont rendues. Les features encore verrouillées restent dans
-// pricing.json — la parité avec docs/contracts/entitlements.md en dépend — et
-// sont annoncées à un seul endroit, /de/status/.
+// Correction de revue (C2) : filtrer sur `status === 'live'` avait vidé la page tarifs —
+// Premium n'affichait plus que « Alles aus Pro » à un prix supérieur, et les quotas de
+// crédits mensuels n'étaient nommés nulle part, alors que l'AGB § 2 en fait un composant
+// du plan. Un plan qui se vend dit ce qu'il contient. La règle retenue est celle de
+// /de/status/ : la fonction est nommée AU PRÉSENT, avec son état, sans date — pas retirée.
 const columns = pricing.plans.map((plan) => {
-  const live = plan.features.filter((f) => f.status === 'live');
   const included = plan.includesPlan ? planById[plan.includesPlan] : null;
   return {
     ...plan,
     displayPrice: plan.price === '0' ? 'Kostenlos' : plan.price,
-    live,
+    features: plan.features.map((f) => ({ label: label(f), locked: f.status !== 'live' })),
     included,
     cta: pricingCtaFor(site, plan.id, pricing.freeCases),
   };
 });
+const anyLocked = columns.some((c) => c.features.some((f) => f.locked));
 ---
 
 <section class="mx-auto max-w-6xl px-4 py-16">
@@ -60,8 +61,13 @@ const columns = pricing.plans.map((plan) => {
           {col.included && (
             <li class="font-medium text-ink dark:text-paper">Alles aus {col.included.name}</li>
           )}
-          {col.live.map((f) => (
-            <li>{label(f)}</li>
+          {col.features.map((f) => (
+            <li>
+              {f.label}
+              {f.locked && (
+                <span class="text-ink-600 dark:text-paper/70"> — noch nicht freigeschaltet</span>
+              )}
+            </li>
           ))}
         </ul>
 
@@ -78,7 +84,14 @@ const columns = pricing.plans.map((plan) => {
     ))}
   </div>
 
-  <p class="mt-8 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
+  {anyLocked && (
+    <p class="mt-8 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
+      Was noch nicht freigeschaltet ist, gehört zum Plan und läuft noch nicht — ohne Datum.
+      Was läuft, steht <a href="/de/status/" class="link">auf der Statusseite</a>.
+    </p>
+  )}
+
+  <p class="mt-4 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
     {pricing.cancellation}
   </p>
   <p class="mt-2 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
