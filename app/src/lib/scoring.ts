@@ -1,11 +1,14 @@
 import type { Axis, LanguageGrid, PartResult, Simulation, ChecklistItem, AssistanceMode, Layer } from '@/db/types';
 
 // ============================================================================
-// Système d'évaluation hybride (cf. ANALYSE.md §6 + mémoire officielle).
+// Système d'évaluation hybride (cf. ANALYSE.md §6). C'est la grille INTERNE
+// d'entraînement de Doctopus, pas le barème d'une Landesärztekammer : ni les
+// cinq axes ni le seuil de 60 % ne sont sourcés (CONTEXT.md « FSP »,
+// app/docs/brand/MESSAGES.md). Ne jamais les présenter comme officiels.
 //   1) Checklist de contenu  → contentPct = % de critères cochés
-//   2) Grille de langue "officielle" (5 axes, 0..5) → officialPct
+//   2) Grille de langue Doctopus (5 axes, 0..5) → officialPct (nom historique)
 //   3) Curseur ressenti (feeling 0..100)
-// Verdict officiel: PASS si CHAQUE partie tentée atteint ≥ 60% (règle BW).
+// Verdict d'entraînement : PASS si CHAQUE partie tentée atteint le repère de 60 %.
 // ============================================================================
 
 export const PASS_THRESHOLD = 60;
