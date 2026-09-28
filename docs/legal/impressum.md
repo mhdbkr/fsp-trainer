@@ -5,34 +5,7 @@ validated_by: ""
 validated_at: ""
 placeholders: ["LEGAL_NAME", "LEGAL_FORM", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_COUNTRY", "LEGAL_REPRESENTATIVE", "LEGAL_PHONE", "LEGAL_EMAIL", "LEGAL_REGISTER_OR_SIRET", "LEGAL_VAT_ID"]
 ---
-> **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
-> Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 
----
-
-**FR — note pour la direction**
-
-Ceci est un brouillon de mentions légales (Impressum) pour le site Doctopus.
-Contexte retenu (source : `app/docs/PRODUCT-VISION.md` §8, ADR-0003) :
-opérateur en **micro-entreprise en France maintenant**, migration vers une
-structure allemande envisagée au déménagement. Le site cible un public
-germanophone et l'application traite des données de candidats à la FSP
-(Allemagne) — l'obligation d'Impressum du droit allemand (§5 DDG, ex-TMG)
-s'applique dès qu'un service est « geschäftsmäßig » proposé à des
-utilisateurs en Allemagne, **indépendamment du lieu d'établissement du
-prestataire**. Un établissement en France n'exonère donc pas des mentions ;
-il change leur contenu (forme juridique française, RCS/SIRET au lieu de
-Handelsregister, TVA intracommunautaire au lieu de USt-IdNr. le cas échéant).
-**Ce point — l'articulation droit français / droit allemand pour un
-prestataire établi en France servant un public allemand — est un point à
-faire trancher par un juriste**, idéalement bilingue droit des médias
-allemand + droit français, avant toute mise en ligne.
-
-Décision direction (2026-09-16, via `lead-site`) : marque « Doctopus »,
-produit « FSP Trainer ». Placeholders d'identité harmonisés sous le
-préfixe `{{LEGAL_*}}` — liste complète dans `docs/legal/README.md` §3.
-
----
 
 ## Impressum
 

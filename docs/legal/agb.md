@@ -5,32 +5,7 @@ validated_by: ""
 validated_at: ""
 placeholders: ["LEGAL_NAME", "LEGAL_EMAIL", "LEGAL_SUBSCRIPTION_PRICES", "ANZAHL_CREDITS_PRO", "ANZAHL_CREDITS_PREMIUM", "BESCHREIBUNG_PRO", "BESCHREIBUNG_PREMIUM", "LEGAL_CREDITS_EXPIRY_RULE", "LEGAL_CREDITS_REFUND_RULE", "LEGAL_GOVERNING_LAW", "LEGAL_LIABILITY_CLAUSE"]
 ---
-> **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
-> Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 
----
-
-**FR — note pour la direction**
-
-Structure retenue (source : `app/docs/PRODUCT-VISION.md` §4, ADR-0005,
-ADR-0006) : trois plans Free / Pro / Premium ; cœur pédagogique illimité
-dans l'abonnement ; Doctopus Credits pour les fonctions coûteuses (patient
-IA vocal, correction Arztbrief, Oberarzt IA) avec quota mensuel inclus et
-recharges possibles ; les crédits sont aussi une monnaie communautaire
-(récompense de protocole soumis, de ligue gagnée). **Les prix ne sont pas
-fixés** (décision direction, non tranchée dans les contrats lus) — laissés
-en placeholder. Le contenu numérique + les crédits soulèvent une question
-de renonciation au droit de rétractation (voir `widerruf.md`) qui doit être
-cohérente avec cet AGB (case à cocher de renonciation expresse au moment de
-l'achat).
-
-Décisions direction (2026-09-16, via `lead-site`) intégrées ci-dessous :
-checkout réel via Stripe ; durées mensuelle et 3 mois, **sans reconduction
-tacite silencieuse** ; résiliation « jederzeit im Konto, ohne Begründung,
-wirksam zum Periodenende » — **jamais présentée comme « en un clic »**.
-Placeholders d'identité harmonisés sous `{{LEGAL_*}}`.
-
----
 
 ## Allgemeine Geschäftsbedingungen (AGB)
 
@@ -60,7 +35,8 @@ Fachwissen, Lernprogramm) sind im Abonnement **unbegrenzt** nutzbar. Kosten-
 intensive KI-Funktionen (KI-Patient per Sprache, KI-Korrektur des
 Arztbriefs, KI-Oberarzt) werden über "Doctopus Credits" abgerechnet, die im
 Abo enthalten sind, aufgeladen werden können oder durch Teilnahme an der
-Community (eingereichtes Protokoll, gewonnene Liga) erworben werden können.
+Community (eingereichtes Protokoll, Platzierung im monatlichen Vergleich)
+erworben werden können.
 
 ### § 3 Preise und Zahlung
 
@@ -117,9 +93,10 @@ Weitergabe von Zugangsdaten oder Inhalten an Dritte ist nicht gestattet.
 
 ### § 9 Verfügbarkeit und Änderungen
 
-Wir sind bestrebt, eine hohe Verfügbarkeit sicherzustellen, garantieren
-jedoch keine ununterbrochene Erreichbarkeit. Inhalte und Funktionsumfang
-können weiterentwickelt werden.
+Wir sind bestrebt, eine hohe Verfügbarkeit sicherzustellen. Eine
+ununterbrochene Erreichbarkeit wird nicht zugesagt; Wartungsfenster und
+Störungen sind möglich. Inhalte und Funktionsumfang können weiterentwickelt
+werden.
 
 ### § 10 Haftung
 

@@ -5,52 +5,7 @@ validated_by: ""
 validated_at: ""
 placeholders: ["LEGAL_NAME", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_EMAIL", "LEGAL_PRIVACY_EMAIL", "ANALYTICS_PROVIDER", "LEGAL_AI_PROVIDER_NAME_AND_SEAT", "LEGAL_TAX_RETENTION_PERIOD"]
 ---
-> **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
-> Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 
----
-
-**FR — note pour la direction**
-
-Traitements identifiés (source : `docs/contracts/schema.sql`, ADR-0003,
-ADR-0005, ADR-0011, `app/docs/PRODUCT-VISION.md` §4–5) :
-
-- **Compte** : e-mail, mot de passe (Supabase Auth), `display_name`.
-- **Profil de procédure** (`profiles`) : pays d'examen visé (`target_land`),
-  date d'examen, niveau de langue, étape de procédure, spécialité d'origine,
-  pays du diplôme, intention KP — données sensibles au sens large (liées à
-  un parcours de reconnaissance professionnelle et de santé, pas des données
-  de santé au sens de l'art. 9 RGPD mais à traiter avec prudence).
-- **Progression** (`progress_events`, `credit_ledger`) : simulations
-  terminées, révisions SRS, plans, paliers de cas atteints, crédits
-  consommés/attribués (raison, référence).
-- **Paiement** : Stripe (Checkout, Customer Portal, webhooks) — Doctopus ne
-  stocke pas les données de carte, Stripe agit comme sous-traitant.
-- **IA / voix** : consommation de crédits pour Arztbrief (correction IA) et
-  patient IA vocal — implique un ou plusieurs sous-traitants IA/voix. **Le
-  fournisseur exact n'est pas encore arrêté dans les contrats lus**
-  (ADR-0011 mentionne une démo statique pré-générée sans LLM en temps réel
-  pour l'instant ; le chantier #13 patient IA vocal temps réel n'est pas
-  livré). Placeholder à compléter dès que le fournisseur est choisi.
-- **Hébergement du site** : **Vercel, confirmé par la direction le
-  2026-09-16** (root `apps/site`, previews en `noindex`). Transfert de
-  données hors UE (Vercel Inc., États-Unis) à documenter avec les garanties
-  (clauses contractuelles types / Data Privacy Framework) — reste à faire
-  valider par un juriste, mais le choix du fournisseur n'est plus ouvert.
-- **Analytics** : décision direction — Plausible ou Umami, **hébergé UE,
-  sans cookie, sans donnée personnelle**. Fournisseur exact en placeholder
-  `{{ANALYTICS_PROVIDER}}` (le nom définitif entre Plausible et Umami n'est
-  pas encore arrêté). Pas de bandeau de consentement nécessaire tant que
-  l'outil ne dépose aucun cookie et ne traite aucune donnée à caractère
-  personnel — **à faire confirmer par un juriste** sur la base de la
-  configuration réellement déployée (ce brouillon ne peut pas vérifier la
-  configuration technique).
-- **Cookies** : recommandation maintenue — **aucun cookie non essentiel au
-  lancement**. Si le marketing autonome (ADR §7 de `PRODUCT-VISION.md`)
-  introduit des pixels publicitaires plus tard, un bandeau de consentement
-  CMP redevient nécessaire et cette section devra être réécrite.
-
----
 
 ## Datenschutzerklärung
 
@@ -77,7 +32,8 @@ gespeichert) und optional einen Anzeigenamen. Rechtsgrundlage: Art. 6 Abs.
 ### 4. Profil- und Fortschrittsdaten
 
 Zur Personalisierung Ihres Lernprogramms erheben wir: Zielland der
-Prüfung, Prüfungsdatum, Sprachniveau, Stand des Anerkennungsverfahrens,
+Prüfung, Prüfungsdatum, Ihre Selbstauskunft zu den Deutschkenntnissen,
+Stand des Anerkennungsverfahrens,
 Herkunftsfachrichtung, Herkunftsland des Diploms sowie — falls angegeben —
 Ihre Absicht bezüglich der Kenntnisprüfung. Wir speichern zudem Ihren
 Lernfortschritt (abgeschlossene Simulationen, Wiederholungen, erreichte
@@ -94,13 +50,14 @@ Payments Europe, Ltd. abgewickelt. Wir selbst speichern keine
 Kreditkartendaten. Es gelten die Datenschutzbestimmungen von Stripe:
 https://stripe.com/de/privacy. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
 
-### 6. KI-gestützte Funktionen (Arztbrief-Korrektur, KI-Patient)
+### 6. Übermittlung an KI-Dienstleister (Arztbrief-Korrektur, KI-Patient)
 
 Für bestimmte Funktionen (Korrektur des Arztbriefs durch KI, gesprächsbasierter
 KI-Patient) werden Ihre Eingaben an einen KI-Dienstleister übermittelt.
 
 {{LEGAL_AI_PROVIDER_NAME_AND_SEAT}} — {{"placeholder: fournisseur IA/voix
-non encore choisi au moment de ce brouillon (voir note FR ci-dessus)"}}
+non encore choisi au moment de ce brouillon (voir docs/legal/README.md §7,
+note de rédaction de datenschutz.md)"}}
 
 Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Erfüllung der gebuchten
 Funktion). Bei Übermittlung in Drittländer (z. B. USA) werden geeignete

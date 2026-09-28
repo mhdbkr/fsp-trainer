@@ -159,3 +159,124 @@ Cette section documente ce qui manque, elle ne certifie rien. Statut
   l'est pas encore).
 - Prix, quotas de crédits, règle de péremption/remboursement — décisions
   produit de la direction, pas de conformité.
+
+## 7. Notes de rédaction par fichier (hors des textes publiés)
+
+Ces notes étaient rendues telles quelles dans les pages publiques `/de/impressum/`,
+`/de/datenschutz/`, `/de/agb/` et `/de/widerruf/` : `LegalPage.astro` restitue tout le
+corps Markdown. Elles sont déplacées ici — langue de travail interne, destinataire la
+direction — sans une ligne de changée.
+
+### `impressum.md`
+
+**FR — note pour la direction**
+
+Ceci est un brouillon de mentions légales (Impressum) pour le site Doctopus.
+Contexte retenu (source : `app/docs/PRODUCT-VISION.md` §8, ADR-0003) :
+opérateur en **micro-entreprise en France maintenant**, migration vers une
+structure allemande envisagée au déménagement. Le site cible un public
+germanophone et l'application traite des données de candidats à la FSP
+(Allemagne) — l'obligation d'Impressum du droit allemand (§5 DDG, ex-TMG)
+s'applique dès qu'un service est « geschäftsmäßig » proposé à des
+utilisateurs en Allemagne, **indépendamment du lieu d'établissement du
+prestataire**. Un établissement en France n'exonère donc pas des mentions ;
+il change leur contenu (forme juridique française, RCS/SIRET au lieu de
+Handelsregister, TVA intracommunautaire au lieu de USt-IdNr. le cas échéant).
+**Ce point — l'articulation droit français / droit allemand pour un
+prestataire établi en France servant un public allemand — est un point à
+faire trancher par un juriste**, idéalement bilingue droit des médias
+allemand + droit français, avant toute mise en ligne.
+
+Décision direction (2026-09-16, via `lead-site`) : marque « Doctopus »,
+produit « FSP Trainer ». Placeholders d'identité harmonisés sous le
+préfixe `{{LEGAL_*}}` — liste complète dans `docs/legal/README.md` §3.
+
+
+### `datenschutz.md`
+
+**FR — note pour la direction**
+
+Traitements identifiés (source : `docs/contracts/schema.sql`, ADR-0003,
+ADR-0005, ADR-0011, `app/docs/PRODUCT-VISION.md` §4–5) :
+
+- **Compte** : e-mail, mot de passe (Supabase Auth), `display_name`.
+- **Profil de procédure** (`profiles`) : pays d'examen visé (`target_land`),
+  date d'examen, niveau de langue, étape de procédure, spécialité d'origine,
+  pays du diplôme, intention KP — données sensibles au sens large (liées à
+  un parcours de reconnaissance professionnelle et de santé, pas des données
+  de santé au sens de l'art. 9 RGPD mais à traiter avec prudence).
+- **Progression** (`progress_events`, `credit_ledger`) : simulations
+  terminées, révisions SRS, plans, paliers de cas atteints, crédits
+  consommés/attribués (raison, référence).
+- **Paiement** : Stripe (Checkout, Customer Portal, webhooks) — Doctopus ne
+  stocke pas les données de carte, Stripe agit comme sous-traitant.
+- **IA / voix** : consommation de crédits pour Arztbrief (correction IA) et
+  patient IA vocal — implique un ou plusieurs sous-traitants IA/voix. **Le
+  fournisseur exact n'est pas encore arrêté dans les contrats lus**
+  (ADR-0011 mentionne une démo statique pré-générée sans LLM en temps réel
+  pour l'instant ; le chantier #13 patient IA vocal temps réel n'est pas
+  livré). Placeholder à compléter dès que le fournisseur est choisi.
+- **Hébergement du site** : **Vercel, confirmé par la direction le
+  2026-09-16** (root `apps/site`, previews en `noindex`). Transfert de
+  données hors UE (Vercel Inc., États-Unis) à documenter avec les garanties
+  (clauses contractuelles types / Data Privacy Framework) — reste à faire
+  valider par un juriste, mais le choix du fournisseur n'est plus ouvert.
+- **Analytics** : décision direction — Plausible ou Umami, **hébergé UE,
+  sans cookie, sans donnée personnelle**. Fournisseur exact en placeholder
+  `{{ANALYTICS_PROVIDER}}` (le nom définitif entre Plausible et Umami n'est
+  pas encore arrêté). Pas de bandeau de consentement nécessaire tant que
+  l'outil ne dépose aucun cookie et ne traite aucune donnée à caractère
+  personnel — **à faire confirmer par un juriste** sur la base de la
+  configuration réellement déployée (ce brouillon ne peut pas vérifier la
+  configuration technique).
+- **Cookies** : recommandation maintenue — **aucun cookie non essentiel au
+  lancement**. Si le marketing autonome (ADR §7 de `PRODUCT-VISION.md`)
+  introduit des pixels publicitaires plus tard, un bandeau de consentement
+  CMP redevient nécessaire et cette section devra être réécrite.
+
+
+### `agb.md`
+
+**FR — note pour la direction**
+
+Structure retenue (source : `app/docs/PRODUCT-VISION.md` §4, ADR-0005,
+ADR-0006) : trois plans Free / Pro / Premium ; cœur pédagogique illimité
+dans l'abonnement ; Doctopus Credits pour les fonctions coûteuses (patient
+IA vocal, correction Arztbrief, Oberarzt IA) avec quota mensuel inclus et
+recharges possibles ; les crédits sont aussi une monnaie communautaire
+(récompense de protocole soumis, de ligue gagnée). **Les prix ne sont pas
+fixés** (décision direction, non tranchée dans les contrats lus) — laissés
+en placeholder. Le contenu numérique + les crédits soulèvent une question
+de renonciation au droit de rétractation (voir `widerruf.md`) qui doit être
+cohérente avec cet AGB (case à cocher de renonciation expresse au moment de
+l'achat).
+
+Décisions direction (2026-09-16, via `lead-site`) intégrées ci-dessous :
+checkout réel via Stripe ; durées mensuelle et 3 mois, **sans reconduction
+tacite silencieuse** ; résiliation « jederzeit im Konto, ohne Begründung,
+wirksam zum Periodenende » — **jamais présentée comme « en un clic »**.
+Placeholders d'identité harmonisés sous `{{LEGAL_*}}`.
+
+
+### `widerruf.md`
+
+**FR — note pour la direction**
+
+Point sensible : les abonnements Doctopus et l'achat de crédits sont du
+« contenu numérique non fourni sur un support matériel ». Le droit de
+rétractation de 14 jours peut s'éteindre par avance si le consommateur (a)
+consent expressément à l'exécution avant la fin du délai et (b) reconnaît
+perdre son droit de rétractation de ce fait (§ 356 Abs. 5 BGB). **Ceci doit
+être branché dans le produit** : une case à cocher explicite au moment du
+paiement, distincte de l'acceptation des AGB — non vérifiable par ce
+brouillon (voir `README.md`, case « branché »). Sans cette case, le
+consommateur garde son droit de rétractation même après consommation, ce
+qui expose à des remboursements a posteriori.
+
+Décision direction (2026-09-16, via `lead-site`) : le checkout est réel,
+via Stripe. La case de renonciation expresse (§ 356 Abs. 5 BGB) doit donc
+être intégrée dans le flux Stripe Checkout (ou juste avant, côté site,
+avant redirection) — **hors périmètre d'écriture de ce brouillon**, à
+vérifier « branché » par `site-implementer`. Placeholders d'identité
+harmonisés sous `{{LEGAL_*}}`.
+

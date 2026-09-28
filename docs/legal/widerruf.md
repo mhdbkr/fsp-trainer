@@ -5,32 +5,7 @@ validated_by: ""
 validated_at: ""
 placeholders: ["LEGAL_NAME", "LEGAL_ADDRESS_STREET", "LEGAL_ADDRESS_CITY", "LEGAL_EMAIL"]
 ---
-> **ENTWURF — Von einem Juristen zu prüfen, nicht veröffentlichen.**
-> Datum: 2026-09-16 · Autor: compliance-checker (pôle Fondations) · Statut : brouillon non validé.
 
----
-
-**FR — note pour la direction**
-
-Point sensible : les abonnements Doctopus et l'achat de crédits sont du
-« contenu numérique non fourni sur un support matériel ». Le droit de
-rétractation de 14 jours peut s'éteindre par avance si le consommateur (a)
-consent expressément à l'exécution avant la fin du délai et (b) reconnaît
-perdre son droit de rétractation de ce fait (§ 356 Abs. 5 BGB). **Ceci doit
-être branché dans le produit** : une case à cocher explicite au moment du
-paiement, distincte de l'acceptation des AGB — non vérifiable par ce
-brouillon (voir `README.md`, case « branché »). Sans cette case, le
-consommateur garde son droit de rétractation même après consommation, ce
-qui expose à des remboursements a posteriori.
-
-Décision direction (2026-09-16, via `lead-site`) : le checkout est réel,
-via Stripe. La case de renonciation expresse (§ 356 Abs. 5 BGB) doit donc
-être intégrée dans le flux Stripe Checkout (ou juste avant, côté site,
-avant redirection) — **hors périmètre d'écriture de ce brouillon**, à
-vérifier « branché » par `site-implementer`. Placeholders d'identité
-harmonisés sous `{{LEGAL_*}}`.
-
----
 
 ## Widerrufsbelehrung
 
