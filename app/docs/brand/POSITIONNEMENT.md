@@ -47,7 +47,7 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 
 ## 03 — Territoire
 
-**L'espace** : la salle d'entraînement de la langue de la médecine — l'endroit où les cinq compétences que le jury évalue se travaillent séparément, sur des cas réels, jusqu'à tenir ensemble sous pression.
+**L'espace** : la salle d'entraînement de la langue de la médecine — l'endroit où cinq compétences se travaillent **séparément**, sur des cas réels, jusqu'à tenir ensemble sous pression.
 
 **L'audience possédée** : le médecin étranger qui a une date d'examen et qui ne peut pas caler sa vie sur un cours de huit semaines à heures fixes.
 
@@ -60,7 +60,7 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 ## 04 — Énoncé de positionnement
 
 **Officiel**
-> Pour le médecin étranger qui prépare la Fachsprachprüfung, **Doctopus est la salle d'entraînement en ligne** qui entraîne les cinq compétences linguistiques que le jury évalue, sur un plan ajusté à sa date et à ses faiblesses, **parce qu'on s'y entraîne sur des cas déjà tombés ou susceptibles de tomber, mis à jour en continu**.
+> Pour le médecin étranger qui prépare la Fachsprachprüfung, **Doctopus est la salle d'entraînement en ligne** qui entraîne et note séparément cinq compétences linguistiques, sur un plan ajusté à sa date et à ses faiblesses, **parce qu'on s'y entraîne sur des cas déjà tombés ou susceptibles de tomber, mis à jour en continu**.
 
 **Version stratégique (interne)**
 > Doctopus déplace la préparation à la FSP de l'**enseignement** vers l'**entraînement diagnostique**. Là où l'école transmet pendant huit semaines et s'arrête, Doctopus entraîne les cinq compétences séparément, dit laquelle lâche, et tient un plan jusqu'au jour J — sur un corpus de cas réels qui s'enrichit à chaque session d'examen.
@@ -71,7 +71,7 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 ## 05 — Preuves du positionnement
 
 1. **Plus de 130 cas cliniques complets**, construits depuis des **protocoles réels** — des cas **déjà tombés ou susceptibles de tomber**, **mis à jour et enrichis en continu**.
-1 bis. **Une évaluation sur les cinq compétences** — Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — partie par partie, et non une note globale.
+1 bis. **Une notation sur cinq compétences** — Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — partie par partie, et non une note globale. C'est **notre** grille d'entraînement (`LANGUAGE_CRITERIA`) : on n'affirme jamais que c'est celle du jury, rien ne le source.
 2. **Les trois parties enchaînées** dans les conditions de l'examen — anamnèse, documentation, présentation — avec évaluation à la fin.
 3. **2 266 Fachbegriffe** en **registre double** (terme technique pour la présentation, formulation patient pour l'anamnèse), en répétition espacée qui s'adapte à ce que tu as croisé.
 4. **Un programme construit à rebours de ta date**, qui se réajuste quand tu avances ou quand tu décroches.
@@ -88,7 +88,7 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 
 ## 07 — En une phrase
 
-> **Doctopus est la salle d'entraînement de la langue de la médecine : le médecin étranger y entraîne les cinq compétences que le jury évalue, sur des cas réels, selon un plan ajusté à sa date.**
+> **Doctopus est la salle d'entraînement de la langue de la médecine : le médecin étranger y travaille cinq compétences séparément, sur des cas réels, selon un plan ajusté à sa date.**
 
 ## 08 — Signaux d'alerte relevés
 
