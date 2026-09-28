@@ -1,7 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
 import FreqTable from '@/components/FreqTable.astro';
-import Methodology from '@/components/Methodology.astro';
 import frequencies from '@/data/frequencies.json' with { type: 'json' };
 
 // Filtre par centre sans JavaScript : <details name="center"> natif,
@@ -9,14 +8,13 @@ import frequencies from '@/data/frequencies.json' with { type: 'json' };
 ---
 <Base
   title="Was wirklich drankommt | FSP Trainer"
-  description="Häufigkeiten aus echten Prüfungsprotokollen, je Zentrum in Baden-Württemberg — und wie diese Auswertung entstanden ist."
+  description="Welche Fälle in Baden-Württemberg am häufigsten gemeldet werden, je Zentrum: Freiburg, Karlsruhe, Reutlingen, Stuttgart."
   path="/de/was-drankommt/"
 >
   <section class="mx-auto max-w-6xl px-4 py-16">
     <h1 class="text-3xl md:text-4xl text-ink dark:text-paper">Was wirklich drankommt</h1>
     <p class="mt-3 max-w-2xl text-ink-700 dark:text-paper/90">
-      Ausgewertet aus {frequencies.n} Prüfungsprotokollen, {frequencies.centers.length} Zentren
-      in Baden-Württemberg, Stand {frequencies.period}. Nach Zentrum filtern:
+      Welche Fälle in Baden-Württemberg am häufigsten gemeldet werden. Nach Zentrum filtern:
     </p>
 
     <div class="mt-6 space-y-2">
@@ -41,6 +39,4 @@ import frequencies from '@/data/frequencies.json' with { type: 'json' };
       ))}
     </div>
   </section>
-
-  <Methodology />
 </Base>

@@ -3,46 +3,34 @@ import Base from '@/layouts/Base.astro';
 import FeatureSection from '@/components/FeatureSection.astro';
 import exam from '@/data/exam-bw.json' with { type: 'json' };
 
+// Seuls les modules livrés sont montrés (tâche 5, étape 4) : Arztbrief-Korrektur et
+// Online-Partner n'existent pas encore et sont annoncés sur /de/status/ uniquement.
 const modules = [
   {
     kicker: 'Fälle',
     title: '130 vollständige Fälle',
-    proof: 'Gebaut aus echten Prüfungsprotokollen von Kandidaten in Freiburg, Karlsruhe, Reutlingen und Stuttgart — je Fall mit Simulantenkarte, medizinischer Sicht, Prüferbogen und Musterformulierungen.',
-    status: 'live' as const,
+    proof: 'Real gestellte und realistisch mögliche Fälle, laufend aktualisiert — je Fall mit Simulantenkarte, medizinischer Sicht, Prüferbogen und Musterformulierungen.',
   },
   {
     kicker: 'Simulation',
     title: 'Zu zweit oder allein',
     proof: 'Mit Partner per QR-Code auf dem Smartphone, oder allein im Modus Autonom — jederzeit verfügbar.',
-    status: 'live' as const,
   },
   {
     kicker: 'Fachbegriffe',
     title: '2 249 Fachbegriffe',
     proof: 'Davon 1 204 Allgemein kostenlos zugänglich, zum gezielten Üben.',
-    status: 'live' as const,
   },
   {
     kicker: 'Fachwissen & Aufklärungen',
     title: '134 Fachwissen-Karten, 23 Aufklärungen',
     proof: 'Nachschlagen und wiederholen, passend zu den drei Prüfungsteilen.',
-    status: 'live' as const,
-  },
-  {
-    kicker: 'Korrektur',
-    title: 'Arztbrief-Korrektur',
-    status: 'bald' as const,
-  },
-  {
-    kicker: 'Simulation',
-    title: 'Online-Partner',
-    status: 'bald' as const,
   },
 ];
 ---
 <Base
   title="Produkt | FSP Trainer"
-  description="Drei Prüfungsteile, ein Trainer: Fälle, Simulation, Fachbegriffe, Fachwissen — aus echten Prüfungsprotokollen in Baden-Württemberg."
+  description="Drei Prüfungsteile, ein Trainer: Fälle, Simulation, Fachbegriffe, Fachwissen — für die Fachsprachprüfung in Baden-Württemberg."
   path="/de/produkt/"
 >
   <section class="mx-auto max-w-6xl px-4 py-16">
@@ -67,7 +55,7 @@ const modules = [
       <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Module</h2>
       <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {modules.map((m) => (
-          <FeatureSection title={m.title} kicker={m.kicker} proof={m.proof} status={m.status} />
+          <FeatureSection title={m.title} kicker={m.kicker} proof={m.proof} />
         ))}
       </div>
     </div>

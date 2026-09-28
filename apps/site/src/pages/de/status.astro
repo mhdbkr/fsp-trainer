@@ -1,6 +1,19 @@
 ---
 import Base from '@/layouts/Base.astro';
 import StatusBoard from '@/components/StatusBoard.astro';
+import pricing from '@/data/pricing.json' with { type: 'json' };
+
+// Tâche 5, étape 4 : les fonctions non livrées ne s'annoncent plus en vitrine
+// (accueil, produit, tarifs). Elles se disent ici, une seule fois, au présent et
+// sans date. La liste vient de pricing.json — pas d'une seconde source à tenir.
+const locked = [
+  ...new Map(
+    pricing.plans
+      .flatMap((p) => p.features)
+      .filter((f) => f.status === 'bald')
+      .map((f) => [f.id, pricing.labels[f.id] ?? f.id]),
+  ).values(),
+];
 ---
 
 <Base
@@ -18,5 +31,20 @@ import StatusBoard from '@/components/StatusBoard.astro';
     <div class="mt-8">
       <StatusBoard />
     </div>
+
+    {locked.length > 0 && (
+      <div class="mt-12">
+        <h2 class="text-xl text-ink dark:text-paper">Noch nicht freigeschaltet</h2>
+        <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">
+          Diese Funktionen gehören zu Pro und Premium, laufen aber noch nicht. Ohne Datum:
+          du erfährst es hier, sobald eine davon läuft.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm text-ink-700 dark:text-paper/90">
+          {locked.map((label) => (
+            <li>{label}</li>
+          ))}
+        </ul>
+      </div>
+    )}
   </section>
 </Base>
