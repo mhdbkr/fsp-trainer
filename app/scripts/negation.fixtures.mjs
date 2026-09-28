@@ -66,6 +66,12 @@ export const NEGATION_FIXTURES = [
   ['Am Wochenende trinkt sie ein bis zwei Gläser Weißwein; heute hat sie keinen Alkohol getrunken.', 'Alkohol', true],
   // case-endokarditis · arztbrief.allergien-noxen
   ['Ein Drogenkonsum, insbesondere intravenös, sei verneint worden.', 'Drogenkonsum', true],
+  // case-divertikulitis · arztbrief.frauenanamnese (« ausgeschlossen » postposé, cible directe)
+  ['Sie befinde sich in der Postmenopause; eine Schwangerschaft sei somit ausgeschlossen.', 'Schwangerschaft', true],
+  ['Sie befinde sich in der Postmenopause; eine Schwangerschaft sei somit ausgeschlossen.', 'Postmenopause', false],
+  // case-migraene · vorstellung.allgemeinzustand (« unauffällig » postposé, cible directe)
+  ['Der neurologische Status war vollständig unauffällig, ein Meningismus bestand nicht.', 'Status', true],
+  ['Der neurologische Status war vollständig unauffällig, ein Meningismus bestand nicht.', 'Meningismus', true],
   // SYNTHÉTIQUES — verbe de négation antéposé, adversative, composés
   ['Der Patient verneint Fieber und Nachtschweiß, klagt aber über Husten.', 'Nachtschweiß', true],
   ['Der Patient verneint Fieber und Nachtschweiß, klagt aber über Husten.', 'Husten', false],
