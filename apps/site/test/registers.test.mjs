@@ -123,3 +123,22 @@ test('le registre clair a deux paliers distincts, comme le registre sombre', () 
     `--surface et --surface-raised sont identiques (${surface}) : les deux paliers sont indiscernables`,
   );
 });
+
+/**
+ * Le test ci-dessus lit global.css ; la mesure navigateur « 0 box-shadow » avait été prise
+ * menu mobile FERMÉ, et le menu ouvert portait `shadow-lg`. Garde statique, indépendante de
+ * l'état d'ouverture : aucun utilitaire d'ombre Tailwind (`shadow`, `shadow-*`, `drop-shadow-*`,
+ * avec ou sans variante `dark:`/`md:`) dans les gabarits. Les commentaires sont retirés d'abord.
+ */
+test('aucun utilitaire d\'ombre dans les gabarits, menu mobile compris', async () => {
+  const { readdirSync } = await import('node:fs');
+  const src = new URL('../src/', import.meta.url);
+  const files = readdirSync(src, { recursive: true }).filter((f) => /\.(astro|mdx)$/.test(f));
+  assert.ok(files.length > 0, 'aucun gabarit trouvé');
+  const SHADOW = /(?:^|[\s"'`:])(?:drop-)?shadow(?:-[^\s"'`]+)?(?=[\s"'`]|$)/m;
+  const offenders = files.filter((f) => {
+    const body = readFileSync(new URL(f, src), 'utf8').replace(/\{\/\*[\s\S]*?\*\/\}|<!--[\s\S]*?-->/g, '');
+    return SHADOW.test(body);
+  });
+  assert.deepEqual(offenders, [], `ombre portée dans : ${offenders.join(', ')}`);
+});

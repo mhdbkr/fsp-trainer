@@ -31,7 +31,9 @@ const navItems: [string, string][] = [
           <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </summary>
-      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 border-b border-ink-600/15 bg-paper p-4 text-ink-700 shadow-lg dark:border-paper/15 dark:bg-ink-800 dark:text-paper" aria-label="Mobile Navigation">
+      {/* Menu ouvert : il se détache du contenu par un filet supérieur plus marqué (la
+          lumière vient d'en haut, comme .surface), jamais par une ombre portée. */}
+      <nav class="absolute inset-x-0 top-full flex flex-col gap-1 border-y border-ink-600/15 border-t-ink-600/25 bg-paper p-4 text-ink-700 dark:border-paper/15 dark:border-t-paper/25 dark:bg-ink-800 dark:text-paper" aria-label="Mobile Navigation">
         {navItems.map(([label, href]) => (
           <a href={href} class="rounded-control px-3 py-2 hover:bg-brand-50 dark:hover:bg-brand-900/30">{label}</a>
         ))}
