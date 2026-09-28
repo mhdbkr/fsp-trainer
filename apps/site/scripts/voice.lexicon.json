@@ -6,6 +6,7 @@
     "`Vorbereitungskurs`, `Lernziel`, `Punktestand`, `bring dich durch` (nommés dans VOIX.md §08) restent hors lexique : reste assumé de la passe précédente, pour ne pas ouvrir un second front de faux positifs dans la même correction.",
     "« L'excuse en boucle » (`Entschuldigung` / `tut uns leid` RÉPÉTÉS, VOIX.md §08) n'a pas de règle : elle demande un comptage d'occurrences, pas une correspondance de motif — mécanisme différent de celui de ce validateur, hors périmètre.",
     "Composés et formes fléchies listés NOMMÉMENT, jamais par joker de préfixe : `\\p{L}*kurs` attraperait « Diskurs » et recréerait les faux positifs que les bornes Unicode viennent de fermer. La contrepartie est que la couverture des composés est énumérative : elle s'étend au fil de la copie.",
+    "Correction de revue (I7) : `die themen` ne tenait que cette forme exacte — « Hier die fünf Themen » passait dès qu'on changeait le déterminant, et le singulier `Thema` (un en-tête de colonne) passait toujours. Le motif est élargi à `them(?:a|en)`, borné : la famille entière est tenue, « Thematik » et « Prüfungsthemen » restent hors portée (bornes Unicode + pas de joker de préfixe, décision ci-dessus). Un motif s'élargit, il ne se rétrécit pas.",
     "`sprachniveau` est listé explicitement : la correction des bornes de mot supprimerait sinon un constat réel de la porte actuelle (dist/de/datenschutz/), qu'elle tenait par accident via `\\bniveau\\b` en ASCII. Le mécanisme change, le constat reste."
   ],
   "vouvoiement": ["sie können", "sie haben", "ihre prüfung", "ihr termin"],
@@ -24,7 +25,7 @@
     "im ersten versuch", "prüfungsreif(?:e|er|es|en|em)?",
     "erfolgsgarantie(?:n)?", "bestehensgarantie(?:n)?"
   ],
-  "fuite": ["prüfungsfrage(?:n)?", "die themen", "dein fall ist dabei"],
+  "fuite": ["prüfungsfrage(?:n)?", "them(?:a|en)", "dein fall ist dabei"],
   "jeu": ["streak(?:s)?", "xp", "endgegner", "liga", "ligen", "level(?:s)?"],
   "urgence": ["nur heute", "nur noch heute", "letzte chance"],
   "comparaison": ["besser als"],

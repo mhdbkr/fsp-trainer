@@ -13,26 +13,20 @@ const top5 = [...frequencies.pathologies]
 <section id="produkt" class="mx-auto max-w-6xl px-4 py-16">
   <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Was wirklich drankommt, zentrumsweise</h2>
   <p class="mt-2 max-w-2xl text-ink-700 dark:text-paper/90">
-    Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert. Hier die fünf
-    Themen, die in Baden-Württemberg am häufigsten gemeldet werden.
+    Hier die fünf Pathologien, die in Baden-Württemberg am häufigsten gemeldet werden.
   </p>
 
-  <table class="mt-6 w-full max-w-xl border-collapse text-left">
-    <thead>
-      <tr class="border-b border-ink-600/20 text-sm text-ink-600 dark:border-paper/20 dark:text-paper/80">
-        <th class="py-2 pr-4 font-medium">Thema</th>
-        <th class="py-2 font-medium">Berichte</th>
-      </tr>
-    </thead>
-    <tbody>
-      {top5.map((p) => (
-        <tr class="border-b border-ink-600/10 dark:border-paper/10">
-          <td class="py-2 pr-4 text-ink-800 dark:text-paper">{p.name}</td>
-          <td class="py-2 font-mono text-ink-700 dark:text-paper/90">{p.total}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+  {/* Correction de revue (I7) : l'en-tête « Berichte » et l'effectif absolu livraient la
+      taille du corpus, ici comme sur /de/was-drankommt/. Cinq noms dans l'ordre portent
+      l'analyse ; l'effectif ne portait que la reconstitution. */}
+  <ol class="mt-6 max-w-xl space-y-2">
+    {top5.map((p, i) => (
+      <li class="flex gap-3 border-b border-ink-600/10 py-2 dark:border-paper/10">
+        <span class="font-mono text-sm text-brand-700 dark:text-brand-300">{i + 1}</span>
+        <span class="text-ink-800 dark:text-paper">{p.name}</span>
+      </li>
+    ))}
+  </ol>
 
   {/* Jamais `frequencies.disclaimer` : la donnée générée nomme le corpus
       (« … in Prüfungsprotokollen ») et révèle ainsi le sourcing (tâche 5, étape 3).
