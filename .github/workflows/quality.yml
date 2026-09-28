@@ -110,6 +110,11 @@ jobs:
           cache: npm
           cache-dependency-path: apps/site/package-lock.json
       - run: npm ci
+      # Invariants des jetons (teinte unique, filets de lumière, contraste) : le build du site
+      # les consomme, ils passent donc avant lui.
+      - name: Invariants des jetons de design
+        working-directory: packages/tokens
+        run: node --test test/tokens.test.mjs
       # Tous les validateurs du site lisent le HTML CONSTRUIT (foyer scripts/lib/dist.mjs) :
       # le build vient donc en premier, dans le même ordre que `npm run verify`.
       - run: npm run build
@@ -127,6 +132,11 @@ jobs:
         run: npm run check:legal
       - name: Gabarits non substitués (bloquant si SITE_PUBLIC=true)
         run: npm run check:placeholders
+      # `check:cta` lance Chromium via Playwright, et `npm ci` ne télécharge aucun navigateur :
+      # sans cette étape, le job ne passe qu'en local, grâce au cache ~/Library/Caches/ms-playwright.
+      # `--with-deps` installe aussi les bibliothèques système du runner Ubuntu.
+      - name: Chromium pour Playwright (check:cta)
+        run: npx playwright install --with-deps chromium
       - name: Appels à l'action
         run: npm run check:cta
       # `check:lighthouse` demande un serveur et un Chrome : il reste dans `npm run verify`
