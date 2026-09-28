@@ -130,7 +130,7 @@ Ce sont les mots de l'examen. Les traduire serait dire au médecin qu'on ne conn
 
 **3. La preuve de corpus**
 > ❌ *Riesige Datenbank mit hunderten von Prüfungsprotokollen aus ganz Deutschland!*
-> ✅ *Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert.*
+> ✅ *130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert.*
 *Pourquoi* : respecte la règle de langage (§08 bis du positionnement), remplace « riesig » par un fait, et ne laisse pas croire à un accès aux sujets.
 
 **4. Le message de relance**

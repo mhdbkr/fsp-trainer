@@ -26,7 +26,7 @@ Un pilote n'apprend pas à voler dans un livre : il passe des heures au simulate
 Répéter est le **moyen**. L'objet, c'est la **compétence en situation** — et le fait de savoir laquelle des cinq lâche.
 
 Ce glissement de catégorie est la décision de positionnement la plus forte disponible :
-- il est **vrai** du produit (évaluation sur les cinq axes de langue, programme à rebours à trois couches, trois modes de simulation, plus de 130 cas, correction d'Arztbrief par comparaison) ;
+- il est **vrai** du produit (évaluation sur les cinq axes de langue, programme à rebours à trois couches, trois modes de simulation, 130 cas, correction d'Arztbrief par comparaison) ;
 - il est **inaccessible** aux alternatives (un livre ne simule pas, une école n'a pas trente créneaux par candidat, un groupe Telegram n'entraîne personne) ;
 - il **retourne le prix** : on ne compare plus 500 € à un abonnement, on compare huit semaines de cours à un entraînement illimité jusqu'au jour J.
 
@@ -52,7 +52,7 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 **L'audience possédée** : le médecin étranger qui a une date d'examen et qui ne peut pas caler sa vie sur un cours de huit semaines à heures fixes.
 
 **La douve** : trois choses qu'il faut réunir pour copier, et qu'on ne réunit pas par hasard.
-1. **Le corpus vivant** — plus de 130 cas cliniques, **déjà tombés ou susceptibles de tomber**, mis à jour et enrichis en continu. Un livre paru en 2019 est mort ; ce corpus grandit à chaque session d'examen. Un concurrent ne rattrape pas un contenu qui avance.
+1. **Le corpus vivant** — 130 cas cliniques, **déjà tombés ou susceptibles de tomber**, mis à jour et enrichis en continu. Un livre paru en 2019 est mort ; ce corpus grandit à chaque session d'examen. Un concurrent ne rattrape pas un contenu qui avance.
 2. **Le logiciel** — la répétition espacée, le programme à rebours, la correction d'Arztbrief, l'évaluation. Une école n'écrit pas de logiciel ; un éditeur de logiciel n'a pas le corpus.
 3. **La consolidation** — tout au même endroit, et **relié** : le terme croisé dans un cas revient dans le drill, la fiche de savoir pend au cas qui l'exige. Chaque alternative ne couvre qu'un morceau ; les assembler est précisément le travail qu'on retire au candidat.
 4. **La stratégie** — le plan à rebours de la date, les trois couches espacées, les disciplines faibles qui remontent d'elles-mêmes. Une pile de contenu n'est pas une préparation ; c'est ce tri-là qu'un candidat seul n'arrive pas à faire.
@@ -70,7 +70,7 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 
 ## 05 — Preuves du positionnement
 
-1. **Plus de 130 cas cliniques complets**, construits depuis des **protocoles réels** — des cas **déjà tombés ou susceptibles de tomber**, **mis à jour et enrichis en continu**.
+1. **130 cas cliniques complets**, construits depuis des **protocoles réels** — des cas **déjà tombés ou susceptibles de tomber**, **mis à jour et enrichis en continu**.
 1 bis. **Une notation sur cinq compétences** — Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — partie par partie, et non une note globale. C'est **notre** grille d'entraînement (`LANGUAGE_CRITERIA`) : on n'affirme jamais que c'est celle du jury, rien ne le source.
 2. **Les trois parties enchaînées** dans les conditions de l'examen — anamnèse, documentation, présentation — avec évaluation à la fin.
 3. **2 266 Fachbegriffe** en **registre double** (terme technique pour la présentation, formulation patient pour l'anamnèse), en répétition espacée qui s'adapte à ce que tu as croisé.
@@ -104,9 +104,9 @@ Le quadrant « entraînement illimité, à toute heure, qui te dit quelle compé
 
 **Ne jamais mentionner le nombre de comptes rendus d'examens sources.** La formulation retenue, partout et dans toutes les langues :
 
-> **Plus de 130 cas cliniques — des cas déjà tombés ou susceptibles de tomber — mis à jour et enrichis en continu.**
+> **130 cas cliniques — des cas déjà tombés ou susceptibles de tomber — mis à jour et enrichis en continu.**
 
-Variante prudente si l'on préfère arrondir : « plus de 100 cas cliniques ». *Recommandation : garder « plus de 130 » — la précision se lit comme de la crédibilité, et le chiffre est vrai.*
+**Correction du 28/09** : la version précédente de ce document recommandait « plus de 130 » en affirmant que le chiffre était vrai. **Il ne l'était pas** : le corpus compte **exactement 130 cas** (`app/src/data/caseTermLinks.json` en indexe 130). « Plus de 130 » est donc faux, et c'est la direction qui avait raison en proposant un chiffre rond sous-évalué. Formulation retenue : **130**, exact. Elle deviendra « plus de 130 » le jour où le corpus dépassera 130 cas — pas avant. Garde-fou : un chiffre de corpus publié se vérifie contre les données avant d'être écrit.
 
 Interdits qui découlent de cette règle : tout chiffre de corpus source · toute formulation laissant entendre un accès privilégié aux sujets · toute promesse que « ton cas sera dedans ».
 

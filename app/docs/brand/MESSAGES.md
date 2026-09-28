@@ -18,9 +18,9 @@ Positionnement source : `POSITIONNEMENT.md` · Alimente la vitrine, les annonces
 | Faux témoignages, faux chiffres d'usage | §08 |
 | Laisser entendre un accès officiel aux sujets | §08 |
 
-Formulation unique du corpus, partout : **« Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert. »**
+Formulation unique du corpus, partout : **« 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert. »**
 
-**Ce que « unique » veut dire** (tranché le 28/09, après le premier passage du validateur de voix) : c'est un **contrat de sens**, pas une chaîne littérale. Elle dit trois choses et trois seulement — plus de 130, cas réels **ou** réalistes, enrichi en continu — et elle ne dit jamais d'où ils viennent, combien de sources, ni sur quelle période. Elle **se décline** quand elle est enchâssée (« Aus 130 Fällen, real gestellt**en** und realistisch möglich**en** ») : une phrase canonique fausse grammaticalement est pire qu'une phrase adaptée. Et elle ne se répète pas mot pour mot deux fois sur la même page — zéro doublon passe avant l'uniformité.
+**Ce que « unique » veut dire** (tranché le 28/09, après le premier passage du validateur de voix) : c'est un **contrat de sens**, pas une chaîne littérale. Elle dit trois choses et trois seulement — 130 cas (exact, pas « plus de »), réels **ou** réalistes, enrichi en continu — et elle ne dit jamais d'où ils viennent, combien de sources, ni sur quelle période. Elle **se décline** quand elle est enchâssée (« Aus 130 Fällen, real gestellt**en** und realistisch möglich**en** ») : une phrase canonique fausse grammaticalement est pire qu'une phrase adaptée. Et elle ne se répète pas mot pour mot deux fois sur la même page — zéro doublon passe avant l'uniformité.
 
 ## 01 — Message central
 
@@ -34,7 +34,7 @@ Ce n'est pas « faire répéter ». Répéter est le *moyen*. L'objet, c'est la 
 
 ## 02 — Proposition de valeur
 
-> Doctopus est la salle d'entraînement de l'allemand médical. Le médecin y enchaîne les trois parties de la FSP sur plus de 130 cas construits depuis des protocoles réels, et repart avec une évaluation par compétence : où la prononciation a bloqué, quel mot a manqué, quelle structure a lâché, si le patient a compris.
+> Doctopus est la salle d'entraînement de l'allemand médical. Le médecin y enchaîne les trois parties de la FSP sur 130 cas construits depuis des protocoles réels, et repart avec une évaluation par compétence : où la prononciation a bloqué, quel mot a manqué, quelle structure a lâché, si le patient a compris.
 > Un programme se construit à rebours de sa date, revient sur les disciplines où il est faible, et espace les reprises pour que ça tienne. Tout est au même endroit : les cas, les formulations types, les Fachbegriffe, les fiches de savoir, les Aufklärungen — plus rien à assembler soi-même.
 
 ## 03 — Accroches candidates
@@ -57,7 +57,7 @@ Les quatre ne se concurrencent pas : une accroche, un descripteur, un manifeste,
 > **Dein Trainingsraum für die Sprache der Medizin.**
 
 ### Niveau 2 — Sous-titre
-> Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — trainiert an über 130 Fällen aus echten Prüfungsprotokollen. Mit einem Programm, das sich an deine Schwächen und deinen Prüfungstermin anpasst.
+> Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — trainiert an 130 Fällen aus echten Prüfungsprotokollen. Mit einem Programm, das sich an deine Schwächen und deinen Prüfungstermin anpasst.
 
 ### Niveau 3 — Les six piliers
 
@@ -74,7 +74,7 @@ Le livre, le groupe, le carnet de vocabulaire, les protocoles, le prof — cinq 
 *Preuve* : cas, Musterformulierungen, 2 266 Fachbegriffe, fiches Fachwissen, Aufklärungen et guides de communication sont reliés entre eux, pas empilés.
 
 **D — « Fälle vom Terrain, nicht aus dem Lehrbuch. »** *(Des cas venus du terrain)*
-Plus de 130 cas complets construits depuis des protocoles réels — déjà tombés ou susceptibles de tomber — enrichis en continu. Les formulations types suivent l'usage attendu, y compris quand il varie d'une ville à l'autre.
+130 cas complets construits depuis des protocoles réels — déjà tombés ou susceptibles de tomber — enrichis en continu. Les formulations types suivent l'usage attendu, y compris quand il varie d'une ville à l'autre.
 *Preuve* : chaque cas porte son protocole, ses Musterformulierungen, sa fiche patient et la fiche que l'examinateur a sous les yeux.
 
 **E — « Die Korrektur nennt das Kriterium. »** *(La correction nomme le critère)*
@@ -87,7 +87,7 @@ La difficulté monte : d'abord guidé, puis seul. Couche 1, 2, 3. Les jours de s
 
 ### Niveau 4 — Banque de preuves
 
-1. Plus de 130 cas cliniques complets, construits depuis des protocoles réels, déjà tombés ou susceptibles de tomber, enrichis en continu.
+1. 130 cas cliniques complets, construits depuis des protocoles réels, déjà tombés ou susceptibles de tomber, enrichis en continu.
 2. Évaluation sur les cinq compétences linguistiques, partie par partie.
 3. Les trois parties enchaînées — Anamnese, Dokumentation, Fallvorstellung — dans les conditions de l'examen.
 4. Un programme construit à rebours de la date, à trois couches espacées, qui priorise les disciplines faibles et se recalcule en continu.
