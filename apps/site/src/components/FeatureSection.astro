@@ -1,22 +1,18 @@
 ---
+// Plus de statut : la vitrine ne montre que ce qui existe (tâche 5, étape 4).
+// Le badge « bald » et sa branche sont partis avec les modules non livrés.
 interface Props {
   title: string;
   kicker: string;
   proof?: string;
-  status: 'live' | 'bald';
   image?: { src: string; alt: string; width: number; height: number };
 }
 
-const { title, kicker, proof, status, image } = Astro.props;
+const { title, kicker, proof, image } = Astro.props;
 ---
 
 <div class="card flex flex-col">
-  <div class="flex items-start justify-between gap-2">
-    <p class="eyebrow">{kicker}</p>
-    {status === 'bald' && (
-      <span class="badge">bald</span>
-    )}
-  </div>
+  <p class="eyebrow">{kicker}</p>
   <h3 class="mt-1 text-lg text-ink dark:text-paper">{title}</h3>
   {proof && <p class="mt-2 text-sm text-ink-700 dark:text-paper/90">{proof}</p>}
   {image && (

@@ -29,8 +29,8 @@ const isInternalScale = exam.pointsSource === 'intern';
     <h3 class="text-lg text-ink dark:text-paper">So bewerten wir im Trainer</h3>
     {isInternalScale ? (
       <p class="mt-2 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
-        Jede vollständige Simulation wird nach einer <strong>internen Übungsskala</strong> bewertet
-        ({exam.totalPoints} Punkte, mindestens {exam.minPercentPerPart}% je Teil), aber
+        Jede vollständige Simulation wird Teil für Teil nach einer
+        <strong>internen Übungsskala</strong> bewertet —
         <strong>kein offizielles Prüfungsergebnis</strong>.
       </p>
     ) : (
@@ -41,6 +41,6 @@ const isInternalScale = exam.pointsSource === 'intern';
   </div>
 
   <p class="mt-6 max-w-2xl text-sm text-ink-700 dark:text-paper/90">
-    Zentren nach Erfahrungsberichten (Baden-Württemberg): {exam.centers.join(', ')}.
+    Zentren in {exam.land}: {exam.centers.join(', ')}.
   </p>
 </section>

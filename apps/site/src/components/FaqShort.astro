@@ -1,17 +1,16 @@
 ---
 import { readSite } from '@/lib/site.ts';
-import frequencies from '@/data/frequencies.json' with { type: 'json' };
 
 const site = readSite();
 
 const faq = [
   {
     q: 'Werde ich bestehen?',
-    a: `Das kann niemand garantieren. ${site.productName} misst und trainiert.`,
+    a: `Das weiß vorher niemand. ${site.productName} misst deinen Stand nach einer internen Übungsskala und trainiert die drei Prüfungsteile.`,
   },
   {
     q: 'Wie aktuell sind die Fälle?',
-    a: `Die Fälle basieren auf rund ${frequencies.n} Prüfungsprotokollen aus ${frequencies.centers.length} Zentren in Baden-Württemberg, Stand ${frequencies.period}.`,
+    a: 'Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert.',
   },
   {
     q: 'Brauche ich einen Partner für die Simulation?',

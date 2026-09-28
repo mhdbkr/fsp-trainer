@@ -10,15 +10,17 @@ const site = readSite();
 const label = (f: { id: string; label?: string }) => pricing.labels[f.id] ?? f.label ?? f.id;
 const planById = Object.fromEntries(pricing.plans.map((p) => [p.id, p]));
 
+// Une vitrine ne liste pas ce qui n'existe pas (tâche 5, étape 4) : seules les
+// features `live` sont rendues. Les features encore verrouillées restent dans
+// pricing.json — la parité avec docs/contracts/entitlements.md en dépend — et
+// sont annoncées à un seul endroit, /de/status/.
 const columns = pricing.plans.map((plan) => {
   const live = plan.features.filter((f) => f.status === 'live');
-  const bald = plan.features.filter((f) => f.status === 'bald');
   const included = plan.includesPlan ? planById[plan.includesPlan] : null;
   return {
     ...plan,
     displayPrice: plan.price === '0' ? 'Kostenlos' : plan.price,
     live,
-    bald,
     included,
     cta: pricingCtaFor(site, plan.id, pricing.freeCases),
   };
@@ -62,20 +64,6 @@ const columns = pricing.plans.map((plan) => {
             <li>{label(f)}</li>
           ))}
         </ul>
-
-        {col.bald.length > 0 && (
-          <div class="mt-4">
-            <h4 class="eyebrow">Bald verfügbar</h4>
-            <ul class="mt-2 space-y-2 text-sm text-ink-700 dark:text-paper/90">
-              {col.bald.map((f) => (
-                <li>
-                  {label(f)}
-                  <span class="badge ml-1">bald</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         <a
           data-cta="pricing"

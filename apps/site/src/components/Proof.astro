@@ -13,9 +13,8 @@ const top5 = [...frequencies.pathologies]
 <section id="produkt" class="mx-auto max-w-6xl px-4 py-16">
   <h2 class="text-2xl md:text-3xl text-ink dark:text-paper">Was wirklich drankommt, zentrumsweise</h2>
   <p class="mt-2 max-w-2xl text-ink-700 dark:text-paper/90">
-    Unsere Fälle stammen aus rund {frequencies.n} Prüfungsprotokollen von Kandidaten
-    in {frequencies.centers.length} Zentren in Baden-Württemberg. Hier die fünf am
-    häufigsten protokollierten Themen.
+    Über 130 vollständige Fälle — real gestellte und realistisch mögliche — laufend aktualisiert. Hier die fünf
+    Themen, die in Baden-Württemberg am häufigsten gemeldet werden.
   </p>
 
   <table class="mt-6 w-full max-w-xl border-collapse text-left">
@@ -35,7 +34,12 @@ const top5 = [...frequencies.pathologies]
     </tbody>
   </table>
 
-  <p class="mt-4 max-w-xl text-sm text-ink-600 dark:text-paper/80">{frequencies.disclaimer}</p>
+  {/* Jamais `frequencies.disclaimer` : la donnée générée nomme le corpus
+      (« … in Prüfungsprotokollen ») et révèle ainsi le sourcing (tâche 5, étape 3).
+      Libellé DE en dur, même parti pris que pour `frequencies.source`. */}
+  <p class="mt-4 max-w-xl text-sm text-ink-600 dark:text-paper/80">
+    Beobachtete Häufigkeiten, keine Vorhersage.
+  </p>
 
   <a href="/de/was-drankommt/" class="link mt-4 inline-block">
     Alle Häufigkeiten ansehen
