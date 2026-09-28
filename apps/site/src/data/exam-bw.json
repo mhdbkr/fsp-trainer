@@ -12,5 +12,5 @@
     { "id": "doku", "label": "Dokumentation", "minutes": 20 },
     { "id": "vorstellung", "label": "Arzt-Arzt-Gespräch", "minutes": 20 }
   ],
-  "onlyLandNote": "Diese Angaben gelten für Baden-Württemberg. Andere Kammern folgen."
+  "onlyLandNote": "Diese Angaben gelten für Baden-Württemberg."
 }
