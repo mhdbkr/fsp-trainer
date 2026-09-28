@@ -96,6 +96,42 @@ jobs:
       - run: npx vitest run --dir src
       - run: npm run build
 
+  site:
+    name: Site — contrats de contenu, voix, contraste
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/site/package-lock.json
+      - run: npm ci
+      # Tous les validateurs du site lisent le HTML CONSTRUIT (foyer scripts/lib/dist.mjs) :
+      # le build vient donc en premier, dans le même ordre que `npm run verify`.
+      - run: npm run build
+      - name: Tests du site (dont le contraste AA de la pile de profondeur)
+        run: npm test
+      - name: Fréquences par centre (données dérivées à jour)
+        run: npm run check:frequencies
+      - name: Parité des prix site ↔ app
+        run: npm run check:pricing
+      - name: Lexique — aucune promesse de résultat
+        run: npm run check:lexicon
+      - name: Voix de marque
+        run: npm run check:voice
+      - name: Mentions légales obligatoires
+        run: npm run check:legal
+      - name: Gabarits non substitués (bloquant si SITE_PUBLIC=true)
+        run: npm run check:placeholders
+      - name: Appels à l'action
+        run: npm run check:cta
+      # `check:lighthouse` demande un serveur et un Chrome : il reste dans `npm run verify`
+      # en local, et rejoindra ce job avec les budgets de performance du Plan B.
+
   rls:
     name: RLS & intégration Supabase
     runs-on: ubuntu-latest
