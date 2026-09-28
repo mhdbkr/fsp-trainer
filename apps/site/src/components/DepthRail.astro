@@ -47,6 +47,11 @@
     @keyframes rail-fill { to { stroke-dashoffset: 0; } }
   }
 
+  /* Ordre de cascade : ce bloc doit rester APRÈS le @supports ci-dessus. Même
+     sélecteur (.depth-rail path), même spécificité — c'est l'ordre de source, pas
+     la spécificité, qui fait gagner reduced-motion. Inverser les deux blocs
+     réactiverait silencieusement l'animation sous ce réglage d'accessibilité,
+     sans qu'aucun test ne puisse le voir. */
   @media (prefers-reduced-motion: reduce) {
     .depth-rail path { animation: none; stroke-dashoffset: 0; }
   }
