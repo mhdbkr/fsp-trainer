@@ -3,93 +3,33 @@ import { readSite } from '@/lib/site.ts';
 import CtaButton from '@/components/CtaButton.astro';
 
 const site = readSite();
-const subtitle1 = 'Die Generalprobe für deine Fachsprachprüfung.';
-const subtitle2 = `${site.productName}: 130 Fälle, gebaut aus dem, was wirklich drankommt. Der Bogen aus Baden-Württemberg, bewertet nach einer internen Übungsskala — jederzeit.`;
 ---
 
-<section data-hero class="relative overflow-hidden">
-  <div class="hero-drift hero-drift--a" aria-hidden="true"></div>
-  <div class="hero-drift hero-drift--b" aria-hidden="true"></div>
+{/* Premier écran = moment de marque : registre sombre (PHILOSOPHIE.md §04), aucune
+    évocation animale, aucune explication de la métaphore. `.register-deep` fournit
+    --surface / --on-surface / --on-surface-muted : le texte n'a pas à se colorer
+    lui-même, il hérite du registre (et suit donc toute retouche de la pile pétrole).
 
-  <div class="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 py-16 md:flex-row md:items-center md:py-24">
-    <div class="hero-glass glass flex-1 rounded-control p-6 md:p-10" transition:name="hero">
-      <h1 class="text-3xl md:text-5xl text-ink dark:text-paper">{site.tagline}</h1>
-      <p class="mt-3 text-lg md:text-xl text-ink-800 dark:text-paper/90">{subtitle1}</p>
-      <p class="mt-2 text-sm md:text-base text-ink-700 dark:text-paper/80">{subtitle2}</p>
-      <div class="mt-6">
-        <CtaButton />
-      </div>
-    </div>
+    La formulation du corpus (« über 130 … real gestellte und realistisch mögliche »)
+    n'est PAS ici : l'accueil la porte déjà deux fois plus bas (pilier 1 de
+    `de/index.astro`, étape 1 de `Steps.astro`). Zéro doublon passe avant l'uniformité
+    (MESSAGES.md §00). Le hero porte ce que lui seul peut porter : les cinq compétences. */}
+<section class="register-deep">
+  <div class="mx-auto max-w-5xl px-4 py-24 md:py-32">
+    <h1 class="text-4xl leading-[1.05] tracking-[-0.03em] md:text-6xl">{site.tagline}.</h1>
 
-    <div class="flex-1">
-      <picture>
-        <source srcset="/hero-static.avif" type="image/avif" />
-        <img
-          src="/hero-static.webp"
-          alt=""
-          width="720"
-          height="540"
-          fetchpriority="high"
-          class="w-full h-auto rounded-control"
-        />
-      </picture>
+    <p class="mt-6 max-w-2xl text-lg" style="color: var(--on-surface-muted)">
+      Aussprache, Wortschatz, Grammatik, Redefluss, Kommunikation — fünf Kompetenzen,
+      die die Prüfer einzeln bewerten. Du trainierst sie einzeln, und nach jedem
+      Durchgang steht da, welche nachgegeben hat.
+    </p>
+    <p class="mt-3 max-w-2xl" style="color: var(--on-surface-muted)">
+      Dein Plan rechnet von deinem Termin zurück und setzt genau dort an.
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-6">
+      <CtaButton />
+      <a href="/de/produkt/" class="underline underline-offset-4 hover:no-underline">So funktioniert es</a>
     </div>
   </div>
 </section>
-
-<script>
-  const card = document.querySelector<HTMLElement>('[data-hero] .hero-glass');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  if (card && !reduce.matches && matchMedia('(pointer: fine)').matches) {
-    const onMove = (e: PointerEvent) => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.setProperty('--ry', `${(x * 6).toFixed(2)}deg`); card.style.setProperty('--rx', `${(-y * 6).toFixed(2)}deg`);
-    };
-    card.addEventListener('pointermove', onMove);
-    card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
-    reduce.addEventListener('change', () => { if (reduce.matches) card.removeEventListener('pointermove', onMove); });
-  }
-</script>
-
-<style>
-  [data-hero] {
-    isolation: isolate;
-  }
-  .hero-drift {
-    position: absolute;
-    inset: -20%;
-    z-index: -1;
-    border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.55;
-  }
-  .hero-drift--a {
-    background: conic-gradient(from 0deg, var(--dt-color-brand-600), var(--dt-color-brand-300), var(--dt-color-brand-600));
-  }
-  .hero-drift--b {
-    background: conic-gradient(from 180deg, var(--dt-color-signal-400), var(--dt-color-brand-500), var(--dt-color-signal-400));
-    opacity: 0.28;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-drift {
-      animation: drift 18s linear infinite;
-      will-change: transform;
-    }
-    .hero-drift--b { animation-direction: reverse; }
-  }
-  @keyframes drift {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .hero-glass {
-    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-    transition: transform var(--dt-motion-duration) var(--dt-motion-ease-out);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    [data-hero] * {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
-</style>
