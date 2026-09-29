@@ -5,12 +5,16 @@ import { rebuildProjections } from '@/lib/sync/projections';
 import {
   personalTermId, cleanSelection, sanitizePersonalTerm, projectPersonalTerms,
   createPersonalTerm, deletePersonalTerm, isPersonalId, PT_LIMITS, starSelection,
-  updatePersonalExplanation,
+  updatePersonalExplanation, planPersonalDeletion,
 } from './personalTerms';
 
 vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
-  return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } };
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input }) as never;
+  return { syncQueue: {
+    push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
+    pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),
+  } };
 });
 
 const at = (s: number) => new Date(Date.UTC(2026, 8, 25, 10, 0, s)).toISOString();
@@ -118,6 +122,16 @@ describe('create / delete / rebuild', () => {
     expect((await db.personal_terms.get(id))!.explanation).toBe('Atemnot');
     await expect(updatePersonalExplanation(id, '   ')).rejects.toThrow('explanation_empty');
     expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_updated')).toHaveLength(1);
+  });
+  it('planPersonalDeletion : n\'émet rien ; liste favori, decks, puis le terme', async () => {
+    const { id } = await createPersonalTerm({ term: 'Wort' });
+    const { createDeck, addToDeck, toggleFavorite } = await import('./index');
+    const deckId = await createDeck('Kardio', 'manual');
+    await addToDeck(deckId, id); await toggleFavorite(id);
+    const before = await db.progress_events.count();
+    const plan = await planPersonalDeletion(id);
+    expect(await db.progress_events.count()).toBe(before);
+    expect(plan.map((e) => e.type)).toEqual(['term.unfavorited', 'deck.term_removed', 'term.personal_deleted']);
   });
   it('rebuildProjections : srs.reviewed pt-… écrit dans personal_terms, jamais dans fachbegriffe', async () => {
     const { id } = await createPersonalTerm({ term: 'Wort' });

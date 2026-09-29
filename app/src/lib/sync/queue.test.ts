@@ -15,6 +15,16 @@ describe('syncQueue', () => {
     expect(await db.progress_events.count()).toBe(1);
     expect(await db.outbox.count()).toBe(1);
   });
+  it('pushMany écrit tous les événements et leurs lignes d\'outbox en une fois (F4a D10)', async () => {
+    const evs = await syncQueue.pushMany([
+      { type: 'term.unfavorited', subject_id: 'pt-1', payload: {} },
+      { type: 'term.personal_deleted', subject_id: 'pt-1', payload: {} },
+    ]);
+    expect(evs).toHaveLength(2);
+    expect(await db.progress_events.count()).toBe(2);
+    expect(await db.outbox.count()).toBe(2);
+  });
+
   it('flush envoie par lot et vide l\'outbox sur ack', async () => {
     await syncQueue.push({ type: 'plan.done', subject_id: 'p1', payload: {} });
     const ev = await db.progress_events.toCollection().first();

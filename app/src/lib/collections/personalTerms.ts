@@ -5,12 +5,12 @@
 // ============================================================================
 import { db } from '@/db/db';
 import type { Fachbegriff, PersonalTerm, Srs } from '@/db/types';
-import type { ProgressEvent } from '@/lib/sync/events';
+import type { NewEvent, ProgressEvent } from '@/lib/sync/events';
 import { syncQueue } from '@/lib/sync/queue';
 import { freshSrs } from '@/lib/srs';
 import { lookupTerm } from '@/lib/dictionary';
 import { sortEvents } from './project';
-import { reprojectCollections, removeFromDeck, toggleFavorite } from './index';
+import { reprojectCollections, toggleFavorite } from './index';
 
 export const PERSONAL_PREFIX = 'pt-';
 export const isPersonalId = (id: string): boolean => id.startsWith(PERSONAL_PREFIX);
@@ -114,12 +114,23 @@ export async function updatePersonalExplanation(id: string, explanation: string)
   await reprojectPersonalTerms();
 }
 
-export async function deletePersonalTerm(id: string): Promise<void> {
+/** Événements d'une suppression (F4a D10), calculés AU CLIC : retrait du favori,
+ *  de chaque deck manuel, puis le terme. Émis plus tard, d'un bloc. */
+export async function planPersonalDeletion(id: string): Promise<NewEvent[]> {
   if (!isPersonalId(id)) throw new Error('not_personal');
-  if (await db.favorites.get(id)) await syncQueue.push({ type: 'term.unfavorited', subject_id: id, payload: {} });
-  const decks = await db.deck_terms.where('termId').equals(id).toArray();
-  for (const { deckId } of decks) await removeFromDeck(deckId, id);
-  await syncQueue.push({ type: 'term.personal_deleted', subject_id: id, payload: {} });
+  const out: NewEvent[] = [];
+  if (await db.favorites.get(id)) out.push({ type: 'term.unfavorited', subject_id: id, payload: {} });
+  for (const { deckId } of await db.deck_terms.where('termId').equals(id).toArray()) out.push({ type: 'deck.term_removed', subject_id: deckId, payload: { termId: id } });
+  out.push({ type: 'term.personal_deleted', subject_id: id, payload: {} });
+  return out;
+}
+/** Émet une suppression planifiée en UNE transaction (tout ou rien), puis reprojette. */
+export async function commitPersonalDeletion(events: NewEvent[]): Promise<void> {
+  await syncQueue.pushMany(events);
   await reprojectPersonalTerms();
   await reprojectCollections();
+}
+/** Suppression immédiate (sans délai) : plan + émission. */
+export async function deletePersonalTerm(id: string): Promise<void> {
+  await commitPersonalDeletion(await planPersonalDeletion(id));
 }

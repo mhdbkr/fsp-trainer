@@ -31,15 +31,20 @@ let moreToDrain = false;   // une page pleine vient d'être acquittée : il en r
 export const syncQueue = {
   /** Écrit localement (l'UI se met à jour) et enfile. Ne bloque jamais sur le réseau. */
   async push(input: NewEvent): Promise<ProgressEvent> {
-    const ev: ProgressEvent = { id: newId(), user_id: uid(), occurred_at: input.occurred_at ?? new Date().toISOString(), type: input.type, subject_id: input.subject_id, payload: input.payload };
+    return (await syncQueue.pushMany([input]))[0];
+  },
+
+  /** Plusieurs événements en UNE transaction : tous écrits, ou aucun (F4a D10). */
+  async pushMany(inputs: NewEvent[]): Promise<ProgressEvent[]> {
+    const evs: ProgressEvent[] = inputs.map((input) => ({ id: newId(), user_id: uid(), occurred_at: input.occurred_at ?? new Date().toISOString(), type: input.type, subject_id: input.subject_id, payload: input.payload }));
     await db.transaction('rw', [db.progress_events, db.outbox], async () => {
-      await db.progress_events.put(ev);
-      await db.outbox.put({ id: ev.id, attempts: 0 });
+      await db.progress_events.bulkPut(evs);
+      await db.outbox.bulkPut(evs.map((e) => ({ id: e.id, attempts: 0 })));
     });
     await refreshPending();
     nextAllowed = 0;                                         // un nouvel événement mérite une tentative immédiate
     void syncQueue.flush();
-    return ev;
+    return evs;
   },
 
   /** POST par lots ; ack → retire ; 4xx/rejected → marque et retire ; 5xx/réseau → garde avec backoff. */
