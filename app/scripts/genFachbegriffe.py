@@ -2,6 +2,9 @@
 # Génère app/src/data/fachbegriffe.json à partir de Fachbegriffe_FSP.csv (2249),
 # enrichi par anki_FSP.txt (défs allemandes) et FUSIONNÉ avec les tags curatés
 # des entrées démo existantes (non-régressif). ids stables dérivés du terme.
+# HISTORIQUE — ne plus relancer : import initial (juillet 2026). Depuis, le JSON
+# est la source (sens corrigés, registres F3, audit du 28 sept.) ; le régénérer
+# effacerait ces corrections et réintroduirait les entrées retirées.
 import csv, re, json, os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))

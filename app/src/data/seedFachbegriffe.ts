@@ -3,12 +3,13 @@ import { freshSrs } from '@/lib/srs';
 import RAW from './fachbegriffe.json';
 
 // ============================================================================
-// Glossaire Fachbegriffe — import COMPLET (2 266 termes) depuis
+// Glossaire Fachbegriffe — import COMPLET (2 266 termes, 2 191 après l'audit du 28 sept. 2026) depuis
 // `Fachbegriffe_FSP.csv` (2 249, colonnes Terme/Traduction/Spécialité/Centres/
 // Prononciation), enrichi par les définitions allemandes d'`anki_FSP.txt` et
 // fusionné avec les tags curatés des anciennes entrées de démonstration.
 //
-// Régénéré par `app/scratchpad/fachbegriffe/gen.py` → `fachbegriffe.json`.
+// Import initial par `scripts/genFachbegriffe.py` ; depuis, `fachbegriffe.json`
+// est la source, éditée à la main et gardée par checkTermRegister/checkTermLabels.
 // - `id` STABLE dérivé du terme (fb-<slug>) → le SRS survit aux reseeds.
 // - `translationSimple` = reformulation patient (bidirectionnel technique↔patient).
 // - `pathologyTags` alimente le câblage cas/fachwissen↔terme (seed wireLinks).

@@ -5,7 +5,7 @@
 //  - aucun terme en double dans le glossaire (casse ignorée).
 //  - --require-all : tout terme de caseTermLinks.json a `r` (activé au dernier lot).
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const LIM = { pa: 60, vo: 160, an: 140 };
@@ -27,7 +27,7 @@ export function checkEntry(e) {
   return errs;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const here = dirname(fileURLToPath(import.meta.url));
   const fb = JSON.parse(readFileSync(join(here, '../src/data/fachbegriffe.json'), 'utf8'));
   const linked = new Set(Object.values(JSON.parse(readFileSync(join(here, '../src/data/caseTermLinks.json'), 'utf8'))).flat());
