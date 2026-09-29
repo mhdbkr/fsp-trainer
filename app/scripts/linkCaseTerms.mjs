@@ -238,7 +238,7 @@ export function diagnosisTexts(c) {
  *  (ce que seuls les Muster disent), puis CONTEXTUEL seul. Dans un rang :
  *  le plus cité dans le cas (`counts` : id → occurrences), puis DF asc, puis id.
  *  `df` : Map id → fréquence documentaire sur tout le corpus. L'ensemble = core ∪ contextual. */
-export function orderCaseTerms({ core, contextual, diagnosis, primary = [], patient = [], own = [], counts = {} }, df) {
+export function orderCaseTerms({ core, contextual, diagnosis, named = [], primary = [], patient = [], own = [], counts = {} }, df) {
   const cmp = (a, b) => ((counts[b] ?? 0) - (counts[a] ?? 0)) || ((df.get(a) ?? 0) - (df.get(b) ?? 0)) || (a < b ? -1 : a > b ? 1 : 0);
   const all = new Set([...core, ...contextual]);
   const diag = new Set(diagnosis.filter((id) => all.has(id)));
@@ -249,7 +249,8 @@ export function orderCaseTerms({ core, contextual, diagnosis, primary = [], pati
   const coreOnly = core.filter((id) => !ranked(id) && !mv.has(id));
   const coreSet = new Set(core);
   const ctxOnly = contextual.filter((id) => !ranked(id) && !mv.has(id) && !coreSet.has(id));
-  return [...[...diag].sort(cmp), ...[...key].sort(cmp), ...[...said].sort(cmp), ...[...mv].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
+  const byName = (a, b) => Number(named.includes(b)) - Number(named.includes(a));   // le terme qui nomme la pathologie en tête (Hypertonie avant Schlafapnoe)
+  return [...[...diag].sort((a, b) => byName(a, b) || cmp(a, b)), ...[...key].sort(cmp), ...[...said].sort(cmp), ...[...mv].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
 }
 
 /** Ids du diagnostic (génériques retirés) : `diagnosisTexts` à l'index `index` ∪ nom et pathologie
@@ -277,6 +278,7 @@ export function caseParts(c, { muster, fw, index, diagIndex = index, generic }) 
     patient: patientIds,
     own: keep(linkTerms(ownTexts(c), index, { negation: true })),
     diagnosis,
+    named: keep(linkTerms([c.pathology], diagIndex)).filter((id) => diagnosis.includes(id)),
     counts,
   };
 }
@@ -294,7 +296,7 @@ export function linkCorpus(parts, share = SPECIFICITY_SHARE) {
   const df = new Map();
   for (const ids of Object.values(kept)) for (const id of ids) df.set(id, (df.get(id) ?? 0) + 1);
   const out = {};
-  for (const [caseId, ids] of Object.entries(kept)) { const p = parts[caseId]; out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: p.diagnosis, primary: p.primary, patient: p.patient, own: p.own, counts: p.counts }, df); }
+  for (const [caseId, ids] of Object.entries(kept)) { const p = parts[caseId]; out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: p.diagnosis, named: p.named, primary: p.primary, patient: p.patient, own: p.own, counts: p.counts }, df); }
   return out;
 }
 

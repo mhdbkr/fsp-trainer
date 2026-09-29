@@ -244,3 +244,10 @@ test('caseTexts : une parenthèse du bilan qui nomme un diagnostic différentiel
   assert.ok(!core.join('').includes('Hyperthyreose') && contextual.join('').includes('(Hyperthyreose)'));
   assert.ok(core.join('').includes('(Hb 12 g/dl)'));
 });
+
+test('le terme qui nomme la pathologie passe en tête du diagnostic, même plus fréquent (revue direction)', () => {
+  const df = new Map([['fb-hypertonie', 50], ['fb-schlafapnoe', 3]]);
+  const parts = { core: ['fb-hypertonie', 'fb-schlafapnoe'], contextual: [], diagnosis: ['fb-hypertonie', 'fb-schlafapnoe'] };
+  assert.deepEqual(orderCaseTerms(parts, df).slice(0, 2), ['fb-schlafapnoe', 'fb-hypertonie']);
+  assert.deepEqual(orderCaseTerms({ ...parts, named: ['fb-hypertonie'] }, df).slice(0, 2), ['fb-hypertonie', 'fb-schlafapnoe']);
+});
