@@ -155,3 +155,41 @@ test('caseParts : own = ids de la fiche patient et de la vue médicale hors DD',
   const c = { patientSheet: { leitsymptome: ['Fieber'] }, medicalView: { verdachtsdiagnose: 'Ulkus' }, musterSaetze: { a: { b: 'Pyrosis' } } };
   assert.deepEqual(caseParts(c, { index: buildIndex(t), generic: new Set() }).own, ['fb-fieber', 'fb-ulkus']);
 });
+test('bilan conditionnel contextuel, à la PROPOSITION (; et —) : le reste de la phrase lie', () => {
+  const cases = [
+    ['Basislabor mit Kalium; bei Verdacht auf Nierenarterienstenose MR-Angiographie', 'Kalium', 'Nierenarterienstenose'],
+    ['Echokardiographie — Frage nach Thrombus und Endokarditis', 'Echokardiographie', 'Endokarditis'],
+    ['Bei Hypokaliämie oder Therapieresistenz: Metanephrine (Phäochromozytom)', null, 'Phäochromozytom'],
+    ['Amlodipin täglich — Cave Hypokaliämie unter Thiazid', 'Amlodipin', 'Hypokaliämie'],
+    ['Polygraphie; gezielte Suche nach Conn-Syndrom', 'Polygraphie', 'Conn-Syndrom'],
+    ['Sonographie. Zum Ausschluss einer Perforation Röntgen.', 'Sonographie', 'Perforation'],
+    ['CT; eine Blutung ist abzuklären', 'CT', 'Blutung'],
+    ['EKG; bei V. a. Lungenembolie CT-Angiographie', 'EKG', 'Lungenembolie'],
+    ['Labor; Screening auf sekundäre Hypertonie mit Aldosteron', 'Labor', 'Aldosteron'],
+    ['Labor; ggf. weiterführende Diagnostik auf Zöliakie', 'Labor', 'Zöliakie'],
+    ['EKG; Nur bei Auffälligkeiten: CT-Angiographie der Aorta', 'EKG', 'Aorta'],
+    ['Amlodipin 5 mg; Aufklärung über Nebenwirkungen: Hypokaliämie unter Thiazid', 'Amlodipin', 'Hypokaliämie'],
+  ];
+  for (const [text, kept, ctx] of cases) {
+    const { core, contextual } = caseTexts({ medicalView: { diagnostik: [{ text }] } });
+    if (kept) assert.ok(core.join('\n').includes(kept), `core garde « ${kept} » dans « ${text} »`);
+    assert.ok(!core.join('\n').includes(ctx) && contextual.join('\n').includes(ctx), `« ${ctx} » contextuel dans « ${text} »`);
+  }
+  // une parenthèse de raisonnement « (X → Y) » est contextuelle, le reste de la proposition lie
+  const par = caseTexts({ medicalView: { diagnostik: [{ text: 'Basislabor: Kalium (Hypokaliämie → Conn-Syndrom), Lipidstatus' }] } });
+  assert.ok(par.core.join('').includes('Lipidstatus') && !par.core.join('').includes('Hypokaliämie') && par.contextual.join('').includes('Hypokaliämie'));
+  // « Bei diesem Patienten: » est un constat, pas un bilan conditionnel
+  assert.ok(caseTexts({ medicalView: { diagnostik: [{ text: 'Bei diesem Patienten: Adipositas und Nikotin' }] } }).core.join('').includes('Adipositas'));
+});
+test('ownTexts { withMuster } : ajoute les Muster hors phrases de DD (porte du top 10)', async () => {
+  const { ownTexts } = await import('./linkCaseTerms.mjs');
+  const c = { musterSaetze: { a: { b: 'Adipositas bei einem BMI von 31 kg/m². Differenzialdiagnostisch kommt eine Adnexitis in Betracht.' } } };
+  assert.ok(!ownTexts(c).join('').includes('Adipositas'));
+  const own = ownTexts(c, { withMuster: true }).join('\n');
+  assert.ok(own.includes('Adipositas') && !own.includes('Adnexitis'));
+});
+test('diagnosisTexts : alias de diagnostic (table diagnosisAliases.json)', () => {
+  const t = [{ id: 'fb-diskusprolaps', term: 'Diskusprolaps' }];
+  assert.deepEqual(linkTerms(diagnosisTexts({ name: 'Lumbaler Bandscheibenvorfall' }), t), ['fb-diskusprolaps']);
+  assert.deepEqual(linkTerms(diagnosisTexts({ name: 'Gonarthrose' }), t), []);
+});

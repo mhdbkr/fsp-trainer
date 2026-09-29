@@ -148,15 +148,25 @@ export const CONTEXTUAL_SHEET_KEYS = [
   'vegetativeAnamnese', 'medikation', 'allergien-noxen', 'familie-sozial', 'rauchen', 'alkohol', 'drogen', 'frauenanamnese',
   'differenzialdiagnosen', 'dd', 'unterscheidung',
 ];
-/** Phrase de diagnostic différentiel ou d'exclusion (« Differenzialdiagnostisch… »,
- *  « … in Betracht », « Ausschluss einer… ») : contextuelle même dans un champ central. */
-export const DD_SENTENCE = /differen[tz]ialdiagnos|(?<![\p{L}])DDx?(?![\p{L}])|ausschlie(?:ß|ss)|ausschluss|auszuschlie(?:ß|ss)|in betracht|abzugrenzen|abgrenz/iu;
+/** Proposition (phrase coupée aux « ; » et tirets d'incise) de diagnostic différentiel,
+ *  d'exclusion ou de bilan CONDITIONNEL (« Differenzialdiagnostisch… », « … in Betracht »,
+ *  « zum Ausschluss », « abzuklären », « bei V. a. », « sekundäre Hypertonie », « ggf. …
+ *  Diagnostik », « Suche/Frage nach », « Cave », « Nebenwirkungen », « (Nur) bei X: … » sauf « Bei diesem Patienten: ») :
+ *  contextuelle même dans un champ central. */
+export const DD_CLAUSE = /differen[tz]ialdiagnos|(?<![\p{L}])DDx?(?![\p{L}])|ausschlie(?:ß|ss)|ausschluss|auszuschlie(?:ß|ss)|in betracht|abzugrenzen|abgrenz|abzukl(?:ä|ae)r|abkl(?:ä|ae)r|(?<![\p{L}])bei (?:V\.\s?a\.|verdacht auf)|sekundäre[rn]? (?:hypertonie|ursache)|ggf\..*diagnostik|suche nach|frage nach|(?<![\p{L}])cave(?![\p{L}])|nebenwirkung|^\s*(?:nur |erst )?bei (?!diese[mr](?![\p{L}])|de[mr] patient)[^:]{1,150}:/iu;
+const CLAUSE = /(?<=;)|(?=\s[—–]\s)/u;
+/** Parenthèse de raisonnement « (Hypokaliämie → Conn-Syndrom) » : contextuelle. */
+const REASONING_PAREN = /\([^()]*→[^()]*\)/gu;
 const flattenSplit = (v, core, contextual, ctx = false) => {
   if (v == null) return;
   if (typeof v === 'string') {
-    if (ctx) contextual.push(v);
-    else if (!DD_SENTENCE.test(v)) core.push(v);
-    else for (const s of sentences(v)) (DD_SENTENCE.test(s) ? contextual : core).push(s);
+    if (ctx) { contextual.push(v); return; }
+    for (const m of v.matchAll(REASONING_PAREN)) contextual.push(m[0]);
+    v = v.replace(REASONING_PAREN, '');
+    const clauses = sentences(v).flatMap((x) => x.split(CLAUSE));
+    const isDD = (p) => DD_CLAUSE.test(p.replace(/^\s*[—–]\s*/u, ''));
+    if (!clauses.some(isDD)) core.push(v);
+    else for (const p of clauses) (isDD(p) ? contextual : core).push(p);
   }
   else if (Array.isArray(v)) v.forEach((x) => flattenSplit(x, core, contextual, ctx));
   else if (typeof v === 'object') {
@@ -184,16 +194,25 @@ export function caseTexts(c, muster, fw) {
   const primary = [...flatten(ps.leitsymptome), ...flatten(ps.begleitsymptome), ...flatten(ps.schmerz)];
   return { core, contextual, patient, primary };
 }
-/** Textes où le cas parle de lui-même (porte CI du top 10) : fiche patient hors
- *  exclus, vue médicale hors diagnostics différentiels. */
-export function ownTexts(c) {
+/** Textes où le cas parle de lui-même : fiche patient hors exclus, vue médicale hors
+ *  diagnostics différentiels ; `withMuster` (porte CI du top 10) : + les Muster hors DD,
+ *  qui décrivent CE patient. */
+export function ownTexts(c, { withMuster = false } = {}) {
   const own = []; const ignored = [];
   flattenSplit(c.patientSheet, own, own);
   flattenSplit(c.medicalView, own, ignored);
+  if (withMuster) flattenSplit(c.musterSaetze, own, ignored);
   return own;
 }
-/** Textes qui nomment le diagnostic du cas (rang 1). */
-export function diagnosisTexts(c) { return [c.medicalView?.verdachtsdiagnose, c.name, c.pathology]; }
+/** Synonymes glossaire d'un diagnostic absent du glossaire (src/data/diagnosisAliases.json :
+ *  « Bandscheibenvorfall » → « Diskusprolaps »). */
+const DIAGNOSIS_ALIASES = Object.entries(JSON.parse(readFileSync(join(here, '../src/data/diagnosisAliases.json'), 'utf8')));
+/** Textes qui nomment le diagnostic du cas (rang 1), alias compris. */
+export function diagnosisTexts(c) {
+  const texts = [c.medicalView?.verdachtsdiagnose, c.name, c.pathology];
+  const joined = texts.join(' ').toLowerCase();
+  return [...texts, ...DIAGNOSIS_ALIASES.filter(([k]) => joined.includes(k.toLowerCase())).map(([, v]) => v)];
+}
 
 /** Ordre final d'un cas : diagnostic, symptômes clés (`primary` : leitsymptome, begleitsymptome,
  *  schmerz), ce que dit le patient (`patient`), la vue médicale hors DD (`own`), le reste du CORE
