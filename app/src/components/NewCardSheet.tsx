@@ -21,7 +21,7 @@
 // jetée si le mot change avant la réponse (m3). IA indisponible : « Écris la
 // signification ».
 // ============================================================================
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { db } from '@/db/db';
 import { useDecks, useFachbegriffe, usePersonalTerms } from '@/hooks/useData';
@@ -75,6 +75,7 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
   const autoFilled = useRef(false);   // Bedeutung reprise du glossaire / de la carte, pas tapée
   const firstChipRef = useRef<HTMLButtonElement>(null);
   const bedeutungRef = useRef<HTMLInputElement>(null);
+  const bedeutungId = useId();
   const wordInputRef = useRef<HTMLInputElement>(null);
   const wordRowRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -195,8 +196,8 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
               <button type="button" aria-label="Corriger le mot" onClick={() => { wordInputRef.current?.focus(); wordInputRef.current?.select(); }}
                 className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 hover:text-slate-600 dark:text-slate-300 dark:hover:bg-white/10"><Icon name="pen" className="h-4 w-4" title="Corriger" /></button>
             </div>
-            <label className="label" htmlFor="nc-bedeutung">Bedeutung</label>
-            <input ref={bedeutungRef} id="nc-bedeutung" aria-label="Bedeutung" value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
+            <label className="label" htmlFor={bedeutungId}>Bedeutung</label>
+            <input ref={bedeutungRef} id={bedeutungId} value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
               placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
               aria-busy={ai === 'loading' || undefined}
               onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }} onKeyDown={onEnter}

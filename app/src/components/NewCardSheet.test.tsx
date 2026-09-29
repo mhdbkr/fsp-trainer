@@ -220,18 +220,17 @@ describe('NewCardSheet', () => {
   it('second clic sur Créer PENDANT l\'animation de sortie (carte encore montée) → aucune deuxième écriture (revue D1)', async () => {
     vi.useRealTimers();
     const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'ancienne signification' });
-    vi.useFakeTimers({ shouldAdvanceTime: true });
-    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
-    act(() => vi.advanceTimersByTime(0));
-    vi.useRealTimers();
+    const onClose = vi.fn();
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={onClose} />);
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
-    await waitFor(() => expect((input as HTMLInputElement).value).toBe('ancienne signification'));
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('ancienne signification'), { timeout: 3000 });
     fireEvent.change(input, { target: { value: 'nouvelle signification' } });
     const btn = screen.getByRole('button', { name: 'Créer la carte' });
     fireEvent.click(btn);   // premier clic : réussit, onClose appelé, mais le composant reste monté (animation de sortie)
-    await waitFor(async () => expect((await db.personal_terms.get(id))?.explanation).toBe('nouvelle signification'));
+    await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1), { timeout: 3000 });   // 1re création FINIE (la carte reste montée pendant sa sortie)
     fireEvent.click(btn);   // second clic pendant que la carte est encore là : le verrou doit tenir
-    await new Promise((r) => setTimeout(r, 0));
+    await new Promise((r) => setTimeout(r, 300));   // laisse finir un éventuel second create()
+    expect(onClose).toHaveBeenCalledTimes(1);          // verrou tenu (mutation « finally » → 2 appels)
     expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_updated')).toHaveLength(1);
   });
   it('Bedeutung du glossaire : lecture seule visuellement distincte, pas de curseur texte (revue D1)', async () => {
