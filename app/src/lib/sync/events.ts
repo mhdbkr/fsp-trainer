@@ -3,7 +3,7 @@ export type ProgressEventType =
   | 'term.favorited' | 'term.unfavorited'
   | 'deck.created' | 'deck.renamed' | 'deck.query_changed' | 'deck.deleted' | 'deck.term_added' | 'deck.term_removed'
   | 'srs.settings_changed'
-  | 'term.personal_created' | 'term.personal_deleted';
+  | 'term.personal_created' | 'term.personal_deleted' | 'term.personal_updated';
 export interface ProgressEvent {
   id: string;            // uuid client
   user_id: string;       // 'local' tant qu'anonyme ; réattribué à la migration
