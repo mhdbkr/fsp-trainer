@@ -101,9 +101,10 @@ describe('syncQueue', () => {
     await db.progress_events.bulkPut(evs);
     await db.outbox.bulkPut(evs.map((e) => ({ id: e.id, attempts: 0 })));
     await syncQueue.flush();
-    await new Promise((r) => setTimeout(r, 20));   // laisse partir la relance planifiée
-    expect(post).toHaveBeenCalledTimes(2);
-    expect(await db.outbox.count()).toBe(0);
+    await vi.waitFor(async () => {                     // la relance planifiée part hors de ce flush
+      expect(post).toHaveBeenCalledTimes(2);
+      expect(await db.outbox.count()).toBe(0);
+    });
   });
 
   it('bump incrémente attempts PAR LIGNE (un lot mélange neufs et déjà retentés)', async () => {

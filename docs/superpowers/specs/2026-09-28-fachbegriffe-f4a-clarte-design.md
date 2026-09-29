@@ -19,7 +19,7 @@ Après F3 en production, la direction trouve l'écran Fachbegriffe confus : des 
 | D7 | Après Créer (ou ★ sur un terme du glossaire) : confirmation qui **montre la carte en miniature**, avec « Voir la carte » (retourne) et « Changer de deck » | on ne voyait pas ce qui était créé |
 | D8 | **Bedeutung modifiable** depuis la fiche d'une carte personnelle ; le **mot** ne se modifie pas (il fonde l'id qui évite les doublons) — pour changer le mot : supprimer, recréer. Anciennes cartes sans signification : « à compléter » | corriger après coup sans casser la déduplication |
 | D9 | Bouton **« Carte »** dans la fiche latérale : la fiche se retourne en carte (recto / verso) exactement comme au drill | voir la flashcard sans aller au drill |
-| D10 | Suppression : **icône corbeille** + **Annuler** pendant 5 s. La carte est masquée localement ; les événements de suppression ne partent qu'à l'expiration (ou `pagehide`). Annuler = rien n'est envoyé, SRS intact. Fermer l'app pendant le délai garde la carte | le journal est append-only : un « annuler » après coup remettrait le SRS à zéro |
+| D10 | Suppression : **icône corbeille** + **Annuler** pendant 5 s. La carte est masquée localement ; les événements de suppression ne partent qu'à l'expiration (ou `pagehide`, ou page passée en arrière-plan — iOS tue souvent l'onglet sans `pagehide`). Annuler = rien n'est envoyé, SRS intact ; recréer ou ré-étoiler le mot pendant le délai vaut Annuler. Un onglet tué sans aucun de ces signaux garde la carte | le journal est append-only : un « annuler » après coup remettrait le SRS à zéro |
 
 ## 3. Modèle
 

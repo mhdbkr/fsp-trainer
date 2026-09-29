@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
-import { createPersonalTerm } from './personalTerms';
+import { createPersonalTerm, starSelection } from './personalTerms';
 import { toggleFavorite } from './index';
 import { scheduleDeletion, cancelDeletion, flushDeletions, usePendingDeletions } from './pendingDeletion';
 
@@ -38,8 +38,8 @@ describe('suppression différée (F4a D10, AC-9)', () => {
   });
   it('expiration → événements émis, carte et favori retirés', async () => {
     await scheduleDeletion(id, DELAY);
-    await sleep(DELAY * 3);
-    await vi.waitFor(async () => expect((await deletions()).map((e) => e.type).sort()).toEqual(['term.personal_deleted', 'term.unfavorited']));
+    await vi.waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false), { timeout: 3000 });   // commit terminé (finally)
+    expect((await deletions()).map((e) => e.type).sort()).toEqual(['term.personal_deleted', 'term.unfavorited']);
     expect(await db.personal_terms.get(id)).toBeUndefined();
     expect(usePendingDeletions.getState().ids.has(id)).toBe(false);
     expect(cancelDeletion(id)).toBe(false);
@@ -51,5 +51,28 @@ describe('suppression différée (F4a D10, AC-9)', () => {
     await flushDeletions();
     await sleep(DELAY * 3);
     expect((await deletions()).filter((e) => e.type === 'term.personal_deleted')).toHaveLength(1);
+  });
+  it('recréer le mot pendant le délai annule la suppression ; ★ la montre étoilée', async () => {
+    await scheduleDeletion(id, DELAY);
+    expect(await starSelection({ selection: 'Belastungsdyspnoe' }, [])).toMatchObject({ id, created: false, favorite: true });
+    await sleep(DELAY * 3);
+    expect(await deletions()).toEqual([]);
+    expect(await db.personal_terms.get(id)).toBeTruthy();
+    expect(await db.favorites.get(id)).toBeTruthy();
+  });
+  it('createPersonalTerm pendant le délai → restored, rien ne sera émis', async () => {
+    await scheduleDeletion(id, DELAY);
+    expect(await createPersonalTerm({ term: 'Belastungsdyspnoe' })).toEqual({ id, created: false, restored: true });
+    await sleep(DELAY * 3);
+    expect(await deletions()).toEqual([]);
+    expect(usePendingDeletions.getState().ids.has(id)).toBe(false);
+  });
+  it('page masquée (visibilitychange → hidden) → émis sans attendre le délai', async () => {
+    await scheduleDeletion(id, 60_000);
+    Object.defineProperty(document, 'visibilityState', { value: 'hidden', configurable: true });
+    document.dispatchEvent(new Event('visibilitychange'));
+    await vi.waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false), { timeout: 3000 });
+    Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true });
+    expect(await db.personal_terms.get(id)).toBeUndefined();
   });
 });

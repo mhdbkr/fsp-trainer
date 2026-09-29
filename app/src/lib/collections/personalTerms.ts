@@ -11,6 +11,7 @@ import { freshSrs } from '@/lib/srs';
 import { lookupTerm } from '@/lib/dictionary';
 import { sortEvents } from './project';
 import { reprojectCollections, toggleFavorite } from './index';
+import { cancelDeletion } from './pendingDeletion';
 
 export const PERSONAL_PREFIX = 'pt-';
 export const isPersonalId = (id: string): boolean => id.startsWith(PERSONAL_PREFIX);
@@ -77,11 +78,13 @@ export async function reprojectPersonalTerms(): Promise<void> {
   await writePersonalTerms(projectPersonalTerms(await db.progress_events.toArray()));
 }
 
-export async function createPersonalTerm(input: PersonalTermInput): Promise<{ id: string; created: boolean }> {
+/** `restored` : la carte attendait sa suppression différée (D10) — recréer le mot l'annule
+ *  (sinon le plan pris au clic effacerait, à l'expiration, la carte que l'on vient de vouloir). */
+export async function createPersonalTerm(input: PersonalTermInput): Promise<{ id: string; created: boolean; restored?: boolean }> {
   const clean = sanitizePersonalTerm(input);
   if (!clean) throw new Error('personal_term_invalid');
   const id = personalTermId(clean.term);
-  if (await db.personal_terms.get(id)) return { id, created: false };
+  if (await db.personal_terms.get(id)) return { id, created: false, restored: cancelDeletion(id) };
   await syncQueue.push({ type: 'term.personal_created', subject_id: id, payload: { ...clean, createdAt: new Date().toISOString() } });
   await reprojectPersonalTerms();
   return { id, created: true };
@@ -94,8 +97,10 @@ export async function starSelection(input: { selection: string; context?: string
   const opts = input.caseId ? { caseId: input.caseId } : {};
   const hit = lookupTerm(input.selection, begriffe);
   if (hit) return { id: hit.id, kind: 'glossary', created: false, favorite: await toggleFavorite(hit.id, opts) };
-  const { id, created } = await createPersonalTerm({ term: input.selection, context: input.context, explanation: input.explanation, caseId: input.caseId });
-  return { id, kind: 'personal', created, favorite: await toggleFavorite(id, opts) };
+  const { id, created, restored } = await createPersonalTerm({ term: input.selection, context: input.context, explanation: input.explanation, caseId: input.caseId });
+  // Carte restaurée déjà en favori : ★ doit la montrer étoilée, pas basculer le favori.
+  const favorite = restored && (await db.favorites.get(id)) ? true : await toggleFavorite(id, opts);
+  return { id, kind: 'personal', created, favorite };
 }
 export async function isStarred(selection: string, begriffe: Fachbegriff[]): Promise<boolean> {
   const hit = lookupTerm(selection, begriffe);
