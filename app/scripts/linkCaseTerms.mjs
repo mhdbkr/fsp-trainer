@@ -8,16 +8,22 @@
 // F4a — un terme n'est lié à un cas que s'il y est CENTRAL :
 //  - champs EXCLUS (le questionnaire standard et les signes niés, déjà
 //    structurés) : EXCLUDED_KEYS ;
-//  - champs CONTEXTUELS (anamnèse systématique, diagnostics différentiels) :
-//    CONTEXTUAL_SHEET_KEYS — ils ne lient rien à eux seuls ;
+//  - champs CONTEXTUELS (anamnèse systématique, diagnostics différentiels —
+//    toute clé dd/unterscheidung) : CONTEXTUAL_SHEET_KEYS — ils ne lient rien ;
+//  - seul ce que dit le CAS lie (retour direction n°1) : fiche patient, vue
+//    médicale, Muster, Arztbrief de référence. La fiche Fachwissen (générique de
+//    la pathologie : « Fontanelle » chez un homme de 54 ans), les questions
+//    d'examinateur, les pièges et les questions du candidat sont contextuels ;
 //  - dans les champs centraux, une occurrence NIÉE ne compte pas (isNegated) ;
-//  - les mots d'examen (src/data/genericTerms.json) ne sont liés à aucun cas ;
+//  - les mots d'examen (src/data/genericTerms.json) et les homonymes du
+//    quotidien (src/data/homonymTerms.json : « Stärke ») ne sont liés à aucun cas ;
 //  - un terme présent dans plus de SPECIFICITY_SHARE des cas n'est gardé que là
 //    où il figure dans le diagnostic ou les constats principaux (leitsymptome,
 //    begleitsymptome, schmerz de la fiche patient) ;
 //  - les termes du diagnostic sont toujours liés (sauf génériques).
-// ORDRE par cas (inchangé) : diagnostic, puis le reste par fréquence
-// documentaire (DF) ascendante puis id. Les consommateurs tronquent à N.
+// ORDRE par cas : diagnostic, symptômes clés, ce que dit le patient, le reste ;
+// dans un rang : le plus cité dans le cas, puis le plus spécifique (DF asc), puis
+// id. Les consommateurs tronquent à N.
 // ============================================================================
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -26,6 +32,7 @@ import { dirname, join } from 'node:path';
 const here = dirname(fileURLToPath(import.meta.url));
 const OUT = join(here, '../src/data/caseTermLinks.json');
 const GENERIC = join(here, '../src/data/genericTerms.json');
+const HOMONYMS = join(here, '../src/data/homonymTerms.json');
 const ABBREVIATIONS = JSON.parse(readFileSync(join(here, '../src/data/sentenceAbbreviations.json'), 'utf8'));
 export const SPECIFICITY_SHARE = 0.2;
 /** Mots trop ambigus pour lier un cas (homographes du quotidien). */
@@ -113,34 +120,44 @@ export function buildIndex(terms) {
 /** Ids des termes trouvés dans `texts`. `index` = tableau de termes ou résultat
  *  de `buildIndex`. `negation: true` : texte découpé en phrases, occurrences
  *  niées ignorées. */
-export function linkTerms(texts, index, { negation = false } = {}) {
+export function linkTerms(texts, index, opts) { return [...countTerms(texts, index, opts).keys()].sort(); }
+/** Comme linkTerms, mais rend Map id → nombre d'occurrences (affirmées si `negation`). */
+export function countTerms(texts, index, { negation = false } = {}) {
   const { re, byKey } = Array.isArray(index) ? buildIndex(index) : index;
-  const found = new Set();
+  const found = new Map();
   for (const text of texts) {
     for (const s of negation ? sentences(text) : [String(text ?? '')]) {
       for (const m of s.matchAll(re)) {
         const id = byKey.get(m[1].toLowerCase());
-        if (id && !(negation && isNegated(s, m.index))) found.add(id);
+        if (id && !(negation && isNegated(s, m.index))) found.set(id, (found.get(id) ?? 0) + 1);
       }
     }
   }
-  return [...found].sort();
+  return found;
 }
 
 // --- Textes d'un cas ---------------------------------------------------------
 const flatten = (v, out = []) => { if (v == null) return out; if (typeof v === 'string') out.push(v); else if (Array.isArray(v)) v.forEach((x) => flatten(x, out)); else if (typeof v === 'object') Object.values(v).forEach((x) => flatten(x, out)); return out; };
-/** Questionnaire standard (réponses aux sondes) et signes niés : jamais lus. */
-export const EXCLUDED_KEYS = ['antworten', 'antwortenEmotional', 'frageAntworten', 'negativeFindings'];
+/** Questionnaire standard (réponses aux sondes), signes niés et consignes de jeu
+ *  du simulant (persona, en français : « t'interrompre » ≈ Interruptio) : jamais lus. */
+export const EXCLUDED_KEYS = ['antworten', 'antwortenEmotional', 'frageAntworten', 'negativeFindings', 'persona'];
 /** Anamnèse systématique (fiche, Muster, Arztbrief) et diagnostics différentiels :
  *  contextuels — ils ne lient aucun terme à eux seuls. */
 export const CONTEXTUAL_SHEET_KEYS = [
   'vorerkrankungen', 'voroperationen', 'familienanamnese', 'sozialanamnese', 'medikamente', 'allergien', 'unvertraeglichkeiten', 'noxen',
   'vegetativeAnamnese', 'medikation', 'allergien-noxen', 'familie-sozial', 'rauchen', 'alkohol', 'drogen', 'frauenanamnese',
-  'differenzialdiagnosen',
+  'differenzialdiagnosen', 'dd', 'unterscheidung',
 ];
+/** Phrase de diagnostic différentiel ou d'exclusion (« Differenzialdiagnostisch… »,
+ *  « … in Betracht », « Ausschluss einer… ») : contextuelle même dans un champ central. */
+export const DD_SENTENCE = /differen[tz]ialdiagnos|(?<![\p{L}])DDx?(?![\p{L}])|ausschlie(?:ß|ss)|ausschluss|auszuschlie(?:ß|ss)|in betracht|abzugrenzen|abgrenz/iu;
 const flattenSplit = (v, core, contextual, ctx = false) => {
   if (v == null) return;
-  if (typeof v === 'string') (ctx ? contextual : core).push(v);
+  if (typeof v === 'string') {
+    if (ctx) contextual.push(v);
+    else if (!DD_SENTENCE.test(v)) core.push(v);
+    else for (const s of sentences(v)) (DD_SENTENCE.test(s) ? contextual : core).push(s);
+  }
   else if (Array.isArray(v)) v.forEach((x) => flattenSplit(x, core, contextual, ctx));
   else if (typeof v === 'object') {
     for (const [k, x] of Object.entries(v)) {
@@ -149,50 +166,67 @@ const flattenSplit = (v, core, contextual, ctx = false) => {
     }
   }
 };
-/** Textes d'un cas : `core` (lient), `contextual` (ne lient pas), `primary`
- *  (constats principaux : leitsymptome, begleitsymptome, schmerz). `fw` = la
- *  fiche Fachwissen de la pathologie (ses champs de liaison sont ignorés). */
+/** Textes d'un cas : `core` (lient : ce que dit le cas lui-même), `contextual`
+ *  (ne lient pas), `patient` (part de `core` issue de la fiche patient), `primary`
+ *  (constats principaux : leitsymptome, begleitsymptome, schmerz). `muster` =
+ *  les Muster du cas (identiques à c.musterSaetze : lus une fois) ; `fw` = la
+ *  fiche Fachwissen de la pathologie, entièrement contextuelle. */
 export function caseTexts(c, muster, fw) {
-  const core = []; const contextual = [];
-  flattenSplit(c.patientSheet, core, contextual);
-  flattenSplit(c.musterSaetze, core, contextual);
-  flattenSplit(muster, core, contextual);
+  const patient = []; const core = []; const contextual = [];
+  flattenSplit(c.patientSheet, patient, contextual);
+  core.push(...patient);
+  flattenSplit(muster ?? c.musterSaetze, core, contextual);
   flattenSplit(c.medicalView, core, contextual);
-  if (fw) flattenSplit({ ...fw, id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined, keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined }, core, contextual);
-  core.push(
-    ...flatten(c.caseSpecificQuestions), ...flatten(c.examinerQuestions),
-    ...flatten(c.examinerSheet), ...flatten(c.pruefungsfallen),
-    ...flatten(c.referenceArztbrief),
-  );
+  core.push(...flatten(c.referenceArztbrief));
+  if (fw) flattenSplit({ ...fw, id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined, keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined }, core, contextual, true);
+  contextual.push(...flatten(c.caseSpecificQuestions), ...flatten(c.examinerQuestions), ...flatten(c.examinerSheet), ...flatten(c.pruefungsfallen));
   const ps = c.patientSheet ?? {};
   const primary = [...flatten(ps.leitsymptome), ...flatten(ps.begleitsymptome), ...flatten(ps.schmerz)];
-  return { core, contextual, primary };
+  return { core, contextual, patient, primary };
+}
+/** Textes où le cas parle de lui-même (porte CI du top 10) : fiche patient hors
+ *  exclus, vue médicale hors diagnostics différentiels. */
+export function ownTexts(c) {
+  const own = []; const ignored = [];
+  flattenSplit(c.patientSheet, own, own);
+  flattenSplit(c.medicalView, own, ignored);
+  return own;
 }
 /** Textes qui nomment le diagnostic du cas (rang 1). */
 export function diagnosisTexts(c) { return [c.medicalView?.verdachtsdiagnose, c.name, c.pathology]; }
 
-/** Ordre final d'un cas : diagnostic, puis symptômes clés (`primary` : leitsymptome, begleitsymptome,
- *  schmerz), puis CORE par DF asc + id, puis CONTEXTUEL seul par DF asc + id.
+/** Ordre final d'un cas : diagnostic, symptômes clés (`primary` : leitsymptome, begleitsymptome,
+ *  schmerz), ce que dit le patient (`patient`), la vue médicale hors DD (`own`), le reste du CORE
+ *  (ce que seuls les Muster disent), puis CONTEXTUEL seul. Dans un rang :
+ *  le plus cité dans le cas (`counts` : id → occurrences), puis DF asc, puis id.
  *  `df` : Map id → fréquence documentaire sur tout le corpus. L'ensemble = core ∪ contextual. */
-export function orderCaseTerms({ core, contextual, diagnosis, primary = [] }, df) {
-  const cmp = (a, b) => ((df.get(a) ?? 0) - (df.get(b) ?? 0)) || (a < b ? -1 : a > b ? 1 : 0);
+export function orderCaseTerms({ core, contextual, diagnosis, primary = [], patient = [], own = [], counts = {} }, df) {
+  const cmp = (a, b) => ((counts[b] ?? 0) - (counts[a] ?? 0)) || ((df.get(a) ?? 0) - (df.get(b) ?? 0)) || (a < b ? -1 : a > b ? 1 : 0);
   const all = new Set([...core, ...contextual]);
   const diag = new Set(diagnosis.filter((id) => all.has(id)));
   const key = new Set(primary.filter((id) => all.has(id) && !diag.has(id)));   // « Fieber » 2ᵉ, pas 34ᵉ (revue A2)
-  const coreOnly = core.filter((id) => !diag.has(id) && !key.has(id));
+  const said = new Set(patient.filter((id) => all.has(id) && !diag.has(id) && !key.has(id)));
+  const ranked = (id) => diag.has(id) || key.has(id) || said.has(id);
+  const mv = new Set(own.filter((id) => all.has(id) && !ranked(id)));
+  const coreOnly = core.filter((id) => !ranked(id) && !mv.has(id));
   const coreSet = new Set(core);
-  const ctxOnly = contextual.filter((id) => !diag.has(id) && !key.has(id) && !coreSet.has(id));
-  return [...[...diag].sort(cmp), ...[...key].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
+  const ctxOnly = contextual.filter((id) => !ranked(id) && !mv.has(id) && !coreSet.has(id));
+  return [...[...diag].sort(cmp), ...[...key].sort(cmp), ...[...said].sort(cmp), ...[...mv].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
 }
 
-/** Parts d'un cas (ids) : `core` et `primary` filtrés par négation, `diagnosis` non filtré ; génériques retirés. */
+/** Parts d'un cas (ids) : `core`, `primary`, `patient` filtrés par négation, `diagnosis` non filtré ;
+ *  `counts` : occurrences affirmées dans le core ; génériques retirés. */
 export function caseParts(c, { muster, fw, index, generic }) {
-  const { core, primary } = caseTexts(c, muster, fw);
+  const { core, primary, patient } = caseTexts(c, muster, fw);
   const keep = (ids) => ids.filter((id) => !generic.has(id));
+  const counts = Object.fromEntries([...countTerms(core, index, { negation: true })].filter(([id]) => !generic.has(id)).sort());
   return {
-    core: keep(linkTerms(core, index, { negation: true })),
+    core: Object.keys(counts),
     primary: keep(linkTerms(primary, index, { negation: true })),
+    patient: keep(linkTerms(patient, index, { negation: true })),
+    own: keep(linkTerms(ownTexts(c), index, { negation: true })),
     diagnosis: keep(linkTerms(diagnosisTexts(c), index)),
+    counts,
   };
 }
 
@@ -209,11 +243,12 @@ export function linkCorpus(parts, share = SPECIFICITY_SHARE) {
   const df = new Map();
   for (const ids of Object.values(kept)) for (const id of ids) df.set(id, (df.get(id) ?? 0) + 1);
   const out = {};
-  for (const [caseId, ids] of Object.entries(kept)) out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: parts[caseId].diagnosis, primary: parts[caseId].primary }, df);
+  for (const [caseId, ids] of Object.entries(kept)) { const p = parts[caseId]; out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: p.diagnosis, primary: p.primary, patient: p.patient, own: p.own, counts: p.counts }, df); }
   return out;
 }
 
-export const loadGeneric = () => new Set(JSON.parse(readFileSync(GENERIC, 'utf8')));
+/** Ids jamais liés : mots d'examen + homonymes du quotidien. */
+export const loadGeneric = () => new Set([...JSON.parse(readFileSync(GENERIC, 'utf8')), ...Object.keys(JSON.parse(readFileSync(HOMONYMS, 'utf8')))]);
 
 async function main() {
   const check = process.argv.includes('--check');
