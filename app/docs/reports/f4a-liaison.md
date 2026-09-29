@@ -87,3 +87,104 @@ Justification (relecture Step 1) :
 Doublon `fb-alkoholdelir-syn-delirium-tremens` / `fb-delirium-tremens` repéré par le relecteur clinique — deux ids distincts pour le même concept. Hors périmètre de la tâche A4, signalé pour arbitrage ultérieur.
 
 > Après revue B4 : un ordinal (« 3. Lendenwirbel », « am 12. März ») ne coupe plus la phrase — 2 liens retirés (achalasie·Inzidenz, lumboischialgie·lokalisiert).
+
+---
+
+## Correctif de fond — retour direction n°1 (« filtre vraiment les Fachbegriffe liés au cas »)
+
+Blocage `direction-keeper` : top 10 contaminés par la fiche Fachwissen (« Fontanelle » chez un homme de 54 ans), les diagnostics différentiels (« Adnexitis », « Endometriose » dans l'appendicite masculine), un homonyme (« Stärke » = amidon pour « in gleichbleibender Stärke ») et un ordre « le plus rare d'abord ».
+
+### Règles changées (`scripts/linkCaseTerms.mjs`)
+
+1. **Seul ce que dit le cas lie** : fiche patient, vue médicale, Muster, Arztbrief de référence. La fiche Fachwissen (générique de la pathologie), `examinerQuestions`, `examinerSheet`, `pruefungsfallen` et `caseSpecificQuestions` deviennent **contextuels** (ne lient rien).
+2. **Diagnostics différentiels** : clés réelles du corpus (inventaire des 130 cas + 134 fiches) = `differenzialdiagnosen`, `dd`, `unterscheidung` — toutes contextuelles. Et, dans un champ central, une **phrase** de DD/exclusion (`DD_SENTENCE` : « Differenzialdiagnostisch… », « … in Betracht », « Ausschluss/auszuschließen », « abgrenzen ») est contextuelle — les Muster en contiennent dans `diagnose` et `diagnostik-procedere`.
+3. **`persona` exclue** : consignes de jeu du simulant, en français (« t'interrompre » faisait lier *Interruptio* à l'HBP).
+4. **Homonymes du quotidien** : `src/data/homonymTerms.json` (id → justification), jamais liés.
+5. **Ordre** : diagnostic → symptômes clés (leitsymptome, begleitsymptome, schmerz) → ce que dit le patient → vue médicale hors DD → ce que seuls les Muster disent. Dans un rang : le plus cité dans le cas, puis le plus spécifique (DF asc), puis id.
+
+### Porte CI (`scripts/checkCaseTermLinks.mjs`)
+
+- Chaque terme du **top 10** figure dans le texte du cas lui-même : fiche patient hors `EXCLUDED_KEYS`, vue médicale hors DD (clés et phrases), ou diagnostic (`verdachtsdiagnose`, nom, pathologie).
+- **Termes sexués** : aucun terme de `sexSpecificTerms.json#w` dans un cas `geschlecht: 'm'`, ni de `#m` dans un cas `'w'`. Le glossaire n'a **pas** de spécialité gynécologie/andrologie (`sp` : 12 valeurs, aucune) ; la liste est donc construite par radicaux (`SEX_STEMS`) sur « terme | Bedeutung | définition », puis relue : 91 termes F, 24 termes M, 27 exclusions motivées dans le fichier (faux positifs de radical — « schmerzstillend », « Speichel » ; termes des deux sexes — sein, *Kontrazeption* exigée chez l'homme sous méthotrexate, *Gynäkomastie*, *Testosteron*, *Lanugo*). Un test vérifie dans les deux sens : liste = hits des radicaux − exclusions, chaque exclusion a un hit et une raison.
+
+### Homonymes ajoutés (`homonymTerms.json`)
+
+| Terme | Bedeutung du glossaire | Sens dans les cas |
+|---|---|---|
+| `fb-staerke` Stärke | Vielfachzucker | intensité (« in gleichbleibender Stärke », « Stärke 8 von 10 ») — 10 cas, aucun au sens d'amidon |
+| `fb-media` Media | mittlere Schicht der Blutgefäßwand | « A. cerebri media » (schlaganfall, arterielle-hypertonie) |
+| `fb-duplex` Duplex | doppelt | Duplexsonographie (aortendissektion, arterielle-hypertonie) |
+| `fb-ueberall` überall | an allen Orten | adverbe du quotidien, pas un Fachbegriff (« habe überall Schmerzen ») |
+
+Relevé, non exclu (le terme est juste, la Bedeutung est étroite) : `fb-zervix` (« Hals ») lié à `case-adnexitis` au sens de col utérin ; `fb-phototherapie` (« … bei Neugeborenengelbsucht ») lié à `case-psoriasis`.
+
+### Mesures
+
+| Mesure | Avant (f203571) | Après |
+|---|---|---|
+| Liens cas ↔ termes | 7 134 | 3 573 |
+| Termes liés (distincts) | 1 253 | 893 |
+| Termes liés à > 20 % des cas | 1 (`fb-gewichtsverlust`, 31) | 1 (`fb-gewichtsverlust`, 31) |
+| Min · médiane · max par cas | 19 · 56 · 100 | 6 · 27 · 62 |
+| Cas < 8 termes | 0 | 1 (`case-bandscheibenvorfall`, 6) |
+
+Top termes les plus liés après : gewichtsverlust 31, antikoerper 26, kontrastmittel 25, fieber 25, albumin 24, nuechtern 24, spontan 23, hepatitis 23, obstipation 23, tumor 23.
+
+### Top 10 avant / après
+
+| Cas | Avant | Après |
+|---|---|---|
+| `case-gastroenteritis` (m, 54 ans) | infektiös · Dehydratation · Gastroenteritis · Meteorismus · Gewichtsverlust · diffus · **Stärke** · Botulismus · **Fontanelle** · Kontagiosität | Dehydratation · Gewichtsverlust · infektiös · Gastroenteritis · Meteorismus · diffus · Parasit · Antiemetikum · Tachykardie · Defäkation |
+| `case-appendizitis` (m, 41 ans) | Appendizitis · Nachtschweiß · Spina iliaca anterior superior · Bride · digitale Untersuchung · Meckel-Divertikel · Nausea · inkarzeriert · Urolithiasis · **Adnexitis** | Appendizitis · Nachtschweiß · Appendektomie · nüchtern · Peritonitis · Abszess · postoperativ · Laparoskopie · intraoperativ · Perforation |
+| `case-arterielle-hypertonie` (m) | Schlafapnoe · **Adrenalektomie** · **Hyperaldosteronismus** · **Ovulationshemmer** · **Lysetherapie** · Striae · Epistaxis · Intima · Antihypertensivum · intrazerebrale Blutung | Schlafapnoe · Hypokaliämie · Lipid · Albumin · Phäochromozytom · Angiographie · kardiovaskulär · Intima · Hypertrophie · Plasma |
+| `case-pneumonie` (m) | Pneumonie · Thorax · Inspiration · Inappetenz · Fieber · Alveolen · **Zytostatika** · antipyretisch · Antitussivum · Diarrhö | Pneumonie · Thorax · Fieber · Inappetenz · Inspiration · antipyretisch · Empyem · Pleuraerguss · Tachypnoe · Antitussivum |
+| `case-tia` (tirage) | transitorisch · rezidivierend · Attacke · Amaurose · Embolus · Neglect · Arteriosklerose · Hemisphäre · kontralateral · Polyglobulie | Attacke · rezidivierend · transitorisch · Antikoagulans · Karotisstenose · Arrhythmie · Arterie · Antikoagulation · Endokarditis · kardial |
+| `case-anorexia-nervosa` (tirage) | Hypotonie · Anorexia nervosa · Amenorrhoe · sekundär · Bradykardie · Gewichtsverlust · Obstipation · Gonade · Gynäkologe · Karies | Amenorrhoe · sekundär · Bradykardie · Anorexia nervosa · Gewichtsverlust · Hypotonie · Obstipation · Hypokaliämie · Ödem · Albumin |
+| `case-coxarthrose` (tirage) | primär · Adipositas · Coxarthrose · Ausstrahlung · Adduktoren · Poliomyelitis · Adduktion · Hyperlordose · Kontraktur · aseptisch | Coxarthrose · Adipositas · primär · Ausstrahlung · Motorik · Extension · Endoprothese · Abduktion · Hyperurikämie · Adduktion |
+| `case-tonsillitis` (tirage) | Tonsillitis · viral · Fieber · Deviation · Tonsillitis purulenta · Trismus · Antitoxin · Arthritis urica · Foetor ex ore · Anosmie | Fieber · viral · Tonsillitis · Foetor ex ore · Nephrolithiasis · Tonsillektomie · Glomerulonephritis · infektiöse Mononukleose · Trismus · Inzision |
+
+Tirage : générateur congruentiel de graine 20260929 sur les 126 autres cas. *Hyperurikämie* (coxarthrose) et *Nephrolithiasis* (tonsillitis) sont des antécédents réels du patient, repris dans sa prise en charge.
+
+### Limites et points ouverts
+
+- **Porte rouge (7 manquements, 4 cas)** — non contournée :
+  - `case-bandscheibenvorfall` : 6 termes (< 8). Son diagnostic n'est pas au glossaire (exception) et la fiche patient parle en langue courante ; ses termes venaient de la fiche Fachwissen et de l'examinateur.
+  - `case-gib` (8 termes : *Hämoglobin*, *gastrointestinale Blutung*, *postprandial*), `case-angina-pectoris` (9 : *Adipositas*), `case-tvt` (10 : *Mutation*), `case-bandscheibenvorfall` (*Parästhesie*) : moins de 10 termes dans la fiche patient + vue médicale, donc le top 10 se complète avec des termes que seuls les Muster disent. Ce sont des faits du patient (« Adipositas Grad I » pour 92 kg / 175 cm ; « postprandiale » douleurs), pas des DD. À trancher : (a) élargir la porte aux Muster hors phrases DD (une ligne dans `ownTexts`) ; (b) ne lier que la fiche patient + vue médicale (gib passe à 5 termes, bandscheibenvorfall à 5) ; (c) enrichir ces fiches patient.
+- `case-somatoforme-schmerzstoerung` ajouté à `DIAGNOSIS_EXCEPTIONS` : son seul « terme de diagnostic » était *überall* (nom du cas « Schmerzen überall »), désormais homonyme ; « somatoform » n'est pas au glossaire.
+- La vue médicale garde ses bilans conditionnels : dans `case-arterielle-hypertonie`, *Hypokaliämie* et *Phäochromozytom* viennent de « Bei Hypokaliämie…: Metanephrine im Plasma (Phäochromozytom) » — un DD entre parenthèses que `DD_SENTENCE` ne reconnaît pas (idem *Endokarditis* dans `case-tia`). Élargir la règle à « Abklärung / Suche nach » a été mesuré : −75 liens, top 10 de l'hypertension quasi inchangé ; non retenu.
+- Les composés à trait d'union se découpent : « Intima-Media-Dicke » lie *Intima* (règle de mot entier partagée avec l'autolink de l'app, inchangée ici).
+
+### Registre et Bedeutung
+
+- `checkTermRegister.mjs --require-all` → exit 0 (0 terme lié sans registre).
+- `checkBedeutung.mjs` → exit 1 : **1 terme nouvellement lié** à reformuler, `fb-kontrastmittel` (« Substanz, die Strukturen im Bild sichtbar macht », > 6 mots), désormais lié à 25 cas (dont pankreatitis, myokardinfarkt, ileus, bauchaortenaneurysma). Il était filtré avant comme terme trop large ; il repasse sous 20 % puisque les fiches Fachwissen ne lient plus. Non rédigé ici.
+
+### Suite — décisions du coordinateur (remplace « Porte rouge » et la limite des bilans conditionnels ci-dessus)
+
+1. **Porte du top 10 élargie aux Muster hors DD** (`ownTexts(c, { withMuster: true })`) : le Muster décrit ce patient. gib, angina-pectoris et tvt passent la porte.
+2. **Bilan conditionnel contextuel, à la proposition** (phrase coupée aux « ; » et tirets d'incise ; `DD_CLAUSE`) : « Ausschluss / zum Ausschluss », « abzuklären / abklären », « bei V. a. / bei Verdacht auf », « sekundäre Hypertonie / Ursache », « ggf. … Diagnostik », plus ce que le corpus montrait : « Suche nach », « Frage nach », « Cave », « Nebenwirkungen », « (Nur) bei X: … » (sauf « Bei diesem Patienten: », 24 occurrences de constats). Une parenthèse de raisonnement « (Hypokaliämie → Conn-Syndrom) » est contextuelle, le reste de la proposition lie.
+3. **Alias de diagnostic** : `src/data/diagnosisAliases.json` (« Bandscheibenvorfall » → « Diskusprolaps », `fb-diskusprolaps` Bedeutung « Bandscheibenvorfall »), lu par `diagnosisTexts` ; `case-bandscheibenvorfall` sort de `DIAGNOSIS_EXCEPTIONS`.
+4. **Bedeutung** `fb-kontrastmittel` → « Mittel für kontrastreichere Bilder » (`checkBedeutung.mjs apply`).
+
+| Mesure | Avant cette suite (3fd5057) | Après |
+|---|---|---|
+| Liens | 3 573 | 3 468 |
+| Termes distincts | 893 | 877 |
+| > 20 % des cas | 1 (gewichtsverlust 31) | 1 (gewichtsverlust 31) |
+| Min · médiane · max | 6 · 27 · 62 | 6 · 27 · 61 |
+| Cas < 8 termes | 1 | 2 |
+
+| Cas | Avant cette suite | Après |
+|---|---|---|
+| `case-arterielle-hypertonie` | Schlafapnoe · Hypokaliämie · Lipid · Albumin · **Phäochromozytom** · Angiographie · kardiovaskulär · Intima · Hypertrophie · Plasma | Schlafapnoe · Lipid · kardiovaskulär · Albumin · Intima · Hypertrophie · renal · Struma · Extremitäten · Proteinurie |
+| `case-tia` | Attacke · rezidivierend · transitorisch · Antikoagulans · Karotisstenose · Arrhythmie · Arterie · Antikoagulation · **Endokarditis** · kardial | Attacke · rezidivierend · transitorisch · Antikoagulans · Arrhythmie · Antikoagulation · Karotisstenose · Arterie · Nykturie · Obstipation |
+| `case-bandscheibenvorfall` | Ausstrahlung · Mobilisation · Parese · Spinalkanal · Tumor · Parästhesie | Diskusprolaps · Ausstrahlung · Mobilisation · Parese · Spinalkanal · Parästhesie |
+| `case-depression` | depressiv · Depression · kognitiv · zerebral · Leukämie · Hyponatriämie · psychiatrisch · Obstipation | depressiv · Depression · kognitiv · Hyponatriämie · Leukämie · psychiatrisch · Obstipation |
+| `case-tvt` | … · Thrombektomie · Kontrazeption · Angiographie · Mutation (10) | Thrombose · Antikoagulation · Mobilisation · Kompression · Lungenembolie · rezidivierend · Kontrazeption · Mutation (8) |
+
+Hypertension : sortis *Phäochromozytom*, *Hypokaliämie* (bilan « Bei Hypokaliämie…: », parenthèse « → Conn-Syndrom », effet indésirable du thiazide), *Hyperaldosteronismus* (déjà sorti : phrase de DD du Muster), et avec eux *Plasma*, *Angiographie*, *Aorta*, *Lungenödem*, *Hyperurikämie* (« Cave … unter Thiazid »). Perte d'un constat : *obstruktiv* (« Abklärung der vermuteten obstruktiven Schlafapnoe ») — le diagnostic *Schlafapnoe* reste 1ᵉʳ. TIA : sortis *Endokarditis* et *Foramen ovale* (« Frage nach … »), *Angiographie* ; entrent *Nykturie*, *Obstipation* (« An vegetativen Beschwerden bestünden eine Nykturie, eine chronische Obstipation… » : constats du patient).
+
+**Reste ouvert** :
+- `checkCaseTermLinks` exit 1, 2 manquements, seuil non baissé : `case-bandscheibenvorfall` **6 termes** (le diagnostic y est désormais, *Tumor* est sorti avec « Nur bei … ») ; `case-depression` **7 termes** (*zerebral* venait de « Bei neurologischen Auffälligkeiten…: zerebrale Bildgebung », bilan conditionnel).
+- Hypertension : *Struma*, *Extremitäten*, *renal* viennent de l'examen clinique prévu (« Körperliche Untersuchung: … Schilddrüse (Struma) », « Pulsstatus aller Extremitäten », « … als Hinweis auf eine renale Ursache ») — cibles d'examen, pas constats ; non traités.
+- Dépression : *Leukämie* = cause du décès de la sœur (« Tod der Schwester (Leukämie) ») — fait du cas, pas du patient.
