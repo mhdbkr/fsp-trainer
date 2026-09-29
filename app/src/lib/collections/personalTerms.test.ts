@@ -10,7 +10,13 @@ import {
 
 vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
-  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input }) as never;
+  // Horodatage monotone par appareil (même formule que queue.ts) : ce stub
+  // émet lui-même occurred_at, donc le correctif de queue.ts ne l'atteint
+  // pas — sans ça, deux événements de la même ms gardent un ordre aléatoire
+  // (sortEvents départage par uuid).
+  let lastStamp = 0;
+  const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: stamp(), ...input }) as never;
   return { syncQueue: {
     push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
     pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),

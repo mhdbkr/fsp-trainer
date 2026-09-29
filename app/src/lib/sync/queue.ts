@@ -13,6 +13,9 @@ export const useSyncStatus = create<SyncState>(() => ({ pending: 0, online: type
 const refreshPending = async () => useSyncStatus.setState({ pending: await db.outbox.count() });
 
 const uid = () => useSession.getState().user?.id ?? 'local';
+let lastStamp = 0;
+/** occurred_at strictement croissant sur cet appareil : deux événements de la même ms gardent leur ordre causal (sortEvents départage sinon par uuid aléatoire). */
+const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
 const auth = async () => { const t = await getAccessToken(); return t ? { Authorization: `Bearer ${t}`, 'content-type': 'application/json' } : null; };
 
 let inFlight: Promise<{ acked: number; rejected: number }> | null = null;
@@ -36,7 +39,7 @@ export const syncQueue = {
 
   /** Plusieurs événements en UNE transaction : tous écrits, ou aucun (F4a D10). */
   async pushMany(inputs: NewEvent[]): Promise<ProgressEvent[]> {
-    const evs: ProgressEvent[] = inputs.map((input) => ({ id: newId(), user_id: uid(), occurred_at: input.occurred_at ?? new Date().toISOString(), type: input.type, subject_id: input.subject_id, payload: input.payload }));
+    const evs: ProgressEvent[] = inputs.map((input) => ({ id: newId(), user_id: uid(), occurred_at: input.occurred_at ?? stamp(), type: input.type, subject_id: input.subject_id, payload: input.payload }));
     await db.transaction('rw', [db.progress_events, db.outbox], async () => {
       await db.progress_events.bulkPut(evs);
       await db.outbox.bulkPut(evs.map((e) => ({ id: e.id, attempts: 0 })));
