@@ -1,16 +1,17 @@
 // ============================================================================
 // L'étoile (F4a D6) — une seule notion : les decks. ★ vide → le terme est rangé
 // dans Favoris (deck par défaut) et la confirmation montre la carte (D7).
-// ★ pleine = le terme est dans au moins un deck → toucher liste ses decks.
+// ★ pleine = le terme est dans au moins un deck → toucher ouvre sa fiche, dont
+// les onglets de decks (DeckRail, F4b P6) rangent et retirent : un seul endroit.
 // Matière (F4b P3) : vide = cristal (incolore, liseré clair) ; pleine = ambre
 // glassy doux (jeton `star`). Le corail n'habille plus l'étoile.
 // ============================================================================
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import type { AnyTerm } from '@/lib/collections/allTerms';
 import { addTermToDeck } from '@/lib/collections';
 import { useCardToast } from '@/store/cardToast';
-import { DeckChecklist } from './DeckChecklist';
+import { useUi } from '@/store/ui';
 
 const STAR = 'M12 3.6l2.55 5.2 5.75.83-4.16 4.05.98 5.72L12 16.7l-5.12 2.7.98-5.72L3.7 9.63l5.75-.83z';
 
@@ -37,16 +38,13 @@ export function StarGlyph({ filled }: { filled: boolean }) {
 export function StarButton({ term, filled, caseId, buttonRef }: {
   term: AnyTerm; filled: boolean | undefined; caseId?: string; buttonRef?: (el: HTMLButtonElement | null) => void;
 }) {
-  const [anchor, setAnchor] = useState<DOMRect | null>(null);
   const [error, setError] = useState<string | null>(null);
   const busy = useRef(false);
-  // Le terme perd son dernier deck (ex. décoché) : l'ancre repart de zéro, sinon un
-  // prochain clic sur ★ (redevenue pleine) la trouve déjà posée et bascule à vide (m4).
-  useEffect(() => { if (!filled) setAnchor(null); }, [filled]);
+  const openGlossary = useUi((s) => s.openGlossary);
   const show = useCardToast((s) => s.show);
-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onClick = async () => {
     if (filled === undefined) return;   // decks en chargement : ni ★ vide trompeuse ni ajout en double
-    if (filled) { const r = e.currentTarget.getBoundingClientRect(); setAnchor((a) => (a ? null : r)); return; }
+    if (filled) { openGlossary(term); return; }
     if (busy.current) return;
     busy.current = true; setError(null);
     try {
@@ -58,11 +56,10 @@ export function StarButton({ term, filled, caseId, buttonRef }: {
   const color = filled ? 'text-star-600 dark:text-star-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100';
   return (
     <>
-      <button ref={buttonRef} type="button" onClick={(e) => { void onClick(e); }} aria-pressed={filled ?? false} aria-busy={filled === undefined || undefined} disabled={filled === undefined}
+      <button ref={buttonRef} type="button" onClick={() => { void onClick(); }} aria-pressed={filled ?? false} aria-busy={filled === undefined || undefined} disabled={filled === undefined}
         aria-label={filled ? `Decks de ${term.term}` : `Ajouter aux favoris : ${term.term}`}
-        aria-haspopup={filled ? 'menu' : undefined} aria-expanded={filled ? !!anchor : undefined}
+        aria-haspopup={filled ? 'dialog' : undefined}
         className={`grid h-11 w-11 shrink-0 place-items-center rounded-full hover:bg-white/40 dark:hover:bg-white/10 ${color} ${filled === undefined ? 'invisible' : ''}`}><StarGlyph filled={!!filled} /></button>
-      {anchor && filled && <DeckChecklist termId={term.id} caseId={caseId} anchor={anchor} onClose={() => setAnchor(null)} />}
       {error && <span role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</span>}
     </>
   );

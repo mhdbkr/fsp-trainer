@@ -1,14 +1,15 @@
 // ============================================================================
 // Tiroir de gestion des decks (F4b P6), ouvert par « ⋯ Decks » : renommer
 // (sur place), supprimer (+ Annuler 5 s : rien n'est émis avant l'expiration,
-// pendingDeletion), créer (« Nouveau deck » → DeckSheet). Supprimer un deck
+// pendingDeletion), créer un deck manuel (sur place). Supprimer un deck
 // ne supprime aucune carte. Favoris est réservé : ni renommé, ni supprimé.
-// Verre plein, glisse depuis la gauche (côté des onglets) ; Échap ferme.
+// Verre plein, glisse depuis la gauche (côté des onglets), AU-DESSUS du tiroir
+// d'un terme qui l'ouvre (z-60) ; Échap ne ferme que lui.
 // ============================================================================
 import { useEffect, useRef, useState } from 'react';
 import type { Deck } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
-import { renameDeck } from '@/lib/collections';
+import { createDeck, renameDeck } from '@/lib/collections';
 import { scheduleDeletion, usePendingDeletions } from '@/lib/collections/pendingDeletion';
 import { m, slide } from '@/lib/motion';
 import { useCardToast } from '@/store/cardToast';
@@ -48,23 +49,30 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
   );
 }
 
-export function DeckManager({ decks, counts, onCreate, onClose }: {
-  decks: Deck[]; counts: Record<string, number>; onCreate: () => void; onClose: () => void;
+export function DeckManager({ decks, counts, onClose }: {
+  decks: Deck[]; counts: Record<string, number>; onClose: () => void;
 }) {
   const hidden = usePendingDeletions((s) => s.ids);
+  const [name, setName] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const create = async () => {
+    try { await createDeck(name, 'manual'); setName(''); setError(null); }
+    catch (e) { setError(e instanceof Error && e.message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : 'Impossible de créer le deck.'); }
+  };
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     ref.current?.focus();
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
   }, [onClose]);
   const shown = decks.filter((d) => !hidden.has(d.id)).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   return (
     <Portal>
-      <m.div key="deck-manager-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/15" onClick={onClose} />
+      <m.div key="deck-manager-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[55] bg-slate-900/15" onClick={onClose} />
       <m.aside key="deck-manager" ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Decks" {...slide('left')}
-        className="glass-full fixed left-0 top-0 z-50 flex h-full w-full max-w-sm flex-col rounded-r-2xl p-4 outline-none">
+        className="glass-full fixed left-0 top-0 z-[60] flex h-full w-full max-w-sm flex-col rounded-r-2xl p-4 outline-none">
         <div className="flex items-center justify-between">
           <h2 className="text-lg">Decks</h2>
           <button type="button" aria-label="Fermer" onClick={onClose} className="grid h-11 w-11 place-items-center rounded-full hover:bg-white/50 dark:hover:bg-white/10">✕</button>
@@ -73,7 +81,12 @@ export function DeckManager({ decks, counts, onCreate, onClose }: {
           <li className="flex min-h-11 items-center gap-1 px-1 text-slate-500">Favoris<span className="ml-auto pr-3 font-mono text-[11px]">{counts[FAVORITES_DECK_ID] ?? 0}</span></li>
           {shown.map((d) => <DeckRow key={d.id} deck={d} count={counts[d.id]} />)}
         </ul>
-        <button type="button" onClick={onCreate} className="btn-primary mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
+        <div className="mt-3 flex gap-2">
+          <input aria-label="Nom du nouveau deck" value={name} maxLength={40} placeholder="Nouveau deck" onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') void create(); }} className="input min-h-11 flex-1" />
+          <button type="button" onClick={() => { void create(); }} disabled={!name.trim()} className="btn-primary min-h-11 rounded-full">Créer</button>
+        </div>
+        {error && <p role="alert" className="mt-1 text-xs text-rose-600 dark:text-rose-400">{error}</p>}
       </m.aside>
     </Portal>
   );

@@ -19,8 +19,8 @@ vi.mock('@/lib/sync/queue', async () => {
 });
 
 const decks = () => db.decks.toArray();
-function renderManager(onCreate = vi.fn(), onClose = vi.fn()) {
-  return decks().then((d) => render(<><DeckManager decks={d} counts={{ 'deck-favorites': 2 }} onCreate={onCreate} onClose={onClose} /><CardToast /></>));
+function renderManager(onClose = vi.fn()) {
+  return decks().then((d) => render(<><DeckManager decks={d} counts={{ 'deck-favorites': 2 }} onClose={onClose} /><CardToast /></>));
 }
 
 describe('DeckManager (F4b P6, AC-5)', () => {
@@ -59,14 +59,15 @@ describe('DeckManager (F4b P6, AC-5)', () => {
     expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
     expect(cancelDeletion(id)).toBe(false);
   });
-  it('deck intelligent : icône, renommable ; « Nouveau deck » et Échap délèguent', async () => {
+  it('deck intelligent : icône ; créer un deck manuel sur place ; Échap délègue', async () => {
     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: { state: 'Zu wiederholen' } }, occurred_at: '2020-01-01T00:00:00Z' } as never);
     await reprojectCollections();
-    const onCreate = vi.fn(); const onClose = vi.fn();
-    await renderManager(onCreate, onClose);
+    const onClose = vi.fn();
+    await renderManager(onClose);
     expect(screen.getByRole('img', { name: 'Deck intelligent' })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Nouveau deck' }));
-    expect(onCreate).toHaveBeenCalled();
+    fireEvent.change(screen.getByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    await waitFor(async () => expect((await db.decks.toArray()).some((d) => d.name === 'Hepato' && d.kind === 'manual')).toBe(true));
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).toHaveBeenCalled();
   });

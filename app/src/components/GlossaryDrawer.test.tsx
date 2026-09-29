@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { useUi } from '@/store/ui';
@@ -37,17 +37,28 @@ describe('GlossaryDrawer (F4a)', () => {
     expect(await screen.findByText('Bauch')).toBeTruthy();
     expect(document.body.textContent).not.toMatch(/patientengerecht/i);
   });
-  it('★ vide → Favoris ; ★ pleine → decks du terme, cocher un deck l\'y range (D6)', async () => {
-    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+  it('onglets du terme (F4b P6) : allumé = rangé ; toucher range / retire ; intelligent inerte ; plus d\'étoile', async () => {
+    await db.progress_events.bulkPut([
+      { id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' },
+      { id: 'e2', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: {} }, occurred_at: '2020-01-02T00:00:00Z' },
+    ] as never);
     const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
     renderDrawer();
-    const starBtn = await screen.findByRole('button', { name: 'Ajouter aux favoris : Abdomen' });
-    await waitFor(() => expect(starBtn.hasAttribute('disabled')).toBe(false));   // decks en chargement : étoile inerte (revue C4)
-    fireEvent.click(starBtn);
+    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
+    expect(screen.queryByRole('button', { name: /Ajouter aux favoris/ })).toBeNull();
+    const fav = within(rail).getByRole('button', { name: /Favoris/ });
+    expect(fav.getAttribute('aria-pressed')).toBe('false');
+    fireEvent.click(fav);
     await waitFor(async () => expect(await db.favorites.get('fb-a')).toBeTruthy());
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /kardio/i }));
+    await waitFor(() => expect(within(rail).getByRole('button', { name: /Favoris/ }).getAttribute('aria-pressed')).toBe('true'));
+    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
     await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeTruthy());
+    await waitFor(() => expect(within(rail).getByRole('button', { name: 'Kardio' }).getAttribute('aria-pressed')).toBe('true'));
+    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
+    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeUndefined());
+    expect((within(rail).getByRole('button', { name: /À revoir/ }) as HTMLButtonElement).disabled).toBe(true);
+    for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
+    for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col']) expect(rail.className).toContain(c);
   });
   it('« Carte » retourne la fiche en carte recto/verso comme au drill (D9, AC-8)', async () => {
     renderDrawer();
@@ -59,13 +70,12 @@ describe('GlossaryDrawer (F4a)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Fiche' }));
     expect(document.querySelector('[data-card-flip]')).toBeNull();
   });
-  it('Échap ferme le panneau ; avec la liste des decks ouverte, Échap ne ferme que la liste', async () => {
-    await db.favorites.put({ termId: 'fb-a', since: '' } as never);
+  it('« ⋯ Decks » ouvre la gestion ; Échap ne ferme qu\'elle, puis le panneau', async () => {
     renderDrawer();
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
-    await screen.findByRole('menu');
+    fireEvent.click(await screen.findByRole('button', { name: 'Gérer les decks' }));
+    expect(await screen.findByRole('dialog', { name: 'Decks' })).toBeTruthy();
     fireEvent.keyDown(document, { key: 'Escape' });
-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Decks' })).toBeNull());
     expect(useUi.getState().glossaryTerm).toBeTruthy();
     fireEvent.keyDown(document, { key: 'Escape' });
     await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());

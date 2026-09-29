@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
@@ -84,5 +84,17 @@ describe('FachbegriffePage', () => {
     const tab = await screen.findByRole('tab', { name: /mon deck/i });
     expect(tab.getAttribute('aria-selected')).toBe('true');
     expect((screen.getByRole('link', { name: /drill/i }) as HTMLAnchorElement).getAttribute('href')).toContain('deck=d1');
+  });
+  it('un deck en attente de suppression (Annuler 5 s) disparaît des onglets ; Annuler le rend (F4b P6)', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Mon deck', kind: 'manual' }, occurred_at: '2026-09-17T10:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    const { scheduleDeletion, cancelDeletion } = await import('@/lib/collections/pendingDeletion');
+    renderAt();
+    await screen.findByRole('tab', { name: /mon deck/i });
+    await act(async () => { await scheduleDeletion('d1', 60_000, 'deck'); });
+    await waitFor(() => expect(screen.queryByRole('tab', { name: /mon deck/i })).toBeNull());
+    act(() => { cancelDeletion('d1'); });
+    expect(await screen.findByRole('tab', { name: /mon deck/i })).toBeTruthy();
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
   });
 });
