@@ -53,7 +53,7 @@ export function CardToast() {
       <Portal>
         <div role="status" data-keep-open className={`${box} flex items-center gap-3`}>
           <span className="flex-1">Carte « {toast.term.term} » supprimée</span>
-          <button type="button" onClick={() => { cancelDeletion(toast.term.id); hide(); }} className="btn-outline min-h-11">Annuler</button>
+          <button type="button" onClick={() => { if (cancelDeletion(toast.term.id)) hide(); else show({ kind: 'error', message: 'Trop tard : la carte est supprimée.' }); }} className="btn-outline min-h-11">Annuler</button>
         </div>
       </Portal>
     );

@@ -43,8 +43,13 @@ async function commit(id: string): Promise<void> {
   const p = pending.get(id);
   if (!p || p.committing) return;
   p.committing = true; clearTimeout(p.timer);
-  try { await commitPersonalDeletion(p.events); }
-  catch { useCardToast.getState().show({ kind: 'error', message: 'Suppression impossible : la carte est revenue. Réessaie.' }); }   // plus de rejet silencieux (revue B3 m3)
+  try {
+    await commitPersonalDeletion(p.events);
+    // La confirmation « Annuler » de CETTE carte n'a plus de sens une fois émise (flush/expiration).
+    const t = useCardToast.getState().toast;
+    if (t && t.kind === 'deleted' && t.term.id === id) useCardToast.getState().hide();
+  }
+  catch { useCardToast.getState().show({ kind: 'error', message: 'Impossible de supprimer : réessaie.' }); }   // plus de rejet silencieux (revue B3 m3) ; message unifié avec GlossaryDrawer
   finally { pending.delete(id); publish(); }   // échec d'écriture : la carte réapparaît, rien de perdu
 }
 

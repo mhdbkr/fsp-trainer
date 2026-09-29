@@ -82,6 +82,6 @@ describe('suppression différée (F4a D10, AC-9)', () => {
     await scheduleDeletion(id, DELAY);
     await vi.waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false), { timeout: 3000 });
     expect(await db.personal_terms.get(id)).toBeTruthy();
-    expect(useCardToast.getState().toast).toMatchObject({ kind: 'error' });
+    expect(useCardToast.getState().toast).toMatchObject({ kind: 'error', message: 'Impossible de supprimer : réessaie.' });
   });
 });
