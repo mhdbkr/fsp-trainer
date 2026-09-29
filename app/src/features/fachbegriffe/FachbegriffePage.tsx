@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useAllTerms, useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
+import { useAllTerms, useDecks, useDeckTerms, useFavorites, useTermsInDecks } from '@/hooks/useData';
 import { Icon } from '@/components/icons';
 import { useUi } from '@/store/ui';
 import { counts as termCounts } from '@/lib/stats';
-import type { Specialty, Srs, Center, DeckQuery, Fachbegriff } from '@/db/types';
+import type { Specialty, Srs, Center, DeckQuery } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { EmptyState } from '@/components/ui';
 import { applyQuery, termsOfDeck } from '@/lib/collections/query';
-import { toggleFavorite, removeFromDeck, setDeckQuery } from '@/lib/collections';
+import { removeFromDeck, setDeckQuery } from '@/lib/collections';
 import { loadDrillContext } from '@/lib/collections/drillContext';
 import { drillMinutes } from '@/lib/collections/relevance';
 import { sortDe, letterOf } from './letters';
@@ -21,7 +21,7 @@ import { SrsSettingsSheet } from './SrsSettingsSheet';
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
 export function FachbegriffePage() {
-  const begriffe = useAllTerms(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites();
+  const begriffe = useAllTerms(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
   const openGlossary = useUi((s) => s.openGlossary);
   const [params, setParams] = useSearchParams();
   const activeId = params.get('deck');
@@ -112,8 +112,7 @@ export function FachbegriffePage() {
       {empty || (
         <div className="flex gap-2">
           <div className="min-w-0 flex-1">
-            <TermList ref={listRef} terms={shown} favorites={favSet} onOpen={openGlossary}
-              onToggleFavorite={(t: Fachbegriff) => { void toggleFavorite(t.id); }}
+            <TermList ref={listRef} terms={shown} inDecks={inDecks} onOpen={openGlossary}
               onRemove={activeDeck && !isSmart && activeId !== FAVORITES_DECK_ID ? (t) => { void removeFromDeck(activeId!, t.id); } : undefined} />
           </div>
           <AlphabetRail available={available} onJump={(l) => listRef.current?.jumpTo(l)} />

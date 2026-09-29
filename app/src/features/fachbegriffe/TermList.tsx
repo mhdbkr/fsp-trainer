@@ -4,16 +4,17 @@ import type { Fachbegriff } from '@/db/types';
 import { SRS_TONE } from '@/lib/srsTone';
 import { buildRows } from './letters';
 import { registerLine } from '@/components/TermRegister';
+import { StarButton } from '@/components/StarButton';
 
 export interface TermListHandle { jumpTo: (letter: string) => void }
-interface Props { terms: Fachbegriff[]; favorites: Set<string>; onOpen: (t: Fachbegriff) => void; onToggleFavorite: (t: Fachbegriff) => void; onRemove?: (t: Fachbegriff) => void }
+interface Props { terms: Fachbegriff[]; inDecks: Set<string>; onOpen: (t: Fachbegriff) => void; onRemove?: (t: Fachbegriff) => void }
 
 // Liste A→Z virtualisée (2 266 termes : ≤ 60 lignes montées). En-tête de
 // lettre flottant (overlay unique par-dessus le conteneur de scroll, calculé
 // depuis la première ligne visible — `sticky` ne fonctionne pas sur des
 // lignes positionnées en absolu) ; ligne 44 px ; étoile et « Retirer » sont
 // des boutons distincts de la ligne (pas d'imbrication de boutons).
-export const TermList = forwardRef<TermListHandle, Props>(function TermList({ terms, favorites, onOpen, onToggleFavorite, onRemove }, ref) {
+export const TermList = forwardRef<TermListHandle, Props>(function TermList({ terms, inDecks, onOpen, onRemove }, ref) {
   const parentRef = useRef<HTMLDivElement>(null);
   const { rows, firstIndexByLetter } = useMemo(() => buildRows(terms), [terms]);
   const v = useVirtualizer({
@@ -49,7 +50,7 @@ export const TermList = forwardRef<TermListHandle, Props>(function TermList({ te
             const row = rows[it.index];
             const style = { position: 'absolute' as const, top: 0, left: 0, width: '100%', transform: `translateY(${it.start}px)`, height: it.size };
             if (row.kind === 'letter') return <div key={`L${row.letter}`} data-letter={row.letter} style={style} className="flex items-center border-b border-slate-100 bg-paper/95 px-4 text-xs font-bold tracking-wider text-slate-400 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">{row.letter}</div>;
-            const t = row.term; const fav = favorites.has(t.id); const tone = SRS_TONE[t.srs.state];
+            const t = row.term; const tone = SRS_TONE[t.srs.state];
             return (
               <div key={t.id} data-term-id={t.id} style={style} className="flex items-center gap-2 border-b border-slate-50 px-2 hover:bg-slate-50 dark:border-slate-900 dark:hover:bg-white/5">
                 <button type="button" onClick={() => onOpen(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left">
@@ -58,8 +59,7 @@ export const TermList = forwardRef<TermListHandle, Props>(function TermList({ te
                 </button>
                 <span role="img" className={`chip shrink-0 ${tone.chip}`} title={t.srs.state} aria-label={t.srs.state}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
                 {onRemove && <button type="button" aria-label={`Retirer ${t.term} du deck`} onClick={() => onRemove(t)} className="btn-ghost h-11 w-11 shrink-0 justify-center text-slate-400">−</button>}
-                <button type="button" aria-label={fav ? `Retirer ${t.term} des favoris` : `Ajouter ${t.term} aux favoris`} aria-pressed={fav} onClick={() => onToggleFavorite(t)}
-                  className={`h-11 w-11 shrink-0 text-lg ${fav ? 'text-signal-600' : 'text-slate-300 hover:text-signal-400 dark:text-slate-600'}`}>{fav ? '★' : '☆'}</button>
+                <StarButton term={t} filled={inDecks.has(t.id)} />
               </div>
             );
           })}

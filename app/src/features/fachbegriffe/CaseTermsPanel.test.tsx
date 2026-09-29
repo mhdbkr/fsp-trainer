@@ -4,7 +4,16 @@ import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
 import { CaseTermsPanel } from './CaseTermsPanel';
-vi.mock('@/lib/sync/queue', async () => { const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events'); return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } }; });
+vi.mock('@/lib/sync/queue', async () => {
+  const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
+  let lastStamp = 0;
+  const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: stamp(), ...input }) as never;
+  return { syncQueue: {
+    push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
+    pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),
+  } };
+});
 
 describe('CaseTermsPanel', () => {
   beforeEach(async () => {
