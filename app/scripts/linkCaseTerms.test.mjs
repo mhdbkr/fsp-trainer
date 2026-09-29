@@ -193,3 +193,54 @@ test('diagnosisTexts : alias de diagnostic (table diagnosisAliases.json)', () =>
   assert.deepEqual(linkTerms(diagnosisTexts({ name: 'Lumbaler Bandscheibenvorfall' }), t), ['fb-diskusprolaps']);
   assert.deepEqual(linkTerms(diagnosisTexts({ name: 'Gonarthrose' }), t), []);
 });
+
+// --- Retour direction (liaison F4a) : libellés composés du glossaire ------------------
+test('labelVariants : parties « / », forme sans parenthèse, contenu « Abk. »/« syn. » ; marqueurs et affixes écartés', async () => {
+  const { labelVariants } = await import('./linkCaseTerms.mjs');
+  assert.deepEqual(labelVariants('Hypertonie/Hypertonus'), ['Hypertonie', 'Hypertonus']);
+  assert.deepEqual(labelVariants('Diabetes mellitus (Abk. Diabetes)'), ['Diabetes mellitus', 'Diabetes']);
+  assert.deepEqual(labelVariants('Radiologie (2):'), ['Radiologie']);
+  assert.deepEqual(labelVariants('Ulcus (sg.) Ulcera (pl.)'), ['Ulcus', 'Ulcera']);
+  assert.deepEqual(labelVariants('Erythrozyten (pl.) (Abk. Erys)'), ['Erythrozyten', 'Erys']);
+  assert.deepEqual(labelVariants('Testis (syn. Didymus, Orchis)'), ['Testis', 'Didymus', 'Orchis']);
+  assert.deepEqual(labelVariants('Troph- (präf./gr.) -troph (suff./gr.)'), []);
+  assert.deepEqual(labelVariants('Stoma/-stomie'), ['Stoma']);
+  assert.deepEqual(labelVariants('Elektrokardiogramm (EKG)'), ['Elektrokardiogramm']);   // parenthèse sans Abk./syn. : pas une variante
+  // exclusions relues (src/data/labelVariantExclusions.json) : trop génériques ou homonymes
+  assert.deepEqual(labelVariants('Morbus (M.)'), []);
+  assert.deepEqual(labelVariants('Angina (syn. Tonsillitis)'), ['Tonsillitis']);
+  assert.deepEqual(labelVariants('dies (d)'), []);
+});
+test('labelVariantExclusions.json : chaque exclusion est une variante réelle du glossaire, avec sa raison', async () => {
+  const { labelVariants } = await import('./linkCaseTerms.mjs');
+  const { readFileSync } = await import('node:fs');
+  const fb = JSON.parse(readFileSync(new URL('../src/data/fachbegriffe.json', import.meta.url), 'utf8'));
+  const ex = JSON.parse(readFileSync(new URL('../src/data/labelVariantExclusions.json', import.meta.url), 'utf8'));
+  const raw = new Set(fb.flatMap((r) => labelVariants(r.t, { exclusions: {} }).map((v) => v.toLowerCase())));
+  for (const [v, why] of Object.entries(ex)) { assert.ok(raw.has(v), 'exclusion sans objet : ' + v); assert.ok(why.length > 10, 'raison : ' + v); }
+});
+test('buildIndex { variants } : le libellé exact prime ; la variante lie sinon', () => {
+  const t = [{ id: 'fb-hypertonie-hypertonus', term: 'Hypertonie/Hypertonus' }, { id: 'fb-diabetes-mellitus-abk-diabetes', term: 'Diabetes mellitus (Abk. Diabetes)' },
+    { id: 'fb-angina-syn-tonsillitis', term: 'Angina (syn. Tonsillitis)' }, { id: 'fb-angina-pectoris', term: 'Angina pectoris' }, { id: 'fb-angina-pectoris-2', term: 'Angina pectoris (2):' }];
+  const index = buildIndex(t, { variants: true });
+  assert.deepEqual(linkTerms(['Arterielle Hypertonie'], index), ['fb-hypertonie-hypertonus']);
+  assert.deepEqual(linkTerms(['Diabetes mellitus Typ 2'], index), ['fb-diabetes-mellitus-abk-diabetes']);
+  assert.deepEqual(linkTerms(['bekannter Diabetes'], index), ['fb-diabetes-mellitus-abk-diabetes']);
+  assert.deepEqual(linkTerms(['Angina pectoris'], index), ['fb-angina-pectoris']);
+  assert.deepEqual(linkTerms(['eitrige Angina'], index), []);
+  assert.deepEqual(linkTerms(['Tonsillitis'], index), ['fb-angina-syn-tonsillitis']);
+  assert.deepEqual(linkTerms(['Arterielle Hypertonie'], buildIndex(t)), []);   // sans l'option : libellé exact seulement
+});
+test('proposition contextuelle : « nur bei » n\'importe où ; phrase de Muster « … in Betracht »', () => {
+  const mig = caseTexts({ medicalView: { diagnostik: [{ text: 'Biopsie der A. temporalis nur bei klinischem und laborchemischem Verdacht auf eine Riesenzellarteriitis' }] } });
+  assert.ok(!mig.core.join('').includes('temporalis') && mig.contextual.join('').includes('temporalis'));
+  const ptbs = caseTexts({ musterSaetze: { arztbrief: { diagnose: 'Die Anamnese deutet am ehesten auf eine posttraumatische Belastungsstörung hin. Als Differenzialdiagnosen kommen eine Panikstörung, eine Hyperthyreose und eine Anämie in Betracht.' } } });
+  assert.ok(!ptbs.core.join('').includes('Hyperthyreose') && ptbs.contextual.join('').includes('Hyperthyreose'));
+});
+test('caseTexts : une parenthèse du bilan qui nomme un diagnostic différentiel du cas est contextuelle', () => {
+  const c = { medicalView: { differenzialdiagnosen: [{ dd: 'Hypothyreose/Hyperthyreose' }, { dd: 'Depressive Episode (F32)' }],
+    diagnostik: [{ text: 'TSH, fT3, fT4 (Hyperthyreose), Blutbild (Hb 12 g/dl)' }] } };
+  const { core, contextual } = caseTexts(c);
+  assert.ok(!core.join('').includes('Hyperthyreose') && contextual.join('').includes('(Hyperthyreose)'));
+  assert.ok(core.join('').includes('(Hb 12 g/dl)'));
+});
