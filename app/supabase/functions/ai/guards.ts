@@ -33,17 +33,26 @@ export function relay(upstream: ReadableStream<Uint8Array>, onComplete: ((text: 
   });
 }
 
-/** Lit un flux SSE jusqu'au bout et rend le texte (Bedeutung : nettoyée AVANT d'être servie et mise en cache). */
-export async function collectText(upstream: ReadableStream<Uint8Array>): Promise<string> {
+export const COLLECT_MAX_CHARS = 2000;
+
+/** Lit un flux SSE jusqu'au bout (ou jusqu'à COLLECT_MAX_CHARS, amont annulé au-delà —
+ *  un amont mal comporté ne peut pas faire grossir la réponse sans borne) et rend le
+ *  texte + `done` (`[DONE]` vu). Bedeutung : nettoyée AVANT d'être servie, mise en
+ *  cache seulement si `done` (comme `relay`, revue B5 M3). */
+export async function collectText(upstream: ReadableStream<Uint8Array>): Promise<{ text: string; done: boolean }> {
   const reader = upstream.getReader(); const dec = new TextDecoder();
-  let buf = ''; let text = '';
+  let buf = ''; let text = ''; let done = false;
   for (;;) {
+    if (text.length >= COLLECT_MAX_CHARS) { void reader.cancel(); break; }
     const r = await reader.read();
     if (r.done) break;
     buf += dec.decode(r.value, { stream: true });
-    const d = sseDeltas(buf); buf = d.rest; text += d.deltas.join('');
+    const d = sseDeltas(buf); buf = d.rest; text += d.deltas.join(''); done ||= d.done;
+    if (done) break;
   }
-  buf += dec.decode();
-  if (buf.trim()) text += sseDeltas(`${buf}\n\n`).deltas.join('');
-  return text;
+  if (!done && text.length < COLLECT_MAX_CHARS) {
+    buf += dec.decode();
+    if (buf.trim()) { const d = sseDeltas(`${buf}\n\n`); text += d.deltas.join(''); done ||= d.done; }
+  }
+  return { text: text.slice(0, COLLECT_MAX_CHARS), done };
 }

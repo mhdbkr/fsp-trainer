@@ -23,7 +23,7 @@ const j = (req: Request, body: unknown, status: number) => new Response(JSON.str
 const Turn = z.object({ role: z.enum(['user', 'assistant']), text: z.string().min(1).max(2000) }).strict();
 const Body = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('brief'), selection: z.string().trim().min(1).max(220) }).strict(),
-  z.object({ kind: z.literal('bedeutung'), word: z.string().trim().min(1).max(80), context: z.string().trim().max(300).optional() }).strict(),
+  z.object({ kind: z.literal('bedeutung'), word: z.string().trim().min(1).max(80).regex(/^[^\r\n„“"]*$/), context: z.string().trim().max(300).optional() }).strict(),
   z.object({ kind: z.literal('chat'), turns: z.array(Turn).min(1).max(20) }).strict(),
 ]).refine((b) => b.kind !== 'chat' || b.turns.reduce((n, t) => n + t.text.length, 0) <= MAX_CHAT_CHARS, 'chat_too_long');
 const MAX_TOKENS = { brief: 300, bedeutung: 40, chat: 1200 } as const;
@@ -55,8 +55,12 @@ Deno.serve(async (req) => {
 
     let messages: OAIMessage[]; let cacheKey: string | null = null;
     if (body.kind !== 'chat') {
-      // Cache consulté AVANT le quota : une glose ou une Bedeutung déjà connue ne coûte rien (30 j, par texte/mot).
-      cacheKey = `${body.kind}:${normalizeSelection(body.kind === 'brief' ? body.selection : body.word)}`;
+      // Cache consulté AVANT le quota : une glose ou une Bedeutung déjà connue ne coûte rien (30 j).
+      // Bedeutung : clé mot+contexte — un même mot dans un contexte différent n'est PAS servi
+      // du cache d'un autre contexte (le cache serait sinon empoisonnable, revue B5 I1).
+      cacheKey = body.kind === 'brief'
+        ? `brief:${normalizeSelection(body.selection)}`
+        : `bedeutung:${normalizeSelection(body.word)}|${normalizeSelection(body.context ?? '')}`;
       const since = new Date(Date.now() - CACHE_DAYS * 86400_000).toISOString();
       const { data: hit } = await admin.from('ai_cache').select('text').eq('key', cacheKey).gt('created_at', since).maybeSingle();
       if (hit) return new Response(sseOf(hit.text), { headers: { 'content-type': 'text/event-stream', 'cache-control': 'no-cache', 'x-ai-provider': 'cache', ...corsFor(req) } });
@@ -80,11 +84,14 @@ Deno.serve(async (req) => {
     try { opened = await openStream(chain, messages, MAX_TOKENS[body.kind], keys, upstreamAbort.signal); }
     catch (e) { if (e instanceof NoProvider) return j(req, { error: 'no_provider' }, 503); throw e; }
 
-    // Bedeutung : lue en entier, nettoyée (≤ 6 mots, sans emoji), mise en cache, servie en un seul évènement SSE.
+    // Bedeutung : lue en entier (bornée, guards.ts), nettoyée (≤ 6 mots, sans emoji),
+    // servie en un seul évènement SSE ; mise en cache seulement si l'amont a fini
+    // ([DONE] vu) — comme `relay`, une réponse tronquée n'est jamais mise en cache (M3).
     if (body.kind === 'bedeutung') {
-      const text = cleanBedeutung(await collectText(opened.body));
+      const { text: raw, done } = await collectText(opened.body);
+      const text = cleanBedeutung(raw);
       if (!text) return j(req, { error: 'empty' }, 502);
-      await admin.from('ai_cache').upsert({ key: cacheKey!, text, created_at: new Date().toISOString() });
+      if (done) await admin.from('ai_cache').upsert({ key: cacheKey!, text, created_at: new Date().toISOString() });
       return new Response(sseOf(text), { headers: { 'content-type': 'text/event-stream', 'cache-control': 'no-cache', 'x-ai-provider': opened.entry.provider, ...corsFor(req) } });
     }
 

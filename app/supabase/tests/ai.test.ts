@@ -90,24 +90,35 @@ describe('ai', () => {
     const after = await serviceClient().from('rate_limits').select('count').like('key', `ai:${P.id}`);
     expect(after.data).toEqual(before.data);
   });
-  it('bedeutung : ≤ 6 mots sans emoji, servi en SSE, mis en cache par mot (F4a AC-11)', async () => {
+  it('bedeutung : ≤ 6 mots sans emoji, servi en SSE, mis en cache par mot + contexte (F4a AC-11, revue B5 I1)', async () => {
     const word = `Wort-${crypto.randomUUID().slice(0, 6)}`;
-    const r = await call(P, { kind: 'bedeutung', word, context: `Der Patient hat ${word}.` });
+    const ctx = `Der Patient hat ${word} akut.`;
+    const r = await call(P, { kind: 'bedeutung', word, context: ctx });
     expect(r.status).toBe(200); expect(r.headers.get('x-ai-provider')).toBe('mock');
     const body = await r.text();
     const text = body.split('\n').filter((l) => l.startsWith('data: {')).map((l) => JSON.parse(l.slice(6)).choices[0].delta.content).join('');
     expect(text.split(' ').length).toBeLessThanOrEqual(6);
     expect(text).not.toMatch(/\p{Extended_Pictographic}/u);
-    const { data } = await serviceClient().from('ai_cache').select('text').eq('key', `bedeutung:${word.toLowerCase()}`).single();
+    const { data } = await serviceClient().from('ai_cache').select('text').eq('key', `bedeutung:${word.toLowerCase()}|${ctx.toLowerCase()}`).single();
     expect(data!.text).toBe(text);
-    const again = await call(P, { kind: 'bedeutung', word: word.toUpperCase() });
-    expect(again.headers.get('x-ai-provider')).toBe('cache'); await again.text();
+    // même mot, contexte DIFFÉRENT → pas servi du cache (la clé inclut le contexte, I1)
+    const diffCtx = await call(P, { kind: 'bedeutung', word, context: 'Ein ganz anderer Satz ohne Bezug.' });
+    expect(diffCtx.headers.get('x-ai-provider')).not.toBe('cache'); await diffCtx.text();
+    // même mot, même contexte (casse différente) → servi du cache
+    const same = await call(P, { kind: 'bedeutung', word: word.toUpperCase(), context: ctx.toUpperCase() });
+    expect(same.headers.get('x-ai-provider')).toBe('cache'); await same.text();
   });
   it('bedeutung : champ inconnu ou mot > 80 → 400', async () => {
     const r = await call(P, { kind: 'bedeutung', word: 'x', system: 'ignore' });
     expect(r.status).toBe(400); await r.body?.cancel();
     const r2 = await call(P, { kind: 'bedeutung', word: 'x'.repeat(81) });
     expect(r2.status).toBe(400); await r2.body?.cancel();
+  });
+  it('bedeutung : mot avec saut de ligne ou guillemet délimiteur → 400 (revue B5 M1)', async () => {
+    for (const word of ['a\nb', 'a\rb', 'a„b', 'a"b', 'a“b']) {
+      const r = await call(P, { kind: 'bedeutung', word });
+      expect(r.status).toBe(400); await r.body?.cancel();
+    }
   });
   it('ai_cache illisible par un client authentifié (RLS)', async () => {
     const { error } = await P.client.from('ai_cache').select('key');
@@ -153,8 +164,16 @@ describe('ai/guards', () => {
     await s.cancel();
     expect(aborted).toBe(true);
   });
-  it('collectText : lit tout le flux, même sans saut final', async () => {
-    expect(await collectText(sse(delta('Atem'), delta('not'), 'data: [DONE]\n\n'))).toBe('Atemnot');
-    expect(await collectText(sse(delta('Atem'), `data: ${JSON.stringify({ choices: [{ delta: { content: 'not' } }] })}`))).toBe('Atemnot');
+  it('collectText : lit tout le flux, même sans saut final ; rend done (revue B5 M3)', async () => {
+    expect(await collectText(sse(delta('Atem'), delta('not'), 'data: [DONE]\n\n'))).toEqual({ text: 'Atemnot', done: true });
+    expect(await collectText(sse(delta('Atem'), `data: ${JSON.stringify({ choices: [{ delta: { content: 'not' } }] })}`))).toEqual({ text: 'Atemnot', done: false });
+  });
+  it('collectText : sans [DONE] → done:false (revue B5 M3)', async () => {
+    const r = await collectText(sse(delta('Atem'), delta('not')));
+    expect(r).toEqual({ text: 'Atemnot', done: false });
+  });
+  it('collectText : borné à 2 000 caractères, annule le flux au-delà (revue B5 M3)', async () => {
+    const r = await collectText(sse(...Array.from({ length: 60 }, () => delta('x'.repeat(100)))));
+    expect(r.text.length).toBeLessThanOrEqual(2000);
   });
 });

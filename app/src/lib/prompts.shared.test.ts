@@ -22,6 +22,12 @@ describe('prompts partagés (F3 §3.5)', () => {
     expect(p.user).toContain('Satz: „Seit Wochen besteht eine Belastungsdyspnoe.“');
     expect(buildBedeutungPrompt('Wort').user).toBe('Wort: „Wort“');
   });
+  it('buildBedeutungPrompt : contexte nettoyé — ni guillemets ni saut de ligne injectés (revue B5 M1)', () => {
+    const p = buildBedeutungPrompt('Wort', 'Zeile1\nZeile2 „injectee“ "encore" fin');
+    const lines = p.user.split('\n');
+    expect(lines).toHaveLength(2);
+    expect(lines[1]).toBe('Satz: „Zeile1 Zeile2 injectee encore fin“');
+  });
   it('cleanBedeutung : texte brut ≤ 6 mots, sans emoji, guillemets, article ni ponctuation finale', () => {
     expect(cleanBedeutung('die Atemnot 😮‍💨')).toBe('Atemnot');
     expect(cleanBedeutung('„Flüssigkeit in der Bauchhöhle.“')).toBe('Flüssigkeit in der Bauchhöhle');
@@ -30,5 +36,10 @@ describe('prompts partagés (F3 §3.5)', () => {
     expect(cleanBedeutung('Bedeutung: Atemnot bei Belastung.\nErklärung …')).toBe('Atemnot bei Belastung');
     expect(cleanBedeutung('zum Bauch gehörend')).toBe('zum Bauch gehörend');
     expect(cleanBedeutung('🙂')).toBe('');
+  });
+  it('cleanBedeutung : modificateur de teint, caractères invisibles, préfixe collé (revue B5 M2)', () => {
+    expect(cleanBedeutung('Atemnot 👍🏽')).toBe('Atemnot');
+    expect(cleanBedeutung('Atem‮not​ bei Belastung')).toBe('Atemnot bei Belastung');
+    expect(cleanBedeutung('Bedeutung:Atemnot')).toBe('Atemnot');
   });
 });
