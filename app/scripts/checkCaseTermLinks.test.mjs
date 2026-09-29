@@ -55,3 +55,10 @@ test('sexSpecificTerms.json : chaque id existe et correspond aux radicaux ; tout
     assert.ok(why.length > 5, 'raison : ' + id);
   }
 });
+
+test('exception de minimum : tolérée à son seuil, pas en dessous', () => {
+  const ids = ['fb-a', 'fb-b', 'fb-c', 'fb-d', 'fb-e', 'fb-f'];
+  const base = { knownIds: new Set(ids), generic: new Set(), diagnosis: {}, exceptions: ['case-x'] };
+  assert.deepEqual(checkLinks({ ...base, links: { 'case-x': ids }, minExceptions: { 'case-x': 6 } }).errors, []);
+  assert.ok(checkLinks({ ...base, links: { 'case-x': ids.slice(0, 5) }, minExceptions: { 'case-x': 6 } }).errors.some((e) => e.includes('< 6')));
+});

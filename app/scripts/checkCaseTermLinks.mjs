@@ -27,6 +27,10 @@ export const DIAGNOSIS_EXCEPTIONS = [
   'case-somatoforme-schmerzstoerung',
 ];
 
+/** Cas sous le minimum, assumés (décision contrôleur, 29 sept.) : leur texte propre est court et
+ *  les combler par la fiche Fachwissen ou les DD reproduirait le bruit du retour direction n°1. */
+export const MIN_TERMS_EXCEPTIONS = { 'case-bandscheibenvorfall': 6, 'case-depression': 7 };
+
 /** Radicaux des termes sexués, cherchés dans « terme | Bedeutung | définition » du glossaire. */
 export const SEX_STEMS = {
   w: /gynäk|frauenheilk|geburtsh|schwanger|gravid|uterus|gebärmutter|ovar|eierstock|eileiter|adnex|endometri|zervix|cervix|vagina|scheide|vulva|menstru|regelblutung|menarche|menopaus|klimakter|mamma|brustdrüse|weibliche brust|stillen|laktation|plazent|fötus|fetus|embryo|geburt|wochenbett|entbind|abort|fehlgeburt|kaiserschnitt|sectio|hysterekt|präeklam|eklampsie|ovulation|kontrazep|antikonzep/iu,
@@ -37,11 +41,12 @@ export const sexStemHits = (fb, re) => fb.filter((r) => re.test(`${r.t} | ${r.s}
 /** Règles pures. `diagnosis` : caseId → ids du diagnostic (génériques déjà retirés).
  *  `own` : caseId → Set des ids présents dans le texte du cas lui-même (porte du top `top`).
  *  `sex` : caseId → 'm' | 'w' ; `sexTerms` : { w: Set, m: Set }. */
-export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = DIAGNOSIS_EXCEPTIONS, minPerCase = 8, share = 0.2, maxBroad = 10, own, top = 10, sex, sexTerms }) {
+export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = DIAGNOSIS_EXCEPTIONS, minPerCase = 8, minExceptions = MIN_TERMS_EXCEPTIONS, share = 0.2, maxBroad = 10, own, top = 10, sex, sexTerms }) {
   const errors = []; const infos = [];
   const n = Object.keys(links).length;
   for (const [caseId, ids] of Object.entries(links)) {
-    if (ids.length < minPerCase) errors.push(`${caseId} : ${ids.length} termes (< ${minPerCase})`);
+    const min = Math.min(minPerCase, minExceptions[caseId] ?? minPerCase);
+    if (ids.length < min) errors.push(`${caseId} : ${ids.length} termes (< ${min})`);
     else if (ids.length < 15) infos.push(`${caseId} : ${ids.length} termes (< 15)`);
     for (const t of ids) {
       if (!knownIds.has(t)) errors.push(`${caseId} : terme inconnu ${t}`);
