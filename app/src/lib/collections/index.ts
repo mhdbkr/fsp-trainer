@@ -37,6 +37,17 @@ export async function createDeck(name: string, kind: 'manual' | 'smart', query?:
 export const renameDeck = async (deckId: string, name: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.renamed', deckId, { name: normalizeDeckName(name) }); };
 export const setDeckQuery = (deckId: string, query: DeckQuery) => emit('deck.query_changed', deckId, { query });
 export const deleteDeck = async (deckId: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.deleted', deckId, {}); };
+/** Suppression d'un deck PLANIFIÉE (F4b P6) : rien n'est émis ici (Annuler
+ *  pendant le délai, pendingDeletion) ; les termes restent dans le glossaire. */
+export function planDeckDeletion(deckId: string): NewEvent[] {
+  if (deckId === FAVORITES_DECK_ID) throw new Error('reserved');
+  return [{ type: 'deck.deleted', subject_id: deckId, payload: {} }];
+}
+/** Émet un lot planifié en UNE transaction, puis reprojette les collections. */
+export async function commitCollectionEvents(events: NewEvent[]): Promise<void> {
+  await syncQueue.pushMany(events);
+  await reprojectCollections();
+}
 export const addToDeck = (deckId: string, termId: string, opts: { caseId?: string } = {}) => emit('deck.term_added', deckId, { termId, ...(opts.caseId ? { caseId: opts.caseId } : {}) });
 export const removeFromDeck = (deckId: string, termId: string) => emit('deck.term_removed', deckId, { termId });
 

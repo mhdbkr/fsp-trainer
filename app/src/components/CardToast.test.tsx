@@ -58,6 +58,15 @@ describe('CardToast — suppression (m2)', () => {
     expect(document.querySelector('[data-card-flip]')).toBeNull();
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
   });
+  it('« Deck supprimé · Annuler » : Annuler → rien n\'est émis, la pilule se ferme (F4b P6)', async () => {
+    useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd1', name: 'Leber' });
+    vi.mocked(cancelDeletion).mockReturnValueOnce(true);
+    render(<CardToast />);
+    expect(screen.getByRole('status').textContent).toBe('Deck « Leber » supprimé·Annuler');
+    fireEvent.click(screen.getByRole('button', { name: 'Annuler' }));
+    expect(cancelDeletion).toHaveBeenCalledWith('d1');
+    await waitFor(() => expect(useCardToast.getState().toast).toBeNull());
+  });
   it('expiration (flushDeletions) masque la confirmation de suppression de la carte concernée', async () => {
     const { id } = await createPersonalTerm({ term: 'Orthopnoe' });
     const term = toView((await db.personal_terms.get(id))!);

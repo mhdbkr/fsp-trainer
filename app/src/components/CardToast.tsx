@@ -4,7 +4,7 @@
 // « Rangée » : ★ Rangée dans <deck> · Révéler · Changer. Toucher la pilule
 // ouvre la miniature (la carte) ; Révéler la retourne ; Changer DÉPLACE (D6 ;
 // masqué sans autre deck). « Supprimée » : Annuler pendant le délai — rien
-// n'a encore été émis. Erreur : même pilule, rôle alert.
+// n'a encore été émis (idem « Deck supprimé »). Erreur : même pilule, rôle alert.
 // Se ferme seule (8 s ; le délai de suppression pour « Supprimée »), sauf une
 // fois touchée. Échap la ferme (une suppression différée suit son cours).
 // ============================================================================
@@ -34,7 +34,8 @@ export function CardToast() {
   const [choosing, setChoosing] = useState(false);
   const [touched, setTouched] = useState(false);
   const termId = toast && 'term' in toast ? toast.term.id : null;
-  useEffect(() => { setOpen(false); setFlipped(false); setChoosing(false); setTouched(false); }, [termId, toast?.kind]);
+  const deckToastId = toast?.kind === 'deck-deleted' ? toast.deckId : null;
+  useEffect(() => { setOpen(false); setFlipped(false); setChoosing(false); setTouched(false); }, [termId, deckToastId, toast?.kind]);
   useEffect(() => {
     if (!toast) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') hide(); };
@@ -43,7 +44,7 @@ export function CardToast() {
   }, [toast, hide]);
   useEffect(() => {
     if (!toast || (touched && toast.kind === 'saved')) return;
-    const t = setTimeout(hide, toast.kind === 'deleted' ? DELETE_DELAY_MS : SAVED_MS);
+    const t = setTimeout(hide, toast.kind === 'deleted' || toast.kind === 'deck-deleted' ? DELETE_DELAY_MS : SAVED_MS);
     return () => clearTimeout(t);
   }, [toast, touched, hide]);
 
@@ -61,6 +62,13 @@ export function CardToast() {
       <m.div key={`deleted-${toast.term.id}`} role="status" data-keep-open {...appear} className={pill}>
         <span className="min-w-0 truncate">Carte supprimée</span><Dot />
         <button type="button" onClick={() => { if (cancelDeletion(toast.term.id)) hide(); else show({ kind: 'error', message: 'Trop tard : la carte est supprimée.' }); }} className={link}>Annuler</button>
+      </m.div>
+    );
+  } else if (toast?.kind === 'deck-deleted') {
+    body = (
+      <m.div key={`deck-deleted-${toast.deckId}`} role="status" data-keep-open {...appear} className={pill}>
+        <span className="min-w-0 truncate">Deck « {toast.name} » supprimé</span><Dot />
+        <button type="button" onClick={() => { if (cancelDeletion(toast.deckId)) hide(); else show({ kind: 'error', message: 'Trop tard : le deck est supprimé.' }); }} className={link}>Annuler</button>
       </m.div>
     );
   } else if (toast?.kind === 'saved') {
