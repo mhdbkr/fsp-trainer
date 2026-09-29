@@ -100,4 +100,4 @@ export function deepLinks(query: string): DeepLink[] {
   ];
 }
 
-export { DOCTOPUS_SYSTEM, buildLlmPrompt, briefKind, buildBriefPrompt, type BriefKind } from '../../supabase/functions/_shared/prompts.ts';
+export { DOCTOPUS_SYSTEM, buildLlmPrompt, briefKind, buildBriefPrompt, buildBedeutungPrompt, cleanBedeutung, BEDEUTUNG_MAX_WORDS, type BriefKind } from '../../supabase/functions/_shared/prompts.ts';

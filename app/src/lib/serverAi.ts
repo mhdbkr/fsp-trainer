@@ -16,6 +16,7 @@ export function serverAiAvailable(): boolean {
 
 type Body =
   | { kind: 'brief'; selection: string }
+  | { kind: 'bedeutung'; word: string; context?: string }
   | { kind: 'chat'; turns: { role: 'user' | 'assistant'; text: string }[] };
 
 export async function serverStream(body: Body, onToken?: (d: string) => void, signal?: AbortSignal): Promise<string> {

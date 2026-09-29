@@ -1,5 +1,5 @@
 import { OpenRouter } from '@openrouter/sdk';
-import { DOCTOPUS_SYSTEM, buildBriefPrompt, briefKind } from './dictionary';
+import { DOCTOPUS_SYSTEM, buildBriefPrompt, briefKind, buildBedeutungPrompt, cleanBedeutung } from './dictionary';
 import { AUTH_MODE } from '@/lib/auth/session';
 import { getActiveUserId } from '@/lib/auth/accounts';
 
@@ -298,4 +298,19 @@ export async function askBrief(selection: string): Promise<string> {
   const kind = briefKind(selection);
   const { system, user } = buildBriefPrompt(selection, kind);
   return (await chat(system, [{ role: 'user', content: user }], kind === 'phrase' ? 220 : 120, 'none')).content.trim();
+}
+
+/** Bedeutung proposée pour une carte personnelle (F4a D4) : ≤ 6 mots, texte brut,
+ *  au sens de la phrase de contexte. Serveur d'abord (nettoyée et mise en cache
+ *  30 j par mot), repli clé navigateur. '' si le modèle ne rend rien d'utilisable. */
+export async function askBedeutung(word: string, context?: string): Promise<string> {
+  if (serverAiAvailable()) {
+    try {
+      return cleanBedeutung(await serverStream({ kind: 'bedeutung', word, ...(context ? { context } : {}) }));
+    } catch (e) {
+      if (!hasKey()) throw new Error(honestAiError(e));
+    }
+  }
+  const { system, user } = buildBedeutungPrompt(word, context);
+  return cleanBedeutung((await chat(system, [{ role: 'user', content: user }], 40, 'none')).content);
 }

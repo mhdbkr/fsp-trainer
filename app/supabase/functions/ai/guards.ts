@@ -32,3 +32,18 @@ export function relay(upstream: ReadableStream<Uint8Array>, onComplete: ((text: 
     cancel() { onCancel(); void reader.cancel(); },
   });
 }
+
+/** Lit un flux SSE jusqu'au bout et rend le texte (Bedeutung : nettoyée AVANT d'être servie et mise en cache). */
+export async function collectText(upstream: ReadableStream<Uint8Array>): Promise<string> {
+  const reader = upstream.getReader(); const dec = new TextDecoder();
+  let buf = ''; let text = '';
+  for (;;) {
+    const r = await reader.read();
+    if (r.done) break;
+    buf += dec.decode(r.value, { stream: true });
+    const d = sseDeltas(buf); buf = d.rest; text += d.deltas.join('');
+  }
+  buf += dec.decode();
+  if (buf.trim()) text += sseDeltas(`${buf}\n\n`).deltas.join('');
+  return text;
+}
