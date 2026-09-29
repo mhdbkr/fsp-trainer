@@ -7,6 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { labelVariants } from './labelVariants.mjs';
 
 const LIM = { pa: 60, vo: 160, an: 140 };
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -22,7 +23,8 @@ export function checkEntry(e) {
   const f = termForms(e.t);
   if (r.pa.trim().toLowerCase() === e.t.trim().toLowerCase()) errs.push('pa = terme');
   if (!/^[A-ZÄÖÜ„]/.test(r.pa.trim()) || !/[.!?]$/.test(r.pa.trim())) errs.push('pa n\'est pas une phrase');
-  if (!f.test(r.vo)) errs.push('vo ne contient pas le terme');
+  // Libellé composé (« Hypertonie/Hypertonus », « Diabetes mellitus (Abk. Diabetes) ») : une de ses variantes suffit.
+  if (!f.test(r.vo) && !labelVariants(e.t).some((v) => termForms(v).test(r.vo))) errs.push('vo ne contient pas le terme');
   if (f.test(r.an)) errs.push('an contient le terme');
   if (!r.an.trim().endsWith('?')) errs.push('an ne finit pas par « ? »');
   return errs;
