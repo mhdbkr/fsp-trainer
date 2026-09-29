@@ -69,7 +69,7 @@ export function GlossaryDrawer() {
             <button type="button" aria-pressed={view === 'card'} onClick={() => { setView((v) => (v === 'card' ? 'sheet' : 'card')); setRevealed(false); }}
               className="btn-ghost min-h-11 px-2 text-sm">{view === 'card' ? 'Fiche' : 'Carte'}</button>
             {personal && (
-              <button type="button" aria-label="Supprimer ma carte" onClick={remove} className="btn-ghost h-11 w-11 justify-center text-slate-500 hover:text-rose-600">
+              <button type="button" aria-label="Supprimer ma carte" onClick={remove} className="btn-ghost h-11 w-11 justify-center text-slate-500 hover:text-rose-600 dark:hover:text-rose-400">
                 <Icon name="trash" className="h-5 w-5" title="Supprimer" />
               </button>
             )}
@@ -89,7 +89,7 @@ export function GlossaryDrawer() {
           {deleteError && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{deleteError}</p>}
 
           <div className="flex flex-wrap gap-2">
-            <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{fb.specialty}</span>
+            {!personal && <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{fb.specialty}</span>}
             <span className={`chip ${SRS_TONE[fb.srs.state].chip}`}>{fb.srs.state}</span>
           </div>
 
