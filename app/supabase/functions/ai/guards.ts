@@ -43,12 +43,12 @@ export async function collectText(upstream: ReadableStream<Uint8Array>): Promise
   const reader = upstream.getReader(); const dec = new TextDecoder();
   let buf = ''; let text = ''; let done = false;
   for (;;) {
-    if (text.length >= COLLECT_MAX_CHARS) { void reader.cancel(); break; }
+    if (text.length >= COLLECT_MAX_CHARS || buf.length > 4 * COLLECT_MAX_CHARS) { void reader.cancel(); break; }   // tampon borné aussi (R3)
     const r = await reader.read();
     if (r.done) break;
     buf += dec.decode(r.value, { stream: true });
     const d = sseDeltas(buf); buf = d.rest; text += d.deltas.join(''); done ||= d.done;
-    if (done) break;
+    if (done) { void reader.cancel(); break; }
   }
   if (!done && text.length < COLLECT_MAX_CHARS) {
     buf += dec.decode();

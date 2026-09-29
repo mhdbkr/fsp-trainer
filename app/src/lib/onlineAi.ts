@@ -303,7 +303,8 @@ export async function askBrief(selection: string): Promise<string> {
 /** Bedeutung proposée pour une carte personnelle (F4a D4) : ≤ 6 mots, texte brut,
  *  au sens de la phrase de contexte. Serveur d'abord (nettoyée et mise en cache
  *  30 j par mot), repli clé navigateur. '' si le modèle ne rend rien d'utilisable. */
-export async function askBedeutung(word: string, context?: string): Promise<string> {
+export async function askBedeutung(rawWord: string, context?: string): Promise<string> {
+  const word = rawWord.replace(/^[\s„“"‚‘']+|[\s„“"‚‘']+$/g, '');   // sélection avec ses guillemets : le serveur les refuse (400)
   if (serverAiAvailable()) {
     try {
       return cleanBedeutung(await serverStream({ kind: 'bedeutung', word, ...(context ? { context } : {}) }));

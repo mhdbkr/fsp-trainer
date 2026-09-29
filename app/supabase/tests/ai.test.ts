@@ -99,7 +99,7 @@ describe('ai', () => {
     const text = body.split('\n').filter((l) => l.startsWith('data: {')).map((l) => JSON.parse(l.slice(6)).choices[0].delta.content).join('');
     expect(text.split(' ').length).toBeLessThanOrEqual(6);
     expect(text).not.toMatch(/\p{Extended_Pictographic}/u);
-    const { data } = await serviceClient().from('ai_cache').select('text').eq('key', `bedeutung:${word.toLowerCase()}|${ctx.toLowerCase()}`).single();
+    const { data } = await serviceClient().from('ai_cache').select('text').eq('key', `bedeutung:${JSON.stringify([word.toLowerCase(), ctx.toLowerCase()])}`).single();
     expect(data!.text).toBe(text);
     // même mot, contexte DIFFÉRENT → pas servi du cache (la clé inclut le contexte, I1)
     const diffCtx = await call(P, { kind: 'bedeutung', word, context: 'Ein ganz anderer Satz ohne Bezug.' });
@@ -107,6 +107,10 @@ describe('ai', () => {
     // même mot, même contexte (casse différente) → servi du cache
     const same = await call(P, { kind: 'bedeutung', word: word.toUpperCase(), context: ctx.toUpperCase() });
     expect(same.headers.get('x-ai-provider')).toBe('cache'); await same.text();
+    // mot « V|x » sans contexte ≠ mot « V » + contexte « x| » : pas de collision de clé (R1)
+    await (await call(P, { kind: 'bedeutung', word: 'Vx|y' })).text();
+    const coll = await call(P, { kind: 'bedeutung', word: 'Vx', context: 'y|' });
+    expect(coll.headers.get('x-ai-provider')).not.toBe('cache'); await coll.text();
   });
   it('bedeutung : champ inconnu ou mot > 80 → 400', async () => {
     const r = await call(P, { kind: 'bedeutung', word: 'x', system: 'ignore' });
@@ -115,7 +119,7 @@ describe('ai', () => {
     expect(r2.status).toBe(400); await r2.body?.cancel();
   });
   it('bedeutung : mot avec saut de ligne ou guillemet délimiteur → 400 (revue B5 M1)', async () => {
-    for (const word of ['a\nb', 'a\rb', 'a„b', 'a"b', 'a“b']) {
+    for (const word of ['a\nb', 'a\rb', 'a\u2028b', 'a\u0085b', 'a„b', 'a"b', 'a“b']) {   // + séparateurs Unicode (R2)
       const r = await call(P, { kind: 'bedeutung', word });
       expect(r.status).toBe(400); await r.body?.cancel();
     }
