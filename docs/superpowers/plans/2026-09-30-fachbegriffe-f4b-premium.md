@@ -4,7 +4,7 @@
 
 **Goal:** Donner aux Fachbegriffe une matière (une seule verre, deux densités), une étoile cristal/ambre, des decks en onglets flottants, un mouvement partagé et interruptible, une carte d'embarquement du drill et une mini-fiche « carte en devenir » — sans toucher aux données, aux événements ni à la logique.
 
-**Architecture:** Tranche A — `lib/motion.ts`, seul point d'import de `motion` (`LazyMotion` strict + `domMin`, `MotionConfig reducedMotion="user"` + `skipAnimations` sous mouvement réduit, gestes apparaître / s'étendre / glisser / se poser, vol FLIP natif) monté une fois dans `Shell` ; jetons `glass-thin` / `glass-full` dérivés de `.glass` et jeton Tailwind `star`. Tranche B — l'étoile dessinée (`StarGlyph`) et la confirmation en pilule. Tranche C — la bulle de sélection en pilule qui s'étend en carte. Tranche D — la mini-fiche « carte en devenir » qui se pose dans la pilule. Tranche E — suppression de deck différée (même mécanique que `pendingDeletion`), tiroir `DeckManager`, onglets `DeckRail`, tiroir latéral en verre. Tranche F — carte d'embarquement du drill (relevés comptés une fois). Tranche G — revues, preuve navigateur, mesure du bundle, PR.
+**Architecture:** Tranche A — `lib/motion.ts`, seul point d'import de `motion` (`LazyMotion` strict + `domMin`, `MotionConfig reducedMotion="user"` + `skipAnimations` sous mouvement réduit, gestes apparaître / s'étendre / glisser / se poser, vol FLIP natif) monté une fois dans `Shell` ; jetons `glass-thin` / `glass-full` dérivés de `.glass` et jeton Tailwind `star`. Tranche B — l'étoile dessinée (`StarGlyph`) et la confirmation en pilule. Tranche C — la bulle de sélection en pilule qui s'étend en carte. Tranche D — la mini-fiche « carte en devenir » qui se pose dans la pilule. Tranche E — suppression de deck différée (même mécanique que `pendingDeletion`), tiroir de gestion `DeckManager`, tiroir d'un terme en verre, onglets de decks `DeckRail` sur son bord gauche (allumé = rangé, toucher = ranger/retirer). Tranche F — carte d'embarquement du drill (relevés comptés une fois). Tranche G — revues, preuve navigateur, mesure du bundle, PR.
 
 **Tech Stack:** React 18, Vite 7, TypeScript, Tailwind 3.4, `motion` 13.4.6 (`motion/react`, `motion/react-m`), Dexie 4, Zustand, Vitest 5 + @testing-library/react + fake-indexeddb (jsdom), playwright-cli.
 
@@ -22,14 +22,13 @@ Spec : `docs/superpowers/specs/2026-09-30-fachbegriffe-f4b-premium-design.md` (s
 - **Tests déterministes sous jsdom** (vérifié en rédigeant ce plan) : les tests de composants rendent **sans** `MotionRoot` → aucune fonction d'animation n'est chargée, `AnimatePresence` retire l'élément **dans le même rendu** (sortie synchrone), `layout`/`initial` n'animent rien. Le câblage (`reducedMotion`, `skipAnimations`, interruption) est testé dans `src/lib/motion.test.tsx` avec `MotionRoot` et un `matchMedia` simulé. Le mouvement réel est prouvé au navigateur (Task G2, vidéo).
 - Cibles ≥ 44 px (`h-11`/`min-h-11`/`w-11`) ; 390 px sans débordement (`document.documentElement.scrollWidth <= 390`) ; `aria-label` conservés.
 - **Copy exacte (spec)**, français, tutoiement : « Rangée dans Favoris », « Révéler », « Changer », « Annuler », « Carte supprimée », « Créer la carte », « Ranger », « Touche le mot à garder », « À jour ✓ — prochain terme dû le … », « Commencer (N cartes) », exemples « Aszites → ? », « Bauchwasser → ? ».
-- **Bundle (AC-9)** : mesure `vite build` avant/après, gzip. Voir « Mesures » : le plafond de +25 Ko n'est **pas** tenable avec `motion` (décision direction requise — Question ouverte 1).
+- **Bundle (AC-9, relevé par la direction le 30 sept.)** : **+30 Ko gzip max**, mesuré par la commande de la Task G3 (somme gzip niveau 9 des `dist/assets/*.js`, en Kio) avant/après. Mesuré en rédigeant : +29,8 Kio — marge 0,2 Kio : toute tâche qui ajoute du JS remesure (G3) avant son commit.
 
-## Hypothèses (à valider par la direction — voir Questions ouvertes)
+## Hypothèses et décisions
 
-1. « Le panneau latéral Fachbegriffe » d'où sortent les onglets (P6) = **le panneau de la liste de la page Fachbegriffe** (seul endroit où un filtre par deck existe : `?deck=`). `DeckRail` remplace `DeckTabs` ; `GlossaryDrawer` (le tiroir d'un terme) reçoit la matière `glass-full` et le geste « glisser ». Si la direction voulait les onglets sur le tiroir d'un terme, seul le placement de `<DeckRail>` change (Task E3).
-2. « Toucher = filtre » : retoucher l'onglet actif retire le filtre ; plus d'onglet « Tous » (la spec n'en liste pas). Onglets = boutons `aria-pressed` dans un `role="group"` (filtres, pas des panneaux d'onglets).
-3. « Renommer / supprimer » vivent dans `DeckManager` ; `DeckSheet` ne sert plus qu'à **créer** (manuel ou intelligent) ; le bouton « ⋯ Gérer le deck » de l'en-tête disparaît (zéro doublon). La requête d'un deck intelligent se modifie toujours par la barre de filtres (« Enregistrer dans le deck »).
-4. `s'étendre` et `se poser` sont faits **sans** animations de mise en page (`layoutId`) : `domMax` coûte +13 Kio gzip de plus que `domMin` (mesuré). La carte naît de l'ancre (`scale` depuis `transformOrigin`) et se pose en descendant vers la pilule ; le mot « vole » par un FLIP natif (WAAPI, 0 Ko).
+1. **Onglets de decks (P6, décidé par la direction le 30 sept.)** : ils sortent du bord gauche du **tiroir latéral d'un terme** (`GlossaryDrawer`) ; téléphone = bande horizontale en haut du tiroir. **Comportement retenu (défaut à confirmer, Question ouverte 1)** : un onglet par deck ; **allumé = CE terme y est rangé** ; toucher = ranger / retirer (fonctions existantes `addTermToDeck` / `removeTermFromDeck`) ; decks intelligents affichés avec leur icône, inertes ; « ⋯ Decks » ouvre le tiroir de gestion. Les onglets **remplacent** l'étoile du tiroir et le menu `DeckChecklist` (supprimé) : une ★ pleine, partout ailleurs, ouvre la fiche du terme, où vivent ses onglets — un seul endroit pour ranger.
+2. La page Fachbegriffe garde ses onglets-filtres (`DeckTabs`, inchangés) ; son bouton « ⋯ » ouvre le **même** tiroir de gestion (`DeckManager`) au lieu du mode « édition » de `DeckSheet`, qui ne sert plus qu'à **créer** (manuel ou intelligent) — zéro doublon.
+3. `s'étendre` et `se poser` sont faits **sans** animations de mise en page (`layoutId`) : `domMax` coûte +13 Kio gzip de plus que `domMin` (mesuré). La carte naît de l'ancre (`scale` depuis `transformOrigin`) et se pose en descendant vers la pilule ; le mot « vole » par un FLIP natif (WAAPI, 0 Ko).
 
 ## Carte des fichiers
 
@@ -39,14 +38,15 @@ Spec : `docs/superpowers/specs/2026-09-30-fachbegriffe-f4b-premium-design.md` (s
 | `app/src/lib/motion.ts` (+ `motion.test.tsx`) | seul import de `motion` : `MotionRoot`, `spring`, `appear`, `expand`, `slide`, `settleOrClose`, `flyFrom` (A1), `useCountUp` (F1) | A1, F1 |
 | `app/src/components/Shell.tsx` | monte `MotionRoot` | A1 |
 | `app/src/styles/index.css`, `app/tailwind.config.js`, `app/src/styles/tokens.test.ts` | `glass-thin`/`glass-full` + replis, jeton `star`, animation `shimmer` | A2 |
-| `app/src/components/StarButton.tsx` (+ test) | `StarGlyph` cristal/ambre, retrait de `tone` | B1 |
-| `app/src/components/CardToast.tsx` (+ test), `DeckChecklist.tsx` | pilule de confirmation ; menu decks en verre | B2, E1 |
+| `app/src/components/StarButton.tsx` (+ test) | `StarGlyph` cristal/ambre, retrait de `tone` ; ★ pleine → fiche du terme | B1, E4 |
+| `app/src/components/CardToast.tsx` (+ test) | pilule de confirmation | B2, E1 |
 | `app/src/components/SelectionExplainer.tsx` (+ test) | pilule 2 icônes → carte | B1, C1, D1 |
 | `app/src/components/NewCardSheet.tsx` (+ test), `TermSheet.tsx` | carte en devenir, se pose | D1 |
 | `app/src/lib/collections/index.ts`, `pendingDeletion.ts` (+ test), `app/src/store/cardToast.ts` | suppression de deck différée | E1 |
-| `app/src/features/fachbegriffe/DeckManager.tsx` (+ test) | tiroir de gestion | E2 |
-| `app/src/features/fachbegriffe/DeckRail.tsx` (+ test), `DeckSheet.tsx`, `FachbegriffePage.tsx` (+ test) ; suppression de `DeckTabs.tsx` | onglets, câblage | E3 |
-| `app/src/components/GlossaryDrawer.tsx` (+ test) | tiroir en verre, glisse | E4 |
+| `app/src/features/fachbegriffe/DeckManager.tsx` (+ test) | tiroir de gestion (renommer, supprimer + Annuler, créer sur place) | E2, E4 |
+| `app/src/components/GlossaryDrawer.tsx` (+ test) | tiroir en verre, glisse ; porte les onglets | E3, E4 |
+| `app/src/components/DeckRail.tsx` ; suppression de `DeckChecklist.tsx` | onglets de decks d'un terme | E4 |
+| `app/src/features/fachbegriffe/{DeckSheet,FachbegriffePage}.tsx` (+ test), `TermHoverCard.test.tsx`, `CaseTermsPanel.test.tsx` | création seule ; « ⋯ » → gestion ; decks en attente masqués | E4 |
 | `app/src/features/fachbegriffe/DrillPage.tsx` (+ test) | carte d'embarquement | F1 |
 | `app/scripts/e2e/fachbegriffe-f4b.spec.md` | preuve navigateur | G2 |
 
@@ -63,11 +63,12 @@ Bundle (`vite build`, somme gzip des `dist/assets/*.js`, niveau 9, Kio ; entre p
 | sonde `domAnimation` synchrone | 576,31 Kio | +29,2 Kio |
 | sonde `domAnimation` asynchrone (chunk séparé) | 563,25 + 14,05 Kio | +16,1 Kio au démarrage, +30,6 au total |
 | sonde `domMin` synchrone | 574,40 Kio (589,49 kB) | +27,3 Kio (+28,0 kB) |
-| **ce plan complet (`domMin`, tâches A1–F1)** | **576,99 Kio (592,15 kB)** | **+29,8 Kio (+30,6 kB)** ; CSS +0,75 Kio |
+| première version du plan (onglets sur la page, `DeckChecklist` gardé) | 576,99 Kio | +29,8 Kio |
+| **ce plan (`domMin`, onglets dans le tiroir, `DeckChecklist` retiré, tâches A1–F1)** | **576,97 Kio (592,14 kB)** | **+29,8 Kio (+30,6 kB)** ; CSS +0,72 Kio |
 
-AC-9 (+25 Ko max) **n'est pas tenu** : `motion` seul (cœur `m` + `AnimatePresence` + `LazyMotion` ≈ 16 Kio, `domMin` ≈ 11 Kio) dépasse déjà le plafond. Voir Question ouverte 1 (bloquante avant merge).
+`motion` seul (cœur `m` + `AnimatePresence` + `LazyMotion` ≈ 16 Kio, `domMin` ≈ 11 Kio) en prend ≈ 27 Kio ; le code F4b ≈ 2,5 Kio. Plafond de la direction : +30 Ko, mesuré en Kio par la commande G3 → tenu, à 0,2 Kio près. La ligne `index-*.js` de Vite (gzip par défaut, kB décimaux) affiche +30,6 kB : reporter les deux dans la PR. Un `React.lazy` du tiroir de gestion a été essayé : −0,85 kB au démarrage mais +0,6 au total, et un chunk manquant après déploiement ferait planter l'app sans frontière d'erreur — écarté.
 
-Tests (copie jetable, après F1) : typecheck `exit=0`, `npx vitest run --dir src` **588/588** (trois passages consécutifs verts), build `exit=0`. Un test de `main` était déjà instable sous charge (`DrillPage` « ?case= sans rien à réviser ») : corrigé en F1 (délai de 3 s).
+Tests (copie jetable, après F1) : typecheck `exit=0`, `npx vitest run --dir src` **583/583** (trois passages consécutifs verts), build `exit=0`. Un test de `main` était déjà instable sous charge (`DrillPage` « ?case= sans rien à réviser ») : corrigé en F1 (délai de 3 s).
 
 ---
 
@@ -579,7 +580,6 @@ git commit -m "feat(fachbegriffe): étoile cristal vide / ambre pleine, le corai
 
 **Files:**
 - Modify: `app/src/components/CardToast.tsx` (réécrit), `app/src/components/CardToast.test.tsx`, `app/src/components/StarButton.test.tsx`
-- Modify: `app/src/components/DeckChecklist.tsx` (menu flottant en `glass-full`, sans ombre)
 
 **Interfaces:**
 - Consumes : A1 (`AnimatePresence`, `appear`, `expand`, `m`), A2, B1 (`StarGlyph`), store `useCardToast` inchangé.
@@ -759,30 +759,6 @@ export function CardToast() {
 }
 ```
 
-```diff
---- a/app/src/components/DeckChecklist.tsx
-+++ b/app/src/components/DeckChecklist.tsx
-@@ -44,15 +44,15 @@ export function DeckChecklist({ termId, caseId, anchor, onClose }: { termId: str
-   return (
-     <Portal>
-       <div ref={ref} data-keep-open role="menu" aria-label="Decks de ce terme" style={{ position: 'fixed', top: anchor.bottom + 4, left, width: W }}
--        className="z-[90] rounded-xl border border-slate-200 bg-white p-1 text-sm shadow-lg motion-safe:animate-fade-in-fast dark:border-slate-700 dark:bg-slate-900">
-+        className="glass-full z-[90] rounded-2xl p-1 text-sm motion-safe:animate-fade-in-fast">
-         {rows.map((d) => (
-           <button key={d.id} type="button" role="menuitemcheckbox" aria-checked={has.has(d.id)}
-             onClick={() => { void (has.has(d.id) ? removeTermFromDeck(d.id, termId) : addTermToDeck(d.id, termId, opts)); }}
--            className="flex min-h-11 w-full items-center justify-between rounded-lg px-2 text-left hover:bg-slate-100 dark:hover:bg-white/10">
-+            className="flex min-h-11 w-full items-center justify-between rounded-xl px-2 text-left hover:bg-white/50 dark:hover:bg-white/10">
-             {d.name}<span aria-hidden>{has.has(d.id) ? '✓' : ''}</span>
-           </button>
-         ))}
--        <div className="mt-1 flex gap-1 border-t border-slate-100 p-1 dark:border-slate-800">
-+        <div className="mt-1 flex gap-1 border-t border-white/40 p-1 dark:border-white/10">
-           <input aria-label="Nom du nouveau deck" value={name} maxLength={40} placeholder="Nouveau deck" onChange={(e) => setName(e.target.value)}
-             onKeyDown={(e) => { if (e.key === 'Enter') void create(); }} className="input min-h-11 flex-1" />
-           <button type="button" onClick={() => { void create(); }} disabled={!name.trim()} aria-label="Créer le deck et y ranger ce terme" className="btn-outline min-h-11 w-11 shrink-0 justify-center px-0 text-lg">+</button>
-```
-
 - [ ] **Step 4 : vérifier** — `npx vitest run src/components; echo exit=$?` → 0 (les tests `SelectionExplainer` « Révéler » / pas de « Changer de deck » restent verts) ; gates.
 
 - [ ] **Step 5 : commit**
@@ -790,7 +766,6 @@ export function CardToast() {
 git add src/components/CardToast.tsx
 git add src/components/CardToast.test.tsx
 git add src/components/StarButton.test.tsx
-git add src/components/DeckChecklist.tsx
 git commit -m "feat(fachbegriffe): confirmation en pilule verre — Rangée dans Favoris · Révéler · Changer (F4b P5)"
 ```
 
@@ -1697,7 +1672,7 @@ git commit -m "feat(fachbegriffe): suppression de deck différée — rien n'est
 
 **Interfaces:**
 - Consumes : E1 (`scheduleDeletion(id, undefined, 'deck')`, `usePendingDeletions`, toast `deck-deleted`), `renameDeck`, A1 (`m`, `slide`), A2.
-- Produces : `DeckManager({ decks: Deck[], counts: Record<string, number>, onCreate: () => void, onClose: () => void })` — `role="dialog"` « Decks », champs « Nom du deck <nom> », boutons « Supprimer le deck <nom> », « Nouveau deck », « Fermer ». À monter dans un `<AnimatePresence>` (E3).
+- Produces : `DeckManager({ decks: Deck[], counts: Record<string, number>, onCreate: () => void, onClose: () => void })` — `role="dialog"` « Decks », champs « Nom du deck <nom> », boutons « Supprimer le deck <nom> », « Nouveau deck », « Fermer ». À monter dans un `<AnimatePresence>`. E4 remplace `onCreate` par une création sur place.
 
 - [ ] **Step 1 : test qui échoue** — créer `app/src/features/fachbegriffe/DeckManager.test.tsx` :
 
@@ -1875,364 +1850,14 @@ git commit -m "feat(fachbegriffe): tiroir de gestion des decks — renommer, sup
 
 ---
 
-### Task E3 : Onglets `DeckRail` (ordinateur : bord gauche ; téléphone : bande) + câblage de la page (front-implementer, Sonnet)
-
-**Files:**
-- Create: `app/src/features/fachbegriffe/DeckRail.tsx`, `app/src/features/fachbegriffe/DeckRail.test.tsx`
-- Modify: `app/src/features/fachbegriffe/DeckSheet.tsx` (création seule), `FachbegriffePage.tsx`, `FachbegriffePage.test.tsx`
-- Delete: `app/src/features/fachbegriffe/DeckTabs.tsx`
-
-**Interfaces:**
-- Consumes : E1 (`usePendingDeletions`), E2 (`DeckManager`), B1 (`StarGlyph`), A1 (`AnimatePresence`).
-- Produces : `DeckRail({ decks, activeId: string | null, counts, onSelect: (id: string | null) => void, onManage: () => void })` — `role="group"` « Decks » ; boutons `aria-pressed` (Favoris, manuels par date, intelligents avec icône « Deck intelligent »), « ⋯ Decks » (`aria-label="Gérer les decks"`). `DeckSheet({ initialQuery?, specialties, centers, onClose: (createdId?: string) => void })` (plus de `mode`/`deck`).
-
-- [ ] **Step 1 : tests qui échouent** — créer `app/src/features/fachbegriffe/DeckRail.test.tsx` :
-
-```tsx
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { DeckRail } from './DeckRail';
-
-const decks = [
-  { id: 's1', name: 'À revoir', kind: 'smart', createdAt: '2026-01-01', updatedAt: '' },
-  { id: 'm2', name: 'Leber', kind: 'manual', createdAt: '2026-01-03', updatedAt: '' },
-  { id: 'm1', name: 'Herz', kind: 'manual', createdAt: '2026-01-02', updatedAt: '' },
-] as never;
-
-describe('DeckRail (F4b P6, AC-5)', () => {
-  it('Favoris, manuels (par date), intelligents avec icône, puis « ⋯ Decks »', () => {
-    render(<DeckRail decks={decks} activeId={null} counts={{ 'deck-favorites': 3, m1: 1 }} onSelect={() => {}} onManage={() => {}} />);
-    const names = screen.getAllByRole('button').map((b) => b.getAttribute('aria-label') ?? b.textContent);
-    expect(names).toEqual(['Favoris3', 'Herz1', 'Leber', 'Deck intelligentÀ revoir', 'Gérer les decks']);   // <title> de l'icône compris
-    expect(screen.getByRole('img', { name: 'Deck intelligent' })).toBeTruthy();
-  });
-  it('toucher = filtre ; retoucher l\'onglet actif = tout afficher', () => {
-    const onSelect = vi.fn();
-    const { rerender } = render(<DeckRail decks={decks} activeId={null} counts={{}} onSelect={onSelect} onManage={() => {}} />);
-    fireEvent.click(screen.getByRole('button', { name: /Leber/ }));
-    expect(onSelect).toHaveBeenLastCalledWith('m2');
-    rerender(<DeckRail decks={decks} activeId="m2" counts={{}} onSelect={onSelect} onManage={() => {}} />);
-    expect(screen.getByRole('button', { name: /Leber/ }).getAttribute('aria-pressed')).toBe('true');
-    fireEvent.click(screen.getByRole('button', { name: /Leber/ }));
-    expect(onSelect).toHaveBeenLastCalledWith(null);
-  });
-  it('téléphone : bande horizontale qui défile seule ; ordinateur : colonne qui sort du bord gauche', () => {
-    render(<DeckRail decks={decks} activeId={null} counts={{}} onSelect={() => {}} onManage={() => {}} />);
-    const rail = screen.getByRole('group', { name: 'Decks' });
-    expect(rail.className).toMatch(/(^| )flex( |$)/);
-    expect(rail.className).toContain('overflow-x-auto');
-    for (const c of ['md:absolute', 'md:right-full', 'md:flex-col']) expect(rail.className).toContain(c);
-    for (const b of screen.getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); expect(b.className).not.toMatch(/shadow-/); }
-  });
-});
-```
-
-puis adapter `FachbegriffePage.test.tsx` (plus d'onglet « Tous » ; `button[aria-pressed]` au lieu de `tab[aria-selected]` ; création par « ⋯ Decks » ; suppression du deck actif) :
-
-```diff
---- a/app/src/features/fachbegriffe/FachbegriffePage.test.tsx
-+++ b/app/src/features/fachbegriffe/FachbegriffePage.test.tsx
-@@ -1,5 +1,5 @@
- import { describe, it, expect, beforeEach, vi } from 'vitest';
--import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
- import { MemoryRouter } from 'react-router-dom';
- import { db } from '@/db/db';
- import { freshSrs } from '@/lib/srs';
-@@ -38,26 +38,29 @@ const renderAt = (url = '/fachbegriffe') => render(<MemoryRouter initialEntries=
- describe('FachbegriffePage', () => {
-   beforeEach(async () => { await db.fachbegriffe.clear(); await db.progress_events.clear(); await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await seed(); });
- 
--  it('liste A→Z avec onglets Tous et Favoris ; ★ ajoute aux favoris et à l\'onglet', async () => {
-+  it('liste A→Z ; onglet Favoris = filtre, le retoucher = tout afficher ; ★ ajoute aux favoris (F4b P6)', async () => {
-     renderAt();
-     await screen.findByText('Abdomen');
--    expect(screen.getByRole('tab', { name: /tous/i })).toBeTruthy();
-     fireEvent.click(screen.getByRole('button', { name: /ajouter aux favoris : abdomen/i }));
-     await waitFor(async () => expect(await db.favorites.get('fb-a')).toBeTruthy());
-     expect((await db.progress_events.toArray()).map((e) => e.type)).toContain('term.favorited');
--    fireEvent.click(screen.getByRole('tab', { name: /favoris/i }));
--    await screen.findByText('Abdomen');
--    expect(screen.queryByText('Kardiomyopathie')).toBeNull();
-+    const fav = screen.getByRole('button', { name: /^Favoris/ });
-+    fireEvent.click(fav);
-+    await waitFor(() => expect(screen.queryByText('Kardiomyopathie')).toBeNull());
-+    expect(screen.getByRole('button', { name: /^Favoris/ }).getAttribute('aria-pressed')).toBe('true');
-+    fireEvent.click(screen.getByRole('button', { name: /^Favoris/ }));
-+    expect(await screen.findByText('Kardiomyopathie')).toBeTruthy();
-   });
- 
--  it('créer un deck manuel depuis « + » ; onglet actif via URL ; état vide', async () => {
-+  it('créer un deck manuel depuis « ⋯ Decks » → Nouveau deck ; onglet actif ; état vide', async () => {
-     renderAt();
-     await screen.findByText('Abdomen');
--    fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
-+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
-+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
-     fireEvent.change(screen.getByLabelText(/nom du deck/i), { target: { value: 'Kardio' } });
-     fireEvent.click(screen.getByRole('button', { name: /créer/i }));
--    const tab = await screen.findByRole('tab', { name: /kardio/i });
--    expect(tab.getAttribute('aria-selected')).toBe('true');
-+    const tab = await within(screen.getByRole('group', { name: 'Decks' })).findByRole('button', { name: /kardio/i });
-+    expect(tab.getAttribute('aria-pressed')).toBe('true');
-     const decks = await db.decks.toArray(); expect(decks).toHaveLength(1);
-     // deck vide → état vide
-     expect(screen.getByText(/ajoute des termes/i)).toBeTruthy();
-@@ -66,7 +69,8 @@ describe('FachbegriffePage', () => {
-   it('deck intelligent : filtres enregistrés suivent le SRS', async () => {
-     renderAt();
-     await screen.findByText('Abdomen');
--    fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
-+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
-+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
-     fireEvent.change(screen.getByLabelText(/nom du deck/i), { target: { value: 'À revoir' } });
-     fireEvent.click(screen.getByLabelText(/deck intelligent/i));
-     fireEvent.change(screen.getByLabelText(/^état$/i), { target: { value: 'Zu wiederholen' } });
-@@ -81,8 +85,22 @@ describe('FachbegriffePage', () => {
-     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Mon deck', kind: 'manual' }, occurred_at: '2026-09-17T10:00:00Z' } as never);
-     const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
-     renderAt('/fachbegriffe?deck=d1');
--    const tab = await screen.findByRole('tab', { name: /mon deck/i });
--    expect(tab.getAttribute('aria-selected')).toBe('true');
-+    const tab = await screen.findByRole('button', { name: /^mon deck/i });
-+    expect(tab.getAttribute('aria-pressed')).toBe('true');
-     expect((screen.getByRole('link', { name: /drill/i }) as HTMLAnchorElement).getAttribute('href')).toContain('deck=d1');
-   });
-+
-+  it('supprimer le deck actif (⋯ Decks) : onglet retiré tout de suite, liste complète, rien émis avant l\'expiration (F4b P6)', async () => {
-+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Mon deck', kind: 'manual' }, occurred_at: '2026-09-17T10:00:00Z' } as never);
-+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
-+    renderAt('/fachbegriffe?deck=d1');
-+    await screen.findByRole('button', { name: /^mon deck/i });
-+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
-+    fireEvent.click(await screen.findByRole('button', { name: 'Supprimer le deck Mon deck' }));
-+    await waitFor(() => expect(screen.queryByRole('button', { name: /^mon deck/i })).toBeNull());
-+    expect(await screen.findByText('Kardiomyopathie')).toBeTruthy();
-+    expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
-+    const { cancelDeletion } = await import('@/lib/collections/pendingDeletion');
-+    expect(cancelDeletion('d1')).toBe(true);
-+  });
- });
-```
-
-- [ ] **Step 2 : vérifier l'échec** — `npx vitest run src/features/fachbegriffe; echo exit=$?` → ≠ 0 (`./DeckRail` introuvable ; bouton « Gérer les decks » introuvable).
-
-- [ ] **Step 3 : implémentation** — créer `app/src/features/fachbegriffe/DeckRail.tsx` :
-
-```tsx
-// ============================================================================
-// Onglets des decks (F4b P6) — verre fin. Ordinateur (md+) : une colonne
-// d'onglets qui SORTENT du bord gauche du panneau de la liste ; téléphone :
-// les mêmes onglets en bande horizontale en haut du panneau (défile seule, la
-// page ne déborde jamais). Toucher = filtrer ; retoucher l'onglet actif =
-// tout afficher. Decks intelligents avec leur icône (ils se remplissent par
-// leur requête, jamais à la main). « ⋯ Decks » ouvre le tiroir de gestion.
-// ============================================================================
-import type { Deck } from '@/db/types';
-import { FAVORITES_DECK_ID } from '@/db/types';
-import { Icon } from '@/components/icons';
-import { StarGlyph } from '@/components/StarButton';
-
-interface Props { decks: Deck[]; activeId: string | null; counts: Record<string, number>; onSelect: (id: string | null) => void; onManage: () => void }
-
-const tab = 'glass-thin group flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-slate-700 transition-colors hover:text-brand-700 aria-pressed:bg-brand-600 aria-pressed:text-white dark:text-slate-200 md:max-w-[10rem] md:rounded-l-full md:rounded-r-none md:border-r-0';
-
-export function DeckRail({ decks, activeId, counts, onSelect, onManage }: Props) {
-  const byDate = (a: Deck, b: Deck) => a.createdAt.localeCompare(b.createdAt);
-  const rows = [
-    ...decks.filter((d) => d.kind === 'manual').sort(byDate),
-    ...decks.filter((d) => d.kind === 'smart').sort(byDate),
-  ];
-  const tabFor = (id: string, label: string, icon?: React.ReactNode) => (
-    <button key={id} type="button" aria-pressed={activeId === id} onClick={() => onSelect(activeId === id ? null : id)} className={tab}>
-      {icon}<span className="truncate">{label}</span>
-      {counts[id] !== undefined && <span className="font-mono text-[11px] opacity-70">{counts[id]}</span>}
-    </button>
-  );
-  return (
-    <div role="group" aria-label="Decks"
-      className="-mx-1 mb-2 flex gap-1.5 overflow-x-auto px-1 pb-1 md:absolute md:right-full md:top-3 md:z-10 md:m-0 md:w-40 md:flex-col md:items-end md:overflow-visible md:p-0">
-      {tabFor(FAVORITES_DECK_ID, 'Favoris', <span className="text-star-600 group-aria-pressed:text-star-300 dark:text-star-400"><StarGlyph filled /></span>)}
-      {rows.map((d) => tabFor(d.id, d.name, d.kind === 'smart' ? <Icon name="bolt" className="h-4 w-4 shrink-0" title="Deck intelligent" /> : undefined))}
-      <button type="button" onClick={onManage} aria-haspopup="dialog" aria-label="Gérer les decks" className={`${tab} text-slate-500`}>⋯ Decks</button>
-    </div>
-  );
-}
-```
-
-Remplacer `app/src/features/fachbegriffe/DeckSheet.tsx` par :
-
-```tsx
-import { useEffect, useState } from 'react';
-import type { DeckQuery, Specialty, Srs, Center } from '@/db/types';
-import { createDeck } from '@/lib/collections';
-
-interface Props { initialQuery?: DeckQuery; specialties: Specialty[]; centers: Center[]; onClose: (createdId?: string) => void }
-const STATES: Srs['state'][] = ['Neu', 'Gelernt', 'Zu wiederholen'];
-
-/** Feuille de création d'un deck : nom, type, filtres. Renommer et supprimer
- *  vivent dans le tiroir de gestion (DeckManager, F4b P6). */
-export function DeckSheet({ initialQuery, specialties, centers, onClose }: Props) {
-  const [name, setName] = useState('');
-  const [kind, setKind] = useState<'manual' | 'smart'>('manual');
-  const [query, setQuery] = useState<DeckQuery>(initialQuery ?? {});
-  const [error, setError] = useState<string | null>(null);
-  const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [onClose]);
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault(); setError(null);
-    try { onClose(await createDeck(name, kind, kind === 'smart' ? query : undefined)); }
-    catch (err) { setError((err as Error).message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : (err as Error).message); }
-  };
-
-  return (
-    <>
-      <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={() => onClose()} />
-      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
-        <div className="label">Nouveau deck</div>
-        <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className="input w-full" autoFocus /></label>
-        <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">
-          <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'manual'} onChange={() => setKind('manual')} aria-label="Liste manuelle" />Liste manuelle</label>
-          <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'smart'} onChange={() => setKind('smart')} aria-label="Deck intelligent" />Deck intelligent</label>
-        </div>
-        {kind === 'smart' && (
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <label><span className="label">Recherche</span><input aria-label="Recherche" value={query.q ?? ''} onChange={(e) => set('q', e.target.value)} className="input w-full" /></label>
-            <label><span className="label">Spécialité</span><select aria-label="Spécialité" value={query.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className="input w-full"><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></label>
-            <label><span className="label">État</span><select aria-label="État" value={query.state ?? ''} onChange={(e) => set('state', e.target.value)} className="input w-full"><option value="">Tous</option>{STATES.map((s) => <option key={s}>{s}</option>)}</select></label>
-            <label><span className="label">Centre</span><select aria-label="Centre" value={query.center ?? ''} onChange={(e) => set('center', e.target.value)} className="input w-full"><option value="">Tous</option>{centers.map((c) => <option key={c}>{c}</option>)}</select></label>
-          </div>
-        )}
-        {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
-        <div className="flex justify-end gap-2"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary min-h-11">Créer</button></div>
-      </form>
-    </>
-  );
-}
-```
-
-```diff
---- a/app/src/features/fachbegriffe/FachbegriffePage.tsx
-+++ b/app/src/features/fachbegriffe/FachbegriffePage.tsx
-@@ -10,23 +10,30 @@ import { EmptyState } from '@/components/ui';
- import { applyQuery, termsOfDeck } from '@/lib/collections/query';
- import { removeFromDeck, setDeckQuery } from '@/lib/collections';
- import { loadDrillContext } from '@/lib/collections/drillContext';
-+import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
-+import { AnimatePresence } from '@/lib/motion';
- import { drillMinutes } from '@/lib/collections/relevance';
- import { sortDe, letterOf } from './letters';
- import { TermList, type TermListHandle } from './TermList';
- import { AlphabetRail } from './AlphabetRail';
--import { DeckTabs } from './DeckTabs';
-+import { DeckRail } from './DeckRail';
-+import { DeckManager } from './DeckManager';
- import { DeckSheet } from './DeckSheet';
- import { SrsSettingsSheet } from './SrsSettingsSheet';
- 
- const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
- 
- export function FachbegriffePage() {
--  const begriffe = useAllTerms(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
-+  const begriffe = useAllTerms(); const allDecks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
-+  // Un deck en attente de suppression (Annuler 5 s, F4b P6) disparaît déjà partout.
-+  const pendingIds = usePendingDeletions((s) => s.ids);
-+  const decks = useMemo(() => allDecks?.filter((d) => !pendingIds.has(d.id)), [allDecks, pendingIds]);
-   const openGlossary = useUi((s) => s.openGlossary);
-   const [params, setParams] = useSearchParams();
-   const activeId = params.get('deck');
-   const [filters, setFilters] = useState<DeckQuery>({});
--  const [sheet, setSheet] = useState<null | { mode: 'create' } | { mode: 'edit' }>(null);
-+  const [sheet, setSheet] = useState(false);
-+  const [manager, setManager] = useState(false);
-   const listRef = useRef<TermListHandle>(null);
-   const pendingIdRef = useRef<string | null>(null);
-   const [remaining, setRemaining] = useState(0);
-@@ -92,15 +99,12 @@ export function FachbegriffePage() {
-           </p>
-         </div>
-         <div className="flex items-center gap-2">
--          {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
-           <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="gear" className="h-4 w-4" />Répétitions</button>
-           <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
-           {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
-         </div>
-       </header>
- 
--      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} onCreate={() => setSheet({ mode: 'create' })} />
--
-       <div className="card flex flex-wrap items-end gap-3 p-3">
-         <div className="min-w-[160px] flex-1"><label className="label">Recherche</label><input value={effective.q ?? ''} onChange={(e) => set('q', e.target.value)} placeholder="Terme, traduction…" className="input mt-1" /></div>
-         <div><label className="label">Spécialité</label><select value={effective.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className="input mt-1"><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></div>
-@@ -109,18 +113,25 @@ export function FachbegriffePage() {
-         {dirty && <div className="flex gap-2"><button type="button" onClick={async () => { await setDeckQuery(activeId!, effective); setFilters({}); }} className="btn-primary text-xs">Enregistrer dans le deck</button><button type="button" onClick={() => setFilters({})} className="btn-outline text-xs">Annuler</button></div>}
-       </div>
- 
--      {empty || (
--        <div className="flex gap-2">
--          <div className="min-w-0 flex-1">
--            <TermList ref={listRef} terms={shown} inDecks={inDecks} onOpen={openGlossary}
--              onRemove={activeDeck && !isSmart && activeId !== FAVORITES_DECK_ID ? (t) => { void removeFromDeck(activeId!, t.id); } : undefined} />
-+      {/* Panneau de la liste : les onglets des decks en sortent par la gauche (md+), en bande au-dessus (téléphone). */}
-+      <div className="relative md:ml-40">
-+        <DeckRail decks={decks} activeId={activeId} counts={counts} onSelect={select} onManage={() => setManager(true)} />
-+        {empty || (
-+          <div className="flex gap-2">
-+            <div className="min-w-0 flex-1">
-+              <TermList ref={listRef} terms={shown} inDecks={inDecks} onOpen={openGlossary}
-+                onRemove={activeDeck && !isSmart && activeId !== FAVORITES_DECK_ID ? (t) => { void removeFromDeck(activeId!, t.id); } : undefined} />
-+            </div>
-+            <AlphabetRail available={available} onJump={(l) => listRef.current?.jumpTo(l)} />
-           </div>
--          <AlphabetRail available={available} onJump={(l) => listRef.current?.jumpTo(l)} />
--        </div>
--      )}
-+        )}
-+      </div>
- 
--      {sheet && <DeckSheet mode={sheet.mode} deck={sheet.mode === 'edit' ? (activeDeck as never) : undefined} initialQuery={filters} specialties={specialties} centers={centers}
--        onClose={(createdId, opts) => { setSheet(null); if (createdId) { pendingIdRef.current = createdId; select(createdId); } else if (opts?.deleted) select(null); }} />}
-+      <AnimatePresence>
-+        {manager && <DeckManager key="deck-manager" decks={decks} counts={counts} onCreate={() => { setManager(false); setSheet(true); }} onClose={() => setManager(false)} />}
-+      </AnimatePresence>
-+      {sheet && <DeckSheet initialQuery={filters} specialties={specialties} centers={centers}
-+        onClose={(createdId) => { setSheet(false); if (createdId) { pendingIdRef.current = createdId; select(createdId); } }} />}
-       {srsSheet && <SrsSettingsSheet onClose={() => { setSrsSheet(false); reloadCtx(); }} />}
-     </div>
-   );
-```
-
-Supprimer `DeckTabs.tsx` : `git rm src/features/fachbegriffe/DeckTabs.tsx` (plus aucun import : `grep -rn DeckTabs src; echo exit=$?` → `exit=1`).
-
-- [ ] **Step 4 : vérifier** — `npx vitest run src/features/fachbegriffe; echo exit=$?` → 0 ; gates.
-
-- [ ] **Step 5 : commit**
-```bash
-git add src/features/fachbegriffe/DeckRail.tsx
-git add src/features/fachbegriffe/DeckRail.test.tsx
-git add src/features/fachbegriffe/DeckSheet.tsx
-git add src/features/fachbegriffe/FachbegriffePage.tsx
-git add src/features/fachbegriffe/FachbegriffePage.test.tsx
-git commit -m "feat(fachbegriffe): decks en onglets verre — bord gauche du panneau, bande sur téléphone ; DeckTabs retiré (F4b P6)"
-```
-(`git rm` a déjà stagé la suppression de `DeckTabs.tsx`.)
-
----
-
-### Task E4 : Tiroir latéral en verre plein, qui glisse (front-implementer, Sonnet)
+### Task E3 : Tiroir d'un terme en verre plein, qui glisse (front-implementer, Sonnet)
 
 **Files:**
 - Modify: `app/src/components/GlossaryDrawer.tsx`, `app/src/components/GlossaryDrawer.test.tsx`
 
 **Interfaces:**
 - Consumes : A1 (`AnimatePresence`, `m`, `slide`), A2.
-- Produces : `aside.glass-full` monté dans un `AnimatePresence` persistant (la sortie se joue) ; comportement F4a inchangé.
+- Produces : `aside.glass-full` monté dans un `AnimatePresence` persistant (la sortie se joue) ; comportement F4a inchangé. E4 y ajoute les onglets.
 
 - [ ] **Step 1 : test qui échoue**
 
@@ -2319,6 +1944,693 @@ git add src/components/GlossaryDrawer.tsx
 git add src/components/GlossaryDrawer.test.tsx
 git commit -m "feat(fachbegriffe): tiroir d'un terme en verre plein, glisse depuis la droite (F4b P1/P9)"
 ```
+
+---
+
+### Task E4 : Onglets de decks sur le bord gauche du tiroir d'un terme (front-implementer, Sonnet ; relecture ux-user-advocate)
+
+**Files:**
+- Create: `app/src/components/DeckRail.tsx`
+- Delete: `app/src/components/DeckChecklist.tsx`
+- Modify: `app/src/components/GlossaryDrawer.tsx` (+ test), `app/src/components/StarButton.tsx` (+ test), `app/src/components/TermHoverCard.test.tsx`, `app/src/features/fachbegriffe/CaseTermsPanel.test.tsx`
+- Modify: `app/src/features/fachbegriffe/DeckManager.tsx` (+ test), `DeckSheet.tsx`, `FachbegriffePage.tsx` (+ test)
+
+**Interfaces:**
+- Consumes : E1 (`usePendingDeletions`, `scheduleDeletion(…, 'deck')`), E2 (`DeckManager`), E3 (tiroir), B1 (`StarGlyph`), `addTermToDeck`, `removeTermFromDeck`, `createDeck`, `decksOfTerm` (existants).
+- Produces :
+  - `DeckRail({ termId: string, caseId?: string, onManage: () => void })` — `role="group"` « Decks de ce terme » ; boutons `aria-pressed` (Favoris, decks manuels par date), decks intelligents `disabled` avec l'icône « Deck intelligent », « ⋯ Decks » (`aria-label="Gérer les decks"`, `aria-haspopup="dialog"`). Classes : `overflow-x-auto` (bande, téléphone) ; `md:absolute md:right-full md:flex-col` (colonne qui sort du bord gauche du tiroir).
+  - `DeckManager({ decks, counts, onClose })` — **plus de `onCreate`** : création d'un deck manuel sur place (« Nom du nouveau deck » + « Créer ») ; `z-[60]` (au-dessus du tiroir), rend le focus à l'ouvreur.
+  - `StarButton` : ★ pleine → `useUi().openGlossary(term)` (`aria-haspopup="dialog"`), rien n'est émis ; ★ vide inchangée (Favoris + pilule).
+  - `DeckSheet({ initialQuery?, specialties, centers, onClose: (createdId?: string) => void })` — création seule.
+  - `GlossaryDrawer` : plus d'étoile dans l'en-tête ; Échap ferme d'abord le tiroir de gestion (`[role="dialog"][aria-label="Decks"]`).
+
+- [ ] **Step 1 : tests qui échouent**
+
+```diff
+--- a/app/src/components/GlossaryDrawer.test.tsx
++++ b/app/src/components/GlossaryDrawer.test.tsx
+@@ -1,5 +1,5 @@
+ import { describe, it, expect, beforeEach, vi } from 'vitest';
+-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
++import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+ import { MemoryRouter, Route, Routes, Link } from 'react-router-dom';
+ import { db } from '@/db/db';
+ import { useUi } from '@/store/ui';
+@@ -37,17 +37,28 @@ describe('GlossaryDrawer (F4a)', () => {
+     expect(await screen.findByText('Bauch')).toBeTruthy();
+     expect(document.body.textContent).not.toMatch(/patientengerecht/i);
+   });
+-  it('★ vide → Favoris ; ★ pleine → decks du terme, cocher un deck l\'y range (D6)', async () => {
+-    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
++  it('onglets du terme (F4b P6) : allumé = rangé ; toucher range / retire ; intelligent inerte ; plus d\'étoile', async () => {
++    await db.progress_events.bulkPut([
++      { id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' },
++      { id: 'e2', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: {} }, occurred_at: '2020-01-02T00:00:00Z' },
++    ] as never);
+     const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+     renderDrawer();
+-    const starBtn = await screen.findByRole('button', { name: 'Ajouter aux favoris : Abdomen' });
+-    await waitFor(() => expect(starBtn.hasAttribute('disabled')).toBe(false));   // decks en chargement : étoile inerte (revue C4)
+-    fireEvent.click(starBtn);
++    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
++    expect(screen.queryByRole('button', { name: /Ajouter aux favoris/ })).toBeNull();
++    const fav = within(rail).getByRole('button', { name: /Favoris/ });
++    expect(fav.getAttribute('aria-pressed')).toBe('false');
++    fireEvent.click(fav);
+     await waitFor(async () => expect(await db.favorites.get('fb-a')).toBeTruthy());
+-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /kardio/i }));
++    await waitFor(() => expect(within(rail).getByRole('button', { name: /Favoris/ }).getAttribute('aria-pressed')).toBe('true'));
++    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
+     await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeTruthy());
++    await waitFor(() => expect(within(rail).getByRole('button', { name: 'Kardio' }).getAttribute('aria-pressed')).toBe('true'));
++    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
++    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeUndefined());
++    expect((within(rail).getByRole('button', { name: /À revoir/ }) as HTMLButtonElement).disabled).toBe(true);
++    for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
++    for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col']) expect(rail.className).toContain(c);
+   });
+   it('« Carte » retourne la fiche en carte recto/verso comme au drill (D9, AC-8)', async () => {
+     renderDrawer();
+@@ -59,13 +70,12 @@ describe('GlossaryDrawer (F4a)', () => {
+     fireEvent.click(screen.getByRole('button', { name: 'Fiche' }));
+     expect(document.querySelector('[data-card-flip]')).toBeNull();
+   });
+-  it('Échap ferme le panneau ; avec la liste des decks ouverte, Échap ne ferme que la liste', async () => {
+-    await db.favorites.put({ termId: 'fb-a', since: '' } as never);
++  it('« ⋯ Decks » ouvre la gestion ; Échap ne ferme qu\'elle, puis le panneau', async () => {
+     renderDrawer();
+-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+-    await screen.findByRole('menu');
++    fireEvent.click(await screen.findByRole('button', { name: 'Gérer les decks' }));
++    expect(await screen.findByRole('dialog', { name: 'Decks' })).toBeTruthy();
+     fireEvent.keyDown(document, { key: 'Escape' });
+-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
++    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Decks' })).toBeNull());
+     expect(useUi.getState().glossaryTerm).toBeTruthy();
+     fireEvent.keyDown(document, { key: 'Escape' });
+     await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());
+```
+
+```diff
+--- a/app/src/components/StarButton.test.tsx
++++ b/app/src/components/StarButton.test.tsx
+@@ -61,41 +61,20 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
+     expect(await db.favorites.get('fb-aszites')).toBeUndefined();
+     expect(await screen.findByText('Leber', { selector: 'strong' })).toBeTruthy();
+   });
+-  it('★ pleine (terme dans un deck, pas en Favoris) → liste ses decks ; décocher retire', async () => {
++  it('★ pleine (terme dans un deck) → ouvre la fiche du terme, sans rien émettre (F4b P6 : les decks se rangent dans ses onglets)', async () => {
++    const { useUi } = await import('@/store/ui');
++    useUi.setState({ glossaryTerm: null });
+     const deckId = await createDeck('Leber', 'manual');
+     await addTermToDeck(deckId, 'fb-aszites');
++    const before = (await db.progress_events.toArray()).length;
+     render(<Harness />);
+-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
+-    expect((await screen.findByRole('menuitemcheckbox', { name: /Favoris/ })).getAttribute('aria-checked')).toBe('false');
+-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Leber/ }));
+-    await waitFor(async () => expect(await db.deck_terms.get([deckId, 'fb-aszites'])).toBeUndefined());
+-    expect(await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' })).toBeTruthy();
++    const full = await screen.findByRole('button', { name: 'Decks de Aszites' });
++    expect(full.getAttribute('aria-haspopup')).toBe('dialog');
++    fireEvent.click(full);
++    expect(useUi.getState().glossaryTerm?.id).toBe('fb-aszites');
++    expect((await db.progress_events.toArray()).length).toBe(before);
+     expect(FAVORITES_DECK_ID).toBe('deck-favorites');
+-  });
+-  it('checklist : « + » crée le deck ET y range le terme (revue C4)', async () => {
+-    await addTermToDeck(FAVORITES_DECK_ID, 'fb-aszites');
+-    render(<Harness />);
+-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
+-    fireEvent.change(await screen.findByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
+-    fireEvent.click(screen.getByRole('button', { name: 'Créer le deck et y ranger ce terme' }));
+-    await waitFor(async () => {
+-      const deck = (await db.decks.toArray()).find((d) => d.name === 'Hepato');
+-      expect(deck && (await db.deck_terms.get([deck.id, 'fb-aszites']))).toBeTruthy();
+-    });
+-  });
+-  it("l'ancre du menu decks repart de zéro quand le terme redevient sans deck puis en regagne un (m4)", async () => {
+-    const deckId = await createDeck('Leber', 'manual');
+-    await addTermToDeck(deckId, 'fb-aszites');
+-    render(<Harness />);
+-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
+-    await screen.findByRole('menu');
+-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Leber/ }));
+-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+-    await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' });
+-    await addTermToDeck(deckId, 'fb-aszites');
+-    const starBtn = await screen.findByRole('button', { name: 'Decks de Aszites' });
+-    fireEvent.click(starBtn);
+-    expect(await screen.findByRole('menu')).toBeTruthy();
++    useUi.setState({ glossaryTerm: null });
+   });
+   it('Échap ferme la confirmation (revue C4)', async () => {
+     render(<Harness />);
+```
+
+```diff
+--- a/app/src/components/TermHoverCard.test.tsx
++++ b/app/src/components/TermHoverCard.test.tsx
+@@ -46,15 +46,14 @@ describe('TermHoverCard', () => {
+     expect(await screen.findByRole('dialog')).toBeTruthy();
+     expect(screen.getByText('Abdomen')).toBeTruthy(); expect(screen.getByText(/Bauch/)).toBeTruthy();
+   });
+-  it('★ = Favoris immédiat avec caseId du store ; ★ pleine → decks du terme, décocher Favoris retire (F4a D6)', async () => {
++  it('★ = Favoris immédiat avec caseId du store ; ★ pleine → ouvre la fiche du terme, où vivent ses onglets de decks (F4b P6)', async () => {
+     act(() => useUi.getState().openHover(fb, anchor, 'c9'));
+     render(<MemoryRouter><TermHoverCard /></MemoryRouter>);
+     fireEvent.click(await screen.findByRole('button', { name: /Ajouter aux favoris/ }));
+     await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')?.payload).toEqual({ caseId: 'c9' }));
+     fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Favoris/ }));
+-    await waitFor(async () => expect((await db.progress_events.toArray()).some((e) => e.type === 'term.unfavorited')).toBe(true));
+-    expect(screen.getByRole('dialog')).toBeTruthy();   // la liste des decks ne referme pas la carte
++    expect(useUi.getState().glossaryTerm?.id).toBe('fb-a');
++    expect((await db.progress_events.toArray()).some((e) => e.type === 'term.unfavorited')).toBe(false);
+   });
+   it('Échap et clic extérieur ferment', async () => {
+     act(() => useUi.getState().openHover(fb, anchor));
+```
+
+```diff
+--- a/app/src/features/fachbegriffe/CaseTermsPanel.test.tsx
++++ b/app/src/features/fachbegriffe/CaseTermsPanel.test.tsx
+@@ -54,17 +54,19 @@ describe('CaseTermsPanel', () => {
+     chip.remove();
+   });
+ 
+-  it('mode drawer : liste des decks ouverte, Échap la ferme d\'abord, pas le panneau (m3)', async () => {
++  it('mode drawer : ★ pleine ouvre la fiche du terme ; Échap, fiche ouverte, ne ferme pas le panneau (m3, F4b P6)', async () => {
++    const { useUi } = await import('@/store/ui');
++    useUi.setState({ glossaryTerm: null });
+     await db.decks.put({ id: 'd1', name: 'Kardio', kind: 'manual', createdAt: '', updatedAt: '' } as never);
+     await db.deck_terms.put({ deckId: 'd1', termId: 'fb-a', addedAt: '' } as never);
+     const onClose = vi.fn();
+     render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="drawer" onClose={onClose} onDrill={() => {}} /></MemoryRouter>);
+     await screen.findByRole('dialog');
+     fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+-    await screen.findByRole('menu');
++    expect(useUi.getState().glossaryTerm?.id).toBe('fb-a');
+     fireEvent.keyDown(document, { key: 'Escape' });
+-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+     expect(onClose).not.toHaveBeenCalled();
++    useUi.setState({ glossaryTerm: null });
+   });
+ 
+   it('un terme avec register affiche register.patient au lieu de translationSimple (C2)', async () => {
+```
+
+```diff
+--- a/app/src/features/fachbegriffe/DeckManager.test.tsx
++++ b/app/src/features/fachbegriffe/DeckManager.test.tsx
+@@ -19,8 +19,8 @@ vi.mock('@/lib/sync/queue', async () => {
+ });
+ 
+ const decks = () => db.decks.toArray();
+-function renderManager(onCreate = vi.fn(), onClose = vi.fn()) {
+-  return decks().then((d) => render(<><DeckManager decks={d} counts={{ 'deck-favorites': 2 }} onCreate={onCreate} onClose={onClose} /><CardToast /></>));
++function renderManager(onClose = vi.fn()) {
++  return decks().then((d) => render(<><DeckManager decks={d} counts={{ 'deck-favorites': 2 }} onClose={onClose} /><CardToast /></>));
+ }
+ 
+ describe('DeckManager (F4b P6, AC-5)', () => {
+@@ -59,14 +59,15 @@ describe('DeckManager (F4b P6, AC-5)', () => {
+     expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
+     expect(cancelDeletion(id)).toBe(false);
+   });
+-  it('deck intelligent : icône, renommable ; « Nouveau deck » et Échap délèguent', async () => {
++  it('deck intelligent : icône ; créer un deck manuel sur place ; Échap délègue', async () => {
+     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: { state: 'Zu wiederholen' } }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+     await reprojectCollections();
+-    const onCreate = vi.fn(); const onClose = vi.fn();
+-    await renderManager(onCreate, onClose);
++    const onClose = vi.fn();
++    await renderManager(onClose);
+     expect(screen.getByRole('img', { name: 'Deck intelligent' })).toBeTruthy();
+-    fireEvent.click(screen.getByRole('button', { name: 'Nouveau deck' }));
+-    expect(onCreate).toHaveBeenCalled();
++    fireEvent.change(screen.getByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
++    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
++    await waitFor(async () => expect((await db.decks.toArray()).some((d) => d.name === 'Hepato' && d.kind === 'manual')).toBe(true));
+     fireEvent.keyDown(document, { key: 'Escape' });
+     expect(onClose).toHaveBeenCalled();
+   });
+```
+
+```diff
+--- a/app/src/features/fachbegriffe/FachbegriffePage.test.tsx
++++ b/app/src/features/fachbegriffe/FachbegriffePage.test.tsx
+@@ -1,5 +1,5 @@
+ import { describe, it, expect, beforeEach, vi } from 'vitest';
+-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
++import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+ import { MemoryRouter } from 'react-router-dom';
+ import { db } from '@/db/db';
+ import { freshSrs } from '@/lib/srs';
+@@ -85,4 +85,16 @@ describe('FachbegriffePage', () => {
+     expect(tab.getAttribute('aria-selected')).toBe('true');
+     expect((screen.getByRole('link', { name: /drill/i }) as HTMLAnchorElement).getAttribute('href')).toContain('deck=d1');
+   });
++  it('un deck en attente de suppression (Annuler 5 s) disparaît des onglets ; Annuler le rend (F4b P6)', async () => {
++    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Mon deck', kind: 'manual' }, occurred_at: '2026-09-17T10:00:00Z' } as never);
++    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
++    const { scheduleDeletion, cancelDeletion } = await import('@/lib/collections/pendingDeletion');
++    renderAt();
++    await screen.findByRole('tab', { name: /mon deck/i });
++    await act(async () => { await scheduleDeletion('d1', 60_000, 'deck'); });
++    await waitFor(() => expect(screen.queryByRole('tab', { name: /mon deck/i })).toBeNull());
++    act(() => { cancelDeletion('d1'); });
++    expect(await screen.findByRole('tab', { name: /mon deck/i })).toBeTruthy();
++    expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
++  });
+ });
+```
+
+- [ ] **Step 2 : vérifier l'échec** — `npx vitest run src/components src/features/fachbegriffe; echo exit=$?` → ≠ 0 (groupe « Decks de ce terme » introuvable ; `menuitemcheckbox` attendu par l'ancien comportement disparu ; champ « Nom du nouveau deck » absent du tiroir de gestion).
+
+- [ ] **Step 3 : implémentation** — créer `app/src/components/DeckRail.tsx` :
+
+```tsx
+// ============================================================================
+// Onglets des decks d'UN terme (F4b P6) — verre fin, dans le tiroir latéral
+// (GlossaryDrawer). Ordinateur (md+) : une colonne d'onglets qui SORTENT du
+// bord gauche du tiroir ; téléphone : les mêmes en bande horizontale en haut
+// du tiroir (défile seule). Onglet allumé = le terme est rangé dans ce deck ;
+// toucher = ranger / retirer (addTermToDeck / removeTermFromDeck, rien de
+// nouveau). Decks intelligents : icône, jamais rangeables à la main (inertes).
+// « ⋯ Decks » ouvre le tiroir de gestion. Remplace l'étoile du tiroir.
+// ============================================================================
+import { FAVORITES_DECK_ID } from '@/db/types';
+import { useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
+import { addTermToDeck, removeTermFromDeck } from '@/lib/collections';
+import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
+import { decksOfTerm } from '@/lib/collections/query';
+import { Icon } from './icons';
+import { StarGlyph } from './StarButton';
+
+const tab = 'glass-thin group flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-slate-700 transition-colors hover:text-brand-700 aria-pressed:bg-brand-600 aria-pressed:text-white disabled:opacity-60 dark:text-slate-200 md:max-w-[10rem] md:rounded-l-full md:rounded-r-none md:border-r-0';
+
+export function DeckRail({ termId, caseId, onManage }: { termId: string; caseId?: string; onManage: () => void }) {
+  const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites();
+  const hidden = usePendingDeletions((s) => s.ids);
+  if (!decks || !deckTerms || !favorites) return null;   // états inconnus : rien à toucher (comme DeckChecklist)
+  const has = new Set(decksOfTerm(termId, favorites, deckTerms));
+  const byDate = (a: { createdAt: string }, b: { createdAt: string }) => a.createdAt.localeCompare(b.createdAt);
+  const visible = decks.filter((d) => !hidden.has(d.id));
+  const rows = [...visible.filter((d) => d.kind === 'manual').sort(byDate), ...visible.filter((d) => d.kind === 'smart').sort(byDate)];
+  const opts = caseId ? { caseId } : {};
+  const toggle = (id: string) => { void (has.has(id) ? removeTermFromDeck(id, termId) : addTermToDeck(id, termId, opts)); };
+  return (
+    <div role="group" aria-label="Decks de ce terme"
+      className="flex gap-1.5 overflow-x-auto border-b border-white/40 px-4 py-2 dark:border-white/10 md:absolute md:right-full md:top-16 md:w-40 md:flex-col md:items-end md:overflow-visible md:border-0 md:p-0">
+      <button type="button" aria-pressed={has.has(FAVORITES_DECK_ID)} onClick={() => toggle(FAVORITES_DECK_ID)} className={tab}>
+        <span className="text-star-600 group-aria-pressed:text-star-300 dark:text-star-400"><StarGlyph filled={has.has(FAVORITES_DECK_ID)} /></span>
+        <span className="truncate">Favoris</span>
+      </button>
+      {rows.map((d) => d.kind === 'smart' ? (
+        <button key={d.id} type="button" disabled title="Se remplit tout seul" className={tab}>
+          <Icon name="bolt" className="h-4 w-4 shrink-0" title="Deck intelligent" /><span className="truncate">{d.name}</span>
+        </button>
+      ) : (
+        <button key={d.id} type="button" aria-pressed={has.has(d.id)} onClick={() => toggle(d.id)} className={tab}><span className="truncate">{d.name}</span></button>
+      ))}
+      <button type="button" onClick={onManage} aria-haspopup="dialog" aria-label="Gérer les decks" className={`${tab} text-slate-500`}>⋯ Decks</button>
+    </div>
+  );
+}
+```
+
+```diff
+--- a/app/src/components/GlossaryDrawer.tsx
++++ b/app/src/components/GlossaryDrawer.tsx
+@@ -2,19 +2,22 @@ import { useEffect, useRef, useState } from 'react';
+ import { Link, useLocation } from 'react-router-dom';
+ import { useUi } from '@/store/ui';
+ import { useCardToast } from '@/store/cardToast';
+-import { useCases, usePersonalTerms, useTermsInDecks } from '@/hooks/useData';
++import { useCases, useDecks, useDeckTerms, useFavorites, usePersonalTerms } from '@/hooks/useData';
+ import { scheduleDeletion } from '@/lib/collections/pendingDeletion';
+ import { isPersonalView, toView } from '@/lib/collections/allTerms';
+ import { SRS_TONE } from '@/lib/srsTone';
+ import { TermSheet } from './TermSheet';
+ import { CardFlip } from './CardFlip';
+-import { StarButton } from './StarButton';
++import { DeckRail } from './DeckRail';
++import { DeckManager } from '@/features/fachbegriffe/DeckManager';
+ import { Icon } from './icons';
+ import { AnimatePresence, m, slide } from '@/lib/motion';
++import { FAVORITES_DECK_ID } from '@/db/types';
+ 
+ // Panneau latéral d'un Fachbegriff (F4a D2/D9/D10) : la fiche (TermSheet), ou
+-// la carte recto/verso comme au drill (« Carte ») ; l'étoile des decks ; la
+-// corbeille d'une carte personnelle (Annuler pendant 5 s) ; les cas liés.
++// la carte recto/verso comme au drill (« Carte ») ; les onglets de decks du
++// terme (DeckRail, F4b P6 — remplacent l'étoile) et leur gestion (DeckManager) ;
++// la corbeille d'une carte personnelle (Annuler pendant 5 s) ; les cas liés.
+ // Verre plein ; glisse depuis la droite et repart par là (F4b P1/P9).
+ export function GlossaryDrawer() {
+   const opened = useUi((s) => s.glossaryTerm);
+@@ -24,11 +27,12 @@ export function GlossaryDrawer() {
+   const { pathname } = useLocation();
+   const cases = useCases();
+   const personalTerms = usePersonalTerms();
+-  const inDecks = useTermsInDecks();
++  const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites();
++  const [manager, setManager] = useState(false);
+   const [view, setView] = useState<'sheet' | 'card'>('sheet');
+   const [revealed, setRevealed] = useState(false);
+   const [deleteError, setDeleteError] = useState<string | null>(null);
+-  useEffect(() => { setView('sheet'); setRevealed(false); setDeleteError(null); }, [opened?.id]);
++  useEffect(() => { setView('sheet'); setRevealed(false); setDeleteError(null); setManager(false); }, [opened?.id]);
+ 
+   // Ouverture : la hover-card ★ cède la place (une seule carte à l'écran).
+   // Échap ferme le panneau — sauf si une liste de decks est ouverte (elle se ferme d'abord).
+@@ -36,7 +40,8 @@ export function GlossaryDrawer() {
+   useEffect(() => { if (open) closeHover(); }, [open, closeHover]);
+   useEffect(() => {
+     if (!open) return;
+-    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape' && !document.querySelector('[role="menu"][data-keep-open]')) close(); };
++    // … ou le tiroir de gestion des decks (il se ferme d'abord).
++    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape' && !document.querySelector('[role="menu"][data-keep-open], [role="dialog"][aria-label="Decks"]')) close(); };
+     document.addEventListener('keydown', onKeyDown);
+     return () => document.removeEventListener('keydown', onKeyDown);
+   }, [open, close]);
+@@ -54,6 +59,8 @@ export function GlossaryDrawer() {
+   const personal = isPersonalView(fb);
+   const linkedCases = (cases ?? []).filter((c) => fb.linkedCaseIds.includes(c.id));
+ 
++  const counts: Record<string, number> = { [FAVORITES_DECK_ID]: favorites?.length ?? 0 };
++  for (const t of deckTerms ?? []) counts[t.deckId] = (counts[t.deckId] ?? 0) + 1;
+   const remove = () => {
+     scheduleDeletion(fb.id)
+       .then(() => { showToast({ kind: 'deleted', term: fb }); close(); })
+@@ -64,10 +71,10 @@ export function GlossaryDrawer() {
+     <AnimatePresence>
+       <m.div key="glossary-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
+       <m.aside key="glossary-drawer" {...slide('right')} className="glass-full glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-y-0 border-r-0">
++        <DeckRail termId={fb.id} onManage={() => setManager(true)} />
+         <div className="flex items-center justify-between gap-1 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
+           <div className="label">{personal ? 'Ma carte' : 'Fachbegriff'}</div>
+           <div className="flex items-center gap-1">
+-            <StarButton term={fb} filled={inDecks?.has(fb.id)} />
+             <button type="button" aria-pressed={view === 'card'} onClick={() => { setView((v) => (v === 'card' ? 'sheet' : 'card')); setRevealed(false); }}
+               className="btn-ghost min-h-11 px-2 text-sm">{view === 'card' ? 'Fiche' : 'Carte'}</button>
+             {personal && (
+@@ -113,6 +120,7 @@ export function GlossaryDrawer() {
+           <Link to="/fachbegriffe" onClick={close} className="btn-outline w-full">Alle Fachbegriffe →</Link>
+         </div>
+       </m.aside>
++      {manager && <DeckManager key="deck-manager" decks={decks ?? []} counts={counts} onClose={() => setManager(false)} />}
+     </AnimatePresence>
+   );
+ }
+```
+
+```diff
+--- a/app/src/components/StarButton.tsx
++++ b/app/src/components/StarButton.tsx
+@@ -1,16 +1,17 @@
+ // ============================================================================
+ // L'étoile (F4a D6) — une seule notion : les decks. ★ vide → le terme est rangé
+ // dans Favoris (deck par défaut) et la confirmation montre la carte (D7).
+-// ★ pleine = le terme est dans au moins un deck → toucher liste ses decks.
++// ★ pleine = le terme est dans au moins un deck → toucher ouvre sa fiche, dont
++// les onglets de decks (DeckRail, F4b P6) rangent et retirent : un seul endroit.
+ // Matière (F4b P3) : vide = cristal (incolore, liseré clair) ; pleine = ambre
+ // glassy doux (jeton `star`). Le corail n'habille plus l'étoile.
+ // ============================================================================
+-import { useEffect, useId, useRef, useState } from 'react';
++import { useId, useRef, useState } from 'react';
+ import { FAVORITES_DECK_ID } from '@/db/types';
+ import type { AnyTerm } from '@/lib/collections/allTerms';
+ import { addTermToDeck } from '@/lib/collections';
+ import { useCardToast } from '@/store/cardToast';
+-import { DeckChecklist } from './DeckChecklist';
++import { useUi } from '@/store/ui';
+ 
+ const STAR = 'M12 3.6l2.55 5.2 5.75.83-4.16 4.05.98 5.72L12 16.7l-5.12 2.7.98-5.72L3.7 9.63l5.75-.83z';
+ 
+@@ -37,16 +38,13 @@ export function StarGlyph({ filled }: { filled: boolean }) {
+ export function StarButton({ term, filled, caseId, buttonRef }: {
+   term: AnyTerm; filled: boolean | undefined; caseId?: string; buttonRef?: (el: HTMLButtonElement | null) => void;
+ }) {
+-  const [anchor, setAnchor] = useState<DOMRect | null>(null);
+   const [error, setError] = useState<string | null>(null);
+   const busy = useRef(false);
+-  // Le terme perd son dernier deck (ex. décoché) : l'ancre repart de zéro, sinon un
+-  // prochain clic sur ★ (redevenue pleine) la trouve déjà posée et bascule à vide (m4).
+-  useEffect(() => { if (!filled) setAnchor(null); }, [filled]);
++  const openGlossary = useUi((s) => s.openGlossary);
+   const show = useCardToast((s) => s.show);
+-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
++  const onClick = async () => {
+     if (filled === undefined) return;   // decks en chargement : ni ★ vide trompeuse ni ajout en double
+-    if (filled) { const r = e.currentTarget.getBoundingClientRect(); setAnchor((a) => (a ? null : r)); return; }
++    if (filled) { openGlossary(term); return; }
+     if (busy.current) return;
+     busy.current = true; setError(null);
+     try {
+@@ -58,11 +56,10 @@ export function StarButton({ term, filled, caseId, buttonRef }: {
+   const color = filled ? 'text-star-600 dark:text-star-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100';
+   return (
+     <>
+-      <button ref={buttonRef} type="button" onClick={(e) => { void onClick(e); }} aria-pressed={filled ?? false} aria-busy={filled === undefined || undefined} disabled={filled === undefined}
++      <button ref={buttonRef} type="button" onClick={() => { void onClick(); }} aria-pressed={filled ?? false} aria-busy={filled === undefined || undefined} disabled={filled === undefined}
+         aria-label={filled ? `Decks de ${term.term}` : `Ajouter aux favoris : ${term.term}`}
+-        aria-haspopup={filled ? 'menu' : undefined} aria-expanded={filled ? !!anchor : undefined}
++        aria-haspopup={filled ? 'dialog' : undefined}
+         className={`grid h-11 w-11 shrink-0 place-items-center rounded-full hover:bg-white/40 dark:hover:bg-white/10 ${color} ${filled === undefined ? 'invisible' : ''}`}><StarGlyph filled={!!filled} /></button>
+-      {anchor && filled && <DeckChecklist termId={term.id} caseId={caseId} anchor={anchor} onClose={() => setAnchor(null)} />}
+       {error && <span role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</span>}
+     </>
+   );
+```
+
+```diff
+--- a/app/src/features/fachbegriffe/DeckManager.tsx
++++ b/app/src/features/fachbegriffe/DeckManager.tsx
+@@ -1,14 +1,15 @@
+ // ============================================================================
+ // Tiroir de gestion des decks (F4b P6), ouvert par « ⋯ Decks » : renommer
+ // (sur place), supprimer (+ Annuler 5 s : rien n'est émis avant l'expiration,
+-// pendingDeletion), créer (« Nouveau deck » → DeckSheet). Supprimer un deck
++// pendingDeletion), créer un deck manuel (sur place). Supprimer un deck
+ // ne supprime aucune carte. Favoris est réservé : ni renommé, ni supprimé.
+-// Verre plein, glisse depuis la gauche (côté des onglets) ; Échap ferme.
++// Verre plein, glisse depuis la gauche (côté des onglets), AU-DESSUS du tiroir
++// d'un terme qui l'ouvre (z-60) ; Échap ne ferme que lui.
+ // ============================================================================
+ import { useEffect, useRef, useState } from 'react';
+ import type { Deck } from '@/db/types';
+ import { FAVORITES_DECK_ID } from '@/db/types';
+-import { renameDeck } from '@/lib/collections';
++import { createDeck, renameDeck } from '@/lib/collections';
+ import { scheduleDeletion, usePendingDeletions } from '@/lib/collections/pendingDeletion';
+ import { m, slide } from '@/lib/motion';
+ import { useCardToast } from '@/store/cardToast';
+@@ -48,23 +49,30 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
+   );
+ }
+ 
+-export function DeckManager({ decks, counts, onCreate, onClose }: {
+-  decks: Deck[]; counts: Record<string, number>; onCreate: () => void; onClose: () => void;
++export function DeckManager({ decks, counts, onClose }: {
++  decks: Deck[]; counts: Record<string, number>; onClose: () => void;
+ }) {
+   const hidden = usePendingDeletions((s) => s.ids);
++  const [name, setName] = useState('');
++  const [error, setError] = useState<string | null>(null);
++  const create = async () => {
++    try { await createDeck(name, 'manual'); setName(''); setError(null); }
++    catch (e) { setError(e instanceof Error && e.message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : 'Impossible de créer le deck.'); }
++  };
+   const ref = useRef<HTMLElement>(null);
+   useEffect(() => {
+     ref.current?.focus();
++    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+     document.addEventListener('keydown', onKey);
+-    return () => document.removeEventListener('keydown', onKey);
++    return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
+   }, [onClose]);
+   const shown = decks.filter((d) => !hidden.has(d.id)).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+   return (
+     <Portal>
+-      <m.div key="deck-manager-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/15" onClick={onClose} />
++      <m.div key="deck-manager-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[55] bg-slate-900/15" onClick={onClose} />
+       <m.aside key="deck-manager" ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Decks" {...slide('left')}
+-        className="glass-full fixed left-0 top-0 z-50 flex h-full w-full max-w-sm flex-col rounded-r-2xl p-4 outline-none">
++        className="glass-full fixed left-0 top-0 z-[60] flex h-full w-full max-w-sm flex-col rounded-r-2xl p-4 outline-none">
+         <div className="flex items-center justify-between">
+           <h2 className="text-lg">Decks</h2>
+           <button type="button" aria-label="Fermer" onClick={onClose} className="grid h-11 w-11 place-items-center rounded-full hover:bg-white/50 dark:hover:bg-white/10">✕</button>
+@@ -73,7 +81,12 @@ export function DeckManager({ decks, counts, onCreate, onClose }: {
+           <li className="flex min-h-11 items-center gap-1 px-1 text-slate-500">Favoris<span className="ml-auto pr-3 font-mono text-[11px]">{counts[FAVORITES_DECK_ID] ?? 0}</span></li>
+           {shown.map((d) => <DeckRow key={d.id} deck={d} count={counts[d.id]} />)}
+         </ul>
+-        <button type="button" onClick={onCreate} className="btn-primary mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
++        <div className="mt-3 flex gap-2">
++          <input aria-label="Nom du nouveau deck" value={name} maxLength={40} placeholder="Nouveau deck" onChange={(e) => setName(e.target.value)}
++            onKeyDown={(e) => { if (e.key === 'Enter') void create(); }} className="input min-h-11 flex-1" />
++          <button type="button" onClick={() => { void create(); }} disabled={!name.trim()} className="btn-primary min-h-11 rounded-full">Créer</button>
++        </div>
++        {error && <p role="alert" className="mt-1 text-xs text-rose-600 dark:text-rose-400">{error}</p>}
+       </m.aside>
+     </Portal>
+   );
+```
+
+Remplacer `app/src/features/fachbegriffe/DeckSheet.tsx` par :
+
+```tsx
+import { useEffect, useState } from 'react';
+import type { DeckQuery, Specialty, Srs, Center } from '@/db/types';
+import { createDeck } from '@/lib/collections';
+
+interface Props { initialQuery?: DeckQuery; specialties: Specialty[]; centers: Center[]; onClose: (createdId?: string) => void }
+const STATES: Srs['state'][] = ['Neu', 'Gelernt', 'Zu wiederholen'];
+
+/** Feuille de création d'un deck : nom, type, filtres. Renommer et supprimer
+ *  vivent dans le tiroir de gestion (DeckManager, F4b P6). */
+export function DeckSheet({ initialQuery, specialties, centers, onClose }: Props) {
+  const [name, setName] = useState('');
+  const [kind, setKind] = useState<'manual' | 'smart'>('manual');
+  const [query, setQuery] = useState<DeckQuery>(initialQuery ?? {});
+  const [error, setError] = useState<string | null>(null);
+  const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault(); setError(null);
+    try { onClose(await createDeck(name, kind, kind === 'smart' ? query : undefined)); }
+    catch (err) { setError((err as Error).message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : (err as Error).message); }
+  };
+
+  return (
+    <>
+      <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={() => onClose()} />
+      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
+        <div className="label">Nouveau deck</div>
+        <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className="input w-full" autoFocus /></label>
+        <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">
+          <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'manual'} onChange={() => setKind('manual')} aria-label="Liste manuelle" />Liste manuelle</label>
+          <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'smart'} onChange={() => setKind('smart')} aria-label="Deck intelligent" />Deck intelligent</label>
+        </div>
+        {kind === 'smart' && (
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <label><span className="label">Recherche</span><input aria-label="Recherche" value={query.q ?? ''} onChange={(e) => set('q', e.target.value)} className="input w-full" /></label>
+            <label><span className="label">Spécialité</span><select aria-label="Spécialité" value={query.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className="input w-full"><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="label">État</span><select aria-label="État" value={query.state ?? ''} onChange={(e) => set('state', e.target.value)} className="input w-full"><option value="">Tous</option>{STATES.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="label">Centre</span><select aria-label="Centre" value={query.center ?? ''} onChange={(e) => set('center', e.target.value)} className="input w-full"><option value="">Tous</option>{centers.map((c) => <option key={c}>{c}</option>)}</select></label>
+          </div>
+        )}
+        {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
+        <div className="flex justify-end gap-2"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary min-h-11">Créer</button></div>
+      </form>
+    </>
+  );
+}
+```
+
+```diff
+--- a/app/src/features/fachbegriffe/FachbegriffePage.tsx
++++ b/app/src/features/fachbegriffe/FachbegriffePage.tsx
+@@ -10,23 +10,31 @@ import { EmptyState } from '@/components/ui';
+ import { applyQuery, termsOfDeck } from '@/lib/collections/query';
+ import { removeFromDeck, setDeckQuery } from '@/lib/collections';
+ import { loadDrillContext } from '@/lib/collections/drillContext';
++import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
+ import { drillMinutes } from '@/lib/collections/relevance';
+ import { sortDe, letterOf } from './letters';
+ import { TermList, type TermListHandle } from './TermList';
+ import { AlphabetRail } from './AlphabetRail';
+ import { DeckTabs } from './DeckTabs';
+ import { DeckSheet } from './DeckSheet';
++import { DeckManager } from './DeckManager';
++import { AnimatePresence } from '@/lib/motion';
+ import { SrsSettingsSheet } from './SrsSettingsSheet';
+ 
+ const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
+ 
+ export function FachbegriffePage() {
+-  const begriffe = useAllTerms(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
++  const begriffe = useAllTerms(); const allDecks = useDecks();
++  // Un deck supprimé depuis le tiroir d'un terme (Annuler 5 s, F4b P6) disparaît déjà des onglets.
++  const pendingIds = usePendingDeletions((s) => s.ids);
++  const decks = useMemo(() => allDecks?.filter((d) => !pendingIds.has(d.id)), [allDecks, pendingIds]);
++  const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
+   const openGlossary = useUi((s) => s.openGlossary);
+   const [params, setParams] = useSearchParams();
+   const activeId = params.get('deck');
+   const [filters, setFilters] = useState<DeckQuery>({});
+-  const [sheet, setSheet] = useState<null | { mode: 'create' } | { mode: 'edit' }>(null);
++  const [sheet, setSheet] = useState(false);
++  const [manager, setManager] = useState(false);   // renommer / supprimer : le même tiroir que depuis la fiche d'un terme (F4b P6)
+   const listRef = useRef<TermListHandle>(null);
+   const pendingIdRef = useRef<string | null>(null);
+   const [remaining, setRemaining] = useState(0);
+@@ -92,14 +100,14 @@ export function FachbegriffePage() {
+           </p>
+         </div>
+         <div className="flex items-center gap-2">
+-          {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
++          <button type="button" onClick={() => setManager(true)} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer les decks">⋯</button>
+           <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="gear" className="h-4 w-4" />Répétitions</button>
+           <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
+           {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
+         </div>
+       </header>
+ 
+-      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} onCreate={() => setSheet({ mode: 'create' })} />
++      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} onCreate={() => setSheet(true)} />
+ 
+       <div className="card flex flex-wrap items-end gap-3 p-3">
+         <div className="min-w-[160px] flex-1"><label className="label">Recherche</label><input value={effective.q ?? ''} onChange={(e) => set('q', e.target.value)} placeholder="Terme, traduction…" className="input mt-1" /></div>
+@@ -119,8 +127,11 @@ export function FachbegriffePage() {
+         </div>
+       )}
+ 
+-      {sheet && <DeckSheet mode={sheet.mode} deck={sheet.mode === 'edit' ? (activeDeck as never) : undefined} initialQuery={filters} specialties={specialties} centers={centers}
+-        onClose={(createdId, opts) => { setSheet(null); if (createdId) { pendingIdRef.current = createdId; select(createdId); } else if (opts?.deleted) select(null); }} />}
++      <AnimatePresence>
++        {manager && <DeckManager key="deck-manager" decks={decks} counts={counts} onClose={() => setManager(false)} />}
++      </AnimatePresence>
++      {sheet && <DeckSheet initialQuery={filters} specialties={specialties} centers={centers}
++        onClose={(createdId) => { setSheet(false); if (createdId) { pendingIdRef.current = createdId; select(createdId); } }} />}
+       {srsSheet && <SrsSettingsSheet onClose={() => { setSrsSheet(false); reloadCtx(); }} />}
+     </div>
+   );
+```
+
+Supprimer le menu devenu doublon : `git rm src/components/DeckChecklist.tsx` (`grep -rn DeckChecklist src; echo exit=$?` → `exit=1`).
+
+Note : les onglets du tiroir n'ont pas de `caseId` (le tiroir vit dans `Shell`, hors du contexte du cas) — un rangement fait depuis le tiroir ne marque pas « pendant ce cas » ; l'étoile vide des listes du cas, elle, le marque toujours.
+
+- [ ] **Step 4 : vérifier** — `npx vitest run --dir src; echo exit=$?` → 0 ; gates ; **bundle** (G3) ≤ +30 Kio.
+
+- [ ] **Step 5 : commit**
+```bash
+git add src/components/DeckRail.tsx
+git add src/components/GlossaryDrawer.tsx
+git add src/components/GlossaryDrawer.test.tsx
+git add src/components/StarButton.tsx
+git add src/components/StarButton.test.tsx
+git add src/components/TermHoverCard.test.tsx
+git add src/features/fachbegriffe/CaseTermsPanel.test.tsx
+git add src/features/fachbegriffe/DeckManager.tsx
+git add src/features/fachbegriffe/DeckManager.test.tsx
+git add src/features/fachbegriffe/DeckSheet.tsx
+git add src/features/fachbegriffe/FachbegriffePage.tsx
+git add src/features/fachbegriffe/FachbegriffePage.test.tsx
+git commit -m "feat(fachbegriffe): onglets de decks sur le bord gauche du tiroir d'un terme — allumé = rangé, toucher = ranger/retirer (F4b P6)"
+```
+(`git rm` a déjà stagé la suppression de `DeckChecklist.tsx`.)
 
 ---
 
@@ -2638,10 +2950,11 @@ git commit -m "feat(drill): carte d'embarquement — portée, trois relevés com
 ### Task G1 : Revues (une par rôle, relecteurs ≠ implémenteurs ; un seul fixeur par série)
 
 - [ ] `quality-branch-reviewer` (Opus) sur la branche entière : AC-1–AC-10 prouvés, `motion` importé seulement par `lib/motion.ts`, suppression de deck différée (rien avant expiration, `pagehide`, Favoris réservé), aucun événement nouveau (`git diff main -- src/lib/sync docs/contracts supabase` → vide).
-- [ ] `front-design-keeper` : une seule matière (`glass-thin`/`glass-full`), zéro `shadow-*` sur les éléments refondus (`grep -n "shadow-" src/components/{CardToast,SelectionExplainer,NewCardSheet,DeckChecklist,GlossaryDrawer}.tsx src/features/fachbegriffe/{DeckRail,DeckManager}.tsx; echo exit=$?` → `exit=1`), `star` jamais en texte courant, corail absent de l'étoile, 44 px.
+- [ ] `front-design-keeper` : une seule matière (`glass-thin`/`glass-full`), zéro `shadow-*` sur les éléments refondus (`grep -n "shadow-" src/components/{CardToast,SelectionExplainer,NewCardSheet,GlossaryDrawer,DeckRail}.tsx src/features/fachbegriffe/DeckManager.tsx; echo exit=$?` → `exit=1`), `star` jamais en texte courant, corail absent de l'étoile, 44 px.
+- [ ] `ux-user-advocate` : le comportement des onglets du tiroir (allumé = rangé, toucher = ranger/retirer) et la ★ pleine qui ouvre la fiche — pas de rupture de symbiose pendant un cas.
 - [ ] `ux-motion-designer` : quatre gestes cohérents, ressort sans rebond, interruption (fermer pendant l'ouverture), aucun mouvement sous mouvement réduit, vol du mot.
-- [ ] Accessibilité (skill `design:accessibility-review`) : `aria-pressed` des onglets et de la bascule, `aria-expanded` de la pilule, focus du tiroir `DeckManager` et retour, libellés au survol `aria-hidden`, contraste ≥ 3:1 de l'étoile mesuré en clair/sombre.
-- [ ] `direction-keeper` : copy exacte (Global Constraints), zéro doublon (« ⋯ Gérer le deck » retiré, `DeckSheet` création seule), anti-slop, concision de la carte d'embarquement.
+- [ ] Accessibilité (skill `design:accessibility-review`) : `aria-pressed` des onglets du tiroir et de la bascule du drill, `aria-expanded` de la pilule, focus du tiroir `DeckManager` et retour, libellés au survol `aria-hidden`, contraste ≥ 3:1 de l'étoile mesuré en clair/sombre.
+- [ ] `direction-keeper` : copy exacte (Global Constraints), zéro doublon (`DeckChecklist` retiré, `DeckSheet` création seule, un seul tiroir de gestion), anti-slop, concision de la carte d'embarquement.
 
 ### Task G2 : Preuve navigateur (playwright-cli headless, mesures depuis le DOM de l'app)
 
@@ -2651,7 +2964,7 @@ Créer `app/scripts/e2e/fachbegriffe-f4b.spec.md` (même forme que `fachbegriffe
 - [ ] **AC-2** : étoile pleine/vide mesurée (couleur du trait vs fond effectif) ≥ 3:1 en clair et sombre ; aucune couleur `signal` sur `[data-star]`.
 - [ ] **AC-3** : `[data-pill].getBoundingClientRect().width <= 120` ; chaque bouton ≥ 44 × 44 ; « Expliquer » → carte `glass-full` ; sélection près du haut → carte sous la sélection.
 - [ ] **AC-4** : ★ sur `Aszites` → pilule `role=status` une ligne (hauteur ≤ 52 px) ; toucher → miniature ; « Révéler » → `data-card-flip="verso"` ; « Changer » déplace (IndexedDB `favorites` / `deck_terms`) ; corbeille d'une carte → « Carte supprimée · Annuler » → rien dans `progress_events`.
-- [ ] **AC-5** : 1440 px : onglets à gauche du panneau (`rail.right <= list.left + 1`) ; toucher « Favoris » filtre, retoucher rétablit ; « ⋯ Decks » → renommer, supprimer → onglet absent, pilule « Deck « X » supprimé · Annuler » ; Annuler → aucun `deck.deleted` ; attendre 6 s → `deck.deleted` présent, `personal_terms` intact. 390 px : bande horizontale, `document.documentElement.scrollWidth <= 390`.
+- [ ] **AC-5** : ouvrir la fiche d'`Aszites` (tiroir). 1440 px : onglets hors du tiroir, à sa gauche (`rail.right <= aside.left + 1`) ; toucher « Favoris » → allumé + `favorites` contient le terme ; retoucher → éteint, retiré ; deck intelligent inerte. « ⋯ Decks » → renommer, supprimer → onglet absent (tiroir et page), pilule « Deck « X » supprimé · Annuler » ; Annuler → aucun `deck.deleted` ; attendre 6 s → `deck.deleted` présent, `personal_terms` et `deck_terms` des autres decks intacts. 390 px : bande horizontale en haut du tiroir, `document.documentElement.scrollWidth <= 390`. ★ pleine dans une liste → le tiroir s'ouvre sur ce terme.
 - [ ] **AC-6** : `/fachbegriffe/drill` : trois `[data-readout]`, exemples « Aszites → ? » / « Bauchwasser → ? », « Commencer (N cartes) », aucun « SM-2 » ; deck à jour → « À jour ✓ — prochain terme dû le … ».
 - [ ] **AC-7** : sélection d'une phrase de 6+ mots → pastilles, le mot touché vole (`el.getAnimations().length === 1` juste après le clic) ; ordinateur : carte ancrée sous la sélection (`dialog.top >= selection.bottom`) ; 390 px : depuis le bas ; Entrée crée → la carte descend et la pilule apparaît.
 - [ ] **AC-8** : ouvrir puis fermer la bulle à 50 ms → un seul calque, qui disparaît ; `run-code` → `await page.emulateMedia({ reducedMotion: 'reduce' })` + rechargement → après chaque changement d'état, `document.getAnimations().length === 0` et styles finaux immédiats.
@@ -2665,7 +2978,7 @@ Créer `app/scripts/e2e/fachbegriffe-f4b.spec.md` (même forme que `fachbegriffe
 ```bash
 node -e "const fs=require('fs'),z=require('zlib');let j=0,c=0;for(const f of fs.readdirSync('dist/assets')){const n=z.gzipSync(fs.readFileSync('dist/assets/'+f),{level:9}).length;if(f.endsWith('.js'))j+=n;else if(f.endsWith('.css'))c+=n}console.log(JSON.stringify({jsGzipKB:+(j/1024).toFixed(2),cssGzipKB:+(c/1024).toFixed(2)}))"
 ```
-Attendu (mesuré en rédigeant) : `main` `{"jsGzipKB":547.15,"cssGzipKB":16.92}`, branche `{"jsGzipKB":576.99,"cssGzipKB":17.67}` → **+29,8 Kio JS**. Reporter les deux lignes et la ligne `index-*.js … gzip:` de Vite dans la PR. Si la direction maintient +25 Ko : appliquer l'option retenue en Question ouverte 1 avant merge.
+Attendu (mesuré en rédigeant) : `main` `{"jsGzipKB":547.15,"cssGzipKB":16.92}`, branche `{"jsGzipKB":576.97,"cssGzipKB":17.64}` → **+29,8 Kio JS ≤ +30 (AC-9)**. Reporter les deux lignes et la ligne `index-*.js … gzip:` de Vite (+30,6 kB, autre convention) dans la PR. Au-dessus de +30 Kio : ne pas merger, remonter au coordinateur.
 
 ### Task G4 : [CONTRÔLEUR] PR et livraison
 
@@ -2682,29 +2995,30 @@ Attendu (mesuré en rédigeant) : `main` `{"jsGzipKB":547.15,"cssGzipKB":16.92}`
 | AC-2 | A2, B1, G2 | `tokens.test` (contrastes calculés), `StarButton.test` (cristal/ambre, pas de `signal-`), mesure navigateur |
 | AC-3 | C1, G2 | `SelectionExplainer.test` (2 × `h-11 w-11`, `p-0.5 gap-0.5`, carte `glass-full`), largeur mesurée ≤ 120 |
 | AC-4 | B2, E1, G2 | `CardToast.test`, `StarButton.test`, `SelectionExplainer.test` (Révéler, pas de Changer sans autre deck) |
-| AC-5 | E1, E2, E3, G2 | `pendingDeletion.test` (deck : rien avant expiration, cartes intactes), `DeckManager.test`, `DeckRail.test`, `FachbegriffePage.test` ; 390 px |
+| AC-5 | E1, E2, E4, G2 | `pendingDeletion.test` (deck : rien avant expiration, cartes intactes), `DeckManager.test` (renommer, supprimer + Annuler, créer), `GlossaryDrawer.test` (onglets : allumé = rangé, ranger/retirer, intelligent inerte, bande/colonne, gestion + Échap), `FachbegriffePage.test` (deck en attente masqué) ; 390 px |
 | AC-6 | F1, G2 | `DrillPage.test` (relevés, exemples, action unique, pas de SM-2, budget, état vide daté) |
 | AC-7 | D1, G2 | `NewCardSheet.test` (mise en page, miroitement, Entrée, se poser, crayon), `SelectionExplainer.test` (pastilles, contexte) ; navigateur (vol, ancre) |
 | AC-8 | A1, F1, G2 | `motion.test` (skipAnimations sous mouvement réduit, interruption, vol, compter) ; `document.getAnimations()` |
-| AC-9 | A1, G3 | mesure `vite build` : **+29,8 Kio → non tenu, Question ouverte 1** |
-| AC-10 | toutes, G2 | suites existantes vertes (588 tests), preuve F4a rejouée |
+| AC-9 | A1, E4, G3 | mesure G3 : **+29,8 Kio ≤ +30** (plafond relevé par la direction) |
+| AC-10 | toutes, G2 | suites existantes vertes (583 tests : 3 tests F4a du menu `DeckChecklist` remplacés), preuve F4a rejouée |
 
 ## Questions ouvertes (à trancher par la direction, défaut appliqué entre parenthèses)
 
-1. **Budget bundle (AC-9, bloquante avant merge)** : `motion` ne tient pas +25 Ko. Mesuré : `domMin` synchrone (ce plan) +29,8 Kio au total ; `domAnimation` chargé à part +16,1 Kio au démarrage mais +30,6 au total, avec un risque réel : après un déploiement Pages, un onglet ouvert sur l'ancienne version ne trouve plus le chunk → tous les éléments flottants restent à `opacity: 0`. (Défaut : `domMin` synchrone, plafond relevé à +30 Ko. Alternatives : garder +25 Ko en abandonnant `motion` pour CSS + WAAPI — contredit P9 ; ou chunk séparé avec le risque ci-dessus.)
-2. **Placement des onglets** (Hypothèse 1) : panneau de la liste Fachbegriffe (défaut) ou tiroir d'un terme (`GlossaryDrawer`) ?
-3. **Onglet « Tous »** (Hypothèse 2) : supprimé, retoucher l'onglet actif rétablit tout (défaut) ; alternative : garder « Tous » en tête.
-4. **Ancrage « Ton cas récent »** sur la carte d'embarquement : non listé par P7 ; gardé en puce à côté de la priorité (défaut) ; alternative : le retirer.
-5. **`s'étendre` / `se poser` sans `layoutId`** (Hypothèse 4) : le morphing exact pilule → carte coûterait `domMax` (+13 Kio de plus). (Défaut : croissance depuis l'ancre et descente vers la pilule.)
+Tranchées le 30 sept. : budget bundle **+30 Ko gzip** (spec P9, AC-9 mises à jour) ; onglets sur le **bord gauche du tiroir d'un terme** (`GlossaryDrawer`), bande en haut du tiroir sur téléphone.
+
+1. **Onglets du tiroir — que fait un toucher ?** (Défaut, à confirmer : onglet allumé = ce terme est rangé dans ce deck ; toucher = ranger / retirer ; decks intelligents avec icône, inertes ; « ⋯ Decks » = gestion. Les onglets remplacent l'étoile du tiroir et le menu `DeckChecklist` ; une ★ pleine ailleurs ouvre la fiche du terme. Alternative : garder `DeckChecklist` sur les ★ pleines des listes — +0,8 Kio, deux endroits pour la même action.)
+2. **Rangement depuis le tiroir pendant un cas** : les onglets n'ont pas le `caseId` (le tiroir vit hors du contexte du cas). (Défaut : accepté — l'étoile vide des listes du cas marque toujours le cas ; brancher le contexte du cas dans le tiroir si la direction le veut.)
+3. **Ancrage « Ton cas récent »** sur la carte d'embarquement : non listé par P7 ; gardé en puce à côté de la priorité (défaut) ; alternative : le retirer.
+4. **`s'étendre` / `se poser` sans `layoutId`** (Hypothèse 3) : le morphing exact pilule → carte coûterait `domMax` (+13 Kio, hors budget). (Défaut : croissance depuis l'ancre et descente vers la pilule.)
 
 ## Auto-revue (faite)
 
-- Couverture : P1 (A2, E4), P2 (C1, D1, B2, E2, E3 : verre seulement sur le flottant ; drill et liste restent opaques), P3 (A2, B1), P4 (C1), P5 (B2, E1), P6 (E1–E3), P7 (F1), P8 (D1), P9 (A1 + tous les `m.*`), P10 (F1) ; AC-1–AC-10 dans le tableau ; hors périmètre respecté (aucun fichier `sync`, `contracts`, `supabase` touché).
+- Couverture : P1 (A2, E3), P2 (C1, D1, B2, E2, E4 : verre seulement sur le flottant ; drill et liste restent opaques), P3 (A2, B1), P4 (C1), P5 (B2, E1), P6 (E1, E2, E4 — tiroir d'un terme), P7 (F1), P8 (D1), P9 (A1 + tous les `m.*`), P10 (F1) ; AC-1–AC-10 dans le tableau ; hors périmètre respecté (aucun fichier `sync`, `contracts`, `supabase` touché).
 - Placeholders : aucun ; chaque bloc de code ci-dessus est extrait **tel quel** des commits de la copie jetable où il a passé typecheck, tests et build.
-- Noms : `MotionRoot`, `m`, `AnimatePresence`, `spring`, `appear`, `expand`, `slide`, `settleOrClose`, `flyFrom`, `useCountUp` (A1/F1) ; `StarGlyph` (B1) ; `CardToast` kinds `saved | deleted | deck-deleted | error` (B2/E1) ; `NewCardSheet({ …, at, onClose(settleDy?) })`, `ContextSentence({ …, className })` (D1) ; `planDeckDeletion`, `commitCollectionEvents`, `scheduleDeletion(id, delayMs, kind)` (E1) ; `DeckManager`, `DeckRail`, `DeckSheet` création seule (E2/E3). Aucun nom utilisé avant d'être défini.
+- Noms : `MotionRoot`, `m`, `AnimatePresence`, `spring`, `appear`, `expand`, `slide`, `settleOrClose`, `flyFrom`, `useCountUp` (A1/F1) ; `StarGlyph` (B1) ; `CardToast` kinds `saved | deleted | deck-deleted | error` (B2/E1) ; `NewCardSheet({ …, at, onClose(settleDy?) })`, `ContextSentence({ …, className })` (D1) ; `planDeckDeletion`, `commitCollectionEvents`, `scheduleDeletion(id, delayMs, kind)` (E1) ; `DeckManager` (E2, `onCreate` retiré en E4), `DeckRail({ termId, caseId?, onManage })`, `DeckSheet` création seule (E4). Aucun nom utilisé avant d'être défini.
 
 ## Ce qui a été exécuté en rédigeant ce plan
 
 - Copie jetable (`git archive` de 2142978 → scratchpad, `npm ci`) ; `motion` installé **dans la copie seulement**.
-- Chaque tâche A1–F1 appliquée et commitée dans la copie ; après chacune : typecheck `exit=0` et tests ciblés verts ; à la fin : typecheck `exit=0`, `vitest --dir src` 588/588 (trois passages consécutifs), build `exit=0`, bundle mesuré (tableau « Mesures »), CSS contrôlée (`stop-color`, `hover:hover`, `aria-pressed`, `glass-thin`, `glass-full`, `text-star-600`, `animate-shimmer`, `prefers-reduced-transparency` présents).
+- Chaque tâche A1–F1 appliquée et commitée dans la copie (révision du 30 sept. : E3/E4 refaites pour les onglets dans le tiroir, F1 rejouée par-dessus) ; après chacune : typecheck `exit=0` et tests ciblés verts ; à la fin : typecheck `exit=0`, `vitest --dir src` 583/583 (trois passages consécutifs), build `exit=0`, bundle mesuré (tableau « Mesures »), import de `motion` confiné à `lib/motion.ts`, aucun `shadow-` sur les éléments refondus, CSS contrôlée (`stop-color`, `hover:hover`, `aria-pressed`, `glass-thin`, `glass-full`, `text-star-600`, `animate-shimmer`, `prefers-reduced-transparency` présents).
 - **Non exécuté** : la preuve navigateur (G2) — un `vite preview` de la copie a démarré, mais la première synchronisation du contenu exige `functions serve` sur la pile locale (réponse 503) ; les gestes, le verre rendu, les contrastes mesurés, 390 px et la vidéo restent à prouver en G2. Les revues G1 et la PR (G4) ne sont pas faites.
