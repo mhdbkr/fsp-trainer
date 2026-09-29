@@ -4,13 +4,12 @@
 // deux appareils, même hors ligne, converge vers un seul terme.
 // ============================================================================
 import { db } from '@/db/db';
-import type { Fachbegriff, PersonalTerm, Srs } from '@/db/types';
+import type { PersonalTerm, Srs } from '@/db/types';
 import type { NewEvent, ProgressEvent } from '@/lib/sync/events';
 import { syncQueue } from '@/lib/sync/queue';
 import { freshSrs } from '@/lib/srs';
-import { lookupTerm } from '@/lib/dictionary';
 import { sortEvents } from './project';
-import { reprojectCollections, toggleFavorite } from './index';
+import { reprojectCollections } from './index';
 import { cancelDeletion } from './pendingDeletion';
 
 export const PERSONAL_PREFIX = 'pt-';
@@ -88,24 +87,6 @@ export async function createPersonalTerm(input: PersonalTermInput): Promise<{ id
   await syncQueue.push({ type: 'term.personal_created', subject_id: id, payload: { ...clean, createdAt: new Date().toISOString() } });
   await reprojectPersonalTerms();
   return { id, created: true };
-}
-
-export type StarResult = { id: string; kind: 'glossary' | 'personal'; created: boolean; favorite: boolean };
-/** ★ de la bulle (F3 D2/D3) : glossaire → favori du terme publié ; sinon terme
- *  personnel (créé une seule fois) + favori. Un 2ᵉ ★ bascule le favori. */
-export async function starSelection(input: { selection: string; context?: string; explanation?: string; caseId?: string }, begriffe: Fachbegriff[]): Promise<StarResult> {
-  const opts = input.caseId ? { caseId: input.caseId } : {};
-  const hit = lookupTerm(input.selection, begriffe);
-  if (hit) return { id: hit.id, kind: 'glossary', created: false, favorite: await toggleFavorite(hit.id, opts) };
-  const { id, created, restored } = await createPersonalTerm({ term: input.selection, context: input.context, explanation: input.explanation, caseId: input.caseId });
-  // Carte restaurée déjà en favori : ★ doit la montrer étoilée, pas basculer le favori.
-  const favorite = restored && (await db.favorites.get(id)) ? true : await toggleFavorite(id, opts);
-  return { id, kind: 'personal', created, favorite };
-}
-export async function isStarred(selection: string, begriffe: Fachbegriff[]): Promise<boolean> {
-  const hit = lookupTerm(selection, begriffe);
-  const id = hit ? hit.id : personalTermId(selection);
-  return !!(await db.favorites.get(id));
 }
 
 /** Bedeutung d'une carte personnelle (F4a D8) : UN événement term.personal_updated.

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
-import { createPersonalTerm, starSelection } from './personalTerms';
+import { createPersonalTerm } from './personalTerms';
 import { toggleFavorite } from './index';
 import { scheduleDeletion, cancelDeletion, flushDeletions, usePendingDeletions } from './pendingDeletion';
 
@@ -52,9 +52,9 @@ describe('suppression différée (F4a D10, AC-9)', () => {
     await sleep(DELAY * 3);
     expect((await deletions()).filter((e) => e.type === 'term.personal_deleted')).toHaveLength(1);
   });
-  it('recréer le mot pendant le délai annule la suppression ; ★ la montre étoilée', async () => {
+  it('recréer le mot pendant le délai annule la suppression ; le favori déjà posé reste actif', async () => {
     await scheduleDeletion(id, DELAY);
-    expect(await starSelection({ selection: 'Belastungsdyspnoe' }, [])).toMatchObject({ id, created: false, favorite: true });
+    expect(await createPersonalTerm({ term: 'Belastungsdyspnoe' })).toEqual({ id, created: false, restored: true });
     await sleep(DELAY * 3);
     expect(await deletions()).toEqual([]);
     expect(await db.personal_terms.get(id)).toBeTruthy();
