@@ -90,7 +90,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
     act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
-    expect(await screen.findByText(/écris la signification/i)).toBeTruthy();
+    await waitFor(() => expect(screen.getByRole('textbox', { name: 'Bedeutung' }).getAttribute('placeholder')).toBe('Écris la signification'));
     expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
     expect(screen.queryByRole('dialog', { name: 'Nouvelle carte' })).toBeNull();
@@ -115,7 +115,7 @@ describe('SelectionExplainer', () => {
     render(<><p data-testid="t">Belastungsdyspnoe</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('t')); pill();
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
-    expect(await screen.findByText(/écris la signification/i)).toBeTruthy();
+    await waitFor(() => expect(screen.getByRole('textbox', { name: 'Bedeutung' }).getAttribute('placeholder')).toBe('Écris la signification'));
     expect(askBedeutung).not.toHaveBeenCalled();
     vi.mocked(canAskAi).mockReturnValue(true);
   });
@@ -185,7 +185,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Nouvelle carte/ }));
     fireEvent.click(await screen.findByRole('button', { name: 'Aszites' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Bauchwasser'));
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Ranger' }));
     await waitFor(async () => expect(await db.favorites.get('fb-aszites')).toBeTruthy());
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_created')).toBe(false);
     expect(await db.personal_terms.count()).toBe(0);

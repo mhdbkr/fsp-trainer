@@ -143,7 +143,7 @@ describe('NewCardSheet', () => {
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_updated')).toBe(false);
   });
 
-  it('mot du glossaire touché en pastille → Bedeutung du glossaire en lecture, aucun appel IA, Créer actif sans rien taper (revue N2)', async () => {
+  it('mot du glossaire touché en pastille → « Déjà dans le glossaire », Bedeutung en lecture, aucun appel IA, « Ranger » actif sans rien taper (revue N2)', async () => {
     vi.useRealTimers();
     const { askBedeutung } = await import('@/lib/onlineAi');
     vi.mocked(askBedeutung).mockClear();
@@ -153,6 +153,42 @@ describe('NewCardSheet', () => {
     await waitFor(() => expect((input as HTMLInputElement).value).toBe('Bauchwasser'));
     expect(input.hasAttribute('readOnly')).toBe(true);
     expect(askBedeutung).not.toHaveBeenCalled();
-    expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(false);
+    expect(screen.getByText('Déjà dans le glossaire')).toBeTruthy();
+    expect((screen.getByRole('button', { name: 'Ranger' }) as HTMLButtonElement).disabled).toBe(false);
+  });
+
+  it('pas de rangée de deck quand aucun deck manuel n\'existe (Favoris implicite)', async () => {
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    await screen.findByRole('textbox', { name: 'Bedeutung' });
+    expect(screen.queryByText('Deck')).toBeNull();
+  });
+
+  it('pastilles de deck (aria-pressed) quand au moins un deck manuel existe', async () => {
+    vi.useRealTimers();
+    const { createDeck } = await import('@/lib/collections');
+    await createDeck('Hepato', 'manual');
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    await screen.findByRole('textbox', { name: 'Bedeutung' });
+    const favoris = await screen.findByRole('button', { name: 'Favoris' });
+    expect(favoris.getAttribute('aria-pressed')).toBe('true');
+    const hepato = await screen.findByRole('button', { name: 'Hepato' });
+    expect(hepato.getAttribute('aria-pressed')).toBe('false');
+    fireEvent.click(hepato);
+    expect(hepato.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it("plus de ligne d'aide dupliquée : seul le placeholder porte « Écris la signification »", async () => {
+    const { canAskAi } = await import('@/lib/onlineAi');
+    vi.mocked(canAskAi).mockReturnValueOnce(false);
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    await screen.findByRole('textbox', { name: 'Bedeutung' });
+    expect(screen.queryByText('Pas de proposition : écris la signification.')).toBeNull();
   });
 });

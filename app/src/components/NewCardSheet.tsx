@@ -36,6 +36,7 @@ export function selectionWords(selection: string): string[] {
 
 export function NewCardSheet({ selection, sentence, caseId, onClose }: { selection: string; sentence: string; caseId?: string; onClose: () => void }) {
   const decks = useDecks();
+  const manualDecks = (decks ?? []).filter((d) => d.kind === 'manual');
   const begriffeRaw = useFachbegriffe();
   const personalTerms = usePersonalTerms();
   const begriffe = begriffeRaw ?? [];
@@ -134,7 +135,7 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
         onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}
         className="fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-md space-y-3 rounded-xl bg-white p-4 text-sm shadow-xl ring-1 ring-slate-200 motion-safe:animate-fade-in-fast dark:bg-slate-900 dark:ring-slate-700">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold">Nouvelle carte</h3>
+          <h3 className="font-semibold">{hit ? 'Déjà dans le glossaire' : 'Nouvelle carte'}</h3>
           <button type="button" aria-label="Fermer" onClick={onClose} className="btn-ghost h-11 w-11 justify-center">✕</button>
         </div>
         {chips && (
@@ -161,15 +162,19 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
                 onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }}
                 className={`input mt-1 min-h-11 w-full ${hit ? 'bg-slate-50 dark:bg-white/5' : ''}`} />
             </label>
-            {!hit && !existingPt && ai === 'failed' && !bedeutung && <p className="text-xs text-slate-500">Pas de proposition : écris la signification.</p>}
             {sentence && <div><span className="label">Contexte</span><ContextSentence sentence={sentence} word={word} /></div>}
-            <label className="block"><span className="label">Deck</span>
-              <select value={deckId} onChange={(e) => setDeckId(e.target.value)} className="input mt-1 min-h-11 w-full">
-                <option value={FAVORITES_DECK_ID}>Favoris</option>
-                {(decks ?? []).filter((d) => d.kind === 'manual').map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
-              </select>
-            </label>
-            <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary min-h-11 w-full disabled:opacity-40">Créer</button>
+            {manualDecks.length > 0 && (
+              <div>
+                <span className="label">Deck</span>
+                <div className="mt-1 flex flex-wrap gap-1.5">
+                  {[{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...manualDecks].map((d) => (
+                    <button key={d.id} type="button" aria-pressed={deckId === d.id} onClick={() => setDeckId(d.id)}
+                      className={`min-h-11 rounded-full px-3 ring-1 ${deckId === d.id ? 'bg-brand-600 text-white ring-brand-600' : 'ring-slate-300 hover:bg-slate-100 dark:ring-slate-600 dark:hover:bg-white/10'}`}>{d.name}</button>
+                  ))}
+                </div>
+              </div>
+            )}
+            <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary min-h-11 w-full disabled:opacity-40">{hit ? 'Ranger' : 'Créer'}</button>
             {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
           </>
         )}
