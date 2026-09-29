@@ -8,6 +8,7 @@ import { ExternalAiSheet } from '@/features/simulation/ExternalAiSheet';
 import { Doctopus } from './Doctopus';
 import { ResumeSessionBar } from './ResumeSessionBar';
 import { SelectionExplainer } from './SelectionExplainer';
+import { CardToast } from './CardToast';
 
 // Barre latérale déportée dans ./Sidebar (modes déployé / dock immersif).
 // La palette ⌘K double chaque destination au clavier (NAV partagé, ./nav).
@@ -64,6 +65,8 @@ export function Shell() {
       <Doctopus />
       {/* Quick-search : bulle d'explication sur sélection de texte */}
       <SelectionExplainer />
+      {/* Confirmation d'une carte : rangée (miniature, deck) ou supprimée (Annuler) — F4a */}
+      <CardToast />
       {/* Barre « reprendre » d'une simulation en pause */}
       <ResumeSessionBar />
     </div>

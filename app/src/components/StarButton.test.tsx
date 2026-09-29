@@ -1,0 +1,66 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { db } from '@/db/db';
+import { freshSrs } from '@/lib/srs';
+import { FAVORITES_DECK_ID } from '@/db/types';
+import { useCardToast } from '@/store/cardToast';
+import { createDeck, addTermToDeck } from '@/lib/collections';
+import { useTermsInDecks } from '@/hooks/useData';
+import { StarButton } from './StarButton';
+import { CardToast } from './CardToast';
+
+vi.mock('@/lib/sync/queue', async () => {
+  const { db } = await import('@/db/db');
+  const { newId } = await import('@/lib/sync/events');
+  // occurred_at monotone par appareil (même formule que queue.ts) : push ET
+  // pushMany partagent le même compteur, comme collections/index.test.ts.
+  let lastStamp = 0;
+  const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: stamp(), ...input }) as never;
+  return { syncQueue: {
+    push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
+    pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),
+  } };
+});
+
+const term = { id: 'fb-aszites', term: 'Aszites', translationSimple: 'Bauchwasser', specialty: 'Gastroenterologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs(0) } as never;
+function Harness({ caseId }: { caseId?: string }) {
+  const inDecks = useTermsInDecks();
+  return <><StarButton term={term} filled={inDecks.has('fb-aszites')} caseId={caseId} /><CardToast /></>;
+}
+
+describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
+  beforeEach(async () => { await db.progress_events.clear(); await db.favorites.clear(); await db.decks.clear(); await db.deck_terms.clear(); useCardToast.setState({ toast: null }); });
+
+  it('★ vide → Favoris (+caseId), confirmation avec miniature, « Voir la carte » retourne', async () => {
+    render(<Harness caseId="case-leberzirrhose" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Ajouter aux favoris : Aszites' }));
+    expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
+    expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')!.payload).toEqual({ caseId: 'case-leberzirrhose' });
+    expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
+    fireEvent.click(screen.getByRole('button', { name: 'Voir la carte' }));
+    expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
+    expect(await screen.findByRole('button', { name: 'Decks de Aszites' })).toBeTruthy();
+  });
+  it('« Changer de deck » déplace : retiré de Favoris, ajouté au deck choisi', async () => {
+    const deckId = await createDeck('Leber', 'manual');
+    render(<Harness />);
+    fireEvent.click(screen.getByRole('button', { name: 'Ajouter aux favoris : Aszites' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Changer de deck' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Leber' }));
+    await waitFor(async () => expect(await db.deck_terms.get([deckId, 'fb-aszites'])).toBeTruthy());
+    expect(await db.favorites.get('fb-aszites')).toBeUndefined();
+    expect(await screen.findByText('Leber', { selector: 'strong' })).toBeTruthy();
+  });
+  it('★ pleine (terme dans un deck, pas en Favoris) → liste ses decks ; décocher retire', async () => {
+    const deckId = await createDeck('Leber', 'manual');
+    await addTermToDeck(deckId, 'fb-aszites');
+    render(<Harness />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
+    expect((await screen.findByRole('menuitemcheckbox', { name: /Favoris/ })).getAttribute('aria-checked')).toBe('false');
+    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Leber/ }));
+    await waitFor(async () => expect(await db.deck_terms.get([deckId, 'fb-aszites'])).toBeUndefined());
+    expect(await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' })).toBeTruthy();
+    expect(FAVORITES_DECK_ID).toBe('deck-favorites');
+  });
+});
