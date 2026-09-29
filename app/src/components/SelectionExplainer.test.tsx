@@ -3,7 +3,7 @@ import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
 import { useCardToast } from '@/store/cardToast';
-import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
+import { usePendingDeletions, scheduleDeletion } from '@/lib/collections/pendingDeletion';
 import { createPersonalTerm } from '@/lib/collections/personalTerms';
 import { SelectionExplainer } from './SelectionExplainer';
 import { CardToast } from './CardToast';
@@ -68,6 +68,7 @@ describe('SelectionExplainer', () => {
     render(<><p data-testid="p">Er hat Fieber. Seit Wochen <span data-testid="t">Belastungsdyspnoe</span> beim Treppensteigen. Kein Husten.</p><SelectionExplainer /><CardToast /></>);
     selectText(screen.getByTestId('t')); pill();
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const dialog = await screen.findByRole('dialog', { name: 'Nouvelle carte' });
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
@@ -87,6 +88,7 @@ describe('SelectionExplainer', () => {
     render(<><p data-testid="t">Belastungsdyspnoe</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('t')); pill();
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     expect(await screen.findByText(/écris la signification/i)).toBeTruthy();
     expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(true);
@@ -98,6 +100,7 @@ describe('SelectionExplainer', () => {
     render(<><p data-testid="t">Der Patient klagt über zunehmende Belastungsdyspnoe seit Wochen.</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('t')); pill();
     fireEvent.click(await screen.findByRole('button', { name: /Nouvelle carte/ }));
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     expect(screen.queryByRole('textbox', { name: 'Bedeutung' })).toBeNull();
     fireEvent.click(await screen.findByRole('button', { name: 'Belastungsdyspnoe' }));
@@ -174,41 +177,59 @@ describe('SelectionExplainer', () => {
     expect(screen.queryByText(/premium|connecte-toi/i)).toBeNull();
   });
   it('pastille (>4 mots) touchant un mot du glossaire → range le terme existant, ne crée pas de doublon (revue I1)', async () => {
-    render(<><p data-testid="t">Der Patient zeigt einen deutlichen Aszites im Ultraschall.</p><SelectionExplainer /><CardToast /></>);
-    selectText(screen.getByTestId('t')); pill();
     vi.useRealTimers();
+    render(<><p data-testid="t">Der Patient zeigt einen deutlichen Aszites im Ultraschall.</p><SelectionExplainer /><CardToast /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    await new Promise((r) => setTimeout(r, 260));
     fireEvent.click(await screen.findByRole('button', { name: /Nouvelle carte/ }));
     fireEvent.click(await screen.findByRole('button', { name: 'Aszites' }));
-    await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
+    await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Bauchwasser'));
     fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
     await waitFor(async () => expect(await db.favorites.get('fb-aszites')).toBeTruthy());
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_created')).toBe(false);
     expect(await db.personal_terms.count()).toBe(0);
   });
-  it('carte personnelle en attente de suppression → resélection + ★ ouvre la mini-fiche (D10, revue I3)', async () => {
+  it('D10 de bout en bout : ré-étoiler pendant le délai annule la suppression, Bedeutung intacte, sans appel IA (revue I3 + N1)', async () => {
     vi.useRealTimers();
-    await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung' });
-    const { personalTermId } = await import('@/lib/collections/personalTerms');
-    usePendingDeletions.setState({ ids: new Set([personalTermId('Belastungsdyspnoe')]) });
-    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const { askBedeutung } = await import('@/lib/onlineAi');
+    vi.mocked(askBedeutung).mockClear();
+    const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung (originale)' });
+    // Assez long pour survivre à l'aller-retour réel (plusieurs findByRole/waitFor)
+    // entre la planification et le clic « Créer » qui l'annule.
+    const DELAY = 800;
+    await scheduleDeletion(id, DELAY);
+    expect(usePendingDeletions.getState().ids.has(id)).toBe(true);
+
     render(<><p data-testid="t">Belastungsdyspnoe</p><SelectionExplainer /><CardToast /></>);
-    selectText(screen.getByTestId('t')); pill();
-    expect(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' })).toBeTruthy();
-    expect(screen.queryByRole('button', { name: /Decks de Belastungsdyspnoe/ })).toBeNull();
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    await new Promise((r) => setTimeout(r, 260));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
+    await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung (originale)'));
+    expect(askBedeutung).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    await waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false));
+    // Laisse largement passer le délai qui aurait déclenché la suppression.
+    await new Promise((r) => setTimeout(r, DELAY * 3));
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_deleted')).toBe(false);
+    const pt = await db.personal_terms.get(id);
+    expect(pt).toBeTruthy();
+    expect(pt?.explanation).toBe('Atemnot bei Belastung (originale)');
   });
-  it('rouvrir la mini-fiche sur un autre mot réinitialise le champ Mot (revue I4)', async () => {
+  it('resélection d\'un autre mot puis ★ PENDANT que la mini-fiche reste ouverte (sans Fermer) → le nouveau mot remplace l\'ancien (revue I4)', async () => {
     render(<><p data-testid="a">Belastungsdyspnoe</p><p data-testid="b">Orthopnoe</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('a')); pill();
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     await screen.findByRole('dialog', { name: 'Nouvelle carte' });
-    fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
-    vi.useFakeTimers({ shouldAdvanceTime: true });
-    selectText(screen.getByTestId('b')); pill();
+    selectText(screen.getByTestId('b'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    await new Promise((r) => setTimeout(r, 260));
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Orthopnoe' }));
-    vi.useRealTimers();
-    await screen.findByRole('dialog', { name: 'Nouvelle carte' });
-    expect((screen.getByRole('textbox', { name: 'Mot' }) as HTMLInputElement).value).toBe('Orthopnoe');
+    await waitFor(() => expect((screen.getByRole('textbox', { name: 'Mot' }) as HTMLInputElement).value).toBe('Orthopnoe'));
+    expect(screen.getAllByRole('dialog', { name: 'Nouvelle carte' })).toHaveLength(1);
   });
   it('Expliquer puis ★ sur un mot hors glossaire → la Bedeutung de la mini-fiche vient d\'askBedeutung, pas du texte d\'Expliquer (revue m1)', async () => {
     const { askBrief } = await import('@/lib/onlineAi');
@@ -219,6 +240,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
     await screen.findByText('die Dyspnoe = Atemnot (texte Expliquer)');
     fireEvent.click(screen.getByRole('button', { name: /Nouvelle carte : Belastungsdyspnoe/ }));
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
     expect(screen.queryByText(/texte Expliquer/)).toBeNull();

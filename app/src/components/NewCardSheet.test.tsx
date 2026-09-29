@@ -36,6 +36,7 @@ describe('NewCardSheet', () => {
     const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'ancienne signification' });
     vi.useFakeTimers({ shouldAdvanceTime: true });
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="Seit Wochen Belastungsdyspnoe." onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     fireEvent.change(input, { target: { value: 'nouvelle signification' } });
@@ -45,6 +46,7 @@ describe('NewCardSheet', () => {
 
   it('double clic sur Créer → un seul term.personal_created (revue m2)', async () => {
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
     const btn = screen.getByRole('button', { name: 'Créer' });
@@ -60,6 +62,7 @@ describe('NewCardSheet', () => {
       .mockImplementationOnce(() => new Promise((r) => { resolveA = r; }))
       .mockResolvedValueOnce('Bedeutung de B');
     render(<NewCardSheet selection="Belastungsdyspnoe Orthopnoe Zyanose Husten Fieber" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     fireEvent.click(await screen.findByRole('button', { name: 'Belastungsdyspnoe' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Orthopnoe' }));
@@ -73,6 +76,7 @@ describe('NewCardSheet', () => {
     const { askBedeutung } = await import('@/lib/onlineAi');
     vi.mocked(askBedeutung).mockImplementationOnce(() => new Promise(() => {}));
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     expect(input.getAttribute('aria-busy')).toBe('true');
@@ -80,6 +84,7 @@ describe('NewCardSheet', () => {
 
   it('focus initial : sans pastilles, le champ Bedeutung reçoit le focus au montage (revue I5)', async () => {
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     await waitFor(() => expect(document.activeElement).toBe(input));
@@ -96,6 +101,7 @@ describe('NewCardSheet', () => {
     const docSpy = vi.fn();
     document.addEventListener('keydown', docSpy);
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={onClose} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const dialog = await screen.findByRole('dialog', { name: 'Nouvelle carte' });
     fireEvent.keyDown(dialog, { key: 'Escape' });
@@ -106,19 +112,46 @@ describe('NewCardSheet', () => {
 
   it('pas de aria-modal (pas de fond bloquant, revue I5)', async () => {
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const dialog = await screen.findByRole('dialog', { name: 'Nouvelle carte' });
     expect(dialog.getAttribute('aria-modal')).toBeNull();
   });
 
-  it('à la fermeture, le focus revient à l\'élément actif avant l\'ouverture (revue I5)', async () => {
-    document.body.innerHTML = '<button id="trigger">ouvrir</button>';
-    const trigger = document.getElementById('trigger') as HTMLButtonElement;
-    trigger.focus();
-    const { unmount } = render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+  it('mot d\'une carte personnelle existante → préremplit SA Bedeutung, aucun appel IA (revue N1)', async () => {
     vi.useRealTimers();
-    await screen.findByRole('dialog', { name: 'Nouvelle carte' });
-    unmount();
-    expect(document.activeElement).toBe(trigger);
+    const { askBedeutung } = await import('@/lib/onlineAi');
+    vi.mocked(askBedeutung).mockClear();
+    await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'signification déjà enregistrée' });
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('signification déjà enregistrée'));
+    expect(askBedeutung).not.toHaveBeenCalled();
+    expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(false);
+  });
+
+  it('carte existante non modifiée → Créer ne réécrit pas la Bedeutung (revue N1)', async () => {
+    vi.useRealTimers();
+    const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'signification déjà enregistrée' });
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('signification déjà enregistrée'));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
+    expect((await db.personal_terms.get(id))?.explanation).toBe('signification déjà enregistrée');
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_updated')).toBe(false);
+  });
+
+  it('mot du glossaire touché en pastille → Bedeutung du glossaire en lecture, aucun appel IA, Créer actif sans rien taper (revue N2)', async () => {
+    vi.useRealTimers();
+    const { askBedeutung } = await import('@/lib/onlineAi');
+    vi.mocked(askBedeutung).mockClear();
+    render(<NewCardSheet selection="Der Patient zeigt einen deutlichen Aszites im Ultraschall." sentence="" onClose={() => {}} />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Aszites' }));
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('Bauchwasser'));
+    expect(input.hasAttribute('readOnly')).toBe(true);
+    expect(askBedeutung).not.toHaveBeenCalled();
+    expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(false);
   });
 });

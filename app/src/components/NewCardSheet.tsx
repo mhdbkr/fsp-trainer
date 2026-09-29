@@ -1,18 +1,24 @@
 // ============================================================================
 // Mini-fiche de création (F4a D4/D5) : ★ sur un mot hors glossaire. Le mot
-// (modifiable), sa Bedeutung proposée par l'IA (modifiable), le Contexte = la
-// seule phrase qui le contient, mot surligné, le deck (Favoris par défaut),
-// « Créer ». Plus de 4 mots sélectionnés : on touche le mot à garder. Fermer
-// sans créer n'écrit rien. IA indisponible : « Écris la signification ». Si
-// le mot choisi touche en fait un terme déjà publié, on le range lui — jamais
-// de doublon `pt-` (revue I1). Si la carte existe déjà (recréée ou ré-étoilée
-// pendant le délai de suppression, D10), une Bedeutung modifiée est conservée
-// (revue I2).
+// (modifiable), sa Bedeutung, le Contexte = la seule phrase qui le contient
+// (mot surligné), le deck (Favoris par défaut), « Créer ». Plus de 4 mots
+// sélectionnés : on touche le mot à garder. Fermer sans créer n'écrit rien.
+// Le mot choisi peut recouper deux cas déjà connus (revue re-revue C7) :
+//   - un terme du GLOSSAIRE (N2) : sa Bedeutung s'affiche en lecture, aucun
+//     appel IA, jamais de doublon `pt-` (I1), « Créer » range le terme publié.
+//   - une CARTE PERSONNELLE déjà là, y compris en attente de suppression D10
+//     (N1) : sa propre Bedeutung préremplit le champ, aucun appel IA ; seule
+//     une saisie EXPLICITE de l'utilisateur (`typed.current`), différente de
+//     celle stockée, déclenche `updatePersonalExplanation` — jamais une
+//     réponse IA qu'on n'a pas demandée.
+// Sinon (mot réellement nouveau) : IA (`askBedeutung`), une demande par mot,
+// jetée si le mot change avant la réponse (m3). IA indisponible : « Écris la
+// signification ».
 // ============================================================================
 import { useEffect, useRef, useState } from 'react';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { db } from '@/db/db';
-import { useDecks, useFachbegriffe } from '@/hooks/useData';
+import { useDecks, useFachbegriffe, usePersonalTerms } from '@/hooks/useData';
 import { addTermToDeck } from '@/lib/collections';
 import { cleanSelection, createPersonalTerm, personalTermId, PT_LIMITS, updatePersonalExplanation } from '@/lib/collections/personalTerms';
 import { toView } from '@/lib/collections/allTerms';
@@ -30,7 +36,14 @@ export function selectionWords(selection: string): string[] {
 
 export function NewCardSheet({ selection, sentence, caseId, onClose }: { selection: string; sentence: string; caseId?: string; onClose: () => void }) {
   const decks = useDecks();
-  const begriffe = useFachbegriffe() ?? [];
+  const begriffeRaw = useFachbegriffe();
+  const personalTerms = usePersonalTerms();
+  const begriffe = begriffeRaw ?? [];
+  // Tant que l'un des deux n'a pas fini de charger (Dexie, asynchrone), on ne
+  // sait pas encore si le mot est déjà connu (N1/N2) — attendre plutôt que de
+  // lancer l'IA pour rien (le `knownRef` ci-dessous rattrape aussi le cas où
+  // la réponse IA d'un appel déjà parti arrive après coup).
+  const loading = begriffeRaw === undefined || personalTerms === undefined;
   const show = useCardToast((s) => s.show);
   const chips = selectionWords(selection).length > CHIP_THRESHOLD ? selectionWords(selection) : null;
   const [word, setWord] = useState(chips ? '' : cleanSelection(selection));
@@ -47,43 +60,62 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
   const bedeutungRef = useRef<HTMLInputElement>(null);
   useEffect(() => { wordRef.current = word; }, [word]);
 
-  // Focus initial (revue I5) : la première pastille s'il y en a, sinon la
-  // Bedeutung ; à la fermeture, rendre le focus à ce qui l'avait avant.
+  // Le mot choisi touche-t-il un terme déjà publié, ou une carte personnelle
+  // déjà là (y compris en attente de suppression : elle reste en base tant
+  // que le délai D10 n'a pas expiré) ? Dans les deux cas, pas d'IA (N1/N2).
+  // Le glossaire et les cartes personnelles chargent chacun en asynchrone
+  // (Dexie) : `known` en réf toujours à jour évite qu'une réponse IA partie
+  // AVANT que l'un des deux ait chargé n'écrase, à son retour, une Bedeutung
+  // devenue connue entretemps.
+  const hit = word ? lookupTerm(word, begriffe) : null;
+  const existingPt = !hit && word ? personalTerms?.find((p) => p.id === personalTermId(word)) : undefined;
+  const knownRef = useRef({ hit, existingPt });
+  useEffect(() => { knownRef.current = { hit, existingPt }; });
+
+  // Focus initial (revue I5) : la première pastille s'il y en a, sinon la Bedeutung.
   useEffect(() => {
-    const previouslyActive = document.activeElement as HTMLElement | null;
     (chips ? firstChipRef.current : bedeutungRef.current)?.focus();
-    return () => { if (previouslyActive && document.body.contains(previouslyActive)) previouslyActive.focus(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // UN appel IA par mot choisi (à l'ouverture, ou au toucher d'une pastille).
-  // La réponse est jetée si le mot demandé n'est plus le mot courant (revue m3).
   useEffect(() => {
-    if (!word || asked.current !== null || !canAskAi()) { if (word && !canAskAi()) setAi('failed'); return; }
+    if (!word || loading) return;
+    if (hit) { asked.current = word; setAi('idle'); if (!typed.current) setBedeutung(hit.translationSimple ?? ''); return; }
+    if (existingPt) { asked.current = word; setAi('idle'); if (!typed.current) setBedeutung(existingPt.explanation ?? ''); return; }
+    // UN appel IA par mot choisi (mot réellement nouveau), jeté si le mot
+    // demandé n'est plus le mot courant à la réponse (m3), OU si le glossaire
+    // / les cartes personnelles révèlent entretemps que le mot était déjà
+    // connu (course entre l'IA et Dexie, `knownRef` ci-dessous).
+    if (asked.current !== null || !canAskAi()) { if (!canAskAi()) setAi('failed'); return; }
     asked.current = word; setAi('loading');
     const requested = word;
     askBedeutung(word, sentence || undefined)
-      .then((b) => { if (wordRef.current !== requested) return; if (!typed.current) setBedeutung(b); setAi(b ? 'idle' : 'failed'); })
+      .then((b) => {
+        if (wordRef.current !== requested) return;
+        if (knownRef.current.hit || knownRef.current.existingPt) return;
+        if (!typed.current) setBedeutung(b);
+        setAi(b ? 'idle' : 'failed');
+      })
       .catch(() => { if (wordRef.current === requested) setAi('failed'); });
-  }, [word, sentence]);
+  }, [word, sentence, hit, existingPt, loading]);
 
-  const canCreate = !!word.trim() && word.length <= PT_LIMITS.term && !!bedeutung.trim() && !submitting;
+  const canCreate = !!word.trim() && word.length <= PT_LIMITS.term && !submitting && (!!hit || !!bedeutung.trim());
   const create = async () => {
     if (!canCreate || busy.current) return;
     busy.current = true; setSubmitting(true); setError(null);
     try {
-      // Le mot choisi touche en fait un terme déjà publié : le ranger lui, jamais de doublon (I1).
-      const hit = lookupTerm(word, begriffe);
+      // Le mot choisi touche en fait un terme déjà publié : le ranger lui, jamais de doublon (I1/N2).
       if (hit) {
         await addTermToDeck(deckId, hit.id, caseId ? { caseId } : {});
         show({ kind: 'saved', term: hit, deckId, ...(caseId ? { caseId } : {}) });
         onClose();
         return;
       }
-      const before = await db.personal_terms.get(personalTermId(word));
       const { id, created } = await createPersonalTerm({ term: word, explanation: bedeutung, context: sentence, caseId });
+      // Une saisie EXPLICITE différente de la Bedeutung déjà enregistrée : la
+      // conserver. Jamais une réponse IA qu'on n'a pas demandée (N1).
       const nextExplanation = bedeutung.trim();
-      if (!created && nextExplanation && nextExplanation !== (before?.explanation ?? '')) await updatePersonalExplanation(id, nextExplanation);
+      if (!created && typed.current && nextExplanation && nextExplanation !== (existingPt?.explanation ?? '')) await updatePersonalExplanation(id, nextExplanation);
       await addTermToDeck(deckId, id, caseId ? { caseId } : {});
       const pt = await db.personal_terms.get(id);
       if (pt) show({ kind: 'saved', term: toView(pt), deckId, ...(caseId ? { caseId } : {}) });
@@ -119,11 +151,13 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
               <input value={word} maxLength={PT_LIMITS.term} onChange={(e) => setWord(e.target.value)} className="input mt-1 min-h-11 w-full" />
             </label>
             <label className="block"><span className="label">Bedeutung</span>
-              <input ref={bedeutungRef} value={bedeutung} maxLength={PT_LIMITS.explanation} placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
+              <input ref={bedeutungRef} value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
+                placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
                 aria-busy={ai === 'loading' || undefined}
-                onChange={(e) => { typed.current = true; setBedeutung(e.target.value); }} className="input mt-1 min-h-11 w-full" />
+                onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }}
+                className={`input mt-1 min-h-11 w-full ${hit ? 'bg-slate-50 dark:bg-white/5' : ''}`} />
             </label>
-            {ai === 'failed' && !bedeutung && <p className="text-xs text-slate-500">Pas de proposition : écris la signification.</p>}
+            {!hit && !existingPt && ai === 'failed' && !bedeutung && <p className="text-xs text-slate-500">Pas de proposition : écris la signification.</p>}
             {sentence && <div><span className="label">Contexte</span><ContextSentence sentence={sentence} word={word} /></div>}
             <label className="block"><span className="label">Deck</span>
               <select value={deckId} onChange={(e) => setDeckId(e.target.value)} className="input mt-1 min-h-11 w-full">
