@@ -37,6 +37,27 @@ describe('CardToast — suppression (m2)', () => {
     expect(await screen.findByText('Trop tard : la carte est supprimée.')).toBeTruthy();
   });
 
+  it('pilule verre une ligne : « Carte supprimée · Annuler », sans ombre portée (F4b P5, AC-1)', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe' });
+    useCardToast.getState().show({ kind: 'deleted', term: toView((await db.personal_terms.get(id))!) });
+    render(<CardToast />);
+    const status = screen.getByRole('status');
+    expect(status.textContent).toBe('Carte supprimée·Annuler');
+    expect(status.className).toContain('glass-thin');
+    expect(document.body.innerHTML).not.toMatch(/shadow-/);
+  });
+  it('« Rangée » : une ligne ★ · Révéler · Changer ; aucun miniature tant qu\'on ne touche pas', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Leber', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    useCardToast.getState().show({ kind: 'saved', term: toView((await db.personal_terms.get(id))!), deckId: 'deck-favorites' });
+    render(<CardToast />);
+    expect(await screen.findByRole('button', { name: 'Changer de deck' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Changer de deck' }).textContent).toBe('Changer');
+    expect(screen.getByRole('button', { name: /Rangée dans Favoris/ }).getAttribute('aria-expanded')).toBe('false');
+    expect(document.querySelector('[data-card-flip]')).toBeNull();
+    expect(document.body.innerHTML).not.toMatch(/shadow-/);
+  });
   it('expiration (flushDeletions) masque la confirmation de suppression de la carte concernée', async () => {
     const { id } = await createPersonalTerm({ term: 'Orthopnoe' });
     const term = toView((await db.personal_terms.get(id))!);

@@ -39,11 +39,13 @@ async function clickEmptyStar() {
 describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
   beforeEach(async () => { await db.progress_events.clear(); await db.favorites.clear(); await db.decks.clear(); await db.deck_terms.clear(); useCardToast.setState({ toast: null }); });
 
-  it('★ vide → Favoris (+caseId), confirmation avec miniature, « Voir la carte » retourne', async () => {
+  it('★ vide → Favoris (+caseId) ; pilule « Rangée dans Favoris » : toucher ouvre la miniature, « Révéler » la retourne (F4b P5)', async () => {
     render(<Harness caseId="case-leberzirrhose" />);
     await clickEmptyStar();
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
     expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')!.payload).toEqual({ caseId: 'case-leberzirrhose' });
+    expect(document.querySelector('[data-card-flip]')).toBeNull();   // une ligne : la carte ne s'ouvre qu'au toucher
+    fireEvent.click(screen.getByRole('button', { name: /Rangée dans/ }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
     fireEvent.click(screen.getByRole('button', { name: 'Révéler' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
