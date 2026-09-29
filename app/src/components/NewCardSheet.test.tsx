@@ -245,9 +245,8 @@ describe('NewCardSheet', () => {
   });
   it('clavier : Entrée dans la Bedeutung crée la carte, qui se pose (onClose reçoit la descente) ; Fermer = onClose() sans descente', async () => {
     const onClose = vi.fn();
+    vi.useRealTimers();   // monter sous minuteurs RÉELS : la bascule faux → réels perdait parfois la requête Dexie (test instable)
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={onClose} />);
-    act(() => vi.advanceTimersByTime(0));
-    vi.useRealTimers();
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     await waitFor(() => expect((input as HTMLInputElement).value).toBe('Atemnot bei Belastung'), { timeout: 3000 });   // suite complète : IA simulée + Dexie sous charge
     fireEvent.keyDown(input, { key: 'Enter' });
@@ -259,9 +258,8 @@ describe('NewCardSheet', () => {
     expect(onClose).toHaveBeenCalledWith();
   });
   it('« Corriger le mot » : le crayon donne la main sur le mot', async () => {
-    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
-    act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
     fireEvent.click(await screen.findByRole('button', { name: 'Corriger le mot' }));
     expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Mot' }));
   });
