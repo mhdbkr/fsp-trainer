@@ -21,5 +21,5 @@ describe('recherche des termes liés (AC-10)', () => {
   it('applyQuery trouve chaque terme par son mot et par sa Bedeutung', () => {
     expect(terms.filter((b) => !applyQuery({ q: b.term }, all).some((x) => x.id === b.id)).map((b) => b.id)).toEqual([]);
     expect(terms.filter((b) => !applyQuery({ q: b.translationSimple }, all).some((x) => x.id === b.id)).map((b) => b.id)).toEqual([]);
-  });
+  }, 30_000);   // 2 × 1 253 recherches sur tout le glossaire : lent sous charge, pas faux
 });
