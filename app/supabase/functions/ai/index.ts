@@ -23,7 +23,7 @@ const j = (req: Request, body: unknown, status: number) => new Response(JSON.str
 const Turn = z.object({ role: z.enum(['user', 'assistant']), text: z.string().min(1).max(2000) }).strict();
 const Body = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('brief'), selection: z.string().trim().min(1).max(220) }).strict(),
-  z.object({ kind: z.literal('bedeutung'), word: z.string().trim().min(1).max(80).regex(/^[^\r\n\u0085\u2028\u2029„“"]*$/), context: z.string().trim().max(300).optional() }).strict(),
+  z.object({ kind: z.literal('bedeutung'), word: z.string().trim().min(1).max(80).regex(/^[^\r\n\x85\u{2028}\u{2029}„“"]*$/u), context: z.string().trim().max(300).optional() }).strict(),
   z.object({ kind: z.literal('chat'), turns: z.array(Turn).min(1).max(20) }).strict(),
 ]).refine((b) => b.kind !== 'chat' || b.turns.reduce((n, t) => n + t.text.length, 0) <= MAX_CHAT_CHARS, 'chat_too_long');
 const MAX_TOKENS = { brief: 300, bedeutung: 40, chat: 1200 } as const;
