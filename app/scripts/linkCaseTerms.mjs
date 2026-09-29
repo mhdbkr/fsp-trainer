@@ -39,7 +39,7 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const SEG = new Intl.Segmenter('de', { granularity: 'sentence' });
 export const endsWithAbbreviation = (s) => {
   const t = s.trimEnd();
-  if (/(?:^|[\s(])\p{L}\.$/u.test(t)) return true;
+  if (/(?:^|[\s(])(?:\p{L}|\d{1,2})\.$/u.test(t)) return true;   // « V. a. », ordinal « 3. Lendenwirbel », « am 12. März »
   return ABBREVIATIONS.some((a) => t.endsWith(a) && (t.length === a.length || /[\s(]/.test(t[t.length - a.length - 1])));
 };
 export function sentences(text) {

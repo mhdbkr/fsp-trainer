@@ -31,4 +31,8 @@ describe('sentence (F4a §3.3)', () => {
     expect(highlightParts('Beidseitige Ödeme.', 'Ödem')).toEqual(['Beidseitige ', 'Ödeme', '.']);
     expect(highlightParts('Sondenernährung', 'Sonde')).toBeNull();
   });
+  it('un ordinal ne coupe pas la phrase (revue B4) : « 3. Lendenwirbel », « am 12. März »', () => {
+    expect(splitSentences('V. a. Fraktur des 3. Lendenwirbel bei Sturz. Patient stabil.').map((s) => s.text.trim())).toEqual(['V. a. Fraktur des 3. Lendenwirbel bei Sturz.', 'Patient stabil.']);
+    expect(splitSentences('Aufnahme am 12. März wegen Dyspnoe. Kein Fieber.')).toHaveLength(2);
+  });
 });

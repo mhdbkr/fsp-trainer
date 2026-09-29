@@ -6,7 +6,7 @@ Tâche A4 du plan `docs/superpowers/plans/2026-09-25-fachbegriffe-f4a-clarte.md`
 
 | Mesure | Avant (`main`) | Après (ce commit) |
 |---|---|---|
-| Liens cas ↔ termes | 16 248 | 7 136 |
+| Liens cas ↔ termes | 16 248 | 7 134 |
 | Termes liés (distincts) | 1 354 | 1 253 |
 | Termes liés à > 20 % des cas | 156 | 1 (`fb-gewichtsverlust`, 31 cas) |
 | Min · médiane · max par cas | 47 · 128 · 195 | 19 · 56 · 100 |
@@ -85,3 +85,5 @@ Justification (relecture Step 1) :
 ## Hors périmètre relevé (à ne pas corriger ici)
 
 Doublon `fb-alkoholdelir-syn-delirium-tremens` / `fb-delirium-tremens` repéré par le relecteur clinique — deux ids distincts pour le même concept. Hors périmètre de la tâche A4, signalé pour arbitrage ultérieur.
+
+> Après revue B4 : un ordinal (« 3. Lendenwirbel », « am 12. März ») ne coupe plus la phrase — 2 liens retirés (achalasie·Inzidenz, lumboischialgie·lokalisiert).
