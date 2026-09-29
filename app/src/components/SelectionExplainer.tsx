@@ -6,6 +6,7 @@ import { useCaseId } from '@/features/fachbegriffe/CaseContext';
 import { lookupTerm } from '@/lib/dictionary';
 import { askBrief, canAskAi, honestAiError, noAiMessage } from '@/lib/onlineAi';
 import { cleanSelection, personalTermId, PT_LIMITS } from '@/lib/collections/personalTerms';
+import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
 import { toView } from '@/lib/collections/allTerms';
 import { sentenceOfRange } from '@/lib/sentence';
 import { TermSheet } from '@/components/TermSheet';
@@ -40,6 +41,7 @@ export function SelectionExplainer() {
   const openDoctopus = useUi((s) => s.openDoctopus);
   const personalTerms = usePersonalTerms();
   const inDecks = useTermsInDecks();
+  const pendingDeletions = usePendingDeletions((s) => s.ids);
   const caseId = useCaseId() ?? undefined;
   const [anchor, setAnchor] = useState<Anchor | null>(null);
   const [bubble, setBubble] = useState<Bubble | null>(null);
@@ -101,7 +103,10 @@ export function SelectionExplainer() {
   const hit = anchor ? lookupTerm(anchor.text, begriffe) : null;
   const clean = anchor ? cleanSelection(anchor.text) : '';
   const chips = !!anchor && selectionWords(anchor.text).length > CHIP_THRESHOLD;
-  const existing = !hit && clean ? personalTerms?.find((p) => p.id === personalTermId(clean)) : undefined;
+  // Une carte en attente de suppression (D10) ne compte pas comme « connue » :
+  // la bulle repasse par la mini-fiche, dont createPersonalTerm annule la
+  // suppression (`restored`) et conserve la Bedeutung modifiée (revue I3).
+  const existing = !hit && clean ? personalTerms?.find((p) => p.id === personalTermId(clean) && !pendingDeletions.has(p.id)) : undefined;
   const known: Fachbegriff | null = hit ?? (existing ? toView(existing) : null);
   const canCreate = !!clean && (chips || clean.length <= PT_LIMITS.term);
   const openNewCard = () => {
@@ -129,7 +134,7 @@ export function SelectionExplainer() {
     catch (e) { setBubble({ loading: false, error: honestAiError(e) }); }
   };
 
-  const sheet = newCard && <NewCardSheet selection={newCard.selection} sentence={newCard.sentence} caseId={caseId} onClose={() => setNewCard(null)} />;
+  const sheet = newCard && <NewCardSheet key={newCard.selection + newCard.sentence} selection={newCard.selection} sentence={newCard.sentence} caseId={caseId} onClose={() => setNewCard(null)} />;
   if (!anchor) return sheet || null;
   // Pas assez de place au-dessus (pastille ou bulle) : bascule sous la sélection
   // plutôt que de partir hors écran (bug B1). Demi-largeurs approximatives
