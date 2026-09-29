@@ -49,6 +49,8 @@ async function planAddTermToDeck(deckId: string, termId: string, opts: { caseId?
     if (await db.favorites.get(termId)) return null;
     return { type: 'term.favorited', subject_id: termId, payload: opts.caseId ? { caseId: opts.caseId } : {} };
   }
+  const deck = await db.decks.get(deckId);
+  if (!deck || deck.kind === 'smart') return null;   // un deck intelligent se remplit par sa requête : ★ plein fantôme sinon (revue C3)
   if (await db.deck_terms.get([deckId, termId])) return null;
   return { type: 'deck.term_added', subject_id: deckId, payload: { termId, ...(opts.caseId ? { caseId: opts.caseId } : {}) } };
 }

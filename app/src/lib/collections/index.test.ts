@@ -82,4 +82,17 @@ describe('collections mutations', () => {
     expect(await db.favorites.get('fb-1')).toBeUndefined();
     expect(await db.deck_terms.get([deckId, 'fb-1'])).toBeTruthy();
   });
+  it('moveTermToDeck : UN seul pushMany (retrait + ajout atomiques) ; même deck ou deck intelligent → rien', async () => {
+    const { syncQueue } = await import('@/lib/sync/queue');
+    await addTermToDeck(FAVORITES_DECK_ID, 'fb-2');
+    const deckId = await createDeck('Pneumo', 'manual');
+    const smart = await createDeck('Neu', 'smart');
+    vi.mocked(syncQueue.pushMany).mockClear();
+    await moveTermToDeck('fb-2', FAVORITES_DECK_ID, deckId);
+    expect(vi.mocked(syncQueue.pushMany).mock.calls.map((c) => (c[0] as { type: string }[]).map((e) => e.type))).toEqual([['term.unfavorited', 'deck.term_added']]);
+    vi.mocked(syncQueue.pushMany).mockClear();
+    await moveTermToDeck('fb-2', deckId, deckId);
+    await addTermToDeck(smart, 'fb-2');
+    expect(syncQueue.pushMany).not.toHaveBeenCalled();
+  });
 });
