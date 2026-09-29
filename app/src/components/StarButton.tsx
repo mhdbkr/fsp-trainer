@@ -3,7 +3,7 @@
 // dans Favoris (deck par défaut) et la confirmation montre la carte (D7).
 // ★ pleine = le terme est dans au moins un deck → toucher liste ses decks.
 // ============================================================================
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import type { AnyTerm } from '@/lib/collections/allTerms';
 import { addTermToDeck } from '@/lib/collections';
@@ -16,6 +16,9 @@ export function StarButton({ term, filled, caseId, tone = 'plain', buttonRef }: 
   const [anchor, setAnchor] = useState<DOMRect | null>(null);
   const [error, setError] = useState<string | null>(null);
   const busy = useRef(false);
+  // Le terme perd son dernier deck (ex. décoché) : l'ancre repart de zéro, sinon un
+  // prochain clic sur ★ (redevenue pleine) la trouve déjà posée et bascule à vide (m4).
+  useEffect(() => { if (!filled) setAnchor(null); }, [filled]);
   const show = useCardToast((s) => s.show);
   const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (filled === undefined) return;   // decks en chargement : ni ★ vide trompeuse ni ajout en double

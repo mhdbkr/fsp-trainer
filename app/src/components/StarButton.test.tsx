@@ -70,16 +70,30 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     expect(await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' })).toBeTruthy();
     expect(FAVORITES_DECK_ID).toBe('deck-favorites');
   });
-  it('checklist : « Créer et ranger » crée le deck ET y range le terme (revue C4)', async () => {
+  it('checklist : « + » crée le deck ET y range le terme (revue C4)', async () => {
     await addTermToDeck(FAVORITES_DECK_ID, 'fb-aszites');
     render(<Harness />);
     fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
     fireEvent.change(await screen.findByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Créer et ranger' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer le deck et y ranger ce terme' }));
     await waitFor(async () => {
       const deck = (await db.decks.toArray()).find((d) => d.name === 'Hepato');
       expect(deck && (await db.deck_terms.get([deck.id, 'fb-aszites']))).toBeTruthy();
     });
+  });
+  it("l'ancre du menu decks repart de zéro quand le terme redevient sans deck puis en regagne un (m4)", async () => {
+    const deckId = await createDeck('Leber', 'manual');
+    await addTermToDeck(deckId, 'fb-aszites');
+    render(<Harness />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
+    await screen.findByRole('menu');
+    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Leber/ }));
+    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' });
+    await addTermToDeck(deckId, 'fb-aszites');
+    const starBtn = await screen.findByRole('button', { name: 'Decks de Aszites' });
+    fireEvent.click(starBtn);
+    expect(await screen.findByRole('menu')).toBeTruthy();
   });
   it('Échap ferme la confirmation (revue C4)', async () => {
     render(<Harness />);
