@@ -158,3 +158,33 @@ Tirage : générateur congruentiel de graine 20260929 sur les 126 autres cas. *H
 
 - `checkTermRegister.mjs --require-all` → exit 0 (0 terme lié sans registre).
 - `checkBedeutung.mjs` → exit 1 : **1 terme nouvellement lié** à reformuler, `fb-kontrastmittel` (« Substanz, die Strukturen im Bild sichtbar macht », > 6 mots), désormais lié à 25 cas (dont pankreatitis, myokardinfarkt, ileus, bauchaortenaneurysma). Il était filtré avant comme terme trop large ; il repasse sous 20 % puisque les fiches Fachwissen ne lient plus. Non rédigé ici.
+
+### Suite — décisions du coordinateur (remplace « Porte rouge » et la limite des bilans conditionnels ci-dessus)
+
+1. **Porte du top 10 élargie aux Muster hors DD** (`ownTexts(c, { withMuster: true })`) : le Muster décrit ce patient. gib, angina-pectoris et tvt passent la porte.
+2. **Bilan conditionnel contextuel, à la proposition** (phrase coupée aux « ; » et tirets d'incise ; `DD_CLAUSE`) : « Ausschluss / zum Ausschluss », « abzuklären / abklären », « bei V. a. / bei Verdacht auf », « sekundäre Hypertonie / Ursache », « ggf. … Diagnostik », plus ce que le corpus montrait : « Suche nach », « Frage nach », « Cave », « Nebenwirkungen », « (Nur) bei X: … » (sauf « Bei diesem Patienten: », 24 occurrences de constats). Une parenthèse de raisonnement « (Hypokaliämie → Conn-Syndrom) » est contextuelle, le reste de la proposition lie.
+3. **Alias de diagnostic** : `src/data/diagnosisAliases.json` (« Bandscheibenvorfall » → « Diskusprolaps », `fb-diskusprolaps` Bedeutung « Bandscheibenvorfall »), lu par `diagnosisTexts` ; `case-bandscheibenvorfall` sort de `DIAGNOSIS_EXCEPTIONS`.
+4. **Bedeutung** `fb-kontrastmittel` → « Mittel für kontrastreichere Bilder » (`checkBedeutung.mjs apply`).
+
+| Mesure | Avant cette suite (3fd5057) | Après |
+|---|---|---|
+| Liens | 3 573 | 3 468 |
+| Termes distincts | 893 | 877 |
+| > 20 % des cas | 1 (gewichtsverlust 31) | 1 (gewichtsverlust 31) |
+| Min · médiane · max | 6 · 27 · 62 | 6 · 27 · 61 |
+| Cas < 8 termes | 1 | 2 |
+
+| Cas | Avant cette suite | Après |
+|---|---|---|
+| `case-arterielle-hypertonie` | Schlafapnoe · Hypokaliämie · Lipid · Albumin · **Phäochromozytom** · Angiographie · kardiovaskulär · Intima · Hypertrophie · Plasma | Schlafapnoe · Lipid · kardiovaskulär · Albumin · Intima · Hypertrophie · renal · Struma · Extremitäten · Proteinurie |
+| `case-tia` | Attacke · rezidivierend · transitorisch · Antikoagulans · Karotisstenose · Arrhythmie · Arterie · Antikoagulation · **Endokarditis** · kardial | Attacke · rezidivierend · transitorisch · Antikoagulans · Arrhythmie · Antikoagulation · Karotisstenose · Arterie · Nykturie · Obstipation |
+| `case-bandscheibenvorfall` | Ausstrahlung · Mobilisation · Parese · Spinalkanal · Tumor · Parästhesie | Diskusprolaps · Ausstrahlung · Mobilisation · Parese · Spinalkanal · Parästhesie |
+| `case-depression` | depressiv · Depression · kognitiv · zerebral · Leukämie · Hyponatriämie · psychiatrisch · Obstipation | depressiv · Depression · kognitiv · Hyponatriämie · Leukämie · psychiatrisch · Obstipation |
+| `case-tvt` | … · Thrombektomie · Kontrazeption · Angiographie · Mutation (10) | Thrombose · Antikoagulation · Mobilisation · Kompression · Lungenembolie · rezidivierend · Kontrazeption · Mutation (8) |
+
+Hypertension : sortis *Phäochromozytom*, *Hypokaliämie* (bilan « Bei Hypokaliämie…: », parenthèse « → Conn-Syndrom », effet indésirable du thiazide), *Hyperaldosteronismus* (déjà sorti : phrase de DD du Muster), et avec eux *Plasma*, *Angiographie*, *Aorta*, *Lungenödem*, *Hyperurikämie* (« Cave … unter Thiazid »). Perte d'un constat : *obstruktiv* (« Abklärung der vermuteten obstruktiven Schlafapnoe ») — le diagnostic *Schlafapnoe* reste 1ᵉʳ. TIA : sortis *Endokarditis* et *Foramen ovale* (« Frage nach … »), *Angiographie* ; entrent *Nykturie*, *Obstipation* (« An vegetativen Beschwerden bestünden eine Nykturie, eine chronische Obstipation… » : constats du patient).
+
+**Reste ouvert** :
+- `checkCaseTermLinks` exit 1, 2 manquements, seuil non baissé : `case-bandscheibenvorfall` **6 termes** (le diagnostic y est désormais, *Tumor* est sorti avec « Nur bei … ») ; `case-depression` **7 termes** (*zerebral* venait de « Bei neurologischen Auffälligkeiten…: zerebrale Bildgebung », bilan conditionnel).
+- Hypertension : *Struma*, *Extremitäten*, *renal* viennent de l'examen clinique prévu (« Körperliche Untersuchung: … Schilddrüse (Struma) », « Pulsstatus aller Extremitäten », « … als Hinweis auf eine renale Ursache ») — cibles d'examen, pas constats ; non traités.
+- Dépression : *Leukämie* = cause du décès de la sœur (« Tod der Schwester (Leukämie) ») — fait du cas, pas du patient.
