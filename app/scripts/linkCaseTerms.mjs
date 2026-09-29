@@ -171,16 +171,18 @@ export function caseTexts(c, muster, fw) {
 /** Textes qui nomment le diagnostic du cas (rang 1). */
 export function diagnosisTexts(c) { return [c.medicalView?.verdachtsdiagnose, c.name, c.pathology]; }
 
-/** Ordre final d'un cas : diagnostic, puis CORE par DF asc + id, puis CONTEXTUEL seul par DF asc + id.
+/** Ordre final d'un cas : diagnostic, puis symptômes clés (`primary` : leitsymptome, begleitsymptome,
+ *  schmerz), puis CORE par DF asc + id, puis CONTEXTUEL seul par DF asc + id.
  *  `df` : Map id → fréquence documentaire sur tout le corpus. L'ensemble = core ∪ contextual. */
-export function orderCaseTerms({ core, contextual, diagnosis }, df) {
+export function orderCaseTerms({ core, contextual, diagnosis, primary = [] }, df) {
   const cmp = (a, b) => ((df.get(a) ?? 0) - (df.get(b) ?? 0)) || (a < b ? -1 : a > b ? 1 : 0);
   const all = new Set([...core, ...contextual]);
   const diag = new Set(diagnosis.filter((id) => all.has(id)));
-  const coreOnly = core.filter((id) => !diag.has(id));
+  const key = new Set(primary.filter((id) => all.has(id) && !diag.has(id)));   // « Fieber » 2ᵉ, pas 34ᵉ (revue A2)
+  const coreOnly = core.filter((id) => !diag.has(id) && !key.has(id));
   const coreSet = new Set(core);
-  const ctxOnly = contextual.filter((id) => !diag.has(id) && !coreSet.has(id));
-  return [...[...diag].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
+  const ctxOnly = contextual.filter((id) => !diag.has(id) && !key.has(id) && !coreSet.has(id));
+  return [...[...diag].sort(cmp), ...[...key].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
 }
 
 /** Parts d'un cas (ids) : `core` et `primary` filtrés par négation, `diagnosis` non filtré ; génériques retirés. */
@@ -207,7 +209,7 @@ export function linkCorpus(parts, share = SPECIFICITY_SHARE) {
   const df = new Map();
   for (const ids of Object.values(kept)) for (const id of ids) df.set(id, (df.get(id) ?? 0) + 1);
   const out = {};
-  for (const [caseId, ids] of Object.entries(kept)) out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: parts[caseId].diagnosis }, df);
+  for (const [caseId, ids] of Object.entries(kept)) out[caseId] = orderCaseTerms({ core: ids, contextual: [], diagnosis: parts[caseId].diagnosis, primary: parts[caseId].primary }, df);
   return out;
 }
 

@@ -94,4 +94,6 @@ test('ordre : diagnostic d\'abord, même s\'il est le plus fréquent du corpus',
   const parts = { core: linkTerms(core, index), contextual: linkTerms(contextual, index), diagnosis: linkTerms(diagnosisTexts(c), index) };
   const df = new Map([['fb-ulkus', 100], ['fb-fieber', 50], ['fb-pyrosis', 1]]);
   assert.deepEqual(orderCaseTerms(parts, df), ['fb-ulkus', 'fb-pyrosis', 'fb-fieber']);
+  // symptôme clé (primary) avant le reste, même fréquent (revue A2 : Fieber 34ᵉ dans la pneumonie)
+  assert.deepEqual(orderCaseTerms({ ...parts, primary: ['fb-fieber'] }, df), ['fb-ulkus', 'fb-fieber', 'fb-pyrosis']);
 });
