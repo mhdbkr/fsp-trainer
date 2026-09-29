@@ -4,7 +4,7 @@ vi.mock('./serverAi', async (orig) => {
   return { ...real, serverAiAvailable: vi.fn(() => true), serverStream: vi.fn() };
 });
 import { serverAiAvailable, serverStream, ServerAiError } from './serverAi';
-import { askBrief, askConversation, setKey, canAskAi, type ChatTurn } from './onlineAi';
+import { askBrief, askBedeutung, askConversation, setKey, canAskAi, type ChatTurn } from './onlineAi';
 
 const fetchSpy = vi.fn(async () => new Response(JSON.stringify({ choices: [{ message: { content: 'via clé' } }] }), { status: 200 }));
 beforeEach(() => {
@@ -96,5 +96,16 @@ describe('routage IA (F3 D7/D8)', () => {
     await expect(askConversation([{ role: 'user', content: 'Frage' }], onToken)).rejects.toThrow(/indisponible/);
     expect(onToken).toHaveBeenCalledWith('déb');
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+  it('bedeutung : serveur d\'abord (mot + phrase), réponse nettoyée (F4a AC-4)', async () => {
+    vi.mocked(serverStream).mockResolvedValue('die Atemnot bei Belastung 😮‍💨');
+    expect(await askBedeutung('Belastungsdyspnoe', 'Er hat Belastungsdyspnoe.')).toBe('Atemnot bei Belastung');
+    expect(serverStream).toHaveBeenCalledWith({ kind: 'bedeutung', word: 'Belastungsdyspnoe', context: 'Er hat Belastungsdyspnoe.' });
+  });
+  it('bedeutung : serveur en panne + clé → repli clé ; sans clé → message honnête', async () => {
+    vi.mocked(serverStream).mockRejectedValue(new ServerAiError(503, 'no_provider'));
+    await expect(askBedeutung('Wort')).rejects.toThrow(/IA serveur indisponible/);
+    setKey('gsk_testkey_123456');
+    expect(await askBedeutung('Wort')).toBe('via clé');
   });
 });

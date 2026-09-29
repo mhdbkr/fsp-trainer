@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { applyQuery, termsOfDeck } from './query';
+import { applyQuery, termsOfDeck, termIdsInDecks, decksOfTerm } from './query';
 import { FAVORITES_DECK_ID, type Fachbegriff } from '@/db/types';
 import { freshSrs } from '@/lib/srs';
 
@@ -25,5 +25,15 @@ describe('termsOfDeck', () => {
   });
   it('favoris → table favorites', () => {
     expect(termsOfDeck({ id: FAVORITES_DECK_ID }, all, [], [{ termId: 'a', since: '' }]).map((x) => x.id)).toEqual(['a']);
+  });
+});
+
+describe('decks d\'un terme (F4a D6)', () => {
+  const favorites = [{ termId: 'a', since: '' }];
+  const deckTerms = [{ deckId: 'd1', termId: 'a', addedAt: '' }, { deckId: 'd2', termId: 'b', addedAt: '' }];
+  it('termIdsInDecks : Favoris ∪ decks manuels', () => expect([...termIdsInDecks(favorites, deckTerms)].sort()).toEqual(['a', 'b']));
+  it('decksOfTerm : Favoris d\'abord', () => {
+    expect(decksOfTerm('a', favorites, deckTerms)).toEqual([FAVORITES_DECK_ID, 'd1']);
+    expect(decksOfTerm('c', favorites, deckTerms)).toEqual([]);
   });
 });

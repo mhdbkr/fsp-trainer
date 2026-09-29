@@ -69,3 +69,39 @@ export function buildBriefPrompt(term: string, kind: BriefKind = 'term'): { syst
     user: `Erkläre kurz: "${term}"`,
   };
 }
+
+// ============================================================================
+// Bedeutung d'une carte personnelle (F4a §3.3, D4) : ≤ 6 mots, texte brut,
+// sans emoji, au sens où le mot est employé dans la phrase de contexte.
+// ============================================================================
+export const BEDEUTUNG_MAX_WORDS = 6;
+
+export function buildBedeutungPrompt(word: string, context?: string): { system: string; user: string } {
+  // Le contexte vient de la sélection utilisateur : délimiteurs (guillemets, sauts de
+  // ligne) retirés avant insertion pour qu'il ne puisse pas rouvrir/fermer le cadre du
+  // prompt ni ajouter une fausse ligne « Satz: » (revue B5 M1).
+  const cleanContext = context?.replace(/[\r\n„“"]/g, ' ').replace(/\s+/g, ' ').trim();
+  return {
+    system:
+      'Du bist ein medizinisches Wörterbuch für die Fachsprachprüfung (C1). Gib die Bedeutung des markierten Wortes so an, wie es im Satz gemeint ist: ' +
+      'eine direkte, merkbare deutsche Umschreibung in HÖCHSTENS sechs Wörtern. Kein ganzer Satz, kein Artikel am Anfang, keine Anführungszeichen, keine Emoji, keine Übersetzung, keine Erklärung. ' +
+      'Beispiele: Dyspnoe → Atemnot ; Aszites → Flüssigkeit in der Bauchhöhle.',
+    user: cleanContext ? `Wort: „${word}“\nSatz: „${cleanContext}“` : `Wort: „${word}“`,
+  };
+}
+
+/** Nettoie une Bedeutung proposée : première ligne, sens après « = »/« → », sans
+ *  emoji (y compris modificateurs de teint et caractères invisibles), guillemets,
+ *  article initial ni ponctuation finale, ≤ 6 mots. '' si rien. */
+export function cleanBedeutung(raw: string): string {
+  const line = raw.split('\n').map((l) => l.trim()).find(Boolean) ?? '';
+  const meaning = line.split('·')[0].split(/[=→]/).pop() ?? '';
+  const plain = meaning
+    .replace(/[\p{Extended_Pictographic}\p{Emoji_Modifier}\p{Cf}\u{FE0F}\u{20E3}\u{1F1E6}-\u{1F1FF}]/gu, '')
+    .replace(/[„“”"'«»*_`]/g, '')
+    .replace(/^\s*(?:bedeutung\s*:\s*)?(?:(?:der|die|das)\s+)?/iu, '')
+    .replace(/[.;:!?,\s]+$/u, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return plain.split(' ').filter(Boolean).slice(0, BEDEUTUNG_MAX_WORDS).join(' ');
+}

@@ -7,7 +7,16 @@ import { freshSrs } from '@/lib/srs';
 import { TermHoverCard } from './TermHoverCard';
 import { AutoLink } from './AutoLink';
 import { CaseContext } from '@/features/fachbegriffe/CaseContext';
-vi.mock('@/lib/sync/queue', async () => { const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events'); return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } }; });
+vi.mock('@/lib/sync/queue', async () => {
+  const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
+  let lastStamp = 0;
+  const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: stamp(), ...input }) as never;
+  return { syncQueue: {
+    push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
+    pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),
+  } };
+});
 const fb = { id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'G', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() } as never;
 const anchor = { top: 100, left: 100, width: 60, height: 20, bottom: 120, right: 160 } as DOMRect;
 const setCoarsePointer = (v: boolean) => { window.matchMedia = vi.fn().mockImplementation((q: string) => ({ matches: q.includes('coarse') ? v : false, media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent: () => false })) as never; };
@@ -37,14 +46,15 @@ describe('TermHoverCard', () => {
     expect(await screen.findByRole('dialog')).toBeTruthy();
     expect(screen.getByText('Abdomen')).toBeTruthy(); expect(screen.getByText(/Bauch/)).toBeTruthy();
   });
-  it('★ = favori immédiat avec caseId du store, puis extension deck ; second ★ retire', async () => {
+  it('★ = Favoris immédiat avec caseId du store ; ★ pleine → decks du terme, décocher Favoris retire (F4a D6)', async () => {
     act(() => useUi.getState().openHover(fb, anchor, 'c9'));
     render(<MemoryRouter><TermHoverCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /Ajouter aux favoris/ }));
     await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')?.payload).toEqual({ caseId: 'c9' }));
-    expect(await screen.findByRole('button', { name: /Ajouter à un deck/ })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: /Retirer des favoris/ }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Favoris/ }));
     await waitFor(async () => expect((await db.progress_events.toArray()).some((e) => e.type === 'term.unfavorited')).toBe(true));
+    expect(screen.getByRole('dialog')).toBeTruthy();   // la liste des decks ne referme pas la carte
   });
   it('Échap et clic extérieur ferment', async () => {
     act(() => useUi.getState().openHover(fb, anchor));

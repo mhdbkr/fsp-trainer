@@ -6,6 +6,7 @@ import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srs
 import { isNew } from '@/lib/srs';
 import { generateProgram, workingDaysUntilExam } from '@/lib/program';
 import { getSrsSettings, effectiveDaily, type SrsSettings } from '@/lib/srsSettings';
+import { usePendingDeletions } from './pendingDeletion';
 
 export interface DrillContext {
   relevance: RelevanceContext;
@@ -46,6 +47,12 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     getSrsSettings(),
   ]);
 
+  // Une carte en attente de suppression (masquage local, F4a D10) reste 5 s
+  // dans `db.personal_terms` : une session lancée pendant ce délai ne doit
+  // pas la compter (revue B3).
+  const pendingIds = usePendingDeletions.getState().ids;
+  const livePersonalTerms = pendingIds.size ? personalTerms.filter((p) => !pendingIds.has(p.id)) : personalTerms;
+
   const sims = [...allSims].sort((a, b) => b.date - a.date).slice(0, 30);
   const { todayCaseIds, todaySpecialty } = todayProgramContext(config, { cases, sims: allSims, begriffe }, now);
 
@@ -63,7 +70,7 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     // Source unique du drill (F3 §3.1) : un terme personnel neuf compte aussi
     // dans le budget, sinon une carte fraîchement étoilée n'obtient jamais sa
     // place du jour (affamée par un budget calculé sur le seul glossaire).
-    freshRemaining: begriffe.filter((b) => isNew(b.srs)).length + personalTerms.filter((p) => isNew(p.srs)).length,
+    freshRemaining: begriffe.filter((b) => isNew(b.srs)).length + livePersonalTerms.filter((p) => isNew(p.srs)).length,
     workingDaysToExam: config?.examDate ? workingDaysUntilExam(config.examDate, now, config) : null,
     retention7d: retention7d(events, now.getTime()),
   });

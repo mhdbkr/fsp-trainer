@@ -5,6 +5,7 @@ import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
 import * as drillQueueModule from '@/lib/collections/drillQueue';
 import { loadDrillContext } from '@/lib/collections/drillContext';
+import { createPersonalTerm } from '@/lib/collections/personalTerms';
 import { useSimSession } from '@/store/simSession';
 import { DrillPage } from './DrillPage';
 
@@ -166,7 +167,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect((await screen.findAllByText(/berichtet über … seit dem Frühstück/i)).length).toBeGreaterThan(0);
   });
 
-  it('terme personnel sans explication ni contexte : aucune face vide, hint sur le verso (I-1)', async () => {
+  it('terme personnel sans explication ni contexte : aucune face vide, « à compléter » au verso (I-1, F4a D8)', async () => {
     await db.fachbegriffe.clear();
     await db.personal_terms.put({ id: 'pt-noexpl01', term: 'Belastungsdyspnoe', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
     renderAt('/fachbegriffe/drill');
@@ -175,6 +176,32 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
     const revealBtn = await screen.findByRole('button', { name: /révéler/i });
     fireEvent.click(revealBtn);
-    expect((await screen.findAllByText(/pas encore d.explication/i)).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText('à compléter')).length).toBeGreaterThan(0);
+  });
+
+  it("au dos d'une carte personnelle, taper dans l'éditeur de Bedeutung n'envoie aucune notation (I1)", async () => {
+    await db.fachbegriffe.clear();
+    await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
+    const input = screen.getByRole('textbox', { name: 'Bedeutung' });
+    fireEvent.keyDown(input, { key: '2' });
+    await new Promise((r) => setTimeout(r, 200));
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'srs.reviewed')).toBe(false);
+    expect(screen.getByText('1 / 1')).toBeTruthy();
+  });
+
+  it('après Enregistrer au dos de la carte personnelle, la fiche affiche la nouvelle Bedeutung (I1 : file figée)', async () => {
+    await db.fachbegriffe.clear();
+    await createPersonalTerm({ term: 'Orthopnoe', explanation: 'ancienne signification' });
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
+    fireEvent.change(screen.getByRole('textbox', { name: 'Bedeutung' }), { target: { value: 'nouvelle signification' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }));
+    expect(await screen.findByText('nouvelle signification')).toBeTruthy();
   });
 });

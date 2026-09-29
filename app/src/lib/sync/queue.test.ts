@@ -15,6 +15,42 @@ describe('syncQueue', () => {
     expect(await db.progress_events.count()).toBe(1);
     expect(await db.outbox.count()).toBe(1);
   });
+  it('pushMany écrit tous les événements et leurs lignes d\'outbox en une fois (F4a D10)', async () => {
+    const evs = await syncQueue.pushMany([
+      { type: 'term.unfavorited', subject_id: 'pt-1', payload: {} },
+      { type: 'term.personal_deleted', subject_id: 'pt-1', payload: {} },
+    ]);
+    expect(evs).toHaveLength(2);
+    expect(await db.progress_events.count()).toBe(2);
+    expect(await db.outbox.count()).toBe(2);
+  });
+
+  it('push sans occurred_at : horodatage strictement croissant sur cet appareil, même dans la même milliseconde (sortEvents départage sinon par uuid aléatoire)', async () => {
+    // toFake: ['Date'] seulement — fake-indexeddb dépend de vrais minuteurs
+    // pour ses transactions ; les faux minuteurs la font échouer/bloquer.
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
+    try {
+      const a = await syncQueue.push({ type: 'plan.done', subject_id: 'p1', payload: {} });
+      const b = await syncQueue.push({ type: 'plan.done', subject_id: 'p2', payload: {} });
+      expect(b.occurred_at > a.occurred_at).toBe(true);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it('pushMany sans occurred_at : les événements d\'un même lot gardent un ordre causal strictement croissant', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
+    try {
+      const [a, b, c] = await syncQueue.pushMany([
+        { type: 'plan.done', subject_id: 'p1', payload: {} },
+        { type: 'plan.done', subject_id: 'p2', payload: {} },
+        { type: 'plan.done', subject_id: 'p3', payload: {} },
+      ]);
+      expect(b.occurred_at > a.occurred_at).toBe(true);
+      expect(c.occurred_at > b.occurred_at).toBe(true);
+    } finally { vi.useRealTimers(); }
+  });
+
   it('flush envoie par lot et vide l\'outbox sur ack', async () => {
     await syncQueue.push({ type: 'plan.done', subject_id: 'p1', payload: {} });
     const ev = await db.progress_events.toCollection().first();
@@ -65,9 +101,10 @@ describe('syncQueue', () => {
     await db.progress_events.bulkPut(evs);
     await db.outbox.bulkPut(evs.map((e) => ({ id: e.id, attempts: 0 })));
     await syncQueue.flush();
-    await new Promise((r) => setTimeout(r, 20));   // laisse partir la relance planifiée
-    expect(post).toHaveBeenCalledTimes(2);
-    expect(await db.outbox.count()).toBe(0);
+    await vi.waitFor(async () => {                     // la relance planifiée part hors de ce flush
+      expect(post).toHaveBeenCalledTimes(2);
+      expect(await db.outbox.count()).toBe(0);
+    });
   });
 
   it('bump incrémente attempts PAR LIGNE (un lot mélange neufs et déjà retentés)', async () => {

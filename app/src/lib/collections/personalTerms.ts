@@ -4,13 +4,13 @@
 // deux appareils, même hors ligne, converge vers un seul terme.
 // ============================================================================
 import { db } from '@/db/db';
-import type { Fachbegriff, PersonalTerm, Srs } from '@/db/types';
-import type { ProgressEvent } from '@/lib/sync/events';
+import type { PersonalTerm, Srs } from '@/db/types';
+import type { NewEvent, ProgressEvent } from '@/lib/sync/events';
 import { syncQueue } from '@/lib/sync/queue';
 import { freshSrs } from '@/lib/srs';
-import { lookupTerm } from '@/lib/dictionary';
 import { sortEvents } from './project';
-import { reprojectCollections, removeFromDeck, toggleFavorite } from './index';
+import { reprojectCollections } from './index';
+import { cancelDeletion } from './pendingDeletion';
 
 export const PERSONAL_PREFIX = 'pt-';
 export const isPersonalId = (id: string): boolean => id.startsWith(PERSONAL_PREFIX);
@@ -41,23 +41,31 @@ export function sanitizePersonalTerm(input: PersonalTermInput): Omit<PersonalTer
 }
 
 /** Projection PURE : par id, dernier created/deleted gagne (ordre sortEvents) ;
- *  srs = dernier srs.reviewed APRÈS la dernière création, sinon freshSrs. */
+ *  srs = dernier srs.reviewed APRÈS la dernière création, sinon freshSrs ;
+ *  explanation = dernier term.personal_updated non vide APRÈS la dernière
+ *  création (F4a D8), sinon celle de la création. */
 export function projectPersonalTerms(events: ProgressEvent[]): PersonalTerm[] {
-  const live = new Map<string, { ev: ProgressEvent; srs: Srs | null }>();
+  const live = new Map<string, { ev: ProgressEvent; srs: Srs | null; explanation?: string }>();
   for (const e of sortEvents(events)) {
     const id = e.subject_id;
     if (!id || !isPersonalId(id)) continue;
     if (e.type === 'term.personal_created') live.set(id, { ev: e, srs: null });
     else if (e.type === 'term.personal_deleted') live.delete(id);
     else if (e.type === 'srs.reviewed') { const cur = live.get(id); if (cur) cur.srs = e.payload as Srs; }
+    else if (e.type === 'term.personal_updated') {
+      const cur = live.get(id);
+      const raw = (e.payload as { explanation?: unknown } | null)?.explanation;
+      const explanation = typeof raw === 'string' ? cut(raw, PT_LIMITS.explanation) : undefined;
+      if (cur && explanation) cur.explanation = explanation;
+    }
   }
   const out: PersonalTerm[] = [];
-  for (const [id, { ev, srs }] of live) {
+  for (const [id, { ev, srs, explanation }] of live) {
     const p = sanitizePersonalTerm(ev.payload as PersonalTermInput);
     if (!p) continue;
     const payloadCreatedAt = (ev.payload as { createdAt?: string }).createdAt;
     const createdAt = payloadCreatedAt && !Number.isNaN(Date.parse(payloadCreatedAt)) ? payloadCreatedAt : ev.occurred_at;
-    out.push({ id, ...p, createdAt, srs: srs ?? freshSrs(Date.parse(createdAt)) });
+    out.push({ id, ...p, ...(explanation ? { explanation } : {}), createdAt, srs: srs ?? freshSrs(Date.parse(createdAt)) });
   }
   return out;
 }
@@ -69,38 +77,46 @@ export async function reprojectPersonalTerms(): Promise<void> {
   await writePersonalTerms(projectPersonalTerms(await db.progress_events.toArray()));
 }
 
-export async function createPersonalTerm(input: PersonalTermInput): Promise<{ id: string; created: boolean }> {
+/** `restored` : la carte attendait sa suppression différée (D10) — recréer le mot l'annule
+ *  (sinon le plan pris au clic effacerait, à l'expiration, la carte que l'on vient de vouloir). */
+export async function createPersonalTerm(input: PersonalTermInput): Promise<{ id: string; created: boolean; restored?: boolean }> {
   const clean = sanitizePersonalTerm(input);
   if (!clean) throw new Error('personal_term_invalid');
   const id = personalTermId(clean.term);
-  if (await db.personal_terms.get(id)) return { id, created: false };
+  if (await db.personal_terms.get(id)) return { id, created: false, restored: cancelDeletion(id) };
   await syncQueue.push({ type: 'term.personal_created', subject_id: id, payload: { ...clean, createdAt: new Date().toISOString() } });
   await reprojectPersonalTerms();
   return { id, created: true };
 }
 
-export type StarResult = { id: string; kind: 'glossary' | 'personal'; created: boolean; favorite: boolean };
-/** ★ de la bulle (F3 D2/D3) : glossaire → favori du terme publié ; sinon terme
- *  personnel (créé une seule fois) + favori. Un 2ᵉ ★ bascule le favori. */
-export async function starSelection(input: { selection: string; context?: string; explanation?: string; caseId?: string }, begriffe: Fachbegriff[]): Promise<StarResult> {
-  const opts = input.caseId ? { caseId: input.caseId } : {};
-  const hit = lookupTerm(input.selection, begriffe);
-  if (hit) return { id: hit.id, kind: 'glossary', created: false, favorite: await toggleFavorite(hit.id, opts) };
-  const { id, created } = await createPersonalTerm({ term: input.selection, context: input.context, explanation: input.explanation, caseId: input.caseId });
-  return { id, kind: 'personal', created, favorite: await toggleFavorite(id, opts) };
-}
-export async function isStarred(selection: string, begriffe: Fachbegriff[]): Promise<boolean> {
-  const hit = lookupTerm(selection, begriffe);
-  const id = hit ? hit.id : personalTermId(selection);
-  return !!(await db.favorites.get(id));
+/** Bedeutung d'une carte personnelle (F4a D8) : UN événement term.personal_updated.
+ *  Le mot ne change jamais (il fonde l'id). Vide → refusé, rien n'est émis. */
+export async function updatePersonalExplanation(id: string, explanation: string): Promise<void> {
+  if (!isPersonalId(id)) throw new Error('not_personal');
+  const x = cut(explanation, PT_LIMITS.explanation);
+  if (!x) throw new Error('explanation_empty');
+  if (!(await db.personal_terms.get(id))) throw new Error('personal_term_missing');
+  await syncQueue.push({ type: 'term.personal_updated', subject_id: id, payload: { explanation: x } });
+  await reprojectPersonalTerms();
 }
 
-export async function deletePersonalTerm(id: string): Promise<void> {
+/** Événements d'une suppression (F4a D10), calculés AU CLIC : retrait du favori,
+ *  de chaque deck manuel, puis le terme. Émis plus tard, d'un bloc. */
+export async function planPersonalDeletion(id: string): Promise<NewEvent[]> {
   if (!isPersonalId(id)) throw new Error('not_personal');
-  if (await db.favorites.get(id)) await syncQueue.push({ type: 'term.unfavorited', subject_id: id, payload: {} });
-  const decks = await db.deck_terms.where('termId').equals(id).toArray();
-  for (const { deckId } of decks) await removeFromDeck(deckId, id);
-  await syncQueue.push({ type: 'term.personal_deleted', subject_id: id, payload: {} });
+  const out: NewEvent[] = [];
+  if (await db.favorites.get(id)) out.push({ type: 'term.unfavorited', subject_id: id, payload: {} });
+  for (const { deckId } of await db.deck_terms.where('termId').equals(id).toArray()) out.push({ type: 'deck.term_removed', subject_id: deckId, payload: { termId: id } });
+  out.push({ type: 'term.personal_deleted', subject_id: id, payload: {} });
+  return out;
+}
+/** Émet une suppression planifiée en UNE transaction (tout ou rien), puis reprojette. */
+export async function commitPersonalDeletion(events: NewEvent[]): Promise<void> {
+  await syncQueue.pushMany(events);
   await reprojectPersonalTerms();
   await reprojectCollections();
+}
+/** Suppression immédiate (sans délai) : plan + émission. */
+export async function deletePersonalTerm(id: string): Promise<void> {
+  await commitPersonalDeletion(await planPersonalDeletion(id));
 }

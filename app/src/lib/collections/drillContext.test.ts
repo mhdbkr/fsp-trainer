@@ -4,6 +4,7 @@ import { loadDrillContext, todayProgramContext } from './drillContext';
 import { generateProgram } from '@/lib/program';
 import type { Case, Fachbegriff, ProgramConfig } from '@/db/types';
 import { freshSrs } from '@/lib/srs';
+import { usePendingDeletions } from './pendingDeletion';
 
 const now = new Date(2026, 8, 17, 12);   // jeudi, jour ouvré (heure locale)
 const config: ProgramConfig = {
@@ -77,5 +78,23 @@ describe('loadDrillContext (config injectée en base)', () => {
     const ctx = await loadDrillContext(now);
     expect(ctx.budget).toBe(2); // 1 (glossaire) + 1 (personnel) → budget 2, pas 1
     await db.personal_terms.clear();
+  });
+
+  // Revue B3 : une carte planifiée en suppression (masquage local, 5 s) ne
+  // doit pas entrer dans le contexte de drill même si elle est encore en base.
+  it('carte personnelle en attente de suppression : absente du contexte de drill', async () => {
+    await db.personal_terms.clear();
+    const closeExam: ProgramConfig = { ...config, examDate: '2026-09-18' }; // 1 jour ouvré (vendredi)
+    await db.fachbegriffe.bulkPut([mkTerm('t1')]); // 1 seul terme neuf côté glossaire
+    await db.meta.put({ key: 'program', value: closeExam });
+    await db.personal_terms.put({ id: 'pt-pending01', term: 'X', createdAt: now.toISOString(), srs: freshSrs(now.getTime()) } as never);
+    usePendingDeletions.setState({ ids: new Set(['pt-pending01']) });
+    try {
+      const ctx = await loadDrillContext(now);
+      expect(ctx.budget).toBe(1); // le terme en attente de suppression ne compte pas
+    } finally {
+      usePendingDeletions.setState({ ids: new Set() });
+      await db.personal_terms.clear();
+    }
   });
 });

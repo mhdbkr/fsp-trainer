@@ -7,7 +7,13 @@ import { FachbegriffePage } from './FachbegriffePage';
 
 vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
-  return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } };
+  let lastStamp = 0;
+  const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: stamp(), ...input }) as never;
+  return { syncQueue: {
+    push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
+    pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),
+  } };
 });
 vi.mock('@/lib/collections/drillContext', () => ({
   loadDrillContext: async () => ({ relevance: { now: Date.now(), favorites: [], deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [] }, budget: 10, remaining: 10 }),
@@ -36,7 +42,7 @@ describe('FachbegriffePage', () => {
     renderAt();
     await screen.findByText('Abdomen');
     expect(screen.getByRole('tab', { name: /tous/i })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: /ajouter abdomen aux favoris/i }));
+    fireEvent.click(screen.getByRole('button', { name: /ajouter aux favoris : abdomen/i }));
     await waitFor(async () => expect(await db.favorites.get('fb-a')).toBeTruthy());
     expect((await db.progress_events.toArray()).map((e) => e.type)).toContain('term.favorited');
     fireEvent.click(screen.getByRole('tab', { name: /favoris/i }));

@@ -4,12 +4,23 @@ import type { ProgressEvent } from '@/lib/sync/events';
 import { rebuildProjections } from '@/lib/sync/projections';
 import {
   personalTermId, cleanSelection, sanitizePersonalTerm, projectPersonalTerms,
-  createPersonalTerm, deletePersonalTerm, isPersonalId, PT_LIMITS, starSelection,
+  createPersonalTerm, deletePersonalTerm, isPersonalId, PT_LIMITS,
+  updatePersonalExplanation, planPersonalDeletion,
 } from './personalTerms';
 
 vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
-  return { syncQueue: { push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = { id: newId(), user_id: 'u', occurred_at: new Date().toISOString(), ...input } as never; await db.progress_events.put(ev); return ev; }) } };
+  // Horodatage monotone par appareil (même formule que queue.ts) : ce stub
+  // émet lui-même occurred_at, donc le correctif de queue.ts ne l'atteint
+  // pas — sans ça, deux événements de la même ms gardent un ordre aléatoire
+  // (sortEvents départage par uuid).
+  let lastStamp = 0;
+  const stamp = () => new Date(lastStamp = Math.max(Date.now(), lastStamp + 1)).toISOString();
+  const toEv = (input: { type: string; subject_id: string | null; payload: unknown }) => ({ id: newId(), user_id: 'u', occurred_at: stamp(), ...input }) as never;
+  return { syncQueue: {
+    push: vi.fn(async (input: { type: string; subject_id: string | null; payload: unknown }) => { const ev = toEv(input); await db.progress_events.put(ev); return ev; }),
+    pushMany: vi.fn(async (inputs: { type: string; subject_id: string | null; payload: unknown }[]) => { const evs = inputs.map(toEv); await db.progress_events.bulkPut(evs); return evs; }),
+  } };
 });
 
 const at = (s: number) => new Date(Date.UTC(2026, 8, 25, 10, 0, s)).toISOString();
@@ -68,6 +79,20 @@ describe('projectPersonalTerms', () => {
     const [t] = projectPersonalTerms([bad]);
     expect(t.createdAt).toBe(at(7));
   });
+  it('term.personal_updated après la création → nouvelle Bedeutung (F4a D8)', () => {
+    const [t] = projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 'Atemnot bei Belastung' }, 2)]);
+    expect(t.explanation).toBe('Atemnot bei Belastung');
+  });
+  it('personal_updated : ignoré avant la création, vide ou non-texte ; tronqué à 600', () => {
+    expect(projectPersonalTerms([ev('term.personal_updated', id, { explanation: 'avant' }, 1), created(2)])[0].explanation).toBeUndefined();
+    expect(projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: '   ' }, 2)])[0].explanation).toBeUndefined();
+    expect(projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 42 }, 2)])[0].explanation).toBeUndefined();
+    expect(projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 'e'.repeat(900) }, 2)])[0].explanation!.length).toBe(PT_LIMITS.explanation);
+  });
+  it('personal_updated puis suppression et re-création → la Bedeutung d\'avant ne revient pas', () => {
+    const [t] = projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 'alt' }, 2), ev('term.personal_deleted', id, {}, 3), created(4, 'c')]);
+    expect(t.explanation).toBeUndefined();
+  });
 });
 
 describe('create / delete / rebuild', () => {
@@ -97,32 +122,28 @@ describe('create / delete / rebuild', () => {
     await deletePersonalTerm(id);
     expect(await db.deck_terms.get([deckId, id])).toBeUndefined();
   });
+  it('updatePersonalExplanation : un événement, projection à jour ; vide → refus sans événement (AC-7)', async () => {
+    const { id } = await createPersonalTerm({ term: 'Wort' });
+    await updatePersonalExplanation(id, '  Atemnot  ');
+    expect((await db.personal_terms.get(id))!.explanation).toBe('Atemnot');
+    await expect(updatePersonalExplanation(id, '   ')).rejects.toThrow('explanation_empty');
+    expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_updated')).toHaveLength(1);
+  });
+  it('planPersonalDeletion : n\'émet rien ; liste favori, decks, puis le terme', async () => {
+    const { id } = await createPersonalTerm({ term: 'Wort' });
+    const { createDeck, addToDeck, toggleFavorite } = await import('./index');
+    const deckId = await createDeck('Kardio', 'manual');
+    await addToDeck(deckId, id); await toggleFavorite(id);
+    const before = await db.progress_events.count();
+    const plan = await planPersonalDeletion(id);
+    expect(await db.progress_events.count()).toBe(before);
+    expect(plan.map((e) => e.type)).toEqual(['term.unfavorited', 'deck.term_removed', 'term.personal_deleted']);
+  });
   it('rebuildProjections : srs.reviewed pt-… écrit dans personal_terms, jamais dans fachbegriffe', async () => {
     const { id } = await createPersonalTerm({ term: 'Wort' });
     await db.progress_events.put({ ...ev('srs.reviewed', id, { interval: 1, easeFactor: 2.5, dueDate: 5, repetitions: 1, lapses: 0, state: 'Gelernt' }, 59), occurred_at: new Date(Date.now() + 1000).toISOString() });
     await rebuildProjections();
     expect((await db.personal_terms.get(id))!.srs.state).toBe('Gelernt');
     expect(await db.fachbegriffe.count()).toBe(0);
-  });
-});
-
-describe('starSelection', () => {
-  beforeEach(async () => { await db.progress_events.clear(); await db.personal_terms.clear(); await db.favorites.clear(); });
-  const g = [{ id: 'fb-aszites', term: 'Aszites', translationSimple: 'x' } as never];
-  it('terme du glossaire (y compris fléchi) → term.favorited sur fb-… (AC-1)', async () => {
-    const r = await starSelection({ selection: 'Asziten', caseId: 'case-leberzirrhose' }, g);
-    expect(r).toEqual({ id: 'fb-aszites', kind: 'glossary', created: false, favorite: true });
-    expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')?.payload).toEqual({ caseId: 'case-leberzirrhose' });
-  });
-  it('hors glossaire → terme personnel + favori (AC-2)', async () => {
-    const r = await starSelection({ selection: 'Belastungsdyspnoe', context: 'Seit Wochen Belastungsdyspnoe.' }, g);
-    expect(r.kind).toBe('personal'); expect(r.created).toBe(true); expect(r.favorite).toBe(true);
-    expect(await db.favorites.get(r.id)).toBeTruthy();
-  });
-  it('★ à nouveau → bascule du favori, aucun doublon (AC-3)', async () => {
-    const a = await starSelection({ selection: 'Belastungsdyspnoe' }, g);
-    const b = await starSelection({ selection: 'belastungsdyspnoe' }, g);
-    expect(b).toEqual({ id: a.id, kind: 'personal', created: false, favorite: false });
-    expect(await db.personal_terms.count()).toBe(1);
   });
 });

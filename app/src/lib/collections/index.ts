@@ -4,7 +4,7 @@
 // ============================================================================
 import { db } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
-import { newId } from '@/lib/sync/events';
+import { newId, type NewEvent } from '@/lib/sync/events';
 import type { DeckQuery } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { projectCollections, writeCollections } from './project';
@@ -39,3 +39,51 @@ export const setDeckQuery = (deckId: string, query: DeckQuery) => emit('deck.que
 export const deleteDeck = async (deckId: string) => { if (deckId === FAVORITES_DECK_ID) throw new Error('reserved'); await emit('deck.deleted', deckId, {}); };
 export const addToDeck = (deckId: string, termId: string, opts: { caseId?: string } = {}) => emit('deck.term_added', deckId, { termId, ...(opts.caseId ? { caseId: opts.caseId } : {}) });
 export const removeFromDeck = (deckId: string, termId: string) => emit('deck.term_removed', deckId, { termId });
+
+// -- Rangement d'un terme (F4a D6) : une seule notion de deck, Favoris compris. --
+// planAdd/planRemove sont PURS côté décision (lisent l'état, ne l'émettent pas) :
+// moveTermToDeck combine les deux plans en UNE transaction (pushMany), sinon un
+// « déplacer » interrompu (crash, onglet fermé) laisserait le terme nulle part.
+async function planAddTermToDeck(deckId: string, termId: string, opts: { caseId?: string }): Promise<NewEvent | null> {
+  if (deckId === FAVORITES_DECK_ID) {
+    if (await db.favorites.get(termId)) return null;
+    return { type: 'term.favorited', subject_id: termId, payload: opts.caseId ? { caseId: opts.caseId } : {} };
+  }
+  const deck = await db.decks.get(deckId);
+  if (!deck || deck.kind === 'smart') return null;   // un deck intelligent se remplit par sa requête : ★ plein fantôme sinon (revue C3)
+  if (await db.deck_terms.get([deckId, termId])) return null;
+  return { type: 'deck.term_added', subject_id: deckId, payload: { termId, ...(opts.caseId ? { caseId: opts.caseId } : {}) } };
+}
+async function planRemoveTermFromDeck(deckId: string, termId: string): Promise<NewEvent | null> {
+  if (deckId === FAVORITES_DECK_ID) {
+    if (!(await db.favorites.get(termId))) return null;
+    return { type: 'term.unfavorited', subject_id: termId, payload: {} };
+  }
+  if (!(await db.deck_terms.get([deckId, termId]))) return null;
+  return { type: 'deck.term_removed', subject_id: deckId, payload: { termId } };
+}
+/** Range un terme dans un deck (F4a D6) : Favoris = term.favorited (deck réservé),
+ *  sinon deck.term_added. Idempotent : déjà rangé → rien n'est émis. */
+export async function addTermToDeck(deckId: string, termId: string, opts: { caseId?: string } = {}): Promise<void> {
+  const event = await planAddTermToDeck(deckId, termId, opts);
+  if (!event) return;
+  await syncQueue.pushMany([event]);
+  await reprojectCollections();
+}
+/** Retire un terme d'un deck (Favoris compris). Absent → rien n'est émis. */
+export async function removeTermFromDeck(deckId: string, termId: string): Promise<void> {
+  const event = await planRemoveTermFromDeck(deckId, termId);
+  if (!event) return;
+  await syncQueue.pushMany([event]);
+  await reprojectCollections();
+}
+/** « Changer de deck » = DÉPLACER (D6) : retrait de l'ancien + ajout au nouveau
+ *  en UNE transaction (pushMany) — jamais retiré sans être ajouté, ni l'inverse. */
+export async function moveTermToDeck(termId: string, fromDeckId: string, toDeckId: string, opts: { caseId?: string } = {}): Promise<void> {
+  if (fromDeckId === toDeckId) return;
+  const events = (await Promise.all([planRemoveTermFromDeck(fromDeckId, termId), planAddTermToDeck(toDeckId, termId, opts)]))
+    .filter((e): e is NewEvent => e !== null);
+  if (!events.length) return;
+  await syncQueue.pushMany(events);
+  await reprojectCollections();
+}
