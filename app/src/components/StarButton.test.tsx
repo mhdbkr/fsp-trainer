@@ -102,6 +102,18 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     fireEvent.keyDown(window, { key: 'Escape' });
     await waitFor(() => expect(screen.queryByText('Favoris', { selector: 'strong' })).toBeNull());
   });
+  it('matière (F4b P3, AC-2) : vide = cristal, pleine = ambre `star` ; jamais de corail', async () => {
+    const { container } = render(<Harness />);
+    await clickEmptyStar();
+    const full = await screen.findByRole('button', { name: 'Decks de Aszites' });
+    expect(full.querySelector('[data-star]')!.getAttribute('data-star')).toBe('amber');
+    expect(full.className).toContain('text-star-600');
+    expect(full.className).toContain('dark:text-star-400');
+    render(<StarButton term={{ ...(term as object), id: 'fb-x', term: 'X' } as never} filled={false} />);
+    const empty = screen.getByRole('button', { name: 'Ajouter aux favoris : X' });
+    expect(empty.querySelector('[data-star]')!.getAttribute('data-star')).toBe('crystal');
+    expect(container.ownerDocument.body.innerHTML).not.toMatch(/signal-/);
+  });
   it('decks en chargement : étoile inerte, pas de ★ vide cliquable (revue C4)', () => {
     render(<StarButton term={term} filled={undefined} />);
     const b = screen.getByRole('button', { hidden: true });

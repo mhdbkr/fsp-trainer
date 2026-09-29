@@ -148,7 +148,7 @@ export function SelectionExplainer() {
   // 'pill' : pastille pétrole pleine (fond bg-brand-600) — ☆ blanc, survol foncé.
   // 'bubble' : carte claire — tons ardoise/signal lisibles sur les deux fonds.
   const starButton = (variant: 'pill' | 'bubble') => known
-    ? <StarButton term={known} filled={inDecks?.has(known.id)} caseId={caseId} tone={variant === 'pill' ? 'onBrand' : 'plain'} />
+    ? <StarButton term={known} filled={inDecks?.has(known.id)} caseId={caseId} />
     : (
       <button type="button" onClick={openNewCard} disabled={!canCreate} aria-label={`Nouvelle carte : ${clean}`}
         className={`grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg disabled:opacity-40 ${variant === 'pill' ? 'text-white hover:bg-brand-700' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>☆</button>
