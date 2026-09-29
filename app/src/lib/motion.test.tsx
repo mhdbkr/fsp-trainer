@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { useContext, useState } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MotionConfigContext } from 'motion/react';
-import { AnimatePresence, m, appear, MotionRoot, flyFrom, settleOrClose, expand } from './motion';
+import { AnimatePresence, m, appear, MotionRoot, flyFrom, settleOrClose, expand, useCountUp } from './motion';
 
 // jsdom n'a pas matchMedia : une requête pilotable, avec son événement `change`
 // (motion l'écoute une fois, au premier useReducedMotion).
@@ -61,6 +61,23 @@ describe('gestes (F4b P8/P9)', () => {
     mql.matches = true;
     flyFrom(el, rect(30, 200));
     expect(el.animate).toHaveBeenCalledTimes(1);
+    mql.matches = false;
+  });
+});
+
+describe('compter (F4b P10)', () => {
+  function Count({ to }: { to: number }) { return <span data-testid="n">{useCountUp(to, 50)}</span>; }
+  it('compte de 0 à la valeur à l\'apparition, puis affiche les changements tels quels', async () => {
+    const { rerender } = render(<Count to={42} />);
+    expect(screen.getByTestId('n').textContent).toBe('0');
+    await waitFor(() => expect(screen.getByTestId('n').textContent).toBe('42'));
+    rerender(<Count to={7} />);
+    expect(screen.getByTestId('n').textContent).toBe('7');
+  });
+  it('mouvement réduit : la valeur tout de suite', () => {
+    mql.matches = true;
+    render(<Count to={42} />);
+    expect(screen.getByTestId('n').textContent).toBe('42');
     mql.matches = false;
   });
 });

@@ -12,7 +12,7 @@
 // les transforms). Tests unitaires : composants rendus SANS MotionRoot →
 // aucune fonction d'animation chargée, AnimatePresence retire tout de suite.
 // ============================================================================
-import { createElement, type ReactNode } from 'react';
+import { createElement, useEffect, useRef, useState, type ReactNode } from 'react';
 import { LazyMotion, MotionConfig, domMin, useReducedMotion, type Transition } from 'motion/react';
 
 export { AnimatePresence } from 'motion/react';
@@ -54,6 +54,26 @@ export function flyFrom(el: HTMLElement | null, from: DOMRect | null) {
     [{ transform: `translate(${from.left - to.left}px, ${from.top - to.top}px)`, opacity: 0.6 }, { transform: 'none', opacity: 1 }],
     { duration: 260, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
   );
+}
+
+/** Compter (F4b P10) : de 0 à `to` à l'apparition (~600 ms), UNE fois ; ensuite
+ *  (et sous mouvement réduit) la valeur s'affiche telle quelle. */
+export function useCountUp(to: number, ms = 600): number {
+  const counted = useRef(!mayMove());
+  const [shown, setShown] = useState(counted.current ? to : 0);
+  useEffect(() => {
+    if (counted.current) { setShown(to); return; }
+    counted.current = true;
+    const t0 = performance.now(); let raf = 0;
+    const tick = () => {
+      const p = Math.min(1, (performance.now() - t0) / ms);
+      setShown(Math.round(to * (1 - (1 - p) ** 3)));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); setShown(to); };
+  }, [to, ms]);
+  return shown;
 }
 
 export function MotionRoot({ children }: { children: ReactNode }) {

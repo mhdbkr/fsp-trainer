@@ -16,10 +16,11 @@ import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drill
 import { loadDrillContext, type DrillContext } from '@/lib/collections/drillContext';
 import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
 import { useSimSession } from '@/store/simSession';
+import { appear, m, useCountUp } from '@/lib/motion';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
-// Drill SM-2 bidirectionnel. Priorité aux termes de la spécialité/pathologie
+// Drill bidirectionnel. Priorité aux termes de la spécialité/pathologie
 // du cas travaillé, puis progression libre (couverture inclusive).
 // Un deck (ou les favoris) borne la file : jamais un terme hors du deck.
 export function DrillPage() {
@@ -101,49 +102,64 @@ export function DrillPage() {
   };
 
   if (!started) {
+    // Carte d'embarquement (F4b P7) : la portée, trois relevés, le sens, UNE action.
+    const total = qc.due + qc.fresh;
+    const newInPool = pool.filter((b) => b.srs.state === 'Neu').length;
+    const budgetLimits = newInPool > qc.fresh;   // le budget du jour retient des nouveaux
+    const scope = caseId && theCase ? `Termes de ${theCase.name}` : deck ? deck.name : 'Tous les termes';
+    // Prochain terme dû : un terme déjà vu qui revient, ou demain si le budget retient des nouveaux.
+    const tomorrow = new Date(); tomorrow.setHours(24, 0, 0, 0);
+    const nextAt = budgetLimits ? Math.min(next ?? Infinity, tomorrow.getTime()) : next;
     return (
-      <div className="mx-auto max-w-xl space-y-5 text-center">
-        <h1 className="text-2xl font-bold">Drill Fachbegriffe{caseId && theCase ? ` · Termes de ${theCase.name}` : deck ? ` · ${deck.name}` : ''}</h1>
-        <div className="card p-6">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name="nav-abc" className="h-8 w-8" /></div>
-          <p className="mt-2 text-slate-500 dark:text-slate-400">
-            {qc.due} dus · {qc.fresh} nouveaux · budget du jour {ctx.daily.newPerDay}{prioritySpecialty ? ` · priorité ${prioritySpecialty}` : ''}{qc.due + qc.fresh > 0 ? ` · ≈ ${minutes} min` : ''}.
-            Répétition espacée (SM-2), cartes bidirectionnelles.
-          </p>
-          {anchor && <p className="mt-1 text-sm text-brand-600 dark:text-brand-300">Ancré sur ton cas récent : {anchor.name}</p>}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <span className="text-sm">Sens :</span>
-            <div className="flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-slate-800">
-              <button onClick={() => setDirection('term2simple')} className={`min-h-11 rounded px-3 ${direction === 'term2simple' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Terme → sens</button>
-              <button onClick={() => setDirection('simple2term')} className={`min-h-11 rounded px-3 ${direction === 'simple2term' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Sens → terme</button>
+      <div className="mx-auto max-w-xl space-y-5">
+        <m.section {...appear} className="card p-6">
+          <p className="eyebrow">Drill Fachbegriffe</p>
+          <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">{scope}</h1>
+          {(prioritySpecialty || anchor) && (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {prioritySpecialty && <span className="chip bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200">Priorité {prioritySpecialty}</span>}
+              {anchor && <span className="chip bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300">Ton cas récent : {anchor.name}</span>}
             </div>
-          </div>
-          {qc.due + qc.fresh === 0 ? (
-            caseId && theCase ? (
-              <>
-                <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-                  <Icon name="check" className="h-4 w-4" />
-                  Rien à réviser dans ce cas aujourd'hui.
-                </p>
-                <Link to={`/fachbegriffe/drill?specialty=${encodeURIComponent(theCase.specialty)}`} className="btn-primary mt-3">Réviser la spécialité {theCase.specialty}</Link>
-                <Link to="/fachbegriffe/drill" className="btn-outline mt-3 ml-2">Drill global</Link>
-              </>
-            ) : deck ? (
-              <>
-                <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-                  <Icon name="check" className="h-4 w-4" />
-                  Rien à réviser dans « {deck.name} » aujourd'hui.{next ? ` Prochain terme dû : ${new Date(next).toLocaleDateString('fr-FR')}.` : ''}
-                </p>
-                <Link to="/fachbegriffe/drill" className="btn-outline mt-3">Drill global</Link>
-              </>
-            ) : (
-              <p className="mt-4 flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400"><Icon name="check" className="h-4 w-4" />Rien à réviser aujourd'hui — les nouveaux termes reviennent demain (budget {ctx.daily.newPerDay}/jour).</p>
-            )
-          ) : (
-            <button onClick={start} className="btn-primary mt-5 gap-1.5 px-8 py-3 text-base"><Icon name="play" className="h-4 w-4" />Commencer</button>
           )}
-        </div>
-        <Link to={exitTo()} className="btn-ghost">← {caseId ? 'Retour au cas' : 'Glossaire'}</Link>
+          {total === 0 ? (
+            <>
+              <p className="mt-5 font-medium text-emerald-700 dark:text-emerald-400">
+                À jour ✓{nextAt ? ` — prochain terme dû le ${new Date(nextAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}` : ''}
+              </p>
+              {caseId && theCase ? (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link to={`/fachbegriffe/drill?specialty=${encodeURIComponent(theCase.specialty)}`} className="btn-primary">Réviser la spécialité {theCase.specialty}</Link>
+                  <Link to="/fachbegriffe/drill" className="btn-outline">Drill global</Link>
+                </div>
+              ) : deck && <Link to="/fachbegriffe/drill" className="btn-outline mt-3">Drill global</Link>}
+            </>
+          ) : (
+            <>
+              <dl className="mt-5 grid grid-cols-3 gap-2 text-center">
+                <Readout label="à revoir" value={qc.due} />
+                <Readout label="nouveaux" value={qc.fresh} />
+                <Readout label="≈ min" value={minutes} />
+              </dl>
+              {budgetLimits && <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">Budget du jour : {ctx.daily.newPerDay} nouveaux</p>}
+              <fieldset className="mt-5">
+                <legend className="label mb-1.5">Sens</legend>
+                <div className="grid grid-cols-2 gap-2">
+                  {DIRECTIONS.map((d) => (
+                    <button key={d.id} type="button" aria-pressed={direction === d.id} onClick={() => setDirection(d.id)}
+                      className="min-h-11 rounded-xl border border-slate-200 px-3 py-2 text-left transition-colors hover:border-brand-300 aria-pressed:border-brand-500 aria-pressed:bg-brand-50 dark:border-ink-600 dark:aria-pressed:bg-brand-900/30">
+                      <span className="block text-sm font-semibold">{d.label}</span>
+                      <span className="block font-mono text-xs text-slate-500 dark:text-slate-400">{d.example}</span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+              <button type="button" onClick={start} className="btn-primary mt-5 min-h-11 w-full gap-1.5 text-base">
+                <Icon name="play" className="h-4 w-4" />Commencer ({total} {total === 1 ? 'carte' : 'cartes'})
+              </button>
+            </>
+          )}
+        </m.section>
+        <div className="text-center"><Link to={exitTo()} className="btn-ghost">← {caseId ? 'Retour au cas' : 'Glossaire'}</Link></div>
       </div>
     );
   }
@@ -208,6 +224,22 @@ export function DrillPage() {
       )}
 
       <KeyboardShortcuts revealed={revealed} onReveal={() => setRevealed(true)} onGrade={grade} />
+    </div>
+  );
+}
+
+const DIRECTIONS: { id: CardDirection; label: string; example: string }[] = [
+  { id: 'term2simple', label: 'Terme → sens', example: 'Aszites → ?' },
+  { id: 'simple2term', label: 'Sens → terme', example: 'Bauchwasser → ?' },
+];
+
+/** Un relevé de la carte d'embarquement : chiffre en mono, compté une fois (P10). */
+function Readout({ label, value }: { label: string; value: number }) {
+  const n = useCountUp(value);
+  return (
+    <div data-readout={label} className="flex flex-col-reverse rounded-xl bg-slate-50 py-3 dark:bg-white/5">
+      <dt className="text-xs text-slate-500 dark:text-slate-400">{label}</dt>
+      <dd className="font-mono text-2xl font-semibold tabular-nums">{n}</dd>
     </div>
   );
 }

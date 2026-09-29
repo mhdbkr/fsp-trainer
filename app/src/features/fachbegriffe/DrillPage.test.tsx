@@ -77,7 +77,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.bulkPut([{ id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'Gastroenterologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() }, { id: 'fb-z', term: 'Zyste', translationSimple: 'Z', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() }] as never);
     renderAt('/fachbegriffe/drill?case=c1');
     expect(await screen.findByText(/Termes de Ulcus ventriculi/)).toBeTruthy();
-    expect(screen.getByText(/1 nouveaux/)).toBeTruthy(); // fb-a seulement, jamais fb-z
+    expect(document.querySelector('[data-readout="nouveaux"] dd')!.textContent).toBe('1'); // fb-a seulement, jamais fb-z
   });
 
   it('?case= sans rien à réviser → « Réviser la spécialité »', async () => {
@@ -85,7 +85,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.cases.put({ id: 'c2', name: 'Angina', specialty: 'Kardiologie', linkedFachbegriffeIds: ['fb-k'] } as never);
     await db.fachbegriffe.put({ id: 'fb-k', term: 'Koronar', translationSimple: 'K', specialty: 'Kardiologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() } as never);
     renderAt('/fachbegriffe/drill?case=c2');
-    const btn = await screen.findByRole('link', { name: /Réviser la spécialité Kardiologie/ });
+    const btn = await screen.findByRole('link', { name: /Réviser la spécialité Kardiologie/ }, { timeout: 3000 });   // sous charge (suite complète), le cas charge après 1 s
     expect(btn.getAttribute('href')).toContain('specialty=Kardiologie');
   });
 
@@ -203,5 +203,34 @@ describe('DrillPage — pas de boucle de rendu', () => {
     fireEvent.change(screen.getByRole('textbox', { name: 'Bedeutung' }), { target: { value: 'nouvelle signification' } });
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }));
     expect(await screen.findByText('nouvelle signification')).toBeTruthy();
+  });
+
+  it('carte d\'embarquement (F4b P7, AC-6) : portée, trois relevés, sens avec exemples, UNE action ; plus de SM-2', async () => {
+    renderAt('/fachbegriffe/drill?specialty=Kardiologie');
+    const start = await screen.findByRole('button', { name: /Commencer \(2 cartes\)/ });
+    expect(screen.getByRole('heading', { name: 'Tous les termes' })).toBeTruthy();
+    expect([...document.querySelectorAll('[data-readout]')].map((r) => r.getAttribute('data-readout'))).toEqual(['à revoir', 'nouveaux', '≈ min']);
+    expect(document.querySelector('[data-readout="nouveaux"] dd')!.className).toContain('font-mono');
+    expect(screen.getByRole('button', { name: /Terme → sens/ }).textContent).toContain('Aszites → ?');
+    expect(screen.getByRole('button', { name: /Sens → terme/ }).textContent).toContain('Bauchwasser → ?');
+    expect(screen.getByRole('button', { name: /Terme → sens/ }).getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByText('Priorité Kardiologie')).toBeTruthy();
+    expect(document.body.textContent).not.toMatch(/SM-2|bidirectionnel|Répétition espacée/);
+    expect(screen.queryByText(/Budget du jour/)).toBeNull();   // 2 nouveaux ≤ budget 10 : il ne limite pas
+    expect(start).toBeTruthy();
+  });
+  it('budget du jour affiché seulement quand il retient des nouveaux', async () => {
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1, daily: { ...defaultCtx.daily, newPerDay: 1 } });
+    renderAt('/fachbegriffe/drill');
+    expect(await screen.findByRole('button', { name: /Commencer \(1 carte\)/ })).toBeTruthy();
+    expect(screen.getByText('Budget du jour : 1 nouveaux')).toBeTruthy();
+  });
+  it('état vide : « À jour ✓ — prochain terme dû le … »', async () => {
+    await db.fachbegriffe.clear();
+    const due = new Date(2030, 9, 3).getTime();
+    await db.fachbegriffe.put({ id: 'fb-x', term: 'Zyste', translationSimple: 'Z', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: { ...freshSrs(), state: 'Gelernt', dueDate: due, repetitions: 2, interval: 6 } } as never);
+    renderAt('/fachbegriffe/drill');
+    expect(await screen.findByText('À jour ✓ — prochain terme dû le 3 octobre')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /commencer/i })).toBeNull();
   });
 });
