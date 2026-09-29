@@ -137,14 +137,32 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
     expect(await screen.findByText('die Dyspnoe = Atemnot')).toBeTruthy();
   });
-  it('★ dans la bulle réponse (fond clair) n\'utilise pas la couleur blanche de la pastille (re-review)', async () => {
+  it('pilule verre à 2 icônes de 44 px (≤ 120 px), libellés au survol ; « Expliquer » l\'étend en carte verre (F4b P4, AC-3)', async () => {
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
-    selectText(screen.getByTestId('t'));
-    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
-    fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
-    const starInBubble = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
-    expect(starInBubble.className).not.toMatch(/text-white/);
-    expect(starInBubble.className).not.toMatch(/hover:bg-brand-700/);
+    selectText(screen.getByTestId('t')); pill();
+    await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    const p = document.querySelector('[data-pill]') as HTMLElement;
+    expect(p.className).toContain('glass-thin');
+    expect(p.className).toMatch(/\bp-0\.5\b/); expect(p.className).toMatch(/\bgap-0\.5\b/);   // 2 × 44 + 2 + 4 = 94 px
+    const buttons = [...p.querySelectorAll('button')];
+    expect(buttons.map((b) => b.getAttribute('aria-label'))).toEqual(['Expliquer', 'Ajouter aux favoris : Aszites']);
+    for (const b of buttons) { expect(b.className).toMatch(/\bh-11\b/); expect(b.className).toMatch(/\bw-11\b/); }
+    expect(p.textContent).toBe('ExpliquerFavoris');   // libellés (aria-hidden), visibles au survol seulement
+    fireEvent.click(screen.getByRole('button', { name: 'Expliquer' }));
+    await screen.findByText(/Bauchwasser/);
+    expect(document.querySelector('[data-pill]')).toBeNull();
+    expect(document.querySelector('.glass-full')).toBeTruthy();
+    expect(document.body.innerHTML).not.toMatch(/shadow-/);
+  });
+  it('étoile de la pilule : couleurs figées, contraste ≥ 3:1 avec le fond glass-thin clair et sombre (revue B1)', async () => {
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t')); pill();
+    const starInPill = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    // Classes figées : slate-500/300 (vide) sur glass-thin (52 % blanc/encre sur
+    // paper/ink) → 4.56:1 clair, 11.58:1 sombre (calcul WCAG relative luminance,
+    // rapport de tâche C1) — marge large, aucun ajustement de StarButton requis.
+    expect(starInPill.className).toMatch(/\btext-slate-500\b/);
+    expect(starInPill.className).toMatch(/dark:text-slate-300\b/);
   });
   it('sélection près du haut du viewport → pastille bascule sous la sélection, jamais hors écran (B1)', async () => {
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
@@ -152,7 +170,7 @@ describe('SelectionExplainer', () => {
     act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
     await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
     const box = document.querySelector('.fixed.z-\\[80\\]') as HTMLElement;
-    expect(box.style.transform).toBe('translate(-50%, 0)');
+    expect((box.querySelector('[data-anchor-box]') as HTMLElement).style.transform).toBe('translate(-50%, 0)');
     const top = parseFloat(box.style.top);
     expect(top).toBeGreaterThanOrEqual(36); // sous la sélection (bottom), jamais négatif à l'écran
   });
