@@ -41,23 +41,31 @@ export function sanitizePersonalTerm(input: PersonalTermInput): Omit<PersonalTer
 }
 
 /** Projection PURE : par id, dernier created/deleted gagne (ordre sortEvents) ;
- *  srs = dernier srs.reviewed APRÈS la dernière création, sinon freshSrs. */
+ *  srs = dernier srs.reviewed APRÈS la dernière création, sinon freshSrs ;
+ *  explanation = dernier term.personal_updated non vide APRÈS la dernière
+ *  création (F4a D8), sinon celle de la création. */
 export function projectPersonalTerms(events: ProgressEvent[]): PersonalTerm[] {
-  const live = new Map<string, { ev: ProgressEvent; srs: Srs | null }>();
+  const live = new Map<string, { ev: ProgressEvent; srs: Srs | null; explanation?: string }>();
   for (const e of sortEvents(events)) {
     const id = e.subject_id;
     if (!id || !isPersonalId(id)) continue;
     if (e.type === 'term.personal_created') live.set(id, { ev: e, srs: null });
     else if (e.type === 'term.personal_deleted') live.delete(id);
     else if (e.type === 'srs.reviewed') { const cur = live.get(id); if (cur) cur.srs = e.payload as Srs; }
+    else if (e.type === 'term.personal_updated') {
+      const cur = live.get(id);
+      const raw = (e.payload as { explanation?: unknown } | null)?.explanation;
+      const explanation = typeof raw === 'string' ? cut(raw, PT_LIMITS.explanation) : undefined;
+      if (cur && explanation) cur.explanation = explanation;
+    }
   }
   const out: PersonalTerm[] = [];
-  for (const [id, { ev, srs }] of live) {
+  for (const [id, { ev, srs, explanation }] of live) {
     const p = sanitizePersonalTerm(ev.payload as PersonalTermInput);
     if (!p) continue;
     const payloadCreatedAt = (ev.payload as { createdAt?: string }).createdAt;
     const createdAt = payloadCreatedAt && !Number.isNaN(Date.parse(payloadCreatedAt)) ? payloadCreatedAt : ev.occurred_at;
-    out.push({ id, ...p, createdAt, srs: srs ?? freshSrs(Date.parse(createdAt)) });
+    out.push({ id, ...p, ...(explanation ? { explanation } : {}), createdAt, srs: srs ?? freshSrs(Date.parse(createdAt)) });
   }
   return out;
 }
@@ -93,6 +101,17 @@ export async function isStarred(selection: string, begriffe: Fachbegriff[]): Pro
   const hit = lookupTerm(selection, begriffe);
   const id = hit ? hit.id : personalTermId(selection);
   return !!(await db.favorites.get(id));
+}
+
+/** Bedeutung d'une carte personnelle (F4a D8) : UN événement term.personal_updated.
+ *  Le mot ne change jamais (il fonde l'id). Vide → refusé, rien n'est émis. */
+export async function updatePersonalExplanation(id: string, explanation: string): Promise<void> {
+  if (!isPersonalId(id)) throw new Error('not_personal');
+  const x = cut(explanation, PT_LIMITS.explanation);
+  if (!x) throw new Error('explanation_empty');
+  if (!(await db.personal_terms.get(id))) throw new Error('personal_term_missing');
+  await syncQueue.push({ type: 'term.personal_updated', subject_id: id, payload: { explanation: x } });
+  await reprojectPersonalTerms();
 }
 
 export async function deletePersonalTerm(id: string): Promise<void> {

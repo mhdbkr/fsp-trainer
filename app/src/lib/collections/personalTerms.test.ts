@@ -5,6 +5,7 @@ import { rebuildProjections } from '@/lib/sync/projections';
 import {
   personalTermId, cleanSelection, sanitizePersonalTerm, projectPersonalTerms,
   createPersonalTerm, deletePersonalTerm, isPersonalId, PT_LIMITS, starSelection,
+  updatePersonalExplanation,
 } from './personalTerms';
 
 vi.mock('@/lib/sync/queue', async () => {
@@ -68,6 +69,20 @@ describe('projectPersonalTerms', () => {
     const [t] = projectPersonalTerms([bad]);
     expect(t.createdAt).toBe(at(7));
   });
+  it('term.personal_updated après la création → nouvelle Bedeutung (F4a D8)', () => {
+    const [t] = projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 'Atemnot bei Belastung' }, 2)]);
+    expect(t.explanation).toBe('Atemnot bei Belastung');
+  });
+  it('personal_updated : ignoré avant la création, vide ou non-texte ; tronqué à 600', () => {
+    expect(projectPersonalTerms([ev('term.personal_updated', id, { explanation: 'avant' }, 1), created(2)])[0].explanation).toBeUndefined();
+    expect(projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: '   ' }, 2)])[0].explanation).toBeUndefined();
+    expect(projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 42 }, 2)])[0].explanation).toBeUndefined();
+    expect(projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 'e'.repeat(900) }, 2)])[0].explanation!.length).toBe(PT_LIMITS.explanation);
+  });
+  it('personal_updated puis suppression et re-création → la Bedeutung d\'avant ne revient pas', () => {
+    const [t] = projectPersonalTerms([created(1), ev('term.personal_updated', id, { explanation: 'alt' }, 2), ev('term.personal_deleted', id, {}, 3), created(4, 'c')]);
+    expect(t.explanation).toBeUndefined();
+  });
 });
 
 describe('create / delete / rebuild', () => {
@@ -96,6 +111,13 @@ describe('create / delete / rebuild', () => {
     expect(await db.deck_terms.get([deckId, id])).toBeTruthy();
     await deletePersonalTerm(id);
     expect(await db.deck_terms.get([deckId, id])).toBeUndefined();
+  });
+  it('updatePersonalExplanation : un événement, projection à jour ; vide → refus sans événement (AC-7)', async () => {
+    const { id } = await createPersonalTerm({ term: 'Wort' });
+    await updatePersonalExplanation(id, '  Atemnot  ');
+    expect((await db.personal_terms.get(id))!.explanation).toBe('Atemnot');
+    await expect(updatePersonalExplanation(id, '   ')).rejects.toThrow('explanation_empty');
+    expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_updated')).toHaveLength(1);
   });
   it('rebuildProjections : srs.reviewed pt-… écrit dans personal_terms, jamais dans fachbegriffe', async () => {
     const { id } = await createPersonalTerm({ term: 'Wort' });
