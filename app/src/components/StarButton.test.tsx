@@ -45,7 +45,7 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
     expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')!.payload).toEqual({ caseId: 'case-leberzirrhose' });
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
-    fireEvent.click(screen.getByRole('button', { name: 'Voir la carte' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Révéler' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
     expect(await screen.findByRole('button', { name: 'Decks de Aszites' })).toBeTruthy();
   });

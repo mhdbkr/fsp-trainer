@@ -1,6 +1,6 @@
 // ============================================================================
 // Confirmation d'une carte (F4a D7/D10). « Rangée » : la carte en miniature,
-// « Voir la carte » (la retourne), « Changer de deck » (DÉPLACE, D6).
+// « Révéler » (la retourne), « Changer de deck » (DÉPLACE, D6 ; masqué sans autre deck).
 // « Supprimée » : Annuler pendant le délai — rien n'a encore été émis.
 // Style minimal de la charte actuelle (la matière glass vient au chantier 2).
 // ============================================================================
@@ -69,8 +69,8 @@ export function CardToast() {
         </div>
         <CardFlip card={toast.term} direction="term2simple" revealed={flipped} onFlip={() => setFlipped(true)} size="mini" />
         <div className="flex gap-2">
-          <button type="button" onClick={() => setFlipped((f) => !f)} className="btn-outline min-h-11 flex-1">{flipped ? 'Recto' : 'Voir la carte'}</button>
-          <button type="button" aria-expanded={choosing} onClick={() => setChoosing((c) => !c)} className="btn-outline min-h-11 flex-1">Changer de deck</button>
+          <button type="button" onClick={() => setFlipped((f) => !f)} className="btn-outline min-h-11 flex-1">{flipped ? 'Recto' : 'Révéler'}</button>
+          {targets.length > 1 && <button type="button" aria-expanded={choosing} onClick={() => setChoosing((c) => !c)} className="btn-outline min-h-11 flex-1">Changer de deck</button>}
         </div>
         {choosing && (
           <div role="group" aria-label="Déplacer vers" className="space-y-1">
@@ -80,7 +80,6 @@ export function CardToast() {
                 show({ ...toast, deckId: d.id }); setChoosing(false);
               }} className="flex min-h-11 w-full items-center rounded-lg px-2 text-left hover:bg-slate-100 dark:hover:bg-white/10">{d.name}</button>
             ))}
-            {targets.length === 1 && <p className="px-2 text-xs text-slate-500">Aucun autre deck : crée-en un depuis Fachbegriffe.</p>}
           </div>
         )}
       </div>

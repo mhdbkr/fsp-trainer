@@ -188,3 +188,53 @@ Hypertension : sortis *Phäochromozytom*, *Hypokaliämie* (bilan « Bei Hypokali
 - `checkCaseTermLinks` exit 1, 2 manquements, seuil non baissé : `case-bandscheibenvorfall` **6 termes** (le diagnostic y est désormais, *Tumor* est sorti avec « Nur bei … ») ; `case-depression` **7 termes** (*zerebral* venait de « Bei neurologischen Auffälligkeiten…: zerebrale Bildgebung », bilan conditionnel).
 - Hypertension : *Struma*, *Extremitäten*, *renal* viennent de l'examen clinique prévu (« Körperliche Untersuchung: … Schilddrüse (Struma) », « Pulsstatus aller Extremitäten », « … als Hinweis auf eine renale Ursache ») — cibles d'examen, pas constats ; non traités.
 - Dépression : *Leukämie* = cause du décès de la sœur (« Tod der Schwester (Leukämie) ») — fait du cas, pas du patient.
+
+## Correctif de liaison — libellés composés (relecteur de direction, après 68df084)
+
+**Constat** : `case-arterielle-hypertonie` et `case-diabetes` ne liaient pas leur propre diagnostic. La liaison indexait le libellé `t` exact ; 207 libellés sont composés (« Hypertonie/Hypertonus », « Diabetes mellitus (Abk. Diabetes) », « Radiologie (2): ») et n'apparaissent tels quels dans aucun cas (`fb-hypertonie-hypertonus` : 0 cas sur 130). La porte ne le voyait pas : elle calculait le diagnostic avec le même index.
+
+### Règles
+
+- `labelVariants(t)` (`scripts/linkCaseTerms.mjs`) : parties séparées par `/` ou par une parenthèse, forme sans parenthèse, contenu des parenthèses `Abk.`/`syn.` (virgules = plusieurs variantes). Les autres parenthèses (`(2)`, `(pl.)`, `(engl.)`, sigles `(EKG)`) ne sont pas des variantes ; affixes (`Troph-`, `-stomie`) écartés. Un libellé exact prime toujours sur une variante.
+- Exclusions relues, en données avec raison : `src/data/labelVariantExclusions.json` (8 : Morbus, Nervus, Angina, Collum, Kardia, dies, final, terminal). Test : chaque exclusion est une variante réelle du glossaire.
+- Alias explicites (`diagnosisAliases.json`) : **non nécessaires** — les variantes retrouvent Hypertonie et Diabetes.
+- « nur bei » n'importe où rend la proposition contextuelle (migraene : « Biopsie der A. temporalis nur bei … »).
+- ptbs : la phrase de Muster « … in Betracht » était **déjà** contextuelle (test ajouté, vert d'emblée). Hyperthyreose venait en réalité du bilan de la vue médicale : « TSH, fT3, fT4 (Hyperthyreose) ». Règle ajoutée : une parenthèse de `medicalView.diagnostik` qui nomme un diagnostic différentiel du cas (`differenzialdiagnosen[].dd`) est contextuelle — c'est la cible de l'examen, pas un constat. Une règle plus large (« tout DD du cas ne lie que par la fiche patient ») a été mesurée puis rejetée : −208 liens, dont Tremor (parkinson), kognitiv (demenz), depressiv (ptbs, comorbidité réelle).
+
+### Décision : variantes pour le diagnostic seul
+
+Mesuré sur les 130 cas (base = 68df084, 3 468 liens, 1 terme > 20 %) :
+
+| Mode | Liens | Ajoutés | Retirés | Termes > 20 % | Top 10 modifiés |
+|---|---|---|---|---|---|
+| Variantes partout | 3 712 | 317 | 73 | 1 | 96 cas |
+| **Variantes au diagnostic seul (retenu)** | **3 417** | **8** | **59** | **1** | **34 cas** |
+
+Partout, les variantes ajoutent ~60 termes nouveaux, surtout des mots de laboratoire ou de technique sans valeur pour le cas : Reha (22 cas), digital-rektale Untersuchung (17), Glukose (15), Serum (13), Stent (9), Staging (9), Retikulozyten (9), Sekret (8) ; et elles déplacent le top 10 de 96 cas (tonsillitis : « Tonsillen » ; schlaganfall : « Stroke Unit »). Au diagnostic seul (`glossaryIndexes` : `diagIndex` ne sert qu'au nom et à la pathologie du cas, et au compte des occurrences de ces termes), le gain est exactement les 4 diagnostics manquants — Diabetes (diabetes, diabetes-typ1), Hypertonie (arterielle-hypertonie), lumbal (spinalkanalstenose) — sans bruit. Les 4 autres ajouts et les 59 retraits viennent des deux règles contextuelles (« nur bei », parenthèse-cible du bilan) ; les 10 retraits du top 10 (7 cas) ont été relus : tous des bilans conditionnels ou des cibles de DD (A. temporalis, Arterie, Mutation, Protein, Arthroskopie, Ataxie, Dysarthrie, Nekrose, Pyelonephritis, Hyperthyreose).
+
+### Porte CI (`scripts/checkCaseTermLinks.mjs`)
+
+`diagnosisVariantTerms` : pour chaque cas, tout terme du glossaire dont une variante figure en mot entier dans la pathologie ou le nom du cas doit être lié (hors `DIAGNOSIS_EXCEPTIONS`, hors génériques ; un mot inclus dans un terme plus long — « Claudicatio » dans « Claudicatio intermittens » — ne compte pas). Calcul **indépendant de l'index de liaison**. L'égalité stricte avec la pathologie ne se déclencherait jamais (« Arterielle Hypertonie (hypertensive Entgleisung) » ≠ « Hypertonie ») : même règle de mot entier que la liaison. Rejouée sur `caseTermLinks.json` de 4c848cf, elle échoue sur 4 cas : arterielle-hypertonie, diabetes, diabetes-typ1, spinalkanalstenose.
+
+### Top 10 avant (68df084) / après
+
+| Cas | | Top 10 |
+|---|---|---|
+| arterielle-hypertonie | avant | schlafapnoe, lipid, kardiovaskulaer, albumin, intima, hypertrophie, renal, struma, extremitaeten, proteinurie |
+| | après | schlafapnoe, **hypertonie-hypertonus**, lipid, kardiovaskulaer, albumin, intima, hypertrophie, struma, renal, extremitaeten |
+| diabetes | avant | adipositas, metabolisch, nykturie, rezidivierend, pruritus, polydipsie, polyurie, insulin, dialyse, albumin |
+| | après | **diabetes-mellitus-abk-diabetes**, adipositas, metabolisch, nykturie, rezidivierend, pruritus, polydipsie, polyurie, insulin, dialyse |
+| migraene | avant | attacke, aura, prophylaktisch, subkutan, a-temporalis, reversibel, arterie, hysterektomie, analgetikum, koronar |
+| | après | attacke, aura, prophylaktisch, subkutan, reversibel, hysterektomie, koronar, analgetikum, nasal, antiemetikum |
+| ptbs | avant | inappetenz, gewichtsverlust, psychiatrisch, kognitiv, affekt, depressiv, in-vivo, hyperthyreose, zerebral, palpitationen |
+| | après | inappetenz, gewichtsverlust, psychiatrisch, kognitiv, affekt, depressiv, in-vivo, zerebral, palpitationen, trauma |
+| diabetes-typ1 | avant | balanitis, polydipsie, polyurie, nykturie, pruritus, intermittierend, gewichtsverlust, spontan, insulin, antikoerper |
+| | après | balanitis, polydipsie, **diabetes-mellitus-abk-diabetes**, polyurie, nykturie, pruritus, intermittierend, gewichtsverlust, spontan, insulin |
+| spinalkanalstenose | avant | claudicatio, spinalkanalstenose, ausstrahlung, parese, epidural, kardiovaskulaer, nachtschweiss, fango, klaustrophobie, claudicatio-intermittens |
+| | après | **lumbalis-lumbal**, claudicatio, spinalkanalstenose, ausstrahlung, parese, epidural, kardiovaskulaer, nachtschweiss, fango, klaustrophobie |
+
+### Limites et points ouverts
+
+- Le rang « diagnostic » regroupe tous les termes de la `verdachtsdiagnose` et les trie par occurrences : Hypertonie est 2ᵉ derrière Schlafapnoe (citée plus souvent), Diabetes 3ᵉ dans diabetes-typ1. Placer le terme de la pathologie en tête serait un changement d'ordre à décider à part.
+- **Registre manquant** (`checkTermRegister.mjs --require-all` exit=1, rien rédigé) : `fb-diabetes-mellitus-abk-diabetes` (case-diabetes, case-diabetes-typ1), `fb-hypertonie-hypertonus` (case-arterielle-hypertonie), `fb-lumbalis-lumbal` (case-spinalkanalstenose). `checkBedeutung.mjs` : exit=0.
+- `lookupTerm` ne résout pas « Diabetes mellitus (Abk. Diabetes) » : `exactLookup` retire la « ) » finale de la sélection (même cause que ÖGD et DRU). Ajouté aux exceptions connues de `bedeutung.search.test.ts` ; le correctif relève de `src/lib/dictionary.ts`.

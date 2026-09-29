@@ -62,3 +62,16 @@ test('exception de minimum : tolérée à son seuil, pas en dessous', () => {
   assert.deepEqual(checkLinks({ ...base, links: { 'case-x': ids }, minExceptions: { 'case-x': 6 } }).errors, []);
   assert.ok(checkLinks({ ...base, links: { 'case-x': ids.slice(0, 5) }, minExceptions: { 'case-x': 6 } }).errors.some((e) => e.includes('< 6')));
 });
+
+test('diagnostic par variante : un terme dont une variante nomme la pathologie ou le cas doit être lié (hors exceptions)', async () => {
+  const { diagnosisVariantTerms } = await import('./checkCaseTermLinks.mjs');
+  const fb = [{ id: 'fb-hypertonie-hypertonus', t: 'Hypertonie/Hypertonus' }, { id: 'fb-diabetes-mellitus-abk-diabetes', t: 'Diabetes mellitus (Abk. Diabetes)' }, { id: 'fb-morbus-m', t: 'Morbus (M.)' }];
+  fb.push({ id: 'fb-claudicatio', t: 'Claudicatio' }, { id: 'fb-claudicatio-intermittens', t: 'Claudicatio intermittens' });
+  const cases = [{ id: 'case-h', pathology: 'Arterielle Hypertonie (hypertensive Entgleisung)', name: 'Kopfschmerzen' }, { id: 'case-d', pathology: 'Diabetes mellitus Typ 2', name: 'Durst' }, { id: 'case-c', pathology: 'Morbus Crohn', name: 'Bauchschmerz' },
+    { id: 'case-p', pathology: 'pAVK', name: 'Claudicatio intermittens' }];
+  const req = diagnosisVariantTerms(cases, fb, new Set());
+  assert.deepEqual(req, { 'case-h': ['fb-hypertonie-hypertonus'], 'case-d': ['fb-diabetes-mellitus-abk-diabetes'], 'case-c': [], 'case-p': ['fb-claudicatio-intermittens'] });
+  const r = checkLinks({ ...base, knownIds: new Set([...knownIds, ...fb.map((x) => x.id)]), links: { 'case-h': ids(8), 'case-d': ['fb-diabetes-mellitus-abk-diabetes', ...ids(8)], 'case-x': ids(8) },
+    diagnosis: { 'case-h': ['fb-t0'], 'case-d': ['fb-diabetes-mellitus-abk-diabetes'] }, required: { ...req, 'case-x': ['fb-hypertonie-hypertonus'] } });
+  assert.deepEqual(r.errors, ['case-h : terme du diagnostic (variante de libellé) non lié fb-hypertonie-hypertonus']);
+});

@@ -46,6 +46,8 @@ test('main() tourne quand le chemin du script contient un espace', () => {
     mkdirSync(scriptsDir, { recursive: true });
     mkdirSync(dataDir, { recursive: true });
     copyFileSync(fileURLToPath(import.meta.resolve('./checkTermRegister.mjs')), join(scriptsDir, 'checkTermRegister.mjs'));
+    copyFileSync(fileURLToPath(import.meta.resolve('./labelVariants.mjs')), join(scriptsDir, 'labelVariants.mjs'));
+    copyFileSync(fileURLToPath(import.meta.resolve('../src/data/labelVariantExclusions.json')), join(dataDir, 'labelVariantExclusions.json'));
     writeFileSync(join(dataDir, 'fachbegriffe.json'), JSON.stringify([{ id: 'fb-x', t: 'Beispiel' }]));
     writeFileSync(join(dataDir, 'caseTermLinks.json'), JSON.stringify({}));
     const out = execFileSync('node', [join(scriptsDir, 'checkTermRegister.mjs')], { encoding: 'utf8' });
@@ -53,4 +55,10 @@ test('main() tourne quand le chemin du script contient un espace', () => {
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+test('libellé composé : la vo peut contenir une de ses variantes', () => {
+  const r = { pa: 'Mein Blutdruck ist immer zu hoch.', vo: 'Es bestand eine arterielle Hypertonie.', an: 'Wurde bei Ihnen ein hoher Blutdruck gemessen?' };
+  assert.deepEqual(checkEntry({ t: 'Hypertonie/Hypertonus', r }), []);
+  assert.ok(checkEntry({ t: 'Hypertonie/Hypertonus', r: { ...r, vo: 'Es bestand ein erhöhter Blutdruck.' } }).includes('vo ne contient pas le terme'));
 });
