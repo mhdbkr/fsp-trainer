@@ -2,8 +2,8 @@
 // aucun id orphelin ni générique, au plus 10 termes liés à > 20 % des cas, le
 // terme du diagnostic lié quand il existe dans le glossaire (exceptions listées),
 // JSON à jour. Retour direction n°1 : chaque terme du top 10 figure dans le
-// texte du cas lui-même (fiche patient hors exclus, vue médicale hors DD, ou
-// diagnostic) ; aucun terme gynécologique/obstétrical dans un cas masculin ni
+// texte du cas lui-même (fiche patient hors exclus, vue médicale ou Muster
+// hors DD, ou diagnostic) ; aucun terme gynécologique/obstétrical dans un cas masculin ni
 // andrologique dans un cas féminin (src/data/sexSpecificTerms.json : radicaux
 // SEX_STEMS sur terme + Bedeutung + définition du glossaire, exclusions relues).
 // Informatif : cas < 15 termes.
@@ -12,14 +12,15 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 
-/** Cas dont le diagnostic n'a pas de terme dans le glossaire. Les 6 premiers :
- *  mesurés par la spec F4a §3.1. Les 3 suivants : leur diagnostic ne contenait
+/** Cas dont le diagnostic n'a pas de terme dans le glossaire. Les 5 premiers :
+ *  mesurés par la spec F4a §3.1 (bandscheibenvorfall en est sorti : alias
+ *  Diskusprolaps, src/data/diagnosisAliases.json). Les 3 suivants : leur diagnostic ne contenait
  *  QUE des mots d'examen (akut, chronisch, anamnestisch — genericTerms.json) ;
  *  Aortendissektion, Posttraumatische Belastungsstörung et
  *  Alkoholentzugssyndrom n'existent pas dans le glossaire (question ouverte :
  *  les ajouter au glossaire retirerait ces exceptions). */
 export const DIAGNOSIS_EXCEPTIONS = [
-  'case-gerd', 'case-oesophaguskarzinom', 'case-magenkarzinom', 'case-bandscheibenvorfall', 'case-tvt', 'case-opioidabhaengigkeit',
+  'case-gerd', 'case-oesophaguskarzinom', 'case-magenkarzinom', 'case-tvt', 'case-opioidabhaengigkeit',
   'case-aortendissektion', 'case-ptbs', 'case-alkoholentzug',
   // Retour direction n°1 : son seul « terme de diagnostic » était « überall » (nom du cas « Schmerzen
   // überall »), homonyme du quotidien désormais non liable ; « somatoform » n'est pas dans le glossaire.
@@ -50,7 +51,7 @@ export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = D
     if (!diag.length && !exceptions.includes(caseId)) errors.push(`${caseId} : aucun terme de diagnostic dans le glossaire (hors exceptions)`);
     if (diag.length && exceptions.includes(caseId)) infos.push(`${caseId} : exception obsolète (diagnostic ${diag.join(', ')})`);
     for (const d of diag) if (!ids.includes(d)) errors.push(`${caseId} : terme du diagnostic non lié ${d}`);
-    if (own?.[caseId]) for (const t of ids.slice(0, top)) if (!own[caseId].has(t)) errors.push(`${caseId} : ${t} au top ${top} sans figurer dans le cas (fiche patient, vue médicale hors DD)`);
+    if (own?.[caseId]) for (const t of ids.slice(0, top)) if (!own[caseId].has(t)) errors.push(`${caseId} : ${t} au top ${top} sans figurer dans le cas (fiche patient, vue médicale ou Muster hors DD)`);
     if (sex?.[caseId] === 'm') for (const t of ids) if (sexTerms.w.has(t)) errors.push(`${caseId} : terme gynécologique/obstétrical lié à un cas masculin ${t}`);
     if (sex?.[caseId] === 'w') for (const t of ids) if (sexTerms.m.has(t)) errors.push(`${caseId} : terme andrologique lié à un cas féminin ${t}`);
   }
@@ -71,7 +72,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const index = buildIndex(fb.map((r) => ({ id: r.id, term: r.t })));
   const { cases } = await loadAll();
   const diagnosis = Object.fromEntries(cases.map((c) => [c.id, linkTerms(diagnosisTexts(c), index).filter((id) => !generic.has(id))]));
-  const own = Object.fromEntries(cases.map((c) => [c.id, new Set([...linkTerms(ownTexts(c), index, { negation: true }), ...diagnosis[c.id]])]));
+  const own = Object.fromEntries(cases.map((c) => [c.id, new Set([...linkTerms(ownTexts(c, { withMuster: true }), index, { negation: true }), ...diagnosis[c.id]])]));
   const sex = Object.fromEntries(cases.map((c) => [c.id, c.patientSheet?.personalia?.geschlecht]));
   const sexList = JSON.parse(readFileSync(join(here, '../src/data/sexSpecificTerms.json'), 'utf8'));
   const sexTerms = { w: new Set(sexList.w), m: new Set(sexList.m) };

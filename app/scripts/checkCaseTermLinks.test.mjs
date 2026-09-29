@@ -33,7 +33,7 @@ test('top 10 : un terme absent du texte du cas lui-même → erreur ; au-delà d
   const links = { a: ['fb-d', ...ids(12)] };
   const own = { a: new Set(['fb-d', ...ids(8)]) };                     // fb-t8 (10ᵉ) absent, fb-t9 à t11 hors top 10
   const r = checkLinks({ ...base, links, diagnosis: { a: ['fb-d'] }, own, maxBroad: 100 });
-  assert.deepEqual(r.errors, ['a : fb-t8 au top 10 sans figurer dans le cas (fiche patient, vue médicale hors DD)']);
+  assert.deepEqual(r.errors, ['a : fb-t8 au top 10 sans figurer dans le cas (fiche patient, vue médicale ou Muster hors DD)']);
 });
 test('termes sexués : gynéco/obstétrique dans un cas masculin, andrologie dans un cas féminin → erreur', () => {
   const sexTerms = { w: new Set(['fb-t20']), m: new Set(['fb-t21']) };
