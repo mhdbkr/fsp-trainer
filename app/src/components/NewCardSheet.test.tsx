@@ -219,7 +219,7 @@ describe('NewCardSheet', () => {
   });
   it('second clic sur Créer PENDANT l\'animation de sortie (carte encore montée) → aucune deuxième écriture (revue D1)', async () => {
     vi.useRealTimers();
-    const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'ancienne signification' });
+    await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'ancienne signification' });
     const onClose = vi.fn();
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={onClose} />);
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
