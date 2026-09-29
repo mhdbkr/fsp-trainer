@@ -23,7 +23,7 @@ const j = (req: Request, body: unknown, status: number) => new Response(JSON.str
 const Turn = z.object({ role: z.enum(['user', 'assistant']), text: z.string().min(1).max(2000) }).strict();
 const Body = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('brief'), selection: z.string().trim().min(1).max(220) }).strict(),
-  z.object({ kind: z.literal('bedeutung'), word: z.string().trim().min(1).max(80).regex(/^[^\r\n\x85\u{2028}\u{2029}„“"]*$/u), context: z.string().trim().max(300).optional() }).strict(),
+  z.object({ kind: z.literal('bedeutung'), word: z.string().trim().min(1).max(80).regex(/^[^\p{Cc}\x85\u{2028}\u{2029}„“”"]*$/u), context: z.string().trim().max(300).optional() }).strict(),
   z.object({ kind: z.literal('chat'), turns: z.array(Turn).min(1).max(20) }).strict(),
 ]).refine((b) => b.kind !== 'chat' || b.turns.reduce((n, t) => n + t.text.length, 0) <= MAX_CHAT_CHARS, 'chat_too_long');
 const MAX_TOKENS = { brief: 300, bedeutung: 40, chat: 1200 } as const;
@@ -60,7 +60,7 @@ Deno.serve(async (req) => {
       // du cache d'un autre contexte (le cache serait sinon empoisonnable, revue B5 I1).
       cacheKey = body.kind === 'brief'
         ? `brief:${normalizeSelection(body.selection)}`
-        : `bedeutung:${JSON.stringify([normalizeSelection(body.word), normalizeSelection(body.context ?? '')])}`;   // JSON : aucune collision mot/contexte (revue B5 R1)
+        : `bedeutung:${JSON.stringify([body.word, body.context ?? ''].map((t) => t.replace(/\s+/g, ' ').trim()))}`;   // casse gardée : le prompt la voit (revue E1 M2)   // JSON : aucune collision mot/contexte (revue B5 R1)
       const since = new Date(Date.now() - CACHE_DAYS * 86400_000).toISOString();
       const { data: hit } = await admin.from('ai_cache').select('text').eq('key', cacheKey).gt('created_at', since).maybeSingle();
       if (hit) return new Response(sseOf(hit.text), { headers: { 'content-type': 'text/event-stream', 'cache-control': 'no-cache', 'x-ai-provider': 'cache', ...corsFor(req) } });

@@ -408,6 +408,11 @@ ALTER TABLE ONLY "public"."profiles"
 
 
 
+ALTER TABLE "public"."progress_events"
+    ADD CONSTRAINT "progress_events_payload_size" CHECK (("octet_length"(("payload")::"text") <= 65536)) NOT VALID;
+
+
+
 ALTER TABLE ONLY "public"."progress_events"
     ADD CONSTRAINT "progress_events_pkey" PRIMARY KEY ("id");
 

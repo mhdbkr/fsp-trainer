@@ -79,6 +79,11 @@ describe('events', () => {
     expect(r.rejected).toEqual([]); expect(r.acked).toHaveLength(2);
   });
 
+  it('payload > 64 Ko → rejeté par la contrainte (revue sécurité E1)', async () => {
+    const r = await post(A, [{ id: crypto.randomUUID(), type: 'term.personal_updated', subject_id: 'pt-0a1b2c3e', payload: { explanation: 'x'.repeat(70_000) }, occurred_at: '2026-09-28T10:02:00Z' }]);
+    expect(r.acked).toEqual([]); expect(r.rejected).toHaveLength(1);
+  });
+
   it('sans token → 401', async () => {
     const r = await fetch(FN, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ events: [ev(crypto.randomUUID())] }) });
     expect(r.status).toBe(401);

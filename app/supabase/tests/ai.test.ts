@@ -99,14 +99,16 @@ describe('ai', () => {
     const text = body.split('\n').filter((l) => l.startsWith('data: {')).map((l) => JSON.parse(l.slice(6)).choices[0].delta.content).join('');
     expect(text.split(' ').length).toBeLessThanOrEqual(6);
     expect(text).not.toMatch(/\p{Extended_Pictographic}/u);
-    const { data } = await serviceClient().from('ai_cache').select('text').eq('key', `bedeutung:${JSON.stringify([word.toLowerCase(), ctx.toLowerCase()])}`).single();
+    const { data } = await serviceClient().from('ai_cache').select('text').eq('key', `bedeutung:${JSON.stringify([word, ctx])}`).single();
     expect(data!.text).toBe(text);
     // même mot, contexte DIFFÉRENT → pas servi du cache (la clé inclut le contexte, I1)
     const diffCtx = await call(P, { kind: 'bedeutung', word, context: 'Ein ganz anderer Satz ohne Bezug.' });
     expect(diffCtx.headers.get('x-ai-provider')).not.toBe('cache'); await diffCtx.text();
-    // même mot, même contexte (casse différente) → servi du cache
-    const same = await call(P, { kind: 'bedeutung', word: word.toUpperCase(), context: ctx.toUpperCase() });
+    // même mot, même contexte (espaces en plus) → servi du cache ; casse différente → PAS du cache (le prompt voit la casse, revue E1 M2)
+    const same = await call(P, { kind: 'bedeutung', word: ` ${word} `, context: ctx.replace(' ', '  ') });
     expect(same.headers.get('x-ai-provider')).toBe('cache'); await same.text();
+    const upper = await call(P, { kind: 'bedeutung', word: word.toUpperCase(), context: ctx });
+    expect(upper.headers.get('x-ai-provider')).not.toBe('cache'); await upper.text();
     // mot « W|y » sans contexte ≠ mot « W » + contexte « y| » (W aléatoire : rejouable) : pas de collision de clé (R1)
     await (await call(P, { kind: 'bedeutung', word: `${word}|y` })).text();
     const coll = await call(P, { kind: 'bedeutung', word, context: 'y|' });
@@ -119,7 +121,7 @@ describe('ai', () => {
     expect(r2.status).toBe(400); await r2.body?.cancel();
   });
   it('bedeutung : mot avec saut de ligne ou guillemet délimiteur → 400 (revue B5 M1)', async () => {
-    for (const word of ['a\nb', 'a\rb', 'a\u2028b', 'a\u0085b', 'a„b', 'a"b', 'a“b']) {   // + séparateurs Unicode (R2)
+    for (const word of ['a\nb', 'a\rb', 'a\u2028b', 'a\u0085b', 'a\u000bb', 'a\u000cb', 'a„b', 'a"b', 'a“b', 'a”b']) {   // + séparateurs Unicode (R2)
       const r = await call(P, { kind: 'bedeutung', word });
       expect(r.status).toBe(400); await r.body?.cancel();
     }
