@@ -107,9 +107,9 @@ describe('ai', () => {
     // même mot, même contexte (casse différente) → servi du cache
     const same = await call(P, { kind: 'bedeutung', word: word.toUpperCase(), context: ctx.toUpperCase() });
     expect(same.headers.get('x-ai-provider')).toBe('cache'); await same.text();
-    // mot « V|x » sans contexte ≠ mot « V » + contexte « x| » : pas de collision de clé (R1)
-    await (await call(P, { kind: 'bedeutung', word: 'Vx|y' })).text();
-    const coll = await call(P, { kind: 'bedeutung', word: 'Vx', context: 'y|' });
+    // mot « W|y » sans contexte ≠ mot « W » + contexte « y| » (W aléatoire : rejouable) : pas de collision de clé (R1)
+    await (await call(P, { kind: 'bedeutung', word: `${word}|y` })).text();
+    const coll = await call(P, { kind: 'bedeutung', word, context: 'y|' });
     expect(coll.headers.get('x-ai-provider')).not.toBe('cache'); await coll.text();
   });
   it('bedeutung : champ inconnu ou mot > 80 → 400', async () => {
