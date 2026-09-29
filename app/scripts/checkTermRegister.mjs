@@ -21,6 +21,7 @@ export function checkEntry(e) {
   if (errs.length) return errs;
   const f = termForms(e.t);
   if (r.pa.trim().toLowerCase() === e.t.trim().toLowerCase()) errs.push('pa = terme');
+  if (!/^[A-ZÄÖÜ„]/.test(r.pa.trim()) || !/[.!?]$/.test(r.pa.trim())) errs.push('pa n\'est pas une phrase');
   if (!f.test(r.vo)) errs.push('vo ne contient pas le terme');
   if (f.test(r.an)) errs.push('an contient le terme');
   if (!r.an.trim().endsWith('?')) errs.push('an ne finit pas par « ? »');

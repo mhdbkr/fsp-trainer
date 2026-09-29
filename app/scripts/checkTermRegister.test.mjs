@@ -7,12 +7,17 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkEntry, termForms } from './checkTermRegister.mjs';
 
-const ok = { t: 'Aszites', r: { pa: 'Wasser im Bauch', vo: 'Sonographisch zeigte sich ein Aszites.', an: 'Haben Sie bemerkt, dass Ihr Bauch dicker geworden ist?' } };
+const ok = { t: 'Aszites', r: { pa: 'Mein Bauch ist voller Wasser.', vo: 'Sonographisch zeigte sich ein Aszites.', an: 'Haben Sie bemerkt, dass Ihr Bauch dicker geworden ist?' } };
 test('entrée valide', () => assert.deepEqual(checkEntry(ok), []));
 test('pa = terme → erreur', () => assert.ok(checkEntry({ ...ok, r: { ...ok.r, pa: 'aszites' } }).some((e) => e.includes('pa'))));
+test('pa n\'est pas une phrase → erreur (fragment)', () => {
+  assert.ok(checkEntry({ ...ok, r: { ...ok.r, pa: 'Wasser im Bauch' } }).some((e) => e.includes('phrase')));
+  assert.ok(checkEntry({ ...ok, r: { ...ok.r, pa: 'wasser im bauch.' } }).some((e) => e.includes('phrase')));
+  assert.deepEqual(checkEntry({ ...ok, r: { ...ok.r, pa: 'Ist das schlimm?' } }), []);
+});
 test('vo sans le terme → erreur ; forme fléchie acceptée', () => {
   assert.ok(checkEntry({ ...ok, r: { ...ok.r, vo: 'Sonographisch unauffällig.' } }).some((e) => e.includes('vo')));
-  assert.deepEqual(checkEntry({ t: 'Ödem', r: { pa: 'Schwellung', vo: 'Es bestehen beidseitige Ödeme.', an: 'Sind Ihre Beine geschwollen?' } }), []);
+  assert.deepEqual(checkEntry({ t: 'Ödem', r: { pa: 'Meine Beine sind geschwollen.', vo: 'Es bestehen beidseitige Ödeme.', an: 'Sind Ihre Beine geschwollen?' } }), []);
 });
 test('an contient le terme ou ne finit pas par ? → erreur', () => {
   assert.ok(checkEntry({ ...ok, r: { ...ok.r, an: 'Haben Sie Aszites?' } }).some((e) => e.includes('an')));
