@@ -33,12 +33,13 @@ export function CardFlip({ card, direction, revealed, onFlip, hint = '', size = 
   card: AnyTerm; direction: CardDirection; revealed: boolean; onFlip: () => void; hint?: string; size?: 'full' | 'mini';
 }) {
   const mini = size === 'mini';
+  const personal = isPersonalView(card);
   const face = `card absolute inset-0 flex flex-col items-center [backface-visibility:hidden] ${mini ? 'p-3' : 'p-8'}`;
   return (
     <div className="[perspective:1200px]">
       <div data-card-flip={revealed ? 'verso' : 'recto'} className={`relative ${mini ? 'h-40' : 'h-[320px]'} transition-transform duration-500 motion-reduce:transition-none [transform-style:preserve-3d] ${revealed ? '[transform:rotateY(180deg)]' : ''}`}>
         <div className={`${face} justify-center text-center`} aria-hidden={revealed}>
-          <div className="label">{direction === 'term2simple' ? 'Fachbegriff' : 'Bedeutung'}{mini ? '' : ` · ${card.specialty}`}</div>
+          <div className="label">{direction === 'term2simple' ? (personal ? 'Ma carte' : 'Fachbegriff') : 'Bedeutung'}{mini || personal ? '' : ` · ${card.specialty}`}</div>
           <div className={`${mini ? 'mt-1 text-lg' : 'mt-4 text-2xl'} font-display font-bold tracking-tightish`}>{cardFront(card, direction)}</div>
           {direction === 'term2simple' && card.pronunciation && !mini && <div className="mt-1 font-mono text-sm text-slate-400">/{card.pronunciation}/</div>}
           {!mini && <button type="button" onClick={onFlip} tabIndex={revealed ? -1 : 0} className="btn-outline mt-8">Révéler{hint}</button>}
