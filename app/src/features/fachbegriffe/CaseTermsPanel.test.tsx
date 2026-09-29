@@ -54,6 +54,19 @@ describe('CaseTermsPanel', () => {
     chip.remove();
   });
 
+  it('mode drawer : liste des decks ouverte, Échap la ferme d\'abord, pas le panneau (m3)', async () => {
+    await db.decks.put({ id: 'd1', name: 'Kardio', kind: 'manual', createdAt: '', updatedAt: '' } as never);
+    await db.deck_terms.put({ deckId: 'd1', termId: 'fb-a', addedAt: '' } as never);
+    const onClose = vi.fn();
+    render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="drawer" onClose={onClose} onDrill={() => {}} /></MemoryRouter>);
+    await screen.findByRole('dialog');
+    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+    await screen.findByRole('menu');
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
   it('un terme avec register affiche register.patient au lieu de translationSimple (C2)', async () => {
     await db.fachbegriffe.put({ id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'G', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs(), register: { patient: 'Wasser im Bauch', vorstellung: 'v', anamnese: 'a?' } } as never);
     render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="inline" onDrill={() => {}} /></MemoryRouter>);

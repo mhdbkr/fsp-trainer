@@ -32,8 +32,11 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
     if (!drawer) return;
     const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     asideRef.current?.focus();
-    // Une carte Fachbegriff ouverte par-dessus prend Échap en premier.
-    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape' && !useUi.getState().glossaryTerm) onCloseRef.current?.(); };
+    // Une carte Fachbegriff ouverte par-dessus, ou une liste de decks / confirmation
+    // ouverte (`data-keep-open`), prend Échap en premier — même logique que GlossaryDrawer.
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !useUi.getState().glossaryTerm && !document.querySelector('[role="menu"][data-keep-open]')) onCloseRef.current?.();
+    };
     document.addEventListener('keydown', onKeyDown);
     return () => { document.removeEventListener('keydown', onKeyDown); opener?.focus(); };
   }, [drawer]);
