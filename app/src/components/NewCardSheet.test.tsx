@@ -213,9 +213,35 @@ describe('NewCardSheet', () => {
     act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
-    await waitFor(() => expect(input.className).toContain('animate-shimmer'));
+    await waitFor(() => expect(input.className).toContain('animate-shimmer'), { timeout: 3000 });
     await act(async () => { resolve('Atemnot bei Belastung'); });
-    await waitFor(() => expect(input.className).not.toContain('animate-shimmer'));
+    await waitFor(() => expect(input.className).not.toContain('animate-shimmer'), { timeout: 3000 });
+  });
+  it('second clic sur Créer PENDANT l\'animation de sortie (carte encore montée) → aucune deuxième écriture (revue D1)', async () => {
+    vi.useRealTimers();
+    const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'ancienne signification' });
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('ancienne signification'));
+    fireEvent.change(input, { target: { value: 'nouvelle signification' } });
+    const btn = screen.getByRole('button', { name: 'Créer la carte' });
+    fireEvent.click(btn);   // premier clic : réussit, onClose appelé, mais le composant reste monté (animation de sortie)
+    await waitFor(async () => expect((await db.personal_terms.get(id))?.explanation).toBe('nouvelle signification'));
+    fireEvent.click(btn);   // second clic pendant que la carte est encore là : le verrou doit tenir
+    await new Promise((r) => setTimeout(r, 0));
+    expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_updated')).toHaveLength(1);
+  });
+  it('Bedeutung du glossaire : lecture seule visuellement distincte, pas de curseur texte (revue D1)', async () => {
+    render(<NewCardSheet selection="Der Patient zeigt einen deutlichen Aszites im Ultraschall." sentence="" onClose={() => {}} />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Aszites' }));
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('Bauchwasser'));
+    expect(input.className).toContain('cursor-default');
+    expect(input.className).toContain('text-slate-600');
+    expect(input.className).not.toContain('text-slate-700');
   });
   it('clavier : Entrée dans la Bedeutung crée la carte, qui se pose (onClose reçoit la descente) ; Fermer = onClose() sans descente', async () => {
     const onClose = vi.fn();

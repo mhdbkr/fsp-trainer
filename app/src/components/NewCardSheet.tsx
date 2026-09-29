@@ -151,8 +151,10 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
       const pt = await db.personal_terms.get(id);
       if (pt) show({ kind: 'saved', term: toView(pt), deckId, ...(caseId ? { caseId } : {}) });
       onClose(settleDy());
-    } catch { setError('Impossible de créer la carte : réessaie.'); }
-    finally { busy.current = false; setSubmitting(false); }
+      // Le verrou (`busy`/`submitting`) reste TENU après succès : la carte
+      // s'anime en sortie mais reste montée quelques ms (`exit="gone"`) — un
+      // second clic pendant ce délai ne doit rien réémettre.
+    } catch { busy.current = false; setSubmitting(false); setError('Impossible de créer la carte : réessaie.'); }
   };
 
   // Ordinateur (sm+) : ancrée sous la sélection, jamais hors écran ; téléphone : depuis le bas.
@@ -160,7 +162,7 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
     '--nc-top': `${Math.max(8, Math.min(at.bottom + 8, window.innerHeight - CARD_H))}px`,
     '--nc-left': `${Math.max(16, Math.min(at.x - CARD_W / 2, window.innerWidth - CARD_W - 16))}px`,
   } as React.CSSProperties : undefined;
-  const field = 'w-full min-h-11 border-b border-transparent bg-transparent outline-none transition-colors hover:border-slate-300 focus:border-brand-500 dark:hover:border-white/20';
+  const field = 'w-full min-h-11 border-b border-transparent bg-transparent transition-colors hover:border-slate-300 focus:border-brand-500 dark:hover:border-white/20';
   const onEnter = (e: React.KeyboardEvent) => { if (e.key === 'Enter') { e.preventDefault(); void create(); } };
 
   return (
@@ -168,7 +170,7 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
       <m.div ref={cardRef} role="dialog" aria-label="Nouvelle carte" data-keep-open style={anchorStyle}
         {...expand} exit="gone" variants={{ gone: settleOrClose }}
         onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}
-        className={`glass-full fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-[22rem] origin-bottom space-y-3 rounded-2xl p-4 text-sm ${at ? 'sm:inset-x-auto sm:bottom-auto sm:left-[var(--nc-left)] sm:top-[var(--nc-top)] sm:w-[22rem] sm:origin-top' : ''}`}>
+        className={`glass-full fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-[22rem] origin-bottom space-y-3 rounded-2xl p-4 text-sm ${at ? 'sm:inset-x-auto sm:bottom-auto sm:left-[var(--nc-left)] sm:top-[var(--nc-top)] sm:w-[22rem] sm:origin-top sm:max-h-[calc(100dvh-var(--nc-top)-8px)] sm:overflow-y-auto' : ''}`}>
         <div className="flex items-start justify-between gap-2">
           <p className="label pt-1">{hit ? 'Déjà dans le glossaire' : 'Ma carte'}</p>
           <button type="button" aria-label="Fermer" onClick={() => onClose()} className="-m-2 grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 dark:hover:bg-white/10">✕</button>
@@ -191,14 +193,20 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
               <input ref={wordInputRef} aria-label="Mot" value={word} maxLength={PT_LIMITS.term} onChange={(e) => setWord(e.target.value)} onKeyDown={onEnter}
                 className={`${field} min-w-0 font-display text-2xl font-bold tracking-tightish text-slate-900 dark:text-white`} />
               <button type="button" aria-label="Corriger le mot" onClick={() => { wordInputRef.current?.focus(); wordInputRef.current?.select(); }}
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-400 hover:bg-white/50 hover:text-slate-600 dark:hover:bg-white/10"><Icon name="pen" className="h-4 w-4" title="Corriger" /></button>
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 hover:text-slate-600 dark:text-slate-300 dark:hover:bg-white/10"><Icon name="pen" className="h-4 w-4" title="Corriger" /></button>
             </div>
-            <input ref={bedeutungRef} aria-label="Bedeutung" value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
+            <label className="label" htmlFor="nc-bedeutung">Bedeutung</label>
+            <input ref={bedeutungRef} id="nc-bedeutung" aria-label="Bedeutung" value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
               placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
               aria-busy={ai === 'loading' || undefined}
               onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }} onKeyDown={onEnter}
-              className={`${field} text-base italic text-slate-700 placeholder:text-slate-400 dark:text-slate-200 ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
-            {sentence && <ContextSentence sentence={sentence} word={word} className="text-xs leading-relaxed" />}
+              className={`${field} text-base italic placeholder:text-slate-400 ${hit ? 'cursor-default text-slate-600 hover:!border-transparent focus:!border-transparent dark:text-slate-300' : 'text-slate-700 dark:text-slate-200'} ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
+            {sentence && (
+              <div>
+                <p className="label mb-1">Contexte</p>
+                <ContextSentence sentence={sentence} word={word} className="text-xs leading-relaxed" />
+              </div>
+            )}
             {manualDecks.length > 0 && (
               <div role="group" aria-label="Deck" className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5">
                 {[{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...manualDecks].map((d) => (
