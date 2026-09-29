@@ -10,8 +10,12 @@ import { Icon } from './icons';
 export const USAGES = [
   { key: 'patient', icon: 'say-patient', label: 'Le patient dit', use: 'Reconnais le terme derrière ses mots.' },
   { key: 'anamnese', icon: 'say-ask', label: 'Tu demandes', use: "La question d'anamnèse, sans le Fachbegriff." },
-  { key: 'vorstellung', icon: 'say-present', label: 'Tu présentes', use: "La phrase pour la Vorstellung ou l'Arztbrief." },
+  { key: 'vorstellung', icon: 'say-present', label: 'Tu présentes le cas', use: 'Fallvorstellung ou Arztbrief : là, avec le Fachbegriff.' },
 ] as const;
+
+/** Une phrase Fachsprache commence toujours par une majuscule (nom allemand) ; un
+ *  fragment isolé commence en minuscule — ne pas l'entourer comme une citation. */
+const looksLikeSentence = (s: string): boolean => /^[A-ZÄÖÜ]/.test(s.trim());
 
 export function TermUsage({ term }: { term: Pick<Fachbegriff, 'register'> }) {
   const r = term.register;
@@ -25,7 +29,7 @@ export function TermUsage({ term }: { term: Pick<Fachbegriff, 'register'> }) {
             <Icon name={u.icon} className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-300" title={u.label} />
             <div className="min-w-0">
               <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">{u.label}</div>
-              <p className="break-words text-sm text-slate-800 dark:text-slate-100">{u.key === 'patient' ? `« ${r.patient} »` : r[u.key]}</p>
+              <p className="break-words text-sm text-slate-800 dark:text-slate-100">{u.key === 'patient' ? (looksLikeSentence(r.patient) ? `« ${r.patient} »` : r.patient) : r[u.key]}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400">{u.use}</p>
             </div>
           </li>
