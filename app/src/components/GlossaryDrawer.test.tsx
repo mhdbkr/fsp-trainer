@@ -94,6 +94,15 @@ describe('GlossaryDrawer (F4a)', () => {
     await screen.findByText('Abdomen');
     await waitFor(() => expect(useUi.getState().hoverTerm).toBeNull());
   });
+  it('tiroir en verre plein, sans ombre portée ; fermer le retire (F4b P1/P9)', async () => {
+    renderDrawer();
+    await screen.findByText('Bauch');
+    const aside = document.querySelector('aside')!;
+    expect(aside.className).toContain('glass-full');
+    expect(aside.className).not.toMatch(/animate-slide-in|shadow-/);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Fermer' })[0]);
+    await waitFor(() => expect(document.querySelector('aside')).toBeNull());
+  });
   it('terme du glossaire : pas de corbeille', async () => {
     renderDrawer();
     await screen.findByText('Abdomen');

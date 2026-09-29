@@ -10,10 +10,12 @@ import { TermSheet } from './TermSheet';
 import { CardFlip } from './CardFlip';
 import { StarButton } from './StarButton';
 import { Icon } from './icons';
+import { AnimatePresence, m, slide } from '@/lib/motion';
 
 // Panneau latéral d'un Fachbegriff (F4a D2/D9/D10) : la fiche (TermSheet), ou
 // la carte recto/verso comme au drill (« Carte ») ; l'étoile des decks ; la
 // corbeille d'une carte personnelle (Annuler pendant 5 s) ; les cas liés.
+// Verre plein ; glisse depuis la droite et repart par là (F4b P1/P9).
 export function GlossaryDrawer() {
   const opened = useUi((s) => s.glossaryTerm);
   const close = useUi((s) => s.closeGlossary);
@@ -45,7 +47,7 @@ export function GlossaryDrawer() {
     openedOn.current = pathname;
   }, [pathname, close]);
 
-  if (!opened) return null;
+  if (!opened) return <AnimatePresence>{null}</AnimatePresence>;   // même instance : la sortie du tiroir se joue
   // Carte personnelle : la version VIVANTE (Bedeutung modifiée, D8), pas l'instantané de l'ouverture.
   const live = isPersonalView(opened) ? personalTerms?.find((p) => p.id === opened.id) : undefined;
   const fb = live ? toView(live) : opened;
@@ -59,9 +61,9 @@ export function GlossaryDrawer() {
   };
 
   return (
-    <>
-      <div className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
-      <aside className="glass glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm animate-slide-in flex-col border-y-0 border-r-0">
+    <AnimatePresence>
+      <m.div key="glossary-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
+      <m.aside key="glossary-drawer" {...slide('right')} className="glass-full glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-y-0 border-r-0">
         <div className="flex items-center justify-between gap-1 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
           <div className="label">{personal ? 'Ma carte' : 'Fachbegriff'}</div>
           <div className="flex items-center gap-1">
@@ -110,7 +112,7 @@ export function GlossaryDrawer() {
         <div className="border-t border-slate-100 p-4 dark:border-slate-800">
           <Link to="/fachbegriffe" onClick={close} className="btn-outline w-full">Alle Fachbegriffe →</Link>
         </div>
-      </aside>
-    </>
+      </m.aside>
+    </AnimatePresence>
   );
 }
