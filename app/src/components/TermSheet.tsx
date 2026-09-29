@@ -30,7 +30,7 @@ function BedeutungEditor({ id, initial, onDone }: { id: string; initial: string;
   return (
     <div className="space-y-1.5">
       <input aria-label="Bedeutung" value={value} maxLength={PT_LIMITS.explanation} autoFocus onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => { if (e.key === 'Enter') void save(); if (e.key === 'Escape') onDone(); }} className="input min-h-11 w-full" />
+        onKeyDown={(e) => { if (e.key === 'Enter') void save(); if (e.key === 'Escape') { e.stopPropagation(); onDone(); } }} className="input min-h-11 w-full" />
       <div className="flex gap-2">
         <button type="button" onClick={() => { void save(); }} disabled={!value.trim()} className="btn-primary min-h-11 text-sm">Enregistrer</button>
         <button type="button" onClick={onDone} className="btn-outline min-h-11 text-sm">Annuler</button>

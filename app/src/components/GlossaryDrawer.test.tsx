@@ -134,6 +134,14 @@ describe('GlossaryDrawer — carte personnelle (D8, D10)', () => {
     expect(screen.queryByText('Reformulation')).toBeNull();
     expect(screen.getAllByText(/klagt über/i).length).toBe(1);
   });
+  it("Échap dans l'éditeur de Bedeutung ne ferme pas le tiroir (m1)", async () => {
+    renderDrawer();
+    fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
+    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Bedeutung' }), { key: 'Escape' });
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Modifier la Bedeutung' })));
+    expect(useUi.getState().glossaryTerm).not.toBeNull();
+  });
+
   it('suppression : échec → message, panneau ouvert', async () => {
     const { scheduleDeletion } = await import('@/lib/collections/pendingDeletion');
     vi.mocked(scheduleDeletion).mockRejectedValueOnce(new Error('offline'));
