@@ -4,6 +4,7 @@ import { db } from '@/db/db';
 import { buildLinkIndex } from '@/lib/autolink';
 import { mergeTerms, type AnyTerm } from '@/lib/collections/allTerms';
 import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
+import { termIdsInDecks } from '@/lib/collections/query';
 
 // Hooks de données réactifs (Dexie live queries). Tout re-render auto quand la
 // base change (ex. après une simulation, les stats se mettent à jour seules).
@@ -22,6 +23,11 @@ export function useAllTerms(): AnyTerm[] | undefined {
 export const useDecks = () => useLiveQuery(() => db.decks.toArray(), [], undefined);
 export const useDeckTerms = () => useLiveQuery(() => db.deck_terms.toArray(), [], undefined);
 export const useFavorites = () => useLiveQuery(() => db.favorites.toArray(), [], undefined);
+/** Termes rangés dans au moins un deck (Favoris compris) : l'étoile pleine (F4a D6). */
+export function useTermsInDecks(): Set<string> {
+  const favorites = useFavorites(); const deckTerms = useDeckTerms();
+  return useMemo(() => termIdsInDecks(favorites ?? [], deckTerms ?? []), [favorites, deckTerms]);
+}
 export const useFachwissenAll = () => useLiveQuery(() => db.fachwissen.toArray(), [], undefined);
 export const useFachwissen = (id?: string) => useLiveQuery(() => (id ? db.fachwissen.get(id) : undefined), [id], undefined);
 export const useAufklaerungen = () => useLiveQuery(() => db.aufklaerungen.toArray(), [], undefined);
