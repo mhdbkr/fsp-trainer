@@ -79,6 +79,11 @@ const P: Record<string, React.ReactNode> = {
   inbox: <><path d="M4 13.5 6.5 5h11L20 13.5" /><path d="M4 13.5V19h16v-5.5h-5.2a2.8 2.8 0 0 1-5.6 0H4z" /></>,
   globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18" /></>,
   trash: <path d="M5 7h14M9.5 7V4.5h5V7M7 7l1 13h8l1-13" />,
+  // « Dans l'entretien » (F4a D2) — dessinés pour Doctopus : bulle patient (guillemets),
+  // bulle de question (point d'interrogation), pupitre de présentation (Vorstellung).
+  'say-patient': <><path d="M4 5.5h16v10H11l-4.5 3.5v-3.5H4z" /><path d="M9 9.2c-.8.3-1.2.9-1.2 1.8M12.6 9.2c-.8.3-1.2.9-1.2 1.8" /></>,
+  'say-ask': <><path d="M20 5.5H4v10h9l4.5 3.5v-3.5H20z" /><path d="M10.3 9a1.8 1.8 0 013.4.7c0 1.2-1.7 1.3-1.7 2.3M12 13.9h.01" /></>,
+  'say-present': <><path d="M6 20h12M12 16v4" /><path d="M5 4.5h14v8.5H5z" /><path d="M8.5 8h7M8.5 10.5h4" /></>,
   // Vraie roue dentée : dents COLLÉES à la jante (un soleil a des rayons détachés).
   gear: <><circle cx="12" cy="12" r="5.8" /><circle cx="12" cy="12" r="2" /><path d="M12 3.4v2.8M12 17.8v2.8M20.6 12h-2.8M6.2 12H3.4M18.1 5.9l-2 2M7.9 16.1l-2 2M18.1 18.1l-2-2M7.9 7.9l-2-2" /></>,
   target2: <><circle cx="12" cy="12" r="8" /><path d="M12 8v8M8 12h8" /></>,
