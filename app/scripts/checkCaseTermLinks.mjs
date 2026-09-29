@@ -1,7 +1,12 @@
 // Invariant CI (bloquant, F4a §3.1) : chaque cas a ≥ 8 Fachbegriffe liés,
 // aucun id orphelin ni générique, au plus 10 termes liés à > 20 % des cas, le
 // terme du diagnostic lié quand il existe dans le glossaire (exceptions listées),
-// JSON à jour. Informatif : cas < 15 termes.
+// JSON à jour. Retour direction n°1 : chaque terme du top 10 figure dans le
+// texte du cas lui-même (fiche patient hors exclus, vue médicale hors DD, ou
+// diagnostic) ; aucun terme gynécologique/obstétrical dans un cas masculin ni
+// andrologique dans un cas féminin (src/data/sexSpecificTerms.json : radicaux
+// SEX_STEMS sur terme + Bedeutung + définition du glossaire, exclusions relues).
+// Informatif : cas < 15 termes.
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -16,10 +21,22 @@ import { execFileSync } from 'node:child_process';
 export const DIAGNOSIS_EXCEPTIONS = [
   'case-gerd', 'case-oesophaguskarzinom', 'case-magenkarzinom', 'case-bandscheibenvorfall', 'case-tvt', 'case-opioidabhaengigkeit',
   'case-aortendissektion', 'case-ptbs', 'case-alkoholentzug',
+  // Retour direction n°1 : son seul « terme de diagnostic » était « überall » (nom du cas « Schmerzen
+  // überall »), homonyme du quotidien désormais non liable ; « somatoform » n'est pas dans le glossaire.
+  'case-somatoforme-schmerzstoerung',
 ];
 
-/** Règles pures. `diagnosis` : caseId → ids du diagnostic (génériques déjà retirés). */
-export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = DIAGNOSIS_EXCEPTIONS, minPerCase = 8, share = 0.2, maxBroad = 10 }) {
+/** Radicaux des termes sexués, cherchés dans « terme | Bedeutung | définition » du glossaire. */
+export const SEX_STEMS = {
+  w: /gynäk|frauenheilk|geburtsh|schwanger|gravid|uterus|gebärmutter|ovar|eierstock|eileiter|adnex|endometri|zervix|cervix|vagina|scheide|vulva|menstru|regelblutung|menarche|menopaus|klimakter|mamma|brustdrüse|weibliche brust|stillen|laktation|plazent|fötus|fetus|embryo|geburt|wochenbett|entbind|abort|fehlgeburt|kaiserschnitt|sectio|hysterekt|präeklam|eklampsie|ovulation|kontrazep|antikonzep/iu,
+  m: /androl|prostat|hoden|skrot|penis|(?<!\p{L})eichel|balan|erekti|sperma|samen|nebenhoden|orchi|epididym|hydrozele|varikozele|phimose|vasektomie/iu,
+};
+export const sexStemHits = (fb, re) => fb.filter((r) => re.test(`${r.t} | ${r.s} | ${r.def ?? ''}`)).map((r) => r.id);
+
+/** Règles pures. `diagnosis` : caseId → ids du diagnostic (génériques déjà retirés).
+ *  `own` : caseId → Set des ids présents dans le texte du cas lui-même (porte du top `top`).
+ *  `sex` : caseId → 'm' | 'w' ; `sexTerms` : { w: Set, m: Set }. */
+export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = DIAGNOSIS_EXCEPTIONS, minPerCase = 8, share = 0.2, maxBroad = 10, own, top = 10, sex, sexTerms }) {
   const errors = []; const infos = [];
   const n = Object.keys(links).length;
   for (const [caseId, ids] of Object.entries(links)) {
@@ -33,6 +50,9 @@ export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = D
     if (!diag.length && !exceptions.includes(caseId)) errors.push(`${caseId} : aucun terme de diagnostic dans le glossaire (hors exceptions)`);
     if (diag.length && exceptions.includes(caseId)) infos.push(`${caseId} : exception obsolète (diagnostic ${diag.join(', ')})`);
     for (const d of diag) if (!ids.includes(d)) errors.push(`${caseId} : terme du diagnostic non lié ${d}`);
+    if (own?.[caseId]) for (const t of ids.slice(0, top)) if (!own[caseId].has(t)) errors.push(`${caseId} : ${t} au top ${top} sans figurer dans le cas (fiche patient, vue médicale hors DD)`);
+    if (sex?.[caseId] === 'm') for (const t of ids) if (sexTerms.w.has(t)) errors.push(`${caseId} : terme gynécologique/obstétrical lié à un cas masculin ${t}`);
+    if (sex?.[caseId] === 'w') for (const t of ids) if (sexTerms.m.has(t)) errors.push(`${caseId} : terme andrologique lié à un cas féminin ${t}`);
   }
   const byTerm = new Map(); for (const ids of Object.values(links)) for (const t of ids) byTerm.set(t, (byTerm.get(t) ?? 0) + 1);
   const broad = [...byTerm].filter(([, k]) => k > n * share).sort((a, b) => b[1] - a[1]);
@@ -43,7 +63,7 @@ export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = D
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const here = dirname(fileURLToPath(import.meta.url));
-  const { buildIndex, linkTerms, diagnosisTexts, loadGeneric } = await import('./linkCaseTerms.mjs');
+  const { buildIndex, linkTerms, diagnosisTexts, ownTexts, loadGeneric } = await import('./linkCaseTerms.mjs');
   const { loadAll } = await import('./loadCases.mjs');
   const links = JSON.parse(readFileSync(join(here, '../src/data/caseTermLinks.json'), 'utf8'));
   const fb = JSON.parse(readFileSync(join(here, '../src/data/fachbegriffe.json'), 'utf8'));
@@ -51,7 +71,11 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const index = buildIndex(fb.map((r) => ({ id: r.id, term: r.t })));
   const { cases } = await loadAll();
   const diagnosis = Object.fromEntries(cases.map((c) => [c.id, linkTerms(diagnosisTexts(c), index).filter((id) => !generic.has(id))]));
-  const { errors, infos } = checkLinks({ links, knownIds: new Set(fb.map((r) => r.id)), generic, diagnosis });
+  const own = Object.fromEntries(cases.map((c) => [c.id, new Set([...linkTerms(ownTexts(c), index, { negation: true }), ...diagnosis[c.id]])]));
+  const sex = Object.fromEntries(cases.map((c) => [c.id, c.patientSheet?.personalia?.geschlecht]));
+  const sexList = JSON.parse(readFileSync(join(here, '../src/data/sexSpecificTerms.json'), 'utf8'));
+  const sexTerms = { w: new Set(sexList.w), m: new Set(sexList.m) };
+  const { errors, infos } = checkLinks({ links, knownIds: new Set(fb.map((r) => r.id)), generic, diagnosis, own, sex, sexTerms });
   for (const i of infos) console.log(`ℹ ${i}`);
   for (const e of errors) console.error(`✗ ${e}`);
   let stale = 0;
