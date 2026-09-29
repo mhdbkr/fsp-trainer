@@ -75,7 +75,7 @@ describe('SelectionExplainer', () => {
     expect(dialog.textContent).toContain('Seit Wochen Belastungsdyspnoe beim Treppensteigen.');
     expect(dialog.textContent).not.toContain('Fieber');
     expect(screen.getByText('Belastungsdyspnoe', { selector: 'mark' })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
     const pt = (await db.personal_terms.toArray())[0];
     expect(pt).toMatchObject({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung', context: 'Seit Wochen Belastungsdyspnoe beim Treppensteigen.' });
@@ -91,7 +91,7 @@ describe('SelectionExplainer', () => {
     act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     await waitFor(() => expect(screen.getByRole('textbox', { name: 'Bedeutung' }).getAttribute('placeholder')).toBe('Écris la signification'));
-    expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button', { name: 'Créer la carte' }) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
     expect(screen.queryByRole('dialog', { name: 'Nouvelle carte' })).toBeNull();
     expect(await db.progress_events.count()).toBe(0);
@@ -106,7 +106,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Belastungsdyspnoe' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
     expect((screen.getByRole('textbox', { name: 'Mot' }) as HTMLInputElement).value).toBe('Belastungsdyspnoe');
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(async () => expect((await db.personal_terms.toArray())[0]).toMatchObject({ term: 'Belastungsdyspnoe', context: 'Der Patient klagt über zunehmende Belastungsdyspnoe seit Wochen.' }));
   });
   it('IA indisponible → aucune demande, invite « Écris la signification »', async () => {
@@ -226,7 +226,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung (originale)'));
     expect(askBedeutung).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false));
     // Laisse largement passer le délai qui aurait déclenché la suppression.
     await new Promise((r) => setTimeout(r, DELAY * 3));

@@ -53,7 +53,8 @@ export function SelectionExplainer() {
   const caseId = useCaseId() ?? undefined;
   const [anchor, setAnchor] = useState<Anchor | null>(null);
   const [bubble, setBubble] = useState<Bubble | null>(null);
-  const [newCard, setNewCard] = useState<{ selection: string; sentence: string } | null>(null);
+  const [newCard, setNewCard] = useState<{ selection: string; sentence: string; at: { x: number; bottom: number } } | null>(null);
+  const [settleDy, setSettleDy] = useState<number | undefined>(undefined);   // « se poser » (P8) : lu par la sortie de la carte
   const rootRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<Anchor | null>(null);
   useEffect(() => { anchorRef.current = anchor; }, [anchor]);
@@ -119,7 +120,7 @@ export function SelectionExplainer() {
   const canCreate = !!clean && (chips || clean.length <= PT_LIMITS.term);
   const openNewCard = () => {
     if (!anchor) return;
-    setNewCard({ selection: anchor.text, sentence: anchor.sentence });
+    setNewCard({ selection: anchor.text, sentence: anchor.sentence, at: { x: anchor.x, bottom: anchor.bottom } });
     setAnchor(null); setBubble(null);
   };
 
@@ -142,7 +143,12 @@ export function SelectionExplainer() {
     catch (e) { setBubble({ loading: false, error: honestAiError(e) }); }
   };
 
-  const sheet = newCard && <NewCardSheet key={newCard.selection + newCard.sentence} selection={newCard.selection} sentence={newCard.sentence} caseId={caseId} onClose={() => setNewCard(null)} />;
+  const sheet = (
+    <AnimatePresence custom={settleDy}>
+      {newCard && <NewCardSheet key={newCard.selection + newCard.sentence} selection={newCard.selection} sentence={newCard.sentence} caseId={caseId} at={newCard.at}
+        onClose={(dy) => { setSettleDy(dy); setNewCard(null); }} />}
+    </AnimatePresence>
+  );
   // Pas assez de place au-dessus (pilule ou bulle) : bascule sous la sélection
   // plutôt que de partir hors écran (bug B1). Demi-largeurs (pilule 94 px,
   // bulle w-64) pour un clamp horizontal à 16 px du bord.

@@ -41,7 +41,7 @@ describe('NewCardSheet', () => {
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     await waitFor(() => expect((input as HTMLInputElement).value).toBe('ancienne signification'));   // chargé : Créer actif (m-a)
     fireEvent.change(input, { target: { value: 'nouvelle signification' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(async () => expect((await db.personal_terms.get(id))?.explanation).toBe('nouvelle signification'));
   });
 
@@ -50,7 +50,7 @@ describe('NewCardSheet', () => {
     act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
-    const btn = screen.getByRole('button', { name: 'Créer' });
+    const btn = screen.getByRole('button', { name: 'Créer la carte' });
     fireEvent.click(btn); fireEvent.click(btn);
     await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
     expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_created')).toHaveLength(1);
@@ -128,7 +128,7 @@ describe('NewCardSheet', () => {
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     await waitFor(() => expect((input as HTMLInputElement).value).toBe('signification déjà enregistrée'));
     expect(askBedeutung).not.toHaveBeenCalled();
-    expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByRole('button', { name: 'Créer la carte' }) as HTMLButtonElement).disabled).toBe(false);
   });
 
   it('carte existante non modifiée → Créer ne réécrit pas la Bedeutung (revue N1)', async () => {
@@ -137,7 +137,7 @@ describe('NewCardSheet', () => {
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
     await waitFor(() => expect((input as HTMLInputElement).value).toBe('signification déjà enregistrée'));
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
     expect((await db.personal_terms.get(id))?.explanation).toBe('signification déjà enregistrée');
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_updated')).toBe(false);
@@ -190,5 +190,53 @@ describe('NewCardSheet', () => {
     vi.useRealTimers();
     await screen.findByRole('textbox', { name: 'Bedeutung' });
     expect(screen.queryByText('Pas de proposition : écris la signification.')).toBeNull();
+  });
+
+  it('carte en devenir (F4b P8, AC-7) : mot en grand, Bedeutung en italique, contexte en petit surligné, « Créer la carte » ; verre sans ombre', async () => {
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="Seit Wochen Belastungsdyspnoe beim Treppensteigen." onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    const dialog = await screen.findByRole('dialog', { name: 'Nouvelle carte' });
+    expect(dialog.className).toContain('glass-full');
+    expect(screen.getByRole('textbox', { name: 'Mot' }).className).toMatch(/font-display.*text-2xl/);
+    expect(screen.getByRole('textbox', { name: 'Bedeutung' }).className).toContain('italic');
+    expect(screen.getByText('Belastungsdyspnoe', { selector: 'mark' }).closest('p')!.className).toContain('text-xs');
+    expect(screen.getByRole('button', { name: 'Créer la carte' })).toBeTruthy();
+    expect(screen.getByText('Ma carte')).toBeTruthy();
+    expect(document.body.innerHTML).not.toMatch(/shadow-/);
+  });
+  it('miroitement pendant la proposition IA, plus après', async () => {
+    const { askBedeutung } = await import('@/lib/onlineAi');
+    let resolve: (v: string) => void = () => {};
+    vi.mocked(askBedeutung).mockImplementationOnce(() => new Promise((r) => { resolve = r; }));
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect(input.className).toContain('animate-shimmer'));
+    await act(async () => { resolve('Atemnot bei Belastung'); });
+    await waitFor(() => expect(input.className).not.toContain('animate-shimmer'));
+  });
+  it('clavier : Entrée dans la Bedeutung crée la carte, qui se pose (onClose reçoit la descente) ; Fermer = onClose() sans descente', async () => {
+    const onClose = vi.fn();
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={onClose} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('Atemnot bei Belastung'), { timeout: 3000 });   // suite complète : IA simulée + Dexie sous charge
+    fireEvent.keyDown(input, { key: 'Enter' });
+    await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1), { timeout: 3000 });
+    expect(typeof onClose.mock.calls[0][0]).toBe('number');
+    expect(await db.personal_terms.count()).toBe(1);
+    onClose.mockClear();
+    fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
+    expect(onClose).toHaveBeenCalledWith();
+  });
+  it('« Corriger le mot » : le crayon donne la main sur le mot', async () => {
+    render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
+    act(() => vi.advanceTimersByTime(0));
+    vi.useRealTimers();
+    fireEvent.click(await screen.findByRole('button', { name: 'Corriger le mot' }));
+    expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Mot' }));
   });
 });
