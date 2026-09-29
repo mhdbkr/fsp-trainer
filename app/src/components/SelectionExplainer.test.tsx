@@ -53,15 +53,15 @@ describe('SelectionExplainer', () => {
     expect(await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ })).toBeTruthy();
     expect(screen.getByRole('button', { name: /Expliquer/ })).toBeTruthy();
   });
-  it('★ sur un terme du glossaire → Favoris + confirmation avec miniature et « Changer de deck » (AC-6)', async () => {
+  it('★ sur un terme du glossaire → Favoris + confirmation avec miniature, sans « Changer de deck » avec un seul deck (AC-6)', async () => {
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /><CardToast /></>);
     selectText(screen.getByTestId('t')); pill();
     const star = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
     vi.useRealTimers();
     fireEvent.click(star); fireEvent.click(star);   // double appui : un seul rangement
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Voir la carte' })).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Changer de deck' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Révéler' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Changer de deck' })).toBeNull();   // aucun autre deck : pas d'impasse (revue direction)
     expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.favorited')).toHaveLength(1);
   });
   it('hors glossaire → mini-fiche : Bedeutung proposée, Contexte = une seule phrase, mot surligné ; Créer → carte + deck (AC-4)', async () => {
