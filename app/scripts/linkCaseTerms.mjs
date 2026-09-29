@@ -99,16 +99,39 @@ export function isNegated(sentence, at) {
   return false;
 }
 
+// --- Variantes de libellé ------------------------------------------------------
+// 207 libellés du glossaire sont composés (« Hypertonie/Hypertonus », « Diabetes mellitus
+// (Abk. Diabetes) », « Radiologie (2): ») : leur libellé exact n'apparaît dans aucun cas.
+// Variantes liables = parties séparées par « / » ou par une parenthèse, forme sans
+// parenthèse, contenu des parenthèses « Abk. »/« syn. ». Les autres parenthèses (marqueurs
+// « (2) », « (pl.) », « (engl.) », sigles « (EKG) ») ne sont pas des variantes ; affixes
+// (« Troph- ») écartés ; exclusions relues : src/data/labelVariantExclusions.json.
+export const LABEL_VARIANT_EXCLUSIONS = JSON.parse(readFileSync(join(here, '../src/data/labelVariantExclusions.json'), 'utf8'));
+export function labelVariants(label, { exclusions = LABEL_VARIANT_EXCLUSIONS } = {}) {
+  const out = [];
+  const base = label.replace(/[([]([^)\]]*)[)\]]/gu, (_, inner) => {
+    const m = /^\s*(?:Abk|syn)\.\s*(.*)$/iu.exec(inner);
+    if (m) out.push(...m[1].split(','));
+    return '|';
+  });
+  const parts = [...base.split(/[|/]/u), ...out].map((p) => p.replace(/[:.]\s*$/u, '').replace(/\s+/gu, ' ').trim());
+  return [...new Set(parts)].filter((p) => /\p{L}{2}/u.test(p) && !/^-|-$/u.test(p) && !(p.toLowerCase() in exclusions));
+}
+
 // --- Index et occurrences ----------------------------------------------------
-/** Index des termes → regex Unicode mot entier + formes fléchiées simples. */
-export function buildIndex(terms) {
+/** Index des termes → regex Unicode mot entier + formes fléchiées simples.
+ *  `variants` : ajoute les variantes de libellé (labelVariants) ; un libellé exact prime
+ *  toujours sur une variante, et une variante déjà prise est ignorée en silence. */
+export function buildIndex(terms, { variants = false } = {}) {
   const byKey = new Map(); const alts = []; const dupes = new Map();
-  for (const t of terms) {
-    const key = t.term.trim(); if (key.length < 4 || EXCLUDE.has(key.toLowerCase())) continue;
+  const add = (key, id, quiet) => {
+    key = key.trim(); if (key.length < 4 || EXCLUDE.has(key.toLowerCase())) return;
     const lower = key.toLowerCase();
-    if (byKey.has(lower)) { dupes.set(lower, (dupes.get(lower) ?? 1) + 1); continue; }
-    byKey.set(lower, t.id); alts.push(key);
-  }
+    if (byKey.has(lower)) { if (!quiet) dupes.set(lower, (dupes.get(lower) ?? 1) + 1); return; }
+    byKey.set(lower, id); alts.push(key);
+  };
+  for (const t of terms) add(t.term, t.id, false);
+  if (variants) for (const t of terms) for (const v of labelVariants(t.term)) add(v, t.id, true);
   if (dupes.size) {
     for (const [text, count] of dupes) console.error(`⚠ terme dupliqué ignoré : "${text}" (${count} occurrences)`);
   }
@@ -151,9 +174,9 @@ export const CONTEXTUAL_SHEET_KEYS = [
 /** Proposition (phrase coupée aux « ; » et tirets d'incise) de diagnostic différentiel,
  *  d'exclusion ou de bilan CONDITIONNEL (« Differenzialdiagnostisch… », « … in Betracht »,
  *  « zum Ausschluss », « abzuklären », « bei V. a. », « sekundäre Hypertonie », « ggf. …
- *  Diagnostik », « Suche/Frage nach », « Cave », « Nebenwirkungen », « (Nur) bei X: … » sauf « Bei diesem Patienten: ») :
+ *  Diagnostik », « Suche/Frage nach », « Cave », « Nebenwirkungen », « … nur bei … » (n'importe où), « (Nur) bei X: … » sauf « Bei diesem Patienten: ») :
  *  contextuelle même dans un champ central. */
-export const DD_CLAUSE = /differen[tz]ialdiagnos|(?<![\p{L}])DDx?(?![\p{L}])|ausschlie(?:ß|ss)|ausschluss|auszuschlie(?:ß|ss)|in betracht|abzugrenzen|abgrenz|abzukl(?:ä|ae)r|abkl(?:ä|ae)r|(?<![\p{L}])bei (?:V\.\s?a\.|verdacht auf)|sekundäre[rn]? (?:hypertonie|ursache)|ggf\..*diagnostik|suche nach|frage nach|(?<![\p{L}])cave(?![\p{L}])|nebenwirkung|^\s*(?:nur |erst )?bei (?!diese[mr](?![\p{L}])|de[mr] patient)[^:]{1,150}:/iu;
+export const DD_CLAUSE = /differen[tz]ialdiagnos|(?<![\p{L}])DDx?(?![\p{L}])|ausschlie(?:ß|ss)|ausschluss|auszuschlie(?:ß|ss)|in betracht|abzugrenzen|abgrenz|abzukl(?:ä|ae)r|abkl(?:ä|ae)r|(?<![\p{L}])bei (?:V\.\s?a\.|verdacht auf)|sekundäre[rn]? (?:hypertonie|ursache)|ggf\..*diagnostik|suche nach|frage nach|(?<![\p{L}])cave(?![\p{L}])|nebenwirkung|(?<![\p{L}])nur bei(?![\p{L}])|^\s*(?:nur |erst )?bei (?!diese[mr](?![\p{L}])|de[mr] patient)[^:]{1,150}:/iu;
 const CLAUSE = /(?<=;)|(?=\s[—–]\s)/u;
 /** Parenthèse de raisonnement « (Hypokaliämie → Conn-Syndrom) » : contextuelle. */
 const REASONING_PAREN = /\([^()]*→[^()]*\)/gu;
@@ -176,6 +199,17 @@ const flattenSplit = (v, core, contextual, ctx = false) => {
     }
   }
 };
+/** Parenthèse du bilan (medicalView.diagnostik) qui nomme un diagnostic différentiel du cas :
+ *  la cible de l'examen, pas un constat (ptbs : « TSH, fT3, fT4 (Hyperthyreose) ») — contextuelle. */
+const withoutDdTargets = (mv, contextual) => {
+  const dd = flatten((mv?.differenzialdiagnosen ?? []).map((d) => d?.dd ?? d)).flatMap((s) => s.split('/'))
+    .map((s) => s.replace(/\(.*$/su, '').trim().toLowerCase()).filter((s) => s.length >= 4);
+  if (!mv?.diagnostik || !dd.length) return mv;
+  const strip = (v) => typeof v === 'string'
+    ? v.replace(/\([^()]*\)/gu, (p) => (dd.some((n) => p.toLowerCase().includes(n)) ? (contextual.push(p), '') : p))
+    : Array.isArray(v) ? v.map(strip) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, strip(x)])) : v;
+  return { ...mv, diagnostik: strip(mv.diagnostik) };
+};
 /** Textes d'un cas : `core` (lient : ce que dit le cas lui-même), `contextual`
  *  (ne lient pas), `patient` (part de `core` issue de la fiche patient), `primary`
  *  (constats principaux : leitsymptome, begleitsymptome, schmerz). `muster` =
@@ -186,7 +220,7 @@ export function caseTexts(c, muster, fw) {
   flattenSplit(c.patientSheet, patient, contextual);
   core.push(...patient);
   flattenSplit(muster ?? c.musterSaetze, core, contextual);
-  flattenSplit(c.medicalView, core, contextual);
+  flattenSplit(withoutDdTargets(c.medicalView, contextual), core, contextual);
   core.push(...flatten(c.referenceArztbrief));
   if (fw) flattenSplit({ ...fw, id: undefined, linkedCaseIds: undefined, linkedAufklaerungIds: undefined, keyFachbegriffeIds: undefined, pathology: undefined, specialty: undefined }, core, contextual, true);
   contextual.push(...flatten(c.caseSpecificQuestions), ...flatten(c.examinerQuestions), ...flatten(c.examinerSheet), ...flatten(c.pruefungsfallen));
@@ -233,18 +267,31 @@ export function orderCaseTerms({ core, contextual, diagnosis, primary = [], pati
   return [...[...diag].sort(cmp), ...[...key].sort(cmp), ...[...said].sort(cmp), ...[...mv].sort(cmp), ...coreOnly.sort(cmp), ...ctxOnly.sort(cmp)];
 }
 
-/** Parts d'un cas (ids) : `core`, `primary`, `patient` filtrés par négation, `diagnosis` non filtré ;
- *  `counts` : occurrences affirmées dans le core ; génériques retirés. */
-export function caseParts(c, { muster, fw, index, generic }) {
+/** Ids du diagnostic (génériques retirés) : `diagnosisTexts` à l'index `index` ∪ nom et pathologie
+ *  du cas à l'index `diagIndex` (variantes de libellé : « Arterielle Hypertonie » → Hypertonie/Hypertonus).
+ *  Partagé par la liaison et sa porte CI. */
+export function caseDiagnosis(c, { index, diagIndex = index, generic = new Set() }) {
+  return [...new Set([...linkTerms(diagnosisTexts(c), index), ...linkTerms([c.name, c.pathology], diagIndex)])].filter((id) => !generic.has(id)).sort();
+}
+
+/** Parts d'un cas (ids) : `core`, `primary`, `patient` filtrés par négation, `diagnosis` non filtré
+ *  (index `diagIndex`, défaut `index`) ; `counts` : occurrences affirmées dans le core ; génériques
+ *  retirés. */
+export function caseParts(c, { muster, fw, index, diagIndex = index, generic }) {
   const { core, primary, patient } = caseTexts(c, muster, fw);
   const keep = (ids) => ids.filter((id) => !generic.has(id));
-  const counts = Object.fromEntries([...countTerms(core, index, { negation: true })].filter(([id]) => !generic.has(id)).sort());
+  const patientIds = keep(linkTerms(patient, index, { negation: true }));
+  const diagnosis = caseDiagnosis(c, { index, diagIndex, generic });
+  const found = countTerms(core, index, { negation: true });
+  // le diagnostic nommé par une variante (« Hypertonie » → Hypertonie/Hypertonus) compte ses occurrences
+  if (diagIndex !== index) for (const [id, k] of countTerms(core, diagIndex, { negation: true })) if (diagnosis.includes(id) && !found.has(id)) found.set(id, k);
+  const counts = Object.fromEntries([...found].filter(([id]) => !generic.has(id)).sort());
   return {
     core: Object.keys(counts),
     primary: keep(linkTerms(primary, index, { negation: true })),
-    patient: keep(linkTerms(patient, index, { negation: true })),
+    patient: patientIds,
     own: keep(linkTerms(ownTexts(c), index, { negation: true })),
-    diagnosis: keep(linkTerms(diagnosisTexts(c), index)),
+    diagnosis,
     counts,
   };
 }
@@ -266,6 +313,11 @@ export function linkCorpus(parts, share = SPECIFICITY_SHARE) {
   return out;
 }
 
+/** Index du glossaire : `index` (libellés exacts) lie tout le texte ; `diagIndex` (+ variantes de
+ *  libellé) ne sert qu'au nom et à la pathologie du cas. Mesure (docs/reports/f4a-liaison.md) : les
+ *  variantes partout ajoutent ~300 liens de bruit (Reha, Glukose, Serum…) pour 4 diagnostics retrouvés. */
+export const glossaryIndexes = (fb) => ({ index: buildIndex(fb), diagIndex: buildIndex(fb, { variants: true }) });
+
 /** Ids jamais liés : mots d'examen + homonymes du quotidien. */
 export const loadGeneric = () => new Set([...JSON.parse(readFileSync(GENERIC, 'utf8')), ...Object.keys(JSON.parse(readFileSync(HOMONYMS, 'utf8')))]);
 
@@ -274,11 +326,11 @@ async function main() {
   const { loadAll } = await import('./loadCases.mjs');
   const { cases, fachwissen, muster } = await loadAll();
   const fb = JSON.parse(readFileSync(join(here, '../src/data/fachbegriffe.json'), 'utf8')).map((r) => ({ id: r.id, term: r.t }));
-  const index = buildIndex(fb);   // UNE fois : l'avertissement « doublon » n'est émis qu'une fois
+  const { index, diagIndex } = glossaryIndexes(fb);   // UNE fois : l'avertissement « doublon » n'est émis qu'une fois
   const generic = loadGeneric();
   const fwByPath = new Map(fachwissen.map((f) => [f.pathology, f]));
   const parts = {};
-  for (const c of cases) parts[c.id] = caseParts(c, { muster: muster?.[c.id], fw: fwByPath.get(c.pathology), index, generic });
+  for (const c of cases) parts[c.id] = caseParts(c, { muster: muster?.[c.id], fw: fwByPath.get(c.pathology), index, diagIndex, generic });
   const result = linkCorpus(parts);
   const json = JSON.stringify(result, null, 0) + '\n';
   if (check) {
