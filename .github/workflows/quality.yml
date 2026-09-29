@@ -74,6 +74,10 @@ jobs:
         run: node scripts/checkTermRegister.mjs --require-all
       - name: Tests du validateur de registre
         run: node --test scripts/checkTermRegister.test.mjs
+      - name: Bedeutung des termes liés — ≤ 6 mots, pas une définition (F4a)
+        run: node scripts/checkBedeutung.mjs
+      - name: Tests du validateur Bedeutung
+        run: node --test scripts/checkBedeutung.test.mjs
 
       # Informatifs : ils signalent des faiblesses de contenu (DD non
       # neutralisées, recouvrements de sondes) sans bloquer la livraison.
