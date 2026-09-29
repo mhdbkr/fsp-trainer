@@ -4,7 +4,7 @@
 // Définition complète (repliée) → Dans l'entretien. Carte personnelle : la
 // Bedeutung se corrige (D8), le mot jamais ; sans Bedeutung → « à compléter ».
 // ============================================================================
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { isPersonalView, type AnyTerm } from '@/lib/collections/allTerms';
 import { updatePersonalExplanation, PT_LIMITS } from '@/lib/collections/personalTerms';
 import { highlightParts } from '@/lib/sentence';
@@ -25,7 +25,7 @@ function BedeutungEditor({ id, initial, onDone }: { id: string; initial: string;
   const [error, setError] = useState<string | null>(null);
   const save = async () => {
     try { await updatePersonalExplanation(id, value); onDone(); }
-    catch { setError('Écris la signification.'); }
+    catch (e) { setError(e instanceof Error && e.message === 'explanation_empty' ? 'Écris la signification.' : 'La modification a échoué.'); }
   };
   return (
     <div className="space-y-1.5">
@@ -42,6 +42,9 @@ function BedeutungEditor({ id, initial, onDone }: { id: string; initial: string;
 
 export function TermSheet({ term, compact = false, actions }: { term: AnyTerm; compact?: boolean; actions?: ReactNode }) {
   const [editing, setEditing] = useState(false);
+  const editBtn = useRef<HTMLButtonElement>(null);
+  const refocus = useRef(false);
+  useEffect(() => { if (!editing && refocus.current) { refocus.current = false; editBtn.current?.focus(); } }, [editing]);   // le clavier retrouve « Modifier »
   const personal = isPersonalView(term);
   const bedeutung = term.translationSimple.trim();
   return (
@@ -57,12 +60,12 @@ export function TermSheet({ term, compact = false, actions }: { term: AnyTerm; c
       <section aria-labelledby={`bedeutung-${term.id}`}>
         <h4 id={`bedeutung-${term.id}`} className="label mb-1">Bedeutung</h4>
         {editing && personal ? (
-          <BedeutungEditor id={term.id} initial={bedeutung} onDone={() => setEditing(false)} />
+          <BedeutungEditor id={term.id} initial={bedeutung} onDone={() => { refocus.current = true; setEditing(false); }} />
         ) : (
           <div className="flex items-start gap-2">
             <p className={`min-w-0 flex-1 ${bedeutung ? 'text-base text-slate-800 dark:text-slate-100' : 'text-sm italic text-slate-400'}`}>{bedeutung || 'à compléter'}</p>
             {personal && !compact && (
-              <button type="button" aria-label="Modifier la Bedeutung" onClick={() => setEditing(true)} className="btn-ghost h-11 w-11 shrink-0 justify-center">
+              <button ref={editBtn} type="button" aria-label="Modifier la Bedeutung" onClick={() => setEditing(true)} className="btn-ghost h-11 w-11 shrink-0 justify-center">
                 <Icon name="pen" className="h-4 w-4" title="Modifier" />
               </button>
             )}

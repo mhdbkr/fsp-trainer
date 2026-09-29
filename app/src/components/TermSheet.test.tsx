@@ -52,4 +52,11 @@ describe('TermSheet (F4a D2/D3, AC-3)', () => {
     await waitFor(async () => expect((await db.personal_terms.get(id))!.explanation).toBe('Atemnot bei Belastung'));
     expect((await db.progress_events.toArray()).map((e) => e.type).sort()).toEqual(['term.personal_created', 'term.personal_updated']);
   });
+  it('Échap ferme l\'éditeur et rend le focus à « Modifier » (revue C1)', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe' });
+    render(<TermSheet term={toView((await db.personal_terms.get(id))!)} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Modifier la Bedeutung' }));
+    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Bedeutung' }), { key: 'Escape' });
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Modifier la Bedeutung' })));
+  });
 });
