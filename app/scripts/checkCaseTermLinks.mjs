@@ -11,6 +11,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { labelVariants } from './linkCaseTerms.mjs';
 
 /** Cas dont le diagnostic n'a pas de terme dans le glossaire. Les 5 premiers :
  *  mesurés par la spec F4a §3.1 (bandscheibenvorfall en est sorti : alias
@@ -41,7 +42,27 @@ export const sexStemHits = (fb, re) => fb.filter((r) => re.test(`${r.t} | ${r.s}
 /** Règles pures. `diagnosis` : caseId → ids du diagnostic (génériques déjà retirés).
  *  `own` : caseId → Set des ids présents dans le texte du cas lui-même (porte du top `top`).
  *  `sex` : caseId → 'm' | 'w' ; `sexTerms` : { w: Set, m: Set }. */
-export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = DIAGNOSIS_EXCEPTIONS, minPerCase = 8, minExceptions = MIN_TERMS_EXCEPTIONS, share = 0.2, maxBroad = 10, own, top = 10, sex, sexTerms }) {
+/** Porte indépendante de l'index de liaison (retour direction : « Hypertonie/Hypertonus » lié à 0 cas) :
+ *  caseId → ids du glossaire dont une variante de libellé (labelVariants, exclusions relues comprises)
+ *  figure en mot entier dans la pathologie ou le nom du cas. L'égalité stricte ne se déclencherait
+ *  jamais (« Arterielle Hypertonie (hypertensive Entgleisung) » ≠ « Hypertonie ») : même règle de mot
+ *  entier que la liaison. Un libellé exact prime sur une variante ; entre variantes, l'ordre du glossaire. */
+export function diagnosisVariantTerms(cases, fb, generic) {
+  const owner = new Map();
+  for (const r of fb) if (!owner.has(r.t.trim().toLowerCase())) owner.set(r.t.trim().toLowerCase(), r.id);
+  for (const r of fb) for (const v of labelVariants(r.t)) if (!owner.has(v.toLowerCase())) owner.set(v.toLowerCase(), r.id);
+  const res = [...owner].filter(([k, id]) => k.length >= 4 && !generic.has(id))
+    .map(([k, id]) => [new RegExp(`(?<![\\p{L}\\p{N}])${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:e|en|s|n)?(?![\\p{L}\\p{N}])`, 'giu'), id]);
+  return Object.fromEntries(cases.map((c) => {
+    const text = `${c.pathology ?? ''} | ${c.name ?? ''}`;
+    const hits = res.flatMap(([re, id]) => [...text.matchAll(re)].map((m) => ({ id, a: m.index, b: m.index + m[0].length })));
+    // un mot inclus dans un terme plus long (« Claudicatio » dans « Claudicatio intermittens ») : c'est le long qui nomme le diagnostic
+    const kept = hits.filter((h) => !hits.some((o) => o !== h && o.a <= h.a && o.b >= h.b && o.b - o.a > h.b - h.a));
+    return [c.id, [...new Set(kept.map((h) => h.id))].sort()];
+  }));
+}
+
+export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = DIAGNOSIS_EXCEPTIONS, minPerCase = 8, minExceptions = MIN_TERMS_EXCEPTIONS, share = 0.2, maxBroad = 10, own, top = 10, sex, sexTerms, required = {} }) {
   const errors = []; const infos = [];
   const n = Object.keys(links).length;
   for (const [caseId, ids] of Object.entries(links)) {
@@ -56,6 +77,7 @@ export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = D
     if (!diag.length && !exceptions.includes(caseId)) errors.push(`${caseId} : aucun terme de diagnostic dans le glossaire (hors exceptions)`);
     if (diag.length && exceptions.includes(caseId)) infos.push(`${caseId} : exception obsolète (diagnostic ${diag.join(', ')})`);
     for (const d of diag) if (!ids.includes(d)) errors.push(`${caseId} : terme du diagnostic non lié ${d}`);
+    if (!exceptions.includes(caseId)) for (const d of required[caseId] ?? []) if (!diag.includes(d) && !ids.includes(d)) errors.push(`${caseId} : terme du diagnostic (variante de libellé) non lié ${d}`);
     if (own?.[caseId]) for (const t of ids.slice(0, top)) if (!own[caseId].has(t)) errors.push(`${caseId} : ${t} au top ${top} sans figurer dans le cas (fiche patient, vue médicale ou Muster hors DD)`);
     if (sex?.[caseId] === 'm') for (const t of ids) if (sexTerms.w.has(t)) errors.push(`${caseId} : terme gynécologique/obstétrical lié à un cas masculin ${t}`);
     if (sex?.[caseId] === 'w') for (const t of ids) if (sexTerms.m.has(t)) errors.push(`${caseId} : terme andrologique lié à un cas féminin ${t}`);
@@ -69,19 +91,20 @@ export function checkLinks({ links, knownIds, generic, diagnosis, exceptions = D
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const here = dirname(fileURLToPath(import.meta.url));
-  const { buildIndex, linkTerms, diagnosisTexts, ownTexts, loadGeneric } = await import('./linkCaseTerms.mjs');
+  const { glossaryIndexes, linkTerms, caseDiagnosis, ownTexts, loadGeneric } = await import('./linkCaseTerms.mjs');
   const { loadAll } = await import('./loadCases.mjs');
   const links = JSON.parse(readFileSync(join(here, '../src/data/caseTermLinks.json'), 'utf8'));
   const fb = JSON.parse(readFileSync(join(here, '../src/data/fachbegriffe.json'), 'utf8'));
   const generic = loadGeneric();
-  const index = buildIndex(fb.map((r) => ({ id: r.id, term: r.t })));
+  const { index, diagIndex } = glossaryIndexes(fb.map((r) => ({ id: r.id, term: r.t })));
   const { cases } = await loadAll();
-  const diagnosis = Object.fromEntries(cases.map((c) => [c.id, linkTerms(diagnosisTexts(c), index).filter((id) => !generic.has(id))]));
+  const diagnosis = Object.fromEntries(cases.map((c) => [c.id, caseDiagnosis(c, { index, diagIndex, generic })]));
+  const required = diagnosisVariantTerms(cases, fb, generic);
   const own = Object.fromEntries(cases.map((c) => [c.id, new Set([...linkTerms(ownTexts(c, { withMuster: true }), index, { negation: true }), ...diagnosis[c.id]])]));
   const sex = Object.fromEntries(cases.map((c) => [c.id, c.patientSheet?.personalia?.geschlecht]));
   const sexList = JSON.parse(readFileSync(join(here, '../src/data/sexSpecificTerms.json'), 'utf8'));
   const sexTerms = { w: new Set(sexList.w), m: new Set(sexList.m) };
-  const { errors, infos } = checkLinks({ links, knownIds: new Set(fb.map((r) => r.id)), generic, diagnosis, own, sex, sexTerms });
+  const { errors, infos } = checkLinks({ links, knownIds: new Set(fb.map((r) => r.id)), generic, diagnosis, own, sex, sexTerms, required });
   for (const i of infos) console.log(`ℹ ${i}`);
   for (const e of errors) console.error(`✗ ${e}`);
   let stale = 0;
