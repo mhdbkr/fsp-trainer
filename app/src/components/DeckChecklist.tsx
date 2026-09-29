@@ -55,7 +55,7 @@ export function DeckChecklist({ termId, caseId, anchor, onClose }: { termId: str
         <div className="mt-1 flex gap-1 border-t border-slate-100 p-1 dark:border-slate-800">
           <input aria-label="Nom du nouveau deck" value={name} maxLength={40} placeholder="Nouveau deck" onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') void create(); }} className="input min-h-11 flex-1" />
-          <button type="button" onClick={() => { void create(); }} disabled={!name.trim()} className="btn-outline min-h-11 px-3">Créer et ranger</button>
+          <button type="button" onClick={() => { void create(); }} disabled={!name.trim()} aria-label="Créer le deck et y ranger ce terme" className="btn-outline min-h-11 w-11 shrink-0 justify-center px-0 text-lg">+</button>
         </div>
         {error && <p role="alert" className="px-2 pb-1 text-xs text-rose-600 dark:text-rose-400">{error}</p>}
       </div>
