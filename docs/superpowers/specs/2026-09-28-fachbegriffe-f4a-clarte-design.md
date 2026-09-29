@@ -62,7 +62,7 @@ Mesure de départ (red-team, corpus réel) : 16 248 liens ; 156 termes dans > 20
 | AC | Critère | Preuve |
 |---|---|---|
 | AC-1 | Au plus 10 termes liés à > 20 % des cas (156 aujourd'hui) ; aucun terme de `genericTerms.json` lié ; un terme présent seulement dans une négation, les réponses du questionnaire ou les diagnostics différentiels n'est pas lié ; `isNegated` vert sur ≥ 20 phrases réelles | tests `linkCaseTerms` + validateur + CI |
-| AC-2 | Chaque cas garde ≥ 8 termes liés ; le terme du diagnostic est lié quand il existe dans le glossaire (6 exceptions listées) | validateur |
+| AC-2 | Chaque cas garde ≥ 8 termes liés, sauf `case-bandscheibenvorfall` (6) et `case-depression` (7), texte propre court (ratifié par la direction le 29 sept.) ; le terme du diagnostic est lié quand il existe dans le glossaire, y compris sous un libellé composé (8 exceptions listées dans `checkCaseTermLinks.mjs`) | validateur |
 | AC-3 | Fiche : ordre Bedeutung → Définition complète (repliée) → Dans l'entretien (3 usages dans l'ordre, chacun avec sa ligne d'usage) ; aucune occurrence de « patientengerecht » dans le code UI (`app/src/components`, `app/src/features`) | tests composant + grep ciblé |
 | AC-4 | ★ hors glossaire ouvre la mini-fiche avec Bedeutung proposée, Contexte = une seule phrase avec le mot surligné ; Créer impossible si Bedeutung vide ; fermer sans créer n'écrit rien | tests + navigateur |
 | AC-5 | Sélection > 4 mots : pastilles, le mot touché devient le terme, la phrase le contexte | tests + navigateur |
@@ -86,3 +86,8 @@ Liquid glass, étoile cristal, onglets flottants des decks, motion premium (chan
 | Détection de négation naïve (« kein Hinweis auf X, aber Y ») | portée limitée à la proposition (jusqu'à la virgule/conjonction), tests sur phrases réelles du corpus |
 | Bedeutung « améliorée » qui trahit le sens | lots relus langue + clinique, `def` intact |
 | IA indisponible à la création | champ vide + invite à écrire ; Créer bloqué tant que vide |
+
+## Décisions de la direction (29 sept., revue de fin de branche)
+
+- AC-2 : les deux cas sous le minimum restent en exception listée plutôt que comblés par du bruit.
+- Mini-fiche : sans deck manuel, pas de rangée Deck ; la carte va dans Favoris.
