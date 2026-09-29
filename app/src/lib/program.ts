@@ -16,7 +16,10 @@ import { INTENSITY_FACTOR } from '@/lib/intensity';
 //  • Les cas sont INTRODUITS progressivement (on n'empile pas toutes les couches 1
 //    au jour 1) : priorité aux cas faibles / fréquents / prioritaires.
 //  • Budget horaire par jour respecté ; ce qui déborde glisse au jour ouvré suivant.
-//  • Drill SM-2 chaque jour ouvré.
+//  • Drill SM-2 chaque jour ouvré, compté dans le budget.
+//  • Dernière ligne droite : plus de cas nouveau, les parties faibles reviennent
+//    seules, l'examen à blanc occupe les deux derniers jours ouvrés. Le jour de
+//    l'examen reste vide.
 //  • Recalculé à chaque affichage → s'adapte aux performances et à l'assiduité.
 // ============================================================================
 
@@ -25,6 +28,7 @@ const TEIL_MIN: Record<'anamnese' | 'dokumentation' | 'fallvorstellung', number>
 const FACHWISSEN_MIN = 15;
 const DRILL_MIN = 15;
 const MOCK_MIN = 60;          // examen à blanc (simulation complète) en fin de parcours
+const PART_OK = 60;           // une partie est acquise à partir de ce score
 // Intervalle (jours ouvrés) avant la couche suivante d'un même cas.
 const LAYER_GAP: Record<Layer, number> = { 1: 0, 2: 2, 3: 4 };
 /** Longueur de la « dernière ligne droite » (taper) en jours ouvrés. */
@@ -122,29 +126,71 @@ function schedule(
   const map = new Map<string, ProgramBlock[]>();
   const dailyBudget = Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]);
   const used = new Map<string, number>();
-  const end = startOfDay(programEnd(config));
+  // Le jour de l'examen n'est pas un jour d'entraînement : le plan s'arrête la veille.
+  const lastDay = addDays(startOfDay(programEnd(config)), -1);
   const start = startOfDay(now);
-
   const key = (d: Date) => format(d, 'yyyy-MM-dd');
-  const add = (d: Date, block: ProgramBlock) => {
+
+  const workingDays: Date[] = [];
+  for (let d = nextWorkingDay(start, config); d <= lastDay; d = addDays(d, 1)) if (isWorkingDay(d, config)) workingDays.push(d);
+  const taper = workingDays.slice(-taperLen(workingDays.length));
+  const taperKeys = new Set(taper.map(key));
+  // Aucune découverte (partie seule, couche 1) dans la dernière ligne droite.
+  const discoveryEnd = taper.length ? addDays(taper[0], -1) : lastDay;
+
+  const put = (d: Date, block: ProgramBlock) => {
     const k = key(d);
+    if (taperKeys.has(k)) block.phase = 'taper';
     if (!map.has(k)) map.set(k, []);
     map.get(k)!.push(block);
-    used.set(k, (used.get(k) ?? 0) + block.estMin);
+  };
+  const add = (d: Date, block: ProgramBlock) => {
+    put(d, block);
+    used.set(key(d), (used.get(key(d)) ?? 0) + block.estMin);
   };
   // Trouve le prochain jour ouvré (≥ from) où il reste du budget pour estMin.
-  const placeFrom = (from: Date, estMin: number): Date => {
+  const placeFrom = (from: Date, estMin: number, until = lastDay): Date => {
     let d = nextWorkingDay(from < start ? start : from, config);
     let guard = 0;
     while ((used.get(key(d)) ?? 0) + estMin > dailyBudget && guard < 400) {
       d = nextWorkingDay(addDays(d, 1), config);
       guard++;
-      if (d > end) break;
+      if (d > until) break;
     }
     return d;
   };
 
+  // Examen à blanc : réservé AVANT tout le reste sur les deux derniers jours
+  // ouvrés — il déplace le travail ordinaire au lieu d'attendre une place.
+  for (const d of workingDays.slice(-2)) {
+    add(d, {
+      kind: 'revision', label: 'Examen à blanc — simulation complète', estMin: MOCK_MIN,
+      id: `mock:${key(d)}`, reason: 'Répétition générale en conditions réelles',
+    });
+  }
+
+  // Drill quotidien : libellé sur les VRAIS compteurs (dus réels + nouveaux
+  // du budget). Jour J = ce qu'il RESTE du budget d'aujourd'hui ; jours
+  // suivants = budget plein. Le bloc n'est omis que LE jour où k + n = 0
+  // (spec F2a 3.7) — jamais sur tout l'horizon. Son temps est réservé avant
+  // les cas ; le bloc est posé après, ancré sur la simulation du jour.
   const adj = config.adjust ?? {};
+  const terms = counts(begriffe, now.getTime());
+  const budgetFull = drill.drillBudgetFull ?? drill.drillBudget ?? 10;
+  const budgetToday = drill.drillBudget ?? budgetFull;
+  const todayKey = key(start);
+  const drills: { d: Date; dk: string; fresh: number; estMin: number }[] = [];
+  for (const d of workingDays) {
+    const dk = key(d);
+    if (adj.skipDrillDates?.includes(dk)) continue;
+    const fresh = Math.min(terms.fresh, dk === todayKey ? budgetToday : budgetFull);
+    const total = terms.due + fresh;
+    if (total === 0) continue;
+    const estMin = Math.ceil(total * 0.4);
+    drills.push({ d, dk, fresh, estMin });
+    used.set(dk, (used.get(dk) ?? 0) + estMin);
+  }
+
   const last = lastScoreByCase(sims);
   const spWeak = specialtyWeakness(cases, last);
   const ranked = [...cases]
@@ -157,6 +203,23 @@ function schedule(
   let introDay = nextWorkingDay(start, config);
   let introCount = 0;
   const INTRO_PER_DAY = 2;
+
+  // Dernière ligne droite : chaque partie mesurée sous le seuil revient seule,
+  // la plus faible d'abord, un seul passage par cas et par jour.
+  const weakParts = cases.filter((wc) => last.has(wc.id)).flatMap((wc) => {
+    const parts = caseMastery(sims, wc.id).parts;
+    return TEILE.flatMap((t) => { const s = parts[t.key]; return s != null && s < PART_OK ? [{ wc, t, s }] : []; });
+  }).sort((a, b) => a.s - b.s);
+  for (const { wc, t, s } of weakParts) {
+    const day = taper.find((d) => (used.get(key(d)) ?? 0) + TEIL_MIN[t.key] <= dailyBudget
+      && !map.get(key(d))?.some((b) => b.caseId === wc.id));
+    if (!day) continue;
+    add(day, {
+      kind: 'simulation', label: `${wc.name} — ${t.label} seule`, estMin: TEIL_MIN[t.key], caseId: wc.id,
+      specialty: wc.specialty, id: `${wc.id}:R:${t.key}`, teil: t.key,
+      reason: `Partie faible (${s} %) — reprise ciblée avant l'examen`,
+    });
+  }
 
   const LAYER_REASON: Record<Layer, string> = {
     1: 'Découverte · assisté — première rencontre du cas',
@@ -182,9 +245,9 @@ function schedule(
       const mastery = caseMastery(sims, c.id).parts;
       let teilDay = anchor;
       for (const t of TEILE) {
-        if ((mastery[t.key] ?? 0) >= 60) continue;
-        const day = placeFrom(teilDay, TEIL_MIN[t.key]);
-        if (day > end) break;
+        if ((mastery[t.key] ?? 0) >= PART_OK) continue;
+        const day = placeFrom(teilDay, TEIL_MIN[t.key], discoveryEnd);
+        if (day > discoveryEnd) break;
         add(day, {
           kind: 'simulation', label: `${c.name} — ${t.label} seule`, estMin: TEIL_MIN[t.key], caseId: c.id, layer: 1,
           assistance: 'assiste', specialty: c.specialty, id: `${c.id}:T:${t.key}`, teil: t.key,
@@ -197,9 +260,9 @@ function schedule(
 
     for (let L = doneLayers + 1; L <= 3; L++) {
       const layer = L as Layer;
-      const desired = addDays(anchor, LAYER_GAP[layer]);
-      const day = placeFrom(desired, SIM_MIN);
-      if (day > end) break;
+      const until = layer === 1 ? discoveryEnd : lastDay;
+      const day = placeFrom(addDays(anchor, LAYER_GAP[layer]), SIM_MIN, until);
+      if (day > until) break;
       add(day, {
         kind: 'simulation',
         label: `${c.name} — Couche ${layer}`,
@@ -212,50 +275,15 @@ function schedule(
       });
       if (layer === 1 && c.linkedFachwissenId) {
         const fwDay = placeFrom(day, FACHWISSEN_MIN);
-        if (fwDay <= end) add(fwDay, { kind: 'fachwissen', label: `Fachwissen : ${c.pathology}`, estMin: FACHWISSEN_MIN, caseId: c.id, specialty: c.specialty, id: `fw:${c.id}`, reason: 'Théorie liée au cas — juste après la découverte' });
+        if (fwDay <= lastDay) add(fwDay, { kind: 'fachwissen', label: `Fachwissen : ${c.pathology}`, estMin: FACHWISSEN_MIN, caseId: c.id, specialty: c.specialty, id: `fw:${c.id}`, reason: 'Théorie liée au cas — juste après la découverte' });
       }
       anchor = day; // la couche suivante s'espace à partir de la date réelle
     }
   }
 
-  // Drill quotidien : libellé sur les VRAIS compteurs (dus réels + nouveaux
-  // du budget). Jour J = ce qu'il RESTE du budget d'aujourd'hui ; jours
-  // suivants = budget plein. Le bloc n'est omis que LE jour où k + n = 0
-  // (spec F2a 3.7) — jamais sur tout l'horizon.
-  const c = counts(begriffe, now.getTime());
-  const budgetFull = drill.drillBudgetFull ?? drill.drillBudget ?? 10;
-  const budgetToday = drill.drillBudget ?? budgetFull;
-  const todayKey = key(start);
-  for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) {
-    if (!isWorkingDay(d, config)) continue;
-    const dk = key(d);
-    if (adj.skipDrillDates?.includes(dk)) continue;
-    const fresh = Math.min(c.fresh, dk === todayKey ? budgetToday : budgetFull);
-    const total = c.due + fresh;
-    if (total === 0) continue;
+  for (const { d, dk, fresh, estMin } of drills) {
     const simOfDay = (map.get(dk) ?? []).find((b) => b.kind === 'simulation');
-    const estMin = Math.ceil(total * 0.4);
-    add(d, { kind: 'drill', label: `Drill · ${c.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, caseId: simOfDay?.caseId, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
-  }
-
-  // --------------------------------------------------------------------------
-  // Dernière ligne droite (taper) : PAS de révisions auto par cas — seules les
-  // révisions AJOUTÉES PAR L'UTILISATEUR comptent. Le plan conclut simplement
-  // par des examens à blanc pour arriver rodé et serein le jour J.
-  // --------------------------------------------------------------------------
-  const workingDays: Date[] = [];
-  for (let d = nextWorkingDay(start, config); d <= end; d = addDays(d, 1)) if (isWorkingDay(d, config)) workingDays.push(d);
-  const taperCount = taperLen(workingDays.length);
-
-  for (const d of workingDays.slice(-Math.min(2, taperCount))) {
-    const dk = key(d);
-    if ((used.get(dk) ?? 0) + MOCK_MIN <= dailyBudget * 1.25) {
-      add(d, {
-        kind: 'revision', label: 'Examen à blanc — simulation complète', estMin: MOCK_MIN,
-        id: `mock:${dk}`, reason: 'Répétition générale en conditions réelles',
-        phase: 'taper',
-      });
-    }
+    put(d, { kind: 'drill', label: `Drill · ${terms.due} dus + ${fresh} nouveaux (≈ ${estMin} min)`, estMin, axis: 'Fachbegriffe', id: `drill:${dk}`, specialty: simOfDay?.specialty, caseId: simOfDay?.caseId, reason: 'Rappel espacé des termes dus, plus les nouveaux du budget du jour' });
   }
 
   // Tâches ajoutées manuellement (révisions supplémentaires…).
