@@ -24,7 +24,7 @@ export function CardToast() {
   const [flipped, setFlipped] = useState(false);
   const [choosing, setChoosing] = useState(false);
   const [touched, setTouched] = useState(false);
-  useEffect(() => { setFlipped(false); setChoosing(false); setTouched(false); }, [toast?.term.id, toast?.kind]);
+  useEffect(() => { setFlipped(false); setChoosing(false); setTouched(false); }, [toast && 'term' in toast ? toast.term.id : null, toast?.kind]);
   useEffect(() => {   // Échap ferme la confirmation (la suppression différée, elle, suit son cours)
     if (!toast) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') hide(); };
@@ -38,6 +38,16 @@ export function CardToast() {
   }, [toast, touched, hide]);
   if (!toast) return null;
 
+  if (toast.kind === 'error') {
+    return (
+      <Portal>
+        <div role="alert" className={`${box} flex items-center gap-3`}>
+          <span className="flex-1">{toast.message}</span>
+          <button type="button" aria-label="Fermer" onClick={hide} className="btn-ghost h-11 w-11 justify-center">✕</button>
+        </div>
+      </Portal>
+    );
+  }
   if (toast.kind === 'deleted') {
     return (
       <Portal>

@@ -8,6 +8,7 @@
 import { create } from 'zustand';
 import type { NewEvent } from '@/lib/sync/events';
 import { commitPersonalDeletion, planPersonalDeletion } from './personalTerms';
+import { useCardToast } from '@/store/cardToast';
 
 export const DELETE_DELAY_MS = 5000;
 interface Pending { events: NewEvent[]; timer: ReturnType<typeof setTimeout>; committing: boolean }
@@ -43,6 +44,7 @@ async function commit(id: string): Promise<void> {
   if (!p || p.committing) return;
   p.committing = true; clearTimeout(p.timer);
   try { await commitPersonalDeletion(p.events); }
+  catch { useCardToast.getState().show({ kind: 'error', message: 'Suppression impossible : la carte est revenue. Réessaie.' }); }   // plus de rejet silencieux (revue B3 m3)
   finally { pending.delete(id); publish(); }   // échec d'écriture : la carte réapparaît, rien de perdu
 }
 

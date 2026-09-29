@@ -5,7 +5,8 @@ import type { AnyTerm } from '@/lib/collections/allTerms';
 
 export type CardToast =
   | { kind: 'saved'; term: AnyTerm; deckId: string; caseId?: string }
-  | { kind: 'deleted'; term: AnyTerm };
+  | { kind: 'deleted'; term: AnyTerm }
+  | { kind: 'error'; message: string };
 
 export const useCardToast = create<{ toast: CardToast | null; show: (t: CardToast) => void; hide: () => void }>((set) => ({
   toast: null,
