@@ -7,7 +7,7 @@ import { registerLine } from '@/components/TermRegister';
 import { StarButton } from '@/components/StarButton';
 
 export interface TermListHandle { jumpTo: (letter: string) => void }
-interface Props { terms: Fachbegriff[]; inDecks: Set<string>; onOpen: (t: Fachbegriff) => void; onRemove?: (t: Fachbegriff) => void }
+interface Props { terms: Fachbegriff[]; inDecks: Set<string> | undefined; onOpen: (t: Fachbegriff) => void; onRemove?: (t: Fachbegriff) => void }
 
 // Liste A→Z virtualisée (2 266 termes : ≤ 60 lignes montées). En-tête de
 // lettre flottant (overlay unique par-dessus le conteneur de scroll, calculé
@@ -59,7 +59,7 @@ export const TermList = forwardRef<TermListHandle, Props>(function TermList({ te
                 </button>
                 <span role="img" className={`chip shrink-0 ${tone.chip}`} title={t.srs.state} aria-label={t.srs.state}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
                 {onRemove && <button type="button" aria-label={`Retirer ${t.term} du deck`} onClick={() => onRemove(t)} className="btn-ghost h-11 w-11 shrink-0 justify-center text-slate-400">−</button>}
-                <StarButton term={t} filled={inDecks.has(t.id)} />
+                <StarButton term={t} filled={inDecks?.has(t.id)} />
               </div>
             );
           })}

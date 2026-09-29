@@ -26,7 +26,14 @@ vi.mock('@/lib/sync/queue', async () => {
 const term = { id: 'fb-aszites', term: 'Aszites', translationSimple: 'Bauchwasser', specialty: 'Gastroenterologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs(0) } as never;
 function Harness({ caseId }: { caseId?: string }) {
   const inDecks = useTermsInDecks();
-  return <><StarButton term={term} filled={inDecks.has('fb-aszites')} caseId={caseId} /><CardToast /></>;
+  return <><StarButton term={term} filled={inDecks?.has('fb-aszites')} caseId={caseId} /><CardToast /></>;
+}
+
+/** L'étoile reste inerte tant que les decks chargent (revue C4) : attendre qu'elle soit prête. */
+async function clickEmptyStar() {
+  const b = await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' });
+  await waitFor(() => expect(b.hasAttribute('disabled')).toBe(false));
+  fireEvent.click(b);
 }
 
 describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
@@ -34,7 +41,7 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
 
   it('★ vide → Favoris (+caseId), confirmation avec miniature, « Voir la carte » retourne', async () => {
     render(<Harness caseId="case-leberzirrhose" />);
-    fireEvent.click(screen.getByRole('button', { name: 'Ajouter aux favoris : Aszites' }));
+    await clickEmptyStar();
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
     expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')!.payload).toEqual({ caseId: 'case-leberzirrhose' });
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
@@ -45,7 +52,7 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
   it('« Changer de deck » déplace : retiré de Favoris, ajouté au deck choisi', async () => {
     const deckId = await createDeck('Leber', 'manual');
     render(<Harness />);
-    fireEvent.click(screen.getByRole('button', { name: 'Ajouter aux favoris : Aszites' }));
+    await clickEmptyStar();
     fireEvent.click(await screen.findByRole('button', { name: 'Changer de deck' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Leber' }));
     await waitFor(async () => expect(await db.deck_terms.get([deckId, 'fb-aszites'])).toBeTruthy());
@@ -62,5 +69,29 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     await waitFor(async () => expect(await db.deck_terms.get([deckId, 'fb-aszites'])).toBeUndefined());
     expect(await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' })).toBeTruthy();
     expect(FAVORITES_DECK_ID).toBe('deck-favorites');
+  });
+  it('checklist : « Créer et ranger » crée le deck ET y range le terme (revue C4)', async () => {
+    await addTermToDeck(FAVORITES_DECK_ID, 'fb-aszites');
+    render(<Harness />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
+    fireEvent.change(await screen.findByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Créer et ranger' }));
+    await waitFor(async () => {
+      const deck = (await db.decks.toArray()).find((d) => d.name === 'Hepato');
+      expect(deck && (await db.deck_terms.get([deck.id, 'fb-aszites']))).toBeTruthy();
+    });
+  });
+  it('Échap ferme la confirmation (revue C4)', async () => {
+    render(<Harness />);
+    await clickEmptyStar();
+    expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    await waitFor(() => expect(screen.queryByText('Favoris', { selector: 'strong' })).toBeNull());
+  });
+  it('decks en chargement : étoile inerte, pas de ★ vide cliquable (revue C4)', () => {
+    render(<StarButton term={term} filled={undefined} />);
+    const b = screen.getByRole('button', { hidden: true });
+    expect(b.hasAttribute('disabled')).toBe(true);
+    expect(b.getAttribute('aria-busy')).toBe('true');
   });
 });

@@ -76,7 +76,7 @@ export function TermHoverCard() {
       className="glass rounded-xl border border-slate-200 p-3 text-sm shadow-lg motion-safe:animate-fade-in dark:border-slate-700"
     >
       <TermSheet term={fb} compact actions={
-        <StarButton term={fb} filled={inDecks.has(fb.id)} caseId={caseId ?? undefined} buttonRef={(el) => { starRef.current = el; }} />
+        <StarButton term={fb} filled={inDecks?.has(fb.id)} caseId={caseId ?? undefined} buttonRef={(el) => { starRef.current = el; }} />
       } />
       <div className="mt-2 flex items-center justify-between gap-2">
         <span role="img" aria-label={fb.srs.state} className={`chip ${SRS_TONE[fb.srs.state].chip}`}>{fb.srs.state}</span>

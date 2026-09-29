@@ -52,7 +52,7 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
           <li key={t.id} className="flex min-h-11 items-center gap-2 px-2">
             <button type="button" onClick={() => openGlossary(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left"><span className="truncate font-semibold text-brand-700 dark:text-brand-300">{t.term}</span><span className="truncate text-xs text-slate-500">{registerLine(t)}</span></button>
             <span role="img" aria-label={t.srs.state} className={`chip shrink-0 ${tone.chip}`}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
-            <StarButton term={t} filled={inDecks.has(t.id)} caseId={caseId} />
+            <StarButton term={t} filled={inDecks?.has(t.id)} caseId={caseId} />
           </li>); })}
         {shown.length === 0 && <li className="p-4 text-sm text-slate-500">Aucun terme.</li>}
       </ul>

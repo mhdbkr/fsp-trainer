@@ -25,6 +25,12 @@ export function CardToast() {
   const [choosing, setChoosing] = useState(false);
   const [touched, setTouched] = useState(false);
   useEffect(() => { setFlipped(false); setChoosing(false); setTouched(false); }, [toast?.term.id, toast?.kind]);
+  useEffect(() => {   // Échap ferme la confirmation (la suppression différée, elle, suit son cours)
+    if (!toast) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') hide(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [toast, hide]);
   useEffect(() => {
     if (!toast || (touched && toast.kind === 'saved')) return;
     const t = setTimeout(hide, toast.kind === 'deleted' ? DELETE_DELAY_MS : SAVED_MS);

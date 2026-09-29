@@ -23,10 +23,11 @@ export function useAllTerms(): AnyTerm[] | undefined {
 export const useDecks = () => useLiveQuery(() => db.decks.toArray(), [], undefined);
 export const useDeckTerms = () => useLiveQuery(() => db.deck_terms.toArray(), [], undefined);
 export const useFavorites = () => useLiveQuery(() => db.favorites.toArray(), [], undefined);
-/** Termes rangés dans au moins un deck (Favoris compris) : l'étoile pleine (F4a D6). */
-export function useTermsInDecks(): Set<string> {
+/** Termes rangés dans au moins un deck (Favoris compris) : l'étoile pleine (F4a D6).
+ *  `undefined` tant que Dexie charge : une ★ pleine ne doit pas clignoter vide (revue C4). */
+export function useTermsInDecks(): Set<string> | undefined {
   const favorites = useFavorites(); const deckTerms = useDeckTerms();
-  return useMemo(() => termIdsInDecks(favorites ?? [], deckTerms ?? []), [favorites, deckTerms]);
+  return useMemo(() => (favorites && deckTerms ? termIdsInDecks(favorites, deckTerms) : undefined), [favorites, deckTerms]);
 }
 export const useFachwissenAll = () => useLiveQuery(() => db.fachwissen.toArray(), [], undefined);
 export const useFachwissen = (id?: string) => useLiveQuery(() => (id ? db.fachwissen.get(id) : undefined), [id], undefined);
