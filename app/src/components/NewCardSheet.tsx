@@ -56,6 +56,7 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
   const typed = useRef(false);
   const wordRef = useRef(word);
   const busy = useRef(false);
+  const autoFilled = useRef(false);   // Bedeutung reprise du glossaire / de la carte, pas tapée
   const firstChipRef = useRef<HTMLButtonElement>(null);
   const bedeutungRef = useRef<HTMLInputElement>(null);
   useEffect(() => { wordRef.current = word; }, [word]);
@@ -80,8 +81,10 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
 
   useEffect(() => {
     if (!word || loading) return;
-    if (hit) { asked.current = word; setAi('idle'); if (!typed.current) setBedeutung(hit.translationSimple ?? ''); return; }
-    if (existingPt) { asked.current = word; setAi('idle'); if (!typed.current) setBedeutung(existingPt.explanation ?? ''); return; }
+    if (hit) { asked.current = word; setAi('idle'); if (!typed.current) { setBedeutung(hit.translationSimple ?? ''); autoFilled.current = true; } return; }
+    if (existingPt) { asked.current = word; setAi('idle'); if (!typed.current) { setBedeutung(existingPt.explanation ?? ''); autoFilled.current = true; } return; }
+    // Le mot n'est plus un terme connu : ne pas garder la Bedeutung d'un autre mot (re-revue C7 m-c).
+    if (autoFilled.current && !typed.current) { setBedeutung(''); autoFilled.current = false; }
     // UN appel IA par mot choisi (mot réellement nouveau), jeté si le mot
     // demandé n'est plus le mot courant à la réponse (m3), OU si le glossaire
     // / les cartes personnelles révèlent entretemps que le mot était déjà
@@ -91,15 +94,16 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
     const requested = word;
     askBedeutung(word, sentence || undefined)
       .then((b) => {
-        if (wordRef.current !== requested) return;
+        if (wordRef.current !== requested) { setAi('idle'); return; }   // plus de « propose… » éternel (m-b)
         if (knownRef.current.hit || knownRef.current.existingPt) return;
         if (!typed.current) setBedeutung(b);
         setAi(b ? 'idle' : 'failed');
       })
-      .catch(() => { if (wordRef.current === requested) setAi('failed'); });
+      .catch(() => { setAi(wordRef.current === requested ? 'failed' : 'idle'); });
   }, [word, sentence, hit, existingPt, loading]);
 
-  const canCreate = !!word.trim() && word.length <= PT_LIMITS.term && !submitting && (!!hit || !!bedeutung.trim());
+  const canCreate = !!word.trim() && word.length <= PT_LIMITS.term && !submitting && !loading &&   // pas de doublon du glossaire avant son chargement (m-a)
+    (!!hit || !!bedeutung.trim());
   const create = async () => {
     if (!canCreate || busy.current) return;
     busy.current = true; setSubmitting(true); setError(null);

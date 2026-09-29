@@ -39,6 +39,7 @@ describe('NewCardSheet', () => {
     act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     const input = await screen.findByRole('textbox', { name: 'Bedeutung' });
+    await waitFor(() => expect((input as HTMLInputElement).value).toBe('ancienne signification'));   // chargé : Créer actif (m-a)
     fireEvent.change(input, { target: { value: 'nouvelle signification' } });
     fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
     await waitFor(async () => expect((await db.personal_terms.get(id))?.explanation).toBe('nouvelle signification'));
