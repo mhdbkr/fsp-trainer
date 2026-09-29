@@ -5,7 +5,7 @@ import { db } from '@/db/db';
 import { Icon } from '@/components/icons';
 import { useAllTerms, useDecks, useDeckTerms, useFavorites, useCase } from '@/hooks/useData';
 import type { AnyTerm } from '@/lib/collections/allTerms';
-import { rateTerm } from '@/lib/collections/allTerms';
+import { isPersonalView, rateTerm } from '@/lib/collections/allTerms';
 import { CardFlip, type CardDirection } from '@/components/CardFlip';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
@@ -114,8 +114,8 @@ export function DrillPage() {
           <div className="mt-4 flex items-center justify-center gap-2">
             <span className="text-sm">Sens :</span>
             <div className="flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-slate-800">
-              <button onClick={() => setDirection('term2simple')} className={`rounded px-2 py-1 ${direction === 'term2simple' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Terme → sens</button>
-              <button onClick={() => setDirection('simple2term')} className={`rounded px-2 py-1 ${direction === 'simple2term' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Sens → terme</button>
+              <button onClick={() => setDirection('term2simple')} className={`min-h-11 rounded px-3 ${direction === 'term2simple' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Terme → sens</button>
+              <button onClick={() => setDirection('simple2term')} className={`min-h-11 rounded px-3 ${direction === 'simple2term' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Sens → terme</button>
             </div>
           </div>
           {qc.due + qc.fresh === 0 ? (
@@ -164,7 +164,12 @@ export function DrillPage() {
     );
   }
 
-  const card = queue[idx];
+  const frozen = queue[idx];
+  // La file (`queue`) est une copie figée au démarrage : une Bedeutung modifiée pendant la
+  // session (carte personnelle, TermSheet) doit s'afficher — relire le contenu vivant depuis
+  // `begriffe` (live), garder le SRS de la file pour l'ordre de notation.
+  const live = begriffe.find((b) => b.id === frozen.id);
+  const card = live ? { ...frozen, translationSimple: live.translationSimple, ...(isPersonalView(live) && live.context !== undefined ? { context: live.context } : {}) } : frozen;
 
   const grade = async (g: Grade) => {
     const wasNew = card.srs.state === 'Neu';
@@ -225,6 +230,8 @@ function GradeBtn({ label, sub, color, onClick }: { label: string; sub: string; 
 function KeyboardShortcuts({ revealed, onReveal, onGrade }: { revealed: boolean; onReveal: () => void; onGrade: (g: Grade) => void }) {
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest('input, textarea, [contenteditable="true"]')) return;   // ne vole pas la frappe d'un éditeur ouvert (I1)
       if (e.key === ' ' && !revealed) { e.preventDefault(); onReveal(); }
       else if (revealed) {
         if (e.key === '1') onGrade(0);

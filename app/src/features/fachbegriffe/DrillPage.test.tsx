@@ -5,6 +5,7 @@ import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
 import * as drillQueueModule from '@/lib/collections/drillQueue';
 import { loadDrillContext } from '@/lib/collections/drillContext';
+import { createPersonalTerm } from '@/lib/collections/personalTerms';
 import { useSimSession } from '@/store/simSession';
 import { DrillPage } from './DrillPage';
 
@@ -176,5 +177,31 @@ describe('DrillPage — pas de boucle de rendu', () => {
     const revealBtn = await screen.findByRole('button', { name: /révéler/i });
     fireEvent.click(revealBtn);
     expect((await screen.findAllByText('à compléter')).length).toBeGreaterThan(0);
+  });
+
+  it("au dos d'une carte personnelle, taper dans l'éditeur de Bedeutung n'envoie aucune notation (I1)", async () => {
+    await db.fachbegriffe.clear();
+    await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
+    const input = screen.getByRole('textbox', { name: 'Bedeutung' });
+    fireEvent.keyDown(input, { key: '2' });
+    await new Promise((r) => setTimeout(r, 200));
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'srs.reviewed')).toBe(false);
+    expect(screen.getByText('1 / 1')).toBeTruthy();
+  });
+
+  it('après Enregistrer au dos de la carte personnelle, la fiche affiche la nouvelle Bedeutung (I1 : file figée)', async () => {
+    await db.fachbegriffe.clear();
+    await createPersonalTerm({ term: 'Orthopnoe', explanation: 'ancienne signification' });
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
+    fireEvent.change(screen.getByRole('textbox', { name: 'Bedeutung' }), { target: { value: 'nouvelle signification' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }));
+    expect(await screen.findByText('nouvelle signification')).toBeTruthy();
   });
 });
