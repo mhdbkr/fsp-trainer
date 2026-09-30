@@ -19,15 +19,36 @@ import { PROBE_BY_ID } from './anamneseProbes';
 // Geschwüre… » en rhumato) n'est pas une question sur ce symptôme.
 // ============================================================================
 
+// Le lexique porte 36 concepts (série 3). Les 16 premiers sont les symptômes
+// « végétatifs » d'origine ; les 20 suivants sont ceux que l'audit série 3
+// (§4.2) a mesurés comme échappant au garde-fou — 107 des 270 doublons joués
+// citaient un concept que le type `Symptom` ne nommait pas.
+//
+// Une frontière est tenue à la main, elle ne se déduit pas du texte :
+//   • `schwaeche` = déficit MOTEUR focal (Kraftverlust, schwächer geworden,
+//     Lähmung). La fatigue générale (« Müdigkeit », « Leistungsknick ») n'est
+//     PAS ce concept — les confondre ferait disparaître la sonde hémato.
+//   • `taubheit` = trouble sensitif d'un membre. L'anesthésie en selle
+//     (`fach-ortho-cauda`) est une autre topographie, volontairement non
+//     mappée : elle ne double pas `fach-ortho-sensomotorik`.
+//   • `stimmung` = l'humeur. L'Antrieb et l'Interesse sont des axes distincts
+//     du syndrome dépressif et ne sont pas mappés ici.
+//   • `gedaechtnis` = mémoire cognitive (Vergesslichkeit), pas l'amnésie
+//     péri-critique d'une crise (`fach-neuro-anfallzeichen`).
 export type Symptom =
   | 'fieber' | 'schuettelfrost' | 'nachtschweiss' | 'reise' | 'kontakt'
   | 'uebelkeit' | 'stuhl' | 'miktion' | 'gewicht' | 'appetit' | 'schlaf'
-  | 'husten' | 'oedeme' | 'orthopnoe' | 'blutung' | 'schwindel';
+  | 'husten' | 'oedeme' | 'orthopnoe' | 'blutung' | 'schwindel'
+  // --- série 3 : les concepts que l'audit a vus passer ----------------------
+  | 'kopfschmerz' | 'atemnot' | 'brustschmerz' | 'bewusstlos' | 'sehstoerung'
+  | 'krampf' | 'taubheit' | 'schwaeche' | 'herzrasen' | 'schwitzen'
+  | 'durst' | 'juckreiz' | 'ausschlag' | 'schluck' | 'gelbfaerbung'
+  | 'sturz' | 'stimmung' | 'angst' | 'suizid' | 'gedaechtnis';
 
 export const PROBE_SUCHT: Record<string, Symptom[]> = {
   // Vegetative Anamnese — les questions générales, celles qui « répètent ».
   'veg-fieber': ['fieber', 'reise'],
-  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss'],
+  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'],
   'veg-uebelkeit': ['uebelkeit'],
   'veg-ausscheidung': ['stuhl', 'miktion'],
   'veg-gewicht': ['gewicht'],
@@ -36,35 +57,66 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   // Aktuelle Beschwerden (variantes)
   'akt-infekt-fieber': ['fieber', 'schuettelfrost'],
   'akt-infekt-kontakt': ['reise', 'kontakt'],
-  'akt-allgemein-gewicht': ['gewicht', 'appetit'],
+  'akt-allgemein-art': ['schwindel'],
+  'akt-allgemein-gewicht': ['gewicht', 'appetit', 'durst'],
   'akt-allgemein-schwellung': ['oedeme'],
+  'akt-atemnot-belastung': ['atemnot'],
   'akt-atemnot-nachts': ['orthopnoe'],
   'akt-psych-schlaf': ['schlaf'],
+  'akt-psych-stimmung': ['stimmung'],
+  'akt-psych-sicherheit': ['suizid'],
   'akt-atemnot-husten': ['husten'],
   'akt-ausscheid-was': ['stuhl', 'miktion'],
   'akt-ausscheid-haeufigkeit': ['stuhl', 'miktion'],
   'akt-veraend-blutung': ['blutung'],
   'akt-neuro-lage': ['schwindel'],
+  'akt-neuro-ausfall': ['schwaeche', 'taubheit'],
+  'akt-nerven-art': ['taubheit', 'schwaeche'],
+  'akt-anfall-bewusstsein': ['bewusstlos'],
   // Fachanamnese
   'fach-pneumo-fieber': ['fieber', 'schuettelfrost'],
   'fach-pneumo-husten': ['husten'],
+  'fach-pneumo-atemnot': ['atemnot'],
+  'fach-pneumo-schmerz': ['brustschmerz'],
   'fach-pneumo-infekt': ['reise', 'kontakt'],
   'fach-uro-fieber': ['fieber', 'schuettelfrost'],
   'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion'], 'fach-uro-farbe': ['miktion'],
   'fach-infekt-fieber': ['fieber'], 'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'],
+  'fach-infekt-haut': ['ausschlag'],
   'fach-chir-fieber': ['fieber'], 'fach-chir-uebelkeit': ['uebelkeit'],
   'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-stuhl': ['stuhl'],
   'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
   'fach-onko-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
   'fach-haem-blutung': ['blutung'], 'fach-haem-blutverlust': ['blutung'], 'fach-onko-blutung': ['blutung'],
   'fach-onko-appetit': ['appetit'],
+  'fach-gyn-blutung': ['blutung'],
+  'fach-derma-beginn-ort': ['ausschlag'], 'fach-derma-empfinden': ['juckreiz'],
+  'fach-rheuma-haut': ['ausschlag'],
   'fach-endo-gewicht': ['gewicht', 'appetit'],
+  'fach-endo-durst': ['durst', 'miktion'],
+  'fach-endo-temperatur': ['schwitzen'],
+  'fach-endo-hals': ['schluck'],
+  'fach-endo-augen': ['sehstoerung'],
   'fach-psych-schlaf': ['schlaf'],
+  'fach-psych-stimmung': ['stimmung'],
+  'fach-psych-angst': ['angst'],
+  'fach-psych-suizid': ['suizid'],
   'fach-kardio-oedeme': ['oedeme', 'orthopnoe'], 'fach-nephro-oedeme': ['oedeme', 'gewicht'],
+  'fach-kardio-brust': ['brustschmerz'],
+  'fach-kardio-luft': ['atemnot'],
+  'fach-kardio-herzrasen': ['herzrasen'],
+  'fach-kardio-synkope': ['bewusstlos'],
   'fach-pneumo-orthopnoe': ['orthopnoe'],
   'fach-nephro-menge': ['miktion'], 'fach-nephro-aussehen': ['miktion'],
   'fach-neuro-blase': ['miktion', 'stuhl'], 'fach-ortho-cauda': ['miktion', 'stuhl'],
-  'fach-neuro-koordination': ['schwindel'],
+  'fach-neuro-koordination': ['schwindel', 'sturz'],
+  'fach-neuro-kopfschmerz': ['kopfschmerz'],
+  'fach-neuro-sehen': ['sehstoerung'],
+  'fach-neuro-sensibilitaet': ['taubheit'],
+  'fach-neuro-kraft': ['schwaeche'],
+  'fach-neuro-anfall': ['krampf', 'bewusstlos'],
+  'fach-ortho-mechanismus': ['sturz'],
+  'fach-ortho-sensomotorik': ['taubheit', 'schwaeche'],
 };
 
 // Les questions propres au cas n'ont pas de sonde. Dans l'app, seule une
@@ -83,6 +135,33 @@ const TEXT_RE: Array<[Symptom, RegExp]> = [
   // vielen Kissen schlafen Sie », pas « die Finger schlafen ein »).
   ['schlaf', /\bschlaf\b(?!-)|\bschlafen sie (gut|schlecht|ausreichend|tagsüber)/i],
   ['husten', /\bhusten\b/i], ['orthopnoe', /\bkissen\b/i],
+  // --- série 3 -------------------------------------------------------------
+  // `blutung` et `schwindel` manquaient alors qu'ils étaient DÉJÀ dans
+  // `PROBE_SUCHT` : c'est par là que les 44 doublons `blutung` de l'audit
+  // passaient (la question du cas citait le sang sans déclarer `sucht`).
+  ['blutung', /\bblutung\w*|\bblutet\b|nasenbluten|zahnfleischbluten|blut im (stuhl|urin)|blut (dabei|beigemengt)/i],
+  ['schwindel', /\bschwindel\w*|\bschwank(en|t|ig)\b/i],
+  ['kopfschmerz', /\bkopfschmerz\w*|\bkopfweh\b/i],
+  ['atemnot', /\b(atemnot|luftnot|kurzatmig\w*)\b|schwer luft|die luft weg/i],
+  ['brustschmerz', /\bbrustschmerz\w*|engegefühl in der brust|schmerzen in der brust/i],
+  ['bewusstlos', /\b(bewusstlos\w*|ohnmächtig|ohnmacht|synkope)\b|schwarz vor augen/i],
+  ['sehstoerung', /\b(sehstörung\w*|doppelbild\w*)\b|verschwommen|sehverschlechterung|schlechter seh/i],
+  ['krampf', /\bkrampfanf\w*|\bzuck(en|ungen)\b|\bepilep\w*/i],
+  ['taubheit', /\btaubheit\w*|\bkribbeln\b|\bpelzig\w*/i],
+  ['schwaeche', /\bkraftverlust\b|\bkraftlos\w*|schwächer geworden|\blähmung\b|\bgelähmt\b/i],
+  ['herzrasen', /\bherz(rasen|klopfen|stolpern)\b/i],
+  // « Nachtschweiß » a son propre concept — le motif ne doit pas l'attraper.
+  ['schwitzen', /\bschwitz\w*|\bschweißausbr\w*/i],
+  ['durst', /\bdurst\w*/i],
+  ['juckreiz', /\bjuck(t|en|reiz\w*)\b/i],
+  ['ausschlag', /\b(haut)?ausschlag\w*|\bhautveränderung\w*|\bhautröt\w*|\bquaddel\w*|\brötung\w*/i],
+  ['schluck', /\bschluck(beschwerden|störung\w*|en)\b/i],
+  ['gelbfaerbung', /\bgelbfärbung\w*|\bgelbsucht\b|\bikterus\b/i],
+  ['sturz', /\bsturz\b|\bstürz\w*|\bgestürzt\b/i],
+  ['stimmung', /\bstimmung\b|\bniedergeschlagen\b|\btraurig\b|innerlich leer/i],
+  ['angst', /\bangst\b|\bängste\b|\bpanikattack\w*/i],
+  ['suizid', /\blebenswert\b|etwas anzutun|\bsuizid\w*|selbst(mord|tötung)/i],
+  ['gedaechtnis', /\bvergesslich\w*|\bgedächtnis\w*|erinnerungslück\w*/i],
 ];
 export function symptomsInText(t: string): Symptom[] {
   return TEXT_RE.filter(([, re]) => re.test(t)).map(([s]) => s);
