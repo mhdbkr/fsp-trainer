@@ -96,11 +96,11 @@ export function Doctopus() {
       {/* Bouton flottant — minimal, glassmorphique, 3D, mark seul (sans texte) */}
       {!open && (
         <button onClick={() => openDoctopus()} title="Doctopus — assistant IA" aria-label="Ouvrir Doctopus"
-          className="group fixed bottom-6 right-6 z-40 grid h-14 w-14 animate-float place-items-center rounded-2xl bg-brand-600/85 text-white shadow-e3 ring-1 ring-white/25 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-e2 active:scale-95">
+          className="group fixed bottom-6 right-6 z-40 grid h-14 w-14 animate-float place-items-center rounded-2xl bg-brand-600/85 text-white shadow-e3 ring-1 ring-white/25 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 active:scale-95">
           {/* Reflet de verre (haut) + halo interne → volume 3D */}
           <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/30 via-transparent to-transparent" />
           <span className="pointer-events-none absolute inset-x-2 top-1 h-1/3 rounded-full bg-white/20 blur-md" />
-          <Icon name="doctopus" className="relative h-8 w-8 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]" />
+          <Icon name="doctopus" className="relative h-8 w-8" />
           <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 animate-pulse-line rounded-full bg-signal-400 ring-2 ring-paper dark:ring-ink" />
         </button>
       )}
@@ -130,7 +130,7 @@ export function Doctopus() {
               <textarea value={q} onChange={(e) => setQ(e.target.value)} rows={2} autoFocus maxLength={CHAT_LIMITS.maxTurnChars}
                 onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) ask(); }}
                 placeholder="Une question, ou un terme à traduire… (⌘/Ctrl+↵)"
-                className="w-full resize-none rounded-xl border border-slate-300/80 bg-white/70 px-3 py-2 text-sm outline-none transition-colors focus:border-brand-400 dark:border-white/10 dark:bg-white/5" />
+                className="input resize-none" />
               {q.length > CHAT_LIMITS.maxTurnChars - 200 && (
                 <p className="mt-1 text-right text-[11px] text-slate-400">{q.length}/{CHAT_LIMITS.maxTurnChars}</p>
               )}
@@ -140,7 +140,7 @@ export function Doctopus() {
                 </button>
                 {turns.length > 0 && (
                   <button onClick={reset} disabled={loading} title="Nouvelle conversation" aria-label="Nouvelle conversation"
-                    className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-slate-300/80 text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 disabled:opacity-40 dark:border-white/10 dark:hover:text-brand-300">↺</button>
+                    className="btn-outline h-9 w-9 shrink-0 p-0 disabled:opacity-40">↺</button>
                 )}
               </div>
               {!canAskAi() && <p className="mt-1.5 text-[11px] text-amber-600 dark:text-amber-400">Connecte-toi (premium) ou ajoute une clé de repli dans <Icon name="gear" className="inline-block h-3 w-3 align-[-1px]" /> pour activer l'IA.</p>}
