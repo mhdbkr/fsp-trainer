@@ -1713,7 +1713,7 @@ export function seedCases(): Case[] {
           'akt-ausscheid-was': 'Verändert hat sich vor allem das Schlucken, das hatte ich ja schon gesagt. Mit dem Wasserlassen oder dem Stuhlgang ist alles wie immer, und an der Haut oder den Augen habe ich auch keine Verfärbung bemerkt.',
           'akt-ausscheid-haeufigkeit': 'Das passiert eigentlich bei jeder Mahlzeit, also mehrmals am Tag, nachts nicht, weil ich da nichts esse. Es wird auf jeden Fall mehr — am Anfang nur ab und zu, jetzt fast immer. Mit dem Wasserlassen habe ich keine Probleme, das ist normal.',
           'akt-ausscheid-aussehen': 'Blut habe ich nicht gesehen, nur dass ich manchmal Essensreste wieder hochwürgen muss. Schleim oder Schaum ist da nicht.',
-          'akt-ausscheid-schlucken': 'Festes bleibt mir stecken, seit Monaten immer öfter — Fleisch und Brot gehen kaum noch, ich schneide alles klein. Suppe und Tee laufen bisher durch.',
+          'akt-ausscheid-schlucken': 'Das Essen bleibt mir stecken, seit einigen Wochen immer öfter — erst Fleisch und Brot, inzwischen auch Weiches. Suppe und Tee laufen bisher durch.',
           'akt-veraend-was': 'Es ist das Schlucken. Am Anfang ist festes Essen stecken geblieben, jetzt geht es auch bei weichem Essen kaum noch.',
           'akt-veraend-entwicklung': 'Es ist schlimmer geworden, jede Woche ein bisschen mehr. Zuerst nur bei festen Sachen, jetzt auch bei Brei fast.',
           'akt-veraend-blutung': 'Blut habe ich keins gesehen, ich musste nur manchmal Essensreste hochwürgen. Aber es tut weh beim Schlucken, so ein Druck, und meine Stimme ist auch heiser geworden.',
