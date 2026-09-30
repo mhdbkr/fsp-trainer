@@ -281,6 +281,10 @@ export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan 
     const [plan] = projectDayPlans(known, await db.training_events.toArray());
     if (plan) { await db.day_plans.put(plan); return plan; }
   }
+  // M7 : une horloge qui recule (réglage manuel, fuseau) ne matérialise jamais
+  // un jour antérieur au dernier figé — le passé n'est jamais rétroactif.
+  const last = await db.day_plans.orderBy('date').last();
+  if (last && date < last.date) return null;
   const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
   if (!config) return null;                                       // pas de programme : rien à matérialiser
 
