@@ -197,8 +197,16 @@ export function SimulationRunner() {
   return (
     <CaseContext.Provider value={c.id}>
     <div style={{ '--panel-offset': `calc(3.5rem + ${headerH || 148}px + 0.75rem)` } as React.CSSProperties}>
+      {/* L'identité d'un chrono, c'est (partie DE CETTE simulation), pas
+          (partie). Avec `key={partKey}` seul, enchaîner deux simulations sans
+          recharger la page — bilan enregistré → nouvelle simulation, même
+          premier Teil — ne remontait PAS `SimTimer` : il gardait son `elapsed`
+          React de la simulation précédente, et son premier tick l'écrivait dans
+          le Lauf tout neuf. La garde monotone de `tickChrono` (INV-28) le
+          gravait alors définitivement. Mesuré : un Lauf de 119 s portait
+          194 s d'Anamnese, héritées d'un run terminé juste avant. */}
       <SimTimer
-        key={partKey}
+        key={`${lauf.id}:${partKey}`}
         target={target}
         initialElapsed={lauf.sekundenProTeil[partKey] ?? 0}
         running={lauf.zustand === 'laufend'}
