@@ -58,7 +58,53 @@ describe('GlossaryDrawer (F4a)', () => {
     await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeUndefined());
     expect((within(rail).getByRole('button', { name: /À revoir/ }) as HTMLButtonElement).disabled).toBe(true);
     for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
-    for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col']) expect(rail.className).toContain(c);
+    for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col', 'md:max-h-[calc(100dvh-5rem)]', 'md:overflow-y-auto']) expect(rail.className).toContain(c);
+  });
+  it('onglets : « ⋯ Decks » en premier, libellé « Ranger dans », ✓ décoratif et aria-description sur un onglet allumé (F4b P6 correctif)', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    renderDrawer();
+    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
+    expect(within(rail).getByText('Ranger dans').className).toContain('label');
+    const buttons = within(rail).getAllByRole('button');
+    expect(buttons[0].getAttribute('aria-label')).toBe('Gérer les decks');   // « ⋯ Decks » d'abord
+    const fav = within(rail).getByRole('button', { name: /Favoris/ });
+    expect(fav.getAttribute('aria-description')).toBe('Ranger dans Favoris');
+    expect(within(fav).queryByText('✓')).toBeNull();   // pas encore allumé
+    fireEvent.click(fav);
+    await waitFor(() => expect(fav.getAttribute('aria-pressed')).toBe('true'));
+    expect(fav.getAttribute('aria-description')).toBe('Retirer de Favoris');
+    expect(within(fav).getByText('✓').getAttribute('aria-hidden')).toBe('true');
+    expect(fav.getAttribute('aria-label')).toBeNull();   // nom accessible = « Favoris », inchangé
+  });
+  it('onglets : double appui pendant l\'écriture est ignoré (verrou par onglet)', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    const collections = await import('@/lib/collections');
+    const real = collections.addTermToDeck;
+    let resolveAdd: () => void = () => {};
+    const spy = vi.spyOn(collections, 'addTermToDeck')
+      .mockImplementationOnce((...args) => new Promise((r) => { resolveAdd = () => r(real(...args)); }));
+    renderDrawer();
+    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
+    const kardio = within(rail).getByRole('button', { name: 'Kardio' });
+    fireEvent.click(kardio);   // premier appui : lance l'écriture (verrouillée)
+    fireEvent.click(kardio);   // second appui pendant l'écriture : ignoré
+    resolveAdd();
+    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeTruthy());
+    expect(spy).toHaveBeenCalledTimes(1);
+    spy.mockRestore();
+  });
+  it('onglets : échec de l\'écriture → message visible (role=alert)', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    const collections = await import('@/lib/collections');
+    const spy = vi.spyOn(collections, 'addTermToDeck').mockRejectedValueOnce(new Error('offline'));
+    renderDrawer();
+    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
+    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
+    expect((await within(rail).findByRole('alert')).textContent).toBe('Impossible de ranger : réessaie.');
+    spy.mockRestore();
   });
   it('« Carte » retourne la fiche en carte recto/verso comme au drill (D9, AC-8)', async () => {
     renderDrawer();
