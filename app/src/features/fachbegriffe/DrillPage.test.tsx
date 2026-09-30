@@ -45,7 +45,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
   beforeEach(async () => {
     await db.fachbegriffe.clear(); await db.progress_events.clear();
     await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await db.cases.clear(); await db.personal_terms.clear();
-    vi.mocked(loadDrillContext).mockReset();
+    vi.mocked(loadDrillContext).mockReset(); localStorage.clear();
     vi.mocked(loadDrillContext).mockResolvedValue(defaultCtx);
     await seed();
   });
@@ -149,7 +149,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.clear();
     await db.personal_terms.put({ id: 'pt-ctx02', term: 'Belastungsdyspnoe', context: 'Der Patient klagt über Belastungsdyspnoe seit zwei Wochen.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
     renderAt('/fachbegriffe/drill');
-    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ }));
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect(screen.queryByText('Belastungsdyspnoe')).toBeNull();
@@ -160,7 +160,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.clear();
     await db.personal_terms.put({ id: 'pt-ctx03', term: 'Übelkeit', context: 'Die Patientin berichtet über Übelkeit seit dem Frühstück.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
     renderAt('/fachbegriffe/drill');
-    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ }));
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect(screen.queryByText('Übelkeit')).toBeNull();
@@ -206,24 +206,55 @@ describe('DrillPage — pas de boucle de rendu', () => {
   });
 
   it('carte d\'embarquement (F4b P7, AC-6) : portée, trois relevés, sens avec exemples, UNE action ; plus de SM-2', async () => {
-    renderAt('/fachbegriffe/drill?specialty=Kardiologie');
-    const start = await screen.findByRole('button', { name: /Commencer \(2 cartes\)/ });
+    renderAt('/fachbegriffe/drill');
+    const start = await screen.findByRole('button', { name: /Commencer$/ });
     expect(screen.getByRole('heading', { name: 'Tous les termes' })).toBeTruthy();
-    expect([...document.querySelectorAll('[data-readout]')].map((r) => r.getAttribute('data-readout'))).toEqual(['à revoir', 'nouveaux', '≈ min']);
+    expect([...document.querySelectorAll('[data-readout]')].map((r) => r.getAttribute('data-readout'))).toEqual(['à revoir', 'nouveaux', 'min environ']);
     expect(document.querySelector('[data-readout="nouveaux"] dd')!.className).toContain('font-mono');
-    expect(screen.getByRole('button', { name: /Terme → sens/ }).textContent).toContain('Aszites → ?');
-    expect(screen.getByRole('button', { name: /Sens → terme/ }).textContent).toContain('Bauchwasser → ?');
-    expect(screen.getByRole('button', { name: /Terme → sens/ }).getAttribute('aria-pressed')).toBe('true');
-    expect(screen.getByText('Priorité Kardiologie')).toBeTruthy();
-    expect(document.body.textContent).not.toMatch(/SM-2|bidirectionnel|Répétition espacée/);
-    expect(screen.queryByText(/Budget du jour/)).toBeNull();   // 2 nouveaux ≤ budget 10 : il ne limite pas
+    expect(screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ })).toBeTruthy();
+    expect(document.body.textContent).not.toMatch(/SM-2|bidirectionnel|Répétition espacée|Aszites/);
+    expect(screen.queryByText(/demain/)).toBeNull();   // 2 nouveaux ≤ budget 10 : il ne limite pas
     expect(start).toBeTruthy();
+  });
+  it('exemple du sens = la PREMIÈRE carte de la file (G1-1)', async () => {
+    await db.fachbegriffe.clear(); await db.favorites.clear();
+    await db.fachbegriffe.put({ id: 'fb-h', term: 'Hepar', translationSimple: 'Leber', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() } as never);
+    renderAt('/fachbegriffe/drill');
+    expect((await screen.findByRole('button', { name: /Fachbegriff → Bedeutung/ })).textContent).toContain('Hepar → ?');
+    expect(screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ }).textContent).toContain('Leber → ?');
+  });
+  it('?specialty= : la spécialité est le titre, pas de puce « Priorité » (G1-5)', async () => {
+    renderAt('/fachbegriffe/drill?specialty=Kardiologie');
+    expect(await screen.findByRole('heading', { name: 'Kardiologie' })).toBeTruthy();
+    expect(screen.queryByText(/Priorité/)).toBeNull();
+  });
+  it('deck vide : « Ce deck est encore vide », jamais « À jour » (G1-3)', async () => {
+    await db.decks.add({ id: 'd-vide', name: 'Vide', kind: 'manual', createdAt: '', updatedAt: '' } as never);
+    renderAt('/fachbegriffe/drill?deck=d-vide');
+    expect(await screen.findByText('Ce deck est encore vide — range des termes depuis leur fiche.')).toBeTruthy();
+    expect(screen.queryByText(/À jour/)).toBeNull();
+  });
+  it('portée = cas : pas de puce « Ton cas récent » qui nomme ce même cas (G1-4)', async () => {
+    const cases = [{ id: 'c1', name: 'Ulcus ventriculi', linkedFachbegriffeIds: ['fb-a'] }];
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, relevance: { ...defaultCtx.relevance, now: Date.now(), recentSimulations: [{ caseId: 'c1', date: Date.now() - 1000 }], cases } } as never);
+    await db.cases.put({ id: 'c1', name: 'Ulcus ventriculi', specialty: 'Gastroenterologie', linkedFachbegriffeIds: ['fb-a'] } as never);
+    renderAt('/fachbegriffe/drill?case=c1');
+    expect(await screen.findByText(/Termes de Ulcus ventriculi/)).toBeTruthy();
+    expect(screen.queryByText(/Ton cas récent/)).toBeNull();
+  });
+  it('le sens choisi est retenu d\'une visite à l\'autre (G1-6)', async () => {
+    const first = renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ }));
+    first.unmount();
+    renderAt('/fachbegriffe/drill');
+    expect((await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ })).getAttribute('aria-pressed')).toBe('true');
   });
   it('budget du jour affiché seulement quand il retient des nouveaux', async () => {
     vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1, daily: { ...defaultCtx.daily, newPerDay: 1 } });
     renderAt('/fachbegriffe/drill');
-    expect(await screen.findByRole('button', { name: /Commencer \(1 carte\)/ })).toBeTruthy();
-    expect(screen.getByText('Budget du jour : 1 nouveaux')).toBeTruthy();
+    expect(await screen.findByRole('button', { name: /Commencer$/ })).toBeTruthy();
+    expect(screen.getByText('Encore 1 nouveau demain')).toBeTruthy();
   });
   it('état vide : « À jour ✓ — prochain terme dû le … »', async () => {
     await db.fachbegriffe.clear();
