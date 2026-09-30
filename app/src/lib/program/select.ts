@@ -126,9 +126,16 @@ export interface Picked { scored: Scored; diversityRelaxed: boolean }
  * `enforce: false` suspend les deux contraintes (modes `cas-complet` et
  * `specialite`, où un jour tient souvent en un seul cas ou une seule spécialité).
  */
-export function pickWithDiversity(ranked: Scored[], count: number, enforce = true): Picked[] {
+/** Vrai si `next` viole C1 ou C2 derrière `picked` — pour une tâche posée hors
+ *  de `pickWithDiversity` (Fachwissen), qui porte alors `diversityRelaxed`. */
+export const violatesDiversity = (picked: Specialty[], next: Specialty): boolean =>
+  !okC1(picked, next) || !okC2(picked, next);
+
+/** `seed` : les spécialités des tâches DÉJÀ posées ce jour (examen à blanc) —
+ *  INV-4 porte sur toute la liste, pas sur les seules simulations (I4). */
+export function pickWithDiversity(ranked: Scored[], count: number, enforce = true, seed: Specialty[] = []): Picked[] {
   const out: Picked[] = [];
-  const specialties: Specialty[] = [];
+  const specialties: Specialty[] = [...seed];
   const remaining = [...ranked];
 
   while (out.length < count && remaining.length) {
