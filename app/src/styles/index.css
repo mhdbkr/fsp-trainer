@@ -101,10 +101,23 @@ h1, h2, h3 {
      L'ancienne règle (« le verre n'habille QUE la navigation, JAMAIS le
      contenu ») était fausse dès le jour où elle a été écrite : `.card` est du
      verre. Deux matériaux, une règle qui n'en reconnaissait qu'un — d'où un
-     TROISIÈME matériau non nommé qui a proliféré tout seul : 44 conteneurs en
+     TROISIÈME matériau non nommé qui a proliféré tout seul : des conteneurs en
      `rounded-* border border-slate-200`, sans rayon de jeton, sans élévation,
      sans transition (audit identité §1.2). On ne supprime pas ce matériau :
      il est nécessaire. On le nomme, et on ordonne les trois.
+
+     Le compte exact, remesuré le 30 sept. 2026 sur les chaînes de classes
+     complètes (`rounded-*` + `border border-{slate,gray}-{100,200,300}`,
+     continuations de ligne comprises) : 41, dans 27 fichiers — et non 44,
+     chiffre du premier audit qui comptait des lignes, pas des surfaces.
+     Surtout : le motif attrape trois familles qu'il ne faut PAS confondre,
+     et c'est pour ça que « remplacer les 41 par `.panel` » est faux tel quel.
+       · 30 sont dans `features/` — le gros des vraies sous-surfaces ;
+       · 11 sont dans `components/`, et ce ne sont presque pas des surfaces :
+         4 boutons de chrome (→ `.btn-outline`), 3 champs (→ `.input`),
+         3 popovers flottants, 1 piste de jauge.
+     Inventaire lieu par lieu, avec le remplacement exact et les exceptions
+     motivées : `app/docs/reports/lead-s3-primitives.md`.
 
      LE VERRE EST UNE SIGNATURE, PAS UN FOND. La direction demande du verre,
      du liquide, de la profondeur ; DIRECTION-STYLE.md §2.3 demande « discret
@@ -124,7 +137,23 @@ h1, h2, h3 {
          zéro flou, élévation e0. Ce qui vit À L'INTÉRIEUR d'une carte : une
          ligne de liste, un encart, un séparateur de section. Le verre ne
          s'échantillonne pas lui-même — une sous-surface n'a donc pas le droit
-         d'être du verre. `.panel` est la bonne réponse aux 44 orphelins.
+         d'être du verre. `.panel` est la bonne réponse aux orphelins.
+
+     PORTÉE DE LA RÈGLE : les trois matériaux sont des SURFACES. Les CONTRÔLES
+     (`.input`, `.btn-glass`) floutent eux aussi et vivent forcément dans une
+     carte — ce n'est pas une infraction, c'est le cas prévu. Un contrôle est
+     petit, il ne ré-échantillonne pas une zone, et son flou est ce qui le
+     fait lire comme posé SUR la surface plutôt que découpé dedans. Personne
+     ne doit venir « réparer » `.input` en lui retirant son flou.
+
+     RESTE OUVERT, et ce n'est pas un oubli : le POPOVER flottant (menu de
+     `AccountSwitcher`, `DeckChecklist`, `SelectionExplainer` — trois copies
+     de la même chaîne de classes). Aucun des trois matériaux ne lui va : il
+     flotte au-dessus d'un contenu inconnu, donc il doit être OPAQUE (le verre
+     par-dessus une carte empile deux plans de flou, interdit plus bas), mais
+     `.panel` le rendrait invisible — son bord est `white/55`, qui disparaît
+     sur un fond blanc opaque. Ce serait un quatrième rôle ; le nommer est une
+     décision de direction, pas d'implémentation. Laissé tel quel, signalé.
 
      ─────────────────────────────────────────────────────────────────────
      LA LUMIÈRE VIENT D'EN HAUT — gate G2-a, tranché par la direction le
@@ -153,11 +182,17 @@ h1, h2, h3 {
      fichier fait sortir la suite de tests en code 1. Le commentaire se
      contourne par distraction, pas le code de sortie.
 
-     Reste hors de cette garde, et c'est un chantier ouvert : les ~50
-     `shadow-sm|md|lg|xl|2xl` de Tailwind encore posés à la main dans
-     les fichiers `.tsx` de `app/src`, qui appartiennent aux périmètres
-     des autres chantiers (liste dans
-     `app/docs/reports/lead-s3-primitives.md`).
+     `drop-shadow-*` sur un glyphe compte aussi. C'est un filtre, pas un
+     `box-shadow`, donc aucune garde ne l'attrape — et c'est exactement le
+     genre de survivance qui fait dire « il en reste une, donc la règle n'est
+     pas vraie ». Celle du mascotte (`Doctopus.tsx`) est retirée.
+
+     Reste hors de cette garde, et c'est un chantier ouvert : 25 ombres
+     portées Tailwind (13 `shadow-sm`, 6 `md`, 3 `2xl`, 2 `lg`, 1 arbitraire
+     — comptées le 30 sept. 2026, `shadow-inner` exclu car interne) encore
+     posées à la main dans 16 fichiers `.tsx` de `features/`, hors du
+     périmètre de ce chantier. Liste par fichier dans
+     `app/docs/reports/lead-s3-primitives.md`.
      ─────────────────────────────────────────────────────────────────────
 
      LA RÈGLE : la profondeur DESCEND, elle ne remonte jamais.
@@ -248,7 +283,13 @@ h1, h2, h3 {
   }
   .btn-primary:hover { box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.34); }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-ink-700; }
-  .btn-outline { @apply btn border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-100 dark:border-ink-600 dark:text-slate-200 dark:hover:bg-ink-700; }
+  /* Le survol d'un contour est PÉTROLE, pas gris. C'est le liant de la marque :
+     partout ailleurs dans l'app (les quatre boutons du chrome, `.panel-interactive`,
+     `.card-interactive`) le survol éclaire le liséré en `brand-400`. `.btn-outline`
+     était le seul à répondre en `slate-400` — ce qui a poussé quatre boutons à se
+     redessiner à la main plutôt qu'à l'employer. Corrigé chez le primitif, donc
+     pour ses 47 appelants d'un coup. */
+  .btn-outline { @apply btn border border-slate-300 text-slate-700 hover:border-brand-400 hover:bg-slate-100 dark:border-ink-600 dark:text-slate-200 dark:hover:bg-ink-700; }
 
   /* ── `.btn-glass` — la brique qui manquait (s3-primitives T3) ─────────────
      `.btn`, `.btn-primary`, `.btn-ghost`, `.btn-outline` sont tous des aplats :
