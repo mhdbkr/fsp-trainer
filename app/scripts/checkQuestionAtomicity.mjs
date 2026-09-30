@@ -126,10 +126,15 @@ const chapters = [
   ...m.LEITSYMPTOM_KATEGORIEN.map((k) => m.aktuellChapterFor(k)),
   m.abschlussChapterFor(),
 ];
+// Dédoublonnage par IDENTITÉ, pas par `id` : les dix variantes de
+// « Aktuelle Beschwerden » portent toutes `id: 'aktuell'`. Dédoublonner sur
+// l'id n'en lisait qu'UNE (schmerz) et laissait les neuf autres invisibles —
+// mesuré à +N constats A en série 3. Le sous-titre les sépare.
 const seenChapter = new Set();
 for (const ch of chapters) {
-  if (seenChapter.has(ch.id)) continue;
-  seenChapter.add(ch.id);
+  const key = `${ch.id}|${ch.subtitle}`;
+  if (seenChapter.has(key)) continue;
+  seenChapter.add(key);
   for (const p of ch.questions) {
     const id = typeof p === 'string' ? undefined : (Array.isArray(p.probe) ? p.probe[0] : p.probe);
     push(`guide-anamnese/${ch.id}`, id, 'phrase', m.phraseText(p));

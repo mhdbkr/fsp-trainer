@@ -3,11 +3,13 @@
   "generated": "2026-09-30",
   "reference": "Audit série 3 : A=1059 B=322 C=75 sur 15 591 énoncés, toutes classes. Ce script ne lit que la classe Q (l'oral posé par le candidat) ; ses compteurs sont donc plus bas et ne se comparent pas ligne à ligne.",
   "q11": "Décision Q11 de la direction : les questions d'Oberarzt sont EXEMPTÉES de la règle A. En examen réel un senior enchaîne ses questions — c'est fidèle, pas fautif. 471 constats A disparaissent de ce fait, et n'ont jamais été des défauts. Elles relèvent désormais de la règle D (arité > 3), qui ne vise que la salve incohérente. Deux détecteurs sémantiques d'incohérence ont été mesurés puis jetés (liaison lexicale : 407/471 faux positifs ; terme de vocabulaire orphelin : 14/15) — l'arité est le seul marqueur qui sépare la salve nommée par la direction des 470 autres.",
-  "corpus": 3589,
+  "corpus": 3755,
   "budget": {
-    "A": 521,
-    "B": 107,
+    "A": 520,
+    "B": 120,
     "C": 5,
     "D": 0
-  }
+  },
+  "serie3": "Deux mouvements dans ce budget, de sens opposes, a ne pas confondre. (1) CONTENU : la decoupe des 27 sondes composees d'AKTUELL_VARIANT_PROBES fait baisser A de 31 (521 -> 490 a corpus constant, 3594 enonces). (2) MESURE : le script dedoublonnait les chapitres par `id`. Les DIX variantes de « Aktuelle Beschwerden » portent toutes `id: 'aktuell'` : une seule (schmerz) etait lue, neuf etaient invisibles. Dedoublonnage par `id|subtitle` : le corpus passe de 3594 a 3755 enonces, et 36 constats A + 13 constats B deviennent visibles. Ils ne sont pas NOUVEAUX, ils n'avaient jamais ete comptes. A tient quand meme sous le plancher precedent (520 <= 521) parce que la decoupe des 27 avait deja corrige les phrases de ces neuf variantes. B doit monter de 107 a 120.",
+  "question_ouverte_B": "Les 13 constats B reveles sont des ENUMERATIONS DE DEPISTAGE : « Begleitbeschwerden — Luftnot, Brustschmerzen, Schwindel, Schwitzen, Ubelkeit? », « Herd — Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, Ausschlag, Wunde? ». Les reduire a trois items ferait perdre de la clinique — c'est exactement l'argument qui a exempte fach-kardio-ausstrahlung de la regle 3 (l'enumeration EST la question). La regle 2 doit-elle exempter akt-begleit / akt-ausloeser / akt-infekt-herd de la meme facon ? DECISION DE LA DIRECTION, pas du validateur. En attendant, ils sont au budget : visibles, comptes, et le compteur ne peut plus remonter."
 }
