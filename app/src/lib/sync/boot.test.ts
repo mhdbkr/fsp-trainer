@@ -16,7 +16,8 @@ import { db } from '@/db/db';
 import type { Case, PartResult, ProgramConfig, Simulation, Specialty } from '@/db/types';
 import type { ProgressEvent } from './events';
 import { freezeAt, resetClock } from '@/lib/clock';
-import { bootJournal } from './boot';
+import { bootJournal, msToNextDay, watchDayPlan } from './boot';
+import { ensureDayPlan } from '@/lib/program/dayPlan';
 
 const SPECS: Specialty[] = ['Kardiologie', 'Gastroenterologie', 'Pneumologie', 'Neurologie', 'Nephrologie', 'Endokrinologie'];
 const corpus = (n = 24): Case[] => Array.from({ length: n }, (_, i) => ({
@@ -121,4 +122,33 @@ describe('10 000 événements — le démarrage reconstruit tout, sans rien perd
     console.info(`[boot] 10 000 événements reconstruits en ${Math.round(ms)} ms (fake-indexeddb)`);
     expect(ms).toBeLessThan(15_000);
   }, 60_000);
+});
+
+describe('I1 — le jour se matérialise aussi APRÈS le démarrage', () => {
+  it('retour au premier plan le lendemain (app restée ouverte) : le nouveau jour est figé', async () => {
+    const advance = freezeAt(new Date(2026, 9, 1, 23, 0));
+    await donneesDeMain();
+    await bootJournal(0);
+    const stop = watchDayPlan();
+    try {
+      advance(2 * 3600_000);                                     // 1er oct. 23 h → 2 oct. 1 h
+      document.dispatchEvent(new Event('visibilitychange'));
+      await vi.waitFor(async () => expect(await db.day_plans.get('2026-10-02')).toBeDefined());
+    } finally { stop(); }
+  });
+  it('minuit : le délai jusqu\'au jour suivant suit le calendrier local', () => {
+    expect(msToNextDay(new Date(2026, 9, 1, 23, 0).getTime())).toBe(3600_000);
+    expect(msToNextDay(new Date(2026, 9, 1, 0, 0).getTime())).toBe(new Date(2026, 9, 2).getTime() - new Date(2026, 9, 1).getTime());
+  });
+});
+
+describe('M7 — une horloge qui recule ne matérialise jamais le passé', () => {
+  it('après le 2 oct., revenir au 1er ne crée pas de plan du 1er', async () => {
+    const advance = freezeAt(new Date(2026, 9, 2, 9, 0));
+    await donneesDeMain();
+    await bootJournal(0);
+    advance(-24 * 3600_000);
+    expect(await ensureDayPlan()).toBeNull();
+    expect((await db.day_plans.toArray()).map((p) => p.date)).toEqual(['2026-10-02']);
+  });
 });
