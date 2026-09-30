@@ -29,12 +29,26 @@ export async function ladeAktivenLauf(): Promise<Lauf | null> {
   return l;
 }
 
-export async function speichereAktivenLauf(lauf: Lauf): Promise<void> {
-  await setMeta(LAUF_AKTIV_KEY, lauf);
+// Les écritures de `lauf.aktiv` sont SÉRIALISÉES par cette chaîne.
+// Sans elle : le runner persiste à chaque frappe sans attendre (`void`), et la
+// suppression de fin de partie pouvait être DOUBLÉE par une écriture partie
+// avant elle. Mesuré en navigateur : après une simulation enregistrée,
+// `lauf.aktiv` restait en `zustand: 'laufend'` — rouvrir le cas reprenait une
+// partie déjà écrite. Une queue d'un seul maillon suffit, il n'y a qu'un
+// écrivain (le runner de cet onglet).
+let queue: Promise<unknown> = Promise.resolve();
+const enfile = <T>(op: () => Promise<T>): Promise<T> => {
+  const next = queue.then(op, op);
+  queue = next.catch(() => {});
+  return next;
+};
+
+export function speichereAktivenLauf(lauf: Lauf): Promise<void> {
+  return enfile(() => setMeta(LAUF_AKTIV_KEY, lauf));
 }
 
-export async function verwerfeAktivenLauf(): Promise<void> {
-  await db.meta.delete(LAUF_AKTIV_KEY);
+export function verwerfeAktivenLauf(): Promise<void> {
+  return enfile(async () => { await db.meta.delete(LAUF_AKTIV_KEY); });
 }
 
 /** Un Lauf actif de plus de 24 h est abandonné : écrit tel quel s'il a au moins

@@ -227,3 +227,68 @@ describe('§3.1 — un Lauf abandonné depuis plus de 24 h', () => {
     expect(await ladeAktivenLauf()).toBeNull();
   });
 });
+
+describe('§3.1 — la suppression de fin ne peut pas être doublée', () => {
+  beforeEach(async () => {
+    await db.meta.clear(); await db.simulations.clear();
+    await db.cases.clear(); await db.cases.put(c);
+  });
+
+  // Défaut MESURÉ EN NAVIGATEUR avant correction : le runner persiste à chaque
+  // frappe sans attendre (`void speichereAktivenLauf(...)`). Une écriture
+  // partie juste avant la fin de partie atterrissait APRÈS le
+  // `db.meta.delete` de `speichern()` : `lauf.aktiv` restait en
+  // `zustand: 'laufend'` avec l'id d'une partie déjà enregistrée, et rouvrir
+  // le cas reprenait un run terminé.
+  //
+  // `fake-indexeddb` résout ses écritures en quelques microtâches : une course
+  // reproduite « au chronomètre » passe AUSSI sans le correctif — vérifié, et
+  // c'est pourquoi ce test ne chronomètre rien. On tient l'écriture en vol
+  // par une VANNE explicite, qu'on ouvre seulement une fois que le chemin de
+  // fin a eu tout le temps de faire sa suppression. L'ordre est alors imposé,
+  // pas espéré.
+  const vanne = () => {
+    let ouvrir!: () => void;
+    const ouverte = new Promise<void>((r) => { ouvrir = r; });
+    const vrai = db.meta.put.bind(db.meta);
+    const spy = vi.spyOn(db.meta, 'put').mockImplementation(async (row: { key: string }) => {
+      if (row.key === LAUF_AKTIV_KEY) await ouverte;   // retenue en vol
+      return vrai(row as never);
+    });
+    return { ouvrir: () => { ouvrir(); spy.mockRestore(); } };
+  };
+
+  const souffle = () => new Promise((r) => setTimeout(r, 50));
+
+  it('une écriture non attendue lancée avant speichern() n’y survit pas', async () => {
+    const l = spieleBisChecklist(['anamnese']);
+    const v = vanne();
+
+    void speichereAktivenLauf({ ...l, zustand: 'laufend' });  // non attendue, comme le runner
+    const fin = speichern(l, c);
+
+    await souffle();   // sans la file : la suppression a DÉJÀ eu lieu ici
+    v.ouvrir();        // l'écriture retenue atterrit maintenant
+    await fin;
+    await souffle();
+
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+    expect(await ladeAktivenLauf()).toBeNull();
+  });
+
+  it('les écritures concurrentes gardent leur ordre d’émission', async () => {
+    const l = spieleBisChecklist(['anamnese']);
+    const v = vanne();
+
+    void speichereAktivenLauf({ ...l, zustand: 'laufend' });
+    void speichereAktivenLauf({ ...l, zustand: 'bilanz' });
+    const derniere = speichereAktivenLauf({ ...l, zustand: 'checkliste' });
+
+    await souffle();
+    v.ouvrir();
+    await derniere;
+    await souffle();
+
+    expect((await ladeAktivenLauf())?.zustand).toBe('checkliste');
+  });
+});
