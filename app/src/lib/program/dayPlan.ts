@@ -217,7 +217,7 @@ export const dayTargetMin = (config: ProgramConfig): number =>
 function selectContext(input: BuildInput): SelectContext {
   const lastPlayedAt = new Map<string, number>();
   for (const te of input.trainingEvents) {
-    if (!te.caseId) continue;
+    if (!te.caseId || !te.teile.length) continue;             // « dernier JEU » : une fiche lue n'est pas un jeu
     const prev = lastPlayedAt.get(te.caseId);
     if (prev === undefined || te.at > prev) lastPlayedAt.set(te.caseId, te.at);
   }
