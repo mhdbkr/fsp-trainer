@@ -1,6 +1,7 @@
-import type { Axis, Case, Fachbegriff, Simulation } from '@/db/types';
+import type { Axis, Case, CaseProgress, Fachbegriff, Simulation } from '@/db/types';
 import { AXES } from '@/db/types';
 import { partToAxis, weightedPartScore } from './scoring';
+import { blankProgress } from '@/lib/journal';
 
 // ============================================================================
 // Indicateur « Suis-je prêt à réussir la FSP ? » (Module 3).
@@ -26,7 +27,7 @@ export interface Readiness {
 
 /** Score par axe pondéré (assistance × couche) — réussir en Autonome/couche
  *  haute compte davantage. Axes data-driven : Fachbegriffe et Fachwissen. */
-export function weightedAxisScores(sims: Simulation[], begriffe: Fachbegriff[], cases: Case[]): Record<Axis, number | null> {
+export function weightedAxisScores(sims: Simulation[], begriffe: Fachbegriff[], cases: Case[], progress: Map<string, CaseProgress>): Record<Axis, number | null> {
   const acc: Record<Axis, number[]> = { Anamnese: [], Dokumentation: [], Fallvorstellung: [], Aufklärung: [], Fachbegriffe: [], Fachwissen: [] };
   for (const sim of sims) {
     const ctx = { assistance: sim.assistance ?? 'assiste', layer: sim.layer ?? 1 };
@@ -39,12 +40,14 @@ export function weightedAxisScores(sims: Simulation[], begriffe: Fachbegriff[], 
   const out = {} as Record<Axis, number | null>;
   for (const a of AXES) out[a] = acc[a].length ? Math.round(acc[a].reduce((s, v) => s + v, 0) / acc[a].length) : null;
   if (begriffe.length) out.Fachbegriffe = Math.round((begriffe.filter((b) => b.srs.state === 'Gelernt').length / begriffe.length) * 100);
-  if (cases.length) out.Fachwissen = Math.round((cases.filter((c) => c.status === 'Maîtrisé').length / cases.length) * 100);
+  // `Case.status` est déprécié (ADR-0017 §4.1) : la couverture du corpus se lit
+  // sur `case_progress`, jamais sur un champ que plus personne n'écrit.
+  if (cases.length) out.Fachwissen = Math.round((cases.filter((c) => (progress.get(c.id) ?? blankProgress(c.id)).overall === 'solide').length / cases.length) * 100);
   return out;
 }
 
-export function computeReadiness(sims: Simulation[], cases: Case[], begriffe: Fachbegriff[]): Readiness {
-  const scores = weightedAxisScores(sims, begriffe, cases);
+export function computeReadiness(sims: Simulation[], cases: Case[], begriffe: Fachbegriff[], progress: Map<string, CaseProgress>): Readiness {
+  const scores = weightedAxisScores(sims, begriffe, cases, progress);
   const byAxis: AxisReadiness[] = AXES.map((a) => ({ axis: a, score: scores[a] ?? 0, tested: scores[a] !== null }));
 
   // Un axe non testé plafonne à 30 (potentiel inconnu → risque).
@@ -59,12 +62,14 @@ export function computeReadiness(sims: Simulation[], cases: Case[], begriffe: Fa
 
   const recommendations: string[] = [];
   const untested = byAxis.filter((a) => !a.tested);
-  for (const a of untested.slice(0, 2)) recommendations.push(`Aborde l'axe ${a.axis} — jamais travaillé.`);
+  for (const a of untested.slice(0, 2)) recommendations.push(`Aborde l'axe ${a.axis} — pas encore travaillé.`);
   if (weakest && weakest.score < 60) recommendations.push(`Renforce ${weakest.axis} (${weakest.score}%) — ton point faible.`);
   const dueNow = begriffe.filter((b) => b.srs.state !== 'Gelernt').length;
   if (dueNow > begriffe.length * 0.5) recommendations.push(`Consolide tes Fachbegriffe (${dueNow} non maîtrisés).`);
-  const untriedCases = cases.filter((c) => c.status === 'À faire').length;
-  if (untriedCases > 0) recommendations.push(`${untriedCases} cas jamais simulés — élargis ta couverture.`);
+  // « Jamais travaillé » est une information NEUTRE, jamais un défaut : la
+  // recommandation propose d'élargir, elle ne reproche pas une absence.
+  const untriedCases = cases.filter((c) => (progress.get(c.id) ?? blankProgress(c.id)).overall === 'vierge').length;
+  if (untriedCases > 0) recommendations.push(`${untriedCases} cas pas encore travaillés — de quoi élargir ta couverture.`);
   if (!recommendations.length) recommendations.push('Continue à consolider en mode Autonome pour verrouiller ton niveau.');
 
   return { global, verdict, byAxis, weakest, recommendations: recommendations.slice(0, 4) };
