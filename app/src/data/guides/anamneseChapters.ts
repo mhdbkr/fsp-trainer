@@ -71,7 +71,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Ort — Wo genau spüren Sie die Beschwerden?',
         probe: 'akt-ort',
         alts: ['Könnten Sie mir bitte genauer beschreiben, wo Sie die Schmerzen empfinden?'],
-        followUp: ['Zeigen Sie bitte mit dem Finger, wo es wehtut.'],
+        followUp: ['Können Sie mir zeigen, wo genau?'],
       },
       {
         text: 'Beginn — Seit wann haben Sie die Schmerzen? Kamen sie plötzlich oder schleichend?',
@@ -94,7 +94,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Ausstrahlung — Strahlen die Schmerzen irgendwohin aus?',
         probe: 'akt-ausstrahlung',
-        alts: ['Breiten sich die Schmerzen auf andere Körperregionen aus?', 'Sind die Schmerzen lokalisiert, diffus, oder wandern sie?'],
+        alts: ['Breiten sich die Schmerzen auf andere Körperregionen aus?', 'Bleiben die Schmerzen an einer Stelle, oder ziehen sie woandershin?'],
         followUp: ['Falls ja: Wohin genau?'],
       },
       {
@@ -175,7 +175,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?',
         probe: 'akt-allgemein-gewicht',
-        followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?', 'Und wie sind Ihr Appetit und Ihr Durst?'],
+        followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?', 'Und Ihr Appetit, Ihr Durst?'],
         parts: [
           { sucht: ['gewicht'], text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?', followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'] },
           { sucht: ['appetit', 'durst'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
@@ -201,19 +201,16 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann geht es Ihnen so? Kam das nach und nach oder gab es einen Moment, ab dem es anders war?', probe: 'akt-beginn' },
       {
-        text: 'Stimmung — Wie ist Ihre Stimmung im Moment, wenn Sie sie beschreiben sollen?',
+        text: 'Stimmung — Wie ist Ihre Stimmung im Moment?',
         probe: 'akt-psych-stimmung',
-        followUp: ['Gibt es Momente, in denen es besser ist?'],
       },
       {
         text: 'Antrieb — Fällt es Ihnen schwer, den Tag zu beginnen?',
         probe: 'akt-psych-antrieb',
-        followUp: ['Haben Sie noch Freude an Dingen, die Ihnen früher wichtig waren?'],
       },
       {
-        text: 'Schlaf — Wie schlafen Sie: Einschlafen, Durchschlafen, frühes Erwachen?',
+        text: 'Schlaf — Haben Sie Probleme beim Einschlafen, beim Durchschlafen, oder wachen Sie zu früh auf?',
         probe: 'akt-psych-schlaf',
-        followUp: ['Können Sie sich noch konzentrieren, zum Beispiel beim Lesen?'],
       },
       {
         text: 'Ereignis — Ist in letzter Zeit etwas passiert, das Sie belastet — ein Verlust, eine Trennung, Probleme bei der Arbeit?',
@@ -255,7 +252,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen?',
         probe: 'akt-neuro-lage',
-        followUp: ['Dreht sich dabei alles, oder ist es eher ein Schwanken?'],
+        followUp: ['Dreht sich alles, oder schwankt es?'],
       },
       { text: 'Verlauf — Kam es einmal, oder in Schüben? Ist es zwischendurch ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gab es einen Auslöser — Anstrengung, Aufregung, Schlafmangel, Alkohol, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -272,18 +269,18 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie Fieber oder fühlen sich krank? Kam es schlagartig oder langsam?', probe: 'akt-beginn' },
       {
-        text: 'Fieber — Haben Sie gemessen, und wie hoch?',
+        text: 'Fieber — Wie hoch war die Temperatur, als Sie gemessen haben?',
         probe: 'akt-infekt-fieber',
-        followUp: ['Zu welcher Tageszeit ist es am höchsten?'],
+        followUp: ['Wann ist das Fieber am höchsten?'],
       },
       {
         text: 'Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?',
         probe: 'akt-verlauf',
       },
       {
-        text: 'Kontakt und Reise — Waren Sie in letzter Zeit im Ausland?',
+        text: 'Kontakt und Reise — Waren Sie kürzlich im Ausland?',
         probe: 'akt-infekt-kontakt',
-        followUp: ['Hatten Sie Kontakt zu Kranken oder zu Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
+        followUp: ['Hatten Sie in dieser Zeit Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -333,12 +330,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Art — Was genau spüren Sie: ein Kribbeln, ein Zittern oder eine Schwäche?',
         probe: 'akt-nerven-art',
-        followUp: ['Wo genau spüren Sie das?', 'Auf einer Seite oder auf beiden?'],
+        followUp: ['Wo spüren Sie das?', 'Auf einer Seite oder auf beiden?'],
       },
       {
         text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
         probe: 'akt-nerven-alltag',
-        followUp: ['Und beim Gehen oder auf Treppen — sind Sie schon gestürzt?'],
+        followUp: ['Sind Sie dabei schon gestürzt?'],
       },
       {
         text: 'Tageszeit — Ist es nachts oder morgens schlimmer?',
@@ -364,12 +361,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         probe: 'akt-ausscheid-was',
       },
       {
-        text: 'Häufigkeit — Wie oft am Tag, und wie oft nachts?',
+        text: 'Häufigkeit — Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?',
         probe: 'akt-ausscheid-haeufigkeit',
-        followUp: ['Ist das mehr oder weniger als sonst?', 'Müssen Sie plötzlich, oder kommt es nur tröpfchenweise?'],
+        followUp: ['Mehr oder weniger als sonst?'],
       },
-      { text: 'Aussehen — Wie sieht es aus: Farbe, Blut, Schleim, schaumig, übel riechend?', probe: 'akt-ausscheid-aussehen' },
-      { text: 'Schlucken — Bleibt beim Essen etwas stecken: nur Festes, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
+      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
       { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert — Essen, Trinken, Bewegung, Medikamente?', probe: 'akt-einfluss' },
@@ -387,12 +384,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Ablauf — Wie fängt so ein Anfall an: schlagartig oder langsam?',
         probe: 'akt-anfall-ablauf',
-        followUp: ['Was spüren Sie währenddessen genau?', 'Und wie hört er wieder auf?'],
+        followUp: ['Was spüren Sie währenddessen?', 'Und wie hört er auf?'],
       },
       {
-        text: 'Dauer — Wie lange dauert ein Anfall — eher Sekunden oder eher Minuten?',
+        text: 'Dauer — Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden?',
         probe: 'akt-anfall-dauer',
-        followUp: ['Und wie oft kommt das vor?'],
+        followUp: ['Wie oft kommt das vor?'],
       },
       {
         text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',

@@ -356,7 +356,7 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     // mot pour mot (série 3, tri des 27 — le garde-fou a renversé mon premier
     // jet, qui reposait sur un grep faux).
     { id: 'akt-psych-antrieb', kapitel: 'aktuell', frage: 'Fällt es Ihnen schwer, den Tag zu beginnen?' },
-    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Wie schlafen Sie: Einschlafen, Durchschlafen, frühes Erwachen?', deepens: 'veg-schlaf' },
+    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Haben Sie Probleme beim Einschlafen, beim Durchschlafen, oder wachen Sie zu früh auf?', deepens: 'veg-schlaf' },
     { id: 'akt-psych-sicherheit', kapitel: 'aktuell', frage: 'Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?' },
   ],
   neurologisch: [
@@ -365,8 +365,8 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-neuro-lage', kapitel: 'aktuell', frage: 'Wird es schlimmer beim Kopfdrehen, Hinlegen oder Aufstehen?' },
   ],
   infekt: [
-    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Haben Sie gemessen, und wie hoch?' },
-    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie in letzter Zeit im Ausland?' },
+    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Wie hoch war die Temperatur, als Sie gemessen haben?' },
+    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie kürzlich im Ausland?' },
     { id: 'akt-infekt-herd', kapitel: 'aktuell', frage: 'Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, Ausschlag, Wunde?' },
   ],
   veraenderung: [
@@ -381,17 +381,17 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   ],
   ausscheidung: [
     { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl?' },
-    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft am Tag, und wie oft nachts?' },
-    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Wie sieht es aus: Farbe, Blut, Schleim, schaumig?' },
+    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?' },
+    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?' },
     // L'aspect d'une excrétion et la déglutition ne partagent ni organe ni
     // diagnostic différentiel ; et « nur Festes, oder auch Flüssiges » est la
     // question qui tranche sténose mécanique ↔ trouble moteur. Aucune autre
     // sonde ne la pose (série 3, tri des 27 — exemple de la direction).
-    { id: 'akt-ausscheid-schlucken', kapitel: 'aktuell', frage: 'Bleibt beim Essen etwas stecken: nur Festes, oder auch Flüssiges?' },
+    { id: 'akt-ausscheid-schlucken', kapitel: 'aktuell', frage: 'Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?' },
   ],
   anfall: [
     { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an: schlagartig oder langsam?' },
-    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall — eher Sekunden oder eher Minuten?' },
+    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden?' },
     { id: 'akt-anfall-bewusstsein', kapitel: 'aktuell', frage: 'Waren Sie dabei bewusstlos oder ist Ihnen schwarz vor Augen geworden?' },
   ],
 };
