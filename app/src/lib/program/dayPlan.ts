@@ -329,10 +329,11 @@ export async function replanifier(date = dayKey(clockNow())): Promise<DayPlan | 
 
   const tasks = [...done, ...fresh];
   const next: DayPlan = { ...plan, tasks, replannedAt: at };
-  await db.day_plans.put(next);
+  // Événement d'abord, horodaté au geste : `replannedAt` reconstruit = rendu.
   const { syncQueue } = await import('@/lib/sync/queue');
-  await syncQueue.push({ type: 'plan.replanned', subject_id: date, payload: { tasks, reason: 'manuel' } })
+  await syncQueue.push({ type: 'plan.replanned', subject_id: date, occurred_at: new Date(at).toISOString(), payload: { tasks, reason: 'manuel' } })
     .catch((e) => console.warn('[sync]', e));
+  await db.day_plans.put(next);
   return next;
 }
 
