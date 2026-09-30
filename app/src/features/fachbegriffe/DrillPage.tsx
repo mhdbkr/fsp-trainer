@@ -121,8 +121,10 @@ export function DrillPage() {
     const showAnchor = anchor && anchor.caseId !== caseId;
     const emptyDeck = !!deck && !caseId && pool.length === 0;
     const tomorrowNew = Math.min(newInPool - qc.fresh, ctx.daily.newPerDay);
-    // L'exemple du sens vient de la première carte de la file (jamais un terme codé en dur).
-    const first = queue[0];
+    // L'exemple ne cite JAMAIS queue[0] (file déterministe : ce serait la réponse) : un terme du
+    // pool hors file du jour (avec Bedeutung), sinon la dernière carte de la file si > 1, sinon rien.
+    // File pas encore bâtie (l'effet suit le premier rendu) : pas d'exemple, sinon il citerait la future queue[0].
+    const first = !queue.length ? undefined : pool.find((b) => !queue.some((q) => q.id === b.id) && b.translationSimple) ?? (queue.length > 1 ? queue[queue.length - 1] : undefined);
     const example = (d: CardDirection) => (!first ? '' : d === 'term2simple' ? `${first.term} → ?` : first.translationSimple ? `${first.translationSimple} → ?` : '');
     // Prochain terme dû : un terme déjà vu qui revient, ou demain si le budget retient des nouveaux.
     const tomorrow = new Date(); tomorrow.setHours(24, 0, 0, 0);

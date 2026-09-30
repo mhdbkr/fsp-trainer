@@ -217,12 +217,34 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect(screen.queryByText(/demain/)).toBeNull();   // 2 nouveaux ≤ budget 10 : il ne limite pas
     expect(start).toBeTruthy();
   });
-  it('exemple du sens = la PREMIÈRE carte de la file (G1-1)', async () => {
+  it('l\'exemple ne cite jamais queue[0] : un terme du pool hors file (G1-25)', async () => {
+    await db.fachbegriffe.clear(); await db.favorites.clear();
+    await db.fachbegriffe.bulkPut([
+      { id: 'fb-h', term: 'Hepar', translationSimple: 'Leber', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() },
+      { id: 'fb-r', term: 'Ren', translationSimple: 'Niere', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() },
+    ] as never);
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1 });   // file du jour = 1 carte
+    const spy = vi.spyOn(drillQueueModule, 'buildDrillQueue');
+    renderAt('/fachbegriffe/drill');
+    await waitFor(() => expect(screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).textContent).toContain('→ ?'), { timeout: 4000 });   // file bâtie
+    const q0 = (spy.mock.results[spy.mock.results.length - 1].value as { term: string; translationSimple: string }[])[0];
+    const other = q0.term === 'Hepar' ? { term: 'Ren', simple: 'Niere' } : { term: 'Hepar', simple: 'Leber' };
+    const t2s = screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).textContent!;
+    const s2t = screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ }).textContent!;
+    expect(t2s).toContain(`${other.term} → ?`); expect(s2t).toContain(`${other.simple} → ?`);
+    expect(t2s).not.toContain(q0.term); expect(s2t).not.toContain(q0.translationSimple);
+    spy.mockRestore();
+  });
+  it('un seul terme, file d\'une carte : pas d\'exemple (jamais la réponse) (G1-25)', async () => {
     await db.fachbegriffe.clear(); await db.favorites.clear();
     await db.fachbegriffe.put({ id: 'fb-h', term: 'Hepar', translationSimple: 'Leber', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() } as never);
+    const spy = vi.spyOn(drillQueueModule, 'buildDrillQueue');
     renderAt('/fachbegriffe/drill');
-    expect((await screen.findByRole('button', { name: /Fachbegriff → Bedeutung/ })).textContent).toContain('Hepar → ?');
-    expect(screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ }).textContent).toContain('Leber → ?');
+    const t2s = await screen.findByRole('button', { name: /Fachbegriff → Bedeutung/ });
+    await waitFor(() => expect(spy.mock.results.some((r) => (r.value as unknown[]).length === 1)).toBe(true), { timeout: 4000 });   // file bâtie (1 carte)
+    await new Promise((r) => setTimeout(r, 50));
+    spy.mockRestore();
+    expect(t2s.textContent).not.toContain('Hepar'); expect(t2s.textContent).not.toContain('→ ?');
   });
   it('?specialty= : la spécialité est le titre, pas de puce « Priorité » (G1-5)', async () => {
     renderAt('/fachbegriffe/drill?specialty=Kardiologie');
