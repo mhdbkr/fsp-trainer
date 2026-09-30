@@ -17,15 +17,15 @@
 import { useMemo, useRef, useState } from 'react';
 import {
   addDays, addMonths, addWeeks, eachDayOfInterval, endOfMonth, endOfWeek, format,
-  isSameDay, isSameMonth, parseISO, startOfMonth, startOfWeek,
+  isSameMonth, parseISO, startOfMonth, startOfWeek,
 } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useCases, useProgramConfig } from '@/hooks/useData';
-import { useCaseProgress, useDayPlans, useModusRefuse, useTrainingEvents } from './useProgram';
+import { useCaseProgress, useDayPlans, useModusRefuse, useProjectedDays, useTrainingEvents } from './useProgram';
 import { modusAProposer, modusOf, observeModus, planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
 import { refuserModus, setIntensity, setModus } from '@/lib/programAdjust';
 import { todayKey } from '@/lib/clock';
-import type { DayPlan, Fortschrittsmodus, Intensity, TaskKind } from '@/db/types';
+import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
 import { TaskLine, TASK_META } from './TaskLine';
 import { CoverageField } from './CoverageField';
@@ -52,6 +52,9 @@ export function ProgramPage() {
   };
 
   const byDate = useMemo(() => new Map((plans ?? []).map((p) => [p.date, p])), [plans]);
+  // I6 : la projection NON FIGÉE des jours à venir visibles (calendrier + jour choisi).
+  const calDates = useMemo(() => [...visibleDates(view, anchor), selected], [view, anchor, selected]);
+  const projected = useProjectedDays(calDates) ?? NO_PROJECTION;
   const taper = useMemo(() => (config ? taperDays(config) : new Set<string>()), [config]);
 
   if (config === undefined || !cases || !progress || !plans || !events || refuse === undefined) return <div className="text-slate-400">Chargement…</div>;
@@ -94,13 +97,13 @@ export function ProgramPage() {
       />
 
       <div ref={dayRef} className="scroll-mt-24">
-        <DaySurface date={selected} plan={byDate.get(selected) ?? null} isTaper={taper.has(selected)} onPick={focusDay} />
+        <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} />
       </div>
 
       <CoverageField cases={cases} progress={progress} />
 
       <Calendar view={view} setView={setView} anchor={anchor} setAnchor={setAnchor}
-        byDate={byDate} selected={selected} taper={taper} examISO={format(end, 'yyyy-MM-dd')}
+        byDate={byDate} projected={projected} selected={selected} taper={taper} examISO={format(end, 'yyyy-MM-dd')}
         onFocusDay={focusDay} onZoomToDay={(d) => { setView('semaine'); setAnchor(d); setSelected(d); }} />
     </div>
   );
@@ -108,8 +111,19 @@ export function ProgramPage() {
 
 // --- La surface du jour ------------------------------------------------------
 
-function DaySurface({ date, plan, isTaper, onPick }: {
-  date: string; plan: DayPlan | null; isTaper: boolean; onPick: (d: string) => void;
+const NO_PROJECTION = new Map<string, TaskInstance[]>();
+
+/** Les jours affichés par le calendrier — ceux dont on demande la projection. */
+function visibleDates(view: View, anchor: string): string[] {
+  const a = parseISO(anchor);
+  const days = view === 'semaine'
+    ? Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(a, { weekStartsOn: 1 }), i))
+    : eachDayOfInterval({ start: startOfWeek(startOfMonth(a), { weekStartsOn: 1 }), end: endOfWeek(endOfMonth(a), { weekStartsOn: 1 }) });
+  return days.map((d) => format(d, 'yyyy-MM-dd'));
+}
+
+function DaySurface({ date, plan, projection, isTaper, onPick }: {
+  date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void;
 }) {
   const d = parseISO(date);
   const isToday = date === todayKey();
@@ -139,7 +153,16 @@ function DaySurface({ date, plan, isTaper, onPick }: {
       </div>
 
       <div className="p-4">
-        {!plan ? (
+        {!plan && projection?.length ? (
+          <>
+            <p className="mb-3 rounded-lg border border-dashed border-slate-300 px-3 py-2 text-center text-[12px] text-slate-500 dark:border-slate-700 dark:text-slate-400">
+              Projection, non figée : ce jour sera figé à sa première ouverture et peut changer d'ici là.
+            </p>
+            <div className="space-y-2 opacity-80">
+              {projection.map((t) => <TaskLine key={t.id} task={t} readOnly />)}
+            </div>
+          </>
+        ) : !plan ? (
           <p className="py-6 text-center text-sm text-slate-400">
             {isPast
               // Un jour sans plan est un jour où l'app n'a pas été ouverte. Il
@@ -264,7 +287,7 @@ function IntensitySwitch({ value, onChange }: { value: Intensity; onChange: (i: 
 
 interface CalProps {
   view: View; setView: (v: View) => void; anchor: string; setAnchor: (d: string) => void;
-  byDate: Map<string, DayPlan>; selected: string; taper: Set<string>; examISO: string;
+  byDate: Map<string, DayPlan>; projected: Map<string, TaskInstance[]>; selected: string; taper: Set<string>; examISO: string;
   onFocusDay: (d: string) => void; onZoomToDay: (d: string) => void;
 }
 
@@ -293,7 +316,7 @@ function Calendar(p: CalProps) {
       </div>
       {p.view === 'semaine' ? <WeekView {...p} anchor={a} /> : <MonthView {...p} anchor={a} />}
       <p className="mt-3 text-center text-[11px] text-slate-400">
-        Un jour se remplit à sa première ouverture — les jours à venir sont volontairement vides.
+        Un jour se fige à sa première ouverture. Les jours à venir montrent une projection, non figée, en pointillé.
       </p>
     </section>
   );
@@ -301,7 +324,15 @@ function Calendar(p: CalProps) {
 
 /** Deux dimensions dans 1,5 px étaient illisibles (`LoadBar`, audit §8) : une
  *  seule barre d'AVANCEMENT, et le détail des natures en pastilles. */
-function DayCell({ plan, kinds }: { plan?: DayPlan; kinds: TaskKind[] }) {
+function DayCell({ plan, kinds, projection }: { plan?: DayPlan; kinds: TaskKind[]; projection?: TaskInstance[] }) {
+  if (!plan && projection?.length) {
+    return (
+      <div className="flex items-center justify-between rounded-md border border-dashed border-slate-300 px-1.5 py-1 dark:border-slate-700" title="Projection, non figée">
+        <span className="text-[10px] text-slate-400">projection</span>
+        <span className="text-[11px] tnum text-slate-400">≈ {projection.reduce((m, t) => m + t.estMin, 0)} min</span>
+      </div>
+    );
+  }
   if (!plan || plan.tasks.length === 0) return null;
   const { done, total } = planProgress(plan);
   return (
@@ -323,7 +354,7 @@ function DayCell({ plan, kinds }: { plan?: DayPlan; kinds: TaskKind[] }) {
   );
 }
 
-function WeekView({ anchor, byDate, selected, taper, onFocusDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
+function WeekView({ anchor, byDate, projected, selected, taper, onFocusDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
   const start = startOfWeek(anchor, { weekStartsOn: 1 });
   return (
     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -333,12 +364,12 @@ function WeekView({ anchor, byDate, selected, taper, onFocusDay }: Omit<CalProps
         const kinds = [...new Set((plan?.tasks ?? []).map((t) => t.kind))];
         return (
           <button key={k} type="button" onClick={() => onFocusDay(k)}
-            className={`card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400 ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : isSameDay(date, new Date()) ? 'ring-1 ring-brand-300' : ''}`}>
+            className={`card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400 ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === todayKey() ? 'ring-1 ring-brand-300' : ''}`}>
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold capitalize">{format(date, 'EEE d', { locale: fr })}</div>
               {taper.has(k) && <Icon name="target" className="h-3.5 w-3.5 text-signal-500" title="Dernière ligne droite" />}
             </div>
-            <div className="mt-2"><DayCell plan={plan} kinds={kinds} /></div>
+            <div className="mt-2"><DayCell plan={plan} kinds={kinds} projection={projected.get(k)} /></div>
           </button>
         );
       })}
@@ -346,7 +377,7 @@ function WeekView({ anchor, byDate, selected, taper, onFocusDay }: Omit<CalProps
   );
 }
 
-function MonthView({ anchor, byDate, selected, taper, examISO, onZoomToDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
+function MonthView({ anchor, byDate, projected, selected, taper, examISO, onZoomToDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
   const monthStart = startOfMonth(anchor);
   const days = eachDayOfInterval({
     start: startOfWeek(monthStart, { weekStartsOn: 1 }),
@@ -365,7 +396,7 @@ function MonthView({ anchor, byDate, selected, taper, examISO, onZoomToDay }: Om
           return (
             <button key={k} type="button" onClick={() => onZoomToDay(k)}
               className={`flex min-h-[58px] flex-col rounded-lg border p-1.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400
-                ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : isSameDay(date, new Date()) ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : taper.has(k) ? 'border-signal-200 dark:border-signal-900/40' : 'border-slate-100 dark:border-slate-800'}
+                ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === todayKey() ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : taper.has(k) ? 'border-signal-200 dark:border-signal-900/40' : 'border-slate-100 dark:border-slate-800'}
                 ${isSameMonth(date, monthStart) ? '' : 'opacity-40'}`}>
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-semibold">{format(date, 'd')}</span>
@@ -373,6 +404,9 @@ function MonthView({ anchor, byDate, selected, taper, examISO, onZoomToDay }: Om
                   ? <Icon name="flag" className="h-3.5 w-3.5 text-signal-500" title="Jour de l'examen" />
                   : total > 0 && done === total ? <Icon name="check" className="h-3 w-3 text-emerald-500" /> : null}
               </div>
+              {total === 0 && projected.get(k) && (
+                <div className="mt-auto h-1 w-full rounded-full border border-dashed border-slate-300 dark:border-slate-700" title="Projection, non figée" />
+              )}
               {total > 0 && (
                 <div className="mt-auto">
                   <div className="h-1 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
