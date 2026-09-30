@@ -25,6 +25,7 @@ export {
   planProgress, programEnd, projectedDay, replanifier, sessionDuJour,
   specialiteLaPlusEnDette, taperDays, teilLePlusEnDette,
 } from './dayPlan';
+export { observeModus, modusAProposer, MIN_SEANCES } from './modus';
 export {
   fraicheur, freq, pickWithDiversity, pourquoiAujourdhui, pressionExamen,
   rankCandidates, scoreCase, urgence, type Scored, type SelectContext,
