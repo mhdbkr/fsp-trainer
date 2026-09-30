@@ -22,11 +22,16 @@ export const LAUF_AKTIV_KEY = 'lauf.aktiv';
 /** Au-delà, un Lauf laissé ouvert est abandonné (§3.1). */
 export const LAUF_MAX_ALTER_MS = 24 * 60 * 60 * 1000;
 
+/** LA porte unique de la reprise : `bereinigeAltenLauf` et donc `useLauf` y
+ *  passent tous les deux. C'est ici que `restauriere` doit s'appliquer — tant
+ *  qu'elle n'était appelée que par son propre test, un Lauf écrit par une
+ *  version antérieure revenait brut, ids de checklist legacy compris, et le
+ *  runner lisait `.length` sur des champs absents. */
 export async function ladeAktivenLauf(): Promise<Lauf | null> {
   const l = await getMeta<Lauf | null>(LAUF_AKTIV_KEY, null);
   if (!l || typeof l.id !== 'string' || !l.caseId) return null;
   if (l.zustand === 'gespeichert') return null;
-  return l;
+  return restauriere(l);
 }
 
 // Les écritures de `lauf.aktiv` sont SÉRIALISÉES par cette chaîne.

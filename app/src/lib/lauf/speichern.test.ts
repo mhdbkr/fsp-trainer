@@ -191,6 +191,34 @@ describe('INV-23 — un Lauf sérialisé puis restauré est structurellement ég
     expect(l.zustand).toBe('vorbereitung');
     expect(l.teileGespielt).toEqual([]);
   });
+
+  // `restauriere` ne vaut que si la REPRISE y passe. Tant qu'elle n'était
+  // appelée que par son propre test, un Lauf écrit par une version antérieure
+  // revenait brut : champs manquants et ids de checklist legacy intacts.
+  it('la reprise passe par restauriere : un Lauf legacy revient complet et traduit', async () => {
+    await db.meta.put({
+      key: LAUF_AKTIV_KEY,
+      value: {
+        id: 'legacy-1', caseId: 'c1', zustand: 'laufend', aktuellerTeil: 'anamnese',
+        checkliste: [{ id: 'cl-3', label: 'Vegetative Anamnese abgefragt', checked: true }],
+        // `geplanteTeile`, `sekundenProTeil`, `entwurf`, `teileGespielt`… absents
+      },
+    } as never);
+
+    const l = await ladeAktivenLauf();
+    expect(l).not.toBeNull();
+    expect(l!.checkliste[0].id).toBe('anam-vegetativ');
+    expect(l!.checkliste[0].checked).toBe(true);
+    // Les champs absents reprennent leur valeur neutre — sans quoi le runner
+    // lit `.length` et `.filter` sur `undefined` au premier rendu.
+    expect(l!.geplanteTeile).toEqual([]);
+    expect(l!.teileGespielt).toEqual([]);
+    expect(l!.sekundenProTeil).toEqual({});
+    expect(l!.entwurf).toEqual({});
+    // Et ce qui était écrit reste écrit.
+    expect(l!.zustand).toBe('laufend');
+    expect(l!.aktuellerTeil).toBe('anamnese');
+  });
 });
 
 describe('§3.1 — un Lauf abandonné depuis plus de 24 h', () => {
