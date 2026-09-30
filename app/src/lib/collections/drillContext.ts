@@ -5,7 +5,7 @@ import type { RelevanceContext } from './relevance';
 import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';
 import { isNew } from '@/lib/srs';
 import { workingDaysUntilExam } from '@/lib/program';
-import { dayKey } from '@/lib/clock';
+import { dayKey, nowDate } from '@/lib/clock';
 import { getSrsSettings, effectiveDaily, type SrsSettings } from '@/lib/srsSettings';
 import { usePendingDeletions } from './pendingDeletion';
 
@@ -29,7 +29,7 @@ export function todayProgramContext(plan: DayPlan | undefined | null): { todayCa
   return { todayCaseIds: [...new Set(sims.map((t) => t.caseId!))], todaySpecialty: sims[0]?.specialty };
 }
 
-export async function loadDrillContext(now = new Date()): Promise<DrillContext> {
+export async function loadDrillContext(now = nowDate()): Promise<DrillContext> {
   const [favorites, deckTerms, allSims, cases, begriffe, personalTerms, events, config, settings] = await Promise.all([
     db.favorites.toArray(),
     db.deck_terms.toArray(),
