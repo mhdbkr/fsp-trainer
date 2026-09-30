@@ -48,3 +48,27 @@ test('socle vide → une annotation `relu` annulée rouvre la porte', { timeout:
   assert.equal(r.status, 1, 'une relecture annulée doit rouvrir la porte');
   assert.match(r.stdout, /case-lyme/);
 });
+
+// Revue série 3, M4 : `relu: true` éteint `checkTrameSymptoms` pour une
+// question. Une annotation ajoutée sans relecture ne doit pas passer en
+// silence : leur nombre est un compteur du socle, qui ne remonte jamais.
+test('M4 — une annotation `relu` de plus fait échouer la porte', { timeout: 300_000 }, () => {
+  const r = sb.mutate(cases,
+    "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },",
+    "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell', relu: true },",
+    gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /relu/);
+});
+
+test('M4 — `--bless` refuse de graver une annotation `relu` de plus', { timeout: 300_000 }, () => {
+  const before = sb.read(baseline);
+  sb.mutate(baseline, '"count"', '"count"', () => {
+    const r = sb.mutate(cases,
+      "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },",
+      "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell', relu: true },",
+      () => sb.run('checkTrameSymptoms.mjs', '--bless'));
+    assert.equal(r.status, 1);
+    assert.equal(sb.read(baseline), before);
+  });
+});
