@@ -512,6 +512,16 @@ h1, h2, h3 {
    `app-chrome` (la topbar) porte son propre nom et ne bouge pas : ce qui est
    stable à l'écran doit rester stable, sinon la navigation « clignote » entière.
    ───────────────────────────────────────────────────────────────────────── */
+/* LE NOM N'EXISTE QUE PENDANT LA TRANSITION (fix-s3 B1). Posé en permanence
+   sur le wrapper (`style={{ viewTransitionName }}`), il en faisait une
+   « backdrop root » : le `backdrop-filter` des descendants (`.card`, `.input`,
+   `.dim-tag`, `.btn-glass`) n'échantillonnait plus le fond du `body`, la grille
+   traversait les cartes en lignes nettes. `getComputedStyle().backdropFilter`
+   renvoyait toujours `blur(16px)` : la valeur calculée ne prouve rien, seul le
+   rendu compte — la sonde `lead-s3-primitives.verify.mjs` mesure les pixels.
+   `:active-view-transition` ne vaut qu'entre `startViewTransition` et la fin :
+   le nom est lu à la capture, puis disparaît, et le flou revient. */
+html:active-view-transition .vt-page { view-transition-name: page; }
 @keyframes vt-page-out { to { opacity: 0; transform: translateY(-6px); } }
 @keyframes vt-page-in { from { opacity: 0; transform: translateY(10px); } }
 

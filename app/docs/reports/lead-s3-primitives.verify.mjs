@@ -11,7 +11,7 @@ import pw from '/opt/homebrew/lib/node_modules/@playwright/cli/node_modules/play
 const { chromium } = pw;
 import fs from 'node:fs';
 
-const BASE = 'http://localhost:4317';
+const BASE = process.env.BASE ?? 'http://localhost:4317';
 const OUT = process.argv[2];
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -73,6 +73,11 @@ for (const vp of VIEWPORTS) {
     page.on('pageerror', (e) => errs.push(String(e)));
     page.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); });
     page.on('response', (r) => { if (r.status() >= 400) errs.push(`HTTP ${r.status()} ${r.url()}`); });
+    // Les requêtes que la sonde coupe ELLE-MÊME (fonte rsms.me) remontent en
+    // console « net::ERR_FAILED » sans URL : on les compte pour les décompter,
+    // plutôt que de lire un faux KO à chaque passage.
+    let selfAborted = 0;
+    page.on('requestfailed', (r) => { if (/rsms\.me/.test(r.url())) selfAborted++; else errs.push(`FAILED ${r.url()} ${r.failure()?.errorText}`); });
 
     const tag = `${theme}-${vp.name}`;
     report.measures[tag] = {};
@@ -84,6 +89,17 @@ for (const vp of VIEWPORTS) {
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     // Premier chargement a froid : Dexie s'amorce. On attend le CONTENU, pas
     // un delai — sinon la premiere combinaison mesure une page vide.
+    // Le Supabase local (partagé, propriété de `main`) renvoie par moments un
+    // 503 au premier `content?since=0` : l'app affiche alors sa carte « besoin
+    // d'une connexion » — qui est une `.card`, donc attendre `.card` ne suffit
+    // pas. On attend la NAVIGATION, et on use du bouton « Réessayer » de l'app.
+    for (let i = 0; i < 4; i++) {
+      await page.waitForSelector('a[href$="#/fachbegriffe"], button:has-text("Réessayer")', { timeout: 60000 }).catch(() => {});
+      const retry = page.locator('button:has-text("Réessayer")');
+      if (!(await retry.count())) break;
+      await page.waitForTimeout(1500);
+      await retry.first().click().catch(() => {});
+    }
     await page.waitForSelector('.card', { timeout: 60000 }).catch(() => {});
     await page.waitForTimeout(800);
 
@@ -124,6 +140,73 @@ for (const vp of VIEWPORTS) {
     };
 
     await scanShadows('accueil');
+
+    // ── FLOU RENDU, mesuré en PIXELS (fix-s3 B1) ─────────────────────────────
+    // `getComputedStyle().backdropFilter` dit `blur(16px)` même quand rien ne
+    // floute : un ancêtre portant `view-transition-name` devient une « backdrop
+    // root » et la carte n'échantillonne plus le fond du body. Seul le rendu
+    // tranche. On vide la carte de son contenu (visibility, pas display : la
+    // boîte ne bouge pas), on capture un recadrage intérieur, et on mesure
+    // l'écart-type de luminance : la grille du body y passe NETTE sans flou,
+    // lissée avec. Témoin : le même recadrage avec le nom forcé sur l'ancêtre.
+    const lumStd = async (sel) => {
+      const box = await page.evaluate((s) => {
+        const el = document.querySelector(s);
+        if (!el) return null;
+        el.classList.add('probe-hollow');
+        const r = el.getBoundingClientRect();
+        const m = 14; // hors bordure, hors rayon
+        return { x: r.left + m, y: r.top + m, width: Math.min(r.width - 2 * m, 320), height: Math.min(r.height - 2 * m, 160) };
+      }, sel);
+      if (!box || box.width < 20 || box.height < 20) return null;
+      await page.waitForTimeout(120);
+      const b64 = (await page.screenshot({ clip: box })).toString('base64');
+      return page.evaluate(async (data) => {
+        const img = await createImageBitmap(await (await fetch('data:image/png;base64,' + data)).blob());
+        const c = new OffscreenCanvas(img.width, img.height);
+        const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+        const px = g.getImageData(0, 0, img.width, img.height).data;
+        const w = img.width, h = img.height;
+        const L = new Float64Array(w * h);
+        let sum = 0, sq = 0;
+        for (let i = 0; i < w * h; i++) {
+          const l = 0.2126 * px[4 * i] + 0.7152 * px[4 * i + 1] + 0.0722 * px[4 * i + 2];
+          L[i] = l; sum += l; sq += l * l;
+        }
+        const mean = sum / (w * h);
+        // Énergie de gradient : moyenne des |Δ| entre voisins. Un flou tue
+        // d'abord les hautes fréquences (les lignes de la grille) ; l'écart-type
+        // seul garde aussi la pente lente des radiaux, qui survit au flou.
+        let gs = 0, gn = 0;
+        for (let y = 0; y < h - 1; y++) for (let x = 0; x < w - 1; x++) {
+          const i = y * w + x;
+          gs += Math.abs(L[i + 1] - L[i]) + Math.abs(L[i + w] - L[i]); gn += 2;
+        }
+        return { std: Math.sqrt(Math.max(0, sq / (w * h) - mean * mean)), grad: gs / gn };
+      }, b64);
+    };
+    await page.addStyleTag({ content: '.probe-hollow > * { visibility: hidden !important; }' });
+    // `expect` : 'blur' → au repos le flou doit lisser la grille nettement
+    // mieux que le témoin ; 'same' → le nom ne doit RIEN changer au rendu.
+    const blurCheck = async (where, sel, holder, name, expect = 'blur') => {
+      // Une carte dont la boîte coupe le bord du viewport ne se capture pas entière.
+      await page.evaluate((s) => document.querySelector(s)?.scrollIntoView({ block: 'center', behavior: 'instant' }), sel);
+      await page.waitForTimeout(200);
+      const atRest = await lumStd(sel);
+      await page.evaluate(([h, n]) => { const el = document.querySelector(h); if (el) el.style.viewTransitionName = n; }, [holder, name]);
+      const forced = await lumStd(sel);
+      await page.evaluate(([h, s]) => { const el = document.querySelector(h); if (el) el.style.viewTransitionName = ''; document.querySelector(s)?.classList.remove('probe-hollow'); }, [holder, sel]);
+      report.measures[tag][`blur ${where}`] = { atRest, forced };
+      if (atRest == null || forced == null) { fail(`${tag} ${where} : recadrage impossible (${sel})`); return; }
+      const ratio = atRest.grad / forced.grad;
+      const msg = `${tag} ${where} : gradient de luminance ${atRest.grad.toFixed(3)} au repos contre ${forced.grad.toFixed(3)} avec \`view-transition-name: ${name}\` sur ${holder} (ratio ${ratio.toFixed(2)}) · écart-type ${atRest.std.toFixed(3)} contre ${forced.std.toFixed(3)}`;
+      if (expect === 'same') {
+        if (Math.abs(ratio - 1) < 0.1) pass(msg + ' — le nom est sans effet sur ce flou');
+        else fail(msg + ' — le nom change le rendu de ce verre');
+      } else if (ratio < 0.7) pass(msg);
+      else fail(msg + ' — la surface ne floute pas le fond');
+    };
+    await blurCheck('.card (accueil)', '.card', '.vt-page', 'page');
 
     const alpha = (c) => (c.startsWith('rgba(') ? parseFloat(c.slice(5).split(',')[3]) : 1);
     for (const n of ['glass', 'card']) {
@@ -192,10 +275,43 @@ for (const vp of VIEWPORTS) {
     await shoot('#probe-btn-glass', 'btn-glass');
     await page.evaluate(() => document.getElementById('probe-btn-glass')?.remove());
 
-    // ── Le drill : `.seg` + le retournement.
+    // ── Le drill : `.seg` + le retournement. On y va par un VRAI lien du
+    //    routeur (`viewTransition`), pas par le hash : c'est la seule façon de
+    //    prouver que la transition de page s'anime encore depuis que le nom
+    //    n'est posé que pendant elle (fix-s3 B1).
+    const vt = await page.evaluate(async () => {
+      const a = [...document.querySelectorAll('a[href$="#/fachbegriffe"], a[href$="/fachbegriffe"]')][0];
+      if (!a) return { err: 'aucun lien /fachbegriffe' };
+      const named = new Set();
+      a.click();
+      const t0 = performance.now();
+      while (performance.now() - t0 < 400) {
+        await new Promise((r) => requestAnimationFrame(r));
+        for (const an of document.getAnimations()) if (an.effect?.pseudoElement) named.add(an.effect.pseudoElement + ':' + an.animationName);
+        if (document.documentElement.matches(':active-view-transition')) named.add('html:active-view-transition');
+      }
+      // Le nom doit disparaître avec la transition — sinon on a déplacé le
+      // défaut au lieu de le corriger. On attend la fin réelle.
+      const t1 = performance.now();
+      while (document.documentElement.matches(':active-view-transition') && performance.now() - t1 < 3000) {
+        await new Promise((r) => requestAnimationFrame(r));
+      }
+      const after = getComputedStyle(document.querySelector('.vt-page')).viewTransitionName;
+      return { named: [...named], after };
+    });
+    report.measures[tag].pageTransition = vt;
+    if (vt.err) fail(`${tag} transition de page : ${vt.err}`);
+    else if (vt.named.some((x) => /view-transition-new\(page\):vt-page-in/.test(x)) && vt.named.some((x) => /view-transition-old\(page\):vt-page-out/.test(x)))
+      pass(`${tag} transition de page : vt-page-out + vt-page-in joués sur ::view-transition-*(page) ; nom au repos après coup « ${vt.after} »`);
+    else fail(`${tag} transition de page : animations vues ${JSON.stringify(vt.named)}`);
+    if (vt.after && vt.after !== 'none') fail(`${tag} : le nom « ${vt.after} » reste posé après la transition`);
     await go('/fachbegriffe/drill');
     await page.waitForSelector('.seg', { timeout: 30000 }).catch(() => {});
     await page.waitForTimeout(600);
+    // La barre du haut est elle-même du verre et porte `app-chrome` en permanence.
+    // Elle garde son nom en permanence : la sonde prouve que, sur SON flou à
+    // elle, ce nom ne change rien (une backdrop root borne ses DESCENDANTS).
+    await blurCheck('.glass (barre du haut, drill)', '.glass.sticky', '.glass.sticky', 'none', 'same');
     const seg = await page.evaluate(() => {
       const el = document.querySelector('.seg');
       if (!el) return null;
@@ -238,7 +354,8 @@ for (const vp of VIEWPORTS) {
     await shoot('main', 'drill');
 
     const httpErrs = errs.filter((e) => /^HTTP/.test(e));
-    const jsErrs = errs.filter((e) => !/^HTTP/.test(e));
+    let skip = selfAborted;
+    const jsErrs = errs.filter((e) => !/^HTTP/.test(e)).filter((e) => !(/net::ERR_FAILED/.test(e) && !/^FAILED/.test(e) && skip-- > 0));
     if (jsErrs.length) fail(`${tag} : ${jsErrs.length} erreur(s) JS — ${jsErrs.slice(0, 2).join(' || ')}`);
     else pass(`${tag} : aucune erreur JS`);
     if (httpErrs.length) fail(`${tag} : ${httpErrs.length} requête(s) en échec — ${httpErrs.slice(0, 2).join(' || ')}`);

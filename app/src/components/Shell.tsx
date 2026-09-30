@@ -56,10 +56,13 @@ export function Shell() {
           navigation. Le navigateur garde la page sortante à l'écran pendant que
           l'entrante monte — il y a enfin un état de sortie, pour zéro octet de
           dépendance. Les règles ::view-transition-* et leur neutralisation sous
-          `prefers-reduced-motion` sont dans index.css. */}
+          `prefers-reduced-motion` sont dans index.css.
+          Le nom n'est posé que PENDANT la transition (`.vt-page`, index.css) :
+          porté en permanence, il faisait du wrapper une « backdrop root » et
+          aucune `.card` ne floutait plus le fond (fix-s3 B1). */}
       <main ref={mainRef} onScroll={onMainScroll} className="flex-1 overflow-y-auto">
         <TopBar />
-        <div style={{ viewTransitionName: 'page' }} className="mx-auto max-w-6xl p-4 md:p-8">
+        <div className="vt-page mx-auto max-w-6xl p-4 md:p-8">
           <Outlet />
         </div>
       </main>
