@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within, act } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { useUi } from '@/store/ui';
@@ -131,6 +131,26 @@ describe('GlossaryDrawer (F4a)', () => {
     fireEvent.keyDown(document, { key: 'Escape' });
     await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());
     expect(document.querySelectorAll('.fixed.inset-0').length).toBe(0);
+  });
+  it('dialogue nommé par le terme : focus à l\'ouverture, rendu à l\'ouvreur à la fermeture (G1-17)', async () => {
+    useUi.setState({ glossaryTerm: null });
+    render(<MemoryRouter><button type="button">ouvreur</button><GlossaryDrawer /></MemoryRouter>);
+    const opener = screen.getByRole('button', { name: 'ouvreur' });
+    opener.focus();
+    act(() => useUi.getState().openGlossary(fb));
+    const dialog = await screen.findByRole('dialog', { name: 'Abdomen' });
+    expect(dialog.getAttribute('aria-modal')).toBe('true');
+    await waitFor(() => expect(document.activeElement).toBe(dialog));
+    fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
+    await waitFor(() => expect(document.activeElement).toBe(opener));
+  });
+  it('Échap avec la pilule de sélection ouverte : le tiroir reste (seul le calque du dessus se ferme, G1-22)', async () => {
+    renderDrawer();
+    await screen.findByText('Bauch');
+    const pill = document.createElement('div'); pill.setAttribute('data-selection-pill', ''); document.body.appendChild(pill);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(useUi.getState().glossaryTerm).toBeTruthy();
+    pill.remove();
   });
   it('changer de route ferme le panneau et démonte son fond', async () => {
     render(

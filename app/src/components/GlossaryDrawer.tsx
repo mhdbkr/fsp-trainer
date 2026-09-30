@@ -38,10 +38,18 @@ export function GlossaryDrawer() {
   // Échap ferme le panneau — sauf si une liste de decks est ouverte (elle se ferme d'abord).
   const open = !!opened;
   useEffect(() => { if (open) closeHover(); }, [open, closeHover]);
+  // Dialogue (G1-17) : focus sur le tiroir à l'ouverture, rendu à l'ouvreur à la fermeture.
+  const asideRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (!open) return;
-    // … ou le tiroir de gestion des decks (il se ferme d'abord).
-    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape' && !document.querySelector('[role="menu"][data-keep-open], [role="dialog"][aria-label="Decks"]')) close(); };
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    asideRef.current?.focus();
+    return () => { opener?.focus(); };
+  }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    // … ou le tiroir de gestion des decks, ou la pilule de sélection (ils se ferment d'abord).
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape' && !document.querySelector('[role="menu"][data-keep-open], [role="dialog"][aria-label="Decks"], [data-selection-pill]')) close(); };
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [open, close]);
@@ -70,7 +78,8 @@ export function GlossaryDrawer() {
   return (
     <AnimatePresence>
       <m.div key="glossary-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
-      <m.aside key="glossary-drawer" {...slide('right')} className="glass-full glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-y-0 border-r-0">
+      <m.aside key="glossary-drawer" ref={asideRef} role="dialog" aria-modal="true" aria-label={fb.term} tabIndex={-1} {...slide('right')}
+        className="glass-full glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-y-0 border-r-0 outline-none">
         <DeckRail termId={fb.id} onManage={() => setManager(true)} />
         <div className="flex items-center justify-between gap-1 border-b border-white/40 px-4 py-2 dark:border-white/10">
           <div className="label">{personal ? 'Ma carte' : 'Fachbegriff'}</div>

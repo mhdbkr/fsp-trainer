@@ -42,6 +42,31 @@ function OpenerHarness() {
   );
 }
 
+describe('DeckManager — clavier et contraste (G1-20, G1-23, G1-24)', () => {
+  beforeEach(async () => {
+    await db.progress_events.clear(); await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear();
+    useCardToast.setState({ toast: null }); usePendingDeletions.setState({ ids: new Set() });
+  });
+  it('Tab boucle dans le dialogue (dernier → premier, Maj+Tab premier → dernier)', async () => {
+    renderManager();
+    await screen.findByRole('dialog', { name: 'Decks' });
+    const first = screen.getByRole('button', { name: 'Fermer' });
+    const last = screen.getByRole('button', { name: 'Nouveau deck' });
+    last.focus();
+    fireEvent.keyDown(last, { key: 'Tab' });
+    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(first, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(last);
+  });
+  it('gris lisibles en sombre ; le focus du renommage reste visible (pas d\'outline-none)', async () => {
+    await createDeck('Leber', 'manual');
+    renderManager();
+    const input = await screen.findByRole('textbox', { name: 'Nom du deck Leber' });
+    expect(input.className).not.toMatch(/\boutline-none\b/);
+    expect(screen.getByText('Favoris').className).toContain('dark:text-slate-400');
+  });
+});
+
 describe('DeckManager (F4b P6, AC-5)', () => {
   beforeEach(async () => {
     await db.progress_events.clear(); await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear();
@@ -70,7 +95,7 @@ describe('DeckManager (F4b P6, AC-5)', () => {
     const id = await createDeck('Leber', 'manual');
     renderManager();
     fireEvent.click(await screen.findByRole('button', { name: 'Supprimer le deck Leber' }));
-    expect(await screen.findByText('Deck « Leber » supprimé')).toBeTruthy();
+    await waitFor(() => expect(screen.getByRole('status').textContent).toBe('Deck « Leber » supprimé'));
     await waitFor(() => expect(screen.queryByRole('textbox', { name: 'Nom du deck Leber' })).toBeNull());
     fireEvent.click(screen.getByRole('button', { name: 'Annuler' }));
     await waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false));

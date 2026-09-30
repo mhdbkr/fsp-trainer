@@ -49,7 +49,8 @@ export function Shell() {
       <Sidebar />
 
       {/* Contenu */}
-      <main ref={mainRef} onScroll={onMainScroll} className="flex-1 overflow-y-auto">
+      {/* tabIndex -1 : cible de focus quand une couche flottante se ferme sans suite (G1-21). */}
+      <main ref={mainRef} tabIndex={-1} onScroll={onMainScroll} className="flex-1 overflow-y-auto outline-none">
         <TopBar />
         <div key={pathname} className="reveal mx-auto max-w-6xl p-4 md:p-8">
           <Outlet />
