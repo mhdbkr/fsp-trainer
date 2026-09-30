@@ -13,8 +13,9 @@ import { AI_TARGETS } from '@/lib/externalAi/targets';
  *  parties apparaît dès qu'il y en a plus d'une — un run complet abandonné
  *  après deux parties ne se lit plus « Anamnese seule » (I3). */
 export function porteeHistorique(sim: Simulation): string {
-  const gespielt = Object.entries(sim.parts).filter(([, p]) => p?.done)
-    .map(([k]) => TEILE.find((t) => t.key === k)?.label ?? (k === 'aufklaerung' ? 'Aufklärung' : k));
+  // Les trois Teile seulement : l'Aufklärung n'en est pas un (mineur 3) —
+  // elle ne change pas la portée et ne figure pas comme partie.
+  const gespielt = TEILE.filter((t) => sim.parts[t.key]?.done).map((t) => t.label);
   const voll = isFullSimulation(sim);
   const basis = voll || sim.teil || gespielt.length < 2 ? scopeLabel(sim) : 'Simulation partielle';
   return gespielt.length > 1 && !(voll && gespielt.length >= 3) ? `${basis} (${gespielt.join(', ')})` : basis;

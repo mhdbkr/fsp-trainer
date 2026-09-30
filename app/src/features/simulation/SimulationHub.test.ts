@@ -17,9 +17,15 @@ describe('porteeHistorique — la ligne d’historique dit ce qui a été JOUÉ'
   it('un Teil seul ⇒ « Anamnese seule », sans liste', () => {
     expect(porteeHistorique(sim({ scope: 'teil', teil: 'anamnese', parts: { anamnese: p } }))).toBe('Anamnese seule');
   });
-  it('Teil seul + Aufklärung ⇒ la liste apparaît dès qu’il y a plus d’une partie', () => {
+  // Mineur 3 : l'Aufklärung n'est pas un des trois Teile — elle ne change pas
+  // la portée et ne figure pas comme partie.
+  it('Teil seul + Aufklärung ⇒ « Anamnese seule », sans liste', () => {
     expect(porteeHistorique(sim({ scope: 'teil', teil: 'anamnese', parts: { anamnese: p, aufklaerung: p } })))
-      .toBe('Anamnese seule (Anamnese, Aufklärung)');
+      .toBe('Anamnese seule');
+  });
+  it('run interrompu avec Aufklärung ⇒ seuls les Teile sont listés', () => {
+    expect(porteeHistorique(sim({ scope: 'teil', parts: { anamnese: p, aufklaerung: p, dokumentation: p } })))
+      .toBe('Simulation partielle (Anamnese, Dokumentation)');
   });
   it('complète à trois parties ⇒ « Complète », sans liste redondante', () => {
     expect(porteeHistorique(sim({ scope: 'full', parts: { anamnese: p, dokumentation: p, fallvorstellung: p } }))).toBe('Complète');
