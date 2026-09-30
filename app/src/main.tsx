@@ -28,7 +28,7 @@ import { StatsPage } from '@/features/stats/StatsPage';
 import { PatientScreen } from '@/features/simulation/PatientScreen';
 import { ProgramPage } from '@/features/program/ProgramPage';
 import { HistoriquePage } from '@/features/program/HistoriquePage';
-import { bootJournal } from '@/lib/sync/boot';
+import { bootJournal, watchDayPlan } from '@/lib/sync/boot';
 import { SignInPage } from '@/features/account/SignInPage';
 import { OnboardingPage } from '@/features/account/OnboardingPage';
 import { AuthCallback } from '@/features/account/AuthCallback';
@@ -144,6 +144,7 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
         </React.StrictMode>,
       );
       startSyncLoop();
+      watchDayPlan();          // I1 : retour au premier plan, minuit
     })
     .catch((e) => {
       if (e instanceof Error && e.message === 'halt') return;
