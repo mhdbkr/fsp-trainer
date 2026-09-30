@@ -59,6 +59,7 @@ describe('GlossaryDrawer (F4a)', () => {
     expect((within(rail).getByRole('button', { name: /À revoir/ }) as HTMLButtonElement).disabled).toBe(true);
     for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
     for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col', 'md:max-h-[calc(100dvh-5rem)]', 'md:overflow-y-auto']) expect(rail.className).toContain(c);
+    expect(rail.className).not.toMatch(/\bflex-wrap\b/);   // une rangée qui défile, jamais plusieurs (revue E4)
   });
   it('onglets : « ⋯ Decks » en premier, libellé « Ranger dans », ✓ décoratif et aria-description sur un onglet allumé (F4b P6 correctif)', async () => {
     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
@@ -103,7 +104,7 @@ describe('GlossaryDrawer (F4a)', () => {
     renderDrawer();
     const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
     fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
-    expect((await within(rail).findByRole('alert')).textContent).toBe('Impossible de ranger : réessaie.');
+    expect((await screen.findByRole('alert')).textContent).toBe('Impossible de ranger : réessaie.');   // sous la bande, hors du défilement
     spy.mockRestore();
   });
   it('« Carte » retourne la fiche en carte recto/verso comme au drill (D9, AC-8)', async () => {

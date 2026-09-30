@@ -7,7 +7,7 @@
 // nouveau). Decks intelligents : icône, jamais rangeables à la main (inertes).
 // « ⋯ Decks » ouvre le tiroir de gestion. Remplace l'étoile du tiroir.
 // ============================================================================
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { useDecks, useDeckTerms, useFavorites } from '@/hooks/useData';
 import { addTermToDeck, removeTermFromDeck } from '@/lib/collections';
@@ -15,14 +15,15 @@ import { decksOfTerm } from '@/lib/collections/query';
 import { Icon } from './icons';
 import { StarGlyph } from './StarButton';
 
-const tab = 'glass-thin group flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-slate-700 transition-colors hover:text-brand-700 aria-pressed:bg-brand-600 aria-pressed:text-white disabled:opacity-60 dark:text-slate-200 md:max-w-[10rem] md:rounded-l-full md:rounded-r-none md:border-r-0';
+const tab = 'glass-thin group flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-slate-700 transition-colors hover:text-brand-700 aria-pressed:bg-brand-600 aria-pressed:text-white disabled:opacity-60 aria-disabled:opacity-60 dark:text-slate-200 md:max-w-[10rem] md:rounded-l-full md:rounded-r-none md:border-r-0';
 const check = <span aria-hidden className="text-xs">✓</span>;
 
 export function DeckRail({ termId, caseId, onManage }: { termId: string; caseId?: string; onManage: () => void }) {
   // useDecks()/useDeckTerms()/useFavorites() filtrent déjà les decks en
   // attente de suppression (Annuler 5 s, F4b P6) : pas de refiltre ici.
   const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites();
-  const [busy, setBusy] = useState<Set<string>>(new Set());
+  const [busy, setBusy] = useState<Set<string>>(new Set());   // affichage (aria-disabled)
+  const lock = useRef(new Set<string>());                     // verrou immédiat : l'onglet garde le focus clavier
   const [error, setError] = useState<string | null>(null);
   if (!decks || !deckTerms || !favorites) return null;   // états inconnus : rien à toucher
   const has = new Set(decksOfTerm(termId, favorites, deckTerms));
@@ -31,20 +32,22 @@ export function DeckRail({ termId, caseId, onManage }: { termId: string; caseId?
   const opts = caseId ? { caseId } : {};
   // Verrou par onglet : un second appui pendant l'écriture est ignoré (double appui).
   const toggle = async (id: string) => {
-    if (busy.has(id)) return;
-    setBusy((b) => new Set(b).add(id)); setError(null);
+    if (lock.current.has(id)) return;
+    lock.current.add(id); setBusy((b) => new Set(b).add(id)); setError(null);
     try { await (has.has(id) ? removeTermFromDeck(id, termId) : addTermToDeck(id, termId, opts)); }
     catch { setError('Impossible de ranger : réessaie.'); }
-    finally { setBusy((b) => { const n = new Set(b); n.delete(id); return n; }); }
+    finally { lock.current.delete(id); setBusy((b) => { const n = new Set(b); n.delete(id); return n; }); }
   };
   const describe = (name: string, on: boolean) => (on ? `Retirer de ${name}` : `Ranger dans ${name}`);
   return (
+    <>
+    {/* Une seule rangée qui DÉFILE (téléphone) / une colonne qui défile (ordinateur) : jamais de retour à la ligne (revue E4). */}
     <div role="group" aria-label="Decks de ce terme"
-      className="flex flex-wrap items-center gap-1.5 overflow-x-auto border-b border-white/40 px-4 py-2 dark:border-white/10 md:absolute md:right-full md:top-16 md:max-h-[calc(100dvh-5rem)] md:w-40 md:flex-col md:items-end md:overflow-y-auto md:overflow-x-visible md:border-0 md:p-0">
-      <span className="label w-full text-right md:w-auto">Ranger dans</span>
+      className="flex items-center gap-1.5 overflow-x-auto border-b border-white/40 px-4 py-2 dark:border-white/10 md:absolute md:right-full md:top-16 md:max-h-[calc(100dvh-5rem)] md:w-40 md:flex-col md:items-end md:overflow-y-auto md:overflow-x-hidden md:border-0 md:p-0">
+      <span className="label shrink-0">Ranger dans</span>
       <button type="button" onClick={onManage} aria-haspopup="dialog" aria-label="Gérer les decks" className={`${tab} text-slate-500`}>⋯ Decks</button>
       <button type="button" aria-pressed={has.has(FAVORITES_DECK_ID)} aria-description={describe('Favoris', has.has(FAVORITES_DECK_ID))}
-        disabled={busy.has(FAVORITES_DECK_ID)} onClick={() => { void toggle(FAVORITES_DECK_ID); }} className={tab}>
+        aria-disabled={busy.has(FAVORITES_DECK_ID) || undefined} onClick={() => { void toggle(FAVORITES_DECK_ID); }} className={tab}>
         <span className="text-star-600 group-aria-pressed:text-star-300 dark:text-star-400"><StarGlyph filled={has.has(FAVORITES_DECK_ID)} /></span>
         <span className="truncate">Favoris</span>
         {has.has(FAVORITES_DECK_ID) && check}
@@ -55,12 +58,13 @@ export function DeckRail({ termId, caseId, onManage }: { termId: string; caseId?
         </button>
       ) : (
         <button key={d.id} type="button" aria-pressed={has.has(d.id)} aria-description={describe(d.name, has.has(d.id))}
-          disabled={busy.has(d.id)} onClick={() => { void toggle(d.id); }} className={tab}>
+          aria-disabled={busy.has(d.id) || undefined} onClick={() => { void toggle(d.id); }} className={tab}>
           <span className="truncate">{d.name}</span>
           {has.has(d.id) && check}
         </button>
       ))}
-      {error && <p role="alert" className="w-full text-right text-xs text-rose-600 dark:text-rose-400 md:w-auto">{error}</p>}
     </div>
+    {error && <p role="alert" className="px-4 py-1 text-xs text-rose-600 dark:text-rose-400 md:absolute md:right-full md:top-2 md:w-40 md:px-0 md:text-right">{error}</p>}
+    </>
   );
 }
