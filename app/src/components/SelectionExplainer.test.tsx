@@ -79,7 +79,7 @@ describe('SelectionExplainer', () => {
     await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
     const pt = (await db.personal_terms.toArray())[0];
     expect(pt).toMatchObject({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung', context: 'Seit Wochen Belastungsdyspnoe beim Treppensteigen.' });
-    expect(await db.favorites.get(pt.id)).toBeTruthy();
+    await waitFor(async () => expect(await db.favorites.get(pt.id)).toBeTruthy());   // rangée APRÈS la création : attendre, pas lire (course sous charge)
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
   });
   it('Créer impossible tant que la Bedeutung est vide ; fermer sans créer n\'écrit rien (AC-4)', async () => {
@@ -147,12 +147,20 @@ describe('SelectionExplainer', () => {
     const buttons = [...p.querySelectorAll('button')];
     expect(buttons.map((b) => b.getAttribute('aria-label'))).toEqual(['Expliquer', 'Ajouter aux favoris : Aszites']);
     for (const b of buttons) { expect(b.className).toMatch(/\bh-11\b/); expect(b.className).toMatch(/\bw-11\b/); }
-    expect(p.textContent).toBe('ExpliquerFavoris');   // libellés (aria-hidden), visibles au survol seulement
+    expect(p.textContent).toBe('ExpliquerRanger dans Favoris');   // libellés (aria-hidden), visibles au survol seulement (G1-10)
     fireEvent.click(screen.getByRole('button', { name: 'Expliquer' }));
     await screen.findByText(/Bauchwasser/);
     expect(document.querySelector('[data-pill]')).toBeNull();
     expect(document.querySelector('.glass-full')).toBeTruthy();
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
+  });
+  it('infobulle de l\'étoile : terme déjà rangé → « Voir la fiche » (G1-10)', async () => {
+    vi.useRealTimers();
+    await db.favorites.put({ termId: 'fb-aszites', since: new Date().toISOString() } as never);
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    await waitFor(() => expect(document.querySelector('[data-pill]')?.textContent).toBe('ExpliquerVoir la fiche'));
   });
   it('étoile de la pilule : couleurs figées, contraste ≥ 3:1 avec le fond glass-thin clair et sombre (revue B1)', async () => {
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
@@ -203,7 +211,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Nouvelle carte/ }));
     fireEvent.click(await screen.findByRole('button', { name: 'Aszites' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Bauchwasser'));
-    fireEvent.click(screen.getByRole('button', { name: 'Ranger' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Ranger dans Favoris' }));   // G1-11
     await waitFor(async () => expect(await db.favorites.get('fb-aszites')).toBeTruthy());
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_created')).toBe(false);
     expect(await db.personal_terms.count()).toBe(0);

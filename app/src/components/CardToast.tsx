@@ -60,7 +60,7 @@ export function CardToast() {
   } else if (toast?.kind === 'deleted') {
     body = (
       <m.div key={`deleted-${toast.term.id}`} role="status" data-keep-open {...appear} className={pill}>
-        <span className="min-w-0 truncate">Carte supprimée</span><Dot />
+        <span className="min-w-0 truncate">Carte « {toast.term.term} » supprimée</span><Dot />
         <button type="button" onClick={() => { if (cancelDeletion(toast.term.id)) hide(); else show({ kind: 'error', message: 'Trop tard : la carte est supprimée.' }); }} className={link}>Annuler</button>
       </m.div>
     );

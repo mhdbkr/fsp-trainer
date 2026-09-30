@@ -163,7 +163,7 @@ export function SelectionExplainer() {
       <button type="button" onClick={openNewCard} disabled={!canCreate} aria-label={`Nouvelle carte : ${clean}`}
         className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/40 hover:text-slate-700 disabled:opacity-40 dark:text-slate-300 dark:hover:bg-white/10"><StarGlyph filled={false} /></button>
     );
-  const starTip = !known ? 'Nouvelle carte' : inDecks?.has(known.id) ? 'Decks' : 'Favoris';
+  const starTip = !known ? 'Nouvelle carte' : inDecks?.has(known.id) ? 'Voir la fiche' : 'Ranger dans Favoris';
   return (
     <>
     {sheet}

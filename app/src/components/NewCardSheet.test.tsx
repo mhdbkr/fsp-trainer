@@ -147,7 +147,7 @@ describe('NewCardSheet', () => {
     expect(input.hasAttribute('readOnly')).toBe(true);
     expect(askBedeutung).not.toHaveBeenCalled();
     expect(screen.getByText('Déjà dans le glossaire')).toBeTruthy();
-    expect((screen.getByRole('button', { name: 'Ranger' }) as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByRole('button', { name: 'Ranger dans Favoris' }) as HTMLButtonElement).disabled).toBe(false);
   });
 
   it('pas de rangée de deck quand aucun deck manuel n\'existe (Favoris implicite)', async () => {

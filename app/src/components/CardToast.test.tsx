@@ -42,7 +42,7 @@ describe('CardToast — suppression (m2)', () => {
     useCardToast.getState().show({ kind: 'deleted', term: toView((await db.personal_terms.get(id))!) });
     render(<CardToast />);
     const status = screen.getByRole('status');
-    expect(status.textContent).toBe('Carte supprimée·Annuler');
+    expect(status.textContent).toBe('Carte « Orthopnoe » supprimée·Annuler');   // G1-11
     expect(status.className).toContain('glass-thin');
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
   });
