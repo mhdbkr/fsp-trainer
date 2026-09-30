@@ -1,7 +1,7 @@
 import type { Axis, Case, CaseProgress, Fachbegriff, SimTeil, Simulation, Specialty } from '@/db/types';
 import { blankProgress } from '@/lib/journal';
 import { TEILE } from '@/lib/simScope';
-import { dayKey, nowDate } from '@/lib/clock';
+import { dayKey, now as clockNow, nowDate } from '@/lib/clock';
 import { AXES } from '@/db/types';
 import { partScore, partToAxis } from './scoring';
 import { isDue, isNew } from './srs';
@@ -78,7 +78,7 @@ export function specialtyScores(sims: Simulation[], cases: Case[]): { specialty:
 }
 
 /** Sépare les Fachbegriffe en dus / nouveaux / appris (spec F2a D1 : un Neu n'est jamais dû). */
-export function counts(begriffe: Fachbegriff[], now = Date.now()): { due: number; fresh: number; learned: number } {
+export function counts(begriffe: Fachbegriff[], now = clockNow()): { due: number; fresh: number; learned: number } {
   let due = 0, fresh = 0, learned = 0;
   for (const b of begriffe) {
     if (isNew(b.srs)) fresh++;
@@ -91,7 +91,7 @@ export function counts(begriffe: Fachbegriff[], now = Date.now()): { due: number
 }
 
 /** Nombre de Fachbegriffe dus aujourd'hui. */
-export const dueCount = (begriffe: Fachbegriff[], now = Date.now()): number => counts(begriffe, now).due;
+export const dueCount = (begriffe: Fachbegriff[], now = clockNow()): number => counts(begriffe, now).due;
 
 /** Série de jours consécutifs TRAVAILLÉS, en partant d'aujourd'hui. Prend les
  *  clés de jour du journal (`workedDayKeys`) : une journée 100 % drill compte,
@@ -101,20 +101,6 @@ export function streakFromDays(workedDays: Set<string>, now = nowDate()): number
   const cursor = new Date(now);
   if (!workedDays.has(dayKey(cursor))) cursor.setDate(cursor.getDate() - 1);
   while (workedDays.has(dayKey(cursor))) { streak++; cursor.setDate(cursor.getDate() - 1); }
-  return streak;
-}
-
-/** @deprecated ADR-0017 — dérive des seules simulations. Utiliser `streakFromDays`. */
-export function computeStreak(sims: Simulation[], now = new Date()): number {
-  const days = new Set(sims.map((s) => new Date(s.date).toDateString()));
-  let streak = 0;
-  const cursor = new Date(now);
-  // tolérance : si rien aujourd'hui mais hier oui, on continue depuis hier.
-  if (!days.has(cursor.toDateString())) cursor.setDate(cursor.getDate() - 1);
-  while (days.has(cursor.toDateString())) {
-    streak++;
-    cursor.setDate(cursor.getDate() - 1);
-  }
   return streak;
 }
 
