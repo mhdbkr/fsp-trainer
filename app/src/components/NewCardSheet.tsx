@@ -133,7 +133,7 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
     <Portal>
       <div role="dialog" aria-label="Nouvelle carte" data-keep-open
         onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}
-        className="fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-md space-y-3 rounded-xl bg-white p-4 text-sm shadow-xl ring-1 ring-slate-200 motion-safe:animate-fade-in-fast dark:bg-slate-900 dark:ring-slate-700">
+        className="fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-md space-y-3 rounded-xl bg-white p-4 text-sm shadow-e3 ring-1 ring-slate-200 motion-safe:animate-fade-in-fast dark:bg-slate-900 dark:ring-slate-700">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold">{hit ? 'Déjà dans le glossaire' : 'Nouvelle carte'}</h3>
           <button type="button" aria-label="Fermer" onClick={onClose} className="btn-ghost h-11 w-11 justify-center">✕</button>

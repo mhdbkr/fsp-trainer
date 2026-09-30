@@ -28,7 +28,7 @@ export function ResumeSessionBar() {
   // la transition n'anime que l'axe Y, plus de décalage horizontal fugace.
   return (
     <div className={`fixed inset-x-0 bottom-5 z-40 mx-auto w-fit transition-[transform,opacity] duration-300 ${atPageBottom ? 'pointer-events-none translate-y-24 opacity-0' : 'translate-y-0 opacity-100'}`}>
-      <div className="flex items-center gap-3 rounded-full border border-brand-200 bg-white px-3 py-2 shadow-xl dark:border-brand-900/50 dark:bg-slate-900">
+      <div className="flex items-center gap-3 rounded-full border border-brand-200 bg-white px-3 py-2 shadow-e3 dark:border-brand-900/50 dark:bg-slate-900">
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300"><Icon name="pause" className="h-4 w-4" /></span>
         <div className="min-w-0">
           <div className="truncate text-xs font-semibold">Simulation en pause · {snapshot.caseName}</div>

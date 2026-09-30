@@ -158,14 +158,14 @@ export function SelectionExplainer() {
     {sheet}
     <div ref={rootRef} className="fixed z-[80]" style={{ left, top, transform }}>
       {!bubble ? (
-        <div className="flex items-center gap-1 rounded-full bg-brand-600 p-0.5 text-xs font-semibold text-white shadow-lg ring-1 ring-brand-700 motion-safe:animate-fade-in-fast">
+        <div className="flex items-center gap-1 rounded-full bg-brand-600 p-0.5 text-xs font-semibold text-white shadow-e2 ring-1 ring-brand-700 motion-safe:animate-fade-in-fast">
           {starButton('pill')}
           <button type="button" onClick={() => { void explain(); }} className="flex h-11 items-center gap-1 rounded-full px-3 hover:bg-brand-700">
             <Icon name="search" className="h-3.5 w-3.5" />Expliquer
           </button>
         </div>
       ) : (
-        <div className="flex w-64 items-start gap-1.5 rounded-xl border border-slate-200 bg-white p-2.5 text-[13px] shadow-xl motion-safe:animate-fade-in-fast dark:border-slate-700 dark:bg-slate-900">
+        <div className="flex w-64 items-start gap-1.5 rounded-xl border border-slate-200 border-t-white bg-white p-2.5 text-[13px] motion-safe:animate-fade-in-fast dark:border-slate-700 dark:border-t-white/20 dark:bg-slate-900">
           {!bubble.loading && !bubble.error && <div className="-m-0.5 -mt-1">{starButton('bubble')}</div>}
           <div className="min-w-0 flex-1">
             {bubble.loading ? (

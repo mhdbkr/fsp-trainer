@@ -28,10 +28,10 @@ export function ModeChooser({ hrefFor, value = null, onChange, tone = 'card', co
   const full = value === null;
   const base = `flex items-center justify-center gap-2 rounded-xl font-semibold transition-[transform,background-color,color,box-shadow] duration-200 ease-fluid active:scale-[0.98] ${compact ? 'text-[12.5px]' : 'text-sm'}`;
   const fullCls = `${base} w-full ${compact ? 'py-2' : 'py-2.5'} ${full && !hrefFor
-    ? 'bg-brand-600 text-white shadow-md shadow-brand-950/20'
+    ? 'bg-brand-600 text-white shadow-e2'
     : glass ? 'bg-white/85 text-brand-800 hover:bg-white' : 'bg-white text-brand-800 ring-1 ring-slate-200 hover:ring-brand-400 dark:bg-ink-700 dark:text-brand-200 dark:ring-ink-600'}`;
   const teilCls = (k: SimTeil) => `${base} ${compact ? 'flex-row gap-1.5 py-1.5 text-[11.5px]' : 'flex-col gap-1.5 py-3'} ${value === k && !hrefFor
-    ? 'bg-brand-600 text-white shadow-md shadow-brand-950/20'
+    ? 'bg-brand-600 text-white shadow-e2'
     : glass ? 'bg-white/70 text-slate-700 hover:bg-white/90' : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:ring-brand-400 dark:bg-ink-700 dark:text-slate-200 dark:ring-ink-600'}`;
   const Full = hrefFor
     ? <Link to={hrefFor(null)} className={fullCls}><Icon name="play" className="h-4 w-4" />Simulation complète</Link>

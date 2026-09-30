@@ -73,7 +73,7 @@ export function TermHoverCard() {
       onMouseLeave={() => armClose(close, 300)}
       onFocus={disarmClose}
       onBlur={(e) => { if (!ref.current?.contains(e.relatedTarget as Node)) armClose(close, 300); }}
-      className="glass rounded-xl border border-slate-200 p-3 text-sm shadow-lg motion-safe:animate-fade-in dark:border-slate-700"
+      className="glass glass-edge rounded-xl p-3 text-sm motion-safe:animate-fade-in"
     >
       <TermSheet term={fb} compact actions={
         <StarButton term={fb} filled={inDecks?.has(fb.id)} caseId={caseId ?? undefined} buttonRef={(el) => { starRef.current = el; }} />
