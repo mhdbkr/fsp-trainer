@@ -3,7 +3,7 @@ import { AXES } from '@/db/types';
 import { partToAxis, weightedPartScore } from './scoring';
 
 // ============================================================================
-// Indicateur « Suis-je prêt à réussir la FSP ? » (Module 3).
+// Indice de préparation (Module 3) — interne à Doctopus, pas une prédiction de l'examen.
 // Combine les 6 axes (scores pondérés par assistance × couche), la couverture
 // des Fachbegriffe et la maîtrise des cas. Les axes jamais testés pénalisent
 // (on ne peut pas être « prêt » sur un axe vierge). Produit un score global,
