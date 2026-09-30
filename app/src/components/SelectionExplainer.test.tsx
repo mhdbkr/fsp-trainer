@@ -181,13 +181,31 @@ describe('SelectionExplainer', () => {
     selectText(screen.getByTestId('t'));
     act(() => { document.dispatchEvent(new Event('selectionchange')); });
     fireEvent.click(await screen.findByRole('button', { name: 'Expliquer' }));
-    expect((await screen.findByRole('status')).textContent).toContain('Doctopus cherche');
     const card = document.querySelector('[data-explain-card]') as HTMLElement;
+    expect(card.getAttribute('role')).toBe('group');
+    expect(card.getAttribute('aria-label')).toBe('Explication : Belastungsdyspnoe');
+    const live = card.querySelector('[aria-live="polite"]') as HTMLElement;
+    expect(live.textContent).toContain('Doctopus cherche');
+    expect(card.querySelector('[role="status"]')).toBeNull();
     await waitFor(() => expect(document.activeElement).toBe(card));
     expect(card.getAttribute('tabindex')).toBe('-1');
     await act(async () => { resolve('Atemnot'); });
     expect(await screen.findByText('Atemnot')).toBeTruthy();
+    expect(card.querySelector('[aria-live="polite"]')).toBe(live);   // conteneur persistant : chargement → résultat
+    expect(live.textContent).toContain('Atemnot');
     expect(card.querySelector('.text-slate-500:not([class*="dark:text-slate-"])')).toBeNull();   // contraste sombre (G1-23)
+  });
+  it('Échap sur la carte d\'explication : focus sur <main> avant de fermer (G1-30)', async () => {
+    vi.useRealTimers();
+    render(<><main tabIndex={-1}><p data-testid="t">Belastungsdyspnoe</p></main><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    fireEvent.click(await screen.findByRole('button', { name: 'Expliquer' }));
+    const card = document.querySelector('[data-explain-card]') as HTMLElement;
+    await waitFor(() => expect(document.activeElement).toBe(card));
+    fireEvent.keyDown(card, { key: 'Escape' });
+    await waitFor(() => expect(document.querySelector('[data-explain-card]')).toBeNull());
+    expect(document.activeElement).toBe(screen.getByRole('main'));
   });
   it('mini-fiche fermée sans créer → focus sur <main> ; après « Créer » → focus sur la pilule de confirmation (G1-21)', async () => {
     vi.useRealTimers();

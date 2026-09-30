@@ -107,7 +107,11 @@ export function SelectionExplainer() {
       setAnchor(null); setBubble(null);
     };
     // Échap ferme la pilule / la carte (le tiroir d'un terme, dessous, l'ignore : `data-selection-pill`).
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setAnchor(null); setBubble(null); } };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (cardRef.current?.contains(document.activeElement)) document.querySelector<HTMLElement>('main')?.focus();   // le focus ne tombe pas sur <body> (G1-30)
+      setAnchor(null); setBubble(null);
+    };
     document.addEventListener('pointerdown', onDown);
     document.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('pointerdown', onDown); document.removeEventListener('keydown', onKey); };
@@ -196,12 +200,12 @@ export function SelectionExplainer() {
                   <span className="group relative">{star}{tip(starTip)}</span>
                 </m.div>
               ) : (
-                <m.div key="card" ref={cardRef} tabIndex={-1} data-explain-card {...expand} style={{ transformOrigin: flipBelow ? 'top center' : 'bottom center' }}
+                <m.div key="card" ref={cardRef} tabIndex={-1} role="group" aria-label={`Explication : ${anchor.text}`} data-explain-card {...expand} style={{ transformOrigin: flipBelow ? 'top center' : 'bottom center' }}
                   className="glass-full flex w-64 items-start gap-1.5 rounded-2xl p-2.5 text-[13px] [grid-area:1/1]">
                   {!bubble.loading && !bubble.error && <div className="-m-0.5 -mt-1">{star}</div>}
-                  <div className="min-w-0 flex-1">
+                  <div aria-live="polite" className="min-w-0 flex-1">
                     {bubble.loading ? (
-                      <div role="status" className="flex items-center gap-2 text-slate-500 dark:text-slate-400"><span className="h-3 w-3 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" /> Doctopus cherche…</div>
+                      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400"><span className="h-3 w-3 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" /> Doctopus cherche…</div>
                     ) : bubble.error ? (
                       <div role="alert" className="text-[12px] text-amber-700 dark:text-amber-400">{bubble.error}</div>
                     ) : (
