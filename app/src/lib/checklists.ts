@@ -20,7 +20,7 @@ import type { ChecklistItem } from '@/db/types';
 
 /** Chapitres de la trame d'anamnèse (`data/guides/anamneseChapters.ts`).
  *  Réécrit ici plutôt qu'importé : `app/src/data/` appartient au chantier
- *  Contenu. `checklists.kapitel.test.ts` vérifie que les deux restent alignés. */
+ *  Contenu. `checklists.stable.test.ts` (§4.2 règle 3) vérifie qu’ils restent alignés. */
 export type KapitelId =
   | 'eroeffnung' | 'personalia' | 'aktuell' | 'vegetativ' | 'vorerkrankungen'
   | 'medikamente' | 'allergien' | 'noxen' | 'familie-sozial' | 'frauenanamnese'

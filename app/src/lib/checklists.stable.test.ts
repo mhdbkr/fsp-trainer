@@ -139,3 +139,15 @@ describe('§4.2 règle 3 — `kapitel` est le seul pont, et il est vrai', () => 
     }
   });
 });
+
+describe('M6 — les tests cités par `checklists.ts` existent', () => {
+  it('chaque `*.test.ts` nommé en commentaire est un fichier réel', async () => {
+    const { readFileSync, existsSync } = await import('node:fs');
+    const { dirname, join } = await import('node:path');
+    const { fileURLToPath } = await import('node:url');
+    const dir = dirname(fileURLToPath(import.meta.url));
+    const cites = readFileSync(join(dir, 'checklists.ts'), 'utf-8').match(/[\w.]+\.test\.tsx?/g) ?? [];
+    expect(cites.length).toBeGreaterThan(0);
+    for (const f of cites) expect(existsSync(join(dir, f)), f).toBe(true);
+  });
+});
