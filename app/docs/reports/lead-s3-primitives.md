@@ -31,6 +31,8 @@ prévu, pas une infraction. Un contrôle est petit, il ne ré-échantillonne pas
 une zone, et son flou est ce qui le fait lire comme posé SUR la surface plutôt
 que découpé dedans. Personne ne doit venir « réparer » `.input`.
 
+> **TRANCHÉ après coup (fix-s3 I3, décision de `main`)** : le popover n'est pas un quatrième rôle, c'est le rôle 1 — `.glass glass-edge`. La règle interdit `.glass` DANS une `.card` (imbrication DOM), pas un calque flottant au-dessus. Appliqué ; voir `fix-s3-primitives.md`. Le paragraphe ci-dessous est l'état d'avant.
+
 **Reste ouvert — le POPOVER flottant, quatrième rôle non nommé.** Trois copies
 de la même chaîne de classes (`AccountSwitcher.tsx:67`, `DeckChecklist.tsx:47`,
 `SelectionExplainer.tsx:168`). Aucun des trois matériaux ne lui va : il flotte
@@ -391,7 +393,7 @@ reste est une ombre portée.
 5. **Aucune mesure de performance.** L'empilement de plans de flou est justifié
    par une instabilité de rendu observée ailleurs, pas par un profil mesuré sur
    cette branche.
-6. **Le quatrième rôle (popover) n'est pas tranché** — c'est délibéré (§1),
+6. ~~**Le quatrième rôle (popover) n'est pas tranché**~~ — tranché depuis (fix-s3 I3 : rôle 1). État d'avant :
    mais tant qu'il ne l'est pas, trois copies de la même chaîne de classes
    restent dans `components/` et deux ombres portées restent dans
    `features/program/`.
