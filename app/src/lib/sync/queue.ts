@@ -50,14 +50,14 @@ export const syncQueue = {
     return evs;
   },
 
-  /** POST par lots ; ack → retire ; 4xx/rejected → marque et retire ; 5xx/réseau → garde avec backoff. */
+  /** POST par lots ; ack → retire ; rejected sans retry → retire ; tout le reste (4xx/5xx de lot, réseau, retry) → garde avec backoff. */
   async flush(): Promise<{ acked: number; rejected: number }> {
     if (inFlight) return inFlight;                           // un flush est déjà en cours : son résultat répond aussi à cet appel
     if (Date.now() < nextAllowed) return { acked: 0, rejected: 0 };
     if (!sessionMatchesActive()) return { acked: 0, rejected: 0 };
-    const headers = await auth();
-    if (!headers) return { acked: 0, rejected: 0 };          // anonyme : rien ne part
-    const run = doFlush(headers);
+    // Le verrou est posé AVANT le premier await : sinon deux flush concurrents
+    // (push + démarrage) enverraient le même lot et compteraient deux essais.
+    const run = auth().then((headers) => (headers ? doFlush(headers) : { acked: 0, rejected: 0 }));   // anonyme : rien ne part
     inFlight = run;
     try { return await run; }
     finally {
@@ -105,33 +105,62 @@ export const syncQueue = {
   },
 };
 
+type Sent = { acked: number; rejected: number; kept: number };
+
 async function doFlush(headers: Record<string, string>): Promise<{ acked: number; rejected: number }> {
-  let acked = 0, rejected = 0;
-  const rows = await db.outbox.limit(BATCH).toArray();
-  if (!rows.length) return { acked, rejected };
+  // Les lignes jamais retentées d'abord : un événement que le serveur refuse
+  // encore (client en avance) ne prend pas la place des nouveaux.
+  const rows = await db.outbox.orderBy('attempts').limit(BATCH).toArray();
+  if (!rows.length) return { acked: 0, rejected: 0 };
+  const r = await send(headers, rows);
+  moreToDrain = rows.length === BATCH && r.kept === 0;      // rien de gardé : la page suivante peut partir
+  return { acked: r.acked, rejected: r.rejected };
+}
+
+/**
+ * Envoie un lot. **Aucun refus de LOT ne fait perdre un événement** (S-C1) :
+ * seul un refus PAR ÉVÉNEMENT, sans `retry`, retire une ligne de l'outbox.
+ * Un 400 sur un lot de plusieurs lignes est isolé ligne par ligne — le serveur
+ * de production antérieur à la série 3 refuse ainsi tout lot qui contient un
+ * type qu'il ne connaît pas ; les valides passent, le refusé attend.
+ */
+async function send(headers: Record<string, string>, rows: { id: string; attempts: number }[]): Promise<Sent> {
   const events = await db.progress_events.bulkGet(rows.map((r) => r.id));
+  const orphans = rows.filter((_, i) => !events[i]).map((r) => r.id);
+  if (orphans.length) await db.outbox.bulkDelete(orphans);  // rien à envoyer : ne bloque plus la tête de file
+  rows = rows.filter((_, i) => !!events[i]);
+  if (!rows.length) return { acked: 0, rejected: 0, kept: 0 };
   const body = events.filter(Boolean).map((e) => ({ ...e!, user_id: undefined }));
   let res: Response;
   try { res = await fetch(FN, { method: 'POST', headers, body: JSON.stringify({ events: body }) }); }
-  catch (e) { await bump(rows, String(e)); return { acked, rejected }; }
-  if (!res || typeof res.status !== 'number') { return { acked, rejected }; }
-  if (res.status >= 500) { await bump(rows, `HTTP ${res.status}`); return { acked, rejected }; }
-  if (res.status >= 400) { await reject(rows.map((r) => r.id), `HTTP ${res.status}`); rejected += rows.length; return { acked, rejected }; }
-  const out = (await res.json()) as { acked: string[]; received: Record<string, string>; rejected: { id: string; reason: string }[] };
-  await db.outbox.bulkDelete(out.acked); acked += out.acked.length;
+  catch (e) { await bump(rows, String(e)); return { acked: 0, rejected: 0, kept: rows.length }; }
+  if (!res || typeof res.status !== 'number') return { acked: 0, rejected: 0, kept: rows.length };
+  if (!res.ok) {
+    if (res.status === 400 && rows.length > 1) {
+      const sum: Sent = { acked: 0, rejected: 0, kept: 0 };
+      for (const row of rows) { const one = await send(headers, [row]); sum.acked += one.acked; sum.rejected += one.rejected; sum.kept += one.kept; }
+      return sum;
+    }
+    await bump(rows, `HTTP ${res.status}`);                  // 4xx de lot, 5xx, 401, 429 : gardé, retenté avec backoff
+    return { acked: 0, rejected: 0, kept: rows.length };
+  }
+  const out = (await res.json()) as { acked: string[]; received?: Record<string, string>; rejected: { id: string | null; reason: string; retry?: boolean }[] };
+  await db.outbox.bulkDelete(out.acked);
   // Rétro-remplir received_at (serveur) sur nos propres événements : sans ça,
   // un appareil qui ne fait qu'émettre garderait un curseur de pull à l'époque,
   // et au-delà de 1 000 événements le pull rejouerait toujours la même page.
   if (out.received) {
     await db.transaction('rw', db.progress_events, async () => {
-      for (const [id, received_at] of Object.entries(out.received)) await db.progress_events.update(id, { received_at });
+      for (const [id, received_at] of Object.entries(out.received!)) await db.progress_events.update(id, { received_at });
     });
   }
-  await reject(out.rejected.map((r) => r.id), out.rejected.map((r) => r.reason).join('; ')); rejected += out.rejected.length;
-  nextAllowed = 0;
-  useSyncStatus.setState({ lastError: null });
-  moreToDrain = rows.length === BATCH;
-  return { acked, rejected };
+  const retryIds = new Set(out.rejected.filter((r) => r.retry).map((r) => r.id));
+  const dropped = out.rejected.filter((r) => !r.retry && r.id);
+  await reject(dropped.map((r) => r.id!), dropped.map((r) => r.reason).join('; '));
+  const kept = rows.filter((r) => retryIds.has(r.id));
+  if (kept.length) await bump(kept, out.rejected.filter((r) => r.retry).map((r) => r.reason).join('; '));
+  else { nextAllowed = 0; useSyncStatus.setState({ lastError: null }); }
+  return { acked: out.acked.length, rejected: dropped.length, kept: kept.length };
 }
 
 async function bump(rows: { id: string; attempts: number }[], err: string) {
