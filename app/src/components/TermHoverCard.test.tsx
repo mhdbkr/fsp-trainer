@@ -51,7 +51,7 @@ describe('TermHoverCard', () => {
     render(<MemoryRouter><TermHoverCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /Ajouter aux favoris/ }));
     await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')?.payload).toEqual({ caseId: 'c9' }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Voir la fiche de Abdomen' }));
     expect(useUi.getState().glossaryTerm?.id).toBe('fb-a');
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.unfavorited')).toBe(false);
   });

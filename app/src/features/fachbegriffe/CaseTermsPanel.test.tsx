@@ -62,7 +62,7 @@ describe('CaseTermsPanel', () => {
     const onClose = vi.fn();
     render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="drawer" onClose={onClose} onDrill={() => {}} /></MemoryRouter>);
     await screen.findByRole('dialog');
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Voir la fiche de Abdomen' }));
     expect(useUi.getState().glossaryTerm?.id).toBe('fb-a');
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).not.toHaveBeenCalled();

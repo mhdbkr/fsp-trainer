@@ -49,7 +49,7 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
     fireEvent.click(screen.getByRole('button', { name: 'Révéler' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
-    expect(await screen.findByRole('button', { name: 'Decks de Aszites' })).toBeTruthy();
+    expect(await screen.findByRole('button', { name: 'Voir la fiche de Aszites' })).toBeTruthy();
   });
   it('« Changer de deck » déplace : retiré de Favoris, ajouté au deck choisi', async () => {
     const deckId = await createDeck('Leber', 'manual');
@@ -68,8 +68,9 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     await addTermToDeck(deckId, 'fb-aszites');
     const before = (await db.progress_events.toArray()).length;
     render(<Harness />);
-    const full = await screen.findByRole('button', { name: 'Decks de Aszites' });
+    const full = await screen.findByRole('button', { name: 'Voir la fiche de Aszites' });
     expect(full.getAttribute('aria-haspopup')).toBe('dialog');
+    expect(full.getAttribute('aria-pressed')).toBeNull();   // plus une bascule (correctif E4)
     fireEvent.click(full);
     expect(useUi.getState().glossaryTerm?.id).toBe('fb-aszites');
     expect((await db.progress_events.toArray()).length).toBe(before);
@@ -86,7 +87,7 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
   it('matière (F4b P3, AC-2) : vide = cristal, pleine = ambre `star` ; jamais de corail', async () => {
     const { container } = render(<Harness />);
     await clickEmptyStar();
-    const full = await screen.findByRole('button', { name: 'Decks de Aszites' });
+    const full = await screen.findByRole('button', { name: 'Voir la fiche de Aszites' });
     expect(full.querySelector('[data-star]')!.getAttribute('data-star')).toBe('amber');
     expect(full.className).toContain('text-star-600');
     expect(full.className).toContain('dark:text-star-400');
