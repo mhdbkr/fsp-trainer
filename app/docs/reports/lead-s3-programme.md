@@ -170,7 +170,7 @@ Le brief demandait de cesser de concaténer dans `lib/program.ts`
   `'Fachbegriffe'`, `best.c.name`, `scored.c.name`, `…!.pathology`.
 - `ProgramPage.tsx:368-369` est aujourd'hui la vue Mois du calendrier ; la ligne
   de tâche a migré dans `features/program/TaskLine.tsx`.
-- `TaskAnatomy` (`TaskLine.tsx:392-406`) rend le sujet, la portée (le Teil seul,
+- `TaskAnatomy` (`TaskLine.tsx:55-68`) rend le sujet, la portée (le Teil seul,
   absent sur un run complet), l'état et le coût dans des **champs séparés** :
   aucune concaténation, et la vue ne les ré-affiche pas à côté.
 
