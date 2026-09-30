@@ -221,7 +221,7 @@ function ModeCard({ active, onClick, icon, title, tag, desc, tone }: {
   const iconColor = tone === 'brand' ? 'text-brand-600 dark:text-brand-300' : 'text-violet-600 dark:text-violet-300';
   return (
     <button onClick={onClick} className={`card flex items-start gap-3 p-4 text-left transition-all ${active ? `${ring} ring-1 ring-inset` : 'hover:border-slate-300 dark:hover:border-slate-600'}`}>
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/70 shadow-sm backdrop-blur-sm dark:bg-slate-800/70 ${iconColor}`}>
+      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/70 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.7)] dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.10)] backdrop-blur-sm dark:bg-slate-800/70 ${iconColor}`}>
         <Icon name={icon} className="h-6 w-6" />
       </div>
       <div>
