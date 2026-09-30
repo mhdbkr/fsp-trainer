@@ -70,5 +70,5 @@ Deux réparations de la sonde ont été nécessaires pour obtenir ce résultat. 
 ## 5 · Non vérifié
 
 - Les popovers passés en `.glass glass-edge` (I3) n'ont **pas** été ouverts un par un dans le navigateur : il faut plusieurs comptes pour `AccountSwitcher`, un terme sélectionné pour `SelectionExplainer`, un deck pour `DeckChecklist`. Les matériaux `.glass` et `.glass-edge` eux-mêmes sont mesurés par la sonde : filet supérieur plus clair que le bord, flou rendu. Leur lisibilité au-dessus d'une carte chargée n'est pas mesurée.
-- `html:active-view-transition` n'a été mesuré que dans Chromium (headless shell 1243), pas dans Safari ni Firefox. Un navigateur sans `:active-view-transition` perd l'animation de page (le nom n'est jamais posé) mais garde le flou ; c'est la dégradation voulue.
+- `html:active-view-transition` n'a été mesuré que dans Chromium (headless shell 1243), pas dans Safari ni Firefox. Attendu, non mesuré : un navigateur qui a les View Transitions sans `:active-view-transition` ne pose jamais le nom et retombe sur le fondu racine par défaut, sans perdre le flou.
 - La suite `vitest` complète de `src/` n'a pas été relancée : seuls `src/components` et `DrillPage.test.tsx` l'ont été, conformément au brief.
