@@ -23,6 +23,7 @@ import { AnamneseGuide } from './AnamneseGuide';
 import { AnamneseBogen } from './AnamneseBogen';
 import { VorstellungGuide } from './VorstellungGuide';
 import { ArztbriefGuide } from './ArztbriefGuide';
+import { Abschluss } from './Abschluss';
 import { KommunikationPanel } from './KommunikationPanel';
 import { QrCode } from '@/components/QrCode';
 import { usePatientBroadcast, patientUrl, patientUrlIsOnline, localPatientUrl } from './usePatientSync';
@@ -182,14 +183,14 @@ export function SimulationRunner() {
   const flow = lauf.geplanteTeile.map((t) => FLOW.find((f) => f.key === t)!);
   const partKey: Part = lauf.aktuellerTeil ?? lauf.geplanteTeile[0];
   const target = (partKey === 'aufklaerung' ? 5 * 60 : FLOW.find((f) => f.key === partKey)?.target) ?? 20 * 60;
-  const doneCount = lauf.teileGespielt.length;
   const suivantTeil = lauf.teilVorAufklaerung && !lauf.teileGespielt.includes(lauf.teilVorAufklaerung)
     ? lauf.teilVorAufklaerung : naechsterTeil(lauf);
 
-  // La sortie est TOUJOURS atteignable dès qu'une partie est jouée : elle vit
-  // dans l'en-tête collant, pas en bas du JSX où elle n'existait jamais pendant
-  // l'évaluation — exactement le moment où l'utilisateur la cherche.
-  const versChecklist = async () => {
+  // La fin passe TOUJOURS par l'automate : bilanz → checkliste → [arztbrief]
+  // → gespeichert. On ne quitte pas une partie en cours d'un seul clic
+  // (décision de `main`, règle 8 amendée) : la Dokumentation en cours ne peut
+  // plus disparaître par un bouton d'en-tête.
+  const enregistrer = async () => {
     const id = await steuerung.beenden();
     if (id) { const n = new URLSearchParams(params); n.set('sim', id); setParams(n, { replace: true }); }
   };
@@ -345,10 +346,11 @@ export function SimulationRunner() {
                         <button onClick={steuerung.terminerPartie} className="btn-outline text-xs">Terminer la partie ✓</button>
                       </>
                     )}
-                    {/* Toujours atteignable dès qu'une partie est jouée —
-                        pendant le jeu COMME pendant le bilan (§2.1 règle 8). */}
-                    {doneCount > 0 && (
-                      <button onClick={versChecklist} className="btn-primary text-xs" title="Enregistrer et voir le bilan complet">
+                    {/* Visible dans le BILAN seulement (règle 8 amendée) :
+                        pendant `laufend`, la seule sortie est « Terminer la
+                        partie ». */}
+                    {lauf.zustand === 'bilanz' && (
+                      <button onClick={steuerung.versChecklist} className="btn-primary text-xs" title="Vers la checklist de fin">
                         Terminer la simulation →
                       </button>
                     )}
@@ -357,7 +359,19 @@ export function SimulationRunner() {
               </div>
 
               <div className="mt-4">
-                {lauf.zustand === 'bilanz' && lauf.aktuellerTeil ? (
+                {lauf.zustand === 'checkliste' ? (
+                  <Abschluss lauf={lauf} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
+                ) : lauf.zustand === 'arztbrief' ? (
+                  <div className="space-y-4">
+                    <ArztbriefGuide c={c} assistance={lauf.assistance} text={lauf.arztbriefText}
+                      onText={(t) => steuerung.setzeFeld({ arztbriefText: t })} bogen={lauf.bogen} muster={lauf.muster ?? 'Standard'} />
+                    <div className="flex justify-end">
+                      <button onClick={enregistrer} className="btn-primary px-6">Enregistrer la simulation →</button>
+                    </div>
+                  </div>
+                ) : lauf.zustand === 'gespeichert' ? (
+                  <div className="text-slate-400">Enregistrement…</div>
+                ) : lauf.zustand === 'bilanz' && lauf.aktuellerTeil ? (
                   <PartEvaluation
                     part={lauf.aktuellerTeil}
                     durationSec={lauf.sekundenProTeil[lauf.aktuellerTeil] ?? 0}
@@ -369,7 +383,7 @@ export function SimulationRunner() {
                     onFeeling={(v) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { feeling: v })}
                     suivant={suivantTeil ? LABEL[suivantTeil] : null}
                     onSuivant={() => steuerung.dispatch({ typ: 'partieSuivante' })}
-                    onTerminer={versChecklist}
+                    onTerminer={steuerung.versChecklist}
                     onRetour={() => steuerung.dispatch({ typ: 'zurueckZurPartie' })}
                   />
                 ) : (

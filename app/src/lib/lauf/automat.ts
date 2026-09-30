@@ -18,6 +18,16 @@ import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf
 // « Valider » retombait en `setPhase('play')` et, quand `flow.length === 1`,
 // réaffichait l'exercice qu'on venait de terminer. Il n'y a plus de branche qui
 // ne fasse rien : `terminerPartie` n'a qu'une destination.
+//
+// RÈGLE 8 AMENDÉE (décision de `main`, 30 sept. 2026 — le contrat §2.1 disait
+// « visible dans `bilanz` comme dans `laufend` », ce qui contredisait son propre
+// diagramme) : on ne quitte PAS une partie en cours d'un seul clic. Pendant
+// `laufend`, l'en-tête n'offre que « Terminer la partie ». « Terminer la
+// simulation » n'existe qu'en `bilanz` et passe toujours par ici :
+//   bilanz → versChecklist → checkliste → [arztbriefSchreiben → arztbrief]
+//          → speichern → gespeichert.
+// `speichern` hors de `checkliste`/`arztbrief` est refusé, et l'appelant
+// (`useLauf.beenden`) n'écrit RIEN quand il est refusé.
 // ============================================================================
 
 const PREFIX: Record<LaufTeil, string> = {

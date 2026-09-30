@@ -42,7 +42,12 @@ export interface LaufSteuerung {
   setzeEntwurfFeld: (teil: LaufTeil, patch: Partial<TeilEntwurf>) => void;
   setzeItem: (id: string, checked: boolean) => void;
   tick: (teil: LaufTeil, sekunden: number) => void;
-  /** Écriture finale idempotente ; rend l'id de la simulation enregistrée. */
+  /** bilanz → checkliste. La seule sortie de fin de partie (règle 8 amendée). */
+  versChecklist: () => void;
+  /** checkliste → arztbrief — facultatif (Q5). */
+  arztbriefSchreiben: () => void;
+  /** checkliste|arztbrief → gespeichert, puis écriture idempotente. Rend l'id
+   *  de la simulation enregistrée, ou `null` si l'automate refuse. */
   beenden: () => Promise<string | null>;
   abbrechen: () => Promise<void>;
 }
@@ -140,14 +145,25 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
   const tick = useCallback((t: LaufTeil, s: number) =>
     setLauf((l) => (l ? tickChrono(l, t, s) : l)), []);
 
+  const versChecklist = useCallback(() => dispatch({ typ: 'versChecklist' }), [dispatch]);
+  const arztbriefSchreiben = useCallback(() => dispatch({ typ: 'arztbriefSchreiben' }), [dispatch]);
+
+  // La fin passe par l'AUTOMATE, jamais à côté : `speichern` n'est accepté que
+  // depuis `checkliste` ou `arztbrief`. Avant, `beenden()` écrivait depuis
+  // `laufend` alors que la transition était refusée — la simulation était
+  // enregistrée, le Lauf restait `laufend`, et le tick suivant du chrono
+  // recréait `lauf.aktiv` avec l'id d'une simulation déjà écrite.
   const beenden = useCallback(async () => {
     const l = lauf;
     if (!l || !c) return null;
     const fertig = transition(l, { typ: 'speichern' });
-    // L'écriture est idempotente sur `lauf.id` : un second clic ne crée ni une
-    // seconde ligne ni un second événement (INV-22).
-    const sim = await speichern(fertig, c);
+    if (fertig === l) return null;           // refusé par l'automate : rien n'est écrit
+    // `gespeichert` d'abord dans l'état React : la persistance en vol s'arrête
+    // AVANT l'écriture, aucune ne peut la doubler.
     setLauf(fertig);
+    // Idempotente sur `lauf.id` : un second clic ne crée ni une seconde ligne
+    // ni un second événement (INV-22).
+    const sim = await speichern(fertig, c);
     useSimSession.getState().end();
     return sim.id;
   }, [lauf, c]);
@@ -158,5 +174,5 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     setLauf(null);
   }, []);
 
-  return { lauf, laedt, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, beenden, abbrechen };
+  return { lauf, laedt, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, arztbriefSchreiben, beenden, abbrechen };
 }
