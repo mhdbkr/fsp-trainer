@@ -331,23 +331,23 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
 // Un cas répond aux sondes de SA catégorie (patientSheet.leitsymptomKategorie).
 export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[]> = {
   schmerz: [
-  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen?' },
+  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden?' },
   { id: 'akt-charakter', kapitel: 'aktuell', frage: 'Wie fühlt es sich an — dumpf, stechend, brennend, drückend, krampfartig?' },
   { id: 'akt-intensitaet', kapitel: 'aktuell', frage: 'Wie stark sind die Beschwerden auf einer Skala von 1 bis 10?' },
-  { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden aus? Wohin?' },
+  { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden irgendwohin aus?' },
   ],
   atemnot: [
-    { id: 'akt-atemnot-belastung', kapitel: 'aktuell', frage: 'Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe? Wie viele Treppenstufen schaffen Sie ohne Pause?' },
-    { id: 'akt-atemnot-nachts', kapitel: 'aktuell', frage: 'Müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?' },
-    { id: 'akt-atemnot-husten', kapitel: 'aktuell', frage: 'Haben Sie Husten? Trocken oder mit Auswurf — welche Farbe, ist Blut dabei?' },
+    { id: 'akt-atemnot-belastung', kapitel: 'aktuell', frage: 'Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe?' },
+    { id: 'akt-atemnot-nachts', kapitel: 'aktuell', frage: 'Müssen Sie mit erhöhtem Oberkörper schlafen?' },
+    { id: 'akt-atemnot-husten', kapitel: 'aktuell', frage: 'Haben Sie Husten?' },
     { id: 'akt-atemnot-geraeusch', kapitel: 'aktuell', frage: 'Hören Sie beim Atmen ein Pfeifen oder Brummen?' },
   ],
   allgemein: [
     { id: 'akt-allgemein-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: Müdigkeit, Kraftlosigkeit, Schwindel, etwas anderes?' },
-    { id: 'akt-allgemein-alltag', kapitel: 'aktuell', frage: 'Was schaffen Sie im Alltag nicht mehr? Müssen Sie sich tagsüber hinlegen?' },
-    { id: 'akt-allgemein-tageszeit', kapitel: 'aktuell', frage: 'Ist es morgens schlimmer oder im Laufe des Tages? Bessert es sich nach Ruhe?' },
-    { id: 'akt-allgemein-gewicht', kapitel: 'aktuell', frage: 'Hat sich Ihr Gewicht ungewollt verändert? Und Appetit, Durst?' },
-    { id: 'akt-allgemein-schwellung', kapitel: 'aktuell', frage: 'Sind Beine, Gesicht oder Bauch angeschwollen? Hat sich die Urinmenge verändert?' },
+    { id: 'akt-allgemein-alltag', kapitel: 'aktuell', frage: 'Was schaffen Sie im Alltag nicht mehr, was vorher ging?' },
+    { id: 'akt-allgemein-tageszeit', kapitel: 'aktuell', frage: 'Ist es morgens schlimmer oder im Laufe des Tages?' },
+    { id: 'akt-allgemein-gewicht', kapitel: 'aktuell', frage: 'Hat sich Ihr Gewicht ungewollt verändert?' },
+    { id: 'akt-allgemein-schwellung', kapitel: 'aktuell', frage: 'Sind Beine, Gesicht oder Bauch angeschwollen?' },
   ],
   psychisch: [
     { id: 'akt-psych-stimmung', kapitel: 'aktuell', frage: 'Wie ist Ihre Stimmung im Moment? Gibt es Momente, in denen es besser ist?' },
