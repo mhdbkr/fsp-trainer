@@ -30,7 +30,7 @@ import { cleanSelection, createPersonalTerm, personalTermId, PT_LIMITS, updatePe
 import { toView } from '@/lib/collections/allTerms';
 import { lookupTerm } from '@/lib/dictionary';
 import { askBedeutung, canAskAi } from '@/lib/onlineAi';
-import { expand, flyFrom, m, settleOrClose } from '@/lib/motion';
+import { expand, flyFrom, m, settleOrClose, type Settle } from '@/lib/motion';
 import { useCardToast } from '@/store/cardToast';
 import { ContextSentence } from './TermSheet';
 import { Icon } from './icons';
@@ -46,9 +46,9 @@ export function selectionWords(selection: string): string[] {
 const CARD_H = 400;
 const CARD_W = 352;   // w-[22rem]
 
-/** `onClose(dy)` : `dy` = descente jusqu'à la pilule (« se poser ») ; absent = simple fermeture. */
+/** `onClose(settle)` : `{dx, dy}` = trajet jusqu'au centre de la pilule (« se poser ») ; absent = simple fermeture. */
 export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
-  selection: string; sentence: string; caseId?: string; at?: { x: number; bottom: number }; onClose: (settleDy?: number) => void;
+  selection: string; sentence: string; caseId?: string; at?: { x: number; bottom: number }; onClose: (settle?: Settle) => void;
 }) {
   const decks = useDecks();
   const manualDecks = (decks ?? []).filter((d) => d.kind === 'manual');
@@ -127,10 +127,12 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
 
   const canCreate = !!word.trim() && word.length <= PT_LIMITS.term && !submitting && !loading &&   // pas de doublon du glossaire avant son chargement (m-a)
     (!!hit || !!bedeutung.trim());
-  // Se poser : de son centre jusqu'à la pilule de confirmation (bas de l'écran, ~32 px).
-  const settleDy = () => {
+  // Se poser : de son centre jusqu'au centre de la pilule de confirmation (centrée, bas de l'écran, ~32 px).
+  const settleTo = (): Settle => {
     const r = cardRef.current?.getBoundingClientRect();
-    return r && r.height ? Math.max(0, window.innerHeight - 32 - (r.top + r.height / 2)) : 96;
+    return r && r.height
+      ? { dx: window.innerWidth / 2 - (r.left + r.width / 2), dy: Math.max(0, window.innerHeight - 32 - (r.top + r.height / 2)) }
+      : { dx: 0, dy: 96 };
   };
   const create = async () => {
     if (!canCreate || busy.current) return;
@@ -139,8 +141,8 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
       // Le mot choisi touche en fait un terme déjà publié : le ranger lui, jamais de doublon (I1/N2).
       if (hit) {
         await addTermToDeck(deckId, hit.id, caseId ? { caseId } : {});
-        show({ kind: 'saved', term: hit, deckId, ...(caseId ? { caseId } : {}) });
-        onClose(settleDy());
+        show({ kind: 'saved', term: hit, deckId, ...(caseId ? { caseId } : {}) }, { focus: true });
+        onClose(settleTo());
         return;
       }
       const { id, created } = await createPersonalTerm({ term: word, explanation: bedeutung, context: sentence, caseId });
@@ -150,8 +152,8 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
       if (!created && typed.current && nextExplanation && nextExplanation !== (existingPt?.explanation ?? '')) await updatePersonalExplanation(id, nextExplanation);
       await addTermToDeck(deckId, id, caseId ? { caseId } : {});
       const pt = await db.personal_terms.get(id);
-      if (pt) show({ kind: 'saved', term: toView(pt), deckId, ...(caseId ? { caseId } : {}) });
-      onClose(settleDy());
+      if (pt) show({ kind: 'saved', term: toView(pt), deckId, ...(caseId ? { caseId } : {}) }, { focus: true });   // après « Créer », le focus va à la pilule (G1-21)
+      onClose(settleTo());
       // Le verrou (`busy`/`submitting`) reste TENU après succès : la carte
       // s'anime en sortie mais reste montée quelques ms (`exit="gone"`) — un
       // second clic pendant ce délai ne doit rien réémettre.
@@ -201,7 +203,7 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
               placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
               aria-busy={ai === 'loading' || undefined}
               onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }} onKeyDown={onEnter}
-              className={`${field} text-base italic placeholder:text-slate-400 ${hit ? 'cursor-default text-slate-600 hover:!border-transparent focus:!border-transparent dark:text-slate-300' : 'text-slate-700 dark:text-slate-200'} ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
+              className={`${field} text-base italic placeholder:text-slate-500 ${hit ? 'cursor-default text-slate-600 hover:!border-transparent focus:!border-transparent dark:text-slate-300' : 'text-slate-700 dark:text-slate-200'} ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
             {sentence && (
               <div>
                 <p className="label mb-1">Contexte</p>

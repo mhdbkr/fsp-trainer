@@ -13,7 +13,7 @@ import { TermSheet } from '@/components/TermSheet';
 import { StarButton } from '@/components/StarButton';
 import { StarGlyph } from '@/components/StarButton';
 import { NewCardSheet, selectionWords, CHIP_THRESHOLD } from '@/components/NewCardSheet';
-import { AnimatePresence, appear, expand, m, spring } from '@/lib/motion';
+import { AnimatePresence, appear, expand, m, spring, type Settle } from '@/lib/motion';
 import type { Fachbegriff } from '@/db/types';
 
 // ============================================================================
@@ -54,8 +54,9 @@ export function SelectionExplainer() {
   const [anchor, setAnchor] = useState<Anchor | null>(null);
   const [bubble, setBubble] = useState<Bubble | null>(null);
   const [newCard, setNewCard] = useState<{ selection: string; sentence: string; at: { x: number; bottom: number } } | null>(null);
-  const [settleDy, setSettleDy] = useState<number | undefined>(undefined);   // « se poser » (P8) : lu par la sortie de la carte
+  const [settle, setSettle] = useState<Settle | undefined>(undefined);   // « se poser » (P8) : lu par la sortie de la carte
   const rootRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<Anchor | null>(null);
   useEffect(() => { anchorRef.current = anchor; }, [anchor]);
 
@@ -105,9 +106,15 @@ export function SelectionExplainer() {
       if (e.target instanceof Element && e.target.closest('[data-keep-open]')) return;
       setAnchor(null); setBubble(null);
     };
+    // Échap ferme la pilule / la carte (le tiroir d'un terme, dessous, l'ignore : `data-selection-pill`).
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setAnchor(null); setBubble(null); } };
     document.addEventListener('pointerdown', onDown);
-    return () => document.removeEventListener('pointerdown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('pointerdown', onDown); document.removeEventListener('keydown', onKey); };
   }, [anchor]);
+  // « Expliquer » : le focus suit la carte qui remplace la pilule (G1-21).
+  const hasBubble = !!bubble;
+  useEffect(() => { if (hasBubble) cardRef.current?.focus(); }, [hasBubble]);
 
   const hit = anchor ? lookupTerm(anchor.text, begriffe) : null;
   const clean = anchor ? cleanSelection(anchor.text) : '';
@@ -144,9 +151,13 @@ export function SelectionExplainer() {
   };
 
   const sheet = (
-    <AnimatePresence custom={settleDy}>
+    <AnimatePresence custom={settle}>
       {newCard && <NewCardSheet key={newCard.selection + newCard.sentence} selection={newCard.selection} sentence={newCard.sentence} caseId={caseId} at={newCard.at}
-        onClose={(dy) => { setSettleDy(dy); setNewCard(null); }} />}
+        onClose={(to) => {
+          setSettle(to); setNewCard(null);
+          // Fermée sans créer : le focus revient au contenu (la pilule, créée, prend le sien — CardToast).
+          if (!to) document.querySelector<HTMLElement>('main')?.focus();
+        }} />}
     </AnimatePresence>
   );
   // Pas assez de place au-dessus (pilule ou bulle) : bascule sous la sélection
@@ -171,13 +182,13 @@ export function SelectionExplainer() {
       {anchor && (
         // Position (left/top) sur le calque animé ; le centrage (translate) sur l'enfant :
         // l'origine du geste (0 0) tombe ainsi pile sur l'ancre de la sélection.
-        <m.div key="selection" ref={rootRef} className="fixed z-[80]" style={{ left, top, transformOrigin: '0 0' }}
+        <m.div key="selection" ref={rootRef} data-selection-pill className="fixed z-[80]" style={{ left, top, transformOrigin: '0 0' }}
           initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={spring}>
           <div data-anchor-box style={{ transform: flipBelow ? 'translate(-50%, 0)' : 'translate(-50%, -100%)' }}
             className={`grid justify-items-center ${flipBelow ? 'items-start' : 'items-end'}`}>
             <AnimatePresence initial={false}>
               {!bubble ? (
-                <m.div key="pill" {...appear} data-pill className="glass-thin flex items-center gap-0.5 rounded-full p-0.5 [grid-area:1/1]">
+                <m.div key="pill" {...appear} data-pill role="toolbar" aria-label="Sélection" className="glass-thin flex items-center gap-0.5 rounded-full p-0.5 [grid-area:1/1]">
                   <button type="button" aria-label="Expliquer" onClick={() => { void explain(); }}
                     className="group relative grid h-11 w-11 place-items-center rounded-full text-brand-700 hover:bg-white/40 dark:text-brand-300 dark:hover:bg-white/10">
                     <Icon name="search" className="h-4 w-4" />{tip('Expliquer')}
@@ -185,19 +196,19 @@ export function SelectionExplainer() {
                   <span className="group relative">{star}{tip(starTip)}</span>
                 </m.div>
               ) : (
-                <m.div key="card" {...expand} style={{ transformOrigin: flipBelow ? 'top center' : 'bottom center' }}
+                <m.div key="card" ref={cardRef} tabIndex={-1} data-explain-card {...expand} style={{ transformOrigin: flipBelow ? 'top center' : 'bottom center' }}
                   className="glass-full flex w-64 items-start gap-1.5 rounded-2xl p-2.5 text-[13px] [grid-area:1/1]">
                   {!bubble.loading && !bubble.error && <div className="-m-0.5 -mt-1">{star}</div>}
                   <div className="min-w-0 flex-1">
                     {bubble.loading ? (
-                      <div className="flex items-center gap-2 text-slate-500"><span className="h-3 w-3 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" /> Doctopus cherche…</div>
+                      <div role="status" className="flex items-center gap-2 text-slate-500 dark:text-slate-400"><span className="h-3 w-3 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" /> Doctopus cherche…</div>
                     ) : bubble.error ? (
-                      <div className="text-[12px] text-amber-700 dark:text-amber-400">{bubble.error}</div>
+                      <div role="alert" className="text-[12px] text-amber-700 dark:text-amber-400">{bubble.error}</div>
                     ) : (
                       <>
                         <div className="mb-1 flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-slate-500">« {anchor.text} »</span>
-                          <span className="chip py-0 text-[9px] text-slate-500">{bubble.source}</span>
+                          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">« {anchor.text} »</span>
+                          <span className="chip py-0 text-[9px] text-slate-500 dark:text-slate-400">{bubble.source}</span>
                         </div>
                         {bubble.fb ? <TermSheet term={bubble.fb} compact /> : <div className="leading-snug text-slate-700 dark:text-slate-200">{bubble.text}</div>}
                       </>

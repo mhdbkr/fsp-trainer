@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest';
-import { useContext, useState } from 'react';
+import { StrictMode, useContext, useState } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MotionConfigContext } from 'motion/react';
 import { AnimatePresence, m, appear, MotionRoot, flyFrom, settleOrClose, expand, useCountUp } from './motion';
@@ -49,7 +49,7 @@ describe('MotionRoot (F4b P9, AC-8)', () => {
 describe('gestes (F4b P8/P9)', () => {
   const rect = (left: number, top: number) => ({ left, top, width: 10, height: 10, right: left + 10, bottom: top + 10, x: left, y: top, toJSON() {} }) as DOMRect;
   it('se poser : descend de dy en se réduisant ; sans dy, sortie ordinaire (s\'étendre à l\'envers)', () => {
-    expect(settleOrClose(120)).toMatchObject({ opacity: 0, scale: 0.3, y: 120 });
+    expect(settleOrClose({ dx: -40, dy: 120 })).toMatchObject({ opacity: 0, scale: 0.3, x: -40, y: 120 });   // vers le centre de la pilule (G1-19)
     expect(settleOrClose(undefined)).toBe(expand.exit);
   });
   it('voler : part du rectangle d\'origine, annule le vol précédent ; rien sous mouvement réduit', () => {
@@ -73,6 +73,11 @@ describe('compter (F4b P10)', () => {
     await waitFor(() => expect(screen.getByTestId('n').textContent).toBe('42'));
     rerender(<Count to={7} />);
     expect(screen.getByTestId('n').textContent).toBe('7');
+  });
+  it('StrictMode (effets montés deux fois) : compte quand même, sans sauter à la valeur (G1-24)', async () => {
+    render(<StrictMode><Count to={42} /></StrictMode>);
+    expect(screen.getByTestId('n').textContent).not.toBe('42');
+    await waitFor(() => expect(screen.getByTestId('n').textContent).toBe('42'));
   });
   it('mouvement réduit : la valeur tout de suite', () => {
     mql.matches = true;

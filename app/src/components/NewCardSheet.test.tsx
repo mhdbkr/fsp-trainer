@@ -179,6 +179,7 @@ describe('NewCardSheet', () => {
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
     await screen.findByRole('textbox', { name: 'Bedeutung' });
     expect(screen.queryByText('Pas de proposition : écris la signification.')).toBeNull();
+    expect(screen.getByRole('textbox', { name: 'Bedeutung' }).className).toContain('placeholder:text-slate-500');   // contraste (G1-23)
   });
 
   it('carte en devenir (F4b P8, AC-7) : mot en grand, Bedeutung en italique, contexte en petit surligné, « Créer la carte » ; verre sans ombre', async () => {
@@ -237,7 +238,7 @@ describe('NewCardSheet', () => {
     await waitFor(() => expect((input as HTMLInputElement).value).toBe('Atemnot bei Belastung'), { timeout: 3000 });   // suite complète : IA simulée + Dexie sous charge
     fireEvent.keyDown(input, { key: 'Enter' });
     await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1), { timeout: 3000 });
-    expect(typeof onClose.mock.calls[0][0]).toBe('number');
+    expect(onClose.mock.calls[0][0]).toEqual({ dx: expect.any(Number), dy: expect.any(Number) });   // se poser en x ET en y (G1-19)
     expect(await db.personal_terms.count()).toBe(1);
     onClose.mockClear();
     fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));

@@ -37,10 +37,11 @@ export function slide(edge: 'left' | 'right' | 'bottom') {
   return { initial: { opacity: 0, ...off }, animate: { opacity: 1, x: 0, y: 0 }, exit: { opacity: 0, ...off }, transition: spring } as const;
 }
 
-/** Se poser : la carte créée descend de `dy` px en se réduisant, jusqu'à la
- *  pilule de confirmation (bas de l'écran). `dy` absent → sortie ordinaire. */
-export const settleOrClose = (dy: number | undefined) =>
-  dy === undefined ? expand.exit : { opacity: 0, scale: 0.3, y: dy, transition: spring };
+/** Se poser : la carte créée file de (`dx`, `dy`) px en se réduisant, jusqu'au
+ *  centre de la pilule de confirmation (bas de l'écran). Absent → sortie ordinaire. */
+export type Settle = { dx: number; dy: number };
+export const settleOrClose = (to: Settle | undefined) =>
+  to === undefined ? expand.exit : { opacity: 0, scale: 0.3, x: to.dx, y: to.dy, transition: spring };
 
 /** Le mouvement est-il permis ? Non sous prefers-reduced-motion, ni sans matchMedia (tests). */
 const mayMove = () => typeof window !== 'undefined' && !!window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -63,15 +64,18 @@ export function useCountUp(to: number, ms = 600): number {
   const [shown, setShown] = useState(counted.current ? to : 0);
   useEffect(() => {
     if (counted.current) { setShown(to); return; }
-    counted.current = true;
-    const t0 = performance.now(); let raf = 0;
+    // `counted` n'est marqué qu'une fois le compte ENTAMÉ (premier tick) : sous StrictMode (effet monté,
+    // démonté, remonté), le second montage recompte au lieu de sauter à la valeur.
+    const t0 = performance.now(); let raf = 0; let started = false;
     const tick = () => {
+      started = true;
       const p = Math.min(1, (performance.now() - t0) / ms);
       setShown(Math.round(to * (1 - (1 - p) ** 3)));
-      if (p < 1) raf = requestAnimationFrame(tick);
+      if (p < 1) raf = requestAnimationFrame(tick); else counted.current = true;
     };
     raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); setShown(to); };
+    // Compte entamé puis interrompu (nouvelle valeur) : il a eu lieu — la suite s'affiche telle quelle.
+    return () => { cancelAnimationFrame(raf); if (started) counted.current = true; };
   }, [to, ms]);
   return shown;
 }
