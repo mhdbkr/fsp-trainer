@@ -22,7 +22,7 @@ import { isWorkingDay, programEnd } from './dayPlan';
 
 export {
   buildTasks, dayTargetMin, ensureDayPlan, isWorkingDay, modusOf, nextWorkingDay,
-  planProgress, programEnd, projectedDay, replanifier, sessionDuJour,
+  planProgress, programEnd, projectedDays, replanifier, sessionDuJour,
   specialiteLaPlusEnDette, taperDays, teilLePlusEnDette,
 } from './dayPlan';
 export { observeModus, modusAProposer, MIN_SEANCES } from './modus';

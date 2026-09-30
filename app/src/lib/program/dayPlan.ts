@@ -337,12 +337,24 @@ export async function replanifier(date = dayKey(clockNow())): Promise<DayPlan | 
 }
 
 /**
- * La projection NON FIGÉE d'un jour futur : ce que le calendrier montre, marqué
- * comme tel. Elle n'a pas d'identité, elle ne se coche pas, et elle ne crée rien.
+ * La projection NON FIGÉE des jours à venir : ce que le calendrier montre, marqué
+ * comme tel (contrat §3.2, §7 — I6). Elle n'a pas d'identité (`projection:…`),
+ * elle ne se coche pas, et elle ne crée rien. Seuls les jours STRICTEMENT futurs
+ * sont projetés : aujourd'hui est figé, le passé n'est jamais rétroactif. L'état
+ * est chargé une fois pour toutes les dates.
  */
-export async function projectedDay(date: string): Promise<TaskInstance[]> {
+export async function projectedDays(dates: string[]): Promise<Map<string, TaskInstance[]>> {
+  const out = new Map<string, TaskInstance[]>();
+  const at = clockNow();
+  const today = dayKey(at);
+  const future = dates.filter((d) => d > today);
   const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
-  if (!config) return [];
-  let n = 0;
-  return buildTasks(await loadBuildInput(config, date, clockNow()), () => `projection:${date}:${n++}`);
+  if (!config || !future.length) return out;
+  const input = await loadBuildInput(config, today, at);
+  for (const date of future) {
+    let n = 0;
+    const tasks = buildTasks({ ...input, date }, () => `projection:${date}:${n++}`);
+    if (tasks.length) out.set(date, tasks);
+  }
+  return out;
 }
