@@ -118,8 +118,8 @@ export function Doctopus() {
                 </div>
               </div>
               <div className="flex items-center gap-0.5">
-                <button onClick={() => setShowSettings((s) => !s)} title="Réglages IA" className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-white/10"><Icon name="gear" className="h-[18px] w-[18px]" /></button>
-                <button onClick={() => closeDoctopus()} title="Fermer" className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-white/10">✕</button>
+                <button onClick={() => setShowSettings((s) => !s)} title="Réglages IA" aria-label="Réglages IA" className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-white/10"><Icon name="gear" className="h-[18px] w-[18px]" /></button>
+                <button onClick={() => closeDoctopus()} title="Fermer" aria-label="Fermer Doctopus" className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-white/10">✕</button>
               </div>
             </div>
 
