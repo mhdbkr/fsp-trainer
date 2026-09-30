@@ -127,9 +127,14 @@ export function DrillPage() {
           {anchor && <p className="mt-1 text-sm text-brand-600 dark:text-brand-300">Ancré sur ton cas récent : {anchor.name}</p>}
           <div className="mt-4 flex items-center justify-center gap-2">
             <span className="text-sm">Sens :</span>
-            <div className="flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-slate-800">
-              <button onClick={() => setDirection('term2simple')} className={`min-h-11 rounded px-3 ${direction === 'term2simple' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Terme → sens</button>
-              <button onClick={() => setDirection('simple2term')} className={`min-h-11 rounded px-3 ${direction === 'simple2term' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>Sens → terme</button>
+            {/* `.seg` plutôt qu'un segmenté redessiné : l'état sélectionné se dit
+                par `aria-pressed` (donc au lecteur d'écran, pas seulement à l'œil),
+                et le cran sélectionné porte `shadow-e1` — un filet INTERNE, là où
+                `shadow-sm` était une ombre portée (gate G2-a). `min-h-11` reste :
+                44 px de cible tactile, la piste `.seg` ne les impose pas. */}
+            <div className="seg">
+              <button type="button" aria-pressed={direction === 'term2simple'} onClick={() => setDirection('term2simple')} className="min-h-11 px-3">Terme → sens</button>
+              <button type="button" aria-pressed={direction === 'simple2term'} onClick={() => setDirection('simple2term')} className="min-h-11 px-3">Sens → terme</button>
             </div>
           </div>
           {qc.due + qc.fresh === 0 ? (
