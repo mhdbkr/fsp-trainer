@@ -92,7 +92,8 @@ export async function bereinigeAltenLauf(jetzt = Date.now()): Promise<Lauf | nul
   return null;
 }
 
-/** Abandon d'un Lauf (§3.1) : ÉCRIT tel quel s'il a au moins un Teil joué —
+/** Abandon d'un Lauf (§3.1) : ÉCRIT tel quel s'il a au moins un des trois
+ *  Teile joué (l'Aufklärung seule ne compte pas) —
  *  une partie jouée n'est jamais jetée —, supprimé sinon. Seule règle, pour
  *  l'abandon par l'âge comme pour l'abandon par changement de mode ou de cas.
  *
@@ -103,7 +104,9 @@ export async function bereinigeAltenLauf(jetzt = Date.now()): Promise<Lauf | nul
  *  l'écriture échoue malgré tout, le Lauf est écarté plutôt que de bloquer. */
 export async function gibAuf(l: Lauf): Promise<void> {
   try {
-    if (!l.teileGespielt.length) return await verwerfeAktivenLauf();
+    // « Un Teil joué » = un des TROIS Teile (décision `main`, mineur 6) :
+    // une Aufklärung seule n'en est pas un, rien n'est écrit.
+    if (!l.teileGespielt.some((t) => t !== 'aufklaerung')) return await verwerfeAktivenLauf();
     const fall = (await db.cases.get(l.caseId)) ?? ({ id: l.caseId, name: l.caseName } as Case);
     await speichern(l, fall);
   } catch (e) {

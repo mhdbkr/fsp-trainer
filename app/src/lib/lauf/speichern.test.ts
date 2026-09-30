@@ -4,7 +4,7 @@ import { checklistFor } from '@/lib/checklists';
 import { erstelleLauf, transition, setzeChecklistItem, tickChrono } from './automat';
 import {
   speichern, projektion, ladeAktivenLauf, speichereAktivenLauf, verwerfeAktivenLauf,
-  bereinigeAltenLauf, restauriere, LAUF_AKTIV_KEY, LAUF_MAX_ALTER_MS,
+  bereinigeAltenLauf, restauriere, gibAuf, LAUF_AKTIV_KEY, LAUF_MAX_ALTER_MS,
 } from './speichern';
 import type { Lauf } from './types';
 import type { Case, PartResult } from '@/db/types';
@@ -290,6 +290,17 @@ describe('§3.1 — un Lauf abandonné depuis plus de 24 h', () => {
     expect(await bereinigeAltenLauf()).toBeNull();
     expect(await db.simulations.count()).toBe(0);
     expect(await ladeAktivenLauf()).toBeNull();
+  });
+
+  it('décision 6 — seule l’Aufklärung jouée : ce n’est pas « un Teil joué », rien n’est écrit', async () => {
+    let l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
+    l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: checklistFor('aufklaerung') });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    expect(l.teileGespielt).toEqual(['aufklaerung']);
+    await speichereAktivenLauf(l);
+    await gibAuf(l);
+    expect(await db.simulations.count()).toBe(0);
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
   });
 
   it('récent : il est rendu tel quel, pour être repris', async () => {
