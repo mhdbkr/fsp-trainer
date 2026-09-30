@@ -13,8 +13,6 @@ import { TEILE } from '@/lib/simScope';
 import { Icon } from '@/components/icons';
 import { AXES } from '@/db/types';
 import { axisScoresFull, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
-import { computeReadiness } from '@/lib/readiness';
-import { ReadinessGauge } from '@/components/ReadinessGauge';
 import { ScoreBar, EmptyState } from '@/components/ui';
 
 export function StatsPage() {
@@ -38,7 +36,6 @@ export function StatsPage() {
 
   const scores = axisScoresFull(sims, begriffe, cases, progress);
   const weak = weakestAxis(scores);
-  const readiness = computeReadiness(sims, cases, begriffe, progress);
   const bySpecialty = specialtyScores(sims, cases);
   const series = progressSeries(sims);
   const weakList = weakCases(progress, cases, 5);
@@ -55,24 +52,9 @@ export function StatsPage() {
         </p>
       </header>
 
-      {/* Où j'en suis, et où ça mène — la même frise qu'à l'accueil. */}
+      {/* Où j'en suis, et où ça mène — la même frise qu'à l'accueil. C'est le
+          SEUL indice de préparation de l'app (D-I9) : une formule, un nom. */}
       <TrajectoryStrip config={config} cases={cases} events={events} />
-
-      {/* Indicateur de préparation global */}
-      <section className="card p-5">
-        <div className="grid items-center gap-4 sm:grid-cols-[auto_1fr]">
-          <ReadinessGauge readiness={readiness} size={190} />
-          <div>
-            <h2 className="font-semibold">Prêt à réussir la FSP ?</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Verdict global pondéré par ton niveau d'assistance et tes couches.</p>
-            <ul className="mt-2 space-y-1 text-sm">
-              {readiness.recommendations.map((r, i) => (
-                <li key={i} className="flex gap-2"><span className="text-brand-400">→</span>{r}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {weak && weak.score < 60 && (
         <div className="card border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-900/10">
