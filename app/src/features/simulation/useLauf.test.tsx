@@ -2,7 +2,9 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { db } from '@/db/db';
 import type { Case, SimTeil } from '@/db/types';
-import { LAUF_AKTIV_KEY } from '@/lib/lauf/speichern';
+import { LAUF_AKTIV_KEY, speichereAktivenLauf } from '@/lib/lauf/speichern';
+import { erstelleLauf, transition } from '@/lib/lauf/automat';
+import { checklistFor } from '@/lib/checklists';
 import { useLauf } from './useLauf';
 
 // ============================================================================
@@ -85,5 +87,60 @@ describe('C1 — la fin de partie passe par l’automate', () => {
     await act(async () => { await result.current.beenden(); });
     expect(result.current.lauf?.zustand).toBe('gespeichert');
     expect(await db.simulations.count()).toBe(1);
+  });
+});
+
+/** Un Lauf en vol dans `lauf.aktiv`, avec `gespielt` parties terminées. */
+async function enVol(caseId: string, teil: SimTeil | null, gespielt = 0) {
+  const geplant: SimTeil[] = teil ? [teil] : ['anamnese', 'dokumentation', 'fallvorstellung'];
+  let l = erstelleLauf({ caseId, caseName: caseId, profileId: 'p1', geplanteTeile: geplant, assistance: 'assiste', layer: 1 });
+  l = transition(l, { typ: 'demarrer', checkliste: geplant.flatMap((t) => checklistFor(t)) });
+  for (let i = 0; i < gespielt; i++) {
+    l = transition(l, { typ: 'terminerPartie', ergebnis: { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 } });
+    if (i < gespielt - 1) l = transition(l, { typ: 'partieSuivante' });
+  }
+  await speichereAktivenLauf(l);
+  return l;
+}
+
+describe('I2 — la reprise respecte le mode, et une partie jouée n’est jamais jetée', () => {
+  it('même cas, même mode ⇒ reprise à l’identique', async () => {
+    const alt = await enVol('c1', 'anamnese');
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(result.current.lauf?.id).toBe(alt.id);
+  });
+
+  it('(a) Teil seul en cours, puis simulation complète du même cas ⇒ ce n’est PAS le Teil seul qui est repris', async () => {
+    const alt = await enVol('c1', 'anamnese');
+    const { result } = starte(fall('c1'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(result.current.lauf?.id).not.toBe(alt.id);
+    expect(result.current.lauf?.modus).toBe('komplett');
+  });
+
+  it('(b) run complet avec une partie jouée, puis « Anamnese seule » ⇒ le run est ÉCRIT, pas supprimé', async () => {
+    const alt = await enVol('c1', null, 1);
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(result.current.lauf?.id).not.toBe(alt.id);
+    expect(result.current.lauf?.modus).toBe('teil');
+    const sim = await db.simulations.get(alt.id);
+    expect(sim?.parts.anamnese?.done).toBe(true);
+  });
+
+  it('(c) run complet avec une partie jouée, puis un autre cas ⇒ le run est ÉCRIT', async () => {
+    const alt = await enVol('c1', null, 1);
+    const { result } = starte(fall('c2'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(result.current.lauf?.caseId).toBe('c2');
+    expect(await db.simulations.get(alt.id)).toBeDefined();
+  });
+
+  it('un Lauf sans partie jouée qu’on quitte pour un autre mode n’est pas écrit', async () => {
+    await enVol('c1', null, 0);
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(await db.simulations.count()).toBe(0);
   });
 });

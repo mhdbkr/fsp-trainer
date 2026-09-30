@@ -62,9 +62,16 @@ export async function bereinigeAltenLauf(jetzt = Date.now()): Promise<Lauf | nul
   const l = await ladeAktivenLauf();
   if (!l) return null;
   if (jetzt - l.startedAt < LAUF_MAX_ALTER_MS) return l;
+  await gibAuf(l);
+  return null;
+}
+
+/** Abandon d'un Lauf (§3.1) : ÉCRIT tel quel s'il a au moins un Teil joué —
+ *  une partie jouée n'est jamais jetée —, supprimé sinon. Seule règle, pour
+ *  l'abandon par l'âge comme pour l'abandon par changement de mode ou de cas. */
+export async function gibAuf(l: Lauf): Promise<void> {
   if (l.teileGespielt.length) await speichern(l);
   else await verwerfeAktivenLauf();
-  return null;
 }
 
 // ------------------------------------------------------------- Projection

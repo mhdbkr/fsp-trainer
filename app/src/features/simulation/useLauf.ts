@@ -9,7 +9,7 @@ import {
   tickChrono, transition, type LaufAktion,
 } from '@/lib/lauf/automat';
 import {
-  bereinigeAltenLauf, speichereAktivenLauf, speichern, verwerfeAktivenLauf,
+  bereinigeAltenLauf, gibAuf, speichereAktivenLauf, speichern, verwerfeAktivenLauf,
 } from '@/lib/lauf/speichern';
 import type { Lauf, LaufTeil, TeilEntwurf } from '@/lib/lauf/types';
 
@@ -71,14 +71,19 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     (async () => {
       const alt = await bereinigeAltenLauf();
       if (annule) return;
-      // Une partie en cours SUR CE CAS est reprise à l'identique, `zustand`
-      // compris — c'est la reprise après rafraîchissement ou veille.
-      if (alt && alt.caseId === c.id && (!teil || alt.geplanteTeile.join() === teil)) {
+      // Reprise à l'identique, `zustand` compris — seulement si le cas ET le
+      // mode correspondent EXACTEMENT. Avant, `!teil` acceptait n'importe quel
+      // Lauf du cas : ouvrir la simulation complète reprenait un Teil seul.
+      if (alt && alt.caseId === c.id && (teil
+        ? alt.modus === 'teil' && alt.geplanteTeile[0] === teil
+        : alt.modus === 'komplett')) {
         setLauf(alt);
         setLaedt(false);
         return;
       }
-      if (alt) await verwerfeAktivenLauf();   // une autre partie traînait : on repart
+      // Une autre partie traînait : elle est ÉCRITE si une partie y a été
+      // jouée, jamais jetée (§3.1) — c'était un `verwerfeAktivenLauf()` muet.
+      if (alt) await gibAuf(alt);
       const geplant: SimTeil[] = teil ? [teil] : ['anamnese', 'dokumentation', 'fallvorstellung'];
       const frisch = erstelleLauf({
         caseId: c.id, caseName: c.name,
