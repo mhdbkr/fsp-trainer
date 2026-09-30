@@ -9,6 +9,15 @@ import { blankProgress } from '@/lib/journal';
 // des Fachbegriffe et la maîtrise des cas. Les axes jamais testés pénalisent
 // (on ne peut pas être « prêt » sur un axe vierge). Produit un score global,
 // un verdict, un détail par axe et des recommandations actionnables.
+//
+// CE QUI N'Y ENTRE PAS — décision de direction (30 sept. 2026). Une séance
+// jouée dans une IA externe est AUTO-DÉCLARÉE : le candidat saisit lui-même son
+// score, rien ne le mesure. Elle compte dans l'historique et dans la série —
+// c'est du travail réel, et l'assiduité doit le reconnaître — mais elle
+// n'entre PAS dans l'indice de préparation. L'indice est la seule surface qui
+// doit dire la vérité avant l'examen : le laisser monter sur des scores
+// déclarés en ferait un miroir de la confiance du candidat, exactement quand il
+// a besoin d'un contradicteur. Même règle que INV-11 pour `CaseProgress`.
 // ============================================================================
 
 export interface AxisReadiness {
@@ -25,11 +34,16 @@ export interface Readiness {
   recommendations: string[];
 }
 
+/** Une séance auto-déclarée : le score vient du candidat, pas d'une mesure.
+ *  Un seul prédicat, un seul endroit — les appelants n'ont rien à filtrer. */
+export const estMesuree = (sim: Simulation): boolean => sim.mode !== 'external-ai';
+
 /** Score par axe pondéré (assistance × couche) — réussir en Autonome/couche
- *  haute compte davantage. Axes data-driven : Fachbegriffe et Fachwissen. */
+ *  haute compte davantage. Axes data-driven : Fachbegriffe et Fachwissen.
+ *  Ne lit QUE des scores mesurés (cf. en-tête). */
 export function weightedAxisScores(sims: Simulation[], begriffe: Fachbegriff[], cases: Case[], progress: Map<string, CaseProgress>): Record<Axis, number | null> {
   const acc: Record<Axis, number[]> = { Anamnese: [], Dokumentation: [], Fallvorstellung: [], Aufklärung: [], Fachbegriffe: [], Fachwissen: [] };
-  for (const sim of sims) {
+  for (const sim of sims.filter(estMesuree)) {
     const ctx = { assistance: sim.assistance ?? 'assiste', layer: sim.layer ?? 1 };
     for (const [part, res] of Object.entries(sim.parts)) {
       if (!res?.done) continue;
