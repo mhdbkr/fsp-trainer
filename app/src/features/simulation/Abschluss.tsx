@@ -17,8 +17,8 @@ const LABEL: Record<LaufTeil, string> = {
 // décide pas.
 // ============================================================================
 
-export function Abschluss({ lauf, onArztbrief, onSpeichern }: {
-  lauf: Lauf; onArztbrief: () => void; onSpeichern: () => void;
+export function Abschluss({ lauf, onZurueck, onArztbrief, onSpeichern }: {
+  lauf: Lauf; onZurueck: () => void; onArztbrief: () => void; onSpeichern: () => void;
 }) {
   const briefOffen = erlaubt(lauf, { typ: 'arztbriefSchreiben' });
   return (
@@ -43,6 +43,8 @@ export function Abschluss({ lauf, onArztbrief, onSpeichern }: {
         })}
       </ul>
       <div className="flex flex-wrap items-center justify-end gap-2">
+        {/* « Revenir » est une action nommée (contrat §2.1 règle 2, décision 8). */}
+        <button onClick={onZurueck} className="btn-ghost mr-auto">← Revenir au bilan</button>
         {briefOffen && (
           <button onClick={onArztbrief} className="btn-outline" title="Facultatif">Rédiger l'Arztbrief</button>
         )}

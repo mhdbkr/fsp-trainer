@@ -7,8 +7,9 @@ import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf
 // ============================================================================
 // L'automate d'une partie de simulation. Contrat §2, ADR-0018.
 //
-// Une seule fonction de transition, un ordre total sur les états, et DEUX
-// exceptions nommées :
+// Une seule fonction de transition, un ordre total sur les états, et TROIS
+// exceptions nommées (la troisième, `zurueckZumBilanz` — checkliste → bilanz —,
+// est une décision de `main` à la re-revue) :
 //   · `partieSuivante` — bilanz(t) → laufend(t+1) : une PROGRESSION dans le run,
 //     sans laquelle l'automate ne peut pas jouer trois Teile ;
 //   · `zurueckZurPartie` — bilanz(t) → laufend(t) : la SEULE régression, et elle
@@ -208,6 +209,7 @@ export type LaufAktion =
   | { typ: 'partieSuivante' }
   | { typ: 'versChecklist' }
   | { typ: 'zurueckZurPartie' }
+  | { typ: 'zurueckZumBilanz' }
   | { typ: 'arztbriefSchreiben' }
   | { typ: 'speichern' };
 
@@ -316,6 +318,17 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
     case 'versChecklist': {
       if (lauf.zustand !== 'bilanz') return lauf;
       return { ...lauf, zustand: 'checkliste', aktuellerTeil: null };
+    }
+
+    case 'zurueckZumBilanz': {
+      // Exception nommée nº 3 (décision de `main`) — checkliste → bilanz de la
+      // dernière partie jouée. Sans elle, « Terminer la simulation » posé à
+      // côté de « Partie suivante » tronquait le run sans retour possible.
+      // Depuis `checkliste` seulement : l'Arztbrief commencé n'y ramène pas.
+      if (lauf.zustand !== 'checkliste') return lauf;
+      const letzter = lauf.teileGespielt[lauf.teileGespielt.length - 1];
+      if (!letzter) return lauf;
+      return { ...lauf, zustand: 'bilanz', aktuellerTeil: letzter };
     }
 
     case 'arztbriefSchreiben': {

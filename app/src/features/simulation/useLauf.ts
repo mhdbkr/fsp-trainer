@@ -46,6 +46,8 @@ export interface LaufSteuerung {
   tick: (teil: LaufTeil, sekunden: number) => void;
   /** bilanz → checkliste. La seule sortie de fin de partie (règle 8 amendée). */
   versChecklist: () => void;
+  /** checkliste → bilanz de la dernière partie (décision 8 de `main`). */
+  zurueckZumBilanz: () => void;
   /** checkliste → arztbrief — facultatif (Q5). */
   arztbriefSchreiben: () => void;
   /** checkliste|arztbrief → gespeichert, puis écriture idempotente. Rend l'id
@@ -158,6 +160,7 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     setLauf((l) => (l ? tickChrono(l, t, s) : l)), []);
 
   const versChecklist = useCallback(() => dispatch({ typ: 'versChecklist' }), [dispatch]);
+  const zurueckZumBilanz = useCallback(() => dispatch({ typ: 'zurueckZumBilanz' }), [dispatch]);
   const arztbriefSchreiben = useCallback(() => dispatch({ typ: 'arztbriefSchreiben' }), [dispatch]);
 
   // La fin passe par l'AUTOMATE, jamais à côté : `speichern` n'est accepté que
@@ -190,5 +193,5 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     }
   }, [lauf, c]);
 
-  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, arztbriefSchreiben, beenden };
+  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, zurueckZumBilanz, arztbriefSchreiben, beenden };
 }

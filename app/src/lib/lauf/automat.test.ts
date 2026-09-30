@@ -46,6 +46,7 @@ const TOUTES_ACTIONS: LaufAktion[] = [
   { typ: 'partieSuivante' },
   { typ: 'versChecklist' },
   { typ: 'zurueckZurPartie' },
+  { typ: 'zurueckZumBilanz' },
   { typ: 'arztbriefSchreiben' },
   { typ: 'speichern' },
 ];
@@ -116,32 +117,32 @@ describe('INV-20 — aucune transition vers un état antérieur', () => {
   const ATTENDU: Record<LaufZustand, Record<LaufAktion['typ'], LaufZustand>> = {
     vorbereitung: {
       demarrer: 'laufend', aufklaerungOeffnen: 'vorbereitung', terminerPartie: 'vorbereitung',
-      partieSuivante: 'vorbereitung', versChecklist: 'vorbereitung', zurueckZurPartie: 'vorbereitung',
+      partieSuivante: 'vorbereitung', versChecklist: 'vorbereitung', zurueckZumBilanz: 'vorbereitung', zurueckZurPartie: 'vorbereitung',
       arztbriefSchreiben: 'vorbereitung', speichern: 'vorbereitung',
     },
     laufend: {
       demarrer: 'laufend', aufklaerungOeffnen: 'laufend', terminerPartie: 'bilanz',
-      partieSuivante: 'laufend', versChecklist: 'laufend', zurueckZurPartie: 'laufend',
+      partieSuivante: 'laufend', versChecklist: 'laufend', zurueckZumBilanz: 'laufend', zurueckZurPartie: 'laufend',
       arztbriefSchreiben: 'laufend', speichern: 'laufend',
     },
     bilanz: {
       demarrer: 'bilanz', aufklaerungOeffnen: 'bilanz', terminerPartie: 'bilanz',
-      partieSuivante: 'laufend', versChecklist: 'checkliste', zurueckZurPartie: 'laufend',
+      partieSuivante: 'laufend', versChecklist: 'checkliste', zurueckZumBilanz: 'bilanz', zurueckZurPartie: 'laufend',
       arztbriefSchreiben: 'bilanz', speichern: 'bilanz',
     },
     checkliste: {
       demarrer: 'checkliste', aufklaerungOeffnen: 'checkliste', terminerPartie: 'checkliste',
-      partieSuivante: 'checkliste', versChecklist: 'checkliste', zurueckZurPartie: 'checkliste',
+      partieSuivante: 'checkliste', versChecklist: 'checkliste', zurueckZumBilanz: 'bilanz', zurueckZurPartie: 'checkliste',
       arztbriefSchreiben: 'arztbrief', speichern: 'gespeichert',
     },
     arztbrief: {
       demarrer: 'arztbrief', aufklaerungOeffnen: 'arztbrief', terminerPartie: 'arztbrief',
-      partieSuivante: 'arztbrief', versChecklist: 'arztbrief', zurueckZurPartie: 'arztbrief',
+      partieSuivante: 'arztbrief', versChecklist: 'arztbrief', zurueckZumBilanz: 'arztbrief', zurueckZurPartie: 'arztbrief',
       arztbriefSchreiben: 'arztbrief', speichern: 'gespeichert',
     },
     gespeichert: {
       demarrer: 'gespeichert', aufklaerungOeffnen: 'gespeichert', terminerPartie: 'gespeichert',
-      partieSuivante: 'gespeichert', versChecklist: 'gespeichert', zurueckZurPartie: 'gespeichert',
+      partieSuivante: 'gespeichert', versChecklist: 'gespeichert', zurueckZumBilanz: 'gespeichert', zurueckZurPartie: 'gespeichert',
       arztbriefSchreiben: 'gespeichert', speichern: 'gespeichert',
     },
   };
@@ -192,6 +193,28 @@ describe('INV-20 — aucune transition vers un état antérieur', () => {
     const retour = transition(l, { typ: 'zurueckZurPartie' });
     expect(retour.zustand).toBe('laufend');
     expect(retour.aktuellerTeil).toBe('anamnese');
+  });
+});
+
+describe('décision 8 — zurueckZumBilanz : depuis la checklist de fin, on revient au bilan', () => {
+  it('run complet tronqué par erreur : retour au bilan de la dernière partie, puis Partie suivante', () => {
+    let l = demarre(base());
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'versChecklist' });
+    expect(l.zustand).toBe('checkliste');
+    l = transition(l, { typ: 'zurueckZumBilanz' });
+    expect(l.zustand).toBe('bilanz');
+    expect(l.aktuellerTeil).toBe('anamnese');
+    l = transition(l, { typ: 'partieSuivante' });
+    expect(l.zustand).toBe('laufend');
+    expect(l.aktuellerTeil).toBe('dokumentation');
+  });
+  it('refusé hors de checkliste (arztbrief compris)', () => {
+    let l = demarre(base({ geplanteTeile: ['anamnese'], modus: 'teil' }));
+    expect(transition(l, { typ: 'zurueckZumBilanz' })).toBe(l);
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(transition(l, { typ: 'versChecklist' }), { typ: 'arztbriefSchreiben' });
+    expect(transition(l, { typ: 'zurueckZumBilanz' })).toBe(l);
   });
 });
 

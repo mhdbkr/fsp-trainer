@@ -365,7 +365,7 @@ export function SimulationRunner() {
                   </p>
                 )}
                 {lauf.zustand === 'checkliste' ? (
-                  <Abschluss lauf={lauf} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
+                  <Abschluss lauf={lauf} onZurueck={steuerung.zurueckZumBilanz} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
                 ) : lauf.zustand === 'arztbrief' ? (
                   <div className="space-y-4">
                     <ArztbriefGuide c={c} assistance={lauf.assistance} text={lauf.arztbriefText}
