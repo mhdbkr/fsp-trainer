@@ -15,6 +15,7 @@ import { db } from '@/db/db';
 import { rebuildJournal } from '@/lib/journal';
 import { ensureDayPlan } from '@/lib/program/dayPlan';
 import type { DayPlan } from '@/db/types';
+import { now } from '@/lib/clock';
 import { syncQueue } from './queue';
 
 export const BOOT_PULL_MS = 2500;
@@ -34,4 +35,23 @@ export async function bootJournal(pullMs = BOOT_PULL_MS): Promise<DayPlan | null
   // local, et « vide ou incomplet » ne se détecte pas mieux qu'en reconstruisant.
   if (!pulled) await rebuildJournal(await db.progress_events.toArray());
   return ensureDayPlan();
+}
+
+/** Millisecondes jusqu'au prochain minuit LOCAL (DST compris : `setHours(24)`). */
+export const msToNextDay = (t: number): number => { const d = new Date(t); d.setHours(24, 0, 0, 0); return d.getTime() - t; };
+
+/**
+ * I1 — le jour se matérialise aussi APRÈS le démarrage : au retour au premier
+ * plan (app restée ouverte d'un jour à l'autre, onglet en veille) et à minuit.
+ * `ensureDayPlan` est idempotente : sur un jour déjà figé, elle ne fait que le
+ * relire. Jamais appelée par un rendu (contrat §3.2). Rend le désabonnement.
+ */
+export function watchDayPlan(): () => void {
+  const open = () => { void ensureDayPlan().catch((e) => console.warn('[programme]', e)); };
+  const onVisible = () => { if (document.visibilityState !== 'hidden') open(); };
+  let timer: ReturnType<typeof setTimeout>;
+  const arm = () => { timer = setTimeout(() => { open(); arm(); }, msToNextDay(now()) + 1000); };
+  document.addEventListener('visibilitychange', onVisible);
+  arm();
+  return () => { document.removeEventListener('visibilitychange', onVisible); clearTimeout(timer); };
 }
