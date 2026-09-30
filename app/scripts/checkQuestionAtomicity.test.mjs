@@ -20,6 +20,7 @@ const withMutation = (file, from, to, fn) => {
 };
 const probes = join(here, '../src/data/guides/anamneseProbes.ts');
 const budget = join(here, 'fixtures/atomicity-budget.json');
+const cases = join(here, '../src/data/seedCases.ts');
 const T = { timeout: 300_000 };
 
 test('budget intact → porte verte', T, () => assert.equal(gate().status, 0));
@@ -57,4 +58,35 @@ test('budget abaissé à la main → rouge (il ne se contourne pas)', T, () => {
   const b = JSON.parse(readFileSync(budget, 'utf8'));
   const r = withMutation(budget, `"A": ${b.budget.A}`, `"A": ${b.budget.A - 1}`, gate);
   assert.equal(r.status, 1);
+});
+
+// --- Décision Q11 : l'Oberarzt enchaîne, c'est fidèle -----------------------
+test('règle A — une salve d\'Oberarzt n\'est PAS un constat d\'atomicité', T, () => {
+  const r = withMutation(cases,
+    "'Welche Komplikationen der Leberzirrhose kennen Sie?',",
+    "'Welche Komplikationen der Leberzirrhose kennen Sie? Welche zuerst? Warum?',",
+    () => gate('--rule', 'A', '--report'));
+  assert.doesNotMatch(r.stdout, /oberarzt/, 'en examen reel un senior enchaine ses questions');
+});
+
+test('règle D — au-delà de trois interrogations, la salve est incohérente → rouge', T, () => {
+  const r = withMutation(cases,
+    "'Welche Komplikationen der Leberzirrhose kennen Sie?',",
+    "'Welche Komplikationen der Leberzirrhose kennen Sie? Welche zuerst? Warum? Was bedeutet „Aszites“?',",
+    gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle D/);
+  assert.match(r.stdout, /case-leberzirrhose/);
+});
+
+// Le budget DESCEND : corriger un énoncé fait baisser le compteur et la porte
+// le dit. Sans cette preuve on ne sait que la moitié de la règle 4 — qu'elle
+// refuse de remonter, pas qu'elle enregistre un gain.
+test('règle 4 — corriger un énoncé fait BAISSER le compteur, et la porte l\'annonce', T, () => {
+  const r = withMutation(probes,
+    "frage: 'Haben Sie ein Nitrospray benutzt? Hat es geholfen?'",
+    "frage: 'Haben Sie ein Nitrospray benutzt?'",
+    gate);
+  assert.equal(r.status, 0, 'un compteur qui baisse ne casse jamais la porte');
+  assert.match(r.stdout, /Budget entamé : A −1/);
 });

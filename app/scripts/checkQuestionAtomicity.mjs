@@ -7,17 +7,47 @@
 // concentrés dans l'ORAL POSÉ PAR LE CANDIDAT (classe Q) — les Muster et les
 // Aufklärungen sont déclaratifs et propres, ce script ne les lit pas.
 //
-// QUATRE RÈGLES (§6.4) :
+// CINQ RÈGLES (§6.4, amendées par la décision Q11 de la direction) :
 //   1 atomicité   — au plus un « ? » par réplique. Exception nominative
 //                   (ALLOWED_COMPOSED), chaque entrée avec sa raison écrite.
+//                   NE S'APPLIQUE PAS AUX QUESTIONS D'OBERARZT (règle D).
 //   2 énumération — une question à un « ? » n'énumère pas plus de 3 items
 //                   cliniques distincts ; un followUp est plafonné à 2.
 //   3 alternative — pas d'alternative BINAIRE dépendante du cas
 //                   (« die Hand oder der Fuß », « das Bein/den Arm ») :
 //                   le cas sait lequel des deux, c'est un trou de rédaction.
+//   D salve       — l'examinateur, lui, A LE DROIT d'enchaîner (voir plus bas) :
+//                   seule la salve INCOHÉRENTE se découpe, et son seul marqueur
+//                   mesurable est l'arité — au-delà de TROIS interrogations.
 //   4 budget      — plancher dans fixtures/atomicity-budget.json ; la porte
 //                   échoue si un compteur REMONTE. C'est le seul moyen
 //                   d'introduire la règle sans bloquer les 130 cas existants.
+//
+// POURQUOI L'OBERARZT EST SORTI DE LA RÈGLE 1 (décision Q11) : en examen réel,
+// un senior enchaîne ses questions — « Welche Verdachtsdiagnose haben Sie?
+// Warum? » est fidèle, pas fautif. Les 471 salves d'examinateur que la règle 1
+// comptait n'étaient pas des défauts ; les compter revenait à demander au
+// contenu d'être moins réaliste que l'examen. Seules les salves INCOHÉRENTES
+// — celles dont les items n'ont aucun rapport entre eux — se découpent.
+//
+// CE QUE LA MESURE A DIT DE L'INCOHÉRENCE (et pourquoi la règle D est l'arité) :
+// deux détecteurs sémantiques ont été écrits et jetés.
+//   • liaison lexicale (une sous-question est isolée si aucun de ses
+//     substantifs n'apparaît ailleurs dans la salve, anaphores exemptées) :
+//     407 salves sur 471. La salve d'examen normale est « question générale +
+//     approfondissement », et le terme précis de l'approfondissement est
+//     NEUF par construction — le signal est inversé.
+//   • terme de vocabulaire orphelin (« Was bedeutet X? » dont le X n'est pas
+//     dans le reste de la salve) : 15 constats, dont 14 légitimes
+//     (« Was bedeutet Myokarditis? Und Perikarditis, Endokarditis? »).
+// Aucun signal lexical ne sépare la salve incohérente des 470 autres. Ce qui
+// la sépare, mesuré : l'ARITÉ. 450 salves à deux interrogations, 16 à trois,
+// UNE à quatre — et c'est exactement celle que la direction a nommée
+// (case-copd, « Was macht der Patient beruflich? Ist er im Ruhestand? Wo hat
+// er früher gearbeitet? Was bedeutet „Senioren“? »). Au-delà de trois,
+// l'examinateur n'interroge plus : il énumère sa propre incertitude.
+// Les 16 salves à trois restent SOUS SURVEILLANCE — abaisser le seuil à 2 est
+// un lot de contenu, pas un changement de validateur.
 //
 // La distinction que le validateur DOIT tenir (elle est le cœur de la règle 3) :
 //   • `fach-kardio-ausstrahlung` — « in den linken Arm, den Hals, den
@@ -36,7 +66,7 @@
 // situations (préfixe d'étiquette, subordonnée portée par la 1re question,
 // ellipse de composé, relance conditionnelle) — toutes présentes au corpus.
 //
-// Usage : node scripts/checkQuestionAtomicity.mjs [--report] [--rule A|B|C]
+// Usage : node scripts/checkQuestionAtomicity.mjs [--report] [--rule A|B|C|D]
 //         node scripts/checkQuestionAtomicity.mjs --bless   (baisse le budget)
 // ============================================================================
 import { build } from 'esbuild';
@@ -173,11 +203,18 @@ function altIssue(text) {
 }
 
 // ---------------------------------------------------------------------------
-const findings = { A: [], B: [], C: [] };
+// RÈGLE D — salve d'examinateur. Arité seule : une salve de plus de trois
+// interrogations n'est plus un enchaînement, c'est une énumération d'items
+// sans rapport (décision Q11, et la mesure ci-dessus).
+const SALVE_MAX = 3;
+
+const findings = { A: [], B: [], C: [], D: [] };
 for (const r of rows) {
   const exempt = r.id && ALLOWED_COMPOSED[r.id];
   const n = countQ(r.text);
-  if (n >= 2 && !exempt) findings.A.push(r);
+  const ober = r.kind === 'oberarzt';
+  if (n >= 2 && !exempt && !ober) findings.A.push(r);
+  if (ober && n > SALVE_MAX) findings.D.push({ ...r, n });
   if (n === 1) {
     const items = enumItems(r.text);
     const cap = r.kind === 'followUp' ? 2 : 3;
@@ -186,8 +223,8 @@ for (const r of rows) {
   if (!exempt) { const why = altIssue(r.text); if (why) findings.C.push({ ...r, why }); }
 }
 
-const counts = { A: findings.A.length, B: findings.B.length, C: findings.C.length };
-const total = counts.A + counts.B + counts.C;
+const counts = { A: findings.A.length, B: findings.B.length, C: findings.C.length, D: findings.D.length };
+const total = counts.A + counts.B + counts.C + counts.D;
 
 if (process.argv.includes('--corpus')) {
   const by = {};
@@ -201,9 +238,10 @@ if (bless) {
     note: 'Budget DÉGRESSIF (audit série 3 §6.4, règle 4). Il ne remonte jamais. `--bless` après un lot corrigé, jamais pour faire taire une régression.',
     generated: new Date().toISOString().slice(0, 10),
     reference: 'Audit série 3 : A=1059 B=322 C=75 sur 15 591 énoncés, toutes classes. Ce script ne lit que la classe Q (l\'oral posé par le candidat) ; ses compteurs sont donc plus bas et ne se comparent pas ligne à ligne.',
+    q11: 'Décision Q11 de la direction : les questions d\'Oberarzt sont EXEMPTÉES de la règle A. En examen réel un senior enchaîne ses questions — c\'est fidèle, pas fautif. 471 constats A disparaissent de ce fait, et n\'ont jamais été des défauts. Elles relèvent désormais de la règle D (arité > 3), qui ne vise que la salve incohérente. Deux détecteurs sémantiques d\'incohérence ont été mesurés puis jetés (liaison lexicale : 407/471 faux positifs ; terme de vocabulaire orphelin : 14/15) — l\'arité est le seul marqueur qui sépare la salve nommée par la direction des 470 autres.',
     corpus: rows.length, budget: counts,
   }, null, 2) + '\n');
-  console.log(`budget régénéré : A=${counts.A} B=${counts.B} C=${counts.C} sur ${rows.length} énoncés`);
+  console.log(`budget régénéré : A=${counts.A} B=${counts.B} C=${counts.C} D=${counts.D} sur ${rows.length} énoncés`);
   process.exit(0);
 }
 
@@ -211,12 +249,12 @@ let budget;
 try { budget = JSON.parse(readFileSync(budgetPath, 'utf8')).budget; }
 catch { console.error(`❌ budget absent (${budgetPath}) — lancer --bless une fois.`); process.exit(2); }
 
-const LABEL = { A: 'plus d\'un « ? » dans une réplique', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas' };
+const LABEL = { A: 'plus d\'un « ? » dans une réplique', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)' };
 const show = (k) => {
   const list = findings[k];
   const head = report ? list : list.slice(0, 15);
   for (const r of head) {
-    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : ` [${countQ(r.text)} « ? »]`;
+    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k === 'D' ? ` [${r.n} interrogations > ${SALVE_MAX}]` : ` [${countQ(r.text)} « ? »]`;
     console.log(`  ✗ ${r.where}${r.id ? ` (${r.id})` : ''}${extra}\n      « ${r.text.slice(0, 150)} »`);
   }
   if (!report && list.length > head.length) console.log(`  … ${list.length - head.length} de plus (--report)`);
@@ -225,7 +263,7 @@ const show = (k) => {
 if (onlyRule) { console.log(`${onlyRule} — ${findings[onlyRule]?.length ?? 0} : ${LABEL[onlyRule]}\n`); show(onlyRule); process.exit(0); }
 
 let failed = false;
-for (const k of ['A', 'B', 'C']) {
+for (const k of ['A', 'B', 'C', 'D']) {
   const over = counts[k] - budget[k];
   if (over > 0) {
     failed = true;
@@ -239,6 +277,7 @@ if (failed) {
   console.log('   jamais découper par script (§6.1 : le split sur « ? » produit de l\'allemand faux).');
   process.exit(1);
 }
-const gained = ['A', 'B', 'C'].map((k) => budget[k] - counts[k]);
-if (gained.some((g) => g > 0)) console.log(`   Budget entamé : A −${gained[0]}, B −${gained[1]}, C −${gained[2]} — lancer \`--bless\` pour le graver.`);
-console.log(`✅ ATOMICITÉ — ${rows.length} énoncés « à dire » ; A=${counts.A}/${budget.A} · B=${counts.B}/${budget.B} · C=${counts.C}/${budget.C} (total ${total}/${budget.A + budget.B + budget.C}).`);
+const gained = ['A', 'B', 'C', 'D'].map((k) => (budget[k] ?? counts[k]) - counts[k]);
+if (gained.some((g) => g > 0)) console.log(`   Budget entamé : A −${gained[0]}, B −${gained[1]}, C −${gained[2]}, D −${gained[3]} — lancer \`--bless\` pour le graver.`);
+const sum = ['A', 'B', 'C', 'D'].reduce((t, k) => t + (budget[k] ?? 0), 0);
+console.log(`✅ ATOMICITÉ — ${rows.length} énoncés « à dire » ; A=${counts.A}/${budget.A} · B=${counts.B}/${budget.B} · C=${counts.C}/${budget.C} · D=${counts.D}/${budget.D ?? 0} (total ${total}/${sum}).`);
