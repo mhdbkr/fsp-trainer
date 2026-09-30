@@ -101,7 +101,9 @@ export function projektion(lauf: Lauf, c: Case): SaveInput {
     layer: lauf.layer,
     muster: lauf.muster,
     scope: vollstaendig ? 'full' : 'teil',
-    teil: vollstaendig ? undefined : gespielteTeile[0],
+    // `teil` seulement si EXACTEMENT un SimTeil a été joué : un run complet
+    // abandonné après deux parties s'affichait « Anamnese seule ».
+    teil: gespielteTeile.length === 1 ? gespielteTeile[0] : undefined,
     mode: lauf.mode,
   };
 }

@@ -125,6 +125,31 @@ describe('§5 — la portée enregistrée est le FAIT, pas l’intention', () =>
     expect(sim.teil).toBe('anamnese');
   });
 
+  it('run complet abandonné après DEUX parties ⇒ aucun `teil` : ce n’est pas « Anamnese seule »', async () => {
+    let l = neuerLauf();
+    l = transition(l, { typ: 'demarrer', checkliste: alleModelle() });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'partieSuivante' });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'versChecklist' });
+    const sim = await speichern(l, c);
+    expect(sim.scope).toBe('teil');
+    expect(sim.teil).toBeUndefined();
+    expect(Object.keys(sim.parts).sort()).toEqual(['anamnese', 'dokumentation']);
+  });
+
+  it('Teil seul + Aufklärung ⇒ `teil` reste le Teil joué (l’Aufklärung n’est pas un SimTeil)', async () => {
+    let l = neuerLauf({ geplanteTeile: ['anamnese'], modus: 'teil' });
+    l = transition(l, { typ: 'demarrer', checkliste: alleModelle() });
+    l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: checklistFor('aufklaerung') });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'partieSuivante' });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'versChecklist' });
+    const sim = await speichern(l, c);
+    expect(sim.teil).toBe('anamnese');
+  });
+
   it('les trois parties jouées ⇒ scope "full"', async () => {
     const sim = await speichern(spieleBisChecklist(['anamnese', 'dokumentation', 'fallvorstellung']), c);
     expect(sim.scope).toBe('full');
