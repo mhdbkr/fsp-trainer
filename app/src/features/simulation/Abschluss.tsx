@@ -1,4 +1,4 @@
-import { bewerte, checklisteFuer } from '@/lib/lauf/automat';
+import { bewerte, checklisteFuer, erlaubt } from '@/lib/lauf/automat';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
 import { partScore } from '@/lib/scoring';
 
@@ -12,15 +12,15 @@ const LABEL: Record<LaufTeil, string> = {
 // les parties jouées avant d'enregistrer. C'est d'ici — et d'ici seulement —
 // que part `speichern` (contrat §2, règle 8 amendée par `main`).
 //
-// L'Arztbrief est une étape FACULTATIVE (Q5) : proposée seulement quand la
-// Dokumentation n'a pas été jouée — sinon la lettre est déjà écrite, et la
-// proposer une seconde fois serait un doublon.
+// L'Arztbrief est une étape FACULTATIVE (Q5). Quand la proposer est une règle
+// de l'AUTOMATE (`arztbriefSchreiben`) : la vue demande `erlaubt`, elle ne
+// décide pas.
 // ============================================================================
 
 export function Abschluss({ lauf, onArztbrief, onSpeichern }: {
   lauf: Lauf; onArztbrief: () => void; onSpeichern: () => void;
 }) {
-  const briefOffen = !lauf.teileGespielt.includes('dokumentation');
+  const briefOffen = erlaubt(lauf, { typ: 'arztbriefSchreiben' });
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div className="text-center">

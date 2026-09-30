@@ -4,7 +4,7 @@ import { ZUSTAENDE, type Lauf, type LaufZustand } from './types';
 import {
   erstelleLauf, transition, istVollstaendig, naechsterTeil, zustandIndex,
   minutenProTeil, checklisteFuer, setzeChecklistItem, setzeEntwurf, tickChrono,
-  type LaufAktion,
+  erlaubt, type LaufAktion,
 } from './automat';
 
 // ============================================================================
@@ -192,6 +192,23 @@ describe('INV-20 — aucune transition vers un état antérieur', () => {
     const retour = transition(l, { typ: 'zurueckZurPartie' });
     expect(retour.zustand).toBe('laufend');
     expect(retour.aktuellerTeil).toBe('anamnese');
+  });
+});
+
+describe('Q5 — l’Arztbrief : l’automate, pas la vue, décide s’il est proposé (mineur 1)', () => {
+  it('Dokumentation jouée ⇒ arztbriefSchreiben refusé (la lettre existe déjà)', () => {
+    let l = demarre(base({ geplanteTeile: ['dokumentation'], modus: 'teil' }), 'dokumentation');
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'versChecklist' });
+    expect(l.zustand).toBe('checkliste');
+    expect(transition(l, { typ: 'arztbriefSchreiben' })).toBe(l);
+    expect(erlaubt(l, { typ: 'arztbriefSchreiben' })).toBe(false);
+  });
+  it('Dokumentation non jouée ⇒ proposé', () => {
+    let l = demarre(base({ geplanteTeile: ['anamnese'], modus: 'teil' }));
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'versChecklist' });
+    expect(erlaubt(l, { typ: 'arztbriefSchreiben' })).toBe(true);
   });
 });
 

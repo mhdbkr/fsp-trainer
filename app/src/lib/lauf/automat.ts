@@ -217,6 +217,12 @@ function mitCheckliste(lauf: Lauf, modell: ChecklistItem[]): ChecklistItem[] {
   return [...lauf.checkliste, ...modell.filter((i) => !vorhanden.has(i.id)).map((i) => ({ ...i }))];
 }
 
+/** L'automate accepte-t-il cette action ? La vue n'a pas d'autre règle
+ *  d'affichage de ses sorties : un bouton existe ssi sa transition existe. */
+export function erlaubt(lauf: Lauf, aktion: LaufAktion): boolean {
+  return transition(lauf, aktion) !== lauf;
+}
+
 export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
   switch (aktion.typ) {
     case 'demarrer': {
@@ -309,6 +315,10 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
 
     case 'arztbriefSchreiben': {
       if (lauf.zustand !== 'checkliste') return lauf;
+      // Q5 : facultatif, et seulement si la Dokumentation n'a pas été jouée —
+      // sinon la lettre existe déjà, la reproposer serait un doublon. La règle
+      // vit ICI (source unique, ADR-0018), la vue ne fait que demander.
+      if (lauf.teileGespielt.includes('dokumentation')) return lauf;
       return { ...lauf, zustand: 'arztbrief' };
     }
 
