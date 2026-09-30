@@ -37,15 +37,32 @@ Poser trois questions dans une phrase n'est pas naturel à l'oral, et
 impossible à mémoriser. Le candidat récite un bloc au lieu de conduire un
 entretien.
 
-### 1.2 Ce que le constat ne dit pas encore
+### 1.2 L'ampleur, mesurée
+Audit complet : `app/docs/reports/audit-questions-composees-serie3.md`.
+
+```
+1 059 répliques à plus d'un « ? »  ·  322 à énumération ≥ 3 items  ·  75 alternatives collées
+1 399 énoncés touchés sur 15 591 (9,0 %)  —  mais 1 293 textes DISTINCTS (ratio 1,08)
+```
+
+Le ratio 1,08 est le chiffre qui pilote tout : **il n'existe aucun gabarit
+partagé**. Chaque correction est une correction ; rien ne se propage.
+
+Le défaut est **concentré, pas diffus** : sondes 79 % touchées, guide
+d'anamnèse 55 %, questions du cas 44 %, Oberarzt 24 % — et **les Muster et les
+Aufklärungen sont propres** (0 occurrence : ils sont déclaratifs). Pire bloc :
+`AKTUELL_VARIANT_PROBES` à 77 %, c'est-à-dire les sondes du motif de
+consultation, les premières posées, celles qu'on récite sous stress.
+
+### 1.3 Ce que le constat ne dit pas encore
 1. **Le même défaut existe côté patient.** Si la question empile trois items,
    la fiche de rôle empile trois réponses. Découper les questions sans
    découper les réponses casse le contrat sonde ↔ réponse et fera échouer
    `checkProbeCoverage`.
-2. **Il existe aussi dans l'Aufklärung** — expliquer une intervention d'une
-   seule traite est exactement la faute que l'examen sanctionne.
-3. **Et dans les questions de l'Oberarzt** (`caseSpecificQuestions`).
-4. **Une question composée est souvent un arbre déguisé** : « Trugen Sie einen
+2. **Et dans les questions de l'Oberarzt** (471 occurrences) — mais là, il faut
+   trancher au cas par cas : un senior *enchaîne* réellement les questions ;
+   toutes les salves ne sont pas des fautes de rédaction.
+3. **Une question composée est souvent un arbre déguisé** : « Trugen Sie einen
    Helm? Sind Sie ohnmächtig geworden? » n'est pas une question, c'est une
    question d'ouverture suivie de deux relances conditionnelles. Le texte a
    aplati un arbre ; il faut le rendre au lecteur sous sa forme d'arbre.
@@ -91,16 +108,44 @@ elles deviennent des **cartes de drill** (SRS sur les questions, pas seulement
 sur le vocabulaire). « Mémoriser la trame » devient un exercice mesurable —
 et un argument de vente.
 
-### 1.4 Ce qui est automatisable, ce qui ne l'est pas
-- Découpage mécanique des répliques à plusieurs « ? » : **oui**, scripté, puis
-  relecture langue.
-- Résolution des variantes par le cas : **oui**, scripté (le cas connaît le
-  membre atteint).
-- Réécriture des énumérations cliniques en question + relances : **non**,
-  jugement médical — lot par lot, relecteurs `fsp-clinical-reviewer` et
-  `fsp-language-reviewer`.
-- Réordonnancement des dépendances : **semi** — le validateur les liste, un
-  humain tranche l'ordre.
+### 1.5 Ce qui est automatisable — la mesure a tranché contre l'intuition
+**Aucune réplique ne peut être découpée par script.** Un split sur « ? »
+produit de l'allemand faux dans quatre situations toutes présentes au corpus :
+préfixe d'étiquette qui ne se duplique pas, subordonnée portée par la première
+question, ellipse de composé (`Schlaf- oder Beruhigungsmittel`, `Bein/den Arm`),
+et relance conditionnelle dont la scission change la logique d'affichage.
+
+- **Semi-automatisable** : les 322 énumérations → passage en `parts`, mécanisme
+  **déjà supporté** par `guides/symptoms.ts`. Un script propose, un humain
+  valide. ~70 % du travail mécanique ; 100 % de la relecture reste humaine.
+- **Main humaine obligatoire**, par priorité : L1 les 27 sondes
+  `AKTUELL_VARIANT_PROBES` · L2 les 27 `BASE`/`FRAUEN` · L3 les `followUp` ·
+  L4 les 7 alternatives dépendantes du cas · L5 les 471 questions d'Oberarzt ·
+  L6 les 270 doublons · L7 les 3 ruptures d'ordre.
+- **À ne pas toucher** : `caseMuster.ts`, `seedAufklaerungen.ts`,
+  `arztbriefChapters.ts`, `vorstellungChapters.ts` — mesurés propres.
+
+### 1.6 Les doublons : le levier à meilleur rendement de tout l'audit
+438 doublons bruts (concept × cas), dont **270 échappent** au garde-fou, sur
+104 des 130 cas. Trois paires de chapitres en portent 411 :
+`aktuell → fach` (165), `aktuell → vegetativ` (156), `vegetativ → fach` (90) —
+c'est-à-dire l'insertion de la Fachanamnese après le motif de consultation.
+
+La cause est nette : `dedupeBySymptom` ne connaît que **16 symptômes** et
+`PROBE_SUCHT` ne couvre que **48 sondes sur 229**. `kopfschmerz` — le doublon
+que la direction a vécu — **n'existe pas dans le type `Symptom`** : il était
+structurellement invisible.
+
+**Porter le lexique de 16 à ~36 concepts et compléter `PROBE_SUCHT` rend
+visibles 107 des 270 doublons sans écrire un seul script nouveau.** C'est le
+premier geste du chantier.
+
+### 1.7 Les ruptures d'ordre : rares, pas massives
+La règle mécanique (« un syntagme défini ou possessif présuppose un référent
+déjà introduit ») donne **3 occurrences nettes**, dont le Glukosesensor cité
+par la direction — retrouvé automatiquement — et 29 candidats de second rang à
+précision ~2/3. Ordre de grandeur : **~30, pas ~500**. Donc : job **informatif**
+en CI, jamais une porte bloquante — le coût du faux positif dépasserait le gain.
 
 ---
 
