@@ -8,6 +8,14 @@ validée ne redémarre pas ; la checklist de fin reprend ce qui a été coché p
 une partie interrompue par un rafraîchissement se reprend avec son brouillon ;
 valider deux fois produit un seul enregistrement.
 
+> **Mise à jour `fix-s3-simulation` (30 sept. 2026).** La fin de partie passe
+> désormais par l'automate : « Terminer la simulation → » (bilan seulement) mène à
+> l'état `checkliste` (« Fin de la simulation »), et c'est « **Enregistrer la
+> simulation →** » qui écrit. B5 et A4 ci-dessous consignent la mesure d'origine
+> (avant la correction) ; le chemin actuel jusqu'à `gespeichert` est prouvé au
+> **Parcours C**, avec le changement de mode (I2) et le run abandonné après deux
+> parties (I3).
+
 Ce document est **rejouable tel quel** : chaque étape porte son URL, son sélecteur
 et la valeur attendue. Aucune étape ne suppose un état laissé par une autre.
 
@@ -248,8 +256,9 @@ En Teil seul il n'y a pas de partie suivante : `PartEvaluation` ne rend qu'une
 sortie, « **Terminer la simulation →** » (et « Revenir à la partie », dont le
 libellé dit l'autre destination). Deux boutons, deux destinations.
 
-On clique **trois fois** le même bouton : deux clics consécutifs sans attente,
-puis un troisième 2,5 s plus tard.
+Deux clics consécutifs sans attente, puis une troisième tentative 2,5 s plus
+tard — qui ne trouve plus le bouton : l'écran a déjà changé. La preuve vaut donc
+**deux clics**, pas trois.
 
 | | avant | après |
 |---|---|---|
@@ -258,7 +267,7 @@ puis un troisième 2,5 s plus tard.
 | lignes `simulations` pour `case-gib` | `[]` | `["11b7a967-…"]` |
 | `lauf.aktiv` | présent | **`null`** |
 
-**+1 exactement pour trois clics.** L'id enregistré **est** `lauf.id` : l'écriture
+**+1 exactement pour deux clics.** L'id enregistré **est** `lauf.id` : l'écriture
 est idempotente sur cette clé (`lib/lauf/speichern.ts`, INV-22).
 
 Écran atteint : le bilan **enregistré** — « Encore un effort · score moyen 46 % ·
@@ -341,7 +350,8 @@ Chronos juste avant de valider :
 pour un `Lauf` âgé de 1 359 s — la somme (1 056 s) est **inférieure** à l'âge, ce qui
 est la signature d'un chrono par partie qui ne court que quand sa partie est active.
 
-Trois clics sur « Terminer la simulation → » (deux consécutifs, un troisième 2,5 s après) :
+Deux clics consécutifs sur « Terminer la simulation → » (la troisième tentative,
+2,5 s après, ne trouve plus le bouton — la preuve vaut deux clics) :
 
 | | avant | après |
 |---|---|---|
@@ -353,6 +363,78 @@ Trois clics sur « Terminer la simulation → » (deux consécutifs, un troisiè
 Écran atteint : « Encore un effort · score moyen 22 % », **les quatre parties
 listées** (Anamnese 26 %, Aufklärung 26 %, Dokumentation 10 %, Fallvorstellung 26 %).
 La dernière validation d'un run complet mène au bilan enregistré, pas à l'exercice.
+
+---
+
+## Parcours C — la fin par l'automate, le changement de mode, le run abandonné
+
+Rejoué le 30 sept. 2026 par `fix-s3-simulation`, serveur **de ce worktree**
+(`lsof` : cwd `doctopus-s3-simulation/app` ; `curl /src/features/simulation/Abschluss.tsx`
+rend le fichier de la branche), cache Vite par worktree (`d7ae6fe`). Même sonde
+`state.js` qu'au §0.5, enrichie de `profileId`, de la barre « Reprendre »
+(texte du `div` qui commence par « Simulation en pause ») et, pour chaque
+simulation `case-gib`, de `scope`, `teil`, `parts`, `date`. Aucun compte actif.
+
+### C1 — Teil seul : bilan → checklist → Arztbrief → enregistré — **PASS**
+
+`goto …/run?teil=anamnese`, puis :
+
+| action | `zustand` | boutons d'action rendus |
+|---|---|---|
+| (départ) | `laufend` | `Terminer la partie ✓` — **seul** |
+| Terminer la partie | `bilanz` | `Terminer la simulation →` (en-tête), `Revenir à la partie`, `Terminer la simulation →` (bilan) |
+| Terminer la simulation | **`checkliste`** | h2 « Fin de la simulation » ; `li[data-teil]` = `Anamnese 0/13 26%` ; `Rédiger l'Arztbrief`, `Enregistrer la simulation →` |
+| Rédiger l'Arztbrief | **`arztbrief`** | `Enregistrer la simulation →` ; texte saisi relu dans `lauf.aktiv.arztbriefText` |
+| Enregistrer ×2 (consécutifs) | — | hash `…?teil=anamnese&sim=f9b09d66-…` = `lauf.id` |
+
+`simulations` 3 → **4** ; 4 s plus tard (chrono monté, ticks passés) :
+**`lauf.aktiv` absent** — il ne renaît pas. La ligne porte `arztbriefText`,
+`scope: teil`, `teil: anamnese`, `profileId` absent (jamais `'local'`, M2).
+
+### C2 — pendant une partie en cours, pas de sortie d'un clic (I1) — **PASS**
+
+Run complet : Anamnese terminée, « Partie suivante — Dokumentation → ».
+En `laufend(dokumentation)` avec `gespielt: ['anamnese']`, l'en-tête rend
+`Aufklärung`, `Terminer la partie ✓` — **aucun** « Terminer la simulation ».
+
+Au passage (M4) : Aufklärung jouée puis « Partie suivante — Dokumentation → » :
+le bouton `Aufklärung` est **`disabled: true`** — une seule par run.
+
+### C3 — la barre « Reprendre » lit `lauf.aktiv` — **PASS**
+
+Dokumentation terminée (`bilanz`, `gespielt: [anamnese, aufklaerung, dokumentation]`),
+puis `goto #/stats` : barre « Simulation en pause · Obere GI-Blutung… ·
+Dokumentation · 3/3 parties ». Puis **onglet rouvert simulé** —
+`sessionStorage.clear()` + `reload` (Dexie conservée) : la barre est **toujours
+là**, même texte. « Reprendre » → `#/simulation/case-gib/run`, même `id`, même
+`zustand: bilanz`, mêmes chronos.
+
+### C4 — changement de mode avec un run joué : il est ÉCRIT (I2b) et lu juste (I3) — **PASS**
+
+Depuis C3, `goto …/run?teil=anamnese` :
+
+| | mesuré |
+|---|---|
+| `lauf.aktiv` | **nouveau** `id`, `modus: teil` — le run complet n'est pas repris |
+| `simulations` | 4 → **5** : `f938346f` `scope: teil`, **`teil: null`**, `parts: [anamnese, aufklaerung, dokumentation]` |
+| hub `#/simulation`, ligne de ce run | « **Simulation partielle (Anamnese, Aufklärung, Dokumentation)** » — et non « Anamnese seule » |
+| hub, ligne du Teil seul de C1 | « Anamnese seule » |
+
+### C5 — Teil seul en cours, puis simulation complète : pas de reprise croisée (I2a) — **PASS**
+
+Depuis C4 (Teil seul, aucune partie jouée), `goto …/run` : nouveau `id`,
+`modus: komplett`, `aktuellerTeil: anamnese`. `simulations` reste à **5** : un
+Lauf sans partie jouée est supprimé, pas écrit.
+Puis `goto #/simulation` et ✕ de la barre : `lauf.aktiv` absent, `simulations`
+toujours 5, et après `reload` **aucune barre fantôme**.
+
+### C6 — run complet jusqu'à `gespeichert` — **PASS**
+
+Trois parties jouées → bilan de la Fallvorstellung → « Terminer la simulation » →
+`checkliste` : trois lignes (`Anamnese 0/13 26%`, `Dokumentation 0/11 10%`,
+`Fallvorstellung 0/11 26%`) et **pas** de « Rédiger l'Arztbrief » (la
+Dokumentation l'a déjà écrit). « Enregistrer la simulation → » → `?sim=d1a91eb6-…`,
+ligne `scope: full`, `teil: null`, écran « Encore un effort », `lauf.aktiv` absent.
 
 ---
 
@@ -395,12 +477,18 @@ Contre-preuve, **même parcours rejoué après correction** :
 | La checklist de fin reprend les cases cochées pendant | B3 | **PASS** |
 | « Tout cocher » se lit comme un raccourci de saisie | B3 bis | **PASS** |
 | Partie interrompue par un rafraîchissement, brouillon compris | B4 | **PASS** |
-| Valider deux fois = un seul enregistrement | B5 (3 clics), A4 (3 clics) | **PASS** |
+| Valider deux fois = un seul enregistrement | B5 (2 clics), A4 (2 clics), C1 (2 clics) | **PASS** |
+| La fin passe par l'automate jusqu'à `gespeichert`, `lauf.aktiv` ne renaît pas | C1, C6 | **PASS** |
+| Pas de sortie d'un clic pendant une partie en cours (I1) | C2 | **PASS** |
+| Changement de mode : reprise exacte, run joué écrit, jamais jeté (I2) | C3, C4, C5 | **PASS** |
+| Run complet abandonné après deux parties ≠ « Anamnese seule » (I3) | C4 | **PASS** |
 
 ---
 
 ## Non vérifié
 
+- **Parcours C sans compte actif seulement** : l'attribution à un compte (`profileId`
+  renseigné) n'est prouvée que par `useLauf.test.tsx` (M2), pas au navigateur.
 - **Deux onglets simultanés** (médecin + simulant, `/#/patient/:caseId`). Le
   protocole `fsp-patient-sync` et le `BroadcastChannel` ne sont pas dans le
   périmètre d'écriture de ce chantier et n'ont pas été exercés ici.
