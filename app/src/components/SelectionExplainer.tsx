@@ -165,7 +165,7 @@ export function SelectionExplainer() {
           </button>
         </div>
       ) : (
-        <div className="flex w-64 items-start gap-1.5 rounded-xl border border-slate-200 border-t-white bg-white p-2.5 text-[13px] motion-safe:animate-fade-in-fast dark:border-slate-700 dark:border-t-white/20 dark:bg-slate-900">
+        <div className="glass glass-edge flex w-64 items-start gap-1.5 rounded-xl p-2.5 text-[13px] motion-safe:animate-fade-in-fast">
           {!bubble.loading && !bubble.error && <div className="-m-0.5 -mt-1">{starButton('bubble')}</div>}
           <div className="min-w-0 flex-1">
             {bubble.loading ? (

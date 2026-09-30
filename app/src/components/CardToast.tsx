@@ -14,7 +14,9 @@ import { CardFlip } from './CardFlip';
 import { Portal } from './Portal';
 
 const SAVED_MS = 8000;
-const box = 'fixed inset-x-4 bottom-4 z-[90] mx-auto max-w-sm rounded-xl bg-white p-3 text-sm shadow-e3 ring-1 ring-slate-200 motion-safe:animate-fade-in-fast dark:bg-slate-900 dark:ring-slate-700';
+// Calque flottant = rôle 1 de la charte (`.glass glass-edge`) : l'ancien
+// `bg-white` + filet `inset` blanc dessinait un bord blanc sur blanc, invisible.
+const box = 'glass glass-edge fixed inset-x-4 bottom-4 z-[90] mx-auto max-w-sm rounded-xl p-3 text-sm motion-safe:animate-fade-in-fast';
 
 export function CardToast() {
   const toast = useCardToast((s) => s.toast);

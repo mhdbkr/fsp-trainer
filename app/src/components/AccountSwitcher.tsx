@@ -64,7 +64,7 @@ export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
         {avatar}{!dock && <span className="hidden md:inline">{active.displayName}</span>}
       </button>
       {open && (
-        <div role="menu" className="absolute bottom-full left-0 z-30 mb-2 w-56 rounded-xl border border-slate-200 border-t-white bg-white p-1 dark:border-slate-700 dark:border-t-white/20 dark:bg-slate-900">
+        <div role="menu" className="glass glass-edge absolute bottom-full left-0 z-30 mb-2 w-56 rounded-xl p-1">
           {others.map((a) => (
             <button key={a.userId} role="menuitem" onClick={() => go(a.userId)} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm hover:bg-slate-100 dark:hover:bg-white/10">
               <span className={`grid h-6 w-6 place-items-center rounded-full text-[10px] font-bold text-white ${DOT[a.color] ?? 'bg-brand-500'}`}>{initials(a.displayName)}</span>{a.displayName}

@@ -146,14 +146,16 @@ h1, h2, h3 {
      fait lire comme posé SUR la surface plutôt que découpé dedans. Personne
      ne doit venir « réparer » `.input` en lui retirant son flou.
 
-     RESTE OUVERT, et ce n'est pas un oubli : le POPOVER flottant (menu de
-     `AccountSwitcher`, `DeckChecklist`, `SelectionExplainer` — trois copies
-     de la même chaîne de classes). Aucun des trois matériaux ne lui va : il
-     flotte au-dessus d'un contenu inconnu, donc il doit être OPAQUE (le verre
-     par-dessus une carte empile deux plans de flou, interdit plus bas), mais
-     `.panel` le rendrait invisible — son bord est `white/55`, qui disparaît
-     sur un fond blanc opaque. Ce serait un quatrième rôle ; le nommer est une
-     décision de direction, pas d'implémentation. Laissé tel quel, signalé.
+     LE POPOVER EST LE RÔLE 1 — tranché par `main` le 30 sept. 2026 (fix-s3
+     I3). Menu, bulle, toast, feuille : ce qui FLOTTE au-dessus du contenu est
+     de la chrome, donc `.glass glass-edge`, et pas un quatrième matériau. La
+     règle « pas de `.glass` dans une `.card` » interdit l'IMBRICATION DOM
+     (deux plans de flou dans la même zone de document), pas un calque qui
+     passe au-dessus d'une carte : celui-là échantillonne le rendu fini, pas
+     un fond qu'il partage. `TermHoverCard` le faisait déjà. Appliqué à
+     `AccountSwitcher`, `DeckChecklist`, `SelectionExplainer` (l'ancienne
+     chaîne `border-t-white` sur `bg-white` : une arête blanche sur blanc, donc
+     aucune arête), `CardToast`, `NewCardSheet` (même défaut en `inset`).
 
      ─────────────────────────────────────────────────────────────────────
      LA LUMIÈRE VIENT D'EN HAUT — gate G2-a, tranché par la direction le

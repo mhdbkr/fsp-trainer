@@ -44,7 +44,7 @@ export function DeckChecklist({ termId, caseId, anchor, onClose }: { termId: str
   return (
     <Portal>
       <div ref={ref} data-keep-open role="menu" aria-label="Decks de ce terme" style={{ position: 'fixed', top: anchor.bottom + 4, left, width: W }}
-        className="z-[90] rounded-xl border border-slate-200 border-t-white bg-white p-1 text-sm motion-safe:animate-fade-in-fast dark:border-slate-700 dark:border-t-white/20 dark:bg-slate-900">
+        className="glass glass-edge z-[90] rounded-xl p-1 text-sm motion-safe:animate-fade-in-fast">
         {rows.map((d) => (
           <button key={d.id} type="button" role="menuitemcheckbox" aria-checked={has.has(d.id)}
             onClick={() => { void (has.has(d.id) ? removeTermFromDeck(d.id, termId) : addTermToDeck(d.id, termId, opts)); }}
