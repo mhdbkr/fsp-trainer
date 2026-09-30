@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { useSimSession, hydriereAusLauf, SIM_SESSION_STORAGE_KEY, type SessionSnapshot } from './simSession';
+import { useSimSession, hydriereAusLauf, snapshotAusLauf, SIM_SESSION_STORAGE_KEY, type SessionSnapshot } from './simSession';
 import { db } from '@/db/db';
 import type { Case } from '@/db/types';
 import { erstelleLauf, transition } from '@/lib/lauf/automat';
@@ -135,5 +135,19 @@ describe('Re-revue IMPORTANT — le ✕ de la barre ne lève jamais', () => {
     await expect(useSimSession.getState().end()).resolves.toBeUndefined();
     spy.mockRestore();
     expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+});
+
+describe('mineur 4 — « x/3 parties » ne compte pas l’Aufklärung', () => {
+  it('snapshotAusLauf : results ne porte que les trois Teile', () => {
+    const r = { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 };
+    let l = erstelleLauf({ caseId: 'c1', caseName: 'X', profileId: 'p1', geplanteTeile: ['anamnese', 'dokumentation', 'fallvorstellung'], assistance: 'assiste', layer: 1 });
+    l = transition(l, { typ: 'demarrer', checkliste: checklistFor('anamnese') });
+    l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: checklistFor('aufklaerung') });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: r });
+    l = transition(l, { typ: 'partieSuivante' });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: r });
+    expect(l.teileGespielt).toEqual(['aufklaerung', 'anamnese']);
+    expect(Object.keys(snapshotAusLauf(l).results)).toEqual(['anamnese']);
   });
 });

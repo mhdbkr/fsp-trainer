@@ -122,7 +122,9 @@ export function snapshotAusLauf(l: Lauf): Omit<SessionSnapshot, 'startedAt'> {
     active: (l.aktuellerTeil ?? l.geplanteTeile[0]) as Part,
     phase: l.zustand === 'laufend' ? 'play' : 'eval',
     bogen: l.bogen, arztbriefText: l.arztbriefText,
-    results: Object.fromEntries(l.teileGespielt.map((t) => [t, bewerte(l, t)])),
+    // Les trois Teile seulement : la barre affiche « x/3 parties », et
+    // l'Aufklärung n'en est pas une (mineur 4).
+    results: Object.fromEntries(l.teileGespielt.filter((t) => t !== 'aufklaerung').map((t) => [t, bewerte(l, t)])),
     aufklaerungOpen: l.aktuellerTeil === 'aufklaerung',
     elapsed: l.sekundenProTeil,
     teil: l.modus === 'teil' ? l.geplanteTeile[0] : null,
