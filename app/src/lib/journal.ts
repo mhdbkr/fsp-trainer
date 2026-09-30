@@ -280,16 +280,18 @@ export async function logTraining(input: LogInput): Promise<TrainingEvent> {
     ...(input.selbstbewertet ? { selbstbewertet: true } : {}),
     ...(input.profileId ? { profileId: input.profileId } : {}),
   };
-  await db.training_events.put(event);
-  await applyEventToLocalState(event);
   const { id, ...payload } = event;
+  // L'événement D'ABORD (écriture locale, jamais bloquée par le réseau), la
+  // projection ensuite : le journal se reconstruit à chaque démarrage (B-C1),
+  // une projection qui devancerait `progress_events` serait effacée.
   // Import PARESSEUX : `sync/projections` importe ce module pour reconstruire
   // le journal, et `sync/queue` importe les projections. Un import statique
   // fermerait le cycle et laisserait `syncQueue` indéfini au chargement.
-  // La sync ne doit jamais bloquer l'écriture : l'échec se journalise.
-  import('@/lib/sync/queue')
+  await import('@/lib/sync/queue')
     .then(({ syncQueue }) => syncQueue.push({ type: 'training.logged', subject_id: id, payload }))
     .catch((e) => console.warn('[sync]', e));
+  await db.training_events.put(event);
+  await applyEventToLocalState(event);
   return event;
 }
 
