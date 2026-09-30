@@ -259,12 +259,14 @@ describe('§3.4 — la machine s’adapte à l’humain', () => {
   it('un exercice libre coche la tâche prévue et bascule en `plan`', async () => {
     freezeAt('2026-10-01T10:00:00Z');
     await db.day_plans.put(plan({ date: '2026-10-01', tasks: [task({ id: 't1', caseId: 'c1', teil: 'anamnese' })] }));
-    const e = await logTraining({ kind: 'simulation', caseId: 'c1', teile: ['anamnese'], spentMin: 20, scores: { anamnese: 82 } });
+    const e = await logTraining({ kind: 'simulation', caseId: 'c1', teile: ['anamnese'], spentMin: 20 });
     expect(e.source).toBe('plan');
     expect(e.taskId).toBe('t1');
     const stored = await db.day_plans.get('2026-10-01');
     expect(stored!.tasks[0].doneAt).toBe(e.at);
-    expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('solide');
+    // S-I1 : un `training.logged` ne porte jamais de score mesuré — seul
+    // `simulation.completed` fait bouger le statut d'un Teil.
+    expect((await db.case_progress.get('c1'))?.teile.anamnese.lastScore ?? null).toBeNull();
   });
 });
 
