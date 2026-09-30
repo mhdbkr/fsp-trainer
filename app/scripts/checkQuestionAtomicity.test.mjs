@@ -3,30 +3,24 @@
 // `fach-kardio-ausstrahlung` (irradiation : l'énumération EST la question) /
 // `fach-ortho-durchblutung` (le cas sait si c'est la main ou le pied).
 // Sans ce test, un budget régénéré à l'aveugle avalerait la régression.
+// Toutes les mutations s'appliquent à une COPIE de travail (M2).
 // Usage : node --test scripts/checkQuestionAtomicity.test.mjs
-import test from 'node:test';
+import test, { after } from 'node:test';
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { sandbox } from './mutationSandbox.mjs';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const gate = (...args) => spawnSync(process.execPath, [join(here, 'checkQuestionAtomicity.mjs'), ...args], { encoding: 'utf8' });
-const withMutation = (file, from, to, fn) => {
-  const before = readFileSync(file, 'utf8');
-  assert.ok(before.includes(from), `ancre introuvable : ${from}`);
-  try { writeFileSync(file, before.replace(from, to)); return fn(); } finally { writeFileSync(file, before); }
-};
-const probes = join(here, '../src/data/guides/anamneseProbes.ts');
-const budget = join(here, 'fixtures/atomicity-budget.json');
-const cases = join(here, '../src/data/seedCases.ts');
+const sb = sandbox();
+after(() => sb.dispose());
+const gate = (...args) => sb.run('checkQuestionAtomicity.mjs', ...args);
+const PROBES = 'src/data/guides/anamneseProbes.ts';
+const BUDGET = 'scripts/fixtures/atomicity-budget.json';
+const CASES = 'src/data/seedCases.ts';
 const T = { timeout: 300_000 };
 
 test('budget intact → porte verte', T, () => assert.equal(gate().status, 0));
 
 test('règle A — une sonde qui gagne un « ? » fait remonter le compteur → rouge', T, () => {
-  const r = withMutation(probes,
+  const r = sb.mutate(PROBES,
     "frage: 'Haben Sie einen Hausarzt?'",
     "frage: 'Haben Sie einen Hausarzt? Wie heißt er?'",
     gate);
@@ -47,7 +41,7 @@ test('…et l\'énumération d\'irradiation ne l\'est PAS', T, () => {
 });
 
 test('règle C — réduire l\'irradiation à deux membres la rend suspecte', T, () => {
-  const r = withMutation(probes,
+  const r = sb.mutate(PROBES,
     'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?',
     'Strahlen sie in den linken Arm oder den Rücken aus?',
     () => gate('--rule', 'C', '--report'));
@@ -55,14 +49,14 @@ test('règle C — réduire l\'irradiation à deux membres la rend suspecte', T,
 });
 
 test('budget abaissé à la main → rouge (il ne se contourne pas)', T, () => {
-  const b = JSON.parse(readFileSync(budget, 'utf8'));
-  const r = withMutation(budget, `"A": ${b.budget.A}`, `"A": ${b.budget.A - 1}`, gate);
+  const b = JSON.parse(sb.read(BUDGET));
+  const r = sb.mutate(BUDGET, `"A": ${b.budget.A}`, `"A": ${b.budget.A - 1}`, gate);
   assert.equal(r.status, 1);
 });
 
 // --- Décision Q11 : l'Oberarzt enchaîne, c'est fidèle -----------------------
 test('règle A — une salve d\'Oberarzt n\'est PAS un constat d\'atomicité', T, () => {
-  const r = withMutation(cases,
+  const r = sb.mutate(CASES,
     "'Welche Komplikationen der Leberzirrhose kennen Sie?',",
     "'Welche Komplikationen der Leberzirrhose kennen Sie? Welche zuerst? Warum?',",
     () => gate('--rule', 'A', '--report'));
@@ -70,7 +64,7 @@ test('règle A — une salve d\'Oberarzt n\'est PAS un constat d\'atomicité', T
 });
 
 test('règle D — au-delà de trois interrogations, la salve est incohérente → rouge', T, () => {
-  const r = withMutation(cases,
+  const r = sb.mutate(CASES,
     "'Welche Komplikationen der Leberzirrhose kennen Sie?',",
     "'Welche Komplikationen der Leberzirrhose kennen Sie? Welche zuerst? Warum? Was bedeutet „Aszites“?',",
     gate);
@@ -83,7 +77,7 @@ test('règle D — au-delà de trois interrogations, la salve est incohérente �
 // le dit. Sans cette preuve on ne sait que la moitié de la règle 4 — qu'elle
 // refuse de remonter, pas qu'elle enregistre un gain.
 test('règle 4 — corriger un énoncé fait BAISSER le compteur, et la porte l\'annonce', T, () => {
-  const r = withMutation(probes,
+  const r = sb.mutate(PROBES,
     "frage: 'Haben Sie ein Nitrospray benutzt? Hat es geholfen?'",
     "frage: 'Haben Sie ein Nitrospray benutzt?'",
     gate);
