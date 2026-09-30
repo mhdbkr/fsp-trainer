@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import type { BogenNotes, PartResult } from '@/db/types';
+import { bewerte } from '@/lib/lauf/automat';
+import { gibAuf, ladeAktivenLauf } from '@/lib/lauf/speichern';
+import type { Lauf } from '@/lib/lauf/types';
 
 // ============================================================================
 // Session de simulation PERSISTANTE. Quand l'utilisateur quitte la simulation,
@@ -14,6 +17,11 @@ import type { BogenNotes, PartResult } from '@/db/types';
 // reload a eu lieu dans le Runner) : la barre « Reprendre » l'offre, et le
 // Runner, s'il est remonté sur ce cas, la restaure puis appelle `resume()`.
 // Le chrono reste figé sur `elapsed` tel qu'enregistré. `end()` purge tout.
+//
+// LA SOURCE est `lauf.aktiv` (Dexie, contrat §3.1) : `hydriereAusLauf()` la
+// relit au démarrage et PRIME sur le miroir `sessionStorage`, qui meurt avec
+// l'onglet — sans elle, rien ne proposait la reprise après fermeture. Le miroir
+// reste pour les lecteurs synchrones (DrillPage) et le premier rendu.
 // ============================================================================
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
@@ -50,7 +58,9 @@ interface SimSessionStore {
   sync: (s: Omit<SessionSnapshot, 'startedAt'>) => void; // miroir depuis le Runner
   minimize: () => void;               // quitter en gardant la session
   resume: () => void;                 // reprendre (on rentre dans le Runner)
-  end: () => void;                    // terminer / abandonner → efface
+  /** Terminer / abandonner → efface. Abandonner un Lauf encore en vol l'ÉCRIT
+   *  s'il a une partie jouée, le supprime sinon (§3.1) — jamais jeté. */
+  end: () => Promise<void>;
   setFocus: (f: FocusPos) => void;    // mémorise la position du mode focus
   setGuideChapter: (g: GuideChapter | null) => void; // avancement du guide
   setGuideProbe: (p: string | null) => void;         // question en cours (null = aucune)
@@ -73,9 +83,12 @@ export const useSimSession = create<SimSessionStore>()(persist((set, get) => ({
   },
   minimize: () => { if (get().snapshot) set({ minimized: true }); },
   resume: () => set({ minimized: false }),
-  end: () => {
+  end: async () => {
     set({ snapshot: null, minimized: false, focus: null, guideChapter: null, guideProbe: null });
     useSimSession.persist.clearStorage();
+    // Après une fin normale, `speichern` a déjà supprimé `lauf.aktiv` : rien.
+    const l = await ladeAktivenLauf();
+    if (l) await gibAuf(l);
   },
   setFocus: (f) => set({ focus: f }),
   setGuideProbe: (p) => set((s) => (s.guideProbe === p ? s : { guideProbe: p })),
@@ -97,3 +110,34 @@ export const useSimSession = create<SimSessionStore>()(persist((set, get) => ({
     return { ...current, snapshot, minimized: snapshot !== null };
   },
 }));
+
+/** Le miroir d'affichage d'un `Lauf` — une seule projection, pour le runner
+ *  (`useLauf`) comme pour le réveil (`hydriereAusLauf`). */
+export function snapshotAusLauf(l: Lauf): Omit<SessionSnapshot, 'startedAt'> {
+  return {
+    caseId: l.caseId, caseName: l.caseName,
+    active: (l.aktuellerTeil ?? l.geplanteTeile[0]) as Part,
+    phase: l.zustand === 'laufend' ? 'play' : 'eval',
+    bogen: l.bogen, arztbriefText: l.arztbriefText,
+    results: Object.fromEntries(l.teileGespielt.map((t) => [t, bewerte(l, t)])),
+    aufklaerungOpen: l.aktuellerTeil === 'aufklaerung',
+    elapsed: l.sekundenProTeil,
+    teil: l.modus === 'teil' ? l.geplanteTeile[0] : null,
+  };
+}
+
+/** Réveil depuis `lauf.aktiv`. Un Lauf en vol ⇒ la barre le propose, en pause.
+ *  Aucun Lauf ⇒ un snapshot EN PAUSE est un fantôme (sa partie a été écrite ou
+ *  abandonnée ailleurs) : il est effacé. Un snapshot actif (runner monté) n'est
+ *  pas touché. */
+export async function hydriereAusLauf(): Promise<void> {
+  const l = await ladeAktivenLauf();
+  if (l) {
+    useSimSession.setState({ snapshot: { ...snapshotAusLauf(l), startedAt: l.startedAt }, minimized: true });
+  } else if (useSimSession.getState().minimized) {
+    useSimSession.setState({ snapshot: null, minimized: false });
+    useSimSession.persist.clearStorage();
+  }
+}
+
+if (typeof indexedDB !== 'undefined') void hydriereAusLauf().catch(() => {});

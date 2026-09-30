@@ -144,3 +144,18 @@ describe('I2 — la reprise respecte le mode, et une partie jouée n’est jamai
     expect(await db.simulations.count()).toBe(0);
   });
 });
+
+describe('I2 — quitter le runner met la partie en pause dans la barre « Reprendre »', () => {
+  it('démontage du runner ⇒ snapshot présent et minimisé ; remontage ⇒ repris', async () => {
+    const { useSimSession } = await import('@/store/simSession');
+    useSimSession.setState({ snapshot: null, minimized: false });
+    const { result, unmount } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.lauf?.zustand).toBe('laufend'));
+    await waitFor(() => expect(useSimSession.getState().snapshot?.caseId).toBe('c1'));
+    unmount();
+    expect(useSimSession.getState().minimized).toBe(true);
+    expect(useSimSession.getState().snapshot?.teil).toBe('anamnese');
+    starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(useSimSession.getState().minimized).toBe(false));
+  });
+});

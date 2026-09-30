@@ -3,7 +3,7 @@ import type { Case, SimTeil } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
 import { getActiveUserId } from '@/lib/auth/accounts';
 import { useUi } from '@/store/ui';
-import { useSimSession } from '@/store/simSession';
+import { snapshotAusLauf, useSimSession } from '@/store/simSession';
 import {
   aktualisiereTeil, bewerte, erstelleLauf, setzeChecklistItem, setzeEntwurf,
   tickChrono, transition, type LaufAktion,
@@ -23,9 +23,9 @@ import type { Lauf, LaufTeil, TeilEntwurf } from '@/lib/lauf/types';
 // faite de conditions locales, et « Valider » qui réaffichait l'exercice fini.
 //
 // Persistance : à CHAQUE changement, dans Dexie (`db.meta['lauf.aktiv']`).
-// `sessionStorage` reste alimenté pour la seule barre « Reprendre »
-// (`components/ResumeSessionBar.tsx`, hors de ce chantier) — c'est un miroir
-// d'affichage, plus la source de la reprise.
+// La barre « Reprendre » (`components/ResumeSessionBar.tsx`) lit le store
+// `simSession`, réveillé depuis `lauf.aktiv` (`hydriereAusLauf`) ; ce hook
+// l'alimente en direct par la même projection (`snapshotAusLauf`).
 // ============================================================================
 
 const MODELL = (teil: LaufTeil) => checklistFor(teil);
@@ -104,23 +104,22 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     return () => { annule = true; };
   }, [c?.id, teil]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ---- Pause / reprise de la barre « Reprendre » ----------------------------
+  // Quitter le runner met la partie EN PAUSE : la barre la propose ailleurs dans
+  // l'app. Ce couple avait disparu avec les `useState` du runner — la barre
+  // n'apparaissait plus qu'après un rechargement. `minimize()` est sans effet
+  // quand la partie est terminée (`end()` a vidé le snapshot).
+  useEffect(() => {
+    useSimSession.getState().resume();
+    return () => { useSimSession.getState().minimize(); };
+  }, []);
+
   // ---- Persistance à chaque changement ------------------------------------
   useEffect(() => {
     if (!lauf || lauf.zustand === 'gespeichert') return;
     void speichereAktivenLauf(lauf);
-    // Miroir pour la barre « Reprendre » (affichage seul).
-    useSimSession.getState().sync({
-      caseId: lauf.caseId, caseName: lauf.caseName,
-      active: (lauf.aktuellerTeil ?? lauf.geplanteTeile[0]) as never,
-      phase: lauf.zustand === 'laufend' ? 'play' : 'eval',
-      bogen: lauf.bogen, arztbriefText: lauf.arztbriefText,
-      results: Object.fromEntries(
-        lauf.teileGespielt.map((t) => [t, bewerte(lauf, t)]),
-      ) as never,
-      aufklaerungOpen: lauf.aktuellerTeil === 'aufklaerung',
-      elapsed: lauf.sekundenProTeil as never,
-      teil: lauf.modus === 'teil' ? (lauf.geplanteTeile[0] as never) : null,
-    });
+    // Miroir pour la barre « Reprendre » — la même projection qu'au réveil.
+    useSimSession.getState().sync(snapshotAusLauf(lauf));
   }, [lauf]);
 
   const dispatch = useCallback((a: LaufAktion) => setLauf((l) => (l ? transition(l, a) : l)), []);
