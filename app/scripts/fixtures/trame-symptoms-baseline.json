@@ -2,7 +2,7 @@
   "note": "Socle dégressif — constats connus de checkTrameSymptoms. Il ne remonte jamais.",
   "generated": "2026-09-30",
   "count": 0,
-  "relu": 122,
+  "relu": 115,
   "relu_note": "M4 (revue serie 3) : nombre d'annotations relu: true dans seedCases.ts. Chacune eteint la porte pour sa question ; le compteur ne remonte jamais (--bless refuse une hausse).",
   "findings": []
 }

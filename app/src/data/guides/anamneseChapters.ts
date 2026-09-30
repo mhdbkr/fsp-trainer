@@ -314,7 +314,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
-        followUp: ['Bluten Sie auch woanders leichter als früher — Nasenbluten, blaue Flecken?'],
+        followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
@@ -343,7 +343,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Tageszeit — Ist es nachts oder morgens schlimmer?',
         probe: 'akt-nerven-tageszeit',
-        followUp: ['Wird es bei Wärme oder bei Anstrengung stärker?'],
+        followUp: ['Gibt es Haltungen oder Situationen, in denen es stärker wird?'],
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es langsam schlimmer, oder kommt es und geht wieder ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament, eine neue Tätigkeit?', probe: 'akt-ausloeser' },
@@ -360,7 +360,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Kam es plötzlich oder hat es sich über Wochen entwickelt?', probe: 'akt-beginn' },
       {
-        text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, beim Schlucken, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
+        text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
         probe: 'akt-ausscheid-was',
       },
       {
@@ -395,9 +395,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Und wie oft kommt das vor?'],
       },
       {
-        text: 'Bewusstsein — Waren Sie dabei einmal bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
+        text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
-        followUp: ['Falls ja: Haben Sie sich dabei verletzt?', 'Hat jemand gesehen, was passiert ist?'],
+        followUp: ['Falls ja: Haben Sie sich verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
@@ -1102,7 +1102,16 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       { text: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?', probe: 'fach-neuro-koordination' },
       { text: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?', probe: 'fach-neuro-sprache' },
       { text: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?', probe: 'fach-neuro-blase' },
-      { text: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?', probe: 'fach-neuro-anfall' },
+      {
+        text: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?',
+        probe: 'fach-neuro-anfall',
+        // Quand le cas a déjà demandé la perte de connaissance (sturz, TIA), il
+        // reste la crise — elle ne disparaît pas avec la moitié posée.
+        parts: [
+          { sucht: ['krampf'], text: 'Hatten Sie schon einmal einen Krampfanfall?' },
+          { sucht: ['bewusstlos'], text: 'Waren Sie bewusstlos, oder gibt es eine Phase, an die Sie sich nicht erinnern können?' },
+        ],
+      },
       { text: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?', probe: 'fach-neuro-anfallzeichen' },
       { text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', probe: 'fach-neuro-verlauf' },
     ],

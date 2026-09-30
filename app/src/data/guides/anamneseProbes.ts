@@ -380,7 +380,7 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-nerven-tageszeit', kapitel: 'aktuell', frage: 'Ist es nachts oder morgens schlimmer?' },
   ],
   ausscheidung: [
-    { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Schlucken, Farbe von Haut/Augen/Urin/Stuhl?' },
+    { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl?' },
     { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft am Tag, und wie oft nachts?' },
     { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Wie sieht es aus: Farbe, Blut, Schleim, schaumig?' },
     // L'aspect d'une excrétion et la déglutition ne partagent ni organe ni

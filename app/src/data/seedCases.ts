@@ -4482,7 +4482,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },
-        { frage: 'Seit wann haben Sie diese Rötung bemerkt, und wird sie größer?', kapitel: 'aktuell', relu: true },
+        { frage: 'Seit wann haben Sie diese Rötung bemerkt, und wird sie größer?', kapitel: 'aktuell', sucht: ['ausschlag'] },
         { frage: 'Haben Sie Herzstolpern, Herzrasen oder Schwindel bemerkt, oder waren Sie schon einmal ohnmächtig?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ähnliche Rötungen auch an anderen Stellen des Körpers bemerkt?', kapitel: 'aktuell', relu: true },
       ],
@@ -6012,7 +6012,7 @@ export function seedCases(): Case[] {
         { frage: 'Werden die Beschwerden schlimmer, wenn Sie heiß duschen, in die Sauna gehen oder wenn es draußen sehr warm ist?', kapitel: 'aktuell' },
         { frage: 'Spüren Sie beim Vorbeugen des Kopfes ein elektrisierendes Gefühl, das den Rücken hinunterzieht?', kapitel: 'aktuell' },
         { frage: 'Haben Sie bemerkt, dass Farben, zum Beispiel Rot, blasser oder weniger kräftig wirken als sonst?', kapitel: 'aktuell' },
-        { frage: 'Ist das Gefühl auch zwischen den Beinen und am Gesäß verändert — merken Sie noch, wann die Blase voll ist?', kapitel: 'aktuell' },
+        { frage: 'Ist das Gefühl auch zwischen den Beinen und am Gesäß verändert?', kapitel: 'aktuell' },
         { frage: 'Wurden Sie von einer Zecke gestochen, oder hatten Sie einen ringförmigen Hautausschlag?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -16233,7 +16233,6 @@ export function seedCases(): Case[] {
       ],
       fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
-        { frage: 'Wann genau hat die Luftnot begonnen, und was haben Sie in diesem Moment gemacht — kam sie schlagartig oder hat sie sich über Stunden entwickelt?', kapitel: 'aktuell', relu: true },
         { frage: 'Wird der Schmerz beim tiefen Einatmen oder Husten stärker, oder spüren Sie eher einen Druck hinter dem Brustbein?', kapitel: 'aktuell', relu: true },
         { frage: 'Waren Sie in den letzten Wochen operiert, längere Zeit bettlägerig, im Gips oder auf einer langen Reise ohne Aufstehen?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Haben Sie nach der Operation Spritzen gegen Thrombose bekommen, und wie lange haben Sie diese genommen?', kapitel: 'medikamente' },
@@ -18876,7 +18875,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'War es ein Sturz, oder reichte schon eine leichte Bewegung wie Husten, Niesen oder Bücken, um den Schmerz auszulösen?', kapitel: 'aktuell', relu: true },
-        { frage: 'Können Sie Wasser und Stuhl normal halten — und ist das Gefühl beim Sitzen zwischen den Beinen unverändert?', kapitel: 'aktuell' },
         { frage: 'Sind Sie kleiner geworden, oder hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Ist bei Ihnen eine Osteoporose bekannt, und wurde jemals eine Knochendichtemessung durchgeführt? Kennen Sie Ihren Wert?', kapitel: 'vorerkrankungen' },
@@ -32457,7 +32455,6 @@ export function seedCases(): Case[] {
         { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell', relu: true },
         { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
         { frage: 'Wie lang ist Ihr Zyklus, und hat er sich verändert? Wann war Ihre letzte Regelblutung?', kapitel: 'frauenanamnese' },
-        { frage: 'Haben Sie Blutungen zwischen den Perioden oder nach dem Geschlechtsverkehr?', kapitel: 'aktuell', relu: true },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
         { frage: 'Besteht ein Kinderwunsch, oder ist Ihre Familienplanung abgeschlossen? Wie viele Schwangerschaften und Geburten hatten Sie?', kapitel: 'familie-sozial' },
@@ -39372,7 +39369,7 @@ export function seedCases(): Case[] {
         { frage: 'Werden die Attacken bei Ihnen häufiger oder heftiger als am Anfang?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen? War es, als ob ein Vorhang herunterfällt, und wie lange hat das gedauert?', kapitel: 'aktuell', relu: true },
         { frage: 'Wissen Sie, ob bei Ihnen ein Vorhofflimmern bekannt ist, und welches Medikament Sie dagegen einnehmen?', kapitel: 'medikamente' },
-        { frage: 'Waren Sie bei den Attacken bewusstlos, haben Sie sich auf die Zunge gebissen oder Wasser gelassen?', kapitel: 'aktuell', relu: true },
+        { frage: 'Waren Sie bei den Attacken bewusstlos, haben Sie sich auf die Zunge gebissen oder Wasser gelassen?', kapitel: 'aktuell', sucht: ['bewusstlos', 'krampf'] },
         { frage: 'Fahren Sie noch selbst Auto?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -51228,7 +51225,6 @@ export function seedCases(): Case[] {
         { frage: 'Wie geht es Ihnen mit dem laufenden Rentenverfahren, und was würde es für Sie bedeuten, wenn die Rente bewilligt oder abgelehnt wird?', kapitel: 'familie-sozial' },
         { frage: 'Ist ein Gelenk jemals geschwollen, rot oder heiß gewesen? Haben Sie morgens eine Steifigkeit, die länger als eine halbe Stunde dauert?', kapitel: 'vorerkrankungen' },
         { frage: 'Wachen Sie nachts wegen der Rückenschmerzen auf, und werden sie eher durch Bewegung besser oder schlechter?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie sich in letzter Zeit so schlecht gefühlt, dass Sie daran gedacht haben, nicht mehr leben zu wollen? Gibt es Gedanken, sich etwas anzutun?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -55540,7 +55536,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Erzählen Sie mir bitte ganz genau, was passiert ist: Was haben Sie gemacht, als Sie gestürzt sind — und wie sind Sie gefallen: gestolpert, weggeknickt, schwindelig, schwarz vor Augen?', kapitel: 'aktuell', relu: true },
-        { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern?', kapitel: 'aktuell', relu: true },
+        { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern?', kapitel: 'aktuell', sucht: ['bewusstlos'] },
         { frage: 'Konnten Sie allein wieder aufstehen? Wie lange haben Sie auf dem Boden gelegen, und wer hat den Rettungsdienst gerufen?', kapitel: 'aktuell' },
         { frage: 'Sind Sie mit dem Kopf aufgeschlagen?', kapitel: 'aktuell' },
         { frage: 'Sind Sie in den letzten zwölf Monaten schon einmal gestürzt oder beinahe gestürzt — auch wenn nichts passiert ist?', kapitel: 'vorerkrankungen', relu: true },
@@ -57470,7 +57466,6 @@ export function seedCases(): Case[] {
         { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell' },
         { frage: 'Strahlt der Schmerz eher in die Schulter-Nacken-Kante aus als in den Arm?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Luftnot, auch im Liegen, oder das Gefühl, ohnmächtig zu werden? Sind die Beine geschwollen?', kapitel: 'aktuell', relu: true },
         { frage: 'Hatten Sie jemals einen Herzinfarkt, eine Herzoperation, eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie längere Zeit im Ausland, oder hatten Sie Kontakt zu jemandem mit Tuberkulose?', kapitel: 'vegetativ', sucht: ['reise'] },
         { frage: 'Hat Ihnen das Ibuprofen geholfen, und wie lange hat die Wirkung angehalten?', kapitel: 'medikamente' },
