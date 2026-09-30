@@ -21,9 +21,9 @@ import {
 } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useCases, useProgramConfig } from '@/hooks/useData';
-import { useCaseProgress, useDayPlans } from './useProgram';
-import { modusOf, planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
-import { setIntensity, setModus } from '@/lib/programAdjust';
+import { useCaseProgress, useDayPlans, useModusRefuse, useTrainingEvents } from './useProgram';
+import { modusAProposer, modusOf, observeModus, planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
+import { refuserModus, setIntensity, setModus } from '@/lib/programAdjust';
 import { todayKey } from '@/lib/clock';
 import type { DayPlan, Fortschrittsmodus, Intensity, TaskKind } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
@@ -39,6 +39,8 @@ export function ProgramPage() {
   const cases = useCases();
   const progress = useCaseProgress();
   const plans = useDayPlans();
+  const events = useTrainingEvents();
+  const refuse = useModusRefuse();
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
   const [anchor, setAnchor] = useState(todayKey());
@@ -52,7 +54,7 @@ export function ProgramPage() {
   const byDate = useMemo(() => new Map((plans ?? []).map((p) => [p.date, p])), [plans]);
   const taper = useMemo(() => (config ? taperDays(config) : new Set<string>()), [config]);
 
-  if (config === undefined || !cases || !progress || !plans) return <div className="text-slate-400">Chargement…</div>;
+  if (config === undefined || !cases || !progress || !plans || !events || refuse === undefined) return <div className="text-slate-400">Chargement…</div>;
   if (config === null) {
     return (
       <>
@@ -84,6 +86,12 @@ export function ProgramPage() {
           </button>
         </div>
       </header>
+
+      <ModusProposal
+        propose={modusAProposer(observeModus(events, cases), modusOf(config), refuse)}
+        onAccept={(m) => setModus(config, m)}
+        onRefuse={(m) => refuserModus(m)}
+      />
 
       <div ref={dayRef} className="scroll-mt-24">
         <DaySurface date={selected} plan={byDate.get(selected) ?? null} isTaper={taper.has(selected)} onPick={focusDay} />
@@ -187,8 +195,42 @@ const MODUS_META: { id: Fortschrittsmodus; label: string; hint: string }[] = [
   { id: 'examen-blanc', label: 'Examen blanc', hint: 'Des runs complets chronométrés, sans assistance.' },
 ];
 
-/** Le mode d'avancement : on ne devine pas la stratégie du candidat, on la lui
- *  demande. Changer de mode ne réécrit AUCUN jour déjà figé. */
+/**
+ * La PROPOSITION de mode d'avancement (direction, 30 sept. 2026).
+ *
+ * L'inscription ne pose plus la question : au jour zéro, personne ne sait
+ * « comment il veut avancer ». L'app observe le journal et, au bout de ~3
+ * séances, propose ce qu'elle VOIT — une phrase, deux réponses, aucune modale.
+ * Refuser est un vrai choix, retenu : la proposition ne revient pas pour ce
+ * mode-là. `propose === null` ⇒ rien ne s'affiche, et c'est le cas normal.
+ */
+function ModusProposal({ propose, onAccept, onRefuse }: {
+  propose: Fortschrittsmodus | null;
+  onAccept: (m: Fortschrittsmodus) => void;
+  onRefuse: (m: Fortschrittsmodus) => void;
+}) {
+  if (!propose) return null;
+  const meta = MODUS_META.find((m) => m.id === propose)!;
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-brand-200 bg-brand-50/60 px-4 py-3 dark:border-brand-900/50 dark:bg-brand-900/20">
+      <Icon name="spark" className="h-4 w-4 shrink-0 text-brand-600 dark:text-brand-300" />
+      <p className="min-w-0 flex-1 text-sm text-slate-700 dark:text-slate-200">
+        {/* On DIT ce qu'on a vu avant de demander : la proposition doit être
+            vérifiable par le candidat, pas un oracle. */}
+        Tu avances <b>{meta.label.toLowerCase()}</b> ces derniers temps. Je cale le programme là-dessus ?
+        <span className="block text-[11px] text-slate-500 dark:text-slate-400">{meta.hint}</span>
+      </p>
+      <div className="flex shrink-0 items-center gap-2">
+        <button type="button" onClick={() => onRefuse(propose)} className="btn-ghost text-xs">Non, laisse</button>
+        <button type="button" onClick={() => onAccept(propose)} className="btn-primary px-3 py-1.5 text-xs">Oui, cale-le</button>
+      </div>
+    </div>
+  );
+}
+
+/** Le réglage explicite du mode. L'app le DÉDUIT et le PROPOSE
+ *  (`ModusProposal`) ; ce sélecteur reste la commande directe. Changer de mode
+ *  ne réécrit AUCUN jour déjà figé. */
 function ModusSwitch({ value, onChange }: { value: Fortschrittsmodus; onChange: (m: Fortschrittsmodus) => void }) {
   const current = MODUS_META.find((m) => m.id === value)!;
   return (

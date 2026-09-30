@@ -1,4 +1,4 @@
-import { db } from '@/db/db';
+import { db, setMeta } from '@/db/db';
 import type { Fortschrittsmodus, ProgramConfig } from '@/db/types';
 
 // ============================================================================
@@ -20,9 +20,15 @@ import type { Fortschrittsmodus, ProgramConfig } from '@/db/types';
 
 const key = () => 'program';
 
+/** Clé du mode explicitement REFUSÉ par le candidat, pour ne pas le reproposer. */
+export const MODUS_REFUSE_KEY = 'modusRefuse';
+
 /**
- * Le mode d'avancement, demandé UNE FOIS et jamais deviné. Changer de mode ne
- * réécrit AUCUN jour déjà figé : `DayPlan.mode` est figé à la matérialisation.
+ * Le mode d'avancement. Il n'est plus DEMANDÉ à l'inscription (décision de
+ * direction du 30 sept. 2026) : l'app l'observe et le propose. Ce réglage reste
+ * la commande explicite — confirmer une proposition passe par ici. Changer de
+ * mode ne réécrit AUCUN jour déjà figé : `DayPlan.mode` est figé à la
+ * matérialisation.
  */
 export function setModus(config: ProgramConfig, modus: Fortschrittsmodus) {
   return db.meta.put({ key: key(), value: { ...config, modus } });
@@ -33,3 +39,8 @@ export function setModus(config: ProgramConfig, modus: Fortschrittsmodus) {
 export function setIntensity(config: ProgramConfig, intensity: ProgramConfig['intensity']) {
   return db.meta.put({ key: key(), value: { ...config, intensity } });
 }
+
+/** « Non, laisse » — le refus se retient, sinon la proposition harcèle. Il ne
+ *  vaut que pour CE mode : si l'usage change et en désigne un autre, la
+ *  question redevient légitime (`modusAProposer`). */
+export const refuserModus = (modus: Fortschrittsmodus) => setMeta(MODUS_REFUSE_KEY, modus);
