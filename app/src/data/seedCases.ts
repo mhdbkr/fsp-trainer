@@ -61724,7 +61724,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie hoch war der Blutdruck heute beim Betriebsarzt, und kennen Sie Ihre üblichen Werte?', kapitel: 'aktuell' },
         { frage: 'Wann haben Sie Ihre Blutdrucktablette zuletzt genommen, und wie oft vergessen Sie sie in einer normalen Woche?', kapitel: 'medikamente' },
-        { frage: 'Treten die Kopfschmerzen vor allem morgens im Hinterkopf auf, und werden sie im Laufe des Tages besser?', kapitel: 'aktuell' },
+        { frage: 'Wo genau sitzt der Kopfschmerz — eher im Hinterkopf, im Nacken?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Sehstörungen, Flimmern vor den Augen, eine Lähmung, ein Taubheitsgefühl oder Schwierigkeiten beim Sprechen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen oder ein Engegefühl in der Brust, Luftnot beim Liegen oder geschwollene Beine?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac, ein Nasenspray, Kortison oder essen Sie viel Lakritz?', kapitel: 'medikamente' },

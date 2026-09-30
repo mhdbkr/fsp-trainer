@@ -201,8 +201,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann geht es Ihnen so? Kam das nach und nach oder gab es einen Moment, ab dem es anders war?', probe: 'akt-beginn' },
       {
-        text: 'Stimmung — Wie ist Ihre Stimmung im Moment, wenn Sie sie beschreiben sollen? Gibt es Momente, in denen es besser ist?',
+        text: 'Stimmung — Wie ist Ihre Stimmung im Moment, wenn Sie sie beschreiben sollen?',
         probe: 'akt-psych-stimmung',
+        followUp: ['Gibt es Momente, in denen es besser ist?'],
       },
       {
         text: 'Antrieb und Interesse — Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen, die Ihnen früher wichtig waren?',
@@ -240,16 +241,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Falls schlagartig: Um welche Uhrzeit genau? Wann waren Sie zuletzt sicher beschwerdefrei?'],
       },
       {
-        text: 'Art des Ausfalls — Was genau war anders: eine Schwäche oder Taubheit — auf welcher Seite? Probleme beim Sprechen, beim Sehen, beim Gehen?',
+        text: 'Art des Ausfalls — Was genau war anders: eine Schwäche oder ein Taubheitsgefühl, und auf welcher Seite?',
         probe: 'akt-neuro-ausfall',
+        followUp: ['Konnten Sie dabei normal sprechen, sehen und gehen?'],
       },
       {
-        text: 'Dauer und Rückbildung — Wie lange hat es angehalten? Ist es vollständig weggegangen, teilweise, oder besteht es noch?',
+        text: 'Dauer — Wie lange hat es angehalten?',
         probe: 'akt-neuro-dauer',
+        followUp: ['Ist es vollständig weggegangen, teilweise, oder besteht es noch?'],
       },
       {
-        text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen? Dreht sich alles, oder ist es eher ein Schwanken?',
+        text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen?',
         probe: 'akt-neuro-lage',
+        followUp: ['Dreht sich dabei alles, oder ist es eher ein Schwanken?'],
       },
       { text: 'Verlauf — Kam es einmal, oder in Schüben? Ist es zwischendurch ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gab es einen Auslöser — Anstrengung, Aufregung, Schlafmangel, Alkohol, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -266,16 +270,18 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie Fieber oder fühlen sich krank? Kam es schlagartig oder langsam?', probe: 'akt-beginn' },
       {
-        text: 'Fieber — Haben Sie gemessen — wie hoch? Zu welcher Tageszeit ist es am höchsten? Hatten Sie Schüttelfrost?',
+        text: 'Fieber — Haben Sie gemessen, und wie hoch?',
         probe: 'akt-infekt-fieber',
+        followUp: ['Zu welcher Tageszeit ist es am höchsten?'],
       },
       {
         text: 'Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?',
         probe: 'akt-verlauf',
       },
       {
-        text: 'Kontakt und Reise — Waren Sie in letzter Zeit im Ausland? Hatten Sie Kontakt zu Kranken, zu Tieren, oder haben Sie etwas Ungewöhnliches gegessen?',
+        text: 'Kontakt und Reise — Waren Sie in letzter Zeit im Ausland?',
         probe: 'akt-infekt-kontakt',
+        followUp: ['Hatten Sie Kontakt zu Kranken oder zu Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -299,12 +305,14 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       },
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Wie ist es Ihnen aufgefallen — zufällig, beim Duschen, durch jemand anderen?', probe: 'akt-beginn' },
       {
-        text: 'Größe und Entwicklung — Ist es seitdem größer, häufiger oder schlimmer geworden? Hat es sich in Farbe oder Form verändert?',
+        text: 'Größe und Entwicklung — Ist es seitdem größer, häufiger oder schlimmer geworden?',
         probe: 'akt-veraend-entwicklung',
+        followUp: ['Hat es sich in Farbe oder Form verändert?'],
       },
       {
-        text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es? Haben Sie Blut im Stuhl, im Urin, beim Husten oder aus der Nase bemerkt?',
+        text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
+        followUp: ['Bluten Sie auch woanders leichter als früher — Nasenbluten, blaue Flecken?'],
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
@@ -321,16 +329,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann bemerken Sie das? Ist es langsam gekommen, oder in Schüben mit besseren Phasen dazwischen?', probe: 'akt-beginn' },
       {
-        text: 'Art — Was genau spüren Sie: ein Zittern, ein Kribbeln, ein Taubheitsgefühl, eine Schwäche, eine Steifigkeit? Wo — und auf einer oder beiden Seiten?',
+        text: 'Art — Was genau spüren Sie: ein Kribbeln, ein Zittern oder eine Schwäche?',
         probe: 'akt-nerven-art',
+        followUp: ['Fühlt es sich eher pelzig und taub an, oder eher steif?', 'Wo genau, und auf einer oder auf beiden Seiten?'],
       },
       {
-        text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten, gehen, Treppen? Sind Sie schon gestürzt?',
+        text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
         probe: 'akt-nerven-alltag',
+        followUp: ['Und beim Gehen oder auf Treppen — sind Sie schon gestürzt?'],
       },
       {
-        text: 'Tageszeit und Auslöser — Ist es nachts oder morgens schlimmer? Wird es bei Anstrengung, Wärme, Aufregung oder in bestimmten Haltungen stärker?',
+        text: 'Tageszeit — Ist es nachts oder morgens schlimmer?',
         probe: 'akt-nerven-tageszeit',
+        followUp: ['Wird es bei Wärme oder bei Anstrengung stärker?'],
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es langsam schlimmer, oder kommt es und geht wieder ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament, eine neue Tätigkeit?', probe: 'akt-ausloeser' },
@@ -351,8 +362,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         probe: 'akt-ausscheid-was',
       },
       {
-        text: 'Häufigkeit und Menge — Wie oft am Tag, wie oft nachts? Mehr oder weniger als sonst? Müssen Sie plötzlich, oder kommt es nur tröpfchenweise?',
+        text: 'Häufigkeit — Wie oft am Tag, und wie oft nachts?',
         probe: 'akt-ausscheid-haeufigkeit',
+        followUp: ['Ist das mehr oder weniger als sonst?', 'Müssen Sie plötzlich, oder kommt es nur tröpfchenweise?'],
       },
       {
         text: 'Aussehen — Wie sieht es aus: Farbe, Blut, Schleim, schaumig, übel riechend? Bei Schluckbeschwerden: bleibt Festes hängen, oder auch Flüssiges?',
@@ -373,17 +385,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Wann war der erste Anfall? Und der letzte?', probe: 'akt-beginn' },
       {
-        text: 'Ablauf — Wie fängt so ein Anfall an — schlagartig oder langsam? Wie hört er auf? Was spüren Sie währenddessen genau?',
+        text: 'Ablauf — Wie fängt so ein Anfall an: schlagartig oder langsam?',
         probe: 'akt-anfall-ablauf',
+        followUp: ['Was spüren Sie währenddessen genau?', 'Und wie hört er wieder auf?'],
       },
       {
-        text: 'Dauer und Häufigkeit — Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden? Wie oft kommt das vor?',
+        text: 'Dauer — Wie lange dauert ein Anfall — eher Sekunden oder eher Minuten?',
         probe: 'akt-anfall-dauer',
+        followUp: ['Und wie oft kommt das vor?'],
       },
       {
-        text: 'Bewusstsein — Waren Sie dabei einmal bewusstlos, oder ist Ihnen schwarz vor Augen geworden? Haben Sie sich verletzt?',
+        text: 'Bewusstsein — Waren Sie dabei einmal bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
-        followUp: ['Falls ja: Hat jemand gesehen, was passiert ist? Haben Sie eingenässt oder sich auf die Zunge gebissen?'],
+        followUp: ['Falls ja: Haben Sie sich dabei verletzt?', 'Hat jemand gesehen, was passiert ist?'],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },

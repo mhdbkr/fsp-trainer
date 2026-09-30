@@ -55,7 +55,10 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'veg-appetit': ['appetit'],
   'veg-schlaf': ['schlaf'],
   // Aktuelle Beschwerden (variantes)
-  'akt-infekt-fieber': ['fieber', 'schuettelfrost'],
+  // Le Schüttelfrost est SORTI de la question (série 3, tri des 27) :
+  // `veg-schuettelfrost` le pose déjà, et plus richement. La déclaration
+  // suivrait la question, sinon elle efface une question qui n'est plus posée.
+  'akt-infekt-fieber': ['fieber'],
   'akt-infekt-kontakt': ['reise', 'kontakt'],
   'akt-allgemein-art': ['schwindel'],
   'akt-allgemein-gewicht': ['gewicht', 'appetit', 'durst'],
