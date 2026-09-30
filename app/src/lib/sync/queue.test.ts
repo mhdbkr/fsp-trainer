@@ -106,8 +106,9 @@ describe('syncQueue', () => {
   });
   it('rejected avec retry (type pas encore connu du serveur) : gardé ; sans retry : retiré', async () => {
     post.mockImplementation(async (_url: string, init?: { body?: string }) => {
-      const [x, y] = (JSON.parse(init!.body!).events as { id: string }[]).map((e) => e.id);
-      return { ok: true, status: 200, json: async () => ({ acked: [], received: {}, rejected: [{ id: x, reason: 'unknown_type', retry: true }, { id: y, reason: 'invalid payload' }] }) };
+      const evs = JSON.parse(init!.body!).events as { id: string; subject_id: string }[];
+      const by = (s: string) => evs.find((e) => e.subject_id === s)!.id;   // l'ordre du lot suit l'uuid : ne pas s'y fier
+      return { ok: true, status: 200, json: async () => ({ acked: [], received: {}, rejected: [{ id: by('x'), reason: 'unknown_type', retry: true }, { id: by('y'), reason: 'invalid payload' }] }) };
     });
     const [x, y] = await syncQueue.pushMany([
       { type: 'training.logged', subject_id: 'x', payload: {} },
