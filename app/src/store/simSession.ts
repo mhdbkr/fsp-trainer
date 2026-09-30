@@ -87,8 +87,11 @@ export const useSimSession = create<SimSessionStore>()(persist((set, get) => ({
     set({ snapshot: null, minimized: false, focus: null, guideChapter: null, guideProbe: null });
     useSimSession.persist.clearStorage();
     // Après une fin normale, `speichern` a déjà supprimé `lauf.aktiv` : rien.
-    const l = await ladeAktivenLauf();
-    if (l) await gibAuf(l);
+    // `gibAuf` ne lève pas ; la lecture peut échouer : le ✕ ne lève jamais.
+    try {
+      const l = await ladeAktivenLauf();
+      if (l) await gibAuf(l);
+    } catch (e) { console.warn('[simSession] abandon impossible', e); }
   },
   setFocus: (f) => set({ focus: f }),
   setGuideProbe: (p) => set((s) => (s.guideProbe === p ? s : { guideProbe: p })),

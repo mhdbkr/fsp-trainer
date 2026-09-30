@@ -68,10 +68,22 @@ export async function bereinigeAltenLauf(jetzt = Date.now()): Promise<Lauf | nul
 
 /** Abandon d'un Lauf (§3.1) : ÉCRIT tel quel s'il a au moins un Teil joué —
  *  une partie jouée n'est jamais jetée —, supprimé sinon. Seule règle, pour
- *  l'abandon par l'âge comme pour l'abandon par changement de mode ou de cas. */
+ *  l'abandon par l'âge comme pour l'abandon par changement de mode ou de cas.
+ *
+ *  NE LÈVE JAMAIS. Un abandon qui lève bloquait le runner sur TOUS les cas :
+ *  le cas d'un Lauf en cours pouvait avoir quitté `db.cases` (perte de droits
+ *  → purge de `content/apply.ts`) et `speichern` levait « cas introuvable » à
+ *  chaque ouverture. Le cas manquant est remplacé par un cas minimal ; si
+ *  l'écriture échoue malgré tout, le Lauf est écarté plutôt que de bloquer. */
 export async function gibAuf(l: Lauf): Promise<void> {
-  if (l.teileGespielt.length) await speichern(l);
-  else await verwerfeAktivenLauf();
+  try {
+    if (!l.teileGespielt.length) return await verwerfeAktivenLauf();
+    const fall = (await db.cases.get(l.caseId)) ?? ({ id: l.caseId, name: l.caseName } as Case);
+    await speichern(l, fall);
+  } catch (e) {
+    console.warn('[lauf] abandon non écrit, Lauf écarté', e);
+    await verwerfeAktivenLauf();
+  }
 }
 
 // ------------------------------------------------------------- Projection

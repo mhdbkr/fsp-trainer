@@ -123,3 +123,17 @@ describe('simSession — la barre « Reprendre » lit lauf.aktiv', () => {
     expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
   });
 });
+
+describe('Re-revue IMPORTANT — le ✕ de la barre ne lève jamais', () => {
+  it('Lauf sur un cas disparu : end() résout, lauf.aktiv est nettoyé', async () => {
+    await db.meta.clear(); await db.cases.clear();
+    let l = erstelleLauf({ caseId: 'ghost', caseName: 'Ghost', profileId: 'p1', geplanteTeile: ['anamnese'], assistance: 'assiste', layer: 1 });
+    l = transition(l, { typ: 'demarrer', checkliste: checklistFor('anamnese') });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 } });
+    await speichereAktivenLauf(l);
+    const spy = vi.spyOn(db, 'transaction').mockRejectedValueOnce(new Error('QuotaExceeded') as never);
+    await expect(useSimSession.getState().end()).resolves.toBeUndefined();
+    spy.mockRestore();
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+});

@@ -69,7 +69,14 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     if (!c) return;
     let annule = false;
     (async () => {
-      const alt = await bereinigeAltenLauf();
+      // Rien de ce qui précède la création ne doit pouvoir bloquer le runner :
+      // un échec ici laissait `laedt` à `true` — « Chargement… » à vie, sur
+      // tous les cas. On écarte le Lauf fautif et on continue.
+      let alt: Lauf | null = null;
+      try { alt = await bereinigeAltenLauf(); } catch (e) {
+        console.warn('[lauf] reprise impossible, Lauf écarté', e);
+        await verwerfeAktivenLauf().catch(() => {});
+      }
       if (annule) return;
       // Reprise à l'identique, `zustand` compris — seulement si le cas ET le
       // mode correspondent EXACTEMENT. Avant, `!teil` acceptait n'importe quel

@@ -184,3 +184,22 @@ describe('M2 — un seul repli pour profileId, et « local » ne part jamais au 
     expect(sim?.profileId).toBe('u-lydia');
   });
 });
+
+describe('Re-revue IMPORTANT — un abandon qui échoue ne bloque jamais le runner', () => {
+  it('P3 — Lauf en cours sur un cas disparu de db.cases : le runner d’un autre cas se charge, et le run est écrit', async () => {
+    const alt = await enVol('ghost', null, 1);           // `ghost` n'est pas dans db.cases
+    const { result } = starte(fall('c2'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(result.current.lauf?.caseId).toBe('c2');
+    expect((await db.simulations.get(alt.id))?.caseId).toBe('ghost');
+  });
+
+  it('écriture d’abandon qui lève : Lauf écarté, le runner continue', async () => {
+    await enVol('c1', null, 1);
+    const spy = vi.spyOn(db, 'transaction').mockRejectedValueOnce(new Error('QuotaExceeded') as never);
+    const { result } = starte(fall('c2'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    spy.mockRestore();
+    expect(result.current.lauf?.caseId).toBe('c2');
+  });
+});
