@@ -205,7 +205,7 @@ function PartnerChoice({ icon, title, desc, onClick, active = false }: {
 }) {
   return (
     <button onClick={onClick} aria-pressed={active}
-      className={`flex min-h-11 flex-col items-start gap-1 rounded-xl border p-3 text-left motion-safe:transition-colors ${active ? 'border-brand-500 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-900/20' : 'border-slate-200 hover:border-brand-300 dark:border-slate-700 dark:hover:border-brand-700'}`}>
+      className={`flex min-h-11 flex-col items-start gap-1 rounded-xl border p-3 text-left ${active ? 'border-brand-500 bg-brand-50/70 dark:border-brand-700 dark:bg-brand-900/20' : 'border-slate-200 hover:border-brand-300 dark:border-slate-700 dark:hover:border-brand-700'}`}>
       <span className="flex items-center gap-2 font-semibold">
         <Icon name={icon} className="h-4 w-4 text-brand-600 dark:text-brand-300" />{title}
       </span>
