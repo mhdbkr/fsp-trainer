@@ -214,3 +214,25 @@ describe('Re-revue — mineur 11 / P4 : un lauf.aktiv corrompu ne bloque pas', (
     expect(Array.isArray(result.current.lauf?.checkliste)).toBe(true);
   });
 });
+
+describe('Re-revue — mineur 9 : un échec d’écriture ne fige jamais l’écran', () => {
+  it('l’écriture lève ⇒ retour à la checklist, message d’erreur, et un second essai réussit', async () => {
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.lauf?.zustand).toBe('laufend'));
+    act(() => result.current.terminerPartie());
+    act(() => result.current.versChecklist());
+    const spy = vi.spyOn(db, 'transaction').mockRejectedValueOnce(new Error('QuotaExceeded') as never);
+    let id: string | null = 'x';
+    await act(async () => { id = await result.current.beenden(); });
+    spy.mockRestore();
+    expect(id).toBeNull();
+    expect(result.current.lauf?.zustand).toBe('checkliste');
+    expect(result.current.fehler).toMatch(/QuotaExceeded/);
+    await waitFor(async () => expect((await aktiv())?.zustand).toBe('checkliste'));
+
+    await act(async () => { id = await result.current.beenden(); });
+    expect(id).toBe(result.current.lauf!.id);
+    expect(result.current.fehler).toBeNull();
+    expect(result.current.lauf?.zustand).toBe('gespeichert');
+  });
+});

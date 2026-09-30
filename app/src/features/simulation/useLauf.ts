@@ -34,6 +34,8 @@ export interface LaufSteuerung {
   lauf: Lauf | null;
   /** `true` tant qu'on ne sait pas s'il y a une partie à reprendre. */
   laedt: boolean;
+  /** Dernier échec d'enregistrement — l'écran le dit et permet de réessayer. */
+  fehler: string | null;
   dispatch: (a: LaufAktion) => void;
   /** « Terminer la partie » : l'évaluation est dérivée des champs du Lauf. */
   terminerPartie: () => void;
@@ -55,6 +57,7 @@ export interface LaufSteuerung {
 export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerung {
   const [lauf, setLauf] = useState<Lauf | null>(null);
   const [laedt, setLaedt] = useState(true);
+  const [fehler, setFehler] = useState<string | null>(null);
   const assistance = useUi((s) => s.assistance);
   const layer = useUi((s) => s.layer);
   const muster = useUi((s) => s.muster);
@@ -171,11 +174,21 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     // `gespeichert` d'abord dans l'état React : la persistance en vol s'arrête
     // AVANT l'écriture, aucune ne peut la doubler.
     setLauf(fertig);
+    setFehler(null);
     // Idempotente sur `lauf.id` : un second clic ne crée ni une seconde ligne
     // ni un second événement (INV-22).
-    const sim = await speichern(fertig, c);
-    useSimSession.getState().end();
-    return sim.id;
+    try {
+      const sim = await speichern(fertig, c);
+      void useSimSession.getState().end();
+      return sim.id;
+    } catch (e) {
+      // L'écriture n'a PAS eu lieu : on rend le Lauf d'avant (ce n'est pas une
+      // transition, c'est l'annulation d'un `speichern` qui n'a pas abouti) et
+      // on le dit. Avant : écran figé sur « Enregistrement… » (mineur 9).
+      setLauf(l);
+      setFehler(e instanceof Error ? e.message : String(e));
+      return null;
+    }
   }, [lauf, c]);
 
   const abbrechen = useCallback(async () => {
@@ -184,5 +197,5 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     setLauf(null);
   }, []);
 
-  return { lauf, laedt, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, arztbriefSchreiben, beenden, abbrechen };
+  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, arztbriefSchreiben, beenden, abbrechen };
 }
