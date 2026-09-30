@@ -24,7 +24,7 @@ const EXAMPLES = [
 // Petit badge marque réutilisable (mark pieuvre sur verre teinté).
 function MarkBadge({ size = 'h-8 w-8', icon = 'h-[19px] w-[19px]' }: { size?: string; icon?: string }) {
   return (
-    <span className={`relative grid shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-sm ring-1 ring-white/15 ${size}`}>
+    <span className={`relative grid shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-e2 ring-1 ring-white/15 ${size}`}>
       <span className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-b from-white/25 to-transparent" />
       <Icon name="doctopus" className={`relative ${icon}`} />
     </span>
@@ -96,7 +96,7 @@ export function Doctopus() {
       {/* Bouton flottant — minimal, glassmorphique, 3D, mark seul (sans texte) */}
       {!open && (
         <button onClick={() => openDoctopus()} title="Doctopus — assistant IA" aria-label="Ouvrir Doctopus"
-          className="group fixed bottom-6 right-6 z-40 grid h-14 w-14 animate-float place-items-center rounded-2xl bg-brand-600/85 text-white shadow-xl shadow-brand-950/25 ring-1 ring-white/25 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-2xl active:scale-95">
+          className="group fixed bottom-6 right-6 z-40 grid h-14 w-14 animate-float place-items-center rounded-2xl bg-brand-600/85 text-white shadow-e3 ring-1 ring-white/25 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-e2 active:scale-95">
           {/* Reflet de verre (haut) + halo interne → volume 3D */}
           <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/30 via-transparent to-transparent" />
           <span className="pointer-events-none absolute inset-x-2 top-1 h-1/3 rounded-full bg-white/20 blur-md" />
@@ -151,13 +151,13 @@ export function Doctopus() {
               {turns.map((t, i) => t.role === 'user' ? (
                 <div key={i} className="ml-6 rounded-2xl bg-brand-50/80 px-3 py-2 text-[13px] leading-relaxed dark:bg-brand-900/30">{t.content}</div>
               ) : (
-                <div key={i} className="rounded-2xl border border-slate-200/70 bg-white/60 p-3 dark:border-white/10 dark:bg-white/5">
+                <div key={i} className="panel rounded-2xl p-3">
                   <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-brand-600 dark:text-brand-300"><Icon name="doctopus" className="h-4 w-4" /> Doctopus</div>
                   <div className="whitespace-pre-wrap text-[13px] leading-relaxed">{t.content}</div>
                 </div>
               ))}
               {loading && (
-                <div className="rounded-2xl border border-slate-200/70 bg-white/60 p-3 dark:border-white/10 dark:bg-white/5">
+                <div className="panel rounded-2xl p-3">
                   <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-brand-600 dark:text-brand-300"><Icon name="doctopus" className="h-4 w-4" /> Doctopus</div>
                   <div className="whitespace-pre-wrap text-[13px] leading-relaxed">{streaming || <span className="text-slate-400">…</span>}</div>
                 </div>
@@ -168,7 +168,7 @@ export function Doctopus() {
                 <div className="space-y-1.5">
                   <div className="label">Exemples — clique pour essayer</div>
                   {EXAMPLES.map((ex) => (
-                    <button key={ex} onClick={() => setQ(ex)} className="flex w-full items-center gap-2 rounded-xl border border-slate-200/70 bg-white/50 px-3 py-2 text-left text-[13px] transition-colors hover:border-brand-400 dark:border-white/10 dark:bg-white/5">
+                    <button key={ex} onClick={() => setQ(ex)} className="panel panel-interactive flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-[13px]">
                       <Icon name="spark" className="h-3.5 w-3.5 shrink-0 text-slate-300" />{ex}
                     </button>
                   ))}
@@ -180,7 +180,7 @@ export function Doctopus() {
                   <div className="label">Recherche instantanée (hors-ligne)</div>
                   {hits.map((h, i) => (
                     <button key={i} onClick={() => h.fb && (openGlossary(h.fb), closeDoctopus())}
-                      className={`w-full rounded-xl border border-slate-200/70 bg-white/50 p-3 text-left dark:border-white/10 dark:bg-white/5 ${h.fb ? 'hover:border-brand-400' : ''}`}>
+                      className={`panel w-full rounded-xl p-3 text-left ${h.fb ? 'panel-interactive' : ''}`}>
                       <div className="flex items-center justify-between">
                         <span className="font-semibold text-brand-700 dark:text-brand-300">{h.term}</span>
                         <span className="chip bg-slate-100 text-[10px] text-slate-400 dark:bg-white/10">{h.source === 'fachbegriff' ? 'Fachbegriff' : 'dico'}</span>
@@ -198,7 +198,7 @@ export function Doctopus() {
                   <div className="grid grid-cols-2 gap-2">
                     {links.map((l) => (
                       <a key={l.label} href={l.url} target="_blank" rel="noreferrer"
-                        className="flex items-center justify-between rounded-xl border border-slate-200/70 bg-white/50 px-3 py-2 text-sm transition-colors hover:border-brand-400 dark:border-white/10 dark:bg-white/5">
+                        className="panel panel-interactive flex items-center justify-between rounded-xl px-3 py-2 text-sm">
                         <span>{l.label}</span><span className="text-[10px] text-slate-400">{l.note} ↗</span>
                       </a>
                     ))}

@@ -117,7 +117,7 @@ export function RolePlayView({ sheet, caseQuestions, followChapterId, followProb
               const on = ch.id === active.id;
               return (
                 <button key={ch.id} onClick={() => setActiveId(ch.id)} title={ch.title}
-                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-colors ${on ? 'bg-brand-600 text-white shadow-sm' : 'bg-white text-slate-500 ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700'}`}>
+                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-colors ${on ? 'bg-brand-600 text-white shadow-e2' : 'bg-white text-slate-500 ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700'}`}>
                   <Icon name={ch.icon} className="h-3.5 w-3.5" />
                   <span className={on ? '' : 'hidden sm:inline'}>{ch.title}</span>
                 </button>
@@ -126,7 +126,7 @@ export function RolePlayView({ sheet, caseQuestions, followChapterId, followProb
           </div>
 
           {/* Contenu du chapitre actif */}
-          <div className="space-y-2.5 rounded-2xl border border-slate-200 bg-white p-3.5 dark:border-slate-800 dark:bg-slate-900">
+          <div className="panel space-y-2.5 rounded-2xl p-3.5">
             <div className="flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name={active.icon} className="h-5 w-5" /></span>
               <h3 className="text-sm font-bold">{active.title}</h3>
