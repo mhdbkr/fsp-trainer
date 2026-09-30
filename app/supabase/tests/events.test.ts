@@ -41,9 +41,72 @@ describe('events', () => {
     expect(r.events.every((e: { user_id: string }) => e.user_id === B.id)).toBe(true);
   });
 
-  it('un type inconnu est refusé en 400', async () => {
-    const r = await fetch(FN, { method: 'POST', headers: { Authorization: `Bearer ${await tok(A)}`, 'content-type': 'application/json' }, body: JSON.stringify({ events: [{ ...ev(crypto.randomUUID()), type: 'hack' }] }) });
+  // S-C1 (revue s3-programme) : un 400 de LOT faisait perdre au client les
+  // événements valides du même lot. Le refus est désormais PAR ÉVÉNEMENT.
+  it('un type inconnu est rejeté événement par événement, jamais le lot entier', async () => {
+    const ok = crypto.randomUUID(), bad = crypto.randomUUID();
+    const res = await fetch(FN, { method: 'POST', headers: { Authorization: `Bearer ${await tok(A)}`, 'content-type': 'application/json' }, body: JSON.stringify({ events: [ev(ok), { ...ev(bad), type: 'hack' }] }) });
+    expect(res.status).toBe(200);
+    const r = await res.json();
+    expect(r.acked).toEqual([ok]);
+    expect(r.rejected.map((x: { id: string }) => x.id)).toEqual([bad]);
+    expect(r.rejected[0].retry).toBe(true);                   // type inconnu : peut-être un client en avance sur le serveur
+  });
+
+  it('corps malformé (pas de liste) → 400', async () => {
+    const r = await fetch(FN, { method: 'POST', headers: { Authorization: `Bearer ${await tok(A)}`, 'content-type': 'application/json' }, body: JSON.stringify({ events: 'x' }) });
     expect(r.status).toBe(400);
+  });
+
+  const te = (over: Record<string, unknown> = {}) => ({ at: 1790000000000, kind: 'fiche', caseId: 'case-gib', teile: [], source: 'libre', spentMin: 12, ...over });
+  const task = (i: number) => ({ id: `t-${i}`, date: '2026-09-30', kind: 'simulation', caseId: 'case-gib', teil: 'anamnese', estMin: 20, source: 'plan', reason: 'r', label: 'GIB' });
+
+  it('lot mixte [srs.reviewed valide, plan.materialized] : les deux persistent (journal série 3)', async () => {
+    const a = crypto.randomUUID(), b = crypto.randomUUID();
+    const r = await post(A, [
+      { id: a, type: 'srs.reviewed', subject_id: 'fb-abdominal', payload: { state: 'Lernen' }, occurred_at: '2026-09-30T08:00:00Z' },
+      { id: b, type: 'plan.materialized', subject_id: '2026-09-30', payload: { tasks: [task(1)], mode: 'teil-first', seed: 's', targetMin: 120 }, occurred_at: '2026-09-30T08:00:01Z' },
+    ]);
+    expect(r.rejected).toEqual([]);
+    expect(r.acked.sort()).toEqual([a, b].sort());
+    const { data } = await A.client.from('progress_events').select('id').in('id', [a, b]);
+    expect(data!.length).toBe(2);
+  });
+
+  it('accepte training.logged et plan.replanned, garde plan.done (lignes existantes)', async () => {
+    const r = await post(A, [
+      { id: crypto.randomUUID(), type: 'training.logged', subject_id: crypto.randomUUID(), payload: te({ scores: { anamnese: 80 }, teile: ['anamnese'], kind: 'simulation', selbstbewertet: true }), occurred_at: '2026-09-30T09:00:00Z' },
+      { id: crypto.randomUUID(), type: 'plan.replanned', subject_id: '2026-09-30', payload: { tasks: [task(2)], reason: 'manuel' }, occurred_at: '2026-09-30T09:00:01Z' },
+      ev(crypto.randomUUID()),
+    ]);
+    expect(r.rejected).toEqual([]); expect(r.acked).toHaveLength(3);
+  });
+
+  it('training.logged hors schéma : rejeté par événement, sans retry (S-I3)', async () => {
+    const bads = [
+      te({ scores: { anamnese: 500 } }),                       // score hors 0–100
+      te({ scores: { __proto__x: 50 } }),                      // Teil inconnu
+      te({ teile: ['anamnese', 'anamnese', 'dokumentation', 'fallvorstellung'] }), // > 3
+      te({ teile: ['hack'] }),
+      te({ spentMin: 99999 }),
+      te({ spentMin: 1.5 }),
+      te({ kind: 'hack' }),
+      te({ extra: 'x' }),                                      // strict
+      te({ caseId: 'c'.repeat(101) }),
+    ];
+    const evs = bads.map((payload) => ({ id: crypto.randomUUID(), type: 'training.logged', subject_id: crypto.randomUUID(), payload, occurred_at: '2026-09-30T10:00:00Z' }));
+    const r = await post(A, evs);
+    expect(r.acked).toEqual([]);
+    expect(r.rejected).toHaveLength(bads.length);
+    expect(r.rejected.every((x: { retry?: boolean }) => !x.retry)).toBe(true);
+  });
+
+  it('plan.materialized : plus de 50 tâches, ou sujet qui n\'est pas une date → rejeté', async () => {
+    const r = await post(A, [
+      { id: crypto.randomUUID(), type: 'plan.materialized', subject_id: '2026-09-30', payload: { tasks: Array.from({ length: 51 }, (_, i) => task(i)), mode: 'teil-first', seed: 's' }, occurred_at: '2026-09-30T11:00:00Z' },
+      { id: crypto.randomUUID(), type: 'plan.materialized', subject_id: 'hier', payload: { tasks: [task(1)], mode: 'teil-first', seed: 's' }, occurred_at: '2026-09-30T11:00:01Z' },
+    ]);
+    expect(r.acked).toEqual([]); expect(r.rejected).toHaveLength(2);
   });
 
   it('accepte les événements de collections (favoris, decks)', async () => {
