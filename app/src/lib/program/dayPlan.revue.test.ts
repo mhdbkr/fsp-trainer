@@ -145,3 +145,15 @@ describe('I6 — la projection des jours futurs (contrat §3.2, §7)', () => {
     expect(await db.day_plans.count()).toBe(before);
   });
 });
+
+describe('replanifier — le plan reconstruit est le plan rendu', () => {
+  it('replannedAt survit à la reconstruction (événement horodaté au geste)', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await seed();
+    await ensureDayPlan();
+    const rep = JSON.stringify(await replanifier('2026-10-01'));
+    const { rebuildJournal } = await import('@/lib/journal');
+    await rebuildJournal(await db.progress_events.toArray());
+    expect(JSON.stringify(await db.day_plans.get('2026-10-01'))).toBe(rep);
+  });
+});
