@@ -317,6 +317,32 @@ export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<Training
   });
 }
 
+/**
+ * Alimente le journal LOCAL depuis une simulation qui vient d'être enregistrée.
+ *
+ * `saveSimulation()` écrit `simulation.completed` dans `progress_events`, mais
+ * rien n'alimentait `training_events` ni `case_progress` : la dérivation §2.3
+ * n'était appliquée que par `rebuildProjections()`, elle-même appelée au seul
+ * endroit où un PULL distant ramène des événements frais
+ * (`lib/sync/queue.ts:100-103`). Hors ligne, ou simplement non connecté, une
+ * simulation réellement jouée ne touchait donc AUCUNE projection : champ de
+ * couverture vide, `detteTeil` figée à 1, indice de préparation aveugle.
+ * Mesuré au navigateur : `scripts/e2e/programmeInvariants.mjs`, preuve P3.
+ *
+ * La dérivation reste STRICTEMENT celle de `trainingEventFromSimulation()` —
+ * même id déterministe, même `taskId` (celui porté par la simulation, jamais
+ * cherché ici). Reconstruire ensuite depuis `progress_events` redonne
+ * exactement le même état (INV-10). Une résolution de tâche par le contenu
+ * (§3.4) ne peut PAS vivre ici : elle ne serait pas rejouable au rebuild, où
+ * le plan se projette après le journal.
+ */
+export async function applySimulationToJournal(sim: Simulation): Promise<TrainingEvent> {
+  const te = trainingEventFromSimulation(sim);
+  await db.training_events.put(te);
+  await applyEventToLocalState(te);
+  return te;
+}
+
 /** Met à jour les projections locales touchées par UN événement — sans relire
  *  tout le journal. La reconstruction complète reste `rebuildProjections()`. */
 async function applyEventToLocalState(event: TrainingEvent): Promise<void> {

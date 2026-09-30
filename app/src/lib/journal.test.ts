@@ -16,7 +16,7 @@ import type { DayPlan, PartResult, SimTeil, Simulation, TaskInstance, TrainingEv
 import {
   computeCaseProgress, detteTeil, logTraining, markTaskDone, pointFaible,
   projectDayPlans, projectTrainingEvents, rebuildJournal, satisfiedTask,
-  spentByDay, trainingEventFromSimulation, workedDayKeys,
+  spentByDay, trainingEventFromSimulation, workedDayKeys, applySimulationToJournal,
 } from '@/lib/journal';
 import { freezeAt, resetClock, DAY_MS } from '@/lib/clock';
 
@@ -297,5 +297,35 @@ describe('INV-1 — cocher ne fait jamais apparaître de travail', () => {
     expect(JSON.stringify(await db.day_plans.get('2026-10-01'))).toBe(before);
     advance(DAY_MS);
     expect(JSON.stringify(await db.day_plans.get('2026-10-01'))).toBe(before);
+  });
+});
+
+describe('§2.3 — une simulation terminée alimente le journal LOCAL, sans attendre un pull', () => {
+  it('applySimulationToJournal : case_progress existe hors ligne, et un seul Teil mesuré ne touche que lui', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    const s = sim({ id: 'sim-1', caseId: 'c1', date: Date.parse('2026-10-01T08:00:00Z'), parts: { anamnese: part(100) } });
+
+    expect(await db.case_progress.get('c1')).toBeUndefined();      // l'état AVANT : rien
+    const te = await applySimulationToJournal(s);
+
+    expect(te.id).toBe('te-sim-1');                                 // id déterministe (INV-10)
+    expect(await db.training_events.get('te-sim-1')).toBeTruthy();
+    const cp = (await db.case_progress.get('c1'))!;
+    expect(cp.teile.anamnese.status).toBe('solide');                // 100 % contenu, pas de grille → 80
+    expect(cp.teile.dokumentation.status).toBe('vierge');           // jamais mesuré ⇒ jamais un défaut
+    expect(cp.teile.fallvorstellung.status).toBe('vierge');
+    expect(pointFaible(cp, 'dokumentation')).toBe(false);
+    expect(cp.overall).toBe('entame');                              // vierge → entame : jamais une régression
+  });
+
+  it('INV-10 : appliquer puis reconstruire depuis progress_events donne le MÊME état', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    const s = sim({ id: 'sim-1', caseId: 'c1', date: Date.parse('2026-10-01T08:00:00Z'), parts: { anamnese: part(100) } });
+    await applySimulationToJournal(s);
+    const after = JSON.stringify(await db.case_progress.toArray());
+
+    await rebuildJournal([ev('simulation.completed', 'c1', s, '2026-10-01T08:00:00Z')]);
+    expect(JSON.stringify(await db.case_progress.toArray())).toBe(after);
+    expect(await db.training_events.count()).toBe(1);               // pas de doublon
   });
 });
