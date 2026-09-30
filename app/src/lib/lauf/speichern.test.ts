@@ -254,6 +254,14 @@ describe('INV-23 — un Lauf sérialisé puis restauré est structurellement ég
     expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
   });
 
+  it('mineur 10 — la lecture passe par la file : elle voit l’écriture encore en attente', async () => {
+    const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
+    void speichereAktivenLauf(l);
+    expect((await ladeAktivenLauf())?.id).toBe(l.id);
+    void verwerfeAktivenLauf();
+    expect(await ladeAktivenLauf()).toBeNull();
+  });
+
   it('un zustand inconnu est écarté', async () => {
     const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
     await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, zustand: 'play' } } as never);

@@ -27,7 +27,13 @@ export const LAUF_MAX_ALTER_MS = 24 * 60 * 60 * 1000;
  *  qu'elle n'était appelée que par son propre test, un Lauf écrit par une
  *  version antérieure revenait brut, ids de checklist legacy compris, et le
  *  runner lisait `.length` sur des champs absents. */
-export async function ladeAktivenLauf(): Promise<Lauf | null> {
+export function ladeAktivenLauf(): Promise<Lauf | null> {
+  // Par la FILE (mineur 10) : une lecture ne passe jamais devant une écriture
+  // encore en attente — sinon elle rendait l'état d'avant.
+  return enfile(ladeJetzt);
+}
+
+async function ladeJetzt(): Promise<Lauf | null> {
   const l = await getMeta<Lauf | null>(LAUF_AKTIV_KEY, null);
   if (!l) return null;
   // Un Lauf invalide ou d'ancien format est ÉCARTÉ (mineur 11) : repris, il
