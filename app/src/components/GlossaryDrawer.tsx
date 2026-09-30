@@ -72,17 +72,17 @@ export function GlossaryDrawer() {
       <m.div key="glossary-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
       <m.aside key="glossary-drawer" {...slide('right')} className="glass-full glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-y-0 border-r-0">
         <DeckRail termId={fb.id} onManage={() => setManager(true)} />
-        <div className="flex items-center justify-between gap-1 border-b border-slate-100 px-4 py-2 dark:border-slate-800">
+        <div className="flex items-center justify-between gap-1 border-b border-white/40 px-4 py-2 dark:border-white/10">
           <div className="label">{personal ? 'Ma carte' : 'Fachbegriff'}</div>
           <div className="flex items-center gap-1">
             <button type="button" aria-pressed={view === 'card'} onClick={() => { setView((v) => (v === 'card' ? 'sheet' : 'card')); setRevealed(false); }}
-              className="btn-ghost min-h-11 px-2 text-sm">{view === 'card' ? 'Fiche' : 'Carte'}</button>
+              className="min-h-11 rounded-full px-3 text-sm font-medium hover:bg-white/50 dark:hover:bg-white/10">{view === 'card' ? 'Fiche' : 'Carte'}</button>
             {personal && (
-              <button type="button" aria-label="Supprimer ma carte" onClick={remove} className="btn-ghost h-11 w-11 justify-center text-slate-500 hover:text-rose-600 dark:hover:text-rose-400">
+              <button type="button" aria-label="Supprimer ma carte" onClick={remove} className="grid h-11 w-11 place-items-center rounded-full text-slate-500 hover:bg-white/50 hover:text-rose-600 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-rose-400">
                 <Icon name="trash" className="h-5 w-5" title="Supprimer" />
               </button>
             )}
-            <button type="button" aria-label="Fermer" onClick={close} className="btn-ghost h-11 w-11 justify-center text-lg">✕</button>
+            <button type="button" aria-label="Fermer" onClick={close} className="grid h-11 w-11 place-items-center rounded-full text-lg hover:bg-white/50 dark:hover:bg-white/10">✕</button>
           </div>
         </div>
 
@@ -107,7 +107,7 @@ export function GlossaryDrawer() {
               <div className="label mb-2">Erscheint in Fällen</div>
               <div className="space-y-1.5">
                 {linkedCases.map((c) => (
-                  <Link key={c.id} to={`/cas/${c.id}`} onClick={close} className="block rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-brand-400 hover:bg-brand-50 dark:border-slate-800 dark:hover:bg-brand-900/20">
+                  <Link key={c.id} to={`/cas/${c.id}`} onClick={close} className="block rounded-lg border border-white/40 px-3 py-2 text-sm hover:border-brand-400 hover:bg-brand-50 dark:border-white/10 dark:hover:bg-brand-900/20">
                     {c.name}
                   </Link>
                 ))}
@@ -116,7 +116,7 @@ export function GlossaryDrawer() {
           )}
         </div>
 
-        <div className="border-t border-slate-100 p-4 dark:border-slate-800">
+        <div className="border-t border-white/40 p-4 dark:border-white/10">
           <Link to="/fachbegriffe" onClick={close} className="btn-outline w-full">Alle Fachbegriffe →</Link>
         </div>
       </m.aside>

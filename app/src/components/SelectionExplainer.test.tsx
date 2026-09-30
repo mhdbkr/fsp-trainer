@@ -223,7 +223,8 @@ describe('SelectionExplainer', () => {
     const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung (originale)' });
     // Assez long pour survivre à l'aller-retour réel (plusieurs findByRole/waitFor)
     // entre la planification et le clic « Créer » qui l'annule.
-    const DELAY = 800;
+    // 2,5 s : sous forte charge (plusieurs suites en parallèle), 800 ms expiraient avant le clic.
+    const DELAY = 2500;
     await scheduleDeletion(id, DELAY);
     expect(usePendingDeletions.getState().ids.has(id)).toBe(true);
 
@@ -237,12 +238,12 @@ describe('SelectionExplainer', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false));
     // Laisse largement passer le délai qui aurait déclenché la suppression.
-    await new Promise((r) => setTimeout(r, DELAY * 3));
+    await new Promise((r) => setTimeout(r, DELAY + 300));
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_deleted')).toBe(false);
     const pt = await db.personal_terms.get(id);
     expect(pt).toBeTruthy();
     expect(pt?.explanation).toBe('Atemnot bei Belastung (originale)');
-  });
+  }, 15_000);
   it('resélection d\'un autre mot puis ★ PENDANT que la mini-fiche reste ouverte (sans Fermer) → le nouveau mot remplace l\'ancien (revue I4)', async () => {
     render(<><p data-testid="a">Belastungsdyspnoe</p><p data-testid="b">Orthopnoe</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('a')); pill();

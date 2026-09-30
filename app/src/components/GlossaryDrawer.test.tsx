@@ -60,7 +60,7 @@ describe('GlossaryDrawer (F4a)', () => {
     for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
     for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col', 'md:max-h-[calc(100dvh-5rem)]', 'md:overflow-y-auto']) expect(rail.className).toContain(c);
     expect(rail.className).not.toMatch(/\bflex-wrap\b/);   // une rangée qui défile, jamais plusieurs (revue E4)
-  });
+  }, 15_000);   // six écritures Dexie en série : > 5 s sous charge (suite complète)
   it('onglets : « Gérer » en DERNIER, libellé « Ranger dans », ✓ décoratif et aria-description sur un onglet allumé, allumé sans fond plein (G1-9)', async () => {
     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
     const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
@@ -161,6 +161,8 @@ describe('GlossaryDrawer (F4a)', () => {
     const aside = document.querySelector('aside')!;
     expect(aside.className).toContain('glass-full');
     expect(aside.className).not.toMatch(/animate-slide-in|shadow-/);
+    expect(aside.querySelector('.btn-ghost')).toBeNull();   // boutons icône translucides (G1-14)
+    expect(aside.innerHTML).not.toMatch(/border-slate-(100|200|800)/);
     fireEvent.click(screen.getAllByRole('button', { name: 'Fermer' })[0]);
     await waitFor(() => expect(document.querySelector('aside')).toBeNull());
   });

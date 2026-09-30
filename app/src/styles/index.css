@@ -141,6 +141,8 @@ h1, h2, h3 {
     box-shadow: 0 1px 2px rgb(12 26 23 / 0.12), 0 1px 3px rgb(12 97 87 / 0.28);
   }
   .btn-primary:hover { box-shadow: 0 2px 7px rgb(12 97 87 / 0.38); }
+  /* Sur une surface verre (glass-full) : le même bouton plein, SANS ombre — une seule matière. */
+  .btn-primary-glass { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-ink-700; }
   .btn-outline { @apply btn border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-100 dark:border-ink-600 dark:text-slate-200 dark:hover:bg-ink-700; }
 

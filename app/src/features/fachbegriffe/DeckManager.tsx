@@ -22,7 +22,10 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
   const [name, setName] = useState(deck.name);
   const [error, setError] = useState<string | null>(null);
   const show = useCardToast((s) => s.show);
-  useEffect(() => { setName(deck.name); }, [deck.name]);
+  // Renommé ailleurs (autre appareil, Annuler) : suivre le nom — PENDANT le rendu, pas dans
+  // un effet : un effet de montage pas encore vidé écrasait la frappe (course sous charge).
+  const [shownName, setShownName] = useState(deck.name);
+  if (shownName !== deck.name) { setShownName(deck.name); setName(deck.name); }
   const commit = async () => {
     if (name.trim() === deck.name) { setName(deck.name); return; }
     try { await renameDeck(deck.id, name); setError(null); }
@@ -83,7 +86,7 @@ export function DeckManager({ decks, counts, onClose, initialQuery, onCreated }:
           <li className="flex min-h-11 items-center gap-1 px-1 text-slate-500">Favoris<span className="ml-auto pr-3 font-mono text-[11px]">{counts[FAVORITES_DECK_ID] ?? 0}</span></li>
           {shown.map((d) => <DeckRow key={d.id} deck={d} count={counts[d.id]} />)}
         </ul>
-        <button type="button" onClick={() => setSheet(true)} aria-haspopup="dialog" className="btn-primary mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
+        <button type="button" onClick={() => setSheet(true)} aria-haspopup="dialog" className="btn-primary-glass mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
       </m.aside>
       {sheet && <DeckSheet initialQuery={initialQuery} onClose={(id) => { setSheet(false); if (id) onCreated?.(id); }} />}
     </Portal>

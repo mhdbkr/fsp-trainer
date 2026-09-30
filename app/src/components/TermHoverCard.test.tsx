@@ -45,6 +45,9 @@ describe('TermHoverCard', () => {
     rerender(<MemoryRouter><TermHoverCard /></MemoryRouter>);
     expect(await screen.findByRole('dialog')).toBeTruthy();
     expect(screen.getByText('Abdomen')).toBeTruthy(); expect(screen.getByText(/Bauch/)).toBeTruthy();
+    const card = screen.getByRole('dialog');
+    expect(card.className).toContain('glass-full');   // matière unique (G1-15)
+    expect(card.className).not.toMatch(/shadow-|animate-fade-in|border-slate/);
   });
   it('★ = Favoris immédiat avec caseId du store ; ★ pleine → ouvre la fiche du terme, où vivent ses onglets de decks (F4b P6)', async () => {
     act(() => useUi.getState().openHover(fb, anchor, 'c9'));
