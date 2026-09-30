@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import type { Case, CaseProgress, Fachbegriff, Simulation } from '@/db/types';
-import { computeReadiness, weightedAxisScores, estMesuree } from './readiness';
+import type { Simulation } from '@/db/types';
+import { estMesuree } from './readiness';
+import { indiceAt } from './program/trajectory';
+import { trainingEventFromSimulation } from './journal';
 import { streakFromDays } from './stats';
 import { workedDayKeys } from './journal';
 import type { TrainingEvent } from '@/db/types';
@@ -21,32 +23,21 @@ const sim = (id: string, score: number, mode?: Simulation['mode']): Simulation =
   ...(mode ? { mode } : {}),
 } as Simulation);
 
-const CASES: Case[] = [{ id: 'c1', specialty: 'Kardiologie', name: 'c1', pathology: 'p' } as Case];
-const BEGRIFFE: Fachbegriff[] = [];
-const PROGRESS = new Map<string, CaseProgress>();
+// D-I9 : l'indice de préparation est UN — celui de la frise (`indiceAt`).
+// Il repose sur `case_progress`, qui exclut les séances `selbstbewertet` (INV-11).
+const TOTAL = 3;   // un cas × trois Teile
+const te = (s: Simulation) => trainingEventFromSimulation(s);
 
 describe('l’indice de préparation ne repose que sur des scores MESURÉS', () => {
-  it('une séance IA externe ne fait pas monter un axe', () => {
-    const mesure = weightedAxisScores([sim('a', 90)], BEGRIFFE, CASES, PROGRESS);
-    const declare = weightedAxisScores([sim('b', 90, 'external-ai')], BEGRIFFE, CASES, PROGRESS);
-    expect(mesure.Anamnese).toBe(90);
-    // Déclaré ⇒ l'axe reste VIERGE, pas « testé à 90 ».
-    expect(declare.Anamnese).toBeNull();
+  it('une séance IA externe ne fait pas monter l’indice', () => {
+    expect(indiceAt([te(sim('a', 90))], TOTAL, 2_000)).toBeGreaterThan(0);
+    expect(indiceAt([te(sim('b', 90, 'external-ai'))], TOTAL, 2_000)).toBe(0);
   });
 
-  it('elle ne dilue pas non plus un axe mesuré : elle est absente, pas moyennée', () => {
-    const seul = weightedAxisScores([sim('a', 80)], BEGRIFFE, CASES, PROGRESS);
-    const avecDeclare = weightedAxisScores(
-      [sim('a', 80), sim('b', 20, 'external-ai')], BEGRIFFE, CASES, PROGRESS);
-    expect(avecDeclare.Anamnese).toBe(seul.Anamnese);
-  });
-
-  it('un indice bâti UNIQUEMENT sur des séances déclarées ne bouge pas d’un cran', () => {
-    const vide = computeReadiness([], CASES, BEGRIFFE, PROGRESS);
-    const declare = computeReadiness(
-      [sim('a', 100, 'external-ai'), sim('b', 100, 'external-ai')], CASES, BEGRIFFE, PROGRESS);
-    expect(declare.global).toBe(vide.global);
-    expect(declare.verdict).toBe(vide.verdict);
+  it('elle ne dilue pas non plus un Teil mesuré : elle est absente, pas moyennée', () => {
+    const seul = indiceAt([te(sim('a', 80))], TOTAL, 2_000);
+    const avec = indiceAt([te(sim('a', 80)), { ...te(sim('b', 20, 'external-ai')), at: 1_500 }], TOTAL, 2_000);
+    expect(avec).toBe(seul);
   });
 
   it('`estMesuree` est le seul prédicat — external-ai dehors, tout le reste dedans', () => {
