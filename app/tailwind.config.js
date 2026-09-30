@@ -32,6 +32,24 @@ const radius = Object.fromEntries(Object.entries(tokens.radius ?? {}).filter(([k
 export default {
   darkMode: 'class',
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  // ── `.btn-glass` n'existait PAS dans le CSS livré ────────────────────────
+  // Mesuré le 30 sept. 2026 sur `dist/assets/*.css` : des sept règles portant
+  // `.btn-glass`, il restait `:is(.dark) .btn-glass` (× 3) et les deux replis
+  // sous `@media`/`@supports` — mais AUCUNE règle de base en clair, ni son
+  // survol, ni son état pressé. Confirmé dans le navigateur : sur la page
+  // réelle, en clair, un `<button class="btn-glass">` calcule
+  // `border-top-color: rgb(229, 231, 235)` (le gris de preflight), `box-shadow:
+  // none`, `backdrop-filter: none` — c'est-à-dire rien du tout.
+  // Cause : la purge des règles `@layer components` de Tailwind se fonde sur
+  // les classes trouvées dans `content`, et `.btn-glass` a ZÉRO occurrence en
+  // `.tsx`. Les variantes `:is(.dark) …` et celles imbriquées dans une at-rule
+  // échappent à l'extracteur, d'où ce reste en lambeaux — plus trompeur qu'une
+  // absence franche, puisque le mode sombre semblait marcher.
+  // La primitive est destinée à trois moments de `features/simulation` (voir
+  // son commentaire dans index.css) : elle doit survivre jusqu'à ce qu'ils la
+  // branchent. À RETIRER de cette liste le jour où un `.tsx` l'emploie ; si
+  // personne ne l'emploie, c'est la classe qu'il faut supprimer, pas la ligne.
+  safelist: ['btn-glass'],
   theme: {
     extend: {
       colors: {
