@@ -72,3 +72,14 @@ test('M4 — `--bless` refuse de graver une annotation `relu` de plus', { timeou
     assert.equal(sb.read(baseline), before);
   });
 });
+
+// Re-revue I-3 : `sucht: []` est vrai en JS, n'efface rien et n'est compté
+// nulle part — il ne doit pas exempter une question de la relecture.
+test('I-3 — `sucht: []` n\'éteint pas la porte', { timeout: 300_000 }, () => {
+  const r = sb.mutate(cases,
+    "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },",
+    "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', sucht: [] },",
+    gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /case-lyme/);
+});

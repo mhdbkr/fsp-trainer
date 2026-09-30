@@ -66,10 +66,13 @@
 //   • `fach-ortho-durchblutung` — « die Hand ODER der Fuß » : DEUX membres.
 //     Le cas sait si le traumatisme est au bras ou à la jambe : demander les
 //     deux prouve qu'on n'a pas lu le cas. Trou de rédaction, signalé.
-// Critère mécanique du contrat (frage-atomique §3.3) : EXACTEMENT deux
-// membres LATÉRALISABLES (Hand/Fuß/Arm/Bein, au singulier) reliés par `oder`
-// ou `/`, article facultatif (« ein Arm oder Bein » est la même faute), hors
-// verbe d'irradiation et hors énumération de trois territoires. `fach-uro-
+// Critère mécanique, aligné sur INV-42 (contrat frage-atomique §6) : un membre
+// supérieur et un membre inférieur (Hand/Arm ↔ Fuß/Bein, au singulier)
+// reliés par `oder` ou `/`, hors verbe d'irradiation et hors énumération de
+// trois territoires. L'article est FACULTATIF ici, ce qui ÉCARTE ce script de
+// la lettre du §3.3 (« article répété ») : sans cela `fach-neuro-kraft`
+// (« ein Arm oder Bein ») passerait, et INV-42 exige qu'il échoue.
+// Amendement du §3.3 proposé dans app/docs/reports/fix-s3-contenu.md. `fach-uro-
 // flanke` (Flanke oder Rücken) passe par le critère : aucune exemption écrite.
 //
 // AUCUN DÉCOUPAGE AUTOMATIQUE (§6.1) : ce script COMPTE et REFUSE, il ne
@@ -77,8 +80,12 @@
 // situations (préfixe d'étiquette, subordonnée portée par la 1re question,
 // ellipse de composé, relance conditionnelle) — toutes présentes au corpus.
 //
-// Usage : node scripts/checkQuestionAtomicity.mjs [--report] [--rule A|B|C|D|D2|D3]
-//         node scripts/checkQuestionAtomicity.mjs --bless   (baisse le budget)
+// Usage : node scripts/checkQuestionAtomicity.mjs [--report]      (la porte)
+//         node scripts/checkQuestionAtomicity.mjs --bless          (baisse le budget)
+//         node scripts/checkQuestionAtomicity.mjs --rule A|B|C|D|D2|D3|E [--report]
+//         node scripts/checkQuestionAtomicity.mjs --corpus
+// `--rule` et `--corpus` sont des LOUPES : elles sortent à 0 quel que soit le
+// budget. Jamais en CI — la porte, c'est l'appel sans option.
 // ============================================================================
 import { build } from 'esbuild';
 import { writeFileSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
@@ -191,11 +198,13 @@ for (const c of m.seedCases()) {
 // précisément ce que le candidat doit apprendre à encaisser.
 
 // ---------------------------------------------------------------------------
-// RÈGLE A — atomicité : au plus un « ? ». Une question CITÉE entre
-// guillemets (« Der Patient fragt: „Muss ich sterben?“ ») n'est pas une
-// interrogation de celui qui parle : elle est retirée avant le comptage (D1).
+// RÈGLE A — atomicité : au plus un « ? ». Chez l'OBERARZT seulement, une
+// question citée entre guillemets (« Der Patient fragt: „Muss ich sterben?“ »)
+// n'est pas son interrogation : elle est retirée avant le comptage (D1). Pour
+// le candidat, les guillemets marquent ce qu'IL doit dire — « „Wie groß sind
+// Sie?“ Wie viel wiegen Sie? » reste une réplique à deux questions (re-revue I-1).
 const QUOTED = /„[^“”"]*[“”"]|“[^”]*”|»[^«]*«|"[^"]*"/g;
-const countQ = (t) => (t.replace(QUOTED, '').match(/\?/g) || []).length;
+const countQ = (t, ober = false) => ((ober ? t.replace(QUOTED, '') : t).match(/\?/g) || []).length;
 
 // RÈGLE B — énumération. Algorithme de l'audit §2 : retrait du préfixe
 // d'étiquette (`Begleitbeschwerden — `), troncature au premier « ? », découpe
@@ -231,7 +240,8 @@ const PRE = `(?:(?:${ART}|in|im|ins|am)\\s+)?(?:[a-zäöüß]+\\s+)?`;
 // `\\b` ne voit pas de frontière après « ß » (hors \\w sans drapeau u) : fin de mot explicite.
 const END = '(?![\\wäöüßÄÖÜ])';
 const RE_PAIR = new RegExp(`\\b(${LAT})(?:es|s)?${END}\\s*(oder\\s+|/)${PRE}(${LAT})(?:es|s)?${END}`);
-const RE_IRRAD = /strahl|zieh/i;
+// Début de mot : « anziehen », « beziehen » ne sont pas des irradiations (m-3).
+const RE_IRRAD = /\b(?:aus)?strahl\w*|\bzieh(?:t|en)\b/i;
 // Une énumération d'au moins TROIS membres n'est pas une alternative binaire :
 // c'est la question clinique elle-même (irradiation de l'angor).
 const RE_MEMBERS = new RegExp(`\\b${ART}\\s+(?:\\w+\\s+)?(?:${BODY})\\w*`, 'gi');
@@ -259,8 +269,8 @@ const findings = { A: [], B: [], C: [], D: [], D2: [], D3: [], E: [] };
 for (const id of Object.keys(ALLOWED_COMPOSED)) findings.E.push({ where: 'ALLOWED_COMPOSED', id, text: ALLOWED_COMPOSED[id] });
 for (const r of rows) {
   const exempt = r.id && ALLOWED_COMPOSED[r.id];
-  const n = countQ(r.text);
   const ober = r.kind === 'oberarzt';
+  const n = countQ(r.text, ober);
   if (n >= 2 && !exempt && !ober) findings.A.push(r);
   if (ober && n > SALVE_MAX) findings.D.push({ ...r, n });
   if (ober && n === 2) findings.D2.push({ ...r, n });

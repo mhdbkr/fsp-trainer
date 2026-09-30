@@ -154,7 +154,7 @@ test('I7 — la salve à trois de case-reizdarm est comptée (D3)', T, () => {
 test('I8 — INV-42 : les alternatives de membre échouent, l\'irradiation et la topographie passent', T, () => {
   const out = gate('--rule', 'C', '--report').stdout;
   for (const id of ['fach-ortho-durchblutung', 'fach-ortho-belastung', 'fach-neuro-kraft', 'fach-ortho-sensomotorik']) assert.match(out, new RegExp(id), `${id} : le cas sait quel membre`);
-  for (const id of ['fach-kardio-ausstrahlung', 'fach-uro-flanke', 'fach-ortho-ausstrahlung', 'case-cholezystitis']) assert.doesNotMatch(out, new RegExp(id), `${id} : la topographie EST la question`);
+  for (const id of ['fach-kardio-ausstrahlung', 'fach-uro-flanke', 'fach-ortho-ausstrahlung', 'case-cholezystitis', 'case-erysipel']) assert.doesNotMatch(out, new RegExp(id), `${id} : la topographie EST la question`);
 });
 
 test('I8 — la variante résolue par le cas n\'est plus une alternative', T, () => {
@@ -163,4 +163,22 @@ test('I8 — la variante résolue par le cas n\'est plus une alternative', T, ()
     "frage: 'Ist der Arm schwächer geworden?",
     () => gate('--rule', 'C', '--report'));
   assert.doesNotMatch(r.stdout, /sondes \(fach-neuro-kraft\)/);
+});
+
+// --- Re-revue : quatrième contournement et resserrages ----------------------
+test('I-1 — les guillemets ne masquent une interrogation que chez l\'Oberarzt', T, () => {
+  const r = sb.mutate(PROBES,
+    "frage: 'Haben Sie einen Hausarzt?'",
+    "frage: '„Wie groß sind Sie?“ Wie viel wiegen Sie?'",
+    gate);
+  assert.equal(r.status, 1, 'une réplique du candidat à deux « ? » reste un constat A, guillemets ou non');
+  assert.match(r.stdout, /règle A/);
+});
+
+test('m-3 — « anziehen » n\'est pas un verbe d\'irradiation', T, () => {
+  const r = sb.mutate(PROBES,
+    "frage: 'Ist ein Arm oder Bein schwächer geworden?",
+    "frage: 'Können Sie sich mit einem Arm oder Bein schlechter anziehen?",
+    () => gate('--rule', 'C', '--report'));
+  assert.match(r.stdout, /sondes \(fach-neuro-kraft\)/);
 });

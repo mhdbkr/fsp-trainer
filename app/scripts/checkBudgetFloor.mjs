@@ -7,7 +7,7 @@
 // Une hausse de MESURE (validateur élargi) reste possible — elle échoue ici,
 // et c'est la revue de la PR qui l'accepte ou non, raison écrite au fixture.
 //
-// Usage : node scripts/checkBudgetFloor.mjs [<ref>=origin/main]
+// Usage : node scripts/checkBudgetFloor.mjs [<ref>=origin/main]   (sur push : github.event.before)
 //         node scripts/checkBudgetFloor.mjs --base-dir <dir>   (tests)
 // ============================================================================
 import { readFileSync } from 'node:fs';
@@ -27,10 +27,17 @@ const FIXTURES = {
   'app/scripts/fixtures/trame-symptoms-baseline.json': (j) => ({ constats: j.findings?.length, relu: j.relu }),
 };
 
+const git = (...a) => execFileSync('git', a, { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+// Une ref introuvable n'est PAS « fixture absent » : exit 2 (re-revue I-2).
+if (ref) {
+  try { git('rev-parse', '--verify', '--quiet', `${ref}^{commit}`); }
+  catch { console.log(`❌ ref git introuvable : ${ref} (checkout avec fetch-depth: 0 ?).`); process.exit(2); }
+}
+// Seul un fichier absent d'une ref VALIDE est ignoré ; toute autre erreur remonte.
 const readBase = (rel) => {
-  try {
-    return JSON.parse(baseDir ? readFileSync(join(baseDir, rel), 'utf8') : execFileSync('git', ['show', `${ref}:${rel}`], { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }));
-  } catch { return undefined; }
+  if (baseDir) { try { return JSON.parse(readFileSync(join(baseDir, rel), 'utf8')); } catch { return undefined; } }
+  try { git('cat-file', '-e', `${ref}:${rel}`); } catch { return undefined; }
+  return JSON.parse(git('show', `${ref}:${rel}`));
 };
 
 let failed = false;

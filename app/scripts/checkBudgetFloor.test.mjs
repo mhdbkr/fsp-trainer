@@ -48,3 +48,9 @@ test('fixture absent de la base (introduit par la branche) → vert, et dit pour
   assert.equal(r.status, 0);
   assert.match(r.stdout, /absent/);
 });
+
+// Re-revue I-2 : une ref introuvable n'est pas « fixture absent » — exit 2.
+test('ref git non résolue → exit 2, jamais vert', () => {
+  const r = spawnSync(process.execPath, [join(here, 'checkBudgetFloor.mjs'), 'no-such-ref-s3'], { encoding: 'utf8' });
+  assert.equal(r.status, 2);
+});

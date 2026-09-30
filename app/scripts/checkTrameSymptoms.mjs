@@ -79,7 +79,8 @@ for (const c of cases) {
     if (!m.phraseIsCaseSpecific(p)) return;
     const t = m.phraseText(p);
     const q = raw.get(t);
-    if (q && typeof q !== 'string' && (q.sucht || q.relu)) return;
+    // `sucht: []` est vrai en JS mais ne cherche rien : il n'exempte pas (re-revue I-3).
+    if (q && typeof q !== 'string' && (q.sucht?.length || q.relu)) return;
     for (const s of m.symptomsInText(t)) {
       const other = rows.find((r, j) => j !== i && m.phraseSymptoms(r.p).includes(s));
       if (other) review.push(`${c.id} [${ch}] « ${t} » cite « ${s} », cherché ${rows.indexOf(other) < i ? 'plus haut' : 'PLUS BAS'} : [${other.ch}] « ${m.phraseText(other.p).slice(0, 55)} »`);
