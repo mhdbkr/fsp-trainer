@@ -26,9 +26,11 @@
 // périmée — c'est la différence entre interruptible et « mis en file ».
 //
 // MOUVEMENT RÉDUIT. `prefers-reduced-motion: reduce` met la durée à 0 : le
-// commit est synchrone, `leaving` ne passe jamais à vrai, les classes
-// `.swap-*` ne sont jamais posées. Pas de retard, donc pas de clignotement —
-// c'est la faute qu'on corrige, pas une qu'on déplace.
+// commit est synchrone, `leaving` ne passe jamais à vrai, donc `.swap-out`
+// n'est jamais posée. `.swap-in` l'est (c'est la branche « pas en sortie »
+// de l'appelant) ; la garde globale en `*` d'index.css ramène son animation
+// à 0,001 ms. Pas de retard, donc pas de clignotement — c'est la faute qu'on
+// corrige, pas une qu'on déplace.
 //
 // Autres consommateurs attendus (même défaut, mêmes lignes) :
 // ImmersiveMode.tsx:248 · PhraseLine.tsx:69 · PhraseControls.tsx:73,169,181 ·

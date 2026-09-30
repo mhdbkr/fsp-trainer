@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 // ════════════════════════════════════════════════════════════════════════════
 // GATE G2-a — L'OMBRE PORTÉE EST INTERDITE DANS L'APP.
@@ -20,12 +20,11 @@ import { fileURLToPath } from 'node:url';
 //      `shadow-e0…e3`) — la PALETTE ;
 //   2. les box-shadow littéraux de app/src/styles/index.css — les MATÉRIAUX.
 //
-// Hors périmètre de ce test, et c'est assumé : les ~50 usages de `shadow-sm`,
-// `shadow-md`, `shadow-lg`… restants dans app/src/**/*.tsx. Ce sont les ombres
-// par défaut de Tailwind, posées composant par composant ; elles appartiennent
-// aux périmètres des autres chantiers et sont listées dans
-// app/docs/reports/lead-s3-primitives.md. Un test vert ici ne dit donc PAS
-// « l'app n'a plus une seule ombre », il dit « la charte n'en produit plus ».
+// Et un troisième : 3. la PALETTE Tailwind elle-même (fix-s3 I4). Tant que
+// `boxShadow` était sous `theme.extend`, `shadow-sm/md/lg/xl/2xl` restaient
+// générés ; les 22 classes encore écrites dans features/ sont désormais
+// inertes. Reste hors de portée de ce test : une ombre en `style` inline
+// (TimeCapsule.tsx), listée dans app/docs/reports/fix-s3-primitives.md.
 // ════════════════════════════════════════════════════════════════════════════
 
 const pkg = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -175,4 +174,15 @@ test('les matériaux en verre portent un filet supérieur plus clair que leur bo
     assert.ok(alpha(top) > alpha(base),
       `${selector} : le filet supérieur (${top}) n'est pas plus clair que le bord (${base})`);
   }
+});
+
+test('la palette Tailwind ne génère aucune ombre portée : boxShadow REMPLACE le thème, il ne l’étend pas', async () => {
+  const appDir = resolve(process.env.DOCTOPUS_APP_DIR ?? join(pkg, '..', '..', 'app'));
+  const { theme } = (await import(pathToFileURL(join(appDir, 'tailwind.config.js')).href)).default;
+  assert.equal(theme.extend?.boxShadow, undefined,
+    'boxShadow sous theme.extend : Tailwind garde alors shadow-sm/md/lg/xl/2xl (gate G2-a)');
+  const offenders = Object.entries(theme.boxShadow ?? {})
+    .filter(([, v]) => !/^var\(--e\d\)$/.test(v) && !layers(v).every(isInner))
+    .map(([k, v]) => `shadow-${k} : « ${v} »`);
+  assert.deepEqual(offenders, [], `gate G2-a : la palette génère des ombres portées —\n  ${offenders.join('\n  ')}`);
 });

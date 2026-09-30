@@ -179,9 +179,14 @@ h1, h2, h3 {
      déjà une translation d'un pixel, un liseré pétrole et un filet plus
      clair (cran 2). Trois signaux d'affordance, aucun n'est une ombre.
 
-     Verrouillé par `packages/tokens/test/elevation.test.mjs` : toute valeur
-     non-`inset` dans la pile `elevation` OU dans un `box-shadow` de ce
-     fichier fait sortir la suite de tests en code 1. Le commentaire se
+     Verrouillé par `packages/tokens/test/elevation.test.mjs`, trois gardes :
+     (a) toute valeur non-`inset` de la pile `elevation` ; (b) toute valeur de
+     `tokens.json`, à toute profondeur, dont le nom ou la valeur parle
+     d'ombre — pas seulement `elevation` ; (c) tout `box-shadow` non-`inset`
+     de ce fichier. Chacune fait sortir la suite en code 1.
+     Et la PALETTE n'en génère plus : `boxShadow` remplace le thème Tailwind
+     au lieu de l'étendre (tailwind.config.js) — `shadow-sm/md/lg/xl/2xl`
+     n'existent plus dans le CSS livré. Le commentaire se
      contourne par distraction, pas le code de sortie.
 
      `drop-shadow-*` sur un glyphe compte aussi. C'est un filtre, pas un
@@ -189,12 +194,14 @@ h1, h2, h3 {
      genre de survivance qui fait dire « il en reste une, donc la règle n'est
      pas vraie ». Celle du mascotte (`Doctopus.tsx`) est retirée.
 
-     Reste hors de cette garde, et c'est un chantier ouvert : 25 ombres
-     portées Tailwind (13 `shadow-sm`, 6 `md`, 3 `2xl`, 2 `lg`, 1 arbitraire
-     — comptées le 30 sept. 2026, `shadow-inner` exclu car interne) encore
-     posées à la main dans 16 fichiers `.tsx` de `features/`, hors du
-     périmètre de ce chantier. Liste par fichier dans
-     `app/docs/reports/lead-s3-primitives.md`.
+     Reste à NETTOYER, et c'est un chantier ouvert : 22 classes d'ombre
+     portée (`shadow-sm/md/lg/2xl`, survols compris — recomptées le 30 sept.
+     2026 hors commentaires) dans 15 fichiers `.tsx` de `features/`. Depuis
+     fix-s3 I4 elles ne produisent PLUS RIEN (classe absente du CSS livré) :
+     ce sont des classes mortes, pas des ombres. Une vraie ombre reste, en
+     `style` inline donc invisible aux greps de classes :
+     `features/simulation/TimeCapsule.tsx` (deux couches portées). Liste par
+     fichier dans `app/docs/reports/fix-s3-primitives.md`.
      ─────────────────────────────────────────────────────────────────────
 
      LA RÈGLE : la profondeur DESCEND, elle ne remonte jamais.
@@ -252,7 +259,7 @@ h1, h2, h3 {
     .dark .card { background: rgb(18 33 30 / 0.97); }
   }
 
-  /* 3 · APLAT — la sous-surface. Ce que 44 conteneurs de l'app dessinaient à
+  /* 3 · APLAT — la sous-surface. Ce que 41 conteneurs de l'app dessinaient à
      la main en `rounded-lg border border-slate-200`, chacun avec son neutre :
      une ligne de « À faire aujourd'hui », un BlockRow, un encart interne.
      Zéro flou (règle : pas de verre dans du verre), rayon et élévation en
@@ -302,7 +309,12 @@ h1, h2, h3 {
 
      Gate G2 CLOS le 30 sept. 2026 (voir « LA LUMIÈRE VIENT D'EN HAUT » plus
      haut) : la variable `--btn-glass-drop`, qui tenait l'ombre portée de ce
-     bouton, a été supprimée. Il ne reste que le filet interne et le bord. */
+     bouton, a été supprimée. Il ne reste que le filet interne et le bord.
+
+     SANS APPELANT, ET GARDÉE (fix-s3 M6, décision de `main`) : aucun `.tsx`
+     ne l'emploie encore, elle survit à la purge par `safelist`
+     (tailwind.config.js). Le chantier Simulation la branchera sur ses trois
+     moments ; ce jour-là, retirer la ligne de `safelist`. */
   .btn-glass {
     @apply btn relative text-brand-800 dark:text-brand-100;
     background: rgb(255 255 255 / 0.55);
@@ -554,14 +566,17 @@ html:active-view-transition .vt-page { view-transition-name: page; }
 
   /* ── État de SORTIE (s3-primitives T6) ──────────────────────────────────
      Le défaut le plus répandu de l'app : « animation d'entrée seule + retrait
-     instantané ». Il manquait un troisième moment. `useSwap` (hooks/useSwap.ts)
+     instantané ». Il manquait un troisième moment. `useSwap` (components/useSwap.ts)
      retient l'ancienne valeur le temps de `.swap-out`, puis commet la nouvelle
      qui entre en `.swap-in`. Durées : 180 ms de sortie (on quitte vite) contre
      220 ms d'entrée (on arrive doucement) — l'asymétrie est ce qui fait lire le
      mouvement comme physique plutôt que comme un aller-retour mécanique.
      `pointer-events: none` pendant la sortie : on ne clique pas un objet parti.
-     Sous mouvement réduit, `useSwap` met la durée à 0 et ces classes ne sont
-     jamais posées — aucun clignotement. */
+     Sous mouvement réduit, `useSwap` met la durée à 0 : `leaving` ne passe
+     jamais à vrai, donc `.swap-out` n'est jamais posée. `.swap-in`, elle, l'est
+     (l'appelant écrit `leaving ? 'swap-out' : 'swap-in'`) : c'est la garde
+     globale en `*` (haut de fichier) qui ramène son animation à 0,001 ms —
+     aucun clignotement, aucun retard. */
   .swap-out { animation: swap-out 0.18s var(--ease-out) both; pointer-events: none; }
   .swap-in { animation: reveal-up 0.22s var(--ease-out) both; }
   .stagger > * { animation: reveal-up 0.3s var(--ease-out) both; }
