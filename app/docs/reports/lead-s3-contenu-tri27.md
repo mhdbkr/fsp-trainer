@@ -50,12 +50,13 @@ Proposition de contrat, pas une modification.
 
 ## Résultat
 
-**24 relances · 3 nouvelles sondes.**
+**26 relances · 1 nouvelle sonde.** (Première rédaction : 24 / 3.
+**Corrigé après application** — voir « Ce que la mise en œuvre a corrigé ».)
 
-Coût des 3 sondes neuves : **25 réponses** à rédiger dans `patientSheet.antworten`
-(psychisch = 6 cas × 2 · ausscheidung = 13 cas × 1). Comptage mesuré sur
-`seedCases.ts` : schmerz 52 · allgemein 16 · veraenderung 15 · ausscheidung 13 ·
-infekt 8 · atemnot 7 · psychisch 6 · neurologisch 5 · anfall 5 · nerven 3.
+Coût de la sonde neuve : **13 réponses** dans `patientSheet.antworten`
+(ausscheidung = 13 cas). Comptage mesuré sur `seedCases.ts` : schmerz 52 ·
+allgemein 16 · veraenderung 15 · ausscheidung 13 · infekt 8 · atemnot 7 ·
+psychisch 6 · neurologisch 5 · anfall 5 · nerven 3.
 
 ---
 
@@ -134,7 +135,7 @@ Schwingungsfähigkeit est un item du Psychopathologischer Befund. Mais
 sondes ne peuvent pas porter la même dimension. Relance — et le doublon avec
 `akt-verlauf` est signalé au lot des 84.
 
-### 11. `akt-psych-antrieb` → **NOUVELLE SONDE** `akt-psych-interesse`
+### 11. `akt-psych-antrieb` → ~~NOUVELLE SONDE~~ → **RELANCE** *(corrigé)*
 « Fällt es Ihnen schwer, den Tag zu beginnen? / Haben Sie noch Freude an
 Dingen? » — **Antriebsminderung** et **Interessenverlust** sont deux des *trois*
 symptômes cardinaux de la dépression (CIM-10 F32 : gedrückte Stimmung,
@@ -142,9 +143,14 @@ Interessenverlust, Antriebsminderung). Le jury attend les trois nommément ; les
 empiler dans une réplique en fait perdre une. Aucune Fachanamnese psychiatrique
 n'existe dans le corpus : rien d'autre ne les pose. C'est le cas d'école du
 critère de la direction.
-→ 6 réponses à rédiger.
+**CORRIGÉ À L'APPLICATION** : `fach-psych-interesse` existe et pose la
+question **mot pour mot** — « Haben Sie noch Freude oder Interesse an Dingen,
+die Ihnen früher wichtig waren? ». Mon grep de vérification (`fach-psy-`) ne
+pouvait pas la voir : il manque le « ch » de `fach-psych-`. Le garde-fou
+tranche : relance. `checkPlayedTrame` a mesuré la similarité à **1,00** sur
+trois cas — ce n'est pas une lecture, c'est une mesure.
 
-### 12. `akt-psych-schlaf` → **NOUVELLE SONDE** `akt-psych-konzentration`
+### 12. `akt-psych-schlaf` → ~~NOUVELLE SONDE~~ → **RELANCE** *(corrigé)*
 « Wie schlafen Sie? / Können Sie sich konzentrieren? » — Le sommeil reste ici
 (la version du chapitre est plus fine que `veg-schlaf` : Ein-/Durchschlafen et
 surtout le **frühes Erwachen**, marqueur de la dépression mélancolique). La
@@ -152,7 +158,14 @@ surtout le **frühes Erwachen**, marqueur de la dépression mélancolique). La
 et elle n'est demandée **nulle part ailleurs** dans les 229 sondes — la mettre
 en relance revenait à la rendre facultative dans les seuls six cas où elle
 décide du diagnostic.
-→ 6 réponses à rédiger.
+**CORRIGÉ À L'APPLICATION** : `fach-psych-konzentration` existe
+(« Können Sie sich noch gut konzentrieren und Entscheidungen treffen? »), et
+`fach-psych-tagesverlauf` couvre en plus la Schwingungsfähigkeit du § 10.
+Même grep faux, même correction : relance.
+La Fachanamnese Psychiatrie contient **dix** sondes, dont `fach-psych-stimmung`,
+`-interesse`, `-antrieb`, `-schlaf`, `-konzentration`, `-suizid` : le triptyque
+CIM-10 y est déjà nommé item par item. La variante `aktuell` n'a pas à le
+refaire.
 
 ## neurologisch (5 cas)
 
@@ -295,8 +308,8 @@ au lieu de le doubler.
 | `akt-allgemein-gewicht` | relance | Appetit/Durst | `veg-appetit` |
 | `akt-allgemein-schwellung` | relance | Urinmenge | `veg-ausscheidung` |
 | `akt-psych-stimmung` | relance | Schwingung | `akt-verlauf`, même chapitre |
-| **`akt-psych-antrieb`** | **sonde** | **Interessenverlust** | **2/3 symptômes cardinaux, rien ailleurs** |
-| **`akt-psych-schlaf`** | **sonde** | **Konzentration** | **absente des 229 sondes** |
+| `akt-psych-antrieb` | relance ~~sonde~~ | Interessenverlust | `fach-psych-interesse`, mot pour mot |
+| `akt-psych-schlaf` | relance ~~sonde~~ | Konzentration | `fach-psych-konzentration` |
 | `akt-neuro-ausfall` | relance | Sprechen/Sehen/Gehen | 4 sondes `fach-neuro-*` |
 | `akt-neuro-dauer` | relance | Rückbildung | une ligne AIT/AVC |
 | `akt-neuro-lage` | relance | Dreh-/Schwankschwindel | `fach-neuro-koordination` |
@@ -324,3 +337,41 @@ le troisième passage sur un signe déjà demandé deux fois.
 
 Les trois qui restent ont la même signature : la seconde dimension n'est posée
 **nulle part ailleurs dans le corpus**, et le cas en dépend.
+
+
+---
+
+## Ce que la mise en œuvre a corrigé
+
+Le tri annonçait **trois** sondes neuves. À l'application, **deux sont tombées**.
+
+`akt-psych-interesse` et `akt-psych-konzentration` dupliquent `fach-psych-interesse`
+et `fach-psych-konzentration`, qui existent depuis toujours. Je ne les avais pas
+vues parce que mon grep de vérification cherchait `fach-psy-` : le préfixe réel
+est `fach-psych-`, et `fach-psy-` ne le matche pas. Les dix sondes de
+Fachanamnese psychiatrique sont restées invisibles à ma vérification.
+
+Ce n'est pas une relecture qui l'a rattrapé, c'est **`checkPlayedTrame`** : dès
+les sondes créées, il a signalé une similarité de **1,00** entre
+« Interesse — Haben Sie noch Freude an Dingen… » et
+« Haben Sie noch Freude oder Interesse an Dingen… » sur `case-schizophrenie`,
+`case-anorexia-nervosa` et `case-opioidabhaengigkeit`. Les douze réponses
+rédigées ont été retirées, les six réponses composées restaurées.
+
+**La leçon, et elle vaut au-delà de ce lot** : le garde-fou du tri (« une
+seconde question qui duplique une sonde existante ailleurs ne devient jamais
+une sonde neuve ») n'a de valeur que si l'inventaire des sondes existantes est
+fait par la machine. Un grep manuel sur un préfixe supposé n'est pas une
+vérification — il n'échoue pas, il renvoie zéro.
+
+## L'asymétrie qu'il faut assumer
+
+`akt-ausscheid-schlucken` reçoit « nein » dans **10 cas sur 13**, et j'ai refusé
+une sonde à `akt-veraend-blutung` en partie parce qu'elle recevrait « nein »
+douze fois sur quinze. La différence n'est pas le compte : c'est la
+**couverture**. La diathèse hémorragique est posée par `fach-haem-blutung` ; la
+question « nur Festes, oder auch Flüssiges » n'est posée **nulle part**. Et les
+deux cas où elle est positive — `case-oesophaguskarzinom` (le solide seul),
+`case-achalasie` (les deux, et le froid en premier) — sont ceux où elle *fait*
+le diagnostic. Le compte des « nein » est un argument d'appoint, jamais le
+critère.
