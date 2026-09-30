@@ -25,15 +25,14 @@ export function isFullSimulation(sim: Simulation): boolean {
 
 /**
  * @deprecated ADR-0017 §4.1 — un cas n'a plus de pourcentage, il a un état par
- * Teil (`case_progress`, `lib/journal.ts`). Cette fonction ne survit que le
- * temps que `lib/simulationSave.ts` (chantier C2) cesse d'écrire
- * `Case.confidence` / `Case.status`. Plus aucune vue ne la lit.
+ * Teil (`case_progress`, `lib/journal.ts`). Seul `lib/simulationSave.ts` l'appelle
+ * encore, pour écrire `Case.confidence` / `Case.status` ; plus AUCUNE vue ne lit
+ * ces champs (les pages Cas lisent `case_progress` — revue s3-programme B-C5).
+ * Retirée avec R-C5-écriture.
  *
- * Le `sum / TEILE.length` systématique est CORRIGÉ ici : il divisait la somme
- * des Teile JOUÉS par 3 en toutes circonstances, donc une Anamnese seule
- * réussie à 90 % donnait 30 — le cas régressait après une session réussie, et
- * remontait en tête des points faibles (audit §5). Tant qu'elle vit, elle ne
- * doit pas mentir.
+ * Elle n'est PAS juste : la moyenne des Teile JOUÉS fait osciller le statut
+ * écrit — une Anamnese seule à 90 % donne « Maîtrisé », une Dokumentation à 70 %
+ * ensuite le ramène à « En cours ». C'est pour cela qu'aucun écran ne la lit.
  */
 export function caseMastery(sims: Simulation[], caseId: string, extra?: Simulation): { score: number | null; parts: Partial<Record<SimTeil, number>> } {
   const latest: Partial<Record<SimTeil, { date: number; score: number }>> = {};
