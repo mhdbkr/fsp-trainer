@@ -159,22 +159,31 @@ npx vitest run --dir src lauf checklists simulationSave features/simulation
   → 6 fichiers passés, 131 tests passés
 ```
 
-Les 8 échecs de `npx vitest run --dir src` vivent tous **hors de mon
-périmètre** : `components/SelectionExplainer`, `components/StarButton`,
-`data/bedeutung.search`, `features/fachbegriffe/CaseTermsPanel`,
-`features/fachbegriffe/DrillPage`. Aucun de ces fichiers n'est touché par la
-branche (`git diff --stat main...HEAD` ne les liste pas).
+Les échecs de `npx vitest run --dir src` vivent tous **hors de mon périmètre**,
+et **le jeu d'échecs change à chaque exécution**. Trois exécutions de la même
+commande sur la même branche :
 
-Comparaison faite avec **`main`**, mêmes fichiers, même `--testTimeout` :
+| exécution | échecs | fichiers |
+|---|---|---|
+| 1 | 8 tests / 5 fichiers | `SelectionExplainer`, `StarButton`, `bedeutung.search`, `CaseTermsPanel`, `DrillPage` |
+| 2 | 8 tests / 5 fichiers | les mêmes fichiers, **d'autres tests** |
+| 3 | 12 tests / 6 fichiers | `CardToast`, `GlossaryDrawer`, `StarButton`, `TermHoverCard`, `FachbegriffePage`, `sync/queue` |
+
+Aucun de ces fichiers n'est touché par la branche (`git diff --stat
+main...HEAD -- <chemin>` rend un diff **vide** pour chacun). La troisième
+exécution tournait en concurrence avec mes autres travaux sur cette machine, ce
+qui explique le jeu plus large. Contrôle : `src/lib/sync/queue.test.ts`, lancé
+seul, rend **11 passés / 11**.
+
+Comparaison avec **`main`**, mêmes fichiers, même `--testTimeout` :
 
 | | `main` | `feat/s3-simulation` |
 |---|---|---|
-| tests en échec | **8** | **8** |
-| fichiers concernés | les mêmes 4–5 | les mêmes 4–5 |
+| tests en échec (exéc. 1) | **8** | **8** |
+| fichiers concernés | les mêmes | les mêmes |
 | identité des tests en échec | **varie d'un run à l'autre** | idem |
 
-L'identité des tests qui tombent change à chaque exécution et **avec le jeu de
-fichiers lancé** — signature d'une dépendance d'ordre et de minuterie, pas d'une
+Signature d'une dépendance d'ordre et de minuterie sous charge, pas d'une
 régression. Cas le plus net, `ExternalAiSheet.test.tsx` (fichier **non modifié**
 par la branche), lancé seul :
 
