@@ -76,8 +76,17 @@ describe('TaskLabel — anatomie (audit §4.2)', () => {
 
   it('drill : la zone 3 devient la paire de compteurs, pas une phrase', () => {
     render(<TaskLabel block={block({ kind: 'drill', label: 'Drill · 12 dus + 8 nouveaux' })} due={12} fresh={8} />);
-    expect(screen.getByTitle('cartes dues').textContent).toBe('12');
-    expect(screen.getByTitle('cartes nouvelles').textContent).toBe('8');
+    expect(screen.getByTitle('cartes dues').textContent).toBe('12 cartes dues');
+    expect(screen.getByTitle('cartes nouvelles').textContent).toBe('8 cartes nouvelles');
+    // Le mot est lu, pas vu : `title` seul n'est pas annoncé de façon fiable (fix-s3 M4).
+    expect(screen.getByText('cartes dues').className).toContain('sr-only');
+  });
+
+  it('zone 3 : le glyphe du Teil est masqué SUR le svg, pas via un parent `display: contents` (fix-s3 M4)', () => {
+    const { container } = render(<TaskLabel block={block({ teil: 'anamnese' })} />);
+    const svg = container.querySelector('.dim-tag svg');
+    expect(svg?.getAttribute('aria-hidden')).toBe('true');
+    expect(svg?.hasAttribute('aria-label')).toBe(false);
   });
 
   it('le sujet n’est écrit qu’une fois : ni le type, ni la couche, ni la durée ne le doublent', () => {

@@ -19,7 +19,8 @@
 //       le dessin dit ce que fait l'action (DIRECTION-STYLE.md:119-122).
 //   2 · SUJET. Le nom du cas SEUL. Plus de tiret cadratin, plus de suffixe :
 //       deux informations de nature différente ne se fondent pas dans une
-//       chaîne. Il récupère la largeur libérée, donc plus de `truncate`.
+//       chaîne. Il récupère la largeur libérée ; `truncate` ne reste qu'en
+//       dernier recours, pour un nom de cas trop long à 390 px.
 //   3 · PORTÉE. La seule zone qui mérite de la matière, et elle reprend
 //       littéralement `.dim-tag` — la seule vraie étiquette premium de l'app.
 //       Le mot est le Teil SEUL (« Anamnese »), jamais « Anamnese seule » :
@@ -82,7 +83,7 @@ function ScopeTag({ teil }: { teil: SimTeil }) {
     <span className="dim-tag gap-1.5">
       {/* Glyphe décoratif : le mot est juste à côté, l'annoncer deux fois
           serait exactement le doublon que ce composant vient supprimer. */}
-      <span aria-hidden="true" className="contents"><Icon name={t.icon} className="h-3.5 w-3.5 shrink-0" /></span>
+      <Icon name={t.icon} className="h-3.5 w-3.5 shrink-0" aria-hidden />
       {t.label}
     </span>
   );
@@ -113,8 +114,8 @@ export function TaskLabel({ block, due, fresh, className = '' }: {
       {block.teil && <ScopeTag teil={block.teil} />}
       {due !== undefined && fresh !== undefined && (
         <span className="flex items-center gap-1.5">
-          <span className="mono-tag tnum bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200" title="cartes dues">{due}</span>
-          <span className="mono-tag tnum" title="cartes nouvelles">{fresh}</span>
+          <span className="mono-tag tnum bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200" title="cartes dues">{due}<span className="sr-only"> cartes dues</span></span>
+          <span className="mono-tag tnum" title="cartes nouvelles">{fresh}<span className="sr-only"> cartes nouvelles</span></span>
         </span>
       )}
 
