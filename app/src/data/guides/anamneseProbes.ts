@@ -360,7 +360,7 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-psych-sicherheit', kapitel: 'aktuell', frage: 'Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?' },
   ],
   neurologisch: [
-    { id: 'akt-neuro-ausfall', kapitel: 'aktuell', frage: 'Was genau war anders: eine Schwäche oder ein Taubheitsgefühl, und auf welcher Seite?' },
+    { id: 'akt-neuro-ausfall', kapitel: 'aktuell', frage: 'Was war anders: eine Schwäche oder ein Taubheitsgefühl?' },
     { id: 'akt-neuro-dauer', kapitel: 'aktuell', frage: 'Wie lange hat es angehalten?' },
     { id: 'akt-neuro-lage', kapitel: 'aktuell', frage: 'Wird es schlimmer beim Kopfdrehen, Hinlegen oder Aufstehen?' },
   ],

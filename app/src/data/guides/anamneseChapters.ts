@@ -140,7 +140,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Falls ja: Ist er trocken, oder husten Sie etwas ab?', 'Falls Auswurf: Welche Farbe hat er, ist Blut dabei?'],
+        followUp: ['Falls ja: Ist er trocken, oder husten Sie etwas ab?', 'Welche Farbe hat der Auswurf?', 'Ist Blut dabei?'],
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
       { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
@@ -243,9 +243,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Falls schlagartig: Um welche Uhrzeit genau? Wann waren Sie zuletzt sicher beschwerdefrei?'],
       },
       {
-        text: 'Art des Ausfalls — Was genau war anders: eine Schwäche oder ein Taubheitsgefühl, und auf welcher Seite?',
+        text: 'Art des Ausfalls — Was war anders: eine Schwäche oder ein Taubheitsgefühl?',
         probe: 'akt-neuro-ausfall',
-        followUp: ['Konnten Sie dabei normal sprechen, sehen und gehen?'],
+        followUp: ['Auf welcher Seite?', 'Konnten Sie normal sprechen, sehen und gehen?'],
       },
       {
         text: 'Dauer — Wie lange hat es angehalten?',
@@ -333,7 +333,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Art — Was genau spüren Sie: ein Kribbeln, ein Zittern oder eine Schwäche?',
         probe: 'akt-nerven-art',
-        followUp: ['Fühlt es sich eher pelzig und taub an, oder eher steif?', 'Wo genau, und auf einer oder auf beiden Seiten?'],
+        followUp: ['Wo genau spüren Sie das?', 'Auf einer Seite oder auf beiden?'],
       },
       {
         text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
