@@ -87,7 +87,16 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
 
   // La sync ne doit jamais bloquer la fin de simulation : la sauvegarde
   // locale est faite, un échec d'enfilement se journalise sans casser l'écran.
-  syncQueue.push({ type: 'simulation.completed', subject_id: sim.id, payload: sim }).catch((e) => console.warn('[sync]', e));
+  // Une séance jouée dans une IA externe est AUTO-DÉCLARÉE : le candidat
+  // rapporte ce qu'il a fait, l'app ne l'a pas observé. Elle compte dans
+  // l'historique et dans la série, jamais dans l'indice de préparation
+  // (décision de direction). Le fait est marqué ICI, une fois, à l'émission :
+  // laisser chaque consommateur redécouvrir que `mode === 'external-ai'`
+  // signifie « non observé », c'est la même règle réécrite à n endroits.
+  // Sur le payload seulement — la LIGNE `Simulation` porte déjà `mode`, et
+  // `db/types.ts` appartient à un autre chantier.
+  const selfDeclared = sim.mode === 'external-ai';
+  syncQueue.push({ type: 'simulation.completed', subject_id: sim.id, payload: { ...sim, selfDeclared } }).catch((e) => console.warn('[sync]', e));
   // met à jour confiance + statut du cas — confiance pondérée (assistance × couche)
   //
   // DÉVIATION ASSUMÉE du contrat `simulation-run.md` §3.2 (« speichern()

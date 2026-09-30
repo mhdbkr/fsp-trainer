@@ -45,4 +45,25 @@ describe('saveSimulation', () => {
     expect(updated?.lastSimulationId).toBe(sim.id);
     expect(typeof updated?.confidence).toBe('number');
   });
+
+  // Décision de direction : une séance faite dans l'IA externe compte dans
+  // l'historique et la série, jamais dans l'indice de préparation. Le fait
+  // « non observé par l'app » voyage AVEC l'événement, il ne se redéduit pas.
+  it('marque la séance externe comme auto-déclarée, et une séance jouée dans l’app comme observée', async () => {
+    const dehors = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, mode: 'external-ai', externalTarget: 'chatgpt' });
+    await db.progress_events.clear();
+    const dedans = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, mode: 'texte' });
+
+    const evDedans = (await db.progress_events.toArray()).find((e) => e.type === 'simulation.completed' && e.subject_id === dedans.id);
+    expect((evDedans?.payload as { selfDeclared?: boolean }).selfDeclared).toBe(false);
+
+    const sim = await db.simulations.get(dehors.id);
+    expect(sim?.mode).toBe('external-ai');
+  });
+
+  it('l’événement de la séance externe porte selfDeclared: true', async () => {
+    const dehors = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, mode: 'external-ai', externalTarget: 'chatgpt' });
+    const ev = (await db.progress_events.toArray()).find((e) => e.type === 'simulation.completed' && e.subject_id === dehors.id);
+    expect((ev?.payload as { selfDeclared?: boolean }).selfDeclared).toBe(true);
+  });
 });
