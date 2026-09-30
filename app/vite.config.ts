@@ -6,6 +6,10 @@ import path from 'node:path';
 // packaging (or a plain file:// open of the build) resolves correctly.
 export default defineConfig({
   base: './',
+  // Un cache par worktree : `node_modules` est un lien partagé entre les
+  // worktrees d'agents, et le cache par défaut (node_modules/.vite) l'était
+  // avec lui — deux serveurs concurrents se corrompaient, #root restait vide.
+  cacheDir: '.vite-cache',
   plugins: [react()],
   resolve: {
     alias: { '@': path.resolve(__dirname, 'src') },

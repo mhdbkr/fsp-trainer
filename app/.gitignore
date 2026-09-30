@@ -8,3 +8,4 @@ dist
 
 # playwright-cli probe artifacts
 .playwright-cli/
+.vite-cache/
