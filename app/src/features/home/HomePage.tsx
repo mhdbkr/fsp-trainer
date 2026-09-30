@@ -79,7 +79,7 @@ export function HomePage() {
           <div className="relative bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white">
             <div className="flex items-center gap-2 text-[11px] font-semibold text-brand-100"><span className="h-px w-6 bg-signal-400" />Aujourd'hui</div>
             <h2 className="mt-1.5 text-xl font-bold tracking-tightish">La journée n'est pas encore figée</h2>
-            <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">Recharge l'app pour ouvrir la journée — son plan sera fixé une fois pour toutes.</p>
+            <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">Elle s'ouvre dès que l'app est au premier plan — son plan sera fixé une fois pour toutes.</p>
           </div>
         </Tilt>
       ) : session ? (
