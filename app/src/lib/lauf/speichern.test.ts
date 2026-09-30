@@ -243,18 +243,26 @@ describe('§3.1 — la suppression de fin ne peut pas être doublée', () => {
   //
   // `fake-indexeddb` résout ses écritures en quelques microtâches : une course
   // reproduite « au chronomètre » passe AUSSI sans le correctif — vérifié, et
-  // c'est pourquoi ce test ne chronomètre rien. On tient l'écriture en vol
-  // par une VANNE explicite, qu'on ouvre seulement une fois que le chemin de
-  // fin a eu tout le temps de faire sa suppression. L'ordre est alors imposé,
-  // pas espéré.
+  // c'est pourquoi ce test ne chronomètre rien. La VANNE retient EN VOL la
+  // PREMIÈRE écriture de `lauf.aktiv` et laisse passer les suivantes : sans la
+  // file, l'écriture émise en premier atterrit donc en dernier, ce qui est
+  // exactement le doublon mesuré en navigateur. Avec la file, les suivantes
+  // attendent derrière elle et l'ordre d'émission tient.
+  //
+  // Discrimination vérifiée : `enfile` remplacé par `(op) => op()`, les deux
+  // tests ci-dessous échouent ; rétabli, ils passent.
   const vanne = () => {
     let ouvrir!: () => void;
     const ouverte = new Promise<void>((r) => { ouvrir = r; });
+    let premiere = true;
     const vrai = db.meta.put.bind(db.meta);
-    const spy = vi.spyOn(db.meta, 'put').mockImplementation(async (row: { key: string }) => {
-      if (row.key === LAUF_AKTIV_KEY) await ouverte;   // retenue en vol
+    // `as never` : Dexie rend une `PromiseExtended`, la doublure une `Promise`
+    // nue. La différence ne porte que sur `.timeout()`, que personne n'appelle
+    // ici — la faire porter au mock demanderait de réimplémenter Dexie.
+    const spy = vi.spyOn(db.meta, 'put').mockImplementation((async (row: { key: string }) => {
+      if (row.key === LAUF_AKTIV_KEY && premiere) { premiere = false; await ouverte; }
       return vrai(row as never);
-    });
+    }) as never);
     return { ouvrir: () => { ouvrir(); spy.mockRestore(); } };
   };
 
