@@ -6,7 +6,8 @@
 import { useMemo } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
-import type { CaseProgress, DayPlan, Fortschrittsmodus, TrainingEvent } from '@/db/types';
+import type { CaseProgress, DayPlan, Fortschrittsmodus, TaskInstance, TrainingEvent } from '@/db/types';
+import { projectedDays } from '@/lib/program/dayPlan';
 import { todayKey } from '@/lib/clock';
 import { MODUS_REFUSE_KEY } from '@/lib/programAdjust';
 
@@ -32,3 +33,8 @@ export function useCaseProgress(): Map<string, CaseProgress> | undefined {
  *  `undefined` = chargement, `null` = aucun refus. */
 export const useModusRefuse = (): Fortschrittsmodus | null | undefined =>
   useLiveQuery(async () => ((await db.meta.get(MODUS_REFUSE_KEY))?.value as Fortschrittsmodus) ?? null, [], undefined);
+
+/** La projection NON FIGÉE des jours à venir parmi `dates` (I6). Se recalcule
+ *  quand le journal ou le programme change ; ne matérialise rien. */
+export const useProjectedDays = (dates: string[]): Map<string, TaskInstance[]> | undefined =>
+  useLiveQuery(() => projectedDays(dates), [dates.join(',')], undefined);
