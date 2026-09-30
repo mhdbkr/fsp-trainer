@@ -1,11 +1,11 @@
 // Construit le contexte de pertinence et le budget du jour depuis la base du compte.
 import { db } from '@/db/db';
-import type { Case, DayPlan, Fachbegriff, ProgramConfig, Simulation, Specialty } from '@/db/types';
+import type { DayPlan, ProgramConfig, Specialty } from '@/db/types';
 import type { RelevanceContext } from './relevance';
 import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';
 import { isNew } from '@/lib/srs';
 import { workingDaysUntilExam } from '@/lib/program';
-import { todayKey } from '@/lib/clock';
+import { dayKey } from '@/lib/clock';
 import { getSrsSettings, effectiveDaily, type SrsSettings } from '@/lib/srsSettings';
 import { usePendingDeletions } from './pendingDeletion';
 
@@ -41,7 +41,7 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     db.meta.get('program').then((m) => m?.value as ProgramConfig | undefined),
     getSrsSettings(),
   ]);
-  const todayPlan = await db.day_plans.get(todayKey());
+  const todayPlan = await db.day_plans.get(dayKey(now));
 
   // Une carte en attente de suppression (masquage local, F4a D10) reste 5 s
   // dans `db.personal_terms` : une session lancée pendant ce délai ne doit

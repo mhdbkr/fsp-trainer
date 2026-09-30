@@ -16,10 +16,16 @@ describe('portée d’une simulation (FB2-P)', () => {
   });
 });
 
-describe('maîtrise au prorata (caseMastery)', () => {
-  it('une partie seule vaut un tiers ; la dernière session de chaque partie compte', () => {
+// `caseMastery` est @deprecated (ADR-0017 §4.1) : un cas n'a plus de
+// pourcentage. Tant qu'elle vit, elle ne doit pas MENTIR — ce test gardait
+// l'inverse : il exigeait que 90 % sur une Anamnese seule donne 30.
+describe('caseMastery (déprécié) — la moyenne des parties JOUÉES, jamais /3', () => {
+  it('une Anamnese seule à 90 % vaut 90, pas 30 (bug simScope.ts:42)', () => {
     const a = sim({ id: 'a', caseId: 'c', date: 1, scope: 'teil', teil: 'anamnese', parts: { anamnese: { ...done, contentPct: 90, officialPct: 90, feeling: 90 } } });
-    expect(caseMastery([a], 'c').score).toBe(30);
+    expect(caseMastery([a], 'c').score).toBe(90);
+  });
+  it('trois parties à 60 valent 60 ; la dernière session de chaque partie compte', () => {
+    const a = sim({ id: 'a', caseId: 'c', date: 1, scope: 'teil', teil: 'anamnese', parts: { anamnese: { ...done, contentPct: 90, officialPct: 90, feeling: 90 } } });
     const full = sim({ id: 'b', caseId: 'c', date: 2, parts: { anamnese: { ...done, contentPct: 60, officialPct: 60, feeling: 60 }, dokumentation: { ...done, contentPct: 60, officialPct: 60, feeling: 60 }, fallvorstellung: { ...done, contentPct: 60, officialPct: 60, feeling: 60 } } });
     expect(caseMastery([a, full], 'c').score).toBe(60);
     const later = sim({ id: 'd', caseId: 'c', date: 3, scope: 'teil', teil: 'anamnese', parts: { anamnese: { ...done, contentPct: 100, officialPct: 100, feeling: 100 } } });
