@@ -25,7 +25,7 @@ import { INTENSITY_FACTOR } from '@/lib/intensity';
 import { TEILE } from '@/lib/simScope';
 import { blankProgress, projectDayPlans } from '@/lib/journal';
 import { dayKey, now as clockNow } from '@/lib/clock';
-import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, type SelectContext } from './select';
+import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type SelectContext } from './select';
 
 const SIM_MIN = 40;
 const TEIL_MIN: Record<SimTeil, number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
@@ -79,6 +79,8 @@ export interface BuildInput {
   trainingEvents: TrainingEvent[];
   begriffe: Fachbegriff[];
   now: number;
+  /** Budget restant, s'il n'est pas le budget plein du jour (replanifier, I3). */
+  budgetMin?: number;
 }
 
 /** Le Teil de plus forte dette DU CORPUS — celui sur lequel le candidat a le
@@ -119,7 +121,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   if (day >= startOfDay(programEnd(config))) return [];      // le jour de l'examen reste vide
 
   const modus = modusOf(config);
-  const targetMin = dayTargetMin(config);
+  const targetMin = input.budgetMin ?? dayTargetMin(config);
   const tasks: TaskInstance[] = [];
   let used = 0;
   const push = (t: Omit<TaskInstance, 'id' | 'date' | 'source'>) => {
@@ -145,7 +147,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   if (modus === 'examen-blanc' || isTaper) {
     const ctx = selectContext(input);
     const best = rankCandidates(cases, ctx)[0];
-    if (best && used + MOCK_MIN <= targetMin + MOCK_MIN) {
+    if (best && used + MOCK_MIN <= targetMin) {                // M3 : jamais au-delà du budget
       push({
         kind: 'examen-blanc', label: best.c.name, estMin: MOCK_MIN, caseId: best.c.id,
         specialty: best.c.specialty, layer: 3, assistance: 'autonome',
@@ -171,11 +173,13 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   const unitMin = teilDuJour ? TEIL_MIN[teilDuJour] : SIM_MIN;
   const wanted = Math.max(1, Math.floor(room() / unitMin));
 
-  for (const { scored, diversityRelaxed } of pickWithDiversity(candidates, wanted, enforceDiversity)) {
+  const seedSp = tasks.map((t) => t.specialty).filter((x): x is Specialty => !!x);
+  for (const { scored, diversityRelaxed } of pickWithDiversity(candidates, wanted, enforceDiversity, seedSp)) {
     const cp = progress.get(scored.c.id);
     // Une partie mesurée FRAGILE passe devant le Teil du jour : c'est le
     // travail de plus forte valeur, et c'est ce que dit déjà l'explication.
-    const fragile = cp && TEIL_KEYS.find((t) => cp.teile[t].status === 'fragile');
+    // D-I5 : en `cas-complet`, le mode du candidat prime — jamais un Teil seul.
+    const fragile = modus !== 'cas-complet' && cp ? TEIL_KEYS.find((t) => cp.teile[t].status === 'fragile') : undefined;
     const teil = fragile ?? teilDuJour;
     const estMin = teil ? TEIL_MIN[teil] : SIM_MIN;
     if (used + estMin > targetMin) break;
@@ -193,9 +197,14 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   const first = tasks.find((t) => t.kind === 'simulation' && t.layer === 1 && t.caseId);
   const linked = first && cases.find((c) => c.id === first.caseId)?.linkedFachwissenId;
   if (linked && used + FACHWISSEN_MIN <= targetMin) {
+    // I4 : la tâche de théorie entre dans la liste soumise à C1/C2 ; seul
+    // candidat possible, elle porte `diversityRelaxed` si elle les viole.
+    const relaxed = enforceDiversity && !!first!.specialty
+      && violatesDiversity(tasks.map((t) => t.specialty).filter((x): x is Specialty => !!x), first!.specialty);
     push({
       kind: 'fachwissen', label: cases.find((c) => c.id === first!.caseId)!.pathology,
       estMin: FACHWISSEN_MIN, caseId: first!.caseId, specialty: first!.specialty,
+      ...(relaxed ? { diversityRelaxed: true } : {}),
       reason: `La théorie du cas que tu découvres aujourd'hui.`,
     });
   }
@@ -309,7 +318,9 @@ export async function replanifier(date = dayKey(clockNow())): Promise<DayPlan | 
   const done = plan.tasks.filter((t) => t.doneAt !== undefined);
   const input = await loadBuildInput(config, date, at);
   const doneCaseIds = new Set(done.map((t) => t.caseId).filter(Boolean));
-  const fresh = buildTasks({ ...input, cases: input.cases.filter((c) => !doneCaseIds.has(c.id)) })
+  // I3 : le budget des tâches faites est CONSOMMÉ — cocher ne libère rien.
+  const budgetMin = Math.max(0, (plan.targetMin || dayTargetMin(config)) - done.reduce((s, t) => s + t.estMin, 0));
+  const fresh = buildTasks({ ...input, budgetMin, cases: input.cases.filter((c) => !doneCaseIds.has(c.id)) })
     .filter((t) => !done.some((d) => d.kind === t.kind && d.caseId === t.caseId));
 
   const tasks = [...done, ...fresh];
