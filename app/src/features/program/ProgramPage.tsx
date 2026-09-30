@@ -28,6 +28,7 @@ import { accepterRattrapage, rattrapageAProposer, refuserRattrapage, RATTRAPAGE_
 import { useLiveQuery } from 'dexie-react-hooks';
 import { getMeta } from '@/db/db';
 import { todayKey } from '@/lib/clock';
+import { joursRestants } from '@/lib/program/trajectory';
 import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
 import { TaskLine, TASK_META } from './TaskLine';
@@ -72,7 +73,7 @@ export function ProgramPage() {
   if (editing) return <ProgramSetup initial={config} onDone={() => setEditing(false)} onCancel={() => setEditing(false)} />;
 
   const end = programEnd(config);
-  const joursRestants = config.examDate ? Math.max(0, Math.round((end.getTime() - Date.now()) / 86_400_000)) : null;
+  const jRestants = joursRestants(config);                       // I10 : la formule de la frise, pas une seconde
 
   return (
     <div className="space-y-6">
@@ -81,7 +82,7 @@ export function ProgramPage() {
           <h1 className="text-2xl font-bold">Programme</h1>
           <p className="text-slate-500 dark:text-slate-400">
             {config.examDate ? `Examen le ${format(end, 'd MMM yyyy', { locale: fr })}` : `${config.weeks} semaines`}
-            {joursRestants !== null && <> · <b className="text-brand-600 dark:text-brand-300">J-{joursRestants}</b></>}
+            {jRestants !== null && <> · <b className="text-brand-600 dark:text-brand-300">J-{jRestants}</b></>}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
