@@ -126,6 +126,39 @@ h1, h2, h3 {
          s'échantillonne pas lui-même — une sous-surface n'a donc pas le droit
          d'être du verre. `.panel` est la bonne réponse aux 44 orphelins.
 
+     ─────────────────────────────────────────────────────────────────────
+     LA LUMIÈRE VIENT D'EN HAUT — gate G2-a, tranché par la direction le
+     30 sept. 2026, opposable à toute la charte et à tous les chantiers.
+
+       AUCUNE OMBRE PORTÉE. Nulle part. Jamais. Ni au repos, ni au survol,
+       ni sur un élément actionnable, ni « juste une petite ».
+
+     La profondeur se dit par TROIS choses et trois seulement : le BORD
+     SUPÉRIEUR PLUS CLAIR que le reste du bord (le filet spéculaire — c'est
+     lui qui fait lire une matière et non un rectangle), la TEINTE du fond,
+     et le FLOU. Un `box-shadow` reste licite tant qu'il est `inset` : un
+     filet de lumière interne n'est pas une ombre, c'est un bord.
+
+     L'exception « ombre courte, seulement au survol, seulement sur un
+     actionnable » a été proposée puis REFUSÉE, et il faut que la raison
+     tienne dans le fichier : une ombre qui existe dans la palette finit
+     posée au repos. C'est exactement par là qu'elle était revenue —
+     `shadow-e1` au repos sur `.card`, alors qu'elle était née « ombre de
+     survol ». Et le survol n'en a pas besoin : `.card-interactive` porte
+     déjà une translation d'un pixel, un liseré pétrole et un filet plus
+     clair (cran 2). Trois signaux d'affordance, aucun n'est une ombre.
+
+     Verrouillé par `packages/tokens/test/elevation.test.mjs` : toute valeur
+     non-`inset` dans la pile `elevation` OU dans un `box-shadow` de ce
+     fichier fait sortir la suite de tests en code 1. Le commentaire se
+     contourne par distraction, pas le code de sortie.
+
+     Reste hors de cette garde, et c'est un chantier ouvert : les ~50
+     `shadow-sm|md|lg|xl|2xl` de Tailwind encore posés à la main dans
+     `app/src/**/*.tsx`, qui appartiennent aux périmètres des autres
+     chantiers (liste dans `app/docs/reports/lead-s3-primitives.md`).
+     ─────────────────────────────────────────────────────────────────────
+
      LA RÈGLE : la profondeur DESCEND, elle ne remonte jamais.
        glass ⊃ card ⊃ panel ⊃ panel…
      Un `.glass` ne se pose pas dans un `.card`. Un `.card` ne contient ni
@@ -146,6 +179,7 @@ h1, h2, h3 {
     backdrop-filter: blur(16px) saturate(160%);
     -webkit-backdrop-filter: blur(16px) saturate(160%);
     border: 1px solid rgb(255 255 255 / 0.60);
+    border-top-color: rgb(255 255 255 / 0.90);
   }
   .card::after {
     content: '';
@@ -161,6 +195,7 @@ h1, h2, h3 {
     @apply shadow-e1-dark;
     background: rgb(18 33 30 / 0.55);
     border-color: rgb(255 255 255 / 0.08);
+    border-top-color: rgb(255 255 255 / 0.20);
   }
   .dark .card::after {
     background: linear-gradient(160deg, rgb(255 255 255 / 0.22), transparent 42%);
@@ -208,9 +243,9 @@ h1, h2, h3 {
   }
   .btn-primary {
     @apply btn bg-brand-600 text-white hover:bg-brand-700;
-    box-shadow: 0 1px 2px rgb(12 26 23 / 0.12), 0 1px 3px rgb(12 97 87 / 0.28);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.22);
   }
-  .btn-primary:hover { box-shadow: 0 2px 7px rgb(12 97 87 / 0.38); }
+  .btn-primary:hover { box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.34); }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-ink-700; }
   .btn-outline { @apply btn border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-100 dark:border-ink-600 dark:text-slate-200 dark:hover:bg-ink-700; }
 
@@ -226,23 +261,21 @@ h1, h2, h3 {
      (0,85 contre 0,45) — la lumière vient d'en haut, et c'est ce seul détail
      qui fait lire l'objet comme une matière plutôt que comme un rectangle.
 
-     ARBITRAGE DE CHARTE OUVERT (gate G2) : le site s'interdit TOUTE ombre
-     portée (verrouillé par `glass.test.mjs`), l'app en garde une. Par défaut
-     on suit l'app. Le choix tient dans une variable, `--btn-glass-drop` : la
-     mettre à `none` applique la discipline du site, partout, en une ligne. */
+     Gate G2 CLOS le 30 sept. 2026 (voir « LA LUMIÈRE VIENT D'EN HAUT » plus
+     haut) : la variable `--btn-glass-drop`, qui tenait l'ombre portée de ce
+     bouton, a été supprimée. Il ne reste que le filet interne et le bord. */
   .btn-glass {
-    --btn-glass-drop: 0 6px 18px -10px rgb(4 30 27 / 0.30);
     @apply btn relative text-brand-800 dark:text-brand-100;
     background: rgb(255 255 255 / 0.55);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgb(255 255 255 / 0.45);
     border-top-color: rgb(255 255 255 / 0.85);
-    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.55), var(--btn-glass-drop);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.55);
   }
   .btn-glass:hover { background: rgb(255 255 255 / 0.70); border-top-color: rgb(255 255 255 / 0.95); }
   :is(.dark) .btn-glass {
-    --btn-glass-drop: 0 6px 18px -10px rgb(0 0 0 / 0.55);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.14);
     background: rgb(18 33 30 / 0.52);
     border-color: rgb(255 255 255 / 0.10);
     border-top-color: rgb(255 255 255 / 0.26);
@@ -297,14 +330,15 @@ h1, h2, h3 {
     backdrop-filter: blur(10px) saturate(160%);
     -webkit-backdrop-filter: blur(10px) saturate(160%);
     border: 1px solid rgb(107 189 176 / 0.45);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 1px 2px rgb(12 97 87 / 0.10), 0 4px 12px -6px rgb(12 97 87 / 0.25);
+    border-top-color: rgb(255 255 255 / 0.85);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
   }
   /* Sur fond sombre (mode sombre, ou le focus qui est toujours sombre). */
   .dark .dim-tag, .dim-tag-focus {
     @apply text-brand-200;
     background: linear-gradient(135deg, rgb(21 131 117 / 0.30), rgb(18 33 30 / 0.55));
     border-color: rgb(107 189 176 / 0.30);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.10), 0 4px 12px -6px rgb(0 0 0 / 0.5);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.10);
   }
   .dim-tag-xl { @apply rounded-xl px-3.5 py-1.5 text-sm; }
 
@@ -363,11 +397,13 @@ h1, h2, h3 {
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgb(255 255 255 / 0.55);
+    border-top-color: rgb(255 255 255 / 0.88);
   }
   :is(.dark) .glass {
     @apply shadow-e3-dark;
     background: rgb(18 33 30 / 0.58); /* ink-800 translucide */
     border-color: rgb(255 255 255 / 0.10);
+    border-top-color: rgb(255 255 255 / 0.26);
   }
 
   /* Liseré spéculaire — mince halo lumineux sur le pourtour, plus vif en haut.
@@ -511,7 +547,7 @@ h1, h2, h3 {
 .seg { @apply inline-flex flex-wrap items-center gap-0.5 rounded-lg bg-slate-100 p-0.5 dark:bg-ink-700; }
 .seg-on { @apply border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200; }
 .seg > button { @apply rounded-md px-2.5 py-1 text-[11.5px] font-semibold text-slate-500 transition-[background-color,color,box-shadow] duration-200 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100; }
-.seg > button[aria-pressed="true"] { @apply bg-white text-brand-700 shadow-sm dark:bg-ink-800 dark:text-brand-300; }
+.seg > button[aria-pressed="true"] { @apply bg-white text-brand-700 shadow-e1 dark:bg-ink-800 dark:text-brand-300; }
 /* Valeur « chaude » (≥ seuil) sélectionnée : coral signal, le point de bascule. */
 .seg > button[data-hot="true"][aria-pressed="true"] { @apply text-signal-600 dark:text-signal-300; }
 .seg-scale > button { @apply min-w-[1.9rem] px-0 text-center font-mono tabular-nums; }
