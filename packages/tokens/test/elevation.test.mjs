@@ -78,6 +78,45 @@ test('la pile elevation ne contient aucune ombre portée (inset ou none, jamais 
   }
 });
 
+test('AUCUNE valeur de tokens.json ne porte une ombre portée, pas seulement la pile elevation', () => {
+  // Pourquoi ce test existe : la première version du gate ne regardait QUE
+  // `elevation`. `glass.light.shadow` et `glass.dark.shadow` ont donc survécu
+  // au 30 sept. avec leur « 0 10px 34px -14px », en décrivant une ombre que la
+  // règle CSS n'avait déjà plus. Un descripteur qui ment est pire qu'une ombre :
+  // il la fait revenir à la prochaine recopie. La garde couvre maintenant le
+  // fichier entier — toute clé, à toute profondeur, dont le NOM ou la VALEUR
+  // parle d'ombre.
+  const offenders = [];
+  (function walk(node, path) {
+    for (const [k, v] of Object.entries(node)) {
+      if (k.startsWith('$')) continue;
+      const p = path ? `${path}.${k}` : k;
+      if (typeof v === 'string') {
+        if (!/shadow/i.test(p) && !/box-shadow/i.test(v)) continue;
+        for (const layer of layers(v)) if (!isInner(layer)) offenders.push(`${p} : « ${layer} »`);
+      } else if (v && typeof v === 'object') walk(v, p);
+    }
+  })(tokens, '');
+  assert.deepEqual(offenders, [],
+    `gate G2-a : ombre(s) portée(s) dans tokens.json —\n  ${offenders.join('\n  ')}\n`
+    + 'La profondeur se déclare par elevation (filet interne), le flou et le bord supérieur.');
+});
+
+test('chaque matériau en verre déclare un filet supérieur plus clair que son bord (tokens)', () => {
+  // Jumeau côté jetons du test CSS plus bas : ce que le CSS dessine, tokens.json
+  // le décrit, et check-parity vérifie que les deux disent la même chose. Sans
+  // ça, retirer l'ombre serait une perte de profondeur au lieu d'une discipline.
+  const alpha = (v) => Number(v.match(/\/\s*([\d.]+)\s*\)/)?.[1] ?? NaN);
+  for (const name of ['glass', 'card']) {
+    for (const mode of ['light', 'dark']) {
+      const { border, borderTop } = tokens[name][mode];
+      assert.ok(borderTop, `${name}.${mode}.borderTop manquant — c'est lui qui a remplacé l'ombre portée`);
+      assert.ok(alpha(borderTop) > alpha(border),
+        `${name}.${mode} : le filet supérieur (${borderTop}) doit être plus clair que le bord (${border})`);
+    }
+  }
+});
+
 test('les quatre crans existent en clair et en sombre, et le cran de survol est le filet le plus clair', () => {
   const alpha = (v) => Number(v.match(/\/\s*([\d.]+)\s*\)/)?.[1] ?? 0);
   for (const scope of [tokens.elevation, tokens.elevation.dark]) {
