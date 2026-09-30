@@ -1,0 +1,261 @@
+import type {
+  AssistanceMode, ChecklistItem, Layer, MusterCity, PartResult, SimTeil, SimulationMode,
+} from '@/db/types';
+import { emptyLanguageGrid } from '@/lib/scoring';
+import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf } from './types';
+
+// ============================================================================
+// L'automate d'une partie de simulation. Contrat §2, ADR-0018.
+//
+// Une seule fonction de transition, un ordre total sur les états, et DEUX
+// exceptions nommées :
+//   · `partieSuivante` — bilanz(t) → laufend(t+1) : une PROGRESSION dans le run,
+//     sans laquelle l'automate ne peut pas jouer trois Teile ;
+//   · `zurueckZurPartie` — bilanz(t) → laufend(t) : la SEULE régression, et elle
+//     est un geste explicite, jamais un effet de bord.
+//
+// Ce que ce module remplace : `SimulationRunner.tsx:184-191` (`savePart`), où
+// « Valider » retombait en `setPhase('play')` et, quand `flow.length === 1`,
+// réaffichait l'exercice qu'on venait de terminer. Il n'y a plus de branche qui
+// ne fasse rien : `terminerPartie` n'a qu'une destination.
+// ============================================================================
+
+const PREFIX: Record<LaufTeil, string> = {
+  anamnese: 'anam-', dokumentation: 'doku-', fallvorstellung: 'fall-', aufklaerung: 'aufk-',
+};
+
+export function zustandIndex(z: LaufZustand): number {
+  return ZUSTAENDE.indexOf(z);
+}
+
+function uuid(): string {
+  const c = globalThis.crypto;
+  if (c?.randomUUID) return c.randomUUID();
+  // Repli (jsdom ancien, contexte non sécurisé) — même forme, même unicité utile.
+  return 'lauf-xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (ch) => {
+    const r = (Math.random() * 16) | 0;
+    return (ch === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
+}
+
+export interface LaufEingabe {
+  caseId: string;
+  caseName?: string;
+  profileId: string;
+  geplanteTeile: SimTeil[];
+  modus?: 'komplett' | 'teil';
+  assistance: AssistanceMode;
+  layer: Layer;
+  muster?: MusterCity;
+  mode?: SimulationMode;
+  taskId?: string;
+}
+
+/** Crée un `Lauf` en `vorbereitung`. L'`id` est posé ICI, une seule fois : il
+ *  est la clé d'idempotence de l'écriture finale (§3.2, INV-22). */
+export function erstelleLauf(i: LaufEingabe): Lauf {
+  // Validation de frontière : `profileId` est obligatoire (§6, INV-26).
+  // Sans lui, `layerAdvice.ts:40` filtre sur `undefined` et rend un ensemble
+  // vide — c'est la panne silencieuse « toutes les simulations non attribuées ».
+  if (!i.profileId) throw new Error('Lauf: profileId est obligatoire (contrat §6, INV-26)');
+  if (!i.geplanteTeile.length) throw new Error('Lauf: geplanteTeile ne peut pas être vide');
+  return {
+    id: uuid(),
+    caseId: i.caseId,
+    caseName: i.caseName ?? '',
+    profileId: i.profileId,
+    modus: i.modus ?? (i.geplanteTeile.length === 3 ? 'komplett' : 'teil'),
+    geplanteTeile: [...i.geplanteTeile],
+    zustand: 'vorbereitung',
+    aktuellerTeil: null,
+    teilVorAufklaerung: null,
+    startedAt: Date.now(),
+    teileGespielt: [],
+    teile: {},
+    checkliste: [],
+    sekundenProTeil: {},
+    entwurf: {},
+    notes: {},
+    bogen: {},
+    arztbriefText: '',
+    assistance: i.assistance,
+    layer: i.layer,
+    muster: i.muster,
+    mode: i.mode ?? 'texte',
+    taskId: i.taskId,
+  };
+}
+
+// ---------------------------------------------------------------- Lectures
+
+/** Le prochain Teil PLANIFIÉ non encore joué, dans l'ordre déclaré. */
+export function naechsterTeil(lauf: Lauf): SimTeil | null {
+  return lauf.geplanteTeile.find((t) => !lauf.teileGespielt.includes(t)) ?? null;
+}
+
+/** La portée jouée est un FAIT, jamais l'intention (§5, INV-25).
+ *  `simScope.ts:19-23` répondait `true` dès `scope === 'full'`, AVANT de
+ *  compter les parties : un run abandonné après une partie passait pour
+ *  « simulation complète ». */
+export function istVollstaendig(lauf: Lauf): boolean {
+  return lauf.geplanteTeile.length === 3
+    && lauf.geplanteTeile.every((t) => lauf.teileGespielt.includes(t));
+}
+
+export function checklisteFuer(lauf: Lauf, teil: LaufTeil): ChecklistItem[] {
+  return lauf.checkliste.filter((i) => i.id.startsWith(PREFIX[teil]));
+}
+
+/** Dérivation, pas un second stockage : le Lauf ne garde que les secondes. */
+export function minutenProTeil(lauf: Lauf): Partial<Record<LaufTeil, number>> {
+  const out: Partial<Record<LaufTeil, number>> = {};
+  for (const [t, s] of Object.entries(lauf.sekundenProTeil)) {
+    if (typeof s === 'number') out[t as LaufTeil] = Math.round(s / 60);
+  }
+  return out;
+}
+
+// -------------------------------------------------- Écritures de champs
+// Ce ne sont pas des transitions : elles ne touchent jamais `zustand`.
+
+/** Coche un item de la checklist PORTÉE PAR LE LAUF. C'est le pont d'
+ *  `AnamneseGuide` (INV-24) : cocher un chapitre pendant la partie doit se
+ *  retrouver dans la checklist de fin, qui était reconstruite à neuf. */
+export function setzeChecklistItem(lauf: Lauf, id: string, checked: boolean): Lauf {
+  const i = lauf.checkliste.findIndex((it) => it.id === id);
+  if (i < 0 || lauf.checkliste[i].checked === checked) return lauf;
+  const checkliste = [...lauf.checkliste];
+  checkliste[i] = { ...checkliste[i], checked };
+  return { ...lauf, checkliste };
+}
+
+export function setzeEntwurf(lauf: Lauf, teil: LaufTeil, patch: Partial<TeilEntwurf>): Lauf {
+  const vorher = lauf.entwurf[teil] ?? { grid: emptyLanguageGrid(), feeling: 50, hinweise: 0 };
+  return { ...lauf, entwurf: { ...lauf.entwurf, [teil]: { ...vorher, ...patch } } };
+}
+
+/** Pose le chrono d'un Teil. MONOTONE : une valeur inférieure à celle déjà
+ *  enregistrée est ignorée (INV-28). C'est ce qui rend inoffensif un chrono
+ *  remonté à zéro par un remontage de composant — la cause de
+ *  « on m'a remis au début » (`useTimer.ts:13-20` relancé par `:438`). */
+export function tickChrono(lauf: Lauf, teil: LaufTeil, sekunden: number): Lauf {
+  const vorher = lauf.sekundenProTeil[teil] ?? 0;
+  if (sekunden <= vorher) return lauf;
+  return { ...lauf, sekundenProTeil: { ...lauf.sekundenProTeil, [teil]: sekunden } };
+}
+
+// -------------------------------------------------------------- Transitions
+
+export type LaufAktion =
+  | { typ: 'demarrer'; teil?: LaufTeil; checkliste: ChecklistItem[] }
+  | { typ: 'aufklaerungOeffnen'; checkliste: ChecklistItem[] }
+  | { typ: 'terminerPartie'; ergebnis: PartResult }
+  | { typ: 'partieSuivante' }
+  | { typ: 'versChecklist' }
+  | { typ: 'zurueckZurPartie' }
+  | { typ: 'arztbriefSchreiben' }
+  | { typ: 'speichern' };
+
+/** Ajoute des items de checklist SANS reconstruire ceux qui existent déjà. */
+function mitCheckliste(lauf: Lauf, modell: ChecklistItem[]): ChecklistItem[] {
+  const vorhanden = new Set(lauf.checkliste.map((i) => i.id));
+  return [...lauf.checkliste, ...modell.filter((i) => !vorhanden.has(i.id)).map((i) => ({ ...i }))];
+}
+
+export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
+  switch (aktion.typ) {
+    case 'demarrer': {
+      if (lauf.zustand !== 'vorbereitung') return lauf;
+      const teil = aktion.teil ?? lauf.geplanteTeile[0];
+      return {
+        ...lauf,
+        zustand: 'laufend',
+        aktuellerTeil: teil,
+        checkliste: mitCheckliste(lauf, aktion.checkliste),
+      };
+    }
+
+    case 'aufklaerungOeffnen': {
+      // PAS un changement d'état : le jury interrompt, on reste `laufend`.
+      // L'ordre total porte sur `zustand`, pas sur le Teil.
+      if (lauf.zustand !== 'laufend' || lauf.aktuellerTeil === 'aufklaerung') return lauf;
+      const vorher = lauf.aktuellerTeil;
+      return {
+        ...lauf,
+        aktuellerTeil: 'aufklaerung',
+        teilVorAufklaerung: vorher && vorher !== 'aufklaerung' ? vorher : lauf.teilVorAufklaerung,
+        checkliste: mitCheckliste(lauf, aktion.checkliste),
+      };
+    }
+
+    case 'terminerPartie': {
+      // UNE SEULE destination. C'est la correction de fond : il n'existe plus
+      // de branche qui, sur le dernier Teil, ne fasse rien.
+      if (lauf.zustand !== 'laufend' || !lauf.aktuellerTeil) return lauf;
+      const t = lauf.aktuellerTeil;
+      const r = aktion.ergebnis;
+      const dauer = Math.max(r.durationSec, lauf.sekundenProTeil[t] ?? 0);
+      return {
+        ...lauf,
+        zustand: 'bilanz',
+        teileGespielt: lauf.teileGespielt.includes(t) ? lauf.teileGespielt : [...lauf.teileGespielt, t],
+        teile: {
+          ...lauf.teile,
+          [t]: {
+            done: true,
+            durationSec: dauer,
+            languageGrid: r.languageGrid,
+            feeling: r.feeling,
+            contentPct: r.contentPct,
+            officialPct: r.officialPct,
+            assistanceUsed: r.assistanceUsed ?? lauf.assistance,
+            hints: lauf.entwurf[t]?.hinweise ?? 0,
+          },
+        },
+        sekundenProTeil: { ...lauf.sekundenProTeil, [t]: dauer },
+      };
+    }
+
+    case 'partieSuivante': {
+      // Exception nommée nº 1 — une PROGRESSION, pas un retour.
+      if (lauf.zustand !== 'bilanz') return lauf;
+      // Après une Aufklärung on revient au Teil d'où le jury a interrompu, et
+      // à lui seul : c'est le `setActive('anamnese')` en dur qui disparaît.
+      const reprise = lauf.teilVorAufklaerung && !lauf.teileGespielt.includes(lauf.teilVorAufklaerung)
+        ? lauf.teilVorAufklaerung
+        : naechsterTeil(lauf);
+      if (!reprise) return lauf;   // plus rien à jouer : seul `versChecklist` sort
+      return {
+        ...lauf,
+        zustand: 'laufend',
+        aktuellerTeil: reprise,
+        teilVorAufklaerung: reprise === lauf.teilVorAufklaerung ? null : lauf.teilVorAufklaerung,
+      };
+    }
+
+    case 'zurueckZurPartie': {
+      // Exception nommée nº 2 — la SEULE régression, et seulement depuis bilanz.
+      // Le chrono reprend là où il s'était arrêté : `sekundenProTeil` n'est pas
+      // touché, et `tickChrono` refuse toute valeur inférieure.
+      if (lauf.zustand !== 'bilanz' || !lauf.aktuellerTeil) return lauf;
+      return { ...lauf, zustand: 'laufend' };
+    }
+
+    case 'versChecklist': {
+      if (lauf.zustand !== 'bilanz') return lauf;
+      return { ...lauf, zustand: 'checkliste', aktuellerTeil: null };
+    }
+
+    case 'arztbriefSchreiben': {
+      if (lauf.zustand !== 'checkliste') return lauf;
+      return { ...lauf, zustand: 'arztbrief' };
+    }
+
+    case 'speichern': {
+      // Transition d'état seulement. L'écriture en base vit dans `speichern.ts`
+      // et est idempotente sur `lauf.id`.
+      if (lauf.zustand !== 'checkliste' && lauf.zustand !== 'arztbrief') return lauf;
+      return { ...lauf, zustand: 'gespeichert', aktuellerTeil: null, endedAt: Date.now() };
+    }
+  }
+}
