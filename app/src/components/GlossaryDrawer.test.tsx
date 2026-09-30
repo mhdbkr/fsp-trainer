@@ -121,6 +121,16 @@ describe('GlossaryDrawer (F4a)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Fiche' }));
     expect(document.querySelector('[data-card-flip]')).toBeNull();
   });
+  it('Tab boucle dans le tiroir : dernier → premier, Maj+Tab premier → dernier (G1-27)', async () => {
+    renderDrawer();
+    const dlg = await screen.findByRole('dialog', { name: 'Abdomen' });
+    const f = [...dlg.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), [href], select, textarea, [tabindex]:not([tabindex="-1"])')];
+    const first = f[0], last = f[f.length - 1];
+    last.focus(); fireEvent.keyDown(last, { key: 'Tab' });
+    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(first, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(last);
+  });
   it('« ⋯ Decks » ouvre la gestion ; Échap ne ferme qu\'elle, puis le panneau', async () => {
     renderDrawer();
     fireEvent.click(await screen.findByRole('button', { name: 'Gérer les decks' }));

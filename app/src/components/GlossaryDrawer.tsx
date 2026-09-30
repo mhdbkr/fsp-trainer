@@ -1,3 +1,4 @@
+import { trapFocus } from '@/lib/trapFocus';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useUi } from '@/store/ui';
@@ -78,7 +79,7 @@ export function GlossaryDrawer() {
   return (
     <AnimatePresence>
       <m.div key="glossary-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
-      <m.aside key="glossary-drawer" ref={asideRef} role="dialog" aria-modal="true" aria-label={fb.term} tabIndex={-1} {...slide('right')}
+      <m.aside key="glossary-drawer" ref={asideRef} onKeyDown={(e) => trapFocus(e, asideRef.current)} role="dialog" aria-modal="true" aria-label={fb.term} tabIndex={-1} {...slide('right')}
         className="glass-full glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-y-0 border-r-0 outline-none">
         <DeckRail termId={fb.id} onManage={() => setManager(true)} />
         <div className="flex items-center justify-between gap-1 border-b border-white/40 px-4 py-2 dark:border-white/10">
