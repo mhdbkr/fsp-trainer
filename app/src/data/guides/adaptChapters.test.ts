@@ -121,3 +121,17 @@ describe('Un seul endroit par trame (FACH_COVERS, aktuellSkip, règles de Fach)'
     expect(fachChapterForCase(c)!.chapter.questions.map(phraseText).join(' ')).not.toMatch(/verhüten/);
   });
 });
+
+describe('Brûlure (Sodbrennen) : pas le modèle douleur (FB2-J1, revue du site)', () => {
+  const c = { specialty: 'Gastroenterologie', patientSheet: { personalia: { name: 'X', age: 42, geschlecht: 'w' }, leitsymptomKategorie: 'brennen', schmerz: {} }, caseSpecificQuestions: [] } as unknown as Case;
+  const aktuell = adaptChaptersForCase(c).find((ch) => ch.id === 'aktuell')!;
+  it('ni Schmerz, ni Ausstrahlung, ni Charakter', () => {
+    expect(aktuell.questions.map(phraseText).join(' ')).not.toMatch(/Schmerz|wehtut/);
+    expect(aktuell.questions.flatMap(phraseProbes)).not.toContain('akt-ausstrahlung');
+    expect(aktuell.questions.flatMap(phraseProbes)).not.toContain('akt-charakter');
+  });
+  it('la Fach gastro ne redemande pas le Sodbrennen', () => {
+    const q = fachChapterForCase(c)!.chapter.questions.find((x) => phraseProbes(x).includes('fach-gastro-sodbrennen'))!;
+    expect(phraseText(q)).not.toMatch(/Sodbrennen/);
+  });
+});

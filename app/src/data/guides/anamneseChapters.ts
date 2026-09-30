@@ -1,6 +1,6 @@
 import type { Case, LeitsymptomKategorie, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
-import { phraseProbes, type PhraseVariant } from './phrases';
+import { phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
 import { dedupeBySymptom } from './symptoms';
@@ -36,9 +36,9 @@ export interface AnamneseChapter {
 // ============================================================================
 
 export type { LeitsymptomKategorie } from '@/db/types';
-export const LEITSYMPTOM_KATEGORIEN: LeitsymptomKategorie[] = ['schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'nerven', 'infekt', 'veraenderung', 'ausscheidung', 'anfall'];
+export const LEITSYMPTOM_KATEGORIEN: LeitsymptomKategorie[] = ['schmerz', 'brennen', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'nerven', 'infekt', 'veraenderung', 'ausscheidung', 'anfall'];
 export const LEITSYMPTOM_LABEL: Record<LeitsymptomKategorie, string> = {
-  schmerz: 'Douleur (OPQRST)', atemnot: 'Essoufflement', allgemein: 'Fatigue, faiblesse, poids', psychisch: 'Psychique',
+  schmerz: 'Douleur (OPQRST)', brennen: 'Brûlure (Sodbrennen)', atemnot: 'Essoufflement', allgemein: 'Fatigue, faiblesse, poids', psychisch: 'Psychique',
   neurologisch: 'Neurologique aigu (déficit, vertige, confusion)', nerven: 'Neurologique chronique (tremblement, fourmillements, faiblesse)', infekt: 'Fièvre / infection',
   veraenderung: 'Changement remarqué (nodule, peau, saignement)', ausscheidung: 'Urines, selles, déglutition, teint', anfall: 'Épisodes (palpitations, malaise)',
 };
@@ -117,6 +117,22 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       { text: 'Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?', probe: 'akt-begleit' },
     ],
     tip: 'C\'est le cœur de l\'interrogatoire : creuse chaque dimension (lieu, début, caractère, intensité, irradiation, évolution, déclencheurs, facteurs, épisodes antérieurs, symptômes associés). Merke : « Schmerzen in + Dativ », « Ausstrahlung in + Akkusativ ».',
+  },
+  brennen: {
+    subtitle: 'Motif + analyse d’une brûlure (Sodbrennen)',
+    keywords: ['Ort', 'aufsteigen', 'Beginn', 'Stärke', 'Häufigkeit', 'Mahlzeiten', 'Liegen', 'Einflussfaktoren'],
+    questions: [
+      MOTIV,
+      { text: 'Ort — Wo genau spüren Sie das Brennen? Steigt es nach oben, zum Beispiel bis in den Hals?', probe: 'akt-ort' },
+      { text: 'Beginn — Seit wann haben Sie das Brennen? Kam es plötzlich oder nach und nach?', probe: 'akt-beginn' },
+      { text: 'Stärke — Wie stark ist das Brennen auf einer Skala von 1 bis 10, wenn 10 das stärkste Brennen ist, das Sie sich vorstellen können?', probe: 'akt-intensitaet' },
+      { text: 'Verlauf — Ist das Brennen ständig da, oder kommt es immer wieder? Wann tritt es auf: nach dem Essen, im Liegen, nachts, bei Belastung?', probe: 'akt-verlauf' },
+      { text: 'Auslöser — Gibt es etwas, das das Brennen auslöst — bestimmte Speisen oder Getränke, Bücken, Stress?', probe: 'akt-ausloeser' },
+      { text: 'Einflussfaktoren — Was lindert das Brennen, was verstärkt es? Haben Sie schon etwas dagegen genommen?', probe: 'akt-einfluss' },
+      FRUEHER('so ein Brennen'),
+      BEGLEIT,
+    ],
+    tip: 'Une brûlure n’est pas une douleur à irradier : ni « Ausstrahlung in den Arm », ni antalgique à proposer. On cherche où elle monte, quand elle survient (repas, décubitus, nuit), ce qui la soulage — puis les signes d’alarme (Dysphagie, Gewichtsverlust, Blutung). Note « retrosternale Pyrosis ».',
   },
   atemnot: {
     subtitle: 'Motif + analyse de l’essoufflement',
@@ -578,7 +594,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         followUp: ['Falls ja: Wie viele Kilogramm, und in welchem Zeitraum?'],
       },
       { text: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?', probe: 'veg-appetit' },
-      { text: 'Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?', probe: 'veg-schlaf' },
+      { text: 'Ist Ihr Schlaf erholsam? Können Sie gut ein- und durchschlafen?', probe: 'veg-schlaf' },
     ],
     tip: 'Une perte de poids involontaire, des sueurs nocturnes et de la fièvre forment ensemble un signal d\'alarme (« B-Symptomatik ») à ne jamais manquer. Merke : « Haben Sie gemessen? » (jamais « gemesst »).',
   },
@@ -821,7 +837,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Übelkeit', 'Erbrechen', 'Sodbrennen', 'Völlegefühl', 'Stuhl', 'schwarz', 'Blut'],
     [
       {
-        text: 'Leiden Sie an Übelkeit oder Erbrechen?',
+        text: 'Ist Ihnen übel, oder mussten Sie erbrechen?',
         probe: 'fach-gastro-uebelkeit',
         followUp: [
           'Falls ja: Wie oft, wie viel? Wie sah es aus — wie Kaffeesatz, mit Blut? Wie lange nach dem Essen?',
@@ -838,12 +854,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-gastro-speisen',
       },
       {
-        text: 'Haben Sie Durchfall oder Verstopfung? Wechseln sich beide ab?',
+        text: 'Haben Sie Durchfall oder Verstopfung, vielleicht auch abwechselnd? Wie sieht der Stuhl aus – Farbe, fest oder flüssig?',
         probe: 'fach-gastro-stuhl',
-        followUp: [
-          'Welche Farbe hat der Stuhl — blutig, teerschwarz, sehr hell, gelblich?',
-          'Welche Konsistenz — hart, fest, weich, schleimig, wässerig?',
-        ],
+        followUp: ['Falls auffällig: Ist er blutig, teerschwarz, sehr hell oder schleimig?'],
       },
       {
         text: 'Haben Sie manchmal das Gefühl, zur Toilette zu müssen, aber es kommt eigentlich nichts?',
@@ -901,7 +914,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
     ],
     'Vasculaire ≠ cardiaque : la distance de marche (claudication), la douleur de repos nocturne soulagée jambe pendante et l’asymétrie d’un membre (gonflé, chaud, rouge / froid, pâle) sont les questions qui décident. Le tabac se demande dans Noxen, pas deux fois.'),
-  F('Nephrologie', 'kidney', 'nephro', 'Fachanamnese Néphrologie',
+  F('Nephrologie', 'kidney', 'nephro', 'Fachanamnese Nephrologie',
     ['Wasserlassen', 'Urin', 'Blut im Urin', 'Schwellungen', 'Juckreiz'],
     [
       {
@@ -1073,7 +1086,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       { text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', probe: 'fach-neuro-verlauf' },
     ],
     'Sépare la céphalée primaire (migraine avec aura, photophobie) des signaux d\'alarme : début en coup de tonnerre (hémorragie méningée), déficit focal, morsure de langue + perte d\'urine (crise épileptique). La latéralité, les prodromes et les signes autonomes (cluster) sont décisifs.'),
-  F('Orthopädie', 'bone', 'ortho', 'Fachanamnese Orthopédie/Trauma',
+  F('Orthopädie', 'bone', 'ortho', 'Fachanamnese Orthopädie/Unfallchirurgie',
     ['Sturz', 'Bewegung', 'Taubheit', 'kälter', 'Ausstrahlung'],
     [
       {
@@ -1119,7 +1132,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
     ],
     'Toujours vérifier le trio « Durchblutung – Motorik – Sensibilität » d\'un membre traumatisé (les 3 questions étiquetées). Devant une lombalgie : le syndrome de la queue de cheval (troubles sphinctériens, anesthésie en selle) est LA question qui fait basculer vers l\'urgence chirurgicale.'),
-  F('Rheumatologie', 'bone', 'rheuma', 'Fachanamnese Rhumatologie',
+  F('Rheumatologie', 'bone', 'rheuma', 'Fachanamnese Rheumatologie',
     ['Gelenke', 'Morgensteifigkeit', 'geschwollen', 'gerötet', 'anfallsartig'],
     [
       {
@@ -1163,7 +1176,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
     ],
     'Deux questions décident presque tout : la DURÉE de la raideur matinale (> 30–60 min = inflammatoire) et le MODE d\'installation (brutal, monoarticulaire, nocturne = goutte / arthrite septique ; lent et symétrique = polyarthrite rhumatoïde). Le déclencheur alimentaire ou diurétique oriente vers la goutte.'),
-  F('Hämatologie', 'blood', 'haemato', 'Fachanamnese Hématologie',
+  F('Hämatologie', 'blood', 'haemato', 'Fachanamnese Hämatologie',
     ['Blutungen', 'blaue Flecke', 'blasser', 'Nachtschweiß', 'Lymphknoten'],
     [
       {
@@ -1278,7 +1291,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
     ],
     'Un nodule DUR, FIXÉ et INDOLORE qui grossit est plus suspect qu\'un nodule mou, mobile et douloureux. Cherche systématiquement la B-Symptomatik, la douleur nocturne de repos et la perte de performance sur six mois — ce sont elles qui font basculer le raisonnement vers le malin.'),
-  F('Endokrinologie', 'thyroid', 'endo', 'Fachanamnese Endocrinologie',
+  F('Endokrinologie', 'thyroid', 'endo', 'Fachanamnese Endokrinologie',
     ['Gewicht', 'Schwitzen', 'Durst', 'Herzrasen', 'Hals'],
     [
       {
@@ -1374,9 +1387,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-psych-antrieb',
       },
       {
-        text: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?',
+        text: 'Wie schlafen Sie? Können Sie gut ein- und durchschlafen, oder wachen Sie morgens sehr früh auf?',
         probe: 'fach-psych-schlaf',
-        alts: ['Leiden Sie an Einschlaf- oder Durchschlafstörungen?'],
       },
       {
         text: 'Gibt es Tageszeiten, zu denen es Ihnen besser oder schlechter geht — zum Beispiel ein Morgentief?',
@@ -1413,7 +1425,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
     ],
     'Ouvre le chapitre par une question ouverte et écoute — puis déroule la triade (humeur, intérêt, énergie) et les symptômes de rythme (sommeil, creux matinal). La question suicidaire est obligatoire, directe et calme ; une réponse positive = urgence, le patient reste hospitalisé. L\'anxiété et les attaques de panique se demandent explicitement : elles changent le diagnostic.'),
-  F('Infektiologie', 'virus', 'infektio', 'Fachanamnese Infectiologie',
+  F('Infektiologie', 'virus', 'infektio', 'Fachanamnese Infektiologie',
     ['Fieber', 'Zecke', 'Reise', 'Kontakt', 'Impfung'],
     [
       {
@@ -1625,7 +1637,7 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
 // homme ou après 55 ans, contraception à une patiente de 76 ans, Erektion à
 // une femme. Règles explicites par sonde — retirer ou reformuler, jamais
 // laisser passer (FB-A1 : « adapter, pas soustraire à l'aveugle »).
-type Who = { geschlecht?: 'm' | 'w'; age: number };
+type Who = { geschlecht?: 'm' | 'w'; age: number; kategorie: LeitsymptomKategorie };
 const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (w: Who) => string | undefined }> = [
   { probe: 'fach-gefaess-hormone', applies: (w) => w.geschlecht === 'w' && w.age <= FERTILE_UNTIL },
   { probe: 'fach-uro-funktion', text: (w) => (w.geschlecht === 'w' ? 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr?' : undefined) },
@@ -1635,6 +1647,8 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   { probe: 'fach-uro-sexualanamnese', text: (w) => (w.geschlecht === 'w' || w.age > FERTILE_UNTIL
     ? 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie schützen Sie sich vor Geschlechtskrankheiten?' : undefined) },
   { probe: 'fach-gyn-kinderwunsch', applies: (w) => w.age <= FERTILE_UNTIL },
+  // Le Sodbrennen est le motif : on ne le redemande pas, on cherche la régurgitation.
+  { probe: 'fach-gastro-sodbrennen', text: (w) => (w.kategorie === 'brennen' ? 'Müssen Sie sauer aufstoßen, oder kommt Flüssigkeit bis in den Mund hoch?' : undefined) },
 ];
 function adaptFach(questions: Phrase[], who: Who): Phrase[] {
   return questions.flatMap((q) => {
@@ -1652,7 +1666,7 @@ function adaptFach(questions: Phrase[], who: Who): Phrase[] {
 function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
   const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
   if (!f) return undefined;
-  const who: Who = { geschlecht: c.patientSheet.personalia.geschlecht, age: c.patientSheet.personalia.age };
+  const who: Who = { geschlecht: c.patientSheet.personalia.geschlecht, age: c.patientSheet.personalia.age, kategorie: leitsymptomOf(c) };
   const questions = [...adaptFach(f.chapter.questions, who), ...caseQuestionsForFach(c)];
   return { ...f, chapter: { ...f.chapter, questions } };
 }
@@ -1684,6 +1698,24 @@ export function playedTrame(c: Case): { chapters: AnamneseChapter[]; fach?: Fach
     fach: fachRaw && fachCh ? { ...fachRaw, chapter: { ...fachRaw.chapter, questions: fachCh.questions } } : undefined,
   };
   TRAME.set(c, out);
+  return out;
+}
+
+/** La question JOUÉE de chaque sonde pour ce cas (sans l'étiquette « Ort — »).
+ *  Une sonde absente n'est pas posée dans ce cas (âge, sexe, un symptôme une
+ *  question) : la fiche du simulant et le prompt d'IA externe lisent la même
+ *  trame que le guide (FB2-J5/J10/J13 côté export). */
+const PLAYED = new WeakMap<Case, Map<string, string>>();
+export function playedQuestionsByProbe(c: Case): Map<string, string> {
+  const hit = PLAYED.get(c);
+  if (hit) return hit;
+  const { chapters, fach } = playedTrame(c);
+  const out = new Map<string, string>();
+  for (const ch of fach ? [...chapters, fach.chapter] : chapters) for (const q of ch.questions) {
+    const text = splitDimension(phraseText(q)).body;
+    for (const p of phraseProbes(q)) out.set(p, out.has(p) ? `${out.get(p)} ${text}` : text);
+  }
+  PLAYED.set(c, out);
   return out;
 }
 

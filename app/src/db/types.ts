@@ -280,7 +280,7 @@ export interface Srs {
   state: 'Neu' | 'Gelernt' | 'Zu wiederholen';
 }
 
-export type LeitsymptomKategorie = 'schmerz' | 'atemnot' | 'allgemein' | 'psychisch' | 'neurologisch' | 'nerven' | 'infekt' | 'veraenderung' | 'ausscheidung' | 'anfall';
+export type LeitsymptomKategorie = 'schmerz' | 'brennen' | 'atemnot' | 'allgemein' | 'psychisch' | 'neurologisch' | 'nerven' | 'infekt' | 'veraenderung' | 'ausscheidung' | 'anfall';
 
 export type CaseQuestionKapitel =
   | 'aktuell' | 'vegetativ' | 'vorerkrankungen' | 'medikamente' | 'allergien'
