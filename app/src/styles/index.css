@@ -194,7 +194,7 @@ h1, h2, h3 {
      genre de survivance qui fait dire « il en reste une, donc la règle n'est
      pas vraie ». Celle du mascotte (`Doctopus.tsx`) est retirée.
 
-     Reste à NETTOYER, et c'est un chantier ouvert : 22 classes d'ombre
+     Reste à NETTOYER, et c'est un chantier ouvert : 23 classes d'ombre
      portée (`shadow-sm/md/lg/2xl`, survols compris — recomptées le 30 sept.
      2026 hors commentaires) dans 15 fichiers `.tsx` de `features/`. Depuis
      fix-s3 I4 elles ne produisent PLUS RIEN (classe absente du CSS livré) :

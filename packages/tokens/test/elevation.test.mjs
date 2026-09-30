@@ -22,7 +22,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 //
 // Et un troisième : 3. la PALETTE Tailwind elle-même (fix-s3 I4). Tant que
 // `boxShadow` était sous `theme.extend`, `shadow-sm/md/lg/xl/2xl` restaient
-// générés ; les 22 classes encore écrites dans features/ sont désormais
+// générés ; les 23 classes encore écrites dans features/ sont désormais
 // inertes. Reste hors de portée de ce test : une ombre en `style` inline
 // (TimeCapsule.tsx), listée dans app/docs/reports/fix-s3-primitives.md.
 // ════════════════════════════════════════════════════════════════════════════
