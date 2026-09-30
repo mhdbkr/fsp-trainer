@@ -506,7 +506,7 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen, lauf, onItem, on
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex items-center justify-between">
             <div className="label">Guide de questions {assistance === 'autonome' && <span className="text-[10px] text-violet-500">(Autonome : en tête)</span>}</div>
-            <button onClick={() => setImmersive(true)} className="btn gap-1.5 bg-slate-900 text-xs font-semibold text-white shadow-md hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
+            <button onClick={() => setImmersive(true)} className="btn-outline gap-1.5 text-xs"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
           </div>
           {/* Le guide écrit dans la checklist DU LAUF : cocher un chapitre ici
               se retrouve dans le bilan (INV-24). Avant, `checked` était un état

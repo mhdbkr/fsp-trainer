@@ -80,7 +80,7 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
   return (
     <div className="space-y-3">
       {/* Barre de progression + (Autonome) compteur de coups de pouce */}
-      <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900">
+      <div className="card flex items-center gap-3 px-4 py-2">
         <div className="flex flex-1 flex-wrap gap-1">
           {chapters.map((ch) => (
             <Fragment key={ch.id}>
