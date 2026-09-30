@@ -3,7 +3,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCase, useAufklaerungen } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
-import { CenterBadge, FreqBadge, DifficultyDots, StatusBadge, Toggle } from '@/components/ui';
+import { CenterBadge, FreqBadge, DifficultyDots, Toggle } from '@/components/ui';
+import { useCaseProgress } from '@/features/program/useProgram';
+import { blankProgress } from '@/lib/journal';
+import { ProgressBadge, TeilDots } from './CaseProgressView';
 import { PatientSheetView } from './PatientSheetView';
 import { ExaminerSheetView } from '@/features/simulation/ExaminerSheetView';
 import { Icon } from '@/components/icons';
@@ -19,6 +22,7 @@ export function CaseDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const c = useCase(id);
+  const progress = useCaseProgress();
   const aufk = useAufklaerungen();
   const openExternalAi = useUi((s) => s.openExternalAi);
   const [view, setView] = useState<'clinique' | 'rolle'>('clinique');
@@ -39,7 +43,8 @@ export function CaseDetailPage() {
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
             <span className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{c.specialty}</span>
             <FreqBadge n={c.frequency} />
-            <StatusBadge status={c.status} />
+            <ProgressBadge cp={progress?.get(c.id) ?? blankProgress(c.id)} />
+            <TeilDots cp={progress?.get(c.id) ?? blankProgress(c.id)} />
             <DifficultyDots level={c.difficulty} />
             {c.centers.map((ct) => <CenterBadge key={ct} center={ct} />)}
           </div>
