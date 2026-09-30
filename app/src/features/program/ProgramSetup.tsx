@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
-import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
+import { AXES, type Axis, type Fortschrittsmodus, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
+import { modusOf } from '@/lib/program';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { SrsSettingsSheet } from '@/features/fachbegriffe/SrsSettingsSheet';
@@ -22,6 +23,13 @@ const INTENSITIES: { v: Intensity; l: string; d: string; icon: string }[] = [
   { v: 'intensiv', l: 'Intensif', d: 'sprint examen', icon: 'flame' },
 ];
 
+const MODUS_HINT: Record<Fortschrittsmodus, string> = {
+  'teil-first': 'Chaque journée travaille la partie où il te reste le plus à faire, sur des cas différents.',
+  'cas-complet': 'Chaque journée prend un cas et le mène de bout en bout.',
+  specialite: 'Chaque journée reste dans la spécialité où il te reste le plus à faire.',
+  'examen-blanc': 'Chaque journée est une répétition générale, en conditions réelles.',
+};
+
 export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void; onCancel?: () => void; initial?: ProgramConfig | null }) {
   // Hydratation depuis la config existante (mode « Ajuster ») — sinon valeurs de
   // départ. Sans cela, ouvrir « Ajuster » réafficherait toujours les défauts et
@@ -30,7 +38,10 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
   const [examDate, setExamDate] = useState(initial?.examDate ?? '');
   const [weeks, setWeeks] = useState(initial?.weeks ?? 8);
   const [intensity, setIntensity] = useState<Intensity>(initial?.intensity ?? 'mittel');
-  const [strategy, setStrategy] = useState<NonNullable<ProgramConfig['strategy']>>(initial?.strategy ?? 'teil-first');
+  // Le mode d'avancement : on ne DEVINE pas la stratégie du candidat, on la lui
+  // demande une fois. Le plan, le vocabulaire et les stats suivent. Lecture
+  // tolérante de l'ancien `strategy` (ADR-0017 §7).
+  const [modus, setModus] = useState<Fortschrittsmodus>(initial ? modusOf(initial) : 'teil-first');
   const [hours, setHours] = useState(initial?.hoursPerSession ?? 2);
   const [offDays, setOffDays] = useState<number[]>(initial?.offDays ?? [0]);
   const [priority, setPriority] = useState<Specialty[]>(initial?.prioritySpecialties ?? []);
@@ -50,8 +61,7 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
       weeks: mode === 'weeks' ? weeks : undefined,
       intensity, hoursPerSession: hours, offDays, prioritySpecialties: priority,
       selfLevel, createdAt: initial?.createdAt ?? Date.now(),
-      adjust: initial?.adjust,
-      strategy,
+      modus,
     };
     await setMeta('program', config);
     await syncQueue.push({ type: 'program.configured', subject_id: null, payload: config });
@@ -109,22 +119,24 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
             <SrsSettingsSheet inline onClose={() => {}} />
           </Field>
 
-          {/* Courbe d'apprentissage (FB2-P) : par parties d'abord, ou directement en complète.
-              Le plan se recalcule à chaque session : ce choix fixe l'ordre, pas le rythme. */}
-          <Field label="Courbe d'apprentissage">
+          {/* Mode d'avancement (ADR-0017 §7) — la stratégie du candidat, demandée
+              une fois. Changer de mode ne réécrit AUCUN jour déjà figé. */}
+          <Field label="Comment tu veux avancer">
             <div className="grid grid-cols-2 gap-1.5">
               {([
-                { v: 'teil-first', l: 'Par parties, puis complète', d: 'Anamnese seule → Dokumentation seule → Fallvorstellung seule, puis les simulations complètes. Chaque partie acquise (≥ 60 %) fait passer à la suivante.', icon: 'branch' },
-                { v: 'full', l: 'Complète d’emblée', d: 'Simulations complètes dès la première couche ; les parties seules restent possibles à tout moment et comptent.', icon: 'play' },
+                { v: 'teil-first', l: 'Par partie', d: 'La même partie sur plusieurs cas — un geste à la fois, jusqu\u2019à ce qu\u2019il tienne.', icon: 'branch' },
+                { v: 'cas-complet', l: 'Cas complet', d: 'Les trois parties d\u2019un cas avant de passer au suivant.', icon: 'play' },
+                { v: 'specialite', l: 'Spécialité', d: 'Une spécialité travaillée à fond, puis la suivante.', icon: 'brain' },
+                { v: 'examen-blanc', l: 'Examen blanc', d: 'Des runs complets chronométrés, sans assistance.', icon: 'flag' },
               ] as const).map((it) => (
-                <button key={it.v} type="button" onClick={() => setStrategy(it.v)} title={it.d} aria-pressed={strategy === it.v}
-                  className={`flex flex-col items-center gap-1 rounded-xl border px-2 py-2.5 text-center transition-colors ${strategy === it.v ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 hover:border-brand-300 dark:border-slate-700 dark:text-slate-300'}`}>
+                <button key={it.v} type="button" onClick={() => setModus(it.v)} title={it.d} aria-pressed={modus === it.v}
+                  className={`flex flex-col items-center gap-1 rounded-xl border px-2 py-2.5 text-center transition-colors ${modus === it.v ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 hover:border-brand-300 dark:border-slate-700 dark:text-slate-300'}`}>
                   <Icon name={it.icon} className="h-5 w-5" />
                   <span className="text-xs font-semibold">{it.l}</span>
                 </button>
               ))}
             </div>
-            <p className="mt-1.5 text-[11px] text-slate-500">Toute session — complète ou par partie — fait avancer le cas au prorata de ses trois parties et remet le plan à jour.</p>
+            <p className="mt-1.5 text-[11px] text-slate-500">{MODUS_HINT[modus]}</p>
           </Field>
 
           {/* Volume */}
