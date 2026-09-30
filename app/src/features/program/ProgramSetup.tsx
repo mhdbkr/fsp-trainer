@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
+import { ensureDayPlan } from '@/lib/program/dayPlan';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
@@ -55,6 +56,9 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
     };
     await setMeta('program', config);
     await syncQueue.push({ type: 'program.configured', subject_id: null, payload: config });
+    // I1 : un programme tout juste créé ouvre la journée sans rechargement.
+    // Sur un jour déjà figé, ensureDayPlan ne fait que le relire.
+    await ensureDayPlan().catch((e) => console.warn('[programme]', e));
     onDone();
   };
 
