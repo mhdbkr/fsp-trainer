@@ -228,7 +228,6 @@ h1, h2, h3 {
     pointer-events: none;
   }
   .dark .card {
-    @apply shadow-e1-dark;
     background: rgb(18 33 30 / 0.55);
     border-color: rgb(255 255 255 / 0.08);
     border-top-color: rgb(255 255 255 / 0.20);
@@ -240,10 +239,6 @@ h1, h2, h3 {
   /* Soulèvement au survol : 1 px de translation + le cran d'élévation
      au-dessus. On anime `transform` et `box-shadow`, jamais la disposition. */
   .card-interactive:hover { @apply -translate-y-px border-brand-300/70 shadow-e2 dark:border-brand-700/60; }
-  /* Le survol sombre héritait de l'ombre CLAIRE (même spécificité que
-     `.dark .card`, déclarée plus haut donc perdante) : une ombre blanche sur
-     fond encre. Cran sombre explicite. */
-  .dark .card-interactive:hover { @apply shadow-e2-dark; }
 
   /* Repli opaque des cartes — mêmes conditions que .glass. */
   @media (prefers-reduced-transparency: reduce) {
@@ -442,7 +437,6 @@ h1, h2, h3 {
     border-top-color: rgb(255 255 255 / 0.88);
   }
   :is(.dark) .glass {
-    @apply shadow-e3-dark;
     background: rgb(18 33 30 / 0.58); /* ink-800 translucide */
     border-color: rgb(255 255 255 / 0.10);
     border-top-color: rgb(255 255 255 / 0.26);

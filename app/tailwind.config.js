@@ -12,19 +12,25 @@ const tokens = (() => {
   try {
     return createRequire(import.meta.url)('../packages/tokens/tokens.json');
   } catch {
-    process.emitWarning('tailwind.config: packages/tokens/tokens.json introuvable — rounded-card/shadow-e* absents de ce build.');
+    process.emitWarning('tailwind.config: packages/tokens/tokens.json introuvable — rounded-card/shadow-e* sans valeur dans ce build.');
     return { radius: {}, elevation: { dark: {} } };
   }
 })();
 
-/** Aplatit elevation → { e0, e1, e2, e3, 'e0-dark', … } pour boxShadow. */
-const elevation = Object.fromEntries(
-  Object.entries(tokens.elevation ?? {}).flatMap(([k, v]) =>
-    k.startsWith('$') ? []
-      : k === 'dark' ? Object.entries(v).map(([d, dv]) => [`e${d}-dark`, dv])
-      : [[`e${k}`, v]],
-  ),
+// ── Élévation : UNE classe par cran, le thème change la VARIABLE ─────────────
+// fix-s3 I2 : les jumeaux `shadow-eN-dark` obligeaient chaque appelant à
+// penser au sombre ; cinq ne l'ont pas fait (`.seg` pressé, CardToast,
+// NewCardSheet, ResumeSessionBar, MusterModelPicker) et portaient en sombre le
+// filet CLAIR. Désormais `shadow-eN` = `var(--eN)`, et `:root` / `.dark`
+// posent les valeurs (plugin plus bas, lues dans tokens.json) : impossible
+// d'oublier le sombre, il n'y a plus rien à choisir.
+// `none` devient `0 0 #0000` : Tailwind compose `box-shadow: <ring-offset>,
+// <ring>, var(--tw-shadow)` et `none` n'a pas le droit d'être dans une liste —
+// la déclaration entière tombait, anneau `ring-*` compris.
+const eVars = (scope) => Object.fromEntries(
+  Object.entries(scope ?? {}).filter(([k]) => /^\d$/.test(k)).map(([k, v]) => [`--e${k}`, v === 'none' ? '0 0 #0000' : v]),
 );
+const elevation = Object.fromEntries(Object.keys(eVars(tokens.elevation)).map((v) => [v.slice(2), `var(${v})`]));
 /** radius → { card, control, capsule } pour borderRadius (rounded-card…). */
 const radius = Object.fromEntries(Object.entries(tokens.radius ?? {}).filter(([k]) => !k.startsWith('$')));
 
@@ -51,6 +57,12 @@ export default {
   // personne ne l'emploie, c'est la classe qu'il faut supprimer, pas la ligne.
   safelist: ['btn-glass'],
   theme: {
+    // ── `boxShadow` REMPLACE la palette, il ne l'étend pas (fix-s3 I4) ───────
+    // Sous `extend`, Tailwind gardait `shadow-sm/md/lg/xl/2xl` et `shadow` : des
+    // ombres PORTÉES générées dans le CSS livré, à un nom de classe de revenir
+    // (gate G2-a : aucune ombre portée). Hors d'`extend`, il ne reste que les
+    // crans de lumière (e0…e3), `inner` (interne, donc licite) et `none`.
+    boxShadow: { ...elevation, inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)', none: 'none' },
     extend: {
       colors: {
         // ── Identité « instrument clinique » ─────────────────────────────────
@@ -91,11 +103,9 @@ export default {
       letterSpacing: {
         tightish: '-0.014em',
       },
-      // Rayon et élévation : jetons, plus des valeurs au hasard (audit §2).
-      // `rounded-card` / `rounded-control` / `rounded-capsule`,
-      // `shadow-e0…e3` et leurs jumeaux `dark:shadow-e1-dark`.
+      // Rayon : jetons, plus des valeurs au hasard (audit §2).
+      // `rounded-card` / `rounded-control` / `rounded-capsule`.
       borderRadius: radius,
-      boxShadow: elevation,
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(4px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         // Variante courte (≤150 ms, charte) pour un contenu qui apparaît déjà en place (pastille, bulle).
@@ -126,5 +136,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Les valeurs des crans, par thème. `.dark` est sur <html> (darkMode:
+    // 'class') : la variable descend, le composant n'a rien à savoir.
+    ({ addBase }) => addBase({ ':root': eVars(tokens.elevation), '.dark': eVars(tokens.elevation?.dark) }),
+  ],
 };
