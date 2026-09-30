@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
 import { ensureDayPlan } from '@/lib/program/dayPlan';
+import { now, nowDate } from '@/lib/clock';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
@@ -45,11 +46,11 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
     const config: ProgramConfig = {
       // On CONSERVE l'ancrage temporel et les ajustements manuels lors d'un ajustement :
       // changer l'intensité ou les jours off ne doit pas effacer les tâches faites/reports.
-      startDate: initial?.startDate ?? format(new Date(), 'yyyy-MM-dd'),
+      startDate: initial?.startDate ?? format(nowDate(), 'yyyy-MM-dd'),
       examDate: mode === 'exam' && examDate ? examDate : undefined,
       weeks: mode === 'weeks' ? weeks : undefined,
       intensity, hoursPerSession: hours, offDays, prioritySpecialties: priority,
-      selfLevel, createdAt: initial?.createdAt ?? Date.now(),
+      selfLevel, createdAt: initial?.createdAt ?? now(),
       // Le mode d'avancement n'est PAS choisi ici : absent a la creation,
       // il sera deduit puis propose. Un mode deja etabli est preserve.
       ...(initial?.modus ? { modus: initial.modus } : {}),
