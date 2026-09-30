@@ -224,29 +224,40 @@ describe('INV-23 — un Lauf sérialisé puis restauré est structurellement ég
   // `restauriere` ne vaut que si la REPRISE y passe. Tant qu'elle n'était
   // appelée que par son propre test, un Lauf écrit par une version antérieure
   // revenait brut : champs manquants et ids de checklist legacy intacts.
-  it('la reprise passe par restauriere : un Lauf legacy revient complet et traduit', async () => {
-    await db.meta.put({
-      key: LAUF_AKTIV_KEY,
-      value: {
-        id: 'legacy-1', caseId: 'c1', zustand: 'laufend', aktuellerTeil: 'anamnese',
-        checkliste: [{ id: 'cl-3', label: 'Vegetative Anamnese abgefragt', checked: true }],
-        // `geplanteTeile`, `sekundenProTeil`, `entwurf`, `teileGespielt`… absents
-      },
-    } as never);
+  it('la reprise passe par restauriere : un Lauf valide aux ids legacy revient traduit', async () => {
+    const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
+    await db.meta.put({ key: LAUF_AKTIV_KEY, value: {
+      ...l, checkliste: [{ id: 'cl-3', label: 'Vegetative Anamnese abgefragt', checked: true }],
+      entwurf: undefined, notes: undefined,
+    } } as never);
+    const wieder = await ladeAktivenLauf();
+    expect(wieder!.checkliste[0].id).toBe('anam-vegetativ');
+    expect(wieder!.checkliste[0].checked).toBe(true);
+    expect(wieder!.entwurf).toEqual({});      // champ facultatif absent → neutre
+  });
 
-    const l = await ladeAktivenLauf();
-    expect(l).not.toBeNull();
-    expect(l!.checkliste[0].id).toBe('anam-vegetativ');
-    expect(l!.checkliste[0].checked).toBe(true);
-    // Les champs absents reprennent leur valeur neutre — sans quoi le runner
-    // lit `.length` et `.filter` sur `undefined` au premier rendu.
-    expect(l!.geplanteTeile).toEqual([]);
-    expect(l!.teileGespielt).toEqual([]);
-    expect(l!.sekundenProTeil).toEqual({});
-    expect(l!.entwurf).toEqual({});
-    // Et ce qui était écrit reste écrit.
-    expect(l!.zustand).toBe('laufend');
-    expect(l!.aktuellerTeil).toBe('anamnese');
+  // Mineur 11 : un Lauf d'ancien format n'est pas repris comme un run VIDE
+  // (`geplanteTeile: []`, rien à jouer) — il est écarté, et nettoyé.
+  it('un Lauf d’ancien format (sans geplanteTeile) est écarté et supprimé', async () => {
+    await db.meta.put({ key: LAUF_AKTIV_KEY, value: {
+      id: 'legacy-1', caseId: 'c1', zustand: 'laufend', aktuellerTeil: 'anamnese',
+      checkliste: [{ id: 'cl-3', label: 'Vegetative Anamnese abgefragt', checked: true }],
+    } } as never);
+    expect(await ladeAktivenLauf()).toBeNull();
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+
+  it('P4 — un Lauf corrompu (checkliste: {}) est écarté, sans lever', async () => {
+    const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
+    await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, checkliste: {} } } as never);
+    expect(await ladeAktivenLauf()).toBeNull();
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+
+  it('un zustand inconnu est écarté', async () => {
+    const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
+    await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, zustand: 'play' } } as never);
+    expect(await ladeAktivenLauf()).toBeNull();
   });
 });
 

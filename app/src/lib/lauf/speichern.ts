@@ -3,7 +3,7 @@ import { saveSimulation, type SaveInput } from '@/lib/simulationSave';
 import { migriereChecklist } from '@/lib/checklists.legacy';
 import type { Case, PartResult, SimTeil, Simulation } from '@/db/types';
 import { checklisteFuer, istVollstaendig } from './automat';
-import { zuPartResult, type Lauf, type LaufTeil } from './types';
+import { ZUSTAENDE, zuPartResult, type Lauf, type LaufTeil } from './types';
 
 // ============================================================================
 // Persistance du `Lauf`. Contrat §3.
@@ -29,9 +29,29 @@ export const LAUF_MAX_ALTER_MS = 24 * 60 * 60 * 1000;
  *  runner lisait `.length` sur des champs absents. */
 export async function ladeAktivenLauf(): Promise<Lauf | null> {
   const l = await getMeta<Lauf | null>(LAUF_AKTIV_KEY, null);
-  if (!l || typeof l.id !== 'string' || !l.caseId) return null;
+  if (!l) return null;
+  // Un Lauf invalide ou d'ancien format est ÉCARTÉ (mineur 11) : repris, il
+  // devenait un run vide (`geplanteTeile: []`) ou levait au premier `.map`
+  // (`checkliste: {}`, P4) — et bloquait le runner.
+  if (!hatLaufForm(l)) {
+    await db.meta.delete(LAUF_AKTIV_KEY);
+    return null;
+  }
   if (l.zustand === 'gespeichert') return null;
   return restauriere(l);
+}
+
+const istObjekt = (v: unknown) => typeof v === 'object' && v !== null && !Array.isArray(v);
+
+/** La forme minimale d'un Lauf reprenable. Les champs facultatifs (brouillon,
+ *  notes…) reprennent leur valeur neutre dans `restauriere` ; ceux-ci, non. */
+function hatLaufForm(l: Partial<Lauf>): l is Lauf {
+  return typeof l.id === 'string' && !!l.id && typeof l.caseId === 'string' && !!l.caseId
+    && (ZUSTAENDE as readonly string[]).includes(l.zustand as string)
+    && (l.modus === 'komplett' || l.modus === 'teil')
+    && Array.isArray(l.geplanteTeile) && l.geplanteTeile.length > 0
+    && Array.isArray(l.checkliste) && Array.isArray(l.teileGespielt)
+    && istObjekt(l.teile) && istObjekt(l.sekundenProTeil);
 }
 
 // Les écritures de `lauf.aktiv` sont SÉRIALISÉES par cette chaîne.
@@ -142,7 +162,8 @@ export function restauriere(roh: Partial<Lauf> & { id: string; caseId: string })
     startedAt: Date.now(), teileGespielt: [], teile: {},
     sekundenProTeil: {}, entwurf: {}, notes: {}, bogen: {}, arztbriefText: '',
     assistance: 'assiste', layer: 1, mode: 'texte',
-    ...roh,
+    // Un champ présent mais `undefined` ne doit pas écraser sa valeur neutre.
+    ...(Object.fromEntries(Object.entries(roh).filter(([, v]) => v !== undefined)) as typeof roh),
     checkliste: migriereChecklist(roh.checkliste ?? []),
   };
 }

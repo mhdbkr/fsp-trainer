@@ -203,3 +203,14 @@ describe('Re-revue IMPORTANT — un abandon qui échoue ne bloque jamais le runn
     expect(result.current.lauf?.caseId).toBe('c2');
   });
 });
+
+describe('Re-revue — mineur 11 / P4 : un lauf.aktiv corrompu ne bloque pas', () => {
+  it('checkliste: {} sur le même cas ⇒ le runner se charge sur un Lauf neuf', async () => {
+    const l = await enVol('c1', null, 0);
+    await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, checkliste: {} } } as never);
+    const { result } = starte(fall('c1'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect(result.current.lauf?.id).not.toBe(l.id);
+    expect(Array.isArray(result.current.lauf?.checkliste)).toBe(true);
+  });
+});
