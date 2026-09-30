@@ -444,8 +444,8 @@ opposable ; un test qui ne porte pas cet identifiant ne compte pas.
 | `ExtraTask` | **abandonné** : une tâche ajoutée à la main est une `TaskInstance` ordinaire posée par `replanifier()`. |
 | `Case.confidence/status/layerProgress/lastSimulationId` | **dépréciés**, plus écrits (§4.1). Pas de suppression de colonne : `db.cases` est du contenu publié. |
 
-Pas de migration serveur : aucune table Supabase n'est touchée. `progress_events`
-gagne trois valeurs de `type` ; la colonne est déjà `text`.
+Migration serveur REQUISE : la contrainte `progress_events_type_check` et la fonction `events` gagnent les trois types
+(`20260930000017_training_journal_events.sql`, `plan.done` conservé) — déployées AVANT le client.
 
 ---
 
