@@ -80,6 +80,9 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
   // `newId()` (`sync/queue.ts:42`) en fabrique un neuf à chaque push.
   const nouveau = await db.transaction('rw', db.simulations, async () => {
     const deja = await db.simulations.get(id);
+    // La date est celle de la PREMIÈRE écriture (M9) : un second appel
+    // idempotent ne déplace pas la simulation dans l'historique.
+    if (deja) sim.date = deja.date;
     await db.simulations.put(sim);
     return !deja;
   });

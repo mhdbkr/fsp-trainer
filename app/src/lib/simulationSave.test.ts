@@ -34,6 +34,16 @@ describe('saveSimulation', () => {
     await db.cases.put(c);
   });
 
+  it('M9 — un second appel idempotent conserve la date d’origine', async () => {
+    const now = vi.spyOn(Date, 'now').mockReturnValue(1_000);
+    await saveSimulation({ id: 'lauf-1', c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never });
+    now.mockReturnValue(9_000);
+    const zweite = await saveSimulation({ id: 'lauf-1', c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never });
+    now.mockRestore();
+    expect((await db.simulations.get('lauf-1'))?.date).toBe(1_000);
+    expect(zweite.date).toBe(1_000);
+  });
+
   it('external-ai : enregistre, émet simulation.completed avec mode/externalTarget, met à jour la confiance du cas', async () => {
     const sim = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, mode: 'external-ai', externalTarget: 'chatgpt' });
     expect(sim.mode).toBe('external-ai');
