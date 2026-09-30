@@ -175,7 +175,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
     arztbrief: {
       einleitung: 'wir berichten Ihnen nachfolgend über Frau Sabine Wolf, eine 42-jährige Patientin, die sich mit seit Monaten bestehendem Sodbrennen, besonders nach dem Essen und im Liegen, in unserer Sprechstunde vorstellte.',
       patientenzustand: 'Frau Wolf befand sich in gutem Allgemeinzustand und übergewichtigem Ernährungszustand (BMI 29 kg/m²) und war voll orientiert.',
-      'aktuelle-beschwerden': 'Die Patientin berichtete über seit Monaten bestehendes brennendes Sodbrennen hinter dem Brustbein (Intensität 4/10), das durch Liegen, fettiges Essen und Kaffee verstärkt und durch Aufrechtsitzen und Antazida gelindert werde. Begleitend bestünden saures Aufstoßen und gelegentlich ein nächtlicher Reizhusten. Schluckbeschwerden, ein Gewichtsverlust, Bluterbrechen oder ein belastungsabhängiger Brustschmerz wurden verneint (Alarmsymptome negativ).',
+      'aktuelle-beschwerden': 'Die Patientin berichtete über eine seit Monaten bestehende retrosternale Pyrosis (Intensität 4/10), die durch Liegen, fettreiche Mahlzeiten und Kaffee verstärkt sowie durch aufrechte Körperhaltung und Antazida gelindert werde. Begleitend bestünden saures Aufstoßen und gelegentlich ein nächtlicher Reizhusten. Dysphagie, Gewichtsverlust und Hämatemesis wurden verneint (keine Alarmsymptome), ebenso belastungsabhängige thorakale Schmerzen.',
       vorerkrankungen: 'An Vorerkrankungen bestehe ein Übergewicht (BMI 29 kg/m²). Voroperationen seien keine bekannt.',
       medikation: 'Die Patientin nehme gelegentlich rezeptfreie Antazida ein; eine regelmäßige Medikamenteneinnahme werde verneint.',
       'allergien-noxen': 'Allergien seien keine bekannt. Es bestehe ein Nikotinkonsum von 10 Packungsjahren; Alkohol werde in Form von Wein am Wochenende konsumiert, ein Drogenkonsum werde verneint.',
@@ -186,7 +186,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
     vorstellung: {
       'persoenliche-daten': 'Ich möchte Ihnen Frau Sabine Wolf vorstellen, eine 42-jährige Patientin, die sich wegen seit Monaten bestehenden Sodbrennens in unserer Sprechstunde vorstellte.',
       allgemeinzustand: 'Frau Wolf befand sich in gutem Allgemeinzustand und übergewichtigem Ernährungszustand (BMI 29) und war voll orientiert.',
-      'aktuelle-beschwerden': 'Sie stellte sich wegen seit Monaten bestehenden brennenden Sodbrennens hinter dem Brustbein vor. Die Beschwerden würden durch Liegen und fettiges Essen verstärkt und durch Aufrechtsitzen gelindert. Begleitend träten saures Aufstoßen und ein nächtlicher Reizhusten auf. Schluckbeschwerden und ein Gewichtsverlust seien verneint worden.',
+      'aktuelle-beschwerden': 'Sie stellte sich wegen einer seit Monaten bestehenden retrosternalen Pyrosis vor. Die Beschwerden würden durch Liegen und fettiges Essen verstärkt und durch Aufrechtsitzen gelindert. Begleitend träten saures Aufstoßen und ein nächtlicher Reizhusten auf. Eine Dysphagie und einen Gewichtsverlust habe sie verneint.',
       allergien: 'Bei der Patientin seien keine Allergien bekannt.',
       rauchen: 'Die Patientin rauche, insgesamt 10 Packungsjahre.',
       alkohol: 'Sie trinke Wein am Wochenende.',
@@ -196,7 +196,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
       vorerkrankungen: 'Bekannt sei ein Übergewicht (BMI 29); Voroperationen bestünden keine.',
       medikation: 'Sie nehme gelegentlich rezeptfreie Antazida ein, sonst keine regelmäßigen Medikamente.',
       frauenanamnese: 'Eine Schwangerschaft habe sie verneint, die Menstruation sei regelmäßig; sie verhüte mit der Pille.',
-      'diagnostik-procedere': 'Die anamnestischen Angaben deuten am ehesten auf eine Refluxkrankheit hin. Als Differenzialdiagnosen kommen eine Angina pectoris, ein Ulcus und ein Ösophaguskarzinom in Betracht. Bei fehlenden Alarmsymptomen schlage ich einen PPI-Versuch vor, eine ÖGD nur bei Alarmsymptomen. Therapeutisch empfehle ich einen PPI und Lebensstilmaßnahmen.',
+      'diagnostik-procedere': 'Die anamnestischen Angaben deuten am ehesten auf eine Refluxkrankheit hin. Als Differenzialdiagnosen kommen eine Angina pectoris, ein Ulcus und ein Ösophaguskarzinom in Betracht. Da keine Alarmsymptome vorliegen, schlage ich zunächst einen PPI-Versuch vor; eine ÖGD wäre erst bei Alarmsymptomen oder Therapieversagen indiziert. Therapeutisch empfehle ich einen PPI und Lebensstilmaßnahmen.',
     },
   },
 
