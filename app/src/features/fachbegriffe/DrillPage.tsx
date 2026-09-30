@@ -244,8 +244,10 @@ export function DrillPage() {
         )}
       </div>
 
-      {/* Pas de notation au clavier pendant la sortie : l'objet visé n'est plus là. */}
-      <KeyboardShortcuts revealed={revealed && !leaving} onReveal={() => setRevealed(true)} onGrade={grade} />
+      {/* AUCUNE touche pendant la sortie : l'objet visé n'est plus là. Ni
+          notation, ni Espace — qui retournait la carte SUIVANTE avant qu'elle
+          entre : la réponse s'affichait avant la question (fix-s3 I1). */}
+      <KeyboardShortcuts off={leaving} revealed={revealed} onReveal={() => setRevealed(true)} onGrade={grade} />
     </div>
   );
 }
@@ -265,11 +267,12 @@ function GradeBtn({ label, sub, color, onClick }: { label: string; sub: string; 
   );
 }
 
-function KeyboardShortcuts({ revealed, onReveal, onGrade }: { revealed: boolean; onReveal: () => void; onGrade: (g: Grade) => void }) {
+function KeyboardShortcuts({ off, revealed, onReveal, onGrade }: { off: boolean; revealed: boolean; onReveal: () => void; onGrade: (g: Grade) => void }) {
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.closest('input, textarea, [contenteditable="true"]')) return;   // ne vole pas la frappe d'un éditeur ouvert (I1)
+      if (off) { if (e.key === ' ') e.preventDefault(); return; }   // pendant la sortie : Espace ne fait pas non plus défiler
       if (e.key === ' ' && !revealed) { e.preventDefault(); onReveal(); }
       else if (revealed) {
         if (e.key === '1') onGrade(0);
@@ -280,6 +283,6 @@ function KeyboardShortcuts({ revealed, onReveal, onGrade }: { revealed: boolean;
     };
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
-  }, [revealed, onReveal, onGrade]);
+  }, [off, revealed, onReveal, onGrade]);
   return null;
 }
