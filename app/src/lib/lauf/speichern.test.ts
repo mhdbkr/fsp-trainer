@@ -102,6 +102,10 @@ describe('INV-26 — tout Lauf écrit a un profileId', () => {
     await db.simulations.clear(); await db.cases.clear(); await db.cases.put(c); await db.meta.clear();
   });
 
+  it('restauriere ne fabrique jamais un profileId vide (M2)', () => {
+    expect(restauriere({ id: 'x', caseId: 'c1' }).profileId).toBeUndefined();
+  });
+
   it('le profileId du Lauf arrive dans la Simulation', async () => {
     const sim = await speichern(spieleBisChecklist(['anamnese']), c);
     expect(sim.profileId).toBe('u-mehdi');

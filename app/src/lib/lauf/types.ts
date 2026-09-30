@@ -65,8 +65,11 @@ export interface Lauf {
   id: string;
   caseId: string;
   caseName: string;
-  /** TOUJOURS écrit (§6, INV-26). `layerAdvice.ts:40` filtre dessus. */
-  profileId: string;
+  /** Le compte actif à la création ; ABSENT sans compte (décision `main`,
+   *  M2) — jamais une valeur fabriquée comme « local », qui partirait au
+   *  serveur. Le seul repli vit dans `saveSimulation`. À la lecture, absent ⇒
+   *  profil par défaut (§6). */
+  profileId?: string;
 
   /** L'INTENTION déclarée. */
   modus: LaufModus;

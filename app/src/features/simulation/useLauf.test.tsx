@@ -159,3 +159,28 @@ describe('I2 — quitter le runner met la partie en pause dans la barre « Repre
     await waitFor(() => expect(useSimSession.getState().minimized).toBe(false));
   });
 });
+
+describe('M2 — un seul repli pour profileId, et « local » ne part jamais au serveur', () => {
+  async function jusquAuSave() {
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.lauf?.zustand).toBe('laufend'));
+    act(() => result.current.terminerPartie());
+    act(() => result.current.versChecklist());
+    let id: string | null = null;
+    await act(async () => { id = await result.current.beenden(); });
+    return { lauf: result.current.lauf!, sim: await db.simulations.get(id!) };
+  }
+
+  it('sans compte actif : profileId absent, du Lauf à la Simulation', async () => {
+    const { lauf, sim } = await jusquAuSave();
+    expect(lauf.profileId).toBeUndefined();
+    expect(sim?.profileId).toBeUndefined();
+  });
+
+  it('avec un compte actif : c’est lui qui est crédité', async () => {
+    localStorage.setItem('fsp.activeUserId', 'u-lydia');
+    const { lauf, sim } = await jusquAuSave();
+    expect(lauf.profileId).toBe('u-lydia');
+    expect(sim?.profileId).toBe('u-lydia');
+  });
+});

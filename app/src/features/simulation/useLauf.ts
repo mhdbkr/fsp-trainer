@@ -87,10 +87,9 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
       const geplant: SimTeil[] = teil ? [teil] : ['anamnese', 'dokumentation', 'fallvorstellung'];
       const frisch = erstelleLauf({
         caseId: c.id, caseName: c.name,
-        // `profileId` est obligatoire (INV-26). En mode local sans compte, on
-        // crédite un profil par défaut nommé — jamais une chaîne vide, qui
-        // rendrait la simulation non attribuable pour toujours.
-        profileId: getActiveUserId() ?? 'local',
+        // Le compte actif, ou RIEN (M2) : « local » partait au serveur. Le
+        // seul repli vit dans `saveSimulation`.
+        profileId: getActiveUserId() ?? undefined,
         geplanteTeile: geplant,
         modus: teil ? 'teil' : 'komplett',
         assistance: reglage.current.assistance,

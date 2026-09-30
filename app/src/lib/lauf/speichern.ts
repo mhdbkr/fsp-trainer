@@ -125,7 +125,7 @@ export async function speichern(lauf: Lauf, c?: Case): Promise<Simulation> {
  *  sont traduits à la lecture (§4.4) — `db` n'est jamais réécrite pour ça. */
 export function restauriere(roh: Partial<Lauf> & { id: string; caseId: string }): Lauf {
   return {
-    caseName: '', profileId: '', modus: 'komplett', geplanteTeile: [],
+    caseName: '', modus: 'komplett', geplanteTeile: [],
     zustand: 'vorbereitung', aktuellerTeil: null, teilVorAufklaerung: null,
     startedAt: Date.now(), teileGespielt: [], teile: {},
     sekundenProTeil: {}, entwurf: {}, notes: {}, bogen: {}, arztbriefText: '',

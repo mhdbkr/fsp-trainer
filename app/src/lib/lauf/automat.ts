@@ -51,7 +51,7 @@ function uuid(): string {
 export interface LaufEingabe {
   caseId: string;
   caseName?: string;
-  profileId: string;
+  profileId?: string;
   geplanteTeile: SimTeil[];
   modus?: 'komplett' | 'teil';
   assistance: AssistanceMode;
@@ -64,10 +64,10 @@ export interface LaufEingabe {
 /** Crée un `Lauf` en `vorbereitung`. L'`id` est posé ICI, une seule fois : il
  *  est la clé d'idempotence de l'écriture finale (§3.2, INV-22). */
 export function erstelleLauf(i: LaufEingabe): Lauf {
-  // Validation de frontière : `profileId` est obligatoire (§6, INV-26).
-  // Sans lui, `layerAdvice.ts:40` filtre sur `undefined` et rend un ensemble
-  // vide — c'est la panne silencieuse « toutes les simulations non attribuées ».
-  if (!i.profileId) throw new Error('Lauf: profileId est obligatoire (contrat §6, INV-26)');
+  // Validation de frontière : un `profileId` fourni n'est jamais vide (§6,
+  // INV-26). ABSENT est permis — pas de compte actif (décision `main`, M2) :
+  // mieux vaut « non attribué » que « local », qui partirait au serveur.
+  if (i.profileId === '') throw new Error('Lauf: profileId vide (contrat §6, INV-26)');
   if (!i.geplanteTeile.length) throw new Error('Lauf: geplanteTeile ne peut pas être vide');
   return {
     id: uuid(),
