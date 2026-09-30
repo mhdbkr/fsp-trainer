@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { DeckQuery, Specialty, Srs, Center } from '@/db/types';
 import { createDeck } from '@/lib/collections';
 import { useAllTerms } from '@/hooks/useData';
+import { trapFocus } from '@/lib/trapFocus';
 
 interface Props { initialQuery?: DeckQuery; onClose: (createdId?: string) => void }
 const STATES: Srs['state'][] = ['Neu', 'Gelernt', 'Zu wiederholen'];
@@ -21,6 +22,7 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
   const field = 'min-h-11 w-full border-b border-slate-300 bg-transparent px-1 transition-colors hover:border-slate-400 focus:border-brand-500 dark:border-white/20 dark:hover:border-white/30';
   const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
 
+  const formRef = useRef<HTMLFormElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   useEffect(() => {
@@ -39,7 +41,7 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
   return (
     <>
       <div className="fixed inset-0 z-[65] bg-slate-900/20" onClick={() => onClose()} />
-      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
+      <form ref={formRef} onKeyDown={(e) => trapFocus(e, formRef.current)} onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
         <div className="label">Nouveau deck</div>
         <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className={field} autoFocus /></label>
         <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">

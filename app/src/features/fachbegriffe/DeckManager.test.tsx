@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { db } from '@/db/db';
 import { useCardToast } from '@/store/cardToast';
 import { useDecks } from '@/hooks/useData';
@@ -46,6 +46,25 @@ describe('DeckManager — clavier et contraste (G1-20, G1-23, G1-24)', () => {
   beforeEach(async () => {
     await db.progress_events.clear(); await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear();
     useCardToast.setState({ toast: null }); usePendingDeletions.setState({ ids: new Set() });
+  });
+  it('Tab boucle aussi dans la feuille « Nouveau deck » (G1-27)', async () => {
+    renderManager();
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
+    const sheet = await screen.findByRole('dialog', { name: 'Nouveau deck' });
+    const first = within(sheet).getByRole('textbox', { name: 'Nom du deck' });
+    const last = within(sheet).getByRole('button', { name: 'Créer' });
+    last.focus(); fireEvent.keyDown(last, { key: 'Tab' });
+    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(first, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(last);
+  });
+  it('supprimer un deck : « Annuler » prend le focus (G1-28)', async () => {
+    const id = await createDeck('Leber', 'manual');
+    renderManager();
+    fireEvent.click(await screen.findByRole('button', { name: 'Supprimer le deck Leber' }));
+    const undo = await screen.findByRole('button', { name: 'Annuler' });
+    await waitFor(() => expect(document.activeElement).toBe(undo));
+    cancelDeletion(id);
   });
   it('Tab boucle dans le dialogue (dernier → premier, Maj+Tab premier → dernier)', async () => {
     renderManager();

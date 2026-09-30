@@ -16,6 +16,7 @@ import { m, slide } from '@/lib/motion';
 import { useCardToast } from '@/store/cardToast';
 import { Icon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
+import { trapFocus } from '@/lib/trapFocus';
 import { DeckSheet } from './DeckSheet';
 
 function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
@@ -33,7 +34,7 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
   };
   const remove = () => {
     scheduleDeletion(deck.id, undefined, 'deck')
-      .then(() => show({ kind: 'deck-deleted', deckId: deck.id, name: deck.name }))
+      .then(() => show({ kind: 'deck-deleted', deckId: deck.id, name: deck.name }, { focus: true }))
       .catch(() => setError('Impossible de supprimer : réessaie.'));
   };
   return (
@@ -72,20 +73,11 @@ export function DeckManager({ decks, counts, onClose, initialQuery, onCreated }:
     document.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
   }, []);
-  // Piège du focus (G1-20) : Tab boucle dans le dialogue (la feuille de création a le sien : elle est au-dessus).
-  const trap = (e: React.KeyboardEvent) => {
-    if (e.key !== 'Tab' || !ref.current) return;
-    const f = [...ref.current.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), [href], select, textarea, [tabindex]:not([tabindex="-1"])')];
-    if (!f.length) return;
-    const first = f[0], last = f[f.length - 1], at = document.activeElement;
-    if (e.shiftKey && (at === first || at === ref.current)) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && at === last) { e.preventDefault(); first.focus(); }
-  };
   const shown = [...decks].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   return (
     <Portal>
       <m.div key="deck-manager-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[55] bg-slate-900/15" onClick={onClose} />
-      <m.aside key="deck-manager" ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Decks" onKeyDown={trap} {...slide('left')}
+      <m.aside key="deck-manager" ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Decks" onKeyDown={(e) => trapFocus(e, ref.current)} {...slide('left')}
         className="glass-full fixed left-0 top-0 z-[60] flex h-full w-full max-w-sm flex-col rounded-r-2xl p-4 outline-none">
         <div className="flex items-center justify-between">
           <h2 className="text-lg">Decks</h2>
