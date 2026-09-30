@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
 // seed.ts importe la session (→ client Supabase) : en CI il n'y a pas de .env,
 // et wireLinks est pur — on mocke le module session pour ne rien charger.
 vi.mock('@/lib/auth/session', () => ({ useSession: { getState: () => ({ user: null, status: 'anonymous' }) }, AUTH_MODE: 'public' }));
@@ -29,5 +30,14 @@ describe('wireLinks — réciproque cas ↔ Fachbegriffe (F2a 3.5)', () => {
     const a = mkTerm('a'); const b = mkTerm('b');
     wireLinks([c], [a, b], [], []);
     expect(c.linkedFachbegriffeIds).toEqual(['b', 'a']);
+  });
+});
+
+// La fiche préfixe déjà « Merke · » : un merksatz qui recommence par « Merke: »
+// s'affiche « Merke · Merke: » (revue du site, fw-depression).
+describe('merksatz sans préfixe', () => {
+  it('aucun merksatz ne commence par « Merke »', () => {
+    const src = readFileSync('src/data/seedFachwissen.ts', 'utf8');
+    expect(src.match(/merksatz: ['"„]?Merke\b/g) ?? []).toEqual([]);
   });
 });

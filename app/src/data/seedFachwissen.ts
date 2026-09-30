@@ -571,7 +571,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.',
         },
       ],
-      merksatz: 'Merke: Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
+      merksatz: 'Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
       linkedCaseIds: [
         'case-ulcus',
       ],
@@ -1174,7 +1174,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Bei Therapieresistenz / Krise',
           items: [
-            'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach dem PsychKHG Baden-Württemberg; bei Therapieresistenz Augmentation (z. B. Lithium) oder Kombinationstherapie nach fachpsychiatrischer Beurteilung',
+            'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach dem PsychKG bzw. PsychKHG des jeweiligen Landes; bei Therapieresistenz Augmentation (z. B. Lithium) oder Kombinationstherapie nach fachpsychiatrischer Beurteilung',
           ],
         },
       ],
@@ -1228,7 +1228,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Weil die Suizidalität über das weitere Vorgehen und die Notwendigkeit einer stationären Aufnahme entscheidet. Das offene Ansprechen erhöht das Risiko nicht, sondern entlastet den Patienten häufig.',
         },
       ],
-      merksatz: 'Merke: Hinter Kopf- und Ganzkörperschmerzen kann eine larvierte Depression stecken — Stimmung, Antrieb, Schlaf UND Suizidalität aktiv erfragen; vor jeder Therapie TSH bestimmen und eine bipolare Störung ausschließen.',
+      merksatz: 'Hinter Kopf- und Ganzkörperschmerzen kann eine larvierte Depression stecken — Stimmung, Antrieb, Schlaf UND Suizidalität aktiv erfragen; vor jeder Therapie TSH bestimmen und eine bipolare Störung ausschließen.',
       linkedCaseIds: [
         'case-depression',
       ],
@@ -2436,7 +2436,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Auf das Lasègue-Zeichen, die Kraftgrade im Seitenvergleich mit Zehen- und Hackengang, die Muskeleigenreflexe PSR und ASR, die Sensibilität nach Dermatomen sowie bei Cauda-Verdacht auf Sphinktertonus und perianale Sensibilität.',
         },
       ],
-      merksatz: 'Merke: Die Diagnose sichert das MRT (nicht das Röntgen), und rund 90 % heilen konservativ — aber Reithosenanästhesie mit Blasen-/Mastdarmstörung bedeutet Cauda-equina-Syndrom und damit einen neurochirurgischen Notfall.',
+      merksatz: 'Die Diagnose sichert das MRT (nicht das Röntgen), und rund 90 % heilen konservativ — aber Reithosenanästhesie mit Blasen-/Mastdarmstörung bedeutet Cauda-equina-Syndrom und damit einen neurochirurgischen Notfall.',
       linkedCaseIds: [
         'case-bandscheibenvorfall',
       ],
@@ -15138,7 +15138,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Insgesamt ungünstig, mit einer 5-Jahres-Überlebensrate über alle Stadien von etwa 15–20 %. Beim NSCLC im Stadium I liegt sie nach Resektion bei etwa 70–90 %, im Stadium IV unter 10 %, wobei zielgerichtete Therapien und Immuntherapie das Überleben deutlich verbessert haben. Beim SCLC beträgt das mediane Überleben bei limited disease etwa 15–20 Monate, bei extensive disease etwa 8–13 Monate.',
         },
       ],
-      merksatz: 'Merke: Jede Hämoptyse bei einem Raucher über 40 ist ein Bronchialkarzinom, bis das Gegenteil bewiesen ist — ein unauffälliges Röntgenbild beweist gar nichts, und ohne Histologie gibt es keine Therapie.',
+      merksatz: 'Jede Hämoptyse bei einem Raucher über 40 ist ein Bronchialkarzinom, bis das Gegenteil bewiesen ist — ein unauffälliges Röntgenbild beweist gar nichts, und ohne Histologie gibt es keine Therapie.',
       linkedCaseIds: [
         'case-bronchialkarzinom',
       ],
