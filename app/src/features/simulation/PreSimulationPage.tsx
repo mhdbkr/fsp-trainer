@@ -1,23 +1,33 @@
 import { cqText } from '@/lib/caseQuestions';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { TEILE, isTeil } from '@/lib/simScope';
 import { ModeChooser } from '@/components/ModeChooser';
 import type { SimTeil } from '@/db/types';
+import { isTeil } from '@/lib/simScope';
 import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
-import { SimulationSetup } from './SimulationSetup';
+import { SimulationSetup, PartnerCard } from './SimulationSetup';
 import { termsInOrder } from '@/lib/collections/caseTerms';
 
-// Échauffement avant le chrono : notions clés, questions d'anamnèse, phrases de
-// Fallvorstellung, Fachbegriffe du cas. Prépare mentalement à entrer en sim.
+// ============================================================================
+// L'échauffement avant le chrono. UNE anatomie, toujours la même :
+//   1. le cas      2. la partie      3. le réglage
+//   4. avec qui tu joues (= le départ)                5. de quoi te remettre en tête
+//
+// Il y en avait QUATRE variantes : `SimulationSetup` entier disparaissait en
+// Anamnese seule et en Fallvorstellung seule, et trois blocs d'échauffement
+// apparaissaient ou non selon le Teil. Le Teil change désormais le CONTENU des
+// blocs, jamais leur présence ni leur ordre : on ne peut plus jouer avec des
+// réglages hérités, invisibles et non modifiables.
+// ============================================================================
+
 export function PreSimulationPage() {
   const { caseId } = useParams();
   // Mode (FB2-P) : complète, ou un seul Teil — pré-sélectionné par l'URL,
-  // modifiable ici, porté par le bouton d'entrée.
+  // modifiable ici, porté par l'entrée en simulation.
   const [params, setParams] = useSearchParams();
-  const teil = isTeil(params.get('teil')) ? params.get('teil')! : null;
+  const teil = isTeil(params.get('teil')) ? (params.get('teil') as SimTeil) : null;
   const setTeil = (t: string | null) => { const n = new URLSearchParams(params); if (t) n.set('teil', t); else n.delete('teil'); setParams(n, { replace: true }); };
   const c = useCase(caseId);
   const fw = useFachwissen(c?.linkedFachwissenId);
@@ -29,28 +39,30 @@ export function PreSimulationPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-5">
+      {/* 1 — Le cas */}
       <header className="text-center">
         <div className="text-sm font-semibold text-brand-500">Échauffement</div>
         <h1 className="text-2xl font-bold">{c.name}</h1>
         <p className="text-slate-500 dark:text-slate-400">Révise 2 minutes, respire, puis entre en simulation.</p>
+        <Link to={`/cas/${c.id}`} className="btn-ghost mt-1 text-xs">← Fiche du cas</Link>
       </header>
 
-      {/* Choix du mode — sa propre boîte, au-dessus de l'action : la complète
-          d'un bloc, les trois Teile nés d'une division (FB2-P). */}
-      <section className="mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white/60 p-3 dark:border-ink-600 dark:bg-ink-800/60" aria-label="Mode de simulation">
-        <ModeChooser value={teil as SimTeil | null} onChange={(t) => setTeil(t)} />
+      {/* 2 — La partie : sa propre boîte, au-dessus de l'action ; la complète
+             d'un bloc, les trois Teile nés d'une division (FB2-P). */}
+      <section className="mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white/60 p-3 backdrop-blur-sm dark:border-ink-600 dark:bg-ink-800/60" aria-label="Quelle partie">
+        <ModeChooser value={teil} onChange={(t) => setTeil(t)} />
       </section>
 
-      {/* Barre d'action EN HAUT (n'interfère plus avec la barre flottante en bas) */}
-      <div className="flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-brand-200 bg-brand-50/50 px-4 py-3 dark:border-brand-900/40 dark:bg-brand-900/10">
-        <Link to={`/cas/${c.id}`} className="btn-outline">← Fiche du cas</Link>
-        <Link to={`/simulation/${c.id}/run${teil ? `?teil=${teil}` : ''}`} className="btn-primary gap-1.5 px-8 py-3 text-base font-bold"><Icon name="play" className="h-4 w-4" />{teil ? `Entrer — ${TEILE.find((t) => t.key === teil)?.label} seule` : 'Entrer en simulation'}</Link>
-      </div>
+      {/* 3 — Le réglage. Rendu quel que soit le Teil : le runner lit toujours
+             `assistance` et `layer`, et la sauvegarde les enregistre. */}
+      <SimulationSetup caseId={c.id} teil={teil} />
 
-      {/* Réglage de simulation (mode · couche · Muster · rôles + fiche simulant) */}
-      {/* Le Muster-Bogen ne sert que la Dokumentation : inutile en Anamnese ou Fallvorstellung seule. */}
-      {(!teil || teil === 'dokumentation') && <SimulationSetup caseId={c.id} />}
+      {/* 4 — Avec qui tu joues = le départ. Le choix n'est pas un réglage :
+             il entre dans la simulation, au Teil voulu. */}
+      <PartnerCard caseId={c.id} teil={teil} />
 
+      {/* 5 — De quoi te remettre en tête. Les quatre blocs sont TOUJOURS là ;
+             c'est leur contenu qui suit le Teil. */}
       <div className="grid gap-4 md:grid-cols-2">
         {fw && (
           <div className="card p-5">
@@ -65,18 +77,19 @@ export function PreSimulationPage() {
           </div>
         )}
 
-        {(!teil || teil === 'anamnese') && <div className="card p-5">
+        <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Questions d'anamnèse à ne pas oublier</div>
+          <p className="mb-2 text-[11px] text-slate-400">{QUESTIONS_HINT[teil ?? 'komplett']}</p>
           <AutoLinkList items={c.caseSpecificQuestions.map(cqText)} />
-        </div>}
+        </div>
 
-        {(!teil || teil === 'fallvorstellung') && <div className="card p-5">
+        <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="speech" className="h-3.5 w-3.5" />Phrases de Fallvorstellung</div>
           <p className="text-sm text-slate-600 dark:text-slate-300">
             « {c.patientSheet.personalia.name} ist ein/e {c.patientSheet.personalia.age}-jährige/r Patient/in, der/die sich mit <b><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></b>… vorstellte. »
           </p>
-          <p className="mt-2 text-sm text-slate-500">Struktur : Allgemein- und Ernährungszustand → Anamnese (Konjunktiv I) → Verdachts- und Differenzialdiagnosen → Diagnostik → Therapie.</p>
-        </div>}
+          <p className="mt-2 text-sm text-slate-500">{VORSTELLUNG_HINT[teil ?? 'komplett']}</p>
+        </div>
 
         <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="nav-abc" className="h-3.5 w-3.5" />Fachbegriffe du thème ({terms.length})</div>
@@ -90,3 +103,18 @@ export function PreSimulationPage() {
     </div>
   );
 }
+
+// Le Teil change ce que le bloc DIT, pas s'il existe.
+const QUESTIONS_HINT: Record<SimTeil | 'komplett', string> = {
+  komplett: 'À poser pendant l\'Anamnese — elles reviennent dans la Dokumentation et la Fallvorstellung.',
+  anamnese: 'C\'est maintenant qu\'elles se posent : les oublier coûte sur les trois parties.',
+  dokumentation: 'Tu documentes les réponses à ces questions : elles doivent apparaître dans le Bogen.',
+  fallvorstellung: 'Le jury peut demander ce que tu as posé sur ces points — sache le rapporter au Konjunktiv I.',
+};
+const VORSTELLUNG_HINT: Record<SimTeil | 'komplett', string> = {
+  komplett: 'Struktur : Allgemein- und Ernährungszustand → Anamnese (Konjunktiv I) → Verdachts- und Differenzialdiagnosen → Diagnostik → Therapie.',
+  anamnese: 'C\'est là que ton anamnèse finit : recueille de quoi construire cette phrase.',
+  dokumentation: 'La même matière que l\'Arztbrief, dite à l\'oral — même diagnostic, mêmes examens.',
+  fallvorstellung: 'Struktur : Allgemein- und Ernährungszustand → Anamnese (Konjunktiv I) → Verdachts- und Differenzialdiagnosen → Diagnostik → Therapie.',
+};
+
