@@ -1318,6 +1318,12 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie vermehrt Durst und müssen Sie häufiger Wasser lassen, auch nachts?',
         probe: 'fach-endo-durst',
         alts: ['Haben Sie großen Durst und müssen viel Wasser lassen?'],
+        // Quand le cas a déjà compté les levers nocturnes (case-diabetes-typ1),
+        // il ne reste que la soif — l'autre moitié de la paire cardinale.
+        parts: [
+          { sucht: ['miktion'], text: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?' },
+          { sucht: ['durst'], text: 'Haben Sie dabei vermehrt Durst?' },
+        ],
       },
       {
         text: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?',

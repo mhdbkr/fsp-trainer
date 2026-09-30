@@ -37,9 +37,20 @@ test('nouveau doublon de concept → porte rouge', { timeout: 300_000 }, () => {
   assert.match(r.stdout, /case-polymyalgia/);
 });
 
-test('socle amputé → le constat redevient nouveau, porte rouge', { timeout: 300_000 }, () => {
+// Le socle est VIDE depuis l'arbitrage des 85 constats (série 3) : il n'y a
+// plus de constat à amputer. La propriété qui compte a changé de nature — ce
+// n'est plus « le socle ne remonte jamais », c'est « le socle ne masque plus
+// rien ». On le prouve en annulant une seule annotation de relecture : le
+// constat qu'elle éteignait doit rouvrir la porte, sans exception de socle.
+const cases = join(here, '../src/data/seedCases.ts');
+
+test('socle vide → une annotation `relu` annulée rouvre la porte', { timeout: 300_000 }, () => {
   const b = JSON.parse(readFileSync(baseline, 'utf8'));
-  assert.ok(b.findings.length > 0, 'socle vide');
-  const r = withMutation(baseline, JSON.stringify(b.findings[0]) + ',\n', '', gate);
-  assert.equal(r.status, 1, 'un constat retiré du socle doit rouvrir la porte');
+  assert.equal(b.findings.length, 0, 'le socle doit être vide après la série 3');
+  const r = withMutation(cases,
+    "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },",
+    "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell' },",
+    gate);
+  assert.equal(r.status, 1, 'une relecture annulée doit rouvrir la porte');
+  assert.match(r.stdout, /case-lyme/);
 });
