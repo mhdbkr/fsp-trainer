@@ -76,6 +76,57 @@ describe('syncQueue', () => {
     expect(r.rejected).toBe(1);
     expect(await db.outbox.count()).toBe(0);
   });
+  // S-C1 : un 400 de LOT vidait jusqu'à 100 événements de l'outbox. C'est ce que
+  // fait le serveur de production actuel dès qu'un lot contient un type nouveau.
+  // Chaque test passe par push/pushMany : il remet le backoff à zéro (un test
+  // précédent a pu le poser) — sinon flush() sortirait sans rien envoyer.
+  // flush() rejoint le flush en vol lancé par push (single-flight).
+  const settle = () => syncQueue.flush();
+  it('400 de lot : aucun événement perdu — les valides repartent un par un, le refusé reste en outbox', async () => {
+    post.mockImplementation(async (_url: string, init?: { body?: string }) => {
+      const evs = JSON.parse(init!.body!).events as { id: string; type: string }[];
+      if (evs.some((e) => e.type === 'plan.materialized')) return { ok: false, status: 400, json: async () => ({ error: 'bad_request' }) };
+      return { ok: true, status: 200, json: async () => ({ acked: evs.map((e) => e.id), received: {}, rejected: [] }) };
+    });
+    const [srs, plan] = await syncQueue.pushMany([
+      { type: 'srs.reviewed', subject_id: 'fb-1', payload: {} },
+      { type: 'plan.materialized', subject_id: '2026-09-30', payload: { tasks: [] } },
+    ]);
+    await settle();
+    expect(await db.outbox.get(srs.id)).toBeUndefined();
+    expect((await db.outbox.get(plan.id))!.attempts).toBe(1);   // gardé, retenté plus tard (serveur migré)
+    expect(await db.progress_events.count()).toBe(2);
+  });
+  it.each([401, 429])('%i sur le lot : gardé en outbox, jamais rejeté', async (status) => {
+    post.mockResolvedValue({ ok: false, status, json: async () => ({}) });
+    await syncQueue.push({ type: 'srs.reviewed', subject_id: 'fb-1', payload: {} });
+    await settle();
+    expect(post).toHaveBeenCalled();
+    expect((await db.outbox.toArray()).map((r) => r.attempts)).toEqual([1]);
+  });
+  it('rejected avec retry (type pas encore connu du serveur) : gardé ; sans retry : retiré', async () => {
+    post.mockImplementation(async (_url: string, init?: { body?: string }) => {
+      const [x, y] = (JSON.parse(init!.body!).events as { id: string }[]).map((e) => e.id);
+      return { ok: true, status: 200, json: async () => ({ acked: [], received: {}, rejected: [{ id: x, reason: 'unknown_type', retry: true }, { id: y, reason: 'invalid payload' }] }) };
+    });
+    const [x, y] = await syncQueue.pushMany([
+      { type: 'training.logged', subject_id: 'x', payload: {} },
+      { type: 'training.logged', subject_id: 'y', payload: {} },
+    ]);
+    await settle();
+    expect((await db.outbox.get(x.id))!.attempts).toBe(1);
+    expect(await db.outbox.get(y.id)).toBeUndefined();
+  });
+  it('une ligne d\'outbox sans événement (orpheline) est retirée, elle ne bloque pas la file', async () => {
+    await db.outbox.put({ id: 'ghost', attempts: 0 });
+    post.mockImplementation(async (_url: string, init?: { body?: string }) => {
+      const ids = (JSON.parse(init!.body!).events as { id: string }[]).map((e) => e.id);
+      return { ok: true, status: 200, json: async () => ({ acked: ids, received: {}, rejected: [] }) };
+    });
+    await syncQueue.push({ type: 'srs.reviewed', subject_id: 'fb-1', payload: {} });
+    await settle();
+    expect(await db.outbox.count()).toBe(0);
+  });
   it('pull insère les événements distants sans doublon', async () => {
     post.mockResolvedValue({ ok: true, status: 200, json: async () => ({ events: [{ id: 'r1', user_id: 'u1', type: 'plan.done', subject_id: 'x', payload: {}, occurred_at: '2026-01-01T00:00:00Z', received_at: '2026-01-01T00:00:05Z' }] }) });
     expect(await syncQueue.pull()).toBe(1);
