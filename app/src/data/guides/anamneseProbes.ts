@@ -121,8 +121,8 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-kardio-herzrasen', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Herzklopfen oder Herzstolpern bemerkt?' },
     { id: 'fach-kardio-luft', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft, besonders beim Treppensteigen? Wie viele Stockwerke schaffen Sie ohne Pause?' },
     { id: 'fach-kardio-oedeme', kapitel: 'fach', frage: 'Sind Ihre Beine oder Knöchel geschwollen? Mit wie vielen Kissen schlafen Sie?' },
-    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?' },
-    { id: 'fach-kardio-synkope', kapitel: 'fach', frage: 'Wird es Ihnen manchmal schwarz vor Augen? Sind Sie schon einmal ohnmächtig geworden?' },
+    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?', deepens: 'akt-ausscheid-haeufigkeit' },
+    { id: 'fach-kardio-synkope', kapitel: 'fach', frage: 'Wird es Ihnen manchmal schwarz vor Augen? Sind Sie schon einmal ohnmächtig geworden?', deepens: 'akt-anfall-bewusstsein' },
   ],
   Chirurgie: [
     { id: 'fach-chir-essen', kapitel: 'fach', frage: 'Wann haben Sie zuletzt gegessen und getrunken? Was genau?' },
@@ -270,7 +270,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-derma-verlauf', kapitel: 'fach', frage: 'Tritt das in Schüben auf? Wird es zu bestimmten Jahreszeiten oder im Urlaub besser?', deepens: 'akt-verlauf' },
     { id: 'fach-derma-systemisch', kapitel: 'fach', frage: 'Haben Sie dazu Fieber, Gelenkschmerzen oder Veränderungen an Mund, Augen oder im Genitalbereich?' },
     { id: 'fach-derma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie früher Hautkrankheiten wie Neurodermitis oder Schuppenflechte? Gibt es so etwas in Ihrer Familie?' },
-    { id: 'fach-derma-muttermal', kapitel: 'fach', frage: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?' },
+    { id: 'fach-derma-muttermal', kapitel: 'fach', frage: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?', deepens: 'akt-veraend-blutung' },
     { id: 'fach-derma-vorbehandlung', kapitel: 'fach', frage: 'Womit haben Sie die Stelle bisher behandelt, und hat das geholfen?' },
   ],
   // Complète la Frauenanamnese générale (règles, grossesse, contraception,
@@ -313,7 +313,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   // demandent quelle que soit la localisation du cancer.
   Onkologie: [
     { id: 'fach-onko-bsymptomatik', kapitel: 'fach', frage: 'Haben Sie Fieber ohne Infekt, Nachtschweiß mit Wäschewechsel oder ungewollt Gewicht verloren — wie viel in welcher Zeit?' },
-    { id: 'fach-onko-leistung', kapitel: 'fach', frage: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?' },
+    { id: 'fach-onko-leistung', kapitel: 'fach', frage: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?', deepens: 'akt-allgemein-alltag' },
     { id: 'fach-onko-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen, die nachts oder in Ruhe auftreten und allmählich stärker werden?' },
     { id: 'fach-onko-knoten', kapitel: 'fach', frage: 'Haben Sie irgendwo einen Knoten, eine Schwellung oder eine Verhärtung getastet?' },
     { id: 'fach-onko-blutung', kapitel: 'fach', frage: 'Haben Sie Blutungen bemerkt — im Stuhl, im Urin, beim Husten oder aus der Scheide?' },
