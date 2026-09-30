@@ -50,14 +50,16 @@ describe('FachbegriffePage', () => {
     expect(screen.queryByText('Kardiomyopathie')).toBeNull();
   });
 
-  it('créer un deck manuel depuis « + » ; onglet actif via URL ; état vide', async () => {
+  it('créer un deck manuel depuis « ⋯ » → « Nouveau deck » ; onglet actif via URL ; état vide', async () => {
     renderAt();
     await screen.findByText('Abdomen');
-    fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
     fireEvent.change(screen.getByLabelText(/nom du deck/i), { target: { value: 'Kardio' } });
     fireEvent.click(screen.getByRole('button', { name: /créer/i }));
     const tab = await screen.findByRole('tab', { name: /kardio/i });
     expect(tab.getAttribute('aria-selected')).toBe('true');
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Decks' })).toBeNull());   // on atterrit sur le deck créé
     const decks = await db.decks.toArray(); expect(decks).toHaveLength(1);
     // deck vide → état vide
     expect(screen.getByText(/ajoute des termes/i)).toBeTruthy();
@@ -66,7 +68,8 @@ describe('FachbegriffePage', () => {
   it('deck intelligent : filtres enregistrés suivent le SRS', async () => {
     renderAt();
     await screen.findByText('Abdomen');
-    fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
     fireEvent.change(screen.getByLabelText(/nom du deck/i), { target: { value: 'À revoir' } });
     fireEvent.click(screen.getByLabelText(/deck intelligent/i));
     fireEvent.change(screen.getByLabelText(/^état$/i), { target: { value: 'Zu wiederholen' } });
@@ -102,5 +105,13 @@ describe('FachbegriffePage', () => {
     await screen.findByText('Abdomen');
     fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
     expect(await screen.findByRole('dialog', { name: 'Decks' })).toBeTruthy();
+  });
+  it('une seule entrée de création : plus de « + » dans les onglets ; « Nouveau deck » vit dans la gestion (G1-8)', async () => {
+    renderAt();
+    await screen.findByText('Abdomen');
+    expect(screen.queryByRole('button', { name: 'Nouveau deck' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
+    expect(await screen.findByRole('dialog', { name: 'Nouveau deck' })).toBeTruthy();
   });
 });

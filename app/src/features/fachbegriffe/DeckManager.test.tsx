@@ -56,7 +56,7 @@ describe('DeckManager (F4b P6, AC-5)', () => {
     expect(screen.queryByRole('button', { name: /Supprimer le deck Favoris/ })).toBeNull();
     fireEvent.change(input, { target: { value: 'Leber & Galle' } });
     fireEvent.keyDown(input, { key: 'Enter' }); fireEvent.blur(input);
-    await waitFor(async () => expect((await db.decks.get(id))?.name).toBe('Leber & Galle'));
+    await waitFor(async () => expect((await db.decks.get(id))?.name).toBe('Leber & Galle'), { timeout: 3000 });   // premier test du fichier : démarrage Dexie lent sous charge (suite complète)
   });
   it('nom vide → message, rien n\'est émis', async () => {
     await createDeck('Leber', 'manual');
@@ -78,30 +78,33 @@ describe('DeckManager (F4b P6, AC-5)', () => {
     expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
     expect(cancelDeletion(id)).toBe(false);
   });
-  it('deck intelligent : icône ; créer un deck manuel sur place ; Échap délègue', async () => {
+  it('deck intelligent : icône ; « Nouveau deck » ouvre la feuille de création (G1-8) ; Échap ne ferme que le calque du dessus', async () => {
     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: { state: 'Zu wiederholen' } }, occurred_at: '2020-01-01T00:00:00Z' } as never);
     await reprojectCollections();
     const onClose = vi.fn();
     renderManager(onClose);
     expect(await screen.findByRole('img', { name: 'Deck intelligent' })).toBeTruthy();
-    fireEvent.change(screen.getByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
+    expect(screen.queryByRole('textbox', { name: 'Nom du nouveau deck' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Nouveau deck' }));
+    const sheet = await screen.findByRole('dialog', { name: 'Nouveau deck' });
+    expect(sheet).toBeTruthy();
+    fireEvent.keyDown(document, { key: 'Escape' });   // Échap ferme la feuille seule
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Nouveau deck' })).toBeNull());
+    expect(onClose).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Nouveau deck' }));
+    fireEvent.change(await screen.findByRole('textbox', { name: 'Nom du deck' }), { target: { value: 'Hepato' } });
     fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
     await waitFor(async () => expect((await db.decks.toArray()).some((d) => d.name === 'Hepato' && d.kind === 'manual')).toBe(true));
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Nouveau deck' })).toBeNull());
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).toHaveBeenCalled();
   });
-  it('le focus revient à l\'ouvreur à la fermeture ; créer un deck ne le lui vole pas', async () => {
+  it('le focus revient à l\'ouvreur à la fermeture', async () => {
     render(<OpenerHarness />);
     const opener = screen.getByRole('button', { name: '⋯ Decks' });
     opener.focus();   // jsdom : click() ne focalise pas seul, comme dans un vrai clic clavier/tactile
     fireEvent.click(opener);
     await screen.findByRole('dialog', { name: 'Decks' });
-    const nameInput = screen.getByRole('textbox', { name: 'Nom du nouveau deck' });
-    nameInput.focus();
-    fireEvent.change(nameInput, { target: { value: 'Hepato' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
-    await waitFor(async () => expect((await db.decks.toArray()).some((d) => d.name === 'Hepato')).toBe(true));
-    expect(document.activeElement).toBe(nameInput);   // créer un deck ne re-vole pas le focus (effet à dépendances vides)
     fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
     await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Decks' })).toBeNull());
     expect(document.activeElement).toBe(opener);

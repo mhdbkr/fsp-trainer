@@ -1,20 +1,22 @@
 // ============================================================================
 // Tiroir de gestion des decks (F4b P6), ouvert par « ⋯ Decks » : renommer
 // (sur place), supprimer (+ Annuler 5 s : rien n'est émis avant l'expiration,
-// pendingDeletion), créer un deck manuel (sur place). Supprimer un deck
+// pendingDeletion), créer un deck (« Nouveau deck » → DeckSheet : la seule
+// entrée de création, manuel ou intelligent). Supprimer un deck
 // ne supprime aucune carte. Favoris est réservé : ni renommé, ni supprimé.
 // Verre plein, glisse depuis la gauche (côté des onglets), AU-DESSUS du tiroir
-// d'un terme qui l'ouvre (z-60) ; Échap ne ferme que lui.
+// d'un terme qui l'ouvre (z-60) ; Échap ne ferme que le calque du dessus.
 // ============================================================================
 import { useEffect, useRef, useState } from 'react';
-import type { Deck } from '@/db/types';
+import type { Deck, DeckQuery } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
-import { createDeck, renameDeck } from '@/lib/collections';
+import { renameDeck } from '@/lib/collections';
 import { scheduleDeletion } from '@/lib/collections/pendingDeletion';
 import { m, slide } from '@/lib/motion';
 import { useCardToast } from '@/store/cardToast';
 import { Icon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
+import { DeckSheet } from './DeckSheet';
 
 function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
   const [name, setName] = useState(deck.name);
@@ -49,22 +51,21 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
   );
 }
 
-export function DeckManager({ decks, counts, onClose }: {
+export function DeckManager({ decks, counts, onClose, initialQuery, onCreated }: {
   decks: Deck[]; counts: Record<string, number>; onClose: () => void;
+  /** Filtres courants proposés au deck intelligent ; deck créé → l'appelant peut l'ouvrir. */
+  initialQuery?: DeckQuery; onCreated?: (id: string) => void;
 }) {
-  const [name, setName] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const create = async () => {
-    try { await createDeck(name, 'manual'); setName(''); setError(null); }
-    catch (e) { setError(e instanceof Error && e.message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : 'Impossible de créer le deck.'); }
-  };
+  const [sheet, setSheet] = useState(false);
+  const sheetRef = useRef(false);
+  sheetRef.current = sheet;
   const ref = useRef<HTMLElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   useEffect(() => {
     const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     ref.current?.focus();
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCloseRef.current(); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && !sheetRef.current) onCloseRef.current(); };
     document.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
   }, []);
@@ -82,13 +83,9 @@ export function DeckManager({ decks, counts, onClose }: {
           <li className="flex min-h-11 items-center gap-1 px-1 text-slate-500">Favoris<span className="ml-auto pr-3 font-mono text-[11px]">{counts[FAVORITES_DECK_ID] ?? 0}</span></li>
           {shown.map((d) => <DeckRow key={d.id} deck={d} count={counts[d.id]} />)}
         </ul>
-        <div className="mt-3 flex gap-2">
-          <input aria-label="Nom du nouveau deck" value={name} maxLength={40} placeholder="Nouveau deck" onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') void create(); }} className="input min-h-11 flex-1" />
-          <button type="button" onClick={() => { void create(); }} disabled={!name.trim()} className="btn-primary min-h-11 rounded-full">Créer</button>
-        </div>
-        {error && <p role="alert" className="mt-1 text-xs text-rose-600 dark:text-rose-400">{error}</p>}
+        <button type="button" onClick={() => setSheet(true)} aria-haspopup="dialog" className="btn-primary mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
       </m.aside>
+      {sheet && <DeckSheet initialQuery={initialQuery} onClose={(id) => { setSheet(false); if (id) onCreated?.(id); }} />}
     </Portal>
   );
 }

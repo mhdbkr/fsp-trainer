@@ -37,7 +37,7 @@ describe('GlossaryDrawer (F4a)', () => {
     expect(await screen.findByText('Bauch')).toBeTruthy();
     expect(document.body.textContent).not.toMatch(/patientengerecht/i);
   });
-  it('onglets du terme (F4b P6) : allumé = rangé ; toucher range / retire ; intelligent inerte ; plus d\'étoile', async () => {
+  it('onglets du terme (F4b P6) : allumé = rangé ; toucher range / retire ; intelligent ABSENT du rail (G1-9) ; plus d\'étoile', async () => {
     await db.progress_events.bulkPut([
       { id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' },
       { id: 'e2', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: {} }, occurred_at: '2020-01-02T00:00:00Z' },
@@ -56,19 +56,21 @@ describe('GlossaryDrawer (F4a)', () => {
     await waitFor(() => expect(within(rail).getByRole('button', { name: 'Kardio' }).getAttribute('aria-pressed')).toBe('true'));
     fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
     await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeUndefined());
-    expect((within(rail).getByRole('button', { name: /À revoir/ }) as HTMLButtonElement).disabled).toBe(true);
+    expect(within(rail).queryByRole('button', { name: /À revoir/ })).toBeNull();
     for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
     for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col', 'md:max-h-[calc(100dvh-5rem)]', 'md:overflow-y-auto']) expect(rail.className).toContain(c);
     expect(rail.className).not.toMatch(/\bflex-wrap\b/);   // une rangée qui défile, jamais plusieurs (revue E4)
   });
-  it('onglets : « ⋯ Decks » en premier, libellé « Ranger dans », ✓ décoratif et aria-description sur un onglet allumé (F4b P6 correctif)', async () => {
+  it('onglets : « Gérer » en DERNIER, libellé « Ranger dans », ✓ décoratif et aria-description sur un onglet allumé, allumé sans fond plein (G1-9)', async () => {
     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
     const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
     renderDrawer();
     const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
     expect(within(rail).getByText('Ranger dans').className).toContain('label');
     const buttons = within(rail).getAllByRole('button');
-    expect(buttons[0].getAttribute('aria-label')).toBe('Gérer les decks');   // « ⋯ Decks » d'abord
+    expect(buttons[buttons.length - 1].getAttribute('aria-label')).toBe('Gérer les decks');   // la gestion ferme la rangée
+    expect(buttons[buttons.length - 1].textContent).toContain('Gérer');
+    expect(buttons[buttons.length - 1].className).not.toMatch(/\btext-slate-500\b/);
     const fav = within(rail).getByRole('button', { name: /Favoris/ });
     expect(fav.getAttribute('aria-description')).toBe('Ranger dans Favoris');
     expect(within(fav).queryByText('✓')).toBeNull();   // pas encore allumé
@@ -76,6 +78,8 @@ describe('GlossaryDrawer (F4a)', () => {
     await waitFor(() => expect(fav.getAttribute('aria-pressed')).toBe('true'));
     expect(fav.getAttribute('aria-description')).toBe('Retirer de Favoris');
     expect(within(fav).getByText('✓').getAttribute('aria-hidden')).toBe('true');
+    expect(fav.className).toContain('aria-pressed:text-brand-700');
+    expect(fav.className).not.toMatch(/aria-pressed:bg-brand-600|aria-pressed:text-white/);
     expect(fav.getAttribute('aria-label')).toBeNull();   // nom accessible = « Favoris », inchangé
   });
   it('onglets : double appui pendant l\'écriture est ignoré (verrou par onglet)', async () => {

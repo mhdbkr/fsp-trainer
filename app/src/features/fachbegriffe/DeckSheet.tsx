@@ -1,24 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { DeckQuery, Specialty, Srs, Center } from '@/db/types';
 import { createDeck } from '@/lib/collections';
+import { useAllTerms } from '@/hooks/useData';
 
-interface Props { initialQuery?: DeckQuery; specialties: Specialty[]; centers: Center[]; onClose: (createdId?: string) => void }
+interface Props { initialQuery?: DeckQuery; onClose: (createdId?: string) => void }
 const STATES: Srs['state'][] = ['Neu', 'Gelernt', 'Zu wiederholen'];
 
-/** Feuille de création d'un deck : nom, type, filtres. Renommer et supprimer
- *  vivent dans le tiroir de gestion (DeckManager, F4b P6). */
-export function DeckSheet({ initialQuery, specialties, centers, onClose }: Props) {
+/** Feuille de création d'un deck : nom, type, filtres. Ouverte par « Nouveau deck »
+ *  du tiroir de gestion (DeckManager, seule entrée de création) ; renommer et
+ *  supprimer y vivent aussi. Au-dessus du tiroir (z-70) ; rend le focus à l'ouvreur. */
+export function DeckSheet({ initialQuery, onClose }: Props) {
+  const begriffe = useAllTerms();
+  const specialties = useMemo(() => [...new Set((begriffe ?? []).map((b) => b.specialty))].filter(Boolean).sort() as Specialty[], [begriffe]);
+  const centers = useMemo(() => [...new Set((begriffe ?? []).flatMap((b) => b.centers))].sort() as Center[], [begriffe]);
   const [name, setName] = useState('');
   const [kind, setKind] = useState<'manual' | 'smart'>('manual');
   const [query, setQuery] = useState<DeckQuery>(initialQuery ?? {});
   const [error, setError] = useState<string | null>(null);
   const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
 
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCloseRef.current(); };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [onClose]);
+    return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
+  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault(); setError(null);
@@ -28,8 +36,8 @@ export function DeckSheet({ initialQuery, specialties, centers, onClose }: Props
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={() => onClose()} />
-      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
+      <div className="fixed inset-0 z-[65] bg-slate-900/20" onClick={() => onClose()} />
+      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
         <div className="label">Nouveau deck</div>
         <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className="input w-full" autoFocus /></label>
         <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">

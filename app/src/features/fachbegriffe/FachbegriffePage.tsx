@@ -15,7 +15,6 @@ import { sortDe, letterOf } from './letters';
 import { TermList, type TermListHandle } from './TermList';
 import { AlphabetRail } from './AlphabetRail';
 import { DeckTabs } from './DeckTabs';
-import { DeckSheet } from './DeckSheet';
 import { DeckManager } from './DeckManager';
 import { AnimatePresence } from '@/lib/motion';
 import { SrsSettingsSheet } from './SrsSettingsSheet';
@@ -32,7 +31,6 @@ export function FachbegriffePage() {
   const [params, setParams] = useSearchParams();
   const activeId = params.get('deck');
   const [filters, setFilters] = useState<DeckQuery>({});
-  const [sheet, setSheet] = useState(false);
   const [manager, setManager] = useState(false);   // renommer / supprimer : le même tiroir que depuis la fiche d'un terme (F4b P6)
   const listRef = useRef<TermListHandle>(null);
   const pendingIdRef = useRef<string | null>(null);
@@ -106,7 +104,7 @@ export function FachbegriffePage() {
         </div>
       </header>
 
-      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} onCreate={() => setSheet(true)} />
+      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} />
 
       <div className="card flex flex-wrap items-end gap-3 p-3">
         <div className="min-w-[160px] flex-1"><label className="label">Recherche</label><input value={effective.q ?? ''} onChange={(e) => set('q', e.target.value)} placeholder="Terme, traduction…" className="input mt-1" /></div>
@@ -127,10 +125,9 @@ export function FachbegriffePage() {
       )}
 
       <AnimatePresence>
-        {manager && <DeckManager key="deck-manager" decks={decks ?? []} counts={counts} onClose={() => setManager(false)} />}
+        {manager && <DeckManager key="deck-manager" decks={decks ?? []} counts={counts} onClose={() => setManager(false)}
+          initialQuery={filters} onCreated={(createdId) => { setManager(false); pendingIdRef.current = createdId; select(createdId); }} />}
       </AnimatePresence>
-      {sheet && <DeckSheet initialQuery={filters} specialties={specialties} centers={centers}
-        onClose={(createdId) => { setSheet(false); if (createdId) { pendingIdRef.current = createdId; select(createdId); } }} />}
       {srsSheet && <SrsSettingsSheet onClose={() => { setSrsSheet(false); reloadCtx(); }} />}
     </div>
   );
