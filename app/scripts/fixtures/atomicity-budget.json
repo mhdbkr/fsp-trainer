@@ -1,0 +1,11 @@
+{
+  "note": "Budget DÉGRESSIF (audit série 3 §6.4, règle 4). Il ne remonte jamais. `--bless` après un lot corrigé, jamais pour faire taire une régression.",
+  "generated": "2026-09-30",
+  "reference": "Audit série 3 : A=1059 B=322 C=75 sur 15 591 énoncés, toutes classes. Ce script ne lit que la classe Q (l'oral posé par le candidat) ; ses compteurs sont donc plus bas et ne se comparent pas ligne à ligne.",
+  "corpus": 3588,
+  "budget": {
+    "A": 992,
+    "B": 107,
+    "C": 5
+  }
+}
