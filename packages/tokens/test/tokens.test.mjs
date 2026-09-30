@@ -41,7 +41,12 @@ test('check-parity sort 1 quand l\'app dérive (couleur, easing, verre)', () => 
   cpSync(join(appDir, 'tailwind.config.js'), join(fake, 'tailwind.config.js'));
   const css = readFileSync(join(appDir, 'src/styles/index.css'), 'utf8')
     .replace('--ease-out: cubic-bezier(0.16, 1, 0.3, 1);', '--ease-out: ease;')
-    .replace('backdrop-filter: blur(20px) saturate(180%);', 'backdrop-filter: blur(12px) saturate(180%);');
+    // ANCRAGE : `.btn-glass` déclare le MÊME `backdrop-filter` et apparaît plus
+    // haut dans le fichier ; un `.replace` sur la seule déclaration mutait donc
+    // le bouton, que check-parity ne lit pas — la dérive du verre n'était jamais
+    // simulée et ce garde-fou passait à vide (mesuré : 2 dérives au lieu de 3).
+    // On ancre sur le bloc `.glass {` lui-même.
+    .replace(/(\.glass\s*\{[\s\S]*?)backdrop-filter: blur\(20px\)/, '$1backdrop-filter: blur(12px)');
   writeFileSync(join(fake, 'src/styles/index.css'), css);
   writeFileSync(join(fake, 'tailwind.config.js'), readFileSync(join(fake, 'tailwind.config.js'), 'utf8').replace("500: '#158375'", "500: '#000000'"));
   const r = spawnSync(process.execPath, [join(pkg, 'scripts/check-parity.mjs')], { encoding: 'utf8', env: { ...process.env, DOCTOPUS_APP_DIR: fake } });
