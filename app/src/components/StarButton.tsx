@@ -56,8 +56,8 @@ export function StarButton({ term, filled, caseId, buttonRef }: {
   const color = filled ? 'text-star-600 dark:text-star-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100';
   return (
     <>
-      <button ref={buttonRef} type="button" onClick={() => { void onClick(); }} aria-pressed={filled ?? false} aria-busy={filled === undefined || undefined} disabled={filled === undefined}
-        aria-label={filled ? `Decks de ${term.term}` : `Ajouter aux favoris : ${term.term}`}
+      <button ref={buttonRef} type="button" onClick={() => { void onClick(); }} aria-busy={filled === undefined || undefined} disabled={filled === undefined}
+        aria-label={filled ? `Voir la fiche de ${term.term}` : `Ajouter aux favoris : ${term.term}`}
         aria-haspopup={filled ? 'dialog' : undefined}
         className={`grid h-11 w-11 shrink-0 place-items-center rounded-full hover:bg-white/40 dark:hover:bg-white/10 ${color} ${filled === undefined ? 'invisible' : ''}`}><StarGlyph filled={!!filled} /></button>
       {error && <span role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</span>}
