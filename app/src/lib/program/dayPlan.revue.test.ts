@@ -122,3 +122,12 @@ describe('M3 — l\'examen à blanc respecte le budget', () => {
     expect(used(tasks)).toBeLessThanOrEqual(dayTargetMin(cfg));
   });
 });
+
+describe('fraîcheur — seul un Teil JOUÉ compte comme dernier jeu (§5.1)', () => {
+  it('lire la fiche d\'un cas hier ne le repousse pas dans la sélection', () => {
+    const lu = { id: 'x', at: Date.parse('2026-09-30T10:00:00Z'), kind: 'fiche' as const, caseId: 'c0', teile: [], source: 'libre' as const, spentMin: 10 };
+    const sans = buildTasks(input(), ids()).map((t) => t.caseId);
+    const avec = buildTasks(input({ trainingEvents: [lu] }), ids()).map((t) => t.caseId);
+    expect(avec).toEqual(sans);
+  });
+});
