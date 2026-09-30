@@ -1,3 +1,33 @@
+import { createRequire } from 'node:module';
+
+// ── Jetons partagés (@doctopus/tokens) ───────────────────────────────────────
+// s3-primitives T2 : le rayon et l'élévation sont LUS ici depuis
+// packages/tokens/tokens.json, ils n'y sont plus recopiés. C'est le seul
+// endroit de l'app où le flux va du paquet vers l'app ; le reste de la charte
+// (couleurs, fontes, verre) reste chez l'app et `check-parity.mjs` en surveille
+// la copie. Repli : les harnais de test copient ce fichier SEUL dans un dossier
+// temporaire (packages/tokens/test/tokens.test.mjs, cas « app qui dérive ») —
+// là packages/ n'existe pas, et ce fichier doit rester importable.
+const tokens = (() => {
+  try {
+    return createRequire(import.meta.url)('../packages/tokens/tokens.json');
+  } catch {
+    process.emitWarning('tailwind.config: packages/tokens/tokens.json introuvable — rounded-card/shadow-e* absents de ce build.');
+    return { radius: {}, elevation: { dark: {} } };
+  }
+})();
+
+/** Aplatit elevation → { e0, e1, e2, e3, 'e0-dark', … } pour boxShadow. */
+const elevation = Object.fromEntries(
+  Object.entries(tokens.elevation ?? {}).flatMap(([k, v]) =>
+    k.startsWith('$') ? []
+      : k === 'dark' ? Object.entries(v).map(([d, dv]) => [`e${d}-dark`, dv])
+      : [[`e${k}`, v]],
+  ),
+);
+/** radius → { card, control, capsule } pour borderRadius (rounded-card…). */
+const radius = Object.fromEntries(Object.entries(tokens.radius ?? {}).filter(([k]) => !k.startsWith('$')));
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
@@ -43,6 +73,11 @@ export default {
       letterSpacing: {
         tightish: '-0.014em',
       },
+      // Rayon et élévation : jetons, plus des valeurs au hasard (audit §2).
+      // `rounded-card` / `rounded-control` / `rounded-capsule`,
+      // `shadow-e0…e3` et leurs jumeaux `dark:shadow-e1-dark`.
+      borderRadius: radius,
+      boxShadow: elevation,
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(4px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         // Variante courte (≤150 ms, charte) pour un contenu qui apparaît déjà en place (pastille, bulle).
