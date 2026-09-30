@@ -5,6 +5,7 @@ import { dayKey, nowDate } from '@/lib/clock';
 import { AXES } from '@/db/types';
 import { partScore, partToAxis } from './scoring';
 import { isDue, isNew } from './srs';
+import { estMesuree } from './readiness';
 
 // ============================================================================
 // Agrégations statistiques. Un point faible se décide sur la PERFORMANCE,
@@ -12,10 +13,11 @@ import { isDue, isNew } from './srs';
 // encore travaillé », une information neutre.
 // ============================================================================
 
-/** Score moyen par axe (0..100) sur toutes les simulations. null = jamais tenté. */
+/** Score moyen par axe (0..100) sur les simulations MESURÉES (S-I2 : une
+ *  séance auto-évaluée n'est pas un score). null = jamais tenté. */
 export function axisScores(sims: Simulation[]): Record<Axis, number | null> {
   const acc: Record<Axis, number[]> = { Anamnese: [], Dokumentation: [], Fallvorstellung: [], Aufklärung: [], Fachbegriffe: [], Fachwissen: [] };
-  for (const sim of sims) {
+  for (const sim of sims.filter(estMesuree)) {
     for (const [part, res] of Object.entries(sim.parts)) {
       if (!res?.done) continue;
       const axis = partToAxis(part as keyof Simulation['parts']);
@@ -56,11 +58,11 @@ export function weakestAxis(scores: Record<Axis, number | null>): { axis: Axis; 
   return best;
 }
 
-/** Score moyen par spécialité (0..100). */
+/** Score moyen par spécialité (0..100), simulations mesurées seulement. */
 export function specialtyScores(sims: Simulation[], cases: Case[]): { specialty: Specialty; score: number; count: number }[] {
   const byCase = new Map(cases.map((c) => [c.id, c]));
   const acc = new Map<Specialty, number[]>();
-  for (const sim of sims) {
+  for (const sim of sims.filter(estMesuree)) {
     const c = byCase.get(sim.caseId);
     if (!c) continue;
     const parts = Object.values(sim.parts).filter((p) => p?.done);
@@ -116,9 +118,9 @@ export function computeStreak(sims: Simulation[], now = new Date()): number {
   return streak;
 }
 
-/** Courbe d'évolution du score global dans le temps (par simulation). */
+/** Courbe d'évolution du score global dans le temps (simulations mesurées). */
 export function progressSeries(sims: Simulation[]): { date: string; score: number }[] {
-  return [...sims]
+  return sims.filter(estMesuree)
     .sort((a, b) => a.date - b.date)
     .map((sim) => {
       const parts = Object.values(sim.parts).filter((p) => p?.done);
