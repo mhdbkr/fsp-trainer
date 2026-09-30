@@ -224,8 +224,10 @@ export function DrillPage() {
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
         {/* `transition-all` sans durée tombait sur les 150 ms `ease` par défaut de
-            Tailwind — la seule courbe de l'app qui n'est pas la nôtre. */}
-        <div className="h-full bg-brand-500 transition-[width] duration-300 ease-fluid motion-reduce:transition-none" style={{ width: `${(shown.idx / Math.max(shown.total, 1)) * 100}%` }} />
+            Tailwind — la seule courbe de l'app qui n'est pas la nôtre. Et on
+            anime `transform`, pas `width` : une largeur relance la mise en page
+            à chaque frame, un `scaleX` depuis la gauche reste sur le compositeur. */}
+        <div className="h-full origin-left bg-brand-500 transition-transform duration-300 ease-fluid motion-reduce:transition-none" style={{ transform: `scaleX(${shown.idx / Math.max(shown.total, 1)})` }} />
       </div>
 
       {/* La carte et ses notes sortent ENSEMBLE : ce sont un seul objet à
