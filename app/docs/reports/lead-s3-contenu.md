@@ -22,9 +22,9 @@ script et du fixture d'aujourd'hui ; les deux exécutions sont comparables ligne
 
 | | avant (`4eb24a4`) | après (`919b43f`) | |
 |---|---:|---:|---|
-| corpus « à dire » | 3 721 | 3 755 | +34 (la sonde neuve et ses relances) |
-| **A** — plus d'un « ? » | **577** | **520** | **−57** |
-| B — énumération | 120 | 120 | inchangé |
+| corpus « à dire » | 3 721 | 3 756 | +35 (la sonde neuve et ses relances) |
+| **A** — plus d'un « ? » | **577** | **519** | **−58** |
+| B — énumération | 120 | 119 | −1 |
 | C — alternative dépendante du cas | 5 | 5 | inchangé |
 | D — salve d'examinateur | 0 | 0 | inchangé |
 
@@ -43,7 +43,7 @@ La descente est aussi lisible commit par commit, à corpus constant (3 594) :
 ```
 
 Puis le corpus s'élargit de 3 594 à 3 755 (§ 4) et le plancher est gravé à
-**A = 520 · B = 120 · C = 5 · D = 0**.
+**A = 520 · B = 120 · C = 5 · D = 0** — puis `919b43f` a baissé le contenu à A = 519, B = 119 sans regraver : suite de mutation rouge (6/9), regravé par `fix-s3-contenu` (C1).
 
 ## 2. Le tri des 27, et ce qu'il a coûté de faux
 
@@ -207,7 +207,7 @@ Toutes lancées sans pipe, code de sortie lu directement.
 ```
 checkTrameSymptoms                          0     socle 0/0
 checkPlayedTrame                            0     130 cas, aucune paire ≥ 0,6
-checkQuestionAtomicity                      0     A=520/520 B=120/120 C=5/5 D=0/0
+checkQuestionAtomicity                      0     A=519/519 B=119/119 C=5/5 D=0/0 (regravé, C1)
 checkProbeCoverage                          0     130 cas, couverture complète
 checkCaseQuestionChapters                   0
 checkCaseCoherence                          0
@@ -306,7 +306,7 @@ ressource partagée pour se déverrouiller soi-même n'est pas dans mon périmè
 **Reste donc non observé à l'écran** : le rendu des relances en retrait, la
 disparition de la question de `case-karpaltunnel`, les réductions par `parts`.
 Ces trois effets sont mesurés **hors DOM**, par `checkPlayedTrame` et
-`checkTrameSymptoms`, qui exécutent le montage réel via esbuild (8 531 questions
+`checkTrameSymptoms`, qui exécutent le montage réel via esbuild (8 542 questions
 affichées sur 130 cas, aucune paire ≥ 0,6). Ce n'est pas le DOM de l'app et je ne
 le présente pas comme tel : la réserve que j'avais posée à la tranche 1 **reste
 ouverte**.
