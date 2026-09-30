@@ -155,8 +155,9 @@ h1, h2, h3 {
 
      Reste hors de cette garde, et c'est un chantier ouvert : les ~50
      `shadow-sm|md|lg|xl|2xl` de Tailwind encore posés à la main dans
-     `app/src/**/*.tsx`, qui appartiennent aux périmètres des autres
-     chantiers (liste dans `app/docs/reports/lead-s3-primitives.md`).
+     les fichiers `.tsx` de `app/src`, qui appartiennent aux périmètres
+     des autres chantiers (liste dans
+     `app/docs/reports/lead-s3-primitives.md`).
      ─────────────────────────────────────────────────────────────────────
 
      LA RÈGLE : la profondeur DESCEND, elle ne remonte jamais.
