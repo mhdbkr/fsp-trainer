@@ -87,11 +87,47 @@ export function projectTrainingEvents(events: ProgressEvent[]): TrainingEvent[] 
       const te = trainingEventFromSimulation(sim);
       byId.set(te.id, te);
     } else if (e.type === 'training.logged' && e.subject_id) {
-      byId.set(e.subject_id, { ...(e.payload as Omit<TrainingEvent, 'id'>), id: e.subject_id });
+      const te = sanitizeLogged(e.subject_id, e.payload);
+      if (te) byId.set(te.id, te);
     }
   }
+  // D-C4 — un exercice, un événement : une coche nue est ABSORBÉE par
+  // l'exercice réel qui satisfait la même tâche (la source reste intacte).
+  const real = new Set([...byId.values()].filter((te) => te.taskId && !isCocheNue(te)).map((te) => te.taskId));
+  for (const [id, te] of byId) if (isCocheNue(te) && real.has(te.taskId)) byId.delete(id);
   return [...byId.values()].sort((a, b) => a.at - b.at || (a.id < b.id ? -1 : 1));
 }
+
+const TRAINING_KINDS: TrainingKind[] = ['simulation', 'drill', 'fiche', 'aufklaerung', 'examen-blanc'];
+const str = (v: unknown): string | undefined => (typeof v === 'string' && v.length > 0 && v.length <= 100 ? v : undefined);
+
+/**
+ * Un `training.logged` venu du serveur n'est pas cru sur parole (S-I1, S-M1) :
+ * un compte peut écrire dans `progress_events` par REST sans passer par la
+ * fonction. On ne garde que des champs connus, bornés — et **jamais `scores`** :
+ * seul `simulation.completed` porte un score MESURÉ. Un payload illisible est
+ * ignoré, il ne fait pas échouer la reconstruction.
+ */
+function sanitizeLogged(id: string, raw: unknown): TrainingEvent | null {
+  const p = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
+  const kind = TRAINING_KINDS.find((k) => k === p.kind);
+  const at = typeof p.at === 'number' && Number.isFinite(p.at) ? p.at : null;
+  if (!kind || at === null) return null;
+  const teile = Array.isArray(p.teile) ? TEIL_KEYS.filter((t) => (p.teile as unknown[]).includes(t)) : [];
+  const spent = typeof p.spentMin === 'number' && Number.isFinite(p.spentMin) ? Math.min(1440, Math.max(0, Math.round(p.spentMin))) : 0;
+  const caseId = str(p.caseId), taskId = str(p.taskId), laufId = str(p.laufId), profileId = str(p.profileId);
+  return {                                               // même ordre de clés que logTraining : état bit-identique
+    id, at, kind, ...(caseId ? { caseId } : {}), teile,
+    source: taskId ? 'plan' : 'libre', ...(taskId ? { taskId } : {}),
+    spentMin: spent, ...(laufId ? { laufId } : {}),
+    ...(p.selbstbewertet === true ? { selbstbewertet: true } : {}), ...(profileId ? { profileId } : {}),
+  };
+}
+
+/** Une coche manuelle sans exercice mesuré derrière : tâche visée, 0 minute,
+ *  ni score ni run. C'est une déclaration, pas un exercice. */
+export const isCocheNue = (te: TrainingEvent): boolean =>
+  !!te.taskId && !te.laufId && !te.scores && te.spentMin === 0;
 
 /**
  * Les plans figés. **Seule exception au dernier-gagne du `sync-protocol.md`** :
@@ -116,15 +152,31 @@ export function projectDayPlans(events: ProgressEvent[], trainingEvents: Trainin
   }
   const doneByTask = new Map<string, TrainingEvent>();
   for (const te of trainingEvents) if (te.taskId) doneByTask.set(te.taskId, te);
+  // Toutes les tâches jamais figées pour un jour, tous appareils confondus.
+  const everTask = new Map<string, TaskInstance>();
+  for (const e of events) {
+    if ((e.type === 'plan.materialized' || e.type === 'plan.replanned') && e.subject_id) {
+      for (const t of taskList(e.payload)) everTask.set(t.id, t);
+    }
+  }
 
   const out: DayPlan[] = [];
   for (const [date, base] of materialized) {
     const bp = base.payload as Omit<DayPlan, 'date' | 'materializedAt'>;
     const rep = replanned.get(date);
-    const tasks = ((rep ? (rep.payload as { tasks: TaskInstance[] }).tasks : bp.tasks) ?? []).map((t) => {
+    const tasks = taskList(rep ? rep.payload : bp).map((t) => {
       const te = doneByTask.get(t.id);
       return te ? { ...t, doneAt: te.at, spentMin: te.spentMin, eventId: te.id } : { ...t, doneAt: undefined, spentMin: undefined, eventId: undefined };
     });
+    // D-I2 : une tâche faite dans le plan d'un AUTRE appareil (qui a perdu)
+    // coche la tâche équivalente du plan gagnant — même (kind, caseId, teil).
+    const ids = new Set(tasks.map((t) => t.id));
+    for (const te of trainingEvents) {
+      const orig = te.taskId && !ids.has(te.taskId) ? everTask.get(te.taskId) : undefined;
+      if (!orig || orig.date !== date) continue;
+      const i = tasks.findIndex((t) => t.doneAt === undefined && t.kind === orig.kind && t.caseId === orig.caseId && t.teil === orig.teil);
+      if (i >= 0) tasks[i] = { ...tasks[i], doneAt: te.at, spentMin: te.spentMin, eventId: te.id };
+    }
     out.push({
       date,
       materializedAt: new Date(base.occurred_at).getTime(),
@@ -137,6 +189,11 @@ export function projectDayPlans(events: ProgressEvent[], trainingEvents: Trainin
   }
   return out.sort((a, b) => (a.date < b.date ? -1 : 1));
 }
+
+const taskList = (payload: unknown): TaskInstance[] => {
+  const tasks = (payload as { tasks?: unknown })?.tasks;
+  return Array.isArray(tasks) ? tasks.filter((t): t is TaskInstance => !!t && typeof (t as TaskInstance).id === 'string') : [];
+};
 
 // ---------------------------------------------------------------------------
 // 3. La progression par Teil (contrat §4)
@@ -165,8 +222,8 @@ export function computeCaseProgress(trainingEvents: TrainingEvent[]): CaseProgre
       byCase.set(te.caseId, cp);
     }
     for (const t of te.teile) {
+      if (!TEIL_KEYS.includes(t)) continue;                 // S-M1 : jamais `__proto__` ni une clé inconnue
       const p = cp.teile[t];
-      if (!p) continue;
       p.attempts += 1;
       const s = te.scores?.[t];
       if (s != null) { p.lastScore = s; p.lastAt = te.at; }
@@ -231,7 +288,6 @@ export interface LogInput {
   caseId?: CaseId;
   teile?: SimTeil[];
   spentMin?: number;
-  scores?: Partial<Record<SimTeil, number>>;
   selbstbewertet?: boolean;
   profileId?: string;
   laufId?: string;
@@ -241,31 +297,55 @@ export interface LogInput {
   at?: number;
 }
 
-/** La tâche du jour que cet exercice satisfait, ou `undefined` (contrat §3.4).
- *  La machine s'adapte à l'humain : un exercice libre qui fait ce qui était
- *  prévu coche la tâche tout seul. Aucune tâche n'est CRÉÉE pour absorber un
- *  exercice libre. */
-export function satisfiedTask(plan: DayPlan | undefined, e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile'>): TaskInstance | undefined {
-  if (!plan || e.kind !== 'simulation' || !e.caseId) return undefined;
-  return plan.tasks.find((t) => t.doneAt === undefined
-    && t.kind === 'simulation'
-    && t.caseId === e.caseId
+const TASK_TO_TRAINING: Record<TaskKind, TrainingKind> = {
+  simulation: 'simulation',
+  drill: 'drill',
+  fachwissen: 'fiche',
+  aufklaerung: 'aufklaerung',
+  revision: 'simulation',
+  'examen-blanc': 'examen-blanc',
+};
+
+/**
+ * La tâche du jour que cet exercice satisfait, ou `undefined` (contrat §3.4,
+ * étendu par D-C4 à tous les genres). La machine s'adapte à l'humain : un
+ * exercice libre qui fait ce qui était prévu coche la tâche tout seul — une
+ * fiche lue coche la tâche Fachwissen du même cas, une séance de drill la tâche
+ * drill. Aucune tâche n'est CRÉÉE pour absorber un exercice libre.
+ * `absorbable` : événements « coche nue » qu'un exercice réel peut remplacer.
+ */
+export function satisfiedTask(
+  plan: DayPlan | undefined,
+  e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile'>,
+  absorbable: ReadonlySet<string> = new Set(),
+): TaskInstance | undefined {
+  if (!plan) return undefined;
+  const open = (t: TaskInstance) => t.doneAt === undefined || (!!t.eventId && absorbable.has(t.eventId));
+  return plan.tasks.find((t) => open(t)
+    && (TASK_TO_TRAINING[t.kind] === e.kind || (t.kind === 'simulation' && e.kind === 'examen-blanc'))
+    && (t.caseId === undefined ? t.kind === 'drill' : t.caseId === e.caseId)
     && (t.teil === undefined || e.teile.includes(t.teil)));
+}
+
+/** Résolution à l'écriture (D-C4) : la tâche du plan du jour de `at`. */
+async function resolveTask(at: number, e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile'>): Promise<string | undefined> {
+  const plan = await db.day_plans.get(dayKey(at));
+  if (!plan) return undefined;
+  const ids = plan.tasks.map((t) => t.eventId).filter((x): x is string => !!x);
+  const bare = new Set((await db.training_events.bulkGet(ids)).filter((te): te is TrainingEvent => !!te && isCocheNue(te)).map((te) => te.id));
+  return satisfiedTask(plan, e, bare)?.id;
 }
 
 /**
  * Écrit UN événement dans le journal et l'envoie à la synchro. C'est le seul
  * point d'écriture du journal hors `simulation.completed` (qui se dérive).
  * Ne bloque jamais sur le réseau : `syncQueue.push` écrit localement d'abord.
+ * `scores` n'est pas écrit : seul `simulation.completed` porte un score mesuré (S-I1).
  */
 export async function logTraining(input: LogInput): Promise<TrainingEvent> {
   const at = input.at ?? now();
   const teile = input.teile ?? [];
-  let taskId = input.taskId;
-  if (!taskId) {
-    const plan = await db.day_plans.get(dayKey(at));
-    taskId = satisfiedTask(plan, { kind: input.kind, caseId: input.caseId, teile })?.id;
-  }
+  const taskId = input.taskId ?? await resolveTask(at, { kind: input.kind, caseId: input.caseId, teile });
   const event: TrainingEvent = {
     id: newId(),
     at,
@@ -274,9 +354,8 @@ export async function logTraining(input: LogInput): Promise<TrainingEvent> {
     teile,
     source: taskId ? 'plan' : 'libre',
     ...(taskId ? { taskId } : {}),
-    spentMin: Math.max(0, Math.round(input.spentMin ?? 0)),
+    spentMin: Math.min(1440, Math.max(0, Math.round(input.spentMin ?? 0))),
     ...(input.laufId ? { laufId: input.laufId } : {}),
-    ...(input.scores ? { scores: input.scores } : {}),
     ...(input.selbstbewertet ? { selbstbewertet: true } : {}),
     ...(input.profileId ? { profileId: input.profileId } : {}),
   };
@@ -295,48 +374,56 @@ export async function logTraining(input: LogInput): Promise<TrainingEvent> {
   return event;
 }
 
-const TASK_TO_TRAINING: Record<TaskKind, TrainingKind> = {
-  simulation: 'simulation',
-  drill: 'drill',
-  fachwissen: 'fiche',
-  aufklaerung: 'aufklaerung',
-  revision: 'simulation',
-  'examen-blanc': 'examen-blanc',
-};
+const marking = new Map<string, Promise<TrainingEvent>>();
 
 /**
  * Cocher une tâche — y compris Fachwissen, examen à blanc et reprise de partie
  * faible, qui n'avaient aucune action « fait » (`ProgramPage.tsx:375-380`).
  * Cocher écrit un événement ; **rien d'autre ne bouge** (INV-1).
+ * IDEMPOTENT (I12) : une tâche déjà faite, ou en train d'être cochée (double
+ * clic), rend l'événement existant au lieu d'en écrire un second.
  */
 export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<TrainingEvent> {
-  return logTraining({
-    kind: TASK_TO_TRAINING[task.kind],
-    caseId: task.caseId,
-    teile: task.teil ? [task.teil] : [],
-    spentMin,
-    taskId: task.id,
-  });
+  const pending = marking.get(task.id);
+  if (pending) return pending;
+  const run = (async () => {
+    const cur = (await db.day_plans.get(task.date))?.tasks.find((t) => t.id === task.id);
+    const prior = cur?.eventId ? await db.training_events.get(cur.eventId) : undefined;
+    if (prior) return prior;
+    return logTraining({
+      kind: TASK_TO_TRAINING[task.kind],
+      caseId: task.caseId,
+      teile: task.teil ? [task.teil] : [],
+      spentMin,
+      taskId: task.id,
+    });
+  })().finally(() => marking.delete(task.id));
+  marking.set(task.id, run);
+  return run;
+}
+
+/**
+ * D-C4 — la simulation qu'on s'apprête à enregistrer, avec la tâche qu'elle
+ * satisfait. À appeler AVANT d'écrire `simulation.completed` : le `taskId` est
+ * PERSISTÉ dans la charge utile, donc rejoué à l'identique au rebuild. Un
+ * `taskId` explicite (lancé depuis le plan, R-C4) n'est jamais remplacé.
+ */
+export async function resolveSimulationTask(sim: Simulation): Promise<Simulation> {
+  if (sim.taskId) return sim;
+  const te = trainingEventFromSimulation(sim);
+  const taskId = await resolveTask(te.at, te);
+  return taskId ? { ...sim, taskId } : sim;
 }
 
 /**
  * Alimente le journal LOCAL depuis une simulation qui vient d'être enregistrée.
  *
  * `saveSimulation()` écrit `simulation.completed` dans `progress_events`, mais
- * rien n'alimentait `training_events` ni `case_progress` : la dérivation §2.3
- * n'était appliquée que par `rebuildProjections()`, elle-même appelée au seul
- * endroit où un PULL distant ramène des événements frais
- * (`lib/sync/queue.ts:100-103`). Hors ligne, ou simplement non connecté, une
- * simulation réellement jouée ne touchait donc AUCUNE projection : champ de
- * couverture vide, `detteTeil` figée à 1, indice de préparation aveugle.
- * Mesuré au navigateur : `scripts/e2e/programmeInvariants.mjs`, preuve P3.
- *
+ * rien n'alimentait `training_events` ni `case_progress` hors reconstruction.
  * La dérivation reste STRICTEMENT celle de `trainingEventFromSimulation()` —
- * même id déterministe, même `taskId` (celui porté par la simulation, jamais
- * cherché ici). Reconstruire ensuite depuis `progress_events` redonne
- * exactement le même état (INV-10). Une résolution de tâche par le contenu
- * (§3.4) ne peut PAS vivre ici : elle ne serait pas rejouable au rebuild, où
- * le plan se projette après le journal.
+ * même id déterministe, même `taskId` (celui porté par la simulation, posé par
+ * `resolveSimulationTask`). Reconstruire ensuite depuis `progress_events` redonne
+ * exactement le même état (INV-10).
  */
 export async function applySimulationToJournal(sim: Simulation): Promise<TrainingEvent> {
   const te = trainingEventFromSimulation(sim);
@@ -346,14 +433,22 @@ export async function applySimulationToJournal(sim: Simulation): Promise<Trainin
 }
 
 /** Met à jour les projections locales touchées par UN événement — sans relire
- *  tout le journal. La reconstruction complète reste `rebuildProjections()`. */
+ *  tout le journal. La reconstruction complète reste `rebuildJournal()`. La coche
+ *  va au plan qui PORTE la tâche, pas au jour de `event.at` (I12 : cocher après
+ *  minuit une tâche de la veille). */
 async function applyEventToLocalState(event: TrainingEvent): Promise<void> {
   if (event.taskId) {
-    const k = dayKey(event.at);
-    const plan = await db.day_plans.get(k);
+    const id = event.taskId;
+    const plan = (await db.day_plans.get(dayKey(event.at)))?.tasks.some((t) => t.id === id)
+      ? await db.day_plans.get(dayKey(event.at))
+      : await db.day_plans.filter((p) => p.tasks.some((t) => t.id === id)).first();
     if (plan) {
-      const tasks = plan.tasks.map((t) => (t.id === event.taskId
-        ? { ...t, doneAt: event.at, spentMin: event.spentMin, eventId: event.id } : t));
+      const prev = plan.tasks.find((t) => t.id === id)?.eventId;
+      if (prev && prev !== event.id && !isCocheNue(event)) {
+        const old = await db.training_events.get(prev);
+        if (old && isCocheNue(old)) await db.training_events.delete(prev);   // absorbée (D-C4), comme au rebuild
+      }
+      const tasks = plan.tasks.map((t) => (t.id === id ? { ...t, doneAt: event.at, spentMin: event.spentMin, eventId: event.id } : t));
       await db.day_plans.put({ ...plan, tasks });
     }
   }
