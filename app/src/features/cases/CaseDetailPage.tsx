@@ -147,7 +147,7 @@ export function CaseDetailPage() {
           {/* Colonne liens (interconnexion) */}
           <div className="space-y-4">
             {c.linkedFachwissenId && (
-              <Link to={`/fachwissen/${c.linkedFachwissenId}`} className="card flex items-center justify-between p-4 hover:border-brand-400">
+              <Link to={`/fachwissen/${c.linkedFachwissenId}?case=${encodeURIComponent(c.id)}`} className="card flex items-center justify-between p-4 hover:border-brand-400">
                 <span className="flex items-center gap-1.5 font-medium"><Icon name="nav-book" className="h-4 w-4" />Fachwissen</span><span className="text-slate-400">→</span>
               </Link>
             )}
