@@ -1,0 +1,71 @@
+✓ light-390 accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ light-390 .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.88) > rgba(255, 255, 255, 0.55))
+✓ light-390 .glass : flou rendu — blur(20px) saturate(1.8)
+✓ light-390 .card : filet supérieur plus clair (rgba(255, 255, 255, 0.9) > rgba(255, 255, 255, 0.6))
+✓ light-390 .card : flou rendu — blur(16px) saturate(1.6)
+✓ light-390 .panel : fond rgba(255, 255, 255, 0.45), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ light-390 .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ light-390 .input : fond rgba(255, 255, 255, 0.55), flou blur(8px) saturate(1.4)
+✓ light-390 tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ light-390 : le tiroir Doctopus se ferme par son bouton nomme
+✓ light-390 .btn-glass : « rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.85) > bord rgba(255, 255, 255, 0.45), flou blur(20px) saturate(1.8)
+✓ light-390 .seg : cran actif « Terme → sens », fond rgb(255, 255, 255), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » (interne)
+✓ light-390 .seg : cibles 94×44 / 94×44 px
+✓ light-390 .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ light-390 drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✗ light-390 : 1 erreur(s) JS — Failed to load resource: net::ERR_FAILED
+✓ light-390 : aucune requête en échec
+✓ dark-390 accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ dark-390 .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.26) > rgba(255, 255, 255, 0.1))
+✓ dark-390 .glass : flou rendu — blur(20px) saturate(1.8)
+✓ dark-390 .card : filet supérieur plus clair (rgba(255, 255, 255, 0.2) > rgba(255, 255, 255, 0.08))
+✓ dark-390 .card : flou rendu — blur(16px) saturate(1.6)
+✓ dark-390 .panel : fond rgba(255, 255, 255, 0.035), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ dark-390 .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ dark-390 .input : fond rgba(18, 33, 30, 0.45), flou blur(8px) saturate(1.4)
+✓ dark-390 tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ dark-390 : le tiroir Doctopus se ferme par son bouton nomme
+✓ dark-390 .btn-glass : « rgba(255, 255, 255, 0.14) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.26) > bord rgba(255, 255, 255, 0.1), flou blur(20px) saturate(1.8)
+✓ dark-390 .seg : cran actif « Terme → sens », fond rgb(18, 33, 30), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » (interne)
+✓ dark-390 .seg : cibles 94×44 / 94×44 px
+✓ dark-390 .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ dark-390 drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✗ dark-390 : 1 erreur(s) JS — Failed to load resource: net::ERR_FAILED
+✓ dark-390 : aucune requête en échec
+✓ light-desktop accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ light-desktop .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.88) > rgba(255, 255, 255, 0.55))
+✓ light-desktop .glass : flou rendu — blur(20px) saturate(1.8)
+✓ light-desktop .card : filet supérieur plus clair (rgba(255, 255, 255, 0.9) > rgba(255, 255, 255, 0.6))
+✓ light-desktop .card : flou rendu — blur(16px) saturate(1.6)
+✓ light-desktop .panel : fond rgba(255, 255, 255, 0.45), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ light-desktop .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ light-desktop .input : fond rgba(255, 255, 255, 0.55), flou blur(8px) saturate(1.4)
+✓ light-desktop tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ light-desktop : le tiroir Doctopus se ferme par son bouton nomme
+✓ light-desktop .btn-glass : « rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.85) > bord rgba(255, 255, 255, 0.45), flou blur(20px) saturate(1.8)
+✓ light-desktop .seg : cran actif « Terme → sens », fond rgb(255, 255, 255), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » (interne)
+✓ light-desktop .seg : cibles 94×44 / 94×44 px
+✓ light-desktop .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ light-desktop drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✗ light-desktop : 1 erreur(s) JS — Failed to load resource: net::ERR_FAILED
+✓ light-desktop : aucune requête en échec
+✓ dark-desktop accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ dark-desktop .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.26) > rgba(255, 255, 255, 0.1))
+✓ dark-desktop .glass : flou rendu — blur(20px) saturate(1.8)
+✓ dark-desktop .card : filet supérieur plus clair (rgba(255, 255, 255, 0.2) > rgba(255, 255, 255, 0.08))
+✓ dark-desktop .card : flou rendu — blur(16px) saturate(1.6)
+✓ dark-desktop .panel : fond rgba(255, 255, 255, 0.035), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ dark-desktop .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ dark-desktop .input : fond rgba(18, 33, 30, 0.45), flou blur(8px) saturate(1.4)
+✓ dark-desktop tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ dark-desktop : le tiroir Doctopus se ferme par son bouton nomme
+✓ dark-desktop .btn-glass : « rgba(255, 255, 255, 0.14) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.26) > bord rgba(255, 255, 255, 0.1), flou blur(20px) saturate(1.8)
+✓ dark-desktop .seg : cran actif « Terme → sens », fond rgb(18, 33, 30), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » (interne)
+✓ dark-desktop .seg : cibles 94×44 / 94×44 px
+✓ dark-desktop .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ dark-desktop drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✗ dark-desktop : 1 erreur(s) JS — Failed to load resource: net::ERR_FAILED
+✓ dark-desktop : aucune requête en échec
+
+64 OK / 4 KO · 32 captures → /private/tmp/claude-501/-Users-MehdiBoukari-Downloads-FSP-VB-Claude-FSP/fab928bf-94b4-4f3f-b28b-69e62e6e776f/scratchpad/shots
+VERIFY=1
