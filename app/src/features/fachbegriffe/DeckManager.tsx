@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Deck } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { createDeck, renameDeck } from '@/lib/collections';
-import { scheduleDeletion, usePendingDeletions } from '@/lib/collections/pendingDeletion';
+import { scheduleDeletion } from '@/lib/collections/pendingDeletion';
 import { m, slide } from '@/lib/motion';
 import { useCardToast } from '@/store/cardToast';
 import { Icon } from '@/components/icons';
@@ -52,7 +52,6 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
 export function DeckManager({ decks, counts, onClose }: {
   decks: Deck[]; counts: Record<string, number>; onClose: () => void;
 }) {
-  const hidden = usePendingDeletions((s) => s.ids);
   const [name, setName] = useState('');
   const [error, setError] = useState<string | null>(null);
   const create = async () => {
@@ -60,14 +59,16 @@ export function DeckManager({ decks, counts, onClose }: {
     catch (e) { setError(e instanceof Error && e.message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : 'Impossible de créer le deck.'); }
   };
   const ref = useRef<HTMLElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   useEffect(() => {
-    ref.current?.focus();
     const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    ref.current?.focus();
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCloseRef.current(); };
     document.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
-  }, [onClose]);
-  const shown = decks.filter((d) => !hidden.has(d.id)).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  }, []);
+  const shown = [...decks].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   return (
     <Portal>
       <m.div key="deck-manager-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[55] bg-slate-900/15" onClick={onClose} />
