@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useFachwissen, useCases, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
@@ -12,6 +12,7 @@ import { DDTable } from '@/components/DDTable';
 import { VisualBlock } from '@/components/visuals';
 import { useVisualSpec } from './useVisualSpec';
 import { Section, CollapsedSection, Repli, SymptomList, splitByCollapse, isFieldCollapsed } from './visualSections';
+import { MarkWorked } from '@/features/program/MarkWorked';
 
 /** Ordre des sections référençables de la colonne principale (contrat §3.3).
  *  `definition` n'est jamais un `anchor` possible (hors `SectionKey`). */
@@ -28,6 +29,7 @@ const SECTION_ORDER: SectionKey[] = [
 
 export function FachwissenDetailPage() {
   const { id } = useParams();
+  const [params] = useSearchParams();
   const fw = useFachwissen(id);
   const cases = useCases();
   const aufk = useAufklaerungen();
@@ -348,6 +350,13 @@ export function FachwissenDetailPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Fin de fiche : la lecture entre dans le journal (B-C3). Le cas vient du
+          lien qui a mené ici (`?case=`), ou du seul cas lié. */}
+      <div className="flex justify-end border-t border-slate-100 pt-4 dark:border-slate-800">
+        <MarkWorked key={fw.id} kind="fiche" label="Fiche lue"
+          caseId={params.get('case') ?? (fw.linkedCaseIds.length === 1 ? fw.linkedCaseIds[0] : undefined)} />
       </div>
     </div>
   );
