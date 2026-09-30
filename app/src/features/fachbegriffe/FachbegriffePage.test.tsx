@@ -97,4 +97,10 @@ describe('FachbegriffePage', () => {
     expect(await screen.findByRole('tab', { name: /mon deck/i })).toBeTruthy();
     expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
   });
+  it('« ⋯ » ouvre le tiroir de gestion des decks', async () => {
+    renderAt();
+    await screen.findByText('Abdomen');
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    expect(await screen.findByRole('dialog', { name: 'Decks' })).toBeTruthy();
+  });
 });
