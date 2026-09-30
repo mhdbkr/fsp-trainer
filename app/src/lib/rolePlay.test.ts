@@ -22,3 +22,23 @@ describe('Rollenskript — questions du cas', () => {
     expect(buildRollenskript(sheet).every((c) => c.lines.every((l) => !l.improvise))).toBe(true);
   });
 });
+
+// Item 12 (revue du site) : la fiche et l'export suivent la trame JOUÉE du cas.
+describe('Rollenskript — trame jouée', () => {
+  const s = { ...sheet, antworten: { 'akt-motiv': 'Ich habe Bauchschmerzen.', 'frau-wechseljahre': 'Noch nicht.', 'veg-uebelkeit': 'Mir ist übel.' } } as unknown as PatientSheet;
+  const played = new Map([['akt-motiv', 'Was führt Sie heute zu uns?']]);
+  const lines = (qs: CaseQuestion[] = []) => buildRollenskript(s, qs, played).flatMap((c) => c.lines);
+  it('pose la question jouée, et garde sans question la réplique d’une sonde non posée', () => {
+    expect(lines().find((l) => l.probeId === 'akt-motiv')!.frage).toBe('Was führt Sie heute zu uns?');
+    const w = lines().find((l) => l.probeId === 'frau-wechseljahre')!;
+    expect(w.frage).toBeUndefined();
+    expect(w.antwort).toBe('Noch nicht.');
+  });
+  it('la question du cas qui remplace une sonde (`sucht`) en reprend la réplique', () => {
+    const q: CaseQuestion = { frage: 'War Blut im Erbrochenen?', kapitel: 'aktuell', sucht: ['uebelkeit'] };
+    const l = lines([q]).find((x) => x.frage === 'War Blut im Erbrochenen?')!;
+    expect(l.antwort).toBe('Mir ist übel.');
+    expect(l.improvise).toBeUndefined();
+    expect(lines([q]).some((x) => x.probeId === 'veg-uebelkeit')).toBe(false);
+  });
+});

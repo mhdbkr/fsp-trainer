@@ -20,6 +20,7 @@
 // ============================================================================
 import type { Case, PatientSheet } from '@/db/types';
 import { buildRollenskript } from '@/lib/rolePlay';
+import { playedQuestionsByProbe } from '@/data/guides/anamneseChapters';
 
 export type Scope = 'anamnese' | 'exam' | 'exam+feedback';
 export type FeedbackLang = 'fr' | 'de';
@@ -70,9 +71,13 @@ const stripNegativRationale = (antwort: string) => antwort.replace(NEGATIV_RATIO
  *  résumé (leitsymptome…) est déjà donné dans « Wer du bist ».
  *  `secondaryToFakten` : pour les chapitres secondaires SEULEMENT (dernier
  *  niveau de compaction, 'ac'), remplace les répliques par leur résumé
- *  « Fakten » — c'est alors le seul cas où Fakten et repli coexistent. */
-function knowledge(s: PatientSheet, secondaryToFakten: boolean): string {
-  const chapters = buildRollenskript(s);
+ *  « Fakten » — c'est alors le seul cas où Fakten et repli coexistent.
+ *  La trame est celle que le guide joue pour ce cas (âge, sexe, un symptôme
+ *  une question) ; une question du cas sans réplique n'est pas listée. */
+function knowledge(c: Case, secondaryToFakten: boolean): string {
+  const s = c.patientSheet;
+  const chapters = buildRollenskript(s, c.caseSpecificQuestions, playedQuestionsByProbe(c))
+    .map((ch) => ({ ...ch, lines: ch.lines.filter((l) => !l.improvise) }));
   return chapters.map((ch) => {
     const hasLines = ch.lines.length > 0;
     const collapse = secondaryToFakten && SECONDARY_CHAPTERS.has(ch.id) && hasLines;
@@ -84,7 +89,12 @@ function knowledge(s: PatientSheet, secondaryToFakten: boolean): string {
   }).join('\n');
 }
 
-const DIAGNOSIS_NOTE = 'Alles in diesem Teil weiß nur die Oberärztin/der Oberarzt. Als Patient/Patientin kennst du nichts davon und deutest es nie an.';
+/** Le rôle se dit au genre du cas : « eine Patientin », « ein Patient ». */
+const rolle = (s: PatientSheet) => (s.personalia.geschlecht === 'w'
+  ? { ein: 'eine Patientin', einen: 'eine Patientin', nom: 'Patientin' }
+  : { ein: 'ein Patient', einen: 'einen Patienten', nom: 'Patient' });
+
+const diagnosisNote = (nom: string) => `Alles in diesem Teil weiß nur die Oberärztin/der Oberarzt. Als ${nom} kennst du nichts davon und deutest es nie an.`;
 
 // E — régie française résiduelle dans examinerSheet[].interactions[].reaktion
 // (notes internes du simulant humain, jamais destinées à l'IA externe).
@@ -158,6 +168,7 @@ export function stripFrenchDirections(s: string): string {
  *  seul repli possible ici est non destructif : retirer les « (erwartet: …) »,
  *  jamais les thèmes ni les questions elles-mêmes. */
 function oberarzt(c: Case, dropErwartet: boolean, withFeedback: boolean): string {
+  const r = rolle(c.patientSheet);
   const sections = (c.examinerSheet ?? []).map((sec) => join([
     `- ${sec.title}:`,
     ...sec.interactions.map((i) => {
@@ -168,8 +179,8 @@ function oberarzt(c: Case, dropErwartet: boolean, withFeedback: boolean): string
   const extra = (c.examinerQuestions ?? []).map((q) => `  - ${q}`);
   return join([
     '# Teil 3 – Oberärztin/Oberarzt',
-    'Wenn die Ärztin/der Arzt „Fallvorstellung“ sagt, wechselst du die Rolle: Du bist jetzt die Oberärztin/der Oberarzt. Eröffne mit der ersten Frage unten. Hör dann vollständig zu. Stelle danach die Fragen in dieser Reihenfolge, eine nach der anderen, und warte jeweils die Antwort ab. Die Patientenregeln oben gelten jetzt nicht mehr: Du sprichst jetzt Fachsprache und trittst dabei fordernd, aber wohlwollend auf. Keine ungefragte Hilfe. Bleib in dieser Rolle, bis ' + (withFeedback ? '„Feedback“ oder „Ende“' : '„Ende“') + ' gesagt wird.',
-    DIAGNOSIS_NOTE,
+    `Wenn die Ärztin/der Arzt „Fallvorstellung“ sagt, wechselst du die Rolle: Du bist jetzt die Oberärztin/der Oberarzt. Eröffne mit der ersten Frage unten. Hör dann vollständig zu. Stelle danach die Fragen in dieser Reihenfolge, eine nach der anderen, und warte jeweils die Antwort ab. Die Regeln für die Rolle als ${r.nom} gelten jetzt nicht mehr: Du sprichst jetzt Fachsprache und trittst dabei fordernd, aber wohlwollend auf. Keine ungefragte Hilfe. Bleib in dieser Rolle, bis ${withFeedback ? '„Feedback“ oder „Ende“' : '„Ende“'} gesagt wird.`,
+    diagnosisNote(r.nom),
     ...sections,
     extra.length ? join(['- Weitere Prüferfragen:', ...extra]) : null,
   ]);
@@ -197,18 +208,20 @@ function feedback(lang: FeedbackLang, topTerms: string[]): string {
  *  niveau de cascade : il est toujours actif (voir `knowledge`). */
 export function buildExternalPromptDetailed(i: PromptInput): DetailedPrompt {
   const s = i.c.patientSheet;
+  const r = rolle(s);
+  const bleib = `- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib ${r.nom}, äußere höchstens eine Sorge in deinen Worten.`;
   const withRole = (dropErwartet: boolean, secondaryToFakten: boolean) => join([
     '# Rolle',
-    'Du spielst eine Patientin / einen Patienten in einer Simulation der Fachsprachprüfung Medizin (Deutschland). Die Ärztin/der Arzt führt das Anamnesegespräch. Regeln:',
+    `Du spielst ${r.einen} in einer Simulation der Fachsprachprüfung Medizin (Deutschland). Die Ärztin/der Arzt führt das Anamnesegespräch. Regeln:`,
     '- Antworte auf das, was gefragt wird – kurz, meist ein bis zwei Sätze. Steht unten eine passende Antwort, nimm sie so, wie sie dasteht. Was die Regieanweisung dir vorgibt (Sorgen, falsche Fährten, Nachfragen), sprichst du von dir aus an.',
-    '- Sprich wie ein Patient: keine Fachbegriffe, sondern Umgangssprache, und beschreibe deine Gefühle.',
+    `- Sprich wie ${r.ein}: keine Fachbegriffe, sondern Umgangssprache, und beschreibe deine Gefühle.`,
     '- Nenne nie eine Diagnose – du weißt nicht, was du hast. Erfinde keine neuen Fakten; wenn etwas nicht unten steht, sag „Das weiß ich nicht“ oder bleib vage.',
     '- Bleib in der Rolle, auch wenn die Ärztin/der Arzt aus dem Rahmen fällt.',
     i.scope === 'anamnese'
-      ? '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über das Wort „Ende“.'
+      ? `${bleib} Rollenwechsel gibt es nur über das Wort „Ende“.`
       : i.scope === 'exam'
-        ? '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“ und „Ende“.'
-        : '- Fragt dich die Ärztin/der Arzt, was du hast, oder fordert dich auf, die Rolle zu verlassen: Bleib Patient/Patientin, äußere höchstens eine Sorge in deinen Worten. Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“, „Feedback“ und „Ende“.',
+        ? `${bleib} Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“ und „Ende“.`
+        : `${bleib} Rollenwechsel gibt es nur über die Wörter „Fallvorstellung“, „Feedback“ und „Ende“.`,
     '',
     '# Wer du bist',
     personalia(s),
@@ -217,7 +230,7 @@ export function buildExternalPromptDetailed(i: PromptInput): DetailedPrompt {
     s.begleitsymptome?.length ? `- Außerdem: ${s.begleitsymptome.join('; ')}` : null,
     '',
     '# Was du weißt (antworte nur, wenn danach gefragt wird)',
-    knowledge(s, secondaryToFakten),
+    knowledge(i.c, secondaryToFakten),
     s.schwierigeReaktionen?.length ? join(['', '# Schwierige Momente', ...s.schwierigeReaktionen.map((r) => `- ${r}`)]) : null,
     i.scope !== 'anamnese' ? join(['', oberarzt(i.c, dropErwartet, i.scope === 'exam+feedback')]) : null,
     i.scope === 'exam+feedback' ? join(['', feedback(i.feedbackLang, i.topTerms)]) : null,

@@ -1,6 +1,7 @@
 import type { CaseQuestion, PatientSheet, RolePlayKapitel } from '@/db/types';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { PROBE_BY_ID, PROBE_ORDER } from '@/data/guides/anamneseProbes';
+import { PROBE_SUCHT, type Symptom } from '@/data/guides/symptoms';
 
 // ============================================================================
 // Rollenskript — transforme la fiche patient en SCRIPT DE JEU structuré par
@@ -85,16 +86,31 @@ function glanceFor(id: RolePlayKapitel, s: PatientSheet): string[] {
  *  Source primaire = `antworten` (carte probeId → réplique) : chaque réponse est
  *  reliée à sa sonde canonique (question + chapitre + ordre d'entretien), donc
  *  la couverture suit le guide sans dérive. `frageAntworten` (ad-hoc) et
- *  `negativeFindings` sont ajoutés ensuite pour rétrocompatibilité. */
-export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestion[] = []): RoleChapter[] {
+ *  `negativeFindings` sont ajoutés ensuite pour rétrocompatibilité.
+ *  `played` (playedQuestionsByProbe) : la question telle que le guide la pose
+ *  pour CE cas ; une sonde qu'il ne pose pas (âge, doublon) garde sa réplique
+ *  sans question. */
+export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestion[] = [], played?: Map<string, string>): RoleChapter[] {
   const byId = new Map<RolePlayKapitel, (RoleLine & { ord: number })[]>();
   for (const meta of CHAPTER_META) byId.set(meta.id, []);
+
+  // Une question du cas qui cherche un symptôme (`sucht`) remplace la sonde
+  // générale dans la trame : la réplique de la sonde la suit.
+  const takenOver = new Map<CaseQuestion, string[]>();
+  // Ordre de l'entretien : celui de la trame jouée ; une réplique sans question en fin de chapitre.
+  const playedRank = new Map([...(played?.keys() ?? [])].map((id, i) => [id, i]));
+  const takerOf = (probeId: string) => caseQuestions.find((q) => typeof q !== 'string' && q.sucht?.some((s) => PROBE_SUCHT[probeId]?.includes(s as Symptom)));
 
   // 1) Réponses aux sondes canoniques (pilotées par la checklist du guide).
   for (const [probeId, antwort] of Object.entries(sheet.antworten ?? {})) {
     if (!antwort) continue;
     const probe = PROBE_BY_ID[probeId];
-    if (probe) byId.get(probe.kapitel)!.push({ frage: probe.frage, antwort, probeId, ord: PROBE_ORDER[probeId] ?? 999 });
+    // Sonde que le guide ne pose pas pour ce cas : la réplique reste (fidélité,
+    // ADR D7), sans la question — ou suit la question du cas qui la remplace.
+    const asked = !probe || !played || played.has(probeId);
+    const q = asked ? undefined : takerOf(probeId);
+    if (q) { takenOver.set(q, [...(takenOver.get(q) ?? []), antwort]); continue; }
+    if (probe) byId.get(probe.kapitel)!.push({ ...(asked ? { frage: played?.get(probeId) ?? probe.frage } : {}), antwort, probeId, ord: playedRank.get(probeId) ?? (played ? 900 + (PROBE_ORDER[probeId] ?? 99) / 1000 : PROBE_ORDER[probeId] ?? 999) });
     else byId.get(classifyLine(antwort))!.push({ antwort, ord: 999 }); // id inconnu : on n'écarte pas le contenu
   }
   // 2) Répliques ad-hoc éventuelles (hors checklist) — placées après les sondes.
@@ -110,10 +126,12 @@ export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuesti
 
   // 4) Questions propres au cas (FB2-J8) : le candidat va les poser, le
   //    simulant doit au moins les VOIR dans son chapitre. La réplique
-  //    s'improvise depuis le « coup d'œil » juste au-dessus.
+  //    s'improvise depuis le « coup d'œil » juste au-dessus — sauf si elle a
+  //    repris la réplique d'une sonde qu'elle remplace.
   for (const q of caseQuestions) {
     const k = cqKapitel(q);
-    byId.get(k === 'fach' ? 'fach' : (k as RolePlayKapitel))?.push({ frage: cqText(q), antwort: '', improvise: true, ord: 1002 });
+    const antwort = [...new Set(takenOver.get(q) ?? [])].join(' ');
+    byId.get(k === 'fach' ? 'fach' : (k as RolePlayKapitel))?.push({ frage: cqText(q), antwort, ...(antwort ? {} : { improvise: true }), ord: 1002 });
   }
 
   return CHAPTER_META
