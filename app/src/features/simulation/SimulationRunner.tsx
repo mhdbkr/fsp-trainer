@@ -264,7 +264,7 @@ export function SimulationRunner() {
                       <Icon name="id" className="h-4 w-4" /> QR
                     </button>
                     <button onClick={steuerung.aufklaerungOeffnen}
-                      disabled={lauf.zustand !== 'laufend' || partKey === 'aufklaerung'}
+                      disabled={lauf.zustand !== 'laufend' || partKey === 'aufklaerung' || lauf.teileGespielt.includes('aufklaerung')}
                       className={`chip shrink-0 disabled:opacity-40 ${partKey === 'aufklaerung' ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
                       title="Le jury peut demander une Aufklärung à tout moment">
                       <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung

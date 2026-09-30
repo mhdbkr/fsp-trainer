@@ -212,6 +212,18 @@ describe('Aufklärung — jamais de retour en dur à « anamnese »', () => {
     expect(l.zustand).toBe('laufend');
   });
 
+  it('M4 — UNE Aufklärung par run : une seconde est refusée (ni chrono hérité, ni cases déjà cochées)', () => {
+    let l = demarre(base());
+    l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: AUFK });
+    l = tickChrono(l, 'aufklaerung', 240);
+    l = setzeChecklistItem(l, 'aufk-einleitung', true);
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'partieSuivante' });          // retour à l'Anamnese
+    expect(l.aktuellerTeil).toBe('anamnese');
+    const avant = l;
+    expect(transition(l, { typ: 'aufklaerungOeffnen', checkliste: AUFK })).toBe(avant);
+  });
+
   it('une Aufklärung jouée ne rend pas le run complet', () => {
     let l = demarre(base({ geplanteTeile: ['anamnese'], modus: 'teil' }));
     l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: AUFK });

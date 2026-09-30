@@ -234,6 +234,10 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // PAS un changement d'état : le jury interrompt, on reste `laufend`.
       // L'ordre total porte sur `zustand`, pas sur le Teil.
       if (lauf.zustand !== 'laufend' || lauf.aktuellerTeil === 'aufklaerung') return lauf;
+      // UNE Aufklärung par run (M4) — comme à l'examen, et le Lauf n'a qu'une
+      // place pour elle (`teile.aufklaerung`). Une seconde reprenait le chrono
+      // de la première (monotone) et ses cases déjà cochées : refusée.
+      if (lauf.teileGespielt.includes('aufklaerung')) return lauf;
       // `aktuellerTeil` est déjà narrowé hors de `'aufklaerung'` par la garde
       // ci-dessus : c'est donc un `SimTeil`, le Teil d'où le jury interrompt.
       const vorher = lauf.aktuellerTeil;
