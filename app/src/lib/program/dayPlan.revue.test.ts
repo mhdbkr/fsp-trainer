@@ -12,7 +12,7 @@ import { db } from '@/db/db';
 import type { Case, CaseProgress, ProgramConfig, Specialty, TaskInstance } from '@/db/types';
 import { markTaskDone } from '@/lib/journal';
 import { freezeAt, resetClock } from '@/lib/clock';
-import { buildTasks, dayTargetMin, ensureDayPlan, replanifier, type BuildInput } from './dayPlan';
+import { buildTasks, dayTargetMin, ensureDayPlan, projectedDays, replanifier, type BuildInput } from './dayPlan';
 
 const SPECS: Specialty[] = ['Kardiologie', 'Gastroenterologie', 'Pneumologie', 'Neurologie', 'Nephrologie', 'Endokrinologie'];
 const corpus = (n = 24): Case[] => Array.from({ length: n }, (_, i) => ({
@@ -129,5 +129,19 @@ describe('fraîcheur — seul un Teil JOUÉ compte comme dernier jeu (§5.1)', (
     const sans = buildTasks(input(), ids()).map((t) => t.caseId);
     const avec = buildTasks(input({ trainingEvents: [lu] }), ids()).map((t) => t.caseId);
     expect(avec).toEqual(sans);
+  });
+});
+
+describe('I6 — la projection des jours futurs (contrat §3.2, §7)', () => {
+  it('projectedDays : les jours à venir ont une projection sans identité, rien n\'est figé', async () => {
+    freezeAt(new Date(2026, 9, 1, 8, 0));
+    await seed();
+    await ensureDayPlan();
+    const before = await db.day_plans.count();
+    const out = await projectedDays(['2026-09-30', '2026-10-01', '2026-10-02', '2026-10-03']);
+    expect([...out.keys()]).toEqual(['2026-10-02']);                 // ni le passé, ni aujourd'hui, ni un jour off (samedi 3)
+    expect(out.get('2026-10-02')!.length).toBeGreaterThan(0);
+    expect(out.get('2026-10-02')!.every((t) => t.id.startsWith('projection:'))).toBe(true);
+    expect(await db.day_plans.count()).toBe(before);
   });
 });
