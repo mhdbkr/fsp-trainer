@@ -236,3 +236,11 @@ describe('Re-revue — mineur 9 : un échec d’écriture ne fige jamais l’éc
     expect(result.current.lauf?.zustand).toBe('gespeichert');
   });
 });
+
+describe('mineur 7 — pas de sortie qui jette une partie jouée', () => {
+  it('le hook n’expose plus `abbrechen` (suppression muette, contraire au §3.1)', async () => {
+    const { result } = starte(fall('c1'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect('abbrechen' in result.current).toBe(false);
+  });
+});

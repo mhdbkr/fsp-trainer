@@ -51,7 +51,6 @@ export interface LaufSteuerung {
   /** checkliste|arztbrief → gespeichert, puis écriture idempotente. Rend l'id
    *  de la simulation enregistrée, ou `null` si l'automate refuse. */
   beenden: () => Promise<string | null>;
-  abbrechen: () => Promise<void>;
 }
 
 export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerung {
@@ -191,11 +190,5 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     }
   }, [lauf, c]);
 
-  const abbrechen = useCallback(async () => {
-    await verwerfeAktivenLauf();
-    useSimSession.getState().end();
-    setLauf(null);
-  }, []);
-
-  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, arztbriefSchreiben, beenden, abbrechen };
+  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, arztbriefSchreiben, beenden };
 }
