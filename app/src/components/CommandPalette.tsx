@@ -41,7 +41,9 @@ export function CommandPalette() {
   useEffect(() => { if (open) { setQ(''); setSel(0); setTimeout(() => inputRef.current?.focus(), 30); } }, [open]);
 
   const items = useMemo<Item[]>(() => {
-    const go = (to: string) => () => { navigate(to); setOpen(false); };
+    // `viewTransition` : la palette est une navigation comme une autre — même
+    // transition que la barre latérale, sinon deux grammaires pour un même geste.
+    const go = (to: string) => () => { navigate(to, { viewTransition: true }); setOpen(false); };
     const mods: Item[] = NAV.map((n) => ({ id: `nav:${n.to}`, label: n.label, group: 'Modules', icon: <Icon name={n.icon} className="h-4 w-4" />, run: go(n.to) }));
     const actions: Item[] = [
       { id: 'a:drill', label: 'Lancer le drill Fachbegriffe', group: 'Actions', icon: <Icon name="nav-abc" className="h-4 w-4" />, run: go('/fachbegriffe/drill') },

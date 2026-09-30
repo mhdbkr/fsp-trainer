@@ -56,7 +56,7 @@ function AccountLink({ dock = false }: { dock?: boolean }) {
   const label = authed ? 'Compte' : 'Se connecter';
   if (dock) {
     return (
-      <NavLink to={to} title={label}
+      <NavLink viewTransition to={to} title={label}
         className="group relative grid h-11 w-11 place-items-center rounded-2xl text-slate-500 transition-colors duration-100 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white">
         <Icon name="user" className="h-[19px] w-[19px]" />
         <span className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-ink-600">{label}</span>
@@ -64,7 +64,7 @@ function AccountLink({ dock = false }: { dock?: boolean }) {
     );
   }
   return (
-    <NavLink to={to} className="btn-ghost w-full justify-center md:justify-start">
+    <NavLink viewTransition to={to} className="btn-ghost w-full justify-center md:justify-start">
       <Icon name="user" className="h-[18px] w-[18px]" title={label} />
       <span className="hidden md:inline">{label}</span>
     </NavLink>
@@ -89,9 +89,14 @@ function FullSidebar({ onCollapse }: { onCollapse: () => void }) {
         </button>
       </div>
 
+      {/* `viewTransition` sur tous les NavLink (s3-primitives T5) : la couche de
+          navigation est le point d'entrée de 90 % des changements de page ;
+          c'est elle qui déclenche la transition native. Les <Link> internes aux
+          écrans (fiches, listes) restent à raccorder par leurs chantiers —
+          sans le drapeau, la navigation reste instantanée, jamais cassée. */}
       <nav className="flex-1 space-y-0.5 px-2 py-2">
         {NAV.map((n) => (
-          <NavLink key={n.to} to={n.to} end={n.to === '/'}
+          <NavLink viewTransition key={n.to} to={n.to} end={n.to === '/'}
             className={({ isActive }) =>
               `group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150 ${
                 isActive
@@ -187,7 +192,7 @@ function DockRail({ onExpand }: { onExpand: () => void }) {
 
         <nav className="flex flex-1 flex-col items-center gap-1.5">
           {NAV.map((n, i) => (
-            <NavLink key={n.to} to={n.to} end={n.to === '/'} title={n.label} data-dock-slot style={tile(i + 1)}
+            <NavLink viewTransition key={n.to} to={n.to} end={n.to === '/'} title={n.label} data-dock-slot style={tile(i + 1)}
               className={({ isActive }) =>
                 `group relative grid h-11 w-11 place-items-center rounded-2xl transition-[transform,background-color,color] duration-100 ${
                   isActive
