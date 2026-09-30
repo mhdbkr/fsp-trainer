@@ -36,6 +36,26 @@ describe('CardToast — accessibilité (G1-16, G1-18, G1-21)', () => {
     expect(await screen.findByRole('alert')).toBeTruthy();
     expect(screen.getAllByRole('status')).toHaveLength(1);
   });
+  it('le focus retourne à l\'élément d\'avant quand la pilule disparaît (Échap, Annuler) ; sinon <main> (G1-28)', async () => {
+    render(<><main tabIndex={-1}>m</main><button type="button">ouvreur</button><CardToast /></>);
+    const opener = screen.getByRole('button', { name: 'ouvreur' });
+    opener.focus();
+    act(() => useCardToast.getState().show({ kind: 'error', message: 'x' }));
+    act(() => useCardToast.getState().hide());
+    expect(document.activeElement).toBe(opener);   // pas de focus pris : on ne vole rien
+    act(() => useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd9', name: 'Leber' }, { focus: true }));
+    const undo = await screen.findByRole('button', { name: 'Annuler' });
+    await waitFor(() => expect(document.activeElement).toBe(undo));
+    fireEvent.keyDown(undo, { key: 'Escape' });
+    await waitFor(() => expect(document.activeElement).toBe(opener));
+    const gone = document.body.appendChild(document.createElement('button')); gone.focus();
+    act(() => useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd8', name: 'Niere' }, { focus: true }));
+    const undo2 = await screen.findByRole('button', { name: 'Annuler' });
+    await waitFor(() => expect(document.activeElement).toBe(undo2));
+    gone.remove();   // l'ouvreur (la ligne supprimée) n'existe plus
+    act(() => useCardToast.getState().hide());
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('main')));
+  });
   it('Échap ailleurs (ex. dans un tiroir) ne ferme PAS la pilule ; Échap dans la pilule la ferme', async () => {
     render(<CardToast />);
     act(() => useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd1', name: 'Leber' }));

@@ -43,7 +43,23 @@ export function CardToast() {
   const deckToastId = toast?.kind === 'deck-deleted' ? toast.deckId : null;
   useEffect(() => { setOpen(false); setFlipped(false); setChoosing(false); setTouched(false); }, [termId, deckToastId, toast?.kind]);
   focusNext.current = wantFocus && !!toast;
-  const takeFocus = (el: HTMLButtonElement | null) => { if (el && focusNext.current) { focusNext.current = false; useCardToast.setState({ focus: false }); el.focus(); } };
+  const returnTo = useRef<HTMLElement | null>(null);   // l'élément focalisé avant que la pilule prenne le focus (G1-28)
+  const rootRef = useRef<HTMLDivElement>(null);
+  const takeFocus = (el: HTMLButtonElement | null) => {
+    if (el && focusNext.current) {
+      focusNext.current = false; useCardToast.setState({ focus: false });
+      returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      el.focus();
+    }
+  };
+  // Pilule disparue (Échap, Annuler, délai) alors que le focus y était : on le rend, sinon <main>.
+  useEffect(() => {
+    if (toast || !returnTo.current) return;
+    const back = returnTo.current; returnTo.current = null;
+    const at = document.activeElement;
+    if (at && at !== document.body && !rootRef.current?.contains(at)) return;   // l'utilisateur est parti ailleurs
+    (back.isConnected && back !== document.body ? back : document.querySelector<HTMLElement>('main'))?.focus();
+  }, [toast]);
   useEffect(() => {
     if (!toast || (touched && toast.kind === 'saved')) return;
     const t = setTimeout(hide, toast.kind === 'deleted' || toast.kind === 'deck-deleted' ? DELETE_DELAY_MS : SAVED_MS);
@@ -119,7 +135,7 @@ export function CardToast() {
   }
   return (
     <Portal>
-      <div onKeyDown={(e) => { if (e.key === 'Escape' && toast) { e.stopPropagation(); hide(); } }}
+      <div ref={rootRef} onKeyDown={(e) => { if (e.key === 'Escape' && toast) { e.stopPropagation(); hide(); } }}
         className="pointer-events-none fixed inset-x-4 bottom-4 z-[90] mx-auto flex max-w-md justify-center">
         <p role="status" className="sr-only">{announce}</p>
         <AnimatePresence mode="wait">{body}</AnimatePresence>
