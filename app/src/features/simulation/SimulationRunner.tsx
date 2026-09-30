@@ -11,7 +11,7 @@ import { CaseContext } from '@/features/fachbegriffe/CaseContext';
 import { termsOfCase } from '@/lib/collections/caseTerms';
 import { useTimer } from './useTimer';
 import { useLauf } from './useLauf';
-import { checklisteFuer, hatSprachgitter, naechsterTeil } from '@/lib/lauf/automat';
+import { checklisteFuer, hatSprachgitter, naechsterTeil, simulationBeendbar } from '@/lib/lauf/automat';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
 import { emptyLanguageGrid } from '@/lib/scoring';
 import { computeAmbiance } from './timeAmbiance';
@@ -349,7 +349,7 @@ export function SimulationRunner() {
                     {/* Visible dans le BILAN seulement (règle 8 amendée) :
                         pendant `laufend`, la seule sortie est « Terminer la
                         partie ». */}
-                    {lauf.zustand === 'bilanz' && (
+                    {simulationBeendbar(lauf) && (
                       <button onClick={steuerung.versChecklist} className="btn-primary text-xs" title="Vers la checklist de fin">
                         Terminer la simulation →
                       </button>

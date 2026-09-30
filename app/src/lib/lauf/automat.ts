@@ -223,6 +223,11 @@ export function erlaubt(lauf: Lauf, aktion: LaufAktion): boolean {
   return transition(lauf, aktion) !== lauf;
 }
 
+/** Visibilité de « Terminer la simulation » dans l'en-tête (règle 8 amendée,
+ *  I1) : au bilan seulement — jamais pendant une partie en cours, même quand
+ *  une partie est déjà jouée. C'est la transition `versChecklist`, rien d'autre. */
+export const simulationBeendbar = (lauf: Lauf): boolean => erlaubt(lauf, { typ: 'versChecklist' });
+
 export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
   switch (aktion.typ) {
     case 'demarrer': {

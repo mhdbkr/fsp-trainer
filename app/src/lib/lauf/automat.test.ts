@@ -4,7 +4,7 @@ import { ZUSTAENDE, type Lauf, type LaufZustand } from './types';
 import {
   erstelleLauf, transition, istVollstaendig, naechsterTeil, zustandIndex,
   minutenProTeil, checklisteFuer, setzeChecklistItem, setzeEntwurf, tickChrono,
-  erlaubt, type LaufAktion,
+  erlaubt, simulationBeendbar, type LaufAktion,
 } from './automat';
 
 // ============================================================================
@@ -192,6 +192,23 @@ describe('INV-20 — aucune transition vers un état antérieur', () => {
     const retour = transition(l, { typ: 'zurueckZurPartie' });
     expect(retour.zustand).toBe('laufend');
     expect(retour.aktuellerTeil).toBe('anamnese');
+  });
+});
+
+describe('I1 — « Terminer la simulation » n’est visible qu’au bilan (mineur 2)', () => {
+  it('pendant une partie en cours, même avec une partie déjà jouée : absent', () => {
+    let l = demarre(base());
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'partieSuivante' });
+    expect(l.zustand).toBe('laufend');
+    expect(l.teileGespielt.length).toBe(1);
+    expect(simulationBeendbar(l)).toBe(false);
+  });
+  it('au bilan : présent ; à la checklist de fin : absent', () => {
+    let l = demarre(base());
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    expect(simulationBeendbar(l)).toBe(true);
+    expect(simulationBeendbar(transition(l, { typ: 'versChecklist' }))).toBe(false);
   });
 });
 
