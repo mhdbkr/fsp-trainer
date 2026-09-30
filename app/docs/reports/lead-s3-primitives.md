@@ -136,12 +136,13 @@ regardée de l'app (≈ 20 min par session) et la plus éloignée de la charte.
 | `AnamneseBogen.tsx:65` | `rounded-md border border-slate-200 p-2 dark:border-slate-700` | `panel p-2` |
 | `AnamneseBogen.tsx:81` | `mt-1 w-full resize-y rounded-md border border-slate-200 bg-transparent px-2 py-1.5 text-[13px] outline-none focus:border-brand-400 dark:border-slate-700` | `input mt-1 resize-y bg-transparent px-2 py-1.5 text-[13px]` |
 | `AnamneseBogen.tsx:20` | `… shadow-sm …` | retirer `shadow-sm` |
-| `AnamneseGuide.tsx:56` | `flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900` | `panel flex items-center gap-3 px-4 py-2` |
-| `ArztbriefGuide.tsx:55` | `w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-[13px] leading-relaxed outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900` | `input resize-y p-3 font-mono text-[13px] leading-relaxed` |
+| `AnamneseGuide.tsx:56` | `flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900` | `card flex items-center gap-3 px-4 py-2` — **pas `.panel`** : aucun ancêtre `.card` (vérifié : `SimulationRunner.tsx:478` → `div.min-w-0` → `div.flex` → `div.space-y-4`), c'est une surface posée sur le fond (fix-s3 I5) |
+| `ArztbriefGuide.tsx:55` | `w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-[13px] leading-relaxed outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900` | `input resize-y p-3 text-[13px] leading-relaxed` — **sans `font-mono`** : un Arztbrief est de la prose, le mono est réservé aux données (fix-s3 I6) |
 | `ExternalAiSheet.tsx:159` | `space-y-1 rounded-xl border border-slate-200 p-3 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300` | `panel space-y-1 p-3 text-sm text-slate-600 dark:text-slate-300` |
 | `KommunikationPanel.tsx:30` | `rounded-lg border border-slate-200 p-2.5 dark:border-slate-800` | `panel p-2.5` |
-| `PreSimulationPage.tsx:40` | `mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white/60 p-3 dark:border-ink-600 dark:bg-ink-800/60` | `panel mx-auto max-w-lg p-3` |
-| `SimulationSetup.tsx:135` | `mt-3 flex flex-col items-center gap-3 rounded-xl border border-slate-200 p-4 dark:border-slate-800 sm:flex-row` | `panel mt-3 flex flex-col items-center gap-3 p-4 sm:flex-row` |
+| `PreSimulationPage.tsx:40` | `mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white/60 p-3 dark:border-ink-600 dark:bg-ink-800/60` | `card mx-auto max-w-lg p-3` — **pas `.panel`** : `.panel` n'existe qu'à l'intérieur d'une carte, ce `<section>` est à la racine de la page (fix-s3 I5) |
+| `SimulationSetup.tsx:135` | `mt-3 flex flex-col items-center gap-3 rounded-xl border border-slate-200 p-4 dark:border-slate-800 sm:flex-row` | `panel mt-3 flex flex-col items-center gap-3 p-4 sm:flex-row` — ancêtre `.card` vérifié (`:117` `div.card p-4`) |
+| `TimeCapsule.tsx:43-47` | `boxShadow` en `style` inline : `inset 0 1px 0 0 …`, **`0 20px 44px -24px <aura>`**, **`0 3px 12px -6px rgb(4 30 27 / 0.18)`** — deux ombres portées invisibles à tout grep de classes | garder la seule couche `inset` ; la lueur de l'aura passe par la teinte du fond (`backgroundImage`), pas par une ombre (fix-s3 I5) |
 | `PatientScreen.tsx:45` | `mt-2 flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800` + boutons `shadow-sm` (`:46`, `:47`) | `seg mt-2` + boutons sans ternaire de fond, avec `aria-pressed` |
 
 **`SimulationHub.tsx` — interdit par la règle des matériaux.** La carte de
@@ -167,10 +168,11 @@ TEINTE (`glass-tint`), pas par un second plan de flou.
 | `ProgramPage.tsx:205` | `flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-ink-700` (+ `shadow-sm` `:208`) | `seg` |
 | `ProgramPage.tsx:461` | `flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800` (+ `shadow-sm` `:463`) | `seg` |
 | `ProgramSetup.tsx:80-81` | deux `btn flex-1 justify-center text-sm` avec ternaire `bg-brand-600 text-white` | `seg` (piste) + deux boutons `flex-1 justify-center` avec `aria-pressed` |
-| `HomePage.tsx:126` | `flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-800` | `panel flex items-center gap-3 px-3 py-2` |
+| `HomePage.tsx:126` | `flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-800` | `panel flex items-center gap-3 px-3 py-2` — ancêtre `.card` vérifié (`:112` `section.card p-5`) |
 | `HomePage.tsx:195` | `flex items-center gap-3 rounded-lg border border-slate-200 p-2 hover:border-brand-400 dark:border-slate-800` | `panel panel-interactive flex items-center gap-3 p-2` |
-| `WeekCalendar.tsx:101` | `reveal mt-3 rounded-xl border border-slate-200 p-3 dark:border-ink-600` | `panel reveal mt-3 p-3` |
-| `StatsPage.tsx:132` | `flex items-center justify-between rounded-lg border border-slate-200 p-3 hover:border-brand-400 dark:border-slate-800` | `panel panel-interactive flex items-center justify-between p-3` |
+| `WeekCalendar.tsx:101` | `reveal mt-3 rounded-xl border border-slate-200 p-3 dark:border-ink-600` | `panel reveal mt-3 p-3` — ancêtre `.card` vérifié (`:61` `section.card p-5`) |
+| `StatsPage.tsx:132` | `flex items-center justify-between rounded-lg border border-slate-200 p-3 hover:border-brand-400 dark:border-slate-800` | `panel panel-interactive flex items-center justify-between p-3` — ancêtre `.card` vérifié (`:128` `section.card p-5`) |
+| `ProgramPage.tsx:17` `BLOCK_META` | table locale type → icône/couleur, relue par `HomePage` | lire `TASK_GLYPH` (`components/TaskLabel.tsx:56`) : un seul glyphe par type dans l'app (fix-s3 M3) |
 
 ### 3.4 · À passer au chantier **Contenu / navigation** (`cases/`, `fachwissen/`, `guides/`, `aufklaerung/`, `fachbegriffe/`)
 
@@ -209,9 +211,14 @@ Chacun gagne trois choses : `aria-pressed` (l'état existe pour le lecteur
 d'écran, pas seulement pour l'œil), `shadow-e1` interne au lieu de `shadow-sm`
 qui est une ombre portée, et la piste/les crans en jetons.
 
-### 3.6 · Les 23 ombres portées Tailwind restantes
+### 3.6 · Les classes d'ombre portée restantes — INERTES depuis fix-s3 I4
 
-Toutes hors de mon périmètre. `shadow-inner` exclu (interne, licite).
+`boxShadow` ne s'étend plus, il remplace le thème (`tailwind.config.js`) :
+`shadow-sm/md/lg/xl/2xl` ne sont plus générés (mesuré sur `dist/assets/*.css` :
+classes `shadow-*` produites = `e1 e2 e3 inner` + `hover:shadow-e2`). Les
+occurrences ci-dessous ne peignent donc plus rien : ce sont des **classes
+mortes à retirer**, pas des ombres à arbitrer. Recompte hors commentaires le
+30 sept. 2026 : 23 occurrences dans 15 fichiers.
 
 `AufklaerungPage.tsx:178` · `CaseDetailPage.tsx:55,58,87,90,136` ·
 `CasePreviewPanel.tsx:26` · `CasesPage.tsx:141` · `medSections.tsx:28` ·
@@ -220,10 +227,15 @@ Toutes hors de mon périmètre. `shadow-inner` exclu (interne, licite).
 `PatientScreen.tsx:46,47` · `SimulationRunner.tsx:302,476` ·
 `SimulationSetup.tsx:163` · `VorstellungGuide.tsx:56`.
 
-Deux d'entre elles portent le quatrième rôle non nommé et ne se règlent pas par
-un simple retrait : `ProgramPage.tsx:423` (popover de menu, `shadow-lg`) et
-`ProgramSetup.tsx:66` (modale, `shadow-2xl`). Elles attendent la décision du
-§1 sur le popover.
+La seule ombre portée encore PEINTE est inline : `TimeCapsule.tsx:43-47`
+(§3.2).
+
+**Le popover est tranché** (décision de `main`, fix-s3 I3) : c'est le rôle 1,
+`.glass glass-edge`. Donc `ProgramPage.tsx:423` (menu, `shadow-lg`) →
+`glass glass-edge` + retrait du fond/bord/ombre dessinés à la main ;
+`ProgramSetup.tsx:66` (modale, `shadow-2xl`) → idem. Appliqué dans
+`components/` : `AccountSwitcher`, `DeckChecklist`, `SelectionExplainer`,
+`CardToast`, `NewCardSheet`.
 
 ---
 
