@@ -77,7 +77,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.bulkPut([{ id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'Gastroenterologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() }, { id: 'fb-z', term: 'Zyste', translationSimple: 'Z', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() }] as never);
     renderAt('/fachbegriffe/drill?case=c1');
     expect(await screen.findByText(/Termes de Ulcus ventriculi/)).toBeTruthy();
-    expect(document.querySelector('[data-readout="nouveaux"] dd')!.textContent).toBe('1'); // fb-a seulement, jamais fb-z
+    await waitFor(() => expect(document.querySelector('[data-readout="nouveaux"] dd')!.textContent).toBe('1')); // fb-a seulement, jamais fb-z (le relevé suit le pool un rendu plus tard)
   });
 
   it('?case= sans rien à réviser → « Réviser la spécialité »', async () => {
