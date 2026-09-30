@@ -66,6 +66,7 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'akt-atemnot-belastung': ['atemnot'],
   'akt-atemnot-nachts': ['orthopnoe'],
   'akt-psych-schlaf': ['schlaf'],
+  'akt-ausscheid-schlucken': ['schluck'],
   'akt-psych-stimmung': ['stimmung'],
   'akt-psych-sicherheit': ['suizid'],
   'akt-atemnot-husten': ['husten'],

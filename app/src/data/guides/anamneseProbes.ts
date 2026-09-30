@@ -351,8 +351,12 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   ],
   psychisch: [
     { id: 'akt-psych-stimmung', kapitel: 'aktuell', frage: 'Wie ist Ihre Stimmung im Moment?' },
-    { id: 'akt-psych-antrieb', kapitel: 'aktuell', frage: 'Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen?' },
-    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Wie schlafen Sie? Können Sie sich konzentrieren?' },
+    // Ni l'Interessenverlust ni la Konzentration ne deviennent des sondes :
+    // `fach-psych-interesse` et `fach-psych-konzentration` les posent déjà,
+    // mot pour mot (série 3, tri des 27 — le garde-fou a renversé mon premier
+    // jet, qui reposait sur un grep faux).
+    { id: 'akt-psych-antrieb', kapitel: 'aktuell', frage: 'Fällt es Ihnen schwer, den Tag zu beginnen?' },
+    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Wie schlafen Sie: Einschlafen, Durchschlafen, frühes Erwachen?', deepens: 'veg-schlaf' },
     { id: 'akt-psych-sicherheit', kapitel: 'aktuell', frage: 'Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?' },
   ],
   neurologisch: [
@@ -378,7 +382,12 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   ausscheidung: [
     { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Schlucken, Farbe von Haut/Augen/Urin/Stuhl?' },
     { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft am Tag, und wie oft nachts?' },
-    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Wie sieht es aus: Farbe, Blut, Schleim, schaumig, Geruch? Bleibt Festes oder auch Flüssiges hängen?' },
+    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Wie sieht es aus: Farbe, Blut, Schleim, schaumig?' },
+    // L'aspect d'une excrétion et la déglutition ne partagent ni organe ni
+    // diagnostic différentiel ; et « nur Festes, oder auch Flüssiges » est la
+    // question qui tranche sténose mécanique ↔ trouble moteur. Aucune autre
+    // sonde ne la pose (série 3, tri des 27 — exemple de la direction).
+    { id: 'akt-ausscheid-schlucken', kapitel: 'aktuell', frage: 'Bleibt beim Essen etwas stecken: nur Festes, oder auch Flüssiges?' },
   ],
   anfall: [
     { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an: schlagartig oder langsam?' },

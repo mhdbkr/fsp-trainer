@@ -206,12 +206,14 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Gibt es Momente, in denen es besser ist?'],
       },
       {
-        text: 'Antrieb und Interesse — Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen, die Ihnen früher wichtig waren?',
+        text: 'Antrieb — Fällt es Ihnen schwer, den Tag zu beginnen?',
         probe: 'akt-psych-antrieb',
+        followUp: ['Haben Sie noch Freude an Dingen, die Ihnen früher wichtig waren?'],
       },
       {
-        text: 'Schlaf und Konzentration — Wie schlafen Sie — Einschlafen, Durchschlafen, frühes Erwachen? Können Sie sich konzentrieren, zum Beispiel beim Lesen?',
+        text: 'Schlaf — Wie schlafen Sie: Einschlafen, Durchschlafen, frühes Erwachen?',
         probe: 'akt-psych-schlaf',
+        followUp: ['Können Sie sich noch konzentrieren, zum Beispiel beim Lesen?'],
       },
       {
         text: 'Ereignis — Ist in letzter Zeit etwas passiert, das Sie belastet — ein Verlust, eine Trennung, Probleme bei der Arbeit?',
@@ -366,10 +368,8 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         probe: 'akt-ausscheid-haeufigkeit',
         followUp: ['Ist das mehr oder weniger als sonst?', 'Müssen Sie plötzlich, oder kommt es nur tröpfchenweise?'],
       },
-      {
-        text: 'Aussehen — Wie sieht es aus: Farbe, Blut, Schleim, schaumig, übel riechend? Bei Schluckbeschwerden: bleibt Festes hängen, oder auch Flüssiges?',
-        probe: 'akt-ausscheid-aussehen',
-      },
+      { text: 'Aussehen — Wie sieht es aus: Farbe, Blut, Schleim, schaumig, übel riechend?', probe: 'akt-ausscheid-aussehen' },
+      { text: 'Schlucken — Bleibt beim Essen etwas stecken: nur Festes, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
       { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert — Essen, Trinken, Bewegung, Medikamente?', probe: 'akt-einfluss' },
@@ -829,7 +829,14 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-pneumo-schmerz',
         alts: ['Bekommen Sie Brustschmerzen beim Atmen? Eher beim tiefen Einatmen oder beim Ausatmen?'],
       },
-      { text: 'Haben Sie Fieber oder Schüttelfrost?', probe: 'fach-pneumo-fieber' },
+      {
+        text: 'Haben Sie Fieber oder Schüttelfrost?',
+        probe: 'fach-pneumo-fieber',
+        parts: [
+          { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
+          { sucht: ['schuettelfrost'], text: 'Hatten Sie dabei Schüttelfrost?' },
+        ],
+      },
       { text: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?', probe: 'fach-pneumo-giemen' },
       { text: 'Hatten Sie kürzlich einen Atemwegsinfekt, Kontakt zu Kranken oder eine Reise?', probe: 'fach-pneumo-infekt' },
       // « Rauchen Sie ? » est déjà posé dans Noxen, l'exposition générale dans
