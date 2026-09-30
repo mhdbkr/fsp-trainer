@@ -178,7 +178,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?', 'Und wie sind Ihr Appetit und Ihr Durst?'],
         parts: [
           { sucht: ['gewicht'], text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?', followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'] },
-          { sucht: ['appetit'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
+          { sucht: ['appetit', 'durst'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
         ],
       },
       {
@@ -581,7 +581,8 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'veg-schuettelfrost',
         parts: [
           { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' },
-          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts stark, oder haben Sie starke Schweißausbrüche?' },
+          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts stark?' },
+          { sucht: ['schwitzen'], text: 'Haben Sie starke Schweißausbrüche?' },
         ],
       },
       {
@@ -1321,7 +1322,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         // Quand le cas a déjà compté les levers nocturnes (case-diabetes-typ1),
         // il ne reste que la soif — l'autre moitié de la paire cardinale.
         parts: [
-          { sucht: ['miktion'], text: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?' },
+          { sucht: ['polyurie'], text: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?' },
           { sucht: ['durst'], text: 'Haben Sie dabei vermehrt Durst?' },
         ],
       },

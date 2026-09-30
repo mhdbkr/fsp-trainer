@@ -35,6 +35,10 @@ import { PROBE_BY_ID } from './anamneseProbes';
 //     du syndrome dépressif et ne sont pas mappés ici.
 //   • `gedaechtnis` = mémoire cognitive (Vergesslichkeit), pas l'amnésie
 //     péri-critique d'une crise (`fach-neuro-anfallzeichen`).
+//   • `polyurie` = le VOLUME et la fréquence d'un patient qui boit trop
+//     (paire cardinale avec la soif). Ce n'est pas `miktion` (brûlure,
+//     jet, rétention) : les confondre effaçait « Wasserlassen » de la
+//     Vegetative Anamnese dans les cas endocriniens (décision D4).
 export type Symptom =
   | 'fieber' | 'schuettelfrost' | 'nachtschweiss' | 'reise' | 'kontakt'
   | 'uebelkeit' | 'stuhl' | 'miktion' | 'gewicht' | 'appetit' | 'schlaf'
@@ -43,7 +47,7 @@ export type Symptom =
   | 'kopfschmerz' | 'atemnot' | 'brustschmerz' | 'bewusstlos' | 'sehstoerung'
   | 'krampf' | 'taubheit' | 'schwaeche' | 'herzrasen' | 'schwitzen'
   | 'durst' | 'juckreiz' | 'ausschlag' | 'schluck' | 'gelbfaerbung'
-  | 'sturz' | 'stimmung' | 'angst' | 'suizid' | 'gedaechtnis';
+  | 'sturz' | 'stimmung' | 'angst' | 'suizid' | 'gedaechtnis' | 'polyurie';
 
 export const PROBE_SUCHT: Record<string, Symptom[]> = {
   // Vegetative Anamnese — les questions générales, celles qui « répètent ».
@@ -97,7 +101,7 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'fach-derma-beginn-ort': ['ausschlag'], 'fach-derma-empfinden': ['juckreiz'],
   'fach-rheuma-haut': ['ausschlag'],
   'fach-endo-gewicht': ['gewicht', 'appetit'],
-  'fach-endo-durst': ['durst', 'miktion'],
+  'fach-endo-durst': ['durst', 'polyurie'],
   'fach-endo-temperatur': ['schwitzen'],
   'fach-endo-hals': ['schluck'],
   'fach-endo-augen': ['sehstoerung'],
@@ -229,9 +233,15 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
       if (!parts) { rows.push({ q, at: i }); return; }
       const keep = parts.filter((pt) => pt.sucht.some((s) => left.includes(s as Symptom)));
       if (!keep.length) return;
+      if (keep.length === parts.length) { rows.push({ q, at: i }); return; }
+      // Chaque partie restante est posée SEULE : rédigée à la main, c'est une
+      // question complète. Recoller leurs textes mettait deux « ? » dans une
+      // réplique (revue série 3, I4 — 6 cas endocriniens).
       const v = q as PhraseVariant;
-      const followUp = keep.flatMap((pt) => pt.followUp ?? []);
-      rows.push({ q: { ...v, text: keep.map((pt) => pt.text).join(' '), alts: undefined, followUp: followUp.length ? followUp : undefined, parts: undefined, sucht: left }, at: i });
+      keep.forEach((pt, k) => rows.push({
+        q: { ...v, text: pt.text, alts: undefined, followUp: pt.followUp?.length ? pt.followUp : undefined, parts: undefined, sucht: pt.sucht.filter((s) => left.includes(s as Symptom)) },
+        at: i + k / 100,
+      }));
     });
     rows.sort((a, b) => a.at - b.at);
     return { ...ch, questions: rows.map((r) => r.q) };

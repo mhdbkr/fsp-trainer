@@ -39877,7 +39877,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie viel trinken Sie am Tag, und seit wann? Haben Sie immer eine Flasche dabei?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?', kapitel: 'aktuell', sucht: ['miktion'] },
+        { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?', kapitel: 'aktuell', sucht: ['polyurie'] },
         { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen, und wie ist dabei Ihr Appetit — essen Sie weniger, gleich viel oder sogar mehr als früher?', kapitel: 'fach', sucht: ['gewicht', 'appetit'] },
         { frage: 'Ist Ihnen übel, mussten Sie erbrechen, oder haben Sie Bauchschmerzen? Fällt Ihnen das Atmen schwerer als sonst?', kapitel: 'aktuell', sucht: ['uebelkeit'] },
         { frage: 'Ist Ihnen aufgefallen, dass Sie zeitweise verschwommen sehen — und geht das von selbst wieder weg?', kapitel: 'aktuell', relu: true },
