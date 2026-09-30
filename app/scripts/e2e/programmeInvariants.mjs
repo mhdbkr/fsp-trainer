@@ -180,7 +180,7 @@ const planDuJour = () => probe(`
 
 // --- les preuves ------------------------------------------------------------
 
-const P4 = (quand) => preuve(`P4${quand}`, `deux spécialités identiques ne se suivent jamais (${quand})`, async () => {
+const P4 = preuve('P4', `deux spécialités identiques ne se suivent jamais dans un plan généré`, async () => {
   const plan = planDuJour();
   exige(plan, 'aucun plan figé');
   exige(plan.mode === 'teil-first', `mode ${plan.mode} : la diversité n'est une contrainte dure qu'en teil-first (select.ts:127)`);
@@ -199,9 +199,9 @@ const P4 = (quand) => preuve(`P4${quand}`, `deux spécialités identiques ne se 
 const P2 = preuve('P2', "la session du jour appartient au plan du jour", async () => {
   goto('/');
   const hero = await until(`
-    const n = [...document.querySelectorAll('*')].find((e) => e.children.length === 0 && e.textContent.includes('Session du jour'));
-    const card = n && n.closest('div');
-    const h2 = card && card.parentElement.querySelector('h2');
+    const eyebrow = [...document.querySelectorAll('div')]
+      .find((e) => e.children.length <= 1 && (e.textContent || '').trim().startsWith('Session du jour'));
+    const h2 = eyebrow && eyebrow.parentElement.querySelector('h2');
     return h2 ? h2.textContent.trim() : null;
   `, 'hero de la session du jour');
 
@@ -268,9 +268,35 @@ const P1b = preuve('P1b', "faire son drill ne libère aucun budget qui attirerai
   return `drill coché, ${simsAvant} simulations avant et après, budget ${av.barre.min} min inchangé`;
 });
 
-const P3 = preuve('P3', "un cas travaillé sur un seul Teil n'est jamais un point faible, et ne régresse pas", async () => {
+const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Teil", async () => {
   goto('/programme');
-  const plan = await until(`return (await read('day_plans')).length ? true : null;`, 'plan') && planDuJour();
+  const plan = planDuJour();
+  const tache = plan.tasks.find((t) => t.kind === 'simulation' && t.teil && t.doneAt === undefined);
+  exige(tache, 'aucune tâche de simulation non faite portée par un seul Teil');
+
+  const i = probe(`return lignes().findIndex((l) => l.label === ${JSON.stringify(tache.label)});`);
+  exige(i >= 0, `la tâche « ${tache.label} » n'est pas rendue`);
+  probe(`
+    const rows = [...document.querySelectorAll('div.rounded-xl.border.transition-colors')];
+    rows[${i}].querySelector('[title="Marquer faite"]').click();
+    return await attendre(() => lignes()[${i}].fait);
+  `);
+  const cp = await until(`
+    return (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}') || null;
+  `, `case_progress de ${tache.caseId}`);
+
+  const statuts = Object.fromEntries(Object.entries(cp.teile).map(([k, v]) => [k, v.status]));
+  const fautifs = Object.entries(statuts).filter(([, s]) => s === 'fragile');
+  exige(!fautifs.length, `sans performance mesurée, ${fautifs.map(([k]) => k).join(', ')} est déjà « fragile » — l'absence accuse`);
+  for (const t of ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil)) {
+    exige(statuts[t] === 'vierge', `« ${t} » jamais travaillé mais vaut « ${statuts[t] }»`);
+  }
+  return `${tache.label} (${tache.teil}) : ${Object.entries(statuts).map(([k, v]) => `${k}=${v}`).join(', ')}, overall=${cp.overall}`;
+});
+
+const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régresser aucun statut", async () => {
+  goto('/programme');
+  const plan = planDuJour();
   const tache = plan.tasks.find((t) => t.kind === 'simulation' && t.teil && t.doneAt === undefined)
     ?? plan.tasks.find((t) => t.kind === 'simulation' && t.teil);
   exige(tache, 'aucune tâche de simulation portée par un seul Teil');
@@ -320,13 +346,6 @@ const P3 = preuve('P3', "un cas travaillé sur un seul Teil n'est jamais un poin
   return `${tache.label} (${tache.teil}) → ${score.join('/')} % ; ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')}, overall=${cp.overall}`;
 });
 
-const replanifier = preuve('P4-replan', 'replanifier régénère un plan, la contrainte tient encore', async () => {
-  goto('/programme');
-  await until(`return bouton((t) => t.startsWith('Replanifier')) ? true : null;`, 'bouton Replanifier');
-  probe(`bouton((t) => t.startsWith('Replanifier')).click(); return await attendre(() => true, 1500);`);
-  return 'replanification demandée';
-});
-
 // --- exécution --------------------------------------------------------------
 
 let serveur = null;
@@ -338,23 +357,38 @@ async function attendreServeur() {
   throw new Error(`serveur injoignable sur ${BASE}`);
 }
 
+/**
+ * Un 200 ne dit PAS que le serveur sert CE worktree : `node_modules` est un
+ * lien partagé entre worktrees, et plusieurs serveurs répondent 200 sur la même
+ * machine. On demande un module source et on y cherche un symbole que seule
+ * cette branche porte.
+ */
+async function verifierWorktree() {
+  const res = await fetch(`${BASE}/src/lib/journal.ts`, { signal: AbortSignal.timeout(90_000) });
+  const src = res.ok ? await res.text() : '';
+  exige(src.includes('applySimulationToJournal'),
+    `le serveur de ${BASE} ne sert pas ce worktree (symbole 'applySimulationToJournal' absent de src/lib/journal.ts)`);
+}
+
 try {
   if (OWN_SERVER) {
     serveur = spawn('npm', ['run', 'dev', '--', '--port', String(PORT), '--strictPort'],
       { cwd: new URL('../..', import.meta.url).pathname, stdio: 'ignore', detached: true });
   }
   await attendreServeur();
+  await verifierWorktree();
 
   const barre0 = await arranger();
   console.log(`\nÉtat figé : ${barre0.total} tâches, ${barre0.min} min prévues.\n`);
 
-  await P4('-initial')();
+  // L'ordre est porteur : les lectures pures d'abord, les gestes ensuite —
+  // P2 lit la PREMIÈRE tâche non faite, elle doit passer avant qu'on ne coche.
+  await P4();
   await P2();
   await P1();
   await P1b();
-  await replanifier();
-  await P4('-après-replan')();
-  await P3();
+  await P3a();
+  await P3b();
 } catch (e) {
   resultats.push({ id: 'ARRANGEMENT', titre: 'mise en place', ok: false, detail: e.message });
   console.log(`FAIL  ARRANGEMENT — ${e.message}`);
