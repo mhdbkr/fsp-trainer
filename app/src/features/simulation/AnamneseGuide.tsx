@@ -6,6 +6,8 @@ import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
 import { phraseIsCaseSpecific, phraseProbes, type Phrase } from '@/data/guides/phrases';
 import { useSimSession } from '@/store/simSession';
+import type { ChecklistItem } from '@/db/types';
+import { itemForKapitel } from '@/lib/checklists';
 
 // ============================================================================
 // Guide d'anamnèse interactif.
@@ -17,7 +19,16 @@ import { useSimSession } from '@/store/simSession';
 // Fachanamnese injectée en sous-chapitre EXTRA si le cas ∈ spécialité.
 // ============================================================================
 
-export function AnamneseGuide({ c, assistance }: { c: Case; assistance: AssistanceMode }) {
+export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onHinweis }: {
+  c: Case; assistance: AssistanceMode;
+  /** La checklist PORTÉE PAR LE LAUF. Cocher un chapitre ici coche l'item
+   *  correspondant : c'est le pont `kapitel` du contrat §4.2 règle 4, et la
+   *  raison pour laquelle le bilan n'est plus vierge (INV-24). */
+  checkliste: ChecklistItem[];
+  onItem: (id: string, checked: boolean) => void;
+  hinweise: number;
+  onHinweis: () => void;
+}) {
   // Fachanamnese jouée + les questions « fach » propres au cas (FB2-J4).
   const fach = useMemo(() => fachChapterForCase(c), [c]);
   // Chapitres ADAPTÉS au patient : pas de Frauenanamnese pour un homme, et
@@ -29,12 +40,28 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
   const [asked, setAsked] = useState<string | null>(null);
   const ask = (p: string | null) => { setAsked(p); useSimSession.getState().setGuideProbe(p); };
   useEffect(() => () => { useSimSession.getState().setGuideProbe(null); }, []);
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [hints, setHints] = useState(0);
-  const toggle = (id: string) => setChecked((s) => ({ ...s, [id]: !s[id] }));
+  // Un chapitre qui a un item de checklist lit et écrit SUR LE LAUF — plus
+  // d'état local qui se perd au bilan. Les chapitres sans pont (Frauenanamnese,
+  // Fachanamnese) ne sont pas des critères d'évaluation : leur coche ne sert
+  // qu'à la barre de progression, et reste locale. C'est explicite, pas déduit.
+  const [lokal, setLokal] = useState<Record<string, boolean>>({});
+  const itemId = (chId: string) => itemForKapitel(chId)?.id;
+  const isChecked = (chId: string) => {
+    const id = itemId(chId);
+    return id ? !!checkliste.find((i) => i.id === id)?.checked : !!lokal[chId];
+  };
+  const toggle = (chId: string) => {
+    const id = itemId(chId);
+    if (id) onItem(id, !isChecked(chId));
+    else setLokal((s) => ({ ...s, [chId]: !s[chId] }));
+  };
 
   const total = chapters.length + (fach ? 1 : 0);
+  const checked: Record<string, boolean> = {};
+  for (const ch of chapters) checked[ch.id] = isChecked(ch.id);
+  if (fach) checked[fach.chapter.id] = isChecked(fach.chapter.id);
   const doneCount = Object.values(checked).filter(Boolean).length;
+  const hints = hinweise;
 
   // Ordre d'affichage réel (Fachanamnese insérée juste après « Aktuelle Beschwerden »).
   const orderedIds = useMemo(() => {
@@ -89,7 +116,7 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
       {chapters.map((ch) => (
         <Fragment key={ch.id}>
           <ChapterToggle ch={ch} checked={!!checked[ch.id]} onToggle={() => toggle(ch.id)} assistance={assistance} asked={asked} onAsk={ask}
-            onHint={() => setHints((h) => h + 1)} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
+            onHint={onHinweis} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
 
           {/* Fachanamnese — juste après « Aktuelle Beschwerden » : ces questions
               ciblées se posent tôt, dans le prolongement du motif de consultation. */}
@@ -99,7 +126,7 @@ export function AnamneseGuide({ c, assistance }: { c: Case; assistance: Assistan
                 Fachanamnese · {c.specialty}
               </div>
               <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}
-                assistance={assistance} asked={asked} onAsk={ask} onHint={() => setHints((h) => h + 1)} fachwissenId={c.linkedFachwissenId} tone="violet" />
+                assistance={assistance} asked={asked} onAsk={ask} onHint={onHinweis} fachwissenId={c.linkedFachwissenId} tone="violet" />
             </div>
           )}
         </Fragment>

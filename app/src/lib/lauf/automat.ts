@@ -1,7 +1,7 @@
 import type {
   AssistanceMode, ChecklistItem, Layer, MusterCity, PartResult, SimTeil, SimulationMode,
 } from '@/db/types';
-import { emptyLanguageGrid } from '@/lib/scoring';
+import { checklistPct, emptyLanguageGrid, languagePct } from '@/lib/scoring';
 import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf } from './types';
 
 // ============================================================================
@@ -144,6 +144,51 @@ export function tickChrono(lauf: Lauf, teil: LaufTeil, sekunden: number): Lauf {
   return { ...lauf, sekundenProTeil: { ...lauf.sekundenProTeil, [teil]: sekunden } };
 }
 
+/** La Dokumentation n'a pas de grille orale (`PartEvaluation.tsx:17`). */
+export const hatSprachgitter = (teil: LaufTeil): boolean => teil !== 'dokumentation';
+
+/** Le résultat d'un Teil, DÉRIVÉ des champs du Lauf — jamais d'un état local.
+ *  C'est ce qui remplace le `useState(checklistFor(part))` de
+ *  `PartEvaluation.tsx:16`, qui repartait de `checked: false` en dur et perdait
+ *  tout ce qui avait été coché pendant la partie. */
+export function bewerte(lauf: Lauf, teil: LaufTeil): PartResult {
+  const e = lauf.entwurf[teil];
+  const checklist = checklisteFuer(lauf, teil);
+  const grid = hatSprachgitter(teil) ? (e?.grid ?? emptyLanguageGrid()) : undefined;
+  return {
+    done: true,
+    durationSec: lauf.sekundenProTeil[teil] ?? 0,
+    checklist,
+    languageGrid: grid,
+    feeling: e?.feeling ?? 50,
+    contentPct: checklistPct(checklist),
+    officialPct: grid ? languagePct(grid) : 0,
+    assistanceUsed: lauf.assistance,
+  };
+}
+
+/** Recalcule `teile[teil]` depuis les champs, pendant le bilan. Ce n'est pas
+ *  une transition : `zustand` n'est pas touché. */
+export function aktualisiereTeil(lauf: Lauf, teil: LaufTeil): Lauf {
+  const vorher = lauf.teile[teil];
+  if (!vorher?.done) return lauf;
+  const r = bewerte(lauf, teil);
+  return {
+    ...lauf,
+    teile: {
+      ...lauf.teile,
+      [teil]: {
+        ...vorher,
+        languageGrid: r.languageGrid,
+        feeling: r.feeling,
+        contentPct: r.contentPct,
+        officialPct: r.officialPct,
+        hints: lauf.entwurf[teil]?.hinweise ?? vorher.hints,
+      },
+    },
+  };
+}
+
 // -------------------------------------------------------------- Transitions
 
 export type LaufAktion =
@@ -179,11 +224,13 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // PAS un changement d'état : le jury interrompt, on reste `laufend`.
       // L'ordre total porte sur `zustand`, pas sur le Teil.
       if (lauf.zustand !== 'laufend' || lauf.aktuellerTeil === 'aufklaerung') return lauf;
+      // `aktuellerTeil` est déjà narrowé hors de `'aufklaerung'` par la garde
+      // ci-dessus : c'est donc un `SimTeil`, le Teil d'où le jury interrompt.
       const vorher = lauf.aktuellerTeil;
       return {
         ...lauf,
         aktuellerTeil: 'aufklaerung',
-        teilVorAufklaerung: vorher && vorher !== 'aufklaerung' ? vorher : lauf.teilVorAufklaerung,
+        teilVorAufklaerung: vorher ?? lauf.teilVorAufklaerung,
         checkliste: mitCheckliste(lauf, aktion.checkliste),
       };
     }

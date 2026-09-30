@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { getPending, setPending, AI_TARGETS } from '@/lib/externalAi/targets';
-import { PartEvaluation } from './PartEvaluation';
+import { SelbstBewertung } from './PartEvaluation';
 import { saveSimulation } from '@/lib/simulationSave';
 import type { Case, PartResult } from '@/db/types';
 
@@ -81,9 +81,10 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
 
   if (step === 'anamnese' || step === 'fallvorstellung') {
     return (
-      <PartEvaluation
+      <SelbstBewertung
         part={step}
         durationSec={step === 'anamnese' ? anamneseSec : fallvorstellungSec}
+        suivant={step === 'anamnese' && p.scope !== 'anamnese' ? 'Fallvorstellung' : null}
         onCancel={() => setStep('idle')}
         onSave={(r) => {
           if (savingRef.current) return; // double-tap : la première validation est déjà en cours
