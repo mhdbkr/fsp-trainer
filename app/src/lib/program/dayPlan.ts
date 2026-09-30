@@ -23,7 +23,7 @@ import { newId } from '@/lib/sync/events';
 import { counts } from '@/lib/stats';
 import { INTENSITY_FACTOR } from '@/lib/intensity';
 import { TEILE } from '@/lib/simScope';
-import { blankProgress } from '@/lib/journal';
+import { blankProgress, projectDayPlans } from '@/lib/journal';
 import { dayKey, now as clockNow } from '@/lib/clock';
 import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, type SelectContext } from './select';
 
@@ -264,6 +264,14 @@ async function loadBuildInput(config: ProgramConfig, date: string, at: number): 
 export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan | null> {
   const existing = await db.day_plans.get(date);
   if (existing) return existing;                                  // « figé » veut dire que le premier fige
+  // Le journal fait foi, pas la projection : une reconstruction concurrente
+  // (pull tardif) peut avoir vidé `day_plans` entre l'écriture de l'événement
+  // et celle de la ligne. Re-matérialiser ferait DEUX plans pour un jour.
+  const known = await db.progress_events.where('subject_id').equals(date).filter((e) => e.type === 'plan.materialized').toArray();
+  if (known.length) {
+    const [plan] = projectDayPlans(known, await db.training_events.toArray());
+    if (plan) { await db.day_plans.put(plan); return plan; }
+  }
   const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
   if (!config) return null;                                       // pas de programme : rien à matérialiser
 
@@ -274,12 +282,15 @@ export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan 
     date, materializedAt: at, mode: modusOf(config), seed: `${date}:${modusOf(config)}:${input.trainingEvents.length}`,
     targetMin: dayTargetMin(config), tasks,
   };
-  await db.day_plans.put(plan);
+  // L'événement D'ABORD, horodaté à l'instant de matérialisation : la
+  // reconstruction dérive `materializedAt` de `occurred_at` — un autre
+  // horodatage changerait le plan au redémarrage (INV-9).
   const { syncQueue } = await import('@/lib/sync/queue');
   await syncQueue.push({
-    type: 'plan.materialized', subject_id: date,
+    type: 'plan.materialized', subject_id: date, occurred_at: new Date(at).toISOString(),
     payload: { tasks, mode: plan.mode, seed: plan.seed, targetMin: plan.targetMin },
   }).catch((e) => console.warn('[sync]', e));
+  await db.day_plans.put(plan);
   return plan;
 }
 
