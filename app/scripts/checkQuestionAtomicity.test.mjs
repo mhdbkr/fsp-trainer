@@ -37,15 +37,16 @@ test('règle C — l\'alternative binaire du cas est refusée…', T, () => {
 test('…et l\'énumération d\'irradiation ne l\'est PAS', T, () => {
   const r = gate('--rule', 'C', '--report');
   assert.doesNotMatch(r.stdout, /fach-kardio-ausstrahlung/, 'les quatre territoires d\'irradiation SONT la question');
-  assert.doesNotMatch(r.stdout, /fach-uro-flanke/, 'exemption nominative relue (ALLOWED_COMPOSED)');
 });
 
-test('règle C — réduire l\'irradiation à deux membres la rend suspecte', T, () => {
+// Contrat §3.3 : c'est le VERBE d'irradiation qui exempte, pas l'id. Sans lui,
+// la même paire bras/jambe redevient une alternative que le cas tranche.
+test('règle C — sans verbe d\'irradiation, « Arm oder Bein » est refusé', T, () => {
   const r = sb.mutate(PROBES,
     'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?',
-    'Strahlen sie in den linken Arm oder den Rücken aus?',
+    'Haben Sie Schmerzen im linken Arm oder im Bein?',
     () => gate('--rule', 'C', '--report'));
-  assert.match(r.stdout, /fach-kardio-ausstrahlung/, 'deux membres = alternative binaire, plus une énumération');
+  assert.match(r.stdout, /fach-kardio-ausstrahlung/);
 });
 
 test('budget abaissé à la main → rouge (il ne se contourne pas)', T, () => {
@@ -83,4 +84,83 @@ test('règle 4 — corriger un énoncé fait BAISSER le compteur, et la porte l\
     gate);
   assert.equal(r.status, 0, 'un compteur qui baisse ne casse jamais la porte');
   assert.match(r.stdout, /Budget entamé : A −1/);
+});
+
+// --- Revue série 3 : les contournements du budget (I1–I4, I7–I8, D1) -------
+const SCRIPT = 'scripts/checkQuestionAtomicity.mjs';
+
+test('I1 — une exemption nominative ajoutée fait échouer la porte (Q12)', T, () => {
+  const r = sb.mutate(SCRIPT,
+    'const ALLOWED_COMPOSED = {',
+    "const ALLOWED_COMPOSED = {\n  'fach-ortho-durchblutung': 'porte dérobée',",
+    gate);
+  assert.equal(r.status, 1, 'la liste ne grossit pas sans décision de la direction');
+  assert.match(r.stdout, /exemption/);
+});
+
+test('I2 — une clé retirée du fixture ne désactive pas sa règle', T, () => {
+  const b = JSON.parse(sb.read(BUDGET));
+  const r = sb.mutate(BUDGET, `"C": ${b.budget.C},`, '', gate);
+  assert.notEqual(r.status, 0, 'budget incomplet = porte fermée, jamais NaN > 0 = faux');
+  assert.match(r.stdout + r.stderr, /\bC\b/);
+});
+
+test('I3 — --bless refuse de graver une hausse, et laisse le fixture intact', T, () => {
+  const before = sb.read(BUDGET);
+  sb.mutate(BUDGET, '"budget"', '"budget"', () => {
+    const r = sb.mutate(PROBES,
+      "frage: 'Haben Sie einen Hausarzt?'",
+      "frage: 'Haben Sie einen Hausarzt? Wie heißt er?'",
+      () => gate('--bless'));
+    assert.equal(r.status, 1, '--bless ne fait jamais remonter le budget');
+    assert.equal(sb.read(BUDGET), before);
+  });
+});
+
+test('I4 — une réplique qui n\'existe que dans la TRAME JOUÉE est comptée', T, () => {
+  // Reformulation de fach-uro-funktion pour une patiente : absente du
+  // catalogue, elle ne s'affiche que dans la trame du cas.
+  const r = sb.mutate('src/data/guides/anamneseChapters.ts',
+    "'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr?'",
+    "'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr? Seit wann?'",
+    gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle A/);
+});
+
+test('D1 — une salve d\'Oberarzt à deux « ? » est comptée (D2) et ne remonte pas', T, () => {
+  const r = sb.mutate(CASES,
+    "'Welche Komplikationen der Leberzirrhose kennen Sie?',",
+    "'Welche Komplikationen der Leberzirrhose kennen Sie? Welche zuerst?',",
+    gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle D2/);
+});
+
+test('D1 — les « ? » cités entre guillemets ne sont pas des interrogations', T, () => {
+  const r = sb.mutate(CASES,
+    "'Welche Komplikationen der Leberzirrhose kennen Sie?',",
+    "'Der Patient fragt: „Habe ich Krebs? Muss ich sterben? Wie lange noch?“ Was antworten Sie?',",
+    gate);
+  assert.equal(r.status, 0, 'une seule interrogation de l\'examinateur');
+});
+
+test('I7 — la salve à trois de case-reizdarm est comptée (D3)', T, () => {
+  const r = gate('--rule', 'D3', '--report');
+  assert.match(r.stdout, /case-reizdarm/);
+});
+
+// INV-42 : test de discrimination obligatoire (contrat frage-atomique §3.3).
+test('I8 — INV-42 : les alternatives de membre échouent, l\'irradiation et la topographie passent', T, () => {
+  const out = gate('--rule', 'C', '--report').stdout;
+  for (const id of ['fach-ortho-durchblutung', 'fach-ortho-belastung', 'fach-neuro-kraft', 'fach-ortho-sensomotorik']) assert.match(out, new RegExp(id), `${id} : le cas sait quel membre`);
+  for (const id of ['fach-kardio-ausstrahlung', 'fach-uro-flanke', 'fach-ortho-ausstrahlung', 'case-cholezystitis']) assert.doesNotMatch(out, new RegExp(id), `${id} : la topographie EST la question`);
+});
+
+test('I8 — la variante résolue par le cas n\'est plus une alternative', T, () => {
+  const r = sb.mutate(PROBES,
+    "frage: 'Ist ein Arm oder Bein schwächer geworden?",
+    "frage: 'Ist der Arm schwächer geworden?",
+    () => gate('--rule', 'C', '--report'));
+  assert.doesNotMatch(r.stdout, /sondes \(fach-neuro-kraft\)/);
 });

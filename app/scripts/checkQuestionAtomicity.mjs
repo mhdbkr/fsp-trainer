@@ -19,9 +19,18 @@
 //   D salve       — l'examinateur, lui, A LE DROIT d'enchaîner (voir plus bas) :
 //                   seule la salve INCOHÉRENTE se découpe, et son seul marqueur
 //                   mesurable est l'arité — au-delà de TROIS interrogations.
+//                   Les salves à 2 et à 3 ne sont pas découpées, mais COMPTÉES
+//                   (D2, D3) : exemptées de la règle A, pas du budget (D1).
 //   4 budget      — plancher dans fixtures/atomicity-budget.json ; la porte
-//                   échoue si un compteur REMONTE. C'est le seul moyen
-//                   d'introduire la règle sans bloquer les 130 cas existants.
+//                   échoue si un compteur REMONTE, si une clé manque, ou si la
+//                   liste d'exemptions grossit (E). `--bless` ne grave qu'une
+//                   BAISSE. C'est le seul moyen d'introduire la règle sans
+//                   bloquer les 130 cas existants.
+//
+// CORPUS : le catalogue (sondes, guide, questions des cas, Oberarzt) ET la
+// TRAME JOUÉE de chaque cas (`playedTrame`) — une réplique reformulée pour un
+// sexe, un âge, ou recomposée par « un symptôme, une question » n'existe
+// qu'à l'écran. Chaque texte distinct compte une fois.
 //
 // POURQUOI L'OBERARZT EST SORTI DE LA RÈGLE 1 (décision Q11) : en examen réel,
 // un senior enchaîne ses questions — « Welche Verdachtsdiagnose haben Sie?
@@ -57,16 +66,18 @@
 //   • `fach-ortho-durchblutung` — « die Hand ODER der Fuß » : DEUX membres.
 //     Le cas sait si le traumatisme est au bras ou à la jambe : demander les
 //     deux prouve qu'on n'a pas lu le cas. Trou de rédaction, signalé.
-// L'arité (2 vs ≥3) tient la distinction sans liste ; `fach-uro-flanke`
-// (Flanke oder Rücken — deux régions, mais l'alternative EST la question)
-// reste une exemption nommée, relue.
+// Critère mécanique du contrat (frage-atomique §3.3) : EXACTEMENT deux
+// membres LATÉRALISABLES (Hand/Fuß/Arm/Bein, au singulier) reliés par `oder`
+// ou `/`, article facultatif (« ein Arm oder Bein » est la même faute), hors
+// verbe d'irradiation et hors énumération de trois territoires. `fach-uro-
+// flanke` (Flanke oder Rücken) passe par le critère : aucune exemption écrite.
 //
 // AUCUN DÉCOUPAGE AUTOMATIQUE (§6.1) : ce script COMPTE et REFUSE, il ne
 // réécrit jamais. Un split sur « ? » produit de l'allemand faux dans quatre
 // situations (préfixe d'étiquette, subordonnée portée par la 1re question,
 // ellipse de composé, relance conditionnelle) — toutes présentes au corpus.
 //
-// Usage : node scripts/checkQuestionAtomicity.mjs [--report] [--rule A|B|C|D]
+// Usage : node scripts/checkQuestionAtomicity.mjs [--report] [--rule A|B|C|D|D2|D3]
 //         node scripts/checkQuestionAtomicity.mjs --bless   (baisse le budget)
 // ============================================================================
 import { build } from 'esbuild';
@@ -82,13 +93,11 @@ const bless = process.argv.includes('--bless');
 const ruleIdx = process.argv.indexOf('--rule');
 const onlyRule = ruleIdx > 0 ? (process.argv[ruleIdx + 1] || '').toUpperCase() : '';
 
-// --- Exceptions nominatives (règle 1 et règle 3) ----------------------------
-// Chaque entrée porte SA RAISON, relue par la direction. Le budget refuse que
-// cette liste grossisse sans décision : un ajout qui ferait remonter un
-// compteur est bloqué par la règle 4 de toute façon.
+// --- Exceptions nominatives (règle 1) ---------------------------------------
+// Liste VIDE (contrat Q12). Chaque entrée porterait sa raison écrite, décidée
+// par la direction ; leur nombre est le compteur E du budget : une entrée
+// ajoutée fait échouer la porte, la liste ne grossit pas en silence.
 const ALLOWED_COMPOSED = {
-  // Règle 3 — alternatives binaires légitimes.
-  'fach-uro-flanke': "Flanke ↔ Rücken : la distinction EST la question (colique néphrétique vs lombalgie), le cas ne la tranche pas d'avance.",
 };
 
 // ---------------------------------------------------------------------------
@@ -101,7 +110,8 @@ writeFileSync(entry, `
   export { seedGuides } from ${JSON.stringify(join(root, 'src/data/seedGuides.ts'))};
   export { PROBE_BY_ID } from ${JSON.stringify(join(root, 'src/data/guides/anamneseProbes.ts'))};
   export { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, aktuellChapterFor, abschlussChapterFor } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
-  export { phraseText, phraseAlts, phraseFollowUp, splitDimension } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
+  export { playedTrame } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
+  export { phraseText, phraseAlts, phraseFollowUp, phraseProbes, phraseIsCaseSpecific, splitDimension } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
   export { cqText } from ${JSON.stringify(join(root, 'src/lib/caseQuestions.ts'))};
 `);
 const out = join(dir, 'bundle.mjs');
@@ -155,6 +165,25 @@ for (const c of m.seedCases()) {
   for (const q of c.caseSpecificQuestions ?? []) push(`case-questions/${c.id}`, undefined, 'caseq', m.cqText(q));
   for (const q of c.examinerQuestions ?? []) push(`oberarzt/${c.id}`, undefined, 'oberarzt', typeof q === 'string' ? q : q?.frage);
 }
+
+// La TRAME JOUÉE (I4) : ce que l'écran affiche. Un texte déjà au catalogue
+// y est compté une fois ; les autres (reformulés par sexe/âge, recomposés par
+// `parts`) n'existent qu'ici — chaque texte distinct compte une fois, sous le
+// premier cas qui l'affiche. Les questions du cas sont déjà comptées plus haut.
+const seenText = new Set(rows.map((r) => r.text));
+for (const c of m.seedCases()) {
+  const { chapters, fach } = m.playedTrame(c);
+  for (const ch of fach ? [...chapters, fach.chapter] : chapters) for (const p of ch.questions) {
+    if (m.phraseIsCaseSpecific(p)) continue;
+    const id = m.phraseProbes(p)[0];
+    for (const [kind, t] of [['phrase', m.phraseText(p)], ...m.phraseAlts(p).map((a) => ['alt', a]), ...m.phraseFollowUp(p).map((f) => ['followUp', f])]) {
+      const text = typeof t === 'string' ? t.trim() : '';
+      if (!text || seenText.has(text)) continue;
+      seenText.add(text);
+      push(`trame/${c.id}`, id, kind, text);
+    }
+  }
+}
 // `patientSheet.schwierigeReaktionen` est volontairement HORS corpus : c'est
 // la réaction du simulant (une bouffée d'angoisse, plusieurs phrases), pas une
 // réplique que le candidat doit prononcer. Lui appliquer « une question à la
@@ -162,8 +191,11 @@ for (const c of m.seedCases()) {
 // précisément ce que le candidat doit apprendre à encaisser.
 
 // ---------------------------------------------------------------------------
-// RÈGLE A — atomicité : au plus un « ? ».
-const countQ = (t) => (t.match(/\?/g) || []).length;
+// RÈGLE A — atomicité : au plus un « ? ». Une question CITÉE entre
+// guillemets (« Der Patient fragt: „Muss ich sterben?“ ») n'est pas une
+// interrogation de celui qui parle : elle est retirée avant le comptage (D1).
+const QUOTED = /„[^“”"]*[“”"]|“[^”]*”|»[^«]*«|"[^"]*"/g;
+const countQ = (t) => (t.replace(QUOTED, '').match(/\?/g) || []).length;
 
 // RÈGLE B — énumération. Algorithme de l'audit §2 : retrait du préfixe
 // d'étiquette (`Begleitbeschwerden — `), troncature au premier « ? », découpe
@@ -185,26 +217,36 @@ function enumItems(text) {
   return [...keys];
 }
 
-// RÈGLE C — alternative BINAIRE dépendante du cas, sur les seuls énoncés
-// interrogatifs. Deux termes du lexique anatomique reliés par `oder` ou `/`,
-// chacun avec son article. L'ellipse de composé (`Schlaf- oder
-// Beruhigungsmittel`, `Nacht- oder Ruheschmerz`) est de l'allemand correct :
-// elle est exclue par le tiret terminal.
+// RÈGLE C — alternative BINAIRE dépendante du cas (contrat §3.3), sur les
+// seuls énoncés interrogatifs : un membre supérieur et un membre inférieur
+// (Hand/Arm ↔ Fuß/Bein), au singulier (« Armen oder Beinen » dépiste les deux : pas une alternative),
+// reliés par `oder` ou `/`, article ou préposition facultatifs. L'ellipse de
+// composé (`Hand- oder Fußgelenk`) est exclue par le tiret. Exemptés : le
+// verbe d'irradiation (« strahlt … in die Schulter oder das Schulterblatt
+// aus » — la topographie EST la question) et l'énumération de ≥ 3 territoires.
 const BODY = 'Hand|Fuß|Fuss|Arm|Bein|Wade|Knie|Schulter|Hüfte|Ellenbogen|Handgelenk|Sprunggelenk|Finger|Zehe|Auge|Ohr|Flanke|Rücken|Bauch|Brust|Hals|Nacken|Kopf|Schenkel|Knöchel|Oberarm|Unterarm|Oberschenkel|Unterschenkel|Gelenk|Seite';
 const ART = '(?:der|die|das|den|dem|des|ein|eine|einen|einem|Ihr|Ihre|Ihren|Ihrem)';
-const RE_ART = new RegExp(`\\b${ART}\\s+(?:\\w+\\s+)?(${BODY})\\w*\\s+oder\\s+${ART}\\s+(?:\\w+\\s+)?(${BODY})\\w*`, 'i');
-const RE_SLASH = new RegExp(`\\b(${BODY})\\w*/(?:${ART}\\s+)?(${BODY})\\w*`, 'i');
+const LAT = 'Hand|Fuß|Fuss|Arm|Bein';
+const PRE = `(?:(?:${ART}|in|im|ins|am)\\s+)?(?:[a-zäöüß]+\\s+)?`;
+// `\\b` ne voit pas de frontière après « ß » (hors \\w sans drapeau u) : fin de mot explicite.
+const END = '(?![\\wäöüßÄÖÜ])';
+const RE_PAIR = new RegExp(`\\b(${LAT})(?:es|s)?${END}\\s*(oder\\s+|/)${PRE}(${LAT})(?:es|s)?${END}`);
+const RE_IRRAD = /strahl|zieh/i;
 // Une énumération d'au moins TROIS membres n'est pas une alternative binaire :
 // c'est la question clinique elle-même (irradiation de l'angor).
 const RE_MEMBERS = new RegExp(`\\b${ART}\\s+(?:\\w+\\s+)?(?:${BODY})\\w*`, 'gi');
+// Le cas sait si c'est le membre SUPÉRIEUR ou INFÉRIEUR : c'est là la faute.
+// « am Bein oder am Fuß » (case-erysipel : la porte d'entrée sur la même
+// jambe) dépiste un seul membre — pas une alternative.
+const upper = (w) => w === 'Hand' || w === 'Arm';
 function altIssue(text) {
   if (!text.includes('?')) return null;
   const head = text.split('?')[0];
-  const members = head.match(RE_MEMBERS) ?? [];
-  if (members.length >= 3) return null;                 // énumération clinique
-  if (RE_ART.test(head)) return 'alternative binaire « X oder Y »';
-  if (RE_SLASH.test(head)) return 'alternative collée « X/Y »';
-  return null;
+  if ((head.match(RE_MEMBERS) ?? []).length >= 3) return null;   // énumération clinique
+  if (RE_IRRAD.test(head)) return null;                            // irradiation
+  const mm = head.match(RE_PAIR);
+  if (!mm || upper(mm[1]) === upper(mm[3])) return null;
+  return mm[2] === '/' ? 'alternative collée « X/Y »' : 'alternative binaire « X oder Y »';
 }
 
 // ---------------------------------------------------------------------------
@@ -213,23 +255,27 @@ function altIssue(text) {
 // sans rapport (décision Q11, et la mesure ci-dessus).
 const SALVE_MAX = 3;
 
-const findings = { A: [], B: [], C: [], D: [] };
+const findings = { A: [], B: [], C: [], D: [], D2: [], D3: [], E: [] };
+for (const id of Object.keys(ALLOWED_COMPOSED)) findings.E.push({ where: 'ALLOWED_COMPOSED', id, text: ALLOWED_COMPOSED[id] });
 for (const r of rows) {
   const exempt = r.id && ALLOWED_COMPOSED[r.id];
   const n = countQ(r.text);
   const ober = r.kind === 'oberarzt';
   if (n >= 2 && !exempt && !ober) findings.A.push(r);
   if (ober && n > SALVE_MAX) findings.D.push({ ...r, n });
+  if (ober && n === 2) findings.D2.push({ ...r, n });
+  if (ober && n === 3) findings.D3.push({ ...r, n });
   if (n === 1) {
     const items = enumItems(r.text);
     const cap = r.kind === 'followUp' ? 2 : 3;
     if (items.length > cap) findings.B.push({ ...r, items: items.length, cap });
   }
-  if (!exempt) { const why = altIssue(r.text); if (why) findings.C.push({ ...r, why }); }
+  const why = altIssue(r.text); if (why) findings.C.push({ ...r, why });
 }
 
-const counts = { A: findings.A.length, B: findings.B.length, C: findings.C.length, D: findings.D.length };
-const total = counts.A + counts.B + counts.C + counts.D;
+const KEYS = ['A', 'B', 'C', 'D', 'D2', 'D3', 'E'];
+const counts = Object.fromEntries(KEYS.map((k) => [k, findings[k].length]));
+const total = KEYS.reduce((t, k) => t + counts[k], 0);
 
 if (process.argv.includes('--corpus')) {
   const by = {};
@@ -238,28 +284,40 @@ if (process.argv.includes('--corpus')) {
   console.log(`${String(rows.length).padStart(5)}  TOTAL`); process.exit(0);
 }
 
+let fixture;
+try { fixture = JSON.parse(readFileSync(budgetPath, 'utf8')); }
+catch { console.error(`❌ budget absent ou illisible (${budgetPath}).`); process.exit(2); }
+const budget = fixture.budget ?? {};
+// I2 : une clé absente ou non numérique ne désactive pas sa règle — elle
+// ferme la porte (`NaN > 0` est faux : la règle se taisait).
+const missing = KEYS.filter((k) => !Number.isInteger(budget[k]));
+if (missing.length) {
+  console.log(`❌ budget incomplet : clé(s) ${missing.join(', ')} absente(s) ou non entière(s) dans ${budgetPath}.`);
+  process.exit(2);
+}
+const fmt = (o) => KEYS.map((k) => `${k}=${o[k]}`).join(' ');
+
+// I3 : `--bless` ne grave qu'une BAISSE. Il réécrit les compteurs et le
+// corpus, conserve toutes les notes du fixture, et refuse toute hausse — une
+// hausse de mesure (validateur élargi) s'écrit à la main, raison à l'appui,
+// et la porte « face à main » (checkBudgetFloor.mjs) la montre en revue.
 if (bless) {
-  writeFileSync(budgetPath, JSON.stringify({
-    note: 'Budget DÉGRESSIF (audit série 3 §6.4, règle 4). Il ne remonte jamais. `--bless` après un lot corrigé, jamais pour faire taire une régression.',
-    generated: new Date().toISOString().slice(0, 10),
-    reference: 'Audit série 3 : A=1059 B=322 C=75 sur 15 591 énoncés, toutes classes. Ce script ne lit que la classe Q (l\'oral posé par le candidat) ; ses compteurs sont donc plus bas et ne se comparent pas ligne à ligne.',
-    q11: 'Décision Q11 de la direction : les questions d\'Oberarzt sont EXEMPTÉES de la règle A. En examen réel un senior enchaîne ses questions — c\'est fidèle, pas fautif. 471 constats A disparaissent de ce fait, et n\'ont jamais été des défauts. Elles relèvent désormais de la règle D (arité > 3), qui ne vise que la salve incohérente. Deux détecteurs sémantiques d\'incohérence ont été mesurés puis jetés (liaison lexicale : 407/471 faux positifs ; terme de vocabulaire orphelin : 14/15) — l\'arité est le seul marqueur qui sépare la salve nommée par la direction des 470 autres.',
-    corpus: rows.length, budget: counts,
-  }, null, 2) + '\n');
-  console.log(`budget régénéré : A=${counts.A} B=${counts.B} C=${counts.C} D=${counts.D} sur ${rows.length} énoncés`);
+  const up = KEYS.filter((k) => counts[k] > budget[k]);
+  if (up.length) {
+    console.log(`❌ --bless refusé : ${up.map((k) => `${k} ${budget[k]} → ${counts[k]}`).join(', ')}. Le budget ne remonte jamais.`);
+    process.exit(1);
+  }
+  writeFileSync(budgetPath, JSON.stringify({ ...fixture, generated: new Date().toISOString().slice(0, 10), corpus: rows.length, budget: counts }, null, 2) + '\n');
+  console.log(`budget regravé : ${fmt(counts)} sur ${rows.length} énoncés`);
   process.exit(0);
 }
 
-let budget;
-try { budget = JSON.parse(readFileSync(budgetPath, 'utf8')).budget; }
-catch { console.error(`❌ budget absent (${budgetPath}) — lancer --bless une fois.`); process.exit(2); }
-
-const LABEL = { A: 'plus d\'un « ? » dans une réplique', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)' };
+const LABEL = { A: 'plus d\'un « ? » dans une réplique', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)', D2: 'salve d\'examinateur à 2 interrogations', D3: 'salve d\'examinateur à 3 interrogations', E: 'exemption nominative ALLOWED_COMPOSED (Q12 : la liste ne grossit pas sans décision)' };
 const show = (k) => {
   const list = findings[k];
   const head = report ? list : list.slice(0, 15);
   for (const r of head) {
-    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k === 'D' ? ` [${r.n} interrogations > ${SALVE_MAX}]` : ` [${countQ(r.text)} « ? »]`;
+    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k.startsWith('D') ? ` [${r.n} interrogations]` : k === 'E' ? '' : ` [${countQ(r.text)} « ? »]`;
     console.log(`  ✗ ${r.where}${r.id ? ` (${r.id})` : ''}${extra}\n      « ${r.text.slice(0, 150)} »`);
   }
   if (!report && list.length > head.length) console.log(`  … ${list.length - head.length} de plus (--report)`);
@@ -268,7 +326,7 @@ const show = (k) => {
 if (onlyRule) { console.log(`${onlyRule} — ${findings[onlyRule]?.length ?? 0} : ${LABEL[onlyRule]}\n`); show(onlyRule); process.exit(0); }
 
 let failed = false;
-for (const k of ['A', 'B', 'C', 'D']) {
+for (const k of KEYS) {
   const over = counts[k] - budget[k];
   if (over > 0) {
     failed = true;
@@ -282,7 +340,7 @@ if (failed) {
   console.log('   jamais découper par script (§6.1 : le split sur « ? » produit de l\'allemand faux).');
   process.exit(1);
 }
-const gained = ['A', 'B', 'C', 'D'].map((k) => (budget[k] ?? counts[k]) - counts[k]);
-if (gained.some((g) => g > 0)) console.log(`   Budget entamé : A −${gained[0]}, B −${gained[1]}, C −${gained[2]}, D −${gained[3]} — lancer \`--bless\` pour le graver.`);
-const sum = ['A', 'B', 'C', 'D'].reduce((t, k) => t + (budget[k] ?? 0), 0);
-console.log(`✅ ATOMICITÉ — ${rows.length} énoncés « à dire » ; A=${counts.A}/${budget.A} · B=${counts.B}/${budget.B} · C=${counts.C}/${budget.C} · D=${counts.D}/${budget.D ?? 0} (total ${total}/${sum}).`);
+const gained = KEYS.filter((k) => budget[k] > counts[k]);
+if (gained.length) console.log(`   Budget entamé : ${gained.map((k) => `${k} −${budget[k] - counts[k]}`).join(', ')} — lancer \`--bless\` pour le graver.`);
+const sum = KEYS.reduce((t, k) => t + budget[k], 0);
+console.log(`✅ ATOMICITÉ — ${rows.length} énoncés « à dire » ; ${KEYS.map((k) => `${k}=${counts[k]}/${budget[k]}`).join(' · ')} (total ${total}/${sum}).`);
