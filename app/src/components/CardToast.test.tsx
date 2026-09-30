@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { db } from '@/db/db';
 import { useCardToast } from '@/store/cardToast';
 import { createPersonalTerm } from '@/lib/collections/personalTerms';
@@ -18,6 +18,50 @@ vi.mock('@/lib/sync/queue', async () => {
 vi.mock('@/lib/collections/pendingDeletion', async () => {
   const actual = await vi.importActual<typeof import('@/lib/collections/pendingDeletion')>('@/lib/collections/pendingDeletion');
   return { ...actual, cancelDeletion: vi.fn(actual.cancelDeletion) };
+});
+
+describe('CardToast — accessibilité (G1-16, G1-18, G1-21)', () => {
+  beforeEach(async () => {
+    await db.progress_events.clear(); await db.personal_terms.clear(); await db.favorites.clear(); await db.deck_terms.clear(); await db.decks.clear();
+    useCardToast.setState({ toast: null }); usePendingDeletions.setState({ ids: new Set() });
+  });
+  it('région role=status PERSISTANTE : montée sans toast, son texte change ; erreur = role=alert', async () => {
+    render(<CardToast />);
+    const status = screen.getByRole('status');
+    expect(status.textContent).toBe('');
+    act(() => useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd1', name: 'Leber' }));
+    expect(screen.getByRole('status')).toBe(status);
+    expect(status.textContent).toBe('Deck « Leber » supprimé');
+    act(() => useCardToast.getState().show({ kind: 'error', message: 'Oups' }));
+    expect(await screen.findByRole('alert')).toBeTruthy();
+    expect(screen.getAllByRole('status')).toHaveLength(1);
+  });
+  it('Échap ailleurs (ex. dans un tiroir) ne ferme PAS la pilule ; Échap dans la pilule la ferme', async () => {
+    render(<CardToast />);
+    act(() => useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd1', name: 'Leber' }));
+    fireEvent.keyDown(document.body, { key: 'Escape' });
+    expect(useCardToast.getState().toast).not.toBeNull();
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Annuler' }), { key: 'Escape' });
+    expect(useCardToast.getState().toast).toBeNull();
+  });
+  it('« Changer » : après le choix, le focus revient sur « Changer »', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Leber', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    const { addTermToDeck } = await import('@/lib/collections'); await addTermToDeck('deck-favorites', id);
+    useCardToast.getState().show({ kind: 'saved', term: toView((await db.personal_terms.get(id))!), deckId: 'deck-favorites' });
+    render(<CardToast />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Changer de deck' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Leber' }));
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Changer de deck' })));
+  });
+  it('toast demandé avec focus (après « Créer ») : le focus va au premier bouton de la pilule', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    const term = toView((await db.personal_terms.get(id))!);
+    render(<CardToast />);
+    act(() => useCardToast.getState().show({ kind: 'saved', term, deckId: 'deck-favorites' }, { focus: true }));
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: /Rangée dans Favoris/ })));
+  });
 });
 
 describe('CardToast — suppression (m2)', () => {
@@ -41,9 +85,11 @@ describe('CardToast — suppression (m2)', () => {
     const { id } = await createPersonalTerm({ term: 'Orthopnoe' });
     useCardToast.getState().show({ kind: 'deleted', term: toView((await db.personal_terms.get(id))!) });
     render(<CardToast />);
-    const status = screen.getByRole('status');
-    expect(status.textContent).toBe('Carte « Orthopnoe » supprimée·Annuler');   // G1-11
-    expect(status.className).toContain('glass-thin');
+    expect(screen.getByRole('status').textContent).toBe('Carte « Orthopnoe » supprimée');   // G1-11, région persistante (G1-18)
+    const pill = screen.getByRole('button', { name: 'Annuler' }).parentElement!;
+    expect(pill.textContent).toBe('Carte « Orthopnoe » supprimée·Annuler');
+    expect(pill.className).toContain('glass-thin');
+    expect(pill.getAttribute('role')).toBeNull();   // le nœud animé ne porte pas l'annonce
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
   });
   it('« Rangée » : une ligne ★ · Révéler · Changer ; aucun miniature tant qu\'on ne touche pas', async () => {
@@ -62,7 +108,7 @@ describe('CardToast — suppression (m2)', () => {
     useCardToast.getState().show({ kind: 'deck-deleted', deckId: 'd1', name: 'Leber' });
     vi.mocked(cancelDeletion).mockReturnValueOnce(true);
     render(<CardToast />);
-    expect(screen.getByRole('status').textContent).toBe('Deck « Leber » supprimé·Annuler');
+    expect(screen.getByRole('status').textContent).toBe('Deck « Leber » supprimé');
     fireEvent.click(screen.getByRole('button', { name: 'Annuler' }));
     expect(cancelDeletion).toHaveBeenCalledWith('d1');
     await waitFor(() => expect(useCardToast.getState().toast).toBeNull());
@@ -73,7 +119,7 @@ describe('CardToast — suppression (m2)', () => {
     await scheduleDeletion(id, 30);
     useCardToast.getState().show({ kind: 'deleted', term });
     render(<CardToast />);
-    expect(screen.getByText(/supprimée/)).toBeTruthy();
+    expect(screen.getByRole('status').textContent).toMatch(/supprimée/);
     await waitFor(() => expect(useCardToast.getState().toast).toBeNull(), { timeout: 2000 });
   });
 });

@@ -9,8 +9,10 @@ export type CardToast =
   | { kind: 'deck-deleted'; deckId: string; name: string }
   | { kind: 'error'; message: string };
 
-export const useCardToast = create<{ toast: CardToast | null; show: (t: CardToast) => void; hide: () => void }>((set) => ({
+/** `focus` : la pilule prend le focus à l'apparition (après « Créer » : la mini-fiche qui l'avait disparaît). */
+export const useCardToast = create<{ toast: CardToast | null; focus: boolean; show: (t: CardToast, opts?: { focus?: boolean }) => void; hide: () => void }>((set) => ({
   toast: null,
-  show: (toast) => set({ toast }),
-  hide: () => set({ toast: null }),
+  focus: false,
+  show: (toast, opts) => set({ toast, focus: !!opts?.focus }),
+  hide: () => set({ toast: null, focus: false }),
 }));

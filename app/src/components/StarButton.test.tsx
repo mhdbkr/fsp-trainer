@@ -77,11 +77,11 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     expect(FAVORITES_DECK_ID).toBe('deck-favorites');
     useUi.setState({ glossaryTerm: null });
   });
-  it('Échap ferme la confirmation (revue C4)', async () => {
+  it('Échap DANS la pilule ferme la confirmation (revue C4 ; Échap ailleurs ne la ferme plus, G1-16)', async () => {
     render(<Harness />);
     await clickEmptyStar();
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
-    fireEvent.keyDown(window, { key: 'Escape' });
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Révéler' }), { key: 'Escape' });
     await waitFor(() => expect(screen.queryByText('Favoris', { selector: 'strong' })).toBeNull());
   });
   it('matière (F4b P3, AC-2) : vide = cristal, pleine = ambre `star` ; jamais de corail', async () => {
