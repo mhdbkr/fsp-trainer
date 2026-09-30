@@ -365,8 +365,8 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-neuro-lage', kapitel: 'aktuell', frage: 'Wird es schlimmer beim Kopfdrehen, Hinlegen oder Aufstehen?' },
   ],
   infekt: [
-    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Wie hoch war die Temperatur, als Sie gemessen haben?' },
-    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie kürzlich im Ausland?' },
+    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Haben Sie Fieber gemessen?' },
+    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie in den letzten Wochen im Ausland?' },
     { id: 'akt-infekt-herd', kapitel: 'aktuell', frage: 'Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, Ausschlag, Wunde?' },
   ],
   veraenderung: [
@@ -375,7 +375,7 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-veraend-blutung', kapitel: 'aktuell', frage: 'Tut es weh, juckt es, oder blutet es?' },
   ],
   nerven: [
-    { id: 'akt-nerven-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: ein Kribbeln, ein Zittern oder eine Schwäche?' },
+    { id: 'akt-nerven-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: ein Kribbeln, eine Taubheit oder eine Schwäche?' },
     { id: 'akt-nerven-alltag', kapitel: 'aktuell', frage: 'Was fällt dadurch schwer: Knöpfe, Schreiben, eine Tasse halten?' },
     { id: 'akt-nerven-tageszeit', kapitel: 'aktuell', frage: 'Ist es nachts oder morgens schlimmer?' },
   ],
@@ -391,7 +391,7 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   ],
   anfall: [
     { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an: schlagartig oder langsam?' },
-    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden?' },
+    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall — Sekunden, Minuten oder Stunden?' },
     { id: 'akt-anfall-bewusstsein', kapitel: 'aktuell', frage: 'Waren Sie dabei bewusstlos oder ist Ihnen schwarz vor Augen geworden?' },
   ],
 };

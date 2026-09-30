@@ -47,7 +47,10 @@ export type Symptom =
   | 'kopfschmerz' | 'atemnot' | 'brustschmerz' | 'bewusstlos' | 'sehstoerung'
   | 'krampf' | 'taubheit' | 'schwaeche' | 'herzrasen' | 'schwitzen'
   | 'durst' | 'juckreiz' | 'ausschlag' | 'schluck' | 'gelbfaerbung'
-  | 'sturz' | 'stimmung' | 'angst' | 'suizid' | 'gedaechtnis' | 'polyurie';
+  | 'sturz' | 'stimmung' | 'angst' | 'suizid' | 'gedaechtnis' | 'polyurie'
+  // re-revue : l'Uhthoff (chaleur) et l'évolution par poussées, séparés pour
+  // que `fach-neuro-verlauf` ne perde que la moitié déjà posée par le cas.
+  | 'schub' | 'waerme';
 
 export const PROBE_SUCHT: Record<string, Symptom[]> = {
   // Vegetative Anamnese — les questions générales, celles qui « répètent ».
@@ -122,6 +125,7 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'fach-neuro-sehen': ['sehstoerung'],
   'fach-neuro-sensibilitaet': ['taubheit'],
   'fach-neuro-kraft': ['schwaeche'],
+  'fach-neuro-verlauf': ['schub', 'waerme'],
   'fach-neuro-anfall': ['krampf', 'bewusstlos'],
   'fach-ortho-mechanismus': ['sturz'],
   'fach-ortho-sensomotorik': ['taubheit', 'schwaeche'],

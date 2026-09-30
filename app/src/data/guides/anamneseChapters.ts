@@ -140,7 +140,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Falls ja: Ist er trocken, oder husten Sie etwas ab?', 'Welche Farbe hat der Auswurf?', 'Ist Blut dabei?'],
+        followUp: ['Husten Sie dabei etwas ab?', 'Falls Sie etwas abhusten: Welche Farbe hat das?', 'Ist Blut dabei?'],
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
       { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
@@ -269,18 +269,18 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie Fieber oder fühlen sich krank? Kam es schlagartig oder langsam?', probe: 'akt-beginn' },
       {
-        text: 'Fieber — Wie hoch war die Temperatur, als Sie gemessen haben?',
+        text: 'Fieber — Haben Sie Fieber gemessen?',
         probe: 'akt-infekt-fieber',
-        followUp: ['Wann ist das Fieber am höchsten?'],
+        followUp: ['Wie hoch war es?', 'Wann ist das Fieber am höchsten?'],
       },
       {
         text: 'Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?',
         probe: 'akt-verlauf',
       },
       {
-        text: 'Kontakt und Reise — Waren Sie kürzlich im Ausland?',
+        text: 'Kontakt und Reise — Waren Sie in den letzten Wochen im Ausland?',
         probe: 'akt-infekt-kontakt',
-        followUp: ['Hatten Sie in dieser Zeit Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
+        followUp: ['Hatten Sie Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -328,19 +328,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann bemerken Sie das? Ist es langsam gekommen, oder in Schüben mit besseren Phasen dazwischen?', probe: 'akt-beginn' },
       {
-        text: 'Art — Was genau spüren Sie: ein Kribbeln, ein Zittern oder eine Schwäche?',
+        text: 'Art — Was genau spüren Sie: ein Kribbeln, eine Taubheit oder eine Schwäche?',
         probe: 'akt-nerven-art',
         followUp: ['Wo spüren Sie das?', 'Auf einer Seite oder auf beiden?'],
       },
       {
-        text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
+        text: 'Alltag — Was fällt Ihnen schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
         probe: 'akt-nerven-alltag',
-        followUp: ['Sind Sie dabei schon gestürzt?'],
+        followUp: ['Und beim Gehen — sind Sie schon gestürzt?'],
       },
       {
         text: 'Tageszeit — Ist es nachts oder morgens schlimmer?',
         probe: 'akt-nerven-tageszeit',
-        followUp: ['Gibt es Haltungen oder Situationen, in denen es stärker wird?'],
+        followUp: ['Gibt es Körperhaltungen oder Situationen, in denen es stärker wird?'],
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es langsam schlimmer, oder kommt es und geht wieder ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament, eine neue Tätigkeit?', probe: 'akt-ausloeser' },
@@ -387,14 +387,14 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Was spüren Sie währenddessen?', 'Und wie hört er auf?'],
       },
       {
-        text: 'Dauer — Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden?',
+        text: 'Dauer — Wie lange dauert ein Anfall — Sekunden, Minuten oder Stunden?',
         probe: 'akt-anfall-dauer',
-        followUp: ['Wie oft kommt das vor?'],
+        followUp: ['Wie oft passiert das?'],
       },
       {
         text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
-        followUp: ['Falls ja: Haben Sie sich verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
+        followUp: ['Haben Sie sich dabei verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
@@ -1110,7 +1110,16 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         ],
       },
       { text: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?', probe: 'fach-neuro-anfallzeichen' },
-      { text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', probe: 'fach-neuro-verlauf' },
+      {
+        text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?',
+        probe: 'fach-neuro-verlauf',
+        // Quand le cas a déjà demandé la chaleur (Uhthoff, case-multiple-sklerose),
+        // il reste l'évolution par poussées.
+        parts: [
+          { sucht: ['schub'], text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück?' },
+          { sucht: ['waerme'], text: 'Werden die Beschwerden bei Wärme oder Anstrengung schlimmer?' },
+        ],
+      },
     ],
     'Sépare la céphalée primaire (migraine avec aura, photophobie) des signaux d\'alarme : début en coup de tonnerre (hémorragie méningée), déficit focal, morsure de langue + perte d\'urine (crise épileptique). La latéralité, les prodromes et les signes autonomes (cluster) sont décisifs.'),
   F('Orthopädie', 'bone', 'ortho', 'Fachanamnese Orthopédie/Trauma',
