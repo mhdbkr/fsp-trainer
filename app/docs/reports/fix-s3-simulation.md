@@ -159,3 +159,77 @@ Portes, par **code de sortie**, sur `5453e21` :
 - **Skills.** L'outil Skill n'est pas disponible dans cette session :
   `dept-produit`, `fsp-simulation` et `test-driven-development` n'ont pas été
   invoqués ; la discipline TDD a été appliquée à la main (§1).
+
+---
+
+## 5. Re-revue de `72f9570` (Opus, Request changes) — corrections
+
+Mêmes règles : un commit par correctif, test lancé **rouge avant** le
+correctif (message cité), vert après. Tête : `957249e`.
+
+| item | commit | test | rouge observé |
+|---|---|---|---|
+| **IMPORTANT** abandon qui lève ⇒ runner bloqué sur tous les cas | `7ba8b74` | `useLauf.test.tsx` › « un abandon qui échoue ne bloque jamais le runner » (P3 cas disparu ; écriture qui lève) ; `simSession.test.ts` › « le ✕ de la barre ne lève jamais » | P3 : `expected true to be false` (`laedt` bloqué), `Error: speichern: cas introuvable (ghost)` ; ✕ : `promise rejected "Error: speichern: cas introuvable (ghost)"` |
+| **mineur 11 / P4** Lauf invalide ou d'ancien format | `9e387f5` | `speichern.test.ts` › ancien format écarté, `checkliste: {}` écarté, `zustand` inconnu écarté, Lauf valide à ids legacy traduit ; `useLauf.test.tsx` › P4 | 4 échecs (les trois Lauf invalides étaient repris ; un champ `undefined` écrasait sa valeur neutre dans `restauriere`) |
+| **mineur 10** lecture hors file | `7dcbd16` | `speichern.test.ts` › « la lecture passe par la file » | `expected undefined to be '2ebe48f4-…'` |
+| **mineur 9** écran figé sur « Enregistrement… » | `24f981d` | `useLauf.test.tsx` › « un échec d'écriture ne fige jamais l'écran » | `Error: QuotaExceeded` non géré |
+| **mineur 1** règle Arztbrief dans la vue | `96f0a32` | `automat.test.ts` › « Q5 — l'automate, pas la vue » | `expected {…} to be {…}` (transition acceptée) ; `erlaubt is not a function` |
+| **mineur 2** I1 sans test | `9f7d5c6` | `automat.test.ts` › « I1 — visible qu'au bilan » | `simulationBeendbar is not a function` |
+| **mineur 3** Aufklärung listée comme partie | `6bbf121` | `SimulationHub.test.ts` (2 cas) | `expected 'Anamnese seule (Anamnese, Aufklärung)' to be 'Anamnese seule'` |
+| **mineur 4** barre « 3/3 » avec l'Aufklärung | `58b9d42` | `simSession.test.ts` › mineur 4 | `expected [ 'aufklaerung', 'anamnese' ] to deeply equal [ 'anamnese' ]` |
+| **mineur 5** transition de `PartnerChoice` | `01078e9` | `transitions.test.ts` (ex-`AnamneseBogen.motion.test.ts`) : plafond par fichier = compte sur `main` | `expected 3 to be less than or equal to 2` |
+| **mineur 7** `abbrechen` mort | `e0f3467` | `useLauf.test.tsx` › mineur 7 | `'abbrechen' in result.current` valait `true` |
+| **décision 6** Aufklärung seule à l'abandon | `3f8f77e` | `speichern.test.ts` › décision 6 | `expected 1 to be +0` (le Lauf était écrit) |
+| **décision 8** retour au bilan depuis la checklist | `957249e` | `automat.test.ts` › table exhaustive étendue (6 lignes) + 2 tests | 8 échecs (action inconnue de l'automate) |
+
+### Ce que chaque correctif change
+
+- **IMPORTANT.** `gibAuf` ne lève plus : cas minimal `{ id, name }` si
+  `db.cases` ne l'a plus, Lauf écarté si l'écriture échoue malgré tout.
+  `useLauf` encadre `bereinigeAltenLauf` (échec ⇒ `verwerfeAktivenLauf()`, on
+  continue) ; `end()` (✕ de la barre) encadre lecture et abandon.
+- **Mineur 11.** `ladeAktivenLauf` vérifie une forme minimale (`zustand` connu,
+  `modus`, `geplanteTeile` non vide, `checkliste`/`teileGespielt` tableaux,
+  `teile`/`sekundenProTeil` objets) ; sinon la clé est **supprimée**. Le test
+  d'origine « un Lauf legacy revient complet », qui validait justement la
+  reprise d'un run vide, est remplacé par « écarté » ; la traduction des ids
+  legacy reste prouvée sur un Lauf de forme valide.
+- **Mineur 9.** `beenden()` rend le Lauf d'avant si `speichern` lève (annulation
+  d'une écriture qui n'a pas eu lieu, pas une transition) et expose `fehler` ;
+  l'écran de fin affiche « L'enregistrement a échoué (…). Rien n'est perdu :
+  réessaie. » et le bouton se rejoue.
+- **Mineurs 1 et 2.** `erlaubt(lauf, aktion)` : un bouton existe ssi sa
+  transition existe. `arztbriefSchreiben` est refusé quand la Dokumentation est
+  jouée ; `simulationBeendbar(lauf)` pilote l'en-tête.
+- **Décision 8.** `zurueckZumBilanz` : `checkliste → bilanz`, `aktuellerTeil` =
+  dernière partie jouée, puis « Partie suivante » reprend le run. Bouton
+  « ← Revenir au bilan » sur l'écran de fin. Refusé depuis `arztbrief`.
+
+### Portes (par code de sortie, sur `957249e`)
+
+| commande | exit |
+|---|---|
+| `npx tsc -b --noEmit` | **0** |
+| `npx vitest run --dir src` (94 fichiers, 719 tests) | **0** |
+| `node scripts/checkGuideCoverage.mjs` / `checkUiTells.mjs` | **0** / **0** |
+
+### Amendement de contrat — complément pour `main`
+
+À ajouter à l'amendement du §2 :
+- **§2.1 règle 2** : une seconde action régressive nommée, `zurueckZumBilanz`
+  (`checkliste → bilanz` de la dernière partie jouée), depuis `checkliste`
+  seulement. INV-20 : « sauf par `zurueckZurPartie` **ou `zurueckZumBilanz`** ».
+- **§3.1** : « au moins un Teil joué » = au moins un des **trois** Teile ;
+  l'Aufklärung seule ne compte pas (décision 6). Un Lauf de forme invalide est
+  supprimé à la lecture.
+- **Q5** : la règle « Arztbrief proposé seulement si la Dokumentation n'a pas
+  été jouée » est désormais **dans l'automate** — elle reste une hypothèse
+  d'implémentation à confirmer par la direction.
+
+### Non vérifié (re-revue)
+
+- Pas de nouveau rejeu navigateur pour ces corrections : « ← Revenir au bilan »,
+  le message d'échec d'enregistrement et le cas premium purgé ne sont prouvés
+  que par les tests jsdom/fake-indexeddb ci-dessus.
+- La purge réelle par `content/apply.ts` (perte de droits) n'a pas été jouée :
+  le scénario est reproduit en retirant le cas de `db.cases`.
