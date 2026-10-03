@@ -221,7 +221,7 @@ export async function jouerPartie(c, i, o = {}) {
   const seqFin = await echantillon(c);                         // `lauf.aktiv` doit avoir disparu
   const sims = await idb(c.page, 'simulations'), tes = await idb(c.page, 'training_events'), evApres = await evCompleted();
   const resultat = (await texte(c.page)).match(/score moyen (\d+)\s*%/)?.[1];
-  c.grand.exercices++; c.grand.joursTravailles.add(c.jourIso);
+  c.grand.exercices++; c.grand.joursTravailles.add(c.jourIso); c.grand[nParties >= 3 ? 'completes' : 'parties']++;
   c.rapport.fait(`Joue « ${ligne.label} » (${ligne.cta || 'Lancer'}), ${nParties} partie(s), ${k_(o)} ; ${clics} « Enregistrer la simulation ». Score moyen affiché : ${resultat ?? '?'} %.`);
 
   // INV-22 : une partie validée (même deux fois) = UN enregistrement.
@@ -297,6 +297,18 @@ export async function accueil(c) {
   const motif = premiere?.pourquoi ?? '';
   if (/\b0 terme dû/.test(motif) && h === premiere?.label) c.rapport.observation('la « session du jour » proposée est une révision de Fachbegriffe qui annonce « 0 terme dû aujourd\'hui » : la première chose offerte au matin est une tâche sans objet.');
   if (/\bdûs\b/.test(txt)) c.rapport.observation('orthographe : « termes dûs » à l\'écran — l\'accord correct est « dus » (lib/program/dayPlan.ts, raison de la tâche Fachbegriffe).');
+  // La série : « jours de suite » = jours consécutifs TRAVAILLÉS, calculés depuis le registre de la candidate.
+  const serie = Number(txt.match(/(\d+)\s*jours? de suite/)?.[1]);
+  const veille = new Date(`${c.jourIso}T12:00:00`);
+  const jourKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  if (!c.grand.joursTravailles.has(c.jourIso)) veille.setDate(veille.getDate() - 1);
+  let attendue = 0;
+  while (c.grand.joursTravailles.has(jourKey(veille))) { attendue++; veille.setDate(veille.getDate() - 1); }
+  await c.verifie('D14', 'la série « jours de suite » est le nombre de jours consécutifs réellement travaillés', () => ({ ok: serie === attendue, detail: `affichée ${serie}, attendue ${attendue} (jours travaillés : ${[...c.grand.joursTravailles].join(', ')})` }));
+  const lundi = new Date(`${c.jourIso}T12:00:00`).getDay() === 1;
+  const vendredi = new Date(`${c.jourIso}T12:00:00`); vendredi.setDate(vendredi.getDate() - 3);
+  if (lundi && serie === 0 && c.grand.joursTravailles.has(jourKey(vendredi)))
+    c.rapport.observation('la série « jours de suite » retombe à 0 chaque lundi matin pour une candidate qui a travaillé tous ses jours ouvrés : les jours off du programme (samedi, dimanche) ne sont pas neutralisés (lib/stats.ts streakFromDays).');
   const tuile = Number(txt.match(/Tout ce que j'ai fait\s*(\d+)/)?.[1]);
   await c.verifie('D5', 'tout exercice (plan ou libre) apparaît dans l\'historique et dans les stats', () => ({
     ok: tuile === c.grand.exercices,

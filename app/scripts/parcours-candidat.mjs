@@ -36,10 +36,20 @@ const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] :
 const PORT = Number(arg('--port', 5192));
 const NB_JOURS = Number(arg('--days', 14));
 const SHOTS = arg('--shots', path.join(os.tmpdir(), 'c6-captures'));   // jamais dans le dépôt
-const TODAY = new Date().toISOString().slice(0, 10);
+const TODAY = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; })();   // date LOCALE
 const OUT = arg('--out', path.join(APP, 'docs/reports', `c6-parcours-${TODAY}.md`));
 const ENV_FILE = arg('--env-file', fs.existsSync(path.join(APP, '.env')) ? path.join(APP, '.env') : null);
 const T0 = Date.now();
+
+/**
+ * Bugs RÉELS déjà trouvés par ce parcours et NON corrigés (l'app est hors du périmètre du harnais).
+ * Même contrat qu'un `it.fails` : le KO est attendu et ne fait pas échouer le code de sortie ; il
+ * est listé en tête du rapport avec sa preuve. Si l'invariant repasse au vert, la sortie est 1 :
+ * il faut retirer l'entrée ici, sinon le bug corrigé ne serait plus gardé.
+ */
+const CONNUS = {
+  D5s: 'BUG-C6-1 — les 3 simulations de démonstration (« sim-demo-* », data/seed.ts ensureDemoData) restent dans la base de la candidate anonyme et sont comptées dans les Stats dès sa première séance : « 3 simulations complètes » avant d\'avoir joué une seule partie complète, scores par axe compris (lib/stats.ts, features/stats/StatsPage.tsx).',
+};
 
 const DOW = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -73,10 +83,14 @@ async function main() {
   try { rapport = await parcours({ browser, base: server.base, supabaseUrl }); }
   finally { await browser.close().catch(() => {}); server.stop(); }
   rapport.write(OUT);
-  const ko = rapport.echecs(), tous = rapport.tousLesChecks();
-  console.log(`\nRapport : ${OUT}\n${tous.length - ko.length}/${tous.length} vérifications OK en ${rapport.meta.dureeS} s.`);
-  for (const c of ko) console.log(`KO  ${c.id} (${c.jour}) — ${c.detail}`);
-  process.exit(ko.length ? 1 : 0);
+  const tous = rapport.tousLesChecks();
+  const nouveaux = tous.filter((x) => !x.ok && !x.connu);
+  const connusOk = [...new Set(tous.filter((x) => x.ok && CONNUS[x.id]).map((x) => x.id))];
+  const connusKo = [...new Set(tous.filter((x) => !x.ok && x.connu).map((x) => x.id))];
+  console.log(`\nRapport : ${OUT}\n${tous.filter((x) => x.ok).length}/${tous.length} vérifications OK en ${rapport.meta.dureeS} s ; ${connusKo.length} bug(s) réel(s) connu(s) ouvert(s) : ${connusKo.join(', ') || 'aucun'}.`);
+  for (const x of nouveaux) console.log(`KO  ${x.id} (${x.jour}) — ${x.detail}`);
+  for (const id of connusOk) console.log(`CONNU REPASSÉ AU VERT  ${id} — retirer de CONNUS`);
+  process.exit(nouveaux.length || connusOk.length ? 1 : 0);
 }
 
 async function parcours({ browser, base, supabaseUrl }) {
@@ -103,7 +117,7 @@ async function parcours({ browser, base, supabaseUrl }) {
     contenu: 'palier gratuit tel que le serveur local le publie (12 cas, 3 Teile chacun) — ce que voit un·e candidat·e anonyme. Aucun compte n\'est créé.',
   });
   // Le registre de la candidate : la VÉRITÉ (ce qu'elle a vraiment fait) à laquelle l'app est comparée.
-  const grand = { exercices: 0, joursTravailles: new Set(), figes: new Map(), ouverts: [] };
+  const grand = { exercices: 0, completes: 0, parties: 0, joursTravailles: new Set(), figes: new Map(), ouverts: [] };
   const c = { page, base, rapport, grand, erreurs, jourIso: '' };
 
   c.capture = async (nom) => { const f = path.join(SHOTS, `${nom}.png`); await page.screenshot({ path: f, fullPage: true }).catch(() => {}); return f; };
@@ -113,9 +127,11 @@ async function parcours({ browser, base, supabaseUrl }) {
     let ok = false, detail = '';
     try { const r = await fn(); ok = r === true || (!!r && r.ok === true); detail = (r && r.detail) || ''; }
     catch (e) { detail = `erreur de mesure : ${e.message}`; }
+    const connu = CONNUS[id];
     const shot = ok ? undefined : await c.capture(`KO-${id}-${rapport.cur.etiquette.replace(/\W+/g, '_')}`);
-    rapport.check(id, titre, ok, detail, shot);
-    if (!ok) console.log(`   KO ${id} : ${detail}`);
+    rapport.check(id, titre, ok, detail, shot, connu);
+    if (!ok) console.log(`   ${connu ? 'BUG CONNU' : 'KO'} ${id} : ${detail}`);
+    if (ok && connu) console.log(`   ${id} repasse au vert : le bug connu est corrigé — retirer ${id} de CONNUS`);
     return ok;
   };
   c.mesurePlan = async (quand) => {
@@ -162,6 +178,22 @@ async function parcours({ browser, base, supabaseUrl }) {
       detail: `la candidate a fait ${grand.exercices} exercice(s) sur ${grand.joursTravailles.size} jour(s) ; l'historique affiche ${tuiles['Exercices']} / ${tuiles['Jours travaillés']} jour(s) ; le journal en stocke ${events.length}`,
     }));
     rapport.vu(`Historique : « ${tuiles['Exercices']} exercices · ${tuiles['Jours travaillés']} jours travaillés ».`);
+
+    // Les stats : le compte « simulations complètes · par partie » est celui de ce que la candidate a joué.
+    await c.aller('/stats');
+    await until(page, () => /Stats \/ Performances/.test(document.body.innerText), 'stats');
+    const st = (await texte(page)).match(/(\d+) simulations complètes · (\d+) par partie/);
+    const demos = (await idb(page, 'simulations')).filter((x) => x.id.startsWith('sim-demo-'));
+    const dC = demos.filter((x) => (x.scope ?? (Object.keys(x.parts).length >= 2 ? 'full' : 'teil')) === 'full').length, dP = demos.length - dC;
+    const lu = st ? `stats : ${st[1]} complètes · ${st[2]} par partie` : 'compte absent';
+    await c.verifie('D5s', 'les stats comptent exactement ce que la candidate a joué', () => ({
+      ok: !!st && Number(st[1]) === grand.completes && Number(st[2]) === grand.parties,
+      detail: `${lu} ; jouées : ${grand.completes} complètes · ${grand.parties} par partie ; démos présentes en base : ${demos.length}`,
+    }));
+    await c.verifie('D5r', 'ce que la candidate a joué est compté et classé juste dans les stats (complète / par partie), démos déduites', () => ({
+      ok: !!st && Number(st[1]) - dC === grand.completes && Number(st[2]) - dP === grand.parties,
+      detail: `${lu} − démos (${dC} complètes, ${dP} par partie) ; jouées : ${grand.completes} complètes · ${grand.parties} par partie`,
+    }));
 
     const plans = await idb(page, 'day_plans');
     const struct = (p) => JSON.stringify({ mode: p.mode, seed: p.seed, targetMin: p.targetMin, t: p.tasks.filter((t) => !t.id.startsWith('r')).map((t) => [t.id, t.kind, t.caseId, t.teil, t.label, t.estMin]) });

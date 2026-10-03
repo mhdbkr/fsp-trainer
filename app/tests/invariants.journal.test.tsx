@@ -21,9 +21,10 @@ import { saveSimulation } from '@/lib/simulationSave';
 import { weakCases, streakFromDays } from '@/lib/stats';
 import { programStats } from '@/lib/program';
 import { HistoriquePage } from '@/features/program/HistoriquePage';
+import { StatsPage } from '@/features/stats/StatsPage';
 import type { TrainingEvent, TrainingKind, SimTeil } from '@/db/types';
 import { forAll, rng, type Rng } from './helpers/prop';
-import { CORPUS, TEILE, addDaysISO, partResult, randomConfig, resetTime, resetWorld, startOn } from './helpers/world';
+import { CORPUS, TEILE, addDaysISO, morning, partResult, randomConfig, resetTime, resetWorld, simulationOf, startOn } from './helpers/world';
 
 beforeEach(() => resetWorld());
 afterEach(() => { cleanup(); resetTime(); });
@@ -181,4 +182,27 @@ describe('INV-5 / INV-6 — un exercice libre apparaît dans l’historique et d
       cleanup();
     });
   }, 120_000);
+});
+
+// ---------------------------------------------------------------------------
+// BUG RÉEL BUG-C6-1, trouvé par le candidat synthétique navigateur (jour 1) — gardé en
+// `it.fails` avec sa preuve. Un·e candidat·e anonyme reçoit 3 simulations de démonstration
+// (`sim-demo-*`, data/seed.ts `ensureDemoData`). Dès sa première séance réelle, les Stats les
+// comptent : « 3 simulations complètes · 1 par partie » alors qu'elle n'a joué qu'UNE partie.
+// Les scores par axe, la courbe et les spécialités lisent les mêmes `simulations`. Les démos
+// sont déjà reconnues à la migration (`isDemoSimulation`, lib/sync/migrateLocal.ts), pas ici.
+// ---------------------------------------------------------------------------
+describe('BUG-C6-1 — les simulations de démonstration ne comptent pas dans les stats', () => {
+  it.fails('une candidate anonyme qui a joué UNE partie voit « 0 simulations complètes · 1 par partie »', async () => {
+    globalThis.ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {} } as unknown as typeof ResizeObserver;
+    startOn('2026-10-05');
+    await db.meta.put({ key: 'program', value: randomConfig(rng(1)) } as never);
+    for (const [i, c] of CORPUS.slice(0, 3).entries()) {
+      await db.simulations.put(simulationOf(`sim-demo-${i + 1}`, c.id, morning('2026-09-30'), i === 2 ? ['anamnese', 'fallvorstellung'] : ['anamnese', 'dokumentation', 'fallvorstellung'], 80, { scope: undefined, teil: undefined }));   // comme data/seed.ts : ni scope ni teil
+    }
+    await saveSimulation({ c: CORPUS[5], assistance: 'autonome', layer: 2, parts: { anamnese: partResult(70) }, scope: 'teil', teil: 'anamnese' });
+    render(<MemoryRouter><StatsPage /></MemoryRouter>);
+    await waitFor(() => expect(screen.getByText(/par partie/)).toBeTruthy(), { timeout: 5000 });
+    expect(screen.getByText(/par partie/).textContent).toMatch(/^0 simulations complètes · 1 par partie/);
+  });
 });

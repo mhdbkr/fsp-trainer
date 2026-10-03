@@ -27,30 +27,37 @@ export class Rapport {
   }
 
   /** Enregistre le verdict d'un invariant. `shot` : chemin d'une capture (KO seulement). */
-  check(id, titre, ok, detail, shot) {
-    this.cur.checks.push({ id, titre, ok: !!ok, detail: detail ?? '', shot: ok ? undefined : shot });
+  check(id, titre, ok, detail, shot, connu) {
+    this.cur.checks.push({ id, titre, ok: !!ok, detail: detail ?? '', shot: ok ? undefined : shot, connu: ok ? undefined : connu });
   }
 
   tousLesChecks() { return this.jours.flatMap((j) => j.checks.map((c) => ({ ...c, jour: j.etiquette }))); }
-  echecs() { return this.tousLesChecks().filter((c) => !c.ok); }
+  echecs() { return this.tousLesChecks().filter((c) => !c.ok && !c.connu); }
+  connus() { return this.tousLesChecks().filter((c) => !c.ok && c.connu); }
 
   markdown() {
     const all = this.tousLesChecks();
-    const ko = all.filter((c) => !c.ok);
+    const ko = all.filter((c) => !c.ok && !c.connu), connus = all.filter((c) => !c.ok && c.connu);
     const ids = [...new Set(all.map((c) => c.id))];
     const L = [];
     L.push(`# Candidat synthétique — parcours de ${this.meta.nbJours} jours (${this.meta.date})`, '');
     L.push(`> Généré par \`app/scripts/parcours-candidat.mjs\` — ne pas éditer à la main.`, '');
-    L.push(`**Verdict : ${ko.length === 0 ? 'tous les invariants tiennent' : `${ko.length} invariant(s) KO sur ${all.length} vérifications`}.** `
-      + `Durée du parcours : ${this.meta.dureeS} s. ${all.length - ko.length}/${all.length} vérifications OK.`, '');
+    L.push(`**Verdict : ${ko.length === 0 ? 'aucun invariant nouveau n\'est violé' : `${ko.length} invariant(s) KO sur ${all.length} vérifications`}`
+      + `${connus.length ? `, ${new Set(connus.map((c) => c.id)).size} bug(s) réel(s) connu(s) toujours ouvert(s)` : ''}.** `
+      + `${all.filter((c) => c.ok).length}/${all.length} vérifications OK ; durée du parcours : ${this.meta.dureeS} s.`, '');
     L.push('', `- **Persona** : ${this.meta.persona}`);
     L.push(`- **Build** : \`${this.meta.build}\` servi par \`vite preview\` (jamais le dev server) · **Base** : Supabase local (${this.meta.supabase})`);
     L.push(`- **Horloge** : injectée dans le navigateur (\`page.clock\`) — du ${this.meta.premierJour} au ${this.meta.dernierJour}, le code de l'app lit l'heure par \`lib/clock\`, donc Playwright la pilote sans toucher \`src/\`.`);
     L.push(`- **Contenu** : ${this.meta.contenu}`, '');
 
-    if (ko.length) {
+    if (ko.length || connus.length) {
       L.push('## Bugs réels trouvés', '');
-      L.push('Chaque ligne est un invariant violé par l\'app telle qu\'elle est construite — pas une erreur du harnais (le harnais est prouvé par mutation, voir `parcours-mutations.mjs`).', '');
+      L.push('Chaque ligne est un invariant violé par l\'app telle qu\'elle est construite — pas une erreur du harnais (le harnais est prouvé par mutation : `parcours-mutations.mjs`, `--navigateur`).', '');
+      for (const id of [...new Set(connus.map((c) => c.id))]) {
+        const xs = connus.filter((c) => c.id === id);
+        L.push(`- **${id}** — **bug réel connu, non corrigé (hors périmètre du harnais)** : ${xs[0].connu}`);
+        L.push(`  - Preuve : ${xs.length} jour(s) KO sur ${all.filter((c) => c.id === id).length} ; premier constat ${xs[0].jour} — ${xs[0].detail}${xs[0].shot ? ` · capture \`${xs[0].shot}\`` : ''}`);
+      }
       for (const c of ko) L.push(`- **${c.id}** — ${c.titre} (${c.jour}) : ${c.detail}${c.shot ? ` · capture : \`${c.shot}\`` : ''}`);
       L.push('');
     }
@@ -59,7 +66,7 @@ export class Rapport {
     L.push('| Invariant | Ce qu\'il garde | Vérifié | KO |', '|---|---|---|---|');
     for (const id of ids) {
       const xs = all.filter((c) => c.id === id);
-      L.push(`| ${id} | ${xs[0].titre} | ${xs.length} | ${xs.filter((c) => !c.ok).length || '0'} |`);
+      L.push(`| ${id} | ${xs[0].titre} | ${xs.length} | ${xs.filter((c) => !c.ok).length || '0'}${xs.some((c) => !c.ok && c.connu) ? ' (bug connu)' : ''} |`);
     }
     L.push('');
 
@@ -78,7 +85,7 @@ export class Rapport {
       if (j.vu.length) { L.push('**Ce que l\'app a montré**', ''); for (const v of j.vu) L.push(`- ${v}`); L.push(''); }
       if (j.checks.length) {
         L.push('**Invariants**', '');
-        for (const c of j.checks) L.push(`- ${c.ok ? 'OK' : '**KO**'} · ${c.id} — ${c.titre}${c.detail ? ` : ${c.detail}` : ''}${c.shot ? ` · capture \`${c.shot}\`` : ''}`);
+        for (const c of j.checks) L.push(`- ${c.ok ? 'OK' : c.connu ? '**KO (bug connu)**' : '**KO**'} · ${c.id} — ${c.titre}${c.detail ? ` : ${c.detail}` : ''}${c.shot ? ` · capture \`${c.shot}\`` : ''}`);
         L.push('');
       }
     }
