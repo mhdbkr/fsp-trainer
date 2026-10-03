@@ -18,8 +18,6 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
   const [kind, setKind] = useState<'manual' | 'smart'>('manual');
   const [query, setQuery] = useState<DeckQuery>(initialQuery ?? {});
   const [error, setError] = useState<string | null>(null);
-  // Champs sans bordure, soulignés (comme le renommage du tiroir) : pas de 3ᵉ verre sur le verre.
-  const field = 'min-h-11 w-full border-b border-slate-300 bg-transparent px-1 transition-colors hover:border-slate-400 focus:border-brand-500 dark:border-white/20 dark:hover:border-white/30';
   const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -41,23 +39,23 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
   return (
     <>
       <div className="fixed inset-0 z-[65] bg-slate-900/20" onClick={() => onClose()} />
-      <form ref={formRef} onKeyDown={(e) => trapFocus(e, formRef.current)} onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
-        <div className="label">Nouveau deck</div>
-        <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className={field} autoFocus /></label>
-        <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">
+      <form ref={formRef} onKeyDown={(e) => trapFocus(e, formRef.current)} onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto flex max-w-md flex-col gap-4 rounded-t-2xl px-5 pb-5 pt-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:w-full sm:-translate-x-1/2 sm:rounded-2xl">
+        <h2 className="sheet-title">Nouveau deck</h2>
+        <label className="block"><span className="field-label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className="field-line text-[15px]" autoFocus /></label>
+        <div role="radiogroup" aria-label="Type" className="flex gap-4 text-sm">
           <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'manual'} onChange={() => setKind('manual')} aria-label="Liste manuelle" />Liste manuelle</label>
           <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'smart'} onChange={() => setKind('smart')} aria-label="Deck intelligent" />Deck intelligent</label>
         </div>
         {kind === 'smart' && (
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <label><span className="label">Recherche</span><input aria-label="Recherche" value={query.q ?? ''} onChange={(e) => set('q', e.target.value)} className={field} /></label>
-            <label><span className="label">Spécialité</span><select aria-label="Spécialité" value={query.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className={field}><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></label>
-            <label><span className="label">État</span><select aria-label="État" value={query.state ?? ''} onChange={(e) => set('state', e.target.value)} className={field}><option value="">Tous</option>{STATES.map((s) => <option key={s}>{s}</option>)}</select></label>
-            <label><span className="label">Centre</span><select aria-label="Centre" value={query.center ?? ''} onChange={(e) => set('center', e.target.value)} className={field}><option value="">Tous</option>{centers.map((c) => <option key={c}>{c}</option>)}</select></label>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+            <label><span className="field-label">Recherche</span><input aria-label="Recherche" value={query.q ?? ''} onChange={(e) => set('q', e.target.value)} className="field-line" /></label>
+            <label><span className="field-label">Spécialité</span><select aria-label="Spécialité" value={query.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className="field-line"><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="field-label">État</span><select aria-label="État" value={query.state ?? ''} onChange={(e) => set('state', e.target.value)} className="field-line"><option value="">Tous</option>{STATES.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="field-label">Centre</span><select aria-label="Centre" value={query.center ?? ''} onChange={(e) => set('center', e.target.value)} className="field-line"><option value="">Tous</option>{centers.map((c) => <option key={c}>{c}</option>)}</select></label>
           </div>
         )}
         {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
-        <div className="flex justify-end gap-2"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary-glass min-h-11">Créer</button></div>
+        <div className="-mx-5 flex justify-end gap-2 border-t border-slate-900/[0.06] px-5 pt-4 dark:border-white/10"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary-glass min-h-11">Créer</button></div>
       </form>
     </>
   );

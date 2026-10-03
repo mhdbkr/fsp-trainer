@@ -155,7 +155,7 @@ function DeckMenu({ deck, style, onClose }: { deck: { id: string; name: string }
       {renaming ? (
         <input aria-label="Nouveau nom" value={name} maxLength={40} autoFocus onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }}
-          className="min-h-11 w-full border-b border-slate-300 bg-transparent px-3 text-sm focus:border-brand-500 dark:border-white/20" />
+          className="field-line px-3 text-sm" />
       ) : (<>
         <button type="button" role="menuitem" className={item} onClick={() => setRenaming(true)}>Renommer</button>
         <button type="button" role="menuitem" className={`${item} text-rose-700 dark:text-rose-300`} onClick={remove}>Supprimer</button>

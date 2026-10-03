@@ -165,7 +165,6 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
     '--nc-top': `${Math.max(8, Math.min(at.bottom + 8, window.innerHeight - CARD_H))}px`,
     '--nc-left': `${Math.max(16, Math.min(at.x - CARD_W / 2, window.innerWidth - CARD_W - 16))}px`,
   } as React.CSSProperties : undefined;
-  const field = 'w-full min-h-11 border-b border-transparent bg-transparent transition-colors hover:border-slate-300 focus:border-brand-500 dark:hover:border-white/20';
   const onEnter = (e: React.KeyboardEvent) => { if (e.key === 'Enter') { e.preventDefault(); void create(); } };
 
   return (
@@ -173,14 +172,14 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
       <m.div ref={cardRef} role="dialog" aria-label="Nouvelle carte" data-keep-open style={anchorStyle}
         {...expand} exit="gone" variants={{ gone: settleOrClose }}
         onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}
-        className={`glass-full fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-[22rem] origin-bottom space-y-3 rounded-2xl p-4 text-sm ${at ? 'sm:inset-x-auto sm:bottom-auto sm:left-[var(--nc-left)] sm:top-[var(--nc-top)] sm:w-[22rem] sm:origin-top sm:max-h-[calc(100dvh-var(--nc-top)-8px)] sm:overflow-y-auto' : ''}`}>
-        <div className="flex items-start justify-between gap-2">
-          <p className="label pt-1">{hit ? 'Déjà dans le glossaire' : 'Ma carte'}</p>
-          <button type="button" aria-label="Fermer" onClick={() => onClose()} className="-m-2 grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 dark:hover:bg-white/10">✕</button>
+        className={`glass-full fixed inset-x-4 bottom-4 z-[95] mx-auto flex max-w-[22rem] origin-bottom flex-col gap-4 rounded-2xl px-5 pb-5 pt-3 text-sm ${at ? 'sm:inset-x-auto sm:bottom-auto sm:left-[var(--nc-left)] sm:top-[var(--nc-top)] sm:w-[22rem] sm:origin-top sm:max-h-[calc(100dvh-var(--nc-top)-8px)] sm:overflow-y-auto' : ''}`}>
+        <div className="-mr-2 flex items-center justify-between gap-2">
+          <h2 className="sheet-title">{hit ? 'Déjà dans le glossaire' : 'Ma carte'}</h2>
+          <button type="button" aria-label="Fermer" onClick={() => onClose()} className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 dark:text-slate-400 dark:hover:bg-white/10">✕</button>
         </div>
         {chips && (
           <div>
-            <p className="label mb-1.5">Touche le mot à garder</p>
+            <p className="field-label mb-2">Touche le mot à garder</p>
             <div className="flex flex-wrap gap-1.5">
               {chips.map((w, i) => (
                 <button key={w} ref={i === 0 ? firstChipRef : undefined} type="button" aria-pressed={word === w}
@@ -192,34 +191,39 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
         )}
         {word && (
           <>
-            <div ref={wordRowRef} className="flex items-center gap-1">
+            {/* Le mot : tel qu'il sera au recto ; souligné seulement au survol / à la correction. */}
+            <div ref={wordRowRef} className="-mr-2 flex items-center gap-1">
               <input ref={wordInputRef} aria-label="Mot" value={word} maxLength={PT_LIMITS.term} onChange={(e) => setWord(e.target.value)} onKeyDown={onEnter}
-                className={`${field} min-w-0 font-display text-2xl font-bold tracking-tightish text-slate-900 dark:text-white`} />
+                className="field-line min-w-0 border-transparent font-display text-2xl font-bold leading-tight tracking-tightish text-slate-900 dark:border-transparent dark:text-white" />
               <button type="button" aria-label="Corriger le mot" onClick={() => { wordInputRef.current?.focus(); wordInputRef.current?.select(); }}
                 className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 hover:text-slate-600 dark:text-slate-300 dark:hover:bg-white/10"><Icon name="pen" className="h-4 w-4" title="Corriger" /></button>
             </div>
-            <label className="label" htmlFor={bedeutungId}>Bedeutung</label>
-            <input ref={bedeutungRef} id={bedeutungId} value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
-              placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
-              aria-busy={ai === 'loading' || undefined}
-              onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }} onKeyDown={onEnter}
-              className={`${field} text-base italic placeholder:text-slate-500 ${hit ? 'cursor-default text-slate-600 hover:!border-transparent focus:!border-transparent dark:text-slate-300' : 'text-slate-700 dark:text-slate-200'} ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
+            <div>
+              <label className="field-label" htmlFor={bedeutungId}>Bedeutung</label>
+              <input ref={bedeutungRef} id={bedeutungId} value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
+                placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
+                aria-busy={ai === 'loading' || undefined}
+                onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }} onKeyDown={onEnter}
+                className={`field-line text-[15px] italic placeholder:text-slate-500 dark:placeholder:text-slate-400 ${hit ? 'cursor-default border-transparent text-slate-600 hover:border-transparent dark:border-transparent dark:text-slate-300' : 'text-slate-800 dark:text-slate-100'} ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
+            </div>
             {sentence && (
               <div>
-                <p className="label mb-1">Contexte</p>
-                <ContextSentence sentence={sentence} word={word} className="text-xs leading-relaxed" />
+                <p className="field-label mb-1">Contexte</p>
+                <ContextSentence sentence={sentence} word={word} className="text-[13px] leading-relaxed" />
               </div>
             )}
-            {manualDecks.length > 0 && (
-              <div role="group" aria-label="Deck" className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5">
-                {[{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...manualDecks].map((d) => (
-                  <button key={d.id} type="button" aria-pressed={deckId === d.id} onClick={() => setDeckId(d.id)}
-                    className={`min-h-11 shrink-0 rounded-full px-3 ring-1 ${deckId === d.id ? 'bg-brand-600 text-white ring-brand-600' : 'ring-slate-300 hover:bg-white/50 dark:ring-white/20 dark:hover:bg-white/10'}`}>{d.name}</button>
-                ))}
-              </div>
-            )}
-            <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary-glass min-h-11 w-full rounded-full disabled:opacity-40">{hit ? `Ranger dans ${deckId === FAVORITES_DECK_ID ? 'Favoris' : manualDecks.find((d) => d.id === deckId)?.name ?? 'Favoris'}` : 'Créer la carte'}</button>
-            {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
+            <div className="-mx-5 flex flex-col gap-3 border-t border-slate-900/[0.06] px-5 pt-4 dark:border-white/10">
+              {manualDecks.length > 0 && (
+                <div role="group" aria-label="Deck" className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5">
+                  {[{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...manualDecks].map((d) => (
+                    <button key={d.id} type="button" aria-pressed={deckId === d.id} onClick={() => setDeckId(d.id)}
+                      className={`min-h-11 shrink-0 rounded-full px-3.5 text-[13px] font-medium ring-1 transition-colors ${deckId === d.id ? 'bg-brand-600 text-white ring-brand-600' : 'text-slate-700 ring-slate-300 hover:bg-white/50 dark:text-slate-200 dark:ring-white/20 dark:hover:bg-white/10'}`}>{d.name}</button>
+                  ))}
+                </div>
+              )}
+              <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary-glass min-h-11 w-full rounded-full disabled:opacity-40">{hit ? `Ranger dans ${deckId === FAVORITES_DECK_ID ? 'Favoris' : manualDecks.find((d) => d.id === deckId)?.name ?? 'Favoris'}` : 'Créer la carte'}</button>
+              {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
+            </div>
           </>
         )}
       </m.div>
