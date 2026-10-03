@@ -130,10 +130,11 @@ const AUTONOME_DESC: Record<SimTeil | 'komplett', string> = {
 /** Le départ — en haut de la pré-simulation, sous le nom du cas (retours de
  *  la direction, 3 oct. : le bouton avait disparu, puis il était « enfoui au
  *  milieu de la page »). Un seul bouton de départ sur la page. */
-export function StartButton({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
+export function StartButton({ caseId, teil, taskId }: { caseId: string; teil: SimTeil | null; taskId?: string }) {
   const navigate = useNavigate();
+  const q = new URLSearchParams({ ...(teil ? { teil } : {}), ...(taskId ? { task: taskId } : {}) }).toString();   // R-C4
   return (
-    <button onClick={() => navigate(`/simulation/${caseId}/run${teil ? `?teil=${teil}` : ''}`)}
+    <button onClick={() => navigate(`/simulation/${caseId}/run${q ? `?${q}` : ''}`)}
       className="btn-primary gap-2 px-6 py-2.5">
       <Icon name="play" className="h-4 w-4" />Démarrer la simulation
     </button>
