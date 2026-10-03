@@ -142,7 +142,7 @@ function DeckMenu({ deck, style, onClose }: { deck: { id: string; name: string }
   const item = 'flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm hover:bg-white/50 focus-visible:bg-white/50 outline-none dark:hover:bg-white/10 dark:focus-visible:bg-white/10';
   return (
     <m.div ref={ref} role="menu" aria-label={`Deck ${deck.name}`} data-keep-open {...expand} style={{ ...style, transformOrigin: 'right top' }}
-      className="panel absolute z-20 w-52 rounded-2xl p-1 transition-none"
+      className="panel absolute z-20 w-52 rounded-2xl bg-white/95 p-1 transition-none dark:bg-ink-800/95"
       onKeyDown={(e) => {
         if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); onClose(true); return; }
         if (e.key === 'Tab') { trapFocus(e, ref.current); e.stopPropagation(); return; }
@@ -262,7 +262,7 @@ export function DeckRail({ termId, caseId, onManage }: { termId: string; caseId?
       </AnimatePresence>
       {error && (
         <p role="alert" style={axis === 'x' ? { right: base + 8 } : undefined}
-          className={axis === 'x' ? 'panel absolute bottom-4 w-40 rounded-xl px-2 py-1 text-right text-xs text-rose-700 dark:text-rose-300' : 'px-4 py-1 text-xs text-rose-700 dark:text-rose-300'}>{error}</p>
+          className={axis === 'x' ? 'panel absolute bottom-4 w-40 rounded-xl bg-white/95 px-2 py-1 text-right dark:bg-ink-800/95 text-xs text-rose-700 dark:text-rose-300' : 'px-4 py-1 text-xs text-rose-700 dark:text-rose-300'}>{error}</p>
       )}
     </div>
   );
