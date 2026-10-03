@@ -19,7 +19,10 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
-        leitsymptomKategorie: 'allgemein',
+        leitsymptomKategorie: 'schmerz',
+        motiv: { trauma: false, region: 'abdomen' },
+        // « in den letzten Stunden gegessen » ne convient pas à une évolution sur 3 mois ; la réponse reste dans la fiche.
+        fachSkip: ['fach-gastro-speisen'],
         personalia: {
           name: 'Karl Aupperle', age: 58, geschlecht: 'm', groesseCm: 178, gewichtKg: 82,
           beruf: 'Maschinenarbeiter', hausarzt: 'Dr. Kiis',
@@ -70,13 +73,17 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Kiis — der hat mich hergeschickt.',
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Mein Hausarzt Dr. Kiis hat mir geraten, ins Krankenhaus zu gehen — wegen des dicken Bauchs und der Schmerzen.',
+          'akt-ort': 'Im ganzen Bauch, überall ein bisschen, nicht an einer bestimmten Stelle. (fährt mit der flachen Hand über den Bauch)',
           'akt-beginn': 'Seit etwa drei Monaten, es hat ganz langsam angefangen und wird eher mehr.',
+          'akt-charakter': 'Dumpf, und es ist eigentlich immer da.',
+          'akt-intensitaet': 'Ich würde sagen 5 von 10. Auszuhalten, aber es hört nicht auf.',
+          'akt-ausstrahlung': 'Nein, es bleibt im Bauch, ausstrahlen tut nichts.',
           'akt-allgemein-art': 'Vor allem Kraftlosigkeit, ich hab überhaupt keine Power mehr. Schwindel ist es nicht, das nicht.',
           'akt-allgemein-alltag': 'Na ja, die schweren Sachen auf der Arbeit gehen nicht mehr so wie früher. Hinlegen tu ich mich nicht extra, aber am Abend bin ich fix und fertig.',
           'akt-allgemein-tageszeit': 'Morgens geht\'s noch, im Laufe vom Tag wird\'s schlimmer. Nach Ruhe wird\'s a bisschen besser, aber nie richtig weg.',
           'akt-allgemein-gewicht': 'Zugenommen hab ich, so an die fünf Kilo in den letzten drei Monaten — aber das ist Wasser, meine Hosen passen nimmer. Essen mag ich nicht mehr viel. Durst ist normal.',
           'akt-allgemein-schwellung': 'Die Beine sind dick geworden, geschwollen, und der Bauch ist dicker, das hab ich ja schon gesagt. Im Gesicht seh ich nix. Mit dem Wasserlassen selber ist nix Besonderes, das kommt normal.',
-          'akt-verlauf': 'Er ist eigentlich ständig da, nicht in Anfällen.',
+          'akt-verlauf': 'Die Schmerzen sind eigentlich ständig da, nicht in Anfällen.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht, es kam so von selbst.',
           'akt-einfluss': 'Nein, es ist eigentlich immer gleich; besser wird es durch nichts, und genommen habe ich nichts dagegen.',
           'akt-frueher': 'Nein, so etwas hatte ich früher nie.',
@@ -191,8 +198,10 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-gastroskopie', 'auf-aszitespunktion'],
       caseSpecificQuestions: [
-        { frage: 'Ist Ihr Bauch dicker geworden? Passen die Hosen noch?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihr Bauch dicker geworden — passen die Hosen noch?', kapitel: 'aktuell', followUp: 'Sind auch die Beine geschwollen?' },
         { frage: 'Bekommen Sie in letzter Zeit leicht blaue Flecken, auch ohne sich zu stoßen?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihnen eine Gelbfärbung der Haut oder der Augen aufgefallen?', kapitel: 'aktuell' },
+        { frage: 'Sind Sie in letzter Zeit verwirrt oder vergesslich, oder fällt Ihnen das Konzentrieren schwer?', kapitel: 'aktuell' },
         { frage: 'Haben Sie eine Veränderung der Farbe von Ihrem Stuhl oder Urin bemerkt — zum Beispiel einen helleren Stuhl oder einen dunkleren Urin?', kapitel: 'vegetativ' },
         { frage: 'Seit wie vielen Jahren trinken Sie in etwa so viel Alkohol wie jetzt?', kapitel: 'noxen' },
         { frage: 'Haben Sie schon einmal versucht, mit dem Trinken aufzuhören, zum Beispiel in einer Entzugsklinik?', kapitel: 'noxen' },
