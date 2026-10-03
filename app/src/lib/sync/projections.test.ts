@@ -16,7 +16,7 @@ describe('projections', () => {
   });
   it('simulationsFrom : une Simulation par événement simulation.completed', () => {
     const sim = { id: 's1', caseId: 'c1', date: 1, parts: {}, notes: {}, prioritizedCorrections: [] };
-    const out = simulationsFrom([e('simulation.completed', 'c1', sim, '2026-01-01T00:00:00Z'), e('plan.done', 'p', {}, '2026-01-01T00:00:00Z')]);
+    const out = simulationsFrom([e('simulation.completed', 'c1', sim, '2026-01-01T00:00:00Z'), e('srs.reviewed', 'p', {}, '2026-01-01T00:00:00Z')]);
     expect(out).toEqual([sim]);
   });
 });
