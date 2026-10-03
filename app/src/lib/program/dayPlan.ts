@@ -24,7 +24,7 @@ import { fnv1a32 } from '@/lib/collections/personalTerms';
 import { counts } from '@/lib/stats';
 import { INTENSITY_FACTOR } from '@/lib/intensity';
 import { TEILE } from '@/lib/simScope';
-import { blankProgress, projectDayPlans } from '@/lib/journal';
+import { blankProgress } from '@/lib/journal';
 import { dayKey, now as clockNow } from '@/lib/clock';
 import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type SelectContext } from './select';
 
@@ -281,14 +281,6 @@ export function idsFromSeed(seed: string): () => string {
 export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan | null> {
   const existing = await db.day_plans.get(date);
   if (existing) return existing;                                  // « figé » veut dire que le premier fige
-  // Le journal fait foi, pas la projection : une reconstruction concurrente
-  // (pull tardif) peut avoir vidé `day_plans` entre l'écriture de l'événement
-  // et celle de la ligne. Re-matérialiser ferait DEUX plans pour un jour.
-  const known = await db.progress_events.where('subject_id').equals(date).filter((e) => e.type === 'plan.materialized').toArray();
-  if (known.length) {
-    const [plan] = projectDayPlans(known, await db.training_events.toArray());
-    if (plan) { await db.day_plans.put(plan); return plan; }
-  }
   // M7 : une horloge qui recule (réglage manuel, fuseau) ne matérialise jamais
   // un jour antérieur au dernier figé — le passé n'est jamais rétroactif.
   const last = await db.day_plans.orderBy('date').last();
